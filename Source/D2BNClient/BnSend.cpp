@@ -167,6 +167,8 @@ int __fastcall BNSEND_SendPacket(unsigned char nId, const void* pData, unsigned 
 
 int __fastcall sub_0051C760_SplitPackets(unsigned char* pBuffer, int nLength); // 0x0051C760
 
+int __fastcall BNSEND_DispatchPacket(unsigned char nId, const void* pData, int nSize);       // 0x00521B00
+
 int __fastcall sub_0051E370_SetText(const char* szText, int nLength); // 0x0051E370
 
 void __fastcall BNDOWNLOAD_SetStatus(int nStatus); // 0x0051EA40
@@ -1977,6 +1979,75 @@ void __fastcall BNSEND_QueueTextLines(const char* szText)
     }
 }
 
+long volatile gnReceiveThreads; // 0x00881BF4
+long volatile gnDnsDone; // 0x00881BFC
+long volatile gnConnected; // 0x00881BF0
+int gbReady; // 0x00881BF8
+
+// 0x0051C760
+int __fastcall sub_0051C760_SplitPackets(unsigned char* pBuffer, int nLength)
+{
+    unsigned char* p = pBuffer;
+    for (;;)
+    {
+        while (*p != 0xFF && p - pBuffer < nLength)
+            ++p;
+        const unsigned short nSize = *(unsigned short*)(p + 2);
+        const int nLeft = pBuffer + nLength - p;
+        if ((unsigned int)nLeft < 4 || nLeft < nSize)
+            break;
+        BNSEND_DispatchPacket(p[1], p + 4, nSize - 4);
+        p += nSize;
+    }
+    const int nRemain = pBuffer + nLength - p;
+    memcpy(pBuffer, p, nRemain);
+    return nRemain;
+}
+
+// 0x0051C7E0
+unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter)
+{
+    char aBuffer[0x2000 + 1];
+    int nResult = 1;
+    if (InterlockedIncrement(&gnReceiveThreads) > 1)
+    {
+        InterlockedDecrement(&gnReceiveThreads);
+        return 1;
+    }
+    while (!InterlockedCompareExchange(&gnDnsDone, 0, 0) && !gbReady)
+        Sleep(10);
+    unsigned long dwLastTick = GetTickCount();
+    int nUsed = 0;
+    FSafeSock* pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected, 0, 0);
+    while (pSafeSock && !pSafeSock->bStopping && !InterlockedCompareExchange(&gnDnsDone, 0, 0))
+    {
+        const int bReady = FOG_SOCKET_Select(pSafeSock);
+        pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected, 0, 0);
+        if (!pSafeSock || pSafeSock->bStopping || InterlockedCompareExchange(&gnDnsDone, 0, 0))
+            break;
+        if (bReady)
+        {
+            const int nReceived = FOG_SOCKET_Receive(pSafeSock, &aBuffer[nUsed], 0x2000 - nUsed);
+            if (nReceived <= 0)
+            {
+                sub_00520AD0_SetDisconnected();
+                nResult = 0;
+                break;
+            }
+            nUsed = sub_0051C760_SplitPackets((unsigned char*)aBuffer, nReceived + nUsed);
+        }
+        const unsigned long dwTick = GetTickCount();
+        if (dwTick - dwLastTick >= 180000)
+        {
+            BNSEND_SendPacket(0, 0, 0);
+            dwLastTick = dwTick;
+        }
+        pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected, 0, 0);
+    }
+    InterlockedDecrement(&gnReceiveThreads);
+    return nResult;
+}
+
 // 0x0051CA20
 char __cdecl BNSEND_GetGatewayLetter()
 {
@@ -2267,9 +2338,13 @@ int __fastcall BNSEND_LoadBNetNews(int (__fastcall* pfnMessage)(unsigned int nSt
 }
 
 #define NULL 0
+
 extern "C" int __cdecl tolower(int nChar); // 0x0068523E
+
 extern const char gacCDKeyMap[]; // 0x006DF238
+
 extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int nRadix); // 0x006867B2
+
 struct D2CDKeyInfoStrc
 {
     unsigned int f_0;
@@ -2278,6 +2353,7 @@ struct D2CDKeyInfoStrc
     int f_C;
     unsigned char abDigest[20];
 };
+
 struct D2CDKeyHash16Strc
 {
     unsigned int f_0;
@@ -2287,6 +2363,7 @@ struct D2CDKeyHash16Strc
     int f_10;
     int nValue3;
 };
+
 struct D2CDKeyHash26Strc
 {
     unsigned int f_0;
@@ -2295,6 +2372,7 @@ struct D2CDKeyHash26Strc
     int nValue1;
     unsigned char abPrivate[12];
 };
+
 struct D2AuthCheck2Strc
 {
     unsigned int f_0;
@@ -2303,6 +2381,7 @@ struct D2AuthCheck2Strc
     D2CDKeyInfoStrc aKeys[2];
     char f_54[0x100];
 };
+
 struct D2AuthCheck1Strc
 {
     unsigned int f_0;
@@ -2311,11 +2390,17 @@ struct D2AuthCheck1Strc
     D2CDKeyInfoStrc aKeys[1];
     char f_30[0x100];
 };
+
 int __cdecl BNCLIENT_GetServerToken(); // 0x0051A550
+
 int __cdecl GAME_GetExeHash(); // 0x00523A00
+
 const char* __cdecl GAME_GetExeInfo(); // 0x00523AA0
+
 extern unsigned int gdwClientToken; // 0x00881C48
+
 int __stdcall sub_0051E0B0_SendAuthCheck(); // 0x0051E0B0
+
 unsigned int gdwClientToken; // 0x00881C48
 
 // 0x0051DC70
@@ -2672,7 +2757,7 @@ int __fastcall BNSEND_SetInfoText(const char* szText)
 }
 
 // 0x00521B00
-int __fastcall BNSEND_DispatchPacket(unsigned char nId, const void* pData, int nSize)
+__declspec(noinline) int __fastcall BNSEND_DispatchPacket(unsigned char nId, const void* pData, int nSize)
 {
     int nResult = 0;
     if (nId < 0x5E)

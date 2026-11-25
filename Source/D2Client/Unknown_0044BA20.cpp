@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Unicode.h"
 #include "D2McpPackets.h"
+#include "D2LaunchRequest.h"
 #include "gen/data/Source/D2Client/Unknown_0044BA20.inc"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -28,8 +29,6 @@ struct D2McpPacket0CStrc;
 struct D2McpPacket16Strc;
 
 struct D2McpPacket05Strc;
-
-struct D2LaunchRequestStrc;
 
 struct D2McpPacket06Strc;
 
@@ -135,12 +134,6 @@ extern "C" unsigned int __cdecl strlen(const char* pString);
 
 extern unsigned short gwMcpRequestId; // 0x00798F8C
 
-
-struct D2LaunchRequestStrc
-{
-    int nData[5];
-    unsigned int dwFlags;
-};
 
 
 struct D2McpInfoStrc
@@ -310,26 +303,12 @@ extern unsigned char gabChunkBuffer[]; // 0x00799318
 
 
 
-#pragma pack(push, 1)
-#pragma pack(pop)
 
-#pragma pack(push, 1)
-#pragma pack(pop)
 
-#pragma pack(push, 1)
-#pragma pack(pop)
 
-#pragma pack(push, 1)
-#pragma pack(pop)
 
-#pragma pack(push, 1)
-#pragma pack(pop)
 
-#pragma pack(push, 1)
-#pragma pack(pop)
 
-#pragma pack(push, 1)
-#pragma pack(pop)
 
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent);                                      // 0x006CC130
 

@@ -11,6 +11,7 @@
 #include "D2StormTypes.h"
 #include "D2ItemsWorld.h"
 #include "D2CelContext.h"
+#include "D2ClientUiRecords.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -26,21 +27,7 @@ struct D2InventoryGridInfoStrc;
 
 struct D2InvCompGridStrc;
 
-struct D2NpcButtonStrc;
 
-#pragma pack(push, 2)
-
-struct D2NpcButtonStrc
-{
-    int nId;
-    int bActive;
-    unsigned short nTextId;
-    int nMode;
-    unsigned short nKey;
-    int nArg;
-};
-
-#pragma pack(pop)
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -340,9 +327,6 @@ void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, i
 
 int __stdcall STATLIST_GetDefenseFromUnit(D2UnitStrc* pUnit); // 0x00626020
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 
 extern "C" const char gszCmnItemsH[];                                                               // 0x006D9B90

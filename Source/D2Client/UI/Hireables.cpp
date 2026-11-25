@@ -7,6 +7,7 @@
 #include "D2CelContext.h"
 #include "D2LevelTxt.h"
 #include "D2Unicode.h"
+#include "D2ClientUiRecords.h"
 
 #define D2_FREE_PANEL_CEL(pCel) if (pCel) { ARCHIVE_FreeClientCellFile(pCel); pCel = 0; }
 
@@ -217,10 +218,6 @@ static unsigned char gbOpenMercInvPending;                                      
 static int gdwPopupTick;                                                                           // 0x007BEEE8
 
 
-struct D2HirelingIconRecordStrc
-{
-    int unk0x00[5];
-};
 extern D2HirelingIconRecordStrc* gpHirelingRecords_007BEEAC; // 0x007BEEAC
 extern "C" size_t __cdecl strlen(const char* szString);
 

@@ -448,14 +448,6 @@ static int __stdcall PATH_BresenhamLine(D2PathPointStrc tStartPoint, D2PathPoint
     return nbPoints;
 }
 
-// calling-convention shim (not game code)
-int __fastcall sub_0067B9F0_Shim(const D2PathPointStrc* pStart, const D2PathPointStrc* pTarget, int nDist)
-{
-    int nMajorDirection = 0;
-    D2PathPointStrc aPathPoints[78];
-    nDist = PATH_BresenhamLine(*pStart, *pTarget, nDist, &nMajorDirection, aPathPoints);
-    return nDist + nMajorDirection + aPathPoints[1].Y;
-}
 
 // 0x0067BBC0
 int __stdcall PATH_GetAdjacentPointDirection(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)

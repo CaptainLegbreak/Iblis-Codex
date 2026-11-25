@@ -4,6 +4,7 @@
 #include "D2ClientTypes.h"
 #include "D2StormTypes.h"
 #include "D2Txt.h"
+#include "D2ClientUiRecords.h"
 struct D2UnitStrc;
 struct D2InventoryStrc;
 struct D2BitBufferStrc;
@@ -693,18 +694,6 @@ AFTER_BODY:
     INV_ClickOutsidePanel(y,pMsg,x);
 }
 
-#pragma pack(push, 2)
-struct D2PanelButtonStrc
-{
-    int bActive;
-    int nValue;
-    unsigned short nString;
-    int nCel;
-    unsigned short nFrame;
-    int nType;
-};
-
-#pragma pack(pop)
 
 extern D2PanelButtonStrc gaPanelButtons_007BC9E0[]; // 0x007BC9E0
 extern int gnButtonCount; // 0x00722160

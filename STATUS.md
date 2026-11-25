@@ -42,16 +42,16 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 667 |
+| Compilation units | 661 |
 | … in a file with its original name, whole | 292 |
 | … pieces of an original file still split (in 33 files) | 114 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 261 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2481 |
-| Unnamed fields (`unk0x..`) in the shared headers | 717 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 255 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2381 |
+| Unnamed fields (`unk0x..`) in the shared headers | 770 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 37 |
-| Calling-convention shims | 62 |
+| Calling-convention shims | 56 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
-| `__declspec(noinline)` / `__forceinline` | 107 / 222 |
+| `__declspec(noinline)` / `__forceinline` | 108 / 222 |
 | Function names: blizzard / library / d2moo / inferred / placeholder | 478 / 86 / 5268 / 6023 / 3072 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
 
-Not listed one by one: 4037 functions are compiled with `/GS-` and 1002 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 107 times and `__declspec(dllexport)` 153 times to keep a body out of line or emitted.
+Not listed one by one: 4033 functions are compiled with `/GS-` and 1002 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 108 times and `__declspec(dllexport)` 153 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -726,9 +726,16 @@ Not listed one by one: 4037 functions are compiled with `/GS-` and 1002 with `/E
 | 0x006C7EF0 | sub_006C7EF0_ConvertPalette | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7F90 | GDICORE_GetScreenSize | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7FA0 | GDICORE_SetPalette | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
+| 0x006C8000 | sub_006C8000_SetPaletteView | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C8020 | sub_006C8020 | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
+| 0x006C8030 | sub_006C8030_Nop | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
+| 0x006C8040 | sub_006C8040_Nop | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C8050 | sub_006C8050 | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C8060 | sub_006C8060 | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
+| 0x006C8070 | sub_006C8070_Nop | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
+| 0x006C8080 | sub_006C8080_Nop | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
+| 0x006C8090 | sub_006C8090_Nop | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
+| 0x006C80A0 | sub_006C80A0_Nop | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C80B0 | GDICORE_ChangeRes | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C80F0 | sub_006C80F0 | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C8100 | sub_006C8100 | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |

@@ -7,13 +7,6 @@ struct D2BigPairStrc;
 struct D2CriticalSectionStrc;
 namespace Storm { namespace SFile { struct ARCHIVEREC; } }
 using Storm::SFile::ARCHIVEREC;
-struct REQUEST;
-struct FILEREC;
-struct EVENTREC;
-struct AUDIOSTREAM;
-struct HANDLER;
-struct WNDREC;
-struct BREAKCMD;
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(void* section); // 0x006CC210
 extern unsigned char gCriticalSection_00881860[]; // 0x00881860

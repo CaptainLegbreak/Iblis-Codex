@@ -92,6 +92,41 @@ public:
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
+struct ListBoxView
+{
+    void* pVtable;
+    int unk0x04;
+    char aLines[0x180700];
+    int nRectX;
+    int nRectY;
+    int nRectWidth;
+    int nRectHeight;
+    int nLineHeight;
+    int bMouseDown;
+    int bTopPressed;
+    int bBottomPressed;
+    int bRowsPressed;
+    int nPressY;
+    int nTopIndex;
+    int nCallbackRow;
+    int nSelectedIndex;
+    int nTextCount;
+    int nArg14;
+    int nArg18;
+    unsigned short nEntryCount;
+    int pfnCallback;
+    int nVisibleRows;
+    int nThumbStart;
+    int nThumbEnd;
+    int nX;
+    int nY;
+
+    void sub_004BE8D0_Refresh();                                                                            // 0x004BE8D0
+    int ClickScrollTrack(SMSGHANDLER_PARAMS* pMsg);
+};
+
+#define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
+
 // build: symbol ??_7UIWidget@@6B@ 0x006DA6C0
 // build: symbol ??_7ListBoxImplementation@@6B@ 0x006DAAEC
 // build: symbol ??_7ListBoxWrapper@@6B@ 0x006DAAA4
@@ -915,6 +950,66 @@ void ListBoxImplementation::Draw()
 
     D2Win_10127_SetFont(nOldFont);
 }
+
+// 0x004BF2F0
+int ListBoxView::ClickScrollTrack(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nMouseY = pMsg->nYpos;
+    const unsigned short nCount = nEntryCount;
+    const int nTop = nY;
+
+    if (nCount && nVisibleRows <= nCount && nMouseY - nTop > 0)
+    {
+        if (nThumbStart != nThumbEnd)
+        {
+            if (nMouseY < nTop + 12 * nThumbStart + 13)
+            {
+                if (nSelectedIndex - nVisibleRows > 0)
+                    nSelectedIndex = nSelectedIndex - nVisibleRows;
+                else
+                    nSelectedIndex = 0;
+            }
+            else
+            {
+                if (nMouseY <= nY + 12 * nThumbEnd + 13)
+                {
+                    return 0;
+                }
+
+                if (nSelectedIndex + nVisibleRows >= nCount)
+                    nSelectedIndex = nCount - 1;
+                else
+                    nSelectedIndex = nSelectedIndex + nVisibleRows;
+                if (nCount - nSelectedIndex < nVisibleRows)
+                {
+                    if (nCount >= nVisibleRows)
+                    {
+                        nSelectedIndex = nCount - nVisibleRows;
+                    }
+                    else
+                    {
+                        nSelectedIndex = 0;
+                    }
+                }
+            }
+
+            if (nSelectedIndex >= 0x80)
+            {
+                nSelectedIndex = D2_MAX(0, nCount - 1);
+            }
+
+            nTopIndex = nSelectedIndex;
+            sub_004B9A00(1, 0, 0, 0, 0);
+            sub_004BE8D0_Refresh();
+            return 1;
+        }
+
+        return 0;
+    }
+
+    return 0;
+}
+
 
 // build: symbol ?OnLButtonDown@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BF430
 // 0x004BF430

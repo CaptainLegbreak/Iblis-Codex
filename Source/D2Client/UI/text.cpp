@@ -20,6 +20,9 @@
 #include "D2TextIdEntry.h"
 #include "D2ClientTextBox.h"
 #include "D2ClientQuestText.h"
+#include "D2ClientTextBox.h"
+#include "D2ClientQuestText.h"
+#include "D2ClientKeyConfig.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -31,15 +34,10 @@ struct D2ClientTabStrc;
 
 struct D2TextListStrc;
 
-struct D2TextFieldA4Strc;
 
-struct D2TextWidthStrc;
 
-struct D2TextStateStrc;
 
-struct D2TextBoxPosStrc;
 
-struct D2TextPointStrc;
 
 struct D2GSPacketSrv26;
 
@@ -119,43 +117,10 @@ extern int gbInvGoldButtonDown; // 0x007BCE30
 
 extern int gnPetIconPopupState; // 0x007BEECC
 
-struct D2TextFieldA4Strc
-{
-    char unk0x00[0xA4];
-    int nFieldA4;
-};
 
-struct D2TextWidthStrc
-{
-    char unk0x00[0x0C];
-    int nWidth;
-    char unk0x10[0x04];
-    unsigned short wWidth;
-};
 
-#pragma pack(push, 2)
 
-struct D2TextStateStrc
-{
-    char unk0x00[0x16];
-    int nState;
-};
 
-#pragma pack(pop)
-
-struct D2TextBoxPosStrc
-{
-    char unk0x00[0x04];
-    int nRows;
-    char unk0x08[0x08];
-    unsigned short wWidth;
-};
-
-struct D2TextPointStrc
-{
-    int nX;
-    int nY;
-};
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
@@ -631,13 +596,7 @@ void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource); // 0x0049DBC0
 
 struct D2CelFileStrc;
 
-struct D2ScrollPosStrc;
 
-struct D2ScrollPosStrc
-{
-    int nX;
-    int nY;
-};
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
@@ -1278,23 +1237,10 @@ int gnTextActive; // 0x007BF1C0
 
 #define KEYCFG_Y ((gnAutomapHeight - 420) / 2)
 
-struct D2KeyConfigButtonStrc;
 
 
 
 
-#pragma pack(push, 2)
-
-struct D2KeyConfigButtonStrc
-{
-    unsigned short nString;
-    unsigned char unk0x02[4];
-    int nColor;
-    int nX;
-    unsigned char unk0x0E[0x0C];
-};
-
-#pragma pack(pop)
 
 void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect); // 0x00452E50
 
@@ -1435,7 +1381,6 @@ struct D2QuestTableStrc;
 
 struct D2UiEntry10Strc;
 
-struct D2QuestUiFlagsStrc;
 
 struct D2PacketRecord6Strc
 {
@@ -1447,12 +1392,6 @@ struct D2PacketRecord6Strc
 };
 
 
-struct D2QuestUiFlagsStrc
-{
-    char bLocked;
-    unsigned char unk0x01[0xA2];
-    unsigned char abFlags[41];
-};
 
 extern D2QuestTableStrc gaQuestTable[]; // 0x00723F30
 
@@ -1605,6 +1544,7 @@ static inline int sub_KEYCFG_IsOnDownArrow(int nX, int nY)
 }
 
 void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket); // 0x004A2CB0
+
 
 
 // 0x00491940
@@ -4385,65 +4325,6 @@ extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey);
 
 
 
-
-// 0x004BF2F0
-int ListBoxView::ClickScrollTrack(SMSGHANDLER_PARAMS* pMsg)
-{
-    const int nMouseY = pMsg->nYpos;
-    const unsigned short nCount = nEntryCount;
-    const int nTop = nY;
-
-    if (nCount && nVisibleRows <= nCount && nMouseY - nTop > 0)
-    {
-        if (nThumbStart != nThumbEnd)
-        {
-            if (nMouseY < nTop + 12 * nThumbStart + 13)
-            {
-                if (nSelectedIndex - nVisibleRows > 0)
-                    nSelectedIndex = nSelectedIndex - nVisibleRows;
-                else
-                    nSelectedIndex = 0;
-            }
-            else
-            {
-                if (nMouseY <= nY + 12 * nThumbEnd + 13)
-                {
-                    return 0;
-                }
-
-                if (nSelectedIndex + nVisibleRows >= nCount)
-                    nSelectedIndex = nCount - 1;
-                else
-                    nSelectedIndex = nSelectedIndex + nVisibleRows;
-                if (nCount - nSelectedIndex < nVisibleRows)
-                {
-                    if (nCount >= nVisibleRows)
-                    {
-                        nSelectedIndex = nCount - nVisibleRows;
-                    }
-                    else
-                    {
-                        nSelectedIndex = 0;
-                    }
-                }
-            }
-
-            if (nSelectedIndex >= 0x80)
-            {
-                nSelectedIndex = D2_MAX(0, nCount - 1);
-            }
-
-            nTopIndex = nSelectedIndex;
-            sub_004B9A00(1, 0, 0, 0, 0);
-            sub_004BE8D0_Refresh();
-            return 1;
-        }
-
-        return 0;
-    }
-
-    return 0;
-}
 
 // 0x004E48B0
 void __fastcall TEXT_AppendUndeadDamageBonus(D2UnitStrc* pUnused, Unicode* wszOut, int nUnused)

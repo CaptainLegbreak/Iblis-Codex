@@ -23,6 +23,8 @@
 #include "D2SkillIds.h"
 #include "D2SetsTxt.h"
 #include "D2MsgRecord.h"
+#include "D2ClientUiRecords.h"
+#include "D2Packets.h"
 
 #include <D2UnitData.h>
 
@@ -60,7 +62,6 @@ struct D2ClientStringListStrc;
 
 struct D2ItemStatCostTxt;
 
-struct D2NpcButtonStrc;
 
 struct D2StaticPathStrc;
 
@@ -88,9 +89,7 @@ struct D2AuxLevelEntryStrc;
 
 struct D2GfxDataStrc;
 
-struct D2HirelingIconRecordStrc;
 
-struct D2PanelLabelStrc;
 
 extern void* ghDbgHelp; // 0x0098A680
 
@@ -322,19 +321,6 @@ void __stdcall sub_Z12_EmitUse1(int nValue);
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
-#pragma pack(push, 2)
-
-struct D2NpcButtonStrc
-{
-    int nId;
-    int bActive;
-    unsigned short nTextId;
-    int nMode;
-    unsigned short nKey;
-    int nArg;
-};
-
-#pragma pack(pop)
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
@@ -664,22 +650,7 @@ extern "C" const char szFmtD_006D57BC[]; // 0x006D57BC
 
 static int __stdcall INV_IsMouseInBox(int nLeft, int nBottom, int nWidth, int nHeight); // 0x00486820
 
-struct D2HirelingIconRecordStrc
-{
-    int unk0x00[5];
-};
 
-#pragma pack(push, 2)
-
-struct D2PanelLabelStrc
-{
-    int nX;
-    int nX2;
-    int nY;
-    unsigned short nString;
-};
-
-#pragma pack(pop)
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -887,9 +858,6 @@ extern const D2CoordStrc gSocketLayouts[][6]; // 0x006D91E8
 
 int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 void __fastcall UI_OpenGoldPanel(int nMode); // 0x00454150
 
@@ -952,9 +920,6 @@ int __stdcall ITEMS_GetBonusManaBasedOnClass(D2UnitStrc* pPlayer, int nValue); /
 
 static void __stdcall INV_GetPlacementCell(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, unsigned int nX, unsigned int nY, int* pCellX, int* pCellY);
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 static void INV_SetBuyButton(int nButton); // 0x00487E20
 
@@ -1248,9 +1213,6 @@ int __stdcall sub_0062C0B0_GetItemTypeClass(D2UnitStrc* pItem);
 const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2);                                     // 0x00469DE0
 
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 void __stdcall INV_UpdateGridHover(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, D2UnitStrc* pCursorItem, unsigned int nX, unsigned int nY, int nPage, D2InventoryGridInfoStrc* pGrid);
 
@@ -1260,9 +1222,6 @@ Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit);   // 0x0045
 
 int __stdcall STATLIST_GetDefenseFromUnit(D2UnitStrc* pUnit); // 0x00626020
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 int __stdcall INV_IsCursorInRect(int nLeft, int nTop, int nRight, int nBottom);                    // 0x0048A790
 
@@ -1407,9 +1366,7 @@ struct D2CharStatsTxt;
 
 struct D2UnitInvView;
 
-struct D2SpeedNameStrc;
 
-struct D2ItemTypeNameStrc;
 
 struct D2DifficultyLevelsTxt;
 
@@ -1431,21 +1388,7 @@ struct D2UnitInvView
     D2InventoryStrc* pInventory;
 };
 
-struct D2SpeedNameStrc
-{
-    unsigned short f_0;
-    unsigned short unk0x02[2];
-};
 
-#pragma pack(push, 2)
-
-struct D2ItemTypeNameStrc
-{
-    int nItemType;
-    unsigned short f_4;
-};
-
-#pragma pack(pop)
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
@@ -1573,18 +1516,6 @@ struct D2ClientInterfaceStrc
     int (__cdecl* pfnGetVersion)();
 };
 
-struct D2GameLogonPacketStrc
-{
-    unsigned char nHeader;
-    unsigned char nServerHash[4];
-    unsigned char f_5[2];
-    unsigned char nClass;
-    unsigned char nVersion[4];
-    unsigned char nKey1[4];
-    unsigned char nKey2[4];
-    unsigned char f_14;
-    char szName[16];
-};
 
 
 

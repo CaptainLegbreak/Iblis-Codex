@@ -2149,11 +2149,6 @@
      "name": "AUTOMAP_InitCharSaveHeader"
     },
     {
-     "va": "0x00451E10",
-     "length": 85,
-     "name": "AUTOMAP_UnregisterHandlerTable"
-    },
-    {
      "va": "0x00452580",
      "length": 97,
      "name": "AUTOMAP_GetHoverMonsterName"
@@ -14440,11 +14435,6 @@
      "name": "sub_00498A20_CheckState"
     },
     {
-     "va": "0x004A17D0",
-     "length": 151,
-     "name": "sub_004A17D0"
-    },
-    {
      "va": "0x006CABF0",
      "length": 17
     }
@@ -15937,51 +15927,6 @@
    ],
    "functions": [
     {
-     "va": "0x00451A90",
-     "length": 32,
-     "name": "SCMD_HandleQuitMessage"
-    },
-    {
-     "va": "0x00451AB0",
-     "length": 31,
-     "name": "?SCMD_OnActivateApp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00451AD0",
-     "length": 43,
-     "name": "SCMD_HandleDefaultMessage"
-    },
-    {
-     "va": "0x00451B00",
-     "length": 41,
-     "name": "SCMD_HandleCloseMessage"
-    },
-    {
-     "va": "0x00451B30",
-     "length": 114,
-     "name": "COMCALLBACK_WindowProc"
-    },
-    {
-     "va": "0x00451BB0",
-     "length": 186,
-     "name": "SCMD_RunMessageLoop"
-    },
-    {
-     "va": "0x00451C70",
-     "length": 152,
-     "name": "SCMD_RegisterMsgHandler"
-    },
-    {
-     "va": "0x00451D10",
-     "length": 152,
-     "name": "SCMD_UnregisterMsgHandler"
-    },
-    {
-     "va": "0x00451DB0",
-     "length": 85,
-     "name": "COMCALLBACK_RegisterMsgHandlers"
-    },
-    {
      "va": "0x00452090",
      "length": 35,
      "name": "SCMD_HandleResetMessage"
@@ -16780,6 +16725,56 @@
    "file": "Source/D2Client/Unknown_00451E70.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00451A90",
+     "length": 32,
+     "name": "SCMD_HandleQuitMessage"
+    },
+    {
+     "va": "0x00451AB0",
+     "length": 31,
+     "name": "?SCMD_OnActivateApp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00451AD0",
+     "length": 43,
+     "name": "SCMD_HandleDefaultMessage"
+    },
+    {
+     "va": "0x00451B00",
+     "length": 41,
+     "name": "SCMD_HandleCloseMessage"
+    },
+    {
+     "va": "0x00451B30",
+     "length": 114,
+     "name": "COMCALLBACK_WindowProc"
+    },
+    {
+     "va": "0x00451BB0",
+     "length": 186,
+     "name": "SCMD_RunMessageLoop"
+    },
+    {
+     "va": "0x00451C70",
+     "length": 152,
+     "name": "SCMD_RegisterMsgHandler"
+    },
+    {
+     "va": "0x00451D10",
+     "length": 152,
+     "name": "SCMD_UnregisterMsgHandler"
+    },
+    {
+     "va": "0x00451DB0",
+     "length": 85,
+     "name": "COMCALLBACK_RegisterMsgHandlers"
+    },
+    {
+     "va": "0x00451E10",
+     "length": 85,
+     "name": "AUTOMAP_UnregisterHandlerTable"
+    },
     {
      "va": "0x00451E70",
      "length": 63,
@@ -23229,10 +23224,6 @@
      "name": "?CUNIT_ClearTextPanel@@YAXXZ"
     },
     {
-     "va": "0x004BF2F0",
-     "length": 306
-    },
-    {
      "va": "0x004E48B0",
      "length": 268,
      "name": "?TEXT_AppendUndeadDamageBonus@@YIXPAUD2UnitStrc@@PAUUnicode@@H@Z"
@@ -24586,6 +24577,11 @@
      "va": "0x004A1770",
      "length": 92,
      "name": "TEXT_KeyUpMsg"
+    },
+    {
+     "va": "0x004A17D0",
+     "length": 151,
+     "name": "sub_004A17D0"
     },
     {
      "va": "0x004A1870",
@@ -28055,6 +28051,10 @@
     {
      "va": "0x004BEE90",
      "length": 1107
+    },
+    {
+     "va": "0x004BF2F0",
+     "length": 306
     },
     {
      "va": "0x004BF430",
@@ -38775,6 +38775,16 @@
      "length": 152
     },
     {
+     "va": "0x0051C760",
+     "length": 117,
+     "name": "sub_0051C760_SplitPackets"
+    },
+    {
+     "va": "0x0051C7E0",
+     "length": 451,
+     "name": "sub_0051C7E0_ReceiveThread"
+    },
+    {
      "va": "0x0051CA20",
      "length": 3,
      "name": "?BNSEND_GetGatewayLetter@@YADXZ"
@@ -38958,22 +38968,6 @@
      "va": "0x0051C460",
      "length": 11,
      "name": "?BNSEND_LeaveChat@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/Unknown_0051C760.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0051C760",
-     "length": 117,
-     "name": "sub_0051C760_SplitPackets"
-    },
-    {
-     "va": "0x0051C7E0",
-     "length": 451,
-     "name": "sub_0051C7E0_ReceiveThread"
     }
    ]
   },
@@ -41917,11 +41911,6 @@
    "file": "Source/D2Game/OBJECTS/Objects.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0054DA60",
-     "length": 91,
-     "name": "?SKILLS_GetMonsterClassFromChain@@YIHHH@Z"
-    },
     {
      "va": "0x0054F0D0",
      "length": 170,
@@ -46582,6 +46571,11 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x0054DA60",
+     "length": 91,
+     "name": "?SKILLS_GetMonsterClassFromChain@@YIHHH@Z"
+    },
+    {
      "va": "0x0054DAC0",
      "length": 143,
      "name": "?sub_0054DAC0_GetSpawnBounds@@YGXPAUD2ActiveRoomStrc@@PAHPAUD2SpawnAreaStrc@@111@Z"
@@ -50498,7 +50492,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00581250.cpp",
+   "file": "Source/D2Game/OBJECTS/ObjMode.cpp",
    "rank": 0,
    "functions": [
     {
@@ -50509,13 +50503,7 @@
      "va": "0x00581410",
      "length": 122,
      "name": "?sub_00581410_OpenLinkPortal@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/ObjMode.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00581490",
      "length": 56,
@@ -51369,6 +51357,16 @@
      "va": "0x00586C50",
      "length": 39,
      "name": "ACT5Intro_ActiveFilterCallback"
+    },
+    {
+     "va": "0x0058E990",
+     "length": 192,
+     "name": "?ACT5Intro_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0058EA50",
+     "length": 101,
+     "name": "?sub_0058EA50_InitQuestCallbacks@@YIXPAUD2QuestData0058EA50Strc@@@Z"
     }
    ]
   },
@@ -52413,22 +52411,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0058E990.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058E990",
-     "length": 192,
-     "name": "?ACT5Intro_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x0058EA50",
-     "length": 101,
-     "name": "?sub_0058EA50_InitQuestCallbacks@@YIXPAUD2QuestData0058EA50Strc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Ai/AiGeneral.cpp",
    "rank": 0,
    "functions": [
@@ -53096,11 +53078,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00596BC0",
-     "length": 128,
-     "name": "ACT1Q7_ActiveFilterCallback"
-    },
-    {
      "va": "0x00599C10",
      "length": 220,
      "name": "?OBJECTS_OperateFunction40_HoradricScrollChest@@YIHPAUD2ObjOperateFnStrc@@H@Z"
@@ -53729,13 +53706,12 @@
      "va": "0x00596BB0",
      "length": 5,
      "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00596C40.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x00596BC0",
+     "length": 128,
+     "name": "ACT1Q7_ActiveFilterCallback"
+    },
     {
      "va": "0x00596C40",
      "length": 94,
@@ -77390,6 +77366,10 @@
      "length": 429
     },
     {
+     "va": "0x006B7B30",
+     "length": 346
+    },
+    {
      "va": "0x006B7C90",
      "length": 233
     },
@@ -77536,16 +77516,6 @@
      "va": "0x006B76C0",
      "length": 3,
      "name": "sub_006B76C0"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B7B30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B7B30",
-     "length": 346
     }
    ]
   },
@@ -78794,9 +78764,24 @@
      "name": "?GDICORE_SetPalette@@YIXPAUD2PaletteEntry006C7C10Strc@@@Z"
     },
     {
+     "va": "0x006C8000",
+     "length": 29,
+     "name": "?sub_006C8000_SetPaletteView@@YIXPBUD2GfxPaletteViewStrc@@@Z"
+    },
+    {
      "va": "0x006C8020",
      "length": 6,
      "name": "sub_006C8020"
+    },
+    {
+     "va": "0x006C8030",
+     "length": 1,
+     "name": "?sub_006C8030_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x006C8040",
+     "length": 1,
+     "name": "?sub_006C8040_Nop@@YAXXZ"
     },
     {
      "va": "0x006C8050",
@@ -78807,6 +78792,26 @@
      "va": "0x006C8060",
      "length": 3,
      "name": "sub_006C8060"
+    },
+    {
+     "va": "0x006C8070",
+     "length": 1,
+     "name": "?sub_006C8070_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x006C8080",
+     "length": 3,
+     "name": "?sub_006C8080_Nop@@YGXHHH@Z"
+    },
+    {
+     "va": "0x006C8090",
+     "length": 3,
+     "name": "?sub_006C8090_Nop@@YGXHHHH@Z"
+    },
+    {
+     "va": "0x006C80A0",
+     "length": 1,
+     "name": "?sub_006C80A0_Nop@@YAXXZ"
     },
     {
      "va": "0x006C80B0",
@@ -78933,47 +78938,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C7CF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006C8000",
-     "length": 29,
-     "name": "?sub_006C8000_SetPaletteView@@YIXPBUD2GfxPaletteViewStrc@@@Z"
-    },
-    {
-     "va": "0x006C8030",
-     "length": 1,
-     "name": "?sub_006C8030_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x006C8040",
-     "length": 1,
-     "name": "?sub_006C8040_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x006C8070",
-     "length": 1,
-     "name": "?sub_006C8070_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x006C8080",
-     "length": 3,
-     "name": "?sub_006C8080_Nop@@YGXHHH@Z"
-    },
-    {
-     "va": "0x006C8090",
-     "length": 3,
-     "name": "?sub_006C8090_Nop@@YGXHHHH@Z"
-    },
-    {
-     "va": "0x006C80A0",
-     "length": 1,
-     "name": "?sub_006C80A0_Nop@@YAXXZ"
-    }
    ]
   },
   {

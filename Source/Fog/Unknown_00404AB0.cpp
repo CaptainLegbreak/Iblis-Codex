@@ -53,7 +53,6 @@ struct D2CrashModuleListStrc
     D2CrashModuleStrc aModules[0x100];
 };
 
-struct D2ModuleStrc;
 
 static bool __stdcall sub_00404AB0_VisitModule(void* pContext, const D2ImageDosHeaderStrc* pImage, const wchar_t* wszName, int nNameLength);
 extern "C" int __cdecl strncpy_s(char* szDest, size_t nDestSize, const char* szSource, size_t nCount);      // 0x006859D2

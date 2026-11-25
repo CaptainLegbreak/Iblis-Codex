@@ -15,6 +15,7 @@
 #include "D2MonsterIds.h"
 #include "D2UnitData.h"
 #include "D2GameCallbackArgs.h"
+#include "D2AiCallbackArgs.h"
 
 struct D2MonStatsTxt;
 
@@ -79,8 +80,6 @@ struct D2CoordStrc;
 
 struct D2SuperUniquesTxt;
 
-struct D2BaalThroneAiCallbackArgStrc;
-
 extern "C" void* __cdecl memset(void*,int,unsigned int);
 
 typedef void (__fastcall* AiFn)(D2GameStrc*,D2UnitStrc*,D2AiTickParamStrc*);
@@ -141,15 +140,6 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 
 int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
-struct D2BaalThroneAiCallbackArgStrc
-{
-    D2UnitStrc* pTarget1;
-    int nDistance1;
-    D2UnitStrc* pTarget2;
-    int nDistance2;
-    int unk_10[6];
-};
-
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nState); // 0x005B0E00
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -201,15 +191,6 @@ void __fastcall AITHINK_Fn001_100_Idle_Buffy(D2GameStrc* pGame, D2UnitStrc* pUni
         AITACTICS_IdleInNeutralMode(pGame, pUnit, 200);
     }
 }
-
-struct D2PantherAiCallbackArgStrc;
-
-struct D2PantherAiCallbackArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nDistance;
-    int unk0x08[8];
-};
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005B0D00
 

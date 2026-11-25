@@ -15,6 +15,7 @@
 #include "D2Unicode.h"
 #include "D2WinSplitText.h"
 #include "D2WaypointActRange.h"
+#include "D2MsgRecord.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1035,22 +1036,6 @@ void __cdecl WARDENCLIENT_ActivatePendingModule()
         gpSlotHolder->pObj->Slot0(&nValue, 4);
     }
 }
-
-struct D2MsgRecordStrc
-{
-    int nTick;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-};
-
-struct D2MsgRecordChunkStrc
-{
-    D2MsgRecordStrc tRecords[500];
-    int nCount;
-    int nIndex;
-    D2MsgRecordChunkStrc* pNext;
-};
 
 struct D2RareAffixTxt
 {

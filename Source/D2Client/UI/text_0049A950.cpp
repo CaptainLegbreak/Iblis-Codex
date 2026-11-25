@@ -512,6 +512,18 @@ static inline int TEXT_FindEntryIndex(int nId);
 
 
 
+D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
+
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
+
+void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+
+void __stdcall sub_004A1770(SMSGHANDLER_PARAMS* pMsg); // 0x004A1770
+
+extern int gdwGlobal_007BF23F; // 0x007BF23F
+
+extern unsigned char gbTextHoverSet; // 0x007BF23A
+
 // 0x004A01A0
 void __cdecl TEXT_CloseMessageLogDialog()
 {
@@ -556,6 +568,33 @@ void __stdcall TEXT_KeyUpMsg(SMSGHANDLER_PARAMS* pMsg)
         sub_00420290_BreakHandlerChain(pMsg);
     }
 }
+
+// 0x004A17D0
+void __stdcall sub_004A17D0(SMSGHANDLER_PARAMS* pMsg)
+{
+    gdwGlobal_007BF23F = 1;
+    if (SELECT_GetSelectedUnit())
+    {
+// build: symbol ?gnTextNpcId@* 0x007BF202
+// build: symbol ?gbTextFromObject@* 0x007BF20A
+        if (gbTextFromObject && CUNIT_FindClientUnit(gnTextNpcId, 1) == SELECT_GetSelectedUnit())
+            return;
+    }
+    else if (!SELECT_GetSelectedUnit() && gbTextHoverSet)
+    {
+// build: symbol ?gnTextHoverUnitId@* 0x007BF23B
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnTextHoverUnitId, 1);
+        if (pUnit && pUnit == CUNIT_FindClientUnit(gnTextNpcId, 1))
+        {
+            pMsg->bReturn = 1;
+            pMsg->lResult = 0;
+            sub_00420290_HandleMsg(pMsg);
+        }
+        return;
+    }
+    sub_004A1770(pMsg);
+}
+
 
 // 0x004A1870
 void __stdcall TEXT_HotkeyMsg(SMSGHANDLER_PARAMS* pMsg)

@@ -13,7 +13,6 @@ struct D2QOverlappedStrc;
 
 struct D2QWriteNodeStrc;
 
-struct D2QAcceptStatsStrc;
 
 
 
