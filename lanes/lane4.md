@@ -18,11 +18,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 08:30 PST 2026: audit-decls-d2client merged in #400. audit-decls-d2client-2 (second pass) posted. Third pass next: declarations that differ in a type or linkage.
+- Wed Nov 25 09:45 PST 2026: audit-decls-d2client-2 merged in #401. Third pass posted (16 functions); what's left of my range's declarations are the type conflicts listed in its line, which need their callers' types settled first.
 
 ## Ready
 
-- lane4/audit-decls-d2client-2 a380d9145 (on #400): audit item 4, second pass. 44 more functions of 0x440000-0x49FFFF whose declarations in my range's files differed only in parameter names (same types and linkage: CLIENTS_GetUnitX/Y, CUNIT_GetPathTargetUnit, GAME_GetUnitGUID, CUNIT_GetOwnerUnit, UNITS_GetMonStats2TxtRecordFromMonsterId …) go into D2ClientFuncs.h as their definitions spell them; 166 private copies in 41 files go. Only my range's files are touched. Declarations that differ in a type or in linkage (UI_SetUIVar, CUNIT_FindClientUnit, GAME_IsExpansion, MSG_SendTwoDwords …) stay private for a third pass. All 139 D2Client.h includers all equal; audit guard: no count rose. Full build: Game.exe identical, tree 634f3f2ce6b2175f29626c0d305bcf859e198661, borrowed code / data 10,018 / 261 B.
+- lane4/audit-decls-d2client-3 d7cf6dcbf (on #402): audit item 4, third pass. 16 more functions of 0x440000-0x49FFFF whose declarations in my range's files differed in signedness, return type or linkage (UI_SetUIVar, CUNIT_FindClientUnit, GAME_GetUIVarState, GAME_IsExpansion, MSG_SendTwoDwords, GAME_LoadUiCelFile, SCMD_RunMessageLoop, TEXT_ResetTextBox, GAME_SetInteractDeadline, GFX_FillGfxEntries, GAME_GetCurrentTime, CURSOR_GetCursorItem, AUTOMAP_GetAutomapFade, ROSTER_GetRosterInfoList, GAME_SetClickHandled, GAME_DispatchMcpPacket) go into D2ClientFuncs.h as their definitions spell them; 140 private copies in 44 files go. Tested one function at a time where a unit changed; these stay private (in the commit message): AUTOMAP_DrawFramedBox (Party.cpp's calls change), CUNIT_GetPlayerPartyId (Roster.cpp), sub_0044DA90 (panel.cpp), SELECT_GetSkillTarget (Player.cpp), and eight whose callers use other types for an argument (an int window handle, other record views). All 139 D2Client.h includers all equal; audit guard: no count rose. Full build: Game.exe identical, tree 9b784e1cda82b3e727cbd2ec4a1162595cbebcc9, borrowed code / data 10,018 / 261 B.
 
 ## Claimed
 
