@@ -32078,6 +32078,10 @@
      "name": "?sub_004EDDD0_AddAttackInfo@@YGHPAUUnicode@@HPAUD2SkillsTxt@@PAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x004EDEA0",
+     "length": 4180
+    },
+    {
      "va": "0x004EEF00",
      "length": 1288
     },
@@ -32381,10 +32385,6 @@
    "file": "Source/D2Client/UI/SkillDesc_004F30A0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004EDEA0",
-     "length": 4180
-    },
     {
      "va": "0x004F30A0",
      "length": 249,
