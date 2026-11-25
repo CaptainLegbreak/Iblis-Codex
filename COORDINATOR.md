@@ -4,11 +4,11 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #376 (round j131). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 844 B (was 15,691 B at #297). Placeholder files 243; shims 49; context copies 3. Names: blizzard 475, library 85, d2moo 5,234, inferred 6345,574, placeholder 2750,563.
+- `main`: #377 (round j132). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 844 B (was 15,691 B at #297). Placeholder files 234; shims 48; context copies 3. Names: blizzard 475, library 85, d2moo 5,234, inferred 6433,574, placeholder 2662,563.
 - **New: [queues.md](queues.md), what's left per lane** (regenerated on #366): placeholder files, context copies, forcing constructs, shimmed functions, per-file options, with each lane's own list. When your current branch is done, take the next item from your row. The forcing constructs (42) are lane 7's job now: owners, leave them to lane 7 unless you settle it with lane 7 in its file. The context copies outside Storm/Fog/SRP are lane 2's trim first (see Answers), then the owners'. Also regenerated (regenerated on #366): [borrowed-data.md](borrowed-data.md) (906 B, by current owner) and [language-objects.md](language-objects.md) (14 files still hold more than one copy, each a split to make).
 - In progress: nothing; next round as branches are posted ready.
 - **Renames are landing on main.** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
-- **Rebase onto #373, run namesync, and repost:** `lane2/bn-crypt-records` (D2BNClient/Unknown_0051C760.cpp went into BnSend.cpp in #373; apply the records there), `lane10/files-storm-3` (Storm/Unknown_006CAE80.cpp), `lane10/names-prefixfix-d2client-5` (D2Client/GAME/SCmd.cpp, UI/npcmenu.cpp).
+- **Rebase onto #377, run namesync, and repost:** `lane5/emit-helpers` (D2Game/MONSTER/MonsterMsg.cpp, UNIT/SUnitDmg.cpp: lane 2's dead-records-d2game, in #377, removed private records there), `lane1/skillsbar-head-2` (D2Client/SKILLS/Skills.cpp), `lane2/drlg-outdoor` (D2Common/DRLG/Outdoors.cpp, after dead-records-d2common), `lane2/bn-crypt-records`, `lane10/files-storm-3`, `lane10/names-prefixfix-d2client-5`.
 - **Commit messages land on main as written.** One commit was titled `wip` (#373; I renamed it to the D2DrlgTileFlags.h change before merging). Squash or name work-in-progress commits before posting a branch.
 - **Context copies: 3 left, all in Storm/Fog** (from 345 this morning). Shims are next: 68, most of them a register-argument call between two units. After any join, try removing the shim for that pair.
 - **Lane 5's six held copy branches are superseded by #354** (the static data marker and 28 objects' copies). Drop any whose copies #354 already covers. Repost the rest on #354 with markers, giving your verify's borrowed data figure (main: 844 B).
@@ -329,6 +329,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #377 j132: window-data (lane 9), net-server (lane 6), game-stplhash-2 (lane 4), storm-arrays-tmpl-2, stpl-gamedata-2 (lane 3), shim-trim-d2cmp-2, dead-records-d2common/-d2game/-renderers/-storm-fog (lane 2), names-fileprefix-d2direct3d/-d2gdi/-d2multi/-fog (lane 10, 88 renames). Placeholders 243 -> 234, private records 2,369 -> 2,184, shims 49 -> 48.
 - #376 j131: renderer-swaps, hell-charclass (lane 9), a2intro (lane 5), memreport-join (lane 4), sight-join-2 (lane 1), names-fileprefix-d2common, names-fileprefix-d2game (lane 10, 97 renames). Placeholders 249 -> 243; placeholder names 2,847 -> 2,750.
 - #375 j130: renderer-swaps (lane 9), join-00446880, join-005fe010, join-006056d0 (lane 6), monchoose-copy, opts (lane 5), join-cmdtbl-9420-2 (lane 4), hint-object-2 (lane 1), names-fileprefix-d2client (lane 10, 225 renames). Placeholders 253 -> 249; placeholder names 3,072 -> 2,847.
 - #374 j129: arena-flag (lane 7), getters, act3-block (lane 5), join-gfx-c7d0 (lane 4), skills-tail (lane 1), stpl-memreport (lane 3), shim-trim-d2game-2 (lane 2). Placeholders 255 -> 253, shims 56 -> 49.
