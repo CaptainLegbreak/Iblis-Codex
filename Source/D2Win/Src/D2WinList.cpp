@@ -501,7 +501,7 @@ int __fastcall LIST_Destroy(D2WinListStrc* pList)
 }
 
 // 0x00506EC0
-void __fastcall D2Win_10137(D2WinListStrc* ptListData, const Unicode* wszText, D2WinMsgHandler a3, char a4, int a5, int a6, int a7)
+void __fastcall D2Win_10137(D2WinListStrc* ptListData, const Unicode* wszText, D2WinMsgHandler pfnHandler, char cHotkey, int nVirtualKey, int bPrepend, int bSelect)
 {
     D2_ASSERT(ptListData->controlHeader.eType == D2WIN_LIST, 0xA1);
 
@@ -522,15 +522,15 @@ void __fastcall D2Win_10137(D2WinListStrc* ptListData, const Unicode* wszText, D
     }
 
     pNewData->field_200 = nTextWidth;
-    pNewData->field_204 = a3;
+    pNewData->field_204 = pfnHandler;
     pNewData->field_208 = 0;
     pNewData->field_20C = 0;
     pNewData->field_210 = 0;
     pNewData->field_214 = 0;
-    pNewData->field_218 = a4;
-    pNewData->field_21C = a5;
+    pNewData->field_218 = cHotkey;
+    pNewData->field_21C = nVirtualKey;
 
-    if (!a6)
+    if (!bPrepend)
     {
         D2WinListDataStrc* pLast = ptListData->pDataList;
         if (pLast)
@@ -558,7 +558,7 @@ void __fastcall D2Win_10137(D2WinListStrc* ptListData, const Unicode* wszText, D
     ++ptListData->field_50;
     D2Win_10127_SetFont(1);
 
-    if (a7)
+    if (bSelect)
     {
         ptListData->pSelectedDataEntry = pNewData;
         ptListData->field_54 = ptListData->field_50 - 1;
@@ -566,13 +566,13 @@ void __fastcall D2Win_10137(D2WinListStrc* ptListData, const Unicode* wszText, D
 }
 
 // 0x005077F0
-void __fastcall D2Win_10138(D2WinListStrc* pList, const char* szText, D2WinMsgHandler a3, char a4, int a5, int a6, int a7)
+void __fastcall D2Win_10138(D2WinListStrc* pList, const char* szText, D2WinMsgHandler pfnHandler, char cHotkey, int nVirtualKey, int bPrepend, int bSelect)
 {
     Unicode wszText[256];
     for (int i = 0; i < 256; i++)
         wszText[i].wChar = 0;
     sub_00526F20_ToUnicode(wszText, szText, 256);
-    D2Win_10137(pList, wszText, a3, a4, a5, a6, a7);
+    D2Win_10137(pList, wszText, pfnHandler, cHotkey, nVirtualKey, bPrepend, bSelect);
 }
 
 // 0x00507140

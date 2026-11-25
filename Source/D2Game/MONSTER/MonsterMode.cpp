@@ -278,8 +278,8 @@ struct D2MonVelocityParamStrc
     int nY;
     int nVelocityPercent;
     int nTargetTimer;
-    int f_18;
-    int f_1C;
+    int nPathTypeOverride;
+    int nVelocityPercentOverride;
     unsigned char nNewDistOverride;
 };
 
@@ -743,14 +743,14 @@ static void MONSTERMODE_SetVelocityPercent(D2UnitStrc* pUnit, D2MonVelocityParam
 // 0x005A63F0
 static void __stdcall MONSTERMODE_UpdateModePath(D2GameStrc* pGame, D2UnitStrc* pUnit, int nVelocityPercent, D2MonVelocityParamStrc* pAiParam, int nPathType, unsigned char nNewDist)
 {
-    if (pAiParam->f_18)
+    if (pAiParam->nPathTypeOverride)
     {
-        nPathType = pAiParam->f_18;
+        nPathType = pAiParam->nPathTypeOverride;
     }
 
-    if (pAiParam->f_1C)
+    if (pAiParam->nVelocityPercentOverride)
     {
-        nVelocityPercent = pAiParam->f_1C;
+        nVelocityPercent = pAiParam->nVelocityPercentOverride;
     }
 
     if (pAiParam->nNewDistOverride)
@@ -758,8 +758,8 @@ static void __stdcall MONSTERMODE_UpdateModePath(D2GameStrc* pGame, D2UnitStrc* 
         nNewDist = pAiParam->nNewDistOverride;
     }
 
-    pAiParam->f_18 = 0;
-    pAiParam->f_1C = 0;
+    pAiParam->nPathTypeOverride = 0;
+    pAiParam->nVelocityPercentOverride = 0;
     pAiParam->nNewDistOverride = 0;
 
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
@@ -1369,8 +1369,8 @@ inline D2MonVelocityParamStrc* MONSTERMODE_GetVelocityParam(D2UnitStrc* pUnit)
 void __fastcall D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(D2UnitStrc* pUnit)
 {
     D2MonVelocityParamStrc* pAiParam = MONSTERMODE_GetVelocityParam(pUnit);
-    pAiParam->f_18 = 0;
-    pAiParam->f_1C = 0;
+    pAiParam->nPathTypeOverride = 0;
+    pAiParam->nVelocityPercentOverride = 0;
     pAiParam->nNewDistOverride = 0;
 }
 
