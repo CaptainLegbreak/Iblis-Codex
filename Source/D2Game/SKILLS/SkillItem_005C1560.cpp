@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameAux.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 struct D2UnitStrc;
 
 
@@ -27,7 +28,6 @@ void __stdcall ITEMS_AssignPrefix(D2UnitStrc* pItem, unsigned short nPrefix, int
 void __stdcall ITEMS_AssignSuffix(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo);               // 0x00627FB0
 void __stdcall ITEMS_AssignRarePrefix(D2UnitStrc* pItem, unsigned short nPrefix);                           // 0x00628010
 void __stdcall ITEMS_AssignRareSuffix(D2UnitStrc* pItem, unsigned short nSuffix);                           // 0x00628070
-void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet);                         // 0x006280D0
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                                                         // 0x0062B400
 int __stdcall ITEMS_CanBeRare(D2UnitStrc* pItem);                                                           // 0x0062E990
 D2RareAffixDataTbl* __fastcall DATATBLS_GetRareAffixDataTables();                                           // 0x00634250
@@ -41,7 +41,6 @@ D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem); // 0x0062A670
 unsigned char __stdcall ITEMS_GetItemQlvl(const D2UnitStrc* hItem); // 0x00628740
 int __stdcall ITEMS_GetItemLevel(D2UnitStrc* pItem); // 0x006281E0
-D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nClassId); // 0x006335F0
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 int __stdcall ITEMMODS_CanItemHaveMagicAffix(D2UnitStrc* pItem, const D2MagicAffixTxt* pMagicAffixTxtRecord); // 0x0065E620
 int __stdcall ITEMS_GetClassOfClassSpecificItem(D2UnitStrc* pItem); // 0x0062C0B0

@@ -7,6 +7,7 @@
 #include "D2ClientParty.h"
 #include "D2WinSplitText.h"
 #include "D2WaypointActRange.h"
+#include "D2CommonApi.h"
 
 struct D2PartyRowStrc;
 struct D2PacketRecord21Strc;
@@ -20,8 +21,6 @@ int __cdecl sub_00468740(); // 0x00468740
 D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
 int __fastcall ROSTER_GetLevel(D2StoredUnitRecordStrc* pEntry); // 0x00479B90
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 extern int gnScreenWidth; // 0x0071146C
 extern int gnPanelOffsetX; // 0x007A2858
@@ -37,9 +36,6 @@ struct D2PacketRecord21Strc
 };
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
-int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 void __cdecl WARDENCLIENT_BuildWaypointList(); // 0x0049C7F0
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40

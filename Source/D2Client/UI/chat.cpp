@@ -17,6 +17,7 @@
 #include "D2ClientChatCommand.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi.h"
 
 struct D2MsgHandlerEntryStrc;
 
@@ -905,7 +906,6 @@ void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 
 int __cdecl sub_00468830(); // 0x00468830
 

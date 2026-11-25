@@ -15,6 +15,7 @@
 #include "D2Constants.h"
 #include "D2ClientTypes.h"
 #include "D2ClientGame.h"
+#include "D2CommonApi.h"
 
 extern unsigned short gwUniqueModNameIds[];                                                       // 0x00725188
 
@@ -111,9 +112,7 @@ void __fastcall GFX_RemoveOverlays(D2UnitStrc* pUnit); // 0x0046F170
 
 void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -173,13 +172,10 @@ extern "C" int __fastcall sub_004AC7E0(D2UnitStrc* pUnit, unsigned short wMask);
 
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
-int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pPath); // 0x00648A00
 
-int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pPath); // 0x00648A10
 
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
-void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
 extern "C" int __stdcall sub_0064A280(D2UnitStrc* pMissile); // 0x0064A280
 

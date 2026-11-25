@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2CommonApi.h"
 struct D2CharStatsTxt;
 
 struct D2GameStrc;
@@ -21,19 +22,12 @@ int __fastcall SKILLS_StartBasicAttack(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); /
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc*, D2ModeChangeStrc*, int); // 0x005A7C20
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc*, int, D2ModeChangeStrc*); // 0x005A7E60
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc*, D2SkillStrc*); // 0x00620210
-D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc*); // 0x00620250
-int __stdcall UNITS_IsInMeleeRange(D2UnitStrc*, D2UnitStrc*, int); // 0x00622C40
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
-void __stdcall STATES_ToggleState(D2UnitStrc*, int, int); // 0x00639DB0
-int __stdcall STATES_CheckState(D2UnitStrc*, int); // 0x00639DF0
-void __stdcall SKILLS_SetParam1(D2SkillStrc*, int); // 0x00644560
-void __stdcall SKILLS_SetParam2(D2SkillStrc*, int); // 0x006445A0
 void __stdcall SKILLS_SetParam4(D2SkillStrc*, int); // 0x00644620
 void __stdcall SKILLS_SetFlags(D2SkillStrc*, int); // 0x00644660
 void __stdcall PATH_SetVelocity(D2DynamicPathStrc*, int, const char*, int); // 0x00648690
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc*, unsigned char); // 0x00648E70
 void __stdcall PATH_ClearPreviousTargetPoint(D2DynamicPathStrc*); // 0x00649050
-int __stdcall D2Common_10142(D2DynamicPathStrc*, D2UnitStrc*, int); // 0x00649970
 static inline int UNITS_GetUnitTypeChecked(D2UnitStrc* pUnit)
 {
     if (pUnit)
@@ -58,8 +52,6 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId) {
     return 0;
 }
 
-int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc*,const char*,int); // 0x00643CE0
-int __stdcall SKILLS_GetFlags(D2SkillStrc*); // 0x006446A0
 void __stdcall SKILLS_SetParam3(D2SkillStrc*,int); // 0x006445E0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc*); // 0x004648F0

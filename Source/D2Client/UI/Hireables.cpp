@@ -9,6 +9,7 @@
 #include "D2Unicode.h"
 #include "D2ClientUiRecords.h"
 #include "StormApi.h"
+#include "D2CommonApi.h"
 
 #define D2_FREE_PANEL_CEL(pCel) if (pCel) { ARCHIVE_FreeClientCellFile(pCel); pCel = 0; }
 
@@ -49,9 +50,7 @@ void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nO
 
 void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643C50
 
-int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 
-int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 
 extern int gnScreenWidth; // 0x0071146C
 
@@ -72,7 +71,6 @@ extern unsigned char gnTextColorA; // 0x007BEFBB
 
 extern unsigned char gnTextColorB; // 0x007BEFE4
 
-D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
@@ -91,7 +89,6 @@ int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*,unsigned int,int,const char*); // 0x006280A0
 
-int __stdcall ITEMSIsA(D2UnitStrc*,int); // 0x00629BB0
 
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc*); // 0x006289C0
 
@@ -1494,9 +1491,7 @@ void __fastcall SPELLSEL_UpdateSkillButtonHover(short* pId, int nState, int nA, 
 
 void __fastcall SPELLSEL_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 

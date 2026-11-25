@@ -2,9 +2,9 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Win32System.h"
+#include "D2CommonApi.h"
 
 
-void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
 inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {

@@ -17,6 +17,7 @@
 #include "D2ClientRange.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -459,7 +460,6 @@ void __fastcall AUTOMAP_ResetBaseOffset(int bForce); // 0x00457640
 
 D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 int __cdecl sub_00468730(); // 0x00468730
 

@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2TxtTables.h"
 #include "D2BookDataTbl.h"
+#include "D2CommonApi.h"
 struct D2UnitStrc;
 
 union D2SeedStrc;
@@ -20,14 +21,12 @@ void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc*); // 0x004DC0B0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateAndFlag(D2UnitStrc*, int, int); // 0x006257D0
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void*, unsigned int, unsigned int, int, int); // 0x006251F0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc*, D2StatListStrc*, int); // 0x00626E10
-void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc*, int, int, int); // 0x00627150
 
 struct D2SkillsTxt { char pad0[0x18]; short nItemType; char pad1[0x23C-0x1A]; };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc*); // 0x0062A670
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
-int __stdcall ITEMSIsA(D2UnitStrc*, int); // 0x00629BB0
 
 struct D2ItemsTxt
 {
@@ -37,7 +36,6 @@ struct D2ItemsTxt
 
 
 D2BookDataTbl* __fastcall DATATBLS_GetBookDataTables(); // 0x006374A0
-D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 struct D2ItemDropStrc
 {
@@ -49,7 +47,6 @@ struct D2ItemDropStrc
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 int __stdcall sub_005C2740_RollLegacySetItem(D2UnitStrc* pItem); // 0x005C2740
-void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 int __stdcall ITEMS_GetItemLevel(D2UnitStrc* pItem); // 0x006281E0
 void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex); // 0x00629DF0
 void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
