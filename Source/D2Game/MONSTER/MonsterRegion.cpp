@@ -908,7 +908,7 @@ void __fastcall MONSTERREGION_UndoMonsterKill(D2MonsterRegionStrc** ppMonsterReg
 }
 
 // 0x00547ED0
-void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(D2MonsterRegionStrc** ppMonRegion, int nLevelId1, int nLevelId2, int nAlignment, int bDead, int a6, D2UnitStrc* pUnit)
+void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(D2MonsterRegionStrc** ppMonRegion, int nLevelId1, int nLevelId2, int nAlignment, int bDead, int bExcludeFromCount, D2UnitStrc* pUnit)
 {
     D2MonsterRegionStrc* pMonsterRegion1 = ppMonRegion[nLevelId1];
     D2MonsterRegionStrc* pMonsterRegion2 = ppMonRegion[nLevelId2];
@@ -919,7 +919,7 @@ void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(D2MonsterRegionStrc
             MONSTER_SetLevelId(pUnit, nLevelId1);
         }
 
-        if (!a6 && STATLIST_GetUnitAlignment(pUnit) == UNIT_ALIGNMENT_EVIL)
+        if (!bExcludeFromCount && STATLIST_GetUnitAlignment(pUnit) == UNIT_ALIGNMENT_EVIL)
         {
             --pMonsterRegion2->dwMonSpawnCount;
 
@@ -931,7 +931,7 @@ void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(D2MonsterRegionStrc
     }
     else
     {
-        if (!a6 && !bDead && nAlignment == UNIT_ALIGNMENT_EVIL)
+        if (!bExcludeFromCount && !bDead && nAlignment == UNIT_ALIGNMENT_EVIL)
         {
             --pMonsterRegion1->dwMonSpawnCount;
         }

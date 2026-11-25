@@ -252,7 +252,7 @@ extern "C" __declspec(dllexport) void __fastcall sub_00573570(Unit00573570* pUni
 }
 
 // 0x005735A0
-int __fastcall MONSTER_SetVelocityAndPosition(D2GameStrc* pGame, D2UnitStrc* pMonster, int nX, int nY, int a5)
+int __fastcall MONSTER_SetVelocityAndPosition(D2GameStrc* pGame, D2UnitStrc* pMonster, int nX, int nY, int bUnusedSkipRoomUpdate)
 {
     int nAnimMode;
     D2MonStatsTxt* pMonStatsTxtRecord;

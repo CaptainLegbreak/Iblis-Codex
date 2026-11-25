@@ -2489,7 +2489,7 @@ void __fastcall ITEMS_HandleGoldTransaction(D2GameStrc* pGame, D2UnitStrc* pUnit
 }
 
 // 0x0055AFA0
-void __fastcall ITEMS_DropTreasureClassById(D2GameStrc* pGame, D2UnitStrc* pMonster, D2UnitStrc* pPlayer, int nTCId, int nQuality, int nItemLevel, int a7, D2UnitStrc** ppItems, int* pnItemsDropped, int nMaxItems)
+void __fastcall ITEMS_DropTreasureClassById(D2GameStrc* pGame, D2UnitStrc* pMonster, D2UnitStrc* pPlayer, int nTCId, int nQuality, int nItemLevel, int bIgnoreNoDrop, D2UnitStrc** ppItems, int* pnItemsDropped, int nMaxItems)
 {
     int nLevel = 0;
     if (pGame->bExpansion && pGame->nDifficulty > 0 && pMonster && pMonster->dwUnitType == UNIT_MONSTER)
@@ -2504,7 +2504,7 @@ void __fastcall ITEMS_DropTreasureClassById(D2GameStrc* pGame, D2UnitStrc* pMons
     D2TCExShortStrc* pTCRecord = DATATBLS_GetTreasureClassExRecordFromIdAndLevel(nTCId, nLevel);
     if (pTCRecord)
     {
-        D2GAME_DropTC_6FC51360(pGame, pMonster, pPlayer, pTCRecord, nQuality, nItemLevel, a7, ppItems, pnItemsDropped, nMaxItems);
+        D2GAME_DropTC_6FC51360(pGame, pMonster, pPlayer, pTCRecord, nQuality, nItemLevel, bIgnoreNoDrop, ppItems, pnItemsDropped, nMaxItems);
     }
 }
 
@@ -2523,10 +2523,10 @@ void __fastcall sub_K11_Emit0055D940(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
 }
 
 // 0x0055FDE0
-void __fastcall D2GAME_UpdatePlayerItems_6FC4BB90(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3)
+void __fastcall D2GAME_UpdatePlayerItems_6FC4BB90(D2GameStrc* pGame, D2UnitStrc* pUnit, int bRefresh)
 {
     sub_0055DBC0_RecalcEquippedItemStates(pGame, pUnit, 0);
-    if (a3)
+    if (bRefresh)
     {
         UNITS_RefreshInventory(pUnit, 1);
     }
@@ -3593,19 +3593,19 @@ int __fastcall ITEMMODE_CheckAndResolveBodySlotPair(D2UnitStrc* pUnit, D2UnitStr
 }
 
 // 0x0055E9B0
-int __fastcall ITEMMODE_PlaceCursorItemInBelt(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, int nBeltSlot, int bFindFreeSlot, int* a6)
+int __fastcall ITEMMODE_PlaceCursorItemInBelt(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, int nBeltSlot, int bFindFreeSlot, int* pItemStatus)
 {
     D2_ASSERT(ptGame, 0x11FB);
     D2_ASSERT(hUnit, 0x11FC);
 
-    *a6 = 0;
+    *pItemStatus = 0;
 
     ITEMMODE_ClearTargetingFlags(hUnit, ".\\ITEMS\\ItemMode.cpp", 0x1201);
 
     D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, UNIT_ITEM, nItemGUID);
     if (!pItem)
     {
-        *a6 = 1;
+        *pItemStatus = 1;
         return 0;
     }
 
@@ -3616,7 +3616,7 @@ int __fastcall ITEMMODE_PlaceCursorItemInBelt(D2GameStrc* ptGame, D2UnitStrc* hU
 
     if (pItem->dwAnimMode != IMODE_ONCURSOR)
     {
-        *a6 = 1;
+        *pItemStatus = 1;
         return 0;
     }
 
@@ -3669,7 +3669,7 @@ int __fastcall ITEMMODE_PlaceCursorItemInBelt(D2GameStrc* ptGame, D2UnitStrc* hU
             return 1;
         }
 
-        *a6 = 1;
+        *pItemStatus = 1;
     }
     while (0);
 
@@ -3677,12 +3677,12 @@ int __fastcall ITEMMODE_PlaceCursorItemInBelt(D2GameStrc* ptGame, D2UnitStrc* hU
 }
 
 // 0x0055EB30
-int __fastcall ITEMMODE_SwapCursorAndBeltItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nCursorItemGUID, int nBeltItemGUID, int* a5)
+int __fastcall ITEMMODE_SwapCursorAndBeltItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nCursorItemGUID, int nBeltItemGUID, int* pItemStatus)
 {
     D2_ASSERT(ptGame, 0x128A);
     D2_ASSERT(pUnit, 0x128B);
 
-    *a5 = 0;
+    *pItemStatus = 0;
 
     ITEMMODE_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x1290);
 
@@ -3701,7 +3701,7 @@ int __fastcall ITEMMODE_SwapCursorAndBeltItem(D2GameStrc* ptGame, D2UnitStrc* pU
     const int nBeltItemMode = pBeltItem ? pBeltItem->dwAnimMode : 0;
     if (nBeltItemMode != 2)
     {
-        *a5 = 1;
+        *pItemStatus = 1;
         return 0;
     }
 
@@ -5500,12 +5500,12 @@ Success:
 }
 
 // 0x00562250
-int __fastcall ITEMMODE_RemoveBeltItemToCursor(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, int* a4)
+int __fastcall ITEMMODE_RemoveBeltItemToCursor(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, int* pItemStatus)
 {
     D2_ASSERT(ptGame, 0x1249);
     D2_ASSERT(hUnit, 0x124A);
 
-    *a4 = 0;
+    *pItemStatus = 0;
 
     D2InventoryStrc* hInventory = hUnit->pInventory;
     D2_ASSERT(hInventory, 0x124F);
@@ -5518,7 +5518,7 @@ int __fastcall ITEMMODE_RemoveBeltItemToCursor(D2GameStrc* ptGame, D2UnitStrc* h
     D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
     if (!pItem)
     {
-        *a4 = 1;
+        *pItemStatus = 1;
         return 0;
     }
 
@@ -5529,7 +5529,7 @@ int __fastcall ITEMMODE_RemoveBeltItemToCursor(D2GameStrc* ptGame, D2UnitStrc* h
 
     if (pItem->dwAnimMode != IMODE_INBELT)
     {
-        *a4 = 1;
+        *pItemStatus = 1;
         return 0;
     }
 
@@ -6168,7 +6168,7 @@ void __fastcall D2GAME_UpdatePlayerVitals(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x00563350
-int __fastcall ITEMMODE_DuplicateSocketFillers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pSocketable, int a5)
+int __fastcall ITEMMODE_DuplicateSocketFillers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pSocketable, int bRefresh)
 {
     if (ITEMS_CheckIfSocketable(pItem))
     {
@@ -6186,7 +6186,7 @@ int __fastcall ITEMMODE_DuplicateSocketFillers(D2GameStrc* pGame, D2UnitStrc* pU
             UNITS_SetYForStaticUnit(pDupedItem, sub_M70_ItemGetUnitY(pCheckedItem));
 
             int bPlaced;
-            if (!D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(pGame, pUnit, !pDupedItem ? -1 : pDupedItem->dwUnitId, GAME_GetUnitGUID(pSocketable), &bPlaced, a5, 0, 1, 0))
+            if (!D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(pGame, pUnit, !pDupedItem ? -1 : pDupedItem->dwUnitId, GAME_GetUnitGUID(pSocketable), &bPlaced, bRefresh, 0, 1, 0))
             {
                 return 0;
             }

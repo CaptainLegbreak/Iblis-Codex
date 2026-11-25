@@ -262,7 +262,7 @@ void __fastcall SUNITPROXY_FreeNpcControl(D2GameStrc* pGame);
 void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc);
 
 // 0x00535F30
-void __fastcall SUNITPROXY_AllocNpcEvent(D2UnitStrc* pNpc, D2GameStrc* pGame, D2UnitStrc* pPlayer, int a4)
+void __fastcall SUNITPROXY_AllocNpcEvent(D2UnitStrc* pNpc, D2GameStrc* pGame, D2UnitStrc* pPlayer, int bPending)
 {
     int nUnused;
     D2NpcEventStrc* pNpcEvent = (D2NpcEventStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2NpcEventStrc), ".\\UNIT\\sunitproxy.cpp", 133, 0);
@@ -273,7 +273,7 @@ void __fastcall SUNITPROXY_AllocNpcEvent(D2UnitStrc* pNpc, D2GameStrc* pGame, D2
         pNpcRecord->pEvent = pNpcEvent;
         pNpcEvent->field_C = 1;
         pNpcEvent->pUnit = pPlayer;
-        pNpcEvent->nParam = a4;
+        pNpcEvent->nParam = bPending;
     }
     else
     {

@@ -579,7 +579,7 @@ static void __fastcall SUNITEVENT_FreeEvent(D2GameStrc* pGame, D2UnitStrc* pUnit
 }
 
 // 0x005C0AD0
-D2UnitEventStrc* __fastcall SUNITEVENT_Register(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEvent, int nGUID1, int nGUID2, D2UnitEventCallbackFunction pCallback, unsigned int nQueueNo, int a8)
+D2UnitEventStrc* __fastcall SUNITEVENT_Register(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEvent, int nGUID1, int nGUID2, D2UnitEventCallbackFunction pCallback, unsigned int nQueueNo, int nEventKey)
 {
     if (!pUnit)
     {
@@ -595,7 +595,7 @@ D2UnitEventStrc* __fastcall SUNITEVENT_Register(D2GameStrc* pGame, D2UnitStrc* p
     pUnitEvent->pCallback = pCallback;
     pUnitEvent->pNext = pUnit->pSrvUnitEventsList;
     pUnitEvent->nEventGroup = nQueueNo;
-    pUnitEvent->unk0x08 = a8;
+    pUnitEvent->unk0x08 = nEventKey;
 
     if (pUnit->pSrvUnitEventsList)
     {
@@ -606,7 +606,7 @@ D2UnitEventStrc* __fastcall SUNITEVENT_Register(D2GameStrc* pGame, D2UnitStrc* p
     return pUnitEvent;
 }
 // 0x005C0B50
-void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTimerQueueNo, int a4)
+void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTimerQueueNo, int nEventKey)
 {
     if (!pUnit)
     {
@@ -617,7 +617,7 @@ void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     while (pUnitEvent)
     {
         D2UnitEventStrc* pNext = pUnitEvent->pNext;
-        if (pUnitEvent->nEventGroup == nTimerQueueNo && pUnitEvent->unk0x08 == a4)
+        if (pUnitEvent->nEventGroup == nTimerQueueNo && pUnitEvent->unk0x08 == nEventKey)
         {
             if (pUnitEvent->nFlags & UNITEVENTFLAG_IN_CALLBACK)
             {
@@ -634,7 +634,7 @@ void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
 }
 
 // 0x005C0BE0
-D2UnitEventStrc* __fastcall SUNITEVENT_GetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTimerQueueNo, int a4, int nGUID1)
+D2UnitEventStrc* __fastcall SUNITEVENT_GetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTimerQueueNo, int nEventKey, int nGUID1)
 {
     if (!pUnit)
     {
@@ -645,7 +645,7 @@ D2UnitEventStrc* __fastcall SUNITEVENT_GetEvent(D2GameStrc* pGame, D2UnitStrc* p
     while (pUnitEvent)
     {
         D2UnitEventStrc* pNext = pUnitEvent->pNext;
-        if (pUnitEvent->nEventGroup == nTimerQueueNo && pUnitEvent->unk0x08 == a4 && pUnitEvent->nGUID1 == nGUID1)
+        if (pUnitEvent->nEventGroup == nTimerQueueNo && pUnitEvent->unk0x08 == nEventKey && pUnitEvent->nGUID1 == nGUID1)
         {
             return pUnitEvent;
         }

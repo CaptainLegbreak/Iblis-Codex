@@ -2099,7 +2099,7 @@ void __fastcall SCMD_SendSkillList(D2ClientStrc* pClient, D2UnitStrc* pUnit); //
 void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
 // 0x00532E90
-int __fastcall PLRSAVE_ReadLegacySkills(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc* pUnit, unsigned char* pSection, int a5, int a6, int* pSkillCount)
+int __fastcall PLRSAVE_ReadLegacySkills(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc* pUnit, unsigned char* pSection, int nUnused1, int nUnused2, int* pSkillCount)
 {
     *pSkillCount = 0;
 

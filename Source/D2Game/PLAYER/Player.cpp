@@ -418,13 +418,13 @@ inline int M08_UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 }
 
 // 0x00534B30
-static int __stdcall PLAYER_PlaceItemInInventory(D2GameStrc* pGame, int a8, D2UnitStrc* hItem, D2UnitStrc* hPlayer)
+static int __stdcall PLAYER_PlaceItemInInventory(D2GameStrc* pGame, int pPlayer, D2UnitStrc* hItem, D2UnitStrc* hPlayer)
 {
     D2_ASSERT(hItem, 180);
     D2_ASSERT(hPlayer, 181);
     ITEMS_SetInvPage(hItem, INVPAGE_INVENTORY);
     const int nItemGUID = hItem->dwUnitId;
-    return D2GAME_PlaceItem_6FC44410(".\\PLAYER\\Player.cpp", 186, pGame, hPlayer, nItemGUID, CLIENTS_GetUnitX(hItem), CLIENTS_GetUnitY(hItem), a8, 1, 0) != 0;
+    return D2GAME_PlaceItem_6FC44410(".\\PLAYER\\Player.cpp", 186, pGame, hPlayer, nItemGUID, CLIENTS_GetUnitX(hItem), CLIENTS_GetUnitY(hItem), pPlayer, 1, 0) != 0;
 }
 
 // 0x00534BB0
@@ -886,7 +886,7 @@ int __fastcall PLRTRADE_PrepareItemChange(D2GameStrc* pGame, D2UnitStrc* pPlayer
 int __fastcall MONSTERAI_IsInteractionReady(D2UnitStrc* pNpc, D2UnitStrc* pPlayer); // 0x00573140
 
 // 0x00535610
-int __fastcall PLAYER_CanModifyInventory(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* a3)
+int __fastcall PLAYER_CanModifyInventory(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 {
     int nUnitType;
     int nUnitGUID;
@@ -902,7 +902,7 @@ int __fastcall PLAYER_CanModifyInventory(D2GameStrc* pGame, D2UnitStrc* pPlayer,
         switch (nUnitType)
         {
         case UNIT_PLAYER:
-            return PLRTRADE_PrepareItemChange(pGame, pPlayer, a3);
+            return PLRTRADE_PrepareItemChange(pGame, pPlayer, pItem);
 
         case UNIT_MONSTER:
             return MONSTERAI_IsInteractionReady(pInteractUnit, pPlayer);
@@ -916,7 +916,7 @@ int __fastcall PLAYER_CanModifyInventory(D2GameStrc* pGame, D2UnitStrc* pPlayer,
         }
     }
 
-    return PLRTRADE_PrepareItemChange(pGame, pPlayer, a3);
+    return PLRTRADE_PrepareItemChange(pGame, pPlayer, pItem);
 }
 
 // 0x005356B0

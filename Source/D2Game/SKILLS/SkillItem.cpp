@@ -1000,7 +1000,7 @@ inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 }
 
 // 0x005BF510
-void __fastcall SKILLITEM_ActivateAura(D2GameStrc* pGame, D2UnitStrc* pUnit, int a5, int nSkillId, int nSkillLevel)
+void __fastcall SKILLITEM_ActivateAura(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventKey, int nSkillId, int nSkillLevel)
 {
     if (!pUnit)
     {
@@ -1014,9 +1014,9 @@ void __fastcall SKILLITEM_ActivateAura(D2GameStrc* pGame, D2UnitStrc* pUnit, int
         return;
     }
 
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_PERIODICSTATS, a5);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_PERIODICSTATS, nEventKey);
     const int nExpireFrame = SKILL_ComputePeriodicRate(pGame, pUnit, pSkillsTxtRecord, nSkillId, nSkillLevel);
-    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_PERIODICSTATS, nExpireFrame, a5, nSkillId);
+    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_PERIODICSTATS, nExpireFrame, nEventKey, nSkillId);
 
     if (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_IMMEDIATE >> 3] & gdwBitMasks[SKILLSFLAGINDEX_IMMEDIATE & 7])
     {
@@ -1025,7 +1025,7 @@ void __fastcall SKILLITEM_ActivateAura(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 }
 
 // 0x005BF5D0
-void __fastcall SKILLITEM_DeactivateAura(D2GameStrc* pGame, D2UnitStrc* pUnit, int a4, int nSkillId)
+void __fastcall SKILLITEM_DeactivateAura(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventKey, int nSkillId)
 {
     if (!pUnit)
     {
@@ -1048,7 +1048,7 @@ void __fastcall SKILLITEM_DeactivateAura(D2GameStrc* pGame, D2UnitStrc* pUnit, i
         STATLIST_FreeStatList(pStatList);
     }
 
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_PERIODICSTATS, a4);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_PERIODICSTATS, nEventKey);
 }
 
 // 0x005C0310
@@ -1859,7 +1859,7 @@ int __fastcall SKILLITEM_pSpell02_CastPortal(D2GameStrc* game,D2UnitStrc* unit,D
 }
 
 // 0x005BE3F0
-int __fastcall SKILLITEM_pSpell03_Potion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int a4, int a5, int a6, int a7)
+int __fastcall SKILLITEM_pSpell03_Potion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int pTarget, int nX, int nY, int nSkillId)
 {
     D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
     if (!pItemsTxt) return 0;
