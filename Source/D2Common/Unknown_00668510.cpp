@@ -67,7 +67,7 @@ extern D2UniqueItemsTxt* gpUniqueItemsTxt_0096C854; // 0x0096C854
 
 static int __stdcall sub_00668A90_ParseCubeInput(D2CubeInputItemStrc* pInput, char* szInput);
 
-static __declspec(noinline) void sub_00668510_MakeCode(const char* szText, char* szCode);
+static void sub_00668510_MakeCode(const char* szText, char* szCode);
 
 static char* sub_00668590_NextSetToken(char** ppString, const char* szSet);
 
