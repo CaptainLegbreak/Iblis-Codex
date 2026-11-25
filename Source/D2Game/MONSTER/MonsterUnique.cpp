@@ -488,73 +488,6 @@ int __fastcall MONSTERUNIQUE_GetMonUModConstant(int nIndex)
 }
 
 
-struct Data005A0180 {
-    unsigned int dwUnknown00;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int f_10;
-    unsigned short wUnknown14;
-    unsigned short wFlags16;
-};
-
-struct Unit005A0180 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int f_10;
-    Data005A0180* pData;
-};
-
-#pragma pack(push, 1)
-struct Data004AC780 { unsigned char bUnknown00[0x14]; unsigned short wValue14; };
-
-#pragma pack(pop)
-struct Unit004AC780 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int f_10;
-    Data004AC780* pData;
-};
-
-struct Data005A01E0 {
-    unsigned int dwUnknown00;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int f_10;
-    unsigned int dwUnknown14;
-    unsigned int dwUnknown18;
-    unsigned int dwUnknown1C;
-    unsigned int dwUnknown20;
-    unsigned short wUnknown24;
-    short sValue26;
-};
-
-struct Unit005A01E0 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int f_10;
-    Data005A01E0* pData;
-};
-
-#pragma pack(push, 1)
-struct Data005A0200 { unsigned char bUnknown00[0x26]; unsigned short wValue26; };
-
-#pragma pack(pop)
-struct Unit005A0200 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int f_10;
-    Data005A0200* pData;
-};
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 
 
@@ -1354,19 +1287,19 @@ unsigned short __fastcall MONSTERUNIQUE_GetNameSeed(D2UnitStrc* pUnit)
 }
 
 // 0x005A0160
-extern "C" __declspec(dllexport) void __fastcall sub_005A0160(Unit004AC780* pUnit, unsigned short wValue) {
-    if (pUnit && pUnit->nType == 1 && pUnit->pData) {
-        pUnit->pData->wValue14 = wValue;
+extern "C" __declspec(dllexport) void __fastcall sub_005A0160(D2UnitStrc* pUnit, unsigned short wValue) {
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) {
+        pUnit->pMonsterData->wNameSeed = wValue;
     }
 }
 
 // 0x005A0180
-extern "C" __declspec(dllexport) int __fastcall sub_005A0180(Unit005A0180* pUnit, unsigned short wMask) {
-    Data005A0180* pData = (pUnit && pUnit->nType == 1) ? pUnit->pData : 0;
+extern "C" __declspec(dllexport) int __fastcall sub_005A0180(D2UnitStrc* pUnit, unsigned short wMask) {
+    D2MonsterDataStrc* pData = (pUnit && pUnit->dwUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
     if (!pData) {
         return 0;
     }
-    return (unsigned short)(pData->wFlags16 & wMask) != 0;
+    return (unsigned short)(pData->nTypeFlag & wMask) != 0;
 }
 
 // 0x005A01B0
@@ -1405,9 +1338,9 @@ short __fastcall MONSTERUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit)
 }
 
 // 0x005A0200
-extern "C" __declspec(dllexport) void __fastcall sub_005A0200(Unit005A0200* pUnit, unsigned short wValue) {
-    if (pUnit && pUnit->nType == 1 && pUnit->pData) {
-        pUnit->pData->wValue26 = wValue;
+extern "C" __declspec(dllexport) void __fastcall sub_005A0200(D2UnitStrc* pUnit, unsigned short wValue) {
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) {
+        pUnit->pMonsterData->wBossHcIdx = wValue;
     }
 }
 
@@ -3290,7 +3223,7 @@ void __fastcall MONSTERUNIQUE_UMod2_HealthBonus(D2UnitStrc* pUnit, int nUMod, in
     else
     {
         int nIndex;
-        if (sub_005A0180((Unit005A0180*)pUnit, 4))
+        if (sub_005A0180(pUnit, 4))
         {
             nIndex = nDifficulty + 4;
         }

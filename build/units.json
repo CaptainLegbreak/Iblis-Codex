@@ -5008,11 +5008,6 @@
      "name": "FlushAndNotify"
     },
     {
-     "va": "0x0041F950",
-     "length": 37,
-     "name": "??0CHuffman@@QAE@XZ"
-    },
-    {
      "va": "0x006CA7B0",
      "length": 24
     },
@@ -5138,6 +5133,54 @@
    "file": "Source/Storm/SOURCE/SCOMP.CPP",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0041D880",
+     "length": 31
+    },
+    {
+     "va": "0x0041D8A0",
+     "length": 41
+    },
+    {
+     "va": "0x0041D8D0",
+     "length": 46
+    },
+    {
+     "va": "0x0041D900",
+     "length": 18
+    },
+    {
+     "va": "0x0041D920",
+     "length": 31
+    },
+    {
+     "va": "0x0041D940",
+     "length": 6
+    },
+    {
+     "va": "0x0041D950",
+     "length": 75
+    },
+    {
+     "va": "0x0041D9A0",
+     "length": 57
+    },
+    {
+     "va": "0x0041D9E0",
+     "length": 75
+    },
+    {
+     "va": "0x0041DA30",
+     "length": 44
+    },
+    {
+     "va": "0x0041DA60",
+     "length": 636
+    },
+    {
+     "va": "0x0041DCE0",
+     "length": 474
+    },
     {
      "va": "0x0041DEC0",
      "length": 52,
@@ -5347,6 +5390,10 @@
      "name": "??0?$TSLinkedNode@UHUFFNODE@@@@QAE@XZ"
     },
     {
+     "va": "0x0041EBC0",
+     "length": 361
+    },
+    {
      "va": "0x0041ED30",
      "length": 50,
      "name": "??1?$TSLinkedNode@UHUFFNODE@@@@QAE@XZ"
@@ -5382,6 +5429,51 @@
      "name": "NewItem"
     },
     {
+     "va": "0x0041F350",
+     "length": 270
+    },
+    {
+     "va": "0x0041F460",
+     "length": 60,
+     "name": "??1?$TSList@UHUFFNODE@@U?$TSGetLink@UHUFFNODE@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0041F4A0",
+     "length": 104
+    },
+    {
+     "va": "0x0041F510",
+     "length": 397
+    },
+    {
+     "va": "0x0041F6A0",
+     "length": 154
+    },
+    {
+     "va": "0x0041F740",
+     "length": 268
+    },
+    {
+     "va": "0x0041F850",
+     "length": 197
+    },
+    {
+     "va": "0x0041F920",
+     "length": 12
+    },
+    {
+     "va": "0x0041F930",
+     "length": 5
+    },
+    {
+     "va": "0x0041F940",
+     "length": 5
+    },
+    {
+     "va": "0x0041F950",
+     "length": 37
+    },
+    {
      "va": "0x006CA8C0",
      "length": 23
     },
@@ -5389,6 +5481,20 @@
      "va": "0x006CB300",
      "length": 12
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob1",
+    "/Gd",
+    "/EHsc"
    ]
   },
   {
@@ -6153,6 +6259,16 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x0041D320",
+     "length": 13,
+     "name": "??0BigNum@@QAE@XZ"
+    },
+    {
+     "va": "0x0041D330",
+     "length": 9,
+     "name": "??1BigNum@@QAE@XZ"
+    },
+    {
      "va": "0x0041D340",
      "length": 46,
      "name": "?FindSignatureTag@@YGHPBDIIPAI@Z"
@@ -6195,21 +6311,6 @@
      "va": "0x0041D810",
      "length": 99,
      "name": "CrcBuffer"
-    },
-    {
-     "va": "0x0041D8D0",
-     "length": 46,
-     "name": "sub_0041D8D0_Peek"
-    },
-    {
-     "va": "0x0041D900",
-     "length": 18,
-     "name": "sub_0041D900_Skip"
-    },
-    {
-     "va": "0x0041F510",
-     "length": 397,
-     "name": "AddSymbol"
     },
     {
      "va": "0x0041F9E0",
@@ -6578,67 +6679,6 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0041D880.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041D320",
-     "length": 13,
-     "name": "??0BigNum@@QAE@XZ"
-    },
-    {
-     "va": "0x0041D330",
-     "length": 9,
-     "name": "??1BigNum@@QAE@XZ"
-    },
-    {
-     "va": "0x0041D880",
-     "length": 31,
-     "name": "@sub_0041D880@12"
-    },
-    {
-     "va": "0x0041D8A0",
-     "length": 41,
-     "name": "?sub_0041D8A0_ReadBit@CBitInput@@QAEHXZ"
-    },
-    {
-     "va": "0x0041D920",
-     "length": 31,
-     "name": "@sub_0041D920@16"
-    },
-    {
-     "va": "0x0041D940",
-     "length": 6,
-     "name": "@sub_0041D940@4"
-    },
-    {
-     "va": "0x0041D950",
-     "length": 75,
-     "name": "sub_0041D950_PutBits"
-    },
-    {
-     "va": "0x0041D9A0",
-     "length": 57,
-     "name": "?Flush@CBitOutput@@QAEXXZ"
-    },
-    {
-     "va": "0x0041D9E0",
-     "length": 75,
-     "name": "?sub_0041D9E0_EncodeOne@CHuffman@@QAEXPAUCBitOutput@@I@Z"
-    },
-    {
-     "va": "0x0041DA30",
-     "length": 44,
-     "name": "?sub_0041DA30_GetCompressionLevel@@YAXIPAEPAH@Z"
-    },
-    {
-     "va": "0x0041F350",
-     "length": 270,
-     "name": "?sub_0041F350_IncWeights@CHuffman@@QAEXPAUHUFFNODE@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SSignature_0041D4D0.cpp",
    "rank": 0,
    "functions": [
@@ -6669,67 +6709,9 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0041DA60.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0041DA60",
-     "length": 636
-    },
-    {
-     "va": "0x0041DCE0",
-     "length": 474
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Storm/Unknown_0041E9C0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0041F460",
-     "length": 60,
-     "name": "?sub_0041F460_Destroy@D2StormNodeListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0041F740",
-     "length": 268,
-     "name": "Decompress"
-    },
-    {
-     "va": "0x0041F850",
-     "length": 197,
-     "name": "?Compress@CHuffman@@QAEIPAUCBitOutput@@PAXHE@Z"
-    },
-    {
-     "va": "0x0041F920",
-     "length": 12,
-     "name": "??0CHuffmanEncoder@@QAE@XZ"
-    },
-    {
-     "va": "0x0041F930",
-     "length": 5,
-     "name": "??1CHuffmanEncoder@@QAE@XZ"
-    },
-    {
-     "va": "0x0041F940",
-     "length": 5,
-     "name": "??1CHuffmanDecoder@@QAE@XZ"
-    },
     {
      "va": "0x00420E10",
      "length": 41,
@@ -6892,10 +6874,6 @@
    "rank": 1,
    "functions": [
     {
-     "va": "0x0041EBC0",
-     "length": 361
-    },
-    {
      "va": "0x0041EF20",
      "length": 1070
     }
@@ -6916,38 +6894,9 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0041F4A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0041F4A0",
-     "length": 104
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/EHsc",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Storm/Unknown_0041F6A0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0041F6A0",
-     "length": 154
-    },
     {
      "va": "0x0041F980",
      "length": 89,
@@ -55881,6 +55830,11 @@
      "length": 233
     },
     {
+     "va": "0x005FF300",
+     "length": 131,
+     "name": "D2CMPSpriteFindAsynchSiblings"
+    },
+    {
      "va": "0x005FF390",
      "length": 1,
      "name": "?sub_005FF390_Nop@@YAXXZ"
@@ -55967,11 +55921,6 @@
      "va": "0x00601450",
      "length": 105,
      "name": "CelFileTransform"
-    },
-    {
-     "va": "0x00601650",
-     "length": 224,
-     "name": "CelDrawEx"
     },
     {
      "va": "0x00601810",
@@ -61163,11 +61112,6 @@
      "name": "D2CMPSetNoCompress"
     },
     {
-     "va": "0x005FF300",
-     "length": 131,
-     "name": "D2CMPSpriteFindAsynchSiblings"
-    },
-    {
      "va": "0x005FF630",
      "length": 170,
      "name": "D2CMPSpriteCacheResize"
@@ -61238,6 +61182,11 @@
     {
      "va": "0x006015D0",
      "length": 117
+    },
+    {
+     "va": "0x00601650",
+     "length": 224,
+     "name": "CelDrawEx"
     },
     {
      "va": "0x00601840",
@@ -62340,11 +62289,6 @@
      "name": "?GenerateHandle@?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@QAEPAUHCELLIST__@@XZ"
     },
     {
-     "va": "0x00606D10",
-     "length": 35,
-     "name": "?CelSkipRleLines@@YIPBDPBDH@Z"
-    },
-    {
      "va": "0x0060A440",
      "length": 119,
      "name": "?TileProjectBuildFindTable@@YIPAUD2TileLibraryHashStrc@@PAUD2CmpTileLibraryStrc@@@Z"
@@ -62461,6 +62405,11 @@
      "name": "?TileListDestroy@@YGXPAUD2CmpTileListStrc@@@Z"
     },
     {
+     "va": "0x006096D0",
+     "length": 148,
+     "name": "TileListAddTile"
+    },
+    {
      "va": "0x00609770",
      "length": 152,
      "name": "?TileIsSubTileBlank@@YGHPAUD2CmpTileStrc@@PBEH@Z"
@@ -62526,6 +62475,11 @@
      "va": "0x0060A260",
      "length": 47,
      "name": "?TileProjectNormalizeSubTiles@@YAHPAUD2CmpTileBlockStrc@@PAE@Z"
+    },
+    {
+     "va": "0x0060A4C0",
+     "length": 81,
+     "name": "TileNormalizeSubTiles"
     },
     {
      "va": "0x0060A520",
@@ -62700,6 +62654,11 @@
      "name": "?CelFileConvertRle24To8@@YIXPAUD2CellFileStrc@@0P6GEEEE@ZUD2CmpColorStrc@@@Z"
     },
     {
+     "va": "0x00606D10",
+     "length": 35,
+     "name": "?CelSkipRleLines@@YIPBDPBDH@Z"
+    },
+    {
      "va": "0x00606D40",
      "length": 88,
      "name": "CelDrawRleCopy"
@@ -62788,11 +62747,6 @@
     {
      "va": "0x00608EE0",
      "length": 314
-    },
-    {
-     "va": "0x006096D0",
-     "length": 148,
-     "name": "TileListAddTile"
     },
     {
      "va": "0x0060B1A0",
@@ -62914,11 +62868,6 @@
      "va": "0x0060A390",
      "length": 176,
      "name": "TileProjectNormalizeHeaders"
-    },
-    {
-     "va": "0x0060A4C0",
-     "length": 81,
-     "name": "TileNormalizeSubTiles"
     },
     {
      "va": "0x0060AB10",

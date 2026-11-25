@@ -315,11 +315,10 @@ unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMa
 
 struct D2StatListStrc;
 
-struct Unit005A0180;
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
-extern "C" int __fastcall sub_005A0180(Unit005A0180* pUnit, unsigned short wMask);                         // 0x005A0180
+extern "C" int __fastcall sub_005A0180(D2UnitStrc* pUnit, unsigned short wMask);                         // 0x005A0180
 
 void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine);           // 0x00623F50
 
@@ -2878,7 +2877,7 @@ int __fastcall SKILLS_EventFunc27_Slow(D2GameStrc* pGame, int nEvent, D2UnitStrc
     }
     else if (pTarget->dwUnitType == UNIT_MONSTER)
     {
-        if (sub_005A0180((Unit005A0180*)pTarget, UNITMASK_MONSTER))
+        if (sub_005A0180(pTarget, UNITMASK_MONSTER))
         {
             if (nSlow >= SMALL_CAP)
                 nSlow = SMALL_CAP;

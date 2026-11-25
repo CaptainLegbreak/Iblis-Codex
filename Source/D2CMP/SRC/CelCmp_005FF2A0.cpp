@@ -218,35 +218,6 @@ int __stdcall CelGetOffsetY(D2CelStrc* pCel)
     return pCel->nYOffset;
 }
 
-// 0x00606D10
-const char* __fastcall CelSkipRleLines(const char* pData, int nLines)
-{
-    if (!nLines)
-    {
-        return pData;
-    }
-
-    for (;;)
-    {
-        const char nRun = *pData++;
-        if (nRun < 0)
-        {
-            if (!(nRun & 0x7F) && !--nLines)
-            {
-                break;
-            }
-        }
-        else
-        {
-            pData += nRun;
-        }
-    }
-
-    return pData;
-}
-
-
-
 // 0x0060A440
 D2TileLibraryHashStrc* __fastcall TileProjectBuildFindTable(D2CmpTileLibraryStrc* pLibrary)
 {
