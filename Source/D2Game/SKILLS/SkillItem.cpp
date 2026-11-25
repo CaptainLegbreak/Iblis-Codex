@@ -48,7 +48,6 @@ struct D2CurseStrc;
 
 struct D2SkillsTxt;
 
-struct Unit005A0180;
 
 union D2SeedStrc;
 
@@ -228,7 +227,7 @@ int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsi
 
 int __fastcall SKILLITEM_CalculateOpenWoundsHpRegen(int nLevel, const int* pValues); // 0x005BFDA0
 
-extern "C" int __fastcall sub_005A0180(Unit005A0180* pUnit, unsigned short wMask); // 0x005A0180
+extern "C" int __fastcall sub_005A0180(D2UnitStrc* pUnit, unsigned short wMask); // 0x005A0180
 
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 
@@ -1446,7 +1445,7 @@ int __fastcall SKILLITEM_EventFunc15_OpenWounds(D2GameStrc* pGame, int nEvent, D
             nHpRegen /= 2;
         }
     }
-    else if (pUnit->dwUnitType == UNIT_MONSTER && sub_005A0180((Unit005A0180*)pUnit, 0x0C))
+    else if (pUnit->dwUnitType == UNIT_MONSTER && sub_005A0180(pUnit, 0x0C))
     {
         nHpRegen /= 2;
     }
@@ -1496,7 +1495,7 @@ int __fastcall SKILLITEM_EventFunc16_CrushingBlow(D2GameStrc* pGame, int nEvent,
         }
         else
         {
-            if (MONSTERS_IsBoss(0, pUnit) || sub_005A0180((Unit005A0180*)pUnit, 2))
+            if (MONSTERS_IsBoss(0, pUnit) || sub_005A0180(pUnit, 2))
             {
                 nDivisor = 8;
             }
