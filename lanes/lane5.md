@@ -4,11 +4,12 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/no-nullptr 36e37206e (on #380): D2Game.h's `#define nullptr 0` goes (audit-379 item); a5q2.cpp's eight null pointers are written 0, as the other quest files write them (NULL isn't defined in those units). Every D2Game.h includer rebuilt. Full build: Game.exe identical, tree 7e5e0e1df8bfaec1c8fc614f4a50d9e891c0677a, borrowed code / data 11,250 B / 281 B.
-- lane5/addrless-2 71e9f8545 (on #380): 110 address-less bodies in 16 D2Game files go (copies of functions placed from another file: other acts' quest callbacks in a5q1/a4q1/a5q2, ACT3Q5_SpawnCouncil, ACT3Q7_ActiveFilterCallback, the ObjMode packet no-ops, the MissMode/MonsterMode collision callbacks, the UMod callers, Game.cpp's copies of D2Net's NET_ helpers), each turned into a declaration on its own and kept only when its unit stayed equal; the declarations keep main's names and symbol lines. Replaces lane5/addrless (23f941d44), which is withdrawn. Full build: Game.exe identical, tree feafce4397d74a57d631afb388f2dbdd800f69ae, borrowed code / data 11,250 B / 281 B.
+- lane5/no-nullptr 7d9d2d8bd (on #381): D2Game.h's `#define nullptr 0` goes (audit-379 item); a5q2.cpp's eight null pointers are written 0, as the other quest files write them (NULL isn't defined in those units). Every D2Game.h includer rebuilt; auditguard: nullptr 9 -> 0, nothing rose. Full build: Game.exe identical, tree 493c06bd893f7e67d25a842d30f4fa67c4867f68, borrowed code / data 11,250 B / 281 B.
+- lane5/addrless-2 84c373768 (on #381): 110 address-less bodies in 16 D2Game files go (copies of functions placed from another file: other acts' quest callbacks in a5q1/a4q1/a5q2, ACT3Q5_SpawnCouncil, ACT3Q7_ActiveFilterCallback, the ObjMode packet no-ops, the MissMode/MonsterMode collision callbacks, the UMod callers, Game.cpp's copies of D2Net's NET_ helpers), each turned into a declaration on its own and kept only when its unit stayed equal; the declarations keep main's names and symbol lines. Replaces lane5/addrless (23f941d44), which is withdrawn (Current state's "rebase lane5/addrless" is this branch). auditguard: nothing rose. Full build: Game.exe identical, tree 381c7e7b1a323e2913948158e3f7635168a4e387, borrowed code / data 11,250 B / 281 B.
 
 ## Claimed
 
+- Audit (audit-379-lanes.md, D2Game): taking decompiler types (lane5/audit-types-d2game), labels (lane5/audit-labels-d2game), T<VA> structs (lane5/audit-tstruct-d2game), then the 14 noinline uses and the emit helpers.
 - D2Game placeholder files (Source/D2Game/**, lane 5's): lane 5 is working through them by run, data and call evidence. Lane 10: #367's files-d2game took Unknown_00592090.cpp, which lane5/run-joins-2 had too; please check this file before taking D2Game ones, or post the list you plan, and I'll skip those.
 
 ## Questions
