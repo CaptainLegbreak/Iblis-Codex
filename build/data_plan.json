@@ -1450,13 +1450,13 @@
     "extern \"C\" void __cdecl sub_00512250_DrawCel(); // 0x00512250",
     "extern \"C\" void __cdecl sub_005122E0_DrawShadow(); // 0x005122E0",
     "extern \"C\" void __cdecl sub_005123B0_DDrawDebugFillBackBuffer(); // 0x005123B0",
-    "extern \"C\" void __cdecl GLVERTEX_CelFlatSpriteDraw(); // 0x00512410",
     "extern \"C\" void __cdecl sub_00512930_DDrawDrawLine(); // 0x00512930",
     "extern \"C\" void __cdecl sub_00512C20_DrawDiamond(); // 0x00512C20",
     "extern \"C\" void __cdecl sub_00512CE0_DrawRect(); // 0x00512CE0",
     "extern \"C\" void __cdecl sub_00512F90_DrawWallTile(); // 0x00512F90",
     "extern \"C\" void __cdecl sub_005130A0_DrawLitTile(); // 0x005130A0",
-    "extern \"C\" void __cdecl sub_005131B0_DrawTile(); // 0x005131B0"
+    "extern \"C\" void __cdecl sub_005131B0_DrawTile(); // 0x005131B0",
+    "extern \"C\" void __cdecl GLVERTEX_CelFlatSpriteDraw(); // 0x00512410"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2DDraw/Src/ddCore.inc",
@@ -3527,8 +3527,6 @@
     "extern \"C\" void __cdecl D3DSPRITE_DrawSpriteClipped(); // 0x006B6EE0",
     "extern \"C\" void __cdecl D3DSPRITE_DrawSpriteRows(); // 0x006B6C90",
     "extern \"C\" void __cdecl D3DSPRITE_DrawSpriteShadow(); // 0x006B7000",
-    "extern \"C\" void __cdecl D3DSPRITE_CelDraw(); // 0x006B6B40",
-    "extern \"C\" void __cdecl D3DSPRITE_CelDrawColor(); // 0x006B6BF0",
     "extern \"C\" void __cdecl sub_006B7630_DrawTextV(); // 0x006B7630",
     "extern \"C\" void __cdecl sub_006B76C0(); // 0x006B76C0",
     "extern \"C\" void __cdecl sub_006B77B0_Call(); // 0x006B77B0",
@@ -3545,7 +3543,9 @@
     "extern \"C\" void __cdecl sub_006B9850_SetOrigin(); // 0x006B9850",
     "extern \"C\" void __cdecl sub_006B9860_Project(); // 0x006B9860",
     "extern \"C\" void __cdecl sub_006B9910_ProjectPoint(); // 0x006B9910",
-    "extern \"C\" void __cdecl sub_006B9A00_ResetScale(); // 0x006B9A00"
+    "extern \"C\" void __cdecl sub_006B9A00_ResetScale(); // 0x006B9A00",
+    "extern \"C\" void __cdecl D3DSPRITE_CelDraw(); // 0x006B6B40",
+    "extern \"C\" void __cdecl D3DSPRITE_CelDrawColor(); // 0x006B6BF0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Direct3D/Src/d3dCore.inc",
