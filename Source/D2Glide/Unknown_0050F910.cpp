@@ -218,7 +218,7 @@ void __fastcall sub_0050FDF0_GlidePlayVideoFile(const char* szFile, int nMode, v
     SFileOpenFileEx(0, szFile, nScope, &hFile);
     if (!hFile)
     {
-        goto LABEL_FAIL;
+        goto OpenFailed;
     }
 
     unsigned int nFlags;
@@ -239,7 +239,7 @@ void __fastcall sub_0050FDF0_GlidePlayVideoFile(const char* szFile, int nMode, v
     if (!gpGlideBink)
     {
         CloseHandle(hFile);
-LABEL_FAIL:
+OpenFailed:
         if (gpGlideBink)
         {
             BinkClose(gpGlideBink);
