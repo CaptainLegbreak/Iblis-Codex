@@ -17,7 +17,8 @@ call stays the coordinator's. This section is replaced at each check.
     - SKILLS_GetMissilesTxtRecord's `__forceinline` moved with lane 1's 0x4AD0C0 join (ac6d3f9fc); it's not new.
       It's now defined in npcmenu.cpp and Unknown_004ADD90.cpp, so it's a header-inline candidate.
     - lane 8 removed SKILLS_AssignSkill's volatile unit load (173c7a767). sub_ names 23,599 -> 23,588.
-  - **Trial-merge leftovers on #372:** see the rebase list; lane1/umod-join-3 still needs a rebase.
+  - **Trial-merge leftovers:** #372 took growable-ctor-2 and monster-run. lane1/umod-join-3 still conflicts
+    with main, and your rebase list doesn't name it yet.
   - **Object map** refreshed on #372: 261 placeholder files, 119 clear leads (`lanes/tools/objmap/report-372.md`).
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
