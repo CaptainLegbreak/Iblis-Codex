@@ -78893,20 +78893,22 @@
     {
      "va": "0x006C9A38",
      "length": 14
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_006C9A46.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C9A46",
      "length": 34
     },
     {
+     "va": "0x006C9A68",
+     "length": 14
+    },
+    {
      "va": "0x006C9A76",
      "length": 67
+    },
+    {
+     "va": "0x006C9AB9",
+     "length": 14
     },
     {
      "va": "0x006C9AC7",
@@ -78927,6 +78929,10 @@
     {
      "va": "0x006C9B30",
      "length": 21
+    },
+    {
+     "va": "0x006C9B45",
+     "length": 37
     }
    ]
   },
@@ -78934,18 +78940,6 @@
    "file": "Source/Storm/Unknown_006C9A68.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x006C9A68",
-     "length": 14
-    },
-    {
-     "va": "0x006C9AB9",
-     "length": 14
-    },
-    {
-     "va": "0x006C9B45",
-     "length": 37
-    },
     {
      "va": "0x006CA940",
      "length": 17
