@@ -736,6 +736,7 @@ class Plan(object):
                     raise RuntimeError("static data marker %s 0x%08X disagrees with the section's other anchors (%s) in %s"
                                        % (y["name"], va, ", ".join("0x%08X" % a_ for a_ in sorted(others)), key[0]))
                 anchors[key][base] += 1; self.problems["static_data_marker_anchors"] += 1
+        self._crt_table_anchors(secs, anchors, lay)
         if self.crt:
             for c in self.crt["placements"]:
                 own = ("crt", c["sec"]["member"]); o = objs[own]; scn = c["sec"]["scn"]
@@ -852,6 +853,32 @@ class Plan(object):
                         self.lib_def[y["name"]] = c["va"] + y["value"]
                         self.lib_at.setdefault(c["va"] + y["value"], y["name"])
         return final
+
+    def _crt_table_anchors(self, secs, anchors, lay):
+        """Initializer-table pieces (.CRT$XC*, .CRT$XI*) in game objects hold pointers to the unit's own dynamic
+        initializers (.text$yc). Nothing references the pieces themselves, so anchor each at the original table slot
+        that holds the same initializer address."""
+        import image_data as D
+        code_at = {(p["obj"], p["sym"]["scn"]): p["va"] - p["sym"]["value"] for p in self.placed.values()}
+        lo, hi = lay["rdata"]; raw = D.vread(self.pe, lo, hi - lo) or b""
+        slots = collections.defaultdict(list)
+        for i in range(0, len(raw) - 3, 4):
+            slots[struct.unpack_from("<I", raw, i)[0]].append(lo + i)
+        n = 0
+        for key, ds in secs.items():
+            if not isinstance(key[0], str) or ds["raw"] is None or not ds["name"].startswith((".CRT$XC", ".CRT$XI")):
+                continue
+            for off, ty, y in ds["rels"]:
+                base = code_at.get((key[0], y["scn"])) if ty == DIR32 and y["scn"] > 0 else None
+                if base is None:
+                    self.note("crt_table_target_unplaced", "%s %s" % (ds["name"], y["name"])); continue
+                target = (base + y["value"] + struct.unpack_from("<I", ds["raw"], off)[0]) & 0xFFFFFFFF
+                hits = slots.get(target, [])
+                if len(hits) == 1:
+                    anchors[key][(hits[0] - off) & 0xFFFFFFFF] += 1000; n += 1
+                else:
+                    self.note("crt_table_slot_" + ("missing" if not hits else "ambiguous"), "%s 0x%08X" % (ds["name"], target))
+        self.problems["crt_table_slots_anchored"] = n
 
     def _crt_data_fate(self, objs, secs, unplaced, names_S):
         first = {}
