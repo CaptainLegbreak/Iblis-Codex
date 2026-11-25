@@ -92,8 +92,6 @@ struct D2DrlgOrthStrc;
 
 struct D2DrlgTableEntryStrc;
 
-struct D2DrlgEntryTableStrc;
-
 union D2SeedStrc;
 
 struct D2DrlgCoordsStrc;
@@ -181,13 +179,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x0068
 struct D2DrlgTableEntryStrc
 {
     char unk0x00[0x38];
-};
-
-struct D2DrlgEntryTableStrc
-{
-    char unk0x0000[0x404];
-    D2DrlgTableEntryStrc pEntries[200];
-    int nEntries;
 };
 
 extern const int gnTileTypeMappingTable[]; // 0x006EEF20

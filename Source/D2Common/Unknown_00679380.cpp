@@ -29,8 +29,6 @@ struct D2DrlgCoordsStrc;
 
 struct D2PathFoWallNodeStrc;
 
-struct D2PathFoWallContextStrc;
-
 struct D2PathMovStrc;
 
 
@@ -64,17 +62,6 @@ void __fastcall PATH_GetScaledDirectionVector(int nVelocity, D2CoordStrc* pDirec
 static int __stdcall sub_6FDAA880(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo); // 0x006793E0
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
-
-#pragma pack(push, 1)
-
-struct D2PathFoWallContextStrc
-{
-    D2PathFoWallNodeStrc* aPendingCache[128];
-    D2PathFoWallNodeStrc* aVisitedCache[128];
-    D2PathFoWallNodeStrc* pSortedListByFScore;
-};
-
-#pragma pack(pop)
 
 extern const int gaIdaStar_PointCacheHashMaskX[128]; // 0x006F1998
 

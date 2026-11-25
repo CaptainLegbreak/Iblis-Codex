@@ -18,11 +18,6 @@ struct D2DrlgVertexStrc;
 
 struct D2RoomDataStrc;
 
-struct D2LvlTypesTxt
-{
-    char szFile[32][60];
-};
-
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);                               // 0x00681EF0

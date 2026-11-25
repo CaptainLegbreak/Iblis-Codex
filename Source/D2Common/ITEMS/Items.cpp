@@ -114,8 +114,6 @@ struct Data00627EF0;
 
 struct Unit00627EF0;
 
-struct Data00627F20;
-
 struct Data00627F50;
 
 struct Unit00627F50;
@@ -265,12 +263,6 @@ struct Unit00627EF0
     unsigned int dwUnknown0C;
     unsigned int dwUnknown10;
     Data00627EF0* pData;
-};
-
-struct Data00627F20
-{
-    unsigned char bUnknown00[0x36];
-    unsigned short wValue36;
 };
 
 struct Data00627F50
