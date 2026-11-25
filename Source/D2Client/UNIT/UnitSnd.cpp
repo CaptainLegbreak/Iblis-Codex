@@ -273,7 +273,7 @@ struct D2StatListStrc;
 
 struct D2SkillStrc;
 
-static inline void sub_004CA560_SetHitSound1(int nHitClass, int* pSound1)
+static inline void UNITSND_GetHitSounds(int nHitClass, int* pSound1)
 {
     switch (nHitClass & 0xF)
     {
@@ -286,7 +286,7 @@ static inline void sub_004CA560_SetHitSound1(int nHitClass, int* pSound1)
     }
 }
 
-static inline void sub_004CA560_SetHitSound2(int nHitClass, int* pSound1, int* pSound2, int nType, int bParam)
+static inline void UNITSND_GetHitSounds(int nHitClass, int* pSound1, int* pSound2, int nType, int bParam)
 {
     switch (nHitClass & 0xF0)
     {

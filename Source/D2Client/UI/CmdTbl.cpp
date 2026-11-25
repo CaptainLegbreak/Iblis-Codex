@@ -1483,13 +1483,15 @@ void __cdecl CMDTBL_CycleSetting()
 // 0x00468A90
 void __cdecl sub_00468A90_ToggleSetting()
 {
-    sub_004577C0_SetValue(!AUTOMAP_GetAutomapParty());
+// build: symbol ?AUTOMAP_SaveAutomapParty@* 0x004577C0
+    AUTOMAP_SaveAutomapParty(!AUTOMAP_GetAutomapParty());
 }
 
 // 0x00468AB0
 void __cdecl sub_00468AB0_ToggleSetting()
 {
-    sub_004577F0_SetValue(!AUTOMAP_GetAutomapPartyNames());
+// build: symbol ?AUTOMAP_SaveAutomapPartyNames@* 0x004577F0
+    AUTOMAP_SaveAutomapPartyNames(!AUTOMAP_GetAutomapPartyNames());
 }
 
 // 0x00468AD0

@@ -498,8 +498,10 @@ void __cdecl GFX_UpdatePetFlags()
             if (pUnit)
             {
                 int bSet = !ROSTERPETS_IsPetFriendly(pPlayer, pUnit);
-                sub_00463E20_SetUnitFlagA(pUnit, bSet);
-                sub_00463E80_SetUnitFlagB(pUnit, bSet);
+// build: symbol ?CUNIT_SetBasePalShiftIndex@* 0x00463E20
+                CUNIT_SetBasePalShiftIndex(pUnit, bSet);
+// build: symbol ?CUNIT_SetPalShiftIndex@* 0x00463E80
+                CUNIT_SetPalShiftIndex(pUnit, bSet);
             }
         }
     }
@@ -673,9 +675,9 @@ void __fastcall WARDENCLIENT_UpdateOwnerPetFlags(int nOwnerId)
                     int bSet = !ROSTERPETS_IsOwnedByPlayer(pUnit);
                     if (nFlagB == CUNIT_GetBasePalShiftIndex(pUnit))
                     {
-                        sub_00463E80_SetUnitFlagB(pUnit, bSet);
+                        CUNIT_SetPalShiftIndex(pUnit, bSet);
                     }
-                    sub_00463E20_SetUnitFlagA(pUnit, bSet);
+                    CUNIT_SetBasePalShiftIndex(pUnit, bSet);
                 }
                 break;
             }

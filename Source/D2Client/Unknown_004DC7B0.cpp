@@ -130,7 +130,8 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
         PLRSKILLS_SkillSeqDoBackward(pUnit, nColor);
         break;
     case 1:
-        if (sub_004AE340(pUnit))
+// build: symbol ?MONSTER_IsGhostlyMonster@* 0x004AE340
+        if (MONSTER_IsGhostlyMonster(pUnit))
             bFlag = 1;
         PLRSKILLS_CallSkillSeqDoForward(pUnit, nColor);
         if (GFX_DrawUnit(pUnit, nColor, nX, nTempY, bFlag, 1) && pUnit)

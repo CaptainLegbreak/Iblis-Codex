@@ -396,7 +396,7 @@ struct D2StoredUnitRecordStrc
     char szName[1];
 };
 
-struct D2PanelCtrlStrc_004B8370
+struct ROSTER_SetCtrlState
 {
     char unk0x00[0x5C];
     int nState;
@@ -424,7 +424,7 @@ typedef char check_ptr_width[(sizeof(void*) == 4) ? 1 : -1];
 
 typedef char check_size_entry[(sizeof(D2StoredUnitRecordStrc) == 0x67) ? 1 : -1];
 
-typedef char check_size_ctrl[(sizeof(D2PanelCtrlStrc_004B8370) == 0x60) ? 1 : -1];
+typedef char check_size_ctrl[(sizeof(ROSTER_SetCtrlState) == 0x60) ? 1 : -1];
 
 typedef char check_size_sound[(sizeof(D2SoundObjStrc_00515A30) == 0x48) ? 1 : -1];
 
@@ -438,7 +438,7 @@ extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pE
 }
 
 // 0x004B8370
-extern "C" void __fastcall ROSTER_SetCtrlState(D2PanelCtrlStrc_004B8370* pCtrl, int nState)
+extern "C" void __fastcall ROSTER_SetCtrlState(ROSTER_SetCtrlState* pCtrl, int nState)
 {
     D2_ASSERT(pCtrl, 1310);
     pCtrl->nState = nState;

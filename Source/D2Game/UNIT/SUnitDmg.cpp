@@ -1657,7 +1657,7 @@ static int __cdecl sub_0057BF10_Absorb(Record* r,Context* c,int amount)
         if(percent>=40) percent=40;
         if(percent>0)
         {
-            int absorbed=sub_00483360_Ratio(amount,percent,100);
+            int absorbed=DATATBLS_ApplyRatio(amount,percent,100);
             FIELD(c->damage,72)+=absorbed;
             amount-=absorbed;
         }
@@ -1688,7 +1688,7 @@ static int __stdcall SUNITDMG_ApplyResistancesAndAbsorb(int ignore,Context* c,Re
     if(amount>0 && resistance)
     {
         if(resistance>=100) resistance=100;
-        amount=sub_00483360_Ratio(amount,100-resistance,100);
+        amount=DATATBLS_ApplyRatio(amount,100-resistance,100);
     }
     sub_005347D0_Report(c->game,c->attacker,c->defender,originalAmount,resistance,FIELD(c,28+4*r->reductionIndex),amount,r->name,r->flags);
     originalAmount=amount;
@@ -1764,10 +1764,10 @@ void __fastcall SUNITDMG_CalculateTotalDamage(Game* game,Unit* attacker,Unit* de
     c.defenderFlag=defender && defender->type==1 && !sub_0063EE90_ClassE(defender);
     c.zeroReduction=0;
     int reduction=sub_00625480_Stat(defender,34,0)<<8;
-    if(reduction>0 && FIELD(damage,84)>0) reduction=sub_00483360_Ratio(reduction,FIELD(damage,84),1024);
+    if(reduction>0 && FIELD(damage,84)>0) reduction=DATATBLS_ApplyRatio(reduction,FIELD(damage,84),1024);
     c.flatReduction1=reduction;
     reduction=sub_00625480_Stat(defender,35,0)<<8;
-    if(reduction>0 && FIELD(damage,84)>0) reduction=sub_00483360_Ratio(reduction,FIELD(damage,84),1024);
+    if(reduction>0 && FIELD(damage,84)>0) reduction=DATATBLS_ApplyRatio(reduction,FIELD(damage,84),1024);
     c.flatReduction2=reduction;
     int scale=SUNITDMG_GetDamageReductionShift(&c);
     if(scale!=100)
@@ -1779,7 +1779,7 @@ void __fastcall SUNITDMG_CalculateTotalDamage(Game* game,Unit* attacker,Unit* de
             if(r->scales)
             {
                 int* field=&FIELD(damage,r->damageOffset);
-                if(*field>0) *field=sub_00483360_Ratio(*field,scale,100);
+                if(*field>0) *field=DATATBLS_ApplyRatio(*field,scale,100);
             }
             ++r;
         } while(--remaining);

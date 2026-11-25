@@ -252,7 +252,7 @@ unsigned char* __fastcall PALSHIFT_GetPalShift(D2UnitStrc*); // 0x00477530
 int __cdecl VIEW_IsAcceleratedRenderMode(); // 0x00477750
 D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void*); // 0x004DB040
 int __fastcall GFXUTIL_GetCofLayerOverrideTransLvl(void*, int); // 0x004DB050
-unsigned char* __fastcall sub_004DB110_GetLayerOrder(void*, int, int); // 0x004DB110
+unsigned char* __fastcall GFXUTIL_GetLayerOrder(void*, int, int); // 0x004DB110
 int __fastcall GFXUTIL_GetCofLayerNewTransLvl(void*, int); // 0x004DB140
 void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc*, int, int, int, int*, int*, int*, int, int); // 0x004DB2E0
 int __fastcall GFXUTIL_GetCompTransparency(D2UnitStrc*, int, int*, int); // 0x004DB360
@@ -349,7 +349,7 @@ static int __stdcall GFX_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverla
     int nDirection = UNITS_GetDirection(pUnit);
     int nDirectionIndex, nDirectionCount;
     GFXUTIL_GetLayerInfo(pUnit, nUnitType, nClassId, nMode, &nDirection, &nDirectionIndex, &nDirectionCount, pHeader->nArg, 1);
-    unsigned char* pLayerOrder = sub_004DB110_GetLayerOrder(pLayer, nDirectionIndex, nFrame);
+    unsigned char* pLayerOrder = GFXUTIL_GetLayerOrder(pLayer, nDirectionIndex, nFrame);
     D2_ASSERT(pLayerOrder, 0x58E);
     int bObjectPerspective = 0;
     if (nUnitType == UNIT_OBJECT && DATATBLS_GetObjectsTxtRecord(!pUnit ? -1 : pUnit->dwClassId)->nOrderFlag[nMode] == 1)

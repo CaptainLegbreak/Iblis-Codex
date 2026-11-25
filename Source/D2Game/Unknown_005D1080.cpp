@@ -1343,7 +1343,7 @@ extern "C" int __fastcall SKILLS_SrvDo131_OverseerWhip(Game* game, Unit* owner, 
     {
         const int type = GetUnitType(target);
         int bSkip = 1;
-        if (type == 1 && sub_00463900_ValidateClass(sub_00463860_BaseClass(target)) == 453)
+        if (type == 1 && CUNIT_ValidateMonsterId(CUNIT_GetMonsterBaseId(target)) == 453)
         {
             bSkip = SkillChanceSucceeds(owner, record, skill, level);
         }

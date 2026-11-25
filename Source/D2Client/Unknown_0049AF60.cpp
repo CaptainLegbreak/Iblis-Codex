@@ -433,22 +433,26 @@ static int PARTY_DoRosterButtonAction(D2StoredUnitRecordStrc* pEntry, int nType)
     switch (nType)
     {
     case 1:
-        sub_00479FE0(pEntry);
+// build: symbol ?ROSTER_ToggleHostile@* 0x00479FE0
+        ROSTER_ToggleHostile(pEntry);
         nResult = ROSTER_TestHostileFlag(pEntry);
         break;
     case 2:
         if (!WINMAIN_IsHardcore())
             break;
-        sub_00479DA0(pEntry);
+// build: symbol ?ROSTER_ToggleLoot@* 0x00479DA0
+        ROSTER_ToggleLoot(pEntry);
         nResult = ROSTER_TestLootFlag(pEntry);
         break;
     case 3:
-        sub_00479DE0(pEntry);
+// build: symbol ?ROSTER_ToggleMute@* 0x00479DE0
+        ROSTER_ToggleMute(pEntry);
         nResult = ROSTER_TestMuteFlag(pEntry);
         break;
     case 4:
     {
-        sub_00479E20(pEntry);
+// build: symbol ?ROSTER_ToggleSquelch@* 0x00479E20
+        ROSTER_ToggleSquelch(pEntry);
         nResult = ROSTER_TestSquelchFlag(pEntry);
         D2ClientNotifyStrc* pNotify = WINMAIN_GetClientNotify();
         if (pNotify)

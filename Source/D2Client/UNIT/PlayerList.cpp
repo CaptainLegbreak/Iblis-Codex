@@ -164,5 +164,6 @@ void __fastcall PLAYERLIST_RemoveRosterInfo(int nUnitId1, int nUnitId2)
 // 0x004DCA20
 int __fastcall PLAYERLIST_CallDrawSimpleShadow(D2UnitStrc* pUnit)
 {
-    return sub_00471450(pUnit);
+// build: symbol ?GFX_DrawSimpleUnitShadow@* 0x00471450
+    return GFX_DrawSimpleUnitShadow(pUnit);
 }

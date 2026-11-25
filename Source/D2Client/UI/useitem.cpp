@@ -117,7 +117,7 @@ D2CelFileStrc* __cdecl GAME_GetBuySellButtonCells(); // 0x00454600
 
 void __fastcall AUTOMAP_DrawFramedBox(int,int,int,int,int,int); // 0x0046EFD0
 
-void __fastcall sub_004B8100_DrawControl(void*); // 0x004B8100
+void __fastcall DIALOG_DrawDialog(void*); // 0x004B8100
 
 int __stdcall sub_004F6480(D2CelContextStrc*,int,int,int,int,int); // 0x004F6480
 
@@ -190,7 +190,7 @@ struct D2ClientDialogStrc;
 
 D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int, int, int (__cdecl*)(), int (__cdecl*)(), int, int, int, int, int, int, int); // 0x004B7EB0
 
-void __fastcall sub_004B8370_SetField5C(D2ClientDialogStrc*, int); // 0x004B8370
+void __fastcall ROSTER_SetCtrlState(D2ClientDialogStrc*, int); // 0x004B8370
 
 void __fastcall NPCMENU_SendNpcAction(int); // 0x004B2370
 
@@ -205,7 +205,7 @@ int __cdecl USEITEM_ShowConfirmation()
     {
     sub_004B9A00(2, 0, 0, 0, 0);
     gpUseItemConfirmDialog = DIALOG_CreateDialog(0x96, 0x82, sub_004BF9B0, 0, 1, 0, 1, 0, 0, 0, 1);
-    sub_004B8370_SetField5C(gpUseItemConfirmDialog, 0);
+    ROSTER_SetCtrlState(gpUseItemConfirmDialog, 0);
     DIALOG_AddTextLine(gpUseItemConfirmDialog, D2LANG_GetStringFromTblIndex(0xD19), 15, 0, 0, 1, 0, 0);
     gnUseItemDialogState = 3;
     if (!gnUseItemPanelMode)
@@ -249,7 +249,7 @@ void __cdecl USEITEM_FreeUseItemPanel()
 {
     if (gnUseItemDialogState)
     {
-        sub_004C0090();
+        USEITEM_CloseUseItemPanel();
     }
 
     if (gpUpgradeCel)
@@ -400,7 +400,7 @@ void __cdecl USEITEM_DrawUseItemPanel()
    }
   }
  }
- if(gpUseItemConfirmDialog)sub_004B8100_DrawControl(gpUseItemConfirmDialog);
+ if(gpUseItemConfirmDialog)DIALOG_DrawDialog(gpUseItemConfirmDialog);
  D2Win_10127_SetFont(oldFont);
 }
 
@@ -411,7 +411,7 @@ void __cdecl USEITEM_DrawPanelUnit()
     {
         if (CUNIT_IsPlayerDeadOrMissing())
         {
-            sub_004C0090();
+            USEITEM_CloseUseItemPanel();
             return;
         }
 
@@ -490,7 +490,8 @@ void __stdcall USEITEM_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
     }
     else if (gnUseItemDialogState == 2)
     {
-        bHandled = sub_00489190(pMsg);
+// build: symbol ?INV_ClickNpcPanel@* 0x00489190
+        bHandled = INV_ClickNpcPanel(pMsg);
     }
     else
     {
@@ -585,12 +586,12 @@ void __stdcall USEITEM_OnPanelCloseMsg(SMSGHANDLER_PARAMS* pMsg)
         const int nUnitId = !pPlayer ? -1 : pPlayer->dwUnitId;
         const int nValue = gnAnvilObjectId;
         MSG_SendFourDwords(0x44, nUnitId, nValue, 0, 2);
-        sub_004C0090();
+        USEITEM_CloseUseItemPanel();
     }
     else
     {
         sub_004B3FE0();
-        sub_004C0090();
+        USEITEM_CloseUseItemPanel();
     }
 }
 
@@ -608,12 +609,12 @@ void __cdecl USEITEM_OpenPanel()
         {
             D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
             MSG_SendFourDwords(0x44, !pPlayer ? -1 : pPlayer->dwUnitId, gnAnvilObjectId, 0, 2);
-            sub_004C0090();
+            USEITEM_CloseUseItemPanel();
         }
         else
         {
             sub_004B3FE0();
-            sub_004C0090();
+            USEITEM_CloseUseItemPanel();
         }
         return;
     }
@@ -679,7 +680,7 @@ void __stdcall USEITEM_OnHotspotClick(SMSGHANDLER_PARAMS* pMsg)
     {
         if (USEITEM_ClickHotspots(nX, nY))
             return;
-        if (sub_00489190(pMsg))
+        if (INV_ClickNpcPanel(pMsg))
             USEITEM_ClosePanel();
         return;
     }
@@ -700,7 +701,7 @@ void __fastcall sub_004C0550(D2PacketRecord7Strc* pPacket)
         return;
 
     case 1:
-        sub_004C0090();
+        USEITEM_CloseUseItemPanel();
         return;
 
     case 4:
@@ -725,12 +726,12 @@ void __fastcall sub_004C0550(D2PacketRecord7Strc* pPacket)
         {
             sub_004B9A00(3, 0, 0, 0, 0);
         }
-        sub_004C0090();
+        USEITEM_CloseUseItemPanel();
         return;
 
     case 6:
     case 7:
-        sub_004C0090();
+        USEITEM_CloseUseItemPanel();
         NPCMENU_CloseNpc2();
         return;
 

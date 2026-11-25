@@ -139,7 +139,7 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
-void* __fastcall sub_004DC0B0_GetUnitMemoryPool(D2UnitStrc* pUnit); // 0x004DC0B0
+void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc* pUnit); // 0x004DC0B0
 
 void __fastcall D2GAME_PACKETS_SendPacket0x0A_RemoveObject(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID); // 0x0053BDA0
 
@@ -907,7 +907,7 @@ void __fastcall D2GAME_SUNITMSG_FreeUnitMessages_6FCC6790(D2UnitStrc* pUnit)
         {
             D2UnitPacketListStrc* pFree = pMsg;
             pMsg = pMsg->pNext;
-            FOG_FreeServerMemory(sub_004DC0B0_GetUnitMemoryPool(pUnit), pFree, ".\\UNIT\\SUnitMsg.cpp", 974, 0);
+            FOG_FreeServerMemory(GFXUTIL_GetNextRosterInfo(pUnit), pFree, ".\\UNIT\\SUnitMsg.cpp", 974, 0);
         }
         while (pMsg);
 

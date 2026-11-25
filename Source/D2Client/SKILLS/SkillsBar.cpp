@@ -628,13 +628,14 @@ static int __stdcall SKILLSBAR_UpdateLeap(D2UnitStrc* pUnit, D2SkillStrc* pSkill
 
     if (bMonster)
     {
-        sub_004B9A00(sub_004CAEB0(pUnit, 1), pUnit, 0, 0, 0);
+// build: symbol ?UNITSND_GetFootstepSound@* 0x004CAEB0
+        sub_004B9A00(UNITSND_GetFootstepSound(pUnit, 1), pUnit, 0, 0, 0);
         if (nBaseId == MONSTER_SANDLEAPER1)
             SKILLSBAR_LeapBounceFromTarget(pUnit, pSkill, nX, nY);
         return 1;
     }
 
-    sub_004B9A00(sub_004CAEB0(pUnit, 1), pUnit, 0, 0, 0);
+    sub_004B9A00(UNITSND_GetFootstepSound(pUnit, 1), pUnit, 0, 0, 0);
     sub_004B9A00(0x9D5, pUnit, 0, 0, 0);
     return 1;
 }

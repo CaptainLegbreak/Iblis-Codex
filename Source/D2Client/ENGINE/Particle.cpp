@@ -145,7 +145,8 @@ void __stdcall PARTICLE_ResetGfxMotion(D2UnitStrc* pUnit)
         D2_ASSERT(pMotion, 74);
     }
     memset(pMotion, 0, sizeof(D2GfxMotionStrc));
-    sub_0046F070_SetGfxMotion(pUnit, pMotion);
+// build: symbol ?GFX_SetGfxMotionFlag@* 0x0046F070
+    GFX_SetGfxMotionFlag(pUnit, pMotion);
 }
 
 // 0x004DA070
@@ -161,7 +162,7 @@ void __stdcall PARTICLE_FreeGfxMotion(D2UnitStrc* pUnit)
     if (pMotion)
     {
         FOG_Free(pMotion, ".\\ENGINE\\Particle.cpp", 100, 0);
-        sub_0046F070_SetGfxMotion(pUnit, 0);
+        GFX_SetGfxMotionFlag(pUnit, 0);
     }
 }
 

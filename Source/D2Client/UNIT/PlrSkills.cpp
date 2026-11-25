@@ -361,7 +361,8 @@ void __fastcall PLRSKILLS_ApplyStateMonster(D2UnitStrc* pUnit, int nState)
 
     const int nValue = STATLIST_GetStatValue(pStatList, STAT_SHORTPARAM1, 0);
     const int nMode = pUnit->dwAnimMode;
-    sub_004AEDD0(pUnit, nValue);
+// build: symbol ?MONSTER_ChangeMonsterClass@* 0x004AEDD0
+    MONSTER_ChangeMonsterClass(pUnit, nValue);
     if (nMode == 8)
     {
         UNITMODE_SetUnitMode(pUnit, 8);
@@ -800,13 +801,14 @@ void __fastcall PLRSKILLS_StateClearFlags(D2UnitStrc* pUnit, int nState)
 void __fastcall PLRSKILLS_StateResetGfxMotion(D2UnitStrc* pUnit, int nState)
 {
     PARTICLE_ResetGfxMotion(pUnit);
-    sub_004DA620(pUnit, 1);
+// build: symbol ?GFXUTIL_SetMotionFlag10@* 0x004DA620
+    GFXUTIL_SetMotionFlag10(pUnit, 1);
 }
 
 // 0x004D9380
 void __fastcall PLRSKILLS_StateClearMotion(D2UnitStrc* pUnit, int nState)
 {
-    sub_004DA620(pUnit, 0);
+    GFXUTIL_SetMotionFlag10(pUnit, 0);
     GFXUTIL_SetMotionVectorA(pUnit, 0, 0, 0);
 }
 
@@ -1706,7 +1708,8 @@ int __fastcall PLRSKILLS_MissileByOverlay(D2UnitStrc* pUnit, int nSkillId, int n
         return 0;
     }
 
-    if (!sub_004B11F0(pTarget))
+// build: symbol ?MONSTER_IsConvertible@* 0x004B11F0
+    if (!MONSTER_IsConvertible(pTarget))
     {
         return 0;
     }

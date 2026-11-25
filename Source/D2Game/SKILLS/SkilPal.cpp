@@ -432,7 +432,7 @@ extern int __stdcall SKILLS_GetToHitFactor(D2UnitStrc*,int,int); // 0x006449F0
 
 extern int __stdcall sub_00646CA0_EvaluateFormula(D2UnitStrc*,unsigned int,int,int); // 0x00646CA0
 
-extern int __fastcall sub_00483360_ApplyRatio(int,int,int); // 0x00483360
+extern int __fastcall DATATBLS_ApplyRatio(int,int,int); // 0x00483360
 
 extern void __stdcall SKILLS_SetParam1(D2SkillStrc*,int); // 0x00644560
 
@@ -1390,23 +1390,23 @@ int __fastcall SKILLS_SrvSt35_Vengeance(D2GameStrc* pGame,D2UnitStrc* pUnit,int 
         if (nPercent)
         {
             const int nMastery=sub_00625480_GetStat(pUnit,329,0);
-            if (nMastery) nPercent+=sub_00483360_ApplyRatio(nPercent,nMastery,100);
+            if (nMastery) nPercent+=DATATBLS_ApplyRatio(nPercent,nMastery,100);
         }
-        damage.dwFireDamage+=sub_00483360_ApplyRatio(nDamage,nPercent,100);
+        damage.dwFireDamage+=DATATBLS_ApplyRatio(nDamage,nPercent,100);
         nPercent=sub_00646CA0_EvaluateFormula(pUnit,pRecord->dwCalc[1],nSkillId,nSkillLevel);
         if (nPercent)
         {
             const int nMastery=sub_00625480_GetStat(pUnit,331,0);
-            if (nMastery) nPercent+=sub_00483360_ApplyRatio(nPercent,nMastery,100);
+            if (nMastery) nPercent+=DATATBLS_ApplyRatio(nPercent,nMastery,100);
         }
-        damage.dwColdDamage+=sub_00483360_ApplyRatio(nDamage,nPercent,100);
+        damage.dwColdDamage+=DATATBLS_ApplyRatio(nDamage,nPercent,100);
         nPercent=sub_00646CA0_EvaluateFormula(pUnit,pRecord->dwCalc[2],nSkillId,nSkillLevel);
         if (nPercent)
         {
             const int nMastery=sub_00625480_GetStat(pUnit,330,0);
-            if (nMastery) nPercent+=sub_00483360_ApplyRatio(nPercent,nMastery,100);
+            if (nMastery) nPercent+=DATATBLS_ApplyRatio(nPercent,nMastery,100);
         }
-        damage.dwLtngDamage+=sub_00483360_ApplyRatio(nDamage,nPercent,100);
+        damage.dwLtngDamage+=DATATBLS_ApplyRatio(nDamage,nPercent,100);
         damage.dwColdLen+=SKILLS_GetElementalLength(pUnit,nSkillId,nSkillLevel,1);
         const int nParameter=SKILLS_GetParam1(pSkill);
         switch(nParameter)

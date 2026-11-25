@@ -960,7 +960,8 @@ void __fastcall sub_0047D130_PerspectiveChanged(D2OptionEntryStrc* pEntry, SMSGH
 {
     SRegSaveValue("Diablo II", "Perspective", 0, pEntry->nValue);
     D2GFX_SetPerspective(pEntry->nValue);
-    sub_00476000_SetViewRect(gpClientView, 0, 0, gnAutomapWidth, gnAutomapHeight_007A521C);
+// build: symbol ?VIEW_SetViewRects@* 0x00476000
+    VIEW_SetViewRects(gpClientView, 0, 0, gnAutomapWidth, gnAutomapHeight_007A521C);
 }
 
 // 0x0047D180
@@ -1084,7 +1085,8 @@ void __fastcall sub_0047D480_AutoMapCentersLoad(D2OptionEntryStrc* pEntry, int n
 // 0x0047D490
 void __fastcall sub_0047D490_AutoMapPartyChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_004577C0_SetValue(pEntry->nValue);
+// build: symbol ?AUTOMAP_SaveAutomapParty@* 0x004577C0
+    AUTOMAP_SaveAutomapParty(pEntry->nValue);
 }
 
 // 0x0047D4A0
@@ -1102,7 +1104,8 @@ int __cdecl sub_0047D4B0_PartyNamesEnabled()
 // 0x0047D4C0
 void __fastcall sub_0047D4C0_AutoMapPartyNamesChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_004577F0_SetValue(pEntry->nValue);
+// build: symbol ?AUTOMAP_SaveAutomapPartyNames@* 0x004577F0
+    AUTOMAP_SaveAutomapPartyNames(pEntry->nValue);
 }
 
 // 0x0047D4D0

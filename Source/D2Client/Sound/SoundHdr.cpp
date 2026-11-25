@@ -664,7 +664,7 @@ void __fastcall SOUNDHDR_LoadCacheEntry(int nIndex, int bDirect, int nArg)
 
     char szPath[0x50];
     void* hFile;
-    sub_00482710(nIndex, szPath);
+    SOUNDHDR_GetSoundPath(nIndex, szPath);
 // build: symbol ?FOG_FOpenFile@* 0x004068E0
     if (!FOG_FOpenFile(szPath, &hFile))
     {

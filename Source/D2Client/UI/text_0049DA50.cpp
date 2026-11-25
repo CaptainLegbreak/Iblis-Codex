@@ -210,7 +210,8 @@ void __cdecl TEXT_ToggleListDialogUI()
 void __cdecl TEXT_CloseTextUnit()
 {
     if (gbTextFromObject)
-        sub_004B3D10_ReleaseTextUnit(gnTextNpcId);
+// build: symbol ?NPCMENU_CancelNpcAndFlag@* 0x004B3D10
+        NPCMENU_CancelNpcAndFlag(gnTextNpcId);
     else
         TEXT_ResetTextBox();
     UI_StartUIVarDelay();
@@ -254,12 +255,12 @@ int __cdecl TEXT_CloseText()
                 return 1;
             }
             if (gbTextFromObject)
-                sub_004B3D10_ReleaseTextUnit(gnTextNpcId);
+                NPCMENU_CancelNpcAndFlag(gnTextNpcId);
         }
         else
         {
             if (gbTextFromObject)
-                sub_004B3D10_ReleaseTextUnit(gnTextNpcId);
+                NPCMENU_CancelNpcAndFlag(gnTextNpcId);
             else
                 TEXT_ResetTextBox();
             UI_StartUIVarDelay();

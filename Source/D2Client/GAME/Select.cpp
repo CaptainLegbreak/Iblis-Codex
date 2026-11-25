@@ -186,7 +186,8 @@ static void SELECT_SetHoverUnit(D2UnitStrc* pUnit)
     unsigned int nHoverId;
     if (pUnit)
     {
-        D2_ASSERT(sub_00466870(pUnit, 0, 0, 0), 0x4F);
+// build: symbol ?CUNIT_IsUnitSelectable@* 0x00466870
+        D2_ASSERT(CUNIT_IsUnitSelectable(pUnit, 0, 0, 0), 0x4F);
         nHoverType = pUnit->dwUnitType;
         nHoverId = pUnit->dwUnitId;
     }
@@ -609,7 +610,7 @@ static D2UnitStrc* __stdcall SELECT_FindSkillTarget(D2SkillStrc* pSkill, D2UnitS
     {
         D2UnitStrc* pCandidate = tFindData.pUnitsArray[i];
         const int nDistance = UNITS_GetDistanceToCoordinates(pCandidate, *pnX, *pnY);
-        if (sub_00466870(pCandidate, 0, 0, 0) && nDistance < nBestDistance)
+        if (CUNIT_IsUnitSelectable(pCandidate, 0, 0, 0) && nDistance < nBestDistance)
         {
             pUnit = pCandidate;
             nBestDistance = nDistance;
@@ -825,7 +826,7 @@ D2UnitStrc* __cdecl SELECT_GetSelectedUnit()
     if (gbHasSelectedUnit)
     {
         D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnSelectedUnitId, gnSelectedUnitType);
-        if (pUnit && sub_00466870(pUnit, 0, 0, 0))
+        if (pUnit && CUNIT_IsUnitSelectable(pUnit, 0, 0, 0))
         {
             return pUnit;
         }
@@ -843,7 +844,7 @@ void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
-        if (sub_00466870(pUnit, 0, 0, 0))
+        if (CUNIT_IsUnitSelectable(pUnit, 0, 0, 0))
         {
             gbHoverLocked = 0;
             SELECT_SetHoverUnit(pUnit);
@@ -891,7 +892,7 @@ void __cdecl SELECT_UpdateHoverUnit()
     }
 
     D2UnitStrc* pSelected = SELECT_GetSelectedUnit();
-    if (pSelected && sub_00466870(pSelected, nX, nY, 1) && (pSelected->dwUnitType != UNIT_ITEM || !gdwGlobal_007A6A90))
+    if (pSelected && CUNIT_IsUnitSelectable(pSelected, nX, nY, 1) && (pSelected->dwUnitType != UNIT_ITEM || !gdwGlobal_007A6A90))
     {
         SELECT_SetHoverUnit(pSelected);
         return;
@@ -960,7 +961,7 @@ void __cdecl SELECT_UpdateHoverUnit()
                 continue;
             }
 
-            if (!sub_00466870(pUnit, nX, nY, 1))
+            if (!CUNIT_IsUnitSelectable(pUnit, nX, nY, 1))
             {
                 continue;
             }

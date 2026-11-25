@@ -2246,7 +2246,8 @@ int __fastcall SKILLDESC_CltDoLaunchMissileAtTarget(D2UnitStrc* pUnit, int nSkil
         pUnit->dwFlags |= 0x40;
     }
 
-    D2UnitStrc* pMissile = sub_004CDD10_CreateMissileAtTarget(pUnit, nMissile, nSkillId, nSkillLevel);
+// build: symbol ?MISSILE_SubmitTargetRequest@* 0x004CDD10
+    D2UnitStrc* pMissile = MISSILE_SubmitTargetRequest(pUnit, nMissile, nSkillId, nSkillLevel);
     if (!pMissile)
     {
         return 0;

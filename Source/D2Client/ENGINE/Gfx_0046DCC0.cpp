@@ -282,7 +282,8 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
 
     if (!GFXUTIL_IsPlayerMonsterOrObject(pUnit))
     {
-        sub_00471450(pUnit);
+// build: symbol ?GFX_DrawSimpleUnitShadow@* 0x00471450
+        GFX_DrawSimpleUnitShadow(pUnit);
         return 1;
     }
 
@@ -409,11 +410,13 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
     pHeader = sub_004DB040_GetLayerHeader(pGfx);
     nDirection = UNITS_GetDirection(pUnit);
     GFXUTIL_GetLayerInfo(pUnit, nType, nClass, nMode, &nDirection, &nComponent, &nUnused, pHeader->nArg, 1);
-    pOrder = sub_004DB110_GetLayerOrder(pGfx, nComponent, nFrame);
+// build: symbol ?GFXUTIL_GetLayerOrder@* 0x004DB110
+    pOrder = GFXUTIL_GetLayerOrder(pGfx, nComponent, nFrame);
     D2_ASSERT(pOrder, 0x94E);
 
     nVisible = 0;
-    if (sub_004DBD30_CountVisibleLayers(pUnit, pHeader, pOrder, &nVisible, nDirection, nFrame) <= 0)
+// build: symbol ?GFXUTIL_GetComponentsMaxHeight@* 0x004DBD30
+    if (GFXUTIL_GetComponentsMaxHeight(pUnit, pHeader, pOrder, &nVisible, nDirection, nFrame) <= 0)
     {
         if (bTownMode)
             D2GFX_SetTownMode(nPrevMode);

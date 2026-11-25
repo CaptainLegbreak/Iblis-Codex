@@ -240,7 +240,7 @@ Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCo
 
 extern int gnScreenWidth; // 0x0071146C
 
-struct D2PanelCtrlStrc_004B8370
+struct ROSTER_SetCtrlState
 {
     char unk0x00[0x5C];
     int nState;
@@ -414,7 +414,8 @@ static void __stdcall DIALOG_LButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
                 pMsg->lResult = 0;
                 sub_00420290_BreakHandlerChain(pMsg);
             }
-            if (GAME_GetUIVarState(7) && sub_004A6630_IsInPanelButton2(sub_0045AE90(), nX, nY))
+// build: symbol ?TEXT_IsInRightPanelButton@* 0x004A6630
+            if (GAME_GetUIVarState(7) && TEXT_IsInRightPanelButton(sub_0045AE90(), nX, nY))
                 goto handled;
             return;
         }
@@ -754,7 +755,8 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialogFromFile(int nArg1, int nArg2,
     char szPath[0x104];
     D2CelContextStrc tContext;
 
-    sub_004545C0(0);
+// build: symbol ?UI_TogglePanelHandlers@* 0x004545C0
+    UI_TogglePanelHandlers(0);
     CUNIT_SetDialogState(0);
     GAME_ResetMouseState();
     if (!nArg8)
@@ -841,7 +843,7 @@ void __cdecl DIALOG_LoadDialogHotkeys()
 D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,
     int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28)
 {
-    sub_004545C0(0);
+    UI_TogglePanelHandlers(0);
     CUNIT_SetDialogState(0);
     GAME_ResetMouseState();
     if (!nArg8)
@@ -895,7 +897,7 @@ void __fastcall DIALOG_DestroyDialog(void* pRes)
     gnDialogCount -= 1;
     if (gnDialogCount == 0)
     {
-        sub_004545C0(1);
+        UI_TogglePanelHandlers(1);
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaDialogHandlers, 0xE);
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaDialogWheelHandlers, 1);
         CUNIT_SetDialogState(1);
@@ -1032,7 +1034,7 @@ void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex)
 }
 
 // 0x004B8370
-extern "C" void __fastcall ROSTER_SetCtrlState(D2PanelCtrlStrc_004B8370* pCtrl, int nState)
+extern "C" void __fastcall ROSTER_SetCtrlState(ROSTER_SetCtrlState* pCtrl, int nState)
 {
     D2_ASSERT(pCtrl, 1310);
     pCtrl->nState = nState;

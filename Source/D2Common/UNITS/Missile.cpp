@@ -1352,20 +1352,20 @@ static int sub_0064ABA0_ElementBonus(int amount, int kind, Unit* unit)
     {
     case 1:
         bonus = sub_00625480_GetStat(unit, 329, 0);
-        if (bonus) return sub_00483360_Ratio(amount, bonus, 100);
+        if (bonus) return DATATBLS_ApplyRatio(amount, bonus, 100);
         break;
     case 2:
         bonus = sub_00625480_GetStat(unit, 330, 0);
-        if (bonus) return sub_00483360_Ratio(amount, bonus, 100);
+        if (bonus) return DATATBLS_ApplyRatio(amount, bonus, 100);
         break;
     case 4:
     case 12:
         bonus = sub_00625480_GetStat(unit, 331, 0);
-        if (bonus) return sub_00483360_Ratio(amount, bonus, 100);
+        if (bonus) return DATATBLS_ApplyRatio(amount, bonus, 100);
         break;
     case 5:
         bonus = sub_00625480_GetStat(unit, 332, 0);
-        if (bonus) return sub_00483360_Ratio(amount, bonus, 100);
+        if (bonus) return DATATBLS_ApplyRatio(amount, bonus, 100);
         break;
     }
     return 0;

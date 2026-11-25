@@ -14887,7 +14887,7 @@
     {
      "va": "0x004AC760",
      "length": 25,
-     "name": "?sub_004AC760_GetNameSeed@@YIGPAUD2UnitStrc@@@Z"
+     "name": "?MONUNIQUE_GetMonsterDataWord14@@YIGPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004AC780",

@@ -200,7 +200,7 @@ void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
-void* __fastcall sub_004DC0B0_GetUnitMemoryPool(D2UnitStrc* pUnit); // 0x004DC0B0
+void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc* pUnit); // 0x004DC0B0
 
 int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker); // 0x00622560
 
@@ -1125,7 +1125,7 @@ void __stdcall SKILLS_FreeSkillList(D2UnitStrc* pUnit)
             while (pSkill)
             {
                 D2SkillStrc* pNextSkill = pSkill->pNextSkill;
-                sub_0040B480(sub_004DC0B0_GetUnitMemoryPool(pUnit), pSkill, ".\\SKILLS\\Skills.cpp", 1285, 0);
+                sub_0040B480(GFXUTIL_GetNextRosterInfo(pUnit), pSkill, ".\\SKILLS\\Skills.cpp", 1285, 0);
                 pSkill = pNextSkill;
             }
 

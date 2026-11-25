@@ -59,7 +59,7 @@ extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const ch
 
 void __stdcall sub_00403040_VectorCtor(void* pArray, unsigned int nSize, int nCount, void (__fastcall* pfnCtor)(void*)); // 0x00403040
 
-void __fastcall sub_0042F530_UnicodeCtor(void* pThis);                                                      // 0x0042F530
+void __fastcall NPCMENU_ClearUnicode(void* pThis);                                                      // 0x0042F530
 
 int __cdecl FOG_IsExpansion();                                                                 // 0x00408F20
 
@@ -1158,7 +1158,7 @@ void __stdcall INV_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
             if (FOG_IsExpansion() && GAME_IsExpansion() && INV_IsOverWeaponSwapTab(sub_00468730(), sub_00468740()))
             {
                 unsigned int wszSwap[0x100];
-                sub_00403040_VectorCtor(wszSwap, 2, 0x200, sub_0042F530_UnicodeCtor);
+                sub_00403040_VectorCtor(wszSwap, 2, 0x200, NPCMENU_ClearUnicode);
                 sub_005267E0(W(wszSwap), D2LANG_GetStringFromTblIndex(0x58C6));
                 if (CUNIT_GetHotkeyBinding(0x2C, 1) != 0xFFFF)
                 {

@@ -682,7 +682,8 @@ void __fastcall PLAYER_InitClientPlayer(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
         if (pLight)
         {
             pUnit->pLight = pLight;
-            sub_00464CF0(pUnit, DLIGHTMAP_GetLightSize(pLight));
+// build: symbol ?CUNIT_SetStartLight@* 0x00464CF0
+            CUNIT_SetStartLight(pUnit, DLIGHTMAP_GetLightSize(pLight));
         }
     }
 
