@@ -1373,11 +1373,6 @@ void __stdcall SCALE_SetDefaultFactor()
     return gpGraphicsInterface->pfSetGlobalScale(gnScaleFactor);
 }
 
-int __stdcall sub_J03_EmitScaleReaders()
-{
-    return gnChangedScaleFactor + gnPerspectiveScaleX + gnPerspectiveScaleY;
-}
-
 // 0x004F6610
 void __cdecl D2GFX_IncreaseScaleFactor()
 {
