@@ -1,3 +1,6 @@
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00711DA0
+
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
