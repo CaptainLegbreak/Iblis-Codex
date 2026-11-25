@@ -16,6 +16,7 @@
 #include "D2GameTypes.h"
 #include "D2NpcIndex.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include <D2UnitData.h>
@@ -96,19 +97,14 @@ D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, 
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 
 void __stdcall D2COMMON_10251_Return(D2InventoryStrc* pInventory); // 0x0063BD00
 
 void __stdcall INVENTORY_RemoveInventoryItems(D2InventoryStrc* pInventory); // 0x0063CB70
 
-D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 
-D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 
@@ -199,7 +195,6 @@ void __fastcall NPCMENU_CheckObjectFound(D2UnitStrc* pUnit); // 0x004B3360
 
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
-int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 
 struct D2ClientObjectStrc
 {
@@ -440,7 +435,6 @@ int __cdecl sub_00468740(); // 0x00468740
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 
 int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
@@ -628,7 +622,6 @@ void __fastcall MSG_SendFourDwords(char nCommand, int nUnitId, int nArg1, int nA
 
 int __fastcall ITEM_GetDropSound(D2UnitStrc* pItem); // 0x004C1D60
 
-D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 extern int gnGlobal_007C0D3F; // 0x007C0D3F
 
@@ -756,9 +749,7 @@ D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 extern "C" int __fastcall sub_004AC7E0(D2UnitStrc* pUnit, unsigned short wMask); // 0x004AC7E0
 
-int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pPath); // 0x00648A00
 
-int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pPath); // 0x00648A10
 
 extern "C" int __stdcall sub_0064A210(D2UnitStrc* pMissile); // 0x0064A210
 
@@ -766,7 +757,6 @@ extern "C" int __stdcall sub_0064A280(D2UnitStrc* pMissile); // 0x0064A280
 
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
-void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
 struct RecordView
 {
@@ -872,7 +862,6 @@ void __cdecl sub_005269D0(int,Unicode*,const Unicode*,...); // 0x005269D0
 
 unsigned int __stdcall UNITS_GetHealingCost(D2UnitStrc* pUnit); // 0x00622DE0
 
-int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc*); // 0x00625D10
 
 int __stdcall ITEMS_GetNoOfUnidItems(D2UnitStrc*); // 0x0062A530
 

@@ -9,6 +9,7 @@
 #include "D2MultiTypes.h"
 #include "D2ClientTimer.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -230,9 +231,7 @@ void __fastcall MSG_SetProgress(int nValue, int nDivisor); // 0x00478130
 
 D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 int __stdcall INV_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
 

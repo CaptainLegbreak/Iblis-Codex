@@ -4,8 +4,8 @@
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "D2SetsTxt.h"
+#include "D2CommonApi.h"
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
 unsigned int __fastcall SEED_GetLowSeed(D2SeedStrc*); // 0x00650E50
 void __fastcall SEED_InitLowSeed(D2SeedStrc*, unsigned int); // 0x00650E40

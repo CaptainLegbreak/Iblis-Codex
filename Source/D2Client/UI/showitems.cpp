@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -40,7 +41,6 @@ int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 
@@ -82,7 +82,6 @@ int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc*); // 0x00629900
 
 unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc*); // 0x0062BC20
 
-D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
 
 void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int dwColor, int eDrawMode, int nColor); // 0x005023B0
 

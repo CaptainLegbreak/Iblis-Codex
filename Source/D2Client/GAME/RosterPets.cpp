@@ -9,6 +9,7 @@
 #include "D2ClientUi.h"
 #include "D2StatIds.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 struct Unicode;
 
@@ -505,7 +506,6 @@ void __cdecl GFX_UpdatePetFlags()
 }
 
 
-int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
