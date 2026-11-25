@@ -116,13 +116,10 @@ extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 
 extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 
 void* __fastcall sub_0046E570_GetGfxEntry(D2UnitStrc* pUnit, int nMode); // 0x0046E570
@@ -205,7 +202,6 @@ D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 
 

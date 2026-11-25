@@ -70,11 +70,9 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 
 
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 
 int __fastcall SKILLS_StartSkillOnUnit(D2UnitStrc* pUnit, D2ClientSkillCmdStrc* pArgs); // 0x004C6EB0
@@ -101,15 +99,12 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
-int __cdecl GAME_GetCurrentTime(); // 0x0044DAA0
 
-void __fastcall GAME_SetInteractDeadline(int nValue); // 0x0044DAD0
 
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x00451F30
 
 
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 
 

@@ -217,7 +217,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
-int __cdecl AUTOMAP_GetAutomapFade(); // 0x004576C0
 
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
@@ -306,7 +305,6 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                
 
 int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 extern int gnScreenWidth;                                                                               // 0x0071146C
 
@@ -656,7 +654,6 @@ struct D2EscMenuUIStateStrc;
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
@@ -1129,7 +1126,6 @@ void __stdcall sub_0047D840_OptionMouseUp(SMSGHANDLER_PARAMS* pMsg)
 }
 
 
-void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 extern int gbPanelFlag; // 0x0071315C
 

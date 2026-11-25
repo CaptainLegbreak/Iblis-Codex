@@ -1337,9 +1337,7 @@ enum D2C_CmdTblConstants
 
 #define BODYLOC_BELT 8
 
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 
 
@@ -1347,7 +1345,6 @@ int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 
-int __cdecl AUTOMAP_GetAutomapFade(); // 0x004576C0
 
 
 
@@ -1362,7 +1359,6 @@ void __fastcall SPELLSEL_AssignHotkey(int nHotkey); // 0x004A9E60
 
 void __fastcall SPELLSEL_SelectHotkey(int nSlot); // 0x004AA030
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 
 

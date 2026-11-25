@@ -41,7 +41,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __fastcall ROSTER_GetPartyFlags(D2StoredUnitRecordStrc* pEntry); // 0x00479D20
 extern int gnScreenWidth; // 0x0071146C

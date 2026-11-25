@@ -113,7 +113,7 @@ int BNGatewayAccess::GetSystemTimeZone()
     const unsigned short nLangId = GetUserDefaultLangID();
     if ((nLangId & 0x3FF) == 9 && (nLangId >> 10) == 3)
         return 480;
-    return tTimeZone.f_0;
+    return tTimeZone.nBias;
 }
 
 // build: symbol ?Nth@BNGatewayAccess@@AAEPBDH@Z 0x00517FD0

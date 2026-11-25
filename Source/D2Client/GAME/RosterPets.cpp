@@ -128,7 +128,6 @@ struct D2HirelingInfoStrc
     int unk0x08[2];
 };
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 
 

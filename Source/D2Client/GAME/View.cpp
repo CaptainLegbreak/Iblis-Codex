@@ -124,7 +124,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
@@ -134,9 +133,7 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 void __cdecl sub_00497300(); // 0x00497300
 
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 
@@ -193,7 +190,6 @@ extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 
 extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 
 

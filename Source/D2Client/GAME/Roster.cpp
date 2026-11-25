@@ -233,7 +233,6 @@ char* __fastcall ROSTER_GetNameEx(int nUnitId); // 0x0047A1F0
 
 
 
-D2RosterInfoStrc** __fastcall ROSTER_GetRosterInfoList(int nUnitId); // 0x0047A310
 
 
 

@@ -756,7 +756,7 @@ void __fastcall BNDOWNLOAD_ResolveHost(char* szResult, const char* szHost)
     *szResult = 0;
     unsigned long dwThreadId = 0;
     gtDnsArgs.szResult = szResult;
-    gtDnsArgs.f_4 = szHost;
+    gtDnsArgs.szHost = szHost;
     void* hThread = CreateThread(0, 0, BNSEND_ResolveHostThread, &gtDnsArgs, 0, &dwThreadId);
     while (!InterlockedCompareExchange(&gnDnsDone, 0, 0))
     {

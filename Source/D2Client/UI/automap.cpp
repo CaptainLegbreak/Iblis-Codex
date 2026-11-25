@@ -1016,7 +1016,6 @@ extern int gTextY; // 0x007A51BC
 
 extern int gTextRight; // 0x007A5220
 
-PlayerListHead* __fastcall ROSTER_GetRosterInfoList(int playerId); // 0x0047A310
 
 void* __fastcall Allocate(unsigned int bytes, const char* file, int line, unsigned int flags);
 
@@ -1474,7 +1473,6 @@ const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
 
 const char* __stdcall UNITS_GetPlayerName(D2UnitStrc* pUnit); // 0x006221A0
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 
 
@@ -1581,7 +1579,6 @@ struct D2CropRectStrc
     int nBottom;
 };
 
-static int __cdecl AUTOMAP_GetAutomapFade();                                                                          // 0x004576C0
 
 void __stdcall TEXTURE_CelDrawClipped(D2CelContextStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
 

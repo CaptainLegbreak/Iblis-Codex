@@ -48,13 +48,10 @@ int __cdecl TEXT_IsTextBoxOpen();                                               
 D2UnitStrc* __cdecl TEXT_GetTextUnit();                                                             // 0x0049E8B0
 void __fastcall TEXT_SetHoverUnit(D2UnitStrc* pUnit);                                                            // 0x0049DA30
 void __cdecl TEXT_ClearHoverUnit();                                                                      // 0x0049DA50
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType);                    // 0x00463990
 void __fastcall VIEW_SetViewDirty(D2ViewStrc* pView);                                               // 0x00475FF0
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 int __cdecl GAME_IsLeftButtonHeld();                                                                                 // 0x0044BF30
-int __cdecl GAME_GetCurrentTime(); // 0x0044DAA0
 unsigned int __cdecl GAME_GetInteractDeadline(); // 0x0044DAC0
-void __fastcall GAME_SetInteractDeadline(int nValue); // 0x0044DAD0
 extern "C" int __cdecl PLAYER_GetScreenOffsetX();                                                          // 0x0045AFC0
 extern "C" int __cdecl PLAYER_GetScreenOffsetY();                                                      // 0x0045AFD0
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                                                     // 0x00620650

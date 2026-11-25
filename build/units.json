@@ -750,6 +750,11 @@
      "length": 271
     },
     {
+     "va": "0x0040EB10",
+     "length": 3,
+     "name": "sub_0040EB10"
+    },
+    {
      "va": "0x006CA6F0",
      "length": 12
     }
@@ -1403,27 +1408,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00402370.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00402370",
-     "length": 5,
-     "name": "sub_00402370"
-    },
-    {
-     "va": "0x0040ABE0",
-     "length": 3,
-     "name": "sub_0040ABE0"
-    },
-    {
-     "va": "0x0040EB10",
-     "length": 3,
-     "name": "sub_0040EB10"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_00401DF0.cpp",
    "rank": 0,
    "functions": [
@@ -1509,6 +1493,11 @@
    "file": "Source/Fog/Unknown_00402380.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00402370",
+     "length": 5,
+     "name": "sub_00402370"
+    },
     {
      "va": "0x00402380",
      "length": 218
@@ -3678,6 +3667,11 @@
      "va": "0x0040AB00",
      "length": 209,
      "name": "?FOG_AsyncDataFree@@YIXPAUAsyncData@@@Z"
+    },
+    {
+     "va": "0x0040ABE0",
+     "length": 3,
+     "name": "sub_0040ABE0"
     }
    ]
   },

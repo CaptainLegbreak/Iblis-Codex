@@ -42,10 +42,10 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 603 |
+| Compilation units | 602 |
 | … in a file with its original name, whole | 294 |
 | … pieces of an original file still split (in 33 files) | 106 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 203 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 202 |
 | Record definitions private to a source file (`struct`/`union` in a .cpp) | 1910 |
 | Unnamed fields (`unk0x..`) in the shared headers | 647 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 44 |
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`, an `if`/`else` whose two arms are identical). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
 
-Not listed one by one: 4170 functions are compiled with `/GS-` and 1565 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 95 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
+Not listed one by one: 4170 functions are compiled with `/GS-` and 1566 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 95 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -103,6 +103,7 @@ Not listed one by one: 4170 functions are compiled with `/GS-` and 1565 with `/E
 | 0x004020D0 | sub_004020D0_GetLineFromAddr | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) |
 | 0x004021D0 | sub_004021D0_EnumerateModules | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) |
 | 0x00402280 | sub_00402280_SetSearchPath | `Fog/Unknown_00402280.cpp` | link-time code generation (/GL /LTCG) |
+| 0x00402370 | sub_00402370 | `Fog/Unknown_00402380.cpp` | link-time code generation (/GL /LTCG) |
 | 0x00402380 | sub_00402380_FindFileInPath | `Fog/Unknown_00402380.cpp` | link-time code generation (/GL /LTCG) |
 | 0x00402460 | sub_00402460_LoadModule | `Fog/Unknown_00402380.cpp` | calling-convention shim, link-time code generation (/GL /LTCG) |
 | 0x00402530 | sub_00402530_UnloadModule | `Fog/Unknown_00402530.cpp` | link-time code generation (/GL /LTCG) |
@@ -259,6 +260,7 @@ Not listed one by one: 4170 functions are compiled with `/GS-` and 1565 with `/E
 | 0x0040E980 | ERRORMANAGER_GetCpuBrandIndex | `Fog/Src/ErrorManager.cpp` | compiler option /EHa, inline assembly |
 | 0x0040E9E0 | ERRORMANAGER_GetCpuidEdx | `Fog/Src/ErrorManager.cpp` | compiler option /EHa, inline assembly |
 | 0x0040EA00 | ERRORMANAGER_WriteProcessorReport | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x0040EB10 | sub_0040EB10 | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x0040EB20 | ??2@YAPAXIPAX@Z | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040EB30 | ??3D2LogMessageStrc@@SAXPAX0@Z | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x0040EB40 | sub_0040EB40_GetMessageData | `Fog/Src/LogManager.cpp` | compiler option /EHa |
