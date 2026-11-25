@@ -132,26 +132,6 @@ static int BNSEND_MapKeyChar(unsigned char cChar)
     return gacCDKeyMap[cChar];
 }
 
-long __stdcall sub_M106_Emit_0051DC70(long* pTime)
-{
-    return BNDOWNLOAD_GetTime(pTime);
-}
-
-unsigned int __stdcall sub_M106_Emit_0051DD10(int n)
-{
-    return BNSEND_NibbleToHex(tolower(n)) + BNSEND_NibbleToHex(tolower(n + 1));
-}
-
-int __stdcall sub_M106_Emit_0051DD20(int n)
-{
-    return BNSEND_HexToNibble((char)tolower(n)) * 16 + BNSEND_HexToNibble((char)tolower(n + 1));
-}
-
-int __stdcall sub_M106_Emit_0051DD40(int n)
-{
-    return BNSEND_MapKeyChar((unsigned char)tolower(n)) * 24 + BNSEND_MapKeyChar((unsigned char)tolower(n + 1));
-}
-
 // 0x00410B10
 void __stdcall sub_00410B10(unsigned char* pBits, int nBit)
 {

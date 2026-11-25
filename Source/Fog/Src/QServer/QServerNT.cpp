@@ -205,13 +205,6 @@ static int QSERVERNT_PostRead(D2QueueServerStrc* pServer, D2QClientStrc* ptClien
     return bOk;
 }
 
-unsigned int __fastcall sub_Emit_006C2420(D2QueueServerStrc* pServer, int nSlot)
-{
-    D2SockAddrInStrc tAddr;
-    int nAddrLen;
-    return sQSNTAccept(nSlot, &nAddrLen, pServer, &tAddr);
-}
-
 // 0x006C23B0
 static void __stdcall QSERVERNT_QueueMessage(D2QClientStrc* pConn, const void* pData, unsigned int nSize)
 {

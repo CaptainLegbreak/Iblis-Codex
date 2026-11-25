@@ -99,11 +99,6 @@ static inline int MONSTERMODE_IsActionFrame(D2UnitStrc* pUnit)
     return pUnit->nActionFrame == 1;
 }
 
-void __fastcall sub_M111_Emit_005A64F0(D2UnitStrc* pUnit, int* pResult)
-{
-    *pResult = MONSTERMODE_IsActionFrame(pUnit) + 1;
-}
-
 // build: symbol ?BigIsEven@* 0x00421440
 static int BigIsEven(const BigBuffer& a)
 {
