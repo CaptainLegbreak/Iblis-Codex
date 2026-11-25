@@ -8,7 +8,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- **0x6BD230 (Fog Excel.cpp, borrowed; from lane 7):** working from lanes/borrowed/ and lane7.md.
+- **0x6BD230 (Fog Excel.cpp, borrowed; from lane 7):** started 2026-11-25 ~11:10 PT. Reproduced lane 7's 244/246 in Excel.cpp (typed `D2TxtLinkStrc*` parameter, the goto-found loop with pEntries loaded inside the outer loop); everything matches but the dead `push ecx` slot. New forms tried, none gives the slot: an inlined finder that returns found and writes the insertion point through an int* out-parameter (`while (Find(pLink, nKey, &nLow)) ++nKey;`, 236 B, different allocation); a found-entry pointer; a found index with `< 0` test; `for (;; ++nKey)` with break on `nLow >= nHigh`. Next: object locals with inline members around the search, and the Excel.cpp call site's view of the parameter types.
 
 - **lane3/stpl-chat (PARKED, see Left in place):** D2Common's chat tables (Ignorelist.cpp 0x60DC70-0x611560: ChatIgnoreList, StringEntryNode/MappingEntryNode, TSExplicitList and TSHashTable<...,HASHKEY_STRI>) onto stplhash.h, plus CelCmp.cpp's 16 strays at 0x60E0D0-0x60E390, which are that object's. The last part of the stpl one-definition job.
 
