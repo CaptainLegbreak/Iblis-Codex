@@ -14,7 +14,7 @@ struct D2WinControlStrc;
 struct D2WinSmackStrc;
 
 D2SquelchListStrc* __cdecl sub_00611560_GetSquelchList(); // 0x00611560
-D2WinControlStrc* __fastcall BUTTON_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7, int a8, int a9, int a10, int a11); // 0x00501290
+D2WinControlStrc* __fastcall BUTTON_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int pCallback, int nVirtualKey, int nBaseFrame, int dwButtonFlags, int nStringId, int pUpdateHoverState); // 0x00501290
 D2WinControlStrc* __stdcall CONTROL_Create(D2WinControlInitStrc* pControlInit); // 0x004F93C0
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
