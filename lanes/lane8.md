@@ -45,7 +45,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
   COLLISION_CheckMaskWithSize's unit size), Drlg.cpp's saved-flag count, Preset.cpp's Storm links, MonsterTbls'
   hireling table pointer, the LvlPrest record's Def, PathUtil's direction triplets (the three test directions).
   Unused padding-struct fields with no evidence stay as they are.
-- lane8/audit-decls-d2common 14822832, on main c349b2cc (#393), precheck 0 not all equal (all 82 D2Common units built),
+- lane8/audit-decls-d2common 8ebe1940, rebased on main 897e604e (#395, the TileSub/Dungeon conflict with the emit and noinline merges resolved), precheck 0 not all equal (all 82 D2Common units built),
   auditguard no count rose; full verify VERIFIED, borrowed data 261 B (= main). 190 D2Common functions declared
   privately in two or more of the module's files (those that include D2Common.h) are declared once in D2Common.h.
   Kept private: seven whose copies disagree on types or linkage (INVENTORY_GetEquippedWeapon,
@@ -77,6 +77,11 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 
 ## Questions
 ## Notes for other lanes
+- **Lane 2, the D2Common.h / D2CommonApi.h split (coordinator's request):** lane 8 takes the declarations D2Common's own
+  units use, in Source/D2Common/D2Common.h (lane8/audit-decls-d2common); lane 2 the ones other modules call, in
+  Source/Include/D2CommonApi.h (lane2/decls-d2common). No D2Common unit includes D2CommonApi.h, so the two don't
+  overlap. Whoever is merged second rebases; if it's lane 8, I rebuild all 82 D2Common units (ItemTbls.cpp and
+  TokTbls.cpp flip with D2Common.h's contents).
 - VC8 behaviours found while removing forcing constructs (each reproduced in a test build), in case they match one of yours:
   - **A store the original repeats** (e.g. `x = 0; ...; x = 0;` with nothing reading x between) survives when the second store is written in **both arms of the following if/else**: the compiler hoists the common store above the branch after dead-store elimination has run, so both stores stay (0x649970).
   - **A range check `v >= 0 && v < N` on one value** is merged into one unsigned compare (`cmp bl, N-1 / ja`). The original's two-test form (`test bl, bl / jl / cmp bl, N / jge`) comes out when the source reads the field twice (`(c = p->f) >= 0 && p->f < N`): the merge runs before the two loads are combined, and they still end up in one register (0x62B5B0's class check).
