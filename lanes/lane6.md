@@ -11,7 +11,7 @@ Status (Wed Nov 25 01:55 PST 2026): data-only-units (#385), lang-copies-2 (#386)
 
 
 
-- lane6/emit-trim (rebased onto #387 and re-verifying; CelCmp.cpp's part is split out as lane6/emit-trim-celcmp, so this branch no longer touches that file): 22 emit helpers and one noinline in my other files. Line with SHA and tree follows within minutes of the build.
+- lane6/emit-trim 10ef3d4c (on #387; replaces af9fc3bf; no longer touches CelCmp.cpp, whose part is lane6/emit-trim-celcmp): 22 emit helpers deleted where their unit stays all equal without them (SpriteCache, SubTile, Unknown_006008D0, CharSel_0042FFE0, CharSel_004378D0, MainMenus, ChatDlg, D2WinImage, D2BNClient Unknown_00518C00/Unknown_0051A470, Bnclient Unknown_00520DC0), with the statics only they called, and ChatDlg's one unneeded `__declspec(noinline)`. Full build: Game.exe identical, tree f6bd7468dfb1e522d9218a72974c611df5dcc3fe, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
 
 
 
