@@ -2,7 +2,7 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 ~02:30 PT): shim-trim-r2 (#387) and include-decls (#389) merged. dead-records-r2 still Ready (on #386, applies cleanly to #389). Next: agreeing private records on #389.
+Status (Wed Nov 25 ~02:45 PT): dead-records-r2 Ready. Private-record rescan on #389 found nothing left to share safely (see Questions); asked for next work.
 
 ## Claimed
 
@@ -46,6 +46,7 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
 
 ## Questions
 
+- **Coordinator: lane 2's lists are close to dry; what next?** Rescan on #389: of the 178 agreeing multi-file record names, the D2 records left are (a) split pieces of one original file (SoundInst/_004B9B50, Unknown_004BC1B0/_004BE770, editbox/Unknown_004BABF0/_004BBE10, chat/Unknown_0047A980/_0047CC90), which are one file's records, not a header's; (b) the inv/Unknown_00482C70 and text/Unknown_004A43E0/_004A6460 context clusters; (c) records whose move flips a unit (CharSel, the quest info pair, D2SavedItemStrc, the client missile mode); (d) copies of a header record (D2BinFieldStrc in D2Records.h, the crash pair in D2CrashTypes.h) where including the header clashes with or flips every unit tried (5 of 5); (e) stand-ins (lane 7's). The unk0x fields left are unread padding, and the shim and dead-copy re-runs are done (dead-records-r2 is Ready). Options I see: take a module's private-prototype move for an owner who wants help, or name the padded views' fields where a unit reads them. Tell me which, or give me something else; until then I'll re-run the sweeps on each new main.
 
 
 
