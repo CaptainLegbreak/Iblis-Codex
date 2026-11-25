@@ -18,15 +18,13 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 07:25 PST 2026: audit-decls-d2client rolled back again (#398, lane 1's SkillDesc join); regenerated on #398 limited to my own files, rebased onto #399, reposted.
+- Wed Nov 25 07:55 PST 2026: audit-decls-d2client merged in #400. Starting the second pass (functions declared with several spellings).
 
 ## Ready
 
-- lane4/audit-decls-d2client e6efd2b1c (on #399; now limited to lane 4's own files so lane 1's joins can't collide with it): audit item 4 for 0x440000-0x49FFFF, per the coordinator's (a). New module header Source/D2Client/D2ClientFuncs.h declares 331 functions of my range once (those declared with one spelling in two or more D2Client files); the 55 files of my range that declared them include it after D2Client.h and lose their 962 private copies. Files from 0x4A0000 up are untouched and keep their copies (lane 1 can switch them over). Left private: a function whose definition is spelled differently, whose linkage differs, that uses `Unicode`, or that a data table's extern stub declares. Seven declaration-count units don't include it (listed in the header): inv.cpp, inv_004886C0, inv_0048BC10, inv_0048DD90, useitem, Item.cpp, UnitSnd. All 139 D2Client.h includers all equal; audit guard: no count rose. Full build: Game.exe identical, tree 3214eae0c0a4516dff24442caf622f5f7d4480be, borrowed code / data 11,250 / 261 B.
 
 ## Claimed
 
-- lane4/audit-decls-d2client (posted ready; audit item 4, functions defined in 0x440000-0x49FFFF): their prototypes go into D2Client.h and the private copies in D2Client files go, a few at a time, starting with the single-spelling ones (sub_00463DD0_GetPlayerUnit, CUNIT_IsDeadOrDying, sub_00463DE0_GetPlayerUnit, GAME_ResetMouseButtons, GAME_GetDifficulty …). 596 functions / 3,296 private declarations in all.
 
 ## Questions
 
