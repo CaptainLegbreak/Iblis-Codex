@@ -2,7 +2,13 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 14:54 PT): nothing Ready. On the borrowed functions: 0x62B5B0 (two findings added below, still not matched), 0x679C80 parked with its notes, 0x677880 next.
+Status (Wed Nov 25 15:04 PT): nothing Ready. Borrowed functions: 0x677880 started (first reading below); 0x62B5B0 has an exact target but no plain source for it yet; 0x679C80 parked with its notes.
+
+**0x677880, first reading on #411** (OutPlace.cpp, the context copy marked; 4232/4232):
+  - 661 unmasked bytes as it stands; lane 7's seed form brings it to 564, but only with a seed pointer local as well: `D2SeedStrc* pSeed = &pDrlg->pSeed; unsigned int nHighSeed = pSeed->nHighSeed; unsigned __int64 lSeed = nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed; pSeed->nLowSeed = ...; pSeed->nHighSeed = ...; bOffset = (unsigned int)lSeed & 1;`. Without `pSeed`, or with const locals, the compiler normalises it back (661).
+  - The frame is a permutation, not a different set: counting `[ebp-N]` operands slot by slot, the original has 385 references in its 29 scalar slots and ours 380, with the same tail from -0x50 down. The sort is by slot weight (c2slots' rules), so the order follows from five references that are memory operands in the original and register operands in ours.
+  - Where they are (the hunks that are not slot renames, 55 on this base): +0x4AB..+0x4D7, where the original keeps the constant 1 in edx, builds the index in ebx and reloads ebx from its slot afterwards (ours writes the immediate and uses edx as scratch); +0x579..+0x59A and +0x665..+0x675, where the original compares `[ebp-0x1C]` in memory and then loads it into ebx (ours goes through eax); +0x9F7..+0xA18, one `imul`/`lea` order and one extra reload. Each is an allocator decision about one variable; the slot order should follow once they are right.
+  - Tool: /home/claude/scripts/slotmap.py ROOT VA UNIT (pairs our slots with the original's on aligned instructions and lists the non-slot hunks), slotcount.py (references per slot, both sides).
 
 **0x62B5B0, not matched; what is new** (base: lane 7's ef5bffc9d body on #408, 1196/1192; every probe is one unit build, about 12 s):
   - What the original's second stat loop needs is now known exactly. The data-tables pointer of that loop must not be carried round the back edge. In our build the optimiser hoists the `sgptDataTables` load out of the loop and reloads it after each call (round-1 IL: loads in the preheader, at the three arm ends and on two split edges; the web is live through the loop top). That carried web is what makes the round-1 pressure cut (nCharClass -> ebx) chop pPlayer, i, nCount and pItem after every `jcc` of the loop top, so pPlayer's reload lands at its first use. The region builder is not the cause: its call 1 already puts the preheader, the loop top and the three blocks after it in one region.
