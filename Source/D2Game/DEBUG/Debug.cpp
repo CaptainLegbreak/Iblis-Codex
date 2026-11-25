@@ -70,12 +70,12 @@ struct D2DrlgActStrc;
 void* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int a2, int a3); // 0x00619DA0
 
 // 0x00534730
-void* __stdcall DEBUG_GetRoomBySubtileCoordinates(unsigned char bAct, int a2, int a3)
+void* __stdcall DEBUG_GetRoomBySubtileCoordinates(unsigned char bAct, int nX, int nY)
 {
     D2GameStrc* pGame = sub_0052F6E0_LockFirstGame();
     D2_ASSERT(bAct < 5, 141);
 
-    void* pResult = DUNGEON_FindRoomBySubtileCoordinates(pGame->pAct[bAct], a2, a3);
+    void* pResult = DUNGEON_FindRoomBySubtileCoordinates(pGame->pAct[bAct], nX, nY);
     sub_0052DF40_UnlockFirstGame();
     return pResult;
 }

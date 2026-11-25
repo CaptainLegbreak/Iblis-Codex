@@ -3932,11 +3932,11 @@ void __fastcall sub_005E5280_AiSpecialState04(D2GameStrc* pGame, D2UnitStrc* pUn
 }
 
 // 0x005E5710
-void __fastcall AITHINK_MinionCallback_CheckDead(D2UnitStrc* pUnit, void* a2, void* a3)
+void __fastcall AITHINK_MinionCallback_CheckDead(D2UnitStrc* pUnit, void* pDeadMinionFound, void* pUnused)
 {
     if (!pUnit || MONSTERS_IsDead(pUnit))
     {
-        *(int*)a2 = 1;
+        *(int*)pDeadMinionFound = 1;
     }
 }
 

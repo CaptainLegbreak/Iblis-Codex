@@ -314,7 +314,7 @@ int __fastcall SKILLS_DoInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkill
 }
 
 // 0x005C8E30
-int __fastcall SKILLS_StartInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5)
+int __fastcall SKILLS_StartInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -358,7 +358,7 @@ int __fastcall SKILLS_StartInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
     const int nEndFrame = pGame->dwGameFrame + 6;
     D2COMMON_10476(pStatList, nEndFrame);
     EVENT_SetEvent(pGame, pUnit, 12, nEndFrame, 0, 0);
-    SKILLS_DoInferno(pGame, pUnit, nSkillId, nSkillLevel, a5);
+    SKILLS_DoInferno(pGame, pUnit, nSkillId, nSkillLevel, nMissileId);
     return 1;
 }
 
