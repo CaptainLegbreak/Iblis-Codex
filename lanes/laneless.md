@@ -37,6 +37,18 @@ call stays the coordinator's. This section is replaced at each check.
     - A greedy search over 11 control-flow groups (the flag block, the threat lookup, the first loop's header, the
       dead/min updates, nested collision test, inner-loop exit, the second loop as while/for/do, the tail) found
       nothing better than 310 from the default start or a random seed. Template: `lanes/vsearch/005DD7F0-wide.tpl`.
+- **2026-11-24 17:43 PT, 0x5EDC50: 112 -> 13 differing lines from a declaration change** (main #374):
+  - AITACTICS_WalkToTargetCoordinatesDeleteAiEvent (0x5DEE50) takes `unsigned int nX, unsigned int nY`. With that
+    prototype VC8 no longer folds the first X's -40 into the quotient, which no expression form avoided.
+  - The change is safe on its own. The function's body only copies nX and nY into the mode-change struct, and
+    with the prototype changed in all three files that declare it, AiTatics.cpp and AiThink4.cpp still build equal.
+  - With it, the +-30 term written `+ 30 * (bDirection ? -1 : 1)` (third call `(bDirection ? 1 : -1)`) and bCombat
+    read before nTargetDistance give 786/791 and 13 differing lines: `lanes/vsearch/005EDC50-near.cpp`.
+  - Left: the original forms the direction value as -30 * sign with `neg` and adds it. Here the sign test and
+    `neg` land one roll apart, and one prologue store moves.
+  - **For every lane:** a callee's parameter types change the caller's code where the body doesn't. When rewrites
+    of a stuck function's body stop moving it, try its callees' prototypes (signedness, width), since a
+    caller's arithmetic is done in the parameter's type.
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
