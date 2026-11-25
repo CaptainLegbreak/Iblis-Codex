@@ -708,18 +708,7 @@ static void __stdcall MONSTERUNIQUE_SpawnMinions(D2GameStrc* pGame, D2ActiveRoom
     }
 }
 
-D2UnitStrc* __fastcall MONSTERUNIQUE_SpawnUniqueGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nClassId, int bAllowChampion, unsigned short nX, unsigned short nY, int bAvoidWarps)
-{
-    D2UnitStrc* pMonster = MONSTERUNIQUE_SpawnUniqueMonster(pGame, pRoom, pRoomCoordList, nX, nY, -1, nClassId, bAvoidWarps);
-    if (!pMonster)
-    {
-        return 0;
-    }
-
-    MONSTERUNIQUE_AssignRandomUMods(pGame, pMonster, bAllowChampion);
-    MONSTERUNIQUE_SpawnMinions(pGame, pRoom, pRoomCoordList, pMonster, 1, 3, 6);
-    return pMonster;
-}
+D2UnitStrc* __fastcall MONSTERUNIQUE_SpawnUniqueGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nClassId, int bAllowChampion, unsigned short nX, unsigned short nY, int bAvoidWarps);
 
 D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreUniqueMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nUnitGUID, unsigned short nNameSeed, int bChampion, int bSuperUnique, short nBossHcIdx, unsigned char* pUMods)
 {
@@ -813,58 +802,9 @@ D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreUniqueMonster(D2GameStrc* pGame, D2A
     return pMonster;
 }
 
-void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
-{
-    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nUnitType != 1)
-    {
-        return;
-    }
+void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
 
-    unsigned char* pUMods = UModsOf(pUnit);
-    if (!pUMods)
-    {
-        return;
-    }
-
-    if (bUnique)
-    {
-        MONSTERUNIQUE_MarkUnique(pGame, pUnit);
-    }
-
-    const int nIndex = CountUMods(pUMods);
-    if (nIndex < 9)
-    {
-        pUMods[nIndex] = nUMod;
-        InitUMod(pUnit, nUMod, bUnique);
-    }
-}
-
-void __fastcall MONSTERUNIQUE_PromoteToChampion(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nUMod)
-{
-    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nUnitType != 1)
-    {
-        return;
-    }
-
-    D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
-    unsigned char* pUMods = pMonsterData ? pMonsterData->nMonUmod : 0;
-    if (!pUMods || TestMonTypeFlag(pUnit, 4))
-    {
-        return;
-    }
-
-    MONSTERUNIQUE_MarkUnique(pGame, pUnit);
-    SetMonTypeFlag(pUnit, 4 | 1, 1);
-
-    const int nIndex = MONSTERUNIQUE_GetUModCount(pUMods);
-    if (nIndex < 9)
-    {
-        pUMods[nIndex] = nUMod;
-        MONSTERUNIQUE_SpawnMinions(pGame, UNITS_GetRoom(pUnit), 0, pUnit, 1, 0, 0);
-    }
-}
+void __fastcall MONSTERUNIQUE_PromoteToChampion(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nUMod);
 
 // build: symbol ?MONSTERUNIQUE_PromoteToUnique@* 0x005A4940
 void __fastcall MONSTERUNIQUE_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUnit)

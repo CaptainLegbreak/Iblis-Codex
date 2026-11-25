@@ -2297,14 +2297,6 @@ int __fastcall SKILLS_SrvSt65_Throw_LeftHandThrow(D2GameStrc* pGame, D2UnitStrc*
     return 1;
 }
 
-int __fastcall SKILLS_SrvDo004_Unsummon(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill)
-        return 0;
-
-    sub_6FC7D260(pGame, pUnit, SKILLS_GetParam1(pSkill), 1);
-    return 1;
-}
+int __fastcall SKILLS_SrvDo004_Unsummon(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
 #include "gen/data/Source/D2Game/SKILLS/SkillBar.inc"

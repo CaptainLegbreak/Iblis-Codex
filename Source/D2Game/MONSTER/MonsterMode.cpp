@@ -2596,51 +2596,9 @@ static int __stdcall MONSTERMODE_CanCollideWithUnit(D2GameStrc* pGame, D2UnitStr
     return !pOwner || SUNIT_AreUnitsHostile(pGame, pOwner, pUnit) || pMissilesTxtRecord->nCollideFriend;
 }
 
-int __fastcall MISSMODE_UnitFindCallback_CanCollideWithMonster(D2UnitStrc* pUnit, void* pArgument)
-{
-    D2MissileUnitFindArgStrc* pArg = (D2MissileUnitFindArgStrc*)pArgument;
-    if (!pArg || !pArg->pMissilesTxtRecord)
-    {
-        return 0;
-    }
+int __fastcall MISSMODE_UnitFindCallback_CanCollideWithMonster(D2UnitStrc* pUnit, void* pArgument);
 
-    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
-    {
-        return 0;
-    }
-
-    return MONSTERMODE_CanCollideWithUnit(pArg->pGame, pArg->pMissile, pUnit, pArg->pOwner, pArg->pMissilesTxtRecord) != 0;
-}
-
-int __fastcall MISSMODE_UnitFindCallback_CanCollideWithGoodAlignmentUnit(D2UnitStrc* pUnit, void* pArgument)
-{
-    D2MissileUnitFindArgStrc* pArg = (D2MissileUnitFindArgStrc*)pArgument;
-    if (!pArg || !pArg->pMissilesTxtRecord)
-    {
-        return 0;
-    }
-
-    int nType = 6;
-    if (pUnit)
-    {
-        nType = pUnit->dwUnitType;
-    }
-    switch (nType)
-    {
-    case 0:
-        break;
-    case 1:
-        if (STATLIST_GetUnitAlignment(pUnit) != 2)
-        {
-            return 0;
-        }
-        break;
-    default:
-        return 0;
-    }
-
-    return MONSTERMODE_CanCollideWithUnit(pArg->pGame, pArg->pMissile, pUnit, pArg->pOwner, pArg->pMissilesTxtRecord) != 0;
-}
+int __fastcall MISSMODE_UnitFindCallback_CanCollideWithGoodAlignmentUnit(D2UnitStrc* pUnit, void* pArgument);
 
 int __fastcall MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster(D2UnitStrc* pUnit, void* pArgument)
 {
