@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 12:35 PST 2026: audit-decls-d2client-hi posted (the 0x4A0000-up files' shared declarations; D2Client's private copies are now 2,800 fewer over the four branches).
+- Wed Nov 25 12:35 PST 2026: audit-decls-d2client-hi posted (the 0x4A0000-up files' shared declarations; D2Client's private copies are about 2,290 fewer over the four branches).
 
 ## Ready
 
