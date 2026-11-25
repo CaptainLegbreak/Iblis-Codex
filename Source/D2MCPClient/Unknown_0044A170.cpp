@@ -7,7 +7,6 @@ typedef void (__fastcall* D2McpCallbackFn)(unsigned short wRequestId, unsigned c
 
 typedef int (__fastcall* D2McpPacketHandler)(const unsigned char* pPacket, unsigned int nSize);
 
-typedef unsigned int U32;
 
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -513,9 +512,9 @@ Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Uni
 
 extern D2McpPacketHandler gpfnMcpPacketHandlers[]; // 0x0070ED00
 
-extern "C" { U32 gSlotFirst; } // 0x00799300
+extern "C" { unsigned int gSlotFirst; } // 0x00799300
 
-extern "C" { U32 gSlotSecond; } // 0x00799304
+extern "C" { unsigned int gSlotSecond; } // 0x00799304
 
 struct D2McpGameInfoPacketStrc
 {
@@ -956,7 +955,7 @@ void __fastcall GAME_SetMcpCallbackB(D2McpCallbackFn pfnCallback)
 }
 
 // 0x0044B210
-extern "C" void __fastcall sub_0044B210_StoreSlots(U32 first, U32 second)
+extern "C" void __fastcall sub_0044B210_StoreSlots(unsigned int first, unsigned int second)
 {
     gSlotFirst = first;
     gSlotSecond = second;
