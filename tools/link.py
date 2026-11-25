@@ -194,8 +194,10 @@ class Link(object):
             m = re.search(r"_([0-9A-F]{8})$", d.get("name") or "")
             if m:
                 owner.setdefault(int(m.group(1), 16), d["file"])
-                if d.get("model") and d["model"].get("size"):
-                    plan_size[int(m.group(1), 16)] = d["model"]["size"]
+                # declared globals carry their size in the model; generated ones ("bytes", "string") at the top
+                size = (d.get("model") or {}).get("size") or d.get("size")
+                if size:
+                    plan_size[int(m.group(1), 16)] = size
         cands = collections.defaultdict(list)
         for u in self.units:
             for y in u.o.syms:
