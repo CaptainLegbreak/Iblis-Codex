@@ -4,11 +4,12 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #372 (round j127). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 844 B (was 15,691 B at #297). Placeholder files 261; shims 62; context copies 3. Names: blizzard 475, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
+- `main`: #373 (round j128). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 844 B (was 15,691 B at #297). Placeholder files 255; shims 56; context copies 3. Names: blizzard 475, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
 - **New: [queues.md](queues.md), what's left per lane** (regenerated on #366): placeholder files, context copies, forcing constructs, shimmed functions, per-file options, with each lane's own list. When your current branch is done, take the next item from your row. The forcing constructs (42) are lane 7's job now: owners, leave them to lane 7 unless you settle it with lane 7 in its file. The context copies outside Storm/Fog/SRP are lane 2's trim first (see Answers), then the owners'. Also regenerated (regenerated on #366): [borrowed-data.md](borrowed-data.md) (906 B, by current owner) and [language-objects.md](language-objects.md) (14 files still hold more than one copy, each a split to make).
 - In progress: nothing; next round as branches are posted ready.
 - **Renames are landing on main.** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
-- **Rebase requests:** `lane10/files-storm-2` (d203bc8 still leaves D2Client/GAME/Game.cpp NOT_ALL_EQUAL; rebuild on #372).
+- **Rebase onto #373, run namesync, and repost:** `lane2/bn-crypt-records` (D2BNClient/Unknown_0051C760.cpp went into BnSend.cpp in #373; apply the records there), `lane10/files-storm-3` (Storm/Unknown_006CAE80.cpp), `lane10/names-prefixfix-d2client-5` (D2Client/GAME/SCmd.cpp, UI/npcmenu.cpp).
+- **Commit messages land on main as written.** One commit was titled `wip` (#373; I renamed it to the D2DrlgTileFlags.h change before merging). Squash or name work-in-progress commits before posting a branch.
 - **Context copies: 3 left, all in Storm/Fog** (from 345 this morning). Shims are next: 68, most of them a register-argument call between two units. After any join, try removing the shim for that pair.
 - **Lane 5's six held copy branches are superseded by #354** (the static data marker and 28 objects' copies). Drop any whose copies #354 already covers. Repost the rest on #354 with markers, giving your verify's borrowed data figure (main: 844 B).
 - **If wine aborts with `free(): invalid pointer`** (every unit COMPILE_ERROR with empty output, 0 s): `unset TMPDIR` before building. A TMPDIR=/tmp in the session environment breaks wine 9.0 here.
@@ -310,6 +311,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #373 j128: d3d-strays-2, gdi-7cf0 (lane 9), join-bnsend-c760 (lane 6), a1q7, spawn-objmode (lane 5), winmsg-object-2 (lane 4), strays-5 (lane 1), fwd-decls, storm-cruft-4 (lane 3), ai-callback-args, client-text-records, client-ui-records, drlg-records, header-copies, shim-trim-d2common-2 (lane 2). Placeholders 261 -> 255, shims 62 -> 56, private records 2,481 -> 2,381.
 - #372 j127: skills-assign-plain (lane 8), glide-noinline (lane 9), join-006043b0 (lane 6), monster-run, strays-9b (lane 5), growable-ctor-2 (lane 3), umod-join-3 (lane 1). Placeholders 264 -> 261, forcing-construct functions 38 -> 37.
 - #371 j126: assume-macros-3 (lane 7; replaces the withdrawn first version merged by mistake in #366), ddcore-strays (lane 9), friendly (lane 5), logmanager-cruft (lane 3), files-d2client-2 (lane 10, 7 placeholders). Placeholders 273 -> 264.
 - #370 j125: glide-run (lane 9), join-belt-hotkeys, join-party-b030-2, join-player-2d00-3 (lane 4), keyconfig-join-2 (lane 1), sfile-links, sfile-next (lane 3). Placeholders 280 -> 273.
