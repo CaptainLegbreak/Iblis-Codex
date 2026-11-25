@@ -2,13 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 04:00 PST 2026): ready on #391: wregister-object, bn-getters. D2Win language copies checked: each run's copies already follow its files' code order, nothing to split. Next: placeholders by run (D2Launch/D2Multi interleave, Bnclient SRP pieces with lane 3).
+Status (Wed Nov 25 04:00 PST 2026): wregister-object and bn-getters merged (#393). Next: placeholders by run in D2Launch/D2Multi.
 
 ## Ready
 
-- lane6/wregister-object c4a81225 (on #391): Unknown_00506C40.cpp, D2Win's command-register object 0x506C40-0x506E5F. The four register/unregister functions were filed in D2Comp.cpp and D2WinImage.cpp; they sit together after D2WinSmack.cpp's code and their assert lines run 0x13-0x5A in address order, starting again below D2WinSmack's (up to 0xC0), so they are one file of their own between D2WinSmack and D2WinList (names are d2moo, so a placeholder). D2Comp.cpp drops the SMsg register declarations only they used, D2WinImage.cpp its copy of D2WinCommandRegisterStrc. One placeholder more, two files' strays gone. Full build: Game.exe identical, tree a268a0861a76a15ef254943dada7d2d8164415c7, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
-
-- lane6/bn-getters 6ed3dc82 (on #391): six one-line functions filed in D2Game/GAME/Game.cpp sit inside D2BNClient's code runs and read its globals, so they move to the files they sit in, in address order: 0x520650 and 0x5224E0 to BnSend.cpp, 0x520C40 and 0x5210E0 to BnDownload.cpp, 0x523A00/0x523AA0 to grid.cpp. GAME_GetAbortFlag and its four neighbours (0x520AE0-0x520B20) stay: BnDownload's 0x51C3E0/0x51CA30 would inline it in a shared unit, and the original calls it. Touches lane 5's Game.cpp (note below). Full build: Game.exe identical, tree 0428012b690674e45724cd69c65ac33bfe1372c8, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
+(nothing outstanding; wregister-object and bn-getters merged in #393)
 
 ## Questions
 
