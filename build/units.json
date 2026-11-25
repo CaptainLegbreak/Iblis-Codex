@@ -16939,10 +16939,47 @@
      "name": "?PLAYER_PlayerCommand@@YIHHHHE@Z"
     },
     {
+     "va": "0x004630E0",
+     "length": 70,
+     "name": "?sub_004630E0_GetPlayerTableA@@YIHPAEI@Z"
+    },
+    {
+     "va": "0x00463130",
+     "length": 70,
+     "name": "?sub_00463130_GetPlayerTableB@@YIHPAEI@Z"
+    },
+    {
+     "va": "0x00463180",
+     "length": 223,
+     "name": "AUTOMAP_UpdatePathAndMove"
+    },
+    {
+     "va": "0x00463260",
+     "length": 302
+    },
+    {
+     "va": "0x00463390",
+     "length": 912
+    },
+    {
      "va": "0x00463830",
      "length": 41,
      "name": "?PLAYER_GetBaseIdFromMonsterId@@YIHH@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -17829,69 +17866,6 @@
      "length": 23,
      "name": "?sub_00463810_GetMonsterName@@YIPBUUnicode@@PAUD2UnitStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004630E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004630E0",
-     "length": 70,
-     "name": "?sub_004630E0_GetPlayerTableA@@YIHPAEI@Z"
-    },
-    {
-     "va": "0x00463130",
-     "length": 70,
-     "name": "?sub_00463130_GetPlayerTableB@@YIHPAEI@Z"
-    },
-    {
-     "va": "0x00463180",
-     "length": 223,
-     "name": "AUTOMAP_UpdatePathAndMove"
-    },
-    {
-     "va": "0x00463260",
-     "length": 302
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00463390.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00463390",
-     "length": 912
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
