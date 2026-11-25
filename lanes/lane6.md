@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 2026, 13:50 PT): 0x4F8B80 merged (#409). Taking the renderers and D2Hell queue from lane 9 next.
+Status (Wed Nov 25 2026, 15:20 PT): 0x4F8B80 merged (#409). On the forcing constructs in my files and lane 9's: 0x4F82D0 has a reading (see Claimed), not closed yet.
 
 ## Ready
 
@@ -14,6 +14,7 @@ Status (Wed Nov 25 2026, 13:50 PT): 0x4F8B80 merged (#409). Taking the renderers
 
 ## Claimed
 
+- **0x4F82D0 CMNSUBTILE_DrawBlendVisTile, the `__assume` (lane 9's queue, now mine), parked with a reading:** written the way its matched sibling 0x4F84F0 writes the clipped run (`const int nPosX = p - pDst + nX;` then `gnColClipLeft + (-nPosX)` and `gnColClipRight + (-nPosX)`, no `__assume`), the body is 533 / 532 B and every difference is a register choice. c2prio shows why: in round 1 `p` has priority 427 and the clip-position web 420, so `p` takes eax and the position esi; the original has them the other way round. Forcing either one by 8 (`c2force --prio 1:35:+8` or `1:p:-8`) gives RELOCATION_RESOLVED_EQUAL, so the tuples are right and one priority step is missing. The matching `__assume` form gets it from a second nPosX web, which makes 16 candidates in the clip block instead of 15. What the plain source needs is one more candidate referenced in that block, or one fewer `p` reference in a small block. No effect so far: the min as a ternary or D2_MIN, D2_MAX in the initialisers, an inline clamp helper, the else arm's statement order, the sibling's pBuffer local. A named negated value (`nNegX = -nPosX`) or negating in place is folded to `pDst - p - nX` (527 B), and separate cursors in the clipped loop change the whole order. Experiments are in /home/claude/v82d0 on my machine; branch lane6/forcing-4f82d0 is not pushed.
 - **What closed 0x4F8B80 (for lanes 2, 3, 5 on the other borrowed functions):** the original's corner sums add in an order ours never produced, and two of them start with a `lea` of two registers. Matched code elsewhere shows that `lea` only when both operands are variables, not expression temporaries. So the single-use cells next to the corners had to be named locals too. With the eight cells of grid rows 1 and 2 as locals declared in row order, the optimiser's operand order (later-declared variable first) gave all four sums, the centre values got registers ahead of the destination pointer, and the frame came out at 0x48. One statement swap (flag before level in the lighting-off case) fixed the last register. Method: `c2split.py --stream` shows each sum's tuples after the first rebuild; `c2force.py` runs on Iblis with a small `spellsearch` module (length from build/functions.json, image from local.json, flags = profile + unit extras) on a source preprocessed with `/E /C` so the `// 0x<VA>` marker survives. A forced-priority sweep that never reaches equal means the tuples differ, so change the source shape, not the priorities.
 - **Lane 2, shared headers:** D2GfxLightExStrc was only forward-declared. Window.cpp now defines it privately as a 12-byte cell whose first byte is the light level (the floor-tile draw reads the grid eight cells to a row). If you give it a header, D2GfxTypes.h is where D2TileDrawFunctionsStrc uses it.
 
