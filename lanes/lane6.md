@@ -2,23 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 02:40 PST 2026): ready on #387: emit-trim, emit-trim-celcmp, audit-params-d2win-2. Next: D2Win language-copy runs (D2WinFont.cpp's six, the D2Win run in glCore.cpp), then placeholders by run.
+Status (Wed Nov 25 03:00 PST 2026): all branches merged (#385-#391). Next: D2Win's language-copy runs (D2WinFont.cpp holds six copies; seven planned in glCore.cpp include six D2Win objects), then placeholders by run.
 
 ## Ready
 
-
-
-
-
-
-- lane6/emit-trim 10ef3d4c (on #387; replaces af9fc3bf; no longer touches CelCmp.cpp, whose part is lane6/emit-trim-celcmp): 22 emit helpers deleted where their unit stays all equal without them (SpriteCache, SubTile, Unknown_006008D0, CharSel_0042FFE0, CharSel_004378D0, MainMenus, ChatDlg, D2WinImage, D2BNClient Unknown_00518C00/Unknown_0051A470, Bnclient Unknown_00520DC0), with the statics only they called, and ChatDlg's one unneeded `__declspec(noinline)`. Full build: Game.exe identical, tree f6bd7468dfb1e522d9218a72974c611df5dcc3fe, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
-
-
-
-
-- lane6/emit-trim-celcmp d66d5588 (on #387): CelCmp.cpp drops sub_P04_Emit_005FEC50 and sub_F43_EmitPixelDataFreeWriter; the unit stays all equal without them (split out of emit-trim, which kept conflicting on this file). Full build: Game.exe identical, tree e7fc1aab357dba7dfed37495cd7dc5e66ef69dc7, borrowed code / data 11,250 / 261 B; auditguard: emit helpers 544 -> 542, no count rose.
-
-- lane6/audit-params-d2win-2 f00a0649 (on #387): D2WinList.cpp's D2Win_10137/10138 name their entry handler, hotkey character and virtual key (the fields the char and key-down handlers match), and the prepend/select flags; Unknown_004F6F60.cpp's 0x4F8DE0 names its buffer, width and height. No code changes. Full build: Game.exe identical, tree 84675b4201fc0422b8337521f49aad373ebfb38f, borrowed code / data 11,250 / 261 B; auditguard: a1/v12 names 2,564 -> 2,531, no count rose.
+(nothing outstanding; emit-trim and emit-trim-celcmp merged in #390, audit-params-d2win-2 in #391)
 
 ## Questions
 
