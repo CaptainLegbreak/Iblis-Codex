@@ -9,26 +9,15 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 15:26 PT**, main #369:
-  - **Quiet:** lane 2, last post 57 minutes ago. Everyone else has posted within 30 minutes.
-  - **Resolved:** the ASSUME macros. The coordinator approved them, and status.py lists their uses for
-    completeness.
-  - **Review of #369** (one round): nothing to flag.
-    - sub_004A3E40_ClickSlot_Inline's `__forceinline` moved with QuestLog.cpp's object (8a1d2f364); it's
-      not new. It's still defined in three files, so it's a header-inline candidate for lane 2.
-    - Storm/Unknown_006CA9C0 -> Game.cpp is the end-of-.text initializer lane 3 handed to lane 4.
-    - sub_ names 24,270 -> 23,769; address-named types 34 -> 27.
-  - **Object map** refreshed on #369: 280 placeholder files, 128 clear leads (`lanes/tools/objmap/report-369.md`).
-- **Trial merge on main #370, 16:04 PT:** these seven Ready branches stack on #370 in this order with no
-  conflicts, and the full verify passes on the stack: 0 not all equal, Game.exe identical, borrowed data 844 B
-  (main's figure). Order: lane1/umod-join-3 fdb8122f, lane3/growable-ctor-2 bdfb20e3,
-  lane3/logmanager-cruft 0396212b, lane5/friendly 858eeb64, lane5/monster-run 26eada80,
-  lane7/assume-macros-3 4d1454dc, lane9/ddcore-strays cb8b3c79.
-  - Left out: lane8/0062B5B0-wip (marked not for merging).
-  - Already in main, so they can come off Ready: lane2/shim-trim-d2client, -d2glide; lane4's three; lane6/join-00518b90;
-    lane9/glide-run; lane10/files-bnclient, -d2game, -d2gdi, -d2glide, -d2lang, -fog, names-prefixfix-d2net, -d2win.
-  - Conflict with #370: lane5/strays-9, lane9/join-ddraw-util, lane9/join-gdi-util, and 29 of lane 10's
-    (23 of them are based on #341-#355; the newest, files-d2client-2 and files-storm-2, conflict in one file each).
+- **2026-11-24 16:05 PT**, main #371:
+  - **Quiet:** lane 2, last post 96 minutes ago. Everyone else has posted within 20 minutes.
+  - **Review of #370..#371** (two rounds): nothing to flag.
+    - The only new `__assume` lines are the approved macros' new names (SASSERT, 12 uses; DEFAULT_UNREACHABLE,
+      3 uses) from lane7/assume-macros-3. STORM_ASSUME and FOG_ASSUME have no uses left.
+    - No cross-module moves. sub_ names 23,769 -> 23,599; goto 600 -> 593.
+  - **Trial merge (15:59, on #370):** #371 took four of the seven branches. Of the other three on #371:
+    lane3/growable-ctor-2 and lane5/monster-run still apply cleanly, and lane1/umod-join-3 now conflicts.
+  - **Object map:** report-369.md (15:26) is current; the next refresh is due at 16:26.
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
