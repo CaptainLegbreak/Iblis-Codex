@@ -42,11 +42,9 @@ extern int gaSkillButtonState[];
 
 void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg);
 int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
-void __fastcall UI_SetUIVar(int nUIVar, int nState, int nArg); // 0x00455F20
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);
 D2UnitStrc* __cdecl sub_00463DD0();
 void __stdcall CURSOR_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
-void __fastcall MSG_SendTwoDwords(char nHeader, int nArg1, int nArg2); // 0x004786A0
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId);
 void* __fastcall SPELLSEL_GetSkillIconCel(D2SkillsTxt* pSkillsTxt); // 0x004A8C80

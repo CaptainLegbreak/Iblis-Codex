@@ -14,7 +14,6 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 
 

@@ -83,7 +83,6 @@ void __stdcall WINDOW_ShowAll(); // 0x004F5F60
 
 void __stdcall CLIENT_Initialize(int nArg, const char* szAddress); // 0x0052A750
 
-int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int)); // 0x00451BB0
 
 
 extern D2McpCallbackFn gpfnMcpPacket08Callback; // 0x007992F8
@@ -320,19 +319,15 @@ struct UnitPrefix { unsigned int prefix0; unsigned int prefix4; unsigned int pre
 
 typedef char check_UnitPrefix_identifier[OFFSET(UnitPrefix,identifier)==12?1:-1];
 
-extern "C" UnitPrefix* __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
-extern "C" void __fastcall MSG_SendTwoDwords(unsigned char command,unsigned int first,unsigned int second); // 0x004786A0
 
 extern "C" Auxiliary* __cdecl sub_004646A0_GetAuxiliary();
 
 extern "C" void __stdcall ENVIRONMENT_InitializeEnvironment(Context* context,Auxiliary* auxiliary,int mode,int angle,int flag); // 0x0061C240
 
-extern "C" void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
 extern "C" void __stdcall TEXT_FreeTextHeader(Allocation* allocation); // 0x006612A0
 
-extern "C" int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 extern "C" Context* gContext; // 0x007A0634
 
@@ -348,7 +343,6 @@ extern "C" int gCoordinateOffset;
 
 int __stdcall GAME_Shutdown(); // 0x0052C030
 
-int __fastcall GAME_DispatchMcpPacket(const unsigned char* pPacket, unsigned int nSize); // 0x0044B190
 
 void __fastcall GAME_SetMcpCallbackA(D2McpCallbackFn pfnCallback); // 0x0044B1F0
 
@@ -391,7 +385,6 @@ int __fastcall GAME_GetRangeEnd(D2RangeStrc* pRange); // 0x0044BE10
 
 
 
-void __cdecl GAME_SetClickHandled(); // 0x0044BEF0
 
 
 void* ghAccelerators;                                                                                    // 0x007A0708
@@ -598,7 +591,6 @@ void __fastcall GAME_StrToUpper(Unicode* pText); // 0x00452180
 void __fastcall GAME_SetHoverLine(const Unicode* pText, int nColor); // 0x00452520
 
 
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
@@ -619,7 +611,6 @@ void __cdecl GAME_FreeLngModule(); // 0x00451290
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 
-void __fastcall GAME_SetInteractDeadline(int nValue); // 0x0044DAD0
 
 void __stdcall GAME_HandleRightButtonDown(SMSGHANDLER_PARAMS* pMsg); // 0x0044C180
 

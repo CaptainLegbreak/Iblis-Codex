@@ -30,12 +30,9 @@ struct D2PacketRecord21Strc
     unsigned char nUnitGUID[4];
     unsigned char pWaypointData[16];
 };
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 void __cdecl WARDENCLIENT_BuildWaypointList(); // 0x0049C7F0
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 extern D2WaypointRowRectStrc gaWaypointRowRects[9]; // 0x007224F8

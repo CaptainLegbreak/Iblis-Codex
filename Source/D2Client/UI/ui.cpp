@@ -263,7 +263,6 @@ void __cdecl UI_CloseGoldDialog(); // 0x00453EE0
 void __fastcall sub_004B9110_SendGoldRequest(unsigned long nGold); // 0x004B9110
 
 
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
@@ -418,7 +417,6 @@ int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag);         
 
 void __fastcall UI_DrawUnitHoverName(D2UnitStrc* pUnit);                                          // 0x00454AD0
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
 
@@ -532,11 +530,9 @@ void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 void __fastcall NPCMENU_EndNpcInteraction(int nValue); // 0x004B3C20
 
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 
 
@@ -724,7 +720,6 @@ void __cdecl AUTOMAP_FreeAutomap(); // 0x0045A5C0
 
 
 
-int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
 void __cdecl CMDTBL_DisableHotkeyHandlers(); // 0x0046ACB0
 
@@ -3575,7 +3570,6 @@ int gbAutomapLeftSaved; // 0x007A51E8
 
 
 
-int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 void __fastcall CURSOR_SetCursorPosition(int nX, int nY); // 0x00468770
 
 

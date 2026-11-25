@@ -350,7 +350,6 @@ int __cdecl RECORD_IsRecordingEnabled(); // 0x00451910
 
 int __cdecl RECORD_IsPlaybackEnabled(); // 0x00451980
 
-int __fastcall SCMD_RunMessageLoop(D2IdleHandler); // 0x00451BB0
 
 extern "C" void __fastcall SCMD_RegisterMsgHandlers(int hwnd, D2MsgHandlerEntryStrc* table, unsigned int count); // 0x00451DB0
 

@@ -10,10 +10,6 @@
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 D2UnitStrc* __cdecl sub_00463DD0();
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
-int __fastcall GAME_GetUIVarState(int nUIVar); // 0x004538D0
-int __fastcall UI_SetUIVar(int nUIVar, int nState, int nArg); // 0x00455F20
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(int nUnitId, int nUnitType); // 0x00463990
 unsigned short __fastcall CUNIT_GetPlayerPartyId(D2UnitStrc* pUnit); // 0x00465400
 const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
 const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0

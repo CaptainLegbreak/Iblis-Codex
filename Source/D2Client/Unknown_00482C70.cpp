@@ -167,14 +167,10 @@ void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
-
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
+
 
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 
@@ -285,7 +281,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 
-D2CelFileStrc* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 
 
@@ -992,9 +987,7 @@ extern "C" __declspec(dllimport) short __stdcall GetAsyncKeyState(int vKey);
 
 
 
-D2UnitStrc* __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 
 void __cdecl SPELLSEL_UpdateSkillIcons(); // 0x004A9DF0

@@ -146,7 +146,6 @@ extern unsigned char gnBoxColor; // 0x007BF034
 
 static void __stdcall PARTY_DrawTextFrame(unsigned short nAltString, unsigned short nString, int nX, int bLarge); // 0x0049AAF0
 extern D2PartyRowStrc* gpRosterUnits; // 0x007BF014
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 extern int gnScreenWidth; // 0x0071146C
 extern int gbRosterMode; // 0x007BF038
@@ -1247,7 +1246,6 @@ extern int gdwGlobal_007BF024; // 0x007BF024
 
 
 
-void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 

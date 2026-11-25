@@ -106,7 +106,6 @@ extern int gTextY;
 
 extern int gTextRight;
 
-PlayerListHead* __fastcall ROSTER_GetRosterInfoList(int playerId); // 0x0047A310
 
 void* __fastcall Allocate(unsigned int bytes, const char* file, int line, unsigned int flags);
 

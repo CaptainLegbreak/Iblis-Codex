@@ -14,7 +14,6 @@ extern int gnPanelSlideMode; // 0x007A5210
 struct D2UnitStrc;
 
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 
 
