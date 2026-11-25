@@ -36,9 +36,7 @@ D2TokRecord* __stdcall DATATBLS_GetArmTypeTxtRecord(int nId);                   
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
-typedef unsigned char U8;
 
-typedef unsigned int U32;
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -46,11 +44,11 @@ struct B28Unit;
 
 struct B28Waypoint;
 
-extern "C" int __stdcall sub_004FB180_Palette(U8 red, U8 green, U8 blue);
+extern "C" int __stdcall sub_004FB180_Palette(unsigned char red, unsigned char green, unsigned char blue);
 
 extern "C" B28Waypoint* __stdcall WAYPOINTS_AllocWaypointData(void* pool); // 0x00660F30
 
-extern "C" void __fastcall sub_004786D0_SendPacket(U8 command, U32 arg1, U32 arg2, U32 arg3);
+extern "C" void __fastcall sub_004786D0_SendPacket(unsigned char command, unsigned int arg1, unsigned int arg2, unsigned int arg3);
 
 extern "C" void __fastcall sub_004FAAE0_FreeArchive(void* archive);
 
@@ -62,21 +60,21 @@ extern "C" const char szB28SoundSource[];
 
 extern "C" const char szB28AiSource[];
 
-extern "C" U8 gB28Palette;
+extern "C" unsigned char gB28Palette;
 
 extern "C" B28Waypoint* gB28Waypoint;
 
-extern "C" U8 gB28WaypointFlag;
+extern "C" unsigned char gB28WaypointFlag;
 
-extern "C" U32 gB28SubmitItem;
+extern "C" unsigned int gB28SubmitItem;
 
-extern "C" U32 gB28SubmitFlag;
+extern "C" unsigned int gB28SubmitFlag;
 
 extern "C" void* gB28Archive;
 
 struct B28GfxData
 {
-    U8 pad0[0x34];
+    unsigned char pad0[0x34];
     int offsetX;
 };
 
@@ -84,7 +82,7 @@ extern "C" B28GfxData* __fastcall sub_0046F060_GetGfx(B28Unit* unit);
 
 struct B28SoundNode
 {
-    U32 value;
+    unsigned int value;
     B28SoundNode* next;
 };
 
@@ -101,27 +99,27 @@ struct B28AiCmd
 
 struct B28AiControl
 {
-    U8 pad0[0x20];
+    unsigned char pad0[0x20];
     B28AiCmd* pCurrentCmd;
     B28AiCmd* pLastCmd;
 };
 
 struct B28MonsterData
 {
-    U8 pad0[0x28];
+    unsigned char pad0[0x28];
     B28AiControl* pAiControl;
 };
 
 struct B28Unit
 {
-    U32 type;
-    U8 pad4[0x10];
+    unsigned int type;
+    unsigned char pad4[0x10];
     B28MonsterData* monsterData;
 };
 
 struct B28Game
 {
-    U8 pad0[0x1C];
+    unsigned char pad0[0x1C];
     void* pool;
 };
 
@@ -175,7 +173,7 @@ void __stdcall PARTICLE_FreeGfxMotion(D2UnitStrc* pUnit)
 
 extern "C" void __cdecl sub_00497250_SetPalette()
 {
-    gB28Palette = (U8)sub_004FB180_Palette(255, 0, 0);
+    gB28Palette = (unsigned char)sub_004FB180_Palette(255, 0, 0);
 }
 
 // build: symbol _TEXT_InitWaypointData 0x0049C6A0
@@ -186,7 +184,7 @@ extern "C" void __cdecl TEXT_InitWaypointData()
 }
 
 // build: symbol @NPCMENU_SendNpcAction@* 0x004B2370
-extern "C" void __fastcall NPCMENU_SendNpcAction(U32 value)
+extern "C" void __fastcall NPCMENU_SendNpcAction(unsigned int value)
 {
     gB28SubmitFlag = 0;
     sub_004786D0_SendPacket(0x38, 0, gB28SubmitItem, value);

@@ -147,7 +147,7 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* pPath, int nType);               
 
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown);                // 0x00649970
 
-void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4);                            // 0x00649EF0
+void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int bSetBothDirections);                            // 0x00649EF0
 
 void __stdcall MISSILE_SetStreamMissile(D2UnitStrc* pMissile, int nStreamMissile);                          // 0x0064A4E0
 

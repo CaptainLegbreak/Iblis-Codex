@@ -2760,7 +2760,7 @@ void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, in
 }
 
 // 0x00649EF0
-void __stdcall D2Common_10216(D2DynamicPathStrc* pDynamicPath, int nX, int nY, int a4)
+void __stdcall D2Common_10216(D2DynamicPathStrc* pDynamicPath, int nX, int nY, int bSetBothDirections)
 {
     if (pDynamicPath)
     {
@@ -2768,7 +2768,7 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pDynamicPath, int nX, int nY, i
         tTarget.dwPrecisionX = (nX << 16) + 0x8000;
         tTarget.dwPrecisionY = (nY << 16) + 0x8000;
         const int nDirection = PATH_ComputeDirectionFromPreciseCoords_6FDAC760(pDynamicPath->tGameCoords, tTarget);
-        if (a4)
+        if (bSetBothDirections)
         {
             pDynamicPath->nDirection = nDirection & 0x3F;
             pDynamicPath->nNewDirection = nDirection & 0x3F;
