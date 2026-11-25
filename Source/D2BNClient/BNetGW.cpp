@@ -1,6 +1,7 @@
 #include "D2BNClient.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -77,7 +78,6 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 int __stdcall SRegDeleteValue(const char* szKeyName, const char* szValueName, unsigned int nFlags); // 0x00414D90
 
-int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, const void* pData, unsigned long nSize); // 0x00415000
 
 extern "C" const char gszGatewayIsClosest[]; // 0x006DED44
 

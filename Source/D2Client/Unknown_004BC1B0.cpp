@@ -5,6 +5,7 @@
 #include "D2ListBoxLine.h"
 #include "D2ClientTextPanel.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 class UIWidget;
 class ListBoxImplementation;
@@ -46,7 +47,6 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 

@@ -17,6 +17,7 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "StormApi.h"
 
 struct D2ActiveRoomStrc;
 
@@ -90,7 +91,6 @@ static int gbMiniPanelButtonDown;        // 0x007BEFD0
 static int gbRunButtonDown;        // 0x007BEFD8
 
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 
 

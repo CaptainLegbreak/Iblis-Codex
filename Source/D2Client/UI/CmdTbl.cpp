@@ -12,6 +12,8 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 #pragma intrinsic(memcpy)
 
@@ -1308,7 +1310,6 @@ struct D2KeyBindingStrc { int nAction; unsigned short nKey; char unk_06[4]; };
 
 extern int gnMode_007A7418; // 0x007A7418
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 struct Unicode;
 
@@ -1323,10 +1324,7 @@ const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2); // 0x00469DE0
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
-void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
-int __fastcall FOG_CloseFile(void* hFile); // 0x004069A0
 
-int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
 
 enum D2C_CmdTblConstants
 {
@@ -2185,11 +2183,8 @@ struct D2KeyConfigHeaderStrc
 
 #define FILE_ATTRIBUTE_NORMAL 0x80
 
-int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
-int __fastcall FOG_CreatePathHierarchy(const char* szPath);                                        // 0x00406A10
 
-int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nSize, unsigned long* pWritten, void* pOverlapped); // 0x004069D0
 
 extern char gszRealm[];                                                                    // 0x007A0500
 

@@ -4,6 +4,7 @@
 #include "D2Unicode.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "FogApi.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct SMSGHANDLER_PARAMS;
@@ -84,8 +85,6 @@ extern "C" char* __cdecl strtok(char* szText, const char* szDelim); // 0x0068264
 extern "C" size_t __cdecl strlen(const char* szString);
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
-void __stdcall sub_00411320_CapitalizeWords(char* szText); // 0x00411320
-char* __fastcall FOG_inet_ntoa(int nAddress); // 0x0040E080
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
@@ -202,7 +201,6 @@ static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStat
 #pragma intrinsic(strlen)
 extern "C" __declspec(dllimport) void* __stdcall FindFirstFileA(const char* szFileName, D2FindDataStrc* pFindData);
 extern "C" __declspec(dllimport) int __stdcall FindNextFileA(void* hFindFile, D2FindDataStrc* pFindData);
-int __fastcall FOG_GetSavePath(char* szPath, int nSize);                                           // 0x00407050
 int __fastcall sub_0043C8A0(const char* szName, char* szPath);                                              // 0x0043C8A0
 extern char gszCharName[256];                                                                             // 0x00779B68
 extern int gnCharCount;                                                                                   // 0x00779DE0

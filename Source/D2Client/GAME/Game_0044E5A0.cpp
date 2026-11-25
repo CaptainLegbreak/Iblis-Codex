@@ -12,6 +12,7 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "FogApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -403,7 +404,6 @@ struct D2SaveHeaderStrc;
 
 extern "C" unsigned int __cdecl fwrite(const void* pBuffer, unsigned int nSize, unsigned int nCount, _iobuf* pFile); // 0x00684449
 
-int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
 struct D2SaveHeaderStrc
 {

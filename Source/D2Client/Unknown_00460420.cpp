@@ -7,6 +7,7 @@
 #include "D2StormTypes.h"
 #include "D2CelContext.h"
 #include "D2LangApi.h"
+#include "StormApi.h"
 
 struct D2CelFileStrc;
 
@@ -162,7 +163,6 @@ static int gbCinematicExpansion; // 0x007A5238
 struct SMSGHANDLER_PARAMS;
 
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 
 

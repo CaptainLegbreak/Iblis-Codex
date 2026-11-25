@@ -31,6 +31,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+#include "FogApi.h"
 
 #pragma function(memset)
 
@@ -322,7 +323,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x0068
 
 unsigned int __fastcall CRC32_Compute(void* pData, unsigned int dwSize); // 0x006C99F6
 
-unsigned short __stdcall FOG_ComputeStringCRC16(const char* szString); // 0x004112C0
 
 
 
@@ -364,7 +364,6 @@ extern "C" unsigned int __cdecl fwrite(const void* pBuffer, unsigned int nSize, 
 
 extern "C" int __cdecl fclose(_iobuf* pFile); // 0x00681FDC
 
-int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
 int __fastcall CLIENTS_GetClientId(D2ClientStrc* pClient); // 0x00538590
 
@@ -537,11 +536,8 @@ void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
 
 int __fastcall PLRSAVE_ReadSaveData(D2GameStrc* pGame, D2ClientStrc* pClient, D2SaveHeaderStrc* pSave, unsigned int nSize, D2UnitStrc** ppPlayer, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00534330
 
-void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
 
-unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits);
 
-int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc* pBuffer, int nBits); // 0x00411030
 
 extern "C" int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
 
@@ -890,7 +886,6 @@ struct D2LegacyMercSaveStrc
 
 #pragma pack(pop)
 
-void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 
 D2UnitStrc* __fastcall D2GAME_MERCS_Create(D2GameStrc*, D2UnitStrc*, unsigned short, int, unsigned short, int, int); // 0x005774F0

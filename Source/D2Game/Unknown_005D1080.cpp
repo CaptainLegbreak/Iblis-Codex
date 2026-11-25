@@ -18,6 +18,7 @@
 #include "D2MonModes.h"
 #include "D2LanguageNames.h"
 #include "D2CommonApi.h"
+#include "FogApi.h"
 // build: symbol _gaszLanguageNames 0x00741A94
 
 #define STATEMASK_REMHIT 6
@@ -420,7 +421,6 @@ int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel);   
 
 
 
-int __stdcall sub_004111A0_GetLowestSetBit(unsigned int nValue);                                                  // 0x004111A0
 
 unsigned short __fastcall SKILLS_SetDamageResultFlags(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, unsigned short wResultFlags, int a5, D2DamageStrc* pDamage, int a7); // 0x0056E6F0
 

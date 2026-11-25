@@ -4,6 +4,7 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);
 #include "D2MultiTypes.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "FogApi.h"
 
 struct D2ConfigStrc;
 
@@ -39,7 +40,6 @@ extern "C" __declspec(dllimport) long __stdcall RegEnumValueA(HKEY hKey, unsigne
 extern "C" __declspec(dllimport) long __stdcall RegSetValueExA(HKEY hKey, const char* szValueName, unsigned long dwReserved, unsigned long dwType, const unsigned char* pData, unsigned long cbData); // 0x006CC034
 extern "C" __declspec(dllimport) long __stdcall RegCloseKey(HKEY hKey); // 0x006CC030
 extern "C" __declspec(dllimport) long __stdcall RegDeleteKeyA(HKEY hKey, const char* szSubKey); // 0x006CC02C
-int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406BA0
 extern "C" __declspec(dllimport) int __stdcall SetCurrentDirectoryA(const char* szPath); // 0x006CC140
 extern "C" __declspec(dllimport) void* __stdcall GetCurrentProcess(); // 0x006CC13C
 extern "C" __declspec(dllimport) void* __stdcall LoadLibraryA(const char* szLibFileName); // 0x006CC144

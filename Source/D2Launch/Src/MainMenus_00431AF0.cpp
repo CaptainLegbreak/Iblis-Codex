@@ -3,6 +3,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2LangApi.h"
+#include "FogApi.h"
 struct D2FileTimeStrc;
 struct D2MenuCallbackArgStrc;
 struct D2ConfigStrc;
@@ -21,7 +22,6 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 void __fastcall BUTTON_SetText(D2WinControlStrc* pControl, int nMode, Unicode* pText, int nArg); // 0x005009D0
 int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A8B0
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
-int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
 int __fastcall WINMAIN_DecodeCdKey(const char* szCdKey, unsigned int* pProduct, unsigned int* pValue); // 0x00449920
 extern D2WinControlStrc* gpControl_007795AC; // 0x007795AC
 extern int gdwGlobal_00779974; // 0x00779974
@@ -50,8 +50,6 @@ void __cdecl MAINMENUS_CreateTermsControls(); // 0x00430390
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int); // 0x0042F430
 void* __fastcall FOG_CreateFileA(const char*, unsigned long, unsigned long, void*, unsigned long, unsigned long, void*); // 0x00406960
 int __fastcall FOG_ReadFile(void*, void*, unsigned long, unsigned long*, void*); // 0x004069B0
-int __fastcall FOG_CloseFile(void*); // 0x004069A0
-int __fastcall FOG_DeleteFileA(const char*); // 0x00406990
 void __fastcall CHARSEL_SwapUnicodeBytes(Unicode*, unsigned int); // 0x0042E5D0
 Unicode* __fastcall win2Unicode(Unicode*, const char*, int); // 0x00526F20
 int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820

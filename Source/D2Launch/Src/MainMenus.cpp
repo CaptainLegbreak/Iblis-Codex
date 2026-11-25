@@ -30,6 +30,8 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2LangApi.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...); // 0x00409020
 
@@ -121,7 +123,6 @@ int __stdcall SFileEnableDirectAccess(int nFlags); // 0x00415F70
 
 void __stdcall SFileEnableSeekOptimization(int nValue); // 0x00415F90
 
-int __stdcall SFileSetBasePath(const char* szPath); // 0x004164B0
 
 int __stdcall SFileSetIoErrorMode(int nValueA, int nValueB); // 0x004166B0
 
@@ -404,7 +405,6 @@ int __fastcall D2Win_10054(D2WinTextBoxStrc* pTextBox);                         
 
 void __cdecl MAINMENUS_CreateMultiplayerScreen();                                                                                // 0x004301A0
 
-unsigned int __stdcall SStrHashHT(const char* szPath);                                           // 0x00414150
 
 int __fastcall sub_00526590_Compare(const Unicode* pString1, const Unicode* pString2);                      // 0x00526590
 
@@ -532,7 +532,6 @@ extern D2ComInterfaceStrc* gpFuncTable_0077ABF0;                                
 
 int gnLaunchMode;                                                                                  // 0x007795EC
 
-const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 
 void __cdecl MAINMENUS_ShowMainMenu();                                                                                // 0x004336C0
 
@@ -696,9 +695,7 @@ extern D2CelFileStrc* gpCharacterCreateCelFile; // 0x00779724
 
 extern int gnGatewayValue_007795BC; // 0x007795BC
 
-void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
 
-int __fastcall FOG_CloseFile(void* hFile);                                                         // 0x004069A0
 
 void __cdecl MAINMENUS_FlushInput();                                                                     // 0x004317D0
 
@@ -834,13 +831,10 @@ extern "C" const char gszMainMenusFile[]; // 0x006D41C0
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
 
 int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
 
-int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
 
-int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 
 
 
@@ -1235,7 +1229,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) int __stdcall GetDiskFreeSpaceA(const char* szRootPathName, unsigned long* pnSectorsPerCluster, unsigned long* pnBytesPerSector, unsigned long* pnFreeClusters, unsigned long* pnTotalClusters); // 0x006CC270
 
-int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
 
 int __cdecl MAINMENUS_ShowTerms(); // 0x00433810
@@ -1308,7 +1301,6 @@ void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine); // 0
 
 int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq); // 0x0041BA60
 
-int __stdcall SFileCloseArchive(void* hMpq); // 0x00419A80
 
 void __fastcall AUTOMAP_InitCharSaveHeader(char* szName, char nClass, char* pData, int nFlags); // 0x0043C540
 

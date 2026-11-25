@@ -19,8 +19,9 @@
 #include "D2TxtTables.h"
 
 #include "D2AnimData.h"
-#include "FogApi.h"
 #include "D2LangApi.h"
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 // Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 static void __declspec(noinline) DATATBLS_MakeCode(const char* szText, char* szCode);

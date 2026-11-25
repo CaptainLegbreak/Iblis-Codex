@@ -20,6 +20,7 @@
 #include "StormApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "StormApi.h"
 
 struct D2MsgHandlerEntryStrc;
 
@@ -91,7 +92,6 @@ struct CANDIDATELIST
 
 
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 extern "C" int __stdcall ImmReleaseContext(int hWnd, HIMC hImc); // 0x006B00B4
 
@@ -263,7 +263,6 @@ static inline int sub_0047D500(D2OptionEntryStrc* pEntry);
 
 
 
-void __stdcall SStrTokenize(const char** pszString, char* szBuffer, unsigned int nBufferChars, const char* szWhitespace, int* pQuoted); // 0x00413B80
 
 extern D2ChatCommandStrc gaChatCommands[3]; // 0x00712F7C
 

@@ -15,6 +15,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -129,7 +130,6 @@ int __cdecl FOG_CreateNewPoolSystem(D2PoolSystemStrc** ppPoolSystem, const char*
 
 
 
-int __stdcall SErrRegisterMessageSource(unsigned short wFacility, void* hModule, void* pReserved);     // 0x0041C2F0
 
 
 
@@ -281,7 +281,6 @@ extern Unicode gwszHoverLine_007A2D30[];                                        
 
 extern int gnHoverTextColor;                                                                       // 0x007A2F30
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 
 int __stdcall D2GFX_Release(); // 0x004F5050
@@ -416,7 +415,6 @@ struct Unicode;
 
 
 
-int __stdcall SErrGetErrorStr(unsigned long error, char* buffer, unsigned long size); // 0x0041C430
 
 extern int gbStringsLoaded_007A070C; // 0x007A070C
 
