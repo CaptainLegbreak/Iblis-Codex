@@ -34,7 +34,6 @@ struct D2CurseStrc;
 
 struct D2SkillsTxt;
 
-struct Unit005A0180;
 
 union D2SeedStrc;
 
