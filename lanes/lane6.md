@@ -8,7 +8,9 @@ Status (Wed Nov 25 05:50 PST 2026): charsel-pieces-2 and copy-trim merged (#396)
 
 - lane6/bn-assert-spans 44273aa2 (on #396): BnDownload.cpp takes BNSEND_GetPatchResult (0x51F2D0, from BnSend.cpp). The code passing `.\BnDownload.cpp` runs 0x51E490-0x520020 and 0x51F2D0 sits inside it (it calls BNDOWNLOAD_ApplyPatches); it is the only D2BNClient function filed outside the asserted span it sits in. Its inferred BNSEND_ name now disagrees with the file (lane 10's prefixfix). Full build: Game.exe identical, tree 1f5bf604330b8dd1e435e87b97c0221997f7048b, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
 
-(assert-spans-launch and assert-spans-d2cmp verifying on #396)
+- lane6/assert-spans-launch 42cdbe5d (on #396): four one-line functions filed in lane 4's D2Client/GAME/Game.cpp sit inside the asserted spans of my files (the code passing `.\Src\MainMenus.cpp` 0x430A20-0x434060, `.\Src\CharSel.cpp` 0x437AB0-0x43A650, `.\Src\ChatDlg.cpp` 0x43E250-0x440D10): GAME_GetSlotNameCount (0x430B40) to MainMenus.cpp, GAME_GetPreferredRealm and 0x437D10 to CharSel.cpp, 0x43F840 to ChatDlg.cpp. Lane 4: this touches your Game.cpp. ComCallback.cpp's span also holds four Game.cpp getters and two ChatDlg functions; they wait, because ComCallback's message tables take them with a different handler type. Full build: Game.exe identical, tree b65e7b50dd39a74a7ddc6ba2e305c1221b559890, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
+
+(assert-spans-d2cmp verifying on #396)
 
 ## Questions
 
