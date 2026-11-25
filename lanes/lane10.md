@@ -5,6 +5,12 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Ready
+- Lanes 1-6 are inactive (user, 20:03), so lane 10 rebased the four stale branches the board asked them to rebase onto #377, under lane 10 names, each with namesync, precheck and a full verify (Game.exe matches):
+  - lane10/emit-helpers-r 160dfc6f replaces lane5/emit-helpers: the two conflicts (MonsterMsg.cpp, SUnitDmg.cpp) were renamed lines inside helpers the branch deletes. VERIFIED 309e22dd.
+  - lane10/skillsbar-head-r 0c6e8dd2 replaces lane1/skillsbar-head-2: SkillsBar.cpp takes 0x4C80D0 with main's names (DRLG_GetDistanceToXY and its build: symbol line); docs/index.html kept as main. VERIFIED f7997676.
+  - lane10/drlg-outdoor-r 1b93a63e replaces lane2/drlg-outdoor: its first commit is on main already (dead-records-d2common), skipped; Outdoors.cpp takes DRLGTILESUB_ApplySubstitutionBorder. VERIFIED f8421817.
+  - lane10/bn-crypt-records-r dce19fbd replaces lane2/bn-crypt-records: Unknown_0051C760.cpp is gone on main (in BnSend.cpp), and D2Net Server.cpp's own D2PacketBufferStrc copy goes too, since it now includes the shared one. VERIFIED fd696aeb.
+  files-storm-3 and names-prefixfix-d2client-5 were already remade as files-storm-4 and names-prefixfix-d2client-6.
 - lane10/names-missile-accessors 4d979a74: the 14 D2Common missile accessors at 0x0064A190-0x0064A6F0 become D2MOO's MISSILE_GetFlags … MISSILE_GetStream, rewritten to take D2UnitStrc* like MISSILE_SetFlags, so they match the declarations D2Game.h already has (the reason seq-all left them out). Callers in other modules keep their sub_ spellings until namesync. On main #377. VERIFIED 933bed5c, Game.exe matches.
 
 - lane10/names-seq-extra 23d4f75: seq-extra plan, 6 renames applied, none dropped. VERIFIED fb55469b on base f0f40e42, Game.exe matches.
