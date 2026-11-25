@@ -5,7 +5,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 ## Current state
 
 - **Lanes 1, 7, 8, 9, 10 have stopped; lanes 2-6 have their work (see Ownership).**
-- `main`: #410 (round j164). Game.exe identical; 14,922 / 14,922 placed; **borrowed code 8,373 B in 5 functions**; borrowed data 261 B. Placeholder files 202; shims 38; context copies 3; forcing-construct functions 44. Names carrying a 1.10 address: 408.
+- `main`: #411 (round j165). Game.exe identical; 14,922 / 14,922 placed; **borrowed code 8,373 B in 5 functions**; borrowed data 261 B. Placeholder files 203; shims 38; context copies 3; forcing-construct functions 44. Names carrying a 1.10 address: 408.
 - **Push only `laneN/` branches, never main.** At 22:44 a commit went straight to main ("ErrorManager.cpp: drop a stray 0x00409020 marker...", for the ordinary link). The fix is fine and stays, but a direct push makes the round in progress miss main and need a rebase. Everything reaches main through a round.
 - **New: [audit-379.md](audit-379.md), a source audit on #379** (what in our tree Blizzard's source could not have, by owner, in priority order). Read your rows.
 - **[queues.md](queues.md), what's left per lane** (regenerated on #378): placeholder files, context copies, forcing constructs, shimmed functions, per-file options, with each lane's own list. When your current branch is done, take the next item from your row. The forcing constructs (42) are lane 7's job now: owners, leave them to lane 7 unless you settle it with lane 7 in its file. The context copies outside Storm/Fog/SRP are lane 2's trim first (see Answers), then the owners'. Also regenerated on #380: [borrowed-data.md](borrowed-data.md) (281 B, by current owner) and [language-objects.md](language-objects.md) (12 files still hold more than one copy, each a split to make).
@@ -406,6 +406,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #411 j165: split-004df6c0 and copies-d2client-hi (lane 4: the language-table split, placeholders 202 -> 203; fifteen files on D2LanguageNames.h).
 - **#410 j164: 0x5DD7F0 from source (lane 5, the AI target search in AiUtil.cpp). Borrowed code 9,457 -> 8,373 B, 6 -> 5 functions.** Also audit-decls-d2client-hi-2 (lane 4: D2ClientFuncs.h for 0x4A0000 up).
 - **#409 j163: 0x4F8B80 from source (lane 6, CMNSUBTILE_DrawFloorTile in Window.cpp). Borrowed code 10,018 -> 9,457 B, 7 -> 6 functions.**
 - #408 j162: decls-fog-storm-3 (lane 2: FogApi.h, StormApi.h). Dropped: lane 4's audit-decls-d2client-hi (conflicts in Unknown_004A6260.cpp, Unknown_004AA9C0.cpp): rebase onto #408.
