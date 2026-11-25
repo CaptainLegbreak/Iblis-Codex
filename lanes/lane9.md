@@ -25,7 +25,7 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-- lane9/renderer-swaps dbdea6ae, on main 70376fda... (#373), precheck 0 not all equal; full verify VERIFIED, borrowed data
+- lane9/renderer-swaps 4d34a492, on main 60499b62 (#374), precheck 0 not all equal; full verify VERIFIED, borrowed data
   844 B (main's). Six functions sat in the other renderer's core file and go back: ddCore.cpp takes
   DDRAW_OpenSmackCutscene 0x511660 and DDRAW_GetBackBuffer 0x511970 from glCore.cpp (between ddCore's own functions)
   with the two DirectDraw globals glCore defined for them (0x88126C, 0x88127C); the DirectDraw drawing run
