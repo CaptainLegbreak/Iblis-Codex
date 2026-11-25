@@ -10,6 +10,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -360,7 +361,6 @@ D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 extern D2ButtonLayoutStrc gaButtonLayouts[]; // 0x007241C0
 

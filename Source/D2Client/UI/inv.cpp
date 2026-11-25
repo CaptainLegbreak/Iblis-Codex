@@ -30,6 +30,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 struct D2ClientInterfaceStrc;
 
@@ -271,7 +272,6 @@ extern int gaHotkeyOwners[16]; // 0x007C0768
 
 extern int gaHotkeyLeft[16]; // 0x007C07B8
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -630,9 +630,7 @@ void __fastcall PLAYER_SetPanelSlide(int nMode); // 0x0045AEA0
 
 Unicode* __fastcall sub_00526940_UnicodeStrStr(const Unicode* pString, const Unicode* pPattern); // 0x00526940
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
@@ -1092,9 +1090,7 @@ const Unicode* __fastcall INV_SkipBracketTag(const Unicode* pString); // 0x00483
 
 void __cdecl INV_FormatArgs(Unicode* pDest, const Unicode* pFormat, ...);                          // 0x0048BE80
 
-int __cdecl STRTABLE_GetLanguage();                                                                         // 0x00525150
 
-void __fastcall sub_005272B0_FormatText(Unicode* pDst, const Unicode* pText, const Unicode* pFormat, int nMaxLength, int nLanguage); // 0x005272B0
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem);                                                      // 0x00627E70
 
@@ -1422,7 +1418,6 @@ void __stdcall INV_DrawUnitName(D2UnitStrc* pUnit); // 0x0048A7D0
 
 void __cdecl INV_DrawPanelLabels(); // 0x0048A890
 
-void __stdcall D2LANG_FormatInt(Unicode* pOut, int nValue, int nSize); // 0x00525FB0
 
 
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500

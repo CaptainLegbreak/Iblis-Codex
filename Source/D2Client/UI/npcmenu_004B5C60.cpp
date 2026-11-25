@@ -1,6 +1,7 @@
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Unicode.h"
+#include "D2LangApi.h"
 
 struct D2ClientItemSlotStrc
 {
@@ -86,11 +87,9 @@ void __fastcall ROSTER_SetCtrlState(D2ClientDialogStrc* pDialog, int nValue);   
 // build: symbol ?DIALOG_AddTextLine@* 0x004B85F0
 void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,
     int nArg10, int nArg14, int (__cdecl* pfnCallback)(), int nArg1C);                                      // 0x004B85F0
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount);                    // 0x00526790
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);              // 0x005269D0
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                   // 0x00526F20
 
 extern int gnScreenWidth;                                                                               // 0x0071146C

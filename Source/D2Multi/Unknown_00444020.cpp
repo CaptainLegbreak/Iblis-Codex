@@ -10,6 +10,7 @@
 #include "D2MultiTypes.h"
 #include "D2LaunchRequest.h"
 #include "FogApi.h"
+#include "D2LangApi.h"
 
 extern int gnChatLaunchMode; // 0x0077BBE4
 
@@ -26,7 +27,6 @@ struct D2GameListRecordStrc;
 
 struct D2LaunchFuncsStrc;
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed); // 0x005009A0
 

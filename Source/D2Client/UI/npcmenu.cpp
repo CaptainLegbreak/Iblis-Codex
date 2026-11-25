@@ -17,6 +17,7 @@
 #include "D2NpcIndex.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include <D2UnitData.h>
@@ -246,7 +247,6 @@ void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 const Unicode* __fastcall TEXT_GetTextString(unsigned short nStringId); // 0x0049F910
 
@@ -858,7 +858,6 @@ int __cdecl NPCMENU_NpcMenuCancel(); // 0x004B45D0
 
 int __cdecl NPCMENU_NpcMenuCancelB(); // 0x004B4620
 
-void __cdecl sub_005269D0(int,Unicode*,const Unicode*,...); // 0x005269D0
 
 unsigned int __stdcall UNITS_GetHealingCost(D2UnitStrc* pUnit); // 0x00622DE0
 

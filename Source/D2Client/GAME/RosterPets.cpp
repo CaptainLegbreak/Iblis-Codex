@@ -10,6 +10,7 @@
 #include "D2StatIds.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 struct Unicode;
 
@@ -65,7 +66,6 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 
 extern int gnScreenWidth;                                                                               // 0x0071146C
 

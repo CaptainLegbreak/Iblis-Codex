@@ -21,6 +21,7 @@
 #include "D2WinListData.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2LangApi.h"
 
 typedef long (__stdcall* WNDPROC)(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam);
 
@@ -489,7 +490,6 @@ D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
 
 D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 

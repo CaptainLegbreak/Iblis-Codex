@@ -23,6 +23,7 @@
 #include "D2BnMessages.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2LangApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -601,7 +602,6 @@ void __cdecl GRID_LockCDKeys();                                                 
 
 void __cdecl GRID_UnlockCDKeys();                                                                   // 0x005239C0
 
-void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField);                                                 // 0x00525260
 
 extern "C" const char gszKernel32[];                                                               // 0x006CD6E4
 

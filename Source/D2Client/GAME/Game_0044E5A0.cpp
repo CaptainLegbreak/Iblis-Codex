@@ -10,6 +10,7 @@
 #include "D2ClientTimer.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -126,7 +127,6 @@ void __fastcall D2Win_10117_DrawText(const Unicode*,int,int,int,int); // 0x00502
 
 const char* __stdcall D2Win_10161(int nClass, int nLevel, int bExpansion, int bSoftCore); // 0x005068A0
 
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 extern int gnScreenWidth; // 0x0071146C
 
@@ -184,7 +184,6 @@ int __stdcall DATATBLS_CheckActInLevelTypesTxt(int nLevelType, unsigned char nAc
 
 void __stdcall DATATBLS_GetFileNameFromLevelTypeAndFileId(int nLevelType, int nFile, char* szFile); // 0x0061EB40
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 

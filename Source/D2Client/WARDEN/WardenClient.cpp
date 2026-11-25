@@ -19,6 +19,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -184,7 +185,6 @@ int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 
@@ -521,11 +521,9 @@ bool __fastcall CHAT_IsNarrowText(const Unicode* pText);                        
 
 int __stdcall CHAT_ParseChatCommand(char** ppText, char* pCode, char* szArgument);                  // 0x0047BAD0
 
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 

@@ -16,6 +16,7 @@
 #include "D2ClientTypes.h"
 #include "D2ClientGame.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 extern unsigned short gwUniqueModNameIds[];                                                       // 0x00725188
 
@@ -27,7 +28,6 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                
 
 int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 
 extern "C" unsigned short* __fastcall sub_005267E0(unsigned short* pDst, const unsigned short* pSrc);     // 0x005267E0
 

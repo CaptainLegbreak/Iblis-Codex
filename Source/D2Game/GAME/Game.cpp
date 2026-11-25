@@ -27,6 +27,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -333,9 +334,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
 
 

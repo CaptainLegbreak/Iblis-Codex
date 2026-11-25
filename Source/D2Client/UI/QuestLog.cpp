@@ -14,6 +14,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -26,13 +27,10 @@ int __cdecl GAME_IsExpansion();                                                 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags();                                                           // 0x004B32D0
 int __stdcall INV_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                       // 0x00524A30
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc);                   // 0x00526700
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);            // 0x005267E0
 int __fastcall sub_00526800(const Unicode* pString);                                               // 0x00526800
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pDst, const Unicode* pFormat, ...);  // 0x005269D0
 
 extern const char gszFormatD[];                                                                    // 0x006D57BC
 extern D2QuestTextsStrc gtQuestTextsSevenTombs;                                                              // 0x00723A64

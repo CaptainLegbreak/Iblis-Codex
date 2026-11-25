@@ -24,6 +24,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 
@@ -1431,9 +1432,7 @@ extern char gszClientCharName[]; // 0x007A05C4
 
 extern "C" const char gszAutomapFile[]; // 0x006D66F0
 
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
@@ -1441,7 +1440,6 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x0
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
 const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 

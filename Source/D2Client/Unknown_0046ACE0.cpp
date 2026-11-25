@@ -16,6 +16,7 @@
 #include "D2WinSplitText.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 #define LEVEL_EFFECT_TICKS 30
 #define THRONE_MISSILE 0x27F
@@ -524,9 +525,7 @@ extern int gnScreenWidth; // 0x0071146C
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 

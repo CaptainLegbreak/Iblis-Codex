@@ -23,6 +23,7 @@
 #include "D2ClientKeyConfig.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -271,7 +272,6 @@ void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInf
 
 void __fastcall UNITSND_PlayInitSound(D2UnitStrc* pUnit);                                              // 0x004CC380
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                           // 0x00624690
 
@@ -654,7 +654,6 @@ int __fastcall FOG_CloseFile(void* hFile); // 0x004069A0
 
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 

@@ -6,6 +6,7 @@
 #include "D2Unicode.h"
 #include "D2Records.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 #define LEVELV (*(volatile int*)&nSkillLevel)
 
@@ -37,7 +38,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 
@@ -97,11 +97,9 @@ static int SKILLDESC_GetETypeColor(int nEType); // 0x004E6FB0
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
 unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
