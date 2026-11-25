@@ -50492,7 +50492,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00581250.cpp",
+   "file": "Source/D2Game/OBJECTS/ObjMode.cpp",
    "rank": 0,
    "functions": [
     {
@@ -50503,13 +50503,7 @@
      "va": "0x00581410",
      "length": 122,
      "name": "?sub_00581410_OpenLinkPortal@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/ObjMode.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00581490",
      "length": 56,
