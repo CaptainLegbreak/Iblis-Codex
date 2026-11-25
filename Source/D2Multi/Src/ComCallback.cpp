@@ -841,7 +841,8 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
     D2Win_10044(gpCreatePasswordLabel, D2LANG_GetStringFromTblIndex(0x1488));
     gpCreateDescLabel = CONTROL_Create(&gtCreateDescLabelInit);
     D2Win_10044(gpCreateDescLabel, D2LANG_GetStringFromTblIndex(0x1489));
-    if (sub_00449B30_QueryAddress())
+// build: symbol ?MCPCONNECT_QueryAddress@* 0x00449B30
+    if (MCPCONNECT_QueryAddress())
     {
         gpMaxPlayersLabel = CONTROL_Create(&gtMaxPlayersLabelInit);
         D2Win_10044(gpMaxPlayersLabel, D2LANG_GetStringFromTblIndex(0x148A));
@@ -863,7 +864,7 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
     sprintf(gszLevelDiffText, gszFormatInt_006D57BC, 4);
 // build: symbol ?gszMaxPlayersText@* 0x0070EBD4
     sprintf(gszMaxPlayersText, gszFormatInt_006D57BC, 4);
-    if (sub_00449B30_QueryAddress())
+    if (MCPCONNECT_QueryAddress())
     {
         gpMaxPlayerControl = CONTROL_Create(&gtMaxPlayersEditInit);
         sub_004FFE10_SetTextA(gpMaxPlayerControl, gszMaxPlayersText);
@@ -978,7 +979,7 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
         gnDiffSelect = 0;
     }
     CONTROL_SetFocusedEditBox((D2WinControlStrc *)(D2WinEditBoxStrc*)gpCreateName);
-    if (sub_00449B30_QueryAddress())
+    if (MCPCONNECT_QueryAddress())
         CHATDLG_OnLevelRestrictToggle(0);
 }
 

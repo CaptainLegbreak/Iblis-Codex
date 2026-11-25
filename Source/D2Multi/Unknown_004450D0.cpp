@@ -63,7 +63,8 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
             return 0;
         }
 
-        if (sub_00449B30_QueryAddress())
+// build: symbol ?MCPCONNECT_QueryAddress@* 0x00449B30
+        if (MCPCONNECT_QueryAddress())
         {
             const Unicode* pText = sub_004FBB30_GetText(gpGameList);
             if (pText)

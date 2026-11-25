@@ -297,7 +297,7 @@ unsigned int __stdcall SERVER_SendPacketToClient(char nSendMode, void* pClientId
 }
 
 // 0x0052B490
-int __stdcall sub_0052B490_ObjectCall_6BED90(int nArg1, int nArg2, int nArg3)
+int __stdcall CLIENT_ObjectCall_6BED90(int nArg1, int nArg2, int nArg3)
 {
     return sub_006BED90(gpServer, nArg1, nArg2, nArg3);
 }

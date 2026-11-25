@@ -246,7 +246,8 @@ static __forceinline int FindCharIndex(unsigned short wChar)
     return nMid;
 }
 
-static int sub_00527A50_MapCodePageChar(unsigned short wChar)
+// build: symbol ?UNISYS_MapCodePageChar@* 0x00527A50
+static int UNISYS_MapCodePageChar(unsigned short wChar)
 {
     if (wChar < 0x20)
     {
@@ -303,7 +304,7 @@ Unicode* __fastcall sub_00527B50_CodePageToUnicode(Unicode* pDest, const char* s
             wChar = nByte;
             ++szSrc;
         }
-        const int nUnicode = sub_00527A50_MapCodePageChar(wChar);
+        const int nUnicode = UNISYS_MapCodePageChar(wChar);
         if (nUnicode < 0)
         {
             --i;

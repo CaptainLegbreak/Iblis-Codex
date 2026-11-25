@@ -73,7 +73,8 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
 
         pPassword = sub_004FDD90_GetEditText(gpCreatePassword_00798C30);
         pDesc = sub_004FDD90_GetEditText(gpCreateDesc_00798C34);
-        if (sub_00449B30_QueryAddress())
+// build: symbol ?MCPCONNECT_QueryAddress@* 0x00449B30
+        if (MCPCONNECT_QueryAddress())
         {
             const Unicode* pMaxPlayers = sub_004FDD90_GetEditText(gpMaxPlayerControl_00798C38);
             tLogin.nValue0x44 = 1;
@@ -102,7 +103,7 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
         if (strlen(tLogin.szText0x00) < 1)
             return 0;
 
-        if (!sub_00449B30_QueryAddress())
+        if (!MCPCONNECT_QueryAddress())
         {
             int bExpansion = (gpCharInfo->wFlags1EF) & 4;
             int bLadder = (gpCharInfo->wFlags1EF) & 0x20;
@@ -159,7 +160,7 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
         }
 
         CHATDLG_SetupLogin(&tLogin, FOG_GetHostIPAddress());
-        if (!sub_00449B30_QueryAddress())
+        if (!MCPCONNECT_QueryAddress())
         {
             CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), 0);
             CHATDLG_DestroyCreateControls();

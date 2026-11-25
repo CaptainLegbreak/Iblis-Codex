@@ -1859,7 +1859,8 @@ int __stdcall CHATDLG_OnWaitTick(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall CHATDLG_OnReceiveTick(SMSGHANDLER_PARAMS* pMsg)
 {
     sub_00449B70_Receive();
-    if (GAME_IsMcpCharLogonReceived() || !sub_00449B30_QueryAddress() || gnFlag_0077BD60)
+// build: symbol ?MCPCONNECT_QueryAddress@* 0x00449B30
+    if (GAME_IsMcpCharLogonReceived() || !MCPCONNECT_QueryAddress() || gnFlag_0077BD60)
     {
         CHATDLG_SetCharLogonReceived(0);
         D2Win_StopMessageLoop();
@@ -1871,7 +1872,7 @@ int __stdcall CHATDLG_OnReceiveTick(SMSGHANDLER_PARAMS* pMsg)
 __declspec(noinline) int __cdecl CHATDLG_GetConnectStatus()
 {
 // build: symbol ?gpCharInfo@* 0x0077BBD8
-    if (gpCharInfo->nByte22D && !sub_00449B30_QueryAddress())
+    if (gpCharInfo->nByte22D && !MCPCONNECT_QueryAddress())
         return -1;
     return 0;
 }
@@ -3341,7 +3342,7 @@ int __fastcall CHATDLG_SetupLogin(D2LaunchLoginStrc* pLogin, const char* szText0
     gnChatLaunchMode = 1;
     if (gpCharInfo->szRealm0x22D[0])
     {
-        if (sub_00449B30_QueryAddress())
+        if (MCPCONNECT_QueryAddress())
         {
             gpCharInfo->dwGameType = 2;
             while (++*(unsigned short*)&gnRequestId_0070CD60 == 0)
@@ -3374,7 +3375,7 @@ int __fastcall CHATDLG_SetupCharacter(unsigned short wValue, const char* szText0
     strcpy(gpCharInfo->szText0x245, szText0x245);
     if (gpCharInfo->nByte22D)
     {
-        if (sub_00449B30_QueryAddress())
+        if (MCPCONNECT_QueryAddress())
         {
             gpCharInfo->dwGameType = 3;
             while (++gwRequestId == 0)
@@ -3645,7 +3646,7 @@ void __cdecl CHATDLG_OpenStandardLadder()
     if (gpCharInfo->nByte22D)
     {
         ResetClassSelectState(0);
-        if (!sub_00449B30_QueryAddress())
+        if (!MCPCONNECT_QueryAddress())
         {
             CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x1413), 0);
             return;
@@ -3673,7 +3674,7 @@ void __cdecl CHATDLG_OpenHardcoreLadder()
     if (gpCharInfo->nByte22D)
     {
         ResetClassSelectState(0);
-        if (!sub_00449B30_QueryAddress())
+        if (!MCPCONNECT_QueryAddress())
         {
             CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x1413), 0);
             return;
@@ -3701,7 +3702,7 @@ void __cdecl CHATDLG_OpenExpansionLadder()
     if (gpCharInfo->nByte22D)
     {
         ResetClassSelectState(1);
-        if (!sub_00449B30_QueryAddress())
+        if (!MCPCONNECT_QueryAddress())
         {
             CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x1413), 0);
             return;
@@ -3729,7 +3730,7 @@ void __cdecl CHATDLG_OpenExpansionHardcoreLadder()
     if (gpCharInfo->nByte22D)
     {
         ResetClassSelectState(1);
-        if (!sub_00449B30_QueryAddress())
+        if (!MCPCONNECT_QueryAddress())
         {
             CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x1413), 0);
             return;
@@ -4138,7 +4139,7 @@ void __stdcall CHATDLG_EnableConnection(int bEnable)
 {
     if (bEnable)
     {
-        if (!sub_00449B30_QueryAddress())
+        if (!MCPCONNECT_QueryAddress())
         {
             CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
             return;
@@ -4171,7 +4172,7 @@ void __cdecl CHATDLG_UpdateEnable()
     }
 
     int bEnable = 0;
-    if (gpCharInfo->nByte22D && !sub_00449B30_QueryAddress())
+    if (gpCharInfo->nByte22D && !MCPCONNECT_QueryAddress())
     {
         bEnable = 1;
     }
@@ -4210,7 +4211,7 @@ int __stdcall CHATDLG_OnTick(int nUnused)
         switch (gnChatLaunchMode)
         {
         case 3:
-            if (sub_00449B30_QueryAddress())
+            if (MCPCONNECT_QueryAddress())
             {
                 D2LaunchReplyStrc* pReply = (D2LaunchReplyStrc*)GAME_GetMcpReply();
                 const unsigned short wId = pReply->f_4;
@@ -4254,7 +4255,7 @@ int __stdcall CHATDLG_OnTick(int nUnused)
             break;
 
         case 2:
-            if (sub_00449B30_QueryAddress())
+            if (MCPCONNECT_QueryAddress())
             {
                 const int nId = CHATDLG_GetRequestId();
                 if (nId != 0 && nId == gwSavedRequestId)
@@ -4343,7 +4344,7 @@ int __stdcall CHATDLG_OnTick(int nUnused)
             break;
 
         case 1:
-            if (sub_00449B30_QueryAddress())
+            if (MCPCONNECT_QueryAddress())
             {
                 const int nId = CHATDLG_GetRequestId();
                 if (nId != 0 && nId == gwSavedRequestId)
@@ -4392,7 +4393,7 @@ int __stdcall CHATDLG_OnTick(int nUnused)
             if (!(wFlags & 8) || !(wFlags & 4))
             {
                 int bEnable = 0;
-                if (gpCharInfo->nByte22D && !sub_00449B30_QueryAddress())
+                if (gpCharInfo->nByte22D && !MCPCONNECT_QueryAddress())
                     bEnable = 1;
                 CHATDLG_EnableConnection(bEnable);
             }
@@ -4432,7 +4433,7 @@ int __cdecl CHATDLG_ConnectRealm()
         return 0;
     if (!gpLaunchFuncs->pfn0x68())
         return 0;
-    if (sub_00449B30_QueryAddress())
+    if (MCPCONNECT_QueryAddress())
         return 1;
     gnFlag_0077BD60 = 0;
     CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), CHATDLG_OnRealmConnectCancel);
@@ -4446,7 +4447,7 @@ int __cdecl CHATDLG_ConnectRealm()
 // build: symbol ?CHATDLG_DestroyPopupControls@* 0x0043EA20
     CHATDLG_DestroyPopupControls();
 // build: symbol ?GAME_GetConnectError@* 0x00449C00
-    if (gnFlag_0077BD60 || !sub_00449B30_QueryAddress() || GAME_GetConnectError())
+    if (gnFlag_0077BD60 || !MCPCONNECT_QueryAddress() || GAME_GetConnectError())
     {
         CHATDLG_DestroyPopupControls();
         return 0;
@@ -4926,7 +4927,7 @@ void __cdecl CHATDLG_FillGameListControl()
     if (!gnLastGameCount)
         return;
 
-    int bNoNumbers = !sub_00449B30_QueryAddress();
+    int bNoNumbers = !MCPCONNECT_QueryAddress();
     memcpy(gaGames, gaNewGames, gnValue_00798CCC * sizeof(D2LaunchGameRecStrc));
     for (int i = 0; i < gnLastGameCount; ++i)
     {
@@ -5016,7 +5017,7 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
             gdwGameListLastClickTick = dwTick;
         }
 
-        if (sub_00449B30_QueryAddress())
+        if (MCPCONNECT_QueryAddress())
         {
             const Unicode* pText = sub_004FBB30_GetText(gpGameList);
             if (pText)
@@ -5361,7 +5362,7 @@ void __cdecl CHATDLG_UpdateCreateButton()
             bName = 1;
     }
 
-    if (sub_00449B30_QueryAddress())
+    if (MCPCONNECT_QueryAddress())
     {
         pText = sub_004FDD90_GetEditText(gpMaxPlayerControl_00798C38);
         if (pText)
@@ -5552,7 +5553,7 @@ int __stdcall CHATDLG_JoinByName(int nArg)
         sub_00411320_CapitalizeWords(szName);
         sub_00411320_CapitalizeWords(szPassword);
 
-        if (sub_00449B30_QueryAddress())
+        if (MCPCONNECT_QueryAddress())
         {
             CHATDLG_SetupCharacter(0, szName, szPassword, 0);
 // build: symbol ?CHATDLG_DestroyJoinControls@* 0x00443130
@@ -6486,7 +6487,7 @@ void __cdecl CHATDLG_CreateJoinScreen()
     sub_004FDDD0_LinkTab(gpJoinPassword, gpJoinName);
 // build: symbol ?gpGameList@* 0x00798BC0
     gpGameList = CONTROL_Create(&gtGameListInit);
-    if (sub_00449B30_QueryAddress())
+    if (MCPCONNECT_QueryAddress())
     {
         sub_004FBC20(gpGameList, 2);
         sub_004FBC80(gpGameList, 1, 0x87);

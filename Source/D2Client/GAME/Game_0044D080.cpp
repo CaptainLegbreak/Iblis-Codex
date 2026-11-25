@@ -352,7 +352,7 @@ struct D2ClientNotifyStrc;
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
-D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
+D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 
 extern unsigned short gawLoadingStrings[]; // 0x0070F384
 
@@ -580,7 +580,7 @@ void __cdecl GAME_DrawLoadingText()
     {
         D2Win_10127_SetFont(2);
         int nLines;
-        D2SplittedTextStrc* pLines = sub_00502970_SplitText(pText, &nLines, 0x258);
+        D2SplittedTextStrc* pLines = D2WINFONT_SplitText(pText, &nLines, 0x258);
         D2SplittedTextStrc* pLine = pLines;
         for (unsigned int i = 0; i < nLines; ++i)
         {

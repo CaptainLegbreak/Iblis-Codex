@@ -202,7 +202,7 @@ void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned in
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
-D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
+D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
@@ -2064,7 +2064,7 @@ void __cdecl TEXT_DrawMessageList()
             {
                 Unicode wszText[0x190];
                 sub_005267E0(wszText, pNode->pLines[i]);
-                pTextLine = sub_00502970_SplitText(wszText, &nLineCount, 0x12C);
+                pTextLine = D2WINFONT_SplitText(wszText, &nLineCount, 0x12C);
                 if (pTextLine)
                 {
                     nY = 15 * nLine + nBaseY;
@@ -2483,7 +2483,7 @@ void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor)
     int nOldFont = D2Win_10127_SetFont(0xD);
 
     int nLines;
-    D2SplittedTextStrc* pLine = sub_00502970_SplitText(wszText, &nLines, gnScreenWidth - 0x46);
+    D2SplittedTextStrc* pLine = D2WINFONT_SplitText(wszText, &nLines, gnScreenWidth - 0x46);
     pNode->nLines = (unsigned int)nLines > 6 ? 6 : nLines;
     for (int i = 0; i < nLines; i++)
     {
@@ -3543,7 +3543,7 @@ D2TextBoxStrc* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode)
     D2TextBoxStrc* pTextBox = (D2TextBoxStrc*)FOG_Alloc(sizeof(D2TextBoxStrc), ".\\UI\\text.cpp", 0x65D, 0);
     if (nMode == 3)
     {
-        pTextBox->pFirst = sub_00502970_SplitText(wszText, &pTextBox->nLines, 0xB4);
+        pTextBox->pFirst = D2WINFONT_SplitText(wszText, &pTextBox->nLines, 0xB4);
         TEXT_MeasureTextBox(pTextBox);
         return pTextBox;
     }
@@ -3666,7 +3666,7 @@ static void __stdcall TEXT_ShowHoverText(const Unicode* wszText, D2UnitStrc* pUn
 
     const int nOldFont = D2Win_10127_SetFont(0x0D);
     D2TextBoxStrc* pTextBox = (D2TextBoxStrc*)FOG_Alloc(sizeof(D2TextBoxStrc), ".\\UI\\text.cpp", 0x65D, 0);
-    pTextBox->pFirst = sub_00502970_SplitText(wszText, &pTextBox->nLines, 0xB4);
+    pTextBox->pFirst = D2WINFONT_SplitText(wszText, &pTextBox->nLines, 0xB4);
     TEXT_MeasureTextBox(pTextBox);
 
     pPos->nX -= pTextBox->nWidth >> 1;

@@ -348,7 +348,7 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);        
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
-D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);
+D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
@@ -408,7 +408,7 @@ void EditBoxImplementation::Draw()
     }
 
     int nLines;
-    D2SplittedTextStrc* pLine = sub_00502970_SplitText(pText, &nLines, nTextWidth);
+    D2SplittedTextStrc* pLine = D2WINFONT_SplitText(pText, &nLines, nTextWidth);
     int nLine = 0;
     int nChars = 0;
     int bDone = 0;

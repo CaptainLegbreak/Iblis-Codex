@@ -1150,7 +1150,8 @@ void __cdecl VIEW_DrawStarfield()
             int nBlue = (STARS_ROLL(pSeed, lSeed) & 0x3F) + nBase - 0x20;
             if (nBlue > 0xFF)
                 nBlue = 0xFF;
-            gaStarShades[nShade] = sub_004FB180_FindPaletteIndex(nRed, nGreen, nBlue);
+// build: symbol ?PALETTE_FindPaletteIndex@* 0x004FB180
+            gaStarShades[nShade] = PALETTE_FindPaletteIndex(nRed, nGreen, nBlue);
         }
 
         for (int i = 0; i < 256; ++i)

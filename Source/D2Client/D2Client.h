@@ -703,7 +703,7 @@ unsigned char __stdcall DATATBLS_GetMudFromLevelsTxt(int nLevelId); // 0x0061DC2
 unsigned char __stdcall DATATBLS_GetRainFromLevelsTxt(int nLevelId); // 0x0061DBA0
 unsigned char __stdcall PATH_GetNewDirection(D2DynamicPathStrc* pDynamicPath); // 0x00648810
 unsigned char __stdcall UNITS_GetDirection(D2UnitStrc* pUnit); // 0x00620100
-unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
+unsigned char __stdcall PALETTE_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 unsigned char __stdcall sub_006283F0_GetInvGfxIndex(D2UnitStrc* pItem); // 0x006283F0
 unsigned char __stdcall sub_0062E8D0_HasAltInvGfx(D2UnitStrc* pItem); // 0x0062E8D0
 unsigned char __stdcall MONSTERS_GetMaximalLightRadius(D2UnitStrc* pUnit); // 0x0063EBD0

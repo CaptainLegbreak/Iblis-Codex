@@ -71,7 +71,7 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                      // 0x00501820
 void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);   // 0x00502320
-D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
+D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);           // 0x0065C360
 extern D2QuestPosStrc gaQuestPos[];                                                                // 0x00723EA8
@@ -1980,7 +1980,7 @@ void __cdecl TEXT_DrawQuestPage()
             if (!gtQuestLog_007BF298.bB3 && gtQuestLog_007BF298.aMsgs[nFound].wszText[0].wChar)
             {
                 int nLines;
-                D2SplittedTextStrc* pLine = sub_00502970_SplitText(gtQuestLog_007BF298.aMsgs[nFound].wszText, &nLines, 0x10E);
+                D2SplittedTextStrc* pLine = D2WINFONT_SplitText(gtQuestLog_007BF298.aMsgs[nFound].wszText, &nLines, 0x10E);
                 if (pLine)
                 {
                     int nLine = 0;

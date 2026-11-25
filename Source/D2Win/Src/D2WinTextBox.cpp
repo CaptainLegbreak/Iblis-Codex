@@ -129,7 +129,7 @@ int __fastcall SCROLLBAR_SetMaxSteps(D2WinScrollBarStrc* pScrollBar, int nMaxSte
 
 int __fastcall SCROLLBAR_SetCurrentStep(D2WinScrollBarStrc* pScrollBar, int nCurrentStep); // 0x00507F60
 
-extern "C" int __fastcall sub_00507FA0_GetScrollBarField4C(D2WinScrollBarStrc* pScrollBar); // 0x00507FA0
+extern "C" int __fastcall SCROLLBAR_GetScrollBarField4C(D2WinScrollBarStrc* pScrollBar); // 0x00507FA0
 
 int __fastcall SCROLLBAR_SetScrollCallback(D2WinScrollBarStrc* pScrollBar, void(__stdcall* pfScrollCallback)(SMSGHANDLER_PARAMS*)); // 0x00508000
 
@@ -203,7 +203,7 @@ extern "C" const char gszEmptyAssertText;                                       
 
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
-extern "C" int __fastcall sub_00507EF0_GetScrollBarField48(D2WinScrollBarStrc* ptScrollbarData); // 0x00507EF0
+extern "C" int __fastcall SCROLLBAR_GetScrollBarField48(D2WinScrollBarStrc* ptScrollbarData); // 0x00507EF0
 
 extern "C" int __cdecl isspace(int c);                                                                      // 0x00687006
 
@@ -229,7 +229,7 @@ void __fastcall FONT_DrawTextWithBackground(const Unicode* wszText, int nX, int 
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
-void __fastcall sub_00501FE0_DrawTickerText(const Unicode* wszText, int nX, int nY, int nColor, int nScroll, int nWidth); // 0x00501FE0
+void __fastcall D2WINFONT_DrawTickerText(const Unicode* wszText, int nX, int nY, int nColor, int nScroll, int nWidth); // 0x00501FE0
 
 static void TEXTBOX_SetLineGapForFont(int nFont); // 0x004FB5A0
 
@@ -1025,7 +1025,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                 }
                 else if (pTextBox->dwTextBoxFlags & 0x40)
                 {
-                    sub_00501FE0_DrawTickerText(pLine->pColumns[i], nX, nY, pLine->nColor, pTextBox->nScrollOffset, nBoxWidth);
+                    D2WINFONT_DrawTickerText(pLine->pColumns[i], nX, nY, pLine->nColor, pTextBox->nScrollOffset, nBoxWidth);
                 }
                 else if (pTextBox->dwTextBoxFlags & 0x80)
                 {
@@ -1196,7 +1196,7 @@ extern "C" int __fastcall D2Win_10190(D2WinTextBoxStrc* ptTextData)
 {
     D2_ASSERT(ptTextData, 0x578);
     D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0x579);
-    return sub_00507EF0_GetScrollBarField48(ptTextData->pScrollBar);
+    return SCROLLBAR_GetScrollBarField48(ptTextData->pScrollBar);
 }
 
 // 0x004FC5E0
@@ -1216,7 +1216,7 @@ int __fastcall D2Win_10192(D2WinTextBoxStrc* ptTextData)
     D2_ASSERT(ptTextData, 0x58C);
     D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0x58D);
 
-    return sub_00507FA0_GetScrollBarField4C(ptTextData->pScrollBar);
+    return SCROLLBAR_GetScrollBarField4C(ptTextData->pScrollBar);
 }
 
 // 0x004FC660
@@ -1512,7 +1512,7 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText,
         if (TEXTBOX_CountLinesFromCurrent(ptTextData) > nVisible)
         {
             D2WinScrollBarStrc* pScrollBar = ptTextData->pScrollBar;
-            if (!pScrollBar || sub_00507FA0_GetScrollBarField4C(pScrollBar) == sub_00507EF0_GetScrollBarField48(ptTextData->pScrollBar))
+            if (!pScrollBar || SCROLLBAR_GetScrollBarField4C(pScrollBar) == SCROLLBAR_GetScrollBarField48(ptTextData->pScrollBar))
             {
                 bScrolled = 1;
                 ptTextData->pCurrentLine = ptTextData->pCurrentLine->pNext;
@@ -1523,7 +1523,7 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText,
 
     if (ptTextData->pScrollBar)
     {
-        const int nStep = sub_00507FA0_GetScrollBarField4C(ptTextData->pScrollBar);
+        const int nStep = SCROLLBAR_GetScrollBarField4C(ptTextData->pScrollBar);
         SCROLLBAR_SetMaxSteps(ptTextData->pScrollBar, ptTextData->nNumLines - D2Win_10055(ptTextData));
         if (bScrolled)
             SCROLLBAR_SetCurrentStep(ptTextData->pScrollBar, ptTextData->nLine);

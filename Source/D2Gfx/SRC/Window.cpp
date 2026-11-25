@@ -22,7 +22,7 @@ struct D2TileLibraryBlockStrc
 
 extern int gnResolutionMode_007C8CC4; // 0x007C8CC4
 
-int __fastcall sub_004F4FF0_SetVideoMode(int nMode);
+int __fastcall WINDOW_SetVideoMode(int nMode); // 0x004F4FF0
 
 union D2LargeIntegerStrc;
 
@@ -305,7 +305,7 @@ extern int ganSubtileRowWidth[]; // 0x0072DB84
 extern int ganSubtileRowXOffset[]; // 0x0072DB48
 
 // 0x004F4FF0
-int __fastcall sub_004F4FF0_SetVideoMode(int nMode)
+int __fastcall WINDOW_SetVideoMode(int nMode)
 {
     if (!gapGraphicsInterfaces[nMode])
     {
@@ -549,7 +549,7 @@ int __stdcall D2GFX_Initialize(void* hInstance, WNDPROC pfWndProc, int nRenderMo
     atexit(j_D2GFX_10040_ShowAllWindows);
     gnDisplayType = nRenderMode;
     gbIsWindowed = bWindowed;
-    if (!sub_004F4FF0_SetVideoMode(nRenderMode))
+    if (!WINDOW_SetVideoMode(nRenderMode))
     {
         return 0;
     }
