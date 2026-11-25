@@ -11,7 +11,7 @@ Status (Tue Nov 24 21:55 PST 2026): new lane 2 chat. Set up and baseline-built o
 ## Ready
 
 - `lane2/net-packet-buffer`: WITHDRAWN, never posted. It duplicates lane 10's `bn-crypt-records-r`; don't merge it. (The proxy here won't let me delete the remote branch.)
-- `lane2/shim-trim-d2bnclient-3`: superseded by `-4` (same commit on #380), coming once its full build passes.
+- lane2/shim-trim-d2bnclient-4 7929c19c8 (on #380): D2BNClient: drops grid.cpp's uncalled shim and BnDownload.cpp:334's stale shim marker (deletions only; replaces `-2`/`-3`). Full build: Game.exe identical, tree 34bc39c23af79ddd8cdb42067d8f39920cecda87, borrowed code / data 11,250 / 281 B.
 
 ## Working on
 
