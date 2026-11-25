@@ -43,6 +43,7 @@
 #include "D2DrlgMaps.h"
 
 #include "D2DrlgRooms.h"
+#include "D2DrlgOutdoor.h"
 
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 
@@ -661,24 +662,6 @@ static inline int sub_006750F0_GetLevelRoomFlags(int nLevelType)
     }
     return nFlags;
 }
-
-struct D2UnkOutdoorStrc
-{
-    D2DrlgLevelStrc* pLevel;
-    int* field_4;
-    D2DrlgGridStrc* pGrid1;
-    D2DrlgGridStrc* pGrid2;
-    int nLevelPrestId;
-    int field_14;
-    int nLvlSubId;
-    unsigned int(__fastcall* field_1C)(D2DrlgLevelStrc* pLevel, int nX, int nY);
-    int(__fastcall* field_20)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nId, int nOffset, char nFlags);
-    int(__fastcall* field_24)(D2DrlgLevelStrc* pLevel, int nX, int nY, int a4, int a5, unsigned int a6);
-    int(__fastcall* field_28)(D2DrlgLevelStrc* pLevel, int nStyle, int a3);
-    void(__fastcall* field_2C)(D2DrlgLevelStrc* pLevel, int nX, int nY);
-    void(__fastcall* field_30)(D2DrlgLevelStrc* pLevel, int nX, int nY);
-    void(__fastcall* field_34)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nRand, int a6);
-};
 
 void __fastcall DRLGTILESUB_ApplySubstitutionBorder(D2UnkOutdoorStrc* pOutdoor); // 0x00670750
 
