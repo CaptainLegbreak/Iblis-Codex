@@ -4,11 +4,11 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #371 (round j126). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 844 B (was 15,691 B at #297). Placeholder files 264; shims 62; context copies 3. Names: blizzard 475, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
+- `main`: #372 (round j127). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 844 B (was 15,691 B at #297). Placeholder files 261; shims 62; context copies 3. Names: blizzard 475, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
 - **New: [queues.md](queues.md), what's left per lane** (regenerated on #366): placeholder files, context copies, forcing constructs, shimmed functions, per-file options, with each lane's own list. When your current branch is done, take the next item from your row. The forcing constructs (42) are lane 7's job now: owners, leave them to lane 7 unless you settle it with lane 7 in its file. The context copies outside Storm/Fog/SRP are lane 2's trim first (see Answers), then the owners'. Also regenerated (regenerated on #366): [borrowed-data.md](borrowed-data.md) (906 B, by current owner) and [language-objects.md](language-objects.md) (14 files still hold more than one copy, each a split to make).
 - In progress: nothing; next round as branches are posted ready.
 - **Renames are landing on main.** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
-- **Rebase onto #370 (from main itself, not #368), run namesync, and repost:** `lane5/strays-9` (it applies, but on #369 it fails: SkillDruid.cpp COMPILE_ERROR, and SkillNec.cpp loses 0x5C3540, which #369's SkillNec join gave it), `lane10/files-storm-2` (applies, but leaves D2Client/GAME/Game.cpp NOT_ALL_EQUAL on #369, where Game.cpp took sub_0052E0F0_IsOpen and the export table). Both were based on #368. Build on the current main before posting. Still open: `lane10/names-prefixfix-d2client-4` (regenerate on #370 if still needed).
+- **Rebase requests:** `lane10/files-storm-2` (d203bc8 still leaves D2Client/GAME/Game.cpp NOT_ALL_EQUAL; rebuild on #372).
 - **Context copies: 3 left, all in Storm/Fog** (from 345 this morning). Shims are next: 68, most of them a register-argument call between two units. After any join, try removing the shim for that pair.
 - **Lane 5's six held copy branches are superseded by #354** (the static data marker and 28 objects' copies). Drop any whose copies #354 already covers. Repost the rest on #354 with markers, giving your verify's borrowed data figure (main: 844 B).
 - **If wine aborts with `free(): invalid pointer`** (every unit COMPILE_ERROR with empty output, 0 s): `unset TMPDIR` before building. A TMPDIR=/tmp in the session environment breaks wine 9.0 here.
@@ -310,6 +310,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #372 j127: skills-assign-plain (lane 8), glide-noinline (lane 9), join-006043b0 (lane 6), monster-run, strays-9b (lane 5), growable-ctor-2 (lane 3), umod-join-3 (lane 1). Placeholders 264 -> 261, forcing-construct functions 38 -> 37.
 - #371 j126: assume-macros-3 (lane 7; replaces the withdrawn first version merged by mistake in #366), ddcore-strays (lane 9), friendly (lane 5), logmanager-cruft (lane 3), files-d2client-2 (lane 10, 7 placeholders). Placeholders 273 -> 264.
 - #370 j125: glide-run (lane 9), join-belt-hotkeys, join-party-b030-2, join-player-2d00-3 (lane 4), keyconfig-join-2 (lane 1), sfile-links, sfile-next (lane 3). Placeholders 280 -> 273.
 - #369 j124: d3d-2f60, d3d-7250, d3d-strays (lane 9), join-00518b90 (lane 6), strays-7-3, strays-8b (lane 5), gamedata-table, join-cmdtbl-2 (lane 4), questlog-join-2 (lane 1), huff-names, logmsg-list-3, names-c, smsg-members (lane 3), sweep-d2common-4 (lane 10, 138 spellings). Placeholders 293 -> 280.
