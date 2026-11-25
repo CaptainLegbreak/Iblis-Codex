@@ -6,7 +6,7 @@ Status (Wed Nov 25 05:50 PST 2026): charsel-pieces-2 and copy-trim merged (#396)
 
 ## Ready
 
-(nothing outstanding; charsel-pieces-2 and copy-trim merged in #396)
+(lane6/bn-assert-spans, assert-spans-launch and assert-spans-d2cmp verifying on #396)
 
 ## Questions
 
@@ -41,6 +41,8 @@ Nothing of mine in flight. Open items:
 - Strays in Storm's range (see the lane 3 note below): D2Gdi Unknown_006C81A0/_006C84B0/_006C86A0/_006C8750, D2Direct3D Unknown_006B1C70, D2Hell Unknown_006CAE5F and Unknown_006CB401.
 
 ## Notes for other lanes
+
+- **Lane 9, D2Glide functions filed outside the asserted span they sit in** (from the code that passes each `.\Src\gl*.cpp` path): 0x50A110 GLCORE_ReleaseTexSlots (glCore.cpp) inside glSprite.cpp's 0x50A0C0-0x50B7B0; 0x50DFE0 GLSPRITE_SetSmackTexAddresses and 0x50E330 GLSPRITE_UploadSmackTextures (glSprite.cpp) inside glSmack.cpp's 0x50DF10-0x50E5D0; 0x50EAE0, 0x50EC40 (glSmack.cpp) inside glTextureCache.cpp's 0x50E890-0x50ECB0; 0x50EF60, 0x50EFB0 (glTextureCache.cpp) inside glSubtileCache.cpp's 0x50ED90-0x50F210; 0x50F4F0, 0x50F540 (glSubtileCache.cpp) and 0x50F570, 0x50F6D0, 0x50F750 (glSmack.cpp) inside glFloorCache.cpp's 0x50F320-0x50F7C0. An assert path settles placement; yours to move. (/home/claude/scripts/spans.py does the scan, if you want it.)
 
 - **Lane 5, six functions leave your D2Game/GAME/Game.cpp (lane6/bn-getters, coming):** 0x520650, 0x520C40, 0x5210E0, 0x5224E0, 0x523A00 and 0x523AA0 sit inside D2BNClient's code runs and read its globals, so they move to BnSend.cpp, BnDownload.cpp and grid.cpp. GAME_GetAbortFlag and its four neighbours 0x520AE0-0x520B20 stay with you for now: BnDownload's own callers would inline the abort getter if it shared their unit, and the original calls it. Game.cpp's unused externs for those globals (and Clients.cpp's, objrgn.cpp's) are left alone.
 
