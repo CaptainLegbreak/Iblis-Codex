@@ -342,15 +342,6 @@ struct D2SkillStrc;
 
 struct D2DynamicPathStrc;
 
-struct D2PlayerCountBonusStrc
-{
-    int nHp;
-    int nExperience;
-    int nMonsterSkillBonus;
-    int nDifficulty;
-    int nPlayerCount;
-};
-
 extern const char gszAiThink4Source[]; // 0x006E3500
 
 int __fastcall PLAYER_GetUniqueIdFromPlayerData(D2UnitStrc*); // 0x005353F0
@@ -1232,7 +1223,6 @@ void __fastcall sub_005DEC80_Walk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitSt
 
 #define ROLL() ((int)SEED_RollLimitedRandomNumber(pSeed, 100))
 
-struct D2PlayerCountBonusStrc;
 
 enum D2C_CorruptRogueAIParams
 {

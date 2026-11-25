@@ -246,15 +246,6 @@ struct D2SkillStrc;
 
 struct D2DynamicPathStrc;
 
-struct D2PlayerCountBonusStrc
-{
-    int nHp;
-    int nExperience;
-    int nMonsterSkillBonus;
-    int nDifficulty;
-    int nPlayerCount;
-};
-
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
 
 void __fastcall MONSTER_GetPlayerCountBonus(D2GameStrc*,D2PlayerCountBonusStrc*,D2ActiveRoomStrc*,D2UnitStrc*); // 0x00573930
@@ -930,7 +921,6 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_Regurgitator(D2GameStrc* pGame, D2
 
 #define ROLL() ((int)SEED_RollLimitedRandomNumber(pSeed, 100))
 
-struct D2PlayerCountBonusStrc;
 
 enum D2C_CorruptRogueAIParams
 {

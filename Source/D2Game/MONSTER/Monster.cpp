@@ -406,15 +406,6 @@ extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 #pragma intrinsic(memset)
 
 
-struct D2PlayerCountBonusStrc
-{
-    int nHp;
-    int nExperience;
-    int nMonsterSkillBonus;
-    int nDifficulty;
-    int nPlayerCount;
-};
-
 struct D2ActiveRoomStrc;
 
 extern const int gnHpBonusTable[9]; // 0x006E1590
