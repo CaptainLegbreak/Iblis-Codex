@@ -10,7 +10,9 @@ Status (Tue Nov 24 21:55 PST 2026, new lane 6 chat): baseline on #378 verified (
 
 - lane6/lang-unisys 193c8af5 (on #378): UNISYS.CPP takes D2Lang's whole code-page object, 0x527660-0x527DAF (its .bss 0x882AF8-0x882B2F is read only by these functions): the operators and range members from Unknown_00525FB0.cpp, the lead-byte test, reverse lookup, converters and char count from Unknown_00526100.cpp, and 0x527BE0/0x527CA0 from Bnclient/Unknown_00527BE0.cpp, in address order with the six globals defined once; the two counts are file statics, which gives LoadSysMap the original's store order. Full build: Game.exe identical, tree 4a284db10158c0c335b8c1daaf9092e6d359d6bd, borrowed code / data 11,250 / 281 B.
 
-(lang-527090 and lang-unicode, stacked on lang-unisys, verifying)
+- lane6/lang-unicode 3ae86b85 (on lane6/lang-unisys, #378; merge after it): Unknown_005264F0.cpp gathers D2Lang's Unicode string routines 0x5264F0-0x52708F (one run, one language copy 0x730A28) from Unknown_00525FB0.cpp, Unknown_00526D00.cpp and Unknown_00526100.cpp, on the shared D2Unicode.h view; 0x5267E0 becomes Unicode::strcpy (the name D2Unicode.h already gives it; names.csv strcpy). D2Unicode.h's isWhitespace is written `if (wChar < 0x100 && isspace(wChar)) return 1; return 0;`, which inlines in 0x526D30 as the original does and keeps Item.cpp's 0x4C3760 equal (a bare `return a && b;` flips it). Two placeholders fewer. compare/strnicmp stay in Unknown_00526610.cpp with the case-table data (see Questions). Full build: Game.exe identical, tree 6b75ff556b7e30d416f7f7ba18636a300c1ae875, borrowed code / data 11,250 / 281 B.
+
+(lang-527090, decomp-labels and emit-trim verifying)
 
 ## Questions
 
