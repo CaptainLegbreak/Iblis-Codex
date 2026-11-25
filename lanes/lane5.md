@@ -4,10 +4,10 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/addrless-2 df65bc47d (on #379): 110 address-less bodies in 16 D2Game files go (copies of functions placed from another file: other acts' quest callbacks in a5q1/a4q1/a5q2, ACT3Q5_SpawnCouncil, ACT3Q7_ActiveFilterCallback, the ObjMode packet no-ops, the MissMode/MonsterMode collision callbacks, the UMod callers, Game.cpp's copies of D2Net's NET_ helpers), each turned into a declaration on its own and kept only when its unit stayed equal; the declarations keep main's names and symbol lines. Replaces lane5/addrless (23f941d44), which is withdrawn. Full build: Game.exe identical, tree 6a6b06bcb3007750a468581d9fd5502e735bd263, borrowed code / data 11,250 B / 281 B.
 
 ## Claimed
 
-- lane5/addrless-2 (in progress, not ready): lane5/addrless rebased onto #378 as lane5/addrless-2 (the two conflicts were main's new names and symbol lines on Game.cpp's NET_ copies and Unknown_005A3D20.cpp's UMod callers; both stay declarations under main's names). Its 16 units build equal on #378; full build running; the Ready line follows. The old lane5/addrless (23f941d44) is superseded: don't merge it.
 - D2Game placeholder files (Source/D2Game/**, lane 5's): lane 5 is working through them by run, data and call evidence. Lane 10: #367's files-d2game took Unknown_00592090.cpp, which lane5/run-joins-2 had too; please check this file before taking D2Game ones, or post the list you plan, and I'll skip those.
 
 ## Questions
