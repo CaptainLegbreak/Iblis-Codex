@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/join-monster-573cb0 97fb9cba0 (on #393): 0x573CB0 is a static whose only caller is MONSTER_Initialize (0x574250, right after it), so they are one object. Its placeholder already held the real 0x573CB0 and a copy of MONSTER_Initialize, and built together both are equal with the module defaults. MONSTER/Monster_00574250.cpp (only MONSTER_Initialize, a `shim_1` stub standing in for 0x573CB0, and a per-file /Ob1) goes; the placeholder becomes MONSTER/Monster_00573CB0.cpp. Placeholders -1, one shim and one per-file option fewer. auditguard: nothing rose. Full build: Game.exe identical, tree 72fdb785ff5a9979c6e8ab42892d8dc54ad6af2d, borrowed code / data 11,250 B / 261 B.
 
 ## Claimed
 
