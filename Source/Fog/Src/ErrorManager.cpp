@@ -689,8 +689,6 @@ extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatu
 
 char* __fastcall Int64ToString(char* szBuffer, unsigned int nBufferSize, __int64 nValue); // 0x00411540
 
-// 0x00409020
-
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);            // 0x0040B480
 
 unsigned __int64 __cdecl AUTOMAP_ReadTimeStampCounter(); // 0x0040E850
