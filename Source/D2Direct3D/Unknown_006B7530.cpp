@@ -48,9 +48,6 @@ void __fastcall sub_006B9860_Project(int nX,int nY,int nZ,int* pOutX,int* pOutY)
 void __fastcall sub_006B9730_SetColor(D2TLVertexStrc* pVertex,unsigned char nIndex,unsigned char nAlpha); // 0x006B9730
 void __fastcall D3DFLOORCACHE_BindTileTexture(D2PerspectiveTileStrc* pTile); // 0x006BBA00
 int __stdcall D2CMPTileValidate(void*, int, int); // 0x005FDEA0
-void __fastcall D3DCORE_SetAlphaBlendMode(int); // 0x006B1F40
-void __fastcall D3DCORE_SetTextureFilterMode(int); // 0x006B2030
-int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 static int __stdcall sub_006B8950_Lit(int, D2TileStrc*, int, int, unsigned int*, unsigned char); // 0x006B8950
 static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileStrc*, int, int, const unsigned int*, int, unsigned char); // 0x006B87A0
 
@@ -87,7 +84,6 @@ extern IndexStrip gIndexStrips[5]; // 0x009716B0
 extern const char gCreateFailure[]; // 0x006FC2C4
 extern const char gLockFailure[]; // 0x006FC330
 extern const char gUnlockFailure[]; // 0x006FC310
-void __fastcall D3DCORE_ShowD3DError(const char*,long); // 0x006B39B0
 void __fastcall D3DCORE_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
 
 struct D2GridPointStrc { unsigned char nScale,nRed,nGreen,nBlue; int nX,nY; };
@@ -100,7 +96,6 @@ extern unsigned short gaFlatIndices[4]; // 0x0074C3D0
 extern unsigned short gaGridIndices[65]; // 0x009716B0
 extern unsigned char gabMultiplyTable[256][256]; // 0x00971740
 int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile); // 0x006BB870
-void __fastcall D3DCORE_SetColorCombineMode(int nState); // 0x006B1EA0
 void __fastcall D3DCORE_LogDDrawError(const char* szWhere,int hResult); // 0x006B20E0
 extern int gnD3DOriginX; // 0x00981740
 extern int gnOriginY; // 0x00981744
@@ -166,9 +161,6 @@ static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar)
 typedef char* va_list;
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szOut, const char* szFormat, va_list args);
 
-void __fastcall D3DCORE_SetColorCombineMode(int nState); // 0x006B1EA0
-void __fastcall D3DCORE_SetAlphaBlendMode(int nMode); // 0x006B1F40
-void __fastcall D3DCORE_SetTextureFilterMode(int nMode); // 0x006B2030
 
 // 0x006B7630
 void __fastcall sub_006B7630_DrawTextV(int nX, int nY, const char* szFormat, va_list args)
@@ -740,10 +732,6 @@ void __fastcall sub_006B9910_ProjectPoint(int nX, int nY, int nUnused, int* pScr
 }
 
 int __stdcall D2CMPTileValidate(void*, int, int); // 0x005FDEA0
-void __fastcall D3DCORE_SetAlphaBlendMode(int); // 0x006B1F40
-void __fastcall D3DCORE_SetTextureFilterMode(int); // 0x006B2030
-int __cdecl sub_006B77A0_GetBlendedShadows(); // 0x006B77A0
-int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 int __fastcall sub_006B83A0_DrawPerspective(void*, int, int, int, unsigned char, int); // 0x006B83A0
 int __fastcall sub_006B8220_DrawFlat(void*, int, int, int, unsigned char, int); // 0x006B8220
 

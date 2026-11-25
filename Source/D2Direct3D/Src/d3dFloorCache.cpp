@@ -104,7 +104,6 @@ struct D2CacheListStrc
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-void __fastcall D3DCORE_BlitIndexedToHighColor(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
 
 void __fastcall D3DCORE_CopySurface(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, unsigned int nRows); // 0x006B38A0
 

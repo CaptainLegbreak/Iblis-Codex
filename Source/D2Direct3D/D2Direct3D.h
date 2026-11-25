@@ -66,3 +66,10 @@ struct D2RectStrc
     int nBottom;
 };
 
+void __fastcall D3DCORE_BlitIndexedToHighColor(const unsigned char* pSrc, unsigned short* pDst, int nWidth, int nHeight, int nDstPitch, int nUnused); // 0x006B1DC0
+void __fastcall D3DCORE_SetAlphaBlendMode(int nState); // 0x006B1F40
+void __fastcall D3DCORE_SetColorCombineMode(int nState); // 0x006B1EA0
+void __fastcall D3DCORE_SetTextureFilterMode(int nMode); // 0x006B2030
+void __fastcall D3DCORE_ShowD3DError(const char* text,long result); // 0x006B39B0
+int __cdecl sub_006B77A0_GetBlendedShadows(); // 0x006B77A0
+int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
