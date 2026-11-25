@@ -1,0 +1,5 @@
+header	struct	offset	old	new	confidence	reason
+D2AiCallbackArgs.h	(trailing)	*	unk0x08[8], unk0x04[9], unk0x18[4], unk0x10[6], unk0x1C[3], unk0x14[5], unk0x0C[7]		skip	padding to the 0x28-byte argument area every caller reserves; no code reads them
+D2AiCallbackArgs.h	D2BaalToStairsAiCallbackArgStrc	0x00	unk0x00		skip	only ever zeroed
+D2AiCallbackArgs.h	D2SiegeBeastTowerAiCallbackArgStrc	0x04	unk0x04		skip	only ever zeroed
+D2AiCallbackArgs.h	D2Unk005EAD50*Strc	*	unk0x00, unk0x04		skip	these records are views of the AI tick parameters (callers cast D2AiTickParamStrc*); the padding should go when they become that type, not get names
