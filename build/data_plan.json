@@ -3842,8 +3842,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_004DF6C0.cpp": {
-   "bytes": 4,
-   "definitions": 1,
+   "bytes": -8220,
+   "definitions": -5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004DF6C0.inc",
