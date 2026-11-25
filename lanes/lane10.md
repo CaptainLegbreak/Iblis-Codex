@@ -5,9 +5,10 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Ready
-- None open: names-all-3 is merged (#397).
+- lane10/sweep-small 14ca0a2c9, on main #398: the call-site sweep for the smaller modules (Fog, Storm, D2Win, D2CMP, D2Gfx, D2Launch, D2Multi, D2Lang, D2Net, D2Sound, the Battle.net modules, the renderers, SRP): 80 old sub_ spellings take their names.csv names in 76 files. Left out: the ones whose units fail with the name (declarations that differ), and 0x0051E3D0 (BNDOWNLOAD_SendGetFileTime), which the data plan declares extern "C" while D2BNClient.h declares it C++. VERIFIED 46ef5d12, Game.exe matches.
 
 ## Claimed
+- Wed Nov 25 06:57:58 PST 2026: check-in on #398: sweep-small posted (Ready). Next: the call-site sweep for the functions it left out, starting with the prototype mismatches.
 - Wed Nov 25 06:18:11 PST 2026: check-in on #397: names-all-3 merged, nothing to rebase. Running the call-site sweep for the smaller modules (Fog, Storm, D2Win, D2CMP, D2Gfx, D2Launch, D2Multi, D2Lang, D2Net, D2Sound, the Battle.net modules, renderers, SRP) on #397.
 - Wed Nov 25 05:46:31 PST 2026: check-in on #396: all open lane 10 work is now one branch, names-all-3 (Ready); earlier lane 10 branches can be deleted. Next: the call-site sweep for the smaller modules (Fog, Storm, D2Win, D2CMP and the rest; 82 spellings build so far, two units still to sort out).
 - Tue Nov 24 19:43:54 PST 2026: posted all fileprefix branches (14 modules + small), rendslots-all, seq-all, files-storm-4 and names-prefixfix-d2client-6; seq-extra next.
