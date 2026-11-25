@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(none: audit-emit-fog-storm merged in #390)
+- lane3/zlib-inffast-inftrees 0cbcb6a7 215->214 Storm/Unknown_0042DCA0.cpp was zlib 1.2.8's inflate_fast (0x42DCA0) and inflate_table (0x42E120), which zlib keeps in two files; the data agrees (inflate_copyright at 0x6D3878 and inflate_table's lbase/lext/dbase/dext follow it as inftrees.c's; inffast.c has none). The placeholder becomes Source/Storm/zlib/inffast.c and zlib/inftrees.c, named like the other zlib units; the data plan's entry moves to inftrees.c. Both build as C++ with zlib/inflate.c's flags, as the placeholder did, and build equal. VERIFIED 0cbcb6a7 on base #391; borrowed code 11,250 B in 8 functions, borrowed data 261 B (main the same); namesync had nothing to rename.
 
 ## Claimed
 
