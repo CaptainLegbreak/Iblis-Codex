@@ -319,6 +319,9 @@ extern D2CmpPoolStrc gCmpTilePool; // 0x0088DB20
 extern D2CmpTileCacheStrc gCmpTileCache; // 0x0089DB60
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
+void __fastcall CelIterateRgbPixels(D2CelStrc* pCel, int nArg, int nTermination); // 0x0060D110
+typedef void(__fastcall* CELFILECELLOPFN)(D2CelStrc* pCel, int nArg);
+extern CELFILECELLOPFN gpfnCelFileCellOp[]; // 0x006E3698
 
 void __fastcall D2CMPTileCacheReleaseTile(void* pEntry); // 0x005FDE50
 
@@ -1513,6 +1516,19 @@ void __stdcall D2CMPBuildFileName(char* output,int allowCompressed,const char* f
     strcat(output,suffix);
 }
 
+// 0x00601180
+void __stdcall CelFileIteratePixels(D2CelFileStrc* pCelFile, int nArg)
+{
+    D2_ASSERT(pCelFile->dwFlags & 4, 0x322);
+    for (unsigned int nDirection = 0; nDirection < pCelFile->nDirections; nDirection++)
+    {
+        for (unsigned int nFrame = 0; nFrame < pCelFile->nCelsPerDirection; nFrame++)
+        {
+            CelIterateRgbPixels(pCelFile->pCels[nDirection * pCelFile->nCelsPerDirection + nFrame], nArg, pCelFile->nTermination);
+        }
+    }
+}
+
 // 0x006011F0
 int __stdcall CelFileSerialize(D2CelFileStrc* pCelFile, D2CelFileStrc** ppNewCelFile, unsigned int* pnSize)
 {
@@ -1606,6 +1622,16 @@ void __stdcall CelFileFreeSerialized(D2CelFileStrc* pCelFile)
 {
     D2_ASSERT(pCelFile, 0x40D);
     FOG_Free(pCelFile, ".\\SRC\\CelCmp.cpp", 0x40E, 0);
+}
+
+// 0x00601450
+void __stdcall CelFileTransform(D2CelFileStrc* pCelFile, int nArg)
+{
+    D2_ASSERT(pCelFile, 0x431);
+    for (unsigned int i = 0; i < pCelFile->nDirections * pCelFile->nCelsPerDirection; i++)
+    {
+        gpfnCelFileCellOp[pCelFile->nFormat](pCelFile->pCels[i], nArg);
+    }
 }
 
 // 0x006014C0
@@ -1748,23 +1774,7 @@ void __stdcall CelDrawEx(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg
     pfnDraw(pCel, &pBuffer[nEnd * nPitch + nX], nX, nArg4, nArg5, nPitch, nY - nEnd, nRows, nArg9, nArg10, nArg13);
 }
 
-// 0x00601980
-char* __stdcall CelGetControlData(D2CelStrc* pCel)
-{
-    D2_ASSERT(pCel, 0x5B4);
-    return pCel->data;
-}
-
-// 0x006019B0
-int __stdcall CelFileGetNumDirections(D2UnitStrc* unit)
-{
-    if(unit->dwUnitType!=REQUIRED_TYPE) {
-        FOG_DisplayHalt(&emptyAssert,sub_00408090(),0x5C2);
-        exit(-1);
-    }
-    return unit->dwAnimMode;
-}
-
+// 0x00601810
 int __stdcall CelValidateContext(D2CmpCelContextStrc* pContext)
 {
     D2CelFileStrc* pCelFile = (D2CelFileStrc*)pContext->pCelFile;
@@ -1789,6 +1799,23 @@ int __stdcall CelValidateContext(D2CmpCelContextStrc* pContext)
     }
 
     return 1;
+}
+
+// 0x00601980
+char* __stdcall CelGetControlData(D2CelStrc* pCel)
+{
+    D2_ASSERT(pCel, 0x5B4);
+    return pCel->data;
+}
+
+// 0x006019B0
+int __stdcall CelFileGetNumDirections(D2UnitStrc* unit)
+{
+    if(unit->dwUnitType!=REQUIRED_TYPE) {
+        FOG_DisplayHalt(&emptyAssert,sub_00408090(),0x5C2);
+        exit(-1);
+    }
+    return unit->dwAnimMode;
 }
 
 // 0x00601A50

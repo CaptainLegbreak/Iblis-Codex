@@ -55829,6 +55829,11 @@
      "length": 233
     },
     {
+     "va": "0x005FF2A0",
+     "length": 96,
+     "name": "?D2CMPSpriteNumAsyncLoads@@YAHXZ"
+    },
+    {
      "va": "0x005FF300",
      "length": 131,
      "name": "D2CMPSpriteFindAsynchSiblings"
@@ -55837,6 +55842,11 @@
      "va": "0x005FF390",
      "length": 1,
      "name": "?sub_005FF390_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x005FF3A0",
+     "length": 71,
+     "name": "?D2CMPSpriteFreeAsyncLoads@@YAXXZ"
     },
     {
      "va": "0x005FF3F0",
@@ -55910,21 +55920,6 @@
      "va": "0x00600E20",
      "length": 177,
      "name": "CelGameDirToNormalDir"
-    },
-    {
-     "va": "0x00601180",
-     "length": 110,
-     "name": "CelFileIteratePixels"
-    },
-    {
-     "va": "0x00601450",
-     "length": 105,
-     "name": "CelFileTransform"
-    },
-    {
-     "va": "0x00601810",
-     "length": 44,
-     "name": "CelValidateContext"
     }
    ]
   },
@@ -61159,6 +61154,11 @@
      "length": 456
     },
     {
+     "va": "0x00601180",
+     "length": 110,
+     "name": "CelFileIteratePixels"
+    },
+    {
      "va": "0x006011F0",
      "length": 325,
      "name": "CelFileSerialize"
@@ -61174,6 +61174,11 @@
      "name": "CelFileFreeSerialized"
     },
     {
+     "va": "0x00601450",
+     "length": 105,
+     "name": "CelFileTransform"
+    },
+    {
      "va": "0x006014C0",
      "length": 263,
      "name": "?CelDraw@@YGXPAUD2CmpCelContextStrc@@HHHHPAEHHHHH@Z"
@@ -61186,6 +61191,11 @@
      "va": "0x00601650",
      "length": 224,
      "name": "CelDrawEx"
+    },
+    {
+     "va": "0x00601810",
+     "length": 44,
+     "name": "CelValidateContext"
     },
     {
      "va": "0x00601840",
@@ -62218,16 +62228,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x005FF2A0",
-     "length": 96,
-     "name": "?D2CMPSpriteNumAsyncLoads@@YAHXZ"
-    },
-    {
-     "va": "0x005FF3A0",
-     "length": 71,
-     "name": "?D2CMPSpriteFreeAsyncLoads@@YAXXZ"
-    },
-    {
      "va": "0x00600C90",
      "length": 32,
      "name": "?CelGameDirToFileDir@@YGHHI@Z"
@@ -62286,11 +62286,6 @@
      "va": "0x00603280",
      "length": 57,
      "name": "?GenerateHandle@?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@QAEPAUHCELLIST__@@XZ"
-    },
-    {
-     "va": "0x0060A440",
-     "length": 119,
-     "name": "?TileProjectBuildFindTable@@YIPAUD2TileLibraryHashStrc@@PAUD2CmpTileLibraryStrc@@@Z"
     }
    ]
   },
@@ -62474,6 +62469,21 @@
      "va": "0x0060A260",
      "length": 47,
      "name": "?TileProjectNormalizeSubTiles@@YAHPAUD2CmpTileBlockStrc@@PAE@Z"
+    },
+    {
+     "va": "0x0060A290",
+     "length": 254,
+     "name": "TileProjectNormalize"
+    },
+    {
+     "va": "0x0060A390",
+     "length": 176,
+     "name": "TileProjectNormalizeHeaders"
+    },
+    {
+     "va": "0x0060A440",
+     "length": 119,
+     "name": "?TileProjectBuildFindTable@@YIPAUD2TileLibraryHashStrc@@PAUD2CmpTileLibraryStrc@@@Z"
     },
     {
      "va": "0x0060A4C0",
@@ -62857,16 +62867,6 @@
      "va": "0x006069F0",
      "length": 25,
      "name": "CreateD2PaletteByteStream"
-    },
-    {
-     "va": "0x0060A290",
-     "length": 254,
-     "name": "TileProjectNormalize"
-    },
-    {
-     "va": "0x0060A390",
-     "length": 176,
-     "name": "TileProjectNormalizeHeaders"
     },
     {
      "va": "0x0060AB10",

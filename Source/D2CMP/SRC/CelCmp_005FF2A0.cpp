@@ -89,45 +89,6 @@ extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
 D2CmpCacheListEntryStrc* gpCmpCacheEntries; // 0x0089DB7C
 
-// 0x005FF2A0
-int __cdecl D2CMPSpriteNumAsyncLoads()
-{
-    int nCount = 0;
-    for (D2CmpCacheListEntryStrc* pEntry = gpCmpCacheEntries; pEntry; pEntry = pEntry->pNext)
-    {
-        D2CmpCacheKeyStrc* pKey = pEntry->pKey;
-        if (pKey && !(pKey->nFlags & 1))
-        {
-            D2_ASSERT(pKey->pAsyncData, 0xB5B);
-            if (!sub_0040A7F0_AsyncDataCheck(pKey->pAsyncData))
-            {
-                nCount += 1;
-            }
-        }
-    }
-
-    return nCount;
-}
-
-// 0x005FF3A0
-void __cdecl D2CMPSpriteFreeAsyncLoads()
-{
-    for (D2CmpCacheListEntryStrc* pEntry = gpCmpCacheEntries; pEntry; pEntry = pEntry->pNext)
-    {
-        D2CmpCacheKeyStrc* pKey = pEntry->pKey;
-        if (pKey)
-        {
-            AsyncData* pAsyncData = pKey->pAsyncData;
-            if (pAsyncData && !sub_0040A7F0_AsyncDataCheck(pAsyncData))
-            {
-                sub_0040AB00_FreeAsyncData(pAsyncData);
-                pKey->pAsyncData = 0;
-            }
-        }
-    }
-}
-
-
 // 0x00600C90
 int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections)
 {
@@ -216,21 +177,6 @@ int __stdcall CelGetOffsetY(D2CelStrc* pCel)
     D2_ASSERT(pCel, 0x5A5);
 
     return pCel->nYOffset;
-}
-
-// 0x0060A440
-D2TileLibraryHashStrc* __fastcall TileProjectBuildFindTable(D2CmpTileLibraryStrc* pLibrary)
-{
-    D2TileLibraryHashStrc* pHash = sub_0060CDB0_AllocTileHash();
-    D2_ASSERT(pHash, 0x3B9);
-    D2_ASSERT(pLibrary, 0x3BA);
-
-    for (int i = 0; i < pLibrary->nBlocks; ++i)
-    {
-        FindTileAddTile(pHash, &pLibrary->pBlocks[i]);
-    }
-
-    return pHash;
 }
 
 #include "gen/data/Source/D2CMP/SRC/CelCmp_005FF2A0.inc"
