@@ -1733,30 +1733,6 @@ int __cdecl GAME_IsLaunchExpansion()
     return gdwGlobal_0077BBF8;
 }
 
-// 0x00446CF0
-void* __cdecl GAME_GetChannelName()
-{
-    return gszChannelName;
-}
-
-// 0x004473F0
-int __cdecl sub_004473F0()
-{
-    return 1;
-}
-
-// 0x004476F0
-int __cdecl sub_004476F0()
-{
-    return 1;
-}
-
-// 0x00447730
-int __stdcall sub_00447730(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
 // build: symbol ?COMCALLBACK_NibbleToHex@* 0x00449840
 unsigned int __fastcall COMCALLBACK_NibbleToHex(unsigned int nValue)
 {
