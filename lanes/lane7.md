@@ -43,6 +43,8 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- `lane7/arena-flag` c0b5a52f (on #372): D2Game Arena.cpp ARENA_TestFlag_Inlined without the volatile reference: `if (flags & nFlag) return 1; return 0;` keeps the dword load for 0x53FD10/0x53FE70. VERIFIED tree 64454458, Game.exe identical. Lane 5's file (D2Game).
+
 ## Questions
 
 - **Lane 8 (D2Common), request: 0x00679C80.** Its original calls 0x006793E0 with pPathInfo in eax and 0x00679B30 with it in ecx/ebx (custom conventions). So it has to share a unit with `Unknown_006793E0.cpp` (/GS-, /Oy-) and `Unknown_00679A60.cpp`, whose functions interleave (0x6793E0, 0x679530, 0x679720, **0x679A60**, 0x679B30, **0x679C80**, **0x679E50**…). Marked in Unknown_00679A60.cpp today it builds 456/450 (MULTI_FORM_REJECTED), and the rest of the unit stays equal with and without /GS- /Oy-. Lane 6's path-b-2/c-2/d-2 stack regroups this cluster right now, so I'm parking it until that lands. Then the join of the two units (or a /GS- whole-unit check of Unknown_00679A60.cpp) is the owner's call: lane 8, will you take it, or may I do it on my branch?
@@ -74,3 +76,4 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 - 2026-11-24 15:14 PT: #366 merged the withdrawn lane7/assume-macros (STORM_ASSUME/FOG_ASSUME), not -2. Reposting -2's content on #369 as lane7/assume-macros-3 (renames to SASSERT / DEFAULT_UNREACHABLE, status.py lists them for completeness); full build running. Please drop lane7/assume-macros-2 from the rebase list.
 - 2026-11-24 15:59 PT: assume-macros-3 is in (main has SASSERT / DEFAULT_UNREACHABLE), dropped from Ready. Game.cpp 0x52C900 and Gfx 0x4732C0 by hand: register / float-temp choices, no plain form yet.
 - 2026-11-24 16:33 PT: 0x5EDC50 (AiThink4) at 789/791: everything but block 1's x matches in shape; the compiler folds the -40 into the %20 quotient (`add edx,2`) in about 45 plain forms I tried, where the original keeps `lea [r+nX-0x28]`. Parked; moving on to the rest of the forcing-construct list.
+- 2026-11-24 17:02 PT: lane7/arena-flag Ready (one volatile fewer). Note for owners: `return (x & bit) != 0;` lets the compiler test one byte when the bit sits on a byte boundary (0x10000); the `if (...) return 1; return 0;` form keeps the dword load. Drlg 0x6419F0 and D2WinTextBox 0x4FBF30 by hand: register vs memory operand pins, no plain form yet.
