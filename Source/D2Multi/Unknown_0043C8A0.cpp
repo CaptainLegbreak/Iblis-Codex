@@ -49,6 +49,13 @@ unsigned long __fastcall FOG_SetFilePointer(void* hFile, long nDistance, long* p
 unsigned int __stdcall FOG_ComputeChecksum(const unsigned char* pData, unsigned int nSize); // 0x00411130
 extern "C" const char gszSaveFormat_006D4230[]; // 0x006D4230
 D2CharSaveHeaderStrc gtCharSaveHeader; // 0x0077AC10
+unsigned int __stdcall SStrHash(const char* text, unsigned int flags, unsigned int hashSeed); // 0x00413CE0
+// build: symbol ??__EgdwHeaderHash_0077AD64@@YAXXZ 0x006CA960
+extern unsigned int gdwHeaderHash_0077AD64; // 0x0077AD64
+unsigned int gdwHeaderHash_0077AD64 = SStrHash("Header", 0, 0);
+// build: symbol ??__EgdwGameTimeHash_0077AD60@@YAXXZ 0x006CA980
+extern unsigned int gdwGameTimeHash_0077AD60; // 0x0077AD60
+unsigned int gdwGameTimeHash_0077AD60 = SStrHash("Game Time", 0, 0);
 
 // 0x0043C6B0
 int __fastcall CHATDLG_WriteSaveHeader(const char* szName)
