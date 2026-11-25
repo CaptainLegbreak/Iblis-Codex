@@ -588,7 +588,7 @@ struct D2StormListAStrc
     D2StormLinkStrc* sub_0044ED20_Link(char* pNode);
     void sub_0044EDC0_UnlinkNode(char* pNode);
     void sub_0044EE10_InitLinkField(int nLinkOffset);
-    void sub_0044F980_ChangeLinkOffset(int nLinkOffset);
+    void sub_0044F980_ChangeLinkOffset(int nLinkOffset); // 0x0044F980
 };
 
 struct D2StormListBStrc
@@ -630,7 +630,7 @@ struct D2StormHashTableStrc
     D2StormListArrayStrc m_slotlistarray;
     unsigned int m_slotmask;
 
-    void sub_0044FA00_InternalClear(int bWarn);
+    void sub_0044FA00_InternalClear(int bWarn); // 0x0044FA00
 };
 
 struct D2StormListStrc
@@ -1595,7 +1595,11 @@ public:
     unsigned int m_sequence;
     void* m_wrapper;
 
-    TSExportTableSimple();
+    TSExportTableSimple()
+    {
+        m_sequence = ~(unsigned int)this & 0x0FFFFFFF;
+        m_wrapper = 0;
+    }
     static void operator delete(void* pMemory);
 };
 
@@ -1614,7 +1618,10 @@ template <> class TSExportTableSync<SGAMEDATA, HSGAMEDATA__*, HSGAMEDATALOCK__*,
 public:
     D2StormCritSectStrc m_cs;
 
-    TSExportTableSync();
+    TSExportTableSync()
+    {
+        InitializeCriticalSection(&m_cs.tLock);
+    }
     static void operator delete(void* pMemory);
 };
 
@@ -3806,84 +3813,9 @@ D2StormListAStrc::D2StormListAStrc(const D2StormListAStrc& source)
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
-// 0x0044F820
-D2SGameDataStrc::~D2SGameDataStrc()
-{
-}
-
-// 0x0044F890
-void D2StormListBStrc::sub_0044F890_UnlinkNode(char* pNode)
-{
-    Link(pNode)->Unlink();
-}
-
-// 0x0044F980
-void D2StormListAStrc::sub_0044F980_ChangeLinkOffset(int nLinkOffset)
-{
-    if (nLinkOffset != m_linkoffset)
-    {
-        UnlinkAll();
-        m_linkoffset = nLinkOffset;
-        InitializeTerminator();
-    }
-}
-
-// 0x0044FA00
-void D2StormHashTableStrc::sub_0044FA00_InternalClear(int bWarn)
-{
-    m_fullnessIndicator = 0;
-    m_fulllist.UnlinkAll();
-    for (unsigned int i = 0; i < m_slotlistarray.m_count; i++)
-    {
-        char* pNode;
-        while ((pNode = m_slotlistarray.m_data[i].Head()) != 0)
-        {
-            if (bWarn)
-                m_slotlistarray.m_data[i].Link(pNode)->Unlink();
-            else
-                InternalDelete(pNode);
-        }
-    }
-}
-
-// 0x0044FB80
-D2StormListBStrc::D2StormListBStrc(const D2StormListBStrc& source)
-{
-    m_linkoffset = source.m_linkoffset;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-// 0x0044FD50
-void __fastcall GAME_DestroyGameData(D2SGameDataStrc* pData)
-{
-    pData->~D2SGameDataStrc();
-}
-
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
 {
     return pWhere;
-}
-
-// 0x00450ED0
-D2SGameDataStrc* D2StormGameDataArrayStrc::sub_00450ED0_New()
-{
-    Reserve(1, 1);
-    new (&m_data[m_count]) D2SGameDataStrc;
-    return &m_data[m_count++];
-}
-
-// 0x00451170
-D2StormExportTableSimpleStrc::TSExportTableSimple()
-{
-    m_sequence = ~(unsigned int)this & 0x0FFFFFFF;
-    m_wrapper = 0;
-}
-
-// 0x004511F0
-D2StormExportTableSyncStrc::TSExportTableSync()
-{
-    InitializeCriticalSection(&m_cs.tLock);
 }
 
 // build: symbol ?WARDENCLIENT_SwapBytes@* 0x0047F8B0

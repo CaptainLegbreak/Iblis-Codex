@@ -21,6 +21,27 @@ private:
 // The decorated name of T's type descriptor, which the array templates pass to the allocator as the file name.
 #define STORM_TYPENAME(T) ((const char*)&typeid(T) + 8)
 
+// The hash tables' key types: no key, and a string key (case-insensitive for HASHKEY_STRI).
+class HASHKEY_NONE
+{
+};
+
+class HASHKEY_STR
+{
+public:
+    char* m_str;
+};
+
+class HASHKEY_STRI : public HASHKEY_STR
+{
+};
+
+class HASHKEY_PTR
+{
+public:
+    void* m_ptr;
+};
+
 template<class T> struct TSLink;
 template<class T> struct TSLinkedNode;
 template<class T> struct TSGetLink;
@@ -127,6 +148,11 @@ struct TSList
         m_linkoffset = 0;
         InitializeTerminator();
     }
+    TSList(const TSList<T, TGetLink>& source)
+    {
+        m_linkoffset = source.m_linkoffset;
+        InitializeTerminator();
+    }
     ~TSList()
     {
         UnlinkAll();
@@ -191,6 +217,20 @@ struct TSList
     void UnlinkAll();
     T* DeleteNode(T* ptr);
     void Clear();
+    void SetLinkOffset(int linkoffset)
+    {
+        m_linkoffset = linkoffset;
+        InitializeTerminator();
+    }
+    void ChangeLinkOffset(int linkoffset)
+    {
+        if (linkoffset != m_linkoffset)
+        {
+            UnlinkAll();
+            m_linkoffset = linkoffset;
+            InitializeTerminator();
+        }
+    }
 };
 
 // Construction/destruction policy of the arrays.
@@ -225,6 +265,13 @@ struct TSBaseArray
 template<class T, class TCD = TSCD<T> >
 struct TSFixedArray : TSBaseArray<T>
 {
+    ~TSFixedArray()
+    {
+        for (unsigned int i = 0; i < this->m_count; i++)
+            this->m_data[i].~T();
+        if (this->m_data)
+            SMemFree(this->m_data, STORM_TYPENAME(T), -2, 0);
+    }
     void ReallocData(unsigned int count)
     {
         this->m_alloc = count;
@@ -232,6 +279,13 @@ struct TSFixedArray : TSBaseArray<T>
             this->m_data = (T*)SMemReAlloc(this->m_data, count * sizeof(T), STORM_TYPENAME(T), -2, 0);
     }
     void Set(unsigned int count, const T* data);
+    void Clear()
+    {
+        this->~TSFixedArray();
+        this->m_alloc = 0;
+        this->m_count = 0;
+        this->m_data = 0;
+    }
     TSFixedArray<T, TCD>& operator=(const TSFixedArray<T, TCD>& source)
     {
         if (this != &source)
@@ -249,6 +303,9 @@ struct TSGrowableArray : TSFixedArray<T, TCD>
     {
         m_chunk = 0;
     }
+    ~TSGrowableArray()
+    {
+    }
     static unsigned int __stdcall RoundUp(unsigned int value, unsigned int align)
     {
         unsigned int remainder = value % align;
@@ -256,14 +313,55 @@ struct TSGrowableArray : TSFixedArray<T, TCD>
             value += align - remainder;
         return value;
     }
-    unsigned int CalcChunkSize(unsigned int count);
+    unsigned int CalcChunkSize(unsigned int count)
+    {
+        enum { MAXCHUNK = 256 / sizeof(T) > 8 ? 256 / sizeof(T) : 8 };
+        if (count < MAXCHUNK)
+        {
+            unsigned int result = count;
+            while (result & (result - 1))
+                result &= result - 1;
+            return result < 1 ? 1 : result;
+        }
+        m_chunk = MAXCHUNK;
+        return MAXCHUNK;
+    }
     void ReallocData(unsigned int count);
+    void Reserve(unsigned int count, int round)
+    {
+        count += this->m_count;
+        if (count > this->m_alloc)
+        {
+            if (round)
+            {
+                unsigned int chunk = m_chunk ? m_chunk : CalcChunkSize(count);
+                count = RoundUp(count, chunk);
+            }
+            ReallocData(count);
+        }
+    }
+    T* New()
+    {
+        Reserve(1, 1);
+        new (&this->m_data[this->m_count]) T;
+        return &this->m_data[this->m_count++];
+    }
     void SetCount(unsigned int count)
     {
-        if (count > this->m_count && count > this->m_alloc)
+        if (count > this->m_count)
         {
-            unsigned int chunk = m_chunk ? m_chunk : CalcChunkSize(count);
-            ReallocData(RoundUp(count, chunk));
+            if (count > this->m_alloc)
+            {
+                unsigned int chunk = m_chunk ? m_chunk : CalcChunkSize(count);
+                ReallocData(RoundUp(count, chunk));
+            }
+            for (unsigned int i = this->m_count; i < count; i++)
+                new (&this->m_data[i]) T;
+        }
+        else if (count < this->m_count)
+        {
+            for (unsigned int i = count; i < this->m_count; i++)
+                this->m_data[i].~T();
         }
         this->m_count = count;
     }
@@ -305,5 +403,29 @@ void TSList<T, TGetLink>::Clear()
     {
         ptr->~T();
         SMemFree(ptr, STORM_TYPENAME(T), -2, 0);
+    }
+}
+
+template<class T, class TCD>
+void TSGrowableArray<T, TCD>::ReallocData(unsigned int count)
+{
+    T* olddata = this->m_data;
+    for (unsigned int i = count; i < this->m_count; i++)
+        olddata[i].~T();
+    this->m_alloc = count;
+    this->m_data = (T*)SMemReAlloc(olddata, count * sizeof(T), STORM_TYPENAME(T), -2, 0x10);
+    if (!this->m_data)
+    {
+        this->m_data = (T*)SMemAlloc(count * sizeof(T), STORM_TYPENAME(T), -2, 0);
+        if (olddata)
+        {
+            unsigned int copycount = count < this->m_count ? count : this->m_count;
+            for (unsigned int i = 0; i < copycount; i++)
+            {
+                new (&this->m_data[i]) T(olddata[i]);
+                olddata[i].~T();
+            }
+            SMemFree(olddata, STORM_TYPENAME(T), -2, 0);
+        }
     }
 }
