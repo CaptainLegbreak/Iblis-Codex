@@ -183,7 +183,7 @@ void __fastcall QUESTS_SetGlobalState(D2GameStrc* pGame, int nQuestId, int nStat
 
 void __fastcall SUNITINACTIVE_DeleteSingleListNode(D2GameStrc* pGame, unsigned short nUnitType, unsigned short nClassId, unsigned char nAct); // 0x00543140
 
-D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int nItemType, int bIgnoreRarity); // 0x00559A30
+D2UnitStrc* __fastcall D2GAME_DropItemAtUnit(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int nItemType, int bIgnoreRarity); // 0x00559A30
 
 int __fastcall ACT1Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005920D0
 
@@ -201,7 +201,7 @@ void __fastcall ACT1Q4_SetMonolithOrder(D2QuestDataStrc* pQuestData); // 0x00592
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
-void __fastcall D2GAME_SendPacket0x50_6FC3F440(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
+void __fastcall D2GAME_SendPacket0x50(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -283,17 +283,17 @@ void __fastcall ACT1Q4_SendPacket0x5DToClient(D2UnitStrc* pUnit); // 0x00592880
 
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 
-int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
+int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 
 void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, unsigned int nSize, unsigned short fCollision, D2ActiveRoomStrc** ppRoom, int nId, int nRadius); // 0x00545340
 
-int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nDestLevel, D2UnitStrc** ppSourceUnit, int nObjectId, int bPerm); // 0x0056D130
+int __fastcall D2GAME_CreatePortalObject(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nDestLevel, D2UnitStrc** ppSourceUnit, int nObjectId, int bPerm); // 0x0056D130
 
 int __fastcall ACT1Q4_UnitIterate_FindPlayersInTristram(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00593220
 
@@ -793,7 +793,7 @@ int __fastcall ACT1Q4_UnitIterate_RemoveCainFromTristram(D2GameStrc* pGame, D2Un
 
     D2ModeChangeStrc tModeChange;
     MONSTERMODE_GetModeChangeInfo(pUnit, 0, &tModeChange);
-    D2GAME_ModeChange_6FC65220(pGame, &tModeChange, 1);
+    D2GAME_ModeChange(pGame, &tModeChange, 1);
 
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
     if (pQuestData)
@@ -845,7 +845,7 @@ static void __stdcall ACT1Q4_SpawnCainInTown(D2GameStrc* pGame, D2ActiveRoomStrc
         pCoord.nY = nY;
     }
 
-    D2UnitStrc* pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, pCoord.nX, pCoord.nY, MONSTER_CAIN5, 1, 5, 0);
+    D2UnitStrc* pCain = D2GAME_SpawnMonster(pGame, pFreeRoom, pCoord.nX, pCoord.nY, MONSTER_CAIN5, 1, 5, 0);
     if (pCain)
     {
         pCain->dwFlags |= 0x3000000;
@@ -878,7 +878,7 @@ static void __stdcall ACT1Q4_SpawnCainInTown(D2GameStrc* pGame, D2ActiveRoomStrc
             }
 
             ++nCounter;
-            pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, pCoord.nX, pCoord.nY, MONSTER_CAIN5, 1, 10, 0);
+            pCain = D2GAME_SpawnMonster(pGame, pFreeRoom, pCoord.nX, pCoord.nY, MONSTER_CAIN5, 1, 10, 0);
             if (pCain)
             {
                 pCain->dwFlags |= 0x3000000;
@@ -891,7 +891,7 @@ static void __stdcall ACT1Q4_SpawnCainInTown(D2GameStrc* pGame, D2ActiveRoomStrc
         while (nCounter < 20);
     }
 
-    pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_CAIN5, 1, 15, 0);
+    pCain = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, MONSTER_CAIN5, 1, 15, 0);
     if (!pCain)
     {
         return;
@@ -1134,7 +1134,7 @@ void __fastcall ACT1Q4_SpawnCainInTristram(D2GameStrc* pGame, D2UnitStrc* pUnit)
         const int nY = CLIENTS_GetUnitY(pUnit) + 3;
 
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-        D2UnitStrc* pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_CAIN1, 1, -1, 0);
+        D2UnitStrc* pCain = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, MONSTER_CAIN1, 1, -1, 0);
         if (!pCain)
         {
             D2CoordStrc pCoord;
@@ -1145,7 +1145,7 @@ void __fastcall ACT1Q4_SpawnCainInTristram(D2GameStrc* pGame, D2UnitStrc* pUnit)
             QUESTS_GetFreePosition(pRoom, &pCoord, 2, 0x100, &pFreeRoom, 3, 0x64);
             if (pFreeRoom)
             {
-                pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, pCoord.nX, pCoord.nY, MONSTER_CAIN1, 1, -1, 0);
+                pCain = D2GAME_SpawnMonster(pGame, pFreeRoom, pCoord.nX, pCoord.nY, MONSTER_CAIN1, 1, -1, 0);
             }
         }
 
@@ -1166,7 +1166,7 @@ void __fastcall ACT1Q4_SpawnCainInTristram(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
             if (pQuestDataEx->pPlayerInTristram && !pQuestDataEx->bPortalFromTristramToTownSpawned)
             {
-                if (D2GAME_CreatePortalObject_6FD13DF0(pGame, pQuestDataEx->pPlayerInTristram, pRoom, nX + 3, nY + 3, 1, 0, 0x3B, 0))
+                if (D2GAME_CreatePortalObject(pGame, pQuestDataEx->pPlayerInTristram, pRoom, nX + 3, nY + 3, 1, 0, 0x3B, 0))
                 {
                     pQuestDataEx->bPortalFromTristramToTownSpawned = 1;
                 }
@@ -1529,7 +1529,7 @@ int __fastcall OBJECTS_OperateFunction12_InifussTree(D2ObjOperateFnStrc* pOp, in
     QUESTS_StateDebug(pQuestInfo, 4, gszA1Q4SourceFile, 0x84B);
 
     int nItemLevel;
-    D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, 2, &nItemLevel, 0, -1, 0);
+    D2UnitStrc* pItem = D2GAME_DropItemAtUnit(pOp->pGame, pOp->hObject, 2, &nItemLevel, 0, -1, 0);
     if (pItem)
     {
         pQuestInfo->pCallback[9] = ACT1Q4_Callback09_PlayerDroppedWithQuestItem;
@@ -1604,7 +1604,7 @@ void __fastcall ACT1Q4_SendStoneOrderToClient(D2GameStrc* pGame, D2UnitStrc* pUn
                 ++i;
             } while (i < 5);
         }
-        D2GAME_SendPacket0x50_6FC3F440(pClient, &packet);
+        D2GAME_SendPacket0x50(pClient, &packet);
     }
 }
 
@@ -1701,7 +1701,7 @@ void __fastcall ACT1Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     pQuestArg->pTarget->dwDropItemCode = 0x20737076;
     for (int i = 0; i < 8; ++i)
     {
-        D2GAME_DropItemAtUnit_6FC4FEC0(pQuestArg->pGame, pQuestArg->pTarget, 0, &nItemLevel, 0, -1, 0);
+        D2GAME_DropItemAtUnit(pQuestArg->pGame, pQuestArg->pTarget, 0, &nItemLevel, 0, -1, 0);
     }
 }
 
@@ -1874,7 +1874,7 @@ fail:
     D2ActiveRoomStrc* pFreeRoom = 0;
     UNITS_GetCoords(pUnit, &pCoord);
     QUESTS_GetFreePosition(pRoom, &pCoord, 3, 0x400, &pFreeRoom, 4, 100);
-    if (pFreeRoom && D2GAME_CreatePortalObject_6FD13DF0(pGame, pUnit, pFreeRoom, pCoord.nX, pCoord.nY, LEVEL_MOOMOOFARM, 0, OBJECT_PERMANENT_TOWN_PORTAL, 0))
+    if (pFreeRoom && D2GAME_CreatePortalObject(pGame, pUnit, pFreeRoom, pCoord.nX, pCoord.nY, LEVEL_MOOMOOFARM, 0, OBJECT_PERMANENT_TOWN_PORTAL, 0))
     {
         QUESTS_SetGlobalState(pGame, QUESTSTATEFLAG_A1Q4, QFLAG_CUSTOM7);
         return 1;
@@ -2156,7 +2156,7 @@ void __fastcall ACT1Q4_DropWirtsBodyGold(D2QuestDataStrc* pQuestData, D2UnitStrc
     if (pQuestDataEx->nGoldPilesToDropFromWirtsBody)
     {
         int nItemLevel = 0;
-        if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pUnit, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 0))
+        if (D2GAME_DropItemAtUnit(pQuestData->pGame, pUnit, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 0))
         {
             --pQuestDataEx->nGoldPilesToDropFromWirtsBody;
             if (pQuestDataEx->nGoldPilesToDropFromWirtsBody > 0)

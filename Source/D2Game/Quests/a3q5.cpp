@@ -137,7 +137,7 @@ void __fastcall QUESTS_RemovePlayerGUID(D2QuestDataStrc* pQuestData, D2QuestArgS
 
 void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, const char* szFile, int nLine); // 0x00544070
 
-D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
+D2UnitStrc* __fastcall D2GAME_DropItemAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
 
 int __fastcall ACT3Q5_UnitIterate_UpdateQuestStateAfterMonsterKill(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005BAE20
 
@@ -898,7 +898,7 @@ void __fastcall ACT3Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         for (i = 0; i < pQuestDataEx->nFlailsMissing; ++i)
         {
             int nItemLevel;
-            if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pQuestArg->pTarget, 7, &nItemLevel, 0, -1, 0))
+            if (D2GAME_DropItemAtUnit(pQuestData->pGame, pQuestArg->pTarget, 7, &nItemLevel, 0, -1, 0))
             {
                 ++nFlailsDropped;
             }
@@ -924,7 +924,7 @@ void __fastcall ACT3Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         for (i = 0; i < pQuestDataEx->nHoradricCubesMissing; ++i)
         {
             int nItemLevel;
-            D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pQuestArg->pTarget, 2, &nItemLevel, 0, -1, 0);
+            D2GAME_DropItemAtUnit(pQuestData->pGame, pQuestArg->pTarget, 2, &nItemLevel, 0, -1, 0);
         }
     }
 

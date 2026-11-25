@@ -423,7 +423,7 @@ void __stdcall ITEMS_GetAllowedBodyLocations(D2UnitStrc* pItem, unsigned char* p
 
 
 
-unsigned int* __stdcall D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(D2UnitStrc* pUnit); // 0x00625BE0
+unsigned int* __stdcall D2COMMON_STATES_GetListGfxFlags(D2UnitStrc* pUnit); // 0x00625BE0
 
 extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
 
@@ -7702,7 +7702,7 @@ __declspec(noinline) int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nSta
 // 0x00639E30
 void __stdcall STATES_ToggleGfxStateFlag(D2UnitStrc* pUnit, int nState, int bSet)
 {
-    unsigned int* pGfxFlags = D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(pUnit);
+    unsigned int* pGfxFlags = D2COMMON_STATES_GetListGfxFlags(pUnit);
     if (pGfxFlags && nState >= 0 && nState < sgptDataTables->nStatesTxtRecordCount)
     {
         if (bSet)
@@ -7724,7 +7724,7 @@ int __stdcall STATES_CheckGfxStateFlag(D2UnitStrc* pUnit, int nState)
 
     if (nState >= 0 && nState < sgptDataTables->nStatesTxtRecordCount)
     {
-        pGfxFlags = D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(pUnit);
+        pGfxFlags = D2COMMON_STATES_GetListGfxFlags(pUnit);
         if (pGfxFlags)
         {
             return pGfxFlags[nState >> 5] & gdwBitMasks[nState & 31];
@@ -7737,7 +7737,7 @@ int __stdcall STATES_CheckGfxStateFlag(D2UnitStrc* pUnit, int nState)
 // 0x00639EE0
 void __stdcall STATES_ClearGfxStateFlags(D2UnitStrc* pUnit)
 {
-    unsigned int* pGfxFlags = D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(pUnit);
+    unsigned int* pGfxFlags = D2COMMON_STATES_GetListGfxFlags(pUnit);
 
     if (pGfxFlags)
     {
@@ -7748,7 +7748,7 @@ void __stdcall STATES_ClearGfxStateFlags(D2UnitStrc* pUnit)
 // 0x00639F20
 int __stdcall STATES_IsAnyGfxStateFlagSet(D2UnitStrc* pUnit)
 {
-    unsigned int* pGfxFlags = D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(pUnit);
+    unsigned int* pGfxFlags = D2COMMON_STATES_GetListGfxFlags(pUnit);
 
     if (pGfxFlags)
     {
@@ -7769,14 +7769,15 @@ unsigned int* __stdcall STATES_GetGfxStateFlags(D2UnitStrc* hUnit)
 {
     D2_ASSERT(hUnit, 153);
 
-    return D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(hUnit);
+    return D2COMMON_STATES_GetListGfxFlags(hUnit);
 }
 
 // 0x00639FB0
 void __stdcall STATES_UpdateStayDeathFlags(D2UnitStrc* pUnit, int bIsBoss)
 {
-    unsigned int* pGfxFlags = D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(pUnit);
-    unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
+    unsigned int* pGfxFlags = D2COMMON_STATES_GetListGfxFlags(pUnit);
+// build: symbol ?D2COMMON_STATES_GetStatFlags@* 0x00625BB0
+    unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags(pUnit);
 
     if (pGfxFlags && pStatFlags)
     {
@@ -7813,7 +7814,7 @@ void __stdcall STATES_UpdateStayDeathFlags(D2UnitStrc* pUnit, int bIsBoss)
 // 0x0063A100
 unsigned int* __stdcall D2COMMON_10494_STATES_GetStatFlags(D2UnitStrc* pUnit)
 {
-    return D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
+    return D2COMMON_STATES_GetStatFlags(pUnit);
 }
 
 // 0x0063A110
@@ -7825,7 +7826,7 @@ int __fastcall STATES_GetNumberOfStateFlags()
 // 0x0063A130
 static int STATES_CheckStateMaskFlagsOnUnit(D2UnitStrc* pUnit, const unsigned int* pStateMask)
 {
-    unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
+    unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags(pUnit);
     if (!pStatFlags)
     {
         return 0;
@@ -7845,8 +7846,8 @@ static int STATES_CheckStateMaskFlagsOnUnit(D2UnitStrc* pUnit, const unsigned in
 // 0x0063A180
 void __stdcall STATES_UpdateGfxFlagsWithMask(D2UnitStrc* pUnit, unsigned int* pMask)
 {
-    unsigned int* pGfxFlags = D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(pUnit);
-    unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
+    unsigned int* pGfxFlags = D2COMMON_STATES_GetListGfxFlags(pUnit);
+    unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags(pUnit);
 
     if (pGfxFlags && pStatFlags)
     {

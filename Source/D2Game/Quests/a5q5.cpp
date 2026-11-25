@@ -61,7 +61,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 
-int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
+int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
 
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
 
@@ -121,7 +121,7 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E
 
 void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); // 0x0061AED0
 
-void __fastcall D2GAME_WarpPlayerToTile_6FCA5B20(D2ObjOperateFnStrc* pOp); // 0x0059D9D0
+void __fastcall D2GAME_WarpPlayerToTile(D2ObjOperateFnStrc* pOp); // 0x0059D9D0
 
 void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
 
@@ -317,7 +317,7 @@ static bool ACT5Q5_RemoveAncientMonster(D2GameStrc* pGame, int nAncientMonsterGU
     {
         D2ModeChangeStrc modeChange;
         MONSTERMODE_GetModeChangeInfo(pAncientMonster, 0x0C, &modeChange);
-        D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+        D2GAME_ModeChange(pGame, &modeChange, 1);
 
         DUNGEON_AllocDrlgDelete(UNITS_GetRoom(pAncientMonster), 1, nAncientMonsterGUID);
         UNITS_FreeCollisionPath(pAncientMonster);
@@ -1354,7 +1354,7 @@ int __fastcall OBJECTS_OperateFunction66_AncientsDoor(D2ObjOperateFnStrc* pOp, i
             break;
 
         case 2:
-            D2GAME_WarpPlayerToTile_6FCA5B20(pOp);
+            D2GAME_WarpPlayerToTile(pOp);
             DUNGEON_ToggleHasPortalFlag(UNITS_GetRoom(pOp->hObject), 1);
             return 0;
         }
@@ -1462,7 +1462,7 @@ int __fastcall OBJECTS_OperateFunction71_SummitDoor(D2ObjOperateFnStrc* pOp, int
             return 0;
         }
 
-        D2GAME_WarpPlayerToTile_6FCA5B20(pOp);
+        D2GAME_WarpPlayerToTile(pOp);
         return 0;
 
     case 2:

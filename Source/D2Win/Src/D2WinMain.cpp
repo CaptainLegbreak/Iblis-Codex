@@ -144,7 +144,7 @@ D2WinControlStrc* gpControlList; // 0x007D55BC
 
 void* gpEscapeButton; // 0x007D55D0
 
-void __stdcall D2Win_COMMANDS_VirtualKey_6F8ADB50(SMSGHANDLER_PARAMS* pMsg); // 0x004F9BF0
+void __stdcall D2Win_COMMANDS_VirtualKey(SMSGHANDLER_PARAMS* pMsg); // 0x004F9BF0
 
 static D2WinControlStrc* __stdcall CONTROL_PickClosestToMouse(D2WinControlStrc* pScrollBar, D2WinControlStrc* pControl); // 0x004FA200
 
@@ -309,7 +309,7 @@ int __stdcall D2GFX_Initialize(void* hInstance, WNDPROC pfWndProc, int nRenderMo
 
 void __stdcall D2Win_UpdateAndDraw(); // 0x004F98E0
 
-void __stdcall D2Win_COMMANDS_MouseMove_6F8AD670(SMSGHANDLER_PARAMS* pMsg); // 0x004FA6B0
+void __stdcall D2Win_COMMANDS_MouseMove(SMSGHANDLER_PARAMS* pMsg); // 0x004FA6B0
 
 void __stdcall D2Win_10168_WINMAIN_CreateScreenshot(); // 0x004FA7A0
 
@@ -593,7 +593,7 @@ int gbCloseRequested; // 0x007D55F4
 
 tagRECT gtWindowRect; // 0x007C9160
 
-void __stdcall D2Win_COMMANDS_MouseWheel_6F8AE220(SMSGHANDLER_PARAMS* pMsg);
+void __stdcall D2Win_COMMANDS_MouseWheel(SMSGHANDLER_PARAMS* pMsg); // 0x004FA340
 
 extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void* hWnd, const char* szText, const char* szCaption, unsigned int nType); // 0x006CC464
 
@@ -1320,7 +1320,7 @@ static inline int CONTROL_IsMouseInside_004FA860(D2WinControlStrc* pControl)
 }
 
 // 0x004F9A80
-long __stdcall D2Win_MAINWINDOW_WndProc_6F8AD9B0(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam)
+long __stdcall D2Win_MAINWINDOW_WndProc(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam)
 {
     if (!gbSpriteCacheInitialized)
     {
@@ -1367,7 +1367,7 @@ int __fastcall CONTROL_IsActiveListMember(D2WinControlStrc* pControl)
 }
 
 // 0x004F9B60
-void __stdcall D2Win_COMMANDS_Char_6F8ADA80(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall D2Win_COMMANDS_Char(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nChar = pMsg->wParam;
     if (gpFocusedEditBox)
@@ -1421,7 +1421,7 @@ done:
 }
 
 // 0x004F9BF0
-void __stdcall D2Win_COMMANDS_VirtualKey_6F8ADB50(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall D2Win_COMMANDS_VirtualKey(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nKey = pMsg->wParam;
     if (gpFocusedEditBox)
@@ -1580,7 +1580,7 @@ void __stdcall D2Win_COMMANDS_SysCommand(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004F9F20
-void __stdcall D2Win_COMMANDS_ActivateApp_6F8ADC40(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall D2Win_COMMANDS_ActivateApp(SMSGHANDLER_PARAMS* pMsg)
 {
     const unsigned int nActive = pMsg->wParam;
     gbAppActive = nActive != 0;
@@ -1790,7 +1790,7 @@ inline int CONTROL_IsInActiveList(void* pControl)
 }
 
 // 0x004FA340
-void __stdcall D2Win_COMMANDS_MouseWheel_6F8AE220(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall D2Win_COMMANDS_MouseWheel(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nIncrement = (int)(short)(pMsg->wParam >> 16) / 120;
 
@@ -1922,7 +1922,7 @@ int __stdcall D2Win_CreateWindow(void* hInstance, int nRenderMode, int bWindowed
 {
     gnRenderMode = nRenderMode;
     D2CMPSetNoCompress(bCompress);
-    return D2GFX_Initialize(hInstance, D2Win_MAINWINDOW_WndProc_6F8AD9B0, nRenderMode, bWindowed);
+    return D2GFX_Initialize(hInstance, D2Win_MAINWINDOW_WndProc, nRenderMode, bWindowed);
 }
 
 // 0x004FA550
@@ -2010,7 +2010,7 @@ int __stdcall D2Win_RunMessageLoop(void (__stdcall* pCallback)(unsigned long))
 }
 
 // 0x004FA6B0
-void __stdcall D2Win_COMMANDS_MouseMove_6F8AD670(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall D2Win_COMMANDS_MouseMove(SMSGHANDLER_PARAMS* pMsg)
 {
     if (!gbMouseTracking)
     {
@@ -2060,7 +2060,7 @@ void __stdcall D2Win_COMMANDS_MouseMove_6F8AD670(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004FA760
-void __stdcall D2Win_COMMANDS_Escape_6F8ADB10(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall D2Win_COMMANDS_Escape(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gpEscapeButton && CONTROL_IsInActiveList(gpEscapeButton))
     {
@@ -2070,7 +2070,7 @@ void __stdcall D2Win_COMMANDS_Escape_6F8ADB10(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    D2Win_COMMANDS_VirtualKey_6F8ADB50(pMsg);
+    D2Win_COMMANDS_VirtualKey(pMsg);
 }
 
 // 0x004FA7A0
@@ -2096,7 +2096,7 @@ void __stdcall D2Win_10168_WINMAIN_CreateScreenshot()
 }
 
 // 0x004FA840
-void __stdcall D2Win_COMMANDS_Snapshot_6F8ADE70(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall D2Win_COMMANDS_Snapshot(SMSGHANDLER_PARAMS* pMsg)
 {
     D2Win_10168_WINMAIN_CreateScreenshot();
     pMsg->bReturn = 1;
@@ -2104,9 +2104,9 @@ void __stdcall D2Win_COMMANDS_Snapshot_6F8ADE70(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004FA860
-void __stdcall D2Win_COMMANDS_MouseButton_6F8AE070(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall D2Win_COMMANDS_MouseButton(SMSGHANDLER_PARAMS* pMsg)
 {
-    D2Win_COMMANDS_MouseMove_6F8AD670(pMsg);
+    D2Win_COMMANDS_MouseMove(pMsg);
     if (POPUP_IsActive())
     {
         const int bInputHandled = POPUP_HandleMouseButtonInput(pMsg);

@@ -33575,7 +33575,7 @@
     {
      "va": "0x004F9A80",
      "length": 170,
-     "name": "D2Win_MAINWINDOW_WndProc_6F8AD9B0"
+     "name": "D2Win_MAINWINDOW_WndProc"
     },
     {
      "va": "0x004F9B30",
@@ -33585,12 +33585,12 @@
     {
      "va": "0x004F9B60",
      "length": 135,
-     "name": "D2Win_COMMANDS_Char_6F8ADA80"
+     "name": "D2Win_COMMANDS_Char"
     },
     {
      "va": "0x004F9BF0",
      "length": 135,
-     "name": "D2Win_COMMANDS_VirtualKey_6F8ADB50"
+     "name": "D2Win_COMMANDS_VirtualKey"
     },
     {
      "va": "0x004F9C80",
@@ -33610,7 +33610,7 @@
     {
      "va": "0x004F9F20",
      "length": 144,
-     "name": "D2Win_COMMANDS_ActivateApp_6F8ADC40"
+     "name": "D2Win_COMMANDS_ActivateApp"
     },
     {
      "va": "0x004F9FB0",
@@ -33639,7 +33639,7 @@
     {
      "va": "0x004FA340",
      "length": 203,
-     "name": "?D2Win_COMMANDS_MouseWheel_6F8AE220@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?D2Win_COMMANDS_MouseWheel@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004FA410",
@@ -33704,12 +33704,12 @@
     {
      "va": "0x004FA6B0",
      "length": 173,
-     "name": "D2Win_COMMANDS_MouseMove_6F8AD670"
+     "name": "D2Win_COMMANDS_MouseMove"
     },
     {
      "va": "0x004FA760",
      "length": 63,
-     "name": "?D2Win_COMMANDS_Escape_6F8ADB10@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?D2Win_COMMANDS_Escape@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004FA7A0",
@@ -33719,12 +33719,12 @@
     {
      "va": "0x004FA840",
      "length": 29,
-     "name": "D2Win_COMMANDS_Snapshot_6F8ADE70"
+     "name": "D2Win_COMMANDS_Snapshot"
     },
     {
      "va": "0x004FA860",
      "length": 324,
-     "name": "D2Win_COMMANDS_MouseButton_6F8AE070"
+     "name": "D2Win_COMMANDS_MouseButton"
     }
    ],
    "flags": [
@@ -39723,7 +39723,7 @@
     {
      "va": "0x00530EA0",
      "length": 131,
-     "name": "D2GAME_SetStatOrResetGold_6FC7CA70"
+     "name": "D2GAME_SetStatOrResetGold"
     },
     {
      "va": "0x006CAF10",
@@ -40696,7 +40696,7 @@
     {
      "va": "0x00555DA0",
      "length": 94,
-     "name": "D2GAME_GetFreeSpaceEx_6FC4BF00"
+     "name": "D2GAME_GetFreeSpaceEx"
     },
     {
      "va": "0x0055AFA0",
@@ -40963,7 +40963,7 @@
     {
      "va": "0x0055EEA0",
      "length": 126,
-     "name": "D2GAME_RemoveItemIfOnCursor_6FC49760"
+     "name": "D2GAME_RemoveItemIfOnCursor"
     },
     {
      "va": "0x0055EF20",
@@ -40983,7 +40983,7 @@
     {
      "va": "0x0055F140",
      "length": 252,
-     "name": "?D2GAME_DoKeyCheck_6FC4A4B0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?D2GAME_DoKeyCheck@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0055F240",
@@ -41072,7 +41072,7 @@
     {
      "va": "0x0055FDE0",
      "length": 32,
-     "name": "D2GAME_UpdatePlayerItems_6FC4BB90"
+     "name": "D2GAME_UpdatePlayerItems"
     },
     {
      "va": "0x0055FE00",
@@ -41087,7 +41087,7 @@
     {
      "va": "0x0055FE80",
      "length": 287,
-     "name": "?D2GAME_RechargeItem_6FC4BD50@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+     "name": "?D2GAME_RechargeItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x0055FFA0",
@@ -41165,7 +41165,7 @@
     {
      "va": "0x00562590",
      "length": 199,
-     "name": "?D2GAME_ITEMS_Identify_6FC49670@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+     "name": "?D2GAME_ITEMS_Identify@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x00562660",
@@ -41193,7 +41193,7 @@
     {
      "va": "0x00562DA0",
      "length": 82,
-     "name": "D2GAME_Items_EventsHandler_6FC4A460"
+     "name": "D2GAME_Items_EventsHandler"
     },
     {
      "va": "0x00562E00",
@@ -41215,7 +41215,7 @@
     {
      "va": "0x00563560",
      "length": 736,
-     "name": "?D2GAME_PickupItem_6FC43340@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HPAH@Z"
+     "name": "?D2GAME_PickupItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HPAH@Z"
     },
     {
      "va": "0x00563840",
@@ -41234,7 +41234,7 @@
     {
      "va": "0x00563FE0",
      "length": 480,
-     "name": "?D2GAME_Transmogrify_6FC4A660@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+     "name": "?D2GAME_Transmogrify@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x00564CA0",
@@ -42005,7 +42005,7 @@
     {
      "va": "0x005DE6D0",
      "length": 26,
-     "name": "D2GAME_AICORE_Escape_6FCD0560"
+     "name": "D2GAME_AICORE_Escape"
     },
     {
      "va": "0x005DE6F0",
@@ -42165,7 +42165,7 @@
     {
      "va": "0x005316D0",
      "length": 113,
-     "name": "D2GAME_SAVE_SerializeItem_6FC89AD0"
+     "name": "D2GAME_SAVE_SerializeItem"
     },
     {
      "va": "0x00531750",
@@ -42203,7 +42203,7 @@
     {
      "va": "0x00531E30",
      "length": 114,
-     "name": "D2GAME_SAVE_CalculateChecksum_6FC8A140"
+     "name": "D2GAME_SAVE_CalculateChecksum"
     },
     {
      "va": "0x00531EB0",
@@ -42248,7 +42248,7 @@
     {
      "va": "0x00532C70",
      "length": 144,
-     "name": "D2GAME_SAVE_ReadWaypointData_6FC8AD50"
+     "name": "D2GAME_SAVE_ReadWaypointData"
     },
     {
      "va": "0x00532D00",
@@ -42336,7 +42336,7 @@
     {
      "va": "0x005343A0",
      "length": 261,
-     "name": "?D2GAME_SAVE_ReadFile_6FC8C9D0@@YGHPAUD2GameStrc@@PAUD2ClientStrc@@PBDPAPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
+     "name": "?D2GAME_SAVE_ReadFile@@YGHPAUD2GameStrc@@PAUD2ClientStrc@@PBDPAPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
     },
     {
      "va": "0x005344B0",
@@ -42351,7 +42351,7 @@
     {
      "va": "0x005345A0",
      "length": 141,
-     "name": "?D2GAME_SAVE_GetUnitDataFromFile_6FC8CB40@@YIHPAUD2GameStrc@@PAUD2ClientStrc@@PBDHPAPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
+     "name": "?D2GAME_SAVE_GetUnitDataFromFile@@YIHPAUD2GameStrc@@PAUD2ClientStrc@@PBDHPAPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
     },
     {
      "va": "0x00534630",
@@ -42916,7 +42916,7 @@
     {
      "va": "0x00538260",
      "length": 72,
-     "name": "D2GAME_SetClientDead_6FC33830"
+     "name": "D2GAME_SetClientDead"
     },
     {
      "va": "0x005382B0",
@@ -42936,12 +42936,12 @@
     {
      "va": "0x00538350",
      "length": 42,
-     "name": "D2GAME_GetSaveChecksumFromClient_6FC33940"
+     "name": "D2GAME_GetSaveChecksumFromClient"
     },
     {
      "va": "0x00538380",
      "length": 42,
-     "name": "D2GAME_SetSaveFileChecksum_6FC33970"
+     "name": "D2GAME_SetSaveFileChecksum"
     },
     {
      "va": "0x005383B0",
@@ -43124,7 +43124,7 @@
     {
      "va": "0x00538F80",
      "length": 63,
-     "name": "D2GAME_SetSaveLoadComplete_6FC34300"
+     "name": "D2GAME_SetSaveLoadComplete"
     },
     {
      "va": "0x00538FC0",
@@ -43514,7 +43514,7 @@
     {
      "va": "0x0053B280",
      "length": 157,
-     "name": "?D2GAME_PACKETS_SendPacket_6FC3C710@@YGXPBXHPAUD2ClientStrc@@@Z"
+     "name": "?D2GAME_PACKETS_SendPacket@@YGXPBXHPAUD2ClientStrc@@@Z"
     },
     {
      "va": "0x0053B320",
@@ -43524,47 +43524,47 @@
     {
      "va": "0x0053B340",
      "length": 71,
-     "name": "?D2GAME_PACKETS_SendPacket0x01_6FC3C7C0@@YIXPAUD2ClientStrc@@DPAUD2GameStrc@@@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x01@@YIXPAUD2ClientStrc@@DPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x0053B390",
      "length": 56,
-     "name": "?D2GAME_PACKETS_SendPacket0x03_6FC3C810@@YIXPAUD2ClientStrc@@EEIIH@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x03@@YIXPAUD2ClientStrc@@EEIIH@Z"
     },
     {
      "va": "0x0053B3D0",
      "length": 42,
-     "name": "?D2GAME_PACKETS_SendPacketSize06_6FC3C850@@YIXPAUD2ClientStrc@@EHH@Z"
+     "name": "?D2GAME_PACKETS_SendPacketSize06@@YIXPAUD2ClientStrc@@EHH@Z"
     },
     {
      "va": "0x0053B400",
      "length": 36,
-     "name": "?D2GAME_SendPacketSize05_6FC3C880@@YIXPAUD2ClientStrc@@EH@Z"
+     "name": "?D2GAME_SendPacketSize05@@YIXPAUD2ClientStrc@@EH@Z"
     },
     {
      "va": "0x0053B430",
      "length": 60,
-     "name": "?D2GAME_PACKETS_SendPacket0x0C_6FC3C8A0@@YIXPAUD2ClientStrc@@EEHEEE@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x0C@@YIXPAUD2ClientStrc@@EEHEEE@Z"
     },
     {
      "va": "0x0053B470",
      "length": 60,
-     "name": "?D2GAME_PACKETS_SendPacket0x0E_6FC3C8E0@@YIXPAUD2ClientStrc@@EEHEEH@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x0E@@YIXPAUD2ClientStrc@@EEHEEH@Z"
     },
     {
      "va": "0x0053B4B0",
      "length": 111,
-     "name": "?D2GAME_PACKETS_SendPacket0x0D_6FC3C920@@YIXPAUD2ClientStrc@@EEHEGGEE@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x0D@@YIXPAUD2ClientStrc@@EEHEGGEE@Z"
     },
     {
      "va": "0x0053B520",
      "length": 76,
-     "name": "?D2GAME_PACKETS_SendPacket0x10_6FC3C9A0@@YIXPAUD2ClientStrc@@DDHDHHFF@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x10@@YIXPAUD2ClientStrc@@DDHDHHFF@Z"
     },
     {
      "va": "0x0053B570",
      "length": 121,
-     "name": "?D2GAME_PACKETS_SendPacket0x0F_6FC3CA00@@YIXPAUD2ClientStrc@@DEHDFFDFF@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x0F@@YIXPAUD2ClientStrc@@DEHDFFDFF@Z"
     },
     {
      "va": "0x0053B5F0",
@@ -43589,27 +43589,27 @@
     {
      "va": "0x0053B9F0",
      "length": 71,
-     "name": "?D2GAME_PACKETS_SendPacket0x6A_6FC3CEE0@@YIXPAUD2ClientStrc@@DHDDHD@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x6A@@YIXPAUD2ClientStrc@@DHDDHD@Z"
     },
     {
      "va": "0x0053BA40",
      "length": 81,
-     "name": "?D2GAME_PACKETS_SendPacket0x69_6FC3CF30@@YIXPAUD2ClientStrc@@DHDFFDD@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x69@@YIXPAUD2ClientStrc@@DHDFFDD@Z"
     },
     {
      "va": "0x0053BAA0",
      "length": 90,
-     "name": "?D2GAME_PACKETS_SendPacket0x6C_6FC3CF90@@YIXPAUD2ClientStrc@@DHDDHDFF@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x6C@@YIXPAUD2ClientStrc@@DHDDHDFF@Z"
     },
     {
      "va": "0x0053BB00",
      "length": 100,
-     "name": "?D2GAME_PACKETS_SendPacket0x6B_6FC3D000@@YIXPAUD2ClientStrc@@DHDFFDDFF@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x6B@@YIXPAUD2ClientStrc@@DHDFFDDFF@Z"
     },
     {
      "va": "0x0053BB70",
      "length": 68,
-     "name": "?D2GAME_PACKETS_SendPacket0x6D_6FC3D080@@YIXPAUD2ClientStrc@@IGGE@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x6D@@YIXPAUD2ClientStrc@@IGGE@Z"
     },
     {
      "va": "0x0053BBC0",
@@ -43639,27 +43639,27 @@
     {
      "va": "0x0053BC10",
      "length": 64,
-     "name": "?D2GAME_PACKETS_SendPacket0x15_6FC3D0D0@@YIXPAUD2ClientStrc@@EEHGGE@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x15@@YIXPAUD2ClientStrc@@EEHGGE@Z"
     },
     {
      "va": "0x0053BC50",
      "length": 50,
-     "name": "?D2GAME_PACKETS_SendPacket0x07_6FC3D120@@YIXPAUD2ClientStrc@@EGG@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x07@@YIXPAUD2ClientStrc@@EGG@Z"
     },
     {
      "va": "0x0053BC90",
      "length": 50,
-     "name": "?D2GAME_PACKETS_SendPacket0x08_6FC3D160@@YIXPAUD2ClientStrc@@EGG@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x08@@YIXPAUD2ClientStrc@@EGG@Z"
     },
     {
      "va": "0x0053BCD0",
      "length": 64,
-     "name": "?D2GAME_PACKETS_SendPacket0x09_6FC3D1A0@@YIXPAUD2ClientStrc@@EEIEGG@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x09@@YIXPAUD2ClientStrc@@EEIEGG@Z"
     },
     {
      "va": "0x0053BD10",
      "length": 141,
-     "name": "?D2GAME_PACKETS_SendPacket0x51_6FC3D300@@YIXPAUD2ClientStrc@@EEHGGGEE@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x51@@YIXPAUD2ClientStrc@@EEHGGGEE@Z"
     },
     {
      "va": "0x0053BDA0",
@@ -43669,17 +43669,17 @@
     {
      "va": "0x0053BDD0",
      "length": 104,
-     "name": "?D2GAME_PACKETS_SendPacket0x1A_B_C_6FC3D410@@YIXPAUD2ClientStrc@@HH@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x1A_B_C@@YIXPAUD2ClientStrc@@HH@Z"
     },
     {
      "va": "0x0053BE40",
      "length": 149,
-     "name": "?D2GAME_PACKETS_SendPacket0x1D_E_F_6FC3D480@@YIXPAUD2ClientStrc@@GI@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x1D_E_F@@YIXPAUD2ClientStrc@@GI@Z"
     },
     {
      "va": "0x0053BEE0",
      "length": 237,
-     "name": "?D2GAME_PACKETS_SendPacket0x9E_9F_A0_6FC3D520@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@GI@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x9E_9F_A0@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@GI@Z"
     },
     {
      "va": "0x0053BFD0",
@@ -43689,17 +43689,17 @@
     {
      "va": "0x0053C0E0",
      "length": 106,
-     "name": "?D2GAME_PACKETS_SendPacket0xA3_6FC3D730@@YIXPAUD2ClientStrc@@EGGHHHHHH@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0xA3@@YIXPAUD2ClientStrc@@EGGHHHHHH@Z"
     },
     {
      "va": "0x0053C150",
      "length": 58,
-     "name": "?D2GAME_PACKETS_SendPacket0xAB_6FC3D7B0@@YIXPAUD2ClientStrc@@EHE@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0xAB@@YIXPAUD2ClientStrc@@EHE@Z"
     },
     {
      "va": "0x0053C190",
      "length": 56,
-     "name": "?D2GAME_PACKETS_SendPacket0xA5_6FC3D7F0@@YIXPAUD2ClientStrc@@EHG@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0xA5@@YIXPAUD2ClientStrc@@EHG@Z"
     },
     {
      "va": "0x0053C1D0",
@@ -43719,7 +43719,7 @@
     {
      "va": "0x0053C3F0",
      "length": 170,
-     "name": "?D2GAME_PACKETS_SendPacket0x96_WalkVerify_6FC3DA90@@YIXPAUD2ClientStrc@@GGGEE@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x96_WalkVerify@@YIXPAUD2ClientStrc@@GGGEE@Z"
     },
     {
      "va": "0x0053C4A0",
@@ -43728,12 +43728,12 @@
     {
      "va": "0x0053C520",
      "length": 100,
-     "name": "?D2GAME_PACKETS_SendPacket0x22_6FC3DBE0@@YIXPAUD2ClientStrc@@EHHH@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x22@@YIXPAUD2ClientStrc@@EHHH@Z"
     },
     {
      "va": "0x0053C590",
      "length": 60,
-     "name": "?D2GAME_PACKETS_SendPacket0x23_6FC3DC60@@YIXPAUD2ClientStrc@@EHEGH@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x23@@YIXPAUD2ClientStrc@@EHEGH@Z"
     },
     {
      "va": "0x0053C5D0",
@@ -43761,17 +43761,17 @@
     {
      "va": "0x0053C850",
      "length": 121,
-     "name": "?D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0@@YIXPAUD2ClientStrc@@PAUD2GSPacketSrv5A@@@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x5A@@YIXPAUD2ClientStrc@@PAUD2GSPacketSrv5A@@@Z"
     },
     {
      "va": "0x0053C8D0",
      "length": 41,
-     "name": "?D2GAME_PACKETS_SendPacket0x27_6FC3DF20@@YIXPAUD2ClientStrc@@PAUD2GSPacketSrv27@@@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x27@@YIXPAUD2ClientStrc@@PAUD2GSPacketSrv27@@@Z"
     },
     {
      "va": "0x0053C900",
      "length": 44,
-     "name": "?D2GAME_SendPacket0x53_6FC3DF50@@YIXPAUD2ClientStrc@@PAUD2GSPacketSrv53@@@Z"
+     "name": "?D2GAME_SendPacket0x53@@YIXPAUD2ClientStrc@@PAUD2GSPacketSrv53@@@Z"
     },
     {
      "va": "0x0053C930",
@@ -43786,12 +43786,12 @@
     {
      "va": "0x0053CA90",
      "length": 32,
-     "name": "?D2GAME_PACKETS_SendPacket0x5C_6FC3E090@@YIXPAUD2ClientStrc@@H@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x5C@@YIXPAUD2ClientStrc@@H@Z"
     },
     {
      "va": "0x0053CAB0",
      "length": 30,
-     "name": "?D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0@@YIXPAUD2ClientStrc@@E@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x77_Ui@@YIXPAUD2ClientStrc@@E@Z"
     },
     {
      "va": "0x0053CAD0",
@@ -43801,17 +43801,17 @@
     {
      "va": "0x0053CB30",
      "length": 74,
-     "name": "?D2GAME_PACKETS_SendPacket0x7A_6FC3E100@@YIXPAUD2ClientStrc@@DHHHG@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x7A@@YIXPAUD2ClientStrc@@DHHHG@Z"
     },
     {
      "va": "0x0053CB80",
      "length": 86,
-     "name": "?D2GAME_PACKETS_SendPacket0x81_6FC3E160@@YIXPAUD2ClientStrc@@DHHHGHH@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x81@@YIXPAUD2ClientStrc@@DHHHGHH@Z"
     },
     {
      "va": "0x0053CBE0",
      "length": 40,
-     "name": "?D2GAME_PACKETS_SendPacket0x79_6FC3E1D0@@YIXPAUD2ClientStrc@@HD@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x79@@YIXPAUD2ClientStrc@@HD@Z"
     },
     {
      "va": "0x0053CC10",
@@ -43841,37 +43841,37 @@
     {
      "va": "0x0053D010",
      "length": 122,
-     "name": "D2GAME_UpdateClientItem_6FC3E9D0"
+     "name": "D2GAME_UpdateClientItem"
     },
     {
      "va": "0x0053D090",
      "length": 24,
-     "name": "D2GAME_SendP0x9D_ItemAction_Equip_6FC3EA50"
+     "name": "D2GAME_SendP0x9D_ItemAction_Equip"
     },
     {
      "va": "0x0053D0B0",
      "length": 24,
-     "name": "D2GAME_SendP0x9D_ItemAction_IndirectlySwapBodyItem_6FC3EA70"
+     "name": "D2GAME_SendP0x9D_ItemAction_IndirectlySwapBodyItem"
     },
     {
      "va": "0x0053D0D0",
      "length": 24,
-     "name": "D2GAME_SendP0x9D_ItemAction_Unequip_6FC3EA90"
+     "name": "D2GAME_SendP0x9D_ItemAction_Unequip"
     },
     {
      "va": "0x0053D0F0",
      "length": 24,
-     "name": "D2GAME_SendP0x9D_ItemAction_SwapBodyItem_6FC3EAB0"
+     "name": "D2GAME_SendP0x9D_ItemAction_SwapBodyItem"
     },
     {
      "va": "0x0053D110",
      "length": 24,
-     "name": "D2GAME_SendP0x9D_ItemAction_WeaponSwitch_6FC3EAD0"
+     "name": "D2GAME_SendP0x9D_ItemAction_WeaponSwitch"
     },
     {
      "va": "0x0053D130",
      "length": 231,
-     "name": "?D2GAME_PACKETS_SendPacket0x3E_6FC3EC20@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@EHIG@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x3E@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@EHIG@Z"
     },
     {
      "va": "0x0053D220",
@@ -43885,12 +43885,12 @@
     {
      "va": "0x0053D2C0",
      "length": 24,
-     "name": "D2GAME_SendP0x9D_ItemAction_AutoUnequip_6FC3EE20"
+     "name": "D2GAME_SendP0x9D_ItemAction_AutoUnequip"
     },
     {
      "va": "0x0053D2E0",
      "length": 67,
-     "name": "?D2GAME_PACKETS_SendPacket0x42_6FC3EE40@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x42@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0053D330",
@@ -43900,22 +43900,22 @@
     {
      "va": "0x0053D350",
      "length": 24,
-     "name": "D2GAME_SendP0x9D_ItemAction_Unknown0x14_6FC3EEC0"
+     "name": "D2GAME_SendP0x9D_ItemAction_Unknown0x14"
     },
     {
      "va": "0x0053D370",
      "length": 73,
-     "name": "?D2GAME_SendPacket0x47_6FC3EEE0@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?D2GAME_SendPacket0x47@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0053D3C0",
      "length": 81,
-     "name": "?D2GAME_SendPacket0x48_6FC3EF40@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@H@Z"
+     "name": "?D2GAME_SendPacket0x48@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0053D420",
      "length": 24,
-     "name": "D2GAME_SendP0x9D_ItemAction_UpdateStats_6FC3EFA0"
+     "name": "D2GAME_SendP0x9D_ItemAction_UpdateStats"
     },
     {
      "va": "0x0053D440",
@@ -43925,7 +43925,7 @@
     {
      "va": "0x0053D4B0",
      "length": 24,
-     "name": "D2GAME_SendP0x9D_ItemAction_Unknown0x16_6FC3F040"
+     "name": "D2GAME_SendP0x9D_ItemAction_Unknown0x16"
     },
     {
      "va": "0x0053D4D0",
@@ -43939,7 +43939,7 @@
     {
      "va": "0x0053D670",
      "length": 85,
-     "name": "?D2GAME_SendPacket0x28_6FC3F2F0@@YIXPAUD2ClientStrc@@EEHPAUD2BitBufferStrc@@E@Z"
+     "name": "?D2GAME_SendPacket0x28@@YIXPAUD2ClientStrc@@EEHPAUD2BitBufferStrc@@E@Z"
     },
     {
      "va": "0x0053D6D0",
@@ -43949,7 +43949,7 @@
     {
      "va": "0x0053D700",
      "length": 13,
-     "name": "?D2GAME_PACKETS_SendPacket0x29_6FC3F370@@YIXPAUD2ClientStrc@@PAUD2GSPacketSrv29@@@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x29@@YIXPAUD2ClientStrc@@PAUD2GSPacketSrv29@@@Z"
     },
     {
      "va": "0x0053D710",
@@ -43969,12 +43969,12 @@
     {
      "va": "0x0053D7B0",
      "length": 44,
-     "name": "?D2GAME_SendPacket0x4E_6FC3F410@@YIXPAUD2ClientStrc@@PAUD2GSPacketSrv4E@@@Z"
+     "name": "?D2GAME_SendPacket0x4E@@YIXPAUD2ClientStrc@@PAUD2GSPacketSrv4E@@@Z"
     },
     {
      "va": "0x0053D7E0",
      "length": 78,
-     "name": "?D2GAME_SendPacket0x50_6FC3F440@@YIXPAUD2ClientStrc@@PAUD2GSPacketSrv50@@@Z"
+     "name": "?D2GAME_SendPacket0x50@@YIXPAUD2ClientStrc@@PAUD2GSPacketSrv50@@@Z"
     },
     {
      "va": "0x0053D830",
@@ -43989,7 +43989,7 @@
     {
      "va": "0x0053D850",
      "length": 48,
-     "name": "?D2GAME_PACKETS_SendPacket0x11_6FC3F4A0@@YIXPAUD2ClientStrc@@HHH@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x11@@YIXPAUD2ClientStrc@@HHH@Z"
     },
     {
      "va": "0x0053D880",
@@ -44019,7 +44019,7 @@
     {
      "va": "0x0053D9C0",
      "length": 42,
-     "name": "?D2GAME_PACKETS_SendPacket0x65_6FC3F5E0@@YIXPAUD2ClientStrc@@IG@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x65@@YIXPAUD2ClientStrc@@IG@Z"
     },
     {
      "va": "0x0053D9F0",
@@ -44034,7 +44034,7 @@
     {
      "va": "0x0053DA40",
      "length": 70,
-     "name": "?D2GAME_PACKETS_SendPacket0x74_6FC3F640@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@1E@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x74@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@1E@Z"
     },
     {
      "va": "0x0053DA90",
@@ -44044,17 +44044,17 @@
     {
      "va": "0x0053DB20",
      "length": 66,
-     "name": "?D2GAME_PACKETS_SendPacket0x7B_6FC3F720@@YIXPAUD2ClientStrc@@EHHH@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x7B@@YIXPAUD2ClientStrc@@EHHH@Z"
     },
     {
      "va": "0x0053DB70",
      "length": 29,
-     "name": "?D2GAME_PACKETS_SendPacket0x7E_6FC3F770@@YIXPAUD2ClientStrc@@@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x7E@@YIXPAUD2ClientStrc@@@Z"
     },
     {
      "va": "0x0053DB90",
      "length": 135,
-     "name": "?D2GAME_PACKETS_SendPacket0x82_6FC3F790@@YIXPAUD2GameStrc@@PAUD2ClientStrc@@HH@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x82@@YIXPAUD2GameStrc@@PAUD2ClientStrc@@HH@Z"
     },
     {
      "va": "0x0053DC20",
@@ -44074,7 +44074,7 @@
     {
      "va": "0x0053DDC0",
      "length": 40,
-     "name": "?D2GAME_PACKETS_SendPacket0x8B_6FC3F810@@YIXPAUD2ClientStrc@@HE@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x8B@@YIXPAUD2ClientStrc@@HE@Z"
     },
     {
      "va": "0x0053DDF0",
@@ -44089,7 +44089,7 @@
     {
      "va": "0x0053DE50",
      "length": 63,
-     "name": "?D2GAME_PACKETS_SendPacket0x8C_6FC3F8B0@@YIXPAUD2UnitStrc@@HHG@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x8C@@YIXPAUD2UnitStrc@@HHG@Z"
     },
     {
      "va": "0x0053DE90",
@@ -44104,7 +44104,7 @@
     {
      "va": "0x0053DF00",
      "length": 76,
-     "name": "?D2GAME_PACKETS_SendPacket0x8D_6FC3F960@@YIXPAUD2UnitStrc@@0@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x8D@@YIXPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x0053DF50",
@@ -44114,12 +44114,12 @@
     {
      "va": "0x0053DF80",
      "length": 45,
-     "name": "D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0"
+     "name": "D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers"
     },
     {
      "va": "0x0053DFB0",
      "length": 46,
-     "name": "?D2GAME_PACKETS_SendPacket0x8E_6FC3FA20@@YIXPAUD2ClientStrc@@HHE@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x8E@@YIXPAUD2ClientStrc@@HHE@Z"
     },
     {
      "va": "0x0053DFE0",
@@ -44129,12 +44129,12 @@
     {
      "va": "0x0053DFF0",
      "length": 38,
-     "name": "?D2GAME_SendPacket0x8A_6FC3FA60@@YIXPAUD2ClientStrc@@PAUD2GSPacketSrv8A@@@Z"
+     "name": "?D2GAME_SendPacket0x8A@@YIXPAUD2ClientStrc@@PAUD2GSPacketSrv8A@@@Z"
     },
     {
      "va": "0x0053E020",
      "length": 55,
-     "name": "?D2GAME_PACKETS_SendPacket0x8F_6FC3FA90@@YIXPAUD2ClientStrc@@@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x8F@@YIXPAUD2ClientStrc@@@Z"
     },
     {
      "va": "0x0053E060",
@@ -44149,12 +44149,12 @@
     {
      "va": "0x0053E0E0",
      "length": 41,
-     "name": "?D2GAME_PACKETS_SendPacket0x9B_6FC3FB30@@YIXPAUD2ClientStrc@@GH@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x9B@@YIXPAUD2ClientStrc@@GH@Z"
     },
     {
      "va": "0x0053E110",
      "length": 27,
-     "name": "?D2GAME_PACKETS_SendPacket0x97_6FC3FB60@@YIXPAUD2ClientStrc@@@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x97@@YIXPAUD2ClientStrc@@@Z"
     },
     {
      "va": "0x0053E130",
@@ -44163,7 +44163,7 @@
     {
      "va": "0x0053E1A0",
      "length": 31,
-     "name": "?D2GAME_PACKETS_SendPacket0xA4_6FC3FC00@@YIXPAUD2ClientStrc@@F@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0xA4@@YIXPAUD2ClientStrc@@F@Z"
     },
     {
      "va": "0x0053E1C0",
@@ -44173,12 +44173,12 @@
     {
      "va": "0x0053E260",
      "length": 46,
-     "name": "?D2GAME_PACKETS_SendPacket0xA7_StateOn_6FC3FC20@@YIXPAUD2ClientStrc@@EKE@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0xA7_StateOn@@YIXPAUD2ClientStrc@@EKE@Z"
     },
     {
      "va": "0x0053E290",
      "length": 46,
-     "name": "?D2GAME_PACKETS_SendPacket0xA9_StateOff_6FC3FC50@@YIXPAUD2ClientStrc@@EKE@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0xA9_StateOff@@YIXPAUD2ClientStrc@@EKE@Z"
     },
     {
      "va": "0x0053E2E0",
@@ -44202,7 +44202,7 @@
     {
      "va": "0x0053E9B0",
      "length": 154,
-     "name": "?D2GAME_PACKETS_SendPacket0x19_6FC3D3D0@@YIXPAUD2ClientStrc@@HH@Z"
+     "name": "?D2GAME_PACKETS_SendPacket0x19@@YIXPAUD2ClientStrc@@HH@Z"
     },
     {
      "va": "0x0053EA50",
@@ -44212,67 +44212,67 @@
     {
      "va": "0x0053EAE0",
      "length": 281,
-     "name": "?D2GAME_SendPacket0x9C_6FC3E570@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@DIH@Z"
+     "name": "?D2GAME_SendPacket0x9C@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@DIH@Z"
     },
     {
      "va": "0x0053EC00",
      "length": 20,
-     "name": "D2GAME_SendP0x9C_ItemAction_AddToGround_6FC3E850"
+     "name": "D2GAME_SendP0x9C_ItemAction_AddToGround"
     },
     {
      "va": "0x0053EC20",
      "length": 103,
-     "name": "D2GAME_SendP0x9C_ItemAction_GroundToCursor_6FC3E870"
+     "name": "D2GAME_SendP0x9C_ItemAction_GroundToCursor"
     },
     {
      "va": "0x0053EC90",
      "length": 83,
-     "name": "?D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@1H@Z"
+     "name": "?D2GAME_SendP0x9C_ItemAction_DropToGround@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@1H@Z"
     },
     {
      "va": "0x0053ECF0",
      "length": 83,
-     "name": "?D2GAME_SendP0x9C_ItemAction_OnGround_6FC3E930@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@1H@Z"
+     "name": "?D2GAME_SendP0x9C_ItemAction_OnGround@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@1H@Z"
     },
     {
      "va": "0x0053ED50",
      "length": 83,
-     "name": "D2GAME_SendP0x9C_ItemAction_PutInContainer_6FC3E980"
+     "name": "D2GAME_SendP0x9C_ItemAction_PutInContainer"
     },
     {
      "va": "0x0053EDB0",
      "length": 83,
-     "name": "D2GAME_SendP0x9C_ItemAction_AddQuantity_6FC3EAF0"
+     "name": "D2GAME_SendP0x9C_ItemAction_AddQuantity"
     },
     {
      "va": "0x0053EE10",
      "length": 83,
-     "name": "D2GAME_SendP0x9C_ItemAction_SwapInContainer_6FC3EB40"
+     "name": "D2GAME_SendP0x9C_ItemAction_SwapInContainer"
     },
     {
      "va": "0x0053EE70",
      "length": 83,
-     "name": "D2GAME_SendP0x9C_ItemAction_PutInBelt_6FC3EB90"
+     "name": "D2GAME_SendP0x9C_ItemAction_PutInBelt"
     },
     {
      "va": "0x0053EED0",
      "length": 23,
-     "name": "D2GAME_SendP0x9C_ItemAction_RemoveFromBelt_6FC3EBE0"
+     "name": "D2GAME_SendP0x9C_ItemAction_RemoveFromBelt"
     },
     {
      "va": "0x0053EEF0",
      "length": 23,
-     "name": "D2GAME_SendP0x9C_ItemAction_SwapInBelt_6FC3EC00"
+     "name": "D2GAME_SendP0x9C_ItemAction_SwapInBelt"
     },
     {
      "va": "0x0053EF10",
      "length": 21,
-     "name": "D2GAME_SendP0x9C_ItemAction_ToCursor_6FC3EEA0"
+     "name": "D2GAME_SendP0x9C_ItemAction_ToCursor"
     },
     {
      "va": "0x0053EF30",
      "length": 141,
-     "name": "D2GAME_SendP0x9C_ItemAction_AddOrRemoveFromShop_6FC3F260"
+     "name": "D2GAME_SendP0x9C_ItemAction_AddOrRemoveFromShop"
     },
     {
      "va": "0x00568DB0",
@@ -44632,7 +44632,7 @@
     {
      "va": "0x00540E60",
      "length": 62,
-     "name": "?D2GAME_EVENTS_Delete_6FC34840@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?D2GAME_EVENTS_Delete@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x00540EA0",
@@ -44647,7 +44647,7 @@
     {
      "va": "0x00540F30",
      "length": 37,
-     "name": "?D2GAME_DeleteTimersOnUnit_6FC34A30@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?D2GAME_DeleteTimersOnUnit@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00540F60",
@@ -45464,7 +45464,7 @@
     {
      "va": "0x00548520",
      "length": 139,
-     "name": "D2GAME_UpdateAttribute_6FC822D0"
+     "name": "D2GAME_UpdateAttribute"
     },
     {
      "va": "0x005485B0",
@@ -45616,7 +45616,7 @@
     {
      "va": "0x005497E0",
      "length": 66,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x01_Walk_6FC82CB0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x01_Walk@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x00549830",
@@ -45626,17 +45626,17 @@
     {
      "va": "0x00549890",
      "length": 64,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x02_WalkToEntity_6FC82ED0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x02_WalkToEntity@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x005498D0",
      "length": 66,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x03_Run_6FC83090@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x03_Run@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x00549920",
      "length": 64,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x04_RunToEntity_6FC830F0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x04_RunToEntity@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x00549960",
@@ -45660,77 +45660,77 @@
     {
      "va": "0x00549D00",
      "length": 117,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x05_ShiftLeftClickSkill_6FC832B0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x05_ShiftLeftClickSkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x00549D80",
      "length": 117,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x06_LeftSkillOnUnit_6FC83550@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x06_LeftSkillOnUnit@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x00549E00",
      "length": 117,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x07_ShiftLeftSkillOnUnit_6FC83890@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x07_ShiftLeftSkillOnUnit@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x00549E80",
      "length": 85,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x08_ShiftLeftSkillHold_6FC83A10@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x08_ShiftLeftSkillHold@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x00549EE0",
      "length": 85,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x09_LeftSkillOnUnitHold_6FC83AC0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x09_LeftSkillOnUnitHold@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x00549F40",
      "length": 85,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x0A_ShiftLeftSkillOnUnitHold_6FC83D40@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x0A_ShiftLeftSkillOnUnitHold@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x00549FA0",
      "length": 20,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x0B_6FC83EE0"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x0B"
     },
     {
      "va": "0x00549FC0",
      "length": 117,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x0C_RightSkill_6FC83EF0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x0C_RightSkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054A040",
      "length": 117,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x0D_RightSkillOnUnit_6FC83F80@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x0D_RightSkillOnUnit@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054A0C0",
      "length": 117,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x0E_ShiftRightSkillOnUnit_6FC84100@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x0E_ShiftRightSkillOnUnit@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054A140",
      "length": 85,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x0F_RightSkillHold_6FC84280@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x0F_RightSkillHold@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054A1A0",
      "length": 85,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x10_RightSkillOnUnitHold_6FC84330@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x10_RightSkillOnUnitHold@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054A200",
      "length": 85,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x11_ShiftRightSkillOnUnitHold_6FC844D0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x11_ShiftRightSkillOnUnitHold@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054A260",
      "length": 34,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x12_6FC84670"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x12"
     },
     {
      "va": "0x0054A290",
      "length": 394,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x14_HandleOverheadChat_6FC84690@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x14_HandleOverheadChat@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054A420",
@@ -45740,17 +45740,17 @@
     {
      "va": "0x0054A470",
      "length": 146,
-     "name": "?D2GAME_PACKETS_HandlePlayerMessage_6FC847B0@@YIXPAUD2ClientStrc@@PAX@Z"
+     "name": "?D2GAME_PACKETS_HandlePlayerMessage@@YIXPAUD2ClientStrc@@PAX@Z"
     },
     {
      "va": "0x0054A510",
      "length": 167,
-     "name": "D2GAME_PACKETS_HandleWhisper_6FC848A0"
+     "name": "D2GAME_PACKETS_HandleWhisper"
     },
     {
      "va": "0x0054A5C0",
      "length": 5,
-     "name": "?j_D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0@@YIXPAUD2ClientStrc@@PAX@Z"
+     "name": "?j_D2GAME_PACKETS_SendPacket0x26_ServerMessage@@YIXPAUD2ClientStrc@@PAX@Z"
     },
     {
      "va": "0x0054A5D0",
@@ -45769,7 +45769,7 @@
     {
      "va": "0x0054AA30",
      "length": 5,
-     "name": "?j_D2GAME_SendPacket0x5A_6FC3DEC0@@YIXPAUD2ClientStrc@@PAX@Z"
+     "name": "?j_D2GAME_SendPacket0x5A@@YIXPAUD2ClientStrc@@PAX@Z"
     },
     {
      "va": "0x0054AA40",
@@ -45778,17 +45778,17 @@
     {
      "va": "0x0054AA90",
      "length": 62,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x13_InteractWithEntity_6FC84D70"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x13_InteractWithEntity"
     },
     {
      "va": "0x0054AAD0",
      "length": 98,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x16_PickItemOnGround_6FC84DB0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x16_PickItemOnGround@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054AB40",
      "length": 101,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x17_DropItemOnGround_6FC84E20"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x17_DropItemOnGround"
     },
     {
      "va": "0x0054ABB0",
@@ -45812,12 +45812,12 @@
     {
      "va": "0x0054AEC0",
      "length": 142,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x1C_RemoveBodyItem_6FC854B0"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x1C_RemoveBodyItem"
     },
     {
      "va": "0x0054AF50",
      "length": 221,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x1D_SwapCursorItemWithBody_6FC85550"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x1D_SwapCursorItemWithBody"
     },
     {
      "va": "0x0054B030",
@@ -45834,57 +45834,57 @@
     {
      "va": "0x0054B280",
      "length": 114,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x27_UseItemAction_6FC85B50@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x27_UseItemAction@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054B300",
      "length": 116,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x21_StackItems_6FC85C80@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x21_StackItems@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054B380",
      "length": 87,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x22_UnstackItems_6FC85DA0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x22_UnstackItems@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054B3E0",
      "length": 102,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x23_ItemToBelt_6FC85E70"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x23_ItemToBelt"
     },
     {
      "va": "0x0054B450",
      "length": 134,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x24_ItemFromBelt_6FC85F50"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x24_ItemFromBelt"
     },
     {
      "va": "0x0054B4E0",
      "length": 116,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x25_SwitchBeltItem_6FC86040"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x25_SwitchBeltItem"
     },
     {
      "va": "0x0054B560",
      "length": 239,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x26_UseBeltItem_6FC86150@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x26_UseBeltItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054B650",
      "length": 178,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x28_SocketItem_6FC86310"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x28_SocketItem"
     },
     {
      "va": "0x0054B710",
      "length": 117,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x29_ScrollToBook_6FC86450@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x29_ScrollToBook@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054B790",
      "length": 117,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x2A_ItemToCubeIndirect_6FC866E0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x2A_ItemToCubeIndirect@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054B810",
      "length": 8,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x2C_2D_52_6FC867B0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x2C_2D_52@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054B820",
@@ -45894,7 +45894,7 @@
     {
      "va": "0x0054B830",
      "length": 233,
-     "name": "D2GAME_PlayerChangeAct_6FC867C0"
+     "name": "D2GAME_PlayerChangeAct"
     },
     {
      "va": "0x0054B920",
@@ -45904,17 +45904,17 @@
     {
      "va": "0x0054B930",
      "length": 183,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x2F_InitEntityChat_6FC868C0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x2F_InitEntityChat@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054B9F0",
      "length": 159,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x30_TerminateEntityChat_6FC869F0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x30_TerminateEntityChat@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054BA90",
      "length": 43,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x31_QuestMessage_6FC86AB0"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x31_QuestMessage"
     },
     {
      "va": "0x0054BAC0",
@@ -45923,67 +45923,67 @@
     {
      "va": "0x0054BB20",
      "length": 53,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x33_SellItemToNpcBuffer_6FC86B30"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x33_SellItemToNpcBuffer"
     },
     {
      "va": "0x0054BB60",
      "length": 51,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x35_Repair_6FC86B70"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x35_Repair"
     },
     {
      "va": "0x0054BBA0",
      "length": 36,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x34_IdentifyItemsWithNpc_6FC86BA0"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x34_IdentifyItemsWithNpc"
     },
     {
      "va": "0x0054BBD0",
      "length": 43,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x36_HireMerc_6FC86BD0"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x36_HireMerc"
     },
     {
      "va": "0x0054BC00",
      "length": 42,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x62_ResurrectMerc_6FC86C00"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x62_ResurrectMerc"
     },
     {
      "va": "0x0054BC30",
      "length": 102,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x37_IdentifyFromGamble_6FC86C30"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x37_IdentifyFromGamble"
     },
     {
      "va": "0x0054BCA0",
      "length": 92,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x38_EntityAction_6FC86CB0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x38_EntityAction@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054BD00",
      "length": 8,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x39_PurchaseLife_6FC86E50@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x39_PurchaseLife@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054BD10",
      "length": 119,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x3A_AddStatPoint_6FC86E80"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x3A_AddStatPoint"
     },
     {
      "va": "0x0054BD90",
      "length": 218,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x3B_AddSkillPoint_6FC86EF0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x3B_AddSkillPoint@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054BE70",
      "length": 158,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x3C_SelectSkill_6FC87050@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x3C_SelectSkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054BF10",
      "length": 74,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x3D_HighlightADoor_6FC870F0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x3D_HighlightADoor@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054BF60",
      "length": 272,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x3E_ActivateInifussScroll_6FC87270@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x3E_ActivateInifussScroll@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054C070",
@@ -45993,22 +45993,22 @@
     {
      "va": "0x0054C0C0",
      "length": 29,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x40_RequestQuestData_6FC87460"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x40_RequestQuestData"
     },
     {
      "va": "0x0054C0E0",
      "length": 438,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x41_Resurrect_6FC87480"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x41_Resurrect"
     },
     {
      "va": "0x0054C2A0",
      "length": 85,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x5D_SquelchHostile_6FC876B0"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x5D_SquelchHostile"
     },
     {
      "va": "0x0054C300",
      "length": 83,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x5E_InviteToParty_6FC87720"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x5E_InviteToParty"
     },
     {
      "va": "0x0054C360",
@@ -46023,7 +46023,7 @@
     {
      "va": "0x0054C380",
      "length": 153,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x44_StaffInOrifice_6FC87780@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x44_StaffInOrifice@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054C420",
@@ -46038,52 +46038,52 @@
     {
      "va": "0x0054C4B0",
      "length": 107,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x46_MercInteract_6FC87B00@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAEH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x46_MercInteract@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAEH@Z"
     },
     {
      "va": "0x0054C520",
      "length": 102,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x47_MoveMerc_6FC87CE0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAEH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x47_MoveMerc@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAEH@Z"
     },
     {
      "va": "0x0054C590",
      "length": 58,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x48_TurnOffBusyState_6FC87E20"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x48_TurnOffBusyState"
     },
     {
      "va": "0x0054C5D0",
      "length": 189,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x49_TakeOrCloseWp_6FC87E60@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAEH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x49_TakeOrCloseWp@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAEH@Z"
     },
     {
      "va": "0x0054C690",
      "length": 57,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x4D_PlayNpcMessage_6FC880A0"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x4D_PlayNpcMessage"
     },
     {
      "va": "0x0054C6D0",
      "length": 129,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x4B_RequestEntityUpdate_6FC880F0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x4B_RequestEntityUpdate@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054C760",
      "length": 84,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x4C_Transmogrify_6FC88170"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x4C_Transmogrify"
     },
     {
      "va": "0x0054C7C0",
      "length": 59,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x4F_ClickButton_6FC881D0"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x4F_ClickButton"
     },
     {
      "va": "0x0054C800",
      "length": 111,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x50_DropGold_6FC88210"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x50_DropGold"
     },
     {
      "va": "0x0054C870",
      "length": 184,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x51_BindHotkeyToSkill_6FC88290"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x51_BindHotkeyToSkill"
     },
     {
      "va": "0x0054C930",
@@ -46093,22 +46093,22 @@
     {
      "va": "0x0054C940",
      "length": 66,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x53_TurnStaminaOn_6FC88340"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x53_TurnStaminaOn"
     },
     {
      "va": "0x0054C990",
      "length": 47,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x54_TurnStaminaOff_6FC88380"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x54_TurnStaminaOff"
     },
     {
      "va": "0x0054C9C0",
      "length": 71,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x58_QuestCompleted_6FC883B0"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x58_QuestCompleted"
     },
     {
      "va": "0x0054CA10",
      "length": 254,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x59_MakeEntityMove_6FC88400"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x59_MakeEntityMove"
     },
     {
      "va": "0x0054CB10",
@@ -46127,12 +46127,12 @@
     {
      "va": "0x0054CD50",
      "length": 284,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x5F_UpdatePlayerPos_6FC88530@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x5F_UpdatePlayerPos@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054CE70",
      "length": 86,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x60_SwapWeapons_6FC888A0"
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x60_SwapWeapons"
     },
     {
      "va": "0x0054CED0",
@@ -46156,7 +46156,7 @@
     {
      "va": "0x0054D520",
      "length": 540,
-     "name": "?D2GAME_PACKETCALLBACK_Rcv0x63_ShiftLeftClickItemToBelt_6FC88F80@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
+     "name": "?D2GAME_PACKETCALLBACK_Rcv0x63_ShiftLeftClickItemToBelt@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAXH@Z"
     },
     {
      "va": "0x0054D740",
@@ -46170,7 +46170,7 @@
     {
      "va": "0x0054D8A0",
      "length": 365,
-     "name": "?D2GAME_PLRMSG_Last_6FC89450@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+     "name": "?D2GAME_PLRMSG_Last@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x0054DA10",
@@ -46502,7 +46502,7 @@
     {
      "va": "0x00553990",
      "length": 31,
-     "name": "D2GAME_DeletePlayerPerFrameEvents_6FCBCE50"
+     "name": "D2GAME_DeletePlayerPerFrameEvents"
     },
     {
      "va": "0x005539B0",
@@ -46521,7 +46521,7 @@
     {
      "va": "0x00553DC0",
      "length": 307,
-     "name": "?D2GAME_SKILLS_RewindSkillEx_6FCBD260@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+     "name": "?D2GAME_SKILLS_RewindSkillEx@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00553F00",
@@ -46551,12 +46551,12 @@
     {
      "va": "0x005540A0",
      "length": 39,
-     "name": "D2GAME_SetSparkChest_6FCBD7C0"
+     "name": "D2GAME_SetSparkChest"
     },
     {
      "va": "0x005540D0",
      "length": 39,
-     "name": "D2GAME_CheckIfSparklyChest_6FCBD7F0"
+     "name": "D2GAME_CheckIfSparklyChest"
     },
     {
      "va": "0x00554100",
@@ -46820,7 +46820,7 @@
     {
      "va": "0x00556E80",
      "length": 169,
-     "name": "?D2GAME_ITEMS_AssignSpecial_6FC4DB60@@YAXPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+     "name": "?D2GAME_ITEMS_AssignSpecial@@YAXPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     },
     {
      "va": "0x00556F30",
@@ -46976,7 +46976,7 @@
     {
      "va": "0x00558AA0",
      "length": 148,
-     "name": "D2GAME_DropItem_6FC52260"
+     "name": "D2GAME_DropItem"
     },
     {
      "va": "0x00558B40",
@@ -47001,7 +47001,7 @@
     {
      "va": "0x00558D90",
      "length": 928,
-     "name": "?D2GAME_CreateItemEx_6FC4ED80@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ItemDropStrc@@H@Z"
+     "name": "?D2GAME_CreateItemEx@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ItemDropStrc@@H@Z"
     },
     {
      "va": "0x00559130",
@@ -47015,12 +47015,12 @@
     {
      "va": "0x005594C0",
      "length": 362,
-     "name": "D2GAME_DropArmor_6FC4F830"
+     "name": "D2GAME_DropArmor"
     },
     {
      "va": "0x00559630",
      "length": 508,
-     "name": "D2GAME_DropWeapon_6FC4FA50"
+     "name": "D2GAME_DropWeapon"
     },
     {
      "va": "0x00559830",
@@ -47030,7 +47030,7 @@
     {
      "va": "0x00559A30",
      "length": 682,
-     "name": "?D2GAME_DropItemAtUnit_6FC4FEC0@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@HPAHPAUD2ItemDropStrc@@HH@Z"
+     "name": "?D2GAME_DropItemAtUnit@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@HPAHPAUD2ItemDropStrc@@HH@Z"
     },
     {
      "va": "0x00559E30",
@@ -47964,17 +47964,17 @@
     {
      "va": "0x0056CF40",
      "length": 494,
-     "name": "D2GAME_CreateLinkPortal_6FD13B20"
+     "name": "D2GAME_CreateLinkPortal"
     },
     {
      "va": "0x0056D130",
      "length": 399,
-     "name": "?D2GAME_CreatePortalObject_6FD13DF0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HHHPAPAU2@HH@Z"
+     "name": "?D2GAME_CreatePortalObject@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HHHPAPAU2@HH@Z"
     },
     {
      "va": "0x0056D2C0",
      "length": 162,
-     "name": "D2GAME_GetXAndYFromTargetUnit_6FD14020"
+     "name": "D2GAME_GetXAndYFromTargetUnit"
     },
     {
      "va": "0x0056D370",
@@ -48023,7 +48023,7 @@
     {
      "va": "0x0056D940",
      "length": 359,
-     "name": "?D2GAME_SummonPet_6FD14430@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2SummonArgStrc@@@Z"
+     "name": "?D2GAME_SummonPet@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2SummonArgStrc@@@Z"
     },
     {
      "va": "0x0056DAB0",
@@ -48057,7 +48057,7 @@
     {
      "va": "0x0056DEB0",
      "length": 84,
-     "name": "?D2GAME_SetSkills_6FD14C60@@YIXPAUD2UnitStrc@@HHH@Z"
+     "name": "?D2GAME_SetSkills@@YIXPAUD2UnitStrc@@HHH@Z"
     },
     {
      "va": "0x0056DF10",
@@ -48072,7 +48072,7 @@
     {
      "va": "0x0056DFA0",
      "length": 92,
-     "name": "?D2GAME_RefreshPassiveSkills_6FD14CC0@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?D2GAME_RefreshPassiveSkills@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0056E000",
@@ -48087,12 +48087,12 @@
     {
      "va": "0x0056E0C0",
      "length": 162,
-     "name": "?D2GAME_RollElementalDamage_6FD14DD0@@YIHPAUD2UnitStrc@@PAUD2DamageStrc@@HH@Z"
+     "name": "?D2GAME_RollElementalDamage@@YIHPAUD2UnitStrc@@PAUD2DamageStrc@@HH@Z"
     },
     {
      "va": "0x0056E170",
      "length": 106,
-     "name": "?D2GAME_RollPhysicalDamage_6FD14EC0@@YIXPAUD2UnitStrc@@PAUD2DamageStrc@@HH@Z"
+     "name": "?D2GAME_RollPhysicalDamage@@YIXPAUD2UnitStrc@@PAUD2DamageStrc@@HH@Z"
     },
     {
      "va": "0x0056E1E0",
@@ -48371,7 +48371,7 @@
     {
      "va": "0x00571580",
      "length": 27,
-     "name": "D2GAME_STATES_SendStates_6FCC5F00"
+     "name": "D2GAME_STATES_SendStates"
     },
     {
      "va": "0x005715A0",
@@ -48390,7 +48390,7 @@
     {
      "va": "0x00571740",
      "length": 72,
-     "name": "?D2GAME_UpdateUnit_6FCC6080@@YIXPAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
+     "name": "?D2GAME_UpdateUnit@@YIXPAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
     },
     {
      "va": "0x00571790",
@@ -48410,7 +48410,7 @@
     {
      "va": "0x005718C0",
      "length": 160,
-     "name": "D2GAME_MERCS_SendStat_6FCC61D0"
+     "name": "D2GAME_MERCS_SendStat"
     },
     {
      "va": "0x00571960",
@@ -48450,7 +48450,7 @@
     {
      "va": "0x00571F40",
      "length": 70,
-     "name": "?D2GAME_SUNITMSG_FreeUnitMessages_6FCC6790@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?D2GAME_SUNITMSG_FreeUnitMessages@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00571F90",
@@ -48777,7 +48777,7 @@
     {
      "va": "0x005761C0",
      "length": 230,
-     "name": "?D2GAME_NPC_RepairItem_6FCC6970@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+     "name": "?D2GAME_NPC_RepairItem@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x005762B0",
@@ -48824,7 +48824,7 @@
     {
      "va": "0x00576980",
      "length": 674,
-     "name": "?D2GAME_NPC_FillStoreInventory_6FCC7100@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2NpcTradeStrc@@@Z"
+     "name": "?D2GAME_NPC_FillStoreInventory@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2NpcTradeStrc@@@Z"
     },
     {
      "va": "0x00576C30",
@@ -48906,12 +48906,12 @@
     {
      "va": "0x00577F30",
      "length": 168,
-     "name": "?D2GAME_NPC_BuyItemHandler_6FCC92A0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHHHHH@Z"
+     "name": "?D2GAME_NPC_BuyItemHandler@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHHHHH@Z"
     },
     {
      "va": "0x00577FE0",
      "length": 112,
-     "name": "?D2GAME_NPC_HireMerc_6FCC9540@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?D2GAME_NPC_HireMerc@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x00578050",
@@ -48920,7 +48920,7 @@
     {
      "va": "0x00578460",
      "length": 429,
-     "name": "?D2GAME_NPC_IdentifyAllItems_6FCC9C90@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+     "name": "?D2GAME_NPC_IdentifyAllItems@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00578610",
@@ -48930,7 +48930,7 @@
     {
      "va": "0x00578640",
      "length": 82,
-     "name": "D2GAME_NPC_IdentifyBoughtItem_6FCCA990"
+     "name": "D2GAME_NPC_IdentifyBoughtItem"
     },
     {
      "va": "0x005786A0",
@@ -48954,7 +48954,7 @@
     {
      "va": "0x00578C20",
      "length": 113,
-     "name": "D2GAME_NPC_RemoveStates_6FCCAF30"
+     "name": "D2GAME_NPC_RemoveStates"
     },
     {
      "va": "0x00578CA0",
@@ -48964,17 +48964,17 @@
     {
      "va": "0x00578D30",
      "length": 309,
-     "name": "?D2GAME_NPC_HealPlayer_6FCCB080@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+     "name": "?D2GAME_NPC_HealPlayer@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x00578E70",
      "length": 91,
-     "name": "?D2GAME_NPC_Heal_6FCCB220@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+     "name": "?D2GAME_NPC_Heal@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x00578ED0",
      "length": 350,
-     "name": "D2GAME_NPC_PurchaseHeal_6FCCB280"
+     "name": "D2GAME_NPC_PurchaseHeal"
     },
     {
      "va": "0x00579030",
@@ -48987,7 +48987,7 @@
     {
      "va": "0x00579130",
      "length": 71,
-     "name": "D2GAME_NPC_ResetInteract_6FCCB4D0"
+     "name": "D2GAME_NPC_ResetInteract"
     },
     {
      "va": "0x00579180",
@@ -48996,7 +48996,7 @@
     {
      "va": "0x00579360",
      "length": 200,
-     "name": "?D2GAME_NPC_IsItemInNpcInventory_6FCCB7D0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@11H@Z"
+     "name": "?D2GAME_NPC_IsItemInNpcInventory@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@11H@Z"
     },
     {
      "va": "0x00579430",
@@ -49014,7 +49014,7 @@
     {
      "va": "0x00579C00",
      "length": 352,
-     "name": "?D2GAME_NPC_ResurrectMerc_6FCC9350@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+     "name": "?D2GAME_NPC_ResurrectMerc@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00579D60",
@@ -49734,7 +49734,7 @@
     {
      "va": "0x005C49E0",
      "length": 274,
-     "name": "?D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HH@Z"
+     "name": "?D2GAME_SKILLS_SetSummonBaseStats@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HH@Z"
     },
     {
      "va": "0x005C4B00",
@@ -49825,7 +49825,7 @@
     {
      "va": "0x005C6530",
      "length": 346,
-     "name": "?D2GAME_EventFunc23_6FD0F1F0@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
+     "name": "?D2GAME_EventFunc23@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
     },
     {
      "va": "0x005C6690",
@@ -50046,7 +50046,7 @@
     {
      "va": "0x00580810",
      "length": 72,
-     "name": "?D2GAME_EVENTS_StatRegen_6FC80F80@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?D2GAME_EVENTS_StatRegen@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x00580860",
@@ -50095,7 +50095,7 @@
     {
      "va": "0x00581220",
      "length": 38,
-     "name": "?D2GAME_EVENTS_Callback_6FC81BD0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
+     "name": "?D2GAME_EVENTS_Callback@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
     }
    ]
   },
@@ -50214,17 +50214,17 @@
     {
      "va": "0x00582280",
      "length": 109,
-     "name": "?D2GAME_SpawnTrapMonster_6FC75B40@@YAXPAUD2ObjOperateFnStrc@@HH@Z"
+     "name": "?D2GAME_SpawnTrapMonster@@YAXPAUD2ObjOperateFnStrc@@HH@Z"
     },
     {
      "va": "0x005822F0",
      "length": 138,
-     "name": "?D2GAME_OBJECTS_TrapHandler8_9_6FC75AC0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?D2GAME_OBJECTS_TrapHandler8_9@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00582380",
      "length": 157,
-     "name": "D2GAME_OBJECTS_TrapHandler5_7_6FC75BC0"
+     "name": "D2GAME_OBJECTS_TrapHandler5_7"
     },
     {
      "va": "0x00582420",
@@ -50234,27 +50234,27 @@
     {
      "va": "0x00582490",
      "length": 21,
-     "name": "?D2GAME_OBJECTS_TrapHandler1_6FC75C70@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?D2GAME_OBJECTS_TrapHandler1@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005824B0",
      "length": 21,
-     "name": "?D2GAME_OBJECTS_TrapHandler2_6_6FC75D00@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?D2GAME_OBJECTS_TrapHandler2_6@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005824D0",
      "length": 21,
-     "name": "?D2GAME_OBJECTS_TrapHandler3_6FC75D90@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?D2GAME_OBJECTS_TrapHandler3@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005824F0",
      "length": 21,
-     "name": "?D2GAME_OBJECTS_TrapHandler4_6FC75E20@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?D2GAME_OBJECTS_TrapHandler4@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00582510",
      "length": 158,
-     "name": "?D2GAME_SetTrapCallback_6FC764B0@@YGXEPAUD2ObjOperateFnStrc@@@Z"
+     "name": "?D2GAME_SetTrapCallback@@YGXEPAUD2ObjOperateFnStrc@@@Z"
     },
     {
      "va": "0x005825B0",
@@ -50283,37 +50283,37 @@
     {
      "va": "0x00582860",
      "length": 49,
-     "name": "?D2GAME_SHRINES_Health_6FC766B0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+     "name": "?D2GAME_SHRINES_Health@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
     },
     {
      "va": "0x005828A0",
      "length": 49,
-     "name": "?D2GAME_SHRINES_FillMana_6FC766F0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+     "name": "?D2GAME_SHRINES_FillMana@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
     },
     {
      "va": "0x005828E0",
      "length": 91,
-     "name": "?D2GAME_SHRINES_Refill_6FC76730@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+     "name": "?D2GAME_SHRINES_Refill@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
     },
     {
      "va": "0x00582940",
      "length": 96,
-     "name": "?D2GAME_SHRINES_ExchangeHealth_6FC76790@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+     "name": "?D2GAME_SHRINES_ExchangeHealth@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
     },
     {
      "va": "0x005829A0",
      "length": 90,
-     "name": "?D2GAME_SHRINES_ExchangeMana_6FC767F0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+     "name": "?D2GAME_SHRINES_ExchangeMana@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
     },
     {
      "va": "0x00582A00",
      "length": 39,
-     "name": "?D2GAME_SHRINES_Enirhs_6FC76850@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+     "name": "?D2GAME_SHRINES_Enirhs@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
     },
     {
      "va": "0x00582A30",
      "length": 132,
-     "name": "D2GAME_SHRINES_Portal_6FC76880"
+     "name": "D2GAME_SHRINES_Portal"
     },
     {
      "va": "0x00582AC0",
@@ -50330,17 +50330,17 @@
     {
      "va": "0x00583050",
      "length": 131,
-     "name": "?D2GAME_SHRINES_Monster_6FC76ED0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+     "name": "?D2GAME_SHRINES_Monster@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
     },
     {
      "va": "0x005830E0",
      "length": 807,
-     "name": "?D2GAME_SHRINES_Exploding_6FC770D0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+     "name": "?D2GAME_SHRINES_Exploding@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
     },
     {
      "va": "0x00583410",
      "length": 807,
-     "name": "?D2GAME_SHRINES_Poison_6FC773B0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+     "name": "?D2GAME_SHRINES_Poison@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
     },
     {
      "va": "0x00583740",
@@ -50353,7 +50353,7 @@
     {
      "va": "0x005839B0",
      "length": 135,
-     "name": "?D2GAME_SHRINES_CombatBoost_6FC77690@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+     "name": "?D2GAME_SHRINES_CombatBoost@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
     },
     {
      "va": "0x00583A40",
@@ -50363,12 +50363,12 @@
     {
      "va": "0x00583A70",
      "length": 184,
-     "name": "?D2GAME_SHRINES_Stamina_6FC779C0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+     "name": "?D2GAME_SHRINES_Stamina@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
     },
     {
      "va": "0x00583B30",
      "length": 134,
-     "name": "?D2GAME_SHRINES_DefensiveBoost_6FC77AE0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+     "name": "?D2GAME_SHRINES_DefensiveBoost@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
     },
     {
      "va": "0x00583BC0",
@@ -50632,7 +50632,7 @@
     {
      "va": "0x00586AD0",
      "length": 82,
-     "name": "D2GAME_OBJMODE_InvokeEventFunction_6FC75250"
+     "name": "D2GAME_OBJMODE_InvokeEventFunction"
     },
     {
      "va": "0x00586B30",
@@ -53166,7 +53166,7 @@
     {
      "va": "0x0059D9D0",
      "length": 49,
-     "name": "?D2GAME_WarpPlayerToTile_6FCA5B20@@YIXPAUD2ObjOperateFnStrc@@@Z"
+     "name": "?D2GAME_WarpPlayerToTile@@YIXPAUD2ObjOperateFnStrc@@@Z"
     },
     {
      "va": "0x0059DA10",
@@ -53344,12 +53344,12 @@
     {
      "va": "0x00597890",
      "length": 287,
-     "name": "?D2GAME_INVMODE_First_6FC40FB0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ClientStrc@@PAUD2InventoryStrc@@@Z"
+     "name": "?D2GAME_INVMODE_First@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ClientStrc@@PAUD2InventoryStrc@@@Z"
     },
     {
      "va": "0x005979B0",
      "length": 99,
-     "name": "?D2GAME_ResetSomeItemFlags_6FC415F0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?D2GAME_ResetSomeItemFlags@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00597A20",
@@ -53363,7 +53363,7 @@
     {
      "va": "0x00597B00",
      "length": 368,
-     "name": "?D2GAME_INVMODE_Last_6FC416D0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?D2GAME_INVMODE_Last@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -55177,7 +55177,7 @@
     {
      "va": "0x005A4850",
      "length": 105,
-     "name": "?D2GAME_BOSSES_AssignUMod_6FC6FF10@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?D2GAME_BOSSES_AssignUMod@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A4940",
@@ -55305,7 +55305,7 @@
     {
      "va": "0x005A64D0",
      "length": 21,
-     "name": "?D2GAME_MONSTERMODE_FreeParams_6FC63020@@YIXPAUD2GameStrc@@PAUD2AiParamStrc@@@Z"
+     "name": "?D2GAME_MONSTERMODE_FreeParams@@YIXPAUD2GameStrc@@PAUD2AiParamStrc@@@Z"
     },
     {
      "va": "0x005A64F0",
@@ -55353,7 +55353,7 @@
     {
      "va": "0x005A6DE0",
      "length": 15,
-     "name": "?D2GAME_RemoveModeChangeEventCallback_6FC63B20@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?D2GAME_RemoveModeChangeEventCallback@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A6DF0",
@@ -55592,7 +55592,7 @@
     {
      "va": "0x005A5560",
      "length": 232,
-     "name": "?D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70@@YIXPAUD2UnitStrc@@0PAUD2DamageStrc@@@Z"
+     "name": "?D2GAME_MONSTER_ApplyCriticalDamage@@YIXPAUD2UnitStrc@@0PAUD2DamageStrc@@@Z"
     },
     {
      "va": "0x005A5650",
@@ -56391,7 +56391,7 @@
     {
      "va": "0x005E7F80",
      "length": 160,
-     "name": "D2GAME_AI_SpecialState09_6FCE7C40"
+     "name": "D2GAME_AI_SpecialState09"
     },
     {
      "va": "0x005E8020",
@@ -56411,7 +56411,7 @@
     {
      "va": "0x005E8340",
      "length": 313,
-     "name": "D2GAME_AI_SpecialState12_6FCE81B0"
+     "name": "D2GAME_AI_SpecialState12"
     },
     {
      "va": "0x005E8480",
@@ -57277,7 +57277,7 @@
     {
      "va": "0x005B14E0",
      "length": 236,
-     "name": "?D2GAME_AI_SpecialState02_6FCD1660@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+     "name": "?D2GAME_AI_SpecialState02@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005B15D0",
@@ -57306,7 +57306,7 @@
     {
      "va": "0x005B1900",
      "length": 137,
-     "name": "D2GAME_UpdateSummonAI_6FC401F0"
+     "name": "D2GAME_UpdateSummonAI"
     },
     {
      "va": "0x005B1990",
@@ -57316,7 +57316,7 @@
     {
      "va": "0x005B1A20",
      "length": 108,
-     "name": "?D2GAME_FreeUnitNode_6FC40310@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?D2GAME_FreeUnitNode@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005B1A90",
@@ -59093,7 +59093,7 @@
     {
      "va": "0x005C21A0",
      "length": 48,
-     "name": "?D2GAME_RollRareItem_6FC53360@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+     "name": "?D2GAME_RollRareItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     },
     {
      "va": "0x005C21D0",
@@ -66463,7 +66463,7 @@
     {
      "va": "0x00625650",
      "length": 90,
-     "name": "D2Common_GetStateFromStatListEx_6FDB8190"
+     "name": "D2Common_GetStateFromStatListEx"
     },
     {
      "va": "0x006256B0",
@@ -66548,12 +66548,12 @@
     {
      "va": "0x00625BB0",
      "length": 39,
-     "name": "D2COMMON_STATES_GetStatFlags_6FDB8A90"
+     "name": "D2COMMON_STATES_GetStatFlags"
     },
     {
      "va": "0x00625BE0",
      "length": 65,
-     "name": "D2COMMON_STATES_GetListGfxFlags_6FDB8AC0"
+     "name": "D2COMMON_STATES_GetListGfxFlags"
     },
     {
      "va": "0x00625C30",
@@ -66691,7 +66691,7 @@
     {
      "va": "0x00626C00",
      "length": 198,
-     "name": "?D2Common_STATLIST_FreeStatListImpl_6FDB7050@@YIXPAUD2StatListStrc@@@Z"
+     "name": "?D2Common_STATLIST_FreeStatListImpl@@YIXPAUD2StatListStrc@@@Z"
     },
     {
      "va": "0x00626CD0",
@@ -70047,12 +70047,12 @@
     {
      "va": "0x00644060",
      "length": 132,
-     "name": "?D2Common_SKILLS_CheckShapeRestriction_6FDB1380@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+     "name": "?D2Common_SKILLS_CheckShapeRestriction@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
     },
     {
      "va": "0x006440F0",
      "length": 66,
-     "name": "?D2Common_SKILLMANA_CheckStartStat_6FDB1400@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+     "name": "?D2Common_SKILLMANA_CheckStartStat@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
     },
     {
      "va": "0x00644140",
@@ -70539,7 +70539,7 @@
     {
      "va": "0x00647540",
      "length": 244,
-     "name": "?D2Common_SKILLMANA_CheckStat_6FDB0F50@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+     "name": "?D2Common_SKILLMANA_CheckStat@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
     },
     {
      "va": "0x00647640",
@@ -75052,7 +75052,7 @@
     {
      "va": "0x00678D70",
      "length": 58,
-     "name": "PATH_GetDirections_6FDAB790"
+     "name": "PATH_GetDirections"
     },
     {
      "va": "0x00678DB0",
@@ -75149,7 +75149,7 @@
     {
      "va": "0x00679F70",
      "length": 87,
-     "name": "?PATH_Leap_6FDAB1E0@@YIHPAUD2PathInfoStrc@@@Z"
+     "name": "?PATH_Leap@@YIHPAUD2PathInfoStrc@@@Z"
     },
     {
      "va": "0x00679FD0",

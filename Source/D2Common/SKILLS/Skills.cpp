@@ -400,11 +400,11 @@ static D2UnitStrc* __stdcall SKILLS_GetOtherHandItem(int nBodyLoc, D2InventorySt
 
 static BOOL __stdcall SKILLS_CheckWeaponTypes(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 
-static BOOL D2Common_SKILLS_CheckShapeRestriction_6FDB1380(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
+static BOOL D2Common_SKILLS_CheckShapeRestriction(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00644060
 
-static BOOL D2Common_SKILLMANA_CheckStartStat_6FDB1400(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
+static BOOL D2Common_SKILLMANA_CheckStartStat(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x006440F0
 
-static BOOL D2Common_SKILLMANA_CheckStat_6FDB0F50(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
+static BOOL D2Common_SKILLMANA_CheckStat(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00647540
 
 static BOOL SKILLS_CheckSkillQuantity(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 
@@ -1417,7 +1417,7 @@ static BOOL __stdcall SKILLS_CheckWeaponTypes(D2UnitStrc* pUnit, D2SkillStrc* pS
 }
 
 // 0x00644060
-static BOOL D2Common_SKILLS_CheckShapeRestriction_6FDB1380(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+static BOOL D2Common_SKILLS_CheckShapeRestriction(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     if (!pUnit || !pSkill)
     {
@@ -1468,7 +1468,7 @@ static BOOL D2Common_SKILLS_CheckShapeRestriction_6FDB1380(D2UnitStrc* pUnit, D2
 }
 
 // 0x006440F0
-static BOOL D2Common_SKILLMANA_CheckStartStat_6FDB1400(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+static BOOL D2Common_SKILLMANA_CheckStartStat(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     if (!pUnit || pUnit->dwUnitType != UNIT_PLAYER || pSkill->pSkillsTxt->wStartMana <= 0
         || STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0) >= (int)pSkill->pSkillsTxt->wStartMana << 8 || STATES_CheckState(pUnit, STATE_INFERNO))
@@ -3278,7 +3278,7 @@ void __stdcall D2Common_10954(D2UnitStrc* pUnit, int nOwnerGUID, int nSkillId, i
 }
 
 // 0x00647540
-static BOOL D2Common_SKILLMANA_CheckStat_6FDB0F50(D2UnitStrc* pUnit, D2SkillStrc* hSkill)
+static BOOL D2Common_SKILLMANA_CheckStat(D2UnitStrc* pUnit, D2SkillStrc* hSkill)
 {
     D2_ASSERT(hSkill, 0x637);
 
@@ -3377,17 +3377,17 @@ int __stdcall SKILLS_GetUseState(D2UnitStrc* pUnit, D2SkillStrc* ptSkill)
         return 2;
     }
 
-    if (!D2Common_SKILLMANA_CheckStat_6FDB0F50(pUnit, ptSkill))
+    if (!D2Common_SKILLMANA_CheckStat(pUnit, ptSkill))
     {
         return 1;
     }
 
-    if (!D2Common_SKILLS_CheckShapeRestriction_6FDB1380(pUnit, ptSkill))
+    if (!D2Common_SKILLS_CheckShapeRestriction(pUnit, ptSkill))
     {
         return 4;
     }
 
-    if (!D2Common_SKILLMANA_CheckStartStat_6FDB1400(pUnit, ptSkill))
+    if (!D2Common_SKILLMANA_CheckStartStat(pUnit, ptSkill))
     {
         return 1;
     }
@@ -4575,7 +4575,7 @@ int __stdcall D2COMMON_11039_CheckWeaponIsMissileBased(D2UnitStrc* pUnit, int* p
     }
 }
 
-int __stdcall PATH_ComputeDirectionFromPreciseCoords_6FDAC760(unsigned int dwStartPrecisionX, unsigned int dwStartPrecisionY, unsigned int dwTargetPrecisionX, unsigned int dwTargetPrecisionY); // 0x0064FE10
+int __stdcall PATH_ComputeDirectionFromPreciseCoords(unsigned int dwStartPrecisionX, unsigned int dwStartPrecisionY, unsigned int dwTargetPrecisionX, unsigned int dwTargetPrecisionY); // 0x0064FE10
 
 // 0x00645FB0
 int __stdcall SKILLS_IsEnhanceable(int nSkillId)
