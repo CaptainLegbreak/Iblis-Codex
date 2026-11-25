@@ -47,6 +47,77 @@ struct BREAKCMD : TSLinkedNode<BREAKCMD>
 
 // build: symbol ??_GBREAKCMD@@QAEPAXI@Z 0x00426E20
 
+struct SEvtBreakCmdStrc;
+struct D2CriticalSectionStrc;
+struct SEvtLinkStrc;
+
+int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
+
+struct SEvtLinkStrc
+{
+    SEvtLinkStrc* pPrevLink;
+    SEvtBreakCmdStrc* pNext;
+
+    SEvtLinkStrc() { pPrevLink = 0; pNext = 0; }
+    SEvtLinkStrc* NextLink(int nLinkOffset = -1)
+    {
+        if ((int)pNext < 0)
+            return (SEvtLinkStrc*)~(unsigned int)pNext;
+        if (nLinkOffset < 0)
+            nLinkOffset = (int)this - (int)pPrevLink->pNext;
+        return (SEvtLinkStrc*)((int)pNext + nLinkOffset);
+    }
+    void Unlink()
+    {
+        if (pPrevLink)
+        {
+            NextLink()->pPrevLink = pPrevLink;
+            pPrevLink->pNext = pNext;
+            pPrevLink = 0;
+            pNext = 0;
+        }
+    }
+};
+
+struct SEvtBreakCmdStrc
+{
+    SEvtLinkStrc f_0;
+    void* pData;
+};
+
+void* __stdcall SMemAlloc(unsigned int nSize, const char* szLogName, int nLogLine, unsigned int nFlags); // 0x00413020
+
+#include "gen/data/Source/Storm/SOURCE/SEVT.inc"
+// 0x0042B9D0
+void __cdecl sub_0042B9D0_Nop()
+{
+}
+
+// 0x00515110
+void __cdecl sub_00515110_Nop()
+{
+}
+
+// 0x00515EC0
+void __cdecl sub_00515EC0_Nop()
+{
+}
+
+// 0x00515ED0
+void __cdecl sub_00515ED0_Nop()
+{
+}
+
+// 0x0043CBF0
+void __cdecl sub_0043CBF0_Nop()
+{
+}
+
+// 0x00650EA0
+void __cdecl sub_00650EA0_Nop()
+{
+}
+
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
 {
     return pWhere;
@@ -60,9 +131,7 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); /
 
 void __stdcall CopyIdHashTable(_IDHASHTABLE* pDest, _IDHASHTABLE* pSource); // 0x00426180
 
-
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
-
 
 int __stdcall SEvtDispatch(unsigned int nType, unsigned int nSubType, unsigned int nId, void* pData);
 

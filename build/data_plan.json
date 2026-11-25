@@ -209,15 +209,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_00426900.cpp": {
-   "bytes": 0,
-   "definitions": 0,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00426900.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/Storm/zlib/deflate.c": {
    "bytes": 128,
    "definitions": 2,
@@ -356,7 +347,8 @@
     "extern \"C\" void __cdecl GAME_ApplyConfigBattleNetIP(); // 0x0044D650",
     "extern \"C\" void __cdecl GAME_ApplyConfigMcpIP(); // 0x0044D680",
     "extern \"C\" void __cdecl GAME_ApplyConfigClass(); // 0x0044D6B0",
-    "extern \"C\" void __cdecl GAME_ApplyConfigName(); // 0x0044D890"
+    "extern \"C\" void __cdecl GAME_ApplyConfigName(); // 0x0044D890",
+    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/GAME/Game.inc",
@@ -679,17 +671,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0044C5E0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_0044F9B0.cpp": {
-   "bytes": 0,
-   "definitions": 0,
-   "externs": [
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_0044F9B0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -1780,11 +1761,20 @@
    "state": "included"
   },
   "Source/D2Net/Unknown_0052B920.cpp": {
-   "bytes": 1300,
-   "definitions": 4,
+   "bytes": 1240,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Net/Unknown_0052B920.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Net/Unknown_0052BDA0.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Net/Unknown_0052BDA0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -4927,6 +4917,15 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/Storm/Unknown_00421110.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/Storm/SOURCE/SEVT.CPP": {
+   "bytes": 0,
+   "definitions": 0,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/Storm/SOURCE/SEVT.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -84228,7 +84227,7 @@
    "cname": "gData_00730F84",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Net/Unknown_0052B920.cpp",
+   "file": "Source/D2Net/Unknown_0052BDA0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00730F84_t gData_00730F84; // 0x00730F84",
    "head": "extern \"C\" struct d2data_00730F84_t gData_00730F84 = ",

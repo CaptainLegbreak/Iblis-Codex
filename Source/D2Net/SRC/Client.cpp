@@ -670,12 +670,3 @@ int __cdecl CLIENT_GetConnectionStatus()
     return 1;
 }
 
-// 0x0052BDA0
-void __cdecl sub_0052BDA0_Empty()
-{
-}
-// 0x0052BDB0
-void __cdecl sub_0052BDB0_Empty()
-{
-}
-

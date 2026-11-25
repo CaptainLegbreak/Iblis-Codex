@@ -196,3 +196,14 @@ D2_CHECK_SIZE(D2ObjInitFnStrc, 0x1C);
 D2_CHECK_SIZE(D2QuestArgStrc, 0x1C);
 D2_CHECK_SIZE(D2PartyStrc, 0x0C);
 D2_CHECK_SIZE(D2PartyControlStrc, 0x08);
+
+// MONSTER_GetPlayerCountBonus's result: the bonuses a monster gets for the players in its game.
+struct D2PlayerCountBonusStrc
+{
+    int nHp; // 0x00
+    int nExperience; // 0x04
+    int nMonsterSkillBonus; // 0x08
+    int nDifficulty; // 0x0C
+    int nPlayerCount; // 0x10
+};
+D2_CHECK_SIZE(D2PlayerCountBonusStrc, 0x14);

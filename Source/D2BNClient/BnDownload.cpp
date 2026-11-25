@@ -331,7 +331,6 @@ extern "C" const char gszAdListRegValue[];                                      
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
-// calling-convention shim (not game code)
 int __stdcall sub_004192F0_OpenArchiveFile(void*, const char*, unsigned int, void**); // 0x004192F0
 
 void* __stdcall sub_00413020_Alloc(unsigned int, const char*, int, unsigned int); // 0x00413020
@@ -411,8 +410,6 @@ extern unsigned int gnVersion; // 0x0088252C
 typedef unsigned int size_t;
 
 #pragma intrinsic(strlen)
-
-
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
@@ -516,7 +513,6 @@ int __fastcall BNDOWNLOAD_SendGetFileTime(const char* szText, int nCode); // 0x0
 
 int __fastcall BNNEWS_ParseNewsInfo(const void* pData); // 0x0051D860
 
-
 void __fastcall sub_0051A560_SetValue(int nValue); // 0x0051A560
 
 int __fastcall BNDOWNLOAD_SetArchiveName(const char* szName); // 0x0051EA80
@@ -608,6 +604,17 @@ unsigned int __fastcall BNDOWNLOAD_GetKeyBit(const unsigned int* pKey, unsigned 
 
 void __fastcall BNDOWNLOAD_SetKeyBit(unsigned int* pKey, unsigned int nIndex, unsigned char nValue); // 0x005225A0
 
+extern unsigned int* gpCacheTable_00881888; // 0x00881888
+static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength, unsigned int dwKey);
+unsigned int __stdcall sub_00518FA0_HashString(unsigned int nHashType, const char* szString); // 0x00518FA0
+
+// calling-convention shim (not game code)
+
+void __cdecl sub_00518EC0_Shim(unsigned int* pData, unsigned int nSize)
+{
+    sub_00518EC0_EncryptBlock(pData, nSize, sub_00518FA0_HashString(3, "x"));
+}
+
 // 0x00518BA0
 void D2BnLogStrc::Write(const char* szText)
 {
@@ -653,6 +660,87 @@ void __cdecl BNDOWNLOAD_LogPrintf(const char* szFormat, ...)
     szBuffer[sizeof(szBuffer) - 1] = 0;
     SLogWrite(BNDOWNLOAD_GetLog().hLog, szBuffer);
     LeaveCriticalSection(&gtBnLogLock);
+}
+
+// 0x00518EC0
+static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength, unsigned int dwKey)
+{
+    unsigned int dwSeed = 0xEEEEEEEE;
+    unsigned int nCount = nLength >> 2;
+    if (nCount != 0)
+    {
+        const unsigned int* pTable = gpCacheTable_00881888;
+        do
+        {
+            --nCount;
+            unsigned int ch = *pData;
+            dwSeed += pTable[0x400 + (dwKey & 0xFF)];
+            *pData = ch ^ (dwKey + dwSeed);
+            dwSeed = ch + dwSeed + (dwSeed << 5) + 3;
+            dwKey = ((~dwKey << 0x15) + 0x11111111) | (dwKey >> 0x0B);
+            ++pData;
+        } while (nCount != 0);
+    }
+}
+
+// 0x00519000
+void __cdecl sub_00519000_InitCryptTable()
+{
+    unsigned int* pTable = gpCacheTable_00881888;
+    if (!pTable)
+    {
+        return;
+    }
+
+    unsigned int dwSeed = 0x00100001;
+    for (unsigned int i = 0; i < 0x100; ++i)
+    {
+        {
+            dwSeed = (dwSeed * 125 + 3) % 0x2AAAAB;
+            unsigned int dwHigh = dwSeed & 0xFFFF;
+            dwSeed = (dwSeed * 125 + 3) % 0x2AAAAB;
+            unsigned int dwValue = dwHigh << 16;
+            dwValue |= dwSeed & 0xFFFF;
+            unsigned int* pEntry = &pTable[i];
+            *pEntry = dwValue;
+        }
+        {
+            dwSeed = (dwSeed * 125 + 3) % 0x2AAAAB;
+            unsigned int dwHigh = dwSeed & 0xFFFF;
+            dwSeed = (dwSeed * 125 + 3) % 0x2AAAAB;
+            unsigned int dwValue = dwHigh << 16;
+            dwValue |= dwSeed & 0xFFFF;
+            unsigned int* pEntry = &pTable[i + 0x100];
+            *pEntry = dwValue;
+        }
+        {
+            dwSeed = (dwSeed * 125 + 3) % 0x2AAAAB;
+            unsigned int dwHigh = dwSeed & 0xFFFF;
+            dwSeed = (dwSeed * 125 + 3) % 0x2AAAAB;
+            unsigned int dwValue = dwHigh << 16;
+            dwValue |= dwSeed & 0xFFFF;
+            unsigned int* pEntry = &pTable[i + 0x200];
+            *pEntry = dwValue;
+        }
+        {
+            dwSeed = (dwSeed * 125 + 3) % 0x2AAAAB;
+            unsigned int dwHigh = dwSeed & 0xFFFF;
+            dwSeed = (dwSeed * 125 + 3) % 0x2AAAAB;
+            unsigned int dwValue = dwHigh << 16;
+            dwValue |= dwSeed & 0xFFFF;
+            unsigned int* pEntry = &pTable[i + 0x300];
+            *pEntry = dwValue;
+        }
+        {
+            dwSeed = (dwSeed * 125 + 3) % 0x2AAAAB;
+            unsigned int dwHigh = dwSeed & 0xFFFF;
+            dwSeed = (dwSeed * 125 + 3) % 0x2AAAAB;
+            unsigned int dwValue = dwHigh << 16;
+            dwValue |= dwSeed & 0xFFFF;
+            unsigned int* pEntry = &pTable[i + 0x400];
+            *pEntry = dwValue;
+        }
+    }
 }
 
 // 0x0051BE80
@@ -817,7 +905,6 @@ static int __stdcall BNDOWNLOAD_RecvAll(unsigned int nSocket, char* pBuffer, uns
     }
     return 1;
 }
-
 
 unsigned long __fastcall sub_H04_Emit_0051E640(const char* szFile, const __int64* pFileTime)
 {
@@ -2118,7 +2205,6 @@ int __fastcall BNDOWNLOAD_HandleGetFileTime(const void* pData, unsigned int nSiz
     BNDOWNLOAD_RequestDownload(nResult, nSubType | 1, 0, 0, pFileTime, szText, 0);
     return 1;
 }
-
 
 // 0x00521150
 int __fastcall BNDOWNLOAD_HandleCheckAd(const D2BnCheckAdReplyStrc* pPacket, unsigned int nSize)

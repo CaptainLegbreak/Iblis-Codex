@@ -1223,7 +1223,6 @@ void __fastcall CelDrawRleLightBlend(const unsigned char* pSrc, unsigned char* p
     }
 }
 
-
 // 0x00607060
 void __fastcall CelDrawRleLightBlendClipped(const unsigned char* source,unsigned char* destination,int rows,int pitch,int x,int left,int right,const unsigned char* map,const unsigned char* blend)
 {
@@ -2411,6 +2410,30 @@ unsigned char __fastcall FindTileHash(unsigned char a, unsigned char b, unsigned
     return nResult;
 }
 
+// 0x0060D280
+int __fastcall sub_0060D280_ScanSameRun(const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd)
+{
+    D2_ASSERT(pData < pEnd, 0x19);
+    unsigned char nValue = *pData;
+    int nCount = 0;
+    while (pData < pEnd && nValue == *pData && nCount < nMax)
+    {
+        ++pData;
+        ++nCount;
+    }
+    if (pData == pEnd)
+    {
+        *pbRunReachedEnd = 1;
+        *pbRestReachedEnd = 0;
+        return nCount;
+    }
+    *pbRunReachedEnd = 0;
+    while (pData < pEnd && nValue == *pData)
+        ++pData;
+    *pbRestReachedEnd = pData == pEnd;
+    return nCount;
+}
+
 // 0x0060D310
 int __fastcall CmpScanRun(unsigned char nValue, const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd)
 {
@@ -2429,6 +2452,29 @@ int __fastcall CmpScanRun(unsigned char nValue, const unsigned char* pData, cons
     }
     *pbRunReachedEnd = 0;
     while (pData < pEnd && nValue == *pData)
+        ++pData;
+    *pbRestReachedEnd = pData == pEnd;
+    return nCount;
+}
+
+// 0x0060D3A0
+int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char* pData, const unsigned char* pEnd, unsigned char nValue, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd)
+{
+    D2_ASSERT(pData < pEnd, 0x6F);
+    int nCount = 0;
+    while (pData < pEnd && *pData != nValue && nCount < nMax)
+    {
+        ++pData;
+        ++nCount;
+    }
+    if (pData == pEnd)
+    {
+        *pbRunReachedEnd = 1;
+        *pbRestReachedEnd = 0;
+        return nCount;
+    }
+    *pbRunReachedEnd = 0;
+    while (pData < pEnd && *pData == nValue)
         ++pData;
     *pbRestReachedEnd = pData == pEnd;
     return nCount;

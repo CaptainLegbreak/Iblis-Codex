@@ -3,7 +3,6 @@
 
 struct D2LangByteRangeStrc;
 struct D2UtfConvertSpecStrc;
-struct D2LangCharRangeStrc;
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" unsigned int __cdecl strlen(const char* szString);
@@ -30,25 +29,11 @@ struct Unicode
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
 
-
-struct D2LangCharRangeStrc
-{
-    unsigned short wLow;
-    unsigned short wHigh;
-
-    void sub_005276A0_SetFromBytes(const unsigned char* pBytes);
-};
-
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 Unicode* __fastcall sub_00526740(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526740
 Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pSubstring); // 0x00526940
 int __stdcall SUniConvertUTF8to16(unsigned short* pDst, unsigned int nDstMax, const unsigned char* pSrc, unsigned int nSrcMax, unsigned int* pnDstWritten, unsigned int* pnSrcRead); // 0x006C7410
 
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
-void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
-
-void __cdecl operator delete[](void* pMemory);
-void* __cdecl operator new[](size_t nSize);
 
 // 0x00526740
 Unicode* __fastcall Unicode::strncat(Unicode* dest, const Unicode* src, int count)
@@ -155,27 +140,6 @@ Unicode* __fastcall Unicode::strncpy(Unicode* dest, const Unicode* src, int coun
     }
 
     return dest;
-}
-
-// 0x005276A0
-void D2LangCharRangeStrc::sub_005276A0_SetFromBytes(const unsigned char* pBytes)
-{
-    wLow = pBytes[0];
-    wHigh = pBytes[2];
-}
-
-// 0x005276C0
-int D2LangByteRangeStrc::sub_005276C0_Contains(unsigned char nValue) const
-{
-    if (nLow <= nValue && nValue <= nHigh)
-        return 1;
-    return 0;
-}
-
-// 0x00527AE0
-int __cdecl sub_00527AE0_CompareKey(const void* pLeft, const void* pRight)
-{
-    return ((const D2LangCharMapEntryStrc*)pLeft)->f_2 - ((const D2LangCharMapEntryStrc*)pRight)->f_2;
 }
 
 // 0x00526800
@@ -563,26 +527,3 @@ char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount)
     *pCurrentDest = '\0';
     return szDest;
 }
-
-// build: symbol ??_U@YAPAXI@Z 0x00527680
-// build: symbol ??_V@YAXPAX@Z 0x00527660
-// 0x00527660
-void __cdecl operator delete[](void* pMemory)
-{
-    if (pMemory)
-    {
-        SMemFree(pMemory, "delete[]", -1, 0);
-    }
-}
-
-// 0x00527680
-void* __cdecl operator new[](size_t nSize)
-{
-    return SMemAlloc(nSize, "new[]", -1, 0);
-}
-
-D2LangByteRangeStrc* gpLeadByteRanges; // 0x00882B28
-
-unsigned short* gpCharMapIndex; // 0x00882B2C
-
-// build: symbol ?gpCharMap@* 0x00882B24

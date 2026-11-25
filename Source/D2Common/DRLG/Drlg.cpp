@@ -80,7 +80,7 @@ struct D2DrlgStrc;
 
 struct Node;
 
-struct T00642010;
+struct DrlgAuxNode;
 
 struct Dungeon;
 
@@ -118,10 +118,10 @@ struct Node
     Node* next;
 };
 
-struct T00642010
+struct DrlgAuxNode
 {
     char pad_0[68];
-    T00642010* next;
+    DrlgAuxNode* next;
 };
 
 struct Level
@@ -150,7 +150,7 @@ struct Level
 struct Dungeon
 {
     char pad_0[144];
-    T00642010* aux;
+    DrlgAuxNode* aux;
     char pad_94[996];
     void* pool;
     Level* levels;
@@ -945,12 +945,12 @@ void __fastcall DRLG_FreeDrlg(Dungeon* dungeon)
         } while (level);
         dungeon->levels = 0;
     }
-    T00642010* aux = dungeon->aux;
+    DrlgAuxNode* aux = dungeon->aux;
     if (aux)
     {
         do
         {
-            T00642010* current = aux;
+            DrlgAuxNode* current = aux;
             aux = aux->next;
             sub_0040B480_Free(dungeon->pool, current, ".\\DRLG\\Drlg.cpp", 236, 0);
         } while (aux);

@@ -2545,7 +2545,7 @@ address,name,source,alias
 0x0045B9E0,sub_0045B9E0_RawNext,placeholder,
 0x0045B9F0,sub_0045B9F0_Unlink,placeholder,
 0x0045BA30,sub_0045BA30_Unlink,placeholder,
-0x0045BA70,UI_ClearPair,inferred,
+0x0045BA70,sub_0045BA70_Clear,placeholder,
 0x0045BA80,sub_0045BA80_InitializeTerminator,placeholder,
 0x0045BA90,sub_0045BA90,placeholder,
 0x0045BAA0,sub_0045BAA0_Next,placeholder,
