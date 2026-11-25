@@ -1156,18 +1156,16 @@ struct D2UnkPalSkillStrc2
     int nCounter;
 };
 
-typedef unsigned int U32;
-
 struct SkillRecord
 {
     unsigned char pad0[96];
-    U32 calc;
+    unsigned int calc;
     unsigned char pad1[130 - 100];
     short state;
     unsigned char pad2[228 - 132];
     short effect;
     unsigned char pad3[312 - 230];
-    U32 chance;
+    unsigned int chance;
     unsigned char pad4[572 - 316];
 };
 
@@ -1186,12 +1184,10 @@ struct HASHKEY_NONE
     int nUnused;
 };
 
-typedef unsigned char U8;
-
 struct ItemRecord
 {
-    U8 pad00[128];
-    U32 code;
+    unsigned char pad00[128];
+    unsigned int code;
 };
 
 struct Monster
@@ -1202,7 +1198,7 @@ struct Monster
 
 struct ObjectData
 {
-    U32 unused;
+    unsigned int unused;
     unsigned char interact;
 };
 
@@ -1221,9 +1217,9 @@ struct ObjectRecord
 
 struct Path
 {
-    U32 unused0;
-    U32 unused4;
-    U32 unused8;
+    unsigned int unused0;
+    unsigned int unused4;
+    unsigned int unused8;
     int x;
     int y;
 };
@@ -1273,7 +1269,7 @@ struct ShrineLists
 struct ShrineRecord
 {
     char reserved0[N180];
-    U32 minimumLevel;
+    unsigned int minimumLevel;
 };
 
 typedef unsigned int size_t;

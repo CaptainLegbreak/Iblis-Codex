@@ -140,8 +140,8 @@ void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, 
 
 struct Seed
 {
-    U32 lo;
-    U32 hi;
+    unsigned int lo;
+    unsigned int hi;
 };
 
 struct Unit
@@ -155,7 +155,7 @@ struct Unit
     char reserved24[N20];
     Path* path;
     char reserved48[N148];
-    U32 flags;
+    unsigned int flags;
 };
 
 struct Room
@@ -177,7 +177,7 @@ struct InitContext
 
 Unit* __stdcall sub_00550A30_Spawn(Game*,int,int,int,Room*,int,int,Permit); // 0x00550A30
 
-U32 __stdcall DUNGEON_GetLevelIdFromRoom(Room*); // 0x0061A1B0
+unsigned int __stdcall DUNGEON_GetLevelIdFromRoom(Room*); // 0x0061A1B0
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
@@ -552,7 +552,7 @@ static int __stdcall OBJECTS_CanPopulateRoom(D2GameStrc* pGame, D2LevelsTxt* pLe
 
 void __fastcall OBJECTS_PopulationHandler(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);
 
-static int __stdcall OBJECTS_GetShrineId(Game* game,U32 level,Room* room,unsigned char category);
+static int __stdcall OBJECTS_GetShrineId(Game* game,unsigned int level,Room* room,unsigned char category);
 
 void __fastcall OBJECTS_InitFunction01_Shrine(InitContext* context);
 
@@ -915,15 +915,15 @@ void __fastcall OBJECTS_InitFunction10_Unused(D2ObjInitFnStrc* pOp)
     }
 }
 
-static inline U32 Roll(Seed* seed)
+static inline unsigned int Roll(Seed* seed)
 {
     unsigned __int64 value = (unsigned __int64)seed->hi + (unsigned __int64)seed->lo * NRNG;
-    seed->hi = (U32)(value >> N32);
-    seed->lo = (U32)value;
-    return (U32)value;
+    seed->hi = (unsigned int)(value >> N32);
+    seed->lo = (unsigned int)value;
+    return (unsigned int)value;
 }
 
-static inline U32 Limited(Seed* seed,int maximum)
+static inline unsigned int Limited(Seed* seed,int maximum)
 {
     if (maximum <= N0)
         return N0;
@@ -933,7 +933,7 @@ static inline U32 Limited(Seed* seed,int maximum)
 }
 
 // 0x0054F770
-static int __stdcall OBJECTS_GetShrineId(Game* game,U32 level,Room* room,unsigned char category)
+static int __stdcall OBJECTS_GetShrineId(Game* game,unsigned int level,Room* room,unsigned char category)
 {
     if (!category || category > N4)
         category = N2;
@@ -946,7 +946,7 @@ static int __stdcall OBJECTS_GetShrineId(Game* game,U32 level,Room* room,unsigne
         {
             int count = lists->counts[category];
             Seed* seed = sub_00546FA0_Control(game,room);
-            U32 index = Limited(seed,count);
+            unsigned int index = Limited(seed,count);
             choice = lists->lists[category][index];
             if (!choice)
                 choice = N1;
@@ -1084,7 +1084,7 @@ static int __stdcall OBJECTS_CanPopulateRoom(D2GameStrc* pGame, D2LevelsTxt* pLe
 void __fastcall OBJECTS_InitFunction01_Shrine(InitContext* context)
 {
     int mode = context->record->selection;
-    U32 level = DUNGEON_GetLevelIdFromRoom(context->room);
+    unsigned int level = DUNGEON_GetLevelIdFromRoom(context->room);
     int choice;
     if (mode)
     {
@@ -1104,7 +1104,7 @@ void __fastcall OBJECTS_InitFunction01_Shrine(InitContext* context)
     else
     {
         int retries = N8;
-        const U32 randomLevel = DUNGEON_GetLevelIdFromRoom(context->room);
+        const unsigned int randomLevel = DUNGEON_GetLevelIdFromRoom(context->room);
         do
         {
             int count = sub_00641500_ShrineCount() - N1;
@@ -2669,7 +2669,7 @@ Unit* __fastcall OBJECTS_PopulateFn2_WaypointShrine(Game* game,Room* room,int un
     sub_00619730_Bounds(room,&bounds);
     int region = sub_0061A1F0_Region(room);
     Seed* seed = room ? &room->seed : N0;
-    U32 roll = Roll(seed);
+    unsigned int roll = Roll(seed);
     unsigned char forced = N0;
     int retries = N3;
     if (sub_00547330_Force(game,region))

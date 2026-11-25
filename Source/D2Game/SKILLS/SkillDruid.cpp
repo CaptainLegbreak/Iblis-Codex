@@ -539,7 +539,7 @@ struct Game
 };
 
 
-extern "C" int __stdcall sub_00646CA0_Evaluate(D2UnitStrc*, U32, int, int); // 0x00646CA0
+extern "C" int __stdcall sub_00646CA0_Evaluate(D2UnitStrc*, unsigned int, int, int); // 0x00646CA0
 
 struct D2PlayerDataStrc;
 

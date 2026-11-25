@@ -540,19 +540,19 @@ struct Game
 
 struct Seed
 {
-    U32 low;
-    U32 high;
+    unsigned int low;
+    unsigned int high;
 };
 
 struct Unit
 {
     int type;
     int classId;
-    U32 unknown08;
+    unsigned int unknown08;
     int id;
     int mode;
     Monster* monster;
-    U32 unknown18;
+    unsigned int unknown18;
     void* pool;
     Seed seed;
 };
@@ -574,15 +574,15 @@ struct ModeRequest
 {
     int mode;
     Unit* target;
-    U32 field08;
-    U32 field0C;
-    U32 field10;
-    U32 f_14;
-    U32 f_18;
-    U32 field1C;
+    unsigned int field08;
+    unsigned int field0C;
+    unsigned int field10;
+    unsigned int f_14;
+    unsigned int f_18;
+    unsigned int field1C;
 };
 
-extern "C" int __stdcall sub_00646CA0_Evaluate(Unit*, U32, int, int); // 0x00646CA0
+extern "C" int __stdcall sub_00646CA0_Evaluate(Unit*, unsigned int, int, int); // 0x00646CA0
 
 struct D2PlayerDataStrc;
 
