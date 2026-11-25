@@ -318,7 +318,3 @@ unsigned int __cdecl sub_B10_Emit_00518F30()
     return *(unsigned int*)sub_00518F30_GetCacheFileTime(0);
 }
 
-unsigned int __cdecl sub_B10_Emit_00518FA0(const char* szName)
-{
-    return sub_00518FA0_HashString(0, szName) ^ sub_00518FA0_HashString(1, szName) ^ sub_00518FA0_HashString(3, szName);
-}

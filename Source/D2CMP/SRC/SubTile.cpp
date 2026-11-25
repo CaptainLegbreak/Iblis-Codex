@@ -432,19 +432,6 @@ static void __stdcall SubTileConvertFloor24To8(D2CmpColorStrc tColor, D2CmpMapCo
     FOG_Free(pPixels, szTileCodecFile, 0x1C7, 0);
 }
 
-void __fastcall sub_M92_Emit_0060D7E0(D2CmpSubTileRecordStrc* pRecord)
-{
-    unsigned char* pData = pRecord->ptData;
-    if (SubTileHasTransparentPixel(pData))
-    {
-        sub_M92_EmitSinkA(pRecord);
-    }
-    else
-    {
-        sub_M92_EmitSinkB(pData, pRecord);
-    }
-}
-
 // @ref 0x0060D7E0
 static int sub_0060D7E0_HasTransparent(const unsigned char* pData)
 {
