@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(none: storm-array-strays-2 merged in #395)
+- lane3/scomp-huff-list 4b11fc36 213->213 (first step of scomp-huff, see Claimed) SCOMP.CPP's object emits a full set of list members for the Huffman coder's nodes, 0x41EA40-0x41EE40, which the file had as thirteen private one-function structs over a char* link. Their bytes are SMSG.CPP's TSList<WNDREC> members in the same order (TSLink Next/RawNext/ctor/Unlink/dtor, TSList Head/Link/UnlinkNode/ctor/LinkNode/UnlinkAll, TSLinkedNode ctor/dtor). HUFFNODE is now a TSLinkedNode<HUFFNODE>, CHuffman's free and item lists are TSList<HUFFNODE>, and those members come from stpl.h by symbol line, as in SMSG.CPP; stpl.h itself is unchanged. Unknown_0041E9C0.cpp and Unknown_0041F6A0.cpp, which call UnlinkAll under its old name, get a symbol line for it. Left: a second link type's members at 0x41E900-0x41E9C0 (NextLink, Next, Prev, RawNext, Unlink, InitializeTerminator; no node type named), and 0x41EAC0/0x41EB20. VERIFIED 4b11fc36 on base #395 (897e604e); borrowed code 11,250 B in 8 functions, borrowed data 261 B (main the same); namesync had nothing to rename.
 
 ## Claimed
 
