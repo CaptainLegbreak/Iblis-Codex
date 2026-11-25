@@ -118,7 +118,7 @@ D2UnitStrc* __fastcall ITEMS_Duplicate(D2GameStrc* pGame, D2UnitStrc* pItem, D2U
 
 void __fastcall ITEMS_HandleGoldTransaction(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nValue); // 0x0055B060
 
-void __fastcall D2GAME_RemoveItem_6FC471F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int bSendPacket); // 0x0055DF10
+void __fastcall D2GAME_RemoveItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int bSendPacket); // 0x0055DF10
 
 int __fastcall D2GAME_CheckHasFilledSockets(D2UnitStrc* pItem, const char* szFile, int nLine); // 0x0055F590
 
@@ -584,7 +584,7 @@ static int __stdcall PLRTRADE_RemoveCubeInputs(D2GameStrc* pGame, D2UnitStrc* pU
             ITEMS_SetOrRemoveFlag(&nFlags, 32, 1);
             ITEMS_SetItemCell(pCheckedItem, INVPAGE_CUBE);
             D2GAME_UpdateClientItem_6FC3E9D0(pClient, pUnit, pCheckedItem, nFlags);
-            D2GAME_RemoveItem_6FC471F0(pGame, pUnit, pCheckedItem, 0);
+            D2GAME_RemoveItem(pGame, pUnit, pCheckedItem, 0);
             nCount += 1;
         }
     }
@@ -1999,7 +1999,7 @@ static bool __stdcall PLRTRADE_TransferItems(D2GameStrc* pGame, D2UnitStrc* pPla
             ITEMS_SetOrRemoveFlag(&nFlags, 0x20, 1);
             ITEMS_SetItemCell(pCheckedItem, nInvPage);
             D2GAME_UpdateClientItem_6FC3E9D0(pClient, pPlayer1, pCheckedItem, nFlags);
-            D2GAME_RemoveItem_6FC471F0(pGame, pPlayer1, pCheckedItem, 0);
+            D2GAME_RemoveItem(pGame, pPlayer1, pCheckedItem, 0);
         }
         pItem = pNext;
     }

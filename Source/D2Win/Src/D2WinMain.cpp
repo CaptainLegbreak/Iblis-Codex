@@ -1650,14 +1650,14 @@ done:
 }
 
 // 0x004F9C80
-void __stdcall D2Win_COMMANDS_Control_6F8ADBE0(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall D2Win_COMMANDS_ControlDown(SMSGHANDLER_PARAMS* pMsg)
 {
     dword_6F8FE274 = 1;
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x004F9CA0
-void __stdcall D2Win_COMMANDS_Control_6F8ADBF0(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall D2Win_COMMANDS_ControlUp(SMSGHANDLER_PARAMS* pMsg)
 {
     dword_6F8FE274 = 0;
     sub_00420290_BreakHandlerChain(pMsg);

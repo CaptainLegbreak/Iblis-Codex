@@ -40,10 +40,10 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*,int,int,int); // 0x00627260
 void __fastcall D2GAME_PACKETS_SendPacket0x6D_6FC3D080(D2ClientStrc*,unsigned int,unsigned short,unsigned short,unsigned char); // 0x0053BB70
-void __fastcall D2GAME_PACKETS_SendPacket0x68_6FC3CA90(D2ClientStrc*,unsigned char,int,char,char,int,char); // 0x0053B5F0
-void __fastcall D2GAME_PACKETS_SendPacket0x67_6FC3CBC0(D2ClientStrc*,unsigned char,int,char,short,short,char); // 0x0053B710
-void __fastcall D2GAME_PACKETS_SendPacket0x68_6FC3CCB0(D2ClientStrc*,unsigned char,int,char,char,int,char,char,char); // 0x0053B7F0
-void __fastcall D2GAME_PACKETS_SendPacket0x67_6FC3CDE0(D2ClientStrc*,unsigned char,int,char,short,short,char,char,char); // 0x0053B910
+void __fastcall D2GAME_PACKETS_SendPacket0x68(D2ClientStrc*,unsigned char,int,char,char,int,char); // 0x0053B5F0
+void __fastcall D2GAME_PACKETS_SendPacket0x67(D2ClientStrc*,unsigned char,int,char,short,short,char); // 0x0053B710
+void __fastcall D2GAME_PACKETS_SendPacket0x68Ex(D2ClientStrc*,unsigned char,int,char,char,int,char,char,char); // 0x0053B7F0
+void __fastcall D2GAME_PACKETS_SendPacket0x67Ex(D2ClientStrc*,unsigned char,int,char,short,short,char,char,char); // 0x0053B910
 void __fastcall D2GAME_PACKETS_SendPacket0x6A_6FC3CEE0(D2ClientStrc*,char,int,char,char,int,char); // 0x0053B9F0
 void __fastcall D2GAME_PACKETS_SendPacket0x69_6FC3CF30(D2ClientStrc*,char,int,char,short,short,char,char); // 0x0053BA40
 void __fastcall D2GAME_PACKETS_SendPacket0x6C_6FC3CF90(D2ClientStrc*,char,int,char,char,int,char,short,short); // 0x0053BAA0
@@ -179,8 +179,8 @@ void __fastcall MONSTERMSG_SendMonsterModeUpdate(D2GameStrc* pGame,D2UnitStrc* p
  }
  if(nMode==13) {
   int nGUID=pUnit->dwUnitId;
-  if(nHeader==0x68) D2GAME_PACKETS_SendPacket0x68_6FC3CCB0(hClient,0x68,nGUID,nSendMode,nX,nY,nDirection,nHitClass,nExtra);
-  else D2GAME_PACKETS_SendPacket0x67_6FC3CDE0(hClient,(unsigned char)nHeader,nGUID,nSendMode,nX,nY,nDirection,nHitClass,nExtra);
+  if(nHeader==0x68) D2GAME_PACKETS_SendPacket0x68Ex(hClient,0x68,nGUID,nSendMode,nX,nY,nDirection,nHitClass,nExtra);
+  else D2GAME_PACKETS_SendPacket0x67Ex(hClient,(unsigned char)nHeader,nGUID,nSendMode,nX,nY,nDirection,nHitClass,nExtra); // 0x0053B910
   return;
  }
  if(!pInfo->bSimple) {
@@ -201,8 +201,8 @@ void __fastcall MONSTERMSG_SendMonsterModeUpdate(D2GameStrc* pGame,D2UnitStrc* p
  }
  if(pInfo->bSimple) {
   int nGUID=pUnit->dwUnitId;
-  if(nHeader==0x68) D2GAME_PACKETS_SendPacket0x68_6FC3CA90(hClient,0x68,nGUID,nSendMode,nX,nY,nStep);
-  else D2GAME_PACKETS_SendPacket0x67_6FC3CBC0(hClient,(unsigned char)nHeader,nGUID,nSendMode,nX,nY,nStep);
+  if(nHeader==0x68) D2GAME_PACKETS_SendPacket0x68(hClient,0x68,nGUID,nSendMode,nX,nY,nStep);
+  else D2GAME_PACKETS_SendPacket0x67(hClient,(unsigned char)nHeader,nGUID,nSendMode,nX,nY,nStep); // 0x0053B710
   return;
  }
 
