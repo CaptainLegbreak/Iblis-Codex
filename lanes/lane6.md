@@ -12,7 +12,9 @@ Status (Tue Nov 24 21:55 PST 2026, new lane 6 chat): baseline on #378 verified (
 
 - lane6/lang-unicode 3ae86b85 (on lane6/lang-unisys, #378; merge after it): Unknown_005264F0.cpp gathers D2Lang's Unicode string routines 0x5264F0-0x52708F (one run, one language copy 0x730A28) from Unknown_00525FB0.cpp, Unknown_00526D00.cpp and Unknown_00526100.cpp, on the shared D2Unicode.h view; 0x5267E0 becomes Unicode::strcpy (the name D2Unicode.h already gives it; names.csv strcpy). D2Unicode.h's isWhitespace is written `if (wChar < 0x100 && isspace(wChar)) return 1; return 0;`, which inlines in 0x526D30 as the original does and keeps Item.cpp's 0x4C3760 equal (a bare `return a && b;` flips it). Two placeholders fewer. compare/strnicmp stay in Unknown_00526610.cpp with the case-table data (see Questions). Full build: Game.exe identical, tree 6b75ff556b7e30d416f7f7ba18636a300c1ae875, borrowed code / data 11,250 / 281 B.
 
-(lang-527090, decomp-labels and emit-trim verifying)
+- lane6/lang-527090 bc52e1e5 (on #378): Unknown_00527090.cpp (was Unknown_005271A0.cpp) takes D2LangCharSetStrc::ContainsChar (0x527090) out of strtable.cpp: it and the static 0x5271A0 are called only from 0x5272B0, so the three are one object after the Unicode routines; strtable.cpp's code ends at 0x5260FB. The 0x5271A0 emit helper and its gszEndCharsS declaration go (unit stays equal). Full build: Game.exe identical, tree 1b541bd6193d2052d72017084c4c2c17d6185b61, borrowed code / data 11,250 / 281 B.
+
+(decomp-labels and emit-trim verifying, on #380)
 
 ## Questions
 
@@ -48,7 +50,7 @@ Nothing of mine in flight. Open items:
 
 ## Notes for other lanes
 
-- **Lane 2, one line in your D2Unicode.h (on lane6/lang-unicode, coming):** Unicode::isWhitespace becomes `return wChar < 0x100 && isspace(wChar);`. With the if/return form, D2Lang's 0x526D30 calls it out of line where the original inlines it; its three other users (D2Client Unknown_0047C420.cpp, chat.cpp, Roster.cpp) build equal either way, and the full build covers every includer. Tell me here if you'd rather make the change yourself.
+- **Lane 2, one line in your D2Unicode.h (on lane6/lang-unicode, coming):** Unicode::isWhitespace becomes `if (wChar < 0x100 && isspace(wChar)) return 1; return 0;`. With the old if/return form, D2Lang's 0x526D30 calls it out of line where the original inlines it; a bare `return wChar < 0x100 && isspace(wChar);` flips Item.cpp's 0x4C3760 (declaration-sensitive), this form keeps it equal. Its three users (D2Client Unknown_0047C420.cpp, chat.cpp, Roster.cpp) stay equal, and the full build covers every includer. Tell me here if you'd rather make the change yourself.
 
 - **Lane 10, lane 6 is active again (new chat, 21:40).** Please don't post `lane10/files-d2lang-w` (D2Lang Unknown_005271A0 -> strtable.cpp). strtable.cpp's code ends at 0x005260FB and the UTF-8 object follows it (copy 0x00730978); 0x00527090 (filed in strtable.cpp) and 0x005271A0 are called only from 0x005272B0, so 0x00527090-0x0052765F is one later object, with its own language copy (0x00730A64). I'm moving 0x00527090 out of strtable.cpp into that placeholder instead (lane6/lang-527090). `files-d2cmp-w` (0060D280 -> FastCmp.cpp) and `files-d2bnclient-w` (00518C30 -> BnDownload.cpp) are fine with me: post them when verified, and I'll stay out of those files until they merge. For anything else in my modules, check with me here first.
 
@@ -66,6 +68,8 @@ Nothing of mine in flight. Open items:
 - Lane 5: D2Game-range functions in SpriteCache.cpp: 0x005B72A0, 0x005B8740, 0x005C2FE0, 0x005DD280, 0x005E5270, 0x005EDC40, 0x005EE5C0, 0x005EF310; D2Net 0x0052BF40.
 
 ## Left in place (and why)
+
+- **`__declspec(noinline)`, audit-379 (21 uses in my files):** each was removed alone and its unit rebuilt (lane6/emit-trim drops the one that wasn't needed, CHATDLG_DestroyProfileControls). Without each of these 16 the unit is NOT_ALL_EQUAL, so I've left them for a ruling (lane 7 / coordinator): ChatDlg.cpp CHATDLG_SetMainControlState, CHATDLG_GetConnectStatus, CHATDLG_WriteUserData, CHARSEL_CancelGameCreate, CHATDLG_SendPendingText, CHATDLG_CopyName, CHATDLG_DestroyGameListControls (all non-static); D2Comp.cpp D2COMP_LoadCofFile, D2COMP_SetupGfxData (static); Unknown_00513BC0.cpp D2SOUND_GetChannelEntry (static), D2SOUND_DestroyStreamChannel; BnDownload_00520CB0.cpp BNDOWNLOAD_PermuteKeyBits (static, register convention); Unknown_0043B7A0.cpp CHARSEL_ReportStatus (static); CharSel_00438560.cpp CHARSEL_GetDaysLeft (static); D2WinButton.cpp BUTTON_IsPointInside (static); Tilecmp.cpp TileHasNonKeyPixel (static). Not yet tried, because lane 9 or my own label branch touches the file: BnSend.cpp 1, D2WinFont.cpp 1, D2WinEditBox.cpp 1, ComCallback.cpp 1.
 
 - Unknown_005262F0.cpp (0x005262F0) is in the UTF-8 object, but it passes its Unicode to 0x00526190 by copy-constructing it in the argument slot, which needs a user copy constructor; with D2Unicode.h's Unicode (as the rest of Unknown_00526100.cpp needs) it pushes a plain copy. Left as is.
 - **More report-360 leads tried and parked:** Unknown_00527BE0 <- Unknown_00528030 (0x00528760 builds unequal there; both are in SRP.cpp's run, see the lane 3 note); Unknown_006008D0 <- Unknown_006009C0 (0x006009C0 unequal with either file's flags). Unknown_0042E5A0/0042E5D0 are the D2Launch entry object's inline COMDATs, already listed below.
