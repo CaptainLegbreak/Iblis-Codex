@@ -238,6 +238,28 @@ void __stdcall TileListDestroy(D2CmpTileListStrc* pList)
     FOG_Free(pList, ".\\SRC\\Tilecmp.cpp", 0x8C, 0);
 }
 
+// 0x006096D0
+D2CmpTileStrc* __stdcall TileListAddTile(D2CmpTileListStrc* ptList, short nValue16, short nValue14, int nValue24, int nValue28, int nValue2C, int nValue30, int nValue10, const D2CmpTileInfoStrc* pInfo)
+{
+    D2_ASSERT(ptList, 0xA2);
+    D2CmpTileStrc* pTile = TileAlloc();
+    D2_ASSERT(pTile, 0xA6);
+    pTile->pNext = ptList->pFirst;
+    ptList->nCount++;
+    ptList->pFirst = pTile;
+    pTile->nMaterialFlags = nValue16;
+    pTile->nRoofHeight = nValue14;
+    pTile->nOrientation = nValue24;
+    pTile->nIndex = nValue28;
+    pTile->nSubIndex = nValue2C;
+    pTile->nRarity = nValue30;
+    pTile->nLightDirection = nValue10;
+    pTile->nOwnerId = ptList->nId;
+    pTile->nType = 2;
+    pTile->tInfo = *pInfo;
+    return pTile;
+}
+
 // 0x00609770
 static int __stdcall TileIsSubTileBlank(D2CmpTileStrc* pTile, const unsigned char* pPixels, int nPitch)
 {
@@ -671,6 +693,18 @@ static inline int TileProjectNormalizeSubTiles(D2CmpTileBlockStrc* pBlock, unsig
         nSize += pSub->tHeader.nLength;
     }
     return nSize;
+}
+
+// 0x0060A4C0
+void __stdcall TileNormalizeSubTiles(D2CmpTileBlockStrc* pBlock)
+{
+    D2_ASSERT(pBlock, 0x3C9);
+    char* pBase = (char*)pBlock->pSubs;
+    for (int i = 0; i < pBlock->nSubs; i++)
+    {
+        D2CmpSubTileRecordStrc* pSub = &pBlock->pSubs[i];
+        pSub->ptData += (int)pBase;
+    }
 }
 
 // 0x0060A520

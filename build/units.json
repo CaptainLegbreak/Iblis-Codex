@@ -55881,6 +55881,11 @@
      "length": 233
     },
     {
+     "va": "0x005FF300",
+     "length": 131,
+     "name": "D2CMPSpriteFindAsynchSiblings"
+    },
+    {
      "va": "0x005FF390",
      "length": 1,
      "name": "?sub_005FF390_Nop@@YAXXZ"
@@ -55967,11 +55972,6 @@
      "va": "0x00601450",
      "length": 105,
      "name": "CelFileTransform"
-    },
-    {
-     "va": "0x00601650",
-     "length": 224,
-     "name": "CelDrawEx"
     },
     {
      "va": "0x00601810",
@@ -61163,11 +61163,6 @@
      "name": "D2CMPSetNoCompress"
     },
     {
-     "va": "0x005FF300",
-     "length": 131,
-     "name": "D2CMPSpriteFindAsynchSiblings"
-    },
-    {
      "va": "0x005FF630",
      "length": 170,
      "name": "D2CMPSpriteCacheResize"
@@ -61238,6 +61233,11 @@
     {
      "va": "0x006015D0",
      "length": 117
+    },
+    {
+     "va": "0x00601650",
+     "length": 224,
+     "name": "CelDrawEx"
     },
     {
      "va": "0x00601840",
@@ -62340,11 +62340,6 @@
      "name": "?GenerateHandle@?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@QAEPAUHCELLIST__@@XZ"
     },
     {
-     "va": "0x00606D10",
-     "length": 35,
-     "name": "?CelSkipRleLines@@YIPBDPBDH@Z"
-    },
-    {
      "va": "0x0060A440",
      "length": 119,
      "name": "?TileProjectBuildFindTable@@YIPAUD2TileLibraryHashStrc@@PAUD2CmpTileLibraryStrc@@@Z"
@@ -62461,6 +62456,11 @@
      "name": "?TileListDestroy@@YGXPAUD2CmpTileListStrc@@@Z"
     },
     {
+     "va": "0x006096D0",
+     "length": 148,
+     "name": "TileListAddTile"
+    },
+    {
      "va": "0x00609770",
      "length": 152,
      "name": "?TileIsSubTileBlank@@YGHPAUD2CmpTileStrc@@PBEH@Z"
@@ -62526,6 +62526,11 @@
      "va": "0x0060A260",
      "length": 47,
      "name": "?TileProjectNormalizeSubTiles@@YAHPAUD2CmpTileBlockStrc@@PAE@Z"
+    },
+    {
+     "va": "0x0060A4C0",
+     "length": 81,
+     "name": "TileNormalizeSubTiles"
     },
     {
      "va": "0x0060A520",
@@ -62700,6 +62705,11 @@
      "name": "?CelFileConvertRle24To8@@YIXPAUD2CellFileStrc@@0P6GEEEE@ZUD2CmpColorStrc@@@Z"
     },
     {
+     "va": "0x00606D10",
+     "length": 35,
+     "name": "?CelSkipRleLines@@YIPBDPBDH@Z"
+    },
+    {
      "va": "0x00606D40",
      "length": 88,
      "name": "CelDrawRleCopy"
@@ -62788,11 +62798,6 @@
     {
      "va": "0x00608EE0",
      "length": 314
-    },
-    {
-     "va": "0x006096D0",
-     "length": 148,
-     "name": "TileListAddTile"
     },
     {
      "va": "0x0060B1A0",
@@ -62914,11 +62919,6 @@
      "va": "0x0060A390",
      "length": 176,
      "name": "TileProjectNormalizeHeaders"
-    },
-    {
-     "va": "0x0060A4C0",
-     "length": 81,
-     "name": "TileNormalizeSubTiles"
     },
     {
      "va": "0x0060AB10",
