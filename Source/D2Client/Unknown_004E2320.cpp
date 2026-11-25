@@ -755,7 +755,8 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
         sub_00526700(pOut, pSpace);
 
         int nCharClass = 7;
-        if (!sub_00645080_GetSkillCharClass(nLayer, &nCharClass))
+// build: symbol ?SKILLS_IsPlayerClassSkill@* 0x00645080
+        if (!SKILLS_IsPlayerClassSkill(nLayer, &nCharClass))
             break;
         if (nCharClass < 0 || nCharClass > 6)
             break;

@@ -257,7 +257,7 @@ int __stdcall PATH_GetAltFirstDirection(D2PathPointStrc pPoint1, D2PathPointStrc
 }
 
 // 0x00678D70
-void __fastcall PATH_GetDirections_6FDAB790(int* pTestDir, D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
+void __fastcall PATH_GetDirections(int* pTestDir, D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
 {
     int nIndex = PATH_GetDirectionIndex(pPoint1, pPoint2);
 

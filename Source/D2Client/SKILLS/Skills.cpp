@@ -2180,7 +2180,8 @@ int __fastcall SKILLS_StartSkillAtPos(D2UnitStrc* pUnit, D2ClientSkillArgsStrc* 
     }
 
     D2COMMON_10170_PathSetTargetPos(pUnit->pDynamicPath, nX, nY);
-    sub_00621C00_SetTargetPos(pUnit, nX, nY);
+// build: symbol ?UNITS_UpdateDirectionAndSpeed@* 0x00621C00
+    UNITS_UpdateDirectionAndSpeed(pUnit, nX, nY);
     D2MonStatsTxt* pMonStatsTxtRecord = NULL;
     const int nType = pUnit->dwUnitType;
     if (nType == 1)
@@ -2321,7 +2322,8 @@ inline D2StatesTxt* SKILLS_GetStatesTxtRecord(int nStateId)
 // 0x004C72F0
 void __fastcall SKILLS_RunStateActiveFuncs(D2UnitStrc* pUnit)
 {
-    if (!sub_0063A340(pUnit))
+// build: symbol ?STATES_CheckStateMaskActiveOnUnit@* 0x0063A340
+    if (!STATES_CheckStateMaskActiveOnUnit(pUnit))
     {
         return;
     }

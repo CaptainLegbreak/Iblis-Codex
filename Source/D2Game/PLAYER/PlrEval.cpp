@@ -40,7 +40,7 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListSt
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 void __fastcall SKILLS_RemoveStateAndRefreshPassives(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
-int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
+int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
@@ -68,7 +68,7 @@ int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc*); // 0x00625DB0
 void __fastcall sub_00536850_UpdateLevel(D2GameStrc*,D2UnitStrc*,int); // 0x00536850
 void __fastcall SUNIT_AttachSound(D2UnitStrc*,int,D2UnitStrc*); // 0x00553380
 void __fastcall D2GAME_UpdatePlayerVitals(D2GameStrc*,D2UnitStrc*); // 0x0055F500
-void __fastcall D2GAME_UpdatePlayerItems_6FC4BB90(D2GameStrc*,D2UnitStrc*,int); // 0x0055FDE0
+void __fastcall D2GAME_UpdatePlayerItems(D2GameStrc*,D2UnitStrc*,int); // 0x0055FDE0
 int __stdcall UNITS_GetPlayerName(D2UnitStrc*,int,int); // 0x00622150
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 static void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue);
@@ -123,7 +123,8 @@ static void __stdcall sub_005706A0_UseActEntry(D2GameStrc* pGame, D2UnitStrc* pU
         nAct = 0;
     }
 // build: symbol ?gnStartingActTargetLevels@* 0x006E1520
-    sub_0057EB10(pGame, pUnit, gnStartingActTargetLevels[nAct]);
+// build: symbol ?SUNITDMG_SetExperienceForTargetLevel@* 0x0057EB10
+    SUNITDMG_SetExperienceForTargetLevel(pGame, pUnit, gnStartingActTargetLevels[nAct]);
 }
 
 // 0x005706D0
@@ -202,7 +203,7 @@ void __fastcall PLAYERSTATS_LevelUp(D2GameStrc* game,D2UnitStrc* unit)
   SUNIT_AttachSound(unit,2,unit);
   SUNIT_IterateLivingPlayers(game,(SUNIT_IterateFn)PLAYERSTATS_OnPlayerLeveledUp,unit);
   D2GAME_UpdatePlayerVitals(game,unit);
-  D2GAME_UpdatePlayerItems_6FC4BB90(game,unit,1);
+  D2GAME_UpdatePlayerItems(game,unit,1);
   if(gpServerCallbacks && gpServerCallbacks->levelUp) gpServerCallbacks->levelUp(game->nGameId,UNITS_GetPlayerName(unit,classId,level));
  }
 }

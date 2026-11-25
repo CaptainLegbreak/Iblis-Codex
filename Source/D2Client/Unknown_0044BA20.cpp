@@ -557,7 +557,8 @@ int __stdcall WINMAIN_PumpSystemPackets(int nUnused)
     WINDOW_GetState();
     if (gdwGlobal_007A0610 == 0 || gdwGlobal_007A0610 == 1)
     {
-        sub_0052CFE0();
+// build: symbol ?GAME_ProcessNetworkMessages@* 0x0052CFE0
+        GAME_ProcessNetworkMessages();
     }
 
     const int nLength = CLIENT_DequeueSystemPacket(pBuffer, sizeof(pBuffer));

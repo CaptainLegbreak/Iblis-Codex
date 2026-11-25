@@ -96,7 +96,7 @@ D2LvlPrestRecordStrc* __stdcall sub_0061F0B0(int nPresetId); // 0x0061F0B0
 int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nPresetId, int nArg, int a4, int a5); // 0x00674730
 
 
-void __fastcall sub_00670750(D2DrlgOutPlaceCtxStrc* pCtx); // 0x00670750
+void __fastcall DRLGTILESUB_ApplySubstitutionBorder(D2DrlgOutPlaceCtxStrc* pCtx); // 0x00670750
 
 
 int __fastcall DRLGOUTDOORS_GetPresetIndexFromGridCell(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674120
@@ -119,7 +119,7 @@ struct D2LvlPrestTxt;
 
 D2LvlPrestTxt* __stdcall DATATBLS_GetLvlPrestTxtRecord(int nId); // 0x0061F0B0
 
-void __fastcall sub_006743C0(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6);
+void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6); // 0x006743C0
 
 int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nRand, int nOffset, char nFlags); // 0x00674730
 
@@ -463,7 +463,7 @@ static void DRLGOUTSIEGE_AddAct5SecondaryBorder(D2DrlgLevelStrc* pLevel)
     tCtx.pfnGetPreset = DRLGOUTSIEGE_GetSecondaryBorderPresetId;
     tCtx.n14 = -1;
     tCtx.n18 = 12;
-    sub_00670750(&tCtx);
+    DRLGTILESUB_ApplySubstitutionBorder(&tCtx);
 }
 
 static const D2Act5LevelPresetStrc gAct5LevelPresets[15] = // 0x006F2100

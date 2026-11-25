@@ -176,7 +176,8 @@ int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
 
                 bNotStraightLine = 0;
                 int aTestDir[3];
-                PATH_GetDirections_6FDAB790(aTestDir, tPoint, nNextPoint);
+// build: symbol ?PATH_GetDirections@* 0x00678D70
+                PATH_GetDirections(aTestDir, tPoint, nNextPoint);
                 int nDirection;
                 if (!sub_6FDAA880(tPoint, aTestDir, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDir)
                 {

@@ -130,7 +130,7 @@ void __stdcall D2Common_10474(D2UnitStrc* pUnused, D2StatListStrc* pStatList); /
 
 void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList); // 0x00626CD0
 
-void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
+void __fastcall D2GAME_EVENTS_Delete(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
@@ -170,7 +170,7 @@ int __fastcall EVENT_GetEventFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEv
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
-unsigned char __fastcall D2GAME_CheckIfSparklyChest_6FCBD7F0(D2UnitStrc* pUnit); // 0x005540D0
+unsigned char __fastcall D2GAME_CheckIfSparklyChest(D2UnitStrc* pUnit); // 0x005540D0
 
 void __fastcall SUNIT_SetAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
 
@@ -263,7 +263,7 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc*,D2UnitStrc*,D2AiControlStrc*,int
 
 void __fastcall TARGETS_InsertUnitNode(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
 
-void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc*,D2UnitStrc*,int,int); // 0x005A4850
+void __fastcall D2GAME_BOSSES_AssignUMod(D2GameStrc*,D2UnitStrc*,int,int); // 0x005A4850
 
 void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(D2MonsterRegionStrc**,int,int,int,int,int,D2UnitStrc*); // 0x00547ED0
 
@@ -876,7 +876,7 @@ static void __stdcall SUNITINACTIVE_CompressInactiveMonster(D2GameStrc* pGame, D
         }
     }
 
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
+    D2GAME_EVENTS_Delete(pGame, pUnit, 2, 0);
 
     D2InactiveMonsterNodeStrc* pNode = (D2InactiveMonsterNodeStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2InactiveMonsterNodeStrc), ".\\UNIT\\SUnitInactive.cpp", 0x528, 0);
     memset(pNode, 0, sizeof(D2InactiveMonsterNodeStrc));
@@ -1099,7 +1099,7 @@ fallbackLocation:
                     int n = 9;
                     do
                     {
-                        if (*mods != *saved) D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame,unit,*saved,0);
+                        if (*mods != *saved) D2GAME_BOSSES_AssignUMod(pGame,unit,*saved,0);
                         ++saved;
                         ++mods;
                         --n;
@@ -1653,7 +1653,7 @@ void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc
         }
 
         D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClassId);
-        if (!pObjectsTxtRecord->nRestore || D2GAME_CheckIfSparklyChest_6FCBD7F0(pUnit) & 2)
+        if (!pObjectsTxtRecord->nRestore || D2GAME_CheckIfSparklyChest(pUnit) & 2)
         {
             bCompress = 0;
         }
@@ -1663,7 +1663,7 @@ void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc
             bCompress = 0;
         }
 
-        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
+        D2GAME_EVENTS_Delete(pGame, pUnit, 1, 0);
     }
     check:
         if (!bCompress)
@@ -1680,7 +1680,7 @@ void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc
         if (STATES_CheckState(pUnit, STATE_PLAYERBODY))
         {
         special:
-            D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
+            D2GAME_EVENTS_Delete(pGame, pUnit, 1, 0);
             pUnit->dwFlagEx |= 0x100;
             SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
             UNITROOM_UpdatePath(pUnit);

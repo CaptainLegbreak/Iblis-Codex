@@ -42,7 +42,7 @@ void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* 
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
-void __fastcall D2GAME_PACKETS_SendPacket0x8D_6FC3F960(D2UnitStrc* pUnit, D2UnitStrc* pPlayer); // 0x0053DF00
+void __fastcall D2GAME_PACKETS_SendPacket0x8D(D2UnitStrc* pUnit, D2UnitStrc* pPlayer); // 0x0053DF00
 
 typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
@@ -209,7 +209,7 @@ static void __stdcall PARTY_FreeParty(D2PartyStrc* pParty, D2GameStrc* pGame)
         D2UnitStrc* pMember = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, pNode->nUnitGUID);
         D2_ASSERT(pMember, 154);
         sub_6FC7B450(pGame, pMember);
-        D2GAME_PACKETS_SendPacket0x8D_6FC3F960(pMember, pMember);
+        D2GAME_PACKETS_SendPacket0x8D(pMember, pMember);
         D2PartyNodeStrc* pNext = pNode->pNext;
         FOG_FreeServerMemory(pGame->pMemoryPool, pNode, ".\\UNIT\\Party.cpp", 162, 0);
         pNode = pNext;
@@ -553,7 +553,7 @@ void __fastcall PARTY_LeaveParty(D2GameStrc* pGame, D2UnitStrc* pUnit)
                 ptParty->pPartyNodes = pPartyNode->pNext;
             }
             sub_6FC7B450(pGame, pUnit);
-            D2GAME_PACKETS_SendPacket0x8D_6FC3F960(pUnit, pUnit);
+            D2GAME_PACKETS_SendPacket0x8D(pUnit, pUnit);
             FOG_FreeServerMemory(pGame->pMemoryPool, pPartyNode, ".\\UNIT\\Party.cpp", 328, 0);
             break;
         }

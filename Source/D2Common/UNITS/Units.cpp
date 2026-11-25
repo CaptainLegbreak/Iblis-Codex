@@ -2696,7 +2696,8 @@ D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2)
             break;
         }
 
-        if (ITEMSIsA(pWeapon, 45) && sub_0062A4E0_TestItem(pWeapon))
+// build: symbol ?ITEMS_CanBeEquipped@* 0x0062A4E0
+        if (ITEMSIsA(pWeapon, 45) && ITEMS_CanBeEquipped(pWeapon))
         {
             return pWeapon;
         }
@@ -3327,12 +3328,12 @@ unsigned char __stdcall UNITS_GetItemComponentId(D2UnitStrc* pUnit, D2UnitStrc* 
     {
         D2InventoryStrc* pInventory = pUnit->pInventory;
         D2UnitStrc* pRightHandItem = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-        if (!sub_0062A4E0_TestItem(pRightHandItem))
+        if (!ITEMS_CanBeEquipped(pRightHandItem))
         {
             pRightHandItem = 0;
         }
         D2UnitStrc* pLeftHandItem = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-        if (!sub_0062A4E0_TestItem(pLeftHandItem))
+        if (!ITEMS_CanBeEquipped(pLeftHandItem))
         {
             pLeftHandItem = 0;
         }
@@ -3933,7 +3934,7 @@ void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, i
     int nClassId = pUnit->dwClassId;
     int nAnimMode = pUnit->dwAnimMode;
     D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nAnimMode, ".\\UNITS\\Units.cpp", 0xCB9);
-    sub_00620F00(pUnit, nUnitType, nClassId, nAnimMode);
+    UNITS_SetAnimData(pUnit, nUnitType, nClassId, nAnimMode);
     D2AnimDataRecordStrc* pAnimData = pUnit->pAnimData;
 
     if (UNITS_IsSeqAnimSpeedModulatedByFCR(nUnitType, nAnimMode, pUnit))
@@ -4003,13 +4004,13 @@ void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, i
         {
             D2InventoryStrc* pInventory = pUnit->pInventory;
             D2UnitStrc* pRightWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-            if (!sub_0062A4E0_TestItem(pRightWeapon))
+            if (!ITEMS_CanBeEquipped(pRightWeapon))
             {
                 pRightWeapon = 0;
             }
 
             D2UnitStrc* pLeftWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-            if (!sub_0062A4E0_TestItem(pLeftWeapon))
+            if (!ITEMS_CanBeEquipped(pLeftWeapon))
             {
                 pLeftWeapon = 0;
             }

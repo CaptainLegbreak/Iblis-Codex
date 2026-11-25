@@ -52,7 +52,7 @@ struct D2PetUpdateStrc
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x005531C0
 
-void __fastcall D2GAME_PACKETS_SendPacket0x7A_6FC3E100(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass); // 0x0053CB30
+void __fastcall D2GAME_PACKETS_SendPacket0x7A(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass); // 0x0053CB30
 
 extern const char gszPlayerPetsSourceFile[]; // 0x006E15D8
 
@@ -70,7 +70,7 @@ void __fastcall PLAYERPETS_RemovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, int
 
 static int PLAYERPETS_GetFirstPetGUID(D2UnitStrc* pPlayer, int nPetType);
 
-void __fastcall D2GAME_PACKETS_SendPacket0x81_6FC3E160(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass, int nSeed, int nName); // 0x0053CB80
+void __fastcall D2GAME_PACKETS_SendPacket0x81(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass, int nSeed, int nName); // 0x0053CB80
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
@@ -82,7 +82,7 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
-void __fastcall D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(D2ClientStrc* pClient, unsigned short nUnitGUID, int a3); // 0x0053E0E0
+void __fastcall D2GAME_PACKETS_SendPacket0x9B(D2ClientStrc* pClient, unsigned short nUnitGUID, int a3); // 0x0053E0E0
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
@@ -108,7 +108,7 @@ void __fastcall PLAYERPETS_UpdatePetLimits(D2GameStrc* pGame, D2UnitStrc* pPlaye
 
 void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pDefender, D2UnitStrc* pAttacker, int bSendMsg); // 0x0057CCB0
 
-int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
+int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
 
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 
@@ -244,10 +244,10 @@ static void __stdcall PLAYERPETS_ClearPetList(D2UnitStrc* pPlayer, D2PetListStrc
                     {
                         MONSTERMODE_GetModeChangeInfo(pPet, 0, &modeChange);
                         modeChange.pTargetUnit = SUNIT_GetOwner(pGame, pPet);
-                        D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+                        D2GAME_ModeChange(pGame, &modeChange, 1);
                     }
 
-                    D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 0xDB), (unsigned short)pPetData->petInfo.nName, MONSTERS_GetHirelingResurrectionCost(pPet));
+                    D2GAME_PACKETS_SendPacket0x9B(UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 0xDB), (unsigned short)pPetData->petInfo.nName, MONSTERS_GetHirelingResurrectionCost(pPet));
                 }
             }
         }
@@ -297,7 +297,7 @@ static inline int sub_E09_CheckMonStatsFlag(int nMonsterId, int nFlag)
 // 0x00574410
 void __fastcall PLAYERPETS_PlayerIterate_SynchronizeWithClient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2PetUpdateStrc* pData)
 {
-    D2GAME_PACKETS_SendPacket0x7A_6FC3E100(UnitGetClient(pUnit, gszPlayerPetsSourceFile, 0x43), 0, pData->nParam, pData->nUnitId, pData->nClassId, pData->nPetType);
+    D2GAME_PACKETS_SendPacket0x7A(UnitGetClient(pUnit, gszPlayerPetsSourceFile, 0x43), 0, pData->nParam, pData->nUnitId, pData->nClassId, pData->nPetType);
 }
 
 // 0x00574450
@@ -322,7 +322,7 @@ static void PLAYERPETS_KillPet(D2GameStrc* pGame, int nPetGUID)
         D2ModeChangeStrc modeChange;
         MONSTERMODE_GetModeChangeInfo(hPet, 0, &modeChange);
         modeChange.pTargetUnit = SUNIT_GetOwner(pGame, hPet);
-        D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+        D2GAME_ModeChange(pGame, &modeChange, 1);
     }
 
     D2PetArgStrc arg = {};
@@ -443,11 +443,11 @@ void __fastcall PLAYERPETS_PlayerIterate_UpdateClient(D2GameStrc* pGame, D2UnitS
 
     if (!pPetArg->nSeed && !pPetArg->nName)
     {
-        D2GAME_PACKETS_SendPacket0x7A_6FC3E100(UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 830), 1, pPetArg->nPetType, pPetArg->nPetGUID, pPetArg->nUnitGUID, pPetArg->nPetClass);
+        D2GAME_PACKETS_SendPacket0x7A(UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 830), 1, pPetArg->nPetType, pPetArg->nPetGUID, pPetArg->nUnitGUID, pPetArg->nPetClass);
     }
     else
     {
-        D2GAME_PACKETS_SendPacket0x81_6FC3E160(UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 837), 1, pPetArg->nPetType, pPetArg->nPetGUID, pPetArg->nUnitGUID, pPetArg->nPetClass, pPetArg->nSeed, pPetArg->nName);
+        D2GAME_PACKETS_SendPacket0x81(UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 837), 1, pPetArg->nPetType, pPetArg->nPetGUID, pPetArg->nUnitGUID, pPetArg->nPetClass, pPetArg->nSeed, pPetArg->nName);
     }
 }
 
@@ -948,7 +948,7 @@ void __fastcall PLAYERPETS_HandlePetDeath(D2GameStrc* pGame, D2UnitStrc* pPlayer
         if (pPetData->nUnitGUID == nPetGUID)
         {
             pPetData->nFlags |= PETFLAG_DEAD;
-            D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 698), pPetData->petInfo.nName, MONSTERS_GetHirelingResurrectionCost(pPet));
+            D2GAME_PACKETS_SendPacket0x9B(UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 698), pPetData->petInfo.nName, MONSTERS_GetHirelingResurrectionCost(pPet));
             break;
         }
     }
@@ -1393,10 +1393,10 @@ void __fastcall PLAYERPETS_SendPetsToClient(D2ClientStrc* pClient, D2UnitStrc* p
                         switch (nPetType)
                         {
                         case 7:
-                            D2GAME_PACKETS_SendPacket0x81_6FC3E160(pClient, 1, 7, pPetData->nUnitGUID, nPlayerId, nClassId, pPetData->petInfo.nSeed, pPetData->petInfo.nName);
+                            D2GAME_PACKETS_SendPacket0x81(pClient, 1, 7, pPetData->nUnitGUID, nPlayerId, nClassId, pPetData->petInfo.nSeed, pPetData->petInfo.nName);
                             break;
                         default:
-                            D2GAME_PACKETS_SendPacket0x7A_6FC3E100(pClient, 1, nPetType, pPetData->nUnitGUID, nPlayerId, nClassId);
+                            D2GAME_PACKETS_SendPacket0x7A(pClient, 1, nPetType, pPetData->nUnitGUID, nPlayerId, nClassId);
                             break;
                         }
                     }

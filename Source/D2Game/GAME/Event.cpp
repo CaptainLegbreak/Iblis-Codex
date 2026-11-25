@@ -30,15 +30,15 @@ typedef void(__fastcall* EventDefault3)(D2GameStrc*, D2UnitStrc*, int);
 
 D2EventTimerStrc* __fastcall SUNIT_GetTimerFromUnit(D2UnitStrc* pUnit); // 0x00553980
 
-void __fastcall D2GAME_EVENTS_Callback_6FC81BD0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent, int nCustomId, int nCustomParam); // 0x00581220
+void __fastcall D2GAME_EVENTS_Callback(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent, int nCustomId, int nCustomParam); // 0x00581220
 
 void __fastcall MONSTERMODE_EventHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent, int nCustomId, int nCustomParam); // 0x005A7F80
 
-void __fastcall D2GAME_OBJMODE_InvokeEventFunction_6FC75250(D2GameStrc* pGame, D2UnitStrc* pObject, int nEvent); // 0x00586AD0
+void __fastcall D2GAME_OBJMODE_InvokeEventFunction(D2GameStrc* pGame, D2UnitStrc* pObject, int nEvent); // 0x00586AD0
 
 void __fastcall MISSMODE_SrvDoEventCallback(D2GameStrc* pGame, D2UnitStrc* pMissile, int nEvent); // 0x005ADCC0
 
-void __fastcall D2GAME_Items_EventsHandler_6FC4A460(D2GameStrc* pGame, D2UnitStrc* pItem, int nEvent); // 0x00562DA0
+void __fastcall D2GAME_Items_EventsHandler(D2GameStrc* pGame, D2UnitStrc* pItem, int nEvent); // 0x00562DA0
 
 static void EVENT_FreeTimer(D2GameStrc* pGame, D2EventTimerStrc* pTimer); // 0x00540CD0
 
@@ -144,7 +144,7 @@ static D2EventTimerStrc* sub_00540DF0_InitializeTimer(D2GameStrc* pGame, D2UnitS
 {
     D2EventTimerStrc* pTimer = EVENT_AllocateTimer(pGame, pGame->pTimerQueue);
     pTimer->pUnit = pUnit;
-    pTimer->pNext = sub_00553980_GetTimer(pUnit);
+    pTimer->pNext = SUNIT_GetTimerFromUnit(pUnit);
     if (pTimer->pNext)
         pTimer->pNext->pPrevious = pTimer;
     pTimer->pPrevious = 0;
@@ -344,7 +344,7 @@ void __stdcall sub_M113_Emit_00540B20(D2GameStrc* pGame, D2EventTimerStrc* pTime
 }
 
 // 0x00540E60
-void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId)
+void __fastcall D2GAME_EVENTS_Delete(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId)
 {
     D2EventTimerStrc* pEventTimer = SUNIT_GetTimerFromUnit(pUnit);
     while (pEventTimer)
@@ -391,7 +391,7 @@ void __fastcall EVENT_FreeUnitTimers(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x00540F30
-void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall D2GAME_DeleteTimersOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     if (SUNIT_GetTimerFromUnit(pUnit))
     {
@@ -504,7 +504,7 @@ static __forceinline void EVENT_ExecuteEventsImpl3(EventDefault3 pDefaultCallbac
 // 0x00540F60
 static void __stdcall EVENT_ExecutePlayerEvents(int a4, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
 {
-    EVENT_ExecuteEventsImpl5(D2GAME_EVENTS_Callback_6FC81BD0, pGame, pTimerQueue, pEventTimer, a4);
+    EVENT_ExecuteEventsImpl5(D2GAME_EVENTS_Callback, pGame, pTimerQueue, pEventTimer, a4);
 }
 
 // 0x00541060
@@ -516,7 +516,7 @@ static void __stdcall EVENT_ExecuteMonsterEvents(int a4, D2GameStrc* pGame, D2Ev
 // 0x00541160
 static void __stdcall EVENT_ExecuteObjectEvents(int a4, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
 {
-    EVENT_ExecuteEventsImpl3(D2GAME_OBJMODE_InvokeEventFunction_6FC75250, pGame, pTimerQueue, pEventTimer, a4);
+    EVENT_ExecuteEventsImpl3(D2GAME_OBJMODE_InvokeEventFunction, pGame, pTimerQueue, pEventTimer, a4);
 }
 
 // 0x00541240
@@ -528,7 +528,7 @@ static void __stdcall EVENT_ExecuteMissileEvents(int a4, D2GameStrc* pGame, D2Ev
 // 0x00541320
 static void __stdcall EVENT_ExecuteItemEvents(int a4, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
 {
-    EVENT_ExecuteEventsImpl3(D2GAME_Items_EventsHandler_6FC4A460, pGame, pTimerQueue, pEventTimer, a4);
+    EVENT_ExecuteEventsImpl3(D2GAME_Items_EventsHandler, pGame, pTimerQueue, pEventTimer, a4);
 }
 
 // 0x00541400
@@ -556,7 +556,7 @@ void __fastcall EVENT_FreeEventQueue(D2GameStrc* pGame)
 void __fastcall EVENT_AllocEventQueue(D2GameStrc* pGame)
 {
     if (pGame->pTimerQueue)
-        sub_00541400_FreeQueue(pGame);
+        EVENT_FreeEventQueue(pGame);
     D2EventTimerQueueStrc* pQueue = (D2EventTimerQueueStrc*)sub_0040B430_Alloc(pGame->pMemoryPool, sizeof(D2EventTimerQueueStrc), ".\\GAME\\Event.cpp", 807, 0);
     memset(pQueue, 0, sizeof(D2EventTimerQueueStrc));
     pQueue->pSlabListHead = EVENT_AllocTimerSlab(pGame);

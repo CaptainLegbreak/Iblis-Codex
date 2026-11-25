@@ -123,7 +123,7 @@ extern const int gnWallRemapIndices[]; // 0x006EF620
 extern const int gnWallTileTypeRemap[6][7]; // 0x006EF578
 extern int DATATBLS_LoadFromBin; // 0x00744308
 extern int __fastcall sub_00674200_IsValid(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674200
-extern int __fastcall sub_0067C570_GetGrid(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
+extern int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 extern int gaBarricadeCliffBorderIds[][2]; // 0x006F06F0
 extern int gaBorderIndices[]; // 0x006F0FD0
 extern int gaBorderIndicesByDelta[]; // 0x006F1088
@@ -138,7 +138,7 @@ extern int gnTimeRates[]; // 0x007443E4
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 extern void (__fastcall* gRoomExSetStatus[4])(D2DrlgRoomStrc*); // 0x00744384
 extern void (__fastcall* gRoomExUnsetStatus[4])(D2DrlgRoomStrc*); // 0x00744394
-extern void __fastcall sub_006743C0_PlacePreset(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPreset, int nFile, int nFlag); // 0x006743C0
+extern void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPreset, int nFile, int nFlag); // 0x006743C0
 extern void* gpCharstatsTxt; // 0x0096C7F4
 extern void* gpPettypeTxt; // 0x0096C818
 extern void* gpSetItemsTxt; // 0x0096C848
@@ -153,7 +153,7 @@ int __fastcall sub_00451F70_GetUnitMode(D2UnitStrc* pUnit); // 0x00451F70
 int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
 int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
-int __fastcall sub_0062EFB0_GetRepairCost(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nNpcId, int nMode); // 0x0062EFB0
+int __fastcall ITEMS_CalculateTransactionCost(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nNpcId, int nMode); // 0x0062EFB0
 int __fastcall PATH_GetFirstDirectionXY(int nX1, int nY1, int nX2, int nY2); // 0x00678CF0
 int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
 int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc* pBuffer, int nBits); // 0x00411030
@@ -167,7 +167,7 @@ int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned in
 int __stdcall sub_00604B90_GetTileStyle(D2TileLibraryEntryStrc* pTile); // 0x00604B90
 int __stdcall sub_00604C50_GetTileSequence(D2TileLibraryEntryStrc* pTile); // 0x00604C50
 int __stdcall sub_00629BB0_CheckItemType(D2UnitStrc* pItem, int nType); // 0x00629BB0
-int __stdcall sub_0062A4E0_TestItem(D2UnitStrc* pItem); // 0x0062A4E0
+int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 int __stdcall sub_0062C0B0_GetItemTypeClass(D2UnitStrc* pItem); // 0x0062C0B0
 int __stdcall sub_00645910_TestLine(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStrc* pRoom, int nMask); // 0x00645910
 int __stdcall DRLGROOMTILE_FindTilePresetUnitIndex(int nLevelId, unsigned int nPackedTileInformation, int bIsRightWallWithDoor); // 0x0066D960
@@ -208,7 +208,7 @@ void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, 
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
-void __stdcall sub_00620F00(D2UnitStrc* pUnit, int nUnitType, int nClassId, int nAnimMode); // 0x00620F00
+void __stdcall UNITS_SetAnimData(D2UnitStrc* pUnit, int nUnitType, int nClassId, int nAnimMode); // 0x00620F00
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 
@@ -419,7 +419,7 @@ void __stdcall COLLISION_SetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
-unsigned int* __stdcall D2COMMON_STATES_GetStatFlags_6FDB8A90(D2UnitStrc* pUnit); // 0x00625BB0
+unsigned int* __stdcall D2COMMON_STATES_GetStatFlags(D2UnitStrc* pUnit); // 0x00625BB0
 int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2); // 0x00650350
 D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2); // 0x00623990
 void __stdcall D2Common_10474(D2UnitStrc* pUnused, D2StatListStrc* pStatList); // 0x006277E0
@@ -552,7 +552,7 @@ void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit); // 0x006494
 int __stdcall PATH_ComputeDirection(int nX1, int nY1, int nX2, int nY2); // 0x0064FDC0
 int __fastcall PATH_ComputeVelocityAndDirectionVectorsToNextPoint(D2DynamicPathStrc* pPath, int bNormalizeDirectionIfSamePos, int bForceDirectionNormalization); // 0x0064FE40
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pDynamicPath); // 0x006487F0
-void __fastcall PATH_GetDirections_6FDAB790(int* pTestDir, D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00678D70
+void __fastcall PATH_GetDirections(int* pTestDir, D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00678D70
 int __stdcall PATH_GetTableHeuristic(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00679380
 D2UnitStrc* __stdcall PATH_GetTargetUnit(D2DynamicPathStrc* pDynamicPath); // 0x00648BF0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* hPath); // 0x006488C0

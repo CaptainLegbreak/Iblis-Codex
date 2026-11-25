@@ -75,7 +75,7 @@ void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pAr
 
 int __fastcall ACT4Q1_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005B3D30
 
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
@@ -145,7 +145,7 @@ int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 
-int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
+int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
 
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 
@@ -206,7 +206,7 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nSoundId, D2UnitStrc* p
 void __fastcall PLAYER_CloseInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005351C0
 
 
-void __fastcall D2GAME_SendPacket0x50_6FC3F440(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
+void __fastcall D2GAME_SendPacket0x50(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
 
 int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 
@@ -214,7 +214,7 @@ void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
 
 void __fastcall D2GAME_PACKETS_SendPacket0x61(D2ClientStrc* pClient, unsigned char nValue); // 0x0053D940
 
-void __fastcall D2GAME_PlayerChangeAct_6FC867C0(D2GameStrc* pGame, D2UnitStrc* pUnit, int dwDestLvl, int nTileCalc); // 0x0054B830
+void __fastcall D2GAME_PlayerChangeAct(D2GameStrc* pGame, D2UnitStrc* pUnit, int dwDestLvl, int nTileCalc); // 0x0054B830
 
 void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005455B0
 
@@ -593,7 +593,7 @@ int __fastcall ACT4Q2_UnitIterate_WarpToTownEndGame(D2GameStrc* pGame, D2UnitStr
         D2GSPacketSrv50 packet50;
         packet50.nHeader = 0x50;
         packet50.nQuestId = 23;
-        D2GAME_SendPacket0x50_6FC3F440(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 474), &packet50);
+        D2GAME_SendPacket0x50(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 474), &packet50);
     }
 
     return 0;
@@ -602,15 +602,15 @@ int __fastcall ACT4Q2_UnitIterate_WarpToTownEndGame(D2GameStrc* pGame, D2UnitStr
 // 0x005B4B60
 D2UnitStrc* __fastcall ACT4Q2_TrySpawnDiablo(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, D2Act4Quest2Strc* pQuestDataEx)
 {
-    D2UnitStrc* pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_DIABLO, 1, -1, 0);
+    D2UnitStrc* pDiablo = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, MONSTER_DIABLO, 1, -1, 0);
     if (!pDiablo)
     {
-        pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_DIABLO, 1, 5, 0);
+        pDiablo = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, MONSTER_DIABLO, 1, 5, 0);
     }
 
     if (!pDiablo)
     {
-        pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_DIABLO, 1, 10, 0);
+        pDiablo = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, MONSTER_DIABLO, 1, 10, 0);
         if (!pDiablo)
         {
             return 0;
@@ -1036,7 +1036,7 @@ static void __stdcall ACT4Q2_KillAllMonstersInCS(D2GameStrc* pGame, D2Act4Quest2
                 {
                     D2ModeChangeStrc modeChange;
                     MONSTERMODE_GetModeChangeInfo(pUnit, 0, &modeChange);
-                    D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+                    D2GAME_ModeChange(pGame, &modeChange, 1);
                 }
             }
         }
@@ -1306,7 +1306,7 @@ int __fastcall OBJECTS_OperateFunction73_LastLastPortal(D2ObjOperateFnStrc* pOp,
         }
     }
 
-    D2GAME_PlayerChangeAct_6FC867C0(pOp->pGame, pOp->hPlayer, 109, 5);
+    D2GAME_PlayerChangeAct(pOp->pGame, pOp->hPlayer, 109, 5);
     QUESTS_UpdatePlayerFlags(pOp->pGame, pOp->hPlayer);
     ACT4Q2_ActivateHarrogathWaypoint(pOp->pGame, pOp->hPlayer);
     return 0;

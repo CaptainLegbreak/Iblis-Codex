@@ -150,7 +150,7 @@ void __fastcall AITACTICS_Idle(D2GameStrc*,D2UnitStrc*,int); // 0x005DE0F0
 
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc*,D2UnitStrc*,unsigned char); // 0x005DE200
 
-int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMaxDistance, int bDeleteAiEventCallback); // 0x005DE6D0
+int __fastcall D2GAME_AICORE_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMaxDistance, int bDeleteAiEventCallback); // 0x005DE6D0
 
 int __fastcall sub_005DF7D0_WalkRandomPath(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,unsigned char,int); // 0x005DF7D0
 
@@ -182,7 +182,7 @@ void __stdcall MONSTERS_GetMinionSpawnInfo(D2UnitStrc*,int*,int*,int*,int*,int,i
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,int); // 0x00463740
 
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 
 static bool __stdcall AIBAAL_SummonClone(D2GameStrc*,D2UnitStrc*,D2AiControlStrc*); // 0x005FC860
 
@@ -843,7 +843,8 @@ static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc* pGame, D2UnitStrc* pUn
             return 4;
         return 8 * ((int)(AIBAAL_RollSeed_Inline(&pUnit->pSeed) % 100) < 8) + 1;
     }
-    if (!pGame) pGame = sub_00554010_GetGame(pUnit);
+// build: symbol ?SUNIT_GetGameFromUnit@* 0x00554010
+    if (!pGame) pGame = SUNIT_GetGameFromUnit(pUnit);
     int bInCloseRange = 0;
     if ((!pTarget ? 6 : pTarget->dwUnitType) == 0)
     {
@@ -941,7 +942,7 @@ static bool __stdcall AIBAAL_SummonClone(D2GameStrc* game,D2UnitStrc* unit,D2AiC
  if(room) {
 
  sub_00463740_FindRoomAtPoint(UNITS_GetRoom(unit),x,y);
- D2UnitStrc* clone=D2GAME_SpawnMonster_6FC69F10(game,room,x,y,monsterId,mode,-1,0);
+ D2UnitStrc* clone=D2GAME_SpawnMonster(game,room,x,y,monsterId,mode,-1,0);
  if(clone) {
  clone->dwFlags|=0x04020000;
  AITACTICS_Idle(game,clone,15);
@@ -997,7 +998,7 @@ void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         return;
     case 2:
     case 6:
-        D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 12, 0);
+        D2GAME_AICORE_Escape(pGame, pUnit, pTarget, 12, 0);
         return;
     case 9:
         AITACTICS_UseSkill(pGame, pUnit, 9, SKILL_BAALTENTACLE, pTarget, 0, 0);
@@ -1235,7 +1236,7 @@ void __fastcall AIBAAL_SpawnUberBaalMinion(D2GameStrc* pGame, D2UnitStrc* pUnit)
     D2ActiveRoomStrc* pRoom = COLLISION_GetFreeCoordinates(UNITS_GetRoom(pUnit), &coord, 2, 0x100, 0);
     if (pRoom)
     {
-        D2UnitStrc* pMinion = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, coord.nX, coord.nY, nMinionTypes[nChoice], nMinionModes[nChoice], -1, 0);
+        D2UnitStrc* pMinion = D2GAME_SpawnMonster(pGame, pRoom, coord.nX, coord.nY, nMinionTypes[nChoice], nMinionModes[nChoice], -1, 0);
         if (pMinion)
         {
             pMinion->dwFlags |= 0x4000000;

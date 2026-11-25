@@ -1913,7 +1913,7 @@ void __stdcall DATATBLS_UnloadAllBins()
 }
 
 // 0x00619300
-void __stdcall DATATBLS_LoadAllTxts(void* hArchive, int a2, int a3)
+void __stdcall DATATBLS_LoadAllTxts(void* hArchive, int a2, int extra)
 {
     DATATBLS_LoadSomeTxts(hArchive);
     DATATBLS_LoadItemTypesTxt(hArchive);
@@ -1959,7 +1959,7 @@ void __stdcall DATATBLS_LoadAllTxts(void* hArchive, int a2, int a3)
     DATATBLS_LoadLvlPrestTxt(hArchive, a2);
     DATATBLS_LoadLvlWarpTxt(hArchive);
     DATATBLS_LoadLvlMazeTxt(hArchive);
-    DATATBLS_LoadLvlSubTxt(hArchive, a2, a3);
+    DATATBLS_LoadLvlSubTxt(hArchive, a2, extra);
     DATATBLS_LoadAutomapTxt(hArchive);
     DATATBLS_LoadObjectsTxt(hArchive);
     DATATBLS_LoadObjGroupTxt(hArchive);
