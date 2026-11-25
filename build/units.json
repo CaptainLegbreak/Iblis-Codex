@@ -17283,22 +17283,82 @@
      "name": "?sub_0046C770_CommandOnUnit@@YGXHHPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x0046C7D0",
+     "length": 392,
+     "name": "?sub_0046C7D0_StepAwayFromUnit@@YGHPAUD2UnitStrc@@EHH0@Z"
+    },
+    {
      "va": "0x0046C960",
      "length": 254,
      "name": "?sub_0046C960_StepRandom@@YGXEHHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046CA60",
+     "length": 71,
+     "name": "?sub_0046CA60_CommandToXY@@YGXHHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x0046CAB0",
+     "length": 139,
+     "name": "?sub_0046CAB0_CommandMode8@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046CB40",
+     "length": 139,
+     "name": "?sub_0046CB40_CommandMode7@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046CBD0",
+     "length": 29,
+     "name": "?sub_0046CBD0_SetAiTimerClamped@@YAXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x0046CBF0",
+     "length": 219,
+     "name": "?sub_0046CBF0_IsSamePosition@@YAHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0046CCD0",
+     "length": 226,
+     "name": "?sub_0046CCD0_AiType1@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046CDC0",
+     "length": 121,
+     "name": "?sub_0046CDC0_AiType2@@YGXPAUD2UnitStrc@@I0@Z"
     },
     {
      "va": "0x0046CE40",
      "length": 552
     },
     {
+     "va": "0x0046D070",
+     "length": 154,
+     "name": "?sub_0046D070_AiType4@@YGXPAUD2UnitStrc@@0@Z"
+    },
+    {
      "va": "0x0046D110",
      "length": 363
+    },
+    {
+     "va": "0x0046D280",
+     "length": 140,
+     "name": "?sub_0046D280_AiType6@@YGXIPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0046D310",
+     "length": 315,
+     "name": "?sub_0046D310_AiType7@@YAXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046D450",
      "length": 524,
      "name": "?sub_0046D450_AiType8@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046D660",
+     "length": 226,
+     "name": "?sub_0046D660_AiFlagged@@YAXPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x0046D780",
@@ -19928,72 +19988,6 @@
      "va": "0x004F34D0",
      "length": 86,
      "name": "GFXUTIL_CltDoMissileC"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0046C7D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0046C7D0",
-     "length": 392,
-     "name": "?sub_0046C7D0_StepAwayFromUnit@@YGHPAUD2UnitStrc@@EHH0@Z"
-    },
-    {
-     "va": "0x0046CA60",
-     "length": 71,
-     "name": "?sub_0046CA60_CommandToXY@@YGXHHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x0046CAB0",
-     "length": 139,
-     "name": "?sub_0046CAB0_CommandMode8@@YAXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0046CB40",
-     "length": 139,
-     "name": "?sub_0046CB40_CommandMode7@@YAXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0046CBD0",
-     "length": 29,
-     "name": "?sub_0046CBD0_SetAiTimerClamped@@YAXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0046CBF0",
-     "length": 219,
-     "name": "?sub_0046CBF0_IsSamePosition@@YAHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x0046CCD0",
-     "length": 226,
-     "name": "?sub_0046CCD0_AiType1@@YAXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0046CDC0",
-     "length": 121,
-     "name": "?sub_0046CDC0_AiType2@@YGXPAUD2UnitStrc@@I0@Z"
-    },
-    {
-     "va": "0x0046D070",
-     "length": 154,
-     "name": "?sub_0046D070_AiType4@@YGXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x0046D280",
-     "length": 140,
-     "name": "?sub_0046D280_AiType6@@YGXIPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x0046D310",
-     "length": 315,
-     "name": "?sub_0046D310_AiType7@@YAXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0046D660",
-     "length": 226,
-     "name": "?sub_0046D660_AiFlagged@@YAXPAUD2UnitStrc@@0@Z"
     }
    ]
   },
