@@ -2,11 +2,12 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 2026, 14:20 PT): 0x4F8B80 matched and ready (lane6/004F8B80). The three field branches merged (#406-#408). Next: the renderers and D2Hell queue from lane 9, and my queues.md row.
+Status (Wed Nov 25 2026, 13:50 PT): 0x4F8B80 merged (#409). Taking the renderers and D2Hell queue from lane 9 next.
 
 ## Ready
 
-- **lane6/004F8B80** (81f84a7c3, on #408): **0x4F8B80 from source**, as CMNSUBTILE_DrawFloorTile in D2Gfx Window.cpp (it is slot pfDrawFloorTile of the tile draw helper table; the table's plan entry now names it and its untyped extern is gone). The Source/StandIns file is removed. Full build identical, **14,921 / 14,921 placed, borrowed code 9,457 B in 6 functions (was 10,018 B in 7)**, borrowed data 261 B, 0 not all equal; auditguard no count rose. Window.cpp now includes D2DrlgMaps.h for D2TileLibraryEntryStrc and defines D2GfxLightExStrc (12-byte cell, first byte the level).
+(nothing outstanding; 004F8B80 merged in #409)
+
 
 
 ## Questions
