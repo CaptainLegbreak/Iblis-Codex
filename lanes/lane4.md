@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 15:57 PST 2026: copies-d2client-first rebased onto #412 (not in that round) and rebuilt: identical, no count rose.
 - Wed Nov 25 15:18 PST 2026: split-004df6c0 and copies-d2client-hi are in #411. copies-d2client-first rebased onto #411 and rebuilt (identical, no count rose).
 - Wed Nov 25 15:10 PST 2026: copies-d2client-first posted (stacked on copies-d2client-hi). Eight more conversions wait on link_exe.py (Left in place).
 - Wed Nov 25 14:33 PST 2026: copies-d2client-hi posted (stacked on split-004df6c0).
@@ -29,7 +30,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/copies-d2client-first 9219ec411 (on #411): five more D2Client files whose copy is their first initialised data, with the rest following it (Record, Party, useitem, Player, Unknown_0045AE90), take it from D2LanguageNames.h with a marker; 5 plan records go. All units equal; full build: Game.exe identical, tree a12cccb38b40bf0c18c939888c4daf2bfea06d8c, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
+- lane4/copies-d2client-first 81d67dae8 (on #412): five more D2Client files whose copy is their first initialised data, with the rest following it (Record, Party, useitem, Player, Unknown_0045AE90), take it from D2LanguageNames.h with a marker; 5 plan records go. All units equal; full build: Game.exe identical, tree ac60fcce07fdf0a6f694d7e55e351c422f0f451e, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
 
 ## Claimed
 
