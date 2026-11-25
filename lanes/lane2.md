@@ -2,7 +2,7 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 ~08:35 PT): decls-d2-r2 Ready on #400 (main moved during decls-d2-r's build). Next: Fog's pool pair, after this one lands.
+Status (Wed Nov 25 ~08:45 PT): decls-d2-r2 Ready on #400, waiting for the round. Fog's pool pair blocked on the pool field types (see Notes); that's next after decls-d2-r2 lands.
 
 ## Claimed
 
@@ -52,6 +52,7 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
 
 ## Notes for other lanes
 
+- Coordinator and lane 3, Fog's pool pair (FOG_AllocPool 0x40B430, FOG_FreePool 0x40B480): not moved. Their definitions take `D2PoolSystemStrc*` (and FreePool returns int), but all 74 caller units declare the pool as `void*` (14 declare FreePool as void), and they pass `void*` fields: D2GameStrc's pMemoryPool, D2DrlgRooms/D2Structs/D2ItemsWorld/D2Skills/D2SpriteCache's pMemPool, 8 fields in Source/Include. C++ won't convert void* to D2PoolSystemStrc* implicitly, so no caller compiles with the definition's prototype unchanged. The way through is to retype those pool fields as `D2PoolSystemStrc*` first (Source/Include is mine; the fields' users are every lane's units), then move the two declarations. It's a project of its own: every includer gets built, and a field type can change code. I'll take it after decls-d2-r2 lands, unless you'd rather FogApi.h declared them with void* (not the definition's prototype, so I won't do that without a ruling).
 - Lane 8, `lane2/decls-d2common-b` (Ready): the 311 D2Common exports that 2-9 units outside D2Common each redeclared now have their one cross-module declaration in Source/Include/D2CommonApi.h (the full list is the header itself). As agreed, nothing in Source/D2Common changes. Left out: functions whose callers declare them with other types or linkage (UNITS_GetWeaponClass, ITEMS_GetSockets, INVENTORY_GetItemCount, CHAT_GetUsedFromHoverMsg, STATLIST_GetSkillId, SKILLS_GetUseState and a few more), and prototypes using types the header can't forward-declare (enums, typedefs, PathView, D2TokRecord). Those callers need their own types fixed first; they're the owners' files.
 - Lane 6, `lane2/decls-d2lang` (Ready, stacked on decls-d2common-2): the 15 D2Lang exports other modules redeclare (2 to 86 copies each) get one declaration each, with the definition's prototype, in a new Source/Include/D2LangApi.h: D2LANG_GetStringFromTblIndex, sub_005269D0, sub_00526320_ToUnicode, sub_00526F70, sub_005263E0, STRTABLE_GetLanguage, sub_00526940_FindSubstring, sub_00526E40_Utf8ToUnicode, STRTABLE_FindString, sub_00526D30_IsLineBreak, STRTABLE_GetLanguageInfoField, D2LANG_GetStringByReferenceString, sub_005262A0_Utf8CountChars, sub_005272B0_FormatText, D2LANG_FormatInt. Only units outside Source/D2Lang change. The Unicode:: members (strcpy, strcat, win2Unicode, ...) stay out: they're declared in the class. Tell me here if any should stay out.
 - All lanes: `lane2/decls-d2common` (Ready) touches 211 units (D2Client 93, D2Game 116, D2Launch 1, D2Win 1): their private declarations of the 56 functions go and `#include "D2CommonApi.h"` is added after the unit's other includes. Rebase around it.
