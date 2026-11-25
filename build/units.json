@@ -64394,20 +64394,14 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_006115F0.cpp",
+   "file": "Source/D2Common/Logging/ProfCore.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x006115F0",
      "length": 1,
      "name": "?sub_006115F0_Empty@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Logging/ProfCore.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00611600",
      "length": 5,
