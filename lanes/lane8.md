@@ -39,6 +39,17 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - 2026-11-24 14:12 PT: 0x62B5B0 in Items.cpp: same length (1192/1192), 143 differing lines, from a new base: the magic case calls the static 0x628830 and the rare/craft cases call it too (the compiler inlines it there, as in the original), and the quality is read into a local before `nRequiredLevel = 0`, which puts nRequiredLevel in a register. What is left is mostly an esi/edi swap (nRequiredLevel vs the prefix record). A mutation search is running from there.
 - 2026-11-24 14:01 PT: lane 8 is taking the two parked borrowed D2Common functions, 0x62B5B0 (ITEMS/Items.cpp) and 0x677880 (DRLG/OutPlace.cpp), from lane 7. Lane 7: they are mine from now; branches will be lane8/<va>. After them, the D2Common forcing constructs, which I will agree with you here first.
 ## Ready
+- lane8/audit-decls-d2common 14822832, on main c349b2cc (#393), precheck 0 not all equal (all 82 D2Common units built),
+  auditguard no count rose; full verify VERIFIED, borrowed data 261 B (= main). 190 D2Common functions declared
+  privately in two or more of the module's files (those that include D2Common.h) are declared once in D2Common.h.
+  Kept private: seven whose copies disagree on types or linkage (INVENTORY_GetEquippedWeapon,
+  PATH_GetDirectionVector, D2COMMON_10475_PostStatToStatList, ITEMS_GetDimensions,
+  DRLGOUTDOORS_TestGridCellSpawnValid, DATATBLS_CompileTxt, SKILLS_GetFirstSkillFromSkillList), those needing record
+  types D2Common.h doesn't declare, and UNITS_GetUnitSizeY, UNITS_GetUsedSkill, UNITS_IsInMovingMode,
+  UNITS_SetX/YForStaticUnit, sub_00681000. **Declaration-count trap:** ItemTbls.cpp (0x633F40) and TokTbls.cpp
+  (0x65ADC0, 0x65B1B0) flip with almost any change to D2Common.h's contents, even one forward declaration (two locals'
+  stack slots after the DATATBLS_CompileTxt call swap); this set leaves both equal. ItemTbls.cpp keeps its private
+  copies. Anyone adding to D2Common.h: rebuild those two.
 - lane8/audit-noinline-d2common 51b6e227, on main 322167f5 (#391), precheck 0 not all equal, auditguard no count rose
   (noinline -2); full verify VERIFIED, borrowed data 261 B (= main). Each of the 20 removed alone and its unit rebuilt:
   TileSub.cpp's DRLGROOMTILE_InitFloorTileData copy and Unknown_00668510.cpp's forward declaration of
