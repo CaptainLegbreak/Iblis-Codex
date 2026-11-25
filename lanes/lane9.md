@@ -134,6 +134,8 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   swaps esi and edi (pDst and the row counter in edi instead of esi; the source bits in esi). Tried and no change:
   while (nRows--), for up/down, do/while, int rows, declaration orders, the width as ?: / if / one expression, the
   source bits set late, char* bits, increments swapped, inverted lock tests. Still a forcing construct.
+- **Lane 9 is on standby (the user's call).** Its queue is done apart from 0x6B38A0 and the kept emit/noinline
+  helpers (matching work) and the parked items above. It will still rebase and repost its posted branches if you ask.
 - **Handover, initializer slots outside lane 9** (lane 9 stops here; these are the owners'):
   - 0x6CAC10 gnTextLeft = (gnScreenWidth - 325) / 2 (bss 0x7BF278, slot between inv's and QuestLog's): lane 1. In
     UI/text_0049A950.cpp it builds equal but raises borrowed data by 4 B, so that's probably not its object; the
