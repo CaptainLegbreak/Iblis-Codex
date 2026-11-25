@@ -7,6 +7,8 @@
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
 #include "D2GameTypes.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x0073E810
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -247,3 +249,5 @@ void __fastcall ACT3Q0_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfActiveFilter = ACT3Q0_ActiveFilterCallback;
 }
 
+
+#include "gen/data/Source/D2Game/Quests/a3q0.inc"
