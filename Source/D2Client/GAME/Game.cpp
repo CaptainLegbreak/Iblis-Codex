@@ -619,7 +619,6 @@ struct D2StormListArrayStrc
     unsigned int m_chunk;
 
     D2StormListAStrc* sub_0044DE10_At(unsigned int nIndex);
-    unsigned int sub_0044DF30_CalcChunkSize(unsigned int nCount);
 };
 
 struct D2StormHashTableStrc
@@ -3159,20 +3158,6 @@ void __fastcall sub_0044DF20_InitTerminator(D2StormListStrc* pList)
 {
     pList->m_terminator.m_prevlink = &pList->m_terminator;
     pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-// 0x0044DF30
-unsigned int D2StormListArrayStrc::sub_0044DF30_CalcChunkSize(unsigned int nCount)
-{
-    if (nCount < 0x15)
-    {
-        unsigned int nResult = nCount;
-        while (nResult & (nResult - 1))
-            nResult &= nResult - 1;
-        return nResult < 1 ? 1 : nResult;
-    }
-    m_chunk = 0x15;
-    return 0x15;
 }
 
 // 0x0044DF70

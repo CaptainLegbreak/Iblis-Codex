@@ -10243,7 +10243,7 @@
     {
      "va": "0x0044DF30",
      "length": 57,
-     "name": "sub_0044DF30_CalcChunkSize"
+     "name": "?CalcChunkSize@?$TSGrowableArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAEII@Z"
     },
     {
      "va": "0x0044DF70",
