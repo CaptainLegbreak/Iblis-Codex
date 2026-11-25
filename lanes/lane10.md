@@ -5,6 +5,15 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Ready
+- Rebased onto #380 as the board asked, each with a full verify (Game.exe matches):
+  - lane10/names-fileprefix-d2bnclient-2 4c086a74a (17 renames) replaces names-fileprefix-d2bnclient. VERIFIED f6ea7ee4.
+  - lane10/names-rendslots-all-2 70ffbaa06 (39) replaces names-rendslots-all. VERIFIED b61ef601.
+  - lane10/names-seq-extra-2 afe180198 (6) replaces names-seq-extra. VERIFIED 71af7410.
+  - lane10/names-prefixfix-d2client-7 a57be9e05 (155; 0x004AA8F0 left out, its unit failed with the new name) replaces names-prefixfix-d2client-6. VERIFIED 6d3f9055.
+  - lane10/bn-crypt-records-r2 f2e99b9aa replaces bn-crypt-records-r: Bnclient/Unknown_00521DC0.cpp keeps #378's removal of D2CipherKeyStringView. VERIFIED 819a21f0.
+  - files-storm-4 is withdrawn, not rebuilt: lane 9's crt-xcu-owners already placed those caption initializers, and Storm's initializer placeholders are lane 9's queue now.
+  - names-fileprefix-d2cmp waits for lane4/join-game-f9b0 (it deletes Unknown_0044F9B0.cpp, where some of those renames are); I rebuild it on main once that merges.
+  - Dropped as the board said: drlg-outdoor-r, emit-helpers-r (merged or superseded), skillsbar-head-r (duplicate of lane 1's).
 - Weak join batch (claimed in Notes), each on main #377 with a full verify, Game.exe matches:
   - lane10/files-d2lang-w b91ed47c: StrTable/strtable.cpp takes Unknown_005271A0.cpp (EndsWithCharOf, FormatText). VERIFIED b43bf379.
   - lane10/files-d2bnclient-w 7800cbfb: BnDownload.cpp takes Unknown_00518C30.cpp (uses gtBnLogLock, which only BnDownload.cpp defines). VERIFIED c6ae85cb.
@@ -12,23 +21,12 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
   - lane10/files-storm-w edd150d1: SOURCE/SEVT.CPP takes Unknown_00426900.cpp (uses gtSEvtLock). VERIFIED 3c96753d.
   - lane10/files-d2client-w fd653c36: UI/inv.cpp takes Unknown_00477760.cpp. VERIFIED 139ae7ce.
   Not joined by the tool: D2Game 005FD470 (not equal); Storm 0041D880, 0041E9C0, 00420220 (compile), 00421110 (SSignature.cpp still has bodiless functions); D2Client 00451E70, 004ADD90, 004DCAA0, 004E2320, 004E85C0, 004EDA80, 004F1430 (compile), 004DC7B0 (not equal). Trying these next with the declaration helper and by hand.
-- Lanes 1-6 are inactive (user, 20:03), so lane 10 rebased the four stale branches the board asked them to rebase onto #377, under lane 10 names, each with namesync, precheck and a full verify (Game.exe matches):
-  - lane10/emit-helpers-r 160dfc6f replaces lane5/emit-helpers: the two conflicts (MonsterMsg.cpp, SUnitDmg.cpp) were renamed lines inside helpers the branch deletes. VERIFIED 309e22dd.
-  - lane10/skillsbar-head-r 0c6e8dd2 replaces lane1/skillsbar-head-2: SkillsBar.cpp takes 0x4C80D0 with main's names (DRLG_GetDistanceToXY and its build: symbol line); docs/index.html kept as main. VERIFIED f7997676.
-  - lane10/drlg-outdoor-r 1b93a63e replaces lane2/drlg-outdoor: its first commit is on main already (dead-records-d2common), skipped; Outdoors.cpp takes DRLGTILESUB_ApplySubstitutionBorder. VERIFIED f8421817.
-  - lane10/bn-crypt-records-r dce19fbd replaces lane2/bn-crypt-records: Unknown_0051C760.cpp is gone on main (in BnSend.cpp), and D2Net Server.cpp's own D2PacketBufferStrc copy goes too, since it now includes the shared one. VERIFIED fd696aeb.
-  files-storm-3 and names-prefixfix-d2client-5 were already remade as files-storm-4 and names-prefixfix-d2client-6.
 - lane10/names-missile-accessors 4d979a74: the 14 D2Common missile accessors at 0x0064A190-0x0064A6F0 become D2MOO's MISSILE_GetFlags … MISSILE_GetStream, rewritten to take D2UnitStrc* like MISSILE_SetFlags, so they match the declarations D2Game.h already has (the reason seq-all left them out). Callers in other modules keep their sub_ spellings until namesync. On main #377. VERIFIED 933bed5c, Game.exe matches.
 
-- lane10/names-seq-extra 23d4f75: seq-extra plan, 6 renames applied, none dropped. VERIFIED fb55469b on base f0f40e42, Game.exe matches.
-- lane10/names-prefixfix-d2client-6 4891409: the prefixfix-d2client plan remade on current main (conflicted on SCmd.cpp and npcmenu.cpp), 155 renames. VERIFIED fc2699c5, Game.exe matches. Replaces names-prefixfix-d2client-5, which can be deleted.
-- lane10/files-storm-4 d34c6f7 replaces files-storm-3 (conflicted on Storm/Unknown_006CAE80.cpp): rebuilt on current main, where Storm/Unknown_006CAE80.cpp is already gone; it now joins Storm/Unknown_006C9A68.cpp (5 end-of-.text initializers of the caption strings) into D2Client/CORE/WINMAIN.CPP, which defines those globals. VERIFIED a0de2523, Game.exe matches. files-storm-3 can be deleted.
 - lane10/names-seq-all 4e87c42: seq-all plan, 9 renames applied; dropped 0x00554100, 0x00627EF0, 0x006488A0, 0x0064A190, 0x0064A210, 0x0064A280, 0x0064A300, 0x0064A380, 0x0064A3B0, 0x0064A3E0, 0x0064A4E0, 0x0064A510, 0x0064A540, 0x0064A570, 0x0064A640, 0x0064A6D0, 0x0064A6F0. VERIFIED 21b57484 on base f0f40e42, Game.exe matches.
-- lane10/names-rendslots-all cc06681: rendslots-all plan, 39 renames applied, none dropped. VERIFIED 3429ef96 on base f0f40e42, Game.exe matches.
 - lane10/names-fileprefix-small 0a16e37: fileprefix-small plan, 15 renames applied, none dropped. VERIFIED 0efdd876 on base f0f40e42, Game.exe matches.
 - lane10/names-fileprefix-d2ddraw 59d7db4: fileprefix-d2ddraw plan, 2 renames applied, none dropped. VERIFIED 4ed58210 on base f0f40e42, Game.exe matches.
 - lane10/names-fileprefix-d2launch 8fa1f8b: fileprefix-d2launch plan, 10 renames applied, none dropped. VERIFIED e48dd105 on base 876e8241, Game.exe matches.
-- lane10/names-fileprefix-d2bnclient 391f1b1: fileprefix-d2bnclient plan, 17 renames applied, none dropped. VERIFIED c6e5f7df on base 876e8241, Game.exe matches.
 - lane10/names-fileprefix-d2cmp ad8acc3: fileprefix-d2cmp plan, 17 renames applied, none dropped. VERIFIED 57be26b1 on base 876e8241, Game.exe matches.
 - lane10/names-fileprefix-d2gdi 245b3f4: fileprefix-d2gdi plan, 18 renames applied, none dropped. VERIFIED d44a65d7 on base 5cc54de8, Game.exe matches.
 - lane10/names-fileprefix-d2direct3d 65c7e0e: fileprefix-d2direct3d plan, 20 renames applied, none dropped. VERIFIED 1269dfc0 on base 5cc54de8, Game.exe matches.
@@ -123,6 +121,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 - 0x4A4AD0 (claimed earlier, parked again): marked in Unknown_004A43E0.cpp on #337 it is still 1,202/1,232. Twenty-four more variants (const/plain, declare-then-assign, nested first test, TEXT_IsOnlyPressed instead of the inline loop, block-0 operand order) give only 1,202 or 1,210. What the listing says: the original keeps nY in ebx until the first helper returns and copies it to edi, keeps bInList only in its frame slot, and holds bPageDown in ebx for the all-clear test while also storing it to its slot; from then on it swaps ebx/esi against ours (the GetTickCount pointer in esi, the first visible line in ebx) and reads gbRedraw fresh in the button block instead of reusing edi. Every later difference (loop-top padding included) follows from that one allocation, so the 30 bytes are not missing code. Free for anyone with a better lever.
 
 ## Plans
+- plan strip6f (audit-379 item, lane 10's first): 328 names in names.csv lose their 1.10 DLL address suffix (_6Fxxxxxx), rest kept. strip6f-skipped.tsv has 23: 11 placeholders (sub_6Fxxxxxx; seq-extra names these) and 12 where two functions would take the same name (D2GAME_PACKETS_SendPacket0x67/0x68, D2GAME_RemoveItem, D2GAME_STORES_CreateVendorCache, D2GAME_AI_SpecialState11, D2Win_COMMANDS_Control…), which need a real distinguishing name. Applying it now as lane10/names-strip6f.
 - More field plans: fields-D2ClientUi.tsv (5 rows): D2ClientNotifyStrc is BnClientInterface too (0x24 BnMessQueue_Read, 0x34 RefreshGame and 0x90 SendKeepAlivePacket agree), its four unk arrays split into the named slots, and it is the same interface as D2LaunchFuncsStrc; D2ClientDialogStrc 0x18 bConsumeKeys (the dialog key handler swallows every other key when it is 1). fields-D2Structs.tsv (1 row): D2CorpseStrc 0x00 bCounted. Checked the remaining headers' unk fields against D2MOO by offset (D2LevelTxt, D2GameTypes, D2WinTypes, D2ItemsWorld, D2Path…): D2MOO calls them pad or unk as well, and most are never read, so they stay.
 - New field plans (queue item 5), for lane 2 to apply:
   - fields-D2MultiTypes.tsv (37 rows): D2ConfigStrc's unnamed bytes from D2MOO's D2ConfigStrc (pack 1), whose 1.14d offsets agree with every named field here (bCrashApp 0x04, bInvincible 0x8C, bNoMonsters 0x1F1, the monster/rare/unique block 0x1F2-0x1FE, nArenaTemplate 0x20D, bCheats/bTeen 0x21E, bQuests 0x221; szGamePassword[24] 0x245 and szGameStatstring[256] 0x25D absorb the unk pieces inside them). D2LaunchFuncsStrc is D2MOO's BnClientInterface slot for slot: its unk arrays split into the named pointers, and the pfn0xNN slots take D2MOO's names where the argument lists agree. Split and merge rows say so in new.
