@@ -4,6 +4,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2LanguageNames.h"
+#include "FogApi.h"
 // build: symbol _gaszLanguageNames 0x00731F74
 
 struct D2PlayerListStrc;
@@ -210,9 +211,7 @@ typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
@@ -260,7 +259,7 @@ unsigned short __fastcall PLAYERLIST_GetFlags(D2UnitStrc* pPlayer1, D2UnitStrc* 
 }
 
 // 0x0055B3A0
-void __fastcall PLAYERLIST_SetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3)
+void __fastcall PLAYERLIST_SetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nPartyState)
 {
     D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
     if (pPlayer1 == pPlayer2 || !pPlayerList)
@@ -268,7 +267,7 @@ void __fastcall PLAYERLIST_SetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlay
         return;
     }
 
-    pPlayerList->field_C = a3;
+    pPlayerList->field_C = nPartyState;
 }
 
 // 0x0055B3F0
@@ -341,12 +340,12 @@ int __fastcall PLAYERLIST_GetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPla
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 // 0x0055B720
-void __fastcall PLAYERLIST_SetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3)
+void __fastcall PLAYERLIST_SetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nHostileDelayEndTick)
 {
     D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
     if (pPlayerList)
     {
-        pPlayerList->field_8 = a3;
+        pPlayerList->field_8 = nHostileDelayEndTick;
     }
 
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer1);

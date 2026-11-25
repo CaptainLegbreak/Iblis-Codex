@@ -12,6 +12,7 @@
 #include "D2ClientTypes.h"
 #include "D2PlayerModes.h"
 #include "D2Drlg.h"
+#include "FogApi.h"
 
 struct D2SkillStrc;
 
@@ -59,7 +60,6 @@ static inline void PLAYER_ReleaseRoomLight(D2UnitStrc* pUnit); // 0x00460FF0
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
@@ -176,9 +176,7 @@ void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, in
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

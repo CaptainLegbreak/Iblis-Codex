@@ -19,6 +19,7 @@
 #include "D2LanguageNames.h"
 #include "D2BookDataTbl.h"
 #include "D2ItemDataTbl.h"
+#include "FogApi.h"
 
 struct D2ItemUnkStrc
 {
@@ -54,9 +55,7 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoo
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -2954,7 +2953,7 @@ D2UnitStrc* __fastcall ITEMS_DropGoldAtCoordinates(D2GameStrc* pGame, D2ActiveRo
 }
 
 // 0x005594C0
-D2UnitStrc* __fastcall D2GAME_DropArmor_6FC4F830(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int a4, int a5, D2UnitStrc* pUnit)
+D2UnitStrc* __fastcall D2GAME_DropArmor_6FC4F830(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int nItemType, int bIgnoreRarity, D2UnitStrc* pUnit)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     int nItemLevel = DATATBLS_GetMonsterLevelInArea(nLevelId, pGame->nDifficulty, pGame->bExpansion);
@@ -2965,7 +2964,7 @@ D2UnitStrc* __fastcall D2GAME_DropArmor_6FC4F830(D2GameStrc* pGame, D2ActiveRoom
 
     D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;
 
-    const int nItemId = ITEMMODE_SelectRandomArmorItemId(pGame, pSeed, nItemLevel, a4, a5);
+    const int nItemId = ITEMMODE_SelectRandomArmorItemId(pGame, pSeed, nItemLevel, nItemType, bIgnoreRarity);
     D2CoordStrc coords1;
     D2CoordStrc coords2;
     if (nItemId >= 0)
@@ -3003,7 +3002,7 @@ D2UnitStrc* __fastcall D2GAME_DropArmor_6FC4F830(D2GameStrc* pGame, D2ActiveRoom
 }
 
 // 0x00559630
-D2UnitStrc* __fastcall D2GAME_DropWeapon_6FC4FA50(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int a4, int a5, D2UnitStrc* pUnit)
+D2UnitStrc* __fastcall D2GAME_DropWeapon_6FC4FA50(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int nItemType, int bIgnoreRarity, D2UnitStrc* pUnit)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     int nItemLevel = DATATBLS_GetMonsterLevelInArea(nLevelId, pGame->nDifficulty, pGame->bExpansion);
@@ -3017,7 +3016,7 @@ D2UnitStrc* __fastcall D2GAME_DropWeapon_6FC4FA50(D2GameStrc* pGame, D2ActiveRoo
     int nItemId = -1;
     for (int i = 0; i < 6; ++i)
     {
-        nItemId = ITEMMODE_SelectRandomWeaponItemId(pGame, pSeed, nItemLevel, a4, a5);
+        nItemId = ITEMMODE_SelectRandomWeaponItemId(pGame, pSeed, nItemLevel, nItemType, bIgnoreRarity);
         if (nItemId >= 0 && ITEMS_IsMetalItem(nItemId))
         {
             break;
@@ -3268,7 +3267,7 @@ D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDro
 }
 
 // 0x00559830
-D2UnitStrc* __fastcall ITEMS_DropMiscItemAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int a4, int a5, D2UnitStrc* pUnit)
+D2UnitStrc* __fastcall ITEMS_DropMiscItemAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int nItemType, int bIgnoreRarity, D2UnitStrc* pUnit)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     int nItemLevel;
@@ -3293,7 +3292,7 @@ D2UnitStrc* __fastcall ITEMS_DropMiscItemAtCoordinates(D2GameStrc* pGame, D2Acti
         bIsMonster = 1;
     }
 
-    const int nItemId = ITEMMODE_SelectRandomMiscItemId(pGame, pSeed, nItemLevel, a4, a5, bIsMonster);
+    const int nItemId = ITEMMODE_SelectRandomMiscItemId(pGame, pSeed, nItemLevel, nItemType, bIgnoreRarity, bIsMonster);
 
     D2CoordStrc coords1;
     D2CoordStrc coords2;

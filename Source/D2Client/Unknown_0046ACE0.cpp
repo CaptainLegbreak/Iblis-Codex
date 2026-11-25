@@ -14,6 +14,7 @@
 #include "D2LevelTxt.h"
 #include "D2ClientUiRecords.h"
 #include "D2WinSplitText.h"
+#include "FogApi.h"
 
 #define LEVEL_EFFECT_TICKS 30
 #define THRONE_MISSILE 0x27F
@@ -73,8 +74,6 @@ extern int gbChaosLightEvent; // 0x007A7460
 extern int gnTimerEnd; // 0x007A7464
 extern int gbThroneEventPending; // 0x007A7468
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __stdcall sub_0046AF70(D2ActiveRoomStrc* pRoom); // 0x0046AF70
 void __cdecl sub_0046AD10_UpdateTimedBox(); // 0x0046AD10

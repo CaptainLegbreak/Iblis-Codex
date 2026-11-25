@@ -14,6 +14,7 @@
 
 #include "D2BnCryptTypes.h"
 #include "D2BnMessages.h"
+#include "FogApi.h"
 
 static int BNDOWNLOAD_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize); // 0x00520A80
 
@@ -37,7 +38,6 @@ struct D2BnDownloadRecordStrc;
 
 struct D2BnDownloadReplyStrc;
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -566,7 +566,6 @@ void __fastcall BNDOWNLOAD_DecodeKeyDigits(const char* szKey, unsigned char* pOu
 
 void __stdcall BNDOWNLOAD_SubstituteKeyNibbles(unsigned int* pKey); // 0x00522980
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
 void __fastcall sub_00524280_InitHashContext(int nIndex); // 0x00524280
 
@@ -1995,6 +1994,12 @@ extern "C" int __fastcall BNDOWNLOAD_GetReplyValue(unsigned char nSlot)
     return ganSlotArrayB[nSlot];
 }
 
+// 0x00520C40
+int __cdecl sub_00520C40()
+{
+    return 1;
+}
+
 // 0x00520C50
 int __fastcall BNDOWNLOAD_HandleCreateAccount(const int* pData, unsigned int nSize)
 {
@@ -2183,6 +2188,12 @@ int __fastcall BNDOWNLOAD_HandleGetChannelList(const void* pData, unsigned int n
 int __fastcall BNDOWNLOAD_HandleGetAdvListEx(const void* pData, unsigned int nSize)
 {
     BNSEND_SetGamesList(pData, nSize);
+    return 1;
+}
+
+// 0x005210E0
+int __cdecl sub_005210E0()
+{
     return 1;
 }
 

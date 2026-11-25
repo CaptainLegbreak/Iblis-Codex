@@ -8876,19 +8876,51 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0042DCA0.cpp",
+   "file": "Source/Storm/zlib/inffast.c",
    "rank": 0,
    "functions": [
     {
      "va": "0x0042DCA0",
      "length": 1144,
      "name": "?inflate_fast@@YIXPAUz_stream@@I@Z"
-    },
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd"
+   ]
+  },
+  {
+   "file": "Source/Storm/zlib/inftrees.c",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x0042E120",
      "length": 1133,
      "name": "?inflate_table@@YIHW4codetype@@PAGIPAPAUcode@@PAI1@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd"
    ]
   },
   {
@@ -31573,128 +31605,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/SkillDesc_004EA010.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004EA010",
-     "length": 346
-    },
-    {
-     "va": "0x004EA4A0",
-     "length": 744
-    },
-    {
-     "va": "0x004EAAA0",
-     "length": 702
-    },
-    {
-     "va": "0x004EC090",
-     "length": 173,
-     "name": "?SKILLDESC_AddSummonLife@@YGXPAUUnicode@@HHH@Z"
-    },
-    {
-     "va": "0x004EC2E0",
-     "length": 554,
-     "name": "?SKILLDESC_AddPhysDamage@@YGHPAUD2UnitStrc@@PAUUnicode@@HHHH@Z"
-    },
-    {
-     "va": "0x004EC510",
-     "length": 33,
-     "name": "?SKILLDESC_AddToHit@@YAHHHPAUD2UnitStrc@@PAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004EC540",
-     "length": 223,
-     "name": "?SKILLDESC_AddElemRatePerSecond@@YGHGHHPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004EC7E0",
-     "length": 279,
-     "name": "?SKILLDESC_AddValueLine@@YGHGHHHGPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004EC900",
-     "length": 247,
-     "name": "?SKILLDESC_AddDecimalLine@@YGHGHHHHGPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004ECA00",
-     "length": 268,
-     "name": "?SKILLDESC_AddValueOverTime@@YGHGHHHGPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004ECB10",
-     "length": 110,
-     "name": "?SKILLDESC_AddTextPair@@YAHGGPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004ECB80",
-     "length": 243,
-     "name": "?SKILLDESC_AddValueAfterText@@YGHGHHHGPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004ECC80",
-     "length": 108,
-     "name": "?SKILLDESC_AddFormattedText@@YGHHGPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004ED0D0",
-     "length": 126,
-     "name": "?SKILLDESC_AddNextLevelParam@@YAHHHPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004EDB30",
-     "length": 252,
-     "name": "?SKILLDESC_AddSeconds@@YGHGHHPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004EDC30",
-     "length": 9,
-     "name": "?SKILLDESC_AddSecondsPlus@@YAHGHPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004EDC40",
-     "length": 91,
-     "name": "?SKILLDESC_AddElemDuration@@YGHPAUUnicode@@PAUD2SkillsTxt@@HHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004EEF00",
-     "length": 1288
-    },
-    {
-     "va": "0x004EF410",
-     "length": 1403
-    },
-    {
-     "va": "0x004EFDF0",
-     "length": 607
-    },
-    {
-     "va": "0x004F0050",
-     "length": 264
-    },
-    {
-     "va": "0x004F0F10",
-     "length": 27
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/SkillDesc_004EAE70.cpp",
    "rank": 1,
    "functions": [
@@ -31984,6 +31894,10 @@
      "name": "?SKILLDESC_DrawWeaponAndSkillDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
+     "va": "0x004EA010",
+     "length": 346
+    },
+    {
      "va": "0x004EA170",
      "length": 207,
      "name": "?SKILLDESC_DrawDualWieldLine@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
@@ -32003,6 +31917,10 @@
      "length": 80
     },
     {
+     "va": "0x004EA4A0",
+     "length": 744
+    },
+    {
      "va": "0x004EA790",
      "length": 512,
      "name": "?SKILLDESC_DrawWeaponStatDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
@@ -32015,6 +31933,10 @@
      "va": "0x004EAA30",
      "length": 104,
      "name": "?SKILLDESC_DrawOtherHandDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+    },
+    {
+     "va": "0x004EAAA0",
+     "length": 702
     },
     {
      "va": "0x004EAD60",
@@ -32063,6 +31985,11 @@
      "length": 741
     },
     {
+     "va": "0x004EC090",
+     "length": 173,
+     "name": "?SKILLDESC_AddSummonLife@@YGXPAUUnicode@@HHH@Z"
+    },
+    {
      "va": "0x004EC140",
      "length": 212,
      "name": "?SKILLDESC_AddElemRange@@YGHHGHPAUUnicode@@H@Z"
@@ -32077,6 +32004,21 @@
      "length": 90
     },
     {
+     "va": "0x004EC2E0",
+     "length": 554,
+     "name": "?SKILLDESC_AddPhysDamage@@YGHPAUD2UnitStrc@@PAUUnicode@@HHHH@Z"
+    },
+    {
+     "va": "0x004EC510",
+     "length": 33,
+     "name": "?SKILLDESC_AddToHit@@YAHHHPAUD2UnitStrc@@PAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004EC540",
+     "length": 223,
+     "name": "?SKILLDESC_AddElemRatePerSecond@@YGHGHHPAUUnicode@@@Z"
+    },
+    {
      "va": "0x004EC620",
      "length": 200,
      "name": "?SKILLDESC_AddMissileElemRate@@YGHPAUD2UnitStrc@@PAUUnicode@@PAUD2SkillsTxt@@HH@Z"
@@ -32087,12 +32029,47 @@
      "name": "?SKILLDESC_AddSkillElemRateByType@@YGHPAUUnicode@@PAUD2SkillsTxt@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004EC7E0",
+     "length": 279,
+     "name": "?SKILLDESC_AddValueLine@@YGHGHHHGPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004EC900",
+     "length": 247,
+     "name": "?SKILLDESC_AddDecimalLine@@YGHGHHHHGPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004ECA00",
+     "length": 268,
+     "name": "?SKILLDESC_AddValueOverTime@@YGHGHHHGPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004ECB10",
+     "length": 110,
+     "name": "?SKILLDESC_AddTextPair@@YAHGGPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004ECB80",
+     "length": 243,
+     "name": "?SKILLDESC_AddValueAfterText@@YGHGHHHGPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004ECC80",
+     "length": 108,
+     "name": "?SKILLDESC_AddFormattedText@@YGHHGPAUUnicode@@@Z"
+    },
+    {
      "va": "0x004ECCF0",
      "length": 596
     },
     {
      "va": "0x004ECF50",
      "length": 382
+    },
+    {
+     "va": "0x004ED0D0",
+     "length": 126,
+     "name": "?SKILLDESC_AddNextLevelParam@@YAHHHPAUUnicode@@@Z"
     },
     {
      "va": "0x004ED480",
@@ -32111,6 +32088,55 @@
      "va": "0x004EDA80",
      "length": 171,
      "name": "SKILLDESC_CallSkillDescFunc"
+    },
+    {
+     "va": "0x004EDB30",
+     "length": 252,
+     "name": "?SKILLDESC_AddSeconds@@YGHGHHPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004EDC30",
+     "length": 9,
+     "name": "?SKILLDESC_AddSecondsPlus@@YAHGHPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004EDC40",
+     "length": 91,
+     "name": "?SKILLDESC_AddElemDuration@@YGHPAUUnicode@@PAUD2SkillsTxt@@HHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004EDDD0",
+     "length": 195,
+     "name": "?sub_004EDDD0_AddAttackInfo@@YGHPAUUnicode@@HPAUD2SkillsTxt@@PAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004EDEA0",
+     "length": 4180
+    },
+    {
+     "va": "0x004EEF00",
+     "length": 1288
+    },
+    {
+     "va": "0x004EF410",
+     "length": 1403
+    },
+    {
+     "va": "0x004EF990",
+     "length": 644,
+     "name": "?sub_004EF990_SetSkillPopUpText@@YIXPAUD2UnitStrc@@HHHHHH@Z"
+    },
+    {
+     "va": "0x004EFDF0",
+     "length": 607
+    },
+    {
+     "va": "0x004F0050",
+     "length": 264
+    },
+    {
+     "va": "0x004F0F10",
+     "length": 27
     },
     {
      "va": "0x004F16F0",
@@ -32232,36 +32258,6 @@
     {
      "va": "0x004EDCA0",
      "length": 289
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004EDDD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004EDDD0",
-     "length": 195,
-     "name": "?sub_004EDDD0_AddAttackInfo@@YGHPAUUnicode@@HPAUD2SkillsTxt@@PAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004EF990",
-     "length": 644,
-     "name": "?sub_004EF990_SetSkillPopUpText@@YIXPAUD2UnitStrc@@HHHHHH@Z"
     }
    ],
    "flags": [
@@ -32421,10 +32417,6 @@
    "file": "Source/D2Client/UI/SkillDesc_004F30A0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004EDEA0",
-     "length": 4180
-    },
     {
      "va": "0x004F30A0",
      "length": 249,
@@ -34247,16 +34239,6 @@
      "va": "0x004FD770",
      "length": 168,
      "name": "IMAGE_Create"
-    },
-    {
-     "va": "0x00506DA0",
-     "length": 82,
-     "name": "WREGISTER_RegisterCommands"
-    },
-    {
-     "va": "0x00506E00",
-     "length": 82,
-     "name": "WREGISTER_UnregisterCommands"
     }
    ]
   },
@@ -35151,16 +35133,6 @@
      "va": "0x005069F0",
      "length": 72,
      "name": "SMACK_SetCoordinates"
-    },
-    {
-     "va": "0x00506C40",
-     "length": 168,
-     "name": "WREGISTER_RegisterCommand"
-    },
-    {
-     "va": "0x00506CF0",
-     "length": 168,
-     "name": "WREGISTER_UnregisterCommand"
     }
    ],
    "flags": [
@@ -35205,6 +35177,32 @@
     {
      "va": "0x00506B70",
      "length": 193
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Win/Unknown_00506C40.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00506C40",
+     "length": 168,
+     "name": "WREGISTER_RegisterCommand"
+    },
+    {
+     "va": "0x00506CF0",
+     "length": 168,
+     "name": "WREGISTER_UnregisterCommand"
+    },
+    {
+     "va": "0x00506DA0",
+     "length": 82,
+     "name": "WREGISTER_RegisterCommands"
+    },
+    {
+     "va": "0x00506E00",
+     "length": 82,
+     "name": "WREGISTER_UnregisterCommands"
     }
    ]
   },
@@ -37746,6 +37744,11 @@
      "name": "@BNDOWNLOAD_GetReplyValue@4"
     },
     {
+     "va": "0x00520C40",
+     "length": 6,
+     "name": "sub_00520C40"
+    },
+    {
      "va": "0x00520C50",
      "length": 13,
      "name": "?BNDOWNLOAD_HandleCreateAccount@@YIHPBHI@Z"
@@ -37807,6 +37810,11 @@
      "va": "0x005210D0",
      "length": 11,
      "name": "?BNDOWNLOAD_HandleGetAdvListEx@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005210E0",
+     "length": 6,
+     "name": "sub_005210E0"
     },
     {
      "va": "0x005210F0",
@@ -38609,6 +38617,11 @@
      "name": "?BNSEND_SetInfoText@@YIHPBD@Z"
     },
     {
+     "va": "0x00520650",
+     "length": 6,
+     "name": "sub_00520650"
+    },
+    {
      "va": "0x00521B00",
      "length": 56,
      "name": "BNSEND_DispatchPacket"
@@ -38652,6 +38665,11 @@
      "va": "0x005224C0",
      "length": 17,
      "name": "?BNSEND_CheckServerProof@@YIHPBE@Z"
+    },
+    {
+     "va": "0x005224E0",
+     "length": 6,
+     "name": "GAME_GetLoginRetryCount"
     },
     {
      "va": "0x005224F0",
@@ -38911,11 +38929,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00520650",
-     "length": 6,
-     "name": "sub_00520650"
-    },
-    {
      "va": "0x00520AE0",
      "length": 6,
      "name": "GAME_GetAbortFlag"
@@ -38939,31 +38952,6 @@
      "va": "0x00520B20",
      "length": 6,
      "name": "GAME_GetChangePasswordResult"
-    },
-    {
-     "va": "0x00520C40",
-     "length": 6,
-     "name": "sub_00520C40"
-    },
-    {
-     "va": "0x005210E0",
-     "length": 6,
-     "name": "sub_005210E0"
-    },
-    {
-     "va": "0x005224E0",
-     "length": 6,
-     "name": "GAME_GetLoginRetryCount"
-    },
-    {
-     "va": "0x00523A00",
-     "length": 6,
-     "name": "GAME_GetExeHash"
-    },
-    {
-     "va": "0x00523AA0",
-     "length": 6,
-     "name": "GAME_GetExeInfo"
     },
     {
      "va": "0x0052A600",
@@ -39857,8 +39845,18 @@
      "length": 51
     },
     {
+     "va": "0x00523A00",
+     "length": 6,
+     "name": "GAME_GetExeHash"
+    },
+    {
      "va": "0x00523A10",
      "length": 143
+    },
+    {
+     "va": "0x00523AA0",
+     "length": 6,
+     "name": "GAME_GetExeInfo"
     },
     {
      "va": "0x00523AB0",
@@ -59709,22 +59707,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005CD910.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005CDF10",
-     "length": 160,
-     "name": "?sub_005CDF10@@YIHPAUGame@@PAUUnit@@HH@Z"
-    },
-    {
-     "va": "0x005CDFB0",
-     "length": 249,
-     "name": "?sub_005CDFB0@@YIHPAUGame@@PAUUnit@@HH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/SKILLS/SkillMonst.cpp",
    "rank": 0,
    "functions": [
@@ -59965,6 +59947,16 @@
      "va": "0x005CDF00",
      "length": 16,
      "name": "?SKILLS_HasTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CDF10",
+     "length": 160,
+     "name": "?sub_005CDF10@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CDFB0",
+     "length": 249,
+     "name": "?sub_005CDFB0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CE0B0",

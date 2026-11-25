@@ -5,6 +5,7 @@
 #include "D2GameTypes.h"
 #include "D2Constants.h"
 #include "D2LanguageNames.h"
+#include "FogApi.h"
 // build: symbol _gaszLanguageNames 0x00736160
 
 #define UNIT_MONSTER 1
@@ -137,9 +138,7 @@ extern const char gszAiGeneralSourceFile[]; // 0x006E1B24
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
@@ -721,7 +720,7 @@ void __fastcall AIGENERAL_FreeAllMinionLists(D2GameStrc* pGame, D2MinionListStrc
 }
 
 // 0x0058F380
-void __fastcall AIGENERAL_ExecuteCallbackOnMinions(D2UnitStrc* pUnit, void* a2, void* a3, void(__fastcall* pfnParty)(D2UnitStrc*, void*, void*))
+void __fastcall AIGENERAL_ExecuteCallbackOnMinions(D2UnitStrc* pUnit, void* pCallbackArg1, void* pCallbackArg2, void(__fastcall* pfnParty)(D2UnitStrc*, void*, void*))
 {
     D2_ASSERT(!IsBadCodePtr((FARPROC)pfnParty), 590);
 
@@ -747,7 +746,7 @@ void __fastcall AIGENERAL_ExecuteCallbackOnMinions(D2UnitStrc* pUnit, void* a2, 
         D2UnitStrc* pMinion = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, pMinionList->dwMinionGUID);
         if (pMinion)
         {
-            pfnParty(pMinion, a2, a3);
+            pfnParty(pMinion, pCallbackArg1, pCallbackArg2);
         }
         pMinionList = pNext;
     }

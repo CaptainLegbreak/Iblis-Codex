@@ -4,6 +4,7 @@
 #include "D2StormTypes.h"
 #include "D2ListBoxLine.h"
 #include "D2ClientTextPanel.h"
+#include "FogApi.h"
 
 class UIWidget;
 class ListBoxImplementation;
@@ -41,9 +42,7 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

@@ -1,4 +1,5 @@
 #include "D2CmpTypes.h"
+#include "FogApi.h"
 struct D2CmpRawFrameStrc
 {
     int unk0x00;
@@ -22,7 +23,6 @@ struct D2CmpRawStrc
 };
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections);                   // 0x00600C90
 
 // 0x0060D190

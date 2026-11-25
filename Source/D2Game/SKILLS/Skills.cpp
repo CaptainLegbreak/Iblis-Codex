@@ -24,6 +24,7 @@
 #include "D2GameRecords.h"
 #include "D2Skills.h"
 #include "D2Primitives.h"
+#include "FogApi.h"
 
 #define MONSTATSFLAGINDEX_NOAURA 27
 
@@ -225,9 +226,7 @@ typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -1154,11 +1153,11 @@ int __fastcall SKILLS_AuraCallback_FindNextTarget(D2AuraCallbackStrc* pAuraCallb
 }
 
 // 0x0056BD10
-D2UnitStrc* __fastcall SKILLS_FindNextAuraTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int a7, int* a8)
+D2UnitStrc* __fastcall SKILLS_FindNextAuraTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int nPreviousTargetGUID, int* pTargetCount)
 {
     D2_6FD10880_Strc args;
-    args.unk0x0C = a7;
-    args.unk0x10 = a7;
+    args.unk0x0C = nPreviousTargetGUID;
+    args.unk0x10 = nPreviousTargetGUID;
     args.unk0x00 = 0;
     args.unk0x04 = -1;
     args.unk0x08 = 0;
@@ -1171,9 +1170,9 @@ D2UnitStrc* __fastcall SKILLS_FindNextAuraTarget(D2GameStrc* pGame, D2UnitStrc* 
         pResult = args.unk0x08;
     }
 
-    if (a8)
+    if (pTargetCount)
     {
-        *a8 = args.unk0x14;
+        *pTargetCount = args.unk0x14;
     }
 
     return pResult;
@@ -1941,7 +1940,7 @@ void __fastcall SKILLS_ApplySkillDelay(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 }
 
 // 0x0056C740
-int __fastcall SKILLS_RemoveStatesInGroup(D2UnitStrc* pUnit, int nStateId, int a3)
+int __fastcall SKILLS_RemoveStatesInGroup(D2UnitStrc* pUnit, int nStateId, int bIncludeState)
 {
     D2StatesTxt* pStatesTxtRecord = STATES_GetStatesTxtRecordInline(nStateId);
     if (!pStatesTxtRecord || !pStatesTxtRecord->wGroup)
@@ -1954,7 +1953,7 @@ int __fastcall SKILLS_RemoveStatesInGroup(D2UnitStrc* pUnit, int nStateId, int a
     const int nCount = sgptDataTables->nStatesTxtRecordCount;
     for (int i = 0; i < nCount; ++i)
     {
-        if (i != nStateId || a3)
+        if (i != nStateId || bIncludeState)
         {
             if ((short)STATES_GetStatesTxtRecordInline(i)->wGroup == nGroup && STATES_CheckState(pUnit, i))
             {
@@ -2330,7 +2329,7 @@ int __fastcall SKILLS_StartUsedSkill(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x0056CDA0
-int __fastcall SKILLS_SchedulePeriodicSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5)
+int __fastcall SKILLS_SchedulePeriodicSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bUseRightSkill)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -2341,7 +2340,7 @@ int __fastcall SKILLS_SchedulePeriodicSkill(D2GameStrc* pGame, D2UnitStrc* pUnit
     if (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_PERIODIC >> 3] & gdwBitMasks[SKILLSFLAGINDEX_PERIODIC & 7] || pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_AURA >> 3] & gdwBitMasks[SKILLSFLAGINDEX_AURA & 7])
     {
         const int nExpireFrame = SKILL_ComputePeriodicRate(pGame, pUnit, pSkillsTxtRecord, nSkillId, nSkillLevel);
-        if (a5)
+        if (bUseRightSkill)
         {
             D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_PERIODICSKILLS, -1);
             EVENT_SetEvent(pGame, pUnit, EVENTTYPE_PERIODICSKILLS, nExpireFrame, -1, 0);
@@ -2395,7 +2394,7 @@ inline int I12_SummonGetUnitY(D2UnitStrc* pUnit)
 }
 
 // 0x0056CE70
-int __fastcall SKILLS_SchedulePeriodicStat(D2GameStrc* pGame, D2UnitStrc* pUnit, int a5, int nSkillId, int nSkillLevel, int a6)
+int __fastcall SKILLS_SchedulePeriodicStat(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventKey, int nSkillId, int nSkillLevel, int bUseRightSkill)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -2406,15 +2405,15 @@ int __fastcall SKILLS_SchedulePeriodicStat(D2GameStrc* pGame, D2UnitStrc* pUnit,
     if (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_PERIODIC >> 3] & gdwBitMasks[SKILLSFLAGINDEX_PERIODIC & 7] || pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_AURA >> 3] & gdwBitMasks[SKILLSFLAGINDEX_AURA & 7])
     {
         const int nExpireFrame = SKILL_ComputePeriodicRate(pGame, pUnit, pSkillsTxtRecord, nSkillId, nSkillLevel);
-        if (a6)
+        if (bUseRightSkill)
         {
             D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_PERIODICSKILLS, -1);
             EVENT_SetEvent(pGame, pUnit, EVENTTYPE_PERIODICSKILLS, nExpireFrame, -1, 0);
         }
         else
         {
-            D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_PERIODICSTATS, a5);
-            EVENT_SetEvent(pGame, pUnit, EVENTTYPE_PERIODICSTATS, nExpireFrame, a5, nSkillId);
+            D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_PERIODICSTATS, nEventKey);
+            EVENT_SetEvent(pGame, pUnit, EVENTTYPE_PERIODICSTATS, nExpireFrame, nEventKey, nSkillId);
         }
 
         return 1;
@@ -2846,7 +2845,7 @@ int __fastcall SKILLS_ExecuteSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
 }
 
 // 0x0056FCB0
-void __fastcall SKILLS_EventCallback_PeriodicSkillAura(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillIdArg, int a4)
+void __fastcall SKILLS_EventCallback_PeriodicSkillAura(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillIdArg, int nUnused)
 {
     if (nSkillIdArg == -1)
     {
@@ -2902,30 +2901,30 @@ void __fastcall SKILLS_EventCallback_PeriodicSkillAura(D2GameStrc* pGame, D2Unit
 }
 
 // 0x0056FE40
-void __fastcall SKILLS_EventCallback_ItemAura(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nSkillId)
+void __fastcall SKILLS_EventCallback_ItemAura(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventCustomId, int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord || pSkillsTxtRecord->nAuraState < 0 || pSkillsTxtRecord->nAuraState >= sgptDataTables->nStatesTxtRecordCount)
     {
-        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 9, a3);
+        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 9, nEventCustomId);
         return;
     }
 
     if (SUNIT_IsDead(pUnit))
     {
-        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 9, a3);
+        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 9, nEventCustomId);
         return;
     }
 
     const int nAura = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_AURA, nSkillId);
     if (nAura <= 0)
     {
-        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 9, a3);
+        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 9, nEventCustomId);
         return;
     }
 
     sub_0056F7F0(pGame, pUnit, nSkillId, nAura, 1, 1, 0);
-    SKILLS_SchedulePeriodicStat(pGame, pUnit, a3, nSkillId, nAura, 0);
+    SKILLS_SchedulePeriodicStat(pGame, pUnit, nEventCustomId, nSkillId, nAura, 0);
 }
 
 static D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
@@ -3211,7 +3210,7 @@ void __fastcall SKILLS_MakeShortPerpendicularVector(int* pX, int* pY)
 }
 
 // 0x0056D400
-void __fastcall SKILLS_CreateMissileRing(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* a3, int nMissileId, int nSkillId, int nSkillLevel, int nVelocity)
+void __fastcall SKILLS_CreateMissileRing(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pOrigin, int nMissileId, int nSkillId, int nSkillLevel, int nVelocity)
 {
     static const int xOffsets[64] = // 0x006E1288
     {
@@ -3229,8 +3228,8 @@ void __fastcall SKILLS_CreateMissileRing(D2GameStrc* pGame, D2UnitStrc* pOwner, 
 
     D2MissileStrc missileParams = {};
     missileParams.dwFlags = 3;
-    missileParams.nX = CLIENTS_GetUnitXInline(a3);
-    missileParams.nY = CLIENTS_GetUnitYInline(a3);
+    missileParams.nX = CLIENTS_GetUnitXInline(pOrigin);
+    missileParams.nY = CLIENTS_GetUnitYInline(pOrigin);
     missileParams.nMissile = nMissileId;
     missileParams.pOwner = pOwner;
     missileParams.nSkill = nSkillId;
@@ -3847,14 +3846,14 @@ int __fastcall SKILLS_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkil
 }
 
 // 0x005701B0
-void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags)
+void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int bLeftSkill, int nSkillId, int nFlags)
 {
     if (nSkillId == SKILL_LEFTHANDSWING)
     {
         return;
     }
 
-    if (!a2 && STATES_CheckState(pUnit, STATE_NOMANAREGEN))
+    if (!bLeftSkill && STATES_CheckState(pUnit, STATE_NOMANAREGEN))
     {
         STATES_ToggleState(pUnit, STATE_NOMANAREGEN, 0);
     }
@@ -3866,7 +3865,7 @@ void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkil
     }
 
     D2SkillStrc* pRightSkill = 0;
-    if (a2)
+    if (bLeftSkill)
     {
         SKILLS_SetLeftActiveSkill(pUnit, nSkillId, nFlags);
     }
@@ -3880,10 +3879,10 @@ void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkil
     SKILLS_GetSkillInfo(pSkill, &nFlags, 0, 0, 0);
     if ((!pUnit ? UNIT_INVALID : pUnit->dwUnitType) == UNIT_PLAYER)
     {
-        D2GAME_PACKETS_SendPacket0x23_6FC3DC60(UnitGetClient(pUnit, &gszSkillsSourceFile, 3499), (!pUnit ? UNIT_INVALID : pUnit->dwUnitType), !pUnit ? -1 : pUnit->dwUnitId, a2, nSkillId, nFlags);
+        D2GAME_PACKETS_SendPacket0x23_6FC3DC60(UnitGetClient(pUnit, &gszSkillsSourceFile, 3499), (!pUnit ? UNIT_INVALID : pUnit->dwUnitType), !pUnit ? -1 : pUnit->dwUnitId, bLeftSkill, nSkillId, nFlags);
     }
 
-    if (!a2)
+    if (!bLeftSkill)
     {
         if (pRightSkill)
         {
@@ -4322,11 +4321,11 @@ int __fastcall D2GAME_GetSummonIdFromSkill(D2UnitStrc* pUnit, int nArg2, int nAr
 }
 
 // 0x0056E680
-unsigned short __fastcall SKILLS_SetDamageResultFlagsFromSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel, D2DamageStrc* pDamage, int a8)
+unsigned short __fastcall SKILLS_SetDamageResultFlagsFromSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel, D2DamageStrc* pDamage, int nRangeOffset)
 {
     if (!(pSkillsTxtRecord->wResultFlags & DAMAGERESULTFLAG_SUCCESSFULHIT))
     {
-        pDamage->wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel), a8);
+        pDamage->wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel), nRangeOffset);
         if (pDamage->wResultFlags & DAMAGERESULTFLAG_SUCCESSFULHIT)
         {
             pDamage->wResultFlags |= pSkillsTxtRecord->wResultFlags;
@@ -4341,11 +4340,11 @@ unsigned short __fastcall SKILLS_SetDamageResultFlagsFromSkill(D2GameStrc* pGame
 }
 
 // 0x0056E6F0
-unsigned short __fastcall SKILLS_SetDamageResultFlags(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, unsigned short wResultFlags, int a5, D2DamageStrc* pDamage, int a7)
+unsigned short __fastcall SKILLS_SetDamageResultFlags(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, unsigned short wResultFlags, int nToHitFactor, D2DamageStrc* pDamage, int nRangeOffset)
 {
     if (!(wResultFlags & DAMAGERESULTFLAG_SUCCESSFULHIT))
     {
-        pDamage->wResultFlags = SUNITDMG_GetResultFlags(pGame, pOwner, pUnit, a5, a7);
+        pDamage->wResultFlags = SUNITDMG_GetResultFlags(pGame, pOwner, pUnit, nToHitFactor, nRangeOffset);
         if (pDamage->wResultFlags & DAMAGERESULTFLAG_SUCCESSFULHIT)
         {
             pDamage->wResultFlags |= wResultFlags;
@@ -4360,11 +4359,11 @@ unsigned short __fastcall SKILLS_SetDamageResultFlags(D2GameStrc* pGame, D2UnitS
 }
 
 // 0x0056E740
-D2UnitEventStrc* __fastcall SKILLS_RegisterUnitEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEventType, int a4, int a5, int nEventFunc, int a7, int a8)
+D2UnitEventStrc* __fastcall SKILLS_RegisterUnitEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEventType, int nParam1, int nParam2, int nEventFunc, int nEventGroup, int nEventKey)
 {
     if (nEventFunc >= 0 && nEventFunc < EVENTFN_COUNT && gpfnSkillEventCallbacks[nEventFunc])
     {
-        return SUNITEVENT_Register(pGame, pUnit, nUnitEventType, a4, a5, gpfnSkillEventCallbacks[nEventFunc], a7, a8);
+        return SUNITEVENT_Register(pGame, pUnit, nUnitEventType, nParam1, nParam2, gpfnSkillEventCallbacks[nEventFunc], nEventGroup, nEventKey);
     }
 
     return 0;

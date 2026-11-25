@@ -20,6 +20,7 @@
 #include "D2Packets.h"
 #include "D2QuestData.h"
 #include "D2LanguageNames.h"
+#include "FogApi.h"
 // build: symbol _gaszLanguageNames 0x00731968
 
 struct D2DifficultyLevelsTxt;
@@ -42,9 +43,7 @@ extern const char gszMonsterRegion[]; // 0x006E0CF8
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char*,const char*,int); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 
@@ -908,7 +907,7 @@ void __fastcall MONSTERREGION_UndoMonsterKill(D2MonsterRegionStrc** ppMonsterReg
 }
 
 // 0x00547ED0
-void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(D2MonsterRegionStrc** ppMonRegion, int nLevelId1, int nLevelId2, int nAlignment, int bDead, int a6, D2UnitStrc* pUnit)
+void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(D2MonsterRegionStrc** ppMonRegion, int nLevelId1, int nLevelId2, int nAlignment, int bDead, int bExcludeFromCount, D2UnitStrc* pUnit)
 {
     D2MonsterRegionStrc* pMonsterRegion1 = ppMonRegion[nLevelId1];
     D2MonsterRegionStrc* pMonsterRegion2 = ppMonRegion[nLevelId2];
@@ -919,7 +918,7 @@ void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(D2MonsterRegionStrc
             MONSTER_SetLevelId(pUnit, nLevelId1);
         }
 
-        if (!a6 && STATLIST_GetUnitAlignment(pUnit) == UNIT_ALIGNMENT_EVIL)
+        if (!bExcludeFromCount && STATLIST_GetUnitAlignment(pUnit) == UNIT_ALIGNMENT_EVIL)
         {
             --pMonsterRegion2->dwMonSpawnCount;
 
@@ -931,7 +930,7 @@ void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(D2MonsterRegionStrc
     }
     else
     {
-        if (!a6 && !bDead && nAlignment == UNIT_ALIGNMENT_EVIL)
+        if (!bExcludeFromCount && !bDead && nAlignment == UNIT_ALIGNMENT_EVIL)
         {
             --pMonsterRegion1->dwMonSpawnCount;
         }

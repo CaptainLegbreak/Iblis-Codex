@@ -12,6 +12,7 @@
 #include "D2ItemModes.h"
 #include "D2SkillIds.h"
 #include "D2LanguageNames.h"
+#include "FogApi.h"
 
 #define EVENTTYPE_ENDANIM 1
 
@@ -79,9 +80,7 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -1920,7 +1919,7 @@ static void EVENTS_ManaRegen(D2UnitStrc* pUnit)
 }
 
 // 0x00580800
-void __fastcall MONSTERMODE_EventUpdateStatListExpirations(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
+void __fastcall MONSTERMODE_EventUpdateStatListExpirations(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventCustomId, int nEventCustomParam)
 {
     STATLIST_UpdateStatListsExpiration(pUnit, pGame->dwGameFrame);
 }
@@ -1940,7 +1939,7 @@ void __fastcall D2GAME_EVENTS_StatRegen_6FC80F80(D2GameStrc* pGame, D2UnitStrc* 
 }
 
 // 0x00581020
-void __fastcall PLRMODE_EndAnimation(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
+void __fastcall PLRMODE_EndAnimation(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventCustomId, int nEventCustomParam)
 {
     const int nAnimMode = !pUnit ? 0 : pUnit->dwAnimMode;
     switch (nAnimMode)
@@ -2076,7 +2075,7 @@ void __fastcall D2GAME_EVENTS_Callback_6FC81BD0(D2GameStrc* pGame, D2UnitStrc* p
 }
 
 // 0x00580860
-void __fastcall PLRMODE_SendPlayerUpdates(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient, int a4)
+void __fastcall PLRMODE_SendPlayerUpdates(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient, int bSkipInventory)
 {
     D2UnitStrc* pOtherPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
     if (pPlayer)
@@ -2091,7 +2090,7 @@ void __fastcall PLRMODE_SendPlayerUpdates(D2GameStrc* pGame, D2UnitStrc* pPlayer
         }
     }
 
-    if (!a4 && pPlayer && UNIT_HasFlagEx(pPlayer, UNITFLAGEX_HASINV))
+    if (!bSkipInventory && pPlayer && UNIT_HasFlagEx(pPlayer, UNITFLAGEX_HASINV))
     {
         D2GAME_INVMODE_First_6FC40FB0(pGame, pPlayer, pClient, 0);
         D2GAME_SendPacket0x47_6FC3EEE0(pClient, pPlayer);
@@ -2141,11 +2140,11 @@ void __fastcall PLRMODE_SendPlayerUpdates(D2GameStrc* pGame, D2UnitStrc* pPlayer
 }
 
 // 0x005809D0
-void __fastcall PLRMODE_ChangeModeToCoords(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7)
+void __fastcall PLRMODE_ChangeModeToCoords(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int bAllowReEnter)
 {
     D2_ASSERT(ptGame, 0x805);
 
-    if (PLRMODE_CanStartMode(ptGame, pUnit, nMode) && (a7 || PLRMODE_CanInterruptCurrentMode(ptGame, pUnit, nMode, 1, pUsedSkill)))
+    if (PLRMODE_CanStartMode(ptGame, pUnit, nMode) && (bAllowReEnter || PLRMODE_CanInterruptCurrentMode(ptGame, pUnit, nMode, 1, pUsedSkill)))
     {
         D2_ASSERT(!IsBadCodePtr((FARPROC)gaPlayerModeChart[nMode].pfnStartXY), 0x812);
 
@@ -2194,7 +2193,7 @@ void __fastcall StartModeID(D2GameStrc* ptGame, D2UnitStrc* pPlayer, D2SkillStrc
 }
 
 // 0x00580B70
-void __fastcall PLRMODE_EventFreeHoverText(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
+void __fastcall PLRMODE_EventFreeHoverText(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventCustomId, int nEventCustomParam)
 {
     if (!pUnit)
     {
@@ -2222,7 +2221,7 @@ void __fastcall PLRMODE_EventFreeHoverText(D2GameStrc* pGame, D2UnitStrc* pUnit,
 }
 
 // 0x00580BE0
-void __fastcall PLRMODE_EventSynchronizePartyAndPets(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
+void __fastcall PLRMODE_EventSynchronizePartyAndPets(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventCustomId, int nEventCustomParam)
 {
     PARTY_SynchronizeWithClient(pGame, pUnit);
     PLAYERPETS_UpdatePetStates(pGame, pUnit);

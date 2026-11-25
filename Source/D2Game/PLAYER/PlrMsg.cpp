@@ -18,6 +18,8 @@
 #include "D2Packets.h"
 #include "D2GameServer.h"
 #include "D2LanguageNames.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 struct D2ClientStrc;
 
@@ -198,9 +200,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x1A_B_C_6FC3D410(D2ClientStrc* pClient
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -350,9 +350,7 @@ int __stdcall WAYPOINTS_GetWaypointNoFromLevelId(int nLevelId, unsigned short* p
 
 int __stdcall WAYPOINTS_IsActivated(D2WaypointDataStrc* pData, unsigned short wField); // 0x00660E50
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
 int __fastcall PLRMSG_InteractWithUnit(D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID, int a4, D2GameStrc* pGame); // 0x00548B00
 
@@ -557,7 +555,6 @@ int __fastcall D2GAME_NPC_BuyItemHandler_6FCC92A0(D2GameStrc* pGame, D2UnitStrc*
 
 static int __stdcall PLRMSG_UseSkillOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nUnitType, int nUnitGUID, int bCheckRange); // 0x00549BA0
 
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
 void __fastcall SrvDisconnectClient(D2GameStrc* pGame, D2ClientStrc* pClient, int nEventType); // 0x0052CAF0
 
@@ -861,13 +858,13 @@ static inline int UNITS_GetYPosition(D2UnitStrc* pUnit)
 }
 
 // 0x00548010
-void __fastcall PLRMSG_SendUnitPosition(D2UnitStrc* pUnit, D2ClientStrc* pClient, unsigned char a7)
+void __fastcall PLRMSG_SendUnitPosition(D2UnitStrc* pUnit, D2ClientStrc* pClient, unsigned char bReassign)
 {
     const int nY = UNITS_GetYPosition(pUnit);
     const int nX = UNITS_GetXPosition(pUnit);
     const unsigned int nUnitGUID = (pUnit ? pUnit->dwUnitId : -1);
     const int nUnitType = (pUnit ? pUnit->dwUnitType : UNIT_INVALID);
-    D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(pClient, 0x15, nUnitType, nUnitGUID, nX, nY, a7);
+    D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(pClient, 0x15, nUnitType, nUnitGUID, nX, nY, bReassign);
 }
 
 // 0x00548090

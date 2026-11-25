@@ -1,6 +1,8 @@
 #include "D2Sound.h"
 
 #include "D2SoundTypes.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 
 #define DSBSTATUS_BUFFERLOST 0x00000002
@@ -51,7 +53,6 @@ struct D2GuidStrc;
 
 struct D2DSBufferDescStrc;
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -113,7 +114,6 @@ struct D2SoundSampleStrc
     void* hSample;
 };
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 D2CriticalSectionStrc gtSoundLock; // 0x0088174C
 

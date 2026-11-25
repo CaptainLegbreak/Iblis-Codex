@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2DrlgTiles.h"
 #include "D2Drlg.h"
+#include "FogApi.h"
 
 #define LVLPREST_ACT3_JUNGLE_HEAD 573
 #define LVLPREST_ACT3_JUNGLE_TAIL 574
@@ -18,8 +19,6 @@ struct D2DrlgOutdoorInfoStrc;
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId); // 0x0061E470

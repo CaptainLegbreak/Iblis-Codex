@@ -16,6 +16,8 @@
 #include "D2WinSplitText.h"
 #include "D2WaypointActRange.h"
 #include "D2MsgRecord.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -69,9 +71,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -402,9 +402,7 @@ struct D2RC4Strc;
 
 struct D2WardenFindArgStrc;
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
@@ -512,7 +510,6 @@ extern "C" size_t __cdecl strlen(const char* sz);
 
 extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
 
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
 
 void __cdecl sub_00477C60_CheckCacheStats();                                                                // 0x00477C60

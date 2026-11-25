@@ -8,6 +8,8 @@
 #include "D2MsgRecord.h"
 #include "D2ClientTimer.h"
 #include "D2WinSplitText.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -54,9 +56,7 @@ struct D2BetaScreenStrc
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -106,7 +106,6 @@ void __cdecl GAME_RegisterWindowHandlers(); // 0x00451F20
 
 void __fastcall PLRSAVE_EnableSaveFileWriting(int nValue); // 0x00530F30
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
 void __stdcall GAME_SetGlobalAct(int nAct); // 0x0052DFA0
 

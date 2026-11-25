@@ -2,6 +2,8 @@
 #include "D2Unicode.h"
 #include "D2MultiTypes.h"
 #include "D2StormTypes.h"
+#include "FogApi.h"
+#include "StormApi.h"
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                  // 0x00412650
 int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId);                                           // 0x0042F430
@@ -46,7 +48,6 @@ struct D2CharSelCacheStrc;
 class BNGatewayAccess;
 void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0
 int __cdecl CHARSEL_Redraw(); // 0x00439210
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 void __cdecl CHARSEL_CreateCharListControls(); // 0x0043A800
 extern int gnSelected; // 0x0070CC00
 extern int gnSelectionA; // 0x0070CC04
@@ -61,7 +62,6 @@ void __cdecl CHARSEL_UpdateButtons(); // 0x0043A730
 extern int gnLaunchMode; // 0x007795EC
 extern int gbFlag_00779C6C; // 0x00779C6C
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
-unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 void __cdecl MAINMENUS_ShowMainMenu(); // 0x004336C0
 void __cdecl CHARSEL_FreeCharList(); // 0x00438EA0
@@ -88,7 +88,6 @@ public:
 };
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars);
-int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 int __cdecl GAME_GetSlotNameCount(); // 0x00430B40
 void __cdecl sub_00434060();
 void __cdecl CHARSEL_InitCharList(); // 0x0043AE30
@@ -111,8 +110,6 @@ int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 extern int gdwGlobal_0077AC04; // 0x0077AC04
 void __cdecl sub_00518C20_DeleteQueueLock(); // 0x00518C20
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 int __fastcall MAINMENUS_ShowOptionDescription(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0

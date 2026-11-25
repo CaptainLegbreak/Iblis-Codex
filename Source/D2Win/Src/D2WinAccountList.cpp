@@ -10,8 +10,8 @@
 #include "D2WinControls.h"
 
 #include "D2Unicode.h"
+#include "FogApi.h"
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
@@ -62,7 +62,6 @@ enum D2ControlTypes
     D2WIN_IMAGE2 = 13,
 };
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
 

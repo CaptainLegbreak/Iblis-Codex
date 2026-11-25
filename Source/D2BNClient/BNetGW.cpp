@@ -1,4 +1,6 @@
 #include "D2BNClient.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -10,7 +12,6 @@ struct D2TimeZoneInformationStrc;
 
 struct Table;
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -62,7 +63,6 @@ private:
     void* m_pRealms;
 };
 
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
 struct Table { char pad0[8]; int count; char padC[4]; const char* data; int length; const char* Nth(int n); };
 
@@ -74,7 +74,6 @@ extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
 int __stdcall SRegDeleteValue(const char* szKeyName, const char* szValueName, unsigned int nFlags); // 0x00414D90
 
@@ -92,7 +91,6 @@ int __cdecl BNDOWNLOAD_ConfigureLog(int nChannel, int nIndent); // 0x00518C70
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);         // 0x00413020
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax);                     // 0x004135D0
 
 extern "C" const char gszBNetGWFile[];                                                              // 0x006DEC6C
 

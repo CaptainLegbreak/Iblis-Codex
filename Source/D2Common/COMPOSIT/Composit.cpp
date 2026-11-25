@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "FogApi.h"
 
 #define CP_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define COF_PAD 0x20
@@ -31,8 +32,6 @@ int __stdcall COMPOSIT_GetWeaponClassCode(D2UnitStrc* pUnit, int nUnitType, int 
 extern const D2CompositStrc gaWeaponClassCodeTable[13]; // 0x006EB748
 extern "C" const char gszCompositSourceFile[]; // 0x006EB7B0
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 struct D2ModeTypeTxt {char pad[0x20]; unsigned int token;};

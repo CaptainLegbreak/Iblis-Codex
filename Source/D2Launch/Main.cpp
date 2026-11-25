@@ -1,24 +1,20 @@
 #include "D2FogTypes.h"
 typedef unsigned int size_t;
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 #include "D2MultiTypes.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 struct D2ConfigStrc;
 
 extern "C" size_t __cdecl strlen(const char* szString);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
 extern "C" char* __cdecl strtok(char* szText, const char* szDelim); // 0x0068264F
 extern "C" int __cdecl strncmp(const char* szLeft, const char* szRight, size_t nCount); // 0x00682591
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 void __fastcall FOG_SetLogPrefix(const char* szLogPrefix); // 0x00407960
 void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersion, int bLogToFile); // 0x00408CE0
 void __fastcall SaveCmdLine(const char** argv); // 0x00405F00
@@ -33,10 +29,6 @@ extern "C" const char gszDash_006CCA2C[]; // 0x006CCA2C
 extern const char* gaszModuleTypes_007065C4[6]; // 0x007065C4
 extern void* ghCurrentProcess_0074C718; // 0x0074C718
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 0x006829C0
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
-int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 extern int gbRunningAsService; // 0x0074C720
 extern char szSRegReadBuf[]; // 0x0074C728
 

@@ -43,6 +43,7 @@
 #include "D2DataTbls.h"
 
 #include "D2Txt.h"
+#include "FogApi.h"
 
 #define PATH_UNKNOWN_FLAG_0x00010 0x00010
 
@@ -190,9 +191,7 @@ typedef int (__fastcall* PATH_FUNCTION)(D2PathInfoStrc* pPathInfo);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -296,9 +295,7 @@ struct Obj00648690 {
 
 struct Obj006486D0 { unsigned int dwUnknown00[33]; unsigned int dwValue84; };
 
-typedef unsigned char U8;
 
-typedef unsigned int U32;
 
 struct RoomStatusNode
 {
@@ -307,7 +304,7 @@ struct RoomStatusNode
     char retainedMiddle[0x10];
     ActiveRoom* activeRoom;
     char retainedBeforeStatus[0x10];
-    U8 status;
+    unsigned char status;
     char retainedTail[0xA7];
 };
 
@@ -322,7 +319,7 @@ struct PathView
     char retainedPrefix[0x28];
     int pointCount;
     char retainedGap[8];
-    U32 flags;
+    unsigned int flags;
     char retainedBeforePattern[0x10];
     int collisionPattern;
 };
@@ -525,13 +522,12 @@ struct Obj006488A0 {
     unsigned char nValue65;
 };
 
-typedef unsigned short U16;
 
-typedef char check_word_width[sizeof(U16)==2?1:-1];
+typedef char check_word_width[sizeof(unsigned short)==2?1:-1];
 
 struct PathPrecisionView
 {
-    U32 precisionX;
+    unsigned int precisionX;
 };
 
 typedef char check_precision_x[OFFSET(PathPrecisionView,precisionX)==0?1:-1];
@@ -539,8 +535,8 @@ typedef char check_precision_x[OFFSET(PathPrecisionView,precisionX)==0?1:-1];
 struct PathPreviousView
 {
     char retainedPrefix[0x14];
-    U16 previousTargetX;
-    U16 previousTargetY;
+    unsigned short previousTargetX;
+    unsigned short previousTargetY;
 };
 
 typedef char check_previous_x[OFFSET(PathPreviousView,previousTargetX)==0x14?1:-1];
@@ -714,7 +710,7 @@ typedef signed char S8;
 struct RoomFlags
 {
     char pad0[0x28];
-    U32 flags;
+    unsigned int flags;
 };
 
 typedef char check_RoomFlags_flags[OFFSET(RoomFlags,flags)==0x28?1:-1];
@@ -724,7 +720,7 @@ typedef char check_RoomFlags_size[sizeof(RoomFlags)==0x2C?1:-1];
 struct PathFlags
 {
     char pad0[0x34];
-    U32 flags;
+    unsigned int flags;
 };
 
 typedef char check_PathFlags_flags[OFFSET(PathFlags,flags)==0x34?1:-1];
@@ -733,7 +729,7 @@ typedef char check_PathFlags_size[sizeof(PathFlags)==0x38?1:-1];
 
 struct KeyValue
 {
-    U32 key;
+    unsigned int key;
     int value;
 };
 
@@ -834,13 +830,13 @@ extern DirectionRecord gaTanToDirectionTable[128];
 struct B25TargetUnit
 {
     unsigned int type;
-    U8 pad4[0x8];
+    unsigned char pad4[0x8];
     unsigned int id;
 };
 
 struct B25Path
 {
-    U8 pad0[0x58];
+    unsigned char pad0[0x58];
     B25TargetUnit* target;
     unsigned int targetType;
     unsigned int targetId;
@@ -848,21 +844,21 @@ struct B25Path
 
 struct B25DistancePath
 {
-    U8 pad0[0x90];
-    U8 distance;
-    U8 newDistance;
+    unsigned char pad0[0x90];
+    unsigned char distance;
+    unsigned char newDistance;
 };
 
 struct B25MissileData
 {
-    U8 pad0[0x28];
+    unsigned char pad0[0x28];
     int targetStatus;
 };
 
 struct B25MissileUnit
 {
     unsigned int type;
-    U8 pad4[0x10];
+    unsigned char pad4[0x10];
     B25MissileData* data;
 };
 
@@ -913,20 +909,20 @@ struct D2Record00648E40Strc
     unsigned char nValue90;
 };
 
-extern "C" U16 __stdcall COLLISION_CheckMaskWithSize(ActiveRoom* room,int x,int y,int unitSize,U16 mask); // 0x0064D9B0
+extern "C" unsigned short __stdcall COLLISION_CheckMaskWithSize(ActiveRoom* room,int x,int y,int unitSize,unsigned short mask); // 0x0064D9B0
 
 struct PathCollisionView
 {
     char retainedGap0[0x2];
-    U16 positionX;
+    unsigned short positionX;
     char retainedGap1[0x2];
-    U16 positionY;
+    unsigned short positionY;
     char retainedGap2[0x14];
     ActiveRoom* room;
     char retainedGap3[0x24];
     int f_44;
     char retainedGap4[0xC];
-    U16 collidedMask;
+    unsigned short collidedMask;
     char retainedGap5[0x26];
     int velocity;
 };
@@ -1804,7 +1800,7 @@ int __stdcall PATH_GetPrecisionY(D2DynamicPathStrc* hPath)
 }
 
 // 0x006489A0
-extern "C" void __stdcall PATH_SetPrecisionX(PathPrecisionView* path,U32 precisionX)
+extern "C" void __stdcall PATH_SetPrecisionX(PathPrecisionView* path,unsigned int precisionX)
 {
     path->precisionX = precisionX;
 }
@@ -2297,7 +2293,7 @@ unsigned char __stdcall D2COMMON_10191_PATH_GetDistance(D2DynamicPathStrc* pDyna
 }
 
 // 0x00648E70
-extern "C" void __stdcall PATH_SetNewDistance(B25DistancePath* path, U8 distance)
+extern "C" void __stdcall PATH_SetNewDistance(B25DistancePath* path, unsigned char distance)
 {
     if (path)
     {
@@ -2315,7 +2311,7 @@ unsigned char __stdcall PATH_GetMaxDistance(D2DynamicPathStrc* pDynamicPath)
 }
 
 // 0x00648EB0
-extern "C" U16 __stdcall PATH_GetCollidedWithMask(PathCollisionView* path)
+extern "C" unsigned short __stdcall PATH_GetCollidedWithMask(PathCollisionView* path)
 {
     if (path->velocity == 0)
         path->collidedMask = COLLISION_CheckMaskWithSize(path->room,path->positionX,path->positionY,path->f_44,0x7FFF);
@@ -2889,7 +2885,7 @@ int __stdcall D2Common_10237(D2UnitStrc* pUnit)
 }
 
 // build: symbol _FOG_GetLinkIndexByCode@* 0x006BD130
-extern "C" int __stdcall FOG_GetLinkIndexByCode(LinkView* link, U32 key, int unusedLogError)
+extern "C" int __stdcall FOG_GetLinkIndexByCode(LinkView* link, unsigned int key, int unusedLogError)
 {
     int upper = link->count;
     int lower = 0;
@@ -2897,7 +2893,7 @@ extern "C" int __stdcall FOG_GetLinkIndexByCode(LinkView* link, U32 key, int unu
     while (lower < upper)
     {
         int middle = lower + (upper - lower) / 2;
-        U32 current = entries[middle].key;
+        unsigned int current = entries[middle].key;
         if (key > current)
             lower = middle + 1;
         else if (key < current)

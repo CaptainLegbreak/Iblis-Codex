@@ -25,6 +25,8 @@
 #include "D2HotkeySkill.h"
 #include "D2GameAux.h"
 #include "D2LanguageNames.h"
+#include "FogApi.h"
+#include "StormApi.h"
 // build: symbol _gaszLanguageNames 0x00741888
 
 
@@ -239,9 +241,7 @@ int __fastcall sub_0056F7F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -579,7 +579,7 @@ static void __fastcall SUNITEVENT_FreeEvent(D2GameStrc* pGame, D2UnitStrc* pUnit
 }
 
 // 0x005C0AD0
-D2UnitEventStrc* __fastcall SUNITEVENT_Register(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEvent, int nGUID1, int nGUID2, D2UnitEventCallbackFunction pCallback, unsigned int nQueueNo, int a8)
+D2UnitEventStrc* __fastcall SUNITEVENT_Register(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEvent, int nGUID1, int nGUID2, D2UnitEventCallbackFunction pCallback, unsigned int nQueueNo, int nEventKey)
 {
     if (!pUnit)
     {
@@ -595,7 +595,7 @@ D2UnitEventStrc* __fastcall SUNITEVENT_Register(D2GameStrc* pGame, D2UnitStrc* p
     pUnitEvent->pCallback = pCallback;
     pUnitEvent->pNext = pUnit->pSrvUnitEventsList;
     pUnitEvent->nEventGroup = nQueueNo;
-    pUnitEvent->nEventKey = a8;
+    pUnitEvent->nEventKey = nEventKey;
 
     if (pUnit->pSrvUnitEventsList)
     {
@@ -606,7 +606,7 @@ D2UnitEventStrc* __fastcall SUNITEVENT_Register(D2GameStrc* pGame, D2UnitStrc* p
     return pUnitEvent;
 }
 // 0x005C0B50
-void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTimerQueueNo, int a4)
+void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTimerQueueNo, int nEventKey)
 {
     if (!pUnit)
     {
@@ -617,7 +617,7 @@ void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     while (pUnitEvent)
     {
         D2UnitEventStrc* pNext = pUnitEvent->pNext;
-        if (pUnitEvent->nEventGroup == nTimerQueueNo && pUnitEvent->nEventKey == a4)
+        if (pUnitEvent->nEventGroup == nTimerQueueNo && pUnitEvent->nEventKey == nEventKey)
         {
             if (pUnitEvent->nFlags & UNITEVENTFLAG_IN_CALLBACK)
             {
@@ -634,7 +634,7 @@ void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
 }
 
 // 0x005C0BE0
-D2UnitEventStrc* __fastcall SUNITEVENT_GetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTimerQueueNo, int a4, int nGUID1)
+D2UnitEventStrc* __fastcall SUNITEVENT_GetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTimerQueueNo, int nEventKey, int nGUID1)
 {
     if (!pUnit)
     {
@@ -645,7 +645,7 @@ D2UnitEventStrc* __fastcall SUNITEVENT_GetEvent(D2GameStrc* pGame, D2UnitStrc* p
     while (pUnitEvent)
     {
         D2UnitEventStrc* pNext = pUnitEvent->pNext;
-        if (pUnitEvent->nEventGroup == nTimerQueueNo && pUnitEvent->nEventKey == a4 && pUnitEvent->nGUID1 == nGUID1)
+        if (pUnitEvent->nEventGroup == nTimerQueueNo && pUnitEvent->nEventKey == nEventKey && pUnitEvent->nGUID1 == nGUID1)
         {
             return pUnitEvent;
         }
@@ -706,9 +706,7 @@ struct D2MonsterDataStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -774,7 +772,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 unsigned short __stdcall FOG_ComputeStringCRC16(const char* szString); // 0x004112C0
 

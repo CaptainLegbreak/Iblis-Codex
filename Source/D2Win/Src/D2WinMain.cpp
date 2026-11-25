@@ -19,6 +19,8 @@
 #include "D2MultiTypes.h"
 #include "D2WinPopupLine.h"
 #include "D2WinListData.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 typedef long (__stdcall* WNDPROC)(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam);
 
@@ -94,7 +96,6 @@ int __stdcall WINDOW_Destroy(); // 0x004F5900
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 D2CelFileStrc* gpCursorCellFile; // 0x007D5594
 
@@ -303,7 +304,6 @@ extern "C" __declspec(dllimport) long __stdcall DefWindowProcA(void* hWnd, unsig
 
 extern "C" __declspec(dllimport) void __stdcall PostQuitMessage(int nExitCode); // 0x006CC4A4
 
-int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam, int* pUseResult, int* pResult); // 0x00420B00
 
 int __stdcall D2GFX_Initialize(void* hInstance, WNDPROC pfWndProc, int nRenderMode, int bWindowed); // 0x004F52E0
 
@@ -372,7 +372,6 @@ struct D2WinCommandRegisterStrc
     void* pCallback;
 };
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 
 int __fastcall D2Win_10177(unsigned char nAct);                                                             // 0x004FB480
 
@@ -672,9 +671,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(cons
 
 int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406BA0
 
-unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 extern "C" const char gszD2CharMpq[]; // 0x006DC77C
 

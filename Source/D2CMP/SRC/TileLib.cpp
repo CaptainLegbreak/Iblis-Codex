@@ -1,6 +1,7 @@
 #include "D2CMP.h"
 #include "D2CmpTypes.h"
 #include "D2CelDataHash.h"
+#include "FogApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -18,10 +19,7 @@ struct D2CmpRGBStrc;
 struct D2CmpRGBImageStrc;
 struct D2CmpSubTileRecordStrc;
 struct D2TileLibraryEntryStrc;
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);

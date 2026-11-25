@@ -4,6 +4,7 @@
 
 #include "D2BnCryptTypes.h"
 #include "D2BnMessages.h"
+#include "StormApi.h"
 
 typedef unsigned int size_t;
 
@@ -13,7 +14,6 @@ extern "C" size_t __cdecl strlen(const char* szString);
 
 
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
 int __cdecl BNDOWNLOAD_ConfigureLog(int nMode, int nValue);                                               // 0x00518C70
 
@@ -27,7 +27,6 @@ void __fastcall BNDOWNLOAD_RequestDownload(int nType, int nSubType, unsigned int
 
 extern "C" const char gszConfiguration[];                                                           // 0x006DEC7C
 
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
 struct D2BnAuthInfoStrc;
 

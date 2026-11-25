@@ -1,5 +1,7 @@
 #include "D2BNClient.h"
 #include "D2BnCryptTypes.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 struct D2BnHashCtxStrc;
 
@@ -19,15 +21,12 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
-unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 
 int __stdcall SFileLoadFile(const char* szFileName, void** ppBuffer, unsigned int* pSize, unsigned int nExtraSize, void* pOverlapped); // 0x0041B650
 
 int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -269,6 +268,12 @@ void __cdecl GRID_UnlockCDKeys()
     }
 }
 
+// 0x00523A00
+int __cdecl GAME_GetExeHash()
+{
+    return gdwGlobal_00730190;
+}
+
 // 0x00523A10
 unsigned int __cdecl GRID_HashCDKey()
 {
@@ -286,6 +291,13 @@ unsigned int __cdecl GRID_HashCDKey()
         SMemFree(szKey, ".\\grid.cpp", 0x1B8, 0);
     }
     return dwHash;
+}
+
+extern int gdwGlobal_00882750; // 0x00882750
+// 0x00523AA0
+int __cdecl GAME_GetExeInfo()
+{
+    return gdwGlobal_00882750;
 }
 
 // 0x00523AB0

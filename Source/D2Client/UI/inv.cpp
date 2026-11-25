@@ -27,6 +27,8 @@
 
 #include <D2UnitData.h>
 #include "D2MultiTypes.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 struct D2ClientInterfaceStrc;
 
@@ -161,15 +163,11 @@ struct D2ClientRecordStrc
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
@@ -571,7 +569,6 @@ struct D2AuxLevelEntryStrc
     char unk0x0A[2];
 };
 
-int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
@@ -639,7 +636,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern "C" size_t __cdecl strlen(const char* szString);
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 void __fastcall PLAYER_SetPanelSlide(int nMode); // 0x0045AEA0
 
@@ -973,7 +969,6 @@ int __cdecl CHAT_HasClassOverride();                                            
 
 extern char gszClientCharName[];                                                                         // 0x007A05C4
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 
 void INV_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor); // 0x00483A70
 
@@ -1097,7 +1092,6 @@ void __stdcall sub_00403040_ConstructVector(void* pArray, unsigned int nSize, in
 
 void __fastcall NPCMENU_ClearUnicode(void* pChar);                                                     // 0x0042F530
 
-extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nSize, const char* szFormat, ...);             // 0x00413A40
 
 unsigned char __cdecl GAME_GetDifficulty();                                                         // 0x0044DCD0
 

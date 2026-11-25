@@ -3,11 +3,10 @@
 #include "D2GfxTypes.h"
 #include "D2GlideTypes.h"
 #include "D2DrlgMaps.h"
+#include "FogApi.h"
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 static inline int sub_006C8A60_Clip(int nValue, int nSize)
@@ -89,8 +88,6 @@ void __fastcall sub_006C8C50_SetPixel(int nX, int nY, unsigned char nValue)
 
 struct tagPOINT;
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* pText, const char* pFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern int gnRenderHeight; // 0x007C913C
@@ -282,8 +279,6 @@ void __fastcall sub_006C9280_Apply(int enabled, unsigned char unusedRegister, in
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CoordPairStrc { int nX; int nY; };
@@ -414,8 +409,6 @@ static void __stdcall sub_006C8DA0_DrawLine(const D2CoordPairStrc* pFrom, const 
 }
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* pText, const char* pFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 

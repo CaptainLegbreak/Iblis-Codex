@@ -4,15 +4,14 @@
 #include "D2Drlg.h"
 #include "D2DrlgRooms.h"
 #include "D2DataTbls.h"
+#include "FogApi.h"
 
 struct D2DrlgActStrc;
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

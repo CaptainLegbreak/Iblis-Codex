@@ -35,6 +35,8 @@
 #include "D2Packets.h"
 #include "D2SaveHeader.h"
 #include "D2LanguageNames.h"
+#include "FogApi.h"
+#include "StormApi.h"
 // build: symbol _gaszLanguageNames 0x007312E0
 
 #pragma intrinsic(strcpy)
@@ -80,15 +82,12 @@ struct D2QuestDataStrc;
 struct D2CoordStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 unsigned short __stdcall FOG_ComputeStringCRC16(const char* szString); // 0x004112C0
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
 extern D2ClientStrc* gpClientListByName[256]; // 0x00883EA8
 extern D2ClientStrc* gpClientList[256]; // 0x008842A8
@@ -184,8 +183,6 @@ struct D2CharacterPreviewRecordStrc
 extern "C" void __stdcall FOG_Encode14BitsToString(unsigned char* pBuffer, unsigned int nValue); // 0x006BBF40
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 void __stdcall sub_0063E510_FillInventoryTables(D2UnitStrc* pUnit, unsigned char* pTableA, unsigned char* pTableB);
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 extern "C" char* __cdecl strcpy(char*, const char*);
 
 
@@ -787,7 +784,6 @@ void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 unsigned int __fastcall ARENA_ShouldTreatClassIdAsTemplateId(D2GameStrc* pGame); // 0x0053FE70
 
@@ -1932,7 +1928,7 @@ static int __stdcall PLRSAVE_ReadCorpse(D2UnitStrc* pPlayer, D2GameStrc* pGame, 
 #define CLIENTFLAGEX_HAS_SAVE_CHECKSUM 0x08
 
 // 0x00538CE0
-int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int nSize, int nTotalSize, int bUnlockCharacter, int a6, int a7)
+int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int nSize, int nTotalSize, int bUnlockCharacter, int nUnused1, int nUnused2)
 {
     int nResult = 0;
 
@@ -2147,7 +2143,6 @@ unsigned int __fastcall CLIENT_IsGameOwner(D2ClientStrc* pClient); // 0x00539030
 
 typedef int (__fastcall* D2NET_Unk_Callback)(int, int, int, int);
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 int __stdcall SERVER_SetRemoveClientCallback(D2NET_Unk_Callback pfCallback); // 0x0052B5C0
 
@@ -2156,7 +2151,6 @@ int __stdcall GAME_AbortClientById(int nClientId, int a2, int a3); // 0x005300F0
 void __fastcall SUNITPROXY_FillGlobalItemCache(); // 0x00536F80
 
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);
 
 // build: symbol _gszD2NetSourceFile 0x006E0488
 extern "C" const char gszD2NetSourceFile[];
@@ -2501,7 +2495,6 @@ void __stdcall GAME_GetUnitsDescriptions(unsigned short nGameId, D2UnitDescripti
 
 struct D2PoolSystemStrc;
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                              // 0x0040B380
 
 int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem);                                     // 0x0040A040
 

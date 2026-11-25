@@ -1,4 +1,6 @@
 #include "D2Client.h"
+#include "FogApi.h"
+#include "StormApi.h"
 #include "gen/data/Source/D2Client/GAME/Msg.inc"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -21,9 +23,7 @@ struct D2SaveFilePacketStrc
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -35,9 +35,7 @@ extern "C" long __cdecl ftell(_iobuf* pFile); // 0x00684935
 
 extern "C" size_t __cdecl fread(void* pBuffer, size_t nSize, size_t nCount, _iobuf* pFile); // 0x00684782
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
@@ -415,7 +413,6 @@ void __fastcall MSG_SendPartyCommand(unsigned char nCommand, int nUnitId)
     MSG_SendToServer((unsigned char*)&tPacket, 6);
 }
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
 // 0x004787B0
 void __fastcall MSG_SendStrings(const unsigned char* pData)

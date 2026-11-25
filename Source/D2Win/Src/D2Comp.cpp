@@ -29,6 +29,7 @@
 
 #include "D2TxtTables.h"
 #include "D2WinPopupLine.h"
+#include "FogApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -95,7 +96,6 @@ struct D2GfxDataStrc
     unsigned int dwFlags;
 };
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -320,9 +320,7 @@ struct D2WinListStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 
@@ -333,7 +331,6 @@ struct D2PaletteRecordStrc
     unsigned char ab[0x100];
 };
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
 void __stdcall FOG_FreeLinker(D2TxtLinkStrc* pLinker); // 0x006BD0B0
 
@@ -371,22 +368,6 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileName); // 0x006CC1A0
 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
-
-int __stdcall SMsgRegisterCommand(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420BF0
-
-int __stdcall SMsgRegisterKeyDown(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420C10
-
-int __stdcall SMsgRegisterKeyUp(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420C30
-
-int __stdcall SMsgRegisterMessage(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420C50
-
-int __stdcall SMsgUnregisterCommand(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420C70
-
-int __stdcall SMsgUnregisterKeyDown(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420C90
-
-int __stdcall SMsgUnregisterKeyUp(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420CB0
-
-int __stdcall SMsgUnregisterMessage(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420CD0
 
 void __stdcall WINDOW_DecodeSmacker(const char* szSmacker, unsigned char* pBuffer, int nVersion); // 0x004F5E00
 
@@ -2466,58 +2447,6 @@ int __stdcall SMACK_SetCoordinates(D2WinSmackStrc* pSmack, int nX, int nY)
     pSmack->nMovieX = nX;
     pSmack->nMovieY = nY;
     return 1;
-}
-
-// 0x00506C40
-void __fastcall WREGISTER_RegisterCommand(void* hWnd, int nType, int nId, D2WinMsgHandler pCallback)
-{
-    D2_ASSERT(hWnd, 0x13);
-    switch (nType)
-    {
-    case 0:
-        D2_ASSERT(nId != 0x111, 0x17);
-        D2_ASSERT(nId != 0x101, 0x18);
-        D2_ASSERT(nId != 0x100, 0x19);
-        SMsgRegisterMessage(hWnd, nId, pCallback);
-        break;
-    case 1:
-        SMsgRegisterCommand(hWnd, nId, pCallback);
-        break;
-    case 2:
-        SMsgRegisterKeyUp(hWnd, nId, pCallback);
-        break;
-    case 3:
-        SMsgRegisterKeyDown(hWnd, nId, pCallback);
-        break;
-    default:
-        return;
-    }
-}
-
-// 0x00506CF0
-void __fastcall WREGISTER_UnregisterCommand(void* hWnd, int nType, int nId, D2WinMsgHandler pCallback)
-{
-    D2_ASSERT(hWnd, 0x30);
-    switch (nType)
-    {
-    case 0:
-        D2_ASSERT(nId != 0x111, 0x34);
-        D2_ASSERT(nId != 0x101, 0x35);
-        D2_ASSERT(nId != 0x100, 0x36);
-        SMsgUnregisterMessage(hWnd, nId, pCallback);
-        break;
-    case 1:
-        SMsgUnregisterCommand(hWnd, nId, pCallback);
-        break;
-    case 2:
-        SMsgUnregisterKeyUp(hWnd, nId, pCallback);
-        break;
-    case 3:
-        SMsgUnregisterKeyDown(hWnd, nId, pCallback);
-        break;
-    default:
-        return;
-    }
 }
 
 #include "gen/data/Source/D2Win/Src/D2Comp.inc"

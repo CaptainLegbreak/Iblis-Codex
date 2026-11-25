@@ -11,6 +11,7 @@
 #include "D2MonModes.h"
 #include "D2PlayerModes.h"
 #include "D2LanguageNames.h"
+#include "FogApi.h"
 // build: symbol _gaszLanguageNames 0x00741C84
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -136,9 +137,7 @@ void __fastcall D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(D2UnitStrc* pUni
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -1049,20 +1048,20 @@ int __fastcall AITACTICS_ChangeModeAndTargetCoordinatesNoStep(D2GameStrc* pGame,
 }
 
 // 0x005DE4E0
-int __fastcall AITACTICS_MoveInRadiusToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int a5, int a6)
+int __fastcall AITACTICS_MoveInRadiusToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int nMaxStepDistance, int nDesiredDistance)
 {
     int nSign = 1;
     const int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pTarget);
-    if (nDistance < a6)
+    if (nDistance < nDesiredDistance)
     {
         nSign = -1;
     }
 
-    const int nDelta = nDistance - a6;
+    const int nDelta = nDistance - nDesiredDistance;
     int nDiff = nDelta < 0 ? -nDelta : nDelta;
-    if (nDiff > a5)
+    if (nDiff > nMaxStepDistance)
     {
-        nDiff = a5;
+        nDiff = nMaxStepDistance;
     }
 
     const int nTargetX = CLIENTS_GetUnitX(pTarget);
@@ -1348,7 +1347,7 @@ static inline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
 }
 
 // 0x005DF7D0
-int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback)
+int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nNewDistance, int bDeleteAiEventCallback)
 {
     int nMode = 6;
     if ((AI_RollUnitSeed(pUnit) & 0xFF) < 128)
@@ -1356,7 +1355,7 @@ int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2Uni
         nMode = 5;
     }
 
-    AITACTICS_SetAiParam(pUnit, nMode, 0, a4);
+    AITACTICS_SetAiParam(pUnit, nMode, 0, nNewDistance);
     int nFlags;
     if (bDeleteAiEventCallback)
         nFlags = 4;

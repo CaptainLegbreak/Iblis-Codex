@@ -13,9 +13,7 @@ struct D2Direct3DVtbl006B7110Strc;
 struct D2CelFileStrc;
 
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -53,7 +51,6 @@ extern void* gpSpriteBuffer; // 0x00970F34
 
 extern void* gpSpriteOutlineBuffer; // 0x00970F38
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 extern D2D3DObjStrc* gapSpriteTextures[3]; // 0x00970F1C
 
@@ -84,6 +81,7 @@ void* gpSpriteOutlineBuffer; // 0x00970F38
 #include "D2GfxTypes.h"
 #include "D2DDrawTypes.h"
 #include "D2ClientTypes.h"
+#include "FogApi.h"
 
 struct D2CelStrc;
 

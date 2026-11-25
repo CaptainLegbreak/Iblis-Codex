@@ -10,6 +10,8 @@
 #include "D2TxtTables.h"
 #include "D2Unicode.h"
 #include "D2DataTbls.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MsgHandlerEntryStrc;
@@ -30,8 +32,6 @@ typedef void (__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2MsgHandlerEntryStrc gaWindowMsgHandlers[4]; // 0x0070F7E4
 void __fastcall SCMD_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451D10
@@ -157,7 +157,6 @@ public:
     virtual int IsFiltered(const char* szText);
 };
 
-int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam, int* pUseResult, int* pResult); // 0x00420B00
 
 int __cdecl RECORD_IsReplayActive(); // 0x00451990
 

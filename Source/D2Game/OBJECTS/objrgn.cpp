@@ -30,13 +30,13 @@
 #include "D2GameObjs.h"
 #include "D2Packets.h"
 #include "D2LanguageNames.h"
+#include "FogApi.h"
+#include "StormApi.h"
 // build: symbol _gaszLanguageNames 0x0073192C
 
 union D2SeedStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* text, const char* file, int line); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 
@@ -305,7 +305,6 @@ extern "C" size_t __cdecl strlen(const char* szString);
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
 void __fastcall GAME_LeaveGamesCriticalSection(D2GameStrc* pGame); // 0x0052DA90
 
@@ -337,7 +336,6 @@ unsigned int __fastcall CLIENT_IsGameOwner(D2ClientStrc* pClient); // 0x00539030
 
 typedef int (__fastcall* D2NET_Unk_Callback)(int, int, int, int);
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 int __stdcall SERVER_SetRemoveClientCallback(D2NET_Unk_Callback pfCallback); // 0x0052B5C0
 
@@ -352,7 +350,6 @@ int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int 
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);
 
 // build: symbol _gszD2NetSourceFile 0x006E0488
 extern "C" const char gszD2NetSourceFile[];
@@ -472,7 +469,6 @@ struct D2GameDataTableStrc
 
 void __fastcall SrvFreeGame(int nGameGUID, D2GameStrc* pGame); // 0x0052C7F0
 
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(D2LargeIntegerUnion* pCount); // 0x006CC25C
 
@@ -747,7 +743,6 @@ void __stdcall GAME_GetUnitsDescriptions(unsigned short nGameId, D2UnitDescripti
 
 struct D2PoolSystemStrc;
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                              // 0x0040B380
 
 int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem);                                     // 0x0040A040
 

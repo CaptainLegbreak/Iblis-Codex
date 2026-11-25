@@ -8,6 +8,7 @@
 #include "D2LevelTxt.h"
 #include "D2Unicode.h"
 #include "D2ClientUiRecords.h"
+#include "StormApi.h"
 
 #define D2_FREE_PANEL_CEL(pCel) if (pCel) { ARCHIVE_FreeClientCellFile(pCel); pCel = 0; }
 
@@ -15,7 +16,6 @@ struct D2PetTypeTxt;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
@@ -143,7 +143,6 @@ struct D2StoredUnitRecordStrc;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
 int __cdecl sub_0045AE90();                                                                                 // 0x0045AE90
 

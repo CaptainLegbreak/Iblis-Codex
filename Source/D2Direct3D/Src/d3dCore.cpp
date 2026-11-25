@@ -5,6 +5,8 @@
 #include "D2Win32Types.h"
 #include "D2D3DTypes.h"
 #include "D2FogSystemInfo.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 extern "C" __declspec(dllimport) int __stdcall lstrlenA(const char* sz); // 0x006CC154
 extern "C" __declspec(dllimport) long __stdcall RegSetValueExA(void* hKey, const char* szValueName, unsigned long nReserved, unsigned long dwType, const unsigned char* pData, unsigned long cbData); // 0x006CC034
@@ -383,9 +385,7 @@ extern const char gLocalError[]; // 0x006FBA74
 
 extern const char gAgpError[]; // 0x006FBA1C
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char*, const char*, int); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 
@@ -506,7 +506,6 @@ struct D2ComObjectVtbl006B5550Strc;
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 struct D2ComObjectVtbl006B5550Strc
 {
@@ -849,13 +848,10 @@ extern D2Surface006B3570Strc* gpPrimarySurface_00970E68; // 0x00970E68
 
 extern D2Surface006B3570Strc* gpRenderSurface_00970E6C; // 0x00970E6C
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 
 int __stdcall SRegLoadValue(const char*,const char*,unsigned int,unsigned long*); // 0x00414F10
 
@@ -2683,9 +2679,7 @@ extern void* ghDDrawWindow_007C9140; // 0x007C9140
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

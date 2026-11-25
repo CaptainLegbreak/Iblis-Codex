@@ -20,6 +20,7 @@
 #include "D2ObjModes.h"
 #include "D2PlayerModes.h"
 #include "D2MonModes.h"
+#include "FogApi.h"
 
 #define UNIT_MONSTER 1
 
@@ -195,9 +196,7 @@ typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState,
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
 
@@ -3420,7 +3419,7 @@ static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDef
 }
 
 // 0x0057E090
-int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nSize, D2DamageStrc* pDamage, int a7, int a8, DAMAGECALLBACK pfCallback, int a10)
+int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nSize, D2DamageStrc* pDamage, int bIncludeOwner, int bIncludeOwnersOwner, DAMAGECALLBACK pfCallback, int nUnitFindFlags)
 {
     D2DamageStrc damage;
     D2UnitFindArgStrc unitFindArg;
@@ -3436,8 +3435,8 @@ int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D
     pRoom = UNITS_GetRoom(pUnit);
     pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
 
-    nFlags = a10;
-    if (!a10)
+    nFlags = nUnitFindFlags;
+    if (!nUnitFindFlags)
     {
         nFlags = 0x583;
     }
@@ -3461,7 +3460,7 @@ int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D
 
     for (i = 0; i < unitFindData.nIndex; ++i)
     {
-        if ((pOwnerOwner != unitFindData.pUnitsArray[i] || a8) && (pOwner != unitFindData.pUnitsArray[i] || a7)
+        if ((pOwnerOwner != unitFindData.pUnitsArray[i] || bIncludeOwnersOwner) && (pOwner != unitFindData.pUnitsArray[i] || bIncludeOwner)
             && SUNIT_AreUnitsHostile(pGame, pOwner, unitFindData.pUnitsArray[i])
             && D2Common_11026(nX, nY, unitFindData.pUnitsArray[i], 0x805))
         {

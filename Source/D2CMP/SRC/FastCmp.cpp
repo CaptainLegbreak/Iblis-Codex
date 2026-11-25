@@ -7,6 +7,8 @@
 #include "D2CelDataHash.h"
 
 #include "D2ColorBlock.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -58,15 +60,12 @@ extern unsigned char gabPaletteMask[0x100]; // 0x008E9830
 
 extern int gbTableSet; // 0x008E9D40
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
 D2CmpTileStrc* __cdecl TileAlloc(); // 0x00609550
 
@@ -93,7 +92,6 @@ struct D2CelStrc { unsigned int flags,width,height; unsigned char unknown0C[0x14
 
 extern const char gszEmptyAssert[]; // 0x006CC837
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 int __fastcall sub_0060D280_ScanSameRun(const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D280
 
@@ -165,7 +163,6 @@ void __fastcall CelDrawRleBlendClipped(const unsigned char* pSrc, unsigned char*
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
 int gnGenericRle; // 0x008F03C8
 

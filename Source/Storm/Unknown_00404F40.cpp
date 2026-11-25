@@ -5,6 +5,7 @@
 #include "D2CrashTypes.h"
 #include "D2FogTypes.h"
 #include "D2CmdArg.h"
+#include "FogApi.h"
 #define CMD_BOOLEAN 0
 #define CMD_INTEGER 1
 #define CMD_STRING 2
@@ -48,8 +49,6 @@ enum { UPPER_FIRST = 65, UPPER_LAST = 90, CASE_DELTA = 32 };
 
 extern "C" size_t __cdecl strlen(const char* szString);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" int __cdecl atoi(const char* szString); // 0x00681EBB
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

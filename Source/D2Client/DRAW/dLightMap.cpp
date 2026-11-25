@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2Path.h"
+#include "FogApi.h"
 
 #pragma intrinsic(abs)
 
@@ -70,15 +71,12 @@ typedef void (__fastcall* ACTCALLBACKFN)(D2ActiveRoomStrc* pRoom);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 int __cdecl D2GFX_CheckLowQuality(); // 0x004F5210
 
@@ -203,7 +201,6 @@ void __fastcall SCMD_GetRoomLight(D2ActiveRoomStrc* pRoom, int* pIntensity, unsi
 
 static void DLIGHTMAP_BlendLightCell(int nCol, int nRow); // 0x00474C00
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
 unsigned int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
 

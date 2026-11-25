@@ -1,6 +1,7 @@
 #include "D2Multi.h"
 #include "D2Unicode.h"
 #include "D2MultiTypes.h"
+#include "StormApi.h"
 
 struct D2LaunchResultStrc
 {
@@ -22,8 +23,6 @@ extern "C" int __cdecl atoi(const char* szString);
 extern "C" size_t __cdecl strlen(const char* szString);
 
 const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 int __fastcall CHATDLG_SetupLogin(D2LaunchLoginStrc* pLogin, const char* szText0x37); // 0x0043FE40
 void __fastcall CHATDLG_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
 void __cdecl CHATDLG_DestroyCreateControls(); // 0x00443220

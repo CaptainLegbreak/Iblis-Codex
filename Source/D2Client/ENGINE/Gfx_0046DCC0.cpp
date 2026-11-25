@@ -5,6 +5,8 @@
 #include "D2CelContext.h"
 #include "D2ClientGfx.h"
 #include "D2ClientGfxState.h"
+#include "FogApi.h"
+#include "StormApi.h"
 struct D2GfxListNodeStrc;
 struct D2UnitStrc;
 
@@ -15,16 +17,12 @@ struct D2StateNodeStrc;
 struct D2StateOwnerStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" size_t __cdecl strlen(const char* szString);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);
 extern "C" char* __cdecl _strlwr(char* szString);
-unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed);
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine);
 extern int gnCofMemoryUsed; // 0x007A8918
 // build: symbol ?gtGlobalHashedFile@* 0x007A78F0
@@ -33,7 +31,6 @@ void __stdcall sub_M274_EmitBuildPath(char* szPath, int nMode);
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 D2StateOwnerStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 static void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay); // 0x0046E040

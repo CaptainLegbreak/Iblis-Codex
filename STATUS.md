@@ -42,11 +42,11 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 616 |
-| … in a file with its original name, whole | 292 |
-| … pieces of an original file still split (in 33 files) | 109 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 215 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 1932 |
+| Compilation units | 615 |
+| … in a file with its original name, whole | 294 |
+| … pieces of an original file still split (in 33 files) | 108 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 213 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 1933 |
 | Unnamed fields (`unk0x..`) in the shared headers | 647 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 44 |
 | Calling-convention shims | 38 |
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`, an `if`/`else` whose two arms are identical). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
 
-Not listed one by one: 4172 functions are compiled with `/GS-` and 1496 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 103 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
+Not listed one by one: 4171 functions are compiled with `/GS-` and 1496 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 103 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -437,6 +437,8 @@ Not listed one by one: 4172 functions are compiled with `/GS-` and 1496 with `/E
 | 0x0042DC50 | zError | `Storm/zlib/zutil.c` | compiler option /Ob2, compiler option /TC |
 | 0x0042DC70 | zcalloc | `Storm/zlib/zutil.c` | compiler option /Ob2, compiler option /TC |
 | 0x0042DC90 | zcfree | `Storm/zlib/zutil.c` | compiler option /Ob2, compiler option /TC |
+| 0x0042DCA0 | inflate_fast | `Storm/zlib/inffast.c` | compiler option /Ob2 |
+| 0x0042E120 | inflate_table | `Storm/zlib/inftrees.c` | compiler option /Ob2 |
 | 0x0044CD70 | GAME_TickKeepAlive | `D2Client/GAME/Game.cpp` | identical if/else arms |
 | 0x0044EFA0 | GAME_RunGameFrame | `D2Client/GAME/Game_0044D080.cpp` | identical if/else arms |
 | 0x00474160 | DLIGHTMAP_MakeLightEntry | `D2Client/DRAW/dLightMap.cpp` | volatile read or qualifier |

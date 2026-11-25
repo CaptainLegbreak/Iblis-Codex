@@ -16,6 +16,7 @@
 #include "D2UnitData.h"
 #include "D2GameCallbackArgs.h"
 #include "D2AiCallbackArgs.h"
+#include "FogApi.h"
 
 struct D2MonStatsTxt;
 
@@ -96,9 +97,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern const char gszEmptyString[]; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 
@@ -812,7 +811,7 @@ static inline D2MonStats2Txt* MONSTERREGION_GetMonStats2TxtRecordFromUnit_Inline
 }
 
 // 0x005B1740
-void __fastcall AITHINK_ExecuteMonsterAiTick(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
+void __fastcall AITHINK_ExecuteMonsterAiTick(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused1, int nUnused2)
 {
     D2AiTickParamStrc aiTickParam = {};
     aiTickParam.pAiControl = AIGENERAL_GetAiControlFromUnit_Inline(pUnit);

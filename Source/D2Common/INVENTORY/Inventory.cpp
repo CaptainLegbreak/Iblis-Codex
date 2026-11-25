@@ -32,6 +32,7 @@
 
 #include "D2ItemModes.h"
 #include "D2InventoryPair.h"
+#include "FogApi.h"
 
 #define STATEMASK_BLUE 18
 
@@ -175,9 +176,7 @@ struct CodeEntry
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char*, const char*, int); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 

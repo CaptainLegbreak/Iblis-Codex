@@ -16,6 +16,7 @@
 #include "D2ClientGfxState.h"
 #include "D2PlayerModes.h"
 #include "D2MonModes.h"
+#include "FogApi.h"
 
 struct D2UnitStrc;
 
@@ -63,9 +64,7 @@ struct D2HashedFileStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -124,7 +123,6 @@ struct D2OverlayTxt
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
@@ -148,7 +146,6 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 

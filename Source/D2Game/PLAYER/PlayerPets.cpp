@@ -10,6 +10,7 @@
 #include "D2GameAux.h"
 #include "D2LevelTxt.h"
 #include "D2LanguageNames.h"
+#include "FogApi.h"
 // build: symbol _gaszLanguageNames 0x007328C8
 
 #define PETTYPE_SINGLE 1
@@ -59,9 +60,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -755,7 +754,7 @@ static void __stdcall PLAYERPETS_RelocatePetList(D2GameStrc* pGame, D2PetListStr
 }
 
 // 0x00574DE0
-void __fastcall PLAYERPETS_IteratePets(D2GameStrc* pGame, D2UnitStrc* pPlayer, PetCallback pCallback, void* a4)
+void __fastcall PLAYERPETS_IteratePets(D2GameStrc* pGame, D2UnitStrc* pPlayer, PetCallback pCallback, void* pArg)
 {
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
 
@@ -779,7 +778,7 @@ void __fastcall PLAYERPETS_IteratePets(D2GameStrc* pGame, D2UnitStrc* pPlayer, P
                     D2UnitStrc* pPet = SUNIT_GetServerUnit(pGame, 1, pPetData->nUnitGUID);
                     if (pPet)
                     {
-                        pCallback(pGame, pPlayer, pPet, a4);
+                        pCallback(pGame, pPlayer, pPet, pArg);
                     }
                 }
             }
@@ -1318,7 +1317,7 @@ void __fastcall PLAYERPETS_UpdatePetLimits(D2GameStrc* pGame, D2UnitStrc* pPlaye
 }
 
 // 0x00574EC0
-D2UnitStrc* __fastcall PLAYERPETS_GetFirstPetByType(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int a4)
+D2UnitStrc* __fastcall PLAYERPETS_GetFirstPetByType(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int bIncludeDead)
 {
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     if (pPlayerData)
@@ -1329,7 +1328,7 @@ D2UnitStrc* __fastcall PLAYERPETS_GetFirstPetByType(D2GameStrc* pGame, D2UnitStr
             D2PetDataStrc* pPetData;
             for (pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
             {
-                if (a4 || !(pPetData->nFlags & 1))
+                if (bIncludeDead || !(pPetData->nFlags & 1))
                 {
                     break;
                 }
