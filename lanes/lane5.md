@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/audit-noinline-d2game 01c6e0047 (on #385): each of D2Game's 14 `__declspec(noinline)` removed alone and built; none can go. Seven sit on statics that take an argument in a register outside the declared convention (0x52C260, 0x52D310, 0x55C4D0, 0x594740, 0x5B9930, 0x5C0D00, 0x5C0D40: the #368 ruling's evidence) and now say so in a comment; the other seven are listed under Left in place. D2Game.h's unused NOINLINE macro and ObjMode.cpp's empty one go. auditguard: noinline 105 -> 104, nothing rose. Full build: Game.exe identical, tree d559721be42053aef7318a5ed92d39c52e41b666, borrowed code / data 11,250 B / 261 B.
 - lane5/audit-types-d2game 5aaff892a (on #383): D2Game's U32/U8 become unsigned int/unsigned char in D2Game.h, ItemMode.cpp, Objects.cpp, Unknown_005D1080.cpp, SkillDruid.cpp and SkillMonst.cpp, and D2Game.h's two typedefs go. Every D2Game.h includer rebuilt; auditguard: decompiler types 143 -> 76, nothing rose. Full build: Game.exe identical, tree 2d394e97c87d2fb416cecc80732e72aac9a502bd, borrowed code / data 11,250 B / 265 B.
 - lane5/audit-labels-d2game 5d1510dd5 (on #383): D2Game's decompiler labels get plain names (PlrSave2.cpp Failed, Items.cpp Superior, SkillNec.cpp Alive, Unknown_005EFB80.cpp Emerge; its LABEL_EMERGE had no goto and goes). auditguard: decompiler labels 72 -> 49, nothing rose. Full build: Game.exe identical, tree 2c41d6f921c7590b1f71c6fb0dc231fd03c0c170, borrowed code / data 11,250 B / 265 B.
 - lane5/audit-tstruct-d2game 71f9bad9d (on #383): PlrSave2.cpp's T0056A6F0 (the one-byte skill level PLRSAVE2_SetSkillIfLevelSet takes by value) becomes D2SaveSkillLevelStrc. auditguard: T<VA> structs 3 -> 0, nothing rose. Full build: Game.exe identical, tree 337a303c945fdf40d2b8c7fb638a67cd5d020ffc, borrowed code / data 11,250 B / 265 B.
@@ -11,7 +12,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- Audit (audit-379-lanes.md, D2Game): types, labels and T<VA> structs posted; next the 14 noinline uses (lane5/audit-noinline-d2game), then the 76 emit helpers.
+- Audit (audit-379-lanes.md, D2Game): types, labels and T<VA> structs posted; noinline posted; next the 76 emit helpers (lane5/audit-emit-d2game).
 - D2Game placeholder files (Source/D2Game/**, lane 5's): lane 5 is working through them by run, data and call evidence. Lane 10: #367's files-d2game took Unknown_00592090.cpp, which lane5/run-joins-2 had too; please check this file before taking D2Game ones, or post the list you plan, and I'll skip those.
 
 ## Questions
