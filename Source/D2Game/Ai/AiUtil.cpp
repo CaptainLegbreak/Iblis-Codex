@@ -1407,7 +1407,9 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_Ubers(D2GameStrc* pGame, D2UnitStrc
 
 // 0x005DD220
 extern "C" __declspec(dllexport) int __fastcall AIUTIL_CheckAiControlFlag(Obj005DD220* pObj, unsigned short wMask) {
-    return (pObj->wFlags08 & wMask) != 0;
+    if (pObj->wFlags08 & wMask)
+        return 1;
+    return 0;
 }
 
 // 0x005DD230
@@ -1853,16 +1855,16 @@ D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
     int* pSpecialAi = 0;
     int nOldToggle = 0;
     int bCheckCollision;
-    if (pAiControl->nAiFlags & 0x40)
+    int bForce = AIUTIL_CheckAiControlFlag((Obj005DD220*)pAiControl, 0x40);
+    if (bForce)
     {
         bCheckCollision = 1;
-        pAiControl->nAiFlags &= ~0x40;
     }
     else if (DUNGEON_CheckLOSDraw(pRoom))
         bCheckCollision = 0;
     else
     {
-        bCheckCollision = (pAiControl->nAiFlags & 8) == 0;
+        bCheckCollision = !AIUTIL_CheckAiControlFlag((Obj005DD220*)pAiControl, 8);
         if (pUnit && pUnit->dwUnitType == 1)
         {
             pSpecialAi = pUnit->pMonsterData ? (int*)pUnit->pMonsterData->pVision : 0;
@@ -1873,6 +1875,8 @@ D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
             }
         }
     }
+    if (bForce)
+        AIUTIL_ToggleAiControlFlag((Obj005DD230*)pAiControl, 0x40, 0);
 
     D2UnitStrc* pTarget = 0;
     int nDistance;
