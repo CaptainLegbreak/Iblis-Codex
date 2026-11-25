@@ -31,6 +31,7 @@ void __fastcall D3DCORE_LogDDrawError(const char*, int); // 0x006B20E0
 
 static void D3DTEXTURECACHE_Append(D2TexPoolStrc* pList, D2TexPoolEntryStrc* pNode); // 0x006BA5C0
 
+// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 static __declspec(noinline) void sub_006BA5C0_AppendTail(D2TexPoolStrc* pList, D2TexPoolEntryStrc* pNode);
 
 D2TexPoolEntryStrc* __fastcall sub_006BA660_Unlink(D2TexPoolStrc* pList, int nIndex);
