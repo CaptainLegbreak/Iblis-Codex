@@ -100,6 +100,19 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   (decompiler labels 38 -> 34); full verify VERIFIED, borrowed data 265 B (= main). The two Bink players' LABEL_FAIL
   (ddCore.cpp, D2Glide/Unknown_0050F910.cpp) becomes OpenFailed. (audit-params-renderers and audit-types-d2direct3d,
   above, still apply cleanly on #385.)
+- lane9/audit-noinline-renderers 2fbf9e4c, on main 1b5f8920 (#385), precheck 0 not all equal, auditguard no count
+  rose; full verify VERIFIED, borrowed data 261 B (= main). All eight noinline uses in lane 9's files are needed:
+  each unit differs without its attribute (tested one at a time). The six cache append statics (d3dTextureCache,
+  d3dSubtileCache, d3dFloorCache, glTextureCache, glSubtileCache, glFloorCache) take their arguments in eax/ecx with
+  their callers in the same object, the #368 case; each gets a one-line comment. **Can't delete, and not the #368
+  case:** D2GFX_SetPalette (Window.cpp, exported stdcall) and sub_0050BF40_GlideGetBlendedShadows
+  (D2Glide/Unknown_0050BD30.cpp, cdecl, already commented).
+- lane9/audit-emit-renderers b639ae1e, on main 1b5f8920 (#385), precheck 0 not all equal, auditguard no count rose
+  (emit helpers 544 -> 541); full verify VERIFIED, borrowed data 261 B (= main). Removed (each unit stays equal):
+  sub_J03_EmitScaleReaders (Window.cpp), sub_Emit_006B7FD0 (Unknown_006B7530.cpp), sub_leg345d_Emit_0050A9A0
+  (glSprite.cpp). **Still needed** (the unit differs without it): gdiCore.cpp's sub_006C8310_EmitCelClip,
+  glSprite.cpp's sub_M120_Emit_0050A1E0, d3dTextureCache/d3dSubtileCache's EmitCaller, and the D2Glide cache
+  helpers in glTextureCache.cpp and glSubtileCache.cpp/glFloorCache.cpp.
 - **Handover, initializer slots outside lane 9** (lane 9 stops here; these are the owners'):
   - 0x6CAC10 gnTextLeft = (gnScreenWidth - 325) / 2 (bss 0x7BF278, slot between inv's and QuestLog's): lane 1. In
     UI/text_0049A950.cpp it builds equal but raises borrowed data by 4 B, so that's probably not its object; the
