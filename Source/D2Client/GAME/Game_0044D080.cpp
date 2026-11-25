@@ -1291,18 +1291,20 @@ int __stdcall GAME_RunGameFrame(int nUnused)
     int bReady = 0;
     if (gnGameType == 0)
     {
-        sub_0052CFE0();
+// build: symbol ?GAME_ProcessNetworkMessages@* 0x0052CFE0
+        GAME_ProcessNetworkMessages();
         bReady = GAME_UpdateGamesProgress(1);
         if (bReady)
         {
-            sub_0052FD90(1, 0);
+// build: symbol ?GAME_UpdateClients@* 0x0052FD90
+            GAME_UpdateClients(1, 0);
         }
     }
     else if (gnGameType == 1)
     {
-        sub_0052CFE0();
+        GAME_ProcessNetworkMessages();
         bReady = GAME_UpdateGamesProgress(1);
-        sub_0052FD90(0, 0);
+        GAME_UpdateClients(0, 0);
     }
 
     WINMAIN_DrainPacketQueues();
@@ -1407,7 +1409,8 @@ int __stdcall GAME_RunGameFrame(int nUnused)
     UI_CloseUIVars(1, 0);
     if (gnGameType == 0 || gnGameType == 1)
     {
-        sub_0052E9C0();
+// build: symbol ?GAME_CloseAllGames@* 0x0052E9C0
+        GAME_CloseAllGames();
     }
 
     if (gnGameType == 6 || gnGameType == 8)

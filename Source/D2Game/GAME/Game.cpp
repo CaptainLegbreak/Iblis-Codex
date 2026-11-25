@@ -2688,7 +2688,7 @@ int __stdcall SrvRecvDatabaseCharacter(int nClientId, const unsigned char* pSave
         return 0;
     }
 
-    D2GameStrc* pGame = sub_0052FEE0_LockGameByClientId(nClientId);
+    D2GameStrc* pGame = GAME_GetGameByClientId(nClientId);
     if (!pGame)
     {
         return 0;

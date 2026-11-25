@@ -451,7 +451,7 @@ void __fastcall ACT2Q2_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pCallback[10] = ACT2Q2_Callback10_PlayerLeavesGame;
     pQuestData->pCallback[4] = ACT2Q2_Callback04_ItemPickedUp;
     pQuestData->pCallback[5] = ACT2Q2_Callback05_ItemDropped;
-    pQuestData->pCallback[8] = sub_00599A20_ACT2Q2_Callback08_Empty;
+    pQuestData->pCallback[8] = ACT2Q2_Callback08_MonsterKilled;
     pQuestData->pCallback[13] = ACT2Q2_Callback13_PlayerStartedGame;
     pQuestData->pCallback[14] = ACT2Q2_Callback14_PlayerJoinedGame;
     pQuestData->pCallback[9] = ACT2Q2_Callback09_PlayerDroppedWithQuestItem;

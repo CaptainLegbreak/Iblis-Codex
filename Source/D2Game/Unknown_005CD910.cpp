@@ -48,7 +48,7 @@ struct Unit
     char pad18[0xAC];
     unsigned int flags;
 };
-Unit* __stdcall sub_00553540(Game*, Unit*); // 0x00553540
+Unit* __stdcall SUNIT_GetTargetUnit(Game*, Unit*); // 0x00553540
 void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(Game*, Unit*, Unit*); // 0x0057C9F0
 int __fastcall SKILLS_GetMonFrenzySequenceFrame(Unit*); // 0x005CDD30
 int __fastcall SKILLS_StartSkill(Game*, Unit*, int, int, int); // 0x0056F640
@@ -104,7 +104,7 @@ int __fastcall sub_005CDF10(Game* game, Unit* unit, int skillId, int skillLevel)
 {
     Skill* skill = sub_00620250(unit);
     if (!skill) return 0;
-    Unit* target = sub_00553540(game, unit);
+    Unit* target = SUNIT_GetTargetUnit(game, unit);
     if (!target) return 0;
     SUNITDMG_FreeAttackerDefenderCombatList(game, unit, target);
     if (unit) unit->flags |= UNIT_FLAG;
@@ -127,7 +127,7 @@ int __fastcall sub_005CDFB0(Game* game,Unit* unit,int id,int level)
 {
     Skills* record=GetSkills(id);
     if(!record) return 0;
-    if(!sub_00553540(game,unit)) return 0;
+    if(!SUNIT_GetTargetUnit(game,unit)) return 0;
     int missile=record->missile;
     if(missile<0 || missile>=tables->missileCount) return 0;
     missile+=GetVariant(unit);

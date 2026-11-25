@@ -144,7 +144,7 @@ static D2EventTimerStrc* sub_00540DF0_InitializeTimer(D2GameStrc* pGame, D2UnitS
 {
     D2EventTimerStrc* pTimer = EVENT_AllocateTimer(pGame, pGame->pTimerQueue);
     pTimer->pUnit = pUnit;
-    pTimer->pNext = sub_00553980_GetTimer(pUnit);
+    pTimer->pNext = SUNIT_GetTimerFromUnit(pUnit);
     if (pTimer->pNext)
         pTimer->pNext->pPrevious = pTimer;
     pTimer->pPrevious = 0;
@@ -556,7 +556,7 @@ void __fastcall EVENT_FreeEventQueue(D2GameStrc* pGame)
 void __fastcall EVENT_AllocEventQueue(D2GameStrc* pGame)
 {
     if (pGame->pTimerQueue)
-        sub_00541400_FreeQueue(pGame);
+        EVENT_FreeEventQueue(pGame);
     D2EventTimerQueueStrc* pQueue = (D2EventTimerQueueStrc*)sub_0040B430_Alloc(pGame->pMemoryPool, sizeof(D2EventTimerQueueStrc), ".\\GAME\\Event.cpp", 807, 0);
     memset(pQueue, 0, sizeof(D2EventTimerQueueStrc));
     pQueue->pSlabListHead = EVENT_AllocTimerSlab(pGame);
