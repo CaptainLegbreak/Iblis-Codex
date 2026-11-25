@@ -243,23 +243,23 @@ D2WinControlStrc* __fastcall IMAGE2_Create(int nX, int nY, int nWidth, int nHeig
 
 D2WinControlStrc* __fastcall IMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7); // 0x004FD770
 
-D2WinControlStrc* __fastcall TIMER_Create(int nTimeout, int a2); // 0x004FD9D0
+D2WinControlStrc* __fastcall TIMER_Create(int nTimeout, int pfCallback); // 0x004FD9D0
 
 D2WinControlStrc* __fastcall D2Win_10070_EDITBOX_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6, D2CelFileStrc* pCellFile, int a8, int a9, int a10, int a11); // 0x005001D0
 
 D2WinControlStrc* __fastcall ANIMIMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7, int a8, int a9, int a10); // 0x00500850
 
-D2WinControlStrc* __fastcall BUTTON_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7, int a8, int a9, int a10, int a11); // 0x00501290
+D2WinControlStrc* __fastcall BUTTON_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int pCallback, int nVirtualKey, int nBaseFrame, int dwButtonFlags, int nStringId, int pUpdateHoverState); // 0x00501290
 
-D2WinControlStrc* __fastcall SMACK_Create(int nX, int nY, int nWidth, int nHeight, int a5); // 0x00506B70
+D2WinControlStrc* __fastcall SMACK_Create(int nX, int nY, int nWidth, int nHeight, int pfHandler); // 0x00506B70
 
-D2WinControlStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6); // 0x005075E0
+D2WinControlStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight, int pInit, int pFont); // 0x005075E0
 
 D2WinControlStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6); // 0x00507CA0
 
 D2WinControlStrc* __fastcall PROGRESSBAR_Create(int nX, int nY, int nWidth, int nHeight); // 0x00507E50
 
-D2WinControlStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6); // 0x005084F0
+D2WinControlStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int pfnHandler); // 0x005084F0
 
 void __fastcall D2SOUND_10034(int nArg); // 0x005148F0
 

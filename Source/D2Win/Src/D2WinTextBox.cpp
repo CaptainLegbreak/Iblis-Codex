@@ -56,7 +56,7 @@ int __stdcall D2Win_10125(); // 0x00501A40
 
 int __stdcall CONTROL_AppendToList(D2WinTextBoxStrc* pControl); // 0x004F9210
 
-D2WinScrollBarStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6); // 0x005084F0
+D2WinScrollBarStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int pfnHandler); // 0x005084F0
 
 int __fastcall SCROLLBAR_SetTextBox(D2WinScrollBarStrc* pScrollBar, D2WinTextBoxStrc* pTextBox); // 0x00507FD0
 
@@ -151,7 +151,7 @@ enum DrawMode
 
 void __stdcall TEXTURE_CelDrawClipped(D2CelContextStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
 
-int __fastcall D2Win_10058_0(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn); // 0x004FB790
+int __fastcall D2Win_10058_0(D2WinControlStrc* pControl, const Unicode* pText, int nLineNum, int nColumn); // 0x004FB790
 
 int __fastcall D2Win_10055(D2WinTextBoxStrc* pTextBox); // 0x004FBAB0
 
@@ -511,18 +511,18 @@ int __fastcall D2Win_10047(D2WinTextBoxStrc* ptTextData)
 }
 
 // 0x004FB740
-int __fastcall D2Win_10062(D2WinTextBoxStrc* ptTextData, int a2, int a3)
+int __fastcall D2Win_10062(D2WinTextBoxStrc* ptTextData, int nWrappedLineGap, int nLineGap)
 {
     D2_ASSERT(ptTextData, 0xFA);
     D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0xFB);
 
-    ptTextData->nWrappedLineGap = a2;
-    ptTextData->nLineGap = a3;
+    ptTextData->nWrappedLineGap = nWrappedLineGap;
+    ptTextData->nLineGap = nLineGap;
     return 1;
 }
 
 // 0x004FB790
-int __fastcall D2Win_10058_0(D2WinTextBoxStrc* pTextBox, const Unicode* pText, int a3, int nColumn)
+int __fastcall D2Win_10058_0(D2WinTextBoxStrc* pTextBox, const Unicode* pText, int nLineNum, int nColumn)
 {
     D2_ASSERT(pTextBox, 0x1F9);
     D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x1FA);
@@ -532,7 +532,7 @@ int __fastcall D2Win_10058_0(D2WinTextBoxStrc* pTextBox, const Unicode* pText, i
     sub_005267E0(wszText, pText);
 
     D2WinTextBoxLineStrc* ptLine = pTextBox->pFirstLine;
-    for (int i = 0; i < a3; ++i)
+    for (int i = 0; i < nLineNum; ++i)
     {
         if (!ptLine)
             return 1;
@@ -728,21 +728,21 @@ void __fastcall D2Win_10056(D2WinTextBoxStrc* pTextBox, int nNumColumns)
 }
 
 // 0x004FBC80
-void __fastcall D2Win_10059(D2WinTextBoxStrc* pTextBox, int nColumn, int a3)
+void __fastcall D2Win_10059(D2WinTextBoxStrc* pTextBox, int nColumn, int nOffset)
 {
     D2_ASSERT(pTextBox, 0x2EF);
     D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x2F0);
     D2_ASSERT((nColumn >= 0) && (nColumn < pTextBox->nNumColumns), 0x2F2);
-    pTextBox->nColumnOffsets[nColumn] = a3;
+    pTextBox->nColumnOffsets[nColumn] = nOffset;
 }
 
 // 0x004FBCD0
-void __fastcall D2Win_10060(D2WinTextBoxStrc* ptTextData, int nColumn, int a3)
+void __fastcall D2Win_10060(D2WinTextBoxStrc* ptTextData, int nColumn, int nAlignFlags)
 {
     D2_ASSERT(ptTextData, 0x2FC);
     D2_ASSERT(ptTextData->controlHeader.eType == 4, 0x2FD);
     D2_ASSERT(nColumn >= 0, 0x2FF);
-    ptTextData->nColumnAlignFlags[nColumn] = a3;
+    ptTextData->nColumnAlignFlags[nColumn] = nAlignFlags;
 }
 
 // 0x004FBD20
@@ -785,7 +785,7 @@ void __cdecl TEXTBOX_AssertUnsupported()
 }
 
 // 0x004FBDE0
-int __fastcall D2Win_10188(D2WinTextBoxStrc* pTextBox, int nLineNum, int a3)
+int __fastcall D2Win_10188(D2WinTextBoxStrc* pTextBox, int nLineNum, int nColor)
 {
     D2_ASSERT(pTextBox, 0x368);
     D2_ASSERT(pTextBox->controlHeader.eType == D2WIN_TEXTBOX, 0x369);
@@ -794,7 +794,7 @@ int __fastcall D2Win_10188(D2WinTextBoxStrc* pTextBox, int nLineNum, int a3)
     {
         for (D2WinTextBoxLineStrc* pLine = pTextBox->pFirstLine; pLine; pLine = pLine->pNext)
         {
-            pLine->nColor = a3;
+            pLine->nColor = nColor;
         }
 
         return 1;
@@ -818,7 +818,7 @@ int __fastcall D2Win_10188(D2WinTextBoxStrc* pTextBox, int nLineNum, int a3)
     D2_ASSERT(pLine, 0x382);
     D2_ASSERT(i == nLineNum, 0x383);
 
-    pLine->nColor = a3;
+    pLine->nColor = nColor;
     return 1;
 }
 
@@ -1578,17 +1578,17 @@ int __fastcall D2Win_10198(D2WinTextBoxStrc* ptTextData, const Unicode* pText, i
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004FCD40
-int __fastcall D2Win_10057(D2WinControlStrc* pControl, const char* szText, int a3, int a4)
+int __fastcall D2Win_10057(D2WinControlStrc* pControl, const char* szText, int nLineNum, int nColumn)
 {
     Unicode wszText[1024];
     sub_00526F20_ToUnicode(wszText, szText, 1024);
-    return D2Win_10058_0(pControl, wszText, a3, a4);
+    return D2Win_10058_0(pControl, wszText, nLineNum, nColumn);
 }
 
 // 0x004FCD90
-int __fastcall D2Win_10058(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn)
+int __fastcall D2Win_10058(D2WinControlStrc* pControl, const Unicode* pText, int nLineNum, int nColumn)
 {
-    return D2Win_10058_0(pControl, pText, a3, nColumn);
+    return D2Win_10058_0(pControl, pText, nLineNum, nColumn);
 }
 
 // 0x004FCDA0

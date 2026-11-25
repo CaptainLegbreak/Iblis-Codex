@@ -72,11 +72,11 @@ typedef int (__fastcall* D2NET_ReadPacketCallback)(QServer*, D2PacketBufferStrc*
 
 int gnLocalClientGameGuid;                                                                         // 0x00882D0C
 
-QServer* __stdcall QSInit(int a1, int a2, int a3, int a4, D2NET_PacketCallback a5, D2NET_PacketCallback a6, D2NET_PacketCallback a7, D2NET_ReadPacketCallback a8); // 0x006BF760
+QServer* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisableNt, D2NET_PacketCallback pfnProcess, D2NET_PacketCallback pfnOnNewClient, D2NET_PacketCallback pfnOnRemove, D2NET_ReadPacketCallback pfnHandler); // 0x006BF760
 
 int __stdcall FOG_10165(QServer* pServer, int nClientId, const char* szFile, int nLine);                   // 0x006C06B0
 
-int __stdcall FOG_10170(QServer* pServer, int a2);                                                          // 0x006BF040
+int __stdcall FOG_10170(QServer* pServer, int pfnCallback);                                                          // 0x006BF040
 
 int __stdcall FOG_10171(QServer* pServer, D2NET_Unk_Callback pfCallback);                                   // 0x006BF080
 
@@ -92,7 +92,7 @@ int __fastcall SERVER_SendToLocalClientCallback(QServer* nUnused, D2PacketBuffer
 
 int __fastcall SERVER_ValidateClientPacket(int a1, int a2, int a3, int a4);                                 // 0x0052B100
 
-int __fastcall SERVER_OnClientConnectedCallback(int a1, int a2, int a3, int a4);                                                // 0x0052B720
+int __fastcall SERVER_OnClientConnectedCallback(int pServer, int nClientId, int szFile, int nLine);                                                // 0x0052B720
 
 unsigned int __stdcall SERVER_SendPacketToClient(char nSendMode, void* pClientId, void* pPacketArg, unsigned int nPacketSize); // 0x0052B330
 

@@ -149,7 +149,7 @@ int __cdecl VIEW_SendMcpCharListRequest(); // 0x0044AAB0
 int __cdecl D2Win_10185_CheckCharMpq(); // 0x004FAC90
 int __cdecl D2SOUND_GetOptionsMusicOption(); // 0x00514D80
 int __fastcall ARCHIVE_LoadVideoArchives(void* pfShowMessage, void* hFile, int bExpansion); // 0x004FAD10
-int __fastcall D2Win_10188(D2WinControlStrc* pTextBox, int nLineNum, int a3); // 0x004FBDE0
+int __fastcall D2Win_10188(D2WinControlStrc* pTextBox, int nLineNum, int nColor); // 0x004FBDE0
 int __fastcall MAINMENUS_ConnectToRealm(const char* szName, int bFlag); // 0x00432480
 int __fastcall sub_004F9710_TestFlag(D2WinControlStrc* pControl); // 0x004F9710
 int __fastcall sub_004F9710_TestFlags(D2WinControlStrc* pControl); // 0x004F9710
