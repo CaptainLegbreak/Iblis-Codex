@@ -333,7 +333,7 @@ static int sQSNTWriteFromQueue(D2QueueServerStrc* pServer, D2QClientStrc* ptClie
     if (!bWritten && nError != 0x3E5)
     {
         QSERVER_ReleaseClient(pServer, ptClient);
-        QSrvCloseRemoteConnection(pServer, ptClient->iId, gszQServerNT_006FC8A0, 0x527);
+        QSrvCloseRemoteConnection(pServer, ptClient->iId, gszQServerNTFile, 0x527);
         return 0;
     }
 
@@ -685,7 +685,7 @@ int __fastcall QSERVERNT_SendLocal(D2QueueServerStrc* pServer, D2QClientStrc* pC
         {
             nError = pClient->iId;
             LeaveCriticalSection(pLock);
-            QSrvCloseRemoteConnection(pServer, nError, gszQServerNT_006FC8A0, 0x220);
+            QSrvCloseRemoteConnection(pServer, nError, gszQServerNTFile, 0x220);
             QSERVER_ReleaseClient(pServer, pClient);
             return 0;
         }
@@ -698,7 +698,7 @@ int __fastcall QSERVERNT_SendLocal(D2QueueServerStrc* pServer, D2QClientStrc* pC
             {
                 nError = pClient->iId;
                 LeaveCriticalSection(pLock);
-                QSrvCloseRemoteConnection(pServer, nError, gszQServerNT_006FC8A0, 0x234);
+                QSrvCloseRemoteConnection(pServer, nError, gszQServerNTFile, 0x234);
                 return 0;
             }
             nBytesSent = 0;

@@ -48,7 +48,7 @@ struct D2BitCodeStrc
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern unsigned int gdwLowMasks_006CE368[]; // 0x006CE368
+extern unsigned int gadwLowMasks[]; // 0x006CE368
 
 unsigned int __stdcall sub_00410F60_ReadBits(D2BitBufferStrc* pBuffer, int nBits); // 0x00410F60
 
@@ -61,15 +61,15 @@ struct D2TimedRecordStrc
 
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(__int64* pnFrequency); // 0x006CC254
 
-D2TimedRecordStrc gaTimerTable_0075E8A0[0x1000]; // 0x0075E8A0
+D2TimedRecordStrc gaTimerTable[0x1000]; // 0x0075E8A0
 
-int gnTimerTicksPerMs_0075E89C; // 0x0075E89C
+int gnTimerTicksPerMs; // 0x0075E89C
 
-int gnTimerTicksPerUs_0075E898; // 0x0075E898
+int gnTimerTicksPerUs; // 0x0075E898
 
-unsigned int gnRecordCount_007768A4; // 0x007768A4
+unsigned int gnRecordCount; // 0x007768A4
 
-int gnTickAtReset_007768A0; // 0x007768A0
+int gnTickAtReset; // 0x007768A0
 
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 
@@ -278,7 +278,7 @@ void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits)
         {
             n = nBits;
         }
-        *pBuffer->pBuffer |= (unsigned char)(gdwLowMasks_006CE368[n] & nValue) << pBuffer->nPosBits;
+        *pBuffer->pBuffer |= (unsigned char)(gadwLowMasks[n] & nValue) << pBuffer->nPosBits;
         pBuffer->nPosBits += n;
         if (pBuffer->nPosBits != 8)
         {
@@ -327,7 +327,7 @@ unsigned int __stdcall sub_00410F60_ReadBits(D2BitBufferStrc* pBuffer, int nBits
             }
             const int nPosBits = pBuffer->nPosBits;
 
-            dwValue += (gdwLowMasks_006CE368[i] & ((unsigned char)(*pBuffer->pBuffer & gabOffsetMasks[nPosBits]) >> nPosBits)) << dw;
+            dwValue += (gadwLowMasks[i] & ((unsigned char)(*pBuffer->pBuffer & gabOffsetMasks[nPosBits]) >> nPosBits)) << dw;
             dwBitsLeft -= i;
             dw += i;
             pBuffer->nPosBits += i;
@@ -446,20 +446,20 @@ void __cdecl sub_00411210_InitTimer()
 {
     __int64 nFrequency;
     QueryPerformanceFrequency(&nFrequency);
-    gnTimerTicksPerMs_0075E89C = (int)(nFrequency / 1000);
-    gnTimerTicksPerUs_0075E898 = (int)(nFrequency / 1000000);
-    memset(gaTimerTable_0075E8A0, 0, sizeof(gaTimerTable_0075E8A0));
-    gnTickAtReset_007768A0 = GetTickCount();
+    gnTimerTicksPerMs = (int)(nFrequency / 1000);
+    gnTimerTicksPerUs = (int)(nFrequency / 1000000);
+    memset(gaTimerTable, 0, sizeof(gaTimerTable));
+    gnTickAtReset = GetTickCount();
 }
 
 // 0x00411280
 void __cdecl sub_00411280_ResetRecords()
 {
-    for (unsigned int i = 0; i < gnRecordCount_007768A4; ++i)
+    for (unsigned int i = 0; i < gnRecordCount; ++i)
     {
-        gaTimerTable_0075E8A0[i].qwValue = 0;
+        gaTimerTable[i].qwValue = 0;
     }
-    gnTickAtReset_007768A0 = GetTickCount();
+    gnTickAtReset = GetTickCount();
 }
 
 // 0x004112B0

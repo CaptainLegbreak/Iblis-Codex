@@ -10,9 +10,9 @@ extern D2ProfileCounterStrc gaProfEntries[23]; // 0x00743800
 void __cdecl PROFCORE_WriteProfileCounters(); // 0x006116B0
 void __cdecl LOGGING_CloseLog(); // 0x00624B20
 extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC; // 0x0096C7CC
-extern D2TxtLinkStrc* gpMissilesLinker_0096C798; // 0x0096C798
-extern D2TxtLinkStrc* gpSkillCalcLinker_0096BC6C; // 0x0096BC6C
-extern D2TxtLinkStrc* gpMissileCalcLinker_0096BC8C; // 0x0096BC8C
+extern D2TxtLinkStrc* gpMissilesLinker; // 0x0096C798
+extern D2TxtLinkStrc* gpSkillCalcLinker; // 0x0096BC6C
+extern D2TxtLinkStrc* gpMissileCalcLinker; // 0x0096BC8C
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError); // 0x006BD130
 
 extern PROFHOOK0096BC24FN gpfnProfSecondaryHook; // 0x0096BC24

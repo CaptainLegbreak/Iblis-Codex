@@ -214,7 +214,7 @@ extern int gdwTickCount;                                                        
 
 extern int gnTickCounter;                                                                              // 0x007A0498
 
-extern unsigned long gdwNextTick_007A049C;                                                                  // 0x007A049C
+extern unsigned long gdwNextKeepAliveTick;                                                                  // 0x007A049C
 
 extern unsigned long gdwLastPingTick;                                                                  // 0x007A04A0
 
@@ -276,7 +276,7 @@ extern int gnPopUpTextX;                                                        
 
 extern int gnPopUpTextY;                                                                              // 0x007A2D24
 
-extern Unicode gwszHoverLine_007A2D30[];                                                                    // 0x007A2D30
+extern Unicode gwszHoverLine[];                                                                    // 0x007A2D30
 
 extern int gnHoverTextColor;                                                                       // 0x007A2F30
 
@@ -486,7 +486,7 @@ void __cdecl GAME_InitGameState()
     GAME_LoadLoadingScreen();
 // build: symbol ?UI_DrawLoadingScreen@* 0x004565E0
     UI_DrawLoadingScreen(1);
-    if (gdwGlobal_007A0610 == 7 || gdwGlobal_007A0610 == 9 || gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 8)
+    if (gnGameType == 7 || gnGameType == 9 || gnGameType == 6 || gnGameType == 8)
         MSG_UploadSaveFile(1);
     sub_005173D3_SetRecordHandler(GAME_DestroyWindowAndGfx);
     PALSHIFT_AllocPalShiftEntries();
@@ -497,7 +497,7 @@ void __cdecl GAME_InitGameState()
     gdwGameStartTick = GetTickCount();
     gpfnClientCallback = GAME_DrawGameView;
     gnTickCounter = 0;
-    gdwGlobal_007A0494 = 0;
+    gnFrameCount = 0;
     VIEW_SetViewPos(gpClientView, 0, 0);
     PLAYER_SetPanelSlide(0);
     gnSkillDelayUntil = 0;

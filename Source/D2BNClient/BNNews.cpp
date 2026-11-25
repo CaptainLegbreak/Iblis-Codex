@@ -98,15 +98,15 @@ extern "C" char* __cdecl strncpy(char*,const char*,unsigned);
 
 
 
-extern unsigned gnNewsLastStamp_00881C44; // 0x00881C44
+extern unsigned gnNewsNewest; // 0x00881C44
 
 // 0x0051D260
 void __fastcall BNNEWS_SelectNewsFile(int bAlternate)
 {
     D2_ASSERT(!gbNewsActive, 0x2F);
-    gpszNewsName_0072FF80 = "BNNews-D2DV";
+    gpszNewsName = "BNNews-D2DV";
     if (!bAlternate)
-        gpszNewsName_0072FF80 = "BNNews-D2XP";
+        gpszNewsName = "BNNews-D2XP";
 }
 
 inline unsigned int RoundUp(unsigned int nValue, unsigned int nAlign)
@@ -242,7 +242,7 @@ int __cdecl BNNEWS_SaveNews()
         D2FileTimeStrc tFileTime;
         GetSystemTime(&tSystemTime);
         SystemTimeToFileTime(&tSystemTime, &tFileTime);
-        int nResult = CACHE_WriteCachedFile(gpszNewsName_0072FF80, pBuffer, nSize, &tFileTime, -1, -1);
+        int nResult = CACHE_WriteCachedFile(gpszNewsName, pBuffer, nSize, &tFileTime, -1, -1);
         FOG_Free(pBuffer, gszBNNewsFile, 0x17B, 0);
         return nResult;
     }
@@ -447,7 +447,7 @@ insert:
   } else if(gpfnNewsMessage)gpfnNewsMessage(0,text);
 next:;
  }
- gnNewsLastStamp_00881C44=last;
+ gnNewsNewest=last;
  unsigned index=0;
  while(index<gtNewsItems.m_count && gtNewsItems.m_data[index].nStamp<first)++index;
  gnNewsFirstIndex=index;

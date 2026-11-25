@@ -89,11 +89,11 @@ void __cdecl sub_005140D0_InitDirectSound(); // 0x005140D0
 
 int __fastcall D2SOUNDUTIL_GetVxdFileVersion(const char* szPath, unsigned int* pMajor, unsigned int* pMinor, unsigned int* pBuild); // 0x00516CA0
 
-extern int gnSoundArg_008816DC;                                                                             // 0x008816DC
+extern int gnChannelArg;                                                                             // 0x008816DC
 
 int gbSoundReady;                                                                                  // 0x00881764
 
-extern int gdwGlobal_0088176C;                                                                              // 0x0088176C
+extern int gfPositionalSound;                                                                              // 0x0088176C
 
 int gbEaxEnabled;                                                                                  // 0x00881770
 
@@ -105,7 +105,7 @@ int gbCheckEmu10k1;                                                             
 
 extern int gbCheckCrlds3d;                                                                         // 0x0088178C
 
-extern int gdwGlobal_00881790;                                                                              // 0x00881790
+extern int gfSoundExpansion;                                                                              // 0x00881790
 
 extern D2KsPropertySetStrc* gpEaxListenerPropertySet;                                              // 0x008816D8
 
@@ -222,7 +222,7 @@ extern D2DSCaps gtDSCaps; // 0x008816E0
 
 extern int gbUseEax_00881770; // 0x00881770
 
-extern int gbSoundInit_00881784; // 0x00881784
+extern int gbOldSoundDriver; // 0x00881784
 
 extern const D2DSGuid gtIidDirectSound3DBuffer; // 0x006DE3D0
 
@@ -377,7 +377,7 @@ void __cdecl sub_00514050_Nothing()
 // 0x00514060
 void __cdecl D2SOUND_CloseSoundSystem()
 {
-    gnSoundState_00881764 = 0;
+    gbSoundReady = 0;
     D2SOUNDSMP_SetMasterVolume(0);
     D2SOUND_DestroyStreamChannel();
     D2SOUNDSMP_StopSoundThread();
@@ -402,7 +402,7 @@ void __cdecl D2SOUND_CloseSoundSystem()
 // 0x005140D0
 void __cdecl sub_005140D0_InitDirectSound()
 {
-    if (gb3DSound && gbSoundInit_00881784)
+    if (gb3DSound && gbOldSoundDriver)
     {
         return;
     }
@@ -540,14 +540,14 @@ void __cdecl sub_005140D0_InitDirectSound()
     D2SOUND_CreateStreamChannel(gnChannelArg);
     D2SOUND_LoadRegistrySettings();
     D2SOUNDSMP_SetMasterVolume(0xFF);
-    gnSoundState_00881764 = 1;
+    gbSoundReady = 1;
 }
 
 // 0x00514530
 void __fastcall sub_00514530_InitSound(int nArg1, int nArg2)
 {
-    gdwGlobal_00881790 = nArg1;
-    gnSoundArg_008816DC = nArg2;
+    gfSoundExpansion = nArg1;
+    gnChannelArg = nArg2;
     gbSoundEnumDone = 0;
     DirectSoundEnumerateA(sub_00513A20_EnumCallback, 0);
 
@@ -591,17 +591,17 @@ void __fastcall sub_00514530_InitSound(int nArg1, int nArg2)
 
     if (!gbSoundReady)
     {
-        gdwGlobal_0088176C = 1;
+        gfPositionalSound = 1;
         gbEaxEnabled = 1;
         sub_005140D0_InitDirectSound();
         if (!gbSoundReady)
         {
-            gdwGlobal_0088176C = 1;
+            gfPositionalSound = 1;
             gbEaxEnabled = 0;
             sub_005140D0_InitDirectSound();
             if (!gbSoundReady)
             {
-                gdwGlobal_0088176C = 0;
+                gfPositionalSound = 0;
                 gbEaxEnabled = 0;
                 sub_005140D0_InitDirectSound();
                 if (!gbSoundReady)
@@ -672,7 +672,7 @@ int gnChannelValue; // 0x00881798
 
 int gbChannelFlag; // 0x0088179C
 
-extern int gdwGlobal_00881798; // 0x00881798
+extern int gnChannelValue; // 0x00881798
 
 // 0x005147D0
 int __fastcall D2SOUND_PlayStreamChannel(const char* szFile, int bLoop)
@@ -718,7 +718,7 @@ void __fastcall D2SOUND_10034(int nValue)
 // 0x00514920
 int __cdecl D2SOUND_GetStreamChannelValue()
 {
-    return gdwGlobal_00881798;
+    return gnChannelValue;
 }
 
 // 0x00514930

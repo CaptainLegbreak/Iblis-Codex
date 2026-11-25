@@ -80,9 +80,9 @@ D2WheelCallbackFn gpfnWheelDown; // 0x007A7408
 
 extern D2PalShiftEntryStrc* gpPalShiftEntries;                                                     // 0x007B9578
 
-extern unsigned char gaGlobalPalShifts_007B9580[0x1E][0x100];                                               // 0x007B9580
+extern unsigned char gabGlobalPalShifts[0x1E][0x100];                                               // 0x007B9580
 
-extern int gbGlobalPalShifts_007BB380;                                                                      // 0x007BB380
+extern int gbGlobalPalShifts;                                                                      // 0x007BB380
 
 D2UnitStrc* gapClientUnitTable[6 * 0x80]; // 0x007A5E70
 
@@ -465,7 +465,7 @@ extern int gnTradeState; // 0x007C0E7C
 
 extern unsigned char* gpDDrawDebugFontGlyphs; // 0x008815AC
 
-extern void* gpReply_008818D0; // 0x008818D0
+extern void* gpReply; // 0x008818D0
 
 extern "C" void* gpGidFileData; // 0x00882744
 
@@ -555,7 +555,7 @@ void __fastcall CUNIT_SyncFromServerUnit(D2UnitStrc* pUnit); // 0x00465070
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int id); // 0x0045C4B0
 
 
-extern const unsigned char gnSkillMask_006CE26C; // 0x006CE26C
+extern const unsigned char gdwBitMask1; // 0x006CE26C
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
@@ -1044,7 +1044,7 @@ void __fastcall CUNIT_SetPlayerUnit(D2UnitStrc* pUnit)
     if (pUnit)
     {
         sub_006488A0_SetDirection(pUnit->pDynamicPath, 0);
-        gnCharClass_007A0522 = (unsigned char)CUNIT_GetUnitClassId(pUnit);
+        gnCharClass = (unsigned char)CUNIT_GetUnitClassId(pUnit);
         GAME_SetStandStillHeld(0);
         UI_LoadPlayerUI();
     }
@@ -1896,14 +1896,14 @@ int __fastcall CUNIT_IsPetSkillTarget(D2UnitStrc* unit, D2UnitStrc* target)
         if (skill)
         {
             D2SkillsTxt* record = sub_0045C4B0_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(skill, ".\\UNIT\\CUnit.cpp", 0xB4A));
-            if (record && (record->nFlags[3] & gnSkillMask_006CE26C))
+            if (record && (record->nFlags[3] & gdwBitMask1))
                 enabled = 1;
         }
         skill = UNITS_GetRightSkill(unit);
         if (skill)
         {
             D2SkillsTxt* record = sub_0045C4B0_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(skill, ".\\UNIT\\CUnit.cpp", 0xB55));
-            if (record && (record->nFlags[3] & gnSkillMask_006CE26C))
+            if (record && (record->nFlags[3] & gdwBitMask1))
                 enabled = 1;
         }
         if (enabled)
@@ -2011,7 +2011,7 @@ int __fastcall CUNIT_IsTargetBlocked(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 // 0x00465070
 void __fastcall CUNIT_SyncFromServerUnit(D2UnitStrc* pUnit)
 {
-    D2_ASSERT(!gdwGlobal_007A0610, 0xBAA);
+    D2_ASSERT(!gnGameType, 0xBAA);
 
     const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
     const int nUnitId = !pUnit ? -1 : pUnit->dwUnitId;
@@ -2519,7 +2519,7 @@ void __cdecl CUNIT_ResetUnitTables()
     CUNIT_ForEachUnitInTable(gpUnitTable_007A5470, CUNIT_FreeUnitModStats);
     CUNIT_ForEachUnitInTable(gpUnitTable_007A6670, CUNIT_FreeUnitModStats);
     CUNIT_ForEachUnitInTable(gpUnitTable_007A5E70, CUNIT_FreeUnitModStats);
-    if (!gdwGlobal_007A0610)
+    if (!gnGameType)
     {
         CUNIT_ForEachUnitInTable(gpUnitTable_007A5E70, CUNIT_SyncFromServerUnit);
         CUNIT_ForEachUnitInTable(gpUnitTable_007A6070, CUNIT_SyncFromServerUnit);
@@ -3506,12 +3506,12 @@ void __cdecl DDDEBUGFONT_FreeDebugFont()
 // build: symbol ?BNSEND_FreeGamesList@* 0x0051B210
 void __cdecl BNSEND_FreeGamesList()
 {
-    if (gpReply_008818D0)
+    if (gpReply)
     {
-        FOG_Free(gpReply_008818D0, ".\\BnSend.cpp", 0x36A, 0);
+        FOG_Free(gpReply, ".\\BnSend.cpp", 0x36A, 0);
     }
 
-    gpReply_008818D0 = 0;
+    gpReply = 0;
 }
 
 // build: symbol ?GRID_UnlockCDKeys@* 0x005239C0

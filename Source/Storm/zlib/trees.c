@@ -140,7 +140,7 @@ extern static_tree_desc static_l_desc;                                          
 extern static_tree_desc static_d_desc;                                                            // 0x00708908
 extern static_tree_desc static_bl_desc;                                                           // 0x0070891C
 
-static const ct_data static_ltree_006D0EE0[L_CODES + 2] = {                                         // 0x006D0EE0
+static const ct_data static_ltree[L_CODES + 2] = {                                         // 0x006D0EE0
     {{ 12},{  8}},{{140},{  8}},{{ 76},{  8}},{{204},{  8}},{{ 44},{  8}},
     {{172},{  8}},{{108},{  8}},{{236},{  8}},{{ 28},{  8}},{{156},{  8}},
     {{ 92},{  8}},{{220},{  8}},{{ 60},{  8}},{{188},{  8}},{{124},{  8}},
@@ -725,7 +725,7 @@ void __fastcall _tr_flush_bits(deflate_state* s)
 void __fastcall _tr_align(deflate_state* s)
 {
     send_bits(s, (STATIC_TREES << 1), 3);
-    send_code(s, END_BLOCK, static_ltree_006D0EE0);
+    send_code(s, END_BLOCK, static_ltree);
     bi_flush(s);
 }
 
@@ -760,7 +760,7 @@ void __fastcall _tr_flush_block(deflate_state* s, char* buf, unsigned long store
 
     } else if (s->strategy == Z_FIXED || static_lenb == opt_lenb) {
         send_bits(s, (STATIC_TREES << 1) + last, 3);
-        compress_block(s, (const ct_data*)static_ltree_006D0EE0,
+        compress_block(s, (const ct_data*)static_ltree,
                        (const ct_data*)static_dtree);
     } else {
         send_bits(s, (DYN_TREES << 1) + last, 3);

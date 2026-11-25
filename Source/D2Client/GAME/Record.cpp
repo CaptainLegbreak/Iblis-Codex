@@ -58,8 +58,8 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2RecordBlockStrc gFirstRecordBlock_007A0818; // 0x007A0818
 extern D2RecordHeaderStrc sgtReadFileHeader; // 0x007A2768
-extern int gnRecordPos_007A2784; // 0x007A2784
-extern int gbRecordPlaying_007A2788; // 0x007A2788
+extern int gnRecordPos; // 0x007A2784
+extern int gbRecordPlaying; // 0x007A2788
 
 
 void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
@@ -175,8 +175,8 @@ void __cdecl RECORD_LoadRecordFile()
     ReadFile(hFile, &sgtReadFileHeader, sizeof(D2RecordHeaderStrc), &nRead, 0);
     if (sgtReadFileHeader.nVersion != 1)
     {
-        gnRecordPos_007A2784 = 0;
-        gbRecordPlaying_007A2788 = 0;
+        gnRecordPos = 0;
+        gbRecordPlaying = 0;
         CloseHandle(hFile);
         return;
     }

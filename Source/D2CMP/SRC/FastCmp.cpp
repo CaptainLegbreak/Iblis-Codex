@@ -54,7 +54,7 @@ extern unsigned int gdwSwappedColor; // 0x008E9D38
 
 extern int gbPaletteTestBackground; // 0x008E9028
 
-extern int gnGlobal_008E9D3C; // 0x008E9D3C
+extern int gbDarkTest; // 0x008E9D3C
 
 extern unsigned char gabPaletteMask[0x100]; // 0x008E9830
 
@@ -129,7 +129,7 @@ int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections); // 
 
 typedef unsigned char BYTE;
 
-extern int gnGenericRle_008F03C8; // 0x008F03C8
+extern int gnGenericRle; // 0x008F03C8
 
 const unsigned char* __fastcall CelSkipRleLines(const unsigned char*,int); // 0x00606D10
 
@@ -618,7 +618,7 @@ int __stdcall Palette24BitTo8BitImage(const unsigned char* pSource, unsigned cha
 // 0x00605840
 void __stdcall PaletteFixBlack(int nValue)
 {
-    gnGlobal_008E9D3C = nValue;
+    gbDarkTest = nValue;
 }
 
 // 0x00605850
@@ -2006,7 +2006,7 @@ void __fastcall CelDrawRle(D2CelStrc* pCel, unsigned char* pDest, int nX, int nL
     const unsigned char* pSrc = CelSkipRleLines(pCel->pixels, nSkipRows);
     const int nStride = (pCel->flags & 1) ? nPitch : -nPitch;
 
-    if (gnGenericRle_008F03C8)
+    if (gnGenericRle)
     {
         unsigned char* pNextRow = pDest + nStride;
         for (;;)

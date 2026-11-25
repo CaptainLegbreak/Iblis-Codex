@@ -700,7 +700,7 @@ int __fastcall DATATBLS_CheckNestedMonsterTypes(int nMonType1, int nMonType2);
 
 unsigned short __stdcall STRTABLE_FindString(const char* szKey, const wchar_t** ppText);               // 0x00524D30
 
-D2TxtLinkStrc* gpHireDescLinker_0096BCE8;                                                                   // 0x0096BCE8
+D2TxtLinkStrc* gpHireDescLinker;                                                                   // 0x0096BCE8
 
 extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC;                                                              // 0x0096C7CC
 
@@ -778,7 +778,7 @@ void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, 
 
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError);                 // 0x006BD130
 
-D2TxtLinkStrc* gpCompCodeLinker_0096BCB0;                                                                   // 0x0096BCB0
+D2TxtLinkStrc* gpCompCodeLinker;                                                                   // 0x0096BCB0
 
 struct D2MonEquipTxt;
 
@@ -2302,7 +2302,7 @@ void __fastcall DATATBLS_LoadHirelingTxt(void* hArchive)
         { FIELD_TEXT("dmg/lvl"), 2, 0, 0x58, 0 },
         { FIELD_TEXT("resist"), 2, 0, 0x5C, 0 },
         { FIELD_TEXT("resist/lvl"), 2, 0, 0x60, 0 },
-        { FIELD_TEXT("hiredesc"), 13, 0, 0xD2, &gpHireDescLinker_0096BCE8 },
+        { FIELD_TEXT("hiredesc"), 13, 0, 0xD2, &gpHireDescLinker },
         { FIELD_TEXT("defaultchance"), 2, 0, 0x64, 0 },
         { FIELD_TEXT("skill1"), 19, 0, 0x78, &gpSkillsLinker_0096C7CC },
         { FIELD_TEXT("mode1"), 4, 0, 0xC0, 0 },
@@ -2757,7 +2757,7 @@ void __fastcall DATATBLS_MonStats2CompositLinker(char* pSrc, void* pRecord, int 
         }
 
         DATATBLS_MakeCompCode(szToken, szCode);
-        pMonStats2TxtRecord->pComponents[nOffset].nComposit[nCounter] = (unsigned char)FOG_GetLinkIndex(gpCompCodeLinker_0096BCB0, *(unsigned int*)szCode, 1);
+        pMonStats2TxtRecord->pComponents[nOffset].nComposit[nCounter] = (unsigned char)FOG_GetLinkIndex(gpCompCodeLinker, *(unsigned int*)szCode, 1);
         ++nCounter;
     }
     while (pNext && nCounter < 12);

@@ -37,7 +37,7 @@ void __fastcall sub_006C8DA0_DrawLine(D2CoordPairStrc* pFrom, D2CoordPairStrc* p
     int nY = nStartY;
     int i = 0;
 
-    while (!(nY >= 0 && nY < gnSurfaceHeight_007C913C && nX >= 0 && nX < gnSurfaceWidth_007C9138))
+    while (!(nY >= 0 && nY < gnRenderHeight && nX >= 0 && nX < gnRenderWidth))
     {
         nFracX += nStepX;
         if (nFracX >= 0x10000 || nFracX <= -0x10000)
@@ -60,7 +60,7 @@ void __fastcall sub_006C8DA0_DrawLine(D2CoordPairStrc* pFrom, D2CoordPairStrc* p
         ++i;
     }
 
-    unsigned char* pPixel = gpSurfaceBits_007C9154 + nY * gnSurfaceWidth_007C9138 + nX;
+    unsigned char* pPixel = gpSurfaceBits_007C9154 + nY * gnRenderWidth + nX;
     *pPixel = nColor;
 
     for (++i; i < nLength; ++i)
@@ -74,7 +74,7 @@ void __fastcall sub_006C8DA0_DrawLine(D2CoordPairStrc* pFrom, D2CoordPairStrc* p
             nFracX -= nStep * 0x10000;
         }
 
-        if (nX < 0 || nX >= gnSurfaceWidth_007C9138)
+        if (nX < 0 || nX >= gnRenderWidth)
             return;
 
         nFracY += nStepY;
@@ -82,11 +82,11 @@ void __fastcall sub_006C8DA0_DrawLine(D2CoordPairStrc* pFrom, D2CoordPairStrc* p
         {
             const int nStep = nFracY / 0x10000;
             nY += nStep;
-            pPixel += nStep * gnSurfaceWidth_007C9138;
+            pPixel += nStep * gnRenderWidth;
             nFracY -= nStep * 0x10000;
         }
 
-        if (nY < 0 || nY >= gnSurfaceHeight_007C913C)
+        if (nY < 0 || nY >= gnRenderHeight)
             return;
 
         *pPixel = nColor;

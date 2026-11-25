@@ -879,7 +879,7 @@ void __cdecl SELECT_UpdateHoverUnit()
     }
 
     D2UnitStrc* pSelected = SELECT_GetSelectedUnit();
-    if (pSelected && CUNIT_IsUnitSelectable(pSelected, nX, nY, 1) && (pSelected->dwUnitType != UNIT_ITEM || !gdwGlobal_007A6A90))
+    if (pSelected && CUNIT_IsUnitSelectable(pSelected, nX, nY, 1) && (pSelected->dwUnitType != UNIT_ITEM || !gbNoPickup))
     {
         SELECT_SetHoverUnit(pSelected);
         return;
@@ -943,7 +943,7 @@ void __cdecl SELECT_UpdateHoverUnit()
                 continue;
             }
 
-            if (pUnit && pUnit->dwUnitType == UNIT_ITEM && gdwGlobal_007A6A90)
+            if (pUnit && pUnit->dwUnitType == UNIT_ITEM && gbNoPickup)
             {
                 continue;
             }

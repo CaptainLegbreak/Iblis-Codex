@@ -9,14 +9,14 @@ extern "C" __declspec(dllimport) unsigned int __stdcall SmackDoFrame(D2SmackStrc
 extern "C" __declspec(dllimport) unsigned int __stdcall SmackWait(D2SmackStrc* smack); // 0x006CC5F8
 extern "C" __declspec(dllimport) void __stdcall SmackNextFrame(D2SmackStrc* smack); // 0x006CC600
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern D2CriticalSectionStrc* gpLock_007C9134; // 0x007C9134
+extern D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
 extern D2D3DDeviceStrc* gpD3DDevice_00970E78; // 0x00970E78
 extern const char gszAssertExpr_006CC837[]; // 0x006CC837
 extern const char gszFloorPoolSourceFile[]; // 0x006FC3E4
 extern const char gszSubtilePoolSourceFile[]; // 0x006FC3A8
 extern const char gszTexPoolSourceFile[]; // 0x006FC36C
 extern const unsigned int gnRenderFlag; // 0x006CE290
-extern int gaGlyphWidths_00970FC8[]; // 0x00970FC8
+extern int ganGlyphWidths[]; // 0x00970FC8
 extern int gbRenderPaused; // 0x007C9144
 extern int gnBytesPerPixel; // 0x00970E80
 extern int gnFloorTextureWidth; // 0x0096F4DC
@@ -28,7 +28,7 @@ extern int gnWidth_007C9138; // 0x007C9138
 extern unsigned int gnRenderFlags_0096F3A8; // 0x0096F3A8
 extern void* gapGlyphTextures_009712D0[]; // 0x009712D0
 extern void* ghDDrawWindow_007C9140; // 0x007C9140
-extern void* gpArray_009897EC[2]; // 0x009897EC
+extern void* gapObjectsEC[2]; // 0x009897EC
 int __fastcall sub_006B58A0_CreateTexture(D2D3DObjStrc** ppTexture, D2D3DObjStrc** ppSurface, int nWidth, int nHeight); // 0x006B58A0
 unsigned int __fastcall D3DCORE_GetColor(unsigned int index); // 0x006B1D50
 void __cdecl D3DCORE_Flush(); // 0x006B3800

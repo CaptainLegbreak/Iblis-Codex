@@ -106,7 +106,7 @@ static int __stdcall GFX_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit)
 
 static int GFX_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex); // 0x0046EA50
 
-extern "C" const char gszPathFormat_006D4124[]; // 0x006D4124
+extern "C" const char gszPathFormat[]; // 0x006D4124
 
 extern const char* gaszHashedFileNames[]; // 0x006D6C30
 
@@ -594,7 +594,7 @@ void __fastcall GFX_LoadGlobalHashedFile(unsigned char nIndex)
 {
     char szPath[0x104];
 // build: symbol ?gszDataGlobal@* 0x006D4118
-    wsprintfA(szPath, gszPathFormat_006D4124, gszDataGlobal, gaszHashedFileNames[nIndex]);
+    wsprintfA(szPath, gszPathFormat, gszDataGlobal, gaszHashedFileNames[nIndex]);
     GFX_LoadHashedFile(&gtGlobalHashedFile, szPath);
 }
 

@@ -83,7 +83,7 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
 
 void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 
-extern "C" const char gszFileModeWb_006D69E0[]; // 0x006D69E0
+extern "C" const char gszFileModeWb[]; // 0x006D69E0
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
@@ -99,17 +99,17 @@ struct D2CompCodeTxt
 extern D2CompCodeTxt* gpCompCodeTxt; // 0x0096BCAC
 extern int gnCompCodeTxtRecordCount; // 0x0096BCB4
 
-char* gpSkillsCode_0096BC70; // 0x0096BC70
+char* gpSkillsCode; // 0x0096BC70
 
-int gnSkillsCodeSize_0096BC74; // 0x0096BC74
+int gnSkillsCodeSize; // 0x0096BC74
 
-int gnSkillsCodeSizeEx_0096BC78; // 0x0096BC78
+int gnSkillsCodeSizeEx; // 0x0096BC78
 
-char* gpSkillDescCode_0096BC7C; // 0x0096BC7C
+char* gpSkillDescCode; // 0x0096BC7C
 
-int gnSkillDescCodeSize_0096BC80; // 0x0096BC80
+int gnSkillDescCodeSize; // 0x0096BC80
 
-int gnSkillDescCodeSizeEx_0096BC84; // 0x0096BC84
+int gnSkillDescCodeSizeEx; // 0x0096BC84
 
 
 int __fastcall DATATBLS_MapSkillsTxtKeywordToNumber(char* szKey); // 0x00611930
@@ -122,9 +122,9 @@ int __stdcall DATATBLS_CompileExpression(const char* szFormulaString, char* pOut
 
 D2TxtLinkStrc* gpSkillsLinker_0096C7CC; // 0x0096C7CC
 
-D2TxtLinkStrc* gpMissilesLinker_0096C798; // 0x0096C798
+D2TxtLinkStrc* gpMissilesLinker; // 0x0096C798
 
-extern D2TxtLinkStrc* gpMissileCalcLinker_0096BC8C; // 0x0096BC8C
+extern D2TxtLinkStrc* gpMissileCalcLinker; // 0x0096BC8C
 
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError); // 0x006BD130
 
@@ -162,7 +162,7 @@ int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int
 
 void* __fastcall DATATBLS_ReadExcelFile(void* hArchive, const char* szName, const char* szExtension, int* pSize, const char* szFile, int nLine); // 0x00612280
 
-extern "C" const char szBinExtension_006DCC68[]; // 0x006DCC68
+extern "C" const char gszBinExtension[]; // 0x006DCC68
 
 int gbCompileTxt; // 0x0096C8B4
 
@@ -170,25 +170,25 @@ D2TxtLinkStrc* gpStatesLinker_0096BCF0; // 0x0096BCF0
 
 int gnStatesTxtRecordCount; // 0x0096BCF4
 
-void* gpSkillDescTxt_0096C7BC; // 0x0096C7BC
+void* gpSkillDescTxt; // 0x0096C7BC
 
-D2TxtLinkStrc* gpSkillDescLinker_0096C7C0; // 0x0096C7C0
+D2TxtLinkStrc* gpSkillDescLinker; // 0x0096C7C0
 
-int gnSkillDescTxtRecordCount_0096C7C4; // 0x0096C7C4
+int gnSkillDescTxtRecordCount; // 0x0096C7C4
 
-D2SkillsTxt* gpSkillsTxt_0096C7C8; // 0x0096C7C8
+D2SkillsTxt* gpSkillsTxt; // 0x0096C7C8
 
-int gnSkillsTxtRecordCount_0096C7D0; // 0x0096C7D0
+int gnSkillsTxtRecordCount; // 0x0096C7D0
 
-int* gpClassSkillCount_0096C7D4; // 0x0096C7D4
+int* gpClassSkillCount; // 0x0096C7D4
 
-int gnHighestClassSkillCount_0096C7D8; // 0x0096C7D8
+int gnHighestClassSkillCount; // 0x0096C7D8
 
-short* gpClassSkillList_0096C7DC; // 0x0096C7DC
+short* gpClassSkillList; // 0x0096C7DC
 
-int gnPassiveSkills_0096C7E0; // 0x0096C7E0
+int gnPassiveSkills; // 0x0096C7E0
 
-short* gpPassiveSkills_0096C7E4; // 0x0096C7E4
+short* gpPassiveSkills; // 0x0096C7E4
 
 struct PlayerRecord
 {
@@ -371,19 +371,19 @@ void __fastcall DATATBLS_LoadLvlSubTxt(void* hArchive, int a2, int a3); // 0x006
 
 void __fastcall DATATBLS_UnloadSoundsTxt(); // 0x00659C30
 
-extern D2TxtLinkStrc* gpCompCodeLinker_0096BCB0; // 0x0096BCB0
+extern D2TxtLinkStrc* gpCompCodeLinker; // 0x0096BCB0
 
 D2TxtLinkStrc* gpPlayerClassLinker_0096BC34; // 0x0096BC34
 
-D2TxtLinkStrc* gpElemTypesLinker_0096BC4C; // 0x0096BC4C
+D2TxtLinkStrc* gpElemTypesLinker; // 0x0096BC4C
 
 extern D2TxtLinkStrc* gpHitClassLinker_0096BC54; // 0x0096BC54
 
-extern D2TxtLinkStrc* gpHireDescLinker_0096BCE8; // 0x0096BCE8
+extern D2TxtLinkStrc* gpHireDescLinker; // 0x0096BCE8
 
-D2TxtLinkStrc* gpPlrModeLinker_0096BC64; // 0x0096BC64
+D2TxtLinkStrc* gpPlrModeLinker; // 0x0096BC64
 
-D2TxtLinkStrc* gpSkillCalcLinker_0096BC6C; // 0x0096BC6C
+D2TxtLinkStrc* gpSkillCalcLinker; // 0x0096BC6C
 
 D2TxtLinkStrc* gpEventsLinker_0096BCA8; // 0x0096BCA8
 
@@ -422,9 +422,9 @@ struct D2PetTypeTxt;
 
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
-extern "C" const char gszOpenBracket_006E6438[]; // 0x006E6438
+extern "C" const char gszOpenBracket[]; // 0x006E6438
 
-extern "C" const char gszCloseBracket_006E6434[]; // 0x006E6434
+extern "C" const char gszCloseBracket[]; // 0x006E6434
 
 const Unicode* __fastcall D2LANG_GetStringByReferenceString(const char* szKey); // 0x00524E20
 
@@ -460,11 +460,11 @@ struct D2PetTypeTxt
     short unk0xDE;
 };
 
-extern D2TxtLinkStrc* gpPettypeLinker_0096C81C; // 0x0096C81C
+extern D2TxtLinkStrc* gpPettypeLinker; // 0x0096C81C
 
 
 
-extern int gnPettypeTxtRecordCount_0096C820; // 0x0096C820
+extern int gnPettypeTxtRecordCount; // 0x0096C820
 
 
 
@@ -558,7 +558,7 @@ void __fastcall DATATBLS_UnloadCharTemplateTxt(); // 0x00665740
 
 void __fastcall D2COMMON_10916_Return(); // 0x0066A280
 
-extern D2AnimDataTableStrc* gpAnimData_0096C8A4; // 0x0096C8A4
+extern D2AnimDataTableStrc* gpAnimData; // 0x0096C8A4
 
 D2ItemTypesTxt* gpItemTypesTxt_0096C828; // 0x0096C828
 
@@ -570,51 +570,51 @@ D2RuneDataTbl sgtRuneWordsTblDesc; // 0x0096CA98
 
 void* gpCompCodeTxt_0096BCAC; // 0x0096BCAC
 
-void* gpPlayerClassTxt_0096BC30; // 0x0096BC30
+void* gpPlayerClassTxt; // 0x0096BC30
 
-void* gpBodyLocsTxt_0096BC38; // 0x0096BC38
+void* gpBodyLocsTxt; // 0x0096BC38
 
-void* gpStorePageTxt_0096BC40; // 0x0096BC40
+void* gpStorePageTxt; // 0x0096BC40
 
 D2TxtLinkStrc* gpStorePageLinker_0096BC44; // 0x0096BC44
 
-void* gpElemTypesTxt_0096BC48; // 0x0096BC48
+void* gpElemTypesTxt; // 0x0096BC48
 
-void* gpHitClassTxt_0096BC50; // 0x0096BC50
+void* gpHitClassTxt; // 0x0096BC50
 
-void* gpColorsTxt_0096C5E0; // 0x0096C5E0
+void* gpColorsTxt; // 0x0096C5E0
 
-D2TxtLinkStrc* gpColorsLinker_0096C5E4; // 0x0096C5E4
+D2TxtLinkStrc* gpColorsLinker; // 0x0096C5E4
 
-void* gpHireDescTxt_0096BCE4; // 0x0096BCE4
+void* gpHireDescTxt; // 0x0096BCE4
 
-void* gpMonModeTxt_0096BC58; // 0x0096BC58
+void* gpMonModeTxt; // 0x0096BC58
 
-void* gpPlrModeTxt_0096BC60; // 0x0096BC60
+void* gpPlrModeTxt; // 0x0096BC60
 
-void* gpMonAiTxt_0096BCB8; // 0x0096BCB8
+void* gpMonAiTxt; // 0x0096BCB8
 
-D2TxtLinkStrc* gpMonAiLinker_0096BCBC; // 0x0096BCBC
+D2TxtLinkStrc* gpMonAiLinker; // 0x0096BCBC
 
-void* gpMonPlaceTxt_0096C6CC; // 0x0096C6CC
+void* gpMonPlaceTxt; // 0x0096C6CC
 
-D2TxtLinkStrc* gpMonPlaceLinker_0096C6D0; // 0x0096C6D0
+D2TxtLinkStrc* gpMonPlaceLinker; // 0x0096C6D0
 
-void* gpSkillCalcTxt_0096BC68; // 0x0096BC68
+void* gpSkillCalcTxt; // 0x0096BC68
 
-void* gpMissileCalcTxt_0096BC88; // 0x0096BC88
+void* gpMissileCalcTxt; // 0x0096BC88
 
-void* gpSkillCodeTxt_0096BC9C; // 0x0096BC9C
+void* gpSkillCodeTxt; // 0x0096BC9C
 
-D2TxtLinkStrc* gpSkillCodeLinker_0096BCA0; // 0x0096BCA0
+D2TxtLinkStrc* gpSkillCodeLinker; // 0x0096BCA0
 
-void* gpEventsTxt_0096BCA4; // 0x0096BCA4
+void* gpEventsTxt; // 0x0096BCA4
 
 int gnCharstatsTxtRecordCount; // 0x0096C7F8
 
 D2TxtLinkStrc* gpSoundsLinker_0096BDC8; // 0x0096BDC8
 
-D2TxtLinkStrc* gpOverlayLinker_0096C7E8; // 0x0096C7E8
+D2TxtLinkStrc* gpOverlayLinker; // 0x0096C7E8
 
 D2TxtLinkStrc* gpItemStatCostLinker_0096C800; // 0x0096C800
 
@@ -622,17 +622,17 @@ D2TxtLinkStrc* gpItemTypesLinker_0096C824; // 0x0096C824
 
 D2PetTypeTxt* gpPettypeTxt_0096C818; // 0x0096C818
 
-unsigned int* gpStateMasks_0096BCF8; // 0x0096BCF8
+unsigned int* gpStateMasks; // 0x0096BCF8
 
-unsigned int* gfStateMasks_0096BCFC[40]; // 0x0096BCFC
+unsigned int* gfStateMasks[40]; // 0x0096BCFC
 
-short* gpProgressiveStates_0096BD9C; // 0x0096BD9C
+short* gpProgressiveStates; // 0x0096BD9C
 
-short* gpCurseStates_0096BDA4; // 0x0096BDA4
+short* gpCurseStates; // 0x0096BDA4
 
-short* gpTransformStates_0096BDAC; // 0x0096BDAC
+short* gpTransformStates; // 0x0096BDAC
 
-short* gpActionStates_0096BDB4; // 0x0096BDB4
+short* gpActionStates; // 0x0096BDB4
 
 D2TxtLinkStrc* gTxtLink_0096C81C; // 0x0096C81C
 
@@ -825,15 +825,15 @@ int __fastcall DATATBLS_SkillsCalcParamCallback(char* szText, int* pResult, int 
                 }
             }
             DATATBLS_MakeCalcCode(szText, szCode);
-            const int nIndex = FOG_GetLinkIndex(gpSkillCalcLinker_0096BC6C, *(unsigned int*)szCode, 1);
+            const int nIndex = FOG_GetLinkIndex(gpSkillCalcLinker, *(unsigned int*)szCode, 1);
             *pResult = 0;
             return nIndex;
         }
         case 4:
         {
-            if (gpMissilesLinker_0096C798)
+            if (gpMissilesLinker)
             {
-                const int nRow = FOG_GetRowFromTxt(gpMissilesLinker_0096C798, szText, 0);
+                const int nRow = FOG_GetRowFromTxt(gpMissilesLinker, szText, 0);
                 if (nRow >= 0)
                 {
                     *pResult = 1;
@@ -841,7 +841,7 @@ int __fastcall DATATBLS_SkillsCalcParamCallback(char* szText, int* pResult, int 
                 }
             }
             DATATBLS_MakeCalcCode(szText, szCode);
-            const int nIndex = FOG_GetLinkIndex(gpMissileCalcLinker_0096BC8C, *(unsigned int*)szCode, 1);
+            const int nIndex = FOG_GetLinkIndex(gpMissileCalcLinker, *(unsigned int*)szCode, 1);
             *pResult = 0;
             return nIndex;
         }
@@ -882,14 +882,14 @@ int __fastcall DATATBLS_SkillsCalcParamCallback(char* szText, int* pResult, int 
                 }
             }
             DATATBLS_MakeCalcCode(szText, szCode);
-            const int nIndex = FOG_GetLinkIndex(gpSkillCalcLinker_0096BC6C, *(unsigned int*)szCode, 1);
+            const int nIndex = FOG_GetLinkIndex(gpSkillCalcLinker, *(unsigned int*)szCode, 1);
             *pResult = 0;
             return nIndex;
         }
         }
     }
     DATATBLS_MakeCalcCode(szText, szCode);
-    const int nIndex = FOG_GetLinkIndex(gpSkillCalcLinker_0096BC6C, *(unsigned int*)szCode, 1);
+    const int nIndex = FOG_GetLinkIndex(gpSkillCalcLinker, *(unsigned int*)szCode, 1);
     *pResult = 0;
     return nIndex;
 }
@@ -917,7 +917,7 @@ void __fastcall DATATBLS_SkillCalcLinker(char* pSrc, void* pRecord, int nOffset,
         return;
     }
 
-    *(int*)((char*)pRecord + nOffset) = DATATBLS_AppendMemoryBuffer(&gpSkillsCode_0096BC70, &gnSkillsCodeSize_0096BC74, &gnSkillsCodeSizeEx_0096BC78, pBuffer, nBufferSize);
+    *(int*)((char*)pRecord + nOffset) = DATATBLS_AppendMemoryBuffer(&gpSkillsCode, &gnSkillsCodeSize, &gnSkillsCodeSizeEx, pBuffer, nBufferSize);
 }
 
 // 0x00611C70
@@ -943,7 +943,7 @@ void __fastcall DATATBLS_SkillDescCalcLinker(char* pSrc, void* pRecord, int nOff
         return;
     }
 
-    *(int*)((char*)pRecord + nOffset) = DATATBLS_AppendMemoryBuffer(&gpSkillDescCode_0096BC7C, &gnSkillDescCodeSize_0096BC80, &gnSkillDescCodeSizeEx_0096BC84, pBuffer, nBufferSize);
+    *(int*)((char*)pRecord + nOffset) = DATATBLS_AppendMemoryBuffer(&gpSkillDescCode, &gnSkillDescCodeSize, &gnSkillDescCodeSizeEx, pBuffer, nBufferSize);
 }
 
 // 0x00611D30
@@ -1128,8 +1128,8 @@ char* __stdcall DATATBLS_GetUnitTypeAndClassDebugName(unsigned int type, short i
 void __stdcall DATATBLS_WriteBinFile(char* szFileName, void* pWriteBuffer, unsigned int nBufferSize, int nRecordCount)
 {
     char szFilePath[260];
-    wsprintfA(szFilePath, gszPathFormat_006D4124, gszExcelDirectory_006D8ED4, szFileName);
-    _iobuf* pFile = fopen(szFilePath, gszFileModeWb_006D69E0);
+    wsprintfA(szFilePath, gszPathFormat, gszExcelDirectory, szFileName);
+    _iobuf* pFile = fopen(szFilePath, gszFileModeWb);
     if (pFile)
     {
         fwrite(&nRecordCount, sizeof(nRecordCount), 1, pFile);
@@ -1142,7 +1142,7 @@ void __stdcall DATATBLS_WriteBinFile(char* szFileName, void* pWriteBuffer, unsig
 void* __fastcall DATATBLS_ReadExcelFile(void* hArchive, const char* szName, const char* szExtension, unsigned int* pnSize, const char* szFile, int nLine)
 {
     char szPath[0x104];
-    wsprintfA(szPath, "%s\\%s%s", gszExcelDirectory_006D8ED4, szName, szExtension);
+    wsprintfA(szPath, "%s\\%s%s", gszExcelDirectory, szName, szExtension);
     return ARCHIVE_AllocateBufferAndReadFile(hArchive, szPath, pnSize, ".\\DATATBLS\\DataTbls.cpp", 0x82F);
 }
 
@@ -1250,8 +1250,8 @@ void __fastcall DATATBLS_InitUnicodeClassNamesInCharStatsTxt(void* pTable, int n
     Unicode wszOpen[16] = {};
     Unicode wszClose[16] = {};
 
-    sub_00526320_ToUnicode(wszOpen, gszOpenBracket_006E6438, 16);
-    sub_00526320_ToUnicode(wszClose, gszCloseBracket_006E6434, 16);
+    sub_00526320_ToUnicode(wszOpen, gszOpenBracket, 16);
+    sub_00526320_ToUnicode(wszClose, gszCloseBracket, 16);
 
     for (int i = 0; i < nRecordCount; ++i)
     {
@@ -1426,39 +1426,39 @@ static void DATATBLS_UnloadBinInline(void* pBinFile)
 void __stdcall DATATBLS_UnloadCompCodeAndCompileBins()
 {
     DATATBLS_UnloadBinInline(gpCompCodeTxt_0096BCAC);
-    FOG_FreeLinker(gpCompCodeLinker_0096BCB0);
+    FOG_FreeLinker(gpCompCodeLinker);
 
     if (gbCompileTxt)
     {
-        DATATBLS_UnloadBinInline(gpPlayerClassTxt_0096BC30);
+        DATATBLS_UnloadBinInline(gpPlayerClassTxt);
         FOG_FreeLinker(gpPlayerClassLinker_0096BC34);
-        DATATBLS_UnloadBinInline(gpBodyLocsTxt_0096BC38);
+        DATATBLS_UnloadBinInline(gpBodyLocsTxt);
         FOG_FreeLinker(gpBodyLocsLinker_0096BC3C);
-        DATATBLS_UnloadBinInline(gpStorePageTxt_0096BC40);
+        DATATBLS_UnloadBinInline(gpStorePageTxt);
         FOG_FreeLinker(gpStorePageLinker_0096BC44);
-        DATATBLS_UnloadBinInline(gpElemTypesTxt_0096BC48);
-        FOG_FreeLinker(gpElemTypesLinker_0096BC4C);
-        DATATBLS_UnloadBinInline(gpHitClassTxt_0096BC50);
+        DATATBLS_UnloadBinInline(gpElemTypesTxt);
+        FOG_FreeLinker(gpElemTypesLinker);
+        DATATBLS_UnloadBinInline(gpHitClassTxt);
         FOG_FreeLinker(gpHitClassLinker_0096BC54);
-        DATATBLS_UnloadBinInline(gpColorsTxt_0096C5E0);
-        FOG_FreeLinker(gpColorsLinker_0096C5E4);
-        DATATBLS_UnloadBinInline(gpHireDescTxt_0096BCE4);
-        FOG_FreeLinker(gpHireDescLinker_0096BCE8);
-        DATATBLS_UnloadBinInline(gpMonModeTxt_0096BC58);
-        FOG_FreeLinker(gpMonModeLinker_0096BC5C);
-        DATATBLS_UnloadBinInline(gpPlrModeTxt_0096BC60);
-        FOG_FreeLinker(gpPlrModeLinker_0096BC64);
-        DATATBLS_UnloadBinInline(gpMonAiTxt_0096BCB8);
-        FOG_FreeLinker(gpMonAiLinker_0096BCBC);
-        DATATBLS_UnloadBinInline(gpMonPlaceTxt_0096C6CC);
-        FOG_FreeLinker(gpMonPlaceLinker_0096C6D0);
-        DATATBLS_UnloadBinInline(gpSkillCalcTxt_0096BC68);
-        FOG_FreeLinker(gpSkillCalcLinker_0096BC6C);
-        DATATBLS_UnloadBinInline(gpMissileCalcTxt_0096BC88);
-        FOG_FreeLinker(gpMissileCalcLinker_0096BC8C);
-        DATATBLS_UnloadBinInline(gpSkillCodeTxt_0096BC9C);
-        FOG_FreeLinker(gpSkillCodeLinker_0096BCA0);
-        DATATBLS_UnloadBinInline(gpEventsTxt_0096BCA4);
+        DATATBLS_UnloadBinInline(gpColorsTxt);
+        FOG_FreeLinker(gpColorsLinker);
+        DATATBLS_UnloadBinInline(gpHireDescTxt);
+        FOG_FreeLinker(gpHireDescLinker);
+        DATATBLS_UnloadBinInline(gpMonModeTxt);
+        FOG_FreeLinker(gpMonModeLinker);
+        DATATBLS_UnloadBinInline(gpPlrModeTxt);
+        FOG_FreeLinker(gpPlrModeLinker);
+        DATATBLS_UnloadBinInline(gpMonAiTxt);
+        FOG_FreeLinker(gpMonAiLinker);
+        DATATBLS_UnloadBinInline(gpMonPlaceTxt);
+        FOG_FreeLinker(gpMonPlaceLinker);
+        DATATBLS_UnloadBinInline(gpSkillCalcTxt);
+        FOG_FreeLinker(gpSkillCalcLinker);
+        DATATBLS_UnloadBinInline(gpMissileCalcTxt);
+        FOG_FreeLinker(gpMissileCalcLinker);
+        DATATBLS_UnloadBinInline(gpSkillCodeTxt);
+        FOG_FreeLinker(gpSkillCodeLinker);
+        DATATBLS_UnloadBinInline(gpEventsTxt);
         FOG_FreeLinker(gpEventsLinker_0096BCA8);
     }
 }
@@ -1586,8 +1586,8 @@ void __fastcall DATATBLS_GetBinFileHandle(void* hArchive, const char* szFile, vo
     char szFilePath[0x104];
     if (gbCompileTxt && *ppFileHandle)
     {
-        wsprintfA(szFilePath, "%s\\%s.bin", gszExcelDirectory_006D8ED4, szFile);
-        _iobuf* pFile = fopen(szFilePath, gszFileModeWb_006D69E0);
+        wsprintfA(szFilePath, "%s\\%s.bin", gszExcelDirectory, szFile);
+        _iobuf* pFile = fopen(szFilePath, gszFileModeWb);
         if (pFile)
         {
             fwrite(*ppFileHandle, *pSize, 1, pFile);
@@ -1595,7 +1595,7 @@ void __fastcall DATATBLS_GetBinFileHandle(void* hArchive, const char* szFile, vo
         }
         FOG_FreePool(0, *ppFileHandle, ".\\DATATBLS\\DataTbls.cpp", 0x275, 0);
     }
-    *ppFileHandle = DATATBLS_ReadExcelFile(hArchive, szFile, szBinExtension_006DCC68, &nSize, ".\\DATATBLS\\DataTbls.cpp", 0x27A);
+    *ppFileHandle = DATATBLS_ReadExcelFile(hArchive, szFile, gszBinExtension, &nSize, ".\\DATATBLS\\DataTbls.cpp", 0x27A);
     *pSizeEx = nSize;
     *pSize = nSize;
 }
@@ -1608,43 +1608,43 @@ void __fastcall DATATBLS_LoadSkills(void* hArchive) {
 // 0x00617C30
 void __fastcall DATATBLS_UnloadSkills_SkillDescTxt()
 {
-    if (gpClassSkillCount_0096C7D4)
+    if (gpClassSkillCount)
     {
-        FOG_FreePool(0, gpClassSkillCount_0096C7D4, ".\\DATATBLS\\DataTbls.cpp", 0x5B8, 0);
-        gpClassSkillCount_0096C7D4 = 0;
+        FOG_FreePool(0, gpClassSkillCount, ".\\DATATBLS\\DataTbls.cpp", 0x5B8, 0);
+        gpClassSkillCount = 0;
     }
-    if (gpClassSkillList_0096C7DC)
+    if (gpClassSkillList)
     {
-        FOG_FreePool(0, gpClassSkillList_0096C7DC, ".\\DATATBLS\\DataTbls.cpp", 0x5BE, 0);
-        gpClassSkillList_0096C7DC = 0;
+        FOG_FreePool(0, gpClassSkillList, ".\\DATATBLS\\DataTbls.cpp", 0x5BE, 0);
+        gpClassSkillList = 0;
     }
-    gnHighestClassSkillCount_0096C7D8 = 0;
-    if (gpPassiveSkills_0096C7E4)
+    gnHighestClassSkillCount = 0;
+    if (gpPassiveSkills)
     {
-        FOG_FreePool(0, gpPassiveSkills_0096C7E4, ".\\DATATBLS\\DataTbls.cpp", 0x5C5, 0);
-        gpPassiveSkills_0096C7E4 = 0;
+        FOG_FreePool(0, gpPassiveSkills, ".\\DATATBLS\\DataTbls.cpp", 0x5C5, 0);
+        gpPassiveSkills = 0;
     }
-    gnPassiveSkills_0096C7E0 = 0;
-    if (gpSkillsCode_0096BC70)
+    gnPassiveSkills = 0;
+    if (gpSkillsCode)
     {
-        FOG_FreePool(0, gpSkillsCode_0096BC70, ".\\DATATBLS\\DataTbls.cpp", 0x5CC, 0);
-        gpSkillsCode_0096BC70 = 0;
+        FOG_FreePool(0, gpSkillsCode, ".\\DATATBLS\\DataTbls.cpp", 0x5CC, 0);
+        gpSkillsCode = 0;
     }
-    gnSkillsCodeSize_0096BC74 = 0;
-    gnSkillsCodeSizeEx_0096BC78 = 0;
-    if (gpSkillDescCode_0096BC7C)
+    gnSkillsCodeSize = 0;
+    gnSkillsCodeSizeEx = 0;
+    if (gpSkillDescCode)
     {
-        FOG_FreePool(0, gpSkillDescCode_0096BC7C, ".\\DATATBLS\\DataTbls.cpp", 0x5D4, 0);
-        gpSkillDescCode_0096BC7C = 0;
+        FOG_FreePool(0, gpSkillDescCode, ".\\DATATBLS\\DataTbls.cpp", 0x5D4, 0);
+        gpSkillDescCode = 0;
     }
-    gnSkillDescCodeSize_0096BC80 = 0;
-    gnSkillDescCodeSizeEx_0096BC84 = 0;
-    DATATBLS_UnloadBinInline(gpSkillsTxt_0096C7C8);
+    gnSkillDescCodeSize = 0;
+    gnSkillDescCodeSizeEx = 0;
+    DATATBLS_UnloadBinInline(gpSkillsTxt);
     FOG_FreeLinker(gpSkillsLinker_0096C7CC);
-    gnSkillsTxtRecordCount_0096C7D0 = 0;
-    DATATBLS_UnloadBinInline(gpSkillDescTxt_0096C7BC);
-    FOG_FreeLinker(gpSkillDescLinker_0096C7C0);
-    gnSkillDescTxtRecordCount_0096C7C4 = 0;
+    gnSkillsTxtRecordCount = 0;
+    DATATBLS_UnloadBinInline(gpSkillDescTxt);
+    FOG_FreeLinker(gpSkillDescLinker);
+    gnSkillDescTxtRecordCount = 0;
 }
 
 // 0x00617D90
@@ -1784,32 +1784,32 @@ void __fastcall DATATBLS_LoadStatesTxt(void* hArchive)
 // 0x00618C90
 void __fastcall DATATBLS_UnloadStatesTxt()
 {
-    if (gpStateMasks_0096BCF8)
+    if (gpStateMasks)
     {
-        FOG_FreePool(0, gpStateMasks_0096BCF8, ".\\DATATBLS\\DataTbls.cpp", 0x6E8, 0);
-        gpStateMasks_0096BCF8 = 0;
+        FOG_FreePool(0, gpStateMasks, ".\\DATATBLS\\DataTbls.cpp", 0x6E8, 0);
+        gpStateMasks = 0;
     }
-    if (gpProgressiveStates_0096BD9C)
+    if (gpProgressiveStates)
     {
-        FOG_FreePool(0, gpProgressiveStates_0096BD9C, ".\\DATATBLS\\DataTbls.cpp", 0x6ED, 0);
-        gpProgressiveStates_0096BD9C = 0;
+        FOG_FreePool(0, gpProgressiveStates, ".\\DATATBLS\\DataTbls.cpp", 0x6ED, 0);
+        gpProgressiveStates = 0;
     }
-    if (gpCurseStates_0096BDA4)
+    if (gpCurseStates)
     {
-        FOG_FreePool(0, gpCurseStates_0096BDA4, ".\\DATATBLS\\DataTbls.cpp", 0x6F2, 0);
-        gpCurseStates_0096BDA4 = 0;
+        FOG_FreePool(0, gpCurseStates, ".\\DATATBLS\\DataTbls.cpp", 0x6F2, 0);
+        gpCurseStates = 0;
     }
-    if (gpTransformStates_0096BDAC)
+    if (gpTransformStates)
     {
-        FOG_FreePool(0, gpTransformStates_0096BDAC, ".\\DATATBLS\\DataTbls.cpp", 0x6F7, 0);
-        gpTransformStates_0096BDAC = 0;
+        FOG_FreePool(0, gpTransformStates, ".\\DATATBLS\\DataTbls.cpp", 0x6F7, 0);
+        gpTransformStates = 0;
     }
-    if (gpActionStates_0096BDB4)
+    if (gpActionStates)
     {
-        FOG_FreePool(0, gpActionStates_0096BDB4, ".\\DATATBLS\\DataTbls.cpp", 0x6FC, 0);
-        gpActionStates_0096BDB4 = 0;
+        FOG_FreePool(0, gpActionStates, ".\\DATATBLS\\DataTbls.cpp", 0x6FC, 0);
+        gpActionStates = 0;
     }
-    memset(gfStateMasks_0096BCFC, 0, sizeof(gfStateMasks_0096BCFC));
+    memset(gfStateMasks, 0, sizeof(gfStateMasks));
     DATATBLS_UnloadBinInline(gpStatesTxt);
     FOG_FreeLinker(gpStatesLinker_0096BCF0);
 }
@@ -1887,7 +1887,7 @@ void __stdcall DATATBLS_UnloadAllBins()
     DATATBLS_FreeMonTypeTxt();
     DATATBLS_UnloadPlrMode_Type_MonMode_ObjMode_Type_Composit_ArmtypeTxt();
     DATATBLS_UnloadBinInline(gpExperienceTxt);
-    DATATBLS_UnloadAnimDataD2(gpAnimData_0096C8A4);
+    DATATBLS_UnloadAnimDataD2(gpAnimData);
     DATATBLS_UnloadSomeMonsterTxts();
     DATATBLS_UnloadLevelsTxt();
     DATATBLS_UnloadLevelDefsBin();

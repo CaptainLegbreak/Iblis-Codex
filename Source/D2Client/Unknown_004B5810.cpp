@@ -25,9 +25,9 @@ void __stdcall NPCMENU_OpenConfirmDialog(int nStringIndex); // 0x004B5AD0
 
 void __cdecl sub_004B5140(); // 0x004B5140
 
-extern void (__cdecl* gpfnCallback_00726E59)(); // 0x00726E59
+extern void (__cdecl* gpfnCallback)(); // 0x00726E59
 
-extern unsigned short gwGlobal_00726E4D; // 0x00726E4D
+extern unsigned short gwTravelLutGholeinStringId; // 0x00726E4D
 
 class D2NpcTradeObjStrc
 {

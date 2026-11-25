@@ -45,7 +45,7 @@ int __fastcall D3DCORE_CreateMemoryTexture(void** ppSurface, void** ppTexture, i
 
 void __fastcall D3DSPRITE_ClearResourceEntries(void* pData); // 0x006B5BB0
 
-extern D2Direct3D006B7110Strc* gpDirect3D_00970E64; // 0x00970E64
+extern D2Direct3D006B7110Strc* gpDirect3D3; // 0x00970E64
 
 extern void* gpSpriteBuffer; // 0x00970F34
 
@@ -220,7 +220,7 @@ void __fastcall D3DSPRITE_DrawSpriteRows(D2CelContextStrc* pContext, int nX, int
 
 void __fastcall D3DSPRITE_DrawSpriteClipped(D2CelContextStrc* pContext, int nX, int nY, const D2BoundsStrc* pBounds, int nBlendMode); // 0x006B6EE0
 
-static int gnVertexCount_00970F40; // 0x00970F40
+static int gnVertexBufferPos; // 0x00970F40
 
 // 0x006B5B10
 void __cdecl D3DSPRITE_ReleaseSprites()
@@ -520,7 +520,7 @@ static void __stdcall D3DSPRITE_DrawTexturedQuad(int nOffsetX, int nOffsetY, uns
     if (gpVertexBuffer->lpVtbl->Lock(gpVertexBuffer, 0x21, (void**)&pVertices, 0))
         return;
 
-    pVertices += gnVertexCount_00970F40;
+    pVertices += gnVertexBufferPos;
     int nLeft = nX - nHeight;
     pVertices[0].fX = (float)nLeft;
     pVertices[0].fY = fTop;
@@ -552,11 +552,11 @@ static void __stdcall D3DSPRITE_DrawTexturedQuad(int nOffsetX, int nOffsetY, uns
     pVertices[3].dwColor = pVertices[2].dwColor;
 
     gpVertexBuffer->lpVtbl->Unlock(gpVertexBuffer);
-    gpDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpDevice_00970E78, 6, gpVertexBuffer, gnVertexCount_00970F40, 4, 0x1C);
+    gpDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpDevice_00970E78, 6, gpVertexBuffer, gnVertexBufferPos, 4, 0x1C);
 
-    gnVertexCount_00970F40 += 4;
-    if (gnVertexCount_00970F40 > 0x2B)
-        gnVertexCount_00970F40 = 0;
+    gnVertexBufferPos += 4;
+    if (gnVertexBufferPos > 0x2B)
+        gnVertexBufferPos = 0;
 }
 
 // 0x006B63F0
@@ -598,7 +598,7 @@ static int __stdcall D3DSPRITE_DrawSpriteQuad(D2SpriteInfoStrc* pSprite, int nX,
         return hResult;
     }
 
-    pVertices += gnVertexCount_00970F40;
+    pVertices += gnVertexBufferPos;
     if (!nPaletteIndex && !bPalette)
     {
         sub_006B9780_SetColor(pVertices, nColor, nAlpha);
@@ -641,11 +641,11 @@ static int __stdcall D3DSPRITE_DrawSpriteQuad(D2SpriteInfoStrc* pSprite, int nX,
     pVertices[3].fV = fV0;
 
     gpVertexBuffer->lpVtbl->Unlock(gpVertexBuffer);
-    gpDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpDevice_00970E78, 6, gpVertexBuffer, gnVertexCount_00970F40, 4, 0x1C);
-    gnVertexCount_00970F40 += 4;
-    if (gnVertexCount_00970F40 > 43)
+    gpDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpDevice_00970E78, 6, gpVertexBuffer, gnVertexBufferPos, 4, 0x1C);
+    gnVertexBufferPos += 4;
+    if (gnVertexBufferPos > 43)
     {
-        gnVertexCount_00970F40 = 0;
+        gnVertexBufferPos = 0;
     }
 } // the normal path has no return statement, as in the original; callers use what eax holds
 
@@ -793,15 +793,15 @@ int __fastcall D3DSPRITE_DrawFlatSprite(D2CelContextStrc* pData, int nX, int nY,
 			return 1;
 		}
 
-		pLocked += gnVertexCount_00970F40;
+		pLocked += gnVertexBufferPos;
 		memcpy(pLocked, pVertices, sizeof(pVertices));
 		gpVertexBuffer->lpVtbl->Unlock(gpVertexBuffer);
-		gpD3DDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpD3DDevice_00970E78, 6, gpVertexBuffer, gnVertexCount_00970F40, 4, 0x1C);
+		gpD3DDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpD3DDevice_00970E78, 6, gpVertexBuffer, gnVertexBufferPos, 4, 0x1C);
 
-		gnVertexCount_00970F40 += 4;
-		if (gnVertexCount_00970F40 > 43)
+		gnVertexBufferPos += 4;
+		if (gnVertexBufferPos > 43)
 		{
-			gnVertexCount_00970F40 = 0;
+			gnVertexBufferPos = 0;
 			return 1;
 		}
 	}
@@ -1125,14 +1125,14 @@ void __cdecl D3DSPRITE_InitSprites()
     tDesc.dwCaps = 0x10800;
     tDesc.dwFVF = 0x1C4;
     tDesc.dwNumVertices = 0x30;
-    const long nResult = gpDirect3D_00970E64->lpVtbl->CreateVertexBuffer(gpDirect3D_00970E64, &tDesc, (void**)&gpVertexBuffer, 4, 0);
+    const long nResult = gpDirect3D3->lpVtbl->CreateVertexBuffer(gpDirect3D3, &tDesc, (void**)&gpVertexBuffer, 4, 0);
     if (nResult)
     {
         D3DCORE_ShowD3DError("CreateVertexBuffer failed!", nResult);
         return;
     }
 
-    gnVertexCount_00970F40 = 0;
+    gnVertexBufferPos = 0;
     CelSetHardwareFreeCallback(D3DSPRITE_ClearResourceEntries);
 }
 #include "gen/data/Source/D2Direct3D/Src/d3dSprite.inc"

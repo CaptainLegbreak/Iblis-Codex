@@ -43,15 +43,15 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 extern int gaLevelVisited[]; // 0x007C78B8
 
-extern int gnGlobal_007C88B8; // 0x007C88B8
+extern int gnNeutralTick; // 0x007C88B8
 
-extern int gnGlobal_007C88BC; // 0x007C88BC
+extern int gnSfxTick; // 0x007C88BC
 
-extern int gnGlobal_007C88C0; // 0x007C88C0
+extern int gnNeutralDelay; // 0x007C88C0
 
-extern int gnGlobal_007C88C4; // 0x007C88C4
+extern int gnLastRequestTick; // 0x007C88C4
 
-extern int gnGlobal_007C88C8; // 0x007C88C8
+extern int gnLastRequestSound; // 0x007C88C8
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
@@ -393,11 +393,11 @@ int __cdecl SKILLS_GetLevelsTxtRecordCount()
 // 0x004CA280
 void __cdecl SKILLS_ResetLevelSpeech()
 {
-    gnGlobal_007C88B8 = 0;
-    gnGlobal_007C88BC = 0;
-    gnGlobal_007C88C0 = 0x5A;
-    gnGlobal_007C88C4 = 0;
-    gnGlobal_007C88C8 = 0;
+    gnNeutralTick = 0;
+    gnSfxTick = 0;
+    gnNeutralDelay = 0x5A;
+    gnLastRequestTick = 0;
+    gnLastRequestSound = 0;
     memset(gaLevelVisited, 0, 0x1000);
 }
 

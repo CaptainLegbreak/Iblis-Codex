@@ -31,9 +31,9 @@ extern int gbGatewayFlag;                                                       
 extern D2WinControlStrc* gpEdit_007799CC;                                                                          // 0x007799CC
 extern D2WinControlStrc* gpEdit_007799D0;                                                                          // 0x007799D0
 extern D2WinControlStrc* gpControl_007799D4;                                                                       // 0x007799D4
-extern int gdwGlobal_007799D8;                                                                              // 0x007799D8
+extern int gfConnectCancelled;                                                                              // 0x007799D8
 extern D2CharSelCacheStrc* gpCharSelCache;                                                         // 0x00779DE8
-extern D2WinControlStrc* gpControlMain_0077BC4C;                                                            // 0x0077BC4C
+extern D2WinControlStrc* gpControlMain;                                                            // 0x0077BC4C
 extern D2WinControlStrc* gbSelectActive;                                                                   // 0x0077BD00
 extern D2WinControlStrc* gpControl_0077BD90;                                                                       // 0x0077BD90
 extern D2WinControlStrc* gpWaitText_0077BD9C;                                                               // 0x0077BD9C
@@ -71,8 +71,8 @@ void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int 
 void __cdecl CHARSEL_RefreshCharList(); // 0x00438560
 void __cdecl CHARSEL_ShowMessage(); // 0x0043A5D0
 void __cdecl sub_00438F70();
-extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
-extern int gdwGlobal_00779DB8; // 0x00779DB8
+extern D2ComInterfaceStrc* gpFuncTable; // 0x0077ABF0
+extern int gfConnectError; // 0x00779DB8
 extern int gnBusy; // 0x00779DAC
 extern char* gpszName; // 0x00779DB0
 extern int gbFlag_00779DD8; // 0x00779DD8
@@ -107,7 +107,7 @@ int __cdecl GAME_GetStopMainLoop(); // 0x0042FA30
 void __cdecl MAINMENUS_UpdateProgress(); // 0x0042F990
 int __cdecl sub_0042F6D0(); // 0x0042F6D0
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
-extern int gdwGlobal_0077AC04; // 0x0077AC04
+extern int gfCharSelCancelled; // 0x0077AC04
 void __cdecl sub_00518C20_DeleteQueueLock(); // 0x00518C20
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -190,7 +190,7 @@ void __cdecl CHARSEL_InitCharSelectScreen()
         }
     }
 
-    gdwGlobal_00779DA4 = 1;
+    gfHasCharEntries = 1;
     gnCharEntryCount = 0;
     gnTopRow = 0;
     gnSelected = 0;
@@ -245,7 +245,7 @@ void __cdecl CHARSEL_InitCharSelectScreen()
             nFound = CHARSEL_FindSlotByName(gszPreferredRealm);
         if (nFound == 0)
         {
-            BNGatewayAccess* pAccess = (BNGatewayAccess*)gpFuncTable_0077ABF0->pfnGetRecord();
+            BNGatewayAccess* pAccess = (BNGatewayAccess*)gpFuncTable->pfnGetRecord();
             SStrCopy(gszPreferredRealm, pAccess->Realm(pAccess->m_nCurGateway), 0x7FFFFFFF);
             SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
             nFound = CHARSEL_FindSlotByName(gszPreferredRealm);

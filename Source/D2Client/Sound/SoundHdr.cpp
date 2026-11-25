@@ -151,9 +151,9 @@ static void SOUNDHDR_FinishCacheLoad(D2SoundsTxt* pEntry)
     gnCacheLoading -= 1;
 }
 
-extern int gdwGlobal_007BC9B0; // 0x007BC9B0
+extern int gnSongMin; // 0x007BC9B0
 
-extern int gdwGlobal_007BC9B4; // 0x007BC9B4
+extern int gnSongMax; // 0x007BC9B4
 
 extern int gdwGlobal_007BC99C; // 0x007BC99C
 
@@ -168,19 +168,19 @@ int __cdecl sub_004817D0()
 // 0x004817E0
 int __cdecl sub_004817E0()
 {
-    return gdwGlobal_007BC9AC;
+    return gnSoundEnvironTxtRecordCount;
 }
 
 // 0x004817F0
 int __cdecl sub_004817F0()
 {
-    return gdwGlobal_007BC9B0;
+    return gnSongMin;
 }
 
 // 0x00481800
 int __cdecl sub_00481800()
 {
-    return gdwGlobal_007BC9B4;
+    return gnSongMax;
 }
 
 // 0x00481810
@@ -231,7 +231,7 @@ int __fastcall SOUNDHDR_GetLoopFlag(int nIndex)
 // 0x00481920
 D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnvironId)
 {
-    if (sgptSoundEnvironTable && nEnvironId >= 0 && nEnvironId < gdwGlobal_007BC9AC)
+    if (sgptSoundEnvironTable && nEnvironId >= 0 && nEnvironId < gnSoundEnvironTxtRecordCount)
     {
         return &sgptSoundEnvironTable[nEnvironId];
     }

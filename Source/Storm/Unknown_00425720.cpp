@@ -42,7 +42,7 @@ struct RSA
 }
 
 extern "C" unsigned int __cdecl _rotl(unsigned int nValue, int nShift);
-extern "C" const unsigned char gaSha1Padding_00708890[]; // 0x00708890
+extern "C" const unsigned char gaSha1Padding[]; // 0x00708890
 
 // 0x00425720
 unsigned int __fastcall sub_00425720_Rotl(unsigned int nValue, int nShift)
@@ -238,7 +238,7 @@ void Sha1::sub_00425F00_Final(unsigned char* pDigest)
 {
     unsigned char aCount[8];
     sub_PutBE64(aCount, nBitCount);
-    Append(gaSha1Padding_00708890, ((0xFFFFFFF7 - ((unsigned int)nBitCount >> 3)) & 0x3F) + 1);
+    Append(gaSha1Padding, ((0xFFFFFFF7 - ((unsigned int)nBitCount >> 3)) & 0x3F) + 1);
     Append(aCount, 8);
     for (int i = 0; i < 5; i++)
     {

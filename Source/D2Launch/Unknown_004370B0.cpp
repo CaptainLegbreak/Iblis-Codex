@@ -12,7 +12,7 @@ struct D2ComInterfaceStrc;
 
 void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
 
-extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
+extern D2ComInterfaceStrc* gpFuncTable; // 0x0077ABF0
 
 extern int gnStatusDots; // 0x007799B4
 
@@ -78,7 +78,7 @@ int gnStatusStringId; // 0x007799B0
 
 unsigned long gdwStatusStart; // 0x007799B8
 
-extern D2WinControlStrc* gpButton_007799E4; // 0x007799E4
+extern D2WinControlStrc* gpButton; // 0x007799E4
 
 D2WinControlStrc* gpChangePwAccountEdit; // 0x007799BC
 
@@ -148,7 +148,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
-int gdwGlobal_007799D8; // 0x007799D8
+int gfConnectCancelled; // 0x007799D8
 
 void __fastcall MAINMENUS_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
 
@@ -166,7 +166,7 @@ void __cdecl MAINMENUS_UpdateStatus()
     int nState;
     if (!gpStatusText)
         return;
-    gpFuncTable_0077ABF0->pfnSlot80(&nState);
+    gpFuncTable->pfnSlot80(&nState);
     switch (nState)
     {
     case 0:
@@ -222,7 +222,7 @@ static int MAINMENUS_CheckAtAndDot(const char* szText)
 // 0x00436C70
 int __stdcall MAINMENUS_DeclineEmail(int nArg)
 {
-    gpFuncTable_0077ABF0->pfnSlotB8((char*)&gszEmptyAssertText);
+    gpFuncTable->pfnSlotB8((char*)&gszEmptyAssertText);
     D2Win_StopMessageLoop();
     return 1;
 }
@@ -238,7 +238,7 @@ int __stdcall MAINMENUS_AskEmailRegistration(int nArg)
 // 0x00436CD0
 int __stdcall MAINMENUS_OnConnectCancel(int nArg)
 {
-    gdwGlobal_007799D8 = 1;
+    gfConnectCancelled = 1;
     D2Win_StopMessageLoop();
     return 1;
 }
@@ -263,7 +263,7 @@ int __stdcall MAINMENUS_OnTwoEditChange(int nArg)
 // 0x00436D50
 void __cdecl CHARSEL_CreateConnectScreen()
 {
-    gdwGlobal_007799D8 = 0;
+    gfConnectCancelled = 0;
     CHARSEL_CreateBaseScreen();
     D2WinControlStrc* pControl = MAINMENUS_CreateControl(0x122);
     sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B55), 0, 0, 0);
@@ -297,7 +297,7 @@ int __stdcall sub_00436E90_AlwaysOne(int nArg)
 // 0x00436EA0
 int __cdecl sub_00436EA0()
 {
-    return gdwGlobal_007799D8;
+    return gfConnectCancelled;
 }
 
 // 0x00436EB0
@@ -311,7 +311,7 @@ void __cdecl MAINMENUS_UpdateEmailOk()
         sub_005263E0(szText, pText, 0x100);
         bOk = MAINMENUS_CheckAtAndDot(szText);
     }
-    CONTROL_SetEnabled(gpButton_007799E4, bOk);
+    CONTROL_SetEnabled(gpButton, bOk);
 }
 
 // 0x00436F20
@@ -324,7 +324,7 @@ int __stdcall MAINMENUS_OnEditChange(int nArg)
 // 0x00436F30
 void __cdecl MAINMENUS_CreateEmailScreen()
 {
-    if (!gpFuncTable_0077ABF0->pfnSlot68())
+    if (!gpFuncTable->pfnSlot68())
     {
 // build: symbol ?MAINMENUS_ShowMainMenu@* 0x004336C0
         MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
@@ -351,7 +351,7 @@ void __cdecl MAINMENUS_CreateEmailScreen()
     CONTROL_SetFocusedEditBox(gpEdit_007799DC);
     sub_004FDDD0_LinkTab(gpEdit_007799DC, gpEdit_007799E0);
     sub_004FDDD0_LinkTab(gpEdit_007799E0, gpEdit_007799DC);
-    gpButton_007799E4 = MAINMENUS_CreateControl(0x12C);
+    gpButton = MAINMENUS_CreateControl(0x12C);
     MAINMENUS_CreateControl(0x12D);
     MAINMENUS_UpdateEmailOk();
 }
@@ -366,7 +366,7 @@ int __stdcall sub_004370B0_ShowLoginScreen(int unused)
 // 0x004370C0
 void __cdecl MAINMENUS_CreateInfoScreen()
 {
-    if (!gpFuncTable_0077ABF0->pfnSlot68())
+    if (!gpFuncTable->pfnSlot68())
     {
         MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
         return;
@@ -449,7 +449,7 @@ int __stdcall sub_004372A0_OnEnter(int nArg)
 // 0x004372B0
 void __cdecl MAINMENUS_CreatePasswordScreen()
 {
-    if (!gpFuncTable_0077ABF0->pfnSlot68())
+    if (!gpFuncTable->pfnSlot68())
     {
         MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
         return;
@@ -508,7 +508,7 @@ int __stdcall sub_004374F0_UpdateStatusWait(int nArg)
     {
 // build: symbol ?CHARSEL_ClearCancelled@* 0x0043B820
         CHARSEL_ClearCancelled();
-        gnStatusDots = (int)gpFuncTable_0077ABF0->pfnSlot04();
+        gnStatusDots = (int)gpFuncTable->pfnSlot04();
         if (!gnStatusDots)
         {
             D2Win_StopMessageLoop();
@@ -523,7 +523,7 @@ int __stdcall sub_004374F0_UpdateStatusWait(int nArg)
 
     if (sub_0043B830())
     {
-        gpFuncTable_0077ABF0->pfnSlot10();
+        gpFuncTable->pfnSlot10();
         D2Win_StopMessageLoop();
     }
 
@@ -570,7 +570,7 @@ int __stdcall MAINMENUS_ConfirmText(int nArg)
             MAINMENUS_ShowMessageBox(D2LANG_GetStringFromTblIndex(0x2B5C), D2LANG_GetStringFromTblIndex(0x2B5D), 0x13EE, 0, MAINMENUS_OnCloseBox, 0, 1, 0);
             return 1;
         }
-        gpFuncTable_0077ABF0->pfnSlotB8(szText);
+        gpFuncTable->pfnSlotB8(szText);
         D2Win_StopMessageLoop();
         return 1;
     }
@@ -631,7 +631,7 @@ int __stdcall sub_00437730_ChangePassword(int bOk)
                 char szConfirm[0x100];
                 sub_005263E0(szConfirm, pNew, 0x100);
             }
-            if (gpFuncTable_0077ABF0->pfnSlot68() && gpFuncTable_0077ABF0->pfnSlotC0(szName, szOld, szNew))
+            if (gpFuncTable->pfnSlot68() && gpFuncTable->pfnSlotC0(szName, szOld, szNew))
             {
                 MAINMENUS_ShowLoginScreen();
                 return 1;
@@ -667,7 +667,7 @@ int __stdcall CHARSEL_SubmitPasswordReset(int nArg)
         return 1;
     }
 
-    if (!sub_004F9710_TestFlag(gpButton_007799E4))
+    if (!sub_004F9710_TestFlag(gpButton))
         return 1;
 
     const Unicode* pTextA = sub_004FDD90_GetEditText(gpEdit_007799DC);
@@ -675,7 +675,7 @@ int __stdcall CHARSEL_SubmitPasswordReset(int nArg)
     sub_005263E0(szA, pTextA, 0x100);
     sub_005263E0(szB, pTextB, 0x100);
 
-    if (gpFuncTable_0077ABF0->pfnSlot68() && gpFuncTable_0077ABF0->pfnSlotBC(szA, szB))
+    if (gpFuncTable->pfnSlot68() && gpFuncTable->pfnSlotBC(szA, szB))
     {
         MAINMENUS_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B60), 0x13EE, 0, sub_004370B0_ShowLoginScreen, 0, 1, 0);
         return 1;

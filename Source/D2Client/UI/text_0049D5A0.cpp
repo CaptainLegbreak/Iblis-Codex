@@ -228,15 +228,15 @@ typedef int(__fastcall* PANELCLOSEFN)(void* pArg, int a2, int a3);
 #pragma pack(pop)
 
 extern D2TextScrollStrc* gpTextBox; // 0x007BF0A4
-extern int gnPanelOpen_007BF1BC; // 0x007BF1BC
-extern int gnPending_007BF1C4; // 0x007BF1C4
+extern int gbTextBoxDone; // 0x007BF1BC
+extern int gbTextBoxPending; // 0x007BF1C4
 extern void* gpHint_007BF202; // 0x007BF202
-extern int gbHintActive_007BF20A; // 0x007BF20A
+extern int gbTextFromObject; // 0x007BF20A
 extern void* gpHint_007BF24B; // 0x007BF24B
-extern PANELCLOSEFN gpfnClose_007BF258; // 0x007BF258
-extern void* gpCloseArg_007BF25C; // 0x007BF25C
-extern int gbHandlers_007BF27C; // 0x007BF27C
-extern char gHandlerTable_00722600[]; // 0x00722600
+extern PANELCLOSEFN gpfnTextCallback; // 0x007BF258
+extern void* gpTextCallbackContext; // 0x007BF25C
+extern int gbTextHandlersRegistered; // 0x007BF27C
+extern char gaTextMsgHandlers[]; // 0x00722600
 
 int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
 int __fastcall sub_004B95C0_IsHintPlaying(void* pHint); // 0x004B95C0
@@ -262,8 +262,8 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextScrollStrc* pTextBox
         gpHint_007BF24B = 0;
         if (TEXT_UpdateScrollText(pTextBox))
         {
-            gnPanelOpen_007BF1BC = 1;
-            if (!gbHintActive_007BF20A && gpTextBox)
+            gbTextBoxDone = 1;
+            if (!gbTextFromObject && gpTextBox)
             {
                 TEXT_FreeTextBox(gpTextBox);
                 gpTextBox = 0;
@@ -271,27 +271,27 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextScrollStrc* pTextBox
             }
 
             TEXT_ResetTextBox();
-            if (gpfnClose_007BF258)
+            if (gpfnTextCallback)
             {
-                return gpfnClose_007BF258(gpCloseArg_007BF25C, 0, 0);
+                return gpfnTextCallback(gpTextCallbackContext, 0, 0);
             }
 
-            if (gnPending_007BF1C4 == 1)
+            if (gbTextBoxPending == 1)
             {
-                gnPending_007BF1C4 = 0;
+                gbTextBoxPending = 0;
             }
-            else if (gbHintActive_007BF20A)
+            else if (gbTextFromObject)
             {
                 NPCMENU_CancelNpcAndFlag(gpHint_007BF202);
             }
 
             UI_StartUIVarDelay();
-            gbHintActive_007BF20A = 0;
+            gbTextFromObject = 0;
             SELECT_SetSelectionRect(0);
-            if (gbHandlers_007BF27C == 1)
+            if (gbTextHandlersRegistered == 1)
             {
-                gbHandlers_007BF27C = 0;
-                AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gHandlerTable_00722600, 7);
+                gbTextHandlersRegistered = 0;
+                AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
             }
 
             return 0;
@@ -307,7 +307,7 @@ int __stdcall sub_004A0770_Shim()
     D2TextScrollStrc* pTextBox = gpTextBox;
     if (pTextBox && (pTextBox->nState == 1 || pTextBox->nState == 0))
     {
-        return TEXT_AdvanceTextBox(gnPanelOpen_007BF1BC, pTextBox);
+        return TEXT_AdvanceTextBox(gbTextBoxDone, pTextBox);
     }
 
     return 0;

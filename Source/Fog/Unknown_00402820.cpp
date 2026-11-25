@@ -105,7 +105,7 @@ union D2WordArgStrc
     unsigned int dwValue;
     unsigned short wValue;
 };
-extern "C" const char gszNewLine_006FFCB0[]; // 0x006FFCB0
+extern "C" const char gszNewline[]; // 0x006FFCB0
 extern "C" const char gszNewLine2[]; // 0x006FFCD8
 
 struct D2ExceptionRecordStrc
@@ -441,7 +441,7 @@ void __fastcall sub_004032F0_DumpRegisters(unsigned long dwThreadId, D2CrashPrin
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "EBX", tContext.Ebx);
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "ECX", tContext.Ecx);
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "EDX", tContext.Edx);
-        n += _snprintf_s(szText + n, 0x400 - n, -1, gszNewLine_006FFCB0);
+        n += _snprintf_s(szText + n, 0x400 - n, -1, gszNewline);
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "ESI", tContext.Esi);
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "EDI", tContext.Edi);
         _snprintf_s(szText + n, 0x400 - n, -1, gszNewLine2);
@@ -453,7 +453,7 @@ void __fastcall sub_004032F0_DumpRegisters(unsigned long dwThreadId, D2CrashPrin
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "ESP", tContext.Esp);
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "EIP", tContext.Eip);
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "FLG", tContext.EFlags);
-        n += _snprintf_s(szText + n, 0x400 - n, -1, gszNewLine_006FFCB0);
+        n += _snprintf_s(szText + n, 0x400 - n, -1, gszNewline);
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "CS", tContext.SegCs);
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "SS", tContext.SegSs);
         _snprintf_s(szText + n, 0x400 - n, -1, gszNewLine2);
@@ -472,7 +472,7 @@ void __fastcall sub_004032F0_DumpRegisters(unsigned long dwThreadId, D2CrashPrin
     {
         int n = _snprintf_s(szText, 0x400, -1, "%6s:0x%08x", "CTRL", tContext.FloatSave.ControlWord);
         n += _snprintf_s(szText + n, 0x400 - n, -1, "%6s:0x%08x", "STAT", tContext.FloatSave.StatusWord);
-        _snprintf_s(szText + n, 0x400 - n, -1, gszNewLine_006FFCB0);
+        _snprintf_s(szText + n, 0x400 - n, -1, gszNewline);
         pfnPrint(pContext, szText);
         for (unsigned int i = 0; i < 8; i++)
         {
@@ -487,10 +487,10 @@ void __fastcall sub_004032F0_DumpRegisters(unsigned long dwThreadId, D2CrashPrin
             const unsigned int dwHigh2 = *(unsigned int*)&tContext.FloatSave.RegisterArea[i * 10 + 4];
             tExponent.wValue = *(unsigned short*)&tContext.FloatSave.RegisterArea[i * 10 + 8];
             n += _snprintf_s(szText + n, 0x400 - n, -1, "%5s%d:0x%08x 0x%08x 0x%08x", "ST", i, dwLow2, dwHigh2, tExponent.dwValue);
-            _snprintf_s(szText + n, 0x400 - n, -1, gszNewLine_006FFCB0);
+            _snprintf_s(szText + n, 0x400 - n, -1, gszNewline);
             pfnPrint(pContext, szText);
         }
-        _snprintf_s(szText, 0x400, -1, gszNewLine_006FFCB0);
+        _snprintf_s(szText, 0x400, -1, gszNewline);
         pfnPrint(pContext, szText);
     }
     if (tContext.ContextFlags & 0x10020)
@@ -508,10 +508,10 @@ void __fastcall sub_004032F0_DumpRegisters(unsigned long dwThreadId, D2CrashPrin
             const unsigned int dwWord2b = *(unsigned int*)&tContext.FloatSave.RegisterArea[i * 16 + 8];
             const unsigned int dwWord3b = *(unsigned int*)&tContext.FloatSave.RegisterArea[i * 16 + 12];
             n += _snprintf_s(szText + n, 0x400 - n, -1, "%5s%d:0x%08x 0x%08x 0x%08x 0x%08x", "XMM", i, dwWord0b, dwWord1b, dwWord2b, dwWord3b);
-            _snprintf_s(szText + n, 0x400 - n, -1, gszNewLine_006FFCB0);
+            _snprintf_s(szText + n, 0x400 - n, -1, gszNewline);
             pfnPrint(pContext, szText);
         }
-        _snprintf_s(szText, 0x400, -1, gszNewLine_006FFCB0);
+        _snprintf_s(szText, 0x400, -1, gszNewline);
         pfnPrint(pContext, szText);
     }
 }

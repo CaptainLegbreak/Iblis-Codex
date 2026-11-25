@@ -119,7 +119,7 @@ struct D2StormSlotArray00530600Strc;
 
 struct D2StormHashTable00530600Strc;
 
-extern char gData_00882028[]; // 0x00882028
+extern char gszInfoText[]; // 0x00882028
 
 extern int gdwGlobal_00882528; // 0x00882528
 

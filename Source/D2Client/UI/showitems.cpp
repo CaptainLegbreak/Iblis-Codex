@@ -21,7 +21,7 @@ struct D2UiBlockRectStrc
     char unk0x10[0x110];
 };
 
-extern int gnBlockRectCount_007C54A0;                                                                       // 0x007C54A0
+extern int gnItemLabelCount;                                                                       // 0x007C54A0
 
 extern D2UiBlockRectStrc gaBlockRects_007C54A8[32];                                                         // 0x007C54A8
 
@@ -132,13 +132,13 @@ int __fastcall SHOWITEMS_ClampRectToScreen(int* pLeft, int* pTop, int* pRight, i
 
     sub_004C0640_ClampToScreen(pLeft, pTop, pRight, pBottom, nMaxX, nMinX, nMaxY);
 
-    if (gnBlockRectCount_007C54A0 >= 32)
+    if (gnItemLabelCount >= 32)
     {
         FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x47);
         exit(-1);
     }
 
-    for (int i = 0; i < gnBlockRectCount_007C54A0; ++i)
+    for (int i = 0; i < gnItemLabelCount; ++i)
     {
         const int bX = (*pLeft <= gaBlockRects_007C54A8[i].nRight && *pRight >= gaBlockRects_007C54A8[i].nLeft) ? 1 : 0;
         const int bY = (*pTop <= gaBlockRects_007C54A8[i].nBottom && *pBottom >= gaBlockRects_007C54A8[i].nTop) ? 1 : 0;

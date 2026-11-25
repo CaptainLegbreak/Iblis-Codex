@@ -975,7 +975,7 @@ struct D2StormGameHashChunkStrc
     ~D2StormGameHashChunkStrc();
 };
 
-extern "C" const char gszTypeNewsTableItem_0072FF8C[];
+extern "C" const char gszTypeNewsTableItem[];
 
 typedef void (__fastcall* CelFileBuildFn)(CELLIST* pList, D2CelFileStrc* pCelFile);
 
@@ -997,7 +997,7 @@ inline void __cdecl operator delete(void* pMemory)
 
 extern "C" void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 
-extern "C" const char szWardenClientFile_006D8E18[];
+extern "C" const char szWardenClientFile[];
 
 class WardenModule
 {
@@ -1045,11 +1045,11 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
 
-int gdwGlobal_0096C7F4; // 0x0096C7F4
+int gpCharstatsTxt; // 0x0096C7F4
 
 int gpAnimData; // 0x0096C8A4
 
-int gdwGlobal_0096D46C; // 0x0096D46C
+int gnShrinesTxtRecordCount; // 0x0096D46C
 
 char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset);
 
@@ -2590,13 +2590,13 @@ void __cdecl sub_0051D2E0_Nop()
 void D2StormArray408Strc::sub_0051D570_FreeData()
 {
     if (m_data)
-        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
+        SMemFree(m_data, gszTypeNewsTableItem, -2, 0);
 }
 
 void D2StormArray408Strc::sub_0051D670_FreeData()
 {
     if (m_data)
-        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
+        SMemFree(m_data, gszTypeNewsTableItem, -2, 0);
 }
 
 void __fastcall sub_005179B3_ConvertCelPixels(void* pDst, void* pSrc, int nRows, unsigned int nSrcSize, unsigned int nWidth, int nRows2); // 0x005179B3
@@ -2679,7 +2679,7 @@ unsigned int __stdcall CelCompressCreateCelFile(unsigned int hCelList, D2CelFile
 void D2StormArray408Strc::sub_0051D6A0_Clear()
 {
     if (m_data)
-        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
+        SMemFree(m_data, gszTypeNewsTableItem, -2, 0);
     m_alloc = 0;
     m_count = 0;
     m_data = 0;
@@ -2697,7 +2697,7 @@ D2StormArray408Strc* D2StormArray408Strc::sub_0051D720_Init()
 void D2StormArray408Strc::sub_0051D730_FreeData()
 {
     if (m_data)
-        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
+        SMemFree(m_data, gszTypeNewsTableItem, -2, 0);
 }
 
 D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
@@ -2915,7 +2915,7 @@ void __stdcall sub_00611640(int nUnused1)
 // 0x00611D10
 int __cdecl DATATBLS_GetCharstatsTxtTable()
 {
-    return gdwGlobal_0096C7F4;
+    return gpCharstatsTxt;
 }
 
 // 0x00611D20
@@ -2927,7 +2927,7 @@ int __cdecl DATATBLS_GetAnimData()
 // 0x00641500
 int __cdecl DATATBLS_GetShrinesTxtRecordCount()
 {
-    return gdwGlobal_0096D46C;
+    return gnShrinesTxtRecordCount;
 }
 
 // 0x00600C00

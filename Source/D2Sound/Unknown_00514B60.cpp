@@ -11,15 +11,15 @@
 
 extern int gnNpcSpeech;                                                                              // 0x008817BC
 
-extern int gdwGlobal_008817AC; // 0x008817AC
+extern int gnSoundMode; // 0x008817AC
 
 extern int gnMasterVolume; // 0x008817B0
 
-extern int gdwGlobal_008817B4; // 0x008817B4
+extern int gnMusicVolume; // 0x008817B4
 
 extern int gnPositionalBias; // 0x008817B8
 
-extern int gdwGlobal_008817C0; // 0x008817C0
+extern int gnOptionsMusic; // 0x008817C0
 
 int gnSoundMode; // 0x008817AC
 
@@ -61,7 +61,7 @@ void __cdecl D2SOUND_LoadRegistrySettings()
 // 0x00514C90
 int __cdecl D2SOUND_GetSoundMixerOption()
 {
-    return gdwGlobal_008817AC;
+    return gnSoundMode;
 }
 
 // 0x00514CA0
@@ -89,7 +89,7 @@ int __fastcall D2SOUND_SetMasterVolumeOption(int nValue)
 // 0x00514CF0
 int __cdecl D2SOUND_GetMusicVolumeOption()
 {
-    return gdwGlobal_008817B4;
+    return gnMusicVolume;
 }
 
 // 0x00514D00
@@ -131,7 +131,7 @@ int __fastcall sub_00514D60_SetNpcSpeech(int nValue)
 // 0x00514D80
 int __cdecl D2SOUND_GetOptionsMusicOption()
 {
-    return gdwGlobal_008817C0;
+    return gnOptionsMusic;
 }
 
 // 0x00514D90

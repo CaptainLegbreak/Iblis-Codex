@@ -117,7 +117,7 @@ extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSiz
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 
-extern int gnWinCallbackDepth_007D55C4;                                                                     // 0x007D55C4
+extern int gnWinCallbackDepth;                                                                     // 0x007D55C4
 
 int __stdcall EDITBOX_PlaceMultiLineCaret(SMSGHANDLER_PARAMS* pMsg, int nX, int nY);                          // 0x004FE3B0
 
@@ -648,9 +648,9 @@ int __fastcall EDITBOX_HandleKeyDown(D2WinEditBoxStrc* ptEditData, char nKey)
         if (ptEditData->pfOnEnter)
         {
             const unsigned int bKeepFocus = ptEditData->dwEditBoxFlags & 2;
-            ++gnWinCallbackDepth_007D55C4;
+            ++gnWinCallbackDepth;
             ((D2WinEditBoxEnterFn)ptEditData->pfOnEnter)((Unicode*)ptEditData->wszText);
-            --gnWinCallbackDepth_007D55C4;
+            --gnWinCallbackDepth;
             if (bKeepFocus)
             {
                 pChar = (Unicode*)&ptEditData->wszText[ptEditData->nCaretPosition];
@@ -664,9 +664,9 @@ int __fastcall EDITBOX_HandleKeyDown(D2WinEditBoxStrc* ptEditData, char nKey)
     case 27:
         if (ptEditData->pfOnEnter)
         {
-            ++gnWinCallbackDepth_007D55C4;
+            ++gnWinCallbackDepth;
             ((D2WinEditBoxEnterFn)ptEditData->pfOnEnter)(0);
-            --gnWinCallbackDepth_007D55C4;
+            --gnWinCallbackDepth;
         }
     done:
         return 1;
@@ -1251,9 +1251,9 @@ int __fastcall D2Win_10074(D2WinEditBoxStrc* pEditBox, char nChar)
     {
         if (pEditBox->pfFilter)
         {
-            ++gnWinCallbackDepth_007D55C4;
+            ++gnWinCallbackDepth;
             ((D2WinEditBoxFilterFn)pEditBox->pfFilter)(pEditBox, pEditBox->nCaretPosition, &nChar);
-            --gnWinCallbackDepth_007D55C4;
+            --gnWinCallbackDepth;
         }
         return 0;
     }

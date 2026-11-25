@@ -195,15 +195,15 @@ typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState,
 
 extern int gaLevelVisited[]; // 0x007C78B8
 
-extern int gnGlobal_007C88B8; // 0x007C88B8
+extern int gnNeutralTick; // 0x007C88B8
 
-extern int gnGlobal_007C88BC; // 0x007C88BC
+extern int gnSfxTick; // 0x007C88BC
 
-extern int gnGlobal_007C88C0; // 0x007C88C0
+extern int gnNeutralDelay; // 0x007C88C0
 
-extern int gnGlobal_007C88C4; // 0x007C88C4
+extern int gnLastRequestTick; // 0x007C88C4
 
-extern int gnGlobal_007C88C8; // 0x007C88C8
+extern int gnLastRequestSound; // 0x007C88C8
 
 D2GfxLightStrc* __fastcall DLIGHTMAP_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 

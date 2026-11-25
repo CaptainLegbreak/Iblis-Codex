@@ -1932,10 +1932,10 @@ extern "C" void __stdcall MISSILE_CalculateDamageData(Damage* damage, Unit* owne
 
     int sourceDamage, originDamage, element;
     int physicalMin, physicalMax, elementMin, elementMax, elementLength;
-    if (record->skill > 0 || (record->flags & gVar_006CE284))
+    if (record->skill > 0 || (record->flags & gdwBitMask7))
     {
         int skill = record->skill;
-        if (record->flags & gVar_006CE284)
+        if (record->flags & gdwBitMask7)
         {
             int missileSkill = MISSILE_GetSkill((D2UnitStrc*)missile);
             if (missileSkill > 0) skill = missileSkill;
@@ -1986,7 +1986,7 @@ extern "C" void __stdcall MISSILE_CalculateDamageData(Damage* damage, Unit* owne
         itemBonus = 0;
         if (item && item->type == 4)
         {
-            if ((record->flags & gVar_006CE280) && sub_006289C0_IsWeapon(item))
+            if ((record->flags & gdwBitMask6) && sub_006289C0_IsWeapon(item))
                 sourceDamage /= 2;
             itemBonus = sub_00645830_GetItemBonus(owner, item, 0, 1);
             int strengthFactor = sub_00629860_GetStrengthFactor(item);

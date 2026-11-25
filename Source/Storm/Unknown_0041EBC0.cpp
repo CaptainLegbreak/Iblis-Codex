@@ -164,7 +164,7 @@ struct CHuffman
 #include "D2StormBitOutput.h"
 
 
-extern unsigned char gaHuffDistribution_006CF3A0[][0x102]; // 0x006CF3A0
+extern unsigned char gaHuffDistribution[][0x102]; // 0x006CF3A0
 void __stdcall SMemZero(void*, unsigned int); // 0x0041D300
 
 typedef unsigned int size_t;
@@ -185,11 +185,11 @@ void CHuffman::BuildTree(unsigned char nCmpType)
     int nValue;
     for (nValue = 0; nValue < 256; ++nValue)
     {
-        if (!gaHuffDistribution_006CF3A0[nCmpType][nValue]) continue;
+        if (!gaHuffDistribution[nCmpType][nValue]) continue;
         pItem = AllocateItem(2);
         pItemsByValue[nValue] = pItem;
         pItem->nValue = nValue;
-        pItem->nWeight = gaHuffDistribution_006CF3A0[nCmpType][nValue];
+        pItem->nWeight = gaHuffDistribution[nCmpType][nValue];
         if (pItem->nWeight >= nMaxWeight) nMaxWeight = pItem->nWeight;
         else
         {

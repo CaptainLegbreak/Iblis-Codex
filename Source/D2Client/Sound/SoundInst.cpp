@@ -112,7 +112,7 @@ extern int gnSfxVolume; // 0x00727564
 
 extern int gnEnvVolume; // 0x00727568
 
-extern int gbPositionalSound_007A061C; // 0x007A061C
+extern int gbPositionalSound; // 0x007A061C
 
 static D2SoundNodeStrc* gpSoundList_007C5458; // 0x007C5458
 
@@ -120,7 +120,7 @@ int gbClientSoundReady;        // 0x007C545C
 
 unsigned int gdwLastVolumeTick;        // 0x007C5464
 
-extern int gbAmbientSound_007C5468; // 0x007C5468
+extern int gbRandomSoundTest; // 0x007C5468
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
@@ -537,7 +537,7 @@ int __fastcall SOUNDINST_GetSoundIdByHandle(int nKey)
     return 0;
 }
 
-extern "C" int gnSoundFlag_007C545C; // 0x007C545C
+extern "C" int gbClientSoundReady; // 0x007C545C
 
 extern "C" void __cdecl sub_004E4280(); // 0x004E4280
 
@@ -562,7 +562,7 @@ void __fastcall SOUNDINST_SetEntryByte(int nId, unsigned char nValue)
 // 0x004B9D00
 extern "C" void __cdecl SOUNDINST_ResetSoundState()
 {
-    gnSoundFlag_007C545C = 1;
+    gbClientSoundReady = 1;
     gnSoundSerial = 0;
     sub_004E4280();
 }
@@ -865,7 +865,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
         return;
 
     D2SoundNodeStrc* pFreeList = NULL;
-    if (gbAmbientSound_007C5468)
+    if (gbRandomSoundTest)
         SOUNDINST_PlayRandomSpeech();
 
     D2SoundNodeStrc* pNode;
@@ -933,7 +933,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
             continue;
         }
 
-        if (gbPositionalSound_007A061C && pTxt->bTracking && pSound->pUnitList)
+        if (gbPositionalSound && pTxt->bTracking && pSound->pUnitList)
         {
             D2SoundVecStrc tPos;
             D2SoundVecStrc tBest;

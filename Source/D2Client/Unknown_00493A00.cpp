@@ -36,7 +36,7 @@ void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFor
 extern D2DataTablesStrc* sgptDataTables;
 // build: symbol ?gapHirelingIcons@* 0x007BEEB0
 extern D2CelFileStrc* gapHirelingIcons[7];
-extern "C" const char szDiabloII_006CC8B8[];
+extern "C" const char gszDiabloII[];
 // build: symbol _gszPopupHireling 0x006D9E60
 extern "C" const char gszPopupHireling[];
 
@@ -386,7 +386,7 @@ void __cdecl sub_00494020_DrawPetIcons()
 
         if (gbOpenMercInvPending && !GAME_GetUIVarState(0x24) && UI_SetUIVar(0x24, 0, 0))
         {
-            SRegSaveValue(szDiabloII_006CC8B8, gszPopupHireling, 0, 1);
+            SRegSaveValue(gszDiabloII, gszPopupHireling, 0, 1);
             gbOpenMercInvPending = 0;
         }
 

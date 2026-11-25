@@ -118,7 +118,7 @@ extern D2WinControlInitStrc gtResetBuildPanelTimerInit; // 0x0070EB60
 
 extern int gnLaunchMode; // 0x007795EC
 
-extern D2WinControlStrc* gpControlMain_0077BC4C; // 0x0077BC4C
+extern D2WinControlStrc* gpControlMain; // 0x0077BC4C
 
 extern D2WinControlStrc* gpNamesButton; // 0x0077BD08
 
@@ -178,7 +178,7 @@ D2WinControlStrc* gpChatControl_0077B074;                                       
 
 extern D2WinControlStrc* gpJoinScreenButton; // 0x0077B078
 
-D2WinControlStrc* gpControlC_0077B07C;                                                                      // 0x0077B07C
+D2WinControlStrc* gpControlC;                                                                      // 0x0077B07C
 
 extern D2ConfigStrc* gpCharInfo; // 0x0077BBD8
 
@@ -267,7 +267,7 @@ D2WinControlStrc* gpCharSelectText; // 0x00779DD4
 
 int gbFlag_00779DD8; // 0x00779DD8
 
-int gnCounter_00779DDC; // 0x00779DDC
+int gnCounter; // 0x00779DDC
 
 D2WinControlStrc* gpPanelBackground; // 0x00798BEC
 
@@ -345,7 +345,7 @@ struct D2LaunchMsgStrc;
 
 typedef int (__fastcall* D2LaunchMsgHandler)(int nArg, char* pArg, const char* szText, const char* szNext);
 
-extern D2WinSmackStrc* gpSmack_0077B098; // 0x0077B098
+extern D2WinSmackStrc* gpSmack; // 0x0077B098
 
 extern int gnVideoId_0077B0A4; // 0x0077B0A4
 
@@ -543,9 +543,9 @@ static int gnChannelEntries; // 0x00798F3C
 
 struct D2ChatMessageStrc { D2WinControlStrc* pControl; unsigned int nMessage; };
 
-extern int gnChannelUserCount_00798F40; // 0x00798F40
+extern int gnChannelUserCount; // 0x00798F40
 
-extern int gnChannelUserOffset_00798F44; // 0x00798F44
+extern int gnChannelScroll; // 0x00798F44
 
 extern unsigned int gdwSelectionTick; // 0x00798F4C
 
@@ -801,10 +801,10 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
     }
     gpCharInfo->nByte210 = 0;
     gpPanelBackground = CONTROL_Create(&gtCreateGameBckgImageInit);
-    gpControl_00798BF0 = CONTROL_Create(&gtCreateGameTitleInit);
-    D2Win_10044(gpControl_00798BF0, D2LANG_GetStringFromTblIndex(0x141E));
-    gpControl_00798BF4 = CONTROL_Create(&gtCreateNameLabelInit);
-    D2Win_10044(gpControl_00798BF4, D2LANG_GetStringFromTblIndex(0x149A));
+    gpPanelTitle = CONTROL_Create(&gtCreateGameTitleInit);
+    D2Win_10044(gpPanelTitle, D2LANG_GetStringFromTblIndex(0x141E));
+    gpPanelText = CONTROL_Create(&gtCreateNameLabelInit);
+    D2Win_10044(gpPanelText, D2LANG_GetStringFromTblIndex(0x149A));
     gpCreatePasswordLabel = CONTROL_Create(&gtCreatePasswordLabelInit);
     D2Win_10044(gpCreatePasswordLabel, D2LANG_GetStringFromTblIndex(0x1488));
     gpCreateDescLabel = CONTROL_Create(&gtCreateDescLabelInit);
@@ -815,9 +815,9 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
         gpMaxPlayersLabel = CONTROL_Create(&gtMaxPlayersLabelInit);
         D2Win_10044(gpMaxPlayersLabel, D2LANG_GetStringFromTblIndex(0x148A));
     }
-    gpControl_00798C28 = CONTROL_Create(&gtCreateButtonInit);
-    gpControl_00798C48 = CONTROL_Create(&gtControlInit_0070E110);
-    CONTROL_SetEscapeButton(gpControl_00798C48);
+    gpCreateButton = CONTROL_Create(&gtCreateButtonInit);
+    gpPanelCancelButton = CONTROL_Create(&gtControlInit_0070E110);
+    CONTROL_SetEscapeButton(gpPanelCancelButton);
     gpCreateName = CONTROL_Create(&gtCreateNameInit);
     sub_004FDD50_SetMaxLength(gpCreateName, 0x10);
     sub_004FDAD0_SetKeyCallback(gpCreateName, CHATDLG_IsNameChar);
@@ -960,7 +960,7 @@ int __stdcall COMCALLBACK_OpenJoinScreen(int nArg)
     CHATDLG_CreateJoinScreen();
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
-    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    BUTTON_SetIsPressed(gpControlC, 0);
     return 1;
 }
 
@@ -971,7 +971,7 @@ int __stdcall COMCALLBACK_OpenCreateScreen(int nArg)
     COMCALLBACK_BuildCreateScreen();
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
-    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    BUTTON_SetIsPressed(gpControlC, 0);
     return 1;
 }
 
@@ -2361,7 +2361,7 @@ int __stdcall COMCALLBACK_ButtonCallback(D2ChatMessageStrc* pMsg)
     }
     return 0;
 found:
-    const int nLine = gnChannelUserOffset_00798F44 + nButton;
+    const int nLine = gnChannelScroll + nButton;
     if (pMsg->nMessage == 0x205)
     {
         D2MultiChannelUserStrc* pUser = gpChannelUsers;
@@ -2393,7 +2393,7 @@ found:
         COMCALLBACK_ClearSelectedUser();
         return 1;
     }
-    if (nLine < gnChannelUserCount_00798F40)
+    if (nLine < gnChannelUserCount)
     {
         COMCALLBACK_ClearSelectedUser();
         D2MultiChannelUserStrc* pUser = gpChannelUsers;

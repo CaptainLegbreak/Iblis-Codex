@@ -32,7 +32,7 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
 extern D2DDrawSurfaceStrc* gpDDrawPrimarySurface; // 0x00881278
-extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
+extern D2PaletteTableStrc* gpGfxPaletteView; // 0x007C9150
 extern D2TileDrawFunctionsStrc* gpTileDrawFunctions_007C914C; // 0x007C914C
 extern const char gszEmptyString[]; // 0x006CC837
 extern int (__stdcall* gpfnGrLfbLock)(int nType, int nBuffer, int nWriteMode, int nOrigin, int bPixelPipeline, D2GrLfbInfoStrc* pInfo); // 0x0087EADC
@@ -42,7 +42,7 @@ extern int gaGlideAspectLodWide[4]; // 0x0072F268
 extern int gaGlideCrossOffsetX[8]; // 0x0072F2C8
 extern int gaGlideCrossOffsetY[8]; // 0x0072F2E8
 extern int gaGlideWallCorner[10][6][3]; // 0x0072F3A0
-extern int gbGlidePaletteTable_0087EFC8; // 0x0087EFC8
+extern int gbGlidePaletteTable; // 0x0087EFC8
 extern int gbSurfaceActive_007C9140; // 0x007C9140
 extern int gnRenderHeight_007C913C; // 0x007C913C
 extern int gnRenderWidth_007C9138; // 0x007C9138

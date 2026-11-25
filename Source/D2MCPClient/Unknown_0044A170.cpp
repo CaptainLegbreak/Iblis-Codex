@@ -320,7 +320,7 @@ struct D2ClientPacket19Strc
     unsigned char nValue3;
 };
 
-extern void* gpGlobal_00798FB4; // 0x00798FB4
+extern void* gpMcpConnection; // 0x00798FB4
 
 
 // 0x0044A980
@@ -331,7 +331,7 @@ void __cdecl sub_0044A980_SendPacket0D()
     CHATDLG_SetMcpResult(0);
     nHeader = 0x0D;
 // build: symbol ?D2QSSOCKET_SendPacket@* 0x006BC8A0
-    D2QSSOCKET_SendPacket(gpGlobal_00798FB4, &nHeader, 1);
+    D2QSSOCKET_SendPacket(gpMcpConnection, &nHeader, 1);
 }
 
 // 0x0044A9B0
@@ -340,7 +340,7 @@ void __cdecl sub_0044A9B0_SendPacket0F()
     unsigned char nHeader;
     CHATDLG_SetMcpResult(0);
     nHeader = 0x0F;
-    D2QSSOCKET_SendPacket(gpGlobal_00798FB4, &nHeader, 1);
+    D2QSSOCKET_SendPacket(gpMcpConnection, &nHeader, 1);
 }
 
 // 0x0044A9E0
@@ -349,7 +349,7 @@ void __cdecl sub_0044A9E0_SendPacket10()
     unsigned char nHeader;
     CHATDLG_SetMcpResult(0);
     nHeader = 0x10;
-    D2QSSOCKET_SendPacket(gpGlobal_00798FB4, &nHeader, 1);
+    D2QSSOCKET_SendPacket(gpMcpConnection, &nHeader, 1);
 }
 
 // 0x0044AA10
@@ -360,7 +360,7 @@ void __fastcall VIEW_SendMcpLadderRequest(unsigned char nArg1, unsigned short nA
     tPacket.nHeader = 0x11;
     tPacket.nArg1 = nArg1;
     tPacket.nArg2 = nArg2;
-    D2QSSOCKET_SendPacket(gpGlobal_00798FB4, (unsigned char*)&tPacket, 4);
+    D2QSSOCKET_SendPacket(gpMcpConnection, (unsigned char*)&tPacket, 4);
 }
 
 // 0x0044AA50
@@ -369,7 +369,7 @@ void __cdecl VIEW_SendMcpMotdRequest()
     unsigned char nHeader;
     CHATDLG_SetMcpResult(0);
     nHeader = 0x12;
-    D2QSSOCKET_SendPacket(gpGlobal_00798FB4, &nHeader, 1);
+    D2QSSOCKET_SendPacket(gpMcpConnection, &nHeader, 1);
 }
 
 // 0x0044AA80
@@ -378,7 +378,7 @@ void __cdecl VIEW_SendMcpCancelGameCreate()
     unsigned char nHeader;
     CHATDLG_SetMcpResult(0);
     nHeader = 0x13;
-    D2QSSOCKET_SendPacket(gpGlobal_00798FB4, &nHeader, 1);
+    D2QSSOCKET_SendPacket(gpMcpConnection, &nHeader, 1);
 }
 
 // 0x0044AAB0
@@ -388,7 +388,7 @@ void __cdecl VIEW_SendMcpCharListRequest()
     CHATDLG_SetMcpResult(0);
     tPacket.nHeader = 0x19;
     *(int*)&tPacket.nValue0 = 8;
-    D2QSSOCKET_SendPacket(gpGlobal_00798FB4, &tPacket.nHeader, 5);
+    D2QSSOCKET_SendPacket(gpMcpConnection, &tPacket.nHeader, 5);
 }
 
 // 0x0044AB70

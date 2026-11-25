@@ -143,7 +143,7 @@ void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, un
 
 void __cdecl HIREABLES_DrawKeyHelp(); // 0x00495030
 
-extern void* gpGlobal_00798FB4; // 0x00798FB4
+extern void* gpMcpConnection; // 0x00798FB4
 
 extern void* gpOkCancelButtonCel; // 0x007A5240
 
@@ -153,7 +153,7 @@ extern int gnPanelOffsetY; // 0x007A285C
 
 extern D2ClientTimedBoxStrc gtTimedBox; // 0x007A742C
 
-extern void* gpGlobal_007BC964; // 0x007BC964
+extern void* gpSlotCells; // 0x007BC964
 
 extern void* gpHelpBorderCel; // 0x007BEEEC
 
@@ -336,7 +336,7 @@ extern D2SeedStrc* gpClientSeed; // 0x00712C4C
 
 extern int gnStarFieldHeight_007A521C; // 0x007A521C
 
-extern int gnStarFieldWidth_007A5220; // 0x007A5220
+extern int gnAutomapWidth; // 0x007A5220
 
 unsigned char gaStarShades[8]; // 0x007B8D24
 
@@ -767,7 +767,7 @@ void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView)
 
     SCALE_UpdateFactor();
 // build: symbol ?SCALE_GetFactor@* 0x004F65E0
-    gdwGlobal_007B57E4 = SCALE_GetFactor();
+    gnSceneScaleFactor = SCALE_GetFactor();
     if (D2GFX_CheckPerspective())
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -1037,7 +1037,7 @@ void __stdcall VIEW_ResetStar(int nStar, int bRespawn)
 {
     int* const pX = &gaStarX[nStar];
     D2SeedStrc* pSeed = gpClientSeed;
-    const int nX = bRespawn ? (STARS_Roll(pSeed) & 7) + gnStarFieldWidth_007A5220 - 1 : SEED_RollLimitedRandomNumber(pSeed, gnStarFieldWidth_007A5220);
+    const int nX = bRespawn ? (STARS_Roll(pSeed) & 7) + gnAutomapWidth - 1 : SEED_RollLimitedRandomNumber(pSeed, gnAutomapWidth);
     const int nHeight = gnStarFieldHeight_007A521C;
     *pX = nX;
     gaStarY[nStar] = STARS_RollUpTo(pSeed, nHeight);
@@ -1325,9 +1325,9 @@ unsigned int gnCacheStatsFrames;        // 0x007BB39C
 
 unsigned int gdwCacheStatsStart;        // 0x007BB3A0
 
-extern int g_007BB3A4; // 0x007BB3A4
+extern int gbCacheStats; // 0x007BB3A4
 
-extern int g_007BB3AC; // 0x007BB3AC
+extern int gbCacheStatsChecked; // 0x007BB3AC
 
 #define FRAME_INTERVAL 1000
 
@@ -1342,7 +1342,7 @@ void __stdcall VIEW_DrawCelFrame(int nFrame, int nX, int nY)
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpGlobal_007BC964;
+    tContext.pCellFile = gpSlotCells;
     tContext.nFrame = nFrame;
     sub_004F6480(&tContext, nX, nY, -1, 5, 0);
 }

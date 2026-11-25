@@ -131,7 +131,7 @@ static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar)
 
     if (nX < 0)
     {
-        return gaGlyphWidths_00970FC8[nChar];
+        return ganGlyphWidths[nChar];
     }
 
     if ((unsigned char)(nChar - 0x20) <= 0x5F)
@@ -150,10 +150,10 @@ static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar)
         nChar -= 0x20;
         gpD3DDevice_00970E78->lpVtbl->SetTexture(gpD3DDevice_00970E78, 0, gapGlyphTextures_009712D0[nChar]);
         gpD3DDevice_00970E78->lpVtbl->DrawPrimitive(gpD3DDevice_00970E78, 6, 0x1C4, gaVertices, 4, 0x1C);
-        return gaGlyphWidths_00970FC8[nChar];
+        return ganGlyphWidths[nChar];
     }
 
-    return gaGlyphWidths_00970FC8[0];
+    return ganGlyphWidths[0];
 }
 
 

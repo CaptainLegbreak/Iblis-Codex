@@ -80,7 +80,7 @@ D2LevelDefBin* gpLevelDefBin; // 0x0096C890
 
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
 
-extern "C" const char gszTxtField_end_006D9060[]; // 0x006D9060
+extern "C" const char gszTxtFieldEnd[]; // 0x006D9060
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 
@@ -185,7 +185,7 @@ extern const char gszLvlTblsSourceFile[]; // 0x006E84DC
 
 extern const char gszTilesDirectory[]; // 0x006E867C
 
-extern const char gszPathFormat_006D4124[]; // 0x006D4124
+extern const char gszPathFormat[]; // 0x006D4124
 
 extern const char gszLvlSubTableName[]; // 0x006E8928
 
@@ -502,7 +502,7 @@ void __fastcall DATATBLS_LoadLevelDefsBin(void* hArchive)
         { "Position", 2, 0, 144, 0 },
         { "SaveMonsters", 2, 0, 148, 0 },
         { "LOSDraw", 2, 0, 152, 0 },
-        { gszTxtField_end_006D9060, 0, 0, 0, 0 },
+        { gszTxtFieldEnd, 0, 0, 0, 0 },
     };
 
     gpLevelDefBin = (D2LevelDefBin*)DATATBLS_CompileTxt(hArchive, "leveldefs", pTbl, 0, 0x9C);
@@ -549,7 +549,7 @@ static void DATATBLS_PrefixPathWithDirectory(const char* szDirectory, char* szPa
     }
     if (nLength > 1)
     {
-        wsprintfA(szBuffer, gszPathFormat_006D4124, szDirectory, szPath);
+        wsprintfA(szBuffer, gszPathFormat, szDirectory, szPath);
         strcpy(szPath, szBuffer);
     }
 }
@@ -1281,7 +1281,7 @@ void __fastcall DATATBLS_LoadAutomapTxt(void* hArchive)
         { "Cel2", 2, 0, 0x20, 0 },
         { "Cel3", 2, 0, 0x24, 0 },
         { "Cel4", 2, 0, 0x28, 0 },
-        { gszTxtField_end_006D9060, 0, 0, 0, 0 },
+        { gszTxtFieldEnd, 0, 0, 0, 0 },
     };
 
     pAutomapTxt = (D2AutomapTxt*)DATATBLS_CompileTxt(hArchive, "automap", pTbl, &nRecordCount, sizeof(D2AutomapTxt));

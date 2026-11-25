@@ -45,8 +45,8 @@ extern "C" unsigned long __stdcall inet_addr(const char* szAddress); // 0x006B01
 extern D2BnMessageStrc* gpMessageHead; // 0x00882020
 extern D2BnMessageStrc* gpMessageTail; // 0x00882024
 extern char gszEmptyStateText[]; // 0x00881F80
-extern const char* gpszNewsName_0072FF80; // 0x0072FF80
-extern int gnCacheValue_00881890; // 0x00881890
+extern const char* gpszNewsName; // 0x0072FF80
+extern int gbCacheLoaded; // 0x00881890
 extern unsigned int gadwCacheCrcTable[]; // 0x0072FB80
 void __cdecl SLogWrite(void* hLog, const char* szFormat, ...); // 0x00420190
 int __cdecl FOG_IsExpansion(); // 0x00408F20

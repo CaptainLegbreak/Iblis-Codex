@@ -128,7 +128,7 @@ struct D2PanelIconRecordStrc
 
 #pragma pack(pop)
 
-static unsigned char gnBoxColor_007BF034;                                                                   // 0x007BF034
+static unsigned char gnBoxColor;                                                                   // 0x007BF034
 
 int __cdecl WINMAIN_IsHardcore();                                                                      // 0x0044B850
 
@@ -179,7 +179,7 @@ void __cdecl PANEL_SetBlackColour()
 
 extern void* gpPanelQuadCel; // 0x007BF018
 
-extern void* gpCellFile_007BF028; // 0x007BF028
+extern void* gpPartyBarCel; // 0x007BF028
 
 int gaRosterIndex[8]; // 0x007BEFF4
 
@@ -205,7 +205,7 @@ static void PARTY_DrawRowSeparator(int nY)
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpCellFile_007BF028;
+    tContext.pCellFile = gpPartyBarCel;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, gnPanelOffsetX + 0xC, nY - gnPanelOffsetY, -1, 5, 0);
@@ -504,7 +504,7 @@ void __stdcall PARTY_DrawPanelIcons(D2PanelIconRecordStrc* pRecord)
 
             if (ROSTER_GetLevel(ROSTER_GetNextStoredUnit(0)) < 9 || bShowBox)
             {
-                AUTOMAP_DrawFramedBox(pRecord->pIcons[i].nX + gnPanelOffsetX, pRecord->pIcons[i].nY - gnPanelOffsetY - 19, 20, 20, gnBoxColor_007BF034 = D2Win_10034_MixRGB(255, 0, 0), 1);
+                AUTOMAP_DrawFramedBox(pRecord->pIcons[i].nX + gnPanelOffsetX, pRecord->pIcons[i].nY - gnPanelOffsetY - 19, 20, 20, gnBoxColor = D2Win_10034_MixRGB(255, 0, 0), 1);
             }
         }
     }

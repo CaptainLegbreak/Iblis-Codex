@@ -14,8 +14,8 @@ void __fastcall D2SOUNDSMP_StopSound(D2SoundStrc* pSound);                      
 void __fastcall D2SOUNDSMP_InitWaveFormat(D2WaveFormatStrc* pFormat, int nChannels);                      // 0x00516720
 void __fastcall D2SOUNDUTIL_ListAddHead(D2SoundNodeStrc** ppList, void* pData);                              // 0x00516950
 void __fastcall D2SOUNDUTIL_ListRemove(D2SoundNodeStrc** ppList, void* pData);                             // 0x00516980
-extern const D2GuidStrc gIidDirectSound3DBuffer_006DE3D0;                                                   // 0x006DE3D0
-extern const D2GuidStrc gIidKsPropertySet_006DE410;                                                         // 0x006DE410
+extern const D2GuidStrc gtIidDirectSound3DBuffer;                                                   // 0x006DE3D0
+extern const D2GuidStrc gtIidKsPropertySet;                                                         // 0x006DE410
 extern const D2GuidStrc gtEaxBuffer20PropertySet;                                                   // 0x006DE470
 extern const D2GuidStrc gtEaxBuffer10PropertySet;                                                   // 0x006DE490
 extern "C" const char gszD2SoundSmpFile[];                                                          // 0x006DEAEC
@@ -62,7 +62,7 @@ static int __stdcall D2SOUNDSMP_CreateSoundBuffer(unsigned int nFlags, D2SoundSt
 
     if (nFlags & 2)
     {
-        if (pSound->pBuffer->QueryInterface(gIidDirectSound3DBuffer_006DE3D0, (void**)&pSound->p3DBuffer) < 0)
+        if (pSound->pBuffer->QueryInterface(gtIidDirectSound3DBuffer, (void**)&pSound->p3DBuffer) < 0)
         {
             pSound->pBuffer->Release();
             return 0;
@@ -72,7 +72,7 @@ static int __stdcall D2SOUNDSMP_CreateSoundBuffer(unsigned int nFlags, D2SoundSt
 // build: symbol ?D2SOUND_IsEaxEnabled@* 0x00513B70
     if ((nFlags & 2) && D2SOUND_IsEaxEnabled())
     {
-        if (pSound->p3DBuffer->QueryInterface(gIidKsPropertySet_006DE410, (void**)&pSound->pPropertySet) < 0)
+        if (pSound->p3DBuffer->QueryInterface(gtIidKsPropertySet, (void**)&pSound->pPropertySet) < 0)
         {
             pSound->pBuffer->Release();
             return 0;

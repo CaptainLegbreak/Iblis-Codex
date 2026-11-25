@@ -53,22 +53,22 @@ void __cdecl IGNORELIST_FreeIgnoreList(); // 0x0060DDB0
 extern D2ModeEntryStrc gaModeTable[6]; // 0x00706554
 extern void* gpModeContext_0074C718; // 0x0074C718
 D2ModeIfaceStrc* gpModeIface; // 0x0074C700
-int gnMode_0074C704; // 0x0074C704
-int gbUseKeyhook_0074C708; // 0x0074C708
-void* ghModKeyhook_0074C70C; // 0x0074C70C
+int gnMode; // 0x0074C704
+int gbUseKeyhook; // 0x0074C708
+void* ghModKeyhook; // 0x0074C70C
 
 // 0x004059D0
 int __stdcall ERRORMANAGER_RunModeInterface(D2ConfigStrc* pCfg)
 {
-    if (gnMode_0074C704 < 1 || gnMode_0074C704 > 5)
+    if (gnMode < 1 || gnMode > 5)
     {
         return 0;
     }
-    D2_ASSERT(gaModeTable[gnMode_0074C704].pfnCreate, 307);
-    D2_ASSERT(gaModeTable[gnMode_0074C704].pfnRelease, 308);
-    gpModeIface = gaModeTable[gnMode_0074C704].pfnCreate(gpModeContext_0074C718);
+    D2_ASSERT(gaModeTable[gnMode].pfnCreate, 307);
+    D2_ASSERT(gaModeTable[gnMode].pfnRelease, 308);
+    gpModeIface = gaModeTable[gnMode].pfnCreate(gpModeContext_0074C718);
     const int nResult = gpModeIface->pfnRun(pCfg);
-    gaModeTable[gnMode_0074C704].pfnRelease();
+    gaModeTable[gnMode].pfnRelease();
     return nResult;
 }
 
@@ -136,7 +136,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
         ERRORMANAGER_ForceCrash();
     }
 
-    gnMode_0074C704 = nModType;
+    gnMode = nModType;
 
     BOOL bSoundStarted = 0;
     BOOL bGfxStarted = 0;
@@ -146,7 +146,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
     FOG_10082_Noop();
     FOG_10218();
 
-    if (gnMode_0074C704 != 2)
+    if (gnMode != 2)
     {
         if (!ARCHIVE_LoadArchives() || !ARCHIVE_LoadExpansionArchives(ARCHIVE_ShowInsertPlayDiscMessage, ARCHIVE_ShowInsertExpansionDiscMessage, 0, pCfg))
         {
@@ -175,7 +175,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
     const BOOL bWindowed = pCfg->bWindow != 0;
     const int nResolution = pCfg->bIsExpansion ? 2 : 0;
 
-    if (gnMode_0074C704 != 2)
+    if (gnMode != 2)
     {
         if (!D2Win_CreateWindow(hInstance, nModType, bWindowed, !pCfg->bNoCompress))
         {
@@ -193,14 +193,14 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
             return 0;
         }
 
-        if (gbUseKeyhook_0074C708)
+        if (gbUseKeyhook)
         {
-            ghModKeyhook_0074C70C = LoadLibraryA("Keyhook.dll");
+            ghModKeyhook = LoadLibraryA("Keyhook.dll");
         }
 
-        if (ghModKeyhook_0074C70C)
+        if (ghModKeyhook)
         {
-            void (__stdcall* pfnInstall)(int) = (void (__stdcall*)(int))GetProcAddress(ghModKeyhook_0074C70C, "InstallKeyboardHook");
+            void (__stdcall* pfnInstall)(int) = (void (__stdcall*)(int))GetProcAddress(ghModKeyhook, "InstallKeyboardHook");
             if (pfnInstall)
             {
                 pfnInstall(WINDOW_GetWindow());
@@ -237,15 +237,15 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
         SRegSaveValue("Diablo II", "Resolution", 0, 0);
     }
 
-    if (!pCfg->bNoSound && gnMode_0074C704 != 2)
+    if (!pCfg->bNoSound && gnMode != 2)
     {
         sub_00514530_InitSound(pCfg->bIsExpansion, pCfg->bSoundBackground);
         bSoundStarted = 1;
     }
 
-    while (gnMode_0074C704 != 0)
+    while (gnMode != 0)
     {
-        if (gnMode_0074C704 == 2)
+        if (gnMode == 2)
         {
             if (bSoundStarted)
             {
@@ -261,7 +261,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
             }
         }
 
-        gnMode_0074C704 = ERRORMANAGER_RunModeInterface(pCfg);
+        gnMode = ERRORMANAGER_RunModeInterface(pCfg);
     }
 
     if (bSoundStarted)
@@ -277,14 +277,14 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
 
     ARCHIVE_FreeArchives();
 
-    if (ghModKeyhook_0074C70C)
+    if (ghModKeyhook)
     {
-        void (__stdcall* pfnUninstall)() = (void (__stdcall*)())GetProcAddress(ghModKeyhook_0074C70C, "UninstallKeyboardHook");
+        void (__stdcall* pfnUninstall)() = (void (__stdcall*)())GetProcAddress(ghModKeyhook, "UninstallKeyboardHook");
         if (pfnUninstall)
         {
             pfnUninstall();
         }
-        FreeLibrary(ghModKeyhook_0074C70C);
+        FreeLibrary(ghModKeyhook);
     }
 
     FOG_AsyncDataDestroy();

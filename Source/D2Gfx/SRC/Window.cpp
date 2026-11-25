@@ -23,7 +23,7 @@ struct D2TileLibraryBlockStrc
 
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 
-extern int gnResolutionMode_007C8CC4; // 0x007C8CC4
+extern int gnViewMatrixAdjust; // 0x007C8CC4
 
 int __fastcall WINDOW_SetVideoMode(int nMode); // 0x004F4FF0
 
@@ -200,7 +200,7 @@ void __cdecl sub_0051793E_FormatAndRaise(unsigned long dwError, ...); // 0x00517
 
 struct D2CacheStatsStrc;
 
-extern int gdwGlobal_0072DA7C; // 0x0072DA7C
+extern int gfFixedAspectRatio; // 0x0072DA7C
 
 extern int gnDisplayType; // 0x007C8CB0
 
@@ -251,13 +251,13 @@ int ganRowOffsets[732]; // 0x007C97A8
 
 D2PaletteTableStrc gtPaletteTables; // 0x007D5458
 
-extern const char* gszDefaultClass_0072DAA0; // 0x0072DAA0
-extern const char* gszDefaultWindow_0072DB3C; // 0x0072DB3C
+extern const char* gszDefaultClass; // 0x0072DAA0
+extern const char* gszDefaultWindow; // 0x0072DB3C
 // build: symbol ??__EgszWindowClass@@YAXXZ 0x006CAE00
-const char* gszWindowClass = gszDefaultWindow_0072DB3C; // 0x007C9344
+const char* gszWindowClass = gszDefaultWindow; // 0x007C9344
 
 // build: symbol ??__EgszWindowTitle@@YAXXZ 0x006CAE10
-const char* gszWindowTitle = gszDefaultWindow_0072DB3C; // 0x007C9348
+const char* gszWindowTitle = gszDefaultWindow; // 0x007C9348
 
 struct D2TileLibraryBlockStrc;
 
@@ -368,7 +368,7 @@ extern "C" __declspec(dllimport) int __stdcall UnregisterClassA(const char* lpCl
 void* ghInstance;                                                                                  // 0x007C8CA8
 
 // build: symbol ??__EgszWindowClassName@@YAXXZ 0x006CADF0
-const char* gszWindowClassName = gszDefaultClass_0072DAA0; // 0x007C9158
+const char* gszWindowClassName = gszDefaultClass; // 0x007C9158
 
 int gbNoWindowCreated;                                                                             // 0x007C9338
 
@@ -408,20 +408,20 @@ int __stdcall D2GFX_Release()
     return 1;
 }
 
-extern int gdwGlobal_007C8CB0; // 0x007C8CB0
+extern int gnDisplayType; // 0x007C8CB0
 
-extern int gdwGlobal_007C8CB4; // 0x007C8CB4
+extern int gbIsWindowed; // 0x007C8CB4
 
 // 0x004F5140
 int __cdecl D2GFX_GetDisplayType()
 {
-    return gdwGlobal_007C8CB0;
+    return gnDisplayType;
 }
 
 // 0x004F5150
 int __cdecl D2GFX_CheckWindowed()
 {
-    return gdwGlobal_007C8CB4;
+    return gbIsWindowed;
 }
 
 // 0x004F5160
@@ -439,7 +439,7 @@ int __cdecl D2GFX_CheckUnitPerspective()
 // 0x004F5180
 int __cdecl D2GFX_IsFixedAspectRatio()
 {
-    return gdwGlobal_0072DA7C;
+    return gfFixedAspectRatio;
 }
 
 // 0x004F5190
@@ -518,7 +518,7 @@ void __cdecl D2GFX_EnableVSync()
 // 0x004F5280
 void __cdecl D2GFX_DisableFixedAspectRatio()
 {
-    gdwGlobal_0072DA7C = 0;
+    gfFixedAspectRatio = 0;
 }
 
 // 0x004F5290
@@ -1982,11 +1982,11 @@ void __fastcall WINDOW_SetPanelCoords(int nWidth, int nHeight)
     int nLeft = 0;
     int nRight = nWidth;
     const int nBottom = nHeight - 0x2F;
-    if (gnResolutionMode_007C8CC4 == 1)
+    if (gnViewMatrixAdjust == 1)
     {
         nRight -= nWidth / 2;
     }
-    else if (gnResolutionMode_007C8CC4 == 2)
+    else if (gnViewMatrixAdjust == 2)
     {
         nLeft = nWidth / 2;
     }

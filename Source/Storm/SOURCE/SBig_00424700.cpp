@@ -188,8 +188,8 @@ struct BigStack
 unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue); // 0x004213B0
 int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight); // 0x004212F0
 int __stdcall sub_004242C0_BigOp(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack); // 0x004242C0
-extern const unsigned char gabSBigRandMul_006CFF60[8] = { 0x50, 0x46, 0x00, 0x00, 0x69, 0x90, 0x00, 0x00 }; // 0x006CFF60
-extern const unsigned char gabSBigRandSeed_006CFF68[8]; // 0x006CFF68
+extern const unsigned char gabSBigRandMul[8] = { 0x50, 0x46, 0x00, 0x00, 0x69, 0x90, 0x00, 0x00 }; // 0x006CFF60
+extern const unsigned char gabSBigRandSeed[8]; // 0x006CFF68
 
 inline unsigned __int64 MakeLarge(const unsigned int& nLow, const unsigned int& nHigh)
 {
@@ -371,12 +371,12 @@ void __stdcall Rand(BigBuffer* pResult, BigBuffer* pModulus, BigBuffer* pSeed, B
     if (bReseed)
     {
         for (unsigned int i = 0; i < 8; i++)
-            ((unsigned char*)&s.Ref(0))[i] = gabSBigRandSeed_006CFF68[i];
+            ((unsigned char*)&s.Ref(0))[i] = gabSBigRandSeed[i];
     }
 
     tMul.SetCount(2);
     for (unsigned int i = 0; i < 8; i++)
-        ((unsigned char*)&tMul.At(0))[i] = gabSBigRandMul_006CFF60[i];
+        ((unsigned char*)&tMul.At(0))[i] = gabSBigRandMul[i];
 
     if (pSeed) pModulus->sub_00422140_Trim(); else pModulus->sub_00422140_Trim();
     r.SetCountInline(0);

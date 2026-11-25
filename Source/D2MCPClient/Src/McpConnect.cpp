@@ -29,11 +29,11 @@ int __fastcall WINMAIN_SendMcpCharLogon(int nA); // 0x0044A380
 
 void* ghThread;                                                                                    // 0x007992A4
 
-int gnResult_00798F58; // 0x00798F58
+int gnResult; // 0x00798F58
 
-char gszText_00798F60[28]; // 0x00798F60
+char gszMcpText2[28]; // 0x00798F60
 
-char gszText_00799294[4]; // 0x00799294
+char gszMcpText1[4]; // 0x00799294
 
 unsigned short __cdecl CHATDLG_GetRequestId();                                                         // 0x00449BD0
 
@@ -137,7 +137,7 @@ D2LaunchThreadRecordStrc gtThreadRecord;                                        
 
 #define gnServerPort_00798FCC (gtThreadRecord.nData[5])
 
-int gnValue_0079929C;                                                                                       // 0x0079929C
+int gnConnectError;                                                                                       // 0x0079929C
 
 void* ghConnectEvent;                                                                              // 0x007992EC
 
@@ -222,13 +222,13 @@ int __cdecl GAME_GetMcpGameToken()
 // 0x00449BF0
 void __stdcall CHATDLG_SetMcpResult(int nValue)
 {
-    gnValue_0079929C = nValue;
+    gnConnectError = nValue;
 }
 
 // 0x00449C00
 int __cdecl GAME_GetConnectError()
 {
-    return gnValue_0079929C;
+    return gnConnectError;
 }
 
 // 0x00449C10
@@ -306,17 +306,17 @@ void __stdcall sub_00449CC0_SetValue(int nValue)
 // 0x00449CD0
 int __stdcall CHATDLG_GetMcpTexts(char* szText1, char* szText2)
 {
-    strcpy(szText1, gszText_00799294);
-    strcpy(szText2, gszText_00798F60);
-    return gnResult_00798F58;
+    strcpy(szText1, gszMcpText1);
+    strcpy(szText2, gszMcpText2);
+    return gnResult;
 }
 
 // 0x00449D10
 void __stdcall CHATDLG_SetMcpTexts(int nResult, const char* szText1, const char* szText2)
 {
-    strcpy(gszText_00799294, szText1);
-    strcpy(gszText_00798F60, szText2);
-    gnResult_00798F58 = nResult;
+    strcpy(gszMcpText1, szText1);
+    strcpy(gszMcpText2, szText2);
+    gnResult = nResult;
 }
 
 // 0x00449D50
@@ -462,7 +462,7 @@ void __stdcall MCPCONNECT_WaitConnect(D2LaunchThreadRecordStrc* pRecord)
         ghConnectEvent = CreateEventA(0, 0, 0, 0);
     if (WINMAIN_SendMcpStartup(pRecord) == -1)
     {
-        gnValue_0079929C = 0xB;
+        gnConnectError = 0xB;
         return;
     }
     const unsigned long dwEndTick = GetTickCount() + 60000;
@@ -479,7 +479,7 @@ void __stdcall MCPCONNECT_WaitConnect(D2LaunchThreadRecordStrc* pRecord)
             break;
         Sleep(10);
     }
-    gnValue_0079929C = 2;
+    gnConnectError = 2;
 }
 
 // 0x0044A070
@@ -487,7 +487,7 @@ int __cdecl MCPCONNECT_ConnectThread()
 {
 // build: symbol ?FOG_inet_ntoa@* 0x0040E080
     const char* szAddress = FOG_inet_ntoa(gnServerAddress_00798FC8);
-    gnValue_0079929C = 0;
+    gnConnectError = 0;
     void* pConnection = D2QSSOCKET_CreateRecord(szAddress, gnServerPort_00798FCC, "clt->mcp");
     gpMcpConnection = pConnection;
     D2QSSOCKET_SetPacketHandler(pConnection, WINMAIN_DispatchConnectPacket, 0);
@@ -508,10 +508,10 @@ int __cdecl MCPCONNECT_ConnectThread()
             char nValue = 1;
             FOG_ConnectionSend(pConnection, &nValue, 1);
             MCPCONNECT_WaitConnect(&gtThreadRecord);
-            return gnValue_0079929C == 0;
+            return gnConnectError == 0;
         }
     }
-    gnValue_0079929C = 2;
+    gnConnectError = 2;
     return 0;
 }
 

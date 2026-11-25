@@ -142,10 +142,10 @@ void __fastcall DATATBLS_LoadCubeMainTxt(void* hArchive)
         { gszTxtField_end, TXTFIELD_NONE, 0, 0, 0 },
     };
 
-    wsprintfA(szPath, gszPathFormat_006D4124, gszExcelDirectory_006D8ED4, "cubeserver.bin");
+    wsprintfA(szPath, gszPathFormat, gszExcelDirectory, "cubeserver.bin");
     D2_ASSERT(!ARCHIVE_OpenFile(hArchive, szPath, &pFileHandle, 1), 752);
 
-    wsprintfA(szPath, gszPathFormat_006D4124, gszExcelDirectory_006D8ED4, "cubeserver.txt");
+    wsprintfA(szPath, gszPathFormat, gszExcelDirectory, "cubeserver.txt");
     D2_ASSERT(!ARCHIVE_OpenFile(hArchive, szPath, &pFileHandle, 1), 756);
 
     sgtDataTables.pCubeMainTxt = (D2CubeMainTxt*)DATATBLS_CompileTxt(hArchive, "cubemain", pTbl, &sgtDataTables.nCubeMainTxtRecordCount, 0x148);

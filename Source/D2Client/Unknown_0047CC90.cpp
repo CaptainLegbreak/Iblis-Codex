@@ -359,7 +359,7 @@ void __stdcall D2GFX_SetLowQuality(int bLowQuality); // 0x004F5220
 
 void __fastcall MISSILE_SetMissileLights(int nValue); // 0x004CCF20
 
-extern int gaSlotX_007BC898[]; // 0x007BC898
+extern int gaSlotX[]; // 0x007BC898
 
 static void sub_0047D5C0_ActivateOption(SMSGHANDLER_PARAMS* pMsg);
 
@@ -1661,7 +1661,7 @@ static void sub_0047E770_DrawModeCel(int nMode)
 static void sub_0047E8B0_LayoutSlots(int nMode)
 {
     int nSlots = 8;
-    if (gbSmallPanel_007BC978)
+    if (gbSmallPanel)
     {
         nSlots = 7;
     }
@@ -1672,7 +1672,7 @@ static void sub_0047E8B0_LayoutSlots(int nMode)
         return;
     }
     int nX = gnScreenWidth / 2 - 0x54;
-    if (gbSmallPanel_007BC978)
+    if (gbSmallPanel)
     {
         nX = gnScreenWidth / 2 - 0x4A;
     }
@@ -1684,7 +1684,7 @@ static void sub_0047E8B0_LayoutSlots(int nMode)
     else if (nMode == 3)
     {
         nX = gnScreenWidth / 2 + 0x39;
-        if (!gbSmallPanel_007BC978)
+        if (!gbSmallPanel)
         {
             nX = gnScreenWidth / 2 + 0x23;
         }
@@ -1698,7 +1698,7 @@ static void sub_0047E8B0_LayoutSlots(int nMode)
     {
         gaSlotX[i] = nX;
         gaSlotY[i] = nY;
-        if (gbSmallPanel_007BC978)
+        if (gbSmallPanel)
         {
             if (i == 3)
             {
@@ -1726,7 +1726,7 @@ void __stdcall sub_0047E9A0_DrawSlots(int bDraw)
         return;
     }
 
-    if (gbSmallPanel_007BC978)
+    if (gbSmallPanel)
     {
         nSlots = 7;
     }
@@ -1736,7 +1736,7 @@ void __stdcall sub_0047E9A0_DrawSlots(int bDraw)
     {
         for (;;)
         {
-            if (gnSlotState_007BC8F8[i] == 1)
+            if (gaSlotState[i] == 1)
             {
                 D2CelContextStrc tContext = {};
                 tContext.pCellFile = gpSlotCells;
@@ -1909,7 +1909,7 @@ void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
         const int nY = pMsg->nYpos;
         int nOffset = 0;
         for (int i = 0; i < nCount; ++i)
-            gnSlotState_007BC8F8[i] = 0;
+            gaSlotState[i] = 0;
         if (HIREABLES_AreBeltRowsShown() && HIREABLES_GetBeltRowCount() > 1)
             nOffset = -0x76;
         if (gbAnyLeftPanelOpen)
@@ -1987,7 +1987,7 @@ void __stdcall sub_0047EF30_SlotsClick(SMSGHANDLER_PARAMS* pMsg)
     }
     for (int i = 0; i < nSlots; ++i)
     {
-        if (nX > gaSlotX_007BC898[i] && nX < gaSlotX_007BC898[i] + 0x14)
+        if (nX > gaSlotX[i] && nX < gaSlotX[i] + 0x14)
         {
             if (gaSlotKind[i] == 7)
             {
@@ -2285,7 +2285,7 @@ static void sub_0047F650_UpdateSlotHover(int nMode)
     const int nMouseY = sub_00468740();
     int nOffset = 0;
     int nSlots = 8;
-    if (gbSmallPanel_007BC978)
+    if (gbSmallPanel)
     {
         nSlots = 7;
     }
@@ -2330,7 +2330,7 @@ void __cdecl sub_0047F710_UpdateSlotBar()
         memset(&tContext, 0, sizeof(tContext));
         tContext.pCellFile = gpMiniPanelCel;
         int nX = gnScreenWidth / 2;
-        if (gbSmallPanel_007BC978)
+        if (gbSmallPanel)
         {
             nX += 0x38;
         }
@@ -2351,7 +2351,7 @@ void __cdecl sub_0047F710_UpdateSlotBar()
         memset(&tContext, 0, sizeof(tContext));
         tContext.pCellFile = gpMiniPanelCel;
         int nX = gnScreenWidth / 2;
-        if (gbSmallPanel_007BC978)
+        if (gbSmallPanel)
         {
             nX -= 0x4A;
         }

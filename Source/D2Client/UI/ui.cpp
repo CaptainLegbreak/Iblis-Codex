@@ -813,7 +813,7 @@ void __cdecl USEITEM_FreeUseItemPanel(); // 0x004C0100
 
 void __stdcall D2Win_10116(); // 0x005015F0
 
-extern D2DrlgActStrc* gpGlobal_007A063C; // 0x007A063C
+extern D2DrlgActStrc* gnTownLevelId; // 0x007A063C
 
 extern D2CelFileStrc* gpLoadingCell; // 0x007A2794
 
@@ -938,7 +938,7 @@ int __cdecl UI_ConfirmGoldDialog();                                             
 
 int __cdecl UI_CancelGoldDialog();                                                                                 // 0x00454140
 
-extern int gnGoldPanelMode_007A279C;                                                                        // 0x007A279C
+extern int gnGoldPanelMode;                                                                        // 0x007A279C
 
 void* gpGoldPanel;                                                                                    // 0x007A27A0
 
@@ -1415,11 +1415,11 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-extern int gnGlobal_007111CC; // 0x007111CC
+extern int gnProgressiveStatesBottomWide; // 0x007111CC
 
-extern int gnGlobal_007111D0; // 0x007111D0
+extern int gnProgressiveStatesRight; // 0x007111D0
 
-extern int gnGlobal_007111D4; // 0x007111D4
+extern int gnProgressiveStatesBottom; // 0x007111D4
 
 extern void* gpGlobal_007A0634; // 0x007A0634
 
@@ -1438,10 +1438,10 @@ void __cdecl UI_DrawProgressiveStates()
         return;
     if (!gbOverlaysEnabled)
         return;
-    int nY = gnScreenHeight - gnGlobal_007111D4;
-    int nX = gnScreenWidth - gnGlobal_007111D0;
+    int nY = gnScreenHeight - gnProgressiveStatesBottom;
+    int nX = gnScreenWidth - gnProgressiveStatesRight;
     if (D2GFX_GetResolutionMode() == 2)
-        nY = gnScreenHeight - gnGlobal_007111CC;
+        nY = gnScreenHeight - gnProgressiveStatesBottomWide;
     D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
     for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
     {
@@ -1802,7 +1802,7 @@ void __cdecl UI_CloseGoldDialog()
 
     if (gpGoldControlB)
     {
-        gnGoldPanelValue_007A2A68 = gpGoldControlB->GetValue();
+        gnGoldPanelValue = gpGoldControlB->GetValue();
     }
 
     if (gpGoldPanel)
@@ -1835,9 +1835,9 @@ void __cdecl UI_CloseGoldDialog()
         gpGoldControlD = 0;
     }
 
-    if (gnGoldPanelMode_007A279C != 0)
+    if (gnGoldPanelMode != 0)
     {
-        if (IsGoldPanelMode(gnGoldPanelMode_007A279C))
+        if (IsGoldPanelMode(gnGoldPanelMode))
         {
             INV_ReturnToStashState();
         }
@@ -1868,11 +1868,11 @@ int __cdecl UI_GoldSpinnerChanged()
     const unsigned int nStep = gpGoldControlA->GetStep(0);
     if (gpGoldControlB)
     {
-        gnGoldPanelValue_007A2A68 = gpGoldControlB->GetValue();
+        gnGoldPanelValue = gpGoldControlB->GetValue();
     }
-    unsigned int nValue = gnGoldPanelValue_007A2A68;
+    unsigned int nValue = gnGoldPanelValue;
     unsigned int nMax;
-    if (gnGoldPanelMode_007A279C == 4)
+    if (gnGoldPanelMode == 4)
     {
         nMax = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLDBANK, 0);
     }
@@ -1899,7 +1899,7 @@ int __cdecl UI_GoldSpinnerChanged()
             nValue -= nStep;
         }
     }
-    gnGoldPanelValue_007A2A68 = nValue;
+    gnGoldPanelValue = nValue;
     if (gpGoldControlB)
     {
         gpGoldControlB->SetValue(nValue);
@@ -1981,7 +1981,7 @@ void __fastcall UI_OpenGoldPanel(int nMode)
         CMDTBL_SetHotkeyHandlers(0, 1);
         gbGoldPanelFlag = 1;
     }
-    gnGoldPanelValue_007A2A68 = 0;
+    gnGoldPanelValue = 0;
 
     int nStringId;
     int nGold;
@@ -2017,7 +2017,7 @@ void __fastcall UI_OpenGoldPanel(int nMode)
         return;
     }
 
-    gnGoldPanelMode_007A279C = nMode;
+    gnGoldPanelMode = nMode;
     gpGoldPanel = DIALOG_CreateDialogFromFile(0xD7, 0x8C, UI_GoldPanelCloseCallback, 0, 0, 1);
     ROSTER_SetCtrlState(gpGoldPanel, 1);
     D2Win_10127_SetFont(1);
@@ -2170,7 +2170,7 @@ void __fastcall UI_FreeLoadingScreen()
         sub_004972B0();
 // build: symbol ?HIREABLES_InitTextColorB@* 0x00497290
         HIREABLES_InitTextColorB();
-        sub_00472890(gpGlobal_007A063C);
+        sub_00472890(gnTownLevelId);
         GAME_ExtendDelay(0x7D0);
     }
     gdwGlobal_007A2884 = 0;
@@ -2462,7 +2462,7 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
         {
             Unicode wszOwner[0x80];
             sub_005267E0(wszText, UI_GetLevelName(pUnit->pObjectData->InteractType));
-            if (gdwGlobal_007A0610 != 0 && gdwGlobal_007A0610 != 1)
+            if (gnGameType != 0 && gnGameType != 1)
             {
                 char szOwner[0x80];
                 const char* szName = ROSTER_GetPortalOwnerName(pUnit->dwUnitId);

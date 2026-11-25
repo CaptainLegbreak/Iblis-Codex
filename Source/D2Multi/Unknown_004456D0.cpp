@@ -42,11 +42,11 @@ extern D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
 extern D2ConfigStrc* gpCharInfo; // 0x0077BBD8
 extern D2WinControlStrc* gpCreateButton; // 0x00798C28
 extern D2WinControlStrc* gpCreateName; // 0x00798C2C
-extern D2WinControlStrc* gpCreatePassword_00798C30; // 0x00798C30
-extern D2WinControlStrc* gpCreateDesc_00798C34; // 0x00798C34
+extern D2WinControlStrc* gpCreatePassword; // 0x00798C30
+extern D2WinControlStrc* gpCreateDesc; // 0x00798C34
 extern D2WinControlStrc* gpEditBox_00798C3C; // 0x00798C3C
 extern D2WinControlStrc* gpLevelDiffCheck; // 0x00798C40
-extern int gdwGlobal_00798CC4; // 0x00798CC4
+extern int gfCreateGameCancelled; // 0x00798CC4
 extern int gnDiffSelect; // 0x00798CD0
 
 // 0x004456D0
@@ -70,12 +70,12 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
         if (strlen(szName) < 1)
             return 0;
 
-        pPassword = sub_004FDD90_GetEditText(gpCreatePassword_00798C30);
-        pDesc = sub_004FDD90_GetEditText(gpCreateDesc_00798C34);
+        pPassword = sub_004FDD90_GetEditText(gpCreatePassword);
+        pDesc = sub_004FDD90_GetEditText(gpCreateDesc);
 // build: symbol ?MCPCONNECT_QueryAddress@* 0x00449B30
         if (MCPCONNECT_QueryAddress())
         {
-            const Unicode* pMaxPlayers = sub_004FDD90_GetEditText(gpMaxPlayerControl_00798C38);
+            const Unicode* pMaxPlayers = sub_004FDD90_GetEditText(gpMaxPlayerControl);
             tLogin.nValue0x44 = 1;
             if (sub_00500960_IsPressed(gpLevelDiffCheck))
             {
@@ -141,7 +141,7 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
         else
         {
             char szValue[5];
-            const Unicode* pValue = sub_004FDD90_GetEditText(gpMaxPlayerControl_00798C38);
+            const Unicode* pValue = sub_004FDD90_GetEditText(gpMaxPlayerControl);
             sub_005263E0(szValue, pValue, 5);
 // build: symbol ?gszDiabloII@* 0x006CC8B8
             SRegSaveValue(gszDiabloII, gszMaxPlayer, 0, atoi(szValue));
@@ -166,11 +166,11 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
             return 1;
         }
 
-        gdwGlobal_00798CC4 = 0;
+        gfCreateGameCancelled = 0;
         CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), CHATDLG_SetCancel);
         sub_004FA590_RunLoop(CHATDLG_PollMcp);
         CHATDLG_DestroyPopupControls();
-        if (gdwGlobal_00798CC4)
+        if (gfCreateGameCancelled)
 // build: symbol ?CHARSEL_CancelGameCreate@* 0x0043F850
             CHARSEL_CancelGameCreate();
         CHATDLG_DestroyCreateControls();

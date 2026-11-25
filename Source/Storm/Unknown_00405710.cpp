@@ -10,7 +10,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
-extern void* ghCurrentProcess_0074C718; // 0x0074C718
+extern void* ghCurrentProcess; // 0x0074C718
 
 // build: symbol ?ERRORMANAGER_IsCmdSeparator@* 0x004055D0
 static int ERRORMANAGER_IsCmdSeparator(char c)
@@ -104,4 +104,4 @@ int __fastcall sub_00405710_ParseCmdArgument(char* szCommandNameTestBuf, const c
 
 #include "gen/data/Source/Storm/Unknown_00405710.inc"
 
-void* ghCurrentProcess_0074C718; // 0x0074C718
+void* ghCurrentProcess; // 0x0074C718

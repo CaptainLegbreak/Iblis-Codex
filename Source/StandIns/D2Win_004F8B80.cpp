@@ -44,13 +44,13 @@ struct D2GfxSettingsStrc
 
 extern D2GfxSettingsStrc gGfxSettings; // 0x0072DA48
 extern int gnInnerBlockTop; // 0x007C9780
-extern int gnTileClipLeft_007C9788; // 0x007C9788
-extern int gnTileClipRight_007C9798; // 0x007C9798
+extern int gnTileClipLeft; // 0x007C9788
+extern int gnTileClipRight; // 0x007C9798
 extern int gnInnerBlockBottom; // 0x007C979C
 extern int gnInnerBlockLeft; // 0x007C97A4
 extern int gnInnerBlockRight; // 0x007D2320
-extern int gnTileClipTop_007D2330; // 0x007D2330
-extern int gnTileClipBottom_007D2338; // 0x007D2338
+extern int gnTileClipTop; // 0x007D2330
+extern int gnTileClipBottom; // 0x007D2338
 extern int gnLightingOff; // 0x007D2340
 extern unsigned char* gpScreenBuffer; // 0x007D5448
 extern int gnScreenPitch; // 0x007D544C
@@ -68,7 +68,7 @@ void __fastcall sub_004F8B80_DrawTileBlocks(D2TileLibraryEntryStrc* pTile, int n
         if (!(pBlock->nFormat & 1))
             continue;
         const int nBlockX = nPosX + nX;
-        if (nBlockY < gnTileClipTop_007D2330 || nBlockY >= gnTileClipBottom_007D2338 || nBlockX < gnTileClipLeft_007C9788 || nBlockX >= gnTileClipRight_007C9798)
+        if (nBlockY < gnTileClipTop || nBlockY >= gnTileClipBottom || nBlockX < gnTileClipLeft || nBlockX >= gnTileClipRight)
             continue;
 
         int aLight[4];

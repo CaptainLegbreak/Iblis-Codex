@@ -17,11 +17,11 @@ extern "C" int __cdecl strncmp(const char* szLeft, const char* szRight, unsigned
 
 extern "C" int __cdecl _strnicmp(const char* szString1, const char* szString2, unsigned int nCount); // 0x00686040
 
-unsigned int gdwSStrScanWord_007788D8; // 0x007788D8
+unsigned int gdwSStrScanWord; // 0x007788D8
 
 const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
 
-extern "C" const unsigned __int64 gqwSStrHash64Table_006CEE70[16]; // 0x006CEE70
+extern "C" const unsigned __int64 gqwSStrHash64Table[16]; // 0x006CEE70
 
 struct D2CriticalSectionStrc;
 
@@ -52,7 +52,7 @@ typedef void (__stdcall* SMEMDUMPCALLBACK)(void* pParam, const char* szText);
 
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 
-extern "C" const unsigned int gdwSStrHashTable_006CEE30[16]; // 0x006CEE30
+extern "C" const unsigned int gadwSStrHashTable[16]; // 0x006CEE30
 
 extern double gadPowTable_007788E0[20][10]; // 0x007788E0
 
@@ -147,7 +147,7 @@ unsigned int __stdcall SStrLen(const char* szString)
                 p -= 1;
                 break;
             }
-            gdwSStrScanWord_007788D8 = dwTest;
+            gdwSStrScanWord = dwTest;
         }
     }
 done:
@@ -211,7 +211,7 @@ unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit
    *(unsigned int*)(end+offset)=word;
    if(!(word&0xFF000000)) { offset+=3; goto Done; }
    offset+=4;
-   gdwSStrScanWord_007788D8=check;
+   gdwSStrScanWord=check;
    if(offset>=0) break;
    word=*(const unsigned int*)source;
    source+=4;
@@ -330,7 +330,7 @@ unsigned int __stdcall SStrPack(char* dest, const char* source, unsigned int lim
    if (!(char)(w >> 8)) { p -= 3; break; }
    if (!(w & 0xFF0000)) { p -= 2; break; }
    if (!(w & 0xFF000000)) { p -= 1; break; }
-   gdwSStrScanWord_007788D8 = dwTest;
+   gdwSStrScanWord = dwTest;
   }
  }
 scanned:
@@ -381,7 +381,7 @@ scanned:
    *(unsigned int*)(end+offset)=word;
    if(!(word&0xFF000000)) { offset+=3; goto Done; }
    offset+=4;
-   gdwSStrScanWord_007788D8=check;
+   gdwSStrScanWord=check;
    if(offset>=0) break;
    word=*(const unsigned int*)source;
    source+=4;
@@ -547,7 +547,7 @@ unsigned __int64 __stdcall SStrHash64(const char* szString, unsigned int nFlags,
         while ((nChar = (unsigned char)*szString) != 0)
         {
             ++szString;
-            nResult = (gqwSStrHash64Table_006CEE70[nChar >> 4] - gqwSStrHash64Table_006CEE70[nChar & 0xF]) ^ (nAdjust + nResult);
+            nResult = (gqwSStrHash64Table[nChar >> 4] - gqwSStrHash64Table[nChar & 0xF]) ^ (nAdjust + nResult);
             nAdjust = nAdjust * 0x21 + nChar + nResult + 3;
         }
     }
@@ -564,7 +564,7 @@ unsigned __int64 __stdcall SStrHash64(const char* szString, unsigned int nFlags,
             {
                 nChar = '\\';
             }
-            nResult = (gqwSStrHash64Table_006CEE70[nChar >> 4] - gqwSStrHash64Table_006CEE70[nChar & 0xF]) ^ (nAdjust + nResult);
+            nResult = (gqwSStrHash64Table[nChar >> 4] - gqwSStrHash64Table[nChar & 0xF]) ^ (nAdjust + nResult);
             nAdjust = nAdjust * 0x21 + nChar + nResult + 3;
         }
     }
@@ -595,11 +595,11 @@ extern "C" int __cdecl SStrVPrintf(char* szDest, unsigned int nMaxCount, const c
     return nValid ? InternalVPrintf(szDest, nMaxCount, szFormat, args) : 0;
 }
 
-extern "C" { int gnFlag_007788DC; }                                                                         // 0x007788DC
+extern "C" { int gfSStrInitialized; }                                                                         // 0x007788DC
 
 extern "C" void __cdecl SStrInitialize();                                                     // 0x00414360
 
-double gadDigitScale_007788E0[20][10];                                                                      // 0x007788E0
+double gadDigitScale[20][10];                                                                      // 0x007788E0
 
 template <class T>
 inline T StormPowInt(T x, int nExp)
@@ -621,7 +621,7 @@ inline T StormPowInt(T x, int nExp)
 // 0x004144B0
 extern "C" inline void __cdecl EnsureSStrInitialized()
 {
-    if (!gnFlag_007788DC)
+    if (!gfSStrInitialized)
         SStrInitialize();
 }
 
@@ -678,7 +678,7 @@ double __stdcall SStrToDouble(const char* szString)
             if (i >= 20)
                 dResult += StormPowInt(10.0, -1 - i) * nDigit;
             else
-                dResult += gadDigitScale_007788E0[i][nDigit];
+                dResult += gadDigitScale[i][nDigit];
         }
     }
     if (*szString == 'e' || *szString == 'E')
@@ -746,7 +746,7 @@ float __stdcall SStrToFloat(const char* szString)
             if (i >= 20)
                 dResult += StormPowInt(10.0, -1 - i) * nDigit;
             else
-                dResult += gadDigitScale_007788E0[i][nDigit];
+                dResult += gadDigitScale[i][nDigit];
         }
     }
     if (*szString == 'e' || *szString == 'E')
@@ -847,7 +847,7 @@ unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsig
         while ((nChar = (unsigned char)*szString) != 0)
         {
             ++szString;
-            nResult = (gdwSStrHashTable_006CEE30[nChar >> 4] - gdwSStrHashTable_006CEE30[nChar & 0xF]) ^ (nResult + nAdjust);
+            nResult = (gadwSStrHashTable[nChar >> 4] - gadwSStrHashTable[nChar & 0xF]) ^ (nResult + nAdjust);
             nAdjust = (nAdjust << 5) + nChar + nAdjust + nResult + 3;
         }
     }
@@ -864,7 +864,7 @@ unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsig
             {
                 nChar = '\\';
             }
-            nResult = (gdwSStrHashTable_006CEE30[nChar >> 4] - gdwSStrHashTable_006CEE30[nChar & 0xF]) ^ (nResult + nAdjust);
+            nResult = (gadwSStrHashTable[nChar >> 4] - gadwSStrHashTable[nChar & 0xF]) ^ (nResult + nAdjust);
             nAdjust = (nAdjust << 5) + nChar + nAdjust + nResult + 3;
         }
     }
@@ -908,7 +908,7 @@ void __cdecl InitPowTable()
 extern "C" void __cdecl SStrInitialize()
 {
     InitPowTable();
-    gnFlag_007788DC = 1;
+    gfSStrInitialized = 1;
 }
 
 extern "C" char* __cdecl _strupr(char* szString); // 0x006862A2

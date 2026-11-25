@@ -301,7 +301,7 @@ D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
 
 extern unsigned char gnSelectModeA; // 0x0070CD62
 
-int gnGlobal_0077B0A0;                                                                                      // 0x0077B0A0
+int gnLadderPageSize;                                                                                      // 0x0077B0A0
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
@@ -377,7 +377,7 @@ extern char gKey_0070CD54; // 0x0070CD54
 
 char gszSelectName[16];                                                                            // 0x0077B040
 
-extern D2WinControlStrc* gpControlC_0077B07C; // 0x0077B07C
+extern D2WinControlStrc* gpControlC; // 0x0077B07C
 
 extern char gKey_0077B0A8; // 0x0077B0A8
 
@@ -391,29 +391,29 @@ extern int gbSelectActive_0077BD00; // 0x0077BD00
 
 static int gbDone;                                                                                 // 0x0077BDA0
 
-extern int gnValue_00798F5C; // 0x00798F5C
+extern int gbMcpPacket0FReceived; // 0x00798F5C
 
-extern int gnValue_00798F7C; // 0x00798F7C
+extern int gbMcpCreateQueued; // 0x00798F7C
 
-extern int gnValue_00798F84; // 0x00798F84
+extern int gbMcpServerAddressReceived; // 0x00798F84
 
-extern int gnValue_00799100; // 0x00799100
+extern int gbMcpPacket0BReceived; // 0x00799100
 
-extern int gnValue_00799104; // 0x00799104
+extern int gnMcpCreateQueuePosition; // 0x00799104
 
-extern int gnValue_00799298; // 0x00799298
+extern int gbMcpCharDeleteReceived; // 0x00799298
 
-extern int gnValue_0079929C; // 0x0079929C
+extern int gnConnectError; // 0x0079929C
 
-extern int gnValue_007992A0; // 0x007992A0
+extern int gbMcpPacket0CReceived; // 0x007992A0
 
-extern int gnValue_007992A8; // 0x007992A8
+extern int gbMcpPacket0DReceived; // 0x007992A8
 
-extern int gnValue_007992E0; // 0x007992E0
+extern int gbMcpCharLogonReceived; // 0x007992E0
 
-extern int gnValue_007992E8; // 0x007992E8
+extern int gbMcpCharCreateReceived; // 0x007992E8
 
-extern int gnValue_007992F0; // 0x007992F0
+extern int gbMcpCharUpgradeReceived; // 0x007992F0
 
 D2WinControlStrc* gpControl_0077BD98; // 0x0077BD98
 
@@ -429,19 +429,19 @@ static int gbExpansionClasses; // 0x0070CD70
 
 extern char gszChatBuffer[0x200]; // 0x0077AE40
 
-int gnGlobal_0077AD70;                                                                                      // 0x0077AD70
+int gnLadderMaxEntries;                                                                                      // 0x0077AD70
 
 extern int gnSelectIdA; // 0x0070CD7C
 
 extern unsigned char gnSelectModeB; // 0x0070CD63
 
-extern unsigned char gbGlobal_0070CD62; // 0x0070CD62
+extern unsigned char gnSelectModeA; // 0x0070CD62
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
 void __fastcall sub_004FCC40_AddLine(D2WinControlStrc* pControl, const Unicode* pText, int nColor, int nA, int nB); // 0x004FCC40
 
-extern "C" const char gszDash_006CCA2C[]; // 0x006CCA2C
+extern "C" const char gszDash[]; // 0x006CCA2C
 
 struct D2LaunchNameNodeStrc
 {
@@ -454,17 +454,17 @@ D2LaunchNameNodeStrc* gpNameList; // 0x0077BDB4
 
 void __cdecl CHATDLG_UpdateNameListText(); // 0x0043F730
 
-D2WinControlStrc* gpControlMain_0077BC4C; // 0x0077BC4C
+D2WinControlStrc* gpControlMain; // 0x0077BC4C
 
 int gpWaitText; // 0x0077BD9C
 
 D2LaunchCallback gpfnLaunchCallback; // 0x0077BDA4
 
-int gnResult_00798F58; // 0x00798F58
+int gnResult; // 0x00798F58
 
-char gszText_00798F60[28]; // 0x00798F60
+char gszMcpText2[28]; // 0x00798F60
 
-char gszText_00799294[4]; // 0x00799294
+char gszMcpText1[4]; // 0x00799294
 
 unsigned int __stdcall SStrLen(const char* szString);                                                       // 0x00413750
 
@@ -640,7 +640,7 @@ static int gnLoopValueOut_0077BC14; // 0x0077BC14
 
 extern int gnLoopValueIn_0077BC18;                                                                          // 0x0077BC18
 
-extern int gnFlag_0077BD60; // 0x0077BD60
+extern int gfRealmConnectCancelled; // 0x0077BD60
 
 struct D2StartupInfoAStrc;
 
@@ -715,7 +715,7 @@ void __fastcall CHATDLG_OnChatTime(void* pA, void* pB); // 0x0043E4C0
 
 int __stdcall CHATDLG_OnTick(int nUnused); // 0x00441500
 
-extern D2WinControlInitStrc gatChatControlInits_0070CE50[17]; // 0x0070CE50
+extern D2WinControlInitStrc gatChatControlInits[17]; // 0x0070CE50
 
 extern D2WinControlInitStrc gtControlInit_0070D2A0; // 0x0070D2A0
 
@@ -863,7 +863,7 @@ void __cdecl sub_0042B9D0_Nop(); // 0x0042B9D0
 
 void __cdecl sub_00650EA0_Nop(); // 0x00650EA0
 
-extern D2CelFileStrc* gpCellFile_0077BC24; // 0x0077BC24
+extern D2CelFileStrc* gpCellFile; // 0x0077BC24
 
 int __stdcall CHATDLG_ClearSelection(int nArg1, int nArg2, int nArg3); // 0x0043DBA0
 
@@ -893,7 +893,7 @@ int __stdcall CHATDLG_IsNameChar(D2WinControlStrc* pControl, int nArg, const cha
 
 int __stdcall sub_004435D0(void* unused1,void* unused2,const Character* text); // 0x004435D0
 
-extern int gdwGlobal_00798CC4;                                                                                     // 0x00798CC4
+extern int gfCreateGameCancelled;                                                                                     // 0x00798CC4
 
 extern D2WinControlStrc* gpNormalRadio;                                                                       // 0x00798C4C
 
@@ -1003,13 +1003,13 @@ extern D2LaunchReplyEntryStrc gatReplyEntries[];                                
 
 char gszPendingText[264];                                                                          // 0x00798AB8
 
-extern D2WinControlStrc* gpControl_00798BC0;                                                                // 0x00798BC0
+extern D2WinControlStrc* gpGameList;                                                                // 0x00798BC0
 
 D2WinControlStrc* gpJoinGameBckgImage;                                                                       // 0x00798BC8
 
 D2WinControlStrc* gpControl_00798BD0;                                                                       // 0x00798BD0
 
-extern D2WinControlStrc* gpControl_00798BD4;                                                                // 0x00798BD4
+extern D2WinControlStrc* gpJoinName;                                                                // 0x00798BD4
 
 extern D2WinControlStrc* gpJoinPassword;                                                                // 0x00798BD8
 
@@ -1021,7 +1021,7 @@ extern D2WinControlStrc* gpJoinPasswordLabel;                                   
 
 extern D2WinControlStrc* gpControl_00798BE8;                                                                // 0x00798BE8
 
-extern D2WinControlStrc* gpControl_00798BEC;                                                                // 0x00798BEC
+extern D2WinControlStrc* gpPanelBackground;                                                                // 0x00798BEC
 
 extern D2WinControlStrc* gpCreatePasswordLabel;                                                                // 0x00798BF8
 
@@ -1047,7 +1047,7 @@ D2WinControlStrc* gpLevelDiffDownButton;                                        
 
 extern D2WinControlStrc* gpLevelDiffGreyArrows;                                                                // 0x00798C24
 
-extern D2WinControlStrc* gpControl_00798C2C;                                                                // 0x00798C2C
+extern D2WinControlStrc* gpCreateName;                                                                // 0x00798C2C
 
 extern D2WinControlStrc* gpCreatePassword;                                                                // 0x00798C30
 
@@ -1113,7 +1113,7 @@ extern D2WinControlStrc* gpControl_00798CB8;                                    
 
 extern D2WinControlStrc* gpHelpBckgImage;                                                                // 0x00798CBC
 
-extern int gnValue_00798CC0;                                                                                // 0x00798CC0
+extern int gfGameListControlsCreated;                                                                                // 0x00798CC0
 
 extern int gnChannelUserCount;                                                                         // 0x00798F40
 
@@ -1296,7 +1296,7 @@ D2CelFileStrc* gpScrollBarCelFile; // 0x0077BC1C
 
 D2CelFileStrc* gpBnetJoinGameScrollBarsCelFile; // 0x0077BC20
 
-D2CelFileStrc* gpCellFile_0077BC24; // 0x0077BC24
+D2CelFileStrc* gpCellFile; // 0x0077BC24
 
 D2CelFileStrc* gpChatLeftButtonsCelFile; // 0x0077BC28
 
@@ -1388,7 +1388,7 @@ D2CelFileStrc* gpD2LogoBlackBnetCelFile; // 0x0077BD48
 
 D2CelFileStrc* gpD2LogoBnetCelFile; // 0x0077BD4C
 
-int gnFlag_0077BD60; // 0x0077BD60
+int gfRealmConnectCancelled; // 0x0077BD60
 
 // 0x0043D510
 void __cdecl CHATDLG_FreeCellFiles()
@@ -1555,10 +1555,10 @@ void __cdecl CHATDLG_FreeCellFiles()
         gpCreateGameButtonCelFile = 0;
     }
 
-    if (gpCellFile_0077BC24)
+    if (gpCellFile)
     {
-        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile_0077BC24);
-        gpCellFile_0077BC24 = 0;
+        ARCHIVE_FreeCellFile((D2CelFileStrc*)gpCellFile);
+        gpCellFile = 0;
     }
 
     if (gpBnetWideButtonBlankCelFile)
@@ -1729,7 +1729,7 @@ void __cdecl CHATDLG_ActivateChatEdit()
 // 0x0043D9A0
 int __stdcall CHATDLG_OnRealmConnectCancel(SMSGHANDLER_PARAMS* pMsg)
 {
-    gnFlag_0077BD60 = 1;
+    gfRealmConnectCancelled = 1;
     return 1;
 }
 
@@ -1794,14 +1794,14 @@ static int __stdcall CHATDLG_ReadRegValueHKLM(const char* szSubKey, const char* 
 // 0x0043DAD0
 __declspec(noinline) int __fastcall CHATDLG_SetMainControlState(int bSet)
 {
-    sub_004F9740_SetControlState(gpControlMain_0077BC4C, bSet);
+    sub_004F9740_SetControlState(gpControlMain, bSet);
     return 1;
 }
 
 // 0x0043DAF0
 int __stdcall sub_0043DAF0_OnConnect(int nArg)
 {
-    sub_004F9740_SetControlState(gpControlMain_0077BC4C, 1);
+    sub_004F9740_SetControlState(gpControlMain, 1);
     return 1;
 }
 
@@ -1826,7 +1826,7 @@ void __cdecl CHATDLG_DestroyDialogControls()
     sub_004F95C0_ControlDestroy(&gpControl_0077BCE8);
     sub_004F95C0_ControlDestroy(&gpChannelOkButton);
     sub_004F95C0_ControlDestroy(&gpControl_0077BCF0);
-    sub_004F95C0_ControlDestroy(&gpEdit_0077BCF4);
+    sub_004F95C0_ControlDestroy(&gpChannelNameEdit);
     sub_004F95C0_ControlDestroy(&gpChannelListBox);
     sub_004FA450_SetActive(gpQuitButton);
     if (gpChatEdit)
@@ -1850,7 +1850,7 @@ int __stdcall CHATDLG_ClearSelection(int nArg1, int nArg2, int nArg3)
 // 0x0043DBC0
 int __stdcall CHATDLG_OnWaitTick(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!WaitForSingleObject((void*)GAME_GetWaitHandle(), 0) || gnFlag_0077BD60)
+    if (!WaitForSingleObject((void*)GAME_GetWaitHandle(), 0) || gfRealmConnectCancelled)
         D2Win_StopMessageLoop();
     return 1;
 }
@@ -1860,7 +1860,7 @@ int __stdcall CHATDLG_OnReceiveTick(SMSGHANDLER_PARAMS* pMsg)
 {
     sub_00449B70_Receive();
 // build: symbol ?MCPCONNECT_QueryAddress@* 0x00449B30
-    if (GAME_IsMcpCharLogonReceived() || !MCPCONNECT_QueryAddress() || gnFlag_0077BD60)
+    if (GAME_IsMcpCharLogonReceived() || !MCPCONNECT_QueryAddress() || gfRealmConnectCancelled)
     {
         CHATDLG_SetCharLogonReceived(0);
         D2Win_StopMessageLoop();
@@ -1983,7 +1983,7 @@ void __cdecl CHATDLG_CreateCharControls()
     gpCreateScreenButton = CONTROL_Create(&gtCreateScreenButtonInit);
     gpChatControl_0077B074 = CONTROL_Create(&gtControlInit_0070CFA0);
     gpJoinScreenButton = CONTROL_Create(&gtJoinScreenButtonInit);
-    gpControlC_0077B07C = CONTROL_Create(&gtControlInit_0070D000);
+    gpControlC = CONTROL_Create(&gtControlInit_0070D000);
     gpQuitButton = CONTROL_Create(&gtQuitButtonInit);
     gpAdImage = CONTROL_Create(&gtAdImageInit);
     gpSmack = CONTROL_Create(&gtAdSmackInit);
@@ -2322,7 +2322,7 @@ void __cdecl CHATDLG_UpdateOkEnabled()
 {
     char szText[0x20];
 
-    const Unicode* pText = sub_004FDD90_GetEditText(gpEdit_0077BCF4);
+    const Unicode* pText = sub_004FDD90_GetEditText(gpChannelNameEdit);
     int bEnable = 0;
     if (pText)
     {
@@ -2522,7 +2522,7 @@ int __cdecl CHATDLG_ResetControls()
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
-    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    BUTTON_SetIsPressed(gpControlC, 0);
     const unsigned short wFlags = gpCharInfo->wFlags1EF;
     if (!(wFlags & 8) || !(wFlags & 4))
     {
@@ -2534,7 +2534,7 @@ int __cdecl CHATDLG_ResetControls()
         CONTROL_SetEnabled(gpChatControl_0077B074, 1);
     else
         CONTROL_SetEnabled(gpChatControl_0077B074, gbChatSetup == 0);
-    CONTROL_SetEnabled(gpControlC_0077B07C, gbCheck == 0);
+    CONTROL_SetEnabled(gpControlC, gbCheck == 0);
     return 1;
 }
 
@@ -2542,7 +2542,7 @@ int __cdecl CHATDLG_ResetControls()
 void __fastcall CHATDLG_SetLadderSelection(unsigned char nMode, int nId)
 {
     gnSelectModeA = nMode;
-    gnSelectIdA_0070CD7C = nId;
+    gnSelectIdA = nId;
 }
 
 // 0x0043EC60
@@ -2558,7 +2558,7 @@ void __fastcall CHATDLG_SelectEntry(const char* szName, int nB, int nC)
         nMode = nB ? 0 : 9;
     gnSelectModeA = nMode;
     gnSelectModeB_0070CD63 = nMode;
-    gnSelectIdA_0070CD7C = -1;
+    gnSelectIdA = -1;
 // build: symbol ?gnSelectIdB@* 0x0070CD80
     gnSelectIdB = -1;
     WINMAIN_SendMcpCharRank(szName, nB, nC);
@@ -2683,9 +2683,9 @@ void __fastcall CHATDLG_RunCommand(char* szText)
 // 0x0043ECE0
 int __stdcall CHATDLG_ScrollLadderUp(int a)
 {
-    gnSelectIdA_0070CD7C -= gnGlobal_0077B0A0;
+    gnSelectIdA -= gnLadderPageSize;
     unsigned char m = gnSelectModeB_0070CD63;
-    gnSelectIdA_0070CD7C &= (gnSelectIdA_0070CD7C <= 0) - 1;
+    gnSelectIdA &= (gnSelectIdA <= 0) - 1;
     gnSelectModeA = m;
     return 1;
 }
@@ -2693,14 +2693,14 @@ int __stdcall CHATDLG_ScrollLadderUp(int a)
 // 0x0043ED10
 int __stdcall CHATDLG_ScrollLadderDown(int nUnused)
 {
-    int nBase = gnGlobal_0077B0A0;
-    int nOther = gnGlobal_0077AD70;
+    int nBase = gnLadderPageSize;
+    int nOther = gnLadderMaxEntries;
     int nCurrent = gnSelectIdA;
     int nDifference = nOther - nBase;
     int nCombined = nBase + nCurrent;
     if (nCombined < nDifference)
         nDifference = nCombined;
-    gbGlobal_0070CD62 = gnSelectModeB;
+    gnSelectModeA = gnSelectModeB;
     gnSelectIdA = nDifference;
     return 1;
 }
@@ -2780,7 +2780,7 @@ void __cdecl CHATDLG_ClearLadderList()
     sub_004FB6A0_ClearText(gbSelectActive);
     char szText[2];
     Unicode wszText[2] = { Unicode(0), Unicode(0) };
-    sprintf(szText, gszDash_006CCA2C);
+    sprintf(szText, gszDash);
     sub_00526F20_ToUnicode(wszText, szText, 2);
     sub_004FCC40_AddLine(gbSelectActive, wszText, gnColor, 4, 0);
     D2Win_10053(gbSelectActive, 0);
@@ -2826,7 +2826,7 @@ int __stdcall CHATDLG_OnOverallLadderButton(D2WinMsgStrc* pMsg)
 // build: symbol ?gnSelectFlag@* 0x0070CD6C
         gnSelectFlag = 1;
         gnSelectModeA = (unsigned char)CHATDLG_GetClassSlot(0, gnSelectModeA);
-        gnSelectIdA_0070CD7C = 0;
+        gnSelectIdA = 0;
     }
     return 1;
 }
@@ -2842,7 +2842,7 @@ int __stdcall CHATDLG_OnAmazonLadderButton(D2WinMsgStrc* pMsg)
         CHATDLG_ClearLadderList();
         gnSelectFlag = 1;
         gnSelectModeA = (unsigned char)CHATDLG_GetClassSlot(1, gnSelectModeA);
-        gnSelectIdA_0070CD7C = 0;
+        gnSelectIdA = 0;
     }
     return 1;
 }
@@ -2858,7 +2858,7 @@ int __stdcall CHATDLG_OnSorceressLadderButton(D2WinMsgStrc* pMsg)
         CHATDLG_ClearLadderList();
         gnSelectFlag = 1;
         gnSelectModeA = (unsigned char)CHATDLG_GetClassSlot(2, gnSelectModeA);
-        gnSelectIdA_0070CD7C = 0;
+        gnSelectIdA = 0;
     }
     return 1;
 }
@@ -2874,7 +2874,7 @@ int __stdcall CHATDLG_OnNecromancerLadderButton(D2WinMsgStrc* pMsg)
         CHATDLG_ClearLadderList();
         gnSelectFlag = 1;
         gnSelectModeA = (unsigned char)CHATDLG_GetClassSlot(3, gnSelectModeA);
-        gnSelectIdA_0070CD7C = 0;
+        gnSelectIdA = 0;
     }
     return 1;
 }
@@ -2890,7 +2890,7 @@ int __stdcall CHATDLG_OnPaladinLadderButton(D2WinMsgStrc* pMsg)
         CHATDLG_ClearLadderList();
         gnSelectFlag = 1;
         gnSelectModeA = (unsigned char)CHATDLG_GetClassSlot(4, gnSelectModeA);
-        gnSelectIdA_0070CD7C = 0;
+        gnSelectIdA = 0;
     }
     return 1;
 }
@@ -2906,7 +2906,7 @@ int __stdcall CHATDLG_OnBarbarianLadderButton(D2WinMsgStrc* pMsg)
         CHATDLG_ClearLadderList();
         gnSelectFlag = 1;
         gnSelectModeA = (unsigned char)CHATDLG_GetClassSlot(5, gnSelectModeA);
-        gnSelectIdA_0070CD7C = 0;
+        gnSelectIdA = 0;
     }
     return 1;
 }
@@ -2922,7 +2922,7 @@ int __stdcall CHATDLG_OnDruidLadderButton(D2WinMsgStrc* pMsg)
         CHATDLG_ClearLadderList();
         gnSelectFlag = 1;
         gnSelectModeA = (unsigned char)CHATDLG_GetClassSlot(6, gnSelectModeA);
-        gnSelectIdA_0070CD7C = 0;
+        gnSelectIdA = 0;
     }
     return 1;
 }
@@ -2938,12 +2938,12 @@ int __stdcall CHATDLG_OnAssassinLadderButton(D2WinMsgStrc* pMsg)
         CHATDLG_ClearLadderList();
         gnSelectFlag = 1;
         gnSelectModeA = (unsigned char)CHATDLG_GetClassSlot(7, gnSelectModeA);
-        gnSelectIdA_0070CD7C = 0;
+        gnSelectIdA = 0;
     }
     return 1;
 }
 
-extern int gdwGlobal_0077BD50;                                                                              // 0x0077BD50
+extern int gnHistoryCount;                                                                              // 0x0077BD50
 
 // 0x0043F4D0
 void __cdecl CHATDLG_ClearHistory()
@@ -2952,7 +2952,7 @@ void __cdecl CHATDLG_ClearHistory()
         gaszHistory[i][0] = 0;
 // build: symbol ?gnHistoryIndex@* 0x0070CD74
     gnHistoryIndex = -1;
-    gdwGlobal_0077BD50 = 0;
+    gnHistoryCount = 0;
 }
 
 // 0x0043F510
@@ -3065,7 +3065,7 @@ void __cdecl CHATDLG_UpdateNameListText()
 
     Unicode wszText[0x200];
 
-    if (!gpControlMain_0077BC4C)
+    if (!gpControlMain)
         return;
 
     szText[0] = 0;
@@ -3084,7 +3084,7 @@ void __cdecl CHATDLG_UpdateNameListText()
         sub_004F9740_SetControlState(gpNamesButton, 0);
 
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x200);
-    sub_004FC9B0_SetText(gpControlMain_0077BC4C, wszText, 1, 0, 0);
+    sub_004FC9B0_SetText(gpControlMain, wszText, 1, 0, 0);
 }
 
 // 0x0043F800
@@ -3156,8 +3156,8 @@ void __cdecl CHATDLG_ResetLaunchState()
 // build: symbol ?gnChatLaunchMode@* 0x0077BBE4
     if (gnChatLaunchMode == 3)
         gnChatLaunchMode = 0;
-    if (gpControlMain_0077BC4C)
-        sub_004F9740_ControlSetState(gpControlMain_0077BC4C, 1);
+    if (gpControlMain)
+        sub_004F9740_ControlSetState(gpControlMain, 1);
 }
 
 // 0x0043F930
@@ -3239,12 +3239,12 @@ int __stdcall CHATDLG_ChatEditKeyCallback(void* pArg, int nCursor, const char* p
 int __fastcall CHATDLG_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone)
 {
     CHATDLG_ResetLaunchState();
-    if (gpControlMain_0077BC4C)
-        sub_004F9740_ControlSetState(gpControlMain_0077BC4C, 0);
+    if (gpControlMain)
+        sub_004F9740_ControlSetState(gpControlMain, 0);
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
-    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    BUTTON_SetIsPressed(gpControlC, 0);
     gpWaitText_0077BD9C = CONTROL_Create(&gtWaitInit);
     D2Win_10044(gpWaitText_0077BD9C, pText);
     gpfnLaunchCallback = pfnDone;
@@ -3258,7 +3258,7 @@ void __cdecl CHATDLG_RefreshChatScreen()
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
-    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    BUTTON_SetIsPressed(gpControlC, 0);
     gnChatLaunchMode = 0;
 }
 
@@ -3278,7 +3278,7 @@ void __cdecl CHATDLG_CreateChatScreen()
         sub_005041B0_Destroy(gpChatCellFile, 1);
     gpChatCellFile = 0;
 
-    BACKGROUND_SetCellFile(gpChatBackground_0077BC04);
+    BACKGROUND_SetCellFile(gpChatBackground);
     gapChatDlgControls[0] = CONTROL_Create(&gatControlTemplates[0x15C]);
     gpChatControl_0077B05C = CONTROL_Create(&gatControlTemplates[0x15D]);
     gpChatControl_0077B060 = CONTROL_Create(&gatControlTemplates[0x15E]);
@@ -3377,7 +3377,7 @@ int __fastcall CHATDLG_SetupCharacter(unsigned short wValue, const char* szText0
 // build: symbol ?WINMAIN_SendMcpJoinGame@* 0x0044A4E0
             WINMAIN_SendMcpJoinGame(szText0x1F, szText0x245, gwRequestId);
             gwSavedRequestId = gwRequestId;
-            sub_004F9740_ControlSetState(gpControlMain_0077BC4C, 1);
+            sub_004F9740_ControlSetState(gpControlMain, 1);
             return 1;
         }
         gnChatLaunchMode = 0;
@@ -3472,7 +3472,7 @@ int __cdecl CHATDLG_FindDashLine()
         sub_00526F70(szText, pText, 0x100);
         if (!strcmp(szText, "-"))
         {
-            gnSelectIdA_0070CD7C = gnSelectLine = nLine / 16 * 16;
+            gnSelectIdA = gnSelectLine = nLine / 16 * 16;
             return 1;
         }
     }
@@ -3484,10 +3484,10 @@ int __stdcall CHATDLG_OnIdle(SMSGHANDLER_PARAMS* pMsg)
 {
     if (GetTickCount() > gdwSelectTime && gbSelectActive
         && (CHATDLG_FindDashLine() || gnSelectFlag)
-        && (gnSelection != gnSelectIdA_0070CD7C || gnSelectLine != gnSelectLinePrev))
+        && (gnSelection != gnSelectIdA || gnSelectLine != gnSelectLinePrev))
     {
         gnSelectModeB_0070CD63 = gnSelectModeA;
-        gnSelectIdB = gnSelectIdA_0070CD7C;
+        gnSelectIdB = gnSelectIdA;
         VIEW_SendMcpLadderRequest(gnSelectModeA, gnSelectLine);
         gdwSelectTime = GetTickCount() + 1000;
         gnSelection = gnSelectIdB;
@@ -3550,12 +3550,12 @@ void __fastcall CHATDLG_FillLadderList(int nStart, int nCount, int nNameLength, 
         return;
     }
 
-    if (gnSelectIdA_0070CD7C == -1)
+    if (gnSelectIdA == -1)
     {
         D2Win_10053(gbSelectActive, nStart);
         gnSelectIdB = nStart;
         gnSelection = nStart;
-        gnSelectIdA_0070CD7C = nStart;
+        gnSelectIdA = nStart;
     }
 
     int nEnd = nStart + nCount;
@@ -3656,8 +3656,8 @@ void __cdecl CHATDLG_OpenStandardLadder()
     CHATDLG_CreateClassScreen();
     gnSelection = -2;
     gnSelectModeB_0070CD63 = 0x23;
-    gnGlobal_0077B0A0 = 0x10;
-    gnGlobal_0077AD70 = 1000;
+    gnLadderPageSize = 0x10;
+    gnLadderMaxEntries = 1000;
     sub_0044B210_SetHandlers(CHATDLG_FillLadderList, CHATDLG_ClearLadderState);
 }
 
@@ -3684,8 +3684,8 @@ void __cdecl CHATDLG_OpenHardcoreLadder()
     CHATDLG_CreateClassScreen();
     gnSelection = -2;
     gnSelectModeB_0070CD63 = 0x23;
-    gnGlobal_0077B0A0 = 0x10;
-    gnGlobal_0077AD70 = 1000;
+    gnLadderPageSize = 0x10;
+    gnLadderMaxEntries = 1000;
     sub_0044B210_SetHandlers(CHATDLG_FillLadderList, CHATDLG_ClearLadderState);
 }
 
@@ -3712,8 +3712,8 @@ void __cdecl CHATDLG_OpenExpansionLadder()
     CHATDLG_CreateClassScreen();
     gnSelection = -2;
     gnSelectModeB_0070CD63 = 0x23;
-    gnGlobal_0077B0A0 = 0x10;
-    gnGlobal_0077AD70 = 1000;
+    gnLadderPageSize = 0x10;
+    gnLadderMaxEntries = 1000;
     sub_0044B210_SetHandlers(CHATDLG_FillLadderList, CHATDLG_ClearLadderState);
 }
 
@@ -3740,8 +3740,8 @@ void __cdecl CHATDLG_OpenExpansionHardcoreLadder()
     CHATDLG_CreateClassScreen();
     gnSelection = -2;
     gnSelectModeB_0070CD63 = 0x23;
-    gnGlobal_0077B0A0 = 0x10;
-    gnGlobal_0077AD70 = 1000;
+    gnLadderPageSize = 0x10;
+    gnLadderMaxEntries = 1000;
     sub_0044B210_SetHandlers(CHATDLG_FillLadderList, CHATDLG_ClearLadderState);
 }
 
@@ -3751,7 +3751,7 @@ int __stdcall CHATDLG_ShowStandardLadder(int nArg)
     CHATDLG_ResetLaunchState();
     CHATDLG_OpenStandardLadder();
     gnSelectModeA = 9;
-    gnSelectIdA_0070CD7C = 0;
+    gnSelectIdA = 0;
     return 1;
 }
 
@@ -3761,7 +3761,7 @@ int __stdcall CHATDLG_ShowExpansionLadder(int nArg)
     CHATDLG_ResetLaunchState();
     CHATDLG_OpenExpansionLadder();
     gnSelectModeA = 0x1B;
-    gnSelectIdA_0070CD7C = 0;
+    gnSelectIdA = 0;
     return 1;
 }
 
@@ -3771,7 +3771,7 @@ int __stdcall CHATDLG_ShowExpansionHardcoreLadder(int nArg)
     CHATDLG_ResetLaunchState();
     CHATDLG_OpenExpansionHardcoreLadder();
     gnSelectModeA = 0x13;
-    gnSelectIdA_0070CD7C = 0;
+    gnSelectIdA = 0;
     return 1;
 }
 
@@ -3918,7 +3918,7 @@ extern D2WinControlInitStrc gtChannelOkButtonInit; // 0x0070DA20
 
 extern D2WinControlInitStrc gtControlInit_0070E110; // 0x0070E110
 
-extern D2WinControlStrc* gpControl_0077BCEC; // 0x0077BCEC
+extern D2WinControlStrc* gpChannelOkButton; // 0x0077BCEC
 
 D2WinControlStrc* gpCreateJoinBckgImage; // 0x0077BCDC
 
@@ -3953,7 +3953,7 @@ void __cdecl CHATDLG_CreateGatewayControls()
     gpControl_0077BCE8 = CONTROL_Create(&gtControlInit_0070D960);
     D2Win_10044(gpControl_0077BCE8, D2LANG_GetStringFromTblIndex(0x148F));
 
-    gpControl_0077BCEC = CONTROL_Create(&gtChannelOkButtonInit);
+    gpChannelOkButton = CONTROL_Create(&gtChannelOkButtonInit);
 
     gpControl_0077BCF0 = CONTROL_Create(&gtControlInit_0070E110);
     sub_004FA450_SetActive(gpControl_0077BCF0);
@@ -4007,7 +4007,7 @@ void __fastcall CHATDLG_JoinChannel(const char* szText)
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
-    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    BUTTON_SetIsPressed(gpControlC, 0);
     gnChatLaunchMode = 0;
 }
 
@@ -4024,7 +4024,7 @@ extern unsigned long gdwChannelListLastClickTick; // 0x0077BDA8
 static __forceinline int DoubleClick()
 {
     int aText[0x40];
-    const Unicode* pEditText = sub_004FDD90_GetEditText(gpEdit_0077BCF4);
+    const Unicode* pEditText = sub_004FDD90_GetEditText(gpChannelNameEdit);
     if (!pEditText)
     {
         return 0;
@@ -4044,7 +4044,7 @@ int __stdcall CHATDLG_UseEditText(int nArg)
     if (!sub_004F9710_TestFlag(gpChannelOkButton))
         return 0;
 
-    const Unicode* pText = sub_004FDD90_GetEditText(gpEdit_0077BCF4);
+    const Unicode* pText = sub_004FDD90_GetEditText(gpChannelNameEdit);
     if (pText)
     {
         sub_00526F70(szText, pText, 0x100);
@@ -4111,7 +4111,7 @@ int __stdcall CHATDLG_ListClick(D2ListMessage00441320Strc* pMsg)
     {
         return 0;
     }
-    EDITBOX_SetText(gpEdit_0077BCF4, pText);
+    EDITBOX_SetText(gpChannelNameEdit, pText);
     CONTROL_SetFocusedEditBox(0);
     return 0;
 }
@@ -4128,8 +4128,8 @@ void __stdcall CHATDLG_EnableConnection(int bEnable)
         }
         gnChatLaunchMode = 0;
         CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x2B0C), sub_0043DAF0_OnConnect);
-        if (gpControlMain_0077BC4C)
-            sub_004F9740_ControlSetState(gpControlMain_0077BC4C, 0);
+        if (gpControlMain)
+            sub_004F9740_ControlSetState(gpControlMain, 0);
         return;
     }
     if (!gnChatLaunchMode && gpWaitText)
@@ -4140,9 +4140,9 @@ void __stdcall CHATDLG_EnableConnection(int bEnable)
         CONTROL_SetEnabled(gpCreateScreenButton, 1);
         CONTROL_SetEnabled(gpJoinScreenButton, 1);
     }
-    CONTROL_SetEnabled(gpControlC_0077B07C, gbCheck == 0);
-    if (gpControlMain_0077BC4C)
-        sub_004F9740_ControlSetState(gpControlMain_0077BC4C, 1);
+    CONTROL_SetEnabled(gpControlC, gbCheck == 0);
+    if (gpControlMain)
+        sub_004F9740_ControlSetState(gpControlMain, 1);
 }
 
 // 0x004414C0
@@ -4417,7 +4417,7 @@ int __cdecl CHATDLG_ConnectRealm()
         return 0;
     if (MCPCONNECT_QueryAddress())
         return 1;
-    gnFlag_0077BD60 = 0;
+    gfRealmConnectCancelled = 0;
     CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), CHATDLG_OnRealmConnectCancel);
     D2LaunchPayloadStrc* pPayload = gpLaunchFuncs->pfnLogonRealm(gpCharInfo->szRealm0x22D, gszPassword);
     if (!pPayload)
@@ -4429,7 +4429,7 @@ int __cdecl CHATDLG_ConnectRealm()
 // build: symbol ?CHATDLG_DestroyPopupControls@* 0x0043EA20
     CHATDLG_DestroyPopupControls();
 // build: symbol ?GAME_GetConnectError@* 0x00449C00
-    if (gnFlag_0077BD60 || !MCPCONNECT_QueryAddress() || GAME_GetConnectError())
+    if (gfRealmConnectCancelled || !MCPCONNECT_QueryAddress() || GAME_GetConnectError())
     {
         CHATDLG_DestroyPopupControls();
         return 0;
@@ -4464,13 +4464,13 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
     sub_004F9160_SetLoopValue(gnLoopValueOut_0077BC14);
     gpChatTextBox = 0;
     if (gpCharInfo->szRealm0x361[0])
-        BACKGROUND_SetCellFile(gpChatBackground_0077BC04);
+        BACKGROUND_SetCellFile(gpChatBackground);
     else
         BACKGROUND_SetCellFile(gpWaitingRoomBkgdCelFile);
     if (gpCharInfo->szRealm0x361[0])
     {
         for (int i = 0; i < 17; i++)
-            gapChatDlgControls[i] = CONTROL_Create(&gatChatControlInits_0070CE50[i]);
+            gapChatDlgControls[i] = CONTROL_Create(&gatChatControlInits[i]);
         gpControl_0077BD98 = CONTROL_Create(&gtControlInit_0070D2A0);
     }
     else
@@ -4506,11 +4506,11 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
-    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    BUTTON_SetIsPressed(gpControlC, 0);
     gnChatLaunchMode = 0;
     pControl8 = CONTROL_Create(&gtControlInit_0070D2D0);
     gpNamesButton = CONTROL_Create(&gtBlankBckgImageInit);
-    gpControlMain_0077BC4C = CONTROL_Create(&gtControlInit_0070D330);
+    gpControlMain = CONTROL_Create(&gtControlInit_0070D330);
     GAME_SetMcpChatCallback(CHATDLG_SetPlayerName);
     VIEW_SendMcpMotdRequest();
     CHATDLG_UpdateNameListText();
@@ -4530,7 +4530,7 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
     if (D2SOUND_GetOptionsMusicOption())
         D2SOUND_10034(1);
     gbCheck = gpCharInfo->nStartMode == 4;
-    CONTROL_SetEnabled(gpControlC_0077B07C, gbCheck == 0);
+    CONTROL_SetEnabled(gpControlC, gbCheck == 0);
     if (CHATDLG_ConnectRealm())
     {
         sprintf(szTitle, "%s,%s", pInfo->szRealm0x22D, pInfo->szCharName);
@@ -4582,7 +4582,7 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
     sub_004F95C0_ControlDestroy(&pControl8);
     sub_004F95C0_ControlDestroy(&pControl4);
     sub_004F95C0_ControlDestroy(&gpNamesButton);
-    sub_004F95C0_ControlDestroy(&gpControlMain_0077BC4C);
+    sub_004F95C0_ControlDestroy(&gpControlMain);
     if (gpGemButton)
         sub_004F95C0_ControlDestroy(&gpGemButton);
     if (gpChatEdit)
@@ -4691,7 +4691,7 @@ int __stdcall CHATDLG_OpenLadderScreen(int nArg)
     CHATDLG_ResetLaunchState();
     CHATDLG_OpenHardcoreLadder();
     gnSelectModeA = 0;
-    gnSelectIdA_0070CD7C = 0;
+    gnSelectIdA = 0;
     return 1;
 }
 
@@ -4699,7 +4699,7 @@ int __stdcall CHATDLG_OpenLadderScreen(int nArg)
 int __stdcall CHATDLG_ReleaseAndCreate(int nArg)
 {
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
-    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    BUTTON_SetIsPressed(gpControlC, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     CHATDLG_ResetLaunchState();
     CHATDLG_CreateGatewayControls();
@@ -4849,7 +4849,7 @@ int __fastcall CHATDLG_IsCharOverLimit(const unsigned char* pChar)
 // 0x00442B90
 void __fastcall CHATDLG_HandleGameListReply(D2LaunchReplyStrc* pReply)
 {
-    const int nCount = gnValue_00798CCC;
+    const int nCount = gnGameCount;
     for (int i = 0; i < nCount; ++i)
     {
         if (gatReplyEntries[i].f_32 == pReply->f_8)
@@ -4860,7 +4860,7 @@ void __fastcall CHATDLG_HandleGameListReply(D2LaunchReplyStrc* pReply)
     gatReplyEntries[nCount].wValue = pReply->wValue;
     strcpy(gatReplyEntries[nCount].szName, pReply->szName);
     strcpy(gatReplyEntries[nCount].szDesc, pReply->szDesc);
-    gnValue_00798CCC = nCount + 1;
+    gnGameCount = nCount + 1;
 }
 
 extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix); // 0x00687605
@@ -4875,7 +4875,7 @@ int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
 
 extern D2LaunchGameRecStrc gaGames[]; // 0x0078A440
 
-extern D2WinControlStrc* gpGameText_00798BC4; // 0x00798BC4
+extern D2WinControlStrc* gpGameInfoText; // 0x00798BC4
 
 D2WinControlStrc* gpGameList; // 0x00798BC0
 
@@ -4904,13 +4904,13 @@ void __cdecl CHATDLG_FillGameListControl()
 
     int nTop = sub_004FB950_GetFirstVisible(gpGameList);
     sub_004FB6A0_ClearText(gpGameList);
-    sub_004FB6A0_ClearText(gpGameText_00798BC4);
-    gnLastGameCount = gnValue_00798CCC;
+    sub_004FB6A0_ClearText(gpGameInfoText);
+    gnLastGameCount = gnGameCount;
     if (!gnLastGameCount)
         return;
 
     int bNoNumbers = !MCPCONNECT_QueryAddress();
-    memcpy(gaGames, gaNewGames, gnValue_00798CCC * sizeof(D2LaunchGameRecStrc));
+    memcpy(gaGames, gaNewGames, gnGameCount * sizeof(D2LaunchGameRecStrc));
     for (int i = 0; i < gnLastGameCount; ++i)
     {
         D2Win_10045(gpGameList, gaGames[i].szName);
@@ -4961,17 +4961,17 @@ __declspec(noinline) void __cdecl CHATDLG_SendPendingText()
 // 0x00442E30
 static void CHATDLG_ShowGameInfo(int nIndex)
 {
-    if (!gpGameText_00798BC4)
+    if (!gpGameInfoText)
         return;
 
     D2LaunchGameRecStrc* pGame = &gaNewGames[nIndex];
-    sub_004FB6A0_ClearText(gpGameText_00798BC4);
+    sub_004FB6A0_ClearText(gpGameInfoText);
     if (strlen(&pGame->szName[0x10]))
     {
-        sub_004FCF80_SetTextA(gpGameText_00798BC4, &pGame->szName[0x10]);
-        sub_004FCF80_SetTextA(gpGameText_00798BC4, &gszEmptyAssertText);
+        sub_004FCF80_SetTextA(gpGameInfoText, &pGame->szName[0x10]);
+        sub_004FCF80_SetTextA(gpGameInfoText, &gszEmptyAssertText);
     }
-    D2Win_10053(gpGameText_00798BC4, 0);
+    D2Win_10053(gpGameInfoText, 0);
     if (pGame->szName)
     {
         sub_004FFE10_SetTextA(gpJoinName, pGame->szName);
@@ -4983,7 +4983,7 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
 {
 // build: symbol ?gpGameList@* 0x00798BC0
     const int nSelection = sub_004FB990_GetSelection(gpGameList);
-    sub_004FB6A0_ClearText(gpGameText_00798BC4);
+    sub_004FB6A0_ClearText(gpGameInfoText);
     if (nSelection != -1)
     {
         if (pMsg->uMessage == 0x201)
@@ -5126,11 +5126,11 @@ void __fastcall CHATDLG_ShowGameDetails(D2GameDetailsStrc* pDetails)
 void __cdecl CHATDLG_DestroyJoinControls()
 {
     sub_004F95C0_ControlDestroy(&gpJoinGameBckgImage);
-    sub_004F95C0_ControlDestroy(&gpControl_00798BD4);
+    sub_004F95C0_ControlDestroy(&gpJoinName);
     sub_004F95C0_ControlDestroy(&gpJoinPassword);
-    sub_004F95C0_ControlDestroy(&gpControl_00798BC0);
+    sub_004F95C0_ControlDestroy(&gpGameList);
     sub_004F95C0_ControlDestroy(&gpControl_00798BC4);
-    sub_004F95C0_ControlDestroy(&gpControl_00798BCC);
+    sub_004F95C0_ControlDestroy(&gpJoinButton);
     sub_004F95C0_ControlDestroy(&gpControl_00798BD0);
     sub_004F95C0_ControlDestroy(&gpJoinGameTitle);
     sub_004F95C0_ControlDestroy(&gpJoinNameLabel);
@@ -5155,28 +5155,28 @@ void __cdecl MAINMENUS_LoadMaxPlayers()
     {
 // build: symbol ?gszFormatD@* 0x006D57BC
         sprintf(szText, gszFormatD, nPlayers);
-        sub_004FFE10_SetTextA(gpMaxPlayerControl_00798C38, szText);
+        sub_004FFE10_SetTextA(gpMaxPlayerControl, szText);
     }
 }
 
 // 0x00443220
 void __cdecl CHATDLG_DestroyCreateControls()
 {
-    sub_004F95C0_ControlDestroy(&gpControl_00798BEC);
-    sub_004F95C0_ControlDestroy(&gpControl_00798BF0);
-    sub_004F95C0_ControlDestroy(&gpControl_00798BF4);
+    sub_004F95C0_ControlDestroy(&gpPanelBackground);
+    sub_004F95C0_ControlDestroy(&gpPanelTitle);
+    sub_004F95C0_ControlDestroy(&gpPanelText);
     sub_004F95C0_ControlDestroy(&gpCreatePasswordLabel);
     sub_004F95C0_ControlDestroy(&gpCreateDescLabel);
     sub_004F95C0_ControlDestroy(&gpMaxPlayersLabel);
     sub_004F95C0_ControlDestroy(&gpLevelDiffLabel);
     sub_004F95C0_ControlDestroy(&gpControl_00798C08);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C2C);
+    sub_004F95C0_ControlDestroy(&gpCreateName);
     sub_004F95C0_ControlDestroy(&gpCreatePassword);
     sub_004F95C0_ControlDestroy(&gpCreateDesc);
     sub_004F95C0_ControlDestroy(&gpMaxPlayerControl);
     sub_004F95C0_ControlDestroy(&gpLevelDiffEdit);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C28);
-    sub_004F95C0_ControlDestroy(&gpControl_00798C48);
+    sub_004F95C0_ControlDestroy(&gpCreateButton);
+    sub_004F95C0_ControlDestroy(&gpPanelCancelButton);
     sub_004F95C0_ControlDestroy(&gpLevelDiffCheck);
     sub_004F95C0_ControlDestroy(&gpNormalRadio);
     sub_004F95C0_ControlDestroy(&gpNightmareRadio);
@@ -5213,7 +5213,7 @@ extern D2WinControlStrc* gpEditBox_00798C3C; // 0x00798C3C
 int __cdecl CHATDLG_GetMaxPlayers()
 {
     char szText[5];
-    const Unicode* pText = sub_004FDD90_GetEditText(gpMaxPlayerControl_00798C38);
+    const Unicode* pText = sub_004FDD90_GetEditText(gpMaxPlayerControl);
     sub_005263E0(szText, pText, 5);
     return atoi(szText);
 }
@@ -5231,14 +5231,14 @@ int __cdecl CHATDLG_GetLevelRange()
 int __stdcall CHATDLG_IncrementMaxPlayers(int nArg)
 {
     char szText[5];
-    const Unicode* pText = sub_004FDD90_GetEditText(gpMaxPlayerControl_00798C38);
+    const Unicode* pText = sub_004FDD90_GetEditText(gpMaxPlayerControl);
     sub_005263E0(szText, pText, 5);
     int nValue = atoi(szText);
     if (nValue < 8)
         ++nValue;
 // build: symbol ?gszFormatD@* 0x006D57BC
     sprintf(gszMaxPlayersText, gszFormatD, nValue);
-    sub_004FFE10_SetTextA(gpMaxPlayerControl_00798C38, gszMaxPlayersText);
+    sub_004FFE10_SetTextA(gpMaxPlayerControl, gszMaxPlayersText);
     return 1;
 }
 
@@ -5246,13 +5246,13 @@ int __stdcall CHATDLG_IncrementMaxPlayers(int nArg)
 int __stdcall CHATDLG_DecrementMaxPlayers(int nArg)
 {
     char szText[5];
-    const Unicode* pText = sub_004FDD90_GetEditText(gpMaxPlayerControl_00798C38);
+    const Unicode* pText = sub_004FDD90_GetEditText(gpMaxPlayerControl);
     sub_005263E0(szText, pText, 5);
     int nValue = atoi(szText);
     if (nValue > 1)
         --nValue;
     sprintf(gszMaxPlayersText, gszFormatD, nValue);
-    sub_004FFE10_SetTextA(gpMaxPlayerControl_00798C38, gszMaxPlayersText);
+    sub_004FFE10_SetTextA(gpMaxPlayerControl, gszMaxPlayersText);
     return 1;
 }
 
@@ -5346,7 +5346,7 @@ void __cdecl CHATDLG_UpdateCreateButton()
 
     if (MCPCONNECT_QueryAddress())
     {
-        pText = sub_004FDD90_GetEditText(gpMaxPlayerControl_00798C38);
+        pText = sub_004FDD90_GetEditText(gpMaxPlayerControl);
         if (pText)
         {
             sub_00526F70(szText, pText, 3);
@@ -5359,7 +5359,7 @@ void __cdecl CHATDLG_UpdateCreateButton()
                     nPlayers = D2_MIN(D2_MAX(nPlayers, 1), 8);
 // build: symbol ?gszFormatD@* 0x006D57BC
                     sprintf(szText, gszFormatD, nPlayers);
-                    sub_004FFE10_SetTextA(gpMaxPlayerControl_00798C38, szText);
+                    sub_004FFE10_SetTextA(gpMaxPlayerControl, szText);
                 }
             }
         }
@@ -5416,7 +5416,7 @@ int __stdcall CHATDLG_CheckStartAdvResult(int nUnused)
     return 1;
 }
 
-int gdwGlobal_00798CC4;                                                                                     // 0x00798CC4
+int gfCreateGameCancelled;                                                                                     // 0x00798CC4
 
 D2WinControlStrc* gpNormalRadio;                                                                       // 0x00798C4C
 
@@ -5429,7 +5429,7 @@ int gnDiffSelect;                                                               
 // 0x00443870
 int __stdcall CHATDLG_SetCancel(int nArg)
 {
-    gdwGlobal_00798CC4 = 1;
+    gfCreateGameCancelled = 1;
     return 1;
 }
 
@@ -5440,7 +5440,7 @@ int __stdcall CHATDLG_PollMcp(int nArg)
 // build: symbol ?GAME_GetConnectError@* 0x00449C00
 // build: symbol ?GAME_GetMcpGameToken@* 0x00449BE0
 // build: symbol ?GAME_IsMcpCreateQueued@* 0x00449E40
-    if (GAME_IsMcpCreateQueued() || GAME_GetMcpGameToken() || GAME_GetConnectError() || gdwGlobal_00798CC4)
+    if (GAME_IsMcpCreateQueued() || GAME_GetMcpGameToken() || GAME_GetConnectError() || gfCreateGameCancelled)
         D2Win_StopMessageLoop();
     return 1;
 }
@@ -5514,7 +5514,7 @@ void __stdcall sub_00411320_CapitalizeWords(char* szText); // 0x00411320
 
 char* __fastcall FOG_inet_ntoa(int nAddress); // 0x0040E080
 
-extern D2WinControlStrc* gpJoinPassword_00798BD8; // 0x00798BD8
+extern D2WinControlStrc* gpJoinPassword; // 0x00798BD8
 
 // 0x004439F0
 int __stdcall CHATDLG_JoinByName(int nArg)
@@ -5527,7 +5527,7 @@ int __stdcall CHATDLG_JoinByName(int nArg)
         return 0;
 
     const Unicode* pName = sub_004FDD90_GetEditText(gpJoinName);
-    const Unicode* pPassword = sub_004FDD90_GetEditText(gpJoinPassword_00798BD8);
+    const Unicode* pPassword = sub_004FDD90_GetEditText(gpJoinPassword);
     if (pName)
     {
         sub_00526F70(szName, pName, 0x100);
@@ -5544,7 +5544,7 @@ int __stdcall CHATDLG_JoinByName(int nArg)
             return 1;
         }
 
-        for (int i = 0; i < gnValue_00798CCC; ++i)
+        for (int i = 0; i < gnGameCount; ++i)
         {
             if (!strcmp(gaGames[i].szName, szName))
             {
@@ -5643,7 +5643,7 @@ extern D2WinControlInitStrc gtSelectButtonInit; // 0x0070E980
 
 D2WinControlStrc* gpChatControl_0077B074;                                                                   // 0x0077B074
 
-D2WinControlStrc* gpControlC_0077B07C;                                                                      // 0x0077B07C
+D2WinControlStrc* gpControlC;                                                                      // 0x0077B07C
 
 int gbCheck; // 0x0077BD58
 
@@ -5800,7 +5800,7 @@ D2WinControlStrc* gpControl_00798CB8; // 0x00798CB8
 
 D2WinControlStrc* gpHelpBckgImage; // 0x00798CBC
 
-int gnValue_00798CC0; // 0x00798CC0
+int gfGameListControlsCreated; // 0x00798CC0
 
 int gnGameCount; // 0x00798CCC
 
@@ -5864,7 +5864,7 @@ int __cdecl sub_00444020_CreateControls()
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
-    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    BUTTON_SetIsPressed(gpControlC, 0);
     gpHelpBckgImage = CONTROL_Create(&gtHelpBckgImageInit);
     gpControl_00798CB0 = CONTROL_Create(&gtControlInit_0070EA10);
     D2Win_10044(gpControl_00798CB0, D2LANG_GetStringFromTblIndex(bExpansion ? 0x14BC : 0x2AE));
@@ -6036,7 +6036,7 @@ int __cdecl sub_00444020_CreateControls()
     }
     gpControl_00798CB8 = CONTROL_Create(&gtControlInit_0070EA70);
     sub_004FA450_SetActive(gpControl_00798CB8);
-    gnValue_00798CC0 = 1;
+    gfGameListControlsCreated = 1;
     D2Win_10053(gpControl_00798CB4, 0);
     return 1;
 }
@@ -6048,7 +6048,7 @@ __declspec(noinline) int __cdecl CHATDLG_DestroyGameListControls()
     sub_004F95C0_ControlDestroy(&gpControl_00798CB0);
     sub_004F95C0_ControlDestroy(&gpControl_00798CB4);
     sub_004F95C0_ControlDestroy(&gpControl_00798CB8);
-    gnValue_00798CC0 = 0;
+    gfGameListControlsCreated = 0;
     sub_004FA450_SetActive(gpQuitButton);
     return 1;
 }
@@ -6312,7 +6312,7 @@ void __fastcall CHATDLG_ShowProfileDialog(const char* szText, int nA, int nB)
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
-    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    BUTTON_SetIsPressed(gpControlC, 0);
     if (!MAINMENUS_RequestProfile((int)szName, (int)szA, (int)szB, (int)szC))
     {
         return;
@@ -6367,7 +6367,7 @@ void __fastcall CHATDLG_ShowUserInfoDialog(const char* szUser, const char* szTex
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
-    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    BUTTON_SetIsPressed(gpControlC, 0);
     if (!MAINMENUS_RequestProfile((int)szName, (int)szA, (int)szB, (int)szC))
     {
         return;
@@ -6455,7 +6455,7 @@ void __cdecl CHATDLG_CreateJoinScreen()
     D2Win_10044(gpJoinPasswordLabel, D2LANG_GetStringFromTblIndex(0x1469));
     gpControl_00798BE8 = CONTROL_Create(&gtControlInit_0070D6F0);
     D2Win_10044(gpControl_00798BE8, D2LANG_GetStringFromTblIndex(0x149B));
-    gpControl_00798BCC = CONTROL_Create(&gtJoinButtonInit);
+    gpJoinButton = CONTROL_Create(&gtJoinButtonInit);
     gpControl_00798BD0 = CONTROL_Create(&gtControlInit_0070E110);
     sub_004FA450_SetActive(gpControl_00798BD0);
     gpJoinName = CONTROL_Create(&gtJoinNameInit);
@@ -6485,7 +6485,7 @@ void __cdecl CHATDLG_CreateJoinScreen()
     CONTROL_SetFocusedEditBox(gpJoinName);
 // build: symbol ?gnLastGameCount@* 0x00798CC8
     gnLastGameCount = 0;
-    gnValue_00798CCC = 0;
+    gnGameCount = 0;
 // build: symbol ?CHATDLG_UpdateJoinButtonState@* 0x004437E0
     CHATDLG_UpdateJoinButtonState();
 }

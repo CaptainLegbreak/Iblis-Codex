@@ -97,7 +97,7 @@ typedef int (__stdcall* SymGetLineFromAddrFn)(void* hProcess, unsigned long dwAd
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-extern "C" const char gszEmptyString_006FFC44[]; // 0x006FFC44
+extern "C" const char gszSpace[]; // 0x006FFC44
 
 const char* __fastcall ERRORMANAGER_StripSourcePath(const char* szPath); // 0x00408000
 
@@ -141,7 +141,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 int __stdcall SMemCmp(void* pLocation1, void* pLocation2, unsigned int nSize); // 0x0041D200
 
-extern "C" const char gszReadBinary_006CDC90[]; // 0x006CDC90
+extern "C" const char gszFileModeRb[]; // 0x006CDC90
 
 D2CriticalSectionStrc gtImageHlpLock; // 0x0075CFBC
 
@@ -165,7 +165,7 @@ typedef unsigned long (__stdcall* GetModuleNameFn)(void* hProcess, void* hModule
 
 typedef int (__stdcall* GetModuleInformationFn)(void* hProcess, void* hModule, D2PsapiModuleInfoStrc* pInfo, unsigned long nSize);
 
-extern "C" const char gszExceptionsCpp_006CD628[]; // 0x006CD628
+extern "C" const char gszExceptionsCppFile[]; // 0x006CD628
 
 
 extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void* lp, unsigned int ucb); // 0x006CC238
@@ -447,7 +447,7 @@ D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleListPsapi(void* hProcess)
                 LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "ERROR: PSAPI GetModuleBaseNameA (%d)", GetLastError());
                 goto failed;
             }
-            D2ModuleInfoStrc* pEntry = (D2ModuleInfoStrc*)FOG_Alloc(sizeof(D2ModuleInfoStrc), gszExceptionsCpp_006CD628, 0x2D3, 0);
+            D2ModuleInfoStrc* pEntry = (D2ModuleInfoStrc*)FOG_Alloc(sizeof(D2ModuleInfoStrc), gszExceptionsCppFile, 0x2D3, 0);
             memset(pEntry, 0, sizeof(D2ModuleInfoStrc));
             strcpy(pEntry->szPath, szFileName);
             strcpy(pEntry->szName, szBaseName);
@@ -946,7 +946,7 @@ int __fastcall QuickStackWalk(const char* szPrefix, void* hThread, D2ThreadConte
                 {
                     nPad = 1;
                 }
-                LOGMANAGER_LogWritePrefixedLine(szPrefix, "    %08X  %s!%s+%04X  %*s%s,%d", tFrame.tAddrPC.dwOffset, tModule.szModuleName, szSymbol, dwDisplacement, nPad, gszEmptyString_006FFC44, szFile, tLine.dwLineNumber);
+                LOGMANAGER_LogWritePrefixedLine(szPrefix, "    %08X  %s!%s+%04X  %*s%s,%d", tFrame.tAddrPC.dwOffset, tModule.szModuleName, szSymbol, dwDisplacement, nPad, gszSpace, szFile, tLine.dwLineNumber);
             }
             else
             {
@@ -1162,7 +1162,7 @@ int __fastcall EXCEPTIONS_ReadCrashDump(char* pBuffer, unsigned int* pnSize)
     }
 
     const unsigned int nMaxSize = *pnSize;
-    _iobuf* pFile = fopen(szPath, gszReadBinary_006CDC90);
+    _iobuf* pFile = fopen(szPath, gszFileModeRb);
     if (!pFile)
     {
         return 0;

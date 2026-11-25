@@ -29,22 +29,22 @@ void* __stdcall WINDOW_GetWindow(); // 0x004F59A0
 void __fastcall SCMD_RegisterMsgHandlers(void* hWnd, void* pHandlers, int nCount); // 0x00451DB0
 
 extern const char gszTextSourceFile[]; // 0x006DA13C
-extern int gnTextTop_007225FC; // 0x007225FC
+extern int gnTextTop; // 0x007225FC
 extern unsigned char gaHandlers_00722600[]; // 0x00722600
 extern D2TextBlockStrc* gpTextBox; // 0x007BF0A4
-extern D2TextBlockStrc* gpPreviousTextBox_007BF1A8; // 0x007BF1A8
+extern D2TextBlockStrc* gpMainTextBox; // 0x007BF1A8
 extern int gnTextState_007BF1BC; // 0x007BF1BC
-extern int gnTextActive_007BF1C0; // 0x007BF1C0
+extern int gnTextActive; // 0x007BF1C0
 extern int gnPreviousTextActive_007BF1C4; // 0x007BF1C4
 extern unsigned int gnNpcId_007BF202; // 0x007BF202
 extern int gnHasNpc_007BF20A; // 0x007BF20A
-extern unsigned short gwMessage_007BF212; // 0x007BF212
-extern unsigned long gnStartTick_007BF22C; // 0x007BF22C
-extern int gnGlobal_007BF230; // 0x007BF230
-extern int gnGlobal_007BF236; // 0x007BF236
+extern unsigned short gwTextStringId; // 0x007BF212
+extern unsigned long gnStartTick; // 0x007BF22C
+extern int gbTextSound; // 0x007BF230
+extern int gbTextSide; // 0x007BF236
 extern int gnSoundPlaying_007BF24B; // 0x007BF24B
-extern int gnSound_007BF260; // 0x007BF260
-extern int gnTextLeft_007BF278; // 0x007BF278
+extern int gnHintId; // 0x007BF260
+extern int gnTextLeft; // 0x007BF278
 static int gnHandlersSet_007BF27C; // 0x007BF27C
 
 // 0x0049D370
@@ -72,27 +72,27 @@ __forceinline void __stdcall TEXT_FreeTextBox(D2TextBlockStrc* pBox)
 // 0x004A10E0
 void __fastcall TEXT_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, int nUnused)
 {
-    gnGlobal_007BF236 = 0;
-    gnTextTop_007225FC = 12;
-    gnTextLeft_007BF278 = (gnScreenWidth_0071146C - 325) / 2;
-    gnGlobal_007BF230 = 0;
+    gbTextSide = 0;
+    gnTextTop = 12;
+    gnTextLeft = (gnScreenWidth_0071146C - 325) / 2;
+    gbTextSound = 0;
     GAME_ResetMouseState();
-    if (gnSound_007BF260)
+    if (gnHintId)
     {
-        D2SoundStrc* pSound = sub_004B9610(gnSound_007BF260);
+        D2SoundStrc* pSound = sub_004B9610(gnHintId);
         if (pSound)
             SOUNDINST_ArmHint(pSound, 0, 0, 4);
-        gnSound_007BF260 = 0;
+        gnHintId = 0;
     }
     gnSoundPlaying_007BF24B = 0;
     if (!pUnit)
     {
         if (gnPreviousTextActive_007BF1C4)
         {
-            if (gpPreviousTextBox_007BF1A8)
+            if (gpMainTextBox)
             {
-                TEXT_FreeTextBox(gpPreviousTextBox_007BF1A8);
-                gpPreviousTextBox_007BF1A8 = 0;
+                TEXT_FreeTextBox(gpMainTextBox);
+                gpMainTextBox = 0;
             }
             gnPreviousTextActive_007BF1C4 = 0;
         }
@@ -114,14 +114,14 @@ void __fastcall TEXT_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, 
         gnNpcId_007BF202 = pUnit->dwUnitId;
     }
     D2RectStrc tRect;
-    tRect.nTop = gnTextTop_007225FC;
-    tRect.nBottom = (gnTextTop_007225FC + 182 < gnScreenHeight - 53)
-        ? gnTextTop_007225FC + 182 : gnScreenHeight - 53;
-    tRect.nLeft = gnTextLeft_007BF278 - 10;
-    tRect.nRight = gnTextLeft_007BF278 + 335;
+    tRect.nTop = gnTextTop;
+    tRect.nBottom = (gnTextTop + 182 < gnScreenHeight - 53)
+        ? gnTextTop + 182 : gnScreenHeight - 53;
+    tRect.nLeft = gnTextLeft - 10;
+    tRect.nRight = gnTextLeft + 335;
     SELECT_SetSelectionRect(&tRect);
     SELECT_ClearSelection();
-    gwMessage_007BF212 = nMessage;
+    gwTextStringId = nMessage;
     if (!gpTextBox)
     {
         gnTextState_007BF1BC = 0;
@@ -142,14 +142,14 @@ void __fastcall TEXT_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, 
         {
             UNITSND_ReleaseSkillSfx(pUnit);
             gnSoundPlaying_007BF24B = sub_004B9A00(nSound, sub_00463DD0_GetPlayerUnit(), 5, 0, 0);
-            gnSound_007BF260 = nSound;
+            gnHintId = nSound;
         }
         gpTextBox->unknown16 = 0;
-        gnTextActive_007BF1C0 = 1;
+        gnTextActive = 1;
         if (!gnHandlersSet_007BF27C)
         {
             gnHandlersSet_007BF27C = 1;
-            gnStartTick_007BF22C = GetTickCount();
+            gnStartTick = GetTickCount();
             SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaHandlers_00722600, 7);
         }
     }

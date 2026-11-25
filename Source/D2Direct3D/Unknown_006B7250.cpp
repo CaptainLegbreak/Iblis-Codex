@@ -106,7 +106,7 @@ struct D2Direct3DDevice006B7F70Strc
 {
     D2Direct3DDeviceVtbl006B7F70Strc* lpVtbl;
 };
-extern D2Direct3DDevice006B7F70Strc* gpDevice_00970E7C; // 0x00970E7C
+extern D2Direct3DDevice006B7F70Strc* gpViewport; // 0x00970E7C
 
 struct D2GridVertexStrc { float x,y,unknown08,unknown0C,s,t,unknown18,unknown1C; };
 
@@ -133,8 +133,8 @@ extern unsigned char gbD3DColorRed; // 0x0097173A
 extern unsigned char gbD3DColorGreen; // 0x00971738
 extern unsigned char gbD3DColorBlue; // 0x00971739
 extern unsigned char gabMultiplyTable[][256]; // 0x00971740
-extern int gaScaleTable_00981748[0x2000]; // 0x00981748
-extern int gnScaleTableReady_00989748; // 0x00989748
+extern int ganPerspectiveTable[0x2000]; // 0x00981748
+extern int gnPerspectiveScale; // 0x00989748
 extern int gnD3DOriginX; // 0x00981740
 extern int gnOriginY; // 0x00981744
 extern int gnPerspective_00981748[]; // 0x00981748
@@ -441,7 +441,7 @@ void __cdecl sub_006B7F70_ClearTarget()
     tRect.y1 = 0;
     tRect.x2 = gnWidth_007C9138;
     tRect.y2 = gnHeight_007C913C;
-    gpDevice_00970E7C->lpVtbl->Clear(gpDevice_00970E7C, 1, &tRect, 1, 0xFF000000, 0.0f, 0);
+    gpViewport->lpVtbl->Clear(gpViewport, 1, &tRect, 1, 0xFF000000, 0.0f, 0);
 }
 
 D2TLVertexStrc gaQuadVertices[4]; // 0x00971630
@@ -535,9 +535,9 @@ void __cdecl sub_006B97D0_BuildScaleTable()
     {
         const int i = j - 0x1000;
         const int nValue = D2_MIN(D2_MAX(i, -2999), 2999);
-        gaScaleTable_00981748[j] = 3072000 / (nValue - 3000);
+        ganPerspectiveTable[j] = 3072000 / (nValue - 3000);
     }
-    gnScaleTableReady_00989748 = 256;
+    gnPerspectiveScale = 256;
 }
 
 // 0x006B9830
@@ -574,7 +574,7 @@ void __fastcall sub_006B9860_Project(int x, int y, int z, int* outX, int* outY)
 // 0x006B9A00
 void __cdecl sub_006B9A00_ResetScale()
 {
-    gnScaleTableReady_00989748 = 256;
+    gnPerspectiveScale = 256;
 }
 
 struct D2Point006B7F20Strc;

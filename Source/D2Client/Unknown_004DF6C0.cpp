@@ -131,9 +131,9 @@ void __fastcall D2SOUNDSMP_SetSoundAttenuation(D2SoundStrc* pSound, float fAtten
 
 void __fastcall D2SOUNDSMP_GetPositionalVolumePan(int* pVolume, int* pPan, float x, float y, float z); // 0x00516830
 
-extern int gnSfxVolume_00727564; // 0x00727564
+extern int gnSfxVolume; // 0x00727564
 
-extern int gnEnvVolume_00727568; // 0x00727568
+extern int gnEnvVolume; // 0x00727568
 
 struct D2SoundEnvironStrc
 {
@@ -494,15 +494,15 @@ void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot)
         nVolume = D2SOUND_GetMusicVolumeOption() * nVolume / 100;
     nVolume = D2SOUND_GetMasterVolumeOption() * nVolume / 100;
 
-    if (gnSfxVolume_00727564 != 100)
+    if (gnSfxVolume != 100)
     {
         if (!(pObject->nSoundId >= 0x1231 && pObject->nSoundId <= 0x125A) && !(pObject->nSoundId >= 0x34 && pObject->nSoundId <= 0x47)
             && !(pObject->nSoundId >= 1 && pObject->nSoundId <= 0x0F))
-            nVolume = gnSfxVolume_00727564 * nVolume / 100;
+            nVolume = gnSfxVolume * nVolume / 100;
     }
 
-    if (gnEnvVolume_00727568 != 100 && !pRecord->bSolo)
-        nVolume = gnEnvVolume_00727568 * nVolume / 100;
+    if (gnEnvVolume != 100 && !pRecord->bSolo)
+        nVolume = gnEnvVolume * nVolume / 100;
 
     if (gbSoundSystemInit)
     {

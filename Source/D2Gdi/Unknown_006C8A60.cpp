@@ -315,8 +315,8 @@ void __fastcall sub_006C8F70_RectDiamond(tagRECT* pRect, int nValue)
     sub_006C8DA0_DrawLine(&ptLeft, &ptTop, nValue);
 }
 
-extern int gnSurfaceWidth_007C9138;                                                                         // 0x007C9138
-extern int gnSurfaceHeight_007C913C;                                                                        // 0x007C913C
+extern int gnRenderWidth;                                                                         // 0x007C9138
+extern int gnRenderHeight;                                                                        // 0x007C913C
 extern unsigned char* gpSurfaceBits_007C9154;                                                               // 0x007C9154
 
 static void __stdcall sub_006C8DA0_DrawLine(const D2CoordPairStrc* pFrom, const D2CoordPairStrc* pTo, unsigned char nColor)
@@ -344,7 +344,7 @@ static void __stdcall sub_006C8DA0_DrawLine(const D2CoordPairStrc* pFrom, const 
     int i = 0;
     for (;;)
     {
-        if (nY >= 0 && nY < gnSurfaceHeight_007C913C && nX >= 0 && nX < gnSurfaceWidth_007C9138)
+        if (nY >= 0 && nY < gnRenderHeight && nX >= 0 && nX < gnRenderWidth)
         {
             break;
         }
@@ -372,7 +372,7 @@ static void __stdcall sub_006C8DA0_DrawLine(const D2CoordPairStrc* pFrom, const 
         ++i;
     }
 
-    unsigned char* pDst = gpSurfaceBits_007C9154 + gnSurfaceWidth_007C9138 * nY + nX;
+    unsigned char* pDst = gpSurfaceBits_007C9154 + gnRenderWidth * nY + nX;
     *pDst = nColor;
     for (++i; i < nSteps; ++i)
     {
@@ -385,7 +385,7 @@ static void __stdcall sub_006C8DA0_DrawLine(const D2CoordPairStrc* pFrom, const 
             nFracX += nMove * -0x10000;
         }
 
-        if (nX < 0 || nX >= gnSurfaceWidth_007C9138)
+        if (nX < 0 || nX >= gnRenderWidth)
         {
             return;
         }
@@ -395,11 +395,11 @@ static void __stdcall sub_006C8DA0_DrawLine(const D2CoordPairStrc* pFrom, const 
         {
             const int nMove = nFracY / 0x10000;
             nY += nMove;
-            pDst += gnSurfaceWidth_007C9138 * nMove;
+            pDst += gnRenderWidth * nMove;
             nFracY += nMove * -0x10000;
         }
 
-        if (nY < 0 || nY >= gnSurfaceHeight_007C913C)
+        if (nY < 0 || nY >= gnRenderHeight)
         {
             return;
         }
@@ -439,8 +439,8 @@ void __fastcall sub_006C9030_DrawRect(tagRECT* pRect, int nColor)
     sub_006C8DA0_DrawLine(&aCorners[0], &aCorners[1], nColor);
 }
 
-extern int gnSurfaceWidth_007C9138;                                                                         // 0x007C9138
-extern int gnSurfaceHeight_007C913C;                                                                        // 0x007C913C
+extern int gnRenderWidth;                                                                         // 0x007C9138
+extern int gnRenderHeight;                                                                        // 0x007C913C
 extern unsigned char* gpSurfaceBits_007C9154;                                                               // 0x007C9154
 
 

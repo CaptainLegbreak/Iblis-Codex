@@ -21,11 +21,11 @@ extern int gnGlideTexFilterMode; // 0x0087EFE0
 
 struct D2GlideHwQueryStrc;
 
-extern int gdwGlobal_007C8CB0; // 0x007C8CB0
+extern int gnDisplayType; // 0x007C8CB0
 
-extern int gdwGlobal_007C8CB4; // 0x007C8CB4
+extern int gbIsWindowed; // 0x007C8CB4
 
-extern int gdwGlobal_0072DA7C; // 0x0072DA7C
+extern int gfFixedAspectRatio; // 0x0072DA7C
 
 extern int gdwGlobal_007C8CBC; // 0x007C8CBC
 
@@ -43,47 +43,47 @@ void __stdcall CONTROL_RemoveFromList(void* pArg); // 0x004F9310
 
 extern int gdwGlobal_0087E838; // 0x0087E838
 
-extern int gdwGlobal_0087EFD0; // 0x0087EFD0
+extern int gbGlidePlayingVideo; // 0x0087EFD0
 
 int gbFloorTiles; // 0x0087EFE8
 
-extern int gdwGlobal_0088126C; // 0x0088126C
+extern int gbDDrawPlayingVideo; // 0x0088126C
 
-extern int gdwGlobal_00881768; // 0x00881768
+extern int gpDirectSound; // 0x00881768
 
-extern int gdwGlobal_0088176C; // 0x0088176C
+extern int gfPositionalSound; // 0x0088176C
 
-extern int gdwGlobal_00881770; // 0x00881770
+extern int gbEaxEnabled; // 0x00881770
 
-extern int gdwGlobal_00881774; // 0x00881774
+extern int gnEaxVersion; // 0x00881774
 
-extern int gdwGlobal_00881778; // 0x00881778
+extern int gbEaxRoomOff; // 0x00881778
 
 extern int gdwGlobal_0072F830; // 0x0072F830
 
-extern int gdwGlobal_00881798; // 0x00881798
+extern int gnChannelValue; // 0x00881798
 
-extern int gdwGlobal_008817AC; // 0x008817AC
+extern int gnSoundMode; // 0x008817AC
 
 extern int gnMasterVolume; // 0x008817B0
 
-extern int gdwGlobal_008817B4; // 0x008817B4
+extern int gnMusicVolume; // 0x008817B4
 
 extern int gnPositionalBias; // 0x008817B8
 
 extern int gnNpcSpeech; // 0x008817BC
 
-extern int gdwGlobal_008817C0; // 0x008817C0
+extern int gnOptionsMusic; // 0x008817C0
 
-extern int gdwGlobal_008817FC; // 0x008817FC
+extern int gbWaveSlotsInit; // 0x008817FC
 
 extern char gData_0072FAA0[]; // 0x0072FAA0
 
-extern int gdwGlobal_008818BC; // 0x008818BC
+extern int gdwServerToken; // 0x008818BC
 
-extern int gdwGlobal_008818C0; // 0x008818C0
+extern int gnLogonType; // 0x008818C0
 
-extern int gdwGlobal_00881C04; // 0x00881C04
+extern int gfSetEmailRequested; // 0x00881C04
 
 extern int gdwGlobal_00881C50; // 0x00881C50
 
@@ -208,7 +208,7 @@ void __cdecl GLBLOCKS_InitBlockBuffers(); // 0x0050F870
 
 char gnFloorCacheSize[12]; // 0x007C90C8
 
-int gdwGlobal_00881790; // 0x00881790
+int gfSoundExpansion; // 0x00881790
 
 struct D2TileLibraryEntryStrc;
 
@@ -304,7 +304,7 @@ extern unsigned int gnGlideBinkFlags;                                           
 
 extern int gbGlideBinkDone;                                                                        // 0x00880C18
 
-extern D2DDrawObjectStrc* gpDDrawObject_00881290;                                                           // 0x00881290
+extern D2DDrawObjectStrc* gpDDrawPalette;                                                           // 0x00881290
 
 extern int gaDDrawDebugFontGlyphOffsets[96];                                                       // 0x008812A8
 
@@ -350,15 +350,15 @@ extern unsigned int gadwTmuMinAddress[]; // 0x0087EAA4
 
 extern unsigned int gadwTmuMaxAddress[]; // 0x0087EAE4
 
-extern int gnTmuCount_0087EFB4; // 0x0087EFB4
+extern int gnGlideTmuCount; // 0x0087EFB4
 
 extern unsigned int gnTexAlign; // 0x0087EFBC
 
-extern int gbFloorTiles_0087EFE8; // 0x0087EFE8
+extern int gbFloorTiles; // 0x0087EFE8
 
-extern D2GlideTileCacheStrc gTileCache_0087EB48; // 0x0087EB48
+extern D2GlideTileCacheStrc gtGlideTileCache; // 0x0087EB48
 
-extern D2GlideFloorCacheStrc gFloorCache_0087EB68; // 0x0087EB68
+extern D2GlideFloorCacheStrc gtGlideFloorCache; // 0x0087EB68
 
 extern unsigned int gnFloorCacheSize_007C90C8; // 0x007C90C8
 
@@ -586,10 +586,10 @@ void __cdecl GLCORE_ClearCaches()
 // 0x00508FD0
 int __cdecl GLCORE_CheckCutScene()
 {
-    return gdwGlobal_0087EFD0;
+    return gbGlidePlayingVideo;
 }
 
-int gdwGlobal_007B57E4; // 0x007B57E4
+int gnSceneScaleFactor; // 0x007B57E4
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC218
 
@@ -617,7 +617,7 @@ int __fastcall GLCORE_StartDraw(int bClear, unsigned char nRed, unsigned char nG
 // 0x005090A0
 void __fastcall GLCORE_SetGlobalScale(int nValue)
 {
-    gdwGlobal_007B57E4 = nValue;
+    gnSceneScaleFactor = nValue;
 }
 
 // 0x005090B0
@@ -734,7 +734,7 @@ void __fastcall GLCORE_GetDimensions(int* pWidth, int* pHeight)
 // 0x00509300
 void __fastcall GLCORE_SetPalette(const tagPALETTEENTRY* pPalette)
 {
-    if (gbGlidePaletteTable_0087EFC8)
+    if (gbGlidePaletteTable)
     {
         for (int i = 0; i < 256; ++i)
         {
@@ -770,7 +770,7 @@ unsigned int __fastcall GLCORE_GetPaletteColor(int nPaletteIndex)
 void __fastcall GLCORE_SetPaletteTables(D2PaletteTableStrc* pSource)
 {
     gtGfxPaletteView = *pSource;
-    gpGfxPaletteView_007C9150 = &gtGfxPaletteView;
+    gpGfxPaletteView = &gtGfxPaletteView;
 }
 
 // 0x00509420
@@ -910,7 +910,7 @@ int __cdecl GLCORE_InitTextureMemory()
 		nAlign4K = (nMask | 0x1000) + 1;
 	}
 
-	for (int i = 0; i < gnTmuCount_0087EFB4; ++i)
+	for (int i = 0; i < gnGlideTmuCount; ++i)
 	{
 		gadwTmuMinAddress[i] = gpfnGrTexMinAddress_0087EB24(i);
 		gadwTmuMaxAddress[i] = gpfnGrTexMaxAddress_0087EB44(i);
@@ -925,7 +925,7 @@ int __cdecl GLCORE_InitTextureMemory()
 
 	unsigned int nAddress = gadwTmuMinAddress[0];
 	int nTmu = 0;
-	if (gbFloorTiles_0087EFE8)
+	if (gbFloorTiles)
 	{
 		const unsigned int nMask2 = gnTexAlign - 1;
 		unsigned int nAlign1K = 0x400;
@@ -942,7 +942,7 @@ int __cdecl GLCORE_InitTextureMemory()
 		nAddress += GLDEBUGFONT_DownloadDebugFont(nAddress, gnTexAlign);
 		unsigned int nFree = gadwTmuMaxAddress[0] - nAddress;
 		unsigned int nEnd;
-		if (gnTmuCount_0087EFB4 > 1)
+		if (gnGlideTmuCount > 1)
 		{
 			unsigned int nFloorSize = 3 * nFree / 4;
 			if (nFloorSize < 0x1CCCCC)
@@ -950,9 +950,9 @@ int __cdecl GLCORE_InitTextureMemory()
 				nFloorSize = 0x1CCCCC;
 			}
 			gnFloorCacheSize_007C90C8 = nFloorSize;
-			nEnd = GLFLOORCACHE_FloorCacheInit(&gFloorCache_0087EB68, nAddress, nFloorSize + nAddress, nAlign32K);
+			nEnd = GLFLOORCACHE_FloorCacheInit(&gtGlideFloorCache, nAddress, nFloorSize + nAddress, nAlign32K);
 			gnTileCacheSize = gadwTmuMaxAddress[0] - nEnd;
-			nEnd = GLSUBTILECACHE_TileCacheInit(&gTileCache_0087EB48, nEnd, gadwTmuMaxAddress[0], nAlign1K);
+			nEnd = GLSUBTILECACHE_TileCacheInit(&gtGlideTileCache, nEnd, gadwTmuMaxAddress[0], nAlign1K);
 		}
 		else
 		{
@@ -967,12 +967,12 @@ int __cdecl GLCORE_InitTextureMemory()
 				nTileSize = 0x100000;
 			}
 			gnFloorCacheSize_007C90C8 = nFloorSize;
-			nEnd = GLFLOORCACHE_FloorCacheInit(&gFloorCache_0087EB68, nAddress, nFloorSize + nAddress, nAlign32K);
+			nEnd = GLFLOORCACHE_FloorCacheInit(&gtGlideFloorCache, nAddress, nFloorSize + nAddress, nAlign32K);
 			gnTileCacheSize = nTileSize;
-			nEnd = GLSUBTILECACHE_TileCacheInit(&gTileCache_0087EB48, nEnd, nTileSize + nEnd, nAlign1K);
+			nEnd = GLSUBTILECACHE_TileCacheInit(&gtGlideTileCache, nEnd, nTileSize + nEnd, nAlign1K);
 		}
 
-		if (gnTmuCount_0087EFB4 > 1)
+		if (gnGlideTmuCount > 1)
 		{
 			nEnd = gadwTmuMinAddress[1];
 			nTmu = 1;
@@ -991,7 +991,7 @@ int __cdecl GLCORE_InitTextureMemory()
 	{
 		nAddress += GLSPRITE_SetSmackTexAddresses(nAddress, gnTexAlign);
 		const unsigned int nFree = gadwTmuMaxAddress[0] - nAddress;
-		if (gnTmuCount_0087EFB4 > 1)
+		if (gnGlideTmuCount > 1)
 		{
 			int nEnd = GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[2], nAddress, nAddress + 50 * nFree / 100, nAlign16K);
 			gnTexCacheSize2 = gaGlideTexCaches[2].nCount * nAlign16K;
@@ -1045,7 +1045,7 @@ int __cdecl GLCORE_CloseSurface()
     {
         gbGlidePaletteTable = 0;
         gpfnGrFinish();
-        if (gbFloorTiles_0087EFE8)
+        if (gbFloorTiles)
         {
             GLFLOORCACHE_FloorCacheDestroy(&gTexCacheA_0087EB68, 1);
             GLSUBTILECACHE_TileCacheDestroy(&gTexCacheB_0087EB48, 1);
@@ -1097,7 +1097,7 @@ void __fastcall GLIDE_OpenSmackCutscene(const char* szFile, int nResolutionMode,
 static int GLCORE_OpenDevice(int nResolution, void* hWnd)
 {
     D2GlideHwQueryStrc tQuery;
-    D2_ASSERT(!gbGlidePaletteTable_0087EFC8, 0x143);
+    D2_ASSERT(!gbGlidePaletteTable, 0x143);
     GLDEBUGFONT_CreateDebugFont();
     tQuery.bResult = 0;
     int nRefresh;
@@ -1133,7 +1133,7 @@ static int GLCORE_OpenDevice(int nResolution, void* hWnd)
     gnGlideHandle = gpfnGrSstWinOpen(hWnd, nGrRes, nRefresh, 2, 0, 2, 0);
     if (gnGlideHandle)
     {
-        gbGlidePaletteTable_0087EFC8 = 1;
+        gbGlidePaletteTable = 1;
         if (gdwGlobal_0072F250)
         {
             tQuery.nUnits = 0;
@@ -1226,7 +1226,7 @@ int __cdecl GLCORE_Close()
 // 0x00509E90
 int __fastcall GLCORE_CreateSurface(void* hWnd, int nResolution)
 {
-    if (gbGlidePaletteTable_0087EFC8)
+    if (gbGlidePaletteTable)
     {
         return 1;
     }
@@ -1357,7 +1357,7 @@ void* __cdecl BNCLIENT_GetInterfaceTable()
 // 0x0051A570
 int __cdecl BNCLIENT_GetLogonType()
 {
-    return gdwGlobal_008818C0;
+    return gnLogonType;
 }
 
 // 0x0051CA10
@@ -1369,7 +1369,7 @@ int __cdecl sub_0051CA10()
 // 0x0051CA70
 int __cdecl BNCLIENT_IsSetEmailRequested()
 {
-    return gdwGlobal_00881C04;
+    return gfSetEmailRequested;
 }
 
 #include "gen/data/Source/D2Glide/Src/glCore.inc"

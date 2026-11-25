@@ -1716,9 +1716,9 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 __declspec(noalias) int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int* pSize, unsigned int nMaxSize, int a6, int a7); // 0x00569AD0
 
 
-extern D2CriticalSectionStrc gSrvClientListByNameLock_6FD443B8; // 0x008846C0
+extern D2CriticalSectionStrc gSrvClientListByNameLock; // 0x008846C0
 
-extern D2ClientStrc* gpClientListByName_6FD443D0[256]; // 0x00883EA8
+extern D2ClientStrc* gpClientListByName[256]; // 0x00883EA8
 
 extern int gbHasHighResolutionClock; // 0x0088C7A0
 
@@ -1780,7 +1780,7 @@ extern "C" int __stdcall sub_00554100(D2UnitStrc* pUnit, int* pUnitType, int* pU
 
 extern "C" const char gszSaveFormat_006D4230[]; // 0x006D4230
 
-extern "C" const char gszFileModeWb_006D69E0[]; // 0x006D69E0
+extern "C" const char gszFileModeWb[]; // 0x006D69E0
 
 extern "C" const char gszSaveOpenError[]; // 0x006E09C4
 
@@ -1917,7 +1917,7 @@ int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc*); // 0x00625DB0
 
 unsigned int __fastcall ARENA_IsInArenaMode(D2GameStrc*); // 0x0053FCE0
 
-extern "C" const char gszPlrSaveFile_006E09AC[]; // 0x006E09AC
+extern "C" const char gszPlrSaveSourceFile[]; // 0x006E09AC
 
 void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers(D2GameStrc* pGame, int nUnitId, int nCorpseId, unsigned char bAssign); // 0x0053DF80
 
@@ -2037,7 +2037,7 @@ union D2LargeIntegerUnion;
 
 
 
-extern char gData_00882028[]; // 0x00882028
+extern char gszInfoText[]; // 0x00882028
 
 extern int gdwGlobal_00882528; // 0x00882528
 
@@ -3557,9 +3557,9 @@ int __fastcall CLIENTS_GetCanonicalName(const char* szName, char* szGameName)
 {
     int result = 1;
     const int nIndex = FOG_ComputeStringCRC16(szName) & 0xFF;
-    EnterCriticalSection(&gSrvClientListByNameLock_6FD443B8);
+    EnterCriticalSection(&gSrvClientListByNameLock);
 
-    for (D2ClientStrc* pClient = gpClientListByName_6FD443D0[nIndex]; pClient; pClient = pClient->pServerNextByName)
+    for (D2ClientStrc* pClient = gpClientListByName[nIndex]; pClient; pClient = pClient->pServerNextByName)
     {
         if (!SStrCmpI(pClient->szName, szName, sizeof(pClient->szName)))
         {
@@ -3573,7 +3573,7 @@ int __fastcall CLIENTS_GetCanonicalName(const char* szName, char* szGameName)
         }
     }
 
-    LeaveCriticalSection(&gSrvClientListByNameLock_6FD443B8);
+    LeaveCriticalSection(&gSrvClientListByNameLock);
     return result;
 }
 

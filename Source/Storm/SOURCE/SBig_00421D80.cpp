@@ -16,7 +16,7 @@ struct D2StormUIntArrayStrc
     ~D2StormUIntArrayStrc()
     {
         if (m_data)
-            SMemFree(m_data, gszTypeNameUInt_00708874, -2, 0);
+            SMemFree(m_data, gszTypeNameUInt, -2, 0);
     }
 };
 
@@ -30,7 +30,7 @@ struct D2StormUCharArrayStrc
     ~D2StormUCharArrayStrc()
     {
         if (m_data)
-            SMemFree(m_data, gszTypeNameUChar_00708880, -2, 0);
+            SMemFree(m_data, gszTypeNameUChar, -2, 0);
     }
 };
 

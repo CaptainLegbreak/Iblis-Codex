@@ -195,9 +195,9 @@ struct gz_header
 unsigned long __fastcall crc32(unsigned long crc, const unsigned char* buf, unsigned int len); // 0x0042DC00
 void __fastcall inflate_fast(z_stream* strm, unsigned start); // 0x0042DCA0
 int __fastcall inflate_table(codetype type, unsigned short* lens, unsigned codes, code** table, unsigned* bits, unsigned short* work); // 0x0042E120
-extern const code lenfix_006D0300[512]; // 0x006D0300
-extern const code distfix_006D0B00[32]; // 0x006D0B00
-extern const unsigned short order_006D0B80[19]; // 0x006D0B80
+extern const code lenfix[512]; // 0x006D0300
+extern const code distfix[32]; // 0x006D0B00
+extern const unsigned short order[19]; // 0x006D0B80
 
 static int __stdcall updatewindow(z_stream* strm, const unsigned char* end, unsigned copy);
 static unsigned __stdcall syncsearch(unsigned* have, const unsigned char* buf, unsigned len);
@@ -331,9 +331,9 @@ int __fastcall inflatePrime(z_stream* strm, int bits, int value)
 // 0x00429AA0
 static void fixedtables(inflate_state* state)
 {
-    state->lencode = lenfix_006D0300;
+    state->lencode = lenfix;
     state->lenbits = 9;
-    state->distcode = distfix_006D0B00;
+    state->distcode = distfix;
     state->distbits = 5;
 }
 
@@ -666,11 +666,11 @@ int __fastcall inflate(z_stream* strm, int flush)
         case LENLENS:
             while (state->have < state->ncode) {
                 NEEDBITS(3);
-                state->lens[order_006D0B80[state->have++]] = (unsigned short)BITS(3);
+                state->lens[order[state->have++]] = (unsigned short)BITS(3);
                 DROPBITS(3);
             }
             while (state->have < 19)
-                state->lens[order_006D0B80[state->have++]] = 0;
+                state->lens[order[state->have++]] = 0;
             state->next = state->codes;
             state->lencode = (const code*)(state->next);
             state->lenbits = 7;
