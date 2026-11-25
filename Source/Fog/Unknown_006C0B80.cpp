@@ -64,15 +64,15 @@ enum FOGASTValues
 union FOGASTNodeStrc
 {
 	FOGASTType nType;
-	uint8_t nRawValue;
+	unsigned char nRawValue;
 };
 
 struct FOGExpressionParserContextStrc
 {
 	FOGASTType tPendingOperationsASTs[64];
-	int32_t tLinkerIndex[64];
-	int32_t nPendingOps;
-	int32_t nPendingParameters;
+	int tLinkerIndex[64];
+	int nPendingOps;
+	int nPendingParameters;
 };
 
 static const char* __stdcall DATATABLS_ParseExpressionToken(FOGExpressionParserContextStrc* pCalc, const char* szExpression, FOGCalcExpressionParserTokenType* pOutTokenType, int* pTokenAssociatedValue, CalcGetKeyWordToNumber_t pfnFunctionNameToId, CalcGetLinkerIndex_t pfnLinkParse);
@@ -406,8 +406,8 @@ static const char* __stdcall DATATABLS_ParseExpressionToken(FOGExpressionParserC
 int __stdcall sub_006C1820_GetOperandCount( unsigned char nToken, CalcGetFunctionParameterCount_t pfnGetOperandCount, int nFunctionId); // 0x006C1820
 int DATATABLS_CheckPrecendence(unsigned char nPreviousCalcType, unsigned char nNewCalcType); // 0x006C1800
 
-FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushRawConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int32_t nValue); // 0x006C19C0
-FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushCallbackConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int32_t nValue); // 0x006C1A50
+FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushRawConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int nValue); // 0x006C19C0
+FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushCallbackConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int nValue); // 0x006C1A50
 
 // 0x006C1820
 static int __stdcall sub_006C1820_GetOperandCount(
@@ -455,7 +455,7 @@ static int DATATABLS_CheckPrecendence(unsigned char nPreviousCalcType, unsigned 
 }
 
 // 0x006C19C0
-static FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushRawConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int32_t nValue)
+static FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushRawConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int nValue)
 {
     if (nValue >= -128 && nValue <= 127)
     {
@@ -498,7 +498,7 @@ static FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushRawConstant(FOGAS
 }
 
 // 0x006C1A50
-static FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushCallbackConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int32_t nValue)
+static FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushCallbackConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int nValue)
 {
     if (nValue >= -128 && nValue <= 127)
     {
@@ -612,7 +612,7 @@ int __stdcall DATATBLS_CompileExpression(const char* szFormulaString, FOGASTNode
 
 	const char* szRemainingExpression = szFormulaString;
 	FOGASTNodeStrc* pASTBufferPos = pOutASTBuffer;
-	int32_t nTokenAssociatedValue;
+	int nTokenAssociatedValue;
 	FOGExpressionParserContextStrc tContext;
 	tContext.nPendingOps = 0;
 	tContext.nPendingParameters = 0;
@@ -651,8 +651,8 @@ int __stdcall DATATBLS_CompileExpression(const char* szFormulaString, FOGASTNode
 				{
 					break;
 				}
-				const int32_t nLinkerIndex = tContext.tLinkerIndex[nPendingOps - 1];
-				const int32_t nParams = sub_006C1820_GetOperandCount(nPreviousASTType, pfnGetFunctionParameterCount, nLinkerIndex);
+				const int nLinkerIndex = tContext.tLinkerIndex[nPendingOps - 1];
+				const int nParams = sub_006C1820_GetOperandCount(nPreviousASTType, pfnGetFunctionParameterCount, nLinkerIndex);
 				if (tContext.nPendingParameters < nParams || (pASTBufferPos - pOutASTBuffer) >= nOutASTBufferSize)
 				{
 					goto Error;
@@ -830,7 +830,7 @@ int __stdcall DATATBLS_CompileExpression(const char* szFormulaString, FOGASTNode
 	{
 		if (!bHasAnyFunctionCall)
 		{
-			const int32_t nEvaluatedValue = DATATBLS_CalcEvaluateExpression(pOutASTBuffer, pASTBufferPos - pOutASTBuffer, 0, 0, 0, 0);
+			const int nEvaluatedValue = DATATBLS_CalcEvaluateExpression(pOutASTBuffer, pASTBufferPos - pOutASTBuffer, 0, 0, 0, 0);
 			pASTBufferPos = DATATBLS_ExpressionBuffer_PushRawConstant(pOutASTBuffer, pOutASTBuffer, nOutASTBufferSize, &tContext, nEvaluatedValue);
 			pASTBufferPos = DATATBLS_Evaluate_HandleNewOp(pASTBufferPos, pOutASTBuffer, nOutASTBufferSize, &tContext,
 				AST_None, 0, 0

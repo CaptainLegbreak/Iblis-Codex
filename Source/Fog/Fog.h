@@ -482,7 +482,3 @@ struct D2StormArray408Strc
 typedef unsigned char FOGASTType;
 
 typedef unsigned char FOGCalcExpressionParserTokenType;
-
-typedef int int32_t;
-
-typedef unsigned char uint8_t;
