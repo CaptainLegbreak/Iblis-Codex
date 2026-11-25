@@ -5,6 +5,13 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Ready
+- Weak join batch (claimed in Notes), each on main #377 with a full verify, Game.exe matches:
+  - lane10/files-d2lang-w b91ed47c: StrTable/strtable.cpp takes Unknown_005271A0.cpp (EndsWithCharOf, FormatText). VERIFIED b43bf379.
+  - lane10/files-d2bnclient-w 7800cbfb: BnDownload.cpp takes Unknown_00518C30.cpp (uses gtBnLogLock, which only BnDownload.cpp defines). VERIFIED c6ae85cb.
+  - lane10/files-d2cmp-w 10ad9006: SRC/FastCmp.cpp takes Unknown_0060D280.cpp (the run scanners on both sides of its run). VERIFIED 367d0dde.
+  - lane10/files-storm-w edd150d1: SOURCE/SEVT.CPP takes Unknown_00426900.cpp (uses gtSEvtLock). VERIFIED 3c96753d.
+  - lane10/files-d2client-w fd653c36: UI/inv.cpp takes Unknown_00477760.cpp. VERIFIED 139ae7ce.
+  Not joined by the tool: D2Game 005FD470 (not equal); Storm 0041D880, 0041E9C0, 00420220 (compile), 00421110 (SSignature.cpp still has bodiless functions); D2Client 00451E70, 004ADD90, 004DCAA0, 004E2320, 004E85C0, 004EDA80, 004F1430 (compile), 004DC7B0 (not equal). Trying these next with the declaration helper and by hand.
 - Lanes 1-6 are inactive (user, 20:03), so lane 10 rebased the four stale branches the board asked them to rebase onto #377, under lane 10 names, each with namesync, precheck and a full verify (Game.exe matches):
   - lane10/emit-helpers-r 160dfc6f replaces lane5/emit-helpers: the two conflicts (MonsterMsg.cpp, SUnitDmg.cpp) were renamed lines inside helpers the branch deletes. VERIFIED 309e22dd.
   - lane10/skillsbar-head-r 0c6e8dd2 replaces lane1/skillsbar-head-2: SkillsBar.cpp takes 0x4C80D0 with main's names (DRLG_GetDistanceToXY and its build: symbol line); docs/index.html kept as main. VERIFIED f7997676.
