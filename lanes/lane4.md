@@ -18,11 +18,12 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 13:20 PST 2026: audit-decls-d2client-hi still waiting for a round. Took stock of D2Client's forcing constructs (Left in place); 0x477DD0 tried, parked.
+- Wed Nov 25 13:14 PST 2026: both declaration branches rebased onto #408 and rebuilt; -hi-2 posted stacked on -hi.
 
 ## Ready
 
-- lane4/audit-decls-d2client-hi 13a5ead0d (on #406): audit item 4 for D2Client's files from 0x4A0000 up (lane 1's old range). 218 D2Client functions declared privately with one spelling in two or more of those files: 142 more prototypes go into D2ClientFuncs.h (76 were there already), the 62 files include it, and 658 private copies go. Same exclusions as before (definition spelled differently, linkage, Unicode, data-table stubs). **GAME/Msg.cpp is an eighth declaration-count unit:** its 0x478350 moves with the header's growth, so it stops including D2ClientFuncs.h and gets back its two private declarations (header comment updated). Unknown_004DF4B0.cpp defines its own CLIENTS_GetUnitX/Y and keeps its copies. All 139 D2Client.h includers all equal; audit guard: no count rose. Full build: Game.exe identical, tree 511e39e3c14a98b299b503e97018d6859bc55712, borrowed code / data 10,018 / 261 B.
+- lane4/audit-decls-d2client-hi 7c83741ae (on #408): audit item 4 for D2Client's files from 0x4A0000 up (lane 1's old range). 218 D2Client functions declared privately with one spelling in two or more of those files: 142 more prototypes go into D2ClientFuncs.h (76 were there already), the 62 files include it, and 658 private copies go. Same exclusions as before (definition spelled differently, linkage, Unicode, data-table stubs). **GAME/Msg.cpp is an eighth declaration-count unit:** its 0x478350 moves with the header's growth, so it stops including D2ClientFuncs.h and gets back its two private declarations (header comment updated). Unknown_004DF4B0.cpp defines its own CLIENTS_GetUnitX/Y and keeps its copies. All 139 D2Client.h includers all equal; audit guard: no count rose. Full build: Game.exe identical, tree c1ab75377361f4143a5069fc7cbd6791b1d325a6, borrowed code / data 10,018 / 261 B.
+- lane4/audit-decls-d2client-hi-2 9e77899d6 (on #408, stacked on audit-decls-d2client-hi; merge that first): the second-spelling pass for the same files. 44 functions whose private declarations agree in types and linkage take the definition's spelling: 24 new prototypes in D2ClientFuncs.h, 212 private copies go from 44 files. SPELLSEL_GetSkillMaxLevel stays private (text_0049A950.cpp declares it with other linkage), Unknown_004DF4B0.cpp keeps its copies. All 139 D2Client.h includers all equal; audit guard: no count rose. Full build: Game.exe identical, tree 9baba332d67abd82838a12d843ab60e25ae6e291, borrowed code / data 10,018 / 261 B.
 
 ## Claimed
 
