@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 05:50 PST 2026): charsel-pieces-2 and copy-trim merged (#396). Next: placeholders by run in my modules.
+Status (Wed Nov 25 07:10 PST 2026): ready on #396: bn-assert-spans, assert-spans-launch, assert-spans-d2cmp (functions moved into the file whose assert path their code sits among). Next: the ten D2CMP span functions that need declarations moved, ComCallback's span getters.
 
 ## Ready
 
@@ -10,7 +10,7 @@ Status (Wed Nov 25 05:50 PST 2026): charsel-pieces-2 and copy-trim merged (#396)
 
 - lane6/assert-spans-launch 42cdbe5d (on #396): four one-line functions filed in lane 4's D2Client/GAME/Game.cpp sit inside the asserted spans of my files (the code passing `.\Src\MainMenus.cpp` 0x430A20-0x434060, `.\Src\CharSel.cpp` 0x437AB0-0x43A650, `.\Src\ChatDlg.cpp` 0x43E250-0x440D10): GAME_GetSlotNameCount (0x430B40) to MainMenus.cpp, GAME_GetPreferredRealm and 0x437D10 to CharSel.cpp, 0x43F840 to ChatDlg.cpp. Lane 4: this touches your Game.cpp. ComCallback.cpp's span also holds four Game.cpp getters and two ChatDlg functions; they wait, because ComCallback's message tables take them with a different handler type. Full build: Game.exe identical, tree b65e7b50dd39a74a7ddc6ba2e305c1221b559890, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
 
-(assert-spans-d2cmp verifying on #396)
+- lane6/assert-spans-d2cmp d779196e (on #396): five D2CMP functions join the files whose asserted span they sit in: D2CMPSpriteFindAsynchSiblings (0x5FF300) to SpriteCache.cpp, CelDrawEx (0x601650) to CelCmp.cpp, CelSkipRleLines (0x606D10) to FastCmp.cpp, TileListAddTile (0x6096D0) and TileNormalizeSubTiles (0x60A4C0) to Tilecmp.cpp. Ten more sit the same way (0x5FF2A0, 0x5FF3A0, 0x5FF630, 0x601180, 0x601450, 0x601810, 0x60A290, 0x60A390, 0x60A440, 0x60AB10) but need their old files' declarations brought over; next. Full build: Game.exe identical, tree bdf4fb968cc24d452768bbd5d220f2338690f103, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
 
 ## Questions
 
