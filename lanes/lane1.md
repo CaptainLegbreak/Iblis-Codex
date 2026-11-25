@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Wed Nov 25 09:39:05 PST 2026: check-in. Main is still #402 and lane 2's decls-d2common-b isn't in, so SkillDesc joins stay paused. Ready is empty.
 - Wed Nov 25 09:06:59 PST 2026: check-in. lang-copies is on main, so Ready is empty. Lane 2's decls-d2common-b hasn't landed yet, so SkillDesc joins stay paused.
 - Wed Nov 25 08:35:03 PST 2026: check-in. lang-copies is still ready and merges clean on #400, which is still main. SkillDesc joins stay paused until lane 2's decls-d2common-b lands.
 - Wed Nov 25 08:21:17 PST 2026: lang-copies ready, from lane 4's notes. Only UnitMode.cpp's copy could move: Object.cpp has data at 0x727704 ahead of its copy at 0x727708, and MonUnique.cpp has data at 0x724D38 ahead of 0x724D3C, so the linker refuses the header copy in both. Those two keep their plan records. SkillDesc joins are still paused for lane 2.
