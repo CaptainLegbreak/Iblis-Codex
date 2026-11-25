@@ -1168,11 +1168,6 @@ static int __stdcall PLRTRADE_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemStrc*
     return 1;
 }
 
-void __fastcall sub_K11_Emit00564F30(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    PLRTRADE_RemoveCubeInputs(pGame, pUnit, UnitGetClient(pUnit, ".\\PLAYER\\PlrTrade.cpp", 1358));
-}
-
 // 0x00565930
 short __fastcall PLRTRADE_RollRandomItemClassOfSameType(Game* game,int level,int type)
 {

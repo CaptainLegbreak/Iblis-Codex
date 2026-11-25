@@ -285,11 +285,6 @@ void __fastcall ARENA_ProcessKillEvent(D2GameStrc* pGame,D2UnitStrc* pAttacker,D
  }
 }
 
-void __fastcall sub_K10_EmitArenaUpdateScore(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
-{
-    ARENA_UpdateScore(pGame, pAttacker, pDefender, 5);
-}
-
 // 0x0053FB00
 static int ARENA_GetUnitUpdateScore(D2UnitStrc* pPlayer)
 {

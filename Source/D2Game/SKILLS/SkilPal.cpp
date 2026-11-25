@@ -1557,11 +1557,6 @@ static int __stdcall SKILLS_CanConvertTarget(D2UnitStrc* pUnit, int nSkillLevel,
     return 0;
 }
 
-int __fastcall sub_M97_Emit_005D02B0(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel)
-{
-    return SKILLS_CanConvertTarget(pUnit, nSkillLevel, 1, pTarget, nSkillId);
-}
-
 // 0x005D0350
 int __fastcall SKILLS_SrvDo079_Conversion(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {

@@ -35,18 +35,3 @@ long __stdcall sub_M106_Emit_0051DC70(long* pTime)
 {
     return BNDOWNLOAD_GetTime(pTime);
 }
-
-unsigned int __stdcall sub_M106_Emit_0051DD10(int n)
-{
-    return sub_0051DD10_NibbleToHex(tolower(n)) + sub_0051DD10_NibbleToHex(tolower(n + 1));
-}
-
-int __stdcall sub_M106_Emit_0051DD20(int n)
-{
-    return sub_0051DD20_HexToNibble((char)tolower(n)) * 16 + sub_0051DD20_HexToNibble((char)tolower(n + 1));
-}
-
-int __stdcall sub_M106_Emit_0051DD40(int n)
-{
-    return sub_0051DD40_MapKeyChar((unsigned char)tolower(n)) * 24 + sub_0051DD40_MapKeyChar((unsigned char)tolower(n + 1));
-}

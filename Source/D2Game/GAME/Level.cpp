@@ -268,11 +268,6 @@ static void LEVEL_DeleteMonsterEvents(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom
     }
 }
 
-void __fastcall sub_M126_Emit_0053A6A0(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient, int nUnused)
-{
-    LEVEL_FixRoomUnits(pRoom, pClient);
-}
-
 void __fastcall sub_M126_Emit_0053A880(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nUnused)
 {
     LEVEL_UpdateMonsterAiCallbacks(pGame, pRoom);
