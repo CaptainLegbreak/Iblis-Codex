@@ -2254,6 +2254,7 @@ int __stdcall sub_0063C4B0_AlwaysZero(int nUnused)
     return 0;
 }
 
+// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 // 0x0063C4C0
 static __declspec(noinline) BOOL INVENTORY_PlaceItemInBeltGrid(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nSlot)
 {

@@ -483,6 +483,7 @@ static int __stdcall STATLIST_GetBaseStat(D2StatListStrc* pStatList, int nLayer_
     return nValue;
 }
 
+// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 // 0x00624F40
 static __declspec(noinline) D2StatsArrayStrc* STATLIST_GetStatsArray(D2StatListExStrc* pStatList)
 {

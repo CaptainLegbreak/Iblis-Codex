@@ -957,6 +957,7 @@ skip_base:
     return 1;
 }
 
+// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 // 0x0065D070
 static __declspec(noinline) int __stdcall ITEMMODS_AddValueStatEx(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int a7, int nState, int fStatList)
 {
