@@ -271,14 +271,14 @@ struct D2StormListStrc
 
 struct D2Storm4167B0Strc
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
 
     ~D2Storm4167B0Strc();
 };
 
 struct D2Storm4168F0Strc
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
 
     ~D2Storm4168F0Strc();
 };
@@ -1453,7 +1453,7 @@ char* __fastcall sub_004167A0_LinkNext(D2StormLinkStrc* pLink)
 
 D2Storm4167B0Strc::~D2Storm4167B0Strc()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink)
@@ -1506,7 +1506,7 @@ char* __fastcall sub_00416880_LinkRawNext(D2StormLinkStrc* pLink)
 
 D2Storm4168F0Strc::~D2Storm4168F0Strc()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 void __fastcall sub_004169F0_InitTerminator(D2StormListStrc* pList)

@@ -65,7 +65,7 @@ struct D2CoordStrc;
 
 struct D2LvlPrestRecordStrc
 {
-    int f_0;
+    int nDef;
     char pad_04[60];
     int nFiles;
 };
@@ -168,7 +168,7 @@ static int __cdecl DRLGOUTDOORS_PickNextPresetFile(D2DrlgLevelStrc* pLevel, int 
         D2LvlPrestRecordStrc* pRecord = sub_0061F0B0(nPresetId);
         pFile = (D2DrlgBuildStrc*)sub_0040B430(pMemPool, sizeof(D2DrlgBuildStrc), ".\\DRLG\\Outdoors.cpp", 249, 0);
         memset(pFile, 0, sizeof(D2DrlgBuildStrc));
-        pFile->nPreset = pRecord->f_0;
+        pFile->nPreset = pRecord->nDef;
         pFile->nDivisor = pRecord->nFiles;
         pFile->nRand = sub_0045C3E0_RollLimited(&pLevel->pSeed, pRecord->nFiles);
         pFile->pNext = pLevel->pBuild;

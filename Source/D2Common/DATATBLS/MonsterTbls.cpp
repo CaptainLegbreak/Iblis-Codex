@@ -720,14 +720,14 @@ extern "C" const char gszField_006D9060[]; // 0x006D9060
 
 struct D2HirelingTableGlobals
 {
-    D2HirelingTxt* f_0;
+    D2HirelingTxt* pHirelingTxt;
     int nCount;
     int indices[2][256];
 };
 
 extern D2HirelingTableGlobals gHirelingTables;  // 0x0096BDD0
 
-#define gpHirelingTxt (gHirelingTables.f_0)
+#define gpHirelingTxt (gHirelingTables.pHirelingTxt)
 
 #define gnHirelingTxtRecordCount (gHirelingTables.nCount)
 
