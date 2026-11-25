@@ -112,7 +112,7 @@ struct D2TileLibraryEntryStrc
     int nIndex; // 0x18
     int nSubIndex; // 0x1C
     int nRarity; // 0x20
-    int unk0x24; // 0x24
+    int transparentColorRGB24; // 0x24
     unsigned char aSubtileFlags[25]; // 0x28
     unsigned char unk0x41; // 0x41
     short nCacheIndex; // 0x42

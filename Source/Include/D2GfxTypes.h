@@ -46,7 +46,7 @@ struct D2PaletteTableStrc
     unsigned char* pDarkenPalette; // 0x110
     unsigned char* pStandardColorsPalette; // 0x114
     unsigned char* pRemap; // 0x118
-    unsigned char* unk0x11C; // 0x11C
+    unsigned char* pRedPaletteMap; // 0x11C
 };
 
 struct D2SmackStrc

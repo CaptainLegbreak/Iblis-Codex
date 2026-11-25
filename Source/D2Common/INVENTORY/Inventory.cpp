@@ -3250,7 +3250,7 @@ void __stdcall INVENTORY_CreateCorpseForPlayer(D2InventoryStrc* pInventory, int 
 
     D2CorpseStrc* pLastCorpse = pInventory->pLastCorpse;
     D2CorpseStrc* pCorpse = (D2CorpseStrc*)FOG_AllocPool(pInventory->pMemPool, sizeof(D2CorpseStrc), gszInventorySourceFile, 0xFEA, 0);
-    pCorpse->unk0x00 = a4;
+    pCorpse->bCounted = a4;
     pCorpse->dwUnitId = nUnitId;
     pCorpse->unk0x08 = a3;
     pCorpse->pNextCorpse = 0;
@@ -3261,7 +3261,7 @@ void __stdcall INVENTORY_CreateCorpseForPlayer(D2InventoryStrc* pInventory, int 
     else
         pLastCorpse->pNextCorpse = pCorpse;
 
-    if (pCorpse->unk0x00)
+    if (pCorpse->bCounted)
         ++pInventory->nCorpseCount;
 }
 
@@ -3282,7 +3282,7 @@ int __stdcall INVENTORY_FreeCorpse(D2InventoryStrc* pInventory, unsigned int nUn
     D2CorpseStrc* pCorpse = pInventory->pFirstCorpse;
     for (; pCorpse; pCorpse = pCorpse->pNextCorpse)
     {
-        if (pCorpse->dwUnitId == nUnitId && pCorpse->unk0x00 == a3)
+        if (pCorpse->dwUnitId == nUnitId && pCorpse->bCounted == a3)
         {
             break;
         }
@@ -3313,7 +3313,7 @@ int __stdcall INVENTORY_FreeCorpse(D2InventoryStrc* pInventory, unsigned int nUn
         }
     }
 
-    if (pCorpse->unk0x00)
+    if (pCorpse->bCounted)
     {
         --pInventory->nCorpseCount;
     }

@@ -89,7 +89,7 @@ struct D2DrlgOutdoorInfoStrc
     {
         struct
         {
-            int unk0x54; // 0x54
+            int nWidth; // 0x54
             int nRoomData; // 0x58
             int nGridWidth; // 0x5C
             int nGridHeight; // 0x60
@@ -224,7 +224,7 @@ struct D2ActiveRoomStrc
     D2DrlgRoomTilesStrc* pRoomTiles; // 0x08
     int nTileCount; // 0x0C
     D2DrlgRoomStrc* pDrlgRoom; // 0x10
-    int unk0x14; // 0x14
+    int nCurrentDeathIndex; // 0x14
     D2DrlgDeleteStrc* pDrlgDelete; // 0x18
     D2UnitStrc* pUnitUpdate; // 0x1C
     void* pCollisionGrid; // 0x20

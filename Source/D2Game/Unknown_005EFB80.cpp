@@ -1224,20 +1224,20 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_ZakarumPriest(D2GameStrc* pGame, D
 D2UnitStrc* __fastcall AITHINK_FindTargetForMephisto(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pFallbackTarget)
 {
     D2MephistoAiCallbackArgStrc arg = {};
-    arg.unk0x04 = 0x7FFFFFFF;
-    arg.unk0x10 = 0x7FFFFFFF;
-    arg.unk0x18 = 0x7FFFFFFF;
+    arg.nClosestDistanceSquared = 0x7FFFFFFF;
+    arg.nLowestLife = 0x7FFFFFFF;
+    arg.nClosestPlayerActorDistanceSquared = 0x7FFFFFFF;
 
     AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_Mephisto, 1);
 
-    if (arg.unk0x0C && AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxtRecord, 1))
+    if (arg.pLowestLifeTarget && AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxtRecord, 1))
     {
-        return arg.unk0x0C;
+        return arg.pLowestLifeTarget;
     }
 
-    if (arg.unk0x14 && AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxtRecord, 2))
+    if (arg.pClosestTargetForPlayerActor && AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxtRecord, 2))
     {
-        return arg.unk0x0C;
+        return arg.pLowestLifeTarget;
     }
 
     return pFallbackTarget;
@@ -1283,21 +1283,21 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_OblivionKnight(D2GameStrc* pGame, 
     }
 
     const int nDistance = AITHINK_GetSquaredDistance(pUnit, pTarget);
-    if (nDistance > pArg->unk0x08 || !STATLIST_AreUnitsAligned(pUnit, pTarget) || STATLIST_GetUnitAlignment(pTarget) != UNIT_ALIGNMENT_EVIL)
+    if (nDistance > pArg->nMaxDistanceSquared || !STATLIST_AreUnitsAligned(pUnit, pTarget) || STATLIST_GetUnitAlignment(pTarget) != UNIT_ALIGNMENT_EVIL)
     {
         return 0;
     }
 
-    if (nDistance < pArg->unk0x0C)
+    if (nDistance < pArg->nClosestDistanceSquared)
     {
-        pArg->unk0x00 = pTarget;
-        pArg->unk0x0C = nDistance;
+        pArg->pClosestDoomKnight = pTarget;
+        pArg->nClosestDistanceSquared = nDistance;
     }
 
-    if (nDistance < pArg->unk0x10 && UNITS_GetCurrentLifePercentage(pTarget) < 40)
+    if (nDistance < pArg->nClosestWoundedDistanceSquared && UNITS_GetCurrentLifePercentage(pTarget) < 40)
     {
-        pArg->unk0x04 = pTarget;
-        pArg->unk0x10 = nDistance;
+        pArg->pClosestWoundedDoomKnight = pTarget;
+        pArg->nClosestWoundedDistanceSquared = nDistance;
     }
 
     return 0;
@@ -3199,26 +3199,26 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_Mephisto(D2GameStrc* pGame, D2Unit
     ++pArg->nCounter;
     if (nDistance <= 225)
     {
-        ++pArg->unk0x08;
+        ++pArg->nCloseTargetCount;
     }
 
-    if (nDistance < pArg->unk0x04)
+    if (nDistance < pArg->nClosestDistanceSquared)
     {
-        pArg->unk0x00 = pTarget;
-        pArg->unk0x04 = nDistance;
+        pArg->pClosestTarget = pTarget;
+        pArg->nClosestDistanceSquared = nDistance;
     }
 
     const int nLife = STATLIST_UnitGetStatValue(pTarget, STAT_HITPOINTS, 0) >> 8;
-    if (nLife < pArg->unk0x10)
+    if (nLife < pArg->nLowestLife)
     {
-        pArg->unk0x0C = pTarget;
-        pArg->unk0x10 = nLife;
+        pArg->pLowestLifeTarget = pTarget;
+        pArg->nLowestLife = nLife;
     }
 
-    if (nDistance < pArg->unk0x18 && pUnit && pUnit->dwUnitType == UNIT_PLAYER)
+    if (nDistance < pArg->nClosestPlayerActorDistanceSquared && pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
-        pArg->unk0x14 = pTarget;
-        pArg->unk0x18 = nDistance;
+        pArg->pClosestTargetForPlayerActor = pTarget;
+        pArg->nClosestPlayerActorDistanceSquared = nDistance;
     }
 
     return 0;
@@ -4021,14 +4021,14 @@ void __fastcall AITHINK_Fn074_OblivionKnight(D2GameStrc* pGame, D2UnitStrc* pUni
     D2OblivionKnightAiCallbackArgStrc arg;
     int nDistance;
 
-    arg.unk0x00 = 0;
-    arg.unk0x04 = 0;
-    arg.unk0x08 = 2500;
-    arg.unk0x0C = 0x7FFFFFFF;
-    arg.unk0x10 = 0x7FFFFFFF;
+    arg.pClosestDoomKnight = 0;
+    arg.pClosestWoundedDoomKnight = 0;
+    arg.nMaxDistanceSquared = 2500;
+    arg.nClosestDistanceSquared = 0x7FFFFFFF;
+    arg.nClosestWoundedDistanceSquared = 0x7FFFFFFF;
     AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_OblivionKnight, 1);
 
-    D2UnitStrc* pAllyTarget = arg.unk0x00;
+    D2UnitStrc* pAllyTarget = arg.pClosestDoomKnight;
 
     if (nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, OBLIVIONKNIGHT_AI_PARAM_FLEE_RANGE))
     {

@@ -91,7 +91,7 @@ struct D2EnvironmentCycleStrc
     unsigned char nRed; // 0x08
     unsigned char nGreen; // 0x09
     unsigned char nBlue; // 0x0A
-    unsigned char unk0x0B; // 0x0B
+    unsigned char nIntensity; // 0x0B
 };
 
 struct D2DrlgOutRectStrc

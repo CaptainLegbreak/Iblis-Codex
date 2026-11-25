@@ -139,7 +139,7 @@ void __fastcall CCMD_ProcessClientSystemMessage(void* pData, int nSize)
         GAME_LogMessage(6, "[JOIN 1] %d clientid - Begin", nClientId);
         if (!gpD2EventCallbackTable)
         {
-            const unsigned int nErrorCode = CCMD_CanClientJoinGame(p67->nGameId, p67->unk0x08, p67->szClientName);
+            const unsigned int nErrorCode = CCMD_CanClientJoinGame(p67->nGameId, p67->dwVersion, p67->szClientName);
             if (nErrorCode)
             {
                 D2GAME_PACKETS_SendSystemError(nClientId, nErrorCode);
@@ -151,9 +151,9 @@ void __fastcall CCMD_ProcessClientSystemMessage(void* pData, int nSize)
         int n4C;
         int n44;
         szAccountName[0] = '\0';
-        if (SrvVerifyJoinGame(nClientId, p67->nGameId, p67->nPlayerClass, p67->szClientName, p67->nTokenId, szAccountName, &n48, p67->nLocale, &n4C, &n44, &n3C, &n40, p67->unk0x08))
+        if (SrvVerifyJoinGame(nClientId, p67->nGameId, p67->nPlayerClass, p67->szClientName, p67->nTokenId, szAccountName, &n48, p67->nLocale, &n4C, &n44, &n3C, &n40, p67->dwVersion))
         {
-            SrvJoinGame(nClientId, p67->nGameId, p67->nPlayerClass, p67->szClientName, p67->nTokenId, szAccountName, n48, p67->nLocale, n4C, n44, n3C, n40, p67->unk0x08);
+            SrvJoinGame(nClientId, p67->nGameId, p67->nPlayerClass, p67->szClientName, p67->nTokenId, szAccountName, n48, p67->nLocale, n4C, n44, n3C, n40, p67->dwVersion);
         }
         break;
     }

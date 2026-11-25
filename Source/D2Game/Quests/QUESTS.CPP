@@ -2843,7 +2843,7 @@ void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
     {
         D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pGame, sgQuestInit[i].nChainNo);
         D2_ASSERT(pQuest, 0x67C);
-        packet5E.unk0x001[i] = pQuest->bNotIntro;
+        packet5E.nQuestIntroFlags[i] = pQuest->bNotIntro;
     }
 
     D2ClientStrc* pClient = UnitGetClient(pPlayer, gszQuestsSourceFile, 0x681);

@@ -125,14 +125,14 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
             if ((gpCharInfo->wFlags1EF) & 0x20)
                 nFlags |= 8;
 
-            gpLaunchFuncs->pfn0x34(tLogin.szText0x00, tLogin.szText0x10, szDesc, nFlags);
+            gpLaunchFuncs->pfnRefreshGame(tLogin.szText0x00, tLogin.szText0x10, szDesc, nFlags);
             CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), 0);
             sub_004FA590_RunLoop(CHATDLG_CheckStartAdvResult);
 // build: symbol ?CHATDLG_DestroyPopupControls@* 0x0043EA20
             CHATDLG_DestroyPopupControls();
 
             D2LaunchResultStrc tResult;
-            gpLaunchFuncs->pfn0x8C((int*)&tResult);
+            gpLaunchFuncs->pfnGetCreateGameResult((int*)&tResult);
             if (!tResult.nResult)
             {
                 CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x1412), 0);

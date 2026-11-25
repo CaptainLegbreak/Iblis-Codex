@@ -688,7 +688,7 @@ void __stdcall DIALOG_KeyDownMsg(SMSGHANDLER_PARAMS* pMsg)
         ROSTERPETS_HandleDialogEscape(pMsg);
         return;
     }
-    if (pDialog->unk0x18 == 1)
+    if (pDialog->bConsumeKeys == 1)
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
@@ -786,7 +786,7 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialogFromFile(int nArg1, int nArg2,
     pDialog->bAutoSize = 0;
     pDialog->bCountEnabled = 0;
     pDialog->dwTick = GetTickCount();
-    pDialog->unk0x18 = nArg14;
+    pDialog->bConsumeKeys = nArg14;
     pDialog->nPressedItem = -1;
     pDialog->bActive = 0;
     pDialog->nState = 0;
@@ -878,7 +878,7 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int nAr
     pDialog->pCelFile = 0;
     pDialog->nHeight = nArg20;
     pDialog->nPressedItem = -1;
-    pDialog->unk0x18 = nArg10;
+    pDialog->bConsumeKeys = nArg10;
     pDialog->bKeepKeys = nArg28;
     gbDialogHandlersRegistered = 1;
     DIALOG_LoadDialogHotkeys();

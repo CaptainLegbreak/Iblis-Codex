@@ -103,19 +103,19 @@ struct D2GSPacketSrv1F
 struct D2GSPacketSrv69
 {
     unsigned char nHeader; // 0x00
-    unsigned int unk0x01; // 0x01
-    unsigned char unk0x05; // 0x05
-    unsigned short unk0x06; // 0x06
-    unsigned short unk0x08; // 0x08
-    unsigned char unk0x0A; // 0x0A
-    unsigned char unk0x0B; // 0x0B
+    unsigned int nUnitGUID; // 0x01
+    unsigned char nMessage; // 0x05
+    unsigned short nX; // 0x06
+    unsigned short nY; // 0x08
+    unsigned char nUnitLife; // 0x0A
+    unsigned char nHitClass; // 0x0B
 };
 
 struct D2GSPacketSrv6A
 {
     unsigned char nHeader; // 0x00
     unsigned int nUnitGUID; // 0x01
-    unsigned char unk0x05; // 0x05
+    unsigned char nMessage; // 0x05
     unsigned char nTargetUnitType; // 0x06
     unsigned int nTargetUnitGuid; // 0x07
     unsigned char nDirection; // 0x0B
@@ -124,26 +124,26 @@ struct D2GSPacketSrv6A
 struct D2GSPacketSrv6B
 {
     unsigned char nHeader; // 0x00
-    unsigned int unk0x01; // 0x01
-    unsigned char unk0x05; // 0x05
-    unsigned short unk0x06; // 0x06
-    unsigned short unk0x08; // 0x08
-    unsigned char unk0x0A; // 0x0A
-    unsigned char unk0x0B; // 0x0B
-    unsigned short unk0x0C; // 0x0C
-    unsigned short unk0x0E; // 0x0E
+    unsigned int nUnitGUID; // 0x01
+    unsigned char nMessage; // 0x05
+    unsigned short nTargetX; // 0x06
+    unsigned short nTargetY; // 0x08
+    unsigned char nUnitLife; // 0x0A
+    unsigned char nHitClass; // 0x0B
+    unsigned short nX; // 0x0C
+    unsigned short nY; // 0x0E
 };
 
 struct D2GSPacketSrv6C
 {
     unsigned char nHeader; // 0x00
-    unsigned int unk0x01; // 0x01
-    unsigned char unk0x05; // 0x05
-    unsigned char unk0x06; // 0x06
-    unsigned int unk0x07; // 0x07
-    unsigned char unk0x0B; // 0x0B
-    unsigned short unk0x0C; // 0x0C
-    unsigned short unk0x0E; // 0x0E
+    unsigned int nUnitGUID; // 0x01
+    unsigned char nMessage; // 0x05
+    unsigned char nTargetUnitType; // 0x06
+    unsigned int nTargetUnitGUID; // 0x07
+    unsigned char nUnitLife; // 0x0B
+    unsigned short nX; // 0x0C
+    unsigned short nY; // 0x0E
 };
 
 struct D2GSPacketSrv6D
@@ -159,11 +159,11 @@ struct D2GSPacketSrv67
 {
     unsigned char nHeader; // 0x00
     int nUnitGUID; // 0x01
-    unsigned char unk0x05; // 0x05
+    unsigned char nMessage; // 0x05
     short nX; // 0x06
     short nY; // 0x08
-    char unk0x0A; // 0x0A
-    char unk0x0B; // 0x0B
+    char nUnitLife; // 0x0A
+    char nHitClass; // 0x0B
     unsigned char nPathType; // 0x0C
     short nVelocity; // 0x0D
     char nMaxDistance; // 0x0F
@@ -173,13 +173,13 @@ struct D2GSPacketSrv68
 {
     unsigned char nHeader; // 0x00
     int nUnitGUID; // 0x01
-    unsigned char unk0x05; // 0x05
+    unsigned char nMessage; // 0x05
     short nX; // 0x06
     short nY; // 0x08
-    char unk0x0A; // 0x0A
-    int unk0x0B; // 0x0B
-    char unk0x0F; // 0x0F
-    char unk0x10; // 0x10
+    char nTargetUnitType; // 0x0A
+    int nTargetUnitGUID; // 0x0B
+    char nUnitLife; // 0x0F
+    char nHitClass; // 0x10
     unsigned char nPathType; // 0x11
     short nVelocity; // 0x12
     char nMaxDistance; // 0x14
@@ -438,15 +438,15 @@ struct PacketA0
 struct D2GSPacketSrvA3
 {
     unsigned char nHeader; // 0x00
-    unsigned char unk0x01; // 0x01
-    unsigned short unk0x02; // 0x02
-    unsigned short unk0x04; // 0x04
-    unsigned char unk0x06; // 0x06
-    unsigned int unk0x07; // 0x07
-    unsigned char unk0x0B; // 0x0B
-    unsigned int unk0x0C; // 0x0C
-    unsigned int unk0x10; // 0x10
-    unsigned int unk0x14; // 0x14
+    unsigned char nSeed; // 0x01
+    unsigned short nSkillId; // 0x02
+    unsigned short nSkillLevel; // 0x04
+    unsigned char nUnitType; // 0x06
+    unsigned int nUnitGUID; // 0x07
+    unsigned char nTargetType; // 0x0B
+    unsigned int nTargetGUID; // 0x0C
+    unsigned int nX; // 0x10
+    unsigned int nY; // 0x14
 };
 
 struct D2GSPacketSrvAB
@@ -460,9 +460,9 @@ struct D2GSPacketSrvAB
 struct D2GSPacketSrvA5
 {
     unsigned char nHeader; // 0x00
-    unsigned char unk0x01; // 0x01
-    int unk0x02; // 0x02
-    unsigned short unk0x06; // 0x06
+    unsigned char nUnitType; // 0x01
+    int nUnitGUID; // 0x02
+    unsigned short nSkillId; // 0x06
 };
 
 struct D2GSPacketSrv22
@@ -499,7 +499,7 @@ struct D2GSPacketSrv78
 struct D2GSPacketSrv7A
 {
     unsigned char nHeader; // 0x00
-    unsigned char unk0x01; // 0x01
+    unsigned char bAdd; // 0x01
     unsigned char nPetType; // 0x02
     unsigned short nPetClass; // 0x03
     unsigned int nUnitGUID; // 0x05
@@ -645,16 +645,16 @@ struct D2GSPacketSrv7D
     unsigned char nUnitType; // 0x01
     int nUnitGUID1; // 0x02
     int nUnitGUID2; // 0x06
-    int unk0x0A; // 0x0A
-    int unk0x0E; // 0x0E
+    int nItemFlag; // 0x0A
+    int bSet; // 0x0E
 };
 
 struct D2GSPacketSrv28
 {
     unsigned char nHeader; // 0x00
-    unsigned char unk0x01; // 0x01
-    int unk0x02; // 0x02
-    unsigned char unk0x06; // 0x06
+    unsigned char nUnitType; // 0x01
+    int nUnitGUID; // 0x02
+    unsigned char nTerminateType; // 0x06
     unsigned char pData[96]; // 0x07
 };
 
@@ -700,7 +700,7 @@ struct D2GSPacketSrv50
 struct D2GSPacketSrv5E
 {
     unsigned char nHeader; // 0x00
-    unsigned char unk0x001[37]; // 0x01
+    unsigned char nQuestIntroFlags[37]; // 0x01
 };
 
 struct D2GSPacketSrv52
@@ -736,7 +736,7 @@ struct D2GSPacketSrv60
 struct D2GSPacketSrv61
 {
     unsigned char nHeader; // 0x00
-    unsigned char unk0x01; // 0x01
+    unsigned char nCinematic; // 0x01
 };
 
 struct D2GSPacketSrv73
@@ -762,7 +762,7 @@ struct D2GSPacketSrv75
     unsigned short nPartyId; // 0x05
     unsigned short nLevel; // 0x07
     unsigned short nFlags; // 0x09
-    unsigned short unk0x0B; // 0x0B
+    unsigned short nPartyFlags; // 0x0B
 };
 
 struct D2GSPacketSrv7B
@@ -852,21 +852,21 @@ struct D2GSPacketSrv8BStrc
 struct D2GSPacketSrv8F
 {
     unsigned char nHeader; // 0x00
-    unsigned int unk0x01[8]; // 0x01
+    unsigned int pPongData[8]; // 0x01
 };
 
 struct D2GSPacketSrv98
 {
     unsigned char nHeader; // 0x00
-    unsigned int unk0x01; // 0x01
-    unsigned short unk0x05; // 0x05
+    unsigned int nUnitGUID; // 0x01
+    unsigned short nMinionSpawnClassId; // 0x05
 };
 
 struct D2GSPacketSrv9B
 {
     unsigned char nHeader; // 0x00
-    unsigned short unk0x01; // 0x01
-    int unk0x03; // 0x03
+    unsigned short nMercNameStringId; // 0x01
+    int nReviveCost; // 0x03
 };
 
 struct D2GSPacketSrv97
@@ -877,7 +877,7 @@ struct D2GSPacketSrv97
 struct D2GSPacketSrvA4
 {
     unsigned char nHeader; // 0x00
-    short unk0x01; // 0x01
+    short nMonStatsId; // 0x01
 };
 
 struct D2GSPacketSrvA7
@@ -1015,13 +1015,13 @@ struct Packet40
 struct D2GSPacketSrv4D
 {
     unsigned char nHeader; // 0x00
-    unsigned char unk0x01; // 0x01
-    int unk0x02; // 0x02
-    int unk0x06; // 0x06
-    unsigned char unk0x0A; // 0x0A
-    unsigned short unk0x0B; // 0x0B
-    unsigned short unk0x0D; // 0x0D
-    unsigned short unk0x0F; // 0x0F
+    unsigned char nUnitType; // 0x01
+    int nUnitGUID; // 0x02
+    int nSkillId; // 0x06
+    unsigned char nSkillLevel; // 0x0A
+    unsigned short nX; // 0x0B
+    unsigned short nY; // 0x0D
+    unsigned short nItemEffect; // 0x0F
 };
 
 struct D2GSPacketSrv8C
@@ -1060,7 +1060,7 @@ struct D2GSPacketSrv4C
     unsigned char nSkillLevel; // 0x08
     unsigned char nTargetType; // 0x09
     int dwTargetGUID; // 0x0A
-    unsigned short unk0x0E; // 0x0E
+    unsigned short nItemEffect; // 0x0E
 };
 
 struct D2GSPacketSrv83
@@ -1102,7 +1102,7 @@ struct D2GSPacketClt67
     int nTokenId; // 0x01
     unsigned short nGameId; // 0x05
     unsigned char nPlayerClass; // 0x07
-    int unk0x08; // 0x08
+    int dwVersion; // 0x08
     char unk0x0C[8]; // 0x0C
     unsigned char nLocale; // 0x14
     char szClientName[16]; // 0x15

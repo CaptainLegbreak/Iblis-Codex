@@ -70,7 +70,7 @@ struct D2ClientStrc
         char szPreview[256]; // 0x6C
         struct
         {
-            int unk0x6C[7]; // 0x6C
+            int tCharacterInfo[7]; // 0x6C
             int nValue_088; // 0x88
             int nValue_08C; // 0x8C
             int unk0x90[55]; // 0x90

@@ -1236,7 +1236,7 @@ void __fastcall PLRSAVE2_InitPlayerFromClient(D2GameStrc* pGame, D2UnitStrc* pPl
     pPlayerData->hTrade = 0;
     pPlayerData->dwTradeState = 0;
     pPlayerData->dwAcceptTradeTick = 0;
-    *(int*)pPlayerData->unk0x54 = 0;
+    *(int*)pPlayerData->dwLastTradeTick = 0;
 }
 
 static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
