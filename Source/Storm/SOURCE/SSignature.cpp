@@ -29,8 +29,6 @@ struct D2StormBigStrc;
 
 extern "C" void* __cdecl _alloca(unsigned int nSize);
 
-extern "C" __declspec(dllimport) int __stdcall DefWindowProcA(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam); // 0x006CC488
-
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 
 int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
@@ -42,16 +40,6 @@ int __stdcall SMemCmp(void* pLocation1, void* pLocation2, unsigned int nSize); /
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
-
-void __stdcall SErrReportNamedResourceLeak(const char* szName, const char* szDetail); // 0x0041D010
-
-void __cdecl LockErrorState(); // 0x0041C1A0
-
-void __cdecl UnlockErrorState(); // 0x0041C1E0
-
-int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam, int* pbUseResult, int* plResult); // 0x00420B00
-
-int __stdcall SEvtPushState(unsigned int nType, unsigned int nSubtype); // 0x00426370
 
 extern unsigned int gaCrc32Table_00708448[256]; // 0x00708448
 
@@ -93,10 +81,6 @@ struct D2StormNodeListStrc
         }
     }
 };
-
-extern D2StormNodeListStrc gHandlerList_00708420; // 0x00708420
-
-extern D2StormNodeListStrc gWndRecList_00708860; // 0x00708860
 
 struct D2StormHashBufferStrc
 {
@@ -254,19 +238,9 @@ struct D2StormBigStrc
     }
 };
 
-int __stdcall sub_004242C0_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, BigStack* pStack); // 0x004242C0
-
-int __stdcall Rand(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, BigStack* pStack); // 0x00424700
-
-int __stdcall sub_00424B00_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, BigStack* pStack); // 0x00424B00
-
 inline void* operator new(unsigned int, void* pPlace) throw();
 
 void __stdcall SMemMove(void* pDest, const void* pSource, unsigned int nSize);                             // 0x0041D2E0
-
-int __stdcall SEvtBreakHandlerChain(void* pData); // 0x00426E80
-
-extern int gdwGlobal_007792F4;                                                                              // 0x007792F4
 
 struct CBitInput
 {

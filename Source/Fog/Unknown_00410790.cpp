@@ -20,34 +20,6 @@ struct D2LogMsgListStrc
     char* sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags); // 0x0040FF40
 };
 
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC218
-
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC214
-
-extern "C" __declspec(dllimport) void __stdcall GetLocalTime(D2SystemTimeStrc* pSystemTime); // 0x006CC1D4
-
-extern "C" int __cdecl _vsnprintf(char* szDest, size_t nCount, const char* szFormat, va_list args); // 0x00682F22
-
-extern "C" int __cdecl _snprintf(char* szDest, size_t nCount, const char* szFormat, ...); // 0x006831DB
-
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-
-extern "C" const char gszLogFormatError[]; // 0x006CE22C
-
-extern int gbLogInitialized; // 0x0075D2EC
-
-extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
-
-extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void* pAddress, unsigned int nSize); // 0x006CC238
-
-extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nSize); // 0x006829C0
-
-extern D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
-
-extern int gnLogQueued; // 0x0075D140
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -55,8 +27,6 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
-
-void __fastcall LOGMANAGER_WriteLogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
 
 extern unsigned int gdwInvBitMasks[]; // 0x006CE2E8
 
@@ -125,69 +95,9 @@ enum D2SMemBlockFlags
     SMEM_BLOCK_KEEP = 0x80,
 };
 
-extern "C" __declspec(dllimport) void* __stdcall VirtualAlloc(void* pAddress, unsigned long nSize, unsigned long dwAllocationType, unsigned long dwProtect); // 0x006CC21C
-
-extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, unsigned long nSize, unsigned long dwFreeType); // 0x006CC220
-
-extern "C" __declspec(dllimport) __declspec(noreturn) void __stdcall ExitProcess(unsigned int nExitCode); // 0x006CC2E0
-
-extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
-
-extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...); // 0x006CC468
-
-int __stdcall SErrDisplayError(unsigned int nErrorCode, const char* szFile, int nLine, const char* szDescription, int bRecoverable, unsigned int nExitCode); // 0x0041CAF0
-
-void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
-
-unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
-
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
-
-void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
-
-void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
-
-void __cdecl SMemInitialize(); // 0x00411CD0
-
-void __cdecl InitPageSize(); // 0x00411A20
-
-void __fastcall UnlinkAndFreeHeap(D2SMemHeapStrc** ppLink); // 0x00411A80
-
-void __cdecl AUTOMAP_ReleaseFreeBlocks(); // 0x00412000
-
-extern "C" const char szSMemAlloc_006CEDCC[]; // 0x006CEDCC
-
-extern int gbCallerFirst_00708340; // 0x00708340
-
-extern unsigned int gnHeapId_00708344; // 0x00708344
-
-extern D2SMemHeapStrc* gapFreeBlocks_007768B8[0x100]; // 0x007768B8
-
-extern unsigned int gnPageSize_00776CB8; // 0x00776CB8
-
-extern int gnFlag2_00776CBC; // 0x00776CBC
-
-extern D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100]; // 0x00776CC0
-
-extern int gnFlag1_007784C0; // 0x007784C0
-
-extern int gnFlag0_007784C4; // 0x007784C4
-
-extern int gabFreeBlockDirty[0x100]; // 0x007784C8
-
-extern D2SMemHeapStrc* gpFreeBlockSweep_007788C8; // 0x007788C8
-
-extern int gnFlag3_007788CC; // 0x007788CC
-
-extern int gbHeapInitialized_007788D0; // 0x007788D0
-
-extern int gnFlag_00779098; // 0x00779098
-
 static void __stdcall ReportHeapError(const char* szFile, int nLine, unsigned int nError); // 0x004117A0
 
 static void FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock); // 0x00411AA0
-
-void* __stdcall SMemHeapAlloc(unsigned int hHeap, unsigned int dwFlags, unsigned int nSize);
 
 void __cdecl sub_00411280_ResetRecords(); // 0x00411280
 
@@ -195,47 +105,7 @@ extern "C" size_t __cdecl strlen(const char* szString);
 
 extern "C" int __cdecl toupper(int nChar);                                                                  // 0x00685385
 
-extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
-
-extern "C" __declspec(dllimport) int __stdcall FindClose(void* hFindFile);                                  // 0x006CC1C4
-
-extern "C" int __stdcall closesocket(unsigned int nSocket);                                                 // 0x006B012C
-
-extern "C" int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData);                // 0x006B0132
-
-extern "C" int __stdcall WSACleanup();                                                                      // 0x006B0138
-
-extern "C" char* __stdcall inet_ntoa(D2InAddrStrc tAddress);                                                // 0x006B013E
-
-extern "C" unsigned short __stdcall htons(unsigned short nValue);                                           // 0x006B0156
-
-extern "C" int __stdcall WSAGetLastError();                                                                 // 0x006B0168
-
-extern "C" unsigned int __stdcall socket(int nFamily, int nType, int nProtocol);                            // 0x006B016E
-
-extern "C" int __stdcall recv(unsigned int nSocket, char* pBuffer, int nLength, int nFlags);                // 0x006B0174
-
-extern "C" int __stdcall send(unsigned int nSocket, const char* pBuffer, int nLength, int nFlags);          // 0x006B017A
-
-extern "C" D2HostentStrc* __stdcall gethostbyname(const char* szName);                                      // 0x006B0192
-
-extern "C" int __stdcall gethostname(char* szName, int nNameLength);                                        // 0x006B0198
-
-void __cdecl ERRORMANAGER_RaiseErrorReport(int nType, const char* szFile, int nLine, const char* szFormat, ...); // 0x00408900
-
-void __cdecl LOGMANAGER_CloseLogFiles();                                                                  // 0x0040F960
-
-void __cdecl LOGMANAGER_CloseLogFilesNow();                                                               // 0x0040F8A0
-
-void __fastcall LOGMANAGER_GetLogDirectory(char* szDirectory, int nSize);                                 // 0x0040F000
-
-void __fastcall LOGMANAGER_SweepLogFile(const D2FileTimeStrc* pNow, const char* szFile);                  // 0x0040F3D0
-
 D2PoolDirectoryStrc gtPoolManager;                                                                   // 0x0074F0E8
-
-extern char gszResolvedHostIP[];                                                                   // 0x0075D040
-
-extern D2CriticalSectionStrc gtLogLock;                                                            // 0x0075E850
 
 extern const unsigned char gabOffsetMasks[9]; // 0x006CE38C
 

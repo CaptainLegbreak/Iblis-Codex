@@ -46,41 +46,13 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
 
-extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
-
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
-
-extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-
-extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
-
-extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfnStart)(void* pParam), void* pParam, unsigned long dwFlags, unsigned long* pnThreadId); // 0x006CC250
-
-extern "C" __declspec(dllimport) void __stdcall GetLocalTime(D2SystemTimeStrc* pTime); // 0x006CC1D4
-
-extern "C" int __stdcall closesocket(unsigned int nSocket); // 0x006B012C
-
-extern "C" int __stdcall WSAGetLastError(); // 0x006B0168
-
-extern "C" char* __stdcall inet_ntoa(D2InAddrStrc tAddress); // 0x006B013E
 
 extern "C" size_t __cdecl strlen(const char* szString);
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
-extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
-
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-
-unsigned long __stdcall LOGMANAGER_LogThreadProc(void* pParam); // 0x004101C0
-
-extern D2SystemTimeStrc gLogStartTime_0075D288; // 0x0075D288
-
-extern void* ghLogThread; // 0x0075D2E8
-
-extern D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
-
-extern D2CriticalSectionStrc gtLogLock; // 0x0075E850
 
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(); // 0x006CC1B4
@@ -108,10 +80,6 @@ unsigned long (__stdcall* gpfnSymLoadModule)(void* hProcess, void* hFile, const 
 unsigned long (__stdcall* gpfnImageHlpSymSetOptions)(unsigned long dwOptions); // 0x0075D004
 
 int gbImageHlpLoaded; // 0x0075D014
-
-extern "C" void* __fastcall FOG_AllocPool(void* pool,int size,const char* file,int line,int flags);
-
-extern "C" void* gpSmackFrameBuffer; // 0x009897D0
 
 extern "C" const char gszExceptionsCppFile[]; // 0x006CD628
 
@@ -181,14 +149,6 @@ int gnSymInitCount; // 0x0075CFD4
 
 static void __stdcall EXCEPTIONS_GetLogicalAddress(char* szModule, unsigned long* pnSection, unsigned long* pnOffset, void* pAddress, unsigned int nSize); // 0x0040C520
 
-
-extern int ganLogNewFile[20]; // 0x0075D298
-
-extern int gbLogInitialized; // 0x0075D2EC
-
-extern char gaszLogFilePaths[20][0x104]; // 0x0075D340
-
-extern unsigned long gnLogThreadId; // 0x0075E834
 
 int gnLogQueueCount; // 0x0075E870
 

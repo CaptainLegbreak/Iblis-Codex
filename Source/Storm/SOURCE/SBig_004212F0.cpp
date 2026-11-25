@@ -7,9 +7,7 @@ struct BigBuffer;
 struct D2StormFixedArrayAStrc;
 struct D2StormArrayBStrc;
 
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
 struct D2StormArrayCStrc
 {

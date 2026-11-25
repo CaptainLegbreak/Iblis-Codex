@@ -119,23 +119,11 @@ struct D2StormBufferInfoStrc
     unsigned int nInSize;
 };
 
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-extern "C" int __cdecl fprintf(D2FileStrc* pFile, const char* szFormat, ...); // 0x00684C94
-
-extern "C" char* __cdecl _strupr(char* szString); // 0x006862A2
-
-extern "C" char* __cdecl _strlwr(char* szString); // 0x006864E1
-
-extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(D2SystemInfoStrc* pInfo); // 0x006CC1F0
-
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-
-extern int gnFlag3_007788CC; // 0x007788CC
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
@@ -373,8 +361,6 @@ struct PairStrc_004169A0
     int nSecond;
 };
 
-extern int gdwGlobal_007792F4; // 0x007792F4
-
 struct D2IdentityView {
  D2StormLinkStrc link;
 };
@@ -439,11 +425,7 @@ extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes,
 
 extern "C" __declspec(dllimport) int __stdcall SetThreadPriority(void* hThread, int nPriority); // 0x006CC264
 
-extern "C" void __cdecl __debugbreak();
-
 unsigned long __stdcall CdThreadProc(void* pParam); // 0x0041A550
-
-void __stdcall AddMessageSource(unsigned short wFacility); // 0x0041C0F0
 
 struct D2StormHashBufferStrc
 {
@@ -549,23 +531,7 @@ struct D2FogBlockStrc
     int bInUse;
 };
 
-extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, unsigned long dwSize, unsigned long dwFreeType); // 0x006CC220
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetModuleFileNameA(void* hModule, char* szFileName, unsigned long nSize); // 0x006CC1BC
-
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
-
-extern unsigned long gnFlag2_00776CBC; // 0x00776CBC
-
-extern D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100]; // 0x00776CC0
-
-extern unsigned long gnFlag0_007784C4; // 0x007784C4
-
-extern int gbHeapInitialized_007788D0; // 0x007788D0
-
-extern "C" unsigned int __security_cookie; // 0x00749DE0
-
-extern "C" void __fastcall __security_check_cookie(unsigned int); // 0x00681A48
 
 static D2StormBlockStrc* GetBlockEntry(ARCHIVEREC* pArchive, int nHashIndex); // 0x004155B0
 
@@ -650,8 +616,6 @@ char* __stdcall SStrDup(const char* szString); // 0x00414310
 static unsigned int __stdcall HashString(unsigned int nHashType, const char* szString); // 0x00415330
 
 int __stdcall SFileOpenFileAsArchive(void* hMpq, const char* szName, int nPriority, unsigned int nFlags, void** phArchive);
-
-double __fastcall AUTOMAP_PowInt(double x, int nExp); // 0x00414220
 
 // 0x00414260
 double __cdecl sub_00414260_PowInt(double x, int nExp)
@@ -2705,19 +2669,11 @@ int __stdcall SFileLoadFileEx2(void* hMpq, const char* szFileName, void** ppBuff
     return *ppBuffer != 0;
 }
 
-extern "C" __declspec(dllimport) void* __stdcall HeapAlloc(void* hHeap, unsigned long dwFlags, unsigned long dwBytes); // 0x006CC318
-
 unsigned char gnStormByteFlag_0077905E;                                                                     // 0x0077905E
 
 int (__stdcall* gpfnStormNotify_007790B8)(int nArg);                                                        // 0x007790B8
 
-extern void* gpStormOwnerA_007790C0;                                                                        // 0x007790C0
-
 int __stdcall SFileFileExistsEx(void* hArchive, const char* szFileName, int nFlags);                  // 0x00418390
-
-void __cdecl LockErrorState();                                                                 // 0x0041C1A0
-
-void __cdecl UnlockErrorState();                                                               // 0x0041C1E0
 
 void __stdcall SErrSuppressErrors(int bSuppress);                                                     // 0x0041C360
 

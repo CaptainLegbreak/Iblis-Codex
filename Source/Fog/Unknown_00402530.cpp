@@ -1,6 +1,5 @@
 #include "D2CrashTypes.h"
 #include "D2SysTypes.h"
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);       // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);       // 0x006CC214
 typedef int (__stdcall* SymUnloadModule64Fn)(void* hProcess, unsigned __int64 qwBaseOfDll);
 extern void* ghProcess;                                                                            // 0x0074C6F0

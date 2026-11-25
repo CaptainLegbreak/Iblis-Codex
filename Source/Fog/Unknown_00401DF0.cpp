@@ -5,8 +5,6 @@
 
 typedef int (__stdcall* SymGetModuleInfo64Fn)(void* hProcess, unsigned __int64 qwAddr, D2ImagehlpModule64Strc* pModuleInfo);
 
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
-
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
 
 extern "C" __declspec(dllimport) void* __stdcall GetModuleHandleA(const char* szModuleName);                // 0x006CC198
@@ -72,38 +70,20 @@ extern EnumerateLoadedModules64Fn gpfnEnumerateLoadedModules64;                 
 
 typedef int (__stdcall* SymSetSearchPathFn)(void* hProcess, const char* szSearchPath);
 
-extern SymSetSearchPathFn gpfnSymSetSearchPath;                                                    // 0x0098A690
-
-extern char gszSymSearchPath[];                                                                    // 0x0098A708
-
 typedef int (__stdcall* FindFileInPathCallbackFn)(int nUnused1, int nUnused2);
 
 typedef int (__stdcall* SymFindFileInPathFn)(void* hProcess, const char* szSearchPath, const char* szFileName,
     void* pId, unsigned int nTwo, unsigned int nThree, unsigned int nFlags, char* szFoundFile,
     FindFileInPathCallbackFn pfnCallback, void* pContext);
 
-extern SymFindFileInPathFn gpfnSymFindFileInPath;                                                  // 0x0098A6EC
-
-int __stdcall sub_00402370(int nUnused1, int nUnused2);                                                     // 0x00402370
-
 typedef unsigned __int64 (__stdcall* SymLoadModule64Fn)(void* hProcess, void* hFile, const char* szImageName,
     const char* szModuleName, unsigned __int64 qwBaseOfDll, unsigned long dwSizeOfDll);
 
-extern SymLoadModule64Fn gpfnSymLoadModule64;                                                      // 0x0098A6DC
-
 typedef int (__stdcall* SymUnloadModule64Fn)(void* hProcess, unsigned __int64 qwBaseOfDll);
-
-extern SymUnloadModule64Fn gpfnSymUnloadModule64;                                                  // 0x0098A694
 
 typedef int (__stdcall* StackWalk64Fn)(unsigned long dwMachineType, void* hProcess, void* hThread, void* pStackFrame,
     void* pContextRecord, void* pfnReadMemory, void* pfnFunctionTableAccess, void* pfnGetModuleBase,
     void* pfnTranslateAddress);
-
-extern void* gpfnSymFunctionTableAccess64;                                                         // 0x0098A698
-
-extern void* gpfnSymGetModuleBase64;                                                               // 0x0098A69C
-
-extern StackWalk64Fn gpfnStackWalk64;                                                              // 0x0098A6A0
 
 
 
@@ -112,15 +92,7 @@ extern StackWalk64Fn gpfnStackWalk64;                                           
 
 typedef int (__stdcall* D2MiniDumpWriteDumpFn)(void* hProcess, unsigned long dwProcessId, void* hFile, int nDumpType, D2MiniDumpExceptionInfoStrc* pExceptionParam, D2MiniDumpUserStreamInfoStrc* pUserStreamParam, void* pCallbackParam);
 
-extern "C" __declspec(dllimport) unsigned long __stdcall GetCurrentProcessId(); // 0x006CC1EC
-
-extern D2MiniDumpWriteDumpFn gpfnMiniDumpWriteDump; // 0x0098A6E0
-
-extern D2MiniDumpRequestStrc* gpMiniDumpRequest; // 0x0098A6E4
-
 typedef int (__stdcall* SymCleanupFn)(void* hProcess);
-
-extern SymCleanupFn gpfnSymCleanup;                                                                // 0x0098A6B8
 
 bool __stdcall sub_00405250_DescribeAddress(unsigned long dwAddress, D2SymbolInfoStrc* pInfo); // 0x00405250
 

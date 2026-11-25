@@ -59,8 +59,6 @@ struct D2IdentityView {
  D2StormLinkStrc link;
 };
 
-int __stdcall SCompDecompress(void* p1, unsigned int* p2, const void* p3, unsigned int n4, int n5); // 0x0041E720
-
 struct D2StormNodeListStrc
 {
     int m_linkoffset;
@@ -127,29 +125,6 @@ struct CHuffman
     void sub_0041D9E0_EncodeOne(CBitOutput* pOutput, unsigned int nValue);                       // 0x0041D9E0
     unsigned int Compress(CBitOutput* pOutput, void* pvIn, int cbIn, unsigned char nCmpType); // 0x0041F850
 };
-
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
-extern "C" __declspec(dllimport) int __stdcall WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x006CC1A8
-extern "C" __declspec(dllimport) void* __stdcall VirtualAlloc(void* pAddress, size_t nSize, unsigned long dwAllocationType, unsigned long dwProtect); // 0x006CC21C
-extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, size_t nSize, unsigned long dwFreeType); // 0x006CC220
-extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
-extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
-extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
-extern "C" int __cdecl vsprintf(char* szDest, const char* szFormat, va_list args); // 0x00682DA1
-extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
-void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
-extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
-extern D2CriticalSectionStrc gaSLogLocks_00779238[4]; // 0x00779238
-
-extern unsigned short gwValue_0077905C;
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
-extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
 struct Entry { unsigned char data[20]; };
 
@@ -297,11 +272,6 @@ struct SequenceView
     char gap[0x4];
     unsigned int cursor;
 };
-
-extern "C" int gRangeValue;
-extern "C" UiContext* gUiContext;
-extern "C" int gRequest;
-extern "C" int gState;
 
 static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsigned int nSize, unsigned int* pnOffset, unsigned int* pnLength);
 static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, BigBuffer* pBuf);

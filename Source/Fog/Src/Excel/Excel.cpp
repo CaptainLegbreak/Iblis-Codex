@@ -74,8 +74,6 @@ int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChar
 
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 
-extern "C" const char gszEmptyAssertText;                                                    // 0x006CC837
-
 extern "C" const char* __cdecl sub_00408090();                                       // 0x00408090
 
 #pragma intrinsic(memset)

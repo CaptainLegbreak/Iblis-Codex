@@ -2,16 +2,6 @@
 
 struct D2Block006CAB30Strc;
 struct D2Block006CAB90Strc;
-char* __fastcall sub_006C9AFF(char* p, char c); // 0x006C9AFF
-extern "C" __declspec(dllimport) char* __stdcall CharNextA(const char*); // 0x006CC450
-extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(void* section); // 0x006CC210
-int __cdecl sub_00683824_RegisterExit(void (__cdecl* callback)()); // 0x00683824
-extern unsigned short gwszRealmNames[7 * 0x100]; // 0x00779DF0
-extern const char* gpszDefaultCaption_0070EE50; // 0x0070EE50
-extern const char* gpszHelpCaption; // 0x007A0454
-extern int gnScreenWidth; // 0x0071146C
-extern int gnAutomapWidth; // 0x007A5220
-extern int gnScreenHeight; // 0x00711470
 
 struct D2Block006CAB30Strc
 {
@@ -33,8 +23,6 @@ struct D2Block006CAB30Strc
     int n3C;
 };
 
-extern D2Block006CAB30Strc gBlock_007BC850; // 0x007BC850
-
 struct D2Block006CAB90Strc
 {
     int n00;
@@ -54,8 +42,6 @@ struct D2Block006CAB90Strc
     int n38;
     int n3C;
 };
-
-extern D2Block006CAB90Strc gBlock_007BB5F8; // 0x007BB5F8
 
 extern int gnTextLeft; // 0x007BF278
 

@@ -171,13 +171,6 @@ typedef unsigned int size_t;
 
 
 
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
-extern "C" __declspec(dllimport) void* __stdcall VirtualAlloc(void* pAddress, size_t nSize, unsigned long dwAllocationType, unsigned long dwProtect); // 0x006CC21C
-extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwCreation, unsigned long dwFlags, void* hTemplate); // 0x006CC19C
-void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
-extern D2CriticalSectionStrc gaSLogLocks_00779238[4]; // 0x00779238
-extern D2SLogStrc* gapSLogBuckets_00779298[4]; // 0x00779298
 static D2SLogStrc* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* hLog);
 static void UnlockLog(unsigned long nIndex); // 0x0041FCE0
 

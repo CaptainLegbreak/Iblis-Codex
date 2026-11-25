@@ -55,14 +55,11 @@ struct D2CrashModuleListStrc
 
 
 static bool __stdcall sub_00404AB0_VisitModule(void* pContext, const D2ImageDosHeaderStrc* pImage, const wchar_t* wszName, int nNameLength);
-extern "C" int __cdecl strncpy_s(char* szDest, size_t nDestSize, const char* szSource, size_t nCount);      // 0x006859D2
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);
 
 BOOLEAN __stdcall AUTOMAP_IsDebugDirectorySizeValid(unsigned int nValue);
 static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, const D2ImageDosHeaderStrc* pImage); // 0x004049A0
-bool sub_00404F80_ReadNb10(D2CrashModuleStrc* pModule, const D2CvNb10Strc* pCv); // 0x00404F80
-bool sub_00404FF0_ReadRsds(const D2CvRsdsStrc* pCv, D2CrashModuleStrc* pModule); // 0x00404FF0
 
 int sub_00404730_GetImageKind(const D2ImageOptionalHeaderStrc* pHeader); // 0x00404730
 bool sub_00404760_IsDosHeaderValid(const D2ImageDosHeaderStrc* pImage); // 0x00404760
@@ -109,8 +106,6 @@ static void sub_00404890_CopyRsdsGuid(D2CrashModuleStrc* pModule, const D2CvRsds
 {
     pModule->tGuid = pCv->tGuid;
 }
-
-bool sub_004048C0_ReadCodeView(const unsigned long* pCv, D2CrashModuleStrc* pModule, unsigned int nSize); // 0x004048C0
 
 bool __stdcall sub_00404900_FindCodeView(const D2ImageDosHeaderStrc* pImage, const D2ImageDebugDirStrc* pDirs, D2CrashModuleStrc* pModule, unsigned long nSize); // 0x00404900
 
@@ -209,12 +204,6 @@ static bool __stdcall sub_00404AB0_VisitModule(void* pContext, const D2ImageDosH
 
 
 
-extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);                                  // 0x006CC134
-
-extern "C" unsigned long __readfsdword(unsigned long nOffset);
-
-extern "C" __declspec(dllimport) void* __stdcall GetModuleHandleW(const wchar_t* wszModuleName);            // 0x006CC2DC
-
 extern void* gahPsapiModules[0x400]; // 0x00992B20
 
 bool __stdcall sub_00404C60_EnumModulesPsapi(void* pContext)
@@ -259,9 +248,3 @@ bool __stdcall sub_00404C60_EnumModulesPsapi(void* pContext)
     FreeLibrary(hPsapi);
     return false;
 }
-
-bool sub_00404DC0_EnumModulesToolhelp(void* pContext); // 0x00404DC0
-
-bool __fastcall ERRORMANAGER_EnumLoadedModules(void* pContext); // 0x00404E60
-
-bool sub_00404F20_EnumModules(D2CrashModuleListStrc* pList); // 0x00404F20
