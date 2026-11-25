@@ -6,7 +6,7 @@ void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 struct D2StormArrayAStrc
 {
     unsigned int m_alloc;
-    union { unsigned int m_count; unsigned int f_4; };
+    unsigned int m_count;
     unsigned int* m_data;
     unsigned int m_chunk;
 

@@ -1,7 +1,7 @@
 #include "D2StormAutoLink.h"
 struct HUFFNODE
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     unsigned int nValue;
     unsigned int nWeight;
     HUFFNODE* pParent;
