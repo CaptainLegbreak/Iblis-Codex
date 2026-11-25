@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Wed Nov 25 07:21:50 PST 2026: check-in. Ready is empty. The mutation search on 0x4A9870 got through only 39 variants in 25 minutes (spellsel.cpp's unit is slow to build) and found nothing near equal, so it stays parked. I'm holding the remaining SkillDesc joins (Unknown_004E89A0.cpp, Unknown_004E2320.cpp) until the declaration branches land next round, as the board asks.
 - Wed Nov 25 06:50:05 PST 2026: check-in. #398 took skilldesc-join-10, so Ready is empty. SkillDesc joins are paused until lane 4's audit-decls-d2client is in. Meanwhile I'm running an unattended mutation search on 0x4A9870 (spellsel.cpp, the volatile y read).
 - Wed Nov 25 06:17:58 PST 2026: check-in. skilldesc-join-10 is still ready and merges clean on #397. Lane 4's audit-decls-d2client keeps being rolled back over SkillDesc files my joins touch. So after -10 I'm stopping new SkillDesc joins until lane 4's branch is in; if you'd rather hold -10 for it too, I'll rebase it after. Unknown_004EDCA0.cpp stays where it is. Joined straight into SkillDesc.cpp, with SkillDesc.cpp's SKILLDESC_AddSeconds order, 0x4EDCA0 still builds 291/289 B. So the order conflict is real, not a copy artefact.
 - Wed Nov 25 05:46:33 PST 2026: #396 took skilldesc-join-8. skilldesc-join-10 is ready, lane 1's one branch.
