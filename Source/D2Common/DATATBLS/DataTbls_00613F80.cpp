@@ -549,18 +549,18 @@ void __stdcall DATATBLS_LoadSkills_SkillDescTxt(void* hArchive)
         {
             if (pSkillsTxtRecord->nPassiveState < 0)
             {
-                goto LABEL_NEXT_SKILL;
+                goto NextSkill;
             }
         }
         else
         {
             if (pSkillsTxtRecord->nPassiveState < 0)
             {
-                goto LABEL_NEXT_SKILL;
+                goto NextSkill;
             }
         }
         ++gnPassiveSkills_0096C7E0;
-LABEL_NEXT_SKILL:
+NextSkill:
         ;
     }
 

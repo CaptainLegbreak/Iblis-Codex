@@ -78,7 +78,7 @@ int __stdcall COMPOSIT_GetWeaponClassCode(D2UnitStrc* pUnit, int nUnitType, int 
                 nComponent = ITEMS_GetComponent(pItem);
                 if (nComponent == 5 || nComponent == 6)
                 {
-                    goto LABEL_CLASS;
+                    goto CheckClass;
                 }
             }
 
@@ -96,7 +96,7 @@ int __stdcall COMPOSIT_GetWeaponClassCode(D2UnitStrc* pUnit, int nUnitType, int 
             }
         }
 
-LABEL_CLASS:
+CheckClass:
         D2CharStatsTxt* pCharStatsTxtRecord = DATATBLS_GetCharStatsTxtRecord(nClass);
         if (nMode == 0 || nMode == 0x11 || !pItem || (nComponent != 5 && nComponent != 6))
         {

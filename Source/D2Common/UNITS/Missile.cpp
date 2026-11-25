@@ -351,16 +351,14 @@ struct Unit0064A190 {
 };
 
 
-typedef unsigned char U8;
 
-typedef unsigned short U16;
 
 struct B24Roster
 {
-    U8 pad0[0x4];
+    unsigned char pad0[0x4];
     int value;
     unsigned int key;
-    U8 padAfterKey[0x24];
+    unsigned char padAfterKey[0x24];
     B24Roster* next;
 };
 
@@ -372,14 +370,14 @@ typedef char B24RosterNext[(OFFSET(B24Roster,next)==0x30)?1:-1];
 
 struct B24MissileData
 {
-    U8 pad0[0xC];
+    unsigned char pad0[0xC];
     short nLevel;
 };
 
 struct B24Unit
 {
     unsigned int type;
-    U8 pad4[0x10];
+    unsigned char pad4[0x10];
     B24MissileData* missileData;
 };
 
@@ -387,9 +385,9 @@ typedef char B24MissileLevel[(OFFSET(B24MissileData,nLevel)==0xC)?1:-1];
 
 typedef char B24UnitData[(OFFSET(B24Unit,missileData)==0x14)?1:-1];
 
-extern "C" U8 gB24Selection;
+extern "C" unsigned char gB24Selection;
 
-extern "C" U8* gB24PackedState;
+extern "C" unsigned char* gB24PackedState;
 
 extern "C" int gB24Dirty;
 
@@ -407,7 +405,7 @@ extern "C" int gB24RowCount;
 
 extern "C" unsigned int gB24SelectedKey;
 
-extern "C" U8 gB24Rows[];
+extern "C" unsigned char gB24Rows[];
 
 struct Data0064A210 {
     unsigned int dwUnknown00;
@@ -611,7 +609,6 @@ struct Unit0064A6F0 {
     Data0064A6F0* pData;
 };
 
-typedef unsigned int U32;
 
 typedef char check_pointer_width[sizeof(void*)==4?1:-1];
 
@@ -627,7 +624,7 @@ typedef char check_TargetData_size[sizeof(TargetData)==0x30?1:-1];
 
 struct UnitView
 {
-    U32 kind;
+    unsigned int kind;
     char gap4[0x10];
     TargetData* data;
 };
@@ -640,8 +637,8 @@ typedef char check_UnitView_size[sizeof(UnitView)==0x18?1:-1];
 
 struct SlotPair
 {
-    U32 first;
-    U32 second;
+    unsigned int first;
+    unsigned int second;
 };
 
 typedef char check_SlotPair_first[OFFSET(SlotPair,first)==0x0?1:-1];
@@ -654,7 +651,7 @@ struct Node32
 {
     char gap0[0x4];
     SlotPair* slots;
-    U32 slotIndex;
+    unsigned int slotIndex;
     char gapC[0xC];
     Node32* next;
     Node32* previous;
@@ -673,7 +670,7 @@ typedef char check_Node32_size[sizeof(Node32)==0x20?1:-1];
 struct Queue32
 {
     char gap0[0x4];
-    U32 count;
+    unsigned int count;
     Node32* head;
     Node32* tail;
     Node32* freeHead;
@@ -876,7 +873,7 @@ extern "C" int __cdecl sub_004B1D70_FindSelectedRow()
     if (count > 0)
     {
         unsigned int key = gB24SelectedKey;
-        const U8* row = gB24Rows;
+        const unsigned char* row = gB24Rows;
         do
         {
             if (found)
