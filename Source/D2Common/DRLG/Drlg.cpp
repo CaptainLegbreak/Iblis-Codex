@@ -341,7 +341,7 @@ int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); /
 
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 
-int __stdcall sub_0064A3B0_GetElapsedFrames(D2UnitStrc* pMissile); // 0x0064A3B0
+int __stdcall MISSILE_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A3B0
 
 int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile); // 0x0064A730
 

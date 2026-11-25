@@ -2324,7 +2324,7 @@ static void __stdcall AUTOMAP_RevealAutomapTile(D2DrlgTileDataStrc* pTileData, D
     D2AutomapCellStrc* pCell = AUTOMAP_AllocAutomapCell();
     int nX = pRoom->nPosX + pTileData->nPosX;
     int nY = pRoom->nPosY + pTileData->nPosY;
-    sub_00643310_MapToAutomapPos(&nX, &nY);
+    DUNGEON_GameTileToClientCoords(&nX, &nY);
     nX /= 10;
     nY /= 10;
     D2_ASSERT(nX >= -0x8000 && nX <= 0x7FFF, 913);
@@ -2913,7 +2913,8 @@ void __stdcall AUTOMAP_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevea
 {
     unsigned int nCount = 0;
     D2AutomapRoomStrc* pRoom = DUNGEON_GetRoomExFromRoom(pActiveRoom);
-    D2DrlgTileDataStrc* pTiles = sub_00619660_GetFloorTiles(pActiveRoom, &nCount);
+// build: symbol ?DUNGEON_GetFloorTilesFromRoom@* 0x00619660
+    D2DrlgTileDataStrc* pTiles = DUNGEON_GetFloorTilesFromRoom(pActiveRoom, &nCount);
     for (unsigned int i = 0; i < nCount; i++)
     {
         D2DrlgTileDataStrc* pTileData = &pTiles[i];

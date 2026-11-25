@@ -709,7 +709,8 @@ static D2DrlgTileDataStrc* UNITSND_FindFloorTileAt(D2ActiveRoomStrc* pRoom, int 
     const int nTileX = (nX - tCoords.nSubtileX) / 5;
     const int nTileY = (nY - tCoords.nSubtileY) / 5;
     unsigned int nCount;
-    D2DrlgTileDataStrc* pTiles = sub_00619660_GetFloorTiles(pRoom, &nCount);
+// build: symbol ?DUNGEON_GetFloorTilesFromRoom@* 0x00619660
+    D2DrlgTileDataStrc* pTiles = DUNGEON_GetFloorTilesFromRoom(pRoom, &nCount);
     for (unsigned int i = 0; i < nCount; ++i)
     {
         D2DrlgTileDataStrc* pTile = &pTiles[i];

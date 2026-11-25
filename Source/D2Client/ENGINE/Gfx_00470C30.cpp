@@ -25,7 +25,8 @@ static void __stdcall GFX_RecalcStateOverlays(D2StateOwnerStrc* pOwner, D2UnitSt
     {
         STATES_ToggleState(pUnit, nStateId, 0);
     }
-    if (!sub_0063A250(pUnit))
+// build: symbol ?STATES_CheckStateMaskAuraOnUnit@* 0x0063A250
+    if (!STATES_CheckStateMaskAuraOnUnit(pUnit))
     {
         pNode->nCurrent = 0;
         if (bHasState)

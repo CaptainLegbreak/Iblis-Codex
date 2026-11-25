@@ -623,7 +623,8 @@ static void __stdcall GFX_BuildMonsterCofPath(int nMode, char* szPath, unsigned 
     }
 
     unsigned int dwMonCode = ((nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? (D2MonStatsTxt*)((char*)sgptDataTables->pMonStatsTxt + nMonsterId * sizeof(D2MonStatsTxt)) : 0)->dwCode;
-    D2MonModeTxt* pModeTxtRecord = sub_0065B500_GetModeTxtRecord(nMode, 1);
+// build: symbol ?DATATBLS_GetMonModeTxtRecord@* 0x0065B500
+    D2MonModeTxt* pModeTxtRecord = DATATBLS_GetMonModeTxtRecord(nMode, 1);
     D2_ASSERT(pModeTxtRecord, 0xE86);
 
     unsigned int dwToken = pModeTxtRecord->dwToken;

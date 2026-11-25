@@ -515,9 +515,11 @@ check_item:
         {
             if (NPCMENU_GetUseItemMode() == 0x9A && ITEMS_CanBeImbued(pItem))
                 goto use_item;
-            if (NPCMENU_GetUseItemMode() == 0x1FF && sub_0062C770(pItem))
+// build: symbol ?ITEMS_IsSocketable@* 0x0062C770
+            if (NPCMENU_GetUseItemMode() == 0x1FF && ITEMS_IsSocketable(pItem))
                 goto use_item;
-            if (NPCMENU_GetUseItemMode() == 0x200 && sub_0062C6A0(pItem))
+// build: symbol ?ITEMS_IsPersonalizable@* 0x0062C6A0
+            if (NPCMENU_GetUseItemMode() == 0x200 && ITEMS_IsPersonalizable(pItem))
                 goto use_item;
         }
         else if (!gnUseItemPanelMode && pTxt->dwCode == 0x20747368)

@@ -261,7 +261,7 @@ struct D2TileLibraryEntryStrc;
 
 extern D2CoordStrc g_006E2D50_offsets[4];  // 0x006E2D50
 
-D2DrlgTileDataStrc* __stdcall sub_00619660_GetFloorTiles(D2ActiveRoomStrc*,int*); // 0x00619660
+D2DrlgTileDataStrc* __stdcall DUNGEON_GetFloorTilesFromRoom(D2ActiveRoomStrc*,int*); // 0x00619660
 
 int __stdcall TileGetFlags(D2TileLibraryEntryStrc*); // 0x00604BC0
 

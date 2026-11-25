@@ -1398,7 +1398,8 @@ static int NPCMENU_ItemNeedsRepair(D2UnitStrc* pItem)
 {
     if (ITEMS_GetItemType(pItem) == ITEMTYPE_GOLD)
         return 0;
-    if (!sub_0062E660(pItem))
+// build: symbol ?ITEMS_IsRepairable@* 0x0062E660
+    if (!ITEMS_IsRepairable(pItem))
         return 0;
     if (ITEMS_HasDurability(pItem))
     {
@@ -1955,7 +1956,8 @@ int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pC
         case 0x201:
         case 0x202:
         {
-            if (!sub_0062A130(pItem))
+// build: symbol ?ITEMS_IsNotQuestItem@* 0x0062A130
+            if (!ITEMS_IsNotQuestItem(pItem))
                 return 0;
             D2UnitStrc* pVendor = NPCMENU_GetInteractNpc();
             *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gpPlayerQuestFlags, !pVendor ? -1 : pVendor->dwClassId, 1);
@@ -2540,7 +2542,7 @@ int __fastcall NPCMENU_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                     break;
                 }
                 gnNpcTransactionCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gpPlayerQuestFlags, nNpcClass, 1);
-                if (!sub_0062A130(pItem))
+                if (!ITEMS_IsNotQuestItem(pItem))
                     return 0;
                 gnNpcTradeMode = 2;
                 break;
@@ -2557,7 +2559,7 @@ int __fastcall NPCMENU_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
             case 0x201:
             case 0x202:
                 gnNpcTransactionCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gpPlayerQuestFlags, nNpcClass, 1);
-                if (!sub_0062A130(pItem))
+                if (!ITEMS_IsNotQuestItem(pItem))
                     return 0;
                 gnNpcTradeMode = 2;
                 break;

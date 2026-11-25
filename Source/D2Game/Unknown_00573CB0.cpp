@@ -43,7 +43,7 @@ void __fastcall SKILLS_EquipMonsterFromTable(D2GameStrc* pGame, D2UnitStrc* pUni
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc*); // 0x0061A1B0
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 void __stdcall STATLIST_AllocStatListEx(D2UnitStrc*,int,void(__fastcall*)(D2UnitStrc*,int,int,int,void*),D2GameStrc*); // 0x00626D40
-void __stdcall sub_00626E10(D2UnitStrc*,D2StatListStrc*,int); // 0x00626E10
+void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc*,D2StatListStrc*,int); // 0x00626E10
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*,int,int,int); // 0x00627260
 D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void*,D2UnitStrc*); // 0x0063ABD0
 void __stdcall sub_0063EBC0_SetSkillBonus(D2UnitStrc*,int); // 0x0063EBC0
@@ -157,7 +157,7 @@ void __stdcall sub_00573CB0_InitializeStats(D2GameStrc* pGame,D2ActiveRoomStrc* 
     STATLIST_SetUnitStat(pMonster,STAT_HPREGEN,MONSTER_Regeneration(nShiftedHp,pStats->nDamageRegen),0);
     MONSTERS_ApplyClassicScaling(pMonster,pGame->bExpansion,pGame->nDifficulty);
     D2StatListStrc* pStatList=STATLIST_AllocStatList(pGame->pMemoryPool,1,0,1,!pMonster ? -1 : pMonster->dwUnitId);
-    sub_00626E10(pMonster,pStatList,1);
+    D2COMMON_10475_PostStatToStatList(pMonster,pStatList,1);
     if(pStats->nFlags[3]&(unsigned char)gdwBitMasks[0])
     {
         if(pStats->nFlags[1]&(unsigned char)gdwBitMasks[1])

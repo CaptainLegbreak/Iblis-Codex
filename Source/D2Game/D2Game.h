@@ -192,7 +192,7 @@ extern "C" void __stdcall sub_00620870_Position(Unit*, Point*); // 0x00620870
 extern "C" void __stdcall sub_00621000_SetFlag(Unit*, int); // 0x00621000
 extern "C" void __stdcall sub_00624690_Mode(Unit*, int); // 0x00624690
 extern "C" void __stdcall sub_006252D0_State(D2StatListStrc*, int); // 0x006252D0
-extern "C" void __stdcall sub_00626E10_Attach(Unit*, D2StatListStrc*, int); // 0x00626E10
+extern "C" void __stdcall D2COMMON_10475_PostStatToStatList(Unit*, D2StatListStrc*, int); // 0x00626E10
 extern "C" void __stdcall sub_00627150_Stat(D2StatListStrc*, int, int, int); // 0x00627150
 extern "C" void __stdcall sub_00639DB0_SetState(Unit*, int, int); // 0x00639DB0
 extern "C" void __stdcall sub_0063C180_Cursor(void*, Unit*); // 0x0063C180

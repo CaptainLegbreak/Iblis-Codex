@@ -187,7 +187,7 @@ extern const int gnSrvHit52_XOffsets[8]; // 0x006E2A58
 
 extern const int gnSrvHit52_YOffsets[8]; // 0x006E2A38
 
-int __stdcall sub_0064A3B0_GetElapsedFrames(D2UnitStrc* pMissile); // 0x0064A3B0
+int __stdcall MISSILE_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A3B0
 
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 
@@ -1705,7 +1705,7 @@ static D2UnitStrc* __stdcall MISSMODE_CreateMissileWithCollisionCheck(
     D2MissileStrc params;
     if (!nRate)
         return 0;
-    if (sub_0064A3B0_GetElapsedFrames(pMissile) % nRate)
+    if (MISSILE_GetRemainingFrames(pMissile) % nRate)
         return 0;
     D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
     if (!pOwner)
@@ -1714,7 +1714,7 @@ static D2UnitStrc* __stdcall MISSMODE_CreateMissileWithCollisionCheck(
         return 0;
     D2SeedStrc* pSeed = &pMissile->pSeed;
     int nSeed = CLIENTS_GetUnitX(pMissile);
-    nSeed += sub_0064A3B0_GetElapsedFrames(pMissile);
+    nSeed += MISSILE_GetRemainingFrames(pMissile);
     SEED_InitSeed(pSeed, nSeed);
     memset(&params, 0, sizeof(params));
     params.dwFlags = 3;
@@ -3536,7 +3536,7 @@ int __fastcall MISSMODE_SrvHit50_PlagueVinesTrail(D2GameStrc* pGame, D2UnitStrc*
 
     if (pUnit)
     {
-        const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
+        const int nFrames = MISSILE_GetRemainingFrames(pMissile);
         if (nFrames < MISSILE_GetTotalFrames(pMissile) - pMissilesTxtRecord->dwHitPar[0])
         {
             return 2;
@@ -5185,7 +5185,7 @@ int __fastcall MISSMODE_SrvDo14_GrimWard(D2GameStrc* pGame, D2UnitStrc* pMissile
     }
 
     const int nParam = pMissilesTxtRecord->dwParam[0] < 1 ? 1 : pMissilesTxtRecord->dwParam[0];
-    if (sub_0064A3B0_GetElapsedFrames(pMissile) % nParam)
+    if (MISSILE_GetRemainingFrames(pMissile) % nParam)
     {
         return MISSMODE_HandleMissileCollision(pGame, pMissile);
     }
@@ -5217,7 +5217,7 @@ int __fastcall MISSMODE_SrvDo15_FrozenOrb(D2GameStrc* pGame, D2UnitStrc* pMissil
     }
 
     const int nFrames = pMissilesTxtRecord->dwParam[0] < 1 ? 1 : pMissilesTxtRecord->dwParam[0];
-    if (sub_0064A3B0_GetElapsedFrames(pMissile) % nFrames > 0)
+    if (MISSILE_GetRemainingFrames(pMissile) % nFrames > 0)
     {
         return MISSMODE_HandleMissileCollision(pGame, pMissile);
     }
@@ -5248,7 +5248,7 @@ int __fastcall MISSMODE_SrvDo16_FrozenOrbNova(D2GameStrc* pGame, D2UnitStrc* pMi
     D2MissilesTxt* pRecord = SKILLS_GetMissilesTxtRecordFromUnit(pMissile);
     if (!pRecord) return 2;
     const int nPeriod = pRecord->dwParam[1] < 1 ? 1 : pRecord->dwParam[1];
-    const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
+    const int nFrames = MISSILE_GetRemainingFrames(pMissile);
     if (nFrames < pRecord->dwParam[0] && !(nFrames % nPeriod))
     {
         int nNewX = sub_0064A730_GetUnitId(pMissile);
@@ -5394,7 +5394,7 @@ int __fastcall MISSMODE_SrvDo22_LightningTrailingJavelin(D2GameStrc* pGame, D2Un
     const int nX = CLIENTS_GetUnitX(pMissile);
     const int nY = CLIENTS_GetUnitY(pMissile);
 
-    if (sub_0064A3B0_GetElapsedFrames(pMissile) < 2)
+    if (MISSILE_GetRemainingFrames(pMissile) < 2)
     {
         const int nParam1 = D2COMMON_10175_PathGetFirstPointX(pMissile->pDynamicPath) - nX;
         const int nParam2 = D2COMMON_10176_PathGetFirstPointY(pMissile->pDynamicPath) - nY;
@@ -5481,7 +5481,7 @@ int __fastcall MISSMODE_SrvDo26_Vines_PlagueVines(D2GameStrc* pGame, D2UnitStrc*
         return 2;
     }
 
-    const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
+    const int nFrames = MISSILE_GetRemainingFrames(pMissile);
     const int nParam = pMissilesTxtRecord->dwParam[0] >= 1 ? pMissilesTxtRecord->dwParam[0] : 1;
 
     if (!(nFrames % nParam))
@@ -5510,7 +5510,7 @@ int __fastcall MISSMODE_SrvDo27_Tornado(D2GameStrc* pGame, D2UnitStrc* pMissile)
 
     D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
     const int nLevel = MISSILE_GetLevel(pMissile);
-    const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
+    const int nFrames = MISSILE_GetRemainingFrames(pMissile);
 
     int nParam0 = pMissilesTxtRecord->dwParam[0];
     if (nParam0 <= 0)
@@ -5585,7 +5585,7 @@ int __fastcall MISSMODE_SrvDo28_Volcano(D2GameStrc* pGame, D2UnitStrc* pMissile)
         }
     }
 
-    const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
+    const int nFrames = MISSILE_GetRemainingFrames(pMissile);
     if (nFrames > pMissilesTxtRecord->dwParam[2] && nFrames < pMissilesTxtRecord->dwParam[3] && !(nFrames % nFrequency))
     {
         SEED_InitLowSeed(&pMissile->pSeed, MISSILE_GetTargetX(pMissile));
@@ -5634,7 +5634,7 @@ int __fastcall MISSMODE_SrvDo29_RecyclerDelay(D2GameStrc* pGame, D2UnitStrc* pMi
     }
     {
         const int nLevel = MISSILE_GetLevel(pMissile);
-        if (sub_0064A3B0_GetElapsedFrames(pMissile) == pMissilesTxtRecord->dwParam[0])
+        if (MISSILE_GetRemainingFrames(pMissile) == pMissilesTxtRecord->dwParam[0])
         {
             int nHitpoints = STATLIST_UnitGetStatValue(pOwner, STAT_HITPOINTS, 0) >> 8;
             const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pOwner) >> 8;
@@ -5682,7 +5682,7 @@ int __fastcall MISSMODE_SrvDo33_VineRecyclerDelay(D2GameStrc* pGame, D2UnitStrc*
     }
 
     const int nLevel = MISSILE_GetLevel(pMissile);
-    if (sub_0064A3B0_GetElapsedFrames(pMissile) == pMissilesTxtRecord->dwParam[0])
+    if (MISSILE_GetRemainingFrames(pMissile) == pMissilesTxtRecord->dwParam[0])
     {
         int nMana = STATLIST_UnitGetStatValue(pOwner, STAT_MANA, 0) >> 8;
         const int nMaxMana = STATLIST_GetMaxManaFromUnit(pOwner) >> 8;
@@ -5732,7 +5732,7 @@ int __fastcall MISSMODE_SrvDo30_RabiesPlague(D2GameStrc* pGame, D2UnitStrc* pMis
     MISSMODE_PlacePathAtOwner(pGame, pMissile);
 
     const int nFrames = pMissilesTxtRecord->dwParam[0] < 1 ? 1 : pMissilesTxtRecord->dwParam[0];
-    if (!(sub_0064A3B0_GetElapsedFrames(pMissile) % nFrames))
+    if (!(MISSILE_GetRemainingFrames(pMissile) % nFrames))
     {
         D2MissileStrc missileParams;
         memset(&missileParams, 0, sizeof(missileParams));
@@ -5935,7 +5935,7 @@ int __fastcall MISSMODE_SrvDo34_BaalTauntControl(D2GameStrc* pGame, D2UnitStrc* 
         return 2;
     }
 
-    const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
+    const int nFrames = MISSILE_GetRemainingFrames(pMissile);
 
     int nCounter = 0;
     do
@@ -6184,19 +6184,19 @@ int __fastcall MISSMODE_SrvDo37_CreateTimedSubmissiles(D2GameStrc* pGame, D2Unit
         return 2;
     }
 
-    if (pMissilesTxtRecord->wSubMissile[0] > 0 && sub_0064A3B0_GetElapsedFrames(pMissile) == pMissilesTxtRecord->dwParam[0])
+    if (pMissilesTxtRecord->wSubMissile[0] > 0 && MISSILE_GetRemainingFrames(pMissile) == pMissilesTxtRecord->dwParam[0])
     {
         D2GAME_CreateMissile_6FD115E0(pGame, SUNIT_GetOwner(pGame, pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile),
                                       pMissilesTxtRecord->wSubMissile[0], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile));
     }
 
-    if (pMissilesTxtRecord->wSubMissile[1] > 0 && sub_0064A3B0_GetElapsedFrames(pMissile) == pMissilesTxtRecord->dwParam[1])
+    if (pMissilesTxtRecord->wSubMissile[1] > 0 && MISSILE_GetRemainingFrames(pMissile) == pMissilesTxtRecord->dwParam[1])
     {
         D2GAME_CreateMissile_6FD115E0(pGame, SUNIT_GetOwner(pGame, pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile),
                                       pMissilesTxtRecord->wSubMissile[1], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile));
     }
 
-    if (pMissilesTxtRecord->wSubMissile[2] > 0 && sub_0064A3B0_GetElapsedFrames(pMissile) == pMissilesTxtRecord->dwParam[2])
+    if (pMissilesTxtRecord->wSubMissile[2] > 0 && MISSILE_GetRemainingFrames(pMissile) == pMissilesTxtRecord->dwParam[2])
     {
         D2GAME_CreateMissile_6FD115E0(pGame, SUNIT_GetOwner(pGame, pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile),
                                       pMissilesTxtRecord->wSubMissile[2], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile));

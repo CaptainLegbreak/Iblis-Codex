@@ -892,7 +892,7 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
         sub_00526700(pOut, pSpace);
 
         nCharClass = 7;
-        if (!sub_00645080_GetSkillCharClass(nLayer, &nCharClass))
+        if (!SKILLS_IsPlayerClassSkill(nLayer, &nCharClass))
             break;
         if (nCharClass < 0 || nCharClass > 6)
             break;
@@ -1469,7 +1469,8 @@ void __fastcall TEXT_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, 
     sub_004E6410_BuildPropText(pItem, wszBuffer, nArg3, 1, nArg4);
     sub_00526700(wszText, wszBuffer);
 
-    D2StatListStrc* pStatList = sub_00625790_UnitFindStatList(pItem, 0, 0x40);
+// build: symbol ?STATLIST_GetStatListFromUnitStateOrFlag@* 0x00625790
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitStateOrFlag(pItem, 0, 0x40);
     if (pStatList)
     {
         D2Common_10474(pItem, pStatList);
@@ -1488,7 +1489,7 @@ void __fastcall SKILLDESC_BuildItemPropText(D2UnitStrc* pItem, int nArg, int nAr
     ITEMMODS_AssignProperty(2, 0, pItem, nArg, nArg2, 0);
     sub_004E6410_BuildPropText(pItem, wszText, nArg3, 0, nArg4);
 
-    D2StatListStrc* pStatList = sub_00625790_UnitFindStatList(pItem, 0, 0x40);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitStateOrFlag(pItem, 0, 0x40);
     if (pStatList)
     {
         D2Common_10474(pItem, pStatList);

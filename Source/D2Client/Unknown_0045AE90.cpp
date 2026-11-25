@@ -400,7 +400,8 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 void __stdcall AUTOMAP_DrawUnitTileRect(D2UnitStrc* pUnit)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    D2TileRectStrc* pTileRect = sub_00619620(pRoom, pUnit);
+// build: symbol ?DUNGEON_GetLvlWarpTxtRecordFromRoomAndUnit@* 0x00619620
+    D2TileRectStrc* pTileRect = DUNGEON_GetLvlWarpTxtRecordFromRoomAndUnit(pRoom, pUnit);
     if (!pTileRect)
     {
         return;

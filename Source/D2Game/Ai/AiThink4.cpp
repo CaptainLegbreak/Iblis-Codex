@@ -312,7 +312,7 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit);                   
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 
-void __stdcall sub_0063EE10_GetMonsterDirectionDelta(D2UnitStrc* pUnit, int* pX, int* pY);                  // 0x0063EE10
+void __stdcall MONSTERS_GetChainDirectionDelta(D2UnitStrc* pUnit, int* pX, int* pY);                  // 0x0063EE10
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
@@ -8741,7 +8741,7 @@ int __fastcall AITHINK_FindDeadMonsterBehind(D2GameStrc* pGame, D2UnitStrc* pUni
     int nY = coords.nSubtileY;
     int nDirX = 0;
     int nDirY = 0;
-    sub_0063EE10_GetMonsterDirectionDelta(pUnit, &nDirX, &nDirY);
+    MONSTERS_GetChainDirectionDelta(pUnit, &nDirX, &nDirY);
     nDirX = -nDirX;
     nDirY = -nDirY;
     int bResult = 0;
@@ -9560,7 +9560,7 @@ D2UnitStrc* __fastcall sub_005DD0B0_FindTarget(D2GameStrc* pGame, D2UnitStrc* pU
 
 void __stdcall STATLIST_SetState(D2StatListStrc* pList, int nState); // 0x006252D0
 
-void __stdcall sub_00626E10(D2UnitStrc* pUnit, D2StatListStrc* pList, int bReset); // 0x00626E10
+void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pList, int bReset); // 0x00626E10
 
 void __stdcall STATLIST_SetStat(D2StatListStrc* pList, int nStat, int nValue, int nLayer); // 0x00627150
 
@@ -9628,7 +9628,7 @@ void __fastcall AITHINK_Fn134_BaalThrone(D2GameStrc* pGame, D2UnitStrc* pUnit, D
                 !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
             if (pList)
             {
-                sub_00626E10(pUnit, pList, 1);
+                D2COMMON_10475_PostStatToStatList(pUnit, pList, 1);
                 STATLIST_SetState(pList, STATE_CHANGECLASS);
                 STATLIST_SetStat(pList, STAT_SHORTPARAM1, 559, 0);
             }

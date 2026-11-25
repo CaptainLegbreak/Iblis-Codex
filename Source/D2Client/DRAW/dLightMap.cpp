@@ -584,7 +584,8 @@ void __fastcall SCMD_GetRoomLight(D2ActiveRoomStrc* pRoom, int* pIntensity, unsi
     }
 
     unsigned char nRoomIntensity;
-    sub_00619D70(pRoom, &nRoomIntensity, &nRed, &nGreen, &nBlue);
+// build: symbol ?DUNGEON_GetRGB_IntensityFromRoom@* 0x00619D70
+    DUNGEON_GetRGB_IntensityFromRoom(pRoom, &nRoomIntensity, &nRed, &nGreen, &nBlue);
     nIntensity = nRoomIntensity;
     if (!nRed && !nGreen && !nBlue)
     {

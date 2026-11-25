@@ -1319,7 +1319,7 @@ static void __stdcall SKILLS_ApplyShapeshift(Unit* owner, int level, int skill, 
     D2StatListStrc* list = sub_006251F0_Allocate(game->pool, 0, 0, ownerType, ownerId);
     if (list)
     {
-        sub_00626E10_Attach(target, list, 1);
+        D2COMMON_10475_PostStatToStatList(target, list, 1);
         sub_006252D0_State(list, 142);
         sub_00627150_Stat(list, 355, resolved, 0);
     }
