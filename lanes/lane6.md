@@ -2,16 +2,15 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 18:47:31 PST 2026): net-server merged (#377); join-00518b90 was in #369 (line dropped). net-x-object conflicts on #377: withdrawn, rebased as net-x-object-2 (verifying). lang-utf8 ready; lang-unisys and lang-unicode (stacked on it) verifying.
+Status (Tue Nov 24 21:55 PST 2026, new lane 6 chat): baseline on #378 verified (identical, 11,250 / 281 B). lang-utf8 merged in #378 (line dropped). join-00446880 and join-006056d0 are on main since #375 (dropped). lang-unisys and lang-unicode were never pushed; lang-unisys redone on #378. net-x-object rebased onto #378 as net-x-object-3. Both verifying.
 
 ## Ready
 
-- lane6/lang-utf8 df9a71bb 234->233 placeholders (count on #377; merges cleanly on #377). Unknown_00526100.cpp (D2Lang's UTF-8 object: copy 0x00730978 and gaUtf8ConvertTable) takes Unknown_00526320.cpp and Unknown_00525FB0.cpp's 0x005263E0: the static helpers tie the run (0x00526100 is called only by 0x00526320; 0x00526190 only by 0x005262F0, 0x005263E0 and 0x00526430; 0x00526200 only by 0x005262A0). One Unicode view, the shared D2Unicode.h; 0x00526190 takes (pDest, ch), the order 0x005263E0's call needs. Not stacked. VERIFIED 0b507bf3 (on #376, merges cleanly on #377; borrowed data 844 B, unchanged).
-
+(net-x-object-3 and lang-unisys verifying on #378)
 
 ## Claimed
 
-- **D2Lang object map (now):** strtable.cpp 0x00524810-0x005260FB; the casetable object (copy 0x00730538, gawToUpperTable, gaCaseTable) has no code of its own, only readers elsewhere (D2Client 0x0042E650, 0x00431AF0, 0x00452180, 0x004B15F0, 0x004B4DB0 too), so it doesn't contradict the code order; the UTF-8 object starts at 0x00526100 (lang-utf8, verifying); UNISYS.CPP's object is 0x00527660-0x00527DAF by its .bss 0x00882AF8-0x00882B2F and .rdata (next); the copies 0x00730A28/0x00730A64 mark two objects in 0x00526490-0x0052765F, and 0x00730AA0 with 0x00730ADC (read by 0x00527F40) one after UNISYS.
+- **D2Lang object map (now):** strtable.cpp 0x00524810-0x005260FB; the casetable object (copy 0x00730538, gawToUpperTable, gaCaseTable) has no code of its own, only readers elsewhere (D2Client 0x0042E650, 0x00431AF0, 0x00452180, 0x004B15F0, 0x004B4DB0 too), so it doesn't contradict the code order; the UTF-8 object starts at 0x00526100 (lang-utf8, verifying); UNISYS.CPP's object is 0x00527660-0x00527DAF by its .bss 0x00882AF8-0x00882B2F and .rdata (lane6/lang-unisys, verifying); the copies 0x00730A28/0x00730A64 mark two objects in 0x00526490-0x0052765F, and 0x00730AA0 with 0x00730ADC (read by 0x00527F40) one after UNISYS.
 - **Coordinator, on laneless/objmap-joins-3's strtable.cpp <- Unknown_005271A0:** strtable.cpp's code ends at 0x005260FB and the UTF-8 object (its copy 0x00730978 comes after strtable's .data) starts at 0x00526100, so strtable.cpp's 0x00527090 and Unknown_005271A0's 0x005271A0/0x005272B0 (0x00527090 and 0x005271A0 are called only from 0x005272B0) are one later object, not strtable's. That join would put two objects in strtable.cpp; I'd move 0x00527090 out to Unknown_005271A0.cpp instead.
 - **report-372 leads:** FastCmp.cpp <- Unknown_006056D0 (lane6/join-006056d0, now a clear lead after #365's FastCmp join), SpriteCache.cpp <- Unknown_005FE010 (lane6/join-005fe010), ComCallback.cpp <- Unknown_00446880 (lane6/join-00446880); the last two sit inside their owner's runs.
 - **report-369 leads:** CelCmp.cpp <- Unknown_006043B0 (lane6/join-006043b0), BnSend.cpp <- Unknown_0051C760 (lane6/join-bnsend-c760; #368's join put Unknown_0051C7E0 into 0051C760, this one takes the result into BnSend). Unknown_0060D280 -> FastCmp.cpp, Unknown_005271A0 -> strtable.cpp and Unknown_00520DC0 + Unknown_005241A0 are in laneless/objmap-joins-3 (44c44aa1, not merged yet), which I was told to leave; I'll take them if that branch is dropped.
