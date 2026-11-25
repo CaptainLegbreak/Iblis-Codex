@@ -581,10 +581,6 @@ void __fastcall EVENT_IterateEvents(D2GameStrc* pGame)
 }
 
 
-struct Data00541860;
-
-struct Unit00541860;
-
 // 0x005415A0
 int __fastcall EVENT_GetEventFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent)
 {
