@@ -2595,17 +2595,19 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
 
                     nRand -= nNoDrop;
                 }
+
+                --tcArray[nCounter].nPicks;
             }
             else
             {
-                nRand = D2_ABS(pTC->nPicks) - tcArray[nCounter].nPicks;
+                nRand = -pTC->nPicks - tcArray[nCounter].nPicks;
                 if (nRand >= nChance)
                 {
                     break;
                 }
-            }
 
-            --tcArray[nCounter].nPicks;
+                --tcArray[nCounter].nPicks;
+            }
 
             int nIndex;
             if (bExpansion)
