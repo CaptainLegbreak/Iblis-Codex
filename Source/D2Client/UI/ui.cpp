@@ -274,7 +274,7 @@ void __fastcall MSG_SendShorts(char nHeader, short nArg1, short nArg2, short nAr
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-void __fastcall sub_004B8100(void* pObj); // 0x004B8100
+void __fastcall DIALOG_DrawDialog(void* pObj); // 0x004B8100
 
 void __cdecl TEXT_ToggleListDialogUI(); // 0x004A02F0
 
@@ -964,7 +964,7 @@ void __fastcall sub_004898A0(int nMode);                                        
 
 void* __fastcall DIALOG_CreateDialogFromFile(int nX, int nY, int (__cdecl* pfnCallback)(), int nArg4, int nArg5, int nArg6); // 0x004B7CD0
 
-void __fastcall sub_004B8370(void* pPanel, int nValue);                                                     // 0x004B8370
+void __fastcall ROSTER_SetCtrlState(void* pPanel, int nValue);                                                     // 0x004B8370
 
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(Unicode* pText, int* pLineCount, int nWidth);             // 0x00502970
 
@@ -1186,11 +1186,13 @@ static void __stdcall UI_GetPlayerHoverName(D2UnitStrc* pUnit, Unicode* pDst, in
         *pFlag = 1;
         return;
     }
-    *pValue = sub_0047A6B0_GetLifeValue(!pUnit ? -1 : pUnit->dwUnitId) * 128 / 100;
+// build: symbol ?ROSTER_GetOtherPartyLife@* 0x0047A6B0
+    *pValue = ROSTER_GetOtherPartyLife(!pUnit ? -1 : pUnit->dwUnitId) * 128 / 100;
     *pFlag = 0;
     const int nUnitId = !pUnit ? -1 : pUnit->dwUnitId;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (sub_0047A070_IsPartyRelation(!pPlayer ? -1 : pPlayer->dwUnitId, nUnitId))
+// build: symbol ?ROSTER_IsHostileRelation@* 0x0047A070
+    if (ROSTER_IsHostileRelation(!pPlayer ? -1 : pPlayer->dwUnitId, nUnitId))
     {
         *pFlag = 1;
     }
@@ -1205,7 +1207,7 @@ static void __stdcall UI_ShowUnitHoverName(D2UnitStrc* pUnit, int bSet)
     {
         return;
     }
-    nValues[1] = sub_004525F0_GetHoverTextY(pUnit);
+    nValues[1] = UI_GetMonsterLifeFraction(pUnit);
     const int nY = gnHoverY - 0x48;
     const int nX = gnHoverX;
     const Unicode* pName = CUNIT_GetUnitName(pUnit);
@@ -1244,10 +1246,10 @@ static int __stdcall UI_GetRosterHoverName(D2UnitStrc* pUnit, Unicode* pDst, int
         return 0;
     }
     sub_00526320_ToUnicode(pDst, szName, 0x80);
-    *pValue = sub_0047A6B0_GetLifeValue(nIndex) * 128 / 100;
+    *pValue = ROSTER_GetOtherPartyLife(nIndex) * 128 / 100;
     *pFlag = 0;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (sub_0047A070_IsPartyRelation(!pPlayer ? -1 : pPlayer->dwUnitId, nIndex))
+    if (ROSTER_IsHostileRelation(!pPlayer ? -1 : pPlayer->dwUnitId, nIndex))
     {
         *pFlag = 1;
     }
@@ -1745,7 +1747,8 @@ void __cdecl UI_DrawStoredUnitNumber()
         return;
     }
 
-    D2StoredUnitRecordStrc* pRecord = sub_00479BB0_FindRecord(pUnit->dwUnitId);
+// build: symbol ?ROSTER_FindRosterUnitById@* 0x00479BB0
+    D2StoredUnitRecordStrc* pRecord = ROSTER_FindRosterUnitById(pUnit->dwUnitId);
     if (!pRecord)
     {
         return;
@@ -1841,7 +1844,7 @@ void __cdecl UI_CloseGoldDialog()
 {
     if (gbGoldPanelFlag)
     {
-        sub_0046AA20(1, 1);
+        CMDTBL_SetHotkeyHandlers(1, 1);
         gbGoldPanelFlag = 0;
     }
 
@@ -2064,7 +2067,7 @@ void __fastcall UI_OpenGoldPanel(int nMode)
 
     gnGoldPanelMode_007A279C = nMode;
     gpGoldPanel = DIALOG_CreateDialogFromFile(0xD7, 0x8C, UI_GoldPanelCloseCallback, 0, 0, 1);
-    sub_004B8370(gpGoldPanel, 1);
+    ROSTER_SetCtrlState(gpGoldPanel, 1);
     D2Win_10127_SetFont(1);
 
     Unicode wszText[0x100];
@@ -2138,7 +2141,7 @@ void __cdecl UI_CloseGoldPanel()
 void __cdecl UI_DrawGoldPanel()
 {
     if (gpGoldPanel)
-        sub_004B8100(gpGoldPanel);
+        DIALOG_DrawDialog(gpGoldPanel);
 }
 
 // 0x004545C0
@@ -2204,13 +2207,16 @@ void __fastcall UI_FreeLoadingScreen()
         sub_00600C00_SetActB(gnLoadingAct);
         AUTOMAP_InitAutomapColors();
         INV_InitColorTable();
-        sub_00499E10();
+// build: symbol ?PANEL_SetRedColour@* 0x00499E10
+        PANEL_SetRedColour();
         PANEL_SetBlackColour();
         sub_004AB2F0();
         sub_00497250();
-        sub_00497270();
+// build: symbol ?HIREABLES_InitTextColorA@* 0x00497270
+        HIREABLES_InitTextColorA();
         sub_004972B0();
-        sub_00497290();
+// build: symbol ?HIREABLES_InitTextColorB@* 0x00497290
+        HIREABLES_InitTextColorB();
         sub_00472890(gpGlobal_007A063C);
         GAME_ExtendDelay(0x7D0);
     }
@@ -2435,7 +2441,7 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
         {
             return;
         }
-        sub_004527D0(pUnit, 0, 0);
+        UI_BuildItemHoverName(pUnit, 0, 0);
         return;
     case UNIT_MONSTER:
     {
@@ -2597,7 +2603,8 @@ void __cdecl UI_DrawHoverName()
     {
         nColor = 4;
     }
-    if (sub_004AE320_IsMonsterFlag4(pUnit))
+// build: symbol ?MONSTER_IsChampionMonster@* 0x004AE320
+    if (MONSTER_IsChampionMonster(pUnit))
     {
         nColor = 3;
     }
@@ -2627,12 +2634,13 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
         SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaStatScreenHandlers, 0x2);
         return;
     case 0x1:
-        sub_00487B30();
+// build: symbol ?INV_ResetNpcState@* 0x00487B30
+        INV_ResetNpcState();
         SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaInventoryHandlers, 0x4);
         return;
     case 0x5:
         CHAT_InitChatIme();
-        sub_0046AA20(0, 0x1);
+        CMDTBL_SetHotkeyHandlers(0, 0x1);
         if (gnPanelState)
             sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaAutomapHandlers, 0x5);
         sub_0047B4D0_Nop();
@@ -2655,7 +2663,7 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
         UI_RegisterKeyConfigHandlers();
         return;
     case 0xC:
-        sub_0046AA20(0x2, 0x1);
+        CMDTBL_SetHotkeyHandlers(0x2, 0x1);
         TEXT_ResetNpcPanel();
         UI_SetPanelHotkeys(&gtNpcShopHotkeys);
         SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaNpcShopHandlers, 0x8);
@@ -2681,20 +2689,20 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
         PARTY_RebuildRosterUnits();
         return;
     case 0x17:
-        sub_0046AA20(0, 0x1);
+        CMDTBL_SetHotkeyHandlers(0, 0x1);
         sub_004B8920();
         INV_ClearPanelPage();
         UI_SetPanelHotkeys(&gtMpTradeHotkeys);
         SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaMpTradeHandlers, 0xD);
         return;
     case 0x19:
-        sub_0046AA20(0x2, 0x1);
+        CMDTBL_SetHotkeyHandlers(0x2, 0x1);
         INV_LoadStashPanelCels();
         UI_SetPanelHotkeys(&gtStashHotkeys);
         SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaStashHandlers, 0x8);
         return;
     case 0x1A:
-        sub_0046AA20(0x2, 0x1);
+        CMDTBL_SetHotkeyHandlers(0x2, 0x1);
         INV_LoadCubePanelCel();
         UI_SetPanelHotkeys(&gtCubeHotkeys);
         SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaCubeHandlers, 0x7);
@@ -2761,7 +2769,7 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         if (!gaUIVarStates[0xC] && !gaUIVarStates[0x17] && !gaUIVarStates[0x19]
             && !gaUIVarStates[0x1A] && !gaUIVarStates[0x1B] && !gaUIVarStates[0x1C]
             && !gaUIVarStates[0x1D] && !gaUIVarStates[0x1E] && !gaUIVarStates[0x20])
-            sub_0046AA20(0x1, 0x1);
+            CMDTBL_SetHotkeyHandlers(0x1, 0x1);
         if (gaUIVarStates[0xA])
             SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaAutomapHandlers, 0x5);
         return;
@@ -2791,7 +2799,7 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
     case 0xC:
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaNpcShopHandlers, 0x8);
         NPCMENU_CloseByState();
-        sub_0046AA20(0x1, 0x1);
+        CMDTBL_SetHotkeyHandlers(0x1, 0x1);
         return;
     case 0xF:
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaQuestScreenHandlers, 0x7);
@@ -2828,7 +2836,7 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMpTradeHandlers, 0xD);
         UI_StartUIVarDelay();
         sub_004B8940_CloseWait(0);
-        sub_0046AA20(0x1, 0x1);
+        CMDTBL_SetHotkeyHandlers(0x1, 0x1);
         return;
     case 0x19:
         UI_CloseGoldDialog();
@@ -2836,14 +2844,14 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         INV_CloseStashPanel();
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaStashHandlers, 0x8);
         UI_StartUIVarDelay();
-        sub_0046AA20(0x1, 0x1);
+        CMDTBL_SetHotkeyHandlers(0x1, 0x1);
         return;
     case 0x1A:
         PLAYER_SetPanelSlide(0);
         INV_ShutdownCubePanel();
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaCubeHandlers, 0x7);
         UI_StartUIVarDelay();
-        sub_0046AA20(0x1, 0x1);
+        CMDTBL_SetHotkeyHandlers(0x1, 0x1);
         return;
     case 0x18:
         TEXT_CloseMessageLogDialog();
@@ -2934,7 +2942,7 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg)
     }
     else if (!nNewState)
     {
-        sub_00455AE0_CloseUIVar(nUIVar);
+        UI_ClearPanelHandlers(nUIVar);
     }
 
     const int nA = sub_00468730();
@@ -3483,7 +3491,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     if (gaUIVarStates[22])
         PANEL_DrawPartyPanel();
     if (gpGoldPanel)
-        sub_004B8100(gpGoldPanel);
+        DIALOG_DrawDialog(gpGoldPanel);
     if (gaUIVarStates[16])
         TEXT_DispatchTextData();
     if (gaUIVarStates[20])
@@ -3693,13 +3701,13 @@ void __fastcall UI_DrawUnitHoverName(D2UnitStrc* pUnit)
             sub_00526700((Unicode*)wszText, D2LANG_GetStringFromTblIndex(0xF9B));
         }
         sub_00526700((Unicode*)wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-        const int nY = sub_004525F0_GetHoverTextY(pUnit);
+        const int nY = UI_GetMonsterLifeFraction(pUnit);
         int nColor = 0;
         if (MONSTER_IsUniqueMonster(pUnit))
         {
             nColor = 4;
         }
-        if (sub_004AE320_IsMonsterFlag4(pUnit))
+        if (MONSTER_IsChampionMonster(pUnit))
         {
             nColor = 3;
         }

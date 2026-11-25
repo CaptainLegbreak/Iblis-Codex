@@ -220,7 +220,8 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
     D2_ASSERT(pData, 0xEC9);
     D2GfxLayerHeaderStrc* pHeader = GFXUTIL_identity(pData);
     D2_ASSERT(pHeader, 0xECB);
-    unsigned char* pOrder = sub_004DB110_GetLayerOrder(pData, 0, 0);
+// build: symbol ?GFXUTIL_GetLayerOrder@* 0x004DB110
+    unsigned char* pOrder = GFXUTIL_GetLayerOrder(pData, 0, 0);
     D2_ASSERT(pOrder, 0xED0);
 
     for (int i = 0; i < pHeader->nLayers; ++i)

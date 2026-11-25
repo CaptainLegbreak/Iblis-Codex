@@ -2808,10 +2808,10 @@ static D2AutomapLayerStrc* AUTOMAP_InitAutomapLayer(int nLayerNo)
 
     if (pLayer != gpAutomapContext)
     {
-        sub_004584C0_ResetA();
-        sub_00458680_ResetB();
+        AUTOMAP_SaveAutomapLayer();
+        AUTOMAP_ResetAutomapCells();
         gpAutomapContext = pLayer;
-        sub_00458750_Rebuild();
+        AUTOMAP_LoadAutomapLayer();
     }
 
     return pLayer;
@@ -3803,8 +3803,8 @@ void __cdecl AUTOMAP_InitAutomap()
 // 0x0045A5C0
 void __cdecl AUTOMAP_FreeAutomap()
 {
-    sub_004584C0_ResetA();
-    sub_00458680_ResetB();
+    AUTOMAP_SaveAutomapLayer();
+    AUTOMAP_ResetAutomapCells();
     for (int i = 0; i < 4; ++i)
     {
         if (gpAutomapCels_007A5168[i])

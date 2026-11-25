@@ -759,7 +759,8 @@ static int __stdcall GFX_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit
     D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, ".\\ENGINE\\Gfx.cpp", 0x6CD);
     int nB;
     GFXUTIL_GetLayerInfo(pUnit, nType, nClass, nMode, &nDirection, &tArg.nA, &nB, tArg.nIndex, 0);
-    unsigned char* pOrder = sub_004DB110_GetLayerOrder(pLayer, tArg.nA, 0);
+// build: symbol ?GFXUTIL_GetLayerOrder@* 0x004DB110
+    unsigned char* pOrder = GFXUTIL_GetLayerOrder(pLayer, tArg.nA, 0);
     D2_ASSERT(pOrder, 0x6D6);
     tArg.nIndex = 0;
     while (tArg.nIndex < pHeader->nLayers)
@@ -1405,7 +1406,9 @@ static void sub_0046CCD0_AiType1(D2UnitStrc* pUnit)
     {
         D2UnitStrc* pFound = 0;
         int nDistance = 0x7FFFFFFF;
-        sub_0046C570_FindRoomUnit(pUnit, &pFound, &nDistance, sub_0046C600_CheckTarget);
+// build: symbol ?GFXUTIL_ForEachUnitInAdjacentRooms@* 0x0046C570
+// build: symbol ?GFXUTIL_FindNearestUnitCallback@* 0x0046C600
+        GFXUTIL_ForEachUnitInAdjacentRooms(pUnit, &pFound, &nDistance, GFXUTIL_FindNearestUnitCallback);
         if (pFound)
         {
             D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
@@ -1570,7 +1573,7 @@ static void __stdcall GFX_AiType5(unsigned int nDistance, D2UnitStrc* pUnit, D2U
     int nFoundDistance = 0;
     if (nDistance > 7)
     {
-        sub_0046C570_FindRoomUnit(pUnit, &pFound, &nFoundDistance, sub_0046C660_CheckTarget2);
+        GFXUTIL_ForEachUnitInAdjacentRooms(pUnit, &pFound, &nFoundDistance, GFX_FindCorpseCallback);
     }
 
     D2SeedStrc* pSeed = &pUnit->pSeed;
@@ -1669,7 +1672,7 @@ static void sub_0046D310_AiType7(D2UnitStrc* pUnit)
 
         D2UnitStrc* pFound = 0;
         int nDistance = 0x7FFFFFFF;
-        sub_0046C570_FindRoomUnit(pUnit, &pFound, &nDistance, sub_0046C600_CheckTarget);
+        GFXUTIL_ForEachUnitInAdjacentRooms(pUnit, &pFound, &nDistance, GFXUTIL_FindNearestUnitCallback);
         if (pFound)
         {
             D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
@@ -2165,7 +2168,8 @@ static inline void GFX_ResetGfxBytes20(D2UnitStrc* pUnit)
 {
     for (unsigned int i = 0; i < 20; ++i)
     {
-        sub_004DB1C0_SetGfxByte(pUnit, i, 0);
+// build: symbol ?GFXUTIL_SetGfxEntryByte@* 0x004DB1C0
+        GFXUTIL_SetGfxEntryByte(pUnit, i, 0);
     }
 }
 
@@ -2174,7 +2178,7 @@ static inline void GFX_ResetGfxBytes16(D2UnitStrc* pUnit)
 {
     for (int i = 0; i < 16; ++i)
     {
-        sub_004DB1C0_SetGfxByte(pUnit, i, 0);
+        GFXUTIL_SetGfxEntryByte(pUnit, i, 0);
     }
 }
 
@@ -2184,7 +2188,7 @@ static void __stdcall GFX_ResetGfxIndex(D2UnitStrc* pUnit, int nIndex)
     D2_ASSERT(nIndex < GFX_INDEX_COUNT, 0x65F);
     for (int i = 0; i < GFX_INDEX_COUNT; ++i)
     {
-        sub_004DB1C0_SetGfxByte(pUnit, i, 0);
+        GFXUTIL_SetGfxEntryByte(pUnit, i, 0);
     }
     D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0x668);
@@ -2203,7 +2207,7 @@ static inline void GFX_ResetGfxBytes8(D2UnitStrc* pUnit)
 {
     for (int i = 0; i < 8; ++i)
     {
-        sub_004DB1C0_SetGfxByte(pUnit, i, 0);
+        GFXUTIL_SetGfxEntryByte(pUnit, i, 0);
     }
 }
 
@@ -2496,19 +2500,19 @@ void __fastcall GFX_ClearGfxBytes(D2UnitStrc* pUnit, int nIndex)
     case 0:
         for (unsigned int i = 0; i < GFX_ENTRY_COUNT; ++i)
         {
-            sub_004DB1C0_SetGfxByte(pUnit, i, 0);
+            GFXUTIL_SetGfxEntryByte(pUnit, i, 0);
         }
         break;
     case 1:
         for (int i = 0; i < GFX_INDEX_COUNT; ++i)
         {
-            sub_004DB1C0_SetGfxByte(pUnit, i, 0);
+            GFXUTIL_SetGfxEntryByte(pUnit, i, 0);
         }
         break;
     case 2:
         for (int i = 0; i < 8; ++i)
         {
-            sub_004DB1C0_SetGfxByte(pUnit, i, 0);
+            GFXUTIL_SetGfxEntryByte(pUnit, i, 0);
         }
         break;
     default:
@@ -3047,10 +3051,11 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
         int nA;
         int nB;
         GFXUTIL_GetLayerInfo(pUnit, nType, nClass, nMode, &nDirection, &nA, &nB, pHeader->nArg, 1);
-        unsigned char* pLayers = sub_004DB110_GetLayerOrder(pGfx, nA, nFrameNo);
+        unsigned char* pLayers = GFXUTIL_GetLayerOrder(pGfx, nA, nFrameNo);
         D2_ASSERT(pLayers, 0xA56);
         int nVisible = 0;
-        if (sub_004DBD30_CountVisibleLayers(pUnit, pHeader, pLayers, &nVisible, nDirection, nFrameNo) > 0)
+// build: symbol ?GFXUTIL_GetComponentsMaxHeight@* 0x004DBD30
+        if (GFXUTIL_GetComponentsMaxHeight(pUnit, pHeader, pLayers, &nVisible, nDirection, nFrameNo) > 0)
         {
             for (unsigned int i = 0; i < pHeader->nLayers; ++i)
             {

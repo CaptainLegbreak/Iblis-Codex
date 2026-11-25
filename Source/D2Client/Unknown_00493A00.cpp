@@ -16,7 +16,7 @@ int __fastcall UI_SetUIVar(int nUIVar, int nState, int nArg); // 0x00455F20
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(int nUnitId, int nUnitType); // 0x00463990
 unsigned short __fastcall CUNIT_GetPlayerPartyId(D2UnitStrc* pUnit); // 0x00465400
 const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
-int __fastcall sub_00478EE0_GetPetCount(D2UnitStrc* pOwner, int nPetType);
+int __fastcall ROSTERPETS_CountPets(D2UnitStrc* pOwner, int nPetType); // 0x00478EE0
 int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 int __fastcall ROSTER_GetPetLife(int nUnitId); // 0x00479080
 D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
@@ -297,7 +297,7 @@ static int __stdcall sub_00493E10_DrawPetIcon(D2UnitStrc* pPlayer, int* pnX, int
 
 static int __stdcall sub_00493EB0_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY, int* pbAlternate, int* pnX, int nPetType)
 {
-    const int nCount = sub_00478EE0_GetPetCount(pPlayer, nPetType);
+    const int nCount = ROSTERPETS_CountPets(pPlayer, nPetType);
     if (!nCount)
         return 0;
 

@@ -462,7 +462,7 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int nAr
 
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
 
-void __fastcall sub_004B8370_SetField5C(D2ClientDialogStrc* pDialog, int nValue); // 0x004B8370
+void __fastcall ROSTER_SetCtrlState(D2ClientDialogStrc* pDialog, int nValue); // 0x004B8370
 
 // build: symbol ?DIALOG_AddTextLine@* 0x004B85F0
 void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,
@@ -1104,7 +1104,7 @@ extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 
 static int TEXT_FormatPartyEvent(Unicode* pOut, D2GSPacketSrv5A* pPacket); // 0x0049E8F0
 
-void __fastcall sub_0049E3A0_ShowChatText(const Unicode* wszText, char nColor);
+void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor); // 0x0049E3A0
 
 
 extern "C" __declspec(dllimport) int __stdcall SetRect(D2RectStrc* pRect, int nLeft, int nTop, int nRight, int nBottom);
@@ -2189,7 +2189,8 @@ void __cdecl TEXT_AcceptKeyConfig()
 // 0x004A5040
 void __cdecl TEXT_CancelKeyConfig()
 {
-    sub_00469D50();
+// build: symbol ?CMDTBL_RestoreHotkeys@* 0x00469D50
+    CMDTBL_RestoreHotkeys();
     UI_SetUIVar(11, 1, 0);
     WARDENCLIENT_ToggleEscMenuUIState(0, 1);
 }
@@ -2219,7 +2220,7 @@ void __cdecl TEXT_InitTextSlider()
     TEXT_InitKeyConfigEntries();
     sprintf(szPath, "%s\\UI\\Menu\\TextSlid", gszDataGlobal);
     gpKeyConfigSliderCel = ARCHIVE_LoadClientCellFile(szPath, 0);
-    sub_004A5060();
+    TEXT_LayoutSlider();
     gnKeyConfigFirstVisible = 0;
     gnKeyConfigSelected = 0;
 }
@@ -2243,7 +2244,8 @@ void __fastcall TEXT_ToggleKeyConfigPanel(int nArg)
         if (gbKeyCaptureActive == 0)
         {
             CMDTBL_SaveHotkeys();
-            sub_0046AA20(0, 0);
+// build: symbol ?CMDTBL_SetHotkeyHandlers@* 0x0046AA20
+            CMDTBL_SetHotkeyHandlers(0, 0);
             GAME_UnregisterMouseHandlers();
             SELECT_RefreshHoverUnit(0);
         }
@@ -2252,11 +2254,11 @@ void __fastcall TEXT_ToggleKeyConfigPanel(int nArg)
     }
     else if (gbKeyCaptureActive == 0)
     {
-        sub_0046AA20(1, 0);
+        CMDTBL_SetHotkeyHandlers(1, 0);
         GAME_RegisterMouseHandlers();
         SELECT_ClearSelection();
     }
-    sub_004A5060();
+    TEXT_LayoutSlider();
 }
 
 // 0x004A5270
@@ -2522,7 +2524,7 @@ void __stdcall TEXT_CancelKeyConfigMsg(SMSGHANDLER_PARAMS* message)
     if (GAME_IsExitPending()) { message->bReturn = 0; return; }
     if (global_00724728) {
         if (!(message->lParam & REPEAT_MASK)) {
-            sub_00469D50();
+            CMDTBL_RestoreHotkeys();
             UI_SetUIVar(UI_VARIABLE, 1, 0);
             WARDENCLIENT_ToggleEscMenuUIState(0, 1);
             sub_004B9A00(1, 0, 0, 0, 0);
@@ -2537,7 +2539,8 @@ void __stdcall TEXT_CancelKeyConfigMsg(SMSGHANDLER_PARAMS* message)
 void __cdecl TEXT_RegisterKeyCaptureHandlers()
 {
     gbKeyCaptureActive = 1;
-    sub_00455AE0_CloseUIVar(0xB);
+// build: symbol ?UI_ClearPanelHandlers@* 0x00455AE0
+    UI_ClearPanelHandlers(0xB);
     SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureHandlers, 6);
     SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureMButtonHandlers, 1);
     SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureXButtonHandlers, 1);
@@ -2568,8 +2571,8 @@ void __cdecl TEXT_CloseKeyCaptureHandlers()
         AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureWheelHandlers, 1);
         AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureXButtonHandlers, 1);
         AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureMButtonHandlers, 1);
-        sub_00469D50();
-        sub_0046AA20(1, 0);
+        CMDTBL_RestoreHotkeys();
+        CMDTBL_SetHotkeyHandlers(1, 0);
         GAME_RegisterMouseHandlers();
         SELECT_ClearSelection();
         gbKeyCaptureActive = 0;
@@ -2583,7 +2586,7 @@ static void TEXT_ReleaseKeyConfigPress(int nX, int nY)
     {
         if (TEXT_IsOnSelectedLine(nX, nY) && gpListEntries[gnKeyConfigSelected].nId != 0x39)
         {
-            sub_004A5D00();
+            TEXT_RegisterKeyCaptureHandlers();
             sub_004B9A00(2, 0, 0, 0, 0);
         }
     }
@@ -2638,7 +2641,7 @@ void __stdcall TEXT_ApplyEntryMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         if (!(pMsg->lParam & 0x40000000) && gpListEntries[gnKeyConfigSelected].nId != 0x39)
         {
-            sub_004A5D00();
+            TEXT_RegisterKeyCaptureHandlers();
             sub_004B9A00(2, 0, 0, 0, 0);
             gbKeyConfigReady = 0;
         }

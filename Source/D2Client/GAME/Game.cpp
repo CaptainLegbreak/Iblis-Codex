@@ -1466,7 +1466,7 @@ int gnWheelDelta; // 0x007A06F8
 
 int gnClientState; // 0x007A0480
 
-void __cdecl sub_00451290(); // 0x00451290
+void __cdecl GAME_FreeLngModule(); // 0x00451290
 
 void* gpComInterface; // 0x007A05F4
 
@@ -2006,7 +2006,8 @@ void __stdcall GAME_HandleLeftButtonDown(SMSGHANDLER_PARAMS* pMsg)
             nFlags |= 4;
         if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
         {
-            gbLeftButtonDown = sub_00462D00(0, pMsg->nXpos, pMsg->nYpos, nFlags);
+// build: symbol ?PLAYER_PlayerCommand@* 0x00462D00
+            gbLeftButtonDown = PLAYER_PlayerCommand(0, pMsg->nXpos, pMsg->nYpos, nFlags);
         }
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
@@ -2044,7 +2045,7 @@ void __cdecl GAME_StartClick()
         const int nFlags = sub_0044BEC0_GetClickFlags_static();
         if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
         {
-            sub_00462D00(1, sub_00468730(), sub_00468740(), nFlags);
+            PLAYER_PlayerCommand(1, sub_00468730(), sub_00468740(), nFlags);
         }
     }
 }
@@ -2073,7 +2074,7 @@ void __cdecl GAME_ResetLeftClick()
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
-            sub_00462D00(2, sub_00468730(), sub_00468740(), CLIENT_GetClickFlags_inl());
+            PLAYER_PlayerCommand(2, sub_00468730(), sub_00468740(), CLIENT_GetClickFlags_inl());
     }
 }
 
@@ -2139,7 +2140,7 @@ void __stdcall GAME_HandleRightButtonDown(SMSGHANDLER_PARAMS* pMsg)
     const int nFlags = sub_0044BEC0_GetClickFlags_static();
     if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
     {
-        gbRightButtonDown = sub_00462D00(3, pMsg->nXpos, pMsg->nYpos, nFlags);
+        gbRightButtonDown = PLAYER_PlayerCommand(3, pMsg->nXpos, pMsg->nYpos, nFlags);
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
@@ -2156,7 +2157,7 @@ void __cdecl GAME_StartRightClick()
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         const int nFlags = CLIENT_GetClickFlags_inl();
         if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
-            sub_00462D00(4, sub_00468730(), sub_00468740(), nFlags);
+            PLAYER_PlayerCommand(4, sub_00468730(), sub_00468740(), nFlags);
     }
 }
 
@@ -2183,7 +2184,7 @@ void __stdcall GAME_HandleRightButtonUp(SMSGHANDLER_PARAMS* pMsg)
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
         {
-            gbRightButtonDown = sub_00462D00(5, pMsg->nXpos, pMsg->nYpos, pMsg->wParamLow);
+            gbRightButtonDown = PLAYER_PlayerCommand(5, pMsg->nXpos, pMsg->nYpos, pMsg->wParamLow);
         }
         pMsg->bReturn = 1;
         pMsg->lResult = 0;

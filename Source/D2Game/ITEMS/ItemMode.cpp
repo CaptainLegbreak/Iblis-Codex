@@ -1969,7 +1969,8 @@ int __fastcall ITEMMODE_CanPickUpItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Un
 
     if (pItem && pItem->dwUnitType == UNIT_ITEM && ITEMS_GetItemQuality(pItem) == ITEMQUAL_UNIQUE && ITEMS_GetFileIndex(pItem) >= 0)
     {
-        D2UniqueItemsTxt* pUniqueItemsTxtRecord = sub_00483470(ITEMS_GetFileIndex(pItem));
+// build: symbol ?DATATBLS_GetUniqueItemsTxtRecord@* 0x00483470
+        D2UniqueItemsTxt* pUniqueItemsTxtRecord = DATATBLS_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
         if (pUniqueItemsTxtRecord && pUniqueItemsTxtRecord->nUniqueItemFlags[UNIQUEITEMSFLAGINDEX_CARRY1 >> 3] & gdwBitMasks[UNIQUEITEMSFLAGINDEX_CARRY1 & 7] && ITEMMODE_HasConflictingQuestOrUniqueItem(pItem, pItemsTxtRecord, pPreviousItem))
         {
             return 0;

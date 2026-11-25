@@ -462,7 +462,7 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int nAr
 
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
 
-void __fastcall sub_004B8370_SetField5C(D2ClientDialogStrc* pDialog, int nValue); // 0x004B8370
+void __fastcall ROSTER_SetCtrlState(D2ClientDialogStrc* pDialog, int nValue); // 0x004B8370
 
 // build: symbol ?DIALOG_AddTextLine@* 0x004B85F0
 void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,
@@ -1085,7 +1085,7 @@ extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 
 static int TEXT_FormatPartyEvent(Unicode* pOut, D2GSPacketSrv5A* pPacket); // 0x0049E8F0
 
-void __fastcall sub_0049E3A0_ShowChatText(const Unicode* wszText, char nColor);
+void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor); // 0x0049E3A0
 
 
 extern "C" __declspec(dllimport) int __stdcall SetRect(D2RectStrc* pRect, int nLeft, int nTop, int nRight, int nBottom);
@@ -2008,7 +2008,7 @@ void __stdcall TEXT_StatButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     }
     else
     {
-        if (gbStatButtonPressed && sub_004A65E0_IsInLeftButton())
+        if (gbStatButtonPressed && TEXT_IsMouseOnStatButton())
         {
             gbStatButtonPressed = 0;
             UI_SetUIVar(2, 0, 0);
@@ -2098,7 +2098,7 @@ void __cdecl sub_004A6A70_DrawLeftPanelButton()
     tContext.nDirection = 0;
     tContext.pCellFile = gpLevelCel;
     tContext.nFrame = 2;
-    if (sub_004A65E0_IsInLeftButton() && !GAME_GetUIVarState(9))
+    if (TEXT_IsMouseOnStatButton() && !GAME_GetUIVarState(9))
     {
         D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF92), gnScreenWidth / 2 - 0xB3, gnScreenHeight - 0x32, 0, 1);
     }
@@ -2147,7 +2147,7 @@ void __cdecl TEXT_DrawStatButton()
     }
     else
     {
-        if (gbStatButtonPressed && sub_004A65E0_IsInLeftButton())
+        if (gbStatButtonPressed && TEXT_IsMouseOnStatButton())
             tContext.nFrame = 1;
         else
             tContext.nFrame = 0;
@@ -2160,7 +2160,7 @@ void __cdecl TEXT_DrawStatButton()
         return;
     }
 
-    if (sub_004A65E0_IsInLeftButton() && !GAME_GetUIVarState(9))
+    if (TEXT_IsMouseOnStatButton() && !GAME_GetUIVarState(9))
         D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF92), gnScreenWidth / 2 - 0xB3, gnScreenHeight - 0x32, 0, 1);
     TEXTURE_CelDraw(&tContext, gnScreenWidth / 2 - 0xC2, gnScreenHeight - 8, -1, 5, 0);
 }
@@ -2192,7 +2192,7 @@ void __cdecl sub_004A6DA0_DrawRightPanelButton()
     tContext.nDirection = 0;
     tContext.pCellFile = gpLevelCel;
     tContext.nFrame = 2;
-    if (sub_004A6690_IsInRightButton() && !GAME_GetUIVarState(9))
+    if (TEXT_IsMouseOnSkillButton() && !GAME_GetUIVarState(9))
     {
         D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF93), gnScreenWidth / 2 + 0xB2, gnScreenHeight - 0x32, 0, 1);
     }
@@ -2234,14 +2234,14 @@ void __cdecl TEXT_DrawSkillButton()
     tContext.pCellFile = gpLevelCel;
     if (D2GFX_GetResolutionMode() != 2)
     {
-        if (gbSkillButtonPressed && sub_004A6630_IsInPanelButton2(nBorder, sub_00468730(), sub_00468740()))
+        if (gbSkillButtonPressed && TEXT_IsInRightPanelButton(nBorder, sub_00468730(), sub_00468740()))
             tContext.nFrame = 1;
         else
             tContext.nFrame = 0;
     }
     else
     {
-        if (gbSkillButtonPressed && sub_004A6690_IsInRightButton())
+        if (gbSkillButtonPressed && TEXT_IsMouseOnSkillButton())
             tContext.nFrame = 1;
         else
             tContext.nFrame = 0;
@@ -2254,7 +2254,7 @@ void __cdecl TEXT_DrawSkillButton()
         return;
     }
 
-    if (sub_004A6690_IsInRightButton() && !GAME_GetUIVarState(9))
+    if (TEXT_IsMouseOnSkillButton() && !GAME_GetUIVarState(9))
         D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF93), gnScreenWidth / 2 + 0xB2, gnScreenHeight - 0x32, 0, 1);
     TEXTURE_CelDraw(&tContext, gnScreenWidth / 2 + 0xA3, gnScreenHeight - 8, -1, 5, 0);
 }

@@ -113,7 +113,7 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pU
 D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromIdAndLevel(unsigned short wTCId, int nLvl); // 0x00654E00
 D2TextHeaderStrc* __stdcall TEXT_AllocTextHeader(void* pMemPool); // 0x00661240
 D2TimerArgStrc* __fastcall UNITS_GetTimerArg(D2UnitStrc* pUnit); // 0x006234F0
-D2UniqueItemsTxt* __fastcall sub_00483470(int nUniqueItemId); // 0x00483470
+D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nUniqueItemId); // 0x00483470
 D2UnitEventStrc* __fastcall SUNITEVENT_GetEvent(D2GameStrc*, D2UnitStrc*, int, int, int); // 0x005C0BE0
 D2UnitStrc* __fastcall ITEMS_DropRandomItemAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2ItemDropStrc* pItemDrop); // 0x00559130
 D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
@@ -165,8 +165,8 @@ extern "C" const char szPlayerCppFile[]; // 0x006E0A1C
 extern "C" int gnAct2Quest5NpcIndices[]; // 0x0073B278
 extern "C" unsigned int gnA5Q2NpcActivateIndices[]; // 0x00734270
 extern "C" int __fastcall sub_0045C390_Roll(Seed*, int); // 0x0045C390
-extern "C" int __fastcall sub_00463860_BaseClass(Unit*); // 0x00463860
-extern "C" int __fastcall sub_00463900_ValidateClass(int); // 0x00463900
+extern "C" int __fastcall CUNIT_GetMonsterBaseId(Unit*); // 0x00463860
+extern "C" int __fastcall CUNIT_ValidateMonsterId(int); // 0x00463900
 extern "C" int __fastcall sub_0054DA60_Resolve(int, int); // 0x0054DA60
 extern "C" int __fastcall sub_005541B0_Inactive(Unit*); // 0x005541B0
 extern "C" int __fastcall sub_0056E620_Select(Unit*, int, int, int, int*, int, int); // 0x0056E620
@@ -229,7 +229,7 @@ extern const int gnUnitListOffsets[6]; // 0x006E10E0
 extern const unsigned char gnAndrialSprayDirections[8]; // 0x006E3188
 extern const unsigned char gnAndrialSprayOffsets[72]; // 0x006E3140
 extern const unsigned char gnMaggotLayDirections[8]; // 0x006E3138
-extern int __fastcall sub_00483360_Ratio(int,int,int); // 0x00483360
+extern int __fastcall DATATBLS_ApplyRatio(int,int,int); // 0x00483360
 extern int __fastcall sub_005C0C30_Event(Game*,int,Unit*,Unit*,Damage*); // 0x005C0C30
 extern int __stdcall sub_00625480_Stat(Unit*,int,int); // 0x00625480
 extern int __stdcall sub_00625500_BaseStat(Unit*,int,int); // 0x00625500
@@ -292,7 +292,7 @@ int __fastcall UNITS_CanSwitchAI(int nMonsterId); // 0x00623470
 int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 int __fastcall sub_00451F70_GetUnitMode(D2UnitStrc* pUnit); // 0x00451F70
 int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
-int __fastcall sub_00463860_GetMonsterId(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
 int __fastcall SKILLDESC_ValidateMonsterId(int nMonsterId); // 0x004E6C50
 int __fastcall SKILLDESC_GetSkillParamFive(int nSkillId); // 0x004E6C70

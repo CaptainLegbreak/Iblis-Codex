@@ -174,7 +174,8 @@ int __cdecl CHAT_IsNumberDisplayEnabled();                                      
 
 D2RosterInfoStrc** __cdecl PLAYERLIST_AllocRosterInfoList();                                              // 0x004DC270
 
-struct D2PanelCtrlStrc_004B8370
+// build: symbol ?ROSTER_SetCtrlState@* 0x004B8370
+struct ROSTER_SetCtrlState
 {
     char unk0x00[0x5C];
     int nState;
@@ -189,7 +190,7 @@ struct D2SoundObjStrc_00515A30
 
 typedef char check_ptr_width[(sizeof(void*) == 4) ? 1 : -1];
 
-typedef char check_size_ctrl[(sizeof(D2PanelCtrlStrc_004B8370) == 0x60) ? 1 : -1];
+typedef char check_size_ctrl[(sizeof(ROSTER_SetCtrlState) == 0x60) ? 1 : -1];
 
 typedef char check_size_sound[(sizeof(D2SoundObjStrc_00515A30) == 0x48) ? 1 : -1];
 

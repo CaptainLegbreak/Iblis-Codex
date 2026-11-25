@@ -591,7 +591,8 @@ void __cdecl GAME_InitGameState()
         gpClientView = VIEW_CreateView();
     sub_0047F1D0_LoadResolution();
     GAME_LoadLoadingScreen();
-    sub_004565E0_Redraw(1);
+// build: symbol ?UI_DrawLoadingScreen@* 0x004565E0
+    UI_DrawLoadingScreen(1);
     if (gdwGlobal_007A0610 == 7 || gdwGlobal_007A0610 == 9 || gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 8)
         MSG_UploadSaveFile(1);
     sub_005173D3_SetRecordHandler(GAME_DestroyWindowAndGfx);
@@ -694,13 +695,16 @@ int __cdecl GAME_LoadLngModule()
 void __cdecl GAME_InitColors()
 {
     INV_InitColorTable();
-    sub_00499E10();
+// build: symbol ?PANEL_SetRedColour@* 0x00499E10
+    PANEL_SetRedColour();
     PANEL_SetBlackColour();
     sub_004AB2F0();
     sub_00497250();
-    sub_00497270();
+// build: symbol ?HIREABLES_InitTextColorA@* 0x00497270
+    HIREABLES_InitTextColorA();
     sub_004972B0();
-    sub_00497290();
+// build: symbol ?HIREABLES_InitTextColorB@* 0x00497290
+    HIREABLES_InitTextColorB();
 }
 
 Unicode* __fastcall sub_00452170(Unicode* pText); // 0x00452170
@@ -724,7 +728,7 @@ void __cdecl GAME_AverageFrameCounters(); // 0x0044CCE0
 
 void __cdecl GAME_TickKeepAlive(); // 0x0044CD70
 
-void __cdecl sub_00451290(); // 0x00451290
+void __cdecl GAME_FreeLngModule(); // 0x00451290
 
 void __fastcall GAME_SetSkillDelayUntil(int nValue); // 0x0044CE40
 
