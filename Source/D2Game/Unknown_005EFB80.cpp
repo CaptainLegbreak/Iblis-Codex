@@ -6334,7 +6334,7 @@ void __fastcall AITHINK_Fn052_FrogDemon(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
 
         if (pMonStatsTxt->nSkill[1] >= 0 && AITHINK_TryRestoreGroundCollision(pGame, pUnit))
         {
-            goto LABEL_EMERGE0;
+            goto Emerge;
         }
 
         if (!COLLISION_CheckMask(UNITS_GetRoom(pUnit), CLIENTS_GetUnitX_FrogDemon(pUnit), CLIENTS_GetUnitY_FrogDemon(pUnit), 0xC01))
@@ -6350,7 +6350,6 @@ void __fastcall AITHINK_Fn052_FrogDemon(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     {
         if (pMonStatsTxt->nSkill[1] >= 0 && nTargetDistance < AI_GetParam(pGame, pMonStatsTxt, 7) && AITHINK_TryRestoreGroundCollision(pGame, pUnit))
         {
-LABEL_EMERGE:
             AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pUnit, 0, 0);
             pAiControl->dwAiParam[2] = 2;
             return;
@@ -6369,7 +6368,7 @@ LABEL_EMERGE:
         pAiControl->dwAiParam[2] = 1;
         return;
 
-LABEL_EMERGE0:
+Emerge:
         AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pUnit, 0, 0);
         pAiControl->dwAiParam[2] = 2;
         return;

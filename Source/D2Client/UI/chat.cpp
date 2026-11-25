@@ -264,7 +264,7 @@ extern int gnChatDrawCount; // 0x007BB5EC
 // build: symbol ??__EgwszChatLine_007BB638@@YAXXZ 0x006CAAF0
 Unicode gwszChatLine_007BB638[0x101]; // 0x007BB638
 
-void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 bool __cdecl CHAT_IsImeLanguage(); // 0x0047B010
 
@@ -433,7 +433,7 @@ extern int gnGlobal_007BB5DC;                                                   
 static int gnGlobal_007BB5F0;                                                                               // 0x007BB5F0
 
 // 0x0047ACA0
-void __stdcall ROSTERPETS_HandleImeStartComposition(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall CHAT_HandleImeStartComposition(SMSGHANDLER_PARAMS* pMsg)
 {
     gbImeOpen = 1;
     gwGlobal_007BC850 = 0;
@@ -448,7 +448,7 @@ void __stdcall ROSTERPETS_HandleImeStartComposition(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0047AD10
-void __stdcall INV_ResetImeCompositionMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall CHAT_ResetImeCompositionMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     gwGlobal_007BC850 = 0;
     gwGlobal_007BB5F8 = 0;
@@ -645,7 +645,7 @@ bool __cdecl CHAT_IsImeLanguage()
 }
 
 // 0x0047B070
-void __stdcall INV_SetMsgHandled(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall CHAT_SetMsgHandled(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
@@ -654,7 +654,7 @@ void __stdcall INV_SetMsgHandled(SMSGHANDLER_PARAMS* pMsg)
 // 0x0047B090
 void __cdecl CHAT_InitChatIme()
 {
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaChatHandlers, 4);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaChatHandlers, 4);
     gnLanguageId = STRTABLE_GetLanguage();
     if (gnLanguageId != 6 && gnLanguageId != 9 && gnLanguageId != 8 && gnLanguageId != 7 && gnLanguageId != 12)
         return;
@@ -676,7 +676,7 @@ void __cdecl CHAT_InitChatIme()
         if (nLangId != 0x411)
             break;
         gbChatInputOpen = 1;
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaChatInputHandlers, 7);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaChatInputHandlers, 7);
         if (ImmSetOpenStatus(hImc, 1))
         {
             gbImeOpen = 1;
@@ -710,7 +710,7 @@ void __cdecl CHAT_InitChatIme()
             gnImeState = 0;
         }
         gbChatInputOpen = 1;
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaChatInputHandlers, 7);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaChatInputHandlers, 7);
         break;
     }
 
@@ -721,7 +721,7 @@ void __cdecl CHAT_InitChatIme()
             ImmSimulateHotKey(WINDOW_GetWindow(), 0x70);
         ImmSetOpenStatus(hImc, 1);
         gnImeState = 4;
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaChatInputHandlers, 7);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaChatInputHandlers, 7);
         break;
 
     case 8:
@@ -731,7 +731,7 @@ void __cdecl CHAT_InitChatIme()
             ImmSimulateHotKey(WINDOW_GetWindow(), 0x10);
         ImmSetOpenStatus(hImc, 1);
         gnImeState = 5;
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaChatInputHandlers, 7);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaChatInputHandlers, 7);
         break;
     }
     ImmReleaseContext(WINDOW_GetWindow(), hImc);
@@ -861,13 +861,13 @@ void __fastcall AUTOMAP_SetAutomapMode(int nMode); // 0x0045A720
 
 int __fastcall AUTOMAP_SetAutomapFade(int nFade); // 0x004576F0
 
-int __cdecl UI_GetAutomapCenters(); // 0x00457740
+int __cdecl AUTOMAP_GetAutomapCenters(); // 0x00457740
 
-int __fastcall OBJECT_SaveAutomapCenters(int nValue); // 0x00457750
+int __fastcall AUTOMAP_SaveAutomapCenters(int nValue); // 0x00457750
 
-int __cdecl UI_GetAutomapParty(); // 0x004577B0
+int __cdecl AUTOMAP_GetAutomapParty(); // 0x004577B0
 
-int __cdecl UI_GetAutomapPartyNames(); // 0x004577E0
+int __cdecl AUTOMAP_GetAutomapPartyNames(); // 0x004577E0
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -897,7 +897,7 @@ extern int gbSmallPanel; // 0x007BC978
 
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
 
-void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
+void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
@@ -932,7 +932,7 @@ extern int gbAnyLeftPanelOpen; // 0x007BC968
 
 extern int gbAnyPanelOpen; // 0x007BC96C
 
-void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
+void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
 void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 
@@ -1205,7 +1205,7 @@ struct D2GfxLightStrc;
 extern unsigned short gwChatCount_007BB5E4; // 0x007BB5E4
 
 // 0x0047BA80
-void __stdcall GFX_StepChatIndex(int nDelta)
+void __stdcall CHAT_StepChatIndex(int nDelta)
 {
     int nOld = gnChatHistoryCursor;
     gnChatHistoryCursor += nDelta;
@@ -1278,7 +1278,7 @@ int __stdcall CHAT_ParseChatCommand(const char** ppText, char* pCode, char* szAr
 }
 
 // 0x0047BC70
-void __stdcall INV_CloseChatOnPanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall CHAT_CloseChatOnPanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (pMsg->nYpos > gnScreenHeight - 0x31)
         UI_SetUIVar(5, 1, 0);
@@ -1408,7 +1408,7 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 // 0x0047BDF0
 int __cdecl CHAT_HandleBnetChatMessage()
 {
-    D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
+    D2ClientNotifyStrc* pNotify = WINMAIN_GetClientNotify();
     if (!pNotify)
         return 0;
 
@@ -1526,7 +1526,7 @@ int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
-void __stdcall GFX_StepChatIndex(int nDelta); // 0x0047BA80
+void __stdcall CHAT_StepChatIndex(int nDelta); // 0x0047BA80
 
 
 extern D2OptionHeaderStrc gtMainOptionHeader; // 0x00713044
@@ -1737,7 +1737,7 @@ static int CHAT_HandleHelpCommand(char* szInput, const char* szCommand)
                 sub_0049F490_PrintChatMessage(&tMessage);
                 return 1;
             }
-            D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
+            D2ClientNotifyStrc* pNotify = WINMAIN_GetClientNotify();
             if (pNotify)
                 pNotify->pfnResign(szInput);
             return 1;
@@ -1861,7 +1861,7 @@ static int __stdcall CHAT_HandleWhisperCommand(int bCheckStored, char* szInput, 
                 }
             }
             sprintf(szInput, "%s %s %s", szCommand, szName, szMessage);
-            D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
+            D2ClientNotifyStrc* pNotify = WINMAIN_GetClientNotify();
             if (pNotify)
                 pNotify->pfnResign(szInput);
             return 1;
@@ -2001,7 +2001,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
                 && !CHAT_HandleHelpCommand(pText, "/help")
                 && !CHAT_HandleHelpCommand(pText, "/?"))
             {
-                D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
+                D2ClientNotifyStrc* pNotify = WINMAIN_GetClientNotify();
                 if (pNotify)
                     pNotify->pfnResign(pText);
             }
@@ -2018,7 +2018,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
 
 
 // 0x0047BCA0
-void __stdcall WARDENCLIENT_HandleChatKeyDown(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall CHAT_HandleChatKeyDown(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
@@ -2032,10 +2032,10 @@ void __stdcall WARDENCLIENT_HandleChatKeyDown(SMSGHANDLER_PARAMS* pMsg)
     {
     case 0x26:
         CHAT_RecallChatLine();
-        GFX_StepChatIndex(1);
+        CHAT_StepChatIndex(1);
         break;
     case 0x28:
-        GFX_StepChatIndex(-1);
+        CHAT_StepChatIndex(-1);
         CHAT_RecallChatLine();
         break;
     }

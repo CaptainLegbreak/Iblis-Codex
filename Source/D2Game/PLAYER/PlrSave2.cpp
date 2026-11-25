@@ -75,7 +75,7 @@ struct D2WaypointSaveDataStrc;
 
 struct D2PlrIntroSaveStrc;
 
-struct T0056A6F0;
+struct D2SaveSkillLevelStrc;
 
 struct D2Act5Quest3Strc;
 
@@ -251,7 +251,7 @@ void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int n
 
 void __fastcall SCMD_SendSkillList(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053C5D0
 
-struct T0056A6F0 { unsigned char value; };
+struct D2SaveSkillLevelStrc { unsigned char value; };
 
 void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc*,int,int,int); // 0x0056DEB0
 
@@ -1065,49 +1065,49 @@ int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, u
     if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
     {
         nResult = 2;
-        goto LABEL_FAIL;
+        goto Failed;
     }
 
     nResult = PLRSAVE2_WriteSaveHeader(pGame, pPlayer, &pSection, pEnd);
-    if (nResult) goto LABEL_FAIL;
+    if (nResult) goto Failed;
     nResult = PLRSAVE2_WriteQuestSection(pGame, pPlayer, &pSection, pEnd);
-    if (nResult) goto LABEL_FAIL;
+    if (nResult) goto Failed;
     nResult = PLRSAVE2_WriteWaypointData(pGame, pPlayer, &pSection, pEnd);
-    if (nResult) goto LABEL_FAIL;
+    if (nResult) goto Failed;
     nResult = PLRSAVE2_WritePlrIntroSection(pGame, pPlayer, &pSection, pEnd);
-    if (nResult) goto LABEL_FAIL;
+    if (nResult) goto Failed;
     nResult = PLRSAVE2_WritePlayerStats(pGame, pPlayer, &pSection, pEnd);
-    if (nResult) goto LABEL_FAIL;
+    if (nResult) goto Failed;
     nResult = PLRSAVE2_WriteSkillSection(pGame, pPlayer, &pSection, pEnd);
-    if (nResult) goto LABEL_FAIL;
+    if (nResult) goto Failed;
 
     {
         const int nRemaining = pEnd - pSection;
         nResult = PLRSAVE2_WriteItemSection(pGame, pPlayer, &pBuffer, &aBuffer[sizeof(aBuffer)], a6, a7, 1);
-        if (nResult) goto LABEL_FAIL;
+        if (nResult) goto Failed;
         const int nItemsSize = pBuffer - aBuffer;
         nResult = PLRSAVE2_WriteCorpsesSection(pGame, pPlayer, &pBuffer, &aBuffer[sizeof(aBuffer)], a7, 1);
-        if (nResult) goto LABEL_FAIL;
+        if (nResult) goto Failed;
         if (pGame->bExpansion)
         {
             nResult = PLRSAVE2_WriteMercSection(pGame, pPlayer, &pBuffer, &aBuffer[sizeof(aBuffer)], a7, 1);
-            if (nResult) goto LABEL_FAIL;
+            if (nResult) goto Failed;
             nResult = PLRSAVE2_WriteIronGolemSection(pGame, pPlayer, &pBuffer, &aBuffer[sizeof(aBuffer)], a7, 1);
-            if (nResult) goto LABEL_FAIL;
+            if (nResult) goto Failed;
         }
 
         const int nBufferSize = pBuffer - aBuffer;
         const unsigned char* pItemsEnd = nBufferSize <= nRemaining ? pEnd : pSection + (nItemsSize - nBufferSize + nRemaining);
         nResult = PLRSAVE2_WriteItemSection(pGame, pPlayer, &pSection, pItemsEnd, a6, a7, 0);
-        if (nResult) goto LABEL_FAIL;
+        if (nResult) goto Failed;
         nResult = PLRSAVE2_WriteCorpsesSection(pGame, pPlayer, &pSection, pEnd, a7, 0);
-        if (nResult) goto LABEL_FAIL;
+        if (nResult) goto Failed;
         if (pGame->bExpansion)
         {
             nResult = PLRSAVE2_WriteMercSection(pGame, pPlayer, &pSection, pEnd, a7, 0);
-            if (nResult) goto LABEL_FAIL;
+            if (nResult) goto Failed;
             nResult = PLRSAVE2_WriteIronGolemSection(pGame, pPlayer, &pSection, pEnd, a7, 0);
-            if (nResult) goto LABEL_FAIL;
+            if (nResult) goto Failed;
         }
     }
 
@@ -1119,7 +1119,7 @@ int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, u
     }
     return 0;
 
-LABEL_FAIL:
+Failed:
     *pSize = 0;
     return nResult;
 }
@@ -1677,7 +1677,7 @@ int __fastcall PLRSAVE2_ReadStats(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned
 }
 
 // 0x0056A6F0
-void __fastcall PLRSAVE2_SetSkillIfLevelSet(Game* unused,D2UnitStrc* unit,int skill,T0056A6F0 level)
+void __fastcall PLRSAVE2_SetSkillIfLevelSet(Game* unused,D2UnitStrc* unit,int skill,D2SaveSkillLevelStrc level)
 {
     if(level.value) D2GAME_SetSkills_6FD14C60(unit,skill,level.value,REMOVE_SKILL);
 }

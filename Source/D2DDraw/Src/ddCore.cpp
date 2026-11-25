@@ -75,7 +75,7 @@ int __fastcall DDCORE_CreateSurface(void* hWnd, int nResolutionMode); // 0x00511
 
 void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x00512710
 
-int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
+int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int bAsync, int nFlags); // 0x005FDEA0
 
 extern "C" const char gszCourier[]; // 0x006DD52C
 
@@ -1255,12 +1255,12 @@ void __fastcall DDCORE_UpdatePerspective()
 }
 
 // 0x00510340
-void __fastcall DDCORE_PerspectiveTransform(int a1, int a2, int a3, int a4, int a5)
+void __fastcall DDCORE_PerspectiveTransform(int nPosX, int nPosY, int nBias, int* pXAdjust, int* pYAdjust)
 {
 }
 
 // 0x00510350
-void __fastcall DDCORE_PerspectiveTransformScale(int a1, int a2, int a3, int a4, int a5, int a6)
+void __fastcall DDCORE_PerspectiveTransformScale(int nPosX, int nPosY, int nAngle, int* pXAdjust, int* pYAdjust, int bOrder)
 {
 }
 

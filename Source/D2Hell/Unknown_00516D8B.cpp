@@ -93,7 +93,7 @@ extern "C" { B27RecordHandler gpfnRecordHandler; } // 0x00881834
 extern "C" unsigned int gB27_00883D70;
 
 // build: symbol _CUNIT_IsInvPanelTradeMode 0x00489840
-extern "C" int __cdecl CUNIT_IsInvPanelTradeMode()
+extern "C" int __cdecl INV_IsInvPanelTradeMode()
 {
     int mode = gB27_007BCBF0;
     if (mode == 1 || mode == 2 || mode == 3)
@@ -101,9 +101,9 @@ extern "C" int __cdecl CUNIT_IsInvPanelTradeMode()
     return 0;
 }
 
-extern "C" void __cdecl TEXT_ResetQuestButtonState(); // 0x004A3000
+extern "C" void __cdecl QUESTLOG_ResetQuestButtonState(); // 0x004A3000
 
-extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value); // 0x004A3100
+extern "C" void __fastcall QUESTLOG_SetQuestPacketValue(unsigned int value); // 0x004A3100
 
 // build: symbol _NPCMENU_ResetHandlers 0x004B2250
 extern "C" void __cdecl NPCMENU_ResetHandlers()
@@ -358,13 +358,13 @@ int __fastcall sub_0051740B_ErrorBox(const char* text) {
  return 1;
 }
 // 0x00517423
-int __fastcall FaultDoAssert(const char* a1, unsigned int a2, const char* a3)
+int __fastcall FaultDoAssert(const char* szFile, unsigned int nLine, const char* szExpression)
 {
     char Text[512];
 
     if (sgpfnAssertHandler)
-        sgpfnAssertHandler(a1, a2, a3);
-    wsprintfA(Text, sgszAssertFormatString, a1, a2, a3);
+        sgpfnAssertHandler(szFile, nLine, szExpression);
+    wsprintfA(Text, sgszAssertFormatString, szFile, nLine, szExpression);
     const int buttonID = MessageBoxA(0, Text, gpszModuleName, 0x52212);
     if (buttonID == 3) {
         sub_005173DF_TerminateCurrentProcess();

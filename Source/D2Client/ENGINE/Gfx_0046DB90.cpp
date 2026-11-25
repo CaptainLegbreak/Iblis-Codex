@@ -77,7 +77,7 @@ void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue); // 
 
 int __fastcall GFXUTIL_IsPlayerMonsterOrObject(D2UnitStrc* pUnit); // 0x004DB180
 
-unsigned char __fastcall MISSILE_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex); // 0x004DB1A0
+unsigned char __fastcall GFXUTIL_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex); // 0x004DB1A0
 
 D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void* pGfx); // 0x004DB040
 
@@ -307,7 +307,7 @@ static int GFX_LoadMonsterGfx(D2UnitStrc* pUnit, int nIndex)
     D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, ".\\ENGINE\\Gfx.cpp", 0x464);
     if (sub_0046C140_CheckMonStats2ModeFlag(nClassId, nIndex))
     {
-        if (MISSILE_GetGfxEntryByte(pUnit, nIndex))
+        if (GFXUTIL_GetGfxEntryByte(pUnit, nIndex))
         {
             return 0;
         }
@@ -575,7 +575,7 @@ static int GFX_LoadObjectGfx(D2UnitStrc* pUnit, int nIndex)
     D2_ASSERT(pObjectsTxtRecord, 0x4C2);
     if (pObjectsTxtRecord->nMode[nIndex] == 1)
     {
-        if (MISSILE_GetGfxEntryByte(pUnit, nIndex))
+        if (GFXUTIL_GetGfxEntryByte(pUnit, nIndex))
         {
             return 0;
         }

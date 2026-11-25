@@ -41,7 +41,7 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 
 int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
-void __fastcall CHARSEL_ShowProgressSteps(int nDone, int nTotal); // 0x00478160
+void __fastcall MSG_ShowProgressSteps(int nDone, int nTotal); // 0x00478160
 
 extern char gszClientCharName[]; // 0x007A05C4
 
@@ -195,7 +195,7 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long nMillisecond
 void __fastcall UI_DrawLoadingScreen(int nArg); // 0x004565E0
 
 // 0x00478160
-void __fastcall CHARSEL_ShowProgressSteps(int nDone, int nTotal)
+void __fastcall MSG_ShowProgressSteps(int nDone, int nTotal)
 {
     const int nDivisor = nTotal * 8;
     int nPosition = nDone * 8;
@@ -219,7 +219,7 @@ void __fastcall MSG_UploadSaveFile(int bAnimate)
     unsigned char* pBuffer = MSG_ReadSaveFile(&nFileSize);
     D2_ASSERT(pBuffer, 0x232);
     if (bAnimate)
-        CHARSEL_ShowProgressSteps(0, 0);
+        MSG_ShowProgressSteps(0, 0);
     unsigned char* pRead = pBuffer;
     const int nChunks = nFileSize / 0xFF;
     for (int i = 0; i < nChunks; ++i)
@@ -234,7 +234,7 @@ void __fastcall MSG_UploadSaveFile(int bAnimate)
         gnSentBytes += 0xFF + 7;
         gnSentPackets += 1;
         if (bAnimate)
-            CHARSEL_ShowProgressSteps(i, nChunks);
+            MSG_ShowProgressSteps(i, nChunks);
     }
     const int nRemain = nFileSize - nChunks * 0xFF;
     tPacket.nHeader = 0x6C;

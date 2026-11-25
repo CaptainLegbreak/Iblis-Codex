@@ -200,11 +200,11 @@ void __cdecl sub_0052BDB0_Empty();                                              
 
 void __cdecl PROFCORE_CloseLog();                                                                                // 0x00611600
 
-int __stdcall GAME_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
+int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
 
-void __cdecl GAME_ToggleRecordPlayback();                                                                    // 0x004519A0
+void __cdecl RECORD_ToggleRecordPlayback();                                                                    // 0x004519A0
 
-void __cdecl WINMAIN_StartPlayback();                                                                  // 0x004518E0
+void __cdecl RECORD_StartPlayback();                                                                  // 0x004518E0
 
 int __cdecl CLIENT_GetConnectionStatus();                                                                   // 0x0052B050
 
@@ -228,7 +228,7 @@ void __cdecl CLIENT_Release();                                                  
 
 void __cdecl SERVER_Release();                                                              // 0x0052B2A0
 
-int __cdecl GAME_PopStateValue();                                                                        // 0x0044B480
+int __cdecl WINMAIN_PopStateValue();                                                                        // 0x0044B480
 
 void (__fastcall* gpfnMcpMotdCallback)(void* pArg);                                                       // 0x00799308
 
@@ -382,7 +382,7 @@ D2ClientInterfaceStrc* __fastcall WINMAIN_InitInterface(void* hInstance)
 // 0x0044B430
 int __fastcall WINMAIN_RunLauncher(D2ClientCharRecordStrc* pRecord)
 {
-    return GAME_LauncherRun(ghClientInstance, pRecord);
+    return WINMAIN_LauncherRun(ghClientInstance, pRecord);
 }
 
 
@@ -404,6 +404,6 @@ int __fastcall WINMAIN_RunLauncher(D2ClientCharRecordStrc* pRecord)
 
 
 
-void __cdecl WINMAIN_StartPlayback(); // 0x004518E0
+void __cdecl RECORD_StartPlayback(); // 0x004518E0
 
 #include "gen/data/Source/D2Client/Unknown_0044B400.inc"
