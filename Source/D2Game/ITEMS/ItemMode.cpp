@@ -687,7 +687,7 @@ int __fastcall D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(D2GameStrc* pGame, D2UnitStr
 
 struct StaticPath
 {
-    U8 pad00[12];
+    unsigned char pad00[12];
     int x;
     int y;
 };
@@ -696,30 +696,30 @@ struct Unit
 {
     int type;
     int classId;
-    U8 pad08[4];
+    unsigned char pad08[4];
     int id;
     int mode;
-    U8 pad14[24];
+    unsigned char pad14[24];
     StaticPath* path;
-    U8 pad30[48];
+    unsigned char pad30[48];
     void* inventory;
-    U8 pad64[96];
-    U32 flags;
+    unsigned char pad64[96];
+    unsigned int flags;
 };
 
 struct Game
 {
-    U8 pad00[112];
+    unsigned char pad00[112];
     int expansion;
 };
 
-extern "C" void __fastcall D2GAME_UpdateClientItem_6FC3E9D0(void*, Unit*, Unit*, U32); // 0x0053D010
+extern "C" void __fastcall D2GAME_UpdateClientItem_6FC3E9D0(void*, Unit*, Unit*, unsigned int); // 0x0053D010
 
 Unit* __fastcall SUNIT_GetServerUnit(Game*, int, int); // 0x00552F60
 
 void* __fastcall sub_005531C0_Client(Unit*, const char*, int); // 0x005531C0
 
-void* __fastcall D2GAME_GetFreeSpaceEx_6FC4BF00(void*, Point*, Point*, int, U8); // 0x00555DA0
+void* __fastcall D2GAME_GetFreeSpaceEx_6FC4BF00(void*, Point*, Point*, int, unsigned char); // 0x00555DA0
 
 void __fastcall D2GAME_DropItem_6FC52260(Game*, Unit*, Unit*, void*, int, int); // 0x00558AA0
 
@@ -733,25 +733,25 @@ void __fastcall sub_0055DBC0_Refresh(Game*, Unit*, int); // 0x0055DBC0
 
 void __fastcall PLRTRADE_AddItemToTrade(Game*, Unit*, Unit*); // 0x00568770
 
-extern "C" int __stdcall sub_00621050_Grid(Unit*, U8, int); // 0x00621050
+extern "C" int __stdcall sub_00621050_Grid(Unit*, unsigned char, int); // 0x00621050
 
-extern "C" int __stdcall sub_006280A0_TestFlag(Unit*, U32, int, const char*); // 0x006280A0
+extern "C" int __stdcall sub_006280A0_TestFlag(Unit*, unsigned int, int, const char*); // 0x006280A0
 
-extern "C" void __stdcall ITEMS_SetItemFlag(Unit*, U32, int); // 0x006280D0
+extern "C" void __stdcall ITEMS_SetItemFlag(Unit*, unsigned int, int); // 0x006280D0
 
-extern "C" void __stdcall sub_00628170_CommandFlag(Unit*, U32, int); // 0x00628170
+extern "C" void __stdcall sub_00628170_CommandFlag(Unit*, unsigned int, int); // 0x00628170
 
-extern "C" U8 __stdcall sub_00628250_Page(Unit*); // 0x00628250
+extern "C" unsigned char __stdcall sub_00628250_Page(Unit*); // 0x00628250
 
-extern "C" void __stdcall ITEMS_SetInvPage(Unit*, U8); // 0x00628280
+extern "C" void __stdcall ITEMS_SetInvPage(Unit*, unsigned char); // 0x00628280
 
-extern "C" void __stdcall ITEMS_SetItemCell(Unit*, U8); // 0x00628320
+extern "C" void __stdcall ITEMS_SetItemCell(Unit*, unsigned char); // 0x00628320
 
-extern "C" void __stdcall ITEMS_SetOrRemoveFlag(U32*, U32, int); // 0x006287B0
+extern "C" void __stdcall ITEMS_SetOrRemoveFlag(unsigned int*, unsigned int, int); // 0x006287B0
 
-extern "C" int __stdcall INVENTORY_PlaceItemAtFreePosition(void*, Unit*, int, int, U8, const char*, int); // 0x0063B950
+extern "C" int __stdcall INVENTORY_PlaceItemAtFreePosition(void*, Unit*, int, int, unsigned char, const char*, int); // 0x0063B950
 
-extern "C" void __stdcall INVENTORY_Return(const char*, int, void*, int, int, int, int, U8); // 0x0063BCF0
+extern "C" void __stdcall INVENTORY_Return(const char*, int, void*, int, int, int, int, unsigned char); // 0x0063BCF0
 
 static void ITEMMODE_BuildEquipmentTraits(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ItemModeArgStrc* pItemModeArg);
 
@@ -769,7 +769,7 @@ struct D2InvRectStrc;
 
 struct BeltRecord;
 
-struct BeltRecord { char unknown00[4]; U8 nBoxes; U8 reserved5; unsigned short reserved6; D2InvRectStrc boxes[16]; };
+struct BeltRecord { char unknown00[4]; unsigned char nBoxes; unsigned char reserved5; unsigned short reserved6; D2InvRectStrc boxes[16]; };
 
 extern "C" void __stdcall DATATBLS_GetBeltsTxtRecord(int, int, BeltRecord*); // 0x00660CB0
 
@@ -777,7 +777,7 @@ extern "C" int __stdcall UNITS_GetBeltType(Unit*); // 0x00621ED0
 
 extern "C" Unit* __stdcall INVENTORY_GetItemFromBeltSlot(void*, int); // 0x0063C7F0
 
-void __fastcall D2GAME_SendP0x9C_ItemAction_RemoveFromBelt_6FC3EBE0(void*, Unit*, Unit*, U32); // 0x0053EED0
+void __fastcall D2GAME_SendP0x9C_ItemAction_RemoveFromBelt_6FC3EBE0(void*, Unit*, Unit*, unsigned int); // 0x0053EED0
 
 void __fastcall D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(Game*, Unit*, Unit*, int, int); // 0x0055C730
 
@@ -4147,7 +4147,7 @@ static __forceinline int PlaceIntoInventory(Game* game, Unit* player, int itemId
             Unit* placed = SUNIT_GetServerUnit(game, 4, itemId);
             if (!placed || placed->type != 4 || placed->mode != 4) return 0;
             {
-                U8 targetPage = sub_00628250_Page(placed);
+                unsigned char targetPage = sub_00628250_Page(placed);
                 void* targetInventory = player->inventory;
                 if (!targetInventory) return 0;
                 int special = 0;
@@ -4196,14 +4196,14 @@ static void __stdcall ITEMMODE_MoveCubeContentsToInventory(Game* game, Unit* box
         Unit* item = sub_0063DFD0_Item(node);
         Unit* next = sub_0063DFA0_Next(node);
         if (sub_00628250_Page(item) == 3) {
-            U32 flags = 0;
+            unsigned int flags = 0;
             ITEMS_SetOrRemoveFlag(&flags, 32, 1);
             ITEMS_SetItemCell(box, 3);
             D2GAME_UpdateClientItem_6FC3E9D0(sub_005531C0_Client(player, ".\\ITEMS\\ItemMode.cpp", 0x80D), player, item, flags);
             Unit* removed = sub_0063AD90_Remove(inventory, item);
             D2_ASSERT(removed, 0x80F);
             D2_ASSERT(item == removed, 0x810);
-            U8 page = sub_00628250_Page(item);
+            unsigned char page = sub_00628250_Page(item);
             int grid = sub_00621050_Grid(player, page, game->expansion);
             int y;
             switch (item->type) {
@@ -4223,7 +4223,7 @@ static void __stdcall ITEMMODE_MoveCubeContentsToInventory(Game* game, Unit* box
             Unit* placed = SUNIT_GetServerUnit(game, 4, itemId);
             if (!placed || placed->type != 4 || placed->mode != 4) goto dropFailure;
             {
-                U8 targetPage = sub_00628250_Page(placed);
+                unsigned char targetPage = sub_00628250_Page(placed);
                 void* targetInventory = player->inventory;
                 if (!targetInventory) goto dropFailure;
                 int special = 0;
@@ -4914,7 +4914,7 @@ void __fastcall ITEMMODE_MoveExcessBeltItems(Game* game, Unit* player, Unit* bel
     for (int index = 0; index < 16; ++index) {
         Unit* hItem = INVENTORY_GetItemFromBeltSlot(hInventory, index);
         if (index < record.nBoxes || !hItem) continue;
-        U32 flags = 0;
+        unsigned int flags = 0;
         ITEMS_SetOrRemoveFlag(&flags, 32, 1);
         D2GAME_SendP0x9C_ItemAction_RemoveFromBelt_6FC3EBE0(sub_005531C0_Client(player, ".\\ITEMS\\ItemMode.cpp", 0xC1F), player, hItem, flags);
         Unit* removed = sub_0063AD90_Remove(hInventory, hItem);
