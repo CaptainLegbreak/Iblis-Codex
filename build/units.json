@@ -33226,6 +33226,11 @@
      "length": 394
     },
     {
+     "va": "0x004F8B80",
+     "length": 561,
+     "name": "?CMNSUBTILE_DrawFloorTile@@YIXPAUD2TileLibraryEntryStrc@@HHPAUD2GfxLightExStrc@@@Z"
+    },
+    {
      "va": "0x004F8E40",
      "length": 66,
      "name": "?CMNSUBTILE_SetPaletteTables@@YIXPAUD2PaletteTableStrc@@@Z"

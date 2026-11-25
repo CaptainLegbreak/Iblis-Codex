@@ -6144,7 +6144,7 @@
   ["0x004F8850", 90, "verified", "?CMNSUBTILE_DrawLitBlock@@YIXPAUD2TileLibraryBlockStrc@@PAEPAH@Z"],
   ["0x004F88B0", 307, "verified"],
   ["0x004F89F0", 394, "verified"],
-  ["0x004F8B80", 561, "unmatched"],
+  ["0x004F8B80", 561, "verified", "?CMNSUBTILE_DrawFloorTile@@YIXPAUD2TileLibraryEntryStrc@@HHPAUD2GfxLightExStrc@@@Z"],
   ["0x004F8DC0", 16, "verified", "_sub_004F8DC0_InitLookupTable"],
   ["0x004F8DD0", 1, "verified", "?sub_004F8DD0_Empty@@YAXXZ"],
   ["0x004F8DE0", 90, "verified", "?sub_004F8DE0@@YIXPAEHHH@Z"],

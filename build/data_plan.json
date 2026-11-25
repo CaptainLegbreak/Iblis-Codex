@@ -1301,7 +1301,6 @@
    "bytes": 492,
    "definitions": 15,
    "externs": [
-    "extern \"C\" void __cdecl sub_004F8B80(); // 0x004F8B80",
     "extern \"C\" void __cdecl sub_004F8DE0(); // 0x004F8DE0",
     "extern \"C\" struct d2data_0072F178_t gData_0072F178; // 0x0072F178",
     "extern \"C\" struct d2data_0072F6D0_t gData_0072F6D0; // 0x0072F6D0",
@@ -74502,8 +74501,8 @@
     [
      12,
      "0x004F8B80",
-     "queue_function",
-     "sub_004F8B80",
+     "source",
+     "CMNSUBTILE_DrawFloorTile",
      0,
      "func"
     ],

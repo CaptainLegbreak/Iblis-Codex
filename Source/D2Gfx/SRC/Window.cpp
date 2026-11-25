@@ -5,6 +5,7 @@
 #include "D2GfxTypes.h"
 #include "FogApi.h"
 #include "FogApi.h"
+#include "D2DrlgMaps.h"
 
 struct D2TileLibraryBlockStrc
 {
@@ -2519,6 +2520,85 @@ void __fastcall CMNSUBTILE_DrawLitBlockClipped(D2TileLibraryBlockStrc* pBlock, i
         pRow += gnScreenPitch;
         nLightX += nLightXStep;
         nLightY += nLightYStep;
+    }
+}
+
+struct D2GfxLightExStrc
+{
+    unsigned char nIntensity;
+    unsigned char unk0x01[0x0B];
+};
+
+// 0x004F8B80
+void __fastcall CMNSUBTILE_DrawFloorTile(D2TileLibraryEntryStrc* pTile, int nX, int nY, D2GfxLightExStrc* pLight)
+{
+    unsigned char* pScreen = gnScreenPitch * nY + gpScreenBuffer + nX;
+    for (int i = 0; i < pTile->nBlocks; ++i)
+    {
+        D2TileLibraryBlockStrc* pBlock = &((D2TileLibraryBlockStrc*)pTile->pBlocks)[i];
+        const int nPosX = pBlock->nPosX;
+        unsigned char* pDst = pBlock->nPosY * gnScreenPitch + nPosX + pScreen;
+        if (!(pBlock->nFormat & 1))
+            continue;
+        const int nBlockX = nPosX + nX;
+        const int nBlockY = nY + pBlock->nPosY;
+        if (nBlockY < gnScreen_7D2330 || nBlockY >= gnScreen_7D2338 || nBlockX < gnScreen_7C9788 || nBlockX >= gnScreen_7C9798)
+            continue;
+
+        int aLight[4];
+        int bFlat = 0;
+        unsigned char nLight = 0;
+        if (gnLightingOff)
+        {
+            bFlat = 1;
+            nLight = pLight[8 * (pBlock->nGridY + 1) + pBlock->nGridX + 1].nIntensity;
+        }
+        else
+        {
+            // The 4x4 cells around the block, eight to a grid row. Rows 1 and 2 go into locals; rows 0 and 3 are read in the sums.
+            D2GfxLightExStrc* pCell = &pLight[8 * pBlock->nGridY + pBlock->nGridX];
+            const int nL01 = pCell[8].nIntensity;
+            const int nL11 = pCell[9].nIntensity;
+            const int nL21 = pCell[10].nIntensity;
+            const int nL31 = pCell[11].nIntensity;
+            const int nL02 = pCell[16].nIntensity;
+            const int nL12 = pCell[17].nIntensity;
+            const int nL22 = pCell[18].nIntensity;
+            const int nL32 = pCell[19].nIntensity;
+            int nDelta = nL21 - nL11;
+            const int nDiff1 = D2_ABS(nDelta);
+            nDelta = nL12 - nL11;
+            const int nDiff2 = D2_ABS(nDelta);
+            nDelta = nL22 - nL21;
+            const int nDiff3 = D2_ABS(nDelta);
+            if (!gGfxSettings.bLowQuality && nDiff3 + nDiff2 + nDiff1 >= 10)
+            {
+                aLight[0] = (nL12 + nL02 + nL11 + nL01) >> 2;
+                aLight[1] = (pCell[1].nIntensity + pCell[2].nIntensity + nL21 + nL11) >> 2;
+                aLight[2] = (nL32 + nL12 + nL31 + nL21) >> 2;
+                aLight[3] = (pCell[25].nIntensity + pCell[26].nIntensity + nL22 + nL12) >> 2;
+            }
+            else
+            {
+                bFlat = 1;
+                nLight = nL11;
+            }
+        }
+
+        if (nBlockY >= gnInnerBlockTop && nBlockY < gnInnerBlockBottom && nBlockX >= gnInnerBlockLeft && nBlockX < gnInnerBlockRight)
+        {
+            if (bFlat)
+                CMNSUBTILE_DrawBlock(pBlock, pDst, nLight);
+            else
+                CMNSUBTILE_DrawLitBlock(pBlock, pDst, aLight);
+        }
+        else
+        {
+            if (bFlat)
+                CMNSUBTILE_DrawBlockClipped(pBlock, nBlockX, nBlockY, pDst, nLight);
+            else
+                CMNSUBTILE_DrawLitBlockClipped(pBlock, nBlockX, nBlockY, pDst, aLight);
+        }
     }
 }
 
