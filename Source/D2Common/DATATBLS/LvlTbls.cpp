@@ -22,6 +22,7 @@
 
 #include "D2Unicode.h"
 #include "D2LangApi.h"
+#include "FogApi.h"
 
 #pragma intrinsic(strcpy)
 
@@ -65,9 +66,7 @@ struct D2LvlSubTxt;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -151,7 +150,6 @@ int gnLvlwarpTxtRecordCount; // 0x0096CA04
 
 int gnLvlmazeTxtRecordCount; // 0x0096CA0C
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
@@ -190,7 +188,6 @@ extern const char gszPathFormat_006D4124[]; // 0x006D4124
 
 extern const char gszLvlSubTableName[]; // 0x006E8928
 
-void* __fastcall FOG_Alloc(int,const char*,int,int); // 0x0040B380
 
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 

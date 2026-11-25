@@ -3,13 +3,12 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2LangApi.h"
+#include "FogApi.h"
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-int __fastcall ERRORMANAGER_GetModuleDirectory(char* szPath, unsigned int nSize); // 0x00406B60
 struct _iobuf;
 typedef int BOOL;
-int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
 extern "C" __declspec(dllimport) int __stdcall FreeLibrary(void* hModule); // 0x006CC14C
 extern "C" __declspec(dllimport) void* __stdcall GetProcAddress(void* hModule, const char* szProcName); // 0x006CC148
 extern "C" __declspec(dllimport) void* __stdcall LoadLibraryA(const char* szLibFileName); // 0x006CC144

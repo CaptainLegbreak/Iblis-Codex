@@ -12,6 +12,7 @@
 #include "D2ClientMenus.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "StormApi.h"
 
 struct D2PlayerDataStrc;
 
@@ -34,7 +35,6 @@ void __fastcall DLIGHTMAP_ReleaseLight(void* pResource);                        
 void __cdecl TEXT_ResetTextBox();                                                                   // 0x0049F960
 
 
-int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 

@@ -15,6 +15,8 @@
 #include "D2ExperienceTxt.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags) throw(); // 0x00412650
 
@@ -999,11 +1001,9 @@ extern "C" const char gszTypeNameStringEntryList_0074366C[];                    
 
 extern "C" const char gszTypeNameMappingEntryList_007436AC[];                                                         // 0x007436AC
 
-int __fastcall ERRORMANAGER_GetModuleDirectory(char* szPath, unsigned int nSize);                                    // 0x00406B60
 
 void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                             // 0x0041D300
 
-const char* __stdcall SStrChrR(const char* szString, char nChar);                                                     // 0x004134D0
 
 
 

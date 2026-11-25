@@ -18,9 +18,10 @@
 #include "D2ItemModes.h"
 #include "D2Packets.h"
 #include "D2LanguageNames.h"
-#include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 // build: symbol _gaszLanguageNames 0x00732048
 
 struct D2ClientStrc;

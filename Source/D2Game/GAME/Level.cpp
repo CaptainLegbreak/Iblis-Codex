@@ -11,6 +11,7 @@
 #include "D2LanguageNames.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "FogApi.h"
 // build: symbol _gaszLanguageNames 0x0073131C
 struct D2DrlgActStrc;
 
@@ -561,7 +562,6 @@ void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame); // 0x0059F840
 
 void __fastcall SUNIT_RemoveAllTiles(D2GameStrc* pGame); // 0x00555770
 
-void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0
 
 int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
 

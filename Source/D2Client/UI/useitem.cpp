@@ -5,6 +5,7 @@
 #include "D2StormTypes.h"
 #include "D2Path.h"
 #include "D2CommonApi.h"
+#include "StormApi.h"
 
 struct D2SelectionRectStrc;
 
@@ -16,7 +17,6 @@ struct D2MsgHandlerEntryStrc;
 
 int gnUseItemDialogState;                                                                                      // 0x007C5474
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign); // 0x00502280
 

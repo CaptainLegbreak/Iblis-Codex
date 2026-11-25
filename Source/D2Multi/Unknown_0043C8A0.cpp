@@ -14,6 +14,7 @@
 #include "D2MultiCharSave.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "FogApi.h"
 struct _iobuf;
 
 typedef struct _iobuf FILE;
@@ -36,16 +37,11 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 #pragma intrinsic(memcpy)
 
-int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
 void __stdcall FOG_Encode14BitsToString(unsigned char* pStream, unsigned short nValue); // 0x006BBF40
 
 extern const char gszDefaultSaveName_0070CCC8[]; // 0x0070CCC8
 
-void* __fastcall FOG_CreateFileA(const char* szPath, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwCreation, unsigned long dwFlags, void* hTemplate); // 0x00406960
-int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nSize, unsigned long* pRead, void* pOverlapped); // 0x004069B0
-int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nSize, unsigned long* pWritten, void* pOverlapped); // 0x004069D0
-unsigned long __fastcall FOG_SetFilePointer(void* hFile, long nDistance, long* pDistanceHigh, unsigned long dwMethod); // 0x004069F0
 unsigned int __stdcall FOG_ComputeChecksum(const unsigned char* pData, unsigned int nSize); // 0x00411130
 extern "C" const char gszSaveFormat_006D4230[]; // 0x006D4230
 D2CharSaveHeaderStrc gtCharSaveHeader; // 0x0077AC10

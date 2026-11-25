@@ -5,6 +5,7 @@
 #include "D2UnitData.h"
 #include "D2LanguageNames.h"
 #include "D2CommonApi.h"
+#include "FogApi.h"
 
 #pragma intrinsic(memcpy)
 
@@ -16,10 +17,6 @@ struct D2GameStrc;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern D2NpcIndexMapStrc gaPlrIntroNpcIndexMap[]; // 0x00732738
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-void __stdcall sub_00410B10(unsigned char* pBitBuffer, int nBit); // 0x00410B10
-int __stdcall sub_00410B30(unsigned char* pBitBuffer, int nBit); // 0x00410B30
-void __stdcall sub_00410B50(unsigned char* pBitBuffer, int nBit); // 0x00410B50
-void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 

@@ -10,6 +10,7 @@
 
 #include "D2GameTypes.h"
 #include "FogApi.h"
+#include "FogApi.h"
 
 extern int gbGlideDrawing; // 0x0087EFE4
 
@@ -237,7 +238,6 @@ void __fastcall sub_0050FDF0_GlidePlaySmacker(const char* szFile, int nResolutio
 void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT* pRect, unsigned char nColor);                     // 0x00512D90
 
 
-void __fastcall EXCEL_BuildGammaTable(int gamma,void* table,double scale,int entrySize,int entries,int mask); // 0x006BE190
 
 extern const double gdGlideGammaScale;                                                             // 0x006CD038
 

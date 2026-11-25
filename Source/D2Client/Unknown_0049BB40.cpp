@@ -9,6 +9,7 @@
 #include "D2WinSplitText.h"
 #include "D2WaypointActRange.h"
 #include "D2CommonApi.h"
+#include "StormApi.h"
 
 struct D2PartyRowStrc;
 struct D2PacketRecord21Strc;
@@ -17,7 +18,6 @@ struct D2WaypointRowRectStrc;
 
 
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 extern int gnScreenWidth; // 0x0071146C
 extern int gnPanelOffsetX; // 0x007A2858
 extern int gnPanelOffsetY; // 0x007A285C
@@ -34,7 +34,6 @@ D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 void __cdecl WARDENCLIENT_BuildWaypointList(); // 0x0049C7F0
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 extern D2WaypointRowRectStrc gaWaypointRowRects[9]; // 0x007224F8
 extern D2WaypointMenuEntryStrc gaWaypointEntries[9]; // 0x007BF03C
 extern bool gbWaypointClosePressed; // 0x007BF06C

@@ -24,6 +24,8 @@
 #include "StormApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 struct D2ActiveRoomStrc;
 
@@ -435,7 +437,6 @@ extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSiz
 
 void __cdecl TEXT_ClearListFlags(); // 0x004A01E0
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
@@ -485,7 +486,6 @@ extern Unicode gwszPopUpText[80]; // 0x007A2C80
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits); // 0x00411020
 
 
 
@@ -757,9 +757,7 @@ extern void* gpBloodRemap; // 0x007BB384
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
 
-int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc* pBuffer, int nBits); // 0x00411030
 
 
 

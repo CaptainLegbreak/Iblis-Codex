@@ -8,6 +8,7 @@
 #include "D2FogSystemInfo.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "FogApi.h"
 
 struct D2CriticalSectionStrc;
 
@@ -306,7 +307,6 @@ int gbDDrawPlatformFlag; // 0x0088125C
 
 char gszDDrawDeviceName[256]; // 0x00881154
 
-D2FogSystemInfoStrc* __cdecl FOG_GetSystemInfo(); // 0x00407360
 
 void __fastcall GLCORE_SetPalette(const tagPALETTEENTRY* pPalette); // 0x00509300
 
@@ -316,7 +316,6 @@ struct D2FogSystemInfoStrc;
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-void __fastcall EXCEL_BuildGammaTable(int nGamma, void* pTable, double dScale, int nArg, int nEntries, int nMask); // 0x006BE190
 
 unsigned long gdwVideoFlags; // 0x00881140
 
@@ -1008,7 +1007,6 @@ void __cdecl DDRAW_DrawVideoFrame()
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 extern "C" __declspec(dllimport) long __stdcall DispatchMessageA(const tagMSG* pMsg); // 0x006CC478
-int __cdecl FOG_UseDirect(); // 0x00406D20
 extern "C" __declspec(dllimport) int __stdcall PeekMessageA(tagMSG* pMsg, void* hWnd, unsigned int uMsgFilterMin, unsigned int uMsgFilterMax, unsigned int wRemoveMsg); // 0x006CC480
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
 extern "C" __declspec(dllimport) int __stdcall TranslateMessage(const tagMSG* pMsg); // 0x006CC47C

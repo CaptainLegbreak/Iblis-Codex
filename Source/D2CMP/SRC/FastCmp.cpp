@@ -9,6 +9,7 @@
 #include "D2ColorBlock.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -76,7 +77,6 @@ struct D2CmpStringStrc
     int EqualsNoCase(const D2CmpStringStrc* pOther); // 0x0060DD20
 };
 
-int __stdcall SFileSetBasePath(const char* szPath); // 0x004164B0
 
 extern "C" void __cdecl _chkstk(); // 0x006831B0
 

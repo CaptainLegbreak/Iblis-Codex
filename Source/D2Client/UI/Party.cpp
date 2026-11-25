@@ -9,6 +9,7 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "StormApi.h"
 
 struct D2StoredUnitRecordStrc;
 
@@ -146,7 +147,6 @@ extern unsigned char gnBoxColor; // 0x007BF034
 
 static void __stdcall PARTY_DrawTextFrame(unsigned short nAltString, unsigned short nString, int nX, int bLarge); // 0x0049AAF0
 extern D2PartyRowStrc* gpRosterUnits; // 0x007BF014
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 extern int gnScreenWidth; // 0x0071146C
 extern int gbRosterMode; // 0x007BF038
 extern int gbRosterButtonDown; // 0x007BF030

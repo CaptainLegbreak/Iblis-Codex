@@ -5,6 +5,7 @@
 #include "D2WinSplitText.h"
 #include "FogApi.h"
 #include "D2LangApi.h"
+#include "StormApi.h"
 
 struct Unicode;
 struct D2ButtonStringStrc;
@@ -341,7 +342,6 @@ int SpinnerImplementation::HitTestDownArrow(SMSGHANDLER_PARAMS* pMsg)
 
 
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 // build: symbol ?GetValue@SpinnerImplementation@@UAEHXZ 0x004BBF90
 int SpinnerImplementation::GetValue()

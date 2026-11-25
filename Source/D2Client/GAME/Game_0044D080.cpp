@@ -13,6 +13,7 @@
 #include "StormApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "StormApi.h"
 
 
 
@@ -317,7 +318,6 @@ void __fastcall sub_00477980(); // 0x00477980
 
 
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 #pragma pack(push, 1)
 

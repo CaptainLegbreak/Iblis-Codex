@@ -13,6 +13,7 @@
 #include "D2LevelTxt.h"
 #include "D2Packets.h"
 #include "D2CommonApi.h"
+#include "FogApi.h"
 #define MONTYPEFLAG_UNIQUE 8
 #define EVENTTYPE_REMOVESTATE 0x0C
 
@@ -72,9 +73,7 @@ static void sub_00570B30_SpendStatPointsOnDexterity(D2UnitStrc* pUnit, int nValu
 extern const unsigned int gdwBitMasks[]; // 0x006CE268
 extern const unsigned int gdwInvBitMasks[]; // 0x006CE2E8
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
-void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
 int __stdcall BITMANIP_GetSize(D2BitBufferStrc*); // 0x00410E90
-void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0
 int __stdcall sub_004111A0_GetLowestSetBit(unsigned int); // 0x004111A0
 void __fastcall SCMD_SendRawPacket(D2ClientStrc*, const void*, int); // 0x0053E8D0
 

@@ -27,6 +27,8 @@
 #include "StormApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -273,7 +275,6 @@ void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 extern int gnScreenWidth; // 0x0071146C
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
@@ -732,7 +733,6 @@ int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB); // 0x00469D90
 
 int __stdcall sub_B05_Sink(int nA, int nB);
 
-int __fastcall EXCEPTIONS_ReleaseSymbols(int nArg); // 0x0040C720
 
 void __fastcall CMDTBL_ResetKeyConfig(int nArg); // 0x00469A60
 

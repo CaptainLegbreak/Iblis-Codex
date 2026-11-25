@@ -3,6 +3,8 @@
 #include "D2SoundTypes.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 
 #define DSBSTATUS_BUFFERLOST 0x00000002
@@ -68,7 +70,6 @@ void __fastcall D2SOUNDSMP_SetSoundVolume(D2SoundStrc* pSound, int nVolume); // 
 
 void __fastcall D2SOUNDSMP_StopSound(D2SoundStrc* pSound); // 0x00515EE0
 
-int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
 
 int __stdcall SFileDdaBeginEx(void* hFile, int nBufferSize, unsigned int nFlags, unsigned int nOffset, int nVolume, int nPan, D2DSoundBufferStrc* pBuffer); // 0x0041B280
 
@@ -249,7 +250,6 @@ int gbSoundGlobalFocus; // 0x00881804
 
 extern "C" { int gnStreamChannelArg; } // 0x008817A0
 
-extern "C" int __stdcall SFileDdaInitialize(int nValue); // 0x00415EE0
 
 D2SoundStrc* __fastcall D2SOUNDSMP_CreateSound(unsigned int nFlags, int nValue); // 0x00515530
 

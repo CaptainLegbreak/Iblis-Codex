@@ -17,6 +17,7 @@
 #include "D2LevelTxt.h"
 #include "D2LanguageNames.h"
 #include "D2CommonApi.h"
+#include "FogApi.h"
 
 struct D2StatListStrc;
 
@@ -3029,7 +3030,6 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 
 
-int __stdcall sub_004111A0_GetLowestSetBit(unsigned int nValue);                                                  // 0x004111A0
 
 // 0x005D6410
 void __fastcall SKILLS_RemoveStatesOnHit(D2UnitStrc* pDefender)

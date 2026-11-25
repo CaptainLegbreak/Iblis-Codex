@@ -1,5 +1,6 @@
 #include "D2Glide.h"
 #include "D2DrlgMaps.h"
+#include "StormApi.h"
 
 struct D2TileLibraryEntryStrc;
 
@@ -32,7 +33,6 @@ extern "C" __declspec(dllimport) void* __stdcall SmackOpen(const char* szName, u
 
 extern "C" __declspec(dllimport) void __stdcall SmackToBuffer(void* hSmack, unsigned int nLeft, unsigned int nTop, unsigned int nPitch, unsigned int nHeight, void* pBuffer, unsigned int nFlags); // 0x006CC60C
 
-int __stdcall SFileLoadFileEx(void* hMpq, const char* szFileName, void** ppBuffer, int* pnSize, int nExtraBytes, int nFlags, void* pOverlapped); // 0x0041B680
 
 void __fastcall GLSMACK_SetSmackPalette(D2RgbColorStrc* pColors); // 0x0050E070
 
