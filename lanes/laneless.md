@@ -19,6 +19,16 @@ call stays the coordinator's. This section is replaced at each check.
     - Storm/Unknown_006CA9C0 -> Game.cpp is the end-of-.text initializer lane 3 handed to lane 4.
     - sub_ names 24,270 -> 23,769; address-named types 34 -> 27.
   - **Object map** refreshed on #369: 280 placeholder files, 128 clear leads (`lanes/tools/objmap/report-369.md`).
+- **Trial merge on main #370, 16:04 PT:** these seven Ready branches stack on #370 in this order with no
+  conflicts, and the full verify passes on the stack: 0 not all equal, Game.exe identical, borrowed data 844 B
+  (main's figure). Order: lane1/umod-join-3 fdb8122f, lane3/growable-ctor-2 bdfb20e3,
+  lane3/logmanager-cruft 0396212b, lane5/friendly 858eeb64, lane5/monster-run 26eada80,
+  lane7/assume-macros-3 4d1454dc, lane9/ddcore-strays cb8b3c79.
+  - Left out: lane8/0062B5B0-wip (marked not for merging).
+  - Already in main, so they can come off Ready: lane2/shim-trim-d2client, -d2glide; lane4's three; lane6/join-00518b90;
+    lane9/glide-run; lane10/files-bnclient, -d2game, -d2gdi, -d2glide, -d2lang, -fog, names-prefixfix-d2net, -d2win.
+  - Conflict with #370: lane5/strays-9, lane9/join-ddraw-util, lane9/join-gdi-util, and 29 of lane 10's
+    (23 of them are based on #341-#355; the newest, files-d2client-2 and files-storm-2, conflict in one file each).
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
