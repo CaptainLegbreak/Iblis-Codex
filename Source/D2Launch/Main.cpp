@@ -149,7 +149,7 @@ void __cdecl MoveBetaSettingsToRelease()
 }
 
 // 0x00406190
-static int __stdcall sub_00406190_GetProc(void* hModule, const char* szName, void** ppProc)
+static int __stdcall MAIN_GetProc(void* hModule, const char* szName, void** ppProc)
 {
     void* pProc = GetProcAddress(hModule, szName);
     if (!pProc)
@@ -162,7 +162,7 @@ static int __stdcall sub_00406190_GetProc(void* hModule, const char* szName, voi
 
 int __stdcall sub_K01_Emit_00406190(void* hModule, const char* szName, void** ppProc)
 {
-    return sub_00406190_GetProc(hModule, szName, ppProc);
+    return MAIN_GetProc(hModule, szName, ppProc);
 }
 
 // 0x004061C0
@@ -209,7 +209,7 @@ int __cdecl MAIN_DenyProcessAccess()
 }
 
 // 0x00406340
-static int __stdcall sub_00406340_SelectModule(const char* szArgvCmd, int* pChosenModule)
+static int __stdcall MAIN_SelectModule(const char* szArgvCmd, int* pChosenModule)
 {
     const size_t nArgvLength = strlen(szArgvCmd) + 1;
     char* szArgvDupe = (char*)FOG_Alloc(nArgvLength, ".\\Main.cpp", 442, 0);
@@ -248,7 +248,7 @@ void __stdcall D2ServerServiceHandlerProc(unsigned long dwCtrlCode)
 }
 
 // 0x00406470
-static int sub_00406470_OpenServiceHandles(void** phService, void** phManager)
+static int MAIN_OpenServiceHandles(void** phService, void** phManager)
 {
     *phService = 0;
     *phManager = 0;
@@ -270,7 +270,7 @@ int sub_M371_Emit_00406470(int nAdd)
 {
     void* hService;
     void* hManager;
-    return sub_00406470_OpenServiceHandles(&hService, &hManager) + nAdd;
+    return MAIN_OpenServiceHandles(&hService, &hManager) + nAdd;
 }
 
 // 0x004064C0
@@ -293,7 +293,7 @@ int __fastcall GameInit(int argc, const char** argv)
     SaveCmdLine(&lpArgvCmd);
     MoveBetaSettingsToRelease();
     int nChosenModule = 4;
-    sub_00406340_SelectModule(lpArgvCmd, &nChosenModule);
+    MAIN_SelectModule(lpArgvCmd, &nChosenModule);
     D2ConfigStrc tCfg;
     ParseCmdLine(&tCfg, lpArgvCmd);
     tCfg.pfnAllowExpansion = sub_00405EF0;

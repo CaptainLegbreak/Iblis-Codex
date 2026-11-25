@@ -417,7 +417,7 @@ void __cdecl MAINMENUS_ReturnToCharSelect();                                    
 
 void __cdecl MAINMENUS_ShowLoginScreen();                                                                // 0x00435330
 
-void __cdecl sub_004325B0_CreateScreen();                                                                   // 0x004325B0
+void __cdecl MAINMENUS_CreateScreen();                                                                   // 0x004325B0
 
 char gszOldPassword[24];                                                                           // 0x00779550
 
@@ -495,7 +495,7 @@ D2WinControlStrc* gpAddressEdit; // 0x00779958
 
 char gszLastTcpIpAddress[255]; // 0x007795F8
 
-int __stdcall sub_00432040_OnCancel2(int nArg);
+int __stdcall MAINMENUS_OnCancel2(int nArg); // 0x00432040
 
 int __stdcall MAINMENUS_OnLoginScreen(int nArg); // 0x00432300
 
@@ -2057,7 +2057,7 @@ int __stdcall sub_0042FF00_FilterChar(void* pControl, int nUnused, const char* p
 }
 
 // 0x0042FF10
-void __fastcall sub_0042FF10_SetValue(int nValue)
+void __fastcall MAINMENUS_SetValue(int nValue)
 {
     gnValue_00779980 = nValue;
 }
@@ -3393,7 +3393,7 @@ int __stdcall sub_00432020_OnCancel(int nArg)
 }
 
 // 0x00432040
-int __stdcall sub_00432040_OnCancel2(int nArg)
+int __stdcall MAINMENUS_OnCancel2(int nArg)
 {
     D2SOUNDFAST_FadeOutWaves();
     MAINMENUS_Reset();
@@ -3494,7 +3494,7 @@ int __stdcall MAINMENUS_OpenInfoScreen(int nUnused)
 }
 
 // 0x00432350
-static int sub_00432350_IsListedCode(int nCode)
+static int MAINMENUS_IsListedCode(int nCode)
 {
     switch (nCode)
     {
@@ -3604,7 +3604,7 @@ int __fastcall D2Win_10127_SetFont(int nArg);                                   
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
 
 // 0x004325B0
-void __cdecl sub_004325B0_CreateScreen()
+void __cdecl MAINMENUS_CreateScreen()
 {
     MAINMENUS_Reset();
     D2WinControlStrc* pControl = MAINMENUS_CreateControl(6);
@@ -3808,7 +3808,7 @@ int __cdecl sub_00432400_GetWaitStatus()
         switch (WaitForSingleObject((void*)GAME_GetWaitHandle(), 0))
         {
         case 0:
-            return sub_00432350_IsListedCode(GAME_GetConnectError()) ? 2 : 0;
+            return MAINMENUS_IsListedCode(GAME_GetConnectError()) ? 2 : 0;
         case 0x102:
             return 3;
         }
@@ -4662,7 +4662,7 @@ int __stdcall MAINMENUS_CheckFreeSpace(int nUnused)
 }
 
 // 0x00435020
-int __stdcall sub_00435020_Callback(int nUnused)
+int __stdcall MAINMENUS_Callback(int nUnused)
 {
     sub_004336C0();
     return 1;
@@ -5539,7 +5539,7 @@ int __stdcall MAINMENUS_CreateAccountOk(int nArg)
         MAINMENUS_ShowMessage(pMessage, MAINMENUS_CreateMultiplayerScreen, 1);
         return 1;
     }
-    sub_004325B0_CreateScreen();
+    MAINMENUS_CreateScreen();
     return 1;
 }
 

@@ -801,7 +801,7 @@
     {
      "va": "0x00406190",
      "length": 33,
-     "name": "?sub_00406190_GetProc@@YGHPAXPBDPAPAX@Z"
+     "name": "?MAIN_GetProc@@YGHPAXPBDPAPAX@Z"
     },
     {
      "va": "0x004061C0",
@@ -811,7 +811,7 @@
     {
      "va": "0x00406340",
      "length": 197,
-     "name": "?sub_00406340_SelectModule@@YGHPBDPAH@Z"
+     "name": "?MAIN_SelectModule@@YGHPBDPAH@Z"
     },
     {
      "va": "0x00406410",
@@ -821,7 +821,7 @@
     {
      "va": "0x00406470",
      "length": 71,
-     "name": "?sub_00406470_OpenServiceHandles@@YAHPAPAX0@Z"
+     "name": "?MAIN_OpenServiceHandles@@YAHPAPAX0@Z"
     },
     {
      "va": "0x004064C0",
@@ -2868,7 +2868,7 @@
     {
      "va": "0x0042FF10",
      "length": 7,
-     "name": "?sub_0042FF10_SetValue@@YIXH@Z"
+     "name": "?MAINMENUS_SetValue@@YIXH@Z"
     },
     {
      "va": "0x0042FF20",
@@ -3221,7 +3221,7 @@
     {
      "va": "0x00432040",
      "length": 23,
-     "name": "?sub_00432040_OnCancel2@@YGHH@Z"
+     "name": "?MAINMENUS_OnCancel2@@YGHH@Z"
     },
     {
      "va": "0x00432060",
@@ -3256,7 +3256,7 @@
     {
      "va": "0x00432350",
      "length": 166,
-     "name": "?sub_00432350_IsListedCode@@YAHH@Z"
+     "name": "?MAINMENUS_IsListedCode@@YAHH@Z"
     },
     {
      "va": "0x00432400",
@@ -3274,7 +3274,7 @@
     {
      "va": "0x004325B0",
      "length": 316,
-     "name": "?sub_004325B0_CreateScreen@@YAXXZ"
+     "name": "?MAINMENUS_CreateScreen@@YAXXZ"
     },
     {
      "va": "0x004326F0",
@@ -3472,7 +3472,7 @@
     {
      "va": "0x00435020",
      "length": 13,
-     "name": "?sub_00435020_Callback@@YGHH@Z"
+     "name": "?MAINMENUS_Callback@@YGHH@Z"
     },
     {
      "va": "0x00435030",
@@ -9035,7 +9035,7 @@
     {
      "va": "0x00438030",
      "length": 46,
-     "name": "?sub_00438030_IsNotListedCode@@YAHH@Z"
+     "name": "?CHARSEL_IsNotListedCode@@YAHH@Z"
     },
     {
      "va": "0x00438060",
@@ -9186,7 +9186,7 @@
     {
      "va": "0x0043A610",
      "length": 50,
-     "name": "sub_0043A610_ShowString"
+     "name": "CHARSEL_ShowString"
     },
     {
      "va": "0x0043A650",
