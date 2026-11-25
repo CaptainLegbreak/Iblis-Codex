@@ -40193,9 +40193,14 @@
    ]
   },
   {
-   "file": "Source/D2Lang/Unknown_005264F0.cpp",
+   "file": "Source/D2Lang/Unknown_00526490.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00526490",
+     "length": 81,
+     "name": "compare"
+    },
     {
      "va": "0x005264F0",
      "length": 65,
@@ -40210,6 +40215,11 @@
      "va": "0x00526590",
      "length": 120,
      "name": "?stricmp@Unicode@@SIHPBU1@0@Z"
+    },
+    {
+     "va": "0x00526610",
+     "length": 168,
+     "name": "strnicmp"
     },
     {
      "va": "0x005266C0",
@@ -40335,20 +40345,9 @@
    ]
   },
   {
-   "file": "Source/D2Lang/Unknown_00526610.cpp",
+   "file": "Source/D2Lang/Unknown_00730538.cpp",
    "rank": 0,
-   "functions": [
-    {
-     "va": "0x00526490",
-     "length": 81,
-     "name": "compare"
-    },
-    {
-     "va": "0x00526610",
-     "length": 168,
-     "name": "strnicmp"
-    }
-   ]
+   "functions": []
   },
   {
    "file": "Source/D2Lang/Unicode/UNISYS.CPP",
