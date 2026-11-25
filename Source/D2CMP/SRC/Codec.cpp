@@ -609,7 +609,7 @@ static inline int DccReadSigned(int nCount, D2CmpBitCursorStrc* pCursor)
 }
 
 // 0x0060B7B0
-static void __stdcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pCursor, D2CmpBitCursorStrc* pEqual, D2DccCellStrc* pPrev, D2DccCellStrc* pCell, unsigned char** ppRun)
+static void __stdcall CODEC_DecodeCell(D2CmpBitCursorStrc* pCursor, D2CmpBitCursorStrc* pEqual, D2DccCellStrc* pPrev, D2DccCellStrc* pCell, unsigned char** ppRun)
 {
     if (pEqual && pPrev->pColors && CodecReadBits(1, pEqual))
     {
@@ -855,7 +855,7 @@ int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSiz
                     tCell.nPitch = tIt.nCellsY;
                     tCell.nWidth = tIt.nStepX;
                     tCell.nHeight = tIt.nStepY;
-                    sub_0060B7B0_DecodeCell(&tCursor, pEqual, &gatDccCells[tIt.nCell], &tCell, &pRun);
+                    CODEC_DecodeCell(&tCursor, pEqual, &gatDccCells[tIt.nCell], &tCell, &pRun);
                     gatDccCells[tIt.nCell] = tCell;
 
                     bMore = CodecDccNextCell(&tDir, &tIt);

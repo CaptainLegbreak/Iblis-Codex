@@ -943,7 +943,7 @@ int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuest
 static int TEXT_FindQuestIndex(int nKey);
 
 
-void __fastcall sub_00600C60_CallFree(void* pMemory); // 0x00600C60
+void __fastcall DATATBLS_CallFree(void* pMemory); // 0x00600C60
 
 struct D2StringSoundStrc;
 

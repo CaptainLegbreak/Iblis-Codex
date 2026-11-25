@@ -1522,12 +1522,12 @@ enum { DISABLED = 0 };
 void* __fastcall sub_0040A9E0(AsyncData* pAsync); // 0x0040A9E0
 
 
-static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader); // 0x005FEB80
+static void* __stdcall SPRITECACHE_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader); // 0x005FEB80
 
-static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry); // 0x005FEC50
+static void* SPRITECACHE_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry); // 0x005FEC50
 
-// build: symbol ?sub_005FEC50_GetCachedDC6Frame@* 0x005FEC50
-static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry)
+// build: symbol ?SPRITECACHE_GetCachedDC6Frame@* 0x005FEC50
+static void* SPRITECACHE_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry)
 {
     if (pEntry && pEntry->tHeader.pAsync)
     {
@@ -1536,7 +1536,7 @@ static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2
         if (pData)
         {
             pContext->nFrames = pHeader->nFrames;
-            return sub_005FEB80_FindDC6Frame(pData, pContext, pHeader);
+            return SPRITECACHE_FindDC6Frame(pData, pContext, pHeader);
         }
 
         return 0;
@@ -1545,8 +1545,8 @@ static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2
     return 0;
 }
 
-// build: symbol ?sub_005FEB80_FindDC6Frame@* 0x005FEB80
-static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader)
+// build: symbol ?SPRITECACHE_FindDC6Frame@* 0x005FEB80
+static void* __stdcall SPRITECACHE_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader)
 {
     if (!pData)
     {
@@ -1805,7 +1805,7 @@ int __stdcall CelGetRawData(CellTable* p, int nDirection, int nIndex, void* pDst
 }
 
 // 0x00600C60
-int __fastcall sub_00600C60_CallFree(void* pMemory)
+int __fastcall DATATBLS_CallFree(void* pMemory)
 {
     return sub_00517ABB_FindLowestSetBit((unsigned int)pMemory);
 }
