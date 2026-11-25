@@ -87,7 +87,7 @@ extern unsigned int gnDDrawBinkY; // 0x008816B8
 
 extern unsigned int gnDDrawBinkFlags; // 0x008816C8
 
-void __fastcall sub_00510160_DDrawSetPalette(tagPALETTEENTRY* pPalette); // 0x00510160
+void __fastcall DDCORE_SetPalette(tagPALETTEENTRY* pPalette); // 0x00510160
 
 extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 

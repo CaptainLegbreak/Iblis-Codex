@@ -32791,7 +32791,7 @@
     {
      "va": "0x00508F60",
      "length": 37,
-     "name": "?sub_00508F60_GlideCheckBoards@@YAHXZ"
+     "name": "?GLCORE_Detect@@YAHXZ"
     },
     {
      "va": "0x00508F90",
@@ -35641,7 +35641,7 @@
     {
      "va": "0x00510130",
      "length": 1,
-     "name": "?sub_00510130_DDrawNop@@YIXXZ"
+     "name": "?DDCORE_ClearCaches@@YIXXZ"
     },
     {
      "va": "0x00510140",
@@ -35651,32 +35651,32 @@
     {
      "va": "0x00510150",
      "length": 16,
-     "name": "?sub_00510150_DDrawGetScreenSize@@YIXPAH0@Z"
+     "name": "?DDCORE_GetDimensions@@YIXPAH0@Z"
     },
     {
      "va": "0x00510160",
      "length": 360,
-     "name": "?sub_00510160_DDrawSetPalette@@YIXPAUD2PaletteEntryStrc@@@Z"
+     "name": "?DDCORE_SetPalette@@YIXPAUD2PaletteEntryStrc@@@Z"
     },
     {
      "va": "0x005102D0",
      "length": 29,
-     "name": "?sub_005102D0_DDrawSetPaletteView@@YIXPAUD2GfxPaletteViewStrc@@@Z"
+     "name": "?DDCORE_SetPaletteTables@@YIXPAUD2GfxPaletteViewStrc@@@Z"
     },
     {
      "va": "0x005102F0",
      "length": 1,
-     "name": "?sub_005102F0_DDrawNop@@YIXXZ"
+     "name": "?DDCORE_SetGlobalScale@@YIXXZ"
     },
     {
      "va": "0x00510300",
      "length": 16,
-     "name": "?sub_00510300_DDrawSetGamma@@YIXH@Z"
+     "name": "?DDCORE_SetGamma@@YIXH@Z"
     },
     {
      "va": "0x00510310",
      "length": 6,
-     "name": "?sub_00510310_ReturnOne@@YAHXZ"
+     "name": "?DDCORE_GammaCanBeControlled@@YAHXZ"
     },
     {
      "va": "0x00510320",
@@ -35686,22 +35686,22 @@
     {
      "va": "0x00510330",
      "length": 1,
-     "name": "?sub_00510330_DDrawNop@@YIXXZ"
+     "name": "?DDCORE_UpdatePerspective@@YIXXZ"
     },
     {
      "va": "0x00510340",
      "length": 3,
-     "name": "?sub_00510340_DDrawStub5@@YIXHHHHH@Z"
+     "name": "?DDCORE_PerspectiveTransform@@YIXHHHHH@Z"
     },
     {
      "va": "0x00510350",
      "length": 3,
-     "name": "?sub_00510350_DDrawStub6@@YIXHHHHHH@Z"
+     "name": "?DDCORE_PerspectiveTransformScale@@YIXHHHHHH@Z"
     },
     {
      "va": "0x00510360",
      "length": 1,
-     "name": "?sub_00510360_DDrawNop@@YIXXZ"
+     "name": "?DDCORE_PerspectiveClearScale@@YIXXZ"
     },
     {
      "va": "0x00510370",
@@ -35716,7 +35716,7 @@
     {
      "va": "0x00510390",
      "length": 20,
-     "name": "?sub_00510390_DDrawSetOption@@YIHHH@Z"
+     "name": "?DDCORE_SetOption@@YIHHH@Z"
     },
     {
      "va": "0x005103B0",
@@ -36124,7 +36124,7 @@
     {
      "va": "0x0050DF00",
      "length": 11,
-     "name": "?sub_0050DF00_ResetSpriteScale@@YAXXZ"
+     "name": "?GLVERTEX_PerspectiveClearScale@@YAXXZ"
     },
     {
      "va": "0x0050F980",
@@ -36511,7 +36511,7 @@
     {
      "va": "0x00512410",
      "length": 28,
-     "name": "sub_00512410_ForwardToDrawImage"
+     "name": "GLVERTEX_CelFlatSpriteDraw"
     },
     {
      "va": "0x00512710",
@@ -76386,12 +76386,12 @@
     {
      "va": "0x006B1C00",
      "length": 6,
-     "name": "sub_006B1C00"
+     "name": "D3DCORE_CheckCutScene"
     },
     {
      "va": "0x006B1C10",
      "length": 7,
-     "name": "?sub_006B1C10_SetGlobal@@YIXH@Z"
+     "name": "?D3DCORE_SetGlobalScale@@YIXH@Z"
     },
     {
      "va": "0x006B1C20",
@@ -76456,7 +76456,7 @@
     {
      "va": "0x006B20B0",
      "length": 3,
-     "name": "sub_006B20B0"
+     "name": "D3DCORE_ActivateWindow"
     },
     {
      "va": "0x006B20C0",
@@ -78403,7 +78403,7 @@
     {
      "va": "0x006C7A60",
      "length": 6,
-     "name": "sub_006C7A60"
+     "name": "GDICORE_Detect"
     },
     {
      "va": "0x006C7A70",
@@ -78418,7 +78418,7 @@
     {
      "va": "0x006C7AF0",
      "length": 1,
-     "name": "?sub_006C7AF0_Nop@@YAXXZ"
+     "name": "?GDICORE_ClearCaches@@YAXXZ"
     },
     {
      "va": "0x006C7B00",
@@ -78435,17 +78435,17 @@
     {
      "va": "0x006C7CC0",
      "length": 3,
-     "name": "sub_006C7CC0"
+     "name": "GDICORE_PlayCutscene"
     },
     {
      "va": "0x006C7CD0",
      "length": 3,
-     "name": "sub_006C7CD0"
+     "name": "GDICORE_OpenSmackCutscene"
     },
     {
      "va": "0x006C7CE0",
      "length": 3,
-     "name": "sub_006C7CE0"
+     "name": "GDICORE_CheckCutScene"
     },
     {
      "va": "0x006C7CF0",
@@ -78499,42 +78499,42 @@
     {
      "va": "0x006C8030",
      "length": 1,
-     "name": "?sub_006C8030_Nop@@YAXXZ"
+     "name": "?GDICORE_SetGlobalScale@@YAXXZ"
     },
     {
      "va": "0x006C8040",
      "length": 1,
-     "name": "?sub_006C8040_Nop@@YAXXZ"
+     "name": "?GDICORE_SetGamma@@YAXXZ"
     },
     {
      "va": "0x006C8050",
      "length": 3,
-     "name": "sub_006C8050"
+     "name": "GDICORE_GammaCanBeControlled"
     },
     {
      "va": "0x006C8060",
      "length": 3,
-     "name": "sub_006C8060"
+     "name": "GDICORE_SetAmbientColor"
     },
     {
      "va": "0x006C8070",
      "length": 1,
-     "name": "?sub_006C8070_Nop@@YAXXZ"
+     "name": "?GDICORE_UpdatePerspective@@YAXXZ"
     },
     {
      "va": "0x006C8080",
      "length": 3,
-     "name": "?sub_006C8080_Nop@@YGXHHH@Z"
+     "name": "?GDICORE_PerspectiveTransform@@YGXHHH@Z"
     },
     {
      "va": "0x006C8090",
      "length": 3,
-     "name": "?sub_006C8090_Nop@@YGXHHHH@Z"
+     "name": "?GDICORE_PerspectiveTransformScale@@YGXHHHH@Z"
     },
     {
      "va": "0x006C80A0",
      "length": 1,
-     "name": "?sub_006C80A0_Nop@@YAXXZ"
+     "name": "?GDICORE_PerspectiveClearScale@@YAXXZ"
     },
     {
      "va": "0x006C80B0",
@@ -78543,12 +78543,12 @@
     {
      "va": "0x006C80F0",
      "length": 3,
-     "name": "sub_006C80F0"
+     "name": "GDICORE_ActivateWindow"
     },
     {
      "va": "0x006C8100",
      "length": 3,
-     "name": "sub_006C8100"
+     "name": "GDICORE_SetOption"
     },
     {
      "va": "0x006C8110",
@@ -78557,7 +78557,7 @@
     {
      "va": "0x006C8190",
      "length": 3,
-     "name": "sub_006C8190"
+     "name": "GDICORE_GetCacheResults"
     },
     {
      "va": "0x006C81A0",
@@ -78612,7 +78612,7 @@
     {
      "va": "0x006C88A0",
      "length": 3,
-     "name": "sub_006C88A0"
+     "name": "GDICORE_CelDrawHilight"
     },
     {
      "va": "0x006C88B0",
@@ -78639,7 +78639,7 @@
     {
      "va": "0x006C8A40",
      "length": 3,
-     "name": "sub_006C8A40"
+     "name": "GDICORE_DebugDraw"
     },
     {
      "va": "0x006C8C00",

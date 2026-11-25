@@ -272,7 +272,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 int __fastcall DDCORE_GetDrawModePalette(int nIndex, int* pType);                                           // 0x00511D70
 
 // 0x00512410
-int __fastcall sub_00512410_ForwardToDrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nScreenMode, void* pPalette)
+int __fastcall GLVERTEX_CelFlatSpriteDraw(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nScreenMode, void* pPalette)
 {
     return sub_00511FB0_DrawImage(pData, nX, nY, dwGamma, nDrawMode, pPalette);
 }

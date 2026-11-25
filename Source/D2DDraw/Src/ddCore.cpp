@@ -369,7 +369,7 @@ int __fastcall DDCORE_Detect(void* hInstance)
 }
 
 // 0x00510160
-void __fastcall sub_00510160_DDrawSetPalette(tagPALETTEENTRY* pPalette)
+void __fastcall DDCORE_SetPalette(tagPALETTEENTRY* pPalette)
 {
     memcpy(gaDDrawSavedPalette, pPalette, sizeof(gaDDrawSavedPalette));
 
@@ -1071,7 +1071,7 @@ extern unsigned int gnDDrawBinkY; // 0x008816B8
 
 extern unsigned int gnDDrawBinkFlags; // 0x008816C8
 
-void __fastcall sub_00510160_DDrawSetPalette(tagPALETTEENTRY* pPalette); // 0x00510160
+void __fastcall DDCORE_SetPalette(tagPALETTEENTRY* pPalette); // 0x00510160
 
 extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 
@@ -1240,61 +1240,61 @@ LABEL_FAIL:
 }
 
 // 0x00510130
-void __fastcall sub_00510130_DDrawNop()
+void __fastcall DDCORE_ClearCaches()
 {
 }
 
 // 0x005102F0
-void __fastcall sub_005102F0_DDrawNop()
+void __fastcall DDCORE_SetGlobalScale()
 {
 }
 
 // 0x00510330
-void __fastcall sub_00510330_DDrawNop()
+void __fastcall DDCORE_UpdatePerspective()
 {
 }
 
 // 0x00510340
-void __fastcall sub_00510340_DDrawStub5(int a1, int a2, int a3, int a4, int a5)
+void __fastcall DDCORE_PerspectiveTransform(int a1, int a2, int a3, int a4, int a5)
 {
 }
 
 // 0x00510350
-void __fastcall sub_00510350_DDrawStub6(int a1, int a2, int a3, int a4, int a5, int a6)
+void __fastcall DDCORE_PerspectiveTransformScale(int a1, int a2, int a3, int a4, int a5, int a6)
 {
 }
 
 // 0x00510360
-void __fastcall sub_00510360_DDrawNop()
+void __fastcall DDCORE_PerspectiveClearScale()
 {
 }
 
 D2PaletteTableStrc gtDDrawPaletteView; // 0x00880C20
 
 // 0x00510150
-void __fastcall sub_00510150_DDrawGetScreenSize(int* pWidth, int* pHeight)
+void __fastcall DDCORE_GetDimensions(int* pWidth, int* pHeight)
 {
     *pWidth = gnRenderWidth;
     *pHeight = gnRenderHeight;
 }
 
 // 0x005102D0
-void __fastcall sub_005102D0_DDrawSetPaletteView(D2PaletteTableStrc* pSource)
+void __fastcall DDCORE_SetPaletteTables(D2PaletteTableStrc* pSource)
 {
     gtDDrawPaletteView = *pSource;
     gpGfxPaletteView_007C9150 = &gtDDrawPaletteView;
 }
 
 // 0x00510300
-void __fastcall sub_00510300_DDrawSetGamma(int nGamma)
+void __fastcall DDCORE_SetGamma(int nGamma)
 {
 // build: symbol ?gnDDrawGamma@* 0x0072F7CC
     gnDDrawGamma = nGamma;
-    sub_00510160_DDrawSetPalette(gaDDrawSavedPalette);
+    DDCORE_SetPalette(gaDDrawSavedPalette);
 }
 
 // 0x00510390
-int __fastcall sub_00510390_DDrawSetOption(int nOption, int nValue)
+int __fastcall DDCORE_SetOption(int nOption, int nValue)
 {
     switch (nOption)
     {
@@ -1431,7 +1431,7 @@ void __fastcall sub_005103B0_DDrawLogError(const char* szWhere, int hResult)
 }
 
 // 0x00510310
-int __cdecl sub_00510310_ReturnOne()
+int __cdecl DDCORE_GammaCanBeControlled()
 {
     return 1;
 }
