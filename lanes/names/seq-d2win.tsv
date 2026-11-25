@@ -1,0 +1,2 @@
+va	old_name	new_name	source	file	confidence	reason
+0x00507FA0	sub_00507FA0_GetScrollBarField4C	SCROLLBAR_GetCurrentStep	d2moo	Source/D2Win/Src/D2WinScrollbar.cpp	high	between SCROLLBAR_SetCurrentStep and SCROLLBAR_SetTextBox, which main already names from D2MOO; D2MOO's D2Win/include/D2WinScrollBar.h declares exactly as many functions between those two, in the same order, and this is the one in this place

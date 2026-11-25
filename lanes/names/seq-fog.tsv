@@ -1,0 +1,2 @@
+va	old_name	new_name	source	file	confidence	reason
+0x00410E90	sub_00410E90	BITMANIP_GetSize	d2moo	Source/Fog/Unknown_00410790.cpp	high	between BITMANIP_Initialize and BITMANIP_Write, which main already names from D2MOO; D2MOO's Fog/include/D2BitManip.h declares exactly as many functions between those two, in the same order, and this is the one in this place

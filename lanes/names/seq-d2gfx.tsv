@@ -1,0 +1,2 @@
+va	old_name	new_name	source	file	confidence	reason
+0x004F5140	sub_004F5140	D2GFX_GetDisplayType	d2moo	Source/D2Gfx/SRC/Window.cpp	high	between D2GFX_Release and D2GFX_CheckWindowed, which main already names from D2MOO; D2MOO's D2Gfx/include/D2Gfx.h declares exactly as many functions between those two, in the same order, and this is the one in this place

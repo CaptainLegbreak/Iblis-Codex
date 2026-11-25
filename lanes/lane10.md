@@ -6,6 +6,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 
 ## Ready
 
+- New naming plans seq-<module>.tsv (D2Game 10, D2Common 8, Fog 1, D2Gfx 1, D2Win 1): placeholder-named functions that sit between two functions main already names from D2MOO, where D2MOO's header declares exactly as many functions between those two, in the same order. That pins each one to D2MOO's name for its place (BITMANIP_GetSize, PATH_SetDirection, OBJRGN_IncreaseHealingShrineCount, MONSTERUNIQUE_EventExecuteUModCallbacks…). The method gives the same 14 names for the missile accessors that bare-d2common-missile.tsv got from their fields. Source d2moo, high. Queued to apply after the fileprefix and rendslots branches.
 - lane10/names-fileprefix-d2common 45e5019: fileprefix-d2common plan, 48 renames applied, none dropped. VERIFIED 5e6110e6 on base 60499b62, Game.exe matches.
 - lane10/names-fileprefix-d2game 3c45a7d: fileprefix-d2game plan, 49 renames applied; dropped 0x005DCF70. VERIFIED 7ae86421 on base 60499b62, Game.exe matches.
 - New naming plans rendslots-<module>.tsv (D2Gdi 28, D2DDraw 12, D2Direct3D 8, D2Glide 3): renderer functions still placeholder-named, named by their slot in the module's 54-entry renderer function table. The slot order matches D2MOO's renderer callback struct in D2Gfx.h (pfDetect, pfInit … pfClearCaches; 1.14d lacks its pfFrame) and the names the other renderers already carry in the same slot (GLCORE_SetGlobalScale, DDCORE_Blit…). Functions used in more than one slot (shared no-ops) are left out. Source d2moo, high. bare-d2common-missile.tsv: 14 D2Common missile accessors named from D2MOO's Units/Missile.h by the field each reads or writes, between the setters main already names (MISSILE_GetFlags before MISSILE_SetFlags…). Applying after the fileprefix branches.
@@ -73,6 +74,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 - lane10/names-rank1 8df1c87 rank-1 plan retried: 106 renames applied (names.csv and call sites), 36 addresses dropped by nameround because their units didn't build equal, 3 dropped by hand because the old spelling is also the file's stem (inv_0048DD90, inv_00491D20, text_0049C9C0: renaming them changes the gen include path; MISSING_GEN in the full verify). VERIFIED 0c3b912a on base 0b750228 (#341), placed all, Game.exe matches.
 
 ## Claimed
+- Tue Nov 24 17:55:53 PST 2026: applying naming plans one branch each: fileprefix (3 of 17 modules posted), then rendslots, bare-d2common-missile, then files-storm-4 and names-prefixfix-d2client-6 (rebase requests), then seq-<module>.
 - Tue Nov 24 17:12:27 PST 2026: applying fileprefix-<module> naming plans, D2Client first.
 - Tue Nov 24 16:45:04 PST 2026: join batch h1 (hand-fix helper) running over all modules on #373, one lane10/files-<module>-h1 branch each.
 - Tue Nov 24 16:12:40 PST 2026: files-storm-3 and names-prefixfix-d2client-5 posted on #371; next, small hand fixes for medium joins join.py could not do.
