@@ -1359,12 +1359,12 @@
    "bytes": 492,
    "definitions": 15,
    "externs": [
+    "extern \"C\" void __cdecl sub_004F8B80(); // 0x004F8B80",
+    "extern \"C\" void __cdecl sub_004F8DE0(); // 0x004F8DE0",
     "extern \"C\" struct d2data_0072F178_t gData_0072F178; // 0x0072F178",
     "extern \"C\" struct d2data_0072F6D0_t gData_0072F6D0; // 0x0072F6D0",
     "extern \"C\" struct d2data_0074BF28_t gData_0074BF28; // 0x0074BF28",
-    "extern \"C\" struct d2data_0074C4A8_t gData_0074C4A8; // 0x0074C4A8",
-    "extern \"C\" void __cdecl sub_004F8B80(); // 0x004F8B80",
-    "extern \"C\" void __cdecl sub_004F8DE0(); // 0x004F8DE0"
+    "extern \"C\" struct d2data_0074C4A8_t gData_0074C4A8; // 0x0074C4A8"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Gfx/SRC/Window.inc",
@@ -2675,7 +2675,6 @@
     "extern \"C\" void __cdecl SKILLS_EventCallback_ActiveState(); // 0x0056D790",
     "extern \"C\" void __cdecl SKILLS_EventCallback_PeriodicSkillAura(); // 0x0056FCB0",
     "extern \"C\" void __cdecl SKILLS_EventCallback_ItemAura(); // 0x0056FE40",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_EventExecuteUModCallbacks(); // 0x005A4370",
     "extern \"C\" void __cdecl sub_005A7EF0(); // 0x005A7EF0",
     "extern \"C\" void __cdecl AITHINK_ExecuteMonsterAiTick(); // 0x005B1740",
     "extern \"C\" void __cdecl sub_005A6DE0(); // 0x005A6DE0",
@@ -2696,7 +2695,8 @@
     "extern \"C\" void __cdecl sub_005A84F0(); // 0x005A84F0",
     "extern \"C\" void __cdecl sub_005A8520(); // 0x005A8520",
     "extern \"C\" void __cdecl sub_005A8630(); // 0x005A8630",
-    "extern \"C\" void __cdecl sub_005A8670(); // 0x005A8670"
+    "extern \"C\" void __cdecl sub_005A8670(); // 0x005A8670",
+    "extern \"C\" void __cdecl MONSTERUNIQUE_EventExecuteUModCallbacks(); // 0x005A4370"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MONSTER/MonsterMode_005A1080.inc",
@@ -4866,8 +4866,8 @@
    "state": "included"
   },
   "Source/D2Hell/Unknown_00516D8B.cpp": {
-   "bytes": 288,
-   "definitions": 6,
+   "bytes": 276,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Hell/Unknown_00516D8B.inc",
