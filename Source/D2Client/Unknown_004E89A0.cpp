@@ -1,5 +1,6 @@
 #include "D2Txt.h"
 #include "D2Records.h"
+#include "D2MonStatsInit.h"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -51,24 +52,6 @@ struct D2DataTablesStrc
     D2SkillsTxt_H* pSkillsTxt;
     char unk0xB9C[0x4];
     int nSkillsTxtRecordCount;
-};
-
-struct D2MonStatsInitStrc
-{
-    int nMinHP;
-    int nMaxHP;
-    int nAC;
-    int nTH;
-    int nExp;
-    int nA1MinD;
-    int nA1MaxD;
-    int nA2MinD;
-    int nA2MaxD;
-    int nS1MinD;
-    int nS1MaxD;
-    int nElMinD;
-    int nElMaxD;
-    int nElDur;
 };
 
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
