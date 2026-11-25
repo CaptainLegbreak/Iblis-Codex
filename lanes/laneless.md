@@ -30,6 +30,17 @@ call stays the coordinator's. This section is replaced at each check.
     - Link-time code generation (/GL + /LTCG) still folds, and adds an `and esp, -8` the original doesn't have.
   - **0x5DD7F0 (lane7/005DD7F0-wip, 1120/1084):** /GL + /LTCG makes it worse, 1141 B and 321 differing lines against 238.
   - **Tool:** `lanes/tools/vbatch/ltlab.py` runs a batch of variants through /GL + /LTCG (see the vbatch README).
+  - **0x5DD7F0's block layout isn't source order.** The original's out-of-line block (0x1B0-0x22A: the sight check,
+    the bit-3 test and the vision toggle) sits in the first gap after the inner `for (;;)`'s back edge, `jmp 0x170`.
+    Moving that code through a label to four other source positions (after the inner loop, after the `< 55` block, at
+    the end of the first loop's body, at the end of the function) compiles byte-identical to the draft. So VC8 orders
+    these blocks itself.
+    - In the original, the "flag 0x40 set" branch falls into the join and the else is parked in that gap. In the draft,
+      the set branch jumps over an inline else. Inverting the test, a default `bCheckCollision = 1`, a flag local and
+      nested forms don't flip which branch falls through.
+    - A greedy search over 11 control-flow groups (the flag block, the threat lookup, the first loop's header, the
+      dead/min updates, nested collision test, inner-loop exit, the second loop as while/for/do, the tail) found
+      nothing better than 310 from the default start or a random seed. Template: `lanes/vsearch/005DD7F0-wide.tpl`.
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
