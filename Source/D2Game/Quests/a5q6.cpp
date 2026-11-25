@@ -57,7 +57,7 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A
 
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
-void __fastcall D2GAME_SendPacket0x50_6FC3F440(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
+void __fastcall D2GAME_SendPacket0x50(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
 
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, QUESTUNITITERATE pfIterate, bool bIterate); // 0x00544300
 
@@ -127,7 +127,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                      
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 
-D2UnitStrc* __fastcall D2GAME_CreateMissile_6FD115E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId, int nX, int nY); // 0x0056EDE0
+D2UnitStrc* __fastcall D2GAME_CreateMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId, int nX, int nY); // 0x0056EDE0
 
 void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char a2);                                      // 0x00545760
 
@@ -392,7 +392,7 @@ static void ACT5Q6_SendZooMonsterId(D2GameStrc* pGame, D2UnitStrc* pUnit)
     packet50.nHeader = 0x50;
     packet50.nQuestId = QUEST_A5Q6_BAAL;
     packet50.nParams[0] = ((D2Act5Quest6Strc*)QUESTS_GetQuestData(pGame, QUEST_A5Q6_BAAL)->pQuestDataEx)->nZooMonsterId;
-    D2GAME_SendPacket0x50_6FC3F440(pClient, &packet50);
+    D2GAME_SendPacket0x50(pClient, &packet50);
 }
 
 // 0x0058E670
@@ -465,7 +465,7 @@ void __fastcall ACT5Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         }
         if (pQuestData->fState != 5) pQuestData->fState = 5;
     }
-    D2UnitStrc* pMissile = D2GAME_CreateMissile_6FD115E0(pQuestArg->pGame,pQuestArg->pTarget,0,1,DEATH_MISSILE,CLIENTS_GetUnitX(pQuestArg->pTarget),CLIENTS_GetUnitY(pQuestArg->pTarget));
+    D2UnitStrc* pMissile = D2GAME_CreateMissile(pQuestArg->pGame,pQuestArg->pTarget,0,1,DEATH_MISSILE,CLIENTS_GetUnitX(pQuestArg->pTarget),CLIENTS_GetUnitY(pQuestArg->pTarget));
     if (pMissile) {
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pMissile);
         DUNGEON_ToggleHasPortalFlag(pRoom,0);
@@ -626,7 +626,7 @@ void __fastcall OBJECTS_InitFunction79_Zoo(D2ObjInitFnStrc* pOp)
     }
 }
 
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 
 // 0x0058E920
 void __fastcall ACT5Q6_SpawnTyrael(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit)
@@ -639,7 +639,7 @@ void __fastcall ACT5Q6_SpawnTyrael(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D
     QUESTS_GetFreePosition(pRoom, &coord, 5, 0x400, &pFreeRoom, 19, 100);
     if (pFreeRoom)
     {
-        D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, coord.nX, coord.nY, MONSTER_TYRAEL3, MONMODE_NEUTRAL, 4, 66);
+        D2GAME_SpawnMonster(pGame, pFreeRoom, coord.nX, coord.nY, MONSTER_TYRAEL3, MONMODE_NEUTRAL, 4, 66);
     }
 }
 

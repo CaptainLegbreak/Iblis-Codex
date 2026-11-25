@@ -83,7 +83,7 @@ D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, 
 
 unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient); // 0x005382B0
 
-void __fastcall D2GAME_SendPacket0x53_6FC3DF50(D2ClientStrc* pClient, D2GSPacketSrv53* pPacket); // 0x0053C900
+void __fastcall D2GAME_SendPacket0x53(D2ClientStrc* pClient, D2GSPacketSrv53* pPacket); // 0x0053C900
 
 void __fastcall SCMD_SendPacket0x5D(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 
@@ -102,7 +102,7 @@ D2SeedStrc* __fastcall QUESTS_GetGlobalSeed(D2GameStrc* pGame); // 0x005438B0
 
 int __fastcall OBJECTS_RollRandomNumber(D2SeedStrc* pSeed, int nMin, int nMax); // 0x004BC500
 
-D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int nItemType, int bIgnoreRarity); // 0x00559A30
+D2UnitStrc* __fastcall D2GAME_DropItemAtUnit(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int nItemType, int bIgnoreRarity); // 0x00559A30
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
@@ -321,7 +321,7 @@ int __fastcall OBJECTS_OperateFunction40_HoradricScrollChest(D2ObjOperateFnStrc*
             for (int i = 0; i < pQuestDataEx->nItemDropCount; ++i)
             {
                 int nItemLevel;
-                D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_UNIQUE, &nItemLevel, 0, -1, 1);
+                D2GAME_DropItemAtUnit(pOp->pGame, pOp->hObject, ITEMQUAL_UNIQUE, &nItemLevel, 0, -1, 1);
             }
         }
 
@@ -355,7 +355,7 @@ int __fastcall OBJECTS_OperateFunction41_StaffOfKingsChest(D2ObjOperateFnStrc* p
             for (int i = 0; i < pQuestDataEx->nItemDropCount; ++i)
             {
                 int nItemLevel;
-                D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_UNIQUE, &nItemLevel, 0, -1, 1);
+                D2UnitStrc* pItem = D2GAME_DropItemAtUnit(pOp->pGame, pOp->hObject, ITEMQUAL_UNIQUE, &nItemLevel, 0, -1, 1);
                 if (pItem)
                 {
                     ITEMS_SetItemFlag(pItem, 0x10, 1);
@@ -395,7 +395,7 @@ int __fastcall OBJECTS_OperateFunction39_HoradricCubeChest(D2ObjOperateFnStrc* p
             for (int i = 0; i < pQuestDataEx->nItemDropCount; ++i)
             {
                 int nItemLevel;
-                if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
+                if (D2GAME_DropItemAtUnit(pOp->pGame, pOp->hObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
                 {
                     ++pQuestDataEx->nHoradricCubes;
                     pQuestDataEx->bCubeDropped = 1;
@@ -544,7 +544,7 @@ int __fastcall ACT2Q3_UnitIterate_UpdateClient(D2GameStrc* pGame, D2UnitStrc* pU
         packet53.nCycleIndex = 5;
         packet53.nTicks = 0;
         packet53.nEclipse = 1;
-        D2GAME_SendPacket0x53_6FC3DF50(pClient, &packet53);
+        D2GAME_SendPacket0x53(pClient, &packet53);
 
         D2GSPacketSrv5D packet5D;
         memset(&packet5D, 0, sizeof(packet5D));
@@ -568,7 +568,7 @@ int __fastcall ACT2Q3_UnitIterate_SendPacket0x53ToClient(D2GameStrc* pGame, D2Un
         packet53.nCycleIndex = 2;
         packet53.nTicks = 0;
         packet53.nEclipse = 0;
-        D2GAME_SendPacket0x53_6FC3DF50(pClient, &packet53);
+        D2GAME_SendPacket0x53(pClient, &packet53);
     }
 
     return 0;
@@ -956,7 +956,7 @@ int __fastcall OBJECTS_OperateFunction24_TaintedSunAltar(D2ObjOperateFnStrc* pOp
         pOp->hObject->dwDropItemCode = ' piv';
         for (int i = 0; i < pQuestDataEx->nViperAmuletDropCount; ++i)
         {
-            D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, 7, &nItemLevel, 0, -1, 0);
+            D2UnitStrc* pItem = D2GAME_DropItemAtUnit(pOp->pGame, pOp->hObject, 7, &nItemLevel, 0, -1, 0);
             if (pItem)
             {
                 ITEMS_SetItemFlag(pItem, 16, 1);
@@ -1027,7 +1027,7 @@ int __fastcall OBJECTS_OperateFunction24_TaintedSunAltar(D2ObjOperateFnStrc* pOp
     pOp->hObject->dwDropItemCode = ' piv';
     for (int i = 0; i < pQuestDataEx->nViperAmuletDropCount; ++i)
     {
-        D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, 7, &nItemLevel, 0, -1, 0);
+        D2UnitStrc* pItem = D2GAME_DropItemAtUnit(pOp->pGame, pOp->hObject, 7, &nItemLevel, 0, -1, 0);
         if (pItem)
         {
             ITEMS_SetItemFlag(pItem, 16, 1);

@@ -406,7 +406,7 @@ int D2PathRoomsAABBStrc::PATH_IdaStar_ComputePathWithRooms(D2PathInfoStrc* pPath
 }
 
 // 0x0067AD00
-int __fastcall PATH_IdaStar_6FDA7970(D2PathInfoStrc* pPathInfo)
+int __fastcall PATH_IdaStar(D2PathInfoStrc* pPathInfo)
 {
     pPathInfo->field_14 *= 2;
     D2PathRoomsAABBStrc tPathRoomsAABB;

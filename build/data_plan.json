@@ -84780,7 +84780,7 @@
      12,
      "0x005818B0",
      "names.json",
-     "D2GAME_SpikeTraps_6FC74F60",
+     "D2GAME_SpikeTraps",
      0,
      "func"
     ],
@@ -85863,7 +85863,7 @@
      88,
      "0x00549FA0",
      "names.json",
-     "D2GAME_PACKETCALLBACK_Rcv0x0B_6FC83EE0",
+     "D2GAME_PACKETCALLBACK_Rcv0x0B",
      0,
      "func"
     ],
@@ -85927,7 +85927,7 @@
      152,
      "0x0054AA90",
      "names.json",
-     "D2GAME_PACKETCALLBACK_Rcv0x13_InteractWithEntity_6FC84D70",
+     "D2GAME_PACKETCALLBACK_Rcv0x13_InteractWithEntity",
      0,
      "func"
     ],
@@ -86183,7 +86183,7 @@
      416,
      "0x0054BBA0",
      "names.json",
-     "D2GAME_PACKETCALLBACK_Rcv0x34_IdentifyItemsWithNpc_6FC86BA0",
+     "D2GAME_PACKETCALLBACK_Rcv0x34_IdentifyItemsWithNpc",
      0,
      "func"
     ],
@@ -86199,7 +86199,7 @@
      432,
      "0x0054BBD0",
      "names.json",
-     "D2GAME_PACKETCALLBACK_Rcv0x36_HireMerc_6FC86BD0",
+     "D2GAME_PACKETCALLBACK_Rcv0x36_HireMerc",
      0,
      "func"
     ],
@@ -86343,7 +86343,7 @@
      576,
      "0x0054C590",
      "names.json",
-     "D2GAME_PACKETCALLBACK_Rcv0x48_TurnOffBusyState_6FC87E20",
+     "D2GAME_PACKETCALLBACK_Rcv0x48_TurnOffBusyState",
      0,
      "func"
     ],
@@ -86375,7 +86375,7 @@
      616,
      "0x0054C690",
      "names.json",
-     "D2GAME_PACKETCALLBACK_Rcv0x4D_PlayNpcMessage_6FC880A0",
+     "D2GAME_PACKETCALLBACK_Rcv0x4D_PlayNpcMessage",
      0,
      "func"
     ],
@@ -86423,7 +86423,7 @@
      672,
      "0x0054C990",
      "names.json",
-     "D2GAME_PACKETCALLBACK_Rcv0x54_TurnStaminaOff_6FC88380",
+     "D2GAME_PACKETCALLBACK_Rcv0x54_TurnStaminaOff",
      0,
      "func"
     ],
@@ -86487,7 +86487,7 @@
      784,
      "0x0054BC00",
      "names.json",
-     "D2GAME_PACKETCALLBACK_Rcv0x62_ResurrectMerc_6FC86C00",
+     "D2GAME_PACKETCALLBACK_Rcv0x62_ResurrectMerc",
      0,
      "func"
     ],
@@ -91066,7 +91066,7 @@
      20,
      "0x00582380",
      "names.json",
-     "D2GAME_OBJECTS_TrapHandler5_7_6FC75BC0",
+     "D2GAME_OBJECTS_TrapHandler5_7",
      0,
      "func"
     ],
@@ -91082,7 +91082,7 @@
      28,
      "0x00582380",
      "names.json",
-     "D2GAME_OBJECTS_TrapHandler5_7_6FC75BC0",
+     "D2GAME_OBJECTS_TrapHandler5_7",
      0,
      "func"
     ],
@@ -91359,7 +91359,7 @@
      196,
      "0x00582A30",
      "names.json",
-     "D2GAME_SHRINES_Portal_6FC76880",
+     "D2GAME_SHRINES_Portal",
      0,
      "func"
     ],
@@ -104141,7 +104141,7 @@
      40,
      "0x005B14E0",
      "names.json",
-     "D2GAME_AI_SpecialState02_6FCD1660",
+     "D2GAME_AI_SpecialState02",
      0,
      "func"
     ],
