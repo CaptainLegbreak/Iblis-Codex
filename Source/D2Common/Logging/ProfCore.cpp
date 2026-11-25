@@ -4,7 +4,6 @@
 struct D2GameStrc;
 struct D2ProfileCounterStrc;
 
-
 typedef int (__cdecl* PROFHOOK0096BC24FN)();
 
 extern D2ProfileCounterStrc gaProfEntries[23]; // 0x00743800
@@ -23,6 +22,13 @@ extern PROFHOOKFN gpfnProfHook; // 0x0096BC28
 void __cdecl LOG_11100(int nA, int nB, int nC, int nFlags, const char* szFile, int nLine, const char* szFormat, ...); // 0x006248E0
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(__int64* pnCount); // 0x006CC25C
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(__int64* pnFrequency); // 0x006CC254
+PROFHOOK0096BC24FN gpfnProfSecondaryHook; // 0x0096BC24
+
+// 0x006115F0
+void __cdecl sub_006115F0_Empty()
+{
+}
+
 // 0x00611600
 void __cdecl PROFCORE_CloseLog()
 {

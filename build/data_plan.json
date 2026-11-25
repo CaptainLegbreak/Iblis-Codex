@@ -3145,15 +3145,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_006115F0.cpp": {
-   "bytes": 0,
-   "definitions": 0,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_006115F0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Common/DATATBLS/DataTbls.cpp": {
    "bytes": 124,
    "definitions": 4,
