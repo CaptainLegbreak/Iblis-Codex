@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
 #include "D2StormTypes.h"
@@ -6,7 +7,6 @@
 
 void __stdcall INV_UpdateInventoryHover(SMSGHANDLER_PARAMS* pMsg); // 0x004873A0
 
-void __cdecl INV_ResetHover(); // 0x00487990
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 

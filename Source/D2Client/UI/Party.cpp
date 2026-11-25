@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2CelContext.h"
 #include "D2Unicode.h"
 #include "D2ClientTypes.h"
@@ -20,9 +21,7 @@ struct D2CelContextStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
 
-unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
@@ -63,25 +62,18 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 
-int __fastcall ROSTER_GetLevel(D2StoredUnitRecordStrc* pEntry); // 0x00479B90
 
 int __fastcall ROSTER_GetClassId(D2StoredUnitRecordStrc* pEntry); // 0x00479BA0
 
-int __fastcall ROSTER_TestLootFlag(D2StoredUnitRecordStrc* pEntry); // 0x00479C20
 
-int __fastcall ROSTER_TestMuteFlag(D2StoredUnitRecordStrc* pEntry); // 0x00479C60
 
-int __fastcall ROSTER_TestSquelchFlag(D2StoredUnitRecordStrc* pEntry); // 0x00479CA0
 
-int __fastcall ROSTER_TestHostileFlag(D2StoredUnitRecordStrc* pEntry); // 0x00479CE0
 
 int __fastcall ROSTER_GetPartyFlags(D2StoredUnitRecordStrc* pEntry); // 0x00479D20
 
-int __fastcall ROSTER_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); // 0x0047A0C0
 
 int __fastcall ROSTER_GetLevelId(D2StoredUnitRecordStrc* pEntry); // 0x0047A1E0
 
-void __cdecl PARTY_FreeRosterUnits(); // 0x0049A020
 
 D2PartyRowStrc* gpRosterUnits; // 0x007BF014
 
@@ -101,7 +93,6 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
-int __fastcall ROSTER_IsHostileToPlayer(D2StoredUnitRecordStrc* pEntry); // 0x0047A5B0
 
 void __stdcall PARTY_DrawPanelIcons(D2PartyRowStrc* pRow); // 0x0049A690
 
@@ -109,7 +100,6 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char*
 
 extern "C" size_t __cdecl strlen(const char* szString);
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 int __fastcall sub_005262A0_Utf8CountChars(const char* pSrc, int nCount); // 0x005262A0
 
@@ -158,16 +148,10 @@ void* gpPartyBoxesCel; // 0x007BF020
 
 extern unsigned char gnBoxColor; // 0x007BF034
 
-int __cdecl sub_00468730(); // 0x00468730
-int __cdecl sub_00468740(); // 0x00468740
 static void __stdcall PARTY_DrawTextFrame(unsigned short nAltString, unsigned short nString, int nX, int bLarge); // 0x0049AAF0
-int __fastcall TEXT_GetCenteredStringX(unsigned short nStringIndex, int nCenterX); // 0x0049AAA0
 extern D2PartyRowStrc* gpRosterUnits; // 0x007BF014
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
-void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
-int __stdcall TEXT_IsMouseInRect(int nX, int nY, int nWidth, int nHeight); // 0x0049AA50
-void __cdecl ROSTER_SendLeaveParty(); // 0x00479FC0
 extern int gnScreenWidth; // 0x0071146C
 extern int gbRosterMode; // 0x007BF038
 extern int gbRosterButtonDown; // 0x007BF030
@@ -587,7 +571,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
-void __fastcall ROSTER_HandlePartyButton(D2StoredUnitRecordStrc* pEntry); // 0x00479EB0
 
 static __forceinline int GetStringWidthInline(unsigned short nStringIndex)
 {
@@ -975,11 +958,8 @@ int __fastcall TEXT_GetCenteredStringX(unsigned short nStringIndex, int nCenterX
 
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);              // 0x005269D0
 
-int __fastcall ROSTER_IsPlayerHostile(D2StoredUnitRecordStrc* pEntry);                                                // 0x0047A5E0
 
-int __fastcall ROSTER_PlayerAllowsLoot(D2StoredUnitRecordStrc* pEntry);                                                // 0x0047A640
 
-int __fastcall ROSTER_AllowsPlayerLoot(D2StoredUnitRecordStrc* pEntry);                                                // 0x0047A610
 
 int __fastcall ROSTER_IsMaleClass(D2StoredUnitRecordStrc* pEntry);                                                // 0x0047A670
 

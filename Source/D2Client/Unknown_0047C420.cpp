@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2ClientUi.h"
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
@@ -40,9 +41,6 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
-void __cdecl sub_00477C60_CheckCacheStats();                                                                // 0x00477C60
-void __cdecl VIEW_ToggleCacheStats();                                                               // 0x00477C00
-int __cdecl GAME_GetConnectionType();                                                                                 // 0x0044DB30
 void __cdecl SOUNDINST_ToggleHints();                                                                    // 0x004BABC0
 bool __fastcall CHAT_IsNarrowText(const Unicode* pText);                                            // 0x0047BD00
 int __stdcall CHAT_ParseChatCommand(char** ppText, char* pCode, char* szArgument);                  // 0x0047BAD0
@@ -52,8 +50,6 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);       
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor);                              // 0x0049E3A0
-void __fastcall MSG_SendStrings(const unsigned char* pData);                                       // 0x004787B0
-D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry);               // 0x004795A0
 extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290

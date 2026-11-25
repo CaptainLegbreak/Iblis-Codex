@@ -1,5 +1,6 @@
 #include "SGAMEDATA.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2LevelTxt.h"
 #include "D2ClientUi.h"
@@ -405,9 +406,7 @@ Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Uni
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
-void __cdecl SELECT_UnlockHover(); // 0x00466FF0
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 void __fastcall CUNIT_DispatchMouseWheel(int nSteps); // 0x004693B0
 
@@ -425,7 +424,6 @@ void __cdecl CMDTBL_CallBoundCommand(); // 0x00469370
 
 int __stdcall WINDOW_IsFullScreen(); // 0x004F5A30
 
-void __cdecl UI_FreePlayerUI(); // 0x00453DE0
 
 void __cdecl SELECT_ResetHoverClassIds(); // 0x00467A00
 
@@ -451,19 +449,15 @@ int gbClickHandled; // 0x007A0658
 
 extern int gnAutomapHeight_007A521C; // 0x007A521C
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
 
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
 void __fastcall AUTOMAP_ResetBaseOffset(int bForce); // 0x00457640
 
-D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
-int __cdecl sub_00468730(); // 0x00468730
 
-int __cdecl sub_00468740(); // 0x00468740
 
 int __stdcall sub_00420290_BreakHandlerChain(void* pMsg); // 0x00420290
 
@@ -1112,7 +1106,6 @@ void __stdcall AUTOMAP_RevealRoomCallback(D2ActiveRoomStrc* pRoom); // 0x0045915
 
 void __stdcall AUTOMAP_AddTownCelsCallback(int nLevelId, int nPickedFile, int nX, int nY); // 0x004591A0
 
-void __cdecl AUTOMAP_InitAutomapColors(); // 0x0045A620
 
 void __fastcall GFX_LoadGlobalHashedFile(unsigned char nIndex); // 0x0046F310
 
@@ -1158,17 +1151,12 @@ struct D2RangeStrc;
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
-void __fastcall PLAYER_SetPanelSlide(int nMode); // 0x0045AEA0
 
-void __fastcall sub_00457440_Nop(int nResolution); // 0x00457440
 
 void __fastcall UI_ToggleListDialog(int nResolution); // 0x004549B0
 
-void __fastcall sub_0046C460_PopulateRoom(D2ActiveRoomStrc* pRoom); // 0x0046C460
 
-void __fastcall VIEW_SpawnRoomPresets(D2ActiveRoomStrc* pRoom); // 0x00466820
 
-void __fastcall sub_0046BE60_ApplyDenOfEvilRoom(D2ActiveRoomStrc* pRoom); // 0x0046BE60
 
 extern D2McpPacketHandler gpfnMcpPacketHandlers[]; // 0x0070ED00
 
@@ -1190,7 +1178,6 @@ void __stdcall CLIENT_Initialize(int nArg, const char* szAddress); // 0x0052A750
 
 int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int)); // 0x00451BB0
 
-int __stdcall WINMAIN_WaitConnect(int nUnused); // 0x0044BBB0
 
 extern D2McpCallbackFn gpfnMcpPacket08Callback; // 0x007992F8
 
@@ -1220,65 +1207,40 @@ int __cdecl FOG_CreateNewPoolSystem(D2PoolSystemStrc** ppPoolSystem, const char*
 
 int __stdcall SErrRegisterMessageSource(unsigned short wFacility, void* hModule, void* pReserved);     // 0x0041C2F0
 
-int __cdecl GAME_GetConnectFailed();                                                                                 // 0x0044BBA0
 
-void __stdcall GAME_DestroyWindowAndGfx(int nArg1, int nArg2, int nArg3);                                               // 0x0044C850
 
 void __fastcall GAME_DrawGameView(void* pArg);                                                                   // 0x0044C990
 
-void __cdecl GAME_ReadColorFlag();                                                                  // 0x0044DBE0
 
-int __stdcall COMCALLBACK_LoadLngString(int nId, char* szBuffer, unsigned int nSize);                         // 0x004512C0
 
-void __stdcall RECORD_RecordHandler(int nArg1, int nArg2, int nArg3);                                 // 0x00451920
 
-void __cdecl GAME_LoadLoadingScreen();                                                              // 0x00456550
 
-void __cdecl UI_ShutdownUI();                                                                                // 0x00456D80
 
-void __fastcall SKILLS_InitGfxCaches(void* pMemPool, int bCelPool);                                   // 0x00457300
 
-void __fastcall AUTOMAP_FreeCaches(int nArg);                                                                     // 0x00457420
 
-void __cdecl CUNIT_ClearUnitTables();                                                                                // 0x00463C70
 
 void __fastcall CUNIT_SetPlayerUnit(D2UnitStrc* pUnit); // 0x00463D90
 
-void __cdecl CUNIT_FreeAllUnits();                                                                                // 0x004659C0
 
-void __cdecl SELECT_ClearSelection();                                                                                // 0x00466FE0
 
-unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB);                                                     // 0x00469AA0
 
-int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB);                                                                // 0x00469D90
 
-void __cdecl sub_0046BF90_ResetLevelEffects();                                                                                // 0x0046BF90
 
-void __cdecl CUNIT_ClearAiTargets();                                                                                // 0x0046D750
 
-void __cdecl sub_00472320();                                                                                // 0x00472320
 
-void __cdecl sub_004723C0();                                                                                // 0x004723C0
 
-void __cdecl sub_00472BD0();                                                                                // 0x00472BD0
 
-void __cdecl sub_00473CE0_Nop();                                                                                // 0x00473CE0
 
-void __cdecl sub_00473CF0_Nop();                                                                                // 0x00473CF0
 
 void __cdecl DLIGHTMAP_ClearLightGrid();                                                                                // 0x00474790
 
-void __cdecl DLIGHTMAP_FreeAllLights();                                                                                // 0x004758D0
 
-void __fastcall VIEW_FreeView(D2ViewStrc* pView);                                                            // 0x00475FD0
 
 void __fastcall VIEW_SetViewPos(D2ViewStrc* pView, int nX, int nY);                                 // 0x004760A0
 
 D2ViewStrc* __cdecl VIEW_CreateView();                                                                         // 0x00476B10
 
-void __cdecl PALSHIFT_AllocPalShiftEntries();                                                                   // 0x00476EA0
 
-void __cdecl PALSHIFT_FreePalShifts();                                                                                // 0x00476FB0
 
 void __cdecl sub_00477DD0();                                                                                // 0x00477DD0
 
@@ -1286,11 +1248,8 @@ void __fastcall MSG_UploadSaveFile(int bAnimate);                               
 
 void __cdecl CHAT_ResetChatHistory();                                                                                // 0x0047BD30
 
-void __cdecl sub_0047F1D0_LoadResolution();                                                                 // 0x0047F1D0
 
-void __cdecl INV_InitColorTable();                                                                                // 0x00483960
 
-void __cdecl PANEL_SetBlackColour();                                                                                // 0x00499E30
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
@@ -1368,7 +1327,6 @@ extern Unicode gwszHoverLine_007A2D30[];                                        
 
 extern int gnHoverTextColor;                                                                       // 0x007A2F30
 
-void __cdecl GAME_ResetLeftClick(); // 0x0044C060
 
 int __stdcall D2GFX_Release(); // 0x004F5050
 
@@ -1386,25 +1344,20 @@ struct Allocation;
 
 struct UnitPrefix;
 
-void __cdecl GAME_InitRooms(); // 0x0044C750
 
-void __cdecl CUNIT_ResetUnitTables(); // 0x00465AA0
 
 void __stdcall DUNGEON_AnimateTiles(D2ActiveRoomStrc* pRoom); // 0x0061AEF0
 
-void __cdecl sub_0046BEB0_UpdateTimers(); // 0x0046BEB0
 
 void __fastcall GFX_PreloadTick(int nValue); // 0x00470350
 
 int __stdcall ENVIRONMENT_UpdatePeriodOfDay(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom); // 0x0061BFC0
 
-void __cdecl CUNIT_UpdateObjectsForPeriod(); // 0x004646C0
 
 D2DrlgStrc* __stdcall DUNGEON_GetDrlgFromAct(D2DrlgActStrc* pAct); // 0x0061AA90
 
 void __stdcall DRLGACTIVATE_Update(D2DrlgStrc* pDrlg); // 0x0061B920
 
-void __cdecl AUTOMAP_UpdateAutomapReveal(); // 0x00459020
 
 void __stdcall DUNGEON_UpdateAndFreeInactiveRooms(D2DrlgActStrc* pAct); // 0x0061AA20
 
@@ -1848,7 +1801,6 @@ extern "C" { unsigned int gSlotSecond; } // 0x00799304
 
 void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
-int __cdecl GAME_GetConnectFailed(); // 0x0044BBA0
 
 // 0x0044BDE0
 sub_0044BDE0::sub_0044BDE0()
@@ -3256,7 +3208,6 @@ void __fastcall GAME_LoadAct(unsigned char nAct, unsigned int dwGameSeed, unsign
         gdwDelayEnd = dwEnd;
 }
 
-void __cdecl GAME_InitGameState(); // 0x0044E200
 
 char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset)
 {

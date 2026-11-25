@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2StormTypes.h"
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
@@ -13,15 +14,10 @@
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
-int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB); // 0x00469D90
 
-unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 
-void __cdecl GAME_ResetLeftClick(); // 0x0044C060
 
-void __cdecl SELECT_UnlockHover(); // 0x00466FF0
 
 extern int gbStandStillHeld; // 0x007A0664
 
@@ -92,9 +88,7 @@ void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 int __fastcall D2Win_10177(unsigned char nAct); // 0x004FB480
 
-void __cdecl VIEW_FreeLerpTables(); // 0x00475EF0
 
-void __cdecl CURSOR_ShutdownCursor(); // 0x00468170
 
 void __cdecl RECORD_FreeMsgRecordChunks(); // 0x00451850
 
@@ -129,35 +123,26 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(_RTL_CRITIC
 
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 
-int __cdecl WINMAIN_PollMcpConnection(); // 0x00449B70
 
-void __cdecl GAME_StartClick(); // 0x0044C000
 
-void __cdecl GAME_StartRightClick(); // 0x0044C2C0
 
 void __cdecl WINMAIN_DrainPacketQueues(); // 0x0044C6E0
 
-void __cdecl GAME_UpdateGameState(); // 0x0044C790
 
 int __fastcall sub_0044CCA0(unsigned int nFrames, unsigned int nRemainder, int nRate);
 
-void __cdecl GAME_AverageFrameCounters(); // 0x0044CCE0
 
-void __cdecl GAME_UpdateKeyState(); // 0x0044CE90
 
 void __cdecl GAME_CheckConnectionTimeouts(); // 0x0044EEC0
 
 void __cdecl RECORD_ReplayRecords(); // 0x004519C0
 
-int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
 void __cdecl PLAYER_ClearCommandPending(); // 0x00462920
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 void __cdecl SELECT_UpdateHoverUnit(); // 0x00467AC0
 
@@ -169,7 +154,6 @@ void __fastcall WARDENCLIENT_TickModule(int nDelta); // 0x00480320
 
 void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer); // 0x00481600
 
-void __cdecl SOUNDHDR_TickSound(); // 0x00482C20
 
 int __cdecl D2SOUND_IsStreamChannelPlaying(); // 0x00514840
 
@@ -299,7 +283,6 @@ extern int gnViewDeltaY; // 0x007A067C
 
 extern void* gpGlobal_007A0634; // 0x007A0634
 
-void __fastcall UI_FreeLoadingScreen(); // 0x004547B0
 
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
 
@@ -323,9 +306,7 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 void __cdecl AUTOMAP_UpdateAutomapOrigin(); // 0x0045B440
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
 
-void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView); // 0x00476BC0
 
 void __fastcall UI_DrawUIPanels(D2ViewStrc* pView); // 0x00456EE0
 
@@ -333,13 +314,10 @@ void __stdcall D2Win_UpdateAndDraw(); // 0x004F98E0
 
 void __fastcall sub_00468820(int nArg1, int nArg2); // 0x00468820
 
-void __cdecl CURSOR_DrawCursor(); // 0x004684C0
 
 void __fastcall sub_00477980(); // 0x00477980
 
-int __cdecl sub_00468730(); // 0x00468730
 
-int __cdecl sub_00468740(); // 0x00468740
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 

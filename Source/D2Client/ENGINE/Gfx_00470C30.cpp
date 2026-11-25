@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2ClientGfxState.h"
 #include "FogApi.h"
 
@@ -10,7 +11,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void);    
 
 D2StateOwnerStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit);                                    // 0x00463E10
 void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pNode);                      // 0x0046E040
-void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet);                                 // 0x00639DB0
 

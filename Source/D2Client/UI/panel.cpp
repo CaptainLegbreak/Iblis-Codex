@@ -3,6 +3,7 @@
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2CelContext.h"
@@ -59,7 +60,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern int gnScreenWidth; // 0x0071146C
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 unsigned int __cdecl sub_0044DA90(); // 0x0044DA90
 
@@ -89,7 +89,6 @@ static int gbMiniPanelButtonDown;        // 0x007BEFD0
 
 static int gbRunButtonDown;        // 0x007BEFD8
 
-int __cdecl GAME_IsExitPending(); // 0x0044DA30
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
@@ -106,11 +105,8 @@ void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-int __cdecl sub_00468730(); // 0x00468730
 
-int __cdecl sub_00468740(); // 0x00468740
 
-D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
 
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
@@ -138,7 +134,6 @@ extern int gbSkillSelectRight; // 0x007C07FC
 
 extern int gbSkillTabPressed; // 0x007C0C38
 
-int __cdecl ROSTER_IsAnyoneHostile(); // 0x0047A560
 
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 
@@ -148,7 +143,6 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
 
-D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
@@ -176,13 +170,11 @@ D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0
 
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBeltSlot(D2InventoryStrc* pInventory, int nSlotId); // 0x0063C7F0
 
-int __cdecl sub_00468830(); // 0x00468830
 
 unsigned int __stdcall ITEMS_CheckIfBeltable(D2UnitStrc* pItem); // 0x0062BAD0
 
 int __fastcall ITEM_IsItemActionBlocked(D2UnitStrc* pItem); // 0x004C2240
 
-void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
 void __fastcall MSG_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 
@@ -198,13 +190,9 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
-int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
-int __cdecl GAME_IsLeftClickRepeating(); // 0x0044BFE0
 
-void __cdecl UI_CancelCursorItemUse(); // 0x00453EC0
 
-int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 
 void __stdcall sub_0065C1F0(int nId, int nGroup, D2Block1* pBlock); // 0x0065C1F0
 
@@ -313,13 +301,10 @@ D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
-void __fastcall WARDENCLIENT_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg); // 0x00496BE0
 
-unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB);                                                     // 0x00469AA0
 
 const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB);                                          // 0x0046A530
 
-int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 
@@ -430,7 +415,6 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
 
 void __cdecl PANEL_DrawBorderFrameLeft(); // 0x00498630
 
@@ -464,7 +448,6 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); 
 
 void __fastcall SPELLSEL_SetSkillSelectRight(int); // 0x004A8CE0
 
-int __cdecl GAME_GetAlwaysRun(); // 0x0044BE90
 
 void __fastcall GAME_SetAlwaysRun(int); // 0x0044BE80
 
@@ -477,19 +460,14 @@ void __stdcall PANEL_BeltClickMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00499D10
 
 static void __stdcall PANEL_DrawDurabilityIcon(int nState, int bType, int nQuiverType, int nBodyLoc); // 0x00497CF0
 
-void __cdecl PANEL_DrawDurabilityIcons();
 
 static int __stdcall PANEL_GetBeltBoxAt(int nY, int nX); // 0x004987E0
 
 static void PANEL_BeltHotkey(int nSlot);
 
-void __cdecl PANEL_BeltHotkeyFirst();
 
-void __cdecl PANEL_BeltHotkeySecond();
 
-void __cdecl PANEL_BeltHotkeyThird();
 
-void __cdecl PANEL_BeltHotkeyFourth();
 
 void __stdcall PANEL_BeltMouseMove(SMSGHANDLER_PARAMS* __restrict pMsg); // 0x00499BB0
 

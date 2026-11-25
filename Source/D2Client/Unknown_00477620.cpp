@@ -1,5 +1,6 @@
 #include "D2LanguageNames.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2Win32System.h"
 
@@ -163,7 +164,6 @@ int __cdecl VIEW_IsAcceleratedRenderMode()
     return gnLightmapRenderMode >= 4;
 }
 
-void __cdecl VIEW_ToggleCacheStats();                                                               // 0x00477C00
 
 extern int gbCacheStats;                                                                           // 0x007BB3A4
 
@@ -436,13 +436,9 @@ extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatu
 
 int __stdcall GAME_GetPing(); // 0x0044CE60
 
-int __cdecl GAME_GetSkippedFrames(); // 0x0044DAF0
 
-int __cdecl UI_GetGfxMemory(); // 0x0046F980
 
-int __cdecl UI_GetCofMemoryUsed(); // 0x0046F990
 
-int __cdecl UI_GetCofMemoryLimit(); // 0x0046F9A0
 
 int __cdecl D2CMPSpriteCacheGetMaxMemory(); // 0x005FEE40
 
@@ -452,7 +448,6 @@ int __cdecl D2CMPCelDataCacheGetMaxMemory(); // 0x005FEE70
 
 int __stdcall sub_0040ABE0(); // 0x0040ABE0
 
-void __cdecl sub_00481850(); // 0x00481850
 
 unsigned int __cdecl D2CMPSpriteCacheGetUsedMemory(); // 0x005FEE10
 

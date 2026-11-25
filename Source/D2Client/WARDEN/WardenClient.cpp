@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -101,7 +102,6 @@ struct D2RequestStrc
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
-int __cdecl ROSTER_IsAnyoneHostile(); // 0x0047A560
 
 int __cdecl CUNIT_IsTrading(); // 0x004B8A10
 
@@ -109,7 +109,6 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
 
 extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 
@@ -163,7 +162,6 @@ int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nState); // 0x0
 
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 
-void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 
@@ -185,7 +183,6 @@ int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 
 void __stdcall INV_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg); // 0x004912A0
 
@@ -201,7 +198,6 @@ void __fastcall SPELLSEL_UpdateSkillButtonHover(short* pId, int nState, int nA, 
 
 void __fastcall SPELLSEL_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
@@ -223,15 +219,11 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags)
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-int __fastcall CUNIT_GetBasePalShiftIndex(D2UnitStrc* pUnit); // 0x00463E50
 
-int __fastcall CUNIT_GetPalShiftIndex(D2UnitStrc* pUnit); // 0x00463EB0
 
-int __fastcall ROSTERPETS_IsOwnedByPlayer(D2UnitStrc* pUnit); // 0x004791B0
 
 void __cdecl CHAT_RecallChatLine(); // 0x0047B9C0
 
-void __stdcall CHAT_StepChatIndex(int nDelta); // 0x0047BA80
 
 extern const int gdwBitMasks[]; // 0x006CE268
 
@@ -453,7 +445,6 @@ static void __stdcall WARDENCLIENT_HashModule(const char* szName, unsigned char*
 
 static int __stdcall WARDENCLIENT_VerifyModuleSignature(const char* szName, unsigned char* pData, const unsigned char* pModulus, const unsigned char* pExponent, unsigned int nExponentSize, unsigned int nSkip, unsigned int nSize, unsigned int nSignatureSize); // 0x0047FA20
 
-void __cdecl WARDENCLIENT_ActivatePendingModule(); // 0x00480230
 
 extern WardenModule* gpSlotHolder; // 0x007BC990
 
@@ -512,11 +503,8 @@ extern "C" int __cdecl atoi(const char* szString);                              
 
 
 
-void __cdecl sub_00477C60_CheckCacheStats();                                                                // 0x00477C60
 
-void __cdecl VIEW_ToggleCacheStats();                                                               // 0x00477C00
 
-int __cdecl GAME_GetConnectionType();                                                                                 // 0x0044DB30
 
 void __cdecl SOUNDINST_ToggleHints();                                                                    // 0x004BABC0
 
@@ -534,7 +522,6 @@ int __fastcall sub_00526800(const Unicode* pString);                            
 
 void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor);                              // 0x0049E3A0
 
-void __fastcall MSG_SendStrings(const unsigned char* pData);                                       // 0x004787B0
 
 unsigned int __fastcall D2Win_10128(unsigned char nChar);                                                   // 0x00502550
 
@@ -563,19 +550,14 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
-unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 
 const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2); // 0x00469DE0
 
-int __cdecl sub_00468730(); // 0x00468730
 
-int __cdecl sub_00468740(); // 0x00468740
 
 void __stdcall sub_0047E9A0_DrawSlots(int bDraw); // 0x0047E9A0
 
-int __cdecl sub_0047EA60_IsAnyPanelOpen(); // 0x0047EA60
 
-int __cdecl sub_0047EB50_IsAnyLeftPanelOpen(); // 0x0047EB50
 
 extern void* gpMiniPanelCel; // 0x007BC960
 
