@@ -7,6 +7,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Borrowed functions 0x5DD7F0 (Ai/AiUtil.cpp, from lane7/005DD7F0-wip-2) and 0x55A6D0 (ITEMS/Items.cpp, from lane7/0055A6D0-wip), per the 10:30 PT ownership change; also lane 7's remaining D2Game forcing constructs. Working on 0x5DD7F0 first.
 - Audit (audit-379-lanes.md, D2Game): types, labels and T<VA> structs posted; noinline (#387) and emit helpers (#388) merged; types, labels and T<VA> structs merged (#386). fields batch 1 posted (Game.cpp/Clients.cpp/objrgn.cpp game-table fields left: they are the Storm hash-table layout, lane 3's stpl.h job; AiGeneral/Monster/MonsterUnique/Unknown_00573470 `f_10` records are address-named views of D2UnitStrc, a retyping job for its own branch). Next: D2Game placeholders.
 - D2Game placeholder files (Source/D2Game/**, lane 5's): lane 5 is working through them by run, data and call evidence. Lane 10: #367's files-d2game took Unknown_00592090.cpp, which lane5/run-joins-2 had too; please check this file before taking D2Game ones, or post the list you plan, and I'll skip those.
 
