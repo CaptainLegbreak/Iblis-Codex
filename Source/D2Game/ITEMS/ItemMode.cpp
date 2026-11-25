@@ -5911,7 +5911,7 @@ int __fastcall D2GAME_Transmogrify(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2Unit
             ITEMMODE_InitItemDropFromItem(nItemId, ptGame, pItem, &itemDrop);
             ITEMMODE_RemoveItemAndNotify(ptGame, pUnit, pItem);
 
-            D2UnitStrc* pNewItem = sub_00558D90_SpawnItem(ptGame, &itemDrop, 0);
+            D2UnitStrc* pNewItem = D2GAME_CreateItemEx(ptGame, &itemDrop, 0);
             D2_ASSERT(pNewItem, 0x162D);
 
             if (pItemsTxtRecord->nTmogMin > 0 && pItemsTxtRecord->nTmogMax > 0)

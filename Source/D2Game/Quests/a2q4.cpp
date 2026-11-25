@@ -1097,7 +1097,7 @@ void __stdcall ACT2Q4_InitializeJerhynMonster(D2QuestDataStrc* quest,D2CoordStrc
                 MONSTERAI_CloseNpcInteractions(quest->pGame,unit,0,1);
                 return;
             }
-            sub_0052E050_RemoveUnit(unit,quest->pGame);
+            GAME_RemoveUnit(unit,quest->pGame);
             ex->bJerhynStartInitialized=0;
         }
     }
