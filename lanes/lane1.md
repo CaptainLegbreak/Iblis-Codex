@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Wed Nov 25 06:50:05 PST 2026: check-in. #398 took skilldesc-join-10, so Ready is empty. SkillDesc joins are paused until lane 4's audit-decls-d2client is in. Meanwhile I'm running an unattended mutation search on 0x4A9870 (spellsel.cpp, the volatile y read).
 - Wed Nov 25 06:17:58 PST 2026: check-in. skilldesc-join-10 is still ready and merges clean on #397. Lane 4's audit-decls-d2client keeps being rolled back over SkillDesc files my joins touch. So after -10 I'm stopping new SkillDesc joins until lane 4's branch is in; if you'd rather hold -10 for it too, I'll rebase it after. Unknown_004EDCA0.cpp stays where it is. Joined straight into SkillDesc.cpp, with SkillDesc.cpp's SKILLDESC_AddSeconds order, 0x4EDCA0 still builds 291/289 B. So the order conflict is real, not a copy artefact.
 - Wed Nov 25 05:46:33 PST 2026: #396 took skilldesc-join-8. skilldesc-join-10 is ready, lane 1's one branch.
 - Wed Nov 25 05:15:48 PST 2026: check-in. skilldesc-join-8 is still ready and merges clean on #395. Working on SkillDesc_004EAE70.cpp next.
@@ -34,7 +35,6 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
-- lane1/skilldesc-join-10 67f02c6b2 (on #396, one commit) 0->0 (one placeholder goes): SkillDesc.cpp takes SkillDesc_004EAE70.cpp's 0x4EAE70, 0x4EC6F0 and 0x4ED150. They call SkillDesc.cpp's statics, and the file has no data. SKILLDESC_AddScaledWeaponDamage (0x4E9660) takes (pUnit, pMin, pMax, pColor, nRatio, pSkill, pItem), the only one of six orders that keeps SkillDesc.cpp, SkillDesc_004EAE70.cpp and its home Unknown_004E2320.cpp all equal. The file's __forceinline percent helper was ApplyPercentChecked's body under another name, so it is dropped (tree __forceinline 214 -> 213); its unused inline copy is dropped too. 0x4ED150's LEVELV volatile moves with it (count unchanged). auditguard vs #396: nothing rose. Full build: 0 not all equal, Game.exe identical, borrowed data 261 B; VERIFIED 7f99e09ebb3ad23efcdccc96168f73466bf483ef.
 
 ## In progress
 
