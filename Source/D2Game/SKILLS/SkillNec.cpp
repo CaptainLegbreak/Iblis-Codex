@@ -2408,11 +2408,11 @@ int __fastcall SKILLS_EventFunc04_ReflectPhysicalDamage(D2GameStrc* pGame, int n
 
     if (pAttacker->dwUnitType == UNIT_PLAYER || pAttacker->dwUnitType == UNIT_MONSTER)
     {
-        goto LABEL_ALIVE;
+        goto Alive;
     }
     return 0;
 
-LABEL_ALIVE:
+Alive:
     if (SUNIT_IsDead(pAttacker) || !pDamage || pDamage->dwPhysDamage <= 0)
     {
         return 0;

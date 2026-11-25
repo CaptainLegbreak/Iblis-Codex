@@ -2328,7 +2328,7 @@ static int __stdcall ITEMS_RollDropQuality(D2GameStrc* pGame, D2UnitStrc* pItem,
     {
         if (nMagicFind <= -100)
         {
-            goto LABEL_SUPERIOR;
+            goto Superior;
         }
 
         bMagicFind = 1;
@@ -2444,7 +2444,7 @@ static int __stdcall ITEMS_RollDropQuality(D2GameStrc* pGame, D2UnitStrc* pItem,
         return 4;
     }
 
-LABEL_SUPERIOR:
+Superior:
     nChance = (pItemRatioTxtRecord->dwHiQuality - nLevel / pItemRatioTxtRecord->dwHiQualityDivisor) * 128;
     if (nChance <= 0)
     {
