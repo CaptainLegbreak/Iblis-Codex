@@ -119,6 +119,21 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   gone); d3dCore's surface lpVtbl, d3dTextureCache's tLink, DDraw clip result's nFirstRow. Left: fields with no
   evidence in the code (d3dSprite's pool entry words, d3dFloorCache's f_8, the Glide debug vertex's 0x18 float,
   which the vertex layout doesn't use, D2Hell's record word, D2Glide.h's debug cell bytes).
+- lane9/audit-decls-d2glide ff86442f, on main 7a9094d8 (#386), precheck 0 not all equal (25 units, D2Glide.h's
+  includers); full verify VERIFIED, borrowed data 261 B (= main); applies cleanly on #388. Fifteen D2Glide functions
+  that two or more of the module's files declared privately are declared once in D2Glide.h. Kept private:
+  GLPERSPECTIVE_PerspectiveTransform (glCore.cpp's generated data takes its address as a plain C symbol, so a header
+  declaration makes it an overload).
+- lane9/audit-decls-d3d-ddraw-gdi c4cd9234, on main 9d773952 (#387), precheck 0 not all equal (20 units); full verify
+  VERIFIED, borrowed data 261 B (= main); applies cleanly on #388. The same for D2Direct3D.h (seven), D2DDraw.h (two)
+  and D2Gdi.h (two). Kept private: sub_006B9780_SetColor (its callers' copies take D2TLVertexStrc*, the definition a
+  different record) and sub_006B9860_Project (generated data, as above), plus those whose copies disagree
+  (D3DCORE_CopySurface, D3DCORE_CreateMemoryTexture, D3DCORE_LogDDrawError, the floor cache's init/destroy).
+  D2Gfx's functions are declared mostly in other modules' files; D2Hell's repeats are class members.
+- **0x6B38A0 (d3dCore.cpp's D3DCORE_CopySurface, lane 7's identical-arm list):** without the arm the whole function
+  swaps esi and edi (pDst and the row counter in edi instead of esi; the source bits in esi). Tried and no change:
+  while (nRows--), for up/down, do/while, int rows, declaration orders, the width as ?: / if / one expression, the
+  source bits set late, char* bits, increments swapped, inverted lock tests. Still a forcing construct.
 - **Handover, initializer slots outside lane 9** (lane 9 stops here; these are the owners'):
   - 0x6CAC10 gnTextLeft = (gnScreenWidth - 325) / 2 (bss 0x7BF278, slot between inv's and QuestLog's): lane 1. In
     UI/text_0049A950.cpp it builds equal but raises borrowed data by 4 B, so that's probably not its object; the
