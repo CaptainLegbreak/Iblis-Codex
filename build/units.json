@@ -53645,6 +53645,11 @@
      "name": "ACT2Intro_StatusFilterCallback"
     },
     {
+     "va": "0x005985C0",
+     "length": 5,
+     "name": "?ACT2Intro_ActiveFilterCallback@@YI_NPAUD2QuestDataStrc@@HPAUD2UnitStrc@@PAUD2BitBufferStrc@@1@Z"
+    },
+    {
      "va": "0x005985D0",
      "length": 101,
      "name": "?ACT2Intro_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
@@ -53768,17 +53773,6 @@
      "va": "0x00598220",
      "length": 435,
      "name": "?MONSTERMSG_SendMonsterUpdates@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ClientStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005985C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005985C0",
-     "length": 5,
-     "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
     }
    ]
   },
