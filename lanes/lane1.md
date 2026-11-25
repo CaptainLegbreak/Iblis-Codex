@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Wed Nov 25 05:15:48 PST 2026: check-in. skilldesc-join-8 is still ready and merges clean on #395. Working on SkillDesc_004EAE70.cpp next.
 - Wed Nov 25 04:41:53 PST 2026: check-in. skilldesc-join-8 is ready, lane 1's one branch.
 - Wed Nov 25 04:01:18 PST 2026: check-in. #393 took skilldesc-join-6, so Ready is empty. Next: SkillDesc_004E72D0.cpp and SkillDesc_004EAE70.cpp into SkillDesc.cpp; Unknown_004EDCA0.cpp stays blocked on SKILLDESC_AddSeconds. I'll pick up lane 4's D2Client header list when it is posted.
 - Wed Nov 25 03:29:14 PST 2026: everything lane 1 has outstanding is now one branch, lane1/skilldesc-join-6, on #391. It replaces skilldesc-join-4 and -5, which you can ignore. #389 took that branch's first two commits; the other three are rebased here, and SkillDesc_004EA010.cpp's MISSILE_SubmitTargetRequest rename from main is carried into SkillDesc.cpp.
