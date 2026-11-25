@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 00:45 PST 2026: plain-int-types, join-unitmode-4815a0 and player-object rebased onto #382 and rebuilt (each: Game.exe identical, borrowed 11,250 / 269 B). Next: more placeholders in my range.
+- Tue Nov 24 23:57 PST 2026: plain-int-types, join-unitmode-4815a0 and player-object rebased onto #382 and rebuilt (each: Game.exe identical, borrowed 11,250 / 269 B). Next: more placeholders in my range.
 
 ## Ready
 
