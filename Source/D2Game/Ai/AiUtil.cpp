@@ -1419,32 +1419,6 @@ extern "C" __declspec(dllexport) void __fastcall AIUTIL_ToggleAiControlFlag(Obj0
     }
 }
 
-D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId)
-{
-    AIUTIL_TargetCallback pfCallback = gaAiTargetSearchTable[nCallbackId].pfCallback;
-    if (!pfCallback)
-    {
-        pfCallback = a4;
-        if (!a4)
-        {
-            return 0;
-        }
-    }
-
-    const int nType = gaAiTargetSearchTable[nCallbackId].nType;
-    switch (nType)
-    {
-    case 1:
-        return AIUTIL_FindPlayerTargetInAdjacentRooms(pGame, pUnit, a3, pfCallback);
-    case 2:
-        return AIUTIL_FindTargetInAdjacentActiveRooms(pGame, pUnit, a3, pfCallback);
-    case 3:
-        return AIUTIL_FindTargetAmongMinions(pGame, a3, pfCallback, pUnit);
-    default:
-        return AIUTIL_FindTargetInAdjacentRooms(pGame, a3, pfCallback, pUnit);
-    }
-}
-
 static inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
