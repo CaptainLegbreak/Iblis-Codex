@@ -4,9 +4,11 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/fog-stubs 354ffd53 203->202 Fog's Unknown_00402370.cpp held three return-0 functions gathered by shape. 0x402370 is the default callback 0x402380 passes when given none (its only reference) and sits right before it, so it opens that object: Unknown_00402380.cpp. 0x40ABE0 follows AsyncData.cpp's last function and precedes ErrorManager.cpp's heap sort run: AsyncData.cpp, the object before it. 0x40EB10 follows ErrorManager.cpp's 0x40EA00 and precedes LogManager.cpp: ErrorManager.cpp. All three files equal; the placeholder goes. VERIFIED 354ffd53 on base #404 (7c275276); borrowed code 10,018 B in 7 functions, borrowed data 261 B (main the same); namesync had nothing to rename.
+(none: fog-stubs merged in #405)
 
 ## Claimed
+
+- **0x6BD230 (Fog Excel.cpp, borrowed; from lane 7):** working from lanes/borrowed/ and lane7.md.
 
 - **lane3/stpl-chat (PARKED, see Left in place):** D2Common's chat tables (Ignorelist.cpp 0x60DC70-0x611560: ChatIgnoreList, StringEntryNode/MappingEntryNode, TSExplicitList and TSHashTable<...,HASHKEY_STRI>) onto stplhash.h, plus CelCmp.cpp's 16 strays at 0x60E0D0-0x60E390, which are that object's. The last part of the stpl one-definition job.
 
