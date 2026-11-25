@@ -1,21 +1,13 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
-#include "D2StormBitOutput.h"
 #define DECODE_LENGTH sub_00420F80_DecodeLength
 #define FROM_BINARY sub_00423380_FromBinary
 #define FROM_LENGTH_PREFIXED FromStream
 
-struct HUFFNODE;
 struct UiContext;
 struct D2StormLinkStrc;
 struct D2IdentityView;
-struct D2StormNodeListStrc;
-class THuffmannTree;
-class CHuffmanEncoder;
-class CHuffmanDecoder;
-struct D2StormHuffInputStrc;
-struct CHuffman;
 struct D2CriticalSectionStrc;
 struct Entry;
 struct SlotArray;
@@ -57,73 +49,6 @@ struct D2StormLinkStrc
 
 struct D2IdentityView {
  D2StormLinkStrc link;
-};
-
-struct D2StormNodeListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    void sub_0041EE40_UnlinkAll();
-    void sub_0041F460_Destroy();
-};
-
-class THuffmannTree
-{
-public:
-    THuffmannTree();
-    ~THuffmannTree();
-
-    unsigned int adwData[0x3474 / 4];
-};
-
-class CHuffmanEncoder : public THuffmannTree
-{
-public:
-    CHuffmanEncoder();
-    ~CHuffmanEncoder();
-};
-
-class CHuffmanDecoder : public THuffmannTree
-{
-public:
-    ~CHuffmanDecoder();
-};
-
-struct D2StormHuffInputStrc
-{
-    unsigned char* pInput;
-    unsigned int nBitBuffer;
-    unsigned int nBitCount;
-
-    unsigned int Get8Bits()
-    {
-        if (nBitCount <= 8)
-        {
-            nBitBuffer |= *(unsigned short*)pInput << nBitCount;
-            nBitCount += 16;
-            pInput += 2;
-        }
-        unsigned int nValue = nBitBuffer & 0xFF;
-        nBitBuffer >>= 8;
-        nBitCount -= 8;
-        return nValue;
-    }
-};
-
-struct CHuffman
-{
-    int bIsCmp0;
-    int unk0x04;
-    unsigned int unk0x08[0xC19];
-    HUFFNODE* pItemsByValue[0x102];
-    void BuildTree(unsigned char nCmpType);                                                    // 0x0041EF20
-    unsigned int sub_0041EBC0_DecodeOne(D2StormHuffInputStrc* pInput);                                      // 0x0041EBC0
-    void AddSymbol(unsigned int nValue);                                                    // 0x0041F510
-    void sub_0041F350_IncWeights(HUFFNODE* pItem);                                               // 0x0041F350
-    unsigned int Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput); // 0x0041F740
-    void sub_0041D9E0_EncodeOne(CBitOutput* pOutput, unsigned int nValue);                       // 0x0041D9E0
-    unsigned int Compress(CBitOutput* pOutput, void* pvIn, int cbIn, unsigned char nCmpType); // 0x0041F850
 };
 
 struct Entry { unsigned char data[20]; };
@@ -277,8 +202,6 @@ static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsign
 static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, BigBuffer* pBuf);
 static void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData); // 0x004234F0
 
-// build: symbol ??0THuffmannTree@@QAE@XZ 0x0041F4A0
-// build: symbol ??1THuffmannTree@@QAE@XZ 0x0041F6A0
 // 0x00420E10
 Entry* SlotArray::sub_00420E10(Entry* existing,int mode)
 {
@@ -303,6 +226,44 @@ static inline int MONSTERMODE_IsActionFrame(D2UnitStrc* pUnit)
     if (pUnit && pUnit->dwAnimMode == 14)
         return (pUnit->dwFlags >> 6) & 1;
     return pUnit->nActionFrame == 1;
+}
+
+struct D2Strc00420E80
+{
+    char pad0x00[0x158];
+    char tField158;
+    void* sub_00420E80_GetField158();
+};
+
+// 0x00420E80
+void* D2Strc00420E80::sub_00420E80_GetField158()
+{
+    return &tField158;
+}
+
+// 0x00420E90
+static inline unsigned int sub_00420E90_TakeLow32(unsigned __int64* pValue)
+{
+    const unsigned int nLow = (unsigned int)*pValue;
+    *pValue >>= 32;
+    return nLow;
+}
+
+// 0x00420F00
+static inline unsigned int sub_00420F00_TakeLow32Ext(unsigned __int64* pValue)
+{
+    const unsigned int nLow = (unsigned int)*pValue;
+    *pValue >>= 32;
+    if (*pValue >= 0x80000000)
+    {
+        *pValue |= 0xFFFFFFFF00000000ull;
+    }
+    return nLow;
+}
+
+unsigned int __fastcall sub_M119_Emit_00420E90(unsigned __int64* pValue, int nOther)
+{
+    return sub_00420E90_TakeLow32(pValue) + sub_00420F00_TakeLow32Ext((unsigned __int64*)nOther);
 }
 
 // 0x00420EB0
@@ -432,5 +393,3 @@ extern "C" LimbCell* __fastcall sub_00420FE0_LastCell(SequenceView* sequence)
         return sequence->values + count - 1;
     return 0;
 }
-
-// build: symbol ?sub_0041EE40_UnlinkAll@D2StormNodeListStrc@@QAEXXZ 0x0041EE40

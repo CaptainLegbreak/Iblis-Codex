@@ -6733,9 +6733,24 @@
      "name": "?MONSTERMODE_GetTargetTimerPtr@@YIPAHPAUD2Field14Strc@@@Z"
     },
     {
+     "va": "0x00420E80",
+     "length": 7,
+     "name": "?sub_00420E80_GetField158@D2Strc00420E80@@QAEPAXXZ"
+    },
+    {
+     "va": "0x00420E90",
+     "length": 24,
+     "name": "?sub_00420E90_TakeLow32@@YAIPA_K@Z"
+    },
+    {
      "va": "0x00420EB0",
      "length": 68,
      "name": "?sub_00420EB0_Accumulate64@@YGI_KPA_K@Z"
+    },
+    {
+     "va": "0x00420F00",
+     "length": 44,
+     "name": "?sub_00420F00_TakeLow32Ext@@YAIPA_K@Z"
     },
     {
      "va": "0x00420F30",
@@ -6906,27 +6921,6 @@
      "va": "0x00420E70",
      "length": 4,
      "name": "?MONSTERMODE_GetTargetTimerPtr@@YIPAHPAUD2Field14Strc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00420220.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00420E80",
-     "length": 7,
-     "name": "?sub_00420E80_GetField158@D2Strc00420E80@@QAEPAXXZ"
-    },
-    {
-     "va": "0x00420E90",
-     "length": 24,
-     "name": "?sub_00420E90_TakeLow32@@YAIPA_K@Z"
-    },
-    {
-     "va": "0x00420F00",
-     "length": 44,
-     "name": "?sub_00420F00_TakeLow32Ext@@YAIPA_K@Z"
     }
    ]
   },
