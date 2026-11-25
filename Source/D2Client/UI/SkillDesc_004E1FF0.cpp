@@ -2353,59 +2353,6 @@ int __fastcall SKILLDESC_CltDoMirrorMissiles(D2UnitStrc* pUnit, int nSkillId, in
     return 1;
 }
 
-// 0x004F4F40
-int __fastcall SKILLDESC_GetMonSkillSound(D2UnitStrc* pUnit, int nSkillId)
-{
-    D2MonStatsTxt* pMonStatsTxtRecord = 0;
-    if (pUnit)
-    {
-        const int nClassId = pUnit->dwClassId;
-        if (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount)
-        {
-            pMonStatsTxtRecord = &sgptDataTables->pMonStatsTxt[nClassId];
-        }
-    }
-
-    if (!pMonStatsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2MonSoundsTxt* pMonSoundsTxtRecord = DATATBLS_GetMonSoundsTxtRecordFromSoundId(pMonStatsTxtRecord->wMonSound);
-    if (!pMonSoundsTxtRecord)
-    {
-        return 0;
-    }
-
-    int nSound = 0;
-    for (int i = 0; i < 8; ++i)
-    {
-        if (pMonStatsTxtRecord->nSkill[i] == nSkillId)
-        {
-            switch (i)
-            {
-            case 0:
-                nSound = pMonSoundsTxtRecord->dwSkill[0];
-                break;
-
-            case 1:
-                nSound = pMonSoundsTxtRecord->dwSkill[1];
-                break;
-
-            case 2:
-                nSound = pMonSoundsTxtRecord->dwSkill[2];
-                break;
-
-            case 3:
-                nSound = pMonSoundsTxtRecord->dwSkill[3];
-                break;
-            }
-        }
-    }
-
-    return nSound < 0 ? 0 : nSound;
-}
-
 // 0x004F2340
 int __fastcall SKILLDESC_CltDoMissileRows(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {

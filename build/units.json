@@ -31660,11 +31660,6 @@
      "va": "0x004F48F0",
      "length": 315,
      "name": "?SKILLDESC_CltDoMirrorMissiles@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F4F40",
-     "length": 164,
-     "name": "?SKILLDESC_GetMonSkillSound@@YIHPAUD2UnitStrc@@H@Z"
     }
    ]
   },
@@ -32459,15 +32454,6 @@
     {
      "va": "0x004F4A30",
      "length": 494
-    },
-    {
-     "va": "0x004F4D90",
-     "length": 300
-    },
-    {
-     "va": "0x004F4EC0",
-     "length": 121,
-     "name": "?SKILLDESC_GetSkillOverlay@@YIHPAUD2UnitStrc@@HHH@Z"
     }
    ],
    "flags": [
@@ -32864,6 +32850,20 @@
     {
      "va": "0x004F4C20",
      "length": 364
+    },
+    {
+     "va": "0x004F4D90",
+     "length": 300
+    },
+    {
+     "va": "0x004F4EC0",
+     "length": 121,
+     "name": "?SKILLDESC_GetSkillOverlay@@YIHPAUD2UnitStrc@@HHH@Z"
+    },
+    {
+     "va": "0x004F4F40",
+     "length": 164,
+     "name": "?SKILLDESC_GetMonSkillSound@@YIHPAUD2UnitStrc@@H@Z"
     }
    ],
    "flags": [
