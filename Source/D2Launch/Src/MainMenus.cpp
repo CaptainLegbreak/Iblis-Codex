@@ -2569,6 +2569,13 @@ char* __fastcall MAINMENUS_GetSlotName(int nIndex); // 0x00430B50
 // build: symbol ?gpPasswordEdit@* 0x00779334
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
 
+// 0x00430B40
+int __cdecl GAME_GetSlotNameCount()
+{
+// build: symbol ?gnSlotCount@* 0x0077998C
+    return gnSlotCount;
+}
+
 // 0x00430B50
 char* __fastcall MAINMENUS_GetSlotName(int nIndex)
 {

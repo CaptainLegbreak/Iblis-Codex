@@ -3031,6 +3031,11 @@
      "name": "MAINMENUS_CompareNames"
     },
     {
+     "va": "0x00430B40",
+     "length": 6,
+     "name": "GAME_GetSlotNameCount"
+    },
+    {
      "va": "0x00430B50",
      "length": 46,
      "name": "?MAINMENUS_GetSlotName@@YIPADH@Z"
@@ -9013,6 +9018,16 @@
      "name": "?CHARSEL_ScrollNameControl@@YAXXZ"
     },
     {
+     "va": "0x00437D00",
+     "length": 6,
+     "name": "GAME_GetPreferredRealm"
+    },
+    {
+     "va": "0x00437D10",
+     "length": 3,
+     "name": "sub_00437D10"
+    },
+    {
      "va": "0x00437D20",
      "length": 524,
      "name": "?CHARSEL_IsTestRealm@@YAHPBUUnicode@@@Z"
@@ -9512,29 +9527,9 @@
      "name": "GAME_GetStopMainLoop"
     },
     {
-     "va": "0x00430B40",
-     "length": 6,
-     "name": "GAME_GetSlotNameCount"
-    },
-    {
-     "va": "0x00437D00",
-     "length": 6,
-     "name": "GAME_GetPreferredRealm"
-    },
-    {
-     "va": "0x00437D10",
-     "length": 3,
-     "name": "sub_00437D10"
-    },
-    {
      "va": "0x0043DB10",
      "length": 6,
      "name": "GAME_IsLaunchExpansion"
-    },
-    {
-     "va": "0x0043F840",
-     "length": 6,
-     "name": "sub_0043F840"
     },
     {
      "va": "0x00446CF0",
@@ -12334,6 +12329,11 @@
      "va": "0x0043F800",
      "length": 57,
      "name": "?CHATDLG_FreeNameList@@YAXXZ"
+    },
+    {
+     "va": "0x0043F840",
+     "length": 6,
+     "name": "sub_0043F840"
     },
     {
      "va": "0x0043F850",

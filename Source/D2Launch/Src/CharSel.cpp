@@ -1232,6 +1232,18 @@ void __cdecl CHARSEL_ScrollNameControl()
 
 struct D2WinControlStrc;
 
+// 0x00437D00
+void* __cdecl GAME_GetPreferredRealm()
+{
+    return gszPreferredRealm;
+}
+
+// 0x00437D10
+int __cdecl sub_00437D10()
+{
+    return 0;
+}
+
 // 0x00437D20
 static int CHARSEL_IsTestRealm(const Unicode* pName)
 {
