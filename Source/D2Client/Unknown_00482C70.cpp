@@ -480,7 +480,6 @@ extern D2InvCompGridStrc gaBodyLocRects[11]; // 0x007BCD38
 
 extern int gnAutomapWidth; // 0x007A5220
 
-int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
 void __stdcall sub_00467FA0(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 
@@ -804,12 +803,9 @@ extern const D2CoordStrc gSocketLayouts[][6]; // 0x006D91E8
 
 
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
-
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 
-void __fastcall MSG_SendDwords3(unsigned char nHeader, unsigned int nArg1, unsigned int nArg2, unsigned int nArg3); // 0x004786D0
+
 
 void __fastcall sub_004B9070(int nArg); // 0x004B9070
 
@@ -990,7 +986,6 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);        
 Unicode* __fastcall sub_00452170(Unicode* pText);                                                           // 0x00452170
 
 
-D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex);                              // 0x00483470
 
 const Unicode* __fastcall INV_SkipBracketTag(const Unicode* pString); // 0x004834A0
 
@@ -1046,7 +1041,6 @@ D2UnitStrc* __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
-void __fastcall MSG_SendFourDwords(char nCommand, int nArg0, int nArg1, int nArg2, int nArg3); // 0x00478700
 
 void __cdecl SPELLSEL_UpdateSkillIcons(); // 0x004A9DF0
 
@@ -1101,7 +1095,6 @@ extern D2InventoryGridInfoStrc gtCubeGrid;        // 0x007BCB70
 
 
 
-int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS*); // 0x00498DC0
 
 void __cdecl sub_0048A730_SwapWeapons(); // 0x0048A730
 
@@ -1301,7 +1294,6 @@ extern int gaSpeedTable[][5]; // 0x00721F10
 
 extern int gaClassSpeedOffsets[][2]; // 0x00722078
 
-int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 

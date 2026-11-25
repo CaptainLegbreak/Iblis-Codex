@@ -232,7 +232,6 @@ void __fastcall ROSTER_ToggleHostile(D2StoredUnitRecordStrc* pEntry); // 0x00479
 char* __fastcall ROSTER_GetNameEx(int nUnitId); // 0x0047A1F0
 
 
-void __fastcall ROSTER_SetPortalIds(int nUnitId, int nA, int nB); // 0x0047A270
 
 D2RosterInfoStrc** __fastcall ROSTER_GetRosterInfoList(int nUnitId); // 0x0047A310
 

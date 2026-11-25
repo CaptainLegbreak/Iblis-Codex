@@ -132,7 +132,6 @@ static unsigned char gnBoxColor_007BF034;                                       
 
 int __cdecl WINMAIN_IsHardcore();                                                                      // 0x0044B850
 
-int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, unsigned char nColor, unsigned char nArg6); // 0x0046EFD0
 

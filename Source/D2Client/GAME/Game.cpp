@@ -450,9 +450,7 @@ int gbClickHandled; // 0x007A0658
 extern int gnAutomapHeight_007A521C; // 0x007A521C
 
 
-int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
-void __fastcall AUTOMAP_ResetBaseOffset(int bForce); // 0x00457640
 
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -1100,14 +1098,12 @@ void __cdecl GAME_InitColors(); // 0x00452130
 
 void __fastcall UI_SetLoadingAct(int nValue); // 0x00454790
 
-void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame); // 0x004565E0
 
 void __stdcall AUTOMAP_RevealRoomCallback(D2ActiveRoomStrc* pRoom); // 0x00459150
 
 void __stdcall AUTOMAP_AddTownCelsCallback(int nLevelId, int nPickedFile, int nX, int nY); // 0x004591A0
 
 
-void __fastcall GFX_LoadGlobalHashedFile(unsigned char nIndex); // 0x0046F310
 
 void __cdecl GFX_FreeActHashedFile(); // 0x0046F440
 
@@ -1349,7 +1345,6 @@ struct UnitPrefix;
 void __stdcall DUNGEON_AnimateTiles(D2ActiveRoomStrc* pRoom); // 0x0061AEF0
 
 
-void __fastcall GFX_PreloadTick(int nValue); // 0x00470350
 
 int __stdcall ENVIRONMENT_UpdatePeriodOfDay(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom); // 0x0061BFC0
 

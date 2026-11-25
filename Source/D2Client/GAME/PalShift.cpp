@@ -302,7 +302,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
 
-D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 
 // 0x00477530
 unsigned char* __fastcall PALSHIFT_GetPalShift(D2UnitStrc* pUnit)

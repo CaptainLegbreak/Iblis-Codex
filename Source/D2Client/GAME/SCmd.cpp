@@ -465,7 +465,6 @@ Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Uni
 void __stdcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int nY, int nArg); // 0x005022F0
 
 
-void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
 
 void __fastcall MONSTER_SetMinionSpawnClass(D2ClientPacket7Strc* pPacket); // 0x004B1240
 
@@ -618,7 +617,6 @@ int __cdecl GAME_IsCinematicExit(); // 0x0044C870
 void __fastcall GFX_ResetMonsterModeGfx(D2UnitStrc* pUnit); // 0x00470B70
 
 
-int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
@@ -771,14 +769,11 @@ int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc* pBuffer, int nBits); // 0x004
 
 
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 void __fastcall sub_00462F60(D2GSPacketSrv74Strc* pPacket); // 0x00462F60
 
 
-void __fastcall ROSTER_SetPortalIds(int nOwnerGUID, int nPortalGUID0, int nPortalGUID1); // 0x0047A270
 
 void __fastcall ROSTER_SetPartyLife(int nUnitGUID, unsigned char nLifePct); // 0x0047A690
 
@@ -821,7 +816,6 @@ struct D2GSPacketSrv10
 
 
 
-void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 
 void __fastcall ITEM_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp); // 0x004C0EC0
 
@@ -1129,7 +1123,6 @@ struct D2PacketTableEntryStrc
     void* pfnAltHandler;
 };
 
-void __fastcall CUNIT_UpdateAttackableFlag(D2UnitStrc* pUnit); // 0x004647D0
 
 D2PacketBufferStrc* __fastcall sub_00464770_GetPacketBuffer(D2UnitStrc* pUnit); // 0x00464770
 
@@ -1432,7 +1425,6 @@ void __fastcall ROSTERPETS_DropPetEntry(int nKey); // 0x00478C90
 
 void __fastcall SPELLSEL_SetHotkeySkillSlot(int nSlot, int nValueA, int nValueB, int nValueC); // 0x004AA0C0
 
-void __fastcall GFX_LoadGlobalHashedFile(unsigned char nAct); // 0x0046F310
 
 
 void __fastcall VIEW_UpdatePetLife(int nUnitId, int nLifePercent, unsigned short nArg); // 0x00479010
@@ -2013,9 +2005,7 @@ struct D2UnitSpawnExtraStrc { int nFlags, nUniqueId; };
 
 struct D2UnitSpawnStrc { unsigned int nUnitId; int nClassId, nX, nY; D2UnitSpawnExtraStrc tExtra; int nMode; };
 
-int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
 
-int __fastcall GAME_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 
 D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc*, unsigned char*, unsigned char*, unsigned short, int, int); // 0x00466360
 
@@ -2048,7 +2038,6 @@ static unsigned int gnSaveBufferSize; // 0x007A5228
 
 static void SCMD_HandleServerError(D2ErrorPacketStrc* pPacket); // 0x0045C6D0
 
-void __fastcall SCMD_HandleSystemPacket(unsigned char* pPacket, int nSize); // 0x0045C850
 
 int gdwUnloadCompleteTick; // 0x007A0524
 

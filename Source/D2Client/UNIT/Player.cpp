@@ -221,19 +221,15 @@ int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther);        
 
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit();                                                             // 0x00467A10
 
-void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit);                                                            // 0x00467A70
 
 D2UnitStrc* __fastcall SELECT_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pUnit, int* pnX, int* pnY, unsigned char nFlags, int bArg); // 0x00467880
 
 
-void __fastcall MSG_SendFourDwords(char nCommand, int nUnitType, int nUnitId, int nX, int nY);         // 0x00478700
 
 int __cdecl INV_GetScreenHeightMinusPanel();                                                                                 // 0x00454970
 
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 
 void __fastcall PLAYER_SetPlayerMode(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2);             // 0x00460780
 
@@ -243,11 +239,9 @@ int __fastcall PLAYER_FilterCommandMessage(D2PlayerCmdStrc* pCmd);              
 void __fastcall CUNIT_SetPlayerUnit(D2UnitStrc* pUnit); // 0x00463D90
 
 
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit);                                       // 0x004648F0
 
 
 
-void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg);                                                  // 0x00466CB0
 
 void __fastcall VIEW_SetPetEntryValue(D2UnitStrc* pOwner, D2UnitStrc* pRecord, int nValue);            // 0x00467410
 
@@ -260,11 +254,8 @@ void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue); // 
 
 
 
-int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny);                       // 0x00478F20
 
-void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg);                                         // 0x00480E70
 
-void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
 
 void __fastcall UNITMODE_DoUnitAction(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3);                // 0x00481030
 
@@ -406,17 +397,12 @@ void __stdcall UNITS_GetRunAndWalkSpeedForPlayer(int nUnused, int nCharId, int* 
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
-int __fastcall UI_CloseUIVars(int, int); // 0x00456300
 
-void __fastcall CUNIT_UpdateAttackableFlag(D2UnitStrc*); // 0x004647D0
 
-int __fastcall sub_004804A0_SetPathTargetPos(D2UnitStrc*, int, int); // 0x004804A0
 
-int __fastcall UNITMODE_SetPathTargetUnit(D2UnitStrc*, int, int); // 0x00480780
 
 void __fastcall UNITMODE_InteractWithUnit(unsigned short, int); // 0x00480930
 
-void __fastcall UNITMODE_SetModeOverlay(D2UnitStrc*, int); // 0x00480D20
 
 void __fastcall UNITMODE_MoveToPosition(D2UnitStrc*, int, int, int); // 0x00480EF0
 
@@ -528,9 +514,7 @@ int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc,
 int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 // 0x0045C460
 int __fastcall DATATBLS_GetMonStatsTxtRecordCount()

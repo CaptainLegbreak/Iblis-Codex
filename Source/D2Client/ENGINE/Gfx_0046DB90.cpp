@@ -63,7 +63,6 @@ void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* s
 
 D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
-D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 int __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
 
@@ -119,7 +118,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 
-void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 
 void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
 
@@ -148,7 +146,6 @@ static D2MonGfxCacheStrc* gpPoolBlock; // 0x007A80FC
 
 void __fastcall GFX_ResetMonsterModeGfx(D2UnitStrc* pUnit); // 0x00470B70
 
-int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 
 
 void __fastcall GFXUTIL_SetGfxEntryByte(D2UnitStrc* pUnit, int nIndex, unsigned char nValue); // 0x004DB1C0
@@ -175,7 +172,6 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
 
 
 
-void __fastcall GFX_PreloadTick(int bAsync); // 0x00470350
 
 void __cdecl GFX_PreloadForce(); // 0x00470B10
 

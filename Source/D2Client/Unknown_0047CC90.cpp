@@ -193,7 +193,6 @@ void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
 
 void __stdcall D2GFX_SetBlendShadows(int bBlendedShadows); // 0x004F5200
 
-void __fastcall GAME_SetResolution(int nResolution); // 0x0044BA20
 
 void __fastcall AUTOMAP_SetAutomapMode(int nMode); // 0x0045A720
 
@@ -216,7 +215,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-void __fastcall GAME_SetAlwaysRun(int bAlwaysRun); // 0x0044BE80
 
 int __cdecl AUTOMAP_GetAutomapFade(); // 0x004576C0
 
@@ -229,7 +227,6 @@ extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* s
 
 void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
-int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
 
 
@@ -241,7 +238,6 @@ D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0
 
 
 
-int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
@@ -257,7 +253,6 @@ extern int gbAnyPanelOpen; // 0x007BC96C
 void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
 
-void __fastcall sub_0047E200_CloseMenus(int bRestore); // 0x0047E200
 
 static inline int sub_0047D500(D2OptionEntryStrc* pEntry);
 
