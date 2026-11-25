@@ -2,7 +2,7 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 ~12:20 PT): on the borrowed functions, 0x679C80 first. Rebuilt a 450/450 base from lane 8's draft plus lane 7's notes (start point copied from tCurCoords, the byte cast on the backtrack test): 42 differing lines; 208 spellings of the start-point block and the statement order after it don't move it. Setting up c2diag to read the allocator. decls-fog-storm-2 still Ready.
+Status (Wed Nov 25 ~13:05 PT): 0x679C80. The original has no cast on the backtrack test (`lea ecx,[eax-4]; and ecx,7; cmp ecx,ebx`), so the cast form (450/450) is length-fitting, not the source; working the plain form (447/450, 86 lines). c2prio on it: round 1 gives pPathInfo 46 against nPrevDir 45 for ebx. The start-point block (L1893-1895) has K=5 because the struct load makes a temp (tmp#25, the `mov eax,edi` the original doesn't have); without that temp K=4, pPathInfo falls to 44 and nPrevDir takes ebx. So one cause for both differences: find the plain form whose start-point load makes no temp (the original loads straight into edi, stores edi to tCurCoords, compares X from the frame). Tried so far: 208 spellings of the block (which point is loaded first, which each compare reads, store order) and of the statement order after it. Next: forms that change how the point is copied (inline accessor, reference, by-value helper).
 
 ## Claimed
 
