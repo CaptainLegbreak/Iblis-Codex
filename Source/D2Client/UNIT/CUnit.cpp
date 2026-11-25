@@ -128,9 +128,9 @@ int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                         
 
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit);                                                     // 0x006206B0
 
-int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit);                                          // 0x004DA0D0
+int __stdcall PARTICLE_GetGfxClientY(D2UnitStrc* pUnit);                                          // 0x004DA0D0
 
-int __stdcall ITEM_GetGfxClientZ(D2UnitStrc* pUnit);                                          // 0x004DA0F0
+int __stdcall PARTICLE_GetGfxClientZ(D2UnitStrc* pUnit);                                          // 0x004DA0F0
 
 typedef int (__fastcall* SKILLSELECTPROC)(D2UnitStrc* pPlayer, D2UnitStrc* pTarget);
 
@@ -168,7 +168,7 @@ void __fastcall UNITSND_ReleaseUnitHints(D2UnitStrc* pUnit, int bForce);        
 
 void __fastcall MONSTER_FreeClientUnit(D2UnitStrc* pUnit);                                             // 0x004AED30
 
-void __fastcall OBJECT_ReleaseItemUnit(D2UnitStrc* pUnit);                                            // 0x004C1A70
+void __fastcall ITEM_ReleaseItemUnit(D2UnitStrc* pUnit);                                            // 0x004C1A70
 
 void __fastcall OBJECT_ReleaseObjectUnit(D2UnitStrc* pUnit);                                                // 0x004BCA50
 
@@ -208,7 +208,7 @@ void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);                                 // 0x00650E40
 
-void __fastcall SKILLS_InitMissileUnit(D2UnitStrc* pMissile, D2ActiveRoomStrc* pRoom, int nTargetX, int nTargetY, int nUnused); // 0x004CD0A0
+void __fastcall MISSILE_InitMissileUnit(D2UnitStrc* pMissile, D2ActiveRoomStrc* pRoom, int nTargetX, int nTargetY, int nUnused); // 0x004CD0A0
 
 void __stdcall UNITS_InitializeStaticPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY);      // 0x00620AE0
 
@@ -262,7 +262,7 @@ int __fastcall ROSTER_GetPetType(int nUnitId);                                  
 
 int __fastcall ROSTERPETS_IsOwnedByPlayer(D2UnitStrc* pUnit);                                             // 0x004791B0
 
-unsigned char* __fastcall MONSTER_GetMonUmods(D2UnitStrc* pUnit);                                  // 0x004AC740
+unsigned char* __fastcall MONUNIQUE_GetMonUmods(D2UnitStrc* pUnit);                                  // 0x004AC740
 
 void __fastcall sub_004AC7A0(D2UnitStrc* pUnit, unsigned short wValue);                                     // 0x004AC7A0
 
@@ -306,7 +306,7 @@ void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int n
 
 void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA2A0
 
-void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
+void __fastcall GFXUTIL_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
 
 static D2UnitStrc* CUNIT_InsertUnit(D2UnitStrc* pUnit); // 0x00465F20
 
@@ -410,7 +410,7 @@ D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
-void __cdecl MISSILE_StartFadeTimer(); // 0x004DBFE0
+void __cdecl GFXUTIL_StartFadeTimer(); // 0x004DBFE0
 
 void __stdcall DUNGEON_UpdatePops(D2ActiveRoomStrc* pRoom, int nX, int nY, int bChanged); // 0x0061ACD0
 
@@ -539,9 +539,9 @@ int __fastcall GFX_HitTestUnitGfx(D2UnitStrc*,int,int,int,int); // 0x00470860
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-int __fastcall SCMD_IsPointInTileRect(D2UnitStrc*,int,int); // 0x00463EE0
+int __fastcall CUNIT_IsPointInTileRect(D2UnitStrc*,int,int); // 0x00463EE0
 
-int __fastcall WARDENCLIENT_UpdateUnitGfx(D2UnitStrc*,int); // 0x004DB670
+int __fastcall GFXUTIL_UpdateUnitGfx(D2UnitStrc*,int); // 0x004DB670
 
 D2UnitStrc* gapAiTargets[1]; // 0x007A7470
 
@@ -573,7 +573,7 @@ typedef void (__fastcall* UNITFN)(D2UnitStrc* pUnit);
 
 void __stdcall CUNIT_FreeUnitTable(D2UnitStrc** ppTable); // 0x00463CC0
 
-void __fastcall UI_FreeUnitModStats(D2UnitStrc* pUnit); // 0x00463D80
+void __fastcall CUNIT_FreeUnitModStats(D2UnitStrc* pUnit); // 0x00463D80
 
 void __fastcall CUNIT_SyncFromServerUnit(D2UnitStrc* pUnit); // 0x00465070
 
@@ -1050,7 +1050,7 @@ void __cdecl sub_00463D70_Empty()
 }
 
 // 0x00463D80
-void __fastcall UI_FreeUnitModStats(void* pArg)
+void __fastcall CUNIT_FreeUnitModStats(void* pArg)
 {
     STATLIST_FreeModStats(pArg);
 }
@@ -1166,7 +1166,7 @@ int __fastcall CUNIT_GetPalShiftIndex(D2UnitStrc* pUnit)
 }
 
 // 0x00463EE0
-int __fastcall SCMD_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY)
+int __fastcall CUNIT_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY)
 {
     D2_ASSERT(pUnit->dwUnitType == UNIT_TILE, 1419);
 
@@ -1282,7 +1282,7 @@ static int __stdcall CUNIT_GetUnitSelectRect(D2UnitStrc* pUnit, int nMode, D2Rec
                 }
 
                 const int nGfxOffsetX = sub_004DA0B0_GetUnitGfxOffsetX(pUnit);
-                const int nGfxOffsetY = ITEM_GetGfxClientY(pUnit) + ITEM_GetGfxClientZ(pUnit);
+                const int nGfxOffsetY = PARTICLE_GetGfxClientY(pUnit) + PARTICLE_GetGfxClientZ(pUnit);
                 pRect->nLeft += nGfxOffsetX;
                 pRect->nRight += nGfxOffsetX;
                 pRect->nTop += nGfxOffsetY;
@@ -2317,7 +2317,7 @@ void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int bFl
             else if (bFlag)
             {
                 D2_ASSERT(pUnit->dwUnitType == UNIT_PLAYER, 0x17D);
-                MISSILE_StartFadeTimer();
+                GFXUTIL_StartFadeTimer();
             }
         }
         if (pRoom)
@@ -2395,7 +2395,7 @@ static void CUNIT_ApplyClassEffects(D2UnitStrc* pUnit, int nClassId)
         GFXUTIL_SetMotionVectorA(pUnit, 0, 0, -0x37);
         GFXUTIL_SetMotionVectorB(pUnit, 0, 0, 1, 1);
         GFXUTIL_SetMotionVectorC(pUnit, 0, 0, 0x32, 0);
-        MISSILE_SetMotionFlagMask(pUnit, 1);
+        GFXUTIL_SetMotionFlagMask(pUnit, 1);
         break;
     case 0x1A1:
     case 0x1A2:
@@ -2455,7 +2455,7 @@ static void CUNIT_FreeUnit(D2UnitStrc* pUnit)
         break;
 
     case UNIT_ITEM:
-        OBJECT_ReleaseItemUnit(pUnit);
+        ITEM_ReleaseItemUnit(pUnit);
         ITEMS_FreeItemData(0, pUnit);
         UNITS_FreeStaticPath(pUnit);
         break;
@@ -2555,9 +2555,9 @@ void __cdecl CUNIT_ResetUnitTables()
     WalkUnitTable(gpUnitTable_007A6670);
     WalkUnitTable(gpUnitTable_007A5E70);
     WalkUnitTable(gpUnitTable_007A6070);
-    CUNIT_ForEachUnitInTable(gpUnitTable_007A5470, UI_FreeUnitModStats);
-    CUNIT_ForEachUnitInTable(gpUnitTable_007A6670, UI_FreeUnitModStats);
-    CUNIT_ForEachUnitInTable(gpUnitTable_007A5E70, UI_FreeUnitModStats);
+    CUNIT_ForEachUnitInTable(gpUnitTable_007A5470, CUNIT_FreeUnitModStats);
+    CUNIT_ForEachUnitInTable(gpUnitTable_007A6670, CUNIT_FreeUnitModStats);
+    CUNIT_ForEachUnitInTable(gpUnitTable_007A5E70, CUNIT_FreeUnitModStats);
     if (!gdwGlobal_007A0610)
     {
         CUNIT_ForEachUnitInTable(gpUnitTable_007A5E70, CUNIT_SyncFromServerUnit);
@@ -2872,7 +2872,7 @@ static D2UnitStrc* __stdcall CUNIT_InitUnit(unsigned int nUnitId, int nClassId, 
         break;
 
     case 3:
-        SKILLS_InitMissileUnit(pUnit, pRoom, nX, nY, nClassId);
+        MISSILE_InitMissileUnit(pUnit, pRoom, nX, nY, nClassId);
         break;
 
     case 5:
@@ -3127,7 +3127,7 @@ D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pAr
     if (pArg3)
     {
         sub_004AC780_SetMonsterWord(pUnit, nArg4);
-        unsigned char* pBytes = MONSTER_GetMonUmods(pUnit);
+        unsigned char* pBytes = MONUNIQUE_GetMonUmods(pUnit);
         pBytes[0] = pArg3[0];
         pBytes[1] = pArg3[1];
         pBytes[2] = pArg3[2];
@@ -3318,7 +3318,7 @@ int __fastcall CUNIT_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, int bHi
     case 4:
         if(pUnit->dwAnimMode!=3 || GAME_GetUIVarState(13)) return 0;
         break;
-    case 5: return SCMD_IsPointInTileRect(pUnit,nX,nY); // 0x00463EE0
+    case 5: return CUNIT_IsPointInTileRect(pUnit,nX,nY); // 0x00463EE0
     }
     int bAllComponents=0;
     switch(nType)
@@ -3350,7 +3350,7 @@ int __fastcall CUNIT_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, int bHi
         if(bAllComponents)
         {
             for(unsigned int nComponent=0;nComponent<16;++nComponent)
-                if(CUNIT_GetUnitSelectRect(pUnit,nComponent,&tRect,nFrame) && WARDENCLIENT_UpdateUnitGfx(pUnit,nComponent) && nX>=tRect.nLeft && nX<=tRect.nRight && nY>=tRect.nBottom && nY<=tRect.nTop) return 1;
+                if(CUNIT_GetUnitSelectRect(pUnit,nComponent,&tRect,nFrame) && GFXUTIL_UpdateUnitGfx(pUnit,nComponent) && nX>=tRect.nLeft && nX<=tRect.nRight && nY>=tRect.nBottom && nY<=tRect.nTop) return 1;
             return 0;
         }
         if(CUNIT_GetUnitSelectRect(pUnit,1,&tRect,nFrame) && nX>=tRect.nLeft && nX<=tRect.nRight && nY>=tRect.nBottom && nY<=tRect.nTop) return 1;
@@ -3413,7 +3413,7 @@ void __cdecl CUNIT_ClearAiTargets()
     }
 }
 
-unsigned char* __fastcall CUNIT_GetPalShift(D2UnitStrc* pUnit); // 0x00477530
+unsigned char* __fastcall PALSHIFT_GetPalShift(D2UnitStrc* pUnit); // 0x00477530
 
 D2UnitStrc* __fastcall sub_M109_Emit_00463920(int nUnitType, int nHash)
 {

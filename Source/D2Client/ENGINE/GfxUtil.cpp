@@ -400,7 +400,7 @@ unsigned char __fastcall GFXUTIL_GetMonComponentIndex(D2UnitStrc* pUnit, unsigne
 
 int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 
-void __fastcall MISSILE_GetArmorComponents(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int bSkip, unsigned char* pComponents); // 0x004DAAB0
+void __fastcall GFXUTIL_GetArmorComponents(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int bSkip, unsigned char* pComponents); // 0x004DAAB0
 
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem);                                                     // 0x0062A4E0
 
@@ -617,7 +617,7 @@ extern "C" int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit);             
 void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY);                                                // 0x00643290
 
 // 0x004DA340
-void __fastcall MISSILE_ClearMotionFlagTwo(D2UnitStrc* pMissile)
+void __fastcall GFXUTIL_ClearMotionFlagTwo(D2UnitStrc* pMissile)
 {
     D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pMissile);
     if (pMotion)
@@ -735,7 +735,7 @@ void __stdcall GFXUTIL_UpdateMotion(D2UnitStrc* pUnit)
 }
 
 // 0x004DA5B0
-void __fastcall SKILLS_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames)
+void __fastcall GFXUTIL_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames)
 {
     D2BallisticStrc* pBallistic = sub_0046F060(pUnit);
     if (!pBallistic)
@@ -779,7 +779,7 @@ void __fastcall GFXUTIL_SetMotionFlag10(D2UnitStrc* pUnit, int bSet)
 }
 
 // 0x004DA6E0
-void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet)
+void __fastcall GFXUTIL_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet)
 {
     D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
     if (pMotion)
@@ -816,7 +816,7 @@ static int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
 }
 
 // 0x004DAAB0
-void __fastcall MISSILE_GetArmorComponents(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int bSkip, unsigned char* pComponents)
+void __fastcall GFXUTIL_GetArmorComponents(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int bSkip, unsigned char* pComponents)
 {
     if (!pInventory)
     {
@@ -845,7 +845,7 @@ void __fastcall MISSILE_GetArmorComponents(D2UnitStrc* pUnit, D2InventoryStrc* p
 }
 
 // 0x004DB1A0
-unsigned char __fastcall MISSILE_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex)
+unsigned char __fastcall GFXUTIL_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex)
 {
     D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (!pGfxData)
@@ -881,7 +881,7 @@ public:
 int __fastcall GFXUTIL_GetCofLayerValue(const unsigned char* pData, int nCode); // 0x004DB0D0
 
 // 0x004DB670
-int __fastcall WARDENCLIENT_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
+int __fastcall GFXUTIL_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
 {
     int nX = 0;
     int nY = 0;
@@ -978,7 +978,7 @@ int __fastcall GFXUTIL_HitTestUnitCel(D2UnitStrc* pUnit, int nX, int nY)
 }
 
 // 0x004DBFE0
-void __cdecl MISSILE_StartFadeTimer()
+void __cdecl GFXUTIL_StartFadeTimer()
 {
     gdwFadeTick = GetTickCount() + 500;
 }
@@ -1017,13 +1017,13 @@ void __cdecl GFXUTIL_DrawFadeBox()
 }
 
 // 0x004DC0A0
-void __cdecl PLAYERLIST_ClearFadeTimer()
+void __cdecl GFXUTIL_ClearFadeTimer()
 {
     gdwFadeTick = 0;
 }
 
 // 0x004DC0B0
-D2RosterInfoStrc* __fastcall PLAYERLIST_GetNextRosterInfo(D2RosterInfoStrc* pRosterInfo)
+D2RosterInfoStrc* __fastcall GFXUTIL_GetNextRosterInfo(D2RosterInfoStrc* pRosterInfo)
 {
     if (!pRosterInfo)
     {
@@ -1080,7 +1080,7 @@ unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, un
 }
 
 // 0x004DC480
-unsigned short __fastcall PLAYERLIST_GetRelationFlagWord(int nUnitId1, int nUnitId2)
+unsigned short __fastcall GFXUTIL_GetRelationFlagWord(int nUnitId1, int nUnitId2)
 {
     D2RosterInfoStrc** ppRosterInfo = ROSTER_GetRosterInfoList(nUnitId1);
     if (!ppRosterInfo || nUnitId1 == nUnitId2)
@@ -1235,7 +1235,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
 
 // 0x004E0A40
-int __fastcall MISSILE_SkillStartPlace(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall GFXUTIL_SkillStartPlace(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecordStd(nSkillId);
     if (!pSkillsTxtRecord)
@@ -1323,7 +1323,7 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 }
 
 // 0x004E0D40
-int __fastcall PLRSKILLS_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall GFXUTIL_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -2280,7 +2280,7 @@ found:
 
             pToken->dwModeToken = gaPlrModeTokens[pToken->nMode];
             D2ArmorCompsStrc tComps;
-            MISSILE_GetArmorComponents(pUnit, pInventory, nType, &tComps.n0);
+            GFXUTIL_GetArmorComponents(pUnit, pInventory, nType, &tComps.n0);
             D2UnitStrc* pItem = INVENTORY_GetCompositItem(pInventory, pToken->nComponent);
             if (sub_0064F420_HasBodyLocFallback(pToken->nComponent))
             {
@@ -2605,7 +2605,7 @@ unsigned char __fastcall GFXUTIL_GetMonComponentIndex(D2UnitStrc* pUnit, unsigne
 }
 
 // 0x004DA790
-void __cdecl PARTICLE_InitModeTokens()
+void __cdecl GFXUTIL_InitModeTokens()
 {
     memset(gaCompTokens, 0, sizeof(gaCompTokens));
     for (unsigned int i = 0; i < 16; ++i)
@@ -2876,7 +2876,7 @@ static void GFXUTIL_SetItemCelName(D2UnitStrc* pUnit, D2CelContextStrc* pToken)
 }
 
 // 0x004DAD20
-void __fastcall PARTICLE_SetOverlayCelName(D2UnitStrc* pUnit, D2CelContextStrc* pToken)
+void __fastcall GFXUTIL_SetOverlayCelName(D2UnitStrc* pUnit, D2CelContextStrc* pToken)
 {
     const int nOverlay = pToken->nOverlay;
     D2OverlayTxt* pRecord = (nOverlay >= 0 && nOverlay < sgptDataTables->nOverlayTxtRecordCount) ? &sgptDataTables->pOverlayTxt[nOverlay] : 0;

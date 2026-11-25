@@ -194,7 +194,7 @@ extern "C" int __stdcall PARTICLE_GetGfxOffsetX(B28Unit* unit)
 }
 
 // 0x004DA0D0
-int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit)
+int __stdcall PARTICLE_GetGfxClientY(D2UnitStrc* pUnit)
 {
     D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
     if (pMotion)
@@ -205,7 +205,7 @@ int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit)
 }
 
 // 0x004DA0F0
-int __stdcall ITEM_GetGfxClientZ(D2UnitStrc* pUnit)
+int __stdcall PARTICLE_GetGfxClientZ(D2UnitStrc* pUnit)
 {
     D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
     if (pMotion)
