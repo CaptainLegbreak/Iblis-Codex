@@ -62,7 +62,7 @@ unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int nMissileId); // 0x0
 int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B100
 int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
 static __declspec(noinline) unsigned short SKILLDESC_GetETypeDamageStr(int nEType);
-static int __stdcall SKILLDESC_AddSkillElemRate(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText); // 0x004EC6F0
+static int __stdcall SKILLDESC_AddSkillElemRate(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel); // 0x004EC6F0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
@@ -167,7 +167,7 @@ static void __stdcall SKILLDESC_ApplyFireMasteryBonus(int* pValue1, D2SkillsTxt*
 }
 
 // 0x004E6F00
-static void __stdcall SKILLDESC_ApplyLightningMasteryBonus(int* pValue1, D2SkillsTxt* pSkillsTxt, int* pValue2)
+static void __stdcall SKILLDESC_ApplyLightningMasteryBonus(int* pValue1, int* pValue2, D2SkillsTxt* pSkillsTxt)
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 2)
@@ -322,7 +322,7 @@ static int __stdcall SKILLDESC_AppendLabelValue(Unicode* wszOut, unsigned short 
 }
 
 // 0x004E7A90
-static int __stdcall SKILLDESC_AppendScaledValue(Unicode* wszOut, int bPrefixSign, int nValue, unsigned short wStr1, unsigned short wStr2, int nMultiplier)
+static int __stdcall SKILLDESC_AppendScaledValue(unsigned short wStr1, unsigned short wStr2, int nMultiplier, Unicode* wszOut, int bPrefixSign, int nValue)
 {
     int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
     for (int i = 0; i < 32; ++i)
@@ -381,7 +381,7 @@ static int __stdcall SKILLDESC_AppendValueLabel(Unicode* wszOut, unsigned short 
 }
 
 // 0x004E7CE0
-static int __stdcall SKILLDESC_AppendValueTwoLabels(Unicode* wszOut, unsigned short wStr1, unsigned short wStr2, int bPrefixSign, int nValue)
+static int __stdcall SKILLDESC_AppendValueTwoLabels(unsigned short wStr1, unsigned short wStr2, int bPrefixSign, Unicode* wszOut, int nValue)
 {
     int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
     for (int i = 0; i < 32; ++i)
@@ -404,7 +404,7 @@ static int __stdcall SKILLDESC_AppendValueTwoLabels(Unicode* wszOut, unsigned sh
 }
 
 // 0x004E7DB0
-static int __stdcall SKILLDESC_AppendValueCountLabel(Unicode* wszOut, int nValue, int nStr1, int nStr2, int bPrefixSign)
+static int __stdcall SKILLDESC_AppendValueCountLabel(int nStr1, int nStr2, int bPrefixSign, Unicode* wszOut, int nValue)
 {
     int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
     for (int i = 0; i < 32; ++i)
@@ -426,7 +426,7 @@ static int __stdcall SKILLDESC_AppendValueCountLabel(Unicode* wszOut, int nValue
 }
 
 // 0x004E7E70
-static int __stdcall SKILLDESC_AppendLabelValueLabel(Unicode* wszOut, unsigned short wStr1, unsigned short wStr2, int bPrefixSign, int nValue)
+static int __stdcall SKILLDESC_AppendLabelValueLabel(unsigned short wStr1, unsigned short wStr2, int bPrefixSign, Unicode* wszOut, int nValue)
 {
     int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
     for (int i = 0; i < 32; ++i)
@@ -452,7 +452,7 @@ static int __stdcall SKILLDESC_AppendLabelValueLabel(Unicode* wszOut, unsigned s
 static int __stdcall SKILLDESC_AppendLabelRangeLabel(unsigned short wStr1, unsigned short wStr2, Unicode* wszOut, int bPrefixSign, int nMin, int nMax)
 {
     if (nMin == nMax)
-        return SKILLDESC_AppendLabelValueLabel(wszOut, wStr1, wStr2, 0, nMin);
+        return SKILLDESC_AppendLabelValueLabel(wStr1, wStr2, 0, wszOut, nMin);
 
     int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
     for (int i = 0; i < 32; ++i)
@@ -475,10 +475,10 @@ static int __stdcall SKILLDESC_AppendLabelRangeLabel(unsigned short wStr1, unsig
 }
 
 // 0x004E8020
-static int __stdcall SKILLDESC_AppendLabelsRange(unsigned short wStr1, unsigned short wStr2, Unicode* wszOut, int bPrefixSign, int nMin, int nMax)
+static int __stdcall SKILLDESC_AppendLabelsRange(Unicode* wszOut, int bPrefixSign, unsigned short wStr1, unsigned short wStr2, int nMin, int nMax)
 {
     if (nMin == nMax)
-        return SKILLDESC_AppendLabelValueLabel(wszOut, wStr1, wStr2, 0, nMin);
+        return SKILLDESC_AppendLabelValueLabel(wStr1, wStr2, 0, wszOut, nMin);
 
     int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
     for (int i = 0; i < 32; ++i)
@@ -522,7 +522,7 @@ static int __stdcall SKILLDESC_AppendLabelRange(unsigned short wStr, Unicode* ws
 }
 
 // 0x004E81C0
-static int __stdcall SKILLDESC_AppendLabelValueLabels(Unicode* wszOut, unsigned short wStr1, unsigned short wStr2, unsigned short wStr3, int bPrefixSign, int nValue)
+static int __stdcall SKILLDESC_AppendLabelValueLabels(unsigned short wStr1, unsigned short wStr2, unsigned short wStr3, int bPrefixSign, Unicode* wszOut, int nValue)
 {
     int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
     for (int i = 0; i < 32; ++i)
@@ -546,7 +546,7 @@ static int __stdcall SKILLDESC_AppendLabelValueLabels(Unicode* wszOut, unsigned 
 }
 
 // 0x004E82A0
-static int __stdcall SKILLDESC_AppendSecondsTwentieths(Unicode* wszOut, unsigned short wStr, int nValue)
+static int __stdcall SKILLDESC_AppendSecondsTwentieths(unsigned short wStr, Unicode* wszOut, int nValue)
 {
     int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
     for (int i = 0; i < 32; ++i)
@@ -577,7 +577,7 @@ static int __stdcall SKILLDESC_AppendSecondsTwentieths(Unicode* wszOut, unsigned
 }
 
 // 0x004E83E0
-static int __stdcall SKILLDESC_AppendSecondsTenths(Unicode* wszOut, unsigned short wStr, int nValue)
+static int __stdcall SKILLDESC_AppendSecondsTenths(unsigned short wStr, Unicode* wszOut, int nValue)
 {
     int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
     for (int i = 0; i < 32; ++i)
@@ -694,7 +694,7 @@ static int __stdcall SKILLDESC_AddElemRange(Unicode* wszText, int nMin, unsigned
 }
 
 // 0x004EC220
-static int __stdcall SKILLDESC_AddSkillElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText, D2SkillsTxt* pSkillsTxt, unsigned short nString)
+static int __stdcall SKILLDESC_AddSkillElemDamage(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, unsigned short nString, int nSkillId, int nSkillLevel)
 {
     const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1);
     const int nMax = SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1);
@@ -720,7 +720,7 @@ static int __stdcall SKILLDESC_AddMissileElemDamage(D2UnitStrc* pUnit, Unicode* 
 }
 
 // 0x004EC2E0
-static int __stdcall SKILLDESC_AddPhysDamage(int nPercent, D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel, int nBonus)
+static int __stdcall SKILLDESC_AddPhysDamage(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nBonus, int nSkillLevel, int nPercent)
 {
     int wszNumber_[16]; Unicode* const wszNumber = (Unicode*)wszNumber_;
     for (int i = 0; i < 16; ++i)
@@ -763,7 +763,7 @@ static int SKILLDESC_AddToHit(Unicode* wszText, D2UnitStrc* pUnit, int nSkillId,
         return 0;
     }
 
-    return SKILLDESC_AppendLabelValueLabel(wszText, 0x10A6, 0x10B3, 1, nToHit);
+    return SKILLDESC_AppendLabelValueLabel(0x10A6, 0x10B3, 1, wszText, nToHit);
 }
 
 // 0x004EC540
@@ -802,7 +802,7 @@ static int __stdcall SKILLDESC_AddMissileElemRate(D2UnitStrc* pUnit, Unicode* ws
     int nMax = MISSILE_GetMaxElemDamage(0, pUnit, nMissileId, nSkillLevel) * 0x4B;
     int* const pMax = &nMax;
     SKILLDESC_ApplyFireMasteryBonus(&nMin, pSkillsTxt, pMax);
-    SKILLDESC_ApplyLightningMasteryBonus(&nMin, pSkillsTxt, pMax);
+    SKILLDESC_ApplyLightningMasteryBonus(&nMin, pMax, pSkillsTxt);
     const int nMinRate = nMin >> 8;
     const int nMaxRate = nMax >> 8;
     unsigned short nString;
@@ -835,7 +835,7 @@ static int __stdcall SKILLDESC_AddMissileElemRate(D2UnitStrc* pUnit, Unicode* ws
 }
 
 // 0x004EC6F0
-static int __stdcall SKILLDESC_AddSkillElemRate(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText)
+static int __stdcall SKILLDESC_AddSkillElemRate(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel)
 {
     const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1) * 0x4B >> 8;
     const int nMax = SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1) * 0x4B >> 8;
@@ -843,7 +843,7 @@ static int __stdcall SKILLDESC_AddSkillElemRate(D2UnitStrc* pUnit, int nSkillId,
 }
 
 // 0x004EC740
-static int __stdcall SKILLDESC_AddSkillElemRateByType(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText, D2SkillsTxt* pSkillsTxt)
+static int __stdcall SKILLDESC_AddSkillElemRateByType(Unicode* wszText, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1);
     int nMax = SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1);
@@ -1207,11 +1207,11 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         break;
 
     case 2:
-        SKILLDESC_AppendLabelValueLabel(wszText, nStringA, nStringB, 1, nCalcA);
+        SKILLDESC_AppendLabelValueLabel(nStringA, nStringB, 1, wszText, nCalcA);
         break;
 
     case 3:
-        SKILLDESC_AppendLabelValueLabel(wszText, nStringA, nStringB, 0, nCalcA);
+        SKILLDESC_AppendLabelValueLabel(nStringA, nStringB, 0, wszText, nCalcA);
         break;
 
     case 4:
@@ -1239,13 +1239,13 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
     case 9:
         AppendString(wszText, nStringA);
         AppendString(wszText, nStringB);
-        SKILLDESC_AddPhysDamage(nCalcA, pUnit, wszText, nSkillId, nSkillLevel, nCalcB);
+        SKILLDESC_AddPhysDamage(pUnit, wszText, nSkillId, nCalcB, nSkillLevel, nCalcA);
         break;
 
     case 10:
         AppendString(wszText, nStringA);
         AppendString(wszText, nStringB);
-        SKILLDESC_AddSkillElemDamage(pUnit, nSkillId, nSkillLevel, wszText, pSkillsTxt, 0);
+        SKILLDESC_AddSkillElemDamage(pUnit, wszText, pSkillsTxt, 0, nSkillId, nSkillLevel);
         break;
 
     case 11:
@@ -1304,15 +1304,15 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 19:
         AppendString(wszText, nStringB);
-        SKILLDESC_AppendSecondsTwentieths(wszText, nStringA, nCalcA);
+        SKILLDESC_AppendSecondsTwentieths(nStringA, wszText, nCalcA);
         break;
 
     case 20:
-        SKILLDESC_AppendLabelValueLabels(wszText, nStringA, 0x10B3, nStringB, 1, nCalcA);
+        SKILLDESC_AppendLabelValueLabels(nStringA, 0x10B3, nStringB, 1, wszText, nCalcA);
         break;
 
     case 21:
-        SKILLDESC_AppendLabelValueLabels(wszText, nStringA, 0x10B3, nStringB, 0, nCalcA);
+        SKILLDESC_AppendLabelValueLabels(nStringA, 0x10B3, nStringB, 0, wszText, nCalcA);
         break;
 
     case 22:
@@ -1332,7 +1332,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 24:
         AppendString(wszText, nStringB);
-        SKILLDESC_AddSkillElemDamage(pUnit, nSkillId, nSkillLevel, wszText, pSkillsTxt, nStringA);
+        SKILLDESC_AddSkillElemDamage(pUnit, wszText, pSkillsTxt, nStringA, nSkillId, nSkillLevel);
         break;
 
     case 25:
@@ -1358,13 +1358,13 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
     case 26:
         AppendString(wszText, nStringA);
         AppendString(wszText, nStringB);
-        SKILLDESC_AddSkillElemRateByType(pUnit, nSkillId, nSkillLevel, wszText, pSkillsTxt);
+        SKILLDESC_AddSkillElemRateByType(wszText, pSkillsTxt, pUnit, nSkillId, nSkillLevel);
         break;
 
     case 27:
         AppendString(wszText, nStringA);
         AppendString(wszText, nStringB);
-        SKILLDESC_AddSkillElemRate(pUnit, nSkillId, nSkillLevel, wszText);
+        SKILLDESC_AddSkillElemRate(pUnit, wszText, nSkillId, nSkillLevel);
         break;
 
     case 28:
@@ -1374,7 +1374,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         {
             return 0;
         }
-        SKILLDESC_AppendSecondsTwentieths(wszText, 0x10AE, pMissilesTxt->dwParam[0]);
+        SKILLDESC_AppendSecondsTwentieths(0x10AE, wszText, pMissilesTxt->dwParam[0]);
         break;
     }
 
@@ -1415,7 +1415,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 32:
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringA));
-        SKILLDESC_AppendLabelValueLabel(wszText, nStringB, 0x10B3, 1, nCalcA);
+        SKILLDESC_AppendLabelValueLabel(nStringB, 0x10B3, 1, wszText, nCalcA);
         break;
 
     case 33:
@@ -1443,11 +1443,11 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         break;
 
     case 36:
-        SKILLDESC_AppendValueCountLabel(wszText, nCalcA, nStringA, nStringB, 0);
+        SKILLDESC_AppendValueCountLabel(nStringA, nStringB, 0, wszText, nCalcA);
         break;
 
     case 37:
-        SKILLDESC_AppendSecondsTenths(wszText, nStringA, nCalcA);
+        SKILLDESC_AppendSecondsTenths(nStringA, wszText, nCalcA);
         break;
 
     case 38:
@@ -1565,7 +1565,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         break;
 
     case 58:
-        SKILLDESC_AppendLabelsRange(nStringA, nStringB, wszText, 1, nCalcA, nCalcB);
+        SKILLDESC_AppendLabelsRange(wszText, 1, nStringA, nStringB, nCalcA, nCalcB);
         break;
 
     case 59:
@@ -1578,7 +1578,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         {
             nCalcB = 10;
         }
-        SKILLDESC_AppendScaledValue(wszText, 1, nCalcA, nStringA, nStringB, nCalcB);
+        SKILLDESC_AppendScaledValue(nStringA, nStringB, nCalcB, wszText, 1, nCalcA);
         break;
 
     case 61:
@@ -1586,11 +1586,11 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         {
             nCalcB = 10;
         }
-        SKILLDESC_AppendScaledValue(wszText, 0, nCalcA, nStringA, nStringB, nCalcB);
+        SKILLDESC_AppendScaledValue(nStringA, nStringB, nCalcB, wszText, 0, nCalcA);
         break;
 
     case 62:
-        SKILLDESC_AppendLabelsRange(nStringA, nStringB, wszText, 0, nCalcA, nCalcB);
+        SKILLDESC_AppendLabelsRange(wszText, 0, nStringA, nStringB, nCalcA, nCalcB);
         break;
 
     case 63:
@@ -1614,7 +1614,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         break;
 
     case 68:
-        SKILLDESC_AppendValueTwoLabels(wszText, nStringA, nStringB, 0, nCalcA);
+        SKILLDESC_AppendValueTwoLabels(nStringA, nStringB, 0, wszText, nCalcA);
         break;
 
     case 69:
