@@ -1070,6 +1070,7 @@ static void DATATBLS_GetItemDebugName(char* buffer, int length, int id)
     }
 }
 
+// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 // 0x00612030
 static __declspec(noinline) void DATATBLS_GetMissileDebugName(char* buffer, int length, int id)
 {
