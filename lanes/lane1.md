@@ -4,11 +4,12 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(On main: QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
+(On main: QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
+
+- lane1/sprayfn-2 5521a0941 0->0 Unknown_004F1430.cpp takes 0x4F1A30, the spray missile helper. 0x4F1A30 takes its unit in a register (a static's argument) and its only caller is Unknown_004F1430.cpp's 0x4F1C80, so the two share a file. Its body replaces Unknown_004F1430.cpp's copy (mapped onto 0x4F1A30 by symbol); the unit Y helper takes SkillDesc.cpp's form, which the moved body needs; SkillDesc.cpp's copy of 0x4F1C80, kept only to call it, goes. Borrowed data 844 B, as main; VERIFIED 9069aa1870af8b60d738bdc76104dcfa86df6bde (based on main #376; lane1/sprayfn was the same on #375, never posted).
 
 - lane1/skillsbar-head-2 8d3bbb693 0->0 SkillsBar.cpp takes 0x4C80D0, SKILLS_AdjustTargetPosition. It takes its first argument in eax, a static's register argument, and its only caller is SkillsBar.cpp's 0x4C83C0 (mov eax, ebx; call at 0x4C8512), so it is SkillsBar.cpp's: the last function before 0x4C8350, filed in Skills.cpp until now. Its body replaces SkillsBar.cpp's stand-in copy (two ITEM_GetTargetPosition calls), and Skills.cpp's emit helper goes. Borrowed data 844 B, as main; VERIFIED 59171b032cb8d89085146c6b8d7dc367314b40be (based on main #375; lane1/skillsbar-head was the same change on #374, never posted).
 
-- lane1/sight-join-2 07054ce57 248->247 Unknown_004DC7B0.cpp takes 0x4DC710; Unknown_004DC710.cpp goes. 0x4DC710 takes its unit in esi, a static's register argument, so its caller 0x4DC7B0 is in its file. Unknown_004DC7B0.cpp already carried a copy of it (setting and clearing the flag as whole words); the real body (bit 0x80 of dwFlagEx) replaces it, and Unknown_004DC710.cpp, which held only 0x4DC710 and a copy of 0x4DC7B0, goes. Borrowed data 844 B, as main; VERIFIED ae5182240ac7e2227fee8e13d92adcffe1690a87 (based on main #375; lane1/sight-join was the same change stacked on hint-object, never posted).
 
 ## In progress
 
