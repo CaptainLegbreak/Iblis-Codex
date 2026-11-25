@@ -20,11 +20,11 @@ struct D2UnkOutdoorStrc
     int nLvlSubId;
     unsigned int(__fastcall* field_1C)(D2DrlgLevelStrc* pLevel, int nX, int nY);
     int(__fastcall* field_20)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nId, int nOffset, char nFlags);
-    int(__fastcall* field_24)(D2DrlgLevelStrc* pLevel, int nX, int nY, int a4, int a5, unsigned int a6);
-    int(__fastcall* field_28)(D2DrlgLevelStrc* pLevel, int nStyle, int a3);
+    int(__fastcall* field_24)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nEntry, int nFloorFlags, unsigned int nWallFlags);
+    int(__fastcall* field_28)(D2DrlgLevelStrc* pLevel, int, int nStyle);
     void(__fastcall* field_2C)(D2DrlgLevelStrc* pLevel, int nX, int nY);
     void(__fastcall* field_30)(D2DrlgLevelStrc* pLevel, int nX, int nY);
-    void(__fastcall* field_34)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nRand, int a6);
+    void(__fastcall* field_34)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nPickedFile, int bFlag);
 };
 
 struct D2UnkOutdoorStrc2
