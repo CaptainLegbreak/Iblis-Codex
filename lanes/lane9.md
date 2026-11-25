@@ -32,6 +32,12 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   the two class tests, and nothing else reads it. All five share Unknown_006C9A38.cpp with the table's plan entry, under
   the D2Hell module default; 11 equal. (Lane 3: that's three functions and one table out of Storm/Unknown_006C9A68.cpp,
   which keeps its five initializers.)
+- lane9/window-data 2bfe5553, on main 5cc54de8 (#375), precheck 0 not all equal; full verify VERIFIED, borrowed data 844 B
+  (main's). Plan only: Window.cpp's .data run (0x72DA0C-0x72DBFB, then Unknown_004F6F60's 0x72DBFC and D2WinMain's
+  copy 0x72DC00) held four items planned in D2Glide files, all read by Window.cpp itself: the flag 0x72DA7C (glCore.cpp)
+  and the subtile row tables 0x72DB48/0x72DB84/0x72DBC0 (glDebugFont.cpp). Their definitions move to Window.cpp's plan.
+  Storm/Unknown_006CACE0.cpp's two strings in the same run (0x72DAA0, 0x72DB3C) are read only by dynamic initializers,
+  so they wait for lane 7's initializer prototype.
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
