@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Path.h"
 #include "D2ClientUi.h"
 #include "D2DrlgMaps.h"
@@ -91,7 +92,6 @@ extern D2DrlgActStrc* gpAct;                                                    
 
 int __fastcall sub_004E40A0(int nRange);                                                                    // 0x004E40A0
 
-int __cdecl sub_0044DB00();                                                                                 // 0x0044DB00
 
 int __fastcall SOUNDINST_CompareSounds(D2SlotObjectStrc* pA, D2SlotObjectStrc* pB, int bCompareFloat, int bCompareValue); // 0x004B9DA0
 
@@ -154,7 +154,6 @@ struct D2SoundEnvironStrc
 
 extern int gnSoundEnvironId; // 0x0072ADE4
 
-D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 
 void __fastcall D2SOUND_SetEaxEnvironment(D2SoundEnvironStrc* pEnviron); // 0x00513C50
 

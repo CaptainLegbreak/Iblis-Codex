@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2ClientUi.h"
 #include "D2Unicode.h"
@@ -73,19 +74,15 @@ void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
-void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
 void __stdcall TEXT_FreeTextBox(D2ClientTextBoxStrc* pTextBox); // 0x0049D410
 
 void __stdcall TEXT_FreeTextList(D2TextListStrc* pList); // 0x0049D4D0
 
-void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 

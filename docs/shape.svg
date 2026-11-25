@@ -2,7 +2,7 @@
 <defs><pattern id="g" x="12" y="64" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="#39d353"/></pattern></defs>
 <rect width="100%" height="100%" rx="6" fill="#0d1117"/>
 <text x="12" y="24" fill="#e6edf3" font-size="14" font-weight="bold">Iblis Codex · source shape</text>
-<text x="12" y="44" fill="#8b949e">9,715 of 14,927 game functions sit in a whole file with its original name (65.1 %) · one cell per function, in address order</text>
+<text x="12" y="44" fill="#8b949e">9,716 of 14,927 game functions sit in a whole file with its original name (65.1 %) · one cell per function, in address order</text>
 <rect x="12" y="64" width="900" height="600" fill="url(#g)"/>
 <rect x="12" y="664" width="366" height="6" fill="url(#g)"/>
 <rect x="12" y="64" width="5" height="5" fill="#388bfd"/>
@@ -4246,7 +4246,6 @@
 <rect x="456" y="496" width="5" height="5" fill="#a371f7"/>
 <rect x="504" y="496" width="5" height="5" fill="#a371f7"/>
 <rect x="396" y="502" width="5" height="5" fill="#a371f7"/>
-<rect x="420" y="502" width="5" height="5" fill="#f85149"/>
 <rect x="768" y="502" width="5" height="5" fill="#388bfd"/>
 <rect x="774" y="502" width="5" height="5" fill="#388bfd"/>
 <rect x="780" y="502" width="5" height="5" fill="#388bfd"/>
@@ -5352,7 +5351,7 @@
 <rect x="348" y="664" width="5" height="5" fill="#388bfd"/>
 <rect x="354" y="664" width="5" height="5" fill="#388bfd"/>
 <rect x="12" y="687" width="10" height="10" fill="#39d353"/>
-<text x="28" y="696" fill="#c9d1d9">in its original file, whole · 9,715</text>
+<text x="28" y="696" fill="#c9d1d9">in its original file, whole · 9,716</text>
 <rect x="12" y="705" width="10" height="10" fill="#388bfd"/>
 <text x="28" y="714" fill="#c9d1d9">in its original file, but the file is still in pieces · 3,279</text>
 <rect x="12" y="723" width="10" height="10" fill="#d29922"/>
@@ -5360,7 +5359,7 @@
 <rect x="12" y="741" width="10" height="10" fill="#a371f7"/>
 <text x="28" y="750" fill="#c9d1d9">needs a construct that forces code generation · 44</text>
 <rect x="12" y="759" width="10" height="10" fill="#f85149"/>
-<text x="28" y="768" fill="#c9d1d9">not reconstructed yet · 6</text>
+<text x="28" y="768" fill="#c9d1d9">not reconstructed yet · 5</text>
 <rect x="12" y="777" width="10" height="10" fill="#6e7681"/>
 <text x="28" y="786" fill="#c9d1d9">C runtime, PKWARE library or import thunk · 134</text>
 </svg>

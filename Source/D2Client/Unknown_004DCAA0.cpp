@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2ClientUi.h"
 #include "D2ClientSound.h"
 #include "D2SoundEnvironTxt.h"
@@ -24,15 +25,6 @@ unsigned int gdwSongPositionTick;                                               
 D2TimedHintStrc gtTimedHint;                                                                        // 0x007C89E4
 int gnSpeechLevelId;                                                                                      // 0x007C8A04
 
-int __cdecl sub_0044DB00();                                                                                 // 0x0044DB00
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
-int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
-int __cdecl UNITMODE_GetPlayerLevelId();                                                                // 0x00481780
-int __cdecl sub_004817F0();                                                                                 // 0x004817F0
-int __cdecl sub_00481800();                                                                                 // 0x00481800
-int __cdecl sub_00481810();                                                                                 // 0x00481810
-D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId);                                                         // 0x00481860
-D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnvironId);                        // 0x00481920
 int __fastcall sub_004B9590(void* pEntry);                                                                  // 0x004B9590
 void* __fastcall sub_004B9610(int nId);                                                                     // 0x004B9610
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00

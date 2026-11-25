@@ -2,6 +2,7 @@
 #include "D2ItemTypes.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Primitives.h"
 #include "D2DataTbls.h"
 #include "D2Unicode.h"
@@ -78,23 +79,16 @@ struct D2ClientItemSlotStrc
     char unk0x0C[0x04];
 };
 
-unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-void __fastcall CUNIT_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
 
-void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-void __fastcall SKILLS_StartUnitEffect(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nEffect, int nArg4, int nArg5, int nStatValue, int nVelocity); // 0x004C70D0
 
 int __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
-D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
@@ -169,13 +163,10 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 
 void __fastcall CUNIT_ForEachObject(UNITFN pfnCallback); // 0x004649D0
 
-void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 
-void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
-void __cdecl INV_ResetHover(); // 0x00487990
 
 void __cdecl INV_SetRequest(); // 0x00487B70
 
@@ -183,17 +174,13 @@ D2TextHeaderStrc* __cdecl DLIGHTMAP_GetTextHeader(); // 0x0049F900
 
 int __fastcall MONSTER_GetOwnerGUID(D2UnitStrc* pUnit); // 0x004AE130
 
-D2UnitStrc* __cdecl NPCMENU_GetInteractNpc(); // 0x004B1620
 
-void __cdecl TEXT_InitNpcMenu(); // 0x004B23E0
 
-void __cdecl NPCMENU_FreeNpcMenu(); // 0x004B24A0
 
 void __cdecl NPCMENU_FinishTransaction(); // 0x004B2940
 
 void __fastcall NPCMENU_CheckObjectFound(D2UnitStrc* pUnit); // 0x004B3360
 
-void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
 
 struct D2ClientObjectStrc
@@ -238,11 +225,8 @@ D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, long* pLeft, long* pTop, long* pRight, long* pBottom); // 0x00476070
 
-void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
 
-void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 
 const Unicode* __fastcall TEXT_GetTextString(unsigned short nStringId); // 0x0049F910
@@ -305,7 +289,6 @@ struct D2NpcPacketStrc
 
 #pragma pack(pop)
 
-int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
 void __cdecl INV_SelectFirstButton(); // 0x00487CC0
 
@@ -321,7 +304,6 @@ unsigned char g007C0D89; // 0x007C0D89
 
 int __cdecl NPCMENU_ResurrectMercWait(); // 0x004B1DD0
 
-void __fastcall MSG_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 
 extern short gwGlobal_00726E01; // 0x00726E01
 
@@ -388,9 +370,7 @@ struct D2ClientValueBlockStrc
 
 void __cdecl TEXT_LoadPopupHireling(); // 0x004939B0
 
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-void __fastcall NPCMENU_EndNpcInteraction(int nValue); // 0x004B3C20
 
 void __cdecl NPCMENU_ShowTradeDialog(); // 0x004B2F50
 
@@ -410,11 +390,9 @@ char gbNpcMessageShown; // 0x007C0C69
 
 void __cdecl NPCMENU_CloseNpc(); // 0x004B3DE0
 
-void __cdecl NPCMENU_CloseNpcShop(); // 0x004B3ED0
 
 void __cdecl NPCMENU_FreeDialogs(); // 0x004B2110
 
-int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
 int __cdecl sub_004C0440_Thunk(); // 0x004C0440
 
@@ -426,16 +404,12 @@ void __cdecl INV_SetNpcStateMenuReturn(); // 0x00487D30
 
 int __cdecl NPCMENU_NpcMenuReturn(); // 0x004B4CF0
 
-int __cdecl sub_00468730(); // 0x00468730
 
-int __cdecl sub_00468740(); // 0x00468740
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 
 int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
-void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
 extern const char empty; // 0x006CC837
 
@@ -486,7 +460,6 @@ typedef char sub_I16_AssertUnitInventory[(int)&((D2UnitStrc*)0)->pInventory == 0
 
 const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
 
-void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
 
 int __cdecl NPCMENU_NpcMenuCancelText(); // 0x004B4670
 
@@ -515,7 +488,6 @@ struct D2NpcMonListPacketStrc
 
 void __cdecl TEXT_ClearTextPanel();                                                                     // 0x004A1730
 
-void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg);                                         // 0x00480E70
 
 int __cdecl NPCMENU_ShowMainMenu();                                                                         // 0x004B5C60
 
@@ -529,7 +501,6 @@ typedef char check_size_npcindex[(sizeof(D2NpcIndexStrc) == 0x27) ? 1 : -1];
 
 void __cdecl GAME_ResetMouseState();                                                                                // 0x0044DA40
 
-int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag);                                   // 0x00457490
 
 void __fastcall CUNIT_TurnTowardPlayer(D2UnitStrc* pUnit);                                                 // 0x00464420
 
@@ -537,7 +508,6 @@ void __fastcall CUNIT_PlayerFaceUnit(D2UnitStrc* pUnit);                        
 
 void __fastcall CUNIT_ForEachMonster(UNITFN pfnCallback);                                                           // 0x00464990
 
-void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
 
 void __cdecl NPCMENU_ResetHandlers();                                                                  // 0x004B2250
 
@@ -547,13 +517,11 @@ extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x
 
 void __cdecl NPCMENU_OpenGreetingDialog();                                                             // 0x004B4DB0
 
-int __cdecl sub_004B1D70_FindNpcEntry(); // 0x004B1D70
 
 void __stdcall NPCMENU_OpenNpcWindow(D2UnitStrc* pUnit); // 0x004B4FD0
 
 int __cdecl NPCMENU_InitHireHandler();                                                                     // 0x004B6410
 
-void __fastcall UNITSND_ReleaseSkillSfx(D2UnitStrc* pUnit);                                            // 0x004CB190
 
 int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType);                                     // 0x004E0590
 
@@ -575,13 +543,10 @@ unsigned short gwGlobal_007C0DD8; // 0x007C0DD8
 
 void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
-void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 
-void __cdecl GAME_RequestExit(); // 0x0044D520
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
-int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
 void __cdecl INV_SendLeaveGame(); // 0x00477EE0
 
@@ -615,9 +580,7 @@ int __cdecl sub_00489870(); // 0x00489870
 
 void __cdecl INV_EnterNpcMenuState(); // 0x0048A630
 
-void __fastcall MSG_SendFourDwords(char nCommand, int nUnitId, int nArg1, int nArg2, int nArg3); // 0x00478700
 
-int __fastcall ITEM_GetDropSound(D2UnitStrc* pItem); // 0x004C1D60
 
 
 extern int gnGlobal_007C0D3F; // 0x007C0D3F
@@ -640,13 +603,11 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 
 Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit); // 0x004521C0
 
-D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
 int __stdcall ITEMS_GetAllRepairCosts(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, D2BitBufferStrc* pQuestFlags, void (__fastcall* pfCallback)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*)); // 0x0062FE60
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
-void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
 #pragma pack(push, 1)
 
@@ -682,9 +643,7 @@ static int NPCMENU_ItemNeedsRepair(D2UnitStrc* pItem);
 
 void __cdecl NPCMENU_HireMercWait();
 
-void __stdcall NPCMENU_OpenNpcPanel(int nStringIndex, int nEntryIndex);
 
-void __stdcall NPCMENU_OpenConfirmDialog(int nStringIndex);
 
 unsigned char g007C0DE0; // 0x007C0DE0
 
@@ -730,7 +689,6 @@ struct UnitView;
 
 struct TablesView;
 
-void __fastcall GFX_RemoveOverlays(D2UnitStrc* pUnit); // 0x0046F170
 
 void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, int nCount); // 0x0046C320
 
@@ -738,11 +696,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
-void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
 
-D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 extern "C" int __fastcall sub_004AC7E0(D2UnitStrc* pUnit, unsigned short wMask); // 0x004AC7E0
 
@@ -811,11 +766,9 @@ typedef char TablesView_count_offset[(FIELD_OFFSET(TablesView,count)==0xa80)?1:-
 
 void __cdecl INV_ResetNpcButtonsFromPending(); // 0x00487C20
 
-void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
 void __fastcall USEITEM_OpenNpcItemPanel(int nArg); // 0x004C0620
 
-int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
 int __fastcall ROSTERPETS_CountPets(D2UnitStrc* pOwner, int nPetType); // 0x00478EE0
 
@@ -927,31 +880,20 @@ D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nTy
 
 extern void* gpGlobal_007C0D43; // 0x007C0D43
 
-void __fastcall sub_0046B3C0_UnitRequest25A(D2UnitStrc* pUnit);                                             // 0x0046B3C0
 
-void __fastcall sub_0046B530_SpawnMissileAtObject(D2UnitStrc* pUnit);                                       // 0x0046B530
 
-void __fastcall VIEW_SpawnBrDeathControl(D2UnitStrc* pUnit);                                           // 0x0046B680
 
 void __fastcall sub_0046B710_SpawnMissileAtObject173(D2UnitStrc* pUnit);                                                            // 0x0046B710
 
 void __fastcall VIEW_SpawnMissileNearObject(D2UnitStrc* pUnit);                                                            // 0x0046B850
 
-void __fastcall VIEW_SpawnMephistoDeath(D2UnitStrc* pUnit);                                          // 0x0046B9A0
 
-void __fastcall VIEW_SpawnAndarielDeath(D2UnitStrc* pUnit);                                               // 0x0046BA50
 
-void __fastcall sub_0046BA90_PlayerRequestAtUnit15B(D2UnitStrc* pUnit);                                     // 0x0046BA90
 
-void __fastcall sub_0046BB10_PlayerRequestAtUnit161(D2UnitStrc* pUnit);                                     // 0x0046BB10
 
-void __fastcall sub_0046BB90_PlayerRequestAtUnit16B(D2UnitStrc* pUnit);                                     // 0x0046BB90
 
-void __fastcall VIEW_SpawnIzualDeath(D2UnitStrc* pUnit);                                             // 0x0046BC10
 
-int __fastcall UI_SetTimerUnitId(D2UnitStrc* pUnit);                                              // 0x0046BC70
 
-void __fastcall sub_0046BC90_RequestAtMonster220(D2UnitStrc* pUnit);                                        // 0x0046BC90
 
 static inline unsigned __int64 SEED_RollRandomNumberForceInline(D2SeedStrc* pSeed)
 {
@@ -973,7 +915,6 @@ __forceinline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
     return 0;
 }
 
-void __fastcall NPCMENU_StateRequests(D2UnitStrc* pUnit); // 0x004ADCE0
 
 // 0x004B1620
 D2UnitStrc* __cdecl NPCMENU_GetInteractNpc()

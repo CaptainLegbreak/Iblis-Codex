@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "FogApi.h"
 
@@ -20,8 +21,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern unsigned int gdwFadeTick; // 0x007C89CC
 D2GfxDataStrc* __cdecl GFX_AllocGfxData(); // 0x0046EBB0
-void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
-D2RosterInfoStrc** __fastcall ROSTER_GetRosterInfoList(int nUnitId); // 0x0047A310
 
 // 0x004DC270
 D2RosterInfoStrc** __cdecl PLAYERLIST_AllocRosterInfoList()

@@ -1,9 +1,9 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 
 
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {

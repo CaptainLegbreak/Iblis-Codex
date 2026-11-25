@@ -1,11 +1,11 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 
 #include "D2ClientMenus.h"
 #include "FogApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
 void __cdecl NPCMENU_BuildNpcMenu(); // 0x004B4830
 
@@ -15,13 +15,10 @@ extern char gbNpcMessageShown; // 0x007C0C69
 
 typedef char check_size_npcentry[(sizeof(D2NpcEntryStrc) == 0x16) ? 1 : -1];
 
-int __cdecl sub_004B1D70_FindNpcEntry(); // 0x004B1D70
 
-void __stdcall NPCMENU_OpenNpcPanel(int nStringIndex, int nEntryIndex); // 0x004B5890
 
 extern D2NpcEntryStrc gaNpcEntries[]; // 0x00726850
 
-void __stdcall NPCMENU_OpenConfirmDialog(int nStringIndex); // 0x004B5AD0
 
 void __cdecl sub_004B5140(); // 0x004B5140
 

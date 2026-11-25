@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2CelContext.h"
 #include "D2ClientTypes.h"
 #include "D2ClientUi.h"
@@ -38,46 +39,32 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 
 
-int __cdecl GAME_IsExitPending(); // 0x0044DA30
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
-void __cdecl UI_RegisterKeyConfigHandlers(); // 0x00454980
 
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 
-int __cdecl sub_00468730(); // 0x00468730
 
-int __cdecl sub_00468740(); // 0x00468740
 
-unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 
-void __fastcall CUNIT_ClearHotkeyBinding(int nId, int nB); // 0x00469D70
 
-int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB); // 0x00469D90
 
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
-void __cdecl TEXT_FreeTextPanelCels(); // 0x0049FE10
 
 bool __stdcall sub_004A2970(int nX, int nY); // 0x004A2970
 
-void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 void __fastcall TEXT_MoveKeyConfigSelection(int nStep); // 0x004A45C0
 
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-void __fastcall sub_004EF990_SetSkillPopUpText(D2UnitStrc* pUnit, int nId, int nA, int nB, int nState, int nX, int nY); // 0x004EF990
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
@@ -122,7 +109,6 @@ public:
     virtual ~ListBoxWrapper();
 };
 
-void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
 extern D2ClientDialogStrc* gpListDialog; // 0x007BF1B0
 
@@ -132,7 +118,6 @@ char gbQuestDescriptionOpen; // 0x007BF2B3
 
 #define SOUND_ID 4
 
-int __stdcall QUESTLOG_IsMouseOnQuestButton(int nX, int nY); // 0x004A2970
 
 ListBoxWrapper* gpListBox; // 0x007BF1B4
 
@@ -298,15 +283,12 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 void __stdcall TEXT_LoadQuestPage(int nPage, int nArg); // 0x004A3220
 
-void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
-void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, int bSound); // 0x004A1320
 
 void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
 
-int __fastcall QUESTLOG_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
 
 extern D2QuestSlotRectStrc gaQuestSlots[]; // 0x00723EB0
 
@@ -329,7 +311,6 @@ char gbGlobal_007C0260; // 0x007C0260
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
-void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 
 
 extern int gnQuestAct; // 0x007BF2A4
@@ -351,11 +332,8 @@ extern void* gapQuestIconCels[27]; // 0x007BF2E1
 extern volatile char gabQuestFlagsB[]; // 0x007BF380
 
 
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
 
-int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 
@@ -476,11 +454,9 @@ extern "C" B27RecordHandler gpfnRecordHandler;
 
 extern "C" unsigned int gB27_00883D70;
 
-D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x004639B0
 
 extern unsigned int gnQuestUnitId; // 0x007C0261
 
-D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode); // 0x00466730
 
 char gabQuestFlagsA[42]; // 0x007BF356
 
@@ -632,12 +608,10 @@ static void sub_004A2390_ResetQuestSelection()
 
 
 
-int __fastcall QUESTLOG_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
 
 
 
 
-int __stdcall QUESTLOG_IsMouseOnQuestButton(int nX, int nY); // 0x004A2970
 
 // build: symbol _CUNIT_IsInvPanelTradeMode 0x00489840
 extern "C" int __cdecl INV_IsInvPanelTradeMode()

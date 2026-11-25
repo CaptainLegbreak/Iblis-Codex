@@ -1,5 +1,6 @@
 #include "D2StatIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Unicode.h"
 #include "D2LangApi.h"
 
@@ -69,7 +70,6 @@ public:
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char* szFormat, ...);          // 0x006CC468
 
 int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
-unsigned char __cdecl GAME_GetDifficulty();                                                         // 0x0044DCD0
 D2UnitStrc* __fastcall sub_00463DD0();                                                             // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                               // 0x00625480
 const Unicode* __fastcall MONSTERS_GetHirelingDescString(int nId); // 0x00663720
@@ -81,8 +81,6 @@ void __fastcall DIALOG_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int
 // build: symbol ?DIALOG_CreateDialog@* 0x004B7EB0
 D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,
     int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28);                                            // 0x004B7EB0
-void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
-void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex);                               // 0x004B82F0
 void __fastcall ROSTER_SetCtrlState(D2ClientDialogStrc* pDialog, int nValue);                           // 0x004B8370
 // build: symbol ?DIALOG_AddTextLine@* 0x004B85F0
 void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,
