@@ -280,8 +280,8 @@ typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, 
 struct D2ShrineTableStrc
 {
     ObjShrineFunction pfShrineCallback;
-    int unk0x04;
-    int unk0x08;
+    int nStatId;
+    int nStateId;
 };
 
 extern const D2ShrineTableStrc sgcptShrineChart[]; // 0x006E1850
@@ -3724,9 +3724,9 @@ void __fastcall D2GAME_SHRINES_DefensiveBoost(D2ObjOperateFnStrc* pOp, D2Shrines
     D2_ASSERT(ptShrineData->bCode < gnShrineTableCount, 0x9F9);
 
     const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[ptShrineData->bCode];
-    const int nStatValue = pShrineRecord->unk0x04 != -1 ? OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, ptShrineData->dwArg0, pOp->hPlayer) : 0;
+    const int nStatValue = pShrineRecord->nStatId != -1 ? OBJMODE_CalculateShrineStatBonus(pShrineRecord->nStatId, ptShrineData->dwArg0, pOp->hPlayer) : 0;
 
-    OBJMODE_ApplyShrineCurse(pOp->hObject, pOp->hPlayer, ptShrineData->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, 0);
+    OBJMODE_ApplyShrineCurse(pOp->hObject, pOp->hPlayer, ptShrineData->dwDurationInFrames, nStatValue, pShrineRecord->nStatId, pShrineRecord->nStateId, 0);
 }
 
 // 0x00583BC0
@@ -3749,7 +3749,7 @@ void __fastcall D2GAME_SHRINES_CombatBoost(D2ObjOperateFnStrc* pOp, D2ShrinesTxt
 
     const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[ptShrineData->bCode];
     const int nValue = OBJMODE_CalculateShrineStatBonus(0x13, ptShrineData->dwArg0, pOp->hPlayer);
-    D2StatListStrc* pStatList = OBJMODE_ApplyShrineCurse(pOp->hObject, pOp->hPlayer, ptShrineData->dwDurationInFrames, ptShrineData->dwArg1, 0x19, pShrineRecord->unk0x08, 0);
+    D2StatListStrc* pStatList = OBJMODE_ApplyShrineCurse(pOp->hObject, pOp->hPlayer, ptShrineData->dwDurationInFrames, ptShrineData->dwArg1, 0x19, pShrineRecord->nStateId, 0);
     STATLIST_SetStatValue(pStatList, 0x13, nValue, 0);
 }
 
@@ -3786,8 +3786,8 @@ void __fastcall D2GAME_SHRINES_Stamina(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pt
     const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[ptShrineData->bCode];
     const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pOp->hPlayer);
     STATLIST_SetUnitStat(pOp->hPlayer, STAT_STAMINA, nMaxStamina, 0);
-    const int nStatValue = OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, ptShrineData->dwArg0, pOp->hPlayer);
-    D2StatListStrc* pStatList = OBJMODE_ApplyShrineCurse(pOp->hObject, pOp->hPlayer, ptShrineData->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, OBJMODE_RemoveStaminaShrine);
+    const int nStatValue = OBJMODE_CalculateShrineStatBonus(pShrineRecord->nStatId, ptShrineData->dwArg0, pOp->hPlayer);
+    D2StatListStrc* pStatList = OBJMODE_ApplyShrineCurse(pOp->hObject, pOp->hPlayer, ptShrineData->dwDurationInFrames, nStatValue, pShrineRecord->nStatId, pShrineRecord->nStateId, OBJMODE_RemoveStaminaShrine);
     STATLIST_SetStatValue(pStatList, 0x0A, 2 * nStatValue, 0);
     STATLIST_SetStatValue(pStatList, 0x1C, 1000, 0);
 }
