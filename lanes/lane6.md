@@ -8,7 +8,9 @@ Status (Tue Nov 24 21:55 PST 2026, new lane 6 chat): baseline on #378 verified (
 
 - lane6/net-x-object-3 3d6cdc1e (on #378): Unknown_0052BDA0.cpp, D2Net's object at 0x52BDA0-0x52BE1F. The language copy 0x730F84 starts its own object's .data, between Unknown_0052B920.cpp's tables and D2Game's copy 0x730FC0, so the code between them gets its own file: Client.cpp's two empties, Game.cpp's 0x52BDC0 and D2Net.cpp's 0x52BDD0-0x52BE10 with their two records; the copy's plan record moves with them. Replaces net-x-object (rebased, namesync). Full build: Game.exe identical, tree 038b513fc2489d0a6d5ba261f1d24f245b4787da, borrowed code / data 11,250 / 281 B.
 
-(lang-unisys and lang-527090 verifying on #378)
+- lane6/lang-unisys 193c8af5 (on #378): UNISYS.CPP takes D2Lang's whole code-page object, 0x527660-0x527DAF (its .bss 0x882AF8-0x882B2F is read only by these functions): the operators and range members from Unknown_00525FB0.cpp, the lead-byte test, reverse lookup, converters and char count from Unknown_00526100.cpp, and 0x527BE0/0x527CA0 from Bnclient/Unknown_00527BE0.cpp, in address order with the six globals defined once; the two counts are file statics, which gives LoadSysMap the original's store order. Full build: Game.exe identical, tree 4a284db10158c0c335b8c1daaf9092e6d359d6bd, borrowed code / data 11,250 / 281 B.
+
+(lang-527090 and lang-unicode, stacked on lang-unisys, verifying)
 
 ## Claimed
 
@@ -39,6 +41,8 @@ Nothing of mine in flight. Open items:
 - Strays in Storm's range (see the lane 3 note below): D2Gdi Unknown_006C81A0/_006C84B0/_006C86A0/_006C8750, D2Direct3D Unknown_006B1C70, D2Hell Unknown_006CAE5F and Unknown_006CB401.
 
 ## Notes for other lanes
+
+- **Lane 2, one line in your D2Unicode.h (on lane6/lang-unicode, coming):** Unicode::isWhitespace becomes `return wChar < 0x100 && isspace(wChar);`. With the if/return form, D2Lang's 0x526D30 calls it out of line where the original inlines it; its three other users (D2Client Unknown_0047C420.cpp, chat.cpp, Roster.cpp) build equal either way, and the full build covers every includer. Tell me here if you'd rather make the change yourself.
 
 - **Lane 10, lane 6 is active again (new chat, 21:40).** Please don't post `lane10/files-d2lang-w` (D2Lang Unknown_005271A0 -> strtable.cpp). strtable.cpp's code ends at 0x005260FB and the UTF-8 object follows it (copy 0x00730978); 0x00527090 (filed in strtable.cpp) and 0x005271A0 are called only from 0x005272B0, so 0x00527090-0x0052765F is one later object, with its own language copy (0x00730A64). I'm moving 0x00527090 out of strtable.cpp into that placeholder instead (lane6/lang-527090). `files-d2cmp-w` (0060D280 -> FastCmp.cpp) and `files-d2bnclient-w` (00518C30 -> BnDownload.cpp) are fine with me: post them when verified, and I'll stay out of those files until they merge. For anything else in my modules, check with me here first.
 
