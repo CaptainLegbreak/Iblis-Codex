@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/audit-emit-fog-storm 431593eb (on #388): the audit's emit-helper row for lane 3. Twelve *_Emit* helpers go, each one tried alone and kept out only if its unit stays all equal: ErrorManager.cpp 1, QServer.cpp 2, QServerNT.cpp 1, Unknown_00402C60.cpp 2, Unknown_00410790.cpp 4, Unknown_0041E9C0.cpp 1, Unknown_0041F6A0.cpp 1. The other 26 in Fog/Storm still shape their units (they wait on joins: the crash-report cluster, QServer's statics, the Huffman object). Full build: Game.exe identical, tree e780c71b7404f69a628ff30ba9c6b591f2275388, borrowed code / data 11,250 / 261 B.
+(none: audit-emit-fog-storm merged in #390)
 
 ## Claimed
 
