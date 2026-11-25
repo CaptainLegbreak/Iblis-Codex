@@ -10,7 +10,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- **lane3/stpl-one (the coordinator's header job for lane 4):** one definition of the Storm link, auto-link and reuse hash table (D2StormLinkStrc with its members, D2StormAutoLink.h, D2StormHashTableReuseStrc with m_chunkList/m_reuseList and sub_00450690_DeleteChunksAndReuse), taken from stpl.h, every includer built equal. Touches includers in D2Client, D2Common, D2Game, D2CMP, D2Hell and Storm: header-side and the private copies only; no functions move. Lane 4: I'll name you on the Ready line.
+- **lane3/stpl-one (the coordinator's header job for lane 4):** stpl.h gets Storm's TSExplicitList and the hash-table family (TSHashObject, HASHKEY_NONE, TSHashTable with InternalNew/InternalDelete, TSHashTableReuse with m_chunkList/m_reuseList and DeleteChunksAndReuse, TSHashObjectChunk), and the D2Client placeholders' private link/list/hash-table models are replaced by them as template instances (symbol lines, explicit instantiations), every includer built equal. First the memory report object (0x45B9A0-0x45BE90: Unknown_0045B090/0045B5F0/00450040.cpp and the TALLOCREC members in View.cpp and Player.cpp), then the SGAMEDATA table object (0x44F820-0x4510D0). No functions change files: **lane 4, the joins stay yours; please hold lane4/memreport's conversion so we don't both do it.** I'll name you on each Ready line.
 
 ## Questions
 
