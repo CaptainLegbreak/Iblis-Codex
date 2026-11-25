@@ -2225,7 +2225,7 @@
   ["0x0044DF00", 11, "verified", "?sub_0044DF00_InitTerminator@@YIXPAUD2StormListStrc@@@Z"],
   ["0x0044DF10", 13, "verified", "??0D2Warden47F930Strc@@QAE@XZ"],
   ["0x0044DF20", 11, "verified", "?sub_0044DF20_InitTerminator@@YIXPAUD2StormListStrc@@@Z"],
-  ["0x0044DF30", 57, "verified", "sub_0044DF30_CalcChunkSize"],
+  ["0x0044DF30", 57, "verified", "?CalcChunkSize@?$TSGrowableArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAEII@Z"],
   ["0x0044DF70", 31, "verified", "GAME_RoundUpToMultiple"],
   ["0x0044DF90", 24, "verified", "sub_0044DF90_CopyLinkOffset"],
   ["0x0044DFB0", 49, "verified", "?GetRemaining@D2TickTimerStrc@@QAEIXZ"],
