@@ -92,7 +92,7 @@ struct D2ClientOffsetListAStrc
     D2ClientListLinkStrc tTerminator;
 
     D2ClientListLinkStrc* Link(D2ClientListNodeStrc* pNode) { return pNode ? (D2ClientListLinkStrc*)((char*)pNode + nLinkOffset) : &tTerminator; }
-    void sub_004502A0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting);
+    void sub_004502A0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting); // 0x004502A0
 };
 
 struct D2ClientOffsetListBStrc
@@ -101,7 +101,7 @@ struct D2ClientOffsetListBStrc
     D2ClientListLinkStrc tTerminator;
 
     D2ClientListLinkStrc* Link(D2ClientListNodeStrc* pNode) { return pNode ? (D2ClientListLinkStrc*)((char*)pNode + nLinkOffset) : &tTerminator; }
-    void sub_004508A0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting);
+    void sub_004508A0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting); // 0x004508A0
 };
 
 struct D2ClientNodeListStrc
@@ -148,7 +148,7 @@ struct D2ClientArrayStrc
     unsigned int nCount;
 
     void sub_00450110_SetCount(unsigned int nCount);                                                        // 0x00450110
-    void sub_00450680_SetCount(unsigned int nCount);
+    void sub_00450680_SetCount(unsigned int nCount); // 0x00450680
 };
 
 struct D2PalShiftEntryStrc
@@ -589,45 +589,6 @@ static inline D2ClientListLinkStrc* ListNextLink(D2ClientListLinkStrc* pLink, in
     return (D2ClientListLinkStrc*)(nOffset + nLinkOffset);
 }
 
-// 0x004502A0
-void D2ClientOffsetListAStrc::sub_004502A0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting)
-{
-    D2ClientListLinkStrc* pLink = Link(pNode);
-    D2ClientListLinkStrc* pExistingLink;
-    if (pLink->pPrevLink)
-    {
-        ListNextLink(pLink, -1)->pPrevLink = pLink->pPrevLink;
-        pLink->pPrevLink->pNext = pLink->pNext;
-        pLink->pPrevLink = 0;
-        pLink->pNext = 0;
-    }
-    pExistingLink = Link(pExisting);
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->pPrevLink = pExistingLink;
-        pLink->pNext = pExistingLink->pNext;
-        ListNextLink(pExistingLink, nLinkOffset)->pPrevLink = pLink;
-        pExistingLink->pNext = pNode;
-        break;
-    default:
-        {
-            D2ClientListLinkStrc* pPrev = pExistingLink->pPrevLink;
-            pLink->pPrevLink = pPrev;
-            pLink->pNext = pPrev->pNext;
-            pPrev->pNext = pNode;
-            pExistingLink->pPrevLink = pLink;
-        }
-        break;
-    }
-}
-
-// 0x00450680
-void D2ClientArrayStrc::sub_00450680_SetCount(unsigned int nCount)
-{
-    sub_00450110_SetCount(nCount);
-}
-
 struct D2Warden47F930Strc
 {
     int n00;
@@ -636,47 +597,6 @@ struct D2Warden47F930Strc
 
     D2Warden47F930Strc();
 };
-
-// 0x00450870
-D2Warden47F930Strc::D2Warden47F930Strc()
-{
-    n00 = 0;
-    n04 = 0;
-    n08 = 0;
-}
-
-// 0x004508A0
-void D2ClientOffsetListBStrc::sub_004508A0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting)
-{
-    D2ClientListLinkStrc* pLink = Link(pNode);
-    D2ClientListLinkStrc* pExistingLink;
-    if (pLink->pPrevLink)
-    {
-        ListNextLink(pLink, -1)->pPrevLink = pLink->pPrevLink;
-        pLink->pPrevLink->pNext = pLink->pNext;
-        pLink->pPrevLink = 0;
-        pLink->pNext = 0;
-    }
-    pExistingLink = Link(pExisting);
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->pPrevLink = pExistingLink;
-        pLink->pNext = pExistingLink->pNext;
-        ListNextLink(pExistingLink, nLinkOffset)->pPrevLink = pLink;
-        pExistingLink->pNext = pNode;
-        break;
-    default:
-        {
-            D2ClientListLinkStrc* pPrev = pExistingLink->pPrevLink;
-            pLink->pPrevLink = pPrev;
-            pLink->pNext = pPrev->pNext;
-            pPrev->pNext = pNode;
-            pExistingLink->pPrevLink = pLink;
-        }
-        break;
-    }
-}
 
 // 0x00466820
 void __fastcall VIEW_SpawnRoomPresets(D2ActiveRoomStrc* pRoom)
