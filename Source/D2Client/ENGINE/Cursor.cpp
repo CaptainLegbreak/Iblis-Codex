@@ -88,7 +88,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-void __cdecl sub_00468310_UpdateCursor();                                                                // 0x00468310
+void __cdecl CURSOR_UpdateCursor();                                                                // 0x00468310
 
 int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 
@@ -110,14 +110,14 @@ struct D2CursorAnimStrc;
 
 extern D2CursorAnimStrc gaCursorAnim[CURSOR_ANIM_COUNT]; // 0x00712010
 
-void __cdecl sub_004681C0_AdvanceCursorAnim(); // 0x004681C0
+void __cdecl CURSOR_AdvanceCursorAnim(); // 0x004681C0
 
-void __cdecl sub_004682C0_StepCursorAnim(); // 0x004682C0
+void __cdecl CURSOR_StepCursorAnim(); // 0x004682C0
 
 static unsigned int gdwCursorAnimTick; // 0x007A6AEC
 
 // 0x00467DF0
-static inline int sub_00467DF0_GetCursorAnimField00(int nIndex)
+static inline int CURSOR_GetCursorAnimField00(int nIndex)
 {
 // build: symbol ?gnCursorAnimCount@* 0x007120D4
     D2_ASSERT(gnCursorAnimCount == CURSOR_ANIM_COUNT, 0x84);
@@ -125,10 +125,10 @@ static inline int sub_00467DF0_GetCursorAnimField00(int nIndex)
     return gaCursorAnim[nIndex].bAnimated;
 }
 
-int __stdcall sub_M121_Emit_00467DF0(int nIndex) { return sub_00467DF0_GetCursorAnimField00(nIndex); }
+int __stdcall sub_M121_Emit_00467DF0(int nIndex) { return CURSOR_GetCursorAnimField00(nIndex); }
 
 // 0x00467E40
-static int sub_00467E40_IsCursorAnimated(int nIndex)
+static int CURSOR_IsCursorAnimated(int nIndex)
 {
 // build: symbol ?gnCursorAnimCount@* 0x007120D4
     D2_ASSERT(gnCursorAnimCount == CURSOR_ANIM_COUNT, 0x8F);
@@ -137,7 +137,7 @@ static int sub_00467E40_IsCursorAnimated(int nIndex)
 }
 
 // 0x00467E90
-static int sub_00467E90_GetCursorAnimLength(int nIndex)
+static int CURSOR_GetCursorAnimLength(int nIndex)
 {
     D2_ASSERT(gnCursorAnimCount == CURSOR_ANIM_COUNT, 0x9A);
     D2_ASSERT(nIndex < CURSOR_ANIM_COUNT, 0x9B);
@@ -145,16 +145,16 @@ static int sub_00467E90_GetCursorAnimLength(int nIndex)
 }
 
 // 0x00467EE0
-static inline void sub_00467EE0_SetCursorAnim(int nIndex)
+static inline void CURSOR_SetCursorAnim(int nIndex)
 {
     gnCursorAnim = nIndex;
     gnCursorAnimFrame = 0;
 }
 
-void __stdcall sub_M121_Emit_00467EE0(int nIndex) { sub_00467EE0_SetCursorAnim(nIndex); }
+void __stdcall sub_M121_Emit_00467EE0(int nIndex) { CURSOR_SetCursorAnim(nIndex); }
 
 // 0x00467EF0
-void __stdcall sub_00467EF0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall CURSOR_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (pMsg->wParam == 2)
     {
@@ -200,13 +200,13 @@ void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00468000
-void __fastcall sub_00468000_SetGlobal7A6B08(int nValue)
+void __fastcall CURSOR_SetGlobal7A6B08(int nValue)
 {
     gbCursorVisible = nValue;
 }
 
 // 0x00468010
-void __fastcall sub_00468010_SetState(int nValue, int nArg)
+void __fastcall CURSOR_SetState(int nValue, int nArg)
 {
     gpCursorItem = (D2UnitStrc*)nValue;
     gnCursorAnim = 6;
@@ -271,7 +271,7 @@ void __fastcall sub_00468040(int nArg, int nArg2)
 }
 
 // 0x00468070
-void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem)
+void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem)
 {
     gpCursorItem = pItem;
     gnCursorAnim = 5;
@@ -343,7 +343,7 @@ static void __fastcall sub_00468750_SetMousePos(int nX, int nY)
 }
 
 // 0x004681C0
-void __cdecl sub_004681C0_AdvanceCursorAnim()
+void __cdecl CURSOR_AdvanceCursorAnim()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
@@ -359,11 +359,11 @@ void __cdecl sub_004681C0_AdvanceCursorAnim()
     {
         gnCursorAnimFrame += gaCursorAnim[nIndex].nStep;
     }
-    if (gnCursorAnimFrame < sub_00467E90_GetCursorAnimLength(nIndex))
+    if (gnCursorAnimFrame < CURSOR_GetCursorAnimLength(nIndex))
         return;
-    if (sub_00467E40_IsCursorAnimated(gnCursorAnim))
+    if (CURSOR_IsCursorAnimated(gnCursorAnim))
     {
-        gnCursorAnimFrame -= sub_00467E90_GetCursorAnimLength(gnCursorAnim);
+        gnCursorAnimFrame -= CURSOR_GetCursorAnimLength(gnCursorAnim);
         return;
     }
     if (gnCursorState == 2)
@@ -384,14 +384,14 @@ void __cdecl sub_004681C0_AdvanceCursorAnim()
 }
 
 // 0x004682C0
-void __cdecl sub_004682C0_StepCursorAnim()
+void __cdecl CURSOR_StepCursorAnim()
 {
     gnCursorAnimFrame -= 0x40;
     if (gnCursorAnimFrame < 0)
     {
-        if (sub_00467E40_IsCursorAnimated(gnCursorAnim))
+        if (CURSOR_IsCursorAnimated(gnCursorAnim))
         {
-            gnCursorAnimFrame -= sub_00467E90_GetCursorAnimLength(gnCursorAnim);
+            gnCursorAnimFrame -= CURSOR_GetCursorAnimLength(gnCursorAnim);
             return;
         }
         gnCursorState = 1;
@@ -401,7 +401,7 @@ void __cdecl sub_004682C0_StepCursorAnim()
 }
 
 // 0x00468310
-void __cdecl sub_00468310_UpdateCursor()
+void __cdecl CURSOR_UpdateCursor()
 {
     const unsigned int dwTick = GetTickCount();
     D2_ASSERT(gnCursorAnimCount == CURSOR_ANIM_COUNT, 0x84);
@@ -411,11 +411,11 @@ void __cdecl sub_00468310_UpdateCursor()
         gdwCursorAnimTick = dwTick;
         if (gnCursorState != 3)
         {
-            sub_004681C0_AdvanceCursorAnim();
+            CURSOR_AdvanceCursorAnim();
         }
         else
         {
-            sub_004682C0_StepCursorAnim();
+            CURSOR_StepCursorAnim();
         }
     }
     if (gnCursorState == 1 && gdwLastMouseMoveTick + 5000 < dwTick)
@@ -453,7 +453,7 @@ void __cdecl CURSOR_DrawDefaultCursor()
     tContext.nDirection = 0;
     tContext.nFrame = gnCursorAnimFrame >> 8;
     sub_004F6480(&tContext, nX, nY, -1, 5, 0);
-    sub_00468310_UpdateCursor();
+    CURSOR_UpdateCursor();
 }
 
 // 0x00468460
@@ -543,7 +543,7 @@ void __cdecl CURSOR_PaintCursorItem()
             tContext.nDirection = 0;
             tContext.nFrame = gnCursorAnimFrame >> 8;
             sub_004F6480(&tContext, nX, nY, -1, 5, 0);
-            sub_00468310_UpdateCursor();
+            CURSOR_UpdateCursor();
         }
     }
 }
@@ -575,7 +575,7 @@ extern int data_007A6AB0; // 0x007A6AB0
 extern int data_007A6AAC; // 0x007A6AAC
 
 // 0x00468750
-void __fastcall sub_00468750_SetCursorPos(int nX, int nY)
+void __fastcall CURSOR_SetCursorPos(int nX, int nY)
 {
     SetCursorPos(nX, nY);
     data_007A6AB0 = nX;
@@ -619,7 +619,7 @@ int __cdecl sub_00468830()
 }
 
 // 0x00468840
-void __stdcall sub_00468840_HandleMouseMotion(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall CURSOR_HandleMouseMotion(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
@@ -653,7 +653,7 @@ void __stdcall sub_00468840_HandleMouseMotion(SMSGHANDLER_PARAMS* pMsg)
         gnCursorState = 3;
         gnCursorAnim = 2;
         gnCursorAnimFrame = 0;
-        gnCursorAnimFrame = sub_00467E90_GetCursorAnimLength(gnCursorAnim) - 0x100;
+        gnCursorAnimFrame = CURSOR_GetCursorAnimLength(gnCursorAnim) - 0x100;
     }
     pMsg->bReturn = 0;
     pMsg->lResult = 0;

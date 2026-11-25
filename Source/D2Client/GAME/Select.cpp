@@ -543,7 +543,7 @@ int __cdecl UI_HasSelectedUnit()
 }
 
 // 0x00467430
-void __fastcall sub_00467430_SetSelectionRect(const D2SelectionRectStrc* pRect)
+void __fastcall SELECT_SetSelectionRect(const D2SelectionRectStrc* pRect)
 {
     if (pRect)
     {

@@ -67,7 +67,7 @@ int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
 void __fastcall sub_00468040(int nArg, int nArg2); // 0x00468040
 
-void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
+void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
 int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
@@ -77,11 +77,11 @@ int __cdecl sub_00468740(); // 0x00468740
 
 int __cdecl sub_00468830(); // 0x00468830
 
-void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
+void __fastcall MSG_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
 
 void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
-void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
+void __fastcall MSG_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 
 void __cdecl INV_LoadUiRecords(); // 0x004835B0
 
@@ -342,7 +342,7 @@ struct D2BodyLocRectStrc
     int unk0x10;
 };
 
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny);                       // 0x00478F20
+int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny);                       // 0x00478F20
 
 void __cdecl INV_ResetHover();                                                                     // 0x00487990
 
@@ -666,7 +666,7 @@ int __cdecl INV_ResetNpcButtons()
     gaNpcButtons[3].bActive = 0;
     gnInvPanelMode = 1;
     D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
-    sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+    CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
     return 1;
 }
 

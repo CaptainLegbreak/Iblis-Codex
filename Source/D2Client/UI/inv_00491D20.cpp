@@ -25,7 +25,7 @@ unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
-void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
+void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 D2UnitStrc* __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 int __cdecl sub_00468830(); // 0x00468830
 void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
@@ -194,7 +194,7 @@ static void __stdcall INV_ForwardTradeClick(int nArg1, int nArg2, int nArg3, int
         return;
     if (!nArg7)
         gnInvPanelMode = 5;
-    sub_00468070_SetCursorItemState(0);
+    CURSOR_SetCursorItemState(0);
 }
 
 // 0x0048FFE0
@@ -748,7 +748,7 @@ void __stdcall INV_HandleNpcClick(SMSGHANDLER_PARAMS* msg)
         if(!NPCMENU_GetTradeCostText(CURSOR_GetCursorItem(),1,&cost,text,64)) return;
         const int arg=msg->wParam;
         D2UnitStrc* item=CURSOR_GetCursorItem();
-        if(item && NPCMENU_HandleTradeClick((int)player,(int)item,1,x,y,arg,1,0)) sub_00468070_SetCursorItemState(0);
+        if(item && NPCMENU_HandleTradeClick((int)player,(int)item,1,x,y,arg,1,0)) CURSOR_SetCursorItemState(0);
         return;
     }
     if(AUTOMAP_IsCursorOverMiniPanelButton(msg)==1) {INV_ResetNpcButtons();return;}
@@ -792,7 +792,7 @@ void __stdcall INV_HandleNpcClick(SMSGHANDLER_PARAMS* msg)
                             gaPanelButtons_007BC9E0[clicked].nValue=0;gnInvPanelMode=1;
                             if(sub_00463DD0_GetPlayerUnit()) {
                                 D2InventoryStrc* inventory=sub_00463DD0_GetPlayerUnit()->pInventory;
-                                if(inventory && !INVENTORY_GetCursorItem(inventory)) sub_00468070_SetCursorItemState(0);
+                                if(inventory && !INVENTORY_GetCursorItem(inventory)) CURSOR_SetCursorItemState(0);
                             }
                         } else {
                             gaPanelButtons_007BC9E0[clicked].nValue=1;gaPanelButtons_007BC9E0[selected].nValue=0;

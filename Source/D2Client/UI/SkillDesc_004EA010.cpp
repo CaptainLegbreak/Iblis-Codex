@@ -190,7 +190,7 @@ void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int n
 
 void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
 
-void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit); // 0x004DA350
+void __stdcall GFXUTIL_UpdateMotion(D2UnitStrc* pUnit); // 0x004DA350
 
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
 
@@ -2200,7 +2200,7 @@ int __fastcall SKILLDESC_CltDoLobMissile(D2UnitStrc* pUnit, int nSkillId, int nS
                     MISSILE_SetTotalFrames(pMissile, nFrames);
                     MISSILE_SetCurrentFrame(pMissile, nFrames);
                     GFXUTIL_SetMotionVectorA(pMissile, 0, 0, nHeight);
-                    sub_004DA350_UpdateMotion(pMissile);
+                    GFXUTIL_UpdateMotion(pMissile);
                     GFXUTIL_SetMotionVectorB(pMissile, 0, 0, nFall, 1);
                 }
 
@@ -2216,7 +2216,7 @@ static inline void sub_004F0050_LaunchMotion(D2UnitStrc* pMissile, int nHeight, 
 {
     GFXUTIL_SetMotionVectorA(pMissile, 0, 0, nHeight);
     GFXUTIL_SetMotionVectorB(pMissile, 0, 0, nVelocity, 1);
-    sub_004DA350_UpdateMotion(pMissile);
+    GFXUTIL_UpdateMotion(pMissile);
 }
 
 // 0x004F0050

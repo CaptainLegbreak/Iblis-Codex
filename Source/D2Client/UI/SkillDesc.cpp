@@ -48,11 +48,11 @@ D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnviron
 
 void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 
-void __fastcall sub_004BA950_RefreshHintsInRangeA(int nGroupA, int nGroupB); // 0x004BA950
+void __fastcall SOUNDINST_RefreshHintsInRangeA(int nGroupA, int nGroupB); // 0x004BA950
 
-void __fastcall sub_004BA9D0_RefreshHintsInRangeB(int nGroupA, int nGroupB); // 0x004BA9D0
+void __fastcall SOUNDINST_RefreshHintsInRangeB(int nGroupA, int nGroupB); // 0x004BA9D0
 
-void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
+void __fastcall SOUNDINST_SetValue(int nKey, int nValue); // 0x004B9B50
 
 int __fastcall sub_004B9B20(int nHandle); // 0x004B9B20
 
@@ -567,7 +567,7 @@ static inline D2SkillsTxt* sub_004F21B0_GetSkillsTxtRecord(int nSkillId)
 }
 
 // 0x004E4200
-float __cdecl sub_004E4200_GetFloatIfEnabled()
+float __cdecl SKILLDESC_GetFloatIfEnabled()
 {
     if (!sub_00473C40())
     {
@@ -653,7 +653,7 @@ int __fastcall SKILLDESC_CanTargetHostile(D2UnitStrc* pUnit, int nSkillId, int n
 }
 
 // 0x004F2160
-int __fastcall sub_004F2160_DecrementParam(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLDESC_DecrementParam(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill)
@@ -974,8 +974,8 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         }
         else
         {
-            sub_004BA950_RefreshHintsInRangeA(nSound, nSecond);
-            sub_004BA9D0_RefreshHintsInRangeB(nAmbient, 0);
+            SOUNDINST_RefreshHintsInRangeA(nSound, nSecond);
+            SOUNDINST_RefreshHintsInRangeB(nAmbient, 0);
         }
         if (nSound != gnEnvironSoundId)
         {
@@ -984,7 +984,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
                 gnEnvironSoundHandle = sub_004B9A00(nSound, 0, 0, 0, 0);
                 if (bCross)
                 {
-                    sub_004B9B50_SetValue(gnEnvironSoundHandle, 0);
+                    SOUNDINST_SetValue(gnEnvironSoundHandle, 0);
                     SOUNDINST_ArmHint(gnEnvironSoundHandle, 0xFF, 0, 0xFA);
                 }
                 gnEnvironSoundId = nSound;
@@ -1002,7 +1002,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         {
             gnWeatherSoundHandle = sub_004B9A00(gnWeatherSoundId, 0, 0, 0, 0);
             if (gnWeatherSoundHandle)
-                sub_004B9B50_SetValue(gnWeatherSoundHandle, nVolume);
+                SOUNDINST_SetValue(gnWeatherSoundHandle, nVolume);
         }
         if (gnWeatherSoundHandle)
         {
@@ -1014,7 +1014,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
                 nNext = nVolume > nCurrent - 6 ? nVolume : nCurrent - 6;
             if (nNext)
             {
-                sub_004B9B50_SetValue(gnWeatherSoundHandle, nNext);
+                SOUNDINST_SetValue(gnWeatherSoundHandle, nNext);
             }
             else
             {
@@ -5694,7 +5694,7 @@ static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 }
 
 // 0x004F2AC0
-void __fastcall sub_004F2AC0_MissileInit(D2UnitStrc* pMissile, int nSeed)
+void __fastcall SKILLDESC_MissileInit(D2UnitStrc* pMissile, int nSeed)
 {
     if (!pMissile)
     {

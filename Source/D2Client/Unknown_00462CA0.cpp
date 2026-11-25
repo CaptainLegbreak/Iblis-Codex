@@ -67,7 +67,7 @@ D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 D2UnitStrc* __fastcall SELECT_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pX, int* pY, unsigned int dwFlags, int bForce); // 0x00467880
 int __cdecl sub_00468830();
-int __fastcall sub_00474080_GetDistance(int nDX, int nDY);
+int __fastcall DLIGHTMAP_GetDistance(int nDX, int nDY); // 0x00474080
 void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 void __fastcall MSG_SendFourDwords(char nCommand, int nUnitType, int nUnitId, int nX, int nY); // 0x00478700
 int __cdecl INV_GetScreenHeightMinusPanel(); // 0x00454970
@@ -99,7 +99,7 @@ void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, char nValue); // 0x0046F02
 void __fastcall sub_00473C90_SetGlobal(int nValue);
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey); // 0x00478E40
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny);
+int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny); // 0x00478F20
 void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
 void __fastcall UNITMODE_DoUnitAction(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00481030
@@ -853,7 +853,7 @@ static int __stdcall PLAYER_ClampTarget(D2UnitStrc* pUnit, D2PlayerCmdStrc* pCmd
     if (E06_ABS(nDX) < 1 && E06_ABS(nDY) < 1)
         return 0;
 
-    int nDistance = sub_00474080_GetDistance(nDX, nDY);
+    int nDistance = DLIGHTMAP_GetDistance(nDX, nDY);
     if (nDistance <= 1)
         nDistance = 1;
 
@@ -1147,7 +1147,7 @@ static int PLAYER_CmdLeftSkillMove(D2PlayerCmdStrc* pCmd)
 static int PLAYER_UpdatePetCommand(D2PlayerCmdStrc* pCmd)
 {
     PLAYER_FilterCommandMessage(pCmd);
-    const int nPetId = sub_00478F20_FindPetIdByOwner(pCmd->pPlayer, 7, 0);
+    const int nPetId = ROSTERPETS_FindPetIdByOwner(pCmd->pPlayer, 7, 0);
     if (nPetId != -1)
     {
         D2UnitStrc* pPet = CUNIT_FindClientUnit(nPetId, 1);
@@ -1208,7 +1208,7 @@ static int PLAYER_CmdRightSkillMove(D2PlayerCmdStrc* pCmd)
 static int sub_00462CA0_UpdatePetCommandNoWalk(D2PlayerCmdStrc* pCmd)
 {
     PLAYER_FilterCommandMessage(pCmd);
-    const int nPetId = sub_00478F20_FindPetIdByOwner(pCmd->pPlayer, 7, 0);
+    const int nPetId = ROSTERPETS_FindPetIdByOwner(pCmd->pPlayer, 7, 0);
     if (nPetId != -1)
     {
         D2UnitStrc* pPet = CUNIT_FindClientUnit(nPetId, 1);
@@ -1218,7 +1218,8 @@ static int sub_00462CA0_UpdatePetCommandNoWalk(D2PlayerCmdStrc* pCmd)
     return 0;
 }
 
-int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned char nKeyFlags)
+// build: symbol ?PLAYER_PlayerCommand@* 0x00462D00
+int __fastcall PLAYER_PlayerCommand(int nCommand, int nX, int nY, unsigned char nKeyFlags)
 {
     if (GAME_GetUIVarState(9))
         return 0;

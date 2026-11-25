@@ -10458,7 +10458,7 @@
     {
      "va": "0x00452070",
      "length": 18,
-     "name": "?sub_00452070_ClearBlock@@YIPAHPAH@Z"
+     "name": "?GAME_ClearBlock@@YIPAHPAH@Z"
     },
     {
      "va": "0x004520C0",
@@ -11238,12 +11238,12 @@
     {
      "va": "0x004C7C80",
      "length": 12,
-     "name": "?sub_004C7C80_GetMissilesTxtRecordCount@@YAHXZ"
+     "name": "?SKILLS_GetMissilesTxtRecordCount@@YAHXZ"
     },
     {
      "va": "0x004C7C90",
      "length": 27,
-     "name": "?sub_004C7C90_TestTarget11018@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_TestTarget11018@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004C7CB0",
@@ -11268,7 +11268,7 @@
     {
      "va": "0x004C7EE0",
      "length": 27,
-     "name": "?sub_004C7EE0_TestTarget11019@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_TestTarget11019@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004C7F00",
@@ -13417,7 +13417,7 @@
     {
      "va": "0x00475C30",
      "length": 10,
-     "name": "?sub_00475C30_FreeIfSet@@YIXPAX@Z"
+     "name": "?VIEW_FreeIfSet@@YIXPAX@Z"
     },
     {
      "va": "0x00475DF0",
@@ -13427,7 +13427,7 @@
     {
      "va": "0x00475EB0",
      "length": 51,
-     "name": "?sub_00475EB0_FreeCels@@YAXXZ"
+     "name": "?VIEW_FreeCels@@YAXXZ"
     },
     {
      "va": "0x00475EF0",
@@ -13821,7 +13821,7 @@
     {
      "va": "0x00486AD0",
      "length": 16,
-     "name": "?sub_00486AD0_ToggleFlag@@YAXXZ"
+     "name": "?INV_ToggleFlag@@YAXXZ"
     },
     {
      "va": "0x00486AE0",
@@ -13841,7 +13841,7 @@
     {
      "va": "0x00486B80",
      "length": 68,
-     "name": "?sub_00486B80_IsNpcStateB@@YAHXZ"
+     "name": "?INV_IsNpcStateB@@YAHXZ"
     },
     {
      "va": "0x00486BD0",
@@ -13855,12 +13855,12 @@
     {
      "va": "0x00486D70",
      "length": 13,
-     "name": "?sub_00486D70_IsNotState11@@YAHXZ"
+     "name": "?INV_IsNotState11@@YAHXZ"
     },
     {
      "va": "0x00486D80",
      "length": 24,
-     "name": "?sub_00486D80_IsState1Or2@@YAHXZ"
+     "name": "?INV_IsState1Or2@@YAHXZ"
     },
     {
      "va": "0x00486DA0",
@@ -14175,7 +14175,7 @@
     {
      "va": "0x00489FB0",
      "length": 65,
-     "name": "?sub_00489FB0_IsOverButtonC@@YAHHH@Z"
+     "name": "?INV_IsOverButtonC@@YAHHH@Z"
     },
     {
      "va": "0x0048A000",
@@ -14411,7 +14411,7 @@
     {
      "va": "0x00498A20",
      "length": 98,
-     "name": "sub_00498A20_CheckState"
+     "name": "INV_CheckState"
     },
     {
      "va": "0x006CABF0",
@@ -14552,7 +14552,7 @@
     {
      "va": "0x004AC730",
      "length": 16,
-     "name": "?sub_004AC730_MonsterDataOf@@YIPAUD2MonsterDataStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MONUNIQUE_MonsterDataOf@@YIPAUD2MonsterDataStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004AC740",
@@ -14619,7 +14619,7 @@
     {
      "va": "0x006CAD00",
      "length": 15,
-     "name": "?sub_006CAD00_InitializeNameSeparator@@YAXXZ"
+     "name": "?MONUNIQUE_InitializeNameSeparator@@YAXXZ"
     }
    ],
    "flags": [
@@ -16354,7 +16354,7 @@
     {
      "va": "0x0045E290",
      "length": 1,
-     "name": "?sub_0045E290_Packet45@@YIXPBUD2GSPacketSrv45@@@Z"
+     "name": "?SCMD_Packet45@@YIXPBUD2GSPacketSrv45@@@Z"
     },
     {
      "va": "0x0045E2A0",
@@ -16378,7 +16378,7 @@
     {
      "va": "0x0045E3B0",
      "length": 5,
-     "name": "?sub_0045E3B0_Packet54@@YIXPBUD2GSPacketSrv54@@@Z"
+     "name": "?SCMD_Packet54@@YIXPBUD2GSPacketSrv54@@@Z"
     },
     {
      "va": "0x0045E3C0",
@@ -16463,7 +16463,7 @@
     {
      "va": "0x0045E6C0",
      "length": 1,
-     "name": "?sub_0045E6C0_Packet66@@YIXPBUD2GSPacketSrv66@@@Z"
+     "name": "?SCMD_Packet66@@YIXPBUD2GSPacketSrv66@@@Z"
     },
     {
      "va": "0x0045E6D0",
@@ -17016,7 +17016,7 @@
     {
      "va": "0x00462D00",
      "length": 472,
-     "name": "?sub_00462D00_PlayerCommand@@YIHHHHE@Z"
+     "name": "?PLAYER_PlayerCommand@@YIHHHHE@Z"
     },
     {
      "va": "0x00463830",
@@ -17254,7 +17254,7 @@
     {
      "va": "0x0046C660",
      "length": 126,
-     "name": "?sub_0046C660_FindCorpseCallback@@YIHPAUD2UnitStrc@@0PAPAU1@PAH@Z"
+     "name": "?GFX_FindCorpseCallback@@YIHPAUD2UnitStrc@@0PAPAU1@PAH@Z"
     },
     {
      "va": "0x0046C6E0",
@@ -17269,12 +17269,12 @@
     {
      "va": "0x0046C720",
      "length": 75,
-     "name": "?sub_0046C720_FindNearestTarget@@YGPAUD2UnitStrc@@PAU1@PAH@Z"
+     "name": "?GFX_FindNearestTarget@@YGPAUD2UnitStrc@@PAU1@PAH@Z"
     },
     {
      "va": "0x0046C770",
      "length": 94,
-     "name": "?sub_0046C770_CommandOnUnit@@YGXHHPAUD2UnitStrc@@0@Z"
+     "name": "?GFX_CommandOnUnit@@YGXHHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x0046C7D0",
@@ -17284,7 +17284,7 @@
     {
      "va": "0x0046C960",
      "length": 254,
-     "name": "?sub_0046C960_StepRandom@@YGXEHHPAUD2UnitStrc@@@Z"
+     "name": "?GFX_StepRandom@@YGXEHHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046CA60",
@@ -17347,7 +17347,7 @@
     {
      "va": "0x0046D450",
      "length": 524,
-     "name": "?sub_0046D450_AiType8@@YAXPAUD2UnitStrc@@@Z"
+     "name": "?GFX_AiType8@@YAXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046D660",
@@ -17361,22 +17361,22 @@
     {
      "va": "0x0046D9C0",
      "length": 36,
-     "name": "?sub_0046D9C0_GetTxtRecord@@YIPAUD2OverlayTxt@@H@Z"
+     "name": "?GFX_GetTxtRecord@@YIPAUD2OverlayTxt@@H@Z"
     },
     {
      "va": "0x0046D9F0",
      "length": 100,
-     "name": "?sub_0046D9F0_GetConvertedUnitType@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?GFX_GetConvertedUnitType@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046DA60",
      "length": 94,
-     "name": "?sub_0046DA60_GetConvertedUnitMode@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?GFX_GetConvertedUnitMode@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046DAC0",
      "length": 99,
-     "name": "?sub_0046DAC0_GetConvertedClassId@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?GFX_GetConvertedClassId@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046DB30",
@@ -17410,12 +17410,12 @@
     {
      "va": "0x0046EA80",
      "length": 24,
-     "name": "?sub_0046EA80_ResetGfxBytes20@@YAXPAUD2UnitStrc@@@Z"
+     "name": "?GFX_ResetGfxBytes20@@YAXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046EAA0",
      "length": 24,
-     "name": "?sub_0046EAA0_ResetGfxBytes16@@YAXPAUD2UnitStrc@@@Z"
+     "name": "?GFX_ResetGfxBytes16@@YAXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046EAC0",
@@ -17425,7 +17425,7 @@
     {
      "va": "0x0046EB50",
      "length": 24,
-     "name": "?sub_0046EB50_ResetGfxBytes8@@YAXPAUD2UnitStrc@@@Z"
+     "name": "?GFX_ResetGfxBytes8@@YAXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046EB70",
@@ -17485,7 +17485,7 @@
     {
      "va": "0x0046F090",
      "length": 38,
-     "name": "?sub_0046F090_IsNotMonsterOrNoFlag2@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?GFX_IsNotMonsterOrNoFlag2@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046F170",
@@ -17603,7 +17603,7 @@
     {
      "va": "0x00472530",
      "length": 20,
-     "name": "?sub_00472530_SetPhaseActive@@YAXH@Z"
+     "name": "?GFX_SetPhaseActive@@YAXH@Z"
     },
     {
      "va": "0x00475B80",
@@ -17698,22 +17698,22 @@
     {
      "va": "0x00478E70",
      "length": 101,
-     "name": "?sub_00478E70_IsPetFriendly@@YIHPAUD2UnitStrc@@0@Z"
+     "name": "?ROSTERPETS_IsPetFriendly@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x00478EE0",
      "length": 54,
-     "name": "?sub_00478EE0_CountPets@@YIHPAUD2UnitStrc@@H@Z"
+     "name": "?ROSTERPETS_CountPets@@YIHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00478F20",
      "length": 74,
-     "name": "?sub_00478F20_FindPetIdByOwner@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?ROSTERPETS_FindPetIdByOwner@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x00478F70",
      "length": 42,
-     "name": "?sub_00478F70_HasPets@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?ROSTERPETS_HasPets@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00478FA0",
@@ -17743,12 +17743,12 @@
     {
      "va": "0x00479120",
      "length": 34,
-     "name": "?sub_00479120_GetHirelingClassId@@YIHH@Z"
+     "name": "?ROSTERPETS_GetHirelingClassId@@YIHH@Z"
     },
     {
      "va": "0x00479150",
      "length": 36,
-     "name": "?sub_00479150_FindRosterIndex@@YIHH@Z"
+     "name": "?ROSTERPETS_FindRosterIndex@@YIHH@Z"
     },
     {
      "va": "0x00479180",
@@ -17758,7 +17758,7 @@
     {
      "va": "0x004791B0",
      "length": 113,
-     "name": "?sub_004791B0_IsOwnedByPlayer@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?ROSTERPETS_IsOwnedByPlayer@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00479230",
@@ -18132,7 +18132,7 @@
     {
      "va": "0x00463E10",
      "length": 11,
-     "name": "?sub_00463E10_GetGfxData@@YIPAUD2GfxDataStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?CUNIT_GetGfxData@@YIPAUD2GfxDataStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00463E20",
@@ -18186,7 +18186,7 @@
     {
      "va": "0x00464280",
      "length": 7,
-     "name": "?sub_00464280_SkillSelectProc4@@YIHPAUD2UnitStrc@@0@Z"
+     "name": "?CUNIT_SkillSelectProc4@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x00464290",
@@ -18196,7 +18196,7 @@
     {
      "va": "0x004642A0",
      "length": 7,
-     "name": "?sub_004642A0_SkillSelectProc5@@YIHPAUD2UnitStrc@@0@Z"
+     "name": "?CUNIT_SkillSelectProc5@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x004642B0",
@@ -18590,7 +18590,7 @@
     {
      "va": "0x00467430",
      "length": 59,
-     "name": "?sub_00467430_SetSelectionRect@@YIXPBUD2SelectionRectStrc@@@Z"
+     "name": "?SELECT_SetSelectionRect@@YIXPBUD2SelectionRectStrc@@@Z"
     },
     {
      "va": "0x00467470",
@@ -18686,27 +18686,27 @@
     {
      "va": "0x00467DF0",
      "length": 69,
-     "name": "?sub_00467DF0_GetCursorAnimField00@@YAHH@Z"
+     "name": "?CURSOR_GetCursorAnimField00@@YAHH@Z"
     },
     {
      "va": "0x00467E40",
      "length": 69,
-     "name": "?sub_00467E40_IsCursorAnimated@@YAHH@Z"
+     "name": "?CURSOR_IsCursorAnimated@@YAHH@Z"
     },
     {
      "va": "0x00467E90",
      "length": 72,
-     "name": "?sub_00467E90_GetCursorAnimLength@@YAHH@Z"
+     "name": "?CURSOR_GetCursorAnimLength@@YAHH@Z"
     },
     {
      "va": "0x00467EE0",
      "length": 16,
-     "name": "?sub_00467EE0_SetCursorAnim@@YAXH@Z"
+     "name": "?CURSOR_SetCursorAnim@@YAXH@Z"
     },
     {
      "va": "0x00467EF0",
      "length": 40,
-     "name": "sub_00467EF0_MsgHandler"
+     "name": "CURSOR_MsgHandler"
     },
     {
      "va": "0x00467F20",
@@ -18721,12 +18721,12 @@
     {
      "va": "0x00468000",
      "length": 7,
-     "name": "?sub_00468000_SetGlobal7A6B08@@YIXH@Z"
+     "name": "?CURSOR_SetGlobal7A6B08@@YIXH@Z"
     },
     {
      "va": "0x00468010",
      "length": 28,
-     "name": "?sub_00468010_SetState@@YIXHH@Z"
+     "name": "?CURSOR_SetState@@YIXHH@Z"
     },
     {
      "va": "0x00468030",
@@ -18741,7 +18741,7 @@
     {
      "va": "0x00468070",
      "length": 48,
-     "name": "?sub_00468070_SetCursorItemState@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?CURSOR_SetCursorItemState@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004680A0",
@@ -18761,17 +18761,17 @@
     {
      "va": "0x004681C0",
      "length": 248,
-     "name": "?sub_004681C0_AdvanceCursorAnim@@YAXXZ"
+     "name": "?CURSOR_AdvanceCursorAnim@@YAXXZ"
     },
     {
      "va": "0x004682C0",
      "length": 71,
-     "name": "?sub_004682C0_StepCursorAnim@@YAXXZ"
+     "name": "?CURSOR_StepCursorAnim@@YAXXZ"
     },
     {
      "va": "0x00468310",
      "length": 175,
-     "name": "?sub_00468310_UpdateCursor@@YAXXZ"
+     "name": "?CURSOR_UpdateCursor@@YAXXZ"
     },
     {
      "va": "0x004683C0",
@@ -18823,7 +18823,7 @@
     {
      "va": "0x00468840",
      "length": 252,
-     "name": "?sub_00468840_HandleMouseMotion@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?CURSOR_HandleMouseMotion@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     }
    ]
   },
@@ -18848,47 +18848,47 @@
     {
      "va": "0x00468940",
      "length": 15,
-     "name": "?sub_00468940_SetUIVar2@@YAXXZ"
+     "name": "?CMDTBL_SetUIVar2@@YAXXZ"
     },
     {
      "va": "0x00468950",
      "length": 16,
-     "name": "?sub_00468950_SetUIVar1@@YAXXZ"
+     "name": "?CMDTBL_SetUIVar1@@YAXXZ"
     },
     {
      "va": "0x00468960",
      "length": 25,
-     "name": "?sub_00468960_SetUIVar22@@YAXXZ"
+     "name": "?CMDTBL_SetUIVar22@@YAXXZ"
     },
     {
      "va": "0x00468980",
      "length": 16,
-     "name": "?sub_00468980_SetUIVar24@@YAXXZ"
+     "name": "?CMDTBL_SetUIVar24@@YAXXZ"
     },
     {
      "va": "0x00468990",
      "length": 27,
-     "name": "?sub_00468990_OpenMode1@@YAXXZ"
+     "name": "?CMDTBL_OpenMode1@@YAXXZ"
     },
     {
      "va": "0x004689B0",
      "length": 22,
-     "name": "?sub_004689B0_SetUIVar5@@YAXXZ"
+     "name": "?CMDTBL_SetUIVar5@@YAXXZ"
     },
     {
      "va": "0x00468A30",
      "length": 37,
-     "name": "?sub_00468A30_SetUIVar10@@YAXXZ"
+     "name": "?CMDTBL_SetUIVar10@@YAXXZ"
     },
     {
      "va": "0x00468A60",
      "length": 10,
-     "name": "?sub_00468A60_Force@@YAXXZ"
+     "name": "?CMDTBL_Force@@YAXXZ"
     },
     {
      "va": "0x00468A70",
      "length": 28,
-     "name": "?sub_00468A70_CycleSetting@@YAXXZ"
+     "name": "?CMDTBL_CycleSetting@@YAXXZ"
     },
     {
      "va": "0x00468A90",
@@ -18908,92 +18908,92 @@
     {
      "va": "0x00468AF0",
      "length": 16,
-     "name": "?sub_00468AF0_SetUIVar4@@YAXXZ"
+     "name": "?CMDTBL_SetUIVar4@@YAXXZ"
     },
     {
      "va": "0x00468B00",
      "length": 22,
-     "name": "?sub_00468B00_SetUIVar3@@YAXXZ"
+     "name": "?CMDTBL_SetUIVar3@@YAXXZ"
     },
     {
      "va": "0x00468B90",
      "length": 43,
-     "name": "?sub_00468B90_Hotkey0@@YAXXZ"
+     "name": "?CMDTBL_Hotkey0@@YAXXZ"
     },
     {
      "va": "0x00468BC0",
      "length": 46,
-     "name": "?sub_00468BC0_Hotkey1@@YAXXZ"
+     "name": "?CMDTBL_Hotkey1@@YAXXZ"
     },
     {
      "va": "0x00468BF0",
      "length": 46,
-     "name": "?sub_00468BF0_Hotkey2@@YAXXZ"
+     "name": "?CMDTBL_Hotkey2@@YAXXZ"
     },
     {
      "va": "0x00468C20",
      "length": 46,
-     "name": "?sub_00468C20_Hotkey3@@YAXXZ"
+     "name": "?CMDTBL_Hotkey3@@YAXXZ"
     },
     {
      "va": "0x00468C50",
      "length": 46,
-     "name": "?sub_00468C50_Hotkey4@@YAXXZ"
+     "name": "?CMDTBL_Hotkey4@@YAXXZ"
     },
     {
      "va": "0x00468C80",
      "length": 46,
-     "name": "?sub_00468C80_Hotkey5@@YAXXZ"
+     "name": "?CMDTBL_Hotkey5@@YAXXZ"
     },
     {
      "va": "0x00468CB0",
      "length": 46,
-     "name": "?sub_00468CB0_Hotkey6@@YAXXZ"
+     "name": "?CMDTBL_Hotkey6@@YAXXZ"
     },
     {
      "va": "0x00468CE0",
      "length": 46,
-     "name": "?sub_00468CE0_Hotkey7@@YAXXZ"
+     "name": "?CMDTBL_Hotkey7@@YAXXZ"
     },
     {
      "va": "0x00468D10",
      "length": 46,
-     "name": "?sub_00468D10_Hotkey8@@YAXXZ"
+     "name": "?CMDTBL_Hotkey8@@YAXXZ"
     },
     {
      "va": "0x00468D40",
      "length": 57,
-     "name": "?sub_00468D40_Hotkey9@@YAXXZ"
+     "name": "?CMDTBL_Hotkey9@@YAXXZ"
     },
     {
      "va": "0x00468D80",
      "length": 57,
-     "name": "?sub_00468D80_Hotkey10@@YAXXZ"
+     "name": "?CMDTBL_Hotkey10@@YAXXZ"
     },
     {
      "va": "0x00468DC0",
      "length": 57,
-     "name": "?sub_00468DC0_Hotkey11@@YAXXZ"
+     "name": "?CMDTBL_Hotkey11@@YAXXZ"
     },
     {
      "va": "0x00468E00",
      "length": 57,
-     "name": "?sub_00468E00_Hotkey12@@YAXXZ"
+     "name": "?CMDTBL_Hotkey12@@YAXXZ"
     },
     {
      "va": "0x00468E40",
      "length": 57,
-     "name": "?sub_00468E40_Hotkey13@@YAXXZ"
+     "name": "?CMDTBL_Hotkey13@@YAXXZ"
     },
     {
      "va": "0x00468E80",
      "length": 57,
-     "name": "?sub_00468E80_Hotkey14@@YAXXZ"
+     "name": "?CMDTBL_Hotkey14@@YAXXZ"
     },
     {
      "va": "0x00468EC0",
      "length": 57,
-     "name": "?sub_00468EC0_Hotkey15@@YAXXZ"
+     "name": "?CMDTBL_Hotkey15@@YAXXZ"
     },
     {
      "va": "0x00468F00",
@@ -19003,82 +19003,82 @@
     {
      "va": "0x00468F40",
      "length": 5,
-     "name": "?sub_00468F40_BeltHotkey0@@YAXXZ"
+     "name": "?CMDTBL_BeltHotkey0@@YAXXZ"
     },
     {
      "va": "0x00468F50",
      "length": 5,
-     "name": "?sub_00468F50_BeltHotkey1@@YAXXZ"
+     "name": "?CMDTBL_BeltHotkey1@@YAXXZ"
     },
     {
      "va": "0x00468F60",
      "length": 5,
-     "name": "?sub_00468F60_BeltHotkey2@@YAXXZ"
+     "name": "?CMDTBL_BeltHotkey2@@YAXXZ"
     },
     {
      "va": "0x00468F70",
      "length": 5,
-     "name": "?sub_00468F70_BeltHotkey3@@YAXXZ"
+     "name": "?CMDTBL_BeltHotkey3@@YAXXZ"
     },
     {
      "va": "0x00468F80",
      "length": 12,
-     "name": "?sub_00468F80_Phrase19@@YAXXZ"
+     "name": "?CMDTBL_Phrase19@@YAXXZ"
     },
     {
      "va": "0x00468F90",
      "length": 12,
-     "name": "?sub_00468F90_Phrase1A@@YAXXZ"
+     "name": "?CMDTBL_Phrase1A@@YAXXZ"
     },
     {
      "va": "0x00468FA0",
      "length": 12,
-     "name": "?sub_00468FA0_Phrase1B@@YAXXZ"
+     "name": "?CMDTBL_Phrase1B@@YAXXZ"
     },
     {
      "va": "0x00468FB0",
      "length": 12,
-     "name": "?sub_00468FB0_Phrase1C@@YAXXZ"
+     "name": "?CMDTBL_Phrase1C@@YAXXZ"
     },
     {
      "va": "0x00468FC0",
      "length": 12,
-     "name": "?sub_00468FC0_Phrase1D@@YAXXZ"
+     "name": "?CMDTBL_Phrase1D@@YAXXZ"
     },
     {
      "va": "0x00468FD0",
      "length": 12,
-     "name": "?sub_00468FD0_Phrase1E@@YAXXZ"
+     "name": "?CMDTBL_Phrase1E@@YAXXZ"
     },
     {
      "va": "0x00468FE0",
      "length": 12,
-     "name": "?sub_00468FE0_Phrase1F@@YAXXZ"
+     "name": "?CMDTBL_Phrase1F@@YAXXZ"
     },
     {
      "va": "0x00468FF0",
      "length": 12,
-     "name": "?sub_00468FF0_Phrase20@@YAXXZ"
+     "name": "?CMDTBL_Phrase20@@YAXXZ"
     },
     {
      "va": "0x00469000",
      "length": 85,
-     "name": "?sub_00469000_HotkeyRunOn@@YAXXZ"
+     "name": "?CMDTBL_HotkeyRunOn@@YAXXZ"
     },
     {
      "va": "0x00469060",
      "length": 19,
-     "name": "?sub_00469060_ToggleAlwaysRun@@YAXXZ"
+     "name": "?CMDTBL_ToggleAlwaysRun@@YAXXZ"
     },
     {
      "va": "0x00469080",
      "length": 10,
-     "name": "?sub_00469080_HotkeySetValue@@YAXXZ"
+     "name": "?CMDTBL_HotkeySetValue@@YAXXZ"
     },
     {
      "va": "0x00469090",
      "length": 13,
-     "name": "?sub_00469090_HotkeyUiVarOff@@YAXXZ"
+     "name": "?CMDTBL_HotkeyUiVarOff@@YAXXZ"
     },
     {
      "va": "0x004690A0",
@@ -19088,27 +19088,27 @@
     {
      "va": "0x004690B0",
      "length": 67,
-     "name": "?sub_004690B0_HotkeyEscape@@YAXXZ"
+     "name": "?CMDTBL_HotkeyEscape@@YAXXZ"
     },
     {
      "va": "0x00469100",
      "length": 27,
-     "name": "?sub_00469100_HotkeyPrevSkill@@YAXXZ"
+     "name": "?CMDTBL_HotkeyPrevSkill@@YAXXZ"
     },
     {
      "va": "0x00469120",
      "length": 27,
-     "name": "?sub_00469120_HotkeyNextSkill@@YAXXZ"
+     "name": "?CMDTBL_HotkeyNextSkill@@YAXXZ"
     },
     {
      "va": "0x00469140",
      "length": 44,
-     "name": "?sub_00469140_HotkeyResetSounds@@YAXXZ"
+     "name": "?CMDTBL_HotkeyResetSounds@@YAXXZ"
     },
     {
      "va": "0x00469170",
      "length": 58,
-     "name": "?sub_00469170_HotkeyPetUi@@YAXXZ"
+     "name": "?CMDTBL_HotkeyPetUi@@YAXXZ"
     },
     {
      "va": "0x004691B0",
@@ -19118,7 +19118,7 @@
     {
      "va": "0x004691C0",
      "length": 58,
-     "name": "?sub_004691C0_HotkeyRunOff@@YAXXZ"
+     "name": "?CMDTBL_HotkeyRunOff@@YAXXZ"
     },
     {
      "va": "0x00469200",
@@ -19128,7 +19128,7 @@
     {
      "va": "0x00469210",
      "length": 20,
-     "name": "?sub_00469210_HotkeyUiVarOn@@YAXXZ"
+     "name": "?CMDTBL_HotkeyUiVarOn@@YAXXZ"
     },
     {
      "va": "0x00469230",
@@ -19630,27 +19630,27 @@
     {
      "va": "0x004DA620",
      "length": 26,
-     "name": "?sub_004DA620_SetMotionFlag10@@YIXPAUD2UnitStrc@@H@Z"
+     "name": "?GFXUTIL_SetMotionFlag10@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004DA640",
      "length": 22,
-     "name": "sub_004DA640_SetMotionFlag1"
+     "name": "GFXUTIL_SetMotionFlag1"
     },
     {
      "va": "0x004DA660",
      "length": 35,
-     "name": "sub_004DA660_TestMotionFlag1"
+     "name": "GFXUTIL_TestMotionFlag1"
     },
     {
      "va": "0x004DA690",
      "length": 29,
-     "name": "sub_004DA690_ReplaceMotionFlag1With8"
+     "name": "GFXUTIL_ReplaceMotionFlag1With8"
     },
     {
      "va": "0x004DA6B0",
      "length": 40,
-     "name": "sub_004DA6B0_TestMotionFlags"
+     "name": "GFXUTIL_TestMotionFlags"
     },
     {
      "va": "0x004DA6E0",
@@ -19660,7 +19660,7 @@
     {
      "va": "0x004DA700",
      "length": 22,
-     "name": "?sub_004DA700_GetGfxMotionFlag5@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?GFXUTIL_GetGfxMotionFlag5@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004DA720",
@@ -19750,7 +19750,7 @@
     {
      "va": "0x004DB040",
      "length": 3,
-     "name": "@sub_004DB040_identity@4"
+     "name": "@GFXUTIL_identity@4"
     },
     {
      "va": "0x004DB050",
@@ -19920,7 +19920,7 @@
     {
      "va": "0x004E0C60",
      "length": 48,
-     "name": "sub_004E0C60_CltDoResetActionFrame"
+     "name": "GFXUTIL_CltDoResetActionFrame"
     },
     {
      "va": "0x004E0D40",
@@ -19935,7 +19935,7 @@
     {
      "va": "0x004E12F0",
      "length": 48,
-     "name": "sub_004E12F0_CltDoResetActionFrame2"
+     "name": "GFXUTIL_CltDoResetActionFrame2"
     },
     {
      "va": "0x004E24D0",
@@ -20505,7 +20505,7 @@
     {
      "va": "0x00474080",
      "length": 67,
-     "name": "?sub_00474080_GetDistance@@YIHHH@Z"
+     "name": "?DLIGHTMAP_GetDistance@@YIHHH@Z"
     },
     {
      "va": "0x004740D0",
@@ -20990,7 +20990,7 @@
     {
      "va": "0x00478600",
      "length": 51,
-     "name": "?sub_00478600_SendShorts@@YIXDFFF@Z"
+     "name": "?MSG_SendShorts@@YIXDFFF@Z"
     },
     {
      "va": "0x00478640",
@@ -21010,7 +21010,7 @@
     {
      "va": "0x004786D0",
      "length": 46,
-     "name": "?sub_004786D0_SendDwords3@@YIXEIII@Z"
+     "name": "?MSG_SendDwords3@@YIXEIII@Z"
     },
     {
      "va": "0x00478700",
@@ -21769,7 +21769,7 @@
     {
      "va": "0x0047BAD0",
      "length": 408,
-     "name": "?sub_0047BAD0_ParseChatCommand@@YGHPAPBDPAD1@Z"
+     "name": "?CHAT_ParseChatCommand@@YGHPAPBDPAD1@Z"
     },
     {
      "va": "0x0047BC70",
@@ -22884,12 +22884,12 @@
     {
      "va": "0x0049D2F0",
      "length": 11,
-     "name": "?sub_0049D2F0_SetFieldA4@@YIXPAUD2TextFieldA4Strc@@H@Z"
+     "name": "?TEXT_SetFieldA4@@YIXPAUD2TextFieldA4Strc@@H@Z"
     },
     {
      "va": "0x0049D300",
      "length": 14,
-     "name": "?sub_0049D300_GetFieldA4@@YIHPAUD2TextFieldA4Strc@@@Z"
+     "name": "?TEXT_GetFieldA4@@YIHPAUD2TextFieldA4Strc@@@Z"
     },
     {
      "va": "0x0049D310",
@@ -22974,7 +22974,7 @@
     {
      "va": "0x0049DAC0",
      "length": 25,
-     "name": "?sub_0049DAC0_IsStateZeroOrOne@@YIHPAUD2TextStateStrc@@@Z"
+     "name": "?TEXT_IsStateZeroOrOne@@YIHPAUD2TextStateStrc@@@Z"
     },
     {
      "va": "0x0049DAE0",
@@ -23785,7 +23785,7 @@
     {
      "va": "0x00493760",
      "length": 217,
-     "name": "?sub_00493760_HirelingIconHoverMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?HIREABLES_HirelingIconHoverMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00493840",
@@ -23794,7 +23794,7 @@
     {
      "va": "0x004938E0",
      "length": 204,
-     "name": "?sub_004938E0_HirelingIconClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?HIREABLES_HirelingIconClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004939B0",
@@ -23814,7 +23814,7 @@
     {
      "va": "0x00494300",
      "length": 24,
-     "name": "?sub_00494300_SetHelpMenuSetting@@YAXK@Z"
+     "name": "?HIREABLES_SetHelpMenuSetting@@YAXK@Z"
     },
     {
      "va": "0x00494320",
@@ -23884,7 +23884,7 @@
     {
      "va": "0x00494FF0",
      "length": 64,
-     "name": "?sub_00494FF0_IsMouseInBox@@YGHHHHH@Z"
+     "name": "?HIREABLES_IsMouseInBox@@YGHHHHH@Z"
     },
     {
      "va": "0x00495030",
@@ -23899,12 +23899,12 @@
     {
      "va": "0x004952B0",
      "length": 107,
-     "name": "sub_004952B0_ButtonDownMsg"
+     "name": "HIREABLES_ButtonDownMsg"
     },
     {
      "va": "0x00495320",
      "length": 155,
-     "name": "sub_00495320_ButtonUpMsg"
+     "name": "HIREABLES_ButtonUpMsg"
     },
     {
      "va": "0x004953C0",
@@ -24296,7 +24296,7 @@
     {
      "va": "0x00498E80",
      "length": 13,
-     "name": "?sub_00498E80_ClearPair@@YAXXZ"
+     "name": "?PANEL_ClearPair@@YAXXZ"
     },
     {
      "va": "0x00498E90",
@@ -24372,12 +24372,12 @@
     {
      "va": "0x00499E50",
      "length": 240,
-     "name": "sub_00499E50_DrawPanelQuad"
+     "name": "PARTY_DrawPanelQuad"
     },
     {
      "va": "0x00499F40",
      "length": 128,
-     "name": "?sub_00499F40_DrawRowSeparator@@YAXH@Z"
+     "name": "?PARTY_DrawRowSeparator@@YAXH@Z"
     },
     {
      "va": "0x00499FC0",
@@ -24446,7 +24446,7 @@
     {
      "va": "0x0049A830",
      "length": 274,
-     "name": "?sub_0049A830_DrawRosterArea@@YGXHPAUD2RosterUnitStrc@@H@Z"
+     "name": "?PARTY_DrawRosterArea@@YGXHPAUD2RosterUnitStrc@@H@Z"
     },
     {
      "va": "0x0049A950",
@@ -24456,7 +24456,7 @@
     {
      "va": "0x0049A9B0",
      "length": 154,
-     "name": "?sub_0049A9B0_RefreshRosterIndices@@YAXXZ"
+     "name": "?PARTY_RefreshRosterIndices@@YAXXZ"
     },
     {
      "va": "0x0049AA50",
@@ -24471,7 +24471,7 @@
     {
      "va": "0x0049AAF0",
      "length": 213,
-     "name": "?sub_0049AAF0_DrawTextFrame@@YGXGGHH@Z"
+     "name": "?PARTY_DrawTextFrame@@YGXGGHH@Z"
     },
     {
      "va": "0x0049ABD0",
@@ -24488,12 +24488,12 @@
     {
      "va": "0x0049B990",
      "length": 308,
-     "name": "?sub_0049B990_DoRosterButtonAction@@YAHPAUD2StoredUnitRecordStrc@@H@Z"
+     "name": "?PARTY_DoRosterButtonAction@@YAHPAUD2StoredUnitRecordStrc@@H@Z"
     },
     {
      "va": "0x0049BAD0",
      "length": 104,
-     "name": "?sub_0049BAD0_SetRosterButtonState@@YAXPAUD2StoredUnitRecordStrc@@PAUD2RosterUnitStrc@@H@Z"
+     "name": "?PARTY_SetRosterButtonState@@YAXPAUD2StoredUnitRecordStrc@@PAUD2RosterUnitStrc@@H@Z"
     },
     {
      "va": "0x0049C0A0",
@@ -24513,7 +24513,7 @@
     {
      "va": "0x0049C170",
      "length": 241,
-     "name": "?sub_0049C170_DrawRosterLevel@@YGXHHH@Z"
+     "name": "?PARTY_DrawRosterLevel@@YGXHHH@Z"
     },
     {
      "va": "0x0049C270",
@@ -24553,7 +24553,7 @@
     {
      "va": "0x004A1760",
      "length": 5,
-     "name": "?sub_004A1760_Forward@@YAHXZ"
+     "name": "?TEXT_Forward@@YAHXZ"
     },
     {
      "va": "0x004A1770",
@@ -24893,7 +24893,7 @@
     {
      "va": "0x004A2610",
      "length": 27,
-     "name": "?sub_004A2610_HitTestButtonA@@YAEHH@Z"
+     "name": "?TEXT_HitTestButtonA@@YAEHH@Z"
     },
     {
      "va": "0x004A2630",
@@ -25535,7 +25535,7 @@
     {
      "va": "0x004A8A30",
      "length": 452,
-     "name": "?sub_004A8A30_InitSkillIcons@@YAXXZ"
+     "name": "?SPELLSEL_InitSkillIcons@@YAXXZ"
     },
     {
      "va": "0x004A8C00",
@@ -25555,7 +25555,7 @@
     {
      "va": "0x004A8CF0",
      "length": 64,
-     "name": "?sub_004A8CF0_IsMouseInRect@@YGHHHHH@Z"
+     "name": "?SPELLSEL_IsMouseInRect@@YGHHHHH@Z"
     },
     {
      "va": "0x004A8D30",
@@ -25570,22 +25570,22 @@
     {
      "va": "0x004A8DF0",
      "length": 210,
-     "name": "sub_004A8DF0_DrawKeyLabel"
+     "name": "SPELLSEL_DrawKeyLabel"
     },
     {
      "va": "0x004A8ED0",
      "length": 907,
-     "name": "?sub_004A8ED0_DrawSkillHotkeyLabels@@YGXPBUD2SkillsTxt@@HHH@Z"
+     "name": "?SPELLSEL_DrawSkillHotkeyLabels@@YGXPBUD2SkillsTxt@@HHH@Z"
     },
     {
      "va": "0x004A9260",
      "length": 157,
-     "name": "?sub_004A9260_DrawSkillCharges@@YGXHHH@Z"
+     "name": "?SPELLSEL_DrawSkillCharges@@YGXHHH@Z"
     },
     {
      "va": "0x004A9300",
      "length": 907,
-     "name": "?sub_004A9300_DrawHotkeyLabelsB@@YGXPBUD2SkillsTxt@@HHH@Z"
+     "name": "?SPELLSEL_DrawHotkeyLabelsB@@YGXPBUD2SkillsTxt@@HHH@Z"
     },
     {
      "va": "0x004A9690",
@@ -25686,12 +25686,12 @@
     {
      "va": "0x004AA6E0",
      "length": 33,
-     "name": "?sub_004AA6E0_BuildRightRows2@@YAXXZ"
+     "name": "?SPELLSEL_BuildRightRows2@@YAXXZ"
     },
     {
      "va": "0x004AA710",
      "length": 40,
-     "name": "?sub_004AA710_BuildLeftRows2@@YAXXZ"
+     "name": "?SPELLSEL_BuildLeftRows2@@YAXXZ"
     },
     {
      "va": "0x004AA740",
@@ -25969,17 +25969,17 @@
     {
      "va": "0x004B21C0",
      "length": 29,
-     "name": "?sub_004B21C0_SetEntryType2@@YAXH@Z"
+     "name": "?NPCMENU_SetEntryType2@@YAXH@Z"
     },
     {
      "va": "0x004B21E0",
      "length": 29,
-     "name": "?sub_004B21E0_SetEntryType3@@YAXH@Z"
+     "name": "?NPCMENU_SetEntryType3@@YAXH@Z"
     },
     {
      "va": "0x004B2200",
      "length": 29,
-     "name": "?sub_004B2200_SetEntryType4@@YAXH@Z"
+     "name": "?NPCMENU_SetEntryType4@@YAXH@Z"
     },
     {
      "va": "0x004B2220",
@@ -26240,7 +26240,7 @@
     {
      "va": "0x004B3DE0",
      "length": 42,
-     "name": "?sub_004B3DE0_CloseNpc@@YAXXZ"
+     "name": "?NPCMENU_CloseNpc@@YAXXZ"
     },
     {
      "va": "0x004B3E10",
@@ -26260,7 +26260,7 @@
     {
      "va": "0x004B3FB0",
      "length": 42,
-     "name": "?sub_004B3FB0_CloseNpc2@@YAXXZ"
+     "name": "?NPCMENU_CloseNpc2@@YAXXZ"
     },
     {
      "va": "0x004B3FE0",
@@ -26310,22 +26310,22 @@
     {
      "va": "0x004B45D0",
      "length": 72,
-     "name": "?sub_004B45D0_NpcMenuCancel@@YAHXZ"
+     "name": "?NPCMENU_NpcMenuCancel@@YAHXZ"
     },
     {
      "va": "0x004B4620",
      "length": 72,
-     "name": "?sub_004B4620_NpcMenuCancelB@@YAHXZ"
+     "name": "?NPCMENU_NpcMenuCancelB@@YAHXZ"
     },
     {
      "va": "0x004B4670",
      "length": 93,
-     "name": "?sub_004B4670_NpcMenuCancelText@@YAHXZ"
+     "name": "?NPCMENU_NpcMenuCancelText@@YAHXZ"
     },
     {
      "va": "0x004B46D0",
      "length": 93,
-     "name": "?sub_004B46D0_NpcMenuCancelTextB@@YAHXZ"
+     "name": "?NPCMENU_NpcMenuCancelTextB@@YAHXZ"
     },
     {
      "va": "0x004B4730",
@@ -26353,7 +26353,7 @@
     {
      "va": "0x004B5140",
      "length": 89,
-     "name": "?sub_004B5140_NpcMenuAction28@@YAHXZ"
+     "name": "?NPCMENU_NpcMenuAction28@@YAHXZ"
     },
     {
      "va": "0x004B51A0",
@@ -26368,7 +26368,7 @@
     {
      "va": "0x004B5260",
      "length": 89,
-     "name": "?sub_004B5260_NpcMenuAction28b@@YAHXZ"
+     "name": "?NPCMENU_NpcMenuAction28b@@YAHXZ"
     },
     {
      "va": "0x004B52C0",
@@ -26478,7 +26478,7 @@
     {
      "va": "0x004B6D10",
      "length": 129,
-     "name": "?sub_004B6D10_OpenConfirm@@YAHXZ"
+     "name": "?NPCMENU_OpenConfirm@@YAHXZ"
     },
     {
      "va": "0x004B6DA0",
@@ -26492,7 +26492,7 @@
     {
      "va": "0x006CAD10",
      "length": 103,
-     "name": "?sub_006CAD10_InitBlock@@YAXXZ"
+     "name": "?NPCMENU_InitBlock@@YAXXZ"
     }
    ],
    "flags": [
@@ -26709,12 +26709,12 @@
     {
      "va": "0x004B83A0",
      "length": 112,
-     "name": "?sub_004B83A0_PlaceLine@@YAXPAUD2ClientDialogStrc@@H@Z"
+     "name": "?DIALOG_PlaceLine@@YAXPAUD2ClientDialogStrc@@H@Z"
     },
     {
      "va": "0x004B8410",
      "length": 358,
-     "name": "?sub_004B8410_LayoutDialog@@YIXPAUD2ClientDialogStrc@@@Z"
+     "name": "?DIALOG_LayoutDialog@@YIXPAUD2ClientDialogStrc@@@Z"
     },
     {
      "va": "0x004B8580",
@@ -26724,12 +26724,12 @@
     {
      "va": "0x004B8590",
      "length": 27,
-     "name": "?sub_004B8590_GetLine@@YIPAUD2DialogLineStrc@@PAUD2ClientDialogStrc@@H@Z"
+     "name": "?DIALOG_GetLine@@YIPAUD2DialogLineStrc@@PAUD2ClientDialogStrc@@H@Z"
     },
     {
      "va": "0x004B85B0",
      "length": 38,
-     "name": "?sub_004B85B0_GetRect@@YIXPAUD2ClientDialogStrc@@PAUD2RectStrc@@@Z"
+     "name": "?DIALOG_GetRect@@YIXPAUD2ClientDialogStrc@@PAUD2RectStrc@@@Z"
     },
     {
      "va": "0x004B85E0",
@@ -26739,7 +26739,7 @@
     {
      "va": "0x004B85F0",
      "length": 304,
-     "name": "?sub_004B85F0_AddTextLine@@YIXPAUD2ClientDialogStrc@@PBUUnicode@@HHHHP6AHXZH@Z"
+     "name": "?DIALOG_AddTextLine@@YIXPAUD2ClientDialogStrc@@PBUUnicode@@HHHHP6AHXZH@Z"
     }
    ]
   },
@@ -27050,12 +27050,12 @@
     {
      "va": "0x004B9BB0",
      "length": 4,
-     "name": "?sub_004B9BB0_GetStreamValue@@YAHPAUD2SoundStream4B9BB0Strc@@@Z"
+     "name": "?SOUNDINST_GetStreamValue@@YAHPAUD2SoundStream4B9BB0Strc@@@Z"
     },
     {
      "va": "0x004B9BC0",
      "length": 21,
-     "name": "?sub_004B9BC0_IsOnAndNotHeld@@YAHPAUD2Packed004B9BC0Strc@@@Z"
+     "name": "?SOUNDINST_IsOnAndNotHeld@@YAHPAUD2Packed004B9BC0Strc@@@Z"
     },
     {
      "va": "0x004B9BE0",
@@ -27080,7 +27080,7 @@
     {
      "va": "0x004B9CD0",
      "length": 37,
-     "name": "?sub_004B9CD0_SetEntryByte@@YIXHE@Z"
+     "name": "?SOUNDINST_SetEntryByte@@YIXHE@Z"
     },
     {
      "va": "0x004B9D00",
@@ -27129,12 +27129,12 @@
     {
      "va": "0x004BA760",
      "length": 45,
-     "name": "?sub_004BA760_RefreshHint@@YAXPAUD2TimedHintEntryStrc@@@Z"
+     "name": "?SOUNDINST_RefreshHint@@YAXPAUD2TimedHintEntryStrc@@@Z"
     },
     {
      "va": "0x004BA790",
      "length": 164,
-     "name": "?sub_004BA790_UpdateUnitHint@@YIXPAUD2UnitStrc@@0H@Z"
+     "name": "?SOUNDINST_UpdateUnitHint@@YIXPAUD2UnitStrc@@0H@Z"
     },
     {
      "va": "0x004BA840",
@@ -27154,12 +27154,12 @@
     {
      "va": "0x004BA950",
      "length": 123,
-     "name": "sub_004BA950_RefreshHintsInRangeA"
+     "name": "SOUNDINST_RefreshHintsInRangeA"
     },
     {
      "va": "0x004BA9D0",
      "length": 126,
-     "name": "sub_004BA9D0_RefreshHintsInRangeB"
+     "name": "SOUNDINST_RefreshHintsInRangeB"
     },
     {
      "va": "0x004BAA50",
@@ -27169,12 +27169,12 @@
     {
      "va": "0x004BAAB0",
      "length": 267,
-     "name": "?sub_004BAAB0_RefreshGroupTimers@@YAXXZ"
+     "name": "?SOUNDINST_RefreshGroupTimers@@YAXXZ"
     },
     {
      "va": "0x004BABC0",
      "length": 26,
-     "name": "?sub_004BABC0_ToggleHints@@YAXXZ"
+     "name": "?SOUNDINST_ToggleHints@@YAXXZ"
     }
    ]
   },
@@ -27185,7 +27185,7 @@
     {
      "va": "0x004B9B50",
      "length": 37,
-     "name": "?sub_004B9B50_SetValue@@YIXHH@Z"
+     "name": "?SOUNDINST_SetValue@@YIXHH@Z"
     }
    ]
   },
@@ -28616,7 +28616,7 @@
     {
      "va": "0x004C2150",
      "length": 44,
-     "name": "?sub_004C2150_FindInTable@@YIHH@Z"
+     "name": "?ITEM_FindInTable@@YIHH@Z"
     },
     {
      "va": "0x004C2180",
@@ -30616,17 +30616,17 @@
     {
      "va": "0x004DCF70",
      "length": 41,
-     "name": "?sub_004DCF70_Inside@@YAHPAUContext@@HH@Z"
+     "name": "?WALL2_Inside@@YAHPAUContext@@HH@Z"
     },
     {
      "va": "0x004DCFA0",
      "length": 191,
-     "name": "?sub_004DCFA0_AddUnit@@YAXPAUCell@@PAUContext@@PAUUnit@@@Z"
+     "name": "?WALL2_AddUnit@@YAXPAUCell@@PAUContext@@PAUUnit@@@Z"
     },
     {
      "va": "0x004DD060",
      "length": 279,
-     "name": "?sub_004DD060_Occludes@@YGHPAURoom@@PAUTile@@@Z"
+     "name": "?WALL2_Occludes@@YGHPAURoom@@PAUTile@@@Z"
     },
     {
      "va": "0x004DD180",
@@ -30647,12 +30647,12 @@
     {
      "va": "0x004DD600",
      "length": 214,
-     "name": "?sub_004DD600_AddSpecial@@YGXPAUCell@@PAUContext@@PAUUnit@@@Z"
+     "name": "?WALL2_AddSpecial@@YGXPAUCell@@PAUContext@@PAUUnit@@@Z"
     },
     {
      "va": "0x004DD6E0",
      "length": 210,
-     "name": "?sub_004DD6E0_AddOverlay@@YGXPAUCell@@PAUContext@@PAUUnit@@@Z"
+     "name": "?WALL2_AddOverlay@@YGXPAUCell@@PAUContext@@PAUUnit@@@Z"
     },
     {
      "va": "0x004DD7C0",
@@ -30661,7 +30661,7 @@
     {
      "va": "0x004DDB70",
      "length": 607,
-     "name": "?sub_004DDB70_PrepareWallCells@@YIXPAUD2WallCtxStrc@@H@Z"
+     "name": "?WALL2_PrepareWallCells@@YIXPAUD2WallCtxStrc@@H@Z"
     },
     {
      "va": "0x004DDDD0",
@@ -30676,17 +30676,17 @@
     {
      "va": "0x004DDE40",
      "length": 60,
-     "name": "?sub_004DDE40_IsPointInRect@@YAHPAUD2GridRectStrc@@HH@Z"
+     "name": "?WALL2_IsPointInRect@@YAHPAUD2GridRectStrc@@HH@Z"
     },
     {
      "va": "0x004DDEC0",
      "length": 47,
-     "name": "?sub_004DDEC0_FillCells@@YAXPAUD2GridCellStrc@@@Z"
+     "name": "?WALL2_FillCells@@YAXPAUD2GridCellStrc@@@Z"
     },
     {
      "va": "0x004DDEF0",
      "length": 212,
-     "name": "?sub_004DDEF0_BuildLargeGrid@@YGXHHHPAUD2GridCellStrc@@@Z"
+     "name": "?WALL2_BuildLargeGrid@@YGXHHHPAUD2GridCellStrc@@@Z"
     },
     {
      "va": "0x004DDFD0",
@@ -32028,7 +32028,7 @@
     {
      "va": "0x004E4200",
      "length": 17,
-     "name": "?sub_004E4200_GetFloatIfEnabled@@YAMXZ"
+     "name": "?SKILLDESC_GetFloatIfEnabled@@YAMXZ"
     },
     {
      "va": "0x004E42E0",
@@ -32405,7 +32405,7 @@
     {
      "va": "0x004F2160",
      "length": 76,
-     "name": "?sub_004F2160_DecrementParam@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_DecrementParam@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F21B0",
@@ -32433,7 +32433,7 @@
     {
      "va": "0x004F2AC0",
      "length": 93,
-     "name": "?sub_004F2AC0_MissileInit@@YIXPAUD2UnitStrc@@H@Z"
+     "name": "?SKILLDESC_MissileInit@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004F2BE0",

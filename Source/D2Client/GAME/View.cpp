@@ -317,13 +317,13 @@ struct D2PalShiftNodeStrc
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-void __cdecl sub_00475EB0_FreeCels(); // 0x00475EB0
+void __cdecl VIEW_FreeCels(); // 0x00475EB0
 
 void __fastcall WALL2_FreeViewCells(D2ViewStrc* pView); // 0x004DCF30
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
-void __fastcall sub_004DDB70_PrepareWallCells(D2ViewStrc* pView, int nValue); // 0x004DDB70
+void __fastcall WALL2_PrepareWallCells(D2ViewStrc* pView, int nValue); // 0x004DDB70
 
 extern "C" void __cdecl D2CMPResetTileCacheHits(); // 0x005FE060
 
@@ -385,7 +385,7 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 
 int __fastcall sub_004B9B20(int nHandle); // 0x004B9B20
 
-void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
+void __fastcall SOUNDINST_SetValue(int nKey, int nValue); // 0x004B9B50
 
 void __fastcall sub_004BA840(int nHandle); // 0x004BA840
 
@@ -804,7 +804,7 @@ unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps)
 }
 
 // 0x00475C30
-void __fastcall sub_00475C30_FreeIfSet(void* pMemory)
+void __fastcall VIEW_FreeIfSet(void* pMemory)
 {
     if (pMemory)
     {
@@ -829,7 +829,7 @@ void __cdecl DLIGHTMAP_BuildLerpTables()
 }
 
 // 0x00475EB0
-void __cdecl sub_00475EB0_FreeCels()
+void __cdecl VIEW_FreeCels()
 {
     if (gpCel_007B9554)
     {
@@ -868,7 +868,7 @@ void __cdecl VIEW_FreeLerpTables()
     gppRampTable = 0;
     gpLerpTable40 = 0;
     ghShakeSound = 0;
-    sub_00475EB0_FreeCels();
+    VIEW_FreeCels();
 }
 
 class D2SquelchListStrc
@@ -1081,7 +1081,7 @@ void __fastcall VIEW_PrepareView(D2ViewStrc* pView, int nArg)
     if (pView->tRect.right || pView->tRect.bottom)
     {
         if (sub_0045AE90() != 3)
-            sub_004DDB70_PrepareWallCells(pView, nArg);
+            WALL2_PrepareWallCells(pView, nArg);
         pView->dwFlags &= ~1;
     }
 }
@@ -1109,7 +1109,7 @@ static void VIEW_UpdateShakeSound(int nIntensity)
         {
             return;
         }
-        sub_004B9B50_SetValue(ghShakeSound, 0);
+        SOUNDINST_SetValue(ghShakeSound, 0);
     }
 
     if (!ghShakeSound)
@@ -1143,7 +1143,7 @@ static void VIEW_UpdateShakeSound(int nIntensity)
 
     if (nNew)
     {
-        sub_004B9B50_SetValue(ghShakeSound, nNew);
+        SOUNDINST_SetValue(ghShakeSound, nNew);
         return;
     }
 

@@ -89,7 +89,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
 static int __stdcall SKILLSBAR_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, int nX, int nY); // 0x004C8350
 
-static int __stdcall sub_004C80D0_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit, int nSkillLevel, int* pX, int* pY); // 0x004C80D0
+static int __stdcall SKILLS_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit, int nSkillLevel, int* pX, int* pY); // 0x004C80D0
 
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648C30
 
@@ -223,7 +223,7 @@ static int __stdcall SKILLSBAR_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, in
     return 1;
 }
 
-static int __stdcall sub_004C80D0_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit, int nSkillLevel, int* pX, int* pY)
+static int __stdcall SKILLS_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit, int nSkillLevel, int* pX, int* pY)
 {
     D2SkillsTxt* pSkillsTxt = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
     if (!pSkillsTxt)
@@ -285,7 +285,7 @@ int __fastcall SKILLSBAR_SkillCltStartPosition(D2UnitStrc* pUnit, int nSkillId, 
             return 0;
         if (!SKILLSBAR_CanTargetRoom(nSkillId, pUnit, nX, nY))
             return 0;
-        if (!sub_004C80D0_AdjustTargetPosition(nSkillId, pUnit, nSkillLevel, &nX, &nY))
+        if (!SKILLS_AdjustTargetPosition(nSkillId, pUnit, nSkillLevel, &nX, &nY))
             return 0;
     }
 

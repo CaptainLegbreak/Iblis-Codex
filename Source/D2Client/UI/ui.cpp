@@ -276,7 +276,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
-void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
+void __fastcall MSG_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -449,9 +449,9 @@ void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY);        
 
 D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey);                                             // 0x00478E40
 
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny);                       // 0x00478F20
+int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny);                       // 0x00478F20
 
-int __fastcall sub_00479150_FindRosterIndex(int nUnitId);                                                   // 0x00479150
+int __fastcall ROSTERPETS_FindRosterIndex(int nUnitId);                                                   // 0x00479150
 
 const char* __fastcall ROSTER_GetPortalOwnerName(int nUnitId);                                              // 0x0047A290
 
@@ -779,7 +779,7 @@ void __cdecl AUTOMAP_FreeAutomap(); // 0x0045A5C0
 
 void __cdecl AUTOMAP_InitAutomapColors(); // 0x0045A620
 
-void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
+void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
 int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
@@ -813,7 +813,7 @@ void __cdecl HIREABLES_FreeHelpCels(); // 0x00494EE0
 
 void __cdecl HIREABLES_FreePanelCels(); // 0x00496990
 
-void __cdecl sub_00498E80_ClearPair(); // 0x00498E80
+void __cdecl PANEL_ClearPair(); // 0x00498E80
 
 void __cdecl PANEL_SetBlackColour(); // 0x00499E30
 
@@ -841,7 +841,7 @@ void __cdecl sub_004A7AA0_InitTextEntryLengths(); // 0x004A7AA0
 
 void __cdecl sub_004A7AD0(); // 0x004A7AD0
 
-void __cdecl sub_004A8A30_InitSkillIcons(); // 0x004A8A30
+void __cdecl SPELLSEL_InitSkillIcons(); // 0x004A8A30
 
 void __cdecl SPELLSEL_FreeSkillIcons(); // 0x004A8C00
 
@@ -974,7 +974,7 @@ void __fastcall sub_004B8370(void* pPanel, int nValue);                         
 
 D2SplittedTextStrc* __fastcall sub_00502970_SplitText(Unicode* pText, int* pLineCount, int nWidth);             // 0x00502970
 
-void __fastcall sub_004B85F0_AddTextLine(void* pPanel, Unicode* pText, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x004B85F0
+void __fastcall DIALOG_AddTextLine(void* pPanel, Unicode* pText, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x004B85F0
 
 void __fastcall DIALOG_AddWidget(void* pPanel, void* pControl, int nArg3, int nArg4);                // 0x004B7C00
 
@@ -1235,7 +1235,7 @@ static void __stdcall UI_ShowUnitHoverName(D2UnitStrc* pUnit, int bSet)
 // 0x00452C70
 static int __stdcall UI_GetRosterHoverName(D2UnitStrc* pUnit, Unicode* pDst, int* pValue, int* pFlag)
 {
-    const int nIndex = sub_00479150_FindRosterIndex(!pUnit ? -1 : pUnit->dwUnitId);
+    const int nIndex = ROSTERPETS_FindRosterIndex(!pUnit ? -1 : pUnit->dwUnitId);
     if (nIndex == -1)
     {
         return 0;
@@ -1267,7 +1267,7 @@ void __cdecl UI_DrawPetHover()
     {
         return;
     }
-    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
+    const int nPetId = ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
     if (nPetId == -1)
     {
         return;
@@ -1787,10 +1787,10 @@ void __cdecl UI_LoadPlayerUI()
     PANEL_LoadPartyCels();
     sub_004A7AA0_InitTextEntryLengths();
     sub_004AA920_LoadPanelCel();
-    sub_004A8A30_InitSkillIcons();
+    SPELLSEL_InitSkillIcons();
     sub_004B8720();
     INV_ResetHover();
-    sub_00498E80_ClearPair();
+    PANEL_ClearPair();
     INV_FreeHoradricCel();
     sub_004A3050();
     TEXT_LoadPopupHireling();
@@ -1826,7 +1826,7 @@ void __cdecl UI_FreePlayerUI()
         gpYouDiedInstCel = 0;
     }
     sub_0047E750_SaveAlwaysRun();
-    sub_00468070_SetCursorItemState(0);
+    CURSOR_SetCursorItemState(0);
 }
 
 // 0x00453E70
@@ -2005,10 +2005,10 @@ int __cdecl UI_ConfirmGoldDialog()
         sub_004B9110_SendGoldRequest(gnGoldPanelValue);
         break;
     case 4:
-        sub_00478600_SendShorts(0x4F, 0x13, gwDialogAmountHigh, gnGoldPanelValue);
+        MSG_SendShorts(0x4F, 0x13, gwDialogAmountHigh, gnGoldPanelValue);
         break;
     case 3:
-        sub_00478600_SendShorts(0x4F, 0x14, gwDialogAmountHigh, gnGoldPanelValue);
+        MSG_SendShorts(0x4F, 0x14, gwDialogAmountHigh, gnGoldPanelValue);
         break;
     default:
         return 1;
@@ -2104,7 +2104,7 @@ void __fastcall UI_OpenGoldPanel(int nMode)
     D2SplittedTextStrc* pLine = sub_00502970_SplitText(wszText, &nLineCount, 0xC8);
     while (pLine)
     {
-        sub_004B85F0_AddTextLine(gpGoldPanel, pLine->wszLine, 0x18, 0, 4, 1, 0, 0);
+        DIALOG_AddTextLine(gpGoldPanel, pLine->wszLine, 0x18, 0, 4, 1, 0, 0);
         D2SplittedTextStrc* pNext = pLine->pNextLine;
         FOG_Free(pLine->wszLine, ".\\UI\\ui.cpp", 0x1827, 0);
         FOG_Free(pLine, ".\\UI\\ui.cpp", 0x1828, 0);

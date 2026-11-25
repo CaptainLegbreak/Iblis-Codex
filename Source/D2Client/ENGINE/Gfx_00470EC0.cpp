@@ -243,7 +243,7 @@ struct D2GfxListNodeStrc { int nMode,nId; D2GfxNodeTargetStrc* pTarget; int unk0
 int __fastcall GAME_GetUnitClassId(D2UnitStrc*); // 0x00451F60
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int); // 0x00451FE0
 D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc*); // 0x004639D0
-D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc*); // 0x00463E10
+D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc*); // 0x00463E10
 int __fastcall CUNIT_IsSelectedUnit(D2UnitStrc*); // 0x00464370
 D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
 void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc*, int, int); // 0x0046FA80
@@ -276,7 +276,7 @@ inline int IsShapeShifted(D2UnitStrc* pUnit)
 }
 static inline void* GetNodeLayer(D2UnitStrc* pUnit, int nMode)
 {
-    D2GfxDataStrc* pData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pData = CUNIT_GetGfxData(pUnit);
     if (pData)
     {
         for (D2GfxListNodeStrc* pNode = pData->pList; pNode; pNode = pNode->pNext)

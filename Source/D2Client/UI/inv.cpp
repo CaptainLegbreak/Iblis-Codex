@@ -209,7 +209,7 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 
-void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
+void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
 int __cdecl sub_00468730(); // 0x00468730
 
@@ -217,7 +217,7 @@ int __cdecl sub_00468740(); // 0x00468740
 
 void __cdecl sub_00468F00(); // 0x00468F00
 
-void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
+void __fastcall MSG_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
 
 void __cdecl WARDENCLIENT_ActivatePendingModule(); // 0x00480230
 
@@ -515,7 +515,7 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
-int __fastcall sub_00479120_GetHirelingClassId(int nUnitId); // 0x00479120
+int __fastcall ROSTERPETS_GetHirelingClassId(int nUnitId); // 0x00479120
 
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem); // 0x006289C0
 
@@ -533,7 +533,7 @@ extern D2InvCompGridStrc gaBodyLocRects[11]; // 0x007BCD38
 
 extern int gnAutomapWidth; // 0x007A5220
 
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
+int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
 void __stdcall sub_00467FA0(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 
@@ -878,7 +878,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 void __fastcall sub_00468040(int nArg, int nArg2); // 0x00468040
 
-void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int nArg1, unsigned int nArg2, unsigned int nArg3); // 0x004786D0
+void __fastcall MSG_SendDwords3(unsigned char nHeader, unsigned int nArg1, unsigned int nArg2, unsigned int nArg3); // 0x004786D0
 
 void __fastcall sub_004B9070(int nArg); // 0x004B9070
 
@@ -1126,7 +1126,7 @@ extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
 void __stdcall sub_00403040_ConstructVector(void* pArray, unsigned int nSize, int nCount, void (__fastcall* pfnCtor)(void*)); // 0x00403040
 
-void __fastcall sub_0042F530_ClearUnicode(void* pChar);                                                     // 0x0042F530
+void __fastcall NPCMENU_ClearUnicode(void* pChar);                                                     // 0x0042F530
 
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nSize, const char* szFormat, ...);             // 0x00413A40
 
@@ -1378,7 +1378,7 @@ void __stdcall INV_StashMouseMoveMsg(SMSGHANDLER_PARAMS* pMsg);
 
 void __stdcall INV_StashClickMsg(SMSGHANDLER_PARAMS* pMsg);
 
-static int sub_00489FB0_IsOverButtonC(int nX, int nY);
+static int INV_IsOverButtonC(int nX, int nY); // 0x00489FB0
 
 static void INV_AppendBookCharges(Unicode* pText);
 
@@ -3376,7 +3376,7 @@ void __stdcall sub_E05_Emit_004844A0(D2InventoryStrc* pInventory, Unicode* pText
 
 int __cdecl sub_E05_Emit_00489FB0(int nX, int nY)
 {
-    return sub_00489FB0_IsOverButtonC(nX, nY);
+    return INV_IsOverButtonC(nX, nY);
 }
 
 // 0x00486820
@@ -3508,7 +3508,7 @@ void __fastcall sub_M112_Emit_00486640(Unicode* pText)
 }
 
 // 0x00486AD0
-void __cdecl sub_00486AD0_ToggleFlag()
+void __cdecl INV_ToggleFlag()
 {
     gbFlag_007BCC06 = gbFlag_007BCC06 == 0;
 }
@@ -3555,7 +3555,7 @@ int __cdecl INV_IsTradeStateInteractive()
 }
 
 // 0x00486B80
-int __cdecl sub_00486B80_IsNpcStateB()
+int __cdecl INV_IsNpcStateB()
 {
     switch (gnInvPanelMode)
     {
@@ -3657,13 +3657,13 @@ int __cdecl INV_CheckTradeClickDelay()
 }
 
 // 0x00486D70
-int __cdecl sub_00486D70_IsNotState11()
+int __cdecl INV_IsNotState11()
 {
     return gnInvPanelMode != 0xB;
 }
 
 // 0x00486D80
-int __cdecl sub_00486D80_IsState1Or2()
+int __cdecl INV_IsState1Or2()
 {
     if (gnInvPanelMode == 1 || gnInvPanelMode == 2)
     {
@@ -4278,7 +4278,7 @@ static void __stdcall INV_ForwardTradeClick(int nArg1, int nArg2, int nArg3, int
         return;
     if (!nArg7)
         gnInvPanelMode = 5;
-    sub_00468070_SetCursorItemState(0);
+    CURSOR_SetCursorItemState(0);
 }
 
 // 0x00487BE0
@@ -4290,7 +4290,7 @@ int __cdecl INV_ResetNpcButtons()
     gaNpcButtons[3].bActive = 0;
     gnInvPanelMode = 1;
     D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
-    sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+    CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
     return 1;
 }
 
@@ -4305,7 +4305,7 @@ void __cdecl INV_ResetNpcButtonsFromPending()
         gaNpcButtons[3].bActive = 0;
         gnInvPanelMode = 1;
         D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
-    sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+    CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
     }
 }
 
@@ -4334,7 +4334,7 @@ void __cdecl INV_SelectFirstButton()
     gaNpcButtons[3].bActive = 0;
     gnInvPanelMode = 1;
     D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
-    sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+    CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
 }
 
 // 0x00487D30
@@ -4353,7 +4353,7 @@ void __cdecl INV_ResetButtonsFromMenuReturn()
     gaNpcButtons[3].bActive = 0;
     gnInvPanelMode = 1;
     D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
-    sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+    CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
 }
 
 void __cdecl sub_K04_EmitForward(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7)
@@ -4679,7 +4679,7 @@ void __stdcall INV_ResetShopCursorMsg(SMSGHANDLER_PARAMS* pMsg)
         && !UI_GetUIVarUnchecked(5))
     {
         gbNpcUiRecordsLoaded = 0;
-        sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory));
+        CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory));
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -5191,7 +5191,7 @@ static int INV_IsOverTransmuteButton(int nX, int nY)
 void __cdecl INV_CloseStashAndNotify()
 {
     UI_SetUIVar(0x19, 1, 0);
-    sub_00478600_SendShorts(0x4F, 0x12, 0, 0);
+    MSG_SendShorts(0x4F, 0x12, 0, 0);
 }
 
 // 0x00489A30
@@ -5242,7 +5242,7 @@ void __stdcall INV_StashClickMsg(SMSGHANDLER_PARAMS* pMsg)
         {
             gbStashButtonDown = 0;
             UI_SetUIVar(0x19, 1, 0);
-            sub_00478600_SendShorts(0x4F, 0x12, 0, 0);
+            MSG_SendShorts(0x4F, 0x12, 0, 0);
         }
         gbStashButtonClicked = 0;
         gbPanelButtonClicked = 0;
@@ -5310,7 +5310,7 @@ void __stdcall INV_StashCloseMsg(SMSGHANDLER_PARAMS* pMsg)
         if (!UI_GetUIVarUnchecked(5))
         {
             UI_SetUIVar(0x19, 1, 0);
-            sub_00478600_SendShorts(0x4F, 0x12, 0, 0);
+            MSG_SendShorts(0x4F, 0x12, 0, 0);
             gnHoverTopX = -1;
             gnHoverTopY = -1;
             gnHoverBottomX = -1;
@@ -5443,7 +5443,7 @@ void __cdecl INV_ResetStashPanel()
 }
 
 // 0x00489FB0
-static int sub_00489FB0_IsOverButtonC(int nX, int nY)
+static int INV_IsOverButtonC(int nX, int nY)
 {
     if (nX > gnPanelOffsetX + 0x113 && nX < gnPanelOffsetX + 0x13B
         && nY > gnScreenHeight + gnPanelOffsetY - 0x64 && nY < gnScreenHeight + gnPanelOffsetY - 0x3C)
@@ -5478,7 +5478,7 @@ void __cdecl INV_CloseCubePanel()
     UI_SetUIVar(0x1A, 1, 0);
     if (!gbCubeClosed)
     {
-        sub_00478600_SendShorts(0x4F, 0x17, 0, 0);
+        MSG_SendShorts(0x4F, 0x17, 0, 0);
         gbCubeClosed = 1;
     }
     if (gbCubeItemClicked)
@@ -5494,7 +5494,7 @@ void __cdecl INV_CloseCubePanel()
 // 0x0048A0D0
 void __cdecl INV_SendTransmute()
 {
-    sub_00478600_SendShorts(0x4F, 0x18, 0, 0);
+    MSG_SendShorts(0x4F, 0x18, 0, 0);
 }
 
 static inline int InRect(int nX, int nY, int nLeft, int nRight, int nTop, int nBottom)
@@ -5568,7 +5568,7 @@ void __stdcall INV_CubeClickMsg(SMSGHANDLER_PARAMS* pMsg)
         if (gbCubeCloseButtonDown)
         {
             gbCubeCloseButtonDown = 0;
-            sub_00478600_SendShorts(0x4F, 0x18, 0, 0);
+            MSG_SendShorts(0x4F, 0x18, 0, 0);
         }
         gbCubeCloseClicked = 0;
         gbPanelButtonClicked = 0;
@@ -5771,7 +5771,7 @@ void __cdecl INV_EnterNpcMenuState()
 {
     gnInvPanelMode = 1;
     D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
-    sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+    CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
     D2ClientRecordStrc tRecord;
     tRecord.nId = 0x5A;
     tRecord.nFlag = 1;
@@ -5802,7 +5802,7 @@ void __cdecl INV_ResetNpcCursor()
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer || !INVENTORY_GetCursorItem(pPlayer->pInventory))
     {
-        sub_00468070_SetCursorItemState(0);
+        CURSOR_SetCursorItemState(0);
     }
 }
 
@@ -6308,7 +6308,7 @@ static int __stdcall INV_CanMercEquipItem(D2UnitStrc* pUnit, D2UnitStrc* pItem, 
         bResult = 1;
         *pbSlotMatch = bResult;
     }
-    switch (sub_00479120_GetHirelingClassId(!pUnit ? -1 : pUnit->dwUnitId))
+    switch (ROSTERPETS_GetHirelingClassId(!pUnit ? -1 : pUnit->dwUnitId))
     {
     case 0x10F:
         if (ITEMSIsA(pItem, 0x1B))
@@ -6439,7 +6439,7 @@ static void INV_DrawUnitEquippedItems(D2UnitStrc* pUnit)
 // 0x0048B640
 D2UnitStrc* __cdecl INV_GetMercUnit()
 {
-    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
+    const int nPetId = ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
     if (nPetId != -1)
     {
         D2UnitStrc* pMerc = CUNIT_FindClientUnit(nPetId, 1);
@@ -6455,7 +6455,7 @@ D2UnitStrc* __cdecl INV_GetMercUnit()
 // 0x0048B680
 void __stdcall INV_MercPanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
+    const int nPetId = ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
     if (nPetId == -1)
     {
         UI_SetUIVar(0x24, 2, 0);
@@ -6497,7 +6497,7 @@ static inline int INV_GetUnitIdInline(D2UnitStrc* pUnit)
 // 0x0048B7C0
 void __stdcall INV_MercInvClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
+    const int nPetId = ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
     if (nPetId == -1)
     {
         UI_SetUIVar(0x24, 2, 0);
@@ -6580,7 +6580,7 @@ void __stdcall INV_MercInvClickMsg(SMSGHANDLER_PARAMS* pMsg)
 // 0x0048BA50
 void __stdcall INV_MercPanelHoverMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
+    const int nPetId = ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
     if (nPetId == -1)
     {
         UI_SetUIVar(0x24, 2, 0);
@@ -7875,7 +7875,7 @@ int __fastcall sub_00490780(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
         }
         break;
     case 3:
-        if (sub_00486B80_IsNpcStateB())
+        if (INV_IsNpcStateB())
         {
             if (!ITEM_IsItemActionBlocked(pSelected) && INV_CheckTradeClickDelay())
             {
@@ -7999,7 +7999,7 @@ int __fastcall sub_00490BA0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
         }
         break;
     case 3:
-        if (sub_00486B80_IsNpcStateB())
+        if (INV_IsNpcStateB())
         {
             if (!ITEM_IsItemActionBlocked(pLeft) && INV_CheckTradeClickDelay())
             {
@@ -8115,7 +8115,7 @@ int __fastcall sub_00490FC0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
             }
             break;
         case 3:
-            if (sub_00486B80_IsNpcStateB())
+            if (INV_IsNpcStateB())
             {
                 if (INV_CheckTradeClickDelay())
                 {
@@ -8359,7 +8359,7 @@ void __stdcall INV_InventoryClickMsg(SMSGHANDLER_PARAMS* pMsg)
                             const unsigned int nParam = pMsg->wParam;
                             if (gpHoverItem && NPCMENU_HandleTradeClick(pUnit, gpHoverItem, 0, nX, nY, nParam, 1, 0))
                             {
-                                sub_00468070_SetCursorItemState(0);
+                                CURSOR_SetCursorItemState(0);
                             }
                         }
                     }
@@ -8512,7 +8512,7 @@ void __stdcall INV_DrawWarningIcon(int nFrame)
 }
 
 // 0x00498A20
-int __fastcall sub_00498A20_CheckState(int nUnused, D2ClientStateStrc* pState, D2UnitStrc* pUnit, int nArg2)
+int __fastcall INV_CheckState(int nUnused, D2ClientStateStrc* pState, D2UnitStrc* pUnit, int nArg2)
 {
     D2_ASSERT(pState, 2621);
     if (pState->bFlag0x129 == 1 || pState->bFlag0x12A == 1)

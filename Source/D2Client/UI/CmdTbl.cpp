@@ -1407,7 +1407,7 @@ void __fastcall SPELLSEL_CycleHotkey(int nDelta); // 0x004AA740
 
 void __cdecl INV_ResetEquipSounds(); // 0x0048A730
 
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
+int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
 void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
@@ -1422,46 +1422,46 @@ void (__cdecl* gpfnXButton1UpCommand)(); // 0x007A6B14
 void (__cdecl* gpfnXButton2DownCommand)(); // 0x007A7410
 
 // 0x00468940
-void __cdecl sub_00468940_SetUIVar2()
+void __cdecl CMDTBL_SetUIVar2()
 {
     UI_SetUIVar(2, 2, 1);
 }
 
 // 0x00468950
-void __cdecl sub_00468950_SetUIVar1()
+void __cdecl CMDTBL_SetUIVar1()
 {
     UI_SetUIVar(1, 2, 1);
 }
 
 // 0x00468960
-void __cdecl sub_00468960_SetUIVar22()
+void __cdecl CMDTBL_SetUIVar22()
 {
     if (GAME_GetConnectionType())
         UI_SetUIVar(0x16, 2, 1);
 }
 
 // 0x00468980
-void __cdecl sub_00468980_SetUIVar24()
+void __cdecl CMDTBL_SetUIVar24()
 {
     UI_SetUIVar(0x18, 2, 0);
 }
 
 // 0x00468990
-void __cdecl sub_00468990_OpenMode1()
+void __cdecl CMDTBL_OpenMode1()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
         TEXT_ToggleQuestLog(1);
 }
 
 // 0x004689B0
-void __cdecl sub_004689B0_SetUIVar5()
+void __cdecl CMDTBL_SetUIVar5()
 {
     if (!GAME_IsExitPending())
         UI_SetUIVar(5, 2, 0);
 }
 
 // 0x00468A30
-void __cdecl sub_00468A30_SetUIVar10()
+void __cdecl CMDTBL_SetUIVar10()
 {
     UI_SetUIVar(0xA, 2, 0);
     if (!GAME_GetUIVarState(0xA))
@@ -1469,13 +1469,13 @@ void __cdecl sub_00468A30_SetUIVar10()
 }
 
 // 0x00468A60
-void __cdecl sub_00468A60_Force()
+void __cdecl CMDTBL_Force()
 {
     AUTOMAP_ResetBaseOffset(1);
 }
 
 // 0x00468A70
-void __cdecl sub_00468A70_CycleSetting()
+void __cdecl CMDTBL_CycleSetting()
 {
     AUTOMAP_SetAutomapFade((AUTOMAP_GetAutomapFade() + 1) % 4);
 }
@@ -1499,20 +1499,20 @@ void __cdecl sub_00468AD0_ToggleSetting()
 }
 
 // 0x00468AF0
-void __cdecl sub_00468AF0_SetUIVar4()
+void __cdecl CMDTBL_SetUIVar4()
 {
     UI_SetUIVar(4, 2, 1);
 }
 
 // 0x00468B00
-void __cdecl sub_00468B00_SetUIVar3()
+void __cdecl CMDTBL_SetUIVar3()
 {
     UI_SetUIVar(3, 2, 0);
     SPELLSEL_SetSkillSelectRight(0);
 }
 
 // 0x00468B90
-void __cdecl sub_00468B90_Hotkey0()
+void __cdecl CMDTBL_Hotkey0()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
@@ -1524,7 +1524,7 @@ void __cdecl sub_00468B90_Hotkey0()
 }
 
 // 0x00468BC0
-void __cdecl sub_00468BC0_Hotkey1()
+void __cdecl CMDTBL_Hotkey1()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
@@ -1536,7 +1536,7 @@ void __cdecl sub_00468BC0_Hotkey1()
 }
 
 // 0x00468BF0
-void __cdecl sub_00468BF0_Hotkey2()
+void __cdecl CMDTBL_Hotkey2()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
@@ -1548,7 +1548,7 @@ void __cdecl sub_00468BF0_Hotkey2()
 }
 
 // 0x00468C20
-void __cdecl sub_00468C20_Hotkey3()
+void __cdecl CMDTBL_Hotkey3()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
@@ -1560,7 +1560,7 @@ void __cdecl sub_00468C20_Hotkey3()
 }
 
 // 0x00468C50
-void __cdecl sub_00468C50_Hotkey4()
+void __cdecl CMDTBL_Hotkey4()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
@@ -1572,7 +1572,7 @@ void __cdecl sub_00468C50_Hotkey4()
 }
 
 // 0x00468C80
-void __cdecl sub_00468C80_Hotkey5()
+void __cdecl CMDTBL_Hotkey5()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
@@ -1584,7 +1584,7 @@ void __cdecl sub_00468C80_Hotkey5()
 }
 
 // 0x00468CB0
-void __cdecl sub_00468CB0_Hotkey6()
+void __cdecl CMDTBL_Hotkey6()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
@@ -1596,7 +1596,7 @@ void __cdecl sub_00468CB0_Hotkey6()
 }
 
 // 0x00468CE0
-void __cdecl sub_00468CE0_Hotkey7()
+void __cdecl CMDTBL_Hotkey7()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
@@ -1608,7 +1608,7 @@ void __cdecl sub_00468CE0_Hotkey7()
 }
 
 // 0x00468D10
-void __cdecl sub_00468D10_Hotkey8()
+void __cdecl CMDTBL_Hotkey8()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
@@ -1620,7 +1620,7 @@ void __cdecl sub_00468D10_Hotkey8()
 }
 
 // 0x00468D40
-void __cdecl sub_00468D40_Hotkey9()
+void __cdecl CMDTBL_Hotkey9()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
@@ -1632,7 +1632,7 @@ void __cdecl sub_00468D40_Hotkey9()
 }
 
 // 0x00468D80
-void __cdecl sub_00468D80_Hotkey10()
+void __cdecl CMDTBL_Hotkey10()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
@@ -1644,7 +1644,7 @@ void __cdecl sub_00468D80_Hotkey10()
 }
 
 // 0x00468DC0
-void __cdecl sub_00468DC0_Hotkey11()
+void __cdecl CMDTBL_Hotkey11()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
@@ -1656,7 +1656,7 @@ void __cdecl sub_00468DC0_Hotkey11()
 }
 
 // 0x00468E00
-void __cdecl sub_00468E00_Hotkey12()
+void __cdecl CMDTBL_Hotkey12()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
@@ -1668,7 +1668,7 @@ void __cdecl sub_00468E00_Hotkey12()
 }
 
 // 0x00468E40
-void __cdecl sub_00468E40_Hotkey13()
+void __cdecl CMDTBL_Hotkey13()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
@@ -1680,7 +1680,7 @@ void __cdecl sub_00468E40_Hotkey13()
 }
 
 // 0x00468E80
-void __cdecl sub_00468E80_Hotkey14()
+void __cdecl CMDTBL_Hotkey14()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
@@ -1692,7 +1692,7 @@ void __cdecl sub_00468E80_Hotkey14()
 }
 
 // 0x00468EC0
-void __cdecl sub_00468EC0_Hotkey15()
+void __cdecl CMDTBL_Hotkey15()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
@@ -1726,79 +1726,79 @@ void __cdecl PANEL_BeltHotkeyThird(); // 0x00498CD0
 void __cdecl PANEL_BeltHotkeyFourth(); // 0x00498D10
 
 // 0x00468F40
-void __cdecl sub_00468F40_BeltHotkey0()
+void __cdecl CMDTBL_BeltHotkey0()
 {
     PANEL_BeltHotkeyFirst();
 }
 
 // 0x00468F50
-void __cdecl sub_00468F50_BeltHotkey1()
+void __cdecl CMDTBL_BeltHotkey1()
 {
     PANEL_BeltHotkeySecond();
 }
 
 // 0x00468F60
-void __cdecl sub_00468F60_BeltHotkey2()
+void __cdecl CMDTBL_BeltHotkey2()
 {
     PANEL_BeltHotkeyThird();
 }
 
 // 0x00468F70
-void __cdecl sub_00468F70_BeltHotkey3()
+void __cdecl CMDTBL_BeltHotkey3()
 {
     PANEL_BeltHotkeyFourth();
 }
 
 // 0x00468F80
-void __cdecl sub_00468F80_Phrase19()
+void __cdecl CMDTBL_Phrase19()
 {
     MSG_SendWord(0x3F, 0x19);
 }
 
 // 0x00468F90
-void __cdecl sub_00468F90_Phrase1A()
+void __cdecl CMDTBL_Phrase1A()
 {
     MSG_SendWord(0x3F, 0x1A);
 }
 
 // 0x00468FA0
-void __cdecl sub_00468FA0_Phrase1B()
+void __cdecl CMDTBL_Phrase1B()
 {
     MSG_SendWord(0x3F, 0x1B);
 }
 
 // 0x00468FB0
-void __cdecl sub_00468FB0_Phrase1C()
+void __cdecl CMDTBL_Phrase1C()
 {
     MSG_SendWord(0x3F, 0x1C);
 }
 
 // 0x00468FC0
-void __cdecl sub_00468FC0_Phrase1D()
+void __cdecl CMDTBL_Phrase1D()
 {
     MSG_SendWord(0x3F, 0x1D);
 }
 
 // 0x00468FD0
-void __cdecl sub_00468FD0_Phrase1E()
+void __cdecl CMDTBL_Phrase1E()
 {
     MSG_SendWord(0x3F, 0x1E);
 }
 
 // 0x00468FE0
-void __cdecl sub_00468FE0_Phrase1F()
+void __cdecl CMDTBL_Phrase1F()
 {
     MSG_SendWord(0x3F, 0x1F);
 }
 
 // 0x00468FF0
-void __cdecl sub_00468FF0_Phrase20()
+void __cdecl CMDTBL_Phrase20()
 {
     MSG_SendWord(0x3F, 0x20);
 }
 
 // 0x00469000
-void __cdecl sub_00469000_HotkeyRunOn()
+void __cdecl CMDTBL_HotkeyRunOn()
 {
     GAME_SetRunKeyHeld(1);
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -1819,19 +1819,19 @@ void __cdecl sub_00469000_HotkeyRunOn()
 }
 
 // 0x00469060
-void __cdecl sub_00469060_ToggleAlwaysRun()
+void __cdecl CMDTBL_ToggleAlwaysRun()
 {
     GAME_SetAlwaysRun(!GAME_GetAlwaysRun());
 }
 
 // 0x00469080
-void __cdecl sub_00469080_HotkeySetValue()
+void __cdecl CMDTBL_HotkeySetValue()
 {
     GAME_SetStandStillHeld(1);
 }
 
 // 0x00469090
-void __cdecl sub_00469090_HotkeyUiVarOff()
+void __cdecl CMDTBL_HotkeyUiVarOff()
 {
     UI_SetUIVar(0xD, 0, 0);
 }
@@ -1843,7 +1843,7 @@ void __cdecl CMDTBL_HotkeyClearScreen()
 }
 
 // 0x004690B0
-void __cdecl sub_004690B0_HotkeyEscape()
+void __cdecl CMDTBL_HotkeyEscape()
 {
     if (NPCMENU_IsAnyDialogOpen())
         return;
@@ -1860,7 +1860,7 @@ void __cdecl sub_004690B0_HotkeyEscape()
 }
 
 // 0x00469100
-void __cdecl sub_00469100_HotkeyPrevSkill()
+void __cdecl CMDTBL_HotkeyPrevSkill()
 {
     if (GAME_IsExitPending())
         return;
@@ -1870,7 +1870,7 @@ void __cdecl sub_00469100_HotkeyPrevSkill()
 }
 
 // 0x00469120
-void __cdecl sub_00469120_HotkeyNextSkill()
+void __cdecl CMDTBL_HotkeyNextSkill()
 {
     if (GAME_IsExitPending())
         return;
@@ -1880,7 +1880,7 @@ void __cdecl sub_00469120_HotkeyNextSkill()
 }
 
 // 0x00469140
-void __cdecl sub_00469140_HotkeyResetSounds()
+void __cdecl CMDTBL_HotkeyResetSounds()
 {
     if (GAME_GetUIVarState(0xC))
         return;
@@ -1892,11 +1892,11 @@ void __cdecl sub_00469140_HotkeyResetSounds()
 }
 
 // 0x00469170
-void __cdecl sub_00469170_HotkeyPetUi()
+void __cdecl CMDTBL_HotkeyPetUi()
 {
     if (!GAME_IsExpansion())
         return;
-    if (sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1)
+    if (ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1)
         return;
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (!FOG_IsExpansion())
@@ -1911,7 +1911,7 @@ void __cdecl CMDTBL_HotkeyClearMessages()
 }
 
 // 0x004691C0
-void __cdecl sub_004691C0_HotkeyRunOff()
+void __cdecl CMDTBL_HotkeyRunOff()
 {
     GAME_SetRunKeyHeld(0);
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -1942,7 +1942,7 @@ int gbHotkeyUpHandlersSet; // 0x007A7424
 int gbHotkeyHandlersRegistered; // 0x007A7428
 
 // 0x00469210
-void __cdecl sub_00469210_HotkeyUiVarOn()
+void __cdecl CMDTBL_HotkeyUiVarOn()
 {
     UI_SetUIVar(0xD, 1, 0);
     SELECT_ClearSelection();

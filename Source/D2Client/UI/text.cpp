@@ -468,7 +468,8 @@ void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); //
 
 void __fastcall sub_004B8370_SetField5C(D2ClientDialogStrc* pDialog, int nValue); // 0x004B8370
 
-void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,
+// build: symbol ?DIALOG_AddTextLine@* 0x004B85F0
+void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,
     int nArg10, int nArg14, int (__cdecl* pfnCallback)(), int nArg1C); // 0x004B85F0
 
 unsigned char gnSelectedTab; // 0x007BCC04
@@ -661,7 +662,7 @@ void __cdecl TEXT_LoadQuestPanelCels(); // 0x004A23D0
 
 int __stdcall TEXT_OpenQuestPanel(int nArg); // 0x004A26B0
 
-int __cdecl sub_004A1760_Forward();
+int __cdecl TEXT_Forward(); // 0x004A1760
 
 void __stdcall sub_004A3220(int nPage, int nArg);
 
@@ -1205,7 +1206,7 @@ void __fastcall TEXT_DrawObjectHoverText(D2UnitStrc* pUnit); // 0x004A0D20
 
 extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
 
-void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog); // 0x004B8100
+void __fastcall DIALOG_DrawDialog(D2ClientDialogStrc* pDialog); // 0x004B8100
 
 int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
 
@@ -1271,7 +1272,7 @@ extern void* gpHint_007BF24B; // 0x007BF24B
 
 extern PANELCLOSEFN gpfnClose_007BF258; // 0x007BF258
 
-void __fastcall sub_00467430_SetSelectionRect(void* pRect); // 0x00467430
+void __fastcall SELECT_SetSelectionRect(void* pRect); // 0x00467430
 
 void __fastcall NPCMENU_CancelNpcAndFlag(void* pHint); // 0x004B3D10
 
@@ -1685,14 +1686,14 @@ int __fastcall TEXT_IsAsciiChar(const unsigned short* pChar)
 }
 
 // 0x0049D2F0
-void __fastcall sub_0049D2F0_SetFieldA4(D2TextFieldA4Strc* pRecord, int nValue)
+void __fastcall TEXT_SetFieldA4(D2TextFieldA4Strc* pRecord, int nValue)
 {
     if (pRecord)
         pRecord->nFieldA4 = nValue;
 }
 
 // 0x0049D300
-int __fastcall sub_0049D300_GetFieldA4(D2TextFieldA4Strc* pRecord)
+int __fastcall TEXT_GetFieldA4(D2TextFieldA4Strc* pRecord)
 {
     if (!pRecord)
         return 0;
@@ -1973,7 +1974,7 @@ void __fastcall TEXT_ToggleTextHandlers(int nMode)
 }
 
 // 0x0049DAC0
-int __fastcall sub_0049DAC0_IsStateZeroOrOne(D2TextStateStrc* pRecord)
+int __fastcall TEXT_IsStateZeroOrOne(D2TextStateStrc* pRecord)
 {
     if (!pRecord)
         return 0;
@@ -3113,7 +3114,7 @@ const Unicode* __fastcall TEXT_GetTextString(unsigned short nId)
 // 0x0049F960
 void __cdecl TEXT_ResetTextBox()
 {
-    sub_00467430_SetSelectionRect(0);
+    SELECT_SetSelectionRect(0);
     if (gpTextBox)
     {
         TEXT_FreeTextBox(gpTextBox);
@@ -3395,8 +3396,8 @@ void TEXT_OpenMessageLogDialog()
     gpListDialog = DIALOG_CreateDialog(5, 0x1E, (int)TEXT_CloseMessageLogCallback, 0, 0, 0, 0,
         gnScreenWidth - 0x14, gnScreenHeight - 0x82, 0, 0);
     sub_004B8370_SetField5C(gpListDialog, 1);
-    sub_004B85F0_AddTextLine(gpListDialog, D2LANG_GetStringFromTblIndex(0xFC3), 0x15, 0, 4, 1, 0, 0);
-    sub_004B85F0_AddTextLine(gpListDialog, D2LANG_GetStringFromTblIndex(0x1030), gnScreenHeight - 0xA5, 0,
+    DIALOG_AddTextLine(gpListDialog, D2LANG_GetStringFromTblIndex(0xFC3), 0x15, 0, 4, 1, 0, 0);
+    DIALOG_AddTextLine(gpListDialog, D2LANG_GetStringFromTblIndex(0x1030), gnScreenHeight - 0xA5, 0,
         0, 1, TEXT_CloseMessageLogCallback, 1);
     gpListBox = new ListBoxWrapper(5, 0x41, gnScreenWidth - 0x14, gnScreenHeight - 0xC8, 2, 0, 0xD, 0,
         1);
@@ -3591,7 +3592,7 @@ void __cdecl TEXT_FreeTextResources()
         gpListBox = 0;
     }
     TEXT_FreeTextPanelCels();
-    sub_00467430_SetSelectionRect(0);
+    SELECT_SetSelectionRect(0);
     TEXT_FreeTextList(&gtMessageTextList);
     TEXT_FreeTextList(&gtOverheadTextList);
     TEXT_FreeTextList(&gtTextHistory);
@@ -3619,7 +3620,7 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextBoxStrc* pTextBox)
             {
                 TEXT_FreeTextBox(gpTextBox);
                 gpTextBox = 0;
-                sub_00467430_SetSelectionRect(0);
+                SELECT_SetSelectionRect(0);
             }
 
             TEXT_ResetTextBox();
@@ -3639,7 +3640,7 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextBoxStrc* pTextBox)
 
             UI_StartUIVarDelay();
             gbHintActive_007BF20A = 0;
-            sub_00467430_SetSelectionRect(0);
+            SELECT_SetSelectionRect(0);
             if (gbTextHandlersRegistered == 1)
             {
                 gbTextHandlersRegistered = 0;
@@ -3805,10 +3806,10 @@ static int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox)
 {
     int nA = WINDOW_GetWindow();
     int nB = WINDOW_GetWindow();
-    sub_00467430_SetSelectionRect((void*)nA);
-    sub_00467430_SetSelectionRect((void*)nB);
-    sub_00467430_SetSelectionRect((void*)nA);
-    sub_00467430_SetSelectionRect((void*)nB);
+    SELECT_SetSelectionRect((void*)nA);
+    SELECT_SetSelectionRect((void*)nB);
+    SELECT_SetSelectionRect((void*)nA);
+    SELECT_SetSelectionRect((void*)nB);
     pTextBox->nScroll = 1;
     return *(char*)pTextBox;
 }
@@ -3907,7 +3908,7 @@ void __fastcall TEXT_UpdateTexts(D2ViewStrc* pView)
 
     if (gpListDialog)
     {
-        sub_004B8100_DrawDialog(gpListDialog);
+        DIALOG_DrawDialog(gpListDialog);
     }
 }
 
@@ -4128,7 +4129,8 @@ static unsigned char TEXT_HitTestQuestCloseButton(int nX, int nY)
     return 0;
 }
 
-static unsigned char sub_004A2610_HitTestButtonA(int nX, int nY)
+// build: symbol ?TEXT_HitTestButtonA@* 0x004A2610
+static unsigned char TEXT_HitTestButtonA(int nX, int nY)
 {
     if (nX >= 0xE6 && nX <= 0xE6 + 0x1D && nY >= 0x187 && nY <= 0x187 + 0x20)
     {

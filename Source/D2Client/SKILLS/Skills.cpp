@@ -214,7 +214,7 @@ void* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2); // 0x00643A00
 
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 
-int __fastcall sub_00479150_FindRosterIndex(int nUnitId); // 0x00479150
+int __fastcall ROSTERPETS_FindRosterIndex(int nUnitId); // 0x00479150
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
@@ -934,7 +934,7 @@ int __fastcall SKILLS_IsAlliedUnit(D2UnitStrc* pUnitA, D2UnitStrc* pUnitB)
         nUnitIdB = pUnitB->dwUnitId;
         if (pUnitB->dwUnitType == UNIT_MONSTER)
         {
-            nUnitIdB = sub_00479150_FindRosterIndex(nUnitIdB);
+            nUnitIdB = ROSTERPETS_FindRosterIndex(nUnitIdB);
             if (nUnitIdB == -1)
                 return 0;
         }
@@ -2733,13 +2733,13 @@ int __fastcall ITEM_CallClientStateEvent(void* pArg1, int nArg2, int nArg3, int 
 }
 
 // 0x004C7C80
-int __cdecl sub_004C7C80_GetMissilesTxtRecordCount()
+int __cdecl SKILLS_GetMissilesTxtRecordCount()
 {
     return sgptDataTables->nMissilesTxtRecordCount;
 }
 
 // 0x004C7C90
-int __fastcall sub_004C7C90_TestTarget11018(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLS_TestTarget11018(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (!pTarget)
@@ -2865,7 +2865,7 @@ int __fastcall SKILLS_FireWeaponMissile(D2UnitStrc* pUnit, int nSkillId, int nSk
 }
 
 // 0x004C7EE0
-int __fastcall sub_004C7EE0_TestTarget11019(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLS_TestTarget11019(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (!pTarget)
@@ -3021,7 +3021,7 @@ inline int UNITS_GetYInline(D2UnitStrc* pUnit)
 }
 
 // 0x004C80D0
-static int __stdcall sub_004C80D0_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit, int nSkillLevel, int* pX, int* pY)
+static int __stdcall SKILLS_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit, int nSkillLevel, int* pX, int* pY)
 {
     D2SkillsTxt* pSkillsTxt = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
     if (!pSkillsTxt)
@@ -3086,7 +3086,7 @@ static int __stdcall sub_004C80D0_AdjustTargetPosition(int nSkillId, D2UnitStrc*
 
 int __fastcall sub_004C80D0_EmitTargetPosition(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int* pX, int* pY)
 {
-    return sub_004C80D0_AdjustTargetPosition(nSkillId, pUnit, nSkillLevel, pX, pY);
+    return SKILLS_AdjustTargetPosition(nSkillId, pUnit, nSkillLevel, pX, pY);
 }
 
 static inline D2UnitStrc* sub_004C9D50_FindDestinationById(D2UnitStrc* pUnit, int nUnitId)

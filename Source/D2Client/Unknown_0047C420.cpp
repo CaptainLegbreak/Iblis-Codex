@@ -44,9 +44,9 @@ int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned in
 void __cdecl sub_00477C60_CheckCacheStats();                                                                // 0x00477C60
 void __cdecl VIEW_ToggleCacheStats();                                                               // 0x00477C00
 int __cdecl GAME_GetConnectionType();                                                                                 // 0x0044DB30
-void __cdecl sub_004BABC0_ToggleHints();                                                                    // 0x004BABC0
+void __cdecl SOUNDINST_ToggleHints();                                                                    // 0x004BABC0
 bool __fastcall CHAT_IsNarrowText(const Unicode* pText);                                            // 0x0047BD00
-int __stdcall sub_0047BAD0_ParseChatCommand(char** ppText, char* pCode, char* szArgument);                  // 0x0047BAD0
+int __stdcall CHAT_ParseChatCommand(char** ppText, char* pCode, char* szArgument);                  // 0x0047BAD0
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
@@ -276,7 +276,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
     }
     else if (!_stricmp(pText, "soundchaosdebug"))
     {
-        sub_004BABC0_ToggleHints();
+        SOUNDINST_ToggleHints();
     }
     else
     {
@@ -285,7 +285,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
         tSend.nLang = gnLanguageId;
         if (!gbChatInputOpen || CHAT_IsNarrowText(pLine))
         {
-            if (sub_0047BAD0_ParseChatCommand(&pCommand, &tSend.nCode, tSend.szArgument) && !tSend.nCode)
+            if (CHAT_ParseChatCommand(&pCommand, &tSend.nCode, tSend.szArgument) && !tSend.nCode)
                 tSend.nType = 0x14;
             pText = pCommand;
         }
