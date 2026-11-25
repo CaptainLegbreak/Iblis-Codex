@@ -1891,17 +1891,17 @@ enum { DISABLED = 0 };
 void* __fastcall sub_0040A9E0(AsyncData* pAsync); // 0x0040A9E0
 
 
-static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader); // 0x005FEB80
+static void* __stdcall SPRITECACHE_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader); // 0x005FEB80
 
-static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry); // 0x005FEC50
+static void* SPRITECACHE_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry); // 0x005FEC50
 
 void __stdcall sub_P04_Emit_005FEC50(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry)
 {
-    pContext->pFrame = sub_005FEC50_GetCachedDC6Frame(pContext, pEntry);
+    pContext->pFrame = SPRITECACHE_GetCachedDC6Frame(pContext, pEntry);
 }
 
-// build: symbol ?sub_005FEC50_GetCachedDC6Frame@* 0x005FEC50
-static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry)
+// build: symbol ?SPRITECACHE_GetCachedDC6Frame@* 0x005FEC50
+static void* SPRITECACHE_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry)
 {
     if (pEntry && pEntry->tHeader.pAsync)
     {
@@ -1910,7 +1910,7 @@ static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2
         if (pData)
         {
             pContext->nFrames = pHeader->nFrames;
-            return sub_005FEB80_FindDC6Frame(pData, pContext, pHeader);
+            return SPRITECACHE_FindDC6Frame(pData, pContext, pHeader);
         }
 
         return 0;
@@ -1919,8 +1919,8 @@ static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2
     return 0;
 }
 
-// build: symbol ?sub_005FEB80_FindDC6Frame@* 0x005FEB80
-static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader)
+// build: symbol ?SPRITECACHE_FindDC6Frame@* 0x005FEB80
+static void* __stdcall SPRITECACHE_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader)
 {
     if (!pData)
     {
@@ -2179,7 +2179,7 @@ int __stdcall CelGetRawData(CellTable* p, int nDirection, int nIndex, void* pDst
 }
 
 // 0x00600C60
-int __fastcall sub_00600C60_CallFree(void* pMemory)
+int __fastcall DATATBLS_CallFree(void* pMemory)
 {
     return sub_00517ABB_FindLowestSetBit((unsigned int)pMemory);
 }
@@ -3870,7 +3870,7 @@ void D2GameHashTableStrc::sub_00604070_Clear()
 }
 
 // 0x00604080
-void __fastcall sub_00604080_ConstructEntry(D2StormEntry38Strc* pEntry)
+void __fastcall DATATBLS_ConstructEntry(D2StormEntry38Strc* pEntry)
 {
     new (pEntry) D2StormEntry38Strc;
 }
@@ -3883,7 +3883,7 @@ D2StormEntry38Strc::D2StormEntry38Strc(const D2StormEntry38Strc& source)
 }
 
 // 0x00604100
-void __fastcall sub_00604100_CopyConstructEntry(D2StormEntry38Strc* pEntry, const D2StormEntry38Strc* pSource)
+void __fastcall DATATBLS_CopyConstructEntry(D2StormEntry38Strc* pEntry, const D2StormEntry38Strc* pSource)
 {
     new (pEntry) D2StormEntry38Strc(*pSource);
 }

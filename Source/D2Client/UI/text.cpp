@@ -1028,7 +1028,7 @@ static int TEXT_FindQuestIndex(int nKey);
 
 int gaQuestPageDefault[5]; // 0x007BF280
 
-void __fastcall sub_00600C60_CallFree(void* pMemory); // 0x00600C60
+void __fastcall DATATBLS_CallFree(void* pMemory); // 0x00600C60
 
 struct D2StringSoundStrc;
 

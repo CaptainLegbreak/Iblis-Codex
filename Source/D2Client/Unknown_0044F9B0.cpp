@@ -1054,12 +1054,14 @@ void D2GameHashTableStrc::sub_00604070_Clear()
     CelListTableInternalClear(0);
 }
 
-void __fastcall sub_00604080_ConstructEntry(D2StormEntry604080Strc* pEntry)
+// build: symbol ?DATATBLS_ConstructEntry@* 0x00604080
+void __fastcall DATATBLS_ConstructEntry(D2StormEntry604080Strc* pEntry)
 {
     new (pEntry) D2StormEntry604080Strc;
 }
 
-void __fastcall sub_00604100_CopyConstructEntry(D2StormEntry604080Strc* pEntry, const D2StormEntry604080Strc* pSource)
+// build: symbol ?DATATBLS_CopyConstructEntry@* 0x00604100
+void __fastcall DATATBLS_CopyConstructEntry(D2StormEntry604080Strc* pEntry, const D2StormEntry604080Strc* pSource)
 {
     new (pEntry) D2StormEntry604080Strc(*pSource);
 }

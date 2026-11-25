@@ -198,7 +198,7 @@ void __fastcall D2CMPSpriteCacheFreeAll(D2SpriteCacheStrc* pCache); // 0x005FFBE
 
 void __fastcall D2CMPSpriteCacheCreate(D2SpriteCacheStrc* pCache, void* pMemPool, unsigned int nMaxSize, int nArg); // 0x005FEE90
 
-void __fastcall sub_005FE170_SpriteCacheFreeCallback(void* pNode); // 0x005FE170
+void __fastcall SPRITECACHE_SpriteCacheFreeCallback(void* pNode); // 0x005FE170
 
 extern int gaDirectionIndex64A[8][64]; // 0x006E4DA0
 
@@ -307,7 +307,7 @@ int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections);    
 
 D2CmpGfxHashEntryStrc* __fastcall GfxHashAdd(void* pMemPool, D2CmpBlockTableBStrc* pHash, D2CmpSpriteEntryStrc* pEntry, D2CmpSpriteContextStrc* pContext, D2CmpSpriteFileStrc* pFile); // 0x0060ADC0
 
-static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry);
+static void* SPRITECACHE_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry); // 0x005FEC50
 
 static int __stdcall D2CMPSpriteReadFrames(D2CmpSpriteContextStrc* pContext, int nDirection, int nFrames, const char* szName, D2CmpSpriteFileStrc* pFile, D2CmpSpriteEntryStrc* pEntry);
 
@@ -521,7 +521,7 @@ void (__fastcall* gpfnCmpFreeCallback)(int nKeyA, int nKeyC, int nKeyB);        
 void __fastcall GfxHashRemove(void* pMemPool, D2CmpGfxHashStrc* pHash, D2CmpGfxHashEntryStrc* pEntry); // 0x0060AB10
 
 // 0x005FE170
-void __fastcall sub_005FE170_SpriteCacheFreeCallback(void* pNode)
+void __fastcall SPRITECACHE_SpriteCacheFreeCallback(void* pNode)
 {
     D2SpriteFreeNodeStrc* pFreeNode = (D2SpriteFreeNodeStrc*)pNode;
     if (gpfnCmpFreeCallback)
@@ -1294,11 +1294,11 @@ void __stdcall D2CMPSpriteCacheInit(void* pMemPool, unsigned int nMaxSize, int n
         D2CMPSpriteCacheFreeAll(&gCmpTileCache);
         memset(&gCmpTileCache, 0, sizeof(gCmpTileCache));
     }
-    D2CMPSpriteCacheCreate(&gCmpTileCache, pMemPool, nMaxSize, (int)sub_005FE170_SpriteCacheFreeCallback);
+    D2CMPSpriteCacheCreate(&gCmpTileCache, pMemPool, nMaxSize, (int)SPRITECACHE_SpriteCacheFreeCallback);
 }
 
 // 0x005FEB80
-static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader)
+static void* __stdcall SPRITECACHE_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader)
 {
     if (!pData)
         return 0;
@@ -1344,7 +1344,7 @@ static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContext
 }
 
 // 0x005FEC50
-static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry)
+static void* SPRITECACHE_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry)
 {
     if (pEntry && pEntry->pAsync)
     {
@@ -1353,7 +1353,7 @@ static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2
         if (pData)
         {
             pContext->nFrames = pHeader->nFrames;
-            return sub_005FEB80_FindDC6Frame(pData, pContext, pHeader);
+            return SPRITECACHE_FindDC6Frame(pData, pContext, pHeader);
         }
 
         return 0;
@@ -1401,7 +1401,7 @@ static int __stdcall D2CMPSpriteLoadDc6Entry(D2CmpSpriteFileStrc* pFile, int nAr
     if (!pEntry->bFramesInitialized)
         D2CMPSpriteInitFrames(pFile, pContext, pEntry);
 
-    pContext->pFrame = sub_005FEC50_GetCachedDC6Frame(pContext, pEntry);
+    pContext->pFrame = SPRITECACHE_GetCachedDC6Frame(pContext, pEntry);
     return pContext->pFrame != 0;
 }
 
@@ -1888,7 +1888,7 @@ int __stdcall D2CMPSpriteValidate(D2CmpSpriteContextStrc* context, int async, in
         D2CMPSpriteCacheTouch(&gCmpTileCache, (D2SpriteCacheNodeStrc*)node->link);
         if (*(int*)((char*)entry + 0x28) == 0)
             D2CMPSpriteInitFrames((D2CmpSpriteFileStrc*)file, context, entry);
-        context->pFrame = sub_005FEC50_GetCachedDC6Frame(context, entry);
+        context->pFrame = SPRITECACHE_GetCachedDC6Frame(context, entry);
         if (!context->pFrame)
         {
             if (!gnWarn)
