@@ -224,7 +224,7 @@ static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int n
 }
 
 // 0x006744F0
-int __fastcall DRLGOUTDOORS_SpawnPresetFarAway(D2DrlgLevelStrc* pLevel, D2DrlgCoordStrc* pCoords, int nLevelPrestId, int nPickedFile, int a5, int a6)
+int __fastcall DRLGOUTDOORS_SpawnPresetFarAway(D2DrlgLevelStrc* pLevel, D2DrlgCoordStrc* pCoords, int nLevelPrestId, int nPickedFile, int nOffset, int nFlags)
 {
     D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoors;
     const int nPosX = pLevel->nPosX;
@@ -245,7 +245,7 @@ int __fastcall DRLGOUTDOORS_SpawnPresetFarAway(D2DrlgLevelStrc* pLevel, D2DrlgCo
         {
             const int nY = (j + nOffsetY) % nHeight + 1;
             const int nX = (i + nOffsetX) % nWidth + 1;
-            if (DRLGOUTDOORS_TestOutdoorLevelPreset(pLevel, nX, nY, nLevelPrestId, a5, a6))
+            if (DRLGOUTDOORS_TestOutdoorLevelPreset(pLevel, nX, nY, nLevelPrestId, nOffset, nFlags))
             {
                 const int nDeltaX = 8 * nX - nCenterX + nPosX + 4;
                 const int nDiffX = D2_ABS(nDeltaX);

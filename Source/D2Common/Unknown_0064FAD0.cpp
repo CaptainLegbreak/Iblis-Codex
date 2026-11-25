@@ -1080,11 +1080,11 @@ int __stdcall D2Common_10231(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit_
 }
 
 // 0x00650C60
-BOOL __stdcall D2Common_10230(D2DynamicPathStrc* pDynamicPath, int a2, D2ActiveRoomStrc* pRoom, unsigned int a4, short a5)
+BOOL __stdcall D2Common_10230(D2DynamicPathStrc* pDynamicPath, int a2, D2ActiveRoomStrc* pRoom, unsigned int X, short Y)
 {
     D2PathPointStrc tPos;
-    tPos.X = (unsigned short)a4;
-    tPos.Y = a5;
+    tPos.X = (unsigned short)X;
+    tPos.Y = Y;
     const BOOL bResult = sub_6FDAD5E0(pRoom, tPos, pDynamicPath);
     if (!bResult)
     {
