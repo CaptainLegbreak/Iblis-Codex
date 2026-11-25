@@ -108,7 +108,7 @@ extern "C" void __fastcall sub_00478600_SendPacket(U8 command, U16 value, U16 fi
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
+void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
 void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 
@@ -624,7 +624,7 @@ int __cdecl sub_004B9180_PollWait()
             gnTradeState = 0;
             sub_004B8940_CloseWait(0);
             sub_00477EE0();
-            GAME_SetExitApplication(0);
+            WINMAIN_SetExitApplication(0);
             GAME_SetCinematicExit(1);
             GAME_RequestExit();
         }

@@ -1494,7 +1494,7 @@ int __fastcall SPELLSEL_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); /
 
 void __fastcall sub_004A9690_DrawSkillInfoBase(int nValue, D2SkillsTxt* pSkillsTxt, int nOwnerGUID, int nCharges, int nState, int nX, int nY, int nArg); // 0x004A9690
 
-void __fastcall TEXT_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY); // 0x004A8D50
+void __fastcall SPELLSEL_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY); // 0x004A8D50
 
 void __fastcall SPELLSEL_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
 
@@ -1584,7 +1584,7 @@ void __fastcall WARDENCLIENT_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkil
     }
     else
     {
-        TEXT_UpdateSkillButtonHover(&pSkillsTxt->nSkillId, nState, nSkillLevel, nCharges, nX, nY);
+        SPELLSEL_UpdateSkillButtonHover(&pSkillsTxt->nSkillId, nState, nSkillLevel, nCharges, nX, nY);
     }
 }
 

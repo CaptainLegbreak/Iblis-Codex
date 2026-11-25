@@ -64,8 +64,8 @@ int __cdecl CUNIT_IsPlayerDeadOrMissing();                                      
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
 void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
-void __cdecl TEXT_LoadQuestPanelCels();                                                                  // 0x004A23D0
-int __stdcall TEXT_OpenQuestPanel(int nArg);                                                             // 0x004A26B0
+void __cdecl QUESTLOG_LoadQuestPanelCels();                                                                  // 0x004A23D0
+int __stdcall QUESTLOG_OpenQuestPanel(int nArg);                                                             // 0x004A26B0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                   // 0x004B9A00
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                      // 0x00501820
@@ -654,7 +654,7 @@ static void TEXT_SetQuestPage_Inline(int nPage)
 }
 
 // 0x004A2300
-void __cdecl TEXT_UpdateQuestPage()
+void __cdecl QUESTLOG_UpdateQuestPage()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer)
@@ -692,7 +692,7 @@ extern "C" unsigned char gByte_007C025F; // 0x007C025F
 extern "C" unsigned char gByte_007C0260; // 0x007C0260
 
 // 0x004A2390
-extern "C" void __cdecl TEXT_ResetQuestGlobals(void)
+extern "C" void __cdecl QUESTLOG_ResetQuestGlobals(void)
 {
     gByte_007BF2B1 = 0;
     gByte_007BF2B2 = 0;
@@ -724,7 +724,7 @@ public:
 };
 
 // 0x004A23D0
-void __cdecl TEXT_LoadQuestPanelCels()
+void __cdecl QUESTLOG_LoadQuestPanelCels()
 {
     char szPath[0x104];
     if (sub_00483350())
@@ -779,7 +779,7 @@ void __cdecl TEXT_LoadQuestPanelCels()
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 // 0x004A2550
-void __cdecl TEXT_FreeQuestCels()
+void __cdecl QUESTLOG_FreeQuestCels()
 {
     if (gpQuestBackgroundCel)
     {
@@ -822,9 +822,9 @@ void __cdecl TEXT_FreeQuestCels()
 }
 
 // 0x004A2600
-void __cdecl TEXT_FreeQuestPanel()
+void __cdecl QUESTLOG_FreeQuestPanel()
 {
-    TEXT_FreeQuestCels();
+    QUESTLOG_FreeQuestCels();
 }
 
 // 0x004A2610
@@ -870,7 +870,7 @@ char gbGlobal_007BF2B0; // 0x007BF2B0
 char gbQuestDescriptionOpen; // 0x007BF2B3
 
 // 0x004A26B0
-int __stdcall TEXT_OpenQuestPanel(int nArg)
+int __stdcall QUESTLOG_OpenQuestPanel(int nArg)
 {
     if (gtQuestLog == 2)
     {
@@ -911,7 +911,7 @@ static int __stdcall TEXT_GetQuestTabAtPoint(int nY, int nX)
 
 void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
 
-int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
+int __fastcall QUESTLOG_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
 
 struct D2QuestPanelEntryStrc;
 
@@ -921,7 +921,7 @@ int gnQuestCount; // 0x007BF2A0
 extern D2QuestPanelEntryStrc gaQuestEntries[]; // 0x007BF3AA
 
 // 0x004A2760
-void __cdecl TEXT_SendQuestUpdates()
+void __cdecl QUESTLOG_SendQuestUpdates()
 {
     for (int i = 0; i < gnQuestCount; ++i)
     {
@@ -935,7 +935,7 @@ void __cdecl TEXT_SendQuestUpdates()
 }
 
 // 0x004A27B0
-int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue)
+int __fastcall QUESTLOG_CloseQuestText(void* pContext, int nArg, int nValue)
 {
     gbQuestDescriptionOpen = 0;
     TEXT_SetTextCallback(0, pContext);
@@ -964,7 +964,7 @@ static void TEXT_OpenQuestDescription(int nSlot)
         return;
     }
     WARDENCLIENT_OpenTextPanel(wTextId, 1, 0);
-    TEXT_SetTextCallback(TEXT_CloseQuestText, 0);
+    TEXT_SetTextCallback(QUESTLOG_CloseQuestText, 0);
     gbQuestDescriptionOpen = 1;
 }
 
@@ -1007,7 +1007,7 @@ extern "C" unsigned int gValue_007BF2AC; // 0x007BF2AC
 extern "C" { unsigned int gValue_007BF2A8; } // 0x007BF2A8
 
 // 0x004A28A0
-extern "C" void __fastcall TEXT_AcceptShortPacket(const PacketShorts* packet)
+extern "C" void __fastcall QUESTLOG_AcceptShortPacket(const PacketShorts* packet)
 {
     switch (packet->kind)
     {
@@ -1020,7 +1020,7 @@ extern "C" void __fastcall TEXT_AcceptShortPacket(const PacketShorts* packet)
 }
 
 // 0x004A28D0
-void __cdecl TEXT_ResetQuestButton()
+void __cdecl QUESTLOG_ResetQuestButton()
 {
     if (gnPage < 5)
         sub_004A2760(gnPage);
@@ -1032,7 +1032,7 @@ void __cdecl TEXT_ResetQuestButton()
 
 extern int gnScreenWidth; // 0x0071146C
 
-int __stdcall TEXT_IsMouseOnQuestButton(int nX, int nY);
+int __stdcall QUESTLOG_IsMouseOnQuestButton(int nX, int nY); // 0x004A2970
 
 struct D2ButtonLayoutStrc;
 
@@ -1072,7 +1072,7 @@ static int sub_E10_GetButtonLayoutCopy(int nMode)
 }
 
 // 0x004A2900
-static int TEXT_GetButtonLayout(int nMode)
+static int QUESTLOG_GetButtonLayout(int nMode)
 {
     if (GAME_GetUIVarState(6) && !GAME_GetUIVarState(2))
     {
@@ -1093,7 +1093,7 @@ static int TEXT_GetButtonLayout(int nMode)
 }
 
 // 0x004A2970
-int __stdcall TEXT_IsMouseOnQuestButton(int nX, int nY)
+int __stdcall QUESTLOG_IsMouseOnQuestButton(int nX, int nY)
 {
     const int nMode = sub_0045AE90();
     const int nIndex = sub_E10_GetButtonLayoutCopy(nMode);
@@ -1110,7 +1110,7 @@ void __stdcall TEXT_QuestButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
-    if ((unsigned char)TEXT_IsMouseOnQuestButton(nX, nY))
+    if ((unsigned char)QUESTLOG_IsMouseOnQuestButton(nX, nY))
     {
         gbGlobal_007BF2B0 = 1;
         sub_004B9A00(SOUND_ID, 0, 0, 0, 0);
@@ -1135,7 +1135,7 @@ extern void* gpLevelCel; // 0x007C02DC
 extern void* gpLevelSocketCel; // 0x007C02E0
 
 // 0x004A2A80
-void __cdecl TEXT_DrawQuestButton()
+void __cdecl QUESTLOG_DrawQuestButton()
 {
     if (CUNIT_IsPlayerDeadOrMissing())
     {
@@ -1175,12 +1175,12 @@ void __cdecl TEXT_DrawQuestButton()
     sub_004F6480(&tCel, nCelX, nCelY, -1, 5, 0);
 
     tCel.pCellFile = gpLevelCel;
-    tCel.nFrame = gbGlobal_007BF2B0 && (unsigned char)TEXT_IsMouseOnQuestButton(sub_00468730(), sub_00468740());
+    tCel.nFrame = gbGlobal_007BF2B0 && (unsigned char)QUESTLOG_IsMouseOnQuestButton(sub_00468730(), sub_00468740());
     sub_004F6480(&tCel, nCelX + 3, nCelY - 4, -1, 5, 0);
 }
 
 // 0x004A2C30
-void __fastcall TEXT_SelectQuestPage(int nCondition)
+void __fastcall QUESTLOG_SelectQuestPage(int nCondition)
 {
     int nIndex = -1;
     for (int i = 0; i < 41; ++i)
@@ -1196,14 +1196,14 @@ void __fastcall TEXT_SelectQuestPage(int nCondition)
 }
 
 // 0x004A2C70
-void __fastcall TEXT_ClearCainFlag(D2UnitStrc* pUnit)
+void __fastcall QUESTLOG_ClearCainFlag(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwClassId == 0x92)
         pUnit->dwFlags &= ~2u;
 }
 
 // 0x004A2C90
-void __fastcall TEXT_ClearNihlathakFlag(D2UnitStrc* pUnit)
+void __fastcall QUESTLOG_ClearNihlathakFlag(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwClassId == 0x20F)
         pUnit->dwFlags &= ~2u;
@@ -1229,7 +1229,7 @@ void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket)
                 TEXT_PrintChatLine(D2LANG_GetStringFromTblIndex(3708), 0);
                 return;
             case 4:
-                CUNIT_ForEachMonster(TEXT_ClearCainFlag);
+                CUNIT_ForEachMonster(QUESTLOG_ClearCainFlag);
                 return;
             case 15:
                 TEXT_PrintChatLine(D2LANG_GetStringFromTblIndex(3710), 0);
@@ -1304,7 +1304,7 @@ void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket)
             }
             else if (nId == 33)
             {
-                CUNIT_ForEachMonster(TEXT_ClearNihlathakFlag);
+                CUNIT_ForEachMonster(QUESTLOG_ClearNihlathakFlag);
                 return;
             }
             else
@@ -1347,7 +1347,7 @@ refresh:
     {
         if (UI_SetUIVar(17, 0, 0) == 1)
         {
-            TEXT_SelectQuestPage(pPacket->nId);
+            QUESTLOG_SelectQuestPage(pPacket->nId);
             gnState_007BF298 = 1;
         }
         return;
@@ -1377,7 +1377,7 @@ refresh:
 extern "C" int gB27_007BF298; // 0x007BF298
 
 // 0x004A3000
-extern "C" void __cdecl TEXT_ResetQuestButtonState()
+extern "C" void __cdecl QUESTLOG_ResetQuestButtonState()
 {
     if (gB27_007BF298 == 1)
         gB27_007BF298 = 0;
@@ -1469,7 +1469,7 @@ struct D2QuestPanelValuesStrc
 extern D2QuestLookupEntryStrc gaQuestLookup_00723F38[0x29]; // 0x00723F38
 
 // 0x004A3070
-int __fastcall VIEW_LookupQuestValue(int nUnused, int nKey)
+int __fastcall QUESTLOG_LookupQuestValue(int nUnused, int nKey)
 {
     for (unsigned int i = 0; i < 0x29; ++i)
     {
@@ -1482,7 +1482,7 @@ int __fastcall VIEW_LookupQuestValue(int nUnused, int nKey)
 }
 
 // 0x004A30A0
-void __cdecl TEXT_LoadDurielCofsOnce()
+void __cdecl QUESTLOG_LoadDurielCofsOnce()
 {
     if (!gbGlobal_007C025D)
     {
@@ -1495,7 +1495,7 @@ void __cdecl TEXT_LoadDurielCofsOnce()
 char gbGlobal_007C025E; // 0x007C025E
 
 // 0x004A30C0
-void __cdecl TEXT_LoadAncientsCofsOnce()
+void __cdecl QUESTLOG_LoadAncientsCofsOnce()
 {
     if (!gbGlobal_007C025E)
     {
@@ -1511,7 +1511,7 @@ extern "C" unsigned char gB27_007C025F; // 0x007C025F
 extern "C" unsigned int gB27_007C0265; // 0x007C0265
 
 // 0x004A3100
-extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value)
+extern "C" void __fastcall QUESTLOG_SetQuestPacketValue(unsigned int value)
 {
     gB27_007C025F = 1;
     gB27_007C0265 = value;
@@ -1520,7 +1520,7 @@ extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value)
 char gbGlobal_007C025F; // 0x007C025F
 
 // 0x004A3110
-char __cdecl TEXT_HasQuestPacketValue()
+char __cdecl QUESTLOG_HasQuestPacketValue()
 {
     return gbGlobal_007C025F;
 }
@@ -1532,7 +1532,7 @@ D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitT
 extern unsigned int gnQuestUnitId; // 0x007C0261
 
 // 0x004A3120
-char __cdecl TEXT_IsQuestUnitPresent()
+char __cdecl QUESTLOG_IsQuestUnitPresent()
 {
     if (gbGlobal_007C0260 && CUNIT_FindServerSideUnit(gnQuestUnitId, 1))
     {
@@ -1575,7 +1575,7 @@ static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
 }
 
 // 0x004A3150
-void __fastcall TEXT_SpawnQuestUnits(int nX, int nY)
+void __fastcall QUESTLOG_SpawnQuestUnits(int nX, int nY)
 {
     if (gbGlobal_007C025F)
     {
@@ -1591,7 +1591,7 @@ void __fastcall TEXT_SpawnQuestUnits(int nX, int nY)
 }
 
 // 0x004A3200
-D2QuestPanelValuesStrc* __fastcall VIEW_ClearQuestPanelValues(D2QuestPanelValuesStrc* pValues)
+D2QuestPanelValuesStrc* __fastcall QUESTLOG_ClearQuestPanelValues(D2QuestPanelValuesStrc* pValues)
 {
     for (int i = 0; i < 0x96; ++i)
     {
@@ -1734,7 +1734,7 @@ void __cdecl TEXT_ResetQuestPanel()
 
 
 // 0x004A34F0
-void __cdecl TEXT_DrawQuestPage()
+void __cdecl QUESTLOG_DrawQuestPage()
 {
     int i = 0;
     D2CelContextStrc tDraw;
@@ -1756,19 +1756,19 @@ void __cdecl TEXT_DrawQuestPage()
 
     if (GAME_GetUIVarState(0x12))
     {
-        TEXT_OpenQuestPanel(0);
+        QUESTLOG_OpenQuestPanel(0);
         return;
     }
 
     if (sub_00483350())
     {
-        TEXT_OpenQuestPanel(0);
+        QUESTLOG_OpenQuestPanel(0);
         return;
     }
 
     if (!gtQuestLog_007BF298.pCelD5)
     {
-        TEXT_LoadQuestPanelCels();
+        QUESTLOG_LoadQuestPanelCels();
         TEXT_LoadQuestPage(0, 1);
     }
 
@@ -2140,12 +2140,12 @@ void __stdcall sub_004A3220(int nPage, int nArg);
 
 void __fastcall MSG_SendHeaderOnly(char nValue); // 0x00478590
 
-void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
+void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004A3FE0
-void __fastcall TEXT_ToggleQuestLog(int nMode)
+void __fastcall QUESTLOG_ToggleQuestLog(int nMode)
 {
     if (gtQuestLog == 0)
     {
@@ -2158,9 +2158,9 @@ void __fastcall TEXT_ToggleQuestLog(int nMode)
             return;
         if (UI_SetUIVar(15, 0, nMode) != 1)
             return;
-        TEXT_LoadQuestPanelCels();
+        QUESTLOG_LoadQuestPanelCels();
         gtQuestLog = 2;
-        TEXT_UpdateQuestPage();
+        QUESTLOG_UpdateQuestPage();
 // build: symbol ?gnPage@* 0x007C0255
         sub_004A3220(gnPage, 0);
         MSG_SendHeaderOnly(0x40);
@@ -2174,15 +2174,15 @@ void __fastcall TEXT_ToggleQuestLog(int nMode)
             return;
         if (UI_SetUIVar(15, 0, nMode) != 1)
             return;
-        TEXT_LoadQuestPanelCels();
+        QUESTLOG_LoadQuestPanelCels();
         gtQuestLog = 2;
-        TEXT_UpdateQuestPage();
+        QUESTLOG_UpdateQuestPage();
         sub_004A3220(gnPage, 0);
         MSG_SendHeaderOnly(0x40);
         return;
     }
 
-    TEXT_OpenQuestPanel(nMode);
+    QUESTLOG_OpenQuestPanel(nMode);
     gdwQuestLogToggleTick = GetTickCount();
     sub_004A1760_Forward();
 }
@@ -2204,7 +2204,7 @@ extern D2Record42Strc gtQuestRecord; // 0x007BF355
 extern int gnPage_007C0255; // 0x007C0255
 
 // 0x004A40D0
-void __fastcall TEXT_SetQuestRecord(const D2Record42Strc* pRecord)
+void __fastcall QUESTLOG_SetQuestRecord(const D2Record42Strc* pRecord)
 {
     gtQuestRecord = *pRecord;
     gbFlag_007BF2B0 = 0;
@@ -2212,7 +2212,7 @@ void __fastcall TEXT_SetQuestRecord(const D2Record42Strc* pRecord)
     {
         if (gnState_007BF298 == 2)
         {
-            TEXT_LoadQuestPanelCels();
+            QUESTLOG_LoadQuestPanelCels();
         }
         sub_004A3220(gnPage_007C0255, 1);
     }
@@ -2226,7 +2226,7 @@ void __stdcall TEXT_QuestButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     if (sub_004A2970(nX, nY) && gbGlobal_007BF2B0)
     {
         UI_SetUIVar(17, 1, 0);
-        TEXT_ToggleQuestLog(0);
+        QUESTLOG_ToggleQuestLog(0);
         gbGlobal_007BF2B0 = 0;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
@@ -2301,7 +2301,7 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     int nY = D2_HIWORD(pMsg->lParam) + gnPanelOffsetY;
     if (gbGlobal_007BF2B2)
     {
-        if (TEXT_HitTestQuestCloseButton(nX, nY)) TEXT_ToggleQuestLog(0);
+        if (TEXT_HitTestQuestCloseButton(nX, nY)) QUESTLOG_ToggleQuestLog(0);
     }
     else if (!gbQuestDescriptionOpen)
     {

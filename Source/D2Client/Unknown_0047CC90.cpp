@@ -59,7 +59,7 @@ extern int gnChatDrawCount; // 0x007BB5EC
 
 extern Unicode gwszChatLine_007BB638[0x101]; // 0x007BB638
 
-void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 bool __cdecl CHAT_IsImeLanguage(); // 0x0047B010
 
@@ -201,13 +201,13 @@ void __fastcall AUTOMAP_SetAutomapMode(int nMode); // 0x0045A720
 
 int __fastcall AUTOMAP_SetAutomapFade(int nFade); // 0x004576F0
 
-int __cdecl UI_GetAutomapCenters(); // 0x00457740
+int __cdecl AUTOMAP_GetAutomapCenters(); // 0x00457740
 
-int __fastcall OBJECT_SaveAutomapCenters(int nValue); // 0x00457750
+int __fastcall AUTOMAP_SaveAutomapCenters(int nValue); // 0x00457750
 
-int __cdecl UI_GetAutomapParty(); // 0x004577B0
+int __cdecl AUTOMAP_GetAutomapParty(); // 0x004577B0
 
-int __cdecl UI_GetAutomapPartyNames(); // 0x004577E0
+int __cdecl AUTOMAP_GetAutomapPartyNames(); // 0x004577E0
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -237,7 +237,7 @@ extern int gbSmallPanel; // 0x007BC978
 
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
 
-void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
+void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
@@ -273,7 +273,7 @@ extern int gbAnyLeftPanelOpen; // 0x007BC968
 
 extern int gbAnyPanelOpen; // 0x007BC96C
 
-void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
+void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
 void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 
@@ -700,7 +700,7 @@ int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
-void __stdcall GFX_StepChatIndex(int nDelta); // 0x0047BA80
+void __stdcall CHAT_StepChatIndex(int nDelta); // 0x0047BA80
 
 
 extern D2OptionHeaderStrc gtMainOptionHeader; // 0x00713044
@@ -1072,13 +1072,13 @@ void __fastcall sub_0047D430_LoadAutoMapFade(D2OptionEntryStrc* pEntry, int nArg
 // 0x0047D470
 void __fastcall sub_0047D470_AutoMapCentersChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
-    OBJECT_SaveAutomapCenters(pEntry->nValue);
+    AUTOMAP_SaveAutomapCenters(pEntry->nValue);
 }
 
 // 0x0047D480
 void __fastcall sub_0047D480_AutoMapCentersLoad(D2OptionEntryStrc* pEntry, int nArg)
 {
-    pEntry->nValue = UI_GetAutomapCenters();
+    pEntry->nValue = AUTOMAP_GetAutomapCenters();
 }
 
 // 0x0047D490
@@ -1090,13 +1090,13 @@ void __fastcall sub_0047D490_AutoMapPartyChanged(D2OptionEntryStrc* pEntry, SMSG
 // 0x0047D4A0
 void __fastcall sub_0047D4A0_AutoMapPartyLoad(D2OptionEntryStrc* pEntry, int nArg)
 {
-    pEntry->nValue = UI_GetAutomapParty();
+    pEntry->nValue = AUTOMAP_GetAutomapParty();
 }
 
 // 0x0047D4B0
 int __cdecl sub_0047D4B0_PartyNamesEnabled()
 {
-    return UI_GetAutomapParty();
+    return AUTOMAP_GetAutomapParty();
 }
 
 // 0x0047D4C0
@@ -1108,7 +1108,7 @@ void __fastcall sub_0047D4C0_AutoMapPartyNamesChanged(D2OptionEntryStrc* pEntry,
 // 0x0047D4D0
 void __fastcall sub_0047D4D0_AutoMapPartyNamesLoad(D2OptionEntryStrc* pEntry, int nArg)
 {
-    pEntry->nValue = UI_GetAutomapParty() && UI_GetAutomapPartyNames();
+    pEntry->nValue = AUTOMAP_GetAutomapParty() && AUTOMAP_GetAutomapPartyNames();
 }
 
 // 0x0047D500
@@ -1919,7 +1919,7 @@ static void sub_0047EC50_DoSlotAction(int nButton)
         break;
     case 6:
         OutputDebugStringA("Panel quest log toggle\n");
-        TEXT_ToggleQuestLog(0);
+        QUESTLOG_ToggleQuestLog(0);
         break;
     case 7:
         UI_CloseUIVars(0, 0);
@@ -2174,7 +2174,7 @@ void __fastcall sub_0047F2A0_ShowPage1(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 // 0x0047F2D0
 void __fastcall sub_0047F2D0_ExitGame(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
-    GAME_SetExitApplication(0);
+    WINMAIN_SetExitApplication(0);
     SendMessageA(pMsg->hWnd, 0x10, 0, 0);
     GAME_SetCinematicExit(1);
     sub_0047E200_CloseMenus(1);

@@ -94,7 +94,7 @@ int __fastcall SOUNDINST_HasActiveHint(void* pEntry); // 0x004B9BE0
 
 int __fastcall SOUNDINST_GetSoundIdByHandle(int nKey); // 0x004B9CA0
 
-int __fastcall MONSTER_IsNearPlayer(D2UnitStrc* pUnit); // 0x004B9E10
+int __fastcall SOUNDINST_IsNearPlayer(D2UnitStrc* pUnit); // 0x004B9E10
 
 int __fastcall SOUNDINST_HasUnitSound(D2UnitStrc* pUnit); // 0x004B9E90
 
@@ -120,7 +120,7 @@ int __fastcall UNITSND_GetUnitFloorMaterial(D2UnitStrc* pUnit); // 0x004CADB0
 
 unsigned int __fastcall UNITSND_GetAnimRate(D2UnitStrc* pUnit, unsigned int nDirection); // 0x004CA500
 
-void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
+void* __fastcall UNITSND_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
 
 void __fastcall UNITSND_PurgeUnitHints(D2UnitStrc* pUnit); // 0x004CAA10
 
@@ -1310,7 +1310,7 @@ void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit)
         const int nSound = UNITSND_GetObjectModeSound(pUnit, nMode);
         if (nSound)
         {
-            if (!MISSILE_FindUnitSfxInRange(pUnit, nSound))
+            if (!UNITSND_FindUnitSfxInRange(pUnit, nSound))
                 sub_004B9A00(nSound, pUnit, 0, 0, 0);
         }
         else
@@ -1363,7 +1363,7 @@ void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit)
     const unsigned int nNeuTime = pMonSoundsTxtRecord->dwNeuTime;
     if (!nNeutral)
         return;
-    if (MISSILE_FindUnitSfxInRange(pUnit, nNeutral))
+    if (UNITSND_FindUnitSfxInRange(pUnit, nNeutral))
         return;
     if (nTick - gnNeutralTick < gnNeutralDelay)
         return;
@@ -1375,7 +1375,7 @@ void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit)
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
     if (pRoom && DUNGEON_IsRoomInTown(pRoom))
         return;
-    if (!MONSTER_IsNearPlayer(pUnit))
+    if (!SOUNDINST_IsNearPlayer(pUnit))
         return;
     if (sub_004E40A0(0xF))
         return;
@@ -1955,7 +1955,7 @@ static inline int UNITSND_HasActiveSound(D2UnitStrc* pUnit)
 int __stdcall sub_M121_Emit_004CAC70(D2UnitStrc* pUnit) { return UNITSND_HasActiveSound(pUnit); }
 
 // 0x004CA900
-void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId)
+void* __fastcall UNITSND_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId)
 {
     D2_ASSERT(pUnit, 0xC47);
     if (!sub_004DF880())
@@ -1979,7 +1979,7 @@ void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId)
 }
 
 // 0x004CA990
-void* __fastcall ROSTER_GetLinkFirst(D2UnitStrc* pUnit)
+void* __fastcall UNITSND_GetLinkFirst(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0xC63);
     D2UnitSfxNodeStrc* pNode = (D2UnitSfxNodeStrc*)pUnit->pUnitSfxData;
@@ -1992,7 +1992,7 @@ void* __fastcall ROSTER_GetLinkFirst(D2UnitStrc* pUnit)
 }
 
 // 0x004CC270
-void __cdecl MISSILE_CheckLevelSpeech()
+void __cdecl UNITSND_CheckLevelSpeech()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);

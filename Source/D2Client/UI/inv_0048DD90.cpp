@@ -116,7 +116,7 @@ int __cdecl HIREABLES_AreBeltRowsShown();                                       
 
 int __cdecl NPCMENU_IsAnyDialogOpen();                                                                                 // 0x004B34A0
 
-int __cdecl MONSTER_IsGambleShop();                                                                                 // 0x004B3500
+int __cdecl NPCMENU_IsGambleShop();                                                                                 // 0x004B3500
 
 int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int nArg, int* pOut, Unicode* pName, int nMaxLength);        // 0x004B2AD0
 
@@ -1205,7 +1205,7 @@ void __stdcall INV_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
 
             int nWidth;
             int nHeight;
-            if (gbHoverInGrid && !gbHoverPlayerItem && MONSTER_IsGambleShop() && (unsigned int)(gnInvPanelMode - 1) <= 8)
+            if (gbHoverInGrid && !gbHoverPlayerItem && NPCMENU_IsGambleShop() && (unsigned int)(gnInvPanelMode - 1) <= 8)
             {
                 INV_BuildItemName(gpHoverItem, W(wszName), 0x80);
                 sub_005267E0(W(wszUnidentified), D2LANG_GetStringFromTblIndex(0xD7F));

@@ -30,7 +30,7 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2MsgHandlerEntryStrc gaWindowMsgHandlers[4]; // 0x0070F7E4
 void __fastcall SCMD_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451D10
-void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 struct Pad40_00451F30 {
     unsigned int dw00;
@@ -105,7 +105,7 @@ typedef char check_itemtypes_size[(sizeof(D2ItemTypesTxt) == 0xE4) ? 1 : -1];
 int __fastcall sub_00451E70_RegisterWindowHandlers(void* hWnd)
 {
     D2_ASSERT(hWnd, 0x178);
-    COMCALLBACK_RegisterMsgHandlers((int)hWnd, gaWindowMsgHandlers, 4);
+    SCMD_RegisterMsgHandlers((int)hWnd, gaWindowMsgHandlers, 4);
     SMsgPushRegisterState((int)hWnd);
     return 1;
 }

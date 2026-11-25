@@ -85,7 +85,7 @@ void __cdecl TEXT_FreeTextPanelCels(); // 0x0049FE10
 
 bool __stdcall sub_004A2970(int nX, int nY); // 0x004A2970
 
-void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
+void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 void __fastcall TEXT_MoveKeyConfigSelection(int nStep); // 0x004A45C0
 
@@ -148,7 +148,7 @@ char gbQuestDescriptionOpen; // 0x007BF2B3
 
 #define SOUND_ID 4
 
-int __stdcall TEXT_IsMouseOnQuestButton(int nX, int nY);
+int __stdcall QUESTLOG_IsMouseOnQuestButton(int nX, int nY); // 0x004A2970
 
 ListBoxWrapper* gpListBox; // 0x007BF1B4
 
@@ -325,7 +325,7 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
 
 void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
 
-int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
+int __fastcall QUESTLOG_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
 
 extern D2QuestSlotRectStrc gaQuestSlots[]; // 0x00723EB0
 
@@ -596,7 +596,7 @@ extern "C" void __cdecl TEXT_ClearListFlags(void)
 
 
 
-void __cdecl TEXT_FreeQuestCels(); // 0x004A2550
+void __cdecl QUESTLOG_FreeQuestCels(); // 0x004A2550
 
 static void sub_004A2390_ResetQuestSelection()
 {
@@ -614,15 +614,15 @@ static void sub_004A2390_ResetQuestSelection()
 
 
 
-int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
+int __fastcall QUESTLOG_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
 
 
 
 
-int __stdcall TEXT_IsMouseOnQuestButton(int nX, int nY); // 0x004A2970
+int __stdcall QUESTLOG_IsMouseOnQuestButton(int nX, int nY); // 0x004A2970
 
 // build: symbol _CUNIT_IsInvPanelTradeMode 0x00489840
-extern "C" int __cdecl CUNIT_IsInvPanelTradeMode()
+extern "C" int __cdecl INV_IsInvPanelTradeMode()
 {
     int mode = gB27_007BCBF0;
     if (mode == 1 || mode == 2 || mode == 3)

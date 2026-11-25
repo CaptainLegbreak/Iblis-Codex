@@ -141,7 +141,7 @@ struct D2PanelIconRecordStrc
 
 static unsigned char gnBoxColor_007BF034;                                                                   // 0x007BF034
 
-int __cdecl GAME_IsHardcore();                                                                      // 0x0044B850
+int __cdecl WINMAIN_IsHardcore();                                                                      // 0x0044B850
 
 int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50
 
@@ -478,7 +478,7 @@ void __stdcall PARTY_DrawPanelIcons(D2PanelIconRecordStrc* pRecord)
                     tGfx.nFrame = 12;
                 }
 
-                if (GAME_IsHardcore())
+                if (WINMAIN_IsHardcore())
                 {
                     TEXTURE_CelDraw(&tGfx, pRecord->pIcons[i].nX + gnPanelOffsetX, pRecord->pIcons[i].nY - gnPanelOffsetY, -1, 5, 0);
                 }
@@ -709,7 +709,7 @@ static int sub_0049B990_DoRosterButtonAction(D2StoredUnitRecordStrc* pEntry, int
         nResult = ROSTER_TestHostileFlag(pEntry);
         break;
     case 2:
-        if (!GAME_IsHardcore())
+        if (!WINMAIN_IsHardcore())
             break;
         sub_00479DA0(pEntry);
         nResult = ROSTER_TestLootFlag(pEntry);
@@ -722,7 +722,7 @@ static int sub_0049B990_DoRosterButtonAction(D2StoredUnitRecordStrc* pEntry, int
     {
         sub_00479E20(pEntry);
         nResult = ROSTER_TestSquelchFlag(pEntry);
-        D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
+        D2ClientNotifyStrc* pNotify = WINMAIN_GetClientNotify();
         if (pNotify)
         {
             char szText[0x200];
@@ -1073,7 +1073,7 @@ static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
         else
             sub_005269D0(0x80, wszLine1, D2LANG_GetStringFromTblIndex(gawRosterHostileFemale[nA][nC]), wszName);
     }
-    if (GAME_IsHardcore())
+    if (WINMAIN_IsHardcore())
     {
         nHeight = 0x1E;
         if (nB == nD)
@@ -1187,7 +1187,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                     }
                     else if (pRow->aSlots[k].nType == 2)
                     {
-                        if (GAME_IsHardcore())
+                        if (WINMAIN_IsHardcore())
                         {
                             if (ROSTER_TestLootFlag(pEntry))
                             {

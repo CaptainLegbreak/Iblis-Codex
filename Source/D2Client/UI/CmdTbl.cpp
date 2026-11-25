@@ -1248,7 +1248,7 @@ extern "C" int __cdecl isalpha(int c); // 0x00686DA5
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
-void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
@@ -1349,7 +1349,7 @@ int __cdecl GAME_IsExitPending(); // 0x0044DA30
 
 int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
-void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
+void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 void __fastcall AUTOMAP_ResetBaseOffset(int bForce); // 0x00457640
 
@@ -1357,13 +1357,13 @@ int __cdecl AUTOMAP_GetAutomapFade(); // 0x004576C0
 
 int __fastcall AUTOMAP_SetAutomapFade(int nFade); // 0x004576F0
 
-int __cdecl UI_GetAutomapParty(); // 0x004577B0
+int __cdecl AUTOMAP_GetAutomapParty(); // 0x004577B0
 
-int __cdecl UI_GetAutomapPartyNames(); // 0x004577E0
+int __cdecl AUTOMAP_GetAutomapPartyNames(); // 0x004577E0
 
-int __cdecl UI_GetAutomapLeft(); // 0x00457770
+int __cdecl AUTOMAP_GetAutomapLeft(); // 0x00457770
 
-int __fastcall OBJECT_SaveAutomapLeft(int nValue); // 0x00457780
+int __fastcall AUTOMAP_SaveAutomapLeft(int nValue); // 0x00457780
 
 void __fastcall SPELLSEL_SetSkillSelectRight(int nValue); // 0x004A8CE0
 
@@ -1450,7 +1450,7 @@ void __cdecl sub_00468980_SetUIVar24()
 void __cdecl sub_00468990_OpenMode1()
 {
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
-        TEXT_ToggleQuestLog(1);
+        QUESTLOG_ToggleQuestLog(1);
 }
 
 // 0x004689B0
@@ -1483,19 +1483,19 @@ void __cdecl sub_00468A70_CycleSetting()
 // 0x00468A90
 void __cdecl sub_00468A90_ToggleSetting()
 {
-    sub_004577C0_SetValue(!UI_GetAutomapParty());
+    sub_004577C0_SetValue(!AUTOMAP_GetAutomapParty());
 }
 
 // 0x00468AB0
 void __cdecl sub_00468AB0_ToggleSetting()
 {
-    sub_004577F0_SetValue(!UI_GetAutomapPartyNames());
+    sub_004577F0_SetValue(!AUTOMAP_GetAutomapPartyNames());
 }
 
 // 0x00468AD0
 void __cdecl sub_00468AD0_ToggleSetting()
 {
-    OBJECT_SaveAutomapLeft(!UI_GetAutomapLeft());
+    AUTOMAP_SaveAutomapLeft(!AUTOMAP_GetAutomapLeft());
 }
 
 // 0x00468AF0
@@ -2507,7 +2507,7 @@ void __fastcall CMDTBL_SetHotkeyHandlers(int bEnable, int bFlag)
                 sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaHotkeyUpHandlers, 2);
                 gbHotkeyUpHandlersSet = 0;
             }
-            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHotkeyHandlers, 4);
+            SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaHotkeyHandlers, 4);
         }
     }
     else
@@ -2518,7 +2518,7 @@ void __fastcall CMDTBL_SetHotkeyHandlers(int bEnable, int bFlag)
             sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaHotkeyHandlers, 4);
             if (bFlag && gbHotkeyUpHandlersSet == 0)
             {
-                COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHotkeyUpHandlers, 2);
+                SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaHotkeyUpHandlers, 2);
                 gbHotkeyUpHandlersSet = 1;
             }
         }
@@ -2597,7 +2597,7 @@ void __cdecl CMDTBL_EnableHotkeyHandlers()
     if (gbHotkeyHandlersRegistered == 0)
     {
         gbHotkeyHandlersRegistered = 1;
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHotkeyHandlers, 4);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaHotkeyHandlers, 4);
     }
 }
 
