@@ -11,6 +11,7 @@
 #include "D2Path.h"
 #include "D2TxtTables.h"
 #include "D2DrlgTileFlags.h"
+#include "D2DrlgOutdoor.h"
 
 #pragma function(memset)
 
@@ -159,36 +160,7 @@ static void __stdcall DRLGROOMTILE_LoadInitRoomTile(void* pMemPool, int nX, int 
 
 static void __stdcall DRLGROOMTILE_SetTileDataPosition(D2DrlgTileDataStrc* pTileData, D2DrlgRoomStrc* pDrlgRoom, int nX, int nY);
 
-struct D2UnkOutdoorStrc
-{
-    D2DrlgLevelStrc* pLevel;
-    int* field_4;
-    D2DrlgGridStrc* pGrid1;
-    D2DrlgGridStrc* pGrid2;
-    int nLevelPrestId;
-    int field_14;
-    int nLvlSubId;
-    unsigned int(__fastcall* field_1C)(D2DrlgLevelStrc* pLevel, int nX, int nY);
-    int(__fastcall* field_20)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nId, int nOffset, char nFlags);
-    int(__fastcall* field_24)(D2DrlgLevelStrc* pLevel, int nX, int nY, int a4, int a5, unsigned int a6);
-    int(__fastcall* field_28)(D2DrlgLevelStrc* pLevel, int nStyle, int a3);
-    void(__fastcall* field_2C)(D2DrlgLevelStrc* pLevel, int nX, int nY);
-    void(__fastcall* field_30)(D2DrlgLevelStrc* pLevel, int nX, int nY);
-    void(__fastcall* field_34)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nRand, int a6);
-};
 
-struct D2UnkOutdoorStrc2
-{
-    D2DrlgRoomStrc* pDrlgRoom;
-    D2DrlgOutdoorRoomStrc* pOutdoorRooms[4];
-    D2DrlgGridStrc* pWallsGrids[4];
-    D2DrlgGridStrc* pFloorGrid;
-    int field_28;
-    int nLayers;
-    int nSubWaypoint_Shrine;
-    int nSubTheme;
-    int nSubThemePicked;
-};
 
 D2LvlSubTxt* __fastcall DATATBLS_GetLvlSubTxtRecord(int nId);                                                 // 0x0061FA90
 
@@ -203,7 +175,6 @@ struct D2DrlgSubstGroupStrc;
 
 struct D2LvlSubTxt;
 
-struct D2UnkOutdoorStrc;
 
 struct D2DrlgOutdoorInfoStrc;
 
@@ -211,7 +182,6 @@ struct D2CoordStrc;
 
 struct D2DrlgOutdoorRoomStrc;
 
-struct D2UnkOutdoorStrc2;
 
 void __stdcall DRLGTILESUB_ReplaceSubPreset(int nX, int nY, D2UnkOutdoorStrc* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, int nOffset); // 0x0066F520
 
