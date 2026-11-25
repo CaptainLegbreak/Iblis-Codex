@@ -130,6 +130,12 @@ In your own files, whenever your current list allows:
 - **Lane 5, act units: right call to stop.** The test failed: the tails are ordinary out-of-line functions with outside callers, so `#include` order can't explain them. Keep each act's data block whole, as now, and leave the code where its runs put it. Don't model a second unit per act unless you find a second language copy, and the image has none.
 - **Lane 4, the memory report object (Unknown_0045B5F0/0045B960/0045B090/0045BF00):** same cause as your template placeholders, so it waits on lane 3's one-definition stpl.h branch (see above). Then join all four.
 - **Lane 10:** `files-d2client-2` goes in this round. `files-storm-2` (d203bc8) applies on #370 but leaves D2Client/GAME/Game.cpp NOT_ALL_EQUAL. Game.cpp gained sub_0052E0F0_IsOpen and the export table in #369. Rebuild it on main itself (#370 or later), not #368. The old `files-d2client`, `files-storm`, `files-d2bnclient` and `names-prefixfix-d2client-4` are retired here.
+- **Lane 9, 0x6CC618 (264 B) and 0x6CC75C (32 B): agreed, not yours.** 0x6CC618 is the C++ dynamic-initializer table (.CRT$XCU) of the 66 initializers at 0x6CA6F0-0x6CB050, and the 32 B around 0x6CC728/0x6CC748 are the CRT's own .CRT$XI/XP entries. They move to a build row of their own in borrowed-data.md. **Lane 7 takes the prototype:**
+  1. Pick one initializer whose unit you can build alone, and write its global as a real dynamically initialized object, so the compiler emits `??__E<name>@@YAXXZ` and a .CRT$XCU slot.
+  2. Teach tools/link_exe.py to place the compiler-named initializer at its address (marker line) and to lay out the .CRT$XCU contribution at its slot. First commit: the tool alone, with Game.exe identical.
+  3. Then the one initializer, with borrowed data falling by its 4 B slot and copiedcmp clean.
+  
+  If that works, the owners convert theirs, unit by unit. Section placement (.text$yc or similar) is part of what you find out. Report what the compiler does before going wide.
 - **Lane 7:**
   - **0x677880's join is on main:** #332, where OutPlace.cpp took in Unknown_00675600.cpp. Try the function in OutPlace.cpp now.
   - **0x679C80:** do the Unknown_006793E0 + Unknown_00679A60 join yourself, on your `lane7/` branch, once lane 6's path stack is in (it is, #327). Tell lane 8 in your board file. A join that unblocks a borrowed function doesn't wait for the owner.
