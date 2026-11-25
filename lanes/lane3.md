@@ -14,6 +14,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Questions
 
+- **The two Storm placeholders inside Fog's crash-handler run, Unknown_00404F40.cpp and Unknown_00405710.cpp (proposal; I'll do it on one branch if you agree).** Neither is Storm code. (1) 0x404F40/0x404F60 (debug-directory readers) and 0x405060 (CaptureFrames, the stack walker) are the crash handler's, between Fog's 0x404F20 and 0x404F80/0x405250: they go to Fog's crash placeholders (Unknown_00402820.cpp / Unknown_00401DF0.cpp, whichever builds them equal). (2) 0x4053F0/0x405410 (operator delete/new), 0x405430 GetIniPath, 0x405450 LoadIniSettings with its ini table (0x705040), 0x405550, 0x405610 ParseCmdValue, 0x405710 ParseCmdArgument, 0x4058A0 ParseCmdArgs and 0x4059A0 ParseCmdLine, plus ErrorManager.cpp's GetCmdIndex (0x405570) and IsCmdSeparator (0x4055D0) which sit inside that run, are the main module's ini and command-line reader (D2ConfigStrc), right before the mode object at 0x4059D0. Proposal: one placeholder Source/D2Launch/Unknown_004053F0.cpp for them, lane 6's after the merge like the mode object. Question: is that split right, and do GetCmdIndex/IsCmdSeparator leave ErrorManager.cpp with it? Until you say, I'm leaving both files as they are.
+
 (none)
 
 ## Notes for other lanes
