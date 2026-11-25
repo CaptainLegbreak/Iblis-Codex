@@ -20,7 +20,7 @@ inline void __cdecl operator delete(void* pMemory)
 // build: symbol ?ChangeLinkOffset@?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAEXH@Z 0x0044F980
 // build: symbol ??0?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAE@XZ 0x0044F9B0
 // build: symbol ??0?$TSList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@@@@QAE@XZ 0x0044F9D0
-// build: symbol ??1D2SGameDataHolderStrc@@QAE@XZ 0x0044F9F0
+// build: symbol ??1SGAMEDATA@@QAE@XZ 0x0044F9F0
 // build: symbol ?InternalClear@?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@QAEXH@Z 0x0044FA00
 // build: symbol ??1?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAE@XZ 0x0044FA90
 // build: symbol ??1?$TSList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@@@@QAE@XZ 0x0044FAD0
@@ -32,9 +32,13 @@ inline void __cdecl operator delete(void* pMemory)
 // build: symbol ??1?$TSExplicitList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@$0BA@@@QAE@XZ 0x0044FC20
 // build: symbol ?Clear@?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAEXXZ 0x0044FC60
 // build: symbol ??_G?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@QAEPAXI@Z 0x0044FCF0
-// build: symbol ??1SGAMEDATA@@QAE@XZ 0x0044FD50
+// build: symbol ?Destruct@?$TSCD@USGAMEDATA@@@@SIXPAUSGAMEDATA@@@Z 0x0044FD50
+// build: symbol ?Construct@?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@SIXPAV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@Z 0x0044FB50
+// build: symbol ?CopyConstruct@?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@SIXPAV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@ABV2@@Z 0x0044FD60
+// build: symbol ?Construct@?$TSCD@USGAMEDATA@@@@SIXPAUSGAMEDATA@@@Z 0x00450D30
+// build: symbol ?CopyConstruct@?$TSCD@USGAMEDATA@@@@SIXPAUSGAMEDATA@@ABU2@@Z 0x00450D50
 // build: symbol ??1?$TSFixedArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAE@XZ 0x0044FD80
-// build: symbol ??1D2SGameDataList0044FDD0Strc@@QAE@XZ 0x0044FDD0
+// build: symbol ?Destruct@?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@SIXPAV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@Z 0x0044FDD0
 // build: symbol ?ReallocData@?$TSGrowableArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAEXI@Z 0x0044FE10
 // build: symbol ??1?$TSFixedArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAE@XZ 0x0044FF60
 // build: symbol ??1?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAE@XZ 0x0044FFE0
@@ -134,24 +138,18 @@ template void TSGrowableArray<SGAMEDATA>::ReallocData(unsigned int);
 template void TSGrowableArray<SGAMEDATA>::Reserve(unsigned int, int);
 template TSGrowableArray<SGAMEDATA>::TSGrowableArray();
 template SGAMEDATA* TSGrowableArray<SGAMEDATA>::New();
+template void __fastcall TSCD<D2SGameDataList>::Construct(D2SGameDataList*);
+template void __fastcall TSCD<D2SGameDataList>::CopyConstruct(D2SGameDataList*, const D2SGameDataList&);
+template void __fastcall TSCD<D2SGameDataList>::Destruct(D2SGameDataList*);
+template void __fastcall TSCD<SGAMEDATA>::Construct(SGAMEDATA*);
+template void __fastcall TSCD<SGAMEDATA>::CopyConstruct(SGAMEDATA*, const SGAMEDATA&);
+template void __fastcall TSCD<SGAMEDATA>::Destruct(SGAMEDATA*);
 template D2SGameDataChunk* TSList<D2SGameDataChunk, TSGetExplicitLink<D2SGameDataChunk> >::NewNode(unsigned int, unsigned int, unsigned int);
 template D2SGameDataReuseTable::TSHashTableReuse();
 template D2SGameDataExportTable::TSExportTableSimple();
 template D2SGameDataSyncTable::TSExportTableSync();
 
 // Helpers of the table's types whose template form isn't settled keep their own names.
-struct D2SGameDataHolderStrc
-{
-    SGAMEDATA tData;
-
-    ~D2SGameDataHolderStrc();
-};
-
-struct D2SGameDataList0044FDD0Strc : TSList<SGAMEDATA, TSGetExplicitLink<SGAMEDATA> >
-{
-    ~D2SGameDataList0044FDD0Strc();
-};
-
 struct D2SGameDataArrayHolderStrc
 {
     TSGrowableArray<SGAMEDATA> m_array;
@@ -159,40 +157,6 @@ struct D2SGameDataArrayHolderStrc
     SGAMEDATA* sub_00450F70_New();
     void sub_00450F50_ReserveExact(unsigned int nCount);
 };
-
-// 0x0044F9F0
-D2SGameDataHolderStrc::~D2SGameDataHolderStrc()
-{
-}
-
-// 0x0044FB50
-void __fastcall sub_0044FB50_ConstructGameList(D2SGameDataList* pList)
-{
-    new (pList) D2SGameDataList;
-}
-
-// 0x0044FD60
-void __fastcall sub_0044FD60_CopyConstructGameList(D2SGameDataList* pList, const D2SGameDataList* pSource)
-{
-    new (pList) D2SGameDataList(*pSource);
-}
-
-// 0x0044FDD0
-D2SGameDataList0044FDD0Strc::~D2SGameDataList0044FDD0Strc()
-{
-}
-
-// 0x00450D30
-void __fastcall sub_00450D30_ConstructGameData(SGAMEDATA* pData)
-{
-    new (pData) SGAMEDATA;
-}
-
-// 0x00450D50
-void __fastcall sub_00450D50_CopyConstructGameData(SGAMEDATA* pData, const SGAMEDATA& tSource)
-{
-    new (pData) SGAMEDATA(tSource);
-}
 
 // 0x00450F50
 void D2SGameDataArrayHolderStrc::sub_00450F50_ReserveExact(unsigned int nCount)
