@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/suni-plain 2517d986 forcing constructs 44->43 **0x6C77F0 SUniConvertUTF16ToCP (SUNI.CPP) is equal without its volatile.** The five-way unrolled table search is the compiler's (a plain `for (i = 255; i > 0; --i) if (ch == table[i]) break;` unrolls the same way), and the registers and the loop tail's order come from each branch writing its character and stepping both pointers itself (`*out++ = ...; ++source;`), with the next character read after the branches. The volatile on `table`, the hand-unrolled search and the comment go. VERIFIED 2517d986 on base #410 (7c170632; SUNI.CPP is untouched in #411); borrowed code 8,373 B in 5 functions, borrowed data 261 B (main the same); namesync had nothing to rename.
+(none: suni-plain merged in #412)
 
 ## Claimed
 
