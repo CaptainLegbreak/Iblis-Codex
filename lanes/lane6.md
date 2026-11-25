@@ -6,6 +6,8 @@ Status (Wed Nov 25 2026, 11:25 PT): audit-fields-d2bnclient merged (#405). Worki
 
 ## Ready
 
+- **lane6/audit-fields-d2cmp** (0009250da, on #405): CelCmp.cpp's Storm list records name their link members m_link (62 at offset 0, the hash chunk's at 0x10), from their type and the constructors/destructors that clear and unlink them. Only-zeroed and never-read fields keep their offsets. Full build identical, 14920/14920, 0 not all equal; borrowed 10,018 B / 261 B unchanged; auditguard no count rose.
+
 
 ## Questions
 
