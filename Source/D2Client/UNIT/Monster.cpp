@@ -1725,9 +1725,9 @@ static void MONSTER_HandleAttackEvent(D2UnitStrc* pUnit)
         D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
         if (pPath)
         {
-            sub_00650590(pPath);
+            PATH_RecacheRoomIfNeeded(pPath);
             PATH_SetPathingFlag(pPath, 0);
-            sub_00648DC0(pPath);
+            PATH_ResetToPreviousType(pPath);
             UNITMODE_SetUnitMode(pUnit, 3);
         }
         return;
@@ -3073,6 +3073,7 @@ int __fastcall MONSTER_HandleSequenceStop(D2UnitStrc* pUnit, D2SeqModeStrc* pMod
         switch (pMonStatsTxtRecord->nSplEndDeath)
         {
         case 1:
+// build: symbol ?UNITS_IsAtEndOfFrameCycle@* 0x006217C0
             if (!pUnit->dwAnimMode && UNITS_IsAtEndOfFrameCycle(pUnit))
             {
                 D2MonCommandStrc tCommand = {};
@@ -3218,7 +3219,7 @@ void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* pUnit)
         break;
 
     case 4:
-        if (bResult && sub_006217C0(pUnit))
+        if (bResult && UNITS_IsAtEndOfFrameCycle(pUnit))
         {
             bAttack = 1;
         }
@@ -3243,7 +3244,8 @@ void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* pUnit)
         CUNIT_SpawnPresetUnit(0x1DE, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 2, 0);
     }
 
-    if (sub_0063A340(pUnit))
+// build: symbol ?STATES_CheckStateMaskActiveOnUnit@* 0x0063A340
+    if (STATES_CheckStateMaskActiveOnUnit(pUnit))
     {
         SKILLS_RunStateActiveFuncs(pUnit);
     }

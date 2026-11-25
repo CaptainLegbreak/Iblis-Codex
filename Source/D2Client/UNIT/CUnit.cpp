@@ -1174,7 +1174,8 @@ int __fastcall CUNIT_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY)
     D2_ASSERT(pUnit->dwUnitType == UNIT_TILE, 1419);
 
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    D2TileRectStrc* pRect = sub_00619620(pRoom, pUnit);
+// build: symbol ?DUNGEON_GetLvlWarpTxtRecordFromRoomAndUnit@* 0x00619620
+    D2TileRectStrc* pRect = DUNGEON_GetLvlWarpTxtRecordFromRoomAndUnit(pRoom, pUnit);
     if (!pRect)
     {
         return 0;
@@ -1726,7 +1727,8 @@ static D2UnitStrc* CUNIT_FindTileUnit(D2UnitStrc* pUnit)
 // 0x00464A30
 const unsigned short* __fastcall CUNIT_GetTileLevelWarpName(D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit)
 {
-    const int nLevelId = sub_0061A1D0_GetTileLevelId(pRoom, !pUnit ? -1 : pUnit->dwClassId);
+// build: symbol ?DUNGEON_GetWarpDestinationLevel@* 0x0061A1D0
+    const int nLevelId = DUNGEON_GetWarpDestinationLevel(pRoom, !pUnit ? -1 : pUnit->dwClassId);
     if (nLevelId)
     {
         return DATATBLS_GetLevelsTxtRecord(nLevelId)->wszLevelWarp;

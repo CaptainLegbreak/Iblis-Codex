@@ -2595,7 +2595,8 @@ int __fastcall SKILLDESC_CltDoDirectionMissile(D2UnitStrc* pUnit, int nSkillId, 
 
     int nDirX = 0;
     int nDirY = 0;
-    sub_0063EE10_GetMonsterDirectionDelta(pUnit, &nDirX, &nDirY);
+// build: symbol ?MONSTERS_GetChainDirectionDelta@* 0x0063EE10
+    MONSTERS_GetChainDirectionDelta(pUnit, &nDirX, &nDirY);
     if (!nDirX && !nDirY)
     {
         return 0;

@@ -2182,7 +2182,8 @@ int __fastcall GFXUTIL_GetBodyLocItemShift(D2UnitStrc* pUnit, int nBodyLoc, int 
         if (pInventory)
         {
             D2UnitStrc* pItem = INVENTORY_GetCompositItem(pInventory, nBodyLoc);
-            if (!pItem && nBodyLoc != 1 && sub_0064F420_HasBodyLocFallback(nBodyLoc))
+// build: symbol ?COMPOSIT_IsArmorComponent@* 0x0064F420
+            if (!pItem && nBodyLoc != 1 && COMPOSIT_IsArmorComponent(nBodyLoc))
             {
                 pItem = INVENTORY_GetCompositItem(pInventory, 1);
             }
@@ -2195,7 +2196,8 @@ int __fastcall GFXUTIL_GetBodyLocItemShift(D2UnitStrc* pUnit, int nBodyLoc, int 
                 }
 
                 unsigned char nShift;
-                const int nResult = sub_0062C100(pUnit, pItem, &nShift, 0);
+// build: symbol ?ITEMS_GetColor@* 0x0062C100
+                const int nResult = ITEMS_GetColor(pUnit, pItem, &nShift, 0);
                 if (nResult)
                 {
                     return nResult;
@@ -2282,10 +2284,11 @@ found:
             D2ArmorCompsStrc tComps;
             GFXUTIL_GetArmorComponents(pUnit, pInventory, nType, &tComps.n0);
             D2UnitStrc* pItem = INVENTORY_GetCompositItem(pInventory, pToken->nComponent);
-            if (sub_0064F420_HasBodyLocFallback(pToken->nComponent))
+            if (COMPOSIT_IsArmorComponent(pToken->nComponent))
             {
                 if (pToken->nMode != 0x11 && pToken->nMode != 0)
-                    pToken->dwToken = gaClassTokens[sub_0064F500_GetFallbackIndex(pToken->nComponent, &tComps.n0)];
+// build: symbol ?COMPOSIT_GetArmorTypeFromComponent@* 0x0064F500
+                    pToken->dwToken = gaClassTokens[COMPOSIT_GetArmorTypeFromComponent(pToken->nComponent, &tComps.n0)];
                 else
                     pToken->dwToken = 0x2074696C;
             }
@@ -2803,7 +2806,8 @@ static void GFXUTIL_SetItemCelName(D2UnitStrc* pUnit, D2CelContextStrc* pToken)
 
     if (pToken->nMode == 4)
     {
-        const unsigned char nInvGfx = sub_006283F0_GetInvGfxIndex(pUnit);
+// build: symbol ?ITEMS_GetVarGfxIndex@* 0x006283F0
+        const unsigned char nInvGfx = ITEMS_GetVarGfxIndex(pUnit);
         if (ITEMS_CheckItemFlag(pUnit, 0x10, 0x196, ".\\ENGINE\\GfxUtil.cpp") && ITEMS_GetItemQuality(pUnit) == ITEMQUAL_SET)
         {
             D2SetItemsTxt* pSet = DATATBLS_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pUnit));
@@ -2844,9 +2848,11 @@ static void GFXUTIL_SetItemCelName(D2UnitStrc* pUnit, D2CelContextStrc* pToken)
             }
         }
 
-        if (sub_0062E8D0_HasAltInvGfx(pUnit))
+// build: symbol ?ITEMS_GetVarInvGfxCount@* 0x0062E8D0
+        if (ITEMS_GetVarInvGfxCount(pUnit))
         {
-            pToken->szName = sub_0062E920_GetAltInvGfxName(pUnit, nInvGfx);
+// build: symbol ?ITEMS_GetVarInvGfxString@* 0x0062E920
+            pToken->szName = ITEMS_GetVarInvGfxString(pUnit, nInvGfx);
             return;
         }
 

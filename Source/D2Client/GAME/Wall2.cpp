@@ -246,7 +246,7 @@ void __fastcall WALL2_PrepareWallCells(D2WallCtxStrc* pCtx, int nValue)
     D2_ASSERT(pCtx->pCells, 0x33C);
     memset(pCtx->pCells, 0, pCtx->nCellCount * sizeof(D2WallCellStrc));
     D2WallPointStrc tOrigin;
-    sub_00643340(pCtx->nX, pCtx->nY, &tOrigin.nX, &tOrigin.nY);
+    DUNGEON_ClientTileDrawPositionToGameCoords(pCtx->nX, pCtx->nY, &tOrigin.nX, &tOrigin.nY);
     tOrigin.nX -= 3;
     tOrigin.nY -= pCtx->nWidth;
     pCtx->f_EAA0 = tOrigin.nX;
@@ -267,7 +267,8 @@ void __fastcall WALL2_PrepareWallCells(D2WallCtxStrc* pCtx, int nValue)
     s_nPlayerX = GetUnitXPosition_Inline(pPlayer) / 5;
     s_nPlayerY = GetUnitYPosition_Inline(pPlayer) / 5;
     s_nCollision = sub_0061B130_GetCollision(UNITS_GetRoom(pPlayer), GetUnitXPosition_Inline(pPlayer), GetUnitYPosition_Inline(pPlayer));
-    sub_00619BD0(tArg.pRoom, sub_004DD7C0, &tArg);
+// build: symbol ?DUNGEON_CallRoomCallback@* 0x00619BD0
+    DUNGEON_CallRoomCallback(tArg.pRoom, sub_004DD7C0, &tArg);
 }
 
 // 0x004DCF10
@@ -1337,7 +1338,8 @@ void __cdecl WALL2_UpdateRoomColor()
     unsigned char nRed;
     unsigned char nGreen;
     unsigned char nBlue;
-    sub_00619D70(pRoom, &nIntensity, &nRed, &nGreen, &nBlue);
+// build: symbol ?DUNGEON_GetRGB_IntensityFromRoom@* 0x00619D70
+    DUNGEON_GetRGB_IntensityFromRoom(pRoom, &nIntensity, &nRed, &nGreen, &nBlue);
     if (nRed || nGreen || nBlue)
     {
         gnRoomColorIntensity = nIntensity;

@@ -1282,7 +1282,8 @@ void __fastcall PLRSKILLS_StartStateOverlays(D2UnitStrc* pUnit, int nState)
     if (bMask)
     {
         STATES_ToggleState(pUnit, nState, 0);
-        if (sub_0063A250(pUnit))
+// build: symbol ?STATES_CheckStateMaskAuraOnUnit@* 0x0063A250
+        if (STATES_CheckStateMaskAuraOnUnit(pUnit))
         {
             nCastOverlay = -1;
         }
