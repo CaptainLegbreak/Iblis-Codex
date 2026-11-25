@@ -4,6 +4,7 @@
 #include "D2Drlg.h"
 #include "D2Path.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #pragma intrinsic(abs)
 
@@ -191,11 +192,8 @@ extern D2LightCellStrc gLightGrid_007B0E68[][48]; // 0x007B0E68
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
 
-void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
 void __fastcall SCMD_GetRoomLight(D2ActiveRoomStrc* pRoom, int* pIntensity, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue, int a6); // 0x00474550
 
@@ -229,9 +227,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                             
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
 
@@ -524,7 +520,6 @@ static void __stdcall DLIGHTMAP_FillLightGrid(int nX0, int nY0, int nX1, unsigne
     }
 }
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 #define gnGlobal_007A7430 (gtTimedBox.nValue)
 

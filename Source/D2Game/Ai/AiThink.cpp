@@ -17,6 +17,7 @@
 #include "D2GameCallbackArgs.h"
 #include "D2AiCallbackArgs.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 struct D2MonStatsTxt;
 
@@ -24,7 +25,6 @@ struct D2LevelsTxt;
 
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 typedef D2UnitStrc* (__fastcall* AITARGETCALLBACK)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, void*);
 
@@ -44,7 +44,6 @@ D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitSt
 
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
 
@@ -103,7 +102,6 @@ __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void*);
 
-int __stdcall STATES_CheckState(D2UnitStrc*,int); // 0x00639DF0
 
 const D2AiTableStrc* __fastcall AITHINK_GetAiTableRecord(D2UnitStrc*,int); // 0x005B15D0
 
@@ -133,9 +131,7 @@ void __fastcall AITACTICS_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, 
 
 int __fastcall AITACTICS_UseSkill(D2GameStrc*, D2UnitStrc*, unsigned char, int, D2UnitStrc*, int, int); // 0x005DEAD0
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 
 int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
@@ -337,7 +333,6 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* hUnit, D2AiCo
     ASSERT(!IsBadCodePtr((void*)pAiParamFn), 498);
 }
 
-D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
 
 struct D2DoorObjectAiCallbackArgStrc;
 
@@ -481,17 +476,14 @@ int __fastcall AITHINK_TryBossTauntOnSight(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
 int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit); // 0x00621F20
 
 int __fastcall sub_0054DC40_FindSpawnPosition(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, int nMonsterId, int* pX, int* pY, int a7); // 0x0054DC40
 
-void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0
 
 static inline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 {

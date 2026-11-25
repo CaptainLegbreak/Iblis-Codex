@@ -5,6 +5,7 @@
 #include "D2ItemModes.h"
 #include "D2LanguageNames.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -100,7 +101,6 @@ extern unsigned int gdwItemCmdFlags[21]; // 0x00738C70
 
 extern unsigned int gnItemCmdFlagCount; // 0x00738CC4
 
-void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 
 void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 
@@ -108,9 +108,7 @@ void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
 void __fastcall D2GAME_ResetSomeItemFlags(D2GameStrc* pGame, D2UnitStrc* pItem); // 0x005979B0
 
-void __stdcall ITEMS_SetBodyLocation(D2UnitStrc* pItem, unsigned char nBodyLoc); // 0x00627D70
 
-void __stdcall UNITS_RefreshInventory(D2UnitStrc* pUnit, int bSetFlag); // 0x00621000
 
 void __stdcall INVENTORY_FreeTradeInventory(D2InventoryStrc* pInventory); // 0x0063CBD0
 
@@ -152,9 +150,7 @@ unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit); // 0x00
 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 
 inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)

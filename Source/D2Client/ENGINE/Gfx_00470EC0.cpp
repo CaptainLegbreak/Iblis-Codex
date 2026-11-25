@@ -7,6 +7,7 @@
 #include "D2CelContext.h"
 #include "D2ClientTypes.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 struct D2UnitStrc;
 struct D2InventoryStrc;
 
@@ -41,13 +42,10 @@ int __stdcall D2GFX_CheckPerspective();                                         
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 unsigned char* __fastcall D2Win_10175_GetPL2Shift(int nIndex);                                              // 0x004FB0C0
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
-unsigned char __stdcall UNITS_GetDirection(D2UnitStrc* pUnit);                                              // 0x00620100
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit);                                                    // 0x00621190
-void __stdcall UNITS_GetShiftedFrameMetrics(D2UnitStrc* pUnit, int* pFrameNo, int* pFrameCount);           // 0x00621810
 unsigned int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);               // 0x00625480
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                                                         // 0x0062B400
 unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned char* pShift, int nArg); // 0x0062C100
-D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
@@ -262,8 +260,6 @@ void __stdcall D2GFX_SetTownMode(int); // 0x004F5190
 void __stdcall TEXTURE_CelFlatSpriteDraw(D2CelContextStrc*, int, int, unsigned int, int, int, unsigned char*); // 0x004F6450
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc*); // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc*); // 0x00620410
-int __stdcall STATES_CheckState(D2UnitStrc*, int); // 0x00639DF0
-int __stdcall STATES_CheckStateMaskGreenOnUnit(D2UnitStrc*); // 0x0063A790
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc*, int); // 0x0063A7B0
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*, D2InventoryStrc*, int*, int, int); // 0x0064F380
 

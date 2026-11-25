@@ -10,6 +10,7 @@
 
 #include "D2WinControls.h"
 #include "FogApi.h"
+#include "D2LangApi.h"
 
 enum D2ControlTypes
 {
@@ -39,7 +40,6 @@ int __stdcall D2Win_10125();                                                    
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 void __fastcall D2Win_10118_DrawBlendedText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered, int eDrawMode); // 0x00502360
 

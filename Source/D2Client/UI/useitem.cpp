@@ -4,6 +4,7 @@
 #include "D2ClientTypes.h"
 #include "D2StormTypes.h"
 #include "D2Path.h"
+#include "D2CommonApi.h"
 
 struct D2SelectionRectStrc;
 
@@ -69,9 +70,7 @@ void __fastcall USEITEM_HitTestHotspots(int nX, int nY); // 0x004BFBC0
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 
-D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 

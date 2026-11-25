@@ -4,6 +4,8 @@
 #include "D2Unicode.h"
 #include "D2TextIdEntry.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -87,9 +89,7 @@ void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText); // 0x006611A0
 
 extern D2MsgHandlerEntryStrc gaTextMsgHandlers[]; // 0x00722600
 

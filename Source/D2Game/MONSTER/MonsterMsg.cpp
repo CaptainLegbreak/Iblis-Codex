@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2LanguageNames.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 // build: symbol _gaszLanguageNames 0x00738CC8
 
 #define D2_ASSERT(expr,line) if(!(expr)) {FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
@@ -13,11 +14,6 @@ void __fastcall SCMD_SendUnitActionAtPosition(D2ClientStrc* pClient, unsigned ch
 void __fastcall SCMD_SendSkillUseOnUnit(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned char nUnitType, int nUnitGUID, unsigned short a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D530
 int __fastcall CLIENTS_IsInUnitsRoom(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005387F0
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
-D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
-int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
-int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
-int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
-int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 static void __stdcall MONSTERMSG_SendUsedSkill(D2UnitStrc* pMonster, D2UnitStrc* pTarget, D2ClientStrc* pClient); // 0x00597D70
 
 struct D2MonsterModeInfo { int bTarget,bTargetCoords,bSimple,bIncludeCoords,nCoordMode,nTargetMode; };
@@ -25,11 +21,8 @@ struct D2MonsterModeInfo { int bTarget,bTargetCoords,bSimple,bIncludeCoords,nCoo
 extern D2MonsterModeInfo gMonsterModeInfo[]; // 0x006E1D90
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-int __stdcall PATH_GetType(D2DynamicPathStrc*); // 0x00648E30
 int __stdcall PATH_GetLastPointX(D2DynamicPathStrc*); // 0x00648A40
 int __stdcall PATH_GetLastPointY(D2DynamicPathStrc*); // 0x00648A60
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc*); // 0x006487F0
 unsigned char __stdcall D2COMMON_10191_PATH_GetDistance(D2DynamicPathStrc*); // 0x00648E60
 unsigned char __stdcall PATH_GetStepNum(D2DynamicPathStrc*); // 0x006490A0

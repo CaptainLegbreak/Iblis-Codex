@@ -4,6 +4,7 @@
 #include "D2UnitData.h"
 #include "D2GameClient.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -147,7 +148,6 @@ void __fastcall GFXUTIL_SetRelationFlag(int nUnitId1, int nUnitId2, unsigned int
 
 void __fastcall GFXUTIL_SetRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC4C0
 
-D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
 static D2StoredUnitRecordStrc* gpStoredUnits; // 0x007BB5C0
 

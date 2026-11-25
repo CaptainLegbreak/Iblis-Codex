@@ -28,6 +28,7 @@
 #include "D2Win32StartupInfo.h"
 #include "D2MultiCharSave.h"
 #include "FogApi.h"
+#include "D2LangApi.h"
 
 static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
@@ -244,7 +245,6 @@ extern "C" __declspec(dllimport) int __stdcall FileTimeToLocalFileTime(const _FI
 
 unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
 
-char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 
 class D2SquelchListStrc
 {
@@ -267,11 +267,9 @@ extern "C" size_t __cdecl strlen(const char* szString);
 
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
 
@@ -279,7 +277,6 @@ void __fastcall CHATDLG_JoinChannel(const char* szText); // 0x004411E0
 
 int __fastcall CHATDLG_PrintMessage(const Unicode* pText, int nColor); // 0x0043E5F0
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
@@ -317,7 +314,6 @@ void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed); 
 
 Unicode* __fastcall D2Win_10196(D2WinControlStrc* pTextBox, int nLineNum, int nColumnNum); // 0x004FBB90
 
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
 void __fastcall VIEW_SendMcpLadderRequest(unsigned char nArg1, unsigned short nArg2); // 0x0044AA10
 
@@ -357,7 +353,6 @@ struct D2LaunchNameNodeStrc;
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
-Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
 
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 
@@ -496,7 +491,6 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText,
 
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 
-int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 
 void __fastcall sub_004FC720(D2WinControlStrc* pList, int nValue); // 0x004FC720
 
@@ -3043,7 +3037,6 @@ int __stdcall CHATDLG_OnToggleButton(int nArg)
 
 extern "C" char* __cdecl strncat(char* szDest, const char* szSource, size_t nCount); // 0x00687490
 
-Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
 
 // 0x0043F720
 int __stdcall CHATDLG_OnProfileClose(int nArg)
