@@ -31573,128 +31573,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/SkillDesc_004EA010.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004EA010",
-     "length": 346
-    },
-    {
-     "va": "0x004EA4A0",
-     "length": 744
-    },
-    {
-     "va": "0x004EAAA0",
-     "length": 702
-    },
-    {
-     "va": "0x004EC090",
-     "length": 173,
-     "name": "?SKILLDESC_AddSummonLife@@YGXPAUUnicode@@HHH@Z"
-    },
-    {
-     "va": "0x004EC2E0",
-     "length": 554,
-     "name": "?SKILLDESC_AddPhysDamage@@YGHPAUD2UnitStrc@@PAUUnicode@@HHHH@Z"
-    },
-    {
-     "va": "0x004EC510",
-     "length": 33,
-     "name": "?SKILLDESC_AddToHit@@YAHHHPAUD2UnitStrc@@PAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004EC540",
-     "length": 223,
-     "name": "?SKILLDESC_AddElemRatePerSecond@@YGHGHHPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004EC7E0",
-     "length": 279,
-     "name": "?SKILLDESC_AddValueLine@@YGHGHHHGPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004EC900",
-     "length": 247,
-     "name": "?SKILLDESC_AddDecimalLine@@YGHGHHHHGPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004ECA00",
-     "length": 268,
-     "name": "?SKILLDESC_AddValueOverTime@@YGHGHHHGPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004ECB10",
-     "length": 110,
-     "name": "?SKILLDESC_AddTextPair@@YAHGGPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004ECB80",
-     "length": 243,
-     "name": "?SKILLDESC_AddValueAfterText@@YGHGHHHGPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004ECC80",
-     "length": 108,
-     "name": "?SKILLDESC_AddFormattedText@@YGHHGPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004ED0D0",
-     "length": 126,
-     "name": "?SKILLDESC_AddNextLevelParam@@YAHHHPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004EDB30",
-     "length": 252,
-     "name": "?SKILLDESC_AddSeconds@@YGHGHHPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004EDC30",
-     "length": 9,
-     "name": "?SKILLDESC_AddSecondsPlus@@YAHGHPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004EDC40",
-     "length": 91,
-     "name": "?SKILLDESC_AddElemDuration@@YGHPAUUnicode@@PAUD2SkillsTxt@@HHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004EEF00",
-     "length": 1288
-    },
-    {
-     "va": "0x004EF410",
-     "length": 1403
-    },
-    {
-     "va": "0x004EFDF0",
-     "length": 607
-    },
-    {
-     "va": "0x004F0050",
-     "length": 264
-    },
-    {
-     "va": "0x004F0F10",
-     "length": 27
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/SkillDesc_004EAE70.cpp",
    "rank": 1,
    "functions": [
@@ -31984,6 +31862,10 @@
      "name": "?SKILLDESC_DrawWeaponAndSkillDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
+     "va": "0x004EA010",
+     "length": 346
+    },
+    {
      "va": "0x004EA170",
      "length": 207,
      "name": "?SKILLDESC_DrawDualWieldLine@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
@@ -32003,6 +31885,10 @@
      "length": 80
     },
     {
+     "va": "0x004EA4A0",
+     "length": 744
+    },
+    {
      "va": "0x004EA790",
      "length": 512,
      "name": "?SKILLDESC_DrawWeaponStatDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
@@ -32015,6 +31901,10 @@
      "va": "0x004EAA30",
      "length": 104,
      "name": "?SKILLDESC_DrawOtherHandDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+    },
+    {
+     "va": "0x004EAAA0",
+     "length": 702
     },
     {
      "va": "0x004EAD60",
@@ -32063,6 +31953,11 @@
      "length": 741
     },
     {
+     "va": "0x004EC090",
+     "length": 173,
+     "name": "?SKILLDESC_AddSummonLife@@YGXPAUUnicode@@HHH@Z"
+    },
+    {
      "va": "0x004EC140",
      "length": 212,
      "name": "?SKILLDESC_AddElemRange@@YGHHGHPAUUnicode@@H@Z"
@@ -32077,6 +31972,21 @@
      "length": 90
     },
     {
+     "va": "0x004EC2E0",
+     "length": 554,
+     "name": "?SKILLDESC_AddPhysDamage@@YGHPAUD2UnitStrc@@PAUUnicode@@HHHH@Z"
+    },
+    {
+     "va": "0x004EC510",
+     "length": 33,
+     "name": "?SKILLDESC_AddToHit@@YAHHHPAUD2UnitStrc@@PAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004EC540",
+     "length": 223,
+     "name": "?SKILLDESC_AddElemRatePerSecond@@YGHGHHPAUUnicode@@@Z"
+    },
+    {
      "va": "0x004EC620",
      "length": 200,
      "name": "?SKILLDESC_AddMissileElemRate@@YGHPAUD2UnitStrc@@PAUUnicode@@PAUD2SkillsTxt@@HH@Z"
@@ -32087,12 +31997,47 @@
      "name": "?SKILLDESC_AddSkillElemRateByType@@YGHPAUUnicode@@PAUD2SkillsTxt@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004EC7E0",
+     "length": 279,
+     "name": "?SKILLDESC_AddValueLine@@YGHGHHHGPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004EC900",
+     "length": 247,
+     "name": "?SKILLDESC_AddDecimalLine@@YGHGHHHHGPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004ECA00",
+     "length": 268,
+     "name": "?SKILLDESC_AddValueOverTime@@YGHGHHHGPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004ECB10",
+     "length": 110,
+     "name": "?SKILLDESC_AddTextPair@@YAHGGPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004ECB80",
+     "length": 243,
+     "name": "?SKILLDESC_AddValueAfterText@@YGHGHHHGPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004ECC80",
+     "length": 108,
+     "name": "?SKILLDESC_AddFormattedText@@YGHHGPAUUnicode@@@Z"
+    },
+    {
      "va": "0x004ECCF0",
      "length": 596
     },
     {
      "va": "0x004ECF50",
      "length": 382
+    },
+    {
+     "va": "0x004ED0D0",
+     "length": 126,
+     "name": "?SKILLDESC_AddNextLevelParam@@YAHHHPAUUnicode@@@Z"
     },
     {
      "va": "0x004ED480",
@@ -32111,6 +32056,41 @@
      "va": "0x004EDA80",
      "length": 171,
      "name": "SKILLDESC_CallSkillDescFunc"
+    },
+    {
+     "va": "0x004EDB30",
+     "length": 252,
+     "name": "?SKILLDESC_AddSeconds@@YGHGHHPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004EDC30",
+     "length": 9,
+     "name": "?SKILLDESC_AddSecondsPlus@@YAHGHPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004EDC40",
+     "length": 91,
+     "name": "?SKILLDESC_AddElemDuration@@YGHPAUUnicode@@PAUD2SkillsTxt@@HHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004EEF00",
+     "length": 1288
+    },
+    {
+     "va": "0x004EF410",
+     "length": 1403
+    },
+    {
+     "va": "0x004EFDF0",
+     "length": 607
+    },
+    {
+     "va": "0x004F0050",
+     "length": 264
+    },
+    {
+     "va": "0x004F0F10",
+     "length": 27
     },
     {
      "va": "0x004F16F0",
