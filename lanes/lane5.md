@@ -4,7 +4,8 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/addrless-2 df65bc47d (on #379): 110 address-less bodies in 16 D2Game files go (copies of functions placed from another file: other acts' quest callbacks in a5q1/a4q1/a5q2, ACT3Q5_SpawnCouncil, ACT3Q7_ActiveFilterCallback, the ObjMode packet no-ops, the MissMode/MonsterMode collision callbacks, the UMod callers, Game.cpp's copies of D2Net's NET_ helpers), each turned into a declaration on its own and kept only when its unit stayed equal; the declarations keep main's names and symbol lines. Replaces lane5/addrless (23f941d44), which is withdrawn. Full build: Game.exe identical, tree 6a6b06bcb3007750a468581d9fd5502e735bd263, borrowed code / data 11,250 B / 281 B.
+- lane5/no-nullptr 36e37206e (on #380): D2Game.h's `#define nullptr 0` goes (audit-379 item); a5q2.cpp's eight null pointers are written 0, as the other quest files write them (NULL isn't defined in those units). Every D2Game.h includer rebuilt. Full build: Game.exe identical, tree 7e5e0e1df8bfaec1c8fc614f4a50d9e891c0677a, borrowed code / data 11,250 B / 281 B.
+- lane5/addrless-2 71e9f8545 (on #380): 110 address-less bodies in 16 D2Game files go (copies of functions placed from another file: other acts' quest callbacks in a5q1/a4q1/a5q2, ACT3Q5_SpawnCouncil, ACT3Q7_ActiveFilterCallback, the ObjMode packet no-ops, the MissMode/MonsterMode collision callbacks, the UMod callers, Game.cpp's copies of D2Net's NET_ helpers), each turned into a declaration on its own and kept only when its unit stayed equal; the declarations keep main's names and symbol lines. Replaces lane5/addrless (23f941d44), which is withdrawn. Full build: Game.exe identical, tree feafce4397d74a57d631afb388f2dbdd800f69ae, borrowed code / data 11,250 B / 281 B.
 
 ## Claimed
 
