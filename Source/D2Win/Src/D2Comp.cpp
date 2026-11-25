@@ -1234,15 +1234,15 @@ void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, 
 }
 
 // 0x00504270
-void __stdcall D2Win_10154(D2CompositeUnitStrc* hCompositeUnit, const Unicode* a2, const Unicode* a3, const Unicode* a4, const Unicode* a5, int a6, int a7)
+void __stdcall D2Win_10154(D2CompositeUnitStrc* hCompositeUnit, const Unicode* pAccountName, const Unicode* pCharName, const Unicode* pGuildTag, const Unicode* pRealmName, int nCharLevel, int dwProductCode)
 {
     D2_ASSERT(hCompositeUnit, 0x8A8);
-    sub_005267E0((Unicode*)hCompositeUnit->wszAccountName, a2);
-    sub_005267E0((Unicode*)hCompositeUnit->wszCharName, a3);
-    sub_005267E0((Unicode*)hCompositeUnit->wszGuildTag, a4);
-    sub_005267E0((Unicode*)hCompositeUnit->wszRealmName, a5);
-    hCompositeUnit->nCharLevel = a6;
-    hCompositeUnit->dwProductCode = a7;
+    sub_005267E0((Unicode*)hCompositeUnit->wszAccountName, pAccountName);
+    sub_005267E0((Unicode*)hCompositeUnit->wszCharName, pCharName);
+    sub_005267E0((Unicode*)hCompositeUnit->wszGuildTag, pGuildTag);
+    sub_005267E0((Unicode*)hCompositeUnit->wszRealmName, pRealmName);
+    hCompositeUnit->nCharLevel = nCharLevel;
+    hCompositeUnit->dwProductCode = dwProductCode;
 }
 
 static int sub_D2Win_10143_ApplyCof(D2CompositeUnitStrc* pCompositeUnit, D2CofNodeStrc* pCofNode, int nMode)
@@ -1287,7 +1287,7 @@ void __stdcall D2COMP_FreePoolMemory(void* pMemory)
 }
 
 // 0x005043D0
-void __stdcall D2COMP_Stub4(int a1, int a2, int a3, int a4)
+void __stdcall D2COMP_Stub4(int, int, int, int)
 {
 }
 
@@ -1450,33 +1450,33 @@ void __stdcall D2COMP_FreeLinkers()
 }
 
 // 0x00504A20
-int __stdcall D2COMP_IsItemTypeDescendant(int a1, int nItemType)
+int __stdcall D2COMP_IsItemTypeDescendant(int nStartType, int nItemType)
 {
     if (!nItemType)
     {
         return 1;
     }
 
-    if (!a1)
+    if (!nStartType)
     {
         return 0;
     }
 
     int itemTypeStack[64];
 
-    itemTypeStack[0] = a1;
+    itemTypeStack[0] = nStartType;
     int nStackIndex = 1;
     while (nStackIndex)
     {
-        const int v5 = itemTypeStack[nStackIndex - 1];
+        const int nCurrentType = itemTypeStack[nStackIndex - 1];
         --nStackIndex;
 
-        if (nItemType == v5)
+        if (nItemType == nCurrentType)
         {
             return 1;
         }
 
-        D2ItemTypesTxt* pItemTypesTxtRecord = &((D2ItemTypesTxt*)gpCompItemTypesTxt)[v5];
+        D2ItemTypesTxt* pItemTypesTxtRecord = &((D2ItemTypesTxt*)gpCompItemTypesTxt)[nCurrentType];
         if (pItemTypesTxtRecord->nEquiv1)
         {
             itemTypeStack[nStackIndex] = pItemTypesTxtRecord->nEquiv1;
@@ -1823,32 +1823,32 @@ void __stdcall D2Win_10156(D2CompositeUnitStrc* hCompositeUnit, int nFlags)
 }
 
 // 0x005053A0
-void __stdcall D2Win_10158(D2CompositeUnitStrc* hCompositeUnit, unsigned char a2, unsigned char a3, unsigned char a4)
+void __stdcall D2Win_10158(D2CompositeUnitStrc* hCompositeUnit, unsigned char nEmblemIcon, unsigned char nColor1, unsigned char nColor2)
 {
     D2_ASSERT(hCompositeUnit, 0xDB0);
 
-    if (a2 < 1u || a2 > 32u)
+    if (nEmblemIcon < 1u || nEmblemIcon > 32u)
     {
         return;
     }
 
     char szFile[512];
 // build: symbol ?gszDataGlobal@* 0x006D4118
-    wsprintfA(szFile, "%s\\ui\\emblems\\icon%02dc", gszDataGlobal, a2 - 1);
+    wsprintfA(szFile, "%s\\ui\\emblems\\icon%02dc", gszDataGlobal, nEmblemIcon - 1);
     hCompositeUnit->pEmblemCellFile = ARCHIVE_LoadCellFile(szFile, 0);
 
-    if (a3 >= 1u && a3 <= 10u)
+    if (nColor1 >= 1u && nColor1 <= 10u)
     {
-        hCompositeUnit->nEmblemColor1 = gabEmblemColor1[a3 - 1];
+        hCompositeUnit->nEmblemColor1 = gabEmblemColor1[nColor1 - 1];
     }
     else
     {
         hCompositeUnit->nEmblemColor1 = 0;
     }
 
-    if (a4 >= 1u && a4 <= 10u)
+    if (nColor2 >= 1u && nColor2 <= 10u)
     {
-        hCompositeUnit->nEmblemColor2 = gabEmblemColor2[a4 - 1];
+        hCompositeUnit->nEmblemColor2 = gabEmblemColor2[nColor2 - 1];
     }
     else
     {
