@@ -2141,7 +2141,6 @@
     "extern \"C\" void __cdecl SKILLS_SrvSt58_FireClaws(); // 0x005C7E00",
     "extern \"C\" void __cdecl sub_005CB730(); // 0x005CB730",
     "extern \"C\" void __cdecl SKILLS_SrvSt52_Emerge(); // 0x005CC220",
-    "extern \"C\" void __cdecl SKILLS_HasTarget(); // 0x005CDF00",
     "extern \"C\" void __cdecl SKILLS_SrvSt31_Charge(); // 0x005CF6B0",
     "extern \"C\" void __cdecl SKILLS_SrvSt35_Vengeance(); // 0x005CFE10",
     "extern \"C\" void __cdecl SKILLS_SrvSt61_SelfResurrect(); // 0x005D1BF0",
@@ -2333,7 +2332,8 @@
     "extern \"C\" void __cdecl SKILLS_SrvDo028_Meteor_Blizzard_Eruption_BaalTaunt_Catapult(); // 0x005CA3E0",
     "extern \"C\" void __cdecl SKILLS_SrvDo008_MultipleShot_Teeth_ShockWave(); // 0x005DB410",
     "extern \"C\" void __cdecl SKILLS_SrvDo012_Strafe(); // 0x005DBA40",
-    "extern \"C\" void __cdecl SKILLS_SrvDo015_Dopplezon(); // 0x005DC000"
+    "extern \"C\" void __cdecl SKILLS_SrvDo015_Dopplezon(); // 0x005DC000",
+    "extern \"C\" void __cdecl SKILLS_HasTarget(); // 0x005CDF00"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/Skills.inc",
