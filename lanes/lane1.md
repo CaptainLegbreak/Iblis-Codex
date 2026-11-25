@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Wed Nov 25 05:46:33 PST 2026: #396 took skilldesc-join-8. skilldesc-join-10 is ready, lane 1's one branch.
 - Wed Nov 25 05:15:48 PST 2026: check-in. skilldesc-join-8 is still ready and merges clean on #395. Working on SkillDesc_004EAE70.cpp next.
 - Wed Nov 25 04:41:53 PST 2026: check-in. skilldesc-join-8 is ready, lane 1's one branch.
 - Wed Nov 25 04:01:18 PST 2026: check-in. #393 took skilldesc-join-6, so Ready is empty. Next: SkillDesc_004E72D0.cpp and SkillDesc_004EAE70.cpp into SkillDesc.cpp; Unknown_004EDCA0.cpp stays blocked on SKILLDESC_AddSeconds. I'll pick up lane 4's D2Client header list when it is posted.
@@ -32,7 +33,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
-- lane1/skilldesc-join-8 730840b2b (on #394, one commit) 0->0 (one placeholder goes): SkillDesc.cpp takes 0x4E72D0 SKILLDESC_GetElemDamage from SkillDesc_004E72D0.cpp. That file held only this function and copies of SkillDesc.cpp's statics, its callers are in SkillDesc.cpp, and it has no data. SkillDesc.cpp's second, reordered copy of it (used by 0x4EA990) goes, and 0x4EA990 calls the real function, which keeps it equal. auditguard vs #394: nothing rose. Full build: 0 not all equal, Game.exe identical, borrowed data 261 B; VERIFIED 0df81dacf34f05e92c3ff4547c70fd36be77abdb.
+- lane1/skilldesc-join-10 67f02c6b2 (on #396, one commit) 0->0 (one placeholder goes): SkillDesc.cpp takes SkillDesc_004EAE70.cpp's 0x4EAE70, 0x4EC6F0 and 0x4ED150. They call SkillDesc.cpp's statics, and the file has no data. SKILLDESC_AddScaledWeaponDamage (0x4E9660) takes (pUnit, pMin, pMax, pColor, nRatio, pSkill, pItem), the only one of six orders that keeps SkillDesc.cpp, SkillDesc_004EAE70.cpp and its home Unknown_004E2320.cpp all equal. The file's __forceinline percent helper was ApplyPercentChecked's body under another name, so it is dropped (tree __forceinline 214 -> 213); its unused inline copy is dropped too. 0x4ED150's LEVELV volatile moves with it (count unchanged). auditguard vs #396: nothing rose. Full build: 0 not all equal, Game.exe identical, borrowed data 261 B; VERIFIED 7f99e09ebb3ad23efcdccc96168f73466bf483ef.
 
 ## In progress
 
