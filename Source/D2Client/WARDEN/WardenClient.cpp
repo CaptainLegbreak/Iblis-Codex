@@ -1196,67 +1196,6 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
 
 
 
-// 0x004E6560
-void __fastcall WARDENCLIENT_SetItemPropTexts(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nArg1, int nArg2)
-{
-    if (!pItem || pItem->dwUnitType != UNIT_ITEM)
-    {
-        return;
-    }
-
-    if (ITEMS_GetItemQuality(pItem) != ITEMQUAL_SET)
-    {
-        return;
-    }
-
-    D2SetItemsTxt* pSetItemsTxt = ITEMS_GetSetItemsTxtRecordFromItem(pItem);
-    if (!pSetItemsTxt)
-    {
-        return;
-    }
-
-    int nMember;
-    unsigned int nMask;
-    switch (pSetItemsTxt->nAddFunc)
-    {
-    case 1:
-    {
-        nMask = ITEMS_GetSetItemsMask(pPlayer, pItem, 0);
-        nMember = ITEMS_GetNoOfSetItemsFromItem(pItem);
-        for (int i = 0; i < 6; ++i)
-        {
-            int nIndex = i;
-            if (i == nMember)
-            {
-                continue;
-            }
-
-            if (i > nMember)
-            {
-                nIndex = i - 1;
-            }
-
-            if (nMask & (1 << i))
-            {
-// build: symbol ?gaSetPropIds@* 0x006DBD70
-                sub_004E60A0_AddSetPropText(pItem, nArg1, nArg2, 0, gaSetPropIds[nIndex], 0, 0, 1);
-            }
-        }
-        break;
-    }
-    case 2:
-    {
-        const unsigned int nWorn = ITEMS_GetSetItemsMask(pPlayer, pItem, 1);
-        const int nCount = (nWorn >= 0x40 ? 0 : gaSetPartialCounts_006DBD90[nWorn]) - 1;
-        for (int i = 0; i < nCount; ++i)
-        {
-            sub_004E60A0_AddSetPropText(pItem, nArg1, nArg2, 0, gaSetPropIds[i], 0, 0, 1);
-        }
-        break;
-    }
-    }
-}
-
 static D2MonStatsTxt* MONSTATS_GetTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
