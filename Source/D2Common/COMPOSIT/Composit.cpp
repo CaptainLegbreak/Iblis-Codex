@@ -80,7 +80,7 @@ inline int STATES_IsUnitShapeShiftedInline(D2UnitStrc* pUnit)
 }
 
 // 0x0064F380
-int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5)
+int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode)
 {
     if (!pUnit)
     {
@@ -100,7 +100,7 @@ int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInv
         const int nMode = nAnimMode;
         D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, ".\\COMPOSIT\\Composit.cpp", 566);
 
-        if (!a5)
+        if (!bUseConvertedMode)
         {
             nAnimMode = nMode;
         }

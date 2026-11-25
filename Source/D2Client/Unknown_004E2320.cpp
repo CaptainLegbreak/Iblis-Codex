@@ -928,7 +928,7 @@ int __fastcall D2Win_10177(unsigned char nAct)
 }
 
 // 0x004FCFF0
-void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int a3)
+void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int nColor)
 {
     Unicode wszText[1024];
     for (int i = 0; i < 1024; ++i)
@@ -936,7 +936,7 @@ void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int 
 
     D2_ASSERT(pTextBox, 0x11E);
     sub_00526E40_Utf8ToUnicode(wszText, szText, 1024);
-    sub_004FC9B0_SetText(pTextBox, wszText, a3, 0, 0);
+    sub_004FC9B0_SetText(pTextBox, wszText, nColor, 0, 0);
 }
 
 // 0x004E6FB0

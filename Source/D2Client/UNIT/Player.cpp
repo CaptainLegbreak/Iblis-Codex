@@ -128,7 +128,7 @@ struct D2ClientUnitViewStrc
     D2PlayerDataStrc* pPlayerData;
 };
 
-D2GfxLightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2); // 0x00643A00
+D2GfxLightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* pValue); // 0x00643A00
 
 void __fastcall DLIGHTMAP_ReleaseLight(D2GfxLightStrc* pLight); // 0x004743D0
 
@@ -382,7 +382,7 @@ void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX,
 
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit);                                              // 0x00649180
 
-int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int a3);                          // 0x00649970
+int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown);                          // 0x00649970
 
 void __stdcall D2Common_10228(D2UnitStrc* pUnit);                                                           // 0x00649F50
 

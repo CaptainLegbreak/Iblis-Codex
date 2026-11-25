@@ -523,7 +523,7 @@ void __fastcall DEBUG_Stub6(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc
 
 int __fastcall SUNITDMG_GetWeaponBlock(D2UnitStrc* pUnit); // 0x0057DCA0
 
-int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
+int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 
 static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bAvoid); // 0x0057DD60
 
