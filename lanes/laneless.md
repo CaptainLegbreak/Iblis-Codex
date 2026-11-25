@@ -50,6 +50,15 @@ call stays the coordinator's. This section is replaced at each check.
   - **For every lane:** a callee's parameter types change the caller's code where the body doesn't. When rewrites
     of a stuck function's body stop moving it, try its callees' prototypes (signedness, width), since a
     caller's arithmetic is done in the parameter's type.
+  - Follow-up, all on #375, so nobody repeats them:
+    - **0x5EDC50:** a greedy run over 6 groups on top of the 13-line version found nothing better. The groups
+      were the two direction spellings, the field read order, bDirection's type and form, const or unsigned
+      nX/nY, and the seed-half order.
+    - **0x6BD230:** the callees' size types (memmove, memset, the pool realloc; int, unsigned, long), the
+      realloc's size and nKey's type change nothing (35 variants, all 244/246 and 5 lines). No slot.
+    - **0x679C80:** passing the point to PATH_GetDirections and/or sub_6FDAA880 as a packed `unsigned int`,
+      and four ways of reading the halves, don't beat the near version (35 lines). Both packed gives 449/450 but
+      37 lines; reading `.X`/`.Y` instead of the shift loses the frame.
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
