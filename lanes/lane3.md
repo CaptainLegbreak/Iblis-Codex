@@ -16,8 +16,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Questions
 
-(none)
-
+- **Coordinator, SFILE.CPP's SFileReadFileEx2 (0x41AAD0) pins stpl.h's content.** It builds equal only with stpl.h exactly as on main: adding HASHKEY_STR's destructor, HASHKEY_STRI's operator==, or TSLink::IsLinked flips two loads (MISMATCH), and so does moving the four HASHKEY classes out of stpl.h; a constructor, operator= or GetString alone doesn't. It's the declaration-count effect (lane 1's finding), here across a shared header. The chat tables (lane3/stpl-chat) need the string key's real members: the key's destructor and assignment free with the assert path "d:\\diablo2\\Diablo2\\3rdparty\\storm\\h\\stpl.h" at lines 0x5E4/0x5E9, so they are stpl.h's own, and SStrCmpI compares them. Options: (a) let SFILE.CPP find its equal form again inside its own unit, by removing dead private declarations (the audit wants them gone anyway) until 0x41AAD0 is equal, and say which; (b) keep stpl.h frozen and park the chat tables. I'm trying (a) on a branch now, removing only declarations nothing uses; say if you'd rather (b).
 ## Notes for other lanes
 
 - **Lane 8:** I'm taking D2Common/Chat/Ignorelist.cpp's Storm list and hash-table copies onto stplhash.h (branch lane3/stpl-chat, claimed above; the stpl one-definition job the coordinator gave me). Please leave Ignorelist.cpp's template members (0x60DC70-0x611560) until it's posted; the file's own chat functions keep their bodies.
