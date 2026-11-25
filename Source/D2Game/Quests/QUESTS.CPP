@@ -299,7 +299,7 @@ void __stdcall ITEMS_SetItemCell(D2UnitStrc* pItem, unsigned char nItemCell); //
 
 void __fastcall D2GAME_UpdateClientItem_6FC3E9D0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int dwCmdFlag); // 0x0053D010
 
-void __fastcall D2GAME_RemoveItem_6FC471F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int bSendPacket); // 0x0055DF10
+void __fastcall D2GAME_RemoveItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int bSendPacket); // 0x0055DF10
 
 int __stdcall INVENTORY_GetItemsXPosition(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063C150
 
@@ -778,7 +778,7 @@ static void __stdcall QUESTS_DeleteItemEx(D2InventoryStrc* pInventory, D2GameStr
     case 0:
         ITEMS_SetItemCell(pItem, ITEMS_GetInvPage(pItem));
         D2GAME_UpdateClientItem_6FC3E9D0(pClient, pPlayer, pItem, nFlags);
-        D2GAME_RemoveItem_6FC471F0(pGame, pPlayer, pItem, 0);
+        D2GAME_RemoveItem(pGame, pPlayer, pItem, 0);
         break;
     case 1:
     {

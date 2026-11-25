@@ -808,20 +808,11 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/Player.cpp": {
-   "bytes": 100,
-   "definitions": 3,
+   "bytes": 340,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/Player_00460830.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_00463390.cpp": {
-   "bytes": 240,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00463390.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -40525,7 +40516,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00463390.cpp",
+   "file": "Source/D2Client/UNIT/Player.cpp",
    "fill": 20,
    "form": "declared",
    "fwd": null,

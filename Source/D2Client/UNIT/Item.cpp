@@ -35,8 +35,6 @@ struct D2StaticPathStrc;
 
 struct D2ObjectDataStrc;
 
-struct D2GSPacketSrv60;
-
 struct D2GSPacketSrv9C;
 
 struct D2SkillsTxt;
@@ -47,8 +45,6 @@ struct D2UnitEventArgsStrc;
 struct D2PanelGfxStrc;
 
 struct D2TimedHintStrc;
-
-struct D2FloorTileViewStrc;
 
 struct D2CellNodeStrc;
 
@@ -95,14 +91,6 @@ struct D2ItemsTxt;
 struct D2ItemSaveStrc;
 
 struct D2GSPacketSrv9D;
-
-struct D2GSPacketSrv60
-{
-    unsigned char nHeader;
-    unsigned char nFlags;
-    unsigned char nLevel;
-    char dwUnitGUID[4];
-};
 
 struct D2GSPacketSrv9C
 {
@@ -192,16 +180,6 @@ struct D2TimedHintStrc
     int nEndTickF;
     int nArgG;
     int nEndTickC;
-};
-
-struct D2FloorTileViewStrc
-{
-    char unk0x00[0x3C];
-    int nOffsetX;
-    int nOffsetY;
-    void __thiscall sub_004DE410_DrawFloorTile(D2TileStrc* pTile, int nArg, int nScreenX, int nScreenY, int nX, int nY);
-    void __thiscall DrawTileAt(int nX, int nY); // 0x004DE630
-    void __thiscall DrawTileTriple(int nX, int nY, int nStepX, int nStepY); // 0x004DE6C0
 };
 
 struct D2AddressInfoStrc

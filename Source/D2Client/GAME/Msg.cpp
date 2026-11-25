@@ -190,25 +190,9 @@ void __fastcall MSG_SetProgress(int nValue, int nDivisor)
     gnProgress = (nValue << 8) / nDivisor;
 }
 
-struct D2GridCellStrc;
-
-struct D2GridCellStrc
-{
-    int nFlag;
-    unsigned char nValue[4];
-};
-
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long nMilliseconds); // 0x006CC258
 
 void __fastcall UI_DrawLoadingScreen(int nArg); // 0x004565E0
-
-struct D2ChatMessageStrc
-{
-    char* szText;
-    int nColor;
-    int bClear;
-    D2ChatMessageStrc* pNext;
-};
 
 // 0x00478160
 void __fastcall CHARSEL_ShowProgressSteps(int nDone, int nTotal)

@@ -8,8 +8,6 @@
 
 struct D2CmdParamsStrc;
 
-union D2CdKeyWordStrc;
-
 struct D2CmdArgStrc;
 
 struct D2McpPacket02Strc;
@@ -48,12 +46,6 @@ struct D2CmdParamsStrc
 {
     char unk0x00[0x18];
     const char* szValue;
-};
-
-union D2CdKeyWordStrc
-{
-    unsigned int nValue;
-    char szText[4];
 };
 
 struct D2CmdArgStrc

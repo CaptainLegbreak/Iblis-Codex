@@ -368,8 +368,6 @@ struct D2ItemsTxt;
 
 struct D2PresetUnitStrc;
 
-struct D2ModeArgStrc;
-
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
@@ -510,11 +508,6 @@ D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int n
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
-
-struct D2ModeArgStrc
-{
-    int nValue;
-};
 
 static inline void CUNIT_PlayOverlaySound(D2UnitStrc* pUnit, int nOverlay); // 0x00464E20
 

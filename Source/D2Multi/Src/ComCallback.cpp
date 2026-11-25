@@ -1239,27 +1239,27 @@ static unsigned char COMCALLBACK_ParseStatString(D2MultiChannelUserStrc* pUser, 
     else if (nFlags & 8)
     {
         nResult = 0x14;
-        goto LABEL_DEFAULT_LOOK;
+        goto default_look;
     }
     else if (nFlags & 1)
     {
         nResult = 0x12;
-        goto LABEL_DEFAULT_LOOK;
+        goto default_look;
     }
     else if (nFlags & 4)
     {
         nResult = 0x17;
-        goto LABEL_DEFAULT_LOOK;
+        goto default_look;
     }
     else if (nFlags & 0x101000)
     {
         nResult = 0x15;
-        goto LABEL_DEFAULT_LOOK;
+        goto default_look;
     }
     else if (nLength < 4)
     {
         nResult = 7;
-        goto LABEL_DEFAULT_LOOK;
+        goto default_look;
     }
     else
     {
@@ -1323,7 +1323,7 @@ static unsigned char COMCALLBACK_ParseStatString(D2MultiChannelUserStrc* pUser, 
 
             if (!pUser->aComponents[0])
             {
-                goto LABEL_UNKNOWN_CODE;
+                goto unknown_code;
             }
 
             pUser->nClass = *pStat++ - 1;
@@ -1424,7 +1424,7 @@ static unsigned char COMCALLBACK_ParseStatString(D2MultiChannelUserStrc* pUser, 
             break;
 
         default:
-LABEL_UNKNOWN_CODE:
+unknown_code:
             if (bValid)
             {
                 pUser->dwCode = 0x554E4B4E;
@@ -1435,7 +1435,7 @@ LABEL_UNKNOWN_CODE:
         }
     }
 
-LABEL_DEFAULT_LOOK:
+default_look:
     for (int i = 0; i < 16; ++i)
     {
         if (i == 1)
