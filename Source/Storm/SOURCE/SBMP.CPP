@@ -1176,11 +1176,6 @@ static int __stdcall DecodeBmpFile(unsigned char* pPalette, void* hFile, int* pW
     return 1;
 }
 
-int __stdcall sub_Emit_006C5F70(void* hFile, unsigned char* pPalette, unsigned char* pBuffer, unsigned int nBufferSize, int* pWidth, int* pHeight, int* pBitDepth)
-{
-    return DecodeBmpFile(pPalette, hFile, pWidth, pBuffer, nBufferSize, pHeight, pBitDepth) + 1;
-}
-
 // 0x006C60F0
 static int __stdcall DecodeBmpMem(int* pWidth, int* pHeight, unsigned int* pBitCount, const unsigned char* pData, unsigned char* pPalette, unsigned char* pPixels, int nPixelsSize)
 {
@@ -1478,11 +1473,6 @@ static int __stdcall EncodeGif256File(HANDLE hFile, const RGBQuad* pPalette, con
     return 1;
 }
 
-int __stdcall sub_Emit_006C6620(HANDLE hFile, const RGBQuad* pPalette, const unsigned char* pPixels, int nWidth, int nHeight)
-{
-    return EncodeGif256File(hFile, pPalette, pPixels, nWidth, nHeight);
-}
-
 // 0x006C6790
 static int __stdcall DecodePcxFile(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth)
 {
@@ -1623,11 +1613,6 @@ int __stdcall SBmpDecodeImage(int nType, const unsigned char* pData, unsigned in
     }
 
     return 0;
-}
-
-int __stdcall sub_Emit_006C6790(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nSize, int* pWidth, int* pHeight, int* pBitDepth)
-{
-    return DecodePcxFile(hFile, pPalette, pPixels, nSize, pWidth, pHeight, pBitDepth) + 2;
 }
 
 // 0x006C6B70
