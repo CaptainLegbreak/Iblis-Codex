@@ -29,19 +29,9 @@ struct D2MonStatsTxt;
 
 struct D2LevelsTxt;
 
-struct D2AiCallback11ArgStrc;
-
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-
-struct D2AiCallback11ArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nDistance;
-    D2UnitStrc* unk0x08;
-    int unk0x0C[7];
-};
 
 typedef D2UnitStrc* (__fastcall* AITARGETCALLBACK)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, void*);
 
@@ -322,13 +312,6 @@ D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame
 #define MINIMUM(a,b) ((a) < (b) ? (a) : (b))
 
 #pragma pack(push,1)
-
-struct D2Packet8A
-{
-    unsigned char header;
-    unsigned char type;
-    int guid;
-};
 
 #pragma pack(pop)
 
@@ -612,8 +595,6 @@ struct Control;
 
 struct MonStats;
 
-struct Tick;
-
 enum D2C_MegademonAIParams
 {
     MEGADEMON_AI_PARAM_INFERNO_RANGED_CHANCE_PCT = 0,
@@ -622,12 +603,6 @@ enum D2C_MegademonAIParams
     MEGADEMON_AI_PARAM_APPROACH_CHANCE_PCT = 3,
     MEGADEMON_AI_PARAM_CIRCLE_MELEE_CHANCE_PCT = 4,
     MEGADEMON_AI_PARAM_INFERNO_TIMER = 5,
-};
-
-struct Unit
-{
-    char seedPad[0x20];
-    D2SeedStrc seed;
 };
 
 struct Control
@@ -640,13 +615,6 @@ struct MonStats
 {
     char statsPad[0x170];
     short skills[8];
-};
-
-struct Tick
-{
-    Control* control;
-    char pad4[0x18];
-    MonStats* stats;
 };
 
 #define PATHTYPE_TOWARD 2

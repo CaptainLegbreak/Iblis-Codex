@@ -49,8 +49,6 @@ struct D2CurseStrc;
 
 struct D2SkillsTxt;
 
-struct D2MonEquipTxt;
-
 struct Unit005A0180;
 
 union D2SeedStrc;
@@ -214,11 +212,6 @@ void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUn
 int __fastcall SKILL_ComputePeriodicRate(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel); // 0x0056CD50
 
 int __fastcall sub_0056F7F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5, int a6, int a7); // 0x0056F7F0
-
-struct D2MonEquipTxt
-{
-    char unk0x00[0x1C];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 

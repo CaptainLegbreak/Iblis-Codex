@@ -351,13 +351,7 @@ struct D2SkillsTxt;
 
 struct D2UnkPairStrc;
 
-struct D2UnkFieldPairStrc;
-
-struct D2LocalDateStrc;
-
 struct D2PackedWordStrc;
-
-struct D2UnkCallRecordStrc;
 
 struct D2Unk0056DCC0Strc;
 
@@ -377,28 +371,6 @@ struct D2UnkPairStrc
 {
     int nFirst;
     int nSecond;
-};
-
-struct D2UnkFieldPairStrc
-{
-    char unk0x00[0x80];
-    int nValue;
-};
-
-struct D2LocalDateStrc
-{
-    int nDayOfWeek;
-    int f_4;
-    int nDay;
-    int f_C;
-};
-
-struct D2UnkCallRecordStrc
-{
-    void* pArg1;
-    void* pArg2;
-    int nZero;
-    int nArg4;
 };
 
 struct D2Unk0056DCC0Strc

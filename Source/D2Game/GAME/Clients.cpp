@@ -2031,8 +2031,6 @@ struct D2MonStatsTxt;
 
 struct D2StormLinkStrc;
 
-struct D2StormListAStrc;
-
 
 struct D2HashKeyNoneStrc;
 
@@ -2042,8 +2040,6 @@ union D2LargeIntegerUnion;
 
 
 struct D2StormSlotLink00530600Strc;
-
-struct D2StormSlotList00530600Strc;
 
 
 extern char gData_00882028[]; // 0x00882028
@@ -2190,77 +2186,6 @@ struct D2StormOwnedLinkStrc : D2StormLinkStrc
     }
 };
 
-struct D2StormListAStrc
-{
-    int m_linkoffset;
-    D2StormOwnedLinkStrc m_terminator;
-
-    D2StormListAStrc()
-    {
-        m_linkoffset = 0xDDDDDDDD;
-        InitializeTerminator();
-    }
-    ~D2StormListAStrc()
-    {
-        UnlinkAll();
-    }
-    D2StormLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
-    }
-    char* Head()
-    {
-        return m_terminator.Next();
-    }
-    void InitializeTerminator()
-    {
-        m_terminator.m_prevlink = &m_terminator;
-        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-    }
-    void ChangeLinkOffset(int nLinkOffset)
-    {
-        if (nLinkOffset != m_linkoffset)
-        {
-            UnlinkAll();
-            m_linkoffset = nLinkOffset;
-            InitializeTerminator();
-        }
-    }
-    void LinkNode(char* pNode, int nLinkType, char* pExistingNode)
-    {
-        D2StormLinkStrc* pLink = Link(pNode);
-        pLink->Unlink();
-        D2StormLinkStrc* pExistingLink = Link(pExistingNode);
-        D2StormLinkStrc* pPrevLink;
-        switch (nLinkType)
-        {
-        case 1:
-            pLink->m_prevlink = pExistingLink;
-            pLink->m_next = pExistingLink->m_next;
-            pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-            pExistingLink->m_next = pNode;
-            break;
-        default:
-            pPrevLink = pExistingLink->m_prevlink;
-            pLink->m_prevlink = pPrevLink;
-            pLink->m_next = pPrevLink->m_next;
-            pPrevLink->m_next = pNode;
-            pExistingLink->m_prevlink = pLink;
-            break;
-        }
-    }
-    void LinkToTail(char* pNode)
-    {
-        LinkNode(pNode, 2, 0);
-    }
-    void UnlinkAll();                                                                                       // 0x0044F8E0
-    void sub_0044FC60_DeleteAll();                                                                          // 0x0044FC60
-    char* RawNext(char* pNode)
-    {
-        return Link(pNode)->m_next;
-    }
-};
-
 
 extern unsigned short gwValue_0077905C;
 
@@ -2382,13 +2307,6 @@ struct D2StormSlotLink00530600Strc
         char* const pNext = (int)m_next <= 0 ? 0 : m_next;
         return pNext;
     }
-};
-
-struct D2StormSlotList00530600Strc
-{
-    int m_linkoffset;
-    D2StormSlotLink00530600Strc m_terminator;
-
 };
 
 

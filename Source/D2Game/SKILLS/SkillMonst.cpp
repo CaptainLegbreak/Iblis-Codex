@@ -641,12 +641,6 @@ struct Game
     void* pool;
 };
 
-struct Seed
-{
-    U32 low;
-    U32 high;
-};
-
 
 
 extern "C" int __stdcall sub_00646CA0_Evaluate(D2UnitStrc*, U32, int, int); // 0x00646CA0
