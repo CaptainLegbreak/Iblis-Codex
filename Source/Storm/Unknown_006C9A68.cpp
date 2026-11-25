@@ -62,15 +62,6 @@ extern int gnTextLeft; // 0x007BF278
 
 #include "gen/data/Source/Storm/Unknown_006C9A68.inc"
 
-// 0x006CA940
-void __cdecl sub_006CA940_ClearRealmNames()
-{
-    for (int n = 0; n < 7 * 0x100; ++n)
-    {
-        gwszRealmNames[n] = 0;
-    }
-}
-
 unsigned int gdwHeaderHash_0077AD64; // 0x0077AD64
 
 // 0x006CA960

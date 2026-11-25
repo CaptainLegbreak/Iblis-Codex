@@ -9240,6 +9240,10 @@
      "va": "0x00446890",
      "length": 88,
      "name": "?CHARSEL_SendChatLine@@YGHH@Z"
+    },
+    {
+     "va": "0x006CA940",
+     "length": 17
     }
    ],
    "flags": [
@@ -34948,6 +34952,10 @@
     {
      "va": "0x00503000",
      "length": 456
+    },
+    {
+     "va": "0x006CAE20",
+     "length": 17
     }
    ]
   },
@@ -38972,6 +38980,15 @@
      "va": "0x0051DF90",
      "length": 35,
      "name": "?BNNEWS_DecodeCDKey26Char@@YIHPBDPAX11@Z"
+    },
+    {
+     "va": "0x006CAEC0",
+     "length": 12,
+     "name": "?sub_006CAEC0_RegisterCleanup@@YAXXZ"
+    },
+    {
+     "va": "0x006CB450",
+     "length": 25
     }
    ],
    "flags": [
@@ -78813,10 +78830,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x006CA940",
-     "length": 17
-    },
-    {
      "va": "0x006CA960",
      "length": 20,
      "name": "?sub_006CA960_InitializeHeaderHash@@YAXXZ"
@@ -78862,10 +78875,6 @@
      "name": "?sub_006CAE10_InitializeWindowText@@YAXXZ"
     },
     {
-     "va": "0x006CAE20",
-     "length": 17
-    },
-    {
      "va": "0x006CAE40",
      "length": 15,
      "name": "?sub_006CAE40_InitializeColorCode@@YAXXZ"
@@ -78881,11 +78890,6 @@
    "file": "Source/Storm/Unknown_006CAE80.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x006CAEC0",
-     "length": 12,
-     "name": "?sub_006CAEC0_RegisterCleanup@@YAXXZ"
-    },
     {
      "va": "0x006CAEF0",
      "length": 22,
@@ -78912,10 +78916,6 @@
    "file": "Source/Bnclient/Unknown_006CB420.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x006CB450",
-     "length": 25
-    },
     {
      "va": "0x006CB480",
      "length": 10

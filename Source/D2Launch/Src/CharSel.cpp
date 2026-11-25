@@ -887,6 +887,7 @@ int gnLastGameCount; // 0x00798CC8
 
 char gbRealmNamesInit;                                                             // 0x00779DA8
 
+// build: symbol ??__EgwszRealmNames@@YAXXZ 0x006CA940
 Unicode gwszRealmNames[7][0x100];                                                  // 0x00779DF0
 
 #pragma intrinsic(strcpy)
