@@ -46949,6 +46949,10 @@
      "va": "0x0055A550",
      "length": 374,
      "name": "?ITEMS_CreateDropAtUnit@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHHHPAU1@@Z"
+    },
+    {
+     "va": "0x0055A6D0",
+     "length": 2253
     }
    ]
   },
