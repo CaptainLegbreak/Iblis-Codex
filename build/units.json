@@ -30534,20 +30534,14 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004DC710.cpp",
-   "rank": 0,
+   "file": "Source/D2Client/Unknown_004DC7B0.cpp",
+   "rank": 1,
    "functions": [
     {
      "va": "0x004DC710",
      "length": 156,
      "name": "?sub_004DC710_UpdateUnitSightFlag@@YAHPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004DC7B0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x004DC7B0",
      "length": 611
