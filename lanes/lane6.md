@@ -2,13 +2,13 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 05:00 PST 2026): charsel-pieces and bnclient-join merged (#395). Now: CharSel_0042E600/0042FFE0's declarations against CharSel.cpp's, for 0x43A2B0 and 0x43AD10/0x43ADB0.
+Status (Wed Nov 25 05:50 PST 2026): ready on #395: charsel-pieces-2, copy-trim. Next: more placeholders by run in my modules.
 
 ## Ready
 
 - lane6/charsel-pieces-2 d4a0e513 (on #395): CharSel.cpp takes CHARSEL_InitRealmScreen (0x43A2B0, from CharSel_0042E600.cpp) and CHARSEL_RequestCharList/CHARSEL_UseName (0x43AD10/0x43ADB0, from CharSel_0042FFE0.cpp): they sit between CharSel.cpp's runs and use its controls. CharSel.cpp already carried a copy of 0x43A2B0 behind a `// build: symbol` line; that copy becomes the placed definition at its address and the other file's copy goes. Full build: Game.exe identical, tree cdf643da94dda1d5447d7588672ae1b7c88ff6e4, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
 
-(lane6/copy-trim verifying)
+- lane6/copy-trim 877bfe17 (on #395): 36 unused function copies go. They were bodies of functions placed from other files (D2Client, Warden, D2Game, other D2Win/D2Sound units) kept behind `// build: symbol` lines; each was deleted alone and its unit rebuilt, and these are not used by their unit: BnSend.cpp 16, CelCmp.cpp 7, D2WinMain.cpp 5, D2SoundSmp_005153C0.cpp 3, CharSel_004378D0.cpp 2, D2WinImage.cpp 2, FastCmp.cpp 1 (765 lines). The copies a unit's callers inline stay. Full build: Game.exe identical, tree 4cbfe35359340ee6843aafab335a0e56c3071215, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
 
 ## Questions
 
