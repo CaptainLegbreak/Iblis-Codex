@@ -64,6 +64,15 @@ call stays the coordinator's. This section is replaced at each check.
       three random starts (scores 314, 450, 439) all end at exactly 310, the near version's score. The two static
       callees (ResolveTargetOverride, ShouldUseAlternativeTarget) were left out: the original passes them their
       arguments in registers. Template: `lanes/vsearch/005DD7F0-combo.tpl`.
+    - **0x5EDC50, more:** with unsigned X and signed Y (or long), any direction spelling gives 97 lines or worse.
+      Sign helpers (one or two returns), offset helpers and Y-jitter helpers all give 13 or 31. With unsigned
+      coordinates VC8 always folds the original's `-30 * sign` (setne, neg) into a subtraction (sete, no neg).
+    - **0x5DD7F0:** the flag block as an inline helper with several returns (whole block, the sight part only,
+      with the bit-3 flag helper, a vision getter) stays a call. VC8 won't inline it here: +3 calls, 321-360 lines.
+    - **0x4F8B80 (lane7/004F8B80-wip, 580/561, 152 lines on #376):** abs as a helper with one or two returns, or
+      the CRT `abs`; the loop as `for`, guarded `do`/`while` or a block pointer; the light values as int,
+      unsigned char or unsigned. The best is 145 lines (CRT abs, unsigned char) at 591 B. None gives the
+      original's 8-byte-larger frame; `for` and `do` compile the same.
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
