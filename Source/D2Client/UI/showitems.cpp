@@ -127,7 +127,7 @@ void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 void __cdecl GAME_RequestExit(); // 0x0044D520
 
 // 0x004C0640
-int __fastcall sub_004C0640_ClampRectToScreen(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMode, int nMaxX, int nMinX)
+int __fastcall SHOWITEMS_ClampRectToScreen(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMode, int nMaxX, int nMinX)
 {
     int nMaxY = gnScreenHeight - 48;
 
@@ -357,7 +357,7 @@ struct D2ClientValues40Strc
 };
 
 // 0x004C0CE0
-D2ClientValues40Strc* __fastcall sub_004C0CE0_ClearValues(D2ClientValues40Strc* pValues)
+D2ClientValues40Strc* __fastcall SHOWITEMS_ClearValues(D2ClientValues40Strc* pValues)
 {
     for (int i = 0; i < 0x40; ++i)
     {

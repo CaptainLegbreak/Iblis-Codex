@@ -59,7 +59,7 @@ void __stdcall DATATBLS_LoadAllTxts(void* pArg, int bArg); // 0x00619300
 
 void __stdcall DATATBLS_UnloadAllBins(); // 0x00619140
 
-void __cdecl sub_00451290_FreeLngModule(); // 0x00451290
+void __cdecl GAME_FreeLngModule(); // 0x00451290
 
 void __cdecl PROFCORE_WriteProfileCounters(); // 0x006116B0
 

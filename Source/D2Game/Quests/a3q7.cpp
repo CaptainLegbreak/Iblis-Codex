@@ -270,4 +270,3 @@ void __fastcall ACT3Q7_CreateVileDogSpawnTimer(D2GameStrc* pGame, D2UnitStrc* pU
     QUESTS_CreateTimer(pQuestData, ACT3Q7_SpawnVileDogs, 2);
 }
 
-#include "gen/data/Source/D2Game/Quests/a3q7.inc"

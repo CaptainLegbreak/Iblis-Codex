@@ -280,7 +280,7 @@ void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int n
 
 void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA2A0
 
-void __stdcall sub_004DA690_ReplaceMotionFlag1With8(D2UnitStrc* pUnit); // 0x004DA690
+void __stdcall GFXUTIL_ReplaceMotionFlag1With8(D2UnitStrc* pUnit); // 0x004DA690
 
 void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet); // 0x004DA6E0
 
@@ -2129,7 +2129,7 @@ static void MONSTER_UpdateCollisionForMode(D2UnitStrc* pUnit, int nMode)
             return;
         }
         PARTICLE_ResetGfxMotion(pUnit);
-        sub_004DA690_ReplaceMotionFlag1With8(pUnit);
+        GFXUTIL_ReplaceMotionFlag1With8(pUnit);
         MISSILE_SetMotionFlagMask(pUnit, 1);
         GFXUTIL_SetMotionVectorB(pUnit, 0, 0, 2, 1);
         GFXUTIL_SetMotionVectorC(pUnit, 0, 0, 0xA0, 0);
@@ -2148,7 +2148,7 @@ static void MONSTER_UpdateCollisionForMode(D2UnitStrc* pUnit, int nMode)
         {
             return;
         }
-        sub_004DA690_ReplaceMotionFlag1With8(pUnit);
+        GFXUTIL_ReplaceMotionFlag1With8(pUnit);
         MISSILE_SetMotionFlagMask(pUnit, 0);
         GFXUTIL_SetMotionVectorB(pUnit, 0, 0, -8, 1);
         GFXUTIL_SetMotionVectorC(pUnit, 0, 0, 0, 0);
@@ -2494,7 +2494,7 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
             if (!ITEM_GetGfxClientZ(pUnit))
                 goto LABEL_CLEAR;
 
-            sub_004DA690_ReplaceMotionFlag1With8(pUnit);
+            GFXUTIL_ReplaceMotionFlag1With8(pUnit);
             MISSILE_SetMotionFlagMask(pUnit, 0);
             GFXUTIL_SetMotionVectorB(pUnit, 0, 0, -0x10, 1);
             GFXUTIL_SetMotionVectorC(pUnit, 0, 0, 0, 0);

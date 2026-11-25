@@ -1045,6 +1045,12 @@ void __fastcall COMCALLBACK_CopyNamePrefix(const char* szName, char* szOut)
     SStrCopy(szOut, szName, 0x7FFFFFFF);
 }
 
+// 0x00446880
+int __stdcall SKILLS_Return0(int nUnused)
+{
+    return 0;
+}
+
 // 0x004468F0
 int __stdcall COMCALLBACK_SendChatLine(int nUnused)
 {

@@ -253,7 +253,7 @@ D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0
 
 int __cdecl sub_00468830(); // 0x00468830
 
-void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
+void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
 int __cdecl HIREABLES_AreBeltRowsShown(); // 0x004979E0
 
@@ -756,9 +756,9 @@ void __cdecl VIEW_ToggleCacheStats();                                           
 
 int __cdecl GAME_GetConnectionType();                                                                                 // 0x0044DB30
 
-void __cdecl sub_004BABC0_ToggleHints();                                                                    // 0x004BABC0
+void __cdecl SOUNDINST_ToggleHints();                                                                    // 0x004BABC0
 
-int __stdcall sub_0047BAD0_ParseChatCommand(char** ppText, char* pCode, char* szArgument);                  // 0x0047BAD0
+int __stdcall CHAT_ParseChatCommand(char** ppText, char* pCode, char* szArgument);                  // 0x0047BAD0
 
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
@@ -1946,7 +1946,7 @@ void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
     if (INVENTORY_GetCursorItem(pInventory))
         return;
     if (sub_00468830() != 7)
-        sub_00468070_SetCursorItemState(0);
+        CURSOR_SetCursorItemState(0);
     int nCount = 8;
     if (gbSmallPanel)
         nCount = 7;

@@ -58,7 +58,18 @@ extern "C" __declspec(dllimport) void* __stdcall BinkOpenDirectSound(unsigned lo
 
 int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
 
-void __cdecl GLIDE_DrawVideoFrame(); // 0x0050FD10
+void __cdecl GLIDE_DrawVideoFrame(); struct D2CriticalSectionStrc;
+extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC214
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC218
+extern "C" __declspec(dllimport) void __stdcall BinkNextFrame(D2BinkStrc* pBink); // 0x006CC5BC
+extern "C" __declspec(dllimport) int __stdcall BinkCopyToBuffer(D2BinkStrc* pBink, void* pDest, int nDestPitch, unsigned int nDestHeight, unsigned int nDestX, unsigned int nDestY, unsigned int nFlags); // 0x006CC5C0
+extern "C" __declspec(dllimport) int __stdcall BinkDoFrame(D2BinkStrc* pBink); // 0x006CC5C4
+extern int (__stdcall* gpfnGrLfbLock)(int nType, int nBuffer, int nWriteMode, int nOrigin, int bPixelPipeline, D2GrLfbInfoStrc* pInfo); // 0x0087EADC
+extern int (__stdcall* gpfnGrLfbUnlock)(int nType, int nBuffer); // 0x0087EAD8
+extern D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
+extern int gbSurfaceActive_007C9140; // 0x007C9140
+
+// 0x0050FD10
 
 void __cdecl DDRAW_DrawVideoFrame(); // 0x005136F0
 
@@ -155,6 +166,29 @@ D2BinkStrc* gpGlideBink; // 0x00880C0C
 int gbGlideBinkDone; // 0x00880C18
 
 unsigned long gdwGlideBinkAbortTick; // 0x00880C1C
+
+// 0x0050FD10
+void __cdecl GLIDE_DrawVideoFrame()
+{
+    if (!gbSurfaceActive_007C9140)
+        return;
+    BinkDoFrame(gpGlideBink);
+    D2_ASSERT(gpRenderCriticalSection, 0x39);
+    EnterCriticalSection(gpRenderCriticalSection);
+    D2GrLfbInfoStrc info = { sizeof(D2GrLfbInfoStrc) };
+    if (gpfnGrLfbLock(1, 0, 5, 0, 0, &info))
+    {
+        BinkCopyToBuffer(gpGlideBink, info.lfbPtr, info.strideInBytes, gpGlideBink->nHeight, gnGlideBinkX, gnGlideBinkY, gnGlideBinkFlags);
+        gpfnGrLfbUnlock(1, 0);
+    }
+    LeaveCriticalSection(gpRenderCriticalSection);
+    if (gpGlideBink->nFrameNum == gpGlideBink->nFrames)
+    {
+        gbGlideBinkDone = 1;
+        return;
+    }
+    BinkNextFrame(gpGlideBink);
+}
 
 // 0x0050FDF0
 void __fastcall sub_0050FDF0_GlidePlayVideoFile(const char* szFile, int nMode, void (__cdecl* pfCallback)())

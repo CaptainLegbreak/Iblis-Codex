@@ -34,7 +34,7 @@ void __stdcall sub_M274_EmitBuildPath(char* szPath, int nMode);
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-D2StateOwnerStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
+D2StateOwnerStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 static void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay); // 0x0046E040
 
@@ -209,7 +209,7 @@ static void __stdcall GFX_RecalcStateOverlays(D2StateOwnerStrc* pOwner, D2UnitSt
 // 0x0046E040
 static void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay)
 {
-    D2StateOwnerStrc* ptGfxInfo = sub_00463E10_GetGfxData(pUnit);
+    D2StateOwnerStrc* ptGfxInfo = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(ptGfxInfo, 0x1BF);
 
     D2StateNodeStrc* pPrevious = 0;

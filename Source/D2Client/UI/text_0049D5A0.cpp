@@ -55,11 +55,11 @@ static __forceinline void sub_0049D5A0_DrawClippedLine(D2SplittedTextStrc* pLine
     }
 }
 
-static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec);
-static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec); // 0x0049D5A0
+static int TEXT_UpdateScrollText(D2TextScrollStrc* pRec); // 0x0049D5A0
+static int TEXT_UpdateScrollText(D2TextScrollStrc* pRec); // 0x0049D5A0
 
 // 0x0049D5A0
-static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
+static int TEXT_UpdateScrollText(D2TextScrollStrc* pRec)
 {
     D2_ASSERT(pRec, 1805);
 
@@ -241,7 +241,7 @@ extern char gHandlerTable_00722600[]; // 0x00722600
 int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
 int __fastcall sub_004B95C0_IsHintPlaying(void* pHint); // 0x004B95C0
 void __stdcall TEXT_FreeTextBox(D2TextScrollStrc* pTextBox); // 0x0049D410
-void __fastcall sub_00467430_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
+void __fastcall SELECT_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
 void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 void __fastcall NPCMENU_CancelNpcAndFlag(void* pHint); // 0x004B3D10
 void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
@@ -261,14 +261,14 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextScrollStrc* pTextBox
     if (!gpHint_007BF24B || sub_004B95C0_IsHintPlaying(gpHint_007BF24B) || !bBusy)
     {
         gpHint_007BF24B = 0;
-        if (sub_0049D5A0_UpdateScrollText(pTextBox))
+        if (TEXT_UpdateScrollText(pTextBox))
         {
             gnPanelOpen_007BF1BC = 1;
             if (!gbHintActive_007BF20A && gpTextBox)
             {
                 TEXT_FreeTextBox(gpTextBox);
                 gpTextBox = 0;
-                sub_00467430_SetSelectionRect(0);
+                SELECT_SetSelectionRect(0);
             }
 
             TEXT_ResetTextBox();
@@ -288,7 +288,7 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextScrollStrc* pTextBox
 
             UI_StartUIVarDelay();
             gbHintActive_007BF20A = 0;
-            sub_00467430_SetSelectionRect(0);
+            SELECT_SetSelectionRect(0);
             if (gbHandlers_007BF27C == 1)
             {
                 gbHandlers_007BF27C = 0;

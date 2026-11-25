@@ -81,7 +81,6 @@ static int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY
     return 1;
 }
 
-
 // 0x00511E80
 static int __fastcall sub_00511E80_ClipCel(D2CelStrc* pCel, int nY, int nX, D2DDrawCelClipStrc* pOut, const D2DDrawClipRectStrc* pClip)
 {
@@ -162,6 +161,11 @@ int __fastcall sub_00511FB0_DrawImage(void* pData, int nX, int nY, unsigned int 
     return 1;
 }
 
+// 0x005123A0
+void __stdcall DDRAW_CelDrawHilight(int nUnused1, int nUnused2)
+{
+}
+
 // 0x005123B0
 void __fastcall sub_005123B0_DDrawDebugFillBackBuffer(int nX, int nY)
 {
@@ -179,7 +183,6 @@ int __stdcall CelGetOffsetX(D2CelStrc* pCel);                                   
 int __stdcall CelGetOffsetY(D2CelStrc* pCel);                                                               // 0x00601950
 int __fastcall DDCORE_GetDrawModePalette(int nIndex, int* pType);                                           // 0x00511D70
 int gnDDrawClipLeft;                                                                                // 0x0088129C
-
 
 // 0x005120A0
 int __fastcall sub_005120A0_DrawImagePalette(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nPalette)
@@ -222,7 +225,6 @@ extern int gnRenderWidth; // 0x007C9138
 extern int gnRenderHeight; // 0x007C913C
 extern unsigned char* gpScreenBuffer_007C9154; // 0x007C9154
 
-
 // 0x005121A0
 void __fastcall sub_005121A0_DrawClipped(D2CmpCelContextStrc* context, int x, int y, int top, int rows, int index)
 {
@@ -241,7 +243,6 @@ int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 int __cdecl DDCORE_GetBlendedShadows(); // 0x00512700
 void __stdcall CelDrawShadow(D2CmpCelContextStrc* pContext, int nX, int nY, int nClipLeft, int nClipRight, unsigned char* pBuffer, int nHeightLimit, int nPitch, int nTable, int nColor); // 0x00601730
 extern int* gpShadowTable_007C9150; // 0x007C9150
-
 
 // 0x005122E0
 void __fastcall sub_005122E0_DrawShadow(D2CmpCelContextStrc* pContext, int nX, int nY)
@@ -268,8 +269,13 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
-
 int __fastcall DDCORE_GetDrawModePalette(int nIndex, int* pType);                                           // 0x00511D70
+
+// 0x00512410
+int __fastcall sub_00512410_ForwardToDrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nScreenMode, void* pPalette)
+{
+    return sub_00511FB0_DrawImage(pData, nX, nY, dwGamma, nDrawMode, pPalette);
+}
 
 // 0x00512710
 void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode)
@@ -471,7 +477,6 @@ void __fastcall sub_00512C20_DrawDiamond(tagRECT* pRect, int nValue)
     sub_00512A50_DrawLine(&ptLeft, &ptTop, nValue);
 }
 
-
 static void __stdcall sub_00512A50_DrawLine(const D2CoordPairStrc* pFrom, const D2CoordPairStrc* pTo, unsigned char nColor)
 {
     const int nDeltaX = pTo->nX - pFrom->nX;
@@ -590,6 +595,4 @@ void __fastcall sub_00512CE0_DrawRect(tagRECT* pRect, int nColor)
     sub_00512A50_DrawLine(&aCorners[2], &aCorners[0], nColor);
     sub_00512A50_DrawLine(&aCorners[0], &aCorners[1], nColor);
 }
-
-
 

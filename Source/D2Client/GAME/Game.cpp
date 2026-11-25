@@ -3855,7 +3855,7 @@ D2StormListBStrc::D2StormListBStrc(const D2StormListBStrc& source)
 }
 
 // 0x0044FD50
-void __fastcall sub_0044FD50_DestroyGameData(D2SGameDataStrc* pData)
+void __fastcall GAME_DestroyGameData(D2SGameDataStrc* pData)
 {
     pData->~D2SGameDataStrc();
 }
@@ -4059,7 +4059,7 @@ extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId)
 }
 
 // 0x00452070
-int* __fastcall sub_00452070_ClearBlock(int* pData)
+int* __fastcall GAME_ClearBlock(int* pData)
 {
     for (int i = 0; i < 0x80; ++i)
     {

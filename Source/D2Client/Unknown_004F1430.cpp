@@ -65,7 +65,7 @@ int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsi
 int __fastcall SKILLSMON_StartStateList(D2UnitStrc* pUnit, int nSkillId, int nArg); // 0x004F2450
 extern int gaMissileRingX[]; // 0x006DBFE8
 extern int gaMissileRingY[]; // 0x006DC0E8
-void __fastcall sub_004F2AC0_MissileInit(D2UnitStrc* pMissile, int nArg); // 0x004F2AC0
+void __fastcall SKILLDESC_MissileInit(D2UnitStrc* pMissile, int nArg); // 0x004F2AC0
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId); // 0x004EFC20
 int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
@@ -511,7 +511,7 @@ static void __stdcall sub_004F2B20_CreateMissileRing(D2UnitStrc* pUnit, int nMis
     tMissileParams.dwFlags = 3;
     tMissileParams.nSkill = nSkillId;
     tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.pInitFunc = sub_004F2AC0_MissileInit;
+    tMissileParams.pInitFunc = SKILLDESC_MissileInit;
     for (int i = 0; i < 64; i += nCount)
     {
         tMissileParams.nTargetX = gaMissileRingX[i];

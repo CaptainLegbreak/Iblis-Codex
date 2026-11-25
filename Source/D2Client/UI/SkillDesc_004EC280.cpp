@@ -33,7 +33,7 @@ Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource,
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);                                 // 0x005267E0
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
-void __fastcall sub_0042F530_ClearUnicode(Unicode* pChar);                                                  // 0x0042F530
+void __fastcall NPCMENU_ClearUnicode(Unicode* pChar);                                                  // 0x0042F530
 void __stdcall sub_00403040_VectorConstructor(void* pArray, unsigned int nSize, int nCount, void (__fastcall* pfnConstructor)(Unicode*)); // 0x00403040
 void __fastcall INV_PrefixColorCode(Unicode* wszText, int nLevel);                                // 0x004521C0
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
@@ -407,7 +407,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         break;
 
     case 18:
-        sub_00403040_VectorConstructor(wszLine, 2, 0x100, sub_0042F530_ClearUnicode);
+        sub_00403040_VectorConstructor(wszLine, 2, 0x100, NPCMENU_ClearUnicode);
         sub_005267E0(wszLine, D2LANG_GetStringFromTblIndex(nStringA));
         {
             const int nLevel = nCalcA;
@@ -456,7 +456,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         break;
 
     case 25:
-        sub_00403040_VectorConstructor(wszLine, 2, 0x100, sub_0042F530_ClearUnicode);
+        sub_00403040_VectorConstructor(wszLine, 2, 0x100, NPCMENU_ClearUnicode);
         sub_005267E0(wszLine, D2LANG_GetStringFromTblIndex(nStringA));
         if ((unsigned short)nStringB != 0x1506)
         {
@@ -555,7 +555,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringA));
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-        sub_00403040_VectorConstructor(wszNumber, 2, 0x20, sub_0042F530_ClearUnicode);
+        sub_00403040_VectorConstructor(wszNumber, 2, 0x20, NPCMENU_ClearUnicode);
         wsprintfA(szNumber, gszFmtRange, nCalcA, nCalcB);
         sub_00526320_ToUnicode(wszNumber, szNumber, 0x20);
         sub_00526700(wszText, wszNumber);
@@ -583,7 +583,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         {
             return 0;
         }
-        sub_00403040_VectorConstructor(wszLine, 2, 0x100, sub_0042F530_ClearUnicode);
+        sub_00403040_VectorConstructor(wszLine, 2, 0x100, NPCMENU_ClearUnicode);
         sub_005269D0(0x100, wszLine, D2LANG_GetStringFromTblIndex(nStringA), D2LANG_GetStringFromTblIndex(nStringB));
         if (nCalcA > 0)
         {
@@ -624,7 +624,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         {
             return 0;
         }
-        sub_00403040_VectorConstructor(wszLine, 2, 0x100, sub_0042F530_ClearUnicode);
+        sub_00403040_VectorConstructor(wszLine, 2, 0x100, NPCMENU_ClearUnicode);
         sub_005269D0(0x100, wszLine, D2LANG_GetStringFromTblIndex(nStringA), D2LANG_GetStringFromTblIndex(nStringB));
         if (nCalcA > 0)
         {
@@ -755,7 +755,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         {
             return 0;
         }
-        sub_00403040_VectorConstructor(wszMessage, 2, 0x64, sub_0042F530_ClearUnicode);
+        sub_00403040_VectorConstructor(wszMessage, 2, 0x64, NPCMENU_ClearUnicode);
         sub_005269D0(0x64, wszMessage, D2LANG_GetStringFromTblIndex(nStringB), nCalcA);
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringA));
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
@@ -773,7 +773,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         {
             return 0;
         }
-        sub_00403040_VectorConstructor(wszNumber, 2, 0x20, sub_0042F530_ClearUnicode);
+        sub_00403040_VectorConstructor(wszNumber, 2, 0x20, NPCMENU_ClearUnicode);
         SKILLDESC_FormatSignedInt(wszNumber, 1, nCalcA);
         sub_00526700(wszText, wszNumber);
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xFA0));
@@ -794,7 +794,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         {
             return 0;
         }
-        sub_00403040_VectorConstructor(wszNumber, 2, 0x20, sub_0042F530_ClearUnicode);
+        sub_00403040_VectorConstructor(wszNumber, 2, 0x20, NPCMENU_ClearUnicode);
         wsprintfA(szNumber, gszFormatD, nCalcA);
         sub_00526320_ToUnicode(wszNumber, szNumber, 0x20);
         sub_00526700(wszText, wszNumber);
@@ -812,7 +812,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         {
             return 0;
         }
-        sub_00403040_VectorConstructor(wszMessage, 2, 0x64, sub_0042F530_ClearUnicode);
+        sub_00403040_VectorConstructor(wszMessage, 2, 0x64, NPCMENU_ClearUnicode);
         sub_005269D0(0x64, wszMessage, D2LANG_GetStringFromTblIndex(nStringA), nCalcA);
         sub_00526700(wszText, wszMessage);
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
@@ -823,7 +823,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         {
             return 0;
         }
-        sub_00403040_VectorConstructor(wszMessage, 2, 0x64, sub_0042F530_ClearUnicode);
+        sub_00403040_VectorConstructor(wszMessage, 2, 0x64, NPCMENU_ClearUnicode);
         sub_005269D0(0x64, wszMessage, D2LANG_GetStringFromTblIndex(nStringA), nCalcA, nCalcB);
         sub_00526700(wszText, wszMessage);
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));

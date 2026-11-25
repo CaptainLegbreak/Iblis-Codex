@@ -232,7 +232,7 @@ int gnDDrawBackBuffers;                                                         
 
 D2DirectDrawClass* gpDirectDraw;                                                                   // 0x00881270
 
-extern D2DDrawSurfaceClass* gpDDrawBackSurface;                                                    // 0x0088127C
+D2DDrawSurfaceClass* gpDDrawBackSurface;                                                      // 0x0088127C
 
 D2DDrawSurfaceClass* gpDDrawOffscreenSurface;                                                              // 0x00881280
 
@@ -322,7 +322,6 @@ unsigned long gdwVideoFlags; // 0x00881140
 
 tagPALETTEENTRY gaDDrawSavedPalette[256]; // 0x00880D40
 
-
 void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x0050BF50
 
 void __fastcall sub_0050C0F0_GlideDrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x0050C0F0
@@ -334,39 +333,6 @@ int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, uns
 void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT* pRect, unsigned char nColor);                     // 0x00512D90
 
 void __fastcall DDSMACK_CloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
-
-// 0x0050BEF0
-void __fastcall GLIDE_DebugDraw(const unsigned int* pLight, const unsigned int* pPlayerLight, int nPosX, int nPosY)
-{
-    gnGlideDebugX = nPosX;
-    gnGlideDebugY = nPosY;
-    memcpy(gaGlideDebugLight, pLight, 0x1000);
-    memcpy(*gppGlideDebugBuffer, pPlayerLight, 0x4800);
-    sub_0050BE20_GlideDebugRefresh();
-}
-
-// 0x0050FD10
-void __cdecl GLIDE_DrawVideoFrame()
-{
-    if (!gbSurfaceActive_007C9140)
-        return;
-    BinkDoFrame(gpGlideBink);
-    D2_ASSERT(gpRenderCriticalSection, 0x39);
-    EnterCriticalSection(gpRenderCriticalSection);
-    D2GrLfbInfoStrc info = { sizeof(D2GrLfbInfoStrc) };
-    if (gpfnGrLfbLock(1, 0, 5, 0, 0, &info))
-    {
-        BinkCopyToBuffer(gpGlideBink, info.lfbPtr, info.strideInBytes, gpGlideBink->nHeight, gnGlideBinkX, gnGlideBinkY, gnGlideBinkFlags);
-        gpfnGrLfbUnlock(1, 0);
-    }
-    LeaveCriticalSection(gpRenderCriticalSection);
-    if (gpGlideBink->nFrameNum == gpGlideBink->nFrames)
-    {
-        gbGlideBinkDone = 1;
-        return;
-    }
-    BinkNextFrame(gpGlideBink);
-}
 
 // 0x00510020
 int __fastcall DDCORE_Detect(void* hInstance)
@@ -601,6 +567,34 @@ int __fastcall DDCORE_CreateSurface(void* hWnd, int nResolutionMode)
     return DDCORE_OpenSurfaces(nResolutionMode);
 }
 
+int gbDDrawPlayingVideo; // 0x0088126C
+
+void __fastcall sub_005103B0_DDrawLogError(const char* szWhere, int hResult); // 0x005103B0
+void __fastcall sub_005137E0_PlayBinkMovie(const char* szFile, int nMode, void (__cdecl* pfCallback)()); // 0x005137E0
+
+// 0x00511660
+void __fastcall DDRAW_OpenSmackCutscene(const char* szFile, int nResolutionMode, void (__cdecl* pfFrame)())
+{
+    if (!gbRenderPaused)
+    {
+        gbDDrawPlayingVideo = 1;
+        D2DDBltFxStrc tBltFx = { sizeof(tBltFx) };
+        tBltFx.dwFillColor = 0;
+// build: symbol ?gpDDrawPrimarySurface@* 0x00881278
+        D2_ASSERT(gpDDrawPrimarySurface, 0x387);
+
+        const long hResult = gpDDrawPrimarySurface->Blt(0, 0, 0, 0x400, &tBltFx);
+        if (hResult)
+        {
+            sub_005103B0_DDrawLogError("Cutscene clearing blit failed!", hResult);
+            return;
+        }
+
+        sub_005137E0_PlayBinkMovie(szFile, nResolutionMode, pfFrame);
+        gbDDrawPlayingVideo = 0;
+    }
+}
+
 // 0x00511720
 int __fastcall DDCORE_StartDraw(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
 {
@@ -687,6 +681,54 @@ int __fastcall DDCORE_Blit()
             sub_005103B0("SetEntries failed!", hResult);
             return 0;
         }
+    }
+
+    return 1;
+}
+
+// 0x00511970
+int __fastcall DDRAW_GetBackBuffer(unsigned char* pBuffer)
+{
+    D2DDSurfaceDescStrc tDesc = { sizeof(tDesc) };
+    if (!gpDDrawBackSurface)
+    {
+        return 0;
+    }
+
+    long hResult = gpDDrawBackSurface->Lock(0, &tDesc, 0x11, 0);
+    if (hResult)
+    {
+        sub_005103B0_DDrawLogError("Lock failed!", hResult);
+        return 0;
+    }
+
+    unsigned char* pDstRow = pBuffer;
+    unsigned char* pSrcRow = (unsigned char*)tDesc.lpSurface;
+    for (int y = 0; y < gnRenderHeight; ++y)
+    {
+        unsigned char* pSrc = pSrcRow;
+        unsigned char* pDst = pDstRow;
+        for (int x = 0; x < gnRenderWidth; ++x)
+        {
+            const tagPALETTEENTRY* pEntry = &gatGamePalette[*pSrc];
+            *pDst = pEntry->peRed;
+            ++pDst;
+            *pDst = pEntry->peGreen;
+            ++pDst;
+            *pDst = pEntry->peBlue;
+            ++pSrc;
+            ++pDst;
+        }
+
+        pDstRow += 3 * gnRenderWidth;
+        pSrcRow += tDesc.lPitch;
+    }
+
+    hResult = gpDDrawBackSurface->Unlock(0);
+    if (hResult)
+    {
+        sub_005103B0_DDrawLogError("Unlock failed!", hResult);
+        return 0;
     }
 
     return 1;
@@ -1025,7 +1067,6 @@ extern unsigned int gnGlideBinkY; // 0x00880C04
 
 extern unsigned int gnGlideBinkFlags; // 0x00880C14
 
-
 extern unsigned int gnDDrawBinkY; // 0x008816B8
 
 extern unsigned int gnDDrawBinkFlags; // 0x008816C8
@@ -1046,12 +1087,11 @@ int gbDDrawBinkQuit; // 0x008816D0
 
 unsigned long gdwDDrawBinkAbortTick; // 0x008816D4
 
-extern int gdwGlobal_0088126C; // 0x0088126C
 
 // 0x00510140
 int __cdecl DDRAW_CheckCutScene()
 {
-    return gdwGlobal_0088126C;
+    return gbDDrawPlayingVideo;
 }
 
 // 0x00510320

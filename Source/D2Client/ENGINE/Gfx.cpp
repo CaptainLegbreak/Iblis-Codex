@@ -132,7 +132,7 @@ int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
+D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
 void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
 
@@ -300,7 +300,7 @@ void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
 
 void __fastcall sub_00473D00_SetPhase(int nPhase); // 0x00473D00
 
-int __fastcall sub_00478E70_IsPetFriendly(D2UnitStrc* pPlayer, D2UnitStrc* pUnit); // 0x00478E70
+int __fastcall ROSTERPETS_IsPetFriendly(D2UnitStrc* pPlayer, D2UnitStrc* pUnit); // 0x00478E70
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
@@ -375,7 +375,7 @@ struct D2GfxBoundsStrc
     int nBottom;
 };
 
-extern "C" void* __fastcall sub_004DB040_identity(void* pointer); // 0x004DB040
+extern "C" void* __fastcall GFXUTIL_identity(void* pointer); // 0x004DB040
 
 int gbHealthBarColorsInit; // 0x007A8924
 
@@ -507,7 +507,7 @@ static void __stdcall sub_0046CA60_CommandToXY(int nCommand, D2UnitStrc* pUnit, 
 
 
 
-static void sub_0046CE40_AiType3(D2UnitStrc* pUnit);
+static void GFX_AiType3(D2UnitStrc* pUnit); // 0x0046CE40
 
 void __fastcall sub_E19_Emit_0046CE40(D2UnitStrc* pUnit, int nClassId)
 {
@@ -516,7 +516,7 @@ void __fastcall sub_E19_Emit_0046CE40(D2UnitStrc* pUnit, int nClassId)
     case 0x9D:
     case 0x9E:
     case 0x13F:
-        sub_0046CE40_AiType3(pUnit);
+        GFX_AiType3(pUnit);
         return;
     }
 }
@@ -535,7 +535,7 @@ void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int n
 
 void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
 
-void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit);                                                // 0x004DA350
+void __stdcall GFXUTIL_UpdateMotion(D2UnitStrc* pUnit);                                                // 0x004DA350
 
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                                                        // 0x0063EA40
 
@@ -619,7 +619,7 @@ static void sub_0046CBD0_SetAiTimerClamped(D2UnitStrc* pUnit, int nTicks);
 
 static int __stdcall sub_0046C7D0_StepAwayFromUnit(D2UnitStrc* pUnit, unsigned char nScale, int nCommand, int nArg, D2UnitStrc* pTarget);
 
-static void __stdcall sub_0046C960_StepRandom(unsigned char nScale, int nCommand, int nArg, D2UnitStrc* pUnit);
+static void __stdcall GFX_StepRandom(unsigned char nScale, int nCommand, int nArg, D2UnitStrc* pUnit); // 0x0046C960
 
 
 
@@ -632,7 +632,7 @@ static int sub_0046CBF0_IsSamePosition(D2UnitStrc* pTarget, D2UnitStrc* pUnit);
 
 
 
-static void __stdcall sub_0046C770_CommandOnUnit(int nCommand, int nArg, D2UnitStrc* pUnit, D2UnitStrc* pTarget);
+static void __stdcall GFX_CommandOnUnit(int nCommand, int nArg, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x0046C770
 
 
 static void __stdcall GFX_RecalcStateOverlays(D2StateOwnerStrc* pOwner, D2UnitStrc* pUnit, D2StateNodeStrc* pNode);
@@ -643,17 +643,17 @@ void __stdcall sub_P09_Emit_0046DF40(D2StateOwnerStrc* pOwner, D2UnitStrc* pUnit
     GFX_RecalcStateOverlays(pOwner, pUnit, pOther);
 }
 
-static inline void sub_0046EA80_ResetGfxBytes20(D2UnitStrc* pUnit);
+static inline void GFX_ResetGfxBytes20(D2UnitStrc* pUnit); // 0x0046EA80
 
-static inline void sub_0046EAA0_ResetGfxBytes16(D2UnitStrc* pUnit);
+static inline void GFX_ResetGfxBytes16(D2UnitStrc* pUnit); // 0x0046EAA0
 
-static inline void sub_0046EB50_ResetGfxBytes8(D2UnitStrc* pUnit);
+static inline void GFX_ResetGfxBytes8(D2UnitStrc* pUnit); // 0x0046EB50
 
 void __fastcall sub_M113_Emit_0046EA80(D2UnitStrc* pUnit)
 {
-    sub_0046EA80_ResetGfxBytes20(pUnit);
-    sub_0046EAA0_ResetGfxBytes16(pUnit);
-    sub_0046EB50_ResetGfxBytes8(pUnit);
+    GFX_ResetGfxBytes20(pUnit);
+    GFX_ResetGfxBytes16(pUnit);
+    GFX_ResetGfxBytes8(pUnit);
 }
 
 inline int STATES_IsUnitShapeShiftedInl(D2UnitStrc* pUnit)
@@ -689,11 +689,11 @@ inline int sub_M449_IsUnitTypeInl(D2UnitStrc* pUnit, int nType)
     return 1;
 }
 
-static int sub_0046F090_IsNotMonsterOrNoFlag2(D2UnitStrc* pUnit);
+static int GFX_IsNotMonsterOrNoFlag2(D2UnitStrc* pUnit); // 0x0046F090
 
 int __cdecl sub_M449_Emit_0046F090(D2UnitStrc* pUnit)
 {
-    return sub_0046F090_IsNotMonsterOrNoFlag2(pUnit) + 0x55;
+    return GFX_IsNotMonsterOrNoFlag2(pUnit) + 0x55;
 }
 
 inline int IsShapeShifted(D2UnitStrc* pUnit)
@@ -706,7 +706,7 @@ inline int IsShapeShifted(D2UnitStrc* pUnit)
 
 static inline D2GfxLayerStrc* GetNodeLayer(D2UnitStrc* pUnit, int nMode)
 {
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (pGfxData)
     {
         for (D2GfxListNodeStrc* pNode = pGfxData->pList; pNode; pNode = pNode->pNext)
@@ -944,11 +944,11 @@ static inline unsigned int sub_00472400_SeedStep(D2SeedStrc* pSeed)
 
 void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
 
-static inline void sub_00472530_SetPhaseActive(int bValue);
+static inline void GFX_SetPhaseActive(int bValue); // 0x00472530
 
 void __fastcall sub_M110_Emit_00472530(int bValue)
 {
-    sub_00472530_SetPhaseActive(bValue - 1);
+    GFX_SetPhaseActive(bValue - 1);
 }
 
 extern "C" double __cdecl fabs(double x);
@@ -1111,7 +1111,7 @@ void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int n
 void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA200
 void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA2A0
 void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
-void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit);                                                // 0x004DA350
+void __stdcall GFXUTIL_UpdateMotion(D2UnitStrc* pUnit);                                                // 0x004DA350
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                                                        // 0x0063EA40
@@ -1137,13 +1137,13 @@ static inline int SEED_RollPercentage64_Inline(D2SeedStrc* pSeed)
     return SEED_RollRandomNumber64_Inline(pSeed) % 100;
 }
 
-static D2UnitStrc* __stdcall sub_0046C720_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance);
+static D2UnitStrc* __stdcall GFX_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance); // 0x0046C720
 
 
 
 
 
-static void __stdcall sub_0046D110_AiType5(unsigned int nDistance, D2UnitStrc* pUnit, D2UnitStrc* pTarget);
+static void __stdcall GFX_AiType5(unsigned int nDistance, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x0046D110
 
 
 
@@ -1157,7 +1157,7 @@ static void __stdcall sub_0046D280_AiType6(unsigned int nDistance, D2UnitStrc* p
 
 static void sub_0046D310_AiType7(D2UnitStrc* pUnit);
 
-static void sub_0046D450_AiType8(D2UnitStrc* pUnit);
+static void GFX_AiType8(D2UnitStrc* pUnit); // 0x0046D450
 
 static void sub_0046D660_AiFlagged(D2UnitStrc* pTarget, D2UnitStrc* pUnit);
 
@@ -1175,7 +1175,7 @@ void __fastcall GFX_ClearPendingAction(D2UnitStrc* pUnit)
 }
 
 // 0x0046C660
-int __fastcall sub_0046C660_FindCorpseCallback(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2UnitStrc** ppTarget, int* pDistance)
+int __fastcall GFX_FindCorpseCallback(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2UnitStrc** ppTarget, int* pDistance)
 {
     if (!pTarget)
         return 0;
@@ -1235,7 +1235,7 @@ void __fastcall GFX_RemoveAiTargetUnit(D2UnitStrc* pUnit)
 }
 
 // 0x0046C720
-static D2UnitStrc* __stdcall sub_0046C720_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance)
+static D2UnitStrc* __stdcall GFX_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance)
 {
     D2UnitStrc* pNearest = 0;
     D2UnitStrc** ppSlot = gapAiTargets;
@@ -1257,7 +1257,7 @@ static D2UnitStrc* __stdcall sub_0046C720_FindNearestTarget(D2UnitStrc* pUnit, i
 }
 
 // 0x0046C770
-static void __stdcall sub_0046C770_CommandOnUnit(int nCommand, int nArg, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+static void __stdcall GFX_CommandOnUnit(int nCommand, int nArg, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     int nTargetType = 6;
@@ -1322,7 +1322,7 @@ static int __stdcall sub_0046C7D0_StepAwayFromUnit(D2UnitStrc* pUnit, unsigned c
 }
 
 // 0x0046C960
-static void __stdcall sub_0046C960_StepRandom(unsigned char nScale, int nCommand, int nArg, D2UnitStrc* pUnit)
+static void __stdcall GFX_StepRandom(unsigned char nScale, int nCommand, int nArg, D2UnitStrc* pUnit)
 {
     const int nUnitX = CLIENTS_GetUnitXInline(pUnit);
     const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
@@ -1431,14 +1431,14 @@ static void sub_0046CCD0_AiType1(D2UnitStrc* pUnit)
                 PATH_SetFootprintCollisionMask(pPath, 0xC01);
                 if (!sub_0046C7D0_StepAwayFromUnit(pUnit, 4, 0xC, 0x78, pFound))
                 {
-                    sub_0046C960_StepRandom(4, 0xC, 0x78, pUnit);
+                    GFX_StepRandom(4, 0xC, 0x78, pUnit);
                 }
                 return;
             }
 
             if (SEED_RollPercentage_Inline(&pUnit->pSeed) < 30)
             {
-                sub_0046C960_StepRandom(2, 1, 0, pUnit);
+                GFX_StepRandom(2, 1, 0, pUnit);
                 return;
             }
 
@@ -1460,18 +1460,18 @@ static void __stdcall sub_0046CDC0_AiType2(D2UnitStrc* pTarget, unsigned int nDi
             }
             else
             {
-                sub_0046C960_StepRandom(12, 1, 30, pUnit);
+                GFX_StepRandom(12, 1, 30, pUnit);
             }
         }
         else
         {
-            sub_0046C960_StepRandom(9, 1, 0, pUnit);
+            GFX_StepRandom(9, 1, 0, pUnit);
         }
     }
 }
 
 // 0x0046CE40
-static void sub_0046CE40_AiType3(D2UnitStrc* pUnit)
+static void GFX_AiType3(D2UnitStrc* pUnit)
 {
     if (AI_GetUnitMode_Inline(pUnit) == 1)
     {
@@ -1547,12 +1547,12 @@ static void __stdcall sub_0046D070_AiType4(D2UnitStrc* pTarget, D2UnitStrc* pUni
             return;
         }
 
-        sub_0046C960_StepRandom(4, 1, 0, pUnit);
+        GFX_StepRandom(4, 1, 0, pUnit);
     }
 }
 
 // 0x0046D110
-static void __stdcall sub_0046D110_AiType5(unsigned int nDistance, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+static void __stdcall GFX_AiType5(unsigned int nDistance, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
     if (!pUnit)
     {
@@ -1624,7 +1624,7 @@ static void __stdcall sub_0046D110_AiType5(unsigned int nDistance, D2UnitStrc* p
                 return;
             }
 
-            sub_0046C960_StepRandom(5, 1, 0, pUnit);
+            GFX_StepRandom(5, 1, 0, pUnit);
             return;
         }
     }
@@ -1633,7 +1633,7 @@ static void __stdcall sub_0046D110_AiType5(unsigned int nDistance, D2UnitStrc* p
     {
         if (*pState)
             goto Busy;
-        sub_0046C770_CommandOnUnit(0, 6, pUnit, pFound);
+        GFX_CommandOnUnit(0, 6, pUnit, pFound);
         *pState = 1;
     }
 }
@@ -1668,7 +1668,7 @@ static void __stdcall sub_0046D280_AiType6(unsigned int nDistance, D2UnitStrc* p
             return;
         }
 
-        sub_0046C960_StepRandom(4, 1, 0, pUnit);
+        GFX_StepRandom(4, 1, 0, pUnit);
     }
 }
 
@@ -1695,7 +1695,7 @@ static void sub_0046D310_AiType7(D2UnitStrc* pUnit)
                 PATH_SetFootprintCollisionMask(pPath, 0xC01);
                 if (!sub_0046C7D0_StepAwayFromUnit(pUnit, 6, 1, 0x78, pFound))
                 {
-                    sub_0046C960_StepRandom(6, 1, 0x78, pUnit);
+                    GFX_StepRandom(6, 1, 0x78, pUnit);
                 }
                 return;
             }
@@ -1703,7 +1703,7 @@ static void sub_0046D310_AiType7(D2UnitStrc* pUnit)
             const int nRoll = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100);
             if (nRoll < 30)
             {
-                sub_0046C960_StepRandom(2, 1, 0, pUnit);
+                GFX_StepRandom(2, 1, 0, pUnit);
                 return;
             }
 
@@ -1713,7 +1713,7 @@ static void sub_0046D310_AiType7(D2UnitStrc* pUnit)
 }
 
 // 0x0046D450
-static void sub_0046D450_AiType8(D2UnitStrc* pUnit)
+static void GFX_AiType8(D2UnitStrc* pUnit)
 {
     if (!sub_00463DE0_GetPlayerUnit())
     {
@@ -1749,7 +1749,7 @@ static void sub_0046D450_AiType8(D2UnitStrc* pUnit)
             }
 
             MISSILE_SetMotionFlagMask(pMissile, bFlag);
-            sub_004DA350_UpdateMotion(pMissile);
+            GFXUTIL_UpdateMotion(pMissile);
             MISSILE_SetTotalFrames(pMissile, 60);
             MISSILE_SetCurrentFrame(pMissile, 60);
             MISSILE_SetTargetX(pMissile, 100);
@@ -1784,7 +1784,7 @@ static void sub_0046D660_AiFlagged(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
 
     if (nRoll < 60 && pTarget)
     {
-        sub_0046C770_CommandOnUnit(0, 6, pUnit, pTarget);
+        GFX_CommandOnUnit(0, 6, pUnit, pTarget);
         return;
     }
 
@@ -1794,7 +1794,7 @@ static void sub_0046D660_AiFlagged(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
         return;
     }
 
-    sub_0046C960_StepRandom(8, 1, 4, pUnit);
+    GFX_StepRandom(8, 1, 4, pUnit);
 }
 
 // 0x0046D780
@@ -1813,7 +1813,7 @@ void __fastcall sub_0046D780(D2UnitStrc* pUnit)
     }
 
     int nDistance = 0x7FFFFFFF;
-    D2UnitStrc* pTarget = sub_0046C720_FindNearestTarget(pUnit, &nDistance);
+    D2UnitStrc* pTarget = GFX_FindNearestTarget(pUnit, &nDistance);
     if (!pTarget)
     {
         pTarget = sub_00463DD0_GetPlayerUnit();
@@ -1852,7 +1852,7 @@ void __fastcall sub_0046D780(D2UnitStrc* pUnit)
     case 0x9D:
     case 0x9E:
     case 0x13F:
-        sub_0046CE40_AiType3(pUnit);
+        GFX_AiType3(pUnit);
         return;
 
     case 0xE3:
@@ -1863,7 +1863,7 @@ void __fastcall sub_0046D780(D2UnitStrc* pUnit)
     case 0x10D:
     case 0x11B:
     case 0x153:
-        sub_0046D110_AiType5(nDistance, pUnit, pTarget);
+        GFX_AiType5(nDistance, pUnit, pTarget);
         return;
 
     case 0x13E:
@@ -1875,7 +1875,7 @@ void __fastcall sub_0046D780(D2UnitStrc* pUnit)
         return;
 
     case 0x23E:
-        sub_0046D450_AiType8(pUnit);
+        GFX_AiType8(pUnit);
         return;
 
     case 0x116:
@@ -1894,7 +1894,7 @@ void __fastcall sub_0046D780(D2UnitStrc* pUnit)
 }
 
 // 0x0046D9C0
-D2OverlayTxt* __fastcall sub_0046D9C0_GetTxtRecord(int nIndex)
+D2OverlayTxt* __fastcall GFX_GetTxtRecord(int nIndex)
 {
     if (nIndex >= 0 && nIndex < sgptDataTables->nOverlayTxtRecordCount)
     {
@@ -1904,7 +1904,7 @@ D2OverlayTxt* __fastcall sub_0046D9C0_GetTxtRecord(int nIndex)
 }
 
 // 0x0046D9F0
-int __fastcall sub_0046D9F0_GetConvertedUnitType(D2UnitStrc* pUnit)
+int __fastcall GFX_GetConvertedUnitType(D2UnitStrc* pUnit)
 {
     if (pUnit && !UNITS_IsShapeshifted_Inline(pUnit))
     {
@@ -1924,7 +1924,7 @@ int __fastcall sub_0046D9F0_GetConvertedUnitType(D2UnitStrc* pUnit)
 }
 
 // 0x0046DA60
-int __fastcall sub_0046DA60_GetConvertedUnitMode(D2UnitStrc* pUnit)
+int __fastcall GFX_GetConvertedUnitMode(D2UnitStrc* pUnit)
 {
     if (pUnit && !UNITS_IsShapeshifted_Inline(pUnit))
     {
@@ -1945,7 +1945,7 @@ int __fastcall sub_0046DA60_GetConvertedUnitMode(D2UnitStrc* pUnit)
 }
 
 // 0x0046DAC0
-int __fastcall sub_0046DAC0_GetConvertedClassId(D2UnitStrc* pUnit)
+int __fastcall GFX_GetConvertedClassId(D2UnitStrc* pUnit)
 {
     if (pUnit && !UNITS_IsShapeshifted_Inline(pUnit))
     {
@@ -1965,7 +1965,7 @@ int __fastcall sub_0046DAC0_GetConvertedClassId(D2UnitStrc* pUnit)
 }
 
 // 0x0046DB30
-D2InventoryStrc* __fastcall sub_0046DB30_GetCompInventory(D2UnitStrc* pUnit, int* pOut)
+D2InventoryStrc* __fastcall GFX_GetCompInventory(D2UnitStrc* pUnit, int* pOut)
 {
     if (STATES_IsUnitShapeShiftedInline(pUnit))
     {
@@ -2083,7 +2083,7 @@ static void __stdcall GFX_RecalcStateOverlays(D2StateOwnerStrc* pOwner, D2UnitSt
 // 0x0046E100
 int __fastcall GFX_HasOverlay(D2UnitStrc* pUnit, int nOverlay)
 {
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0x1EA);
     for (D2UnitOverlayStrc* pOverlay = pGfxData->pOverlays; pOverlay; pOverlay = pOverlay->pNext)
     {
@@ -2098,7 +2098,7 @@ int __fastcall GFX_HasOverlay(D2UnitStrc* pUnit, int nOverlay)
 // 0x0046E1B0
 void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY)
 {
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (!pGfxData)
     {
         return;
@@ -2162,7 +2162,7 @@ void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay
 // 0x0046E570
 int __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode)
 {
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (pGfxData)
     {
         for (D2GfxListNodeStrc* pNode = pGfxData->pList; pNode; pNode = pNode->pNext)
@@ -2177,7 +2177,7 @@ int __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode)
 }
 
 // 0x0046EA80
-static inline void sub_0046EA80_ResetGfxBytes20(D2UnitStrc* pUnit)
+static inline void GFX_ResetGfxBytes20(D2UnitStrc* pUnit)
 {
     for (unsigned int i = 0; i < 20; ++i)
     {
@@ -2186,7 +2186,7 @@ static inline void sub_0046EA80_ResetGfxBytes20(D2UnitStrc* pUnit)
 }
 
 // 0x0046EAA0
-static inline void sub_0046EAA0_ResetGfxBytes16(D2UnitStrc* pUnit)
+static inline void GFX_ResetGfxBytes16(D2UnitStrc* pUnit)
 {
     for (int i = 0; i < 16; ++i)
     {
@@ -2202,7 +2202,7 @@ static void __stdcall GFX_ResetGfxIndex(D2UnitStrc* pUnit, int nIndex)
     {
         sub_004DB1C0_SetGfxByte(pUnit, i, 0);
     }
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0x668);
     D2GfxListNodeStrc* pNode = pGfxData->pList;
     while (pNode)
@@ -2215,7 +2215,7 @@ static void __stdcall GFX_ResetGfxIndex(D2UnitStrc* pUnit, int nIndex)
 }
 
 // 0x0046EB50
-static inline void sub_0046EB50_ResetGfxBytes8(D2UnitStrc* pUnit)
+static inline void GFX_ResetGfxBytes8(D2UnitStrc* pUnit)
 {
     for (int i = 0; i < 8; ++i)
     {
@@ -2253,7 +2253,7 @@ D2GfxDataStrc* __cdecl GFX_AllocGfxData()
 // 0x0046EC10
 void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit)
 {
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0x814);
     D2GfxListNodeStrc* pNode = pGfxData->pList;
     while (pNode)
@@ -2269,7 +2269,7 @@ void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit)
 // 0x0046EC80
 void __fastcall GFX_FreeGfxNodes(D2UnitStrc* pUnit)
 {
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0x82A);
     D2GfxListNodeStrc* pNode = pGfxData->pList;
     while (pNode)
@@ -2284,7 +2284,7 @@ void __fastcall GFX_FreeGfxNodes(D2UnitStrc* pUnit)
 // 0x0046ECE0
 void __fastcall GFX_PruneGfxNodes(D2UnitStrc* pUnit)
 {
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0x83D);
     D2GfxListNodeStrc* pPrev = 0;
     D2GfxListNodeStrc* pNode = pGfxData->pList;
@@ -2419,7 +2419,7 @@ void __fastcall GFX_ResetGfx(D2UnitStrc* pUnit)
 // 0x0046F020
 void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue)
 {
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0xBBA);
     for (int i = 0; i < GFX_ENTRY_COUNT; ++i)
     {
@@ -2430,7 +2430,7 @@ void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue)
 // 0x0046F060
 D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit)
 {
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (pGfxData)
         return pGfxData->pMotion;
     return 0;
@@ -2439,7 +2439,7 @@ D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit)
 // 0x0046F070
 void __fastcall GFX_SetGfxMotionFlag(D2UnitStrc* pUnit, D2GfxMotionStrc* pMotion)
 {
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (pGfxData)
     {
         pGfxData->pMotion = pMotion;
@@ -2447,7 +2447,7 @@ void __fastcall GFX_SetGfxMotionFlag(D2UnitStrc* pUnit, D2GfxMotionStrc* pMotion
 }
 
 // 0x0046F090
-static int sub_0046F090_IsNotMonsterOrNoFlag2(D2UnitStrc* pUnit)
+static int GFX_IsNotMonsterOrNoFlag2(D2UnitStrc* pUnit)
 {
     if (!sub_M449_IsUnitTypeInl(pUnit, 1))
     {
@@ -2461,7 +2461,7 @@ static int sub_0046F090_IsNotMonsterOrNoFlag2(D2UnitStrc* pUnit)
 // 0x0046F170
 void __fastcall GFX_RemoveOverlays(D2UnitStrc* pUnit)
 {
-    D2GfxDataStrc* ptGfxInfo = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* ptGfxInfo = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(ptGfxInfo, 0xCCF);
     D2UnitOverlayStrc* pOverlay = ptGfxInfo->pOverlays;
     while (pOverlay)
@@ -2723,7 +2723,7 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nType, i
             sub_00474290(pNew->pLight, pTxt->n74);
     }
 
-    D2GfxDataStrc* pGfx = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfx = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfx, 0xC7A);
     pNew->n34 = pTxt->nByte48;
     pNew->pNext = pGfx->pOverlays;
@@ -2772,7 +2772,7 @@ void __fastcall GFX_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent, int* pO
     }
 
     const int nGfxMode = nMode;
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (!pGfxData)
     {
         return;
@@ -2828,7 +2828,7 @@ int __fastcall GFX_HitTestUnitGfx(D2UnitStrc* pUnit, int nOriginX, int nOriginY,
     D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, ".\\ENGINE\\Gfx.cpp", 0xD90);
 
     const int nGfxMode = nMode;
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (!pGfxData)
     {
         return 0;
@@ -2845,7 +2845,7 @@ int __fastcall GFX_HitTestUnitGfx(D2UnitStrc* pUnit, int nOriginX, int nOriginY,
         return 0;
     }
 
-    D2GfxBoundsStrc* ptGfxInfo = (D2GfxBoundsStrc*)sub_004DB040_identity(pNode->pFileEntry->pData);
+    D2GfxBoundsStrc* ptGfxInfo = (D2GfxBoundsStrc*)GFXUTIL_identity(pNode->pFileEntry->pData);
     D2_ASSERT(ptGfxInfo, 0xDA4);
 
     if (nX < ptGfxInfo->nLeft + nOriginX - 16 || nX >= ptGfxInfo->nRight + nOriginX + 16)
@@ -3091,7 +3091,7 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
 }
 
 // 0x00472530
-static inline void sub_00472530_SetPhaseActive(int bValue)
+static inline void GFX_SetPhaseActive(int bValue)
 {
     gbPhaseActive = bValue;
     if (bValue)

@@ -209,7 +209,7 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 
-void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
+void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
 int __cdecl sub_00468730(); // 0x00468730
 
@@ -217,7 +217,7 @@ int __cdecl sub_00468740(); // 0x00468740
 
 void __cdecl sub_00468F00(); // 0x00468F00
 
-void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
+void __fastcall MSG_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
 
 void __cdecl WARDENCLIENT_ActivatePendingModule(); // 0x00480230
 
@@ -508,7 +508,7 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
-int __fastcall sub_00479120_GetHirelingClassId(int nUnitId); // 0x00479120
+int __fastcall ROSTERPETS_GetHirelingClassId(int nUnitId); // 0x00479120
 
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem); // 0x006289C0
 
@@ -526,7 +526,7 @@ extern D2InvCompGridStrc gaBodyLocRects[11]; // 0x007BCD38
 
 extern int gnAutomapWidth; // 0x007A5220
 
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
+int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
 void __stdcall sub_00467FA0(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 
@@ -867,7 +867,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 void __fastcall sub_00468040(int nArg, int nArg2); // 0x00468040
 
-void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int nArg1, unsigned int nArg2, unsigned int nArg3); // 0x004786D0
+void __fastcall MSG_SendDwords3(unsigned char nHeader, unsigned int nArg1, unsigned int nArg2, unsigned int nArg3); // 0x004786D0
 
 void __fastcall sub_004B9070(int nArg); // 0x004B9070
 
@@ -1055,7 +1055,7 @@ extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
 void __stdcall sub_00403040_ConstructVector(void* pArray, unsigned int nSize, int nCount, void (__fastcall* pfnCtor)(void*)); // 0x00403040
 
-void __fastcall sub_0042F530_ClearUnicode(void* pChar);                                                     // 0x0042F530
+void __fastcall NPCMENU_ClearUnicode(void* pChar);                                                     // 0x0042F530
 
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nSize, const char* szFormat, ...);             // 0x00413A40
 
@@ -1305,7 +1305,7 @@ void __stdcall INV_StashMouseMoveMsg(SMSGHANDLER_PARAMS* pMsg);
 
 void __stdcall INV_StashClickMsg(SMSGHANDLER_PARAMS* pMsg);
 
-static int sub_00489FB0_IsOverButtonC(int nX, int nY);
+static int INV_IsOverButtonC(int nX, int nY); // 0x00489FB0
 
 static void INV_AppendBookCharges(Unicode* pText);
 

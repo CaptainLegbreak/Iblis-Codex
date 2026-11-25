@@ -256,11 +256,11 @@ int __fastcall sub_00477620_RollUnitValue(D2UnitStrc* pUnit, unsigned short nOff
 
 D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey);                                             // 0x00478E40
 
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny);                   // 0x00478F20
+int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny);                   // 0x00478F20
 
 int __fastcall ROSTER_GetPetType(int nUnitId);                                                        // 0x00479180
 
-int __fastcall sub_004791B0_IsOwnedByPlayer(D2UnitStrc* pUnit);                                             // 0x004791B0
+int __fastcall ROSTERPETS_IsOwnedByPlayer(D2UnitStrc* pUnit);                                             // 0x004791B0
 
 unsigned char* __fastcall MONSTER_GetMonUmods(D2UnitStrc* pUnit);                                  // 0x004AC740
 
@@ -586,7 +586,7 @@ void __fastcall CUNIT_SyncFromServerUnit(D2UnitStrc* pUnit); // 0x00465070
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int id); // 0x0045C4B0
 
-int __fastcall sub_00479150_FindRosterIndex(int unitId); // 0x00479150
+int __fastcall ROSTERPETS_FindRosterIndex(int unitId); // 0x00479150
 
 extern const unsigned char gnSkillMask_006CE26C; // 0x006CE26C
 
@@ -1136,7 +1136,7 @@ int __cdecl CUNIT_IsPlayerDeadOrMissing()
 }
 
 // 0x00463E10
-D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit)
+D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return 0;
@@ -1333,7 +1333,7 @@ int __fastcall CUNIT_SelectProcConvertTarget(D2UnitStrc* pPlayer, D2UnitStrc* pT
 }
 
 // 0x00464280
-int __fastcall sub_00464280_SkillSelectProc4(D2UnitStrc* pPlayer, D2UnitStrc* pTarget)
+int __fastcall CUNIT_SkillSelectProc4(D2UnitStrc* pPlayer, D2UnitStrc* pTarget)
 {
     return D2COMMON_11018(pTarget);
 }
@@ -1354,7 +1354,7 @@ int __fastcall sub_M210_Emit_00464310(D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
 }
 
 // 0x004642A0
-int __fastcall sub_004642A0_SkillSelectProc5(D2UnitStrc* pPlayer, D2UnitStrc* pTarget)
+int __fastcall CUNIT_SkillSelectProc5(D2UnitStrc* pPlayer, D2UnitStrc* pTarget)
 {
     return D2COMMON_11019(pTarget);
 }
@@ -1957,7 +1957,7 @@ int __fastcall CUNIT_IsPetSkillTarget(D2UnitStrc* unit, D2UnitStrc* target)
         }
         if (enabled)
         {
-            const int nRosterId = sub_00479150_FindRosterIndex(target->dwUnitId);
+            const int nRosterId = ROSTERPETS_FindRosterIndex(target->dwUnitId);
             return nRosterId == sub_00464EC0_GetUnitId(unit);
         }
     }
@@ -2047,7 +2047,7 @@ int __fastcall CUNIT_IsTargetBlocked(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
             if (SKILLCLT_HasFlag26(UNITS_GetRightSkill(pUnit), 2952) || bLeft)
             {
                 int nTargetId = pTarget->dwUnitId;
-                if (pTarget->dwUnitType != UNIT_MONSTER || (nTargetId = sub_00479150_FindRosterIndex(nTargetId)) != -1)
+                if (pTarget->dwUnitType != UNIT_MONSTER || (nTargetId = ROSTERPETS_FindRosterIndex(nTargetId)) != -1)
                 {
                     return sub_0047A520(pUnit->dwUnitId, nTargetId) != 0;
                 }
@@ -2639,7 +2639,7 @@ int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther)
         }
 
         if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pOther && pOther->dwUnitType == UNIT_MONSTER
-            && sub_00479150_FindRosterIndex(pOther->dwUnitId) != -1 && !CUNIT_IsPetSkillTarget(pUnit, pOther))
+            && ROSTERPETS_FindRosterIndex(pOther->dwUnitId) != -1 && !CUNIT_IsPetSkillTarget(pUnit, pOther))
         {
             return 0;
         }
@@ -2649,7 +2649,7 @@ int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther)
 
     if (nUnitType == 1)
     {
-        const int nOwnerId = sub_00479150_FindRosterIndex(nUnitId);
+        const int nOwnerId = ROSTERPETS_FindRosterIndex(nUnitId);
         if (nOwnerId != -1)
         {
             nUnitType = 0;
@@ -2671,7 +2671,7 @@ int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther)
 
     if (nOtherType == 1)
     {
-        const int nOwnerId = sub_00479150_FindRosterIndex(nOtherId);
+        const int nOwnerId = ROSTERPETS_FindRosterIndex(nOtherId);
         if (nOwnerId != -1)
         {
             nOtherType = 0;
@@ -3069,7 +3069,7 @@ static inline unsigned int sub_F4B0_SeedStep(D2SeedStrc* pSeed)
 D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pArg2, unsigned char* pArg3, int nArg4, int nArg5, int nArg6)
 {
     const unsigned int nUnitId = pSpawn->nUnitId;
-    if (nUnitId == sub_00478F20_FindPetIdByOwner(gpPlayerUnit, 7, 1))
+    if (nUnitId == ROSTERPETS_FindPetIdByOwner(gpPlayerUnit, 7, 1))
     {
         D2UnitStrc* pPet = CUNIT_FindUnitInTable(&gapClientUnitTable[UNIT_MONSTER * 0x80], nUnitId, nUnitId & 0x7F, UNIT_MONSTER);
         if (pPet)
@@ -3176,7 +3176,7 @@ D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pAr
         nMode = pModeTxtRecord->nModes[GAME_GetDifficulty()];
         if (nMode == 0xFF)
         {
-            nMode = !sub_004791B0_IsOwnedByPlayer(pUnit);
+            nMode = !ROSTERPETS_IsOwnedByPlayer(pUnit);
         }
     }
 

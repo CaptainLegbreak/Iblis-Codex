@@ -410,7 +410,7 @@ static inline D2RosterPetStrc* PETS_FindRosterPetInl(int nUnitId)
 }
 
 // 0x00478E70
-int __fastcall sub_00478E70_IsPetFriendly(D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
+int __fastcall ROSTERPETS_IsPetFriendly(D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
 {
     D2RosterPetStrc* pPet = PETS_FindRosterPetInl(!pUnit ? -1 : pUnit->dwUnitId);
     if (!pUnit || !pPlayer)
@@ -440,7 +440,7 @@ int __fastcall sub_00478E70_IsPetFriendly(D2UnitStrc* pPlayer, D2UnitStrc* pUnit
 }
 
 // 0x00478EE0
-int __fastcall sub_00478EE0_CountPets(D2UnitStrc* pOwner, int nType)
+int __fastcall ROSTERPETS_CountPets(D2UnitStrc* pOwner, int nType)
 {
     D2RosterPetStrc* pPet = gpRosterPets;
     const int nOwnerId = !pOwner ? -1 : pOwner->dwUnitId;
@@ -454,7 +454,7 @@ int __fastcall sub_00478EE0_CountPets(D2UnitStrc* pOwner, int nType)
 }
 
 // 0x00478F20
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny)
+int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny)
 {
     if (!pUnit)
         return -1;
@@ -470,7 +470,7 @@ int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int b
 }
 
 // 0x00478F70
-int __fastcall sub_00478F70_HasPets(D2UnitStrc* pOwner)
+int __fastcall ROSTERPETS_HasPets(D2UnitStrc* pOwner)
 {
     D2RosterPetStrc* pPet = gpRosterPets;
     const int nOwnerId = !pOwner ? -1 : pOwner->dwUnitId;
@@ -497,7 +497,7 @@ void __cdecl GFX_UpdatePetFlags()
             D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPet->dwUnitId, 1);
             if (pUnit)
             {
-                int bSet = !sub_00478E70_IsPetFriendly(pPlayer, pUnit);
+                int bSet = !ROSTERPETS_IsPetFriendly(pPlayer, pUnit);
                 sub_00463E20_SetUnitFlagA(pUnit, bSet);
                 sub_00463E80_SetUnitFlagB(pUnit, bSet);
             }
@@ -600,7 +600,7 @@ int __fastcall sub_004790F0(int nUnitId)
 }
 
 // 0x00479120
-int __fastcall sub_00479120_GetHirelingClassId(int nUnitId)
+int __fastcall ROSTERPETS_GetHirelingClassId(int nUnitId)
 {
     for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
     {
@@ -611,7 +611,7 @@ int __fastcall sub_00479120_GetHirelingClassId(int nUnitId)
 }
 
 // 0x00479150
-int __fastcall sub_00479150_FindRosterIndex(int nUnitId)
+int __fastcall ROSTERPETS_FindRosterIndex(int nUnitId)
 {
     for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
     {
@@ -636,9 +636,9 @@ int __fastcall ROSTER_GetPetType(int nUnitId)
 }
 
 // 0x004791B0
-int __fastcall sub_004791B0_IsOwnedByPlayer(D2UnitStrc* pUnit)
+int __fastcall ROSTERPETS_IsOwnedByPlayer(D2UnitStrc* pUnit)
 {
-    const int nOwnerId = sub_00479150_FindRosterIndex(!pUnit ? -1 : pUnit->dwUnitId);
+    const int nOwnerId = ROSTERPETS_FindRosterIndex(!pUnit ? -1 : pUnit->dwUnitId);
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nPlayerId = pPlayer ? pPlayer->dwUnitId : -1;
     D2_ASSERT(nPlayerId != -1, 0x225);
@@ -670,7 +670,7 @@ void __fastcall WARDENCLIENT_UpdateOwnerPetFlags(int nOwnerId)
                 if (pUnit)
                 {
                     int nFlagB = CUNIT_GetPalShiftIndex(pUnit);
-                    int bSet = !sub_004791B0_IsOwnedByPlayer(pUnit);
+                    int bSet = !ROSTERPETS_IsOwnedByPlayer(pUnit);
                     if (nFlagB == CUNIT_GetBasePalShiftIndex(pUnit))
                     {
                         sub_00463E80_SetUnitFlagB(pUnit, bSet);

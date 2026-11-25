@@ -37,7 +37,7 @@ struct D2ClientSoundStrc
 extern D2SoundNodeStrc* gpSoundList_007C5458; // 0x007C5458
 
 // 0x004B9B50
-void __fastcall sub_004B9B50_SetValue(int nKey, int nValue)
+void __fastcall SOUNDINST_SetValue(int nKey, int nValue)
 {
     if (!nKey)
         return;

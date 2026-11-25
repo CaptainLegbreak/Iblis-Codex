@@ -448,12 +448,10 @@
     "extern \"C\" void __cdecl sub_004C9490_MissileAroundUnit(); // 0x004C9490",
     "extern \"C\" void __cdecl sub_004C97C0(); // 0x004C97C0",
     "extern \"C\" void __cdecl sub_004E0A30_CltDoClearSeqSpeed(); // 0x004E0A30",
-    "extern \"C\" void __cdecl sub_004E0C60_CltDoResetActionFrame(); // 0x004E0C60",
     "extern \"C\" void __cdecl PLRSKILLS_SkillDoFrameOffset(); // 0x004E0D40",
     "extern \"C\" void __cdecl GFXUTIL_CltDoSetAnimFrameFromCalc(); // 0x004E0F40",
     "extern \"C\" void __cdecl MISSILE_SkillDoClearTarget(); // 0x004E1090",
     "extern \"C\" void __cdecl sub_004E1120(); // 0x004E1120",
-    "extern \"C\" void __cdecl sub_004E12F0_CltDoResetActionFrame2(); // 0x004E12F0",
     "extern \"C\" void __cdecl sub_004E1620_SkillCltDoMissilePair(); // 0x004E1620",
     "extern \"C\" void __cdecl sub_004E1770_SpawnSkillMissileRing(); // 0x004E1770",
     "extern \"C\" void __cdecl sub_004E1A20_SkillCltDoChargedMissile(); // 0x004E1A20",
@@ -501,7 +499,6 @@
     "extern \"C\" void __cdecl PLRSKILLS_MotionMissiles(); // 0x004F1D80",
     "extern \"C\" void __cdecl sub_004F1F20_FireTwinCltMissiles(); // 0x004F1F20",
     "extern \"C\" void __cdecl sub_004F2060_CheckTargetSetFlag(); // 0x004F2060",
-    "extern \"C\" void __cdecl sub_004F2160_DecrementParam(); // 0x004F2160",
     "extern \"C\" void __cdecl SKILLDESC_CltDoMissileRows(); // 0x004F2340",
     "extern \"C\" void __cdecl SKILLDESC_CltDoRepeatMissile(); // 0x004F25A0",
     "extern \"C\" void __cdecl SKILLDESC_CltDoTargetMissile(); // 0x004F2720",
@@ -571,7 +568,10 @@
     "extern \"C\" void __cdecl SKILLDESC_CreateMissileAtTarget(); // 0x004F4D90",
     "extern \"C\" void __cdecl SKILLDESC_CanTargetHostile(); // 0x004F2010",
     "extern \"C\" void __cdecl SKILLDESC_IsAuraStateOff(); // 0x004F23E0",
-    "extern \"C\" void __cdecl SKILLDESC_IsTargetPlayerOrMonster(); // 0x004F2870"
+    "extern \"C\" void __cdecl SKILLDESC_IsTargetPlayerOrMonster(); // 0x004F2870",
+    "extern \"C\" void __cdecl GFXUTIL_CltDoResetActionFrame(); // 0x004E0C60",
+    "extern \"C\" void __cdecl GFXUTIL_CltDoResetActionFrame2(); // 0x004E12F0",
+    "extern \"C\" void __cdecl SKILLDESC_DecrementParam(); // 0x004F2160"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/SKILLS/Skills.inc",
@@ -749,8 +749,6 @@
     "extern \"C\" void __cdecl INV_CubeButtonUpMsg(); // 0x004927C0",
     "extern \"C\" void __cdecl HIREABLES_PetIconClickMsg(); // 0x00493430",
     "extern \"C\" void __cdecl WARDENCLIENT_HandlePetIconClick(); // 0x004936E0",
-    "extern \"C\" void __cdecl sub_00493760_HirelingIconHoverMsg(); // 0x00493760",
-    "extern \"C\" void __cdecl sub_004938E0_HirelingIconClickMsg(); // 0x004938E0",
     "extern \"C\" void __cdecl PANEL_CloseUIVarsMsg(); // 0x00498C00",
     "extern \"C\" void __cdecl sub_0049BB60_OnRosterMouseDown(); // 0x0049BB60",
     "extern \"C\" void __cdecl sub_0049BDD0(); // 0x0049BDD0",
@@ -788,8 +786,6 @@
     "extern \"C\" char gData_007A28A0[]; // 0x007A28A0",
     "extern \"C\" char gData_007A2938[]; // 0x007A2938",
     "extern \"C\" char gData_007A29D0[]; // 0x007A29D0",
-    "extern \"C\" void __cdecl sub_004952B0_ButtonDownMsg(); // 0x004952B0",
-    "extern \"C\" void __cdecl sub_00495320_ButtonUpMsg(); // 0x00495320",
     "extern \"C\" void __cdecl PANEL_BeltMouseReleaseMsg(); // 0x004996A0",
     "extern \"C\" void __cdecl PANEL_BeltMouseMove(); // 0x00499BB0",
     "extern \"C\" void __cdecl PANEL_BeltClickMsg(); // 0x00499D10",
@@ -803,7 +799,11 @@
     "extern \"C\" void __cdecl AUTOMAP_DecreaseBaseX(); // 0x004574F0",
     "extern \"C\" void __cdecl AUTOMAP_IncreaseBaseX(); // 0x00457500",
     "extern \"C\" void __cdecl sub_004967A0_KeyCloseHelp(); // 0x004967A0",
-    "extern \"C\" void __cdecl sub_00499500_Click(); // 0x00499500"
+    "extern \"C\" void __cdecl sub_00499500_Click(); // 0x00499500",
+    "extern \"C\" void __cdecl HIREABLES_HirelingIconHoverMsg(); // 0x00493760",
+    "extern \"C\" void __cdecl HIREABLES_HirelingIconClickMsg(); // 0x004938E0",
+    "extern \"C\" void __cdecl HIREABLES_ButtonDownMsg(); // 0x004952B0",
+    "extern \"C\" void __cdecl HIREABLES_ButtonUpMsg(); // 0x00495320"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/ui.inc",
@@ -1481,8 +1481,6 @@
    "externs": [
     "extern \"C\" void __cdecl DDDEBUGFONT_DebugPrintf(); // 0x00512680",
     "extern \"C\" void __cdecl DDRAW_CelDrawHilight(); // 0x005123A0",
-    "extern \"C\" void __cdecl DDRAW_GetBackBuffer(); // 0x00511970",
-    "extern \"C\" void __cdecl DDRAW_OpenSmackCutscene(); // 0x00511660",
     "extern \"C\" void __cdecl DDSMACK_DecodeSmacker(); // 0x00513400",
     "extern \"C\" void __cdecl DDSMACK_PlaySmacker(); // 0x005135F0",
     "extern \"C\" void __cdecl sub_00511FB0_DrawImage(); // 0x00511FB0",
@@ -3119,20 +3117,11 @@
    "state": "included"
   },
   "Source/D2CMP/SRC/FastCmp.cpp": {
-   "bytes": 20,
-   "definitions": 1,
+   "bytes": 5179,
+   "definitions": 7,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/SRC/FastCmp_00604AA0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2CMP/Unknown_006056D0.cpp": {
-   "bytes": 5159,
-   "definitions": 6,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2CMP/Unknown_006056D0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3914,9 +3903,9 @@
    "bytes": -152,
    "definitions": 5,
    "externs": [
-    "extern \"C\" void __cdecl sub_00467EF0_MsgHandler(); // 0x00467EF0",
     "extern \"C\" void __cdecl ROSTERPETS_HandleButtonUp(); // 0x00467FA0",
-    "extern \"C\" void __cdecl sub_00468840_HandleMouseMotion(); // 0x00468840"
+    "extern \"C\" void __cdecl CURSOR_MsgHandler(); // 0x00467EF0",
+    "extern \"C\" void __cdecl CURSOR_HandleMouseMotion(); // 0x00468840"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/GAME/Select.inc",
@@ -3941,18 +3930,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Quests/a3q7.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a3q7.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/MONSTER/MonsterChoose.cpp": {
-   "bytes": 412,
-   "definitions": 3,
+   "bytes": 472,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MONSTER/MonsterChoose.inc",
@@ -34399,7 +34379,7 @@
      20,
      "0x00493760",
      "names.json",
-     "sub_00493760_HirelingIconHoverMsg",
+     "HIREABLES_HirelingIconHoverMsg",
      0,
      "func"
     ],
@@ -34407,7 +34387,7 @@
      32,
      "0x004938E0",
      "names.json",
-     "sub_004938E0_HirelingIconClickMsg",
+     "HIREABLES_HirelingIconClickMsg",
      0,
      "func"
     ]
@@ -36023,7 +36003,7 @@
      828,
      "0x0045E290",
      "names.json",
-     "sub_0045E290_Packet45",
+     "SCMD_Packet45",
      0,
      "func"
     ],
@@ -36159,7 +36139,7 @@
      1008,
      "0x0045E3B0",
      "names.json",
-     "sub_0045E3B0_Packet54",
+     "SCMD_Packet54",
      0,
      "func"
     ],
@@ -36303,7 +36283,7 @@
      1224,
      "0x0045E6C0",
      "names.json",
-     "sub_0045E6C0_Packet66",
+     "SCMD_Packet66",
      0,
      "func"
     ],
@@ -38003,7 +37983,7 @@
      8,
      "0x004952B0",
      "names.json",
-     "sub_004952B0_ButtonDownMsg",
+     "HIREABLES_ButtonDownMsg",
      0,
      "func"
     ],
@@ -38011,7 +37991,7 @@
      20,
      "0x00495320",
      "names.json",
-     "sub_00495320_ButtonUpMsg",
+     "HIREABLES_ButtonUpMsg",
      0,
      "func"
     ]
@@ -40433,7 +40413,7 @@
      16,
      "0x00464280",
      "names.json",
-     "sub_00464280_SkillSelectProc4",
+     "CUNIT_SkillSelectProc4",
      0,
      "func"
     ],
@@ -40441,7 +40421,7 @@
      20,
      "0x004642A0",
      "names.json",
-     "sub_004642A0_SkillSelectProc5",
+     "CUNIT_SkillSelectProc5",
      0,
      "func"
     ],
@@ -40906,7 +40886,7 @@
      8,
      "0x00468840",
      "names.json",
-     "sub_00468840_HandleMouseMotion",
+     "CURSOR_HandleMouseMotion",
      0,
      "func"
     ],
@@ -40914,7 +40894,7 @@
      20,
      "0x00467EF0",
      "names.json",
-     "sub_00467EF0_MsgHandler",
+     "CURSOR_MsgHandler",
      0,
      "func"
     ],
@@ -41365,7 +41345,7 @@
      0,
      "0x00468940",
      "owner",
-     "sub_00468940_SetUIVar2",
+     "CMDTBL_SetUIVar2",
      0,
      "func"
     ],
@@ -41373,7 +41353,7 @@
      12,
      "0x00468950",
      "owner",
-     "sub_00468950_SetUIVar1",
+     "CMDTBL_SetUIVar1",
      0,
      "func"
     ],
@@ -41381,7 +41361,7 @@
      24,
      "0x00468960",
      "owner",
-     "sub_00468960_SetUIVar22",
+     "CMDTBL_SetUIVar22",
      0,
      "func"
     ],
@@ -41389,7 +41369,7 @@
      36,
      "0x00468980",
      "owner",
-     "sub_00468980_SetUIVar24",
+     "CMDTBL_SetUIVar24",
      0,
      "func"
     ],
@@ -41397,7 +41377,7 @@
      48,
      "0x00468990",
      "owner",
-     "sub_00468990_OpenMode1",
+     "CMDTBL_OpenMode1",
      0,
      "func"
     ],
@@ -41405,7 +41385,7 @@
      60,
      "0x004689B0",
      "owner",
-     "sub_004689B0_SetUIVar5",
+     "CMDTBL_SetUIVar5",
      0,
      "func"
     ],
@@ -41421,7 +41401,7 @@
      84,
      "0x00468A30",
      "owner",
-     "sub_00468A30_SetUIVar10",
+     "CMDTBL_SetUIVar10",
      0,
      "func"
     ],
@@ -41429,7 +41409,7 @@
      96,
      "0x00468A60",
      "owner",
-     "sub_00468A60_Force",
+     "CMDTBL_Force",
      0,
      "func"
     ],
@@ -41437,7 +41417,7 @@
      108,
      "0x00468A70",
      "owner",
-     "sub_00468A70_CycleSetting",
+     "CMDTBL_CycleSetting",
      0,
      "func"
     ],
@@ -41461,7 +41441,7 @@
      144,
      "0x00468AF0",
      "owner",
-     "sub_00468AF0_SetUIVar4",
+     "CMDTBL_SetUIVar4",
      0,
      "func"
     ],
@@ -41469,7 +41449,7 @@
      156,
      "0x00468B00",
      "owner",
-     "sub_00468B00_SetUIVar3",
+     "CMDTBL_SetUIVar3",
      0,
      "func"
     ],
@@ -41477,7 +41457,7 @@
      168,
      "0x00468B90",
      "owner",
-     "sub_00468B90_Hotkey0",
+     "CMDTBL_Hotkey0",
      0,
      "func"
     ],
@@ -41485,7 +41465,7 @@
      180,
      "0x00468BC0",
      "owner",
-     "sub_00468BC0_Hotkey1",
+     "CMDTBL_Hotkey1",
      0,
      "func"
     ],
@@ -41493,7 +41473,7 @@
      192,
      "0x00468BF0",
      "owner",
-     "sub_00468BF0_Hotkey2",
+     "CMDTBL_Hotkey2",
      0,
      "func"
     ],
@@ -41501,7 +41481,7 @@
      204,
      "0x00468C20",
      "owner",
-     "sub_00468C20_Hotkey3",
+     "CMDTBL_Hotkey3",
      0,
      "func"
     ],
@@ -41509,7 +41489,7 @@
      216,
      "0x00468C50",
      "owner",
-     "sub_00468C50_Hotkey4",
+     "CMDTBL_Hotkey4",
      0,
      "func"
     ],
@@ -41517,7 +41497,7 @@
      228,
      "0x00468C80",
      "owner",
-     "sub_00468C80_Hotkey5",
+     "CMDTBL_Hotkey5",
      0,
      "func"
     ],
@@ -41525,7 +41505,7 @@
      240,
      "0x00468CB0",
      "owner",
-     "sub_00468CB0_Hotkey6",
+     "CMDTBL_Hotkey6",
      0,
      "func"
     ],
@@ -41533,7 +41513,7 @@
      252,
      "0x00468CE0",
      "owner",
-     "sub_00468CE0_Hotkey7",
+     "CMDTBL_Hotkey7",
      0,
      "func"
     ],
@@ -41549,7 +41529,7 @@
      276,
      "0x00468F40",
      "owner",
-     "sub_00468F40_BeltHotkey0",
+     "CMDTBL_BeltHotkey0",
      0,
      "func"
     ],
@@ -41557,7 +41537,7 @@
      288,
      "0x00468F50",
      "owner",
-     "sub_00468F50_BeltHotkey1",
+     "CMDTBL_BeltHotkey1",
      0,
      "func"
     ],
@@ -41565,7 +41545,7 @@
      300,
      "0x00468F60",
      "owner",
-     "sub_00468F60_BeltHotkey2",
+     "CMDTBL_BeltHotkey2",
      0,
      "func"
     ],
@@ -41573,7 +41553,7 @@
      312,
      "0x00468F70",
      "owner",
-     "sub_00468F70_BeltHotkey3",
+     "CMDTBL_BeltHotkey3",
      0,
      "func"
     ],
@@ -41581,7 +41561,7 @@
      324,
      "0x00468F80",
      "owner",
-     "sub_00468F80_Phrase19",
+     "CMDTBL_Phrase19",
      0,
      "func"
     ],
@@ -41589,7 +41569,7 @@
      336,
      "0x00468F90",
      "owner",
-     "sub_00468F90_Phrase1A",
+     "CMDTBL_Phrase1A",
      0,
      "func"
     ],
@@ -41597,7 +41577,7 @@
      348,
      "0x00468FA0",
      "owner",
-     "sub_00468FA0_Phrase1B",
+     "CMDTBL_Phrase1B",
      0,
      "func"
     ],
@@ -41605,7 +41585,7 @@
      360,
      "0x00468FB0",
      "owner",
-     "sub_00468FB0_Phrase1C",
+     "CMDTBL_Phrase1C",
      0,
      "func"
     ],
@@ -41613,7 +41593,7 @@
      372,
      "0x00468FC0",
      "owner",
-     "sub_00468FC0_Phrase1D",
+     "CMDTBL_Phrase1D",
      0,
      "func"
     ],
@@ -41621,7 +41601,7 @@
      384,
      "0x00468FD0",
      "owner",
-     "sub_00468FD0_Phrase1E",
+     "CMDTBL_Phrase1E",
      0,
      "func"
     ],
@@ -41629,7 +41609,7 @@
      396,
      "0x00468FE0",
      "owner",
-     "sub_00468FE0_Phrase1F",
+     "CMDTBL_Phrase1F",
      0,
      "func"
     ],
@@ -41637,7 +41617,7 @@
      408,
      "0x00469000",
      "owner",
-     "sub_00469000_HotkeyRunOn",
+     "CMDTBL_HotkeyRunOn",
      0,
      "func"
     ],
@@ -41645,7 +41625,7 @@
      412,
      "0x004691C0",
      "owner",
-     "sub_004691C0_HotkeyRunOff",
+     "CMDTBL_HotkeyRunOff",
      0,
      "func"
     ],
@@ -41653,7 +41633,7 @@
      420,
      "0x00469060",
      "owner",
-     "sub_00469060_ToggleAlwaysRun",
+     "CMDTBL_ToggleAlwaysRun",
      0,
      "func"
     ],
@@ -41661,7 +41641,7 @@
      432,
      "0x00469080",
      "owner",
-     "sub_00469080_HotkeySetValue",
+     "CMDTBL_HotkeySetValue",
      0,
      "func"
     ],
@@ -41677,7 +41657,7 @@
      444,
      "0x00469090",
      "owner",
-     "sub_00469090_HotkeyUiVarOff",
+     "CMDTBL_HotkeyUiVarOff",
      0,
      "func"
     ],
@@ -41685,7 +41665,7 @@
      448,
      "0x00469210",
      "owner",
-     "sub_00469210_HotkeyUiVarOn",
+     "CMDTBL_HotkeyUiVarOn",
      0,
      "func"
     ],
@@ -41701,7 +41681,7 @@
      468,
      "0x00469100",
      "owner",
-     "sub_00469100_HotkeyPrevSkill",
+     "CMDTBL_HotkeyPrevSkill",
      0,
      "func"
     ],
@@ -41709,7 +41689,7 @@
      480,
      "0x00469120",
      "owner",
-     "sub_00469120_HotkeyNextSkill",
+     "CMDTBL_HotkeyNextSkill",
      0,
      "func"
     ],
@@ -41741,7 +41721,7 @@
      528,
      "0x00469140",
      "owner",
-     "sub_00469140_HotkeyResetSounds",
+     "CMDTBL_HotkeyResetSounds",
      0,
      "func"
     ],
@@ -41757,7 +41737,7 @@
      552,
      "0x00468D10",
      "owner",
-     "sub_00468D10_Hotkey8",
+     "CMDTBL_Hotkey8",
      0,
      "func"
     ],
@@ -41765,7 +41745,7 @@
      564,
      "0x00468D40",
      "owner",
-     "sub_00468D40_Hotkey9",
+     "CMDTBL_Hotkey9",
      0,
      "func"
     ],
@@ -41773,7 +41753,7 @@
      576,
      "0x00468D80",
      "owner",
-     "sub_00468D80_Hotkey10",
+     "CMDTBL_Hotkey10",
      0,
      "func"
     ],
@@ -41781,7 +41761,7 @@
      588,
      "0x00468DC0",
      "owner",
-     "sub_00468DC0_Hotkey11",
+     "CMDTBL_Hotkey11",
      0,
      "func"
     ],
@@ -41789,7 +41769,7 @@
      600,
      "0x00468E00",
      "owner",
-     "sub_00468E00_Hotkey12",
+     "CMDTBL_Hotkey12",
      0,
      "func"
     ],
@@ -41797,7 +41777,7 @@
      612,
      "0x00468E40",
      "owner",
-     "sub_00468E40_Hotkey13",
+     "CMDTBL_Hotkey13",
      0,
      "func"
     ],
@@ -41805,7 +41785,7 @@
      624,
      "0x00468E80",
      "owner",
-     "sub_00468E80_Hotkey14",
+     "CMDTBL_Hotkey14",
      0,
      "func"
     ],
@@ -41813,7 +41793,7 @@
      636,
      "0x00468EC0",
      "owner",
-     "sub_00468EC0_Hotkey15",
+     "CMDTBL_Hotkey15",
      0,
      "func"
     ],
@@ -41821,7 +41801,7 @@
      648,
      "0x00469170",
      "owner",
-     "sub_00469170_HotkeyPetUi",
+     "CMDTBL_HotkeyPetUi",
      0,
      "func"
     ],
@@ -41829,7 +41809,7 @@
      660,
      "0x00468FF0",
      "owner",
-     "sub_00468FF0_Phrase20",
+     "CMDTBL_Phrase20",
      0,
      "func"
     ],
@@ -41837,7 +41817,7 @@
      672,
      "0x004690B0",
      "owner",
-     "sub_004690B0_HotkeyEscape",
+     "CMDTBL_HotkeyEscape",
      0,
      "func"
     ]
@@ -53349,7 +53329,7 @@
      4,
      "0x004AC870",
      "source",
-     "sub_004AC870_SetMonsterHoverName",
+     "MONUNIQUE_SetMonsterHoverName",
      0,
      "func"
     ],
@@ -53389,7 +53369,7 @@
      48,
      "0x004AC870",
      "source",
-     "sub_004AC870_SetMonsterHoverName",
+     "MONUNIQUE_SetMonsterHoverName",
      0,
      "func"
     ],
@@ -53397,7 +53377,7 @@
      64,
      "0x004AC870",
      "source",
-     "sub_004AC870_SetMonsterHoverName",
+     "MONUNIQUE_SetMonsterHoverName",
      0,
      "func"
     ],
@@ -53461,7 +53441,7 @@
      144,
      "0x004AC870",
      "source",
-     "sub_004AC870_SetMonsterHoverName",
+     "MONUNIQUE_SetMonsterHoverName",
      0,
      "func"
     ],
@@ -53469,7 +53449,7 @@
      148,
      "0x004AC870",
      "source",
-     "sub_004AC870_SetMonsterHoverName",
+     "MONUNIQUE_SetMonsterHoverName",
      0,
      "func"
     ],
@@ -53477,7 +53457,7 @@
      152,
      "0x004AC870",
      "source",
-     "sub_004AC870_SetMonsterHoverName",
+     "MONUNIQUE_SetMonsterHoverName",
      0,
      "func"
     ],
@@ -53485,7 +53465,7 @@
      156,
      "0x004AC870",
      "source",
-     "sub_004AC870_SetMonsterHoverName",
+     "MONUNIQUE_SetMonsterHoverName",
      0,
      "func"
     ]
@@ -54893,7 +54873,7 @@
      343,
      "0x004B5260",
      "names.json",
-     "sub_004B5260_NpcMenuAction28b",
+     "NPCMENU_NpcMenuAction28b",
      0,
      "func"
     ],
@@ -59579,7 +59559,7 @@
      16,
      "0x004F2160",
      "names.json",
-     "sub_004F2160_DecrementParam",
+     "SKILLDESC_DecrementParam",
      0,
      "func"
     ],
@@ -59923,7 +59903,7 @@
      188,
      "0x004E0C60",
      "names.json",
-     "sub_004E0C60_CltDoResetActionFrame",
+     "GFXUTIL_CltDoResetActionFrame",
      0,
      "func"
     ],
@@ -59963,7 +59943,7 @@
      208,
      "0x004E12F0",
      "names.json",
-     "sub_004E12F0_CltDoResetActionFrame2",
+     "GFXUTIL_CltDoResetActionFrame2",
      0,
      "func"
     ],
@@ -60718,7 +60698,7 @@
      104,
      "0x004C7C90",
      "owner",
-     "sub_004C7C90_TestTarget11018",
+     "SKILLS_TestTarget11018",
      0,
      "func"
     ],
@@ -60734,7 +60714,7 @@
      112,
      "0x004C7EE0",
      "owner",
-     "sub_004C7EE0_TestTarget11019",
+     "SKILLS_TestTarget11019",
      0,
      "func"
     ],
@@ -66611,7 +66591,7 @@
      52,
      "0x004D3F10",
      "source",
-     "sub_004D3F10_ClientMissileDo",
+     "MISSILE_ClientMissileDo",
      0,
      "func"
     ],
@@ -101080,7 +101060,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a3q7.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterChoose.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern const char* gaszLanguageNames_00741578[15] = ",
@@ -105725,7 +105705,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "file": "Source/D2CMP/SRC/FastCmp.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int ganTable_007420D8[256] = ",
@@ -105755,7 +105735,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "file": "Source/D2CMP/SRC/FastCmp.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int ganTable_007424D8[256] = ",
@@ -105785,7 +105765,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "file": "Source/D2CMP/SRC/FastCmp.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int ganTable_007428D8[256] = ",
@@ -105815,7 +105795,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "file": "Source/D2CMP/SRC/FastCmp.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int ganTable_00742CD8[256] = ",
@@ -105845,7 +105825,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "file": "Source/D2CMP/SRC/FastCmp.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int ganTable_007430D8[256] = ",
@@ -105875,7 +105855,7 @@
    "cname": "gData_007434D8",
    "declared": true,
    "decorated": "?gtColorBlock@@3UD2ColorBlockStrc@@B",
-   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "file": "Source/D2CMP/SRC/FastCmp.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2ColorBlockStrc gData_007434D8; // 0x007434D8",
    "head": "extern \"C\" const D2ColorBlockStrc gData_007434D8 = ",

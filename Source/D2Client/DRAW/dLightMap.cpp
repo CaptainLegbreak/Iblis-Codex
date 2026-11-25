@@ -238,7 +238,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                      
 
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
 
-int __fastcall sub_00474080_GetDistance(int nDX, int nDY);                                                  // 0x00474080
+int __fastcall DLIGHTMAP_GetDistance(int nDX, int nDY);                                                  // 0x00474080
 
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource);                                       // 0x004743D0
 
@@ -284,7 +284,7 @@ enum D2C_DLightMapConstants
 };
 
 // 0x00474080
-int __fastcall sub_00474080_GetDistance(int nDX, int nDY)
+int __fastcall DLIGHTMAP_GetDistance(int nDX, int nDY)
 {
     const int nAbsX = abs(nDX);
     const int nAbsY = abs(nDY);
@@ -1222,7 +1222,7 @@ static void DLIGHTMAP_AddMaskedAreaLight(D2R01LightStrc* pLight)
             {
                 const int nDiffX = pLight->nX - nX;
                 const int nDx = LIGHT_ABS(nDiffX);
-                int nValue = (pLight->nRadius - sub_00474080_GetDistance(nDx, nDy)) * nScale >> 0x10;
+                int nValue = (pLight->nRadius - DLIGHTMAP_GetDistance(nDx, nDy)) * nScale >> 0x10;
                 nValue = nValue * (8 - (nMaskValue >> 1)) >> 3;
                 if (nValue > 0)
                 {

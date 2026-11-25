@@ -295,7 +295,7 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 
 int __cdecl CUNIT_IsPlayerDeadOrMissing();                                                                    // 0x00463DF0
 
-void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3);               // 0x00478600
+void __fastcall MSG_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3);               // 0x00478600
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                                                                   // 0x00478A00
 
@@ -587,7 +587,7 @@ unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
 
 extern D2BodyLocRectStrc gaBodyLocRects[11]; // 0x007BCD38
 
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int nIndex); // 0x00478F20
+int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int nIndex); // 0x00478F20
 
 
 extern D2CelFileStrc* gpMercPanelCells_007BCE88; // 0x007BCE88
@@ -1517,7 +1517,8 @@ void __stdcall INV_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
     }
 }
 
-static int sub_00489FB0_IsOverButtonC(int nX, int nY)
+// build: symbol ?INV_IsOverButtonC@* 0x00489FB0
+static int INV_IsOverButtonC(int nX, int nY)
 {
     if (nX > gnPanelOffsetX + 0x113 && nX < gnPanelOffsetX + 0x13B
         && nY > gnScreenHeight + gnPanelOffsetY - 0x64 && nY < gnScreenHeight + gnPanelOffsetY - 0x3C)
@@ -1626,7 +1627,7 @@ void __cdecl INV_DrawInventoryPanel()
 timer_done:
             D2Win_10127_SetFont(1);
 
-            if (sub_00489FB0_IsOverButtonC(nMouseX, nMouseY))
+            if (INV_IsOverButtonC(nMouseX, nMouseY))
             {
                 const Unicode* wszText = D2LANG_GetStringFromTblIndex(0x1030);
                 D2Win_10129_DrawFramedText(wszText, gnPanelOffsetX - D2Win_10121_GetTextWidth(wszText) / 2 + 0x121, gnScreenHeight + gnPanelOffsetY - 0x64, 0, 0);
@@ -1640,7 +1641,7 @@ timer_done:
         else
         {
             UI_SetUIVar(0x1A, 1, 0);
-            sub_00478600_SendShorts(0x4F, 0x17, 0, 0);
+            MSG_SendShorts(0x4F, 0x17, 0, 0);
             return;
         }
         break;
@@ -2484,7 +2485,7 @@ void __cdecl INV_DrawMercPanel()
         return;
     }
 
-    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
+    const int nPetId = ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
     if ((unsigned int)nPetId == 0xFFFFFFFF)
     {
         UI_SetUIVar(0x24, 2, 0);
