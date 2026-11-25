@@ -4,6 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/audit-names 9a970824 (on #383): the audit's lane 3 names. QServer.cpp's empty sub_006BF250_Nop and Storm.h's pfnSetBuffer pointer lose their a1..a4 parameter names (nothing reads them); the Huffman node's link f_0 is m_link (Unknown_0041F4A0.cpp); SBig_00424700.cpp's buffer drops its f_4 alias for m_count. All 40 Storm.h includers build equal. Full build: Game.exe identical, tree 169670b0b27a9076b0de154ed47d5a5ce1818720, borrowed code / data 11,250 / 265 B.
+
 - lane3/dead-decls-2 9879aa13 (on #383; replaces lane3/dead-decls f14ab4b9, rebased): 48 Storm and Fog units drop the prototypes, extern declarations and forward declarations their own file never uses (about 900; the audit's private-declaration item, for lane 3's files). Declarations that macros or generated data includes need stay. Every touched unit builds equal, SFILE.CPP's 0x41AAD0 included. Full build: Game.exe identical, tree 46045b6f9288dffb24800e2ea9bca9a1c9cdb407, borrowed code / data 11,250 / 265 B.
 
 
