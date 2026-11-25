@@ -7,6 +7,7 @@
 #include "D2WinSplitText.h"
 #include "StormApi.h"
 #include "D2LangApi.h"
+#include "StormApi.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -49,7 +50,6 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);       
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor);                              // 0x0049E3A0
 extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
 unsigned int __fastcall D2Win_10128(unsigned char nChar);                                                   // 0x00502550
 int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970

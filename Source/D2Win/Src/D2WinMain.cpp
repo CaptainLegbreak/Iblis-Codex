@@ -22,6 +22,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2LangApi.h"
+#include "FogApi.h"
 
 typedef long (__stdcall* WNDPROC)(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam);
 
@@ -466,9 +467,7 @@ extern "C" __declspec(dllimport) int __stdcall ijlFree(JPEG_CORE_PROPERTIES* pPr
 
 extern int gnScreenshotIndex; // 0x0072DC40
 
-void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
 
-int __fastcall FOG_CloseFile(void* hFile); // 0x004069A0
 
 int __stdcall D2GFX_GetBackBuffer(unsigned char* pBuffer); // 0x004F6250
 
@@ -669,7 +668,6 @@ struct D2ConfigStrc;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(const char* szFileName); // 0x006CC1B0
 
-int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406BA0
 
 
 

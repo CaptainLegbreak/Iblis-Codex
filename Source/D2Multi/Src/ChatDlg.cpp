@@ -29,6 +29,7 @@
 #include "D2MultiCharSave.h"
 #include "FogApi.h"
 #include "D2LangApi.h"
+#include "FogApi.h"
 
 static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
@@ -52,15 +53,10 @@ struct SMSGHANDLER_PARAMS;
 
 
 
-int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
-void* __fastcall FOG_CreateFileA(const char* szPath, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwCreation, unsigned long dwFlags, void* hTemplate); // 0x00406960
 
-int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nSize, unsigned long* pRead, void* pOverlapped); // 0x004069B0
 
-int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nSize, unsigned long* pWritten, void* pOverlapped); // 0x004069D0
 
-unsigned long __fastcall FOG_SetFilePointer(void* hFile, long nDistance, long* pDistanceHigh, unsigned long dwMethod); // 0x004069F0
 
 unsigned int __stdcall FOG_ComputeChecksum(const unsigned char* pData, unsigned int nSize); // 0x00411130
 
@@ -653,7 +649,6 @@ extern "C" __declspec(dllimport) int __stdcall SetForegroundWindow(void* hWnd); 
 
 extern "C" __declspec(dllimport) int __stdcall CreateProcessA(const char* szApplicationName, char* szCommandLine, void* pProcessAttributes, void* pThreadAttributes, int bInheritHandles, unsigned long dwCreationFlags, void* pEnvironment, const char* szCurrentDirectory, D2StartupInfoAStrc* pStartupInfo, D2ProcessInformationStrc* pProcessInformation); // 0x006CC33C
 
-void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
 
@@ -5503,9 +5498,7 @@ int __fastcall CHATDLG_Lookup(const char* szName, const char* szPassword, D2Laun
     return 0;
 }
 
-void __stdcall sub_00411320_CapitalizeWords(char* szText); // 0x00411320
 
-char* __fastcall FOG_inet_ntoa(int nAddress); // 0x0040E080
 
 extern D2WinControlStrc* gpJoinPassword_00798BD8; // 0x00798BD8
 

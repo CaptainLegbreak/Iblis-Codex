@@ -3,6 +3,7 @@
 #include "D2MultiTypes.h"
 #include "StormApi.h"
 #include "D2LangApi.h"
+#include "FogApi.h"
 
 struct D2LaunchResultStrc
 {
@@ -23,7 +24,6 @@ struct D2LaunchLoginStrc
 extern "C" int __cdecl atoi(const char* szString);
 extern "C" size_t __cdecl strlen(const char* szString);
 
-const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 int __fastcall CHATDLG_SetupLogin(D2LaunchLoginStrc* pLogin, const char* szText0x37); // 0x0043FE40
 void __fastcall CHATDLG_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
 void __cdecl CHATDLG_DestroyCreateControls(); // 0x00443220

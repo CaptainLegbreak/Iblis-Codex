@@ -20,6 +20,7 @@
 #include "D2CmpDC6CacheEntry.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "FogApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1502,7 +1503,6 @@ extern Config extensions; // 0x00741EFC
 
 enum { DISABLED = 0 };
 
-void* __fastcall FOG_AsyncDataGetBuffer(AsyncData* pAsync); // 0x0040A9E0
 
 
 static void* __stdcall SPRITECACHE_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader); // 0x005FEB80

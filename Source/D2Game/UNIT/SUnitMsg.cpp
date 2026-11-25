@@ -17,6 +17,7 @@
 #include "D2LanguageNames.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "FogApi.h"
 // build: symbol _gaszLanguageNames 0x007326B8
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -29,14 +30,11 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 unsigned int* __stdcall STATES_GetGfxStateFlags(D2UnitStrc* pUnit); // 0x00639F70
 
-int __stdcall sub_004111A0_GetLowestSetBit(unsigned int nValue); // 0x004111A0
 
 
 
 
-void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
 
-void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0
 
 int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
 
@@ -158,11 +156,8 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
-void __stdcall sub_00410B10(unsigned char* pBits, int nBit); // 0x00410B10
 
-int __stdcall sub_00410B30(unsigned char* pBits, int nBit); // 0x00410B30
 
-void __stdcall sub_00410B50(unsigned char* pBits, int nBit); // 0x00410B50
 
 D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromUnit(D2GameStrc* pGame, D2UnitStrc* pNpc, int* pIndex); // 0x00535F10
 

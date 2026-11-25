@@ -26,6 +26,8 @@
 #include "StormApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 
@@ -1175,7 +1177,6 @@ struct D2PacketTableEntryStrc
 
 void __fastcall SCMD_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451D10
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 
 
@@ -1318,13 +1319,9 @@ int gbRevealAutomap; // 0x007A51A0
 
 void* __cdecl AUTOMAP_OpenAutomapFile(); // 0x00457F40
 
-int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
 
-int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x004069D0
 
-unsigned long __fastcall FOG_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004069F0
 
-int __fastcall FOG_CloseFile(void* hFile); // 0x004069A0
 
 void __fastcall AUTOMAP_CountCells(D2AutomapCellStrc* pCells, unsigned int* pCount); // 0x00458440
 
@@ -1403,13 +1400,9 @@ typedef char D2AutomapFileHeaderSizeCheck[sizeof(D2AutomapFileHeaderStrc) == 0x1
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);
 
-void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
 
-int __fastcall FOG_DeleteFileA(const char* szFileName); // 0x00406990
 
-int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
 
-int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
 extern char gszClientCharName[]; // 0x007A05C4
 
@@ -1424,7 +1417,6 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x0
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 
-const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 
 const char* __cdecl WINMAIN_GetGameName(); // 0x0044B7C0
 

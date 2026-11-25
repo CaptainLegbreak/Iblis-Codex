@@ -7,6 +7,7 @@
 #include "D2FogSystemInfo.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "FogApi.h"
 
 extern "C" __declspec(dllimport) int __stdcall lstrlenA(const char* sz); // 0x006CC154
 extern "C" __declspec(dllimport) long __stdcall RegSetValueExA(void* hKey, const char* szValueName, unsigned long nReserved, unsigned long dwType, const unsigned char* pData, unsigned long cbData); // 0x006CC034
@@ -606,13 +607,11 @@ extern const unsigned int gdwBitMask7_006CE284;                                 
 
 extern const unsigned int gdwBitMask8;                                                             // 0x006CE288
 
-void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...);                                          // 0x00410610
 
 extern const unsigned int gnGammaMask_006CE278;                                                             // 0x006CE278
 
 extern int gnGammaScale_0074C020;                                                                           // 0x0074C020
 
-void __fastcall EXCEL_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
 
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nBytes);
 
@@ -779,7 +778,6 @@ extern int gnGammaScale_0074C020; // 0x0074C020
 
 extern D2GammaControlStrc* gpGammaControl_00970E74; // 0x00970E74
 
-void __fastcall EXCEL_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
 
 void __fastcall D3DCORE_LogDDrawError(const char* szMessage, int nResult); // 0x006B20E0
 
@@ -2685,7 +2683,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 void __fastcall D3DCORE_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
 

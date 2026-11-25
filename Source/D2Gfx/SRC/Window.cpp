@@ -4,6 +4,7 @@
 
 #include "D2GfxTypes.h"
 #include "FogApi.h"
+#include "FogApi.h"
 
 struct D2TileLibraryBlockStrc
 {
@@ -120,7 +121,6 @@ extern "C" __declspec(dllimport) int __stdcall SystemParametersInfoA(unsigned in
 
 extern "C" __declspec(dllimport) int __stdcall GetWindowPlacement(void* hWnd, tagWINDOWPLACEMENT* lpwndpl); // 0x006CC508
 
-void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 int __stdcall WINDOW_Resize(int nResolution, int bForceResize); // 0x004F5AA0
 

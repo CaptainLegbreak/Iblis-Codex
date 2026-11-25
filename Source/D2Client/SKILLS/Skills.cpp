@@ -18,6 +18,7 @@
 #include "D2FogSystemInfo.h"
 #include "D2ClientBallistic.h"
 #include "FogApi.h"
+#include "FogApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -96,7 +97,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-D2FogSystemInfoStrc* __cdecl FOG_GetSystemInfo(); // 0x00407360
 
 void __fastcall SOUNDHDR_SetCacheMax(unsigned int nSize); // 0x00481840
 

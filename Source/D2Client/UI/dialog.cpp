@@ -5,6 +5,7 @@
 #include "D2StormTypes.h"
 #include "D2ClientDialogWidget.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 #pragma function(memset)
 
@@ -49,7 +50,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 

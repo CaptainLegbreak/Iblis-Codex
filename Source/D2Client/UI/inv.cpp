@@ -31,6 +31,8 @@
 #include "StormApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 struct D2ClientInterfaceStrc;
 
@@ -296,7 +298,6 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x0
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
@@ -650,7 +651,6 @@ extern D2HirelingIconRecordStrc* gpHirelingRecords_007BEEAC; // 0x007BEEAC
 
 int gdwGlobal_007BC974; // 0x007BC974
 
-int __cdecl sub_00402A80_IsDbgHelpLoaded(); // 0x00402A80
 
 struct D2ClientCacheEntryStrc
 {
