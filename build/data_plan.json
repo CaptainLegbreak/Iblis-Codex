@@ -1707,11 +1707,29 @@
    "state": "included"
   },
   "Source/D2Lang/Unknown_00526100.cpp": {
-   "bytes": 356,
-   "definitions": 6,
+   "bytes": 236,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Lang/Unknown_00526100.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Lang/Unknown_00526490.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Lang/Unknown_00526490.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Lang/Unknown_00527090.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Lang/Unknown_00527090.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -83585,7 +83603,7 @@
    "cname": "gData_00730A28",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Lang/Unknown_00526100.cpp",
+   "file": "Source/D2Lang/Unknown_00526490.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00730A28_t gData_00730A28; // 0x00730A28",
    "head": "extern \"C\" struct d2data_00730A28_t gData_00730A28 = ",
@@ -83723,7 +83741,7 @@
    "cname": "gData_00730A64",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Lang/Unknown_00526100.cpp",
+   "file": "Source/D2Lang/Unknown_00527090.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00730A64_t gData_00730A64; // 0x00730A64",
    "head": "extern \"C\" struct d2data_00730A64_t gData_00730A64 = ",

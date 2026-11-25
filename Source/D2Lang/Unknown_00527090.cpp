@@ -2,6 +2,8 @@
 #include "D2LangTypes.h"
 #include "D2Unicode.h"
 
+#include "gen/data/Source/D2Lang/Unknown_00527090.inc"
+
 struct UnicodeZ;
 struct UnicodeChar;
 struct D2LangCharSetStrc;
