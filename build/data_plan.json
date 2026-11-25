@@ -429,7 +429,6 @@
     "extern \"C\" void __cdecl sub_004C9490_MissileAroundUnit(); // 0x004C9490",
     "extern \"C\" void __cdecl sub_004C97C0(); // 0x004C97C0",
     "extern \"C\" void __cdecl sub_004E0A30_CltDoClearSeqSpeed(); // 0x004E0A30",
-    "extern \"C\" void __cdecl GFXUTIL_SkillDoFrameOffset(); // 0x004E0D40",
     "extern \"C\" void __cdecl GFXUTIL_CltDoSetAnimFrameFromCalc(); // 0x004E0F40",
     "extern \"C\" void __cdecl MISSILE_SkillDoClearTarget(); // 0x004E1090",
     "extern \"C\" void __cdecl sub_004E1120(); // 0x004E1120",
@@ -448,14 +447,12 @@
     "extern \"C\" void __cdecl SKILLDESC_CltDoComponentMissileA(); // 0x004E2A40",
     "extern \"C\" void __cdecl SKILLDESC_CltDoComponentMissileB(); // 0x004E2B30",
     "extern \"C\" void __cdecl SKILLDESC_CltDoWeaponOrSkillMissile(); // 0x004E2C20",
-    "extern \"C\" void __cdecl SKILLDESC_VolleyAtTarget(); // 0x004E2F40",
     "extern \"C\" void __cdecl GFXUTIL_CltDoTest(); // 0x004E3330",
     "extern \"C\" void __cdecl MISSILE_StartMissileEffect(); // 0x004E34E0",
     "extern \"C\" void __cdecl SKILLSMON_FlankTarget(); // 0x004E3590",
     "extern \"C\" void __cdecl SKILLDESC_CltDoMissileAtTargetOffset(); // 0x004E37C0",
     "extern \"C\" void __cdecl SKILLDESC_CltDoMissileIfCollision(); // 0x004E3910",
     "extern \"C\" void __cdecl SKILLDESC_CltDoFirstMissile(); // 0x004E3A30",
-    "extern \"C\" void __cdecl SKILLDESC_MissileAtTargetUnit(); // 0x004E3C50",
     "extern \"C\" void __cdecl SKILLDESC_CltDoScatterMissile(); // 0x004E3EB0",
     "extern \"C\" void __cdecl SKILLDESC_CltDoTurnedMissile(); // 0x004EFCF0",
     "extern \"C\" void __cdecl SKILLDESC_CltDoLobMissile(); // 0x004EFDF0",
@@ -503,7 +500,6 @@
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartPosition(); // 0x004C83C0",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartLeap(); // 0x004C8D90",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartRun(); // 0x004C9120",
-    "extern \"C\" void __cdecl GFXUTIL_SkillStartPlace(); // 0x004E0A40",
     "extern \"C\" void __cdecl sub_004E0BD0_CltStartClearCollision(); // 0x004E0BD0",
     "extern \"C\" void __cdecl sub_004E0EB0_CltStartPathToTarget(); // 0x004E0EB0",
     "extern \"C\" void __cdecl PLRSKILLS_SkillStartMarkTarget(); // 0x004E0FD0",
@@ -552,7 +548,11 @@
     "extern \"C\" void __cdecl SKILLDESC_IsTargetPlayerOrMonster(); // 0x004F2870",
     "extern \"C\" void __cdecl GFXUTIL_CltDoResetActionFrame(); // 0x004E0C60",
     "extern \"C\" void __cdecl GFXUTIL_CltDoResetActionFrame2(); // 0x004E12F0",
-    "extern \"C\" void __cdecl SKILLDESC_DecrementParam(); // 0x004F2160"
+    "extern \"C\" void __cdecl SKILLDESC_DecrementParam(); // 0x004F2160",
+    "extern \"C\" void __cdecl GFXUTIL_SkillDoFrameOffset(); // 0x004E0D40",
+    "extern \"C\" void __cdecl SKILLDESC_VolleyAtTarget(); // 0x004E2F40",
+    "extern \"C\" void __cdecl SKILLDESC_MissileAtTargetUnit(); // 0x004E3C50",
+    "extern \"C\" void __cdecl GFXUTIL_SkillStartPlace(); // 0x004E0A40"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/SKILLS/Skills.inc",
@@ -3863,9 +3863,9 @@
    "bytes": -152,
    "definitions": 5,
    "externs": [
-    "extern \"C\" void __cdecl CURSOR_HandleButtonUp(); // 0x00467FA0",
     "extern \"C\" void __cdecl CURSOR_MsgHandler(); // 0x00467EF0",
-    "extern \"C\" void __cdecl CURSOR_HandleMouseMotion(); // 0x00468840"
+    "extern \"C\" void __cdecl CURSOR_HandleMouseMotion(); // 0x00468840",
+    "extern \"C\" void __cdecl CURSOR_HandleButtonUp(); // 0x00467FA0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/GAME/Select.inc",
@@ -3948,13 +3948,13 @@
    "bytes": 60496,
    "definitions": 22,
    "externs": [
+    "extern \"C\" void __cdecl sub_0047CD80(); // 0x0047CD80",
+    "extern \"C\" char gData_006D7280[]; // 0x006D7280",
+    "extern \"C\" char gData_006D7284[]; // 0x006D7284",
     "extern \"C\" void __cdecl CHAT_HandleImeStartComposition(); // 0x0047ACA0",
     "extern \"C\" void __cdecl CHAT_ResetImeCompositionMsg(); // 0x0047AD10",
     "extern \"C\" void __cdecl CHAT_SetMsgHandled(); // 0x0047B070",
-    "extern \"C\" void __cdecl CHAT_CloseChatOnPanelClickMsg(); // 0x0047BC70",
-    "extern \"C\" void __cdecl sub_0047CD80(); // 0x0047CD80",
-    "extern \"C\" char gData_006D7280[]; // 0x006D7280",
-    "extern \"C\" char gData_006D7284[]; // 0x006D7284"
+    "extern \"C\" void __cdecl CHAT_CloseChatOnPanelClickMsg(); // 0x0047BC70"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0047CC90.inc",
@@ -3983,8 +3983,8 @@
    "bytes": 4,
    "definitions": 1,
    "externs": [
-    "extern \"C\" void __cdecl WINMAIN_SaveDefaultCmdLine(); // 0x0044B5E0",
-    "extern \"C\" void __cdecl RECORD_RegisterLngArgument(); // 0x00451260"
+    "extern \"C\" void __cdecl RECORD_RegisterLngArgument(); // 0x00451260",
+    "extern \"C\" void __cdecl WINMAIN_SaveDefaultCmdLine(); // 0x0044B5E0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0044B400.inc",
@@ -3995,9 +3995,9 @@
    "bytes": 268,
    "definitions": 3,
    "externs": [
-    "extern \"C\" void __cdecl WINMAIN_SaveDefaultCmdLine(); // 0x0044B5E0",
     "extern \"C\" void __cdecl RECORD_RegisterLngArgument(); // 0x00451260",
-    "extern \"C\" void __cdecl sub_0044AFC0(); // 0x0044AFC0"
+    "extern \"C\" void __cdecl sub_0044AFC0(); // 0x0044AFC0",
+    "extern \"C\" void __cdecl WINMAIN_SaveDefaultCmdLine(); // 0x0044B5E0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2MCPClient/Unknown_0044A170.inc",
