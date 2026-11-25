@@ -4,8 +4,6 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/audit-fields-d2game-3 4f27bd8a9 (on #400): MonsterMode.cpp described the monster's AI parameter record (pMonsterData->pAiParam, the shared headers' D2AiParamStrc) three times: D2MonVelocityParamStrc (full layout), a partial D2AiParamStrc (unk0x18/nVelocity/unk0x20) and D2TakeRecordStrc (nValueA/B/C), all for the +0x18/+0x1C/+0x20 overrides. The full layout now carries the shared name D2AiParamStrc and the two partial views go; MONSTERMODE_SetVelocityParams/TakeVelocityParams use nPathTypeOverride/nVelocityPercentOverride/nNewDistOverride; the statics' recorded symbols (units.json, functions.json) follow the type name. auditguard: nothing rose. Full build: Game.exe identical, tree bf65e55633dec00cd75b53790d0e0587c478dde4, borrowed code / data 10,018 B / 261 B.
-- lane5/audit-fields-d2game-2 90ee25567 (on #400): two more D2Game private records get field names from their use: Skills.cpp's D2_6FD10880_Strc becomes D2AuraNextTargetArgsStrc (SKILLS_FindNextAuraTarget's argument block: pNextTarget/nNextGUID, pWrapTarget/nWrapGUID, nPreviousGUID, nTargetCount); ObjMode.cpp's shrine table entry +0x04/+0x08 are nStatId/nStateId (passed as OBJMODE_ApplyShrineCurse's stat and state). auditguard: nothing rose. Full build: Game.exe identical, tree 6b863b7b0c5293f86cdee82a2946e95528185d1b, borrowed code / data 10,018 B / 261 B (main's figures).
 
 ## Claimed
 
