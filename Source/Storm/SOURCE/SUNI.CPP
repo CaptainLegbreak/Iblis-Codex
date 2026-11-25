@@ -445,9 +445,8 @@ int __stdcall SUniFindAfterUTF8Chr(const unsigned char* text, int index)
     return SkipUtf8Continuation(text, index + 1, 1);
 }
 
-// table stands for the original's register choice (count, source and the index in ebx/edi/esi); with a plain parameter they rotate
 // 0x006C77F0
-static int __stdcall SUniConvertUTF16ToCP(const unsigned short* source, unsigned int count, const unsigned short* volatile table, char* destination)
+static int __stdcall SUniConvertUTF16ToCP(const unsigned short* source, unsigned int count, const unsigned short* table, char* destination)
 {
     if (!count)
     {
@@ -460,46 +459,23 @@ static int __stdcall SUniConvertUTF16ToCP(const unsigned short* source, unsigned
     {
         if (ch < 0x100 && ch == table[ch])
         {
-            *out = (char)*source;
+            *out++ = (char)*source;
+            ++source;
         }
         else
         {
-            int i = 255;
-            const unsigned short* p = &table[253];
-            do
+            int i;
+            for (i = 255; i > 0; --i)
             {
-                if (ch == p[2])
+                if (ch == table[i])
                 {
                     break;
                 }
-                if (ch == p[1])
-                {
-                    i -= 1;
-                    break;
-                }
-                if (ch == p[0])
-                {
-                    i -= 2;
-                    break;
-                }
-                if (ch == p[-1])
-                {
-                    i -= 3;
-                    break;
-                }
-                if (ch == p[-2])
-                {
-                    i -= 4;
-                    break;
-                }
-                i -= 5;
-                p -= 5;
             }
-            while (i > 0);
-            *out = (char)(i ? i : '?');
+            *out++ = (char)(i ? i : '?');
+            ++source;
         }
-        ch = *++source;
-        ++out;
+        ch = *source;
         --count;
     }
 
