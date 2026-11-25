@@ -1279,12 +1279,6 @@ static inline void GAMELINK_Unlink(D2GameLinkStrc* pLink)
     }
 }
 
-// 0x00520650
-void* __cdecl sub_00520650()
-{
-    return gData_00882028;
-}
-
 // 0x00520AE0
 int __cdecl GAME_GetAbortFlag()
 {
@@ -1313,36 +1307,6 @@ int __cdecl GAME_GetCreateAccountResult()
 int __cdecl GAME_GetChangePasswordResult()
 {
     return gnChangePasswordResult;
-}
-
-// 0x00520C40
-int __cdecl sub_00520C40()
-{
-    return 1;
-}
-
-// 0x005210E0
-int __cdecl sub_005210E0()
-{
-    return 1;
-}
-
-// 0x005224E0
-int __cdecl GAME_GetLoginRetryCount()
-{
-    return gnLoginRetryCount;
-}
-
-// 0x00523A00
-int __cdecl GAME_GetExeHash()
-{
-    return gdwGlobal_00730190;
-}
-
-// 0x00523AA0
-int __cdecl GAME_GetExeInfo()
-{
-    return gdwGlobal_00882750;
 }
 
 // 0x0052A600
