@@ -70,14 +70,6 @@ typedef int (__stdcall* SMSGHANDLER)(void* pParams);
 
 #include "D2StormBigBuffer.h"
 
-// 0x0041F6A0
-void __fastcall sub_0041F6A0_DestroyTree(CHuffman* pTree)
-{
-    pTree->listB.Clear();
-    pTree->listA.Clear();
-    sub_00686AD1_DestroyArray(pTree->items, sizeof(HUFFNODE), 515, sub_0041EE90_DestroyItem);
-}
-
 // 0x0041F980
 void __fastcall HuffmanCompress(void* pvOutBuffer, int* pcbOutBuffer, void* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
 {
