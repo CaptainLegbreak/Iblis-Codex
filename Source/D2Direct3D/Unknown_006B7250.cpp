@@ -436,7 +436,8 @@ void __cdecl sub_006B7F70_ClearTarget()
 // build: symbol ?gnRenderFlag@* 0x006CE290
     if (gnRenderFlags_0096F3A8 & gnRenderFlag)
     {
-        sub_006B3800_Flush();
+// build: symbol ?D3DCORE_Flush@* 0x006B3800
+        D3DCORE_Flush();
         return;
     }
     D2D3DRect006B7F70Strc tRect;

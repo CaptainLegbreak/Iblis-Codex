@@ -87,7 +87,7 @@ extern IndexStrip gIndexStrips[5]; // 0x009716B0
 extern const char gCreateFailure[]; // 0x006FC2C4
 extern const char gLockFailure[]; // 0x006FC330
 extern const char gUnlockFailure[]; // 0x006FC310
-void __fastcall sub_006B39B0_ShowD3DError(const char*,long); // 0x006B39B0
+void __fastcall D3DCORE_ShowD3DError(const char*,long); // 0x006B39B0
 void __fastcall D3DCORE_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
 
 struct D2GridPointStrc { unsigned char nScale,nRed,nGreen,nBlue; int nX,nY; };
@@ -582,7 +582,7 @@ void __cdecl sub_006B8F10()
     long result = gGraphics->CreateVertexBuffer(&description, &gGridBuffer, 4, 0);
     if (result)
     {
-        sub_006B39B0_ShowD3DError(gCreateFailure, result);
+        D3DCORE_ShowD3DError(gCreateFailure, result);
         return;
     }
 
