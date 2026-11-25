@@ -2443,6 +2443,8 @@ void __cdecl GAME_TickKeepAlive()
     {
         sub_00477DD0();
         gdwLastPingTick = dwNow;
+        // Both arms set the same interval, but the original still tests the config flag: its code reads
+        // gpClientConfig and tests 0x1EF bit 2 with nothing depending on the result.
         if (gpClientConfig->wFlags1EF & 4)
             gdwNextTick_007A049C = dwNow + 5000;
         else
