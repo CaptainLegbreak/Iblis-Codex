@@ -6,6 +6,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 
 ## Ready
 
+- lane10/names-fileprefix-d2launch 8fa1f8b: fileprefix-d2launch plan, 10 renames applied, none dropped. VERIFIED e48dd105 on base 876e8241, Game.exe matches.
 - lane10/names-fileprefix-d2bnclient 391f1b1: fileprefix-d2bnclient plan, 17 renames applied, none dropped. VERIFIED c6e5f7df on base 876e8241, Game.exe matches.
 - lane10/names-fileprefix-d2cmp ad8acc3: fileprefix-d2cmp plan, 17 renames applied, none dropped. VERIFIED 57be26b1 on base 876e8241, Game.exe matches.
 - lane10/names-fileprefix-d2gdi 245b3f4: fileprefix-d2gdi plan, 18 renames applied, none dropped. VERIFIED d44a65d7 on base 5cc54de8, Game.exe matches.
