@@ -106,17 +106,15 @@ extern int gnD3DOriginX; // 0x00981740
 extern int gnOriginY; // 0x00981744
 extern int gnPerspectiveScale; // 0x00989748
 
-typedef unsigned int U32;
-typedef unsigned char U8;
 struct D2TileBlockStrc { short x,y; unsigned char unk_04[16]; };
-struct D2TileStrc { U32 type; unsigned char unk_04[0x4c]; int count; D2TileBlockStrc* blocks; };
+struct D2TileStrc { unsigned int type; unsigned char unk_04[0x4c]; int count; D2TileBlockStrc* blocks; };
 extern int gaGeometry[10][6][3]; // 0x0074C100
 extern D2TLVertexStrc gaGrid[15]; // 0x00971450
 extern unsigned short gaIndices[22]; // 0x0074C0D0
 extern const char gszAssert_006CC837[]; // 0x006CC837
 __declspec(noreturn) void __cdecl sub_00681E09_Exit(int);
 void __cdecl sub_00681E09_Exit(int); // 0x00681E09
-void __fastcall sub_006B9780_SetColor(D2TLVertexStrc*,U32,U8); // 0x006B9780
+void __fastcall sub_006B9780_SetColor(D2TLVertexStrc*,unsigned int,unsigned char); // 0x006B9780
 void __fastcall D3DFLOORCACHE_BindTileTexture(D2TileBlockStrc*); // 0x006BBA00
 #define D3D_VERTEX_IN_RECT(v, r) ((v).fX >= (r).nLeft && (v).fX < (r).nRight && (v).fY >= (r).nTop && (v).fY < (r).nBottom)
 #define D2ASSERT(c,l) if(!(c)) { FOG_DisplayHalt(gszAssert_006CC837,sub_00408090(),l); sub_00681E09_Exit(-1); }
@@ -124,7 +122,7 @@ extern D2TLVertexStrc gVertex0_00971630; // 0x00971630
 extern D2TLVertexStrc gtVertex1; // 0x00971650
 extern D2TLVertexStrc gtVertex2; // 0x00971670
 extern D2TLVertexStrc gtVertex3; // 0x00971690
-static int __stdcall sub_006B8DF0_DrawTransparentWallTile(D2TileStrc* pTile, unsigned char nAlpha, int nPosX, int nPosY, U32* pLight, int nScreenPanels);
+static int __stdcall sub_006B8DF0_DrawTransparentWallTile(D2TileStrc* pTile, unsigned char nAlpha, int nPosX, int nPosY, unsigned int* pLight, int nScreenPanels);
 int __stdcall D2CMPTileValidate(D2TileStrc*,int,int); // 0x005FDEA0
 
 static inline unsigned int PackGridColor(const D2GridPointStrc& point,unsigned char nAlpha);
@@ -430,7 +428,7 @@ static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileStrc* pTile, int nX, i
 }
 
 // 0x006B8950
-static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int nPosX, int nPosY, U32* pLight, U8 nAlpha)
+static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int nPosX, int nPosY, unsigned int* pLight, unsigned char nAlpha)
 {
     int nResult = 0;
     int nOffset = 0;
@@ -478,7 +476,7 @@ static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int 
             const int nMidX = (nX0 + nX1) >> 1;
             const int nMidY = (nY0 + nY1) >> 1;
             const int nMidZ = (nZ0 + nZ1) >> 1;
-            U32 aColors[3];
+            unsigned int aColors[3];
             aColors[0] = pLight[nCol];
             aColors[2] = pLight[nCol + 1];
             const int nMixA = (unsigned char)(((unsigned char)(aColors[2] >> 24) + (unsigned char)(aColors[0] >> 24)) >> 1);
@@ -522,7 +520,7 @@ static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int 
 
 
 // 0x006B8DF0
-static int __stdcall sub_006B8DF0_DrawTransparentWallTile(D2TileStrc* pTile, unsigned char nAlpha, int nPosX, int nPosY, U32* pLight, int nScreenPanels)
+static int __stdcall sub_006B8DF0_DrawTransparentWallTile(D2TileStrc* pTile, unsigned char nAlpha, int nPosX, int nPosY, unsigned int* pLight, int nScreenPanels)
 {
     if (D2CMPTileValidate(pTile, 1, 0))
     {
@@ -544,14 +542,14 @@ static int __stdcall sub_006B8DF0_DrawTransparentWallTile(D2TileStrc* pTile, uns
 }
 
 // 0x006B8E60
-int __fastcall sub_006B8E60_DrawRelay(D2TileStrc* pTile, int nPosX, int nPosY, U32* pLight, int nScreenPanels, unsigned char nAlpha)
+int __fastcall sub_006B8E60_DrawRelay(D2TileStrc* pTile, int nPosX, int nPosY, unsigned int* pLight, int nScreenPanels, unsigned char nAlpha)
 {
     return sub_006B8DF0_DrawTransparentWallTile(pTile, nAlpha, nPosX, nPosY, pLight, nScreenPanels);
 }
 
 
 // 0x006B8E90
-int __fastcall sub_006B8E90_DrawWallTile(D2TileStrc* pTile, int nPosX, int nPosY, U32* pLight, int nScreenPanels)
+int __fastcall sub_006B8E90_DrawWallTile(D2TileStrc* pTile, int nPosX, int nPosY, unsigned int* pLight, int nScreenPanels)
 {
     int nResult = 0;
     if (D2CMPTileValidate(pTile, 1, 0))
