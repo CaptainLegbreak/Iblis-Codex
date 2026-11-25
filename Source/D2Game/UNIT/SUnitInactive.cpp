@@ -252,7 +252,7 @@ D2UnitStrc* __fastcall MONSTERSPAWN_SpawnWithUnitId(D2GameStrc* pGame, D2ActiveR
 
 D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreUniqueMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nUnitGUID, unsigned short nNameSeed, int bChampion, int bSuperUnique, short nBossHcIdx, unsigned char* pUMods); // 0x005A4440
 
-D2UnitStrc* __fastcall sub_6FC6FDC0(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,unsigned char*); // 0x005A46E0
+D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreMinion(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,unsigned char*); // 0x005A46E0
 
 int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2SpawnAreaStrc* pArea, int nClassId, int* pX, int* pY, int bAvoidWarps); // 0x0054DC40
 
@@ -1040,7 +1040,7 @@ static void __stdcall SUNITINACTIVE_RestoreInactiveMonsters(D2GameStrc* pGame,D2
             switch (type)
             {
             case 2:
-                unit = sub_6FC6FDC0(pGame,pRoom,x,y,id,node->nUnitId,node->nMonUMods);
+                unit = MONSTERUNIQUE_RestoreMinion(pGame,pRoom,x,y,id,node->nUnitId,node->nMonUMods);
                 break;
             case 1:
                 unit = MONSTERUNIQUE_RestoreUniqueMonster(pGame,pRoom,x,y,id,node->nUnitId,node->nNameSeed,node->nTypeFlags & 2,node->nTypeFlags & 0x800,node->nBossHcIdx,node->nMonUMods);

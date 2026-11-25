@@ -1534,7 +1534,7 @@ void __stdcall ITEMS_SetOrRemoveFlag(int* pFlags, int nFlag, int bSet)
 }
 
 // 0x0062A360
-int __stdcall sub_0062A360(int nUnused1, int nUnused2)
+int __stdcall D2COMMON_11079_Return0(int nUnused1, int nUnused2)
 {
     return 0;
 }

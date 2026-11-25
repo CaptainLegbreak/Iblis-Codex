@@ -405,7 +405,7 @@ int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pM
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 
-void __fastcall sub_6FC6E8A0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A43A0
+void __fastcall MONSTERUNIQUE_ExecuteUModDamagedCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A43A0
 
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
@@ -2720,14 +2720,14 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
             {
                 MONSTERMODE_GetModeChangeInfo(pUnit, 0x03, &modeChange);
                 D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-                sub_6FC6E8A0(pGame, pUnit);
+                MONSTERUNIQUE_ExecuteUModDamagedCallbacks(pGame, pUnit);
                 return;
             }
 
             UNITROOM_RefreshUnit(pUnit);
             pUnit->dwFlags |= 0x8000;
             MONSTER_SetAiState(pUnit, 0x13);
-            sub_6FC6E8A0(pGame, pUnit);
+            MONSTERUNIQUE_ExecuteUModDamagedCallbacks(pGame, pUnit);
             return;
         }
 
@@ -2736,7 +2736,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
             UNITROOM_RefreshUnit(pUnit);
             pUnit->dwFlags |= 0x8000;
             MONSTER_SetAiState(pUnit, 0x13);
-            sub_6FC6E8A0(pGame, pUnit);
+            MONSTERUNIQUE_ExecuteUModDamagedCallbacks(pGame, pUnit);
             return;
         }
 

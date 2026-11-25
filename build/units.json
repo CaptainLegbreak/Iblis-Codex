@@ -1592,7 +1592,7 @@
     {
      "va": "0x00410E90",
      "length": 22,
-     "name": "_sub_00410E90@4"
+     "name": "_BITMANIP_GetSize@4"
     },
     {
      "va": "0x00410EB0",
@@ -33018,7 +33018,7 @@
     {
      "va": "0x004F5140",
      "length": 6,
-     "name": "sub_004F5140"
+     "name": "D2GFX_GetDisplayType"
     },
     {
      "va": "0x004F5150",
@@ -45624,7 +45624,7 @@
     {
      "va": "0x00547390",
      "length": 15,
-     "name": "@sub_00547390@8"
+     "name": "@OBJRGN_IncreaseHealingShrineCount@8"
     },
     {
      "va": "0x005473A0",
@@ -55404,7 +55404,7 @@
     {
      "va": "0x005A4370",
      "length": 17,
-     "name": "?sub_005A4370@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?MONSTERUNIQUE_EventExecuteUModCallbacks@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A4390",
@@ -55414,7 +55414,7 @@
     {
      "va": "0x005A43A0",
      "length": 15,
-     "name": "?sub_6FC6E8A0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MONSTERUNIQUE_ExecuteUModDamagedCallbacks@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A43B0",
@@ -55433,7 +55433,7 @@
     {
      "va": "0x005A46E0",
      "length": 361,
-     "name": "?sub_6FC6FDC0@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@HHHHPAE@Z"
+     "name": "?MONSTERUNIQUE_RestoreMinion@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@HHHHPAE@Z"
     },
     {
      "va": "0x005A4850",
@@ -65536,7 +65536,7 @@
     {
      "va": "0x0061C390",
      "length": 18,
-     "name": "?sub_0061C390@@YGHPAUAct@@@Z"
+     "name": "?ENVIRONMENT_GetTimeRateFromAct@@YGHPAUAct@@@Z"
     },
     {
      "va": "0x0061C3B0",
@@ -67747,7 +67747,7 @@
     {
      "va": "0x0062A360",
      "length": 5,
-     "name": "sub_0062A360"
+     "name": "D2COMMON_11079_Return0"
     },
     {
      "va": "0x0062A370",

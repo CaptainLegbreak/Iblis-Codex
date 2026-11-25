@@ -577,7 +577,7 @@ unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits
 
 int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc* pBuffer, int nBits); // 0x00411030
 
-extern "C" int __stdcall sub_00410E90(D2BitBufferStrc* pBuffer); // 0x00410E90
+extern "C" int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
 
 extern "C" unsigned int __stdcall ITEMS_CheckIfFlagIsSet(unsigned int dwA, unsigned int dwB); // 0x006287A0
 
@@ -2184,7 +2184,7 @@ int __fastcall PLRSAVE_ReadLegacyItemData(D2SavedItemStrc* pSavedItem, unsigned 
         }
 
         pSavedItem->nItemId = DATATBLS_GetItemIdFromItemCode(pSavedItem->nItemCode);
-        return sub_00410E90(&tBitBuffer);
+        return BITMANIP_GetSize(&tBitBuffer);
     }
 
     pSavedItem->nItemFormat = 0;

@@ -389,7 +389,7 @@ extern int gdwGlobal_007C8CB0; // 0x007C8CB0
 extern int gdwGlobal_007C8CB4; // 0x007C8CB4
 
 // 0x004F5140
-int __cdecl sub_004F5140()
+int __cdecl D2GFX_GetDisplayType()
 {
     return gdwGlobal_007C8CB0;
 }
