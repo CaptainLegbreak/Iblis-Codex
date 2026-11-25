@@ -221,7 +221,7 @@ int __stdcall FOG_10180(void* pObject); // 0x006BE450
 void __stdcall FOG_10182_Return(void* pObject); // 0x006BF5F0
 
 // 0x0052B270
-int __fastcall sub_0052B270()
+int __fastcall D2NET_10027()
 {
     return FOG_10180(gpServer);
 }
@@ -407,7 +407,7 @@ int __stdcall D2NET_10022(int dwMilliseconds)
 }
 
 // 0x0052B6F0
-void __fastcall sub_0052B6F0()
+void __fastcall D2NET_10028_Return()
 {
     FOG_10182_Return(gpServer);
 }

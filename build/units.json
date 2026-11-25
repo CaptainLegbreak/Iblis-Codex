@@ -41546,7 +41546,7 @@
     {
      "va": "0x0052B270",
      "length": 12,
-     "name": "sub_0052B270"
+     "name": "D2NET_10027"
     },
     {
      "va": "0x0052B280",
@@ -41655,7 +41655,7 @@
     {
      "va": "0x0052B6F0",
      "length": 12,
-     "name": "sub_0052B6F0"
+     "name": "D2NET_10028_Return"
     },
     {
      "va": "0x0052B700",
@@ -48534,7 +48534,7 @@
     {
      "va": "0x00570590",
      "length": 233,
-     "name": "?sub_6FD10250@@YIPAUD2StatListStrc@@PAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
+     "name": "?SKILLS_ApplyTimedState@@YIPAUD2StatListStrc@@PAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
     },
     {
      "va": "0x005706A0",
@@ -55385,7 +55385,7 @@
     {
      "va": "0x005A4230",
      "length": 56,
-     "name": "?sub_6FC6E730@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?MONSTERUNIQUE_UpdateAiAndScheduleUModEvent@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A4270",
@@ -57625,7 +57625,7 @@
     {
      "va": "0x005B2490",
      "length": 74,
-     "name": "sub_6FC6A150"
+     "name": "MONSTERSPAWN_SpawnLevelVariantAtUnit"
     },
     {
      "va": "0x005B24E0",
