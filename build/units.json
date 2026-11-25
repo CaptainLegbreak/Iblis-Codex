@@ -60798,6 +60798,11 @@
      "length": 472
     },
     {
+     "va": "0x005DD7F0",
+     "length": 1084,
+     "name": "?sub_6FCF2110@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2AiControlStrc@@PAH3@Z"
+    },
+    {
      "va": "0x005DDC30",
      "length": 200,
      "name": "?AIUTIL_SelectAiTargetWithCollisionCheck@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAH2@Z"

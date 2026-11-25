@@ -86,6 +86,7 @@ struct D2AiCallback7ArgStrc
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
+int __stdcall DUNGEON_CheckLOSDraw(D2ActiveRoomStrc* pRoom); // 0x0061AA40
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x00451F30
@@ -1406,7 +1407,9 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_Ubers(D2GameStrc* pGame, D2UnitStrc
 
 // 0x005DD220
 extern "C" __declspec(dllexport) int __fastcall AIUTIL_CheckAiControlFlag(Obj005DD220* pObj, unsigned short wMask) {
-    return (pObj->wFlags08 & wMask) != 0;
+    if (pObj->wFlags08 & wMask)
+        return 1;
+    return 0;
 }
 
 // 0x005DD230
@@ -1841,6 +1844,186 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
 
     MONSTERAI_ClearTargetOverride(pUnit);
     return 0;
+}
+
+static inline int AIUTIL_GetMonsterVisionInline(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
+    {
+        if (pUnit->pMonsterData)
+        {
+            return pUnit->pMonsterData->pVision;
+        }
+        return 0;
+    }
+    return 0;
+}
+
+// 0x005DD7F0
+D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+        return 0;
+    int* pVision = 0;
+    int nOldVisionToggle = 0;
+    int bCheckCollision;
+    int bHadFlag = AIUTIL_CheckAiControlFlag((Obj005DD220*)pAiControl, 0x40);
+    if (bHadFlag)
+    {
+        bCheckCollision = 1;
+    }
+    else if (DUNGEON_CheckLOSDraw(pRoom))
+        bCheckCollision = 0;
+    else
+    {
+        bCheckCollision = !AIUTIL_CheckAiControlFlag((Obj005DD220*)pAiControl, 8);
+        const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+        if (nType == UNIT_MONSTER)
+        {
+            pVision = (int*)AIUTIL_GetMonsterVisionInline(pUnit);
+            if (bCheckCollision && pVision)
+            {
+                nOldVisionToggle = pVision[9];
+                bCheckCollision = nOldVisionToggle == 0;
+            }
+        }
+    }
+    if (bCheckCollision && bHadFlag)
+        AIUTIL_ToggleAiControlFlag((Obj005DD230*)pAiControl, 0x40, 0);
+
+    D2UnitStrc* pTarget = 0;
+    int nDistance;
+    unsigned int nMinDistance = 0x7FFFFFFF;
+    if (!AIUTIL_ResolveTargetOverride(bCheckCollision, 0, &pTarget, &nDistance, pGame, pUnit))
+    {
+        if (STATLIST_GetUnitAlignment(pUnit) == 0)
+        {
+            D2TargetNodeStrc** ppNode = pGame->pTargetNodes;
+            D2TargetNodeStrc* pNode = *ppNode;
+            pTarget = 0;
+            nDistance = 35;
+            D2MonStatsTxt* pMonStats = 0;
+            if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+                pMonStats = (D2MonStatsTxt*)pUnit->pMonsterData->pMonstatsTxt;
+            if (pMonStats)
+            {
+                unsigned char nThreat = pMonStats->nAiDist[pGame->nDifficulty];
+                if (nThreat)
+                    nDistance = nThreat;
+            }
+            const unsigned char nAct = pUnit->nAct;
+            const int nX = CLIENTS_GetUnitX(pUnit);
+            const int nY = CLIENTS_GetUnitY(pUnit);
+            for (int i = 0; i < 8; ++i)
+            {
+                if (pNode)
+                {
+                    D2UnitStrc* pCurrent = pNode->hUnit;
+                    D2_ASSERT(pCurrent && pCurrent->dwUnitType == 0, 0x5F6);
+                    if (nAct == pCurrent->nAct && UNITS_GetRoom(pCurrent) && !DUNGEON_IsRoomInTown(UNITS_GetRoom(pCurrent)))
+                    {
+                        unsigned int nCurrentDistance = (unsigned int)AIUTIL_GetDistanceToCoordinates_NoUnitSize(pCurrent, nX, nY);
+                        if (nCurrentDistance < nMinDistance)
+                            nMinDistance = nCurrentDistance;
+                        if (nCurrentDistance < 55)
+                        {
+                            if (SUNIT_IsDead(pCurrent))
+                                nCurrentDistance = 0x7FFFFFFF;
+                            for (;;)
+                            {
+                                if (nCurrentDistance < (unsigned int)nDistance && (!bCheckCollision || !UNITS_TestCollisionWithUnit(pUnit, pCurrent, 4)))
+                                {
+                                    nDistance = nCurrentDistance;
+                                    pTarget = pCurrent;
+                                }
+                                pNode = pNode->pNext;
+                                if (!pNode)
+                                    break;
+                                pCurrent = pNode->hUnit;
+                                nCurrentDistance = (unsigned int)AIUTIL_GetDistanceToCoordinates_NoUnitSize(pCurrent, nX, nY);
+                            }
+                        }
+                    }
+                }
+                pNode = *++ppNode;
+            }
+            while (pNode)
+            {
+                D2UnitStrc* pCurrent = pNode->hUnit;
+                if (nAct == pCurrent->nAct)
+                {
+                    const unsigned int nCurrentDistance = (unsigned int)AIUTIL_GetDistanceToCoordinates_NoUnitSize(pCurrent, nX, nY);
+                    if (nCurrentDistance < (unsigned int)nDistance && (!bCheckCollision || !UNITS_TestCollisionWithUnit(pUnit, pCurrent, 4)))
+                    {
+                        nDistance = nCurrentDistance;
+                        pTarget = pCurrent;
+                    }
+                }
+                pNode = pNode->pNext;
+            }
+            pNode = ppNode[1];
+            D2UnitStrc* pAlternative = 0;
+            unsigned int nAlternativeDistance = 0x7FFFFFFF;
+            while (pNode)
+            {
+                D2UnitStrc* pCurrent = pNode->hUnit;
+                if (nAct == pCurrent->nAct)
+                {
+                    const unsigned int nCurrentDistance = (unsigned int)AIUTIL_GetDistanceToCoordinates_NoUnitSize(pCurrent, nX, nY);
+                    if (nCurrentDistance < nAlternativeDistance && (!bCheckCollision || !UNITS_TestCollisionWithUnit(pUnit, pCurrent, 4)))
+                    {
+                        nAlternativeDistance = nCurrentDistance;
+                        pAlternative = pCurrent;
+                    }
+                }
+                pNode = pNode->pNext;
+            }
+            if (pAlternative && AIUTIL_ShouldUseAlternativeTarget(&pTarget, &nDistance, pAlternative, nAlternativeDistance, pUnit))
+            {
+                pTarget = pAlternative;
+                nDistance = nAlternativeDistance;
+            }
+        }
+        else
+        {
+            const int nCollision = D2Common_10095(pRoom, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
+            D2AiTargetArgsStrc arg;
+            arg.pTarget = 0;
+            arg.nDistance = 0x7FFFFFFF;
+            arg.tSearch.bCheckTargetCollision = bCheckCollision;
+            arg.tSearch.nMaxDistance = 35;
+            arg.tSearch.nAreaTile = nCollision;
+            arg.tSearch.pAlternativeTarget = 0;
+            arg.tSearch.nAlternativeDistance = 0x7FFFFFFF;
+            AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 5);
+            if (arg.tSearch.pAlternativeTarget && AIUTIL_ShouldUseAlternativeTarget(&arg.pTarget, &arg.nDistance, arg.tSearch.pAlternativeTarget, arg.tSearch.nAlternativeDistance, pUnit))
+            {
+                pTarget = arg.tSearch.pAlternativeTarget;
+                nDistance = arg.tSearch.nAlternativeDistance;
+            }
+            else
+            {
+                pTarget = arg.pTarget;
+                nDistance = arg.nDistance;
+            }
+        }
+    }
+    if (!pTarget)
+    {
+        *pCombat = 0;
+        *pDistance = nMinDistance;
+        return 0;
+    }
+    if (STATLIST_GetUnitAlignment(pUnit) != 2)
+    {
+        pAiControl->nAiFlags |= 8;
+        if (pVision)
+            pVision[9] = nOldVisionToggle == 0;
+    }
+    *pCombat = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
+    *pDistance = nDistance;
+    return pTarget;
 }
 
 // 0x005DDC30

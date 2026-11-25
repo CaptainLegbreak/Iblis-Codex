@@ -11301,7 +11301,7 @@
   ["0x005DD480", 131, "verified"],
   ["0x005DD510", 244, "verified", "?AIUTIL_ShouldUseAlternativeTarget@@YGHPAPAUD2UnitStrc@@PAHPAU1@H2@Z"],
   ["0x005DD610", 472, "verified"],
-  ["0x005DD7F0", 1084, "unmatched"],
+  ["0x005DD7F0", 1084, "verified", "?sub_6FCF2110@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2AiControlStrc@@PAH3@Z"],
   ["0x005DDC30", 200, "verified", "?AIUTIL_SelectAiTargetWithCollisionCheck@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAH2@Z"],
   ["0x005DDD00", 324, "verified", "AIUTIL_ApplyTerrorCurseState"],
   ["0x005DDE50", 39, "verified", "AITACTICS_FindTargetInRange"],
