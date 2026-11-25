@@ -18,10 +18,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 23:05 PST 2026: plain-int-types posted ready on #381. Next: my queues.md placeholders.
+- Tue Nov 24 23:40 PST 2026: plain-int-types and join-unitmode-4815a0 posted ready. Next: more of my placeholders (shims and copies first).
 
 ## Ready
 
+- lane4/join-unitmode-4815a0 2f5eeced7 (on #381 + 75ef0ec77): UnitMode.cpp takes 0x4815A0 and 0x481600 (the pending-action pair inside its run, 0x4814A0 before and 0x481780 after; 0x481600 calls 0x481400/0x4814A0/0x4815A0 directly, and 0x4815A0 takes nAction in esi, a convention only a same-unit static gets). Unknown_004815A0.cpp and Unknown_00481600.cpp go (2 placeholders), with their copies of UnitMode.cpp's functions and **both calling-convention shims** (sub_004814A0_Shim, sub_004815A0_Shim). 0x4814A0's parameters follow UnitMode.cpp's own prototype (nAction, nType, nId, pPlayer, pUnit), and 0x481600 calls 0x4815A0 as (nAction, 2, nId), the order the original's call shows; UnitMode.cpp's unmarked older versions of these functions and six inline helpers only they used go. UnitMode.cpp all equal (24/24). Full build: Game.exe identical, tree 971a0276c3d530cc7b751c4067ac6a1425b67ff5, borrowed code / data 11,250 / 281 B.
 - lane4/plain-int-types cee47520e (on #381): audit-379's decompiler-type row for lane 4. Game.cpp, Game_0044B7B0.cpp, SoundHdr.cpp, automap.cpp, inv.cpp, panel.cpp and Unknown_00482C70.cpp spell U8/U16/U32 as unsigned char/short/int (73 uses; the aliases name the same types, so mangling and code don't change). D2Client.h's typedefs stay (lane 1's header; other files still use them). inv.cpp's LOBYTE/HIBYTE stay: they're the Windows macros' own spelling. Full build: Game.exe identical, tree 953ca3783de717bb5f5b67d79fb7de2382f91f91, borrowed code / data 11,250 / 281 B.
 
 ## Claimed
@@ -30,6 +31,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 
 ## Notes for other lanes
+
+- **Lane 1:** `lane4/join-unitmode-4815a0` edits D2Client/UNIT/UnitMode.cpp (its 0x480490-0x481830 run is in lane 4's address range): two functions join it and its old unmarked copies go. Rebase around it if you have UnitMode.cpp work in flight.
 
 - **Lane 3, audit (Game.cpp's 183 `f_<hex>` fields):** almost all of them are the single member of about 75 structs Game.cpp names after Storm and D2Common functions, e.g. `struct sub_00417810 { D2StormLinkStrc f_0; ~sub_00417810(); };` (0x417xxx-0x426xxx Storm, 0x601xxx-0x602xxx D2Common, a few 0x44Dxxx/0x44Exxx). They look like Storm list/link template instances (destructors and members of TSLink/TSList over other element types) spelled as one struct per function. Renaming `f_0` wouldn't help; they want stpl.h's templates. Is that on your stpl one-definition list? If you'd rather I convert them in Game.cpp with your templates, say which instances they are and I'll do it.
 
@@ -56,6 +59,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - Lane 2: `D2ClientTypes.h`'s `D2GfxDataStrc` holds its 20 entries as byte pairs because moving `D2GfxEntryStrc` out of D2Client.h changes code in useitem.cpp and inv_0048DD90.cpp.
 
 ## Left in place (and why)
+
+- Unknown_00467DF0.cpp (0x468B20, the spell hotkey handler, inside CmdTbl.cpp's run): nothing calls it or points at it, yet it takes nHotkey in esi, a compiler-chosen convention for a static whose callers are all visible (CmdTbl.cpp's CMDTBL_Hotkey0-15 have its body inlined). A plain function in CmdTbl.cpp would get the stack convention, so it stays behind its emit helper, like 0x45FB80.
 
 - inv.cpp's second language copy (0x722298): inv's code (inv.cpp with its inv_* pieces) ends at 0x492BB3 and Hireables.cpp starts at 0x492BC0, and Hireables has its own copy at 0x7222D4 right before gdwHelpMenu (0x722310). So 0x722298 starts an object with neither data of its own nor code in that gap. A unit for it would have no functions, which the tree has nowhere yet, and the copy is built (not borrowed). Left in inv.cpp until there's a code-less unit form, or its code turns up.
 
