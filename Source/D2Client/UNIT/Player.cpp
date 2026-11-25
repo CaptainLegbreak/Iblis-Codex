@@ -31,9 +31,6 @@ struct D2ItemStatCostTxt;
 
 struct D2PacketBufferStrc;
 
-struct D2StormLinkStrc;
-
-struct D2StormExplicitListStrc;
 
 struct D2MsgFilterStrc;
 
@@ -48,18 +45,6 @@ struct D2PlayerCmdStrc;
 struct D2SkillsTxt;
 
 struct D2StringRefStrc;
-
-struct D2StormExplicitListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* Head()
-    {
-        return (int)m_terminator.m_next > 0 ? m_terminator.m_next : 0;
-    }
-    void UnlinkAll();
-};
 
 struct D2MsgFilterStrc
 {
@@ -585,20 +570,6 @@ int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-
-// 0x0045BD00
-void D2StormExplicitListStrc::UnlinkAll()
-{
-    for (;;)
-    {
-        char* pNode = Head();
-        if (!pNode)
-        {
-            break;
-        }
-        ((D2StormLinkStrc*)pNode)->Unlink();
-    }
-}
 
 // 0x0045C460
 int __fastcall DATATBLS_GetMonStatsTxtRecordCount()

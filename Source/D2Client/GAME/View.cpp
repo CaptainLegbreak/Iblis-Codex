@@ -678,52 +678,6 @@ void D2ClientOffsetListBStrc::sub_004508A0_LinkNode(D2ClientListNodeStrc* pNode,
     }
 }
 
-// 0x0045BB30
-D2ClientListLinkStrc* D2ClientNodeListStrc::sub_0045BB30_Link(D2ClientListNodeStrc* pNode)
-{
-    return pNode ? pNode : &tTerminator;
-}
-
-// 0x0045BB50
-D2ClientListNodeStrc* D2ClientNodeListStrc::sub_0045BB50_Next(D2ClientListNodeStrc* pNode)
-{
-    D2ClientListLinkStrc* pLink = pNode ? pNode : &tTerminator;
-    return (int)pLink->pNext <= 0 ? 0 : pLink->pNext;
-}
-
-// 0x0045BBE0
-void D2ClientNodeListStrc::sub_0045BBE0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting)
-{
-    D2ClientListLinkStrc* pLink = pNode ? pNode : &tTerminator;
-    D2ClientListLinkStrc* pExistingLink;
-    if (pLink->pPrevLink)
-    {
-        ListNextLink(pLink, -1)->pPrevLink = pLink->pPrevLink;
-        pLink->pPrevLink->pNext = pLink->pNext;
-        pLink->pPrevLink = 0;
-        pLink->pNext = 0;
-    }
-    pExistingLink = pExisting ? pExisting : &tTerminator;
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->pPrevLink = pExistingLink;
-        pLink->pNext = pExistingLink->pNext;
-        ListNextLink(pExistingLink, nLinkOffset)->pPrevLink = pLink;
-        pExistingLink->pNext = pNode;
-        break;
-    default:
-        {
-            D2ClientListLinkStrc* pPrev = pExistingLink->pPrevLink;
-            pLink->pPrevLink = pPrev;
-            pLink->pNext = pPrev->pNext;
-            pPrev->pNext = pNode;
-            pExistingLink->pPrevLink = pLink;
-        }
-        break;
-    }
-}
-
 // 0x00466820
 void __fastcall VIEW_SpawnRoomPresets(D2ActiveRoomStrc* pRoom)
 {

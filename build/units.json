@@ -13411,21 +13411,6 @@
      "name": "sub_004508A0_LinkNode"
     },
     {
-     "va": "0x0045BB30",
-     "length": 17,
-     "name": "sub_0045BB30_Link"
-    },
-    {
-     "va": "0x0045BB50",
-     "length": 32,
-     "name": "sub_0045BB50_Next"
-    },
-    {
-     "va": "0x0045BBE0",
-     "length": 161,
-     "name": "sub_0045BBE0_LinkNode"
-    },
-    {
      "va": "0x00466820",
      "length": 79,
      "name": "?VIEW_SpawnRoomPresets@@YIXPAUD2ActiveRoomStrc@@@Z"
@@ -15208,16 +15193,6 @@
      "va": "0x00450850",
      "length": 31,
      "name": "sub_00450850_RoundUp"
-    },
-    {
-     "va": "0x0045B9A0",
-     "length": 36,
-     "name": "sub_0045B9A0_NextLink"
-    },
-    {
-     "va": "0x0045BC90",
-     "length": 24,
-     "name": "sub_0045BC90_RawNext"
     }
    ]
   },
@@ -16832,11 +16807,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0045BD00",
-     "length": 61,
-     "name": "?UnlinkAll@D2StormExplicitListStrc@@QAEXXZ"
-    },
-    {
      "va": "0x0045C460",
      "length": 12,
      "name": "?DATATBLS_GetMonStatsTxtRecordCount@@YIHXZ"
@@ -17066,84 +17036,134 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x0045B9A0",
+     "length": 36,
+     "name": "?NextLink@?$TSLink@UTALLOCREC@@@@QAEPAU1@H@Z"
+    },
+    {
      "va": "0x0045B9D0",
      "length": 16,
-     "name": "?sub_0045B9D0_Next@D2StormLinkStrc@@QAEPADXZ"
+     "name": "?Next@?$TSLink@UTALLOCREC@@@@QAEPAUTALLOCREC@@XZ"
     },
     {
      "va": "0x0045B9E0",
      "length": 4,
-     "name": "?sub_0045B9E0_RawNext@D2StormLinkStrc@@QAEPADXZ"
+     "name": "?RawNext@?$TSLink@UTALLOCREC@@@@QAEPAUTALLOCREC@@XZ"
     },
     {
      "va": "0x0045B9F0",
      "length": 50,
-     "name": "?sub_0045B9F0_Unlink@D2StormLinkStrc@@QAEXXZ"
+     "name": "?Unlink@?$TSLink@UTALLOCREC@@@@QAEXXZ"
     },
     {
      "va": "0x0045BA30",
      "length": 50,
-     "name": "?sub_0045BA30_Unlink@D2StormLinkStrc@@QAEXXZ"
+     "name": "??1?$TSLink@UTALLOCREC@@@@QAE@XZ"
     },
     {
      "va": "0x0045BA80",
      "length": 11,
-     "name": "?sub_0045BA80_InitializeTerminator@D2StormListBaseStrc@@QAEXXZ"
+     "name": "?InitializeTerminator@?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAEXXZ"
     },
     {
      "va": "0x0045BAA0",
      "length": 16,
-     "name": "?sub_0045BAA0_Next@D2StormLinkStrc@@QAEPADXZ"
+     "name": "?Next@?$TSLinkedNode@UTALLOCREC@@@@QAEPAUTALLOCREC@@XZ"
     },
     {
      "va": "0x0045BAB0",
      "length": 16,
-     "name": "?sub_0045BAB0_Head@D2StormListBaseStrc@@QAEPADXZ"
+     "name": "?Head@?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAEPAUTALLOCREC@@XZ"
     },
     {
      "va": "0x0045BAC0",
      "length": 16,
-     "name": "??0D2StormLink0045BAC0Strc@@QAE@XZ"
+     "name": "??0?$TSLink@UTALLOCREC@@@@QAE@XZ"
     },
     {
      "va": "0x0045BAD0",
      "length": 50,
-     "name": "?sub_0045BAD0_Unlink@D2StormLinkStrc@@QAEXXZ"
+     "name": "?sub_0045BAD0_Unlink@D2AllocRecLinkStrc@@QAEXXZ"
     },
     {
      "va": "0x0045BB10",
      "length": 17,
-     "name": "?sub_0045BB10_Initialize@D2StormListBaseStrc@@QAEXXZ"
+     "name": "?sub_0045BB10_Initialize@D2AllocRecListResetStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0045BB30",
+     "length": 17,
+     "name": "?Link@?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAEPAU?$TSLink@UTALLOCREC@@@@PBUTALLOCREC@@@Z"
+    },
+    {
+     "va": "0x0045BB50",
+     "length": 32,
+     "name": "?Next@?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAEPAUTALLOCREC@@PBU2@@Z"
+    },
+    {
+     "va": "0x0045BB70",
+     "length": 66,
+     "name": "?UnlinkNode@?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAEXPAUTALLOCREC@@@Z"
     },
     {
      "va": "0x0045BBC0",
      "length": 32,
-     "name": "??0D2StormList0045BBC0Strc@@QAE@XZ"
+     "name": "??0?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0045BBE0",
+     "length": 161,
+     "name": "?LinkNode@?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAEXPAUTALLOCREC@@I0@Z"
+    },
+    {
+     "va": "0x0045BC90",
+     "length": 24,
+     "name": "?RawNext@?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAEPAUTALLOCREC@@PBU2@@Z"
     },
     {
      "va": "0x0045BCB0",
      "length": 16,
-     "name": "??0D2StormLink0045BCB0Strc@@QAE@XZ"
+     "name": "??0?$TSLinkedNode@UTALLOCREC@@@@QAE@XZ"
     },
     {
      "va": "0x0045BCC0",
      "length": 50,
-     "name": "?sub_0045BCC0_Unlink@D2StormLinkStrc@@QAEXXZ"
+     "name": "??1?$TSLinkedNode@UTALLOCREC@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0045BD00",
+     "length": 61,
+     "name": "?UnlinkAll@?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAEXXZ"
     },
     {
      "va": "0x0045BD40",
      "length": 60,
-     "name": "??1D2StormExplicitListStrc@@QAE@XZ"
+     "name": "??1?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAE@XZ"
     },
     {
      "va": "0x0045BD80",
      "length": 16,
-     "name": "??0D2StormLink0045BD80Strc@@QAE@XZ"
+     "name": "??0TALLOCREC@@QAE@XZ"
     },
     {
      "va": "0x0045BD90",
      "length": 50,
-     "name": "?sub_0045BD90_Unlink@D2StormLinkStrc@@QAEXXZ"
+     "name": "??1TALLOCREC@@QAE@XZ"
+    },
+    {
+     "va": "0x0045BDD0",
+     "length": 85,
+     "name": "?NewNode@?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAEPAUTALLOCREC@@III@Z"
+    },
+    {
+     "va": "0x0045BE30",
+     "length": 81,
+     "name": "??_GTALLOCREC@@QAEPAXI@Z"
+    },
+    {
+     "va": "0x0045BE90",
+     "length": 106,
+     "name": "?DeleteNode@?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAEPAUTALLOCREC@@PAU2@@Z"
     }
    ]
   },
@@ -17165,26 +17185,6 @@
      "va": "0x0045BA90",
      "length": 3,
      "name": "@sub_0045BA90@4"
-    },
-    {
-     "va": "0x0045BB70",
-     "length": 66,
-     "name": "?sub_0045BB70@D2StormListStrc@@QAEXPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x0045BDD0",
-     "length": 85,
-     "name": "?sub_0045BDD0_NewNode@D2ClientAllocRecListStrc@@QAEPAUD2ClientAllocRecStrc@@III@Z"
-    },
-    {
-     "va": "0x0045BE30",
-     "length": 81,
-     "name": "??_GD2ClientAllocRecStrc@@QAEPAXI@Z"
-    },
-    {
-     "va": "0x0045BE90",
-     "length": 106,
-     "name": "?sub_0045BE90_DeleteNode@D2ClientAllocRecListStrc@@QAEPAUD2ClientAllocRecStrc@@PAU2@@Z"
     }
    ]
   },

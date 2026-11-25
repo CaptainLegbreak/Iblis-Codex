@@ -1,6 +1,5 @@
 #include "D2LanguageNames.h"
 #include "D2Client.h"
-#include "D2StormAutoLink.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -15,10 +14,6 @@ struct D2DrlgCoordStrc;
 struct D2RoomCoordListStrc;
 struct D2DrlgCoordsStrc;
 struct D2StaticPathStrc;
-struct D2StormLinkStrc;
-struct D2StormListStrc;
-struct D2ClientAllocRecStrc;
-struct D2ClientAllocRecListStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -44,45 +39,6 @@ D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 int __cdecl sub_004F5140(); // 0x004F5140
 void __stdcall AUTOMAP_DrawRoomCollision(D2ActiveRoomStrc* pRoom); // 0x0045B4F0
 void __stdcall sub_0045B5F0(D2ActiveRoomStrc* pRoom); // 0x0045B5F0
-
-struct D2StormListStrc {
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-    void sub_0045BB70(D2StormLinkStrc* link);
-};
-
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
-int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-
-struct D2ClientAllocRecStrc
-{
-    D2StormLinkStrc f_0;
-    int unk0x08[0x4A];
-
-    static void operator delete(void* pMemory);
-};
-
-struct D2ClientAllocRecListStrc
-{
-    int nLinkOffset;
-    D2StormLinkStrc tTerminator;
-
-    D2StormLinkStrc* Link(D2ClientAllocRecStrc* pNode)
-    {
-        return pNode ? &pNode->f_0 : &tTerminator;
-    }
-    D2ClientAllocRecStrc* Next(D2ClientAllocRecStrc* pNode)
-    {
-        D2StormLinkStrc* pLink = Link(pNode);
-        return (int)pLink->m_next <= 0 ? 0 : (D2ClientAllocRecStrc*)pLink->m_next;
-    }
-
-    void sub_0045BBE0_LinkNode(D2ClientAllocRecStrc* pNode, unsigned int nLinkType, D2ClientAllocRecStrc* pExisting); // 0x0045BBE0
-    D2ClientAllocRecStrc* sub_0045BDD0_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags);
-    D2ClientAllocRecStrc* sub_0045BE90_DeleteNode(D2ClientAllocRecStrc* pNode);
-};
-
-inline void* operator new(unsigned int nSize, void* pWhere) throw();
 
 // 0x0045B5F0
 void __stdcall sub_0045B5F0(D2ActiveRoomStrc* pRoom)
@@ -212,45 +168,5 @@ void __cdecl sub_0045B8B0_DrawLogicalRoom()
 
 // 0x0045BA90
 extern "C" void* __fastcall sub_0045BA90(void* value) { return value; }
-
-// 0x0045BB70
-void D2StormListStrc::sub_0045BB70(D2StormLinkStrc* link)
-{
-    if(!link) link=&m_terminator;
-    link->Unlink();
-}
-
-inline void* operator new(unsigned int nSize, void* pWhere) throw()
-{
-    return pWhere;
-}
-
-// 0x0045BDD0
-D2ClientAllocRecStrc* D2ClientAllocRecListStrc::sub_0045BDD0_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags)
-{
-// build: symbol ?gszTypeNameAllocRec@* 0x00711480
-    void* pMemory = SMemAlloc(sizeof(D2ClientAllocRecStrc) + nExtraBytes, gszTypeNameAllocRec, -2, nFlags | 8);
-    D2ClientAllocRecStrc* pNode = pMemory ? new (pMemory) D2ClientAllocRecStrc : 0;
-    if (nLocation)
-        sub_0045BBE0_LinkNode(pNode, nLocation, 0);
-    return pNode;
-}
-
-// build: symbol ??_GD2ClientAllocRecStrc@@QAEPAXI@Z 0x0045BE30
-inline void D2ClientAllocRecStrc::operator delete(void* pMemory)
-{
-    if (pMemory)
-        SMemFree(pMemory, "delete", -1, 0);
-}
-
-// 0x0045BE90
-D2ClientAllocRecStrc* D2ClientAllocRecListStrc::sub_0045BE90_DeleteNode(D2ClientAllocRecStrc* pNode)
-{
-    D2ClientAllocRecStrc* pNext = Next(pNode);
-    pNode->~D2ClientAllocRecStrc();
-    SMemFree(pNode, gszTypeNameAllocRec, -2, 0);
-    return pNext;
-}
-
 
 #include "gen/data/Source/D2Client/Unknown_0045B5F0.inc"
