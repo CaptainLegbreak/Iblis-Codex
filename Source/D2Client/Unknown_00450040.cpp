@@ -35,7 +35,6 @@ struct D2StormLinkStrc
             m_next = 0;
         }
     }
-    D2StormLinkStrc* sub_0045B9A0_NextLink(int nLinkOffset);
 };
 
 struct D2StormListAStrc
@@ -67,7 +66,6 @@ struct D2StormListAStrc
         }
     }
     void UnlinkAll();                                                                                       // 0x0044F8E0
-    char* sub_0045BC90_RawNext(D2StormLinkStrc* pLink);
 };
 
 struct D2StormListArrayStrc
@@ -200,18 +198,3 @@ unsigned int __stdcall sub_00450850_RoundUp(unsigned int nValue, unsigned int nA
     return nValue;
 }
 
-// 0x0045B9A0
-D2StormLinkStrc* D2StormLinkStrc::sub_0045B9A0_NextLink(int nLinkOffset)
-{
-    if ((int)m_next < 0)
-        return (D2StormLinkStrc*)~(unsigned int)m_next;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)this - m_prevlink->m_next;
-    return (D2StormLinkStrc*)(m_next + nLinkOffset);
-}
-
-// 0x0045BC90
-char* D2StormListAStrc::sub_0045BC90_RawNext(D2StormLinkStrc* pLink)
-{
-    return pLink ? pLink->m_next : m_terminator.m_next;
-}
