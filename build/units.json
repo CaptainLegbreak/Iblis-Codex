@@ -3031,6 +3031,11 @@
      "name": "MAINMENUS_CompareNames"
     },
     {
+     "va": "0x00430B40",
+     "length": 6,
+     "name": "GAME_GetSlotNameCount"
+    },
+    {
      "va": "0x00430B50",
      "length": 46,
      "name": "?MAINMENUS_GetSlotName@@YIPADH@Z"
@@ -9013,6 +9018,16 @@
      "name": "?CHARSEL_ScrollNameControl@@YAXXZ"
     },
     {
+     "va": "0x00437D00",
+     "length": 6,
+     "name": "GAME_GetPreferredRealm"
+    },
+    {
+     "va": "0x00437D10",
+     "length": 3,
+     "name": "sub_00437D10"
+    },
+    {
      "va": "0x00437D20",
      "length": 524,
      "name": "?CHARSEL_IsTestRealm@@YAHPBUUnicode@@@Z"
@@ -9512,29 +9527,9 @@
      "name": "GAME_GetStopMainLoop"
     },
     {
-     "va": "0x00430B40",
-     "length": 6,
-     "name": "GAME_GetSlotNameCount"
-    },
-    {
-     "va": "0x00437D00",
-     "length": 6,
-     "name": "GAME_GetPreferredRealm"
-    },
-    {
-     "va": "0x00437D10",
-     "length": 3,
-     "name": "sub_00437D10"
-    },
-    {
      "va": "0x0043DB10",
      "length": 6,
      "name": "GAME_IsLaunchExpansion"
-    },
-    {
-     "va": "0x0043F840",
-     "length": 6,
-     "name": "sub_0043F840"
     },
     {
      "va": "0x00446CF0",
@@ -12334,6 +12329,11 @@
      "va": "0x0043F800",
      "length": 57,
      "name": "?CHATDLG_FreeNameList@@YAXXZ"
+    },
+    {
+     "va": "0x0043F840",
+     "length": 6,
+     "name": "sub_0043F840"
     },
     {
      "va": "0x0043F850",
@@ -31569,38 +31569,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/SkillDesc_004EAE70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004EAE70",
-     "length": 278
-    },
-    {
-     "va": "0x004EC6F0",
-     "length": 66
-    },
-    {
-     "va": "0x004ED150",
-     "length": 663
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/SkillDesc.cpp",
    "rank": 0,
    "functions": [
@@ -31912,6 +31880,10 @@
      "name": "?SKILLDESC_DrawWeaponPhysElemDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
+     "va": "0x004EAE70",
+     "length": 278
+    },
+    {
      "va": "0x004EAF90",
      "length": 679
     },
@@ -31992,6 +31964,10 @@
      "name": "?SKILLDESC_AddMissileElemRate@@YGHPAUD2UnitStrc@@PAUUnicode@@PAUD2SkillsTxt@@HH@Z"
     },
     {
+     "va": "0x004EC6F0",
+     "length": 66
+    },
+    {
      "va": "0x004EC740",
      "length": 152,
      "name": "?SKILLDESC_AddSkillElemRateByType@@YGHPAUUnicode@@PAUD2SkillsTxt@@PAUD2UnitStrc@@HH@Z"
@@ -32038,6 +32014,10 @@
      "va": "0x004ED0D0",
      "length": 126,
      "name": "?SKILLDESC_AddNextLevelParam@@YAHHHPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004ED150",
+     "length": 663
     },
     {
      "va": "0x004ED480",
@@ -37640,6 +37620,11 @@
      "length": 1476
     },
     {
+     "va": "0x0051F2D0",
+     "length": 56,
+     "name": "BNSEND_GetPatchResult"
+    },
+    {
      "va": "0x0051F310",
      "length": 1524
     },
@@ -38568,11 +38553,6 @@
      "va": "0x0051E340",
      "length": 40,
      "name": "?sub_0051E340_BuildCDKeyInfoForSlot@@YIHPAUD2CDKeyInfoStrc@@IH@Z"
-    },
-    {
-     "va": "0x0051F2D0",
-     "length": 56,
-     "name": "BNSEND_GetPatchResult"
     },
     {
      "va": "0x005204D0",

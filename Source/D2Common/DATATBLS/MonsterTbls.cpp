@@ -21,6 +21,7 @@
 #include "D2AnimData.h"
 #include "FogApi.h"
 
+// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 static void __declspec(noinline) DATATBLS_MakeCode(const char* szText, char* szCode);
 
 #pragma function(memset)
@@ -834,6 +835,7 @@ extern D2TxtLinkStrc* gpUniqueItemsLinker;                                      
 
 extern void* gpUniqueItemsTxt;                                                                              // 0x0096C854
 
+// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 static int __declspec(noinline) DATATBLS_GetNextIntToken(char** ppString, char chSeparator);
 
 struct D2TCExRecordArgStrc

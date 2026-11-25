@@ -79,6 +79,7 @@ int __stdcall FOG_GetRowFromTxt(void* pLinker, const char* szText, int nColumn);
 
 static int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItem* pCubeInput, char* szInput);
 
+// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 // 0x00668510
 static __declspec(noinline) void sub_00668510_MakeCode(const char* szText, char* szCode)
 {
