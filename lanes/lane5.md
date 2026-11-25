@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/audit-fields-d2game-2 90ee25567 (on #400): two more D2Game private records get field names from their use: Skills.cpp's D2_6FD10880_Strc becomes D2AuraNextTargetArgsStrc (SKILLS_FindNextAuraTarget's argument block: pNextTarget/nNextGUID, pWrapTarget/nWrapGUID, nPreviousGUID, nTargetCount); ObjMode.cpp's shrine table entry +0x04/+0x08 are nStatId/nStateId (passed as OBJMODE_ApplyShrineCurse's stat and state). auditguard: nothing rose. Full build: Game.exe identical, tree 6b863b7b0c5293f86cdee82a2946e95528185d1b, borrowed code / data 10,018 B / 261 B (main's figures).
 
 ## Claimed
 
