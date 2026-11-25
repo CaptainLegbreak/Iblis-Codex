@@ -3941,18 +3941,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Quests/a3q7.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a3q7.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/MONSTER/MonsterChoose.cpp": {
-   "bytes": 412,
-   "definitions": 3,
+   "bytes": 472,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MONSTER/MonsterChoose.inc",
@@ -101238,7 +101229,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a3q7.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterChoose.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern const char* gaszLanguageNames_00741578[15] = ",
