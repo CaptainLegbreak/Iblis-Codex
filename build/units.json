@@ -37701,6 +37701,14 @@
      "name": "BNDOWNLOAD_LogPrintf"
     },
     {
+     "va": "0x00518EC0",
+     "length": 108
+    },
+    {
+     "va": "0x00519000",
+     "length": 268
+    },
+    {
      "va": "0x0051BE80",
      "length": 23,
      "name": "BNDOWNLOAD_CompareExchange"
@@ -38262,34 +38270,6 @@
      "length": 43,
      "name": "?sub_0051C9E0_GetSockName@@YIHPAXPAH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/Unknown_00518C30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00518EC0",
-     "length": 108
-    },
-    {
-     "va": "0x00519000",
-     "length": 268
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
