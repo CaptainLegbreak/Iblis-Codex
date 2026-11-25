@@ -543,3 +543,5 @@ extern "C" LimbCell* __fastcall sub_00420FE0_LastCell(SequenceView* sequence)
         return sequence->values + count - 1;
     return 0;
 }
+
+// build: symbol ?sub_0041EE40_UnlinkAll@D2StormNodeListStrc@@QAEXXZ 0x0041EE40
