@@ -760,7 +760,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 #define UNIT_ALIGNMENT_UNASSIGNED 4
 #define UNIT_CLASSID_OR_INVALID(pUnit) ((pUnit) ? (pUnit)->dwClassId : -1)
 #define UNIT_LIST_MASK 0x7F
-#define nullptr 0
 
 struct AiControl { char unknown00[0x14]; int param[3]; };
 

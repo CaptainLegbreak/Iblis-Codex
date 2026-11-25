@@ -523,7 +523,7 @@ void __fastcall ACT5Q2_InitQuestData(D2QuestDataStrc* pQuestData)
     D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act5Quest2Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q2.cpp", 803, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
     pQuestData->eFilter = 36;
-    pQuestData->pfStatusFilter = nullptr;
+    pQuestData->pfStatusFilter = 0;
     pQuestData->nInitNo = 4;
     pQuestData->pfActiveFilter = ACT5Q2_ActiveFilterCallback;
     pQuestData->pfSeqFilter = ACT5Q2_SeqCallback;
@@ -601,7 +601,7 @@ void __fastcall ACT5Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                         pQuestData->nStatusFlags = 0;
                         QUESTS_UnitIterate(pQuestData, 13, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 0);
                     }
-                    pQuestData->pCallback[2] = nullptr;
+                    pQuestData->pCallback[2] = 0;
                 }
 
                 int nRewards = 3;
@@ -746,14 +746,14 @@ void __fastcall ACT5Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
         if (!pQuestData->fLastState)
         {
             pQuestData->nStatusFlags = 0;
-            QUESTS_UnitIterate(pQuestData, 1, nullptr, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
-            pQuestData->pCallback[2] = nullptr;
+            QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
+            pQuestData->pCallback[2] = 0;
         }
         else if (!bWasStarted)
         {
             return;
         }
-        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, nullptr, ACT5Q2_UnitIterate_UpdateQuestStateFlags);
+        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT5Q2_UnitIterate_UpdateQuestStateFlags);
         return;
     }
 
@@ -774,15 +774,15 @@ void __fastcall ACT5Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
         }
 
         QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q2.cpp", 660);
-        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, nullptr, ACT5Q2_UnitIterate_UpdateQuestStateFlags);
+        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT5Q2_UnitIterate_UpdateQuestStateFlags);
         if (pQuestData->fLastState || !pQuestData->bNotIntro || ((D2Act5Quest2Strc*)pQuestData->pQuestDataEx)->nKilledWussies >= 5)
         {
             return;
         }
 
         pQuestData->nStatusFlags = 0;
-        QUESTS_UnitIterate(pQuestData, 1, nullptr, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
-        pQuestData->pCallback[2] = nullptr;
+        QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
+        pQuestData->pCallback[2] = 0;
     }
 }
 
