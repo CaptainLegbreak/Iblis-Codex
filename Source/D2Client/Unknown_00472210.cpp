@@ -5,6 +5,7 @@
 #include "D2ClientGame.h"
 #include "D2CelContext.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct CellResource;
@@ -25,8 +26,6 @@ extern int gnGlobal_007A8A0C; // 0x007A8A0C
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
@@ -52,7 +51,6 @@ extern "C" const char gHelpBorder800File[];
 extern "C" const char gHelpBorderFile[];
 extern "C" const char gWhiteBulletFile[];
 extern "C" const char gYellowBulletFile[];
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
 extern unsigned int gnPhaseMax; // 0x007A89C0
@@ -228,8 +226,6 @@ struct D2WeatherLineStrc
 int __cdecl D2GFX_CheckLowQuality(); // 0x004F5210
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 extern D2WeatherLineStrc gaWeatherLines[]; // 0x006D6E78
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 void __fastcall sub_00473A70(D2WeatherStrc* pWeather, D2WeatherLayerStateStrc* pState); // 0x00473A70
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);
 void __fastcall SOUNDINST_MoveSound(int a1, int a2, int a3, int a4); // 0x004B99A0
@@ -265,11 +261,9 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 int __cdecl D2GFX_GetDisplayType();                                                                                 // 0x004F5140
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange);                                 // 0x00472280
 int __fastcall DATAARRAYS_AllocateHandle(D2WeatherStrc* pArray);                                             // 0x006BCB40
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 void __fastcall sub_00472C80_StepSplashes(int nUnused);                                                     // 0x00472C80
 void __fastcall sub_00472D10_StepBubbles(int nUnused);                                                      // 0x00472D10
 void __stdcall GFX_StepWeatherPhase(D2SeedStrc* pSeed);                                                   // 0x00473E50
@@ -283,11 +277,9 @@ static void sub_00473090_InitParticle(D2SeedStrc* pSeed);
 void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed);                                              // 0x004732C0
 
 int __cdecl D2GFX_GetDisplayType();                                                                                 // 0x004F5140
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange);                                 // 0x00472280
 int __fastcall DATAARRAYS_AllocateHandle(D2WeatherStrc* pArray);                                             // 0x006BCB40
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 void __fastcall sub_00472C80_StepSplashes(int nUnused);                                                     // 0x00472C80
 void __fastcall sub_00472D10_StepBubbles(int nUnused);                                                      // 0x00472D10
 void __stdcall GFX_StepWeatherPhase(D2SeedStrc* pSeed);                                                   // 0x00473E50
@@ -302,8 +294,6 @@ static void sub_004737B0_StepWind(D2SeedStrc* pSeed);
 
 void __stdcall GFX_StepWeatherPhase(D2SeedStrc* pSeed);
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                             // 0x006427F0
 
 static void __stdcall sub_00472590_SetSplash(int bForce, int bValue); // 0x00472590
 
@@ -324,7 +314,6 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const cha
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFileWithFileSize(const char* szFile, unsigned int* pFileSize, int nType); // 0x00478950
 unsigned char __stdcall PALETTE_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile);                                                // 0x006019F0
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                             // 0x006427F0
 int __stdcall sub_004726F0(int nArg);                                                                       // 0x004726F0
 void __cdecl sub_00472610_InitWindAngle();                                                                  // 0x00472610
 

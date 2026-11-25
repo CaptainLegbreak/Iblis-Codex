@@ -20,6 +20,7 @@
 
 #include "D2AnimData.h"
 #include "FogApi.h"
+#include "D2LangApi.h"
 
 // Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 static void __declspec(noinline) DATATBLS_MakeCode(const char* szText, char* szCode);
@@ -174,7 +175,6 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); /
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 extern D2UniqueNameTxt* gpUniqueNameTxtTables[4]; // 0x0096D488
 
@@ -698,7 +698,6 @@ int __fastcall DATATBLS_CheckNestedMonsterTypes(int nMonType1, int nMonType2);
 
 #define FIXTURE_LINE(x) (x)
 
-unsigned short __stdcall STRTABLE_FindString(const char* szKey, const wchar_t** ppText);               // 0x00524D30
 
 D2TxtLinkStrc* gpHireDescLinker_0096BCE8;                                                                   // 0x0096BCE8
 

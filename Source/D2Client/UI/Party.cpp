@@ -7,6 +7,8 @@
 #include "D2ClientUi.h"
 #include "D2StormTypes.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 struct D2StoredUnitRecordStrc;
 
@@ -29,7 +31,6 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 extern int gnPanelOffsetX; // 0x007A2858
 
@@ -87,7 +88,6 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
@@ -101,7 +101,6 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char*
 extern "C" size_t __cdecl strlen(const char* szString);
 
 
-int __fastcall sub_005262A0_Utf8CountChars(const char* pSrc, int nCount); // 0x005262A0
 
 #pragma pack(push, 1)
 
@@ -139,9 +138,7 @@ unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, un
 
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 
 void* gpPartyBoxesCel; // 0x007BF020
 
@@ -955,7 +952,6 @@ int __fastcall TEXT_GetCenteredStringX(unsigned short nStringIndex, int nCenterX
     return nCenterX - D2Win_10121_GetTextWidth(wszText) / 2;
 }
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);              // 0x005269D0
 
 
 

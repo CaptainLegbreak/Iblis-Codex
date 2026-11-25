@@ -2,12 +2,12 @@
 #include "D2Unicode.h"
 #include "D2MultiTypes.h"
 #include "D2StormTypes.h"
+#include "D2LangApi.h"
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 extern "C" unsigned int __cdecl strlen(const char* szString);
 int __stdcall CONTROL_SetFocusedEditBox(void* pEditBox);                                                                  // 0x004F91C0
 const Unicode* __fastcall sub_004FBB30_GetText(D2WinControlStrc* pControl);                                 // 0x004FBB30
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount);                     // 0x00526F70
 void __fastcall EDITBOX_SetText(D2WinControlStrc* pControl, const Unicode* pText);                 // 0x004FF5A0
 int __stdcall CHATDLG_JoinByName(int nArg);                                                            // 0x004439F0
 void __fastcall CHATDLG_SetPendingText(const char* szText, unsigned short wRequestId);                 // 0x00442DD0

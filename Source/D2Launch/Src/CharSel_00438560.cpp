@@ -1,8 +1,8 @@
 #include "D2Unicode.h"
 #include "FogApi.h"
+#include "D2LangApi.h"
 struct D2CompositeUnitStrc;
 extern "C" long __cdecl _time32(long* pTime);                                                               // 0x006850E6
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                      // 0x005267E0
 
 static Unicode* CHARSEL_GetClassName(Unicode* pBuffer, int nClass); // 0x00437F60
@@ -151,11 +151,8 @@ extern D2WinControlStrc* gpControl_00779DD0; // 0x00779DD0
 extern D2WinControlStrc* gaRowControls_00779A20[]; // 0x00779A20
 extern "C" const char gszTagFormat[]; // 0x006D4E2C
 void __cdecl CHARSEL_UpdateCharList(); // 0x004380F0
-int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 void __fastcall sub_004FB740_SetTextOffset(D2WinControlStrc*,int,int); // 0x004FB740
-char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 const char* __stdcall D2Win_10161(int,int,int,int); // 0x005068A0
-void __cdecl sub_005269D0(int,Unicode*,const Unicode*,...); // 0x005269D0
 extern "C" char* __cdecl strcat(char*,const char*);
 __declspec(noinline) static unsigned int CHARSEL_GetDaysLeft(unsigned int nExpireTime);
 static unsigned int CHARSEL_GetDaysLeft(unsigned int nExpireTime); // 0x004380B0

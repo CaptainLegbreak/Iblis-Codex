@@ -7,6 +7,7 @@
 #include "D2Unicode.h"
 
 #include "D2MultiTypes.h"
+#include "D2LangApi.h"
 
 struct D2ComInterfaceStrc;
 
@@ -38,7 +39,6 @@ void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 
 D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
 
@@ -106,7 +106,6 @@ void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags); // 0
 
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
 
-char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 
 D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
 

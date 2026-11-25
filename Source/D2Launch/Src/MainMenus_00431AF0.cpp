@@ -2,6 +2,7 @@
 #include "D2MultiTypes.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2LangApi.h"
 struct D2FileTimeStrc;
 struct D2MenuCallbackArgStrc;
 struct D2ConfigStrc;
@@ -16,9 +17,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(cons
 extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileName); // 0x006CC1A0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 const char* __stdcall Name(D2FuncRecordStrc* pRecord, int nIndex); // 0x005180A0
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 void __fastcall BUTTON_SetText(D2WinControlStrc* pControl, int nMode, Unicode* pText, int nArg); // 0x005009D0
 int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A8B0
@@ -43,7 +41,6 @@ extern const char gszTosPrefix[]; // 0x006D48E8
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(void*, unsigned long*); // 0x006CC2F0
 extern "C" unsigned int __cdecl strlen(const char*);
 void __cdecl sub_0042F800(); // 0x0042F800
-void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField); // 0x00525260
 unsigned int __stdcall SStrPack(char*, const char*, unsigned int); // 0x00413800
 void __cdecl MAINMENUS_PollDownloadDone(); // 0x00430400
 void __stdcall D2Win_RunMessageLoop(D2LaunchDoneFn); // 0x004FA590
@@ -58,7 +55,6 @@ int __fastcall FOG_DeleteFileA(const char*); // 0x00406990
 void __fastcall CHARSEL_SwapUnicodeBytes(Unicode*, unsigned int); // 0x0042E5D0
 Unicode* __fastcall win2Unicode(Unicode*, const char*, int); // 0x00526F20
 int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820
-int __fastcall sub_00526D30_IsLineBreak(const Unicode* pText, unsigned int nIndex); // 0x00526D30
 void __fastcall D2Win_10053(D2WinControlStrc*, int); // 0x004FBA30
 
 struct D2MenuCallbackArgStrc { D2WinControlStrc* pControl; unsigned int nMessage, nParam, nArg; };
@@ -89,7 +85,6 @@ extern "C" char* __cdecl strstr(const char* szString, const char* szSubString); 
 
 int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 
-char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 

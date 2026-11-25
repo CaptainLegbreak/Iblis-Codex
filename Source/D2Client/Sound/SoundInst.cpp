@@ -11,6 +11,7 @@
 #include "D2ClientDialogWidget.h"
 #include "D2SoundEnvironTxt.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -106,7 +107,6 @@ int __fastcall D2SOUNDUTIL_ListContains(D2SoundUnitNodeStrc* pList, D2UnitStrc* 
 
 void __fastcall D2SOUNDUTIL_ListFree(void* ppList); // 0x00516A10
 
-void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 
 extern int gnSfxVolume; // 0x00727564
 

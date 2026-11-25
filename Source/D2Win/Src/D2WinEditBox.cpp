@@ -10,6 +10,7 @@
 
 #include "D2WinTypes.h"
 #include "FogApi.h"
+#include "D2LangApi.h"
 
 #pragma function(memset)
 
@@ -75,7 +76,6 @@ int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
 struct Obj004FDA80
 {
