@@ -65,7 +65,7 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long nMillisecond
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-void __cdecl sub_00444E70_FillGameList(); // 0x00444E70
+void __cdecl CHATDLG_FillGameList(); // 0x00444E70
 void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
 void __cdecl RECORD_WriteRecordFile(); // 0x00451620
 extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId); // 0x00452040

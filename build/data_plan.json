@@ -381,12 +381,12 @@
     "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
     "extern \"C\" char gpBnetCancelButtonBlankCelFileB[]; // 0x0077BD2C",
     "extern \"C\" void __cdecl sub_004438C0_OnCancel(); // 0x004438C0",
-    "extern \"C\" void __cdecl sub_00445530_ResetBuildPanel(); // 0x00445530",
+    "extern \"C\" void __cdecl CHATDLG_ResetBuildPanel(); // 0x00445530",
     "extern \"C\" char gData_0070CD84[]; // 0x0070CD84",
     "extern \"C\" char gpPlayerProfileBckgCelFileA[]; // 0x0077BD3C",
     "extern \"C\" char gpPlayerProfileBckgCelFileB[]; // 0x0077BD40",
     "extern \"C\" void __cdecl CHATDLG_OnLadderSelect(); // 0x00443EF0",
-    "extern \"C\" void __cdecl sub_00443F70_OnRefresh(); // 0x00443F70",
+    "extern \"C\" void __cdecl CHATDLG_OnRefresh(); // 0x00443F70",
     "extern \"C\" void __cdecl CHARSEL_SubmitProfile(); // 0x00443F80",
     "extern \"C\" void __cdecl sub_00447730(); // 0x00447730",
     "extern \"C\" void __cdecl CHATDLG_OnShowUser(); // 0x00449330",
@@ -413,9 +413,9 @@
     "extern \"C\" void __cdecl CHATDLG_ShowExpansionLadder(); // 0x00440C40",
     "extern \"C\" void __cdecl CHATDLG_ShowExpansionHardcoreLadder(); // 0x00440C70",
     "extern \"C\" void __cdecl CHATDLG_OpenLadderScreen(); // 0x00442350",
-    "extern \"C\" void __cdecl sub_00443C20_SelectNormal(); // 0x00443C20",
-    "extern \"C\" void __cdecl sub_00443C70_SelectNightmare(); // 0x00443C70",
-    "extern \"C\" void __cdecl sub_00443CC0_SelectHell(); // 0x00443CC0",
+    "extern \"C\" void __cdecl CHATDLG_SelectNormal(); // 0x00443C20",
+    "extern \"C\" void __cdecl CHATDLG_SelectNightmare(); // 0x00443C70",
+    "extern \"C\" void __cdecl CHATDLG_SelectHell(); // 0x00443CC0",
     "extern \"C\" void __cdecl sub_004456D0(); // 0x004456D0",
     "extern \"C\" void __cdecl CHATDLG_JoinByName(); // 0x004439F0",
     "extern \"C\" void __cdecl CHATDLG_IncrementMaxPlayers(); // 0x004433C0",
@@ -12314,7 +12314,7 @@
      32,
      "0x00445530",
      "names.json",
-     "sub_00445530_ResetBuildPanel",
+     "CHATDLG_ResetBuildPanel",
      0,
      "func"
     ]
@@ -12610,7 +12610,7 @@
      32,
      "0x00443F70",
      "names.json",
-     "sub_00443F70_OnRefresh",
+     "CHATDLG_OnRefresh",
      0,
      "func"
     ]
@@ -29043,7 +29043,7 @@
      32,
      "0x00443C20",
      "names.json",
-     "sub_00443C20_SelectNormal",
+     "CHATDLG_SelectNormal",
      0,
      "func"
     ]
@@ -29077,7 +29077,7 @@
      32,
      "0x00443C70",
      "names.json",
-     "sub_00443C70_SelectNightmare",
+     "CHATDLG_SelectNightmare",
      0,
      "func"
     ]
@@ -29111,7 +29111,7 @@
      32,
      "0x00443CC0",
      "names.json",
-     "sub_00443CC0_SelectHell",
+     "CHATDLG_SelectHell",
      0,
      "func"
     ]
