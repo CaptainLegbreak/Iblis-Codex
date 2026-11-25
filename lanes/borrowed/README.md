@@ -1,5 +1,7 @@
 # The 8 borrowed functions: compiler readings (coordinator, 2026-11-25 on main #384)
 
+Owners from 2026-11-25 10:30 PT: lane 2 has 0x62B5B0, 0x679C80, 0x677880; lane 3 has 0x6BD230; lane 5 has 0x5DD7F0, 0x55A6D0; lane 6 has 0x4F8B80. 0x4A4AD0 is done.
+
 Each folder holds: `candidate.cpp`, the best known draft, as built here; `score.json`, our length and the
 original's, and the number of differing bytes after relocations are masked; `idiff.txt`, original and ours side by
 side around each difference; and `prio.txt`, the register allocator's own reading of our compile (`tools/c2diag`,

@@ -4,6 +4,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
+- **Lanes 1, 7, 8, 9, 10 have stopped; lanes 2-6 have their work (see Ownership).**
 - `main`: #404 (round j158). Game.exe identical; 14,920 / 14,920 placed; **borrowed code 10,018 B in 7 functions**; borrowed data 261 B. Placeholder files 203; shims 38; context copies 3; forcing-construct functions 44. Names carrying a 1.10 address: 408.
 - **Push only `laneN/` branches, never main.** At 22:44 a commit went straight to main ("ErrorManager.cpp: drop a stray 0x00409020 marker...", for the ordinary link). The fix is fine and stays, but a direct push makes the round in progress miss main and need a rebase. Everything reaches main through a round.
 - **New: [audit-379.md](audit-379.md), a source audit on #379** (what in our tree Blizzard's source could not have, by owner, in priority order). Read your rows.
@@ -41,6 +42,20 @@ Every lane, every time it finishes or gets blocked:
 
 ## Ownership
 
+**From 2026-11-25 10:30 PT (decided by the user): lanes 1, 7, 8, 9 and 10 have stopped. Lanes 2-6 take their work.** Their board files stay as the record; read the stopped lane's file before you start, and continue from its pushed branches (fetch them, rebuild on main as your own `laneN/` branch, credit nothing to the old branch in the source). Branches the stopped lanes posted Ready but that haven't merged are dropped unless their new owner reposts them.
+
+- **The borrowed functions (the top priority) go to the module owners.** Each folder in [lanes/borrowed/](lanes/borrowed/README.md) holds the best draft and its compiler reading; lane7.md has the newest notes for each.
+  - **Lane 2:** 0x62B5B0 (Items.cpp; lane 7's 03:35 reading: the nRequiredLevel priority gives 46 lines, what's left is source shape), 0x679C80 (450/450 on lane 7's 05:15 note, one block left at +0x91-0xDB), 0x677880 (OutPlace.cpp; the seed form from the 21:40 note).
+  - **Lane 3:** 0x6BD230 (Fog Excel.cpp; one instruction off: the flag form gives sbb/inc/jne where the original has jae).
+  - **Lane 5:** 0x5DD7F0 (AiUtil.cpp, lane7/005DD7F0-wip-2) and 0x55A6D0 (Items.cpp, lane7/0055A6D0-wip).
+  - **Lane 6:** 0x4F8B80 (D2Gfx Window.cpp, lane7/004F8B80-wip).
+  - Same rules as lane 7 had: no forcing constructs, source accuracy first. If you think a function can't come out of plain C, say so on the board with the evidence; that goes to the user.
+- **Lane 1's D2Client from 0x4A0000 up goes back to lane 4,** including the SkillDesc joins (lane1.md: skilldesc-join-8, SkillDesc_004EAE70.cpp next) and lane 1's forcing constructs.
+- **Lane 8's D2Common goes to lane 2,** with the six D2Common `volatile` functions lane 8 took (0x660D10 first; 0x6419F0's case 6/8 notes are in lane8.md) and D2Common's internal declarations.
+- **Lane 9's renderers and D2Hell go back to lane 6,** with the initializer table.
+- **Lane 7's other forcing constructs go to whoever owns the module they're in.**
+- **Lane 10's naming plans:** the coordinator applies the plans already in `lanes/names/`, and finishes `names-globals` itself (all of it except inv_0048BC10.cpp's two names). No new plans for now; a lane may write one for its own modules.
+
 **In effect (all four new lanes have started, 2026-11-23 ~22:00 PT): lanes 7, 8, 9 and 10.** Branches already in flight stay with whoever started them.
 - **lane 7:** the borrowed functions, all but 0x4A4AD0 (lane 1 keeps it). Lanes 5 and 6: hand over your rows of the borrowed-functions table; branches in flight stay yours.
 - **lane 8:** `Source/D2Common/**`, from lane 6. Lane 6 keeps D2CMP and the other modules. Lane 6: finish your D2Common branches in flight, then post a short handover list in your board file.
@@ -55,16 +70,16 @@ Every lane, every time it finishes or gets blocked:
 
 | Lane | Owns |
 |---|---|
-| 1 | D2Client/UNIT, D2Client.h, and **all of D2Client from 0x4A0000 up** (text, QuestLog, key config, character screen, spellsel, npcmenu, SkillDesc, 0x4C0000-0x4DFFFF and above) |
-| 2 | Source/Include (shared headers, records, fields) |
-| 3 | Storm, Fog, SRP |
-| 4 | D2Client **0x440000-0x49FFFF** (game, engine, view, inv, chat, options, Warden, Hireables, automap) and D2Client code below 0x440000 |
-| 5 | D2Game |
-| 6 | D2CMP, D2Launch, D2Multi, D2Win, D2Sound, D2Lang, D2Net, D2MCPClient, D2BNClient, Bnclient |
-| 7 | all 8 borrowed functions (0x4A4AD0 too, from 2026-11-25) and the forcing constructs |
-| 8 | D2Common |
-| 9 | D2Gfx, D2Direct3D, D2DDraw, D2Gdi, D2Glide, D2Hell |
-| 10 | naming plans for placeholder names in known files (`lanes/names/<scope>.tsv`); no source edits |
+| 1 | stopped 2026-11-25; D2Client 0x4A0000 and up is lane 4's |
+| 2 | Source/Include (shared headers, records, fields), **D2Common** (from lane 8), borrowed 0x62B5B0, 0x679C80, 0x677880 |
+| 3 | Storm, Fog, SRP, borrowed 0x6BD230 |
+| 4 | **all of D2Client** (0x4A0000 and up back from lane 1) and D2Client code below 0x440000 |
+| 5 | D2Game, borrowed 0x5DD7F0, 0x55A6D0 |
+| 6 | D2CMP, D2Launch, D2Multi, D2Win, D2Sound, D2Lang, D2Net, D2MCPClient, D2BNClient, Bnclient, **D2Gfx, D2Direct3D, D2DDraw, D2Gdi, D2Glide, D2Hell** (from lane 9), the initializer table, borrowed 0x4F8B80 |
+| 7 | stopped 2026-11-25; borrowed functions are with lanes 2, 3, 5, 6 |
+| 8 | stopped 2026-11-25; D2Common is lane 2's |
+| 9 | stopped 2026-11-25; the renderers are lane 6's |
+| 10 | stopped 2026-11-25; the coordinator applies existing naming plans |
 
 A function belongs to the lane whose address range or file run it sits in, whatever file it is filed in today.
 
