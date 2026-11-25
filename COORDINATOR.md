@@ -5,6 +5,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 ## Current state
 
 - `main`: #379 (round j134). Game.exe identical; 14,919 / 14,919 placed; **borrowed code 11,250 B in 8 functions** (0x5EDC50 is built from source); **borrowed data 281 B**. Placeholder files 229; shims 45; context copies 3; forcing-construct functions 33. Names: blizzard 478, library 86, d2moo 5,291, inferred 6,460, placeholder 2,612.
+- **New: [audit-379.md](audit-379.md), a source audit on #379** (what in our tree Blizzard's source could not have, by owner, in priority order). Read your rows.
 - **[queues.md](queues.md), what's left per lane** (regenerated on #378): placeholder files, context copies, forcing constructs, shimmed functions, per-file options, with each lane's own list. When your current branch is done, take the next item from your row. The forcing constructs (42) are lane 7's job now: owners, leave them to lane 7 unless you settle it with lane 7 in its file. The context copies outside Storm/Fog/SRP are lane 2's trim first (see Answers), then the owners'. Also regenerated (regenerated on #366): [borrowed-data.md](borrowed-data.md) (906 B, by current owner) and [language-objects.md](language-objects.md) (14 files still hold more than one copy, each a split to make).
 - **Coordinator changed (2026-11-24 20:30 PT); same rules, same board.** Check-ins every 30 minutes.
 - In progress: nothing; next round as branches are posted ready.
