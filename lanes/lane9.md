@@ -96,6 +96,10 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - lane9/audit-types-d2direct3d 0e3efc56, on main 312ab020 (#383), precheck 0 not all equal, auditguard no count rose
   (decompiler types 143 -> 131); full verify VERIFIED, borrowed data 265 B (= main). Unknown_006B7530.cpp's U32/U8
   become unsigned int / unsigned char.
+- lane9/audit-labels-renderers fe068fc9, on main ab43ba69 (#384), precheck 0 not all equal, auditguard no count rose
+  (decompiler labels 38 -> 34); full verify VERIFIED, borrowed data 265 B (= main). The two Bink players' LABEL_FAIL
+  (ddCore.cpp, D2Glide/Unknown_0050F910.cpp) becomes OpenFailed. (audit-params-renderers and audit-types-d2direct3d,
+  above, still apply cleanly on #385.)
 - **Handover, initializer slots outside lane 9** (lane 9 stops here; these are the owners'):
   - 0x6CAC10 gnTextLeft = (gnScreenWidth - 325) / 2 (bss 0x7BF278, slot between inv's and QuestLog's): lane 1. In
     UI/text_0049A950.cpp it builds equal but raises borrowed data by 4 B, so that's probably not its object; the
