@@ -38891,16 +38891,6 @@
      "va": "0x00528890",
      "length": 210,
      "name": "sub_00528890_CompareServerProof"
-    },
-    {
-     "va": "0x0052B0E0",
-     "length": 22,
-     "name": "SERVER_SendToLocalClientCallback"
-    },
-    {
-     "va": "0x0052B100",
-     "length": 235,
-     "name": "SERVER_ValidateClientPacket"
     }
    ]
   },
@@ -40971,31 +40961,6 @@
      "name": "?CLIENT_GetConnectionStatus@@YAHXZ"
     },
     {
-     "va": "0x0052B1F0",
-     "length": 23,
-     "name": "SERVER_WaitForSingleObject"
-    },
-    {
-     "va": "0x0052B210",
-     "length": 27,
-     "name": "SERVER_SwapSlotValue"
-    },
-    {
-     "va": "0x0052B230",
-     "length": 25,
-     "name": "SERVER_AddKeyValuePair"
-    },
-    {
-     "va": "0x0052B250",
-     "length": 23,
-     "name": "SERVER_SetMaxClientsPerGame"
-    },
-    {
-     "va": "0x0052B490",
-     "length": 30,
-     "name": "sub_0052B490_ObjectCall_6BED90"
-    },
-    {
      "va": "0x0052BDA0",
      "length": 1,
      "name": "?sub_0052BDA0_Empty@@YAXXZ"
@@ -41011,16 +40976,6 @@
    "file": "Source/D2Game/ITEMS/ItemMode.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0052B270",
-     "length": 12,
-     "name": "sub_0052B270"
-    },
-    {
-     "va": "0x0052B6F0",
-     "length": 12,
-     "name": "sub_0052B6F0"
-    },
     {
      "va": "0x00555D20",
      "length": 118,
@@ -41586,6 +41541,41 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x0052B0E0",
+     "length": 22,
+     "name": "SERVER_SendToLocalClientCallback"
+    },
+    {
+     "va": "0x0052B100",
+     "length": 235,
+     "name": "SERVER_ValidateClientPacket"
+    },
+    {
+     "va": "0x0052B1F0",
+     "length": 23,
+     "name": "SERVER_WaitForSingleObject"
+    },
+    {
+     "va": "0x0052B210",
+     "length": 27,
+     "name": "SERVER_SwapSlotValue"
+    },
+    {
+     "va": "0x0052B230",
+     "length": 25,
+     "name": "SERVER_AddKeyValuePair"
+    },
+    {
+     "va": "0x0052B250",
+     "length": 23,
+     "name": "SERVER_SetMaxClientsPerGame"
+    },
+    {
+     "va": "0x0052B270",
+     "length": 12,
+     "name": "sub_0052B270"
+    },
+    {
      "va": "0x0052B280",
      "length": 23,
      "name": "SERVER_SetHackListEnabled"
@@ -41613,6 +41603,11 @@
     {
      "va": "0x0052B330",
      "length": 343
+    },
+    {
+     "va": "0x0052B490",
+     "length": 30,
+     "name": "sub_0052B490_ObjectCall_6BED90"
     },
     {
      "va": "0x0052B4B0",
@@ -41683,6 +41678,11 @@
      "va": "0x0052B6D0",
      "length": 23,
      "name": "D2NET_10022"
+    },
+    {
+     "va": "0x0052B6F0",
+     "length": 12,
+     "name": "sub_0052B6F0"
     },
     {
      "va": "0x0052B700",
