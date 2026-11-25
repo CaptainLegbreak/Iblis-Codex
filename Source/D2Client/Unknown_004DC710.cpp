@@ -168,39 +168,3 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
     if (bPerspective)
         sub_004F6830();
 }
-
-// 0x004DCA30
-void __cdecl sub_004DCA30_ResetTokenCache()
-{
-    if (gpClientConfig->bNoSound)
-        return;
-
-    gdwLevelEnterTick = 0;
-    gdwSongStartTick = 0;
-    gnCurrentSongId = 0;
-    gnSongLevelId = 0;
-    gdwSongPositionTick = 0;
-    gnGlobal_007C89E4 = 0;
-    gnSpeechLevelId = 0;
-
-    void* pTokenData = sub_00481810_GetTokenData();
-    if (pTokenData)
-    {
-        memset(pTokenData, 0, (1 - sub_004817F0() + sub_00481800()) * 4);
-    }
-}
-
-// 0x004DCE10
-void __fastcall sub_004DCE10_UpdateTimedHint(int nDelay, int nArg)
-{
-    if (gtTimedHint.bActive)
-    {
-        if (nArg)
-        {
-            gtTimedHint.nEndTickF = sub_0044DB00() + nDelay;
-        }
-
-        gtTimedHint.nArgG = nArg;
-        gtTimedHint.nEndTickC = gtTimedHint.nEndTickF + 0x32;
-    }
-}
