@@ -61,3 +61,11 @@ D2_CHECK_SIZE(D2SockAddrInStrc, 0x10);
 D2_CHECK_SIZE(D2WSADataStrc, 0x190);
 D2_CHECK_SIZE(D2TimevalStrc, 0x8);
 D2_CHECK_SIZE(D2FdSetStrc, 0x104);
+
+// The packet send buffer: 0x7B8 data bytes, then the count of bytes used.
+struct D2PacketBufferStrc
+{
+    unsigned char data[1976]; // 0x000
+    int nUsedBytes; // 0x7B8
+};
+D2_CHECK_SIZE(D2PacketBufferStrc, 0x7BC);

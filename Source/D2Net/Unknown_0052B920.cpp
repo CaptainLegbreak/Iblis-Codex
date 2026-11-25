@@ -1,10 +1,4 @@
-struct D2PacketBufferStrc;
-
-struct D2PacketBufferStrc
-{
-    unsigned char data[1976];
-    int nUsedBytes;
-};
+#include "D2NetTypes.h"
 
 
 extern int ganServerPacketSizeTable[]; // 0x00730AE8
