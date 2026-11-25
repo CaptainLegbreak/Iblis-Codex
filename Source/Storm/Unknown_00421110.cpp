@@ -123,4 +123,19 @@ unsigned int D2StormArrayBStrc::sub_004219D0_AddOne(const unsigned char* pData)
     return sub_004218B0_Add(1, pData);
 }
 
+// 0x00421100
+D2UnitStrc* __fastcall sub_00421100_GetSelf(D2UnitStrc* pUnit)
+{
+    return pUnit;
+}
+
+// 0x004212C0
+// build: symbol ?WARDENCLIENT_SwapBytes@* 0x0047F8B0
+void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
+{
+    unsigned char nTemp = *pA;
+    *pA = *pB;
+    *pB = nTemp;
+}
+
 #include "gen/data/Source/Storm/Unknown_00421110.inc"

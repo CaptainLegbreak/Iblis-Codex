@@ -6977,16 +6977,6 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00421100.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00421100",
-     "length": 3
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/Unknown_00421110.cpp",
    "rank": 0,
    "functions": [
@@ -7056,6 +7046,10 @@
      "name": "?RoundUp@?$TSGrowableArray@IU?$TSCD@I@@@@SGIII@Z"
     },
     {
+     "va": "0x00421100",
+     "length": 3
+    },
+    {
      "va": "0x00421110",
      "length": 50,
      "name": "?ReallocData@?$TSFixedArray@IU?$TSCD@I@@@@QAEXI@Z"
@@ -7099,6 +7093,11 @@
      "va": "0x004212B0",
      "length": 1,
      "name": "?Destruct@?$TSCD@I@@SIXPAI@Z"
+    },
+    {
+     "va": "0x004212C0",
+     "length": 11,
+     "name": "?WARDENCLIENT_SwapBytes@@YIXPAE0@Z"
     },
     {
      "va": "0x00421570",
@@ -7224,17 +7223,6 @@
      "va": "0x00421F60",
      "length": 119,
      "name": "?Add@?$TSGrowableArray@DU?$TSCD@D@@@@QAEIIPBD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_004212C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004212C0",
-     "length": 11,
-     "name": "?WARDENCLIENT_SwapBytes@@YIXPAE0@Z"
     }
    ]
   },
