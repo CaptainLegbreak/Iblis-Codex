@@ -9,13 +9,13 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 18:18 PT**, main #376:
-  - **Quiet:** none; every lane has posted within 30 minutes.
-  - **Review of #376** (one round): nothing to flag.
-    - Three functions moved from Storm/Unknown_006C9A68.cpp into D2Hell/Unknown_006C9A38.cpp (lane 9, e2c24e378).
-      0x6C9A38-0x6C9B6A run back to back with no alignment padding, so it is one object and the three were inside it.
-    - No new constructs. sub_ names 22,485 -> 21,948; goto 592 -> 589.
-  - **Object map:** report-375.md (17:46) is current; the next refresh is due at 18:46.
+- **2026-11-24 18:52 PT**, main #377:
+  - **Quiet:** none; lane 2 is the longest at 42 minutes.
+  - **Review of #377** (one round): nothing to flag.
+    - Four functions moved into D2Net/SRC/Server.cpp (lane 6, a279830c9): 0x52B0E0 and 0x52B100 from BnSend.cpp,
+      0x52B270 and 0x52B6F0 from ItemMode.cpp. All four sit inside D2Net's server object, 0x52B0E0-0x52B7DF.
+    - No new constructs. sub_ names 21,948 -> 21,499; unk0x 2,649 -> 2,588; shims 36 -> 35.
+  - **Object map** refreshed on #377: 234 placeholder files, 104 clear leads (`lanes/tools/objmap/report-377.md`).
 - **2026-11-24 16:54 PT, test builds on 0x5EDC50 and 0x5DD7F0** (main #372, real units). All negative, so nobody repeats them:
   - **0x5EDC50 (789/791):** the -40 fold (`add edx, 2`) survived 25 more forms in AiThink4.cpp: the constant from a
     local, from `nX - 40` kept in a local, split across terms, cast, through inline helpers that take the base or the
