@@ -407,7 +407,7 @@ int __fastcall sub_M116_Emit_0053F600(D2GameStrc* pGame)
 }
 
 // 0x0053FE00
-unsigned int __fastcall sub_0053FE00_TestArenaFlag40(D2GameStrc* pGame)
+unsigned int __fastcall ARENA_TestArenaFlag40(D2GameStrc* pGame)
 {
     D2ArenaStrc* pArena = pGame->pArenaCtrl;
     D2_ASSERT(pArena, 39);
@@ -415,7 +415,7 @@ unsigned int __fastcall sub_0053FE00_TestArenaFlag40(D2GameStrc* pGame)
 }
 
 // 0x0053FE40
-unsigned int __fastcall sub_0053FE40_TestArenaFlag80(D2GameStrc* pGame)
+unsigned int __fastcall ARENA_TestArenaFlag80(D2GameStrc* pGame)
 {
     D2ArenaStrc* pArena = pGame->pArenaCtrl;
     D2_ASSERT(pArena, 39);
@@ -423,7 +423,7 @@ unsigned int __fastcall sub_0053FE40_TestArenaFlag80(D2GameStrc* pGame)
 }
 
 // 0x0053FED0
-unsigned int __fastcall sub_0053FED0_TestArenaFlag200(D2GameStrc* pGame)
+unsigned int __fastcall ARENA_TestArenaFlag200(D2GameStrc* pGame)
 {
     D2ArenaStrc* pArena = pGame->pArenaCtrl;
     D2_ASSERT(pArena, 39);

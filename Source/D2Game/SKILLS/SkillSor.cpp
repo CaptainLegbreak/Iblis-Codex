@@ -180,7 +180,7 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 void __fastcall SUNIT_RewindAnimationByFrames(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x00553C70
 
-static void sub_005C8C10_StopInferno(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005C8C10
+static void SKILLS_StopInferno(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005C8C10
 
 inline D2MonStats2Txt* MONSTERREGION_GetMonStats2TxtRecord(int nMonsterId)
 {
@@ -237,7 +237,7 @@ void __fastcall SKILLS_StatRemoveCallback_RemoveState(D2UnitStrc* pUnit, int nSt
 }
 
 // 0x005C8C10
-static void sub_005C8C10_StopInferno(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static void SKILLS_StopInferno(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     int nInfernoLength = 1;
     STATES_ToggleState(pUnit, 12, 0);
@@ -309,7 +309,7 @@ int __fastcall SKILLS_DoInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkill
         return 1;
     }
 
-    sub_005C8C10_StopInferno(pGame, pUnit);
+    SKILLS_StopInferno(pGame, pUnit);
     return 1;
 }
 
@@ -1297,7 +1297,7 @@ struct D2EnergyShieldDataStrc;
 
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 
-extern "C" int __fastcall sub_005C8BC0_GetSkillsTxtParam7(int nSkillId); // 0x005C8BC0
+extern "C" int __fastcall SKILLS_GetSkillsTxtParam7(int nSkillId); // 0x005C8BC0
 
 D2UnitStrc* __fastcall SKILLS_FindNextAuraTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int a7, int* a8); // 0x0056BD10
 
@@ -1309,7 +1309,7 @@ void __fastcall SUNITMSG_QueueSkillEvent(D2UnitStrc* pUnit, D2UnitStrc* pTargetU
 
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
 
-extern "C" int __fastcall sub_005C8BC0_GetSkillsTxtParam7(int nSkillId); // 0x005C8BC0
+extern "C" int __fastcall SKILLS_GetSkillsTxtParam7(int nSkillId); // 0x005C8BC0
 
 struct D2EnergyShieldDataStrc
 {
@@ -1353,7 +1353,7 @@ int __fastcall SKILLS_SrvDo029_ThunderStorm(D2GameStrc* pGame, D2UnitStrc* pUnit
     if (STATES_CheckState(pUnit, pSkillsTxtRecord->nAuraState) && !SKILLS_GetParam2(pSkill))
     {
         const int nParam1 = SKILLS_GetParam1(pSkill);
-        const int nRange = sub_005C8BC0_GetSkillsTxtParam7(nSkillId);
+        const int nRange = SKILLS_GetSkillsTxtParam7(nSkillId);
         D2UnitStrc* pTarget = SKILLS_FindNextAuraTarget(pGame, pUnit, 0, 0, nRange, 3, nParam1, 0);
         if (pTarget)
         {

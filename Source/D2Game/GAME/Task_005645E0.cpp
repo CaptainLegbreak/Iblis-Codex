@@ -156,7 +156,7 @@ static __forceinline int sub_005645E0_IsEmptyGameExpired(D2GameStrc* pGame)
 }
 
 // 0x005645E0
-void __stdcall sub_005645E0_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask)
+void __stdcall TASK_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask)
 {
     const int nGameHashKey = (int)ptTask->pTaskBalanceLink.pPrev;
     if (D2GameStrc* pGame = GAME_LockGame(nGameHashKey))

@@ -519,7 +519,7 @@ int __stdcall UNITS_GetBlockRate(D2UnitStrc* pUnit, int bExpansion); // 0x006227
 
 int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit); // 0x00622D00
 
-void __fastcall sub_005347C0_Stub6(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nChance, int nRand, const char* szText); // 0x005347C0
+void __fastcall DEBUG_Stub6(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nChance, int nRand, const char* szText); // 0x005347C0
 
 int __fastcall SUNITDMG_GetWeaponBlock(D2UnitStrc* pUnit); // 0x0057DCA0
 
@@ -600,7 +600,7 @@ struct D2ResistTableEntryStrc
 
 static int __cdecl SUNITDMG_AbsorbDamage(D2DamageContextStrc* pContext, D2ResistTableEntryStrc* pEntry, int nValue);
 
-static int sub_0057DCA0_GetWieldedTypeStatMax(D2UnitStrc* pUnit);
+static int SUNITDMG_GetWieldedTypeStatMax(D2UnitStrc* pUnit); // 0x0057DCA0
 
 typedef int (__fastcall* DAMAGECALLBACK)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);
 
@@ -3190,7 +3190,7 @@ void __fastcall SUNITDMG_SetPlayerDataMode(D2UnitStrc* pUnit, int nValue)
 
 int __fastcall sub_0057DCA0_Emit(int nArg, D2UnitStrc* pUnit)
 {
-    int nValue = sub_0057DCA0_GetWieldedTypeStatMax(pUnit);
+    int nValue = SUNITDMG_GetWieldedTypeStatMax(pUnit);
     return nValue > 0 ? nValue : nArg;
 }
 
@@ -3266,7 +3266,7 @@ void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D
 }
 
 // 0x0057DCA0
-static int sub_0057DCA0_GetWieldedTypeStatMax(D2UnitStrc* pUnit)
+static int SUNITDMG_GetWieldedTypeStatMax(D2UnitStrc* pUnit)
 {
     int i;
     if (!pUnit)
@@ -3325,7 +3325,7 @@ static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDef
             if (nEvade > 0)
             {
                 const int nRand = (unsigned int)SEED_RollRandomNumber(&pDefender->pSeed) % 100;
-                sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nEvade, nRand, "evades");
+                DEBUG_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nEvade, nRand, "evades");
                 if (nRand < nEvade)
                 {
                     nResult = 8;
@@ -3334,7 +3334,7 @@ static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDef
             return nResult;
         }
 
-        const int nWeaponBlock = sub_0057DCA0_GetWieldedTypeStatMax(pDefender);
+        const int nWeaponBlock = SUNITDMG_GetWieldedTypeStatMax(pDefender);
         if (nWeaponBlock > 0)
         {
             int nWeaponClassId;
@@ -3342,7 +3342,7 @@ static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDef
             if (nWeaponClassId == 13)
             {
                 const int nRand = SEED_RollLimitedRandomNumber(&pDefender->pSeed, 100);
-                sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nWeaponBlock, nRand, "block");
+                DEBUG_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nWeaponBlock, nRand, "block");
                 if (nRand < nWeaponBlock)
                 {
                     return 16;
@@ -3355,7 +3355,7 @@ static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDef
             if (nDodge > 0)
             {
                 const int nRand = SEED_RollLimitedRandomNumber(&pDefender->pSeed, 100);
-                sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nDodge, nRand, "dodges");
+                DEBUG_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nDodge, nRand, "dodges");
                 if (nRand < nDodge)
                 {
                     return 4;
@@ -3368,7 +3368,7 @@ static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDef
             if (nAvoid > 0)
             {
                 const int nRand = SEED_RollLimitedRandomNumber(&pDefender->pSeed, 100);
-                sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nAvoid, nRand, "avoids");
+                DEBUG_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nAvoid, nRand, "avoids");
                 if (nRand < nAvoid)
                 {
                     return 2;
@@ -3381,7 +3381,7 @@ static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDef
         const int bMoving = pDefender && (pDefender->dwAnimMode == 15 || pDefender->dwAnimMode == 2);
         if (!bMoving)
         {
-            const int nWeaponBlock = sub_0057DCA0_GetWieldedTypeStatMax(pDefender);
+            const int nWeaponBlock = SUNITDMG_GetWieldedTypeStatMax(pDefender);
             if (nWeaponBlock > 0)
             {
                 int nWeaponClassId;
@@ -3389,7 +3389,7 @@ static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDef
                 if (nWeaponClassId == 13)
                 {
                     const int nRand = SEED_RollLimitedRandomNumber(&pDefender->pSeed, 100);
-                    sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nWeaponBlock, nRand, "block");
+                    DEBUG_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nWeaponBlock, nRand, "block");
                     if (nRand < nWeaponBlock)
                     {
                         return 16;
@@ -3402,7 +3402,7 @@ static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDef
                 if (nDodge > 0)
                 {
                     const int nRand = SEED_RollLimitedRandomNumber(&pDefender->pSeed, 100);
-                    sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nDodge, nRand, "dodges");
+                    DEBUG_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nDodge, nRand, "dodges");
                     if (nRand < nDodge)
                     {
                         return 4;
@@ -3415,7 +3415,7 @@ static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDef
                 if (nAvoid > 0)
                 {
                     const int nRand = SEED_RollLimitedRandomNumber(&pDefender->pSeed, 100);
-                    sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nAvoid, nRand, "avoids");
+                    DEBUG_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nAvoid, nRand, "avoids");
                     if (nRand < nAvoid)
                     {
                         return 2;
@@ -3429,7 +3429,7 @@ static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDef
             if (nEvade > 0)
             {
                 const int nRand = (unsigned int)SEED_RollRandomNumber(&pDefender->pSeed) % 100;
-                sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nEvade, nRand, "evades");
+                DEBUG_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nEvade, nRand, "evades");
                 if (nRand < nEvade)
                 {
                     nResult = 8;
@@ -3642,7 +3642,7 @@ int __fastcall SUNITDMG_ApplyBlockOrDodge(D2GameStrc* pGame, D2UnitStrc* pAttack
     }
 
     const int nRand = (unsigned int)SEED_RollRandomNumber(&pDefender->pSeed) % 100;
-    sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nBlockChance, nRand, "blocks");
+    DEBUG_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nBlockChance, nRand, "blocks");
     if (nRand >= nBlockChance)
     {
         return SUNITDMG_ApplyDodge(pAttacker, pDefender, bAvoid);

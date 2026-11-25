@@ -39279,7 +39279,7 @@
     {
      "va": "0x0052BF80",
      "length": 9,
-     "name": "?sub_0052BF80_ZeroBlock8@@YIXPAX@Z"
+     "name": "?GAME_ZeroBlock8@@YIXPAX@Z"
     },
     {
      "va": "0x0052BF90",
@@ -40259,7 +40259,7 @@
     {
      "va": "0x00525010",
      "length": 4,
-     "name": "?sub_0059FFF0_ToWord@@YIGG@Z"
+     "name": "?MISSILES_ToWord@@YIGG@Z"
     },
     {
      "va": "0x00525020",
@@ -42182,7 +42182,7 @@
     {
      "va": "0x006CAF30",
      "length": 45,
-     "name": "?sub_006CAF30_SnapshotCounters@@YAXXZ"
+     "name": "?OBJECTS_SnapshotCounters@@YAXXZ"
     }
    ]
   },
@@ -42698,12 +42698,12 @@
     {
      "va": "0x005347C0",
      "length": 3,
-     "name": "?sub_005347C0_Stub6@@YIXHHHHHH@Z"
+     "name": "?DEBUG_Stub6@@YIXHHHHHH@Z"
     },
     {
      "va": "0x005347D0",
      "length": 3,
-     "name": "?sub_005347D0_Stub9@@YIXHHHHHHHHH@Z"
+     "name": "?DEBUG_Stub9@@YIXHHHHHHHHH@Z"
     },
     {
      "va": "0x005347E0",
@@ -44721,12 +44721,12 @@
     {
      "va": "0x0053FE00",
      "length": 49,
-     "name": "?sub_0053FE00_TestArenaFlag40@@YIIPAUD2GameStrc@@@Z"
+     "name": "?ARENA_TestArenaFlag40@@YIIPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x0053FE40",
      "length": 46,
-     "name": "?sub_0053FE40_TestArenaFlag80@@YIIPAUD2GameStrc@@@Z"
+     "name": "?ARENA_TestArenaFlag80@@YIIPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x0053FE70",
@@ -44741,7 +44741,7 @@
     {
      "va": "0x0053FED0",
      "length": 48,
-     "name": "?sub_0053FED0_TestArenaFlag200@@YIIPAUD2GameStrc@@@Z"
+     "name": "?ARENA_TestArenaFlag200@@YIIPAUD2GameStrc@@@Z"
     }
    ]
   },
@@ -46978,7 +46978,7 @@
     {
      "va": "0x00555C90",
      "length": 36,
-     "name": "@sub_00555C90_GetTableRow@4"
+     "name": "@SUNIT_GetTableRow@4"
     },
     {
      "va": "0x00555CC0",
@@ -47453,7 +47453,7 @@
     {
      "va": "0x005641E0",
      "length": 3,
-     "name": "?sub_005641E0_Identity@@YIPAUD2LinkStrc@@PAUD2IdentityView@@@Z"
+     "name": "?TASK_Identity@@YIPAUD2LinkStrc@@PAUD2IdentityView@@@Z"
     },
     {
      "va": "0x005641F0",
@@ -47517,7 +47517,7 @@
     {
      "va": "0x00564870",
      "length": 17,
-     "name": "?sub_00564870_TASK_InitializeClock@@YGXXZ"
+     "name": "?TASK_TASK_InitializeClock@@YGXXZ"
     },
     {
      "va": "0x00564890",
@@ -50398,7 +50398,7 @@
     {
      "va": "0x00581410",
      "length": 122,
-     "name": "?sub_00581410_OpenLinkPortal@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?OBJMODE_OpenLinkPortal@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00581490",
@@ -51203,7 +51203,7 @@
     {
      "va": "0x005946D0",
      "length": 33,
-     "name": "sub_005946D0_SetA1Q4Unk0xB0"
+     "name": "ACT1Q4_SetA1Q4Unk0xB0"
     },
     {
      "va": "0x00596CA0",
@@ -51724,7 +51724,7 @@
     {
      "va": "0x0058A9D0",
      "length": 32,
-     "name": "?sub_0058A9D0_GetQuestFlagAF@@YIHPAUD2GameStrc@@@Z"
+     "name": "?ACT5Q3_GetQuestFlagAF@@YIHPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x0058A9F0",
@@ -52835,7 +52835,7 @@
     {
      "va": "0x00592090",
      "length": 64,
-     "name": "?sub_00592090_ACT1Q3_InitMalusObject@@YIXPAUD2QuestDataStrc@@PAUD2ObjInitFnStrc@@@Z"
+     "name": "?ACT1Q3_ACT1Q3_InitMalusObject@@YIXPAUD2QuestDataStrc@@PAUD2ObjInitFnStrc@@@Z"
     }
    ]
   },
@@ -52965,7 +52965,7 @@
     {
      "va": "0x00596BA0",
      "length": 1,
-     "name": "?sub_00596BA0_EmptyCallback@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+     "name": "?ACT1Q6_EmptyCallback@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     }
    ]
   },
@@ -55017,7 +55017,7 @@
     {
      "va": "0x005A0030",
      "length": 12,
-     "name": "?sub_005A0030_GetMonLvlTxtRecordCount@@YIHXZ"
+     "name": "?MONSTERUNIQUE_GetMonLvlTxtRecordCount@@YIHXZ"
     },
     {
      "va": "0x005A0040",
@@ -55027,17 +55027,17 @@
     {
      "va": "0x005A0060",
      "length": 12,
-     "name": "?sub_005A0060_GetMonUModTxtRecordCount@@YIHXZ"
+     "name": "?MONSTERUNIQUE_GetMonUModTxtRecordCount@@YIHXZ"
     },
     {
      "va": "0x005A0070",
      "length": 128,
-     "name": "?sub_005A0070_MONSTERUNIQUE_CheckMonType@@YIHPAUD2UnitStrc@@H@Z"
+     "name": "?MONSTERUNIQUE_MONSTERUNIQUE_CheckMonType@@YIHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005A00F0",
      "length": 35,
-     "name": "?sub_005A00F0_GetMonUModConstant@@YIHH@Z"
+     "name": "?MONSTERUNIQUE_GetMonUModConstant@@YIHH@Z"
     },
     {
      "va": "0x005A0120",
@@ -55077,12 +55077,12 @@
     {
      "va": "0x005A0220",
      "length": 23,
-     "name": "?sub_005A0220_GetMonsterField18@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?MONSTERUNIQUE_GetMonsterField18@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A0240",
      "length": 20,
-     "name": "?sub_005A0240_SetMonsterField18@@YAXPAUD2UnitStrc@@H@Z"
+     "name": "?MONSTERUNIQUE_SetMonsterField18@@YAXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005A0260",
@@ -55129,7 +55129,7 @@
     {
      "va": "0x005A0930",
      "length": 167,
-     "name": "?sub_005A0930_TransferUMods@@YGXPAUD2UnitStrc@@0H@Z"
+     "name": "?MONSTERUNIQUE_TransferUMods@@YGXPAUD2UnitStrc@@0H@Z"
     },
     {
      "va": "0x005A09E0",
@@ -55154,7 +55154,7 @@
     {
      "va": "0x005A0D20",
      "length": 159,
-     "name": "?sub_005A0D20_AddLifePercent@@YAXPAUD2UnitStrc@@H@Z"
+     "name": "?MONSTERUNIQUE_AddLifePercent@@YAXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005A0DC0",
@@ -55164,7 +55164,7 @@
     {
      "va": "0x005A0E40",
      "length": 64,
-     "name": "?sub_005A0E40_IncreaseMonsterLevelAndExperience@@YIXPAUD2UnitStrc@@PAX1@Z"
+     "name": "?MONSTERUNIQUE_IncreaseMonsterLevelAndExperience@@YIXPAUD2UnitStrc@@PAX1@Z"
     },
     {
      "va": "0x005A0E80",
@@ -55446,7 +55446,7 @@
     {
      "va": "0x005A43B0",
      "length": 36,
-     "name": "?sub_005A43B0_OwnerMissileHook@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+     "name": "?MONSTERUNIQUE_OwnerMissileHook@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x005A43E0",
@@ -55512,12 +55512,12 @@
     {
      "va": "0x0059FFF0",
      "length": 4,
-     "name": "?sub_0059FFF0_ToWord@@YIGG@Z"
+     "name": "?MISSILES_ToWord@@YIGG@Z"
     },
     {
      "va": "0x005A0000",
      "length": 37,
-     "name": "@sub_005A0000_GetMonLvlTxtRecord@4"
+     "name": "@MISSILES_GetMonLvlTxtRecord@4"
     }
    ]
   },
@@ -59661,7 +59661,7 @@
     {
      "va": "0x005C8BC0",
      "length": 43,
-     "name": "@sub_005C8BC0_GetSkillsTxtParam7@4"
+     "name": "@SKILLS_GetSkillsTxtParam7@4"
     },
     {
      "va": "0x005E52D0",
@@ -59783,7 +59783,7 @@
     {
      "va": "0x005C8C10",
      "length": 132,
-     "name": "?sub_005C8C10_StopInferno@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?SKILLS_StopInferno@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005C8CA0",
@@ -60186,7 +60186,7 @@
     {
      "va": "0x005CDF00",
      "length": 16,
-     "name": "?sub_005CDF00_HasTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_HasTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CE0B0",

@@ -158,7 +158,8 @@ void __fastcall sub_6FC6E8A0(D2GameStrc* pGame, D2UnitStrc* pUnit)
     MONSTERUNIQUE_ExecuteUModCallbacks(pGame, 0, 4, pUnit);
 }
 
-void __fastcall sub_005A43B0_OwnerMissileHook(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMissile)
+// build: symbol ?MONSTERUNIQUE_OwnerMissileHook@* 0x005A43B0
+void __fastcall MONSTERUNIQUE_OwnerMissileHook(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMissile)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pMissile)
     {

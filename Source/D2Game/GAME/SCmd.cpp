@@ -321,7 +321,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 
-int __fastcall sub_00573AE0_HasComponents(D2UnitStrc* pUnit); // 0x00573AE0
+int __fastcall MONSTER_HasComponents(D2UnitStrc* pUnit); // 0x00573AE0
 
 int __fastcall PLAYERPETS_GetPetTypeFromPetGUID(D2UnitStrc* pPlayer, int nPetGUID); // 0x00574A20
 
@@ -333,7 +333,7 @@ int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 
 
 short __fastcall MONSTERUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit); // 0x005A01E0
 
-int __fastcall sub_005A0380_HasMonsterFlag(D2UnitStrc* pUnit); // 0x005A0380
+int __fastcall MONSTERUNIQUE_HasMonsterFlag(D2UnitStrc* pUnit); // 0x005A0380
 
 unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit); // 0x005A5650
 
@@ -2992,7 +2992,7 @@ void __fastcall SCMD_SendMonsterAssign(D2ClientStrc* pClient, D2UnitStrc* pUnit)
         BITMANIP_Write(&bitBuffer, MONMODE_NEUTRAL, 4);
     }
 
-    if (sub_00573AE0_HasComponents(pUnit))
+    if (MONSTER_HasComponents(pUnit))
     {
         BITMANIP_Write(&bitBuffer, 1, 1);
 
@@ -3011,7 +3011,7 @@ void __fastcall SCMD_SendMonsterAssign(D2ClientStrc* pClient, D2UnitStrc* pUnit)
         BITMANIP_Write(&bitBuffer, 0, 1);
     }
 
-    if (!sub_005A0380_HasMonsterFlag(pUnit) && !UNITS_IsMerc(pUnit))
+    if (!MONSTERUNIQUE_HasMonsterFlag(pUnit) && !UNITS_IsMerc(pUnit))
     {
         BITMANIP_Write(&bitBuffer, 0, 1);
     }

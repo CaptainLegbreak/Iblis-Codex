@@ -434,7 +434,8 @@ void __cdecl CRC16_Update(unsigned short* pCrc, unsigned char nByte)
 }
 
 // 0x00525010
-unsigned short __fastcall sub_0059FFF0_ToWord(unsigned short nValue)
+// build: symbol ?MISSILES_ToWord@* 0x0059FFF0
+unsigned short __fastcall MISSILES_ToWord(unsigned short nValue)
 {
     return nValue;
 }

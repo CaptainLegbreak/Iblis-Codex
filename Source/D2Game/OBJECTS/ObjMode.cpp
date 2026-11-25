@@ -748,7 +748,7 @@ static inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 }
 
 // 0x00581250
-void __fastcall sub_00581250_ObjectTimer_Light(D2GameStrc* pGame, D2UnitStrc* pObject)
+void __fastcall OBJMODE_ObjectTimer_Light(D2GameStrc* pGame, D2UnitStrc* pObject)
 {
     const int nMode = !pObject ? 0 : pObject->dwAnimMode;
     if (pObject && pObject->dwClassId == 0x18F)
@@ -805,7 +805,7 @@ struct D2PortalFlags00581410Strc
 };
 
 // 0x00581410
-void __fastcall sub_00581410_OpenLinkPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall OBJMODE_OpenLinkPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit));
     int nPortalLevel = 0x7F;

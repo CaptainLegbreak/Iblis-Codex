@@ -158,7 +158,7 @@ struct D2IdentityView
 };
 
 // 0x005641E0
-D2LinkStrc* __fastcall sub_005641E0_Identity(D2IdentityView* value)
+D2LinkStrc* __fastcall TASK_Identity(D2IdentityView* value)
 {
     return &value->link;
 }
@@ -395,10 +395,10 @@ next_queue:
     gpTaskQueueLink.pNext = pLink;
 }
 
-void __stdcall sub_005645E0_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask); // 0x005645E0
+void __stdcall TASK_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask); // 0x005645E0
 
 // 0x00564870
-void __stdcall sub_00564870_TASK_InitializeClock()
+void __stdcall TASK_TASK_InitializeClock()
 {
     gbHasHighResolutionClock = QueryPerformanceFrequency(&gPerformanceFrequency);
 }
@@ -653,7 +653,7 @@ void __fastcall TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask)
 {
     D2_ASSERT(ptTask->nType == 0, 0x463);
 
-    sub_005645E0_TASK_ProcessGame(nTaskNumber, ptTask);
+    TASK_TASK_ProcessGame(nTaskNumber, ptTask);
 }
 
 static inline void TASK_CloseGame(int nGameHashKey, int nTaskNumber, D2TaskStrc* ptTask)
@@ -693,7 +693,7 @@ static inline void TASK_CloseGame(int nGameHashKey, int nTaskNumber, D2TaskStrc*
     LeaveCriticalSection(&gTaskSlotsCriticalSection);
 }
 
-void __stdcall sub_005645E0_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask)
+void __stdcall TASK_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask)
 {
     const int nGameHashKey = (int)ptTask->pTaskBalanceLink.pPrev;
     D2GameStrc* pGame = GAME_LockGame(nGameHashKey);

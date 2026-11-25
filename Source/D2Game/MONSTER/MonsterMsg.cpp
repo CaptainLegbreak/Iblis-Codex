@@ -17,7 +17,7 @@ int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
-static void __stdcall sub_00597D70_SendUsedSkill(D2UnitStrc* pMonster, D2UnitStrc* pTarget, D2ClientStrc* pClient);
+static void __stdcall MONSTERMSG_SendUsedSkill(D2UnitStrc* pMonster, D2UnitStrc* pTarget, D2ClientStrc* pClient); // 0x00597D70
 
 struct D2MonsterModeInfo { int bTarget,bTargetCoords,bSimple,bIncludeCoords,nCoordMode,nTargetMode; };
 
@@ -104,7 +104,7 @@ static void __stdcall INVMODE_SendLifeUpdate(D2UnitStrc* pUnit, D2ClientStrc* pC
 }
 
 // 0x00597D70
-static void __stdcall sub_00597D70_SendUsedSkill(D2UnitStrc* pMonster, D2UnitStrc* pTarget, D2ClientStrc* pClient)
+static void __stdcall MONSTERMSG_SendUsedSkill(D2UnitStrc* pMonster, D2UnitStrc* pTarget, D2ClientStrc* pClient)
 {
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pMonster);
     if (!pSkill)
@@ -136,7 +136,7 @@ void __fastcall sub_00597D70_EmitCaller(D2GameStrc* pGame, D2UnitStrc* pMonster,
 
     if (pMonster->dwAnimMode == 17 || UNITS_GetUsedSkill(pMonster))
     {
-        sub_00597D70_SendUsedSkill(pMonster, pTarget, pClient);
+        MONSTERMSG_SendUsedSkill(pMonster, pTarget, pClient);
         return;
     }
 
@@ -155,7 +155,7 @@ void __fastcall MONSTERMSG_SendMonsterModeUpdate(D2GameStrc* pGame,D2UnitStrc* p
  D2MonsterModeInfo* pInfo=&gMonsterModeInfo[nMode];
  D2UnitStrc* pTarget=SUNIT_GetTargetUnit(pGame,pUnit);
  if((pTarget && !CLIENTS_IsInUnitsRoom(pTarget,hClient)) || !pInfo->bTarget) pTarget=0;
- if(nMode==14 || UNITS_GetUsedSkill(pUnit)) { sub_00597D70_SendUsedSkill(pUnit,pTarget,hClient); return; }
+ if(nMode==14 || UNITS_GetUsedSkill(pUnit)) { MONSTERMSG_SendUsedSkill(pUnit,pTarget,hClient); return; }
  D2DynamicPathStrc* hPath=pUnit->pDynamicPath;
  D2_ASSERT(hPath,0xE6);
  int nX,nY,nSendMode,nHeader;

@@ -3105,7 +3105,7 @@ void __fastcall SUNIT_RemoveAllItemsFromInventory(D2GameStrc* pGame, D2UnitStrc*
 }
 
 // 0x00555C90
-extern "C" D2ItemTypesTxt* __fastcall sub_00555C90_GetTableRow(int index)
+extern "C" D2ItemTypesTxt* __fastcall SUNIT_GetTableRow(int index)
 {
     if (index < 0 || index >= sgptDataTables->nItemTypesTxtRecordCount) return 0;
     return &sgptDataTables->pItemTypesTxt[index];
