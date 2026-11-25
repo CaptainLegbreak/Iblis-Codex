@@ -6,6 +6,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 
 ## Ready
 
+- lane10/names-fileprefix-d2direct3d 65c7e0e: fileprefix-d2direct3d plan, 20 renames applied, none dropped. VERIFIED 1269dfc0 on base 5cc54de8, Game.exe matches.
 - lane10/names-fileprefix-d2multi c6badd5: fileprefix-d2multi plan, 30 renames applied, none dropped. VERIFIED cca79aed on base 5cc54de8, Game.exe matches.
 - lane10/names-fileprefix-fog 90201a2: fileprefix-fog plan, 20 renames applied, none dropped. VERIFIED e7164149 on base 5cc54de8, Game.exe matches.
 - New naming plans seq-<module>.tsv (D2Game 10, D2Common 8, Fog 1, D2Gfx 1, D2Win 1): placeholder-named functions that sit between two functions main already names from D2MOO, where D2MOO's header declares exactly as many functions between those two, in the same order. That pins each one to D2MOO's name for its place (BITMANIP_GetSize, PATH_SetDirection, OBJRGN_IncreaseHealingShrineCount, MONSTERUNIQUE_EventExecuteUModCallbacks…). The method gives the same 14 names for the missile accessors that bare-d2common-missile.tsv got from their fields. Source d2moo, high. Queued to apply after the fileprefix and rendslots branches.
