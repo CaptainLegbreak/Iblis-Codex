@@ -588,8 +588,9 @@ void __fastcall GDICORE_SetPalette(D2PaletteEntry006C7C10Strc* pEntries)
     memcpy(gaPalette_007C8CC8, pEntries, sizeof(gaPalette_007C8CC8));
 }
 
+// The original calls this from 0x6C8970 instead of inlining it.
 // 0x006C8020
-void* __cdecl sub_006C8020()
+__declspec(noinline) void* __cdecl sub_006C8020()
 {
     return ghBufferBitmap;
 }
@@ -919,8 +920,9 @@ void __cdecl sub_006C8930_CreateGraphicFont()
     ghGdiDebugFont = CreateFontA(10, 0, 0, 0, 400, 0, 0, 0, 0, 0, 0, 0, 1, gszCourier);
 }
 
+// The original calls this from 0x6C7CF0 instead of inlining it.
 // 0x006C8960
-void __cdecl sub_006C8960_DeleteGraphicObject()
+__declspec(noinline) void __cdecl sub_006C8960_DeleteGraphicObject()
 {
     DeleteObject(ghGdiDebugFont);
 }
