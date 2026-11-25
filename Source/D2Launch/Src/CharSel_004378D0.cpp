@@ -662,49 +662,6 @@ void __cdecl CHATDLG_UpdateJoinButtonState(); // 0x004437E0
 int __stdcall CHATDLG_JoinByName(int nArg); // 0x004439F0
 int __stdcall CHARSEL_SubmitProfile(int nArg); // 0x00443F80
 int __stdcall CHARSEL_SendChatLine(int nArg); // 0x00446890
-// 0x0043A800
-void __cdecl CHARSEL_CreateCharListControls()
-{
-    if (gnLaunchMode == 1)
-    {
-        if (FOG_IsExpansion())
-        {
-            CHARSEL_CreateCharInfoControls();
-        }
-        else
-        {
-// build: symbol ?MAINMENUS_CreateFromTemplate@* 0x0042F3A0
-            gpControl_007799EC = MAINMENUS_CreateFromTemplate(0x73);
-            D2Win_10033(gpControl_007799EC, 1);
-            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_007799EC, 1);
-            gpControl_00779C7C = MAINMENUS_CreateFromTemplate(0x74);
-            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779C7C, 1);
-            gpControl_00779D9C = MAINMENUS_CreateFromTemplate(0x75);
-            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779D9C, 1);
-            gpNameControl = MAINMENUS_CreateFromTemplate(0x76);
-            D2Win_10030_CONTROL_ToggleFourthFlag(gpNameControl, 1);
-            gpControl_00779D88 = MAINMENUS_CreateFromTemplate(0x77);
-            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779D88, 1);
-            gpControl_00779C74 = MAINMENUS_CreateFromTemplate(0x78);
-            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779C74, 1);
-        }
-
-        sub_004FC9B0_SetText(gpControl_00779C7C, D2LANG_GetStringFromTblIndex(0x2B31), 0, 0, 0);
-        D2Win_10062((D2WinTextBoxStrc*)gpControl_00779D9C, -6, 0);
-        for (int i = 0; ; ++i)
-        {
-            char* szName = i < GAME_GetSlotNameCount() ? MAINMENUS_GetSlotName(i) : 0;
-            if (!szName) { break; }
-            D2Win_10045(gpNameControl, szName);
-            if (!SStrCmpI(gszPreferredRealm, szName, 0x7FFFFFFF))
-            {
-                D2Win_10050_TEXTBOX_SetLine((D2WinTextBoxStrc*)gpNameControl, i);
-            }
-        }
-        CHARSEL_RefreshCharEntry();
-    }
-    gbFlag_00779C6C = 1;
-}
 void __stdcall CHARSEL_HandleCharList(const char* szName, unsigned char* pPacket, int bFlag); // 0x0043AAB0
 void __fastcall CHARSEL_JoinSelectedWithDifficulty(SMSGHANDLER_PARAMS* pMsg, int nMode); // 0x00439AF0
 // 0x0043B520
