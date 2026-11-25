@@ -12989,12 +12989,35 @@
      "name": "?WINMAIN_DrainPacketQueues@@YAXXZ"
     },
     {
+     "va": "0x006CA940",
+     "length": 17
+    },
+    {
+     "va": "0x006CA960",
+     "length": 20,
+     "name": "?sub_006CA960_InitializeHeaderHash@@YAXXZ"
+    },
+    {
+     "va": "0x006CA980",
+     "length": 20,
+     "name": "?sub_006CA980_InitializeGameTimeHash@@YAXXZ"
+    },
+    {
      "va": "0x006CA9A0",
      "length": 11
     },
     {
      "va": "0x006CA9B0",
      "length": 11
+    },
+    {
+     "va": "0x006CAAB0",
+     "length": 18,
+     "name": "?sub_006CAAB0_SetPerSecond@@YAXXZ"
+    },
+    {
+     "va": "0x006CAC10",
+     "length": 21
     }
    ],
    "flags": [
@@ -78832,35 +78855,6 @@
     {
      "va": "0x006C9B45",
      "length": 37
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006CA940",
-     "length": 17
-    },
-    {
-     "va": "0x006CA960",
-     "length": 20,
-     "name": "?sub_006CA960_InitializeHeaderHash@@YAXXZ"
-    },
-    {
-     "va": "0x006CA980",
-     "length": 20,
-     "name": "?sub_006CA980_InitializeGameTimeHash@@YAXXZ"
-    },
-    {
-     "va": "0x006CAAB0",
-     "length": 18,
-     "name": "?sub_006CAAB0_SetPerSecond@@YAXXZ"
-    },
-    {
-     "va": "0x006CAC10",
-     "length": 21
     }
    ]
   },

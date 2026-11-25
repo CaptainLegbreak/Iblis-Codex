@@ -628,15 +628,16 @@
    "state": "included"
   },
   "Source/D2Client/CORE/WINMAIN.CPP": {
-   "bytes": 788,
-   "definitions": 10,
+   "bytes": 800,
+   "definitions": 12,
    "externs": [
     "extern \"C\" void __cdecl RECORD_RegisterLngArgument(); // 0x00451260",
     "extern \"C\" void __cdecl GAME_RunGameSession(); // 0x0044F360",
     "extern \"C\" void __cdecl GAME_PushState(); // 0x0044D080",
     "extern \"C\" void __cdecl GAME_ShutdownClient(); // 0x0044D550",
     "extern \"C\" void __cdecl WINMAIN_StartSession(); // 0x0044BC30",
-    "extern \"C\" void __cdecl WINMAIN_StopSession(); // 0x0044BD90"
+    "extern \"C\" void __cdecl WINMAIN_StopSession(); // 0x0044BD90",
+    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/CORE/WINMAIN.inc",
@@ -3696,17 +3697,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Hell/SRC/CRC.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Storm/Unknown_006C9A68.cpp": {
-   "bytes": 12,
-   "definitions": 2,
-   "externs": [
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_006C9A68.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -144071,7 +144061,7 @@
    "cname": "gData_0070886C",
    "declared": false,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
+   "file": "Source/D2Client/CORE/WINMAIN.CPP",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070886C_t gData_0070886C; // 0x0070886C",
    "head": "extern \"C\" struct d2data_0070886C_t gData_0070886C = ",
@@ -144131,7 +144121,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
+   "file": "Source/D2Client/CORE/WINMAIN.CPP",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnDivisor_007121DC = ",
