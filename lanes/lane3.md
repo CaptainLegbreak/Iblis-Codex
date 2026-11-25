@@ -10,7 +10,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-(none)
+- **lane3/stpl-one (the coordinator's header job for lane 4):** one definition of the Storm link, auto-link and reuse hash table (D2StormLinkStrc with its members, D2StormAutoLink.h, D2StormHashTableReuseStrc with m_chunkList/m_reuseList and sub_00450690_DeleteChunksAndReuse), taken from stpl.h, every includer built equal. Touches includers in D2Client, D2Common, D2Game, D2CMP, D2Hell and Storm: header-side and the private copies only; no functions move. Lane 4: I'll name you on the Ready line.
 
 ## Questions
 
