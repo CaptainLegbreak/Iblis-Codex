@@ -629,7 +629,6 @@ struct D2CommonStormZeroFE70Strc
 // build: symbol ?gnTileTypeTable@* 0x006EEF88
 extern const int gnTileTypeTable[];
 
-void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -670,13 +669,11 @@ extern D2CompCodeTxt* gpCompCodeTxt; // 0x0096BCAC
 
 extern int gbCompileTxt; // 0x0096C8B4
 
-void __cdecl LOG_11100(int nA, int nB, int nC, int nFlags, const char* szFile, int nLine, const char* szFormat, ...); // 0x006248E0
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
-int __fastcall DRLGROOM_GetWarpDestinationLevel(D2DrlgRoomStrc* pDrlgRoom, int nSourceLevel); // 0x0066BAC0
 
 extern "C" void* __stdcall sub_00413020(unsigned,const char*,int,unsigned); // 0x00413020
 

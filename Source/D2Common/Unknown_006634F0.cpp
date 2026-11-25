@@ -122,9 +122,7 @@ void __fastcall sub_M102_UseBonusCount_00663A10(int nCount);
 
 D2UnitStrc* __stdcall INVENTORY_IsItemInInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063E070
 
-int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
 
-unsigned int __stdcall ITEMS_GetSetItemsMask(D2UnitStrc* pPlayer, D2UnitStrc* pSetItem, int bDontIgnoreInputItem); // 0x0062A370
 
 int __fastcall sub_00663A20_SetItemBonusStates(D2UnitStrc* pItem, unsigned int nSetItemMask); // 0x00663A20
 
@@ -398,7 +396,6 @@ __forceinline unsigned int ITEMS_GetStoreSetItemsMaskInline(D2UnitStrc* pUnit, D
 
 extern const int gnItemSetStates[]; // 0x006EE424
 
-int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 
 D2SetItemsTxt* __stdcall ITEMS_GetSetItemsTxtRecordFromItem(D2UnitStrc* pItem); // 0x0062A490
 
@@ -477,17 +474,7 @@ int __fastcall sub_00663A20_SetItemBonusStates(D2UnitStrc* pItem, unsigned int n
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 D2SetItemsTxt* __fastcall DATATBLS_GetSetItemsTxtRecord(int nIndex);                                    // 0x00483440
-D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFlags, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
-D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState);             // 0x006256B0
-int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer);        // 0x00625D00
-void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList);                                           // 0x00626CD0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
-void __stdcall STATLIST_AddStat(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627030
-void __stdcall STATLIST_RemoveAllStats(D2StatListStrc* pStatList);                                         // 0x00627340
-void __stdcall D2Common_10474(D2UnitStrc* pUnit, D2StatListStrc* pStatList);                               // 0x006277E0
-int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem);                                                        // 0x00629DA0
-int __stdcall ITEMS_IsMagSetRarUniCrfOrTmp(D2UnitStrc* pItem);                                              // 0x0062A0F0
-void __fastcall ITEMMODS_UpdateFullSetBoni(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nState);               // 0x00660120
 
 // 0x00663B40
 int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3)

@@ -26,8 +26,6 @@ struct D2CompositStrc
     int nWeaponClassId;
 };
 
-int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
-void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 int __stdcall COMPOSIT_GetWeaponClassCode(D2UnitStrc* pUnit, int nUnitType, int nClass, int nMode, D2InventoryStrc* pInventory, int* pWeaponClassId); // 0x0064F060
 extern const D2CompositStrc gaWeaponClassCodeTable[13]; // 0x006EB748
 extern "C" const char gszCompositSourceFile[]; // 0x006EB7B0

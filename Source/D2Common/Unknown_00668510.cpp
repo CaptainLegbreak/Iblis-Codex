@@ -12,7 +12,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 
 extern "C" char* __cdecl strchr(const char* szString, int nChar);
 
-void __fastcall DATATBLS_FreeTreasureClassEx();
 
 struct D2ItemsTxt;
 

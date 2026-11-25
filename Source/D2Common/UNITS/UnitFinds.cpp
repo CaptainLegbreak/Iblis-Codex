@@ -27,9 +27,7 @@ struct UnitFindArgStrc;
 
 typedef int(__fastcall* UNITFINDTEST)(D2UnitStrc* pUnit, D2UnitFindArgStrc* pUnitFindArg);
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pNumRooms); // 0x00619790
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void* pfn); // 0x006CC34C
 
@@ -55,9 +53,7 @@ struct D2MissilesTxt { char unk_00[4]; unsigned char flags; };
 
 extern const unsigned char gMissileMask_006CE26C; // 0x006CE26C
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 
 int __stdcall MONSTERS_IsUndead(D2UnitStrc*); // 0x0063E990
 
@@ -65,11 +61,9 @@ D2MissilesTxt* __fastcall sub_0046ACE0(int); // 0x0046ACE0
 
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc*,int); // 0x00451F30
 
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc*); // 0x0061AB00
 
 int __stdcall D2Common_11098(D2FieldStrc*,int*,int*); // 0x0066A5D0
 
-unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc*,int,int,unsigned short); // 0x0064CB30
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
@@ -89,7 +83,6 @@ inline int UnitGetClassId(D2UnitStrc* pUnit) { return pUnit ? pUnit->dwClassId :
 
 void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 
-int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY);                                           // 0x006417F0
 
 int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY);
 

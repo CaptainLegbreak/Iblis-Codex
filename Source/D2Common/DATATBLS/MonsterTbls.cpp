@@ -81,7 +81,6 @@ struct D2MonSoundsTxt;
 
 struct D2MonItemPercentTxt;
 
-void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 
 void __fastcall DATATBLS_UnloadHirelingTxt(); // 0x006562B0
 
@@ -89,7 +88,6 @@ void __fastcall DATATBLS_UnloadMonPresetTxt(); // 0x00659AF0
 
 void __fastcall DATATBLS_UnloadMonSeqTxt(); // 0x00659DE0
 
-void __fastcall DATATBLS_FreeTreasureClassEx(); // 0x00654D50
 
 void __cdecl DATATBLS_UnloadUniqueNameTxts(); // 0x00653E20
 
@@ -115,7 +113,6 @@ D2TxtLinkStrc* gpMonSoundsLinker; // 0x0096C6B8
 
 int gnMonsoundsTxtRecordCount; // 0x0096C6BC
 
-unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference); // 0x006117B0
 
 D2TxtLinkStrc* gpMonStats2Linker; // 0x0096C6C4
 
@@ -238,7 +235,6 @@ int __stdcall FOG_GetStringFromLinkIndex(D2TxtLinkStrc* pLinker, int nIndex, cha
 
 extern "C" D2ItemTypesTxt* __fastcall SUNIT_GetTableRow(int index); // 0x00555C90
 
-int __stdcall ITEMS_CheckItemTypeIdByItemId(int nItemId, int nItemType); // 0x00629A90
 
 D2ItemDataTbl* __stdcall DATATBLS_GetItemDataTables(); // 0x00633590
 
@@ -696,7 +692,6 @@ D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine);        
 
 int __fastcall DATATBLS_CheckNestedMonsterTypes(int nMonType1, int nMonType2);
 
-void __fastcall DATATBLS_LoadMonTypeTxt(void* hArchive);
 
 #define FIELD_TEXT(x) (x)
 

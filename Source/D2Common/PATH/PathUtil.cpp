@@ -68,14 +68,10 @@ struct PathOwner { char pad0[0x2c]; D2DynamicPathStrc* pPath; };
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pDynamicPath); // 0x006487F0
 
 
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
-unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask); // 0x0064D9B0
 
 void __fastcall PATH_UpdateMotionVelocity(D2PathRayStrc* pRay); // 0x00678E30
 

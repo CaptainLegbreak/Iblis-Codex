@@ -25,7 +25,6 @@ extern "C" _iobuf* __cdecl fopen(const char* szFileName, const char* szMode);   
 
 extern "C" int __cdecl fclose(_iobuf* pFile);                                                               // 0x00681FDC
 
-void __cdecl LOG_11100(int nThreadId, int nLogLevel, int nComponent, int nSubsystem, const char* szContext, int nSequence, const char* szFormat, ...); // 0x006248E0
 
 D2CriticalSectionStrc gLogLock;                                                                    // 0x0096CA30
 
@@ -53,7 +52,6 @@ extern unsigned int gdwInvBitMasks[];
 
 D2StatesTxt* __fastcall DATATBLS_GetStatesTxtRecord(int nStateId);
 
-int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask);
 
 typedef char* va_list;
 
