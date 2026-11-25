@@ -123,8 +123,6 @@ struct D2MonStats2Txt;
 
 struct D2MonModeInfoTableStrc;
 
-struct D2MonVelocityParamStrc;
-
 struct D2MonsterModeDataStrc;
 
 struct D2StaticPathStrc;
@@ -267,7 +265,7 @@ struct D2SuperUniquesTxt;
 
 struct D2DifficultyLevelsTxt;
 
-struct D2MonVelocityParamStrc
+struct D2AiParamStrc
 {
     unsigned char unk0x00;
     unsigned char unk0x01;
@@ -368,7 +366,7 @@ D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueI
 
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 
-static void MONSTERMODE_SetVelocityPercent(D2UnitStrc* pUnit, D2MonVelocityParamStrc* pParam);
+static void MONSTERMODE_SetVelocityPercent(D2UnitStrc* pUnit, D2AiParamStrc* pParam);
 
 static void MONSTERMODE_SetAiStateForMode(int nMode, D2UnitStrc* pMonster);
 
@@ -483,19 +481,9 @@ int __fastcall MONSTER_GetAiState(D2UnitStrc* pMonster);                        
 
 void __fastcall MONSTER_SetAiState(D2UnitStrc* pMonster, int nAiState);                                     // 0x005734C0
 
-static int __stdcall MONSTERMODE_ComputePath(int nPathType, D2MonVelocityParamStrc* pAiParam, D2UnitStrc* pUnit, unsigned char nNewDist);
+static int __stdcall MONSTERMODE_ComputePath(int nPathType, D2AiParamStrc* pAiParam, D2UnitStrc* pUnit, unsigned char nNewDist);
 
-static void __stdcall MONSTERMODE_UpdateModePath(D2GameStrc* pGame, D2UnitStrc* pUnit, int nVelocityPercent, D2MonVelocityParamStrc* pAiParam, int nPathType, unsigned char nNewDist);
-
-struct D2TakeRecordStrc;
-
-struct D2TakeRecordStrc
-{
-    char unk0x00[0x18];
-    int nValueA;
-    int nValueB;
-    unsigned char nValueC;
-};
+static void __stdcall MONSTERMODE_UpdateModePath(D2GameStrc* pGame, D2UnitStrc* pUnit, int nVelocityPercent, D2AiParamStrc* pAiParam, int nPathType, unsigned char nNewDist);
 
 static inline int MONSTERMODE_IsActionFrame(D2UnitStrc* pUnit);
 
@@ -578,23 +566,23 @@ extern "C" __declspec(dllexport) unsigned int __fastcall MONSTERMODE_GetAiParamF
 }
 
 // 0x005A61B0
-static void __stdcall MONSTERMODE_TakeVelocityParams(D2TakeRecordStrc* pRecord, int* pValueA, int* pValueB, unsigned char* pValueC)
+static void __stdcall MONSTERMODE_TakeVelocityParams(D2AiParamStrc* pRecord, int* pValueA, int* pValueB, unsigned char* pValueC)
 {
-    if (pRecord->nValueA)
+    if (pRecord->nPathTypeOverride)
     {
-        *pValueA = pRecord->nValueA;
+        *pValueA = pRecord->nPathTypeOverride;
     }
-    if (pRecord->nValueB)
+    if (pRecord->nVelocityPercentOverride)
     {
-        *pValueB = pRecord->nValueB;
+        *pValueB = pRecord->nVelocityPercentOverride;
     }
-    if (pRecord->nValueC)
+    if (pRecord->nNewDistOverride)
     {
-        *pValueC = pRecord->nValueC;
+        *pValueC = pRecord->nNewDistOverride;
     }
-    pRecord->nValueA = 0;
-    pRecord->nValueB = 0;
-    pRecord->nValueC = 0;
+    pRecord->nPathTypeOverride = 0;
+    pRecord->nVelocityPercentOverride = 0;
+    pRecord->nNewDistOverride = 0;
 }
 
 struct D2DamageStrc;
@@ -611,25 +599,17 @@ int* __fastcall MONSTERMODE_GetTargetTimerPtr(D2Field14Strc* pRecord)
 
 #define AIPARAM_MAX_STEPS 77
 
-struct D2AiParamStrc
-{
-    char unk0x00[0x18];
-    int unk0x18;
-    int nVelocity;
-    unsigned char unk0x20;
-};
-
 // 0x005A6260
 void __fastcall MONSTERMODE_SetVelocityParams(D2AiParamStrc* pAiParam, int nParam18, int nParam1C, unsigned char nParam20)
 {
     if (nParam18)
     {
-        pAiParam->unk0x18 = nParam18;
+        pAiParam->nPathTypeOverride = nParam18;
     }
 
     if (nParam1C)
     {
-        pAiParam->nVelocity = nParam1C;
+        pAiParam->nVelocityPercentOverride = nParam1C;
     }
 
     if (nParam20)
@@ -639,12 +619,12 @@ void __fastcall MONSTERMODE_SetVelocityParams(D2AiParamStrc* pAiParam, int nPara
             nParam20 = AIPARAM_MAX_STEPS;
         }
 
-        pAiParam->unk0x20 = nParam20;
+        pAiParam->nNewDistOverride = nParam20;
     }
 }
 
 // 0x005A6290
-static int __stdcall MONSTERMODE_ComputePath(int nPathType, D2MonVelocityParamStrc* pAiParam, D2UnitStrc* pUnit, unsigned char nNewDist)
+static int __stdcall MONSTERMODE_ComputePath(int nPathType, D2AiParamStrc* pAiParam, D2UnitStrc* pUnit, unsigned char nNewDist)
 {
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     PATH_SetNewDistance(pPath, nNewDist);
@@ -695,7 +675,7 @@ void __fastcall sub_M111_Emit_005A64F0(D2UnitStrc* pUnit, int* pResult)
 }
 
 // 0x005A6380
-static void MONSTERMODE_SetVelocityPercent(D2UnitStrc* pUnit, D2MonVelocityParamStrc* pParam)
+static void MONSTERMODE_SetVelocityPercent(D2UnitStrc* pUnit, D2AiParamStrc* pParam)
 {
     const int nVelocityPercent = pParam->nVelocityPercent;
     if (!nVelocityPercent)
@@ -720,7 +700,7 @@ static void MONSTERMODE_SetVelocityPercent(D2UnitStrc* pUnit, D2MonVelocityParam
 }
 
 // 0x005A63F0
-static void __stdcall MONSTERMODE_UpdateModePath(D2GameStrc* pGame, D2UnitStrc* pUnit, int nVelocityPercent, D2MonVelocityParamStrc* pAiParam, int nPathType, unsigned char nNewDist)
+static void __stdcall MONSTERMODE_UpdateModePath(D2GameStrc* pGame, D2UnitStrc* pUnit, int nVelocityPercent, D2AiParamStrc* pAiParam, int nPathType, unsigned char nNewDist)
 {
     if (pAiParam->nPathTypeOverride)
     {
@@ -1331,14 +1311,14 @@ inline int GetY(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-inline D2MonVelocityParamStrc* MONSTERMODE_GetVelocityParam(D2UnitStrc* pUnit)
+inline D2AiParamStrc* MONSTERMODE_GetVelocityParam(D2UnitStrc* pUnit)
 {
     if (GetUnitType(pUnit) == 1)
     {
         D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
         if (pMonsterData)
         {
-            return (D2MonVelocityParamStrc*)pMonsterData->pAiParam;
+            return (D2AiParamStrc*)pMonsterData->pAiParam;
         }
     }
     return 0;
@@ -1347,7 +1327,7 @@ inline D2MonVelocityParamStrc* MONSTERMODE_GetVelocityParam(D2UnitStrc* pUnit)
 // 0x005A61F0
 void __fastcall D2GAME_MONSTERMODE_ResetVelocityParams(D2UnitStrc* pUnit)
 {
-    D2MonVelocityParamStrc* pAiParam = MONSTERMODE_GetVelocityParam(pUnit);
+    D2AiParamStrc* pAiParam = MONSTERMODE_GetVelocityParam(pUnit);
     pAiParam->nPathTypeOverride = 0;
     pAiParam->nVelocityPercentOverride = 0;
     pAiParam->nNewDistOverride = 0;
@@ -1431,7 +1411,7 @@ int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange
         MONSTERMODE_SetAiStateForMode(pUnit->dwAnimMode, pUnit);
     }
 
-    D2MonVelocityParamStrc* pAiParam = 0;
+    D2AiParamStrc* pAiParam = 0;
     if (nMode != MONMODE_GETHIT)
     {
         if (pModeChange->pTargetUnit)
@@ -1445,7 +1425,7 @@ int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange
 
         PATH_SetDistance(pPath, 20);
 
-        pAiParam = (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? (D2MonVelocityParamStrc*)pUnit->pMonsterData->pAiParam : 0;
+        pAiParam = (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? (D2AiParamStrc*)pUnit->pMonsterData->pAiParam : 0;
         MONSTERMODE_UpdateModePath(pGame, pUnit, pModeChange->nVelocityPercent, pAiParam, pModeChange->nEventFlag, pModeChange->nNewDist);
         MONSTERMODE_UpdateModeAttackStats(pUnit, nMode);
         MONSTERUNIQUE_ExecuteUModModeStartCallbacks(pGame, pUnit);
@@ -2526,7 +2506,7 @@ int __fastcall MONSTERMODE_UpdateSequence(D2GameStrc* pGame, D2UnitStrc* pUnit)
     return 1;
 }
 
-void __stdcall sub_K13_Emit_005A61B0(D2TakeRecordStrc* pRecord, int* pValueA, int* pValueB, unsigned char* pValueC)
+void __stdcall sub_K13_Emit_005A61B0(D2AiParamStrc* pRecord, int* pValueA, int* pValueB, unsigned char* pValueC)
 {
     MONSTERMODE_TakeVelocityParams(pRecord, pValueA, pValueB, pValueC);
 }
