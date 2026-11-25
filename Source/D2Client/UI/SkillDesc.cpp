@@ -6234,54 +6234,6 @@ int __fastcall SKILLDESC_CltDoChargedMissile(D2UnitStrc* pUnit, int nSkillId, in
 
 
 
-// 0x004F4D90
-int __fastcall SKILLDESC_CreateMissileAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
-    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
-    D2UnitStrc* pDestination = sub_004C5EB0_FindDestination(pUnit, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), nRange, 3, !pTarget ? -1 : pTarget->dwUnitId, 0);
-    if (!pDestination)
-    {
-        return 0;
-    }
-
-    const int nTargetX = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
-    D2MissileStrc tMissileParams;
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.dwFlags = 0x20;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.pOrigin = pTarget;
-    tMissileParams.nSkill = nSkillId;
-    tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.nMissile = nMissile;
-    tMissileParams.nTargetX = CLIENTS_GetUnitX(pDestination);
-    tMissileParams.nTargetY = CLIENTS_GetUnitY(pDestination);
-    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
-    if (pMissile)
-    {
-        MISSILE_SetTargetX(pMissile, nTargetX);
-    }
-
-    return 1;
-}
-
 static D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline_J03(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -6299,23 +6251,6 @@ static int MONSTERS_GetBaseIdInline_J03(int nMonsterId)
         return pMonStatsTxtRecord->nBaseId;
     }
     return nMonsterId;
-}
-
-// 0x004F4EC0
-int __fastcall SKILLDESC_GetSkillOverlay(D2UnitStrc* pUnit, int nSkillId, int nDefault, int nUnused)
-{
-    int nResult = nDefault;
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
-    {
-        const int nBaseId = MONSTERS_GetBaseIdInline_J03(pUnit->dwClassId);
-        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_BLOODRAVEN && nSkillId == SKILL_NEST)
-        {
-            GFX_AddUnitOverlay(pUnit, 0x55, 2, 0, 0, 0, 0, 0);
-            nResult = 0x54;
-        }
-    }
-
-    return nResult;
 }
 
 
