@@ -4,45 +4,12 @@
 
 struct HWND__;
 struct D2StormLinkStrc;
-struct D2StormNodeListStrc;
-struct HUFFNODE;
-struct CHuffman;
 class TOutputStream;
 class THuffmannTree;
 struct D2CriticalSectionStrc;
 struct D2SLogStrc;
 struct D2Field14Strc;
 struct D2UnitStrc;
-struct D2StormNodeListStrc
-{
-    int nLinkOffset;
-    D2StormLinkStrc terminator;
-    void __thiscall sub_0041EE40_UnlinkAll(); // 0x0041EE40
-    inline void Clear()
-    {
-        sub_0041EE40_UnlinkAll();
-        terminator.Unlink();
-    }
-};
-
-struct HUFFNODE
-{
-    D2StormLinkStrc link;
-    unsigned int nValue, nWeight;
-    HUFFNODE* pParent;
-    HUFFNODE* pChild;
-};
-
-struct CHuffman
-{
-    int unk_00[2];
-    HUFFNODE items[515];
-    D2StormNodeListStrc listA;
-    D2StormNodeListStrc listB;
-};
-
-void __fastcall sub_0041EE90_DestroyItem(void* pItem); // 0x0041EE90
-void __stdcall sub_00686AD1_DestroyArray(void* pArray, unsigned int nSize, int nCount, void (__fastcall* pDestroy)(void*)); // 0x00686AD1
 
 class TOutputStream
 {
@@ -96,5 +63,3 @@ static int BigIsEven(const BigBuffer& a)
 {
     return !a.Count() || !(a[0] & 1);
 }
-
-// build: symbol ?sub_0041EE40_UnlinkAll@D2StormNodeListStrc@@QAEXXZ 0x0041EE40

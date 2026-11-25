@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Unicode.h"
 #include "D2Structs.h"
 #include "D2StormLink.h"
@@ -44,7 +45,6 @@ void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc* pSystem, int bFreePoo
 
 int __stdcall WINMAIN_ProcessCommandLine(void* pArg); // 0x0044B6B0
 
-int __cdecl GAME_LoadLngModule(); // 0x00451330
 
 int __fastcall D2Win_10015(); // 0x004F8FE0
 
@@ -193,15 +193,12 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
-D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
 
 extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 
-unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
 
 int __fastcall ROSTER_GetKillCount(D2StoredUnitRecordStrc* pEntry); // 0x00479B80
 
-int __cdecl CHAT_IsNumberDisplayEnabled(); // 0x0047A980
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
@@ -213,7 +210,6 @@ void __cdecl GAME_DrawEndGameCharInfo(); // 0x0044E5A0
 
 int __fastcall GAME_GetCenteredTextX(unsigned short nStringIndex, int nCenterX); // 0x0044D390
 
-void __cdecl CURSOR_DrawCursor(); // 0x004684C0
 
 void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
@@ -224,11 +220,9 @@ D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szPath, int nTy
 
 int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Filename); // 0x004FB500
 
-void __fastcall UI_FreeLoadingScreen(); // 0x004547B0
 
 void __fastcall MSG_SetProgress(int nValue, int nDivisor); // 0x00478130
 
-D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
@@ -240,7 +234,6 @@ void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 void __fastcall VIEW_InitLifeColors(int nMode); // 0x00492F40
 
-int __fastcall GAME_IsTimerExpired(D2LoadingTimerStrc* pTimer); // 0x0044DFF0
 
 void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC); // 0x00502680
 
@@ -340,7 +333,6 @@ void __fastcall WINMAIN_PushStateValue(int); // 0x0044B440
 
 void __fastcall GAME_SetResolution(int); // 0x0044BA20
 
-void __cdecl GAME_ReleaseGameState(); // 0x0044C890
 
 unsigned long __stdcall GAME_RunQServerThread(void*); // 0x0044CF20
 
@@ -350,7 +342,6 @@ extern "C" void __cdecl GAME_UnregisterMouseHandlers(); // 0x0044DCE0
 
 int __fastcall GAME_IsTimerRunning(D2LoadingTimerStrc*); // 0x0044E040
 
-void __cdecl GAME_InitGameState(); // 0x0044E200
 
 int __stdcall GAME_LoadingTimerCallback(int); // 0x0044E400
 
@@ -358,13 +349,10 @@ int __stdcall GAME_DrawEndGameScreen(int); // 0x0044E770
 
 int __stdcall GAME_RunGameFrame(int); // 0x0044EFA0
 
-void __cdecl RECORD_WriteRecordFile(); // 0x00451620
 
 int __cdecl RECORD_IsRecordingEnabled(); // 0x00451910
 
-void __cdecl RECORD_InstallRecordHandler(); // 0x00451940
 
-void __cdecl RECORD_SetRecordPlaying(); // 0x00451970
 
 int __cdecl RECORD_IsPlaybackEnabled(); // 0x00451980
 
@@ -374,15 +362,12 @@ extern "C" void __fastcall SCMD_RegisterMsgHandlers(int hwnd, D2MsgHandlerEntryS
 
 void __fastcall sub_00451E10_UnregisterMsgHandlers(int,D2MsgHandlerEntryStrc*,int); // 0x00451E10
 
-int __cdecl GAME_PushRegisterState(); // 0x00451F10
 
 int __fastcall CURSOR_InitCursor(int); // 0x004680B0
 
-void __cdecl CURSOR_ShutdownCursor(); // 0x00468170
 
 void __cdecl DLIGHTMAP_BuildLerpTables(); // 0x00475DF0
 
-void __cdecl VIEW_FreeLerpTables(); // 0x00475EF0
 
 void __fastcall sub_00477CA0_SendPacket67(const char*,int); // 0x00477CA0
 
@@ -392,7 +377,6 @@ int __cdecl DLIGHTMAP_GetClientFlags(); // 0x0047A990
 
 int __fastcall WARDENCLIENT_InitWarden(int); // 0x004803C0
 
-void __cdecl sub_00481830(); // 0x00481830
 
 void __fastcall SOUNDHDR_UpdateSoundSystem(int); // 0x00482260
 

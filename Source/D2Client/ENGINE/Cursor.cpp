@@ -1,5 +1,6 @@
 // Built /GS-: the buffer in 0x004680B0 has no security cookie.
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
 #include "D2CelContext.h"
@@ -97,7 +98,6 @@ unsigned int __stdcall CelGetWidth(D2CelStrc* pCel);                            
 
 unsigned int __stdcall CelGetHeight(D2CelStrc* pCel);                                                       // 0x006018F0
 
-int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 
 static int gnCursorMaxY;                                                                               // 0x007A6AA8
 
@@ -302,7 +302,6 @@ void __cdecl CURSOR_ShutdownCursor()
 
 extern "C" __declspec(dllimport) int __stdcall SetCursorPos(int nX, int nY);                               // 0x006CC4B4
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 
 #define SEED_ROLL(pSeed, lSeed) \
     unsigned __int64 lSeed = (unsigned __int64)(pSeed)->nHighSeed + (unsigned __int64)(pSeed)->nLowSeed * 0x6AC690C5; \

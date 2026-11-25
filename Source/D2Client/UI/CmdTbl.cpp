@@ -1,6 +1,7 @@
 #include "D2ItemTypes.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2ClientTypes.h"
 #include "D2ClientMenus.h"
 #include "D2StormTypes.h"
@@ -1285,7 +1286,6 @@ void __cdecl GAME_CloseAllPanels(); // 0x0044C6B0
 
 void __cdecl TEXT_ClearListFlags(); // 0x004A01E0
 
-void __fastcall GAME_SetStandStillHeld(int nValue); // 0x0044BEA0
 
 void __stdcall CMDTBL_LoadKeyConfig(int bInstallDir); // 0x004698D0
 
@@ -1333,7 +1333,6 @@ enum D2C_CmdTblConstants
     VK_F4 = 0x73,
 };
 
-unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 
 #define BODYLOC_BELT 8
 
@@ -1341,11 +1340,8 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); 
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
-int __cdecl GAME_IsExitPending(); // 0x0044DA30
 
-int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
 void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
@@ -1353,11 +1349,8 @@ void __fastcall AUTOMAP_ResetBaseOffset(int bForce); // 0x00457640
 
 int __cdecl AUTOMAP_GetAutomapFade(); // 0x004576C0
 
-int __fastcall AUTOMAP_SetAutomapFade(int nFade); // 0x004576F0
 
-int __cdecl AUTOMAP_GetAutomapParty(); // 0x004577B0
 
-int __cdecl AUTOMAP_GetAutomapPartyNames(); // 0x004577E0
 
 int __cdecl AUTOMAP_GetAutomapLeft(); // 0x00457770
 
@@ -1371,9 +1364,7 @@ void __fastcall SPELLSEL_SelectHotkey(int nSlot); // 0x004AA030
 
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
-void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 
@@ -1381,13 +1372,11 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 void __fastcall GAME_SetRunKeyHeld(int nValue); // 0x0044BE60
 
-int __cdecl GAME_GetAlwaysRun(); // 0x0044BE90
 
 void __fastcall GAME_SetAlwaysRun(int bAlwaysRun); // 0x0044BE80
 
 void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nMode); // 0x00480E70
 
-void __fastcall MSG_SendHeaderOnly(char nValue); // 0x00478590
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
@@ -1399,7 +1388,6 @@ void __fastcall sub_0047E200_CloseMenus(int nArg); // 0x0047E200
 
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
-void __fastcall WARDENCLIENT_ToggleEscMenuUIState(int bSaveState, int nMenu); // 0x0047E090
 
 void __fastcall SPELLSEL_CycleHotkey(int nDelta); // 0x004AA740
 
@@ -1407,7 +1395,6 @@ void __cdecl INV_ResetEquipSounds(); // 0x0048A730
 
 int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
-void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 void (__cdecl* gpfnMButtonDownCommand)(); // 0x007A6B10
 
@@ -1717,13 +1704,9 @@ void __cdecl sub_00468F00()
     }
 }
 
-void __cdecl PANEL_BeltHotkeyFirst(); // 0x00498C50
 
-void __cdecl PANEL_BeltHotkeySecond(); // 0x00498C90
 
-void __cdecl PANEL_BeltHotkeyThird(); // 0x00498CD0
 
-void __cdecl PANEL_BeltHotkeyFourth(); // 0x00498D10
 
 // 0x00468F40
 void __cdecl CMDTBL_BeltHotkey0()

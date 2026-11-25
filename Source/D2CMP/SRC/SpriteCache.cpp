@@ -1059,6 +1059,7 @@ static void D2CMPSpriteCacheUnlink(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeS
     ptBlock->pPrev = 0;
 }
 
+// 0x005FF2A0
 int __cdecl D2CMPSpriteNumAsyncLoads()
 {
     int nCount = 0;
@@ -1100,6 +1101,24 @@ int __stdcall D2CMPSpriteFindAsynchSiblings(int nKeyA, int nKeyB, int nKeyC)
 // 0x005FF390
 void __cdecl sub_005FF390_Nop()
 {
+}
+
+// 0x005FF3A0
+void __cdecl D2CMPSpriteFreeAsyncLoads()
+{
+    for (D2CmpCacheListEntryStrc* pEntry = gpCmpCacheEntries; pEntry; pEntry = pEntry->pNext)
+    {
+        D2CmpCacheKeyStrc* pKey = pEntry->pKey;
+        if (pKey)
+        {
+            AsyncData* pAsyncData = pKey->pAsyncData;
+            if (pAsyncData && !sub_0040A7F0_AsyncDataCheck(pAsyncData))
+            {
+                sub_0040AB00_FreeAsyncData(pAsyncData);
+                pKey->pAsyncData = 0;
+            }
+        }
+    }
 }
 
 // 0x005FF3F0
@@ -1240,23 +1259,6 @@ void __fastcall D2CMPSpriteCacheTouch(D2SpriteCacheStrc* pCache, D2SpriteCacheNo
     pCache->pTailA = pNode;
     pNode->dwTick = GetTickCount();
     LeaveCriticalSection(&pCache->tLock);
-}
-
-void __cdecl D2CMPSpriteFreeAsyncLoads()
-{
-    for (D2CmpCacheListEntryStrc* pEntry = gpCmpCacheEntries; pEntry; pEntry = pEntry->pNext)
-    {
-        D2CmpCacheKeyStrc* pKey = pEntry->pKey;
-        if (pKey)
-        {
-            AsyncData* pAsyncData = pKey->pAsyncData;
-            if (pAsyncData && !sub_0040A7F0_AsyncDataCheck(pAsyncData))
-            {
-                sub_0040AB00_FreeAsyncData(pAsyncData);
-                pKey->pAsyncData = 0;
-            }
-        }
-    }
 }
 
 D2SpriteCacheNodeStrc* __fastcall sub_M110_Emit_005FF0D0(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode)
@@ -1968,51 +1970,6 @@ int __stdcall CelGameDirToNormalDir(unsigned int nIndex, unsigned int nDirection
     D2_ASSERT(sub_00517ABB_FindLowestSetBit(nDirections) < 8u, 0x1ED);
     D2_ASSERT(D2CMP_BITCOUNT(nDirections) == 1, 0x1EE);
     return gaDirectionIndex64B[sub_00517ABB_FindLowestSetBit(nDirections)][nIndex];
-}
-
-// 0x00601180
-void __stdcall CelFileIteratePixels(D2CelFileStrc* pCelFile, int nArg)
-{
-    D2_ASSERT(pCelFile->dwFlags & 4, 0x322);
-    for (unsigned int nDirection = 0; nDirection < pCelFile->nDirections; nDirection++)
-    {
-        for (unsigned int nFrame = 0; nFrame < pCelFile->nCelsPerDirection; nFrame++)
-        {
-            CelIterateRgbPixels(pCelFile->pCels[nDirection * pCelFile->nCelsPerDirection + nFrame], nArg, pCelFile->nTermination);
-        }
-    }
-}
-
-// 0x00601450
-void __stdcall CelFileTransform(D2CelFileStrc* pCelFile, int nArg)
-{
-    D2_ASSERT(pCelFile, 0x431);
-    for (unsigned int i = 0; i < pCelFile->nDirections * pCelFile->nCelsPerDirection; i++)
-    {
-        gpfnCelFileCellOp[pCelFile->nFormat](pCelFile->pCels[i], nArg);
-    }
-}
-
-// 0x00601810
-int __stdcall CelValidateContext(D2CmpCelContextStrc* pContext)
-{
-    D2CmpCelFileViewStrc* pCelFile = (D2CmpCelFileViewStrc*)pContext->pCelFile;
-    if (!pCelFile)
-    {
-        return 0;
-    }
-
-    if (pCelFile->nVersion != 6)
-    {
-        return 0;
-    }
-
-    if (pContext->nDirection >= 0x40)
-    {
-        return 0;
-    }
-
-    return pContext->nFrame <= pCelFile->nFrames;
 }
 
 void __stdcall CelDrawShadow(D2CmpCelContextStrc* pContext, int nX, int nY, int nClipLeft, int nClipRight, unsigned char* pBuffer, int nHeightLimit, int nPitch, int nTable, int nColor)

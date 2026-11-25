@@ -2,6 +2,7 @@
 // build: symbol _gaszLanguageNames 0x00711D04
 
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2ClientTypes.h"
 #include "D2StormTypes.h"
 #include "D2CelContext.h"
@@ -10,12 +11,9 @@ struct D2CelFileStrc;
 
 
 void __cdecl sub_00477DD0();                                                                                // 0x00477DD0
-void __stdcall UI_DrawCelPair(int bFirst);                                                        // 0x0045FBC0
 void __cdecl SCMD_DrawLoadingTexts();                                                               // 0x0045FC60
 void __stdcall VIEW_DrawPanelCel(int nFrame);                                                       // 0x0045FD20
 void __cdecl UI_DrawCenteredString();                                                             // 0x0045FD80
-void __cdecl CURSOR_DrawCursor(); // 0x004684C0
-void __cdecl SOUNDHDR_TickSound();                                                                           // 0x00482C20
 void __fastcall sub_00460190_DrawFrame(int nUnused);                                                        // 0x00460190
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType);                             // 0x004788B0
 void __fastcall GAME_SetClientState(int nState);                                                    // 0x0044C930
@@ -54,7 +52,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-void __cdecl GAME_LoadLoadingPalette(); // 0x00454740
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
@@ -167,11 +164,8 @@ struct SMSGHANDLER_PARAMS;
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
-void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
-int __cdecl sub_00468730(); // 0x00468730
 
-int __cdecl sub_00468740(); // 0x00468740
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 

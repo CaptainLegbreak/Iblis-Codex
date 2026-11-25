@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
@@ -92,7 +93,6 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
-void __stdcall INV_SelectItemPageTab(unsigned char nTab); // 0x00487A10
 
 void __cdecl INV_SetupPanelButtons(); // 0x00487ED0
 
@@ -156,7 +156,6 @@ Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit); // 0x004521
 
 Unicode* __fastcall SCMD_StripColorCodes(Unicode* pText); // 0x00452300
 
-int __fastcall ROSTER_IsNotSquelched(int nUnitId); // 0x0047A170
 
 void __fastcall INV_OpenRecipeScroll(const Unicode* wszName, int nUnused, int nArg); // 0x0048BBE0
 
@@ -189,7 +188,6 @@ void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsign
 
 void __stdcall TEXT_FreeTextList(D2TextListStrc* pList); // 0x0049D4D0
 
-void __cdecl TEXT_FreeTextPanelCels(); // 0x0049FE10
 
 D2SplittedTextStrc* __stdcall TEXT_BuildTextLines(const Unicode* wszText, int* pLineCount, unsigned short* pMaxLines); // 0x004A0320
 
@@ -283,7 +281,6 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
-void __cdecl TEXT_DrawPanelFrame(); // 0x0049FA10
 
 void __stdcall TEXT_OpenTextPanel(int bFlag); // 0x0049FBA0
 
@@ -562,9 +559,7 @@ extern "C" __declspec(dllimport) int __stdcall IntersectRect(D2RectStrc* pDest, 
 
 extern "C" int __cdecl atoi(const char* szString); // 0x00681EBB
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
 
-void __fastcall TEXT_DrawTextList(D2TextBoxStrc* pTextBox, int nX, int nY); // 0x0049D8E0
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
@@ -588,7 +583,6 @@ int gnHoverRectCount; // 0x007BF224
 
 bool __stdcall TEXT_PlaceHoverRect(int nCount, D2RectStrc* pRect); // 0x0049E070
 
-void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource); // 0x0049DBC0
 
 struct D2CelFileStrc;
 
@@ -596,7 +590,6 @@ struct D2CelFileStrc;
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
@@ -644,9 +637,7 @@ struct D2CharStatsTxt;
 
 struct D2MonStatsTxt;
 
-int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
-unsigned char __cdecl INV_IsCinematicBusy(); // 0x00483350
 
 void __cdecl QUESTLOG_UpdateQuestPage(); // 0x004A2300
 
@@ -658,7 +649,6 @@ int __cdecl TEXT_Forward(); // 0x004A1760
 
 void __stdcall sub_004A3220(int nPage, int nArg);
 
-void __fastcall MSG_SendHeaderOnly(char nValue); // 0x00478590
 
 #pragma pack(push, 2)
 
@@ -696,7 +686,6 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
-void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, int bSound); // 0x004A1320
 
@@ -742,17 +731,14 @@ struct D2ClientListEntryStrc
 
 #pragma pack(pop)
 
-int __cdecl GAME_IsExitPending(); // 0x0044DA30
 
 extern "C" void __cdecl GAME_UnregisterMouseHandlers(); // 0x0044DCE0
 
 extern "C" void __cdecl GAME_RegisterMouseHandlers(); // 0x0044DD20
 
-void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
-void __cdecl CMDTBL_SaveHotkeys(); // 0x00469D20
 
 void __cdecl TEXT_InitKeyConfigEntries(); // 0x004A43E0
 
@@ -761,13 +747,11 @@ extern int gbRedraw; // 0x007C0280
 
 
 
-int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB); // 0x00469D90
 
 int __stdcall sub_B05_Sink(int nA, int nB);
 
 int __fastcall EXCEPTIONS_ReleaseSymbols(int nArg); // 0x0040C720
 
-void __fastcall CMDTBL_ResetKeyConfig(int nArg); // 0x00469A60
 
 extern "C" void __cdecl sub_00517ABB(void* pMemory); // 0x00517ABB
 
@@ -786,9 +770,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
-int __cdecl SELECT_GetHoverMonClassId(); // 0x00466DC0
 
 int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
 
@@ -817,9 +799,7 @@ int __cdecl TEXT_IsMouseOnSkillButton(); // 0x004A6690
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
-D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
-int __cdecl SELECT_GetHoverClassId(); // 0x00466DD0
 
 void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int dwColor, int eDrawMode, int nColor); // 0x005023B0
 
@@ -838,11 +818,9 @@ void __fastcall TEXT_ScrollKeyConfigList(int nStep);
 #define STAT_NEWSKILLS 5
 
 
-void __cdecl CMDTBL_SaveAndBindHotkeys(); // 0x00469D40
 
 void __fastcall sub_0047E200_CloseMenus(int bRestore); // 0x0047E200
 
-void __fastcall WARDENCLIENT_ToggleEscMenuUIState(int bSaveState, int nMenu); // 0x0047E090
 
 extern int global_00724728; // 0x00724728
 
@@ -850,9 +828,7 @@ enum { REPEAT_MASK = 0x40000000, UI_VARIABLE = 11 };
 
 void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
-int __cdecl sub_00468730(); // 0x00468730
 
-int __cdecl sub_00468740(); // 0x00468740
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 
@@ -905,9 +881,7 @@ static int TEXT_IsOnPressedButton(int nX, int nY);
 
 void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit); // 0x004A0B30
 
-int __cdecl sub_0047F210_IsMouseInSlots();                                                                  // 0x0047F210
 
-void __cdecl sub_0049C6C0_SendWaypointClose();                                                              // 0x0049C6C0
 
 extern D2WaypointRowRectStrc gaWaypointRowRects[9];                                                // 0x007224F8
 
@@ -933,19 +907,15 @@ int gnQuestParam; // 0x007BF2AC
 
 extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
 
-void __cdecl GAME_RequestExit(); // 0x0044D520
 
-void __fastcall GAME_SetPlayCinematic(int nValue); // 0x0044D530
 
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
-void __cdecl GAME_SetDifficultyFlags(); // 0x0044EC80
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 void __fastcall CUNIT_ForEachMonster(UNITFN pfnCallback); // 0x00464990
 
-void __fastcall sub_0046BFD0_StartTimer(int nDelay); // 0x0046BFD0
 
 void __fastcall GFX_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
 
@@ -971,7 +941,6 @@ void __fastcall DATATBLS_CallFree(void* pMemory); // 0x00600C60
 
 struct D2StringSoundStrc;
 
-void __fastcall CUNIT_SetDialogState(int nState); // 0x004898D0
 
 void __cdecl DIALOG_LoadDialogHotkeys(); // 0x004B7C60
 
@@ -1089,9 +1058,7 @@ extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 
 extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 
-int __fastcall ROSTER_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); // 0x0047A0C0
 
-D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
 
@@ -1110,7 +1077,6 @@ void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor); // 0x00
 
 extern "C" __declspec(dllimport) int __stdcall SetRect(D2RectStrc* pRect, int nLeft, int nTop, int nRight, int nBottom);
 
-void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
 void __fastcall CUNIT_ForEachPlayer(UNITFN pfnCallback); // 0x00464950
 
@@ -1118,15 +1084,12 @@ void __fastcall CUNIT_ForEachObject(UNITFN pfnCallback); // 0x004649D0
 
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
 
-void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
 
 static __declspec(noinline) int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox);
 
-void __cdecl TEXT_DrawMessageList(); // 0x0049DC40
 
 void __cdecl TEXT_DrawOverheadTextList(); // 0x0049DEE0
 
-void __cdecl TEXT_FreeMainTextBox(); // 0x0049E300
 
 void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
@@ -1186,7 +1149,6 @@ extern unsigned int gdwMessageTick_007C02C8; // 0x007C02C8
 
 
 
-void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket);
 
 static int TEXT_GetKeyConfigEntryState(int nIndex, int nFlag);
 
@@ -1263,7 +1225,6 @@ void __stdcall TEXT_LoadQuestPage(int nPage, int bReset); // 0x004A3220
 
 static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg); // 0x004A1950
 
-void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
@@ -1543,7 +1504,6 @@ void __cdecl TEXT_ResetNpcPanel()
 extern "C" void __cdecl TEXT_FreeWaypointCels(); // 0x0049C650
 
 
-void __cdecl sub_0049C6C0_SendWaypointClose(); // 0x0049C6C0
 
 
 
@@ -1870,7 +1830,6 @@ void __fastcall TEXT_SetHoverUnit(D2UnitStrc* pUnit)
 struct D2TextIdEntryStrc;
 
 
-void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
 extern D2TextIdEntryStrc gaTextIds[]; // 0x00722678
 
@@ -4235,9 +4194,7 @@ extern D2BeltSlotStrc gaStatButtons[4];                                         
 
 int __fastcall sub_00498DC0(SMSGHANDLER_PARAMS* pMsg);
 
-int __cdecl sub_00468830();
 
-void __cdecl UI_CancelCursorItemUse();
 
 static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
 {

@@ -487,27 +487,7 @@ static int __stdcall MONSTERMODE_ComputePath(int nPathType, D2MonVelocityParamSt
 
 static void __stdcall MONSTERMODE_UpdateModePath(D2GameStrc* pGame, D2UnitStrc* pUnit, int nVelocityPercent, D2MonVelocityParamStrc* pAiParam, int nPathType, unsigned char nNewDist);
 
-struct Data005A6190;
-
-struct Unit005A6190;
-
 struct D2TakeRecordStrc;
-
-struct Data005A6190
-{
-    unsigned char bUnknown00[0x2C];
-    unsigned int dwValue2C;
-};
-
-struct Unit005A6190
-{
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwUnknown10;
-    Data005A6190* pData;
-};
 
 struct D2TakeRecordStrc
 {
@@ -590,9 +570,9 @@ unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit); // 0x00
 void __fastcall PARTYSCREEN_PlayerLeftParty(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nParam, int* pFailure); // 0x005A5D20
 
 // 0x005A6190
-extern "C" __declspec(dllexport) unsigned int __fastcall MONSTERMODE_GetAiParamFromUnit(Unit005A6190* pUnit) {
-    if (pUnit && pUnit->nType == 1 && pUnit->pData) {
-        return pUnit->pData->dwValue2C;
+extern "C" __declspec(dllexport) unsigned int __fastcall MONSTERMODE_GetAiParamFromUnit(D2UnitStrc* pUnit) {
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) {
+        return (unsigned int)pUnit->pMonsterData->pAiParam;
     }
     return 0;
 }

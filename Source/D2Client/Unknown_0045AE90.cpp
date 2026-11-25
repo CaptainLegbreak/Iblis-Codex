@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Constants.h"
 #include "D2Win32Types.h"
 #include "D2Drlg.h"
@@ -11,29 +12,18 @@ extern int gnPanelSlideMode; // 0x007A5210
 
 struct D2UnitStrc;
 
-int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
-void __cdecl AUTOMAP_UpdateAutomapLayout(); // 0x00457520
 
-void __cdecl AUTOMAP_PaintAutomap(); // 0x00459700
 
-void __cdecl AUTOMAP_DrawGameInfoLines(); // 0x00459E90
 
-void __cdecl AUTOMAP_DrawStringLine(); // 0x00459FF0
 
-void __cdecl AUTOMAP_DrawLevelName(); // 0x0045A050
 
-void __cdecl AUTOMAP_DrawVersionLine(); // 0x0045A0A0
 
-void __cdecl AUTOMAP_DrawLocalIpLine(); // 0x0045A120
 
-void __cdecl AUTOMAP_DrawDifficultyLine(); // 0x0045A190
 
-void __cdecl AUTOMAP_DrawAutomapUnits(); // 0x0045AC90
 
-D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
@@ -171,7 +161,6 @@ int __cdecl sub_0045AE90()
 }
 
 
-void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 void __fastcall D2GFX_SetViewMatrixAdjust(int nOffset); // 0x004F52A0
 
@@ -287,13 +276,11 @@ void __cdecl sub_0045B0A0_Nop()
 {
 }
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 
-int __fastcall VIEW_GetViewShift(int* pX, int* pY); // 0x00476AC0
 
 int gnAutomapPanelShiftX; // 0x007A5204
 
@@ -367,7 +354,6 @@ void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x0064326
 
 
 
-D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 

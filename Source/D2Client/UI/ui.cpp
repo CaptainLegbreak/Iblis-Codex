@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2ClientGame.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -103,7 +104,6 @@ struct D2SlotOwnerStrc
     D2SlotStrc* pSlots;
 };
 
-int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
 void __fastcall CUNIT_ForEachPlayer(void (__fastcall* pfnCallback)(D2UnitStrc*)); // 0x00464950
 
@@ -111,9 +111,7 @@ void __fastcall UI_DrawPartyMemberText(D2UnitStrc* pUnit); // 0x00453330
 
 int __cdecl sub_004B85E0(); // 0x004B85E0
 
-int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB); // 0x00469D90
 
-unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 
 struct D2PanelHotkeysStrc
 {
@@ -142,7 +140,6 @@ void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
 void __fastcall TEXT_ToggleKeyConfigPanel(int nArg); // 0x004A5200
 
-void __cdecl UI_RegisterKeyConfigHandlers(); // 0x00454980
 
 void __cdecl TEXT_ResetNpcPanel(); // 0x00491940
 
@@ -156,7 +153,6 @@ void __cdecl INV_LoadCubePanelCel(); // 0x0048A4B0
 
 void TEXT_OpenMessageLogDialog(); // 0x004A0050
 
-void __cdecl PARTY_RebuildRosterUnits(); // 0x0049A640
 
 extern D2MsgHandlerEntryStrc gaGameUIHandlers[]; // 0x006D5F28
 
@@ -225,7 +221,6 @@ extern const D2PanelHotkeysStrc gtBeltRowsHotkeys; // 0x006D62A0
 int gnPanelState;                                                                                  // 0x007A27E8
 
 
-void __cdecl GAME_LoadLoadingPalette(); // 0x00454740
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
@@ -267,11 +262,9 @@ void __cdecl UI_CloseGoldDialog(); // 0x00453EE0
 
 void __fastcall sub_004B9110_SendGoldRequest(unsigned long nGold); // 0x004B9110
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
-void __fastcall MSG_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -398,9 +391,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 extern "C" const char gszFormatD[]; // 0x006D57BC
 
-int __cdecl CHAT_IsNumberDisplayEnabled(); // 0x0047A980
 
-D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
 int __fastcall ROSTER_GetKillCount(D2StoredUnitRecordStrc* pRecord); // 0x00479B80
 
@@ -421,7 +412,6 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);        
 
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
-int __cdecl sub_0045AE90();                                                                         // 0x0045AE90
 
 extern "C" int __cdecl PLAYER_GetScreenOffsetX();                                                          // 0x0045AFC0
 
@@ -437,9 +427,7 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
 
-void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY);                           // 0x004760C0
 
-D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey);                                             // 0x00478E40
 
 int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny);                       // 0x00478F20
 
@@ -510,25 +498,19 @@ struct D2Block0xA0Strc
     unsigned short wData[0x50];
 };
 
-void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
-void __fastcall PLAYER_SetPanelSlide(int nMode); // 0x0045AEA0
 
-void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 void __cdecl CHAT_CloseChatInput(); // 0x0047B2E0
 
 void __cdecl sub_0047B4E0(); // 0x0047B4E0
 
-void __cdecl INV_ResetHover(); // 0x00487990
 
 void __cdecl INV_CloseStashPanel(); // 0x00489EE0
 
 void __cdecl INV_ShutdownCubePanel(); // 0x0048A500
 
-void __cdecl HIREABLES_CloseHelpUi(); // 0x00494FC0
 
-void __cdecl PARTY_FreeRosterUnits(); // 0x0049A020
 
 void __cdecl sub_0049CF50_SendWaypointClose(); // 0x0049CF50
 
@@ -546,9 +528,7 @@ void __cdecl NPCMENU_CloseByState(); // 0x004B3F10
 
 void __fastcall sub_004B8940_CloseWait(int bReopen); // 0x004B8940
 
-void __cdecl GAME_TickKeepAlive(); // 0x0044CD70
 
-void __cdecl GAME_LoadLoadingScreen(); // 0x00456550
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
@@ -560,7 +540,6 @@ int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
-void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 
 
@@ -570,11 +549,8 @@ void __fastcall NPCMENU_EndNpcInteraction(int nValue); // 0x004B3C20
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
-int __cdecl sub_00468730(); // 0x00468730
 
-int __cdecl sub_00468740(); // 0x00468740
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
@@ -594,7 +570,6 @@ void __cdecl TEXT_DrawKeyConfigPanel(); // 0x004A5270
 
 void __cdecl UI_DrawPetHover(); // 0x00452D20
 
-void __cdecl PANEL_DrawDurabilityIcons(); // 0x00497FE0
 
 void __cdecl PANEL_DrawQuantityWarningIcons(); // 0x00497E00
 
@@ -616,7 +591,6 @@ void __cdecl INV_DrawInventoryPanel(); // 0x0048EDF0
 
 void __cdecl sub_004B8730_DrawDialogHover(); // 0x004B8730
 
-void __cdecl UI_DrawProgressiveStates(); // 0x00453470
 
 void __cdecl sub_004AC690_DrawSkillPanel(); // 0x004AC690
 
@@ -672,7 +646,6 @@ void __stdcall D2Win_10124(); // 0x00503000
 
 void __cdecl UI_DrawHoverText(); // 0x00454A70
 
-void __cdecl GAME_DrawPopUpText(); // 0x00453060
 
 void __cdecl UI_DrawHoverName(); // 0x004554B0
 
@@ -702,7 +675,6 @@ int gnGoldPanelMode; // 0x007A279C
 
 int __cdecl WINMAIN_IsHardcore();                                                                      // 0x0044B850
 
-unsigned char __cdecl GAME_GetDifficulty();                                                         // 0x0044DCD0
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType);                             // 0x004788B0
 
@@ -728,7 +700,6 @@ static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit);
 
 int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 
-int __fastcall ROSTER_GetPetLife(int nUnitId); // 0x00479080
 
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 
@@ -742,13 +713,11 @@ void __cdecl WINMAIN_SetCharDiedFlag();                                         
 
 void __fastcall WINMAIN_SetExitApplication(int nValue);                                                          // 0x0044B880
 
-void __cdecl GAME_RequestExit();                                                                                // 0x0044D520
 
 void __fastcall UI_SetPanelHandlers(int nUIVar);                                                         // 0x00455720
 
 void __fastcall CURSOR_SetCursorPosition(int nA, int nB);                                                               // 0x00468770
 
-void __fastcall MSG_SendHeaderOnly(char nValue);                                                                  // 0x00478590
 
 void __cdecl CHAT_ClearChatLine();                                                                                // 0x0047BDC0
 
@@ -760,7 +729,6 @@ extern int gbGameServerReady;                                                   
 
 extern int gbPositionalSound;                                                                              // 0x007A061C
 
-void __fastcall GAME_ExtendDelay(int nDelay); // 0x0044DB40
 
 void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
 
@@ -768,9 +736,7 @@ void __fastcall AUTOMAP_ResetBaseOffset(int bForce); // 0x00457640
 
 void __cdecl AUTOMAP_FreeAutomap(); // 0x0045A5C0
 
-void __cdecl AUTOMAP_InitAutomapColors(); // 0x0045A620
 
-void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
 int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
@@ -786,7 +752,6 @@ void __cdecl sub_0047E750_SaveAlwaysRun(); // 0x0047E750
 
 void __cdecl sub_0047F130_SaveMiniPanel(); // 0x0047F130
 
-void __cdecl INV_InitColorTable(); // 0x00483960
 
 void __cdecl INV_FreeInvPanelCels(); // 0x00486980
 
@@ -798,7 +763,6 @@ void __cdecl HIREABLES_FreeHirelingIcons(); // 0x00492EC0
 
 void __cdecl VIEW_ResetLifeColors(); // 0x00492F90
 
-void __cdecl TEXT_LoadPopupHireling(); // 0x004939B0
 
 void __cdecl HIREABLES_FreeHelpCels(); // 0x00494EE0
 
@@ -806,7 +770,6 @@ void __cdecl HIREABLES_FreePanelCels(); // 0x00496990
 
 void __cdecl PANEL_ClearPair(); // 0x00498E80
 
-void __cdecl PANEL_SetBlackColour(); // 0x00499E30
 
 void __cdecl PANEL_LoadPartyCels(); // 0x0049C0A0
 
@@ -1003,7 +966,6 @@ void* __cdecl sub_004F59A0_GetWindow(); // 0x004F59A0
 
 typedef void (__stdcall* D2RecordHandlerFn)(int nArg1, int nArg2, int nArg3);
 
-void __cdecl RECORD_WriteRecordFile(); // 0x00451620
 
 
 // 0x004525F0
@@ -1452,7 +1414,6 @@ struct D2StatesTxt;
 
 extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId); // 0x00452040
 
-void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY); // 0x0046E1B0
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 

@@ -104,26 +104,6 @@ void __stdcall TileLibraryReleaseProject(int* pSlots, char* pEntry)
     }
 }
 
-// 0x0060A390
-void __stdcall TileProjectNormalizeHeaders(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLibraryStrc** ppLibrary, const char* szName)
-{
-    D2_ASSERT(pLibrary->dwVersion == 7, 0x37F);
-    if (pLibrary->dwFlags & 2)
-    {
-        pLibrary->pBlocks = (D2CmpTileBlockStrc*)((char*)pLibrary + (int)pLibrary->pBlocks);
-        strcpy(pLibrary->szName, szName);
-        for (int i = 0; i < pLibrary->nBlocks; i++)
-        {
-            D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
-            pBlock->pName = pLibrary->szName;
-            D2_ASSERT(!pBlock->pSubs, 0x3A2);
-            D2_ASSERT(!pBlock->pExtra, 0x3A3);
-        }
-        pLibrary->dwFlags = (pLibrary->dwFlags & ~2) | 4;
-        *ppLibrary = pLibrary;
-    }
-}
-
 // 0x0060AB10
 void __fastcall GfxHashRemove(void* pMemPool, D2CmpGfxHashStrc* pHash, D2CmpGfxHashEntryStrc* pEntry)
 {
@@ -179,35 +159,6 @@ void* __stdcall CreateD2PaletteByteStream(void* pSource, int* pSize)
 {
     *pSize = 0x6C327;
     return CreateD2Palette(pSource);
-}
-
-// 0x0060A290
-void __stdcall TileProjectNormalize(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLibraryStrc** ppLibrary, const char* szName)
-{
-    D2_ASSERT(pLibrary->dwVersion == 7, 0x348);
-    if (pLibrary->dwFlags & 3)
-    {
-        pLibrary->pBlocks = (D2CmpTileBlockStrc*)((char*)pLibrary + (int)pLibrary->pBlocks);
-        if (szName)
-            strcpy(pLibrary->szName, szName);
-        char* pData = (char*)pLibrary + sizeof(D2CmpTileLibraryStrc) + pLibrary->nBlocks * sizeof(D2CmpTileBlockStrc);
-        for (int i = 0; i < pLibrary->nBlocks; i++)
-        {
-            D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
-            pBlock->pName = pLibrary->szName;
-            pBlock->pSubs = (D2CmpSubTileRecordStrc*)((char*)pLibrary + pBlock->nSubsOffset);
-            int nSize = pBlock->nSubs * sizeof(D2CmpSubTileRecordStrc);
-            for (int j = 0; j < pBlock->nSubs; j++)
-            {
-                D2CmpSubTileRecordStrc* pSub = &pBlock->pSubs[j];
-                pSub->ptData += (int)pData;
-                nSize += pSub->nLength;
-            }
-            pData += nSize;
-        }
-        pLibrary->dwFlags = (pLibrary->dwFlags & ~2) | 4;
-        *ppLibrary = pLibrary;
-    }
 }
 
 // 0x00604B90

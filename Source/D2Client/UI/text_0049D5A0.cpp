@@ -1,5 +1,6 @@
 #include "D2Unicode.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2WinSplitText.h"
 #include "FogApi.h"
 struct D2SelectionRectStrc;
@@ -243,7 +244,6 @@ void __stdcall TEXT_FreeTextBox(D2TextScrollStrc* pTextBox); // 0x0049D410
 void __fastcall SELECT_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
 void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 void __fastcall NPCMENU_CancelNpcAndFlag(void* pHint); // 0x004B3D10
-void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 void* __stdcall WINDOW_GetWindow(); // 0x004F59A0
 void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, void* pTable, int nCount); // 0x00451E10
 

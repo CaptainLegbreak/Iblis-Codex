@@ -31,7 +31,6 @@ struct D2MonStatsTxt;
 
 struct D2MonsterDataStrc;
 
-struct Unit005A4EE0;
 
 struct StatValue;
 
@@ -56,11 +55,6 @@ typedef void(__fastcall* MONUMODFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
 extern MONUMODFUNC gpfnSrvUModCallbacks[][6]; // 0x0073C0B8
 
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag); // 0x005A0180
-
-struct Unit005A4EE0
-{
-    int nType;
-};
 
 struct StatValue
 {
@@ -323,9 +317,9 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 }
 
 // 0x005A4EE0
-extern "C" __declspec(dllexport) int __fastcall MONSTERMODE_IsMonster(Unit005A4EE0* pUnit) {
+extern "C" __declspec(dllexport) int __fastcall MONSTERMODE_IsMonster(D2UnitStrc* pUnit) {
     if (pUnit) {
-        int nType = pUnit->nType;
+        int nType = pUnit->dwUnitType;
         if (nType == 1) {
             return nType;
         }

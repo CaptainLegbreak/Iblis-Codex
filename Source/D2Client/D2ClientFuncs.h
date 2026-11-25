@@ -1,0 +1,356 @@
+#pragma once
+
+// D2Client functions that many of the module's files call, declared once here.
+// D2Client.h holds the module's records and globals; it has to come first.
+//
+// Seven units keep their own private declarations of these instead and don't include this header:
+// UI/inv.cpp, UI/inv_004886C0.cpp, UI/inv_0048BC10.cpp, UI/inv_0048DD90.cpp, UI/useitem.cpp,
+// UNIT/Item.cpp and UNIT/UnitSnd.cpp. Their code depends on how many declarations precede it, and a
+// header that grows changes that.
+
+struct D2ClientEntryStrc;
+struct D2GSPacketSrv26;
+struct D2GfxListNodeStrc;
+struct D2HashedFileEntryStrc;
+struct D2HashedFileStrc;
+struct D2LoadingTimerStrc;
+struct D2OptionEntryStrc;
+struct D2OptionHeaderStrc;
+struct D2SetItemsTxt;
+struct D2SetsTxt;
+struct D2SoundsTxt;
+struct D2TextBoxStrc;
+struct D2TextNodeStrc;
+struct D2UnitStrc;
+
+void __fastcall GAME_CalcCdKeyChecksum(char* szKey, unsigned int* pChecksum); // 0x00449890
+int __cdecl WINMAIN_PollMcpConnection(); // 0x00449B70
+void __stdcall CHATDLG_SetCharLogonReceived(int nValue); // 0x00449C40
+void __stdcall CHATDLG_SetCharDeleteReceived(int nValue); // 0x00449C60
+void __stdcall CHATDLG_SetCharUpgradeReceived(int nValue); // 0x00449C80
+void __stdcall sub_00449C90_SetValue(int nValue); // 0x00449C90
+void __stdcall sub_00449CC0_SetValue(int nValue); // 0x00449CC0
+void __stdcall CHATDLG_SetMcpTexts(int nResult, const char* szText1, const char* szText2); // 0x00449D10
+void __stdcall sub_00449D90_SetValue(int nValue); // 0x00449D90
+void __stdcall sub_00449DB0_SetValue(int nValue); // 0x00449DB0
+void __stdcall sub_00449DD0_SetValue(int nValue); // 0x00449DD0
+void __stdcall sub_00449E30_SetValue(int nValue); // 0x00449E30
+void __stdcall sub_00449E50_SetValue(int nValue); // 0x00449E50
+void __stdcall MCPCONNECT_SetPacket(const char* pData, int nSize); // 0x00449E70
+int __fastcall WINMAIN_SendMcpJoinGame(const char* szName, const char* szRealm, unsigned short wRequestId); // 0x0044A4E0
+int __fastcall sub_0044A680_SendPacket08(const char* szText, unsigned short wRequestId); // 0x0044A680
+int __fastcall sub_0044A710_SendPacket09(const char* szText, unsigned short wRequestId); // 0x0044A710
+int __fastcall sub_0044A870_SendPacket0B(const char* szText1, const char* szText2); // 0x0044A870
+int __fastcall sub_0044A900_SendPacket0C(const char* szText); // 0x0044A900
+int __fastcall WINMAIN_SendMcpCharRank(const char* szName, int nB, int nC); // 0x0044AAE0
+void __fastcall GAME_SetMcpChatCallback(void (__fastcall* pfnCallback)(void* pArg)); // 0x0044B220
+int __stdcall WINMAIN_PollSystemPackets(int nUnused); // 0x0044BAD0
+int __cdecl GAME_GetConnectFailed(); // 0x0044BBA0
+int __stdcall WINMAIN_WaitConnect(int nUnused); // 0x0044BBB0
+int __stdcall WINMAIN_PumpSystemPackets(int nUnused); // 0x0044BD20
+int __cdecl GAME_GetAlwaysRun(); // 0x0044BE90
+void __fastcall GAME_SetStandStillHeld(int nValue); // 0x0044BEA0
+unsigned short __cdecl GAME_GetClickFlags(); // 0x0044BEC0
+int __cdecl GAME_GetLeftClickState(); // 0x0044BF00
+int __cdecl GAME_GetRightClickState(); // 0x0044BF10
+int __cdecl GAME_IsLeftClickRepeating(); // 0x0044BFE0
+void __cdecl GAME_StartClick(); // 0x0044C000
+void __cdecl GAME_ResetLeftClick(); // 0x0044C060
+void __cdecl GAME_StartRightClick(); // 0x0044C2C0
+void __cdecl GAME_InitRooms(); // 0x0044C750
+void __cdecl GAME_UpdateGameState(); // 0x0044C790
+void __stdcall GAME_DestroyWindowAndGfx(int nArg1, int nArg2, int nArg3); // 0x0044C850
+void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
+void __cdecl GAME_FreeWeather(); // 0x0044C880
+void __cdecl GAME_ReleaseGameState(); // 0x0044C890
+void __cdecl GAME_AverageFrameCounters(); // 0x0044CCE0
+void __cdecl GAME_TickKeepAlive(); // 0x0044CD70
+void __cdecl GAME_UpdateKeyState(); // 0x0044CE90
+void __cdecl GAME_SetCinematicPlayed(); // 0x0044D510
+void __cdecl GAME_RequestExit(); // 0x0044D520
+void __fastcall GAME_SetPlayCinematic(int nValue); // 0x0044D530
+int __fastcall GAME_RunInitHandlers(void* pArg); // 0x0044D9F0
+int __cdecl GAME_IsExitPending(); // 0x0044DA30
+void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
+int __cdecl GAME_GetSkippedFrames(); // 0x0044DAF0
+int __cdecl sub_0044DB00(); // 0x0044DB00
+int __cdecl GAME_GetConnectionType(); // 0x0044DB30
+void __fastcall GAME_ExtendDelay(int nDelay); // 0x0044DB40
+void __cdecl GAME_ReadColorFlag(); // 0x0044DBE0
+int __cdecl GAME_GetColorFlag(); // 0x0044DC60
+void __fastcall GAME_SetDifficulty(unsigned char nDifficulty); // 0x0044DC70
+void __fastcall GAME_SetExpansion(unsigned char nValue); // 0x0044DC80
+void __fastcall GAME_SetLadderFlag(int nValue); // 0x0044DC90
+unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
+void __cdecl GAME_ExitForCinematic(); // 0x0044DD60
+int __fastcall GAME_IsTimerExpired(D2LoadingTimerStrc* pTimer); // 0x0044DFF0
+void __cdecl GAME_InitGameState(); // 0x0044E200
+void __fastcall GAME_ShowLoadingMessage(int nError); // 0x0044E380
+void __cdecl GAME_SetDifficultyFlags(); // 0x0044EC80
+int __stdcall COMCALLBACK_LoadLngString(int nId, char* szBuffer, unsigned int nSize); // 0x004512C0
+int __cdecl GAME_LoadLngModule(); // 0x00451330
+void __cdecl RECORD_WriteRecordFile(); // 0x00451620
+void __cdecl RECORD_StartPlayback(); // 0x004518E0
+void __stdcall RECORD_RecordHandler(int nArg1, int nArg2, int nArg3); // 0x00451920
+void __cdecl RECORD_InstallRecordHandler(); // 0x00451940
+void __cdecl RECORD_SetRecordPlaying(); // 0x00451970
+int __cdecl RECORD_IsReplayActive(); // 0x00451990
+void __cdecl RECORD_ToggleRecordPlayback(); // 0x004519A0
+int __cdecl GAME_PushRegisterState(); // 0x00451F10
+void __cdecl GAME_DrawPopUpText(); // 0x00453060
+void __cdecl UI_DrawProgressiveStates(); // 0x00453470
+int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
+void __cdecl UI_DisableUIVarDelay(); // 0x00453AC0
+void __cdecl UI_EnableUIVarDelay(); // 0x00453AD0
+void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
+void __cdecl UI_FreePlayerUI(); // 0x00453DE0
+void __cdecl UI_CancelCursorItemUse(); // 0x00453EC0
+void __fastcall UI_OpenGoldPanel(int nMode); // 0x00454150
+void __cdecl GAME_LoadLoadingPalette(); // 0x00454740
+void __fastcall UI_FreeLoadingScreen(); // 0x004547B0
+int __cdecl UI_TickElapsed(); // 0x00454850
+void __cdecl UI_RegisterKeyConfigHandlers(); // 0x00454980
+void __cdecl GAME_LoadLoadingScreen(); // 0x00456550
+void __cdecl UI_ShutdownUI(); // 0x00456D80
+void __fastcall SKILLS_InitGfxCaches(void* pMemPool, int bCelPool); // 0x00457300
+void __fastcall AUTOMAP_FreeCaches(int nArg); // 0x00457420
+void __fastcall sub_00457440_Nop(int nResolution); // 0x00457440
+int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
+void __cdecl AUTOMAP_UpdateAutomapLayout(); // 0x00457520
+int __fastcall AUTOMAP_SetAutomapFade(int nFade); // 0x004576F0
+int __cdecl AUTOMAP_GetAutomapCenters(); // 0x00457740
+int __fastcall AUTOMAP_SaveAutomapCenters(int nValue); // 0x00457750
+int __cdecl AUTOMAP_GetAutomapParty(); // 0x004577B0
+int __cdecl AUTOMAP_GetAutomapPartyNames(); // 0x004577E0
+void __cdecl AUTOMAP_ResetAutomapCells(); // 0x00458680
+void __cdecl AUTOMAP_UpdateAutomapReveal(); // 0x00459020
+void __cdecl AUTOMAP_PaintAutomap(); // 0x00459700
+void __cdecl AUTOMAP_DrawGameInfoLines(); // 0x00459E90
+void __cdecl AUTOMAP_DrawStringLine(); // 0x00459FF0
+void __cdecl AUTOMAP_DrawLevelName(); // 0x0045A050
+void __cdecl AUTOMAP_DrawVersionLine(); // 0x0045A0A0
+void __cdecl AUTOMAP_DrawLocalIpLine(); // 0x0045A120
+void __cdecl AUTOMAP_DrawDifficultyLine(); // 0x0045A190
+void __cdecl AUTOMAP_InitAutomapColors(); // 0x0045A620
+int __cdecl UI_GetAutomapMode(); // 0x0045A710
+void __cdecl AUTOMAP_DrawAutomapUnits(); // 0x0045AC90
+int __cdecl sub_0045AE90(); // 0x0045AE90
+void __fastcall PLAYER_SetPanelSlide(int nMode); // 0x0045AEA0
+void __fastcall AUTOMAP_ScreenToMap(int* pX, int* pY); // 0x0045AFF0
+void __fastcall GFX_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
+void __stdcall UI_DrawCelPair(int bFirst); // 0x0045FBC0
+void __fastcall PLAYER_SetCinematicExpansion(int bExpansion); // 0x00460480
+int __cdecl sub_00460500_RunPopup(); // 0x00460500
+int __cdecl sub_004605A0_RunPopup(); // 0x004605A0
+int __cdecl sub_00460680_RunOkCancel(); // 0x00460680
+int __fastcall PLAYER_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance); // 0x00461AC0
+unsigned char __stdcall AUTOMAP_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00462EE0
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
+D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x004639B0
+void __cdecl CUNIT_ClearUnitTables(); // 0x00463C70
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
+int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
+int __fastcall CUNIT_GetBasePalShiftIndex(D2UnitStrc* pUnit); // 0x00463E50
+int __fastcall CUNIT_GetPalShiftIndex(D2UnitStrc* pUnit); // 0x00463EB0
+void __fastcall CUNIT_SetTargetByGUID(D2UnitStrc* pUnit, int nUnitType, unsigned int nUnitId); // 0x004643F0
+D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
+void __cdecl CUNIT_UpdateObjectsForPeriod(); // 0x004646C0
+void __fastcall CUNIT_MarkUnitDead(D2UnitStrc* pUnit); // 0x00464810
+int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
+void __fastcall CUNIT_FreeLight(D2UnitStrc* pUnit); // 0x00464930
+void __fastcall CUNIT_SetOverlayWithSound(D2UnitStrc* pUnit, int nOverlay, int nArg); // 0x00464E50
+void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int nFlags); // 0x004654C0
+void __cdecl CUNIT_FreeAllUnits(); // 0x004659C0
+void __cdecl CUNIT_ResetUnitTables(); // 0x00465AA0
+void __fastcall CUNIT_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
+void __fastcall CUNIT_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
+D2UnitStrc* __fastcall CUNIT_AllocClientUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5); // 0x004661C0
+D2UnitStrc* __fastcall CUNIT_CreatePlayerUnit(unsigned int nUnitId, int nClassId, int nX, int nY, char* szName); // 0x00466200
+D2UnitStrc* __fastcall CUNIT_CreateObjectUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5, int nArg6, unsigned char nInteractType); // 0x00466300
+void __fastcall VIEW_SpawnRoomPresets(D2ActiveRoomStrc* pRoom); // 0x00466820
+int __cdecl SELECT_GetHoverMonClassId(); // 0x00466DC0
+int __cdecl SELECT_GetHoverClassId(); // 0x00466DD0
+void __cdecl SELECT_ClearSelection(); // 0x00466FE0
+void __cdecl SELECT_UnlockHover(); // 0x00466FF0
+void __fastcall sub_00468040(int nArg, int nArg2); // 0x00468040
+void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
+void __cdecl CURSOR_ShutdownCursor(); // 0x00468170
+void __cdecl CURSOR_DrawCursor(); // 0x004684C0
+int __cdecl sub_00468730(); // 0x00468730
+int __cdecl sub_00468740(); // 0x00468740
+int __cdecl sub_00468830(); // 0x00468830
+void __cdecl sub_00468F00(); // 0x00468F00
+void __fastcall CMDTBL_ResetKeyConfig(int nArg); // 0x00469A60
+unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
+void __cdecl CMDTBL_SaveHotkeys(); // 0x00469D20
+void __cdecl CMDTBL_SaveAndBindHotkeys(); // 0x00469D40
+int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB); // 0x00469D90
+void __fastcall VIEW_StartTimedBox(int nFadeIn, int nHold, int nFadeOut, int nLevelId, int bForce); // 0x0046AE50
+int __stdcall ROSTERPETS_GetPulseColor(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0046BD50
+void __fastcall sub_0046BE60_ApplyDenOfEvilRoom(D2ActiveRoomStrc* pRoom); // 0x0046BE60
+void __cdecl sub_0046BEB0_UpdateTimers(); // 0x0046BEB0
+void __fastcall sub_0046BF30_CheckThroneLevel(D2ActiveRoomStrc* pRoom); // 0x0046BF30
+void __cdecl sub_0046BF90_ResetLevelEffects(); // 0x0046BF90
+void __fastcall sub_0046BFD0_StartTimer(int nDelay); // 0x0046BFD0
+void __cdecl CUNIT_DrawCountdown(); // 0x0046C060
+void __fastcall sub_0046C460_PopulateRoom(D2ActiveRoomStrc* pRoom); // 0x0046C460
+void __fastcall GFX_RemoveAiTargetUnit(D2UnitStrc* pUnit); // 0x0046C700
+void __cdecl CUNIT_ClearAiTargets(); // 0x0046D750
+int __fastcall GFX_GetConvertedUnitType(D2UnitStrc* pUnit); // 0x0046D9F0
+D2HashedFileEntryStrc* __stdcall GFX_FindHashedEntry(D2HashedFileStrc* pTable, const char* szPath); // 0x0046DC40
+void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY); // 0x0046E1B0
+D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
+void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit); // 0x0046EC10
+void __fastcall GFX_FreeGfxNodes(D2UnitStrc* pUnit); // 0x0046EC80
+void __fastcall GFX_PruneGfxNodes(D2UnitStrc* pUnit); // 0x0046ECE0
+int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
+D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
+void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
+void __fastcall GFX_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent); // 0x0046F280
+int __cdecl UI_GetGfxMemory(); // 0x0046F980
+int __cdecl UI_GetCofMemoryUsed(); // 0x0046F990
+int __cdecl UI_GetCofMemoryLimit(); // 0x0046F9A0
+void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
+void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
+void __cdecl sub_00472320(); // 0x00472320
+void __cdecl sub_004723C0(); // 0x004723C0
+void __cdecl sub_00472BD0(); // 0x00472BD0
+void __fastcall sub_00473C90_SetGlobal(int nValue); // 0x00473C90
+void __cdecl sub_00473CE0_Nop(); // 0x00473CE0
+void __cdecl sub_00473CF0_Nop(); // 0x00473CF0
+void __fastcall sub_00473D00_SetPhase(int nPhase); // 0x00473D00
+int __fastcall DLIGHTMAP_GetDistance(int nDX, int nDY); // 0x00474080
+void __cdecl DLIGHTMAP_ScanGridCollision(); // 0x004756D0
+void __cdecl DLIGHTMAP_FreeAllLights(); // 0x004758D0
+unsigned char* __stdcall GFX_BuildLerpTable(unsigned int nCount, int nSteps); // 0x00475B80
+unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps); // 0x00475C40
+unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps); // 0x00475D30
+void __cdecl VIEW_FreeLerpTables(); // 0x00475EF0
+void __fastcall VIEW_FreeView(D2ViewStrc* pView); // 0x00475FD0
+void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
+int __fastcall VIEW_GetViewShift(int* pX, int* pY); // 0x00476AC0
+void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView); // 0x00476BC0
+void __cdecl PALSHIFT_AllocPalShiftEntries(); // 0x00476EA0
+void __cdecl PALSHIFT_FreePalShifts(); // 0x00476FB0
+void __cdecl VIEW_ToggleCacheStats(); // 0x00477C00
+void __cdecl sub_00477C60_CheckCacheStats(); // 0x00477C60
+void __fastcall MSG_ShowProgressSteps(int nDone, int nTotal); // 0x00478160
+void __fastcall MSG_SendHeaderOnly(char nValue); // 0x00478590
+void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
+void __fastcall MSG_SendTwoWords(char nHeader, short nArg1, short nArg2); // 0x004785D0
+void __fastcall MSG_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
+void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
+void __fastcall MSG_SendStrings(const unsigned char* pData); // 0x004787B0
+void __fastcall ROSTERPETS_SetRosterEntry(int nKey, int nArg, int nType, int nValue); // 0x00478B10
+D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey); // 0x00478E40
+int __fastcall ROSTERPETS_CountPets(D2UnitStrc* pOwner, int nPetType); // 0x00478EE0
+int __fastcall ROSTER_GetPetLife(int nUnitId); // 0x00479080
+int __fastcall ROSTERPETS_GetHirelingClassId(int nUnitId); // 0x00479120
+int __fastcall ROSTER_GetPetType(int nUnitId); // 0x00479180
+int __fastcall ROSTERPETS_IsOwnedByPlayer(D2UnitStrc* pUnit); // 0x004791B0
+D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
+void __fastcall ROSTER_SetKillCount(int nUnitId, unsigned short nValue); // 0x00479B10
+int __fastcall ROSTER_GetLevel(D2StoredUnitRecordStrc* pEntry); // 0x00479B90
+D2StoredUnitRecordStrc* __fastcall ROSTER_FindRosterUnitById(int nUnitId); // 0x00479BB0
+unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
+unsigned short __fastcall ROSTER_LookupPartyNumber(D2UnitStrc* pUnit); // 0x00479C00
+int __fastcall ROSTER_TestLootFlag(D2StoredUnitRecordStrc* pEntry); // 0x00479C20
+int __fastcall ROSTER_TestMuteFlag(D2StoredUnitRecordStrc* pEntry); // 0x00479C60
+int __fastcall ROSTER_TestSquelchFlag(D2StoredUnitRecordStrc* pEntry); // 0x00479CA0
+int __fastcall ROSTER_TestHostileFlag(D2StoredUnitRecordStrc* pEntry); // 0x00479CE0
+void __fastcall ROSTER_HandlePartyButton(D2StoredUnitRecordStrc* pEntry); // 0x00479EB0
+void __cdecl ROSTER_SendLeaveParty(); // 0x00479FC0
+int __fastcall ROSTER_IsHostileRelation(int nUnitId1, int nUnitId2); // 0x0047A070
+int __fastcall ROSTER_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); // 0x0047A0C0
+void __fastcall ROSTER_SetLifeAndLevel(int nUnitId, int nLife, unsigned short wLevelId); // 0x0047A0D0
+void __fastcall ROSTER_SetPosition(int nUnitId, int nX, int nY); // 0x0047A100
+int __fastcall ROSTER_GetPartyLife(int nUnitId); // 0x0047A150
+int __fastcall ROSTER_IsNotSquelched(int nUnitId); // 0x0047A170
+char* __fastcall ROSTER_GetUnitName(D2UnitStrc* pUnit); // 0x0047A210
+void __fastcall ROSTER_SetPartyId(int nUnitId, unsigned short wPartyId); // 0x0047A330
+void __fastcall ROSTER_SetPartyFlags(int nUnitId, unsigned char nFlags); // 0x0047A350
+void __fastcall ROSTER_SetPvpFlags(int nUnitId1, int nUnitId2, unsigned short wFlags); // 0x0047A370
+void __fastcall ROSTER_AddCorpse(int nUnitId, int nCorpseId); // 0x0047A3D0
+void __fastcall ROSTER_DropCorpseEntry(int nUnitId, int nCorpseId); // 0x0047A490
+int __fastcall ROSTER_CanLoot(int nUnitId1, int nUnitId2); // 0x0047A4F0
+int __cdecl ROSTER_IsAnyoneHostile(); // 0x0047A560
+int __fastcall ROSTER_IsHostileToPlayer(D2StoredUnitRecordStrc* pEntry); // 0x0047A5B0
+int __fastcall ROSTER_IsPlayerHostile(D2StoredUnitRecordStrc* pEntry); // 0x0047A5E0
+int __fastcall ROSTER_AllowsPlayerLoot(D2StoredUnitRecordStrc* pEntry); // 0x0047A610
+int __fastcall ROSTER_PlayerAllowsLoot(D2StoredUnitRecordStrc* pEntry); // 0x0047A640
+void __fastcall ROSTER_UpdateRosterUnit(int nUnitId, unsigned short wPartyId, unsigned short wLevel, int nUnused, int nPartyFlags); // 0x0047A850
+int __cdecl CHAT_IsNumberDisplayEnabled(); // 0x0047A980
+int __cdecl CHAT_HasClassOverride(); // 0x0047AA30
+bool __cdecl CHAT_IsImeLanguage(); // 0x0047B010
+void __stdcall CHAT_StepChatIndex(int nDelta); // 0x0047BA80
+void __fastcall sub_0047DBB0_LoadOptionCels(D2OptionHeaderStrc* pHeader, D2OptionEntryStrc* pEntries); // 0x0047DBB0
+void __fastcall WARDENCLIENT_ToggleEscMenuUIState(int bSaveState, int nMenu); // 0x0047E090
+int __cdecl sub_0047EA60_IsAnyPanelOpen(); // 0x0047EA60
+int __cdecl sub_0047EB50_IsAnyLeftPanelOpen(); // 0x0047EB50
+void __cdecl sub_0047F1D0_LoadResolution(); // 0x0047F1D0
+int __cdecl sub_0047F210_IsMouseInSlots(); // 0x0047F210
+void __fastcall sub_0047F310_ShowPage2(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg); // 0x0047F310
+void __fastcall sub_0047F340_ShowPage3(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg); // 0x0047F340
+void __fastcall sub_0047F3A0_ShowPage4(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg); // 0x0047F3A0
+void __fastcall sub_0047F400_OpenPanel(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg); // 0x0047F400
+void __fastcall sub_0047F430_ShowPage0(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg); // 0x0047F430
+void __cdecl WARDENCLIENT_ActivatePendingModule(); // 0x00480230
+void __fastcall GFX_RefreshPathTarget(D2UnitStrc* pUnit); // 0x00480420
+void __cdecl sub_00481830(); // 0x00481830
+void __cdecl sub_00481850(); // 0x00481850
+D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
+void __fastcall SOUNDHDR_UpdateCache(unsigned int nTick); // 0x00482B40
+void __cdecl SOUNDHDR_TickSound(); // 0x00482C20
+void __fastcall INV_UpdateAuxBattleNetAddress(int nIndex); // 0x00482CA0
+unsigned char __cdecl INV_IsCinematicBusy(); // 0x00483350
+D2SetsTxt* __fastcall DATATBLS_GetSetsTxtRecord(int nSetId); // 0x00483410
+D2SetItemsTxt* __fastcall DATATBLS_GetSetItemsTxtRecord(int nIndex); // 0x00483440
+void __cdecl INV_LoadUiRecords(); // 0x004835B0
+void __cdecl INV_InitColorTable(); // 0x00483960
+int __fastcall INV_IsInPlayerInvRect(int nX, int nY); // 0x00483AB0
+int __cdecl INV_GetPanelX(); // 0x00486AE0
+int __cdecl INV_CheckTradeClickDelay(); // 0x00486D10
+int __fastcall INV_IsInNpcPanelRect(int nX, int nY); // 0x00486E10
+void __cdecl INV_ResetHover(); // 0x00487990
+void __stdcall INV_SelectItemPageTab(unsigned char nTab); // 0x00487A10
+int __cdecl INV_ResetNpcButtons(); // 0x00487BE0
+int __cdecl INV_CanUseCursor(); // 0x004888C0
+void __fastcall CUNIT_SetDialogState(int nState); // 0x004898D0
+void __cdecl INV_CloseCubePanel(); // 0x0048A050
+int __stdcall INV_IsCursorInRect(int nLeft, int nTop, int nRight, int nBottom); // 0x0048A790
+void __stdcall INV_DrawUnitName(D2UnitStrc* pUnit); // 0x0048A7D0
+void __cdecl INV_DrawPanelLabels(); // 0x0048A890
+void __fastcall INV_DrawMercEquipHighlights(D2UnitStrc* pUnit); // 0x0048B3F0
+void __stdcall INV_DrawIconNumber(int nValue, int nX); // 0x00493100
+void __cdecl TEXT_LoadPopupHireling(); // 0x004939B0
+int __cdecl HIREABLES_GetHelpMenuSetting(); // 0x004942D0
+void __cdecl VIEW_DrawHelpFrameLowRes(); // 0x004943B0
+void __cdecl VIEW_DrawHelpFrameHighRes(); // 0x004944F0
+void __cdecl ROSTERPETS_DrawHelpColumn(); // 0x00494620
+void __cdecl VIEW_DrawHelpLinesLowRes(); // 0x00494680
+void __cdecl VIEW_DrawHelpLinesHighRes(); // 0x00494A00
+void __cdecl VIEW_DrawHelpPanelCel(); // 0x00494E40
+void __cdecl HIREABLES_CloseHelpUi(); // 0x00494FC0
+void __fastcall WARDENCLIENT_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg); // 0x00496BE0
+int __cdecl HIREABLES_AreBeltRowsShown(); // 0x004979E0
+int __cdecl HIREABLES_GetBeltRowCount(); // 0x004979F0
+void __cdecl PANEL_DrawDurabilityIcons(); // 0x00497FE0
+void __cdecl PANEL_BeltHotkeyFirst(); // 0x00498C50
+void __cdecl PANEL_BeltHotkeySecond(); // 0x00498C90
+void __cdecl PANEL_BeltHotkeyThird(); // 0x00498CD0
+void __cdecl PANEL_BeltHotkeyFourth(); // 0x00498D10
+void __cdecl PANEL_SetBlackColour(); // 0x00499E30
+void __cdecl PARTY_FreeRosterUnits(); // 0x0049A020
+void __cdecl PARTY_RebuildRosterUnits(); // 0x0049A640
+int __stdcall TEXT_IsMouseInRect(int nX, int nY, int nWidth, int nHeight); // 0x0049AA50
+int __fastcall TEXT_GetCenteredStringX(unsigned short nStringIndex, int nCenterX); // 0x0049AAA0
+void __cdecl sub_0049C6C0_SendWaypointClose(); // 0x0049C6C0
+void __fastcall TEXT_SaveTextDisplaySetting(unsigned long nValue); // 0x0049D570
+void __fastcall TEXT_DrawTextList(D2TextBoxStrc* pTextBox, int nX, int nY); // 0x0049D8E0
+void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource); // 0x0049DBC0
+void __cdecl TEXT_DrawMessageList(); // 0x0049DC40
+void __cdecl TEXT_FreeMainTextBox(); // 0x0049E300
+void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket); // 0x0049F490
+void __cdecl TEXT_DrawPanelFrame(); // 0x0049FA10
+void __cdecl TEXT_FreeTextPanelCels(); // 0x0049FE10

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "FogApi.h"
 #include "StormApi.h"
 #include "gen/data/Source/D2Client/GAME/Msg.inc"
@@ -39,7 +40,6 @@ extern "C" size_t __cdecl fread(void* pBuffer, size_t nSize, size_t nCount, _iob
 
 int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
-void __fastcall MSG_ShowProgressSteps(int nDone, int nTotal); // 0x00478160
 
 extern char gszClientCharName[]; // 0x007A05C4
 

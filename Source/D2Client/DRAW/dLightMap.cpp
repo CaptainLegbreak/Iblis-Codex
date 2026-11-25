@@ -1,5 +1,6 @@
 #include "D2LanguageNames.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2Path.h"
@@ -57,7 +58,6 @@ struct D2LightCellStrc
     unsigned char nBlue;
 };
 
-D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x004639B0
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
@@ -92,11 +92,8 @@ void __fastcall DLIGHTMAP_ActRoomCallback(D2ActiveRoomStrc* pRoom); // 0x0047593
 
 void __fastcall D2Win_10178_CopyGammaTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
 
-unsigned char* __stdcall GFX_BuildLerpTable(unsigned int nCount, int nSteps); // 0x00475B80
 
-unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps); // 0x00475C40
 
-unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps); // 0x00475D30
 
 extern unsigned int gdwLightMap_007A8A50[]; // 0x007A8A50
 
@@ -175,7 +172,6 @@ int gnPathStepSignY; // 0x007A8A48
 
 static inline unsigned char DLIGHTMAP_IsCellBlocked(int nX, int nY); // 0x00474A30
 
-D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
 int gnCellLimitX;                                                                                      // 0x007B0A5C
 
@@ -189,7 +185,6 @@ static void __stdcall DLIGHTMAP_SetupStepDirection(int nX, int nY, D2R01LightStr
 
 extern D2LightCellStrc gLightGrid_007B0E68[][48]; // 0x007B0E68
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
@@ -235,13 +230,11 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                      
 
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
 
-int __fastcall DLIGHTMAP_GetDistance(int nDX, int nDY);                                                  // 0x00474080
 
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource);                                       // 0x004743D0
 
 void __stdcall DLIGHTMAP_UpdateLightGrid(int nArg);                                                                      // 0x00474610
 
-void __cdecl DLIGHTMAP_ScanGridCollision();                                                              // 0x004756D0
 
 int __cdecl DLIGHTMAP_GetIndicatorLevel();                                                               // 0x00475780
 
@@ -538,7 +531,6 @@ struct D2ClientTimedBoxStrc;
 
 
 
-int __stdcall ROSTERPETS_GetPulseColor(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0046BD50
 
 void __stdcall ENVIRONMENT_GetLightColorFromAct(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
 
@@ -1543,7 +1535,6 @@ int __stdcall D2GFX_ToggleLowQuality();                                         
 
 
 
-void __cdecl VIEW_ToggleCacheStats();                                                               // 0x00477C00
 
 extern int gbCacheStats;                                                                           // 0x007BB3A4
 

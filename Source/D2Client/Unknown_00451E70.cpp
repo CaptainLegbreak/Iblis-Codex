@@ -2,6 +2,7 @@
 // build: symbol _gaszLanguageNames 0x0070F7A4
 
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2StormTypes.h"
 #include "D2Win32Message.h"
 #include "D2ClientTypes.h"
@@ -158,7 +159,6 @@ public:
 };
 
 
-int __cdecl RECORD_IsReplayActive(); // 0x00451990
 
 void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x004514B0
 

@@ -1,5 +1,6 @@
 #include "D2StatIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -38,17 +39,13 @@ extern int gaSkillButtonFrame[];
 // build: symbol ?gaSkillButtonState@* 0x007C0A38
 extern int gaSkillButtonState[];
 
-int __cdecl sub_00468730();
-int __cdecl sub_00468740();
 void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg);
-void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 void __fastcall UI_SetUIVar(int nUIVar, int nState, int nArg); // 0x00455F20
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);
 D2UnitStrc* __cdecl sub_00463DD0();
 void __stdcall CURSOR_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg); // 0x00467F20
 void __stdcall CURSOR_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
-void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 void __fastcall MSG_SendTwoDwords(char nHeader, int nArg1, int nArg2); // 0x004786A0
 int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg);
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);
