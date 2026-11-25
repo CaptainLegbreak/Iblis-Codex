@@ -12,7 +12,8 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
   original loads nX/nY from their spill slots into ecx once per test (`mov ecx,[ebp-4]; lea edx,[esi-1]; cmp ecx,edx;
   jl; add esi,1; cmp ecx,esi; jg`) and shares the final `cmp ecx,eax; jg` between cases 3/7 and 9; the plain source
   compares the spill slots directly. Also of note: 10406's cases 6 and 8 are two identical blocks in our source where
-  the original has one (10407 writes `case 6: case 8:`).
+  the original has one (10407 writes `case 6: case 8:`); merging them to `case 6: case 8:` breaks 0x6419F0 (volatile
+  kept), so the duplicate block is steering too.
 - Wed Nov 25 09:20 PST 2026, grinding: 0x65EA50: the shift or the shifted value computed before `if (nSet)`, the
   branches swapped (`if (!nSet)`), the set branch as its own `if` with a return, and an inline set helper (both
   parameter orders): ours still hoists the nValue load. 0x62FFF0 (helper form): unsigned/short count, a count-down
