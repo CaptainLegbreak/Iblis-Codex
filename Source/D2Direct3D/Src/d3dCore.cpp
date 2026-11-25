@@ -611,7 +611,7 @@ extern const unsigned int gnGammaMask_006CE278;                                 
 
 extern int gnGammaScale_0074C020;                                                                           // 0x0074C020
 
-void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
+void __fastcall EXCEL_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
 
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nBytes);
 
@@ -778,7 +778,7 @@ extern int gnGammaScale_0074C020; // 0x0074C020
 
 extern D2GammaControlStrc* gpGammaControl_00970E74; // 0x00970E74
 
-void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
+void __fastcall EXCEL_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
 
 void __fastcall D3DCORE_LogDDrawError(const char* szMessage, int nResult); // 0x006B20E0
 
@@ -1590,7 +1590,7 @@ void __fastcall D3DCORE_SetGamma(int nGamma)
     D2GammaRampStrc ramp;
     if (gnCapabilities_0096F3A8 & gnGammaMask_006CE278)
     {
-        sub_006BE190_BuildGammaTable(nGamma, (unsigned short*)ramp.red, gnGammaScale_0074C020, 2, 256, 65535);
+        EXCEL_BuildGammaTable(nGamma, (unsigned short*)ramp.red, gnGammaScale_0074C020, 2, 256, 65535);
         memcpy(ramp.green, ramp.red, sizeof(ramp.red));
         memcpy(ramp.blue, ramp.red, sizeof(ramp.red));
         if (gpGammaControl)

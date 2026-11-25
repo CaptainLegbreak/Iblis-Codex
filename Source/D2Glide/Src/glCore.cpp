@@ -243,7 +243,7 @@ void __fastcall sub_0050FDF0_GlidePlaySmacker(const char* szFile, int nResolutio
 void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT* pRect, unsigned char nColor);                     // 0x00512D90
 
 
-void __fastcall sub_006BE190_BuildGammaTable(int gamma,void* table,double scale,int entrySize,int entries,int mask); // 0x006BE190
+void __fastcall EXCEL_BuildGammaTable(int gamma,void* table,double scale,int entrySize,int entries,int mask); // 0x006BE190
 
 extern const double gdGlideGammaScale;                                                             // 0x006CD038
 
@@ -648,7 +648,7 @@ void __fastcall GLCORE_SetGamma(int nGamma)
         }
 
         unsigned int* pTable = (unsigned int*)SMemAlloc(nEntries * 4, ".\\Src\\glCore.cpp", 0x42F, 0);
-        sub_006BE190_BuildGammaTable(nGamma, pTable, gnGlideGammaTableSize, 4, nEntries, (1 << nBits) - 1);
+        EXCEL_BuildGammaTable(nGamma, pTable, gnGlideGammaTableSize, 4, nEntries, (1 << nBits) - 1);
         gpfnGrLoadGammaTable(nEntries, pTable, pTable, pTable);
         SMemFree(pTable, ".\\Src\\glCore.cpp", 0x43A, 0);
     }

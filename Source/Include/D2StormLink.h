@@ -37,7 +37,7 @@ struct D2StormLinkStrc
             m_next = 0;
         }
     }
-    D2StormLinkStrc* sub_0040F4F0_NextLink(int nLinkOffset); // 0x0040F4F0
+    D2StormLinkStrc* LOGMANAGER_NextLink(int nLinkOffset); // 0x0040F4F0
     D2StormLinkStrc* sub_00416770_NextLink(int nLinkOffset); // 0x00416770
     D2StormLinkStrc* sub_004168C0_NextLink(int nLinkOffset); // 0x004168C0
     D2StormLinkStrc* sub_00416930_NextLink(int nLinkOffset); // 0x00416930

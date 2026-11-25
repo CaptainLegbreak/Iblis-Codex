@@ -57,7 +57,7 @@ int __cdecl SYSTEM_IsPlatformNT(); // 0x00410960
 
 extern "C" int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData); // 0x006B0132
 
-int __fastcall sub_006C3360_Startup(D2QueueServerStrc* pServer, int nPort); // 0x006C3360
+int __fastcall QSERVERNT_Startup(D2QueueServerStrc* pServer, int nPort); // 0x006C3360
 
 int __fastcall QSERVER98_StartServer(D2QueueServerStrc* pServer, int nPort); // 0x006C3B50
 
@@ -97,7 +97,7 @@ extern "C" int __stdcall WSACleanup(void); // 0x006B0138
 
 
 
-void __fastcall sub_006C2110_StopServerThreads(D2QueueServerStrc* pServer); // 0x006C2110
+void __fastcall QSERVERNT_StopServerThreads(D2QueueServerStrc* pServer); // 0x006C2110
 
 void __fastcall QSERVER98_Stop(D2QueueServerStrc* pServer); // 0x006C33D0
 
@@ -216,7 +216,8 @@ void __stdcall FOG_StartServer(D2QueueServerStrc* pServer, unsigned int nValue)
 {
     if (pServer->bAltSend)
     {
-        sub_006C3120_Start(pServer, nValue);
+// build: symbol ?QSERVERNT_Start@* 0x006C3120
+        QSERVERNT_Start(pServer, nValue);
     }
     else
     {
@@ -604,7 +605,8 @@ static inline int sub_006BEBC0_WaitHandle(D2QueueServerStrc* pServer, unsigned l
 int __stdcall FOG_10177(D2QueueServerStrc* pServer, unsigned long dwMilliseconds)
 {
     if (pServer->bAltSend)
-        return sub_006C30D0_ServiceSlots(pServer, dwMilliseconds);
+// build: symbol ?QSERVERNT_ServiceSlots@* 0x006C30D0
+        return QSERVERNT_ServiceSlots(pServer, dwMilliseconds);
     return !sub_006BEBC0_WaitHandle(pServer, dwMilliseconds);
 }
 
@@ -836,7 +838,7 @@ static void QSERVER_FreeRecords(D2QueueServerStrc* pServer)
 void __fastcall QSERVER_StopThreads(D2QueueServerStrc* pServer)
 {
     if (pServer->bAltSend)
-        sub_006C2110_StopServerThreads(pServer);
+        QSERVERNT_StopServerThreads(pServer);
     else
         QSERVER98_Stop(pServer);
 }
@@ -1003,7 +1005,8 @@ void __stdcall FOG_SetHackListEnabled(D2QueueServerStrc* pServer, int bEnabled)
 static int __fastcall QSERVER_SendToClient(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize)
 {
     if (!pClient || pClient->bClosing) return 0;
-    if (pServer->bAltSend) return sub_006C2C70_SendLocal(pServer, pClient, pData, nSize);
+// build: symbol ?QSERVERNT_SendLocal@* 0x006C2C70
+    if (pServer->bAltSend) return QSERVERNT_SendLocal(pServer, pClient, pData, nSize);
     return QSERVER98_Send(pServer, pClient, pData, nSize);
 }
 
@@ -1034,7 +1037,7 @@ static void QSERVER_StartServer(D2QueueServerStrc* pServer, int nValue)
 
     if (pServer->bAltSend)
     {
-        sub_006C3360_Startup(pServer, nValue);
+        QSERVERNT_Startup(pServer, nValue);
     }
     else
     {
@@ -1199,7 +1202,7 @@ D2QueueServerStrc* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisa
         if (!WSAStartup(0x101, &tWsaData))
         {
             if (pServer->bAltSend)
-                sub_006C3360_Startup(pServer, nPort);
+                QSERVERNT_Startup(pServer, nPort);
             else
                 QSERVER98_StartServer(pServer, nPort);
         }
@@ -1255,7 +1258,7 @@ int __stdcall QSERVER_BroadcastToAllClients(D2QueueServerStrc* pServer, char* pD
             {
                 if (pServer->bAltSend)
                 {
-                    sub_006C2C70_SendLocal(pServer, pClient, pData, nSize);
+                    QSERVERNT_SendLocal(pServer, pClient, pData, nSize);
                 }
                 else
                 {
@@ -1549,7 +1552,7 @@ static int QSERVER_SendToClientId(D2QueueServerStrc* pServer, unsigned int nKey,
     }
     if (pServer->bAltSend)
     {
-        return sub_006C2C70_SendLocal(pServer, pConnection, pData, nSize);
+        return QSERVERNT_SendLocal(pServer, pConnection, pData, nSize);
     }
     return QSERVER98_Send(pServer, pConnection, pData, nSize);
 }
@@ -1598,7 +1601,7 @@ int __stdcall FOG_10152(D2QueueServerStrc* pServer, char* pData, int nSize)
     if (pServer->nState != 1 && pServer->nState != 2)
     {
         if (pServer->bAltSend)
-            sub_006C2110_StopServerThreads(pServer);
+            QSERVERNT_StopServerThreads(pServer);
         else
             QSERVER98_Stop(pServer);
     }
@@ -1681,7 +1684,7 @@ int __stdcall FOG_10157(D2QueueServerStrc* pServer, unsigned int nKey, char* pDa
     }
     if (pServer->bAltSend)
     {
-        return sub_006C2C70_SendLocal(pServer, pConnection, pData, nSize);
+        return QSERVERNT_SendLocal(pServer, pConnection, pData, nSize);
     }
     return QSERVER98_Send(pServer, pConnection, pData, nSize);
 }

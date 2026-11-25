@@ -366,7 +366,7 @@
     {
      "va": "0x00407F70",
      "length": 15,
-     "name": "?sub_00407F70_LogText@@YIXPAXPBD@Z"
+     "name": "?ERRORMANAGER_LogText@@YIXPAXPBD@Z"
     },
     {
      "va": "0x00407F80",
@@ -1942,7 +1942,7 @@
     {
      "va": "0x004101C0",
      "length": 378,
-     "name": "?sub_004101C0_LogThreadProc@@YGKPAX@Z"
+     "name": "?LOGMANAGER_LogThreadProc@@YGKPAX@Z"
     },
     {
      "va": "0x00410340",
@@ -78001,7 +78001,7 @@
     {
      "va": "0x006C30D0",
      "length": 73,
-     "name": "?sub_006C30D0_ServiceSlots@@YIHPAUD2QueueServerStrc@@H@Z"
+     "name": "?QSERVERNT_ServiceSlots@@YIHPAUD2QueueServerStrc@@H@Z"
     },
     {
      "va": "0x006C3120",
@@ -78010,7 +78010,7 @@
     {
      "va": "0x006C3360",
      "length": 99,
-     "name": "?sub_006C3360_Startup@@YIHPAUQServer@@H@Z"
+     "name": "?QSERVERNT_Startup@@YIHPAUQServer@@H@Z"
     }
    ]
   },
