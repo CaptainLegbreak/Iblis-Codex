@@ -154,7 +154,7 @@ void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame)
 
 void __stdcall MISSILE_AllocMissileData(D2UnitStrc* pMissile); // 0x0064A100
 
-void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
+void __fastcall D2GAME_DeleteTimersOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
 
 // 0x0059F8A0
 void __fastcall MISSILES_Initialize(D2GameStrc* pGame, D2UnitStrc* pMissile, int nUnitGUID)
@@ -167,7 +167,7 @@ void __fastcall MISSILES_Initialize(D2GameStrc* pGame, D2UnitStrc* pMissile, int
     MISSILE_AllocMissileData(pMissile);
     pMissile->dwUnitId = nUnitGUID;
     pMissile->dwFlags &= ~(UNITFLAG_TARGETABLE | UNITFLAG_ISVALIDTARGET);
-    D2GAME_DeleteTimersOnUnit_6FC34A30(pGame, pMissile);
+    D2GAME_DeleteTimersOnUnit(pGame, pMissile);
     sub_6FC35570(pGame, pMissile, 0, 0, 0);
 }
 

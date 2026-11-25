@@ -80,13 +80,13 @@ int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc* pGame, D2Unit
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
-void __fastcall D2GAME_ITEMS_Identify_6FC49670(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x00562590
+void __fastcall D2GAME_ITEMS_Identify(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x00562590
 
 
 
 extern D2pSpellTblStrc gaPSpellTable[]; // 0x00741790
 
-void __fastcall D2GAME_PACKETS_SendPacketSize06_6FC3C850(D2ClientStrc* pClient, unsigned char nHeader, int dwUnitType, int dwUnitId); // 0x0053B3D0
+void __fastcall D2GAME_PACKETS_SendPacketSize06(D2ClientStrc* pClient, unsigned char nHeader, int dwUnitType, int dwUnitId); // 0x0053B3D0
 
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
@@ -155,7 +155,7 @@ D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc* pGame, D2UnitStrc* pUni
 
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
 
-void __fastcall D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(D2ClientStrc* pClient, unsigned char nUiNo); // 0x0053CAB0
+void __fastcall D2GAME_PACKETS_SendPacket0x77_Ui(D2ClientStrc* pClient, unsigned char nUiNo); // 0x0053CAB0
 
 void __stdcall SUNIT_SetInteractInfo(D2UnitStrc* pUnit, int nInteractUnitType, int nInteractUnitGUID); // 0x00554120
 
@@ -206,7 +206,7 @@ enum D2C_Y09SkillConstants
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
+void __fastcall D2GAME_EVENTS_Delete(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 
 int __fastcall SKILL_ComputePeriodicRate(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel); // 0x0056CD50
 
@@ -298,7 +298,7 @@ int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char act); // 0x0061AB70
 
 void __fastcall PLAYER_RemoveTownPortal(D2GameStrc* game,D2UnitStrc* unit); // 0x00535430
 
-int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* game,D2UnitStrc* unit,D2ActiveRoomStrc* room,int x,int y,int level,D2UnitStrc** out,int object,int permanent); // 0x0056D130
+int __fastcall D2GAME_CreatePortalObject(D2GameStrc* game,D2UnitStrc* unit,D2ActiveRoomStrc* room,int x,int y,int level,D2UnitStrc** out,int object,int permanent); // 0x0056D130
 
 void __fastcall sub_00553380_SendEvent(D2UnitStrc* unit,int event,D2UnitStrc* other); // 0x00553380
 
@@ -312,7 +312,7 @@ void __fastcall ACT5Q5_OnPortalOpened(D2GameStrc* game,D2UnitStrc* unit); // 0x0
 
 D2ClientStrc* __fastcall sub_005531C0_GetClient(D2UnitStrc* unit,const char* file,int line,int type,int id); // 0x005531C0
 
-void __fastcall D2GAME_PACKETS_SendPacketSize06_6FC3C850(D2ClientStrc* client,unsigned char code); // 0x0053B3D0
+void __fastcall D2GAME_PACKETS_SendPacketSize06(D2ClientStrc* client,unsigned char code); // 0x0053B3D0
 
 int __stdcall ITEMS_GetBonusLifeBasedOnClass(D2UnitStrc*, int); // 0x0062A5D0
 
@@ -379,15 +379,15 @@ void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUn
 
 void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int nOwnerGUID, int nOwnerType, int nFlag1, int nFlag2); // 0x0058F030
 
-void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4850
+void __fastcall D2GAME_BOSSES_AssignUMod(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4850
 
-int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pMode, int a3); // 0x005A7C20
+int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pMode, int a3); // 0x005A7C20
 
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pMode); // 0x005A7E60
 
-void __fastcall D2GAME_UpdateSummonAI_6FC401F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nNode); // 0x005B1900
+void __fastcall D2GAME_UpdateSummonAI(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nNode); // 0x005B1900
 
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 
 void __fastcall AIUTIL_SetOwnerGUIDAndType(D2UnitStrc* pUnit, D2UnitStrc* pOwner); // 0x005DD330
 
@@ -715,7 +715,7 @@ int __fastcall SKILLITEM_pSpell_Handler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
                 SKILLITEM_ClearTargetingItems(pUnit);
                 const unsigned int nItemGUID = pItem->dwUnitId;
                 const int nItemType = pItem->dwUnitType;
-                D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 1135), 0x7C, nItemType, nItemGUID);
+                D2GAME_PACKETS_SendPacketSize06(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 1135), 0x7C, nItemType, nItemGUID);
             }
 
             return 0;
@@ -734,7 +734,7 @@ int __fastcall SKILLITEM_pSpell_Handler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
             SKILLITEM_ClearTargetingItems(pUnit);
             const unsigned int nItemGUID = pItem->dwUnitId;
             const int nItemType = pItem->dwUnitType;
-            D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 1151), 0x7C, nItemType, nItemGUID);
+            D2GAME_PACKETS_SendPacketSize06(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 1151), 0x7C, nItemType, nItemGUID);
         }
 
         return nResult;
@@ -1013,7 +1013,7 @@ void __fastcall SKILLITEM_ActivateAura(D2GameStrc* pGame, D2UnitStrc* pUnit, int
         return;
     }
 
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_PERIODICSTATS, nEventKey);
+    D2GAME_EVENTS_Delete(pGame, pUnit, EVENTTYPE_PERIODICSTATS, nEventKey);
     const int nExpireFrame = SKILL_ComputePeriodicRate(pGame, pUnit, pSkillsTxtRecord, nSkillId, nSkillLevel);
     EVENT_SetEvent(pGame, pUnit, EVENTTYPE_PERIODICSTATS, nExpireFrame, nEventKey, nSkillId);
 
@@ -1047,7 +1047,7 @@ void __fastcall SKILLITEM_DeactivateAura(D2GameStrc* pGame, D2UnitStrc* pUnit, i
         STATLIST_FreeStatList(pStatList);
     }
 
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_PERIODICSTATS, nEventKey);
+    D2GAME_EVENTS_Delete(pGame, pUnit, EVENTTYPE_PERIODICSTATS, nEventKey);
 }
 
 // 0x005C0310
@@ -1732,7 +1732,7 @@ int __fastcall SKILLITEM_pSpell01_IdentifyItem(D2GameStrc* pGame, D2UnitStrc* pU
         return 0;
     }
 
-    D2GAME_ITEMS_Identify_6FC49670(pGame, pUnit, pTarget);
+    D2GAME_ITEMS_Identify(pGame, pUnit, pTarget);
     return 1;
 }
 
@@ -1788,7 +1788,7 @@ int __fastcall SKILLITEM_TimerCallback_ReanimateMonster(D2GameStrc* pGame, int n
     if (!pMonStats2)
         return 0;
     COLLISION_ResetMaskWithPattern(UNITS_GetRoom(pCorpse), CLIENTS_GetUnitX(pCorpse), CLIENTS_GetUnitY(pCorpse), PATH_GetUnitCollisionPattern(pCorpse), 0x8000);
-    D2UnitStrc* pPet = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nMonsterId, 1, -1, 74);
+    D2UnitStrc* pPet = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, nMonsterId, 1, -1, 74);
     if (!pPet)
         return 0;
     pPet->dwFlags |= 0x0402000E;
@@ -1796,14 +1796,14 @@ int __fastcall SKILLITEM_TimerCallback_ReanimateMonster(D2GameStrc* pGame, int n
     MONSTER_UpdateAiCallbackEvent(pGame, pPet);
     AIGENERAL_SetOwnerData(pGame, pPet, sub_GetUnitGUIDChecked(pOwner), sub_GetUnitTypeChecked(pOwner), 0, 0);
     AIUTIL_SetOwnerGUIDAndType(pPet, pOwner);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pPet, 2, 0);
+    D2GAME_EVENTS_Delete(pGame, pPet, 2, 0);
     EVENT_SetEvent(pGame, pPet, 2, pGame->dwGameFrame + 25, 0, 0);
     SUNIT_SetAlignment(pPet, 2, 0);
     pPet->dwFlags |= 0x80000000;
     STATES_ToggleState(pPet, 96, 1);
-    D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pPet, 21, 0);
+    D2GAME_BOSSES_AssignUMod(pGame, pPet, 21, 0);
     EVENT_SetEvent(pGame, pPet, 7, pGame->dwGameFrame + 1500, 0, 0);
-    D2GAME_UpdateSummonAI_6FC401F0(pGame, pPet, 0, pOwner->dwNodeIndex);
+    D2GAME_UpdateSummonAI(pGame, pPet, 0, pOwner->dwNodeIndex);
     D2Common_10214(pPet);
     if (pMonStats2->nResurrectMode == 14)
     {
@@ -1814,7 +1814,7 @@ int __fastcall SKILLITEM_TimerCallback_ReanimateMonster(D2GameStrc* pGame, int n
         modeChange.pTargetUnit = 0;
         modeChange.nX = nX;
         modeChange.nY = nY;
-        D2GAME_ModeChange_6FC65220(pGame, &modeChange, 0);
+        D2GAME_ModeChange(pGame, &modeChange, 0);
     }
     STATES_ToggleState(pPet, 118, 1);
     STATES_ToggleState(pCorpse, 173, 1);
@@ -1834,7 +1834,7 @@ int __fastcall SKILLITEM_pSpell02_CastPortal(D2GameStrc* game,D2UnitStrc* unit,D
  }
  PLAYER_RemoveTownPortal(game,unit);
  D2UnitStrc* portal=0;
- int result=D2GAME_CreatePortalObject_6FD13DF0(game,unit,room,CLIENTS_GetUnitX(unit),CLIENTS_GetUnitY(unit),town,&portal,59,0);
+ int result=D2GAME_CreatePortalObject(game,unit,room,CLIENTS_GetUnitX(unit),CLIENTS_GetUnitY(unit),town,&portal,59,0);
  sub_00553380_SendEvent(unit,7,0);
  if(result) {
   PLAYER_SetUniqueIdInPlayerData(unit,!portal?-1:portal->dwUnitId);
@@ -1852,7 +1852,7 @@ int __fastcall SKILLITEM_pSpell02_CastPortal(D2GameStrc* game,D2UnitStrc* unit,D
   const int nItemId = item->dwUnitId;
   const int nItemType = GetItemType(item);
   D2ClientStrc* client=sub_005531C0_GetClient(unit,".\\SKILLS\\SkillItem.cpp",218,nItemType,nItemId);
-  D2GAME_PACKETS_SendPacketSize06_6FC3C850(client,124);
+  D2GAME_PACKETS_SendPacketSize06(client,124);
  }
  return result;
 }
@@ -1943,7 +1943,7 @@ int __fastcall SKILLITEM_pSpell03_Potion(D2GameStrc* pGame, D2UnitStrc* pUnit, D
                 STATES_ToggleState(pUnit, nState, 1);
                 if (GAME_GetUnitTypeOrInvalid(pUnit))
                 {
-                    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 3, 0);
+                    D2GAME_EVENTS_Delete(pGame, pUnit, 3, 0);
                     EVENT_SetEvent(pGame, pUnit, 3, pGame->dwGameFrame + 1, 0, 0);
                 }
                 STATLIST_SetStatRemoveCallback(pStatList, SKILLS_RemoveStateAndRefreshPassives);
@@ -2131,7 +2131,7 @@ int __fastcall SKILLITEM_pSpell05_RejuvPotion(D2GameStrc* pGame, D2UnitStrc* pUn
 
                         if (GAME_GetUnitTypeOrInvalid(pUnit))
                         {
-                            D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 3, 0);
+                            D2GAME_EVENTS_Delete(pGame, pUnit, 3, 0);
                             EVENT_SetEvent(pGame, pUnit, 3, pGame->dwGameFrame + 1, 0, 0);
                         }
 
@@ -2225,11 +2225,11 @@ int __fastcall SKILLITEM_pSpell07_OpenCube(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
         SUNIT_ResetInteractInfo(pUnit);
         sub_6FC4B830(pGame, pUnit);
-        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 947), UPDATEUI_CLOSEALL);
+        D2GAME_PACKETS_SendPacket0x77_Ui(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 947), UPDATEUI_CLOSEALL);
     }
 
     SUNIT_SetInteractInfo(pUnit, UNIT_ITEM, !pItem ? -1 : pItem->dwUnitId);
-    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 961), UPDATEUI_OPENCUBE);
+    D2GAME_PACKETS_SendPacket0x77_Ui(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 961), UPDATEUI_OPENCUBE);
     sub_6FC4B830(pGame, pUnit);
     return 0;
 }

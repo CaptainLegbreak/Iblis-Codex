@@ -102,7 +102,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 
-void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
+void __fastcall D2GAME_EVENTS_Delete(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 
@@ -171,7 +171,7 @@ D2AiCmdStrc* __fastcall AIGENERAL_GetCurrentAiCommandFromUnit(D2UnitStrc* pUnit)
 
 void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int a2, int nVel, unsigned char a4); // 0x005DE190
 
-int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, unsigned char nMaxDistance); // 0x005DF530
+int __fastcall D2GAME_AICORE_WalkToOwner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, unsigned char nMaxDistance); // 0x005DF530
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
@@ -229,7 +229,7 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);        
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 
@@ -423,9 +423,9 @@ enum D2C_M86FallenShamanAi
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_FallenShaman(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005F1380
 
-void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove);   // 0x0056DEB0
+void __fastcall D2GAME_SetSkills(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove);   // 0x0056DEB0
 
-void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags);          // 0x005701B0
+void __fastcall D2GAME_AssignSkill(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags);          // 0x005701B0
 
 enum D2C_SuccubusAIParams
 {
@@ -500,7 +500,7 @@ enum D2C_M80SkeletonBowAi
     SKELETONBOW_AI_PARAM_TARGET_DISTANCE = 4,
 };
 
-int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMaxDistance, int bDeleteAiEventCallback); // 0x005DE6D0
+int __fastcall D2GAME_AICORE_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMaxDistance, int bDeleteAiEventCallback); // 0x005DE6D0
 
 enum D2C_M80FlyingScimitarAi
 {
@@ -1813,7 +1813,7 @@ void __fastcall AITHINK_Fn009_Wraith(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
 
     if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, AI_PARAM_ESCAPE_CHANCE_PCT))
     {
-        D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 12, 0);
+        D2GAME_AICORE_Escape(pGame, pUnit, pTarget, 12, 0);
         return;
     }
 
@@ -2656,7 +2656,7 @@ void __fastcall AITHINK_Fn037_SkeletonBow(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
     if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, SKELETONBOW_AI_PARAM_APPROACH_CHANCE_PCT))
     {
-        D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTickTarget, AI_PARAM(pGame, pMonStatsTxt, SKELETONBOW_AI_PARAM_WALK_STEPS), AI_PARAM(pGame, pMonStatsTxt, SKELETONBOW_AI_PARAM_TARGET_DISTANCE));
+        D2GAME_AICORE_Escape(pGame, pUnit, pTickTarget, AI_PARAM(pGame, pMonStatsTxt, SKELETONBOW_AI_PARAM_WALK_STEPS), AI_PARAM(pGame, pMonStatsTxt, SKELETONBOW_AI_PARAM_TARGET_DISTANCE));
         return;
     }
 
@@ -2767,8 +2767,8 @@ void __fastcall AITHINK_Fn044_Duriel(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     D2UnitStrc* pTarget = pAiTickParam->pTarget;
     if (pMonStatsTxt->nSkill[3] >= 0 && !UNITS_GetRightSkill(pUnit))
     {
-        D2GAME_SetSkills_6FD14C60(pUnit, pMonStatsTxt->nSkill[3], AI_GetParam(pGame, pMonStatsTxt, 0), 1);
-        D2GAME_AssignSkill_6FD13800(pUnit, 0, pMonStatsTxt->nSkill[3], -1);
+        D2GAME_SetSkills(pUnit, pMonStatsTxt->nSkill[3], AI_GetParam(pGame, pMonStatsTxt, 0), 1);
+        D2GAME_AssignSkill(pUnit, 0, pMonStatsTxt->nSkill[3], -1);
     }
 
     if (bCombat)
@@ -2922,7 +2922,7 @@ void __fastcall AITHINK_Fn047_FlyingScimitar(D2GameStrc* pGame, D2UnitStrc* pUni
 
     if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FLYINGSCIMITAR_AI_PARAM_APPROACH_CHANCE_PCT))
     {
-        D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 8, 1);
+        D2GAME_AICORE_Escape(pGame, pUnit, pTarget, 8, 1);
         return;
     }
 
@@ -3307,9 +3307,9 @@ void __fastcall AITHINK_Fn050_Mephisto(D2GameStrc* game,D2UnitStrc* unit,D2AiTic
     case 4:
         state=0;
         AITACTICS_SetVelocity(unit,0,50,0);
-        if(!D2GAME_AICORE_WalkToOwner_6FCD0B60(game,unit,target,6)) {
-            D2GAME_EVENTS_Delete_6FC34840(game,unit,2,0);
-            if(!D2GAME_AICORE_Escape_6FCD0560(game,unit,target,12,6)) AITACTICS_WalkCloseToUnit(game,unit,12);
+        if(!D2GAME_AICORE_WalkToOwner(game,unit,target,6)) {
+            D2GAME_EVENTS_Delete(game,unit,2,0);
+            if(!D2GAME_AICORE_Escape(game,unit,target,12,6)) AITACTICS_WalkCloseToUnit(game,unit,12);
         }
         break;
     default:
@@ -3703,7 +3703,7 @@ void __fastcall AITHINK_Fn066_SandMaggotQueen(D2GameStrc* pGame, D2UnitStrc* pUn
         D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY);
         if (pRoom)
         {
-            D2UnitStrc* pSandMaggot = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nMonsterId, nSpawnMode, 2, 66);
+            D2UnitStrc* pSandMaggot = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, nMonsterId, nSpawnMode, 2, 66);
             if (pSandMaggot)
             {
                 pSandMaggot->dwFlags |= UNITFLAG_NOXP;
@@ -4083,7 +4083,7 @@ void __fastcall AITHINK_Fn074_OblivionKnight(D2GameStrc* pGame, D2UnitStrc* pUni
     {
         if ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, OBLIVIONKNIGHT_AI_PARAM_APPROACH_CHANCE_PCT))
         {
-            D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pTickTarget, 6);
+            D2GAME_AICORE_WalkToOwner(pGame, pUnit, pTickTarget, 6);
             return;
         }
     }
@@ -4331,7 +4331,7 @@ void __fastcall AITHINK_Fn006_Fallen(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
         return;
     }
 
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
+    D2GAME_EVENTS_Delete(pGame, pUnit, EVENTTYPE_AITHINK, 0);
 
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
     if (!pRoom)
@@ -4944,7 +4944,7 @@ void __fastcall AITHINK_Fn017_SandLeaper(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         if (nDistance > 10)
         {
             AITACTICS_SetAiParam(pUnit, 0, 75, 0);
-            D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pTarget, 5);
+            D2GAME_AICORE_WalkToOwner(pGame, pUnit, pTarget, 5);
             return;
         }
 
@@ -5553,7 +5553,7 @@ void __fastcall AITHINK_Fn023_Vulture(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
                     return;
                 }
             }
-            else { D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 9, 0); return; }
+            else { D2GAME_AICORE_Escape(pGame, pUnit, pTarget, 9, 0); return; }
         }
     }
     if (!nState && !AIGENERAL_GetMinionOwner(pUnit) && pTarget && bFar && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < 60) {
@@ -5640,7 +5640,7 @@ RESTORE_TARGET:
         }
     }
     if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 3)) AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 6, 0);
-    else D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 9, 0);
+    else D2GAME_AICORE_Escape(pGame, pUnit, pTarget, 9, 0); // 0x005DE6D0
     pAiControl->dwAiParam[0] = 0;
     AITACTICS_Idle(pGame, pUnit, 12);
 }
@@ -6493,7 +6493,7 @@ void __fastcall AITHINK_Fn055_Izual(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
         {
             if (nTargetDistance > 10)
             {
-                D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 6, 9);
+                D2GAME_AICORE_Escape(pGame, pUnit, pTarget, 6, 9);
             }
             else
             {
@@ -6579,7 +6579,7 @@ void __fastcall AITHINK_Fn144_UberIzual(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         {
             if (nTargetDistance > 10)
             {
-                D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 6, 9);
+                D2GAME_AICORE_Escape(pGame, pUnit, pTarget, 6, 9);
             }
             else
             {
@@ -6738,7 +6738,7 @@ void __fastcall AITHINK_Fn065_FetishShaman(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
         if (arg.nSquaredDistanceToClosestDeadTarget > AI_PARAM(pGame, pMonStatsTxt, FETISHSHAMAN_AI_PARAM_HEAL_RANGE))
         {
-            D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pDeadTarget, 10);
+            D2GAME_AICORE_WalkToOwner(pGame, pUnit, pDeadTarget, 10);
         }
         else
         {
@@ -7025,7 +7025,7 @@ void __fastcall AITHINK_Fn076_EvilHole(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
             D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY);
             if (pRoom)
             {
-                D2UnitStrc* pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nMonsterId, nAnimMode, 2, 0x42);
+                D2UnitStrc* pMonster = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, nMonsterId, nAnimMode, 2, 0x42);
                 if (pMonster)
                 {
                     --pAiControl->dwAiParam[1];

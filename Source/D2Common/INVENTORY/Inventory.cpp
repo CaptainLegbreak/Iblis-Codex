@@ -438,7 +438,8 @@ void __stdcall INVENTORY_GetItemSaveGfxInfo(D2UnitStrc* unit, u8* firstOutput, u
 // build: symbol ?STATES_CheckStateMaskFlagsOnUnit@* 0x0063A130
 static int STATES_CheckStateMaskFlagsOnUnit(D2UnitStrc* pUnit, const unsigned int* pStateMask)
 {
-    unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
+// build: symbol ?D2COMMON_STATES_GetStatFlags@* 0x00625BB0
+    unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags(pUnit);
     if (!pStatFlags)
     {
         return 0;

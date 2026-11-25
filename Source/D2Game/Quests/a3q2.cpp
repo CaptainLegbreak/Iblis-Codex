@@ -72,13 +72,13 @@ void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pAr
 
 D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwItemCode); // 0x00558110
 
-D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int nItemType, int bIgnoreRarity); // 0x00559A30
+D2UnitStrc* __fastcall D2GAME_DropItemAtUnit(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int nItemType, int bIgnoreRarity); // 0x00559A30
 
 D2UnitStrc* __fastcall OBJMODE_DropItemWithCodeAndQuality(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwCode, int nItemQuality); // 0x00585970
 
 D2UnitStrc* __fastcall OBJMODE_DropFromChestTCWithQuality(D2ObjOperateFnStrc* pOp, int nItemQuality); // 0x00585B90
 
-void __fastcall D2GAME_WarpPlayerToTile_6FCA5B20(D2ObjOperateFnStrc* pOp); // 0x0059D9D0
+void __fastcall D2GAME_WarpPlayerToTile(D2ObjOperateFnStrc* pOp); // 0x0059D9D0
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
@@ -552,7 +552,7 @@ int __fastcall OBJECTS_OperateFunction44_SewerStairs(D2ObjOperateFnStrc* pOp, in
     D2UnitStrc* pObject = pOp->hObject;
     if (pObject && pObject->dwAnimMode == OBJMODE_OPENED)
     {
-        D2GAME_WarpPlayerToTile_6FCA5B20(pOp);
+        D2GAME_WarpPlayerToTile(pOp);
     }
     return 0;
 }
@@ -782,7 +782,7 @@ int __fastcall OBJECTS_OperateFunction57_KhalimChest(D2ObjOperateFnStrc* pOp, in
         for (int i = 0; i < pQuestDataEx->nItemDropCount; ++i)
         {
             int nItemLevel;
-            if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
+            if (D2GAME_DropItemAtUnit(pOp->pGame, pOp->hObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
             {
                 ++pQuestDataEx->nHeartsDropped;
                 pQuestDataEx->bHeartDropped = 1;
@@ -820,7 +820,7 @@ int __fastcall OBJECTS_OperateFunction58_KhalimChest(D2ObjOperateFnStrc* pOp, in
         for (int i = 0; i < pQuestDataEx->nItemDropCount; ++i)
         {
             int nItemLevel;
-            if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
+            if (D2GAME_DropItemAtUnit(pOp->pGame, pOp->hObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
             {
                 ++pQuestDataEx->nEyesDropped;
                 pQuestDataEx->bEyeDropped = 1;
@@ -858,7 +858,7 @@ int __fastcall OBJECTS_OperateFunction59_KhalimChest(D2ObjOperateFnStrc* pOp, in
         for (int i = 0; i < pQuestDataEx->nItemDropCount; ++i)
         {
             int nItemLevel;
-            if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
+            if (D2GAME_DropItemAtUnit(pOp->pGame, pOp->hObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
             {
                 ++pQuestDataEx->nBrainsDropped;
                 pQuestDataEx->bBrainDropped = 1;

@@ -91,7 +91,7 @@ D2UnitStrc* __fastcall QUESTS_SpawnCriticalMonster(D2GameStrc* pGame, int nX, in
 
 void __fastcall SUNITINACTIVE_DeleteSingleListNode(D2GameStrc* pGame, unsigned short nUnitType, unsigned short nClassId, unsigned char nAct); // 0x00543140
 
-void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
+void __fastcall D2GAME_EVENTS_Delete(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
@@ -109,7 +109,7 @@ D2MapAIStrc* __stdcall AIGENERAL_GetMapAiFromUnit(D2UnitStrc* pUnit); // 0x0058F
 
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 
-int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
+int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
@@ -213,7 +213,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 extern "C" D2MapAIStrc* __stdcall sub_0058F000(D2UnitStrc* pUnit); // 0x0058F000
 
-D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode); // 0x0054E600
+D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode); // 0x0054E600
 
 #define QFLAG_REWARDGRANTED 0
 
@@ -1069,7 +1069,7 @@ void __fastcall OBJECTS_InitFunction69_NihlathakStartOutsideTown(D2ObjInitFnStrc
     const int nMonsterId = DATATBLS_MapSuperUniqueId(2, OBJMODE_GetSuperUniqueId(60));
     const int nY = pOp->nY;
     const int nX = pOp->nX;
-    D2UnitStrc* pNihlathak = D2GAME_SpawnPresetMonster_6FC66560(pOp->pGame, pOp->pRoom, nMonsterId, nX, nY, 1);
+    D2UnitStrc* pNihlathak = D2GAME_SpawnPresetMonster(pOp->pGame, pOp->pRoom, nMonsterId, nX, nY, 1);
     if (pNihlathak)
     {
         pQuestDataEx->nNihlathakOutsideTownGUID = !pNihlathak ? -1 : pNihlathak->dwUnitId;
@@ -1250,7 +1250,7 @@ int __fastcall ACT5Q3_RemoveDrehyaIced(D2GameStrc* pGame, D2UnitStrc* pUnit, voi
 
     D2ModeChangeStrc modeChange;
     MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_DEAD, &modeChange);
-    D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+    D2GAME_ModeChange(pGame, &modeChange, 1);
 
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q3_PRISONOFICE);
     if (pQuestData)
@@ -1353,14 +1353,14 @@ static void ACT5Q3_KillNihlathakInTown(D2QuestDataStrc* pQuestData, D2UnitStrc* 
     }
 
     D2Common_10153(pNihlathak->pDynamicPath);
-    D2GAME_EVENTS_Delete_6FC34840(pQuestData->pGame, pNihlathak, 2, 0);
+    D2GAME_EVENTS_Delete(pQuestData->pGame, pNihlathak, 2, 0);
     STATLIST_SetUnitStat(pNihlathak, STAT_HITPOINTS, 0, 0);
 
     D2ModeChangeStrc modeChange;
     MONSTERMODE_GetModeChangeInfo(pNihlathak, 12, &modeChange);
     modeChange.nX = 0;
     modeChange.nY = 0;
-    D2GAME_ModeChange_6FC65220(pQuestData->pGame, &modeChange, 1);
+    D2GAME_ModeChange(pQuestData->pGame, &modeChange, 1);
     UNITROOM_RefreshUnit(pNihlathak);
     pNihlathak->dwFlags |= 1;
 }
@@ -1382,7 +1382,7 @@ static void ACT5Q3_RemoveTownNpcs(D2QuestDataStrc* pQuestData)
 
             D2ModeChangeStrc modeChange;
             MONSTERMODE_GetModeChangeInfo(pDrehya, 12, &modeChange);
-            D2GAME_ModeChange_6FC65220(pQuestData->pGame, &modeChange, 1);
+            D2GAME_ModeChange(pQuestData->pGame, &modeChange, 1);
 
             DUNGEON_AllocDrlgDelete(UNITS_GetRoom(pDrehya), !pDrehya ? 6 : pDrehya->dwUnitType, pQuestDataEx->nDrehyaMonsterInTownGUID);
             UNITS_FreeCollisionPath(pDrehya);
@@ -1634,7 +1634,7 @@ void __fastcall ACT5Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
         {
             D2ModeChangeStrc mode;
             MONSTERMODE_GetModeChangeInfo(pQuestArg->pTarget, 12, &mode);
-            D2GAME_ModeChange_6FC65220(pQuestArg->pGame, &mode, 1);
+            D2GAME_ModeChange(pQuestArg->pGame, &mode, 1);
         }
         return;
     }
@@ -1817,7 +1817,7 @@ bool __fastcall ACT5Q3_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
 
 #define STAT_POISONRESIST 45
 
-void __fastcall D2GAME_UpdateAttribute_6FC822D0(D2UnitStrc* pUnit, unsigned short nStat, unsigned int nNewValue, D2UnitStrc* pPlayer); // 0x00548520
+void __fastcall D2GAME_UpdateAttribute(D2UnitStrc* pUnit, unsigned short nStat, unsigned int nNewValue, D2UnitStrc* pPlayer); // 0x00548520
 
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 
@@ -1841,10 +1841,10 @@ void __fastcall ACT5Q3_UpdateResistances(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     STATLIST_SetStat(pStatList, STAT_COLDRESIST, nValue, 0);
     STATLIST_SetStat(pStatList, STAT_POISONRESIST, nValue, 0);
 
-    D2GAME_UpdateAttribute_6FC822D0(pUnit, STAT_FIRERESIST, nValue, pUnit);
-    D2GAME_UpdateAttribute_6FC822D0(pUnit, STAT_LIGHTRESIST, nValue, pUnit);
-    D2GAME_UpdateAttribute_6FC822D0(pUnit, STAT_COLDRESIST, nValue, pUnit);
-    D2GAME_UpdateAttribute_6FC822D0(pUnit, STAT_POISONRESIST, nValue, pUnit);
+    D2GAME_UpdateAttribute(pUnit, STAT_FIRERESIST, nValue, pUnit);
+    D2GAME_UpdateAttribute(pUnit, STAT_LIGHTRESIST, nValue, pUnit);
+    D2GAME_UpdateAttribute(pUnit, STAT_COLDRESIST, nValue, pUnit);
+    D2GAME_UpdateAttribute(pUnit, STAT_POISONRESIST, nValue, pUnit);
 }
 
 #include "gen/data/Source/D2Game/Quests/a5q3.inc"

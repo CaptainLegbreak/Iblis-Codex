@@ -38,7 +38,7 @@ void __fastcall TARGETS_AllocPlayerNode(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 }
 
 // 0x005B1900
-void __fastcall D2GAME_UpdateSummonAI_6FC401F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNodeData, int nNodeIndex)
+void __fastcall D2GAME_UpdateSummonAI(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNodeData, int nNodeIndex)
 {
     if (!pGame || !pUnit || pUnit->dwNodeIndex != 11 || nNodeIndex >= 8 || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
         return;
@@ -83,7 +83,7 @@ void __fastcall TARGETS_InsertUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 }
 
 // 0x005B1A20
-void __fastcall D2GAME_FreeUnitNode_6FC40310(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall D2GAME_FreeUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     if (!pGame || !pUnit || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
     {
@@ -175,7 +175,7 @@ void __fastcall TARGETS_FreeAllTargetNodes(D2GameStrc* pGame)
     {
         if (pTargetNode && pTargetNode->hUnit)
         {
-            D2GAME_FreeUnitNode_6FC40310(pGame, pTargetNode->hUnit);
+            D2GAME_FreeUnitNode(pGame, pTargetNode->hUnit);
         }
         pTargetNode = *++ppTargetNode;
     }

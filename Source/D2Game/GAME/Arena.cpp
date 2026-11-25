@@ -187,7 +187,7 @@ D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIg
 
 unsigned int __fastcall CLIENTS_HasArenaFlag(D2ClientStrc* pClient); // 0x005388C0
 
-void __fastcall D2GAME_PACKETS_SendPacket0x65_6FC3F5E0(D2ClientStrc* pClient, unsigned int dwPlayerId, unsigned short nCount); // 0x0053D9C0
+void __fastcall D2GAME_PACKETS_SendPacket0x65(D2ClientStrc* pClient, unsigned int dwPlayerId, unsigned short nCount); // 0x0053D9C0
 
 // 0x0053F5D0
 int __fastcall ARENA_GetAlternateStartTown(D2GameStrc* pGame)
@@ -297,7 +297,7 @@ static void __stdcall ARENA_SendArenaScore(D2ClientStrc* pClient, D2UnitStrc* pP
 {
     D2ArenaUnitStrc* pArenaUnit = UNITS_GetPlayerData(pPlayer)->pArenaUnit;
     D2_ASSERT(pArenaUnit, 229);
-    D2GAME_PACKETS_SendPacket0x65_6FC3F5E0(pClient, !pPlayer ? -1 : pPlayer->dwUnitId, pArenaUnit->nScore);
+    D2GAME_PACKETS_SendPacket0x65(pClient, !pPlayer ? -1 : pPlayer->dwUnitId, pArenaUnit->nScore);
 }
 
 // 0x0053FB90

@@ -382,9 +382,9 @@ int __fastcall AITHINK_TryOpenNearbyDoor(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
-int __fastcall D2GAME_AICORE_MinionLeash_6FCF0D10(D2GameStrc* pGame, D2UnitStrc* pMonster, D2AiTickParamStrc* pAiTickParam); // 0x005B0FF0
+int __fastcall D2GAME_AICORE_MinionLeash(D2GameStrc* pGame, D2UnitStrc* pMonster, D2AiTickParamStrc* pAiTickParam); // 0x005B0FF0
 
-int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, unsigned char nMaxDistance); // 0x005DF530
+int __fastcall D2GAME_AICORE_WalkToOwner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, unsigned char nMaxDistance); // 0x005DF530
 
 int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc*, D2UnitStrc*); // 0x005DC380
 
@@ -396,7 +396,7 @@ static inline int CanWalk(D2UnitStrc* pMonster)
 }
 
 // 0x005B0FF0
-int __fastcall D2GAME_AICORE_MinionLeash_6FCF0D10(D2GameStrc* pGame, D2UnitStrc* pMonster, D2AiTickParamStrc* pAiTickParam)
+int __fastcall D2GAME_AICORE_MinionLeash(D2GameStrc* pGame, D2UnitStrc* pMonster, D2AiTickParamStrc* pAiTickParam)
 {
     int nOwnerGUID = 0;
     D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
@@ -433,7 +433,7 @@ int __fastcall D2GAME_AICORE_MinionLeash_6FCF0D10(D2GameStrc* pGame, D2UnitStrc*
             return 0;
         AITACTICS_SetAiParam(pMonster, 7, 0, 40);
     }
-    D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pMonster, pOwner, 19);
+    D2GAME_AICORE_WalkToOwner(pGame, pMonster, pOwner, 19);
     return 1;
 }
 
@@ -453,7 +453,7 @@ int __fastcall AITHINK_CheckAiTickPreconditions(D2GameStrc* pGame, D2UnitStrc* p
         return 1;
     }
 
-    return D2GAME_AICORE_MinionLeash_6FCF0D10(pGame, pUnit, pAiTickParam) != 0;
+    return D2GAME_AICORE_MinionLeash(pGame, pUnit, pAiTickParam) != 0;
 }
 
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nSoundId, D2UnitStrc* pOrigin); // 0x00553380
@@ -662,7 +662,7 @@ static inline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
 }
 
 // 0x005B14E0
-void __fastcall D2GAME_AI_SpecialState02_6FCD1660(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+void __fastcall D2GAME_AI_SpecialState02(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     D2UnitStrc* pTarget = pAiTickParam->pTarget;
     int nDistance = pAiTickParam->nTargetDistance;
@@ -676,7 +676,7 @@ void __fastcall D2GAME_AI_SpecialState02_6FCD1660(D2GameStrc* pGame, D2UnitStrc*
     if (nDistance > 10 && !pAiControl->dwAiParam[0])
     {
         pAiControl->dwAiParam[0] = 1;
-        D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pTarget, 12);
+        D2GAME_AICORE_WalkToOwner(pGame, pUnit, pTarget, 12);
         return;
     }
     if ((AI_RollUnitSeed(pUnit) & 0xFF) < 77)

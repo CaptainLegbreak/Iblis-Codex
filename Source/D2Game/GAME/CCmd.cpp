@@ -48,7 +48,7 @@ void __fastcall CLIENTS_UnlockClientList(int nClientId); // 0x005377A0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 D2ClientStrc* __fastcall CLIENTS_GetClientFromClientId(D2GameStrc* pGame, int nClientId); // 0x00537810
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
-int __fastcall D2GAME_PACKET_Handler_6FC89320(D2GameStrc* pGame,D2UnitStrc* pUnit,unsigned char* pPacket,int nSize); // 0x0054D750
+int __fastcall D2GAME_PACKET_Handler(D2GameStrc* pGame,D2UnitStrc* pUnit,unsigned char* pPacket,int nSize); // 0x0054D750
 
 static int CCMD_IsStringZeroTerminated(const char* pData, int nDataSize)
 {
@@ -223,7 +223,7 @@ void __fastcall ProcessClientMessage(void* pData, int nPacketSize)
     D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(ptClient, 0);
     if (pPlayer && (pPlayer ? pPlayer->dwUnitType : UNIT_INVALID) == 0)
     {
-        D2GAME_PACKET_Handler_6FC89320(pGame, pPlayer, pPacket, nPacketSize);
+        D2GAME_PACKET_Handler(pGame, pPlayer, pPacket, nPacketSize);
     }
 
     GAME_LeaveGamesCriticalSection(pGame);

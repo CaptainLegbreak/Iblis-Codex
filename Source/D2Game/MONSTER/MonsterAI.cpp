@@ -92,7 +92,7 @@ struct D2HirelingTxt;
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-void __fastcall D2GAME_MERCS_SendStat_6FCC61D0(D2UnitStrc* pUnit, unsigned short nStatId, int nValue); // 0x005718C0
+void __fastcall D2GAME_MERCS_SendStat(D2UnitStrc* pUnit, unsigned short nStatId, int nValue); // 0x005718C0
 
 D2UnitStrc* __fastcall PLAYERPETS_GetFirstPetByType(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int a4); // 0x00574EC0
 
@@ -118,7 +118,7 @@ int __stdcall DATATBLS_GetMaxLevel(int nClass); // 0x00611830
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 
-void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
+void __fastcall D2GAME_SetSkills(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -157,7 +157,7 @@ int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUni
 
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
 
-void __fastcall D2GAME_NPC_Heal_6FCCB220(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc); // 0x00578E70
+void __fastcall D2GAME_NPC_Heal(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc); // 0x00578E70
 
 void __fastcall QUESTS_NPCDeactivate(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc); // 0x00543D50
 
@@ -179,9 +179,9 @@ int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 
 D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc* pClient); // 0x005387C0
 
-void __fastcall D2GAME_PACKETS_SendPacket0x27_6FC3DF20(D2ClientStrc* pClient, D2GSPacketSrv27* pPacket); // 0x0053C8D0
+void __fastcall D2GAME_PACKETS_SendPacket0x27(D2ClientStrc* pClient, D2GSPacketSrv27* pPacket); // 0x0053C8D0
 
-void __fastcall D2GAME_SendPacket0x28_6FC3F2F0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char a3, int a4, D2BitBufferStrc* a5, unsigned char a6); // 0x0053D670
+void __fastcall D2GAME_SendPacket0x28(D2ClientStrc* pClient, unsigned char nHeader, unsigned char a3, int a4, D2BitBufferStrc* a5, unsigned char a6); // 0x0053D670
 
 D2BitBufferStrc* __fastcall sub_00543520(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00543520
 
@@ -193,7 +193,7 @@ void __stdcall SUNIT_SetInteractInfo(D2UnitStrc* pUnit, int nInteractUnitType, i
 
 D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00554D00
 
-void __fastcall D2GAME_NPC_BuildHirelingList_6FCC6FF0(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc* pNpc, int bNoInteractInfo); // 0x00576770
+void __fastcall D2GAME_NPC_BuildHirelingList(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc* pNpc, int bNoInteractInfo); // 0x00576770
 
 int __fastcall ACT1Q4_IsCainInTristramDeactivated(D2GameStrc* pGame); // 0x00594610
 
@@ -223,7 +223,7 @@ struct D2HirelingInitStrc
     int unk0x34[2];
 };
 
-void __fastcall D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(D2ClientStrc* pClient, unsigned short a2, int a3); // 0x0053E0E0
+void __fastcall D2GAME_PACKETS_SendPacket0x9B(D2ClientStrc* pClient, unsigned short a2, int a3); // 0x0053E0E0
 
 void __fastcall SUNIT_SetAlignment(D2UnitStrc* pUnit, unsigned char nAlignment, int a3); // 0x005543B0
 
@@ -239,9 +239,9 @@ void __fastcall PLAYERPETS_AddPetWithInfo(D2GameStrc* pGame, D2UnitStrc* pPlayer
 
 void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int nOwnerGUID, int nOwnerType, int bGuard, int a6); // 0x0058F030
 
-void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int a4); // 0x005A4850
+void __fastcall D2GAME_BOSSES_AssignUMod(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int a4); // 0x005A4850
 
-void __fastcall D2GAME_UpdateSummonAI_6FC401F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nNodeIndex); // 0x005B1900
+void __fastcall D2GAME_UpdateSummonAI(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nNodeIndex); // 0x005B1900
 
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
 
@@ -264,20 +264,20 @@ void __fastcall MONSTERAI_SendMercStats(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
         return;
     }
 
-    D2GAME_MERCS_SendStat_6FCC61D0(pMerc, STAT_LEVEL, STATLIST_UnitGetStatValue(pMerc, STAT_LEVEL, 0));
-    D2GAME_MERCS_SendStat_6FCC61D0(pMerc, STAT_STRENGTH, STATLIST_GetUnitBaseStat(pMerc, STAT_STRENGTH, 0));
-    D2GAME_MERCS_SendStat_6FCC61D0(pMerc, STAT_DEXTERITY, STATLIST_GetUnitBaseStat(pMerc, STAT_DEXTERITY, 0));
-    D2GAME_MERCS_SendStat_6FCC61D0(pMerc, STAT_MAXHP, STATLIST_GetUnitBaseStat(pMerc, STAT_MAXHP, 0));
-    D2GAME_MERCS_SendStat_6FCC61D0(pMerc, STAT_HITPOINTS, STATLIST_UnitGetStatValue(pMerc, STAT_HITPOINTS, 0));
-    D2GAME_MERCS_SendStat_6FCC61D0(pMerc, STAT_ARMORCLASS, STATLIST_GetUnitBaseStat(pMerc, STAT_ARMORCLASS, 0));
-    D2GAME_MERCS_SendStat_6FCC61D0(pMerc, STAT_EXPERIENCE, STATLIST_UnitGetStatValue(pMerc, STAT_EXPERIENCE, 0));
-    D2GAME_MERCS_SendStat_6FCC61D0(pMerc, STAT_NEXTEXP, STATLIST_UnitGetStatValue(pMerc, STAT_NEXTEXP, 0));
-    D2GAME_MERCS_SendStat_6FCC61D0(pMerc, STAT_MINDAMAGE, STATLIST_GetUnitBaseStat(pMerc, STAT_SECONDARY_MINDAMAGE, 0) + STATLIST_GetUnitBaseStat(pMerc, STAT_MINDAMAGE, 0));
-    D2GAME_MERCS_SendStat_6FCC61D0(pMerc, STAT_MAXDAMAGE, STATLIST_GetUnitBaseStat(pMerc, STAT_SECONDARY_MAXDAMAGE, 0) + STATLIST_GetUnitBaseStat(pMerc, STAT_MAXDAMAGE, 0));
-    D2GAME_MERCS_SendStat_6FCC61D0(pMerc, STAT_FIRERESIST, STATLIST_GetUnitBaseStat(pMerc, STAT_FIRERESIST, 0));
-    D2GAME_MERCS_SendStat_6FCC61D0(pMerc, STAT_LIGHTRESIST, STATLIST_GetUnitBaseStat(pMerc, STAT_LIGHTRESIST, 0));
-    D2GAME_MERCS_SendStat_6FCC61D0(pMerc, STAT_COLDRESIST, STATLIST_GetUnitBaseStat(pMerc, STAT_COLDRESIST, 0));
-    D2GAME_MERCS_SendStat_6FCC61D0(pMerc, STAT_POISONRESIST, STATLIST_GetUnitBaseStat(pMerc, STAT_POISONRESIST, 0));
+    D2GAME_MERCS_SendStat(pMerc, STAT_LEVEL, STATLIST_UnitGetStatValue(pMerc, STAT_LEVEL, 0));
+    D2GAME_MERCS_SendStat(pMerc, STAT_STRENGTH, STATLIST_GetUnitBaseStat(pMerc, STAT_STRENGTH, 0));
+    D2GAME_MERCS_SendStat(pMerc, STAT_DEXTERITY, STATLIST_GetUnitBaseStat(pMerc, STAT_DEXTERITY, 0));
+    D2GAME_MERCS_SendStat(pMerc, STAT_MAXHP, STATLIST_GetUnitBaseStat(pMerc, STAT_MAXHP, 0));
+    D2GAME_MERCS_SendStat(pMerc, STAT_HITPOINTS, STATLIST_UnitGetStatValue(pMerc, STAT_HITPOINTS, 0));
+    D2GAME_MERCS_SendStat(pMerc, STAT_ARMORCLASS, STATLIST_GetUnitBaseStat(pMerc, STAT_ARMORCLASS, 0));
+    D2GAME_MERCS_SendStat(pMerc, STAT_EXPERIENCE, STATLIST_UnitGetStatValue(pMerc, STAT_EXPERIENCE, 0));
+    D2GAME_MERCS_SendStat(pMerc, STAT_NEXTEXP, STATLIST_UnitGetStatValue(pMerc, STAT_NEXTEXP, 0));
+    D2GAME_MERCS_SendStat(pMerc, STAT_MINDAMAGE, STATLIST_GetUnitBaseStat(pMerc, STAT_SECONDARY_MINDAMAGE, 0) + STATLIST_GetUnitBaseStat(pMerc, STAT_MINDAMAGE, 0));
+    D2GAME_MERCS_SendStat(pMerc, STAT_MAXDAMAGE, STATLIST_GetUnitBaseStat(pMerc, STAT_SECONDARY_MAXDAMAGE, 0) + STATLIST_GetUnitBaseStat(pMerc, STAT_MAXDAMAGE, 0));
+    D2GAME_MERCS_SendStat(pMerc, STAT_FIRERESIST, STATLIST_GetUnitBaseStat(pMerc, STAT_FIRERESIST, 0));
+    D2GAME_MERCS_SendStat(pMerc, STAT_LIGHTRESIST, STATLIST_GetUnitBaseStat(pMerc, STAT_LIGHTRESIST, 0));
+    D2GAME_MERCS_SendStat(pMerc, STAT_COLDRESIST, STATLIST_GetUnitBaseStat(pMerc, STAT_COLDRESIST, 0));
+    D2GAME_MERCS_SendStat(pMerc, STAT_POISONRESIST, STATLIST_GetUnitBaseStat(pMerc, STAT_POISONRESIST, 0));
 }
 
 // 0x00572840
@@ -380,7 +380,7 @@ void __fastcall MONSTERAI_UpdateMercStatsAndSkills(D2GameStrc* ptGame, D2UnitStr
             nSkillLevel = nSkillLevel < 32 ? nSkillLevel : 32;
             if (nSkillLevel > 0)
             {
-                D2GAME_SetSkills_6FD14C60(pHireling, pHirelingTxtRecord->dwSkill[i], nSkillLevel, 0);
+                D2GAME_SetSkills(pHireling, pHirelingTxtRecord->dwSkill[i], nSkillLevel, 0);
             }
         }
     }
@@ -461,7 +461,7 @@ static int __stdcall MONSTERAI_TryStartNpcInteraction(D2GameStrc* pGame, D2Monst
 
     pMonInteract->pInteractInfo = pNewInteractInfo;
 
-    D2GAME_NPC_BuildHirelingList_6FCC6FF0(CLIENTS_GetGame(pClient), pClient, pTarget, bNoInteractInfo);
+    D2GAME_NPC_BuildHirelingList(CLIENTS_GetGame(pClient), pClient, pTarget, bNoInteractInfo);
     SUNIT_SetInteractInfo(pUnit, 1, !pTarget ? -1 : pTarget->dwUnitId);
     pNewInteractInfo->nInteract = 0;
 
@@ -479,12 +479,12 @@ static int __stdcall MONSTERAI_TryStartNpcInteraction(D2GameStrc* pGame, D2Monst
         nValue = pTarget->dwUnitType;
     packet27.nUnitType = nValue;
     TEXT_CreateMessageListFromTextHeader(pTextHeader, &packet27.messageList);
-    D2GAME_PACKETS_SendPacket0x27_6FC3DF20(pClient, &packet27);
+    D2GAME_PACKETS_SendPacket0x27(pClient, &packet27);
     TEXT_FreeTextHeader(pTextHeader);
 
     QUESTS_SendCurrentFlags(pGame, pClient);
     const int nTargetGUID = !pTarget ? -1 : pTarget->dwUnitId;
-    D2GAME_SendPacket0x28_6FC3F2F0(pClient, 0x28, 1, nTargetGUID, sub_00543520(pGame, pUnit), nQuestFlags);
+    D2GAME_SendPacket0x28(pClient, 0x28, 1, nTargetGUID, sub_00543520(pGame, pUnit), nQuestFlags);
     return 0;
 }
 
@@ -558,7 +558,7 @@ void __fastcall MONSTERAI_ActivateNpcInteraction(D2GameStrc* pGame, D2UnitStrc* 
             if (!pInteractInfo->nInteract)
             {
                 pInteractInfo->nInteract = 1;
-                D2GAME_NPC_Heal_6FCCB220(pGame, pUnit, pNpc);
+                D2GAME_NPC_Heal(pGame, pUnit, pNpc);
             }
             return;
         }
@@ -874,13 +874,13 @@ void __fastcall MONSTERAI_AssignHireling(D2GameStrc* pGame, D2UnitStrc* pPlayer,
 
     if (!bDead)
     {
-        D2GAME_UpdateSummonAI_6FC401F0(pGame, pUnit, 0, pPlayer->dwNodeIndex);
+        D2GAME_UpdateSummonAI(pGame, pUnit, 0, pPlayer->dwNodeIndex);
     }
 
     D2UnitStrc* pPet = PLAYERPETS_GetFirstPetByType(pGame, pPlayer, 7, 1);
     if (pPet)
     {
-        D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(UnitGetClient(pPlayer, gszMonsterAISourceFile, 0x52), 0xFFFF, 0);
+        D2GAME_PACKETS_SendPacket0x9B(UnitGetClient(pPlayer, gszMonsterAISourceFile, 0x52), 0xFFFF, 0);
 
         AIGENERAL_SetOwnerData(pGame, pPet, -1, 1, 0, 0);
         PLAYERPETS_RemovePet(pGame, pPlayer, UNITS_GetUnitId(pPet), 0);
@@ -919,7 +919,7 @@ void __fastcall MONSTERAI_AssignHireling(D2GameStrc* pGame, D2UnitStrc* pPlayer,
         MONSTERAI_SendMercStats(pGame, pPlayer, 1);
     }
 
-    D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x13, 0);
+    D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x13, 0);
 
     MONSTER_SetComponent(pUnit, 0, 0);
     MONSTER_SetComponent(pUnit, 5, 0);

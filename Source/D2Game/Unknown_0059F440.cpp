@@ -66,7 +66,7 @@ void __fastcall MONSTERAI_CloseNpcInteractions(D2GameStrc* pGame, D2UnitStrc* pM
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc*,int); // 0x00543640
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,int); // 0x00463740
 void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, unsigned int nSize, unsigned short fCollision, D2ActiveRoomStrc** ppRoom, int nId, int nRadius); // 0x00545340
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 
 
 int __fastcall QUESTS_GetGlobalState(D2GameStrc*, int, int); // 0x00544760
@@ -147,8 +147,8 @@ void __stdcall ACT2Q4_InitializeJerhynMonster(D2QuestDataStrc* quest,D2ActiveRoo
     coords->nY-=3;
     D2ActiveRoomStrc* found=sub_00463740_FindRoomAtPoint(room,coords->nX,coords->nY);
     QUESTS_GetFreePosition(room,coords,3,0x100,&found,9,100);
-    D2UnitStrc* npc=D2GAME_SpawnMonster_6FC69F10(quest->game,found,coords->nX,coords->nY,MONSTER_JERHYN,1,-1,0);
-    if (!npc) npc=D2GAME_SpawnMonster_6FC69F10(quest->game,found,coords->nX,coords->nY,MONSTER_JERHYN,1,2,0);
+    D2UnitStrc* npc=D2GAME_SpawnMonster(quest->game,found,coords->nX,coords->nY,MONSTER_JERHYN,1,-1,0);
+    if (!npc) npc=D2GAME_SpawnMonster(quest->game,found,coords->nX,coords->nY,MONSTER_JERHYN,1,2,0);
     if (npc) {
         npc->dwFlags|=0x03000000;
         ex=quest->ex;
