@@ -30,8 +30,6 @@ struct D2GfxLightStrc;
 
 struct Unicode;
 
-struct D2Vector3FStrc;
-
 struct D2HirelingInfoStrc;
 
 struct D2HirelingTxt;
@@ -67,13 +65,6 @@ struct D2DataTablesStrc;
 struct D2MonStatsInitStrc;
 
 struct D2MonAnimRecStrc;
-
-struct D2Vector3FStrc
-{
-    float fX;
-    float fY;
-    float fZ;
-};
 
 struct D2HirelingInfoStrc
 {
@@ -159,10 +150,6 @@ void __stdcall PATH_FreeDynamicPath(void* pMemPool, D2DynamicPathStrc* pDynamicP
 void __stdcall D2Common_10228(D2UnitStrc* pUnit); // 0x00649F50
 
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
-
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 

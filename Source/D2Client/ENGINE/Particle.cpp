@@ -16,12 +16,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
-struct D2GfxNodeStrc
-{
-    int unk0x00[3];
-    D2GfxNodeStrc* pNext;
-};
-
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0

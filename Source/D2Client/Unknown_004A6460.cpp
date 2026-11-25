@@ -470,20 +470,6 @@ void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* w
 
 
 
-struct D2ClientServiceStrc
-{
-    char unk0x00[0xD0];
-    int (__fastcall* pfnCall)(int nArg1, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
-};
-
-struct D2ClientStringListStrc
-{
-    Unicode* pStrings[6];
-    unsigned short nCount;
-    unsigned char f_1A[4];
-    unsigned char unk0x1E[8];
-};
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 0x00681EB0
@@ -626,8 +612,6 @@ struct D2Record42Strc;
 
 struct D2QuestTextLineStrc;
 
-struct D2QuestTextBufferStrc;
-
 struct D2QuestPanelEntryStrc;
 
 struct D2QuestSlotRectStrc;
@@ -635,8 +619,6 @@ struct D2QuestSlotRectStrc;
 struct D2AiControlStrc;
 
 struct D2AiTickParamStrc;
-
-struct D2HotkeyActionStrc;
 
 struct D2CharStatsTxt;
 
@@ -693,14 +675,6 @@ struct D2QuestTextLineStrc
 {
     unsigned short wLead[9];
     Unicode wszText[300];
-};
-
-struct D2QuestTextBufferStrc
-{
-    unsigned char pHead[0x106];
-    D2QuestTextLineStrc pLines[6];
-
-    D2QuestTextBufferStrc();
 };
 
 
@@ -782,15 +756,6 @@ int __fastcall EXCEPTIONS_ReleaseSymbols(int nArg); // 0x0040C720
 void __fastcall CMDTBL_ResetKeyConfig(int nArg); // 0x00469A60
 
 extern "C" void __cdecl sub_00517ABB(void* pMemory); // 0x00517ABB
-
-struct D2HotkeyActionStrc
-{
-    char unk0x00[0x0A];
-    short nValue0A;
-    char unk0x0C[0x0C];
-    int nState18;
-    int nState1C;
-};
 
 extern "C" int __stdcall sub_00420290_HandleMsg(void* pMessage); // 0x00420290
 
@@ -921,45 +886,6 @@ static int TEXT_IsBelowThumb(int nX, int nY);
 unsigned char gnTextColor; // 0x007C02F8
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
-
-struct ListBoxView;
-
-#pragma pack(push, 2)
-
-struct ListBoxView
-{
-    void* pVtable;
-    int unk0x04;
-    char aLines[0x180700];
-    int nRectX;
-    int nRectY;
-    int nRectWidth;
-    int nRectHeight;
-    int nLineHeight;
-    int bMouseDown;
-    int bTopPressed;
-    int bBottomPressed;
-    int bRowsPressed;
-    int nPressY;
-    int nTopIndex;
-    int nCallbackRow;
-    int nSelectedIndex;
-    int nTextCount;
-    int nArg14;
-    int nArg18;
-    unsigned short nEntryCount;
-    int pfnCallback;
-    int nVisibleRows;
-    int nThumbStart;
-    int nThumbEnd;
-    int nX;
-    int nY;
-
-    void sub_004BE8D0_Refresh();                                                                            // 0x004BE8D0
-    int ClickScrollTrack(SMSGHANDLER_PARAMS* pMsg);
-};
-
-#pragma pack(pop)
 
 static int TEXT_IsOnKeyConfigButton(int nX, int nY);
 
@@ -1103,18 +1029,9 @@ struct D2ActiveRoomStrc;
 
 struct D2StoredUnitRecordStrc;
 
-struct D2NamePacketStrc;
-
 struct D2GSPacketSrv5A;
 
 struct D2SuperUniquesTxt;
-
-struct D2NamePacketStrc
-{
-    unsigned char nHeader;
-    char szName[16];
-    unsigned char nValue[4];
-};
 
 void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
 
@@ -1270,8 +1187,6 @@ void __fastcall NPCMENU_CancelNpcAndFlag(void* pHint); // 0x004B3D10
 
 struct D2MessageListStrc;
 
-struct D2HoverTextPacketStrc;
-
 struct D2QuestTextMsgStrc;
 
 struct D2QuestTextsStrc;
@@ -1281,22 +1196,6 @@ struct D2QuestPageRangeStrc;
 struct D2QuestPosStrc;
 
 struct D2QuestLogStateStrc;
-
-#pragma pack(push, 1)
-
-struct D2HoverTextPacketStrc
-{
-    unsigned char nHeader;
-    unsigned char nType;
-    unsigned int dwUnitId;
-    unsigned char nArg;
-    unsigned char unk0x07;
-    unsigned char nMode;
-    unsigned char unk0x09;
-    unsigned short wStringId;
-};
-
-#pragma pack(pop)
 
 void __fastcall TEXT_ShowTextBox(unsigned short nStringId); // 0x004A1510
 
@@ -1365,21 +1264,10 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg);
 
 int __stdcall TEXT_GetChanceToHit(int nAttackRate);
 
-struct D2PacketRecord6Strc;
-
 struct D2QuestTableStrc;
 
 struct D2UiEntry10Strc;
 
-
-struct D2PacketRecord6Strc
-{
-    unsigned char nHeader;
-    unsigned char nId;
-    unsigned char nFlags;
-    unsigned char nValue;
-    short nParam;
-};
 
 
 
@@ -2792,14 +2680,6 @@ void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 0;
 }
 
-
-struct D2RareAffixTxt
-{
-    char unk0x00[0x0C];
-    unsigned short wStringId;
-    char unk0x0E[0x18];
-    char szName[0x20];
-};
 
 // 0x004A7A80
 extern "C" void __cdecl INV_ClearGoldDialogFlag()

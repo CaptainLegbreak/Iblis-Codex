@@ -141,39 +141,6 @@ int __stdcall SMsgUnregisterMessage(void* hWnd, int nId, SMSGHANDLER pfnHandler)
 
 extern void* ghAccelerators; // 0x007A0708
 
-struct D2UnitOverlayStrc;
-
-struct D2UnitOverlayStrc
-{
-    int nType;
-    int nId;
-    int nValue;
-    char unk0x0C[0x98];
-    D2UnitOverlayStrc* pNext;
-};
-
-struct D2GridCellStrc
-{
-    unsigned char unk0x00[4];
-    unsigned char nValue0;
-    unsigned char nValue1;
-    unsigned char f_6;
-    unsigned char nValue3;
-};
-
-struct D2ChatMessageStrc
-{
-    unsigned char nHeader;
-    unsigned char nType;
-    unsigned char f_2;
-    unsigned char nUnitType;
-    int nUnitId;
-    unsigned char nColor;
-    unsigned char nSubType;
-    char szName[0x10];
-    char szText[0x100];
-};
-
 enum { USE_RESULT = 0 };
 
 class D2SquelchListStrc

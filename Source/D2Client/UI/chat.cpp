@@ -328,17 +328,6 @@ unsigned char gbChatInputOpen; // 0x007BB5E1
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
 
-struct D2GridCellStrc;
-
-struct D2GridCellStrc
-{
-    unsigned int nFlag;
-    unsigned char nValue0;
-    unsigned char nValue1;
-    unsigned char f_6;
-    unsigned char nValue3;
-};
-
 
 
 
@@ -438,14 +427,6 @@ void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 extern int gdwGlobal_007BB5DC; // 0x007BB5DC
 
-
-struct D2RareAffixTxt
-{
-    char unk0x00[0x0C];
-    unsigned short wStringId;
-    char unk0x0E[0x18];
-    char szName[0x20];
-};
 
 extern int gnGlobal_007BB5DC;                                                                               // 0x007BB5DC
 
@@ -1221,35 +1202,6 @@ void __cdecl CHAT_DrawChatPanel()
 
 struct D2GfxLightStrc;
 
-struct D2UnitOverlayStrc;
-
-struct D2UnitOverlayStrc
-{
-    int nType;
-    int nOverlay;
-    int n08;
-    int n0C;
-    int n10;
-    int n14;
-    int n18;
-    int n1C;
-    int n20;
-    int n24;
-    int n28;
-    int unk0x2C;
-    int unk0x30;
-    int n34;
-    int nState;
-    int nActive;
-    union
-    {
-        D2GfxLightStrc* pLight;
-        void* pResource;
-    };
-    char unk0x44[0x60];
-    D2UnitOverlayStrc* pNext;
-};
-
 extern unsigned short gwChatCount_007BB5E4; // 0x007BB5E4
 
 // 0x0047BA80
@@ -1611,14 +1563,6 @@ extern D2OptionEntryStrc gaAutomapModeOptionEntries[]; // 0x0071F728
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
-
-struct D2ClientServiceStrc
-{
-    char unk0x00[0xC8];
-    void (__fastcall* pfnFree)(void* pData, int nSize);
-    int (__fastcall* pfnFind)(char* szName, int* pArg, void** ppData, int* pSize);
-    void (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
-};
 
 
 

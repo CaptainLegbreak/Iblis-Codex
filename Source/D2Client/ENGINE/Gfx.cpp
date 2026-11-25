@@ -244,8 +244,6 @@ struct D2RosterPetStrc;
 
 struct D2RosterUnitStrc;
 
-struct D2Unk004760C0Strc;
-
 struct D2MonStats2Txt;
 
 struct D2GfxBoundsStrc;
@@ -271,13 +269,6 @@ struct D2RosterUnitStrc
     int nYPos;
     char unk0x30[0x50];
     D2RosterUnitStrc* pNext;
-};
-
-struct D2Unk004760C0Strc
-{
-    char unk0x00[0x24];
-    int nUnk0x24;
-    int nUnk0x28;
 };
 
 extern "C" int __cdecl strcmp(const char* szA, const char* szB);
@@ -905,8 +896,6 @@ static D2WeatherStrc* gpWeatherParticles;                                       
 
 struct D2WeatherSplashStrc;
 
-struct D2WeatherLayerStateStrc;
-
 D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -916,11 +905,6 @@ extern int gnBaseWindAngleMax; // 0x007A899C
 extern int gnBaseWindAngleMin; // 0x007A89DC
 
 extern int gbWeatherSplash; // 0x007A8A14
-
-struct D2WeatherLayerStateStrc
-{
-    D2CelFileStrc* pCelFiles[4];
-};
 
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 

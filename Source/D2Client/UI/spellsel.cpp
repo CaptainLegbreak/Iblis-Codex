@@ -238,21 +238,6 @@ int __fastcall SPELLSEL_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
     return 0;
 }
 
-struct D2TextNodeStrc;
-
-struct D2ClientListEntryStrc
-{
-    unsigned char nId[4];
-    unsigned char unk0x04[6];
-};
-
-struct D2TextNodeStrc
-{
-    void* pOwned[6];
-    unsigned char unk0x18[10];
-    unsigned char pNext[4];
-};
-
 void __fastcall sub_004EF990_SetSkillPopUpText(D2UnitStrc* pUnit, int nId, int nA, int nB, int nState, int nX, int nY); // 0x004EF990
 
 // 0x004A8D50
@@ -558,22 +543,6 @@ void __fastcall SPELLSEL_SelectHotkey(int nSlot)
     else
         SKILLS_SetRightActiveSkill(pPlayer, gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
 }
-
-struct D2ClientServiceStrc;
-
-struct D2ClientServiceStrc
-{
-    char unk0x00[0xD0];
-    int (__fastcall* pfnCall)(int nArg1, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
-};
-
-struct D2RareAffixTxt
-{
-    char unk0x00[0x0C];
-    unsigned short wStringId;
-    char unk0x0E[0x18];
-    char szName[0x20];
-};
 
 // 0x004AA0C0
 void __fastcall INV_SetHotkeySkillSlot(int nSlot, int nValueA, int nValueB, int nValueC)
