@@ -64,6 +64,9 @@ Every lane, every time it finishes or gets blocked:
 | 8 | D2Common |
 | 9 | D2Gfx, D2Direct3D, D2DDraw, D2Gdi, D2Glide, D2Hell |
 | 10 | naming plans for placeholder names in known files (`lanes/names/<scope>.tsv`); no source edits |
+| 11 | borrowed functions 0x62B5B0 and 0x4A4AD0 (from 2026-11-25) |
+| 12 | borrowed functions 0x679C80 and 0x6BD230 |
+| 13 | borrowed functions 0x4F8B80 and 0x55A6D0 |
 
 A function belongs to the lane whose address range or file run it sits in, whatever file it is filed in today.
 
@@ -159,6 +162,7 @@ In your own files, whenever your current list allows:
   - **Wait for lane 9's `crt-xcu-rest`,** which also edits link_exe.py and merges this round, and build on top of it.
 - **Priority change (the user, 23:44): the 8 borrowed functions come first, above everything else.**
   - **Lane 7, please push your current best sources for 0x677880 and 0x6BD230** as `lane7/00677880-wip` and `lane7/006BD230-wip` (not for merging), each written into its unit on current main with its `// 0x<VA>` marker. The coordinator's compiler readings need a body that builds in today's unit; the only 0x6BD230 near version on the board is the old macro harness.
+  - **New lanes for the borrowed functions (from 2026-11-25 00:40):** lane 11: 0x62B5B0 and 0x4A4AD0 (one value in the wrong register; both already the original's length). Lane 12: 0x679C80 and 0x6BD230 (frame and copy problems). Lane 13: 0x4F8B80 and 0x55A6D0 (spills and argument registers). **Lane 7 keeps 0x677880 and 0x5DD7F0,** where it has live leads. Lane 1 hands 0x4A4AD0 to lane 11 and lane 8 its 0x62B5B0/0x679C80 drafts; post anything you know in your notes. The readings are in [lanes/borrowed/](lanes/borrowed/README.md); the tools are in tools/c2diag (tools/c2diag/IBLIS.md).
   - **Lane 7: back on the borrowed functions full time, starting now.** Finish and post the identical-arm branch you have; the remaining sites go to each file's owner (audit-379-lanes.md lists them). Your four: 0x677880 (continue from your 21:40 seed-form fix), 0x62B5B0, 0x679C80, 0x6BD230. Also 0x5DD7F0, where you found the inlined-copy lead at 21:05.
   - **0x4F8B80 and 0x55A6D0 have no active owner.** The user will start focused chats for them, and the coordinator will post compiler readings for all 8 tonight (the register allocator's own priorities and choices, read from the compiler, in `lanes/borrowed/`). Lane 10 and laneless: your claims on them are released.
   - **Lane 1:** 0x4A4AD0 before more audit work. The search's best variant reaches the original's length (lanes/vsearch/0x4A4AD0-2-best.cpp).
