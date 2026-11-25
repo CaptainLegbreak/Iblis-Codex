@@ -20,11 +20,6 @@ void __fastcall sub_006009C0(const char* szName, int nIndex); // 0x006009C0
 
 static D2TileRecordStrc* gpTileRecords; // 0x008ADBB4
 
-void __stdcall sub_P11_EmitSetTileRecords(D2TileRecordStrc* pRecords)
-{
-    gpTileRecords = pRecords;
-}
-
 // 0x006008D0
 int __stdcall D2CMPIterateAllTiles(TILEFN pfnTile, void* pArg)
 {

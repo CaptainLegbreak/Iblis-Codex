@@ -332,7 +332,6 @@ int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, uns
 
 void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT* pRect, unsigned char nColor);                     // 0x00512D90
 
-void __fastcall DDSMACK_CloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
 
 // 0x00510020
 int __fastcall DDCORE_Detect(void* hInstance)

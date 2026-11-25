@@ -12,7 +12,6 @@ struct D2Direct3DVtbl006B7110Strc;
 
 struct D2CelFileStrc;
 
-void __fastcall D3DCORE_SetAlphaBlendMode(int mode); // 0x006B1F40
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
@@ -45,7 +44,6 @@ void __stdcall CelSetHardwareFreeCallback(PixelDataFreeCallback pfnCallback); //
 
 int __fastcall D3DCORE_CreateMemoryTexture(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
 
-void __fastcall D3DCORE_ShowD3DError(const char* szText, long nResult); // 0x006B39B0
 
 void __fastcall D3DSPRITE_ClearResourceEntries(void* pData); // 0x006B5BB0
 
@@ -123,7 +121,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 void __stdcall CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
 
-void __fastcall D3DCORE_BlitIndexedToHighColor(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
 
 void __fastcall D3DCORE_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
 
@@ -173,13 +170,10 @@ int __stdcall CelGetOffsetY(D2CelStrc* cel); // 0x00601950
 
 int* __stdcall sub_00601B10_GetCelTextureSlots(D2CelStrc* cel); // 0x00601B10
 
-void __fastcall D3DCORE_SetColorCombineMode(int nState); // 0x006B1EA0
 
-void __fastcall D3DCORE_SetTextureFilterMode(int nMode); // 0x006B2030
 
 void __fastcall sub_006B9780_SetColor(D2TLVertexStrc* pVertex, unsigned int nPacked, unsigned char nAlpha); // 0x006B9780
 
-int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 
 static int __stdcall D3DSPRITE_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, unsigned char nColor); // 0x006B5D40
 
@@ -223,7 +217,6 @@ extern const char gszEmptyString[]; // 0x006CC837
 
 static int __stdcall D3DSPRITE_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds, D2ClipStrc* pClip); // 0x006B6D70
 
-int __cdecl sub_006B77A0_GetBlendedShadows(); // 0x006B77A0
 
 void __fastcall D3DSPRITE_DrawSpriteRows(D2CelContextStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nBlendMode); // 0x006B6C90
 

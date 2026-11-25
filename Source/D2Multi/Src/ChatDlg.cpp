@@ -2964,19 +2964,6 @@ static void CHATDLG_PushHistory(const char* szText)
         gnHistoryCount = 10;
 }
 
-void __fastcall sub_A09_Emit_004423B0(char* szText)
-{
-    CHATDLG_PushHistory(szText);
-    if (!CHATDLG_CompareCommand(szText, "/ignore "))
-        return;
-    if (!CHATDLG_CompareCommand(szText, "/filtermsg "))
-    {
-        char szArg[0x104];
-        CHATDLG_GetArgument(0x104, szArg, szText);
-        sub_A09_Use(szArg);
-    }
-}
-
 int __stdcall CONTROL_SetCellFile(D2WinControlStrc* pControl, D2CelFileStrc* pCellFile);                          // 0x004F91A0
 
 // 0x0043F560
@@ -5702,7 +5689,7 @@ void __cdecl CHATDLG_CreateProfileControls()
 }
 
 // 0x00443E10
-__declspec(noinline) void __cdecl CHATDLG_DestroyProfileControls()
+void __cdecl CHATDLG_DestroyProfileControls()
 {
     if (gnSubmitMode)
     {

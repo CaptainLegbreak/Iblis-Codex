@@ -9,7 +9,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-int __fastcall GDICORE_GetSetting(unsigned int nSelector, int* pValue); // 0x006C8250
 
 static inline int sub_006C8A60_Clip(int nValue, int nSize)
 {
@@ -453,7 +452,6 @@ extern unsigned char* gpSurfaceBits_007C9154;                                   
 
 
 int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int bAsync, int nFlags); // 0x005FDEA0
-int __cdecl sub_006C8A50_GetBlendedShadows(); // 0x006C8A50
 extern int gnRenderHeight; // 0x007C913C
 
 // 0x006C9290

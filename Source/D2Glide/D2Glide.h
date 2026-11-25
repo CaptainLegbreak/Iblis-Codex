@@ -90,3 +90,24 @@ struct D2GlideTexDimsStrc
 };
 
 #include "D2Win32Types.h"
+
+struct D2GlideFloorCacheStrc;
+struct D2GlideFloorCacheEntryStrc;
+struct D2TileLibraryEntryStrc;
+struct D2GlideSpriteVertexStrc;
+
+unsigned int __fastcall GLCORE_GetPaletteColor(int nPaletteIndex); // 0x005093F0
+void __fastcall GLCORE_SetAlphaBlendMode(int nMode); // 0x00509500
+void __fastcall GLCORE_SetColorCombineMode(int nState); // 0x005094B0
+void __fastcall GLCORE_SetTextureCombineMode(int nTmu); // 0x00509460
+void __fastcall GLCORE_SetTextureFilterMode(int nMode); // 0x005095D0
+void __fastcall GLSMACK_FloorCacheEvict(D2GlideFloorCacheStrc* pCache); // 0x0050F6D0
+D2GlideFloorCacheEntryStrc* __fastcall GLSMACK_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F570
+void __stdcall GLVERTEX_DecodeTileBlocks(D2TileLibraryEntryStrc* pTile, unsigned char* pDst); // 0x0050F980
+int __cdecl GLVERTEX_IsPerspective(); // 0x0050DD30
+void __fastcall GLVERTEX_SetAmbientColor(int nRed, int nGreen, int nBlue); // 0x0050DBC0
+void __fastcall GLVERTEX_SetVertexColor(D2GlideSpriteVertexStrc* pVertex, unsigned int dwColor); // 0x0050DC30
+void __cdecl sub_0050BE20_GlideDebugRefresh(); // 0x0050BE20
+void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x0050BF50
+int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, unsigned char nShade, int nScreenPanels); // 0x0050C890
+int __fastcall sub_0050CA00_GlideShadowTileDrawPerspective(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels); // 0x0050CA00

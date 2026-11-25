@@ -3346,12 +3346,6 @@ static void MAINMENUS_SetModeFlags(char nMode)
     }
 }
 
-void __cdecl sub_I03_Emit_00431E70(char nMode)
-{
-    MAINMENUS_SetModeFlags(gnTextSentinel);
-    MAINMENUS_SetModeFlags(nMode);
-}
-
 // 0x00431F50
 int __stdcall sub_00431F50_OnCancel(int nArg)
 {
@@ -5592,11 +5586,5 @@ int __stdcall MAINMENUS_OnRealmListClick(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // build: symbol ?gszFormatD@* 0x006D57BC
-
-void __fastcall sub_J02_EmitLaunchVideoPath(char* szOut, const char* szFormat, const char* szFile)
-{
-    MAINMENUS_BuildLocalizedVideoPath(szOut, szFormat, szFile);
-    MAINMENUS_BuildLocalizedVideoPath(szOut + 1, szFormat, szFile);
-}
 
 #include "gen/data/Source/D2Launch/Src/MainMenus.inc"

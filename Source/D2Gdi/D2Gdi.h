@@ -73,3 +73,6 @@ struct D2LogPalette006C7C10Strc
     unsigned short palNumEntries;
     D2PaletteEntry006C7C10Strc palPalEntry[256];
 };
+
+int __fastcall GDICORE_GetSetting(unsigned int nSelector, int* pValue); // 0x006C8250
+int __cdecl sub_006C8A50_GetBlendedShadows(); // 0x006C8A50

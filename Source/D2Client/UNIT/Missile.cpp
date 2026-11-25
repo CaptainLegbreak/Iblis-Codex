@@ -1388,7 +1388,6 @@ void* __fastcall UNITSND_GetLinkFirst(D2UnitStrc* pUnit); // 0x004CA990
 
 struct D2GfxEntryStrc;
 
-struct D2CltMissileSpawnArgStrc;
 
 extern D2DrlgActStrc* gpAct; // 0x007A0634
 
@@ -1413,16 +1412,6 @@ void __fastcall PLRSKILLS_SkillSeqDoBackward(D2UnitStrc* pUnit, int nArg); // 0x
 D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
 
 D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
-
-struct D2CltMissileSpawnArgStrc
-{
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    int nSkill;
-    int nSkillLevel;
-    int nMaxCount;
-    int nMissile;
-};
 
 int __fastcall MISSILE_RollRange(D2SeedStrc* pSeed, int nMin, int nMax); // 0x004CC790
 

@@ -182,7 +182,6 @@ struct D2DataTablesStrc;
 
 struct D2FileTimeStrc;
 
-struct D2StormSlotLink00530600Strc;
 
 
 extern char gData_00882028[]; // 0x00882028
@@ -379,19 +378,6 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 
-struct D2StormOwnedLinkStrc : D2StormLinkStrc
-{
-    D2StormOwnedLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-    ~D2StormOwnedLinkStrc()
-    {
-        Unlink();
-    }
-};
-
 
 extern unsigned short gwValue_0077905C;
 
@@ -512,18 +498,6 @@ int __fastcall CLIENTS_GetFlags(D2ClientStrc*); // 0x00538640
 void __fastcall CLIENTS_GetGuildEmblem(D2ClientStrc*, unsigned char*, unsigned char*, unsigned char*); // 0x00539190
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*, int, int); // 0x006253B0
-
-struct D2StormSlotLink00530600Strc
-{
-    D2StormSlotLink00530600Strc* m_prevlink;
-    char* m_next;
-
-    inline char* Next()
-    {
-        char* const pNext = (int)m_next <= 0 ? 0 : m_next;
-        return pNext;
-    }
-};
 
 
 int gdwGlobal_00882D14; // 0x00882D14

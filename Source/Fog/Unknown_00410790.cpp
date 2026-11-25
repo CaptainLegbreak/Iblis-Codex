@@ -10,15 +10,6 @@
 
 struct D2CriticalSectionStrc;
 
-struct D2LogMsgListStrc;
-
-struct D2LogMsgListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags); // 0x0040FF40
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -139,26 +130,6 @@ static int BNSEND_HexToNibble(char cChar)
 static int BNSEND_MapKeyChar(unsigned char cChar)
 {
     return gacCDKeyMap[cChar];
-}
-
-long __stdcall sub_M106_Emit_0051DC70(long* pTime)
-{
-    return BNDOWNLOAD_GetTime(pTime);
-}
-
-unsigned int __stdcall sub_M106_Emit_0051DD10(int n)
-{
-    return BNSEND_NibbleToHex(tolower(n)) + BNSEND_NibbleToHex(tolower(n + 1));
-}
-
-int __stdcall sub_M106_Emit_0051DD20(int n)
-{
-    return BNSEND_HexToNibble((char)tolower(n)) * 16 + BNSEND_HexToNibble((char)tolower(n + 1));
-}
-
-int __stdcall sub_M106_Emit_0051DD40(int n)
-{
-    return BNSEND_MapKeyChar((unsigned char)tolower(n)) * 24 + BNSEND_MapKeyChar((unsigned char)tolower(n + 1));
 }
 
 // 0x00410B10

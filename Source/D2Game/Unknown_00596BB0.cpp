@@ -97,11 +97,6 @@ void __fastcall sub_00596C40_InitQuestCallbacks(D2QuestData00596C40Strc* pQuestD
     pQuestData->pfActiveFilterEC = (void*)ACT1Q7_ActiveFilterCallback;
 }
 
-bool __fastcall ACT3Q7_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    return false;
-}
+bool __fastcall ACT3Q7_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
 
-void __cdecl sub_005BDB10_Return()
-{
-}
+void __cdecl sub_005BDB10_Return();

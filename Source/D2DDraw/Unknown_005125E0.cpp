@@ -140,7 +140,6 @@ void __fastcall sub_00512ED0_ClearScreen(int bPartial)
     }
 }
 
-int __cdecl DDCORE_GetBlendedShadows(); // 0x00512700
 
 // 0x00512F90
 int __fastcall sub_00512F90_DrawWallTile(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, void* pLight, int nScreenPanels)

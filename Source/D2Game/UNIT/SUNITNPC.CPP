@@ -63,7 +63,6 @@ struct D2UnitStrc;
 
 struct D2PlayerDataStrc;
 
-struct D2MonsterItemCodeStrc;
 
 struct D2StaticPathStrc;
 
@@ -75,12 +74,6 @@ union D2SeedStrc;
 
 
 struct D2NpcVendorChainStrc;
-
-struct D2MonsterItemCodeStrc
-{
-    unsigned int nItemCode;
-    unsigned char nBodyLoc;
-};
 
 extern "C" const char gszNpcSourceFile[]; // 0x006E15F0
 

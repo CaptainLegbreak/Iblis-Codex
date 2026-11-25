@@ -162,10 +162,6 @@ int __fastcall GLDEBUGFONT_DownloadDebugFont(int nStartAddress, int nAlignment)
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, char* args); // 0x006CC4AC
 extern void (__stdcall* gpfnGrTexSource)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
 extern void (__stdcall* gpfnGrDrawVertexArrayContiguous)(int nMode, int nCount, void* pVertices, int nStride); // 0x0087EAC4
-void __fastcall GLCORE_SetColorCombineMode(int nState); // 0x005094B0
-void __fastcall GLCORE_SetAlphaBlendMode(int nMode); // 0x00509500
-void __fastcall GLCORE_SetTextureFilterMode(int nMode); // 0x005095D0
-void __fastcall GLCORE_SetTextureCombineMode(int nTmu); // 0x00509460
 struct D2GlideVtxStrc { float x; float y; float z; float oow; float sow; float tow; unsigned int color; };
 int gaGlideDebugFontCharWidths[96]; // 0x008802C8
 

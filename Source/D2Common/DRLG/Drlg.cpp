@@ -90,7 +90,6 @@ struct D2LevelDefBin;
 
 struct D2DrlgOrthStrc;
 
-struct D2DrlgTableEntryStrc;
 
 union D2SeedStrc;
 
@@ -175,11 +174,6 @@ extern "C" int __stdcall DRLG_FreeInactiveVisRoomTiles(Level*); // 0x00643060
 typedef unsigned int size_t;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
-
-struct D2DrlgTableEntryStrc
-{
-    char unk0x00[0x38];
-};
 
 extern const int gnTileTypeMappingTable[]; // 0x006EEF20
 

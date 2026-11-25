@@ -13,14 +13,6 @@ struct D2CriticalSectionStrc;
 struct D2SLogStrc;
 struct D2Field14Strc;
 struct D2UnitStrc;
-struct D2StormByteArrayStrc;
-struct D2StormFixedArrayAStrc;
-struct D2StormFixedArrayBStrc;
-struct D2StormFixedUIntArrayStrc;
-struct D2StormFixedUCharArrayStrc;
-struct D2StormGrowUIntArrayStrc;
-struct D2StormGrowUCharArrayStrc;
-struct D2StormArrayBStrc;
 struct D2StormNodeListStrc
 {
     int nLinkOffset;
@@ -76,91 +68,6 @@ public:
 
 typedef int (__stdcall* SMSGHANDLER)(void* pParams);
 
-struct D2StormByteArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    char* m_data;
-    unsigned int m_chunk;
-
-    char* sub_00421010_Ptr();
-};
-
-struct D2StormFixedArrayAStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    unsigned int* m_data;
-
-    unsigned int* sub_00421150_Ptr();
-};
-
-struct D2StormFixedArrayBStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    unsigned char* m_data;
-
-    unsigned char* sub_004215B0_Ptr();
-};
-
-struct D2StormFixedUIntArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    unsigned int* m_data;
-
-    ~D2StormFixedUIntArrayStrc();
-};
-
-struct D2StormFixedUCharArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    unsigned char* m_data;
-
-    ~D2StormFixedUCharArrayStrc();
-};
-
-struct D2StormGrowUIntArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    unsigned int* m_data;
-    unsigned int m_chunk;
-
-    ~D2StormGrowUIntArrayStrc();
-};
-
-struct D2StormGrowUCharArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    unsigned char* m_data;
-    unsigned int m_chunk;
-
-    ~D2StormGrowUCharArrayStrc();
-};
-
-struct D2StormArrayBStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    unsigned char* m_data;
-    unsigned int m_chunk;
-
-    static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
-    {
-        unsigned int nRemainder = nValue % nAlign;
-        if (nRemainder)
-            nValue += nAlign - nRemainder;
-        return nValue;
-    }
-    unsigned int sub_00421160_CalcChunkSize(unsigned int nCount);                                           // 0x00421160
-    void sub_004211C0_ReallocData(unsigned int nAlloc);                                                     // 0x004211C0
-    unsigned char* sub_00421930_New();
-};
-
 #include "D2StormBigBuffer.h"
 
 // 0x0041F6A0
@@ -190,11 +97,6 @@ static inline int MONSTERMODE_IsActionFrame(D2UnitStrc* pUnit)
     if (pUnit && pUnit->dwAnimMode == 14)
         return (pUnit->dwFlags >> 6) & 1;
     return pUnit->nActionFrame == 1;
-}
-
-void __fastcall sub_M111_Emit_005A64F0(D2UnitStrc* pUnit, int* pResult)
-{
-    *pResult = MONSTERMODE_IsActionFrame(pUnit) + 1;
 }
 
 // build: symbol ?BigIsEven@* 0x00421440

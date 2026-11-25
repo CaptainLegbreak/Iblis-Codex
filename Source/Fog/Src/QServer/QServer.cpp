@@ -936,11 +936,6 @@ static int QSERVER_ExpireNodes(D2QueueServerStrc* pServer)
     return 1;
 }
 
-int __stdcall sub_Emit_006BF260(D2QueueServerStrc* pServer)
-{
-    return QSERVER_ExpireNodes(pServer) + 1;
-}
-
 // 0x006BF320
 static void QSERVER_FreePending(D2QueueServerStrc* pServer)
 {
@@ -1520,16 +1515,6 @@ static int __stdcall QSERVER_AccountTraffic(D2QueueServerStrc* pTable, unsigned 
     }
 
     return 1;
-}
-
-unsigned int __stdcall sub_E4F1_Emit_006C00A0(D2QueueServerStrc* pTable, D2QClientStrc* pClient, unsigned int nBytes)
-{
-    if (QSERVER_AccountTraffic(pTable, nBytes, pClient))
-    {
-        return 0;
-    }
-
-    return pClient->nAddress;
 }
 
 // 0x006C0140
