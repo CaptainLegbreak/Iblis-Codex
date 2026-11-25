@@ -1,6 +1,7 @@
 #include "D2LanguageNames.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2ClientGame.h"
 #include "D2Unicode.h"
@@ -25,15 +26,12 @@ int __fastcall sub_004DF900_GetSoundPosition(void* pSound);                     
 
 void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount);               // 0x004B9EF0
 
-int __cdecl sub_004817F0();                                                                                 // 0x004817F0
 
-int __cdecl sub_00481800();                                                                                 // 0x00481800
 
 extern "C" { int gnSoundSerial; }                                                                  // 0x007C5460
 
 void __fastcall SOUNDINST_SetValue(int nKey, int nValue); // 0x004B9B50
 
-int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
 
 
 #pragma pack(push, 1)
@@ -65,17 +63,12 @@ struct D2ClientSoundStrc
 
 #pragma pack(pop)
 
-int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
-int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 unsigned int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
 
-D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 
-D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 
 float __fastcall SOUNDHDR_GetFalloffRange(int nSoundId); // 0x00482610
 
@@ -93,7 +86,6 @@ void* __fastcall sub_004E01B0(D2ClientSoundStrc* pSound); // 0x004E01B0
 
 extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 
-float __stdcall GFXUTIL_VectorLengthSquared(float fX, float fY); // 0x004E4160
 
 int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
 

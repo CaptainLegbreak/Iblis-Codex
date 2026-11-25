@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Primitives.h"
 #include "D2CelContext.h"
 #include "D2Unicode.h"
@@ -27,7 +28,6 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);        
 int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags();                                                           // 0x004B32D0
-int __stdcall INV_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc);                   // 0x00526700
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);            // 0x005267E0
@@ -56,14 +56,6 @@ static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg);                      
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
-int __cdecl CUNIT_IsPlayerDeadOrMissing();                                                                                 // 0x00463DF0
-int __cdecl sub_00468730();                                                                                 // 0x00468730
-int __cdecl sub_00468740();                                                                                 // 0x00468740
-void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
-void __cdecl QUESTLOG_LoadQuestPanelCels();                                                                  // 0x004A23D0
-int __stdcall QUESTLOG_OpenQuestPanel(int nArg);                                                             // 0x004A26B0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                   // 0x004B9A00
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                      // 0x00501820
@@ -94,14 +86,11 @@ static void TEXT_SetQuestPage(int nPageArg); // 0x004A2220
 
 extern D2QuestSlotRectStrc gaQuestSlots[]; // 0x00723EB0
 
-void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, int bSound); // 0x004A1320
 
 
 #define SOUND_ID 4
 
-void __cdecl GAME_RequestExit(); // 0x0044D520
 
-void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor); // 0x0049E3A0
 
@@ -113,13 +102,10 @@ extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
 
 void __cdecl INV_ChainCinematic(); // 0x00483340
 
-void __cdecl GAME_SetDifficultyFlags(); // 0x0044EC80
 
 void __cdecl INV_StopCinematic(); // 0x00483300
 
-void __fastcall GAME_SetPlayCinematic(int nValue); // 0x0044D530
 
-void __fastcall sub_0046BFD0_StartTimer(int nDelay); // 0x0046BFD0
 
 extern D2QuestUiFlagsStrc gtQuestUiFlags_007BF2B3; // 0x007BF2B3
 
@@ -582,7 +568,6 @@ static void TEXT_SetQuestPage(int nPageArg)
 
 
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 
 
@@ -869,7 +854,6 @@ static int __stdcall TEXT_GetQuestTabAtPoint(int nY, int nX)
 
 void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
 
-int __fastcall QUESTLOG_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
 
 struct D2QuestPanelEntryStrc;
 
@@ -990,14 +974,12 @@ void __cdecl QUESTLOG_ResetQuestButton()
 
 extern int gnScreenWidth; // 0x0071146C
 
-int __stdcall QUESTLOG_IsMouseOnQuestButton(int nX, int nY); // 0x004A2970
 
 struct D2ButtonLayoutStrc;
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
 
 // build: symbol ??__EgaButtonLayouts@@YAXXZ 0x006CAC30
 D2ButtonLayoutStrc gaButtonLayouts[4] = // 0x007241C0
@@ -1440,7 +1422,6 @@ char __cdecl QUESTLOG_HasQuestPacketValue()
 
 char gbGlobal_007C0260; // 0x007C0260
 
-D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x004639B0
 
 extern unsigned int gnQuestUnitId; // 0x007C0261
 
@@ -2045,15 +2026,11 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 
-unsigned char __cdecl INV_IsCinematicBusy(); // 0x00483350
 
-int __cdecl TEXT_Forward(); // 0x004A1760
 
 void __stdcall sub_004A3220(int nPage, int nArg);
 
-void __fastcall MSG_SendHeaderOnly(char nValue); // 0x00478590
 
-void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040

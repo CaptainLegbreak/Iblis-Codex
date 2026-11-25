@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2CelContext.h"
 #include "D2ClientTypes.h"
 #include "D2ClientUi.h"
@@ -51,9 +52,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
 
 int __fastcall sub_0047F190_IsInMiniPanelRect(int nX, int nY); // 0x0047F190
 
@@ -110,16 +109,13 @@ static void __cdecl sub_004B7100_Select(SelectionState* state, int step); // 0x0
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); // 0x00681EF0
 
-void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
-void __fastcall CUNIT_SetDialogState(int nState); // 0x004898D0
 
-void __cdecl DIALOG_LoadDialogHotkeys(); // 0x004B7C60
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
@@ -133,9 +129,7 @@ extern "C" int __stdcall sub_00420290_QueueMessage(Message*); // 0x00420290
 
 extern "C" int __fastcall sub_004B9A00_Notify(int, void*, int, int, int); // 0x004B9A00
 
-unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB);                                                     // 0x00469AA0
 
-int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB);                                                                // 0x00469D90
 
 void __stdcall ROSTERPETS_HandleDialogEscape(SMSGHANDLER_PARAMS* pMsg);                                     // 0x004B76D0
 

@@ -1,5 +1,4 @@
 #include "D2Client.h"
-#include "D2ClientFuncs.h"
 #include "FogApi.h"
 #include "StormApi.h"
 #include "FogApi.h"
@@ -40,6 +39,7 @@ extern "C" size_t __cdecl fread(void* pBuffer, size_t nSize, size_t nCount, _iob
 
 
 
+void __fastcall MSG_ShowProgressSteps(int nDone, int nTotal); // 0x00478160
 
 extern char gszClientCharName[]; // 0x007A05C4
 
@@ -190,6 +190,7 @@ void __fastcall MSG_SetProgress(int nValue, int nDivisor)
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long nMilliseconds); // 0x006CC258
 
+void __fastcall UI_DrawLoadingScreen(int nArg); // 0x004565E0
 
 // 0x00478160
 void __fastcall MSG_ShowProgressSteps(int nDone, int nTotal)

@@ -2,6 +2,7 @@
 #include "D2GameTypes.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -11,11 +12,9 @@ struct D2CharStatsTxt;
 struct D2GameStrc;
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
-int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 int __fastcall CUNIT_ValidateMonsterId(int nMonsterId); // 0x00463900
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClass); // 0x004833E0
-int __fastcall SKILLS_GetFirstSkillParam(int nSkillId); // 0x004C9460
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*, D2UnitStrc*); // 0x00553540
 void __fastcall SUNIT_SetCombatMode(D2GameStrc*, D2UnitStrc*, int); // 0x00553570
 int __fastcall SKILLS_StartBasicAttack(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x0056E230
@@ -53,7 +52,6 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId) {
 }
 
 void __stdcall SKILLS_SetParam3(D2SkillStrc*,int); // 0x006445E0
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc*); // 0x004648F0
 int __fastcall SKILLS_RaiseTargetUnitEvent(D2UnitStrc*,D2UnitStrc*); // 0x004C7630
 int __fastcall SKILLDESC_GetMonSkillSound(D2UnitStrc*,int); // 0x004F4F40

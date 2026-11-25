@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Drlg.h"
 #include "D2Unicode.h"
 #include "D2Structs.h"
@@ -39,7 +40,6 @@ extern "C" const char gszShowItems[]; // 0x006DAB64
 
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
@@ -54,7 +54,6 @@ int __stdcall SCALE_CheckPerspectivePosition(int,int); // 0x004F66E0
 
 void __stdcall SCALE_AdjustPerspectivePosition(int,int,int,int*,int*); // 0x004F6760
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
 
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc*); // 0x00620650
 
@@ -72,7 +71,6 @@ void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc*); // 0x00467A70
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode*,int,int,int,int); // 0x00502280
 
-void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
 
@@ -120,9 +118,7 @@ static inline void sub_004C0640_ClampToScreen(int* pLeft, int* pTop, int* pRight
 
 void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
-void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 
-void __cdecl GAME_RequestExit(); // 0x0044D520
 
 // 0x004C0640
 int __fastcall SHOWITEMS_ClampRectToScreen(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMode, int nMaxX, int nMinX)

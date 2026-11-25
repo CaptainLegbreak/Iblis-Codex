@@ -1,6 +1,7 @@
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2ClientUi.h"
 #include "D2TxtItems.h"
 #include "D2Structs.h"
@@ -99,17 +100,12 @@ void __fastcall AUTOMAP_SetUnitFlag(D2UnitStrc* pUnit, int nArg, int nValue);   
 
 void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, int nCount);               // 0x0046C320
 
-void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x0046F0C0
 
-char __fastcall OBJECT_RunClientFunction(D2UnitStrc* pUnit); // 0x004BDEE0
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-void __fastcall CUNIT_FreeLight(D2UnitStrc* pUnit);                                                  // 0x00464930
 
-void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
-void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg);                                          // 0x00470610
 
 D2GfxLightStrc* __fastcall DLIGHTMAP_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 
@@ -117,7 +113,6 @@ void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius);              
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
 
-void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit);                                                            // 0x004CB460
 
 
 int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char nAct);                                          // 0x0061AB70
@@ -146,7 +141,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                             
 
 typedef char (__fastcall* D2ObjectClientFn)(D2UnitStrc* pUnit);
 
-void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit);                                                // 0x0046EC10
 
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);                                              // 0x0064C370
 
@@ -183,7 +177,6 @@ struct D2MissileStrc;
 // build: symbol _gszUnitSourceFile 0x006DAA8C
 extern "C" const char gszUnitSourceFile[];
 
-void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit); // 0x004CB460
 
 int __stdcall sub_00621B00_IsShrine(D2UnitStrc* pUnit);
 
@@ -193,7 +186,6 @@ extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned in
 
 extern "C" char* __cdecl _strrev(char* szString); // 0x00687860
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 void __fastcall UNITMODE_DoUnitAction(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00481030
 
@@ -203,7 +195,6 @@ void __cdecl QUESTLOG_LoadAncientsCofsOnce(); // 0x004A30C0
 
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 
-int __fastcall OBJECTS_RollRandomNumber(D2SeedStrc* pSeed, int nMin, int nMax); // 0x004BC500
 
 int __fastcall OBJECT_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh); // 0x004BC5E0
 
@@ -244,7 +235,6 @@ static void OBJECT_InitShrine(D2UnitStrc* pUnit); // 0x004BD650
 
 void __fastcall OBJECT_SetShrine(D2UnitStrc* pUnit); // 0x004BD6B0
 
-void __fastcall OBJECT_HandleObjectCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004BD6D0
 
 void __fastcall OBJECT_UpdateObject(D2UnitStrc* pUnit); // 0x004BDFF0
 

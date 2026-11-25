@@ -1,5 +1,6 @@
 #include "D2LanguageNames.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2CelContext.h"
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
@@ -198,8 +199,6 @@ public:
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-int __cdecl sub_00468730(); // 0x00468730
-int __cdecl sub_00468740(); // 0x00468740
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
