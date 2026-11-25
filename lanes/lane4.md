@@ -18,10 +18,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 07:55 PST 2026: audit-decls-d2client merged in #400. Starting the second pass (functions declared with several spellings).
+- Wed Nov 25 08:30 PST 2026: audit-decls-d2client merged in #400. audit-decls-d2client-2 (second pass) posted. Third pass next: declarations that differ in a type or linkage.
 
 ## Ready
 
+- lane4/audit-decls-d2client-2 a380d9145 (on #400): audit item 4, second pass. 44 more functions of 0x440000-0x49FFFF whose declarations in my range's files differed only in parameter names (same types and linkage: CLIENTS_GetUnitX/Y, CUNIT_GetPathTargetUnit, GAME_GetUnitGUID, CUNIT_GetOwnerUnit, UNITS_GetMonStats2TxtRecordFromMonsterId …) go into D2ClientFuncs.h as their definitions spell them; 166 private copies in 41 files go. Only my range's files are touched. Declarations that differ in a type or in linkage (UI_SetUIVar, CUNIT_FindClientUnit, GAME_IsExpansion, MSG_SendTwoDwords …) stay private for a third pass. All 139 D2Client.h includers all equal; audit guard: no count rose. Full build: Game.exe identical, tree 634f3f2ce6b2175f29626c0d305bcf859e198661, borrowed code / data 10,018 / 261 B.
 
 ## Claimed
 
