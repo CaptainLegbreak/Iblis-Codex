@@ -60,7 +60,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- `lane7/004A4AD0` ac4a65c9f (on #398): **borrowed function 0x4A4AD0 from source** (sub_004A4AD0_Press in D2Client/Unknown_004A43E0.cpp; stand-in deleted; units.json/functions.json updated). TEXT_ScrollKeyConfigList (0x4A4500) in the same file changes spelling (an `if` in place of the conditional expression) and stays equal. VERIFIED tree 84b08e5c, Game.exe identical, 0 not all equal, auditguard: no count rose. Borrowed code 11,250 -> 10,018 B in 7 functions. The file is lane 1's (D2Client key config).
+(none)
 
 
 ## Questions
