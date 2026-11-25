@@ -1983,33 +1983,6 @@ bool __fastcall ERRORMANAGER_CreateDirectoryWide(wchar_t* wszPath)
     return CreateDirectoryW(wszPath, 0) != 0;
 }
 
-// 0x00405570
-int __stdcall GetCmdIndex(const char* s)
-{
-    for (size_t i = 0; i < ARRAY_SIZE(gaCmdArguments); i++)
-    {
-        if (0 == strcmp(gaCmdArguments[i].szCommand, s))
-        {
-            return (int)i;
-        }
-    }
-    return -1;
-}
-
-// 0x004055D0
-int __fastcall ERRORMANAGER_IsCmdSeparator(char c)
-{
-    const char aSeparators[4] = { ' ', '\t', '\n', ':' };
-    for (int i = 0; i < 4; i++)
-    {
-        if (aSeparators[i] == c)
-        {
-            return 1;
-        }
-    }
-    return 0;
-}
-
 // 0x00407360
 D2FogSystemInfoStrc* __cdecl FOG_GetSystemInfo()
 {
