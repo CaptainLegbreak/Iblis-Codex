@@ -18,11 +18,10 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 02:10 PST 2026: placeholder-joins merged in #387. language-copies posted on #388. Every other placeholder left in my range starts with its own language copy (a separate object waiting for a name) or is parked below.
+- Wed Nov 25 02:40 PST 2026: language-copies merged in #390. Working on the declaration move (audit item 4) for my D2Client files, with lane 1.
 
 ## Ready
 
-- lane4/language-copies 4aed2f1d0 (on #388): five D2Client placeholders take their language table copy from D2LanguageNames.h with a static data marker (Unknown_0044BA20, Unknown_00451E70, Unknown_00460420, Unknown_0047A980, Unknown_0049BB40); in each the copy is the unit's first data and the rest follows without a gap, so its plan record goes. Borrowed data unchanged (the five copies place from source). Full build: Game.exe identical, tree 8de01c0cd199975c0fe2e550e929234b2ef26dcc, borrowed code / data 11,250 / 261 B.
 
 ## Claimed
 
