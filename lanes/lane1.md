@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Tue Nov 24 22:06:27 PST 2026: audit-params ready (decompiler parameter names and the U8/U16/U32 aliases from audit-379.md). audit-names is still waiting; the two don't conflict.
 - Tue Nov 24 21:36:30 PST 2026: audit-names ready (labels and T<address> structs from audit-379.md, names only).
 - Tue Nov 24 21:28:19 PST 2026: check-in. Ready: nothing (skillsbar-head-3 went in with #379, so -4 is dropped). Working on the forcing constructs and 0x4A4AD0.
 - Tue Nov 24 21:16:23 PST 2026: #378 took sprayfn-2 and statdesc-object (dropped from Ready, and my -3 copies with them). skillsbar-head is rebased on #378 as skillsbar-head-4 7b95c126f (full build: 0 not all equal, Game.exe identical, borrowed data 281 B, as main), as the coordinator asked.
@@ -15,6 +16,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
+- lane1/audit-params 74a7ae80a (on #380) 0->0: names only. D2Common_10216's flag `a4` -> bSetBothDirections (it sets nDirection and nNewDirection together instead of calling PATH_SetNewDirection); SKILLS_GetMin/MaxElemDamage's `a4` -> bApplyMastery (gates SKILLS_CalculateMasteryBonus); SKILLS_GetMin/MaxPhysDamage's `a4` -> bAddWeaponDamage (gates the weapon damage for SrcDam skills). Definitions in D2Common Path.cpp/Skills.cpp and every prototype in D2Client, D2Game and D2Common (38 files). D2Client Particle.cpp's U8/U32 typedefs go and U8/U16/U32 are written as the plain types there and in Unknown_004B8720.cpp, SkillDesc_004E1FF0.cpp, Unknown_004D9FC0.cpp, PlrSkills.cpp. Full build: 0 not all equal, Game.exe identical, borrowed data 281 B, as main; VERIFIED f55e96e20a8941611659a01f8efc033fe757119d.
 - lane1/audit-names cec43ff8e (on #379) 0->0: from audit-379.md, names only. The decompiler labels LABEL_20/LABEL_22 in D2Common Unknown_00679380.cpp and Unknown_0067B9C0.cpp become ADD_LAST_POINT/STORE_POINT_COUNT, D2Direct3D Unknown_006BBBF0.cpp's LABEL_FAIL becomes FAIL; the T<address> structs T0045FED0 (D2Client dialog.cpp, RosterPets.cpp) -> D2DialogTimerStrc, T00642010 (D2Common Drlg.cpp) -> DrlgAuxNode, T00648730 (D2Common Path.cpp) -> RoomStatusNode. That leaves D2Game PlrSave2.cpp's T0056A6F0 (lane 5, not touched). Owners FYI (lanes 8, 9; the user cleared this session for other lanes' files). Full build: 0 not all equal, Game.exe identical, borrowed data 281 B, as main; VERIFIED 8df14de9992cf93930def2fc219e3e74952ea270.
 
 ## In progress
