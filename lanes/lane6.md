@@ -16,6 +16,8 @@ Status (Wed Nov 25 01:55 PST 2026): data-only-units (#385), lang-copies-2 (#386)
 
 
 
+- lane6/emit-trim-celcmp d66d5588 (on #387): CelCmp.cpp drops sub_P04_Emit_005FEC50 and sub_F43_EmitPixelDataFreeWriter; the unit stays all equal without them (split out of emit-trim, which kept conflicting on this file). Full build: Game.exe identical, tree e7fc1aab357dba7dfed37495cd7dc5e66ef69dc7, borrowed code / data 11,250 / 261 B; auditguard: emit helpers 544 -> 542, no count rose.
+
 ## Questions
 
 ## Claimed
