@@ -4,17 +4,17 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/emit-retry e1d97ae7 205->205 (emit helpers 32->29 in Storm/Fog) Retried every emit helper in Storm and Fog after the recent joins, one deletion and unit build at a time. SBMP.CPP's three (sub_Emit_006C5F70, sub_Emit_006C6620, sub_Emit_006C6790, which called DecodeBmpFile, EncodeGif256File and DecodePcxFile only to have them emitted) go: SBMP.CPP stays all equal without them. The other 29 are still needed. VERIFIED e1d97ae7 on base #400 (8c61b4b6); borrowed code 10,018 B in 7 functions, borrowed data 261 B (main the same); namesync had nothing to rename.
+(none: emit-retry merged in #402)
 
 ## Claimed
+
+- **lane3/crash-cmdline:** the split of Storm's Unknown_00404F40.cpp and Unknown_00405710.cpp as answered (crash pieces to Fog, the ini and command-line reader to Source/D2Launch/Unknown_004053F0.cpp).
 
 - **lane3/stpl-chat (PARKED, see Left in place):** D2Common's chat tables (Ignorelist.cpp 0x60DC70-0x611560: ChatIgnoreList, StringEntryNode/MappingEntryNode, TSExplicitList and TSHashTable<...,HASHKEY_STRI>) onto stplhash.h, plus CelCmp.cpp's 16 strays at 0x60E0D0-0x60E390, which are that object's. The last part of the stpl one-definition job.
 
 - **lane3/stpl-one (the coordinator's header job for lane 4):** memory report (#374), game list object (#377) and Game.cpp (lane 4's game-stplhash-2, #377) are on main. Left, in this order: Game_0044B7B0.cpp (merged #381), then D2CMP's CELLIST copies (posted, lane3/stpl-cellist), then Ignorelist.cpp's chat tables (lane 8's file).
 
 ## Questions
-
-- **The two Storm placeholders inside Fog's crash-handler run, Unknown_00404F40.cpp and Unknown_00405710.cpp (proposal; I'll do it on one branch if you agree).** Neither is Storm code. (1) 0x404F40/0x404F60 (debug-directory readers) and 0x405060 (CaptureFrames, the stack walker) are the crash handler's, between Fog's 0x404F20 and 0x404F80/0x405250: they go to Fog's crash placeholders (Unknown_00402820.cpp / Unknown_00401DF0.cpp, whichever builds them equal). (2) 0x4053F0/0x405410 (operator delete/new), 0x405430 GetIniPath, 0x405450 LoadIniSettings with its ini table (0x705040), 0x405550, 0x405610 ParseCmdValue, 0x405710 ParseCmdArgument, 0x4058A0 ParseCmdArgs and 0x4059A0 ParseCmdLine, plus ErrorManager.cpp's GetCmdIndex (0x405570) and IsCmdSeparator (0x4055D0) which sit inside that run, are the main module's ini and command-line reader (D2ConfigStrc), right before the mode object at 0x4059D0. Proposal: one placeholder Source/D2Launch/Unknown_004053F0.cpp for them, lane 6's after the merge like the mode object. Question: is that split right, and do GetCmdIndex/IsCmdSeparator leave ErrorManager.cpp with it? Until you say, I'm leaving both files as they are.
 
 (none)
 
