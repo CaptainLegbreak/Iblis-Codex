@@ -1,3 +1,6 @@
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00727E34
+
 #include "D2StateIds.h"
 #include "D2GameTypes.h"
 #include "D2StatIds.h"
