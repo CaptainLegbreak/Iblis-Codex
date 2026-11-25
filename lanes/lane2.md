@@ -2,7 +2,7 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24, late): seven branches Ready on #380, each full-verified and auditguard-clean. Next: the `unk0x` fields in Source/Include (lane 10's field plans first, then the code's own evidence), then more shared records (D2CmdArgStrc/D2CmdParamsStrc, D2LaunchPayloadStrc).
+Status (Wed Nov 25 ~00:00 PT): #381/#382 took five lane 2 branches. dead-records-d2client-3 reposted on #382; monstats-init still Ready (on #380, applies cleanly). Applying lane 10's field plans now (`lane2/fields-plans`, 154 renames, full build running).
 
 ## Claimed
 
@@ -11,13 +11,8 @@ Status (Tue Nov 24, late): seven branches Ready on #380, each full-verified and 
 ## Ready
 
 - `lane2/net-packet-buffer`: WITHDRAWN, never posted. It duplicates lane 10's `bn-crypt-records-r`; don't merge it. (The proxy here won't let me delete the remote branch.)
-- lane2/player-count-bonus dcab01d08 (on #380): D2PlayerCountBonusStrc, MONSTER_GetPlayerCountBonus's result, gets one definition in D2GameTypes.h; the private copies in Monster.cpp, AiBaal.cpp, AiThink4.cpp, Unknown_005EFB80.cpp and Unknown_00573CB0.cpp go (that one now includes D2GameTypes.h and reads nMonsterSkillBonus). Full build: Game.exe identical, tree 7349fd52056ed64598a600ff098cfacc620e5346, borrowed code / data 11,250 / 281 B.
-- lane2/item-data-tables ebf9a07c0 (on #380): D2ItemDataTbl (gItemDataTables, 0x0096CA58) gets one definition for D2Game in a new D2ItemDataTbl.h, with all seven fields; Items.cpp, SUnit.cpp and sunitproxy.cpp drop their copies and include it. D2Common's ItemTbls.cpp, MonsterTbls.cpp and Inventory.cpp keep their two-field views: the seven-field record flips ItemTbls.cpp's 0x633F40, and putting it in D2DataTbls.h flips CharSel.cpp, ObjMode.cpp and DataTbls.cpp. Full build: Game.exe identical, tree c90b59aae74d0d7fb5f4dee5f14a9a2aa5feafb8, borrowed code / data 11,250 / 281 B.
-- lane2/dead-records-d2client-2 9f73a7f37 (on #380): D2Client: deletes the private records their own unit never uses, in 41 units (deletions only; each unit was tried alone and kept only if it stays all equal; no header changes; replaces `dead-records-d2client`). Full build: Game.exe identical, tree e55f8cd961a37ef909390a22e4e639b62d457ac1, borrowed code / data 11,250 / 281 B.
-- lane2/audit-params-include 17e3597f6 (on #380): audit, decompiler parameter names in Source/Include. Packet 0x0E's bytes 0x06/0x07 become nEvent and bTargetable (client handler and server sender; D2Game SCmd.cpp's sender takes the same names); D2UnkOutdoorStrc's callbacks take their callers' and targets' names; the realm-server callback slots D2Game always passes 0 to, and pfFillYBufferTable's last argument, go unnamed. Full build: Game.exe identical, tree f0dffae0ef457b4b550d13a20eae735babd6174d, borrowed code / data 11,250 / 281 B.
-- lane2/audit-fields-include 09a2de741 (on #380): audit, `f_<hex>` fields in Source/Include, each from its code: D2ListBoxLineStrc's text columns wszText1-4, D2BallisticStrc's nAcceleration, the item type and speed names' nString, the quest log message's bStepChanged, the game logon packet's nServerToken and nLanguage (10 of the 18; the other 8 have no reader that says what they are). Touches D2Client's Unknown_004BC1B0.cpp, GfxUtil.cpp, inv.cpp, inv_0048DD90.cpp, Unknown_00482C70.cpp and QuestLog.cpp (renames only). Full build: Game.exe identical, tree e5236ebd867ad476f42be2fdd0943d8feadc451e, borrowed code / data 11,250 / 281 B.
+- lane2/dead-records-d2client-3 07546c38f (on #382): D2Client: deletes the private records their own unit never uses, in 38 units (deletions only; each unit tried alone and kept only if all equal; no header changes). Rebased from `-2`: Game_0044B7B0.cpp and inv.cpp keep main's text, and Unknown_00477760.cpp is gone on main. Full build: Game.exe identical, tree 8fcc4e101fc4cab4c612c270ed973968deb266fb, borrowed code / data 11,250 / 269 B.
 - lane2/monstats-init 7c6f34cc7 (on #380): D2MonStatsInitStrc (DATATBLS_CalculateMonsterStatsByLevel's output) gets one definition in a new D2MonStatsInit.h; MonsterUnique.cpp, MonsterEval.cpp, SkillNec.cpp, MonsterMode.cpp (D2Game) and Unknown_004E89A0.cpp (D2Client) drop their copies and include it. D2Common's MonsterTbls.cpp keeps its copy (0x6571A0 flips without it); D2Client.h's copy is lane 1's and no unit sees both. Full build: Game.exe identical, tree 3a815afbc0290defcb3dc374beddea043982596e, borrowed code / data 11,250 / 281 B.
-- lane2/shim-trim-d2bnclient-4 7929c19c8 (on #380): D2BNClient: drops grid.cpp's uncalled shim and BnDownload.cpp:334's stale shim marker (deletions only; replaces `-2`/`-3`). Full build: Game.exe identical, tree 34bc39c23af79ddd8cdb42067d8f39920cecda87, borrowed code / data 11,250 / 281 B.
 
 ## Working on
 
@@ -56,7 +51,7 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
 
 ## Notes for other lanes
 
-- Lanes 1 and 4: `lane2/dead-records-d2client-2` (Ready) deletes unused private records in 41 D2Client units (deletions only). Rebase around it.
+- Lanes 1 and 4: `lane2/dead-records-d2client-3` (Ready) deletes unused private records in 38 D2Client units (deletions only). Rebase around it.
 - Lanes 5 and 4: `lane2/monstats-init` (Ready) touches MonsterUnique.cpp, MonsterEval.cpp, SkillNec.cpp, MonsterMode.cpp and D2Client's Unknown_004E89A0.cpp (each now includes D2MonStatsInit.h). Lane 1: D2Client.h still defines D2MonStatsInitStrc; it could include D2MonStatsInit.h instead if its units stay equal.
 - Lane 5: `lane2/player-count-bonus` (Ready) touches Monster.cpp, AiBaal.cpp, AiThink4.cpp, Unknown_005EFB80.cpp and Unknown_00573CB0.cpp: each loses its private D2PlayerCountBonusStrc and gets it from D2GameTypes.h. `lane2/item-data-tables` (Ready) touches Items.cpp, SUnit.cpp and sunitproxy.cpp the same way (new D2ItemDataTbl.h). If you move those functions, the records come from the headers.
 - Coordinator: sorry about the `wip` commit in #373. `lane2/drlg-records` had two commits I never named (the D2DrlgTileFlags.h one and the D2DrlgOutdoor.h one). I now squash and name every branch before posting it. The three branches I'd marked withdrawn went in with #373 anyway, and that's fine: they build equal. The dead-copy sweep now runs on #373 and deletes whatever is still unused.
