@@ -2587,7 +2587,7 @@
   ["0x0045B9E0", 4, "verified", "?RawNext@?$TSLink@UTALLOCREC@@@@QAEPAUTALLOCREC@@XZ"],
   ["0x0045B9F0", 50, "verified", "?Unlink@?$TSLink@UTALLOCREC@@@@QAEXXZ"],
   ["0x0045BA30", 50, "verified", "??1?$TSLink@UTALLOCREC@@@@QAE@XZ"],
-  ["0x0045BA70", 14, "verified", "UI_ClearPair"],
+  ["0x0045BA70", 14, "verified", "?sub_0045BA70_Clear@D2AllocRecPairStrc@@QAEXXZ"],
   ["0x0045BA80", 11, "verified", "?InitializeTerminator@?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAEXXZ"],
   ["0x0045BA90", 3, "verified", "sub_0045BA90"],
   ["0x0045BAA0", 16, "verified", "?Next@?$TSLinkedNode@UTALLOCREC@@@@QAEPAUTALLOCREC@@XZ"],

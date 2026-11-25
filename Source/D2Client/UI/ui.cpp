@@ -27,7 +27,6 @@ struct D2UiControlBStrc;
 
 struct D2UiControlCStrc;
 
-struct UI_ClearPair;
 
 struct D2RectStrc;
 
@@ -77,11 +76,6 @@ extern int gnAutomapOriginX; // 0x007A520C
 
 extern int gnAutomapOriginY; // 0x007A5208
 
-struct UI_ClearPair
-{
-    int nFirst;
-    int nSecond;
-};
 
 void __stdcall STATLIST_FreeModStats(void* pArg); // 0x00625960
 
@@ -3635,12 +3629,6 @@ int gbAutomapLeftSaved; // 0x007A51E8
 
 
 
-// 0x0045BA70
-void __fastcall UI_ClearPair(UI_ClearPair* pPair)
-{
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
-}
 
 
 

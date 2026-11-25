@@ -15627,11 +15627,6 @@
      "name": "?UI_DrawUIPanels@@YIXPAUD2ViewStrc@@@Z"
     },
     {
-     "va": "0x0045BA70",
-     "length": 14,
-     "name": "UI_ClearPair"
-    },
-    {
      "va": "0x0046F980",
      "length": 6,
      "name": "UI_GetGfxMemory"
@@ -17005,6 +17000,11 @@
      "va": "0x0045BA30",
      "length": 50,
      "name": "??1?$TSLink@UTALLOCREC@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0045BA70",
+     "length": 14,
+     "name": "?sub_0045BA70_Clear@D2AllocRecPairStrc@@QAEXXZ"
     },
     {
      "va": "0x0045BA80",
