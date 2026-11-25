@@ -1200,86 +1200,6 @@ void __fastcall SUNITINACTIVE_DeleteExpiredItemNodes(D2GameStrc* pGame, int nAct
     }
 }
 
-void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    int bCompress;
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    int nUnitType = pUnit->dwUnitType;
-    const int nClassId = pUnit->dwClassId;
-    bCompress = 0;
-
-    if (pUnit->dwUnitType == UNIT_MONSTER)
-    {
-        SUNITINACTIVE_CompressMonsterIfNeeded(pGame, pUnit);
-        return;
-    }
-
-    if (DRLG_GetSaveMonstersFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)) || pUnit->dwFlags & 0x02000000)
-    {
-        bCompress = 1;
-    }
-
-    switch (nUnitType)
-    {
-    case 0:
-        if (STATES_CheckState(pUnit, STATE_PLAYERBODY))
-        {
-            D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
-            pUnit->dwFlagEx |= 0x100;
-            SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
-            UNITROOM_UpdatePath(pUnit);
-            return;
-        }
-
-        if (bCompress)
-        {
-            SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
-        }
-        break;
-
-    case 2:
-    {
-        if (nClassId == 0x3B || nClassId == 0x3C)
-        {
-            D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
-            pUnit->dwFlagEx |= 0x100;
-            SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
-            UNITROOM_UpdatePath(pUnit);
-            return;
-        }
-
-        D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClassId);
-        if (!pObjectsTxtRecord->nRestore || D2GAME_CheckIfSparklyChest_6FCBD7F0(pUnit) & 2)
-        {
-            bCompress = 0;
-        }
-
-        if (pObjectsTxtRecord->nRestoreVirgins && pUnit->dwAnimMode)
-        {
-            bCompress = 0;
-        }
-
-        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
-
-        if (bCompress)
-        {
-            SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
-        }
-        break;
-    }
-
-    case 4:
-    case 5:
-        SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
-        break;
-    }
-
-    if (nUnitType != 4)
-    {
-        SUNIT_RemoveUnit(pGame, pUnit);
-    }
-}
-
 void __fastcall sub_EMIT_00542871(D2GameStrc* pGame, D2UnitStrc* pUnit, D2InactiveMonsterNodeStrc* pNode)
 {
     STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, pNode->nHitpoints, 0);
@@ -1713,6 +1633,77 @@ static void __stdcall SUNITINACTIVE_CompressMonsterIfNeeded(D2GameStrc* pGame, D
         {
             SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
         }
+        SUNIT_RemoveUnit(pGame, pUnit);
+    }
+}
+
+// 0x005433F0
+void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    const int nUnitType = pUnit->dwUnitType;
+    const int nClassId = pUnit->dwClassId;
+    int bCompress = 0;
+
+    if (nUnitType == 1)
+    {
+        SUNITINACTIVE_CompressMonsterIfNeeded(pGame, pUnit);
+        return;
+    }
+
+    if (DRLG_GetSaveMonstersFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)) || pUnit->dwFlags & 0x02000000)
+    {
+        bCompress = 1;
+    }
+
+    switch (nUnitType)
+    {
+    case 2:
+    {
+        if (nClassId == 0x3B || nClassId == 0x3C)
+        {
+            goto special;
+        }
+
+        D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClassId);
+        if (!pObjectsTxtRecord->nRestore || D2GAME_CheckIfSparklyChest_6FCBD7F0(pUnit) & 2)
+        {
+            bCompress = 0;
+        }
+
+        if (pObjectsTxtRecord->nRestoreVirgins && pUnit->dwAnimMode)
+        {
+            bCompress = 0;
+        }
+
+        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
+    }
+    check:
+        if (!bCompress)
+        {
+            break;
+        }
+
+    case 4:
+    case 5:
+        SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
+        break;
+
+    case 0:
+        if (STATES_CheckState(pUnit, STATE_PLAYERBODY))
+        {
+        special:
+            D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
+            pUnit->dwFlagEx |= 0x100;
+            SUNITINACTIVE_CompressInactiveUnit(pGame, pUnit);
+            UNITROOM_UpdatePath(pUnit);
+            return;
+        }
+        goto check;
+    }
+
+    if (nUnitType != 4)
+    {
         SUNIT_RemoveUnit(pGame, pUnit);
     }
 }

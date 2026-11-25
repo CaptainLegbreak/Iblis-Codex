@@ -45164,26 +45164,10 @@
      "va": "0x005431F0",
      "length": 510,
      "name": "?SUNITINACTIVE_CompressMonsterIfNeeded@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005433F0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x005433F0",
      "length": 300
-    },
-    {
-     "va": "0x00543520",
-     "length": 19,
-     "name": "sub_00543520"
-    },
-    {
-     "va": "0x00547F50",
-     "length": 19,
-     "name": "sub_00547F50"
     }
    ]
   },
@@ -45191,6 +45175,11 @@
    "file": "Source/D2Game/Quests/QUESTS.CPP",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00543520",
+     "length": 19,
+     "name": "sub_00543520"
+    },
     {
      "va": "0x00543540",
      "length": 19,
@@ -45751,6 +45740,11 @@
    "file": "Source/D2Game/PLAYER/PlrMsg.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00547F50",
+     "length": 19,
+     "name": "sub_00547F50"
+    },
     {
      "va": "0x00547F70",
      "length": 151,

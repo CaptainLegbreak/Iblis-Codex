@@ -618,6 +618,12 @@ void __stdcall QUESTRECORD_FreeRecord(void* pMemPool, D2BitBufferStrc* pQuestRec
 
 void __stdcall MONSTERCHOOSE_GenerateComponentVariants(D2SeedStrc* pSeed, D2MonRegDataStrc* pMonRegData, int nCount); // 0x005BDB20
 
+// 0x00543520
+D2BitBufferStrc* __fastcall sub_00543520(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+}
+
 // 0x00543540
 D2PlrIntroStrc* __fastcall QUESTS_GetPlayerIntro(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
