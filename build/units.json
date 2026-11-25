@@ -32356,10 +32356,6 @@
      "name": "MISSILE_CreateMissileVolley"
     },
     {
-     "va": "0x004F1A30",
-     "length": 586
-    },
-    {
      "va": "0x004F2010",
      "length": 79,
      "name": "?SKILLDESC_CanTargetHostile@@YIHPAUD2UnitStrc@@HH@Z"
@@ -32582,6 +32578,10 @@
      "va": "0x004F1640",
      "length": 173,
      "name": "?sub_004F1640_AuraStateOverlay@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004F1A30",
+     "length": 586
     },
     {
      "va": "0x004F1C80",
