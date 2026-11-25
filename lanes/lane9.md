@@ -25,6 +25,14 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
+- lane9/renderer-swaps dbdea6ae, on main 70376fda... (#373), precheck 0 not all equal; full verify VERIFIED, borrowed data
+  844 B (main's). Six functions sat in the other renderer's core file and go back: ddCore.cpp takes
+  DDRAW_OpenSmackCutscene 0x511660 and DDRAW_GetBackBuffer 0x511970 from glCore.cpp (between ddCore's own functions)
+  with the two DirectDraw globals glCore defined for them (0x88126C, 0x88127C); the DirectDraw drawing run
+  (Unknown_00511DF0.cpp) takes 0x5123A0 from glCore.cpp and 0x512410 from glVertex.cpp (it forwards to the run's
+  0x511FB0); Glide's debug run (Unknown_0050BD30.cpp) takes GLIDE_DebugDraw 0x50BEF0 from ddCore.cpp (calls the run's
+  0x50BE20); Unknown_0050F910.cpp takes GLIDE_DrawVideoFrame 0x50FD10 from ddCore.cpp (the frame step of the file's
+  video player 0x50FDF0, its only caller). All touched units equal.
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
@@ -55,6 +63,10 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 (none open; thanks for the #341 answers.)
 
 ## Notes for other lanes
+- **Lane 6:** glCore.cpp (mine) still holds five of your functions, each sitting alone inside your code:
+  SCROLLBAR_Destroy 0x507EE0 (between D2WinProgressBar.cpp and D2WinScrollbar.cpp) and BNCLIENT_GetInterfaceTable
+  0x518C10, BNCLIENT_GetLogonType 0x51A570, sub_0051CA10, BNCLIENT_IsSetEmailRequested 0x51CA70 (inside D2BNClient's
+  Unknown_00518C00/BnSend/BnDownload run). Take them into your files when it suits you; say if you'd rather I move them.
 - **Coordinator, on queues.md's lane 9 context copies:** the four DrawLine copies (D2Gdi Unknown_006C8F70/006C9030 of
   0x6C8DA0; D2DDraw Unknown_00512C20/00512CE0 of 0x512A50) don't look like join candidates. Joining 006C8F70 and
   006C9030 into Unknown_006C8DA0.cpp breaks the callers or 0x6C8DA0 itself under every signature I tried (static
