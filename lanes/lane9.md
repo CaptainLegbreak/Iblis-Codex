@@ -38,6 +38,15 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   and the subtile row tables 0x72DB48/0x72DB84/0x72DBC0 (glDebugFont.cpp). Their definitions move to Window.cpp's plan.
   Storm/Unknown_006CACE0.cpp's two strings in the same run (0x72DAA0, 0x72DB3C) are read only by dynamic initializers,
   so they wait for lane 7's initializer prototype.
+- lane9/crt-xcu-tool bcbddc9f, on main f0f40e42 (#377), precheck 0 not all equal; full verify VERIFIED, **borrowed data 844 -> 648 B** (Game.exe identical). Step 2 of the initializer-table plan, the tool alone: link_exe.py's
+  place_data anchors each unit's .CRT$XCU piece (4 B, one DIR32 to the unit's .text$yc initializer) at the original
+  table slot holding that initializer's placed address (only when the address occurs once in .rdata). The 49
+  initializers already written as real dynamic initializers (`build: symbol ??__E...` lines) all get their slots,
+  hence -196 B at once rather than -4. The copied 264 B run at 0x6CC618 shrinks to 68 B in seven runs: the 17 slots
+  whose initializers are still plain functions. No other copied run changes. Eight pieces whose initializer isn't
+  placed (a global's duplicate in a second unit: gwszPopUpText, gwszNameSeparator, gwszRealmNames, gwszFramedText,
+  gtNewsItems) stay removed and are counted (crt_table_target_unplaced). Step 3 (one more initializer, D2Hell's
+  0x6CAE5F) follows as lane9/crt-xcu-hell.
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
