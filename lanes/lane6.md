@@ -6,7 +6,9 @@ Status (Tue Nov 24 21:55 PST 2026, new lane 6 chat): baseline on #378 verified (
 
 ## Ready
 
-(net-x-object-3 and lang-unisys verifying on #378)
+- lane6/net-x-object-3 3d6cdc1e (on #378): Unknown_0052BDA0.cpp, D2Net's object at 0x52BDA0-0x52BE1F. The language copy 0x730F84 starts its own object's .data, between Unknown_0052B920.cpp's tables and D2Game's copy 0x730FC0, so the code between them gets its own file: Client.cpp's two empties, Game.cpp's 0x52BDC0 and D2Net.cpp's 0x52BDD0-0x52BE10 with their two records; the copy's plan record moves with them. Replaces net-x-object (rebased, namesync). Full build: Game.exe identical, tree 038b513fc2489d0a6d5ba261f1d24f245b4787da, borrowed code / data 11,250 / 281 B.
+
+(lang-unisys and lang-527090 verifying on #378)
 
 ## Claimed
 
