@@ -897,7 +897,7 @@ static int QSERVER_DecrementPerIpConnCount(D2QueueServerStrc* pTable, unsigned i
 }
 
 // 0x006BF250
-void __stdcall sub_006BF250_Nop(int a1, int a2, int a3)
+void __stdcall sub_006BF250_Nop(int, int, int)
 {
 }
 
