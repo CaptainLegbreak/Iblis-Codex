@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/join-plrtrade-568d60 c5b88d10e (on #396): PlrTrade.cpp takes in Unknown_00568D60.cpp's one function. 0x568D60 (`push eax; call _time32; ret`) sits inside PlrTrade.cpp's run (between 0x568D10 and 0x568D70) and is the runtime's time() from time.inl (a static inline around _time32) emitted out of line, with no code or data referring to it; it moves in with its emit helper and is named `time` (names.csv: library). The placeholder's three other statics were unused copies of D2BNClient helpers and go. Placeholders -1. auditguard: nothing rose. Full build: Game.exe identical, tree 9151ad466278675b4a8f46022b016e27f3136660, borrowed code / data 11,250 B / 261 B.
 
 ## Claimed
 
