@@ -2,11 +2,12 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 18:02:34 PST 2026): join-006056d0, join-005fe010, join-00446880 merged (#375); join-00518b90 still ready. Next: the D2Net object map (Unknown_0052B920.cpp holds two language copies), then D2Lang's code order.
+Status (Tue Nov 24 18:19:32 PST 2026): net-server verified on #375 and posted ready (merges cleanly on #376); join-00518b90 still ready. Next: the D2Net 0x52BDA0 object (verifying), then D2Lang's code order.
 
 ## Ready
 
-- lane6/join-00518b90 3b4d3e49 249->248 placeholders (count on #375; merges cleanly on #375). Unknown_00518B90.cpp takes Unknown_00518B60.cpp: each had half of D2BnLogStrc (constructor 0x518B60 and deleting destructor 0x518BD0 in one; destructor 0x518B80 and handle getter 0x518B90 in the other, interleaved with 0x518BC0). One struct now carries all of it. Not stacked; D2BNClient only. VERIFIED 95378f9b (on #367, merges cleanly on #368; borrowed data 844 B, unchanged).
+- lane6/net-server 481f358d 243->243 placeholders (count on #376; merges cleanly on #376). Server.cpp takes the rest of D2Net's server object 0x52B0E0-0x52B7DF: every function in the run uses the server state at .bss 0x00882D08 and no other code does. Moved in: BnSend.cpp's 0x0052B0E0/0x0052B100, Client.cpp's five SERVER_* (0x0052B1F0-0x0052B250, 0x0052B490), and D2Game ItemMode.cpp's 0x0052B270/0x0052B6F0 (inside D2Net's run, so lane 6's by the ownership rule; lane 5, FYI). No placeholder change. Not stacked. VERIFIED f5289998 (on #375, merges cleanly on #376; borrowed data 844 B, unchanged).
+- lane6/join-00518b90 3b4d3e49 243->242 placeholders (count on #376; merges cleanly on #376). Unknown_00518B90.cpp takes Unknown_00518B60.cpp: each had half of D2BnLogStrc (constructor 0x518B60 and deleting destructor 0x518BD0 in one; destructor 0x518B80 and handle getter 0x518B90 in the other, interleaved with 0x518BC0). One struct now carries all of it. Not stacked; D2BNClient only. VERIFIED 95378f9b (on #367, merges cleanly on #368; borrowed data 844 B, unchanged).
 
 
 ## Claimed
