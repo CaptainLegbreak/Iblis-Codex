@@ -4,7 +4,6 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/audit-fields-d2game-4 5dce7164a (on #402; applies on #403): fields named from their use in D2Game's save, AI-callback and timer records: D2PlrIntroSaveStrc (PlrSave.cpp, PlrSave2.cpp) +0x04/+0x1C nQuestIntroFlags/nNpcIntroFlags (PLRINTRO's quest/NPC intro flag copies); AiUtil.cpp's callback 7/11 records +0x08 pExcludedUnit (the unit they skip), the party record +0x0C pCallbackArg, the target search +0x10 nAreaTile (compared with D2Common_10095's area tile; the caller's local too); Objects.cpp D2TimerArgStrc +0x00 pGUIDList (the list OBJECTS_FreeTimerArg walks), and D2TimerArg2Strc's unused alias of nUnitGUID goes. auditguard: nothing rose. Full build: Game.exe identical, tree e1d4bd96d12789588a869b3c7dff52b78e7b1aae, borrowed code / data 10,018 B / 261 B.
 
 ## Claimed
 
