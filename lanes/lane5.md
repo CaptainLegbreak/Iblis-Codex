@@ -4,7 +4,6 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/unit-views-d2game-2 81222ace8 (on #399): seven more exports drop their private address-named unit views for D2UnitStrc and the shared fields: MONSTERMODE_GetAiParamFromUnit (pAiParam +0x2C), MONSTERMODE_IsMonster (dwUnitType), 0x58EE80 (pAiControl->pCurrentCmd), 0x58F000 (&pAiControl->pMapAi), 0x541860 (pAiControl), 0x535E80 (pMonInteract), 0x55B7E0 (pMonstatsTxt); extern "C", so symbols are unchanged. Views go from MonsterMode.cpp, MonsterEval.cpp, AiGeneral.cpp (six), Event.cpp and three placeholders (which now include D2Game.h/D2UnitData.h); a5q1.cpp declares 0x58F000 with D2UnitStrc. Each unit built alone, all equal. auditguard: nothing rose. Full build: Game.exe identical, tree 0f5ee8c70ba3efeccc547f8affad743632ce2bd7, borrowed code / data 11,250 B / 261 B.
 
 ## Claimed
 
