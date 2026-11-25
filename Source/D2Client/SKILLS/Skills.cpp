@@ -3030,7 +3030,8 @@ static int __stdcall SKILLS_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit
     const int nUnitX = UNITS_GetXInline(pUnit);
     const int nUnitY = UNITS_GetYInline(pUnit);
     const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwAuraRangeCalc, nSkillId, nSkillLevel);
-    int nDistance = sub_006417F0_GetDistanceToXY(pUnit, *pX, *pY);
+// build: symbol ?DRLG_GetDistanceToXY@* 0x006417F0
+    int nDistance = DRLG_GetDistanceToXY(pUnit, *pX, *pY);
     if (nDistance <= 1)
         nDistance = 1;
     if (nDistance > nRange)
@@ -3059,7 +3060,7 @@ static int __stdcall SKILLS_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit
         if (pRoom
             && !COLLISION_CheckAnyCollisionWithPattern(pRoom, nAdjustedX, nAdjustedY, PATH_GetUnitCollisionPattern(pUnit), 0x1C09)
             && D2Common_11025(nUnitX, nUnitY, nAdjustedX, nAdjustedY, pRoom, 0x804)
-            && sub_006417F0_GetDistanceToXY(pUnit, nAdjustedX, nAdjustedY) <= nRange)
+            && DRLG_GetDistanceToXY(pUnit, nAdjustedX, nAdjustedY) <= nRange)
         {
             *pX = nAdjustedX;
             *pY = nAdjustedY;

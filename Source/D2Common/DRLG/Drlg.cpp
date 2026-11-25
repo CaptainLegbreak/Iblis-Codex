@@ -236,7 +236,7 @@ void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel);            
 
 int __fastcall DRLGWARP_GetWarpDestinationFromArray(D2DrlgLevelStrc* pLevel, unsigned char nWarpId);         // 0x0066AF30
 
-void __stdcall sub_00643560_GameTileToSubtileCoords(int* pX, int* pY);                                           // 0x00643560
+void __stdcall SKILLS_GameTileToSubtileCoords(int* pX, int* pY);                                           // 0x00643560
 
 struct D2GameStrc;
 
@@ -338,7 +338,7 @@ int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
@@ -587,7 +587,7 @@ inline int UNITS_InlineGetY(D2UnitStrc* pUnit)
 }
 
 // 0x006416D0
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther)
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther)
 {
     int nX = UNITS_InlineGetX(pOther) - UNITS_InlineGetX(pUnit);
     int nXDiff = nX >= 0 ? nX : -nX;
@@ -623,7 +623,7 @@ static inline int UNITS_ApproxDistance(int nXDiff, int nYDiff)
 }
 
 // 0x006417F0
-int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY)
+int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY)
 {
     int nDX = nX - UNITS_InlineGetX(pUnit);
     int nXDiff = nDX < 0 ? -nDX : nDX;
@@ -1096,7 +1096,7 @@ static void DRLG_ComputeLevelWarpInfo(D2DrlgLevelStrc* pLevel)
             *pX = pDrlgRoom->pDrlgCoord.nPosX + pDrlgRoom->pDrlgCoord.nWidth / 2;
             bHasWarp = 0;
             *pY = pDrlgRoom->pDrlgCoord.nPosY + pDrlgRoom->pDrlgCoord.nHeight / 2;
-            sub_00643560_GameTileToSubtileCoords(pX, pY);
+            SKILLS_GameTileToSubtileCoords(pX, pY);
             ++pLevel->nRoomCoords;
         }
     }

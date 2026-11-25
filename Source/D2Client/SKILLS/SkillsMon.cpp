@@ -805,7 +805,8 @@ int __fastcall SKILLSMON_CreateTimedMissileLine(D2UnitStrc* pUnit, int nSkillId,
     int nTargetY;
     if (!ITEM_GetTargetPosition(pUnit, &nTargetX, &nTargetY))
         return 0;
-    int nDistance = sub_006417F0_GetDistanceToXY(pUnit, nTargetX, nTargetY);
+// build: symbol ?DRLG_GetDistanceToXY@* 0x006417F0
+    int nDistance = DRLG_GetDistanceToXY(pUnit, nTargetX, nTargetY);
     if (nDistance < 1)
         nDistance = 1;
     const int nX = CLIENTS_GetUnitX(pUnit);

@@ -130,7 +130,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 
@@ -955,7 +955,7 @@ int __fastcall ACT5Q5_IsNotActivatable(D2GameStrc* pGame); // 0x0058CF90
 
 int __fastcall AIBAAL_GetTargetScore(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiCmdStrc* pArgs); // 0x005E8530
 
-extern "C" void __stdcall sub_00648B90_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTarget); // 0x00648B90
+extern "C" void __stdcall PATH_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTarget); // 0x00648B90
 
 void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nType); // 0x00648CF0
 
@@ -965,7 +965,7 @@ int __fastcall AITHINK_AreUnitsInSameLevel(D2UnitStrc* pUnit, D2UnitStrc* pTarge
 
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); // 0x00620210
 
-int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
+int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
 enum D2C_AncientBarb1AIParams
 {
@@ -2293,7 +2293,7 @@ void __fastcall AITHINK_Fn116_Minion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
                 if (pTarget != pTargetUnit)
                 {
                     pTarget = pTargetUnit;
-                    sub_006416D0_UnitEdgeDistance(pUnit, pTargetUnit);
+                    DRLG_UnitEdgeDistance(pUnit, pTargetUnit);
                     bCombat = UNITS_IsInMeleeRange(pUnit, pTargetUnit, 0);
                 }
             }
@@ -3853,7 +3853,7 @@ void __fastcall AITHINK_SelectHirelingAction(D2GameStrc* pGame, D2UnitStrc* pUni
         if (nSkillId == SKILL_INFERNO)
         {
             pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
-            if (pTarget && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) > SKILLS_GetSkillLevel(pUnit, pSkill, 1) / 2 + 4)
+            if (pTarget && DRLG_UnitEdgeDistance(pUnit, pTarget) > SKILLS_GetSkillLevel(pUnit, pSkill, 1) / 2 + 4)
             {
                 continue;
             }
@@ -6979,7 +6979,7 @@ void __fastcall AITHINK_Fn104_DeathSentry(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     pSkillTarget = SKILLS_FindCorpseNearTarget(pUnit, pTarget, nSkillId, nSkillLevel);
     nLastTarget = pAiTickParam->pAiControl->dwAiParam[0];
     nRange = MISSILE_GetSkillMissileRange(nSkillId, nSkillLevel) / 2;
-    if (pSkillTarget && (!pSkillTarget ? -1 : pSkillTarget->dwUnitId) != nLastTarget && sub_006416D0_UnitEdgeDistance(pTarget, pSkillTarget) < nRange)
+    if (pSkillTarget && (!pSkillTarget ? -1 : pSkillTarget->dwUnitId) != nLastTarget && DRLG_UnitEdgeDistance(pTarget, pSkillTarget) < nRange)
     {
         if (AITHINK_AssasinSentryHasLostTarget(pGame, pUnit, pAiTickParam, 1))
         {
@@ -7187,7 +7187,7 @@ void __fastcall AITHINK_Fn105_ShadowWarrior(D2GameStrc* game, D2UnitStrc* unit, 
     int limit = MINIMUM(MAXIMUM(tick->pMonstatsTxt->wAiParam[7][2], 1), 256);
     tick->pAiControl->dwAiParam[1] -= stats->wAiParam[3][game->nDifficulty] + 1;
     if (tick->pAiControl->dwAiParam[1] < 0 || tick->pAiControl->dwAiParam[1] > 64 * limit) tick->pAiControl->dwAiParam[1] = 0;
-    int ownerDistance = sub_006416D0_UnitEdgeDistance(unit, owner);
+    int ownerDistance = DRLG_UnitEdgeDistance(unit, owner);
     if (distance > stats->wAiParam[0][game->nDifficulty] || ownerDistance > stats->wAiParam[1][game->nDifficulty]) target = 0;
     if (AITHINK_TryPetFollowOwner(game, unit, target, owner, combat, tick, 0, 6)) return;
     if (!target) goto idle;
@@ -8179,7 +8179,7 @@ void __fastcall AITHINK_Fn111_CycleOfLife(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     D2UnitStrc* pCombatTarget = pTick->pTarget;
     int bCombat = pTick->bCombat;
     bUseSkill = 1;
-    if (sub_006416D0_UnitEdgeDistance(pUnit, pOwner) >= AI_PARAM(pGame, pMonStats, 4))
+    if (DRLG_UnitEdgeDistance(pUnit, pOwner) >= AI_PARAM(pGame, pMonStats, 4))
     {
         if (sub_005E3EA0(pGame, pOwner, pUnit, 3, 0, 0, 6)) return;
     }
@@ -8197,7 +8197,7 @@ void __fastcall AITHINK_Fn111_CycleOfLife(D2GameStrc* pGame, D2UnitStrc* pUnit, 
             nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkills->dwAuraRangeCalc, pMonStats->nSkill[0], SKILLS_GetSkillLevel(pUnit, pSkill, 1));
             nRange = D2_MIN(D2_MAX(nRange, 5), 50);
             pTarget = SKILLS_FindUseableCorpse(pGame, pUnit, pOwner, nRange);
-            if (pTarget) nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
+            if (pTarget) nDistance = DRLG_UnitEdgeDistance(pUnit, pTarget);
         }
     }
     if (nDistance >= AI_PARAM(pGame, pMonStats, 1))
@@ -8330,7 +8330,7 @@ void __fastcall AITHINK_Fn107_Raven(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
     D2UnitStrc* pFound = sub_6FCF2110(pGame, pOwner, pAiTickParam->pAiControl, &nDist, &bFoundCombat);
     if (pFound)
     {
-        nDist = sub_006416D0_UnitEdgeDistance(pUnit, pFound);
+        nDist = DRLG_UnitEdgeDistance(pUnit, pFound);
     }
 
     D2UnitStrc* pTarget = pAiTickParam->pTarget;
@@ -8448,7 +8448,7 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         nVelocity = 100;
     }
 
-    const int nOwnerDistance2 = sub_006416D0_UnitEdgeDistance(pOwner, pUnit);
+    const int nOwnerDistance2 = DRLG_UnitEdgeDistance(pOwner, pUnit);
     if (pMonStats->nSkill[0] >= 0 && nOwnerDistance2 > 50)
     {
         AITACTICS_UseSkill(pGame, pUnit, pMonStats->nSkillMode[0], pMonStats->nSkill[0], 0, CLIENTS_GetUnitX(pOwner), CLIENTS_GetUnitY(pOwner));
@@ -8499,7 +8499,7 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
             return;
         }
 
-        if (sub_006416D0_UnitEdgeDistance(pOwner, pTarget) < nRange)
+        if (DRLG_UnitEdgeDistance(pOwner, pTarget) < nRange)
         {
             sub_005DE190_SetAiParam(pUnit, 0, nVelocity, 0);
             AITACTICS_RunToTargetUnit(pGame, pUnit, pTarget);
@@ -8681,7 +8681,7 @@ void __fastcall AITHINK_Fn109_Totem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
         bCombat = 0;
     }
 
-    const int nOwnerDistance = sub_006416D0_UnitEdgeDistance(pUnit, pOwner);
+    const int nOwnerDistance = DRLG_UnitEdgeDistance(pUnit, pOwner);
     if (nOwnerDistance > AI_PARAM(pGame, pMonStatsTxt, TOTEM_AI_PARAM_TELEPORT_TO_OWNER_DISTANCE))
     {
         if (SUNIT_TeleportUnit(pGame, pUnit, UNITS_GetRoom(pOwner), CLIENTS_GetUnitXInline_Totem(pOwner), CLIENTS_GetUnitYInline_Totem(pOwner), 0, 0))
@@ -9122,7 +9122,7 @@ D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, in
         if (pTemp && AIUTIL_GetDistanceToCoordinates_NoUnitSize(pTemp, nX, nY) < 5 && !UNITS_IsInMeleeRange(pUnit, pTarget, 0))
         {
             D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-            sub_00648B90_SetPathTarget(pPath, pTarget);
+            PATH_SetPathTarget(pPath, pTarget);
             PATH_SetType(pPath, PATHTYPE_TOWARD);
             D2Common_10142(pPath, pUnit, 0);
 
@@ -9299,7 +9299,7 @@ void __fastcall AITHINK_AncientBarb1SkillHandler(D2GameStrc* pGame, D2UnitStrc* 
     }
 
     const int bInMeleeRange = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
-    const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
+    const int nDistance = DRLG_UnitEdgeDistance(pUnit, pTarget);
 
     const int bUseSkill = (pMonStatsTxt->nSkill[0] > 0 && AIUTIL_CheckIfMonsterUsesSkill(pUnit, pMonStatsTxt->nSkill[0])
         && nDistance < AI_GetParamValue(pGame, pMonStatsTxt, ANCIENTBARB1_AI_PARAM_WHIRLWIND_DISTANCE)
@@ -9338,7 +9338,7 @@ void __fastcall AITHINK_AncientBarb1SkillHandler(D2GameStrc* pGame, D2UnitStrc* 
     int nXDiff = nTargetX - CLIENTS_GetUnitX(pUnit);
     int nYDiff = nTargetY - CLIENTS_GetUnitY(pUnit);
 
-    const int nDist = sub_006417F0_GetDistanceToXY(pUnit, nTargetX, nTargetY);
+    const int nDist = DRLG_GetDistanceToXY(pUnit, nTargetX, nTargetY);
     const int nScale = nDist ? nDist : 1;
 
     nXDiff = nXDiff * AI_GetParamValue(pGame, pMonStatsTxt, ANCIENTBARB1_AI_PARAM_SKILL_REACH) / nScale;
@@ -9372,7 +9372,7 @@ void __fastcall AITHINK_AncientBarb3SkillHandler(D2GameStrc* pGame, D2UnitStrc* 
     {
         D2SeedStrc* pSeed = &pUnit->pSeed;
         bInMeleeRange = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
-        const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
+        const int nDistance = DRLG_UnitEdgeDistance(pUnit, pTarget);
 
         if (pMonStatsTxt->nSkill[0] > 0 && nDistance < AI_PARAM(pGame, pMonStatsTxt, 0)
             && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 1)
@@ -9658,7 +9658,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_BaalToStairs(D2GameStrc* pGame, D2
 
     if (pTarget && pTarget->dwUnitType == UNIT_OBJECT && pTarget->dwClassId == OBJECT_BAALS_PORTAL_WORLDSTONECHAMBER)
     {
-        return sub_006416D0_UnitEdgeDistance(pTarget, pUnit) <= pArg->nMaxDistance ? pTarget : 0;
+        return DRLG_UnitEdgeDistance(pTarget, pUnit) <= pArg->nMaxDistance ? pTarget : 0;
     }
 
     return 0;
@@ -9681,7 +9681,7 @@ void __fastcall AITHINK_Fn138_BaalToStairs(D2GameStrc* pGame, D2UnitStrc* pUnit,
     D2UnitStrc* pTarget = AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_BaalToStairs, 1);
     if (pTarget)
     {
-        if (sub_006416D0_UnitEdgeDistance(pUnit, pTarget) < AI_PARAM(pGame, pMonStatsTxt, 0))
+        if (DRLG_UnitEdgeDistance(pUnit, pTarget) < AI_PARAM(pGame, pMonStatsTxt, 0))
         {
             ACT5Q6_OpenWorldStoneChamber(pGame);
             STATES_ToggleState(pUnit, STATE_BAALTOSTAIRS_INVIS, 1);

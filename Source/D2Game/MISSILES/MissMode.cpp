@@ -402,7 +402,7 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A
 
 int __fastcall PLRINTRO_GetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId); // 0x005723C0
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nSoundId, D2UnitStrc* pOrigin); // 0x00553380
 
@@ -471,7 +471,7 @@ void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); /
 
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
 
-int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
+int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
 D2UnitStrc* __fastcall SKILLS_FindNextAuraTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int a7, int* a8); // 0x0056BD10
 
@@ -662,9 +662,9 @@ int __fastcall MISSMODE_SrvDo25_EruptionCenter(D2GameStrc* pGame, D2UnitStrc* pM
 
 static int sub_005ADA80_GetPierceFlags(D2UnitStrc* pMissile); // 0x005ADA80
 
-extern "C" int __stdcall sub_0064A730_GetMissileTargetStatus(D2UnitStrc* pMissile); // 0x0064A730
+extern "C" int __stdcall MISSILE_GetMissileTargetStatus(D2UnitStrc* pMissile); // 0x0064A730
 
-extern "C" int __stdcall sub_0064A780_targetValue(D2UnitStrc* pMissile); // 0x0064A780
+extern "C" int __stdcall MISSILE_targetValue(D2UnitStrc* pMissile); // 0x0064A780
 
 int __stdcall MISSILE_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A3B0
 
@@ -2360,7 +2360,7 @@ static void __stdcall MISSMODE_SetGuidedMissileTarget(D2UnitStrc* pTarget, D2Uni
     {
         PATH_SetTargetUnit(pPath, pTarget);
         MISSILE_SetTargetX(pMissile, 5);
-        nDistance = sub_006416D0_UnitEdgeDistance(pMissile, pTarget);
+        nDistance = DRLG_UnitEdgeDistance(pMissile, pTarget);
     }
     else
     {
@@ -2370,7 +2370,7 @@ static void __stdcall MISSMODE_SetGuidedMissileTarget(D2UnitStrc* pTarget, D2Uni
         const int nY = CLIENTS_GetUnitYInline(pMissile) + (short)nParamHigh;
         D2COMMON_10170_PathSetTargetPos(pPath, nX, nY);
         MISSILE_SetTargetX(pMissile, 6);
-        nDistance = sub_006417F0_GetDistanceToXY(pMissile, nX, nY);
+        nDistance = DRLG_GetDistanceToXY(pMissile, nX, nY);
     }
 
     if (nDistance < 25)
@@ -4953,7 +4953,7 @@ int __fastcall MISSMODE_SrvDo07_GuidedArrow_BoneSpirit(D2GameStrc* pGame, D2Unit
 
         if (pTarget && !(MISSILE_GetCurrentFrame(pMissile) % nParam))
         {
-            const int nDistance = sub_006416D0_UnitEdgeDistance(pMissile, pTarget);
+            const int nDistance = DRLG_UnitEdgeDistance(pMissile, pTarget);
             if (nDistance > 3 && nDistance < 25)
             {
                 D2Common_10142(pPath, pMissile, 0);
@@ -5084,7 +5084,7 @@ int __fastcall MISSMODE_SrvDo11_FingerMageSpider(D2GameStrc* pGame, D2UnitStrc* 
             nFrames = 5;
         }
 
-        if (!(MISSILE_GetCurrentFrame(pMissile) % nFrames) && sub_006416D0_UnitEdgeDistance(pMissile, pTarget) <= pMissilesTxtRecord->dwParam[1])
+        if (!(MISSILE_GetCurrentFrame(pMissile) % nFrames) && DRLG_UnitEdgeDistance(pMissile, pTarget) <= pMissilesTxtRecord->dwParam[1])
         {
             const int nMissileX = CLIENTS_GetUnitX(pMissile);
             const int nMissileY = CLIENTS_GetUnitY(pMissile);
@@ -5804,8 +5804,8 @@ int __fastcall MISSMODE_SrvDo31_WakeOfDestructionMaker_BaalColdMaker(D2GameStrc*
 
     if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
-        const int nTargetX = sub_0064A730_GetMissileTargetStatus(pMissile);
-        const int nTargetY = sub_0064A780_targetValue(pMissile);
+        const int nTargetX = MISSILE_GetMissileTargetStatus(pMissile);
+        const int nTargetY = MISSILE_targetValue(pMissile);
 
         D2MissileStrc missileParams;
         memset(&missileParams, 0, sizeof(missileParams));

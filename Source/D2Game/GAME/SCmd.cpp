@@ -212,7 +212,7 @@ int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit); // 0x00621F20
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -1713,7 +1713,7 @@ void __fastcall SCMD_SendUnitLifeAndPositionUpdate(D2ClientStrc* pClient, D2Unit
     if (tPacket.packet7F.bIsPlayer)
     {
         D2UnitStrc* pClientPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-        if (sub_006416D0_UnitEdgeDistance(pClientPlayer, hUnit) > 50)
+        if (DRLG_UnitEdgeDistance(pClientPlayer, hUnit) > 50)
         {
             const D2GSPacketSrv90 tZero90 = {};
             tPacket.packet90 = tZero90;
@@ -1812,7 +1812,7 @@ void __fastcall sub_6FC3E200(D2ClientStrc* pClient, D2UnitStrc* pUnit)
     {
         D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &tPacket7F, sizeof(tPacket7F));
     }
-    if (tPacket7F.bIsPlayer && sub_006416D0_UnitEdgeDistance(CLIENTS_GetPlayerFromClient(pClient, 0), pUnit) > 50)
+    if (tPacket7F.bIsPlayer && DRLG_UnitEdgeDistance(CLIENTS_GetPlayerFromClient(pClient, 0), pUnit) > 50)
     {
         D2GSPacketSrv90 tPacket90 = {};
         tPacket90.nHeader = 0x90;

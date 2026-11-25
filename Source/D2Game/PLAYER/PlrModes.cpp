@@ -429,7 +429,7 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
 
 int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); // 0x006492A0
 
-extern "C" void __stdcall sub_00648B90_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTarget); // 0x00648B90
+extern "C" void __stdcall PATH_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTarget); // 0x00648B90
 
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
 
@@ -1024,7 +1024,7 @@ void __fastcall PLRMODE_StartID_WalkRunKnockback(D2GameStrc* ptGame, D2UnitStrc*
     D2DynamicPathStrc* pPath = pPlayer->pDynamicPath;
     if (nCurMode != 19 || pPlayer->dwAnimMode != nCurMode)
     {
-        sub_00648B90_SetPathTarget(pPath, pTargetUnit);
+        PATH_SetPathTarget(pPath, pTargetUnit);
         PLRMODE_StartMovement(ptGame, pPlayer, nCurMode);
     }
 }

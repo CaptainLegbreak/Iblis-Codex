@@ -90,7 +90,7 @@ inline int UnitGetClassId(D2UnitStrc* pUnit) { return pUnit ? pUnit->dwClassId :
 
 void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 
-int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY);                                           // 0x006417F0
+int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY);                                           // 0x006417F0
 
 int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY);
 
@@ -283,7 +283,7 @@ D2UnitStrc* __stdcall UNITFINDS_GetNearestTestedUnit(D2UnitStrc* pUnit, int nX, 
         {
             for (D2UnitStrc* j = ppRoomList[i]->pUnitFirst; j; j = j->ptRoomNext)
             {
-                const int nDistance = sub_006417F0_GetDistanceToXY(j, nX, nY);
+                const int nDistance = DRLG_GetDistanceToXY(j, nX, nY);
                 if (nDistance < nSize && nDistance < nSmallestDistance && pfnUnitTest(j, pUnit))
                 {
                     pResult = j;

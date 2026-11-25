@@ -17,7 +17,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 // 0x0046C570
 int __fastcall GFXUTIL_ForEachUnitInAdjacentRooms(D2UnitStrc* pUnit, void* pArg1, void* pArg2, UNITCALLBACKFN pfnCallback)
@@ -56,7 +56,7 @@ int __fastcall GFXUTIL_FindNearestUnitCallback(D2UnitStrc* pUnit, D2UnitStrc* pO
         {
             if (!CUNIT_IsDeadOrDying(pUnit))
             {
-                int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pOther);
+                int nDistance = DRLG_UnitEdgeDistance(pUnit, pOther);
                 if (nDistance < *pnDistance)
                 {
                     *ppNearest = pOther;

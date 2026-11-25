@@ -202,7 +202,7 @@ D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 
-int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
+int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
@@ -1589,7 +1589,7 @@ static int __stdcall SKILLS_FindLeapTargetPosition(D2UnitStrc* pUnit, int nSkill
     const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
     const int nAuraRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
 
-    int nDistance = sub_006417F0_GetDistanceToXY(pUnit, *pX, *pY);
+    int nDistance = DRLG_GetDistanceToXY(pUnit, *pX, *pY);
     if (nDistance <= 1)
     {
         nDistance = 1;
@@ -1622,7 +1622,7 @@ static int __stdcall SKILLS_FindLeapTargetPosition(D2UnitStrc* pUnit, int nSkill
         pRoom = COLLISION_GetFreeCoordinates(pRoom, &coords, UNITS_GetUnitSizeX(pUnit), 0x1C09, 1);
         nX = coords.nX;
         nY = coords.nY;
-        if (pRoom && !COLLISION_CheckAnyCollisionWithPattern(pRoom, nX, nY, PATH_GetUnitCollisionPattern(pUnit), 0x1C09) && sub_00645910_TestLine(nUnitX, nUnitY, nX, nY, pRoom, 0x804) && sub_006417F0_GetDistanceToXY(pUnit, nX, nY) <= nAuraRange)
+        if (pRoom && !COLLISION_CheckAnyCollisionWithPattern(pRoom, nX, nY, PATH_GetUnitCollisionPattern(pUnit), 0x1C09) && sub_00645910_TestLine(nUnitX, nUnitY, nX, nY, pRoom, 0x804) && DRLG_GetDistanceToXY(pUnit, nX, nY) <= nAuraRange)
         {
             *pX = nX;
             *pY = nY;
@@ -2011,7 +2011,7 @@ static int __stdcall SKILLS_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D2UnitS
         }
         else if (nBase == 0x21C)
         {
-            nAnimFrame = (unsigned int)sub_006417F0_GetDistanceToXY(pUnit, nX, nY) < 2 ? 12 : 10;
+            nAnimFrame = (unsigned int)DRLG_GetDistanceToXY(pUnit, nX, nY) < 2 ? 12 : 10;
         }
 
         UNITS_SetAnimationFrame(pUnit, nAnimFrame);

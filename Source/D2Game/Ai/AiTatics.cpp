@@ -220,12 +220,12 @@ __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordInline(int nMonster
     return 0;
 }
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
 
 // 0x005DE6F0
 int __fastcall AITACTICS_WalkAroundTargetWithScaledDistance(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nScale)
 {
-    const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
+    const int nDistance = DRLG_UnitEdgeDistance(pUnit, pTarget);
     const int nTargetX = CLIENTS_GetUnitX(pTarget);
     const int nTargetY = CLIENTS_GetUnitY(pTarget);
     if (nDistance)

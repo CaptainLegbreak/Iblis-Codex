@@ -2388,12 +2388,14 @@ D2CommonStormHashTableBStrc::~TSHashTable()
     IGNORELIST_InternalClearMappingTable(1);
 }
 
-int __fastcall sub_0066D7E0_MapTileType(int nId)
+// build: symbol ?DRLGANIM_MapTileType@* 0x0066D7E0
+int __fastcall DRLGANIM_MapTileType(int nId)
 {
     return gnTileTypeTable[nId];
 }
 
-void __fastcall sub_0066D800_TileToClientCoords(int* pX, int* pY)
+// build: symbol ?DRLGANIM_TileToClientCoords@* 0x0066D800
+void __fastcall DRLGANIM_TileToClientCoords(int* pX, int* pY)
 {
     *pY += 1;
     DUNGEON_GameTileToClientCoords(pX, pY);

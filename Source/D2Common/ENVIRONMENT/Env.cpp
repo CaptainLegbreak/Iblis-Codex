@@ -576,7 +576,7 @@ void __stdcall ENVIRONMENT_TaintedSunEnd(D2DrlgActStrc* pAct)
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 // 0x0061C530
-int __cdecl sub_0061C530_GetLvlPrestTxtRecordCount()
+int __cdecl ENVIRONMENT_GetLvlPrestTxtRecordCount()
 {
     return sgptDataTables->nLvlPrestTxtRecordCount;
 }

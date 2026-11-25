@@ -223,7 +223,7 @@ int __fastcall OBJECT_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh); // 0x0
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath); // 0x00648730
 
@@ -1227,7 +1227,7 @@ char __fastcall OBJECT_RemoveWhenFar(D2UnitStrc* pUnit)
             return 1;
         }
 
-        if (sub_006416D0_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) > 25)
+        if (DRLG_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) > 25)
         {
             sub_00465F00_RemoveClientUnit(pUnit->dwUnitId, 2);
             return 0;
@@ -1256,7 +1256,7 @@ char __fastcall OBJECT_AutoOperateQuestObject(D2UnitStrc* pUnit)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer && QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x27, 0) && !QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x27, 4)
-            && sub_006416D0_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) < 25)
+            && DRLG_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) < 25)
         {
             if (pPlayer->pDynamicPath)
             {

@@ -1162,7 +1162,7 @@ void __fastcall sub_6FDA8220(D2DynamicPathStrc* pDynamicPath)
 }
 
 // 0x00648020
-static void __stdcall sub_00648020_GetTablePair(int b, int a, int* pOut1, int* pOut2)
+static void __stdcall PATH_GetTablePair(int b, int a, int* pOut1, int* pOut2)
 {
     *pOut1 = gnOrthogonalStepTable[a][b];
     *pOut2 = gnOrthogonalStepTable[b][a];
@@ -1170,8 +1170,8 @@ static void __stdcall sub_00648020_GetTablePair(int b, int a, int* pOut1, int* p
 
 void __stdcall sub_K15_Emit8(int* p, int n)
 {
-    sub_00648020_GetTablePair(p[1], n, p, p + 1);
-    sub_00648020_GetTablePair(n, p[2], p + 2, p + 3);
+    PATH_GetTablePair(p[1], n, p, p + 1);
+    PATH_GetTablePair(n, p[2], p + 2, p + 3);
 }
 
 // 0x00648050
@@ -2173,7 +2173,7 @@ int __stdcall PATH_GetUnusedFlag_0x00004(D2DynamicPathStrc* pDynamicPath)
 }
 
 // 0x00648B90
-extern "C" void __stdcall sub_00648B90_SetPathTarget(B25Path* path, B25TargetUnit* target)
+extern "C" void __stdcall PATH_SetPathTarget(B25Path* path, B25TargetUnit* target)
 {
     path->target = target;
     if (target)

@@ -153,7 +153,7 @@ struct D2RoomCoordListStrc {
 };
 extern "C" __declspec(dllimport) int __stdcall CopyRect(D2RoomRectStrc*, const D2RoomRectStrc*);
 D2RoomCoordListStrc* __stdcall DUNGEON_GetRoomCoordList(D2ActiveRoomStrc*); // 0x0061AD50
-void __stdcall sub_00643560_GameTileToSubtileCoords(int*,int*); // 0x00643560
+void __stdcall SKILLS_GameTileToSubtileCoords(int*,int*); // 0x00643560
 int __fastcall MONSTERCHOOSE_GetPresetMonsterId(D2GameStrc* pGame, D2MonsterRegionStrc* pMonsterRegion, D2ActiveRoomStrc* pRoom, D2MonStatsTxt** ppMonStatsTxtRecord, unsigned char nChance, int bSpawnUMon); // 0x005BDE80
 int __fastcall MONSTERCHOOSE_GetBossSpawnType(D2MonsterRegionStrc*,D2ActiveRoomStrc*); // 0x005BE020
 int __fastcall sub_0054EC40_IsSpecialBaseMonster(int); // 0x0054EC40
@@ -184,8 +184,8 @@ void __fastcall D2GAME_PopulateRoom_6FC67190(D2GameStrc* pGame, D2ActiveRoomStrc
             CopyRect(&tRect, &pRoomCoordList->boxes[1]);
             if (tRect.left || tRect.right)
             {
-                sub_00643560_GameTileToSubtileCoords(&tRect.left, &tRect.top);
-                sub_00643560_GameTileToSubtileCoords(&tRect.right, &tRect.bottom);
+                SKILLS_GameTileToSubtileCoords(&tRect.left, &tRect.top);
+                SKILLS_GameTileToSubtileCoords(&tRect.right, &tRect.bottom);
 
                 for (int i = (tRect.right - tRect.left) / 3 * ((tRect.bottom - tRect.top) / 3); i > 0; )
                 {

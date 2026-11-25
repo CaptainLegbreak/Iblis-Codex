@@ -64525,7 +64525,7 @@
     {
      "va": "0x00611760",
      "length": 75,
-     "name": "?sub_00611760_MakeCalcCode@@YAXPBDPAD@Z"
+     "name": "?DATATBLS_MakeCalcCode@@YAXPBDPAD@Z"
     },
     {
      "va": "0x006117B0",
@@ -65584,7 +65584,7 @@
     {
      "va": "0x0061C530",
      "length": 12,
-     "name": "?sub_0061C530_GetLvlPrestTxtRecordCount@@YAHXZ"
+     "name": "?ENVIRONMENT_GetLvlPrestTxtRecordCount@@YAHXZ"
     }
    ]
   },
@@ -67049,7 +67049,7 @@
     {
      "va": "0x00627250",
      "length": 9,
-     "name": "?sub_00627250_SetStat@@YGHPAUD2StatListStrc@@HHH@Z"
+     "name": "?STATLIST_SetStat@@YGHPAUD2StatListStrc@@HHH@Z"
     },
     {
      "va": "0x00627260",
@@ -67173,7 +67173,7 @@
     {
      "va": "0x00627BB0",
      "length": 98,
-     "name": "sub_00627BB0_ItemCalcGetStatValue"
+     "name": "STATLIST_ItemCalcGetStatValue"
     },
     {
      "va": "0x00627C20",
@@ -70153,7 +70153,7 @@
     {
      "va": "0x00643560",
      "length": 27,
-     "name": "?sub_00643560_GameTileToSubtileCoords@@YGXPAH0@Z"
+     "name": "?SKILLS_GameTileToSubtileCoords@@YGXPAH0@Z"
     },
     {
      "va": "0x00643580",
@@ -70913,7 +70913,7 @@
     {
      "va": "0x00648020",
      "length": 38,
-     "name": "?sub_00648020_GetTablePair@@YGXHHPAH0@Z"
+     "name": "?PATH_GetTablePair@@YGXHHPAH0@Z"
     },
     {
      "va": "0x00648050",
@@ -71212,7 +71212,7 @@
     {
      "va": "0x00648B90",
      "length": 31,
-     "name": "_sub_00648B90_SetPathTarget@8"
+     "name": "_PATH_SetPathTarget@8"
     },
     {
      "va": "0x00648BB0",
@@ -71480,7 +71480,7 @@
     {
      "va": "0x0064A1E0",
      "length": 34,
-     "name": "_sub_0064A1E0_SetMissileLevel@8"
+     "name": "_MISSILE_SetMissileLevel@8"
     },
     {
      "va": "0x0064A210",
@@ -71594,7 +71594,7 @@
     {
      "va": "0x0064A730",
      "length": 35,
-     "name": "_sub_0064A730_GetMissileTargetStatus@4"
+     "name": "_MISSILE_GetMissileTargetStatus@4"
     },
     {
      "va": "0x0064A760",
@@ -71604,7 +71604,7 @@
     {
      "va": "0x0064A780",
      "length": 35,
-     "name": "_sub_0064A780_targetValue@4"
+     "name": "_MISSILE_targetValue@4"
     },
     {
      "va": "0x0064A7B0",
@@ -71619,17 +71619,17 @@
     {
      "va": "0x0064A850",
      "length": 224,
-     "name": "?sub_0064A850_CheckCritical@@YGHPAUUnit@@0@Z"
+     "name": "?MISSILE_CheckCritical@@YGHPAUUnit@@0@Z"
     },
     {
      "va": "0x0064A930",
      "length": 298,
-     "name": "?sub_0064A930_AddElements@@YAXHPAUUnit@@PAUDamage@@@Z"
+     "name": "?MISSILE_AddElements@@YAXHPAUUnit@@PAUDamage@@@Z"
     },
     {
      "va": "0x0064AA60",
      "length": 319,
-     "name": "?sub_0064AA60_ScaleElements@@YAXHPAUDamage@@@Z"
+     "name": "?MISSILE_ScaleElements@@YAXHPAUDamage@@@Z"
     },
     {
      "va": "0x0064ABA0",
@@ -72521,7 +72521,7 @@
     {
      "va": "0x0065C300",
      "length": 13,
-     "name": "?sub_0065C300_GetRecord16@@YGPAUD2Record16Strc@@PAU1@H@Z"
+     "name": "?DATATBLS_GetRecord16@@YGPAUD2Record16Strc@@PAU1@H@Z"
     }
    ]
   },
@@ -72598,22 +72598,22 @@
     {
      "va": "0x0065C660",
      "length": 49,
-     "name": "?sub_0065C660_GetAffixProperty@@YAPBUD2PropertyStrc@@PBUD2MagicAffixTxt@@H@Z"
+     "name": "?ITEMMODS_GetAffixProperty@@YAPBUD2PropertyStrc@@PBUD2MagicAffixTxt@@H@Z"
     },
     {
      "va": "0x0065C6A0",
      "length": 45,
-     "name": "?sub_0065C6A0_GetGradeProperty@@YAPBUD2PropertyStrc@@PBUD2GradeModsStrc@@H@Z"
+     "name": "?ITEMMODS_GetGradeProperty@@YAPBUD2PropertyStrc@@PBUD2GradeModsStrc@@H@Z"
     },
     {
      "va": "0x0065C6D0",
      "length": 88,
-     "name": "?sub_0065C6D0_GetGemProperty@@YAPBUD2PropertyStrc@@PBUD2GemsTxt@@HH@Z"
+     "name": "?ITEMMODS_GetGemProperty@@YAPBUD2PropertyStrc@@PBUD2GemsTxt@@HH@Z"
     },
     {
      "va": "0x0065C730",
      "length": 112,
-     "name": "?sub_0065C730_GetModsProperty@@YAPBUD2PropertyStrc@@HPBXHH@Z"
+     "name": "?ITEMMODS_GetModsProperty@@YAPBUD2PropertyStrc@@HPBXHH@Z"
     },
     {
      "va": "0x0065C7A0",
@@ -73506,7 +73506,7 @@
     {
      "va": "0x00665810",
      "length": 68,
-     "name": "?sub_00665810_CopyCodePadded@@YAXPAUD2PresetCodeStrc@@PBD@Z"
+     "name": "?DRLGPRESET_CopyCodePadded@@YAXPAUD2PresetCodeStrc@@PBD@Z"
     },
     {
      "va": "0x00665860",
@@ -73521,17 +73521,17 @@
     {
      "va": "0x00665900",
      "length": 36,
-     "name": "?sub_00665900_MapTileTypes@@YAXPAHH@Z"
+     "name": "?DRLGPRESET_MapTileTypes@@YAXPAHH@Z"
     },
     {
      "va": "0x00665930",
      "length": 12,
-     "name": "?sub_00665930_LockLevelFiles@@YAXXZ"
+     "name": "?DRLGPRESET_LockLevelFiles@@YAXXZ"
     },
     {
      "va": "0x00665940",
      "length": 12,
-     "name": "?sub_00665940_UnlockLevelFiles@@YAXXZ"
+     "name": "?DRLGPRESET_UnlockLevelFiles@@YAXXZ"
     },
     {
      "va": "0x00665950",
@@ -73699,7 +73699,7 @@
     {
      "va": "0x00667420",
      "length": 9,
-     "name": "?sub_00667420_GetChainField20@@YIHPAUD2Unk00667420Strc@@@Z"
+     "name": "?DRLGPRESET_GetChainField20@@YIHPAUD2Unk00667420Strc@@@Z"
     },
     {
      "va": "0x00667430",
@@ -74472,7 +74472,7 @@
     {
      "va": "0x0066D7E0",
      "length": 8,
-     "name": "?sub_0066D7E0_MapTileType@@YIHH@Z"
+     "name": "?DRLGANIM_MapTileType@@YIHH@Z"
     },
     {
      "va": "0x0066D7F0",
@@ -74482,7 +74482,7 @@
     {
      "va": "0x0066D800",
      "length": 18,
-     "name": "?sub_0066D800_TileToClientCoords@@YIXPAH0@Z"
+     "name": "?DRLGANIM_TileToClientCoords@@YIXPAH0@Z"
     }
    ]
   },
@@ -75082,12 +75082,12 @@
     {
      "va": "0x0066F690",
      "length": 763,
-     "name": "?sub_0066F690_ApplySubstGroup@@YGHPAUD2UnkOutdoorStrc@@PAUD2LvlSubTxt@@PAUD2DrlgSubstGroupStrc@@@Z"
+     "name": "?DRLGTILESUB_ApplySubstGroup@@YGHPAUD2UnkOutdoorStrc@@PAUD2LvlSubTxt@@PAUD2DrlgSubstGroupStrc@@@Z"
     },
     {
      "va": "0x0066F990",
      "length": 125,
-     "name": "?sub_0066F990_ApplySecondaryGroups@@YGXPAUD2UnkOutdoorStrc@@PAUD2LvlSubTxt@@@Z"
+     "name": "?DRLGTILESUB_ApplySecondaryGroups@@YGXPAUD2UnkOutdoorStrc@@PAUD2LvlSubTxt@@@Z"
     },
     {
      "va": "0x0066FA10",
@@ -75106,7 +75106,7 @@
     {
      "va": "0x0066FE00",
      "length": 323,
-     "name": "?sub_0066FE00_TestSubstGroupTiles@@YGHHHPAUD2UnkOutdoorStrc2@@PAUD2LvlSubTxt@@PAUD2DrlgSubstGroupStrc@@@Z"
+     "name": "?DRLGTILESUB_TestSubstGroupTiles@@YGHHHPAUD2UnkOutdoorStrc2@@PAUD2LvlSubTxt@@PAUD2DrlgSubstGroupStrc@@@Z"
     },
     {
      "va": "0x0066FF50",
@@ -75134,7 +75134,7 @@
     {
      "va": "0x00670750",
      "length": 72,
-     "name": "?sub_00670750_ApplySubstitutionBorder@@YIXPAUD2UnkOutdoorStrc@@@Z"
+     "name": "?DRLGTILESUB_ApplySubstitutionBorder@@YIXPAUD2UnkOutdoorStrc@@@Z"
     },
     {
      "va": "0x006707A0",
@@ -75155,7 +75155,7 @@
     {
      "va": "0x00675DE0",
      "length": 204,
-     "name": "?sub_00675DE0_Place@@YIXPAUD2DrlgCoordStrc@@HH0@Z"
+     "name": "?DRLGOUTPLACE_Place@@YIXPAUD2DrlgCoordStrc@@HH0@Z"
     },
     {
      "va": "0x00675EB0",
@@ -76194,7 +76194,7 @@
     {
      "va": "0x0067FCD0",
      "length": 78,
-     "name": "?sub_0067FCD0_GetPresetPairValue@@YGHHHI@Z"
+     "name": "?DRLGOUTDESR_GetPresetPairValue@@YGHHHI@Z"
     },
     {
      "va": "0x0067FD20",
@@ -76203,12 +76203,12 @@
     {
      "va": "0x0067FE90",
      "length": 278,
-     "name": "?sub_0067FE90_PlaceColumns@@YGXPAUD2DrlgLevelStrc@@H@Z"
+     "name": "?DRLGOUTDESR_PlaceColumns@@YGXPAUD2DrlgLevelStrc@@H@Z"
     },
     {
      "va": "0x0067FFB0",
      "length": 61,
-     "name": "?sub_0067FFB0_IsRectAdjacent@@YAHPAUD2DrlgOutRectStrc@@0@Z"
+     "name": "?DRLGOUTDESR_IsRectAdjacent@@YAHPAUD2DrlgOutRectStrc@@0@Z"
     },
     {
      "va": "0x0067FFF0",
