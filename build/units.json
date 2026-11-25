@@ -9169,6 +9169,11 @@
      "name": "?CHARSEL_UpdateStatus@@YAXXZ"
     },
     {
+     "va": "0x0043A2B0",
+     "length": 417,
+     "name": "?CHARSEL_InitRealmScreen@@YAHXZ"
+    },
+    {
      "va": "0x0043A460",
      "length": 366,
      "name": "_CHARSEL_CreateNotice@16"
@@ -9225,6 +9230,16 @@
      "va": "0x0043AC00",
      "length": 257,
      "name": "?CHARSEL_PollConnect@@YGHH@Z"
+    },
+    {
+     "va": "0x0043AD10",
+     "length": 155,
+     "name": "?CHARSEL_RequestCharList@@YAXPAD@Z"
+    },
+    {
+     "va": "0x0043ADB0",
+     "length": 114,
+     "name": "?CHARSEL_UseName@@YIXPAD@Z"
     },
     {
      "va": "0x0043AE30",
@@ -9429,16 +9444,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0043AD10",
-     "length": 155,
-     "name": "?CHARSEL_RequestCharList@@YAXPAD@Z"
-    },
-    {
-     "va": "0x0043ADB0",
-     "length": 114,
-     "name": "?CHARSEL_UseName@@YIXPAD@Z"
-    },
-    {
      "va": "0x0043B080",
      "length": 1039,
      "name": "?CHARSEL_InitCharSelectScreen@@YAXXZ"
@@ -9463,11 +9468,6 @@
      "va": "0x00437A00",
      "length": 19,
      "name": "?CHARSEL_GetSlotNameChecked@@YAPADH@Z"
-    },
-    {
-     "va": "0x0043A2B0",
-     "length": 417,
-     "name": "?CHARSEL_InitRealmScreen@@YAHXZ"
     }
    ]
   },
