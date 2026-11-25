@@ -8,6 +8,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 7, please confirm or object: lane 8 takes the six D2Common `volatile` functions from STATUS.md: 0x621F90 UNITS_AllocPlayerData, 0x6419F0 D2Common_10406, 0x647280 SKILLS_AssignSkill, 0x649970 D2Common_10142, 0x65EA50 ITEMMODS_AddPropertyToItemStatList, 0x660D10 DATATBLS_GetInvRectFromBeltsTxt. The __assume one (0x651040 DATATBLS_ComputeMonStatsDepths) stays yours with your assume macros. I'm starting with 0x660D10; tell me here if you already have any of them in progress and I'll drop it.
 
 ## Status
+- Wed Nov 25 05:50 PST 2026: coordinator, `audit-noinline-d2common` (51b6e227) was pushed and its two changes are on main since #395 (TileSub.cpp and Unknown_00668510.cpp have no noinline there), so it is done; dropped from Ready with labels, emit, decls and fields (all merged by #396).
 - Wed Nov 25 03:20 PST 2026: **at the user's request the lane 9 session now also works as lane 8** (D2Common), posting here and pushing lane8/ branches. Lane 9 stays on standby. Starting with lane 8's audit rows (audit-379-lanes.md): labels, decompiler types, emit helpers, noinline, fields, the D2Common.h declaration move. D2Common's a1/v12 parameter names and 1.10 names stay lane 10's (COORDINATOR.md).
 - Tue Nov 24 21:16:23 PST 2026: #378 took path-10142-stores, belt-invrect, join-profcore and data-records-4; dropped from Ready. Nothing of lane 8's is pending; this session works as lane 1 now.
 - Tue Nov 24 20:29:00 PST 2026: at the user's request this session now works as **lane 1** (posting in lanes/lane1.md, pushing lane1/ branches). Lane 8's ready branches (path-10142-stores, belt-invrect, join-profcore, data-records-4) stand as posted; I'll still rebase them if the coordinator asks here.
@@ -39,39 +40,6 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - 2026-11-24 14:12 PT: 0x62B5B0 in Items.cpp: same length (1192/1192), 143 differing lines, from a new base: the magic case calls the static 0x628830 and the rare/craft cases call it too (the compiler inlines it there, as in the original), and the quality is read into a local before `nRequiredLevel = 0`, which puts nRequiredLevel in a register. What is left is mostly an esi/edi swap (nRequiredLevel vs the prefix record). A mutation search is running from there.
 - 2026-11-24 14:01 PT: lane 8 is taking the two parked borrowed D2Common functions, 0x62B5B0 (ITEMS/Items.cpp) and 0x677880 (DRLG/OutPlace.cpp), from lane 7. Lane 7: they are mine from now; branches will be lane8/<va>. After them, the D2Common forcing constructs, which I will agree with you here first.
 ## Ready
-- lane8/audit-fields-d2common 00711d72, on main 03e867c00, precheck 0 not all equal, auditguard no count rose; full verify
-  VERIFIED, borrowed data 261 B (= main). Fields named where the code shows what they are: the units' seed words
-  0x20/0x24 and the missile views' 0x10 word (D2UnitStrc's names), the path view's unit size at 0x44 (passed as
-  COLLISION_CheckMaskWithSize's unit size), Drlg.cpp's saved-flag count, Preset.cpp's Storm links, MonsterTbls'
-  hireling table pointer, the LvlPrest record's Def, PathUtil's direction triplets (the three test directions).
-  Unused padding-struct fields with no evidence stay as they are.
-- lane8/audit-decls-d2common 8ebe1940, rebased on main 897e604e (#395, the TileSub/Dungeon conflict with the emit and noinline merges resolved), precheck 0 not all equal (all 82 D2Common units built),
-  auditguard no count rose; full verify VERIFIED, borrowed data 261 B (= main). 190 D2Common functions declared
-  privately in two or more of the module's files (those that include D2Common.h) are declared once in D2Common.h.
-  Kept private: seven whose copies disagree on types or linkage (INVENTORY_GetEquippedWeapon,
-  PATH_GetDirectionVector, D2COMMON_10475_PostStatToStatList, ITEMS_GetDimensions,
-  DRLGOUTDOORS_TestGridCellSpawnValid, DATATBLS_CompileTxt, SKILLS_GetFirstSkillFromSkillList), those needing record
-  types D2Common.h doesn't declare, and UNITS_GetUnitSizeY, UNITS_GetUsedSkill, UNITS_IsInMovingMode,
-  UNITS_SetX/YForStaticUnit, sub_00681000. **Declaration-count trap:** ItemTbls.cpp (0x633F40) and TokTbls.cpp
-  (0x65ADC0, 0x65B1B0) flip with almost any change to D2Common.h's contents, even one forward declaration (two locals'
-  stack slots after the DATATBLS_CompileTxt call swap); this set leaves both equal. ItemTbls.cpp keeps its private
-  copies. Anyone adding to D2Common.h: rebuild those two.
-- lane8/audit-noinline-d2common 51b6e227, on main 322167f5 (#391), precheck 0 not all equal, auditguard no count rose
-  (noinline -2); full verify VERIFIED, borrowed data 261 B (= main). Each of the 20 removed alone and its unit rebuilt:
-  TileSub.cpp's DRLGROOMTILE_InitFloorTileData copy and Unknown_00668510.cpp's forward declaration of
-  sub_00668510_MakeCode go. **Can't delete** (the unit differs without it): DataTbls GetMissileDebugName;
-  MonsterTbls MakeCode, AddTreasureClassInfo, GetNextIntToken; Maze LinkMazeRooms; Preset SKILLDESC_ValidateMonsterId;
-  RoomTile InitFloorTileData; Inventory CompareWithItemsParentInventory, GetItemFromBodyLoc, PlaceItemInBeltGrid;
-  ItemMods AddValueStatEx; Items CheckItemFlag, ReadStatFromItemBitstream, WriteBitsToBitstream, STATES_CheckState;
-  StatsEx GetStatsArray; Units sub_00622920_TestCollision; Unknown_00668510 MakeCode (the definition). Comments
-  for the #368 cases still to come.
-- lane8/audit-emit-d2common 5bc10a40, on main 322167f5 (#391), precheck 0 not all equal, auditguard no count rose (emit
-  helpers -29); full verify VERIFIED, borrowed data 261 B (= main). Each helper removed alone and its unit rebuilt; 29
-  go (Ignorelist.cpp 4, Unknown_00668510.cpp 3, two each in Items, Inventory, TileSub, Preset, Outdoors, OutWild,
-  OutSiege, OutDesr, one each in seven more). The other 36 are still needed (their unit differs without them).
-- lane8/audit-labels-d2common 72426e2b, on main 322167f5 (#391), precheck 0 not all equal, auditguard no count rose
-  (decompiler types 59 -> 14, labels 11 -> 6); full verify VERIFIED, borrowed data 261 B (= main). Path.cpp's and
-  Missile.cpp's U8/U16/U32 become plain types; the two LABEL_ gotos become CheckClass / NextSkill.
 - (WIP, not for merging) lane8/00679C80-wip 374857bf: my best 0x679C80 source in Unknown_00679380.cpp, 447/450, 15 differing lines.
 - (WIP, not for merging) lane8/0062B5B0-wip 8e6c49fb (on #367): my best 0x62B5B0 source in Items.cpp, 1192/1192, 136 differing lines, for anyone who picks it up.
 
