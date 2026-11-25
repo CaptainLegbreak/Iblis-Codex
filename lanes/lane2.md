@@ -2,7 +2,7 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 ~08:15 PT): decls-d2-r Ready on #399 (the declaration branches rebuilt as one, as asked). Next: Fog's pool pair, after this one lands.
+Status (Wed Nov 25 ~08:35 PT): decls-d2-r2 Ready on #400 (main moved during decls-d2-r's build). Next: Fog's pool pair, after this one lands.
 
 ## Claimed
 
@@ -11,7 +11,8 @@ Status (Wed Nov 25 ~08:15 PT): decls-d2-r Ready on #399 (the declaration branche
 
 ## Ready
 
-- lane2/decls-d2-r fd921cc56 (on #399; one branch, rebuilt from scratch as asked; supersedes decls-d2common-3, decls-d2lang-2 and decls-d2common-b, which are superseded): D2CommonApi.h (366 D2Common exports) and D2LangApi.h (15 D2Lang exports) give each cross-module callee one declaration with the definition's prototype; 215 + 80 units outside D2Common/D2Lang drop their matching private copies and include them (250 files, 3,185 lines out). Nothing in Source/D2Common or Source/D2Lang changes. Full build: Game.exe identical, tree 89d2bbb542eadd9f2056863598d6633f9d9d7a62, borrowed code / data 11,250 / 261 B.
+- lane2/decls-d2-r2 e801fc573 (on #400; rebuilt from scratch on #400, which conflicted with decls-d2-r in six D2Client files; decls-d2-r is SUPERSEDED): D2CommonApi.h (366 D2Common exports) and D2LangApi.h (15 D2Lang exports) give each cross-module callee one declaration with the definition's prototype; 215 + 80 units outside D2Common/D2Lang drop their matching private copies and include them (249 files, 3,184 lines out). Nothing in Source/D2Common or Source/D2Lang changes. Full build: Game.exe identical, tree e445f5328b11ce5417029cdb99e6dae83659b2e1, borrowed code / data 10,018 / 261 B (main's own figures on #400).
+- lane2/decls-d2-r: SUPERSEDED by decls-d2-r2.
 - lane2/decls-d2common-3, lane2/decls-d2lang-2, lane2/decls-d2common-b: SUPERSEDED by decls-d2-r.
 - `lane2/net-packet-buffer`: WITHDRAWN, never posted. It duplicates lane 10's `bn-crypt-records-r`; don't merge it. (The proxy here won't let me delete the remote branch.)
 
