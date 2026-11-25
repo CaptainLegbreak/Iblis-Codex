@@ -1572,6 +1572,7 @@ void __fastcall GAME_ClientEnterAct(D2GameStrc* pGame, D2ClientStrc* pClient)
     CLIENTS_SetClientState(pClient, 2);
 }
 
+// Out of line as in the original: it takes an argument in esi, a convention the compiler gives only a static whose callers are all in this object.
 // 0x0052C260
 static __declspec(noinline) void GAME_SendGameInit(D2GameStrc* pGame, D2ClientStrc* pClient)
 {
@@ -2251,6 +2252,7 @@ void __stdcall GAME_RemoveUntilableRooms(D2GameStrc* pGame)
     }
 }
 
+// Out of line as in the original: it takes an argument in edi, a convention the compiler gives only a static whose callers are all in this object.
 // 0x0052D310
 static __declspec(noinline) void GAME_DeleteInactiveItems(D2GameStrc* pGame)
 {

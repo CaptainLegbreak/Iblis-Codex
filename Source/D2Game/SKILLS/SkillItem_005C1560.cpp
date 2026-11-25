@@ -52,6 +52,7 @@ unsigned short __stdcall ITEMS_GetPrefixId(D2UnitStrc* pItem, int nPrefixNo); //
 unsigned short __stdcall ITEMS_GetSuffixId(D2UnitStrc* pItem, int nSuffixNo); // 0x00627F80
 D2MagicAffixTxt* __stdcall DATATBLS_GetMagicAffixTxtRecord(int nIndex); // 0x00633EE0
 
+// Out of line as in the original: it takes arguments in eax, ecx and edx, a convention the compiler gives only a static whose callers are all in this object.
 // 0x005C0D00
 static __declspec(noinline) int __stdcall ITEMS_AddPotentialMagicAffix(int nAffixId, D2MagicAffixTxt* pRecord, D2MagicAffixIndexAndPtrStrc* pAffixes, int nCount)
 {

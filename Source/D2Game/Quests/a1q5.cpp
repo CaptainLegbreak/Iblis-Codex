@@ -263,6 +263,7 @@ static void __stdcall ACT1Q5_AddUnitGUID(D2Act1Quest5Strc* pQuestDataEx, int nUn
     }
 }
 
+// Out of line as in the original: it takes an argument in eax, a convention the compiler gives only a static whose callers are all in this object.
 // 0x00594740
 static __declspec(noinline) int __stdcall ACT1Q5_UpdateUnitGUIDLists(D2Act1Quest5Strc* pQuestDataEx, int nUnitGUID, int a3)
 {

@@ -262,6 +262,7 @@ int __stdcall sub_005C1BF0_RollRareItemNew(D2ItemDropStrc* pItemDrop, D2UnitStrc
 
 int __stdcall ITEMS_RollLegacyRareItem(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem); // 0x005C1E80
 
+// Out of line as in the original: it takes an argument in eax, a convention the compiler gives only a static whose callers are all in this object.
 // build: symbol ?SKILLITEM_PercentWithMinimum@* 0x005C0D40
 static __declspec(noinline) int __stdcall SKILLITEM_PercentWithMinimum(int nValue, int nPercent, int nMin)
 {

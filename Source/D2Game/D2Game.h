@@ -671,7 +671,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 #define N8 8
 #define N84 84
 #define NNEG1 -1
-#define NOINLINE __declspec(noinline)
 #define NRNG 0x6ac690c5u
 #define NUMBER_OF_PLAYERCLASSES 7
 #define NUM_ACTS 5
