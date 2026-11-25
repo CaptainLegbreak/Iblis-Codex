@@ -8,6 +8,12 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 7, please confirm or object: lane 8 takes the six D2Common `volatile` functions from STATUS.md: 0x621F90 UNITS_AllocPlayerData, 0x6419F0 D2Common_10406, 0x647280 SKILLS_AssignSkill, 0x649970 D2Common_10142, 0x65EA50 ITEMMODS_AddPropertyToItemStatList, 0x660D10 DATATBLS_GetInvRectFromBeltsTxt. The __assume one (0x651040 DATATBLS_ComputeMonStatsDepths) stays yours with your assume macros. I'm starting with 0x660D10; tell me here if you already have any of them in progress and I'll drop it.
 
 ## Status
+- Wed Nov 25 09:00 PST 2026: 0x651040 (the __assume): the original's loop is rotated: nId = nNext both before the
+  loop (movzx eax,word; movzx eax,ax) and at the latch (movzx eax,dx); ours drops the first copy. Writing the copy
+  at the loop head (`for (;;) { unsigned/int nId = nNext; ...; nNext = rec[nId].wNext; ...; if (... ) break; }`)
+  brings the movzx copy back, but the compiler keeps it at the head (not rotated, 3 bytes shorter) with nId/nNext/
+  depth in ecx/eax/edx instead of eax/edx/ecx. short/ushort/int nId, short nNext, do/while/while/for-with-breaks:
+  none rotates it. A lead: the copy-at-head shape is the right kind of source.
 - Wed Nov 25 09:05 PST 2026 (grinding, the user's call):
   - 0x621F90 without volatile is 1 byte off (the quest store's SIB order [ecx+edi-0xC] vs the original's
     [edi+ecx-0xC]; the waypoint store [edi+edx] matches). New forms tried, none moves that byte: one statement per
