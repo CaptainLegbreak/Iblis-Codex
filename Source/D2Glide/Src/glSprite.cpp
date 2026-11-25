@@ -13,19 +13,13 @@ int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); //
 
 void* __stdcall CelGetHardwareData(D2CelStrc* pCel); // 0x00601B10
 
-void __fastcall GLCORE_SetTextureCombineMode(int nTmu); // 0x00509460
 
-void __fastcall GLCORE_SetColorCombineMode(int nState); // 0x005094B0
 
-void __fastcall GLCORE_SetAlphaBlendMode(int nMode); // 0x00509500
 
-void __fastcall GLCORE_SetTextureFilterMode(int nMode); // 0x005095D0
 
 int __cdecl sub_0050BF40_GlideGetBlendedShadows(); // 0x0050BF40
 
-void __fastcall GLVERTEX_SetVertexColor(D2GlideSpriteVertexStrc* pVertex, unsigned int dwColor); // 0x0050DC30
 
-int __cdecl GLVERTEX_IsPerspective(); // 0x0050DD30
 
 void __fastcall GLPERSPECTIVE_PerspectiveTransform(int nX, int nY, int nZ, int* pScreenX, int* pScreenY); // 0x0050DD60
 

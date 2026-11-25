@@ -15,11 +15,8 @@ extern void (__stdcall* gpfnGrConstantColorValue)(unsigned int dwColor); // 0x00
 
 extern D2GlideDebugCellStrc** gppGlideDebugBuffer; // 0x00880454
 
-unsigned int __fastcall GLCORE_GetPaletteColor(int nPaletteIndex); // 0x005093F0
 
-void __fastcall GLCORE_SetColorCombineMode(int nState); // 0x005094B0
 
-void __fastcall GLCORE_SetAlphaBlendMode(int nMode); // 0x00509500
 
 int gnRenderWidth;                                                                                 // 0x007C9138
 
@@ -27,7 +24,6 @@ extern void (__stdcall* gpfnGrDrawLine)(const D2GlideSpriteVertexStrc* pStart, c
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x0050BF50
 
 extern void (__stdcall* gpfnGrBufferClear)(unsigned int color, unsigned int alpha, unsigned int depth); // 0x0087EB88
 
@@ -49,15 +45,11 @@ extern int gaGlideDebugFontTexAddr[96]; // 0x008800D8
 
 extern D2GrTexInfoStrc gtGlideDebugFontTexInfo; // 0x0072F2B4
 
-void __fastcall GLCORE_SetTextureFilterMode(int nMode); // 0x005095D0
 
-void __fastcall GLCORE_SetTextureCombineMode(int nTmu); // 0x00509460
 
 extern void (__stdcall* gpfnGrDrawVertexArray)(int nMode, int nCount, void** ppVertices); // 0x0087EB18
 
-void __fastcall GLVERTEX_SetVertexColor(D2GlideSpriteVertexStrc* pVertex, unsigned int dwColor); // 0x0050DC30
 
-int __cdecl GLVERTEX_IsPerspective(); // 0x0050DD30
 
 void __fastcall GLPERSPECTIVE_PerspectiveTransform(int nX, int nY, int nZ, int* pScreenX, int* pScreenY); // 0x0050DD60
 
@@ -101,7 +93,6 @@ int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int bAsync, int n
 
 static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, int nScreenPanels, tagRECT* pRect, int* pOffset);
 
-void __cdecl sub_0050BE20_GlideDebugRefresh();
 
 D2GlideSpriteVertexStrc gaGlideTileGrid[15]; // 0x00880458
 
@@ -109,7 +100,6 @@ D2GlideSpriteVertexStrc gaGlideTileQuad[4]; // 0x00880600
 
 int gbGlideCornersScaled; // 0x00880670
 
-int __fastcall sub_0050CA00_GlideShadowTileDrawPerspective(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels);
 
 static int __stdcall sub_0050CF70_GlideTileDrawPerspective(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels);
 
@@ -811,11 +801,6 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall BinkNextFrame(D2BinkStrc* pBink);                            // 0x006CC5BC
 extern "C" __declspec(dllimport) int __stdcall BinkCopyToBuffer(D2BinkStrc* pBink, void* pDest, int nDestPitch, unsigned int nDestHeight, unsigned int nDestX, unsigned int nDestY, unsigned int nFlags); // 0x006CC5C0
 extern "C" __declspec(dllimport) int __stdcall BinkDoFrame(D2BinkStrc* pBink);                               // 0x006CC5C4
-unsigned int __fastcall GLCORE_GetPaletteColor(int nPaletteIndex);                                   // 0x005093F0
-void __fastcall GLCORE_SetColorCombineMode(int nState);                                                      // 0x005094B0
-void __fastcall GLCORE_SetAlphaBlendMode(int nMode);                                                     // 0x00509500
-void __cdecl sub_0050BE20_GlideDebugRefresh();                                                               // 0x0050BE20
-void __fastcall GLVERTEX_SetAmbientColor(int nRed, int nGreen, int nBlue);                         // 0x0050DBC0
 void __cdecl DDCORE_ReleaseSurfaces();                                                           // 0x00511A80
 int __fastcall DDCORE_CreateSurface(void* hWnd, int nResolutionMode);                           // 0x005115E0
 void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x00512710
@@ -970,9 +955,6 @@ typedef void (__stdcall* GlideConstantColorFn)(unsigned int dwColor);
 typedef void (__stdcall* GlideDrawVertexArrayFn)(int nMode, int nCount, void** ppVertices);
 
 int __fastcall GLTEXTURECACHE_BindFloorTexture(void* pTile); // 0x0050FAD0
-void __fastcall GLCORE_SetColorCombineMode(int nState); // 0x005094B0
-void __fastcall GLCORE_SetAlphaBlendMode(int nMode); // 0x00509500
-void __fastcall GLCORE_SetTextureFilterMode(int nMode); // 0x005095D0
 extern GlideConstantColorFn gpfnGrConstantColorValue; // 0x0087EFA0
 extern GlideDrawVertexArrayFn gpfnGrDrawVertexArray; // 0x0087EB18
 extern unsigned char* gpBlendTable; // 0x00880B5C
@@ -1083,13 +1065,7 @@ void __fastcall sub_0050D6A0_GlideDrawFloorTile(void* pTile, const D2TileVertexS
 
 struct D2TileLibraryEntryStrc;
 
-void __fastcall GLCORE_SetColorCombineMode(int nState);                                                      // 0x005094B0
-void __fastcall GLCORE_SetAlphaBlendMode(int nMode);                                                     // 0x00509500
-void __fastcall GLCORE_SetTextureFilterMode(int nMode);                                                       // 0x005095D0
 int __cdecl sub_0050BF40_GlideGetBlendedShadows();                                                                    // 0x0050BF40
-int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, unsigned char nShade, int nScreenPanels); // 0x0050C890
-int __fastcall sub_0050CA00_GlideShadowTileDrawPerspective(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels); // 0x0050CA00
-int __cdecl GLVERTEX_IsPerspective();                                                               // 0x0050DD30
 extern void (__stdcall* gpfnGrConstantColorValue)(unsigned int dwColor);                              // 0x0087EFA0
 
 // 0x0050CD40

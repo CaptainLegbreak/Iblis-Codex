@@ -8,10 +8,8 @@ extern int gdwGlobal_0087EFB8; // 0x0087EFB8
 extern D2GlideTileCacheStrc gtGlideTileCache; // 0x0087EB48
 extern D2GlideFloorCacheStrc gtGlideFloorCache; // 0x0087EB68
 void __fastcall GLSUBTILECACHE_TileCacheRelease(D2GlideTileCacheStrc* pCache, int nIndex); // 0x0050F1B0
-D2GlideFloorCacheEntryStrc* __fastcall GLSMACK_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F570
 void __fastcall GLSMACK_FloorCacheRemove(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F750
 
-void __fastcall GLSMACK_FloorCacheEvict(D2GlideFloorCacheStrc* pCache); // 0x0050F6D0
 
 // 0x0050F320
 int __fastcall GLFLOORCACHE_FloorCacheInit(D2GlideFloorCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nBlockSize)

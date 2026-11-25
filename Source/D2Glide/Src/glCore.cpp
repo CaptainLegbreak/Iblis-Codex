@@ -217,25 +217,18 @@ struct D2TileLibraryEntryStrc;
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);         // 0x00413020
 
-void __fastcall GLCORE_SetColorCombineMode(int nState);                                                      // 0x005094B0
 
-void __fastcall GLCORE_SetAlphaBlendMode(int nMode);                                                     // 0x00509500
 
-void __fastcall GLCORE_SetTextureFilterMode(int nMode);                                                       // 0x005095D0
 
 int __fastcall GLCORE_CreateSurface(void* hWnd, int nResolution); // 0x00509E90
 
 int __cdecl sub_0050BF40_GlideGetBlendedShadows();                                                                    // 0x0050BF40
 
-void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x0050BF50
 
 void __fastcall sub_0050C270_GlideDrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, unsigned char nAlpha); // 0x0050C270
 
-int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, unsigned char nShade, int nScreenPanels); // 0x0050C890
 
-int __fastcall sub_0050CA00_GlideShadowTileDrawPerspective(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels); // 0x0050CA00
 
-int __cdecl GLVERTEX_IsPerspective();                                                               // 0x0050DD30
 
 void __fastcall sub_0050FDF0_GlidePlaySmacker(const char* szFile, int nResolutionMode, void* pfFrame);      // 0x0050FDF0
 
@@ -271,11 +264,8 @@ extern "C" __declspec(dllimport) int __stdcall BinkCopyToBuffer(D2BinkStrc* pBin
 
 extern "C" __declspec(dllimport) int __stdcall BinkDoFrame(D2BinkStrc* pBink);                               // 0x006CC5C4
 
-unsigned int __fastcall GLCORE_GetPaletteColor(int nPaletteIndex);                                   // 0x005093F0
 
-void __cdecl sub_0050BE20_GlideDebugRefresh();                                                               // 0x0050BE20
 
-void __fastcall GLVERTEX_SetAmbientColor(int nRed, int nGreen, int nBlue);                         // 0x0050DBC0
 
 void __cdecl DDCORE_ReleaseSurfaces();                                                           // 0x00511A80
 
