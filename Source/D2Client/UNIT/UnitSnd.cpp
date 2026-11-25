@@ -126,7 +126,7 @@ void __fastcall UNITSND_PurgeUnitHints(D2UnitStrc* pUnit); // 0x004CAA10
 
 int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit); // 0x00623C20
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
@@ -1297,7 +1297,7 @@ void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit)
     if (UNITSND_GetUnitSndType(pUnit) == 2)
     {
         if (UNITSND_GetUnitSndClassId(pUnit) == 0x1A && !nMode && !UNITSND_ReadAsyncSoundTick(pUnit)
-            && sub_006416D0_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) < 0x14)
+            && DRLG_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) < 0x14)
         {
             sub_004B9A00(0xE57, pUnit, 0, 0, 0);
             UNITSND_WriteAsyncSoundTick(pUnit, sub_0044DB00());

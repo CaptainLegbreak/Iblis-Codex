@@ -908,7 +908,7 @@ extern "C" int __cdecl sub_004B1D70_FindSelectedRow()
 }
 
 // 0x0064A1E0
-extern "C" void __stdcall sub_0064A1E0_SetMissileLevel(B24Unit* unit, int level)
+extern "C" void __stdcall MISSILE_SetMissileLevel(B24Unit* unit, int level)
 {
     if (unit && unit->type == 3 && unit->missileData)
         unit->missileData->nLevel = (short)level;
@@ -1161,7 +1161,7 @@ struct B25MissileUnit
 };
 
 // 0x0064A730
-extern "C" int __stdcall sub_0064A730_GetMissileTargetStatus(B25MissileUnit* unit)
+extern "C" int __stdcall MISSILE_GetMissileTargetStatus(B25MissileUnit* unit)
 {
     if (unit && unit->type == 3 && unit->data)
         return unit->data->targetStatus;
@@ -1202,7 +1202,7 @@ void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY)
 }
 
 // 0x0064A780
-extern "C" int __stdcall sub_0064A780_targetValue(UnitView* unit)
+extern "C" int __stdcall MISSILE_targetValue(UnitView* unit)
 {
     if (unit && unit->kind == 3)
     {
@@ -1245,7 +1245,7 @@ static __forceinline unsigned int RollPercent(Unit* unit)
 }
 
 // 0x0064A850
-static int __stdcall sub_0064A850_CheckCritical(Unit* item, Unit* unit)
+static int __stdcall MISSILE_CheckCritical(Unit* item, Unit* unit)
 {
     int chance = sub_00625480_GetStat(unit, 337, 0);
     if ((int)RollPercent(unit) < chance)
@@ -1269,7 +1269,7 @@ static int __stdcall sub_0064A850_CheckCritical(Unit* item, Unit* unit)
 }
 
 // 0x0064A930
-static void sub_0064A930_AddElements(int shift, Unit* unit, Damage* damage)
+static void MISSILE_AddElements(int shift, Unit* unit, Damage* damage)
 {
     damage->fireMin += sub_00625480_GetStat(unit, 48, 0) << shift;
     damage->fireMax += sub_00625480_GetStat(unit, 49, 0) << shift;
@@ -1298,7 +1298,7 @@ static void sub_0064A930_AddElements(int shift, Unit* unit, Damage* damage)
 }
 
 // 0x0064AA60
-static void sub_0064AA60_ScaleElements(int factor, Damage* damage)
+static void MISSILE_ScaleElements(int factor, Damage* damage)
 {
     if (factor != 128)
     {
@@ -1978,7 +1978,7 @@ extern "C" void __stdcall MISSILE_CalculateDamageData(Damage* damage, Unit* owne
             item = sub_00623990_GetWeaponSlot(owner, 1);
         else if (owner->type == 1 && owner->inventory)
             item = sub_00622830_GetWeapon(owner);
-        if (sub_0064A850_CheckCritical(item, owner)) damage->flags |= 2;
+        if (MISSILE_CheckCritical(item, owner)) damage->flags |= 2;
         itemBonus = 0;
         if (item && item->type == 4)
         {
@@ -2029,7 +2029,7 @@ extern "C" void __stdcall MISSILE_CalculateDamageData(Damage* damage, Unit* owne
     }
     else if (originDamage && origin)
     {
-        if (sub_0064A850_CheckCritical(0, origin)) damage->flags |= 2;
+        if (MISSILE_CheckCritical(0, origin)) damage->flags |= 2;
         sourceMin = sub_00625480_GetStat(origin, 21, 0) * originDamage / 128;
         sourceMax = sub_00625480_GetStat(origin, 22, 0) * originDamage / 128;
         percent = sub_00625480_GetStat(origin, 25, 0);
@@ -2065,14 +2065,14 @@ extern "C" void __stdcall MISSILE_CalculateDamageData(Damage* damage, Unit* owne
     if (sourceDamage)
     {
         sub_00623C80_BeginWeapon(owner, 1);
-        sub_0064A930_AddElements(8, owner, damage);
-        sub_0064AA60_ScaleElements(sourceDamage, damage);
+        MISSILE_AddElements(8, owner, damage);
+        MISSILE_ScaleElements(sourceDamage, damage);
         sub_00622E90_EndWeapon(owner, 1);
     }
     else if (originDamage && origin)
     {
-        sub_0064A930_AddElements(0, origin, damage);
-        sub_0064AA60_ScaleElements(originDamage, damage);
+        MISSILE_AddElements(0, origin, damage);
+        MISSILE_ScaleElements(originDamage, damage);
     }
 }
 

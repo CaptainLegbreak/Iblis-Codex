@@ -82,7 +82,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
-extern "C" void __stdcall sub_00648B90_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTarget); // 0x00648B90
+extern "C" void __stdcall PATH_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTarget); // 0x00648B90
 
 void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nType); // 0x00648CF0
 
@@ -123,7 +123,7 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nType, int nId
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
-int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
+int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
 static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, D2UnitStrc*, int, int, D2AiCmdStrc*);
 
@@ -143,7 +143,7 @@ struct D2UnitStrc;
 
 extern const char gszAiBaal[]; // 0x006E3580
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc*,D2UnitStrc*); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc*,D2UnitStrc*); // 0x006416D0
 
 void __stdcall UNITS_StoreOwner(D2UnitStrc*,D2UnitStrc*); // 0x00621CE0
 
@@ -443,7 +443,7 @@ static D2UnitStrc* __stdcall AIBAAL_GetUberTarget(D2GameStrc* pGame, int* pMax, 
         if (pTemp && AIUTIL_GetDistanceToCoordinates_NoUnitSize(pTemp, nX, nY) < 5 && !UNITS_IsInMeleeRange(pUnit, pTarget, 0))
         {
             D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-            sub_00648B90_SetPathTarget(pPath, pTarget);
+            PATH_SetPathTarget(pPath, pTarget);
             PATH_SetType(pPath, PATHTYPE_TOWARD);
             D2Common_10142(pPath, pUnit, 0);
 
@@ -1074,7 +1074,7 @@ void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         const int nY = CLIENTS_GetUnitY(pUnit);
         const int nTargetX = CLIENTS_GetUnitX(pTarget);
         const int nTargetY = CLIENTS_GetUnitY(pTarget);
-        int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
+        int nDistance = DRLG_UnitEdgeDistance(pUnit, pTarget);
         if (!nDistance)
         {
             nDistance = 1;

@@ -101,7 +101,7 @@ struct D2OffsetPosStrc
     int nDir;
 };
 
-static int sub_00677870_IsYGreater(const D2PosStrc* pPos1, const D2PosStrc* pPos2);
+static int DRLGOUTPLACE_IsYGreater(const D2PosStrc* pPos1, const D2PosStrc* pPos2); // 0x00677870
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -162,7 +162,7 @@ void __fastcall DRLGOUTPLACE_SetBlankBorderGridCells(D2DrlgLevelStrc* pLevel)
 #define SMALL_SHIFT 8
 
 // 0x00675DE0
-static void __fastcall sub_00675DE0_Place(D2DrlgCoordStrc* src,int mode,int side,D2DrlgCoordStrc* dst) {
+static void __fastcall DRLGOUTPLACE_Place(D2DrlgCoordStrc* src,int mode,int side,D2DrlgCoordStrc* dst) {
  switch(side) {
  case 0:
   dst->nPosX=src->nPosX;
@@ -191,7 +191,7 @@ static void __fastcall sub_00675DE0_Place(D2DrlgCoordStrc* src,int mode,int side
 }
 
 void __fastcall EmitPlacement(D2DrlgCoordStrc* src,int mode,int side,D2DrlgCoordStrc* dst) {
- sub_00675DE0_Place(src,mode,side,dst);
+ DRLGOUTPLACE_Place(src,mode,side,dst);
 }
 #undef LARGE_SHIFT
 #undef SMALL_SHIFT
@@ -435,7 +435,7 @@ int __fastcall DRLGOUTPLACE_PlaceAtLevelDefOffset(D2DrlgLevelLinkDataStrc* pLeve
 }
 
 // 0x00676450
-int __fastcall sub_00676450_LinkStepDirectionSide(D2DrlgLevelLinkDataStrc* pData)
+int __fastcall DRLGOUTPLACE_LinkStepDirectionSide(D2DrlgLevelLinkDataStrc* pData)
 {
     if (pData->nRand[1][pData->nIteration] == -1)
     {
@@ -586,7 +586,7 @@ static inline void DRLGOUTPLACE_PlaceCoordSide0(D2DrlgCoordStrc* pLinkCoord, D2D
 }
 
 // 0x00676650
-int __fastcall sub_00676650_LinkStepDirectionSideSized(D2DrlgLevelLinkDataStrc* pData)
+int __fastcall DRLGOUTPLACE_LinkStepDirectionSideSized(D2DrlgLevelLinkDataStrc* pData)
 {
     if (pData->nRand[1][pData->nIteration] == -1)
     {
@@ -626,7 +626,7 @@ int __fastcall sub_00676650_LinkStepDirectionSideSized(D2DrlgLevelLinkDataStrc* 
 }
 
 // 0x006768C0
-int __fastcall sub_006768C0_PlaceLevel(D2DrlgLevelLinkDataStrc* pData)
+int __fastcall DRLGOUTPLACE_PlaceLevel(D2DrlgLevelLinkDataStrc* pData)
 {
     pData->nRand[1][pData->nIteration] = 0;
     pData->nRand[0][pData->nIteration] = pData->nRand[1][pData->nIteration];
@@ -1536,14 +1536,14 @@ static void __stdcall DRLGOUTPLACE_OffsetByDirection(const D2PosStrc* pBase, int
 }
 
 // 0x00677870
-static int sub_00677870_IsYGreater(const D2PosStrc* pPos1, const D2PosStrc* pPos2)
+static int DRLGOUTPLACE_IsYGreater(const D2PosStrc* pPos1, const D2PosStrc* pPos2)
 {
     return pPos1->nY > pPos2->nY;
 }
 
 int __fastcall sub_00677870_Emit(const D2PosStrc* pPos1, const D2PosStrc* pPos2)
 {
-    return sub_00677870_IsYGreater(pPos1, pPos2);
+    return DRLGOUTPLACE_IsYGreater(pPos1, pPos2);
 }
 
 static inline unsigned int SEED_RollRandomNumber_Jungle(D2SeedStrc* pSeed)

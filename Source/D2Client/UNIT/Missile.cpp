@@ -107,7 +107,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
@@ -387,7 +387,7 @@ extern "C" int __stdcall sub_0064A280(D2UnitStrc* pUnit); // 0x0064A280
 
 extern "C" int __stdcall sub_0064A380(D2UnitStrc* pUnit); // 0x0064A380
 
-extern "C" int __stdcall sub_0064A780_targetValue(D2UnitStrc* pMissile);
+extern "C" int __stdcall MISSILE_targetValue(D2UnitStrc* pMissile); // 0x0064A780
 
 struct D2ScatterRateStrc
 {
@@ -500,7 +500,7 @@ int __fastcall SKILLS_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, in
 
 int __fastcall MISSILE_HitScanCallback(void* pArg, D2UnitStrc* pUnit); // 0x004CFFA0
 
-extern "C" int __stdcall sub_0064A730_GetMissileTargetStatus(D2UnitStrc* pMissile);
+extern "C" int __stdcall MISSILE_GetMissileTargetStatus(D2UnitStrc* pMissile); // 0x0064A730
 
 struct D2SpawnOffsetMissileView
 {
@@ -850,9 +850,9 @@ void __stdcall PATH_SetAcceleration(D2DynamicPathStrc* pDynamicPath, int nAccele
 
 void __stdcall PATH_SetTargetPos(D2DynamicPathStrc* pDynamicPath, unsigned short nX, unsigned short nY); // 0x00648AD0
 
-void __stdcall sub_00648B90_SetPathTarget(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pTargetUnit); // 0x00648B90
+void __stdcall PATH_SetPathTarget(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pTargetUnit); // 0x00648B90
 
-void __stdcall sub_0064A1E0_SetMissileLevel(D2UnitStrc* pMissile, int nSkillLevel); // 0x0064A1E0
+void __stdcall MISSILE_SetMissileLevel(D2UnitStrc* pMissile, int nSkillLevel); // 0x0064A1E0
 
 #define SUBMISSILE_ID 375
 
@@ -1117,7 +1117,7 @@ static void __stdcall MISSILE_SteerMissile(D2UnitStrc* pTarget, D2UnitStrc* pUni
     {
         PATH_SetTargetUnit(pPath, pTarget);
         MISSILE_SetTargetX(pUnit, 5);
-        nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
+        nDistance = DRLG_UnitEdgeDistance(pUnit, pTarget);
     }
     else
     {
@@ -1830,7 +1830,7 @@ int __fastcall MISSILE_CltHitScatter(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
             tMissileParams.nSkill = sub_0064A280(pMissile);
 
             const int nSpread = pMissilesTxtRecord->dwCltHitPar[0] < 3 ? 3 : pMissilesTxtRecord->dwCltHitPar[0];
-            const int nCount = sub_0064A730_GetMissileTargetStatus(pMissile);
+            const int nCount = MISSILE_GetMissileTargetStatus(pMissile);
             for (int i = 0; i < nCount; ++i)
             {
                 tMissileParams.nSkillLevel = SEED_RollRandomNumber(&pMissile->pSeed) % 5 + 1;
@@ -1869,7 +1869,7 @@ int __fastcall MISSILE_CltHitSubMissileOwner(D2UnitStrc* pMissile, D2UnitStrc* p
             D2DynamicPathStrc* pPath = pSubMissile->pDynamicPath;
             sub_006488A0(pPath, PATH_GetDirection(pMissile->pDynamicPath));
             D2COMMON_10203_PATH_SetRotateFlag(pPath, 0);
-            MISSILE_SetTargetX(pSubMissile, sub_0064A730_GetMissileTargetStatus(pMissile));
+            MISSILE_SetTargetX(pSubMissile, MISSILE_GetMissileTargetStatus(pMissile));
         }
 
         return 1;
@@ -3107,7 +3107,7 @@ void __fastcall MISSILE_CltDoSeekTarget(D2UnitStrc* pMissile)
 
         if (pTarget && !(sub_0064A3B0_GetElapsedFrames(pMissile) % nRate))
         {
-            const int nDistance = sub_006416D0_UnitEdgeDistance(pMissile, pTarget);
+            const int nDistance = DRLG_UnitEdgeDistance(pMissile, pTarget);
             if (nDistance >= 4 && nDistance <= 0x18)
             {
                 D2Common_10142(pMissile->pDynamicPath, pMissile, 0);
@@ -3282,7 +3282,7 @@ void __fastcall MISSILE_CltDoHoming(D2UnitStrc* pMissile)
         nRate = 5;
     }
 
-    if (sub_0064A3B0_GetElapsedFrames(pMissile) % nRate == 0 && sub_006416D0_UnitEdgeDistance(pMissile, pTarget) <= pMissilesTxtRecord->dwCltParam[3])
+    if (sub_0064A3B0_GetElapsedFrames(pMissile) % nRate == 0 && DRLG_UnitEdgeDistance(pMissile, pTarget) <= pMissilesTxtRecord->dwCltParam[3])
     {
         int nX = CLIENTS_GetUnitX(pMissile);
         int nY = CLIENTS_GetUnitY(pMissile);
@@ -3394,7 +3394,7 @@ void __fastcall MISSILE_CltDoHomingSubMissile(D2UnitStrc* pMissile)
     }
 
     if (pTarget && !(sub_0064A380_GetRemainingFrames(pMissile) % nRate) && nTargetX > 0
-        && sub_006416D0_UnitEdgeDistance(pMissile, pTarget) < pMissilesTxtRecord->dwCltParam[3])
+        && DRLG_UnitEdgeDistance(pMissile, pTarget) < pMissilesTxtRecord->dwCltParam[3])
     {
         int nX = CLIENTS_GetUnitX(pMissile);
         int nY = CLIENTS_GetUnitY(pMissile);
@@ -4122,7 +4122,7 @@ int __fastcall MISSILE_CltHitScanArea(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
         return 1;
     }
 
-    if (!CUNIT_FindClientUnit(sub_0064A780_targetValue(pMissile), sub_0064A730_GetMissileTargetStatus(pMissile)))
+    if (!CUNIT_FindClientUnit(MISSILE_targetValue(pMissile), MISSILE_GetMissileTargetStatus(pMissile)))
     {
         return 0;
     }
@@ -4466,7 +4466,7 @@ void __fastcall MISSILE_CltDoClearFrameWithOwner(D2UnitStrc* pMissile)
 void __fastcall MISSILE_CltDoLinked(D2UnitStrc* pMissile)
 {
     D2SeedStrc* pSeed = &pMissile->pSeed;
-    int nPrevState = sub_0064A780_targetValue(pMissile);
+    int nPrevState = MISSILE_targetValue(pMissile);
     D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
     if (!pPath)
     {
@@ -4474,11 +4474,11 @@ void __fastcall MISSILE_CltDoLinked(D2UnitStrc* pMissile)
         return;
     }
 
-    D2UnitStrc* pLinked = CUNIT_FindServerSideUnit(sub_0064A730_GetMissileTargetStatus(pMissile), 3);
+    D2UnitStrc* pLinked = CUNIT_FindServerSideUnit(MISSILE_GetMissileTargetStatus(pMissile), 3);
     if (pLinked)
     {
-        int nState = sub_0064A730_GetMissileTargetStatus(pLinked);
-        int nDistance = sub_006416D0_UnitEdgeDistance(pMissile, pLinked);
+        int nState = MISSILE_GetMissileTargetStatus(pLinked);
+        int nDistance = DRLG_UnitEdgeDistance(pMissile, pLinked);
         int nMin = MAX(1, (int)((unsigned int)SEED_RollRandomNumberInline(pSeed) % 5));
 
         if (nPrevState != nState && nState > 1)
@@ -4557,7 +4557,7 @@ int __fastcall MISSILE_CltHitScatterNoUnit(D2UnitStrc* pMissile, D2UnitStrc* pUn
     }
 
     D2SeedStrc* pSeed = &pMissile->pSeed;
-    SEED_InitLowSeed(pSeed, sub_0064A780_targetValue(pMissile));
+    SEED_InitLowSeed(pSeed, MISSILE_targetValue(pMissile));
     const int nCount = MISSILE_GetTargetX(pMissile);
     const int nX = UNITS_GetUnitXPosition(pMissile);
     const int nY = UNITS_GetUnitYPosition(pMissile);
@@ -5425,7 +5425,7 @@ void __fastcall MISSILE_CltDoRateJitterSpawn(D2UnitStrc* pMissile)
 
     if (nRemaining <= 1)
     {
-        D2UnitStrc* pTarget = CUNIT_FindClientUnit(sub_0064A780_targetValue(pMissile), 2);
+        D2UnitStrc* pTarget = CUNIT_FindClientUnit(MISSILE_targetValue(pMissile), 2);
         if (pTarget)
         {
             GFX_AddUnitOverlay(pTarget, 0xB6, 3, 0, 0, 0, 0, 0);
@@ -7611,9 +7611,9 @@ void __fastcall MISSILE_CltDoZigZag(D2UnitStrc* pMissile)
         return;
     }
 
-    SEED_InitLowSeed(pSeed, sub_0064A730_GetMissileTargetStatus(pMissile));
+    SEED_InitLowSeed(pSeed, MISSILE_GetMissileTargetStatus(pMissile));
 
-    const unsigned int nPackedOffset = sub_0064A780_targetValue(pMissile);
+    const unsigned int nPackedOffset = MISSILE_targetValue(pMissile);
     const int nPreviousOffsetX = (short)nPackedOffset;
     const int nPreviousOffsetY = (short)(nPackedOffset >> 16);
 
@@ -7926,8 +7926,8 @@ void __fastcall MISSILE_CltDoRotateTargetPoint(D2UnitStrc* pMissile)
         D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
         int nX = UNITS_GetUnitXPosition(pMissile);
         int nY = UNITS_GetUnitYPosition(pMissile);
-        int nDX = nX - sub_0064A730_GetMissileTargetStatus(pMissile);
-        int nDY = nY - sub_0064A780_targetValue(pMissile);
+        int nDX = nX - MISSILE_GetMissileTargetStatus(pMissile);
+        int nDY = nY - MISSILE_targetValue(pMissile);
         PATH_SetTargetPos(pPath, nX + nDY, nY - nDX);
         D2Common_10142(pPath, pMissile, 0);
     }

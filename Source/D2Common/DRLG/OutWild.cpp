@@ -34,7 +34,7 @@ int __fastcall DRLGOUTDOORS_SpawnPresetFarAway(D2DrlgLevelStrc* pLevel, D2DrlgCo
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);
 
-void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn);
+void __stdcall DRLGOUTDESR_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn); // 0x0067FE90
 
 extern "C" const char gszEmptyAssertText;
 
@@ -78,7 +78,8 @@ static int DRLGOUTWILD_TestSpawnRiver(int nX, D2DrlgLevelStrc* pLevel)
     return 1;
 }
 
-static inline int sub_0067FFB0_IsRectAdjacent(D2DrlgOutRectStrc* pRect, D2DrlgOutRectStrc* pOther)
+// build: symbol ?DRLGOUTDESR_IsRectAdjacent@* 0x0067FFB0
+static inline int DRLGOUTDESR_IsRectAdjacent(D2DrlgOutRectStrc* pRect, D2DrlgOutRectStrc* pOther)
 {
     D2DrlgOutRectStrc* pBounds = pRect->pBounds;
     if (pRect->nX < pBounds->nX && pOther->nY > pRect->nY && !(pRect->nFlags & 1) && !(pOther->nFlags & 1))
@@ -92,7 +93,8 @@ static inline int sub_0067FFB0_IsRectAdjacent(D2DrlgOutRectStrc* pRect, D2DrlgOu
     return 0;
 }
 
-static inline BOOL sub_0067FFF0_IsSpecialVertex(D2DrlgVertexStrc* pDrlgVertex)
+// build: symbol ?DRLGOUTDESR_IsSpecialVertex@* 0x0067FFF0
+static inline BOOL DRLGOUTDESR_IsSpecialVertex(D2DrlgVertexStrc* pDrlgVertex)
 {
     D2DrlgVertexStrc* pNext = pDrlgVertex->pNext;
 
@@ -229,7 +231,8 @@ static void DRLGOUTWILD_SpawnSpecialPresets(D2DrlgLevelStrc* pLevel)
     }
 }
 
-static void sub_00680070_MarkVertexDirections(D2DrlgLevelStrc* pLevel)
+// build: symbol ?DRLGOUTDESR_MarkVertexDirections@* 0x00680070
+static void DRLGOUTDESR_MarkVertexDirections(D2DrlgLevelStrc* pLevel)
 {
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
     D2DrlgVertexStrc* pVertex = pOutdoors->pVertex;
@@ -243,7 +246,7 @@ static void sub_00680070_MarkVertexDirections(D2DrlgLevelStrc* pLevel)
 
     do
     {
-        if (sub_0067FFB0_IsRectAdjacent((D2DrlgOutRectStrc*)pVertex, (D2DrlgOutRectStrc*)pPreviousVertex))
+        if (DRLGOUTDESR_IsRectAdjacent((D2DrlgOutRectStrc*)pVertex, (D2DrlgOutRectStrc*)pPreviousVertex))
         {
             D2DrlgVertexStrc* pFirstVertex = pVertex;
             D2DrlgVertexStrc* pSpecialVertex = 0;
@@ -259,7 +262,7 @@ static void sub_00680070_MarkVertexDirections(D2DrlgLevelStrc* pLevel)
                     break;
                 }
 
-                if (sub_0067FFF0_IsSpecialVertex(pVertex))
+                if (DRLGOUTDESR_IsSpecialVertex(pVertex))
                 {
                     pSpecialVertex = pVertex;
                 }
@@ -302,7 +305,7 @@ static void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2DrlgLevelStrc* pLevel)
         const int nX = pOutdoors->nGridWidth / 2 - 1;
         if (DRLGOUTWILD_TestSpawnRiver(nX, pLevel))
         {
-            sub_0067FE90_PlaceColumns(pLevel, nX);
+            DRLGOUTDESR_PlaceColumns(pLevel, nX);
         }
     }
 
@@ -355,7 +358,7 @@ void __fastcall DRLGOUTWILD_InitAct1OutdoorLevel(D2DrlgLevelStrc* pLevel)
 {
     if (pLevel->eLevelId != LEVEL_BLOODMOOR && pLevel->eLevelId != LEVEL_COLDPLAINS && pLevel->eLevelId != LEVEL_BURIALGROUNDS)
     {
-        sub_00680070_MarkVertexDirections(pLevel);
+        DRLGOUTDESR_MarkVertexDirections(pLevel);
     }
 
     DRLGOUTPLACE_SetOutGridLinkFlags(pLevel);

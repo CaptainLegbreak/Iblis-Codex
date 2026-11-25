@@ -32,7 +32,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                   
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus);              // 0x00622C40
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath);                                           // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath);                                           // 0x00648900
-extern "C" void __stdcall sub_00648B90_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTarget);        // 0x00648B90
+extern "C" void __stdcall PATH_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTarget);        // 0x00648B90
 void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nType);                                    // 0x00648CF0
 int __stdcall D2Common_10142(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, int a3);                   // 0x00649970
 
@@ -163,7 +163,7 @@ D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, in
         if (pTemp && AIUTIL_GetDistanceToCoordinates_NoUnitSize(pTemp, nX, nY) < 5 && !UNITS_IsInMeleeRange(pUnit, pTarget, 0))
         {
             D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-            sub_00648B90_SetPathTarget(pPath, pTarget);
+            PATH_SetPathTarget(pPath, pTarget);
             PATH_SetType(pPath, PATHTYPE_TOWARD);
             D2Common_10142(pPath, pUnit, 0);
 
@@ -183,7 +183,7 @@ D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 
 int __fastcall AITHINK_AreUnitsInSameLevel(D2UnitStrc* pUnit, D2UnitStrc* pTarget);                        // 0x005EEB10
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pTarget);                        // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pTarget);                        // 0x006416D0
 
 enum D2C_AncientBarb2AIParams
 {
@@ -231,7 +231,7 @@ void __fastcall AITHINK_AncientBarb2SkillHandler(D2GameStrc* pGame, D2UnitStrc* 
     }
 
     const int bInMeleeRange = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
-    nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
+    nDistance = DRLG_UnitEdgeDistance(pUnit, pTarget);
     if (bInMeleeRange && AI_RollPercentage(pUnit) < pMonStatsTxt->wAiParam[ANCIENTBARB2_AI_PARAM_WALK_AWAY_CHANCE_PCT][pGame->nDifficulty])
     {
         if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, (unsigned char)pMonStatsTxt->wAiParam[ANCIENTBARB2_AI_PARAM_WALK_AWAY_MAX_DISTANCE][pGame->nDifficulty], 1))

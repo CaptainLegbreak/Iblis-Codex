@@ -779,7 +779,7 @@ int __fastcall DATATBLS_GetSkillsCalcParamCount(int nValue)
 }
 
 // 0x00611760
-static void sub_00611760_MakeCalcCode(const char* szText, char* szCode)
+static void DATATBLS_MakeCalcCode(const char* szText, char* szCode)
 {
     if (!szText[0])
     {
@@ -842,7 +842,7 @@ int __fastcall DATATBLS_SkillsCalcParamCallback(char* szText, int* pResult, int 
                     return nRow;
                 }
             }
-            sub_00611760_MakeCalcCode(szText, szCode);
+            DATATBLS_MakeCalcCode(szText, szCode);
             const int nIndex = FOG_GetLinkIndex(gpSkillCalcLinker_0096BC6C, *(unsigned int*)szCode, 1);
             *pResult = 0;
             return nIndex;
@@ -858,7 +858,7 @@ int __fastcall DATATBLS_SkillsCalcParamCallback(char* szText, int* pResult, int 
                     return nRow;
                 }
             }
-            sub_00611760_MakeCalcCode(szText, szCode);
+            DATATBLS_MakeCalcCode(szText, szCode);
             const int nIndex = FOG_GetLinkIndex(gpMissileCalcLinker_0096BC8C, *(unsigned int*)szCode, 1);
             *pResult = 0;
             return nIndex;
@@ -899,14 +899,14 @@ int __fastcall DATATBLS_SkillsCalcParamCallback(char* szText, int* pResult, int 
                     return nRow;
                 }
             }
-            sub_00611760_MakeCalcCode(szText, szCode);
+            DATATBLS_MakeCalcCode(szText, szCode);
             const int nIndex = FOG_GetLinkIndex(gpSkillCalcLinker_0096BC6C, *(unsigned int*)szCode, 1);
             *pResult = 0;
             return nIndex;
         }
         }
     }
-    sub_00611760_MakeCalcCode(szText, szCode);
+    DATATBLS_MakeCalcCode(szText, szCode);
     const int nIndex = FOG_GetLinkIndex(gpSkillCalcLinker_0096BC6C, *(unsigned int*)szCode, 1);
     *pResult = 0;
     return nIndex;

@@ -481,7 +481,7 @@ void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const
 
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
 
 extern D2ViewStrc* gpClientView;                                                                         // 0x007A0640
 
@@ -2432,7 +2432,7 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
         return;
     }
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nUnitType == 5 && sub_006416D0_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) > 100)
+    if (nUnitType == 5 && DRLG_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) > 100)
     {
         return;
     }

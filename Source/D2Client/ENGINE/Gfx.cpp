@@ -425,7 +425,7 @@ static inline int UNITS_IsShapeshifted_Inline(D2UnitStrc* pUnit)
     return 0;
 }
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 
@@ -1115,7 +1115,7 @@ void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit);                    
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                                                        // 0x0063EA40
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask);         // 0x00648C30
@@ -1196,8 +1196,8 @@ int __fastcall sub_0046C660_FindCorpseCallback(D2UnitStrc* pUnit, D2UnitStrc* pT
             return 0;
     }
 
-    const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
-    if (nDistance >= 3 && nDistance <= 25 && sub_006416D0_UnitEdgeDistance(pTarget, sub_00463DD0_GetPlayerUnit()) > 7 && SEED_RollLimitedRandomNumber(&pUnit->pSeed, 2))
+    const int nDistance = DRLG_UnitEdgeDistance(pUnit, pTarget);
+    if (nDistance >= 3 && nDistance <= 25 && DRLG_UnitEdgeDistance(pTarget, sub_00463DD0_GetPlayerUnit()) > 7 && SEED_RollLimitedRandomNumber(&pUnit->pSeed, 2))
     {
         *pDistance = nDistance;
         *ppTarget = pTarget;
@@ -1244,7 +1244,7 @@ static D2UnitStrc* __stdcall sub_0046C720_FindNearestTarget(D2UnitStrc* pUnit, i
         D2UnitStrc* pTarget = *ppSlot;
         if (pTarget && pTarget->dwAnimMode && pTarget->dwAnimMode != 12)
         {
-            const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
+            const int nDistance = DRLG_UnitEdgeDistance(pUnit, pTarget);
             if (nDistance < *pDistance)
             {
                 pNearest = *ppSlot;
@@ -1479,7 +1479,7 @@ static void sub_0046CE40_AiType3(D2UnitStrc* pUnit)
         if (pState)
         {
             D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-            const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pPlayer);
+            const int nDistance = DRLG_UnitEdgeDistance(pUnit, pPlayer);
             if (*pState && nDistance > 25)
             {
                 CUNIT_RemoveServerSideUnit(UNITS_GetUnitIdInline(pUnit), 1);

@@ -156,7 +156,7 @@ void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); /
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 void __fastcall ACT5Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00587A30
 
@@ -670,7 +670,7 @@ void __fastcall ACT5Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
                 for (D2UnitStrc* pUnit = ((D2ActiveRoomUnitsStrc*)ppRooms[i])->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
                 {
                     if ((!pUnit ? 6 : pUnit->dwUnitType) == 1 && pUnit->dwClassId == 0x216 && pUnit->dwAnimMode != 12 && pUnit->dwAnimMode != 0
-                        && sub_006416D0_UnitEdgeDistance(pUnit, pQuestArg->pTarget) < 15)
+                        && DRLG_UnitEdgeDistance(pUnit, pQuestArg->pTarget) < 15)
                     {
                         pQuestDataEx->nFreedWussieUnitGUIDs[pQuestDataEx->nWussiesInRangeToDoor] = !pUnit ? -1 : pUnit->dwUnitId;
                         ++pQuestDataEx->nWussiesInRangeToDoor;
@@ -1017,7 +1017,7 @@ void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPl
       D2UnitStrc* pUnit=ppRooms[i]->pUnitFirst;
       while(pUnit)
       {
-       if((!pUnit ? 6 : pUnit->dwUnitType)==1 && pUnit->dwClassId==434 && pUnit->dwAnimMode==12 && sub_006416D0_UnitEdgeDistance(pUnit,pTarget)<15) break;
+       if((!pUnit ? 6 : pUnit->dwUnitType)==1 && pUnit->dwClassId==434 && pUnit->dwAnimMode==12 && DRLG_UnitEdgeDistance(pUnit,pTarget)<15) break;
        pUnit=pUnit->ptRoomNext;
       }
       if(pUnit)

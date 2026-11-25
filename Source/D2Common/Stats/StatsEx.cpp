@@ -2544,7 +2544,7 @@ void __stdcall STATLIST_SetBaseStat2(D2StatListStrc* pStatList, int nStatId, int
 }
 
 // 0x00627250
-int __stdcall sub_00627250_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer)
+int __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer)
 {
     return STATLIST_SetStatValue(pStatList, nStatId, nValue, nLayer);
 }
@@ -3017,7 +3017,7 @@ int __fastcall DUNGEON_ItemCalcGetRandomNumberInRange(int nMin, int nMax, int nU
 }
 
 // 0x00627BB0
-int __fastcall sub_00627BB0_ItemCalcGetStatValue(int nStatId, int nType, int nUnused, void* pUserData)
+int __fastcall STATLIST_ItemCalcGetStatValue(int nStatId, int nType, int nUnused, void* pUserData)
 {
     int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
     int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500

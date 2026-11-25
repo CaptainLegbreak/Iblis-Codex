@@ -355,7 +355,7 @@ struct D2DifficultyLevelsTxt;
 
 unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
 
@@ -1023,7 +1023,7 @@ int __fastcall MONSTER_CheckMonsterFacing(D2UnitStrc* pUnit, D2UnitStrc* pTarget
         return 0;
     }
 
-    if (sub_006416D0_UnitEdgeDistance(pUnit, pTarget) > 1)
+    if (DRLG_UnitEdgeDistance(pUnit, pTarget) > 1)
     {
         return 0;
     }

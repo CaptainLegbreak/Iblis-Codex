@@ -56,7 +56,7 @@ void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 
-int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY);                                           // 0x006417F0
+int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY);                                           // 0x006417F0
 
 void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, const char* szFile, int nLine); // 0x00648690
 
@@ -483,7 +483,7 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
 
     if (pMissileParams->dwFlags & 0x400)
     {
-        int nDistance = sub_006417F0_GetDistanceToXY(pMissile, nTargetX, nTargetY);
+        int nDistance = DRLG_GetDistanceToXY(pMissile, nTargetX, nTargetY);
         if (!nDistance)
         {
             nDistance = 1;

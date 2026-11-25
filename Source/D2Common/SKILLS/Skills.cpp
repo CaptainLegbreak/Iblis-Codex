@@ -211,7 +211,7 @@ void __fastcall PATH_GetDirectionVector(D2CoordStrc* pDirectionVector, int* pOut
 
 void __fastcall PATH_GetDirectionVectorFromPoints(D2CoordStrc* pDirectionVector, int* pOutDirection, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0064FD70
 
-void __fastcall sub_00670750_ApplySubstitutionBorder(D2UnkOutdoorStrc* pOutdoor); // 0x00670750
+void __fastcall DRLGTILESUB_ApplySubstitutionBorder(D2UnkOutdoorStrc* pOutdoor); // 0x00670750
 
 void __fastcall DRLGOUTDOORS_AlterAdjacentPresetGridCells(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674160
 
@@ -364,7 +364,7 @@ int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40
 
-int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
+int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
 
@@ -760,7 +760,7 @@ static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 #define COORD_INDEX 0
 #define SUBTILE_COUNT_PER_TILE 5
 // 0x00643560
-void __stdcall sub_00643560_GameTileToSubtileCoords(int* pX, int* pY)
+void __stdcall SKILLS_GameTileToSubtileCoords(int* pX, int* pY)
 {
     pX[COORD_INDEX] *= SUBTILE_COUNT_PER_TILE;
     pY[COORD_INDEX] *= SUBTILE_COUNT_PER_TILE;
@@ -4526,7 +4526,7 @@ int __stdcall SKILLS_CheckIfCanLeapTo(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, in
         tY2.n = D2COMMON_10176_PathGetFirstPointY(pUnit1->pDynamicPath);
     }
 
-    const int nDivisor = sub_006417F0_GetDistanceToXY(pUnit1, tX2.n, tY2.n);
+    const int nDivisor = DRLG_GetDistanceToXY(pUnit1, tX2.n, tY2.n);
     if (!nDivisor)
     {
         return 0;

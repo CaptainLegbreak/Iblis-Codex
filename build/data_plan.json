@@ -109519,7 +109519,7 @@
      24,
      "0x00627BB0",
      "source",
-     "sub_00627BB0_ItemCalcGetStatValue",
+     "STATLIST_ItemCalcGetStatValue",
      0,
      "func"
     ]
@@ -135794,7 +135794,7 @@
      32,
      "0x00676650",
      "source",
-     "sub_00676650_LinkStepDirectionSideSized",
+     "DRLGOUTPLACE_LinkStepDirectionSideSized",
      0,
      "func"
     ],
@@ -135802,7 +135802,7 @@
      48,
      "0x00676450",
      "source",
-     "sub_00676450_LinkStepDirectionSide",
+     "DRLGOUTPLACE_LinkStepDirectionSide",
      0,
      "func"
     ],
@@ -135937,7 +135937,7 @@
      32,
      "0x006768C0",
      "source",
-     "sub_006768C0_PlaceLevel",
+     "DRLGOUTPLACE_PlaceLevel",
      0,
      "func"
     ],
