@@ -1999,7 +1999,7 @@ void __stdcall DATATBLS_LoadAllTxts(void* pArg, int bArg); // 0x00619300
 
 void __stdcall DATATBLS_UnloadAllBins(); // 0x00619140
 
-void __cdecl sub_00451290_FreeLngModule(); // 0x00451290
+void __cdecl GAME_FreeLngModule(); // 0x00451290
 
 void __cdecl PROFCORE_WriteProfileCounters(); // 0x006116B0
 
@@ -2174,7 +2174,7 @@ int __stdcall GAME_LauncherRun(void* hInstance, D2ConfigStrc* pRecord)
     sub_004FA550();
     DATATBLS_UnloadAllBins();
     sub_00524E40();
-    sub_00451290_FreeLngModule();
+    GAME_FreeLngModule();
     PROFCORE_WriteProfileCounters();
     GAME_ShutdownIfActive();
     int nResult;

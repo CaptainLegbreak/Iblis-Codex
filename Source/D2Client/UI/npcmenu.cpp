@@ -273,7 +273,8 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int (__
 
 void __fastcall ROSTER_SetCtrlState(void* pPanel, int nValue); // 0x004B8370
 
-void __fastcall sub_004B85F0_AddTextLine(void* pPanel, const Unicode* pText, int nArg3, int nArg4, int nArg5, int nArg6,
+// build: symbol ?DIALOG_AddTextLine@* 0x004B85F0
+void __fastcall DIALOG_AddTextLine(void* pPanel, const Unicode* pText, int nArg3, int nArg4, int nArg5, int nArg6,
     int (__cdecl* pfnArg7)(), int nArg8); // 0x004B85F0
 
 int __cdecl sub_004B1DC0(); // 0x004B1DC0
@@ -338,7 +339,7 @@ unsigned char g007C0D89; // 0x007C0D89
 
 int __cdecl NPCMENU_ResurrectMercWait(); // 0x004B1DD0
 
-void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
+void __fastcall MSG_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 
 extern short gwGlobal_00726E01; // 0x00726E01
 
@@ -425,7 +426,7 @@ int gnNpcSoundHandle; // 0x007C0DB8
 
 char gbNpcMessageShown; // 0x007C0C69
 
-void __cdecl sub_004B3DE0_CloseNpc(); // 0x004B3DE0
+void __cdecl NPCMENU_CloseNpc(); // 0x004B3DE0
 
 void __cdecl NPCMENU_CloseNpcShop(); // 0x004B3ED0
 
@@ -453,7 +454,7 @@ D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0
 
 int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
-void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
+void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
 extern const char empty; // 0x006CC837
 
@@ -506,9 +507,9 @@ const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
 
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
 
-int __cdecl sub_004B4670_NpcMenuCancelText(); // 0x004B4670
+int __cdecl NPCMENU_NpcMenuCancelText(); // 0x004B4670
 
-int __cdecl sub_004B46D0_NpcMenuCancelTextB(); // 0x004B46D0
+int __cdecl NPCMENU_NpcMenuCancelTextB(); // 0x004B46D0
 
 int __cdecl NPCMENU_NpcMenuTalk(); // 0x004B4730
 
@@ -837,9 +838,9 @@ void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
 void __fastcall USEITEM_OpenNpcItemPanel(int nArg); // 0x004C0620
 
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
+int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
-int __fastcall sub_00478EE0_CountPets(D2UnitStrc* pOwner, int nPetType); // 0x00478EE0
+int __fastcall ROSTERPETS_CountPets(D2UnitStrc* pOwner, int nPetType); // 0x00478EE0
 
 void __cdecl NPCMENU_CloseTradeDialog(); // 0x004B3610
 
@@ -873,9 +874,9 @@ extern int gnGlobal_007C0D2D; // 0x007C0D2D
 
 extern unsigned int gnHirelingName_00725494; // 0x00725494
 
-int __cdecl sub_004B45D0_NpcMenuCancel(); // 0x004B45D0
+int __cdecl NPCMENU_NpcMenuCancel(); // 0x004B45D0
 
-int __cdecl sub_004B4620_NpcMenuCancelB(); // 0x004B4620
+int __cdecl NPCMENU_NpcMenuCancelB(); // 0x004B4620
 
 void __cdecl sub_005269D0(int,Unicode*,const Unicode*,...); // 0x005269D0
 
@@ -1362,7 +1363,7 @@ int __cdecl NPCMENU_ResurrectMercWait()
 // build: symbol ?gdwNpcTransactionTick@* 0x007C0D57
     gdwNpcTransactionTick = 0;
     ROSTER_SetCtrlState(gpNpcWaitDialog, 0);
-    sub_004B85F0_AddTextLine(gpNpcWaitDialog, D2LANG_GetStringFromTblIndex(0xD19), 0xF, 0, 0, 1, 0, 0);
+    DIALOG_AddTextLine(gpNpcWaitDialog, D2LANG_GetStringFromTblIndex(0xD19), 0xF, 0, 0, 1, 0, 0);
     return 1;
 }
 
@@ -1392,7 +1393,7 @@ void __cdecl NPCMENU_HireMercWait()
     gdwNpcRequestTimeout = GetTickCount() + 60000;
     gdwNpcTransactionTick = 0;
     ROSTER_SetCtrlState(gpNpcWaitDialog, 0);
-    sub_004B85F0_AddTextLine(gpNpcWaitDialog, D2LANG_GetStringFromTblIndex(0xD19), 0xF, 0, 0, 1, 0, 0);
+    DIALOG_AddTextLine(gpNpcWaitDialog, D2LANG_GetStringFromTblIndex(0xD19), 0xF, 0, 0, 1, 0, 0);
 }
 
 // 0x004B1F60
@@ -1448,7 +1449,7 @@ int __cdecl NPCMENU_IdentifyItemsWait()
     gdwNpcRequestTimeout = GetTickCount() + 60000;
     gdwNpcTransactionTick = 0;
     ROSTER_SetCtrlState(gpNpcWaitDialog, 0);
-    sub_004B85F0_AddTextLine(gpNpcWaitDialog, D2LANG_GetStringFromTblIndex(0xD19), 0xF, 0, 0, 1, 0, 0);
+    DIALOG_AddTextLine(gpNpcWaitDialog, D2LANG_GetStringFromTblIndex(0xD19), 0xF, 0, 0, 1, 0, 0);
     gnNpcMenuState = 10;
 // build: symbol ?gnNpcTradeMode@* 0x007C0D31
     gnNpcTradeMode = 4;
@@ -1479,7 +1480,7 @@ void __fastcall sub_Z12_EmitItemNeedsRepair(D2UnitStrc* pItem)
 }
 
 // 0x004B21C0
-static inline void sub_004B21C0_SetEntryType2(int nIndex)
+static inline void NPCMENU_SetEntryType2(int nIndex)
 {
     gaNpcMenuEntries[nIndex].nType = 2;
     gaNpcMenuEntries[nIndex].wSlot[0] = 0;
@@ -1487,7 +1488,7 @@ static inline void sub_004B21C0_SetEntryType2(int nIndex)
 }
 
 // 0x004B21E0
-static inline void sub_004B21E0_SetEntryType3(int nIndex)
+static inline void NPCMENU_SetEntryType3(int nIndex)
 {
     gaNpcMenuEntries[nIndex].nType = 3;
     gaNpcMenuEntries[nIndex].wSlot[1] = 0;
@@ -1495,7 +1496,7 @@ static inline void sub_004B21E0_SetEntryType3(int nIndex)
 }
 
 // 0x004B2200
-static inline void sub_004B2200_SetEntryType4(int nIndex)
+static inline void NPCMENU_SetEntryType4(int nIndex)
 {
     gaNpcMenuEntries[nIndex].nType = 4;
     gaNpcMenuEntries[nIndex].wSlot[2] = 0;
@@ -1539,7 +1540,7 @@ void __cdecl NPCMENU_ResetHandlers()
 void __fastcall NPCMENU_SendNpcAction(int nArg)
 {
     gbNpcActionPending = 0;
-    sub_004786D0_SendDwords3(0x38, 0, gnInteractNpcId, nArg);
+    MSG_SendDwords3(0x38, 0, gnInteractNpcId, nArg);
 }
 
 // 0x004B2390
@@ -1623,9 +1624,9 @@ void __cdecl NPCMENU_FreeNpcMenu()
 
 void __stdcall sub_M129_Emit_004B21C0(int a, int b, int c, int d)
 {
-    sub_004B21C0_SetEntryType2(a);
-    sub_004B21E0_SetEntryType3(b);
-    sub_004B2200_SetEntryType4(c);
+    NPCMENU_SetEntryType2(a);
+    NPCMENU_SetEntryType3(b);
+    NPCMENU_SetEntryType4(c);
     NPCMENU_SetIdentifyEntry(d);
 }
 
@@ -1791,7 +1792,7 @@ void __stdcall NPCMENU_SendTradeRequest(int bAlternate, int nFlags)
 // build: symbol ?gdwNpcTransactionTick@* 0x007C0D57
     gdwNpcTransactionTick = 0;
     sub_004B8370(gpNpcWaitDialog, 0);
-    sub_004B85F0_AddTextLine(gpNpcWaitDialog, D2LANG_GetStringFromTblIndex(0xD19), 0x0F, 0, 0, 1, 0, 0);
+    DIALOG_AddTextLine(gpNpcWaitDialog, D2LANG_GetStringFromTblIndex(0xD19), 0x0F, 0, 0, 1, 0, 0);
 }
 
 // 0x004B2900
@@ -2078,27 +2079,27 @@ void __cdecl NPCMENU_ShowTradeDialog()
     switch (gnNpcTradeMode)
     {
     case 1:
-        sub_004B85F0_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD14), 0x15, 0, 4, 1, 0, 0);
+        DIALOG_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD14), 0x15, 0, 4, 1, 0, 0);
         bService = 0;
         break;
 
     case 2:
-        sub_004B85F0_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD13), 0x15, 0, 4, 1, 0, 0);
+        DIALOG_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD13), 0x15, 0, 4, 1, 0, 0);
         bService = 1;
         break;
 
     case 3:
         bService = 1;
-        sub_004B85F0_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD17), 0x15, 0, 4, 1, 0, 0);
+        DIALOG_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD17), 0x15, 0, 4, 1, 0, 0);
         break;
 
     case 4:
         bService = 1;
-        sub_004B85F0_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD16), 0x15, 0, 4, 1, 0, 0);
+        DIALOG_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD16), 0x15, 0, 4, 1, 0, 0);
         break;
 
     case 5:
-        sub_004B85F0_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD18), 0x15, 0, 4, 1, 0, 0);
+        DIALOG_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD18), 0x15, 0, 4, 1, 0, 0);
         bShowItem = 0;
         break;
 
@@ -2136,7 +2137,7 @@ void __cdecl NPCMENU_ShowTradeDialog()
             }
         }
 
-        sub_004B85F0_AddTextLine(gpTradeDialog, wszName, 0xF, 0, 4, 1, NPCMENU_MenuBack, 0);
+        DIALOG_AddTextLine(gpTradeDialog, wszName, 0xF, 0, 4, 1, NPCMENU_MenuBack, 0);
 
         int nCost;
         gwszCost_007C0DF5[0].wChar = 0;
@@ -2150,12 +2151,12 @@ void __cdecl NPCMENU_ShowTradeDialog()
             sub_005267E0(gwszCost_007C0DF5, wszCost);
         }
 
-        sub_004B85F0_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD12), 0xF, 0, 4, 1, NPCMENU_MenuBack, 0);
-        sub_004B85F0_AddTextLine(gpTradeDialog, gwszCost_007C0DF5, 0xF, 0, 4, 1, NPCMENU_MenuBack, 0);
+        DIALOG_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD12), 0xF, 0, 4, 1, NPCMENU_MenuBack, 0);
+        DIALOG_AddTextLine(gpTradeDialog, gwszCost_007C0DF5, 0xF, 0, 4, 1, NPCMENU_MenuBack, 0);
     }
 
-    sub_004B85F0_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD10), 0xF, 0, 0, 1, NPCMENU_MenuBack, 1);
-    sub_004B85F0_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD11), 0xF, 0, 0, 1, NPCMENU_MenuClose, 1);
+    DIALOG_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD10), 0xF, 0, 0, 1, NPCMENU_MenuBack, 1);
+    DIALOG_AddTextLine(gpTradeDialog, D2LANG_GetStringFromTblIndex(0xD11), 0xF, 0, 0, 1, NPCMENU_MenuClose, 1);
 }
 
 // 0x004B3230
@@ -2398,9 +2399,9 @@ int __cdecl NPCMENU_HireMercHandler()
     gnHireMercNpcId = gnInteractNpcId;
     if (nCount < 10 && gpNpcTradeObj->GetAt(nCount) < 10)
     {
-        if (sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1
+        if (ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1
 // build: symbol ?gnHirelingName@* 0x00725494
-            && (!GAME_IsExpansion() || (!sub_00478EE0_CountPets(sub_00463DD0_GetPlayerUnit(), 7) && gnHirelingName == 0xFFFF)))
+            && (!GAME_IsExpansion() || (!ROSTERPETS_CountPets(sub_00463DD0_GetPlayerUnit(), 7) && gnHirelingName == 0xFFFF)))
         {
             NPCMENU_HireMercWait();
             return 0;
@@ -2703,14 +2704,14 @@ int __cdecl NPCMENU_OpenGambleShop()
     gnNpcMenuState = 3;
     gbGambleShop = 1;
     UI_SetUIVar(0xC, 0, 0);
-    sub_004786D0_SendDwords3(0x38, 2, gnInteractNpcId, 0);
+    MSG_SendDwords3(0x38, 2, gnInteractNpcId, 0);
     gpNpcPlayerUnit = sub_00463DD0_GetPlayerUnit();
     gwGlobal_007C0DD8 = 0;
     return 1;
 }
 
 // 0x004B3DE0
-void __cdecl sub_004B3DE0_CloseNpc()
+void __cdecl NPCMENU_CloseNpc()
 {
     gnNpcMenuState = 0;
     INV_ResetHover();
@@ -2779,7 +2780,7 @@ void __cdecl NPCMENU_CloseByState()
     else if (gbNpcMessageShown)
     {
         gbNpcMessageShown = 0;
-        sub_004B3DE0_CloseNpc();
+        NPCMENU_CloseNpc();
     }
 
     NPCMENU_FreeDialogs();
@@ -2787,7 +2788,7 @@ void __cdecl NPCMENU_CloseByState()
 }
 
 // 0x004B3FB0
-void __cdecl sub_004B3FB0_CloseNpc2()
+void __cdecl NPCMENU_CloseNpc2()
 {
     gnNpcMenuState = 0;
     INV_ResetHover();
@@ -2929,7 +2930,7 @@ int __cdecl NPCMENU_GreetNpcMessage()
 int __cdecl NPCMENU_ConfirmNpcAction()
 {
     sub_004B4070();
-    sub_004786D0_SendDwords3(0x38, 0, gnInteractNpcId, 0);
+    MSG_SendDwords3(0x38, 0, gnInteractNpcId, 0);
     return 1;
 }
 
@@ -2965,7 +2966,7 @@ int __cdecl NPCMENU_OpenTradeShop()
     gnNpcMenuState = 3;
     gbGambleShop = 0;
     UI_SetUIVar(0xC, 0, 0);
-    sub_004786D0_SendDwords3(0x38, 1, gnInteractNpcId, 0);
+    MSG_SendDwords3(0x38, 1, gnInteractNpcId, 0);
     gpNpcPlayerUnit = sub_00463DD0_GetPlayerUnit();
     gwGlobal_007C0DD8 = 0;
     return 1;
@@ -3076,7 +3077,7 @@ void __cdecl NPCMENU_UpdateNpcInteract()
 }
 
 // 0x004B45D0
-int __cdecl sub_004B45D0_NpcMenuCancel()
+int __cdecl NPCMENU_NpcMenuCancel()
 {
     if (gpNpcMainMenuDialog)
     {
@@ -3091,7 +3092,7 @@ int __cdecl sub_004B45D0_NpcMenuCancel()
 }
 
 // 0x004B4620
-int __cdecl sub_004B4620_NpcMenuCancelB()
+int __cdecl NPCMENU_NpcMenuCancelB()
 {
     if (gpNpcMainMenuDialog)
     {
@@ -3106,7 +3107,7 @@ int __cdecl sub_004B4620_NpcMenuCancelB()
 }
 
 // 0x004B4670
-int __cdecl sub_004B4670_NpcMenuCancelText()
+int __cdecl NPCMENU_NpcMenuCancelText()
 {
 // build: symbol ?gpNpcGreetingDialog@* 0x007C0D7B
     if (gpNpcGreetingDialog)
@@ -3124,7 +3125,7 @@ int __cdecl sub_004B4670_NpcMenuCancelText()
 }
 
 // 0x004B46D0
-int __cdecl sub_004B46D0_NpcMenuCancelTextB()
+int __cdecl NPCMENU_NpcMenuCancelTextB()
 {
     if (gpNpcGreetingDialog)
     {
@@ -3198,18 +3199,18 @@ void __cdecl NPCMENU_BuildNpcMenu()
     if(gnGlobal_007C0D2D==252 || gnGlobal_007C0D2D==198 || gnGlobal_007C0D2D==515 || gnGlobal_007C0D2D==150)
     {
         D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
-        sub_004786D0_SendDwords3(0x38,3,gnInteractNpcId,!pPlayer?-1:pPlayer->dwUnitId);
+        MSG_SendDwords3(0x38,3,gnInteractNpcId,!pPlayer?-1:pPlayer->dwUnitId);
     }
     D2CoordStrc tCoords;
     tCoords.nX=0;
     tCoords.nY=0;
     NPCMENU_GetNpcDialogPos(&tCoords);
-    gpNpcMainMenuDialog=DIALOG_CreateDialog(tCoords.nX,tCoords.nY,sub_004B45D0_NpcMenuCancel,sub_004B4620_NpcMenuCancelB,0,0,1,0,0,0,1);
+    gpNpcMainMenuDialog=DIALOG_CreateDialog(tCoords.nX,tCoords.nY,NPCMENU_NpcMenuCancel,NPCMENU_NpcMenuCancelB,0,0,1,0,0,0,1);
     sub_004B8370(gpNpcMainMenuDialog,1);
     Unicode wszName[80];
     sub_005267E0(wszName,CUNIT_GetUnitName(NPC_GetInteractUnit_Inline()));
     sub_00526800(wszName);
-    sub_004B85F0_AddTextLine(gpNpcMainMenuDialog,wszName,21,0,4,1,0,0);
+    DIALOG_AddTextLine(gpNpcMainMenuDialog,wszName,21,0,4,1,0,0);
     int nIndex=NPC_FindIndex_Inline(NPC_GetInteractUnit_Inline());
     if(nIndex<0 || nIndex>=gnNpcIndexCount)return;
     gnNpcMenuState=1;
@@ -3271,9 +3272,9 @@ void __cdecl NPCMENU_BuildNpcMenu()
             sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(gaNpcIndex[nIndex].awIds[i]));
         }
         else sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(nStringId));
-        sub_004B85F0_AddTextLine(gpNpcMainMenuDialog,wszLine,15,0,0,1,gaNpcIndex[nIndex].apfHandlers[i],bEnabled);
+        DIALOG_AddTextLine(gpNpcMainMenuDialog,wszLine,15,0,0,1,gaNpcIndex[nIndex].apfHandlers[i],bEnabled);
     }
-    sub_004B85F0_AddTextLine(gpNpcMainMenuDialog,D2LANG_GetStringFromTblIndex(0x102E),15,0,0,1,sub_004B45D0_NpcMenuCancel,1);
+    DIALOG_AddTextLine(gpNpcMainMenuDialog,D2LANG_GetStringFromTblIndex(0x102E),15,0,0,1,NPCMENU_NpcMenuCancel,1);
 }
 
 // 0x004B4CF0
@@ -3330,7 +3331,7 @@ void __cdecl NPCMENU_OpenGreetingDialog()
     tCoords.nY = 0;
     NPCMENU_GetNpcDialogPos(&tCoords);
 
-    gpNpcGreetingDialog = DIALOG_CreateDialog(tCoords.nX, tCoords.nY, sub_004B4670_NpcMenuCancelText, sub_004B46D0_NpcMenuCancelTextB, 0, 0, 1, 0, 0, 0, 1);
+    gpNpcGreetingDialog = DIALOG_CreateDialog(tCoords.nX, tCoords.nY, NPCMENU_NpcMenuCancelText, NPCMENU_NpcMenuCancelTextB, 0, 0, 1, 0, 0, 0, 1);
     ROSTER_SetCtrlState(gpNpcGreetingDialog, 1);
 
     Unicode wszName[80];
@@ -3348,7 +3349,7 @@ void __cdecl NPCMENU_OpenGreetingDialog()
         wszName[i].wChar = wChar < 0x100 ? gaCaseTable[wChar] : wChar;
     }
 
-    sub_004B85F0_AddTextLine(gpNpcGreetingDialog, wszName, 0x15, 0, 4, 1, 0, 0);
+    DIALOG_AddTextLine(gpNpcGreetingDialog, wszName, 0x15, 0, 4, 1, 0, 0);
     gnNpcMenuState = 1;
 
     unsigned short aStrings[5];
@@ -3360,8 +3361,8 @@ void __cdecl NPCMENU_OpenGreetingDialog()
     aStrings[nStrings++] = 0xD3E;
     D2UnitStrc* pPlayer = sub_00463DD0();
     const unsigned int nRoll = NPCDLG_RollSeed_Inline(&pPlayer->pSeed) % nStrings;
-    sub_004B85F0_AddTextLine(gpNpcGreetingDialog, D2LANG_GetStringFromTblIndex(aStrings[nRoll]), 0xF, 0, 0, 1, NPCMENU_NpcMenuTalk, 1);
-    sub_004B85F0_AddTextLine(gpNpcGreetingDialog, D2LANG_GetStringFromTblIndex(0x102E), 0xF, 0, 0, 1, sub_004B4670_NpcMenuCancelText, 1);
+    DIALOG_AddTextLine(gpNpcGreetingDialog, D2LANG_GetStringFromTblIndex(aStrings[nRoll]), 0xF, 0, 0, 1, NPCMENU_NpcMenuTalk, 1);
+    DIALOG_AddTextLine(gpNpcGreetingDialog, D2LANG_GetStringFromTblIndex(0x102E), 0xF, 0, 0, 1, NPCMENU_NpcMenuCancelText, 1);
     sub_004B82F0_Select(gpNpcGreetingDialog, 1);
 }
 
@@ -3397,7 +3398,7 @@ void __stdcall NPCMENU_OpenNpcWindow(D2UnitStrc* pUnit)
         pNpc->dwFlags &= ~2;
     if (!UI_SetUIVar(8, 2, 0))
     {
-        sub_004B3DE0_CloseNpc();
+        NPCMENU_CloseNpc();
         return;
     }
     NPCMENU_OpenGreetingDialog();
@@ -3415,7 +3416,7 @@ void __stdcall NPCMENU_OpenNpcWindow(D2UnitStrc* pUnit)
 }
 
 // 0x004B5140
-int __cdecl sub_004B5140_NpcMenuAction28()
+int __cdecl NPCMENU_NpcMenuAction28()
 {
     if (gpNpcMainMenuDialog)
     {
@@ -3426,7 +3427,7 @@ int __cdecl sub_004B5140_NpcMenuAction28()
     INV_ResetHover();
     NPCMENU_EndNpcInteraction(gnInteractNpcId);
     UI_SetUIVar(8, 1, 0);
-    sub_004786D0_SendDwords3(0x38, 0, gnInteractNpcId, 0x28);
+    MSG_SendDwords3(0x38, 0, gnInteractNpcId, 0x28);
     return 1;
 }
 
@@ -3442,7 +3443,7 @@ int __cdecl NPCMENU_TravelToKurastDocks()
     INV_ResetHover();
     NPCMENU_EndNpcInteraction(gnInteractNpcId);
     UI_SetUIVar(8, 1, 0);
-    sub_004786D0_SendDwords3(0x38, 0, gnInteractNpcId, 0x4B);
+    MSG_SendDwords3(0x38, 0, gnInteractNpcId, 0x4B);
     return 1;
 }
 
@@ -3458,12 +3459,12 @@ int __cdecl NPCMENU_TravelToHarrogath()
     INV_ResetHover();
     NPCMENU_EndNpcInteraction(gnInteractNpcId);
     UI_SetUIVar(8, 1, 0);
-    sub_004786D0_SendDwords3(0x38, 0, gnInteractNpcId, 0x6D);
+    MSG_SendDwords3(0x38, 0, gnInteractNpcId, 0x6D);
     return 1;
 }
 
 // 0x004B5260
-int __cdecl sub_004B5260_NpcMenuAction28b()
+int __cdecl NPCMENU_NpcMenuAction28b()
 {
     if (gpNpcMainMenuDialog)
     {
@@ -3474,7 +3475,7 @@ int __cdecl sub_004B5260_NpcMenuAction28b()
     INV_ResetHover();
     NPCMENU_EndNpcInteraction(gnInteractNpcId);
     UI_SetUIVar(8, 1, 0);
-    sub_004786D0_SendDwords3(0x38, 0, gnInteractNpcId, 0x28);
+    MSG_SendDwords3(0x38, 0, gnInteractNpcId, 0x28);
     return 1;
 }
 
@@ -3490,7 +3491,7 @@ int __cdecl NPCMENU_TravelToRogueEncampment()
     INV_ResetHover();
     NPCMENU_EndNpcInteraction(gnInteractNpcId);
     UI_SetUIVar(8, 1, 0);
-    sub_004786D0_SendDwords3(0x38, 0, gnInteractNpcId, 1);
+    MSG_SendDwords3(0x38, 0, gnInteractNpcId, 1);
     return 1;
 }
 
@@ -3514,7 +3515,7 @@ void __fastcall NPCMENU_OnUnitRemoved(unsigned char nUnitType, int nUnitId)
         if (gnNpcMenuState == 1)
         {
             gbNpcMessageShown = 0;
-            sub_004B3DE0_CloseNpc();
+            NPCMENU_CloseNpc();
         }
         else if (gnNpcMenuState >= 3 && gnNpcMenuState <= 6)
         {
@@ -3528,7 +3529,7 @@ void __fastcall NPCMENU_OnUnitRemoved(unsigned char nUnitType, int nUnitId)
         else if (gbNpcMessageShown)
         {
             gbNpcMessageShown = 0;
-            sub_004B3DE0_CloseNpc();
+            NPCMENU_CloseNpc();
         }
 
         NPCMENU_FreeDialogs();
@@ -3580,12 +3581,12 @@ void __cdecl NPCMENU_OnTransactionResult()
  CHECK(!gpRes_007C0D63,0x1399);
  if(g007C0D31==2) {
   D2UnitStrc* item=INVENTORY_GetCursorItem(inv);
-  if(g007C0D3F==1 && item && !CURSOR_GetCursorItem()) sub_00468070_SetCursorItemState(item);
+  if(g007C0D3F==1 && item && !CURSOR_GetCursorItem()) CURSOR_SetCursorItemState(item);
  }
  gpRes_007C0D63=DIALOG_CreateDialog(sub_00468730(),sub_00468740(),NPCMENU_NpcMenuReturn,0,0,1,1,0,0,0,1);
  ROSTER_SetCtrlState(gpRes_007C0D63,1);
- sub_004B85F0_AddTextLine(gpRes_007C0D63,D2LANG_GetStringFromTblIndex(text),0x15,0,1,1,0,0);
- sub_004B85F0_AddTextLine(gpRes_007C0D63,D2LANG_GetStringFromTblIndex(0xd4b),0xf,0,0,1,NPCMENU_NpcMenuReturn,1);
+ DIALOG_AddTextLine(gpRes_007C0D63,D2LANG_GetStringFromTblIndex(text),0x15,0,1,1,0,0);
+ DIALOG_AddTextLine(gpRes_007C0D63,D2LANG_GetStringFromTblIndex(0xd4b),0xf,0,0,1,NPCMENU_NpcMenuReturn,1);
  } else { FOG_DisplayHalt(&empty,sub_00408090(),0x13ad);exit(-1); }
 }
 
@@ -3662,8 +3663,8 @@ void __cdecl sub_004B5640_OpenNpcMenu()
 
                 gpNpcSubMenuDialog = DIALOG_CreateDialog(sub_00468730(), sub_00468740(), NPCMENU_NpcMenuReturn, 0, 0, 1, 1, 0, 0, 0, 1);
                 ROSTER_SetCtrlState(gpNpcSubMenuDialog, 1);
-                sub_004B85F0_AddTextLine(gpNpcSubMenuDialog, D2LANG_GetStringFromTblIndex(nStringId), 0x15, 0, 1, 1, 0, 0);
-                sub_004B85F0_AddTextLine(gpNpcSubMenuDialog, D2LANG_GetStringFromTblIndex(0xD4B), 0xF, 0, 0, 1, NPCMENU_NpcMenuReturn, 1);
+                DIALOG_AddTextLine(gpNpcSubMenuDialog, D2LANG_GetStringFromTblIndex(nStringId), 0x15, 0, 1, 1, 0, 0);
+                DIALOG_AddTextLine(gpNpcSubMenuDialog, D2LANG_GetStringFromTblIndex(0xD4B), 0xF, 0, 0, 1, NPCMENU_NpcMenuReturn, 1);
             return;
         }
     }
@@ -3776,12 +3777,12 @@ void __stdcall NPCMENU_OpenNpcPanel(int nStringIndex, int nEntryIndex)
 
     gpNpcMessageDialog = DIALOG_CreateDialog(tCoords.nX, tCoords.nY, NPCMENU_CloseSubMenuToMain, sub_004B4010, 0, 0, 1, 0, 0, 0, 1);
     ROSTER_SetCtrlState(gpNpcMessageDialog, 1);
-    sub_004B85F0_AddTextLine(gpNpcMessageDialog, D2LANG_GetStringFromTblIndex(nStringIndex), 0x15, 0, 4, 1, 0, 0);
+    DIALOG_AddTextLine(gpNpcMessageDialog, D2LANG_GetStringFromTblIndex(nStringIndex), 0x15, 0, 4, 1, 0, 0);
 
     D2TextHeaderStrc* pTextHeader = DLIGHTMAP_GetTextHeader();
     if (!pTextHeader)
     {
-        sub_004B85F0_AddTextLine(gpNpcMessageDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, NPCMENU_CloseSubMenuToMain, 1);
+        DIALOG_AddTextLine(gpNpcMessageDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, NPCMENU_CloseSubMenuToMain, 1);
         return;
     }
 
@@ -3790,20 +3791,20 @@ void __stdcall NPCMENU_OpenNpcPanel(int nStringIndex, int nEntryIndex)
     gnNpcEntryIndex = nEntryIndex;
     if (!gaNpcEntries[nEntryIndex].bFlag14)
     {
-        sub_004B85F0_AddTextLine(gpNpcMessageDialog, D2LANG_GetStringFromTblIndex(0xD47), 0xF, 0, 0, 1, sub_004B41E0, 1);
+        DIALOG_AddTextLine(gpNpcMessageDialog, D2LANG_GetStringFromTblIndex(0xD47), 0xF, 0, 0, 1, sub_004B41E0, 1);
     }
 
-    sub_004B85F0_AddTextLine(gpNpcMessageDialog, D2LANG_GetStringFromTblIndex(0xD43), 0xF, 0, 0, 1, sub_004B41C0, 1);
+    DIALOG_AddTextLine(gpNpcMessageDialog, D2LANG_GetStringFromTblIndex(0xD43), 0xF, 0, 0, 1, sub_004B41C0, 1);
 
     for (int i = 0; i < nCount; ++i)
     {
         const unsigned short nStringId = TEXT_GetStringIdOfMenuType2Node(pTextHeader, i);
-        sub_004B85F0_AddTextLine(gpNpcMessageDialog, TEXT_GetTextString(nStringId), 0xF, 0, 0, 1, sub_004B1A80, 1);
+        DIALOG_AddTextLine(gpNpcMessageDialog, TEXT_GetTextString(nStringId), 0xF, 0, 0, 1, sub_004B1A80, 1);
     }
 
     if (gnInteractNpcClassId == 0xC9)
     {
-        sub_004B85F0_AddTextLine(gpNpcMessageDialog, D2LANG_GetStringFromTblIndex(0xD40), 0xF, 0, 0, 1, sub_004B1B80, 1);
+        DIALOG_AddTextLine(gpNpcMessageDialog, D2LANG_GetStringFromTblIndex(0xD40), 0xF, 0, 0, 1, sub_004B1B80, 1);
     }
 
     if (gnInteractNpcClassId == 0x109 || gnInteractNpcClassId == 0xF4 || gnInteractNpcClassId == 0xF5 || gnInteractNpcClassId == 0x208 || gnInteractNpcClassId == 0xF6)
@@ -3816,14 +3817,14 @@ void __stdcall NPCMENU_OpenNpcPanel(int nStringIndex, int nEntryIndex)
                 D2UnitStrc* pCheck = INVENTORY_UnitIsItem(pItem);
                 if (pCheck && ITEMS_GetBaseCode(pCheck) == 0x20786F62)
                 {
-                    sub_004B85F0_AddTextLine(gpNpcMessageDialog, D2LANG_GetStringFromTblIndex(0x8B7), 0xF, 0, 0, 1, sub_004B1C00, 1);
+                    DIALOG_AddTextLine(gpNpcMessageDialog, D2LANG_GetStringFromTblIndex(0x8B7), 0xF, 0, 0, 1, sub_004B1C00, 1);
                     break;
                 }
             }
         }
     }
 
-    sub_004B85F0_AddTextLine(gpNpcMessageDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, NPCMENU_CloseSubMenuToMain, 1);
+    DIALOG_AddTextLine(gpNpcMessageDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, NPCMENU_CloseSubMenuToMain, 1);
 }
 
 // 0x004B5AD0
@@ -3838,9 +3839,9 @@ void __stdcall NPCMENU_OpenConfirmDialog(int nStringIndex)
 
     gpNpcConfirmDialog = DIALOG_CreateDialog(tCoords.nX, tCoords.nY, sub_004B5850, sub_004B4070, 0, 0, 1, 0, 0, 0, 1);
     ROSTER_SetCtrlState(gpNpcConfirmDialog, 1);
-    sub_004B85F0_AddTextLine(gpNpcConfirmDialog, D2LANG_GetStringFromTblIndex(nStringIndex), 0x15, 0, 4, 1, 0, 0);
-    sub_004B85F0_AddTextLine(gpNpcConfirmDialog, D2LANG_GetStringFromTblIndex(0xD49), 0xF, 0, 0, 1, sub_004B4290, 1);
-    sub_004B85F0_AddTextLine(gpNpcConfirmDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, sub_004B5850, 1);
+    DIALOG_AddTextLine(gpNpcConfirmDialog, D2LANG_GetStringFromTblIndex(nStringIndex), 0x15, 0, 4, 1, 0, 0);
+    DIALOG_AddTextLine(gpNpcConfirmDialog, D2LANG_GetStringFromTblIndex(0xD49), 0xF, 0, 0, 1, sub_004B4290, 1);
+    DIALOG_AddTextLine(gpNpcConfirmDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, sub_004B5850, 1);
 }
 
 // 0x004B5C00
@@ -4043,7 +4044,7 @@ static void __stdcall NPCMENU_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen)
         }
         if (gbNpcInteracting ? CUNIT_FindClientUnit(gnInteractNpcId, 1) : 0)
         {
-            sub_004B3DE0_CloseNpc();
+            NPCMENU_CloseNpc();
             return;
         }
     }
@@ -4224,7 +4225,7 @@ int __fastcall NPCMENU_NpcTextCallback(void* pContext, int nArg, int nValue)
                 NPCMENU_OpenNpcInteract(NPCMENU_GetInteractNpc(), 1);
                 return 1;
             }
-            sub_004B3DE0_CloseNpc();
+            NPCMENU_CloseNpc();
             return 0;
         }
 
@@ -4242,7 +4243,7 @@ int __fastcall NPCMENU_NpcTextCallback(void* pContext, int nArg, int nValue)
     return 0;
 }
 
-void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUnitId, unsigned char* pBuffer, unsigned char nArg);
+void __fastcall NPCMENU_NpcInteractPacket(unsigned char nUnitType, int nUnitId, unsigned char* pBuffer, unsigned char nArg); // 0x004B6DD0
 struct D2TextHeaderStrc;
 
 // 0x004B6C70
@@ -4274,7 +4275,7 @@ int __cdecl sub_004B6C70_OpenNpcMenu()
 }
 
 // 0x004B6D10
-int __cdecl sub_004B6D10_OpenConfirm()
+int __cdecl NPCMENU_OpenConfirm()
 {
     if (!NPC_GET_INTERACT_UNIT())
     {
@@ -4301,14 +4302,14 @@ int __cdecl sub_004B6D10_OpenConfirm()
 int __cdecl sub_004B6DA0_InitHandler()
 {
     gnGlobal_00726C4C = 4;
-    gpfnGlobal_00726C62 = sub_004B6D10_OpenConfirm;
+    gpfnGlobal_00726C62 = NPCMENU_OpenConfirm;
     gwGlobal_00726C54 = 0x2BA0;
     return 1;
 }
 
 #include "gen/data/Source/D2Client/UI/npcmenu.inc"
 // 0x004B6DD0
-void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUnitId, unsigned char* pBuffer, unsigned char nArg)
+void __fastcall NPCMENU_NpcInteractPacket(unsigned char nUnitType, int nUnitId, unsigned char* pBuffer, unsigned char nArg)
 {
     if (nUnitType == 6)
     {

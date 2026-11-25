@@ -633,7 +633,7 @@ void __fastcall GFX_ResetMonsterModeGfx(D2UnitStrc* pUnit); // 0x00470B70
 
 D2UnitStrc* __fastcall CUNIT_CreateObjectUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5, int nArg6, unsigned char nInteractType); // 0x00466300
 
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
+int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
 void __fastcall CUNIT_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
 
@@ -982,7 +982,7 @@ struct D2GSPacketSrv99
 
 void __fastcall CUNIT_SetOverlayWithSound(D2UnitStrc* pUnit, int nOverlay, int nArg); // 0x00464E50
 
-void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUnitId, unsigned char* pBuffer, unsigned char nArg); // 0x004B6DD0
+void __fastcall NPCMENU_NpcInteractPacket(unsigned char nUnitType, int nUnitId, unsigned char* pBuffer, unsigned char nArg); // 0x004B6DD0
 
 void __fastcall NPCMENU_OnUnitRemoved(unsigned char nUnitType, int nUnitId); // 0x004B5320
 
@@ -1859,7 +1859,7 @@ void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x0064326
 
 int __stdcall ROSTERPETS_GetPulseColor(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0046BD50
 
-D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
+D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
 void __stdcall ENVIRONMENT_GetLightColorFromAct(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
 
@@ -2786,7 +2786,7 @@ void __fastcall SCMD_HandleUnitsUpdate(const D2GSPacketSrv16* pPacket)
 // 0x0045D370
 void __fastcall SCMD_HandleNpcInteract(const D2GSPacketSrv28* pPacket)
 {
-    sub_004B6DD0_NpcInteractPacket(pPacket->nUnitType, pPacket->nUnitId, (unsigned char*)pPacket->pBuffer, pPacket->nArg);
+    NPCMENU_NpcInteractPacket(pPacket->nUnitType, pPacket->nUnitId, (unsigned char*)pPacket->pBuffer, pPacket->nArg);
 }
 
 // 0x0045D390
@@ -2956,7 +2956,7 @@ void __fastcall SCMD_HandleQuestLog(void* pPacket)
 void __fastcall SCMD_HandleRemoveObject(D2GSPacketSrv0A* pPacket)
 {
     const int nUnitGUID = pPacket->dwUnitGUID;
-    if (pPacket->nUnitType == 1 && nUnitGUID == sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 1))
+    if (pPacket->nUnitType == 1 && nUnitGUID == ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 1))
         return;
     CUNIT_RemoveClientSideUnit(nUnitGUID, pPacket->nUnitType);
 }
@@ -3540,7 +3540,7 @@ void __fastcall SCMD_HandleClearCursor(const D2GSPacketSrv42Strc* pPacket)
 }
 
 // 0x0045E290
-void __fastcall sub_0045E290_Packet45(const D2GSPacketSrv45* pPacket)
+void __fastcall SCMD_Packet45(const D2GSPacketSrv45* pPacket)
 {
 }
 
@@ -3589,7 +3589,7 @@ void __fastcall SCMD_HandleUiPacket(const D2PacketRecord15Strc* pPacket)
 }
 
 // 0x0045E3B0
-void __fastcall sub_0045E3B0_Packet54(const D2GSPacketSrv54* pPacket)
+void __fastcall SCMD_Packet54(const D2GSPacketSrv54* pPacket)
 {
     sub_00473CA0_Empty();
 }
@@ -3738,7 +3738,7 @@ void __fastcall SCMD_HandleKillCount(const D2GSPacketSrv65* pPacket)
 }
 
 // 0x0045E6C0
-void __fastcall sub_0045E6C0_Packet66(const D2GSPacketSrv66* pPacket)
+void __fastcall SCMD_Packet66(const D2GSPacketSrv66* pPacket)
 {
 }
 
@@ -4423,7 +4423,7 @@ void __fastcall SCMD_HandleAssignMonster(D2PacketSpawnStrc* pPacket)
     D2UnitStrc* pUnit = CUNIT_AddClientMonster(&tSpawn, pComponents, pMods, nPalette, nSpecial, 0);
     if (!pUnit) return;
     GFX_ResetMonsterModeGfx(pUnit);
-    if (!MONSTERS_GetHirelingTypeId(pUnit) || nUnitId != sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 1))
+    if (!MONSTERS_GetHirelingTypeId(pUnit) || nUnitId != ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 1))
     {
         STATLIST_SetUnitStat(pUnit, STAT_MAXHP, 0x8000, 0);
         STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, pPacket->nLife << 8, 0);
@@ -4525,7 +4525,7 @@ static D2PacketBufferStrc* SCMD_GrowPacketBuffer(D2UnitStrc* pUnit)
     return pBuffer;
 }
 
-void __stdcall sub_00467EF0_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467EF0
+void __stdcall CURSOR_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467EF0
 
 // 0x0045F730
 static void __stdcall SCMD_QueuePacket(unsigned char* pPacket, int nLength, D2UnitStrc* pUnit)
@@ -4644,7 +4644,7 @@ void __fastcall SCMD_ProcessPackets(unsigned char* pData, int nSize)
 // 0x0046E150
 void __fastcall SCMD_SetGfxNodeValue(D2UnitStrc* pUnit, int nId, int nValue)
 {
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 510);
 
     for (D2UnitOverlayStrc* pNode = pGfxData->pOverlays; pNode; pNode = pNode->pNext)

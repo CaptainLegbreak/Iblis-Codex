@@ -14,7 +14,7 @@ void __fastcall SOUNDINST_ArmHint(D2SoundStrc* pSound, int nZero, int nZero2, in
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nId, int nType); // 0x00463990
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int nType, unsigned int nId); // 0x004786A0
 extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
-void __fastcall sub_00467430_SetSelectionRect(D2RectStrc* pRect); // 0x00467430
+void __fastcall SELECT_SetSelectionRect(D2RectStrc* pRect); // 0x00467430
 void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 int __fastcall D2Win_10127_SetFont(int nFont); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -121,7 +121,7 @@ void __fastcall TEXT_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, 
         ? gnTextTop_007225FC + 182 : gnScreenHeight - 53;
     tRect.nLeft = gnTextLeft_007BF278 - 10;
     tRect.nRight = gnTextLeft_007BF278 + 335;
-    sub_00467430_SetSelectionRect(&tRect);
+    SELECT_SetSelectionRect(&tRect);
     SELECT_ClearSelection();
     gwMessage_007BF212 = nMessage;
     if (!gpTextBox)

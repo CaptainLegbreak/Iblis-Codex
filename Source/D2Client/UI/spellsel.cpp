@@ -58,7 +58,7 @@ extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 
 
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus);                     // 0x006442A0
 
-void __fastcall sub_004A9870_DrawSkillSlot(D2SkillsTxt* pSkillsTxt, int nOwner, int nCharges, int nState, int nX, int nY, int bLeft); // 0x004A9870
+void __fastcall SPELLSEL_DrawSkillSlot(D2SkillsTxt* pSkillsTxt, int nOwner, int nCharges, int nState, int nX, int nY, int bLeft); // 0x004A9870
 
 void __fastcall TEXT_UpdateSkillButtonHover(D2SkillsTxt* pSkillsTxt, int nState, int nLevel, int nCharges, int nX, int nY); // 0x004A8D50
 
@@ -141,7 +141,7 @@ unsigned short gawIconValues[8]; // 0x007C07A8
     if (gaHotkeySkills[i] == pSkillsTxt->nSkillId && gaHotkeyOwners[i] == nOwner \
         && gaHotkeySkills[i] != -1 && gaHotkeyLeft[i] == flag) \
     { \
-        sub_004A8DF0_DrawKeyLabel(key, nX + 0x22, nY - 0x23, 4); \
+        SPELLSEL_DrawKeyLabel(key, nX + 0x22, nY - 0x23, 4); \
     }
 
 extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix);
@@ -753,7 +753,7 @@ void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLef
             if (!bNoSlots)
             {
                 if (!bNoDraw)
-                    sub_004A9870_DrawSkillSlot(pSkillsTxt, nOwner, nCharges, nState, nX, nY, bLeft);
+                    SPELLSEL_DrawSkillSlot(pSkillsTxt, nOwner, nCharges, nState, nX, nY, bLeft);
                 nX = SPELLSEL_AddSkillSlot(nX, bLeft, nY, pSkill, nState);
             }
             else
@@ -810,14 +810,14 @@ void __fastcall SPELLSEL_BuildLeftRows(int bNoDraw)
 }
 
 // 0x004AA6E0
-void __cdecl sub_004AA6E0_BuildRightRows2()
+void __cdecl SPELLSEL_BuildRightRows2()
 {
     if (gbSkillSelectRight)
         SPELLSEL_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 1, 0);
 }
 
 // 0x004AA710
-void __cdecl sub_004AA710_BuildLeftRows2()
+void __cdecl SPELLSEL_BuildLeftRows2()
 {
     if (!gbSkillSelectRight)
         SPELLSEL_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), gnScreenWidth - 0x80, 0, 1, 0);
@@ -910,7 +910,7 @@ extern "C" void __cdecl INV_ClearSkillPointsHighlight()
 }
 
 // 0x004A8A30
-void __cdecl sub_004A8A30_InitSkillIcons()
+void __cdecl SPELLSEL_InitSkillIcons()
 {
     gpSkillIconCel = GAME_LoadUiCelFile("Spells\\Skillicon");
     gaSkillIconCels[gnCharClass].pCelFile = GAME_LoadUiCelFile(gaSkillIconCels[gnCharClass].szPath);
@@ -945,7 +945,7 @@ void __cdecl sub_004A8A30_InitSkillIcons()
 }
 
 // 0x004A8CF0
-static int __stdcall sub_004A8CF0_IsMouseInRect(int nX, int nWidth, int nY, int nHeight)
+static int __stdcall SPELLSEL_IsMouseInRect(int nX, int nWidth, int nY, int nHeight)
 {
     const int nMouseX = sub_00468730();
     const int nMouseY = sub_00468740();
@@ -960,13 +960,13 @@ void __stdcall sub_K05_EmitUse(int nValue);
 
 void __fastcall sub_K05_EmitMouseInRect(int nX, int nY)
 {
-    sub_K05_EmitUse(sub_004A8CF0_IsMouseInRect(nX, 0x30, nY, 0x30));
-    sub_K05_EmitUse(sub_004A8CF0_IsMouseInRect(nX + 0x30, 0x30, nY, 0x30));
+    sub_K05_EmitUse(SPELLSEL_IsMouseInRect(nX, 0x30, nY, 0x30));
+    sub_K05_EmitUse(SPELLSEL_IsMouseInRect(nX + 0x30, 0x30, nY, 0x30));
 }
 
-// build: symbol ?$S1@?4??sub_004A8DF0_DrawKeyLabel@@YIXHHHH@Z@4IA 0x007C0830
+// build: symbol ?$S1@?4??SPELLSEL_DrawKeyLabel@@YIXHHHH@Z@4IA 0x007C0830
 // 0x004A8DF0
-void __fastcall sub_004A8DF0_DrawKeyLabel(int nKeyId, int nX, int nY, int nColor)
+void __fastcall SPELLSEL_DrawKeyLabel(int nKeyId, int nX, int nY, int nColor)
 {
     if (CUNIT_GetHotkeyBinding(nKeyId, 1) == 0xFFFF)
     {
@@ -999,7 +999,7 @@ void __fastcall sub_004A8DF0_DrawKeyLabel(int nKeyId, int nX, int nY, int nColor
 }
 
 // 0x004A8ED0
-static void __stdcall sub_004A8ED0_DrawSkillHotkeyLabels(const D2SkillsTxt* pSkillsTxt, int nOwner, int nX, int nY)
+static void __stdcall SPELLSEL_DrawSkillHotkeyLabels(const D2SkillsTxt* pSkillsTxt, int nOwner, int nX, int nY)
 {
     SPELLSEL_HOTKEY_LABEL(0, 0x0E, 1)
     SPELLSEL_HOTKEY_LABEL(1, 0x0F, 1)
@@ -1020,7 +1020,7 @@ static void __stdcall sub_004A8ED0_DrawSkillHotkeyLabels(const D2SkillsTxt* pSki
 }
 
 // 0x004A9260
-static void __stdcall sub_004A9260_DrawSkillCharges(int nCharges, int nX, int nY)
+static void __stdcall SPELLSEL_DrawSkillCharges(int nCharges, int nX, int nY)
 {
     Unicode wszText[16] = {};
     char szText[16];
@@ -1039,7 +1039,7 @@ static void __stdcall sub_004A9260_DrawSkillCharges(int nCharges, int nX, int nY
 }
 
 // 0x004A9300
-static void __stdcall sub_004A9300_DrawHotkeyLabelsB(const D2SkillsTxt* pSkillsTxt, int nOwner, int nX, int nY)
+static void __stdcall SPELLSEL_DrawHotkeyLabelsB(const D2SkillsTxt* pSkillsTxt, int nOwner, int nX, int nY)
 {
     SPELLSEL_HOTKEY_LABEL(0, 0x0E, 0)
     SPELLSEL_HOTKEY_LABEL(1, 0x0F, 0)
@@ -1060,7 +1060,7 @@ static void __stdcall sub_004A9300_DrawHotkeyLabelsB(const D2SkillsTxt* pSkillsT
 }
 
 // 0x004A9690
-void __fastcall sub_004A9690_DrawSkillInfoBase(void* cell,D2SkillsTxt* skills,int owner,int charges,int state,int x,int y,int left) {
+void __fastcall SPELLSEL_DrawSkillInfoBase(void* cell,D2SkillsTxt* skills,int owner,int charges,int state,int x,int y,int left) {
  int id=skills->nSkillId;
  D2SkillsTxt* record;
  if(id>=0 && id<sgptDataTables->nSkillsTxtRecordCount)record=&sgptDataTables->pSkillsTxt[id];else record=0;
@@ -1081,8 +1081,8 @@ void __fastcall sub_004A9690_DrawSkillInfoBase(void* cell,D2SkillsTxt* skills,in
  D2CelContextStrc ctx;memset(&ctx,0,sizeof(ctx));
  ctx.pCellFile=cell;ctx.nDirection=0;ctx.nFrame=frame;
  TEXTURE_CelDrawColor(&ctx,x,y,-1,5,drawState);
- if(left)sub_004A8ED0_DrawSkillHotkeyLabels(skills,owner,x,y);
- else sub_004A9300_DrawHotkeyLabelsB(skills,owner,x,y);
+ if(left)SPELLSEL_DrawSkillHotkeyLabels(skills,owner,x,y);
+ else SPELLSEL_DrawHotkeyLabelsB(skills,owner,x,y); // 0x004A9300
  D2UnitStrc* player=sub_00463DD0_GetPlayerUnit();
  int quantity;
  if(player && player->pInventory) {
@@ -1108,11 +1108,11 @@ void __fastcall sub_004A9690_DrawSkillInfoBase(void* cell,D2SkillsTxt* skills,in
   }
  }
  quantity=charges;
- draw: sub_004A9260_DrawSkillCharges(quantity,x,y);
+ draw: SPELLSEL_DrawSkillCharges(quantity,x,y); // 0x004A9260
 }
 
 // 0x004A9870
-void __fastcall sub_004A9870_DrawSkillSlot(D2SkillsTxt* skills,int owner,int charges,int state,int x,int y,int left) {
+void __fastcall SPELLSEL_DrawSkillSlot(D2SkillsTxt* skills,int owner,int charges,int state,int x,int y,int left) {
  void* cell;
  unsigned int classId=SKILLS_GetClassIdFromSkillId(skills->nSkillId);
  if(classId<=6) {
@@ -1145,11 +1145,11 @@ void __fastcall sub_004A9870_DrawSkillSlot(D2SkillsTxt* skills,int owner,int cha
  ctx.pCellFile=cell;ctx.nDirection=0;ctx.nFrame=frame;
  TEXTURE_CelDrawColor(&ctx,x,drawY,-1,5,drawState);
  if(left) {
-  sub_004A8ED0_DrawSkillHotkeyLabels(skills,owner,x,drawY);
-  sub_004A9260_DrawSkillCharges(charges,x,drawY);
+  SPELLSEL_DrawSkillHotkeyLabels(skills,owner,x,drawY);
+  SPELLSEL_DrawSkillCharges(charges,x,drawY);
  } else {
-  sub_004A9300_DrawHotkeyLabelsB(skills,owner,x,drawY);
-  sub_004A9260_DrawSkillCharges(charges,x,drawY);
+  SPELLSEL_DrawHotkeyLabelsB(skills,owner,x,drawY);
+  SPELLSEL_DrawSkillCharges(charges,x,drawY);
  }
 }
 

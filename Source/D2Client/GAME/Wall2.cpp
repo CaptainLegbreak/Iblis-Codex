@@ -155,7 +155,7 @@ struct WallContext
     u32 count;
 };
 
-static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,D2ActiveRoomStrc* room,Tile* tile);
+static void __stdcall WALL2_AddWall(Context* context,Cell* cell,D2ActiveRoomStrc* room,Tile* tile); // 0x004DD180
 
 // 0x004DCE60
 static void WALL2_ResizeWallCells(D2WallCtxStrc* pCtx)
@@ -230,7 +230,7 @@ void __stdcall ENVIRONMENT_GetLightColorFromAct(void* pAct, unsigned char* pR, u
 void __fastcall SCMD_ReadGridCell(int nX, int nY, unsigned char* pB0, unsigned char* pB1, unsigned char* pB2, unsigned char* pB3); // 0x00475AA0
 
 // 0x004DDB70
-void __fastcall sub_004DDB70_PrepareWallCells(D2WallCtxStrc* pCtx, int nValue)
+void __fastcall WALL2_PrepareWallCells(D2WallCtxStrc* pCtx, int nValue)
 {
     WALL2_ResizeWallCells(pCtx);
     D2WallRoomArgStrc tArg;
@@ -293,7 +293,7 @@ void __fastcall WALL2_FreeViewCells(D2ViewStrc* pView)
 }
 
 // 0x004DCF70
-static s32 __cdecl sub_004DCF70_Inside(Context* context,s32 y,s32 x)
+static s32 __cdecl WALL2_Inside(Context* context,s32 y,s32 x)
 {
     x-=FIELD(s32,context,0xEA68);
     y-=FIELD(s32,context,0xEA6C);
@@ -329,7 +329,7 @@ static inline u32 UNIT_GetFlagC8_7(D2UnitStrc* unit)
 }
 
 // 0x004DCFA0
-static void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context* context,D2UnitStrc* unit)
+static void __cdecl WALL2_AddUnit(Cell* cell,Context* context,D2UnitStrc* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -354,7 +354,7 @@ static void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context* context,D2UnitStrc*
 }
 
 // 0x004DD060
-static s32 __stdcall sub_004DD060_Occludes(D2ActiveRoomStrc* room,Tile* tile)
+static s32 __stdcall WALL2_Occludes(D2ActiveRoomStrc* room,Tile* tile)
 {
     if(gVar_0072A968_Mode)
     {
@@ -389,7 +389,7 @@ static s32 __stdcall sub_004DD060_Occludes(D2ActiveRoomStrc* room,Tile* tile)
 
 // @ref 0x004DD180
 // 0x004DD180
-static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,D2ActiveRoomStrc* room,Tile* tile)
+static void __stdcall WALL2_AddWall(Context* context,Cell* cell,D2ActiveRoomStrc* room,Tile* tile)
 {
     if(FIELD(s32,tile,28)!=0 && FIELD(s32,tile,28)!=13 && !(FIELD(u32,tile,20)&4)) FIELD(u32,cell,0)|=4;
     WallContext* wallContext=(WallContext*)context;
@@ -402,7 +402,7 @@ static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,D2ActiveR
     node->next=0;
     if(!(FIELD(u32,tile,20)&4))
     {
-        s32 occludes=sub_004DD060_Occludes(room,tile);
+        s32 occludes=WALL2_Occludes(room,tile);
         u32 flags=FIELD(u32,tile,36);
         if(occludes)
         {
@@ -478,7 +478,7 @@ static __forceinline void sub_004DD460_InsertSorted(Node** list,Node* node)
 }
 
 // 0x004DD350
-static void __stdcall sub_004DD350_AddUpper(Cell* cell,D2ActiveRoomStrc* room,Context* context,Tile* tile)
+static void __stdcall WALL2_AddUpper(Cell* cell,D2ActiveRoomStrc* room,Context* context,Tile* tile)
 {
     if(FIELD(s32,tile,28)!=0 && FIELD(s32,tile,28)!=13 && !(FIELD(u32,tile,20)&4)) FIELD(u32,cell,0)|=4;
     u32 index=FIELD(u32,context,0xEA64)++;
@@ -499,7 +499,7 @@ static void __stdcall sub_004DD350_AddUpper(Cell* cell,D2ActiveRoomStrc* room,Co
 
 // @ref 0x004DD460
 // 0x004DD460
-static void __stdcall sub_004DD460_AddRoof(Cell* cell,D2ActiveRoomStrc* room,Context* context,Tile* tile)
+static void __stdcall WALL2_AddRoof(Cell* cell,D2ActiveRoomStrc* room,Context* context,Tile* tile)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -519,7 +519,7 @@ static void __stdcall sub_004DD460_AddRoof(Cell* cell,D2ActiveRoomStrc* room,Con
 
 // @ref 0x004DD550
 // 0x004DD550
-static void __stdcall sub_004DD550_AddFloor(Cell* cell, D2ActiveRoomStrc* room, Context* context, Tile* tile)
+static void __stdcall WALL2_AddFloor(Cell* cell, D2ActiveRoomStrc* room, Context* context, Tile* tile)
 {
     unsigned int index = FIELD(unsigned int, context, 0xEA64)++;
     if (index >= 3000)
@@ -552,7 +552,7 @@ static void __stdcall sub_004DD550_AddFloor(Cell* cell, D2ActiveRoomStrc* room, 
 
 // @ref 0x004DD600
 // 0x004DD600
-static void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,D2UnitStrc* unit)
+static void __stdcall WALL2_AddSpecial(Cell* cell,Context* context,D2UnitStrc* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -582,7 +582,7 @@ static void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,D2Unit
 }
 
 // 0x004DD6E0
-static void __stdcall sub_004DD6E0_AddOverlay(Cell* cell,Context* context,D2UnitStrc* unit)
+static void __stdcall WALL2_AddOverlay(Cell* cell,Context* context,D2UnitStrc* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -633,19 +633,19 @@ s32 __stdcall WALL2_VisitRoom(D2ActiveRoomStrc* room,View* view)
         s32 pixelY=FIELD(s32,tile,4)-FIELD(u16,record,4);
         if(pixelY+height>FIELD(s32,view,16)) continue;
         if(pixelY-height<FIELD(s32,view,8)) continue;
-        if(!sub_004DCF70_Inside(context,y,x)) continue;
+        if(!WALL2_Inside(context,y,x)) continue;
         x-=FIELD(s32,context,0xEA68);
         y-=FIELD(s32,context,0xEA6C);
         Cell* cell=(Cell*)((u8*)FIELD(Cell*,context,0xEA70)+36*(x+FIELD(s32,context,0xEA78)*y));
         FIELD(u32,cell,0)=0;
-        if(!(FIELD(u32,tile,20)&0x1C000)) sub_004DD550_AddFloor(cell,room,context,tile);
+        if(!(FIELD(u32,tile,20)&0x1C000)) WALL2_AddFloor(cell,room,context,tile);
         else
         {
             switch(FIELD(s32,tile,28))
             {
-            case 15: sub_004DD460_AddRoof(cell,room,context,tile); break;
-            case 16: case 17: case 18: case 19: sub_004DD350_AddUpper(cell,room,context,tile); break;
-            default: sub_004DD180_AddWall(context,cell,room,tile); break;
+            case 15: WALL2_AddRoof(cell,room,context,tile); break; // 0x004DD460
+            case 16: case 17: case 18: case 19: WALL2_AddUpper(cell,room,context,tile); break; // 0x004DD350
+            default: WALL2_AddWall(context,cell,room,tile); break; // 0x004DD180
             }
         }
     }
@@ -661,11 +661,11 @@ s32 __stdcall WALL2_VisitRoom(D2ActiveRoomStrc* room,View* view)
         if(FIELD(s32,tile,0)+160<FIELD(s32,view,4)) continue;
         if(FIELD(s32,tile,4)+height>FIELD(s32,view,16)) continue;
         if(FIELD(s32,tile,4)-height<FIELD(s32,view,8)) continue;
-        if(!sub_004DCF70_Inside(context,y,x)) continue;
+        if(!WALL2_Inside(context,y,x)) continue;
         x-=FIELD(s32,context,0xEA68);
         y-=FIELD(s32,context,0xEA6C);
         Cell* cell=(Cell*)((u8*)FIELD(Cell*,context,0xEA70)+36*(x+FIELD(s32,context,0xEA78)*y));
-        sub_004DD550_AddFloor(cell,room,context,tile);
+        WALL2_AddFloor(cell,room,context,tile);
     }
     if(FIELD(s32,view,24)) return 1;
     for(D2UnitStrc* unit=DUNGEON_GetFirstUnitInRoom(room);unit;unit=FIELD(D2UnitStrc*,unit,232))
@@ -679,12 +679,12 @@ s32 __stdcall WALL2_VisitRoom(D2ActiveRoomStrc* room,View* view)
         D2_ASSERT(x>=0 && x<FIELD(s32,context,0xEA78),768);
         D2_ASSERT(y>=0 && y<FIELD(s32,context,0xEA78),769);
         Cell* cell=(Cell*)&FIELD(Cell36*,context,0xEA70)[x+FIELD(s32,context,0xEA78)*y];
-        if(CUNIT_IsUnitDead(unit)) sub_004DD600_AddSpecial(cell,context,unit);
-        else if(UNIT_GetFlagC4_20(unit)) sub_004DD600_AddSpecial(cell,context,unit);
+        if(CUNIT_IsUnitDead(unit)) WALL2_AddSpecial(cell,context,unit);
+        else if(UNIT_GetFlagC4_20(unit)) WALL2_AddSpecial(cell,context,unit);
         else
         {
-            sub_004DCFA0_AddUnit(cell,context,unit);
-            if(UNIT_GetFlagC8_7(unit)) sub_004DD6E0_AddOverlay(cell,context,unit);
+            WALL2_AddUnit(cell,context,unit);
+            if(UNIT_GetFlagC8_7(unit)) WALL2_AddOverlay(cell,context,unit);
         }
     }
     return 1;
@@ -703,7 +703,7 @@ void __cdecl sub_004DDDE0_Nop()
 }
 
 // 0x004DDE40
-static inline int sub_004DDE40_IsPointInRect(D2GridRectStrc* pRect, int nX, int nY)
+static inline int WALL2_IsPointInRect(D2GridRectStrc* pRect, int nX, int nY)
 {
     D2_ASSERT(pRect, 0x76);
     if (nX < pRect->nLeft || nX >= pRect->nRight || nY < pRect->nTop || nY >= pRect->nBottom)
@@ -714,7 +714,7 @@ static inline int sub_004DDE40_IsPointInRect(D2GridRectStrc* pRect, int nX, int 
 }
 
 // 0x004DDEC0
-static inline void sub_004DDEC0_FillCells(D2GridCellStrc* pCells)
+static inline void WALL2_FillCells(D2GridCellStrc* pCells)
 {
     for (int j = 0; j < 8; ++j)
     {
@@ -731,16 +731,16 @@ static inline void sub_004DDEC0_FillCells(D2GridCellStrc* pCells)
 
 int __fastcall sub_M131_Emit_004DDE40(D2GridRectStrc* pRect, int nX, int nY, D2GridCellStrc* pCells)
 {
-    if (!sub_004DDE40_IsPointInRect(pRect, nX, nY))
+    if (!WALL2_IsPointInRect(pRect, nX, nY))
     {
         return 0;
     }
-    sub_004DDEC0_FillCells(pCells);
+    WALL2_FillCells(pCells);
     return 1;
 }
 
 // 0x004DDEF0
-static void __stdcall sub_004DDEF0_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCellStrc* pCells)
+static void __stdcall WALL2_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCellStrc* pCells)
 {
     if (bFlat)
     {
@@ -815,9 +815,9 @@ void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ
 
 int __fastcall sub_00472280(int nSeed, int nZero, int nMax); // 0x00472280
 
-static void __stdcall sub_004DDFD0_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY, int bCorners, D2GridCellStrc* pCells, int nMode);
+static void __stdcall WALL2_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY, int bCorners, D2GridCellStrc* pCells, int nMode); // 0x004DDFD0
 
-static void __stdcall sub_004DE190_BuildSmallGrid(int nSubX, int nSubY, int nZ, int bCorners, D2GridCellStrc* pCells, int nMode);
+static void __stdcall WALL2_BuildSmallGrid(int nSubX, int nSubY, int nZ, int bCorners, D2GridCellStrc* pCells, int nMode); // 0x004DE190
 
 struct D2FloorViewArgStrc
 {
@@ -889,7 +889,7 @@ static void sub_B08_FillCellsInline(D2GridCellStrc* pCells)
 }
 
 // 0x004DDFD0
-static void __stdcall sub_004DDFD0_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY, int bCorners, D2GridCellStrc* pCells, int nMode)
+static void __stdcall WALL2_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY, int bCorners, D2GridCellStrc* pCells, int nMode)
 {
     switch (nMode)
     {
@@ -961,7 +961,7 @@ void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, i
 
 
 // 0x004DE190
-static void __stdcall sub_004DE190_BuildSmallGrid(int nSubX, int nSubY, int nZ, int bCorners, D2GridCellStrc* pCells, int nMode)
+static void __stdcall WALL2_BuildSmallGrid(int nSubX, int nSubY, int nZ, int bCorners, D2GridCellStrc* pCells, int nMode)
 {
     int nShift = 0;
     switch (nMode)
@@ -996,7 +996,7 @@ void __stdcall sub_004DD550_Emit(D2ActiveRoomStrc* room, Context* context, Tile*
 {
     for (unsigned int i = 0; i < count; ++i, tile = (Tile*)((unsigned char*)tile + 48))
     {
-        sub_004DD550_AddFloor((Cell*)((unsigned char*)cells + 36 * i), room, context, tile);
+        WALL2_AddFloor((Cell*)((unsigned char*)cells + 36 * i), room, context, tile);
     }
 }
 
@@ -1121,7 +1121,7 @@ void __thiscall D2GridLightStrc::ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg,
         }
         else
         {
-            sub_004DDEF0_BuildLargeGrid(nSubX, nSubY, 0, tLarge);
+            WALL2_BuildLargeGrid(nSubX, nSubY, 0, tLarge);
         }
         sub_004F68E0(pUnit->pInfo, tLarge, nX, nY, nSubX, nSubY, 0xFF, nMode, nArg);
     }
@@ -1131,7 +1131,7 @@ void __thiscall D2GridLightStrc::ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg,
         {
             if (pInfo->wFlags & 0x100)
             {
-                sub_004DE190_BuildSmallGrid(nSubX, nSubY, 0, bCorners, tSmall, nMode);
+                WALL2_BuildSmallGrid(nSubX, nSubY, 0, bCorners, tSmall, nMode);
             }
             else
             {
@@ -1144,7 +1144,7 @@ void __thiscall D2GridLightStrc::ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg,
             {
                 D2GridCoordStrc tX;
                 tX.n = nX;
-                sub_004DDFD0_BuildSmallFlatGrid(tX, nY, bCorners, tSmall, nMode);
+                WALL2_BuildSmallFlatGrid(tX, nY, bCorners, tSmall, nMode);
             }
             else
             {

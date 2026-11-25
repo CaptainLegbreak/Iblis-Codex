@@ -157,7 +157,7 @@ void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int n
 
 void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
 
-void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit); // 0x004DA350
+void __stdcall GFXUTIL_UpdateMotion(D2UnitStrc* pUnit); // 0x004DA350
 
 void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nSeedOffset); // 0x004E2ED0
 
@@ -213,11 +213,11 @@ D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnviron
 
 void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 
-void __fastcall sub_004BA950_RefreshHintsInRangeA(int nGroupA, int nGroupB); // 0x004BA950
+void __fastcall SOUNDINST_RefreshHintsInRangeA(int nGroupA, int nGroupB); // 0x004BA950
 
-void __fastcall sub_004BA9D0_RefreshHintsInRangeB(int nGroupA, int nGroupB); // 0x004BA9D0
+void __fastcall SOUNDINST_RefreshHintsInRangeB(int nGroupA, int nGroupB); // 0x004BA9D0
 
-void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
+void __fastcall SOUNDINST_SetValue(int nKey, int nValue); // 0x004B9B50
 
 int __fastcall sub_004B9B20(int nHandle); // 0x004B9B20
 
@@ -1137,8 +1137,8 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         }
         else
         {
-            sub_004BA950_RefreshHintsInRangeA(nSound, nSecond);
-            sub_004BA9D0_RefreshHintsInRangeB(nAmbient, 0);
+            SOUNDINST_RefreshHintsInRangeA(nSound, nSecond);
+            SOUNDINST_RefreshHintsInRangeB(nAmbient, 0);
         }
         if (nSound != gnEnvironSoundId)
         {
@@ -1147,7 +1147,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
                 gnEnvironSoundHandle = sub_004B9A00(nSound, 0, 0, 0, 0);
                 if (bCross)
                 {
-                    sub_004B9B50_SetValue(gnEnvironSoundHandle, 0);
+                    SOUNDINST_SetValue(gnEnvironSoundHandle, 0);
                     SOUNDINST_ArmHint(gnEnvironSoundHandle, 0xFF, 0, 0xFA);
                 }
                 gnEnvironSoundId = nSound;
@@ -1165,7 +1165,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         {
             gnWeatherSoundHandle = sub_004B9A00(gnWeatherSoundId, 0, 0, 0, 0);
             if (gnWeatherSoundHandle)
-                sub_004B9B50_SetValue(gnWeatherSoundHandle, nVolume);
+                SOUNDINST_SetValue(gnWeatherSoundHandle, nVolume);
         }
         if (gnWeatherSoundHandle)
         {
@@ -1185,7 +1185,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
             }
             if (nNext)
             {
-                sub_004B9B50_SetValue(gnWeatherSoundHandle, nNext);
+                SOUNDINST_SetValue(gnWeatherSoundHandle, nNext);
             }
             else
             {
@@ -2696,7 +2696,7 @@ int __fastcall SKILLDESC_CltDoDirectionMissile(D2UnitStrc* pUnit, int nSkillId, 
     DUNGEON_GameSubtileToClientCoords(&nStepX, &nStepY);
     GFXUTIL_SetMotionVectorA(pMissile, nStartX, nStartY, nSpeed * nRange);
     GFXUTIL_SetMotionVectorB(pMissile, nStepX, nStepY, -nSpeed, 1);
-    sub_004DA350_UpdateMotion(pMissile);
+    GFXUTIL_UpdateMotion(pMissile);
     return 1;
 }
 

@@ -57,7 +57,7 @@ extern D2MsgHandlerEntryStrc gaUseItemHandlers[]; // 0x00727950
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
-void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
+void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
 int __fastcall ITEM_GetDropSound(D2UnitStrc* pItem); // 0x004C1D60
 
@@ -85,7 +85,7 @@ void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-void __fastcall sub_00467430_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
+void __fastcall SELECT_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
 
 void __cdecl USEITEM_OpenPanel(); // 0x004C0380
 
@@ -167,7 +167,7 @@ struct D2PacketRecord7Strc
     unsigned char bFlag;
 };
 
-void __cdecl sub_004B3FB0_CloseNpc2(); // 0x004B3FB0
+void __cdecl NPCMENU_CloseNpc2(); // 0x004B3FB0
 
 static int gnFlag_007C5470; // 0x007C5470
 
@@ -200,7 +200,7 @@ void __fastcall NPCMENU_SendNpcAction(int); // 0x004B2370
 
 int __cdecl sub_004BF9B0(); // 0x004BF9B0
 
-void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nHeight, int nArg4, int nType, int nFont, int (__cdecl* pfnCallback)(), int bEnabled); // 0x004B85F0
+void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nHeight, int nArg4, int nType, int nFont, int (__cdecl* pfnCallback)(), int bEnabled); // 0x004B85F0
 
 // 0x004BFAF0
 int __cdecl USEITEM_ShowConfirmation()
@@ -210,7 +210,7 @@ int __cdecl USEITEM_ShowConfirmation()
     sub_004B9A00(2, 0, 0, 0, 0);
     gpUseItemConfirmDialog = DIALOG_CreateDialog(0x96, 0x82, sub_004BF9B0, 0, 1, 0, 1, 0, 0, 0, 1);
     sub_004B8370_SetField5C(gpUseItemConfirmDialog, 0);
-    sub_004B85F0_AddTextLine(gpUseItemConfirmDialog, D2LANG_GetStringFromTblIndex(0xD19), 15, 0, 0, 1, 0, 0);
+    DIALOG_AddTextLine(gpUseItemConfirmDialog, D2LANG_GetStringFromTblIndex(0xD19), 15, 0, 0, 1, 0, 0);
     gnUseItemDialogState = 3;
     if (!gnUseItemPanelMode)
     {
@@ -295,7 +295,7 @@ static void USEITEM_ToggleUseMode(D2UnitStrc* pItem)
     if (gnUseItemDialogState == 1)
     {
         gnUseItemDialogState = 2;
-        sub_00468070_SetCursorItemState(0);
+        CURSOR_SetCursorItemState(0);
         if (!pItem)
             return;
         gnAnvilItemId = pItem->dwUnitId;
@@ -307,7 +307,7 @@ static void USEITEM_ToggleUseMode(D2UnitStrc* pItem)
         gnUseItemDialogState = 1;
         gnAnvilItemId = 0;
         if (pItem)
-            sub_00468070_SetCursorItemState(pItem);
+            CURSOR_SetCursorItemState(pItem);
         sub_004B9A00(1, 0, 0, 0, 0);
     }
 }
@@ -480,7 +480,7 @@ int __cdecl USEITEM_ClosePanel()
     if (mode == 2) {
         D2UnitStrc* player = sub_00463DD0_GetPlayerUnit();
         D2InventoryStrc* inventory = player ? player->pInventory : 0;
-        sub_00468070_SetCursorItemState(player ? INVENTORY_GetCursorItem(inventory) : 0);
+        CURSOR_SetCursorItemState(player ? INVENTORY_GetCursorItem(inventory) : 0);
     }
     sub_004B9A00(1, 0, 0, 0, 0);
     if (!gnUseItemPanelMode) {
@@ -600,7 +600,7 @@ void __stdcall USEITEM_OnPanelCloseMsg(SMSGHANDLER_PARAMS* pMsg)
 
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         D2InventoryStrc* pInventory = pPlayer ? pPlayer->pInventory : 0;
-        sub_00468070_SetCursorItemState(pPlayer ? INVENTORY_GetCursorItem(pInventory) : 0);
+        CURSOR_SetCursorItemState(pPlayer ? INVENTORY_GetCursorItem(pInventory) : 0);
     }
 
     if (!gnUseItemPanelMode)
@@ -752,7 +752,7 @@ void __fastcall sub_004C0550(D2PacketRecord7Strc* pPacket)
     case 6:
     case 7:
         sub_004C0090();
-        sub_004B3FB0_CloseNpc2();
+        NPCMENU_CloseNpc2();
         return;
 
     default:

@@ -42,7 +42,7 @@ int __cdecl GAME_GetColorFlag();                                                
 int __cdecl sub_0045AE90();                                                                         // 0x0045AE90
 extern "C" int __cdecl PLAYER_GetScreenOffsetX();                                                          // 0x0045AFC0
 extern "C" int __cdecl PLAYER_GetScreenOffsetY();                                                      // 0x0045AFD0
-D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit);                                       // 0x00463E10
+D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit);                                       // 0x00463E10
 int __cdecl DLIGHTMAP_GetLocalBloodPalette();                                                                                 // 0x00477680
 extern "C" int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit);                                     // 0x004DA0B0
 int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit);                                          // 0x004DA0D0
@@ -60,7 +60,7 @@ int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit);                        
 // 0x0046E300
 void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int bFront, int nX, int nY, int bLift)
 {
-    D2GfxDataStrc* pGfx = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfx = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfx, 625);
 
     const int bPerspective = D2GFX_CheckPerspective();

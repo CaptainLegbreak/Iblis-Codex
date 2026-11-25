@@ -83,7 +83,8 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int nAr
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex);                               // 0x004B82F0
 void __fastcall sub_004B8370_SetField5C(D2ClientDialogStrc* pDialog, int nValue);                           // 0x004B8370
-void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,
+// build: symbol ?DIALOG_AddTextLine@* 0x004B85F0
+void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,
     int nArg10, int nArg14, int (__cdecl* pfnCallback)(), int nArg1C);                                      // 0x004B85F0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
@@ -127,8 +128,8 @@ int __cdecl NPCMENU_ShowMainMenu()
     Unicode wszGold[300];
     sub_005269D0(300, wszGold, D2LANG_GetStringFromTblIndex(0xD24),
         STATLIST_UnitGetStatValue(sub_00463DD0(), STAT_GOLDBANK, 0) + STATLIST_UnitGetStatValue(sub_00463DD0(), STAT_GOLD, 0));
-    sub_004B85F0_AddTextLine(gpNpcHireDialog, wszGold, 0x15, 0, 4, 1, 0, 0);
-    sub_004B85F0_AddTextLine(gpNpcHireDialog, D2LANG_GetStringFromTblIndex(0xD48), 0x13B, 0, 0, 1, NPCMENU_CloseHireDialog, 1);
+    DIALOG_AddTextLine(gpNpcHireDialog, wszGold, 0x15, 0, 4, 1, 0, 0);
+    DIALOG_AddTextLine(gpNpcHireDialog, D2LANG_GetStringFromTblIndex(0xD48), 0x13B, 0, 0, 1, NPCMENU_CloseHireDialog, 1);
 
     gpListBox_007C0D83 = new ListBoxWrapper((gnScreenWidth - 0x1EA) / 2, gnAutomapHeight_007A521C / 2 - 0xA0, 0x1EA,
         0x118, 6, 0, 1, (int)NPCMENU_HireMercHandler, 0);

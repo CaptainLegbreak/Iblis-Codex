@@ -343,7 +343,7 @@ void __fastcall MSG_SendTwoWords(char nHeader, short nArg1, short nArg2)
 }
 
 // 0x00478600
-void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3)
+void __fastcall MSG_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3)
 {
     D2PacketShorts7Strc tPacket;
     tPacket.nHeader = nHeader;
@@ -385,7 +385,7 @@ void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsign
 }
 
 // 0x004786D0
-void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9)
+void __fastcall MSG_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9)
 {
     D2PacketDwords13Strc tPacket;
     tPacket.nHeader = nHeader;

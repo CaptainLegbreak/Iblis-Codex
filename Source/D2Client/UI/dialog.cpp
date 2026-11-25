@@ -927,7 +927,7 @@ void __fastcall DIALOG_DestroyDialog(void* pRes)
 }
 
 // 0x004B8100
-void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog)
+void __fastcall DIALOG_DrawDialog(D2ClientDialogStrc* pDialog)
 {
     D2_ASSERT(pDialog, 0x48E);
 
@@ -1040,7 +1040,7 @@ extern "C" void __fastcall ROSTER_SetCtrlState(D2PanelCtrlStrc_004B8370* pCtrl, 
 
 
 // 0x004B83A0
-static void sub_004B83A0_PlaceLine(D2ClientDialogStrc* pDialog, int nIndex)
+static void DIALOG_PlaceLine(D2ClientDialogStrc* pDialog, int nIndex)
 {
     int nOldFont = D2Win_10127_SetFont(1);
     D2Win_10127_SetFont(pDialog->pLines[nIndex].nFont);
@@ -1054,7 +1054,7 @@ static void sub_004B83A0_PlaceLine(D2ClientDialogStrc* pDialog, int nIndex)
 }
 
 // 0x004B8410
-void __fastcall sub_004B8410_LayoutDialog(D2ClientDialogStrc* pDialog)
+void __fastcall DIALOG_LayoutDialog(D2ClientDialogStrc* pDialog)
 {
     int nMaxWidth = 0;
     int nHeight = 0;
@@ -1091,7 +1091,7 @@ void __fastcall sub_004B8410_LayoutDialog(D2ClientDialogStrc* pDialog)
     pDialog->nWidth = nMaxWidth;
     pDialog->nHeight = nHeight;
     for (int j = 0; j < pDialog->nLines; ++j)
-        sub_004B83A0_PlaceLine(pDialog, j);
+        DIALOG_PlaceLine(pDialog, j);
 }
 
 // 0x004B8580
@@ -1103,7 +1103,7 @@ extern "C" __declspec(dllexport) int __fastcall sub_004B8580(Obj004B8580* pObj) 
 }
 
 // 0x004B8590
-D2DialogLineStrc* __fastcall sub_004B8590_GetLine(D2ClientDialogStrc* pDialog, int nIndex)
+D2DialogLineStrc* __fastcall DIALOG_GetLine(D2ClientDialogStrc* pDialog, int nIndex)
 {
     if (pDialog && nIndex >= 0 && nIndex < pDialog->nLines)
         return &pDialog->pLines[nIndex];
@@ -1111,7 +1111,7 @@ D2DialogLineStrc* __fastcall sub_004B8590_GetLine(D2ClientDialogStrc* pDialog, i
 }
 
 // 0x004B85B0
-void __fastcall sub_004B85B0_GetRect(D2ClientDialogStrc* pDialog, D2RectStrc* pRect)
+void __fastcall DIALOG_GetRect(D2ClientDialogStrc* pDialog, D2RectStrc* pRect)
 {
     if (pDialog && pRect)
     {
@@ -1130,7 +1130,7 @@ int __cdecl sub_004B85E0()
 
 
 // 0x004B85F0
-void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nHeight, int nArg4,
+void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nHeight, int nArg4,
     int nType, int nFont, int (__cdecl* pfnCallback)(), int bEnabled)
 {
     int nIndex = pDialog->nLines;
@@ -1155,9 +1155,9 @@ void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unic
     if (bEnabled)
         pDialog->nEnabled += 1;
     if (pDialog->bAutoSize)
-        sub_004B8410_LayoutDialog(pDialog);
+        DIALOG_LayoutDialog(pDialog);
     else
-        sub_004B83A0_PlaceLine(pDialog, nIndex);
+        DIALOG_PlaceLine(pDialog, nIndex);
     D2RectStrc tRect;
     tRect.nTop = pDialog->nY;
     tRect.nLeft = pDialog->nX;

@@ -31,7 +31,7 @@ int __cdecl sub_00481800();                                                     
 
 extern "C" { int gnSoundSerial; }                                                                  // 0x007C5460
 
-void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
+void __fastcall SOUNDINST_SetValue(int nKey, int nValue); // 0x004B9B50
 
 int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
 
@@ -387,7 +387,7 @@ static float __stdcall SOUNDINST_GetSoundPan(D2UnitStrc* pUnit, int nSoundId)
 }
 
 // 0x004B9A00
-int __fastcall sub_004B9A00_PlaySound(int nSoundId, D2UnitStrc* pUnit, int nDelay, int nArg3, int nArg4)
+int __fastcall SOUNDINST_PlaySound(int nSoundId, D2UnitStrc* pUnit, int nDelay, int nArg3, int nArg4)
 {
     if (!gbClientSoundReady)
         return 0;
@@ -473,7 +473,7 @@ void __fastcall SOUNDINST_StartFade(D2ClientSoundStrc* pSound, int nValue, int n
 }
 
 // 0x004B9BB0
-static inline int sub_004B9BB0_GetStreamValue(D2ClientSoundStrc* pSound)
+static inline int SOUNDINST_GetStreamValue(D2ClientSoundStrc* pSound)
 {
     return pSound->f_45;
 }
@@ -550,7 +550,7 @@ extern "C" int gnSoundFlag_007C545C; // 0x007C545C
 extern "C" void __cdecl sub_004E4280(); // 0x004E4280
 
 // 0x004B9CD0
-void __fastcall sub_004B9CD0_SetEntryByte(int nId, unsigned char nValue)
+void __fastcall SOUNDINST_SetEntryByte(int nId, unsigned char nValue)
 {
     if (!nId)
     {
@@ -796,7 +796,7 @@ void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned in
     if (!nCount)
     {
         D2_ASSERT(!nOffset, 0x25C);
-        sub_004B9B50_SetValue(nKey, nGroup);
+        SOUNDINST_SetValue(nKey, nGroup);
         return;
     }
 
@@ -809,7 +809,7 @@ void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned in
 }
 
 // 0x004B9BC0
-static inline int sub_004B9BC0_IsOnAndNotHeld(D2ClientSoundStrc* pSound)
+static inline int SOUNDINST_IsOnAndNotHeld(D2ClientSoundStrc* pSound)
 {
     return pSound->f_45 && !pSound->nFadeTo;
 }
@@ -820,7 +820,7 @@ void __cdecl SOUNDINST_PlayRandomSpeech()
     if (DLIGHTMAP_GetSoundTick() % 3 == 0)
     {
         const int nSound = SKILLDESC_RandomInRange(0xB76, 0x1230);
-        sub_004B9A00_PlaySound(nSound, 0, 0, 0, 0);
+        SOUNDINST_PlaySound(nSound, 0, 0, 0, 0);
     }
 }
 
@@ -836,7 +836,7 @@ void __fastcall sub_M112_Emit_004B94A0(D2ClientSoundStrc* pSound)
 
 int __fastcall sub_M112_Emit_004B9BB0(D2ClientSoundStrc* pSound)
 {
-    return sub_004B9BB0_GetStreamValue(pSound);
+    return SOUNDINST_GetStreamValue(pSound);
 }
 
 static int sub_004BA020_SortsBefore(D2ClientSoundStrc* pSound1, D2ClientSoundStrc* pSound2)
@@ -900,7 +900,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
     for (pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
         D2ClientSoundStrc* pSound = pNode->pSound;
-        if (pSound->bLocked && !sub_004B9BC0_IsOnAndNotHeld(pSound))
+        if (pSound->bLocked && !SOUNDINST_IsOnAndNotHeld(pSound))
         {
             if (pSound->nType == 0)
                 pSound->nType = 2;
@@ -1108,7 +1108,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
     for (pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
         D2ClientSoundStrc* pSound = pNode->pSound;
-        if (SOUNDHDR_GetSoundRecord(pSound->nSoundId)->bSolo && !sub_004B9BC0_IsOnAndNotHeld(pSound))
+        if (SOUNDHDR_GetSoundRecord(pSound->nSoundId)->bSolo && !SOUNDINST_IsOnAndNotHeld(pSound))
         {
             bDuck = 1;
             break;
@@ -1144,7 +1144,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
 }
 
 // 0x004BA760
-static __declspec(noinline) void sub_004BA760_RefreshHint(D2ClientSoundStrc* pSound)
+static __declspec(noinline) void SOUNDINST_RefreshHint(D2ClientSoundStrc* pSound)
 {
     D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pSound->nSoundId);
     pSound->bLocked = 1;
@@ -1156,7 +1156,7 @@ static __declspec(noinline) void sub_004BA760_RefreshHint(D2ClientSoundStrc* pSo
 }
 
 // 0x004BA790
-void __fastcall sub_004BA790_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOther, int bForce)
+void __fastcall SOUNDINST_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOther, int bForce)
 {
     D2_ASSERT(pUnit && pOther, 0xCE);
     UNITSND_RemoveUnitHint(pOther, (int)pUnit);
@@ -1177,7 +1177,7 @@ void __fastcall sub_004BA790_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOthe
         return;
     if (!bForce && bReady)
         return;
-    sub_004BA760_RefreshHint(pSound);
+    SOUNDINST_RefreshHint(pSound);
 }
 
 // 0x004BA840
@@ -1249,7 +1249,7 @@ void __cdecl sub_004BA8F0()
 }
 
 // 0x004BA950
-void __fastcall sub_004BA950_RefreshHintsInRangeA(int nGroupA, int nGroupB)
+void __fastcall SOUNDINST_RefreshHintsInRangeA(int nGroupA, int nGroupB)
 {
     D2SoundNodeStrc* pNode = gpSoundList_007C5458;
     if (!gpSoundList_007C5458)
@@ -1275,7 +1275,7 @@ void __fastcall sub_004BA950_RefreshHintsInRangeA(int nGroupA, int nGroupB)
 }
 
 // 0x004BA9D0
-void __fastcall sub_004BA9D0_RefreshHintsInRangeB(int nGroupA, int nGroupB)
+void __fastcall SOUNDINST_RefreshHintsInRangeB(int nGroupA, int nGroupB)
 {
     D2SoundNodeStrc* pNode = gpSoundList_007C5458;
     if (!gpSoundList_007C5458)
@@ -1320,7 +1320,7 @@ void __cdecl SOUNDINST_LockSpeechSounds()
 }
 
 // 0x004BAAB0
-void __cdecl sub_004BAAB0_RefreshGroupTimers()
+void __cdecl SOUNDINST_RefreshGroupTimers()
 {
     for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
@@ -1336,7 +1336,7 @@ void __cdecl sub_004BAAB0_RefreshGroupTimers()
 }
 
 // 0x004BABC0
-void __cdecl sub_004BABC0_ToggleHints()
+void __cdecl SOUNDINST_ToggleHints()
 {
     gbRandomSoundTest = !gbRandomSoundTest;
     if (!gbRandomSoundTest)

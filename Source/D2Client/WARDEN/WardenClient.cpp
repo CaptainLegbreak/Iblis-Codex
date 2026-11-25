@@ -207,7 +207,7 @@ int __fastcall SPELLSEL_GetSkillIconCel(D2SkillsTxt* pSkillsTxt); // 0x004A8C80
 
 int __fastcall SPELLSEL_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004A8D30
 
-void __fastcall sub_004A9690_DrawSkillInfoBase(int nValue, D2SkillsTxt* pSkillsTxt, int nOwnerGUID, int nCharges, int nState, int nX, int nY, int nArg); // 0x004A9690
+void __fastcall SPELLSEL_DrawSkillInfoBase(int nValue, D2SkillsTxt* pSkillsTxt, int nOwnerGUID, int nCharges, int nState, int nX, int nY, int nArg); // 0x004A9690
 
 void __fastcall TEXT_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY); // 0x004A8D50
 
@@ -239,7 +239,7 @@ int __fastcall CUNIT_GetBasePalShiftIndex(D2UnitStrc* pUnit); // 0x00463E50
 
 int __fastcall CUNIT_GetPalShiftIndex(D2UnitStrc* pUnit); // 0x00463EB0
 
-int __fastcall sub_004791B0_IsOwnedByPlayer(D2UnitStrc* pUnit); // 0x004791B0
+int __fastcall ROSTERPETS_IsOwnedByPlayer(D2UnitStrc* pUnit); // 0x004791B0
 
 void __cdecl CHAT_RecallChatLine(); // 0x0047B9C0
 
@@ -543,11 +543,11 @@ void __cdecl VIEW_ToggleCacheStats();                                           
 
 int __cdecl GAME_GetConnectionType();                                                                                 // 0x0044DB30
 
-void __cdecl sub_004BABC0_ToggleHints();                                                                    // 0x004BABC0
+void __cdecl SOUNDINST_ToggleHints();                                                                    // 0x004BABC0
 
 bool __fastcall CHAT_IsNarrowText(const Unicode* pText);                                            // 0x0047BD00
 
-int __stdcall sub_0047BAD0_ParseChatCommand(char** ppText, char* pCode, char* szArgument);                  // 0x0047BAD0
+int __stdcall CHAT_ParseChatCommand(char** ppText, char* pCode, char* szArgument);                  // 0x0047BAD0
 
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 

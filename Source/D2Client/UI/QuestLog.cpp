@@ -819,7 +819,7 @@ void __cdecl TEXT_FreeQuestPanel()
 }
 
 // 0x004A2610
-static unsigned char sub_004A2610_HitTestButtonA(int nX, int nY)
+static unsigned char TEXT_HitTestButtonA(int nX, int nY)
 {
     if (nX >= 0xE6 && nX <= 0xE6 + 0x1D && nY >= 0x187 && nY <= 0x187 + 0x20)
     {
@@ -2109,7 +2109,7 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
                     gbGlobal_007BF2B2 = 1;
                     sub_004B9A00(4, 0, 0, 0, 0);
                 }
-                else if (sub_004A2610_HitTestButtonA(nX, nY))
+                else if (TEXT_HitTestButtonA(nX, nY))
                 {
                     gbGlobal_007BF2B4 = 1;
                     sub_004B9A00(4, 0, 0, 0, 0);
@@ -2125,7 +2125,7 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 
 unsigned char __cdecl INV_IsCinematicBusy(); // 0x00483350
 
-int __cdecl sub_004A1760_Forward();
+int __cdecl TEXT_Forward(); // 0x004A1760
 
 void __stdcall sub_004A3220(int nPage, int nArg);
 
@@ -2175,7 +2175,7 @@ void __fastcall TEXT_ToggleQuestLog(int nMode)
 
     TEXT_OpenQuestPanel(nMode);
     gdwQuestLogToggleTick = GetTickCount();
-    sub_004A1760_Forward();
+    TEXT_Forward();
 }
 
 struct D2Record42Strc;
@@ -2310,7 +2310,7 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         }
         else if (gbGlobal_007BF2B4 == 1)
         {
-            if (sub_004A2610_HitTestButtonA(nX, nY) && gnQuestSelectedSlot != -1)
+            if (TEXT_HitTestButtonA(nX, nY) && gnQuestSelectedSlot != -1)
             {
                 TEXT_OpenQuestDescription(gnQuestSelectedSlot);
             }

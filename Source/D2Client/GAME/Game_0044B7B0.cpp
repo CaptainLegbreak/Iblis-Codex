@@ -767,7 +767,7 @@ int __cdecl RECORD_RegisterLngArgument()
 }
 
 // 0x00451290
-void __cdecl sub_00451290_FreeLngModule()
+void __cdecl GAME_FreeLngModule()
 {
     if (ghLngModule)
         FreeLibrary(ghLngModule);

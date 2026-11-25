@@ -215,7 +215,7 @@ void __fastcall MISSILE_DispatchSubMissileSpawn(D2UnitStrc* pOwner, D2UnitStrc* 
 
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
-void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit); // 0x004DA350
+void __stdcall GFXUTIL_UpdateMotion(D2UnitStrc* pUnit); // 0x004DA350
 
 void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
 
@@ -335,7 +335,7 @@ extern D2CltMissileModeStrc gaCltMissileModes[]; // 0x0072A350
 
 int __stdcall sub_0064A640(D2UnitStrc* pMissile); // 0x0064A640
 
-int __stdcall sub_004DA6B0_TestMotionFlags(D2UnitStrc* pUnit); // 0x004DA6B0
+int __stdcall GFXUTIL_TestMotionFlags(D2UnitStrc* pUnit); // 0x004DA6B0
 
 void __stdcall D2COMMON_10375_UNITS_SetFrameNonRate(D2UnitStrc* pUnit, int nRate, int nFailRate); // 0x00621330
 
@@ -408,7 +408,7 @@ int __fastcall DLIGHTMAP_GetLightSize(D2GfxLightStrc* pLight); // 0x00474350
 
 void __fastcall DLIGHTMAP_SetLightSize(D2GfxLightStrc* pLight, int nSize); // 0x00474290
 
-int __fastcall sub_00479150_FindRosterIndex(int nUnitId); // 0x00479150
+int __fastcall ROSTERPETS_FindRosterIndex(int nUnitId); // 0x00479150
 
 enum
 {
@@ -537,7 +537,7 @@ unsigned int __fastcall SEED_GetLowSeed(D2SeedStrc* pSeed);                     
 
 extern "C" const char gszMissileFile_006DAEF4[]; // 0x006DAEF4
 
-void __stdcall sub_004DA690_ReplaceMotionFlag1With8(D2UnitStrc* pUnit); // 0x004DA690
+void __stdcall GFXUTIL_ReplaceMotionFlag1With8(D2UnitStrc* pUnit); // 0x004DA690
 
 void __fastcall MISSILE_CltDoFallingSpawn(D2UnitStrc* pMissile); // 0x004D66E0
 
@@ -752,7 +752,7 @@ int __stdcall GFXUTIL_GetMotionAX(D2UnitStrc* pUnit);                           
 
 int __stdcall GFXUTIL_GetMotionAY(D2UnitStrc* pUnit);                                             // 0x004DA130
 
-void __stdcall sub_004DA640_SetMotionFlag1(D2UnitStrc* pUnit);                                              // 0x004DA640
+void __stdcall GFXUTIL_SetMotionFlag1(D2UnitStrc* pUnit);                                              // 0x004DA640
 
 int __fastcall CUNITEVENT_RunCltUnitEvents(int nType, D2UnitStrc* pUnit, D2UnitStrc* pOther, int nArg);   // 0x004DC210
 
@@ -1422,7 +1422,7 @@ void __fastcall PLRSKILLS_SkillSeqDoBackward(D2UnitStrc* pUnit, int nArg); // 0x
 
 D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
 
-D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
+D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
 struct D2CltMissileSpawnArgStrc
 {
@@ -1465,7 +1465,7 @@ extern "C" void __stdcall sub_006488A0(D2DynamicPathStrc* pDynamicPath, unsigned
 
 int __stdcall sub_0064A3B0_GetElapsedFrames(D2UnitStrc* pMissile);
 
-void __fastcall sub_004BA790_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOther, int bForce);
+void __fastcall SOUNDINST_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOther, int bForce); // 0x004BA790
 
 struct D2OwnerStrc_004CA990;
 
@@ -4448,7 +4448,7 @@ static void __stdcall MISSILE_SpawnBehindOwner(int nMissileId, D2UnitStrc* pOwne
     DUNGEON_GameSubtileToClientCoords(&nOffsetX, &nOffsetY);
     GFXUTIL_SetMotionVectorA(pNew, nScreenX, nScreenY, 0x190);
     GFXUTIL_SetMotionVectorB(pNew, nOffsetX, nOffsetY, -0x10, 1);
-    sub_004DA350_UpdateMotion(pNew);
+    GFXUTIL_UpdateMotion(pNew);
 }
 
 // 0x004D6660
@@ -4487,7 +4487,7 @@ void __fastcall MISSILE_CltDoLinked(D2UnitStrc* pMissile)
             switch (nState)
             {
             case 4:
-                sub_004DA690_ReplaceMotionFlag1With8(pMissile);
+                GFXUTIL_ReplaceMotionFlag1With8(pMissile);
                 GFXUTIL_SetMotionVectorB(pMissile, 0, 0, 20, 1);
                 GFXUTIL_SetMotionVectorC(pMissile, 0, 0, 400, 0);
                 MISSILE_SetMotionFlagMask(pMissile, 1);
@@ -4496,7 +4496,7 @@ void __fastcall MISSILE_CltDoLinked(D2UnitStrc* pMissile)
                 return;
 
             case 3:
-                sub_004DA690_ReplaceMotionFlag1With8(pMissile);
+                GFXUTIL_ReplaceMotionFlag1With8(pMissile);
                 GFXUTIL_SetMotionVectorB(pMissile, 0, 0, -6, 1);
                 GFXUTIL_SetMotionVectorC(pMissile, 0, 0, SEED_RollLimitedRandomNumber(pSeed, 40), 0);
                 MISSILE_SetMotionFlagMask(pMissile, 0);
@@ -4507,7 +4507,7 @@ void __fastcall MISSILE_CltDoLinked(D2UnitStrc* pMissile)
             case 2:
 // build: symbol ?gszMissileSourceFile@* 0x006DAEF4
                 PATH_SetVelocity(pPath, 0, gszMissileSourceFile, 6004);
-                sub_004DA690_ReplaceMotionFlag1With8(pMissile);
+                GFXUTIL_ReplaceMotionFlag1With8(pMissile);
                 GFXUTIL_SetMotionVectorB(pMissile, 0, 0, 6, 1);
                 GFXUTIL_SetMotionVectorC(pMissile, 0, 0, SEED_RollLimitedRandomNumber(pSeed, 40) + 170, 0);
                 MISSILE_SetMotionFlagMask(pMissile, 1);
@@ -4521,7 +4521,7 @@ void __fastcall MISSILE_CltDoLinked(D2UnitStrc* pMissile)
         else if (nDistance < nMin && !nPrevState)
         {
             MISSILE_SetTargetY(pMissile, 1);
-            sub_004DA690_ReplaceMotionFlag1With8(pMissile);
+            GFXUTIL_ReplaceMotionFlag1With8(pMissile);
             GFXUTIL_SetMotionVectorB(pMissile, 0, 0, 1, 1);
             MISSILE_CltDoCommon(pMissile);
             return;
@@ -4596,7 +4596,7 @@ int __fastcall MISSILE_CltHitScatterNoUnit(D2UnitStrc* pMissile, D2UnitStrc* pUn
 }
 
 // 0x004D3F10
-void __fastcall sub_004D3F10_ClientMissileDo(D2UnitStrc* pMissile)
+void __fastcall MISSILE_ClientMissileDo(D2UnitStrc* pMissile)
 {
     struct { int nValue1; int nLevel; D2UnitStrc* pOwner; int nRange; } tLocal;
     D2MissilesTxt* pMissilesTxt;
@@ -4764,7 +4764,7 @@ void __fastcall MISSILE_CltDoStateTarget(D2UnitStrc* pMissile)
             if (!(SEED_RollRandomNumber(pSeed) % 10))
             {
                 MISSILE_SetTargetY(pMissile, 1);
-                sub_004DA690_ReplaceMotionFlag1With8(pMissile);
+                GFXUTIL_ReplaceMotionFlag1With8(pMissile);
                 PATH_SetVelocity(pPath, 0xF00, gszMissileFile_006DAEF4, 0x19E6);
                 if (SEED_RollLimitedRandomNumber(pSeed, 2))
                 {
@@ -5689,7 +5689,7 @@ int __fastcall MISSILE_IsOwnersPet(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
         return 0;
     }
 
-    const int nRosterId = sub_00479150_FindRosterIndex(pUnit->dwUnitId);
+    const int nRosterId = ROSTERPETS_FindRosterIndex(pUnit->dwUnitId);
     const int nOwnerId = !pOwner ? -1 : pOwner->dwUnitId;
     return nRosterId == nOwnerId;
 }
@@ -5856,7 +5856,7 @@ void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile)
         const int bActive = sub_0064A380_GetRemainingFrames(pMissile) <= sub_0064A640(pMissile);
         if (bActive && sub_0064A3B0_GetElapsedFrames(pMissile) > pMissilesTxtRecord->nCanDestroy)
             pMissile->dwFlagEx &= ~0x40000;
-        if (!sub_004DA6B0_TestMotionFlags(pMissile))
+        if (!GFXUTIL_TestMotionFlags(pMissile))
         {
             MISSILE_CltMissileHit(pMissile, 0, 1);
             return;
@@ -6458,8 +6458,8 @@ D2UnitStrc* __fastcall MISSILE_CltMissileHit(D2UnitStrc* pMissile, D2UnitStrc* p
                 if (pSubMissile)
                 {
                     GFXUTIL_SetMotionVectorA(pSubMissile, GFXUTIL_GetMotionAX(pMissile), GFXUTIL_GetMotionAY(pMissile), GFXUTIL_GetMotionAZ(pMissile));
-                    sub_004DA640_SetMotionFlag1(pSubMissile);
-                    sub_004DA690_ReplaceMotionFlag1With8(pSubMissile);
+                    GFXUTIL_SetMotionFlag1(pSubMissile);
+                    GFXUTIL_ReplaceMotionFlag1With8(pSubMissile);
                     if (pSubMissile->dwClassId != 0x92)
                         D2COMMON_10160_PathUpdateDirection(pSubMissile->pDynamicPath, PATH_GetDirection(pMissile->pDynamicPath));
                     else
@@ -6815,7 +6815,7 @@ D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams
     }
 
     PARTICLE_ResetGfxMotion(pMissile);
-    sub_004DA690_ReplaceMotionFlag1With8(pMissile);
+    GFXUTIL_ReplaceMotionFlag1With8(pMissile);
 
     if (pMissileParams->dwFlags & 0x400)
     {
@@ -6837,7 +6837,7 @@ D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams
     if (pMissileParams->dwFlags & 0x100)
     {
         SKILLS_SetBallistic(pMissile, pMissileParams->nGfxArg, MISSILE_GetTotalFrames(pMissile));
-        sub_004DA350_UpdateMotion(pMissile);
+        GFXUTIL_UpdateMotion(pMissile);
         PATH_SetDirection(pPath, (unsigned char)(nTargetX + nTargetY) & ~0xC0);
         D2COMMON_10203_PATH_SetRotateFlag(pPath, 0);
     }

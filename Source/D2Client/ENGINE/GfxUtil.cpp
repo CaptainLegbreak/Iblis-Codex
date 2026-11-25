@@ -149,7 +149,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); // 0x00681EF0
 
-D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
+D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
 D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
 
@@ -332,7 +332,7 @@ typedef char check_PartialLookupHeader_records[offsetof(PartialLookupHeader, rec
 
 D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
-int __fastcall sub_0046D9F0_GetConvertedUnitType(D2UnitStrc* pUnit);
+int __fastcall GFX_GetConvertedUnitType(D2UnitStrc* pUnit); // 0x0046D9F0
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 
@@ -384,7 +384,7 @@ unsigned int gaMonModeTokens[16];                                               
 
 unsigned int gaClassTokens[3];                                                              // 0x007C89C0
 
-D2InventoryStrc* __fastcall sub_0046DB30_GetCompInventory(D2UnitStrc* pUnit, int* pOut);                    // 0x0046DB30
+D2InventoryStrc* __fastcall GFX_GetCompInventory(D2UnitStrc* pUnit, int* pOut);                    // 0x0046DB30
 
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
 
@@ -528,7 +528,7 @@ D2TokRecord* __stdcall DATATBLS_GetArmTypeTxtRecord(int nId);                   
 // 0x0046E5A0
 D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode)
 {
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 940);
 
     if (nMode == -1)
@@ -626,7 +626,7 @@ void __fastcall MISSILE_ClearMotionFlagTwo(D2UnitStrc* pMissile)
 
 
 // 0x004DA350
-void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit)
+void __stdcall GFXUTIL_UpdateMotion(D2UnitStrc* pUnit)
 {
     D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
     if (!pMotion || pMotion->dwFlags & 1)
@@ -766,7 +766,7 @@ void __fastcall SKILLS_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames)
 
 
 // 0x004DA620
-void __fastcall sub_004DA620_SetMotionFlag10(D2UnitStrc* pUnit, int bSet)
+void __fastcall GFXUTIL_SetMotionFlag10(D2UnitStrc* pUnit, int bSet)
 {
     D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
     if (pMotion)
@@ -792,7 +792,7 @@ void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet)
 }
 
 // 0x004DA700
-int __fastcall sub_004DA700_GetGfxMotionFlag5(D2UnitStrc* pUnit)
+int __fastcall GFXUTIL_GetGfxMotionFlag5(D2UnitStrc* pUnit)
 {
     D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
     if (pMotion)
@@ -847,7 +847,7 @@ void __fastcall MISSILE_GetArmorComponents(D2UnitStrc* pUnit, D2InventoryStrc* p
 // 0x004DB1A0
 unsigned char __fastcall MISSILE_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex)
 {
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (!pGfxData)
         return 0;
     return pGfxData->aEntries[nIndex][0];
@@ -1314,7 +1314,7 @@ int __fastcall MISSILE_SkillStartPlace(D2UnitStrc* pUnit, int nSkillId, int nSki
 }
 
 // 0x004E0C60
-int __fastcall sub_004E0C60_CltDoResetActionFrame(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall GFXUTIL_CltDoResetActionFrame(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     int nFrameNo;
     int nFrameCount;
@@ -1444,7 +1444,7 @@ int __fastcall GFXUTIL_CltDoSetAnimFrameFromCalc(D2UnitStrc* pUnit, int nSkillId
 }
 
 // 0x004E12F0
-int __fastcall sub_004E12F0_CltDoResetActionFrame2(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall GFXUTIL_CltDoResetActionFrame2(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     int nFrameNo;
     int nFrameCount;
@@ -1628,7 +1628,7 @@ static int __stdcall GFXUTIL_GetUnitModeDirections(D2UnitStrc* pUnit, int nMode,
 }
 
 // 0x004DB040
-extern "C" void* __fastcall sub_004DB040_identity(void* pointer)
+extern "C" void* __fastcall GFXUTIL_identity(void* pointer)
 {
     return pointer;
 }
@@ -1866,7 +1866,7 @@ int __fastcall GFXUTIL_IsPlayerMonsterOrObject(D2UnitStrc* pUnit)
 // 0x004DB1C0
 void __fastcall GFXUTIL_SetGfxEntryByte(D2UnitStrc* pUnit, int nIndex, unsigned char nValue)
 {
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (pGfxData)
     {
         pGfxData->aEntries[nIndex][0] = nValue;
@@ -1913,7 +1913,7 @@ void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc* pUnit, int nUnitType, int nClas
 // 0x004DB360
 int __fastcall GFXUTIL_GetCompTransparency(D2UnitStrc* pUnit, int nComponent, int* pOut, int nItemId)
 {
-    const int nType = sub_0046D9F0_GetConvertedUnitType(pUnit);
+    const int nType = GFX_GetConvertedUnitType(pUnit);
     switch (nType)
     {
     case 1:
@@ -2152,7 +2152,7 @@ int __fastcall GFXUTIL_GetComponentsMaxHeight(D2UnitStrc* pUnit, unsigned char* 
     return nCount;
 }
 
-inline D2InventoryStrc* __fastcall sub_0046DB30_GetCompInventory(D2UnitStrc* pUnit, int* pOut)
+inline D2InventoryStrc* __fastcall GFX_GetCompInventory(D2UnitStrc* pUnit, int* pOut)
 {
     if (STATES_IsUnitShapeShiftedInline(pUnit))
     {
@@ -2184,7 +2184,7 @@ inline D2InventoryStrc* __fastcall sub_0046DB30_GetCompInventory(D2UnitStrc* pUn
 static inline D2InventoryStrc* GetCompInventoryInline(D2UnitStrc* pUnit)
 {
     int nOut;
-    return sub_0046DB30_GetCompInventory(pUnit, &nOut);
+    return GFX_GetCompInventory(pUnit, &nOut);
 }
 
 
@@ -2277,7 +2277,7 @@ static int __stdcall GFXUTIL_ResolveUnitCelContext(D2UnitStrc* pUnit, D2CelConte
         if (!pEntry)
             return 0;
 
-        if (!sub_00463E10_GetGfxData(pUnit))
+        if (!CUNIT_GetGfxData(pUnit))
             return 0;
 
         pToken->dwToken = 0x2074696C;
@@ -2550,7 +2550,7 @@ int __stdcall GFXUTIL_GetMotionFirstParam(D2UnitStrc* pUnit)
 }
 
 // 0x004DA640
-void __stdcall sub_004DA640_SetMotionFlag1(D2UnitStrc* pUnit)
+void __stdcall GFXUTIL_SetMotionFlag1(D2UnitStrc* pUnit)
 {
     D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
     if (pMotion)
@@ -2560,7 +2560,7 @@ void __stdcall sub_004DA640_SetMotionFlag1(D2UnitStrc* pUnit)
 }
 
 // 0x004DA660
-int __stdcall sub_004DA660_TestMotionFlag1(D2UnitStrc* pUnit)
+int __stdcall GFXUTIL_TestMotionFlag1(D2UnitStrc* pUnit)
 {
     D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
     if (pMotion && (pMotion->dwFlags & 1))
@@ -2572,7 +2572,7 @@ int __stdcall sub_004DA660_TestMotionFlag1(D2UnitStrc* pUnit)
 }
 
 // 0x004DA690
-void __stdcall sub_004DA690_ReplaceMotionFlag1With8(D2UnitStrc* pUnit)
+void __stdcall GFXUTIL_ReplaceMotionFlag1With8(D2UnitStrc* pUnit)
 {
     D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
     if (pMotion)
@@ -2582,7 +2582,7 @@ void __stdcall sub_004DA690_ReplaceMotionFlag1With8(D2UnitStrc* pUnit)
 }
 
 // 0x004DA6B0
-int __stdcall sub_004DA6B0_TestMotionFlags(D2UnitStrc* pUnit)
+int __stdcall GFXUTIL_TestMotionFlags(D2UnitStrc* pUnit)
 {
     D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
     if (pMotion && (pMotion->dwFlags & 1) && !(pMotion->dwFlags & 8))

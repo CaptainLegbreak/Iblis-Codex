@@ -18,8 +18,8 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 short __fastcall CUNIT_GetPlayerPartyId(D2UnitStrc* pUnit); // 0x00465400
 const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit);                                     // 0x00464A60
-int __fastcall sub_00478EE0_CountPets(D2UnitStrc* pOwner, int nPetType);                                 // 0x00478EE0
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny);                  // 0x00478F20
+int __fastcall ROSTERPETS_CountPets(D2UnitStrc* pOwner, int nPetType);                                 // 0x00478EE0
+int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny);                  // 0x00478F20
 int __fastcall ROSTER_GetPetLife(int nUnitId);                                                       // 0x00479080
 D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry);              // 0x004795A0
 extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
@@ -289,7 +289,7 @@ static int __stdcall sub_00493E10_DrawPetIcon(D2UnitStrc* pPlayer, int* pnX, int
 // 0x00493EB0
 static int __stdcall sub_00493EB0_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY, int* pbAlternate, int* pnX, int nPetType)
 {
-    const int nCount = sub_00478EE0_CountPets(pPlayer, nPetType);
+    const int nCount = ROSTERPETS_CountPets(pPlayer, nPetType);
     if (!nCount)
         return 0;
 
@@ -302,7 +302,7 @@ static int __stdcall sub_00493EB0_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY
         return 0;
 
     if (nCount == 1 && bSingle)
-        sub_00493A00_DrawLifeBar(nPetType, *pnX, sub_00478F20_FindPetIdByOwner(pPlayer, nPetType, 0));
+        sub_00493A00_DrawLifeBar(nPetType, *pnX, ROSTERPETS_FindPetIdByOwner(pPlayer, nPetType, 0));
 
     INV_DrawIconNumber(nCount, *pnX);
     HIREABLES_DrawPetTypeName(*pnX, *pnY, nPetType);
@@ -357,7 +357,7 @@ void __cdecl sub_00494020_DrawPetIcons()
     const int nMode = sub_0045AE90();
     if (nMode != 3 && nMode != 2 && !GAME_GetUIVarState(9) && !GAME_GetUIVarState(0xB) && gnPetIconPopupState != 2)
     {
-        if (GAME_IsExpansion() && !GAME_GetUIVarState(0x23) && gnPetIconPopupState != 2 && sub_00478F20_FindPetIdByOwner(pPlayer, 7, 0) != -1)
+        if (GAME_IsExpansion() && !GAME_GetUIVarState(0x23) && gnPetIconPopupState != 2 && ROSTERPETS_FindPetIdByOwner(pPlayer, 7, 0) != -1)
             UI_SetUIVar(0x23, 0, 0);
 
         int bAny = sub_00493B50_DrawRosterIcons(&nY, &bAlternate, pPlayer, &nX);

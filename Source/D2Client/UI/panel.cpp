@@ -186,7 +186,7 @@ int __fastcall ITEM_IsItemActionBlocked(D2UnitStrc* pItem); // 0x004C2240
 
 void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
-void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
+void __fastcall MSG_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 
 void __fastcall ITEM_SetUninterruptableState(D2UnitStrc* pItem); // 0x004C21F0
 
@@ -216,7 +216,7 @@ void __fastcall sub_0049FF90_Close(D2UnitStrc* pItem, D2ItemsTxt* pState); // 0x
 
 void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
+int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
 int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 
@@ -248,7 +248,7 @@ void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unico
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
-void __cdecl sub_00499E50_DrawPanelQuad(); // 0x00499E50
+void __cdecl PARTY_DrawPanelQuad(); // 0x00499E50
 
 void __cdecl PARTY_DrawPartyRows(); // 0x0049C270
 
@@ -256,11 +256,11 @@ void __cdecl PARTY_DrawPartyButtons(); // 0x0049A510
 
 void __cdecl TEXT_DrawPanelCloseButton(); // 0x0049A950
 
-void __cdecl sub_0049ABD0_DrawRosterHoverHints(); // 0x0049ABD0
+void __cdecl PARTY_DrawRosterHoverHints(); // 0x0049ABD0
 
-void __cdecl sub_0049B330_DrawRosterButtonHints(); // 0x0049B330
+void __cdecl PARTY_DrawRosterButtonHints(); // 0x0049B330
 
-void __cdecl sub_0049A9B0_RefreshRosterIndices(); // 0x0049A9B0
+void __cdecl PARTY_RefreshRosterIndices(); // 0x0049A9B0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
@@ -296,7 +296,7 @@ static void __stdcall PANEL_ClickBeltBox(D2InventoryStrc* pInventory, int nX, in
 
 void __stdcall PANEL_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift); // 0x00498A90
 
-static int __stdcall sub_00498A20_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2ItemsTxt* pState);
+static int __stdcall INV_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2ItemsTxt* pState); // 0x00498A20
 
 unsigned char gnTextColorRed; // 0x007BEFBA
 
@@ -1703,7 +1703,7 @@ static void __stdcall PANEL_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2Invent
     const int nClassId = pItem->dwClassId;
     D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(nClassId);
     D2_ASSERT(pItemsTxt, 0xA64);
-    if (sub_00498A20_CheckState(pPlayer, pItem, pItemsTxt) != 1)
+    if (INV_CheckState(pPlayer, pItem, pItemsTxt) != 1)
     {
         return;
     }
@@ -1713,11 +1713,11 @@ static void __stdcall PANEL_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2Invent
         return;
     }
 
-    sub_004786D0_SendDwords3(0x26, pItem->dwUnitId, bShift, 0);
+    MSG_SendDwords3(0x26, pItem->dwUnitId, bShift, 0);
     sub_004C21F0(pItem);
     if (bShift)
     {
-        const int nPetId = sub_00478F20_FindPetIdByOwner(pPlayer, 7, 0);
+        const int nPetId = ROSTERPETS_FindPetIdByOwner(pPlayer, 7, 0);
         if (nPetId != -1)
         {
             if (ITEMSIsA(pItem, 0x4C) || ITEMSIsA(pItem, 0x51) || ITEMSIsA(pItem, 0x50))
@@ -1755,7 +1755,7 @@ void __stdcall sub_A11_Emit_00498870(SMSGHANDLER_PARAMS* pMsg)
     PANEL_ClickBeltBox(pPlayer->pInventory, nX, nY);
 }
 
-static int __stdcall sub_00498A20_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2ItemsTxt* pState)
+static int __stdcall INV_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2ItemsTxt* pState)
 {
     D2_ASSERT(pState, 0xA3D);
     if (pState->nUnique == 1 || pState->nQuest == 1)
@@ -1825,7 +1825,7 @@ void __fastcall PANEL_SetBeltType(int nIndex)
 }
 
 // 0x00498E80
-void __cdecl sub_00498E80_ClearPair()
+void __cdecl PANEL_ClearPair()
 {
     gdwGlobal_007BEFA8 = 0;
     gpBeltItemB = 0;

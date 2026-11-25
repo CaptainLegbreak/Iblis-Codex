@@ -9,7 +9,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void);                               // 0x006CC260
 
-D2StateOwnerStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit);                                    // 0x00463E10
+D2StateOwnerStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit);                                    // 0x00463E10
 void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pNode);                      // 0x0046E040
 void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
@@ -83,7 +83,7 @@ void __fastcall GFX_UpdateStateOverlays(D2UnitStrc* pUnit)
 {
     D2StateNodeStrc* pNode;
     int nNextOverlay;
-    D2StateOwnerStrc* pOwner = sub_00463E10_GetGfxData(pUnit);
+    D2StateOwnerStrc* pOwner = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pOwner, 0x2FE);
 
     const unsigned int dwTick = GetTickCount();

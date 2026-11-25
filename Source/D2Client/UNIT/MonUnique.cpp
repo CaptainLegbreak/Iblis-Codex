@@ -165,7 +165,7 @@ static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 }
 
 // 0x004AC730
-D2MonsterDataStrc* __fastcall sub_004AC730_MonsterDataOf(D2UnitStrc* pUnit)
+D2MonsterDataStrc* __fastcall MONUNIQUE_MonsterDataOf(D2UnitStrc* pUnit)
 {
     if (sub_0044BE50(pUnit) == 1)
         return pUnit->pMonsterData;
@@ -186,7 +186,7 @@ unsigned char* __fastcall MONSTER_GetMonUmods(D2UnitStrc* pUnit)
 // 0x004AC760
 unsigned short __fastcall sub_004AC760_GetNameSeed(D2UnitStrc* pUnit)
 {
-    D2MonsterDataStrc* pMonsterData = sub_004AC730_MonsterDataOf(pUnit);
+    D2MonsterDataStrc* pMonsterData = MONUNIQUE_MonsterDataOf(pUnit);
     if (!pMonsterData)
         return 0;
     return pMonsterData->wNameSeed;
@@ -209,7 +209,7 @@ void __fastcall sub_004AC7A0_SetSuperUniqueId(D2UnitStrc* pUnit, unsigned short 
 // 0x004AC7C0
 short __fastcall sub_004AC7C0_GetSuperUniqueId(D2UnitStrc* pUnit)
 {
-    D2MonsterDataStrc* pMonsterData = sub_004AC730_MonsterDataOf(pUnit);
+    D2MonsterDataStrc* pMonsterData = MONUNIQUE_MonsterDataOf(pUnit);
     if (!pMonsterData)
         return 0;
     return pMonsterData->wBossHcIdx;
@@ -218,7 +218,7 @@ short __fastcall sub_004AC7C0_GetSuperUniqueId(D2UnitStrc* pUnit)
 // 0x004AC7E0
 int __fastcall sub_004AC7E0_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
-    D2MonsterDataStrc* pMonsterData = sub_004AC730_MonsterDataOf(pUnit);
+    D2MonsterDataStrc* pMonsterData = MONUNIQUE_MonsterDataOf(pUnit);
     if (!pMonsterData)
         return 0;
     return (unsigned short)(pMonsterData->nTypeFlag & nFlag) != 0;
@@ -261,7 +261,7 @@ void __fastcall sub_004AC840_SetTypeFlag100(D2UnitStrc* pUnit, int bSet)
 }
 
 // 0x004AC870
-void __fastcall sub_004AC870_SetMonsterHoverName(D2UnitStrc* pUnit, int nMode, int bShow)
+void __fastcall MONUNIQUE_SetMonsterHoverName(D2UnitStrc* pUnit, int nMode, int bShow)
 {
     wchar_t wszName[300];
 

@@ -86,12 +86,12 @@ void __stdcall D2GFX_FloorTileDraw(D2GridInfoStrc* pInfo, D2GridCellStrc* pCells
 void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE070
 void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE260
 
-static void __stdcall sub_004DDEF0_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCellStrc* pCells);
+static void __stdcall WALL2_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCellStrc* pCells); // 0x004DDEF0
 
 extern int gnScreenWidth; // 0x0071146C
 
 // 0x004DDEF0
-static void __stdcall sub_004DDEF0_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCellStrc* pCells)
+static void __stdcall WALL2_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCellStrc* pCells)
 {
     if (bFlat)
     {
@@ -205,7 +205,7 @@ void __fastcall DFLOOR_UpdateFloorView(D2ViewStrc* pView)
                 const int nSubY = pNode->nY >> 3;
                 if (DLIGHTMAP_GetRenderMode() < 4)
                 {
-                    sub_004DDEF0_BuildLargeGrid(nSubX, nSubY, pInfo->wZ, tLarge);
+                    WALL2_BuildLargeGrid(nSubX, nSubY, pInfo->wZ, tLarge);
                     D2GFX_FloorTileDraw(pObj->pInfo, tLarge, nX, nY, nSubX, nSubY, pObj->nAlpha, nMode, 0);
                 }
                 else

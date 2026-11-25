@@ -78,7 +78,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
-void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
+void __fastcall MSG_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 
 int __fastcall SKILLS_StartSkillOnUnit(D2UnitStrc* pUnit, D2ClientSkillCmdStrc* pArgs); // 0x004C6EB0
 
@@ -208,7 +208,7 @@ void __fastcall CUNIT_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType);
 
 void __stdcall STATLIST_UpdateStatListsExpiration(D2UnitStrc* unit, int value); // 0x00627460
 
-void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* unit); // 0x004DA350
+void __stdcall GFXUTIL_UpdateMotion(D2UnitStrc* unit); // 0x004DA350
 
 void __fastcall GFX_UpdateStateOverlays(D2UnitStrc* unit); // 0x00470C30
 
@@ -478,7 +478,7 @@ void __fastcall UNITMODE_UpdateUnit(D2UnitStrc* unit)
         return;
     }
     STATLIST_UpdateStatListsExpiration(unit, 0);
-    sub_004DA350_UpdateMotion(unit);
+    GFXUTIL_UpdateMotion(unit);
     int type, server;
     int id;
     if (!unit)
@@ -596,7 +596,7 @@ void __fastcall UNITMODE_InteractWithUnit(unsigned short nType, int nUnitId)
         break;
 
     case 4:
-        sub_004786D0_SendDwords3(0x16, 4, nUnitId, (unsigned char)GAME_GetUIVarState(1));
+        MSG_SendDwords3(0x16, 4, nUnitId, (unsigned char)GAME_GetUIVarState(1));
         return;
     }
 

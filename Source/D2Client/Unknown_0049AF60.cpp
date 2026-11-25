@@ -78,7 +78,7 @@ static inline int GetCenteredStringXInline(unsigned short nStringIndex, int nCen
 }
 
 // 0x0049AAF0
-static void __stdcall sub_0049AAF0_DrawTextFrame(unsigned short nAltString, unsigned short nString, int nX, int bLarge)
+static void __stdcall PARTY_DrawTextFrame(unsigned short nAltString, unsigned short nString, int nX, int bLarge)
 {
     Unicode wszText[100];
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nString));
@@ -103,7 +103,8 @@ static void __stdcall sub_0049AAF0_DrawTextFrame(unsigned short nAltString, unsi
         AUTOMAP_DrawFramedBox(gnPanelOffsetX - nAltWidth / 2 + nX - 5, nY - gnPanelOffsetY, nAltWidth + 0xA, nHeight, gnBoxColor, 2);
 }
 
-void __cdecl sub_0049ABD0_DrawRosterHoverHints()
+// build: symbol ?PARTY_DrawRosterHoverHints@* 0x0049ABD0
+void __cdecl PARTY_DrawRosterHoverHints()
 {
     D2PartyRowStrc* pRow = gpRosterUnits;
     D2StoredUnitRecordStrc* pFirst = ROSTER_GetNextStoredUnit(0);
@@ -114,7 +115,7 @@ void __cdecl sub_0049ABD0_DrawRosterHoverHints()
         const int nMouseY = sub_00468740();
         if (nMouseX >= gnPanelOffsetX + 0xE3 && nMouseX <= gnPanelOffsetX + 0x118 && nMouseY >= 0x18 - gnPanelOffsetY && nMouseY <= 0x23 - gnPanelOffsetY)
         {
-            sub_0049AAF0_DrawTextFrame(0, 0x1018, 0xD5, 0);
+            PARTY_DrawTextFrame(0, 0x1018, 0xD5, 0);
             {
                 const int nTextX = TEXT_GetCenteredStringX(0x1018, 0xD5);
                 D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1018), nTextX + gnPanelOffsetX, 0x37 - gnPanelOffsetY, 0, 0);
@@ -135,7 +136,7 @@ void __cdecl sub_0049ABD0_DrawRosterHoverHints()
                 const int nState = pRow->aSlots[0].nState;
                 if (nState == 0)
                 {
-                    sub_0049AAF0_DrawTextFrame(0x1005, 0x1004, 0xDA, 1);
+                    PARTY_DrawTextFrame(0x1005, 0x1004, 0xDA, 1);
                     {
                         const int nTextX = GetCenteredStringXInline(0x1004, 0xDA);
                         D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1004), nTextX + gnPanelOffsetX, 0x32 - gnPanelOffsetY, 0, 0);
@@ -147,7 +148,7 @@ void __cdecl sub_0049ABD0_DrawRosterHoverHints()
                 }
                 else if (nState == 2)
                 {
-                    sub_0049AAF0_DrawTextFrame(0x1007, 0x1006, 0xDA, 1);
+                    PARTY_DrawTextFrame(0x1007, 0x1006, 0xDA, 1);
                     {
                         const int nTextX = TEXT_GetCenteredStringX(0x1006, 0xDA);
                         D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1006), nTextX + gnPanelOffsetX, 0x32 - gnPanelOffsetY, 0, 0);
@@ -159,7 +160,7 @@ void __cdecl sub_0049ABD0_DrawRosterHoverHints()
                 }
                 else if (nState == 4)
                 {
-                    sub_0049AAF0_DrawTextFrame(0x1009, 0x1008, 0xDA, 1);
+                    PARTY_DrawTextFrame(0x1009, 0x1008, 0xDA, 1);
                     {
                         const int nTextX = TEXT_GetCenteredStringX(0x1008, 0xDA);
                         D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1008), nTextX + gnPanelOffsetX, 0x32 - gnPanelOffsetY, 0, 0);
@@ -183,14 +184,14 @@ static void __stdcall sub_0049AF60_DrawButtonHint(unsigned short nString1, D2Hin
     const unsigned short nString2 = (unsigned short)tString2.nString2;
     if (!nString2)
     {
-        sub_0049AAF0_DrawTextFrame(0, nString1, nCenterX, 0);
+        PARTY_DrawTextFrame(0, nString1, nCenterX, 0);
         {
             const int nTextX = TEXT_GetCenteredStringX(nString1, nCenterX);
             D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(nString1), nTextX + gnPanelOffsetX, nY1 - gnPanelOffsetY, nColor, 0);
         }
         return;
     }
-    sub_0049AAF0_DrawTextFrame(nString2, nString1, nCenterX, 1);
+    PARTY_DrawTextFrame(nString2, nString1, nCenterX, 1);
     {
         const int nTextX = TEXT_GetCenteredStringX(nString1, nCenterX);
         D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(nString1), nTextX + gnPanelOffsetX, nY1 - gnPanelOffsetY, nColor, 0);
@@ -201,7 +202,8 @@ static void __stdcall sub_0049AF60_DrawButtonHint(unsigned short nString1, D2Hin
     }
 }
 
-static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
+// build: symbol ?PARTY_DrawRosterTooltip@* 0x0049B030
+static void PARTY_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
 {
     Unicode wszLine1[0x80];
     Unicode wszLine2[0x80];
@@ -271,7 +273,8 @@ static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
     D2Win_10117_DrawText(wszLine2, gnPanelOffsetX + 0x29, 0x41 - gnPanelOffsetY, nColor2, 0);
 }
 
-void __cdecl sub_0049B330_DrawRosterButtonHints()
+// build: symbol ?PARTY_DrawRosterButtonHints@* 0x0049B330
+void __cdecl PARTY_DrawRosterButtonHints()
 {
     D2PartyRowStrc* pRow = gpRosterUnits;
     D2StoredUnitRecordStrc* pFirst = ROSTER_GetNextStoredUnit(0);
@@ -287,7 +290,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
         const int nMouseX = sub_00468730();
         const int nMouseY = sub_00468740();
         if (nMouseX >= gnPanelOffsetX + 0x24 && nMouseX <= gnPanelOffsetX + 0x8C && nMouseY >= nRowY - gnPanelOffsetY - 0x1A && nMouseY <= nRowY - gnPanelOffsetY)
-            sub_0049B030_DrawRosterTooltip(pEntry);
+            PARTY_DrawRosterTooltip(pEntry);
         else
         {
             for (int k = 1; k < 5; ++k)
@@ -306,7 +309,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                             {
                                 if (!bInTown)
                                 {
-                                    sub_0049AAF0_DrawTextFrame(0, 0x1019, 0x6E, 0);
+                                    PARTY_DrawTextFrame(0, 0x1019, 0x6E, 0);
                                     {
                                         const int nTextX = TEXT_GetCenteredStringX(0x1019, 0x6E);
                                         D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1019), nTextX + gnPanelOffsetX, 0x37 - gnPanelOffsetY, 1, 0);
@@ -319,7 +322,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                                     { D2HintString2AndUnusedStrc tArg; tArg.nString2 = 0x100B; tArg.nUnused = 0; sub_0049AF60_DrawButtonHint(0x100A, tArg, 0x6E, 0x32, 0x41, 0); }
                                 return;
                             }
-                            sub_0049AAF0_DrawTextFrame(0x101B, 0x101A, 0xA0, 1);
+                            PARTY_DrawTextFrame(0x101B, 0x101A, 0xA0, 1);
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x101A, 0xA0);
                                 D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x101A), nTextX + gnPanelOffsetX, 0x32 - gnPanelOffsetY, 0, 0);
@@ -330,7 +333,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                             }
                             return;
                         }
-                        sub_0049AAF0_DrawTextFrame(0x101B, 0x101A, 0xA0, 1);
+                        PARTY_DrawTextFrame(0x101B, 0x101A, 0xA0, 1);
                         {
                             const int nTextX = GetCenteredStringXInline(0x101A, 0xA0);
                             D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x101A), nTextX + gnPanelOffsetX, 0x32 - gnPanelOffsetY, 0, 0);
@@ -347,7 +350,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                         {
                             if (ROSTER_TestLootFlag(pEntry))
                             {
-                                sub_0049AAF0_DrawTextFrame(0x1011, 0x1010, 0xFF, 1);
+                                PARTY_DrawTextFrame(0x1011, 0x1010, 0xFF, 1);
                                 {
                                     const int nTextX = TEXT_GetCenteredStringX(0x1010, 0xFF);
                                     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1010), nTextX + gnPanelOffsetX, 0x32 - gnPanelOffsetY, 0, 0);
@@ -358,7 +361,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                                 }
                                 return;
                             }
-                            sub_0049AAF0_DrawTextFrame(0x100F, 0x100E, 0xFF, 1);
+                            PARTY_DrawTextFrame(0x100F, 0x100E, 0xFF, 1);
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x100E, 0xFF);
                                 D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x100E), nTextX + gnPanelOffsetX, 0x32 - gnPanelOffsetY, 0, 0);
@@ -374,7 +377,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                     {
                         if (ROSTER_TestMuteFlag(pEntry))
                         {
-                            sub_0049AAF0_DrawTextFrame(0x1013, 0x1012, 0x114, 1);
+                            PARTY_DrawTextFrame(0x1013, 0x1012, 0x114, 1);
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x1012, 0x114);
                                 D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1012), nTextX + gnPanelOffsetX, 0x32 - gnPanelOffsetY, 0, 0);
@@ -385,7 +388,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                             }
                             return;
                         }
-                        sub_0049AAF0_DrawTextFrame(0x1015, 0x1014, 0x114, 1);
+                        PARTY_DrawTextFrame(0x1015, 0x1014, 0x114, 1);
                         {
                             const int nTextX = TEXT_GetCenteredStringX(0x1014, 0x114);
                             D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1014), nTextX + gnPanelOffsetX, 0x32 - gnPanelOffsetY, 0, 0);
@@ -400,14 +403,14 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                     {
                         if (ROSTER_TestSquelchFlag(pEntry))
                         {
-                            sub_0049AAF0_DrawTextFrame(0, 0x1017, 0x128, 0);
+                            PARTY_DrawTextFrame(0, 0x1017, 0x128, 0);
                             {
                                 const int nTextX = TEXT_GetCenteredStringX(0x1017, 0x128);
                                 D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1017), nTextX + gnPanelOffsetX, 0x37 - gnPanelOffsetY, 0, 0);
                             }
                             return;
                         }
-                        sub_0049AAF0_DrawTextFrame(0, 0x1016, 0x128, 0);
+                        PARTY_DrawTextFrame(0, 0x1016, 0x128, 0);
                         {
                             const int nTextX = TEXT_GetCenteredStringX(0x1016, 0x128);
                             D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x1016), gnPanelOffsetX + nTextX, 0x37 - gnPanelOffsetY, 0, 0);
@@ -424,7 +427,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
 }
 
 // 0x0049B990
-static int sub_0049B990_DoRosterButtonAction(D2StoredUnitRecordStrc* pEntry, int nType)
+static int PARTY_DoRosterButtonAction(D2StoredUnitRecordStrc* pEntry, int nType)
 {
     int nResult = 0;
     switch (nType)
@@ -465,7 +468,7 @@ static int sub_0049B990_DoRosterButtonAction(D2StoredUnitRecordStrc* pEntry, int
 }
 
 // 0x0049BAD0
-static void sub_0049BAD0_SetRosterButtonState(D2PartyRowStrc* pRow, int nSlot, D2StoredUnitRecordStrc* pEntry)
+static void PARTY_SetRosterButtonState(D2PartyRowStrc* pRow, int nSlot, D2StoredUnitRecordStrc* pEntry)
 {
     if (pRow->aSlots[nSlot].nState == 1)
         return;
@@ -537,7 +540,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
                                 if (!pRoom || !DUNGEON_IsRoomInTown(pRoom))
                                     continue;
                             }
-                            const int bDone = sub_0049B990_DoRosterButtonAction(pEntry, pSlot->nType);
+                            const int bDone = PARTY_DoRosterButtonAction(pEntry, pSlot->nType);
                             int nCount = pSlot->nFrame;
                             if (bDone)
                             {
@@ -558,7 +561,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
                         nY = sub_00468740();
                         if (nX >= gnPanelOffsetX + nSlotX && nX <= gnPanelOffsetX + nSlotX + 0x35 && nY >= nSlotY - gnPanelOffsetY - 0x14 && nY <= nSlotY - gnPanelOffsetY)
                         {
-                            sub_0049BAD0_SetRosterButtonState(pRow, i, pEntry);
+                            PARTY_SetRosterButtonState(pRow, i, pEntry);
                             goto done;
                         }
                     }

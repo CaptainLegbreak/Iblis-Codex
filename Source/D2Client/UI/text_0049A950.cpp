@@ -541,7 +541,7 @@ void __cdecl TEXT_CloseMessageLogDialog()
 }
 
 // 0x004A1760
-int __cdecl sub_004A1760_Forward()
+int __cdecl TEXT_Forward()
 {
     return sub_004A08C0();
 }

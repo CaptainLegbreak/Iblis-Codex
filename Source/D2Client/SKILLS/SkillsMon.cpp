@@ -81,7 +81,7 @@ void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int n
 
 void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA2A0
 
-void __stdcall sub_004DA690_ReplaceMotionFlag1With8(D2UnitStrc* pUnit);                                     // 0x004DA690
+void __stdcall GFXUTIL_ReplaceMotionFlag1With8(D2UnitStrc* pUnit);                                     // 0x004DA690
 
 void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
 
@@ -390,7 +390,7 @@ int __fastcall SKILLSMON_MissileRing(D2UnitStrc* pUnit, int nSkillId, int nSkill
         D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
         if (pMissile)
         {
-            sub_004DA690_ReplaceMotionFlag1With8(pMissile);
+            GFXUTIL_ReplaceMotionFlag1With8(pMissile);
             MISSILE_SetMotionFlagMask(pMissile, 0);
             GFXUTIL_SetMotionVectorB(pMissile, 0, 0, -6, 1);
             GFXUTIL_SetMotionVectorC(pMissile, 0, 0, 0, 0);
