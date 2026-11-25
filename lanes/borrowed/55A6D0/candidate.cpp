@@ -62,7 +62,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
                 int nNoDrop = pTC->nNoDrop;
                 if (nNoDrop)
                 {
-                    int nPlayerCount = 1;
+                    int nPlayerCount;
                     if (pPlayer)
                     {
                         D2UnitStrc* pOwner = pPlayer;
@@ -73,9 +73,17 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
 
                         if (pOwner && pOwner->dwUnitType == UNIT_PLAYER)
                         {
-                            const int nLiving = PARTY_GetLivingPartyMemberCountInSameLevel(pGame, pOwner);
-                            nPlayerCount = D2_MIN(D2_MAX(nLiving, 1), 8);
+                            nPlayerCount = PARTY_GetLivingPartyMemberCountInSameLevel(pGame, pOwner);
+                            nPlayerCount = D2_MIN(D2_MAX(nPlayerCount, 1), 8);
                         }
+                        else
+                        {
+                            nPlayerCount = 1;
+                        }
+                    }
+                    else
+                    {
+                        nPlayerCount = 1;
                     }
 
                     nPlayerCount += (PLAYER_GetPlayerCount(pGame) - nPlayerCount) / 2;
@@ -139,17 +147,19 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
 
                     nRand -= nNoDrop;
                 }
+
+                --tcArray[nCounter].nPicks;
             }
             else
             {
-                nRand = D2_ABS(pTC->nPicks) - tcArray[nCounter].nPicks;
+                nRand = -pTC->nPicks - tcArray[nCounter].nPicks;
                 if (nRand >= nChance)
                 {
                     break;
                 }
-            }
 
-            --tcArray[nCounter].nPicks;
+                --tcArray[nCounter].nPicks;
+            }
 
             int nIndex;
             if (bExpansion)
@@ -315,7 +325,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
 
             if (ITEMSIsA(pItem, 4) && pTC->pInfo[nIndex].nTxtRow)
             {
-                D2GAME_SetStatOrResetGold_6FC7CA70(pItem, 0xE, STATLIST_UnitGetStatValue(pItem, STAT_GOLD, 0) * pTC->pInfo[nIndex].nTxtRow >> 8);
+                D2GAME_SetStatOrResetGold(pItem, 0xE, STATLIST_UnitGetStatValue(pItem, STAT_GOLD, 0) * pTC->pInfo[nIndex].nTxtRow >> 8);
             }
 
             if (ppItems)

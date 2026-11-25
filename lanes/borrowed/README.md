@@ -15,7 +15,7 @@ see tools/c2diag/IBLIS.md). Each draft was put into its unit on main #384 and bu
 | 0x4A4AD0 | 1,232 B | D2Client/Unknown_004A43E0.cpp | lane7/004A4AD0 | **from source, #400** | 0 | done: TEXT_ScrollKeyConfigList's prev/next written as plain `if`s gave nMax and gnKeyConfigFirstVisible the uses the original's allocation needs |
 | 0x4F8B80 | 561 B | D2Gfx/SRC/Window.cpp | lane6/004F8B80 | **from source, #409** | 0 | done: CMNSUBTILE_DrawFloorTile, on the tile library's own records and a 12-byte light cell |
 | 0x5DD7F0 | 1,084 B | D2Game/Ai/AiUtil.cpp | lane5/005DD7F0 | **from source, #410** | 0 | done: the 0x40 flag read into a local, the collision choice one if/else chain on it, the flag cleared after the chain; AIUTIL_CheckAiControlFlag's if and two returns |
-| 0x55A6D0 | 2,253 B | D2Game/ITEMS/Items.cpp | lane7/0055A6D0-wip | 2,239 / 2,253 | 2,015 | +0x17: the original keeps the 0x1C parameter in esi and the fastcall edx argument in ebx; ours swaps them |
+| 0x55A6D0 | 2,253 B | D2Game/ITEMS/Items.cpp | lane5/0055A6D0-wip (4261be864, on #410) | 2,226 / 2,253 | 1,893 | +0x17: still the parameter registers: the original keeps the 0x1C parameter in esi and the fastcall edx argument in ebx; ours swaps them (2,015 bytes before this draft) |
 | 0x677880 | 4,232 B | D2Common/DRLG/OutPlace.cpp | waiting for lane 7's current source | | | the seed form fixed the first difference (lane 7, 21:40) |
 
 The drafts are older than #384, so some were adapted to build here: old `sub_` names became today's names by
