@@ -46,6 +46,67 @@ for u in UNITS:
         end = re.search(r'^\}', seg, re.M)
         BODY[a] = seg[:end.end()] if end else seg
 
+# A `#pragma optimize("", off)` above a function's marker covers it until the matching `on`: the pragma sits outside the
+# function's body, so it is found by position, not in BODY.
+PRAGMA_OFF = set()
+for u in UNITS:
+    t = TEXT[u['file']]
+    for m in re.finditer(r'#pragma\s+optimize\s*\(\s*"[^"]*"\s*,\s*off\s*\)', t):
+        e = re.compile(r'#pragma\s+optimize\s*\(\s*"[^"]*"\s*,\s*on\s*\)').search(t, m.end())
+        for mk in MARK.finditer(t, m.end(), e.start() if e else len(t)):
+            a = int(mk.group(1), 16)
+            if OWNER.get(a) is u:
+                PRAGMA_OFF.add(a)
+
+
+def _block_end(t, i):
+    d = 0
+    for j in range(i, len(t)):
+        if t[j] == '{':
+            d += 1
+        elif t[j] == '}':
+            d -= 1
+            if d == 0:
+                return j + 1
+    return None
+
+
+def _norm(x):
+    return re.sub(r'\s+', ' ', re.sub(r'//[^\n]*', '', x)).strip()
+
+
+def identical_arms(b):
+    """True if the body has an if/else whose two arms are the same statement or block: a construct that only shapes
+    code generation (the condition decides nothing)."""
+    for m in re.finditer(r'\bif\s*\(', b):
+        k, dep = m.end(), 1
+        while k < len(b) and dep:
+            dep += {'(': 1, ')': -1}.get(b[k], 0)
+            k += 1
+        rest = b[k:].lstrip(); off = len(b) - len(rest)
+        if rest.startswith('{'):
+            e = _block_end(b, off)
+            if not e:
+                continue
+            arm1, after = b[off + 1:e - 1], b[e:].lstrip()
+            if not after.startswith('else'):
+                continue
+            r2 = after[4:].lstrip()
+            if r2.startswith('{'):
+                q = len(b) - len(r2); e2 = _block_end(b, q)
+                arm2 = b[q + 1:e2 - 1] if e2 else ''
+            else:
+                arm2 = r2[:r2.find(';') + 1]
+        else:
+            sc = rest.find(';'); arm1 = rest[:sc + 1]; after = rest[sc + 1:].lstrip()
+            if not after.startswith('else') or after[4:].lstrip().startswith(('if', '{')):
+                continue
+            r2 = after[4:].lstrip(); arm2 = r2[:r2.find(';') + 1]
+        if _norm(arm1) and _norm(arm1) == _norm(arm2):
+            return True
+    return False
+
+
 SHIMS = collections.Counter()
 for t in TEXT.values():
     for m in re.finditer(r'// build: context (\w+)\s*\n// calling-convention shim', t):
@@ -64,7 +125,7 @@ def flag_notes(u):
     return notes
 
 
-FORCING = ('volatile read or qualifier', '#pragma optimize', '__assume')
+FORCING = ('volatile read or qualifier', '#pragma optimize', '__assume', 'identical if/else arms')
 # `__assume` reached through a module header's macro (Storm.h SASSERT, Fog.h DEFAULT_UNREACHABLE): the original's own
 # release-build asserts and unreachable switch defaults, used only where no plain C form gives the original's code.
 # Listed for completeness, like cpuid/bsr inline assembly; not a forcing construct.
@@ -83,12 +144,14 @@ def constructs(a):
     b = BODY.get(a, '')
     if re.search(r'\bvolatile\b', b):
         out.append(FORCING[0])
-    if '#pragma optimize' in b:
+    if '#pragma optimize' in b or a in PRAGMA_OFF:
         out.append(FORCING[1])
     if '__assume' in b:
         out.append(FORCING[2])
     elif ASSUME_RE.search(b):
         out.append('__assume through a header macro (original)')
+    if identical_arms(b):
+        out.append(FORCING[3])
     if '__asm' in b:
         out.append('inline assembly')
     return out
@@ -175,7 +238,7 @@ L.append('| … pieces of an original file still split (in %d files) | %d |' % (
 L.append('| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | %d |' % n_unknown)
 L.append('| Record definitions private to a source file (`struct`/`union` in a .cpp) | %d |' % private)
 L.append('| Unnamed fields (`unk0x..`) in the shared headers | %d |' % unk_fields)
-L.append('| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | %d |' % len(forced))
+L.append('| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | %d |' % len(forced))
 L.append('| Calling-convention shims | %d |' % count(r'calling-convention shim'))
 L.append('| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | %d |' % count(r'// build: context'))
 L.append('| `__declspec(noinline)` / `__forceinline` | %d / %d |' % (count(r'__declspec\(noinline\)'), count(r'__forceinline')))
@@ -185,7 +248,7 @@ L.append('\n`docs/shape.svg` draws the same per function: whole original file, f
 um = re.search(r'## Unmatched functions.*?(?=\n## )', old, re.S)
 L.append('\n' + (um.group(0).rstrip() if um else ''))
 
-L.append('\n## Non-original constructs\n\nFunctions whose source needs something the original source very likely did not have: a per-file compiler option other than its module\'s default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original\'s release-build asserts and unreachable switch defaults) are listed for completeness.\n')
+L.append('\n## Non-original constructs\n\nFunctions whose source needs something the original source very likely did not have: a per-file compiler option other than its module\'s default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`, an `if`/`else` whose two arms are identical). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original\'s release-build asserts and unreachable switch defaults) are listed for completeness.\n')
 gs = sum(len(u['functions']) for u in UNITS if '/GS-' in (u.get('flags') or []))
 eh = sum(len(u['functions']) for u in UNITS if '/EHsc' in (u.get('flags') or []))
 L.append('Not listed one by one: %d functions are compiled with `/GS-` and %d with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` %d times and `__declspec(dllexport)` %d times to keep a body out of line or emitted.\n' % (gs, eh, count(r'__declspec\(noinline\)'), count(r'__declspec\(dllexport\)')))
