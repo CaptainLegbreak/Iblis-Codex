@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/unit-views-d2game c2c8631a8 (on #397): four monster-data exports drop their private address-named unit views and use D2UnitStrc/D2MonsterDataStrc: 0x5A0160 sets wNameSeed (+0x14), 0x5A0180 tests nTypeFlag (+0x16), 0x5A0200 sets wBossHcIdx (+0x26), SUNIT_SetMonsterVision sets pVision (+0x50); extern "C", so symbols are unchanged. The views go from MonsterUnique.cpp (with the unused Unit005A01E0) and SUnit.cpp (nine structs), and the five files that declared 0x5A0180 through Unit005A0180 declare it with D2UnitStrc; each built alone and stayed all equal. auditguard: nothing rose. Full build: Game.exe identical, tree 4ff13998794e397e0f504bc774f37cabbd17a890, borrowed code / data 11,250 B / 261 B.
 
 ## Claimed
 
