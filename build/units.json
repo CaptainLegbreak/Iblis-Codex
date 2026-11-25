@@ -31569,38 +31569,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/SkillDesc_004EAE70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004EAE70",
-     "length": 278
-    },
-    {
-     "va": "0x004EC6F0",
-     "length": 66
-    },
-    {
-     "va": "0x004ED150",
-     "length": 663
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/SkillDesc.cpp",
    "rank": 0,
    "functions": [
@@ -31912,6 +31880,10 @@
      "name": "?SKILLDESC_DrawWeaponPhysElemDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
+     "va": "0x004EAE70",
+     "length": 278
+    },
+    {
      "va": "0x004EAF90",
      "length": 679
     },
@@ -31992,6 +31964,10 @@
      "name": "?SKILLDESC_AddMissileElemRate@@YGHPAUD2UnitStrc@@PAUUnicode@@PAUD2SkillsTxt@@HH@Z"
     },
     {
+     "va": "0x004EC6F0",
+     "length": 66
+    },
+    {
      "va": "0x004EC740",
      "length": 152,
      "name": "?SKILLDESC_AddSkillElemRateByType@@YGHPAUUnicode@@PAUD2SkillsTxt@@PAUD2UnitStrc@@HH@Z"
@@ -32038,6 +32014,10 @@
      "va": "0x004ED0D0",
      "length": 126,
      "name": "?SKILLDESC_AddNextLevelParam@@YAHHHPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004ED150",
+     "length": 663
     },
     {
      "va": "0x004ED480",
