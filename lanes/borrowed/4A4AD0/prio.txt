@@ -1,0 +1,744 @@
+function: ?sub_004A4AD0_Press@@YGXHH@Z
+
+=== round 1 (register class 0): 57 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  ?gnDragThumbY@@3HA              35     78    6   13f              8358,8366 / 8366
+  tmp#49(def L8366)               49     54    4   158  <46         8366 / 8366
+  tmp#52(def L8300)               52     52    6    50              8300 / 8300
+  tmp#53(def L8324)               53     51    6    83              8324 / 8324
+  tmp#51(def L8292,8294)          51     50    6    35              8292,8294 / 8294
+  tmp#47(def L8340)               47     48    4    f1  <46         8340 / 8340
+  tmp#46(def L8330)               46     48    4    ac              8330 / 8330
+  tmp#58(def L8380)               58     43    6   18d              8380 / 8380
+  tmp#57(def L8370)               57     43    6   165              8370 / 8370
+  tmp#56(def L8354)               56     43    6   12e              8354 / 8354
+  tmp#55(def L8344)               55     43    6   105              8344 / 8344
+  tmp#54(def L8334)               54     43    6    c8              8334 / 8334
+  tmp#48(def L8350)               48     42    4   118  <46         8350 / 8350
+  nLine                           26     40    4    72              8313 / 8314,8316
+  nTop                            23     28    5    5b              8305 / 8305,8306,8308
+  nMax                            29     26    4    d6              8340 / 8340
+  ?gnKeyConfigThumbScale@@3HA     42     25    6   121               / 8330,8340,8366
+  tmp#50(def L8376)               50     24    4   17b  <46         8376 / 8376
+  ?gnDragMouseY@@3HA              37     24    2   13e              8359 / 8366
+  ?gnThumbRange@@3HA              38     18    1   152               / 8366
+  nNext                           45     16    4    dc              8340 / 8340
+  nPrev                           28     16    4    97              8330 / 8330
+  nMax                            27     16    2    91              8330 / 8330
+  nOldD4                          24     14    2    76              8311 / 8318
+  nOldSelected                    25     14    2    75              8312 / 8319
+  gnKeyConfigFirstVisible         39      9   11   123              8330,8340 / 8330,8340,8366
+  ?gnAutomapHeight@@3HA           41      8    1   180  <40          / 8376
+  ?gdwKeyConfigRepeatTick@@3KA    34      4    1   174  <31          / 8373
+  ?gdwKeyConfigRepeatTick@@3KA    33      4    1   10e  <31          / 8347
+  ?gdwKeyConfigRepeatTick@@3KA    32      4    1    d1  <31          / 8337
+  ?gdwKeyConfigRepeatTick@@3KA    31      4    1    8c               / 8327
+  const:3#1                        1    -10    2     0               / 8281,8292
+  addr:&?#11                      11    -10    1     0               / 8334
+  addr:&?#12                      12    -10    1     0               / 8344
+  addr:&?#14                      14    -10    1     0               / 8354
+  addr:&?#15                      15    -10    1     0               / 8370
+  addr:&?#17                      17    -10    1     0               / 8380
+  addr:&?#9                        9    -14    1     0               / 8324
+  ?gnKeyConfigThumbY@@3HA         36    -24    3   124              8330,8340 / 8358
+  bInList                         13    -29    3    1d              8285 / 8294,8300
+  ?gnAutomapHeight@@3HA           40    -61    5   122               / 8305,8330,8340,8350,8366
+  const:1#3                        3    -66    2     0               / 8291,8309
+  bUp                             16    -67    3    19              8286 / 8294,8324
+  nY                               7    -94   13    22               / 8285,8286,8287,8288,8289,8291,8292,8306,8308,8313,8359,8366,8383
+  ?gbRedraw@@3HA                  30   -108   14   184               / 8302,8303,8326,8327,8336,8337,8346,8347,8356,8361,8362,8372,8373,8382
+  bDown                           18   -121    3    15              8287 / 8294,8334
+  __imp__GetTickCount@0           43   -122    8    7c               / 8327,8329,8337,8339,8347,8349,8373,8375
+  const:246#10                    10   -146    3     0               / 8330,8340,8366
+  nX                               8   -148    9    20               / 8285,8286,8287,8288,8289,8291,8292,8315,8383
+  bPageUp                         19   -168    3    11              8288 / 8294,8344
+  bThumb                          20   -203    3     d              8289 / 8294,8354
+  bPageDown                       21   -204   11    23              8290,8291,8372 / 8294,8370,8372
+  const:0#2                        2   -214   37     0               / 8282,8290,8294,8300,8303,8324,8327,8330,8334,8337,8344,8347,8354,8356,8362,8370,8373,8380
+  addr:&?#5                        5   -243    9     0               / 8294,8300,8324,8334,8344,8354,8370,8380
+  const:4#6                        6   -247    8     0               / 8294,8300,8324,8334,8344,8354,8370,8380
+  addr:&?gaPressed@@3PAHA#4        4   -264    9     0               / 8292,8300,8324,8334,8344,8354,8370,8380
+  bButton                         22   -275    3    26              8292 / 8294,8380
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c26534 L8281-8282 w=1 K=2: const:0#2+0 const:3#1+2
+    blk 00c266d4 L8285-8291 w=1 K=10: const:1#3+0 bPageDown+20 bThumb+20 bPageUp+20 bDown+20 bUp+20 bInList+20 nX+120 nY+120 const:0#2+0 const:3#1-10(live)
+    blk 00c26874 L8291-8291 w=1 K=2: bPageDown+4 bThumb-2(live) bPageUp-2(live) bDown-2(live) bUp-2(live) bInList-2(live) nX-2(live) nY-2(live) const:1#3+0 const:0#2-2(live) const:3#1-2(live)
+    blk 00c26a14 L8292-8292 w=1 K=6: tmp#51(def L8292,8294)+12 addr:&?gaPressed@@3PAHA#4+0 bButton+12 bPageDown-6(live) bThumb-6(live) bPageUp-6(live) bDown-6(live) bUp-6(live) bInList-6(live) nX+12 nY+12 const:1#3-6(live) const:0#2-6(live)
+    blk 00c77de8 L8292-8292 w=1 K=2: const:4#6+0 addr:&?#5+0 tmp#51(def L8292,8294)-2(live) addr:&?gaPressed@@3PAHA#4-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) bUp-2(live) bInList-2(live) nX-2(live) nY-2(live) const:1#3-2(live) const:0#2-2(live)
+    blk 00c26bb4 L8294-8294 w=2 K=2: const:4#6-4(live) addr:&?#5-4(live) tmp#51(def L8292,8294)+8 addr:&?gaPressed@@3PAHA#4-4(live) bButton-4(live) bPageDown-4(live) bThumb-4(live) bPageUp-4(live) bDown-4(live) bUp-4(live) bInList-4(live) nX-4(live) nY-4(live) const:1#3-4(live) const:0#2+0
+    blk 00c26d54 L8294-8294 w=2 K=2: const:4#6-4(live) addr:&?#5+0 tmp#51(def L8292,8294)+8 addr:&?gaPressed@@3PAHA#4-4(live) bButton-4(live) bPageDown-4(live) bThumb-4(live) bPageUp-4(live) bDown-4(live) bUp-4(live) bInList-4(live) nX-4(live) nY-4(live) const:1#3-4(live) const:0#2-4(live)
+    blk 00c26ef4 L8294-8294 w=2 K=3: const:4#6+0 addr:&?#5+0 tmp#51(def L8292,8294)+24 addr:&?gaPressed@@3PAHA#4-6(live) bButton-6(live) bPageDown-6(live) bThumb-6(live) bPageUp-6(live) bDown-6(live) bUp-6(live) bInList-6(live) nX-6(live) nY-6(live) const:1#3-6(live) const:0#2-6(live)
+    blk 00c27094 L8294-8294 w=1 K=2: bButton-2(live) bPageDown+4 bThumb-2(live) bPageUp-2(live) bDown-2(live) bUp-2(live) bInList-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:1#3-2(live) const:0#2+0
+    blk 00d3a140 L8294-8294 w=1 K=2: bButton+4 bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) bUp-2(live) bInList-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:1#3-2(live) const:0#2+0
+    blk 00d3a2e0 L8294-8294 w=1 K=2: bButton-2(live) bPageDown-2(live) bThumb+4 bPageUp-2(live) bDown-2(live) bUp-2(live) bInList-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:1#3-2(live) const:0#2+0
+    blk 00d3a480 L8294-8294 w=1 K=2: bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp+4 bDown-2(live) bUp-2(live) bInList-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:1#3-2(live) const:0#2+0
+    blk 00d3a620 L8294-8294 w=1 K=2: bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown+4 bUp-2(live) bInList-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:1#3-2(live) const:0#2+0
+    blk 00d3a7c0 L8294-8294 w=1 K=2: bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) bUp+4 bInList-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:1#3-2(live) const:0#2+0
+    blk 00d3a960 L8294-8294 w=1 K=2: bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) bUp-2(live) bInList+4 nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:1#3-2(live) const:0#2+0
+    blk 00d3aca0 L8300-8300 w=1 K=2: tmp#52(def L8300)+4 bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) bUp-2(live) bInList-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4+0 const:1#3-2(live) const:0#2-2(live)
+    blk 00c77fc0 L?         w=1 K=0: tmp#52(def L8300)-0(live) bButton-0(live) bPageDown-0(live) bThumb-0(live) bPageUp-0(live) bDown-0(live) bUp-0(live) bInList-0(live) nX-0(live) nY-0(live) const:4#6-0(live) addr:&?#5-0(live) addr:&?gaPressed@@3PAHA#4-0(live) const:1#3-0(live) const:0#2-0(live)
+    blk 00d3ae40 L8300-8300 w=2 K=4: ?gbRedraw@@3HA+0 ?gnAutomapHeight@@3HA+0 tmp#52(def L8300)+16 bButton-8(live) bPageDown-8(live) bThumb-8(live) bPageUp-8(live) bDown-8(live) bUp-8(live) bInList-8(live) nX-8(live) nY-8(live) const:4#6-8(live) addr:&?#5-8(live) addr:&?gaPressed@@3PAHA#4-8(live) const:1#3-8(live) const:0#2+0
+    blk 00d37128 L8300-8300 w=2 K=2: ?gbRedraw@@3HA-4(live) ?gnAutomapHeight@@3HA-4(live) tmp#52(def L8300)+8 bButton-4(live) bPageDown-4(live) bThumb-4(live) bPageUp-4(live) bDown-4(live) bUp-4(live) bInList-4(live) nX-4(live) nY-4(live) const:4#6-4(live) addr:&?#5-4(live) addr:&?gaPressed@@3PAHA#4+0 const:1#3-4(live) const:0#2-4(live)
+    blk 00d372c8 L8300-8300 w=2 K=3: ?gbRedraw@@3HA-6(live) ?gnAutomapHeight@@3HA-6(live) tmp#52(def L8300)+24 bButton-6(live) bPageDown-6(live) bThumb-6(live) bPageUp-6(live) bDown-6(live) bUp-6(live) bInList-6(live) nX-6(live) nY-6(live) const:4#6+0 addr:&?#5+0 addr:&?gaPressed@@3PAHA#4-6(live) const:1#3-6(live) const:0#2-6(live)
+    blk 00d37468 L8300-8300 w=1 K=1: ?gnAutomapHeight@@3HA-1(live) ?gbRedraw@@3HA-1(live) bButton-1(live) bPageDown-1(live) bThumb-1(live) bPageUp-1(live) bDown-1(live) bUp-1(live) bInList-1(live) nX-1(live) nY-1(live) const:4#6-1(live) addr:&?#5-1(live) addr:&?gaPressed@@3PAHA#4-1(live) const:1#3-1(live) const:0#2+0
+    blk 00d37608 L8300-8300 w=1 K=2: bInList+4 ?gnAutomapHeight@@3HA-2(live) ?gbRedraw@@3HA-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) bUp-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:1#3-2(live) const:0#2+0
+    blk 00d377a8 L8302-8303 w=1 K=2: ?gnAutomapHeight@@3HA-2(live) ?gbRedraw@@3HA+8 bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) bUp-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:1#3-2(live) const:0#2+0
+    blk 00d37948 L8305-8306 w=1 K=3: nTop+24 ?gnAutomapHeight@@3HA+6 ?gbRedraw@@3HA-3(live) bButton-3(live) bPageDown-3(live) bThumb-3(live) bPageUp-3(live) bDown-3(live) bUp-3(live) nX-3(live) nY+6 const:4#6-3(live) addr:&?#5-3(live) addr:&?gaPressed@@3PAHA#4-3(live) const:1#3-3(live) const:0#2-3(live)
+    blk 00d37ae8 L8307-8307 w=1 K=0: nTop-0(live) ?gnAutomapHeight@@3HA-0(live) ?gbRedraw@@3HA-0(live) bButton-0(live) bPageDown-0(live) bThumb-0(live) bPageUp-0(live) bDown-0(live) bUp-0(live) nX-0(live) nY-0(live) const:4#6-0(live) addr:&?#5-0(live) addr:&?gaPressed@@3PAHA#4-0(live) const:1#3-0(live) const:0#2-0(live)
+    blk 00d37c88 L8308-8308 w=1 K=2: nTop+4 ?gnAutomapHeight@@3HA-2(live) ?gbRedraw@@3HA-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) bUp-2(live) nX-2(live) nY+4 const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:1#3-2(live) const:0#2-2(live)
+    blk 00d37e28 L8309-8309 w=1 K=1: ?gnAutomapHeight@@3HA-1(live) ?gbRedraw@@3HA-1(live) bButton-1(live) bPageDown-1(live) bThumb-1(live) bPageUp-1(live) bDown-1(live) bUp-1(live) nX-1(live) nY-1(live) const:4#6-1(live) addr:&?#5-1(live) addr:&?gaPressed@@3PAHA#4-1(live) const:0#2-1(live)
+    blk 00c2d3b8 L8311-8316 w=1 K=5: nLine+40 nOldSelected+10 nOldD4+10 ?gnAutomapHeight@@3HA-5(live) ?gbRedraw@@3HA-5(live) bButton-5(live) bPageDown-5(live) bThumb-5(live) bPageUp-5(live) bDown-5(live) bUp-5(live) nX+10 nY+10 const:4#6-5(live) addr:&?#5-5(live) addr:&?gaPressed@@3PAHA#4-5(live) const:0#2-5(live)
+    blk 00c2d558 L8318-8319 w=1 K=2: nOldSelected+4 nOldD4+4 ?gnAutomapHeight@@3HA-2(live) ?gbRedraw@@3HA-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) bUp-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2-2(live)
+    blk 00c2d6f8 L8324-8324 w=1 K=2: tmp#53(def L8324)+4 ?gnAutomapHeight@@3HA-2(live) ?gbRedraw@@3HA-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) bUp-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4+0 const:0#2-2(live)
+    blk 00c78198 L8324-8324 w=1 K=1: addr:&?#9+0 tmp#53(def L8324)-1(live) ?gnAutomapHeight@@3HA-1(live) ?gbRedraw@@3HA-1(live) bButton-1(live) bPageDown-1(live) bThumb-1(live) bPageUp-1(live) bDown-1(live) bUp-1(live) nX-1(live) nY-1(live) const:4#6-1(live) addr:&?#5-1(live) addr:&?gaPressed@@3PAHA#4-1(live) const:0#2-1(live)
+    blk 00c2d898 L8324-8324 w=2 K=4: __imp__GetTickCount@0+0 const:246#10+0 addr:&?#9-8(live) tmp#53(def L8324)+16 ?gnAutomapHeight@@3HA-8(live) ?gbRedraw@@3HA-8(live) bButton-8(live) bPageDown-8(live) bThumb-8(live) bPageUp-8(live) bDown-8(live) bUp-8(live) nX-8(live) nY-8(live) const:4#6-8(live) addr:&?#5-8(live) addr:&?gaPressed@@3PAHA#4-8(live) const:0#2+0
+    blk 00c2da38 L8324-8324 w=2 K=2: __imp__GetTickCount@0-4(live) const:246#10-4(live) addr:&?#9+0 tmp#53(def L8324)+8 ?gnAutomapHeight@@3HA-4(live) ?gbRedraw@@3HA-4(live) bButton-4(live) bPageDown-4(live) bThumb-4(live) bPageUp-4(live) bDown-4(live) bUp-4(live) nX-4(live) nY-4(live) const:4#6-4(live) addr:&?#5-4(live) addr:&?gaPressed@@3PAHA#4-4(live) const:0#2-4(live)
+    blk 00c2dbd8 L8324-8324 w=2 K=3: __imp__GetTickCount@0-6(live) const:246#10-6(live) addr:&?#9-6(live) tmp#53(def L8324)+24 ?gnAutomapHeight@@3HA-6(live) ?gbRedraw@@3HA-6(live) bButton-6(live) bPageDown-6(live) bThumb-6(live) bPageUp-6(live) bDown-6(live) bUp-6(live) nX-6(live) nY-6(live) const:4#6+0 addr:&?#5+0 addr:&?gaPressed@@3PAHA#4-6(live) const:0#2-6(live)
+    blk 00c2dd78 L8324-8324 w=1 K=2: bUp+4 __imp__GetTickCount@0-2(live) ?gnAutomapHeight@@3HA-2(live) ?gbRedraw@@3HA-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2+0
+    blk 00c2df18 L8326-8327 w=1 K=2: __imp__GetTickCount@0-2(live) ?gnAutomapHeight@@3HA-2(live) ?gbRedraw@@3HA+8 bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2+0
+    blk 00c2e0b8 L8327-8327 w=1 K=2: ?gdwKeyConfigRepeatTick@@3KA+4 __imp__GetTickCount@0+4 bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2-2(live)
+    blk 00c58578 L8329-8330 w=1 K=4: gnKeyConfigFirstVisible+8 nMax+8 __imp__GetTickCount@0+8 bButton-4(live) bPageDown-4(live) bThumb-4(live) bPageUp-4(live) bDown-4(live) const:246#10-4(live) nX-4(live) nY-4(live) const:4#6-4(live) addr:&?#5-4(live) addr:&?gaPressed@@3PAHA#4-4(live) const:0#2+0
+    blk 00c58718 L8330-8330 w=1 K=2: nPrev+4 gnKeyConfigFirstVisible+4 nMax-2(live) __imp__GetTickCount@0-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2-2(live)
+    blk 00c588b8 L8330-8330 w=1 K=2: nPrev+4 __imp__GetTickCount@0-2(live) gnKeyConfigFirstVisible+4 nMax-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2-2(live)
+    blk 00c58a58 L8330-8330 w=1 K=2: nPrev+4 __imp__GetTickCount@0-2(live) gnKeyConfigFirstVisible-2(live) nMax-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2+0
+    blk 00c58bf8 L8330-8330 w=1 K=2: nPrev+4 gnKeyConfigFirstVisible+4 __imp__GetTickCount@0-2(live) nMax-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2-2(live)
+    blk 00c58d98 L8330-8330 w=1 K=8: tmp#46(def L8330)+48 nMax+16 ?gbRedraw@@3HA+0 ?gnKeyConfigThumbY@@3HA+16 ?gnKeyConfigThumbScale@@3HA+32 ?gnAutomapHeight@@3HA+16 gnKeyConfigFirstVisible+16 __imp__GetTickCount@0-8(live) bButton-8(live) bPageDown-8(live) bThumb-8(live) bPageUp-8(live) bDown-8(live) const:246#10+0 nX-8(live) nY-8(live) const:4#6-8(live) addr:&?#5-8(live) addr:&?gaPressed@@3PAHA#4-8(live) const:0#2-8(live)
+    blk 00c73d30 L8330-8330 w=1 K=3: ?gnKeyConfigThumbScale@@3HA+0 gnKeyConfigFirstVisible+0 ?gnKeyConfigThumbY@@3HA+0 __imp__GetTickCount@0-3(live) ?gnAutomapHeight@@3HA-3(live) ?gbRedraw@@3HA-3(live) bButton-3(live) bPageDown-3(live) bThumb-3(live) bPageUp-3(live) bDown-3(live) const:246#10-3(live) nX-3(live) nY-3(live) const:4#6-3(live) addr:&?#5-3(live) addr:&?gaPressed@@3PAHA#4-3(live) const:0#2-3(live)
+    blk 00c73ed0 L8330-8330 w=1 K=5: ?gnKeyConfigThumbScale@@3HA+0 ?gnAutomapHeight@@3HA+0 gnKeyConfigFirstVisible+0 ?gnKeyConfigThumbY@@3HA+0 ?gbRedraw@@3HA+0 __imp__GetTickCount@0-5(live) bButton-5(live) bPageDown-5(live) bThumb-5(live) bPageUp-5(live) bDown-5(live) const:246#10-5(live) nX-5(live) nY-5(live) const:4#6-5(live) addr:&?#5-5(live) addr:&?gaPressed@@3PAHA#4-5(live) const:0#2-5(live)
+    blk 00c74070 L8330-8330 w=1 K=3: ?gnKeyConfigThumbScale@@3HA+0 gnKeyConfigFirstVisible+0 ?gnKeyConfigThumbY@@3HA+0 __imp__GetTickCount@0-3(live) ?gnAutomapHeight@@3HA-3(live) ?gbRedraw@@3HA-3(live) bButton-3(live) bPageDown-3(live) bThumb-3(live) bPageUp-3(live) bDown-3(live) const:246#10-3(live) nX-3(live) nY-3(live) const:4#6-3(live) addr:&?#5-3(live) addr:&?gaPressed@@3PAHA#4-3(live) const:0#2-3(live)
+    blk 00c58f38 L8330-8334 w=1 K=2: tmp#54(def L8334)+4 ?gnKeyConfigThumbScale@@3HA-2(live) gnKeyConfigFirstVisible-2(live) ?gnKeyConfigThumbY@@3HA-2(live) __imp__GetTickCount@0-2(live) ?gnAutomapHeight@@3HA-2(live) ?gbRedraw@@3HA-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) bDown-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4+0 const:0#2-2(live)
+    blk 00c78370 L8334-8334 w=1 K=1: addr:&?#11+0 tmp#54(def L8334)-1(live) ?gnKeyConfigThumbScale@@3HA-1(live) gnKeyConfigFirstVisible-1(live) ?gnKeyConfigThumbY@@3HA-1(live) __imp__GetTickCount@0-1(live) ?gnAutomapHeight@@3HA-1(live) ?gbRedraw@@3HA-1(live) bButton-1(live) bPageDown-1(live) bThumb-1(live) bPageUp-1(live) bDown-1(live) const:246#10-1(live) nX-1(live) nY-1(live) const:4#6-1(live) addr:&?#5-1(live) addr:&?gaPressed@@3PAHA#4-1(live) const:0#2-1(live)
+    blk 00c590d8 L8334-8334 w=2 K=2: addr:&?#11-4(live) tmp#54(def L8334)+8 ?gnKeyConfigThumbScale@@3HA-4(live) gnKeyConfigFirstVisible-4(live) ?gnKeyConfigThumbY@@3HA-4(live) __imp__GetTickCount@0-4(live) ?gnAutomapHeight@@3HA-4(live) ?gbRedraw@@3HA-4(live) bButton-4(live) bPageDown-4(live) bThumb-4(live) bPageUp-4(live) bDown-4(live) const:246#10-4(live) nX-4(live) nY-4(live) const:4#6-4(live) addr:&?#5-4(live) addr:&?gaPressed@@3PAHA#4-4(live) const:0#2+0
+    blk 00c59278 L8334-8334 w=2 K=2: addr:&?#11+0 tmp#54(def L8334)+8 ?gnKeyConfigThumbScale@@3HA-4(live) gnKeyConfigFirstVisible-4(live) ?gnKeyConfigThumbY@@3HA-4(live) __imp__GetTickCount@0-4(live) ?gnAutomapHeight@@3HA-4(live) ?gbRedraw@@3HA-4(live) bButton-4(live) bPageDown-4(live) bThumb-4(live) bPageUp-4(live) bDown-4(live) const:246#10-4(live) nX-4(live) nY-4(live) const:4#6-4(live) addr:&?#5-4(live) addr:&?gaPressed@@3PAHA#4-4(live) const:0#2-4(live)
+    blk 00d34108 L8334-8334 w=2 K=3: addr:&?#11-6(live) tmp#54(def L8334)+24 ?gnKeyConfigThumbScale@@3HA-6(live) gnKeyConfigFirstVisible-6(live) ?gnKeyConfigThumbY@@3HA-6(live) __imp__GetTickCount@0-6(live) ?gnAutomapHeight@@3HA-6(live) ?gbRedraw@@3HA-6(live) bButton-6(live) bPageDown-6(live) bThumb-6(live) bPageUp-6(live) bDown-6(live) const:246#10-6(live) nX-6(live) nY-6(live) const:4#6+0 addr:&?#5+0 addr:&?gaPressed@@3PAHA#4-6(live) const:0#2-6(live)
+    blk 00d342a8 L8334-8334 w=1 K=2: bDown+4 __imp__GetTickCount@0-2(live) ?gnKeyConfigThumbScale@@3HA-2(live) ?gnAutomapHeight@@3HA-2(live) gnKeyConfigFirstVisible-2(live) ?gnKeyConfigThumbY@@3HA-2(live) ?gbRedraw@@3HA-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2+0
+    blk 00d34448 L8336-8337 w=1 K=2: __imp__GetTickCount@0-2(live) ?gnKeyConfigThumbScale@@3HA-2(live) ?gnAutomapHeight@@3HA-2(live) gnKeyConfigFirstVisible-2(live) ?gnKeyConfigThumbY@@3HA-2(live) ?gbRedraw@@3HA+8 bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2+0
+    blk 00d345e8 L8337-8337 w=1 K=2: ?gdwKeyConfigRepeatTick@@3KA+4 __imp__GetTickCount@0+4 bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2-2(live)
+    blk 00d34788 L8339-8340 w=1 K=3: gnKeyConfigFirstVisible+6 nMax+12 __imp__GetTickCount@0+6 bButton-3(live) bPageDown-3(live) bThumb-3(live) bPageUp-3(live) const:246#10-3(live) nX-3(live) nY-3(live) const:4#6-3(live) addr:&?#5-3(live) addr:&?gaPressed@@3PAHA#4-3(live) const:0#2-3(live)
+    blk 00d34928 L8340-8340 w=1 K=2: nNext+4 gnKeyConfigFirstVisible+4 nMax-2(live) __imp__GetTickCount@0-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2-2(live)
+    blk 00d34ac8 L8340-8340 w=1 K=2: nNext+4 __imp__GetTickCount@0-2(live) gnKeyConfigFirstVisible+4 nMax-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2-2(live)
+    blk 00d34c68 L8340-8340 w=1 K=2: nNext+4 __imp__GetTickCount@0-2(live) gnKeyConfigFirstVisible-2(live) nMax+4 bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2-2(live)
+    blk 00d34e08 L8340-8340 w=1 K=2: nNext+4 gnKeyConfigFirstVisible+4 __imp__GetTickCount@0-2(live) nMax-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2-2(live)
+    blk 00d300d8 L8340-8340 w=1 K=8: tmp#47(def L8340)+48 nMax+16 ?gbRedraw@@3HA+0 ?gnKeyConfigThumbY@@3HA+16 ?gnKeyConfigThumbScale@@3HA+32 ?gnAutomapHeight@@3HA+16 gnKeyConfigFirstVisible+16 __imp__GetTickCount@0-8(live) bButton-8(live) bPageDown-8(live) bThumb-8(live) bPageUp-8(live) const:246#10+0 nX-8(live) nY-8(live) const:4#6-8(live) addr:&?#5-8(live) addr:&?gaPressed@@3PAHA#4-8(live) const:0#2-8(live)
+    blk 00c74210 L8340-8340 w=1 K=5: ?gnKeyConfigThumbScale@@3HA+0 ?gnAutomapHeight@@3HA+0 gnKeyConfigFirstVisible+0 ?gnKeyConfigThumbY@@3HA+0 ?gbRedraw@@3HA+0 __imp__GetTickCount@0-5(live) bButton-5(live) bPageDown-5(live) bThumb-5(live) bPageUp-5(live) const:246#10-5(live) nX-5(live) nY-5(live) const:4#6-5(live) addr:&?#5-5(live) addr:&?gaPressed@@3PAHA#4-5(live) const:0#2-5(live)
+    blk 00d30278 L8340-8344 w=1 K=2: tmp#55(def L8344)+4 ?gnKeyConfigThumbScale@@3HA-2(live) ?gnAutomapHeight@@3HA-2(live) gnKeyConfigFirstVisible-2(live) ?gnKeyConfigThumbY@@3HA-2(live) ?gbRedraw@@3HA-2(live) __imp__GetTickCount@0-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) bPageUp-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4+0 const:0#2-2(live)
+    blk 00c736b0 L8344-8344 w=1 K=1: addr:&?#12+0 tmp#55(def L8344)-1(live) ?gnKeyConfigThumbScale@@3HA-1(live) ?gnAutomapHeight@@3HA-1(live) gnKeyConfigFirstVisible-1(live) ?gnKeyConfigThumbY@@3HA-1(live) ?gbRedraw@@3HA-1(live) __imp__GetTickCount@0-1(live) bButton-1(live) bPageDown-1(live) bThumb-1(live) bPageUp-1(live) const:246#10-1(live) nX-1(live) nY-1(live) const:4#6-1(live) addr:&?#5-1(live) addr:&?gaPressed@@3PAHA#4-1(live) const:0#2-1(live)
+    blk 00d30418 L8344-8344 w=2 K=2: addr:&?#12-4(live) tmp#55(def L8344)+8 ?gnKeyConfigThumbScale@@3HA-4(live) ?gnAutomapHeight@@3HA-4(live) gnKeyConfigFirstVisible-4(live) ?gnKeyConfigThumbY@@3HA-4(live) ?gbRedraw@@3HA-4(live) __imp__GetTickCount@0-4(live) bButton-4(live) bPageDown-4(live) bThumb-4(live) bPageUp-4(live) const:246#10-4(live) nX-4(live) nY-4(live) const:4#6-4(live) addr:&?#5-4(live) addr:&?gaPressed@@3PAHA#4-4(live) const:0#2+0
+    blk 00d305b8 L8344-8344 w=2 K=2: addr:&?#12+0 tmp#55(def L8344)+8 ?gnKeyConfigThumbScale@@3HA-4(live) ?gnAutomapHeight@@3HA-4(live) gnKeyConfigFirstVisible-4(live) ?gnKeyConfigThumbY@@3HA-4(live) ?gbRedraw@@3HA-4(live) __imp__GetTickCount@0-4(live) bButton-4(live) bPageDown-4(live) bThumb-4(live) bPageUp-4(live) const:246#10-4(live) nX-4(live) nY-4(live) const:4#6-4(live) addr:&?#5-4(live) addr:&?gaPressed@@3PAHA#4-4(live) const:0#2-4(live)
+    blk 00d30758 L8344-8344 w=2 K=3: addr:&?#12-6(live) tmp#55(def L8344)+24 ?gnKeyConfigThumbScale@@3HA-6(live) ?gnAutomapHeight@@3HA-6(live) gnKeyConfigFirstVisible-6(live) ?gnKeyConfigThumbY@@3HA-6(live) ?gbRedraw@@3HA-6(live) __imp__GetTickCount@0-6(live) bButton-6(live) bPageDown-6(live) bThumb-6(live) bPageUp-6(live) const:246#10-6(live) nX-6(live) nY-6(live) const:4#6+0 addr:&?#5+0 addr:&?gaPressed@@3PAHA#4-6(live) const:0#2-6(live)
+    blk 00d308f8 L8344-8344 w=1 K=2: bPageUp+4 __imp__GetTickCount@0-2(live) ?gnKeyConfigThumbScale@@3HA-2(live) ?gnAutomapHeight@@3HA-2(live) gnKeyConfigFirstVisible-2(live) ?gnKeyConfigThumbY@@3HA-2(live) ?gbRedraw@@3HA-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2+0
+    blk 00d30a98 L8346-8347 w=1 K=2: __imp__GetTickCount@0-2(live) ?gnKeyConfigThumbScale@@3HA-2(live) ?gnAutomapHeight@@3HA-2(live) gnKeyConfigFirstVisible-2(live) ?gnKeyConfigThumbY@@3HA-2(live) ?gbRedraw@@3HA+8 bButton-2(live) bPageDown-2(live) bThumb-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2+0
+    blk 00d30c38 L8347-8347 w=1 K=2: ?gdwKeyConfigRepeatTick@@3KA+4 __imp__GetTickCount@0+4 bButton-2(live) bPageDown-2(live) bThumb-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2-2(live)
+    blk 00d30dd8 L8349-8350 w=1 K=7: tmp#48(def L8350)+42 ?gnKeyConfigThumbScale@@3HA+0 gnKeyConfigFirstVisible+0 ?gnKeyConfigThumbY@@3HA+0 ?gbRedraw@@3HA+0 ?gnAutomapHeight@@3HA+14 __imp__GetTickCount@0+14 bButton-7(live) bPageDown-7(live) bThumb-7(live) const:246#10-7(live) nX-7(live) nY-7(live) const:4#6-7(live) addr:&?#5-7(live) addr:&?gaPressed@@3PAHA#4-7(live) const:0#2-7(live)
+    blk 00c743e8 L8350-8350 w=1 K=5: ?gnKeyConfigThumbScale@@3HA+0 ?gnAutomapHeight@@3HA+0 gnKeyConfigFirstVisible+0 ?gnKeyConfigThumbY@@3HA+0 ?gbRedraw@@3HA+0 __imp__GetTickCount@0-5(live) bButton-5(live) bPageDown-5(live) bThumb-5(live) const:246#10-5(live) nX-5(live) nY-5(live) const:4#6-5(live) addr:&?#5-5(live) addr:&?gaPressed@@3PAHA#4-5(live) const:0#2-5(live)
+    blk 00d2d0b8 L8354-8354 w=1 K=2: tmp#56(def L8354)+4 ?gnKeyConfigThumbScale@@3HA-2(live) ?gnAutomapHeight@@3HA-2(live) gnKeyConfigFirstVisible-2(live) ?gnKeyConfigThumbY@@3HA-2(live) ?gbRedraw@@3HA-2(live) __imp__GetTickCount@0-2(live) bButton-2(live) bPageDown-2(live) bThumb-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4+0 const:0#2-2(live)
+    blk 00c73850 L8354-8354 w=1 K=1: addr:&?#14+0 tmp#56(def L8354)-1(live) ?gnKeyConfigThumbScale@@3HA-1(live) ?gnAutomapHeight@@3HA-1(live) gnKeyConfigFirstVisible-1(live) ?gnKeyConfigThumbY@@3HA-1(live) ?gbRedraw@@3HA-1(live) __imp__GetTickCount@0-1(live) bButton-1(live) bPageDown-1(live) bThumb-1(live) const:246#10-1(live) nX-1(live) nY-1(live) const:4#6-1(live) addr:&?#5-1(live) addr:&?gaPressed@@3PAHA#4-1(live) const:0#2-1(live)
+    blk 00d2d258 L8354-8354 w=2 K=2: addr:&?#14-4(live) tmp#56(def L8354)+8 ?gnKeyConfigThumbScale@@3HA-4(live) ?gnAutomapHeight@@3HA-4(live) gnKeyConfigFirstVisible-4(live) ?gnKeyConfigThumbY@@3HA-4(live) ?gbRedraw@@3HA-4(live) __imp__GetTickCount@0-4(live) bButton-4(live) bPageDown-4(live) bThumb-4(live) const:246#10-4(live) nX-4(live) nY-4(live) const:4#6-4(live) addr:&?#5-4(live) addr:&?gaPressed@@3PAHA#4-4(live) const:0#2+0
+    blk 00d2d3f8 L8354-8354 w=2 K=2: addr:&?#14+0 tmp#56(def L8354)+8 ?gnKeyConfigThumbScale@@3HA-4(live) ?gnAutomapHeight@@3HA-4(live) gnKeyConfigFirstVisible-4(live) ?gnKeyConfigThumbY@@3HA-4(live) ?gbRedraw@@3HA-4(live) __imp__GetTickCount@0-4(live) bButton-4(live) bPageDown-4(live) bThumb-4(live) const:246#10-4(live) nX-4(live) nY-4(live) const:4#6-4(live) addr:&?#5-4(live) addr:&?gaPressed@@3PAHA#4-4(live) const:0#2-4(live)
+    blk 00d2d598 L8354-8354 w=2 K=3: addr:&?#14-6(live) tmp#56(def L8354)+24 ?gnKeyConfigThumbScale@@3HA-6(live) ?gnAutomapHeight@@3HA-6(live) gnKeyConfigFirstVisible-6(live) ?gnKeyConfigThumbY@@3HA-6(live) ?gbRedraw@@3HA-6(live) __imp__GetTickCount@0-6(live) bButton-6(live) bPageDown-6(live) bThumb-6(live) const:246#10-6(live) nX-6(live) nY-6(live) const:4#6+0 addr:&?#5+0 addr:&?gaPressed@@3PAHA#4-6(live) const:0#2-6(live)
+    blk 00d2d738 L8354-8354 w=1 K=2: bThumb+4 __imp__GetTickCount@0-2(live) ?gnKeyConfigThumbScale@@3HA-2(live) ?gnAutomapHeight@@3HA-2(live) gnKeyConfigFirstVisible-2(live) ?gnKeyConfigThumbY@@3HA-2(live) ?gbRedraw@@3HA-2(live) bButton-2(live) bPageDown-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2+0
+    blk 00d2d8d8 L8354-8354 w=1 K=1: __imp__GetTickCount@0-1(live) ?gnKeyConfigThumbScale@@3HA-1(live) ?gnAutomapHeight@@3HA-1(live) gnKeyConfigFirstVisible-1(live) ?gbRedraw@@3HA-1(live) bButton-1(live) bPageDown-1(live) const:246#10-1(live) nX-1(live) nY-1(live) const:4#6-1(live) addr:&?#5-1(live) addr:&?gaPressed@@3PAHA#4-1(live) const:0#2+0
+    blk 00d2da78 L8356-8356 w=1 K=2: ?gnDragMouseY@@3HA+0 ?gnDragThumbY@@3HA+0 __imp__GetTickCount@0-2(live) ?gnKeyConfigThumbScale@@3HA-2(live) ?gnAutomapHeight@@3HA-2(live) gnKeyConfigFirstVisible-2(live) ?gbRedraw@@3HA-2(live) bButton-2(live) bPageDown-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2-2(live)
+    blk 00d2dc18 L8356-8356 w=1 K=1: __imp__GetTickCount@0-1(live) ?gnKeyConfigThumbScale@@3HA-1(live) ?gnAutomapHeight@@3HA-1(live) gnKeyConfigFirstVisible-1(live) ?gnKeyConfigThumbY@@3HA-1(live) ?gbRedraw@@3HA-1(live) bButton-1(live) bPageDown-1(live) const:246#10-1(live) nX-1(live) nY-1(live) const:4#6-1(live) addr:&?#5-1(live) addr:&?gaPressed@@3PAHA#4-1(live) const:0#2+0
+    blk 00d2ddb8 L8356-8356 w=1 K=2: __imp__GetTickCount@0-2(live) ?gnKeyConfigThumbScale@@3HA-2(live) ?gnAutomapHeight@@3HA-2(live) gnKeyConfigFirstVisible-2(live) ?gnKeyConfigThumbY@@3HA-2(live) ?gbRedraw@@3HA+4 bButton-2(live) bPageDown-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2+0
+    blk 00d28080 L8358-8359 w=1 K=4: ?gnKeyConfigThumbY@@3HA+8 ?gnDragMouseY@@3HA+8 ?gnDragThumbY@@3HA+8 __imp__GetTickCount@0-4(live) ?gnKeyConfigThumbScale@@3HA-4(live) ?gnAutomapHeight@@3HA-4(live) gnKeyConfigFirstVisible-4(live) ?gbRedraw@@3HA-4(live) bButton-4(live) bPageDown-4(live) const:246#10-4(live) nX-4(live) nY+8 const:4#6-4(live) addr:&?#5-4(live) addr:&?gaPressed@@3PAHA#4-4(live) const:0#2-4(live)
+    blk 00d50438 L8359-8359 w=1 K=2: ?gnDragMouseY@@3HA+0 ?gnDragThumbY@@3HA+0 __imp__GetTickCount@0-2(live) ?gnKeyConfigThumbScale@@3HA-2(live) ?gnAutomapHeight@@3HA-2(live) gnKeyConfigFirstVisible-2(live) ?gbRedraw@@3HA-2(live) bButton-2(live) bPageDown-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2-2(live)
+    blk 00d28220 L8361-8362 w=1 K=2: ?gnDragMouseY@@3HA-2(live) ?gnDragThumbY@@3HA-2(live) __imp__GetTickCount@0-2(live) ?gnKeyConfigThumbScale@@3HA-2(live) ?gnAutomapHeight@@3HA-2(live) gnKeyConfigFirstVisible-2(live) ?gbRedraw@@3HA+8 bButton-2(live) bPageDown-2(live) const:246#10-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2+0
+    blk 00d283c0 L8366-8366 w=1 K=9: gnKeyConfigFirstVisible+18 ?gnKeyConfigThumbScale@@3HA+36 ?gnThumbRange@@3HA+18 ?gnDragThumbY@@3HA+72 ?gnDragMouseY@@3HA+18 tmp#49(def L8366)+54 ?gnAutomapHeight@@3HA+18 __imp__GetTickCount@0-9(live) ?gbRedraw@@3HA-9(live) bButton-9(live) bPageDown-9(live) nX-9(live) nY+18 const:4#6-9(live) addr:&?#5-9(live) addr:&?gaPressed@@3PAHA#4-9(live) const:0#2-9(live)
+    blk 00d28560 L8370-8370 w=1 K=2: tmp#57(def L8370)+4 __imp__GetTickCount@0-2(live) ?gbRedraw@@3HA-2(live) bButton-2(live) bPageDown-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4+0 const:0#2-2(live)
+    blk 00c739f0 L8370-8370 w=1 K=1: addr:&?#15+0 tmp#57(def L8370)-1(live) __imp__GetTickCount@0-1(live) ?gbRedraw@@3HA-1(live) bButton-1(live) bPageDown-1(live) nX-1(live) nY-1(live) const:4#6-1(live) addr:&?#5-1(live) addr:&?gaPressed@@3PAHA#4-1(live) const:0#2-1(live)
+    blk 00d28700 L8370-8370 w=2 K=2: addr:&?#15-4(live) tmp#57(def L8370)+8 __imp__GetTickCount@0-4(live) ?gbRedraw@@3HA-4(live) bButton-4(live) bPageDown-4(live) nX-4(live) nY-4(live) const:4#6-4(live) addr:&?#5-4(live) addr:&?gaPressed@@3PAHA#4-4(live) const:0#2+0
+    blk 00d288a0 L8370-8370 w=2 K=2: addr:&?#15+0 tmp#57(def L8370)+8 __imp__GetTickCount@0-4(live) ?gbRedraw@@3HA-4(live) bButton-4(live) bPageDown-4(live) nX-4(live) nY-4(live) const:4#6-4(live) addr:&?#5-4(live) addr:&?gaPressed@@3PAHA#4-4(live) const:0#2-4(live)
+    blk 00d28a40 L8370-8370 w=2 K=3: addr:&?#15-6(live) tmp#57(def L8370)+24 __imp__GetTickCount@0-6(live) ?gbRedraw@@3HA-6(live) bButton-6(live) bPageDown-6(live) nX-6(live) nY-6(live) const:4#6+0 addr:&?#5+0 addr:&?gaPressed@@3PAHA#4-6(live) const:0#2-6(live)
+    blk 00d28be0 L8370-8370 w=1 K=2: __imp__GetTickCount@0-2(live) ?gbRedraw@@3HA-2(live) bButton-2(live) bPageDown+4 nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2+0
+    blk 00d28d80 L8370-8370 w=1 K=1: __imp__GetTickCount@0-1(live) ?gbRedraw@@3HA-1(live) bButton-1(live) bPageDown-1(live) nX-1(live) nY-1(live) const:4#6-1(live) addr:&?#5-1(live) addr:&?gaPressed@@3PAHA#4-1(live) const:0#2+0
+    blk 00d27078 L8372-8373 w=1 K=3: bPageDown+36 __imp__GetTickCount@0-3(live) ?gbRedraw@@3HA+12 bButton-3(live) nX-3(live) nY-3(live) const:4#6-3(live) addr:&?#5-3(live) addr:&?gaPressed@@3PAHA#4-3(live) const:0#2+0
+    blk 00d27218 L8373-8373 w=1 K=2: ?gdwKeyConfigRepeatTick@@3KA+4 __imp__GetTickCount@0+4 bButton-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) addr:&?gaPressed@@3PAHA#4-2(live) const:0#2-2(live)
+    blk 00d273b8 L8375-8376 w=1 K=4: tmp#50(def L8376)+24 ?gnAutomapHeight@@3HA+8 __imp__GetTickCount@0+8 ?gbRedraw@@3HA+0 bButton-4(live) nX-4(live) nY-4(live) const:4#6-4(live) addr:&?#5-4(live) addr:&?gaPressed@@3PAHA#4-4(live) const:0#2-4(live)
+    blk 00d505d8 L8376-8376 w=1 K=1: ?gbRedraw@@3HA+0 bButton-1(live) nX-1(live) nY-1(live) const:4#6-1(live) addr:&?#5-1(live) addr:&?gaPressed@@3PAHA#4-1(live) const:0#2-1(live)
+    blk 00d27558 L8380-8380 w=1 K=2: tmp#58(def L8380)+4 ?gbRedraw@@3HA-2(live) bButton-2(live) nX-2(live) nY-2(live) const:4#6-2(live) addr:&?#5-2(live) const:0#2-2(live)
+    blk 00c73b90 L8380-8380 w=1 K=1: addr:&?#17+0 tmp#58(def L8380)-1(live) ?gbRedraw@@3HA-1(live) bButton-1(live) nX-1(live) nY-1(live) const:4#6-1(live) addr:&?#5-1(live) const:0#2-1(live)
+    blk 00d276f8 L8380-8380 w=2 K=2: addr:&?#17-4(live) tmp#58(def L8380)+8 ?gbRedraw@@3HA-4(live) bButton-4(live) nX-4(live) nY-4(live) const:4#6-4(live) addr:&?#5-4(live) const:0#2+0
+    blk 00d27898 L8380-8380 w=2 K=2: addr:&?#17+0 tmp#58(def L8380)+8 ?gbRedraw@@3HA-4(live) bButton-4(live) nX-4(live) nY-4(live) const:4#6-4(live) addr:&?#5-4(live) const:0#2-4(live)
+    blk 00d27a38 L8380-8380 w=2 K=3: addr:&?#17-6(live) tmp#58(def L8380)+24 ?gbRedraw@@3HA-6(live) bButton-6(live) nX-6(live) nY-6(live) const:4#6+0 addr:&?#5+0 const:0#2-6(live)
+    blk 00d27bd8 L8380-8380 w=1 K=2: bButton+4 ?gbRedraw@@3HA-2(live) nX-2(live) nY-2(live)
+    blk 00d27d78 L8382-8383 w=1 K=3: nX+6 nY+6 ?gbRedraw@@3HA+6
+
+=== round 2 (register class 0): 6 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  bUp                             38    -50    3    19  <16         8286 / 8294,8324
+  bDown                           34   -100    3    15  <18         8287 / 8294,8334
+  bPageUp                         33   -143    3    11  <19         8288 / 8294,8344
+  bThumb                          32   -174    3     d  <20         8289 / 8294,8354
+  bPageDown                       31   -175   10    23  <21         8290,8372 / 8294,8370,8372
+  const:0#41                      41   -176   36     0   <2          / 8290,8294,8300,8303,8324,8327,8330,8334,8337,8344,8347,8354,8356,8362,8370,8373,8380
+  colouring order:
+    ?gnDragThumbY@@3HA           prio    78 -> ecx  (allowed ecx/esi/edi/ebx; costs ecx=0 esi=1607 edi=0 ebx=3402)
+    tmp#49                       prio    54 -> eax  (allowed eax/edx/esi/edi/ebx; costs eax=-2 edx=0 esi=1607 edi=0 ebx=3402)
+    tmp#52                       prio    52 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=1607 edi=0 ebx=4002)
+    tmp#53                       prio    51 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=1607 edi=0 ebx=3402)
+    tmp#51                       prio    50 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=1607 edi=0 ebx=4002)
+    tmp#47                       prio    48 -> ecx  (allowed ecx/esi/edi/ebx; costs ecx=0 esi=1607 edi=0 ebx=3402)
+    tmp#46                       prio    48 -> ecx  (allowed ecx/esi/edi/ebx; costs ecx=0 esi=1607 edi=0 ebx=3402)
+    tmp#58                       prio    43 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=1607 edi=0 ebx=2402)
+    tmp#57                       prio    43 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=1607 edi=0 ebx=3402)
+    tmp#56                       prio    43 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=1607 edi=0 ebx=3402)
+    tmp#55                       prio    43 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=1607 edi=0 ebx=3402)
+    tmp#54                       prio    43 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=1607 edi=0 ebx=3402)
+    tmp#48                       prio    42 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=-2 ecx=0 edx=0 esi=1607 edi=0 ebx=3402)
+    nLine                        prio    40 -> edi  (allowed esi/edi/ebx; costs esi=1607 edi=0 ebx=2402)
+    nTop                         prio    28 -> edi  (allowed esi/edi/ebx; costs esi=3007 edi=0 ebx=2402)
+    nMax                         prio    26 -> edi  (allowed esi/edi/ebx; costs esi=2207 edi=0 ebx=3402)
+    ?gnKeyConfigThumbScale@@3HA  prio    25 -> not coloured (split / memory)
+    tmp#50                       prio    24 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=-2 ecx=0 edx=0 esi=2207 edi=0 ebx=2402)
+    ?gnDragMouseY@@3HA           prio    24 -> not coloured (split / memory)
+    nNext                        prio    16 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=2207 ebx=3402)
+    nPrev                        prio    16 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=2207 edi=0 ebx=3402)
+    nMax                         prio    16 -> edi  (allowed esi/edi/ebx; costs esi=2207 edi=0 ebx=3402)
+    nOldD4                       prio    14 -> esi  (allowed esi; costs esi=3407)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c266d4 L8285-8291 w=1 K=10: bPageDown+20 const:0#41+0 bThumb+20 bPageUp+20 bDown+20 bUp+20
+    blk 00c26874 L8291-8291 w=1 K=2: bPageDown+0 const:0#41-2(live) bUp-2(live) bDown-2(live) bPageUp-2(live) bThumb-2(live)
+    blk 00c26a14 L8292-8292 w=1 K=5: bPageDown-5(live) const:0#41-5(live) bUp-5(live) bDown-5(live) bPageUp-5(live) bThumb-5(live)
+    blk 00c77de8 L8292-8292 w=1 K=2: bPageDown-2(live) const:0#41-2(live) bUp-2(live) bDown-2(live) bPageUp-2(live) bThumb-2(live)
+    blk 00c26bb4 L8294-8294 w=2 K=2: bPageDown-4(live) const:0#41+0 bUp-4(live) bDown-4(live) bPageUp-4(live) bThumb-4(live)
+    blk 00c26d54 L8294-8294 w=2 K=2: bPageDown-4(live) const:0#41-4(live) bUp-4(live) bDown-4(live) bPageUp-4(live) bThumb-4(live)
+    blk 00c26ef4 L8294-8294 w=2 K=3: bPageDown-6(live) const:0#41-6(live) bUp-6(live) bDown-6(live) bPageUp-6(live) bThumb-6(live)
+    blk 00c27094 L8294-8294 w=1 K=2: const:0#41+0 bUp-2(live) bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown+4
+    blk 00d3a140 L8294-8294 w=1 K=2: const:0#41+0 bUp-2(live) bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00d3a2e0 L8294-8294 w=1 K=2: const:0#41+0 bUp-2(live) bDown-2(live) bPageUp-2(live) bThumb+4 bPageDown-2(live)
+    blk 00d3a480 L8294-8294 w=1 K=2: const:0#41+0 bUp-2(live) bDown-2(live) bPageUp+4 bThumb-2(live) bPageDown-2(live)
+    blk 00d3a620 L8294-8294 w=1 K=2: const:0#41+0 bUp-2(live) bDown+4 bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00d3a7c0 L8294-8294 w=1 K=2: const:0#41+0 bUp+4 bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00d3a960 L8294-8294 w=1 K=2: const:0#41+0 bUp-2(live) bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00d3aca0 L8300-8300 w=1 K=2: const:0#41-2(live) bUp-2(live) bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00c77fc0 L?         w=1 K=0: const:0#41-0(live) bUp-0(live) bDown-0(live) bPageUp-0(live) bThumb-0(live) bPageDown-0(live)
+    blk 00d3ae40 L8300-8300 w=2 K=4: const:0#41+0 bUp-8(live) bDown-8(live) bPageUp-8(live) bThumb-8(live) bPageDown-8(live)
+    blk 00d37128 L8300-8300 w=2 K=2: const:0#41-4(live) bUp-4(live) bDown-4(live) bPageUp-4(live) bThumb-4(live) bPageDown-4(live)
+    blk 00d372c8 L8300-8300 w=2 K=3: const:0#41-6(live) bUp-6(live) bDown-6(live) bPageUp-6(live) bThumb-6(live) bPageDown-6(live)
+    blk 00d37468 L8300-8300 w=1 K=1: const:0#41+0 bUp-1(live) bDown-1(live) bPageUp-1(live) bThumb-1(live) bPageDown-1(live)
+    blk 00d37608 L8300-8300 w=1 K=2: const:0#41+0 bUp-2(live) bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00d377a8 L8302-8303 w=1 K=2: const:0#41+0 bUp-2(live) bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00c2d558 L8318-8319 w=1 K=8: const:0#41+0 bUp+0 bDown+0 bPageUp+0 bThumb+0 bPageDown+0
+    blk 00d50778 L8319-8319 w=1 K=6: const:0#41+0 bUp+0 bDown+0 bPageUp+0 bThumb+0 bPageDown+0
+    blk 00c2d6f8 L8324-8324 w=1 K=2: const:0#41-2(live) bUp-2(live) bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00c78198 L?         w=1 K=0: const:0#41-0(live) bUp-0(live) bDown-0(live) bPageUp-0(live) bThumb-0(live) bPageDown-0(live)
+    blk 00c2d898 L8324-8324 w=2 K=4: const:0#41+0 bUp-8(live) bDown-8(live) bPageUp-8(live) bThumb-8(live) bPageDown-8(live)
+    blk 00c2da38 L8324-8324 w=2 K=1: const:0#41-2(live) bUp-2(live) bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00c2dbd8 L8324-8324 w=2 K=3: const:0#41-6(live) bUp-6(live) bDown-6(live) bPageUp-6(live) bThumb-6(live) bPageDown-6(live)
+    blk 00c2dd78 L8324-8324 w=1 K=2: bUp+4 const:0#41+0 bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00c2df18 L8326-8327 w=1 K=2: const:0#41+0 bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00c2e0b8 L8327-8327 w=1 K=1: const:0#41-1(live) bDown-1(live) bPageUp-1(live) bThumb-1(live) bPageDown-1(live)
+    blk 00c58578 L8329-8330 w=1 K=4: const:0#41+0 bDown-4(live) bPageUp-4(live) bThumb-4(live) bPageDown-4(live)
+    blk 00c58718 L8330-8330 w=1 K=2: const:0#41-2(live) bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00c588b8 L8330-8330 w=1 K=2: const:0#41-2(live) bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00c58a58 L8330-8330 w=1 K=2: const:0#41+0 bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00c58bf8 L8330-8330 w=1 K=2: const:0#41-2(live) bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00c58d98 L8330-8330 w=1 K=8: const:0#41-8(live) bDown-8(live) bPageUp-8(live) bThumb-8(live) bPageDown-8(live)
+    blk 00c73d30 L8330-8330 w=1 K=3: const:0#41-3(live) bDown-3(live) bPageUp-3(live) bThumb-3(live) bPageDown-3(live)
+    blk 00c73ed0 L8330-8330 w=1 K=5: const:0#41-5(live) bDown-5(live) bPageUp-5(live) bThumb-5(live) bPageDown-5(live)
+    blk 00c74070 L8330-8330 w=1 K=3: const:0#41-3(live) bDown-3(live) bPageUp-3(live) bThumb-3(live) bPageDown-3(live)
+    blk 00c58f38 L8330-8334 w=1 K=2: const:0#41-2(live) bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00c78370 L?         w=1 K=0: const:0#41-0(live) bDown-0(live) bPageUp-0(live) bThumb-0(live) bPageDown-0(live)
+    blk 00c590d8 L8334-8334 w=2 K=2: const:0#41+0 bDown-4(live) bPageUp-4(live) bThumb-4(live) bPageDown-4(live)
+    blk 00c59278 L8334-8334 w=2 K=1: const:0#41-2(live) bDown-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00d34108 L8334-8334 w=2 K=3: const:0#41-6(live) bDown-6(live) bPageUp-6(live) bThumb-6(live) bPageDown-6(live)
+    blk 00d342a8 L8334-8334 w=1 K=2: bDown+4 const:0#41+0 bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00d34448 L8336-8337 w=1 K=2: const:0#41+0 bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00d345e8 L8337-8337 w=1 K=1: const:0#41-1(live) bPageUp-1(live) bThumb-1(live) bPageDown-1(live)
+    blk 00d34788 L8339-8340 w=1 K=3: const:0#41-3(live) bPageUp-3(live) bThumb-3(live) bPageDown-3(live)
+    blk 00d34928 L8340-8340 w=1 K=2: const:0#41-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00d34ac8 L8340-8340 w=1 K=2: const:0#41-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00d34c68 L8340-8340 w=1 K=2: const:0#41-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00d34e08 L8340-8340 w=1 K=2: const:0#41-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00d300d8 L8340-8340 w=1 K=8: const:0#41-8(live) bPageUp-8(live) bThumb-8(live) bPageDown-8(live)
+    blk 00c74210 L8340-8340 w=1 K=5: const:0#41-5(live) bPageUp-5(live) bThumb-5(live) bPageDown-5(live)
+    blk 00d30278 L8340-8344 w=1 K=2: const:0#41-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00c736b0 L?         w=1 K=0: const:0#41-0(live) bPageUp-0(live) bThumb-0(live) bPageDown-0(live)
+    blk 00d30418 L8344-8344 w=2 K=2: const:0#41+0 bPageUp-4(live) bThumb-4(live) bPageDown-4(live)
+    blk 00d305b8 L8344-8344 w=2 K=1: const:0#41-2(live) bPageUp-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00d30758 L8344-8344 w=2 K=3: const:0#41-6(live) bPageUp-6(live) bThumb-6(live) bPageDown-6(live)
+    blk 00d308f8 L8344-8344 w=1 K=2: bPageUp+4 const:0#41+0 bThumb-2(live) bPageDown-2(live)
+    blk 00d30a98 L8346-8347 w=1 K=2: const:0#41+0 bThumb-2(live) bPageDown-2(live)
+    blk 00d30c38 L8347-8347 w=1 K=1: const:0#41-1(live) bThumb-1(live) bPageDown-1(live)
+    blk 00d30dd8 L8349-8350 w=1 K=7: const:0#41-7(live) bThumb-7(live) bPageDown-7(live)
+    blk 00c743e8 L8350-8350 w=1 K=5: const:0#41-5(live) bThumb-5(live) bPageDown-5(live)
+    blk 00d2d0b8 L8354-8354 w=1 K=2: const:0#41-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00c73850 L?         w=1 K=0: const:0#41-0(live) bThumb-0(live) bPageDown-0(live)
+    blk 00d2d258 L8354-8354 w=2 K=2: const:0#41+0 bThumb-4(live) bPageDown-4(live)
+    blk 00d2d3f8 L8354-8354 w=2 K=1: const:0#41-2(live) bThumb-2(live) bPageDown-2(live)
+    blk 00d2d598 L8354-8354 w=2 K=3: const:0#41-6(live) bThumb-6(live) bPageDown-6(live)
+    blk 00d2d738 L8354-8354 w=1 K=2: bThumb+4 const:0#41+0 bPageDown-2(live)
+    blk 00d2d8d8 L8354-8354 w=1 K=1: const:0#41+0 bPageDown-1(live)
+    blk 00d2da78 L8356-8356 w=1 K=2: const:0#41-2(live) bPageDown-2(live)
+    blk 00d2dc18 L8356-8356 w=1 K=1: const:0#41+0 bPageDown-1(live)
+    blk 00d2ddb8 L8356-8356 w=1 K=2: const:0#41+0 bPageDown-2(live)
+    blk 00d28080 L8358-8359 w=1 K=4: const:0#41-4(live) bPageDown-4(live)
+    blk 00d50438 L8359-8359 w=1 K=2: const:0#41-2(live) bPageDown-2(live)
+    blk 00d28220 L8361-8362 w=1 K=2: const:0#41+0 bPageDown-2(live)
+    blk 00d283c0 L8366-8366 w=1 K=8: const:0#41-8(live) bPageDown-8(live)
+    blk 00d28560 L8370-8370 w=1 K=2: const:0#41-2(live) bPageDown-2(live)
+    blk 00c739f0 L?         w=1 K=0: const:0#41-0(live) bPageDown-0(live)
+    blk 00d28700 L8370-8370 w=2 K=2: const:0#41+0 bPageDown-4(live)
+    blk 00d288a0 L8370-8370 w=2 K=1: const:0#41-2(live) bPageDown-2(live)
+    blk 00d28a40 L8370-8370 w=2 K=3: const:0#41-6(live) bPageDown-6(live)
+    blk 00d28be0 L8370-8370 w=1 K=2: const:0#41+0 bPageDown+4
+    blk 00d28d80 L8370-8370 w=1 K=1: const:0#41+0 bPageDown-1(live)
+    blk 00d27078 L8372-8373 w=1 K=3: bPageDown+36 const:0#41+0
+    blk 00d27218 L8373-8373 w=1 K=1: const:0#41-1(live)
+    blk 00d273b8 L8375-8376 w=1 K=3: const:0#41-3(live)
+    blk 00d505d8 L8376-8376 w=1 K=1: const:0#41-1(live)
+    blk 00d27558 L8380-8380 w=1 K=2: const:0#41-2(live)
+    blk 00c73b90 L?         w=1 K=0: const:0#41-0(live)
+    blk 00d276f8 L8380-8380 w=2 K=2: const:0#41+0
+    blk 00d27898 L8380-8380 w=2 K=1: const:0#41-2(live)
+    blk 00d27a38 L8380-8380 w=2 K=3: const:0#41-6(live)
+    blk 00d27bd8 L8380-8380 w=1 K=2: 
+
+=== round 3 (register class 0): 12 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  nX                              11     88    4    20   <8  esi     / 8287,8288,8289,8291
+  nX                              12     44    2    20   <8  esi     / 8285,8286
+  ?gbRedraw@@3HA                  15      1    2   184  <30  (d690)  / 8302,8303
+  ?gnAutomapHeight@@3HA           14     -4    4   122  <40  (d690)  / 8330,8340,8350,8366
+  bButton                          1     -6    2    26  <22  ecx    8292 / 8294
+  addr:&?#18                      18    -26    3     0   <5  (d690)  / 8294,8300
+  const:4#2                        2    -30    2     0   <6          / 8294,8300
+  addr:&?gaPressed@@3PAHA#20      20    -42    3     0   <4          / 8292,8300
+  ?gbRedraw@@3HA                  17    -50   12   184  <30          / 8326,8327,8336,8337,8346,8347,8356,8361,8362,8372,8373,8382
+  const:4#16                      16   -170    6     0   <6          / 8324,8334,8344,8354,8370,8380
+  addr:&?#19                      19   -170    6     0   <5          / 8324,8334,8344,8354,8370,8380
+  addr:&?gaPressed@@3PAHA#21      21   -186    6     0   <4          / 8324,8334,8344,8354,8370,8380
+  colouring order:
+    nX                           prio    88 -> esi  (allowed esi/ebx; costs esi=-4 ebx=4002)
+    nX                           prio    44 -> esi  (allowed esi; costs esi=-1)
+    gnKeyConfigFirstVisible      prio     9 -> esi  (allowed esi/ebx; costs esi=0 ebx=3402)
+    ?gbRedraw@@3HA               prio     1 -> not coloured (split / memory)
+    ?gnAutomapHeight@@3HA        prio    -4 -> not coloured (split / memory)
+    bButton                      prio    -6 -> ecx  (allowed ecx/edx/esi/edi/ebx; costs ecx=0 edx=0 esi=0 edi=0 ebx=4002)
+    ?gnKeyConfigThumbY@@3HA      prio   -24 -> not coloured (split / memory)
+    addr:&?#18                   prio   -26 -> not coloured (split / memory)
+    bInList                      prio   -29 -> ebx  (allowed ebx; costs ebx=3402)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c266d4 L8285-8291 w=1 K=11: nX+88 nX+44
+    blk 00c26a14 L8292-8292 w=1 K=4: addr:&?gaPressed@@3PAHA#20+0 bButton+8
+    blk 00c77de8 L8292-8292 w=1 K=2: const:4#2+0 addr:&?#18+0 addr:&?gaPressed@@3PAHA#20-2(live) bButton-2(live)
+    blk 00c26bb4 L8294-8294 w=2 K=2: const:4#2-4(live) addr:&?#18-4(live) addr:&?gaPressed@@3PAHA#20-4(live) bButton-4(live)
+    blk 00c26d54 L8294-8294 w=2 K=2: const:4#2-4(live) addr:&?#18+0 addr:&?gaPressed@@3PAHA#20-4(live) bButton-4(live)
+    blk 00c26ef4 L8294-8294 w=2 K=3: const:4#2+0 addr:&?#18+0 addr:&?gaPressed@@3PAHA#20-6(live) bButton-6(live)
+    blk 00c27094 L8294-8294 w=1 K=2: addr:&?gaPressed@@3PAHA#20-2(live) addr:&?#18-2(live) const:4#2-2(live) bButton-2(live)
+    blk 00d3a140 L8294-8294 w=1 K=2: bButton+4 addr:&?gaPressed@@3PAHA#20-2(live) addr:&?#18-2(live) const:4#2-2(live)
+    blk 00d3a2e0 L8294-8294 w=1 K=2: addr:&?gaPressed@@3PAHA#20-2(live) addr:&?#18-2(live) const:4#2-2(live)
+    blk 00d3a480 L8294-8294 w=1 K=2: addr:&?gaPressed@@3PAHA#20-2(live) addr:&?#18-2(live) const:4#2-2(live)
+    blk 00d3a620 L8294-8294 w=1 K=2: addr:&?gaPressed@@3PAHA#20-2(live) addr:&?#18-2(live) const:4#2-2(live)
+    blk 00d3a7c0 L8294-8294 w=1 K=2: addr:&?gaPressed@@3PAHA#20-2(live) addr:&?#18-2(live) const:4#2-2(live)
+    blk 00d3a960 L8294-8294 w=1 K=2: addr:&?gaPressed@@3PAHA#20-2(live) addr:&?#18-2(live) const:4#2-2(live)
+    blk 00d3aca0 L8300-8300 w=1 K=2: addr:&?gaPressed@@3PAHA#20+0 addr:&?#18-2(live) const:4#2-2(live)
+    blk 00c77fc0 L?         w=1 K=0: addr:&?gaPressed@@3PAHA#20-0(live) addr:&?#18-0(live) const:4#2-0(live)
+    blk 00d3ae40 L8300-8300 w=2 K=3: ?gbRedraw@@3HA+0 addr:&?gaPressed@@3PAHA#20-6(live) addr:&?#18-6(live) const:4#2-6(live)
+    blk 00d37128 L8300-8300 w=2 K=2: 
+    blk 00d50918 L8300-8300 w=2 K=4: addr:&?gaPressed@@3PAHA#20+0 addr:&?#18+0 ?gbRedraw@@3HA+0 const:4#2+0
+    blk 00d372c8 L8300-8300 w=2 K=3: addr:&?gaPressed@@3PAHA#20-6(live) addr:&?#18+0 ?gbRedraw@@3HA-6(live) const:4#2+0
+    blk 00d37468 L8300-8300 w=1 K=1: ?gbRedraw@@3HA-1(live)
+    blk 00d50ab8 L8300-8300 w=1 K=1: ?gbRedraw@@3HA+0
+    blk 00d377a8 L8302-8303 w=1 K=2: ?gbRedraw@@3HA+8
+    blk 00c2d6f8 L8324-8324 w=1 K=2: addr:&?gaPressed@@3PAHA#21+0
+    blk 00c78198 L8324-8324 w=1 K=2: addr:&?#19+0 const:4#16+0 addr:&?gaPressed@@3PAHA#21-2(live)
+    blk 00c2d898 L8324-8324 w=2 K=4: addr:&?#19-8(live) const:4#16-8(live) addr:&?gaPressed@@3PAHA#21-8(live)
+    blk 00c2da38 L8324-8324 w=2 K=1: addr:&?#19-2(live) const:4#16-2(live) addr:&?gaPressed@@3PAHA#21-2(live)
+    blk 00c2dbd8 L8324-8324 w=2 K=3: addr:&?#19+0 const:4#16+0 addr:&?gaPressed@@3PAHA#21-6(live)
+    blk 00c2dd78 L8324-8324 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) const:4#16-2(live)
+    blk 00c2df18 L8326-8327 w=1 K=2: ?gbRedraw@@3HA+8 addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) const:4#16-2(live)
+    blk 00c2e0b8 L8327-8327 w=1 K=1: addr:&?gaPressed@@3PAHA#21-1(live) addr:&?#19-1(live) const:4#16-1(live)
+    blk 00c58578 L8329-8330 w=1 K=4: addr:&?gaPressed@@3PAHA#21-4(live) addr:&?#19-4(live) const:4#16-4(live)
+    blk 00c58718 L8330-8330 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) const:4#16-2(live)
+    blk 00c588b8 L8330-8330 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) const:4#16-2(live)
+    blk 00c58a58 L8330-8330 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) const:4#16-2(live)
+    blk 00c58bf8 L8330-8330 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) const:4#16-2(live)
+    blk 00c58d98 L8330-8330 w=1 K=8: ?gbRedraw@@3HA+0 ?gnAutomapHeight@@3HA+16 addr:&?gaPressed@@3PAHA#21-8(live) addr:&?#19-8(live) const:4#16-8(live)
+    blk 00c73d30 L8330-8330 w=1 K=4: ?gnAutomapHeight@@3HA+0 addr:&?gaPressed@@3PAHA#21-4(live) addr:&?#19-4(live) ?gbRedraw@@3HA-4(live) const:4#16-4(live)
+    blk 00c73ed0 L8330-8330 w=1 K=5: ?gnAutomapHeight@@3HA+0 ?gbRedraw@@3HA+0 addr:&?gaPressed@@3PAHA#21-5(live) addr:&?#19-5(live) const:4#16-5(live)
+    blk 00c74070 L8330-8330 w=1 K=5: ?gbRedraw@@3HA+0 ?gnAutomapHeight@@3HA+0 addr:&?gaPressed@@3PAHA#21-5(live) addr:&?#19-5(live) const:4#16-5(live)
+    blk 00c58f38 L8330-8334 w=1 K=2: ?gbRedraw@@3HA-2(live) ?gnAutomapHeight@@3HA-2(live) addr:&?gaPressed@@3PAHA#21+0 addr:&?#19-2(live) const:4#16-2(live)
+    blk 00c78370 L?         w=1 K=0: ?gbRedraw@@3HA-0(live) ?gnAutomapHeight@@3HA-0(live) addr:&?gaPressed@@3PAHA#21-0(live) addr:&?#19-0(live) const:4#16-0(live)
+    blk 00c590d8 L8334-8334 w=2 K=2: ?gbRedraw@@3HA-4(live) ?gnAutomapHeight@@3HA-4(live) addr:&?gaPressed@@3PAHA#21-4(live) addr:&?#19-4(live) const:4#16-4(live)
+    blk 00c59278 L8334-8334 w=2 K=1: ?gbRedraw@@3HA-2(live) ?gnAutomapHeight@@3HA-2(live) addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) const:4#16-2(live)
+    blk 00d34108 L8334-8334 w=2 K=3: ?gbRedraw@@3HA-6(live) ?gnAutomapHeight@@3HA-6(live) addr:&?gaPressed@@3PAHA#21-6(live) addr:&?#19+0 const:4#16+0
+    blk 00d342a8 L8334-8334 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) ?gbRedraw@@3HA-2(live) const:4#16-2(live) ?gnAutomapHeight@@3HA-2(live)
+    blk 00d34448 L8336-8337 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) ?gbRedraw@@3HA+8 const:4#16-2(live) ?gnAutomapHeight@@3HA-2(live)
+    blk 00d345e8 L8337-8337 w=1 K=1: addr:&?gaPressed@@3PAHA#21-1(live) addr:&?#19-1(live) const:4#16-1(live)
+    blk 00d34788 L8339-8340 w=1 K=3: addr:&?gaPressed@@3PAHA#21-3(live) addr:&?#19-3(live) const:4#16-3(live)
+    blk 00d34928 L8340-8340 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) const:4#16-2(live)
+    blk 00d34ac8 L8340-8340 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) const:4#16-2(live)
+    blk 00d34c68 L8340-8340 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) const:4#16-2(live)
+    blk 00d34e08 L8340-8340 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) const:4#16-2(live)
+    blk 00d300d8 L8340-8340 w=1 K=8: ?gbRedraw@@3HA+0 ?gnAutomapHeight@@3HA+16 addr:&?gaPressed@@3PAHA#21-8(live) addr:&?#19-8(live) const:4#16-8(live)
+    blk 00c74210 L8340-8340 w=1 K=5: ?gnAutomapHeight@@3HA+0 ?gbRedraw@@3HA+0 addr:&?gaPressed@@3PAHA#21-5(live) addr:&?#19-5(live) const:4#16-5(live)
+    blk 00d30278 L8340-8344 w=1 K=2: ?gnAutomapHeight@@3HA-2(live) ?gbRedraw@@3HA-2(live) addr:&?gaPressed@@3PAHA#21+0 addr:&?#19-2(live) const:4#16-2(live)
+    blk 00c736b0 L?         w=1 K=0: ?gnAutomapHeight@@3HA-0(live) ?gbRedraw@@3HA-0(live) addr:&?gaPressed@@3PAHA#21-0(live) addr:&?#19-0(live) const:4#16-0(live)
+    blk 00d30418 L8344-8344 w=2 K=2: ?gnAutomapHeight@@3HA-4(live) ?gbRedraw@@3HA-4(live) addr:&?gaPressed@@3PAHA#21-4(live) addr:&?#19-4(live) const:4#16-4(live)
+    blk 00d305b8 L8344-8344 w=2 K=1: ?gnAutomapHeight@@3HA-2(live) ?gbRedraw@@3HA-2(live) addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) const:4#16-2(live)
+    blk 00d30758 L8344-8344 w=2 K=3: ?gnAutomapHeight@@3HA-6(live) ?gbRedraw@@3HA-6(live) addr:&?gaPressed@@3PAHA#21-6(live) addr:&?#19+0 const:4#16+0
+    blk 00d308f8 L8344-8344 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) ?gbRedraw@@3HA-2(live) const:4#16-2(live) ?gnAutomapHeight@@3HA-2(live)
+    blk 00d30a98 L8346-8347 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) ?gbRedraw@@3HA+8 const:4#16-2(live) ?gnAutomapHeight@@3HA-2(live)
+    blk 00d30c38 L8347-8347 w=1 K=1: addr:&?gaPressed@@3PAHA#21-1(live) addr:&?#19-1(live) const:4#16-1(live)
+    blk 00d30dd8 L8349-8350 w=1 K=7: ?gbRedraw@@3HA+0 ?gnAutomapHeight@@3HA+14 addr:&?gaPressed@@3PAHA#21-7(live) addr:&?#19-7(live) const:4#16-7(live)
+    blk 00c743e8 L8350-8350 w=1 K=5: ?gnAutomapHeight@@3HA+0 ?gbRedraw@@3HA+0 addr:&?gaPressed@@3PAHA#21-5(live) addr:&?#19-5(live) const:4#16-5(live)
+    blk 00d2d0b8 L8354-8354 w=1 K=2: ?gnAutomapHeight@@3HA-2(live) ?gbRedraw@@3HA-2(live) addr:&?gaPressed@@3PAHA#21+0 addr:&?#19-2(live) const:4#16-2(live)
+    blk 00c73850 L?         w=1 K=0: ?gnAutomapHeight@@3HA-0(live) ?gbRedraw@@3HA-0(live) addr:&?gaPressed@@3PAHA#21-0(live) addr:&?#19-0(live) const:4#16-0(live)
+    blk 00d2d258 L8354-8354 w=2 K=2: ?gnAutomapHeight@@3HA-4(live) ?gbRedraw@@3HA-4(live) addr:&?gaPressed@@3PAHA#21-4(live) addr:&?#19-4(live) const:4#16-4(live)
+    blk 00d2d3f8 L8354-8354 w=2 K=1: ?gnAutomapHeight@@3HA-2(live) ?gbRedraw@@3HA-2(live) addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) const:4#16-2(live)
+    blk 00d2d598 L8354-8354 w=2 K=3: ?gnAutomapHeight@@3HA-6(live) ?gbRedraw@@3HA-6(live) addr:&?gaPressed@@3PAHA#21-6(live) addr:&?#19+0 const:4#16+0
+    blk 00d2d738 L8354-8354 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) ?gbRedraw@@3HA-2(live) const:4#16-2(live) ?gnAutomapHeight@@3HA-2(live)
+    blk 00d2d8d8 L8354-8354 w=1 K=1: addr:&?gaPressed@@3PAHA#21-1(live) addr:&?#19-1(live) ?gbRedraw@@3HA-1(live) const:4#16-1(live) ?gnAutomapHeight@@3HA-1(live)
+    blk 00d2da78 L8356-8356 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) ?gbRedraw@@3HA-2(live) const:4#16-2(live) ?gnAutomapHeight@@3HA-2(live)
+    blk 00d2dc18 L8356-8356 w=1 K=1: addr:&?gaPressed@@3PAHA#21-1(live) addr:&?#19-1(live) ?gbRedraw@@3HA-1(live) const:4#16-1(live) ?gnAutomapHeight@@3HA-1(live)
+    blk 00d2ddb8 L8356-8356 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) ?gbRedraw@@3HA+4 const:4#16-2(live) ?gnAutomapHeight@@3HA-2(live)
+    blk 00d28080 L8358-8359 w=1 K=4: addr:&?gaPressed@@3PAHA#21-4(live) addr:&?#19-4(live) ?gbRedraw@@3HA-4(live) const:4#16-4(live) ?gnAutomapHeight@@3HA-4(live)
+    blk 00d50438 L8359-8359 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) ?gbRedraw@@3HA-2(live) const:4#16-2(live) ?gnAutomapHeight@@3HA-2(live)
+    blk 00d28220 L8361-8362 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) ?gbRedraw@@3HA+8 const:4#16-2(live) ?gnAutomapHeight@@3HA-2(live)
+    blk 00d283c0 L8366-8366 w=1 K=8: ?gnAutomapHeight@@3HA+16 addr:&?gaPressed@@3PAHA#21-8(live) addr:&?#19-8(live) ?gbRedraw@@3HA-8(live) const:4#16-8(live)
+    blk 00d28560 L8370-8370 w=1 K=2: addr:&?gaPressed@@3PAHA#21+0 addr:&?#19-2(live) ?gbRedraw@@3HA-2(live) const:4#16-2(live)
+    blk 00c739f0 L?         w=1 K=0: addr:&?gaPressed@@3PAHA#21-0(live) addr:&?#19-0(live) ?gbRedraw@@3HA-0(live) const:4#16-0(live)
+    blk 00d28700 L8370-8370 w=2 K=2: addr:&?gaPressed@@3PAHA#21-4(live) addr:&?#19-4(live) ?gbRedraw@@3HA-4(live) const:4#16-4(live)
+    blk 00d288a0 L8370-8370 w=2 K=1: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) ?gbRedraw@@3HA-2(live) const:4#16-2(live)
+    blk 00d28a40 L8370-8370 w=2 K=3: addr:&?gaPressed@@3PAHA#21-6(live) addr:&?#19+0 ?gbRedraw@@3HA-6(live) const:4#16+0
+    blk 00d28be0 L8370-8370 w=1 K=2: addr:&?gaPressed@@3PAHA#21-2(live) addr:&?#19-2(live) ?gbRedraw@@3HA-2(live) const:4#16-2(live)
+    blk 00d28d80 L8370-8370 w=1 K=1: addr:&?gaPressed@@3PAHA#21-1(live) addr:&?#19-1(live) ?gbRedraw@@3HA-1(live) const:4#16-1(live)
+    blk 00d27078 L8372-8373 w=1 K=3: addr:&?gaPressed@@3PAHA#21-3(live) addr:&?#19-3(live) ?gbRedraw@@3HA+12 const:4#16-3(live)
+    blk 00d27218 L8373-8373 w=1 K=1: addr:&?gaPressed@@3PAHA#21-1(live) addr:&?#19-1(live) const:4#16-1(live)
+    blk 00d273b8 L8375-8376 w=1 K=3: ?gbRedraw@@3HA+0 addr:&?gaPressed@@3PAHA#21-3(live) addr:&?#19-3(live) const:4#16-3(live)
+    blk 00d505d8 L8376-8376 w=1 K=1: ?gbRedraw@@3HA+0 addr:&?gaPressed@@3PAHA#21-1(live) addr:&?#19-1(live) const:4#16-1(live)
+    blk 00d27558 L8380-8380 w=1 K=2: ?gbRedraw@@3HA-2(live) addr:&?#19-2(live) const:4#16-2(live)
+    blk 00c73b90 L?         w=1 K=0: ?gbRedraw@@3HA-0(live) addr:&?#19-0(live) const:4#16-0(live)
+    blk 00d276f8 L8380-8380 w=2 K=2: ?gbRedraw@@3HA-4(live) addr:&?#19-4(live) const:4#16-4(live)
+    blk 00d27898 L8380-8380 w=2 K=1: ?gbRedraw@@3HA-2(live) addr:&?#19-2(live) const:4#16-2(live)
+    blk 00d27a38 L8380-8380 w=2 K=3: ?gbRedraw@@3HA-6(live) addr:&?#19+0 const:4#16+0
+    blk 00d27bd8 L8380-8380 w=1 K=1: ?gbRedraw@@3HA-1(live)
+    blk 00d27d78 L8382-8383 w=1 K=2: ?gbRedraw@@3HA+4
+
+=== round 4 (register class 0): 12 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  bPageDown                       25     39    8    23  <21  eax    8372 / 8370,8372
+  bPageDown                       60     18    1    23  <21         8290 / 
+  nY                               5     18    1    22   <7          / 8285
+  bUp                              4     18    1    19  <16         8286 / 
+  bDown                            9     18    1    15  <18         8287 / 
+  bPageUp                         44     18    1    11  <19         8288 / 
+  bThumb                          61     18    1     d  <20         8289 / 
+  nY                              30      8    2    22   <7  esi     / 8306,8308
+  nY                              40    -14    3    22   <7  (d690)  / 8359,8366,8383
+  bPageDown                       22    -16    1    23  <21          / 8294
+  const:0#6                        6    -18   12     0   <2  (d690)  / 8294,8300,8303
+  const:0#8                        8   -149   23     0   <2          / 8324,8327,8330,8334,8337,8344,8347,8354,8356,8362,8370,8373,8380
+  colouring order:
+    bPageDown                    prio    39 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=0 edi=0 ebx=1200)
+    nY                           prio     8 -> esi  (allowed esi/ebx; costs esi=0 ebx=0)
+    nY                           prio   -14 -> not coloured (split / memory)
+    const:0#6                    prio   -18 -> not coloured (split / memory)
+    const:4#2                    prio   -30 -> not coloured (split / memory)
+    addr:&?gaPressed@@3PAHA#20   prio   -42 -> not coloured (split / memory)
+    ?gbRedraw@@3HA               prio   -50 -> edi  (allowed edi/ebx; costs edi=0 ebx=1200)
+    __imp__GetTickCount@0        prio  -122 -> ebx  (allowed ebx; costs ebx=0)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c266d4 L8285-8291 w=1 K=9: bPageDown+18 bThumb+18 bPageUp+18 bDown+18 bUp+18 nY+18
+    blk 00c26874 L8291-8291 w=1 K=1: bPageDown+0
+    blk 00d50c90 L8291-8291 w=1 K=1: bPageDown+0
+    blk 00c26a14 L8292-8292 w=1 K=3: bPageDown-3(live)
+    blk 00c77de8 L8292-8292 w=1 K=3: const:0#6+0 bPageDown-3(live)
+    blk 00c26bb4 L8294-8294 w=2 K=2: const:0#6+0 bPageDown-4(live)
+    blk 00c26d54 L8294-8294 w=2 K=2: const:0#6-4(live) bPageDown-4(live)
+    blk 00c26ef4 L8294-8294 w=2 K=3: const:0#6-6(live) bPageDown-6(live)
+    blk 00c27094 L8294-8294 w=1 K=2: bPageDown+4 const:0#6+0
+    blk 00d3a140 L8294-8294 w=1 K=2: const:0#6+0
+    blk 00d3a2e0 L8294-8294 w=1 K=1: const:0#6+0
+    blk 00d3a480 L8294-8294 w=1 K=1: const:0#6+0
+    blk 00d3a620 L8294-8294 w=1 K=1: const:0#6+0
+    blk 00d3a7c0 L8294-8294 w=1 K=1: const:0#6+0
+    blk 00d3a960 L8294-8294 w=1 K=2: const:0#6+0
+    blk 00d3aca0 L8300-8300 w=1 K=2: const:0#6-2(live)
+    blk 00c77fc0 L?         w=1 K=0: const:0#6-0(live)
+    blk 00d3ae40 L8300-8300 w=2 K=3: const:0#6+0
+    blk 00d50918 L8300-8300 w=2 K=5: const:0#6+0
+    blk 00d372c8 L8300-8300 w=2 K=3: const:0#6-6(live)
+    blk 00d37468 L8300-8300 w=1 K=1: const:0#6+0
+    blk 00d37608 L8300-8300 w=1 K=2: 
+    blk 00d50ab8 L8300-8300 w=1 K=2: const:0#6+0
+    blk 00d377a8 L8302-8303 w=1 K=2: 
+    blk 00d37948 L8305-8306 w=1 K=2: nY+4
+    blk 00d37ae8 L8307-8307 w=1 K=0: nY-0(live)
+    blk 00d37c88 L8308-8308 w=1 K=2: nY+4
+    blk 00c78198 L8324-8324 w=1 K=3: const:0#8+0
+    blk 00c2d898 L8324-8324 w=2 K=4: const:0#8+0
+    blk 00c2da38 L8324-8324 w=2 K=1: const:0#8-2(live)
+    blk 00c2dbd8 L8324-8324 w=2 K=3: const:0#8-6(live)
+    blk 00c2dd78 L8324-8324 w=1 K=1: const:0#8+0
+    blk 00c2df18 L8326-8327 w=1 K=2: const:0#8+0
+    blk 00c2e0b8 L8327-8327 w=1 K=1: const:0#8-1(live)
+    blk 00c58578 L8329-8330 w=1 K=4: const:0#8+0
+    blk 00c58718 L8330-8330 w=1 K=2: const:0#8-2(live)
+    blk 00c588b8 L8330-8330 w=1 K=2: const:0#8-2(live)
+    blk 00c58a58 L8330-8330 w=1 K=2: const:0#8+0
+    blk 00c58bf8 L8330-8330 w=1 K=2: const:0#8-2(live)
+    blk 00c58d98 L8330-8330 w=1 K=8: const:0#8-8(live)
+    blk 00c73d30 L8330-8330 w=1 K=4: const:0#8-4(live)
+    blk 00c73ed0 L8330-8330 w=1 K=5: const:0#8-5(live)
+    blk 00c74070 L8330-8330 w=1 K=5: const:0#8-5(live)
+    blk 00c58f38 L8330-8334 w=1 K=2: const:0#8-2(live)
+    blk 00c78370 L?         w=1 K=0: const:0#8-0(live)
+    blk 00c590d8 L8334-8334 w=2 K=2: const:0#8+0
+    blk 00c59278 L8334-8334 w=2 K=1: const:0#8-2(live)
+    blk 00d34108 L8334-8334 w=2 K=3: const:0#8-6(live)
+    blk 00d342a8 L8334-8334 w=1 K=1: const:0#8+0
+    blk 00d34448 L8336-8337 w=1 K=2: const:0#8+0
+    blk 00d345e8 L8337-8337 w=1 K=1: const:0#8-1(live)
+    blk 00d34788 L8339-8340 w=1 K=3: const:0#8-3(live)
+    blk 00d34928 L8340-8340 w=1 K=2: const:0#8-2(live)
+    blk 00d34ac8 L8340-8340 w=1 K=2: const:0#8-2(live)
+    blk 00d34c68 L8340-8340 w=1 K=2: const:0#8-2(live)
+    blk 00d34e08 L8340-8340 w=1 K=2: const:0#8-2(live)
+    blk 00d300d8 L8340-8340 w=1 K=8: const:0#8-8(live)
+    blk 00c74210 L8340-8340 w=1 K=5: const:0#8-5(live)
+    blk 00d30278 L8340-8344 w=1 K=2: const:0#8-2(live)
+    blk 00c736b0 L?         w=1 K=0: const:0#8-0(live)
+    blk 00d30418 L8344-8344 w=2 K=2: const:0#8+0
+    blk 00d305b8 L8344-8344 w=2 K=1: const:0#8-2(live)
+    blk 00d30758 L8344-8344 w=2 K=3: const:0#8-6(live)
+    blk 00d308f8 L8344-8344 w=1 K=1: const:0#8+0
+    blk 00d30a98 L8346-8347 w=1 K=2: const:0#8+0
+    blk 00d30c38 L8347-8347 w=1 K=1: const:0#8-1(live)
+    blk 00d30dd8 L8349-8350 w=1 K=7: const:0#8-7(live)
+    blk 00c743e8 L8350-8350 w=1 K=5: const:0#8-5(live)
+    blk 00d2d0b8 L8354-8354 w=1 K=2: const:0#8-2(live)
+    blk 00c73850 L?         w=1 K=0: const:0#8-0(live)
+    blk 00d2d258 L8354-8354 w=2 K=2: const:0#8+0
+    blk 00d2d3f8 L8354-8354 w=2 K=1: const:0#8-2(live)
+    blk 00d2d598 L8354-8354 w=2 K=3: const:0#8-6(live)
+    blk 00d2d738 L8354-8354 w=1 K=1: const:0#8+0
+    blk 00d2d8d8 L8354-8354 w=1 K=1: const:0#8+0
+    blk 00d2da78 L8356-8356 w=1 K=3: nY+0 const:0#8-3(live)
+    blk 00d2dc18 L8356-8356 w=1 K=1: const:0#8+0
+    blk 00d2ddb8 L8356-8356 w=1 K=2: const:0#8+0
+    blk 00d28080 L8358-8359 w=1 K=4: nY+8 const:0#8-4(live)
+    blk 00d50438 L8359-8359 w=1 K=3: nY+0 const:0#8-3(live)
+    blk 00d28220 L8361-8362 w=1 K=2: nY-2(live) const:0#8+0
+    blk 00d283c0 L8366-8366 w=1 K=8: nY+16 const:0#8-8(live)
+    blk 00d50e68 L8366-8366 w=1 K=1: nY+0 const:0#8-1(live)
+    blk 00d28560 L8370-8370 w=1 K=2: nY-2(live) const:0#8-2(live)
+    blk 00c739f0 L?         w=1 K=0: nY-0(live) const:0#8-0(live)
+    blk 00d28700 L8370-8370 w=2 K=2: nY-4(live) const:0#8+0
+    blk 00d288a0 L8370-8370 w=2 K=1: nY-2(live) const:0#8-2(live)
+    blk 00d28a40 L8370-8370 w=2 K=3: nY-6(live) const:0#8-6(live)
+    blk 00d28be0 L8370-8370 w=1 K=2: bPageDown+4 nY-2(live) const:0#8+0
+    blk 00d28d80 L8370-8370 w=1 K=1: bPageDown-1(live) nY-1(live) const:0#8+0
+    blk 00d27078 L8372-8373 w=1 K=3: bPageDown+36 nY-3(live) const:0#8+0
+    blk 00d27218 L8373-8373 w=1 K=1: nY-1(live) const:0#8-1(live)
+    blk 00d273b8 L8375-8376 w=1 K=3: nY-3(live) const:0#8-3(live)
+    blk 00d505d8 L8376-8376 w=1 K=1: nY-1(live) const:0#8-1(live)
+    blk 00d27558 L8380-8380 w=1 K=2: nY-2(live) const:0#8-2(live)
+    blk 00c73b90 L?         w=1 K=0: nY-0(live) const:0#8-0(live)
+    blk 00d276f8 L8380-8380 w=2 K=2: nY-4(live) const:0#8+0
+    blk 00d27898 L8380-8380 w=2 K=1: nY-2(live) const:0#8-2(live)
+    blk 00d27a38 L8380-8380 w=2 K=3: nY-6(live) const:0#8-6(live)
+    blk 00d27bd8 L8380-8380 w=1 K=1: nY-1(live)
+    blk 00d27d78 L8382-8383 w=1 K=2: nY+4
+
+=== round 5 (register class 0): 25 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  ?gnKeyConfigThumbScale@@3HA     70     32    2   121  <42  ecx     / 8366
+  ?gnKeyConfigThumbScale@@3HA     64     28    2   121  <42  eax     / 8330
+  ?gnKeyConfigThumbScale@@3HA     66     28    2   121  <42  eax     / 8340
+  ?gnAutomapHeight@@3HA           63     14    1   122  <40          / 8330
+  ?gnAutomapHeight@@3HA           65     14    1   122  <40          / 8340
+  ?gnAutomapHeight@@3HA           67     12    1   122  <40          / 8350
+  ?gnDragMouseY@@3HA              69      8    1   13e  <37         8359 / 
+  nY                              68      8    1    22   <7          / 8359
+  addr:&?gaPressed@@3PAHA#62      62      0    1     0   <4          / 8324
+  addr:&?#7                        7     -4    1     0   <5          / 8334
+  addr:&?#31                      31     -4    1     0   <5          / 8344
+  const:4#38                      38     -4    1     0   <6          / 8334
+  const:4#41                      41     -4    1     0   <6          / 8344
+  const:4#5                        5     -6    1     0   <6          / 8380
+  const:0#22                      22     -6    2     0   <2  (d690)  / 8334
+  addr:&?#33                      33     -6    1     0   <5          / 8380
+  const:0#44                      44     -6    2     0   <2  (d690)  / 8344
+  addr:&?#3                        3     -8    1     0   <5          / 8324
+  const:0#9                        9     -8    3     0   <2  (d690)  / 8324,8327
+  const:4#34                      34     -8    1     0   <6          / 8324
+  const:0#61                      61     -8    2     0   <2  (d690)  / 8380
+  const:0#60                      60    -22   10     0   <2  (d690)  / 8354,8356,8362,8370,8373
+  const:4#4                        4    -25    2     0   <6  (d690)  / 8354,8370
+  addr:&?#32                      32    -25    2     0   <5  (d690)  / 8354,8370
+  addr:&?gaPressed@@3PAHA#59      59    -28    2     0   <4  (d690)  / 8354,8370
+  colouring order:
+    ?gnKeyConfigThumbScale@@3HA  prio    32 -> ecx  (allowed ecx/edx; costs ecx=0 edx=0)
+    ?gnKeyConfigThumbScale@@3HA  prio    28 -> eax  (allowed eax/edx; costs eax=0 edx=0)
+    ?gnKeyConfigThumbScale@@3HA  prio    28 -> eax  (allowed eax/edx; costs eax=0 edx=0)
+    const:0#44                   prio    -6 -> not coloured (split / memory)
+    const:0#22                   prio    -6 -> not coloured (split / memory)
+    const:0#61                   prio    -8 -> not coloured (split / memory)
+    const:0#9                    prio    -8 -> not coloured (split / memory)
+    const:0#60                   prio   -22 -> not coloured (split / memory)
+    addr:&?#32                   prio   -25 -> not coloured (split / memory)
+    const:4#4                    prio   -25 -> not coloured (split / memory)
+    addr:&?gaPressed@@3PAHA#59   prio   -28 -> not coloured (split / memory)
+    ?gnKeyConfigThumbY@@3HA      prio  -275 -> not coloured (split / memory)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c2d6f8 L8324-8324 w=1 K=2: 
+    blk 00c78198 L8324-8324 w=1 K=3: const:0#9+0 addr:&?#3+0 const:4#34+0
+    blk 00c2d898 L8324-8324 w=2 K=3: const:0#9+0 addr:&?#3-6(live) const:4#34-6(live)
+    blk 00c2da38 L8324-8324 w=2 K=1: const:0#9-2(live) addr:&?#3-2(live) const:4#34-2(live)
+    blk 00c2dbd8 L8324-8324 w=2 K=3: const:0#9-6(live) addr:&?#3+0 const:4#34+0
+    blk 00c2dd78 L8324-8324 w=1 K=1: const:0#9+0
+    blk 00c2df18 L8326-8327 w=1 K=2: 
+    blk 00c58d98 L8330-8330 w=1 K=7: ?gnKeyConfigThumbScale@@3HA+28 ?gnAutomapHeight@@3HA+14
+    blk 00c78370 L8334-8334 w=1 K=3: const:4#38+0 const:0#22+0 addr:&?#7+0
+    blk 00c590d8 L8334-8334 w=2 K=2: const:4#38-4(live) const:0#22+0 addr:&?#7-4(live)
+    blk 00d51040 L8334-8334 w=2 K=3: const:4#38+0 const:0#22+0 addr:&?#7+0
+    blk 00d34108 L8334-8334 w=2 K=3: const:4#38+0 const:0#22-6(live) addr:&?#7+0
+    blk 00d342a8 L8334-8334 w=1 K=1: 
+    blk 00d300d8 L8340-8340 w=1 K=7: ?gnKeyConfigThumbScale@@3HA+28 ?gnAutomapHeight@@3HA+14
+    blk 00c736b0 L8344-8344 w=1 K=3: const:0#44+0 const:4#41+0 addr:&?#31+0
+    blk 00d30418 L8344-8344 w=2 K=2: const:0#44+0 const:4#41-4(live) addr:&?#31-4(live)
+    blk 00d51218 L8344-8344 w=2 K=3: const:0#44+0 const:4#41+0 addr:&?#31+0
+    blk 00d30758 L8344-8344 w=2 K=3: const:0#44-6(live) const:4#41+0 addr:&?#31+0
+    blk 00d308f8 L8344-8344 w=1 K=1: 
+    blk 00d30dd8 L8349-8350 w=1 K=6: ?gnAutomapHeight@@3HA+12
+    blk 00d2d0b8 L8354-8354 w=1 K=2: addr:&?gaPressed@@3PAHA#59+0
+    blk 00c73850 L8354-8354 w=1 K=3: const:0#60+0 addr:&?#32+0 const:4#4+0 addr:&?gaPressed@@3PAHA#59-3(live)
+    blk 00d2d258 L8354-8354 w=2 K=2: const:0#60+0 addr:&?#32-4(live) const:4#4-4(live) addr:&?gaPressed@@3PAHA#59-4(live)
+    blk 00d2d3f8 L8354-8354 w=2 K=1: const:0#60-2(live) addr:&?#32-2(live) const:4#4-2(live) addr:&?gaPressed@@3PAHA#59-2(live)
+    blk 00d2d598 L8354-8354 w=2 K=3: const:0#60-6(live) addr:&?#32+0 const:4#4+0 addr:&?gaPressed@@3PAHA#59-6(live)
+    blk 00d2d738 L8354-8354 w=1 K=1: const:0#60+0 addr:&?gaPressed@@3PAHA#59-1(live) addr:&?#32-1(live) const:4#4-1(live)
+    blk 00d2d8d8 L8354-8354 w=1 K=1: const:0#60+0 addr:&?gaPressed@@3PAHA#59-1(live) addr:&?#32-1(live) const:4#4-1(live)
+    blk 00d2da78 L8356-8356 w=1 K=1: const:0#60-1(live) addr:&?gaPressed@@3PAHA#59-1(live) addr:&?#32-1(live) const:4#4-1(live)
+    blk 00d2dc18 L8356-8356 w=1 K=1: const:0#60+0 addr:&?gaPressed@@3PAHA#59-1(live) addr:&?#32-1(live) const:4#4-1(live)
+    blk 00d2ddb8 L8356-8356 w=1 K=2: const:0#60+0 addr:&?gaPressed@@3PAHA#59-2(live) addr:&?#32-2(live) const:4#4-2(live)
+    blk 00d28080 L8358-8359 w=1 K=4: ?gnDragMouseY@@3HA+8 nY+8 const:0#60-4(live) addr:&?gaPressed@@3PAHA#59-4(live) addr:&?#32-4(live) const:4#4-4(live)
+    blk 00d50438 L8359-8359 w=1 K=1: const:0#60-1(live) addr:&?gaPressed@@3PAHA#59-1(live) addr:&?#32-1(live) const:4#4-1(live)
+    blk 00d28220 L8361-8362 w=1 K=2: const:0#60+0 addr:&?gaPressed@@3PAHA#59-2(live) addr:&?#32-2(live) const:4#4-2(live)
+    blk 00d283c0 L8366-8366 w=1 K=8: ?gnKeyConfigThumbScale@@3HA+32 const:0#60+0 addr:&?gaPressed@@3PAHA#59+0 addr:&?#32+0 const:4#4+0
+    blk 00d50e68 L8366-8366 w=1 K=0: const:0#60-0(live) addr:&?gaPressed@@3PAHA#59-0(live) addr:&?#32-0(live) const:4#4-0(live)
+    blk 00d28560 L8370-8370 w=1 K=2: const:0#60-2(live) addr:&?#32-2(live) const:4#4-2(live)
+    blk 00c739f0 L?         w=1 K=0: const:0#60-0(live) addr:&?#32-0(live) const:4#4-0(live)
+    blk 00d28700 L8370-8370 w=2 K=2: const:0#60+0 addr:&?#32-4(live) const:4#4-4(live)
+    blk 00d41178 L8370-8370 w=2 K=3: const:0#60+0 addr:&?#32+0 const:4#4+0
+    blk 00d28a40 L8370-8370 w=2 K=3: const:0#60-6(live) addr:&?#32+0 const:4#4+0
+    blk 00d28be0 L8370-8370 w=1 K=2: const:0#60+0
+    blk 00d28d80 L8370-8370 w=1 K=1: 
+    blk 00d41318 L8370-8370 w=1 K=1: const:0#60+0
+    blk 00d27078 L8372-8373 w=1 K=3: 
+    blk 00c73b90 L8380-8380 w=1 K=3: const:0#61+0 addr:&?#33+0 const:4#5+0
+    blk 00d276f8 L8380-8380 w=2 K=2: const:0#61+0 addr:&?#33-4(live) const:4#5-4(live)
+    blk 00d27898 L8380-8380 w=2 K=1: const:0#61-2(live) addr:&?#33-2(live) const:4#5-2(live)
+    blk 00d27a38 L8380-8380 w=2 K=3: const:0#61-6(live) addr:&?#33+0 const:4#5+0
+    blk 00d27bd8 L8380-8380 w=1 K=1: 
+
+=== round 6 (register class 0): 3 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  ?gnKeyConfigThumbY@@3HA         67     12    1   124  <36         8340 / 
+  ?gnKeyConfigThumbY@@3HA         68     12    1   124  <36         8330 / 
+  ?gbRedraw@@3HA                  69      8    2   184  <30  eax     / 8302,8303
+  colouring order:
+    ?gbRedraw@@3HA               prio     8 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=0 edi=0 ebx=0)
+    addr:&?#18                   prio  -275 -> not coloured (split / memory)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00d377a8 L8302-8303 w=1 K=2: ?gbRedraw@@3HA+8
+    blk 00c58d98 L8330-8330 w=1 K=6: ?gnKeyConfigThumbY@@3HA+12
+    blk 00d300d8 L8340-8340 w=1 K=6: ?gnKeyConfigThumbY@@3HA+12
+
+=== round 7 (register class 0): 10 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  addr:&?gaPressed@@3PAHA#34      34      0    1     0   <4          / 8354
+  const:0#62                      62      0    2     0   <2  (d690)  / 8370
+  const:0#67                      67      0    2     0   <2  (d690)  / 8300
+  const:0#15                      15     -4    3     0   <2  (d690)  / 8324,8327
+  const:0#38                      38     -4    2     0   <2  (d690)  / 8380
+  addr:&?#65                      65     -4    2     0   <5  (d690)  / 8294
+  const:0#41                      41     -7    6     0   <2  (d690)  / 8354,8356,8362
+  const:4#68                      68     -8    1     0   <6          / 8294
+  const:0#36                      36    -12    9     0   <2  (d690)  / 8294,8300
+  addr:&?gaPressed@@3PAHA#63      63    -29    3     0   <4  (d690)  / 8292,8300
+  colouring order:
+    const:0#67                   prio     0 -> not coloured (split / memory)
+    const:0#62                   prio     0 -> not coloured (split / memory)
+    addr:&?#65                   prio    -4 -> not coloured (split / memory)
+    const:0#38                   prio    -4 -> not coloured (split / memory)
+    const:0#15                   prio    -4 -> not coloured (split / memory)
+    const:0#41                   prio    -7 -> not coloured (split / memory)
+    const:0#36                   prio   -12 -> not coloured (split / memory)
+    addr:&?gaPressed@@3PAHA#63   prio   -29 -> not coloured (split / memory)
+    const:0#67                   prio   -29 -> not coloured (split / memory)
+    const:0#62                   prio   -29 -> not coloured (split / memory)
+    addr:&?#65                   prio   -29 -> not coloured (split / memory)
+    const:0#38                   prio   -29 -> not coloured (split / memory)
+    const:0#15                   prio   -29 -> not coloured (split / memory)
+    const:0#41                   prio   -29 -> not coloured (split / memory)
+    const:0#36                   prio   -29 -> not coloured (split / memory)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c26a14 L8292-8292 w=1 K=3: addr:&?gaPressed@@3PAHA#63+0
+    blk 00c77de8 L8292-8292 w=1 K=2: const:4#68+0 addr:&?#65+0 addr:&?gaPressed@@3PAHA#63-2(live)
+    blk 00c26bb4 L8294-8294 w=2 K=2: const:0#36+0 const:4#68-4(live) addr:&?#65-4(live) addr:&?gaPressed@@3PAHA#63-4(live)
+    blk 00c26d54 L8294-8294 w=2 K=2: const:0#36-4(live) const:4#68-4(live) addr:&?#65+0 addr:&?gaPressed@@3PAHA#63-4(live)
+    blk 00c26ef4 L8294-8294 w=2 K=3: const:0#36-6(live) const:4#68+0 addr:&?#65+0 addr:&?gaPressed@@3PAHA#63-6(live)
+    blk 00c27094 L8294-8294 w=1 K=1: addr:&?gaPressed@@3PAHA#63-1(live) const:0#36+0
+    blk 00d3a140 L8294-8294 w=1 K=2: addr:&?gaPressed@@3PAHA#63-2(live) const:0#36+0
+    blk 00d3a2e0 L8294-8294 w=1 K=1: addr:&?gaPressed@@3PAHA#63-1(live) const:0#36+0
+    blk 00d3a480 L8294-8294 w=1 K=1: addr:&?gaPressed@@3PAHA#63-1(live) const:0#36+0
+    blk 00d3a620 L8294-8294 w=1 K=1: addr:&?gaPressed@@3PAHA#63-1(live) const:0#36+0
+    blk 00d3a7c0 L8294-8294 w=1 K=1: addr:&?gaPressed@@3PAHA#63-1(live) const:0#36+0
+    blk 00d3a960 L8294-8294 w=1 K=2: addr:&?gaPressed@@3PAHA#63-2(live) const:0#36+0
+    blk 00d3aca0 L8300-8300 w=1 K=2: addr:&?gaPressed@@3PAHA#63+0 const:0#36-2(live)
+    blk 00c77fc0 L8300-8300 w=1 K=0: addr:&?gaPressed@@3PAHA#63-0(live) const:0#36-0(live)
+    blk 00d414f0 L8300-8300 w=2 K=2: addr:&?gaPressed@@3PAHA#63+0 const:0#36+0
+    blk 00d3ae40 L8300-8300 w=2 K=2: addr:&?gaPressed@@3PAHA#63-4(live)
+    blk 00d37128 L8300-8300 w=2 K=2: 
+    blk 00d37468 L8300-8300 w=1 K=1: const:0#67+0
+    blk 00d37608 L8300-8300 w=1 K=2: 
+    blk 00c2d898 L8324-8324 w=2 K=3: const:0#15+0
+    blk 00c2da38 L8324-8324 w=2 K=1: const:0#15-2(live)
+    blk 00c2dbd8 L8324-8324 w=2 K=1: const:0#15-2(live)
+    blk 00c2dd78 L8324-8324 w=1 K=1: const:0#15+0
+    blk 00c2df18 L8326-8327 w=1 K=2: 
+    blk 00d2d0b8 L8354-8354 w=1 K=2: 
+    blk 00d2d258 L8354-8354 w=2 K=2: const:0#41+0
+    blk 00d2d3f8 L8354-8354 w=2 K=1: const:0#41-2(live)
+    blk 00d2d598 L8354-8354 w=2 K=1: const:0#41-2(live)
+    blk 00d2d738 L8354-8354 w=1 K=1: const:0#41+0
+    blk 00d2d8d8 L8354-8354 w=1 K=1: const:0#41+0
+    blk 00d2da78 L8356-8356 w=1 K=1: const:0#41-1(live)
+    blk 00d2dc18 L8356-8356 w=1 K=1: const:0#41+0
+    blk 00d2ddb8 L8356-8356 w=1 K=2: const:0#41+0
+    blk 00d28080 L8358-8359 w=1 K=1: const:0#41-1(live)
+    blk 00d50438 L8359-8359 w=1 K=1: const:0#41-1(live)
+    blk 00d28220 L8361-8362 w=1 K=2: 
+    blk 00d28be0 L8370-8370 w=1 K=2: const:0#62+0
+    blk 00d28d80 L8370-8370 w=1 K=1: 
+    blk 00d276f8 L8380-8380 w=2 K=2: const:0#38+0
+    blk 00d27898 L8380-8380 w=2 K=1: const:0#38-2(live)
+    blk 00d27a38 L8380-8380 w=2 K=1: const:0#38-2(live)
+    blk 00d27bd8 L8380-8380 w=1 K=1: 
+
+=== round 8 (register class 0): 2 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  const:0#41                      41     -4    8     0   <2  (d690)  / 8294
+  addr:&?gaPressed@@3PAHA#15      15    -17    2     0   <4  (d690)  / 8292,8300
+  colouring order:
+    const:0#41                   prio    -4 -> not coloured (split / memory)
+    addr:&?gaPressed@@3PAHA#15   prio   -17 -> not coloured (split / memory)
+    const:0#41                   prio   -17 -> not coloured (split / memory)
+    addr:&?gaPressed@@3PAHA#15   prio   -17 -> not coloured (split / memory)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c26a14 L8292-8292 w=1 K=3: addr:&?gaPressed@@3PAHA#15+0
+    blk 00c77de8 L?         w=1 K=0: addr:&?gaPressed@@3PAHA#15-0(live)
+    blk 00c26bb4 L8294-8294 w=2 K=2: const:0#41+0 addr:&?gaPressed@@3PAHA#15-4(live)
+    blk 00c26d54 L8294-8294 w=2 K=1: const:0#41-2(live) addr:&?gaPressed@@3PAHA#15-2(live)
+    blk 00c26ef4 L8294-8294 w=2 K=1: const:0#41-2(live) addr:&?gaPressed@@3PAHA#15-2(live)
+    blk 00c27094 L8294-8294 w=1 K=1: const:0#41+0 addr:&?gaPressed@@3PAHA#15-1(live)
+    blk 00d3a140 L8294-8294 w=1 K=2: const:0#41+0 addr:&?gaPressed@@3PAHA#15-2(live)
+    blk 00d3a2e0 L8294-8294 w=1 K=1: const:0#41+0 addr:&?gaPressed@@3PAHA#15-1(live)
+    blk 00d3a480 L8294-8294 w=1 K=1: const:0#41+0 addr:&?gaPressed@@3PAHA#15-1(live)
+    blk 00d3a620 L8294-8294 w=1 K=1: const:0#41+0 addr:&?gaPressed@@3PAHA#15-1(live)
+    blk 00d3a7c0 L8294-8294 w=1 K=1: const:0#41+0 addr:&?gaPressed@@3PAHA#15-1(live)
+    blk 00d3a960 L8294-8294 w=1 K=2: addr:&?gaPressed@@3PAHA#15-2(live)
+    blk 00d3aca0 L8300-8300 w=1 K=2: 

@@ -1,0 +1,318 @@
+function: ?sub_004F8B80_DrawTileBlocks@@YIXPAUD2TileBlockList004F8B80Strc@@HHPAY07UD2LightCellStrc@@@Z
+
+=== round 1 (register class 0): 40 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  pCell                           17    294   13    51       eax    3569 / 3570,3571,3572,3573,3582,3583,3584,3585
+  pBlock                          11    276   14    29       ecx    3549 / 3549,3550,3551,3552,3564,3569,3597,3599,3604,3606
+  nDelta                          22    140    7    46       esi    3574,3575 / 3574,3575
+  pDst                            13    136   11    21       edi    3551 / 3551,3597,3599,3604,3606
+  tmp#40(def L3569)               40    108    3    54              3569 / 3569
+  nPosX                           12    100    3    27              3550 / 3551,3554
+  tmp#39(def L3551)               39    100    3    26              3551 / 3551,3555
+  nL11                            20     96    6    4b              3572 / 3574,3576,3582,3583,3589
+  nL21                            18     84    5    4f              3570 / 3574,3578,3583,3584
+  nDelta                          24     68    7    67  <22         3578,3579 / 3578,3579
+  nDelta                          23     68    7    5e  <22         3576,3577 / 3576,3577
+  nL12                            19     68    5    4d              3571 / 3576,3582,3584,3585
+  tmp#41(def L3564)               41     60    3    41              3564 / 3564
+  nDiff3                          27     30    3    6e              3579 / 3580
+  nL22                            21     28    3    49              3573 / 3578,3585
+  nDiff2                          26     16    3    65              3577 / 3580
+  nBlockY                         15      6    7    2e              3555 / 3556,3594,3604,3606
+  nDiff1                          25      2    3    5c              3575 / 3580
+  ?gnScreenPitch@@3HA             28      0    2    b7               / 3546,3551
+  nBlockX                         14    -10    7    30              3554 / 3556,3594,3604,3606
+  bFlat                           16    -34    5    92              3560,3565,3590 / 3596,3603
+  pScreen                          9    -66    8     6              3546 / 3546,3551
+  pTile                            8   -106    4     d              3545 / 3547,3549
+  pLight                           5   -120    2    1b               / 3564,3569
+  tmp#42(def L3546,3547)          42   -128    4    c1              3546,3547 / 3547,3549
+  const:1#2                        2   -142    4     0               / 3547,3552,3565,3590
+  nX                               7   -148    3     e              3545 / 3546,3554
+  i                               10   -154    4    c2              3547 / 3547
+  gnScreen_7D2330                 29   -162    1    1a               / 3556
+  nY                               6   -162    2     a               / 3546,3555
+  gnScreen_7D2338                 30   -192    1    19               / 3556
+  gnScreen_7C9788                 31   -192    1    18               / 3556
+  gnScreen_7C9798                 32   -192    1    17               / 3556
+  gnInnerBlockTop                 33   -192    1    16               / 3594
+  gnInnerBlockBottom              34   -192    1    15               / 3594
+  gnInnerBlockLeft                35   -192    1    14               / 3594
+  gnInnerBlockRight               36   -192    1    13               / 3594
+  const:20#4                       4   -194    1     0               / 3547
+  const:10#3                       3   -196    1     0               / 3580
+  const:0#1                        1   -198    9     0               / 3546,3547,3560,3561,3562,3580,3596,3603
+  colouring order:
+    pCell                        prio   294 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=4 edx=4 esi=0 edi=0 ebx=200)
+    pBlock                       prio   276 -> ecx  (allowed ecx/esi/edi/ebx; costs ecx=-4 esi=0 edi=0 ebx=200)
+    nDelta                       prio   140 -> esi  (allowed esi/edi; costs esi=0 edi=0)
+    pDst                         prio   136 -> edi  (allowed edi; costs edi=0)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c393dc L3545-3547 w=1 K=7: i+14 const:0#1+0 nY+14 pScreen+98 ?gnScreenPitch@@3HA+14 pTile+28 nX+28
+    blk 00c3957c L3546-3546 w=1 K=2: tmp#42(def L3546,3547)+4 i-2(live) const:0#1+0 nY-2(live) pScreen-2(live) ?gnScreenPitch@@3HA-2(live) pTile-2(live) nX-2(live)
+    blk 00d5875c L3546-3546 w=1 K=12: gnInnerBlockRight+0 gnInnerBlockLeft+0 gnInnerBlockBottom+0 gnInnerBlockTop+0 gnScreen_7C9798+0 gnScreen_7C9788+0 gnScreen_7D2338+0 gnScreen_7D2330+0 pLight+0 const:20#4+0 const:10#3+0 const:1#2+0 tmp#42(def L3546,3547)-12(live) i-12(live) const:0#1-12(live) nY-12(live) pScreen-12(live) ?gnScreenPitch@@3HA-12(live) pTile-12(live) nX-12(live)
+    blk 00c3971c L3549-3552 w=2 K=9: pDst+216 tmp#39(def L3551)+72 nPosX+72 pBlock+216 gnInnerBlockRight-18(live) gnInnerBlockLeft-18(live) gnInnerBlockBottom-18(live) gnInnerBlockTop-18(live) gnScreen_7C9798-18(live) gnScreen_7C9788-18(live) gnScreen_7D2338-18(live) gnScreen_7D2330-18(live) pLight-18(live) const:20#4-18(live) const:10#3-18(live) const:1#2+18 tmp#42(def L3546,3547)+36 i-18(live) const:0#1-18(live) nY-18(live) pScreen+36 ?gnScreenPitch@@3HA+36 pTile+36 nX-18(live)
+    blk 00c398bc L3554-3556 w=2 K=7: tmp#39(def L3551)+28 nPosX+28 nBlockY+56 nBlockX+28 pDst-14(live) pBlock-14(live) gnInnerBlockRight-14(live) gnInnerBlockLeft-14(live) gnInnerBlockBottom-14(live) gnInnerBlockTop-14(live) gnScreen_7C9798-14(live) gnScreen_7C9788-14(live) gnScreen_7D2338-14(live) gnScreen_7D2330+28 pLight-14(live) const:20#4-14(live) const:10#3-14(live) const:1#2-14(live) tmp#42(def L3546,3547)-14(live) i-14(live) const:0#1-14(live) nY+28 pScreen-14(live) ?gnScreenPitch@@3HA-14(live) pTile-14(live) nX+28
+    blk 00c39a5c L3556-3556 w=2 K=2: nBlockY+8 nBlockX-4(live) pDst-4(live) pBlock-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338+8 gnScreen_7D2330-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) tmp#42(def L3546,3547)-4(live) i-4(live) const:0#1-4(live) nY-4(live) pScreen-4(live) ?gnScreenPitch@@3HA-4(live) pTile-4(live) nX-4(live)
+    blk 00c39bfc L3556-3556 w=2 K=2: nBlockY-4(live) nBlockX+8 pDst-4(live) pBlock-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788+8 gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) tmp#42(def L3546,3547)-4(live) i-4(live) const:0#1-4(live) nY-4(live) pScreen-4(live) ?gnScreenPitch@@3HA-4(live) pTile-4(live) nX-4(live)
+    blk 00c39d9c L3556-3556 w=2 K=2: nBlockY-4(live) nBlockX+8 pDst-4(live) pBlock-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798+8 gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) tmp#42(def L3546,3547)-4(live) i-4(live) const:0#1-4(live) nY-4(live) pScreen-4(live) ?gnScreenPitch@@3HA-4(live) pTile-4(live) nX-4(live)
+    blk 00c39f3c L3560-3562 w=2 K=2: bFlat+8 tmp#42(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nBlockY-4(live) nBlockX-4(live) pDst-4(live) pBlock-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) nY-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) const:0#1+4
+    blk 00c6f300 L3564-3567 w=2 K=5: tmp#41(def L3564)+60 bFlat+20 tmp#42(def L3546,3547)-10(live) gnInnerBlockRight-10(live) gnInnerBlockLeft-10(live) gnInnerBlockBottom-10(live) gnInnerBlockTop-10(live) gnScreen_7C9798-10(live) gnScreen_7C9788-10(live) gnScreen_7D2338-10(live) gnScreen_7D2330-10(live) nBlockY-10(live) nBlockX-10(live) pDst-10(live) pBlock+40 i-10(live) pScreen-10(live) pTile-10(live) nX-10(live) nY-10(live) pLight+20 const:20#4-10(live) const:10#3-10(live) const:1#2+0 const:0#1-10(live)
+    blk 00c6f4a0 L3569-3575 w=2 K=9: tmp#40(def L3569)+108 nDelta+108 nL22+36 nL11+72 nL12+36 nL21+72 pCell+180 tmp#42(def L3546,3547)-18(live) gnInnerBlockRight-18(live) gnInnerBlockLeft-18(live) gnInnerBlockBottom-18(live) gnInnerBlockTop-18(live) gnScreen_7C9798-18(live) gnScreen_7C9788-18(live) gnScreen_7D2338-18(live) gnScreen_7D2330-18(live) bFlat-18(live) nBlockY-18(live) nBlockX-18(live) pDst-18(live) pBlock+72 i-18(live) pScreen-18(live) pTile-18(live) nX-18(live) nY-18(live) pLight+36 const:20#4-18(live) const:10#3-18(live) const:1#2-18(live) const:0#1-18(live)
+    blk 00c6f640 L3575-3575 w=2 K=2: nDelta+24 nDiff1+8 nL22-4(live) nL11-4(live) nL12-4(live) nL21-4(live) pCell-4(live) tmp#42(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) bFlat-4(live) nBlockY-4(live) nBlockX-4(live) pDst-4(live) pBlock-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) nY-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) const:0#1-4(live)
+    blk 00c6f7e0 L3575-3575 w=2 K=2: nDelta+8 nDiff1+8 tmp#42(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nL22-4(live) nL11-4(live) nL12-4(live) nL21-4(live) pCell-4(live) bFlat-4(live) nBlockY-4(live) nBlockX-4(live) pDst-4(live) pBlock-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) nY-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) const:0#1-4(live)
+    blk 00c6f980 L3576-3577 w=2 K=3: nDelta+36 nDiff1-6(live) tmp#42(def L3546,3547)-6(live) gnInnerBlockRight-6(live) gnInnerBlockLeft-6(live) gnInnerBlockBottom-6(live) gnInnerBlockTop-6(live) gnScreen_7C9798-6(live) gnScreen_7C9788-6(live) gnScreen_7D2338-6(live) gnScreen_7D2330-6(live) nL22-6(live) nL11+12 nL12+12 nL21-6(live) pCell-6(live) bFlat-6(live) nBlockY-6(live) nBlockX-6(live) pDst-6(live) pBlock-6(live) i-6(live) pScreen-6(live) pTile-6(live) nX-6(live) nY-6(live) pLight-6(live) const:20#4-6(live) const:10#3-6(live) const:1#2-6(live) const:0#1-6(live)
+    blk 00c6fb20 L3577-3577 w=2 K=2: nDelta+24 nDiff2+8 nDiff1-4(live) tmp#42(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nL22-4(live) nL11-4(live) nL12-4(live) nL21-4(live) pCell-4(live) bFlat-4(live) nBlockY-4(live) nBlockX-4(live) pDst-4(live) pBlock-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) nY-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) const:0#1-4(live)
+    blk 00c6fcc0 L3577-3577 w=2 K=2: nDelta+8 nDiff2+8 tmp#42(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nDiff1-4(live) nL22-4(live) nL11-4(live) nL12-4(live) nL21-4(live) pCell-4(live) bFlat-4(live) nBlockY-4(live) nBlockX-4(live) pDst-4(live) pBlock-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) nY-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) const:0#1-4(live)
+    blk 00c6fe60 L3578-3579 w=2 K=3: nDelta+36 nDiff2-6(live) tmp#42(def L3546,3547)-6(live) gnInnerBlockRight-6(live) gnInnerBlockLeft-6(live) gnInnerBlockBottom-6(live) gnInnerBlockTop-6(live) gnScreen_7C9798-6(live) gnScreen_7C9788-6(live) gnScreen_7D2338-6(live) gnScreen_7D2330-6(live) nDiff1-6(live) nL22+12 nL11-6(live) nL12-6(live) nL21+12 pCell-6(live) bFlat-6(live) nBlockY-6(live) nBlockX-6(live) pDst-6(live) pBlock-6(live) i-6(live) pScreen-6(live) pTile-6(live) nX-6(live) nY-6(live) pLight-6(live) const:20#4-6(live) const:10#3-6(live) const:1#2-6(live) const:0#1-6(live)
+    blk 00c70000 L3579-3579 w=2 K=2: nDelta+24 nDiff3+8 nDiff2-4(live) tmp#42(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nDiff1-4(live) nL22-4(live) nL11-4(live) nL12-4(live) nL21-4(live) pCell-4(live) bFlat-4(live) nBlockY-4(live) nBlockX-4(live) pDst-4(live) pBlock-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) nY-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) const:0#1-4(live)
+    blk 00c7ccc0 L3579-3579 w=2 K=2: nDelta+8 nDiff3+8 tmp#42(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nDiff2-4(live) nDiff1-4(live) nL22-4(live) nL11-4(live) nL12-4(live) nL21-4(live) pCell-4(live) bFlat-4(live) nBlockY-4(live) nBlockX-4(live) pDst-4(live) pBlock-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) nY-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) const:0#1-4(live)
+    blk 00c7ce60 L3580-3580 w=2 K=1: nDiff3-2(live) tmp#42(def L3546,3547)-2(live) gnInnerBlockRight-2(live) gnInnerBlockLeft-2(live) gnInnerBlockBottom-2(live) gnInnerBlockTop-2(live) gnScreen_7C9798-2(live) gnScreen_7C9788-2(live) gnScreen_7D2338-2(live) gnScreen_7D2330-2(live) nDiff2-2(live) nDiff1-2(live) nL22-2(live) nL11-2(live) nL12-2(live) nL21-2(live) pCell-2(live) bFlat-2(live) nBlockY-2(live) nBlockX-2(live) pDst-2(live) pBlock-2(live) i-2(live) pScreen-2(live) pTile-2(live) nX-2(live) nY-2(live) pLight-2(live) const:20#4-2(live) const:10#3-2(live) const:1#2-2(live) const:0#1+0
+    blk 00c7d000 L3580-3580 w=2 K=4: nDiff1+16 nDiff2+16 nDiff3+16 tmp#42(def L3546,3547)-8(live) gnInnerBlockRight-8(live) gnInnerBlockLeft-8(live) gnInnerBlockBottom-8(live) gnInnerBlockTop-8(live) gnScreen_7C9798-8(live) gnScreen_7C9788-8(live) gnScreen_7D2338-8(live) gnScreen_7D2330-8(live) nL22-8(live) nL11-8(live) nL12-8(live) nL21-8(live) pCell-8(live) bFlat-8(live) nBlockY-8(live) nBlockX-8(live) pDst-8(live) pBlock-8(live) i-8(live) pScreen-8(live) pTile-8(live) nX-8(live) nY-8(live) pLight-8(live) const:20#4-8(live) const:10#3+0 const:1#2-8(live) const:0#1-8(live)
+    blk 00c7d1a0 L3582-3587 w=2 K=5: nL12+60 nL22+20 pCell+160 nL21+40 nL11+40 tmp#42(def L3546,3547)-10(live) gnInnerBlockRight-10(live) gnInnerBlockLeft-10(live) gnInnerBlockBottom-10(live) gnInnerBlockTop-10(live) gnScreen_7C9798-10(live) gnScreen_7C9788-10(live) gnScreen_7D2338-10(live) gnScreen_7D2330-10(live) bFlat-10(live) nBlockY-10(live) nBlockX-10(live) pDst-10(live) pBlock-10(live) i-10(live) pScreen-10(live) pTile-10(live) nX-10(live) nY-10(live) pLight-10(live) const:20#4-10(live) const:10#3-10(live) const:1#2-10(live) const:0#1-10(live)
+    blk 00c7d340 L3589-3590 w=2 K=3: nL11+12 bFlat+12 tmp#42(def L3546,3547)-6(live) gnInnerBlockRight-6(live) gnInnerBlockLeft-6(live) gnInnerBlockBottom-6(live) gnInnerBlockTop-6(live) gnScreen_7C9798-6(live) gnScreen_7C9788-6(live) gnScreen_7D2338-6(live) gnScreen_7D2330-6(live) nBlockY-6(live) nBlockX-6(live) pDst-6(live) pBlock-6(live) i-6(live) pScreen-6(live) pTile-6(live) nX-6(live) nY-6(live) pLight-6(live) const:20#4-6(live) const:10#3-6(live) const:1#2+0 const:0#1-6(live)
+    blk 00c7d4e0 L3594-3594 w=2 K=2: bFlat-4(live) tmp#42(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop+8 gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nBlockY+8 nBlockX-4(live) pDst-4(live) pBlock-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) nY-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) const:0#1-4(live)
+    blk 00c7d680 L3594-3594 w=2 K=2: bFlat-4(live) tmp#42(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom+8 gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nBlockY+8 nBlockX-4(live) pDst-4(live) pBlock-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) nY-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) const:0#1-4(live)
+    blk 00c7d820 L3594-3594 w=2 K=2: bFlat-4(live) tmp#42(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft+8 gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nBlockY-4(live) nBlockX+8 pDst-4(live) pBlock-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) nY-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) const:0#1-4(live)
+    blk 00c7d9c0 L3594-3594 w=2 K=2: bFlat-4(live) tmp#42(def L3546,3547)-4(live) gnInnerBlockRight+8 gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nBlockY-4(live) nBlockX+8 pDst-4(live) pBlock-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) nY-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) const:0#1-4(live)
+    blk 00c4b608 L3596-3596 w=2 K=2: bFlat+8 tmp#42(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) pDst-4(live) pBlock-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) nY-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) const:0#1+0
+    blk 00c4b7a8 L3597-3598 w=2 K=3: pBlock+12 pDst+12 ?gnScreenPitch@@3HA+0 tmp#42(def L3546,3547)-6(live) gnInnerBlockRight-6(live) gnInnerBlockLeft-6(live) gnInnerBlockBottom-6(live) gnInnerBlockTop-6(live) gnScreen_7C9798-6(live) gnScreen_7C9788-6(live) gnScreen_7D2338-6(live) gnScreen_7D2330-6(live) i-6(live) pScreen-6(live) pTile-6(live) nX-6(live) nY-6(live) pLight-6(live) const:20#4-6(live) const:10#3-6(live) const:1#2-6(live) const:0#1-6(live)
+    blk 00c4b948 L3599-3601 w=2 K=3: pBlock+12 pDst+12 ?gnScreenPitch@@3HA+0 tmp#42(def L3546,3547)-6(live) gnInnerBlockRight-6(live) gnInnerBlockLeft-6(live) gnInnerBlockBottom-6(live) gnInnerBlockTop-6(live) gnScreen_7C9798-6(live) gnScreen_7C9788-6(live) gnScreen_7D2338-6(live) gnScreen_7D2330-6(live) i-6(live) pScreen-6(live) pTile-6(live) nX-6(live) nY-6(live) pLight-6(live) const:20#4-6(live) const:10#3-6(live) const:1#2-6(live) const:0#1-6(live)
+    blk 00c4bae8 L3603-3603 w=2 K=2: bFlat+8 tmp#42(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nBlockY-4(live) nBlockX-4(live) pDst-4(live) pBlock-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) nY-4(live) pLight-4(live) const:20#4-4(live) const:10#3-4(live) const:1#2-4(live) const:0#1+0
+    blk 00c4bc88 L3604-3605 w=2 K=5: pBlock+20 nBlockX+20 nBlockY+20 pDst+20 ?gnScreenPitch@@3HA+0 tmp#42(def L3546,3547)-10(live) gnInnerBlockRight-10(live) gnInnerBlockLeft-10(live) gnInnerBlockBottom-10(live) gnInnerBlockTop-10(live) gnScreen_7C9798-10(live) gnScreen_7C9788-10(live) gnScreen_7D2338-10(live) gnScreen_7D2330-10(live) i-10(live) pScreen-10(live) pTile-10(live) nX-10(live) nY-10(live) pLight-10(live) const:20#4-10(live) const:10#3-10(live) const:1#2-10(live) const:0#1-10(live)
+    blk 00c4be28 L3606-3606 w=2 K=5: pBlock+20 nBlockX+20 nBlockY+20 pDst+20 ?gnScreenPitch@@3HA+0 tmp#42(def L3546,3547)-10(live) gnInnerBlockRight-10(live) gnInnerBlockLeft-10(live) gnInnerBlockBottom-10(live) gnInnerBlockTop-10(live) gnScreen_7C9798-10(live) gnScreen_7C9788-10(live) gnScreen_7D2338-10(live) gnScreen_7D2330-10(live) i-10(live) pScreen-10(live) pTile-10(live) nX-10(live) nY-10(live) pLight-10(live) const:20#4-10(live) const:10#3-10(live) const:1#2-10(live) const:0#1-10(live)
+    blk 00c4bfc8 L3547-3547 w=2 K=5: ?gnScreenPitch@@3HA-10(live) tmp#42(def L3546,3547)+20 gnInnerBlockRight-10(live) gnInnerBlockLeft-10(live) gnInnerBlockBottom-10(live) gnInnerBlockTop-10(live) gnScreen_7C9798-10(live) gnScreen_7C9788-10(live) gnScreen_7D2338-10(live) gnScreen_7D2330-10(live) i+40 pScreen-10(live) pTile+20 nX-10(live) nY-10(live) pLight-10(live) const:20#4+0 const:10#3-10(live) const:1#2+0 const:0#1-10(live)
+
+=== round 2 (register class 0): 27 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  nL12                            64    312    3    4d  <19  edx    3584 / 3584,3585
+  nL21                            63    208    2    4f  <18  edx    3583 / 3583
+  nL21                            65    208    2    4f  <18  esi    3584 / 3584
+  nL12                            62    208    2    4d  <19  edx    3582 / 3582
+  nL21                            50     62    3    4f  <18         3570 / 3574,3578
+  nL12                            51     40    2    4d  <19         3571 / 3576
+  bFlat                           49     32    4    92  <16         3565,3590 / 3596,3603
+  nL22                            52     26    2    49  <21         3573 / 3578
+  nBlockY                         48     20    7    2e  <15         3555 / 3556,3594,3604,3606
+  nBlockX                         47      4    7    30  <14         3554 / 3556,3594,3604,3606
+  pScreen                         45    -48    8     6   <9         3546 / 3546,3551
+  pTile                           44    -94    4     d   <8         3545 / 3547,3549
+  pLight                          38   -104    2    1b   <5          / 3564,3569
+  tmp#61(def L3546,3547)          61   -116    4    c1  <42         3546,3547 / 3547,3549
+  const:1#3                        3   -128    4     0   <2          / 3547,3552,3565,3590
+  nX                              43   -130    3     e   <7         3545 / 3546,3554
+  nY                              37   -144    2     a   <6          / 3546,3555
+  i                               46   -146    4    c2  <10         3547 / 3547
+  gnScreen_7D2330                 53   -146    1    1a  <29          / 3556
+  gnScreen_7D2338                 54   -176    1    19  <30          / 3556
+  gnScreen_7C9788                 55   -176    1    18  <31          / 3556
+  gnScreen_7C9798                 56   -176    1    17  <32          / 3556
+  gnInnerBlockTop                 57   -176    1    16  <33          / 3594
+  gnInnerBlockBottom              58   -176    1    15  <34          / 3594
+  gnInnerBlockLeft                59   -176    1    14  <35          / 3594
+  gnInnerBlockRight               60   -176    1    13  <36          / 3594
+  const:0#4                        4   -182    9     0   <1          / 3546,3547,3560,3561,3562,3580,3596,3603
+  colouring order:
+    nL12                         prio   312 -> edx  (allowed edx/esi/ebx; costs edx=0 esi=0 ebx=0)
+    nL21                         prio   208 -> esi  (allowed esi/ebx; costs esi=0 ebx=0)
+    nL21                         prio   208 -> edx  (allowed edx/esi/ebx; costs edx=0 esi=0 ebx=0)
+    nL12                         prio   208 -> edx  (allowed edx/esi/ebx; costs edx=0 esi=0 ebx=0)
+    tmp#40                       prio   108 -> eax  (allowed eax/edx/esi/ebx; costs eax=0 edx=2 esi=0 ebx=2300)
+    nPosX                        prio   100 -> eax  (allowed eax/edx/esi/ebx; costs eax=0 edx=0 esi=0 ebx=2300)
+    tmp#39                       prio   100 -> esi  (allowed edx/esi/ebx; costs edx=2 esi=0 ebx=2300)
+    nL11                         prio    96 -> ebx  (allowed ebx; costs ebx=2300)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c393dc L3545-3547 w=1 K=7: i+14 const:0#4+0 nY+14 pScreen+98 pTile+28 nX+28
+    blk 00c3957c L3546-3546 w=1 K=2: tmp#61(def L3546,3547)+4 i-2(live) const:0#4+0 nY-2(live) pScreen-2(live) pTile-2(live) nX-2(live)
+    blk 00d5875c L3546-3546 w=1 K=10: gnInnerBlockRight+0 gnInnerBlockLeft+0 gnInnerBlockBottom+0 gnInnerBlockTop+0 gnScreen_7C9798+0 gnScreen_7C9788+0 gnScreen_7D2338+0 gnScreen_7D2330+0 pLight+0 const:1#3+0 tmp#61(def L3546,3547)-10(live) i-10(live) const:0#4-10(live) nY-10(live) pScreen-10(live) pTile-10(live) nX-10(live)
+    blk 00c3971c L3549-3552 w=2 K=9: gnInnerBlockRight-18(live) gnInnerBlockLeft-18(live) gnInnerBlockBottom-18(live) gnInnerBlockTop-18(live) gnScreen_7C9798-18(live) gnScreen_7C9788-18(live) gnScreen_7D2338-18(live) gnScreen_7D2330-18(live) pLight-18(live) const:1#3+18 tmp#61(def L3546,3547)+36 i-18(live) const:0#4-18(live) nY-18(live) pScreen+36 pTile+36 nX-18(live)
+    blk 00c398bc L3554-3556 w=2 K=7: nBlockY+56 nBlockX+28 gnInnerBlockRight-14(live) gnInnerBlockLeft-14(live) gnInnerBlockBottom-14(live) gnInnerBlockTop-14(live) gnScreen_7C9798-14(live) gnScreen_7C9788-14(live) gnScreen_7D2338-14(live) gnScreen_7D2330+28 pLight-14(live) const:1#3-14(live) tmp#61(def L3546,3547)-14(live) i-14(live) const:0#4-14(live) nY+28 pScreen-14(live) pTile-14(live) nX+28
+    blk 00c39a5c L3556-3556 w=2 K=2: nBlockY+8 nBlockX-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338+8 gnScreen_7D2330-4(live) pLight-4(live) const:1#3-4(live) tmp#61(def L3546,3547)-4(live) i-4(live) const:0#4-4(live) nY-4(live) pScreen-4(live) pTile-4(live) nX-4(live)
+    blk 00c39bfc L3556-3556 w=2 K=2: nBlockY-4(live) nBlockX+8 gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788+8 gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) pLight-4(live) const:1#3-4(live) tmp#61(def L3546,3547)-4(live) i-4(live) const:0#4-4(live) nY-4(live) pScreen-4(live) pTile-4(live) nX-4(live)
+    blk 00c39d9c L3556-3556 w=2 K=2: nBlockY-4(live) nBlockX+8 gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798+8 gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) pLight-4(live) const:1#3-4(live) tmp#61(def L3546,3547)-4(live) i-4(live) const:0#4-4(live) nY-4(live) pScreen-4(live) pTile-4(live) nX-4(live)
+    blk 00c39f3c L3560-3562 w=2 K=1: tmp#61(def L3546,3547)-2(live) gnInnerBlockRight-2(live) gnInnerBlockLeft-2(live) gnInnerBlockBottom-2(live) gnInnerBlockTop-2(live) gnScreen_7C9798-2(live) gnScreen_7C9788-2(live) gnScreen_7D2338-2(live) gnScreen_7D2330-2(live) nBlockY-2(live) nBlockX-2(live) i-2(live) pScreen-2(live) pTile-2(live) nX-2(live) pLight-2(live) nY-2(live) const:0#4+4 const:1#3-2(live)
+    blk 00c6f300 L3564-3567 w=2 K=5: bFlat+20 tmp#61(def L3546,3547)-10(live) gnInnerBlockRight-10(live) gnInnerBlockLeft-10(live) gnInnerBlockBottom-10(live) gnInnerBlockTop-10(live) gnScreen_7C9798-10(live) gnScreen_7C9788-10(live) gnScreen_7D2338-10(live) gnScreen_7D2330-10(live) nBlockY-10(live) nBlockX-10(live) i-10(live) pScreen-10(live) pTile-10(live) nX-10(live) pLight+20 nY-10(live) const:0#4-10(live) const:1#3+0
+    blk 00c6f4a0 L3569-3575 w=2 K=9: nL22+36 nL12+36 nL21+72 tmp#61(def L3546,3547)-18(live) gnInnerBlockRight-18(live) gnInnerBlockLeft-18(live) gnInnerBlockBottom-18(live) gnInnerBlockTop-18(live) gnScreen_7C9798-18(live) gnScreen_7C9788-18(live) gnScreen_7D2338-18(live) gnScreen_7D2330-18(live) nBlockY-18(live) nBlockX-18(live) i-18(live) pScreen-18(live) pTile-18(live) nX-18(live) pLight+36 nY-18(live) const:0#4-18(live) const:1#3-18(live)
+    blk 00c6f640 L3575-3575 w=2 K=2: nL22-4(live) nL12-4(live) nL21-4(live) tmp#61(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nBlockY-4(live) nBlockX-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) pLight-4(live) nY-4(live) const:0#4-4(live) const:1#3-4(live)
+    blk 00c6f7e0 L3575-3575 w=2 K=2: tmp#61(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nL22-4(live) nL12-4(live) nL21-4(live) nBlockY-4(live) nBlockX-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) pLight-4(live) nY-4(live) const:0#4-4(live) const:1#3-4(live)
+    blk 00c6f980 L3576-3577 w=2 K=3: nL12+12 tmp#61(def L3546,3547)-6(live) gnInnerBlockRight-6(live) gnInnerBlockLeft-6(live) gnInnerBlockBottom-6(live) gnInnerBlockTop-6(live) gnScreen_7C9798-6(live) gnScreen_7C9788-6(live) gnScreen_7D2338-6(live) gnScreen_7D2330-6(live) nL22-6(live) nL21-6(live) nBlockY-6(live) nBlockX-6(live) i-6(live) pScreen-6(live) pTile-6(live) nX-6(live) pLight-6(live) nY-6(live) const:0#4-6(live) const:1#3-6(live)
+    blk 00c6fb20 L3577-3577 w=2 K=2: tmp#61(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nL22-4(live) nL21-4(live) nBlockY-4(live) nBlockX-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) pLight-4(live) nY-4(live) const:0#4-4(live) const:1#3-4(live)
+    blk 00c6fcc0 L3577-3577 w=2 K=2: tmp#61(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nL22-4(live) nL21-4(live) nBlockY-4(live) nBlockX-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) pLight-4(live) nY-4(live) const:0#4-4(live) const:1#3-4(live)
+    blk 00c6fe60 L3578-3579 w=2 K=3: nL21+12 nL22+12 tmp#61(def L3546,3547)-6(live) gnInnerBlockRight-6(live) gnInnerBlockLeft-6(live) gnInnerBlockBottom-6(live) gnInnerBlockTop-6(live) gnScreen_7C9798-6(live) gnScreen_7C9788-6(live) gnScreen_7D2338-6(live) gnScreen_7D2330-6(live) nBlockY-6(live) nBlockX-6(live) i-6(live) pScreen-6(live) pTile-6(live) nX-6(live) pLight-6(live) nY-6(live) const:0#4-6(live) const:1#3-6(live)
+    blk 00c70000 L3579-3579 w=2 K=2: tmp#61(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nBlockY-4(live) nBlockX-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) pLight-4(live) nY-4(live) const:0#4-4(live) const:1#3-4(live)
+    blk 00c7ccc0 L3579-3579 w=2 K=2: tmp#61(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nBlockY-4(live) nBlockX-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) pLight-4(live) nY-4(live) const:0#4-4(live) const:1#3-4(live)
+    blk 00c7ce60 L3580-3580 w=2 K=1: tmp#61(def L3546,3547)-2(live) gnInnerBlockRight-2(live) gnInnerBlockLeft-2(live) gnInnerBlockBottom-2(live) gnInnerBlockTop-2(live) gnScreen_7C9798-2(live) gnScreen_7C9788-2(live) gnScreen_7D2338-2(live) gnScreen_7D2330-2(live) nBlockY-2(live) nBlockX-2(live) i-2(live) pScreen-2(live) pTile-2(live) nX-2(live) pLight-2(live) nY-2(live) const:0#4+0 const:1#3-2(live)
+    blk 00c7d000 L3580-3580 w=2 K=3: tmp#61(def L3546,3547)-6(live) gnInnerBlockRight-6(live) gnInnerBlockLeft-6(live) gnInnerBlockBottom-6(live) gnInnerBlockTop-6(live) gnScreen_7C9798-6(live) gnScreen_7C9788-6(live) gnScreen_7D2338-6(live) gnScreen_7D2330-6(live) nBlockY-6(live) nBlockX-6(live) i-6(live) pScreen-6(live) pTile-6(live) nX-6(live) pLight-6(live) nY-6(live) const:0#4-6(live) const:1#3-6(live)
+    blk 00c7d1a0 L3582-3587 w=2 K=26: nL12+312 nL21+208 nL21+208 nL12+208 tmp#61(def L3546,3547)+0 gnInnerBlockRight+0 gnInnerBlockLeft+0 gnInnerBlockBottom+0 gnInnerBlockTop+0 gnScreen_7C9798+0 gnScreen_7C9788+0 gnScreen_7D2338+0 gnScreen_7D2330+0 bFlat+0 nBlockY+0 nBlockX+0 i+0 pScreen+0 pTile+0 nX+0 pLight+0 nY+0 const:0#4+0 const:1#3+0
+    blk 00c7d340 L3589-3590 w=2 K=3: bFlat+12 tmp#61(def L3546,3547)-6(live) gnInnerBlockRight-6(live) gnInnerBlockLeft-6(live) gnInnerBlockBottom-6(live) gnInnerBlockTop-6(live) gnScreen_7C9798-6(live) gnScreen_7C9788-6(live) gnScreen_7D2338-6(live) gnScreen_7D2330-6(live) nBlockY-6(live) nBlockX-6(live) i-6(live) pScreen-6(live) pTile-6(live) nX-6(live) pLight-6(live) nY-6(live) const:0#4-6(live) const:1#3+0
+    blk 00c7d4e0 L3594-3594 w=2 K=2: bFlat-4(live) tmp#61(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop+8 gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nBlockY+8 nBlockX-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) pLight-4(live) nY-4(live) const:0#4-4(live) const:1#3-4(live)
+    blk 00c7d680 L3594-3594 w=2 K=2: bFlat-4(live) tmp#61(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom+8 gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nBlockY+8 nBlockX-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) pLight-4(live) nY-4(live) const:0#4-4(live) const:1#3-4(live)
+    blk 00c7d820 L3594-3594 w=2 K=2: bFlat-4(live) tmp#61(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft+8 gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nBlockY-4(live) nBlockX+8 i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) pLight-4(live) nY-4(live) const:0#4-4(live) const:1#3-4(live)
+    blk 00c7d9c0 L3594-3594 w=2 K=2: bFlat-4(live) tmp#61(def L3546,3547)-4(live) gnInnerBlockRight+8 gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nBlockY-4(live) nBlockX+8 i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) pLight-4(live) nY-4(live) const:0#4-4(live) const:1#3-4(live)
+    blk 00c4b608 L3596-3596 w=2 K=2: bFlat+8 tmp#61(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) pLight-4(live) nY-4(live) const:0#4+0 const:1#3-4(live)
+    blk 00c4b7a8 L3597-3598 w=2 K=3: tmp#61(def L3546,3547)-6(live) gnInnerBlockRight-6(live) gnInnerBlockLeft-6(live) gnInnerBlockBottom-6(live) gnInnerBlockTop-6(live) gnScreen_7C9798-6(live) gnScreen_7C9788-6(live) gnScreen_7D2338-6(live) gnScreen_7D2330-6(live) i-6(live) pScreen-6(live) pTile-6(live) nX-6(live) pLight-6(live) nY-6(live) const:0#4-6(live) const:1#3-6(live)
+    blk 00c4b948 L3599-3601 w=2 K=3: tmp#61(def L3546,3547)-6(live) gnInnerBlockRight-6(live) gnInnerBlockLeft-6(live) gnInnerBlockBottom-6(live) gnInnerBlockTop-6(live) gnScreen_7C9798-6(live) gnScreen_7C9788-6(live) gnScreen_7D2338-6(live) gnScreen_7D2330-6(live) i-6(live) pScreen-6(live) pTile-6(live) nX-6(live) pLight-6(live) nY-6(live) const:0#4-6(live) const:1#3-6(live)
+    blk 00c4bae8 L3603-3603 w=2 K=2: bFlat+8 tmp#61(def L3546,3547)-4(live) gnInnerBlockRight-4(live) gnInnerBlockLeft-4(live) gnInnerBlockBottom-4(live) gnInnerBlockTop-4(live) gnScreen_7C9798-4(live) gnScreen_7C9788-4(live) gnScreen_7D2338-4(live) gnScreen_7D2330-4(live) nBlockY-4(live) nBlockX-4(live) i-4(live) pScreen-4(live) pTile-4(live) nX-4(live) pLight-4(live) nY-4(live) const:0#4+0 const:1#3-4(live)
+    blk 00c4bc88 L3604-3605 w=2 K=5: nBlockX+20 nBlockY+20 tmp#61(def L3546,3547)-10(live) gnInnerBlockRight-10(live) gnInnerBlockLeft-10(live) gnInnerBlockBottom-10(live) gnInnerBlockTop-10(live) gnScreen_7C9798-10(live) gnScreen_7C9788-10(live) gnScreen_7D2338-10(live) gnScreen_7D2330-10(live) i-10(live) pScreen-10(live) pTile-10(live) nX-10(live) pLight-10(live) nY-10(live) const:0#4-10(live) const:1#3-10(live)
+    blk 00c4be28 L3606-3606 w=2 K=5: nBlockX+20 nBlockY+20 tmp#61(def L3546,3547)-10(live) gnInnerBlockRight-10(live) gnInnerBlockLeft-10(live) gnInnerBlockBottom-10(live) gnInnerBlockTop-10(live) gnScreen_7C9798-10(live) gnScreen_7C9788-10(live) gnScreen_7D2338-10(live) gnScreen_7D2330-10(live) i-10(live) pScreen-10(live) pTile-10(live) nX-10(live) pLight-10(live) nY-10(live) const:0#4-10(live) const:1#3-10(live)
+    blk 00c4bfc8 L3547-3547 w=2 K=4: tmp#61(def L3546,3547)+16 gnInnerBlockRight-8(live) gnInnerBlockLeft-8(live) gnInnerBlockBottom-8(live) gnInnerBlockTop-8(live) gnScreen_7C9798-8(live) gnScreen_7C9788-8(live) gnScreen_7D2338-8(live) gnScreen_7D2330-8(live) i+32 pScreen-8(live) pTile+16 nX-8(live) pLight-8(live) nY-8(live) const:0#4-8(live) const:1#3+0
+
+=== round 3 (register class 0): 10 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  nBlockY                         42    134    7    2e  <15  esi    3555 / 3556,3594,3604,3606
+  nBlockX                         53    116    7    30  <14  edx    3554 / 3556,3594,3604,3606
+  pScreen                         55    100    8     6   <9         3546 / 3546,3551
+  pTile                           56     54    4     d   <8         3545 / 3547,3549
+  tmp#36(def L3546,3547)          36     32    4    c1  <42         3546,3547 / 3547,3549
+  nX                              57     18    3     e   <7         3545 / 3546,3554
+  i                               54      8    4    c2  <10         3547 / 3547
+  nY                              58      4    2     a   <6          / 3546,3555
+  const:0#59                      59    -58    7     0   <1          / 3546,3547,3560,3562,3596,3603
+  const:1#60                      60   -104    2     0   <2          / 3547,3565
+  colouring order:
+    nBlockY                      prio   134 -> esi  (allowed eax/edx/esi/ebx; costs eax=1 edx=2 esi=-1 ebx=0)
+    nBlockX                      prio   116 -> edx  (allowed eax/edx/ebx; costs eax=-1 edx=-2 ebx=0)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c393dc L3545-3547 w=1 K=7: i+14 const:0#59+0 nY+14 pScreen+98 pTile+28 nX+28
+    blk 00c3957c L3546-3546 w=1 K=2: tmp#36(def L3546,3547)+4 i-2(live) const:0#59+0 nY-2(live) pScreen-2(live) pTile-2(live) nX-2(live)
+    blk 00d5875c L?         w=1 K=0: tmp#36(def L3546,3547)-0(live) i-0(live) const:0#59-0(live) nY-0(live) pScreen-0(live) pTile-0(live) nX-0(live)
+    blk 00c3971c L3549-3552 w=2 K=8: tmp#36(def L3546,3547)+32 i-16(live) const:0#59-16(live) nY-16(live) pScreen+32 pTile+32 nX-16(live)
+    blk 00c398bc L3554-3556 w=2 K=6: nBlockY+48 nBlockX+24 tmp#36(def L3546,3547)-12(live) i-12(live) const:0#59-12(live) nY+24 pScreen-12(live) pTile-12(live) nX+24
+    blk 00c39a5c L3556-3556 w=2 K=1: nBlockY+4 nBlockX-2(live) tmp#36(def L3546,3547)-2(live) i-2(live) const:0#59-2(live) nY-2(live) pScreen-2(live) pTile-2(live) nX-2(live)
+    blk 00c39bfc L3556-3556 w=2 K=1: nBlockY-2(live) nBlockX+4 tmp#36(def L3546,3547)-2(live) i-2(live) const:0#59-2(live) nY-2(live) pScreen-2(live) pTile-2(live) nX-2(live)
+    blk 00c39d9c L3556-3556 w=2 K=1: nBlockY-2(live) nBlockX+4 tmp#36(def L3546,3547)-2(live) i-2(live) const:0#59-2(live) nY-2(live) pScreen-2(live) pTile-2(live) nX-2(live)
+    blk 00c39f3c L3560-3562 w=2 K=1: const:0#59+2 nBlockX-2(live) nBlockY-2(live)
+    blk 00c6f300 L3564-3567 w=2 K=4: const:1#60+0 const:0#59-8(live) nBlockX-8(live) nBlockY-8(live)
+    blk 00c7d1a0 L3582-3587 w=2 K=11: const:1#60+0 const:0#59+0 nBlockY+0 nBlockX+0
+    blk 00c7d340 L3589-3590 w=2 K=6: const:1#60+0 const:0#59+0 nBlockX+0 nBlockY+0
+    blk 00c7d4e0 L3594-3594 w=2 K=1: const:1#60-2(live) const:0#59-2(live) nBlockX-2(live) nBlockY+4
+    blk 00c7d680 L3594-3594 w=2 K=1: const:1#60-2(live) const:0#59-2(live) nBlockX-2(live) nBlockY+4
+    blk 00c7d820 L3594-3594 w=2 K=1: const:1#60-2(live) const:0#59-2(live) nBlockX+4 nBlockY-2(live)
+    blk 00c7d9c0 L3594-3594 w=2 K=1: const:1#60-2(live) const:0#59-2(live) nBlockX+4 nBlockY-2(live)
+    blk 00c4b608 L3596-3596 w=2 K=2: const:1#60-4(live)
+    blk 00c4b7a8 L3597-3598 w=2 K=10: const:0#59+0 nY+0 nX+0 pTile+0 pScreen+0 i+0 tmp#36(def L3546,3547)+0 const:1#60-20(live)
+    blk 00c4b948 L3599-3601 w=2 K=10: const:0#59+0 nY+0 nX+0 pTile+0 pScreen+0 i+0 tmp#36(def L3546,3547)+0 const:1#60-20(live)
+    blk 00c4bae8 L3603-3603 w=2 K=2: const:1#60-4(live) nBlockX-4(live) nBlockY-4(live)
+    blk 00c4bc88 L3604-3605 w=2 K=12: nBlockX+48 nBlockY+48 const:0#59+0 nY+0 nX+0 pTile+0 pScreen+0 i+0 tmp#36(def L3546,3547)+0 const:1#60-24(live)
+    blk 00c4be28 L3606-3606 w=2 K=12: nBlockX+48 nBlockY+48 const:0#59+0 nY+0 nX+0 pTile+0 pScreen+0 i+0 tmp#36(def L3546,3547)+0 const:1#60-24(live)
+    blk 00d58b0c L3606-3606 w=2 K=1: const:1#60+0 const:0#59-2(live) nY-2(live) nX-2(live) pTile-2(live) pScreen-2(live) i-2(live) tmp#36(def L3546,3547)-2(live)
+    blk 00c4bfc8 L3547-3547 w=2 K=4: const:0#59-8(live) nY-8(live) nX-8(live) pTile+16 pScreen-8(live) i+32 tmp#36(def L3546,3547)+16
+
+=== round 4 (register class 0): 2 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  const:0#61                      61     -8    2     0   <1          / 3596,3603
+  const:0#48                      48    -42    5     0   <1          / 3546,3547,3560,3562
+  colouring order:
+    pScreen                      prio   100 -> not coloured (split / memory)
+    nDelta                       prio    68 -> esi  (allowed edx/esi; costs edx=1200 esi=0)
+    nDelta                       prio    68 -> esi  (allowed edx/esi; costs edx=1600 esi=0)
+    nL21                         prio    62 -> edx  (allowed edx; costs edx=1200)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c393dc L3545-3547 w=1 K=7: const:0#48+0
+    blk 00c3957c L3546-3546 w=1 K=2: const:0#48+0
+    blk 00d5875c L?         w=1 K=0: const:0#48-0(live)
+    blk 00c3971c L3549-3552 w=2 K=8: const:0#48-16(live)
+    blk 00c398bc L3554-3556 w=2 K=6: const:0#48-12(live)
+    blk 00c39a5c L3556-3556 w=2 K=1: const:0#48-2(live)
+    blk 00c39bfc L3556-3556 w=2 K=1: const:0#48-2(live)
+    blk 00c39d9c L3556-3556 w=2 K=1: const:0#48-2(live)
+    blk 00c39f3c L3560-3562 w=2 K=1: const:0#48+2
+    blk 00c6f300 L3564-3567 w=2 K=5: const:0#61+0
+    blk 00c7d1a0 L3582-3587 w=2 K=11: const:0#61+0
+    blk 00c7d340 L3589-3590 w=2 K=6: const:0#61+0
+    blk 00c7d4e0 L3594-3594 w=2 K=1: const:0#61-2(live)
+    blk 00c7d680 L3594-3594 w=2 K=1: const:0#61-2(live)
+    blk 00c7d820 L3594-3594 w=2 K=1: const:0#61-2(live)
+    blk 00c7d9c0 L3594-3594 w=2 K=1: const:0#61-2(live)
+    blk 00c4b608 L3596-3596 w=2 K=2: 
+    blk 00c4b7a8 L3597-3598 w=2 K=10: const:0#48+0
+    blk 00c4b948 L3599-3601 w=2 K=10: const:0#48+0
+    blk 00c4bae8 L3603-3603 w=2 K=2: 
+    blk 00c4bc88 L3604-3605 w=2 K=12: const:0#48+0
+    blk 00c4be28 L3606-3606 w=2 K=12: const:0#48+0
+    blk 00d58b0c L3606-3606 w=2 K=1: const:0#48-2(live)
+    blk 00c4bfc8 L3547-3547 w=2 K=4: const:0#48-8(live)
+
+=== round 5 (register class 0): 3 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  nL12                            46     32    2    4d  <19  esi    3576 / 3576
+  nL12                            59     32    1    4d  <19         3571 / 
+  nL22                            47     32    1    49  <21         3573 / 
+  colouring order:
+    tmp#41                       prio    60 -> eax  (allowed eax/ebx; costs eax=0 ebx=0)
+    pTile                        prio    54 -> not coloured (split / memory)
+    tmp#36                       prio    32 -> not coloured (split / memory)
+    bFlat                        prio    32 -> eax  (allowed eax/ebx; costs eax=0 ebx=0)
+    nL12                         prio    32 -> esi  (allowed esi; costs esi=-1)
+    nDiff3                       prio    30 -> esi  (allowed edx/esi; costs edx=0 esi=-1)
+    nX                           prio    18 -> not coloured (split / memory)
+    i                            prio     8 -> not coloured (split / memory)
+    nY                           prio     4 -> not coloured (split / memory)
+    ?gnScreenPitch@@3HA          prio     0 -> not coloured (split / memory)
+    const:0#61                   prio    -8 -> not coloured (split / memory)
+    const:0#48                   prio   -42 -> not coloured (split / memory)
+    const:1#60                   prio  -104 -> not coloured (split / memory)
+    ?gnScreenPitch@@3HA          prio  -104 -> not coloured (split / memory)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c6f4a0 L3569-3575 w=2 K=8: nL22+32 nL12+32
+    blk 00c6f980 L3576-3577 w=2 K=4: nL12+32
+
+=== round 6 (register class 0): 8 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  pScreen                         52    128    8     6   <9  ebx    3546 / 3546,3551
+  pTile                           51     66    4     d   <8         3545 / 3547,3549
+  tmp#47(def L3546,3547)          47     44    4    c1  <42         3546,3547 / 3547,3549
+  ?gnScreenPitch@@3HA             59     44    2    b7  <28          / 3546,3551
+  nX                              45     34    3     e   <7         3545 / 3546,3554
+  i                               38     32    3    c2  <10         3547 / 3547
+  nY                              44     20    2     a   <6          / 3546,3555
+  i                               43     14    1    c2  <10         3547 / 
+  colouring order:
+    pScreen                      prio   128 -> ebx  (allowed edx/ebx; costs edx=1 ebx=0)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c393dc L3545-3547 w=1 K=7: i+14 nY+14 pScreen+98 ?gnScreenPitch@@3HA+14 pTile+28 nX+28
+    blk 00c3957c L3546-3546 w=1 K=2: tmp#47(def L3546,3547)+4 nY-2(live) pScreen-2(live) ?gnScreenPitch@@3HA-2(live) pTile-2(live) nX-2(live)
+    blk 00d5875c L3546-3546 w=1 K=0: tmp#47(def L3546,3547)-0(live) nY-0(live) pScreen-0(live) ?gnScreenPitch@@3HA-0(live) pTile-0(live) nX-0(live)
+    blk 00c6a2d8 L3546-3546 w=2 K=4: ?gnScreenPitch@@3HA+0 pScreen+0 nX+0 nY+0 pTile-8(live) tmp#47(def L3546,3547)-8(live)
+    blk 00c3971c L3549-3552 w=2 K=8: pScreen+32 ?gnScreenPitch@@3HA+32 tmp#47(def L3546,3547)+32 pTile+32 nX-16(live) nY-16(live)
+    blk 00c398bc L3554-3556 w=2 K=6: nY+24 nX+24
+    blk 00c4bfc8 L3547-3547 w=2 K=4: i+32 pTile+16 tmp#47(def L3546,3547)+16
+
+=== round 7 (register class 0): 3 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  ?gnScreenPitch@@3HA             58     10    1    b7  <28          / 3546
+  const:0#43                      43      5    3     0   <1  (d690)  / 3546,3547
+  const:0#57                      57      2    2     0   <1  (d690)  / 3560,3562
+  colouring order:
+    pTile                        prio    66 -> ecx  (allowed eax/ecx/edx/esi/edi; costs eax=0 ecx=-2 edx=202 esi=0 edi=0)
+    tmp#47                       prio    44 -> not coloured (split / memory)
+    nX                           prio    34 -> edx  (allowed edx; costs edx=-2)
+    i                            prio    32 -> eax  (allowed eax/edx/esi/edi/ebx; costs eax=0 edx=0 esi=0 edi=0 ebx=0)
+    const:0#43                   prio     5 -> not coloured (split / memory)
+    const:0#57                   prio     2 -> not coloured (split / memory)
+    tmp#47                       prio  -104 -> not coloured (split / memory)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c393dc L3545-3547 w=1 K=5: ?gnScreenPitch@@3HA+10 const:0#43+5
+    blk 00c3957c L3546-3546 w=1 K=2: 
+    blk 00c39f3c L3560-3562 w=2 K=1: const:0#57+2
+
+=== round 8 (register class 0): 2 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  tmp#59(def L3547)               59     16    2    c1  <42  (d690) 3547 / 3547
+  tmp#58(def L3546)               58      4    1    c1  <42         3546 / 
+  colouring order:
+    tmp#59(def L3547)            prio    16 -> not coloured (split / memory)
+    tmp#59(def L3547)            prio  -104 -> not coloured (split / memory)
+    const:0#61                   prio  -104 -> not coloured (split / memory)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c3957c L3546-3546 w=1 K=2: tmp#58(def L3546)+4
+    blk 00c4bfc8 L3547-3547 w=2 K=4: tmp#59(def L3547)+16
+
+=== round 9 (register class 0): 1 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  const:1#59                      59      0    1     0   <2          / 3565
+  colouring order:
+    const:0#43                   prio  -104 -> eax  (allowed eax/esi/edi; costs eax=0 esi=0 edi=0)
+    const:0#57                   prio  -104 -> not coloured (split / memory)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c6f300 L3564-3567 w=2 K=4: 

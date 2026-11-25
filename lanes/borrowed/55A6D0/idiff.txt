@@ -1,0 +1,40 @@
+== Items.cpp 0x0055A6D0 unmasked diffs at ['+0x17', '+0x18', '+0x19', '+0x1a', '+0x1b', '+0x1c', '+0x1d', '+0x1e', '+0x1f', '+0x20', '+0x21', '+0x22']
+  orig +0x00e xor eax, ebp
+  orig +0x010 mov dword ptr [ebp - 4], eax
+  orig +0x013 mov eax, dword ptr [ebp + 8]
+  orig +0x016 push ebx
+  orig +0x017 push esi   <==
+  orig +0x018 mov esi, dword ptr [ebp + 0x1c]
+  orig +0x01b mov ebx, edx
+  orig +0x01d mov edx, dword ptr [ebp + 0x20]
+  orig +0x020 mov dword ptr [ebp - 0x538], eax
+  ours +0x00e xor eax, ebp
+  ours +0x010 mov dword ptr [ebp - 4], eax
+  ours +0x013 mov eax, dword ptr [ebp + 8]
+  ours +0x016 push ebx
+  ours +0x017 mov ebx, dword ptr [ebp + 0x1c]   <==
+  ours +0x01a push esi
+  ours +0x01b push edi
+  ours +0x01c mov edi, ecx
+  ours +0x01e mov ecx, dword ptr [edi + 0x70]
+  --
+  orig +0x026 mov eax, dword ptr [ebp + 0xc]
+  --
+  --
+  ours +0x021 mov esi, edx
+  --
+  orig +0x029 test eax, eax
+  ours +0x023 mov edx, dword ptr [ebp + 0x20]
+  --
+  ours +0x026 mov dword ptr [ebp - 0x538], eax
+  --
+  orig +0x02b mov dword ptr [ebp - 0x528], ecx
+  --
+  ours +0x02c mov eax, dword ptr [ebp + 0xc]
+  --
+  --
+  orig +0x031 mov ecx, dword ptr [ecx + 0x70]
+  --
+  ours +0x02f test eax, eax
+  --
+  --

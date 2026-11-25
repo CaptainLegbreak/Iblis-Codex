@@ -1,0 +1,193 @@
+function: ?PATH_Toward_6FDAA9F0@@YIHPAUD2PathInfoStrc@@@Z
+
+=== round 1 (register class 0): 23 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  uP                              10     99   10    78       edi    1655,1661,1700 / 1656,1682,1684,1692,1694,1713
+  pPath                            6     79   24     7       esi    1632 / 1633,1634,1635,1641,1642,1644,1645,1650,1651,1659,1660,1668,1673,1713,1718
+  nDirection                      21     62    5    63       eax     / 1684,1688,1689,1690,1701
+  nNextPoint                       8     51    6    24   <7  ebx     / 1648,1650,1657,1659,1661,1662
+  pPathInfo                        3     51   12     8              1631 / 1632,1637,1640,1648,1655,1665,1666,1684,1692
+  nPrevDir                        16     45    4    77              1667,1701 / 1684,1690
+  tCurCoords                      11     18    4    32              1656,1657 / 1657
+  tmp#25(def L1651)               25     12    2    2a  <24         1651 / 1652
+  nNextPoint                       7     12    2    15              1640 / 1641
+  bNotStraightLine                18      9    4    73              1669,1680,1698 / 1706
+  tmp#24(def L1645)               24      8    2    1a              1645 / 1646
+  nCurDist                        19      7    5    76              1670,1702 / 1702,1704,1711
+  nNewPointsCount                 17      4    9    7d              1668,1695,1714 / 1673,1695,1713,1714,1718,1719
+  nDistMax                        15     -1    3    46              1665 / 1671,1704
+  nNextPoint                       9    -13    3    45   <7         1666 / 1676,1682
+  pPathPointsEnd                  20    -14    4    70              1673,1696 / 1694,1696
+  tmp#13(def L1689)               13    -14    3    66              1689 / 1676,1689
+  tmp#12(def L1688)               12    -19    4    67              1688 / 1657,1676,1688
+  tmp#14                          14    -54    1    4a               / 1676
+  const:1#2                        2    -56    5     0               / 1660,1695,1698,1702,1714
+  const:4#5                        5    -56    1     0               / 1696
+  const:7#4                        4    -60    1     0               / 1684
+  const:0#1                        1    -74    9     0               / 1633,1634,1635,1669,1670,1671,1680,1706,1711
+  colouring order:
+    uP                           prio    99 -> edi  (allowed esi/edi/ebx; costs esi=1 edi=0 ebx=3100)
+    pPath                        prio    79 -> esi  (allowed esi/ebx; costs esi=-1 ebx=3100)
+    nDirection                   prio    62 -> eax  (allowed eax/ecx/edx/ebx; costs eax=0 ecx=0 edx=0 ebx=12500)
+    nNextPoint                   prio    51 -> ebx  (allowed ebx; costs ebx=3700)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00be1e84 L1631-1635 w=1 K=3: const:0#1+6 pPath+24 pPathInfo+12
+    blk 00be2024 L1637-1637 w=1 K=1: pPathInfo+2
+    blk 00be21c4 L1640-1642 w=1 K=3: nNextPoint+12 pPath+12 pPathInfo+6 const:0#1-3(live)
+    blk 00be2364 L1644-1646 w=1 K=2: tmp#24(def L1645)+8 pPath+20
+    blk 00be2504 L1648-1648 w=1 K=2: nNextPoint+4 pPath-2(live) pPathInfo+8 const:0#1-2(live)
+    blk 00be26a4 L1650-1652 w=1 K=3: tmp#25(def L1651)+12 pPath+30 nNextPoint+6
+    blk 00be2844 L1655-1657 w=1 K=6: tmp#12(def L1688)+12 const:1#2+0 tCurCoords+12 uP+24 nNextPoint+12 pPath-6(live) pPathInfo+12 const:0#1-6(live)
+    blk 00be29e4 L1657-1657 w=1 K=1: tCurCoords+6 tmp#12(def L1688)-1(live) const:1#2-1(live) uP-1(live) nNextPoint-1(live) pPath-1(live) pPathInfo-1(live) const:0#1-1(live)
+    blk 00c07de8 L1659-1662 w=1 K=5: nNextPoint+30 tmp#12(def L1688)+0 uP+10 pPath+40 pPathInfo-5(live) const:1#2+5 const:0#1-5(live)
+    blk 00c07f88 L1665-1671 w=1 K=9: nCurDist+18 bNotStraightLine+18 nNewPointsCount+18 nPrevDir+18 nNextPoint+18 nDistMax+36 tmp#12(def L1688)-9(live) uP-9(live) pPath+18 pPathInfo+36 const:1#2-9(live) const:0#1+0
+    blk 00c08128 L1673-1673 w=1 K=3: pPathPointsEnd+6 nCurDist-3(live) bNotStraightLine-3(live) nNewPointsCount+6 nPrevDir-3(live) nNextPoint-3(live) nDistMax-3(live) tmp#12(def L1688)-3(live) uP-3(live) pPath+6 pPathInfo-3(live) const:1#2-3(live) const:0#1-3(live)
+    blk 00bf47d0 L1673-1673 w=1 K=4: tmp#13(def L1689)+0 tmp#14+0 const:4#5+0 const:7#4+0 pPathPointsEnd-4(live) nCurDist-4(live) bNotStraightLine-4(live) nNewPointsCount-4(live) nPrevDir-4(live) nNextPoint-4(live) nDistMax-4(live) tmp#12(def L1688)-4(live) uP-4(live) pPath-4(live) pPathInfo-4(live) const:1#2-4(live) const:0#1-4(live)
+    blk 00c082c8 L1676-1676 w=2 K=2: tmp#13(def L1689)-4(live) tmp#14-4(live) const:4#5-4(live) const:7#4-4(live) pPathPointsEnd-4(live) nCurDist-4(live) bNotStraightLine-4(live) nNewPointsCount-4(live) nPrevDir-4(live) nNextPoint+8 nDistMax-4(live) tmp#12(def L1688)+8 uP-4(live) pPath-4(live) pPathInfo-4(live) const:1#2-4(live) const:0#1-4(live)
+    blk 00c08468 L1676-1676 w=2 K=2: tmp#13(def L1689)+8 tmp#14+8 const:4#5-4(live) const:7#4-4(live) pPathPointsEnd-4(live) nCurDist-4(live) bNotStraightLine-4(live) nNewPointsCount-4(live) nPrevDir-4(live) nNextPoint-4(live) nDistMax-4(live) tmp#12(def L1688)-4(live) uP-4(live) pPath-4(live) pPathInfo-4(live) const:1#2-4(live) const:0#1-4(live)
+    blk 00c08608 L1680-1684 w=2 K=5: bNotStraightLine+20 pPathPointsEnd-10(live) nCurDist-10(live) nNewPointsCount-10(live) nPrevDir-10(live) nDistMax-10(live) tmp#14-10(live) tmp#13(def L1689)-10(live) tmp#12(def L1688)-10(live) uP+40 nNextPoint+20 pPath-10(live) const:4#5-10(live) const:7#4-10(live) pPathInfo+20 const:1#2-10(live) const:0#1+0
+    blk 00c087a8 L1684-1684 w=2 K=3: nDirection+12 bNotStraightLine-6(live) pPathPointsEnd-6(live) nCurDist-6(live) nNewPointsCount-6(live) nPrevDir+12 nDistMax-6(live) tmp#14-6(live) tmp#13(def L1689)-6(live) tmp#12(def L1688)-6(live) uP-6(live) nNextPoint-6(live) pPath-6(live) const:4#5-6(live) const:7#4+0 pPathInfo-6(live) const:1#2-6(live) const:0#1-6(live)
+    blk 00c08948 L1688-1690 w=2 K=4: nPrevDir+16 nDirection+48 bNotStraightLine-8(live) pPathPointsEnd-8(live) nCurDist-8(live) nNewPointsCount-8(live) nDistMax-8(live) tmp#14-8(live) tmp#13(def L1689)+32 tmp#12(def L1688)+32 uP-8(live) nNextPoint-8(live) pPath-8(live) const:4#5-8(live) const:7#4-8(live) pPathInfo-8(live) const:1#2-8(live) const:0#1-8(live)
+    blk 00c08ae8 L1692-1692 w=2 K=2: nDirection-4(live) pPathPointsEnd-4(live) nCurDist-4(live) nNewPointsCount-4(live) nDistMax-4(live) tmp#14-4(live) tmp#13(def L1689)-4(live) tmp#12(def L1688)-4(live) uP+8 nNextPoint-4(live) pPath-4(live) const:4#5-4(live) const:7#4-4(live) pPathInfo+8 const:1#2-4(live) const:0#1-4(live)
+    blk 00c0de18 L1692-1692 w=2 K=2: nDirection-4(live) pPathPointsEnd-4(live) nCurDist-4(live) nNewPointsCount-4(live) nDistMax-4(live) tmp#14-4(live) tmp#13(def L1689)-4(live) tmp#12(def L1688)-4(live) uP+8 nNextPoint-4(live) pPath-4(live) const:4#5-4(live) const:7#4-4(live) pPathInfo+8 const:1#2-4(live) const:0#1-4(live)
+    blk 00c0dfb8 L1694-1696 w=2 K=5: uP+20 nDirection-10(live) pPathPointsEnd+40 nCurDist-10(live) nNewPointsCount+20 nDistMax-10(live) tmp#14-10(live) tmp#13(def L1689)-10(live) tmp#12(def L1688)-10(live) nNextPoint-10(live) pPath-10(live) const:4#5+0 const:7#4-10(live) pPathInfo-10(live) const:1#2+0 const:0#1-10(live)
+    blk 00c0e158 L1698-1698 w=2 K=2: bNotStraightLine+8 nDirection-4(live) pPathPointsEnd-4(live) nCurDist-4(live) nNewPointsCount-4(live) nDistMax-4(live) tmp#14-4(live) tmp#13(def L1689)-4(live) tmp#12(def L1688)-4(live) nNextPoint-4(live) pPath-4(live) const:4#5-4(live) const:7#4-4(live) pPathInfo-4(live) const:1#2+0 const:0#1-4(live)
+    blk 00c0e2f8 L1700-1704 w=2 K=6: nDirection+24 nPrevDir+24 uP+24 bNotStraightLine-12(live) pPathPointsEnd-12(live) nCurDist+48 nNewPointsCount-12(live) nDistMax+24 tmp#14-12(live) tmp#13(def L1689)-12(live) tmp#12(def L1688)-12(live) nNextPoint-12(live) pPath-12(live) const:4#5-12(live) const:7#4-12(live) pPathInfo-12(live) const:1#2+0 const:0#1-12(live)
+    blk 00c0e498 L1706-1706 w=1 K=2: bNotStraightLine+4 nCurDist-2(live) nNewPointsCount-2(live) uP-2(live) pPath-2(live) const:1#2-2(live) const:0#1+0
+    blk 00c0e638 L1711-1711 w=1 K=2: nCurDist+4 nNewPointsCount-2(live) uP-2(live) pPath-2(live) const:1#2-2(live)
+    blk 00c0e7d8 L1713-1714 w=1 K=4: uP+8 nNewPointsCount+16 pPath+8
+    blk 00c0e978 L1718-1719 w=1 K=2: nNewPointsCount+8 pPath+4
+
+=== round 2 (register class 0): 9 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  pPathInfo                       27     45    4     8   <3          / 1648,1655,1665,1666
+  tmp#28(def L1688)               28     32    2    67  <12         1688 / 1688
+  pPathInfo                       23     26    5     8   <3         1631 / 1632,1637,1640,1648
+  pPathInfo                        4     24    3     8   <3          / 1684,1692
+  const:0#26                      26      6    3     0   <1          / 1633,1634,1635
+  tmp#22                          22      2    2    67  <12          / 1657,1676
+  const:1#24                      24      0    3     0   <2          / 1695,1698,1702
+  const:1#5                        5    -21    2     0   <2          / 1660,1714
+  const:0#25                      25    -67    6     0   <1          / 1669,1670,1671,1680,1706,1711
+  colouring order:
+    nPrevDir                     prio    45 -> ebx  (allowed ebx; costs ebx=8200)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00be1e84 L1631-1635 w=1 K=3: const:0#26+6 pPathInfo+12
+    blk 00be2024 L1637-1637 w=1 K=1: pPathInfo+2
+    blk 00be21c4 L1640-1642 w=1 K=3: pPathInfo+6
+    blk 00be2504 L1648-1648 w=1 K=3: pPathInfo+6 pPathInfo+6
+    blk 00be2844 L1655-1657 w=1 K=5: tmp#22+10 pPathInfo+10
+    blk 00be29e4 L1657-1657 w=1 K=1: tmp#22-1(live) pPathInfo-1(live)
+    blk 00c07de8 L1659-1662 w=1 K=5: tmp#22+0 const:1#5+5 pPathInfo-5(live)
+    blk 00bf49a8 L1662-1662 w=1 K=1: const:1#5+0 pPathInfo-1(live) tmp#22-1(live)
+    blk 00c07f88 L1665-1671 w=1 K=9: pPathInfo+36 const:0#25+0 const:1#5-9(live) tmp#22-9(live)
+    blk 00c08128 L1673-1673 w=1 K=3: const:0#25-3(live) const:1#5-3(live) tmp#22-3(live)
+    blk 00bf47d0 L1673-1673 w=1 K=2: const:0#25-2(live) const:1#5-2(live) tmp#22-2(live)
+    blk 00bf4b80 L1673-1673 w=2 K=2: tmp#22+0 const:1#5+0 const:0#25-4(live)
+    blk 00c082c8 L1676-1676 w=2 K=2: tmp#22+8 const:1#5-4(live) const:0#25-4(live)
+    blk 00c08468 L1676-1676 w=2 K=2: const:1#5-4(live) const:0#25-4(live)
+    blk 00c08608 L1680-1684 w=2 K=5: pPathInfo+20 const:0#25+0
+    blk 00c087a8 L1684-1684 w=2 K=2: pPathInfo-4(live) const:0#25-4(live)
+    blk 00c08948 L1688-1690 w=2 K=4: tmp#28(def L1688)+32 pPathInfo-8(live) const:0#25-8(live)
+    blk 00c08ae8 L1692-1692 w=2 K=2: const:0#25-4(live) pPathInfo+8
+    blk 00c0de18 L1692-1692 w=2 K=2: pPathInfo+8 const:0#25-4(live)
+    blk 00c0dfb8 L1694-1696 w=2 K=4: const:1#24+0 const:0#25-8(live)
+    blk 00be8d28 L1696-1696 w=2 K=1: const:1#24+0 const:0#25-2(live)
+    blk 00c0e158 L1698-1698 w=2 K=2: const:1#24+0 const:0#25-4(live)
+    blk 00be8f00 L1698-1698 w=2 K=1: const:1#24+0 const:0#25-2(live)
+    blk 00c0e2f8 L1700-1704 w=2 K=6: const:0#25-12(live)
+    blk 00be90d8 L1704-1704 w=1 K=1: const:1#5+0 const:0#25-1(live)
+    blk 00c0e498 L1706-1706 w=1 K=2: const:1#5-2(live) const:0#25+0
+    blk 00be92b0 L1706-1706 w=1 K=1: const:1#5+0 const:0#25-1(live)
+    blk 00c0e638 L1711-1711 w=1 K=2: const:1#5-2(live)
+    blk 00c0e7d8 L1713-1714 w=1 K=4: 
+
+=== round 3 (register class 0): 11 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  nCurDist                        35     40    3    76  <19  eax    1702 / 1702,1704
+  nNewPointsCount                  2     38    7    7d  <17  eax    1668,1714 / 1673,1713,1714,1718,1719
+  nDistMax                        31     36    2    46  <15         1665 / 1671
+  nNextPoint                       3     36    3    45   <7         1666 / 1676,1682
+  pPathPointsEnd                  33     32    3    70  <20         1696 / 1694,1696
+  tmp#32(def L1689)               32     32    2    66  <13         1689 / 1689
+  nNewPointsCount                 34     16    2    7d  <17         1695 / 1695
+  bNotStraightLine                 1     16    2    73  <18         1669 / 1706
+  pPathInfo                       12     16    2     8   <3          / 1692
+  nCurDist                        29     14    2    76  <19         1670 / 1711
+  const:0#30                      30      0    6     0   <1          / 1669,1670,1671,1680,1706,1711
+  colouring order:
+    pPathInfo                    prio    45 -> ecx  (allowed ecx/edx; costs ecx=0 edx=0)
+    nCurDist                     prio    40 -> eax  (allowed eax/ecx/edx; costs eax=0 ecx=0 edx=0)
+    nNewPointsCount              prio    38 -> eax  (allowed eax/ecx/edx; costs eax=-1 ecx=1 edx=0)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c07f88 L1665-1671 w=1 K=9: nDistMax+36 nCurDist+18 bNotStraightLine+18 const:0#30+0 nNewPointsCount+18 nNextPoint+18
+    blk 00c08128 L1673-1673 w=1 K=2: nCurDist-2(live) bNotStraightLine-2(live) const:0#30-2(live) nNewPointsCount+4 nNextPoint-2(live)
+    blk 00bf47d0 L1673-1673 w=1 K=0: nCurDist-0(live) bNotStraightLine-0(live) const:0#30-0(live) nNewPointsCount-0(live) nNextPoint-0(live)
+    blk 00bf4b80 L1673-1673 w=2 K=7: const:0#30+0 nCurDist+0 nNextPoint+0 nNewPointsCount+0 bNotStraightLine+0
+    blk 00c082c8 L1676-1676 w=2 K=2: const:0#30-4(live) nCurDist-4(live) nNextPoint+8 nNewPointsCount-4(live) bNotStraightLine-4(live)
+    blk 00c08468 L1676-1676 w=2 K=0: const:0#30-0(live) nCurDist-0(live) nNextPoint-0(live) nNewPointsCount-0(live) bNotStraightLine-0(live)
+    blk 00c08608 L1680-1684 w=2 K=3: nNextPoint+12 const:0#30+6
+    blk 00c08948 L1688-1690 w=2 K=4: tmp#32(def L1689)+32
+    blk 00c08ae8 L1692-1692 w=2 K=2: pPathInfo+8
+    blk 00c0de18 L1692-1692 w=2 K=2: pPathInfo+8
+    blk 00c0dfb8 L1694-1696 w=2 K=4: pPathPointsEnd+32 nNewPointsCount+16
+    blk 00c0e2f8 L1700-1704 w=2 K=5: nCurDist+40
+    blk 00be90d8 L1704-1704 w=1 K=5: const:0#30+0 nCurDist+0 nNewPointsCount+0 bNotStraightLine+0
+    blk 00c0e498 L1706-1706 w=1 K=2: bNotStraightLine+4 const:0#30+0 nCurDist-2(live) nNewPointsCount-2(live)
+    blk 00be92b0 L1706-1706 w=1 K=4: const:0#30+0 nCurDist+0 nNewPointsCount+0
+    blk 00c0e638 L1711-1711 w=1 K=2: nCurDist+4 nNewPointsCount-2(live)
+    blk 00c0e7d8 L1713-1714 w=1 K=4: nNewPointsCount+16
+    blk 00c0e978 L1718-1719 w=1 K=2: nNewPointsCount+8
+
+=== round 4 (register class 0): 7 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  nCurDist                        14     16    1    76  <19         1670 / 
+  const:0#15                      15      8    3     0   <1          / 1669,1670,1671
+  const:1#17                      17      5    1     0   <2          / 1660
+  bNotStraightLine                25      4    1    73  <18          / 1706
+  nCurDist                        19      2    1    76               / 1711
+  const:0#18                      18      0    2     0   <1          / 1706,1711
+  const:1#20                      20     -4    1     0   <2          / 1714
+  colouring order:
+    nDistMax                     prio    36 -> edx  (allowed edx; costs edx=0)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c07de8 L1659-1662 w=1 K=5: const:1#17+5
+    blk 00c07f88 L1665-1671 w=1 K=8: const:0#15+8 nCurDist+16
+    blk 00be90d8 L1704-1704 w=1 K=5: const:0#18+0 nCurDist+0 bNotStraightLine+0 const:1#20+0
+    blk 00be9488 L1704-1704 w=1 K=4: bNotStraightLine+0 const:1#20+0 nCurDist+0 const:0#18+0
+    blk 00c0e498 L1706-1706 w=1 K=2: bNotStraightLine+4 const:1#20-2(live) nCurDist-2(live) const:0#18+0
+    blk 00be92b0 L1706-1706 w=1 K=4: const:0#18+0 nCurDist+0 const:1#20+0
+    blk 00c0e638 L1711-1711 w=1 K=2: nCurDist+4 const:1#20-2(live)
+    blk 00c0e7d8 L1713-1714 w=1 K=4: 
+
+=== round 5 (register class 0): 0 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  colouring order:
+    nNextPoint                   prio    36 -> ecx  (allowed ecx; costs ecx=98)
+  blocks (w = loop weight, K = candidates referenced in the block):
+
+=== round 6 (register class 0): 0 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  colouring order:
+    pPathPointsEnd               prio    32 -> ecx  (allowed ecx/edx/ebx; costs ecx=0 edx=0 ebx=0)
+    tmp#28                       prio    32 -> not coloured (split / memory)
+    tmp#32                       prio    32 -> not coloured (split / memory)
+    pPathInfo                    prio    26 -> ebx  (allowed ebx; costs ebx=0)
+    tCurCoords                   prio    18 -> eax  (allowed eax/edx; costs eax=0 edx=0)
+    nNewPointsCount              prio    16 -> not coloured (split / memory)
+    pPathInfo                    prio    16 -> ecx  (allowed ecx/edx/ebx; costs ecx=0 edx=0 ebx=0)
+    nNextPoint                   prio    12 -> eax  (allowed eax/ecx/edx/edi; costs eax=0 ecx=0 edx=0 edi=0)
+    const:0#26                   prio     6 -> eax  (allowed eax/ecx/edx/edi; costs eax=0 ecx=0 edx=0 edi=0)
+    const:0#18                   prio     0 -> not coloured (split / memory)
+    const:1#24                   prio     0 -> not coloured (split / memory)
+    nNewPointsCount              prio     0 -> not coloured (split / memory)
+    tmp#32                       prio     0 -> not coloured (split / memory)
+    tmp#28                       prio     0 -> not coloured (split / memory)
+    const:0#18                   prio     0 -> not coloured (split / memory)
+  blocks (w = loop weight, K = candidates referenced in the block):
+
+=== round 7 (register class 0): 1 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  const:1#28                      28      6    1     0   <2          / 1695
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00c0dfb8 L1694-1696 w=2 K=3: const:1#28+6

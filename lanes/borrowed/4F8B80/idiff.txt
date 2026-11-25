@@ -1,0 +1,61 @@
+== Window.cpp 0x004F8B80 unmasked diffs at ['+0x5', '+0x20', '+0x26', '+0x29', '+0x2c', '+0x2d', '+0x34', '+0x35', '+0x36', '+0x37', '+0x38', '+0x39']
+  orig +0x000 push ebp
+  orig +0x001 mov ebp, esp
+  orig +0x003 sub esp, 0x48   <==
+  orig +0x006 push ebx
+  orig +0x007 mov ebx, dword ptr [0x7d544c]
+  orig +0x00d imul ebx, dword ptr [ebp + 8]
+  orig +0x011 add ebx, dword ptr [0x7d5448]
+  ours +0x000 push ebp
+  ours +0x001 mov ebp, esp
+  ours +0x003 sub esp, 0x40   <==
+  ours +0x006 push ebx
+  ours +0x007 mov ebx, dword ptr [0]
+  ours +0x00d imul ebx, dword ptr [ebp + 8]
+  ours +0x011 add ebx, dword ptr [0]
+  --
+  orig +0x017 xor eax, eax
+  orig +0x019 add ebx, edx
+  orig +0x01b cmp dword ptr [ecx + 0x50], eax
+  orig +0x01e mov dword ptr [ebp - 0x34], edx   <==
+  orig +0x021 mov dword ptr [ebp - 0x30], ecx
+  orig +0x024 mov dword ptr [ebp - 8], ebx
+  orig +0x027 mov dword ptr [ebp - 0x2c], eax
+  orig +0x02a jle 0x4f8daa
+  ours +0x017 xor eax, eax
+  ours +0x019 add ebx, edx
+  ours +0x01b cmp dword ptr [ecx + 0x50], eax
+  ours +0x01e mov dword ptr [ebp - 0x24], edx   <==
+  ours +0x021 mov dword ptr [ebp - 0x30], ecx
+  ours +0x024 mov dword ptr [ebp - 0x28], ebx
+  ours +0x027 mov dword ptr [ebp - 0x20], eax
+  ours +0x02a jle 0x4f8dbd
+  --
+  orig +0x030 push esi
+  orig +0x031 push edi
+  ours +0x030 push esi
+  ours +0x031 push edi
+  --
+  orig +0x032 mov dword ptr [ebp - 0x10], eax
+  ours +0x032 mov dword ptr [ebp - 8], eax
+  --
+  orig +0x035 mov ecx, dword ptr [ecx + 0x54]
+  ours +0x035 jmp 0x4f8bbd
+  --
+  --
+  orig +0x038 add ecx, dword ptr [ebp - 0x10]
+  orig +0x03b movsx esi, word ptr [ecx + 2]
+  orig +0x03f movsx edx, word ptr [ecx]
+  ours +0x037 mov edx, dword ptr [ebp - 0x24]
+  ours +0x03a mov ebx, dword ptr [ebp - 0x28]
+  ours +0x03d mov ecx, dword ptr [ecx + 0x54]
+  --
+  orig +0x042 mov eax, esi
+  ours +0x040 add ecx, dword ptr [ebp - 8]
+  --
+  --
+  ours +0x043 movsx esi, word ptr [ecx + 2]
+  --
+  orig +0x044 imul eax, dword ptr [0x7d544c]
+  --
+  --

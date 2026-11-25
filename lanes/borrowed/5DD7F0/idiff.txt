@@ -1,0 +1,35 @@
+== AiUtil.cpp 0x005DD7F0 unmasked diffs at ['+0x3b', '+0x3c', '+0x3d', '+0x3e', '+0x3f', '+0x41', '+0x42', '+0x43', '+0x44', '+0x45', '+0x46', '+0x47']
+  orig +0x02f mov dword ptr [ebp - 0x18], eax
+  orig +0x032 mov dword ptr [ebp - 0x34], eax
+  orig +0x035 movzx eax, word ptr [esi + 8]
+  orig +0x039 test al, 0x40
+  orig +0x03b je 0x5dd9a0   <==
+  orig +0x041 and eax, 0xffbf
+  orig +0x046 mov dword ptr [ebp - 0xc], 1
+  orig +0x04d mov word ptr [esi + 8], ax
+  orig +0x051 mov ecx, dword ptr [ebp - 0xc]
+  ours +0x02f mov dword ptr [ebp - 0x18], eax
+  ours +0x032 mov dword ptr [ebp - 0x34], eax
+  ours +0x035 movzx eax, word ptr [esi + 8]
+  ours +0x039 test al, 0x40
+  ours +0x03b je 0x5dd83f   <==
+  ours +0x03d and eax, 0xffbf
+  ours +0x042 mov dword ptr [ebp - 0xc], 1
+  ours +0x049 mov word ptr [esi + 8], ax
+  ours +0x04d jmp 0x5dd89f
+  --
+  --
+  ours +0x04f push ecx
+  --
+  --
+  --
+  orig +0x054 lea edx, [ebp - 8]
+  --
+  ours +0x050 call 0x5dd845
+  --
+  --
+  --
+  --
+  orig +0x057 push edx
+  --
+  --

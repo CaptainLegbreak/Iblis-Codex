@@ -1,0 +1,39 @@
+== Unknown_00679380.cpp 0x00679C80 unmasked diffs at ['+0x91', '+0x92', '+0x93', '+0x94', '+0x95', '+0x96', '+0x97', '+0x98', '+0x99', '+0x9a', '+0x9b', '+0x9d']
+  orig +0x08b mov esp, ebp
+  orig +0x08d pop ebp
+  orig +0x08e ret 
+  orig +0x08f mov edi, dword ptr [ecx]
+  orig +0x091 mov dword ptr [ebp - 4], edi   <==
+  orig +0x094 cmp word ptr [ebp - 4], bx
+  orig +0x098 jne 0x679d25
+  orig +0x09a mov ecx, edi
+  orig +0x09c shr ecx, 0x10
+  ours +0x08b mov esp, ebp
+  ours +0x08d pop ebp
+  ours +0x08e ret 
+  ours +0x08f mov edi, dword ptr [ecx]
+  ours +0x091 mov eax, edi   <==
+  ours +0x093 mov dword ptr [ebp - 4], eax
+  ours +0x096 cmp word ptr [ebp - 4], bx
+  ours +0x09a jne 0x679d25
+  ours +0x09c shr eax, 0x10
+  --
+  --
+  ours +0x09f cmp ax, word ptr [ebp - 6]
+  --
+  orig +0x09f cmp cx, word ptr [ebp - 6]
+  --
+  --
+  ours +0x0a3 je 0x679d38
+  --
+  --
+  orig +0x0a3 je 0x679d38
+  --
+  --
+  orig +0x0a5 mov edx, dword ptr [esi + 0x28]
+  ours +0x0a5 mov edx, dword ptr [esi + 0x28]
+  --
+  --
+  orig +0x0a8 mov edi, ebx
+  ours +0x0a8 mov dword ptr [esi + edx*4 + 0x9c], ebx
+  --

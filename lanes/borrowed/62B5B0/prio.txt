@@ -1,0 +1,1056 @@
+function: ?sub_0062B5B0@@YIHPAUD2UnitStrc@@0@Z
+
+=== round 1 (register class 0): 86 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  tmp#59(def L13743)              59    112    8   192       eax    13743 / 13743
+  tmp#57(def L13733)              57    112    8   173       ecx    13733 / 13733
+  nLevel                          42     64    6   1b1       eax    13750,13754 / 13754,13756,13758
+  pSkillsTxtRecord                37     56    5   198       esi    13743 / 13744,13748,13750,13754
+  pPrefix                         17     46    5    4b       esi    13631 / 13633
+  pSkillsTxtRecord                35     44    3   179       ecx    13733 / 13734
+  nMaxLevel                       23     44    5   10b       eax    13659 / 13659,13660,13662
+  tmp#65(def L13646)              65     44    3    cf       eax    13646 / 13646
+  tmp#62(def L13632)              62     44    3    57       eax    13632 / 13632
+  nLevel                          31     40    3   15b       eax    13722 / 13723,13725
+  pSocketable                     30     40    3   156       eax    13717 / 13718,13722
+  pSocketed                       29     36    6   162       esi    13715 / 13715,13717
+  tmp#71(def L13646)              71     36    3    cb  <66  eax    13646 / 13646
+  tmp#64(def L13645)              64     36    3    c0       eax    13645 / 13645
+  tmp#70(def L13645)              70     36    3    bc  <66  eax    13645 / 13645
+  tmp#68(def L13632)              68     36    3    53  <66  eax    13632 / 13632
+  tmp#61(def L13631)              61     36    3    48       eax    13631 / 13631
+  tmp#67(def L13631)              67     36    3    44  <66  eax    13631 / 13631
+  pAutoAffix                      19     33    5    99       eax    13636 / 13637
+  nCharClass                      38     32    3   1a4       ebx    13748 / 13748
+  tmp#89(def L13734)              89     32    3   17f              13734 / 13734,13736
+  tmp#86(def L13648)              86     32    3    fd              13648 / 13648
+  tmp#85(def L13648)              85     32    3    f8              13648 / 13648
+  tmp#84(def L13648)              84     32    3    ef              13648 / 13648
+  tmp#83(def L13647)              83     32    3    e7              13647 / 13647
+  tmp#82(def L13647)              82     32    3    e2              13647 / 13647
+  tmp#81(def L13647)              81     32    3    d9              13647 / 13647
+  tmp#77(def L13634)              77     32    3    85              13634 / 13634
+  tmp#76(def L13634)              76     32    3    80              13634 / 13634
+  tmp#75(def L13634)              75     32    3    77              13634 / 13634
+  tmp#74(def L13633)              74     32    3    6f              13633 / 13633
+  tmp#73(def L13633)              73     32    3    6a              13633 / 13633
+  tmp#72(def L13633)              72     32    3    61              13633 / 13633
+  pPrefix                         16     28    2    34              13619 / 13622
+  pSuffix                          7     28    2    2d              13620 / 13623
+  pAutoAffix                      10     28    2    27              13621 / 13624
+  pSuffix                         18     26    5    5b              13632 / 13634
+  tmp#90(def L13615)              90     26    3    16              13615 / 13615
+  tmp#60(def L13648)              60     24    2    f5              13648 / 13648
+  tmp#58(def L13647)              58     24    2    df              13647 / 13647
+  tmp#50(def L13634)              50     24    2    7d              13634 / 13634
+  tmp#48(def L13633)              48     24    2    67              13633 / 13633
+  i                               34     23    5   183              13731 / 13731,13733
+  nRequiredLevel                  14     20   40   1c1              13614,13624,13633,13634,13637,13647,13648,13658,13662,13687,13700,13710,13725,13736,13758,13763 / 13633,13634,13637,13647,13648,13658,13660,13708,13723,13734,13756,13763,13764
+  tmp#54(def L13647)              54     20    4    e8              13647 / 13647
+  tmp#45(def L13633)              45     20    4    70              13633 / 13633
+  nQuality                        13     20    3    12              13613 / 13615
+  tmp#88(def L13713)              88     18    3   14e              13713 / 13713,13715
+  pItemsTxtRecord                 28     18    3   145              13707 / 13708
+  pSet                            26     18    3   134              13694 / 13695,13697
+  tmp#63(def L13636)              63     18    3    95              13636 / 13636
+  tmp#87(def L13708)              87     16    3   14a              13708 / 13708,13710
+  nLevel                          27     16    3   13b              13697 / 13698,13700
+  nLevel                          25     16    4   12c              13675,13679 / 13685,13687
+  tmp#80(def L13637)              80     16    3    ad              13637 / 13637
+  tmp#79(def L13637)              79     16    3    a8              13637 / 13637
+  tmp#78(def L13637)              78     16    3    9f              13637 / 13637
+  tmp#69(def L13636)              69     16    3    91  <66         13636 / 13636
+  tmp#66(def L13613)              66     16    3     e              13613 / 13613
+  pUnique                         24     15    4   119              13669 / 13670,13675,13679
+  colouring order:
+    tmp#59(def L13743)           prio   112 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=0 edi=0 ebx=0)
+    tmp#57(def L13733)           prio   112 -> ecx  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=1 ecx=0 edx=0 esi=0 edi=0 ebx=0)
+    nLevel                       prio    64 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=0 edi=0 ebx=0)
+    pSkillsTxtRecord             prio    56 -> esi  (allowed esi/edi/ebx; costs esi=0 edi=0 ebx=1200)
+    pPrefix                      prio    46 -> esi  (allowed esi/edi/ebx; costs esi=0 edi=0 ebx=0)
+    pSkillsTxtRecord             prio    44 -> ecx  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=1 ecx=-1 edx=0 esi=0 edi=0 ebx=0)
+    nMaxLevel                    prio    44 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=-1 ecx=0 edx=0 esi=0 edi=0 ebx=0)
+    tmp#65(def L13646)           prio    44 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=0 edi=0 ebx=0)
+    tmp#62(def L13632)           prio    44 -> eax  (allowed eax/ecx/edx/edi/ebx; costs eax=0 ecx=0 edx=0 edi=0 ebx=0)
+    nLevel                       prio    40 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=-1 ecx=0 edx=0 esi=0 edi=0 ebx=0)
+    pSocketable                  prio    40 -> eax  (allowed eax/ecx/esi/edi/ebx; costs eax=-1 ecx=-1 esi=0 edi=0 ebx=0)
+    pSocketed                    prio    36 -> esi  (allowed esi/edi/ebx; costs esi=0 edi=0 ebx=0)
+    tmp#71(def L13646)           prio    36 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=0 edi=0 ebx=0)
+    tmp#64(def L13645)           prio    36 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=0 edi=0 ebx=0)
+    tmp#70(def L13645)           prio    36 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=0 edi=0 ebx=0)
+    tmp#68(def L13632)           prio    36 -> eax  (allowed eax/ecx/edx/edi/ebx; costs eax=0 ecx=0 edx=0 edi=0 ebx=0)
+    tmp#61(def L13631)           prio    36 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=0 edi=0 ebx=0)
+    tmp#67(def L13631)           prio    36 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=0 edi=0 ebx=0)
+    pAutoAffix                   prio    33 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=-1 ecx=0 edx=0 esi=0 edi=0 ebx=0)
+    nCharClass                   prio    32 -> ebx  (allowed ebx; costs ebx=0)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00da01f4 L13611-13613 w=1 K=5: const:0#1+0 const:4#2+0 const:2#3+0 pItem+20 pPlayer+10
+    blk 00da0394 L13613-13613 w=1 K=2: const:0#1-2(live) const:4#2+0 const:2#3-2(live) pItem+4 pPlayer-2(live)
+    blk 00da0534 L13613-13613 w=1 K=3: tmp#66(def L13613)+12 const:0#1+0 const:4#2-3(live) const:2#3-3(live) pItem+6 pPlayer-3(live)
+    blk 00da06d4 L13613-13613 w=1 K=2: tmp#66(def L13613)+4 nQuality+4 const:0#1-2(live) const:4#2-2(live) const:2#3-2(live) pItem-2(live) pPlayer-2(live)
+    blk 00da0874 L13613-13613 w=1 K=2: nQuality+4 pPlayer-2(live) pItem-2(live) const:2#3+0 const:4#2-2(live) const:0#1-2(live)
+    blk 00da0a14 L13613-13615 w=1 K=6: nQuality+12 const:1#9+0 tmp#90(def L13615)+24 nRequiredLevel+12 pPlayer-6(live) pItem-6(live) const:2#3-6(live) const:4#2+0 const:0#1+0
+    blk 00da0bb4 L13615-13615 w=1 K=1: tmp#90(def L13615)+2 const:1#9-1(live) nRequiredLevel-1(live) pPlayer-1(live) pItem-1(live) const:2#3-1(live) const:4#2-1(live) const:0#1-1(live)
+    blk 00da0d54 L13619-13625 w=1 K=7: pAutoAffix+28 pSuffix+28 pPrefix+28 nRequiredLevel+14 pPlayer+42 const:1#9-7(live) pItem+42 const:0#1+0
+    blk 00e0e0e0 L13629-13629 w=1 K=1: tmp#91(def L13629)+2 nRequiredLevel-1(live) pPlayer-1(live) const:1#9-1(live) pItem-1(live) const:2#3-1(live) const:4#2-1(live) const:0#1-1(live)
+    blk 00de83cc L13629-13629 w=1 K=2: const:68#6+0 const:255#5+0 tmp#91(def L13629)-2(live) nRequiredLevel-2(live) pPlayer-2(live) const:1#9-2(live) pItem-2(live) const:2#3-2(live) const:4#2-2(live) const:0#1-2(live)
+    blk 00e0e280 L13631-13631 w=2 K=2: const:68#6-4(live) const:255#5-4(live) tmp#91(def L13629)-4(live) nRequiredLevel-4(live) pPlayer-4(live) const:1#9-4(live) pItem+8 const:2#3-4(live) const:4#2-4(live) const:0#1+0
+    blk 00e0e420 L13631-13631 w=2 K=2: const:68#6-4(live) const:255#5-4(live) tmp#91(def L13629)-4(live) nRequiredLevel-4(live) pPlayer-4(live) const:1#9-4(live) pItem+8 const:2#3-4(live) const:4#2+0 const:0#1-4(live)
+    blk 00e0e5c0 L13631-13631 w=2 K=3: tmp#67(def L13631)+24 const:68#6-6(live) const:255#5-6(live) tmp#91(def L13629)-6(live) nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) pItem+12 const:2#3-6(live) const:4#2-6(live) const:0#1+0
+    blk 00e0e760 L13631-13631 w=2 K=3: tmp#67(def L13631)+12 tmp#61(def L13631)+12 const:68#6-6(live) const:255#5-6(live) tmp#91(def L13629)+12 nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00e0e900 L13631-13631 w=2 K=2: tmp#61(def L13631)+8 tmp#91(def L13629)-4(live) nRequiredLevel-4(live) pPlayer-4(live) const:1#9-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1+0
+    blk 00e0eaa0 L13631-13632 w=2 K=4: tmp#61(def L13631)+16 pPrefix+16 tmp#91(def L13629)-8(live) nRequiredLevel-8(live) pPlayer-8(live) const:1#9-8(live) const:68#6-8(live) const:255#5-8(live) pItem+16 const:2#3-8(live) const:4#2-8(live) const:0#1+0
+    blk 00e0ec40 L13632-13632 w=2 K=2: pPrefix-4(live) tmp#91(def L13629)-4(live) nRequiredLevel-4(live) pPlayer-4(live) const:1#9-4(live) const:68#6-4(live) const:255#5-4(live) pItem+8 const:2#3-4(live) const:4#2+0 const:0#1-4(live)
+    blk 00e0ede0 L13632-13632 w=2 K=3: tmp#68(def L13632)+24 pPrefix-6(live) tmp#91(def L13629)-6(live) nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) const:68#6-6(live) const:255#5-6(live) pItem+12 const:2#3-6(live) const:4#2-6(live) const:0#1+0
+    blk 00e013d0 L13632-13632 w=2 K=3: tmp#68(def L13632)+12 tmp#62(def L13632)+12 pPrefix-6(live) tmp#91(def L13629)+12 nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) const:68#6-6(live) const:255#5-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00e01570 L13632-13632 w=2 K=2: tmp#62(def L13632)+8 tmp#91(def L13629)-4(live) pPrefix-4(live) nRequiredLevel-4(live) pPlayer-4(live) const:1#9-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1+0
+    blk 00e01710 L13632-13633 w=2 K=6: tmp#62(def L13632)+24 tmp#45(def L13633)+24 pSuffix+24 tmp#91(def L13629)-12(live) pPrefix+24 nRequiredLevel+24 pPlayer-12(live) const:1#9-12(live) const:68#6-12(live) const:255#5-12(live) pItem-12(live) const:2#3-12(live) const:4#2-12(live) const:0#1+0
+    blk 00e018b0 L13633-13633 w=2 K=3: tmp#72(def L13633)+24 tmp#45(def L13633)-6(live) pSuffix-6(live) tmp#91(def L13629)-6(live) pPrefix+12 nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) const:68#6-6(live) const:255#5+0 pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00e01a50 L13633-13633 w=2 K=2: tmp#72(def L13633)-4(live) tmp#45(def L13633)-4(live) pSuffix-4(live) tmp#91(def L13629)-4(live) pPrefix-4(live) nRequiredLevel-4(live) pPlayer+8 const:1#9-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1+0
+    blk 00e01bf0 L13633-13633 w=2 K=3: tmp#48(def L13633)+24 tmp#72(def L13633)+12 tmp#45(def L13633)-6(live) pSuffix-6(live) tmp#91(def L13629)-6(live) pPrefix-6(live) nRequiredLevel-6(live) pPlayer+12 const:1#9-6(live) const:68#6-6(live) const:255#5-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00e01d90 L13633-13633 w=2 K=3: nRequiredLevel+12 pPrefix+12 tmp#73(def L13633)+24 tmp#45(def L13633)-6(live) pSuffix-6(live) tmp#91(def L13629)-6(live) pPlayer-6(live) const:1#9-6(live) const:68#6-6(live) const:255#5-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00e01f30 L13633-13633 w=2 K=2: tmp#73(def L13633)+8 tmp#45(def L13633)+8 tmp#91(def L13629)-4(live) pSuffix-4(live) pPlayer-4(live) const:1#9-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1-4(live)
+    blk 00e020d0 L13633-13633 w=2 K=3: nRequiredLevel+12 pPrefix+12 tmp#74(def L13633)+24 tmp#91(def L13629)-6(live) tmp#45(def L13633)-6(live) pSuffix-6(live) pPlayer-6(live) const:1#9-6(live) const:68#6-6(live) const:255#5-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00d64198 L13633-13633 w=2 K=2: tmp#74(def L13633)+8 tmp#45(def L13633)+8 tmp#91(def L13629)-4(live) pSuffix-4(live) pPlayer-4(live) const:1#9-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1-4(live)
+    blk 00d64338 L13633-13633 w=2 K=2: tmp#45(def L13633)+8 nRequiredLevel+8 tmp#91(def L13629)-4(live) pSuffix-4(live) pPlayer-4(live) const:1#9-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1-4(live)
+    blk 00d644d8 L13633-13634 w=2 K=4: tmp#47(def L13634)+16 nRequiredLevel+16 tmp#91(def L13629)-8(live) pSuffix+16 pPlayer-8(live) const:1#9-8(live) const:68#6-8(live) const:255#5-8(live) pItem-8(live) const:2#3-8(live) const:4#2-8(live) const:0#1+0
+    blk 00d64678 L13634-13634 w=2 K=3: tmp#75(def L13634)+24 tmp#47(def L13634)-6(live) nRequiredLevel-6(live) tmp#91(def L13629)-6(live) pSuffix+12 pPlayer-6(live) const:1#9-6(live) const:68#6-6(live) const:255#5+0 pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00d64818 L13634-13634 w=2 K=2: tmp#75(def L13634)-4(live) tmp#47(def L13634)-4(live) nRequiredLevel-4(live) tmp#91(def L13629)-4(live) pSuffix-4(live) pPlayer+8 const:1#9-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1+0
+    blk 00d649b8 L13634-13634 w=2 K=3: tmp#50(def L13634)+24 tmp#75(def L13634)+12 tmp#47(def L13634)-6(live) nRequiredLevel-6(live) tmp#91(def L13629)-6(live) pSuffix-6(live) pPlayer+12 const:1#9-6(live) const:68#6-6(live) const:255#5-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00d64b58 L13634-13634 w=2 K=3: nRequiredLevel+12 pSuffix+12 tmp#76(def L13634)+24 tmp#47(def L13634)-6(live) tmp#91(def L13629)-6(live) pPlayer-6(live) const:1#9-6(live) const:68#6-6(live) const:255#5-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00d64cf8 L13634-13634 w=2 K=2: tmp#76(def L13634)+8 tmp#47(def L13634)+8 tmp#91(def L13629)-4(live) pPlayer-4(live) const:1#9-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1-4(live)
+    blk 00d64e98 L13634-13634 w=2 K=3: nRequiredLevel+12 pSuffix+12 tmp#77(def L13634)+24 tmp#91(def L13629)-6(live) tmp#47(def L13634)-6(live) pPlayer-6(live) const:1#9-6(live) const:68#6-6(live) const:255#5-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00d61170 L13634-13634 w=2 K=2: tmp#77(def L13634)+8 tmp#47(def L13634)+8 tmp#91(def L13629)-4(live) pPlayer-4(live) const:1#9-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1-4(live)
+    blk 00d61310 L13634-13634 w=2 K=2: tmp#47(def L13634)+8 nRequiredLevel+8 tmp#91(def L13629)-4(live) pPlayer-4(live) const:1#9-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1-4(live)
+    blk 00d614b0 L13629-13629 w=2 K=3: nRequiredLevel-6(live) tmp#91(def L13629)+24 pPlayer-6(live) const:1#9-6(live) const:68#6+0 const:255#5-6(live) pItem-6(live) const:2#3+0 const:4#2-6(live) const:0#1-6(live)
+    blk 00de8d04 L?         w=1 K=0: nRequiredLevel-0(live) pPlayer-0(live) const:1#9-0(live) const:255#5-0(live) pItem-0(live) const:4#2-0(live) const:0#1-0(live)
+    blk 00d61650 L13636-13636 w=1 K=2: nRequiredLevel-2(live) pPlayer-2(live) const:1#9-2(live) const:255#5-2(live) pItem+4 const:4#2-2(live) const:0#1+0
+    blk 00d617f0 L13636-13636 w=1 K=2: nRequiredLevel-2(live) pPlayer-2(live) const:1#9-2(live) const:255#5-2(live) pItem+4 const:0#1-2(live)
+    blk 00d61990 L13636-13636 w=1 K=3: tmp#69(def L13636)+12 nRequiredLevel-3(live) pPlayer-3(live) const:1#9-3(live) const:255#5-3(live) pItem+6 const:0#1+0
+    blk 00d61b30 L13636-13636 w=1 K=2: tmp#69(def L13636)+4 tmp#63(def L13636)+4 nRequiredLevel-2(live) pPlayer-2(live) const:1#9-2(live) const:255#5-2(live) pItem-2(live) const:0#1-2(live)
+    blk 00d61cd0 L13636-13636 w=1 K=2: tmp#63(def L13636)+4 nRequiredLevel-2(live) pPlayer-2(live) const:1#9-2(live) const:255#5-2(live) pItem-2(live) const:0#1+0
+    blk 00d61e70 L13636-13637 w=1 K=5: tmp#63(def L13636)+10 tmp#51(def L13637)+10 pAutoAffix+20 nRequiredLevel+10 pPlayer-5(live) const:1#9-5(live) const:255#5-5(live) pItem-5(live) const:0#1+0
+    blk 00dab078 L13637-13637 w=1 K=3: tmp#78(def L13637)+12 tmp#51(def L13637)-3(live) pAutoAffix+6 nRequiredLevel-3(live) pPlayer-3(live) const:1#9-3(live) pItem-3(live) const:0#1-3(live)
+    blk 00dab218 L13637-13637 w=1 K=2: tmp#78(def L13637)-2(live) tmp#51(def L13637)-2(live) pAutoAffix-2(live) nRequiredLevel-2(live) pPlayer+4 const:1#9-2(live) pItem-2(live) const:0#1+0
+    blk 00dab3b8 L13637-13637 w=1 K=3: tmp#52(def L13637)+12 tmp#78(def L13637)+6 tmp#51(def L13637)-3(live) pAutoAffix-3(live) nRequiredLevel-3(live) pPlayer+6 const:1#9-3(live) pItem-3(live) const:0#1-3(live)
+    blk 00dab558 L13637-13637 w=1 K=3: nRequiredLevel+6 pAutoAffix+6 tmp#79(def L13637)+12 tmp#51(def L13637)-3(live) pPlayer-3(live) const:1#9-3(live) pItem-3(live) const:0#1-3(live)
+    blk 00dab6f8 L13637-13637 w=1 K=2: tmp#79(def L13637)+4 tmp#51(def L13637)+4 pPlayer-2(live) const:1#9-2(live) pItem-2(live) const:0#1-2(live)
+    blk 00dab898 L13637-13637 w=1 K=3: nRequiredLevel+6 pAutoAffix+6 tmp#80(def L13637)+12 tmp#51(def L13637)-3(live) pPlayer-3(live) const:1#9-3(live) pItem-3(live) const:0#1-3(live)
+    blk 00daba38 L13637-13637 w=1 K=2: tmp#80(def L13637)+4 tmp#51(def L13637)+4 pPlayer-2(live) const:1#9-2(live) pItem-2(live) const:0#1-2(live)
+    blk 00dabbd8 L13637-13638 w=1 K=2: tmp#51(def L13637)+4 nRequiredLevel+4 pPlayer-2(live) const:1#9-2(live) pItem-2(live) const:0#1-2(live)
+    blk 00dabd78 L13642-13642 w=1 K=2: tmp#92(def L13642,13643)+4 nCraftBonus+4 nRequiredLevel-2(live) pPlayer-2(live) const:1#9-2(live) pItem-2(live) const:2#3-2(live) const:4#2-2(live) const:0#1-2(live)
+    blk 00de85a4 L13642-13642 w=1 K=3: const:3#8+0 const:68#6+0 const:255#5+0 tmp#92(def L13642,13643)-3(live) nCraftBonus-3(live) nRequiredLevel-3(live) pPlayer-3(live) const:1#9-3(live) pItem-3(live) const:2#3-3(live) const:4#2-3(live) const:0#1-3(live)
+    blk 00d7b038 L13645-13645 w=2 K=2: const:3#8-4(live) const:68#6-4(live) const:255#5-4(live) tmp#92(def L13642,13643)-4(live) nCraftBonus-4(live) nRequiredLevel-4(live) pPlayer-4(live) const:1#9-4(live) pItem+8 const:2#3-4(live) const:4#2-4(live) const:0#1+0
+    blk 00d7b1d8 L13645-13645 w=2 K=2: const:3#8-4(live) const:68#6-4(live) const:255#5-4(live) tmp#92(def L13642,13643)-4(live) nCraftBonus-4(live) nRequiredLevel-4(live) pPlayer-4(live) const:1#9-4(live) pItem+8 const:2#3-4(live) const:4#2+0 const:0#1-4(live)
+    blk 00d7b378 L13645-13645 w=2 K=3: tmp#70(def L13645)+24 const:3#8-6(live) const:68#6-6(live) const:255#5-6(live) tmp#92(def L13642,13643)-6(live) nCraftBonus-6(live) nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) pItem+12 const:2#3-6(live) const:4#2-6(live) const:0#1+0
+    blk 00d7b518 L13645-13645 w=2 K=3: tmp#70(def L13645)+12 tmp#64(def L13645)+12 const:3#8-6(live) const:68#6-6(live) const:255#5-6(live) tmp#92(def L13642,13643)+12 nCraftBonus-6(live) nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00d7b6b8 L13645-13645 w=2 K=2: tmp#64(def L13645)+8 tmp#92(def L13642,13643)-4(live) nCraftBonus-4(live) nRequiredLevel-4(live) pPlayer-4(live) const:1#9-4(live) const:3#8-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1+0
+    blk 00d7b858 L13645-13646 w=2 K=4: tmp#64(def L13645)+16 pPrefix+16 tmp#92(def L13642,13643)-8(live) nCraftBonus-8(live) nRequiredLevel-8(live) pPlayer-8(live) const:1#9-8(live) const:3#8-8(live) const:68#6-8(live) const:255#5-8(live) pItem+16 const:2#3-8(live) const:4#2-8(live) const:0#1+0
+    blk 00d7b9f8 L13646-13646 w=2 K=2: pPrefix-4(live) tmp#92(def L13642,13643)-4(live) nCraftBonus-4(live) nRequiredLevel-4(live) pPlayer-4(live) const:1#9-4(live) const:3#8-4(live) const:68#6-4(live) const:255#5-4(live) pItem+8 const:2#3-4(live) const:4#2+0 const:0#1-4(live)
+    blk 00d7bb98 L13646-13646 w=2 K=3: tmp#71(def L13646)+24 pPrefix-6(live) tmp#92(def L13642,13643)-6(live) nCraftBonus-6(live) nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) const:3#8-6(live) const:68#6-6(live) const:255#5-6(live) pItem+12 const:2#3-6(live) const:4#2-6(live) const:0#1+0
+    blk 00d7bd38 L13646-13646 w=2 K=3: tmp#71(def L13646)+12 tmp#65(def L13646)+12 pPrefix-6(live) tmp#92(def L13642,13643)+12 nCraftBonus-6(live) nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) const:3#8-6(live) const:68#6-6(live) const:255#5-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00dad088 L13646-13646 w=2 K=2: tmp#65(def L13646)+8 tmp#92(def L13642,13643)-4(live) pPrefix-4(live) nCraftBonus-4(live) nRequiredLevel-4(live) pPlayer-4(live) const:1#9-4(live) const:3#8-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1+0
+    blk 00dad228 L13646-13647 w=2 K=6: tmp#65(def L13646)+24 tmp#54(def L13647)+24 pSuffix+24 tmp#92(def L13642,13643)-12(live) pPrefix+24 nCraftBonus-12(live) nRequiredLevel+24 pPlayer-12(live) const:1#9-12(live) const:3#8-12(live) const:68#6-12(live) const:255#5-12(live) pItem-12(live) const:2#3-12(live) const:4#2-12(live) const:0#1+0
+    blk 00dad3c8 L13647-13647 w=2 K=3: tmp#81(def L13647)+24 tmp#54(def L13647)-6(live) pSuffix-6(live) tmp#92(def L13642,13643)-6(live) pPrefix+12 nCraftBonus-6(live) nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) const:3#8-6(live) const:68#6-6(live) const:255#5+0 pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00dad568 L13647-13647 w=2 K=2: tmp#81(def L13647)-4(live) tmp#54(def L13647)-4(live) pSuffix-4(live) tmp#92(def L13642,13643)-4(live) pPrefix-4(live) nCraftBonus-4(live) nRequiredLevel-4(live) pPlayer+8 const:1#9-4(live) const:3#8-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1+0
+    blk 00dad708 L13647-13647 w=2 K=3: tmp#58(def L13647)+24 tmp#81(def L13647)+12 tmp#54(def L13647)-6(live) pSuffix-6(live) tmp#92(def L13642,13643)-6(live) pPrefix-6(live) nCraftBonus-6(live) nRequiredLevel-6(live) pPlayer+12 const:1#9-6(live) const:3#8-6(live) const:68#6-6(live) const:255#5-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00dad8a8 L13647-13647 w=2 K=3: nRequiredLevel+12 tmp#82(def L13647)+24 tmp#54(def L13647)-6(live) pSuffix-6(live) tmp#92(def L13642,13643)-6(live) pPrefix+12 nCraftBonus-6(live) pPlayer-6(live) const:1#9-6(live) const:3#8-6(live) const:68#6-6(live) const:255#5-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00dada48 L13647-13647 w=2 K=2: tmp#82(def L13647)+8 tmp#54(def L13647)+8 tmp#92(def L13642,13643)-4(live) pSuffix-4(live) pPrefix-4(live) nCraftBonus-4(live) pPlayer-4(live) const:1#9-4(live) const:3#8-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1-4(live)
+    blk 00dadbe8 L13647-13647 w=2 K=3: nRequiredLevel+12 tmp#83(def L13647)+24 tmp#92(def L13642,13643)-6(live) tmp#54(def L13647)-6(live) pSuffix-6(live) pPrefix+12 nCraftBonus-6(live) pPlayer-6(live) const:1#9-6(live) const:3#8-6(live) const:68#6-6(live) const:255#5-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00dadd88 L13647-13647 w=2 K=2: tmp#83(def L13647)+8 tmp#54(def L13647)+8 tmp#92(def L13642,13643)-4(live) pSuffix-4(live) pPrefix-4(live) nCraftBonus-4(live) pPlayer-4(live) const:1#9-4(live) const:3#8-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1-4(live)
+    blk 00d99ff0 L13647-13647 w=2 K=2: tmp#54(def L13647)+8 nRequiredLevel+8 tmp#92(def L13642,13643)-4(live) pSuffix-4(live) pPrefix-4(live) nCraftBonus-4(live) pPlayer-4(live) const:1#9-4(live) const:3#8-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1-4(live)
+    blk 00d9a190 L13647-13648 w=2 K=4: tmp#56(def L13648)+16 nRequiredLevel+16 tmp#92(def L13642,13643)-8(live) pSuffix+16 pPrefix-8(live) nCraftBonus-8(live) pPlayer-8(live) const:1#9-8(live) const:3#8-8(live) const:68#6-8(live) const:255#5-8(live) pItem-8(live) const:2#3-8(live) const:4#2-8(live) const:0#1+0
+    blk 00d9a330 L13648-13648 w=2 K=3: tmp#84(def L13648)+24 tmp#56(def L13648)-6(live) nRequiredLevel-6(live) tmp#92(def L13642,13643)-6(live) pSuffix+12 pPrefix-6(live) nCraftBonus-6(live) pPlayer-6(live) const:1#9-6(live) const:3#8-6(live) const:68#6-6(live) const:255#5+0 pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00d9a4d0 L13648-13648 w=2 K=2: tmp#84(def L13648)-4(live) tmp#56(def L13648)-4(live) nRequiredLevel-4(live) tmp#92(def L13642,13643)-4(live) pSuffix-4(live) pPrefix-4(live) nCraftBonus-4(live) pPlayer+8 const:1#9-4(live) const:3#8-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1+0
+    blk 00d9a670 L13648-13648 w=2 K=3: tmp#60(def L13648)+24 tmp#84(def L13648)+12 tmp#56(def L13648)-6(live) nRequiredLevel-6(live) tmp#92(def L13642,13643)-6(live) pSuffix-6(live) pPrefix-6(live) nCraftBonus-6(live) pPlayer+12 const:1#9-6(live) const:3#8-6(live) const:68#6-6(live) const:255#5-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00d9a810 L13648-13648 w=2 K=3: nRequiredLevel+12 tmp#85(def L13648)+24 tmp#56(def L13648)-6(live) tmp#92(def L13642,13643)-6(live) pSuffix+12 pPrefix-6(live) nCraftBonus-6(live) pPlayer-6(live) const:1#9-6(live) const:3#8-6(live) const:68#6-6(live) const:255#5-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00d9a9b0 L13648-13648 w=2 K=2: tmp#85(def L13648)+8 tmp#56(def L13648)+8 tmp#92(def L13642,13643)-4(live) pSuffix-4(live) pPrefix-4(live) nCraftBonus-4(live) pPlayer-4(live) const:1#9-4(live) const:3#8-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1-4(live)
+    blk 00d9ab50 L13648-13648 w=2 K=3: nRequiredLevel+12 tmp#86(def L13648)+24 tmp#92(def L13642,13643)-6(live) tmp#56(def L13648)-6(live) pSuffix+12 pPrefix-6(live) nCraftBonus-6(live) pPlayer-6(live) const:1#9-6(live) const:3#8-6(live) const:68#6-6(live) const:255#5-6(live) pItem-6(live) const:2#3-6(live) const:4#2-6(live) const:0#1-6(live)
+    blk 00d9acf0 L13648-13648 w=2 K=2: tmp#86(def L13648)+8 tmp#56(def L13648)+8 tmp#92(def L13642,13643)-4(live) pSuffix-4(live) pPrefix-4(live) nCraftBonus-4(live) pPlayer-4(live) const:1#9-4(live) const:3#8-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1-4(live)
+    blk 00dc5190 L13648-13648 w=2 K=2: tmp#56(def L13648)+8 nRequiredLevel+8 tmp#92(def L13642,13643)-4(live) pSuffix-4(live) pPrefix-4(live) nCraftBonus-4(live) pPlayer-4(live) const:1#9-4(live) const:3#8-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1-4(live)
+    blk 00dc5330 L13648-13649 w=2 K=2: pPrefix+8 nRequiredLevel-4(live) tmp#92(def L13642,13643)-4(live) pSuffix-4(live) nCraftBonus-4(live) pPlayer-4(live) const:1#9-4(live) const:3#8-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1+0
+    blk 00dc54d0 L13651-13651 w=2 K=2: nRequiredLevel-4(live) tmp#92(def L13642,13643)-4(live) pSuffix-4(live) nCraftBonus+8 pPlayer-4(live) const:1#9-4(live) const:3#8+0 const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1-4(live)
+    blk 00dc5670 L13653-13653 w=2 K=2: pSuffix+8 nRequiredLevel-4(live) tmp#92(def L13642,13643)-4(live) nCraftBonus-4(live) pPlayer-4(live) const:1#9-4(live) const:3#8-4(live) const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1+0
+    blk 00dc5810 L13655-13655 w=2 K=2: nRequiredLevel-4(live) tmp#92(def L13642,13643)-4(live) nCraftBonus+8 pPlayer-4(live) const:1#9-4(live) const:3#8+0 const:68#6-4(live) const:255#5-4(live) pItem-4(live) const:2#3-4(live) const:4#2-4(live) const:0#1-4(live)
+    blk 00dc59b0 L13643-13643 w=2 K=3: nRequiredLevel-6(live) tmp#92(def L13642,13643)+24 nCraftBonus-6(live) pPlayer-6(live) const:1#9-6(live) const:3#8-6(live) const:68#6+0 const:255#5-6(live) pItem-6(live) const:2#3+0 const:4#2-6(live) const:0#1-6(live)
+    blk 00de8edc L?         w=1 K=0: nCraftBonus-0(live) nRequiredLevel-0(live) pPlayer-0(live) const:1#9-0(live) pItem-0(live) const:0#1-0(live)
+    blk 00dc5b50 L13658-13660 w=1 K=5: nCraftBonus+10 nMaxLevel+40 nRequiredLevel+20 pPlayer-5(live) const:1#9+0 pItem-5(live) const:0#1+0
+    blk 00dc5cf0 L13662-13664 w=1 K=2: nMaxLevel+4 nRequiredLevel+4 pPlayer-2(live) const:1#9-2(live) pItem-2(live) const:0#1-2(live)
+    blk 00dc5e90 L13667-13667 w=1 K=1: nRequiredLevel-1(live) pPlayer-1(live) const:1#9-1(live) pItem+2 const:0#1-1(live)
+    blk 00dc6198 L13669-13670 w=1 K=3: pUnique+12 nRequiredLevel-3(live) pPlayer-3(live) const:1#9-3(live) pItem+6 const:0#1+0
+    blk 00dc6338 L13673-13673 w=1 K=2: pUnique-2(live) nRequiredLevel-2(live) pPlayer+4 const:1#9-2(live) pItem-2(live) const:0#1+0
+    blk 00dc64d8 L13675-13675 w=1 K=2: pUnique+4 nLevel+4 nRequiredLevel-2(live) pPlayer-2(live) const:1#9-2(live) pItem-2(live) const:0#1-2(live)
+    blk 00dc6678 L13677-13677 w=1 K=1: pUnique-1(live) nRequiredLevel-1(live) pPlayer+2 const:1#9-1(live) pItem-1(live) const:0#1-1(live)
+    blk 00dc6818 L13677-13677 w=1 K=2: pUnique-2(live) nRequiredLevel-2(live) pPlayer-2(live) const:1#9+0 pItem+4 const:0#1-2(live)
+    blk 00dc69b8 L13679-13679 w=1 K=2: pUnique+4 nLevel+4 nRequiredLevel-2(live) pPlayer-2(live) const:1#9-2(live) pItem-2(live) const:0#1-2(live)
+    blk 00dc6b58 L13685-13685 w=1 K=2: nLevel+4 nRequiredLevel-2(live) pPlayer-2(live) const:1#9-2(live) pItem-2(live) const:0#1+0
+    blk 00dc6cf8 L13687-13691 w=1 K=2: nLevel+4 nRequiredLevel+4 pPlayer-2(live) const:1#9-2(live) pItem-2(live) const:0#1-2(live)
+    blk 00dc6e98 L13694-13695 w=1 K=3: pSet+12 nRequiredLevel-3(live) pPlayer-3(live) const:1#9-3(live) pItem+6 const:0#1+0
+    blk 00dcc1d0 L13697-13698 w=1 K=3: pSet+6 nLevel+12 nRequiredLevel-3(live) pPlayer-3(live) const:1#9-3(live) pItem-3(live) const:0#1+0
+    blk 00dcc370 L13700-13700 w=1 K=2: nLevel+4 nRequiredLevel+4 pPlayer-2(live) const:1#9-2(live) pItem-2(live) const:0#1-2(live)
+    blk 00dcc510 L13707-13707 w=1 K=2: nRequiredLevel-2(live) pPlayer-2(live) const:1#9-2(live) pItem+4 const:0#1+0
+    blk 00dcc6b0 L13707-13707 w=1 K=1: tmp#41(def L13707)+2 nRequiredLevel-1(live) pPlayer-1(live) const:1#9-1(live) pItem-1(live) const:0#1-1(live)
+    blk 00dcc850 L13707-13707 w=1 K=2: tmp#41(def L13707)+4 nRequiredLevel-2(live) pPlayer-2(live) const:1#9-2(live) pItem+4 const:0#1-2(live)
+    blk 00dcc9f0 L13707-13708 w=1 K=3: tmp#41(def L13707)+6 pItemsTxtRecord+12 nRequiredLevel-3(live) pPlayer-3(live) const:1#9-3(live) pItem-3(live) const:0#1+0
+    blk 00dccb90 L13708-13708 w=1 K=3: pItemsTxtRecord+6 tmp#87(def L13708)+12 nRequiredLevel+6 pPlayer-3(live) const:1#9-3(live) pItem-3(live) const:0#1-3(live)
+    blk 00dccd30 L13710-13710 w=1 K=2: tmp#87(def L13708)+4 nRequiredLevel+4 pPlayer-2(live) const:1#9-2(live) pItem-2(live) const:0#1-2(live)
+    blk 00dcced0 L13713-13713 w=1 K=3: tmp#88(def L13713)+12 nRequiredLevel-3(live) pPlayer-3(live) const:1#9-3(live) pItem+6 const:0#1+0
+    blk 00dcd1d8 L13715-13715 w=1 K=3: tmp#88(def L13713)+6 pSocketed+12 nRequiredLevel-3(live) pPlayer-3(live) const:1#9-3(live) pItem-3(live) const:0#1+0
+    blk 00de877c L?         w=1 K=0: pSocketed-0(live) nRequiredLevel-0(live) pPlayer-0(live) const:1#9-0(live) pItem-0(live) const:0#1-0(live)
+    blk 00dcd378 L13717-13718 w=2 K=3: pSocketable+24 pSocketed+12 nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) pItem-6(live) const:0#1+0
+    blk 00dcd518 L13722-13723 w=2 K=4: pSocketable+16 nLevel+32 pSocketed-8(live) nRequiredLevel+16 pPlayer+16 const:1#9-8(live) pItem-8(live) const:0#1-8(live)
+    blk 00dcd6b8 L13725-13725 w=2 K=2: nLevel+8 nRequiredLevel+8 pSocketed-4(live) pPlayer-4(live) const:1#9-4(live) pItem-4(live) const:0#1-4(live)
+    blk 00dcd858 L13715-13715 w=2 K=2: pSocketed+24 nRequiredLevel-4(live) pPlayer-4(live) const:1#9-4(live) pItem-4(live) const:0#1+0
+    blk 00dcd9f8 L13730-13731 w=1 K=5: i+10 nCount+20 const:64#12+0 nRequiredLevel-5(live) pPlayer-5(live) const:1#9-5(live) pItem+10 const:0#1+0
+    blk 00de8954 L13731-13731 w=1 K=1: ?sgptDataTables@@3PAUD2DataTablesStrc@@A+0 i-1(live) nCount-1(live) const:64#12-1(live) nRequiredLevel-1(live) pPlayer-1(live) const:1#9-1(live) pItem-1(live) const:0#1-1(live)
+    blk 00dcdb98 L13733-13733 w=2 K=3: tmp#57(def L13733)+24 ?sgptDataTables@@3PAUD2DataTablesStrc@@A-6(live) i+12 nCount-6(live) const:64#12-6(live) nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) pItem-6(live) const:0#1+0
+    blk 00dcdd38 L13733-13733 w=2 K=2: tmp#57(def L13733)+8 ?sgptDataTables@@3PAUD2DataTablesStrc@@A+8 i-4(live) nCount-4(live) const:64#12-4(live) nRequiredLevel-4(live) pPlayer-4(live) const:1#9-4(live) pItem-4(live) const:0#1-4(live)
+    blk 00dcded8 L13733-13734 w=2 K=4: tmp#57(def L13733)+80 pSkillsTxtRecord+32 ?sgptDataTables@@3PAUD2DataTablesStrc@@A+16 i-8(live) nCount-8(live) const:64#12-8(live) nRequiredLevel-8(live) pPlayer-8(live) const:1#9-8(live) pItem-8(live) const:0#1+0
+    blk 00dd01f8 L13734-13734 w=2 K=3: pSkillsTxtRecord+12 tmp#89(def L13734)+24 ?sgptDataTables@@3PAUD2DataTablesStrc@@A-6(live) i-6(live) nCount-6(live) const:64#12-6(live) nRequiredLevel+12 pPlayer-6(live) const:1#9-6(live) pItem-6(live) const:0#1-6(live)
+    blk 00dd0398 L13736-13736 w=2 K=2: tmp#89(def L13734)+8 nRequiredLevel+8 ?sgptDataTables@@3PAUD2DataTablesStrc@@A-4(live) i-4(live) nCount-4(live) const:64#12-4(live) pPlayer-4(live) const:1#9-4(live) pItem-4(live) const:0#1-4(live)
+    blk 00dd0538 L13731-13731 w=2 K=3: nRequiredLevel-6(live) ?sgptDataTables@@3PAUD2DataTablesStrc@@A-6(live) i+24 nCount+12 const:64#12-6(live) pPlayer-6(live) const:1#9+0 pItem-6(live) const:0#1-6(live)
+    blk 00de90b4 L?         w=1 K=0: nRequiredLevel-0(live) const:64#12-0(live) pPlayer-0(live) const:1#9-0(live) pItem-0(live) const:0#1-0(live)
+    blk 00dd06d8 L13740-13741 w=1 K=5: i+10 nCount+20 nRequiredLevel-5(live) pPlayer-5(live) const:1#9-5(live) pItem+10 const:0#1+0
+    blk 00de8b2c L13741-13741 w=1 K=2: ?sgptDataTables@@3PAUD2DataTablesStrc@@A+0 const:6#15+0 i-2(live) nCount-2(live) nRequiredLevel-2(live) pPlayer-2(live) const:1#9-2(live) pItem-2(live) const:0#1-2(live)
+    blk 00dd0878 L13743-13743 w=2 K=3: tmp#59(def L13743)+24 ?sgptDataTables@@3PAUD2DataTablesStrc@@A-6(live) const:6#15-6(live) i+12 nCount-6(live) nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) pItem-6(live) const:0#1+0
+    blk 00dd0a18 L13743-13743 w=2 K=2: tmp#59(def L13743)+8 ?sgptDataTables@@3PAUD2DataTablesStrc@@A+8 const:6#15-4(live) i-4(live) nCount-4(live) nRequiredLevel-4(live) pPlayer-4(live) const:1#9-4(live) pItem-4(live) const:0#1-4(live)
+    blk 00dd0bb8 L13743-13744 w=2 K=4: tmp#59(def L13743)+80 pSkillsTxtRecord+32 ?sgptDataTables@@3PAUD2DataTablesStrc@@A+16 const:6#15-8(live) i-8(live) nCount-8(live) nRequiredLevel-8(live) pPlayer-8(live) const:1#9-8(live) pItem-8(live) const:0#1+0
+    blk 00dd0d58 L13748-13748 w=2 K=2: pSkillsTxtRecord-4(live) ?sgptDataTables@@3PAUD2DataTablesStrc@@A-4(live) const:6#15-4(live) i-4(live) nCount-4(live) nRequiredLevel-4(live) pPlayer+8 const:1#9-4(live) pItem-4(live) const:0#1+0
+    blk 00dd0ef8 L13748-13748 w=2 K=1: pSkillsTxtRecord-2(live) i-2(live) nCount-2(live) const:6#15-2(live) nRequiredLevel-2(live) pPlayer+4 const:1#9-2(live) pItem-2(live) const:0#1-2(live)
+    blk 00dd1200 L13748-13748 w=2 K=3: nCharClass+24 pSkillsTxtRecord+12 i-6(live) nCount-6(live) const:6#15+0 nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) pItem-6(live) const:0#1-6(live)
+    blk 00dd13a0 L13748-13748 w=2 K=2: nCharClass+8 pSkillsTxtRecord-4(live) i-4(live) nCount-4(live) const:6#15-4(live) nRequiredLevel-4(live) pPlayer+8 const:1#9-4(live) pItem-4(live) const:0#1-4(live)
+    blk 00dd1540 L13750-13752 w=2 K=3: pSkillsTxtRecord+12 ?sgptDataTables@@3PAUD2DataTablesStrc@@A+0 nLevel+12 i-6(live) nCount-6(live) const:6#15-6(live) nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) pItem-6(live) const:0#1-6(live)
+    blk 00de9498 L13752-13752 w=2 K=1: ?sgptDataTables@@3PAUD2DataTablesStrc@@A+0 pSkillsTxtRecord-2(live) i-2(live) nCount-2(live) const:6#15-2(live) nRequiredLevel-2(live) pPlayer-2(live) const:1#9-2(live) pItem-2(live) const:0#1-2(live)
+    blk 00dd16e0 L13754-13754 w=2 K=3: pSkillsTxtRecord+12 nLevel+36 ?sgptDataTables@@3PAUD2DataTablesStrc@@A-6(live) i-6(live) nCount-6(live) const:6#15+0 nRequiredLevel-6(live) pPlayer-6(live) const:1#9-6(live) pItem-6(live) const:0#1-6(live)
+    blk 00dd1880 L13756-13756 w=2 K=2: nLevel+8 ?sgptDataTables@@3PAUD2DataTablesStrc@@A-4(live) i-4(live) nCount-4(live) const:6#15-4(live) nRequiredLevel+8 pPlayer-4(live) const:1#9-4(live) pItem-4(live) const:0#1-4(live)
+    blk 00dd1a20 L13758-13758 w=2 K=2: nLevel+8 nRequiredLevel+8 ?sgptDataTables@@3PAUD2DataTablesStrc@@A-4(live) i-4(live) nCount-4(live) const:6#15-4(live) pPlayer-4(live) const:1#9-4(live) pItem-4(live) const:0#1-4(live)
+    blk 00dd1bc0 L13741-13741 w=2 K=3: nRequiredLevel-6(live) ?sgptDataTables@@3PAUD2DataTablesStrc@@A-6(live) i+24 nCount+12 const:6#15-6(live) pPlayer-6(live) const:1#9+0 pItem-6(live) const:0#1-6(live)
+    blk 00de92f8 L?         w=1 K=0: nRequiredLevel-0(live) pItem-0(live) const:0#1-0(live)
+    blk 00dd1d60 L13763-13764 w=1 K=3: nRequiredLevel+18 pItem+6
+
+=== round 2 (register class 0): 0 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  colouring order:
+    tmp#89                       prio    32 -> ecx  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=1 ecx=0 edx=0 esi=0 edi=27200 ebx=0)
+    tmp#86                       prio    32 -> ecx  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=1 ecx=0 edx=0 esi=0 edi=27200 ebx=0)
+    tmp#85                       prio    32 -> ecx  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=1 ecx=0 edx=0 esi=0 edi=27200 ebx=0)
+    tmp#84                       prio    32 -> ecx  (allowed eax/ecx/edx/ebx; costs eax=1 ecx=0 edx=0 ebx=0)
+    tmp#83                       prio    32 -> ecx  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=1 ecx=0 edx=0 esi=0 edi=27200 ebx=0)
+    tmp#82                       prio    32 -> ecx  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=1 ecx=0 edx=0 esi=0 edi=27200 ebx=0)
+    tmp#81                       prio    32 -> ecx  (allowed eax/ecx/edx/ebx; costs eax=1 ecx=0 edx=0 ebx=0)
+    tmp#77                       prio    32 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=0 edi=27200 ebx=0)
+    tmp#76                       prio    32 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=0 edi=27200 ebx=0)
+    tmp#75                       prio    32 -> ecx  (allowed eax/ecx/edx/ebx; costs eax=1 ecx=0 edx=0 ebx=0)
+    tmp#74                       prio    32 -> ecx  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=1 ecx=0 edx=0 esi=0 edi=27200 ebx=0)
+    tmp#73                       prio    32 -> ecx  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=1 ecx=0 edx=0 esi=0 edi=27200 ebx=0)
+    tmp#72                       prio    32 -> ecx  (allowed eax/ecx/edx/ebx; costs eax=1 ecx=0 edx=0 ebx=0)
+    pPrefix                      prio    28 -> esi  (allowed esi/edi/ebx; costs esi=0 edi=15200 ebx=0)
+    pSuffix                      prio    28 -> ebx  (allowed edi/ebx; costs edi=15200 ebx=0)
+    pAutoAffix                   prio    28 -> edi  (allowed edi; costs edi=15200)
+  blocks (w = loop weight, K = candidates referenced in the block):
+
+=== round 3 (register class 0): 7 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  pItem                           53     66    3     6   <4  edi     / 13619,13620,13621
+  pPlayer                         55     44    2     7  <11  esi     / 13623,13624
+  const:0#49                      49      0    2     0   <1          / 13619,13620
+  pItem                           43   -237   29     6   <4         13611 / 13613,13631,13632,13636,13645,13646,13667,13669,13677,13694,13707,13713,13730,13740,13763
+  const:0#15                      15   -337   53     0   <1          / 13613,13614,13631,13632,13633,13634,13636,13637,13645,13646,13647,13648,13649,13653,13659,13670,13673,13685,13695,13698,13707,13708,13713,13715,13718,13731,13733,13734,13741,13743,13744,13748,13763,13764
+  pPlayer                         46   -361   17     7  <11         13611 / 13633,13634,13637,13647,13648,13673,13677,13722,13748
+  const:1#44                      44   -535    4     0   <9          / 13659,13677,13731,13741
+  colouring order:
+    pItem                        prio    66 -> edi  (allowed edi; costs edi=0)
+    pPlayer                      prio    44 -> esi  (allowed esi; costs esi=0)
+    pSuffix                      prio    26 -> eax  (allowed eax/edx/edi/ebx; costs eax=-2 edx=0 edi=25200 ebx=0)
+    tmp#90                       prio    26 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=0 edi=25200 ebx=0)
+    tmp#60                       prio    24 -> edx  (allowed eax/edx/esi/edi/ebx; costs eax=2 edx=0 esi=0 edi=25200 ebx=0)
+    tmp#58                       prio    24 -> edx  (allowed eax/edx/esi/edi/ebx; costs eax=2 edx=0 esi=0 edi=25200 ebx=0)
+    tmp#50                       prio    24 -> edx  (allowed edx/esi/edi/ebx; costs edx=0 esi=0 edi=25200 ebx=0)
+    tmp#48                       prio    24 -> edx  (allowed edx/edi/ebx; costs edx=0 edi=25200 ebx=0)
+    i                            prio    23 -> edx  (allowed eax/edx/esi/edi/ebx; costs eax=2 edx=0 esi=0 edi=25200 ebx=0)
+    nRequiredLevel               prio    20 -> edi  (allowed edi; costs edi=15400)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00da01f4 L13611-13613 w=1 K=5: const:0#15+0 pItem+20 pPlayer+10
+    blk 00da0394 L13613-13613 w=1 K=2: const:0#15-2(live) pItem+4 pPlayer-2(live)
+    blk 00da0534 L13613-13613 w=1 K=3: const:0#15+0 pItem+6 pPlayer-3(live)
+    blk 00da06d4 L13613-13613 w=1 K=2: const:0#15-2(live) pItem-2(live) pPlayer-2(live)
+    blk 00da0874 L13613-13613 w=1 K=2: pPlayer-2(live) pItem-2(live) const:0#15-2(live)
+    blk 00da0a14 L13613-13615 w=1 K=6: const:1#44+0 pPlayer-6(live) pItem-6(live) const:0#15+0
+    blk 00da0bb4 L13615-13615 w=1 K=1: const:1#44-1(live) pPlayer-1(live) pItem-1(live) const:0#15-1(live)
+    blk 00da0d54 L13619-13625 w=1 K=11: pPlayer+44 pItem+66 pPlayer+0 const:1#44+0 pItem+0 const:0#15+0
+    blk 00e0e0e0 L13629-13629 w=1 K=1: pPlayer-1(live) const:1#44-1(live) pItem-1(live) const:0#15-1(live)
+    blk 00de83cc L13629-13629 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem-2(live) const:0#15-2(live)
+    blk 00e0e280 L13631-13631 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem+8 const:0#15+0
+    blk 00e0e420 L13631-13631 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem+8 const:0#15-4(live)
+    blk 00e0e5c0 L13631-13631 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem+12 const:0#15+0
+    blk 00e0e760 L13631-13631 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00e0e900 L13631-13631 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15+0
+    blk 00e0eaa0 L13631-13632 w=2 K=4: pPlayer-8(live) const:1#44-8(live) pItem+16 const:0#15+0
+    blk 00e0ec40 L13632-13632 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem+8 const:0#15-4(live)
+    blk 00e0ede0 L13632-13632 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem+12 const:0#15+0
+    blk 00e013d0 L13632-13632 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00e01570 L13632-13632 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15+0
+    blk 00e01710 L13632-13633 w=2 K=6: pPlayer-12(live) const:1#44-12(live) pItem-12(live) const:0#15+0
+    blk 00e018b0 L13633-13633 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00e01a50 L13633-13633 w=2 K=2: pPlayer+8 const:1#44-4(live) pItem-4(live) const:0#15+0
+    blk 00e01bf0 L13633-13633 w=2 K=3: pPlayer+12 const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00e01d90 L13633-13633 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00e01f30 L13633-13633 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00e020d0 L13633-13633 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00d64198 L13633-13633 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00d64338 L13633-13633 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00d644d8 L13633-13634 w=2 K=4: pPlayer-8(live) const:1#44-8(live) pItem-8(live) const:0#15+0
+    blk 00d64678 L13634-13634 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00d64818 L13634-13634 w=2 K=2: pPlayer+8 const:1#44-4(live) pItem-4(live) const:0#15+0
+    blk 00d649b8 L13634-13634 w=2 K=3: pPlayer+12 const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00d64b58 L13634-13634 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00d64cf8 L13634-13634 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00d64e98 L13634-13634 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00d61170 L13634-13634 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00d61310 L13634-13634 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00d614b0 L13629-13629 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00de8d04 L?         w=1 K=0: pPlayer-0(live) const:1#44-0(live) pItem-0(live) const:0#15-0(live)
+    blk 00d61650 L13636-13636 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem+4 const:0#15+0
+    blk 00d617f0 L13636-13636 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem+4 const:0#15-2(live)
+    blk 00d61990 L13636-13636 w=1 K=3: pPlayer-3(live) const:1#44-3(live) pItem+6 const:0#15+0
+    blk 00d61b30 L13636-13636 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem-2(live) const:0#15-2(live)
+    blk 00d61cd0 L13636-13636 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem-2(live) const:0#15+0
+    blk 00d61e70 L13636-13637 w=1 K=5: pPlayer-5(live) const:1#44-5(live) pItem-5(live) const:0#15+0
+    blk 00dab078 L13637-13637 w=1 K=3: pPlayer-3(live) const:1#44-3(live) pItem-3(live) const:0#15-3(live)
+    blk 00dab218 L13637-13637 w=1 K=2: pPlayer+4 const:1#44-2(live) pItem-2(live) const:0#15+0
+    blk 00dab3b8 L13637-13637 w=1 K=3: pPlayer+6 const:1#44-3(live) pItem-3(live) const:0#15-3(live)
+    blk 00dab558 L13637-13637 w=1 K=3: pPlayer-3(live) const:1#44-3(live) pItem-3(live) const:0#15-3(live)
+    blk 00dab6f8 L13637-13637 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem-2(live) const:0#15-2(live)
+    blk 00dab898 L13637-13637 w=1 K=3: pPlayer-3(live) const:1#44-3(live) pItem-3(live) const:0#15-3(live)
+    blk 00daba38 L13637-13637 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem-2(live) const:0#15-2(live)
+    blk 00dabbd8 L13637-13638 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem-2(live) const:0#15-2(live)
+    blk 00dabd78 L13642-13642 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem-2(live) const:0#15-2(live)
+    blk 00de85a4 L13642-13642 w=1 K=3: pPlayer-3(live) const:1#44-3(live) pItem-3(live) const:0#15-3(live)
+    blk 00d7b038 L13645-13645 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem+8 const:0#15+0
+    blk 00d7b1d8 L13645-13645 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem+8 const:0#15-4(live)
+    blk 00d7b378 L13645-13645 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem+12 const:0#15+0
+    blk 00d7b518 L13645-13645 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00d7b6b8 L13645-13645 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15+0
+    blk 00d7b858 L13645-13646 w=2 K=4: pPlayer-8(live) const:1#44-8(live) pItem+16 const:0#15+0
+    blk 00d7b9f8 L13646-13646 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem+8 const:0#15-4(live)
+    blk 00d7bb98 L13646-13646 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem+12 const:0#15+0
+    blk 00d7bd38 L13646-13646 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00dad088 L13646-13646 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15+0
+    blk 00dad228 L13646-13647 w=2 K=6: pPlayer-12(live) const:1#44-12(live) pItem-12(live) const:0#15+0
+    blk 00dad3c8 L13647-13647 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00dad568 L13647-13647 w=2 K=2: pPlayer+8 const:1#44-4(live) pItem-4(live) const:0#15+0
+    blk 00dad708 L13647-13647 w=2 K=3: pPlayer+12 const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00dad8a8 L13647-13647 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00dada48 L13647-13647 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00dadbe8 L13647-13647 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00dadd88 L13647-13647 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00d99ff0 L13647-13647 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00d9a190 L13647-13648 w=2 K=4: pPlayer-8(live) const:1#44-8(live) pItem-8(live) const:0#15+0
+    blk 00d9a330 L13648-13648 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00d9a4d0 L13648-13648 w=2 K=2: pPlayer+8 const:1#44-4(live) pItem-4(live) const:0#15+0
+    blk 00d9a670 L13648-13648 w=2 K=3: pPlayer+12 const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00d9a810 L13648-13648 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00d9a9b0 L13648-13648 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00d9ab50 L13648-13648 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00d9acf0 L13648-13648 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00dc5190 L13648-13648 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00dc5330 L13648-13649 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15+0
+    blk 00dc54d0 L13651-13651 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00dc5670 L13653-13653 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15+0
+    blk 00dc5810 L13655-13655 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00dc59b0 L13643-13643 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00de8edc L?         w=1 K=0: pPlayer-0(live) const:1#44-0(live) pItem-0(live) const:0#15-0(live)
+    blk 00dc5b50 L13658-13660 w=1 K=5: pPlayer-5(live) const:1#44+0 pItem-5(live) const:0#15+0
+    blk 00dc5cf0 L13662-13664 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem-2(live) const:0#15-2(live)
+    blk 00dc5e90 L13667-13667 w=1 K=1: pPlayer-1(live) const:1#44-1(live) pItem+2 const:0#15-1(live)
+    blk 00dc6198 L13669-13670 w=1 K=3: pPlayer-3(live) const:1#44-3(live) pItem+6 const:0#15+0
+    blk 00dc6338 L13673-13673 w=1 K=2: pPlayer+4 const:1#44-2(live) pItem-2(live) const:0#15+0
+    blk 00dc64d8 L13675-13675 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem-2(live) const:0#15-2(live)
+    blk 00dc6678 L13677-13677 w=1 K=1: pPlayer+2 const:1#44-1(live) pItem-1(live) const:0#15-1(live)
+    blk 00dc6818 L13677-13677 w=1 K=2: pPlayer-2(live) const:1#44+0 pItem+4 const:0#15-2(live)
+    blk 00dc69b8 L13679-13679 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem-2(live) const:0#15-2(live)
+    blk 00dc6b58 L13685-13685 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem-2(live) const:0#15+0
+    blk 00dc6cf8 L13687-13691 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem-2(live) const:0#15-2(live)
+    blk 00dc6e98 L13694-13695 w=1 K=3: pPlayer-3(live) const:1#44-3(live) pItem+6 const:0#15+0
+    blk 00dcc1d0 L13697-13698 w=1 K=3: pPlayer-3(live) const:1#44-3(live) pItem-3(live) const:0#15+0
+    blk 00dcc370 L13700-13700 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem-2(live) const:0#15-2(live)
+    blk 00dcc510 L13707-13707 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem+4 const:0#15+0
+    blk 00dcc6b0 L13707-13707 w=1 K=1: pPlayer-1(live) const:1#44-1(live) pItem-1(live) const:0#15-1(live)
+    blk 00dcc850 L13707-13707 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem+4 const:0#15-2(live)
+    blk 00dcc9f0 L13707-13708 w=1 K=3: pPlayer-3(live) const:1#44-3(live) pItem-3(live) const:0#15+0
+    blk 00dccb90 L13708-13708 w=1 K=3: pPlayer-3(live) const:1#44-3(live) pItem-3(live) const:0#15-3(live)
+    blk 00dccd30 L13710-13710 w=1 K=2: pPlayer-2(live) const:1#44-2(live) pItem-2(live) const:0#15-2(live)
+    blk 00dcced0 L13713-13713 w=1 K=3: pPlayer-3(live) const:1#44-3(live) pItem+6 const:0#15+0
+    blk 00dcd1d8 L13715-13715 w=1 K=3: pPlayer-3(live) const:1#44-3(live) pItem-3(live) const:0#15+0
+    blk 00de877c L?         w=1 K=0: pPlayer-0(live) const:1#44-0(live) pItem-0(live) const:0#15-0(live)
+    blk 00dcd378 L13717-13718 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15+0
+    blk 00dcd518 L13722-13723 w=2 K=4: pPlayer+16 const:1#44-8(live) pItem-8(live) const:0#15-8(live)
+    blk 00dcd6b8 L13725-13725 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00dcd858 L13715-13715 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15+0
+    blk 00dcd9f8 L13730-13731 w=1 K=5: pPlayer-5(live) const:1#44-5(live) pItem+10 const:0#15+0
+    blk 00de8954 L13731-13731 w=1 K=1: pPlayer-1(live) const:1#44-1(live) pItem-1(live) const:0#15-1(live)
+    blk 00dcdb98 L13733-13733 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15+0
+    blk 00dcdd38 L13733-13733 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00dcded8 L13733-13734 w=2 K=4: pPlayer-8(live) const:1#44-8(live) pItem-8(live) const:0#15+0
+    blk 00dd01f8 L13734-13734 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00dd0398 L13736-13736 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00dd0538 L13731-13731 w=2 K=3: pPlayer-6(live) const:1#44+0 pItem-6(live) const:0#15-6(live)
+    blk 00de90b4 L?         w=1 K=0: pPlayer-0(live) const:1#44-0(live) pItem-0(live) const:0#15-0(live)
+    blk 00dd06d8 L13740-13741 w=1 K=5: pPlayer-5(live) const:1#44-5(live) pItem+10 const:0#15+0
+    blk 00de8b2c L13741-13741 w=1 K=1: pPlayer-1(live) const:1#44-1(live) pItem-1(live) const:0#15-1(live)
+    blk 00dd0878 L13743-13743 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15+0
+    blk 00dd0a18 L13743-13743 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00dd0bb8 L13743-13744 w=2 K=4: pPlayer-8(live) const:1#44-8(live) pItem-8(live) const:0#15+0
+    blk 00dd0d58 L13748-13748 w=2 K=2: pPlayer+8 const:1#44-4(live) pItem-4(live) const:0#15+0
+    blk 00dd0ef8 L13748-13748 w=2 K=1: pPlayer+4 const:1#44-2(live) pItem-2(live) const:0#15-2(live)
+    blk 00dd1200 L13748-13748 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00dd13a0 L13748-13748 w=2 K=2: pPlayer+8 const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00dd1540 L13750-13752 w=2 K=3: pPlayer-6(live) const:1#44-6(live) pItem-6(live) const:0#15-6(live)
+    blk 00de9498 L13752-13752 w=2 K=1: pPlayer-2(live) const:1#44-2(live) pItem-2(live) const:0#15-2(live)
+    blk 00dd16e0 L13754-13754 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00dd1880 L13756-13756 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00dd1a20 L13758-13758 w=2 K=2: pPlayer-4(live) const:1#44-4(live) pItem-4(live) const:0#15-4(live)
+    blk 00dd1bc0 L13741-13741 w=2 K=3: pPlayer-6(live) const:1#44+0 pItem-6(live) const:0#15-6(live)
+    blk 00de92f8 L?         w=1 K=0: pItem-0(live) const:0#15-0(live)
+    blk 00dd1d60 L13763-13764 w=1 K=3: pItem+6
+
+=== round 4 (register class 0): 7 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  nCount                          93     16    2   187  <32         13740 / 13741
+  i                               94      8    3   1b9  <36         13741 / 13741
+  const:0#95                      95      0    2     0   <1          / 13763,13764
+  pItem                            9   -186   28     6   <4         13611 / 13613,13631,13632,13636,13645,13646,13667,13669,13677,13694,13707,13713,13730,13740
+  pPlayer                          1   -287   14     7  <11         13611 / 13633,13634,13637,13647,13648,13673,13677,13722
+  const:0#11                      11   -292   48     0   <1          / 13613,13614,13631,13632,13633,13634,13636,13637,13645,13646,13647,13648,13649,13653,13659,13670,13673,13685,13695,13698,13707,13708,13713,13715,13718,13731,13733,13734,13741
+  const:1#4                        4   -477    3     0   <9          / 13659,13677,13731
+  colouring order:
+    tmp#54                       prio    20 -> edi  (allowed eax/esi/edi/ebx; costs eax=3 esi=0 edi=-2 ebx=11800)
+    tmp#45                       prio    20 -> edi  (allowed edi/ebx; costs edi=-2 ebx=13600)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00da01f4 L13611-13613 w=1 K=5: const:0#11+0 pItem+20 pPlayer+10
+    blk 00da0394 L13613-13613 w=1 K=2: const:0#11-2(live) pItem+4 pPlayer-2(live)
+    blk 00da0534 L13613-13613 w=1 K=3: const:0#11+0 pItem+6 pPlayer-3(live)
+    blk 00da06d4 L13613-13613 w=1 K=2: const:0#11-2(live) pItem-2(live) pPlayer-2(live)
+    blk 00da0874 L13613-13613 w=1 K=2: const:0#11-2(live) pItem-2(live) pPlayer-2(live)
+    blk 00da0a14 L13613-13615 w=1 K=6: const:1#4+0 const:0#11+0 pItem-6(live) pPlayer-6(live)
+    blk 00da0bb4 L13615-13615 w=1 K=1: const:1#4-1(live) const:0#11-1(live) pItem-1(live) pPlayer-1(live)
+    blk 00da0d54 L13619-13625 w=1 K=11: const:0#11+0 pItem+0 const:1#4+0 pPlayer+0
+    blk 00e0e0e0 L13629-13629 w=1 K=1: const:0#11-1(live) pItem-1(live) const:1#4-1(live) pPlayer-1(live)
+    blk 00de83cc L13629-13629 w=1 K=2: const:0#11-2(live) pItem-2(live) const:1#4-2(live) pPlayer-2(live)
+    blk 00e0e280 L13631-13631 w=2 K=2: const:0#11+0 pItem+8 const:1#4-4(live) pPlayer-4(live)
+    blk 00e0e420 L13631-13631 w=2 K=2: const:0#11-4(live) pItem+8 const:1#4-4(live) pPlayer-4(live)
+    blk 00e0e5c0 L13631-13631 w=2 K=3: const:0#11+0 pItem+12 const:1#4-6(live) pPlayer-6(live)
+    blk 00e0e760 L13631-13631 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00e0e900 L13631-13631 w=2 K=2: const:0#11+0 pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00e0eaa0 L13631-13632 w=2 K=4: const:0#11+0 pItem+16 const:1#4-8(live) pPlayer-8(live)
+    blk 00e0ec40 L13632-13632 w=2 K=2: const:0#11-4(live) pItem+8 const:1#4-4(live) pPlayer-4(live)
+    blk 00e0ede0 L13632-13632 w=2 K=3: const:0#11+0 pItem+12 const:1#4-6(live) pPlayer-6(live)
+    blk 00e013d0 L13632-13632 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00e01570 L13632-13632 w=2 K=2: const:0#11+0 pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00e01710 L13632-13633 w=2 K=6: const:0#11+0 pItem-12(live) const:1#4-12(live) pPlayer-12(live)
+    blk 00e018b0 L13633-13633 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00e01a50 L13633-13633 w=2 K=2: const:0#11+0 pItem-4(live) const:1#4-4(live) pPlayer+8
+    blk 00e01bf0 L13633-13633 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer+12
+    blk 00e01d90 L13633-13633 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00e01f30 L13633-13633 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00e020d0 L13633-13633 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00d64198 L13633-13633 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00d64338 L13633-13633 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00d644d8 L13633-13634 w=2 K=4: const:0#11+0 pItem-8(live) const:1#4-8(live) pPlayer-8(live)
+    blk 00d64678 L13634-13634 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00d64818 L13634-13634 w=2 K=2: const:0#11+0 pItem-4(live) const:1#4-4(live) pPlayer+8
+    blk 00d649b8 L13634-13634 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer+12
+    blk 00d64b58 L13634-13634 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00d64cf8 L13634-13634 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00d64e98 L13634-13634 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00d61170 L13634-13634 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00d61310 L13634-13634 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00d614b0 L13629-13629 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00de8d04 L?         w=1 K=0: const:0#11-0(live) pItem-0(live) const:1#4-0(live) pPlayer-0(live)
+    blk 00d61650 L13636-13636 w=1 K=2: const:0#11+0 pItem+4 const:1#4-2(live) pPlayer-2(live)
+    blk 00d617f0 L13636-13636 w=1 K=2: const:0#11-2(live) pItem+4 const:1#4-2(live) pPlayer-2(live)
+    blk 00d61990 L13636-13636 w=1 K=3: const:0#11+0 pItem+6 const:1#4-3(live) pPlayer-3(live)
+    blk 00d61b30 L13636-13636 w=1 K=2: const:0#11-2(live) pItem-2(live) const:1#4-2(live) pPlayer-2(live)
+    blk 00d61cd0 L13636-13636 w=1 K=2: const:0#11+0 pItem-2(live) const:1#4-2(live) pPlayer-2(live)
+    blk 00d61e70 L13636-13637 w=1 K=5: const:0#11+0 pItem-5(live) const:1#4-5(live) pPlayer-5(live)
+    blk 00dab078 L13637-13637 w=1 K=3: const:0#11-3(live) pItem-3(live) const:1#4-3(live) pPlayer-3(live)
+    blk 00dab218 L13637-13637 w=1 K=2: const:0#11+0 pItem-2(live) const:1#4-2(live) pPlayer+4
+    blk 00dab3b8 L13637-13637 w=1 K=3: const:0#11-3(live) pItem-3(live) const:1#4-3(live) pPlayer+6
+    blk 00dab558 L13637-13637 w=1 K=3: const:0#11-3(live) pItem-3(live) const:1#4-3(live) pPlayer-3(live)
+    blk 00dab6f8 L13637-13637 w=1 K=2: const:0#11-2(live) pItem-2(live) const:1#4-2(live) pPlayer-2(live)
+    blk 00dab898 L13637-13637 w=1 K=3: const:0#11-3(live) pItem-3(live) const:1#4-3(live) pPlayer-3(live)
+    blk 00daba38 L13637-13637 w=1 K=2: const:0#11-2(live) pItem-2(live) const:1#4-2(live) pPlayer-2(live)
+    blk 00dabbd8 L13637-13638 w=1 K=2: const:0#11-2(live) pItem-2(live) const:1#4-2(live) pPlayer-2(live)
+    blk 00dabd78 L13642-13642 w=1 K=2: const:0#11-2(live) pItem-2(live) const:1#4-2(live) pPlayer-2(live)
+    blk 00de85a4 L13642-13642 w=1 K=3: const:0#11-3(live) pItem-3(live) const:1#4-3(live) pPlayer-3(live)
+    blk 00d7b038 L13645-13645 w=2 K=2: const:0#11+0 pItem+8 const:1#4-4(live) pPlayer-4(live)
+    blk 00d7b1d8 L13645-13645 w=2 K=2: const:0#11-4(live) pItem+8 const:1#4-4(live) pPlayer-4(live)
+    blk 00d7b378 L13645-13645 w=2 K=3: const:0#11+0 pItem+12 const:1#4-6(live) pPlayer-6(live)
+    blk 00d7b518 L13645-13645 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00d7b6b8 L13645-13645 w=2 K=2: const:0#11+0 pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00d7b858 L13645-13646 w=2 K=4: const:0#11+0 pItem+16 const:1#4-8(live) pPlayer-8(live)
+    blk 00d7b9f8 L13646-13646 w=2 K=2: const:0#11-4(live) pItem+8 const:1#4-4(live) pPlayer-4(live)
+    blk 00d7bb98 L13646-13646 w=2 K=3: const:0#11+0 pItem+12 const:1#4-6(live) pPlayer-6(live)
+    blk 00d7bd38 L13646-13646 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00dad088 L13646-13646 w=2 K=2: const:0#11+0 pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00dad228 L13646-13647 w=2 K=6: const:0#11+0 pItem-12(live) const:1#4-12(live) pPlayer-12(live)
+    blk 00dad3c8 L13647-13647 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00dad568 L13647-13647 w=2 K=2: const:0#11+0 pItem-4(live) const:1#4-4(live) pPlayer+8
+    blk 00dad708 L13647-13647 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer+12
+    blk 00dad8a8 L13647-13647 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00dada48 L13647-13647 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00dadbe8 L13647-13647 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00dadd88 L13647-13647 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00d99ff0 L13647-13647 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00d9a190 L13647-13648 w=2 K=4: const:0#11+0 pItem-8(live) const:1#4-8(live) pPlayer-8(live)
+    blk 00d9a330 L13648-13648 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00d9a4d0 L13648-13648 w=2 K=2: const:0#11+0 pItem-4(live) const:1#4-4(live) pPlayer+8
+    blk 00d9a670 L13648-13648 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer+12
+    blk 00d9a810 L13648-13648 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00d9a9b0 L13648-13648 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00d9ab50 L13648-13648 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00d9acf0 L13648-13648 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00dc5190 L13648-13648 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00dc5330 L13648-13649 w=2 K=2: const:0#11+0 pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00dc54d0 L13651-13651 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00dc5670 L13653-13653 w=2 K=2: const:0#11+0 pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00dc5810 L13655-13655 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00dc59b0 L13643-13643 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00de8edc L?         w=1 K=0: const:0#11-0(live) pItem-0(live) const:1#4-0(live) pPlayer-0(live)
+    blk 00dc5b50 L13658-13660 w=1 K=5: const:0#11+0 pItem-5(live) const:1#4+0 pPlayer-5(live)
+    blk 00dc5cf0 L13662-13664 w=1 K=2: const:0#11-2(live) pItem-2(live) const:1#4-2(live) pPlayer-2(live)
+    blk 00dc5e90 L13667-13667 w=1 K=1: const:0#11-1(live) pItem+2 const:1#4-1(live) pPlayer-1(live)
+    blk 00dc6198 L13669-13670 w=1 K=3: const:0#11+0 pItem+6 const:1#4-3(live) pPlayer-3(live)
+    blk 00dc6338 L13673-13673 w=1 K=2: const:0#11+0 pItem-2(live) const:1#4-2(live) pPlayer+4
+    blk 00dc64d8 L13675-13675 w=1 K=2: const:0#11-2(live) pItem-2(live) const:1#4-2(live) pPlayer-2(live)
+    blk 00dc6678 L13677-13677 w=1 K=1: const:0#11-1(live) pItem-1(live) const:1#4-1(live) pPlayer+2
+    blk 00dc6818 L13677-13677 w=1 K=2: const:0#11-2(live) pItem+4 const:1#4+0 pPlayer-2(live)
+    blk 00dc69b8 L13679-13679 w=1 K=2: const:0#11-2(live) pItem-2(live) const:1#4-2(live) pPlayer-2(live)
+    blk 00dc6b58 L13685-13685 w=1 K=2: const:0#11+0 pItem-2(live) const:1#4-2(live) pPlayer-2(live)
+    blk 00dc6cf8 L13687-13691 w=1 K=2: const:0#11-2(live) pItem-2(live) const:1#4-2(live) pPlayer-2(live)
+    blk 00dc6e98 L13694-13695 w=1 K=3: const:0#11+0 pItem+6 const:1#4-3(live) pPlayer-3(live)
+    blk 00dcc1d0 L13697-13698 w=1 K=3: const:0#11+0 pItem-3(live) const:1#4-3(live) pPlayer-3(live)
+    blk 00dcc370 L13700-13700 w=1 K=2: const:0#11-2(live) pItem-2(live) const:1#4-2(live) pPlayer-2(live)
+    blk 00dcc510 L13707-13707 w=1 K=2: const:0#11+0 pItem+4 const:1#4-2(live) pPlayer-2(live)
+    blk 00dcc6b0 L13707-13707 w=1 K=1: const:0#11-1(live) pItem-1(live) const:1#4-1(live) pPlayer-1(live)
+    blk 00dcc850 L13707-13707 w=1 K=2: const:0#11-2(live) pItem+4 const:1#4-2(live) pPlayer-2(live)
+    blk 00dcc9f0 L13707-13708 w=1 K=3: const:0#11+0 pItem-3(live) const:1#4-3(live) pPlayer-3(live)
+    blk 00dccb90 L13708-13708 w=1 K=3: const:0#11-3(live) pItem-3(live) const:1#4-3(live) pPlayer-3(live)
+    blk 00dccd30 L13710-13710 w=1 K=2: const:0#11-2(live) pItem-2(live) const:1#4-2(live) pPlayer-2(live)
+    blk 00dcced0 L13713-13713 w=1 K=3: const:0#11+0 pItem+6 const:1#4-3(live) pPlayer-3(live)
+    blk 00dcd1d8 L13715-13715 w=1 K=3: const:0#11+0 pItem-3(live) const:1#4-3(live) pPlayer-3(live)
+    blk 00de877c L?         w=1 K=0: const:0#11-0(live) pItem-0(live) const:1#4-0(live) pPlayer-0(live)
+    blk 00dcd378 L13717-13718 w=2 K=3: const:0#11+0 pItem-6(live) const:1#4-6(live) pPlayer-6(live)
+    blk 00dcd518 L13722-13723 w=2 K=4: const:0#11-8(live) pItem-8(live) const:1#4-8(live) pPlayer+16
+    blk 00dcd6b8 L13725-13725 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00dcd858 L13715-13715 w=2 K=2: const:0#11+0 pItem-4(live) const:1#4-4(live) pPlayer-4(live)
+    blk 00dcd9f8 L13730-13731 w=1 K=5: const:0#11+0 pItem+10 const:1#4-5(live)
+    blk 00de8954 L13731-13731 w=1 K=1: const:0#11-1(live) pItem-1(live) const:1#4-1(live)
+    blk 00dcdb98 L13733-13733 w=2 K=3: const:0#11+0 pItem-6(live) const:1#4-6(live)
+    blk 00dcdd38 L13733-13733 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live)
+    blk 00dcded8 L13733-13734 w=2 K=4: const:0#11+0 pItem-8(live) const:1#4-8(live)
+    blk 00dd01f8 L13734-13734 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4-6(live)
+    blk 00dd0398 L13736-13736 w=2 K=2: const:0#11-4(live) pItem-4(live) const:1#4-4(live)
+    blk 00dd0538 L13731-13731 w=2 K=3: const:0#11-6(live) pItem-6(live) const:1#4+0
+    blk 00de90b4 L?         w=1 K=0: const:0#11-0(live) pItem-0(live)
+    blk 00dd06d8 L13740-13741 w=1 K=4: const:0#11+4 nCount+16 pItem+8
+    blk 00dd1bc0 L13741-13741 w=2 K=1: i+8
+    blk 00dd1d60 L13763-13764 w=1 K=2: 
+
+=== round 5 (register class 0): 11 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  tmp#100(def L13629)            100    -72    6    8a  <91  (d690) 13629 / 13629,13631,13632
+  const:68#97                     97   -132    1     0   <6          / 13629
+  const:255#15                    15   -142    3     0   <5          / 13633,13634,13637
+  const:255#33                    33   -162    2     0   <5          / 13647,13648
+  pItem                           98   -166   28     6   <4         13611 / 13613,13631,13632,13636,13645,13646,13667,13669,13677,13694,13707,13713,13730,13740
+  const:68#96                     96   -168    1     0   <6          / 13643
+  const:0#99                      99   -276   47     0   <1          / 13613,13614,13631,13632,13633,13634,13636,13637,13645,13646,13647,13648,13649,13653,13659,13670,13673,13685,13695,13698,13707,13708,13713,13715,13718,13731,13733,13734,13741
+  pPlayer                         46   -297   14     7  <11         13611 / 13633,13634,13637,13647,13648,13673,13677,13722
+  const:4#44                      44   -314    7     0   <2          / 13613,13615,13631,13632,13636,13645,13646
+  const:2#43                      43   -322    3     0   <3          / 13613,13629,13643
+  const:1#36                      36   -457    3     0   <9          / 13659,13677,13731
+  colouring order:
+    nQuality                     prio    20 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=-2 ecx=0 edx=0 esi=0 ebx=9000)
+    tmp#88                       prio    18 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=9000)
+    pItemsTxtRecord              prio    18 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=-4 ecx=0 edx=0 esi=0 ebx=9000)
+    pSet                         prio    18 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=-4 ecx=0 edx=0 esi=0 ebx=9000)
+    tmp#63                       prio    18 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=9000)
+    nCount                       prio    16 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=-2 ecx=0 edx=0 esi=0 ebx=0)
+    tmp#87                       prio    16 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=9000)
+    nLevel                       prio    16 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=9000)
+    nLevel                       prio    16 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=9000)
+    tmp#80                       prio    16 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=9000)
+    tmp#79                       prio    16 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=9000)
+    tmp#78                       prio    16 -> ecx  (allowed ecx/edx/ebx; costs ecx=0 edx=0 ebx=9000)
+    tmp#69                       prio    16 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=9000)
+    tmp#66                       prio    16 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=0 edi=0 ebx=9000)
+    pUnique                      prio    15 -> esi  (allowed esi/ebx; costs esi=0 ebx=9000)
+    pSuffix                      prio    14 -> eax  (allowed eax/esi/ebx; costs eax=-4 esi=0 ebx=9000)
+    tmp#41                       prio    12 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=9000)
+    tmp#56                       prio    12 -> edi  (allowed esi/edi/ebx; costs esi=0 edi=-3 ebx=9000)
+    tmp#52                       prio    12 -> edx  (allowed edx/esi/ebx; costs edx=0 esi=0 ebx=9000)
+    tmp#47                       prio    12 -> edi  (allowed esi/edi/ebx; costs esi=0 edi=-3 ebx=9000)
+    i                            prio     8 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=0)
+    tmp#51                       prio     8 -> edi  (allowed esi/edi/ebx; costs esi=0 edi=-3 ebx=9000)
+    nCount                       prio     3 -> eax  (allowed eax/esi/ebx; costs eax=-4 esi=0 ebx=6000)
+    ?sgptDataTables@@3PAUD2DataT prio     2 -> esi  (allowed esi/ebx; costs esi=0 ebx=6000)
+    const:0#95                   prio     0 -> not coloured (split / memory)
+    const:0#49                   prio     0 -> not coloured (split / memory)
+    ?sgptDataTables@@3PAUD2DataT prio    -6 -> not coloured (split / memory)
+    pPrefix                      prio    -6 -> esi  (allowed esi/ebx; costs esi=0 ebx=9000)
+    const:64#12                  prio   -35 -> not coloured (split / memory)
+    tmp#100(def L13629)          prio   -72 -> not coloured (split / memory)
+    tmp#92                       prio  -107 -> ebx  (allowed ebx; costs ebx=10200)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00da01f4 L13611-13613 w=1 K=5: const:0#99+0 const:4#44+0 const:2#43+0 pItem+20 pPlayer+10
+    blk 00da0394 L13613-13613 w=1 K=2: const:0#99-2(live) const:4#44+0 const:2#43-2(live) pItem+4 pPlayer-2(live)
+    blk 00da0534 L13613-13613 w=1 K=3: const:0#99+0 const:4#44-3(live) const:2#43-3(live) pItem+6 pPlayer-3(live)
+    blk 00da06d4 L13613-13613 w=1 K=2: const:0#99-2(live) const:4#44-2(live) const:2#43-2(live) pItem-2(live) pPlayer-2(live)
+    blk 00da0874 L13613-13613 w=1 K=2: const:0#99-2(live) pItem-2(live) pPlayer-2(live) const:4#44-2(live) const:2#43+0
+    blk 00da0a14 L13613-13615 w=1 K=6: const:1#36+0 const:0#99+0 pItem-6(live) pPlayer-6(live) const:4#44+0 const:2#43-6(live)
+    blk 00da0bb4 L13615-13615 w=1 K=1: const:1#36-1(live) const:0#99-1(live) pItem-1(live) pPlayer-1(live) const:4#44-1(live) const:2#43-1(live)
+    blk 00da0d54 L13619-13625 w=1 K=11: const:0#99+0 pItem+0 const:1#36+0 pPlayer+0
+    blk 00e0e0e0 L13629-13629 w=1 K=1: tmp#100(def L13629)+2 const:0#99-1(live) pItem-1(live) pPlayer-1(live) const:4#44-1(live) const:2#43-1(live) const:1#36-1(live)
+    blk 00de83cc L13629-13629 w=1 K=2: const:68#97+0 const:255#15+0 tmp#100(def L13629)-2(live) const:0#99-2(live) pItem-2(live) pPlayer-2(live) const:4#44-2(live) const:2#43-2(live) const:1#36-2(live)
+    blk 00e0e280 L13631-13631 w=2 K=2: const:68#97-4(live) const:255#15-4(live) tmp#100(def L13629)-4(live) const:0#99+0 pItem+8 pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live)
+    blk 00e0e420 L13631-13631 w=2 K=2: const:68#97-4(live) const:255#15-4(live) tmp#100(def L13629)-4(live) const:0#99-4(live) pItem+8 pPlayer-4(live) const:4#44+0 const:2#43-4(live) const:1#36-4(live)
+    blk 00e0e5c0 L13631-13631 w=2 K=3: const:68#97-6(live) const:255#15-6(live) tmp#100(def L13629)-6(live) const:0#99+0 pItem+12 pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live)
+    blk 00e0e760 L13631-13631 w=2 K=3: const:68#97-6(live) const:255#15-6(live) tmp#100(def L13629)+12 const:0#99-6(live) pItem-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live)
+    blk 00e0e900 L13631-13631 w=2 K=2: tmp#100(def L13629)-4(live) const:0#99+0 pItem-4(live) const:68#97-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#15-4(live)
+    blk 00e0eaa0 L13631-13632 w=2 K=4: tmp#100(def L13629)-8(live) const:0#99+0 pItem+16 const:68#97-8(live) pPlayer-8(live) const:4#44-8(live) const:2#43-8(live) const:1#36-8(live) const:255#15-8(live)
+    blk 00e0ec40 L13632-13632 w=2 K=2: tmp#100(def L13629)-4(live) const:0#99-4(live) pItem+8 const:68#97-4(live) pPlayer-4(live) const:4#44+0 const:2#43-4(live) const:1#36-4(live) const:255#15-4(live)
+    blk 00e0ede0 L13632-13632 w=2 K=3: tmp#100(def L13629)-6(live) const:0#99+0 pItem+12 const:68#97-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#15-6(live)
+    blk 00e013d0 L13632-13632 w=2 K=3: tmp#100(def L13629)+12 const:0#99-6(live) pItem-6(live) const:68#97-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#15-6(live)
+    blk 00e01570 L13632-13632 w=2 K=2: tmp#100(def L13629)-4(live) const:0#99+0 pItem-4(live) const:68#97-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#15-4(live)
+    blk 00e01710 L13632-13633 w=2 K=6: tmp#100(def L13629)-12(live) const:0#99+0 pItem-12(live) const:68#97-12(live) pPlayer-12(live) const:4#44-12(live) const:2#43-12(live) const:1#36-12(live) const:255#15-12(live)
+    blk 00e018b0 L13633-13633 w=2 K=3: tmp#100(def L13629)-6(live) const:0#99-6(live) pItem-6(live) const:68#97-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#15+0
+    blk 00e01a50 L13633-13633 w=2 K=1: pPlayer+4
+    blk 00e01bf0 L13633-13633 w=2 K=3: pPlayer+12
+    blk 00e01f30 L13633-13633 w=2 K=11: tmp#100(def L13629)+0 const:0#99+0 pItem+0 const:68#97+0 pPlayer+0 const:4#44+0 const:2#43+0 const:1#36+0 const:255#15+0
+    blk 00de9670 L13633-13633 w=2 K=8: tmp#100(def L13629)+0 const:0#99+0 pItem+0 const:68#97+0 const:4#44+0 const:2#43+0 const:1#36+0 const:255#15+0 pPlayer-16(live)
+    blk 00de9848 L13633-13633 w=2 K=9: tmp#100(def L13629)+0 const:0#99+0 pItem+0 const:68#97+0 pPlayer+0 const:4#44+0 const:2#43+0 const:1#36+0 const:255#15+0
+    blk 00e020d0 L13633-13633 w=2 K=3: tmp#100(def L13629)-6(live) const:0#99-6(live) pItem-6(live) const:68#97-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#15-6(live)
+    blk 00d64198 L13633-13633 w=2 K=2: tmp#100(def L13629)-4(live) const:0#99-4(live) pItem-4(live) const:68#97-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#15-4(live)
+    blk 00de9a20 L13633-13633 w=2 K=9: tmp#100(def L13629)+0 const:0#99+0 pItem+0 const:68#97+0 pPlayer+0 const:4#44+0 const:2#43+0 const:1#36+0 const:255#15+0
+    blk 00d64338 L13633-13633 w=2 K=2: tmp#100(def L13629)-4(live) const:0#99-4(live) pItem-4(live) const:68#97-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#15-4(live)
+    blk 00d644d8 L13633-13634 w=2 K=4: tmp#100(def L13629)-8(live) const:0#99+0 pItem-8(live) const:68#97-8(live) pPlayer-8(live) const:4#44-8(live) const:2#43-8(live) const:1#36-8(live) const:255#15-8(live)
+    blk 00d64678 L13634-13634 w=2 K=3: tmp#100(def L13629)-6(live) const:0#99-6(live) pItem-6(live) const:68#97-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#15+0
+    blk 00d64818 L13634-13634 w=2 K=2: tmp#100(def L13629)-4(live) const:0#99+0 pItem-4(live) const:68#97-4(live) pPlayer+8 const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#15-4(live)
+    blk 00d649b8 L13634-13634 w=2 K=3: tmp#100(def L13629)-6(live) const:0#99-6(live) pItem-6(live) const:68#97-6(live) pPlayer+12 const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#15-6(live)
+    blk 00d64b58 L13634-13634 w=2 K=3: tmp#100(def L13629)-6(live) const:0#99-6(live) pItem-6(live) const:68#97-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#15-6(live)
+    blk 00d64cf8 L13634-13634 w=2 K=2: tmp#100(def L13629)-4(live) const:0#99-4(live) pItem-4(live) const:68#97-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#15-4(live)
+    blk 00d64e98 L13634-13634 w=2 K=3: tmp#100(def L13629)-6(live) const:0#99-6(live) pItem-6(live) const:68#97-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#15-6(live)
+    blk 00d61170 L13634-13634 w=2 K=2: tmp#100(def L13629)-4(live) const:0#99-4(live) pItem-4(live) const:68#97-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#15-4(live)
+    blk 00d61310 L13634-13634 w=2 K=2: tmp#100(def L13629)-4(live) const:0#99-4(live) pItem-4(live) const:68#97-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#15-4(live)
+    blk 00d614b0 L13629-13629 w=2 K=3: tmp#100(def L13629)+24 const:0#99-6(live) pItem-6(live) const:68#97+0 pPlayer-6(live) const:4#44-6(live) const:2#43+0 const:1#36-6(live) const:255#15-6(live)
+    blk 00de8d04 L?         w=1 K=0: const:0#99-0(live) pItem-0(live) pPlayer-0(live) const:4#44-0(live) const:1#36-0(live) const:255#15-0(live)
+    blk 00d61650 L13636-13636 w=1 K=2: const:0#99+0 pItem+4 pPlayer-2(live) const:4#44-2(live) const:1#36-2(live) const:255#15-2(live)
+    blk 00d617f0 L13636-13636 w=1 K=2: const:0#99-2(live) pItem+4 pPlayer-2(live) const:1#36-2(live) const:255#15-2(live)
+    blk 00d61990 L13636-13636 w=1 K=3: const:0#99+0 pItem+6 pPlayer-3(live) const:1#36-3(live) const:255#15-3(live)
+    blk 00d61b30 L13636-13636 w=1 K=2: const:0#99-2(live) pItem-2(live) pPlayer-2(live) const:1#36-2(live) const:255#15-2(live)
+    blk 00d61cd0 L13636-13636 w=1 K=2: const:0#99+0 pItem-2(live) pPlayer-2(live) const:1#36-2(live) const:255#15-2(live)
+    blk 00d61e70 L13636-13637 w=1 K=5: const:0#99+0 pItem-5(live) pPlayer-5(live) const:1#36-5(live) const:255#15-5(live)
+    blk 00dab078 L13637-13637 w=1 K=3: const:0#99-3(live) pItem-3(live) pPlayer-3(live) const:1#36-3(live)
+    blk 00dab218 L13637-13637 w=1 K=2: const:0#99+0 pItem-2(live) pPlayer+4 const:1#36-2(live)
+    blk 00dab3b8 L13637-13637 w=1 K=3: const:0#99-3(live) pItem-3(live) pPlayer+6 const:1#36-3(live)
+    blk 00dab558 L13637-13637 w=1 K=3: const:0#99-3(live) pItem-3(live) pPlayer-3(live) const:1#36-3(live)
+    blk 00dab6f8 L13637-13637 w=1 K=2: const:0#99-2(live) pItem-2(live) pPlayer-2(live) const:1#36-2(live)
+    blk 00dab898 L13637-13637 w=1 K=3: const:0#99-3(live) pItem-3(live) pPlayer-3(live) const:1#36-3(live)
+    blk 00daba38 L13637-13637 w=1 K=2: const:0#99-2(live) pItem-2(live) pPlayer-2(live) const:1#36-2(live)
+    blk 00dabbd8 L13637-13638 w=1 K=2: const:0#99-2(live) pItem-2(live) pPlayer-2(live) const:1#36-2(live)
+    blk 00dabd78 L13642-13642 w=1 K=2: const:0#99-2(live) pItem-2(live) pPlayer-2(live) const:4#44-2(live) const:2#43-2(live) const:1#36-2(live)
+    blk 00de85a4 L13642-13642 w=1 K=3: const:68#96+0 const:255#33+0 const:0#99-3(live) pItem-3(live) pPlayer-3(live) const:4#44-3(live) const:2#43-3(live) const:1#36-3(live)
+    blk 00d7b038 L13645-13645 w=2 K=2: const:68#96-4(live) const:255#33-4(live) const:0#99+0 pItem+8 pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live)
+    blk 00d7b1d8 L13645-13645 w=2 K=2: const:68#96-4(live) const:255#33-4(live) const:0#99-4(live) pItem+8 pPlayer-4(live) const:4#44+0 const:2#43-4(live) const:1#36-4(live)
+    blk 00d7b378 L13645-13645 w=2 K=3: const:68#96-6(live) const:255#33-6(live) const:0#99+0 pItem+12 pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live)
+    blk 00d7b518 L13645-13645 w=2 K=3: const:68#96-6(live) const:255#33-6(live) const:0#99-6(live) pItem-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live)
+    blk 00d7b6b8 L13645-13645 w=2 K=2: const:0#99+0 pItem-4(live) const:68#96-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#33-4(live)
+    blk 00d7b858 L13645-13646 w=2 K=4: const:0#99+0 pItem+16 const:68#96-8(live) pPlayer-8(live) const:4#44-8(live) const:2#43-8(live) const:1#36-8(live) const:255#33-8(live)
+    blk 00d7b9f8 L13646-13646 w=2 K=2: const:0#99-4(live) pItem+8 const:68#96-4(live) pPlayer-4(live) const:4#44+0 const:2#43-4(live) const:1#36-4(live) const:255#33-4(live)
+    blk 00d7bb98 L13646-13646 w=2 K=3: const:0#99+0 pItem+12 const:68#96-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#33-6(live)
+    blk 00d7bd38 L13646-13646 w=2 K=3: const:0#99-6(live) pItem-6(live) const:68#96-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#33-6(live)
+    blk 00dad088 L13646-13646 w=2 K=2: const:0#99+0 pItem-4(live) const:68#96-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#33-4(live)
+    blk 00dad228 L13646-13647 w=2 K=6: const:0#99+0 pItem-12(live) const:68#96-12(live) pPlayer-12(live) const:4#44-12(live) const:2#43-12(live) const:1#36-12(live) const:255#33-12(live)
+    blk 00dad3c8 L13647-13647 w=2 K=3: const:0#99-6(live) pItem-6(live) const:68#96-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#33+0
+    blk 00dad568 L13647-13647 w=2 K=2: const:0#99+0 pItem-4(live) const:68#96-4(live) pPlayer+8 const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#33-4(live)
+    blk 00dad708 L13647-13647 w=2 K=3: const:0#99-6(live) pItem-6(live) const:68#96-6(live) pPlayer+12 const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#33-6(live)
+    blk 00dad8a8 L13647-13647 w=2 K=3: const:0#99-6(live) pItem-6(live) const:68#96-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#33-6(live)
+    blk 00dada48 L13647-13647 w=2 K=2: const:0#99-4(live) pItem-4(live) const:68#96-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#33-4(live)
+    blk 00dadbe8 L13647-13647 w=2 K=3: const:0#99-6(live) pItem-6(live) const:68#96-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#33-6(live)
+    blk 00dadd88 L13647-13647 w=2 K=2: const:0#99-4(live) pItem-4(live) const:68#96-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#33-4(live)
+    blk 00d99ff0 L13647-13647 w=2 K=2: const:0#99-4(live) pItem-4(live) const:68#96-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#33-4(live)
+    blk 00d9a190 L13647-13648 w=2 K=4: const:0#99+0 pItem-8(live) const:68#96-8(live) pPlayer-8(live) const:4#44-8(live) const:2#43-8(live) const:1#36-8(live) const:255#33-8(live)
+    blk 00d9a330 L13648-13648 w=2 K=3: const:0#99-6(live) pItem-6(live) const:68#96-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#33+0
+    blk 00d9a4d0 L13648-13648 w=2 K=2: const:0#99+0 pItem-4(live) const:68#96-4(live) pPlayer+8 const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#33-4(live)
+    blk 00d9a670 L13648-13648 w=2 K=3: const:0#99-6(live) pItem-6(live) const:68#96-6(live) pPlayer+12 const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#33-6(live)
+    blk 00d9a810 L13648-13648 w=2 K=3: const:0#99-6(live) pItem-6(live) const:68#96-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#33-6(live)
+    blk 00d9a9b0 L13648-13648 w=2 K=2: const:0#99-4(live) pItem-4(live) const:68#96-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#33-4(live)
+    blk 00d9ab50 L13648-13648 w=2 K=3: const:0#99-6(live) pItem-6(live) const:68#96-6(live) pPlayer-6(live) const:4#44-6(live) const:2#43-6(live) const:1#36-6(live) const:255#33-6(live)
+    blk 00d9acf0 L13648-13648 w=2 K=2: const:0#99-4(live) pItem-4(live) const:68#96-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#33-4(live)
+    blk 00dc5190 L13648-13648 w=2 K=2: const:0#99-4(live) pItem-4(live) const:68#96-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#33-4(live)
+    blk 00dc5330 L13648-13649 w=2 K=2: const:0#99+0 pItem-4(live) const:68#96-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#33-4(live)
+    blk 00dc54d0 L13651-13651 w=2 K=2: const:0#99-4(live) pItem-4(live) const:68#96-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#33-4(live)
+    blk 00dc5670 L13653-13653 w=2 K=2: const:0#99+0 pItem-4(live) const:68#96-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#33-4(live)
+    blk 00dc5810 L13655-13655 w=2 K=2: const:0#99-4(live) pItem-4(live) const:68#96-4(live) pPlayer-4(live) const:4#44-4(live) const:2#43-4(live) const:1#36-4(live) const:255#33-4(live)
+    blk 00dc59b0 L13643-13643 w=2 K=3: const:0#99-6(live) pItem-6(live) const:68#96+0 pPlayer-6(live) const:4#44-6(live) const:2#43+0 const:1#36-6(live) const:255#33-6(live)
+    blk 00de8edc L?         w=1 K=0: const:0#99-0(live) pItem-0(live) pPlayer-0(live) const:1#36-0(live)
+    blk 00dc5b50 L13658-13660 w=1 K=5: const:0#99+0 pItem-5(live) pPlayer-5(live) const:1#36+0
+    blk 00dc5cf0 L13662-13664 w=1 K=2: const:0#99-2(live) pItem-2(live) pPlayer-2(live) const:1#36-2(live)
+    blk 00dc5e90 L13667-13667 w=1 K=1: const:0#99-1(live) pItem+2 pPlayer-1(live) const:1#36-1(live)
+    blk 00dc6198 L13669-13670 w=1 K=3: const:0#99+0 pItem+6 pPlayer-3(live) const:1#36-3(live)
+    blk 00dc6338 L13673-13673 w=1 K=2: const:0#99+0 pItem-2(live) pPlayer+4 const:1#36-2(live)
+    blk 00dc64d8 L13675-13675 w=1 K=2: const:0#99-2(live) pItem-2(live) pPlayer-2(live) const:1#36-2(live)
+    blk 00dc6678 L13677-13677 w=1 K=1: const:0#99-1(live) pItem-1(live) pPlayer+2 const:1#36-1(live)
+    blk 00dc6818 L13677-13677 w=1 K=2: const:0#99-2(live) pItem+4 pPlayer-2(live) const:1#36+0
+    blk 00dc69b8 L13679-13679 w=1 K=2: const:0#99-2(live) pItem-2(live) pPlayer-2(live) const:1#36-2(live)
+    blk 00dc6b58 L13685-13685 w=1 K=2: const:0#99+0 pItem-2(live) pPlayer-2(live) const:1#36-2(live)
+    blk 00dc6cf8 L13687-13691 w=1 K=2: const:0#99-2(live) pItem-2(live) pPlayer-2(live) const:1#36-2(live)
+    blk 00dc6e98 L13694-13695 w=1 K=3: const:0#99+0 pItem+6 pPlayer-3(live) const:1#36-3(live)
+    blk 00dcc1d0 L13697-13698 w=1 K=3: const:0#99+0 pItem-3(live) pPlayer-3(live) const:1#36-3(live)
+    blk 00dcc370 L13700-13700 w=1 K=2: const:0#99-2(live) pItem-2(live) pPlayer-2(live) const:1#36-2(live)
+    blk 00dcc510 L13707-13707 w=1 K=2: const:0#99+0 pItem+4 pPlayer-2(live) const:1#36-2(live)
+    blk 00dcc6b0 L13707-13707 w=1 K=1: const:0#99-1(live) pItem-1(live) pPlayer-1(live) const:1#36-1(live)
+    blk 00dcc850 L13707-13707 w=1 K=2: const:0#99-2(live) pItem+4 pPlayer-2(live) const:1#36-2(live)
+    blk 00dcc9f0 L13707-13708 w=1 K=3: const:0#99+0 pItem-3(live) pPlayer-3(live) const:1#36-3(live)
+    blk 00dccb90 L13708-13708 w=1 K=3: const:0#99-3(live) pItem-3(live) pPlayer-3(live) const:1#36-3(live)
+    blk 00dccd30 L13710-13710 w=1 K=2: const:0#99-2(live) pItem-2(live) pPlayer-2(live) const:1#36-2(live)
+    blk 00dcced0 L13713-13713 w=1 K=3: const:0#99+0 pItem+6 pPlayer-3(live) const:1#36-3(live)
+    blk 00dcd1d8 L13715-13715 w=1 K=3: const:0#99+0 pItem-3(live) pPlayer-3(live) const:1#36-3(live)
+    blk 00de877c L?         w=1 K=0: const:0#99-0(live) pItem-0(live) pPlayer-0(live) const:1#36-0(live)
+    blk 00dcd378 L13717-13718 w=2 K=3: const:0#99+0 pItem-6(live) pPlayer-6(live) const:1#36-6(live)
+    blk 00dcd518 L13722-13723 w=2 K=4: const:0#99-8(live) pItem-8(live) pPlayer+16 const:1#36-8(live)
+    blk 00dcd6b8 L13725-13725 w=2 K=2: const:0#99-4(live) pItem-4(live) pPlayer-4(live) const:1#36-4(live)
+    blk 00dcd858 L13715-13715 w=2 K=2: const:0#99+0 pItem-4(live) pPlayer-4(live) const:1#36-4(live)
+    blk 00dcd9f8 L13730-13731 w=1 K=5: const:0#99+0 pItem+10 const:1#36-5(live)
+    blk 00de8954 L13731-13731 w=1 K=1: const:0#99-1(live) pItem-1(live) const:1#36-1(live)
+    blk 00dcdb98 L13733-13733 w=2 K=3: const:0#99+0 pItem-6(live) const:1#36-6(live)
+    blk 00dcdd38 L13733-13733 w=2 K=2: const:0#99-4(live) pItem-4(live) const:1#36-4(live)
+    blk 00dcded8 L13733-13734 w=2 K=4: const:0#99+0 pItem-8(live) const:1#36-8(live)
+    blk 00dd01f8 L13734-13734 w=2 K=3: const:0#99-6(live) pItem-6(live) const:1#36-6(live)
+    blk 00dd0398 L13736-13736 w=2 K=2: const:0#99-4(live) pItem-4(live) const:1#36-4(live)
+    blk 00dd0538 L13731-13731 w=2 K=3: const:0#99-6(live) pItem-6(live) const:1#36+0
+    blk 00de90b4 L?         w=1 K=0: const:0#99-0(live) pItem-0(live)
+    blk 00dd06d8 L13740-13741 w=1 K=4: const:0#99+4 pItem+8
+
+=== round 6 (register class 0): 17 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  pItem                          101     26   17     6   <4  ebx    13611 / 13613,13631,13632,13636,13667,13669,13677,13694
+  pItem                            1     24    3     6   <4          / 13645
+  pItem                            2     16    2     6   <4          / 13646
+  nCraftBonus                     96     12    4   105  <20         13651,13655 / 13651,13655
+  pPlayer                          5      2    1     7  <11          / 13722
+  const:0#104                    104      0    2     0   <1          / 13646
+  const:0#105                    105     -2    3     0   <1          / 13645
+  const:3#97                      97     -4    2     0   <8          / 13651,13655
+  const:1#11                      11     -8    1     0   <9          / 13677
+  const:0#103                    103     -8    3     0   <1          / 13648,13649,13653
+  const:1#91                      91    -28    1     0   <9          / 13731
+  pItem                            3    -39    5     6   <4          / 13707,13713,13730,13740
+  const:0#102                    102    -39   12     0   <1          / 13707,13708,13713,13715,13718,13731,13733,13734,13741
+  const:0#106                    106    -84   22     0   <1          / 13613,13614,13631,13632,13633,13634,13636,13637,13670,13673,13685,13695,13698
+  pPlayer                          4    -91    9     7  <11         13611 / 13633,13634,13637,13673,13677
+  const:4#6                        6   -120    5     0   <2          / 13613,13615,13631,13632,13636
+  const:2#9                        9   -128    2     0   <3          / 13613,13629
+  colouring order:
+    pItem                        prio    26 -> ebx  (allowed ebx; costs ebx=2000)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00da01f4 L13611-13613 w=1 K=5: const:0#106+0 const:4#6+0 const:2#9+0 pItem+20 pPlayer+10
+    blk 00da0394 L13613-13613 w=1 K=2: const:0#106-2(live) const:4#6+0 const:2#9-2(live) pItem+4 pPlayer-2(live)
+    blk 00da0534 L13613-13613 w=1 K=3: const:0#106+0 const:4#6-3(live) const:2#9-3(live) pItem+6 pPlayer-3(live)
+    blk 00da06d4 L13613-13613 w=1 K=2: const:0#106-2(live) const:4#6-2(live) const:2#9-2(live) pItem-2(live) pPlayer-2(live)
+    blk 00da0874 L13613-13613 w=1 K=2: const:0#106-2(live) pItem-2(live) const:2#9+0 const:4#6-2(live) pPlayer-2(live)
+    blk 00da0a14 L13613-13615 w=1 K=6: const:1#11+0 const:0#106+0 pItem-6(live) const:2#9-6(live) const:4#6+0 pPlayer-6(live)
+    blk 00da0bb4 L13615-13615 w=1 K=1: const:1#11-1(live) const:0#106-1(live) pItem-1(live) const:2#9-1(live) const:4#6-1(live) pPlayer-1(live)
+    blk 00e0e0e0 L13629-13629 w=1 K=1: const:0#106-1(live) pItem-1(live) const:2#9-1(live) const:4#6-1(live) pPlayer-1(live)
+    blk 00de83cc L13629-13629 w=1 K=1: const:0#106-1(live) pItem-1(live) const:2#9-1(live) const:4#6-1(live) pPlayer-1(live)
+    blk 00e0e280 L13631-13631 w=2 K=2: const:0#106+0 pItem+8 const:2#9-4(live) const:4#6-4(live) pPlayer-4(live)
+    blk 00e0e420 L13631-13631 w=2 K=2: const:0#106-4(live) pItem+8 const:2#9-4(live) const:4#6+0 pPlayer-4(live)
+    blk 00e0e5c0 L13631-13631 w=2 K=3: const:0#106+0 pItem+12 const:2#9-6(live) const:4#6-6(live) pPlayer-6(live)
+    blk 00e0e760 L13631-13631 w=2 K=3: const:0#106-6(live) pItem-6(live) const:2#9-6(live) const:4#6-6(live) pPlayer-6(live)
+    blk 00e0e900 L13631-13631 w=2 K=2: const:0#106+0 pItem-4(live) const:2#9-4(live) const:4#6-4(live) pPlayer-4(live)
+    blk 00e0eaa0 L13631-13632 w=2 K=4: const:0#106+0 pItem+16 const:2#9-8(live) const:4#6-8(live) pPlayer-8(live)
+    blk 00e0ec40 L13632-13632 w=2 K=2: const:0#106-4(live) pItem+8 const:2#9-4(live) const:4#6+0 pPlayer-4(live)
+    blk 00e0ede0 L13632-13632 w=2 K=3: const:0#106+0 pItem+12 const:2#9-6(live) const:4#6-6(live) pPlayer-6(live)
+    blk 00e013d0 L13632-13632 w=2 K=3: const:0#106-6(live) pItem-6(live) const:2#9-6(live) const:4#6-6(live) pPlayer-6(live)
+    blk 00e01570 L13632-13632 w=2 K=2: const:0#106+0 pItem-4(live) const:2#9-4(live) const:4#6-4(live) pPlayer-4(live)
+    blk 00e01710 L13632-13633 w=2 K=6: const:0#106+0 pItem-12(live) const:2#9-12(live) const:4#6-12(live) pPlayer-12(live)
+    blk 00e018b0 L13633-13633 w=2 K=3: pPlayer-6(live)
+    blk 00e01a50 L13633-13633 w=2 K=1: pPlayer+4
+    blk 00e01bf0 L13633-13633 w=2 K=3: pPlayer+12
+    blk 00d64338 L13633-13633 w=2 K=7: const:0#106+0 pItem+0 const:2#9+0 const:4#6+0 pPlayer+0
+    blk 00d644d8 L13633-13634 w=2 K=4: const:0#106+0 pItem-8(live) const:2#9-8(live) const:4#6-8(live) pPlayer-8(live)
+    blk 00d64678 L13634-13634 w=2 K=3: const:0#106-6(live) pItem-6(live) const:2#9-6(live) const:4#6-6(live) pPlayer-6(live)
+    blk 00d64818 L13634-13634 w=2 K=2: const:0#106+0 pItem-4(live) const:2#9-4(live) const:4#6-4(live) pPlayer+8
+    blk 00d649b8 L13634-13634 w=2 K=3: const:0#106-6(live) pItem-6(live) const:2#9-6(live) const:4#6-6(live) pPlayer+12
+    blk 00d64b58 L13634-13634 w=2 K=3: const:0#106-6(live) pItem-6(live) const:2#9-6(live) const:4#6-6(live) pPlayer-6(live)
+    blk 00d64cf8 L13634-13634 w=2 K=2: const:0#106-4(live) pItem-4(live) const:2#9-4(live) const:4#6-4(live) pPlayer-4(live)
+    blk 00d64e98 L13634-13634 w=2 K=3: const:0#106-6(live) pItem-6(live) const:2#9-6(live) const:4#6-6(live) pPlayer-6(live)
+    blk 00d61170 L13634-13634 w=2 K=2: const:0#106-4(live) pItem-4(live) const:2#9-4(live) const:4#6-4(live) pPlayer-4(live)
+    blk 00d61310 L13634-13634 w=2 K=2: const:0#106-4(live) pItem-4(live) const:2#9-4(live) const:4#6-4(live) pPlayer-4(live)
+    blk 00d614b0 L13629-13629 w=2 K=2: const:0#106-4(live) pItem-4(live) const:2#9+0 const:4#6-4(live) pPlayer-4(live)
+    blk 00de8d04 L?         w=1 K=0: const:0#106-0(live) pItem-0(live) const:4#6-0(live) pPlayer-0(live)
+    blk 00d61650 L13636-13636 w=1 K=2: const:0#106+0 pItem+4 const:4#6-2(live) pPlayer-2(live)
+    blk 00d617f0 L13636-13636 w=1 K=2: const:0#106-2(live) pItem+4 pPlayer-2(live)
+    blk 00d61990 L13636-13636 w=1 K=3: pItem+6 const:0#106+0 pPlayer-3(live)
+    blk 00d61b30 L13636-13636 w=1 K=2: const:0#106-2(live) pPlayer-2(live)
+    blk 00d61cd0 L13636-13636 w=1 K=2: const:0#106+0 pPlayer-2(live)
+    blk 00d61e70 L13636-13637 w=1 K=5: const:0#106+0 pPlayer-5(live)
+    blk 00dab078 L13637-13637 w=1 K=3: const:0#106-3(live) pPlayer-3(live)
+    blk 00dab218 L13637-13637 w=1 K=2: pPlayer+4
+    blk 00dab3b8 L13637-13637 w=1 K=3: pPlayer+6
+    blk 00d7b038 L13645-13645 w=2 K=2: const:0#105+0 pItem+8
+    blk 00d7b1d8 L13645-13645 w=2 K=1: const:0#105-2(live) pItem+4
+    blk 00d7b378 L13645-13645 w=2 K=3: pItem+12 const:0#105+0
+    blk 00d7b6b8 L13645-13645 w=2 K=2: 
+    blk 00d7b9f8 L13646-13646 w=2 K=1: pItem+4
+    blk 00d7bb98 L13646-13646 w=2 K=3: pItem+12 const:0#104+0
+    blk 00de9bf8 L13646-13646 w=2 K=1: const:0#104+0
+    blk 00dad088 L13646-13646 w=2 K=2: 
+    blk 00d9a190 L13647-13648 w=2 K=4: const:0#103+0
+    blk 00dc5190 L13648-13648 w=2 K=3: const:0#103+0
+    blk 00dc5330 L13648-13649 w=2 K=2: const:0#103+0
+    blk 00dc54d0 L13651-13651 w=2 K=2: const:3#97+0 nCraftBonus+8 const:0#103-4(live)
+    blk 00de9dd0 L13651-13651 w=2 K=2: const:3#97+0 nCraftBonus+0 const:0#103-4(live)
+    blk 00dc5670 L13653-13653 w=2 K=2: const:3#97-4(live) nCraftBonus-4(live)
+    blk 00dc5810 L13655-13655 w=2 K=2: nCraftBonus+8
+    blk 00dc5e90 L13667-13667 w=1 K=1: const:0#106-1(live) pItem+2 const:1#11-1(live) pPlayer-1(live)
+    blk 00dc6198 L13669-13670 w=1 K=3: const:0#106+0 pItem+6 const:1#11-3(live) pPlayer-3(live)
+    blk 00dc6338 L13673-13673 w=1 K=2: const:0#106+0 pItem-2(live) const:1#11-2(live) pPlayer+4
+    blk 00dc64d8 L13675-13675 w=1 K=2: const:0#106-2(live)
+    blk 00dc6678 L13677-13677 w=1 K=1: pPlayer+2 const:0#106-1(live) pItem-1(live) const:1#11-1(live)
+    blk 00dc6818 L13677-13677 w=1 K=2: pItem+4 const:0#106-2(live)
+    blk 00dc69b8 L13679-13679 w=1 K=2: const:0#106-2(live)
+    blk 00dc6b58 L13685-13685 w=1 K=2: 
+    blk 00dc6e98 L13694-13695 w=1 K=3: pItem+6 const:0#106+0
+    blk 00dcc1d0 L13697-13698 w=1 K=3: 
+    blk 00dcc510 L13707-13707 w=1 K=2: const:0#102+0 pItem+4
+    blk 00dcc6b0 L13707-13707 w=1 K=1: const:0#102-1(live) pItem-1(live)
+    blk 00dcc850 L13707-13707 w=1 K=2: const:0#102-2(live) pItem+4
+    blk 00dcc9f0 L13707-13708 w=1 K=3: const:0#102+0 pItem-3(live)
+    blk 00dccb90 L13708-13708 w=1 K=3: const:0#102-3(live) pItem-3(live)
+    blk 00dccd30 L13710-13710 w=1 K=2: const:0#102-2(live) pItem-2(live)
+    blk 00dcced0 L13713-13713 w=1 K=3: const:0#102+0 pItem+6
+    blk 00dcd1d8 L13715-13715 w=1 K=3: const:0#102+0 pItem-3(live)
+    blk 00de877c L13715-13715 w=1 K=1: pPlayer+0 const:0#102-1(live) pItem-1(live)
+    blk 00dcd378 L13717-13718 w=2 K=3: pPlayer-6(live) const:0#102+0 pItem-6(live)
+    blk 00dcd518 L13722-13723 w=2 K=4: pPlayer+16 const:0#102-8(live) pItem-8(live)
+    blk 00dcd6b8 L13725-13725 w=2 K=2: const:0#102-4(live) pPlayer-4(live) pItem-4(live)
+    blk 00dcd858 L13715-13715 w=2 K=2: const:0#102+0 pPlayer-4(live) pItem-4(live)
+    blk 00dcd9f8 L13730-13731 w=1 K=5: const:0#102+0 pItem+10
+    blk 00de8954 L13731-13731 w=1 K=2: const:1#91+0 const:0#102-2(live) pItem-2(live)
+    blk 00dcdb98 L13733-13733 w=2 K=3: const:1#91-6(live) const:0#102+0 pItem-6(live)
+    blk 00dcdd38 L13733-13733 w=2 K=2: const:1#91-4(live) const:0#102-4(live) pItem-4(live)
+    blk 00dcded8 L13733-13734 w=2 K=4: const:1#91-8(live) const:0#102+0 pItem-8(live)
+    blk 00dd01f8 L13734-13734 w=2 K=3: const:1#91-6(live) const:0#102-6(live) pItem-6(live)
+    blk 00dd0398 L13736-13736 w=2 K=2: const:0#102-4(live) const:1#91-4(live) pItem-4(live)
+    blk 00dd0538 L13731-13731 w=2 K=3: const:0#102-6(live) const:1#91+0 pItem-6(live)
+    blk 00de90b4 L?         w=1 K=0: const:0#102-0(live) pItem-0(live)
+    blk 00dd06d8 L13740-13741 w=1 K=4: const:0#102+4 pItem+8
+
+=== round 7 (register class 0): 15 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  tmp#110(def L13629)            110     16    3    8a  <91  eax    13629 / 13629
+  pPlayer                         99     16    2     7  <11  edx     / 13633
+  pPlayer                         91     10    2     7  <11  edx     / 13637
+  pPlayer                        108     10    1     7  <11         13611 / 
+  pPlayer                         11      8    2     7       (d690)  / 13634
+  tmp#109(def L13629)            109      2    1    8a  <91         13629 / 
+  const:0#20                      20      0    2     0   <1          / 13632
+  const:0#8                        8     -2    3     0   <1          / 13631
+  const:0#43                      43     -2    2     0   <1          / 13673,13685
+  const:0#33                      33     -4    2     0   <1          / 13634
+  const:0#36                      36     -5    5     0   <1          / 13636,13637
+  const:2#44                      44     -5    1     0   <3          / 13613
+  const:4#98                      98     -7    2     0   <2          / 13613,13615
+  const:0#107                    107     -7    5     0   <1          / 13613,13614,13695,13698
+  const:2#46                      46    -46    1     0   <3          / 13629
+  colouring order:
+    pItem                        prio    24 -> eax  (allowed eax/ecx/edx/esi; costs eax=0 ecx=0 edx=0 esi=0)
+    tmp#110(def L13629)          prio    16 -> eax  (allowed eax/ecx/edx/esi; costs eax=0 ecx=0 edx=0 esi=0)
+    pPlayer                      prio    16 -> edx  (allowed edx/ebx; costs edx=0 ebx=0)
+    pItem                        prio    16 -> eax  (allowed eax/ecx/edx; costs eax=0 ecx=0 edx=0)
+    nCraftBonus                  prio    12 -> not coloured (split / memory)
+    pPlayer                      prio    10 -> edx  (allowed edx/esi/ebx; costs edx=0 esi=0 ebx=0)
+    pPlayer                      prio     8 -> not coloured (split / memory)
+    pPlayer                      prio     2 -> ebx  (allowed ebx; costs ebx=800)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00da01f4 L13611-13613 w=1 K=5: pPlayer+10 const:0#107+0 const:4#98+0 const:2#44+0
+    blk 00da0394 L13613-13613 w=1 K=2: const:0#107-2(live) const:4#98+0 const:2#44-2(live)
+    blk 00da0534 L13613-13613 w=1 K=3: const:0#107+0 const:4#98-3(live) const:2#44-3(live)
+    blk 00da06d4 L13613-13613 w=1 K=2: const:0#107-2(live) const:4#98-2(live)
+    blk 00da0874 L13613-13613 w=1 K=2: const:0#107-2(live) const:4#98-2(live)
+    blk 00da0a14 L13613-13615 w=1 K=5: const:0#107+0
+    blk 00da0bb4 L13615-13615 w=1 K=1: const:0#107-1(live)
+    blk 00e0e0e0 L13629-13629 w=1 K=1: tmp#109(def L13629)+2
+    blk 00e0e280 L13631-13631 w=2 K=2: const:0#8+0
+    blk 00e0e420 L13631-13631 w=2 K=1: const:0#8-2(live)
+    blk 00e0e5c0 L13631-13631 w=2 K=3: const:0#8+0
+    blk 00e0e900 L13631-13631 w=2 K=2: 
+    blk 00e0ede0 L13632-13632 w=2 K=3: const:0#20+0
+    blk 00de9fa8 L13632-13632 w=2 K=1: const:0#20+0
+    blk 00e01570 L13632-13632 w=2 K=2: 
+    blk 00e01a50 L13633-13633 w=2 K=1: pPlayer+4
+    blk 00e01bf0 L13633-13633 w=2 K=3: pPlayer+12
+    blk 00d64338 L13633-13633 w=2 K=6: const:0#33+0 const:2#46+0 pPlayer+0
+    blk 00e3fc80 L13633-13633 w=2 K=3: const:2#46+0 const:0#33+0 pPlayer+0
+    blk 00d644d8 L13633-13634 w=2 K=4: const:2#46-8(live) const:0#33+0 pPlayer-8(live)
+    blk 00d64678 L13634-13634 w=2 K=2: const:2#46-4(live) const:0#33-4(live) pPlayer-4(live)
+    blk 00d64818 L13634-13634 w=2 K=2: const:2#46-4(live) pPlayer+8
+    blk 00d649b8 L13634-13634 w=2 K=3: pPlayer+12 const:2#46-6(live)
+    blk 00d64b58 L13634-13634 w=2 K=3: const:2#46-6(live)
+    blk 00d64cf8 L13634-13634 w=2 K=2: const:2#46-4(live)
+    blk 00d64e98 L13634-13634 w=2 K=3: const:2#46-6(live)
+    blk 00d61170 L13634-13634 w=2 K=2: const:2#46-4(live)
+    blk 00d61310 L13634-13634 w=2 K=2: const:2#46-4(live)
+    blk 00d614b0 L13629-13629 w=2 K=2: tmp#110(def L13629)+16
+    blk 00d61650 L13636-13636 w=1 K=2: const:0#36+0
+    blk 00d617f0 L13636-13636 w=1 K=1: const:0#36-1(live)
+    blk 00d61990 L13636-13636 w=1 K=3: const:0#36+0
+    blk 00d61b30 L13636-13636 w=1 K=2: const:0#36-2(live)
+    blk 00d61cd0 L13636-13636 w=1 K=2: const:0#36+0
+    blk 00d61e70 L13636-13637 w=1 K=5: const:0#36+0
+    blk 00dab078 L13637-13637 w=1 K=2: const:0#36-2(live)
+    blk 00dab218 L13637-13637 w=1 K=2: pPlayer+4
+    blk 00dab3b8 L13637-13637 w=1 K=3: pPlayer+6
+    blk 00dc6338 L13673-13673 w=1 K=1: const:0#43+0
+    blk 00dc64d8 L13675-13675 w=1 K=2: const:0#43-2(live)
+    blk 00dc69b8 L13679-13679 w=1 K=3: const:0#43+0
+    blk 00dc6b58 L13685-13685 w=1 K=2: 
+    blk 00dc6e98 L13694-13695 w=1 K=3: const:0#107+0
+    blk 00dcc1d0 L13697-13698 w=1 K=3: 
+
+=== round 8 (register class 0): 2 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  pItem                          109    -13    5     6   <4  ebx     / 13707,13713,13730,13740
+  const:0#108                    108    -23   10     0   <1          / 13707,13708,13713,13715,13731,13733,13734,13741
+  colouring order:
+    const:0#20                   prio     0 -> not coloured (split / memory)
+    const:0#104                  prio     0 -> not coloured (split / memory)
+    const:0#43                   prio    -2 -> not coloured (split / memory)
+    const:0#8                    prio    -2 -> not coloured (split / memory)
+    const:0#105                  prio    -2 -> not coloured (split / memory)
+    const:0#33                   prio    -4 -> not coloured (split / memory)
+    const:3#97                   prio    -4 -> not coloured (split / memory)
+    const:0#36                   prio    -5 -> not coloured (split / memory)
+    const:0#107                  prio    -7 -> not coloured (split / memory)
+    const:4#98                   prio    -7 -> not coloured (split / memory)
+    const:0#103                  prio    -8 -> not coloured (split / memory)
+    pItem                        prio   -13 -> ebx  (allowed ebx; costs ebx=0)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00dcc510 L13707-13707 w=1 K=2: const:0#108+0 pItem+4
+    blk 00dcc6b0 L13707-13707 w=1 K=1: const:0#108-1(live) pItem-1(live)
+    blk 00dcc850 L13707-13707 w=1 K=2: pItem+4 const:0#108-2(live)
+    blk 00dcc9f0 L13707-13708 w=1 K=3: pItem-3(live) const:0#108+0
+    blk 00dccb90 L13708-13708 w=1 K=3: pItem-3(live) const:0#108-3(live)
+    blk 00dccd30 L13710-13710 w=1 K=2: pItem-2(live) const:0#108-2(live)
+    blk 00dcced0 L13713-13713 w=1 K=3: pItem+6 const:0#108+0
+    blk 00dcd1d8 L13715-13715 w=1 K=3: pItem-3(live) const:0#108+0
+    blk 00e3fe20 L13715-13715 w=1 K=2: pItem+0 const:0#108+0
+    blk 00dcd9f8 L13730-13731 w=1 K=5: pItem+10 const:0#108+0
+    blk 00de8954 L13731-13731 w=1 K=1: pItem-1(live) const:0#108-1(live)
+    blk 00dcdb98 L13733-13733 w=2 K=3: pItem-6(live) const:0#108+0
+    blk 00dcdd38 L13733-13733 w=2 K=2: pItem-4(live) const:0#108-4(live)
+    blk 00dcded8 L13733-13734 w=2 K=4: pItem-8(live) const:0#108+0
+    blk 00dd01f8 L13734-13734 w=2 K=3: pItem-6(live) const:0#108-6(live)
+    blk 00dd0398 L13736-13736 w=2 K=2: pItem-4(live) const:0#108-4(live)
+    blk 00dd0538 L13731-13731 w=2 K=2: pItem-4(live) const:0#108-4(live)
+    blk 00de90b4 L?         w=1 K=0: pItem-0(live) const:0#108-0(live)
+    blk 00dd06d8 L13740-13741 w=1 K=4: const:0#108+4 pItem+8
+
+=== round 9 (register class 0): 2 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  const:64#102                   102      0    2     0  <12  (d690)  / 13730,13740
+  const:0#3                        3     -4    7     0   <1  (d690)  / 13707,13708,13713,13731,13741
+  colouring order:
+    const:64#102                 prio     0 -> not coloured (split / memory)
+    const:0#3                    prio    -4 -> not coloured (split / memory)
+    nCraftBonus                  prio  -457 -> not coloured (split / memory)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00dcc510 L13707-13707 w=1 K=2: const:0#3+0
+    blk 00dcc6b0 L13707-13707 w=1 K=1: const:0#3-1(live)
+    blk 00dcc850 L13707-13707 w=1 K=2: const:0#3-2(live)
+    blk 00dcc9f0 L13707-13708 w=1 K=3: const:0#3+0
+    blk 00dccb90 L13708-13708 w=1 K=3: const:0#3-3(live)
+    blk 00dccd30 L13710-13710 w=1 K=2: const:0#3-2(live)
+    blk 00dcced0 L13713-13713 w=1 K=3: const:0#3+0
+    blk 00e3fe20 L13715-13715 w=1 K=2: const:0#3+0
+    blk 00e3ffc0 L13715-13715 w=1 K=1: const:0#3+0
+    blk 00dcd9f8 L13730-13731 w=1 K=5: const:64#102+0 const:0#3+0
+    blk 00de90b4 L13731-13731 w=1 K=2: const:64#102+0 const:0#3+0
+    blk 00dd06d8 L13740-13741 w=1 K=4: const:0#3+4
+
+=== round 10 (register class 0): 4 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  ?sgptDataTables@@3PAUD2DataT    12     20    2   1b0  <39  ecx     / 13743
+  pPlayer                        108     20    2     7  <11  edx     / 13634
+  nCraftBonus                     44      8    2   105  <20  (d690) 13655 / 13655
+  nCraftBonus                     46      8    2   105  <20  (d690) 13651 / 13651
+  colouring order:
+    ?sgptDataTables@@3PAUD2DataT prio    20 -> ecx  (allowed ecx/edx/esi/ebx; costs ecx=0 edx=0 esi=0 ebx=0)
+    pPlayer                      prio    20 -> edx  (allowed edx/esi; costs edx=0 esi=0)
+    nCraftBonus                  prio     8 -> not coloured (split / memory)
+    nCraftBonus                  prio     8 -> not coloured (split / memory)
+    nCraftBonus                  prio  -457 -> not coloured (split / memory)
+    nCraftBonus                  prio  -457 -> not coloured (split / memory)
+    const:0#95                   prio  -457 -> not coloured (split / memory)
+    const:0#49                   prio  -457 -> not coloured (split / memory)
+    const:0#20                   prio  -457 -> not coloured (split / memory)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00d64818 L13634-13634 w=2 K=2: pPlayer+8
+    blk 00d649b8 L13634-13634 w=2 K=3: pPlayer+12
+    blk 00dc54d0 L13651-13651 w=2 K=2: nCraftBonus+8
+    blk 00dc5810 L13655-13655 w=2 K=2: nCraftBonus+8
+    blk 00dd0a18 L13743-13743 w=2 K=2: ?sgptDataTables@@3PAUD2DataTablesStrc@@A+8
+    blk 00dd0bb8 L13743-13744 w=2 K=3: ?sgptDataTables@@3PAUD2DataTablesStrc@@A+12
+
+=== round 11 (register class 0): 11 candidates with references ===
+  candidate                       id   prio refs   key  web  reg    def lines / use lines
+  const:0#9                        9      3    2     0   <1  (d690)  / 13741
+  const:3#11                      11      2    1     0   <8          / 13651
+  const:0#15                      15      0    2     0   <1  (d690)  / 13731
+  const:0#40                      40      0    1     0   <1          / 13648
+  const:0#44                      44      0    1     0   <1          / 13632
+  const:0#96                      96      0    1     0   <1          / 13646
+  const:64#100                   100      0    1     0  <12          / 13730
+  const:0#106                    106      0    1     0   <1          / 13673
+  const:0#46                      46     -2    2     0   <1  (d690)  / 13649,13653
+  const:0#95                      95     -4    2     0   <1  (d690)  / 13634
+  const:0#49                      49     -8    3     0   <1  (d690)  / 13707,13708,13713
+  colouring order:
+    const:0#9                    prio     3 -> not coloured (split / memory)
+    const:0#15                   prio     0 -> not coloured (split / memory)
+    const:0#46                   prio    -2 -> not coloured (split / memory)
+    const:0#95                   prio    -4 -> not coloured (split / memory)
+    const:0#49                   prio    -8 -> not coloured (split / memory)
+    const:0#8                    prio  -457 -> not coloured (split / memory)
+    const:0#105                  prio  -457 -> not coloured (split / memory)
+    const:0#36                   prio  -457 -> not coloured (split / memory)
+    const:0#107                  prio  -457 -> not coloured (split / memory)
+    const:4#98                   prio  -457 -> not coloured (split / memory)
+    const:0#9                    prio  -457 -> not coloured (split / memory)
+    const:0#15                   prio  -457 -> not coloured (split / memory)
+    const:0#46                   prio  -457 -> not coloured (split / memory)
+    const:0#95                   prio  -457 -> not coloured (split / memory)
+    const:0#49                   prio  -457 -> not coloured (split / memory)
+  blocks (w = loop weight, K = candidates referenced in the block):
+    blk 00e0ede0 L13632-13632 w=2 K=3: 
+    blk 00d644d8 L13633-13634 w=2 K=4: const:0#95+0
+    blk 00d64678 L13634-13634 w=2 K=2: const:0#95-4(live)
+    blk 00d64818 L13634-13634 w=2 K=2: 
+    blk 00d7bb98 L13646-13646 w=2 K=3: 
+    blk 00d9a190 L13647-13648 w=2 K=4: 
+    blk 00dc5330 L13648-13649 w=2 K=2: const:0#46+0
+    blk 00dc54d0 L13651-13651 w=2 K=1: const:3#11+2 const:0#46-2(live)
+    blk 00de9dd0 L13651-13651 w=2 K=0: const:0#46-0(live)
+    blk 00dc5670 L13653-13653 w=2 K=2: 
+    blk 00dc6338 L13673-13673 w=1 K=1: 
+    blk 00dcc510 L13707-13707 w=1 K=2: const:0#49+0
+    blk 00dcc6b0 L13707-13707 w=1 K=1: const:0#49-1(live)
+    blk 00dcc850 L13707-13707 w=1 K=2: const:0#49-2(live)
+    blk 00dcc9f0 L13707-13708 w=1 K=3: const:0#49+0
+    blk 00dccb90 L13708-13708 w=1 K=3: const:0#49-3(live)
+    blk 00dccd30 L13710-13710 w=1 K=2: const:0#49-2(live)
+    blk 00dcced0 L13713-13713 w=1 K=3: 
+    blk 00dcd9f8 L13730-13731 w=1 K=5: 
+    blk 00dd06d8 L13740-13741 w=1 K=3: const:0#9+3
