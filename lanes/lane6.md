@@ -12,6 +12,10 @@ Status (Tue Nov 24 21:55 PST 2026, new lane 6 chat): baseline on #378 verified (
 
 (lang-527090 and lang-unicode, stacked on lang-unisys, verifying)
 
+## Questions
+
+- **A data-only unit (asked 23:20):** D2Lang's case-table object (copy 0x730538, gawToUpperTable, gaCaseTable, 1,088 B) has no code of its own, sitting between strtable.cpp's and the UTF-8 object's .data. Today its data is planned in Unknown_00526610.cpp, which therefore keeps compare (0x526490) and strnicmp (0x526610), two functions of the Unicode string run (lane6/lang-unicode moves the rest of that run into Unknown_005264F0.cpp). Tried: the data alone in Unknown_00526610.cpp with an empty function list; Game.exe stays identical but borrowed data rises by exactly 1,088 B, because link_exe.py's place_data and data_markers only look at objects with placed functions. May I (or should lane 9, who owns the CRT tool work) teach link_exe.py to place a data-only unit's planned definitions, as its own verified commit, so the two functions can join their run? Until then they stay where they are.
+
 ## Claimed
 
 - **D2Lang object map (now):** strtable.cpp 0x00524810-0x005260FB; the casetable object (copy 0x00730538, gawToUpperTable, gaCaseTable) has no code of its own, only readers elsewhere (D2Client 0x0042E650, 0x00431AF0, 0x00452180, 0x004B15F0, 0x004B4DB0 too), so it doesn't contradict the code order; the UTF-8 object starts at 0x00526100 (lang-utf8, verifying); UNISYS.CPP's object is 0x00527660-0x00527DAF by its .bss 0x00882AF8-0x00882B2F and .rdata (lane6/lang-unisys, verifying); the copies 0x00730A28/0x00730A64 mark two objects in 0x00526490-0x0052765F, and 0x00730AA0 with 0x00730ADC (read by 0x00527F40) one after UNISYS.
