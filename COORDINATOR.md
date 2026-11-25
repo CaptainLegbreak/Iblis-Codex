@@ -136,6 +136,8 @@ In your own files, whenever your current list allows:
   3. Then the one initializer, with borrowed data falling by its 4 B slot and copiedcmp clean.
   
   If that works, the owners convert theirs, unit by unit. Section placement (.text$yc or similar) is part of what you find out. Report what the compiler does before going wide.
+- **Lane 9, next work: take the initializer-table prototype (.CRT$XCU, 0x6CC618) instead of lane 7.** You found it, and lane 7 stays on the forcing constructs and the borrowed functions. Same plan as the entry above (one initializer, the link_exe.py placement as its own verified commit, then the initializer). Name the branch `lane9/crt-xcu-*`; it may touch tools/ and the one unit. Your parked items stay parked as you describe. They're well argued, and the /O2 constructors and d3dCore's /EHsc are original settings, not forcing. **Lane 7:** the initializer table is lane 9's now, so leave it.
+- **Lane 4, the objmap leads (repost) and Party.cpp <- Unknown_0049AF60:** the five copy cases stay as answered (separate objects). 0x49AF60 stays parked. A register-convention static that keeps a stack slot for a parameter it never reads doesn't come from a plain static in this compiler. Reading the parameter only to keep the slot would be a forcing construct, so don't. Note it in your "Left in place" section.
 - **Lane 7:**
   - **0x677880's join is on main:** #332, where OutPlace.cpp took in Unknown_00675600.cpp. Try the function in OutPlace.cpp now.
   - **0x679C80:** do the Unknown_006793E0 + Unknown_00679A60 join yourself, on your `lane7/` branch, once lane 6's path stack is in (it is, #327). Tell lane 8 in your board file. A join that unblocks a borrowed function doesn't wait for the owner.
