@@ -2551,6 +2551,50 @@ void __cdecl CHARSEL_ResetRealmScreen()
     gbFlag_00779C6C = 0;
 }
 
+// 0x0043A800
+void __cdecl CHARSEL_CreateCharListControls()
+{
+    if (gnLaunchMode == 1)
+    {
+        if (FOG_IsExpansion())
+        {
+            CHARSEL_CreateCharInfoControls();
+        }
+        else
+        {
+// build: symbol ?MAINMENUS_CreateFromTemplate@* 0x0042F3A0
+            gpControl_007799EC = MAINMENUS_CreateFromTemplate(0x73);
+            D2Win_10033(gpControl_007799EC, 1);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_007799EC, 1);
+            gpControl_00779C7C = MAINMENUS_CreateFromTemplate(0x74);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779C7C, 1);
+            gpControl_00779D9C = MAINMENUS_CreateFromTemplate(0x75);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779D9C, 1);
+            gpNameControl = MAINMENUS_CreateFromTemplate(0x76);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpNameControl, 1);
+            gpControl_00779D88 = MAINMENUS_CreateFromTemplate(0x77);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779D88, 1);
+            gpControl_00779C74 = MAINMENUS_CreateFromTemplate(0x78);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779C74, 1);
+        }
+
+        sub_004FC9B0_SetText(gpControl_00779C7C, D2LANG_GetStringFromTblIndex(0x2B31), 0, 0, 0);
+        D2Win_10062((D2WinTextBoxStrc*)gpControl_00779D9C, -6, 0);
+        for (int i = 0; ; ++i)
+        {
+            char* szName = i < GAME_GetSlotNameCount() ? MAINMENUS_GetSlotName(i) : 0;
+            if (!szName) { break; }
+            D2Win_10045(gpNameControl, szName);
+            if (!SStrCmpI(gszPreferredRealm, szName, 0x7FFFFFFF))
+            {
+                D2Win_10050_TEXTBOX_SetLine((D2WinTextBoxStrc*)gpNameControl, i);
+            }
+        }
+        CHARSEL_RefreshCharEntry();
+    }
+    gbFlag_00779C6C = 1;
+}
+
 // 0x0043A950
 int __stdcall CHARSEL_OnRealmChosen(SMSGHANDLER_PARAMS* pMsg)
 {

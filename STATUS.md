@@ -42,16 +42,16 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 613 |
+| Compilation units | 611 |
 | … in a file with its original name, whole | 294 |
 | … pieces of an original file still split (in 33 files) | 108 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 211 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 1933 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 209 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 1932 |
 | Unnamed fields (`unk0x..`) in the shared headers | 647 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 44 |
 | Calling-convention shims | 38 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
-| `__declspec(noinline)` / `__forceinline` | 103 / 214 |
+| `__declspec(noinline)` / `__forceinline` | 101 / 214 |
 | Function names: blizzard / library / d2moo / inferred / placeholder | 478 / 86 / 5336 / 6476 / 2551 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`, an `if`/`else` whose two arms are identical). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
 
-Not listed one by one: 4171 functions are compiled with `/GS-` and 1496 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 103 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
+Not listed one by one: 4170 functions are compiled with `/GS-` and 1496 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 101 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -547,7 +547,6 @@ Not listed one by one: 4171 functions are compiled with `/GS-` and 1496 with `/E
 | 0x0051DF90 | BNNEWS_TryDecodeCDKey | `D2BNClient/BNNews.cpp` | compiler option /Ob1 |
 | 0x00522C30 | BNDOWNLOAD_InitCipherKeys | `D2BNClient/BnDownload.cpp` | volatile read or qualifier |
 | 0x0052C900 | GAME_TriggerClientSave | `D2Game/GAME/Game.cpp` | volatile read or qualifier |
-| 0x00574250 | MONSTER_Initialize | `D2Game/MONSTER/Monster_00574250.cpp` | compiler option /Ob1 |
 | 0x00579090 | SUNITNPC_RefillNpcStore | `D2Game/UNIT/SUNITNPC.CPP` | volatile read or qualifier |
 | 0x00580C20 | PLRMODE_UpdateMovement | `D2Game/PLAYER/PlrModes.cpp` | volatile read or qualifier, identical if/else arms |
 | 0x005852E0 | OBJMODE_MainObeliskHandler | `D2Game/OBJECTS/ObjMode.cpp` | identical if/else arms |
