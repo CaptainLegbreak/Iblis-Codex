@@ -11,9 +11,9 @@ int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
         D2MagicAffixTxt* pPrefix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId(pItem, 0));
         D2MagicAffixTxt* pSuffix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId(pItem, 0));
         D2MagicAffixTxt* pAutoAffix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetAutoAffix(pItem));
-        nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pPrefix, pPlayer, nRequiredLevel);
-        nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pSuffix, pPlayer, nRequiredLevel);
-        nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pAutoAffix, pPlayer, nRequiredLevel);
+        nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(nRequiredLevel, pPrefix, pPlayer);
+        nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(nRequiredLevel, pSuffix, pPlayer);
+        nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(nRequiredLevel, pAutoAffix, pPlayer);
         break;
     }
     case ITEMQUAL_RARE:
@@ -22,11 +22,11 @@ int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
         {
             D2MagicAffixTxt* pPrefix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId_Inl(pItem, i));
             D2MagicAffixTxt* pSuffix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId_Inl(pItem, i));
-            nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pPrefix, pPlayer, nRequiredLevel);
-            nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pSuffix, pPlayer, nRequiredLevel);
+            nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(nRequiredLevel, pPrefix, pPlayer);
+            nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(nRequiredLevel, pSuffix, pPlayer);
         }
         D2MagicAffixTxt* pAutoAffix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetAutoAffix_Inl(pItem));
-        nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pAutoAffix, pPlayer, nRequiredLevel);
+        nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(nRequiredLevel, pAutoAffix, pPlayer);
         break;
     }
     case ITEMQUAL_CRAFT:
@@ -36,8 +36,8 @@ int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
         {
             D2MagicAffixTxt* pPrefix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId_Inl(pItem, i));
             D2MagicAffixTxt* pSuffix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId_Inl(pItem, i));
-            nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pPrefix, pPlayer, nRequiredLevel);
-            nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(pSuffix, pPlayer, nRequiredLevel);
+            nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(nRequiredLevel, pPrefix, pPlayer);
+            nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(nRequiredLevel, pSuffix, pPlayer);
             if (pPrefix)
             {
                 nCraftBonus += 3;
@@ -61,22 +61,21 @@ int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
             D2UniqueItemsTxt* pUnique = DATATBLS_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
             if (pUnique)
             {
-                int nLevel;
                 if (!pPlayer)
                 {
-                    nLevel = (short)pUnique->wLvlReq;
+                    const int nLevel = (short)pUnique->wLvlReq;
+                    if (nLevel >= 0)
+                    {
+                        nRequiredLevel = nLevel;
+                    }
                 }
                 else if (sub_00463720_TestUnitFlagEx(pPlayer, 0x2000000) || ITEMS_GetItemFormat(pItem) >= 1)
                 {
-                    nLevel = (short)pUnique->wLvlReq;
-                }
-                else
-                {
-                    break;
-                }
-                if (nLevel >= 0)
-                {
-                    nRequiredLevel = nLevel;
+                    const int nLevel = (short)pUnique->wLvlReq;
+                    if (nLevel >= 0)
+                    {
+                        nRequiredLevel = nLevel;
+                    }
                 }
             }
         }
@@ -137,17 +136,32 @@ int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
         {
             int nLevel;
             char nCharClass;
-            if (pPlayer && !GAME_GetUnitTypeOrInvalid(pPlayer) && (nCharClass = pSkillsTxtRecord->nCharClass) >= 0 && nCharClass < 7 && (unsigned char)GAME_GetUnitClassId(pPlayer) == nCharClass)
+            if (pPlayer && !GAME_GetUnitTypeOrInvalid(pPlayer) && (nCharClass = pSkillsTxtRecord->nCharClass) >= 0)
             {
-                nLevel = pSkillsTxtRecord->wReqLevel;
+                if (nCharClass < 7 && (unsigned char)GAME_GetUnitClassId(pPlayer) == nCharClass)
+                {
+                    nLevel = pSkillsTxtRecord->wReqLevel;
+                    if (nLevel > nRequiredLevel)
+                    {
+                        nRequiredLevel = nLevel;
+                    }
+                }
+                else
+                {
+                    nLevel = pSkillsTxtRecord->wReqLevel + 6;
+                    if (nLevel > nRequiredLevel)
+                    {
+                        nRequiredLevel = nLevel;
+                    }
+                }
             }
             else
             {
                 nLevel = pSkillsTxtRecord->wReqLevel + 6;
-            }
-            if (nLevel > nRequiredLevel)
-            {
-                nRequiredLevel = nLevel;
+                if (nLevel > nRequiredLevel)
+                {
+                    nRequiredLevel = nLevel;
+                }
             }
         }
     }
