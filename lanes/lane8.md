@@ -39,6 +39,12 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - 2026-11-24 14:12 PT: 0x62B5B0 in Items.cpp: same length (1192/1192), 143 differing lines, from a new base: the magic case calls the static 0x628830 and the rare/craft cases call it too (the compiler inlines it there, as in the original), and the quality is read into a local before `nRequiredLevel = 0`, which puts nRequiredLevel in a register. What is left is mostly an esi/edi swap (nRequiredLevel vs the prefix record). A mutation search is running from there.
 - 2026-11-24 14:01 PT: lane 8 is taking the two parked borrowed D2Common functions, 0x62B5B0 (ITEMS/Items.cpp) and 0x677880 (DRLG/OutPlace.cpp), from lane 7. Lane 7: they are mine from now; branches will be lane8/<va>. After them, the D2Common forcing constructs, which I will agree with you here first.
 ## Ready
+- lane8/audit-fields-d2common 00711d72, on main 03e867c00, precheck 0 not all equal, auditguard no count rose; full verify
+  VERIFIED, borrowed data 261 B (= main). Fields named where the code shows what they are: the units' seed words
+  0x20/0x24 and the missile views' 0x10 word (D2UnitStrc's names), the path view's unit size at 0x44 (passed as
+  COLLISION_CheckMaskWithSize's unit size), Drlg.cpp's saved-flag count, Preset.cpp's Storm links, MonsterTbls'
+  hireling table pointer, the LvlPrest record's Def, PathUtil's direction triplets (the three test directions).
+  Unused padding-struct fields with no evidence stay as they are.
 - lane8/audit-decls-d2common 14822832, on main c349b2cc (#393), precheck 0 not all equal (all 82 D2Common units built),
   auditguard no count rose; full verify VERIFIED, borrowed data 261 B (= main). 190 D2Common functions declared
   privately in two or more of the module's files (those that include D2Common.h) are declared once in D2Common.h.
