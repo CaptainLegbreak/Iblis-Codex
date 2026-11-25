@@ -84,7 +84,7 @@ void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D
 
 D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwItemCode); // 0x00558110
 
-D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
+D2UnitStrc* __fastcall D2GAME_DropItemAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
 
 int __fastcall ACT3Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005B9E70
 
@@ -512,7 +512,7 @@ void __fastcall ACT4Q3_CreateReward(D2QuestDataStrc* pQuestData, D2UnitStrc* pUn
             case 1: pUnit->dwDropItemCode = gnHellforgeGemsLast[RollSeed(QUESTS_GetGlobalSeed(pQuestData->pGame)) % 7]; break;
             default: return;
             }
-            if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pUnit, 2, &nItemLevel, 0, -1, 0)) ++nDropped;
+            if (D2GAME_DropItemAtUnit(pQuestData->pGame, pUnit, 2, &nItemLevel, 0, -1, 0)) ++nDropped;
         }
         if (!nDropped) return;
         --pQuestDataEx->nRewardState;
@@ -528,7 +528,7 @@ void __fastcall ACT4Q3_CreateReward(D2QuestDataStrc* pQuestData, D2UnitStrc* pUn
                 case 2: pCodes = gnHellforgeRunesHell; break;
                 }
                 pUnit->dwDropItemCode = pCodes[SEED_RollLimitedRandomNumber(QUESTS_GetGlobalSeed(pQuestData->pGame), 11)];
-                D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pUnit, 2, &nItemLevel, 0, -1, 0);
+                D2GAME_DropItemAtUnit(pQuestData->pGame, pUnit, 2, &nItemLevel, 0, -1, 0);
             }
         }
         else
@@ -775,7 +775,7 @@ void __fastcall ACT4Q3_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 
     pQuestArg->pTarget->dwDropItemCode = ' hfh';
     int nItemLevel;
-    if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestArg->pGame, pQuestArg->pTarget, 7, &nItemLevel, 0, -1, 0))
+    if (D2GAME_DropItemAtUnit(pQuestArg->pGame, pQuestArg->pTarget, 7, &nItemLevel, 0, -1, 0))
     {
         ++pQuestDataEx->nHellforgeHammersInGame;
     }

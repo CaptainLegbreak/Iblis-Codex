@@ -70,7 +70,7 @@ void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pAr
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwItemCode); // 0x00558110
 D2MapAIStrc* __stdcall AIGENERAL_GetMapAiFromUnit(D2UnitStrc* pUnit); // 0x0058F000
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
@@ -115,7 +115,7 @@ Quest* __fastcall QUESTS_GetQuestData(Game*,int); // 0x00543640
 
 enum { FINAL_STATE = 5 };
 
-D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
+D2UnitStrc* __fastcall D2GAME_DropItemAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
 
 void __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
@@ -134,7 +134,7 @@ void __fastcall OBJECTS_InitFunction49_HratliStart(D2ObjInitFnStrc* pOp)
         return;
     }
 
-    D2UnitStrc* pHratli = D2GAME_SpawnMonster_6FC69F10(pOp->pGame, pOp->pRoom, pOp->nX, pOp->nY, MONSTER_HRATLI, 1, -1, 0);
+    D2UnitStrc* pHratli = D2GAME_SpawnMonster(pOp->pGame, pOp->pRoom, pOp->nX, pOp->nY, MONSTER_HRATLI, 1, -1, 0);
     if (pHratli)
     {
         pQuestDataEx->nHratliGUID = pHratli->dwUnitId;
@@ -194,7 +194,7 @@ void __fastcall OBJECTS_InitFunction50_HratliEnd(D2ObjInitFnStrc* pOp)
         return;
     }
 
-    D2UnitStrc* pHratli = D2GAME_SpawnMonster_6FC69F10(pOp->pGame, pOp->pRoom, pOp->nX, pOp->nY, MONSTER_HRATLI, 1, -1, 0);
+    D2UnitStrc* pHratli = D2GAME_SpawnMonster(pOp->pGame, pOp->pRoom, pOp->nX, pOp->nY, MONSTER_HRATLI, 1, -1, 0);
     if (!pHratli)
     {
         return;
@@ -514,7 +514,7 @@ int __fastcall OBJECTS_OperateFunction28_LamEsenTome(D2ObjOperateFnStrc* pOp, in
 
         pOp->hObject->dwDropItemCode = ' bbb';
         int nItemLevel;
-        if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, 2, &nItemLevel, 0, -1, 0))
+        if (D2GAME_DropItemAtUnit(pOp->pGame, pOp->hObject, 2, &nItemLevel, 0, -1, 0))
         {
             UNITS_ChangeAnimMode(pOp->hObject, 2);
 

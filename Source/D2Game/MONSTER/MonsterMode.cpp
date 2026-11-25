@@ -65,7 +65,7 @@ void __fastcall SKILLS_CreateMissileRing(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
-int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3);         // 0x005A7C20
+int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3);         // 0x005A7C20
 
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange);  // 0x005A7E60
 
@@ -85,7 +85,7 @@ int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit);                     
 
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 
-void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
+void __fastcall D2GAME_EVENTS_Delete(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 
 void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pDefender, D2UnitStrc* pAttacker, int bSendMsg); // 0x0057CCB0
 
@@ -310,7 +310,7 @@ void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* pUnit); // 0x005533D0
 
 void __fastcall SUNIT_ValidateTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553490
 
-void __fastcall D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553990
+void __fastcall D2GAME_DeletePlayerPerFrameEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553990
 
 void __fastcall SUNIT_ScheduleAnimationEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005539B0
 
@@ -815,7 +815,7 @@ D2MonsterModeDataStrc* __fastcall MONSTERMODE_AllocParams(D2GameStrc* pGame)
 }
 
 // 0x005A64D0
-void __fastcall D2GAME_MONSTERMODE_FreeParams_6FC63020(D2GameStrc* pGame, D2AiParamStrc* pAiParam)
+void __fastcall D2GAME_MONSTERMODE_FreeParams(D2GameStrc* pGame, D2AiParamStrc* pAiParam)
 {
     FOG_FreeServerMemory(pGame->pMemoryPool, pAiParam, ".\\MONSTER\\MonsterMode.cpp", 327, 0);
 }
@@ -1054,9 +1054,9 @@ int __fastcall MONSTERMODE_CreateMonsterMissile(D2GameStrc* pGame, D2UnitStrc* p
 }
 
 // 0x005A6DE0
-int __fastcall D2GAME_RemoveModeChangeEventCallback_6FC63B20(D2GameStrc* pGame, D2UnitStrc* pMonster)
+int __fastcall D2GAME_RemoveModeChangeEventCallback(D2GameStrc* pGame, D2UnitStrc* pMonster)
 {
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pMonster, 0, 0);
+    D2GAME_EVENTS_Delete(pGame, pMonster, 0, 0);
     return 1;
 }
 
@@ -1203,7 +1203,7 @@ void __stdcall MONSTERMODE_HandleSiegeBeastDeath(D2GameStrc* pGame, D2UnitStrc* 
             const int bFree = COLLISION_GetFreeCoordinates(UNITS_GetRoom(pMonster), &pCoord, UNITS_GetUnitSizeX(pMonster), 0x3C01, 0) != 0;
             if (STATLIST_GetUnitAlignment(pUnit) == 0 && bFree && AITACTICS_UseSkill(pGame, pMonster, pMonStatsTxtRecord->nSkillMode[0], pMonStatsTxtRecord->nSkill[0], 0, pCoord.nX, pCoord.nY))
             {
-                D2GAME_EVENTS_Delete_6FC34840(pGame, pMonster, 2, 0);
+                D2GAME_EVENTS_Delete(pGame, pMonster, 2, 0);
             }
             else
             {
@@ -1372,7 +1372,7 @@ inline D2MonVelocityParamStrc* MONSTERMODE_GetVelocityParam(D2UnitStrc* pUnit)
 }
 
 // 0x005A61F0
-void __fastcall D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(D2UnitStrc* pUnit)
+void __fastcall D2GAME_MONSTERMODE_ResetVelocityParams(D2UnitStrc* pUnit)
 {
     D2MonVelocityParamStrc* pAiParam = MONSTERMODE_GetVelocityParam(pUnit);
     pAiParam->f_18 = 0;
@@ -1426,7 +1426,7 @@ static __forceinline int GetValidBaseId(D2UnitStrc* pUnit)
 }
 
 // 0x005A7C20
-int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int bClearUsedSkill)
+int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int bClearUsedSkill)
 {
     D2UnitStrc* pUnit = pModeChange->pUnit;
     if ((pUnit ? pUnit->dwUnitType : UNIT_INVALID) != UNIT_MONSTER)
@@ -1518,7 +1518,7 @@ int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pM
         UNITS_SetUsedSkill(pUnit, 0);
     }
 
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pUnit);
+    D2GAME_DeletePlayerPerFrameEvents(pGame, pUnit);
 
     const D2MonModeCallbackTableStrc* pCurrentRecord = MONSTERMODE_GetCallbackTableRecord(pUnit, nCurrentAnimMode);
     if (!pCurrentRecord)
@@ -1582,7 +1582,7 @@ void __fastcall MONSTERMODE_ApplyStatRegen(D2GameStrc* pGame, D2UnitStrc* pUnit,
     EVENT_SetEvent(pGame, pUnit, 3, pGame->dwGameFrame + 1, 0, 0);
     if (!nRegen)
     {
-        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 3, 0);
+        D2GAME_EVENTS_Delete(pGame, pUnit, 3, 0);
         return;
     }
 
@@ -1600,7 +1600,7 @@ void __fastcall MONSTERMODE_ApplyStatRegen(D2GameStrc* pGame, D2UnitStrc* pUnit,
     nHitpoints += nRegen;
     if (nHitpoints > nMaxHp)
     {
-        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 3, 0);
+        D2GAME_EVENTS_Delete(pGame, pUnit, 3, 0);
         nHitpoints = nMaxHp;
     }
 
@@ -1968,8 +1968,8 @@ int __fastcall MONSTERMODE_StartDead(D2GameStrc* pGame, D2ModeChangeStrc* pModeC
     }
 
     SUNIT_SetCombatMode(pGame, pUnit, 12);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 8, 0);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 9, 0);
+    D2GAME_EVENTS_Delete(pGame, pUnit, 8, 0);
+    D2GAME_EVENTS_Delete(pGame, pUnit, 9, 0);
     return 1;
 }
 
@@ -2326,7 +2326,7 @@ void __fastcall MONSTERMODE_HandleEndAnimation(D2GameStrc* pGame, D2UnitStrc* pU
     mode.pUnit = pUnit;
     mode.nEventFlag = 100;
     mode.pTargetUnit = SUNIT_GetTargetUnit(pGame, pUnit);
-    D2GAME_ModeChange_6FC65220(pGame, &mode, 1);
+    D2GAME_ModeChange(pGame, &mode, 1);
 }
 
 // 0x005A8330
@@ -2351,7 +2351,7 @@ void __fastcall MONSTERMODE_EndTrappedSoulAttack(D2GameStrc* pGame, D2UnitStrc* 
     modeChange.nEventFlag = nFlag;
     modeChange.pTargetUnit = SUNIT_GetTargetUnit(pGame, pUnit);
 
-    D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+    D2GAME_ModeChange(pGame, &modeChange, 1);
 
     if (!STATES_CheckState(pUnit, STATE_FREEZE) || SUNIT_IsDead(pUnit))
     {
@@ -2384,7 +2384,7 @@ void __fastcall MONSTERMODE_EndTrappedSoulSkill(D2GameStrc* pGame, D2UnitStrc* p
     modeChange.nEventFlag = nFlag;
     modeChange.pTargetUnit = SUNIT_GetTargetUnit(pGame, pUnit);
 
-    D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+    D2GAME_ModeChange(pGame, &modeChange, 1);
 
     if (!STATES_CheckState(pUnit, STATE_FREEZE) || SUNIT_IsDead(pUnit))
     {
@@ -2486,7 +2486,7 @@ void __fastcall MONSTERMODE_EndKnockback(D2GameStrc* pGame, D2UnitStrc* pUnit)
         modeChange.pUnit = pUnit;
         modeChange.nEventFlag = 100;
         pUnit->dwLastHitClass = 160;
-        D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+        D2GAME_ModeChange(pGame, &modeChange, 1);
         return;
     }
 

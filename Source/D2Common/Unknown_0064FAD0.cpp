@@ -334,7 +334,7 @@ int __stdcall PATH_ComputeDirection(int nX1, int nY1, int nX2, int nY2)
 }
 
 // 0x0064FE10
-int __stdcall PATH_ComputeDirectionFromPreciseCoords_6FDAC760(unsigned int dwStartPrecisionX, unsigned int dwStartPrecisionY, unsigned int dwTargetPrecisionX, unsigned int dwTargetPrecisionY)
+int __stdcall PATH_ComputeDirectionFromPreciseCoords(unsigned int dwStartPrecisionX, unsigned int dwStartPrecisionY, unsigned int dwTargetPrecisionX, unsigned int dwTargetPrecisionY)
 {
 
     PATH_GetDirectionVector((D2CoordStrc*)&dwStartPrecisionX, (int*)&dwTargetPrecisionY, *(D2FP32_16*)&dwStartPrecisionX, *(D2FP32_16*)&dwTargetPrecisionX);

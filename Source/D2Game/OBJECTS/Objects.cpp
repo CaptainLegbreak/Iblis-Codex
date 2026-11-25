@@ -132,7 +132,7 @@ void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x006
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int); // 0x006427F0
 
-void __fastcall D2GAME_SetSparkChest_6FCBD7C0(D2UnitStrc*, unsigned char); // 0x005540A0
+void __fastcall D2GAME_SetSparkChest(D2UnitStrc*, unsigned char); // 0x005540A0
 
 int __fastcall ACT2Q6_GetObjectIdForArcaneThing(D2GameStrc* pGame); // 0x0059D830
 
@@ -208,7 +208,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-void __fastcall D2GAME_PACKETS_SendPacket0x0D_6FC3C920(D2ClientStrc* pClient, unsigned char nPacketId, unsigned char nUnitType, int nUnitId, unsigned char nHitClass, unsigned short nX, unsigned short nY, unsigned char nHitType, unsigned char nLife); // 0x0053B4B0
+void __fastcall D2GAME_PACKETS_SendPacket0x0D(D2ClientStrc* pClient, unsigned char nPacketId, unsigned char nUnitType, int nUnitId, unsigned char nHitClass, unsigned short nX, unsigned short nY, unsigned char nHitType, unsigned char nLife); // 0x0053B4B0
 
 int __fastcall QUESTS_LevelWarpCheck(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSourceLevel, int nDestinationLevel); // 0x00545B80
 
@@ -361,7 +361,7 @@ extern D2ObjInitFn sgInitTable[80]; // 0x00731BC0
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
-void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
+void __fastcall D2GAME_DeleteTimersOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
 
 D2TimerArgStrc* __fastcall OBJECTS_AllocTimerArg(D2GameStrc* pGame); // 0x0054F520
 
@@ -414,9 +414,9 @@ int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUni
 
 void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00557FD0
 
-void __fastcall D2GAME_PACKETS_SendPacketSize06_6FC3C850(D2ClientStrc* pClient, unsigned char nHeader, int dwUnitType, int dwUnitId); // 0x0053B3D0
+void __fastcall D2GAME_PACKETS_SendPacketSize06(D2ClientStrc* pClient, unsigned char nHeader, int dwUnitType, int dwUnitId); // 0x0053B3D0
 
-void __fastcall D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(D2ClientStrc* pClient, unsigned char nUiNo); // 0x0053CAB0
+void __fastcall D2GAME_PACKETS_SendPacket0x77_Ui(D2ClientStrc* pClient, unsigned char nUiNo); // 0x0053CAB0
 
 void __fastcall sub_0053DA90(D2UnitStrc* pUnit, int nArg); // 0x0053DA90
 
@@ -510,7 +510,7 @@ extern int gaDirectionX_00731B7C[]; // 0x00731B7C
 
 extern int gaDirectionY_00731B9C[]; // 0x00731B9C
 
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 
 #define D2_MAX(a,b) ((a)>(b)?(a):(b))
 
@@ -720,7 +720,7 @@ D2UnitStrc* __fastcall OBJECTS_SpawnSpecialChest(D2GameStrc* pGame, D2ActiveRoom
             return pObject;
         }
 
-        D2GAME_SetSparkChest_6FCBD7C0(pObject, 1);
+        D2GAME_SetSparkChest(pObject, 1);
         if (nLevelId == LEVEL_TOWERCELLARLEV5)
         {
             pObject->pObjectData->InteractType = 3;
@@ -823,7 +823,7 @@ void __fastcall OBJECTS_InitHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nU
         pUnit->dwUnitId = nUnitGUID;
     }
 
-    D2GAME_SetSparkChest_6FCBD7C0(pUnit, 0);
+    D2GAME_SetSparkChest(pUnit, 0);
 
     int nMode;
     if (pUnit)
@@ -857,7 +857,7 @@ void __fastcall OBJECTS_InitHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nU
     pUnit->pObjectData->InteractType = 0;
 
     const int wClass = pUnit->dwClassId;
-    D2GAME_DeleteTimersOnUnit_6FC34A30(pGame, pUnit);
+    D2GAME_DeleteTimersOnUnit(pGame, pUnit);
     D2_ASSERT((unsigned short)wClass < 0x23D, 0x260);
     D2_ASSERT(pObjectsTxtRecord->nInitFn < 80, 0x262);
 
@@ -1735,7 +1735,7 @@ void __fastcall OBJECTS_InitFunction46_TrappedSoulPlaceHolder(D2ObjInitFnStrc* o
             unsigned int random=OBJECTS_RollSeedHi_Inline((D2SeedStrc*)op->pObjectregion);
             int monsterId=403;
             if(random&1) monsterId=404;
-            if(D2GAME_SpawnMonster_6FC69F10(op->pGame,op->pRoom,op->nX,op->nY,monsterId,1,-1,0)) {
+            if(D2GAME_SpawnMonster(op->pGame,op->pRoom,op->nX,op->nY,monsterId,1,-1,0)) {
                 UNITS_ChangeAnimMode(op->pObject,2);--count;
             }
             int spawned=1;
@@ -1758,7 +1758,7 @@ void __fastcall OBJECTS_InitFunction46_TrappedSoulPlaceHolder(D2ObjInitFnStrc* o
                     int monsterId=403;
                     if(random&1) monsterId=404;
                     ++spawned;
-                    if(D2GAME_SpawnMonster_6FC69F10(op->pGame,op->pRoom,xy.nX,xy.nY,monsterId,1,-1,0)) {
+                    if(D2GAME_SpawnMonster(op->pGame,op->pRoom,xy.nX,xy.nY,monsterId,1,-1,0)) {
                         UNITS_ChangeAnimMode(op->pObject,2);--count;
                     }
                 }
@@ -2529,7 +2529,7 @@ static int __stdcall OBJECTS_PopulateRoomTheme(D2GameStrc* pGame, D2ActiveRoomSt
 void __fastcall OBJECTS_InitFunction57_SparklyChest(D2ObjInitFnStrc* pOp)
 {
     OBJECTS_InitFunction03_Chest(pOp);
-    D2GAME_SetSparkChest_6FCBD7C0(pOp->pObject, 1);
+    D2GAME_SetSparkChest(pOp->pObject, 1);
 }
 
 bool R00601DC0::sub_00601DC0_IsOpen()

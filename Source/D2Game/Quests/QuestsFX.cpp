@@ -52,8 +52,8 @@ void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pUnitFindData); //
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
-void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4850
-D2UnitStrc* __fastcall D2GAME_CreateMissile_6FD115E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId, int nX, int nY); // 0x0056EDE0
+void __fastcall D2GAME_BOSSES_AssignUMod(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4850
+D2UnitStrc* __fastcall D2GAME_CreateMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId, int nX, int nY); // 0x0056EDE0
 static void __stdcall QUESTSFX_MainHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSize, int nDelayMin, int nDelayMax, int bCheckIfUndead);
 
 
@@ -151,7 +151,7 @@ static void __stdcall QUESTSFX_MainHandler(D2GameStrc* pGame, D2UnitStrc* pUnit,
             {
                 const int nDelay = nDelayMin + ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, nDelayMax - nDelayMin);
                 EVENT_SetEvent(pGame, pMonster, EVENTTYPE_MONUMOD, pGame->dwGameFrame + nDelay, 0, 0);
-                D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pMonster, MONUMOD_TEMPSUMMON, 0);
+                D2GAME_BOSSES_AssignUMod(pGame, pMonster, MONUMOD_TEMPSUMMON, 0);
             }
         }
     }
@@ -194,7 +194,7 @@ void __fastcall QUESTSFX_SpawnRadamentDeathMissile(D2GameStrc* pGame, D2UnitStrc
 
     QUESTSFX_MainHandler(pGame, pUnit, 35, 40, nDelayMax, 0);
 
-    D2GAME_CreateMissile_6FD115E0(pGame, pUnit, 0, 1, MISSILE_RADAMENTDEATH, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
+    D2GAME_CreateMissile(pGame, pUnit, 0, 1, MISSILE_RADAMENTDEATH, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
 }
 
 // 0x005DFEE0
@@ -244,9 +244,9 @@ void __fastcall QUESTSFX_OnQuestCompleteModeChange(D2GameStrc* pGame, D2UnitStrc
 {
 }
 
-D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
+D2UnitStrc* __fastcall D2GAME_DropItemAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
 
-int __fastcall D2GAME_RechargeItem_6FC4BD50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055FE80
+int __fastcall D2GAME_RechargeItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055FE80
 
 // 0x005E0070
 void __fastcall QUESTSFX_UberPrimeEvil(D2GameStrc* pGame, D2UnitStrc* pUnit)
@@ -282,13 +282,13 @@ void __fastcall QUESTSFX_UberPrimeEvil(D2GameStrc* pGame, D2UnitStrc* pUnit)
     {
         int nItemLevel;
         pUnit->dwDropItemCode = ' 2mc';
-        D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pGame, pUnit, ITEMQUAL_UNIQUE, &nItemLevel, 0, -1, 0);
-        D2GAME_RechargeItem_6FC4BD50(pGame, 0, pItem);
+        D2UnitStrc* pItem = D2GAME_DropItemAtUnit(pGame, pUnit, ITEMQUAL_UNIQUE, &nItemLevel, 0, -1, 0);
+        D2GAME_RechargeItem(pGame, 0, pItem);
         pUnit->dwDropItemCode = ' dts';
         const int nClients = pGame->nClients;
         for (int i = 0; i < nClients; i++)
         {
-            D2GAME_DropItemAtUnit_6FC4FEC0(pGame, pUnit, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 0);
+            D2GAME_DropItemAtUnit(pGame, pUnit, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 0);
         }
     }
 }

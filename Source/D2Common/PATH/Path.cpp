@@ -230,9 +230,9 @@ int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, in
 
 int __fastcall PATH_ComputeVelocityAndDirectionVectorsToNextPoint(D2DynamicPathStrc* pPath, int bNormalizeDirectionIfSamePos, int bForceDirectionNormalization); // 0x0064FE40
 
-int __fastcall PATH_ComputePathBlessedHammer_6FDAB3C0(D2DynamicPathStrc* pPath, D2SeedStrc* pSeed); // 0x0067A140
+int __fastcall PATH_ComputePathBlessedHammer(D2DynamicPathStrc* pPath, D2SeedStrc* pSeed); // 0x0067A140
 
-int __fastcall PATH_ComputePathChargedBolt_6FDAB4A0(D2DynamicPathStrc* pPath, D2SeedStrc* pSeed); // 0x0067A240
+int __fastcall PATH_ComputePathChargedBolt(D2DynamicPathStrc* pPath, D2SeedStrc* pSeed); // 0x0067A240
 
 static void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo); // 0x00648050
 
@@ -1077,7 +1077,7 @@ static unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* pPathInfo);
 
 static int PATH_GetMonsterMoveTestMask(D2UnitStrc* pUnit);
 
-int __stdcall PATH_ComputeDirectionFromPreciseCoords_6FDAC760(D2FP32_16 tStart, D2FP32_16 tTarget); // 0x0064FE10
+int __stdcall PATH_ComputeDirectionFromPreciseCoords(D2FP32_16 tStart, D2FP32_16 tTarget); // 0x0064FE10
 
 void __fastcall PATH_SetNewDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x006485F0
 
@@ -2548,11 +2548,11 @@ static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit)
         pPath->dwFlags &= ~0x20;
         return 0;
     case 10:
-        PATH_ComputePathChargedBolt_6FDAB4A0(pPath, &pUnit->pSeed);
+        PATH_ComputePathChargedBolt(pPath, &pUnit->pSeed);
         pPath->dwFlags |= 0x20;
         return pPath->dwPathPoints;
     case 14:
-        PATH_ComputePathBlessedHammer_6FDAB3C0(pPath, &pUnit->pSeed);
+        PATH_ComputePathBlessedHammer(pPath, &pUnit->pSeed);
         pPath->dwFlags |= 0x20;
         return pPath->dwPathPoints;
     default:
@@ -2767,7 +2767,7 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pDynamicPath, int nX, int nY, i
         D2FP32_16 tTarget;
         tTarget.dwPrecisionX = (nX << 16) + 0x8000;
         tTarget.dwPrecisionY = (nY << 16) + 0x8000;
-        const int nDirection = PATH_ComputeDirectionFromPreciseCoords_6FDAC760(pDynamicPath->tGameCoords, tTarget);
+        const int nDirection = PATH_ComputeDirectionFromPreciseCoords(pDynamicPath->tGameCoords, tTarget);
         if (bSetBothDirections)
         {
             pDynamicPath->nDirection = nDirection & 0x3F;

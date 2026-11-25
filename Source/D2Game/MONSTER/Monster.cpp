@@ -19,7 +19,7 @@ void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, 
 
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange);  // 0x005A7E60
 
-int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3);       // 0x005A7C20
+int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3);       // 0x005A7C20
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                            // 0x006427F0
 
@@ -45,7 +45,7 @@ void __fastcall SUNITDMG_FreeAttackerCombatList(D2GameStrc* pGame, D2UnitStrc* p
 
 void __fastcall AIGENERAL_FreeAiControl(D2GameStrc* pGame, D2AiControlStrc* pAiControl);                   // 0x0058F810
 
-void __fastcall D2GAME_MONSTERMODE_FreeParams_6FC63020(D2GameStrc* pGame, D2AiParamStrc* pAiParam);        // 0x005A64D0
+void __fastcall D2GAME_MONSTERMODE_FreeParams(D2GameStrc* pGame, D2AiParamStrc* pAiParam);        // 0x005A64D0
 
 void __fastcall MONSTERAI_FreeMonsterInteract(D2GameStrc* pGame, D2MonsterInteractStrc* pMonInteract);     // 0x00572BC0
 
@@ -53,7 +53,7 @@ void __fastcall EVENT_FreeUnitTimers(D2GameStrc* pGame, D2UnitStrc* pUnit);     
 
 int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
-void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nType, int nParam); // 0x00540E60
+void __fastcall D2GAME_EVENTS_Delete(D2GameStrc* pGame, D2UnitStrc* pUnit, int nType, int nParam); // 0x00540E60
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nType, int nFrame, int nParam1, int nParam2); // 0x005417D0
 
@@ -274,7 +274,7 @@ int __fastcall MONSTER_SetVelocityAndPosition(D2GameStrc* pGame, D2UnitStrc* pMo
     MONSTERMODE_GetModeChangeInfo(pMonster, nAnimMode, &modeChange);
     modeChange.nX = nX;
     modeChange.nY = nY;
-    return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+    return D2GAME_ModeChange(pGame, &modeChange, 1);
 }
 
 D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit); // 0x00552DB0
@@ -335,7 +335,7 @@ void __fastcall MONSTER_Free(D2GameStrc* pGame, D2UnitStrc* pMonster)
         if (pMonsterData)
         {
             AIGENERAL_FreeAiControl(pGame, pMonsterData->pAiControl);
-            D2GAME_MONSTERMODE_FreeParams_6FC63020(pGame, pMonsterData->pAiParam);
+            D2GAME_MONSTERMODE_FreeParams(pGame, pMonsterData->pAiParam);
             MONSTERAI_FreeMonsterInteract(pGame, pMonsterData->pMonInteract);
         }
     }
@@ -371,11 +371,11 @@ static inline int GetValidMonsterClass(int nClassId)
 // 0x00573780
 void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
+    D2GAME_EVENTS_Delete(pGame, pUnit, 2, 0);
     if (!pUnit) return;
     if (pUnit->dwAnimMode == 1)
     {
-        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
+        D2GAME_EVENTS_Delete(pGame, pUnit, 2, 0);
         EVENT_SetEvent(pGame, pUnit, 2, pGame->dwGameFrame + 2, 0, 0);
     }
     else if (pUnit->dwAnimMode == 12 || pUnit->dwAnimMode == 0)
@@ -388,7 +388,7 @@ void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUn
     case 118:
     case 136:
     case 247:
-        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
+        D2GAME_EVENTS_Delete(pGame, pUnit, 2, 0);
         EVENT_SetEvent(pGame, pUnit, 2, pGame->dwGameFrame + 2, 0, 0);
         break;
     }
@@ -397,8 +397,8 @@ void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUn
 // 0x005738D0
 void __fastcall MONSTER_DeleteEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_STATREGEN, 0);
+    D2GAME_EVENTS_Delete(pGame, pUnit, EVENTTYPE_AITHINK, 0);
+    D2GAME_EVENTS_Delete(pGame, pUnit, EVENTTYPE_STATREGEN, 0);
 }
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
@@ -560,7 +560,7 @@ D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* 
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
-D2UnitStrc* __fastcall D2GAME_CreateItemUnit_6FC501A0(D2UnitStrc* pPlayer, int nItemId, D2GameStrc* pGame, int nSpawnTarget, int nQuality, int bNoSockets, int bNoEthereal, int nItemLevel, int bUseSeed, int dwSeed, int dwItemSeed); // 0x00559CE0
+D2UnitStrc* __fastcall D2GAME_CreateItemUnit(D2UnitStrc* pPlayer, int nItemId, D2GameStrc* pGame, int nSpawnTarget, int nQuality, int bNoSockets, int bNoEthereal, int nItemLevel, int bUseSeed, int dwSeed, int dwItemSeed); // 0x00559CE0
 
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 
@@ -594,7 +594,7 @@ void __fastcall MONSTERAI_CreateAndEquipItem(D2GameStrc* pGame, D2UnitStrc* pMon
         return;
     }
 
-    D2UnitStrc* pItem = D2GAME_CreateItemUnit_6FC501A0(pMonster, nItemId, pGame, 4, dwQuality, 1, 1, dwILvl, 0, 0, 0);
+    D2UnitStrc* pItem = D2GAME_CreateItemUnit(pMonster, nItemId, pGame, 4, dwQuality, 1, 1, dwILvl, 0, 0, 0);
     if (!pItem)
     {
         return;
@@ -645,7 +645,7 @@ void __fastcall MONSTER_ResetMonsterModesInLevel(D2GameStrc* pGame, int nClassId
             {
                 D2ModeChangeStrc modeChange;
                 MONSTERMODE_GetModeChangeInfo(pUnit, 0, &modeChange);
-                D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+                D2GAME_ModeChange(pGame, &modeChange, 1);
             }
         }
     }
