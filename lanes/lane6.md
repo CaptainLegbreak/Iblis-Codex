@@ -2,15 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 08:00 PST 2026): ready on #398: assert-spans-d2cmp, assert-spans-d2cmp-2 (on it). Next: ComCallback.cpp's span (four D2Client Game.cpp getters and two ChatDlg functions; the message tables take them with another handler type).
+Status (Wed Nov 25 08:00 PST 2026): both D2CMP span branches merged (#399, #400). Now: ComCallback.cpp's asserted span.
 
 ## Ready
 
-
-
-- lane6/assert-spans-d2cmp 6761d517 (on #398; replaces d779196e): five D2CMP functions join the files whose asserted span they sit in: D2CMPSpriteFindAsynchSiblings (0x5FF300) to SpriteCache.cpp, CelDrawEx (0x601650) to CelCmp.cpp, CelSkipRleLines (0x606D10) to FastCmp.cpp, TileListAddTile (0x6096D0) and TileNormalizeSubTiles (0x60A4C0) to Tilecmp.cpp. Eight more follow on assert-spans-d2cmp-2. Full build: Game.exe identical, tree 26c76d066a7341c79a21b1d4ccf83bfba155099f, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
-
-- lane6/assert-spans-d2cmp-2 8deda1f3 (on lane6/assert-spans-d2cmp, #398; merge after it): eight more D2CMP functions join the file whose asserted span they sit in. SpriteCache.cpp takes 0x5FF2A0, 0x5FF3A0 (from CelCmp_005FF2A0.cpp); CelCmp.cpp takes 0x601180, 0x601450, 0x601810 (from SpriteCache.cpp); Tilecmp.cpp takes 0x60A290, 0x60A390 (TileLib.cpp) and 0x60A440 (CelCmp_005FF2A0.cpp). Where the target already carried a copy behind a `// build: symbol` line (0x5FF2A0, 0x5FF3A0, 0x601810) that copy becomes the placed definition. The targets gain the four declarations the moved code needs. Left: 0x5FF630 (needs CelCmp's private cache records in SpriteCache.cpp) and 0x60AB10 (TileLib's private member of D2CmpGfxHashStrc); both wait on shared records. Full build: Game.exe identical, tree a080927ddf2f8126784dc8b7f2d98c873f89ab73, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
+(nothing outstanding; assert-spans-d2cmp merged in #399, assert-spans-d2cmp-2 in #400)
 
 ## Questions
 
