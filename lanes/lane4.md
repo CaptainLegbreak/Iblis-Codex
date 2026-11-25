@@ -18,11 +18,10 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 10:55 PST 2026: audit-decls-d2client-3 rebased onto #404 and reposted (the #403 repost came after the round polled). **Taking back D2Client from 0x4A0000 up from lane 1** (coordinator, #404): next are lane 1's held SkillDesc joins (Unknown_004E89A0.cpp, Unknown_004E2320.cpp) and the declaration move for that range's files.
+- Wed Nov 25 11:25 PST 2026: audit-decls-d2client-3 merged in #405 (the declaration move for 0x440000-0x49FFFF is done: 391 functions in D2ClientFuncs.h). On the SkillDesc 0x4E89A0 join now.
 
 ## Ready
 
-- lane4/audit-decls-d2client-3 bf03f4785 (on #404): audit item 4, third pass. 16 more functions of 0x440000-0x49FFFF whose declarations in my range's files differed in signedness, return type or linkage (UI_SetUIVar, CUNIT_FindClientUnit, GAME_GetUIVarState, GAME_IsExpansion, MSG_SendTwoDwords, GAME_LoadUiCelFile, SCMD_RunMessageLoop, TEXT_ResetTextBox, GAME_SetInteractDeadline, GFX_FillGfxEntries, GAME_GetCurrentTime, CURSOR_GetCursorItem, AUTOMAP_GetAutomapFade, ROSTER_GetRosterInfoList, GAME_SetClickHandled, GAME_DispatchMcpPacket) go into D2ClientFuncs.h as their definitions spell them; 140 private copies in 44 files go. Tested one function at a time where a unit changed; these stay private (in the commit message): AUTOMAP_DrawFramedBox (Party.cpp's calls change), CUNIT_GetPlayerPartyId (Roster.cpp), sub_0044DA90 (panel.cpp), SELECT_GetSkillTarget (Player.cpp), and eight whose callers use other types for an argument (an int window handle, other record views). All 139 D2Client.h includers all equal; audit guard: no count rose. Full build: Game.exe identical, tree 7f6dd11c477292718993caf47759e16f4a4b9b0f, borrowed code / data 10,018 / 261 B.
 
 ## Claimed
 
