@@ -560,63 +560,24 @@ static void __cdecl OBJECTS_ApplySubclassClassId(Unit* unit);
 
 void __stdcall DUNGEON_GetRoomCoordinates_Local(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords);
 
-int __stdcall SKILLS_Return1(int nArg)
-{
-    return 1;
-}
+int __stdcall SKILLS_Return1(int nArg);
 
-int __stdcall sub_00646260_AlwaysOne(int nArg)
-{
-    return 1;
-}
+int __stdcall sub_00646260_AlwaysOne(int nArg);
 
-int __stdcall sub_00646270_AlwaysOne(int nArg)
-{
-    return 1;
-}
+int __stdcall sub_00646270_AlwaysOne(int nArg);
 
-int __fastcall SKILLS_GetMinimum(int nA, int nB, int nUnused1, int nUnused2)
-{
-    return nA < nB ? nA : nB;
-}
+int __fastcall SKILLS_GetMinimum(int nA, int nB, int nUnused1, int nUnused2);
 
-int __fastcall MISSILE_GetMinimum(int nA, int nB, int nUnused1, int nUnused2)
-{
-    return nA < nB ? nA : nB;
-}
+int __fastcall MISSILE_GetMinimum(int nA, int nB, int nUnused1, int nUnused2);
 
-int __fastcall SKILLS_GetMaximum(int nA, int nB, int nUnused1, int nUnused2)
-{
-    return nA > nB ? nA : nB;
-}
+int __fastcall SKILLS_GetMaximum(int nA, int nB, int nUnused1, int nUnused2);
 
-int __fastcall MISSILE_GetMaximum(int nA, int nB, int nUnused1, int nUnused2)
-{
-    return nA > nB ? nA : nB;
-}
+int __fastcall MISSILE_GetMaximum(int nA, int nB, int nUnused1, int nUnused2);
 
-int __stdcall sub_00648390_AlwaysZero(int nUnused1, int nUnused2)
-{
-    return 0;
-}
+int __stdcall sub_00648390_AlwaysZero(int nUnused1, int nUnused2);
 
 // build: symbol ?SKILLS_ScaleUpDirection@* 0x004C5390
-void __fastcall SKILLS_ScaleUpDirection(int* pX, int* pY)
-{
-    int nDistance = *pX * *pX + *pY * *pY;
-    if (nDistance < 4)
-    {
-        *pX <<= 2;
-        *pY <<= 2;
-        nDistance = *pX * *pX + *pY * *pY;
-    }
-
-    if (nDistance < 16)
-    {
-        *pX <<= 1;
-        *pY <<= 1;
-    }
-}
+void __fastcall SKILLS_ScaleUpDirection(int* pX, int* pY);
 
 inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
 {
@@ -1176,13 +1137,9 @@ void __fastcall OBJECTS_InitFunction27_GooPile(D2ObjInitFnStrc* pOp)
     pOp->pObject->pObjectData->InteractType = nInteractType;
 }
 
-void __stdcall GfxHashDumpStats()
-{
-}
+void __stdcall GfxHashDumpStats();
 
-void __stdcall sub_0060AC50_Nop()
-{
-}
+void __stdcall sub_0060AC50_Nop();
 
 // 0x0054FCB0
 void __fastcall OBJECTS_InitFunction03_Chest(D2ObjInitFnStrc* pOp)
@@ -2138,15 +2095,9 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn5_Crate(D2GameStrc* pGame, D2ActiveRoom
     return pObject;
 }
 
-int __stdcall sub_00436E90_AlwaysOne(int nArg)
-{
-    return 1;
-}
+int __stdcall sub_00436E90_AlwaysOne(int nArg);
 
-int __stdcall sub_004C6020_AlwaysOne(int nArg)
-{
-    return 1;
-}
+int __stdcall sub_004C6020_AlwaysOne(int nArg);
 
 // 0x00552140
 int __fastcall OBJECTS_SpawnRandomItemGrid(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords)

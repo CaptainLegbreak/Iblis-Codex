@@ -142,14 +142,9 @@ void __fastcall OBJECTS_InitFunction49_HratliStart(D2ObjInitFnStrc* pOp)
     }
 }
 
-bool __fastcall ACT3Q7_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    return false;
-}
+bool __fastcall ACT3Q7_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
 
-void __cdecl sub_005BDB10_Return()
-{
-}
+void __cdecl sub_005BDB10_Return();
 
 // 0x005B7120
 int __fastcall ACT3Q1_GetHratliEndCoords(D2GameStrc* pGame, D2CoordStrc* pCoord)
