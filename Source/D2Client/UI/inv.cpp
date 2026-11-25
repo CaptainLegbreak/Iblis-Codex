@@ -3160,13 +3160,13 @@ static void __stdcall INV_AppendAttackSpeed(Unicode* pText, D2UnitStrc* pItem)
     }
     if (nFound >= 0)
     {
-        sub_005267E0(pText, D2LANG_GetStringFromTblIndex(gaItemTypeNames[nFound].f_4));
+        sub_005267E0(pText, D2LANG_GetStringFromTblIndex(gaItemTypeNames[nFound].nString));
         sub_00526700(pText, pColorStart);
         sub_00526700(pText, pColorAlt);
         sub_00526700(pText, pColorStart);
     }
     Unicode wszText[256];
-    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(gaSpeedNames[nSpeed].f_0));
+    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(gaSpeedNames[nSpeed].nString));
     if (bBonus)
     {
         INV_PrefixColorCode(wszText, 3);

@@ -55,13 +55,13 @@ struct D2PanelLabelStrc
 struct D2ItemTypeNameStrc
 {
     int nItemType;
-    unsigned short f_4;
+    unsigned short nString;
 };
 #pragma pack(pop)
 
 struct D2SpeedNameStrc
 {
-    unsigned short f_0;
+    unsigned short nString;
     unsigned short unk0x02[2];
 };
 

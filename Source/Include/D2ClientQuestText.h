@@ -14,7 +14,7 @@ struct D2QuestTextMsgStrc
     unsigned short wDesc;
     unsigned char nCelId;
     unsigned char nCelId2;
-    unsigned char f_263;
+    unsigned char bStepChanged;
     unsigned char bValid;
     unsigned char nStep;
     int nState;
