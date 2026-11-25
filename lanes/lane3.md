@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(none: scomp-huff merged in #399)
+- lane3/sbig-strays 7acbc9ca 205->204 Unknown_00420220.cpp's three helpers (0x420E80, 0x420E90, 0x420F00) sit in the run after SMSG.CPP (0x420DB0-0x420FE0) whose other pieces Unknown_0041E9C0.cpp holds; they move there unchanged, with the helper that emits the two statics, and the placeholder goes. Since the Huffman coder moved to SCOMP.CPP (#399), Unknown_0041E9C0.cpp and Unknown_0041F6A0.cpp kept declarations nothing uses (their private list, node and tree types, the encoder/decoder classes, the symbol lines for the tree's ctor/dtor and UnlinkAll); they go, both files equal. VERIFIED 7acbc9ca on base #399 (b9821de8); borrowed code 11,250 B in 8 functions, borrowed data 261 B (main the same); namesync had nothing to rename.
 
 ## Claimed
 
