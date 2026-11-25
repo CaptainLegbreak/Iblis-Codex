@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/crash-cmdline 30a3c60c 204->203 (as answered) Storm's Unknown_00404F40.cpp and Unknown_00405710.cpp go. 0x404F40/0x404F60 (debug-directory readers) and 0x405060 (CaptureFrames) move into Fog's Unknown_00402820.cpp, which builds them equal, with their emit helpers and the copies of 0x401480/0x401540 they call. 0x4053F0-0x4059A0 (operator delete/new, GetIniPath, LoadIniSettings with the ini table 0x705040, 0x405550, ParseCmdValue, ParseCmdArgument, ParseCmdArgs, ParseCmdLine) become Source/D2Launch/Unknown_004053F0.cpp, with GetCmdIndex (0x405570) and IsCmdSeparator (0x4055D0) from ErrorManager.cpp, names kept, all equal. The object's first data is its own copy of the language-name table at 0x705000 (D2LanguageNames.h), which bears out the object start: without the include the build borrows those 64 B. The unit builds on the module's default options, the /Ob2 the placeholders set by hand. VERIFIED 30a3c60c on base #402 (15a36cb7); borrowed code 10,018 B in 7 functions, borrowed data 261 B (main the same); namesync had nothing to rename.
+(none: crash-cmdline merged in #404)
 
 ## Claimed
 
