@@ -4,9 +4,9 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(On main: QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
+(On main: QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
-- lane1/hint-object-2 cd9e57f11 0->0 Unknown_004DCAA0.cpp takes the rest of the timed-hint object. 0x4DCA30, 0x4DCAA0, 0x4DCD40 and 0x4DCE10 all work on one .bss block, 0x7C89D0-0x7C8A04 (level entry tick, song state, the timed hint, the speech level), which Unknown_004DCAA0.cpp defines. 0x4DCA30 and 0x4DCE10 come from Unknown_004DC710.cpp, 0x4DCD40 from Item.cpp. Borrowed data 844 B, as main; VERIFIED 3be2c6f719bdc17a11ae13f5b9fa4e89a59b53e6 (based on main #374; lane1/hint-object was the same commit on #373, never posted).
+- lane1/sight-join-2 07054ce57 248->247 Unknown_004DC7B0.cpp takes 0x4DC710; Unknown_004DC710.cpp goes. 0x4DC710 takes its unit in esi, a static's register argument, so its caller 0x4DC7B0 is in its file. Unknown_004DC7B0.cpp already carried a copy of it (setting and clearing the flag as whole words); the real body (bit 0x80 of dwFlagEx) replaces it, and Unknown_004DC710.cpp, which held only 0x4DC710 and a copy of 0x4DC7B0, goes. Borrowed data 844 B, as main; VERIFIED ae5182240ac7e2227fee8e13d92adcffe1690a87 (based on main #375; lane1/sight-join was the same change stacked on hint-object, never posted).
 
 ## In progress
 
