@@ -14,6 +14,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
   Full verify: VERIFIED tree 72ddf495, Game.exe matches, 0 not all equal.
 
 ## Claimed
+- Wed Nov 25 05:46:31 PST 2026: check-in on #396: all open lane 10 work is now one branch, names-all-3 (Ready); earlier lane 10 branches can be deleted. Next: the call-site sweep for the smaller modules (Fog, Storm, D2Win, D2CMP and the rest; 82 spellings build so far, two units still to sort out).
 - Tue Nov 24 19:43:54 PST 2026: posted all fileprefix branches (14 modules + small), rendslots-all, seq-all, files-storm-4 and names-prefixfix-d2client-6; seq-extra next.
 - Tue Nov 24 17:55:53 PST 2026: applying naming plans one branch each: fileprefix (3 of 17 modules posted), then rendslots, bare-d2common-missile, then files-storm-4 and names-prefixfix-d2client-6 (rebase requests), then seq-<module>.
 - Tue Nov 24 17:12:27 PST 2026: applying fileprefix-<module> naming plans, D2Client first.
