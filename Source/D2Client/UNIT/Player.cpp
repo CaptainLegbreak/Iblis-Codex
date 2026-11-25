@@ -2302,6 +2302,7 @@ static int PLAYER_CmdRightSkillMove(D2PlayerCmdStrc* pCmd)
     return 1;
 }
 
+// 0x00462CA0
 static int sub_00462CA0_UpdatePetCommandNoWalk(D2PlayerCmdStrc* pCmd)
 {
     PLAYER_FilterCommandMessage(pCmd);
