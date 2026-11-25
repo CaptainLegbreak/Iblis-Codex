@@ -6,6 +6,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 
 ## Ready
 
+- lane10/names-seq-extra 23d4f75: seq-extra plan, 6 renames applied, none dropped. VERIFIED fb55469b on base f0f40e42, Game.exe matches.
 - lane10/names-prefixfix-d2client-6 4891409: the prefixfix-d2client plan remade on current main (conflicted on SCmd.cpp and npcmenu.cpp), 155 renames. VERIFIED fc2699c5, Game.exe matches. Replaces names-prefixfix-d2client-5, which can be deleted.
 - lane10/files-storm-4 d34c6f7 replaces files-storm-3 (conflicted on Storm/Unknown_006CAE80.cpp): rebuilt on current main, where Storm/Unknown_006CAE80.cpp is already gone; it now joins Storm/Unknown_006C9A68.cpp (5 end-of-.text initializers of the caption strings) into D2Client/CORE/WINMAIN.CPP, which defines those globals. VERIFIED a0de2523, Game.exe matches. files-storm-3 can be deleted.
 - lane10/names-seq-all 4e87c42: seq-all plan, 9 renames applied; dropped 0x00554100, 0x00627EF0, 0x006488A0, 0x0064A190, 0x0064A210, 0x0064A280, 0x0064A300, 0x0064A380, 0x0064A3B0, 0x0064A3E0, 0x0064A4E0, 0x0064A510, 0x0064A540, 0x0064A570, 0x0064A640, 0x0064A6D0, 0x0064A6F0. VERIFIED 21b57484 on base f0f40e42, Game.exe matches.
