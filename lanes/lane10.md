@@ -5,6 +5,7 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Ready
+- lane10/names-missile-accessors 4d979a74: the 14 D2Common missile accessors at 0x0064A190-0x0064A6F0 become D2MOO's MISSILE_GetFlags … MISSILE_GetStream, rewritten to take D2UnitStrc* like MISSILE_SetFlags, so they match the declarations D2Game.h already has (the reason seq-all left them out). Callers in other modules keep their sub_ spellings until namesync. On main #377. VERIFIED 933bed5c, Game.exe matches.
 
 - lane10/names-seq-extra 23d4f75: seq-extra plan, 6 renames applied, none dropped. VERIFIED fb55469b on base f0f40e42, Game.exe matches.
 - lane10/names-prefixfix-d2client-6 4891409: the prefixfix-d2client plan remade on current main (conflicted on SCmd.cpp and npcmenu.cpp), 155 renames. VERIFIED fc2699c5, Game.exe matches. Replaces names-prefixfix-d2client-5, which can be deleted.
