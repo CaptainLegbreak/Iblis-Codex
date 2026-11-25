@@ -267,6 +267,18 @@ def drop_providers(drop, sources=None):
     return prov
 
 
+def drop_data_only(drop):
+    """(obj path, source path) of the units built with an empty function list: objects with data and no code, such
+    as a header's tables that one source file defines. Their sections are placed from their plan entries alone."""
+    out = []
+    res = json.load(open(os.path.join(drop, "results.json")))
+    for u in res["units"]:
+        objp = os.path.join(drop, u["obj"])
+        if not u["functions"] and os.path.exists(objp):
+            out.append((objp, os.path.join(ROOT, u["file"])))
+    return out
+
+
 def find_function(o, src, va, length, name=None):
     defs, decls, symbols = checker.parse_markers(src)
     hits = []
@@ -369,6 +381,7 @@ class Plan(object):
         self.modules = modules
         self.obj_source = {}
         self.prov = drop_providers(drop, self.obj_source) if drop else {}
+        self.data_only = drop_data_only(drop) if drop else []
         self.problems = collections.Counter(); self.examples = collections.defaultdict(list)
         self.crt = None; self.imports = None; self.sdk_lib = sdk_lib
         self.lib_def = {}; self.lib_all = set(); self.pinned = {}; self.lib_at = {}; self.lib_pieces = []
@@ -620,6 +633,10 @@ class Plan(object):
 
     data_plan_path = None
 
+    def owner_objs(self):
+        """Objects whose data sections are placed: those with placed functions, and the data-only units."""
+        return {p["obj"] for p in self.placed.values()} | {objp for objp, _ in self.data_only if objp in self.cache}
+
     def data_markers(self):
         if getattr(self, "_data_markers", None) is not None:
             return self._data_markers
@@ -633,7 +650,7 @@ class Plan(object):
                 by_file[os.path.splitext(d["file"])[0]][nm] = int(d["va"], 16)
                 if d.get("size"):
                     size_of[os.path.splitext(d["file"])[0]][nm] = int(d["size"])
-        objs = {p["obj"] for p in self.placed.values()}
+        objs = self.owner_objs()
         for objp in objs:
             stem = self.obj_source.get(objp)
             if stem is None:
@@ -649,7 +666,7 @@ class Plan(object):
         if getattr(self, "_static_markers", None) is not None:
             return self._static_markers
         self._static_markers = {}
-        for objp in {p["obj"] for p in self.placed.values()}:
+        for objp in self.owner_objs():
             stem = self.obj_source.get(objp)
             if stem is None:
                 continue
@@ -672,7 +689,7 @@ class Plan(object):
         import image_data as D
         pe = self.pe; lay = self.layout = D.image_layout(pe)
         secs = {}; objs = {}; defs_by_name = collections.defaultdict(list)
-        owners = sorted({p["obj"] for p in self.placed.values()})
+        owners = sorted(self.owner_objs())
         crt_members = list(self.crt["linked"]) if self.crt else []
         for objp in owners:
             objs[objp] = self.cache[objp][0]
@@ -1112,6 +1129,9 @@ class Plan(object):
             if va < last_end:
                 self.note("overlap_dropped", "0x%08X" % va); del placed[va]; continue
             last_end = va + placed[va]["length"]
+        for objp, srcp in self.data_only:
+            if objp not in cache:
+                cache[objp] = (Obj(_get(objp)), _get(srcp, False))
         self.placed = placed; self.cache = cache
         if self.crt:
             self.crt_finish()
@@ -1128,6 +1148,9 @@ class Plan(object):
         for (own, scn), dp in getattr(self, "data_scn", {}).items():
             if isinstance(own, str):
                 dscn_of[own][scn] = dp
+        for objp, _ in self.data_only:
+            if objp in dscn_of:
+                by_obj[objp]
         self.data_k = {}
         self.eh_pieces = []; self.eh_at = {}
         self._eh_taken = sorted([(va, p["length"]) for va, p in self.placed.items()]
