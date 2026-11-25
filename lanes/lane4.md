@@ -18,13 +18,12 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 14:03 PST 2026: both declaration branches are in #410. Working on the Unknown_004DF6C0.cpp language-copy split.
 - Wed Nov 25 13:31 PST 2026: both declaration branches rebased onto #409 (#408 dropped -hi on conflicts) and rebuilt: identical, no count rose. Next: Unknown_004DF6C0.cpp language-copy split.
 - Wed Nov 25 13:14 PST 2026: both declaration branches rebased onto #408 and rebuilt; -hi-2 posted stacked on -hi.
 
 ## Ready
 
-- lane4/audit-decls-d2client-hi a7b4ff42a (on #409): audit item 4 for D2Client's files from 0x4A0000 up (lane 1's old range). 218 D2Client functions declared privately with one spelling in two or more of those files: 142 more prototypes go into D2ClientFuncs.h (76 were there already), the 62 files include it, and 658 private copies go. Same exclusions as before (definition spelled differently, linkage, Unicode, data-table stubs). **GAME/Msg.cpp is an eighth declaration-count unit:** its 0x478350 moves with the header's growth, so it stops including D2ClientFuncs.h and gets back its two private declarations (header comment updated). Unknown_004DF4B0.cpp defines its own CLIENTS_GetUnitX/Y and keeps its copies. All 139 D2Client.h includers all equal; audit guard: no count rose. Full build: Game.exe identical, tree 351e4598f0bcc1e1cb132902891e32b523fa4a1e, borrowed code / data 9,457 / 261 B.
-- lane4/audit-decls-d2client-hi-2 fe7a66500 (on #409, stacked on audit-decls-d2client-hi; merge that first): the second-spelling pass for the same files. 44 functions whose private declarations agree in types and linkage take the definition's spelling: 24 new prototypes in D2ClientFuncs.h, 212 private copies go from 44 files. SPELLSEL_GetSkillMaxLevel stays private (text_0049A950.cpp declares it with other linkage), Unknown_004DF4B0.cpp keeps its copies. All 139 D2Client.h includers all equal; audit guard: no count rose. Full build: Game.exe identical, tree 6415216d374fc17c5028285cad4f046166f14309, borrowed code / data 9,457 / 261 B.
 
 ## Claimed
 
