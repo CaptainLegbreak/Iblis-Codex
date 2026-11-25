@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Wed Nov 25 09:06:59 PST 2026: check-in. lang-copies is on main, so Ready is empty. Lane 2's decls-d2common-b hasn't landed yet, so SkillDesc joins stay paused.
 - Wed Nov 25 08:35:03 PST 2026: check-in. lang-copies is still ready and merges clean on #400, which is still main. SkillDesc joins stay paused until lane 2's decls-d2common-b lands.
 - Wed Nov 25 08:21:17 PST 2026: lang-copies ready, from lane 4's notes. Only UnitMode.cpp's copy could move: Object.cpp has data at 0x727704 ahead of its copy at 0x727708, and MonUnique.cpp has data at 0x724D38 ahead of 0x724D3C, so the linker refuses the header copy in both. Those two keep their plan records. SkillDesc joins are still paused for lane 2.
 - Wed Nov 25 07:21:50 PST 2026: check-in. Ready is empty. The mutation search on 0x4A9870 got through only 39 variants in 25 minutes (spellsel.cpp's unit is slow to build) and found nothing near equal, so it stays parked. I'm holding the remaining SkillDesc joins (Unknown_004E89A0.cpp, Unknown_004E2320.cpp) until the declaration branches land next round, as the board asks.
@@ -38,7 +39,6 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
-- lane1/lang-copies 2d4a2d0e0 (on #400, one commit) 0->0: UnitMode.cpp takes its language table copy (0x721CDC) from D2LanguageNames.h, as in 67c33fb8. It is the unit's only initialised data, so its 60 B plan record goes, the unit includes the header at its top, and a static data marker sits at the copy's address. auditguard: nothing rose. Full build: 0 not all equal, Game.exe identical; VERIFIED fbbc06cdae0247a7c7b55c9a86215b29d8d125c8.
 
 ## In progress
 
