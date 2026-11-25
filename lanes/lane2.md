@@ -12,7 +12,8 @@ Status (Wed Nov 25 ~13:05 PT): 0x679C80. The original has no cast on the backtra
 
 ## Ready
 
-- lane2/decls-fog-storm-2 2d548f79d (on #403, applies cleanly to #404): 39 more Fog exports and 15 more Storm exports that 2+ units outside their modules redeclared get one declaration each in FogApi.h and StormApi.h; the units outside Fog/Storm drop their matching copies and include the headers (109 files). The pool functions and ten that callers declare differently stay out (listed in the commit). Four existing FogApi.h includers (DataTbls, MonsterTbls, Unknown_00668510, PlrTrade) change code with the larger header, so they go back to their own declarations of the first four Fog exports. Full build: Game.exe identical, tree 73f1a65148f0519ca730ce65918ae3ebcf7b58ad, borrowed code / data 10,018 / 261 B.
+- lane2/decls-fog-storm-3 ab871e803 (on #405; rebuilt fresh, #405's D2Client declarations conflicted with the earlier one in three files): 39 more Fog exports and 15 more Storm exports that 2+ units outside their modules redeclared get one declaration each in FogApi.h and StormApi.h; the units outside Fog/Storm drop their matching copies and include the headers (109 files). The pool functions and ten that callers declare differently stay out. DataTbls, MonsterTbls, Unknown_00668510 and PlrTrade go back to their own declarations of the first four Fog exports (the larger header changes their code). Full build: Game.exe identical, tree 7304b7c0e693178f17685eefded245e401c87ad9, borrowed code / data 10,018 / 261 B.
+- lane2/decls-fog-storm-2: replaced by decls-fog-storm-3 above; drop it.
 - `lane2/net-packet-buffer`: WITHDRAWN, never posted. It duplicates lane 10's `bn-crypt-records-r`; don't merge it. (The proxy here won't let me delete the remote branch.)
 
 ## Working on
