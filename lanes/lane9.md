@@ -47,9 +47,27 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   placed (a global's duplicate in a second unit: gwszPopUpText, gwszNameSeparator, gwszRealmNames, gwszFramedText,
   gtNewsItems) stay removed and are counted (crt_table_target_unplaced). Step 3 (one more initializer, D2Hell's
   0x6CAE5F) follows as lane9/crt-xcu-hell.
+- lane9/crt-xcu-hell fd2fe416, stacked on crt-xcu-tool (main f0f40e42, #377), precheck 0 not all equal; full verify
+  VERIFIED, **borrowed data 648 -> 644 B**, copied runs: only 0x6CC6C4 shrinks 32 -> 28 B. Step 3, one initializer:
+  D2Hell's gFaultHandlerList (0x72FA14) is defined in the unit as a D2ListStrc with a constructor and destructor, in
+  place of the stand-ins 0x6CAE5F/0x6CB401 and its plan entry. What the compiler does: the constructor's constant
+  stores (link offset 0, terminator back-link to itself) are folded into the .data image; only the non-constant
+  terminator mark (~&terminator) stays in ??__EgFaultHandlerList (.text$yc), which atexit-registers
+  ??__FgFaultHandlerList (.text$yd); both place from `build: symbol` marker lines alone and build equal. The
+  dynamically initialized global is emitted after the unit's statically initialized data, so its .data section's
+  layout no longer matches the original; the section splits (the existing split pass does it) as long as the global
+  gets no data marker of its own (a marker makes the strict check fail).
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
+- **Coordinator, the 16 slots still copied (64 B), for the owners' conversion:** all 16 initializers are stand-ins in
+  Storm placeholder files: Unknown_006C9A68.cpp (0x6CA940, 0x6CA960, 0x6CA980, 0x6CAAB0, 0x6CAC10), Unknown_006CACE0.cpp
+  (0x6CADE0, 0x6CADF0, 0x6CAE00, 0x6CAE10, 0x6CAE20, 0x6CAE40, 0x6CAE50), Unknown_006CAE80.cpp (0x6CAEC0, 0x6CAEF0,
+  0x6CAF10), Unknown_006CAFC0.cpp (0x6CAFC0). Some owning units already emit the real initializer, which the tool now
+  counts as unplaced: CharSel.cpp's ??__EgwszRealmNames (0x6CA940 ClearRealmNames), D2WinFont.cpp's gwszFramedText,
+  BNNews.cpp's gtNewsItems, and the gwszPopUpText/gwszNameSeparator duplicates. Converting one is: drop the Storm
+  stand-in, add the `build: symbol ??__E<name>@@YAXXZ 0x<va>` line in the owning unit (and ??__F for a destructor).
+  Shall I take those (touching lanes 1, 3, 6 files), or hand the list to the owners?
 - **Coordinator, lane 9 is close to the end of its queue; what should it take next?** What's left, with what I found:
   - Unknown_006B7530.cpp stays its own object: 0x6B83A0 calls 0x6B9730 and 0x6B9860, which Unknown_006B7250.cpp
     defines; with both in one file 0x6B83A0's float code changes even with the getters noinline.
