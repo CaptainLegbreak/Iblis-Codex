@@ -500,7 +500,7 @@ void __stdcall D2CMPSetNoCompress(int bCompress); // 0x005FE280
 
 void __stdcall DATATBLS_ToggleCompileTxtFlag(int bValue); // 0x006125A0
 
-void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
+void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
 struct D2StormLinkStrc
 {
@@ -1234,7 +1234,7 @@ void __cdecl GAME_ReadColorFlag();                                              
 
 int __stdcall COMCALLBACK_LoadLngString(int nId, char* szBuffer, unsigned int nSize);                         // 0x004512C0
 
-void __stdcall CHARSEL_RecordHandler(int nArg1, int nArg2, int nArg3);                                 // 0x00451920
+void __stdcall RECORD_RecordHandler(int nArg1, int nArg2, int nArg3);                                 // 0x00451920
 
 void __cdecl GAME_LoadLoadingScreen();                                                              // 0x00456550
 
@@ -1292,7 +1292,7 @@ void __cdecl CHAT_ResetChatHistory();                                           
 
 void __cdecl sub_0047F1D0_LoadResolution();                                                                 // 0x0047F1D0
 
-void __cdecl CUNIT_InitColorTable();                                                                                // 0x00483960
+void __cdecl INV_InitColorTable();                                                                                // 0x00483960
 
 void __cdecl PANEL_SetBlackColour();                                                                                // 0x00499E30
 
@@ -1875,7 +1875,7 @@ extern "C" { unsigned int gSlotFirst; } // 0x00799300
 
 extern "C" { unsigned int gSlotSecond; } // 0x00799304
 
-void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
+void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
 int __cdecl GAME_GetConnectFailed(); // 0x0044BBA0
 
@@ -2525,7 +2525,7 @@ unsigned long __stdcall GAME_RunQServerThread(void* pArg)
         if (pSession)
         {
             Sleep(30);
-            D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
+            D2ClientNotifyStrc* pNotify = WINMAIN_GetClientNotify();
             if (pNotify)
             {
                 const int nLevel = GAME_GetPlayerUnitsCount(1);
@@ -3018,7 +3018,7 @@ unsigned char __cdecl GAME_GetDifficulty()
 // 0x0044DD60
 void __cdecl GAME_ExitForCinematic()
 {
-    GAME_SetExitApplication(0);
+    WINMAIN_SetExitApplication(0);
     gbCinematicExit = 1;
     sub_00477EE0();
     gbLeavingGame = 1;
@@ -4068,7 +4068,7 @@ int __fastcall GAME_GetUIVarState(unsigned int nUIVar)
 }
 
 // build: symbol _CUNIT_ClearTextPanel 0x004A1730
-extern "C" void __cdecl CUNIT_ClearTextPanel()
+extern "C" void __cdecl TEXT_ClearTextPanel()
 {
     TEXT_ResetTextBox();
     Allocation* allocation=gAllocation;

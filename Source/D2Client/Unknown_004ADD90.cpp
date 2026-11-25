@@ -71,7 +71,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-int __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
+int __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -221,11 +221,11 @@ void __fastcall NPCMENU_StateOverlayBurst(D2UnitStrc* pUnit, int nState, int bFl
 
     const int nX = CLIENTS_GetUnitX(pUnit);
     const int nY = CLIENTS_GetUnitY(pUnit);
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nX, nY, 0, 1);
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nX + 1, nY + 1, 0, 1);
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nX + 1, nY - 1, 0, 1);
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nX - 1, nY + 1, 0, 1);
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nX - 1, nY - 1, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x52, nX, nY, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x52, nX + 1, nY + 1, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x52, nX + 1, nY - 1, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x52, nX - 1, nY + 1, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x52, nX - 1, nY - 1, 0, 1);
     sub_004B9A00(0x99A, pUnit, 0, 0, 0);
 }
 
@@ -251,25 +251,25 @@ void __fastcall NPCMENU_StateOverlayCross(D2UnitStrc* pUnit, int nState, int bFl
 
     const int nX = CLIENTS_GetUnitX(pUnit);
     const int nY = CLIENTS_GetUnitY(pUnit);
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x75, nX, nY, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x75, nX, nY, 0, 1);
     const int nYPlus = nY + 1;
     const int nXPlus = nX + 1;
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x75, nXPlus, nYPlus, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x75, nXPlus, nYPlus, 0, 1);
     bFlag = nY - 1;
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x75, nXPlus, bFlag, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x75, nXPlus, bFlag, 0, 1);
     const int nXMinus = nX - 1;
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x75, nXMinus, nYPlus, 0, 1);
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x75, nXMinus, bFlag, 0, 1);
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nX, nY, 0, 1);
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nXPlus, nYPlus, 0, 1);
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nXPlus, bFlag, 0, 1);
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nXMinus, nYPlus, 0, 1);
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x52, nXMinus, bFlag, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x75, nXMinus, nYPlus, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x75, nXMinus, bFlag, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x52, nX, nY, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x52, nXPlus, nYPlus, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x52, nXPlus, bFlag, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x52, nXMinus, nYPlus, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x52, nXMinus, bFlag, 0, 1);
     sub_004B9A00(0x99A, pUnit, 0, 0, 0);
 }
 
 // 0x004AD2F0
-void __fastcall MONUNIQUE_HandleUnitClassEvent(D2UnitStrc* pUnit, int nUnused, int nUnused2)
+void __fastcall NPCMENU_HandleUnitClassEvent(D2UnitStrc* pUnit, int nUnused, int nUnused2)
 {
     if (!pUnit)
     {
@@ -674,8 +674,8 @@ void __fastcall NPCMENU_StateRequests(D2UnitStrc* pUnit)
 {
     int nX = GetUnitPathX(pUnit);
     int nY = GetUnitPathY(pUnit);
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x75, nX, nY, 0, 1);
-    GFXUTIL_SubmitMissileRequest(pUnit, 0x221, nX, nY, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x75, nX, nY, 0, 1);
+    MISSILE_SubmitMissileRequest(pUnit, 0x221, nX, nY, 0, 1);
     sub_004B9A00(0x99A, pUnit, 0, 0, 0);
 }
 

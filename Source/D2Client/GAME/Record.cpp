@@ -34,7 +34,7 @@ extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileN
 int __cdecl sub_0044DA90(); // 0x0044DA90
 int __stdcall DUNGEON_GetInitSeedFromAct(D2DrlgActStrc* pAct); // 0x0061AAC0
 extern D2DrlgActStrc* gpAct; // 0x007A0634
-void __stdcall COMCALLBACK_RecordMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451450
+void __stdcall RECORD_RecordMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451450
 int gbRecordHandlerInstalled; // 0x007A2780
 
 struct D2RecordBlockStrc
@@ -99,7 +99,7 @@ public:
 struct D2ChatMessageStrc { D2WinControlStrc* pControl; unsigned int nMessage; };
 
 // 0x00451450
-void __stdcall COMCALLBACK_RecordMessage(unsigned int uMessage, unsigned int wParam, int lParam)
+void __stdcall RECORD_RecordMessage(unsigned int uMessage, unsigned int wParam, int lParam)
 {
     if (gpMsgRecordChunk_0070F7A0->nCount >= 500)
         RECORD_AddRecordChunk();
@@ -119,7 +119,7 @@ void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wP
         {
         case 0x100:
         case 0x200:
-            COMCALLBACK_RecordMessage(uMessage, wParam, lParam);
+            RECORD_RecordMessage(uMessage, wParam, lParam);
             return;
         case 0x10:
         case 0x101:
@@ -129,7 +129,7 @@ void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wP
         case 0x202:
         case 0x204:
         case 0x205:
-            COMCALLBACK_RecordMessage(uMessage, wParam, lParam);
+            RECORD_RecordMessage(uMessage, wParam, lParam);
             break;
         }
     }
@@ -236,7 +236,7 @@ int __fastcall RECORD_DispatchRecordedMessage(D2MsgRecordStrc* pMsg)
 
 
 // 0x004518E0
-void __cdecl WINMAIN_StartPlayback()
+void __cdecl RECORD_StartPlayback()
 {
     if (gbPlaybackRequested)
         gbPlaybackRequested = 0;
@@ -252,7 +252,7 @@ void __cdecl WINMAIN_StartPlayback()
 struct Unicode;
 
 // 0x00451910
-int __cdecl UI_IsRecordingEnabled()
+int __cdecl RECORD_IsRecordingEnabled()
 {
     return gbPlaybackRequested;
 }
@@ -262,7 +262,7 @@ typedef void (__stdcall* D2RecordHandlerFn)(int nArg1, int nArg2, int nArg3);
 D2RecordHandlerFn gpfnPrevHandler; // 0x007A2764
 
 // 0x00451920
-void __stdcall CHARSEL_RecordHandler(int nArg1, int nArg2, int nArg3)
+void __stdcall RECORD_RecordHandler(int nArg1, int nArg2, int nArg3)
 {
     RECORD_WriteRecordFile();
     if (gpfnPrevHandler)
@@ -272,14 +272,14 @@ void __stdcall CHARSEL_RecordHandler(int nArg1, int nArg2, int nArg3)
 D2RecordHandlerFn __fastcall sub_005173D3_SetRecordHandler(D2RecordHandlerFn pfnHandler);                  // 0x005173D3
 
 // 0x00451940
-void __cdecl GAME_InstallRecordHandler()
+void __cdecl RECORD_InstallRecordHandler()
 {
     gbRecordHandlerInstalled = 1;
-    gpfnPrevHandler = sub_005173D3_SetRecordHandler(CHARSEL_RecordHandler);
+    gpfnPrevHandler = sub_005173D3_SetRecordHandler(RECORD_RecordHandler);
 }
 
 // 0x00451960
-int __cdecl UI_IsRecordHandlerInstalled()
+int __cdecl RECORD_IsRecordHandlerInstalled()
 {
     return gbRecordHandlerInstalled;
 }
@@ -287,25 +287,25 @@ int __cdecl UI_IsRecordHandlerInstalled()
 int gbRecordPlaying;                                                                                     // 0x007A2788
 
 // 0x00451970
-void __cdecl GAME_SetRecordPlaying()
+void __cdecl RECORD_SetRecordPlaying()
 {
     gbRecordPlaying = 1;
 }
 
 // 0x00451980
-int __cdecl UI_IsPlaybackEnabled()
+int __cdecl RECORD_IsPlaybackEnabled()
 {
     return gnRecordPos;
 }
 
 // 0x00451990
-int __cdecl UI_IsReplayActive()
+int __cdecl RECORD_IsReplayActive()
 {
     return gbRecordPlaying;
 }
 
 // 0x004519A0
-void __cdecl GAME_ToggleRecordPlayback()
+void __cdecl RECORD_ToggleRecordPlayback()
 {
     if (gnRecordPos)
         gnRecordPos = 0;
@@ -316,7 +316,7 @@ void __cdecl GAME_ToggleRecordPlayback()
 int gnReplayEndTick;                                                                               // 0x007A2774
 
 // 0x004519C0
-void __cdecl CUNIT_ReplayRecords()
+void __cdecl RECORD_ReplayRecords()
 {
     if (!gbRecordPlaying)
         return;

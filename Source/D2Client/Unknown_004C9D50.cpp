@@ -99,7 +99,7 @@ void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
 
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 
-D2UnitStrc* __fastcall WARDENCLIENT_ScanFindUnit(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
+D2UnitStrc* __fastcall SKILLS_ScanFindUnit(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
 
 int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
@@ -202,7 +202,7 @@ int __fastcall SKILLS_CltDoCharge(D2UnitStrc* pUnit, int nSkillId, int nSkillLev
 
         if (nFlags & 2)
         {
-            D2UnitStrc* pFound = WARDENCLIENT_ScanFindUnit(pUnit, 0, 0, 3, 3, nTargetId, 0);
+            D2UnitStrc* pFound = SKILLS_ScanFindUnit(pUnit, 0, 0, 3, 3, nTargetId, 0);
             if (pFound && UNITS_IsInMeleeRange(pUnit, pFound, 0))
             {
                 SKILLS_SetFlags(pSkill, 0);
@@ -249,7 +249,7 @@ int __fastcall SKILLS_CltDoCharge(D2UnitStrc* pUnit, int nSkillId, int nSkillLev
     pUnit->dwFrameCountPrecise = (nFrameCount - (pUnit->dwSeqFrame >> 8)) << 8;
     if (!pTarget)
     {
-        pTarget = WARDENCLIENT_ScanFindUnit(pUnit, 0, 0, 3, 3, -1, 0);
+        pTarget = SKILLS_ScanFindUnit(pUnit, 0, 0, 3, 3, -1, 0);
         if (!pTarget)
         {
             return 0;

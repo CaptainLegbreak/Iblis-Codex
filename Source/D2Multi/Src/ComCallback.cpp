@@ -484,7 +484,7 @@ void __cdecl RECORD_AddRecordChunk(); // 0x00451400
 
 int __cdecl sub_0044DA90(); // 0x0044DA90
 
-int __cdecl UI_IsReplayActive(); // 0x00451990
+int __cdecl RECORD_IsReplayActive(); // 0x00451990
 
 void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x004514B0
 

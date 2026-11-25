@@ -74,7 +74,7 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);        
 
 int __fastcall DATATBLS_GetMonStatsTxtRecordCount();                                                        // 0x0045C460
 
-D2PalShiftNodeStrc* __fastcall VIEW_FindPalShiftNode(int nId);                                          // 0x00477030
+D2PalShiftNodeStrc* __fastcall PALSHIFT_FindPalShiftNode(int nId);                                          // 0x00477030
 
 int __fastcall ARCHIVE_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped); // 0x00516E46
 
@@ -167,7 +167,7 @@ void __cdecl PALSHIFT_FreePalShifts()
 
 
 // 0x00477030
-D2PalShiftNodeStrc* __fastcall VIEW_FindPalShiftNode(int nId)
+D2PalShiftNodeStrc* __fastcall PALSHIFT_FindPalShiftNode(int nId)
 {
     for (D2PalShiftNodeStrc* pNode = gpPalShiftList; pNode; pNode = pNode->pNext)
     {
@@ -221,7 +221,7 @@ void __fastcall PALSHIFT_LoadPalShift(int nMonsterId)
         return;
     }
 
-    if (VIEW_FindPalShiftNode(nMonsterId))
+    if (PALSHIFT_FindPalShiftNode(nMonsterId))
     {
         return;
     }
@@ -309,7 +309,7 @@ int __cdecl GAME_GetColorFlag(); // 0x0044DC60
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 
 // 0x00477530
-unsigned char* __fastcall CUNIT_GetPalShift(D2UnitStrc* pUnit)
+unsigned char* __fastcall PALSHIFT_GetPalShift(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType == UNIT_MONSTER)

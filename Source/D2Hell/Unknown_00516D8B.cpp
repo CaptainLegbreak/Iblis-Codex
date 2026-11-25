@@ -93,7 +93,7 @@ extern "C" { B27RecordHandler gpfnRecordHandler; } // 0x00881834
 extern "C" unsigned int gB27_00883D70;
 
 // build: symbol _CUNIT_IsInvPanelTradeMode 0x00489840
-extern "C" int __cdecl CUNIT_IsInvPanelTradeMode()
+extern "C" int __cdecl INV_IsInvPanelTradeMode()
 {
     int mode = gB27_007BCBF0;
     if (mode == 1 || mode == 2 || mode == 3)
@@ -101,9 +101,9 @@ extern "C" int __cdecl CUNIT_IsInvPanelTradeMode()
     return 0;
 }
 
-extern "C" void __cdecl TEXT_ResetQuestButtonState(); // 0x004A3000
+extern "C" void __cdecl QUESTLOG_ResetQuestButtonState(); // 0x004A3000
 
-extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value); // 0x004A3100
+extern "C" void __fastcall QUESTLOG_SetQuestPacketValue(unsigned int value); // 0x004A3100
 
 // build: symbol _NPCMENU_ResetHandlers 0x004B2250
 extern "C" void __cdecl NPCMENU_ResetHandlers()

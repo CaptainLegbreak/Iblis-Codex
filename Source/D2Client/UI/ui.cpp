@@ -128,7 +128,7 @@ struct D2PanelHotkeysStrc
 
 void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
-void __fastcall COMCALLBACK_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall SCMD_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 void __fastcall sub_00451E10_RegisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
@@ -538,9 +538,9 @@ void __cdecl sub_0049FF00(); // 0x0049FF00
 
 void __cdecl TEXT_CloseMessageLogDialog(); // 0x004A01A0
 
-void __cdecl TEXT_ResetQuestButton(); // 0x004A28D0
+void __cdecl QUESTLOG_ResetQuestButton(); // 0x004A28D0
 
-extern "C" void __cdecl TEXT_ResetQuestButtonState(); // 0x004A3000
+extern "C" void __cdecl QUESTLOG_ResetQuestButtonState(); // 0x004A3000
 
 void __cdecl sub_004ABF10_ClearSkillStates(); // 0x004ABF10
 
@@ -613,13 +613,13 @@ void __cdecl INV_DrawMercPanel(); // 0x004929F0
 
 void __stdcall INV_DrawRecipeScroll(); // 0x0048BC10
 
-void __cdecl TEXT_DrawQuestPage(); // 0x004A34F0
+void __cdecl QUESTLOG_DrawQuestPage(); // 0x004A34F0
 
 void __cdecl INV_DrawInventoryPanel(); // 0x0048EDF0
 
 void __cdecl sub_004B8730_DrawDialogHover(); // 0x004B8730
 
-void __cdecl CHARSEL_DrawProgressiveStates(); // 0x00453470
+void __cdecl UI_DrawProgressiveStates(); // 0x00453470
 
 void __cdecl sub_004AC690_DrawSkillPanel(); // 0x004AC690
 
@@ -653,7 +653,7 @@ void __cdecl TEXT_DrawSkillButton(); // 0x004A6E60
 
 void __cdecl sub_004A6DA0_DrawRightPanelButton(); // 0x004A6DA0
 
-void __cdecl TEXT_DrawQuestButton(); // 0x004A2A80
+void __cdecl QUESTLOG_DrawQuestButton(); // 0x004A2A80
 
 void __cdecl PANEL_DrawLifeManaText(); // 0x00498120
 
@@ -667,7 +667,7 @@ void __cdecl SHOWITEMS_DrawUnitNames(); // 0x004C0810
 
 void __cdecl NPCMENU_UpdateNpcInteract(); // 0x004B4380
 
-void __cdecl ITEM_DrawPanelUnit(); // 0x004C01E0
+void __cdecl USEITEM_DrawPanelUnit(); // 0x004C01E0
 
 void __cdecl WARDENCLIENT_DrawHostileIcon(); // 0x00496B10
 
@@ -703,7 +703,7 @@ unsigned short gwDialogAmountHigh; // 0x007A2A6A
 
 int gnGoldPanelMode; // 0x007A279C
 
-int __cdecl GAME_IsHardcore();                                                                      // 0x0044B850
+int __cdecl WINMAIN_IsHardcore();                                                                      // 0x0044B850
 
 unsigned char __cdecl GAME_GetDifficulty();                                                         // 0x0044DCD0
 
@@ -741,15 +741,15 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 
-void __cdecl GAME_SetCharDiedFlag();                                                                                // 0x0044B860
+void __cdecl WINMAIN_SetCharDiedFlag();                                                                                // 0x0044B860
 
-void __fastcall GAME_SetExitApplication(int nValue);                                                          // 0x0044B880
+void __fastcall WINMAIN_SetExitApplication(int nValue);                                                          // 0x0044B880
 
 void __cdecl GAME_RequestExit();                                                                                // 0x0044D520
 
 void __fastcall UI_SetPanelHandlers(int nUIVar);                                                         // 0x00455720
 
-void __fastcall UI_SetCursorPosition(int nA, int nB);                                                               // 0x00468770
+void __fastcall CURSOR_SetCursorPosition(int nA, int nB);                                                               // 0x00468770
 
 void __fastcall MSG_SendHeaderOnly(char nValue);                                                                  // 0x00478590
 
@@ -789,7 +789,7 @@ void __cdecl sub_0047E750_SaveAlwaysRun(); // 0x0047E750
 
 void __cdecl sub_0047F130_SaveMiniPanel(); // 0x0047F130
 
-void __cdecl CUNIT_InitColorTable(); // 0x00483960
+void __cdecl INV_InitColorTable(); // 0x00483960
 
 void __cdecl INV_FreeInvPanelCels(); // 0x00486980
 
@@ -821,7 +821,7 @@ void __cdecl TEXT_FreeTextLists(); // 0x004A0010
 
 void __cdecl TEXT_FreeTextResources(); // 0x004A0680
 
-void __cdecl TEXT_FreeQuestPanel(); // 0x004A2600
+void __cdecl QUESTLOG_FreeQuestPanel(); // 0x004A2600
 
 void __cdecl TEXT_ClearQuestFlags(); // 0x004A3020
 
@@ -1363,7 +1363,7 @@ void __cdecl UI_DrawDeathScreen()
             D2Win_10134_DrawCellFile(gpYouDiedInstCel, gnScreenWidth / 2, nY, 1, 5, 1);
 
         Unicode wszText[0x100];
-        if (GAME_IsHardcore())
+        if (WINMAIN_IsHardcore())
         {
             sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x13E8));
         }
@@ -1382,7 +1382,7 @@ void __cdecl UI_DrawDeathScreen()
         }
 
 second_text:
-        if (GAME_GetDifficulty() > 0 && !GAME_IsHardcore())
+        if (GAME_GetDifficulty() > 0 && !WINMAIN_IsHardcore())
         {
             D2Win_10127_SetFont(2);
             const int nWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0x13E7));
@@ -1474,7 +1474,7 @@ int gbOverlaysEnabled; // 0x007A289C
 int gnOverlayStep; // 0x007A3138
 
 // 0x00453470
-void __cdecl CHARSEL_DrawProgressiveStates()
+void __cdecl UI_DrawProgressiveStates()
 {
     if (!gpGlobal_007A0634)
         return;
@@ -1617,13 +1617,13 @@ static int UI_CanSetUIVar(int nUIVar, int nState)
                 {
                     sub_004647D0(pPlayer);
                     MSG_SendHeaderOnly(0x41);
-                    if (GAME_IsHardcore())
+                    if (WINMAIN_IsHardcore())
                     {
                         sub_00477EE0();
                         gbPositionalSound = 0;
                         gbGameServerReady = 0;
-                        GAME_SetCharDiedFlag();
-                        GAME_SetExitApplication(0);
+                        WINMAIN_SetCharDiedFlag();
+                        WINMAIN_SetExitApplication(0);
                         GAME_RequestExit();
                     }
                     return 0;
@@ -2148,7 +2148,7 @@ void __fastcall UI_TogglePanelHandlers(int bRegister)
     {
         if (gnPanelState)
         {
-            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaAutomapHandlers, 5);
+            SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaAutomapHandlers, 5);
         }
     }
     else
@@ -2203,7 +2203,7 @@ void __fastcall UI_FreeLoadingScreen()
         sub_004FB480_SetActA(gnLoadingAct);
         sub_00600C00_SetActB(gnLoadingAct);
         AUTOMAP_InitAutomapColors();
-        CUNIT_InitColorTable();
+        INV_InitColorTable();
         sub_00499E10();
         PANEL_SetBlackColour();
         sub_004AB2F0();
@@ -2265,8 +2265,8 @@ int __fastcall UI_GetHoverRect(D2RectStrc* pRect)
 // 0x00454980
 void __cdecl UI_RegisterKeyConfigHandlers()
 {
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyConfigHandlers, 13);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyConfigWheelHandlers, 1);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyConfigHandlers, 13);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyConfigWheelHandlers, 1);
 }
 
 // 0x004549B0
@@ -2611,24 +2611,24 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
     switch (nPanel)
     {
     case 0xA:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaAutomapHandlers, 0x5);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaAutomapHandlers, 0x5);
         gnPanelFlag = 0x1;
         return;
     case 0x0:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaGameUIHandlers, 0x4);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaGameUIHandlers, 0x4);
         return;
     case 0x3:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMiniSkillHandlers, 0x1);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaMiniSkillHandlers, 0x1);
         return;
     case 0x4:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaSkillTreeHandlers, 0x2);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaSkillTreeHandlers, 0x2);
         return;
     case 0x2:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaStatScreenHandlers, 0x2);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaStatScreenHandlers, 0x2);
         return;
     case 0x1:
         sub_00487B30();
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaInventoryHandlers, 0x4);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaInventoryHandlers, 0x4);
         return;
     case 0x5:
         CHAT_InitChatIme();
@@ -2638,16 +2638,16 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
         sub_0047B4D0_Nop();
         return;
     case 0x6:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaNewStatsHandlers, 0x2);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaNewStatsHandlers, 0x2);
         return;
     case 0x13:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaPetIconHandlers, 0x1);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaPetIconHandlers, 0x1);
         return;
     case 0x7:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaNewSkillsHandlers, 0x2);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaNewSkillsHandlers, 0x2);
         return;
     case 0x9:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaEscMenuHandlers, 0x7);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaEscMenuHandlers, 0x7);
         SELECT_RefreshHoverUnit(0);
         return;
     case 0xB:
@@ -2658,26 +2658,26 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
         sub_0046AA20(0x2, 0x1);
         TEXT_ResetNpcPanel();
         UI_SetPanelHotkeys(&gtNpcShopHotkeys);
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaNpcShopHandlers, 0x8);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaNpcShopHandlers, 0x8);
         return;
     case 0xF:
         UI_SetPanelHotkeys(&gtQuestScreenHotkeys);
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaQuestScreenHandlers, 0x7);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaQuestScreenHandlers, 0x7);
         return;
     case 0x11:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaQuestLogHandlers, 0x4);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaQuestLogHandlers, 0x4);
         return;
     case 0x10:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaIniScrollHandlers, 0x2);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaIniScrollHandlers, 0x2);
         return;
     case 0x14:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaWaypointHandlers, 0x5);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaWaypointHandlers, 0x5);
         return;
     case 0x15:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMiniPanelHandlers, 0x2);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaMiniPanelHandlers, 0x2);
         return;
     case 0x16:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaPartyScreenHandlers, 0x2);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaPartyScreenHandlers, 0x2);
         PARTY_RebuildRosterUnits();
         return;
     case 0x17:
@@ -2685,41 +2685,41 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
         sub_004B8920();
         INV_ClearPanelPage();
         UI_SetPanelHotkeys(&gtMpTradeHotkeys);
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMpTradeHandlers, 0xD);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaMpTradeHandlers, 0xD);
         return;
     case 0x19:
         sub_0046AA20(0x2, 0x1);
         INV_LoadStashPanelCels();
         UI_SetPanelHotkeys(&gtStashHotkeys);
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaStashHandlers, 0x8);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaStashHandlers, 0x8);
         return;
     case 0x1A:
         sub_0046AA20(0x2, 0x1);
         INV_LoadCubePanelCel();
         UI_SetPanelHotkeys(&gtCubeHotkeys);
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaCubeHandlers, 0x7);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaCubeHandlers, 0x7);
         return;
     case 0x18:
         TEXT_OpenMessageLogDialog();
         return;
     case 0x1F:
         UI_SetPanelHotkeys(&gtBeltRowsHotkeys);
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaBeltRowsHandlers, 0x2);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaBeltRowsHandlers, 0x2);
         return;
     case 0x21:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHelpScreenHandlers, 0x5);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaHelpScreenHandlers, 0x5);
         return;
     case 0x22:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHelpButtonHandlers, 0x2);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaHelpButtonHandlers, 0x2);
         return;
     case 0x23:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHireIconHandlers, 0x3);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaHireIconHandlers, 0x3);
         return;
     case 0x24:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMercInvHandlers, 0x3);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaMercInvHandlers, 0x3);
         return;
     case 0x25:
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaRecipeScrollHandlers, 0x2);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaRecipeScrollHandlers, 0x2);
         return;
     }
 }
@@ -2763,7 +2763,7 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
             && !gaUIVarStates[0x1D] && !gaUIVarStates[0x1E] && !gaUIVarStates[0x20])
             sub_0046AA20(0x1, 0x1);
         if (gaUIVarStates[0xA])
-            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaAutomapHandlers, 0x5);
+            SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaAutomapHandlers, 0x5);
         return;
     case 0x6:
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaNewStatsHandlers, 0x2);
@@ -2795,12 +2795,12 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         return;
     case 0xF:
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaQuestScreenHandlers, 0x7);
-        TEXT_ResetQuestButton();
+        QUESTLOG_ResetQuestButton();
         UI_StartUIVarDelay();
         return;
     case 0x11:
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaQuestLogHandlers, 0x4);
-        TEXT_ResetQuestButtonState();
+        QUESTLOG_ResetQuestButtonState();
         return;
     case 0x10:
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaIniScrollHandlers, 0x2);
@@ -2985,7 +2985,7 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg)
                 PLAYER_SetPanelSlide(1);
                 if (nArg && nA > gnScreenWidth / 4)
                 {
-                    UI_SetCursorPosition(nA - gnScreenWidth / 4, nB);
+                    CURSOR_SetCursorPosition(nA - gnScreenWidth / 4, nB);
                 }
             }
             else
@@ -2993,7 +2993,7 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg)
                 PLAYER_SetPanelSlide(0);
                 if (nArg && nA < gnScreenWidth / 2)
                 {
-                    UI_SetCursorPosition(gnScreenWidth / 4 + nA, nB);
+                    CURSOR_SetCursorPosition(gnScreenWidth / 4 + nA, nB);
                 }
             }
         }
@@ -3020,7 +3020,7 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg)
                 PLAYER_SetPanelSlide(2);
                 if (nArg && nA < gnScreenWidth - gnScreenWidth / 4)
                 {
-                    UI_SetCursorPosition(gnScreenWidth / 4 + nA, nB);
+                    CURSOR_SetCursorPosition(gnScreenWidth / 4 + nA, nB);
                 }
             }
             else
@@ -3028,7 +3028,7 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg)
                 PLAYER_SetPanelSlide(0);
                 if (nArg && nA > gnScreenWidth / 2)
                 {
-                    UI_SetCursorPosition(nA - gnScreenWidth / 4, nB);
+                    CURSOR_SetCursorPosition(nA - gnScreenWidth / 4, nB);
                 }
             }
         }
@@ -3194,7 +3194,7 @@ void __cdecl UI_ToggleMiniPanel()
     if (!bWasOn)
     {
         if (gbMiniPanel)
-            COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMiniPanelHandlers, 2);
+            SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaMiniPanelHandlers, 2);
     }
     else
     {
@@ -3270,7 +3270,7 @@ void __cdecl UI_InitUI()
         if (!bWasOn)
         {
             if (gaUIVarStates[0])
-                COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaGameUIHandlers, 4);
+                SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaGameUIHandlers, 4);
         }
         else
         {
@@ -3326,7 +3326,7 @@ mini_panel:
         if (!bWasOn)
         {
             if (gaUIVarStates[0x22])
-                COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHelpButtonHandlers, 2);
+                SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaHelpButtonHandlers, 2);
         }
         else
         {
@@ -3391,7 +3391,7 @@ void __cdecl UI_ShutdownUI()
     UI_CloseGoldDialog();
     INV_FreeInvPanelCels();
     USEITEM_FreeUseItemPanel();
-    TEXT_FreeQuestPanel();
+    QUESTLOG_FreeQuestPanel();
     INV_FreeNpcCels();
     DIALOG_FreeDialogs();
     sub_004BE060();
@@ -3466,7 +3466,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     if (gaUIVarStates[37])
         INV_DrawRecipeScroll();
     if (gaUIVarStates[15])
-        TEXT_DrawQuestPage();
+        QUESTLOG_DrawQuestPage();
     if (gaUIVarStates[1] || gaUIVarStates[12] || gaUIVarStates[14] || gaUIVarStates[25]
         || gaUIVarStates[26] || gaUIVarStates[28] || gaUIVarStates[29])
         INV_DrawInventoryPanel();
@@ -3475,7 +3475,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
         sub_004B8730_DrawDialogHover();
         INV_DrawInventoryPanel();
     }
-    CHARSEL_DrawProgressiveStates();
+    UI_DrawProgressiveStates();
     if (gaUIVarStates[4])
         sub_004AC690_DrawSkillPanel();
     if (gaUIVarStates[2])
@@ -3510,7 +3510,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     else
         sub_004A6DA0_DrawRightPanelButton();
     if (gaUIVarStates[17])
-        TEXT_DrawQuestButton();
+        QUESTLOG_DrawQuestButton();
     PANEL_DrawLifeManaText();
     if (gaUIVarStates[21])
         sub_0047F710_UpdateSlotBar();
@@ -3565,7 +3565,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
             if (!bWasOn)
             {
                 if (gaUIVarStates[33])
-                    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaHelpScreenHandlers, 5);
+                    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaHelpScreenHandlers, 5);
             }
             else
             {
@@ -3590,7 +3590,7 @@ done:
     if (gaUIVarStates[8])
         NPCMENU_UpdateNpcInteract();
     if (gaUIVarStates[14])
-        ITEM_DrawPanelUnit();
+        USEITEM_DrawPanelUnit();
     WARDENCLIENT_DrawHostileIcon();
     TEXT_UpdateTexts(pView);
     D2Win_10124();
@@ -3622,7 +3622,7 @@ int gbAutomapLeftSaved; // 0x007A51E8
 
 
 int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
-void __fastcall UI_SetCursorPosition(int nX, int nY); // 0x00468770
+void __fastcall CURSOR_SetCursorPosition(int nX, int nY); // 0x00468770
 
 
 // 0x0046F980
