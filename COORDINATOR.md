@@ -60,13 +60,10 @@ Every lane, every time it finishes or gets blocked:
 | 4 | D2Client **0x440000-0x49FFFF** (game, engine, view, inv, chat, options, Warden, Hireables, automap) and D2Client code below 0x440000 |
 | 5 | D2Game |
 | 6 | D2CMP, D2Launch, D2Multi, D2Win, D2Sound, D2Lang, D2Net, D2MCPClient, D2BNClient, Bnclient |
-| 7 | 8 of the 9 borrowed functions (all but 0x4A4AD0, which is lane 1's) |
+| 7 | all 8 borrowed functions (0x4A4AD0 too, from 2026-11-25) and the forcing constructs |
 | 8 | D2Common |
 | 9 | D2Gfx, D2Direct3D, D2DDraw, D2Gdi, D2Glide, D2Hell |
 | 10 | naming plans for placeholder names in known files (`lanes/names/<scope>.tsv`); no source edits |
-| 11 | borrowed functions 0x62B5B0 and 0x4A4AD0 (from 2026-11-25) |
-| 12 | borrowed functions 0x679C80 and 0x6BD230 |
-| 13 | borrowed functions 0x4F8B80 and 0x55A6D0 |
 
 A function belongs to the lane whose address range or file run it sits in, whatever file it is filed in today.
 
@@ -163,9 +160,9 @@ In your own files, whenever your current list allows:
 - **Lane 3, stpl.h's string-key members vs SFILE.CPP's 0x41AAD0: (a), as you're doing.** The assert path (`...\\storm\\h\\stpl.h`, lines 0x5E4/0x5E9) makes the destructor and assignment stpl.h's own, so stpl.h gets them; freezing a shared header to suit one unit's declaration count is the wrong way round. In SFILE.CPP, remove only declarations nothing uses, and say which ones did it. **Never add** a declaration, struct or include only to move the count: that's steering. If removing unused ones doesn't bring 0x41AAD0 back, park the chat tables (b) and say so.
 - **Priority change (the user, 23:44): the 8 borrowed functions come first, above everything else.**
   - **Lane 7, please push your current best sources for 0x677880 and 0x6BD230** as `lane7/00677880-wip` and `lane7/006BD230-wip` (not for merging), each written into its unit on current main with its `// 0x<VA>` marker. The coordinator's compiler readings need a body that builds in today's unit; the only 0x6BD230 near version on the board is the old macro harness.
-  - **New lanes for the borrowed functions (from 2026-11-25 00:40):** lane 11: 0x62B5B0 and 0x4A4AD0 (one value in the wrong register; both already the original's length). Lane 12: 0x679C80 and 0x6BD230 (frame and copy problems). Lane 13: 0x4F8B80 and 0x55A6D0 (spills and argument registers). **Lane 7 keeps 0x677880 and 0x5DD7F0,** where it has live leads. Lane 1 hands 0x4A4AD0 to lane 11 and lane 8 its 0x62B5B0/0x679C80 drafts; post anything you know in your notes. The readings are in [lanes/borrowed/](lanes/borrowed/README.md); the tools are in tools/c2diag (tools/c2diag/IBLIS.md).
+  - **Lane 7 owns all 8 borrowed functions, 0x4A4AD0 included (the user, 00:17): no new lanes.** Lane 1 hands 0x4A4AD0 over; lane 8 its 0x62B5B0/0x679C80 drafts; post anything you know in your notes. Work them closest first, by the compiler readings in [lanes/borrowed/](lanes/borrowed/README.md) (tools: tools/c2diag/IBLIS.md): 0x62B5B0 and 0x4A4AD0 are already the original's length with one value in the wrong register; 0x6BD230 is one unused frame slot; then 0x679C80, 0x4F8B80, 0x5DD7F0, 0x55A6D0, 0x677880.
   - **Lane 7: back on the borrowed functions full time, starting now.** Finish and post the identical-arm branch you have; the remaining sites go to each file's owner (audit-379-lanes.md lists them). Your four: 0x677880 (continue from your 21:40 seed-form fix), 0x62B5B0, 0x679C80, 0x6BD230. Also 0x5DD7F0, where you found the inlined-copy lead at 21:05.
-  - **0x4F8B80 and 0x55A6D0 have no active owner.** The user will start focused chats for them, and the coordinator will post compiler readings for all 8 tonight (the register allocator's own priorities and choices, read from the compiler, in `lanes/borrowed/`). Lane 10 and laneless: your claims on them are released.
+  - **Lane 10 and laneless: your claims on 0x4F8B80, 0x55A6D0 and 0x5DD7F0 are released to lane 7.**
   - **Lane 1:** 0x4A4AD0 before more audit work. The search's best variant reaches the original's length (lanes/vsearch/0x4A4AD0-2-best.cpp).
   - No forcing constructs, as always.
 - **New round check (from #380): the audit counts can only fall.** Every round now runs [tools/auditguard.py](tools/auditguard.py) on the merged tree against main. It counts, over all of Source/: `volatile`, `#pragma optimize`, bare `__assume` (not the SASSERT/DEFAULT_UNREACHABLE macros), `__declspec(noinline)`, emit helpers, names carrying a 1.10 DLL address, decompiler types and labels, `a1`/`v12` names, `T<VA>` structs, `nullptr`, and identical `if`/`else` arms. If any total rises, the round stops and the branch whose files rose is dropped and sent back. Totals are whole-tree, so moving code between files is fine. **Before you post a branch, run it yourself:** `IBLIS_ROOT=$PWD python3 /home/claude/coordwt/tools/auditguard.py origin/main` from your repo root. A rise that a board ruling allows (for example a `noinline` with the #368 evidence, replacing a forcing construct) needs that ruling named in your Ready line.
