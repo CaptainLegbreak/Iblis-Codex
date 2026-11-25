@@ -50,10 +50,6 @@ int __fastcall sub_0052A3B0_BigOp_423AC0(void* hResult, void* hLeft, void* hRigh
 
 extern "C" int __cdecl memcmp(const void* pBuffer1, const void* pBuffer2, unsigned int nSize);
 
-extern "C" unsigned int __security_cookie; // 0x00749DE0
-
-extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x00681A48
-
 struct D2BigServerHandlesStrc
 {
     void* hClientPublic;
@@ -72,12 +68,6 @@ struct D2SrpSha1ContextStrc
     unsigned int aCount[2];
     unsigned char aBuffer[64];
 };
-
-extern "C" const unsigned char gabSha1Pad80[]; // 0x006E03F0
-
-extern "C" const unsigned char gabSha1Pad00[]; // 0x006DEF80
-
-void __fastcall sub_00529F80_Sha1Update(D2SrpSha1ContextStrc* pContext, const unsigned char* pData, unsigned int nLength); // 0x00529F80
 
 struct D2Blob32Strc
 {

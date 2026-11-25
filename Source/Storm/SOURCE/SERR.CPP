@@ -46,7 +46,6 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 char* __stdcall SStrChrR(const char*,char); // 0x004134D0
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 void* __cdecl SMsgGetDefaultWindow(); // 0x00420310
@@ -65,8 +64,6 @@ static const char* GetMessageText(int nIndex); // 0x0041C170
 static int __stdcall FormatTypeName(const char* szName, char* szOut, unsigned int nSize); // 0x0041C1F0
 
 extern "C" const char gszCloseParen_006CF324[]; // 0x006CF324
-extern "C" const char gszTypeNameEnd_006CF32C[];                                                           // 0x006CF32C
-extern "C" const char gszOpenParen_006CF328[];                                                             // 0x006CF328
 extern "C" const char gszFormatName[]; // 0x006FFC58
 extern const char* gpszMessageFallback_006CF2F4[]; // 0x006CF2F4
 extern const char gszEmptyAssertText; // 0x006CC837

@@ -1,7 +1,5 @@
 #include "Fog.h"
 
-int __stdcall SFileCloseFile(void* pArg);    // 0x004198D0
-
 
 // 0x00402370
 int __stdcall sub_00402370(int nUnused1, int nUnused2)

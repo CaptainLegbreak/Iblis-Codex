@@ -46,8 +46,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(voi
 
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent); // 0x006CC130
 
-extern "C" __declspec(dllimport) void* __stdcall GetCurrentProcess(); // 0x006CC13C
-
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
@@ -66,8 +64,6 @@ void __cdecl sub_004026D0_WriteMiniDump(); // 0x004026D0
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
-int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext); // 0x0040CC10
-
 _iobuf* __fastcall LOGMANAGER_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize); // 0x0040EBD0
 
 void __fastcall LOGMANAGER_GetLogDirectory(char* szDirectory, int nSize); // 0x0040F000
@@ -79,8 +75,6 @@ void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle,
 void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...); // 0x00410660
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-
-extern int gbImageHlpLoaded; // 0x0075D014
 
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 

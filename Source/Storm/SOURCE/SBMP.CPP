@@ -97,8 +97,6 @@ struct D2BitOutputStrc
 
 const char* __stdcall SStrChr(const char* szString, char c); // 0x00413490
 
-void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-
 typedef unsigned char BYTE;
 
 typedef unsigned short WORD;
@@ -162,8 +160,6 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 
 
-void __stdcall sub_0041D2A0_CopyBytes(void*, const void*, unsigned int); // 0x0041D2A0
-
 static int IsSupportedTgaHeader(const D2TgaFieldsStrc* pHeader); // 0x006C50D0
 
 static int __stdcall DecodeTgaMem(const D2TgaFieldsStrc* pHeader, unsigned int nSize, D2PaletteColorStrc* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth);
@@ -200,10 +196,6 @@ static unsigned int __stdcall sub_006C59C0_CopyPixels(BYTE* out, D2CopyStackArg 
 
 
 
-
-extern "C" unsigned int __security_cookie; // 0x00749DE0
-
-extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x00681A48
 
 int __stdcall SFileGetFileSize(void* hFile, unsigned int* pdwFileSizeHigh); // 0x00416370
 

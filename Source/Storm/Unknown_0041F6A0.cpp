@@ -74,34 +74,7 @@ public:
     unsigned int adwData[0x3474 / 4];
 };
 
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
-extern "C" __declspec(dllimport) int __stdcall WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x006CC1A8
-extern "C" __declspec(dllimport) void* __stdcall VirtualAlloc(void* pAddress, size_t nSize, unsigned long dwAllocationType, unsigned long dwProtect); // 0x006CC21C
-extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, size_t nSize, unsigned long dwFreeType); // 0x006CC220
-extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
-extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
-extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
-extern "C" int __cdecl vsprintf(char* szDest, const char* szFormat, va_list args); // 0x00682DA1
-extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
-void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
-extern D2CriticalSectionStrc gaSLogLocks_00779238[4]; // 0x00779238
-extern D2SLogStrc* gapSLogBuckets_00779298[4]; // 0x00779298
-extern int gbSLogDebugOutput_007790AC; // 0x007790AC
-
 typedef int (__stdcall* SMSGHANDLER)(void* pParams);
-
-void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
-void __stdcall AddWindow(int nValue); // 0x004208E0
-int __stdcall DispatcherWindowProc(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam); // 0x00420CF0
-int __fastcall FindWindow(HWND__* hWnd); // 0x004209E0
-int __stdcall SEvtRegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, int nFlags, SMSGHANDLER pHandler); // 0x00426420
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
 struct D2StormByteArrayStrc
 {

@@ -264,7 +264,6 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     tStack.nUsed -= 3;
 }
 
-void __stdcall BigAddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c); // 0x004221F0
 // 0x00422750
 static int IsOne(BigBuffer& a)
 {
@@ -273,7 +272,6 @@ static int IsOne(BigBuffer& a)
     return tRead.Count() == 1 && tRead[0] == 1;
 }
 
-void __stdcall Set2Exp(BigBuffer& a, unsigned int nExponent); // 0x00422B00
 // 0x00422FC0
 static void __stdcall sub_00422FC0_SubUInt(const BigBuffer* pSrc, BigBuffer* pDst, unsigned int nValue)
 {
@@ -333,8 +331,6 @@ static void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue)
     a[0u] = nValue;
     a.SetCount(1);
 }
-
-void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack); // 0x00424180
 
 // 0x004245F0
 static void __stdcall BigMulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
@@ -474,7 +470,6 @@ static int __stdcall IsPrime(BigStack* pStack, BigBuffer& a)
     return bPrime;
 }
 
-int BigIsEven(const BigBuffer& a); // 0x00421440
 void __stdcall FindPrime(unsigned int nBits, BigBuffer& b, BigBuffer& c, BigStack* pStack, BigBuffer& a); // 0x004255E0
 
 // 0x00425330

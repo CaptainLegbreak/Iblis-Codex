@@ -5,52 +5,6 @@ struct _iobuf;
 
 extern "C" int __cdecl fclose(_iobuf* pFile);                                                               // 0x00681FDC
 
-void __cdecl operator delete(void* pMemory);                                                                // 0x004053F0
-
-extern "C" __declspec(dllimport) void* __stdcall LoadLibraryW(const wchar_t* szFileName);                  // 0x006CC294
-
-extern "C" __declspec(dllimport) void* __stdcall GetProcAddress(void* hModule, const char* szProcName);     // 0x006CC148
-
-extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);                                  // 0x006CC134
-
-extern "C" const char gszMiniDumpWriteDump[];                                                      // 0x006FFB94
-
-extern void* ghDbgHelp;                                                                            // 0x0098A680
-
-extern void* gpfnEnumerateLoadedModules64;                                                         // 0x0098A6A4
-
-extern void* gpfnStackWalk64;                                                                      // 0x0098A6A0
-
-extern void* gpfnSymFunctionTableAccess64;                                                         // 0x0098A698
-
-extern void* gpfnSymGetLineFromAddr64;                                                             // 0x0098A6E8
-
-extern void* gpfnSymGetModuleBase64;                                                               // 0x0098A69C
-
-extern void* gpfnSymGetModuleInfo64;                                                               // 0x0098A684
-
-extern void* gpfnSymGetOptions;                                                                    // 0x0098A6AC
-
-extern void* gpfnSymGetSymFromAddr64;                                                              // 0x0098A68C
-
-extern void* gpfnSymInitialize;                                                                    // 0x0098A6A8
-
-extern void* gpfnSymCleanup;                                                                       // 0x0098A6B8
-
-extern void* gpfnSymSetOptions;                                                                    // 0x0098A6B4
-
-extern void* gpfnSymEnumerateModules64;                                                            // 0x0098A688
-
-extern void* gpfnSymSetSearchPath;                                                                 // 0x0098A690
-
-extern void* gpfnSymFindFileInPath;                                                                // 0x0098A6EC
-
-extern void* gpfnSymLoadModule64;                                                                  // 0x0098A6DC
-
-extern void* gpfnSymUnloadModule64;                                                                // 0x0098A694
-
-extern void* gpfnMiniDumpWriteDump;                                                                // 0x0098A6E0
-
 namespace crashy
 {
 class Report
@@ -84,15 +38,11 @@ typedef char* va_list;
 extern "C" int __cdecl vfprintf(_iobuf* pFile, const char* szFormat, va_list args);                         // 0x00685637
 
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
-
 int __fastcall EXCEPTIONS_GetAppPath(char* szPath, unsigned int nSize);                                   // 0x0040C220
 
 unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x00413800
 
 int __fastcall FOG_CreatePathHierarchy(const char* szPath);                                        // 0x00406A10
-
-void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...);                // 0x00410660
 
 
 
@@ -113,8 +63,6 @@ int gnOsKind; // 0x0074D890
 float gfOsVersion; // 0x0074D894
 
 int gbSystemInfoCaptured; // 0x0074D88C
-
-bool __cdecl sub_00401B00_LoadDbgHelp(); // 0x00401B00
 
 // build: symbol ??_7Report@crashy@@6B@ 0x006FF984
 // 0x00401070

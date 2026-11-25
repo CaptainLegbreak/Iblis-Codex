@@ -11,30 +11,7 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
-extern "C" char* __cdecl strtok(char* szText, const char* szDelim); // 0x0068264F
-extern "C" int __cdecl strncmp(const char* szLeft, const char* szRight, size_t nCount); // 0x00682591
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
-void __fastcall FOG_SetLogPrefix(const char* szLogPrefix); // 0x00407960
-void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersion, int bLogToFile); // 0x00408CE0
-void __fastcall SaveCmdLine(const char** argv); // 0x00405F00
-void __cdecl MoveBetaSettingsToRelease(); // 0x00406040
-void __fastcall ParseCmdLine(D2ConfigStrc* pCfg, const char* argv); // 0x004059A0
-int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType); // 0x00405C30
-int __cdecl sub_00405EF0(); // 0x00405EF0
-extern "C" __declspec(dllimport) void* __stdcall OpenEventA(unsigned long dwDesiredAccess, int bInheritHandle, const char* szName); // 0x006CC12C
-extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent); // 0x006CC130
-extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
-extern "C" const char gszDash_006CCA2C[]; // 0x006CCA2C
-extern const char* gaszModuleTypes_007065C4[6]; // 0x007065C4
 extern void* ghCurrentProcess_0074C718; // 0x0074C718
-extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 0x006829C0
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
-int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
-extern int gbRunningAsService; // 0x0074C720
-extern char szSRegReadBuf[]; // 0x0074C728
 
 // build: symbol ?ERRORMANAGER_IsCmdSeparator@* 0x004055D0
 static int ERRORMANAGER_IsCmdSeparator(char c)

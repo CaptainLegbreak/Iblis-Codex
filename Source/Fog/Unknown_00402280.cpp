@@ -1,6 +1,5 @@
 #include "D2CrashTypes.h"
 #include "D2SysTypes.h"
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);       // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);       // 0x006CC214
 extern "C" int __cdecl strncpy_s(char* szDest, unsigned int nDestSize, const char* szSource, unsigned int nCount); // 0x006859D2
 typedef int (__stdcall* SymSetSearchPathFn)(void* hProcess, const char* szSearchPath);
