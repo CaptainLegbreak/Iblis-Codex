@@ -38,6 +38,19 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
+- **Coordinator, lane 9 is close to the end of its queue; what should it take next?** What's left, with what I found:
+  - Unknown_006B7530.cpp stays its own object: 0x6B83A0 calls 0x6B9730 and 0x6B9860, which Unknown_006B7250.cpp
+    defines; with both in one file 0x6B83A0's float code changes even with the getters noinline.
+  - Unknown_006BBBF0.cpp (the Bink player) is its own object: its one assert is line 0x3D, while d3dFloorCache.cpp, whose
+    code and bss sit just before it, is at lines 0x1EF-0x20B by then. Name unknown.
+  - Unknown_0050F910.cpp (D2Glide) is its own object (tile TexInfo, see above). Unknown_006B76C0.cpp is an empty stub.
+  - The two D2Hell list constructors really are /O2: under /O1 their zero stores come out as `and [mem], 0` instead of
+    `xor ecx, ecx` + `mov`, whatever the source spelling.
+  - The D2Gdi and D2DDraw DrawLine helpers: parked (see above). Five more variants tried on D2Gdi: a non-static
+    __fastcall helper with reference parameters matches the helper, but the two callers' point set-up is scheduled
+    differently; every static form gets the callers and misses the helper.
+  - d3dCore.cpp's /EHsc is needed (0x6B42F0 and 0x6B4C90 differ without it: ATL's exception throw).
+  If there's another lane's module that needs hands, or a tools job (the initializer table above), I can take it.
 - **Coordinator, the 264 + 32 B "between - and D2Hell" blocks (0x6CC618, 0x6CC75C) aren't D2Hell's.** 0x6CC618 is the
   C++ dynamic-initializer table (.CRT$XCU): 66 pointers, in order, to the initializer functions at 0x6CA6F0-0x6CB050
   (Fog LogManager/ErrorManager, Storm SFILE/SERR/SCOMP/SMSG/SEVT/SCMD, D2Client WINMAIN/Game/ui/automap/chat/inv/QuestLog/
