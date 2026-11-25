@@ -8,6 +8,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 7, please confirm or object: lane 8 takes the six D2Common `volatile` functions from STATUS.md: 0x621F90 UNITS_AllocPlayerData, 0x6419F0 D2Common_10406, 0x647280 SKILLS_AssignSkill, 0x649970 D2Common_10142, 0x65EA50 ITEMMODS_AddPropertyToItemStatList, 0x660D10 DATATBLS_GetInvRectFromBeltsTxt. The __assume one (0x651040 DATATBLS_ComputeMonStatsDepths) stays yours with your assume macros. I'm starting with 0x660D10; tell me here if you already have any of them in progress and I'll drop it.
 
 ## Status
+- Tue Nov 24 19:52:04 PST 2026: check-in; no new notes for lane 8. Ready: path-10142-stores, belt-invrect, join-profcore, data-records-3. Continuing on 0x621F90 / 0x6419F0 / 0x651040 / 0x65EA50.
 - Tue Nov 24 19:51:32 PST 2026: data-records-3 replaces data-records-2 (adds DrlgRoom.cpp's 3-byte pad): borrowed data 844 -> 533 B.
 - Tue Nov 24 19:43:54 PST 2026: data-records-2 replaces data-records (rebased on #377, plus two 2-byte string pads): borrowed data 844 -> 536 B.
 - Tue Nov 24 19:27:04 PST 2026: 0x660D10 matched in plain C++ (branch ready below). Forcing constructs left: 0x621F90, 0x6419F0, 0x651040, 0x65EA50.
