@@ -14,7 +14,7 @@ see tools/c2diag/IBLIS.md). Each draft was put into its unit on main #384 and bu
 | 0x62B5B0 | 1,192 B | D2Common/ITEMS/Items.cpp | lane8/0062B5B0-wip | **1,192 / 1,192** | 355 | +0x30: the original zeroes **esi**, ours edi; the whole function's esi/edi choice follows from that variable |
 | 0x4A4AD0 | 1,232 B | D2Client/Unknown_004A43E0.cpp | lane7/004A4AD0 | **from source, #400** | 0 | done: TEXT_ScrollKeyConfigList's prev/next written as plain `if`s gave nMax and gnKeyConfigFirstVisible the uses the original's allocation needs |
 | 0x4F8B80 | 561 B | D2Gfx/SRC/Window.cpp | lane7/004F8B80-wip | 580 / 561 | 460 | +0x03: the original's frame is 0x48, ours 0x40: two more locals live in memory in the original (the nL21/nL12 spills the board notes) |
-| 0x5DD7F0 | 1,084 B | D2Game/Ai/AiUtil.cpp | lane7/005DD7F0-wip-2 | 1,037 / 1,084 | 846 | +0x3B: block order; the original's flag test jumps forward to 0x5DD9A0 (the taken case is laid out at the end) |
+| 0x5DD7F0 | 1,084 B | D2Game/Ai/AiUtil.cpp | lane5/005DD7F0-wip (75e30d753, on #405) | 1,037 / 1,084 | 846 | +0x3B: block order, the same as lane 7's wip-2: the original's flag test jumps forward to 0x5DD9A0 (the taken case is laid out at the end) |
 | 0x55A6D0 | 2,253 B | D2Game/ITEMS/Items.cpp | lane7/0055A6D0-wip | 2,239 / 2,253 | 2,015 | +0x17: the original keeps the 0x1C parameter in esi and the fastcall edx argument in ebx; ours swaps them |
 | 0x677880 | 4,232 B | D2Common/DRLG/OutPlace.cpp | waiting for lane 7's current source | | | the seed form fixed the first difference (lane 7, 21:40) |
 
