@@ -461,11 +461,6 @@ static D2UnitStrc* __stdcall AIBAAL_GetUberTarget(D2GameStrc* pGame, int* pMax, 
     return pTarget;
 }
 
-int __stdcall sub_M244_Emit_005FBB00(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiCmdStrc* pArgs)
-{
-    return AIBAAL_GetUberTargetScore(pUnit, pTarget, pArgs) * 7 + 0x3D1;
-}
-
 // 0x005FC000
 int __fastcall AIBAAL_CullPotentialTargets(D2UnitStrc* pBaal, D2UnitStrc* pTarget)
 {
@@ -595,11 +590,6 @@ static inline int AIBAAL_GetRandomArrayIndex_Inline(int* pArray, int nArraySize,
     return nDefaultValue;
 }
 
-int __stdcall sub_B01_Emit_005FC300(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nCount, int bInMediumRange, int bInFarRange)
-{
-    return AIBAAL_RollRangedAiParam(pGame, pTarget, nCount, bInMediumRange, bInFarRange, pUnit);
-}
-
 static inline unsigned __int64 AIBAAL_RollSeed_M282Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -715,16 +705,6 @@ static int __stdcall AIBAAL_RollMeleeAiParam(D2GameStrc* pGame, D2UnitStrc* pTar
     }
 
     return AIBAAL_GetRandomArrayIndex_M282Inline(aiParams, 16, pUnit, 1);
-}
-
-int __stdcall sub_M282_Emit_005FC1C0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int bFlag, int nExtra)
-{
-    return AIBAAL_RollMeleeAiParam(pGame, pTarget, bFlag, pUnit) + nExtra * 3;
-}
-
-D2UnitStrc* __stdcall sub_Emit_005FBDD0(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pMax, int* pCount, D2AiCmdStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*))
-{
-    return AIBAAL_GetUberTarget(pGame, pMax, pCount, pArgs, pfCull, pUnit);
 }
 
 // 0x005FC300

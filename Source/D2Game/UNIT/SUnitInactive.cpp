@@ -376,18 +376,6 @@ static void __stdcall SUNITINACTIVE_TakeInactiveListNode(D2InactiveUnitNodeStrc*
     }
 }
 
-void __fastcall sub_M105_Emit_00541890(D2GameStrc* pGame, D2InactiveUnitListStrc* pList)
-{
-    D2InactiveMonsterNodeStrc* pCurrent = pList->pInactiveMonsters;
-    while (pCurrent)
-    {
-        D2InactiveMonsterNodeStrc* pNode = pCurrent;
-        pCurrent = pCurrent->pNext;
-        AIGENERAL_FreeAllMinionLists(pGame, pNode->pMinionList);
-        SUNITINACTIVE_FreeInactiveMonsterNode(pGame, pNode);
-    }
-}
-
 // 0x00541970
 static int SUNITINACTIVE_IsItemNodeAlive(D2InactiveItemNodeStrc* pNode, D2GameStrc* pGame)
 {

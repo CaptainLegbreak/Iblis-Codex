@@ -294,18 +294,6 @@ static void __stdcall SKILLS_DamageImpaleWeapon(D2GameStrc* pGame, int nChance, 
     }
 }
 
-int __fastcall sub_M401_Emit_005DAB40(D2GameStrc* pGame, D2UnitStrc* pUnit, int nChance, int nAmount)
-{
-    D2UnitStrc* pItem = PLAYER_GetWeaponForSkill(pUnit);
-    if (!pItem)
-    {
-        return 0;
-    }
-
-    SKILLS_DamageImpaleWeapon(pGame, nChance, nAmount + 7, pItem, pUnit);
-    return 9;
-}
-
 // 0x005DAB40
 int __fastcall SKILLS_SrvSt07_Impale(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {

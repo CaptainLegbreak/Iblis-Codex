@@ -5267,11 +5267,6 @@ void __fastcall D2GAME_PLRMSG_Last_6FC89450(D2GameStrc* pGame, D2UnitStrc* pAtta
     sub_6FC84D40(pGame, &packet5A);
 }
 
-int __fastcall sub_Emit_0054D130(D2GameStrc* pGame, D2UnitStrc* pMerc, D2UnitStrc* pPlayer, int nBodyLoc)
-{
-    return PLRMSG_TakeMercItemToCursor(pGame, pMerc, pPlayer, nBodyLoc);
-}
-
 // 0x0054DA10
 void __fastcall PLRMSG_SendDeathMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode)
 {

@@ -126,23 +126,6 @@ static void __stdcall sub_00597D70_SendUsedSkill(D2UnitStrc* pMonster, D2UnitStr
     }
 }
 
-void __fastcall sub_00597D70_EmitCaller(D2GameStrc* pGame, D2UnitStrc* pMonster, D2ClientStrc* pClient)
-{
-    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pMonster);
-    if (pTarget && !CLIENTS_IsInUnitsRoom(pTarget, pClient))
-    {
-        pTarget = 0;
-    }
-
-    if (pMonster->dwAnimMode == 17 || UNITS_GetUsedSkill(pMonster))
-    {
-        sub_00597D70_SendUsedSkill(pMonster, pTarget, pClient);
-        return;
-    }
-
-    SCMD_SendSkillUseOnUnit(pClient, 1, pMonster->dwUnitId, pTarget->dwUnitType, pTarget->dwUnitId, pMonster->dwAnimMode, 0, 0, 0);
-}
-
 static inline int GetUnitGUID(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
 
 // 0x00597E20

@@ -1340,11 +1340,6 @@ static int __stdcall SKILLS_GetWhirlwindHitCount(D2GameStrc* pGame, D2SkillStrc*
     return nCount;
 }
 
-int __fastcall sub_M97_Emit_005D9320(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill)
-{
-    return SKILLS_GetWhirlwindHitCount(pGame, pSkill, pUnit);
-}
-
 // 0x005D9460
 int __fastcall SKILLS_RemoveWhirlwindStats(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nSkillId, int nX, int nY)
 {
@@ -2021,28 +2016,6 @@ static int __stdcall SKILLS_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D2UnitS
 
     D2GAME_SKILLS_RewindSkillEx_6FCBD260(pGame, pUnit, 10);
     return 0;
-}
-
-int __fastcall sub_M441_Emit_005DA120(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    if (SKILLS_GetFlags(pSkill) & 0x300)
-    {
-        if (SKILLS_Leap(pGame, pSkill, pUnit))
-        {
-            D2GAME_SKILLS_RewindSkillEx_6FCBD260(pGame, pUnit, 0x33);
-        }
-
-        return 9;
-    }
-
-    SKILLS_SetFlags(pSkill, nSkillLevel);
-    return 3;
 }
 
 static inline int sub_M392_GetUnitType(D2UnitStrc* pUnit)

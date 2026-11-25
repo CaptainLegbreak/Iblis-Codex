@@ -825,24 +825,6 @@ int __fastcall SKILLS_GetSkillValue(int nSkillId)
     return 0;
 }
 
-int __stdcall sub_M118_Emit_004FD5A0(const D2WinImageClickRectStrc* pClickRect, int nX, int nY)
-{
-    while (pClickRect && pClickRect->pCallback)
-    {
-        if (IMAGE_IsInClickRect(pClickRect, nX, nY))
-        {
-            return 1;
-        }
-        ++pClickRect;
-    }
-    return 0;
-}
-
-D2CofNodeStrc* __stdcall sub_M118_Emit_00503310(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
-{
-    return D2COMP_FindCofNode(nClass, nMode, dwWeaponClass);
-}
-
 // 0x005C3400
 extern "C" __declspec(dllexport) int __fastcall SKILLS_IsDimVisionOrTerrorState(int nValue) {
     if (nValue != 0x17) {
