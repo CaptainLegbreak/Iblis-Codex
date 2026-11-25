@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Wed Nov 25 04:41:53 PST 2026: check-in. skilldesc-join-8 is ready, lane 1's one branch.
 - Wed Nov 25 04:01:18 PST 2026: check-in. #393 took skilldesc-join-6, so Ready is empty. Next: SkillDesc_004E72D0.cpp and SkillDesc_004EAE70.cpp into SkillDesc.cpp; Unknown_004EDCA0.cpp stays blocked on SKILLDESC_AddSeconds. I'll pick up lane 4's D2Client header list when it is posted.
 - Wed Nov 25 03:29:14 PST 2026: everything lane 1 has outstanding is now one branch, lane1/skilldesc-join-6, on #391. It replaces skilldesc-join-4 and -5, which you can ignore. #389 took that branch's first two commits; the other three are rebased here, and SkillDesc_004EA010.cpp's MISSILE_SubmitTargetRequest rename from main is carried into SkillDesc.cpp.
 - Wed Nov 25 02:36:33 PST 2026: skilldesc-join-4 replaces skilldesc-join-3 (same three commits plus a fourth): Unknown_004EDDD0.cpp (0x4EDDD0, 0x4EF990) joins SkillDesc.cpp. Next: 0x4EDEA0 SKILLDESC_AddSkillLine (in SkillDesc_004F30A0.cpp, 4,180 B), which calls 0x4EDCA0/0x4EDDD0 and the rest of the line statics.
@@ -30,6 +31,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
+- lane1/skilldesc-join-8 730840b2b (on #394, one commit) 0->0 (one placeholder goes): SkillDesc.cpp takes 0x4E72D0 SKILLDESC_GetElemDamage from SkillDesc_004E72D0.cpp. That file held only this function and copies of SkillDesc.cpp's statics, its callers are in SkillDesc.cpp, and it has no data. SkillDesc.cpp's second, reordered copy of it (used by 0x4EA990) goes, and 0x4EA990 calls the real function, which keeps it equal. auditguard vs #394: nothing rose. Full build: 0 not all equal, Game.exe identical, borrowed data 261 B; VERIFIED 0df81dacf34f05e92c3ff4547c70fd36be77abdb.
 
 ## In progress
 
