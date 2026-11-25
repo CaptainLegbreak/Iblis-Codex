@@ -175,8 +175,8 @@ struct D2CharacterPreviewRecordStrc
     unsigned char nGuildFlags[2];
     unsigned char nGuildBgColor;
     unsigned char nGuildFgColor;
-    unsigned char f_1E;
-    unsigned int f_1F;
+    unsigned char nGuildEmblem;
+    unsigned int dwGuildTag;
 };
 
 #pragma pack(pop)
@@ -3228,8 +3228,8 @@ void __fastcall CLIENTS_FillCharacterPreviewInfo(D2ClientStrc* pClient, char* sz
         }
         pPreview->nGuildBgColor = nBgColor;
         pPreview->nGuildFgColor = nFgColor;
-        pPreview->f_1E = nEmblem;
-        pPreview->f_1F = pClient->dwGuildTag;
+        pPreview->nGuildEmblem = nEmblem;
+        pPreview->dwGuildTag = pClient->dwGuildTag;
 
         const int bBadLevel = nLevelIndex > PREVIEW_MAX_LEVEL_INDEX;
         const int bBadClass = (unsigned char)nClassId >= NUMBER_OF_PLAYERCLASSES;
