@@ -367,8 +367,6 @@
     "extern \"C\" char gpPlayerProfileBckgCelFileB[]; // 0x0077BD40",
     "extern \"C\" void __cdecl CHATDLG_OnLadderSelect(); // 0x00443EF0",
     "extern \"C\" void __cdecl CHARSEL_SubmitProfile(); // 0x00443F80",
-    "extern \"C\" void __cdecl sub_00447730(); // 0x00447730",
-    "extern \"C\" void __cdecl CHATDLG_OnShowUser(); // 0x00449330",
     "extern \"C\" char gFirstRecordBlock_007A0818[]; // 0x007A0818",
     "extern \"C\" char gData_0077BD84[]; // 0x0077BD84",
     "extern \"C\" char gpBnetJoinGameScrollBarsCelFile[]; // 0x0077BC20",
@@ -574,7 +572,6 @@
     "extern \"C\" void __cdecl COMCALLBACK_OpenCreateScreen(); // 0x004467D0",
     "extern \"C\" void __cdecl COMCALLBACK_OnActivate(); // 0x00447A90",
     "extern \"C\" char gData_0077BD84[]; // 0x0077BD84",
-    "extern \"C\" void __cdecl sub_00447730(); // 0x00447730",
     "extern \"C\" char gFirstRecordBlock_007A0818[]; // 0x007A0818",
     "extern \"C\" void __cdecl sub_004456D0(); // 0x004456D0"
    ],

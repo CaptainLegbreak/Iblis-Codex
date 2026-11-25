@@ -9475,26 +9475,6 @@
      "name": "GAME_IsLaunchExpansion"
     },
     {
-     "va": "0x00446CF0",
-     "length": 6,
-     "name": "GAME_GetChannelName"
-    },
-    {
-     "va": "0x004473F0",
-     "length": 6,
-     "name": "sub_004473F0"
-    },
-    {
-     "va": "0x004476F0",
-     "length": 6,
-     "name": "sub_004476F0"
-    },
-    {
-     "va": "0x00447730",
-     "length": 5,
-     "name": "sub_00447730"
-    },
-    {
      "va": "0x00449890",
      "length": 129,
      "name": "?GAME_CalcCdKeyChecksum@@YIXPADPAI@Z"
@@ -10933,6 +10913,11 @@
      "name": "?COMCALLBACK_PlayTempSmack@@YAHXZ"
     },
     {
+     "va": "0x00446CF0",
+     "length": 6,
+     "name": "GAME_GetChannelName"
+    },
+    {
      "va": "0x00446D00",
      "length": 19,
      "name": "?COMCALLBACK_SetText@@YAHPBD@Z"
@@ -10966,6 +10951,11 @@
      "name": "?COMCALLBACK_CompareNames@@YAHPBD0@Z"
     },
     {
+     "va": "0x004473F0",
+     "length": 6,
+     "name": "sub_004473F0"
+    },
+    {
      "va": "0x00447400",
      "length": 342,
      "name": "COMCALLBACK_SetNamedValue"
@@ -10976,9 +10966,19 @@
      "name": "COMCALLBACK_SplitName"
     },
     {
+     "va": "0x004476F0",
+     "length": 6,
+     "name": "sub_004476F0"
+    },
+    {
      "va": "0x00447700",
      "length": 37,
      "name": "CHATDLG_OnChannelDoesNotExist"
+    },
+    {
+     "va": "0x00447730",
+     "length": 5,
+     "name": "sub_00447730"
     },
     {
      "va": "0x00447740",
@@ -11108,6 +11108,11 @@
      "name": "?COMCALLBACK_OnWhisperSent@@YGHPBD0@Z"
     },
     {
+     "va": "0x00448BD0",
+     "length": 157,
+     "name": "?CHATDLG_UpdateScroll@@YIXH@Z"
+    },
+    {
      "va": "0x00448C70",
      "length": 444
     },
@@ -11129,6 +11134,11 @@
      "va": "0x00449320",
      "length": 9,
      "name": "?COMCALLBACK_AddEntry@@YAPAXPBDHH@Z"
+    },
+    {
+     "va": "0x00449330",
+     "length": 26,
+     "name": "CHATDLG_OnShowUser"
     },
     {
      "va": "0x00449350",
@@ -12818,16 +12828,6 @@
      "va": "0x00445DF0",
      "length": 502,
      "name": "?CHATDLG_CreateJoinScreen@@YAXXZ"
-    },
-    {
-     "va": "0x00448BD0",
-     "length": 157,
-     "name": "?CHATDLG_UpdateScroll@@YIXH@Z"
-    },
-    {
-     "va": "0x00449330",
-     "length": 26,
-     "name": "CHATDLG_OnShowUser"
     },
     {
      "va": "0x004497F0",
