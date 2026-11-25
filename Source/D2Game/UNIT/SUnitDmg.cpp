@@ -20,6 +20,7 @@
 #include "D2ObjModes.h"
 #include "D2PlayerModes.h"
 #include "D2MonModes.h"
+#include "FogApi.h"
 
 #define UNIT_MONSTER 1
 
@@ -195,9 +196,7 @@ typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState,
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
 

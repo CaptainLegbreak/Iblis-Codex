@@ -3,6 +3,7 @@
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
 #include "D2ClientParty.h"
+#include "FogApi.h"
 struct D2StoredUnitRecordStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -54,8 +55,6 @@ struct D2HintString2AndUnusedStrc
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 

@@ -18,6 +18,7 @@
 #include "D2Packets.h"
 #include "D2GameServer.h"
 #include "D2LanguageNames.h"
+#include "FogApi.h"
 
 struct D2ClientStrc;
 
@@ -198,9 +199,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x1A_B_C_6FC3D410(D2ClientStrc* pClient
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

@@ -20,6 +20,7 @@
 
 #include "D2Win32Types.h"
 #include "D2WinPopupLine.h"
+#include "FogApi.h"
 
 enum D2C_WinControlTypes
 {
@@ -41,7 +42,6 @@ struct D2WinPopUpStrc
     int nCurrentLine;
 };
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 

@@ -1,13 +1,13 @@
 #include "D2Client.h"
 #include "D2Unicode.h"
 #include "D2Structs.h"
+#include "FogApi.h"
 
 struct D2TextRowStrc { void* pText; D2TextRowStrc* pNext; };
 #pragma pack(push, 2)
 struct D2TextBlockStrc { D2TextRowStrc* pLines; unsigned char unknown04[0x12]; int unknown16; };
 #pragma pack(pop)
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall GAME_ResetMouseState(); // 0x0044DA40
 D2SoundStrc* __fastcall sub_004B9610(int nSound); // 0x004B9610
 void __fastcall SOUNDINST_ArmHint(D2SoundStrc* pSound, int nZero, int nZero2, int nMode); // 0x004B9EF0
@@ -19,8 +19,6 @@ void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 int __fastcall D2Win_10127_SetFont(int nFont); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 D2TextBlockStrc* __fastcall TEXT_CreateTextBox(const Unicode* pText, int nMode); // 0x004A05E0
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall sub_004E0650_GetStringSound(unsigned short nString); // 0x004E0650
 void __fastcall UNITSND_ReleaseSkillSfx(D2UnitStrc* pUnit); // 0x004CB190

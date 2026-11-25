@@ -1,5 +1,6 @@
 #include "D2Direct3D.h"
 #include "D2Win32Base.h"
+#include "FogApi.h"
 
 #define WRITE_CORNER(i) pVertices[i].dwColor=PackGridColor(pPoints[i],nAlpha); pVertices[i].fX=(float)pPoints[i].nX; pVertices[i].fY=(float)pPoints[i].nY;
 struct D2DrawDeviceStrc;
@@ -21,8 +22,6 @@ struct D2RendererSettingsStrc;
 extern D2TLVertexStrc gaVertices[4]; // 0x00970F48
 static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 static void __stdcall sub_006B7FD0_GetPanelRect(int nSide, D2RectStrc* pRect, int* pOffset, int bFlag);
 
 struct D2TilePartStrc { short x,y; char unknown004[16]; };

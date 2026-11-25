@@ -3,6 +3,7 @@
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
 #include "D2WinSplitText.h"
+#include "FogApi.h"
 
 struct Unicode;
 struct D2ButtonStringStrc;
@@ -194,7 +195,6 @@ extern "C" void _ReadWriteBarrier(void);
 
 #pragma intrinsic(_ReadWriteBarrier)
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                                                                   // 0x00478A00
 
@@ -220,7 +220,6 @@ struct SMSGHANDLER_PARAMS;
 
 
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 

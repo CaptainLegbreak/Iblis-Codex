@@ -13,6 +13,7 @@
 #include "D2Path.h"
 #include "D2ClientParty.h"
 #include "D2ClientTextPanel.h"
+#include "FogApi.h"
 
 struct D2ActiveRoomStrc;
 
@@ -96,13 +97,10 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
 void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
@@ -240,7 +238,6 @@ int __fastcall sub_005262A0_Utf8CountChars(const char* pSrc, int nCount); // 0x0
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 

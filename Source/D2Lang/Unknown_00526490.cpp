@@ -1,12 +1,12 @@
 #include "D2Lang.h"
 #include "D2LangTypes.h"
 #include "D2Unicode.h"
+#include "FogApi.h"
 
 #include "gen/data/Source/D2Lang/Unknown_00526490.inc"
 
 struct D2LangByteRangeStrc;
 struct D2UtfConvertSpecStrc;
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" unsigned int __cdecl strlen(const char* szString);
 extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix); // 0x00687605

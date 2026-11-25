@@ -24,6 +24,7 @@
 #include "D2QuestData.h"
 #include "D2Packets.h"
 #include "D2GameCallbackArgs.h"
+#include "FogApi.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -151,9 +152,7 @@ void __stdcall GAME_SendGameList(void* pArg); // 0x0052E8E0
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -311,7 +310,6 @@ struct D2Net52BE10Strc
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);
 
 // build: symbol _gszD2NetSourceFile 0x006E0488
 extern "C" const char gszD2NetSourceFile[];
@@ -982,7 +980,6 @@ struct D2PoolSystemStrc;
 
 #include "gen/data/Source/D2Game/GAME/Game_0052D720.static/gnFrameRate.inc"
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                              // 0x0040B380
 
 int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem);                                     // 0x0040A040
 

@@ -5,6 +5,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
+#include "FogApi.h"
 
 #pragma function(memset)
 
@@ -93,9 +94,7 @@ extern "C" const char gszA2Q0SourceFile[]; // 0x006E1F2C
 // build: symbol _gszA2Q1SourceFile 0x006E1F60
 extern "C" const char gszA2Q1SourceFile[],text_006CC837[]; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char*,const char*,int); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl sub_00681E09(int); // 0x00681E09
 

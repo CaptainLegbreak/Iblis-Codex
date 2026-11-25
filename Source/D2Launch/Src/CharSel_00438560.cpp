@@ -1,4 +1,5 @@
 #include "D2Unicode.h"
+#include "FogApi.h"
 struct D2CompositeUnitStrc;
 extern "C" long __cdecl _time32(long* pTime);                                                               // 0x006850E6
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
@@ -110,15 +111,11 @@ extern "C" const char gszCharSelFile[]; // 0x006D4DBC
 extern "C" const char gszNameTagFormat[]; // 0x006D4E34
 extern "C" const char gszLevelFormat[]; // 0x006D4E24
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" unsigned int __cdecl strlen(const char*);
 extern "C" int __cdecl sprintf(char*,const char*,...); // 0x006823FD
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl CHARSEL_UpdateSelection(); // 0x004390A0
-void* __fastcall FOG_Alloc(int,const char*,int,int); // 0x0040B380
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __stdcall SMemCopy(void*,const void*,unsigned int); // 0x0041D2A0
 void __fastcall CONTROL_SetEnabled(D2WinControlStrc*,int); // 0x004F96F0
 void __fastcall CONTROL_SetVisible(D2WinControlStrc*,int); // 0x004F9740

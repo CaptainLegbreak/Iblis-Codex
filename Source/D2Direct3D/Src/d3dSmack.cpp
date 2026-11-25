@@ -1,6 +1,7 @@
 #include "D2Direct3D.h"
 #include "D2DDrawTypes.h"
 #include "D2Win32Types.h"
+#include "FogApi.h"
 
 #define gnHandle_00989760 (gatVideoVertices[0].dwColor)
 
@@ -16,9 +17,7 @@ D2TLVertexStrc gatVideoVertices[4]; // 0x00989750
 
 extern void* gpBuffer_009897D0; // 0x009897D0
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* pText, const char* pFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

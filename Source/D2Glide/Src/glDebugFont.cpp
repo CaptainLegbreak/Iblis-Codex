@@ -1,5 +1,6 @@
 #include "D2Glide.h"
 #include "D2DrlgMaps.h"
+#include "FogApi.h"
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -96,9 +97,7 @@ D2GlideFontVertexStrc gaGlideDebugFontVertices[4];                         // 0x
 
 static int gnGlideDebugFontTmu;                                            // 0x00880450
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);       // 0x0040B380
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 

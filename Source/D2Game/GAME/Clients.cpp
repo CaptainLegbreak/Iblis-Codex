@@ -35,6 +35,7 @@
 #include "D2Packets.h"
 #include "D2SaveHeader.h"
 #include "D2LanguageNames.h"
+#include "FogApi.h"
 // build: symbol _gaszLanguageNames 0x007312E0
 
 #pragma intrinsic(strcpy)
@@ -80,8 +81,6 @@ struct D2QuestDataStrc;
 struct D2CoordStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
@@ -2156,7 +2155,6 @@ int __stdcall GAME_AbortClientById(int nClientId, int a2, int a3); // 0x005300F0
 void __fastcall SUNITPROXY_FillGlobalItemCache(); // 0x00536F80
 
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);
 
 // build: symbol _gszD2NetSourceFile 0x006E0488
 extern "C" const char gszD2NetSourceFile[];
@@ -2501,7 +2499,6 @@ void __stdcall GAME_GetUnitsDescriptions(unsigned short nGameId, D2UnitDescripti
 
 struct D2PoolSystemStrc;
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                              // 0x0040B380
 
 int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem);                                     // 0x0040A040
 

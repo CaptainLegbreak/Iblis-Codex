@@ -7,6 +7,7 @@
 #include "D2GfxTypes.h"
 #include "D2CelContext.h"
 #include "D2Win32RgbQuad.h"
+#include "FogApi.h"
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 
@@ -62,9 +63,7 @@ extern int gnRenderHeight; // 0x007C913C
 
 extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -165,8 +164,6 @@ struct D2ClipRectStrc { int left, right, top, bottom; };
 
 struct D2ClipResultStrc { int left, right, skipRows, rowCount; };
 extern const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
 
 extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
@@ -301,8 +298,6 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern D2CriticalSectionStrc* gpLock_007C9134; // 0x007C9134
 extern int gnValue_007C9144; // 0x007C9144
 void __fastcall sub_006C9280_Apply(int enabled, unsigned char unusedRegister, int unusedA, int unusedB); // 0x006C9280

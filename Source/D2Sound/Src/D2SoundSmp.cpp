@@ -1,6 +1,7 @@
 #include "D2Sound.h"
 
 #include "D2SoundTypes.h"
+#include "FogApi.h"
 
 
 #define DSBSTATUS_BUFFERLOST 0x00000002
@@ -51,7 +52,6 @@ struct D2GuidStrc;
 
 struct D2DSBufferDescStrc;
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

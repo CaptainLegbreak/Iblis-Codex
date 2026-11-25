@@ -2,6 +2,7 @@
 #include "D2MsgRecord.h"
 #include "D2WinSplitText.h"
 #include "D2ClientUiRecords.h"
+#include "FogApi.h"
 
 #define gpMsgRecordChunkHead_007A2760 (gtMsgRecordChunkFirst.pNext)
 #define FILE_ATTRIBUTE_NORMAL 0x00000080
@@ -16,7 +17,6 @@ struct D2RecordHeaderStrc;
 
 
 int __stdcall SCmdRegisterArgument(unsigned int dwFlags, unsigned int dwId, const char* szName, void* pVariable, unsigned int nBytes, int bSet, void* pfnCallback, void* pParam); // 0x006C4580
-int __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern D2MsgRecordChunkStrc gtMsgRecordChunkFirst; // 0x007A0818
 
 
@@ -54,10 +54,7 @@ struct D2RecordHeaderStrc
 };
 extern "C" __declspec(dllimport) int __stdcall ReadFile(void* hFile, void* pBuffer, unsigned long nBytes, unsigned long* pRead, void* pOverlapped);
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 extern D2RecordBlockStrc gFirstRecordBlock_007A0818; // 0x007A0818
 extern D2RecordHeaderStrc sgtReadFileHeader; // 0x007A2768
 extern int gnRecordPos_007A2784; // 0x007A2784

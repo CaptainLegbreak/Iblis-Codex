@@ -12,6 +12,7 @@
 #include "D2StateIds.h"
 #include "D2GameCallbackArgs.h"
 #include "D2LanguageNames.h"
+#include "FogApi.h"
 // build: symbol _gaszLanguageNames 0x0073110C
 
 #define UNIT_PLAYER 0
@@ -88,9 +89,7 @@ void __fastcall PLAYER_FreePlayerDataExtras(D2GameStrc* pGame, D2UnitStrc* pPlay
 
 void __fastcall EVENT_FreeUnitTimers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540EE0
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

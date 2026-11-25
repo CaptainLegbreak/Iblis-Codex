@@ -9,6 +9,7 @@
 
 #include "D2MultiTypes.h"
 #include "D2LaunchRequest.h"
+#include "FogApi.h"
 
 extern int gnChatLaunchMode; // 0x0077BBE4
 
@@ -47,7 +48,6 @@ extern D2WinControlStrc* gpJoinScreenButton; // 0x0077B078
 
 extern D2WinControlStrc* gpControlC_0077B07C; // 0x0077B07C
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

@@ -18,6 +18,7 @@
 #include "D2ItemModes.h"
 #include "D2Packets.h"
 #include "D2LanguageNames.h"
+#include "FogApi.h"
 // build: symbol _gaszLanguageNames 0x00732048
 
 struct D2ClientStrc;
@@ -72,9 +73,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

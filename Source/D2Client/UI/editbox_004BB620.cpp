@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2StormTypes.h"
+#include "FogApi.h"
 
 struct D2SplittedTextStrc
 {
@@ -45,7 +46,6 @@ public:
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
 unsigned int __fastcall D2Win_10128(unsigned char nCharCode); // 0x00502550
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const unsigned short* pText, int* pLineCount, int nWidth); // 0x00502970
