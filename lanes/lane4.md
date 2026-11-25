@@ -18,11 +18,10 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 01:15 PST 2026: plain-int-types, join-unitmode-4815a0 (#383) and player-object (#384) merged. placeholder-joins posted on #385. Next: the rest of my placeholders.
+- Wed Nov 25 01:35 PST 2026: placeholder-joins merged in #387. Working on Unknown_0046C570 (Gfx.cpp) next.
 
 ## Ready
 
-- lane4/placeholder-joins 278746935 (on #385): two placeholders join their files. UnitMode.cpp takes 0x4804A0, the path target setter (inside its run between 0x480490 and 0x4804E0; its callers are in Player.cpp and Monster.cpp, none in UnitMode.cpp). SCmd.cpp takes 0x452270, the colour code appender: SCMD_StripColorCodes (0x452300) right after it strips the same string 0xF9A and digit, and its assert line (876) falls before SCmd.cpp's next ones (895, 922). Unknown_004804A0.cpp and Unknown_00452270.cpp go. Both units all equal. Full build: Game.exe identical, tree 0982e6a0492d37d754617fcfc7f25663faeeba21, borrowed code / data 11,250 / 261 B.
 
 ## Claimed
 
