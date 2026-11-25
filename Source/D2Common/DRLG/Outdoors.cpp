@@ -622,20 +622,10 @@ static void DRLGOUTDOORS_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel)
     }
 }
 
-void __fastcall sub_M16_EmitScaleAndMergeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex)
-{
-    DRLGOUTDOORS_ScaleAndMergeVertices(pMemPool, ppVertex);
-}
-
 // 0x00675290
 int __fastcall DRLGOUTDOORS_GetRoadEntry(D2DrlgLevelStrc* pLevel, int nIndex)
 {
     return (int)pLevel->pOutdoors->pRoads[nIndex];
-}
-
-void __fastcall sub_006750F0_EmitSpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel)
-{
-    DRLGOUTDOORS_SpawnPresetsAndRooms(pLevel);
 }
 
 static inline int sub_006750F0_GetLevelRoomFlags(int nLevelType)

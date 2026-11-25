@@ -449,12 +449,6 @@ void __cdecl DRLGPRESET_UnlockLevelFiles()
     LeaveCriticalSection(&gLevelFilesCriticalSection);
 }
 
-void __fastcall sub_M107_Emit_00665810(D2PresetCodeStrc* pDst, const char* pSrc, int bCopy)
-{
-    if (bCopy)
-        DRLGPRESET_CopyCodePadded(pDst, pSrc);
-}
-
 void __fastcall sub_M107_Emit_00665900(int* pTileTypes, int nCount, int bMap)
 {
     if (bMap)
@@ -1437,12 +1431,6 @@ static void __stdcall DRLGPRESET_InitPopsLocations(D2DrlgMapStrc* pDrlgMap, int 
         pPopsLocation->nHeight = nY2 - nY1 + 1;
         pDrlgMap->pPopsIndex[i] = pDrlgMap->pPopsIndex[i] / 4 - 1;
     }
-}
-
-void __fastcall sub_Z16_EmitTombStoneTiles(D2DrlgRoomStrc* pDrlgRoom, void* pMemPool)
-{
-    if (pDrlgRoom->pDrlgCoord.nWidth == 9)
-        DRLGPRESET_FindTombStoneTiles(pMemPool, pDrlgRoom);
 }
 
 unsigned short __stdcall SFileGetLocale()

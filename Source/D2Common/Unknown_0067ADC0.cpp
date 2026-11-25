@@ -505,9 +505,4 @@ int __fastcall PATH_AStar_ComputePath(D2PathInfoStrc* pPathInfo)
     return nResult;
 }
 
-int __stdcall sub_Emit_0067B740(D2PathInfoStrc* pPathInfo)
-{
-    return PATH_AStar_TargetLocationHasEnoughRoom(pPathInfo);
-}
-
 #include "gen/data/Source/D2Common/Unknown_0067ADC0.inc"

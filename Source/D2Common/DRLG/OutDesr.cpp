@@ -907,20 +907,6 @@ static void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2DrlgLevelStrc* pLevel)
     }
 }
 
-void __fastcall sub_A14_Emit_006803D0(D2DrlgLevelStrc* pLevel)
-{
-    DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 2, 4);
-    DRLGOUTWILD_SpawnTownTransitionsAndCaves(pLevel);
-    DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 3, 4);
-}
-
-void __fastcall sub_I19_Emit_0067F8D0(D2DrlgLevelStrc* pLevel)
-{
-    DRLGOUTDESR_InitAct2OutdoorLevel(pLevel);
-    DRLGOUTDESR_PlaceTombEntriesInCanyon(pLevel);
-    DRLGOUTDESR_InitAct2OutdoorLevel(pLevel);
-}
-
 
 static void __stdcall DRLGOUTWILD_SpawnCottage(int bExtraCottage, int nLvlPrestId, D2DrlgLevelStrc* pLevel)
 {
