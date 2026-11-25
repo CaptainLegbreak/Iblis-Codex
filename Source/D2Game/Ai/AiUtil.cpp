@@ -1848,9 +1848,13 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
 
 static inline int AIUTIL_GetMonsterVisionInline(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
-        return pUnit->pMonsterData->pVision;
+        if (pUnit->pMonsterData)
+        {
+            return pUnit->pMonsterData->pVision;
+        }
+        return 0;
     }
     return 0;
 }
@@ -1864,10 +1868,10 @@ D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
     int* pSpecialAi = 0;
     int nOldToggle = 0;
     int bCheckCollision;
-    int bForce = AIUTIL_CheckAiControlFlag((Obj005DD220*)pAiControl, 0x40);
-    if (bForce)
+    if (AIUTIL_CheckAiControlFlag((Obj005DD220*)pAiControl, 0x40))
     {
         bCheckCollision = 1;
+        AIUTIL_ToggleAiControlFlag((Obj005DD230*)pAiControl, 0x40, 0);
     }
     else if (DUNGEON_CheckLOSDraw(pRoom))
         bCheckCollision = 0;
@@ -1885,8 +1889,6 @@ D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
             }
         }
     }
-    if (bForce)
-        AIUTIL_ToggleAiControlFlag((Obj005DD230*)pAiControl, 0x40, 0);
 
     D2UnitStrc* pTarget = 0;
     int nDistance;
