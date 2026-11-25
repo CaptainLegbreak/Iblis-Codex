@@ -2,13 +2,13 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 04:00 PST 2026): wregister-object and bn-getters merged (#393). Next: placeholders by run in D2Launch/D2Multi.
+Status (Wed Nov 25 05:00 PST 2026): ready on #393: charsel-pieces, bnclient-join. Next: unify CharSel_0042E600/0042FFE0's declarations with CharSel.cpp's so 0x43A2B0 and 0x43AD10/0x43ADB0 can join, then more placeholders by run.
 
 ## Ready
 
 - lane6/charsel-pieces ce52a664 (on #393): CharSel.cpp takes CHARSEL_CreateCharListControls (0x43A800) from CharSel_004378D0.cpp: it sits between two CharSel.cpp runs and uses CharSel.cpp's controls, and in CharSel.cpp the whole unit builds equal. (0x43A2B0 and 0x43AD10/0x43ADB0, in CharSel_0042E600/0042FFE0, sit the same way, but their files declare CharSel.cpp's globals and messages with other types; that needs those declarations unified first.) Full build: Game.exe identical, tree f9cc59ceaede34667aebdb56fc7f9038ff53eb7a, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
 
-(lane6/bnclient-join verifying)
+- lane6/bnclient-join 9e999aa9 (on #393): Unknown_00520DC0.cpp takes in Unknown_005241A0.cpp. The two Bnclient placeholders interleave at 0x5241A0-0x52474F (hash and IDEA functions alternating with 0x5242F0/0x524360/0x524740), and the key inversion 0x5243E0 calls 0x5242F0 across the split: one object. This is laneless/objmap-joins-3's join (that branch can retire it), message reworded. One placeholder fewer. Full build: Game.exe identical, tree 61e7679e45b42bc1a61c764a29a31ea66d697eb6, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
 
 ## Questions
 
