@@ -75,6 +75,17 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   divisor's plan entry 0x7121DC (the last of Cursor's data). Files touched: D2Multi/Unknown_0043C8A0.cpp (lane 6),
   D2Client/ENGINE/Cursor.cpp (lane 1), Storm/Unknown_006C9A68.cpp (lane 3/10). Pitfall: a data marker on the
   initializer's own line (`T g = f(...); // 0xVA`) is read as f's address; put the marker on a separate extern line.
+- lane9/atl-clash e559f22a, on main 1beee1c7 (#380), precheck 0 not all equal; full verify VERIFIED, **borrowed data
+  281 -> 277 B** (main 281 B; Game.exe identical). d3dCore.cpp: the 4 B at 0x74C0C8 (the "d3dCore/Unknown_006B7250"
+  row) are ATL's Define_the_symbol__ATL_MIXED::clash, a selectany global whose inline constructor folds into the
+  data image (vtable pointer 0x6FAFFC). Thank_you's constructor and virtual function become inline, as in the ATL
+  header, placed from `build: symbol` lines; both still build equal.
+- **Coordinator, borrowed-data rows on lane 9 that aren't lane 9's:**
+  - 0x74C6E4 (12 B, "between D2Hell/Unknown_006C9A38.cpp and Fog/Unknown_00401010.cpp"): three unread pointers to
+    Fog's strings gszInternalCheckHost 0x6FF994, "MiniDump Thread" 0x6FFA34 and "MiniDump" 0x6FFA28, right after Fog's
+    Report@crashy type descriptor and right before Fog's ghProcess. Fog's (lane 3), not D2Hell's.
+  - 0x6CC75C (32 B): 4 zero bytes and then the image's debug directory entry (stamp 0x574DDFBC, type 2 CodeView,
+    size 0x40); linker output, a tools row.
 - **Handover, initializer slots outside lane 9** (lane 9 stops here; these are the owners'):
   - 0x6CAC10 gnTextLeft = (gnScreenWidth - 325) / 2 (bss 0x7BF278, slot between inv's and QuestLog's): lane 1. In
     UI/text_0049A950.cpp it builds equal but raises borrowed data by 4 B, so that's probably not its object; the
