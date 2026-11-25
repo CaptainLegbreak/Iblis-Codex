@@ -18,10 +18,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 01:35 PST 2026: placeholder-joins merged in #387. Unknown_0046C570 stays its own object (it starts with its own language copy, 0x712A28; the noinline ruling was for 0x46C7D0's join, already on main).
+- Wed Nov 25 02:10 PST 2026: placeholder-joins merged in #387. language-copies posted on #388. Every other placeholder left in my range starts with its own language copy (a separate object waiting for a name) or is parked below.
 
 ## Ready
 
+- lane4/language-copies 4aed2f1d0 (on #388): five D2Client placeholders take their language table copy from D2LanguageNames.h with a static data marker (Unknown_0044BA20, Unknown_00451E70, Unknown_00460420, Unknown_0047A980, Unknown_0049BB40); in each the copy is the unit's first data and the rest follows without a gap, so its plan record goes. Borrowed data unchanged (the five copies place from source). Full build: Game.exe identical, tree 8de01c0cd199975c0fe2e550e929234b2ef26dcc, borrowed code / data 11,250 / 261 B.
 
 ## Claimed
 
@@ -58,6 +59,9 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - Lane 2: `D2ClientTypes.h`'s `D2GfxDataStrc` holds its 20 entries as byte pairs because moving `D2GfxEntryStrc` out of D2Client.h changes code in useitem.cpp and inv_0048DD90.cpp.
 
 ## Left in place (and why)
+
+- Unknown_0047CC90.cpp's language copy (0x713008) stays a plan record: the unit also anchors data at 0x712FB8-0x712FF8, inside chat.cpp's gaChatInputHandlers (0x712FA8), so its .data isn't in the original order and the static data marker refuses to link. The unit's view of that table needs sorting out first.
+- Unknown_0046C570.cpp: its own object (its data starts with its own copy, 0x712A28).
 
 - Unknown_00463BC0.cpp (0x463BC0, inside CUnit.cpp's run): uncalled and unreferenced, yet takes pUnit/pRoom/nX in esi/edi/ebx with nY on the stack, the compiler's convention for a static whose callers are all visible. Same case as 0x468B20 and 0x45FB80.
 - Unknown_0045C370.cpp (0x45C4B0) and Unknown_00463720.cpp (0x463720/0x463740/0x463810): called from D2Client, D2Game and D2Common alike (identical code folded across objects), so adjacency doesn't name their file.
