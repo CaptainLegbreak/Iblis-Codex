@@ -6,6 +6,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 
 ## Ready
 
+- lane10/names-prefixfix-d2client-5 e406f37: the prefixfix-d2client plan (D2Client inferred names re-prefixed to their file) remade on main #371, 155 renames (0x4AA8F0 dropped by nameround). VERIFIED fbf5586b, Game.exe matches. Still needed: none of these renames is on main yet.
 - lane10/files-d2client-2 a4c0acc replaces lane10/files-d2client (conflicted on Game.cpp/View.cpp): remade on #368, seven joins: Unknown_00451290 into GAME/Game_0044B7B0.cpp, Unknown_006CB3E0 (the game-data lock finalizer) into GAME/Game.cpp, Unknown_00475C30 into GAME/View.cpp, Unknown_00462D00 into UNIT/Player.cpp, Unknown_004B6DD0 into UI/npcmenu.cpp, Unknown_004C0440 into UI/useitem.cpp, Unknown_004CA560 into UNIT/UnitSnd.cpp. Unknown_00477620 -> View.cpp is dropped (both hold a language copy: separate objects). VERIFIED 78162d78, Game.exe matches. Owners lanes 4/1 (FYI). files-d2client can be deleted.
 - lane10/files-storm-3 5ecff73 replaces files-storm-2: rebuilt on main #371 itself. Two joins: Unknown_006CACE0 (window class and title initializers) into D2Gfx/SRC/Window.cpp and Unknown_006CAE80 (gtBigPair initializer) into D2BNClient/BnSend.cpp; Unknown_006CA9C0 is already off main. VERIFIED 4f2f6ebb, Game.exe matches. files-storm-2 can be deleted.
 - lane10/files-fog 188dfae joins Fog/Unknown_006BE190.cpp (1 function) into Fog/Src/Excel/Excel.cpp (from lane 10's file plan, medium). VERIFIED eeff9969 on main #363, Game.exe matches. The crash-report cluster's placeholders into ErrorManager.cpp failed the mechanical join (5 are LTCG units, which join.py refuses; the rest compile errors or not equal); they need a hand join. Owner: lane 3 (FYI).
@@ -67,6 +68,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 - lane10/names-rank1 8df1c87 rank-1 plan retried: 106 renames applied (names.csv and call sites), 36 addresses dropped by nameround because their units didn't build equal, 3 dropped by hand because the old spelling is also the file's stem (inv_0048DD90, inv_00491D20, text_0049C9C0: renaming them changes the gen include path; MISSING_GEN in the full verify). VERIFIED 0c3b912a on base 0b750228 (#341), placed all, Game.exe matches.
 
 ## Claimed
+- Tue Nov 24 16:12:40 PST 2026: files-storm-3 and names-prefixfix-d2client-5 posted on #371; next, small hand fixes for medium joins join.py could not do.
 - Tue Nov 24 15:05:42 PST 2026: rebasing files-d2client/-storm/-d2bnclient onto #368 (as -2); file plans now mark 'separate object' where both sides hold a language copy.
 - Tue Nov 24 14:10:29 PST 2026: applying own strong/medium file proposals by module (join.py): all 17 modules tried, 22 placeholders joined in 10 branches (d2client, d2game, storm, fog, d2bnclient, bnclient, d2gdi, d2glide, d2multi, d2lang); D2Common, D2CMP, D2DDraw, D2Direct3D, D2Launch, D2Sound, D2Win had none that join mechanically. Next: remake sweep-d2common and names-prefixfix-d2client on current main.
 - Tue Nov 24 12:25:56 PST 2026: file-name plans: 331 of 400 placeholders with a proposal on main #361; reviewing the rest.
