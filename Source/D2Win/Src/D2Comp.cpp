@@ -316,8 +316,6 @@ struct SMSGHANDLER_PARAMS;
 
 struct D2WinSmackStrc;
 
-struct D2WinListDataStrc;
-
 struct D2WinListStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -370,24 +368,6 @@ typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
-struct D2WinListDataStrc
-{
-    Unicode wszText[256];
-    int field_200;
-    D2WinMsgHandler field_204;
-    int field_208;
-    int field_20C;
-    int field_210;
-    int field_214;
-    char field_218;
-    char field_219;
-    char field_21A;
-    char field_21B;
-    unsigned short field_21C;
-    unsigned short field_21E;
-    D2WinListDataStrc* pNext;
-};
-
 extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileName); // 0x006CC1A0
 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
@@ -430,14 +410,6 @@ struct D2FontStrc;
 
 struct D2CharStrc;
 
-
-struct D2WinPopUpStrc
-{
-    D2WinControlStrc controlHeader;
-    int nLines;
-    D2WinPopUpLineStrc lines[8];
-    int nCurrentLine;
-};
 
 struct D2EmblemColorStrc
 {

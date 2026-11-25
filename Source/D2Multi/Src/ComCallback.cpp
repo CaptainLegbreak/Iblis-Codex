@@ -48,42 +48,6 @@ struct D2LaunchNameNodeStrc
     D2LaunchNameNodeStrc* pNext;
 };
 
-struct D2LaunchCharEntryStrc
-{
-    char szName[0x100];
-    Unicode wszName[0x100];
-    char aBlock0x300[0x10];
-    char aBlock0x310[0x10];
-    unsigned char nType;
-    char unk0x321;
-    char nByte0x322;
-    char unk0x323;
-    unsigned short wFlags;
-    char unk0x326[0x08];
-    char nByte0x32E;
-    char unk0x32F[0x1D];
-    D2LaunchCharEntryStrc* pNext;
-};
-
-#pragma pack(push, 1)
-
-struct D2LaunchCharSelectStrc
-{
-    char unk0x000[0x19];
-    int nState;
-    char unk0x01D[0x1F3];
-    char nMode;
-    char unk0x211[0x190];
-    char aBlock0x3A1[0x10];
-    char aBlock0x3B1[0x10];
-    char nByte0x3C1;
-    char nByte0x3C2;
-    char unk0x3C3[0x08];
-    unsigned short wFlags;
-};
-
-#pragma pack(pop)
-
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09

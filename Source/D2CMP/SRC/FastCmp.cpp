@@ -28,8 +28,6 @@ struct D2CelDataHashStrc;
 
 struct D2CmpBitCursorStrc;
 
-struct D2CmpSubTileBlockStrc;
-
 struct D2CmpStringStrc;
 
 struct D2CelStrc;
@@ -71,15 +69,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
 D2CmpTileStrc* __cdecl TileAlloc(); // 0x00609550
-
-struct D2CmpSubTileBlockStrc
-{
-    char unk0x00[0x08];
-    short nValue08;
-    short nSize;
-    int unk0x0C;
-    unsigned char* pData;
-};
 
 struct D2CmpStringStrc
 {

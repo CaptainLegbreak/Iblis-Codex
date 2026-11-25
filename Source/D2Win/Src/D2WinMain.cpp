@@ -175,19 +175,13 @@ struct D2WinTextBoxStrc;
 
 struct D2WinControlInitStrc;
 
-struct D2TransPaletteStrc;
-
 struct D2Palette256Strc;
 
 struct Unicode;
 
 struct D2WinTextBoxLineStrc;
 
-struct D2WinImageClickRectStrc;
-
 struct D2WinImage2Strc;
-
-struct D2HoverLineStrc;
 
 struct D2WinListDataStrc;
 
@@ -216,11 +210,6 @@ enum D2ControlTypes
     D2WIN_POPUP = 11,
     D2WIN_ACCOUNTLIST = 12,
     D2WIN_IMAGE2 = 13,
-};
-
-struct D2TransPaletteStrc
-{
-    unsigned char data[0x10000];
 };
 
 struct D2Palette256Strc
@@ -296,22 +285,6 @@ extern int gbAppActive; // 0x0072DC44
 
 extern D2ArchiveHandleStrc* gpD2VideoMPQ; // 0x007D5614
 
-struct D2WinImageClickRectStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-    D2WinMsgHandler pCallback;
-};
-
-
-struct D2HoverLineStrc
-{
-    Unicode wszText[256];
-    int nWidth;
-    int nHeight;
-};
 
 
 

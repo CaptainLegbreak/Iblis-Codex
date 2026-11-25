@@ -2846,8 +2846,6 @@ unsigned int __fastcall BNDOWNLOAD_DecryptData(unsigned char* data,unsigned int 
 
 struct D2CDKeyInfoStrc;
 
-struct D2AuthCheckPacketStrc;
-
 struct D2CipherKeyStringView;
 
 struct D2EncodedTrailerStrc;
@@ -2859,17 +2857,6 @@ struct D2CDKeyInfoStrc
     unsigned int f_8;
     unsigned int f_C;
     unsigned int dwHash[5];
-};
-
-struct D2AuthCheckPacketStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int f_8;
-    unsigned int nKeys;
-    unsigned int bSpawn;
-    D2CDKeyInfoStrc pKeys[2];
-    char szData[0x200];
 };
 
 int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
