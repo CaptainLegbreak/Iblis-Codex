@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 16:05:51 PST 2026): ready: join-006043b0, join-bnsend-c760, join-00518b90 (nothing of mine merged since #369). Lane 4 answered on the 0x0070F7A4 copy: it starts the window-message object, and lane4/winmsg-object moves its plan record out of my ComCallback.cpp entry into Unknown_00451E70.cpp. Agreed; that plan-only change in my area is fine.
+Status (Tue Nov 24 16:37:37 PST 2026): main is #372 (board not refreshed yet); none of my three ready branches is in it, and all three still merge cleanly on #372. laneless/objmap-joins-3 still open.
 
 ## Ready
 
