@@ -1481,8 +1481,6 @@
    "externs": [
     "extern \"C\" void __cdecl DDDEBUGFONT_DebugPrintf(); // 0x00512680",
     "extern \"C\" void __cdecl DDRAW_CelDrawHilight(); // 0x005123A0",
-    "extern \"C\" void __cdecl DDRAW_GetBackBuffer(); // 0x00511970",
-    "extern \"C\" void __cdecl DDRAW_OpenSmackCutscene(); // 0x00511660",
     "extern \"C\" void __cdecl DDSMACK_DecodeSmacker(); // 0x00513400",
     "extern \"C\" void __cdecl DDSMACK_PlaySmacker(); // 0x005135F0",
     "extern \"C\" void __cdecl sub_00511FB0_DrawImage(); // 0x00511FB0",

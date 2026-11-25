@@ -33074,21 +33074,6 @@
      "name": "?GLCORE_ReleaseTexSlots@@YIXPAUD2GlideTexSlotStrc@@@Z"
     },
     {
-     "va": "0x00511660",
-     "length": 183,
-     "name": "DDRAW_OpenSmackCutscene"
-    },
-    {
-     "va": "0x00511970",
-     "length": 268,
-     "name": "DDRAW_GetBackBuffer"
-    },
-    {
-     "va": "0x005123A0",
-     "length": 3,
-     "name": "DDRAW_CelDrawHilight"
-    },
-    {
      "va": "0x00518C10",
      "length": 6,
      "name": "BNCLIENT_GetInterfaceTable"
@@ -35756,16 +35741,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0050BEF0",
-     "length": 71,
-     "name": "GLIDE_DebugDraw"
-    },
-    {
-     "va": "0x0050FD10",
-     "length": 221,
-     "name": "GLIDE_DrawVideoFrame"
-    },
-    {
      "va": "0x00510020",
      "length": 270,
      "name": "?DDCORE_Detect@@YIHPAX@Z"
@@ -35871,6 +35846,11 @@
      "name": "?DDCORE_CreateSurface@@YIHPAXH@Z"
     },
     {
+     "va": "0x00511660",
+     "length": 183,
+     "name": "DDRAW_OpenSmackCutscene"
+    },
+    {
      "va": "0x00511720",
      "length": 205,
      "name": "?DDCORE_StartDraw@@YIHHEEE@Z"
@@ -35884,6 +35864,11 @@
      "va": "0x00511870",
      "length": 256,
      "name": "DDCORE_Blit"
+    },
+    {
+     "va": "0x00511970",
+     "length": 268,
+     "name": "DDRAW_GetBackBuffer"
     },
     {
      "va": "0x00511A80",
@@ -36100,6 +36085,11 @@
      "length": 204
     },
     {
+     "va": "0x0050BEF0",
+     "length": 71,
+     "name": "GLIDE_DebugDraw"
+    },
+    {
      "va": "0x0050BF40",
      "length": 9,
      "name": "?sub_0050BF40_GlideGetBlendedShadows@@YAHXZ"
@@ -36247,11 +36237,6 @@
      "va": "0x0050F980",
      "length": 323,
      "name": "sub_0050F980_DecodeTileBlocks"
-    },
-    {
-     "va": "0x00512410",
-     "length": 28,
-     "name": "sub_00512410_ForwardToDrawImage"
     }
    ]
   },
@@ -36569,6 +36554,11 @@
      "name": "?sub_0050FBD0_GlideBindTileTexture@@YIXPAUD2GlideTileStrc@@@Z"
     },
     {
+     "va": "0x0050FD10",
+     "length": 221,
+     "name": "GLIDE_DrawVideoFrame"
+    },
+    {
      "va": "0x0050FDF0",
      "length": 554,
      "name": "?sub_0050FDF0_GlidePlayVideoFile@@YIXPBDHP6AXXZ@Z"
@@ -36616,9 +36606,19 @@
      "length": 188
     },
     {
+     "va": "0x005123A0",
+     "length": 3,
+     "name": "DDRAW_CelDrawHilight"
+    },
+    {
      "va": "0x005123B0",
      "length": 92,
      "name": "?sub_005123B0_DDrawDebugFillBackBuffer@@YIXHH@Z"
+    },
+    {
+     "va": "0x00512410",
+     "length": 28,
+     "name": "sub_00512410_ForwardToDrawImage"
     },
     {
      "va": "0x00512710",

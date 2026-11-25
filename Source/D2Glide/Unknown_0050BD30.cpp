@@ -101,7 +101,6 @@ int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); 
 
 static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, int nScreenPanels, tagRECT* pRect, int* pOffset);
 
-
 void __cdecl sub_0050BE20_GlideDebugRefresh();
 
 D2GlideSpriteVertexStrc gaGlideTileGrid[15]; // 0x00880458
@@ -117,8 +116,6 @@ static int __stdcall sub_0050CF70_GlideTileDrawPerspective(D2TileLibraryEntryStr
 int __stdcall sub_0050D410_GlideTileDrawAlpha(int nPosX, int nPosY, D2GfxLightStrc* pLight, unsigned char nAlpha, D2TileLibraryEntryStrc* pTile, int nScreenPanels); // 0x0050D410
 
 int __fastcall sub_0050D4C0_GlideTileDrawLit(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels); // 0x0050D4C0
-
-
 
 static int __stdcall sub_0050CDD0_GlideTileDrawFlat(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels);
 
@@ -194,6 +191,19 @@ void __cdecl sub_0050BE20_GlideDebugRefresh()
     }
     gpfnGrColorCombine(3, 1, 0, 1, 0);
     gpfnGrChromakeyMode(1);
+}
+
+extern int gnGlideDebugX; // 0x008800D0
+extern int gnGlideDebugY; // 0x008800D4
+
+// 0x0050BEF0
+void __fastcall GLIDE_DebugDraw(const unsigned int* pLight, const unsigned int* pPlayerLight, int nPosX, int nPosY)
+{
+    gnGlideDebugX = nPosX;
+    gnGlideDebugY = nPosY;
+    memcpy(gaGlideDebugLight, pLight, 0x1000);
+    memcpy(*gppGlideDebugBuffer, pPlayerLight, 0x4800);
+    sub_0050BE20_GlideDebugRefresh();
 }
 
 // 0x0050C270
@@ -574,7 +584,6 @@ static int __stdcall sub_0050CDD0_GlideTileDrawFlat(D2TileLibraryEntryStrc* pTil
     return nResult;
 }
 
-
 // 0x0050CF70
 static int __stdcall sub_0050CF70_GlideTileDrawPerspective(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels)
 {
@@ -782,7 +791,6 @@ void __cdecl sub_0050D540_GlideInitD()
         }
     }
 }
-
 
 extern D2GfxSettingsStrc* gpGfxSettings; // 0x007C9148
 
