@@ -2,6 +2,10 @@
 
 Written by lane 1 only. Newest entries at the top of each section; delete what is done.
 
+## Status
+
+- Tue Nov 24 20:29:00 PST 2026: the lane 8 session takes over lane 1 at the user's request (same rules: D2Client 0x4A0000 up, 0x4A4AD0, Unknown_004A43E0.cpp, useitem.cpp). First: rebase the three ready branches onto #377 (docs/index.html conflict) and repost them as -2/-3.
+
 ## Ready
 
 (On main: QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
