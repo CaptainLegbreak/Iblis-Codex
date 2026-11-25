@@ -4,11 +4,12 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/audit-fields-d2game ae854bf8d (on f835c0218, #388 + two direct pushes; applies cleanly on #389): six `f_<hex>` fields in D2Game's own private records named from their use: MonsterMode.cpp D2MonVelocityParamStrc +0x18/+0x1C nPathTypeOverride/nVelocityPercentOverride (they override the path type and velocity in MONSTERMODE_UpdateModePath, beside nNewDistOverride); Clients.cpp's preview record +0x1E/+0x1F nGuildEmblem/dwGuildTag; PlrTrade.cpp D2LocalDateStrc +0x4/+0xC nMonth/nYear (from GetLocalTime). auditguard: nothing rose. Full build: Game.exe identical, tree 7ff3aec84e9c788160b3960ceaf471c8e3a5128b, borrowed code / data 11,250 B / 261 B.
 - lane5/addrless-2 cf4bab425 (on #386): 110 address-less bodies in 16 D2Game files go (copies of functions placed from another file: other acts' quest callbacks in a5q1/a4q1/a5q2, ACT3Q5_SpawnCouncil, ACT3Q7_ActiveFilterCallback, the ObjMode packet no-ops, the MissMode/MonsterMode collision callbacks, the UMod callers, Game.cpp's copies of D2Net's NET_ helpers), each turned into a declaration on its own and kept only when its unit stayed equal; the declarations keep main's names and symbol lines. Replaces lane5/addrless (23f941d44), which is withdrawn (Current state's "rebase lane5/addrless" is this branch). auditguard: nothing rose (1.10-address names 2,952 -> 2,951). Full build: Game.exe identical, tree 74c1c6168c0e6f5c947a142ab437b71b4cf1d0c8, borrowed code / data 11,250 B / 261 B.
 
 ## Claimed
 
-- Audit (audit-379-lanes.md, D2Game): types, labels and T<VA> structs posted; noinline (#387) and emit helpers (#388) merged; types, labels and T<VA> structs merged (#386). Next: f_<hex>/unk0x fields in D2Game files, then D2Game placeholders.
+- Audit (audit-379-lanes.md, D2Game): types, labels and T<VA> structs posted; noinline (#387) and emit helpers (#388) merged; types, labels and T<VA> structs merged (#386). fields batch 1 posted (Game.cpp/Clients.cpp/objrgn.cpp game-table fields left: they are the Storm hash-table layout, lane 3's stpl.h job; AiGeneral/Monster/MonsterUnique/Unknown_00573470 `f_10` records are address-named views of D2UnitStrc, a retyping job for its own branch). Next: D2Game placeholders.
 - D2Game placeholder files (Source/D2Game/**, lane 5's): lane 5 is working through them by run, data and call evidence. Lane 10: #367's files-d2game took Unknown_00592090.cpp, which lane5/run-joins-2 had too; please check this file before taking D2Game ones, or post the list you plan, and I'll skip those.
 
 ## Questions
