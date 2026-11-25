@@ -1398,9 +1398,9 @@ struct D2LocalDateStrc;
 struct D2LocalDateStrc
 {
     int nDayOfWeek;
-    int f_4;
+    int nMonth;
     int nDay;
-    int f_C;
+    int nYear;
 };
 
 // 0x005665B0
@@ -1409,9 +1409,9 @@ void __stdcall PLRTRADE_GetLocalDate(D2LocalDateStrc* pDate)
     D2SystemTimeStrc systemTime;
     GetLocalTime(&systemTime);
     pDate->nDayOfWeek = systemTime.wDayOfWeek + 1;
-    pDate->f_4 = systemTime.wMonth;
+    pDate->nMonth = systemTime.wMonth;
     pDate->nDay = systemTime.wDay;
-    pDate->f_C = systemTime.wYear;
+    pDate->nYear = systemTime.wYear;
 }
 
 // 0x005665F0
