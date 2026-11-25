@@ -1237,8 +1237,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/SkillDesc.cpp": {
-   "bytes": 451,
-   "definitions": 13,
+   "bytes": 475,
+   "definitions": 15,
    "externs": [
     "extern \"C\" void __cdecl SKILLDESC_DrawThrowAndElemDamage(); // 0x004EAAA0",
     "extern \"C\" void __cdecl SKILLSMON_DescIfRecord(); // 0x004EC040"
@@ -1269,15 +1269,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004EDA80.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UI/SkillDesc_004EA010.cpp": {
-   "bytes": 24,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004EDC30.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -4944,7 +4935,7 @@
    "cname": "gData_006DBF4C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/SkillDesc_004EA010.cpp",
+   "file": "Source/D2Client/UI/SkillDesc.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006DBF4C_t gData_006DBF4C; // 0x006DBF4C",
    "head": "extern \"C\" const struct d2data_006DBF4C_t gData_006DBF4C = ",
@@ -72043,7 +72034,7 @@
    "cname": "gData_006DBF38",
    "declared": true,
    "decorated": "?gaLobVelocityBonus@@3QBHB",
-   "file": "Source/D2Client/UI/SkillDesc_004EA010.cpp",
+   "file": "Source/D2Client/UI/SkillDesc.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006DBF38[5]; // 0x006DBF38",
    "head": "extern \"C\" const int gData_006DBF38[5] = ",
