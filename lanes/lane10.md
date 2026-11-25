@@ -68,6 +68,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 - lane10/names-rank1 8df1c87 rank-1 plan retried: 106 renames applied (names.csv and call sites), 36 addresses dropped by nameround because their units didn't build equal, 3 dropped by hand because the old spelling is also the file's stem (inv_0048DD90, inv_00491D20, text_0049C9C0: renaming them changes the gen include path; MISSING_GEN in the full verify). VERIFIED 0c3b912a on base 0b750228 (#341), placed all, Game.exe matches.
 
 ## Claimed
+- Tue Nov 24 16:45:04 PST 2026: join batch h1 (hand-fix helper) running over all modules on #373, one lane10/files-<module>-h1 branch each.
 - Tue Nov 24 16:12:40 PST 2026: files-storm-3 and names-prefixfix-d2client-5 posted on #371; next, small hand fixes for medium joins join.py could not do.
 - Tue Nov 24 15:05:42 PST 2026: rebasing files-d2client/-storm/-d2bnclient onto #368 (as -2); file plans now mark 'separate object' where both sides hold a language copy.
 - Tue Nov 24 14:10:29 PST 2026: applying own strong/medium file proposals by module (join.py): all 17 modules tried, 22 placeholders joined in 10 branches (d2client, d2game, storm, fog, d2bnclient, bnclient, d2gdi, d2glide, d2multi, d2lang); D2Common, D2CMP, D2DDraw, D2Direct3D, D2Launch, D2Sound, D2Win had none that join mechanically. Next: remake sweep-d2common and names-prefixfix-d2client on current main.
@@ -121,6 +122,72 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 - None open. Answered (2026-11-24): rank1 applies (rank-1 units take their file's prefix); members are planned as a separate members plan, applied in rounds of their own; the zlib and ATL names become names.csv label fixes; apply order Fog, small, rank1, D2CMP, D2Common, D2Game, the D2Client plans, moved333, one per naming round.
 
 ## Notes for other lanes
+- Tue Nov 24 16:45:04 PST 2026, lane 10 join batch h1 in progress on main #373 (owners: please leave these until it posts or I release them). Same medium/strong proposals as before, retried with a join helper that adds block-scope declarations for functions used before their definition, turns duplicate struct definitions into forward declarations and drops conflicting prototypes; separate-object pairs excluded:
+  - Bnclient/Unknown_00521DC0.cpp -> D2BNClient/BnSend.cpp
+  - D2CMP/Unknown_006CB4C0.cpp -> D2CMP/SRC/CelCmp.cpp
+  - D2Client/Unknown_00450210.cpp -> D2Client/GAME/Game.cpp
+  - D2Client/Unknown_00450520.cpp -> D2Client/GAME/Game.cpp
+  - D2Client/Unknown_0045BF00.cpp -> D2Hell/SRC/Archive.cpp
+  - D2Client/Unknown_00469420.cpp -> D2Client/UI/CmdTbl.cpp
+  - D2Client/Unknown_0046C7D0.cpp -> D2Client/ENGINE/Gfx.cpp
+  - D2Client/Unknown_0047C420.cpp -> D2Client/UI/chat.cpp
+  - D2Client/Unknown_00493A00.cpp -> D2Client/UI/Hireables.cpp
+  - D2Client/Unknown_0049AF60.cpp -> D2Client/UI/Party.cpp
+  - D2Client/Unknown_004B5810.cpp -> D2Client/UI/npcmenu.cpp
+  - D2Client/Unknown_004B93F0.cpp -> D2Client/Sound/SoundInst.cpp
+  - D2Client/Unknown_004D1300.cpp -> D2Client/UNIT/Missile.cpp
+  - D2Client/Unknown_004DF4B0.cpp -> D2Client/UI/SkillDesc.cpp
+  - D2Client/Unknown_0044F9B0.cpp -> D2Client/GAME/Game.cpp
+  - D2Client/Unknown_0044F9D0.cpp -> D2Client/GAME/Game.cpp
+  - D2Client/Unknown_0044FB50.cpp -> D2Client/GAME/Game.cpp
+  - D2Client/Unknown_0044FD80.cpp -> D2Client/GAME/Game.cpp
+  - D2Client/Unknown_00450040.cpp -> D2Client/GAME/Game.cpp
+  - D2Client/Unknown_00450550.cpp -> D2Client/GAME/Game.cpp
+  - D2Client/Unknown_00450950.cpp -> D2Client/GAME/Game.cpp
+  - D2Client/Unknown_00450D90.cpp -> D2Client/GAME/Game.cpp
+  - D2Client/Unknown_004E4670.cpp -> D2Client/UI/SkillDesc.cpp
+  - D2Client/Unknown_004E6E30.cpp -> D2Client/UI/SkillDesc.cpp
+  - D2Client/Unknown_004E89A0.cpp -> D2Client/UI/SkillDesc.cpp
+  - D2Client/Unknown_004EDCA0.cpp -> D2Client/UI/SkillDesc.cpp
+  - D2Client/Unknown_004EDDD0.cpp -> D2Client/UI/SkillDesc.cpp
+  - D2Common/Unknown_00627250.cpp -> D2Common/Stats/StatsEx.cpp
+  - D2DDraw/Unknown_005125E0.cpp -> D2DDraw/Src/ddCore.cpp
+  - D2Game/Unknown_005947E0.cpp -> D2Game/Quests/a1q5.cpp
+  - D2Game/Unknown_00596BB0.cpp -> D2Game/Quests/a3q7.cpp
+  - D2Game/Unknown_005985C0.cpp -> D2Game/Quests/a2q0.cpp
+  - D2Game/Unknown_005A03E0.cpp -> D2Game/MONSTER/MonsterUnique.cpp
+  - D2Game/Unknown_005A3D20.cpp -> D2Game/MONSTER/MonsterUnique.cpp
+  - D2Game/Unknown_005B9A30.cpp -> D2Game/Quests/a3q3.cpp
+  - D2Game/Unknown_005CD910.cpp -> D2Game/SKILLS/SkillMonst.cpp
+  - D2Game/Unknown_005EEDA0.cpp -> D2Game/Ai/AiThink4.cpp
+  - D2Glide/Unknown_0050BD30.cpp -> D2Glide/Src/glDebugFont.cpp
+  - D2Launch/Unknown_0042E5D0.cpp -> D2Launch/Src/MainMenus.cpp
+  - D2Multi/Unknown_00444020.cpp -> D2Multi/Src/ChatDlg.cpp
+  - D2Multi/Unknown_004450D0.cpp -> D2Multi/Src/ChatDlg.cpp
+  - D2Multi/Unknown_004456D0.cpp -> D2Multi/Src/ChatDlg.cpp
+  - Fog/Unknown_00401010.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_00401070.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_00401DF0.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_00402820.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_00408090.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_00402380.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_00401220.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_00402280.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_00402370.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_00402530.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_004025F0.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_00402C60.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_00404100.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_00404330.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_004047D0.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_004049A0.cpp -> Fog/Src/ErrorManager.cpp
+  - Fog/Unknown_00404AB0.cpp -> Fog/Src/ErrorManager.cpp
+  - Storm/Unknown_0041DA60.cpp -> Storm/SOURCE/SCOMP.CPP
+  - Storm/Unknown_00421EA0.cpp -> Storm/SOURCE/SBig.cpp
+  - Storm/Unknown_0041EBC0.cpp -> Storm/SOURCE/SCOMP.CPP
+  - Storm/Unknown_006C9A68.cpp -> D2Client/CORE/WINMAIN.CPP
+  - Storm/Unknown_006CAFC0.cpp -> D2CMP/SRC/CelCmp.cpp
+  - D2Win/Unknown_004F6F60.cpp -> D2Gfx/SRC/Window.cpp
 - Lane 10's join batch for D2Client, Storm and D2BNClient has posted (files-d2client-2, files-storm-2; D2BNClient's was already on main). The candidates that join.py could not do are released back to their owners.
 - Lane 6: 0x00507EF0 and 0x00507FA0 (scroll-bar getters, D2MOO SCROLLBAR_GetMaxSteps/GetCurrentStep from its D2WinScrollBar.cpp) are filed in D2WinAnimImage.cpp.
 - Lane 5: 0x00590810 is the first function of a1q2.cpp (a1q1.cpp ends at 0x00590720), but D2MOO's 1.14d note files it in A1Q1.cpp as ACT1Q1_CanClientFXBeTriggered. My plan uses D2MOO's name; the a1q1/a1q2 boundary may sit one function later than the files have it.
