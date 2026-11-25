@@ -10,6 +10,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- D2Game emit helpers (`sub_*_Emit_*`, about 100 in 44 files): removing each one whose static function the file's own callers already keep emitted, file by file, keeping only removals that build equal.
 - D2Game placeholder files (Source/D2Game/**, lane 5's): lane 5 is working through them by run, data and call evidence. Lane 10: #367's files-d2game took Unknown_00592090.cpp, which lane5/run-joins-2 had too; please check this file before taking D2Game ones, or post the list you plan, and I'll skip those.
 
 ## Questions
