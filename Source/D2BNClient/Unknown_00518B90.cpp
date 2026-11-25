@@ -1,7 +1,7 @@
 #include "D2BNClient.h"
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650
-void __cdecl sub_00520200_DeleteQueueLock();                                                                // 0x00520200
+void __cdecl BNMESSQUEUE_DeleteQueueLock();                                                                // 0x00520200
 void* gpField00Arg_0088185C;                                                                                // 0x0088185C
 
 struct D2BnLogStrc
@@ -50,5 +50,5 @@ void sub_F28_EmitScalarDeletingDestructor(D2BnLogStrc* pLog)
 // 0x00518C20
 void __cdecl sub_00518C20_DeleteQueueLock()
 {
-    sub_00520200_DeleteQueueLock();
+    BNMESSQUEUE_DeleteQueueLock();
 }

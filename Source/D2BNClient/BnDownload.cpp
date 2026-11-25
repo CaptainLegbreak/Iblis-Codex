@@ -65,7 +65,7 @@ int __fastcall BNMESSQUEUE_SetError(int nError); // 0x005204A0
 
 int __fastcall BNMESSQUEUE_SetState(int nState); // 0x00520520
 
-int __fastcall sub_005205F0_GetState(D2BnStateStrc* pState); // 0x005205F0
+int __fastcall BNMESSQUEUE_GetState(D2BnStateStrc* pState); // 0x005205F0
 
 struct D2BnLogStrc
 {
@@ -791,7 +791,7 @@ int __fastcall BNDOWNLOAD_EnterChat(const char* szArg1, const char* szArg2, int 
 int __cdecl BNDOWNLOAD_IsReady()
 {
     D2BnStateStrc tState;
-    sub_005205F0_GetState(&tState);
+    BNMESSQUEUE_GetState(&tState);
     if (!GAME_GetAbortFlag() && tState.nState == 0 && InterlockedCompareExchange(&gnConnected, 0, 0))
         return 1;
     return 0;
@@ -1812,13 +1812,13 @@ D2CriticalSectionStrc gtMessageLock; // 0x00882004
 
 int gnBnState; // 0x0088201C
 
-void __cdecl sub_005201E0_InitMessageQueue(); // 0x005201E0
+void __cdecl BNMESSQUEUE_InitMessageQueue(); // 0x005201E0
 
-int __fastcall sub_005205F0_GetState(D2BnStateStrc* pState); // 0x005205F0
+int __fastcall BNMESSQUEUE_GetState(D2BnStateStrc* pState); // 0x005205F0
 
-void __cdecl sub_00520200_DeleteQueueLock(); // 0x00520200
+void __cdecl BNMESSQUEUE_DeleteQueueLock(); // 0x00520200
 
-void __fastcall sub_00520C30_SetSlot(unsigned char nIndex, int nValue); // 0x00520C30
+void __fastcall BNMESSQUEUE_SetSlot(unsigned char nIndex, int nValue); // 0x00520C30
 
 int __fastcall sub_M119_Emit_00520A80(int nPos, int nCount, int nSize)
 {
@@ -2650,7 +2650,8 @@ static long BNDOWNLOAD_GetTime(long* pTime)
     return _time32(pTime);
 }
 
-static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
+// build: symbol ?BNSEND_NibbleToHex@* 0x0051DD10
+static unsigned int BNSEND_NibbleToHex(unsigned int nValue)
 {
     nValue &= 0xF;
     if (nValue >= 10)
@@ -2658,7 +2659,8 @@ static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
     return nValue + 0x30;
 }
 
-static int sub_0051DD20_HexToNibble(char cChar)
+// build: symbol ?BNSEND_HexToNibble@* 0x0051DD20
+static int BNSEND_HexToNibble(char cChar)
 {
     char cLower = (char)tolower(cChar);
     if (cLower >= 'a')
@@ -2666,7 +2668,8 @@ static int sub_0051DD20_HexToNibble(char cChar)
     return cLower - 0x30;
 }
 
-static int sub_0051DD40_MapKeyChar(unsigned char cChar)
+// build: symbol ?BNSEND_MapKeyChar@* 0x0051DD40
+static int BNSEND_MapKeyChar(unsigned char cChar)
 {
     return gacCDKeyMap[cChar];
 }
@@ -2678,17 +2681,17 @@ long __stdcall sub_M106_Emit_0051DC70(long* pTime)
 
 unsigned int __stdcall sub_M106_Emit_0051DD10(int n)
 {
-    return sub_0051DD10_NibbleToHex(tolower(n)) + sub_0051DD10_NibbleToHex(tolower(n + 1));
+    return BNSEND_NibbleToHex(tolower(n)) + BNSEND_NibbleToHex(tolower(n + 1));
 }
 
 int __stdcall sub_M106_Emit_0051DD20(int n)
 {
-    return sub_0051DD20_HexToNibble((char)tolower(n)) * 16 + sub_0051DD20_HexToNibble((char)tolower(n + 1));
+    return BNSEND_HexToNibble((char)tolower(n)) * 16 + BNSEND_HexToNibble((char)tolower(n + 1));
 }
 
 int __stdcall sub_M106_Emit_0051DD40(int n)
 {
-    return sub_0051DD40_MapKeyChar((unsigned char)tolower(n)) * 24 + sub_0051DD40_MapKeyChar((unsigned char)tolower(n + 1));
+    return BNSEND_MapKeyChar((unsigned char)tolower(n)) * 24 + BNSEND_MapKeyChar((unsigned char)tolower(n + 1));
 }
 
 // 0x00521BA0
@@ -2934,7 +2937,6 @@ struct D2CDKeyInfoStrc;
 
 struct D2CipherKeyStringView;
 
-struct D2EncodedTrailerStrc;
 
 struct D2CDKeyInfoStrc
 {
@@ -2962,13 +2964,6 @@ struct D2CipherKeyStringView
     void __thiscall BNDOWNLOAD_InitCipherKeys(int bEncrypt); // 0x00522C30
 };
 
-struct D2EncodedTrailerStrc
-{
-    unsigned int nDigest;
-    unsigned char nReserved;
-    unsigned char nLastBlockSize;
-    unsigned short wReserved;
-};
 
 unsigned int __fastcall sub_00523020_GetAlignedData(unsigned int nSize); // 0x00523020
 

@@ -1191,7 +1191,7 @@ void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTo
 
 void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
 
-static __declspec(noinline) int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox);
+static int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox);
 
 void __cdecl TEXT_DrawMessageList(); // 0x0049DC40
 
@@ -2272,13 +2272,6 @@ static int TEXT_GetKeyConfigEntryState(int nIndex, int nFlag)
 }
 
 
-
-int sub_B05_Emit_004A4FA0(int* pIndex)
-{
-    int nA = TEXT_GetKeyConfigEntryState(*pIndex, 1);
-    int nB = TEXT_GetKeyConfigEntryState(*pIndex, 0);
-    return sub_B05_Sink(nA, nB);
-}
 
 // 0x004A5010
 void __cdecl TEXT_ResetKeyConfigDefaults()

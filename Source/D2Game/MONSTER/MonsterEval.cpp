@@ -17,6 +17,7 @@
 #include "D2UnitData.h"
 #include "D2GameAux.h"
 #include "D2LanguageNames.h"
+#include "D2MonStatsInit.h"
 // build: symbol _gaszLanguageNames 0x0073C4C0
 
 
@@ -26,31 +27,12 @@ struct D2StaticPathStrc;
 
 struct D2MonStatsTxt;
 
-struct D2MonStatsInitStrc;
 
 struct D2MonsterDataStrc;
 
 struct Unit005A4EE0;
 
 struct StatValue;
-
-struct D2MonStatsInitStrc
-{
-    int nMinHP;
-    int nMaxHP;
-    int nAC;
-    int nTH;
-    int nExp;
-    int nA1MinD;
-    int nA1MaxD;
-    int nA2MinD;
-    int nA2MaxD;
-    int nS1MinD;
-    int nS1MaxD;
-    int nElMinD;
-    int nElMaxD;
-    int nElDur;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

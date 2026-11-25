@@ -819,7 +819,7 @@ int __fastcall D3DSPRITE_DrawFlatSprite(D2CelContextStrc* pData, int nX, int nY,
 }
 
 // 0x006B6B40
-int __fastcall sub_006B6B40_DrawSprite(D2CelContextStrc* pContext, int nX, int nY, unsigned int nColor, int nBlendMode, int nArg)
+int __fastcall D3DSPRITE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, unsigned int nColor, int nBlendMode, int nArg)
 {
     D2SpriteInfoStrc tInfo;
 
@@ -876,7 +876,7 @@ static int D3D_IsOnScreen(D2SpriteInfoStrc* pInfo, int nX, int nY)
 }
 
 // 0x006B6BF0
-int __fastcall sub_006B6BF0_DrawSprite(D2CelContextStrc* pContext, int nX, int nY, unsigned int nColor, int nBlendMode, int nPaletteIndex)
+int __fastcall D3DSPRITE_CelDrawColor(D2CelContextStrc* pContext, int nX, int nY, unsigned int nColor, int nBlendMode, int nPaletteIndex)
 {
     D2SpriteInfoStrc tInfo;
 

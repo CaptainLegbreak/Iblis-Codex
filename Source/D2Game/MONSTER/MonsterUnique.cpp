@@ -19,6 +19,7 @@
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
 #include "D2LanguageNames.h"
+#include "D2MonStatsInit.h"
 
 #define UNITFLAG_TARGETABLE 0x00000002
 
@@ -1524,7 +1525,6 @@ struct D2DifficultyLevelsTxt;
 
 struct D2CurseStrc;
 
-struct D2MonStatsInitStrc;
 
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
@@ -1535,24 +1535,6 @@ void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);
 
 D2StatListStrc* __fastcall SKILLS_ApplyStateEffect(D2CurseStrc* pCurse); // 0x0056E970
-
-struct D2MonStatsInitStrc
-{
-    int nMinHP;
-    int nMaxHP;
-    int nAC;
-    int nTH;
-    int nExp;
-    int nA1MinD;
-    int nA1MaxD;
-    int nA2MinD;
-    int nA2MaxD;
-    int nS1MinD;
-    int nS1MaxD;
-    int nElMinD;
-    int nElMaxD;
-    int nElDur;
-};
 
 int __stdcall DATATBLS_CalculateMonsterStatsByLevel(int nMonsterId, int nGameType, int nDifficulty, int nLevel, short nFlags, D2MonStatsInitStrc* pMonStatsInit); // 0x006538A0
 
@@ -2480,7 +2462,7 @@ void __fastcall MONSTERUNIQUE_CastSuicideExplodeMissile(D2GameStrc* pGame, D2Uni
     }
 }
 
-D2UnitStrc* __fastcall sub_6FC6A150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B2490
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnLevelVariantAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B2490
 
 void __fastcall MONSTERUNIQUE_CreatePainWorm(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
 
@@ -2489,17 +2471,17 @@ void __fastcall MONSTERUNIQUE_CreatePainWorm(D2GameStrc* pGame, D2UnitStrc* pUni
 {
     if (!pUnit || pUnit->dwAnimMode == MONMODE_DEATH)
     {
-        sub_6FC6A150(pGame, pUnit, MONSTER_PAINWORM1, MONMODE_NEUTRAL, 1, 0);
+        MONSTERSPAWN_SpawnLevelVariantAtUnit(pGame, pUnit, MONSTER_PAINWORM1, MONMODE_NEUTRAL, 1, 0);
         STATES_ToggleState(pUnit, STATE_CORPSE_NODRAW, 1);
     }
 }
 
 void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00573780
 
-void __fastcall sub_6FC6E730(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
+void __fastcall MONSTERUNIQUE_UpdateAiAndScheduleUModEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4230
 
 // 0x005A4230
-void __fastcall sub_6FC6E730(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+void __fastcall MONSTERUNIQUE_UpdateAiAndScheduleUModEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
     if (SUNIT_IsDead(pUnit))
     {

@@ -13,11 +13,15 @@ extern "C" __declspec(dllimport) long __stdcall RegCreateKeyExA(void* hKey, cons
 
 namespace Define_the_symbol__ATL_MIXED
 {
+// build: symbol ??0Thank_you@Define_the_symbol__ATL_MIXED@@QAE@XZ 0x006B1A00
+// build: symbol ?sub_006B1A10_Nop@Thank_you@Define_the_symbol__ATL_MIXED@@UAEXXZ 0x006B1A10
 struct Thank_you
 {
-    Thank_you();
-    virtual void sub_006B1A10_Nop();
+    Thank_you() {}
+    virtual void sub_006B1A10_Nop() {}
 };
+// build: symbol ?clash@Define_the_symbol__ATL_MIXED@@3UThank_you@1@A 0x0074C0C8
+extern __declspec(selectany) Thank_you clash = Thank_you();
 }
 
 namespace ATL
@@ -1107,16 +1111,6 @@ extern D2TextureCacheStrc gTextureCache_00970F00; // 0x00970F00
 extern int gdwGlobal_00970E50; // 0x00970E50
 extern char gnFloorCacheSize[]; // 0x007C90C8
 
-// 0x006B1A00
-Define_the_symbol__ATL_MIXED::Thank_you::Thank_you()
-{
-}
-
-// 0x006B1A10
-void Define_the_symbol__ATL_MIXED::Thank_you::sub_006B1A10_Nop()
-{
-}
-
 // build: symbol ??0CAtlException@ATL@@QAE@J@Z 0x006B1A20
 // build: symbol __TI1?AVCAtlException@ATL@@ 0x007020B4
 // 0x006B1A30
@@ -1230,13 +1224,13 @@ void __fastcall D3DCORE_ClearCaches()
 }
 
 // 0x006B1C00
-int __cdecl sub_006B1C00()
+int __cdecl D3DCORE_CheckCutScene()
 {
     return gdwGlobal_00970E50;
 }
 
 // 0x006B1C10
-void __fastcall sub_006B1C10_SetGlobal(int nValue)
+void __fastcall D3DCORE_SetGlobalScale(int nValue)
 {
     gdwGlobal_007B57E4 = nValue;
 }
@@ -1441,7 +1435,7 @@ void* __cdecl QSERVER_GetFloorCacheSize()
 }
 
 // 0x006B20B0
-int __cdecl sub_006B20B0()
+int __cdecl D3DCORE_ActivateWindow()
 {
     return 0;
 }

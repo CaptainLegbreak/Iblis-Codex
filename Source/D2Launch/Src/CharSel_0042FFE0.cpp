@@ -341,21 +341,24 @@ static long BNDOWNLOAD_GetTime(long* pTime)
     return _time32(pTime);
 }
 void __cdecl CHATDLG_ResetLaunchState(); // 0x0043F8C0
-static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
+// build: symbol ?BNSEND_NibbleToHex@* 0x0051DD10
+static unsigned int BNSEND_NibbleToHex(unsigned int nValue)
 {
     nValue &= 0xF;
     if (nValue >= 10)
         return nValue + 0x37;
     return nValue + 0x30;
 }
-static int sub_0051DD20_HexToNibble(char cChar)
+// build: symbol ?BNSEND_HexToNibble@* 0x0051DD20
+static int BNSEND_HexToNibble(char cChar)
 {
     char cLower = (char)tolower(cChar);
     if (cLower >= 'a')
         return cLower - 0x57;
     return cLower - 0x30;
 }
-static int sub_0051DD40_MapKeyChar(unsigned char cChar)
+// build: symbol ?BNSEND_MapKeyChar@* 0x0051DD40
+static int BNSEND_MapKeyChar(unsigned char cChar)
 {
     return gacCDKeyMap[cChar];
 }
@@ -365,13 +368,13 @@ long __stdcall sub_M106_Emit_0051DC70(long* pTime)
 }
 unsigned int __stdcall sub_M106_Emit_0051DD10(int n)
 {
-    return sub_0051DD10_NibbleToHex(tolower(n)) + sub_0051DD10_NibbleToHex(tolower(n + 1));
+    return BNSEND_NibbleToHex(tolower(n)) + BNSEND_NibbleToHex(tolower(n + 1));
 }
 int __stdcall sub_M106_Emit_0051DD20(int n)
 {
-    return sub_0051DD20_HexToNibble((char)tolower(n)) * 16 + sub_0051DD20_HexToNibble((char)tolower(n + 1));
+    return BNSEND_HexToNibble((char)tolower(n)) * 16 + BNSEND_HexToNibble((char)tolower(n + 1));
 }
 int __stdcall sub_M106_Emit_0051DD40(int n)
 {
-    return sub_0051DD40_MapKeyChar((unsigned char)tolower(n)) * 24 + sub_0051DD40_MapKeyChar((unsigned char)tolower(n + 1));
+    return BNSEND_MapKeyChar((unsigned char)tolower(n)) * 24 + BNSEND_MapKeyChar((unsigned char)tolower(n + 1));
 }

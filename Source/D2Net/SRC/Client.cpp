@@ -2,11 +2,8 @@
 
 #include "D2NetTypes.h"
 
-#include "D2NetTypes.h"
 
 struct D2NetPacketRecStrc;
-
-struct D2PacketBufferStrc;
 
 struct D2CriticalSectionStrc;
 
@@ -25,12 +22,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(voi
 int __fastcall FOG_SOCKET_CloseSocket(unsigned int s); // 0x0040D880
 
 int __fastcall NET_FreePacketList(D2CriticalSectionStrc* pCriticalSection, D2NetPacketRecStrc** ppPacketList); // 0x0052B8B0
-
-struct D2PacketBufferStrc
-{
-    unsigned char data[1976];
-    int nUsedBytes;
-};
 
 extern D2PacketBufferStrc* gpPacketBuffer; // 0x00882B34
 

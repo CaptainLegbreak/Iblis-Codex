@@ -80,8 +80,6 @@ struct D2BnAdClickStrc;
 
 struct D2BnChangeProofStrc;
 
-struct D2PacketBufferStrc;
-
 struct D2BnKeyValuePacketStrc;
 
 struct D2BnReadUserDataReplyStrc;
@@ -165,7 +163,7 @@ int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
 
 int __fastcall BNSEND_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0
 
-int __fastcall sub_0051C760_SplitPackets(unsigned char* pBuffer, int nLength); // 0x0051C760
+int __fastcall BNSEND_SplitPackets(unsigned char* pBuffer, int nLength); // 0x0051C760
 
 int __fastcall BNSEND_DispatchPacket(unsigned char nId, const void* pData, int nSize);       // 0x00521B00
 
@@ -359,12 +357,6 @@ struct D2BnChangeProofStrc
 {
     unsigned char abProof[0x14];
     unsigned char abVerifier[0x40];
-};
-
-struct D2PacketBufferStrc
-{
-    unsigned char data[1976];
-    int nUsedBytes;
 };
 
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pThreadAttributes, unsigned long nStackSize, unsigned long (__stdcall* pStartAddress)(void*), void* pParameter, unsigned long nCreationFlags, unsigned long* pThreadId); // 0x006CC250
@@ -606,7 +598,7 @@ int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, uns
 
 int __fastcall sub_0051C9E0_GetSockName(void* pAddress, int* pnLength); // 0x0051C9E0
 
-int __fastcall sub_0051DDD0_DecodeCDKey16(int* pProduct, int* pValue1, const char* szKey, int* pValue2);   // 0x0051DDD0
+int __fastcall BNSEND_DecodeCDKey16(int* pProduct, int* pValue1, const char* szKey, int* pValue2);   // 0x0051DDD0
 
 void __cdecl GRID_LockCDKeys();                                                                     // 0x005234D0
 
@@ -695,7 +687,7 @@ int __fastcall BNMESSQUEUE_SetState(int nState); // 0x00520520
 
 int gnClientToken; // 0x008818C4
 
-unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter); // 0x0051C7E0
+unsigned long __stdcall BNSEND_ReceiveThread(void* pParameter); // 0x0051C7E0
 
 int gdwGlobal_00881C04; // 0x00881C04
 
@@ -724,15 +716,6 @@ struct D2BnCheckAdReplyStrc;
 
 struct D2BnStateStrc;
 
-struct D2BnServerEntryStrc;
-
-struct D2BnServerEntryStrc
-{
-    char szAddress[0x100];
-    FSafeSock* pSafeSock;
-    int nUnused;
-};
-
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
 extern "C" int __stdcall __WSAFDIsSet(unsigned int nSocket, D2FdSetStrc* pSet); // 0x006B0180
@@ -743,7 +726,7 @@ FSafeSock* __fastcall FOG_SOCKET_ConnectEx(char* szHostAddress, int nPortNumber,
 
 int __fastcall FOG_SOCKET_SetBlockingMode(FSafeSock* pSafeSock, int bNonBlocking); // 0x0040E1A0
 
-int __fastcall sub_005205F0_GetState(D2BnStateStrc* pState); // 0x005205F0
+int __fastcall BNMESSQUEUE_GetState(D2BnStateStrc* pState); // 0x005205F0
 
 int __stdcall BNSEND_SendAuthInfo(); // 0x00521BF0
 
@@ -1987,7 +1970,7 @@ long volatile gnConnected; // 0x00881BF0
 int gbReady; // 0x00881BF8
 
 // 0x0051C760
-int __fastcall sub_0051C760_SplitPackets(unsigned char* pBuffer, int nLength)
+int __fastcall BNSEND_SplitPackets(unsigned char* pBuffer, int nLength)
 {
     unsigned char* p = pBuffer;
     for (;;)
@@ -2007,7 +1990,7 @@ int __fastcall sub_0051C760_SplitPackets(unsigned char* pBuffer, int nLength)
 }
 
 // 0x0051C7E0
-unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter)
+unsigned long __stdcall BNSEND_ReceiveThread(void* pParameter)
 {
     char aBuffer[0x2000 + 1];
     int nResult = 1;
@@ -2036,7 +2019,7 @@ unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter)
                 nResult = 0;
                 break;
             }
-            nUsed = sub_0051C760_SplitPackets((unsigned char*)aBuffer, nReceived + nUsed);
+            nUsed = BNSEND_SplitPackets((unsigned char*)aBuffer, nReceived + nUsed);
         }
         const unsigned long dwTick = GetTickCount();
         if (dwTick - dwLastTick >= 180000)
@@ -2066,7 +2049,7 @@ void __fastcall BNSEND_SetEmailRequested(int nValue)
 int __cdecl BNDOWNLOAD_IsReady()
 {
     D2BnStateStrc tState;
-    sub_005205F0_GetState(&tState);
+    BNMESSQUEUE_GetState(&tState);
 // build: symbol ?GAME_GetAbortFlag@* 0x00520AE0
     if (!GAME_GetAbortFlag() && tState.nState == 0 && InterlockedCompareExchange(&gnConnected, 0, 0))
         return 1;
@@ -2112,7 +2095,7 @@ int __stdcall sFastestConnect(char* szServerList)
             {
                 sub_0051A480_DebugLog("  Try to connect to %s", szToken);
                 strcpy(pEntry->szAddress, szToken);
-                pEntry->pSafeSock = FOG_SOCKET_ConnectEx(pEntry->szAddress, 6112, sub_0051C7E0_ReceiveThread, 0, "Client->BNet", 1);
+                pEntry->pSafeSock = FOG_SOCKET_ConnectEx(pEntry->szAddress, 6112, BNSEND_ReceiveThread, 0, "Client->BNet", 1);
                 ++nServers;
                 ++pEntry;
                 szToken = strtok(0, " ,;");
@@ -2250,7 +2233,7 @@ int __stdcall sFastestConnect(char* szServerList)
         return 0;
 
     D2BnStateStrc tState;
-    sub_005205F0_GetState(&tState);
+    BNMESSQUEUE_GetState(&tState);
     if (!tState.nState && BNDOWNLOAD_GetReplyValue(0x51))
     {
         sub_0051E3D0_PostMessage("bnserver-D2DV.ini", 0x80000004);
@@ -2401,7 +2384,7 @@ const char* __cdecl GAME_GetExeInfo(); // 0x00523AA0
 
 extern unsigned int gdwClientToken; // 0x00881C48
 
-int __stdcall sub_0051E0B0_SendAuthCheck(); // 0x0051E0B0
+int __stdcall BNSEND_SendAuthCheck(); // 0x0051E0B0
 
 unsigned int gdwClientToken; // 0x00881C48
 
@@ -2434,11 +2417,11 @@ static inline int CheckCDKeySlot(int nSlot, int* pProduct, int* pValue1, int* pV
         sub_00522AE0_DecodeCDKey(szKey, pProduct, pValue1, pKeyBlock);
         return 1;
     }
-    return sub_0051DDD0_DecodeCDKey16(pProduct, pValue1, szKey, pValue2);
+    return BNSEND_DecodeCDKey16(pProduct, pValue1, szKey, pValue2);
 }
 
 // 0x0051DCD0
-static void __stdcall sub_0051DCD0_EncodeChar(char* pChar, unsigned int* pBits, int nFlag)
+static void __stdcall BNSEND_EncodeChar(char* pChar, unsigned int* pBits, int nFlag)
 {
     const char ch = (char)toupper(*pChar);
     *pChar = ch;
@@ -2455,12 +2438,12 @@ static void __stdcall sub_0051DCD0_EncodeChar(char* pChar, unsigned int* pBits, 
 
 extern "C" void __stdcall sub_K08_EmitEncodeChar(char* pText, unsigned int* pBits, int nFlag)
 {
-    sub_0051DCD0_EncodeChar(pText, pBits, nFlag);
-    sub_0051DCD0_EncodeChar(pText + 1, pBits, nFlag);
+    BNSEND_EncodeChar(pText, pBits, nFlag);
+    BNSEND_EncodeChar(pText + 1, pBits, nFlag);
 }
 
 // 0x0051DD10
-static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
+static unsigned int BNSEND_NibbleToHex(unsigned int nValue)
 {
     nValue &= 0xF;
     if (nValue >= 10)
@@ -2469,7 +2452,7 @@ static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
 }
 
 // 0x0051DD20
-static int sub_0051DD20_HexToNibble(char cChar)
+static int BNSEND_HexToNibble(char cChar)
 {
     char cLower = (char)tolower(cChar);
     if (cLower >= 'a')
@@ -2478,7 +2461,7 @@ static int sub_0051DD20_HexToNibble(char cChar)
 }
 
 // 0x0051DD40
-static int sub_0051DD40_MapKeyChar(unsigned char cChar)
+static int BNSEND_MapKeyChar(unsigned char cChar)
 {
     return gacCDKeyMap[cChar];
 }
@@ -2490,21 +2473,21 @@ long __stdcall sub_M106_Emit_0051DC70(long* pTime)
 
 unsigned int __stdcall sub_M106_Emit_0051DD10(int n)
 {
-    return sub_0051DD10_NibbleToHex(tolower(n)) + sub_0051DD10_NibbleToHex(tolower(n + 1));
+    return BNSEND_NibbleToHex(tolower(n)) + BNSEND_NibbleToHex(tolower(n + 1));
 }
 
 int __stdcall sub_M106_Emit_0051DD20(int n)
 {
-    return sub_0051DD20_HexToNibble((char)tolower(n)) * 16 + sub_0051DD20_HexToNibble((char)tolower(n + 1));
+    return BNSEND_HexToNibble((char)tolower(n)) * 16 + BNSEND_HexToNibble((char)tolower(n + 1));
 }
 
 int __stdcall sub_M106_Emit_0051DD40(int n)
 {
-    return sub_0051DD40_MapKeyChar((unsigned char)tolower(n)) * 24 + sub_0051DD40_MapKeyChar((unsigned char)tolower(n + 1));
+    return BNSEND_MapKeyChar((unsigned char)tolower(n)) * 24 + BNSEND_MapKeyChar((unsigned char)tolower(n + 1));
 }
 
 // 0x0051DD50
-static void sub_0051DD50_DecodeKeyPairs(char* szKey, unsigned int* pValue)
+static void BNSEND_DecodeKeyPairs(char* szKey, unsigned int* pValue)
 {
     unsigned int nBit = 1;
     *pValue = 0;
@@ -2542,7 +2525,7 @@ static void sub_0051DD50_DecodeKeyPairs(char* szKey, unsigned int* pValue)
 }
 
 // 0x0051DDD0
-int __fastcall sub_0051DDD0_DecodeCDKey16(int* pProduct, int* pValue1, const char* szKey, int* pValue2)
+int __fastcall BNSEND_DecodeCDKey16(int* pProduct, int* pValue1, const char* szKey, int* pValue2)
 {
     *pProduct = 0;
     *pValue1 = 0;
@@ -2556,7 +2539,7 @@ int __fastcall sub_0051DDD0_DecodeCDKey16(int* pProduct, int* pValue1, const cha
     SStrCopy(szBuffer, szKey, 0x20);
 
     unsigned int nValue;
-    sub_0051DD50_DecodeKeyPairs(szBuffer, &nValue);
+    BNSEND_DecodeKeyPairs(szBuffer, &nValue);
 
     unsigned int nChecksum = 3;
     for (unsigned int i = 0; i < 0x10; ++i)
@@ -2607,7 +2590,7 @@ int __fastcall sub_0051DDD0_DecodeCDKey16(int* pProduct, int* pValue1, const cha
 }
 
 // 0x0051DFC0
-static int __stdcall sub_0051DFC0_BuildCDKeyInfo(D2CDKeyInfoStrc* pInfo, const char* szKey, unsigned int dwClientToken, unsigned int dwServerToken)
+static int __stdcall BNSEND_BuildCDKeyInfo(D2CDKeyInfoStrc* pInfo, const char* szKey, unsigned int dwClientToken, unsigned int dwServerToken)
 {
     D2CDKeyHash26Strc tHash26;
     int nValue1;
@@ -2617,7 +2600,7 @@ static int __stdcall sub_0051DFC0_BuildCDKeyInfo(D2CDKeyInfoStrc* pInfo, const c
     case 0x10:
         tHash16.f_0 = dwClientToken;
         tHash16.f_4 = dwServerToken;
-        if (!sub_0051DDD0_DecodeCDKey16(&tHash16.f_8, &nValue1, szKey, &tHash16.nValue3))
+        if (!BNSEND_DecodeCDKey16(&tHash16.f_8, &nValue1, szKey, &tHash16.nValue3))
             return 0;
 
         tHash16.nValue1 = nValue1;
@@ -2649,7 +2632,7 @@ static int __stdcall sub_0051DFC0_BuildCDKeyInfo(D2CDKeyInfoStrc* pInfo, const c
 }
 
 // 0x0051E0B0
-int __stdcall sub_0051E0B0_SendAuthCheck()
+int __stdcall BNSEND_SendAuthCheck()
 {
     const char* szExeInfo = GAME_GetExeInfo();
     const char* szKey0 = sub_00523AB0_GetCDKey(0);
@@ -2660,9 +2643,9 @@ int __stdcall sub_0051E0B0_SendAuthCheck()
     if (sub_0051BEC0_IsExpansion())
     {
         D2AuthCheck2Strc tPacket;
-        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken, BNCLIENT_GetServerToken()))
+        if (!BNSEND_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken, BNCLIENT_GetServerToken()))
             return 0;
-        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[1], szKey1, gdwClientToken, BNCLIENT_GetServerToken()))
+        if (!BNSEND_BuildCDKeyInfo(&tPacket.aKeys[1], szKey1, gdwClientToken, BNCLIENT_GetServerToken()))
             return 0;
 
         tPacket.f_0 = gdwClientToken;
@@ -2677,7 +2660,7 @@ int __stdcall sub_0051E0B0_SendAuthCheck()
         tPacket.f_0 = gdwClientToken;
         tPacket.nKeys = 1;
         tPacket.f_8 = dwExeHash;
-        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken, BNCLIENT_GetServerToken()))
+        if (!BNSEND_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken, BNCLIENT_GetServerToken()))
             return 0;
 
         if (BNSEND_SendPacket(0x42, &tPacket, SStrCopy(tPacket.f_30, szExeInfo, 0x100) + 0x31) < 0)
@@ -2688,10 +2671,10 @@ int __stdcall sub_0051E0B0_SendAuthCheck()
 }
 
 // 0x0051E240
-int __cdecl sub_0051E240_CheckAuth()
+int __cdecl BNSEND_CheckAuth()
 {
     GRID_LockCDKeys();
-    const int nResult = sub_0051E0B0_SendAuthCheck();
+    const int nResult = BNSEND_SendAuthCheck();
     GRID_UnlockCDKeys();
     if (!nResult)
         BNMESSQUEUE_SetState(3);
@@ -2716,7 +2699,7 @@ int __stdcall BNSEND_CheckCDKeys()
 // 0x0051E340
 int __fastcall sub_0051E340_BuildCDKeyInfoForSlot(D2CDKeyInfoStrc* pInfo, unsigned int dwClientToken, int nSlot)
 {
-    return sub_0051DFC0_BuildCDKeyInfo(pInfo, sub_00523AB0_GetCDKey(nSlot), dwClientToken, BNCLIENT_GetServerToken());
+    return BNSEND_BuildCDKeyInfo(pInfo, sub_00523AB0_GetCDKey(nSlot), dwClientToken, BNCLIENT_GetServerToken());
 }
 
 // 0x0051F2D0

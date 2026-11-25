@@ -8,7 +8,6 @@ struct D2LangCharSetStrc;
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
-extern "C" const char gszEndCharsS[]; // 0x006E03A8
 
 struct UnicodeZ
 {
@@ -29,6 +28,34 @@ Unicode* __fastcall sub_00526F20(Unicode* pDst, const char* szSrc, int nMaxLengt
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" unsigned int __cdecl strlen(const char* szString);
 static bool sub_005271A0_EndsWithCharOf(const char* szChars, const Unicode* pText); // 0x005271A0
+
+// 0x00527090
+bool D2LangCharSetStrc::ContainsChar(const Unicode* pChar) const
+{
+    Unicode wszChars[20] = {};
+    int i;
+    for (i = 0; i < 20 && szChars[i] != '\0'; ++i)
+    {
+        wszChars[i].wChar = (unsigned char)szChars[i];
+    }
+    if (szChars[i] != '\0')
+    {
+        wszChars[i - 1].wChar = 0;
+    }
+    else
+    {
+        wszChars[i].wChar = 0;
+    }
+    const int nLength = sub_00526800(wszChars);
+    for (int j = 0; j < nLength; ++j)
+    {
+        if (pChar->wChar == wszChars[j].wChar)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 // 0x005271A0
 static bool sub_005271A0_EndsWithCharOf(const char* szChars, const Unicode* pText)
@@ -57,15 +84,6 @@ static bool sub_005271A0_EndsWithCharOf(const char* szChars, const Unicode* pTex
         }
     }
     return false;
-}
-
-void __fastcall sub_I11_Emit_005271A0(Unicode* pDst, const Unicode* pText)
-{
-    sub_005267E0(pDst, pText);
-    if (sub_005271A0_EndsWithCharOf(gszEndCharsS, pText))
-    {
-        sub_005267E0(pDst, pText);
-    }
 }
 
 static inline void win2UnicodeInline(Unicode* pDst, const char* szSrc, int nMaxLength)
@@ -135,7 +153,6 @@ void __fastcall sub_005272B0_FormatText(Unicode* pDst, const Unicode* pOwner, co
 
     case 3:
         sub_005267E0(pDst, pItem);
-// build: symbol ?ContainsChar@* 0x00527090
         if (((const D2LangCharSetStrc*)"aeiou")->ContainsChar(pOwner))
             strcpy(szSuffix, " d'");
         else

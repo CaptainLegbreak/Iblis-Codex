@@ -18,6 +18,7 @@
 #include "D2PlayerModes.h"
 #include "D2GameAux.h"
 #include "D2Packets.h"
+#include "D2MonStatsInit.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -411,13 +412,6 @@ void __fastcall MONSTER_DeleteEvents(D2GameStrc* pGame, D2UnitStrc* pMonster);  
 static void __stdcall MONSTERMODE_CleanupDeath(int nDirection, D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A6520
 
 int __fastcall MONSTERMODE_StartDead(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange);
-
-struct D2MonStatsInitStrc
-{
-    int nMinHP;
-    int nMaxHP;
-    int unk_08[12];
-};
 
 void __fastcall MONSTERMODE_TryDropTreasure(D2GameStrc*, D2ModeChangeStrc*, int); // 0x005A6830
 

@@ -22379,6 +22379,14 @@
      "length": 250
     },
     {
+     "va": "0x004815A0",
+     "length": 94
+    },
+    {
+     "va": "0x00481600",
+     "length": 277
+    },
+    {
      "va": "0x00481780",
      "length": 29,
      "name": "?UNITMODE_GetPlayerLevelId@@YAHXZ"
@@ -22404,54 +22412,6 @@
      "length": 47,
      "name": "?sub_004804A0_SetPathTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004815A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004815A0",
-     "length": 94
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00481600.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00481600",
-     "length": 277
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -32742,7 +32702,7 @@
     {
      "va": "0x00508F60",
      "length": 37,
-     "name": "?sub_00508F60_GlideCheckBoards@@YAHXZ"
+     "name": "?GLCORE_Detect@@YAHXZ"
     },
     {
      "va": "0x00508F90",
@@ -35621,7 +35581,7 @@
     {
      "va": "0x00510130",
      "length": 1,
-     "name": "?sub_00510130_DDrawNop@@YIXXZ"
+     "name": "?DDCORE_ClearCaches@@YIXXZ"
     },
     {
      "va": "0x00510140",
@@ -35631,32 +35591,32 @@
     {
      "va": "0x00510150",
      "length": 16,
-     "name": "?sub_00510150_DDrawGetScreenSize@@YIXPAH0@Z"
+     "name": "?DDCORE_GetDimensions@@YIXPAH0@Z"
     },
     {
      "va": "0x00510160",
      "length": 360,
-     "name": "?sub_00510160_DDrawSetPalette@@YIXPAUD2PaletteEntryStrc@@@Z"
+     "name": "?DDCORE_SetPalette@@YIXPAUD2PaletteEntryStrc@@@Z"
     },
     {
      "va": "0x005102D0",
      "length": 29,
-     "name": "?sub_005102D0_DDrawSetPaletteView@@YIXPAUD2GfxPaletteViewStrc@@@Z"
+     "name": "?DDCORE_SetPaletteTables@@YIXPAUD2GfxPaletteViewStrc@@@Z"
     },
     {
      "va": "0x005102F0",
      "length": 1,
-     "name": "?sub_005102F0_DDrawNop@@YIXXZ"
+     "name": "?DDCORE_SetGlobalScale@@YIXXZ"
     },
     {
      "va": "0x00510300",
      "length": 16,
-     "name": "?sub_00510300_DDrawSetGamma@@YIXH@Z"
+     "name": "?DDCORE_SetGamma@@YIXH@Z"
     },
     {
      "va": "0x00510310",
      "length": 6,
-     "name": "?sub_00510310_ReturnOne@@YAHXZ"
+     "name": "?DDCORE_GammaCanBeControlled@@YAHXZ"
     },
     {
      "va": "0x00510320",
@@ -35666,22 +35626,22 @@
     {
      "va": "0x00510330",
      "length": 1,
-     "name": "?sub_00510330_DDrawNop@@YIXXZ"
+     "name": "?DDCORE_UpdatePerspective@@YIXXZ"
     },
     {
      "va": "0x00510340",
      "length": 3,
-     "name": "?sub_00510340_DDrawStub5@@YIXHHHHH@Z"
+     "name": "?DDCORE_PerspectiveTransform@@YIXHHHHH@Z"
     },
     {
      "va": "0x00510350",
      "length": 3,
-     "name": "?sub_00510350_DDrawStub6@@YIXHHHHHH@Z"
+     "name": "?DDCORE_PerspectiveTransformScale@@YIXHHHHHH@Z"
     },
     {
      "va": "0x00510360",
      "length": 1,
-     "name": "?sub_00510360_DDrawNop@@YIXXZ"
+     "name": "?DDCORE_PerspectiveClearScale@@YIXXZ"
     },
     {
      "va": "0x00510370",
@@ -35696,7 +35656,7 @@
     {
      "va": "0x00510390",
      "length": 20,
-     "name": "?sub_00510390_DDrawSetOption@@YIHHH@Z"
+     "name": "?DDCORE_SetOption@@YIHHH@Z"
     },
     {
      "va": "0x005103B0",
@@ -36104,7 +36064,7 @@
     {
      "va": "0x0050DF00",
      "length": 11,
-     "name": "?sub_0050DF00_ResetSpriteScale@@YAXXZ"
+     "name": "?GLVERTEX_PerspectiveClearScale@@YAXXZ"
     },
     {
      "va": "0x0050F980",
@@ -36491,7 +36451,7 @@
     {
      "va": "0x00512410",
      "length": 28,
-     "name": "sub_00512410_ForwardToDrawImage"
+     "name": "GLVERTEX_CelFlatSpriteDraw"
     },
     {
      "va": "0x00512710",
@@ -38624,12 +38584,12 @@
     {
      "va": "0x0051C760",
      "length": 117,
-     "name": "sub_0051C760_SplitPackets"
+     "name": "BNSEND_SplitPackets"
     },
     {
      "va": "0x0051C7E0",
      "length": 451,
-     "name": "sub_0051C7E0_ReceiveThread"
+     "name": "BNSEND_ReceiveThread"
     },
     {
      "va": "0x0051CA20",
@@ -38674,32 +38634,32 @@
     {
      "va": "0x0051DCD0",
      "length": 58,
-     "name": "?sub_0051DCD0_EncodeChar@@YGXPADPAIH@Z"
+     "name": "?BNSEND_EncodeChar@@YGXPADPAIH@Z"
     },
     {
      "va": "0x0051DD10",
      "length": 16,
-     "name": "?sub_0051DD10_NibbleToHex@@YAII@Z"
+     "name": "?BNSEND_NibbleToHex@@YAII@Z"
     },
     {
      "va": "0x0051DD20",
      "length": 27,
-     "name": "?sub_0051DD20_HexToNibble@@YAHD@Z"
+     "name": "?BNSEND_HexToNibble@@YAHD@Z"
     },
     {
      "va": "0x0051DD40",
      "length": 11,
-     "name": "?sub_0051DD40_MapKeyChar@@YAHE@Z"
+     "name": "?BNSEND_MapKeyChar@@YAHE@Z"
     },
     {
      "va": "0x0051DD50",
      "length": 114,
-     "name": "?sub_0051DD50_DecodeKeyPairs@@YAXPADPAI@Z"
+     "name": "?BNSEND_DecodeKeyPairs@@YAXPADPAI@Z"
     },
     {
      "va": "0x0051DDD0",
      "length": 446,
-     "name": "?sub_0051DDD0_DecodeCDKey16@@YIHPAH0PBD0@Z"
+     "name": "?BNSEND_DecodeCDKey16@@YIHPAH0PBD0@Z"
     },
     {
      "va": "0x0051DFC0",
@@ -38708,12 +38668,12 @@
     {
      "va": "0x0051E0B0",
      "length": 387,
-     "name": "?sub_0051E0B0_SendAuthCheck@@YGHXZ"
+     "name": "?BNSEND_SendAuthCheck@@YGHXZ"
     },
     {
      "va": "0x0051E240",
      "length": 34,
-     "name": "?sub_0051E240_CheckAuth@@YAHXZ"
+     "name": "?BNSEND_CheckAuth@@YAHXZ"
     },
     {
      "va": "0x0051E270",
@@ -38980,12 +38940,12 @@
     {
      "va": "0x005201E0",
      "length": 29,
-     "name": "?sub_005201E0_InitMessageQueue@@YAXXZ"
+     "name": "?BNMESSQUEUE_InitMessageQueue@@YAXXZ"
     },
     {
      "va": "0x00520200",
      "length": 12,
-     "name": "?sub_00520200_DeleteQueueLock@@YAXXZ"
+     "name": "?BNMESSQUEUE_DeleteQueueLock@@YAXXZ"
     },
     {
      "va": "0x00520210",
@@ -39029,12 +38989,12 @@
     {
      "va": "0x005205F0",
      "length": 64,
-     "name": "?sub_005205F0_GetState@@YIHPAUD2BnStateStrc@@@Z"
+     "name": "?BNMESSQUEUE_GetState@@YIHPAUD2BnStateStrc@@@Z"
     },
     {
      "va": "0x00520C30",
      "length": 11,
-     "name": "?sub_00520C30_SetSlot@@YIXEH@Z"
+     "name": "?BNMESSQUEUE_SetSlot@@YIXEH@Z"
     }
    ]
   },
@@ -40101,6 +40061,26 @@
    ]
   },
   {
+   "file": "Source/D2Lang/Unknown_00527090.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00527090",
+     "length": 258,
+     "name": "ContainsChar"
+    },
+    {
+     "va": "0x005271A0",
+     "length": 259,
+     "name": "?sub_005271A0_EndsWithCharOf@@YA_NPBDPBUUnicode@@@Z"
+    },
+    {
+     "va": "0x005272B0",
+     "length": 929
+    }
+   ]
+  },
+  {
    "file": "Source/D2Lang/StrTable/strtable.cpp",
    "rank": 0,
    "functions": [
@@ -40235,11 +40215,6 @@
      "va": "0x00525FB0",
      "length": 331,
      "name": "D2LANG_FormatInt"
-    },
-    {
-     "va": "0x00527090",
-     "length": 258,
-     "name": "ContainsChar"
     }
    ]
   },
@@ -40398,21 +40373,6 @@
      "va": "0x00526610",
      "length": 168,
      "name": "strnicmp"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Lang/Unknown_005271A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005271A0",
-     "length": 259,
-     "name": "?sub_005271A0_EndsWithCharOf@@YA_NPBDPBUUnicode@@@Z"
-    },
-    {
-     "va": "0x005272B0",
-     "length": 929
     }
    ]
   },
@@ -41458,7 +41418,7 @@
     {
      "va": "0x0052B270",
      "length": 12,
-     "name": "sub_0052B270"
+     "name": "D2NET_10027"
     },
     {
      "va": "0x0052B280",
@@ -41567,7 +41527,7 @@
     {
      "va": "0x0052B6F0",
      "length": 12,
-     "name": "sub_0052B6F0"
+     "name": "D2NET_10028_Return"
     },
     {
      "va": "0x0052B700",
@@ -48467,7 +48427,7 @@
     {
      "va": "0x00570590",
      "length": 233,
-     "name": "?sub_6FD10250@@YIPAUD2StatListStrc@@PAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
+     "name": "?SKILLS_ApplyTimedState@@YIPAUD2StatListStrc@@PAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
     },
     {
      "va": "0x005706A0",
@@ -55318,7 +55278,7 @@
     {
      "va": "0x005A4230",
      "length": 56,
-     "name": "?sub_6FC6E730@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?MONSTERUNIQUE_UpdateAiAndScheduleUModEvent@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A4270",
@@ -57558,7 +57518,7 @@
     {
      "va": "0x005B2490",
      "length": 74,
-     "name": "sub_6FC6A150"
+     "name": "MONSTERSPAWN_SpawnLevelVariantAtUnit"
     },
     {
      "va": "0x005B24E0",
@@ -76342,12 +76302,12 @@
     {
      "va": "0x006B1C00",
      "length": 6,
-     "name": "sub_006B1C00"
+     "name": "D3DCORE_CheckCutScene"
     },
     {
      "va": "0x006B1C10",
      "length": 7,
-     "name": "?sub_006B1C10_SetGlobal@@YIXH@Z"
+     "name": "?D3DCORE_SetGlobalScale@@YIXH@Z"
     },
     {
      "va": "0x006B1C20",
@@ -76412,7 +76372,7 @@
     {
      "va": "0x006B20B0",
      "length": 3,
-     "name": "sub_006B20B0"
+     "name": "D3DCORE_ActivateWindow"
     },
     {
      "va": "0x006B20C0",
@@ -78359,7 +78319,7 @@
     {
      "va": "0x006C7A60",
      "length": 6,
-     "name": "sub_006C7A60"
+     "name": "GDICORE_Detect"
     },
     {
      "va": "0x006C7A70",
@@ -78374,7 +78334,7 @@
     {
      "va": "0x006C7AF0",
      "length": 1,
-     "name": "?sub_006C7AF0_Nop@@YAXXZ"
+     "name": "?GDICORE_ClearCaches@@YAXXZ"
     },
     {
      "va": "0x006C7B00",
@@ -78391,17 +78351,17 @@
     {
      "va": "0x006C7CC0",
      "length": 3,
-     "name": "sub_006C7CC0"
+     "name": "GDICORE_PlayCutscene"
     },
     {
      "va": "0x006C7CD0",
      "length": 3,
-     "name": "sub_006C7CD0"
+     "name": "GDICORE_OpenSmackCutscene"
     },
     {
      "va": "0x006C7CE0",
      "length": 3,
-     "name": "sub_006C7CE0"
+     "name": "GDICORE_CheckCutScene"
     },
     {
      "va": "0x006C7CF0",
@@ -78455,42 +78415,42 @@
     {
      "va": "0x006C8030",
      "length": 1,
-     "name": "?sub_006C8030_Nop@@YAXXZ"
+     "name": "?GDICORE_SetGlobalScale@@YAXXZ"
     },
     {
      "va": "0x006C8040",
      "length": 1,
-     "name": "?sub_006C8040_Nop@@YAXXZ"
+     "name": "?GDICORE_SetGamma@@YAXXZ"
     },
     {
      "va": "0x006C8050",
      "length": 3,
-     "name": "sub_006C8050"
+     "name": "GDICORE_GammaCanBeControlled"
     },
     {
      "va": "0x006C8060",
      "length": 3,
-     "name": "sub_006C8060"
+     "name": "GDICORE_SetAmbientColor"
     },
     {
      "va": "0x006C8070",
      "length": 1,
-     "name": "?sub_006C8070_Nop@@YAXXZ"
+     "name": "?GDICORE_UpdatePerspective@@YAXXZ"
     },
     {
      "va": "0x006C8080",
      "length": 3,
-     "name": "?sub_006C8080_Nop@@YGXHHH@Z"
+     "name": "?GDICORE_PerspectiveTransform@@YGXHHH@Z"
     },
     {
      "va": "0x006C8090",
      "length": 3,
-     "name": "?sub_006C8090_Nop@@YGXHHHH@Z"
+     "name": "?GDICORE_PerspectiveTransformScale@@YGXHHHH@Z"
     },
     {
      "va": "0x006C80A0",
      "length": 1,
-     "name": "?sub_006C80A0_Nop@@YAXXZ"
+     "name": "?GDICORE_PerspectiveClearScale@@YAXXZ"
     },
     {
      "va": "0x006C80B0",
@@ -78499,12 +78459,12 @@
     {
      "va": "0x006C80F0",
      "length": 3,
-     "name": "sub_006C80F0"
+     "name": "GDICORE_ActivateWindow"
     },
     {
      "va": "0x006C8100",
      "length": 3,
-     "name": "sub_006C8100"
+     "name": "GDICORE_SetOption"
     },
     {
      "va": "0x006C8110",
@@ -78513,7 +78473,7 @@
     {
      "va": "0x006C8190",
      "length": 3,
-     "name": "sub_006C8190"
+     "name": "GDICORE_GetCacheResults"
     },
     {
      "va": "0x006C81A0",
@@ -78568,7 +78528,7 @@
     {
      "va": "0x006C88A0",
      "length": 3,
-     "name": "sub_006C88A0"
+     "name": "GDICORE_CelDrawHilight"
     },
     {
      "va": "0x006C88B0",
@@ -78595,7 +78555,7 @@
     {
      "va": "0x006C8A40",
      "length": 3,
-     "name": "sub_006C8A40"
+     "name": "GDICORE_DebugDraw"
     },
     {
      "va": "0x006C8C00",

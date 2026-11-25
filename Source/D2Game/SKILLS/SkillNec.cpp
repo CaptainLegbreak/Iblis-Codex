@@ -14,6 +14,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2StatIds.h"
+#include "D2MonStatsInit.h"
 
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 
@@ -57,7 +58,6 @@ struct D2MonStatsTxt;
 
 union D2SeedStrc;
 
-struct D2MonStatsInitStrc;
 
 struct D2ModeChangeStrc;
 
@@ -256,13 +256,6 @@ D2UnitStrc* __fastcall PLAYERPETS_GetFirstPetByType(D2GameStrc* pGame, D2UnitStr
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
 int __fastcall SKILLDESC_GetSkillParamSix(int nSkillId); // 0x004F4110
-
-struct D2MonStatsInitStrc
-{
-    int nMinHP;
-    int nMaxHP;
-    int unk0x08[12];
-};
 
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
 

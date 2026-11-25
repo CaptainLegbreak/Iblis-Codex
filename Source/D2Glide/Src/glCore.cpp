@@ -572,7 +572,7 @@ int __cdecl GLCORE_GlideLoadLibrary()
 int gnGlideNumBoards; // 0x0087EFC4
 
 // 0x00508F60
-int __cdecl sub_00508F60_GlideCheckBoards()
+int __cdecl GLCORE_Detect()
 {
     if (!GLCORE_GlideLoadLibrary())
     {
