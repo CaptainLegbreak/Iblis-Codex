@@ -3446,7 +3446,7 @@ int __stdcall SKILLS_GetUseState(D2UnitStrc* pUnit, D2SkillStrc* ptSkill)
 }
 
 // 0x00647AA0
-void __stdcall D2Common_11030(D2UnitStrc* pUnit, int nSkillId, int a3)
+void __stdcall D2Common_11030(D2UnitStrc* pUnit, int nSkillId, int nLevelBonus)
 {
     D2SkillStrc* pSkill = 0;
 
@@ -3455,7 +3455,7 @@ void __stdcall D2Common_11030(D2UnitStrc* pUnit, int nSkillId, int a3)
         pSkill = SKILLS_GetSkill(pUnit, nSkillId, -1);
         if (!pSkill)
         {
-            if (a3 <= 0)
+            if (nLevelBonus <= 0)
             {
                 return;
             }
@@ -3482,7 +3482,7 @@ void __stdcall D2Common_11030(D2UnitStrc* pUnit, int nSkillId, int a3)
 
         if (pSkill->nOwnerGUID == -1)
         {
-            pSkill->nLevelBonus = a3;
+            pSkill->nLevelBonus = nLevelBonus;
             SKILLS_RefreshSkill(pUnit, nSkillId);
         }
     }

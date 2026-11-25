@@ -464,7 +464,7 @@ static void DRLGOUTSIEGE_AddAct5SecondaryBorder(D2DrlgLevelStrc* pLevel)
     D2DrlgOutPlaceCtxStrc tCtx;
     memset(&tCtx, 0, sizeof(tCtx));
     tCtx.pLevel = pLevel;
-    tCtx.pUnk54 = &pInfo->unk0x54;
+    tCtx.pUnk54 = &pInfo->nWidth;
     tCtx.pGrid04 = &pInfo->pGrid[0];
     tCtx.pGrid2C = &pInfo->pGrid[2];
     tCtx.pfnTest = DRLGOUTSIEGE_TestSecondaryBorderCell;

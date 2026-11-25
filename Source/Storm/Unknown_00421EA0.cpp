@@ -221,9 +221,6 @@ struct D2StormGameArrayStrc
     ~D2StormGameArrayStrc();                                                                                // 0x0044FD80
 };
 
-extern "C" unsigned int __cdecl _rotl(unsigned int nValue, int nShift);
-void __fastcall sub_00425850_Sha1Transform(unsigned int* pState, const unsigned char* pBlock); // 0x00425850
-
 static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsigned int nSize, unsigned int* pnOffset, unsigned int* pnLength);
 static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, BigBuffer* pBuf);
 static void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData);

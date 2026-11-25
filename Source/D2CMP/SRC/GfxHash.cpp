@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2SysTypes.h"
 #include "D2CmpTypes.h"
 #include "D2CmpTiles.h"
 #include "D2CelDataHash.h"
@@ -101,11 +102,11 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volati
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
 
-extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void* lpCriticalSection); // 0x006CC1FC
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
 
 long gnTileLockRefCount; // 0x008F03E4
 
-char gtCodecLock[0x18]; // 0x008F03CC
+D2CriticalSectionStrc gtCodecLock; // 0x008F03CC
 
 // 0x0060AB80
 unsigned int __fastcall GfxHashGetDirectionKey(D2CmpGfxKeyStrc* pKey, unsigned int* pDivisor, D2CmpGfxCelStrc* pCel)
@@ -257,14 +258,14 @@ D2CmpGfxHashEntryStrc* __fastcall GfxHashAdd(void* pMemPool, D2CmpGfxHashStrc* p
 void __cdecl CodecInitLock()
 {
     if (InterlockedIncrement(&gnTileLockRefCount) == 1)
-        InitializeCriticalSection(gtCodecLock);
+        InitializeCriticalSection(&gtCodecLock);
 }
 
 // 0x0060CD50
 void __cdecl CodecReleaseLock()
 {
     if (InterlockedDecrement(&gnTileLockRefCount) == 0)
-        DeleteCriticalSection(gtCodecLock);
+        DeleteCriticalSection(&gtCodecLock);
 }
 
 // 0x0060A9D0

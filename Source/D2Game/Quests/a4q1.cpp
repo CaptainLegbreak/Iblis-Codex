@@ -872,7 +872,7 @@ int __fastcall ACT4Q1_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2Uni
 
     if (pQuestData->fState == 3)
     {
-        if (pQuestDataEx->unk0x0C)
+        if (pQuestDataEx->bPlayerStartedGame)
         {
             QUESTRECORD_SetQuestState(pQuestFlags, 25, 4);
             return 0;
@@ -1293,7 +1293,7 @@ void __fastcall ACT4Q1_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     if (QUESTRECORD_GetQuestState(pQuestFlags, 25, 4) == 1)
     {
         D2Act4Quest1Strc* pQuestDataEx = (D2Act4Quest1Strc*)pQuestData->pQuestDataEx;
-        pQuestDataEx->unk0x0C = 1;
+        pQuestDataEx->bPlayerStartedGame = 1;
         pQuestData->fLastState = 2;
         pQuestData->fState = 3;
     }

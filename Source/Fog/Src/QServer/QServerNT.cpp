@@ -87,8 +87,6 @@ static void __stdcall QSERVERNT_QueueMessage(D2QClientStrc* pConn, const void* p
 void __fastcall ERRORMANAGER_UnregisterThread(unsigned int nId); // 0x00407F90
 
 
-extern const char gszQServerFile[]; // 0x006FC8A0
-
 static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, D2QueueServerStrc* pServer, D2SockAddrInStrc* pAddr);
 
 long __cdecl SYSTEM_GetSyncTime(); // 0x00410A80
@@ -112,14 +110,6 @@ void __cdecl sub_006BE2F0_Nop(const char* unused1, const char* unused2, int unus
 
 
 D2HashNode006BE540Strc* __fastcall QSERVER_FindClient(D2HashTable006BE540Strc* pTable, unsigned int nKey); // 0x006BE540
-
-extern "C" const char gszDeletedSocketFmt[]; // 0x006FC8C0
-
-extern "C" const char gszHackList[]; // 0x006FC938
-
-extern "C" const char gszLoggedTwice[]; // 0x006FC920
-
-extern "C" const char gszSpamming[]; // 0x006FC900
 
 union D2QTickStrc
 {

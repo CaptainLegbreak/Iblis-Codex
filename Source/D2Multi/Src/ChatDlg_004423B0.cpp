@@ -163,7 +163,7 @@ static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand)
                     sub_004FC9B0_SetText(gpChatTextBox, wszMessage, 1, 0, 1);
                 return 1;
             }
-            if (!gpLaunchFuncs->pfn0x68())
+            if (!gpLaunchFuncs->pfnIsSocketConnected())
             {
                 CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
                 return 1;
@@ -171,7 +171,7 @@ static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand)
 
 // build: symbol ?gszReplyFormat@* 0x006D55EC
             sprintf(szMessage, gszReplyFormat, gszLastWhisperer, pMessage);
-            gpLaunchFuncs->pfn0x14(szMessage);
+            gpLaunchFuncs->pfnChatCommand(szMessage);
             return 1;
         }
     }
@@ -287,11 +287,11 @@ void __fastcall CHATDLG_RunCommand(char* szText)
         return;
     }
 
-    if (!gpLaunchFuncs->pfn0x68())
+    if (!gpLaunchFuncs->pfnIsSocketConnected())
     {
         CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
         return;
     }
 
-    gpLaunchFuncs->pfn0x14(szText);
+    gpLaunchFuncs->pfnChatCommand(szText);
 }

@@ -43,7 +43,7 @@ struct D2PlayerDataStrc
     int dwUniqueId; // 0x48
     int bBusy; // 0x4C
     int dwTradeState; // 0x50
-    unsigned char unk0x54[0x4]; // 0x54
+    unsigned char dwLastTradeTick[0x4]; // 0x54
     int dwAcceptTradeTick; // 0x58
     D2PlayerTradeStrc* hTrade; // 0x5C
     D2PlrIntroStrc* pPlayerIntro[3]; // 0x60
@@ -109,7 +109,7 @@ struct D2MonsterDataStrc
     };
     unsigned char unk0x4C[0x4]; // 0x4C
     int pVision; // 0x50
-    unsigned char unk0x54[0x4]; // 0x54
+    unsigned char dwAiState[0x4]; // 0x54
     int nLevelId; // 0x58
 };
 

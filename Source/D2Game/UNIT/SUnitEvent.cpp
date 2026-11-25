@@ -595,7 +595,7 @@ D2UnitEventStrc* __fastcall SUNITEVENT_Register(D2GameStrc* pGame, D2UnitStrc* p
     pUnitEvent->pCallback = pCallback;
     pUnitEvent->pNext = pUnit->pSrvUnitEventsList;
     pUnitEvent->nEventGroup = nQueueNo;
-    pUnitEvent->unk0x08 = a8;
+    pUnitEvent->nEventKey = a8;
 
     if (pUnit->pSrvUnitEventsList)
     {
@@ -617,7 +617,7 @@ void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     while (pUnitEvent)
     {
         D2UnitEventStrc* pNext = pUnitEvent->pNext;
-        if (pUnitEvent->nEventGroup == nTimerQueueNo && pUnitEvent->unk0x08 == a4)
+        if (pUnitEvent->nEventGroup == nTimerQueueNo && pUnitEvent->nEventKey == a4)
         {
             if (pUnitEvent->nFlags & UNITEVENTFLAG_IN_CALLBACK)
             {
@@ -645,7 +645,7 @@ D2UnitEventStrc* __fastcall SUNITEVENT_GetEvent(D2GameStrc* pGame, D2UnitStrc* p
     while (pUnitEvent)
     {
         D2UnitEventStrc* pNext = pUnitEvent->pNext;
-        if (pUnitEvent->nEventGroup == nTimerQueueNo && pUnitEvent->unk0x08 == a4 && pUnitEvent->nGUID1 == nGUID1)
+        if (pUnitEvent->nEventGroup == nTimerQueueNo && pUnitEvent->nEventKey == a4 && pUnitEvent->nGUID1 == nGUID1)
         {
             return pUnitEvent;
         }

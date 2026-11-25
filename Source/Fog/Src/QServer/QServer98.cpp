@@ -28,7 +28,6 @@ extern "C" __declspec(dllimport) int __stdcall SetEvent(void*);
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds);
 extern "C" __declspec(dllimport) void* __stdcall CreateEventA(void* pAttributes, int bManualReset, int bInitialState, const char* szName);
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfStart)(void*), void* pParameter, unsigned long nFlags, unsigned long* pThreadId);
-extern unsigned int __security_cookie; // 0x00749DE0
 void __fastcall QSERVER_AddReference(D2QueueServerStrc*,D2QClientStrc*); // 0x006BE640
 D2QClientStrc* __fastcall QSERVER_FindNodeInAnyBucket(D2QueueServerStrc*,int); // 0x006BE5B0
 int __fastcall QSERVER_CheckRecordThreshold(D2QueueServerStrc*,unsigned int*); // 0x006BE9F0

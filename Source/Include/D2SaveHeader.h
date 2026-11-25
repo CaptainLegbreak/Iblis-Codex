@@ -42,7 +42,7 @@ struct D2SaveHeaderStrc
     unsigned char MercSaveData[0x10]; // 0xAF
     char unk0xBF[0x10]; // 0xBF
     unsigned char nGuildEmblemBgColor; // 0xCF
-    char unk0xD0[0x7F]; // 0xD0
+    char dwLastLevel[0x7F]; // 0xD0
 };
 #pragma pack(pop)
 

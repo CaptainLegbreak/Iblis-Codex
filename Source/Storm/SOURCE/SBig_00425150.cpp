@@ -1,7 +1,4 @@
 #include "D2StormTypes.h"
-void* operator new(unsigned int, void* pWhere) throw(); // 0x00422D00
-
-void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
 
 #include "D2StormArrayA.h"
 
@@ -119,7 +116,6 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
     return nLow;
 }
 
-void __stdcall BigAdd(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00422300
 void __stdcall sub_004225C0_DivUInt(unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c, BigBuffer& a); // 0x004225C0
 
 int IsZero(BigBuffer& a); // 0x00422780
@@ -223,14 +219,11 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     tStack.nUsed -= 3;
 }
 
-void __stdcall BigAddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c); // 0x004221F0
 int IsOne(BigBuffer& a); // 0x00422750
 
-void __stdcall Set2Exp(BigBuffer& a, unsigned int nExponent); // 0x00422B00
 void __stdcall sub_00422FC0_SubUInt(const BigBuffer* pSrc, BigBuffer* pDst, unsigned int nValue); // 0x00422FC0
 
 void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue); // 0x00423540
-void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack); // 0x00424180
 
 // 0x004245F0
 static void __stdcall BigMulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
@@ -369,7 +362,6 @@ static int __stdcall IsPrime(BigStack* pStack, BigBuffer& a) // 0x00425350
     return bPrime;
 }
 
-int BigIsEven(const BigBuffer& a); // 0x00421440
 void __stdcall FindPrime(unsigned int nBits, BigBuffer& b, BigBuffer& c, BigStack* pStack, BigBuffer& a); // 0x004255E0
 
 // 0x00425330

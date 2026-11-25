@@ -111,10 +111,6 @@ static int QSERVER_SendToClientId(D2QueueServerStrc* pServer, unsigned int nKey,
 
 static int __fastcall QSERVER_SendToClient(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize); // 0x006BF500
 
-extern "C" unsigned int __security_cookie; // 0x00749DE0
-
-extern "C" void __fastcall __security_check_cookie(unsigned int cookie); // 0x00681A48
-
 static void QSERVER_StartServer(D2QueueServerStrc* pServer, int nValue); // 0x006BF520
 
 const char* __stdcall sub_006B013E_FormatAddress(unsigned int nAddress); // 0x006B013E
@@ -168,8 +164,6 @@ extern "C" void _ReadWriteBarrier(void);
 extern "C" const char* __cdecl sub_00408090();                                       // 0x00408090
 
 extern "C" void* __cdecl memmove(void*,const void*,unsigned int); // 0x00683840
-
-extern const char gszAssert_006CC837[]; // 0x006CC837
 
 extern const char gszFile_006FC460[]; // 0x006FC460
 

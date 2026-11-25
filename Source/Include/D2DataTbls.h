@@ -136,11 +136,11 @@ struct D2DataTablesStrc
     short nColourStates; // 0x190
     unsigned char unk0x192[0x6]; // 0x192
     D2TxtLinkStrc* pSoundsLinker; // 0x198
-    unsigned char unk0x19C[0x814]; // 0x19C
+    unsigned char nSoundsTxtCodes[0x814]; // 0x19C
     void* pColorsTxt; // 0x9B0
     D2TxtLinkStrc* pColorsLinker; // 0x9B4
     D2TxtLinkStrc* pTreasureClassExLinker; // 0x9B8
-    unsigned char unk0x9BC[0xBC]; // 0x9BC
+    unsigned char pTreasureClassEx[0xBC]; // 0x9BC
     D2MonStatsTxt* pMonStatsTxt; // 0xA78
     D2TxtLinkStrc* pMonStatsLinker; // 0xA7C
     int nMonStatsTxtRecordCount; // 0xA80
@@ -153,7 +153,7 @@ struct D2DataTablesStrc
     void* pMonPlaceTxt; // 0xA9C
     D2TxtLinkStrc* pMonPlaceLinker; // 0xAA0
     int nMonPlaceTxtRecordCount; // 0xAA4
-    unsigned char unk0xAA8[0x2C]; // 0xAA8
+    unsigned char pMonPresetTxt[0x2C]; // 0xAA8
     D2SuperUniquesTxt* pSuperUniquesTxt; // 0xAD4
     D2TxtLinkStrc* pSuperUniquesLinker; // 0xAD8
     int nSuperUniquesTxtRecordCount; // 0xADC
@@ -163,7 +163,7 @@ struct D2DataTablesStrc
     int nMissilesTxtRecordCount; // 0xB6C
     D2MonLvlTxt* pMonLvlTxt; // 0xB70
     int nMonLvlTxtRecordCount; // 0xB74
-    unsigned char unk0xB78[0x14]; // 0xB78
+    unsigned char pMonSeqTxt[0x14]; // 0xB78
     D2SkillDescTxt* pSkillDescTxt; // 0xB8C
     D2TxtLinkStrc* pSkillDescLinker; // 0xB90
     int nSkillDescTxtRecordCount; // 0xB94
@@ -223,7 +223,7 @@ struct D2DataTablesStrc
     int nStuff; // 0xC6C
     int nShiftedStuff; // 0xC70
     void* pAnimData; // 0xC74
-    unsigned char unk0xC78[0xC]; // 0xC78
+    unsigned char pExperienceTxt[0xC]; // 0xC78
     int bCompileTxt; // 0xC84
     unsigned char unk0xC88[0x138]; // 0xC88
     D2LvlTypesTxt* pLvlTypesTxt; // 0xDC0

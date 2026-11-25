@@ -1864,21 +1864,21 @@ void __fastcall PLRTRADE_TryToTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2U
     D2PlayerDataStrc* pPlayerData1 = UNITS_GetPlayerData(pPlayer1);
     if (PLAYER_IsBusy(pPlayer2))
     {
-        if (nTickCount - *(unsigned int*)pPlayerData1->unk0x54 <= 1000)
+        if (nTickCount - *(unsigned int*)pPlayerData1->dwLastTradeTick <= 1000)
         {
             return;
         }
 
         PLRTRADE_SendEventPacketToPlayer(pPlayer1, EVENTTYPE_PLAYERISBUSY, pPlayerData2->szName);
-        *(unsigned int*)pPlayerData1->unk0x54 = nTickCount;
+        *(unsigned int*)pPlayerData1->dwLastTradeTick = nTickCount;
         return;
     }
 
     if (nTickCount - pPlayerData2->dwAcceptTradeTick < 5000)
     {
-        if (*(unsigned int*)pPlayerData1->unk0x54 + 1000 < nTickCount)
+        if (*(unsigned int*)pPlayerData1->dwLastTradeTick + 1000 < nTickCount)
         {
-            *(unsigned int*)pPlayerData1->unk0x54 = nTickCount;
+            *(unsigned int*)pPlayerData1->dwLastTradeTick = nTickCount;
             PLRTRADE_SendEventPacketToPlayer(pPlayer1, EVENTTYPE_PLEASEWAIT, pPlayerData2->szName);
         }
     }
@@ -1888,10 +1888,10 @@ void __fastcall PLRTRADE_TryToTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2U
         {
             if (nTickCount - pPlayerData1->dwAcceptTradeTick < 5000)
             {
-                if (nTickCount > *(unsigned int*)pPlayerData1->unk0x54 + 1000)
+                if (nTickCount > *(unsigned int*)pPlayerData1->dwLastTradeTick + 1000)
                 {
                     PLRTRADE_SendEventPacketToPlayer(pPlayer1, EVENTTYPE_PLEASEWAIT, 0);
-                    *(unsigned int*)pPlayerData1->unk0x54 = nTickCount;
+                    *(unsigned int*)pPlayerData1->dwLastTradeTick = nTickCount;
                 }
                 return;
             }

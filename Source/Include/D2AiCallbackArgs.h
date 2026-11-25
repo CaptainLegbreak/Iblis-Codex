@@ -62,16 +62,16 @@ struct D2MinionSpawnerAiCallbackArgStrc
 
 struct D2ShadowMasterAiCallbackArgStrc
 {
-    D2UnitStrc* unk0x00;
-    D2UnitStrc* unk0x04;
-    int unk0x08;
-    int unk0x0C;
-    D2UnitStrc* unk0x10;
-    int unk0x14;
-    int unk0x18;
-    int unk0x1C;
-    int unk0x20;
-    D2UnitStrc* unk0x24;
+    D2UnitStrc* pOwner;
+    D2UnitStrc* pClosestTarget;
+    int nClosestDistanceSquared;
+    int nCloseTargetCount;
+    D2UnitStrc* pClosestTargetToOwner;
+    int nClosestToOwnerDistanceSquared;
+    int nTargetsNearOwner;
+    int nTargetCount;
+    int nSentryCount;
+    D2UnitStrc* pKillableTarget;
 };
 
 struct D2ZakarumPriestAiCallbackArgStrc
@@ -97,11 +97,11 @@ struct D2FetishShamanAiCallbackArgStrc
 
 struct D2OblivionKnightAiCallbackArgStrc
 {
-    D2UnitStrc* unk0x00;
-    D2UnitStrc* unk0x04;
-    int unk0x08;
-    int unk0x0C;
-    int unk0x10;
+    D2UnitStrc* pClosestDoomKnight;
+    D2UnitStrc* pClosestWoundedDoomKnight;
+    int nMaxDistanceSquared;
+    int nClosestDistanceSquared;
+    int nClosestWoundedDistanceSquared;
     int unk0x14[5];
 };
 
@@ -127,13 +127,13 @@ struct D2HighPriestAiCallbackArgStrc
 
 struct D2MephistoAiCallbackArgStrc
 {
-    D2UnitStrc* unk0x00;
-    int unk0x04;
-    int unk0x08;
-    D2UnitStrc* unk0x0C;
-    int unk0x10;
-    D2UnitStrc* unk0x14;
-    int unk0x18;
+    D2UnitStrc* pClosestTarget;
+    int nClosestDistanceSquared;
+    int nCloseTargetCount;
+    D2UnitStrc* pLowestLifeTarget;
+    int nLowestLife;
+    D2UnitStrc* pClosestTargetForPlayerActor;
+    int nClosestPlayerActorDistanceSquared;
     int nCounter;
     int unk0x20;
     int unk0x24;

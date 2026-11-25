@@ -1,7 +1,5 @@
 typedef unsigned int size_t;
 struct _iobuf;
-extern "C" unsigned int __security_cookie; // 0x00749DE0
-extern "C" void __fastcall __security_check_cookie(unsigned int); // 0x00681A48
 
 extern "C" char* __cdecl strrchr(const char* szString, int nChar);                                          // 0x00682990
 extern "C" size_t __cdecl strlen(const char* szString);

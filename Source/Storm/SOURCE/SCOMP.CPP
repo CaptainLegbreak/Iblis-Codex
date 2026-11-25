@@ -148,31 +148,11 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
-void __fastcall UnlinkAndFreeHeap(D2FogBlockStrc** ppLink); // 0x00411A80
-
-D2FogBlockStrc** __fastcall FreeLeakedBlocks(D2FogBlockStrc** ppLink); // 0x00411F00
-
-void __stdcall SErrReportResourceLeak(const char* szName); // 0x0041D1E0
-
-void __fastcall SSignatureVerifyStream_Begin(D2StormHashBufferStrc** ppBuffer, unsigned int nSignSize, int nModulusSize); // 0x0041D3B0
-
-void __fastcall HashBufferedData(D2StormHashBufferStrc* pBuffer, const char* pData, int nSize); // 0x0041D420
-
-int __fastcall SSignatureVerifyStream_Finish(D2StormHashBufferStrc* pBuffer, const void* pExponent, const void* pModulus); // 0x0041D6D0
-
 
 
 extern "C" unsigned int __cdecl sub_006B01B0_Explode(unsigned int (__cdecl* pRead)(char*, unsigned int*, D2StormMemSourceStrc*), void (__cdecl* pWrite)(char*, unsigned int*, D2StormMemSinkStrc*), char* pWork, void* pParam); // 0x006B01B0
 
 extern "C" unsigned int __cdecl sub_006B0870_Implode(unsigned int (__cdecl* pRead)(char*, unsigned int*, D2StormMemSourceStrc*), void (__cdecl* pWrite)(char*, unsigned int*, D2StormMemSinkStrc*), char* pWork, void* pParam, unsigned int* pType, unsigned int* pDictSize); // 0x006B0870
-
-extern D2FogBlockStrc* gapFreeBlocks_007768B8[0x100]; // 0x007768B8
-
-extern D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100]; // 0x00776CC0
-
-extern int gabFreeBlockDirty[0x100]; // 0x007784C8
-
-extern int gbHeapInitialized_007788D0; // 0x007788D0
 
 struct D2SCompListViewStrc
 {
@@ -270,8 +250,6 @@ struct SCompBufferState
 
 SCompBufferState gSCompBuffer_0077920C;         // 0x0077920C
 
-
-int __fastcall SSignatureVerify(const char* pData, int nSize, const void* pExponent, unsigned int nSignSize, const void* pModulus, int nModulusSize); // 0x0041D7D0
 
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 

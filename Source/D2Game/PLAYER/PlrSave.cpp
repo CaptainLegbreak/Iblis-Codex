@@ -1824,7 +1824,7 @@ static void __stdcall PLRSAVE_AttachPlayerToClient(D2GameStrc* pGame, D2UnitStrc
     pPlayerData->hTrade = 0;
     pPlayerData->dwTradeState = 0;
     pPlayerData->dwAcceptTradeTick = 0;
-    *(int*)pPlayerData->unk0x54 = 0;
+    *(int*)pPlayerData->dwLastTradeTick = 0;
 }
 
 // 0x00532580

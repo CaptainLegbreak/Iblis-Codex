@@ -109,7 +109,7 @@ struct D2ServerCallbackFunctions
     void (__fastcall* pfUnlockDatabaseCharacter)(D2ClientInfoStrc** ppClientInfo, const char* szCharName, const char* szAccountName); // 0x20
     void* unk0x24; // 0x24
     FnUpdateCharacterLadder pfUpdateCharacterLadder; // 0x28
-    void* unk0x2C; // 0x2C
+    void* pfUpdateGameInformation; // 0x2C
     void* pfGetGameServerInfo; // 0x30
     int (__stdcall* pfGetValue)(); // 0x34
     RealmUpdateCallback pfUpdate; // 0x38

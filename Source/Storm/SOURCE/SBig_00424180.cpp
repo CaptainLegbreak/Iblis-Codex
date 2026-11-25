@@ -4,7 +4,6 @@ inline void* operator new(unsigned int, void* pWhere) throw()
     return pWhere;
 }
 
-void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 
 #include "D2StormArrayA.h"
@@ -140,7 +139,6 @@ struct D2StormBigStrc
 
 unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue);                              // 0x004213B0
 int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight);                      // 0x004212F0
-int __stdcall sub_004242C0_BigOp(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack); // 0x004242C0
 
 inline unsigned __int64 MakeLarge(const unsigned int& nLow, const unsigned int& nHigh)
 {

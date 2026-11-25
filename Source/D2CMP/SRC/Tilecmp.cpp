@@ -427,15 +427,15 @@ void __fastcall sub_M289_Emit_00609BF0(D2CmpSubTileRecordStrc* pSub, D2CmpTileNo
 // 0x00609C30
 static void __stdcall TileConvertToProjectTile(D2CmpTileStrc* pSrc, D2CmpTileBlockStrc* ptTile)
 {
-    ptTile->nValue10 = pSrc->nValue10;
-    ptTile->nValue14 = pSrc->nValue14;
-    ptTile->unk0x06 = pSrc->unk0x16;
+    ptTile->nLightDirection = pSrc->nLightDirection;
+    ptTile->nRoofHeight = pSrc->nRoofHeight;
+    ptTile->nMaterialFlags = pSrc->nMaterialFlags;
     ptTile->nWidth = pSrc->nMaxX - pSrc->nMinX;
     ptTile->nHeight = pSrc->nMinY - pSrc->nMaxY;
-    ptTile->nValue24 = pSrc->nValue24;
-    ptTile->nValue28 = pSrc->nValue28;
-    ptTile->nValue2C = pSrc->nValue2C;
-    ptTile->nValue30 = pSrc->nValue30;
+    ptTile->nOrientation = pSrc->nOrientation;
+    ptTile->nIndex = pSrc->nIndex;
+    ptTile->nSubIndex = pSrc->nSubIndex;
+    ptTile->nRarity = pSrc->nRarity;
     ptTile->nOwnerId = pSrc->nOwnerId;
     ptTile->nSubs = pSrc->nCount;
     ptTile->tInfo = pSrc->tInfo;
