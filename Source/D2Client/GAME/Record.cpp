@@ -1,3 +1,6 @@
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x0070F764
+
 #include "D2Client.h"
 #include "D2MsgRecord.h"
 #include "D2WinSplitText.h"
