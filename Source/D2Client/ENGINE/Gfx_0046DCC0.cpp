@@ -6,6 +6,7 @@
 #include "D2ClientGfx.h"
 #include "D2ClientGfxState.h"
 #include "FogApi.h"
+#include "StormApi.h"
 struct D2GfxListNodeStrc;
 struct D2UnitStrc;
 
@@ -22,7 +23,6 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);
 extern "C" char* __cdecl _strlwr(char* szString);
-unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed);
 void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine);
 extern int gnCofMemoryUsed; // 0x007A8918
 // build: symbol ?gtGlobalHashedFile@* 0x007A78F0

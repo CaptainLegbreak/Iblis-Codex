@@ -5,6 +5,7 @@
 #include "D2Packets.h"
 #include "D2LanguageNames.h"
 #include "FogApi.h"
+#include "StormApi.h"
 // build: symbol _gaszLanguageNames 0x00731394
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -18,7 +19,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 int __fastcall GAME_GetGameGUIDFromGameId(unsigned short nGameId); // 0x0052C060
 D2GameStrc* __fastcall GAME_LockGame(int nGameGUID); // 0x0052E860
 void __fastcall GAME_LeaveGamesCriticalSection(D2GameStrc* pGame); // 0x0052DA90

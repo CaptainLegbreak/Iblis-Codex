@@ -16,6 +16,7 @@
 #include "D2WinSplitText.h"
 #include "D2ClientChatCommand.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 struct D2MsgHandlerEntryStrc;
 
@@ -830,9 +831,7 @@ struct D2MenuItemStrc
     D2CelFileStrc* pChoices[4];
 };
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long nValue); // 0x004150E0
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 int __cdecl sub_004DF880();
 
@@ -948,7 +947,6 @@ void __fastcall sub_0047F400_OpenPanel(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 void __fastcall sub_0047F430_ShowPage0(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg);
 
 
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
 void __stdcall SStrTokenize(const char** pszString, char* szBuffer, unsigned int nBufferChars, const char* szWhitespace, int* pQuoted); // 0x00413B80
 
@@ -970,13 +968,11 @@ extern void* gpSlotCells; // 0x007BC964
 
 int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
 
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
 struct D2CandidateListStrc
 {
@@ -1557,7 +1553,6 @@ extern D2OptionEntryStrc gaAutomapOptionEntries[]; // 0x0071D748
 extern D2OptionEntryStrc gaAutomapModeOptionEntries[]; // 0x0071F728
 
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 

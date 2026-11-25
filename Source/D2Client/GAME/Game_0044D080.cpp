@@ -9,6 +9,7 @@
 #include "D2ClientTimer.h"
 #include "D2WinSplitText.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -105,7 +106,6 @@ void __cdecl GAME_RegisterWindowHandlers(); // 0x00451F20
 
 void __fastcall PLRSAVE_EnableSaveFileWriting(int nValue); // 0x00530F30
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
 void __stdcall GAME_SetGlobalAct(int nAct); // 0x0052DFA0
 

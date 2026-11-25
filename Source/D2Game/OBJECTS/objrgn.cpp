@@ -31,6 +31,7 @@
 #include "D2Packets.h"
 #include "D2LanguageNames.h"
 #include "FogApi.h"
+#include "StormApi.h"
 // build: symbol _gaszLanguageNames 0x0073192C
 
 union D2SeedStrc;
@@ -304,7 +305,6 @@ extern "C" size_t __cdecl strlen(const char* szString);
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
 void __fastcall GAME_LeaveGamesCriticalSection(D2GameStrc* pGame); // 0x0052DA90
 
@@ -336,7 +336,6 @@ unsigned int __fastcall CLIENT_IsGameOwner(D2ClientStrc* pClient); // 0x00539030
 
 typedef int (__fastcall* D2NET_Unk_Callback)(int, int, int, int);
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 int __stdcall SERVER_SetRemoveClientCallback(D2NET_Unk_Callback pfCallback); // 0x0052B5C0
 
@@ -470,7 +469,6 @@ struct D2GameDataTableStrc
 
 void __fastcall SrvFreeGame(int nGameGUID, D2GameStrc* pGame); // 0x0052C7F0
 
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(D2LargeIntegerUnion* pCount); // 0x006CC25C
 

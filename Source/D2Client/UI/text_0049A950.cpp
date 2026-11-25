@@ -8,6 +8,7 @@
 #include "D2Unicode.h"
 #include "D2ClientQuestLog.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -31,7 +32,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
@@ -328,7 +328,6 @@ char gbGlobal_007C025F; // 0x007C025F
 
 char gbGlobal_007C0260; // 0x007C0260
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 

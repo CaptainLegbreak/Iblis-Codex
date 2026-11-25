@@ -7,6 +7,7 @@
 #include "D2LevelTxt.h"
 #include "D2LaunchRequest.h"
 #include "D2UnitDropPacket.h"
+#include "StormApi.h"
 #pragma intrinsic(strlen)
 struct D2UnitStrc;
 struct D2ActiveRoomStrc;
@@ -49,7 +50,6 @@ extern D2WinControlStrc* gpControl_007795E0; // 0x007795E0
 extern D2WinControlStrc* gpControl_007795E4; // 0x007795E4
 extern void** gppSlots; // 0x00779988
 extern int gnSlotCount; // 0x0077998C
-unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 char* __fastcall MAINMENUS_GetSlotName(int nIndex); // 0x00430B50
 int __cdecl MAINMENUS_FreeSlots(); // 0x00430A20
 extern D2CharSelCacheStrc* gpCharSelCache; // 0x00779DE8
@@ -122,7 +122,6 @@ extern int gnProgress; // 0x007BB3B4
 void __stdcall CHARSEL_AddToScrollValue(int nDelta); // 0x00439E60
 int __stdcall CHARSEL_HandleListKey(SMSGHANDLER_PARAMS* pMsg); // 0x00439E90
 static int gnTopRow; // 0x00779DC8
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
 void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 void __cdecl CHARSEL_DisconnectBattleNet(); // 0x0043B9A0

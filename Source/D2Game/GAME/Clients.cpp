@@ -36,6 +36,7 @@
 #include "D2SaveHeader.h"
 #include "D2LanguageNames.h"
 #include "FogApi.h"
+#include "StormApi.h"
 // build: symbol _gaszLanguageNames 0x007312E0
 
 #pragma intrinsic(strcpy)
@@ -87,7 +88,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 unsigned short __stdcall FOG_ComputeStringCRC16(const char* szString); // 0x004112C0
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
 extern D2ClientStrc* gpClientListByName[256]; // 0x00883EA8
 extern D2ClientStrc* gpClientList[256]; // 0x008842A8
@@ -183,8 +183,6 @@ struct D2CharacterPreviewRecordStrc
 extern "C" void __stdcall FOG_Encode14BitsToString(unsigned char* pBuffer, unsigned int nValue); // 0x006BBF40
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 void __stdcall sub_0063E510_FillInventoryTables(D2UnitStrc* pUnit, unsigned char* pTableA, unsigned char* pTableB);
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 extern "C" char* __cdecl strcpy(char*, const char*);
 
 
@@ -786,7 +784,6 @@ void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 unsigned int __fastcall ARENA_ShouldTreatClassIdAsTemplateId(D2GameStrc* pGame); // 0x0053FE70
 
@@ -2146,7 +2143,6 @@ unsigned int __fastcall CLIENT_IsGameOwner(D2ClientStrc* pClient); // 0x00539030
 
 typedef int (__fastcall* D2NET_Unk_Callback)(int, int, int, int);
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 int __stdcall SERVER_SetRemoveClientCallback(D2NET_Unk_Callback pfCallback); // 0x0052B5C0
 

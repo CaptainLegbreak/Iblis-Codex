@@ -26,6 +26,7 @@
 #include "D2GameAux.h"
 #include "D2LanguageNames.h"
 #include "FogApi.h"
+#include "StormApi.h"
 // build: symbol _gaszLanguageNames 0x00741888
 
 
@@ -771,7 +772,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 unsigned short __stdcall FOG_ComputeStringCRC16(const char* szString); // 0x004112C0
 

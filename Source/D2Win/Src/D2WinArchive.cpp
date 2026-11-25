@@ -1,6 +1,7 @@
 #include "D2Win.h"
 #include "D2MultiTypes.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
@@ -119,9 +120,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(cons
 
 int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406BA0
 
-unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 extern "C" const char gszD2CharMpq[]; // 0x006DC77C
 

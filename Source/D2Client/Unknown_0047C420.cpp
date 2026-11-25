@@ -4,6 +4,7 @@
 #include "D2StormTypes.h"
 #include "D2MultiTypes.h"
 #include "D2WinSplitText.h"
+#include "StormApi.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -39,8 +40,6 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 void __cdecl sub_00477C60_CheckCacheStats();                                                                // 0x00477C60
 void __cdecl VIEW_ToggleCacheStats();                                                               // 0x00477C00
 int __cdecl GAME_GetConnectionType();                                                                                 // 0x0044DB30

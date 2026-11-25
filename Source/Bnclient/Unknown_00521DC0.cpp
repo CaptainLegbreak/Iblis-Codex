@@ -1,5 +1,6 @@
 #include "Bnclient.h"
 #include "D2BnCryptTypes.h"
+#include "StormApi.h"
 
 struct D2CDKeyInfoStrc;
 
@@ -31,7 +32,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern "C" long __cdecl _time32(long* pTime); // 0x006850E6
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
 

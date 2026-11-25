@@ -7,6 +7,7 @@
 #include "D2GameTypes.h"
 
 #include "D2SoundTypes.h"
+#include "StormApi.h"
 
 extern int gnNpcSpeech;                                                                              // 0x008817BC
 
@@ -26,7 +27,6 @@ int gnMusicVolume; // 0x008817B4
 
 int gnOptionsMusic; // 0x008817C0
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 int gnMasterVolume; // 0x008817B0
 

@@ -6,6 +6,7 @@
 #include "D2D3DTypes.h"
 #include "D2FogSystemInfo.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 extern "C" __declspec(dllimport) int __stdcall lstrlenA(const char* sz); // 0x006CC154
 extern "C" __declspec(dllimport) long __stdcall RegSetValueExA(void* hKey, const char* szValueName, unsigned long nReserved, unsigned long dwType, const unsigned char* pData, unsigned long cbData); // 0x006CC034
@@ -851,7 +852,6 @@ extern D2Surface006B3570Strc* gpRenderSurface_00970E6C; // 0x00970E6C
 
 __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 
 int __stdcall SRegLoadValue(const char*,const char*,unsigned int,unsigned long*); // 0x00414F10
 

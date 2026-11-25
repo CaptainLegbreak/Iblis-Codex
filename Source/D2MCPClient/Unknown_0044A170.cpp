@@ -3,6 +3,7 @@
 #include "D2McpPackets.h"
 #include "D2LaunchRequest.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 typedef void (__fastcall* D2McpCallbackFn)(unsigned short wRequestId, unsigned char* pData);
 
@@ -78,7 +79,6 @@ extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 void __fastcall GAME_CalcCdKeyChecksum(char* szKey, unsigned int* pChecksum); // 0x00449890
 
@@ -154,7 +154,6 @@ struct D2McpInfoStrc
 
 void __stdcall sub_00449DD0_SetValue(int nValue); // 0x00449DD0
 
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 

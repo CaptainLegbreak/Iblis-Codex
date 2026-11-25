@@ -24,6 +24,7 @@
 #include "D2ClientQuestText.h"
 #include "D2ClientKeyConfig.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -84,7 +85,6 @@ class ListBoxWrapper;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -123,7 +123,6 @@ extern int gnPetIconPopupState; // 0x007BEECC
 
 
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
@@ -151,7 +150,6 @@ extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int 
 
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
 Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit); // 0x004521C0
 

@@ -33,6 +33,7 @@
 
 #include "D2MonModes.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 #define FP16_SHIFT 16
 
@@ -399,7 +400,6 @@ D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
 int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill); // 0x00643AD0
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 

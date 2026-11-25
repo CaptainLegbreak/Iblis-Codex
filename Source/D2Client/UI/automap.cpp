@@ -22,6 +22,7 @@
 #include "D2ClientUiRecords.h"
 #include "D2WinSplitText.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 
@@ -956,7 +957,6 @@ extern "C" long __cdecl _time32(long* pTime); // 0x006850E6
 
 void __fastcall UnlinkAndFreeHeap(D2FogBlockStrc** ppLink); // 0x00411A80
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
 void __stdcall FOG_Encode14BitsToString(unsigned char* pStream, unsigned short nValue); // 0x006BBF40
 
@@ -1091,7 +1091,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-extern "C" int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 void __cdecl AUTOMAP_ReloadAutomapCels(); // 0x0045A2B0
 
@@ -1299,7 +1298,6 @@ struct D2AutomapSaveStrc;
 
 struct D2AutomapRecordStrc;
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
 void __cdecl GFX_FreeHashedFiles(); // 0x00470290
 

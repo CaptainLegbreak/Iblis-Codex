@@ -4,12 +4,12 @@
 #include "D2CelContext.h"
 #include "D2LevelTxt.h"
 #include "D2Unicode.h"
+#include "StormApi.h"
 struct D2StoredUnitRecordStrc;
 struct D2UnitStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);                                      // 0x00681EF0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __cdecl sub_0045AE90();                                                                                 // 0x0045AE90
 int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0

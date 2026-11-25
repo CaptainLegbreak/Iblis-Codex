@@ -1,11 +1,11 @@
 #include "D2MultiTypes.h"
 #include "D2FogTypes.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall ERRORMANAGER_GetModuleDirectory(char* szPath, unsigned int nSize); // 0x00406B60
-unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 struct _iobuf;
 typedef int BOOL;
 int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
@@ -20,8 +20,6 @@ int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __fastcall ERRORMANAGER_GetBlizzardDataPath(char* szOutPath, int nSize); // 0x00406C40
 bool __fastcall sub_00516DE1_Verify(void* pContext); // 0x00516DE1
 bool __fastcall sub_00516D8B_RunSurvey(const char* szExePath); // 0x00516D8B
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 void __fastcall MAINMENUS_InitStorm(int nDirectFlags, int nValue); // 0x00406870
 void __cdecl ERRORMANAGER_ForceCrash(); // 0x00407970
 void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem); // 0x00409C80
@@ -29,8 +27,6 @@ void __fastcall FOG_AsyncDataInitialize(int bEnable, int nUnused); // 0x0040A390
 void __cdecl FOG_AsyncDataDestroy(); // 0x0040A440
 void __cdecl FOG_10218(); // 0x0040B0C0
 void __cdecl FOG_10082_Noop(); // 0x0040B320
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
 int __stdcall D2GFX_Release(); // 0x004F5050
 void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0

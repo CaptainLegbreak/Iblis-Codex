@@ -1,5 +1,6 @@
 #include "D2BNClient.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 #pragma intrinsic(strlen)
 
@@ -24,7 +25,6 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 extern "C" const char gszBnMessQueueFile[]; // 0x006DF78C
 

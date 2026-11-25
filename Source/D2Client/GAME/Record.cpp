@@ -3,6 +3,7 @@
 #include "D2WinSplitText.h"
 #include "D2ClientUiRecords.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 #define gpMsgRecordChunkHead_007A2760 (gtMsgRecordChunkFirst.pNext)
 #define FILE_ATTRIBUTE_NORMAL 0x00000080
@@ -60,7 +61,6 @@ extern D2RecordHeaderStrc sgtReadFileHeader; // 0x007A2768
 extern int gnRecordPos_007A2784; // 0x007A2784
 extern int gbRecordPlaying_007A2788; // 0x007A2788
 
-int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam, int* pbUseResult, int* plResult); // 0x00420B00
 
 void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
 

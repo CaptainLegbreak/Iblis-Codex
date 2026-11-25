@@ -18,6 +18,7 @@
 
 #include "D2LaunchRequest.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
@@ -95,7 +96,6 @@ int __fastcall CHARSEL_HandleStatus(D2StatusStrc* pStatus); // 0x0043B9F0
 
 extern "C" __declspec(dllimport) int __stdcall TerminateProcess(void* hProcess, unsigned int nExitCode); // 0x006CC274
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
 void __cdecl MAINMENUS_ShowProgressScreen(); // 0x0042F890
 
@@ -222,7 +222,6 @@ void __cdecl CHARSEL_DisconnectBattleNet()
 }
 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
 struct UnicodeChar : Unicode
 {

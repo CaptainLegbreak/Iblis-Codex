@@ -20,6 +20,7 @@
 #include "D2SaveHeader.h"
 #include "D2LanguageNames.h"
 #include "FogApi.h"
+#include "StormApi.h"
 // build: symbol _gaszLanguageNames 0x00732084
 
 struct D2ClientStrc;
@@ -112,7 +113,6 @@ extern "C" long __cdecl _time32(long* pTime); // 0x006850E6
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 void __fastcall CLIENTS_GetGuildEmblem(D2ClientStrc* pClient, unsigned char* pBackgroundColor, unsigned char* pForegroundColor, unsigned char* pEmblemType); // 0x00539190
 

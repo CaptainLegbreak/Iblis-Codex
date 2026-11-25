@@ -16,6 +16,7 @@
 #include "D2Packets.h"
 #include "D2LanguageNames.h"
 #include "FogApi.h"
+#include "StormApi.h"
 // build: symbol _gaszLanguageNames 0x00731358
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -45,7 +46,6 @@ void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); 
 
 int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 #define ITEMACTION_REMOVEFROMCONTAINER 5
 

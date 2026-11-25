@@ -17,6 +17,7 @@
 #include "D2ClientUiRecords.h"
 #include "D2WinSplitText.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 struct D2CelFileStrc;
 
@@ -562,7 +563,6 @@ void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
@@ -3608,7 +3608,6 @@ done:
 }
 
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
 
 extern int gbAutomapLeftPrev; // 0x007A51E4

@@ -14,6 +14,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 struct D2AutomapCellStrc;
 
@@ -21,7 +22,6 @@ struct AUTOMAP_SetUnitFlag;
 
 struct Obj00457460;
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
 extern int gbAutomapLeftPrev; // 0x007A51E4
 
@@ -159,7 +159,6 @@ void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit);                             
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);                                              // 0x0064C370
 
 
-unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
 
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem);                                                   // 0x00629900
 
