@@ -1,6 +1,11 @@
 #include "Storm.h"
 #include "stpl.h"
 
+inline void* operator new(unsigned int, void* pWhere) throw()
+{
+    return pWhere;
+}
+
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
