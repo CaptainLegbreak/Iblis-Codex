@@ -37752,6 +37752,11 @@
      "name": "@BNDOWNLOAD_GetReplyValue@4"
     },
     {
+     "va": "0x00520C40",
+     "length": 6,
+     "name": "sub_00520C40"
+    },
+    {
      "va": "0x00520C50",
      "length": 13,
      "name": "?BNDOWNLOAD_HandleCreateAccount@@YIHPBHI@Z"
@@ -37813,6 +37818,11 @@
      "va": "0x005210D0",
      "length": 11,
      "name": "?BNDOWNLOAD_HandleGetAdvListEx@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x005210E0",
+     "length": 6,
+     "name": "sub_005210E0"
     },
     {
      "va": "0x005210F0",
@@ -38615,6 +38625,11 @@
      "name": "?BNSEND_SetInfoText@@YIHPBD@Z"
     },
     {
+     "va": "0x00520650",
+     "length": 6,
+     "name": "sub_00520650"
+    },
+    {
      "va": "0x00521B00",
      "length": 56,
      "name": "BNSEND_DispatchPacket"
@@ -38658,6 +38673,11 @@
      "va": "0x005224C0",
      "length": 17,
      "name": "?BNSEND_CheckServerProof@@YIHPBE@Z"
+    },
+    {
+     "va": "0x005224E0",
+     "length": 6,
+     "name": "GAME_GetLoginRetryCount"
     },
     {
      "va": "0x005224F0",
@@ -38917,11 +38937,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00520650",
-     "length": 6,
-     "name": "sub_00520650"
-    },
-    {
      "va": "0x00520AE0",
      "length": 6,
      "name": "GAME_GetAbortFlag"
@@ -38945,31 +38960,6 @@
      "va": "0x00520B20",
      "length": 6,
      "name": "GAME_GetChangePasswordResult"
-    },
-    {
-     "va": "0x00520C40",
-     "length": 6,
-     "name": "sub_00520C40"
-    },
-    {
-     "va": "0x005210E0",
-     "length": 6,
-     "name": "sub_005210E0"
-    },
-    {
-     "va": "0x005224E0",
-     "length": 6,
-     "name": "GAME_GetLoginRetryCount"
-    },
-    {
-     "va": "0x00523A00",
-     "length": 6,
-     "name": "GAME_GetExeHash"
-    },
-    {
-     "va": "0x00523AA0",
-     "length": 6,
-     "name": "GAME_GetExeInfo"
     },
     {
      "va": "0x0052A600",
@@ -39863,8 +39853,18 @@
      "length": 51
     },
     {
+     "va": "0x00523A00",
+     "length": 6,
+     "name": "GAME_GetExeHash"
+    },
+    {
      "va": "0x00523A10",
      "length": 143
+    },
+    {
+     "va": "0x00523AA0",
+     "length": 6,
+     "name": "GAME_GetExeInfo"
     },
     {
      "va": "0x00523AB0",

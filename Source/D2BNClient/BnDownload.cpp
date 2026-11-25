@@ -1995,6 +1995,12 @@ extern "C" int __fastcall BNDOWNLOAD_GetReplyValue(unsigned char nSlot)
     return ganSlotArrayB[nSlot];
 }
 
+// 0x00520C40
+int __cdecl sub_00520C40()
+{
+    return 1;
+}
+
 // 0x00520C50
 int __fastcall BNDOWNLOAD_HandleCreateAccount(const int* pData, unsigned int nSize)
 {
@@ -2183,6 +2189,12 @@ int __fastcall BNDOWNLOAD_HandleGetChannelList(const void* pData, unsigned int n
 int __fastcall BNDOWNLOAD_HandleGetAdvListEx(const void* pData, unsigned int nSize)
 {
     BNSEND_SetGamesList(pData, nSize);
+    return 1;
+}
+
+// 0x005210E0
+int __cdecl sub_005210E0()
+{
     return 1;
 }
 

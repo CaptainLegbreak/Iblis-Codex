@@ -269,6 +269,12 @@ void __cdecl GRID_UnlockCDKeys()
     }
 }
 
+// 0x00523A00
+int __cdecl GAME_GetExeHash()
+{
+    return gdwGlobal_00730190;
+}
+
 // 0x00523A10
 unsigned int __cdecl GRID_HashCDKey()
 {
@@ -286,6 +292,13 @@ unsigned int __cdecl GRID_HashCDKey()
         SMemFree(szKey, ".\\grid.cpp", 0x1B8, 0);
     }
     return dwHash;
+}
+
+extern int gdwGlobal_00882750; // 0x00882750
+// 0x00523AA0
+int __cdecl GAME_GetExeInfo()
+{
+    return gdwGlobal_00882750;
 }
 
 // 0x00523AB0

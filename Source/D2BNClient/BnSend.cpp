@@ -2741,6 +2741,12 @@ int __fastcall BNSEND_SetInfoText(const char* szText)
     return 1;
 }
 
+// 0x00520650
+void* __cdecl sub_00520650()
+{
+    return gData_00882028;
+}
+
 // 0x00521B00
 __declspec(noinline) int __fastcall BNSEND_DispatchPacket(unsigned char nId, const void* pData, int nSize)
 {
@@ -2921,6 +2927,12 @@ int __fastcall BNSEND_SendAccountUpgradeProof(unsigned int nServerToken)
 int __fastcall BNSEND_CheckServerProof(const unsigned char* pServerProof)
 {
     return gtBigPair.sub_00528890_CompareServerProof(&gtLoginRecord, pServerProof);
+}
+
+// 0x005224E0
+int __cdecl GAME_GetLoginRetryCount()
+{
+    return gnLoginRetryCount;
 }
 
 // 0x005224F0
