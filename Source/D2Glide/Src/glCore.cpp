@@ -433,7 +433,7 @@ extern void (__stdcall* gpfnGrTexFilterMode)(int a1, int a2, int a3); // 0x0087E
 extern void (__stdcall* gpfnGrGlideInit)(); // 0x0087EB04
 extern void (__stdcall* gpfnGrGlideShutdown)(); // 0x0087EAB0
 
-int __cdecl sub_00508970_GlideLoadLibrary(); // 0x00508970
+int __cdecl GLCORE_GlideLoadLibrary(); // 0x00508970
 void __fastcall GLTEXTURECACHE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush); // 0x0050ECB0
 void __fastcall GLSUBTILECACHE_TileCacheDestroy(D2GlideTileCacheStrc* pCache, int bFlush); // 0x0050F210
 void __fastcall GLFLOORCACHE_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush); // 0x0050F7C0
@@ -510,7 +510,7 @@ extern D2GlideTileCacheStrc gtGlideTileCache;                                   
 extern D2GlideFloorCacheStrc gtGlideFloorCache;                                                     // 0x0087EB68
 
 // 0x00508970
-int __cdecl sub_00508970_GlideLoadLibrary()
+int __cdecl GLCORE_GlideLoadLibrary()
 {
     ghGlideLibrary = LoadLibraryA("glide3x.dll");
     if (!ghGlideLibrary)
@@ -574,7 +574,7 @@ int gnGlideNumBoards; // 0x0087EFC4
 // 0x00508F60
 int __cdecl sub_00508F60_GlideCheckBoards()
 {
-    if (!sub_00508970_GlideLoadLibrary())
+    if (!GLCORE_GlideLoadLibrary())
     {
         return 0;
     }

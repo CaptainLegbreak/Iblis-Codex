@@ -1150,7 +1150,8 @@ void __cdecl VIEW_DrawStarfield()
             int nBlue = (STARS_ROLL(pSeed, lSeed) & 0x3F) + nBase - 0x20;
             if (nBlue > 0xFF)
                 nBlue = 0xFF;
-            gaStarShades[nShade] = sub_004FB180_FindPaletteIndex(nRed, nGreen, nBlue);
+// build: symbol ?PALETTE_FindPaletteIndex@* 0x004FB180
+            gaStarShades[nShade] = PALETTE_FindPaletteIndex(nRed, nGreen, nBlue);
         }
 
         for (int i = 0; i < 256; ++i)
@@ -1398,7 +1399,7 @@ void __cdecl sub_00481850(); // 0x00481850
 
 unsigned int __cdecl D2CMPSpriteCacheGetUsedMemory(); // 0x005FEE10
 
-int __cdecl sub_004F5140(); // 0x004F5140
+int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 
 extern "C" const char gszUnknownText[]; // 0x006CC780
 

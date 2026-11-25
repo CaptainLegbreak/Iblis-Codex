@@ -48,7 +48,7 @@ public:
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
 unsigned int __fastcall D2Win_10128(unsigned char nCharCode); // 0x00502550
-D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const unsigned short* pText, int* pLineCount, int nWidth); // 0x00502970
+D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const unsigned short* pText, int* pLineCount, int nWidth); // 0x00502970
 int __fastcall D2Win_10127_SetFont(int nFontSize);                                                                 // 0x00502EF0
 void __fastcall sub_005263E0(char* szDest, const unsigned short* pSource, int nMaxLength);         // 0x005263E0
 extern "C" int __fastcall sub_00526800(const unsigned short* pText);                                      // 0x00526800
@@ -163,7 +163,7 @@ int EditBoxImplementation::OnKeyDown(SMSGHANDLER_PARAMS* pMsg)
         {
             D2Win_10127_SetFont(nFont);
             int nLines;
-            D2SplittedTextStrc* pLine = sub_00502970_SplitText(pText, &nLines, nTextWidth);
+            D2SplittedTextStrc* pLine = D2WINFONT_SplitText(pText, &nLines, nTextWidth);
             while (pLine)
             {
                 D2SplittedTextStrc* pNext = pLine->pNextLine;

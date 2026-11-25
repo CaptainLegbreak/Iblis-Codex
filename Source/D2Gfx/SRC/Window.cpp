@@ -22,7 +22,7 @@ struct D2TileLibraryBlockStrc
 
 extern int gnResolutionMode_007C8CC4; // 0x007C8CC4
 
-int __fastcall sub_004F4FF0_SetVideoMode(int nMode);
+int __fastcall WINDOW_SetVideoMode(int nMode); // 0x004F4FF0
 
 union D2LargeIntegerStrc;
 
@@ -226,9 +226,13 @@ int ganRowOffsets[732]; // 0x007C97A8
 
 D2PaletteTableStrc gtPaletteTables; // 0x007D5458
 
-const char* gszWindowClass; // 0x007C9344
+extern const char* gszDefaultClass_0072DAA0; // 0x0072DAA0
+extern const char* gszDefaultWindow_0072DB3C; // 0x0072DB3C
+// build: symbol ??__EgszWindowClass@@YAXXZ 0x006CAE00
+const char* gszWindowClass = gszDefaultWindow_0072DB3C; // 0x007C9344
 
-const char* gszWindowTitle; // 0x007C9348
+// build: symbol ??__EgszWindowTitle@@YAXXZ 0x006CAE10
+const char* gszWindowTitle = gszDefaultWindow_0072DB3C; // 0x007C9348
 
 struct D2TileLibraryBlockStrc;
 
@@ -305,7 +309,7 @@ extern int ganSubtileRowWidth[]; // 0x0072DB84
 extern int ganSubtileRowXOffset[]; // 0x0072DB48
 
 // 0x004F4FF0
-int __fastcall sub_004F4FF0_SetVideoMode(int nMode)
+int __fastcall WINDOW_SetVideoMode(int nMode)
 {
     if (!gapGraphicsInterfaces[nMode])
     {
@@ -339,7 +343,8 @@ extern "C" __declspec(dllimport) int __stdcall UnregisterClassA(const char* lpCl
 
 void* ghInstance;                                                                                  // 0x007C8CA8
 
-const char* gszWindowClassName;                                                                    // 0x007C9158
+// build: symbol ??__EgszWindowClassName@@YAXXZ 0x006CADF0
+const char* gszWindowClassName = gszDefaultClass_0072DAA0; // 0x007C9158
 
 int gbNoWindowCreated;                                                                             // 0x007C9338
 
@@ -384,7 +389,7 @@ extern int gdwGlobal_007C8CB0; // 0x007C8CB0
 extern int gdwGlobal_007C8CB4; // 0x007C8CB4
 
 // 0x004F5140
-int __cdecl sub_004F5140()
+int __cdecl D2GFX_GetDisplayType()
 {
     return gdwGlobal_007C8CB0;
 }
@@ -549,7 +554,7 @@ int __stdcall D2GFX_Initialize(void* hInstance, WNDPROC pfWndProc, int nRenderMo
     atexit(j_D2GFX_10040_ShowAllWindows);
     gnDisplayType = nRenderMode;
     gbIsWindowed = bWindowed;
-    if (!sub_004F4FF0_SetVideoMode(nRenderMode))
+    if (!WINDOW_SetVideoMode(nRenderMode))
     {
         return 0;
     }

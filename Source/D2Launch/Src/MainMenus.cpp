@@ -417,7 +417,7 @@ void __cdecl MAINMENUS_ReturnToCharSelect();                                    
 
 void __cdecl MAINMENUS_ShowLoginScreen();                                                                // 0x00435330
 
-void __cdecl sub_004325B0_CreateScreen();                                                                   // 0x004325B0
+void __cdecl MAINMENUS_CreateScreen();                                                                   // 0x004325B0
 
 char gszOldPassword[24];                                                                           // 0x00779550
 
@@ -495,7 +495,7 @@ D2WinControlStrc* gpAddressEdit; // 0x00779958
 
 char gszLastTcpIpAddress[255]; // 0x007795F8
 
-int __stdcall sub_00432040_OnCancel2(int nArg);
+int __stdcall MAINMENUS_OnCancel2(int nArg); // 0x00432040
 
 int __stdcall MAINMENUS_OnLoginScreen(int nArg); // 0x00432300
 
@@ -1119,7 +1119,7 @@ int __stdcall MAINMENUS_PollCharLogon(int nArg); // 0x00432FE0
 
 int __cdecl sub_0043BF60(); // 0x0043BF60
 
-int __cdecl sub_00449B30_QueryAddress(); // 0x00449B30
+int __cdecl MCPCONNECT_QueryAddress(); // 0x00449B30
 
 int __cdecl GAME_GetConnectError(); // 0x00449C00
 
@@ -2057,7 +2057,7 @@ int __stdcall sub_0042FF00_FilterChar(void* pControl, int nUnused, const char* p
 }
 
 // 0x0042FF10
-void __fastcall sub_0042FF10_SetValue(int nValue)
+void __fastcall MAINMENUS_SetValue(int nValue)
 {
     gnValue_00779980 = nValue;
 }
@@ -3393,7 +3393,7 @@ int __stdcall sub_00432020_OnCancel(int nArg)
 }
 
 // 0x00432040
-int __stdcall sub_00432040_OnCancel2(int nArg)
+int __stdcall MAINMENUS_OnCancel2(int nArg)
 {
     D2SOUNDFAST_FadeOutWaves();
     MAINMENUS_Reset();
@@ -3494,7 +3494,7 @@ int __stdcall MAINMENUS_OpenInfoScreen(int nUnused)
 }
 
 // 0x00432350
-static int sub_00432350_IsListedCode(int nCode)
+static int MAINMENUS_IsListedCode(int nCode)
 {
     switch (nCode)
     {
@@ -3544,7 +3544,7 @@ int __stdcall MAINMENUS_OnWait(int nArg)
 // 0x00432480
 int __fastcall MAINMENUS_ConnectToRealm(const char* szName, int bFlag)
 {
-    if (*szName && (&gpLaunchRecord->nByte22D)[0] && !strcmp(szName, (&gpLaunchRecord->nByte22D)) && sub_00449B30_QueryAddress())
+    if (*szName && (&gpLaunchRecord->nByte22D)[0] && !strcmp(szName, (&gpLaunchRecord->nByte22D)) && MCPCONNECT_QueryAddress())
     {
         return 0;
     }
@@ -3604,7 +3604,7 @@ int __fastcall D2Win_10127_SetFont(int nArg);                                   
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
 
 // 0x004325B0
-void __cdecl sub_004325B0_CreateScreen()
+void __cdecl MAINMENUS_CreateScreen()
 {
     MAINMENUS_Reset();
     D2WinControlStrc* pControl = MAINMENUS_CreateControl(6);
@@ -3778,7 +3778,7 @@ extern "C" void __cdecl MAINMENUS_ConfigureLanguageLayout()
 int __stdcall MAINMENUS_PollCharCreate(int nArg)
 {
     sub_00449B70_Receive();
-    if (GAME_IsMcpCharCreateReceived() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
+    if (GAME_IsMcpCharCreateReceived() || !MCPCONNECT_QueryAddress() || gdwGlobal_00779974)
     {
         CHATDLG_SetCharCreateReceived(0);
         D2Win_StopMessageLoop();
@@ -3790,7 +3790,7 @@ int __stdcall MAINMENUS_PollCharCreate(int nArg)
 int __stdcall MAINMENUS_PollCharLogon(int nArg)
 {
     sub_00449B70_Receive();
-    if (GAME_IsMcpCharLogonReceived() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
+    if (GAME_IsMcpCharLogonReceived() || !MCPCONNECT_QueryAddress() || gdwGlobal_00779974)
     {
         CHATDLG_SetCharLogonReceived(0);
         D2Win_StopMessageLoop();
@@ -3808,7 +3808,7 @@ int __cdecl sub_00432400_GetWaitStatus()
         switch (WaitForSingleObject((void*)GAME_GetWaitHandle(), 0))
         {
         case 0:
-            return sub_00432350_IsListedCode(GAME_GetConnectError()) ? 2 : 0;
+            return MAINMENUS_IsListedCode(GAME_GetConnectError()) ? 2 : 0;
         case 0x102:
             return 3;
         }
@@ -3821,7 +3821,7 @@ int __cdecl sub_00432400_GetWaitStatus()
 int __stdcall MAINMENUS_PollCharDelete(int nArg)
 {
     sub_00449B70_Receive();
-    if (GAME_IsMcpCharDeleteReceived() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
+    if (GAME_IsMcpCharDeleteReceived() || !MCPCONNECT_QueryAddress() || gdwGlobal_00779974)
     {
         CHATDLG_SetCharDeleteReceived(0);
         D2Win_StopMessageLoop();
@@ -3833,7 +3833,7 @@ int __stdcall MAINMENUS_PollCharDelete(int nArg)
 int __stdcall MAINMENUS_PollCharUpgrade(int nArg)
 {
     sub_00449B70_Receive();
-    if (GAME_IsMcpCharUpgradeReceived() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
+    if (GAME_IsMcpCharUpgradeReceived() || !MCPCONNECT_QueryAddress() || gdwGlobal_00779974)
     {
         CHATDLG_SetCharUpgradeReceived(0);
         D2Win_StopMessageLoop();
@@ -4366,7 +4366,7 @@ int __fastcall MAINMENUS_UpgradeCharacter(D2LaunchCharEntryStrc* pEntry, const c
 // 0x00434960
 int __fastcall MAINMENUS_DeleteCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName)
 {
-    if (!sub_00449B30_QueryAddress())
+    if (!MCPCONNECT_QueryAddress())
     {
         int nResult = MAINMENUS_ConnectToRealm(szName, 0);
         if (nResult >= 1 && nResult <= 2)
@@ -4384,7 +4384,7 @@ int __fastcall MAINMENUS_DeleteCharacter(D2LaunchCharEntryStrc* pEntry, const ch
 // 0x004349B0
 int __fastcall MAINMENUS_UpgradeCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName)
 {
-    if (!sub_00449B30_QueryAddress())
+    if (!MCPCONNECT_QueryAddress())
     {
 // build: symbol ?MAINMENUS_ConnectToRealm@* 0x00432480
         int nResult = MAINMENUS_ConnectToRealm(szName, 0);
@@ -4489,7 +4489,7 @@ int __fastcall MAINMENUS_JoinGame(const char* szGameName, unsigned short wFlags,
             MAINMENUS_ShowConnectingPopup();
             sub_004FA590_RunLoop(MAINMENUS_PollCharLogon);
             int nState = GAME_GetConnectError();
-            if (nState == 0x46 || !sub_00449B30_QueryAddress())
+            if (nState == 0x46 || !MCPCONNECT_QueryAddress())
             {
                 MAINMENUS_DestroyControls();
                 const Unicode* pText = D2LANG_GetStringFromTblIndex(0x140D);
@@ -4662,7 +4662,7 @@ int __stdcall MAINMENUS_CheckFreeSpace(int nUnused)
 }
 
 // 0x00435020
-int __stdcall sub_00435020_Callback(int nUnused)
+int __stdcall MAINMENUS_Callback(int nUnused)
 {
     sub_004336C0();
     return 1;
@@ -5176,9 +5176,9 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
         return;
     }
 
-    if (!GAME_GetConnectError() && sub_00449B30_QueryAddress())
+    if (!GAME_GetConnectError() && MCPCONNECT_QueryAddress())
     {
-        if (sub_00449B30_QueryAddress())
+        if (MCPCONNECT_QueryAddress())
         {
             gpLaunchRecord->nLevel = 1;
             SMemCopy(gpLaunchRecord->szText0x3A1, gabDefault, 0x10);
@@ -5539,7 +5539,7 @@ int __stdcall MAINMENUS_CreateAccountOk(int nArg)
         MAINMENUS_ShowMessage(pMessage, MAINMENUS_CreateMultiplayerScreen, 1);
         return 1;
     }
-    sub_004325B0_CreateScreen();
+    MAINMENUS_CreateScreen();
     return 1;
 }
 

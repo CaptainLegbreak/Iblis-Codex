@@ -68,7 +68,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern int gdwGlobal_00779DA4;                                                                              // 0x00779DA4
 
-void __fastcall sub_0042FF10_SetValue(int nValue); // 0x0042FF10
+void __fastcall MAINMENUS_SetValue(int nValue); // 0x0042FF10
 
 D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 
@@ -416,7 +416,7 @@ int __fastcall CHARSEL_HandleStatus(D2StatusStrc* pStatus)
         if (gnLogonRetries >= 2)
         {
             nText = 0x2B63;
-            sub_0042FF10_SetValue(1);
+            MAINMENUS_SetValue(1);
         }
         else
         {
@@ -710,7 +710,7 @@ int __fastcall CHARSEL_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
 
     if (bConnected)
     {
-        sub_0042FF10_SetValue(0);
+        MAINMENUS_SetValue(0);
         return 1;
     }
 

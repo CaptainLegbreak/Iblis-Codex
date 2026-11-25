@@ -85,8 +85,6 @@ int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections); // 
 
 struct D2FindTileEntryStrc;
 
-struct D2CmpBlockTableAStrc;
-
 struct D2CmpBlockTableBStrc;
 
 struct D2CelDataHashEntryStrc;
@@ -104,11 +102,6 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volati
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void* lpCriticalSection); // 0x006CC1FC
-
-struct D2CmpBlockTableAStrc
-{
-    unsigned char data[0x1000];
-};
 
 long gnTileLockRefCount; // 0x008F03E4
 

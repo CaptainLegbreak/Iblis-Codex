@@ -84,11 +84,14 @@ unsigned int gdwLastShiftedTickCount;                                           
 
 bool gbKoreanFonts;                                                                                // 0x00841EC6
 
+// build: symbol ??__EgwszFramedText@@YAXXZ 0x006CAE20
 Unicode gwszFramedText[1024];                                                                      // 0x00841EC8
 
-extern wchar_t gwszMonsterCode_008426DC[2];                                                                 // 0x008426DC
+// build: symbol ??__EgwszMonsterCode_008426DC@@YAXXZ 0x006CAE50
+Unicode gwszMonsterCode_008426DC[2]; // 0x008426DC
 
-extern wchar_t gwszColorCode_008426E0[2];                                                                   // 0x008426E0
+// build: symbol ??__EgwszColorCode_008426E0@@YAXXZ 0x006CAE40
+Unicode gwszColorCode_008426E0[2]; // 0x008426E0
 
 struct D2FontStrc;
 
@@ -160,7 +163,7 @@ __declspec(noinline) static void __stdcall sub_00501A80_DrawString(const Unicode
 
 extern unsigned int gaFontCharValidBits[8]; // 0x006DC9B8
 
-unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
+unsigned char __stdcall PALETTE_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 
 extern unsigned char gnTooltipColor; // 0x00841EC4
 
@@ -998,7 +1001,7 @@ void __fastcall D2Win_10120(const Unicode* text,int x,int y,int color,int center
  const int left=((0<x?x:0)<screenWidth-width?(0<x?x:0):screenWidth-width);
  y=((y>height?y:height)<screenHeight-31?(y>height?y:height):screenHeight-31);
  if(fill) {
-  if(!gnTooltipColor) gnTooltipColor=sub_004FB180_FindPaletteIndex(80,0,0);
+  if(!gnTooltipColor) gnTooltipColor=PALETTE_FindPaletteIndex(80,0,0);
   const int filled=(width*fill)>>7;
   const int right=filled+left;
   ((void (__stdcall*)(int,int,int,int,unsigned char,int))D2GFX_DrawBox)(left,y-height,right,y,gnTooltipColor,1);
@@ -1136,9 +1139,9 @@ void __fastcall D2Win_10115_FONT()
     gpFontCache = &gatFontCache[1];
     memset(gwszFramedText, 0, 0x800);
     *(unsigned short*)szFile = 'c';
-    sub_00526320_ToUnicode(gwszColorCode_008426E0, szFile, 2);
+    sub_00526320_ToUnicode((wchar_t*)gwszColorCode_008426E0, szFile, 2);
     *(unsigned short*)szFile = 'm';
-    sub_00526320_ToUnicode(gwszMonsterCode_008426DC, szFile, 2);
+    sub_00526320_ToUnicode((wchar_t*)gwszMonsterCode_008426DC, szFile, 2);
 }
 
 // 0x00502EF0
@@ -1253,7 +1256,7 @@ void __stdcall D2Win_10124()
     {
         if (!gnTooltipColor)
         {
-            gnTooltipColor = sub_004FB180_FindPaletteIndex(0x50, 0, 0);
+            gnTooltipColor = PALETTE_FindPaletteIndex(0x50, 0, 0);
         }
 
         const int nFill = nWidth * gnFramedTextRectColor >> 7;

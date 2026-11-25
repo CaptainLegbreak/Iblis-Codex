@@ -3477,11 +3477,6 @@ void __fastcall OBJMODE_ResetObjectInteraction(D2GameStrc* pGame, D2UnitStrc* pO
     }
 }
 
-int __fastcall sub_M98_Emit_00585240(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ItemsTxt* pItemsTxtRecord, int nExtra)
-{
-    return OBJMODE_ApplyObeliskPowerUp(pGame, pItemsTxtRecord->nSubType, pPlayer) + nExtra;
-}
-
 // 0x005843D0
 int __fastcall OBJECTS_OperateFunction11_Torch(D2ObjOperateFnStrc* pOp, int nOperate)
 {

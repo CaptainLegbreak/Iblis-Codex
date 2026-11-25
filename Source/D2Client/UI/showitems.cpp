@@ -239,7 +239,8 @@ void __cdecl SHOWITEMS_DrawUnitNames()
     D2ActiveRoomStrc** ppRooms;
     unsigned int nRoomCount;
     DUNGEON_GetAdjacentRoomsListFromRoom(pRoom,&ppRooms,&nRoomCount);
-    unsigned char nHighlight=sub_004FB180_FindPaletteIndex(0,64,128);
+// build: symbol ?PALETTE_FindPaletteIndex@* 0x004FB180
+    unsigned char nHighlight=PALETTE_FindPaletteIndex(0,64,128);
     gnItemLabelCount=0;
     int bSelected=0;
     for(unsigned int nRoom=0;nRoom<nRoomCount;++nRoom)

@@ -26,8 +26,6 @@ struct D2DccDirStrc;
 
 struct D2DccIterStrc;
 
-struct D2BitBufferInitStrc;
-
 struct D2SpritePixelsStrc;
 
 struct D2SpriteCelStrc;
@@ -37,14 +35,6 @@ struct D2CmpTileFileHeaderStrc;
 struct D2CmpTileHeaderTargetStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-struct D2BitBufferInitStrc
-{
-    unsigned char* pBuffer;
-    unsigned char* pCurrent;
-    int nBits;
-    int nPos;
-};
 
 struct D2SpritePixelsStrc { int unknown00,width,height; char unknown0C[0x14]; unsigned char* pixels; int pitch; int topDown; };
 

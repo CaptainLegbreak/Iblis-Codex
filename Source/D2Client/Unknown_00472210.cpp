@@ -31,7 +31,7 @@ void __fastcall sub_00473D00_SetPhase(int nPhase); // 0x00473D00
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
-int __cdecl sub_004F5140(); // 0x004F5140
+int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
 extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
 extern const D2PeriodLightStrc gaPeriodLights[]; // 0x006D6E40
@@ -249,7 +249,7 @@ void __cdecl sub_00473470(); // 0x00473470
 extern unsigned int gdwGlobal_007BB390; // 0x007BB390
 
 extern "C" double __cdecl fabs(double x);
-int __cdecl sub_004F5140(); // 0x004F5140
+int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
@@ -280,7 +280,7 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-int __cdecl sub_004F5140();                                                                                 // 0x004F5140
+int __cdecl D2GFX_GetDisplayType();                                                                                 // 0x004F5140
 D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
@@ -302,7 +302,7 @@ static void sub_00473090_InitParticle(D2SeedStrc* pSeed);
 
 void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed);                                              // 0x004732C0
 
-int __cdecl sub_004F5140();                                                                                 // 0x004F5140
+int __cdecl D2GFX_GetDisplayType();                                                                                 // 0x004F5140
 D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
@@ -349,7 +349,7 @@ struct D2CelFileStrc;
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);          // 0x006CC468
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFileWithFileSize(const char* szFile, unsigned int* pFileSize, int nType); // 0x00478950
-unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
+unsigned char __stdcall PALETTE_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile);                                                // 0x006019F0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                             // 0x006427F0
 int __stdcall sub_004726F0(int nArg);                                                                       // 0x004726F0
@@ -672,15 +672,15 @@ void __fastcall sub_00472890_InitWeather(int nLevelId)
     {
         const int nStep = n80 / 12;
         nColor = 0x62 - nStep;
-        gabParticleColorsDay[i] = sub_004FB180_FindPaletteIndex(nColor, nColor + 0x19, nColor);
+        gabParticleColorsDay[i] = PALETTE_FindPaletteIndex(nColor, nColor + 0x19, nColor);
         nColor = 0x2D - i * 40 / 12;
-        gabParticleColorsTwilight[i] = sub_004FB180_FindPaletteIndex(nColor, nColor + 10, nColor);
+        gabParticleColorsTwilight[i] = PALETTE_FindPaletteIndex(nColor, nColor + 10, nColor);
         nColor = 0x19 - n24 / 12;
-        gabParticleColorsNight[i] = sub_004FB180_FindPaletteIndex(nColor, nColor + 5, nColor);
+        gabParticleColorsNight[i] = PALETTE_FindPaletteIndex(nColor, nColor + 5, nColor);
         nColor = nStep + 0x78;
-        gabPeriodLightColors[i] = sub_004FB180_FindPaletteIndex(nColor, nColor, nColor);
+        gabPeriodLightColors[i] = PALETTE_FindPaletteIndex(nColor, nColor, nColor);
         nColor = nStep + 0xAA;
-        gabOutdoorLightColors[i] = sub_004FB180_FindPaletteIndex(nColor, nColor, nColor);
+        gabOutdoorLightColors[i] = PALETTE_FindPaletteIndex(nColor, nColor, nColor);
         n24 += 24;
         n80 += 80;
     }
@@ -885,7 +885,7 @@ void __fastcall sub_00472EC0_CreateBubble(int nX, int nY, int nFixX, int nFixY)
 // 0x00472FB0
 static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nValue, unsigned char* pOut1)
 {
-    int n = sub_004F5140();
+    int n = D2GFX_GetDisplayType();
     int bFlag;
     if (n > 0 && (n <= 3 || n == 6))
     {
@@ -996,9 +996,8 @@ void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed)
     {
 // build: symbol ?gnWeatherAngle@* 0x007A89C4
 // build: symbol ?FOG_10083_Cos_LUT@* 0x0040B330
-        const float fAbs = (float)fabs(FOG_10083_Cos_LUT(gnWeatherAngle));
-        // volatile: the original stores the absolute value and reloads it as a float
-        fScale = *(float volatile*)&fAbs;
+        const double dAbs = sub_00472310_AbsFloat(FOG_10083_Cos_LUT(gnWeatherAngle));
+        fScale = (float)dAbs;
         fScale = fScale < 0.25f ? 0.25f : fScale;
     }
     else

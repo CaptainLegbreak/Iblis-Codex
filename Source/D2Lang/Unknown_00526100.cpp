@@ -1,19 +1,12 @@
 #include "D2Lang.h"
 #include "D2LangTypes.h"
+#include "D2Unicode.h"
 
 struct D2UtfConvertSpecStrc;
 struct D2LangByteRangeStrc;
 
 extern "C" unsigned int __cdecl strlen(const char* sz);
 
-struct Unicode
-{
-    unsigned short wChar;
-    operator unsigned short() const
-    {
-        return wChar;
-    }
-};
 
 extern D2UtfConvertSpecStrc gaUtf8ConvertTable[7]; // 0x007309B8
 
@@ -60,7 +53,7 @@ static int __stdcall sub_00526100_Utf8ToUnicodeChar(Unicode* pDest, int nCount, 
 }
 
 // 0x00526190
-static int __stdcall sub_00526190_UnicodeCharToUtf8(Unicode ch, char* pDest)
+static int __stdcall sub_00526190_UnicodeCharToUtf8(char* pDest, Unicode ch)
 {
     const int nCode = ch.wChar;
     int n = 0;
@@ -143,16 +136,20 @@ int __fastcall sub_005262A0_Utf8CountChars(const char* pSrc, int nCount)
 int __fastcall sub_005262F0_UnicodeCharUtf8Length(const Unicode* pChar)
 {
     char szBuffer[8];
-    return sub_00526190_UnicodeCharToUtf8(*pChar, szBuffer);
+    return sub_00526190_UnicodeCharToUtf8(szBuffer, *pChar);
 }
 
+
+// 0x00526320
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength)
 {
-    const int nSourceLength = strlen(szSource);
     int nDest = 0;
+    const int nSourceLength = strlen(szSource);
     int nSrc = 0;
-    while (szSource[nSrc] && nDest < nLength - 1)
+    for (;;)
     {
+        if (!(szSource[nSrc] && nDest < nLength - 1))
+            break;
         const int nUnits = sub_00526100_Utf8ToUnicodeChar(&pDest[nDest], nSourceLength - nSrc, &szSource[nSrc]);
         ++nDest;
         if (nUnits == -1)
@@ -163,7 +160,22 @@ Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource,
     return pDest;
 }
 
-char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
+// 0x005263E0
+char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength)
+{
+    int nLength = 0;
+    for (int i = 0; pSource[i].wChar; ++i)
+    {
+        if (nLength >= nMaxLength - 1)
+            break;
+        const int nUnits = sub_00526190_UnicodeCharToUtf8(&szDest[nLength], pSource[i]);
+        if (nUnits == -1)
+            break;
+        nLength += nUnits;
+    }
+    szDest[nLength] = 0;
+    return szDest;
+}
 
 // 0x00526430
 int __fastcall sub_00526430_UnicodeUtf8Length(const Unicode* pSource, int nCount)
@@ -174,7 +186,7 @@ int __fastcall sub_00526430_UnicodeUtf8Length(const Unicode* pSource, int nCount
     {
         if (i >= nCount)
             break;
-        const int nUnits = sub_00526190_UnicodeCharToUtf8(pSource[i], szBuffer);
+        const int nUnits = sub_00526190_UnicodeCharToUtf8(szBuffer, pSource[i]);
         if (nUnits == -1)
             break;
         nLength += nUnits;
@@ -246,7 +258,8 @@ static __forceinline int FindCharIndex(unsigned short wChar)
     return nMid;
 }
 
-static int sub_00527A50_MapCodePageChar(unsigned short wChar)
+// build: symbol ?UNISYS_MapCodePageChar@* 0x00527A50
+static int UNISYS_MapCodePageChar(unsigned short wChar)
 {
     if (wChar < 0x20)
     {
@@ -303,7 +316,7 @@ Unicode* __fastcall sub_00527B50_CodePageToUnicode(Unicode* pDest, const char* s
             wChar = nByte;
             ++szSrc;
         }
-        const int nUnicode = sub_00527A50_MapCodePageChar(wChar);
+        const int nUnicode = UNISYS_MapCodePageChar(wChar);
         if (nUnicode < 0)
         {
             --i;
@@ -335,11 +348,11 @@ char* __fastcall sub_00527BE0_UnicodeToCodePage(char* szDest, const Unicode* pSr
     for (; i < nCount; ++pSrc)
     {
         const Unicode tChar = *pSrc;
-        if (!tChar)
+        if (!tChar.wChar)
         {
             break;
         }
-        const int nCodePage = sub_00527B00_MapUnicodeChar(tChar);
+        const int nCodePage = sub_00527B00_MapUnicodeChar(tChar.wChar);
         if (nCodePage < 0)
         {
             continue;
@@ -367,11 +380,11 @@ int __fastcall sub_00527CA0_GetCodePageLength(const Unicode* pSrc, int nCount)
     for (int i = 0; i < nCount; ++i)
     {
         const Unicode tChar = pSrc[i];
-        if (!tChar)
+        if (!tChar.wChar)
         {
             break;
         }
-        const int nCodePage = sub_00527B00_MapUnicodeChar(tChar);
+        const int nCodePage = sub_00527B00_MapUnicodeChar(tChar.wChar);
         if (nCodePage < 0)
         {
             continue;

@@ -972,7 +972,7 @@ void* __fastcall DIALOG_CreateDialogFromFile(int nX, int nY, int (__cdecl* pfnCa
 
 void __fastcall sub_004B8370(void* pPanel, int nValue);                                                     // 0x004B8370
 
-D2SplittedTextStrc* __fastcall sub_00502970_SplitText(Unicode* pText, int* pLineCount, int nWidth);             // 0x00502970
+D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(Unicode* pText, int* pLineCount, int nWidth);             // 0x00502970
 
 void __fastcall DIALOG_AddTextLine(void* pPanel, Unicode* pText, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x004B85F0
 
@@ -2101,7 +2101,7 @@ void __fastcall UI_OpenGoldPanel(int nMode)
     }
 
     int nLineCount;
-    D2SplittedTextStrc* pLine = sub_00502970_SplitText(wszText, &nLineCount, 0xC8);
+    D2SplittedTextStrc* pLine = D2WINFONT_SplitText(wszText, &nLineCount, 0xC8);
     while (pLine)
     {
         DIALOG_AddTextLine(gpGoldPanel, pLine->wszLine, 0x18, 0, 4, 1, 0, 0);

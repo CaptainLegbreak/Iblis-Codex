@@ -172,7 +172,7 @@ void __cdecl D2MCPClientCloseMCP()
 }
 
 // 0x00449B30
-int __cdecl sub_00449B30_QueryAddress()
+int __cdecl MCPCONNECT_QueryAddress()
 {
     FSafeSock* pSafeSock = D2QSSOCKET_GetSafeSock(gpMcpConnection);
     if (!pSafeSock)
@@ -471,7 +471,7 @@ void __stdcall MCPCONNECT_WaitConnect(D2LaunchThreadRecordStrc* pRecord)
     const unsigned long dwEndTick = GetTickCount() + 60000;
     for (;;)
     {
-        if (!sub_00449B30_QueryAddress())
+        if (!MCPCONNECT_QueryAddress())
             break;
         if (GetTickCount() >= dwEndTick)
             break;

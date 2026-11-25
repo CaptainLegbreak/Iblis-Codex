@@ -252,23 +252,6 @@ void D2StormArrayAStrc::sub_00421EA0_GrowToFit(unsigned int nIndex, int bZero)
     }
 }
 
-// 0x00421F10
-void D2StormArrayAStrc::SetCount(unsigned int nCount)
-{
-    if (nCount > m_count && nCount > m_alloc)
-    {
-        unsigned int nChunk = m_chunk;
-        if (!nChunk)
-            nChunk = sub_004210A0_CalcChunkSize(nCount);
-        unsigned int nAlloc = nCount;
-        const unsigned int nRemainder = nCount % nChunk;
-        if (nRemainder)
-            nAlloc = nCount + nChunk - nRemainder;
-        sub_004216E0_ReallocData(nAlloc);
-    }
-    m_count = nCount;
-}
-
 // 0x00422050
 unsigned int* BigBuffer::sub_00422050_At(unsigned int nIndex)
 {

@@ -59,6 +59,8 @@ int gbNewsActive; // 0x00881C24
 
 int (__cdecl* gpfnNewsRefresh)(); // 0x00881C2C
 
+// build: symbol ??__EgtNewsItems@@YAXXZ 0x006CAEC0
+// build: symbol ??__FgtNewsItems@@YAXXZ 0x006CB450
 D2StormArray408Strc gtNewsItems;        // 0x00881C30
 
 unsigned int gnNewsFirstIndex;        // 0x00881C40

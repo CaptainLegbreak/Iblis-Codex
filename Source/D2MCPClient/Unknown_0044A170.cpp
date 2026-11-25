@@ -14,8 +14,6 @@ typedef unsigned int U32;
 
 struct D2CmdParamsStrc;
 
-union D2CdKeyWordStrc;
-
 struct D2CmdArgStrc;
 
 struct D2McpPacket02Strc;
@@ -54,12 +52,6 @@ struct D2CmdParamsStrc
 {
     char unk0x00[0x18];
     const char* szValue;
-};
-
-union D2CdKeyWordStrc
-{
-    unsigned int nValue;
-    char szText[4];
 };
 
 struct D2CmdArgStrc
@@ -316,10 +308,6 @@ struct D2ClientPacket11Strc;
 
 struct D2ClientPacket19Strc;
 
-struct D2TimedHintEntryStrc;
-
-
-struct D2CacheStatsStrc;
 
 struct D2ClientPacket11Strc
 {
@@ -339,32 +327,6 @@ struct D2ClientPacket19Strc
 
 extern void* gpGlobal_00798FB4; // 0x00798FB4
 
-struct D2TimedHintEntryStrc
-{
-    int unk0x00;
-    int nHintId;
-    int nKey;
-    char unk0x0C[0x24];
-    int nState;
-};
-
-
-struct D2CacheStatsStrc
-{
-    unsigned int nFloorSize;
-    int unk0x04;
-    int nFloorMisses;
-    unsigned int nSubtileSize;
-    int unk0x10;
-    int nSubtileMisses;
-    unsigned int nSpriteSize[3];
-    int unk0x24[3];
-    int nSpriteMisses[3];
-    int unk0x3C[3];
-    int nSpriteAccesses[3];
-    int unk0x54[3];
-    int unk0x60[3];
-};
 
 // 0x0044A980
 void __cdecl sub_0044A980_SendPacket0D()
@@ -554,13 +516,6 @@ extern D2McpPacketHandler gpfnMcpPacketHandlers[]; // 0x0070ED00
 extern "C" { U32 gSlotFirst; } // 0x00799300
 
 extern "C" { U32 gSlotSecond; } // 0x00799304
-
-struct D2MonLvlTxt;
-
-struct D2MonLvlTxt
-{
-    char unk0x00[0x78];
-};
 
 struct D2McpGameInfoPacketStrc
 {

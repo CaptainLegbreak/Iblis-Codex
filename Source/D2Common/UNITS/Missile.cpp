@@ -256,6 +256,7 @@ struct Data0064A190;
 struct Unit0064A190;
 
 struct D2MissileDataStrc;
+struct D2MissileStreamStrc;
 
 struct D2MissilesTxt;
 
@@ -843,9 +844,11 @@ void __stdcall MISSILE_FreeMissileData(D2UnitStrc* pMissile)
 }
 
 // 0x0064A190
-extern "C" __declspec(dllexport) unsigned int __stdcall sub_0064A190(Unit0064A190* pUnit) {
-    if (pUnit && pUnit->nType == 3 && pUnit->pData) {
-        return pUnit->pData->dwValue14;
+unsigned int __stdcall MISSILE_GetFlags(D2UnitStrc* pMissile)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        return pMissile->pMissileData->fFlags;
     }
     return 0;
 }
@@ -908,9 +911,11 @@ extern "C" void __stdcall MISSILE_SetMissileLevel(B24Unit* unit, int level)
 }
 
 // 0x0064A210
-extern "C" __declspec(dllexport) int __stdcall sub_0064A210(Unit0064A210* pUnit) {
-    if (pUnit && pUnit->nType == 3 && pUnit->pData) {
-        return pUnit->pData->sValue0C;
+int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        return pMissile->pMissileData->nLevel;
     }
     return 0;
 }
@@ -930,9 +935,11 @@ void __stdcall MISSILE_SetSkill(D2UnitStrc* pMissile, int nSkill)
 }
 
 // 0x0064A280
-extern "C" __declspec(dllexport) int __stdcall sub_0064A280(Unit0064A280* pUnit) {
-    if (pUnit && pUnit->nType == 3 && pUnit->pData) {
-        return pUnit->pData->sValue0A;
+int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        return pMissile->pMissileData->nSkill;
     }
     return 0;
 }
@@ -948,9 +955,11 @@ void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames)
 }
 
 // 0x0064A300
-extern "C" __declspec(dllexport) int __stdcall sub_0064A300(Unit0064A300* pUnit) {
-    if (pUnit && pUnit->nType == 3 && pUnit->pData) {
-        return pUnit->pData->sValue0E;
+int __stdcall MISSILE_GetTotalFrames(D2UnitStrc* pMissile)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        return pMissile->pMissileData->nTotalFrames;
     }
     return 0;
 }
@@ -966,26 +975,32 @@ void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame)
 }
 
 // 0x0064A380
-extern "C" __declspec(dllexport) int __stdcall sub_0064A380(Unit0064A380* pUnit) {
-    if (pUnit && pUnit->nType == 3 && pUnit->pData) {
-        return pUnit->pData->sValue10;
+int __stdcall MISSILE_GetCurrentFrame(D2UnitStrc* pMissile)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        return pMissile->pMissileData->nCurrentFrame;
     }
     return 0;
 }
 
 // 0x0064A3B0
-extern "C" __declspec(dllexport) int __stdcall sub_0064A3B0(Unit0064A3B0* pUnit) {
-    Data0064A3B0* pData = (pUnit && pUnit->nType == 3) ? pUnit->pData : 0;
-    if (pData) {
-        return pData->sValue0E - pData->sValue10;
+int __stdcall MISSILE_GetRemainingFrames(D2UnitStrc* pMissile)
+{
+    D2MissileDataStrc* pMissileData = (pMissile && pMissile->dwUnitType == UNIT_MISSILE) ? pMissile->pMissileData : 0;
+    if (pMissileData)
+    {
+        return pMissileData->nTotalFrames - pMissileData->nCurrentFrame;
     }
     return 0;
 }
 
 // 0x0064A3E0
-extern "C" __declspec(dllexport) unsigned int __stdcall sub_0064A3E0(Unit0064A3E0* pUnit) {
-    if (pUnit && pUnit->nType == 3) {
-        return pUnit->dwValue04;
+int __stdcall MISSILE_GetClassId(D2UnitStrc* pMissile)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE)
+    {
+        return pMissile->dwClassId;
     }
     return 0;
 }
@@ -1036,31 +1051,39 @@ int __stdcall MISSILE_CheckUnitIfOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 }
 
 // 0x0064A4E0
-extern "C" __declspec(dllexport) void __stdcall sub_0064A4E0(Unit0064A4E0* pUnit, unsigned short wValue) {
-    if (pUnit && pUnit->nType == 3 && pUnit->pData) {
-        pUnit->pData->wValue04 = wValue;
+void __stdcall MISSILE_SetStreamMissile(D2UnitStrc* pMissile, int nStreamMissile)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        pMissile->pMissileData->nStreamMissile = nStreamMissile;
     }
 }
 
 // 0x0064A510
-extern "C" __declspec(dllexport) int __stdcall sub_0064A510(Unit0064A510* pUnit) {
-    if (pUnit && pUnit->nType == 3 && pUnit->pData) {
-        return pUnit->pData->sValue04;
+int __stdcall MISSILE_GetStreamMissile(D2UnitStrc* pMissile)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        return pMissile->pMissileData->nStreamMissile;
     }
     return -1;
 }
 
 // 0x0064A540
-extern "C" __declspec(dllexport) void __stdcall sub_0064A540(Unit0064A540* pUnit, unsigned short wValue) {
-    if (pUnit && pUnit->nType == 3 && pUnit->pData) {
-        pUnit->pData->wValue06 = wValue;
+void __stdcall MISSILE_SetStreamRange(D2UnitStrc* pMissile, short nStreamRange)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        pMissile->pMissileData->nStreamRange = nStreamRange;
     }
 }
 
 // 0x0064A570
-extern "C" __declspec(dllexport) int __stdcall sub_0064A570(Unit0064A570* pUnit) {
-    if (pUnit && pUnit->nType == 3 && pUnit->pData) {
-        return pUnit->pData->sValue06;
+int __stdcall MISSILE_GetStreamRange(D2UnitStrc* pMissile)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        return pMissile->pMissileData->nStreamRange;
     }
     return 0;
 }
@@ -1090,9 +1113,11 @@ void __stdcall MISSILE_SetActivateFrame(D2UnitStrc* pMissile, int nActivateFrame
 }
 
 // 0x0064A640
-extern "C" __declspec(dllexport) int __stdcall sub_0064A640(Unit0064A640* pUnit) {
-    if (pUnit && pUnit->nType == 3 && pUnit->pData) {
-        return pUnit->pData->sValue08;
+int __stdcall MISSILE_GetActivateFrame(D2UnitStrc* pMissile)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        return pMissile->pMissileData->nActivateFrame;
     }
     return 0;
 }
@@ -1117,16 +1142,20 @@ void __stdcall MISSILE_SetAnimSpeed(D2UnitStrc* pMissile, int nAnimSpeed)
 }
 
 // 0x0064A6D0
-extern "C" __declspec(dllexport) void __fastcall sub_0064A6D0(Unit0064A6D0* pUnit, unsigned int dwValue) {
-    if (pUnit && pUnit->nType == 3 && pUnit->pData) {
-        pUnit->pData->dwValue30 = dwValue;
+void __fastcall MISSILE_SetStream(D2UnitStrc* pMissile, D2MissileStreamStrc* pStream)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        pMissile->pMissileData->pStream = pStream;
     }
 }
 
 // 0x0064A6F0
-extern "C" __declspec(dllexport) unsigned int __fastcall sub_0064A6F0(Unit0064A6F0* pUnit) {
-    if (pUnit && pUnit->nType == 3 && pUnit->pData) {
-        return pUnit->pData->dwValue30;
+D2MissileStreamStrc* __fastcall MISSILE_GetStream(D2UnitStrc* pMissile)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        return (D2MissileStreamStrc*)pMissile->pMissileData->pStream;
     }
     return 0;
 }
@@ -1670,7 +1699,7 @@ static int sub_0044BE50(D2UnitStrc* pUnit)
     return nType;
 }
 
-static unsigned int MISSILE_GetLevel(D2UnitStrc* pMissile)
+static unsigned int MISSILE_GetLevelInline(D2UnitStrc* pMissile)
 {
     D2MissileDataStrc* pMissileData = sub_0044BE50(pMissile) == 3 ? pMissile->pMissileData : 0;
     if (!pMissileData)
@@ -1885,7 +1914,7 @@ int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc* pMissile, D2UnitStrc* p
 
         if (nLevel < 0)
         {
-            nLevel = MISSILE_GetLevel(pMissile);
+            nLevel = MISSILE_GetLevelInline(pMissile);
         }
     }
 
@@ -1926,7 +1955,7 @@ extern "C" void __stdcall MISSILE_CalculateDamageData(Damage* damage, Unit* owne
         int skill = record->skill;
         if (record->flags & gVar_006CE284)
         {
-            int missileSkill = sub_0064A280((Unit0064A280*)missile);
+            int missileSkill = MISSILE_GetSkill((D2UnitStrc*)missile);
             if (missileSkill > 0) skill = missileSkill;
         }
         SkillRecord* skillRecord = sub_0045C4B0_GetSkillRecord(skill);

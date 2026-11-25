@@ -30,7 +30,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);     
 void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect);                                               // 0x00452E50
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 int __stdcall D2Win_10125();                                                                                // 0x00501A40
-void __fastcall sub_00501DF0_DrawClippedFontText(const Unicode* pText, int nX, int nY, int nTextColor, int nSkipLines, int nDrawLines); // 0x00501DF0
+void __fastcall D2WINFONT_DrawClippedFontText(const Unicode* pText, int nX, int nY, int nTextColor, int nSkipLines, int nDrawLines); // 0x00501DF0
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
@@ -51,7 +51,7 @@ static __forceinline void sub_0049D5A0_DrawClippedLine(D2SplittedTextStrc* pLine
 {
     if (gnTextDisplaySetting || gbTextPanelOpen)
     {
-        sub_00501DF0_DrawClippedFontText(pLine->wszLine, gnTextLeft + 0x10, gnTextTop + nY, nColor, nSkipLines, nDrawLines);
+        D2WINFONT_DrawClippedFontText(pLine->wszLine, gnTextLeft + 0x10, gnTextTop + nY, nColor, nSkipLines, nDrawLines);
     }
 }
 

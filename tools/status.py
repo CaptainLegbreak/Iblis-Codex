@@ -283,6 +283,10 @@ svg('docs/shape.svg', 'Iblis Codex · source shape',
 rp = os.path.join(ROOT, 'README.md')
 r = open(rp, encoding='utf-8').read()
 r2 = re.sub(r'\| [\d,]+ compilation units,', '| %s compilation units,' % format(len(src), ','), r)
+# ... and the function counts: verified functions the units define, and the ones not reconstructed yet
+r2 = re.sub(r'defining [\d,]+ functions', 'defining %s functions' % format(len(verified), ','), r2)
+r2 = re.sub(r'([Tt]he) [\d,]+(\s+)(functions\s+that\s+are\s+not\s+reconstructed\s+yet)',
+            lambda m: '%s %s%s%s' % (m.group(1), format(len(unmatched), ','), m.group(2), m.group(3)), r2)
 if r2 != r:
     open(rp, 'w', encoding='utf-8').write(r2)
 print('STATUS.md, docs/grid.svg, docs/shape.svg written; %d units, %d whole-file functions, %d forced, %d split files' % (len(src), nw, len(forced), len(split)))

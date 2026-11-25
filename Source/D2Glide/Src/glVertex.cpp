@@ -49,7 +49,7 @@ void __fastcall GLPERSPECTIVE_SetProjectOrigin(int nX, int nY); // 0x0050DD50
 
 void __cdecl sub_0050DF00_ResetSpriteScale(); // 0x0050DF00
 
-void __stdcall sub_0050F980_DecodeTileBlocks(D2TileLibraryEntryStrc* pTile, unsigned char* pDst); // 0x0050F980
+void __stdcall GLVERTEX_DecodeTileBlocks(D2TileLibraryEntryStrc* pTile, unsigned char* pDst); // 0x0050F980
 
 int __fastcall sub_00512410_ForwardToDrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nScreenMode, void* pPalette); // 0x00512410
 
@@ -125,7 +125,7 @@ void __cdecl sub_0050DF00_ResetSpriteScale()
     gnGlideSpriteScale = 0x100;
 }
 // 0x0050F980
-void __stdcall sub_0050F980_DecodeTileBlocks(D2TileLibraryEntryStrc* pTile, unsigned char* pDst)
+void __stdcall GLVERTEX_DecodeTileBlocks(D2TileLibraryEntryStrc* pTile, unsigned char* pDst)
 {
     memset(pDst, 0, 0x8000);
 

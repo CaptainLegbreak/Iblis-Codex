@@ -2384,11 +2384,6 @@ void __fastcall D2GAME_STORES_FillGamble_6FCCA9F0(D2GameStrc* pGame,D2UnitStrc* 
  }
 }
 
-int __stdcall sub_M452_Emit_00578610(D2UnitStrc* pUnit, unsigned int nGUID)
-{
-    return SUNITNPC_IsCursorItem(nGUID, pUnit) + 7;
-}
-
 // 0x00578C20
 int __fastcall D2GAME_NPC_RemoveStates_6FCCAF30(D2UnitStrc* pUnit)
 {
@@ -2715,11 +2710,6 @@ int __fastcall D2GAME_NPC_IsItemInNpcInventory_6FCCB7D0(D2GameStrc* pGame, D2Uni
         }
     }
     return 1;
-}
-
-int __stdcall sub_J17_Emit_005786A0(D2GameStrc* pGame, int nItemLevel, int nItemId, int nUberChance, int nUltraChance)
-{
-    return SUNITNPC_RollGambleUpgrade(nItemId, nUberChance, nUltraChance, pGame, nItemLevel);
 }
 
 static inline D2NpcTradeDataStrc* SUNITNPC_GetNpcTrade(D2NpcRecordStrc* pNpcRecord)

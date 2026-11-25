@@ -228,28 +228,36 @@ static inline int CLIENTS_GetUnitX_Spray(D2UnitStrc* pUnit)
 
 static inline int CLIENTS_GetUnitY_Spray(D2UnitStrc* pUnit)
 {
+    int nResult;
     switch (pUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
+        nResult = pUnit->pStaticPath->nYPos;
+        break;
+    default:
+        if (pUnit->pDynamicPath)
+            nResult = PATH_GetYPosition(pUnit->pDynamicPath);
+        else
+            nResult = 0;
+        break;
     }
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    return nResult;
 }
 
-// build: symbol ?SKILLDESC_CreateSprayMissile@* 0x004F1A30
+// 0x004F1A30
 static void __stdcall SKILLDESC_CreateSprayMissile(D2SkillsTxt* pSkillsTxt, int nSkillId, int nSkillLevel, D2UnitStrc* pUnit)
 {
     const int nIndex = SEED_RollRandomNumber_Spray(&pUnit->pSeed) & 7;
-    int nX = CLIENTS_GetUnitX_Spray(pUnit);
-    int nY = CLIENTS_GetUnitY_Spray(pUnit);
+    const int nUnitX = CLIENTS_GetUnitX_Spray(pUnit);
+    const int nUnitY = CLIENTS_GetUnitY_Spray(pUnit);
 // build: symbol ?gaSprayOffsetX@* 0x006DBFA8
     const int nOffsetX = gaSprayOffsetX[nIndex];
 // build: symbol ?gaSprayOffsetY@* 0x006DBFC8
     const int nOffsetY = gaSprayOffsetY[nIndex];
-    nX += nOffsetX;
-    nY += nOffsetY;
+    const int nX = nUnitX + nOffsetX;
+    const int nY = nUnitY + nOffsetY;
 
     int nMissile = pSkillsTxt->wCltMissileA;
     if (nMissile < 0)
@@ -285,9 +293,9 @@ static void __stdcall SKILLDESC_CreateSprayMissile(D2SkillsTxt* pSkillsTxt, int 
     tMissile.nMissile = nMissile;
     tMissile.nX = nX;
     tMissile.nY = nY;
+    tMissile.nSkillLevel = nSkillLevel;
     tMissile.nTargetX = nOffsetY;
     tMissile.nTargetY = -nOffsetX;
-    tMissile.nSkillLevel = nSkillLevel;
 
     D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissile);
     if (!pMissile)

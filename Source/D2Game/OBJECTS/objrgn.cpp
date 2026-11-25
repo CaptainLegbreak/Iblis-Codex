@@ -703,7 +703,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volati
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile*);  // 0x006CC204
 
-int __stdcall sub_0052B490_ObjectCall_6BED90(int,int,int);
+int __stdcall CLIENT_ObjectCall_6BED90(int,int,int); // 0x0052B490
 
 int __stdcall sub_0052B330(unsigned char,int,void*,int);  // 0x0052B330
 
@@ -1731,7 +1731,7 @@ struct Obj00547390 { unsigned char bUnknown00[0x10F0]; Sub00547390* pSub10F0; };
 D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** ppMonsterRegion, int nLevelId); // 0x00547BB0
 
 // 0x00547390
-extern "C" __declspec(dllexport) void __fastcall sub_00547390(Obj00547390* pObj, int nIndex) {
+extern "C" __declspec(dllexport) void __fastcall OBJRGN_IncreaseHealingShrineCount(Obj00547390* pObj, int nIndex) {
     pObj->pSub10F0->pEntries48[nIndex]->nCount10++;
 }
 

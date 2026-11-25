@@ -405,7 +405,7 @@ int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pM
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 
-void __fastcall sub_6FC6E8A0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A43A0
+void __fastcall MONSTERUNIQUE_ExecuteUModDamagedCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A43A0
 
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
@@ -841,14 +841,6 @@ static int SUNITDMG_DrainStamina(D2UnitStrc* pUnit, int nDrain)
 
     STATLIST_SetUnitStat(pUnit, STAT_STAMINA, nStamina, 0);
     return nStamina ? nDrain : 0;
-}
-
-void __fastcall sub_A13_Emit_0057C6C0(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage)
-{
-    SUNITDMG_AddLeechedLife(pAttacker, pDamage->dwColdLen);
-    SUNITDMG_AddLeechedMana(pAttacker, pDamage->dwFrzLen);
-    SUNITDMG_DrainMana(pDefender, pDamage->dwLifeLeech);
-    SUNITDMG_DrainStamina(pDefender, pDamage->dwManaLeech);
 }
 
 static inline unsigned int sub_I19_RollSeedInline(D2SeedStrc* pSeed)
@@ -1337,15 +1329,6 @@ static void SUNITDMG_AddUndeadDamagePercent(D2DamageStrc* pDamage, D2UnitStrc* p
             pDamage->dwEnDmgPct += nPct;
         }
     }
-}
-
-void __stdcall sub_A08_EmitDamageHelpers(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, int a, int b, int c, int d, int e, int f)
-{
-    pDamage->dwPhysDamage = SUNITDMG_AddStatDamage(a, b, c, d, pDamage->dwPhysDamage, f, pAttacker);
-    pDamage->dwFireDamage = SUNITDMG_AddStatDamage(b, c, d, e, pDamage->dwFireDamage, a, pAttacker);
-    pDamage->dwEnDmgPct = SUNITDMG_RollDamageValueInRange(pAttacker, a, c, d, b, pDamage->dwEnDmgPct);
-    SUNITDMG_AddUndeadDamagePercent(pDamage, pAttacker, pDefender);
-    SUNITDMG_AddUndeadDamagePercent(pDamage, pDefender, pAttacker);
 }
 
 static inline D2MonStatsTxt* U01_GetMonStatsTxtRecord(int nMonsterId)
@@ -2737,14 +2720,14 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
             {
                 MONSTERMODE_GetModeChangeInfo(pUnit, 0x03, &modeChange);
                 D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-                sub_6FC6E8A0(pGame, pUnit);
+                MONSTERUNIQUE_ExecuteUModDamagedCallbacks(pGame, pUnit);
                 return;
             }
 
             UNITROOM_RefreshUnit(pUnit);
             pUnit->dwFlags |= 0x8000;
             MONSTER_SetAiState(pUnit, 0x13);
-            sub_6FC6E8A0(pGame, pUnit);
+            MONSTERUNIQUE_ExecuteUModDamagedCallbacks(pGame, pUnit);
             return;
         }
 
@@ -2753,7 +2736,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
             UNITROOM_RefreshUnit(pUnit);
             pUnit->dwFlags |= 0x8000;
             MONSTER_SetAiState(pUnit, 0x13);
-            sub_6FC6E8A0(pGame, pUnit);
+            MONSTERUNIQUE_ExecuteUModDamagedCallbacks(pGame, pUnit);
             return;
         }
 
@@ -3186,12 +3169,6 @@ void __fastcall SUNITDMG_SetPlayerDataMode(D2UnitStrc* pUnit, int nValue)
     {
         pUnit->pPlayerData->nMode = nValue;
     }
-}
-
-int __fastcall sub_0057DCA0_Emit(int nArg, D2UnitStrc* pUnit)
-{
-    int nValue = SUNITDMG_GetWieldedTypeStatMax(pUnit);
-    return nValue > 0 ? nValue : nArg;
 }
 
 void __fastcall D2GAME_OBJECTS_TrapHandler5_7_6FC75BC0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00582380

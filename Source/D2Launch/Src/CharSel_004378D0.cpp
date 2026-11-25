@@ -208,7 +208,7 @@ int __fastcall FOG_GetSavePath(char* szPath, int nSize);                        
 int __fastcall sub_0043C8A0(const char* szName, char* szPath);                                              // 0x0043C8A0
 extern char gszCharName[256];                                                                             // 0x00779B68
 extern int gnCharCount;                                                                                   // 0x00779DE0
-static int sub_00438030_IsNotListedCode(int nValue);
+static int CHARSEL_IsNotListedCode(int nValue); // 0x00438030
 extern int gnSelected; // 0x0070CC00
 extern int gnSelectionA; // 0x0070CC04
 extern int gnSelectionB; // 0x0070CC08
@@ -274,20 +274,15 @@ extern D2WinControlStrc* gpControl_00779D9C;        // 0x00779D9C
 void __cdecl CHATDLG_UpdateCreateButton(); // 0x00443630
 struct Unicode;
 struct D2FileTimeStrc;
-struct UnicodeChar;
 struct D2StatusStrc;
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();
-};
 void __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);
 void __fastcall MAINMENUS_ShowTwoTexts(const Unicode* pText1, const Unicode* pText2, D2LaunchDoneFn pfnDone); // 0x00433130
 void __fastcall MAINMENUS_ShowThreeTexts(const Unicode* pText1, const Unicode* pText2, const Unicode* pText3, D2LaunchDoneFn pfnDone); // 0x004331C0
 void __fastcall MAINMENUS_ShowFourTexts(const Unicode* pText1, const Unicode* pText2, const Unicode* pText3, const Unicode* pText4, D2LaunchDoneFn pfnDone); // 0x004332B0
 void __cdecl MAINMENUS_ShowMainMenu(); // 0x004336C0
 void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
-void __fastcall sub_0042FF10_SetValue(int nValue); // 0x0042FF10
+void __fastcall MAINMENUS_SetValue(int nValue); // 0x0042FF10
 extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern int gnLogonRetries; // 0x0070CC4C
 void __stdcall CHARSEL_HandleCharList(const char* szName, unsigned char* pPacket, int bFlag); // 0x0043AAB0
@@ -659,7 +654,7 @@ void __stdcall sub_LEG_Emit_00438AD0(const char* szName, char* szPath, int nArg3
 {
     CHARSEL_AddCharEntry(szName, szPath, nArg3, nTimeLow, nTimeHigh, (const char*)nMode);
 }
-static int sub_00438030_IsNotListedCode(int nValue)
+static int CHARSEL_IsNotListedCode(int nValue)
 {
     switch (nValue)
     {

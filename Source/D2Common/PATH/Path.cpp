@@ -2004,17 +2004,21 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
                         }
 
                         pPath->tFinalTargetCoord.X = tPathInfo.tTargetCoord.X;
-                        // volatile: the original keeps these stores, the repeated one included, in this order
-                        *(volatile int*)&pPath->dwCurrentPointIdx = 0;
+                        pPath->dwCurrentPointIdx = 0;
                         pPath->tFinalTargetCoord.Y = tPathInfo.tTargetCoord.Y;
                         pPath->dwPathPoints = 0;
-                        pPath->dwCurrentPointIdx = 0;
 
-                        int nPathPoints = 0;
+                        int nPathPoints;
                         if (bUpdatePath)
                         {
+                            pPath->dwCurrentPointIdx = 0;
                             D2_ASSERT(!IsBadCodePtr((void*)gpfnPathFunctions[tPathInfo.nPathType]), LINE_PATH_FUNCTION);
                             nPathPoints = gpfnPathFunctions[tPathInfo.nPathType](&tPathInfo);
+                        }
+                        else
+                        {
+                            pPath->dwCurrentPointIdx = 0;
+                            nPathPoints = 0;
                         }
                         pPath->dwPathPoints = nPathPoints;
 
@@ -2036,12 +2040,10 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
                         if (pPath->dwCurrentPointIdx < pPath->dwPathPoints)
                         {
                             sub_6FDA8220(pPath);
-                            D2PathPointStrc tPrev;
-                            tPrev.X = pPath->tTargetCoord.X;
+                            pPath->unk0x38 = 0;
+                            pPath->tPrevTargetCoord.X = pPath->tTargetCoord.X;
                             pPath->tPrevTargetCoord.Y = pPath->tTargetCoord.Y;
                             const unsigned int nFlags = pPath->dwFlags;
-                            *(volatile unsigned int*)&pPath->unk0x38 = 0;
-                            *(volatile unsigned short*)&pPath->tPrevTargetCoord.X = tPrev.X;
                             if (!(nFlags & PATH_UNKNOWN_FLAG_0x00010) && !pPath->hTarget)
                             {
                                 pPath->tTargetCoord.X = pPath->PathPoints[pPath->dwPathPoints - 1].X;

@@ -1904,7 +1904,7 @@ unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits
 
 int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc* pBuffer, int nBits); // 0x00411030
 
-extern "C" int __stdcall sub_00410E90(D2BitBufferStrc* pBuffer); // 0x00410E90
+extern "C" int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
 
 extern "C" unsigned int __stdcall ITEMS_CheckIfFlagIsSet(unsigned int dwA, unsigned int dwB); // 0x006287A0
 
@@ -2463,7 +2463,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volati
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile*);  // 0x006CC204
 
-int __stdcall sub_0052B490_ObjectCall_6BED90(int,int,int);
+int __stdcall CLIENT_ObjectCall_6BED90(int,int,int); // 0x0052B490
 
 int __stdcall sub_0052B330(unsigned char,int,void*,int);  // 0x0052B330
 

@@ -654,7 +654,7 @@ D2UnitStrc* __fastcall AITACTICS_FindTargetOrIdle(D2GameStrc* pGame, D2UnitStrc*
 }
 
 // 0x005DEE50
-int __fastcall AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY)
+int __fastcall AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nX, unsigned int nY)
 {
     PATH_SetStepNum(pUnit->pDynamicPath, 1);
     D2ModeChangeStrc modeChange;

@@ -141,7 +141,7 @@ int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl sub_0040EB10(); // 0x0040EB10
 int __cdecl GAME_GetSlotNameCount(); // 0x00430B40
 int __cdecl sub_00432400_GetStatus(); // 0x00432400
-int __cdecl sub_00449B30_QueryAddress(); // 0x00449B30
+int __cdecl MCPCONNECT_QueryAddress(); // 0x00449B30
 int __cdecl sub_00449B70_Receive(); // 0x00449B70
 int __cdecl GAME_GetConnectError(); // 0x00449C00
 int __cdecl sub_00449E60(); // 0x00449E60

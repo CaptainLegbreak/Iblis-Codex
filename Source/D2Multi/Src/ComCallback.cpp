@@ -48,42 +48,6 @@ struct D2LaunchNameNodeStrc
     D2LaunchNameNodeStrc* pNext;
 };
 
-struct D2LaunchCharEntryStrc
-{
-    char szName[0x100];
-    Unicode wszName[0x100];
-    char aBlock0x300[0x10];
-    char aBlock0x310[0x10];
-    unsigned char nType;
-    char unk0x321;
-    char nByte0x322;
-    char unk0x323;
-    unsigned short wFlags;
-    char unk0x326[0x08];
-    char nByte0x32E;
-    char unk0x32F[0x1D];
-    D2LaunchCharEntryStrc* pNext;
-};
-
-#pragma pack(push, 1)
-
-struct D2LaunchCharSelectStrc
-{
-    char unk0x000[0x19];
-    int nState;
-    char unk0x01D[0x1F3];
-    char nMode;
-    char unk0x211[0x190];
-    char aBlock0x3A1[0x10];
-    char aBlock0x3B1[0x10];
-    char nByte0x3C1;
-    char nByte0x3C2;
-    char unk0x3C3[0x08];
-    unsigned short wFlags;
-};
-
-#pragma pack(pop)
-
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -841,7 +805,8 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
     D2Win_10044(gpCreatePasswordLabel, D2LANG_GetStringFromTblIndex(0x1488));
     gpCreateDescLabel = CONTROL_Create(&gtCreateDescLabelInit);
     D2Win_10044(gpCreateDescLabel, D2LANG_GetStringFromTblIndex(0x1489));
-    if (sub_00449B30_QueryAddress())
+// build: symbol ?MCPCONNECT_QueryAddress@* 0x00449B30
+    if (MCPCONNECT_QueryAddress())
     {
         gpMaxPlayersLabel = CONTROL_Create(&gtMaxPlayersLabelInit);
         D2Win_10044(gpMaxPlayersLabel, D2LANG_GetStringFromTblIndex(0x148A));
@@ -863,7 +828,7 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
     sprintf(gszLevelDiffText, gszFormatInt_006D57BC, 4);
 // build: symbol ?gszMaxPlayersText@* 0x0070EBD4
     sprintf(gszMaxPlayersText, gszFormatInt_006D57BC, 4);
-    if (sub_00449B30_QueryAddress())
+    if (MCPCONNECT_QueryAddress())
     {
         gpMaxPlayerControl = CONTROL_Create(&gtMaxPlayersEditInit);
         sub_004FFE10_SetTextA(gpMaxPlayerControl, gszMaxPlayersText);
@@ -978,7 +943,7 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
         gnDiffSelect = 0;
     }
     CONTROL_SetFocusedEditBox((D2WinControlStrc *)(D2WinEditBoxStrc*)gpCreateName);
-    if (sub_00449B30_QueryAddress())
+    if (MCPCONNECT_QueryAddress())
         CHATDLG_OnLevelRestrictToggle(0);
 }
 
@@ -2693,11 +2658,6 @@ void __stdcall COMCALLBACK_RemoveChannelUser(const char* szName)
     COMCALLBACK_RefreshChannelList();
 }
 
-// calling-convention shim (not game code)
-void __fastcall Caller_00447FD0(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat)
-{
-    COMCALLBACK_UpdateUser(pUser, pStat, nFlags, szName);
-}
 
 // 0x004495A0
 void __cdecl COMCALLBACK_ClearChannel()

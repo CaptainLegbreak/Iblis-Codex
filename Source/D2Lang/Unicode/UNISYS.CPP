@@ -76,7 +76,7 @@ static __forceinline int sub_00527A50_FindIndex(const D2LangCharMapEntryStrc* pM
 }
 
 // 0x00527A50
-static int sub_00527A50_MapCodePageChar(unsigned short wChar)
+static int UNISYS_MapCodePageChar(unsigned short wChar)
 {
     if (wChar < 0x20)
         return wChar;
@@ -112,7 +112,7 @@ Unicode* __fastcall sub_00527B50_CodePageToUnicode(Unicode* pDest, const char* s
             wChar = nByte;
             ++szSrc;
         }
-        const int nUnicode = sub_00527A50_MapCodePageChar(wChar);
+        const int nUnicode = UNISYS_MapCodePageChar(wChar);
         if (nUnicode < 0)
         {
             --i;

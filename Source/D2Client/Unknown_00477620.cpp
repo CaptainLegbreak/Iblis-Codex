@@ -486,7 +486,7 @@ void __cdecl sub_00481850(); // 0x00481850
 
 unsigned int __cdecl D2CMPSpriteCacheGetUsedMemory(); // 0x005FEE10
 
-int __cdecl sub_004F5140(); // 0x004F5140
+int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 
 extern "C" const char gszUnknownText[]; // 0x006CC780
 
@@ -529,7 +529,7 @@ void __fastcall sub_00477980()
     D2GFX_OutputString(SCREEN_X,16,"Phys:%d/%dm",((memory.dwTotalPhys-memory.dwAvailPhys)>>MEMORY_SHIFT)+1,(memory.dwTotalPhys>>MEMORY_SHIFT)+1);
     D2GFX_OutputString(SCREEN_RIGHT,16,"Page:%d/%dm",((memory.dwTotalPageFile-memory.dwAvailPageFile)>>MEMORY_SHIFT)+1,(memory.dwTotalPageFile>>MEMORY_SHIFT)+1);
     char text[32];
-    switch(sub_004F5140()){
+    switch(D2GFX_GetDisplayType()){
     case 1:sprintf(text,"Software");break;
     case 3:sprintf(text,"DirectDraw");break;
     case 4:sprintf(text,"Glide");break;

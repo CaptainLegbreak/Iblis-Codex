@@ -712,7 +712,9 @@ D2GameDataTableStrc* gpGameDataTbl; // 0x00883D38
 
 int gnLastGamesUpdateTimeMs; // 0x00883D58
 
-int gnTargetMsPerFrame; // 0x00883D60
+extern int gnTargetFrameRate; // 0x00731014
+// build: symbol ??__EgnTargetMsPerFrame@@YAXXZ 0x006CAF10
+int gnTargetMsPerFrame = 1000 / gnTargetFrameRate; // 0x00883D60
 
 int __stdcall GAME_GetPlayerUnitsCount(unsigned short nGameId);
 
@@ -899,7 +901,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volati
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile*);  // 0x006CC204
 
-int __stdcall sub_0052B490_ObjectCall_6BED90(int,int,int);
+int __stdcall CLIENT_ObjectCall_6BED90(int,int,int); // 0x0052B490
 
 int __stdcall sub_0052B330(unsigned char,int,void*,int);  // 0x0052B330
 
@@ -1979,20 +1981,20 @@ void __fastcall GAME_ProcessAdminMessage(void* pData,int nSize) {
  char received[16];
  switch(request->command) {
  case 0xFA:
-  sub_0052B490_ObjectCall_6BED90(client,(int)received,16);
+  CLIENT_ObjectCall_6BED90(client,(int)received,16);
   InterlockedIncrement(&gnAdminConnectionCount);
   response.command=REPLY_FA;
   sub_0052B330(2,client,&response,16);
   break;
  case 0xFB:
-  sub_0052B490_ObjectCall_6BED90(client,(int)received,16);
+  CLIENT_ObjectCall_6BED90(client,(int)received,16);
   response.command=REPLY_FB;
   sub_0052B330(2,client,&response,16);
   D2NET_10016(client);
   InterlockedDecrement(&gnAdminConnectionCount);
   break;
  case 0xFC:
-  sub_0052B490_ObjectCall_6BED90(client,(int)received,16);
+  CLIENT_ObjectCall_6BED90(client,(int)received,16);
   response.command=REPLY_FC;
   sub_0052B330(2,client,&response,16);
   break;
@@ -2598,12 +2600,14 @@ bool __stdcall sub_0052BDD0_AlwaysTrue(int nUnused)
     return true;
 }
 
-unsigned int __fastcall sub_0052BE00_GetBits12(unsigned int nValue)
+// build: symbol ?NET_GetBits12@* 0x0052BE00
+unsigned int __fastcall NET_GetBits12(unsigned int nValue)
 {
     return (nValue >> 12) & 7;
 }
 
-char* __fastcall sub_0052BE10_GetField0D0(D2Net52BE10Strc* pRecord)
+// build: symbol ?NET_GetField0D0@* 0x0052BE10
+char* __fastcall NET_GetField0D0(D2Net52BE10Strc* pRecord)
 {
     return pRecord->aData;
 }

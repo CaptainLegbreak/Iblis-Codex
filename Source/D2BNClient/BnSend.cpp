@@ -255,7 +255,7 @@ int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
+unsigned char __stdcall PALETTE_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -421,6 +421,8 @@ unsigned char gabNewVerifier[0x40];                                             
 
 D2BigLoginRecordStrc gtLoginRecord;                                                                // 0x00882680
 
+// build: symbol ??__EgtBigPair@@YAXXZ 0x006CAEF0
+// build: symbol ??__FgtBigPair@@YAXXZ 0x006CB480
 D2BigPairStrc gtBigPair;                                                                           // 0x0088273C
 
 extern void* gpServer; // 0x00882D08
@@ -893,11 +895,11 @@ D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex)
 // build: symbol ?CUNIT_InitColorTable@* 0x00483960
 void __cdecl CUNIT_InitColorTable()
 {
-    gabColors_007BCAD8[0] = sub_004FB180_FindPaletteIndex(0x80, 0, 0);
-    gabColors_007BCAD8[1] = sub_004FB180_FindPaletteIndex(0, 0x80, 0);
-    gabColors_007BCAD8[2] = sub_004FB180_FindPaletteIndex(0, 0, 0x80);
-    gabColors_007BCAD8[3] = sub_004FB180_FindPaletteIndex(0x80, 0x80, 0);
-    gabColors_007BCAD8[4] = sub_004FB180_FindPaletteIndex(0x80, 0x40, 0x40);
+    gabColors_007BCAD8[0] = PALETTE_FindPaletteIndex(0x80, 0, 0);
+    gabColors_007BCAD8[1] = PALETTE_FindPaletteIndex(0, 0x80, 0);
+    gabColors_007BCAD8[2] = PALETTE_FindPaletteIndex(0, 0, 0x80);
+    gabColors_007BCAD8[3] = PALETTE_FindPaletteIndex(0x80, 0x80, 0);
+    gabColors_007BCAD8[4] = PALETTE_FindPaletteIndex(0x80, 0x40, 0x40);
 }
 
 // build: symbol ?CUNIT_IsInvPanelTradeMode@* 0x00489840

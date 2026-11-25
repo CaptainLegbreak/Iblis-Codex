@@ -60,7 +60,7 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
 unsigned int __fastcall D2Win_10128(unsigned char nChar);                                                   // 0x00502550
 int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
-D2SplittedTextStrc* __fastcall sub_00502970_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
+D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 extern int gnLanguageId;                                                                           // 0x007BB5DC
 extern unsigned char gbChatInputOpen;                                                              // 0x007BB5E1
@@ -429,7 +429,7 @@ void __stdcall CHAT_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
             break;
         const int nOldFont = D2Win_10127_SetFont(0xD);
         unsigned int nLines;
-        D2SplittedTextStrc* pLines = sub_00502970_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
+        D2SplittedTextStrc* pLines = D2WINFONT_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
         int nWidth = 0;
         for (D2SplittedTextStrc* pLine = pLines; pLine; )
         {
@@ -442,7 +442,7 @@ void __stdcall CHAT_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
         if (nLines <= 3 && (nLines != 3 || nWidth <= gnScreenWidth - 0x113))
         {
             gwszChatLine_007BB638[nLength].wChar = pMsg->wParam;
-            pLines = sub_00502970_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
+            pLines = D2WINFONT_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
             nWidth = 0;
             for (D2SplittedTextStrc* pLine = pLines; pLine; )
             {

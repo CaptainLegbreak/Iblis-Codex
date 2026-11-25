@@ -860,7 +860,7 @@ int __cdecl sub_004DF980_IsSoundMode1Or2();
 
 void __fastcall sub_004776C0(void* pArg);
 
-int __cdecl sub_004F5140();
+int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 
 int __cdecl sub_004DF940(); // 0x004DF940
 
@@ -1113,7 +1113,7 @@ void __stdcall CHAT_DrawImeText(int nX, int nY)
     CHAT_DrawBlinkingCaret(nTextY, 4, nWidth2 + nTextX + nWidth - 0x83);
 }
 
-D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);       // 0x00502970
+D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth);       // 0x00502970
 
 // 0x0047B720
 void __cdecl CHAT_DrawChatPanel()
@@ -1176,7 +1176,7 @@ void __cdecl CHAT_DrawChatPanel()
         sub_00526790(wszText, gwszChatLine_007BB638, 0x100);
 
         int nLineCount;
-        D2SplittedTextStrc* pLines = sub_00502970_SplitText(wszText, &nLineCount, gnScreenWidth - 0x109);
+        D2SplittedTextStrc* pLines = D2WINFONT_SplitText(wszText, &nLineCount, gnScreenWidth - 0x109);
         D2SplittedTextStrc* pLine = pLines;
         int nLine = 0;
         while (pLine)
@@ -1662,7 +1662,7 @@ void __fastcall MSG_SendStrings(const unsigned char* pData);                    
 
 unsigned int __fastcall D2Win_10128(unsigned char nChar);                                                   // 0x00502550
 
-D2SplittedTextStrc* __fastcall sub_00502970_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
+D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
 
 extern int gbNoPickup;                                                                             // 0x007A6A90
 
@@ -2148,7 +2148,7 @@ void __stdcall CHAT_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
             break;
         const int nOldFont = D2Win_10127_SetFont(0xD);
         unsigned int nLines;
-        D2SplittedTextStrc* pLines = sub_00502970_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
+        D2SplittedTextStrc* pLines = D2WINFONT_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
         int nWidth = 0;
         for (D2SplittedTextStrc* pLine = pLines; pLine; )
         {
@@ -2161,7 +2161,7 @@ void __stdcall CHAT_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
         if (nLines <= 3 && (nLines != 3 || nWidth <= gnScreenWidth - 0x113))
         {
             gwszChatLine_007BB638[nLength].wChar = pMsg->wParam;
-            pLines = sub_00502970_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
+            pLines = D2WINFONT_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
             nWidth = 0;
             for (D2SplittedTextStrc* pLine = pLines; pLine; )
             {

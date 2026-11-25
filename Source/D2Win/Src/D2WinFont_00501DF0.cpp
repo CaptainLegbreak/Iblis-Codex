@@ -34,7 +34,7 @@ struct Unicode
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
-int __cdecl sub_004F5140(); // 0x004F5140
+int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, unsigned int nGamma, int nDrawMode, unsigned char* pPalette); // 0x004F6480
 void __stdcall TEXTURE_CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, int nSkipLines, int nDrawLines, int nDrawMode); // 0x004F64E0
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
@@ -63,12 +63,12 @@ inline int sub_00501DF0_IsColorCodePrefix(unsigned short wChar)
 }
 
 // 0x00501DF0
-void __fastcall sub_00501DF0_DrawClippedFontText(const Unicode* pText, int nX, int nY, int nTextColor, int nSkipLines, int nDrawLines)
+void __fastcall D2WINFONT_DrawClippedFontText(const Unicode* pText, int nX, int nY, int nTextColor, int nSkipLines, int nDrawLines)
 {
     if (nSkipLines < 0)
         return;
 
-    const int nDisplayType = sub_004F5140();
+    const int nDisplayType = D2GFX_GetDisplayType();
     const int nLength = sub_00526800(pText);
     int nCount = 0;
     const int nStartX = nX;
@@ -134,7 +134,7 @@ void __fastcall sub_00501DF0_DrawClippedFontText(const Unicode* pText, int nX, i
 }
 
 // 0x00501FE0
-void __fastcall sub_00501FE0_DrawTickerText(const Unicode* wszText, int nX, int nY, int nColor, int nScroll, int nWidth)
+void __fastcall D2WINFONT_DrawTickerText(const Unicode* wszText, int nX, int nY, int nColor, int nScroll, int nWidth)
 {
     const int nLength = sub_00526800(wszText);
     int nCount = 0;
@@ -237,7 +237,7 @@ static inline D2SplittedTextStrc* AllocSplitTextLine_Inline(const Unicode* wszTe
 }
 
 // 0x00502970
-D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* wszText, int* pLineCount, int nWidth)
+D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* wszText, int* pLineCount, int nWidth)
 {
     const int nLength = sub_00526800(wszText);
     D2SplittedTextStrc* pLast = 0;

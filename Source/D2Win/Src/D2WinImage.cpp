@@ -65,8 +65,6 @@ struct D2WinAccountListStrc;
 
 struct D2WinPopUpLineStrc;
 
-struct D2WinPopUpStrc;
-
 struct D2CelContextStrc;
 
 struct D2CofNodeStrc;
@@ -114,14 +112,6 @@ struct D2WinCommandRegisterStrc
 };
 
 
-
-struct D2WinPopUpStrc
-{
-    D2WinControlStrc controlHeader;
-    int nLines;
-    D2WinPopUpLineStrc lines[8];
-    int nCurrentLine;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 

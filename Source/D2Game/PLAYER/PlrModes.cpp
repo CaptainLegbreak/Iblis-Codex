@@ -131,7 +131,7 @@ void __fastcall PLRMODE_StartXY_Dead(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
 
 void __fastcall PLRMODE_StartXY_Neutral(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, int nX, int nY); // 0x0057F020
 
-int __stdcall sub_0062A360(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0062A360
+int __stdcall D2COMMON_11079_Return0(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0062A360
 
 void __stdcall INVENTORY_UpdateWeaponGUIDOnRemoval(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D2B0
 
@@ -969,7 +969,7 @@ inline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 static void __stdcall PLRMODE_RemoveEquippedItemForCorpse(D2GameStrc* pGame, int nBodyloc, D2UnitStrc* hItem, D2UnitStrc* pUnit)
 {
     D2InventoryStrc* pInventory = pUnit->pInventory;
-    const int bUpdateSets = sub_0062A360(pUnit, hItem);
+    const int bUpdateSets = D2COMMON_11079_Return0(pUnit, hItem);
     INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, hItem);
     D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(pInventory, hItem);
 
@@ -1411,14 +1411,6 @@ static void __stdcall PLRMODE_RestoreWeapon(D2GameStrc* pGame, unsigned char nBo
     }
 
     UNITS_SetWeaponGUID(pPlayer, 0);
-}
-
-void __fastcall sub_0057F240_EmitCaller(void* pGame, D2UnitStrc* pPlayer)
-{
-    if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && !PLRMODE_DrainRunStamina(pPlayer))
-    {
-        sub_0057F240_EmitWalk(pPlayer);
-    }
 }
 
 // 0x00580030

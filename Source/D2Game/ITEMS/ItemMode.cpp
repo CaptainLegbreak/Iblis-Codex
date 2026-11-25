@@ -218,7 +218,7 @@ void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage); // 0x00
 
 void __stdcall ITEMS_SetOrRemoveFlag(int* pFlags, int nFlag, int bSet); // 0x006287B0
 
-int __stdcall sub_0062A360(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0062A360
+int __stdcall D2COMMON_11079_Return0(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0062A360
 
 int __stdcall ITEMS_IsCharmUsable(D2UnitStrc* pItem, D2UnitStrc* pPlayer); // 0x0062FF70
 
@@ -1950,11 +1950,6 @@ static int __stdcall ITEMMODE_HasConflictingQuestOrUniqueItem(D2UnitStrc* pItem,
     return 0;
 }
 
-
-int __fastcall sub_E03_EmitBookSkillA(D2UnitStrc* pItem)
-{
-    return ITEMMODE_GetBookOrScrollSkillId(pItem);
-}
 
 // 0x0055CC90
 int __fastcall ITEMMODE_CanPickUpItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
@@ -4073,11 +4068,6 @@ extern "C" __declspec(dllexport) int __cdecl sub_00564CA0() {
 }
 
 void __fastcall MONSTER_DeleteEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005738D0
-int __fastcall sub_J07_Emit_00560020(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
-{
-    return ITEMMODE_PickupStackable(pGame, pUnit, pItem);
-}
-
 // 0x00604A30
 void __stdcall TileSetHardwareFreeCallback(void* pfnCallback)
 {
@@ -4343,7 +4333,7 @@ int __fastcall ITEMMODE_UnequipBodyItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, u
         return 0;
     }
 
-    sub_0062A360(pUnit, hItem);
+    D2COMMON_11079_Return0(pUnit, hItem);
     INVENTORY_UpdateWeaponGUIDOnRemoval(hInventory, hItem);
     D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(hInventory, hItem);
 
@@ -4593,7 +4583,7 @@ int __fastcall ITEMMODE_ReplaceOppositeHandItem(D2GameStrc* ptGame, D2UnitStrc* 
         UNITS_SetWeaponGUID(pUnit, pMainWeapon);
     }
 
-    sub_0062A360(pUnit, hOpposite);
+    D2COMMON_11079_Return0(pUnit, hOpposite);
     INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, hOpposite);
 
     D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(pInventory, hOpposite);
@@ -4646,17 +4636,6 @@ int __fastcall ITEMMODE_ReplaceOppositeHandItem(D2GameStrc* ptGame, D2UnitStrc* 
     }
 
     UNITS_RefreshInventory(pUnit, 1);
-    return 1;
-}
-
-int __fastcall sub_K06_Emit_005600A0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int bRemove)
-{
-    if (!ITEMMODE_PlaceItemAtFreeInventoryPosition(pGame, bRemove, 0, ".\\ITEMS\\ItemMode.cpp", 0x7EF, pUnit, pItem))
-    {
-        UNITS_RefreshInventory(pUnit, 0);
-        return 0;
-    }
-    UNITS_ChangeAnimMode(pItem, 0);
     return 1;
 }
 
@@ -4998,7 +4977,7 @@ fail:
   return 0;
  }
  if (ITEMS_GetItemType(pItem) == ITEMTYPE_BELT) ITEMMODE_MoveExcessBeltItems(ptGame, pUnit, pItem);
- sub_0062A360(pUnit, hBodyItem);
+ D2COMMON_11079_Return0(pUnit, hBodyItem);
  INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, hBodyItem);
  D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, hBodyItem);
  D2_ASSERT(pRemoved, 0xcee);
@@ -5078,7 +5057,7 @@ int __fastcall ITEMMODE_ReplaceHandItemsWithCursorItem(D2GameStrc* ptGame, D2Uni
         *pFailure = 1;
         return 0;
     }
-    sub_0062A360(pUnit, pOther);
+    D2COMMON_11079_Return0(pUnit, pOther);
     INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pOther);
     D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pOther);
     D2_ASSERT(pRemoved, 0xD7D);
@@ -5124,7 +5103,7 @@ int __fastcall ITEMMODE_ReplaceHandItemsWithCursorItem(D2GameStrc* ptGame, D2Uni
         UNITS_RefreshInventory(pUnit, 1);
         return 0;
     }
-    sub_0062A360(pUnit, pEquipped);
+    D2COMMON_11079_Return0(pUnit, pEquipped);
     INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pEquipped);
     D2UnitStrc* pRemovedEquipped = INVENTORY_RemoveItemFromInventory(pInventory, pEquipped);
     D2_ASSERT(pRemovedEquipped, 0xDB6);
@@ -6531,7 +6510,7 @@ void __fastcall ITEMMODE_RemoveInventoryItemProperties(D2GameStrc* pGame, D2Unit
 
         if (INVENTORY_GetItemNodePage(pNode) == 3 || INVENTORY_GetItemNodePage(pNode) == 1 && ITEMS_IsCharmUsable(pItem, pUnit))
         {
-            sub_0062A360(pUnit, pItem);
+            D2COMMON_11079_Return0(pUnit, pItem);
             INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
             D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
             D2_ASSERT(hRemove, 0x1A0F);

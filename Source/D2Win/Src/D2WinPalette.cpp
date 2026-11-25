@@ -155,7 +155,7 @@ void __fastcall D2Win_10176_StartPaletteFlash(int bTimed)
 }
 
 // 0x004FB180
-unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
+unsigned char __stdcall PALETTE_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
 {
     return GetClosestColor((const unsigned char*)gatRGBAPalette, 0x100, nRed, nGreen, nBlue);
 }
@@ -215,8 +215,8 @@ int __stdcall PALETTE_LoadPaletteFiles(const char* szDatFileName, const char* sz
         const int nScaledGreen = 170 * pEntry->peGreen / 100;
         const int nGreen = D2_MIN(255, nScaledGreen);
         const int nBlue = D2_MIN(255, 170 * pEntry->peBlue / 100);
-        gabPaletteRemap[i] = sub_004FB180_FindPaletteIndex(nRed, nGreen, nBlue);
-        gabRedPaletteMap[i] = sub_004FB180_FindPaletteIndex(pEntry->peRed, 0, 0);
+        gabPaletteRemap[i] = PALETTE_FindPaletteIndex(nRed, nGreen, nBlue);
+        gabRedPaletteMap[i] = PALETTE_FindPaletteIndex(pEntry->peRed, 0, 0);
         ++pEntry;
     }
 
