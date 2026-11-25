@@ -42,7 +42,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 void __fastcall GFX_ResetGfx(D2UnitStrc* pUnit); // 0x0046F000
-void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nMode); // 0x00480E70
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 void __stdcall PLRSKILLS_UpdateStateColor(D2UnitStrc* pUnit); // 0x004D97F0
 void __fastcall PLRSKILLS_StartStateOverlays(D2UnitStrc* pUnit, int nState); // 0x004D9920
@@ -60,11 +59,9 @@ void __stdcall sub_K06_EmitPuttier1(int nValue, int nOther);
 int __stdcall sub_K06_EmitGettier2(int nValue);
 void __stdcall sub_K06_EmitPuttier2(int nValue, int nOther);
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce); // 0x004BA790
-void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 int __stdcall STATES_CheckStateMaskAuraByStateId(int nState); // 0x0063A210
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
-void __fastcall GAME_SetSkillDelayUntil(int nValue); // 0x0044CE40
 
 
 
@@ -74,13 +71,7 @@ typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern const unsigned char gabFrameDirections[8][9]; // 0x006DBA08
 extern const unsigned char gabBaseDirections[8]; // 0x006DBA50
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
-int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
-void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910

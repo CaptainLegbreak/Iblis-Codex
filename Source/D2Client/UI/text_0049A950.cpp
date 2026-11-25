@@ -55,7 +55,6 @@ void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 
 
 
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 
 bool __stdcall sub_004A2970(int nX, int nY); // 0x004A2970
@@ -66,7 +65,6 @@ void __fastcall TEXT_MoveKeyConfigSelection(int nStep); // 0x004A45C0
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-void __fastcall sub_004EF990_SetSkillPopUpText(D2UnitStrc* pUnit, int nId, int nA, int nB, int nState, int nX, int nY); // 0x004EF990
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
@@ -459,7 +457,6 @@ extern "C" unsigned int gB27_00883D70;
 
 extern unsigned int gnQuestUnitId; // 0x007C0261
 
-D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode); // 0x00466730
 
 char gabQuestFlagsA[42]; // 0x007BF356
 

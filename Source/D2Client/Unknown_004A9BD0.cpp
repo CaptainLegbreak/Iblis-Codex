@@ -25,7 +25,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 extern D2HotkeySlotTableStrc gtHotkeySlots_007C0300; // 0x007C0300
 extern int gbSkillSelectRight; // 0x007C07FC
 extern int gaHotkeySkills[16]; // 0x007C06C8

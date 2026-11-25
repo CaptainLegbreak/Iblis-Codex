@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
@@ -7,10 +8,7 @@
 #include "D2CommonApi.h"
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-int __fastcall SKILLS_GetExtendedMeleeRange(D2UnitStrc*); // 0x004C7BD0
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc*); // 0x004648F0
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc*, int, int, int, int, int, int*); // 0x004C5EB0
-int __fastcall SKILLS_ScanCount(D2UnitStrc*, int, int, int, int); // 0x004C5E30
 void __stdcall SKILLS_SetParam3(D2SkillStrc*, int); // 0x006445E0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*, unsigned int, int, int); // 0x00646CA0
 void __stdcall D2Common_10216(D2DynamicPathStrc*, int, int, int); // 0x00649EF0

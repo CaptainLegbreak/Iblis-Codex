@@ -27,13 +27,9 @@ struct D2UnitStrc;
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);              // 0x004B9A00
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
-int __fastcall SKILLS_GetExtendedMeleeRange(D2UnitStrc* pUnit);                                          // 0x004C7BD0
-int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId);                                                   // 0x004EFC20
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue);                                           // 0x006445E0
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int bSetBothDirections);                            // 0x00649EF0
 
@@ -47,7 +43,6 @@ static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

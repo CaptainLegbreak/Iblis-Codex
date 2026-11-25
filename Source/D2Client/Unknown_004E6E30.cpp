@@ -29,10 +29,7 @@ typedef char D2SkillsTxt_size_check[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
 extern const int gaMissileAroundOffsetY[8]; // 0x006DAE88
 extern const int gaMissileAroundOffsetX[8]; // 0x006DAEA8
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 // 0x004E6E30
 static unsigned short sub_004E6E30_GetSkillDescAltStr(int nSkillId)

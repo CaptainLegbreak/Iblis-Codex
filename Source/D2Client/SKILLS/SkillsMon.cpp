@@ -37,15 +37,12 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 
 extern "C" unsigned int __cdecl sub_0044DA90_GetTick();                                                     // 0x0044DA90
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
 
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY);              // 0x00463740
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit);                                      // 0x004648F0
 
 
 
@@ -69,9 +66,7 @@ D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams
 D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
 
-void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ);                    // 0x004DA1D0
 
-void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA200
 
 
 
@@ -650,7 +645,6 @@ int __fastcall SKILLSMON_FlankTarget(D2UnitStrc* pUnit, int nSkillId, int nSkill
 
 int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId);                               // 0x004F21B0
 
-D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nArg0, int nArg3, int nArg4); // 0x004C5420
 
 // 0x004E3720
 int __fastcall SKILLSMON_CreateTargetMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
@@ -1194,7 +1188,6 @@ struct D2RequestStrc
 
 D2UnitStrc* __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0x004CD540
 
-void __fastcall MISSILE_AddMissileEffect(D2UnitStrc* pMissile, int nMissile, int nArg1, int nArg2, int nArg3); // 0x004CEFE0
 
 class D2SquelchListStrc
 {
@@ -1337,7 +1330,6 @@ int __fastcall sub_004F3EB0_CheckTargetRoom(D2UnitStrc* pUnit, int nSkillId, int
     return 1;
 }
 
-int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
 
 // 0x004F3FB0
 D2UnitStrc* __fastcall SKILLSMON_GetTargetMonster(D2UnitStrc* pUnit)

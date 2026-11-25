@@ -95,7 +95,6 @@ int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
 
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
-D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
@@ -123,7 +122,6 @@ void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoor
 extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 
-D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg); // 0x00466CB0
 
@@ -147,7 +145,6 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 void __fastcall UNITMODE_RecacheUnitPath(D2UnitStrc* pUnit); // 0x00480490
 
-void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
@@ -181,22 +178,17 @@ extern D2MonAnimRecStrc gtBaalAnimRecord; // 0x00725334
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
 int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask); // 0x00463720
 
-int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
-D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
 
 void __fastcall MONSTER_RunUModFrameCallbacks(D2UnitStrc* pUnit); // 0x004ADE60
 
@@ -247,7 +239,6 @@ extern const int gaBloodOffsetX[]; // 0x006DA610
 
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625500
 
-void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
 
 
 
@@ -364,7 +355,6 @@ void __stdcall SKILLS_SetSkillMode(D2SkillStrc*, int); // 0x00644340
 
 void __stdcall sub_0063EBC0(D2UnitStrc*, int); // 0x0063EBC0
 
-int __fastcall sub_0046C140_TestMonModeFlag(int, int); // 0x0046C140
 
 int __fastcall MONSTER_CheckMonsterFacing(D2UnitStrc*, D2UnitStrc*, int, int); // 0x004AE7B0
 
@@ -374,7 +364,6 @@ void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, int nLowSeed); // 0x00650E40
 
-void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* pUnit); // 0x004B13A0
 
 
 extern "C" { Unicode gwszNameSeparator[1]; }                                                                // 0x007C0C58
@@ -428,12 +417,10 @@ void __fastcall CUNIT_SetDrawDelay(D2UnitStrc* pUnit);                          
 
 void __fastcall CUNIT_SetOverlayWithSound(D2UnitStrc* pUnit, int nOverlay, int nArg);                // 0x00464E50
 
-void __fastcall CUNIT_SetPathTargetToTargetUnit(D2UnitStrc* pUnit, int nArg);                        // 0x00465BF0
 
 
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit();                                                             // 0x00467A10
 
-void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
 
 int __fastcall sub_004804A0_SetPathTargetPos(D2UnitStrc* pUnit, int nX, int nY);                           // 0x004804A0
@@ -458,7 +445,6 @@ void __fastcall MONSTER_SpawnBloodMissiles(D2UnitStrc* pUnit, int nArg1, int nAr
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3);          // 0x004B9A00
 
-D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4); // 0x004C5420
 
 void __fastcall SKILLS_StartSkillOnUnit(D2UnitStrc* pUnit, D2MonCommandStrc* pCommand);              // 0x004C6EB0
 

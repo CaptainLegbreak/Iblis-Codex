@@ -72,15 +72,11 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
-
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 
-D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+
 
 int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 
@@ -93,7 +89,6 @@ void __fastcall SCMD_SetLightColorBytes(D2GfxLightStrc* pLight, unsigned char nV
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
 
-void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
 
 int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
 
@@ -140,7 +135,6 @@ int __fastcall SOUNDINST_GetSoundIdByHandle(void* pKey); // 0x004B9CA0
 
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce); // 0x004BA790
 
-int __fastcall SKILLS_CallStartSkill(D2UnitStrc* pUnit, int nSkillId, int nArg, int nMode); // 0x004C6660
 
 int __fastcall SKILLS_DoClientSkill(D2UnitStrc* pUnit, int nSkillId, int nArg, int nMode); // 0x004C6680
 
@@ -148,9 +142,7 @@ void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nId);
 
 D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
-void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 
-void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
 
 
 int __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pItem, int nArg1, int nArg2, int nArg3, int nProp, int nArg5, int nArg6, int nArg7); // 0x004E60A0
@@ -323,7 +315,6 @@ void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, 
 
 extern const D2CltRateStrc gaCltRateJitter[4]; // 0x006DB890
 
-int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
@@ -541,7 +532,6 @@ inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-void __fastcall MISSILE_AddMissileEffect(D2UnitStrc* pMissile, int nMissile, int nOuterStep, int nInnerStep, int nLoops); // 0x004CEFE0
 
 inline D2MissilesTxt* SKILLS_GetMissilesTxtRecordChecked(int nMissileId)
 {
@@ -719,7 +709,6 @@ static int MISSILE_UseCharge(D2UnitStrc* pUnit); // 0x004CD310
 
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 
-D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode);  // 0x00466730
 
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
 
@@ -1297,7 +1286,6 @@ void __fastcall MISSILE_StatRemoveToggleStateOff(D2UnitStrc* pUnit, int nState, 
 
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 
-int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
 
 extern "C" int __stdcall sub_0064A300(D2UnitStrc* pUnit); // 0x0064A300
 

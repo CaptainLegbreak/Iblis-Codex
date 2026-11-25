@@ -37,10 +37,7 @@ int gaSkillButtonState[128]; // 0x007C0A38
 
 int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit);                                                 // 0x00451F60
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);                                      // 0x0045C4B0
-void __stdcall CURSOR_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg);                                           // 0x00467F20
 void __stdcall CURSOR_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg);                                           // 0x00467FA0
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
-int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg);                                         // 0x00498DC0
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 void* __fastcall SPELLSEL_GetSkillIconCel(D2SkillsTxt* pSkillsTxt);                                       // 0x004A8C80
 int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId);                                                 // 0x004AA8B0

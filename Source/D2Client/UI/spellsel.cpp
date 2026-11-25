@@ -84,7 +84,6 @@ void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 
 
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 
 
@@ -226,7 +225,6 @@ int __fastcall SPELLSEL_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
     return 0;
 }
 
-void __fastcall sub_004EF990_SetSkillPopUpText(D2UnitStrc* pUnit, int nId, int nA, int nB, int nState, int nX, int nY); // 0x004EF990
 
 // 0x004A8D50
 void __fastcall SPELLSEL_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY)
@@ -548,7 +546,6 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526700
 
 
-unsigned short __fastcall SKILLDESC_GetSkillDescStringId(int nId, int nIndex); // 0x004E6CE0
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 

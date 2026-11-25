@@ -12,7 +12,6 @@ struct D2CharStatsTxt;
 struct D2GameStrc;
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
-int __fastcall CUNIT_ValidateMonsterId(int nMonsterId); // 0x00463900
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClass); // 0x004833E0
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*, D2UnitStrc*); // 0x00553540
@@ -52,12 +51,8 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId) {
 }
 
 void __stdcall SKILLS_SetParam3(D2SkillStrc*,int); // 0x006445E0
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc*); // 0x004648F0
-int __fastcall SKILLS_RaiseTargetUnitEvent(D2UnitStrc*,D2UnitStrc*); // 0x004C7630
 int __fastcall SKILLDESC_GetMonSkillSound(D2UnitStrc*,int); // 0x004F4F40
 void __fastcall sub_004B9A00(int,D2UnitStrc*,int,int,int); // 0x004B9A00
-void __fastcall CUNIT_SetPathTargetToTargetUnit(D2UnitStrc*,int); // 0x00465BF0
-void __fastcall SKILLS_AttachMoveSkillEndList(D2UnitStrc*); // 0x004C7950
 
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 void __stdcall PATH_GetClientCoordsVelocity(D2UnitStrc* pUnit, int* pX, int* pY); // 0x00648300

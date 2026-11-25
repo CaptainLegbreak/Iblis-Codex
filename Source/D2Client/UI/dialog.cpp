@@ -56,7 +56,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 int __fastcall sub_0047F190_IsInMiniPanelRect(int nX, int nY); // 0x0047F190
 
-int __fastcall TEXT_IsInPanelButton(int nMode, int nX, int nY); // 0x004A6580
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 

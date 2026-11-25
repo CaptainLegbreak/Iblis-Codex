@@ -37,11 +37,8 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 int __fastcall MISSILE_DoSkillWithTempTarget(void* pArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7); // 0x004CA060
 
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 extern int gaLevelVisited[]; // 0x007C78B8
 
@@ -82,7 +79,6 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int bSet
 
 int __cdecl sub_0044DA90(); // 0x0044DA90
 
-int __fastcall SKILLS_CallStartSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nOwnerGUID); // 0x004C6660
 
 void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int nArg); // 0x004CB6A0
 
@@ -93,7 +89,6 @@ void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 D2UnitStrc* __fastcall SKILLS_ScanFindUnit(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
 
 
-int __fastcall CUNIT_ValidateMonsterId(int nMonsterId); // 0x00463900
 
 unsigned int gdwNextTick; // 0x007C78B0
 

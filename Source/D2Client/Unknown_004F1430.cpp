@@ -40,10 +40,8 @@ typedef void (__fastcall* MissileInitFunc)(D2UnitStrc*, int);
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
-void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce); // 0x004BA790
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 
 enum D2C_SkillsTxtFlagIndices
@@ -56,10 +54,7 @@ int __fastcall SKILLSMON_StartStateList(D2UnitStrc* pUnit, int nSkillId, int nAr
 extern int gaMissileRingX[]; // 0x006DBFE8
 extern int gaMissileRingY[]; // 0x006DC0E8
 void __fastcall SKILLDESC_MissileInit(D2UnitStrc* pMissile, int nArg); // 0x004F2AC0
-int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId); // 0x004EFC20
 int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 extern int gaMissileRing2X[]; // 0x006DC228
 extern int gaMissileRing2Y[]; // 0x006DC328
 void __fastcall SKILLDESC_InitCurvingMissilePath(D2UnitStrc* pMissile, int nArg); // 0x004F2BE0

@@ -135,9 +135,7 @@ int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);               
 
 
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 
 typedef char (__fastcall* D2ObjectClientFn)(D2UnitStrc* pUnit);
 
@@ -196,7 +194,6 @@ void __cdecl QUESTLOG_LoadAncientsCofsOnce(); // 0x004A30C0
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 
 
-int __fastcall OBJECT_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh); // 0x004BC5E0
 
 
 
@@ -236,7 +233,6 @@ static void OBJECT_InitShrine(D2UnitStrc* pUnit); // 0x004BD650
 void __fastcall OBJECT_SetShrine(D2UnitStrc* pUnit); // 0x004BD6B0
 
 
-void __fastcall OBJECT_UpdateObject(D2UnitStrc* pUnit); // 0x004BDFF0
 
 
 static void OBJECT_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004BCF60
