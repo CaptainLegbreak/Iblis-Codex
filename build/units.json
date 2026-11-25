@@ -17026,9 +17026,24 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_0045B090.cpp",
+   "file": "Source/D2Client/Unknown_0045B5F0.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0045B5F0",
+     "length": 702,
+     "name": "?sub_0045B5F0@@YGXPAUD2ActiveRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0045B8B0",
+     "length": 162,
+     "name": "?sub_0045B8B0_DrawLogicalRoom@@YAXXZ"
+    },
+    {
+     "va": "0x0045B960",
+     "length": 61,
+     "name": "?sub_0045B960_FilePrintf@@YAXPAXPBDZZ"
+    },
     {
      "va": "0x0045B9A0",
      "length": 36,
@@ -17058,6 +17073,11 @@
      "va": "0x0045BA80",
      "length": 11,
      "name": "?InitializeTerminator@?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAEXXZ"
+    },
+    {
+     "va": "0x0045BA90",
+     "length": 3,
+     "name": "@sub_0045BA90@4"
     },
     {
      "va": "0x0045BAA0",
@@ -17158,59 +17178,7 @@
      "va": "0x0045BE90",
      "length": 106,
      "name": "?DeleteNode@?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAEPAUTALLOCREC@@PAU2@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0045B5F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0045B5F0",
-     "length": 702,
-     "name": "?sub_0045B5F0@@YGXPAUD2ActiveRoomStrc@@@Z"
     },
-    {
-     "va": "0x0045B8B0",
-     "length": 162,
-     "name": "?sub_0045B8B0_DrawLogicalRoom@@YAXXZ"
-    },
-    {
-     "va": "0x0045BA90",
-     "length": 3,
-     "name": "@sub_0045BA90@4"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0045B960.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0045B960",
-     "length": 61,
-     "name": "?sub_0045B960_FilePrintf@@YAXPAXPBDZZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0045BF00.cpp",
-   "rank": 1,
-   "functions": [
     {
      "va": "0x0045BF00",
      "length": 1016
