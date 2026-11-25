@@ -4,12 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(QuestLog.cpp's join is on main #369, Unknown_004A6260.cpp's object on #370.)
-
-- lane1/umod-join-3 fdb8122fc 0->0 Two commits on #370 (lane1/umod-join and umod-join-2 were pushed but never posted; this replaces both).
-  - 4c698c5e5: Unknown_004ADD90.cpp takes the unique-mod callbacks 0x4AD0C0-0x4ADD8F from npcmenu.cpp. Its table gaUModCallbacks (0x724E28) holds pointers to twelve of them and its code from 0x4ADD90 dispatches through it; the other two are their helpers (0x4AD6E0, 0x4ADCE0).
-  - fdb8122fc: it also takes 0x4AE080, the monster client-flag test (npcmenu.cpp), which closes its code before Monster.cpp's 0x4AE0A0. Monster.cpp's four callers call it out of line; with its body in Monster.cpp under the name they call, it and 0x4AFF60 stop matching. It now reads the monster data's client flags (+0x28) on the real unit records.
-  - Borrowed data 844 B, as main; VERIFIED 6f5283daabce356a5847ff5a2bf392bcf19eae84 (based on main #370).
+(QuestLog.cpp is on main #369, Unknown_004A6260.cpp on #370, the unique-mod callbacks on #372. lane1/umod-join-4 is a stray push of the same commits; ignore it.)
 
 ## In progress
 
