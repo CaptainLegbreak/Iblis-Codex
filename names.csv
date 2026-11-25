@@ -8678,7 +8678,7 @@ address,name,source,alias
 0x00568770,PLRTRADE_AddItemToTrade,d2moo,
 0x005689D0,PlayerTradeUpdate,blizzard,
 0x00568D10,PLRTRADE_RefreshTradeSnapshot,inferred,
-0x00568D60,sub_0051DC70_GetTime,placeholder,
+0x00568D60,time,library,
 0x00568D70,AITACTICS_GetHighestClassSkillCount,inferred,
 0x00568D80,PLRTRADE_FindTerminator,inferred,
 0x00568DB0,sub_00568DB0,placeholder,

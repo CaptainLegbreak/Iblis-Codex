@@ -8913,7 +8913,7 @@
   ["0x00568770", 608, "verified"],
   ["0x005689D0", 824, "verified"],
   ["0x00568D10", 76, "verified", "?PLRTRADE_RefreshTradeSnapshot@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"],
-  ["0x00568D60", 10, "verified", "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"],
+  ["0x00568D60", 10, "verified", "?time@@YAJPAJ@Z"],
   ["0x00568D70", 12, "verified", "?AITACTICS_GetHighestClassSkillCount@@YAHXZ"],
   ["0x00568D80", 46, "verified", "?PLRTRADE_FindTerminator@@YIHPBDH@Z"],
   ["0x00568DB0", 3, "verified", "sub_00568DB0"],
