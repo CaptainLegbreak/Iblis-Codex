@@ -268,15 +268,15 @@ struct D2EaxEnvironmentStrc
     float fEnvironmentSize;
     float fEnvironmentDiffusion;
     int nRoom;
-    int f_10;
-    float f_14;
-    float f_18;
-    int f_1C;
-    float f_20;
-    int f_24;
-    float f_28;
+    int nRoomHF;
+    float fDecayTime;
+    float fDecayHFRatio;
+    int nReflections;
+    float fReflectionsDelay;
+    int nReverb;
+    float fReverbDelay;
     float fRoomRolloffFactor;
-    float f_30;
+    float fAirAbsorptionHF;
 };
 
 float __stdcall sub_00516670_RoomToVolume(float fRoom); // 0x00516670
@@ -293,7 +293,7 @@ void __fastcall D2SOUND_SetEaxEnvironment(D2EaxEnvironmentStrc* pEnvironment)
         float fVolume = sub_00516670_RoomToVolume((float)pEnvironment->nRoom);
         gpEaxListenerPropertySet->Set(gtEaxListener10PropertySet, 1, 0, 0, pEnvironment, 4);
         gpEaxListenerPropertySet->Set(gtEaxListener10PropertySet, 2, 0, 0, &fVolume, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener10PropertySet, 3, 0, 0, &pEnvironment->f_14, 4);
+        gpEaxListenerPropertySet->Set(gtEaxListener10PropertySet, 3, 0, 0, &pEnvironment->fDecayTime, 4);
     }
     if (gnEaxVersion == 2)
     {
@@ -304,15 +304,15 @@ void __fastcall D2SOUND_SetEaxEnvironment(D2EaxEnvironmentStrc* pEnvironment)
         gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 0xC, 0, 0, &pEnvironment->fEnvironmentSize, 4);
         gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 0xD, 0, 0, &pEnvironment->fEnvironmentDiffusion, 4);
         gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 2, 0, 0, &pEnvironment->nRoom, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 3, 0, 0, &pEnvironment->f_10, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 5, 0, 0, &pEnvironment->f_14, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 6, 0, 0, &pEnvironment->f_18, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 7, 0, 0, &pEnvironment->f_1C, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 8, 0, 0, &pEnvironment->f_20, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 9, 0, 0, &pEnvironment->f_24, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 0xA, 0, 0, &pEnvironment->f_28, 4);
+        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 3, 0, 0, &pEnvironment->nRoomHF, 4);
+        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 5, 0, 0, &pEnvironment->fDecayTime, 4);
+        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 6, 0, 0, &pEnvironment->fDecayHFRatio, 4);
+        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 7, 0, 0, &pEnvironment->nReflections, 4);
+        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 8, 0, 0, &pEnvironment->fReflectionsDelay, 4);
+        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 9, 0, 0, &pEnvironment->nReverb, 4);
+        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 0xA, 0, 0, &pEnvironment->fReverbDelay, 4);
         gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 4, 0, 0, &pEnvironment->fRoomRolloffFactor, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 0xE, 0, 0, &pEnvironment->f_30, 4);
+        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 0xE, 0, 0, &pEnvironment->fAirAbsorptionHF, 4);
     }
     gbEaxRoomOff = pEnvironment->nRoom == -10000;
 }
