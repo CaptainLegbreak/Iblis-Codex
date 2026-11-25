@@ -6,7 +6,9 @@ Status (Wed Nov 25 05:50 PST 2026): charsel-pieces-2 and copy-trim merged (#396)
 
 ## Ready
 
-(lane6/bn-assert-spans, assert-spans-launch and assert-spans-d2cmp verifying on #396)
+- lane6/bn-assert-spans 44273aa2 (on #396): BnDownload.cpp takes BNSEND_GetPatchResult (0x51F2D0, from BnSend.cpp). The code passing `.\BnDownload.cpp` runs 0x51E490-0x520020 and 0x51F2D0 sits inside it (it calls BNDOWNLOAD_ApplyPatches); it is the only D2BNClient function filed outside the asserted span it sits in. Its inferred BNSEND_ name now disagrees with the file (lane 10's prefixfix). Full build: Game.exe identical, tree 1f5bf604330b8dd1e435e87b97c0221997f7048b, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
+
+(assert-spans-launch and assert-spans-d2cmp verifying on #396)
 
 ## Questions
 
