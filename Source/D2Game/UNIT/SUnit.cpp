@@ -22,6 +22,7 @@
 #include "D2GameServer.h"
 #include "D2GameTypes.h"
 #include "D2LanguageNames.h"
+#include "D2ItemDataTbl.h"
 // build: symbol _gaszLanguageNames 0x00731ED4
 struct D2MapAIStrc;
 
@@ -356,8 +357,6 @@ void __fastcall SUNITEVENT_FreeEventList(D2GameStrc* pGame, D2UnitStrc* pUnit); 
 void __fastcall D2GAME_SUNITMSG_FreeUnitMessages_6FCC6790(D2UnitStrc* pUnit); // 0x00571F40
 
 void __stdcall UNITS_FreeUnit(D2UnitStrc* pUnit); // 0x00620300
-
-struct D2ItemDataTbl { int nItemsTxtRecordCount; D2ItemsTxt* pItemsTxt; };
 
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
 
