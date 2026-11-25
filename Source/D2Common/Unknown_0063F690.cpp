@@ -12,7 +12,6 @@ extern D2ObjectsTxt* gpObjectsTxt;                                              
 int gnObjectsTxtRecordCount;                                                                                // 0x0096D474
 extern void* gpObjgroupTxt; // 0x0096D478
 extern int gnObjgroupTxtRecordCount; // 0x0096D47C
-void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 const unsigned short* __fastcall D2LANG_GetStringByReferenceString(const char* szReference);                // 0x00524E20

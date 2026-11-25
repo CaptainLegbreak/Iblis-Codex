@@ -11,11 +11,9 @@ struct D2DrlgOrthStrc;
 
 struct D2DrlgOutdoorInfoStrc;
 
-int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 
 int __fastcall DRLGOUTDOORS_TestGridCellSpawnValid(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674200
 
-void __fastcall DRLGOUTWILD_GetBridgeCoords(D2DrlgLevelStrc* pLevel, int* pX, int* pY); // 0x0067FC20
 
 extern const int gnOutdoorScanXOffsets[4]; // 0x006F2810
 

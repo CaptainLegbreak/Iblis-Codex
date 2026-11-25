@@ -27,15 +27,10 @@ void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, 
 
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
 
-D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);         // 0x006439F0
 
-int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus);                     // 0x006442A0
 
-int __fastcall SKILLS_CalculateDamageBonusByLevel(int nLevel, int* pLevelDamage);                           // 0x00644B70
 
-int __stdcall SKILLS_GetSpecialParamValue(D2UnitStrc* pUnit, int nParamId, int nSkillId, int nSkillLevel);  // 0x00646460
 
-int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc* pMissile, D2UnitStrc* pOwner, unsigned int nCalc, int nMissileId, int nLevel); // 0x0064B7C0
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
@@ -775,11 +770,9 @@ void __stdcall MISSILE_SetAnimSpeed(D2UnitStrc* pMissile, int nAnimSpeed); // 0x
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
-int __stdcall MISSILE_GetSpecialParamValue(D2UnitStrc* pMissile, D2UnitStrc* pOwner, unsigned char nParamId, int nMissileId, int nLevel); // 0x0064B340
 
 extern D2DataTablesStrc* gpDataTables_00744304; // 0x00744304
 
-int __stdcall D2Common_11033(int nLevel, int nParam, int nMax); // 0x00645B20
 
 extern void* gpfnMissileCalcFunctions[]; // 0x00745828
 

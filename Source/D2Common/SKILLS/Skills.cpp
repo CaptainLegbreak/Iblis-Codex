@@ -170,7 +170,6 @@ extern const int gaIdaStar_PointCacheHashMaskY[]; // 0x006F1B98
 
 int __stdcall UNITROOM_AddUnitToRoomEx(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nUnused); // 0x0064C2C0
 
-void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
 
 void __fastcall PATH_GetDirectionVector(D2CoordStrc* pDirectionVector, int* pOutDirection, unsigned int dwStartPrecisionX, unsigned int dwStartPrecisionY, unsigned int dwTargetPrecisionX, unsigned int dwTargetPrecisionY); // 0x0064FC60
 
@@ -182,11 +181,9 @@ void __fastcall DRLGOUTDOORS_AlterAdjacentPresetGridCells(D2DrlgLevelStrc* pLeve
 
 void __fastcall DRLGOUTDOORS_SetBlankGridCell(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x006741A0
 
-unsigned int __fastcall DRLGOUTDOORS_TestGridCellNonLvlLink(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x006741E0
 
 int __fastcall DRLGOUTDOORS_TestOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nX, int nY, int nId, int nOffset, char nFlags); // 0x00674230
 
-void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nPickedFile, int a6); // 0x006743C0
 
 struct D2SkillCalcStrc
 {
@@ -201,7 +198,6 @@ void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, 
 
 void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc* pUnit); // 0x004DC0B0
 
-int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker); // 0x00622560
 
 int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit); // 0x00622D00
 
@@ -211,15 +207,11 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 
-int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 
-void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY); // 0x00643290
 
-int __stdcall SKILLS_GetSpecialParamValue(D2UnitStrc* pUnit, int nParamId, int nSkillId, int nSkillLevel); // 0x00646460
 
 int __fastcall SKILLS_CalcSpecialParamCallback(int nParamId, void* pUserData); // 0x00646BE0
 
-int __stdcall MISSILE_GetSpecialParamValue(D2UnitStrc* pMissile, D2UnitStrc* pOwner, unsigned char nParamId, int nMissileId, int nLevel); // 0x0064B340
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
@@ -239,7 +231,6 @@ struct R00601DC0
     bool sub_00601DC0_IsOpen();
 };
 
-int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 
 extern const int gnShapeShiftedModeTable[]; // 0x006EB348
 
@@ -247,7 +238,6 @@ int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0
 
 D2SkillStrc* __stdcall UNITS_GetStartSkill(D2UnitStrc* pUnit); // 0x00620150
 
-int __stdcall STATES_CheckStateMaskUdeadOnUnit(D2UnitStrc* pUnit); // 0x0063A770
 
 int __stdcall SKILLS_GetRequiredLevelBasedOnCurrent(D2UnitStrc* pUnit, int nSkillId); // 0x00644750
 
@@ -291,49 +281,35 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); /
 
 int __stdcall SKILLS_GetPassiveState(int nSkillId); // 0x00643690
 
-void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
 extern const int gnShapeshiftMonModes[]; // 0x006EB308
 
 int __stdcall D2Common_11014_ConvertShapeShiftedMode(int nArrayIndex, int nMonsterId); // 0x00645190
 
-D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2); // 0x00623990
 
 int __stdcall ITEMS_GetWeaponAttackSpeed(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0062A710
 
-int __stdcall STATES_IsUnitShapeShifted(D2UnitStrc* pUnit); // 0x0063A400
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
-int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 
-int __stdcall ITEMS_CheckType(int nItemType, int nItemTypeToCheck); // 0x00629B50
 
 int __stdcall STATLIST_CopyStats(D2UnitStrc* pUnit, int nStatId, D2StatStrc* pStat, int nArraySize); // 0x006261D0
 
-int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 int __stdcall COLLISION_RayTrace(D2ActiveRoomStrc* pRoom, D2CoordStrc* pBegin, D2CoordStrc* pEnd, int nCollisionMask); // 0x0064E260
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
-int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40
 
-int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
-int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
 
-int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
 
@@ -357,15 +333,11 @@ D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int
 
 void __stdcall SKILLS_UpdateChargedSkill(D2UnitStrc* pUnit, int nOwnerGUID, int nSkillId, int nSkillLevel, int nCharges, int bFreeMemory); // 0x00647320
 
-int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
-D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 
-D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
 int __stdcall SKILLS_GetShrineSkillLevelBonus(D2UnitStrc* pUnit); // 0x00644150
 
-int __stdcall DATATBLS_GetMaxLevel(int nClass); // 0x00611830
 
 static int __stdcall SKILLS_GetBonusSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00644180
 
@@ -377,13 +349,10 @@ inline int SKILLS_EvaluateSkillFormulaInl(D2UnitStrc* pUnit, unsigned int nCalc,
 
 typedef int BOOL;
 
-int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
-int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem); // 0x006295B0
 
-int __stdcall ITEMS_GetAmmoType(D2UnitStrc* pItem); // 0x0062E6F0
 
 int __fastcall STATES_CheckStateMaskRestrictOnUnit(D2UnitStrc* pUnit); // 0x0063A510
 
@@ -397,9 +366,7 @@ D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); 
 
 int __stdcall INVENTORY_GetEquippedWeapon(D2InventoryStrc* pInventory, D2UnitStrc** ppItem, int* pBodyLoc, int* pIsLeftHand); // 0x0063C9B0
 
-D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 
-D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
 D2TCExShortStrc* gpChestTreasureClasses[45]; // 0x0096C5F4
 
@@ -409,21 +376,15 @@ static BOOL __stdcall SKILLS_CheckSkillDelay(D2SkillStrc* pSkill, D2UnitStrc* pU
 
 int __stdcall COMPOSIT_IsWeaponBowOrXBow(D2UnitStrc* pUnit); // 0x0064F460
 
-int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
 
-D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 
-void __stdcall D2Common_10474(D2UnitStrc* pUnit, D2StatListStrc* pStatList); // 0x006277E0
 
-void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList); // 0x00626CD0
 
-int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 
 int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInventory); // 0x0063D340
 
 int __stdcall STATLIST_GetMaxDamageFromUnit(D2UnitStrc* pItem, int a2); // 0x00625E60
 
-int __fastcall SKILLS_CalculateDamageBonusByLevel(int nLevel, int* pLevelDamage); // 0x00644B70
 
 extern "C" void _ReadWriteBarrier(void);
 
@@ -465,7 +426,6 @@ int __fastcall STATES_CheckStateMaskRestrictOnUnit(D2UnitStrc* pUnit, D2SkillStr
 
 static int __stdcall SKILLS_IsPointOutsideTown(int nX, int nY, D2UnitStrc* pUnit); // 0x00645C60
 
-D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
@@ -475,9 +435,7 @@ void __stdcall STATES_ToggleGfxStateFlag(D2UnitStrc* pUnit, int nState, int bSet
 
 struct D2ItemsTxt;
 
-D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 
-void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 
@@ -485,7 +443,6 @@ short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem); // 0x00629860
 
 short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem); // 0x006298A0
 
-int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
@@ -503,7 +460,6 @@ int __stdcall D2COMMON_11036_GetMonCurseResistanceSubtraction(int nLevel, int nS
 
 int __fastcall SKILLS_GetSkillParam7Formula(int nSkillId, int nSkillLevel); // 0x00643580
 
-int __stdcall D2Common_11033(int nLevel, int nParam1, int nParam2); // 0x00645B20
 
 int __fastcall SKILLS_GetFirstSkillParam(int nSkillId); // 0x004C9460
 

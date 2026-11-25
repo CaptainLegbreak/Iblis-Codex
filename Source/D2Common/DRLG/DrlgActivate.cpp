@@ -40,13 +40,11 @@ extern int gnTimeRates[]; // 0x007443E4
 
 int __fastcall DRLG_IsOnClient(D2DrlgStrc* pDrlg); // 0x00642A00
 
-int __fastcall DRLG_IsTownLevel(int nLevelId); // 0x006426A0
 
 void __fastcall DRLGACTIVATE_RoomExPropagateUnsetStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus); // 0x0061B5B0
 
 void __fastcall DRLGROOM_InitNearRooms(void* pContext, D2DrlgRoomStrc* pNode); // 0x0066C370
 
-void __fastcall DRLGROOMTILE_InitRoomGrids(D2DrlgRoomStrc* pDrlgRoom); // 0x0066EE40
 
 void __fastcall DRLG_CreateRoomForRoomEx(D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoom); // 0x006422A0
 
@@ -84,7 +82,6 @@ static int gnRoomStats_0096C8C0; // 0x0096C8C0
 
 static int gnRoomStats_0096C8C4; // 0x0096C8C4
 
-void __fastcall DRLGROOMTILE_LoadDT1FilesForRoom(D2DrlgRoomStrc* pDrlgRoom); // 0x0066F240
 
 static void DRLGACTIVATE_ForceRoomExStatusImpl(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus); // 0x0061B210
 
@@ -109,11 +106,8 @@ enum D2C_J07DungeonConstants
     UNITFLAGEX_J07_REMOVED = 0x20,
 };
 
-void __stdcall UNITROOM_UpdatePath(D2UnitStrc* pUnit); // 0x0064C450
 
-void __fastcall COLLISION_FreeRoomCollisionGrid(void* pMemPool, D2ActiveRoomStrc* pRoom); // 0x0064CA10
 
-void __stdcall DUNGEON_FreeDrlgDelete(D2ActiveRoomStrc* pRoom); // 0x0061A2C0
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -155,13 +149,11 @@ D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId); // 0x
 
 D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoom, D2DrlgLevelStrc* pLevel); // 0x00642C30
 
-D2ActiveRoomStrc* __fastcall DRLGACTIVATE_InitializeRoomEx(D2DrlgRoomStrc* pDrlgRoom); // 0x0061B730
 
 static void DRLGACTIVATE_RoomSetAndPropagateStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus);
 
 void __fastcall DRLGACTIVATE_SetClientIsInSight(D2DrlgStrc* pDrlg, int nLevelId, int nX, int nY, D2DrlgRoomStrc* pDrlgRoomHint);
 
-void __fastcall DRLGACTIVATE_ChangeClientRoom(D2DrlgRoomStrc* pPreviousRoom, D2DrlgRoomStrc* pNewRoom);
 
 static void DRLGACTIVATE_RoomExStatusUnlink(D2DrlgRoomStrc* pDrlgRoom);
 

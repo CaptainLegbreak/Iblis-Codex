@@ -86,23 +86,18 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 
-void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation); // 0x0067C4F0
 
 void __fastcall DRLGVER_GetCoordDiff(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY); // 0x0067D280
 
 D2LvlPrestRecordStrc* __stdcall sub_0061F0B0(int nPresetId); // 0x0061F0B0
 
-void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6); // 0x006743C0
 
 int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nPresetId, int nArg, int a4, int a5); // 0x00674730
 
-void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel); // 0x00675770
 
 void __fastcall sub_00670750(D2DrlgOutPlaceCtxStrc* pCtx); // 0x00670750
 
-unsigned int __fastcall DRLGOUTDOORS_TestGridCellNonLvlLink(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x006741E0
 
 int __fastcall DRLGOUTDOORS_GetPresetIndexFromGridCell(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674120
 
@@ -138,7 +133,6 @@ void __stdcall DRLGOUTSIEGE_PlaceBarricadeEntrancesAndExits(D2DrlgLevelStrc* pLe
 
 void DRLGOUTSIEGE_MarkBottomRightLvlLinkCells(D2DrlgLevelStrc* pLevel);
 
-int __fastcall DRLGOUTSIEGE_GetBorderLookupId(D2DrlgLevelStrc* pLevel);
 
 int __fastcall DRLGOUTSIEGE_GetSecondaryBorderPresetId(D2DrlgLevelStrc* pLevel, int nType, int nIndex);
 
@@ -159,7 +153,6 @@ struct D2DrlgOutSiegeInitStrc
 
 extern const D2DrlgOutSiegeInitStrc gaOutSiegeCaves[3]; // 0x006F1F9C
 
-void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel); // 0x00675770
 
 void __stdcall DRLGOUTSIEGE_PlaceSpecialPresets(D2DrlgLevelStrc* pLevel); // 0x0067E160
 
@@ -169,7 +162,6 @@ int DRLGACT5_ReplaceTransitionPreset(D2DrlgLevelStrc* pLevel, int nX, int nY);
 
 void __stdcall DRLGOUTSIEGE_PlaceSiegeToTownPresets(D2DrlgLevelStrc* pLevel);
 
-void __fastcall DRLGOUTSIEGE_InitAct5OutdoorLevel(D2DrlgLevelStrc* pLevel);
 
 static void DRLGOUTSIEGE_AddAct5SecondaryBorder(D2DrlgLevelStrc* pLevel);
 
@@ -179,9 +171,7 @@ static void DRLGOUTSIEGE_ConnectBarricadeAndSiege(D2DrlgLevelStrc* pLevel);
 
 extern const D2CoordStrc gaAct5WallSteps[12]; // 0x006F1FD8
 
-void __fastcall DRLGOUTDOORS_AddAct124SecondaryBorder(D2DrlgLevelStrc* pLevel, int nIndex, int nPresetId);                     // 0x006752A0
 
-void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel);                                                  // 0x00675850
 
 static const int gAct4SecondPresetBase[3] = { 828, 832, 832 }; // 0x006F22A4
 

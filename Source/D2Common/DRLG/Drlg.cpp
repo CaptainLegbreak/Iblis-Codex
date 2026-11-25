@@ -49,9 +49,7 @@ int gnObjgroupTxtRecordCount;                                                   
 
 extern const int gnFirstLevelIdByAct[];                                                                 // 0x006EB2F0
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                         // 0x0061E470
 
@@ -180,7 +178,6 @@ void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int
 
 void __fastcall DRLG_AddLevelActivity(D2DrlgLevelStrc* pLevel, int nDelta); // 0x00642F70
 
-void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nPickedFile, int a6); // 0x006743C0
 
 int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nRand, int nOffset, char nFlags); // 0x00674730
 
@@ -188,7 +185,6 @@ D2ActiveRoomStrc* __fastcall DUNGEON_AllocRoom(D2DrlgActStrc* pAct, D2DrlgRoomSt
 
 int __fastcall DRLGOUTDOORS_GetOutLinkVisFlag(D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pDrlgVertex); // 0x00674040
 
-int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
 
 void __fastcall DRLGGRID_AlterFlagsAlongVertexEdge(D2DrlgGridStrc* pDrlgGrid, D2DrlgVertexStrc* pDrlgVertex, int nFlag, int nOperation, int bAlterNextVertex); // 0x0067C760
 
@@ -212,19 +208,14 @@ void __fastcall DRLGPRESET_InitLevelData(D2DrlgLevelStrc* pLevel);              
 
 void __fastcall DRLGOUTDOORS_AllocOutdoorInfo(D2DrlgLevelStrc* pLevel);                                     // 0x00675320
 
-void __fastcall MazeLevelGenerate(D2DrlgLevelStrc* pLevel);                                            // 0x00673B30
 
-void __fastcall DRLGPRESET_GenerateLevel(D2DrlgLevelStrc* pLevel);                                          // 0x00668100
 
 void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel);                                        // 0x00675360
 
-int __fastcall DRLGWARP_GetWarpDestinationFromArray(D2DrlgLevelStrc* pLevel, unsigned char nWarpId);         // 0x0066AF30
 
-void __stdcall SKILLS_GameTileToSubtileCoords(int* pX, int* pY);                                           // 0x00643560
 
 struct D2GameStrc;
 
-void __fastcall DRLG_GetMinAndMaxCoordinatesFromLevel(D2DrlgLevelStrc* pLevel, int* pTileMinX, int* pTileMinY, int* pTileMaxX, int* pTileMaxY); // 0x00642520
 
 typedef void (__stdcall* AUTOMAPFN)(D2RoomStrc*);
 
@@ -246,7 +237,6 @@ void __fastcall DRLGROOMTILE_InitTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileD
 
 int __fastcall DRLG_GetLevelIdFromCoordinates(D2DrlgStrc* pDrlg, int nX, int nY);                   // 0x006427A0
 
-D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromLevelAndCoordinates(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00642630
 
 int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId);                           // 0x0066C040
 
@@ -254,9 +244,7 @@ typedef int (__fastcall* D2UnitFindCallback)(D2UnitStrc*,void*);
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc*,D2DrlgCoordsStrc*); // 0x00619730
 
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*,D2ActiveRoomStrc***,int*); // 0x00619790
 
-int __stdcall UNITS_GetUnitSizeX(D2UnitStrc*); // 0x00620510
 
 // build: symbol ?SKILLS_IsPointNearRoom@* 0x004C5BD0
 static int SKILLS_IsPointNearRoom(D2ActiveRoomStrc*,int,int,int); // 0x00641930
@@ -285,7 +273,6 @@ struct D2PlayerDataStrc;
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
 
-void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
@@ -318,17 +305,13 @@ int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x
 
 int __cdecl D2GFX_IsHardwareRenderMode(); // 0x004F51C0
 
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
-int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
-D2UnitStrc* __stdcall PATH_GetTargetUnit(D2DynamicPathStrc* pDynamicPath); // 0x00648BF0
 
-void __stdcall PATH_SetType(D2DynamicPathStrc* pPath, int nType); // 0x00648CF0
 
 int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); // 0x006492A0
 
@@ -344,13 +327,11 @@ unsigned int __stdcall sub_00620510(D2UnitStrc*); // 0x00620510
 
 extern int gnUnitDistanceTable[64]; // 0x006EB180
 
-void __fastcall DATATBLS_LoadShrinesTxt(void* hArchive);
 
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 

@@ -14,7 +14,6 @@ extern "C" const char gszEmptyAssertText;                                       
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
-void __stdcall DATATBLS_UnloadBin(void* pBinFile);                                                               // 0x006125C0
 
 #define BELTS_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 

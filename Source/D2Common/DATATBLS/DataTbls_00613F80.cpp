@@ -30,11 +30,8 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern D2TxtLinkStrc* gpPettypeLinker_0096C81C; // 0x0096C81C
 
-unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference); // 0x006117B0
 
-void __fastcall DATATBLS_SkillCalcLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00611BD0
 
-void __fastcall DATATBLS_SkillDescCalcLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00611C70
 
 extern int gnPettypeTxtRecordCount_0096C820; // 0x0096C820
 
@@ -42,9 +39,7 @@ extern void* gpSkillsCode_0096BC70; // 0x0096BC70
 
 extern void* gpSkillDescCode_0096BC7C; // 0x0096BC7C
 
-void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 
-void __fastcall DATATBLS_GetBinFileHandle(void* hArchive, const char* szFile, void** ppFileHandle, int* pSize, int* pSizeEx); // 0x00613E90
 
 void __stdcall sub_006BD230_AddRecordToLinker(D2TxtLinkStrc* pLinker, int nCode); // 0x006BD230
 

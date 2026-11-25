@@ -207,9 +207,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
-int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 
 int __stdcall UnitIsDoor(D2UnitStrc* pUnit); // 0x00621A70
 
@@ -217,17 +215,12 @@ int __fastcall UNITS_CheckIfObjectOrientationIs1(D2UnitStrc* pUnit); // 0x00621A
 
 int __fastcall MONSTERS_CanBeInTown(D2UnitStrc* pMonster); // 0x0063E860
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit); // 0x00649400
 
-int __stdcall PATH_RemoveCollisionFootprintForUnit(D2UnitStrc* pUnit, int bForce); // 0x00649560
 
 int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064D910
 
-int __fastcall PATH_ComputeVelocityAndDirectionVectorsToNextPoint(D2DynamicPathStrc* pPath, int bNormalizeDirectionIfSamePos, int bForceDirectionNormalization); // 0x0064FE40
 
 int __fastcall PATH_ComputePathBlessedHammer_6FDAB3C0(D2DynamicPathStrc* pPath, D2SeedStrc* pSeed); // 0x0067A140
 
@@ -1011,21 +1004,15 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY); // 0x00643290
 
 int __stdcall D2Common_11281_CollisionPatternFromSize(D2UnitStrc* pUnit, int nSize); // 0x00648580
 
-void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType); // 0x00648CF0
 
-int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x0064C350
 
 int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 
-int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
-D2UnitStrc* __stdcall PATH_GetTargetUnit(D2DynamicPathStrc* pDynamicPath); // 0x00648BF0
 
-int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2); // 0x00650350
 
 int __stdcall D2Common_10227(D2UnitStrc* pUnit); // 0x00650540
 
@@ -1037,17 +1024,14 @@ void __stdcall DUNGEON_ClientToGameCoords(int* pX, int* pY); // 0x00643540
 
 void __fastcall PATH_GetDirectionVector(D2CoordStrc* pDirectionVector, int* pOutDirection, unsigned int dwStartPrecisionX, unsigned int dwStartPrecisionY, unsigned int dwTargetPrecisionX, unsigned int dwTargetPrecisionY); // 0x0064FC60
 
-int __fastcall UNITS_GetCollisionMask(D2UnitStrc* pUnit); // 0x006209D0
 
 int __stdcall UNITS_GetUnitSizeY(D2UnitStrc* pUnit); // 0x006205A0
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 int __stdcall UNITS_HasCollision(D2UnitStrc* pUnit); // 0x006219C0
 
 void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EA90
 
-void __stdcall COLLISION_SetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask); // 0x0064EA00
 
 void __stdcall COLLISION_ResetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, int nMask); // 0x0064EBA0
 
@@ -1075,7 +1059,6 @@ static int PATH_GetMonsterMoveTestMask(D2UnitStrc* pUnit);
 
 int __stdcall PATH_ComputeDirectionFromPreciseCoords_6FDAC760(D2FP32_16 tStart, D2FP32_16 tTarget); // 0x0064FE10
 
-void __fastcall PATH_SetNewDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x006485F0
 
 static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit);
 

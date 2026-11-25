@@ -111,7 +111,6 @@ int gnSkillDescCodeSize_0096BC80; // 0x0096BC80
 
 int gnSkillDescCodeSizeEx_0096BC84; // 0x0096BC84
 
-int __fastcall DATATBLS_AppendMemoryBuffer(char** ppCodes, int* pSize, int* pSizeEx, void* pBuffer, int nBufferSize); // 0x006118B0
 
 int __fastcall DATATBLS_MapSkillsTxtKeywordToNumber(char* szKey); // 0x00611930
 
@@ -146,25 +145,18 @@ int gnDifficultylevelsTxtRecordCount; // 0x0096C8B0
 
 extern D2ObjectsTxt* gpObjectsTxt; // 0x0096D470
 
-int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
 
-int __stdcall STATLIST_GetBaseStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625350
 
-int __stdcall STATLIST_GetTotalStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625420
 
-int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
 
-int __stdcall ITEMS_IsEthereal(D2UnitStrc* pItem); // 0x0062A8D0
 
 D2SkillStrc* __stdcall SKILLS_GetFirstSkillFromSkillList(D2SkillListStrc* pSkillList); // 0x00643910
 
-void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 
 D2ActiveRoomStrc* __stdcall PATH_GetRoom(D2DynamicPathStrc* pDynamicPath); // 0x00648A80
 
 void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* pUnit, int nClassId, int nMode, int nUnitType, D2InventoryStrc* pInventory, char* szPath, int* pWeaponClassCode, int a8, int a9); // 0x0064F5B0
 
-void __stdcall ITEMMODS_ApplyEthereality(D2UnitStrc* pItem); // 0x0065E4D0
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
 
@@ -279,7 +271,6 @@ void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFie
 
 void __fastcall DATATBLS_LoadItemTypesTxt(void* hArchive); // 0x00638D80
 
-void __fastcall DATATBLS_LoadMonTypeTxt(void* hArchive); // 0x00658520
 
 void __fastcall DATATBLS_LoadSoundsTxt(void* hArchive); // 0x00659BB0
 
@@ -347,7 +338,6 @@ void __fastcall DATATBLS_LoadLevelsTxt(void* hArchive); // 0x0061C540
 
 void __fastcall DATATBLS_LoadLevelDefsBin(void* hArchive); // 0x0061DE00
 
-void __fastcall DATATBLS_LoadLevelTypesTxt(void* hArchive); // 0x0061E520
 
 void __fastcall DATATBLS_AllocGlobalTileLibraryHash(void* hArchive); // 0x0061FAE0
 
@@ -361,7 +351,6 @@ void __fastcall DATATBLS_LoadObjectsTxt(void* hArchive); // 0x0063F690
 
 void __fastcall DATATBLS_LoadObjGroupTxt(void* hArchive); // 0x00640F20
 
-void __fastcall DATATBLS_LoadShrinesTxt(void* hArchive); // 0x00641320
 
 void __fastcall DATATBLS_LoadInventoryTxt(void* hArchive); // 0x0065B660
 
@@ -377,7 +366,6 @@ void __fastcall DATATBLS_LoadCubeMainTxt(void* hArchive); // 0x00669130
 
 void __stdcall DATATBLS_LoadDifficultyLevelsTxt(void* hArchive); // 0x00617D90
 
-void __fastcall DATATBLS_LoadLvlPrestTxt(void* hArchive, int bLoadFiles); // 0x0061EBB0
 
 void __fastcall DATATBLS_LoadLvlSubTxt(void* hArchive, int a2, int a3); // 0x0061F500
 
@@ -401,7 +389,6 @@ D2TxtLinkStrc* gpEventsLinker_0096BCA8; // 0x0096BCA8
 
 extern "C" const char gszTxtField_int[]; // 0x006E67EC
 
-unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference); // 0x006117B0
 
 D2TxtLinkStrc* gpBodyLocsLinker_0096BC3C; // 0x0096BC3C
 
@@ -475,15 +462,11 @@ struct D2PetTypeTxt
 
 extern D2TxtLinkStrc* gpPettypeLinker_0096C81C; // 0x0096C81C
 
-void __fastcall DATATBLS_SkillCalcLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00611BD0
 
-void __fastcall DATATBLS_SkillDescCalcLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00611C70
 
 extern int gnPettypeTxtRecordCount_0096C820; // 0x0096C820
 
-void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 
-void __fastcall DATATBLS_GetBinFileHandle(void* hArchive, const char* szFile, void** ppFileHandle, int* pSize, int* pSizeEx); // 0x00613E90
 
 void __stdcall sub_006BD230_AddRecordToLinker(D2TxtLinkStrc* pLinker, int nCode); // 0x006BD230
 
