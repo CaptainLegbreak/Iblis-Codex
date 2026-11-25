@@ -2,6 +2,22 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ItemTypes.h"
+#include "D2StatIds.h"
+#include "D2Unicode.h"
+#include "D2StateIds.h"
+#include "D2Records.h"
+#include "D2Constants.h"
+#include "D2Path.h"
+#include "D2GameTypes.h"
+#include "D2SkillIds.h"
+#include "D2SoundEnvironTxt.h"
+#include "D2MonTypeTxt.h"
+#include "D2MonsterIds.h"
+#include "D2MissileIds.h"
+#include "D2UnitData.h"
+#include "D2LevelTxt.h"
+#include "D2TxtItems.h"
 struct D2UnitStrc;
 
 
@@ -36,6 +52,42 @@ static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 
     return 0;
 }
+
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+
+int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
+D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+
+void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
+
+static D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline_J03(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+    return 0;
+}
+
+static int MONSTERS_GetBaseIdInline_J03(int nMonsterId)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInline_J03(nMonsterId);
+    if (pMonStatsTxtRecord)
+    {
+        return pMonStatsTxtRecord->nBaseId;
+    }
+    return nMonsterId;
+}
+
+void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
+
+
+int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
+
+D2MonSoundsTxt* __stdcall DATATBLS_GetMonSoundsTxtRecordFromSoundId(int nSoundId); // 0x00656F90
 
 // 0x004F4C20
 int __fastcall SKILLSAMA_CltDoRepeatAttack(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
@@ -83,5 +135,125 @@ int __fastcall SKILLSAMA_CltDoRepeatAttack(D2UnitStrc* pUnit, int nSkillId, int 
 
     return 1;
 }
+
+// 0x004F4D90
+int __fastcall SKILLDESC_CreateMissileAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+    D2UnitStrc* pDestination = sub_004C5EB0_FindDestination(pUnit, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), nRange, 3, !pTarget ? -1 : pTarget->dwUnitId, 0);
+    if (!pDestination)
+    {
+        return 0;
+    }
+
+    const int nTargetX = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
+    D2MissileStrc tMissileParams;
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.dwFlags = 0x20;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.pOrigin = pTarget;
+    tMissileParams.nSkill = nSkillId;
+    tMissileParams.nSkillLevel = nSkillLevel;
+    tMissileParams.nMissile = nMissile;
+    tMissileParams.nTargetX = CLIENTS_GetUnitX(pDestination);
+    tMissileParams.nTargetY = CLIENTS_GetUnitY(pDestination);
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
+    if (pMissile)
+    {
+        MISSILE_SetTargetX(pMissile, nTargetX);
+    }
+
+    return 1;
+}
+
+// 0x004F4EC0
+int __fastcall SKILLDESC_GetSkillOverlay(D2UnitStrc* pUnit, int nSkillId, int nDefault, int nUnused)
+{
+    int nResult = nDefault;
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
+    {
+        const int nBaseId = MONSTERS_GetBaseIdInline_J03(pUnit->dwClassId);
+        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_BLOODRAVEN && nSkillId == SKILL_NEST)
+        {
+            GFX_AddUnitOverlay(pUnit, 0x55, 2, 0, 0, 0, 0, 0);
+            nResult = 0x54;
+        }
+    }
+
+    return nResult;
+}
+
+// 0x004F4F40
+int __fastcall SKILLDESC_GetMonSkillSound(D2UnitStrc* pUnit, int nSkillId)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = 0;
+    if (pUnit)
+    {
+        const int nClassId = pUnit->dwClassId;
+        if (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount)
+        {
+            pMonStatsTxtRecord = &sgptDataTables->pMonStatsTxt[nClassId];
+        }
+    }
+
+    if (!pMonStatsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2MonSoundsTxt* pMonSoundsTxtRecord = DATATBLS_GetMonSoundsTxtRecordFromSoundId(pMonStatsTxtRecord->wMonSound);
+    if (!pMonSoundsTxtRecord)
+    {
+        return 0;
+    }
+
+    int nSound = 0;
+    for (int i = 0; i < 8; ++i)
+    {
+        if (pMonStatsTxtRecord->nSkill[i] == nSkillId)
+        {
+            switch (i)
+            {
+            case 0:
+                nSound = pMonSoundsTxtRecord->dwSkill[0];
+                break;
+
+            case 1:
+                nSound = pMonSoundsTxtRecord->dwSkill[1];
+                break;
+
+            case 2:
+                nSound = pMonSoundsTxtRecord->dwSkill[2];
+                break;
+
+            case 3:
+                nSound = pMonSoundsTxtRecord->dwSkill[3];
+                break;
+            }
+        }
+    }
+
+    return nSound < 0 ? 0 : nSound;
+}
+
+
 
 #include "gen/data/Source/D2Client/SKILLS/SkillsAma.inc"

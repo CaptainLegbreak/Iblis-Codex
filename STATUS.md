@@ -17,8 +17,8 @@ Bytes of the built Game.exe by origin:
 
 | Origin | Bytes |
 |---|---:|
-| game code and data compiled from Source/ | 2,694,379 |
-| initialised data generated from your Game.exe (build/data_plan.json) | 370,152 |
+| game code and data compiled from Source/ | 2,694,467 |
+| initialised data generated from your Game.exe (build/data_plan.json) | 370,064 |
 | C runtime (libcmt.lib, placed by identity) | 239,696 |
 | import thunks and the import address table | 3,782 |
 | headers, import and export tables, relocations, checksum | 163,407 |
@@ -42,16 +42,16 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 661 |
+| Compilation units | 659 |
 | … in a file with its original name, whole | 292 |
 | … pieces of an original file still split (in 33 files) | 114 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 255 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2381 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 253 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2369 |
 | Unnamed fields (`unk0x..`) in the shared headers | 770 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 37 |
-| Calling-convention shims | 56 |
+| Calling-convention shims | 49 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
-| `__declspec(noinline)` / `__forceinline` | 108 / 222 |
+| `__declspec(noinline)` / `__forceinline` | 108 / 221 |
 | Function names: blizzard / library / d2moo / inferred / placeholder | 478 / 86 / 5268 / 6023 / 3072 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
 
-Not listed one by one: 4033 functions are compiled with `/GS-` and 1002 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 108 times and `__declspec(dllexport)` 153 times to keep a body out of line or emitted.
+Not listed one by one: 4031 functions are compiled with `/GS-` and 1002 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 108 times and `__declspec(dllexport)` 153 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|

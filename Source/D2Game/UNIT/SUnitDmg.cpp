@@ -851,7 +851,6 @@ void __fastcall sub_A13_Emit_0057C6C0(D2UnitStrc* pAttacker, D2UnitStrc* pDefend
     SUNITDMG_DrainStamina(pDefender, pDamage->dwManaLeech);
 }
 
-// calling-convention shim (not game code)
 static inline unsigned int sub_I19_RollSeedInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
@@ -2245,12 +2244,6 @@ static void __stdcall SUNITDMG_AddCombatRecord(D2GameStrc* pGame, D2UnitStrc* pA
     pAttacker->pCombat = pCombat;
 }
 
-// calling-convention shim (not game code)
-void __stdcall sub_U01_EmitMonTypeDamage(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage)
-{
-    SUNITDMG_AddMonTypeDamagePercent(pAttacker, pDamage, pDefender);
-    SUNITDMG_AddMonTypeDamagePercent(pDefender, pDamage, pAttacker);
-}
 
 // 0x0057CB00
 static int __stdcall SUNITDMG_ShouldSkipHitRecovery(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nHitClass)

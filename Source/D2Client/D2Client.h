@@ -156,7 +156,6 @@ extern "C" const char gszSkillsBarSourceFile[]; // 0x006DAE58
 extern "C" const char gszSpace[]; // 0x006FFC44
 extern "C" const char gszTokenSeparator[]; // 0x00712FFC
 extern "C" const char gszStringFormat[]; // 0x006FFC58
-extern "C" const char gszTypeNameAllocRec[]; // 0x00711480
 extern "C" const char gszUnitSndSourceFile[]; // 0x006DAEE0
 extern "C" const char gszDataGlobal[]; // 0x006D4118
 extern "C" const char szDataLocal_006D41A8[]; // 0x006D41A8

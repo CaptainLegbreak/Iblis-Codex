@@ -1,24 +1,10 @@
+#include "TALLOCREC.h"
 #include "D2Client.h"
-#include "D2StormAutoLink.h"
 
 inline void* operator new(unsigned int nSize, void* pWhere) throw()
 {
     return pWhere;
 }
-
-struct D2SMemHeapInfoStrc
-{
-    unsigned int dwSize;
-    unsigned int hHeap;
-    unsigned int adwName[0x41];
-    int nLine;
-    unsigned int dw110;
-    unsigned int dw114;
-    unsigned int dw118;
-    unsigned int dw11C;
-    unsigned int dw120;
-    unsigned int dw124;
-};
 
 struct D2SMemBlockInfoStrc
 {
@@ -40,61 +26,6 @@ struct D2HellAllocHeaderStrc
     unsigned int adwName[0x41];
 };
 
-struct D2ClientAllocRecStrc
-{
-    D2StormLinkStrc f_0;
-    D2SMemHeapInfoStrc tInfo;
-};
-
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);         // 0x00413020
-
-struct D2ClientAllocRecListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2ClientAllocRecListStrc()
-    {
-        m_linkoffset = 0;
-        m_terminator.m_prevlink = &m_terminator;
-        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-    }
-    ~D2ClientAllocRecListStrc()
-    {
-        UnlinkAll();
-        m_terminator.Unlink();
-    }
-    D2ClientAllocRecStrc* Head()
-    {
-        return (int)m_terminator.m_next <= 0 ? 0 : (D2ClientAllocRecStrc*)m_terminator.m_next;
-    }
-    D2ClientAllocRecStrc* First()
-    {
-        return (D2ClientAllocRecStrc*)((((int)m_terminator.m_next <= 0) - 1) & (int)m_terminator.m_next);
-    }
-    D2ClientAllocRecStrc* Next(D2ClientAllocRecStrc* pNode)
-    {
-        return (int)pNode->f_0.m_next <= 0 ? 0 : (D2ClientAllocRecStrc*)pNode->f_0.m_next;
-    }
-    D2ClientAllocRecStrc* NewNode()
-    {
-// build: symbol ?gszTypeNameAllocRec@* 0x00711480
-        void* pMemory = SMemAlloc(sizeof(D2ClientAllocRecStrc), gszTypeNameAllocRec, -2, 8);
-        return pMemory ? new (pMemory) D2ClientAllocRecStrc : 0;
-    }
-    __forceinline void LinkToHead(D2ClientAllocRecStrc* pNode)
-    {
-        D2StormLinkStrc* pLink = &pNode->f_0;
-        pLink->Unlink();
-        pLink->m_prevlink = &m_terminator;
-        pLink->m_next = m_terminator.m_next;
-        m_terminator.NextLink(m_linkoffset)->m_prevlink = pLink;
-        m_terminator.m_next = (char*)pNode;
-    }
-    void sub_0045BBE0_LinkNode(D2ClientAllocRecStrc* pNode, unsigned int nLinkType, D2ClientAllocRecStrc* pExisting); // 0x0045BBE0
-    void UnlinkAll();                                                                                       // 0x0045BD00
-};
-
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwAccess, unsigned long dwShareMode, void* pSecurity, unsigned long dwCreation, unsigned long dwFlags, void* hTemplate); // 0x006CC19C
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);                                 // 0x006CC134
 void __cdecl sub_0045B960_FilePrintf(void* hFile, const char* szFormat, ...);                              // 0x0045B960
@@ -102,6 +33,10 @@ int __stdcall SMemFindNextHeap(unsigned int hPrev, unsigned int* phNext, D2SMemH
 int __stdcall SMemFindNextBlock(unsigned int hHeap, void* pMemory, void** ppBlock, D2SMemBlockInfoStrc* pInfo); // 0x004122F0
 unsigned int __stdcall SMemGetHeapByCaller(const char* szFile, int nLine);                                 // 0x00412710
 
+// build: symbol ?LinkNode@?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAEXPAUTALLOCREC@@I0@Z 0x0045BBE0
+// build: symbol ?UnlinkAll@?$TSList@UTALLOCREC@@U?$TSGetLink@UTALLOCREC@@@@@@QAEXXZ 0x0045BD00
+// build: symbol ??_R0?AUTALLOCREC@@@8 0x00711478
+// build: symbol _SMemAlloc@16 0x00413020
 
 // 0x0045BF00
 void __cdecl sub_0045BF00_DumpMemory()
@@ -110,34 +45,34 @@ void __cdecl sub_0045BF00_DumpMemory()
     sub_0045B960_FilePrintf(hFile, "D2 MEMORY CHECK\n");
     sub_0045B960_FilePrintf(hFile, "================================================\n\n");
 
-    D2ClientAllocRecListStrc tList;
+    TSList<TALLOCREC> tList;
     D2SMemHeapInfoStrc tInfo;
     unsigned int hHeap = 0;
     tInfo.dwSize = sizeof(tInfo);
     while (SMemFindNextHeap(hHeap, &hHeap, &tInfo))
     {
-        D2ClientAllocRecStrc* pNode = tList.NewNode();
+        TALLOCREC* pNode = tList.NewNode(0, 0, 0);
         pNode->tInfo = tInfo;
-        D2ClientAllocRecStrc* pCurrent = tList.Head();
+        TALLOCREC* pCurrent = tList.Head();
         if (pCurrent)
         {
             if (pCurrent->tInfo.dw124 < tInfo.dw124)
             {
-                tList.LinkToHead(pNode);
+                tList.LinkNode(pNode, 1, 0);
             }
             else
             {
-                D2ClientAllocRecStrc* pNext;
-                while ((pNext = tList.Next(pCurrent)) != 0 && pNext->tInfo.dw124 > tInfo.dw124)
+                TALLOCREC* pNext;
+                while ((pNext = pCurrent->Next()) != 0 && pNext->tInfo.dw124 > tInfo.dw124)
                 {
                     pCurrent = pNext;
                 }
-                tList.sub_0045BBE0_LinkNode(pNode, 1, pCurrent);
+                tList.LinkNode(pNode, 1, pCurrent);
             }
         }
         else
         {
-            tList.LinkToHead(pNode);
+            tList.LinkNode(pNode, 1, 0);
         }
     }
 
@@ -149,7 +84,8 @@ void __cdecl sub_0045BF00_DumpMemory()
     unsigned int nTotal110 = 0;
     int nHeaps = 0;
     sub_0045B960_FilePrintf(hFile, "      SIZE|    BLOCKS|  RESERVED| COMMITTED|       MAX|   REGIONS|FILENAME:LINE\n");
-    for (D2ClientAllocRecStrc* pRec = tList.First(); (int)pRec > 0; pRec = (D2ClientAllocRecStrc*)pRec->f_0.m_next)
+    TALLOCREC* pHead = tList.Head();
+    for (TALLOCREC* pRec = pHead; (int)pRec > 0; pRec = pRec->m_link.m_next)
     {
         sub_0045B960_FilePrintf(hFile, "%10d|%10d|%10d|%10d|%10d|%10d|%s:%d\n", pRec->tInfo.dw124, pRec->tInfo.dw120, pRec->tInfo.dw118,
             pRec->tInfo.dw114, pRec->tInfo.dw11C, pRec->tInfo.dw110, (char*)pRec->tInfo.adwName, pRec->tInfo.nLine);

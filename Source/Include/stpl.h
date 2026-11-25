@@ -90,6 +90,10 @@ struct TSLinkedNode
     {
         m_link.Unlink();
     }
+    T* Next()
+    {
+        return m_link.Next();
+    }
 };
 
 // The link policies: TSGetLink finds a node's link in its m_link member; TSGetExplicitLink uses the list's
