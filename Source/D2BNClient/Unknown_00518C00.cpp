@@ -24,7 +24,7 @@ void __cdecl BNDOWNLOAD_StopDownloads(); // 0x0051E5D0
 
 extern "C" int __cdecl BNDOWNLOAD_HasPendingDownloads(); // 0x0051E5E0
 
-void __cdecl sub_005201E0_InitMessageQueue(); // 0x005201E0
+void __cdecl BNMESSQUEUE_InitMessageQueue(); // 0x005201E0
 
 int __cdecl BNMESSQUEUE_FreeAllMessages(); // 0x00520440
 
@@ -83,7 +83,7 @@ int gdwGlobal_008818C0; // 0x008818C0
 // 0x00518C00
 BnClientInterface* __cdecl sub_00518C00_GetInterface()
 {
-    sub_005201E0_InitMessageQueue();
+    BNMESSQUEUE_InitMessageQueue();
     return &gtBnClientInterface;
 }
 

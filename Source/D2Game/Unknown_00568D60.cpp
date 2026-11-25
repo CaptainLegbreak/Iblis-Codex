@@ -10,7 +10,8 @@ static long BNDOWNLOAD_GetTime(long* pTime)
     return _time32(pTime);
 }
 
-static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
+// build: symbol ?BNSEND_NibbleToHex@* 0x0051DD10
+static unsigned int BNSEND_NibbleToHex(unsigned int nValue)
 {
     nValue &= 0xF;
     if (nValue >= 10)
@@ -18,7 +19,8 @@ static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
     return nValue + 0x30;
 }
 
-static int sub_0051DD20_HexToNibble(char cChar)
+// build: symbol ?BNSEND_HexToNibble@* 0x0051DD20
+static int BNSEND_HexToNibble(char cChar)
 {
     char cLower = (char)tolower(cChar);
     if (cLower >= 'a')
@@ -26,7 +28,8 @@ static int sub_0051DD20_HexToNibble(char cChar)
     return cLower - 0x30;
 }
 
-static int sub_0051DD40_MapKeyChar(unsigned char cChar)
+// build: symbol ?BNSEND_MapKeyChar@* 0x0051DD40
+static int BNSEND_MapKeyChar(unsigned char cChar)
 {
     return gacCDKeyMap[cChar];
 }

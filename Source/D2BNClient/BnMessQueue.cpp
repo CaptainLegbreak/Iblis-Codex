@@ -56,7 +56,7 @@ D2CriticalSectionStrc gtMessageLock; // 0x00882004
 int gnBnState; // 0x0088201C
 
 // 0x005201E0
-void __cdecl sub_005201E0_InitMessageQueue()
+void __cdecl BNMESSQUEUE_InitMessageQueue()
 {
 // build: symbol ?gpMessageHead@* 0x00882020
     gpMessageHead = 0;
@@ -67,7 +67,7 @@ void __cdecl sub_005201E0_InitMessageQueue()
 }
 
 // 0x00520200
-void __cdecl sub_00520200_DeleteQueueLock()
+void __cdecl BNMESSQUEUE_DeleteQueueLock()
 {
     DeleteCriticalSection(&gtMessageLock);
 }
@@ -197,7 +197,7 @@ int __fastcall BNMESSQUEUE_TakeState(D2BnStateStrc* pState)
 }
 
 // 0x005205F0
-int __fastcall sub_005205F0_GetState(D2BnStateStrc* pState)
+int __fastcall BNMESSQUEUE_GetState(D2BnStateStrc* pState)
 {
     EnterCriticalSection(&gtMessageLock);
     pState->nState = gnBnState;
@@ -210,7 +210,7 @@ int __fastcall sub_005205F0_GetState(D2BnStateStrc* pState)
 }
 
 // 0x00520C30
-void __fastcall sub_00520C30_SetSlot(unsigned char nIndex, int nValue)
+void __fastcall BNMESSQUEUE_SetSlot(unsigned char nIndex, int nValue)
 {
     ganSlotArrayB[nIndex] = nValue;
 }
