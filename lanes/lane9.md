@@ -57,6 +57,15 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   dynamically initialized global is emitted after the unit's statically initialized data, so its .data section's
   layout no longer matches the original; the section splits (the existing split pass does it) as long as the global
   gets no data marker of its own (a marker makes the strict check fail).
+- lane9/crt-xcu-owners d84e6030, stacked on crt-xcu-hell (main f0f40e42, #377), precheck 0 not all equal; full verify
+  VERIFIED, **borrowed data 644 -> 608 B** (Game.exe identical). Step 4: nine more initializers come from the units
+  that own their globals, with their Storm stand-ins dropped: CharSel.cpp gwszRealmNames (0x6CA940), D2WinFont.cpp
+  gwszFramedText (0x6CAE20) and the color/monster code strings (0x6CAE40, 0x6CAE50), BNNews.cpp gtNewsItems
+  (0x6CAEC0/0x6CB450), BnSend.cpp gtBigPair (0x6CAEF0/0x6CB480), D2Game Game.cpp gnTargetMsPerFrame (0x6CAF10),
+  Window.cpp's three window texts (0x6CADF0, 0x6CAE00, 0x6CAE10; their two default strings 0x72DAA0/0x72DB3C move into
+  Window.cpp's plan, which also touches lane9/window-data's Window.cpp plan entry: merge one, I'll rebase the other).
+  Storm/Unknown_006CAE80.cpp and Bnclient/Unknown_006CB420.cpp end up empty and are removed. The user tells me lanes
+  1-6 are inactive and lane 9 may take their files, so I'm doing the rest of the 16 myself.
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
