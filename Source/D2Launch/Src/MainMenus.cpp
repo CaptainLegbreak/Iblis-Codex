@@ -27,6 +27,7 @@
 #include "D2Win32System.h"
 #include "D2Win32Message.h"
 #include "D2CoordPair.h"
+#include "FogApi.h"
 
 void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...); // 0x00409020
 
@@ -845,9 +846,7 @@ int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRea
 
 int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 void __fastcall CHARSEL_SwapUnicodeBytes(Unicode* pText, int nLength); // 0x0042E5D0
 
@@ -1235,9 +1234,7 @@ int gnGlobal_00779DA4; // 0x00779DA4
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

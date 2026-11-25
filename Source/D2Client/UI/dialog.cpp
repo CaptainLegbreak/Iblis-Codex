@@ -4,6 +4,7 @@
 #include "D2ClientUi.h"
 #include "D2StormTypes.h"
 #include "D2ClientDialogWidget.h"
+#include "FogApi.h"
 
 #pragma function(memset)
 
@@ -42,9 +43,7 @@ public:
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -113,7 +112,6 @@ extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); //
 
 void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
@@ -143,7 +141,6 @@ void __stdcall ROSTERPETS_HandleDialogEscape(SMSGHANDLER_PARAMS* pMsg);         
 
 struct D2RectStrc;
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 

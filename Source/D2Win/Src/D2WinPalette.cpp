@@ -3,6 +3,7 @@
 #include "D2GfxTypes.h"
 
 #include "D2Win32Types.h"
+#include "FogApi.h"
 
 struct D2Palette256Strc
 {
@@ -24,7 +25,6 @@ void __cdecl PALETTE_ApplyPaletteTables(); // 0x004FB010
 
 void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette); // 0x004F63D0
 
-int __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x0040B3C0
 
 extern const char gszD2WinPaletteSourceFile[]; // 0x006DC828
 

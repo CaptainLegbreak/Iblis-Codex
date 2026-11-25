@@ -1,6 +1,6 @@
 #include "D2Sound.h"
 #include "D2SoundTypes.h"
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+#include "FogApi.h"
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 struct D2SoundNodeStrc;

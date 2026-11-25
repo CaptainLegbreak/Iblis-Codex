@@ -1,5 +1,6 @@
 #include "D2BNClient.h"
 #include "D2BnCryptTypes.h"
+#include "FogApi.h"
 
 struct D2BnHashCtxStrc;
 
@@ -27,7 +28,6 @@ int __stdcall SFileLoadFile(const char* szFileName, void** ppBuffer, unsigned in
 
 int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

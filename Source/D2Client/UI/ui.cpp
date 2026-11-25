@@ -16,6 +16,7 @@
 #include "D2ItemsWorld.h"
 #include "D2ClientUiRecords.h"
 #include "D2WinSplitText.h"
+#include "FogApi.h"
 
 struct D2CelFileStrc;
 
@@ -222,7 +223,6 @@ extern const D2PanelHotkeysStrc gtBeltRowsHotkeys; // 0x006D62A0
 
 int gnPanelState;                                                                                  // 0x007A27E8
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 void __cdecl GAME_LoadLoadingPalette(); // 0x00454740
 
@@ -362,7 +362,6 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x
 
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC19C
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
 extern "C" __declspec(dllimport) int __stdcall ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x006CC1A4
 
@@ -372,9 +371,7 @@ extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

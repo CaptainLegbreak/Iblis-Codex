@@ -22,6 +22,7 @@
 #include "D2WinTypes.h"
 
 #include "D2Unicode.h"
+#include "FogApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -38,7 +39,6 @@ struct D2WinListEntry004FBB30Strc;
 
 struct D2WinControl004FBB30Strc;
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -113,7 +113,6 @@ struct D2UnitStrc;
 
 struct D2ItemsTxt;
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 enum D2WinControlType
 {
@@ -201,13 +200,11 @@ struct D2WinScrollBarStrc;
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
 extern "C" int __fastcall SCROLLBAR_GetScrollBarField48(D2WinScrollBarStrc* ptScrollbarData); // 0x00507EF0
 
 extern "C" int __cdecl isspace(int c);                                                                      // 0x00687006
 
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 

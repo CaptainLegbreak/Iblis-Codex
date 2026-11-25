@@ -1,5 +1,6 @@
 #include "D2Direct3D.h"
 #include "D2D3DTypes.h"
+#include "FogApi.h"
 
 struct D2SurfaceStrc;
 
@@ -9,15 +10,12 @@ struct D2TextureEntryStrc;
 
 struct D2TextureSetStrc;
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 struct D2SurfaceVtableStrc { void* unknown[31]; int (__stdcall* SetPalette)(D2SurfaceStrc*, void*); };
 

@@ -9,6 +9,7 @@
 #include "D2CelContext.h"
 
 #include "D2WinTypes.h"
+#include "FogApi.h"
 
 #pragma function(memset)
 
@@ -42,7 +43,6 @@ typedef void (__stdcall* D2WinEditBoxEnterFn)(Unicode* pText);
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -106,7 +106,6 @@ struct D2WinControlStrc;
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
 #define D2WIN_MAX(a, b) (((a) > (b)) ? (a) : (b))
 

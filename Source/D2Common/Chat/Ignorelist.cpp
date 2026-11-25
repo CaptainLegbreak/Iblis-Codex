@@ -13,6 +13,7 @@
 #include "D2CmpCache.h"
 #include "D2ProfileCounter.h"
 #include "D2ExperienceTxt.h"
+#include "FogApi.h"
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags) throw(); // 0x00412650
 
@@ -632,9 +633,7 @@ void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

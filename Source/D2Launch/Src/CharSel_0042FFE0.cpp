@@ -2,6 +2,7 @@
 #include "D2Unicode.h"
 #include "D2MultiTypes.h"
 #include "D2StormTypes.h"
+#include "FogApi.h"
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                  // 0x00412650
 int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId);                                           // 0x0042F430
@@ -111,8 +112,6 @@ int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 extern int gdwGlobal_0077AC04; // 0x0077AC04
 void __cdecl sub_00518C20_DeleteQueueLock(); // 0x00518C20
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 int __fastcall MAINMENUS_ShowOptionDescription(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0

@@ -20,6 +20,7 @@
 #include "D2Packets.h"
 #include "D2QuestData.h"
 #include "D2LanguageNames.h"
+#include "FogApi.h"
 // build: symbol _gaszLanguageNames 0x00731968
 
 struct D2DifficultyLevelsTxt;
@@ -42,9 +43,7 @@ extern const char gszMonsterRegion[]; // 0x006E0CF8
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char*,const char*,int); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 

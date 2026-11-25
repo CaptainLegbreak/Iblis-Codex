@@ -40,6 +40,7 @@
 #include "D2DrlgMaps.h"
 #include "D2ClientGfx.h"
 #include "D2LevelIds.h"
+#include "FogApi.h"
 
 
 
@@ -98,9 +99,7 @@ int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 
 extern D2FileIndexTextStrc gaFileIndexText[]; // 0x0072D6C0
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

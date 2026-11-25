@@ -10,6 +10,7 @@
 #include "D2LevelTxt.h"
 
 #include "D2ClientMenus.h"
+#include "FogApi.h"
 
 struct D2PlayerDataStrc;
 
@@ -23,9 +24,7 @@ typedef void (__cdecl* D2WheelCallbackFn)();
 
 typedef int (__stdcall* D2FarProcFn)();
 
-extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(D2FarProcFn lpfn);                              // 0x006CC34C
 

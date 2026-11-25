@@ -1,6 +1,7 @@
 #include "D2Direct3D.h"
 #include "D2DDrawTypes.h"
 #include "D2D3DTypes.h"
+#include "FogApi.h"
 
 #define ASSERT(expr,line) if (!(expr)) { FOG_DisplayHalt(gszEmptyString,sub_00408090(),line); exit(-1); }
 #define MIN(a,b) ((a)<(b)?(a):(b))
@@ -52,8 +53,6 @@ extern "C" __declspec(dllimport) int __stdcall GetCharWidthA(void* hDC, unsigned
 extern "C" __declspec(dllimport) int __stdcall DeleteObject(void* hObject);
 extern "C" __declspec(dllimport) int __stdcall DeleteDC(void* hDC);
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern unsigned long gdwFontTextColor; // 0x0074C0CC
@@ -579,8 +578,6 @@ void __cdecl sub_006B9A00_ResetScale()
 }
 
 struct D2Point006B7F20Strc;
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 
 int __fastcall sub_006B77B0_Call(int nLeft, int nTop, int nRight, int nBottom, int nValue, int nMode); // 0x006B77B0

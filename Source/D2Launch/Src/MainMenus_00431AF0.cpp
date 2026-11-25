@@ -1,5 +1,6 @@
 #include "D2Launch.h"
 #include "D2MultiTypes.h"
+#include "FogApi.h"
 struct D2FileTimeStrc;
 struct D2MenuCallbackArgStrc;
 struct D2ConfigStrc;
@@ -54,8 +55,6 @@ void* __fastcall FOG_CreateFileA(const char*, unsigned long, unsigned long, void
 int __fastcall FOG_ReadFile(void*, void*, unsigned long, unsigned long*, void*); // 0x004069B0
 int __fastcall FOG_CloseFile(void*); // 0x004069A0
 int __fastcall FOG_DeleteFileA(const char*); // 0x00406990
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall CHARSEL_SwapUnicodeBytes(Unicode*, unsigned int); // 0x0042E5D0
 Unicode* __fastcall win2Unicode(Unicode*, const char*, int); // 0x00526F20
 int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820

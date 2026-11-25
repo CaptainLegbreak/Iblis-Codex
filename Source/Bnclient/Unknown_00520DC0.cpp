@@ -33,9 +33,7 @@ extern "C" long __cdecl _time32(long* pTime);
 extern "C" int __cdecl tolower(int nChar);
 
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -67,6 +65,7 @@ void __cdecl sub_00521B90_ClearSrpState()
 #include "gen/data/Source/Bnclient/Unknown_00520DC0.inc"
 
 #include "D2BnCryptTypes.h"
+#include "FogApi.h"
 
 // 0x00522BB0
 // build: symbol ?BNDOWNLOAD_GetTime@* 0x00521B40

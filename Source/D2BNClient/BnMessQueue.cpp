@@ -1,4 +1,5 @@
 #include "D2BNClient.h"
+#include "FogApi.h"
 
 #pragma intrinsic(strlen)
 
@@ -14,7 +15,6 @@ struct D2BnMessage00520440Strc;
 
 extern "C" size_t __cdecl strlen(const char* szString);
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

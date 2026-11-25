@@ -2,6 +2,7 @@
 #include "D2CelContext.h"
 #include "D2CmpTypes.h"
 #include "D2Win32Base.h"
+#include "FogApi.h"
 
 struct D2CelStrc;
 struct D2DDrawClipRectStrc;
@@ -12,8 +13,6 @@ int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 struct D2DDrawClipRectStrc
 {
@@ -565,7 +564,6 @@ static void __stdcall sub_00512A50_DrawLine(const D2CoordPairStrc* pFrom, const 
     }
 }
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* pText, const char* pFile, int nLine); // 0x00408A60
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 // 0x00512CE0

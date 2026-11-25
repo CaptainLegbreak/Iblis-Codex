@@ -9,6 +9,7 @@
 #include "D2GlideTypes.h"
 
 #include "D2GameTypes.h"
+#include "FogApi.h"
 
 extern int gbGlideDrawing; // 0x0087EFE4
 
@@ -400,7 +401,6 @@ extern void (__stdcall* gpfnGrTexSource)(int nTmu, int nStartAddress, int nEvenO
 #define GLIDE_GETPROC(pfn, szName, nLine) *(void**)&pfn = GetProcAddress(ghGlideLibrary, szName); D2_ASSERT(pfn, nLine)
 
 struct D2GrLfbInfoStrc;
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern "C" __declspec(dllimport) void* __stdcall LoadLibraryA(const char* szLibFileName);
 extern "C" __declspec(dllimport) void* __stdcall GetProcAddress(void* hModule, const char* szProcName);

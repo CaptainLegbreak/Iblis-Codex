@@ -15,14 +15,13 @@
 
 #include "D2CelContext.h"
 #include "D2WinSplitText.h"
+#include "FogApi.h"
 
 struct D2CelFileStrc;
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
-extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
@@ -38,7 +37,6 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFile(const char* szFile, int nType);                              // 0x004FA9B0
 

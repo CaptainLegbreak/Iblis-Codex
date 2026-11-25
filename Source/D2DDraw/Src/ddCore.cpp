@@ -6,6 +6,7 @@
 #include "D2GlideTypes.h"
 #include "D2Win32Types.h"
 #include "D2FogSystemInfo.h"
+#include "FogApi.h"
 
 struct D2CriticalSectionStrc;
 
@@ -17,9 +18,7 @@ class D2DDrawSurfaceClass;
 
 class D2DDrawPaletteClass;
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(dllimport) void* __stdcall CreateFontA(int cHeight, int cWidth, int cEscapement, int cOrientation, int cWeight, unsigned long bItalic, unsigned long bUnderline, unsigned long bStrikeOut, unsigned long iCharSet, unsigned long iOutPrecision, unsigned long iClipPrecision, unsigned long iQuality, unsigned long iPitchAndFamily, const char* pszFaceName); // 0x006CC0E0
 
@@ -1018,7 +1017,6 @@ extern "C" __declspec(dllimport) int __stdcall TranslateMessage(const tagMSG* pM
 
 struct D2DDrawSurfaceStrc;
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
