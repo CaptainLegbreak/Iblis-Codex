@@ -23,7 +23,6 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
 
 D2DrlgEnvironmentStrc* __fastcall DUNGEON_GetEnvironmentFromAct(D2DrlgActStrc* pAct); // 0x0061AA60
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
@@ -54,11 +53,8 @@ enum D2C_J07DungeonConstants
     UNITFLAGEX_J07_REMOVED = 0x20,
 };
 
-void __stdcall UNITROOM_UpdatePath(D2UnitStrc* pUnit); // 0x0064C450
 
-void __fastcall COLLISION_FreeRoomCollisionGrid(void* pMemPool, D2ActiveRoomStrc* pRoom); // 0x0064CA10
 
-void __stdcall DUNGEON_FreeDrlgDelete(D2ActiveRoomStrc* pRoom); // 0x0061A2C0
 
 extern const int gnTownLevelIdsByAct[5]; // 0x006E7D1C
 
@@ -66,11 +62,9 @@ int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int
 
 int __fastcall DRLG_GetHoradricStaffTombLevelId(D2DrlgStrc* pDrlg); // 0x00642230
 
-void __fastcall DRLGROOMTILE_LoadDT1FilesForRoom(D2DrlgRoomStrc* pDrlgRoom); // 0x0066F240
 
 void __fastcall DRLGROOM_InitNearRooms(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom); // 0x0066C370
 
-void __fastcall DRLGROOMTILE_InitRoomGrids(D2DrlgRoomStrc* pDrlgRoom); // 0x0066EE40
 
 void __fastcall DRLG_CreateRoomForRoomEx(D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoom); // 0x006422A0
 
@@ -78,9 +72,7 @@ D2DrlgStrc* __fastcall DRLGROOM_GetDrlgFromRoomEx(D2DrlgRoomStrc* pRoom); // 0x0
 
 int __fastcall DRLG_IsOnClient(D2DrlgStrc* pDrlg); // 0x00642A00
 
-int __fastcall DRLG_IsTownLevel(int nLevelId); // 0x006426A0
 
-int __fastcall DRLGROOM_GetNumberOfNearRooms(D2DrlgRoomStrc* pDrlgRoom);                                        // 0x0066BCF0
 
 int gStatsClientAllocatedRooms;                                                                             // 0x0096C8B8
 

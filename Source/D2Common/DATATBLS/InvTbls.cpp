@@ -39,7 +39,6 @@ struct D2Table96D4F4Record
     D2Block2 tBlock2[10];
 };
 
-void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 
 unsigned int gnTable96D4F4RecordCount; // 0x0096D4F0
 

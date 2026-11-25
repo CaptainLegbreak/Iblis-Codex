@@ -17,16 +17,16 @@ struct D2PathRayStrc;
 
 struct D2UnkPathStrc
 {
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
+    int nTestDir0;
+    int nTestDir1;
+    int nTestDir2;
 };
 
 struct D2UnkPathStrc2
 {
-    unsigned char unk0x00;
-    unsigned char unk0x01;
-    unsigned char unk0x02;
+    unsigned char nTestDir0;
+    unsigned char nTestDir1;
+    unsigned char nTestDir2;
 };
 
 extern const D2UnkPathStrc gaPathDirectionTriplets[25]; // 0x006F1518
@@ -68,14 +68,10 @@ struct PathOwner { char pad0[0x2c]; D2DynamicPathStrc* pPath; };
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pDynamicPath); // 0x006487F0
 
 
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
-unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask); // 0x0064D9B0
 
 void __fastcall PATH_UpdateMotionVelocity(D2PathRayStrc* pRay); // 0x00678E30
 
@@ -163,13 +159,13 @@ static int __fastcall PATH_GetDirectionIndexXY(int nX1, int nY1, int nX2, int nY
 // 0x00678CB0
 int __fastcall PATH_GetAltFirstDirectionXY(int nX1, int nY1, int nX2, int nY2)
 {
-    return gaPathDirectionTripletsAlt[PATH_GetDirectionIndexXY(nX1, nY1, nX2, nY2)].unk0x00;
+    return gaPathDirectionTripletsAlt[PATH_GetDirectionIndexXY(nX1, nY1, nX2, nY2)].nTestDir0;
 }
 
 // 0x00678CF0
 int __fastcall PATH_GetFirstDirectionXY(int nX1, int nY1, int nX2, int nY2)
 {
-    return gaPathDirectionTriplets[PATH_GetDirectionIndexXY(nX1, nY1, nX2, nY2)].unk0x00;
+    return gaPathDirectionTriplets[PATH_GetDirectionIndexXY(nX1, nY1, nX2, nY2)].nTestDir0;
 }
 
 // 0x00678D30
@@ -177,9 +173,9 @@ void __fastcall PATH_GetDirectionTripletXY(int nX1, int nY1, int nX2, int nY2, i
 {
     int nIndex = PATH_GetDirectionIndexXY(nX1, nY1, nX2, nY2);
 
-    pTestDir[0] = gaPathDirectionTriplets[nIndex].unk0x00;
-    pTestDir[1] = gaPathDirectionTriplets[nIndex].unk0x04;
-    pTestDir[2] = gaPathDirectionTriplets[nIndex].unk0x08;
+    pTestDir[0] = gaPathDirectionTriplets[nIndex].nTestDir0;
+    pTestDir[1] = gaPathDirectionTriplets[nIndex].nTestDir1;
+    pTestDir[2] = gaPathDirectionTriplets[nIndex].nTestDir2;
 }
 
 // 0x00678DB0
@@ -187,9 +183,9 @@ void __fastcall PATH_GetAltDirectionTripletXY(int nX1, int nY1, int nX2, int nY2
 {
     int nIndex = PATH_GetDirectionIndexXY(nX1, nY1, nX2, nY2);
 
-    pTestDir[0] = gaPathDirectionTripletsAlt[nIndex].unk0x00;
-    pTestDir[1] = gaPathDirectionTripletsAlt[nIndex].unk0x01;
-    pTestDir[2] = gaPathDirectionTripletsAlt[nIndex].unk0x02;
+    pTestDir[0] = gaPathDirectionTripletsAlt[nIndex].nTestDir0;
+    pTestDir[1] = gaPathDirectionTripletsAlt[nIndex].nTestDir1;
+    pTestDir[2] = gaPathDirectionTripletsAlt[nIndex].nTestDir2;
 }
 
 // 0x00678C10
@@ -257,7 +253,7 @@ int __stdcall PATH_GetDirectionIndex(D2PathPointStrc pPoint1, D2PathPointStrc pP
 // 0x00678CD0
 int __stdcall PATH_GetAltFirstDirection(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
 {
-    return gaPathDirectionTripletsAlt[PATH_GetDirectionIndex(pPoint1, pPoint2)].unk0x00;
+    return gaPathDirectionTripletsAlt[PATH_GetDirectionIndex(pPoint1, pPoint2)].nTestDir0;
 }
 
 // 0x00678D70
@@ -265,9 +261,9 @@ void __fastcall PATH_GetDirections_6FDAB790(int* pTestDir, D2PathPointStrc pPoin
 {
     int nIndex = PATH_GetDirectionIndex(pPoint1, pPoint2);
 
-    pTestDir[0] = gaPathDirectionTriplets[nIndex].unk0x00;
-    pTestDir[1] = gaPathDirectionTriplets[nIndex].unk0x04;
-    pTestDir[2] = gaPathDirectionTriplets[nIndex].unk0x08;
+    pTestDir[0] = gaPathDirectionTriplets[nIndex].nTestDir0;
+    pTestDir[1] = gaPathDirectionTriplets[nIndex].nTestDir1;
+    pTestDir[2] = gaPathDirectionTriplets[nIndex].nTestDir2;
 }
 
 // 0x00678DF0
@@ -275,15 +271,15 @@ void __fastcall PATH_GetAltDirectionTriplet(int* pTestDir, D2PathPointStrc pPoin
 {
     int nIndex = PATH_GetDirectionIndex(pPoint1, pPoint2);
 
-    pTestDir[0] = gaPathDirectionTripletsAlt[nIndex].unk0x00;
-    pTestDir[1] = gaPathDirectionTripletsAlt[nIndex].unk0x01;
-    pTestDir[2] = gaPathDirectionTripletsAlt[nIndex].unk0x02;
+    pTestDir[0] = gaPathDirectionTripletsAlt[nIndex].nTestDir0;
+    pTestDir[1] = gaPathDirectionTripletsAlt[nIndex].nTestDir1;
+    pTestDir[2] = gaPathDirectionTripletsAlt[nIndex].nTestDir2;
 }
 
 // 0x00678D10
 int __stdcall PATH_GetFirstDirection(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
-    return gaPathDirectionTriplets[PATH_GetDirectionIndex(tPoint1, tPoint2)].unk0x00;
+    return gaPathDirectionTriplets[PATH_GetDirectionIndex(tPoint1, tPoint2)].nTestDir0;
 }
 
 struct D2MotionPathStrc

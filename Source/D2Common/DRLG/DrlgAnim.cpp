@@ -14,7 +14,6 @@ struct D2DrlgRoomTilesStrc;
 
 struct D2DrlgTileDataStrc;
 
-int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 
 int __stdcall TileLibraryGetTiles(D2TileLibraryHeaderStrc** ppTiles, int nTileType, int nStyle, int nSequence, D2TileLibraryEntryStrc** ppTileEntries, int nMaxEntries); // 0x00604AE0
 
@@ -79,9 +78,7 @@ struct D2CommonStormZero6105F0Strc
 
 extern const int gnTileTypeTable[];                                                                // 0x006EEF88
 
-void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY);                                            // 0x00643310
 
-void __fastcall DRLGANIM_AllocAnimationTileGrids(D2DrlgRoomStrc* pRoom, int nAnimationSpeed, D2DrlgGridStrc* pWallGrid, int nWalls, D2DrlgGridStrc* pFloorGrid, int nFloors, D2DrlgGridStrc* pShadowGrid);
 
 // 0x0066D290
 void __fastcall DRLGANIM_TestLoadAnimatedRoomTiles(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pDrlgGrid, D2DrlgGridStrc* pTileTypeGrid, int nTileType, int nTileX, int nTileY)

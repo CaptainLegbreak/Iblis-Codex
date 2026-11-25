@@ -45,9 +45,7 @@ struct D2UnkOutdoorStrc3;
 struct D2PosStrc;
 
 
-void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation); // 0x0067C4F0
 
-int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
 
 static void __stdcall DRLGOUTPLACE_PlaceCoordBeside(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4); // 0x00675EB0
 

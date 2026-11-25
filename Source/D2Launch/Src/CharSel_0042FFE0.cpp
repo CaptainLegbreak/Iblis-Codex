@@ -140,28 +140,6 @@ static inline void* CharSelCache_FindData(unsigned int dwHash, int nTick)
     }
     return 0;
 }
-// 0x0043AD10
-static void CHARSEL_RequestCharList(char* szName)
-{
-    CHARSEL_FreeCharList();
-    gdwGlobal_00779DB8 = 0;
-    CONTROL_SetEnabled(gpControl_00779D90, 1);
-    const unsigned int dwHash = SStrHash(szName, 0, 0);
-    const int nTick = GetTickCount();
-    void* pData = CharSelCache_FindData(dwHash, nTick);
-    if (!pData)
-    {
-        if (!gpFuncTable_0077ABF0->pfnSlot68())
-        {
-            MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
-            return;
-        }
-        gnBusy = 1;
-        gpszName = szName;
-        return;
-    }
-    CHARSEL_HandleCharList(szName, (int)pData, 0);
-}
 int __stdcall CHARSEL_OnName(SMSGHANDLER_PARAMS* pMsg); // 0x0043B490
 // build: symbol ?CHARSEL_FindSlotByName@* 0x00437A20
 static int CHARSEL_FindSlotByName(const char* szName)
@@ -302,26 +280,6 @@ void __cdecl CHARSEL_InitCharSelectScreen()
 // build: symbol ?D2SOUND_10034@* 0x005148F0
         D2SOUND_10034(1);
     CONTROL_SetEnabled(gpControl_007799F8, 1);
-}
-// 0x0043ADB0
-void __fastcall CHARSEL_UseName(char* szName)
-{
-    gbFlag_00779DD8 = 0;
-    if (gnLaunchMode == 1)
-    {
-        D2Win_10047((D2WinTextBoxStrc*)gpControl_00779D8C);
-        D2Win_10046(gpControl_00779D8C, szName, 0);
-        CHARSEL_RequestCharList(szName);
-    }
-    else if (gnLaunchMode == 0 || gnLaunchMode == 3 || gnLaunchMode == 2)
-    {
-        CHARSEL_FreeCharList();
-        if (!FOG_IsExpansion())
-            CHARSEL_ShowMessage();
-        sub_00438F70();
-    }
-    CHARSEL_Redraw();
-    CHARSEL_RefreshCharList();
 }
 void __cdecl CHARSEL_ClearFuncTable(); // 0x0043B800
 void __cdecl CHARSEL_SetCancelled(); // 0x0043B810

@@ -1253,17 +1253,6 @@ D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D
 
 void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pKiller, int bSkipDrops); // 0x0057CCB0
 
-int __stdcall shim_1(void* p1, void* p2);
-
-static int __stdcall sub_005FC630(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nMax, int nCount, D2AiCmdStrc* pAiCmd)
-{
-
-    pTarget->dwUnitType = 0;
-    pUnit->dwUnitType = 1;
-    shim_1(&pGame, &pAiControl);
-    return shim_1(&nMax, &nCount) + shim_1(&pAiCmd, 0);
-}
-
 // 0x005FD210
 void __fastcall AITHINK_Fn140_BaalCrabClone(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -1297,7 +1286,7 @@ void __fastcall AITHINK_Fn140_BaalCrabClone(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
 
     D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
-    int nParam = sub_005FC630(pGame, pUnit, pAiControl, pTarget, nMax, nCount, pAiCmd);
+    int nParam = AIBAAL_RollRandomAiParam(pGame, pUnit, pAiControl, pTarget, nMax, nCount, pAiCmd);
     if (nParam == 7 || nParam == 9 || nParam == 14 || nParam == 15)
     {
         nParam = 2;

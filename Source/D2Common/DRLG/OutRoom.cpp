@@ -33,29 +33,18 @@ void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-void __fastcall DRLGGRID_FreeGrid(void* pMemPool, D2DrlgGridStrc* pGrid); // 0x0067CD90
 
 void __fastcall DRLGVER_FreeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex); // 0x0067D1E0
 
-void __fastcall DRLGROOMTILE_AllocTileGrid(D2DrlgRoomStrc* pRoom);                                                // 0x0066EEA0
 
-void __fastcall DRLGROOMTILE_CountWallWarpTiles(D2DrlgRoomStrc* pRoom, D2DrlgGridStrc* pGrid, D2DrlgGridStrc* pGrid2, int a4, int a5); // 0x0066EDB0
 
-void __fastcall DRLGROOMTILE_CountAllTileTypes(D2DrlgRoomStrc* pRoom, D2DrlgGridStrc* pGrid, int a3, int a4, int a5); // 0x0066ECE0
 
-void __fastcall DRLGROOMTILE_AllocTileData(D2DrlgRoomStrc* pRoom); // 0x0066EEE0
 
-void __fastcall DRLGROOMTILE_LoadInitRoomTiles(D2DrlgRoomStrc* pRoom, D2DrlgGridStrc* pGrid, D2DrlgGridStrc* pGrid2, int a4, int a5, int a6); // 0x0066EC10
 
-void __fastcall DRLGLOGIC_AllocCoordLists(D2DrlgRoomStrc* pRoom); // 0x0066CCB0
 
-void __fastcall DRLGGRID_InitializeGridCells(void* pMemPool, D2DrlgGridStrc* pGrid, int nWidth, int nHeight);         // 0x0067CB80
 
-void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation);            // 0x0067C4F0
 
-int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                                          // 0x0067C570
 
-void __fastcall DRLGGRID_AlterEdgeGridFlags(D2DrlgGridStrc* pGrid, int nFlag, int eOperation);                       // 0x0067C600
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                                            // 0x006427F0
 
@@ -65,9 +54,7 @@ void __fastcall sub_00680C80(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom);   
 
 void __fastcall sub_006707A0(D2DrlgOutdoorTileCtxStrc* pCtx);                                                // 0x006707A0
 
-D2DrlgRoomStrc* __fastcall DRLGROOM_AllocRoomEx(D2DrlgLevelStrc* pLevel, int nType); // 0x0066B3E0
 
-void __fastcall DRLGROOM_AddRoomExToLevel(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom); // 0x0066B970
 
 int __fastcall DRLGTILESUB_PickSubThemes(D2DrlgRoomStrc* pRoom, int a2, int a3); // 0x006706A0
 
@@ -172,33 +159,20 @@ void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
     DRLGGRID_AlterEdgeGridFlags(&pOutdoor->tGrid28, 4, 0);
 }
 
-D2DrlgRoomStrc* __fastcall DRLGOUTPLACE_CreateOutdoorRoomEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50);
 
 void DRLGOUTROOM_FreeOutdoorRoomGrids(void* pMemPool, D2DrlgOutdoorRoomStrc* pOutdoor);
 
-void __fastcall DRLGOUTROOM_FreeDrlgOutdoorRoom(D2DrlgRoomStrc* pRoom);
 
-void __fastcall DRLGOUTROOM_FreeDrlgOutdoorRoomData(D2DrlgRoomStrc* pRoom);
 
-void __fastcall DRLGOUTROOM_AllocDrlgOutdoorRoom(D2DrlgRoomStrc* pRoom);
 
-void __fastcall DRLGOUTROOM_InitializeDrlgOutdoorRoom(D2DrlgRoomStrc* pRoom); // 0x0067D710
 
-unsigned int __fastcall DRLGOUTROOM_CheckOutdoorRoomFlag(D2DrlgRoomStrc* pRoom);
 
-void __fastcall DRLGROOMTILE_AllocTileGrid(D2DrlgRoomStrc* pRoom); // 0x0066EEA0
 
-D2DrlgRoomStrc* __fastcall DRLGROOM_AllocRoomEx(D2DrlgLevelStrc* pLevel, int nType);                                    // 0x0066B3E0
 
-void __fastcall DRLGROOM_AddRoomExToLevel(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom);                                  // 0x0066B970
 
-void __fastcall DRLGLOGIC_AllocCoordLists(D2DrlgRoomStrc* pRoom); // 0x0066CCB0
 
-void __fastcall DRLGROOMTILE_AllocTileData(D2DrlgRoomStrc* pRoom); // 0x0066EEE0
 
-void __fastcall DRLGROOMTILE_CountWallWarpTiles(D2DrlgRoomStrc* pRoom, D2DrlgGridStrc* pGrid, D2DrlgGridStrc* pGrid2, int a4, int a5); // 0x0066EDB0
 
-void __fastcall DRLGROOMTILE_LoadInitRoomTiles(D2DrlgRoomStrc* pRoom, D2DrlgGridStrc* pGrid, D2DrlgGridStrc* pGrid2, int a4, int a5, int a6); // 0x0066EC10
 
 struct D2DrlgCoordStrc;
 

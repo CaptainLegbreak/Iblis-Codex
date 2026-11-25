@@ -18,7 +18,6 @@ extern D2DataTablesStrc* sgptDataTables;
 extern unsigned int gdwBitMasks[];
 extern unsigned int gdwInvBitMasks[];
 D2StatesTxt* __fastcall DATATBLS_GetStatesTxtRecord(int nStateId);
-int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask);
 
 static inline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId)
 {

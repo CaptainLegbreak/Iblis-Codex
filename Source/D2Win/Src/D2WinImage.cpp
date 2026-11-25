@@ -239,12 +239,6 @@ int __fastcall IMAGE2_Draw(D2WinControlStrc* pControl)
     return 1;
 }
 
-// build: symbol ?D2Win_10058@* 0x004FCD90
-int __fastcall D2Win_10058(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn)
-{
-    return D2Win_10058_0(pControl, pText, a3, nColumn);
-}
-
 // 0x004FD340
 static void __stdcall IMAGE_DrawTiled(const D2CropRectStrc* pDst, const D2CropRectStrc* pSrc, D2CelContextStrc* pGfxData)
 {
@@ -276,21 +270,6 @@ static void __stdcall IMAGE_DrawTiled(const D2CropRectStrc* pDst, const D2CropRe
         }
         nY += nSrcHeight;
     }
-}
-
-// build: symbol ?SKILLS_GetSkillValue@* 0x005C33D0
-int __fastcall SKILLS_GetSkillValue(int nSkillId)
-{
-    switch (nSkillId)
-    {
-    case SKILL_PENETRATE:
-        return 0xA;
-    case SKILL_IMMOLATIONARROW:
-        return 0xC;
-    case SKILL_METEOR:
-        return 0xB;
-    }
-    return 0;
 }
 
 // 0x004FD470

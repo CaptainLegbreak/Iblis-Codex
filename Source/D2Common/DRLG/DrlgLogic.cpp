@@ -89,17 +89,11 @@ int __fastcall DRLG_CheckNotOverlappingUsingManhattanDistance(D2DrlgCoordStrc* p
 
 int __fastcall DRLGROOM_AreXYInsideCoordinatesOrOnBorder(D2DrlgCoordStrc* pDrlgCoord, int nX, int nY); // 0x0066B9D0
 
-int __fastcall DRLGGRID_IsGridValid(D2DrlgGridStrc* pGrid); // 0x0067C480
 
-void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int nOperation); // 0x0067C4F0
 
-int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 
-void __fastcall DRLGGRID_InitializeGridCells(void* pMemPool, D2DrlgGridStrc* pGrid, int nWidth, int nHeight); // 0x0067CB80
 
-void __fastcall DRLGGRID_FillGrid(D2DrlgGridStrc* pGrid, int nWidth, int nHeight, int* pCellPos, int* pCellFlags); // 0x0067CBF0
 
-void __fastcall DRLGGRID_ResetGrid(D2DrlgGridStrc* pGrid); // 0x0067CDC0
 
 static void __stdcall DRLGLOGIC_MarkBlockingTilesInGrid(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pDrlgGrid);
 
@@ -110,7 +104,6 @@ void __stdcall DRLGLOGIC_AssignCoordListsForGrids(D2DrlgRoomStrc* pDrlgRoom, D2D
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
-void __fastcall DRLGGRID_FreeGrid(void* pMemPool, D2DrlgGridStrc* pGrid); // 0x0067CD90
 
 D2RoomCoordListStrc* __fastcall DRLGLOGIC_GetRoomCoordListAtSubtile(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY);
 
@@ -133,15 +126,12 @@ void __fastcall DRLGLOGIC_ReplaceCoordListIndex(D2DrlgRoomStrc* pDrlgRoom, int n
 
 static void __stdcall DRLGLOGIC_MarkWallTilesInGrid(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pWallGrid);
 
-void __fastcall DRLGLOGIC_AllocCoordLists(D2DrlgRoomStrc* pDrlgRoom);
 
-int __fastcall DRLGLOGIC_GetRoomCoordListIndex(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY);
 
 static void __stdcall DRLGLOGIC_MergeCoordListsAtPoint(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, int nX, int nY);
 
 static void DRLGLOGIC_MergeCoordListsWithNearRooms(D2DrlgRoomStrc* pDrlgRoom);
 
-void __fastcall DRLGLOGIC_InitializeDrlgCoordList(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pTileTypeGrid, D2DrlgGridStrc* pFloorGrid, D2DrlgGridStrc* pWallGrid);
 
 inline int HasMapTileLayer(unsigned int dwFlags)
 {

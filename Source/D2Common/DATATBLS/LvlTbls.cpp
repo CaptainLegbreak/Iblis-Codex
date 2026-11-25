@@ -139,7 +139,6 @@ void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
-void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 
 extern D2SeedStrc* gpAutomapSeed; // 0x00744504
 
@@ -155,7 +154,6 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
-void __fastcall DRLGPRESET_FreeDrlgFile(D2DrlgFileStrc** ppDrlgFile); // 0x00668300
 
 void __fastcall DRLGTILESUB_FreeDrlgFile(D2LvlSubTxt* pLvlSubTxtRecord); // 0x00670630
 
@@ -195,7 +193,6 @@ void* __fastcall FOG_Alloc(int,const char*,int,int); // 0x0040B380
 
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 
-void __fastcall DRLGPRESET_LoadDrlgFile(D2DrlgFileStrc**,void*,const char*); // 0x00665F40
 
 __declspec(noreturn) void __cdecl sub_00681E09_Exit(int);
 
@@ -261,9 +258,7 @@ D2AutomapIndexStrc gaAutomapIndex[36]; // 0x0096C8D0
 
 extern D2DataTablesStrc sgtDataTables; // 0x0096BC30
 
-void __fastcall DATATBLS_LoadLevelTypesTxt(void* hArchive);
 
-void __fastcall DATATBLS_LoadLvlPrestTxt(void* hArchive, int bLoadFiles);
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
@@ -320,7 +315,6 @@ extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount(); // 0x006
 
 D2DrlgEnvironmentStrc* __fastcall DUNGEON_GetEnvironmentFromAct(D2DrlgActStrc* pAct); // 0x0061AA60
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 

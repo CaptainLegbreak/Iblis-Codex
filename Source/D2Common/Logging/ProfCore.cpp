@@ -19,7 +19,6 @@ extern PROFHOOK0096BC24FN gpfnProfSecondaryHook; // 0x0096BC24
 
 typedef void(__stdcall* PROFHOOKFN)(int nA, char* pBuffer, int nC);
 extern PROFHOOKFN gpfnProfHook; // 0x0096BC28
-void __cdecl LOG_11100(int nA, int nB, int nC, int nFlags, const char* szFile, int nLine, const char* szFormat, ...); // 0x006248E0
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(__int64* pnCount); // 0x006CC25C
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(__int64* pnFrequency); // 0x006CC254
 PROFHOOK0096BC24FN gpfnProfSecondaryHook; // 0x0096BC24

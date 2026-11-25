@@ -81,11 +81,9 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); /
 
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
 
-int __stdcall ITEMMODS_GetByTimeAdjustment(int nAmount, int nPeriodOfDay, int nBaseTime, int* pItemModPeriodOfDay, int* pItemModMin, int* pItemModMax); // 0x0065CA30
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
-int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker); // 0x00622560
 
 static inline int STATLIST_GetTotalStatValue_Inl(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer);
 
@@ -115,7 +113,6 @@ int __fastcall ITEMMODS_GetCalcParamValue_Return0(int nParam, void* pUserData); 
 
 struct Obj00625CE0 { unsigned char bUnknown00[0x38]; unsigned int dwValue38; };
 
-int __stdcall STATLIST_GetBaseStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625350
 
 struct Obj00626090 { unsigned char bUnknown00[0x18]; unsigned int dwValue18; };
 
@@ -165,21 +162,16 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-void __stdcall STATLIST_AddStat(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627030
 
-int __stdcall STATLIST_SetStatValue(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
 
 struct D2StatListExStrc;
 
-void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 
 int __stdcall STATLIST_SetBaseStat(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer, D2UnitStrc* pUnit); // 0x00627170
 
-int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer);
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);
 
-int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit);
 
 #define STATLIST_NEWLENGTH 0x00000002
 
@@ -195,15 +187,11 @@ extern unsigned int gdwInvBitMasks[]; // 0x006CE2E8
 
 extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId); // 0x00452040
 
-int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
 
-int __stdcall STATLIST_GetTotalStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625420
 
 D2StatListStrc* __stdcall D2Common_GetStateFromStatListEx_6FDB8190(D2StatListStrc* pStatListEx, int nStateId); // 0x00625650
 
-void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
-void __stdcall STATLIST_RemoveAllStats(D2StatListStrc* pStatList); // 0x00627340
 
 int __stdcall STATES_CheckStateMaskStayDeathOnUnitByStateId(D2UnitStrc* pUnit, int nState); // 0x0063A4A0
 
@@ -215,7 +203,6 @@ int __stdcall D2Common_11275(D2UnitStrc* pTarget, D2UnitStrc* pUnit); // 0x00627
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
-D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState);             // 0x006256B0
 
 inline int STATLIST_IsExtended(D2StatListStrc* pStatList);
 

@@ -34,7 +34,6 @@ D2ObjModeTypeTxt* gpObjType;                                                    
 
 D2ObjModeTypeTxt* gpObjMode;                                                                                // 0x0096D4D4
 
-void __stdcall DATATBLS_UnloadBin(void* pBinFile);                                                          // 0x006125C0
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
 

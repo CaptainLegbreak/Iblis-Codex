@@ -41,15 +41,10 @@ void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, 
 
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
 
-D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);         // 0x006439F0
 
-int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus);                     // 0x006442A0
 
-int __fastcall SKILLS_CalculateDamageBonusByLevel(int nLevel, int* pLevelDamage);                           // 0x00644B70
 
-int __stdcall SKILLS_GetSpecialParamValue(D2UnitStrc* pUnit, int nParamId, int nSkillId, int nSkillLevel);  // 0x00646460
 
-int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc* pMissile, D2UnitStrc* pOwner, unsigned int nCalc, int nMissileId, int nLevel); // 0x0064B7C0
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
@@ -173,8 +168,8 @@ struct Unit
     int type;
     int classId;
     char padding_seedLow[N_32 - N_4 - sizeof(int)];
-    unsigned int f_20;
-    unsigned int f_24;
+    unsigned int nSeedLow;
+    unsigned int nSeedHigh;
     char padding_inventory[N_96 - N_36 - sizeof(unsigned int)];
     void* inventory;
 };
@@ -306,7 +301,6 @@ static inline int GetUnitType(D2UnitStrc* pUnit)
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
-int __stdcall MISSILE_GetSpecialParamValue(D2UnitStrc* pMissile, D2UnitStrc* pOwner, unsigned char nParamId, int nMissileId, int nLevel); // 0x0064B340
 
 extern D2DataTablesStrc* gpDataTables_00744304; // 0x00744304
 
@@ -318,7 +312,6 @@ static inline D2MissilesTxt* GetMissileRecord(int nMissileId)
 }
 
 
-int __stdcall D2Common_11033(int nLevel, int nParam, int nMax); // 0x00645B20
 extern void* gpfnMissileCalcFunctions[]; // 0x00745828
 extern int gnMissileCalcFunctionCount; // 0x00745848
 static int sub_0044BE50(D2UnitStrc* pUnit)
@@ -347,10 +340,10 @@ static unsigned int MISSILE_GetLevel(D2UnitStrc* pMissile)
 
 static __forceinline unsigned int RollPercent(Unit* unit)
 {
-    unsigned __int64 next = (unsigned __int64)unit->f_24
-        + (unsigned __int64)unit->f_20 * 1791398085u;
-    unit->f_24 = (unsigned int)(next >> 32);
-    unit->f_20 = (unsigned int)next;
+    unsigned __int64 next = (unsigned __int64)unit->nSeedHigh
+        + (unsigned __int64)unit->nSeedLow * 1791398085u;
+    unit->nSeedHigh = (unsigned int)(next >> 32);
+    unit->nSeedLow = (unsigned int)next;
     return (unsigned int)next % 100u;
 }
 

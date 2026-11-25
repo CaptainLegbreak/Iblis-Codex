@@ -79,23 +79,17 @@ void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, 
 
 D2LvlPrestTxt* __stdcall DATATBLS_GetLvlPrestTxtRecord(int nLvlPrestId);                                                  // 0x0061F0B0
 
-D2DrlgRoomStrc* __fastcall DRLGROOM_AllocRoomEx(D2DrlgLevelStrc* pLevel, int nType);                            // 0x0066B3E0
 
-void __fastcall DRLGROOM_AddRoomExToLevel(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pDrlgRoom);                          // 0x0066B970
 
-void __fastcall DRLGGRID_FreeGrid(void* pMemPool, D2DrlgGridStrc* pGrid);                                     // 0x0067CD90
 
 void __fastcall DRLGVER_FreeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertices);                              // 0x0067D1E0
 
-void __stdcall SKILLS_GameTileToSubtileCoords(int* pX, int* pY);                                                            // 0x00643560
 
 struct D2PresetUnitStrc* __fastcall DRLGROOM_AllocPresetUnit(D2DrlgRoomStrc* pDrlgRoom, void* pMemPool, int nUnitType, int nIndex, int nMode, int nX, int nY);   // 0x0066BF30
 
-int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                                          // 0x0067C570
 
 void __fastcall DRLGGRID_AssignCellsOffsetsAndFlags(D2DrlgGridStrc* pGrid, int* pCellFlags, D2DrlgCoordStrc* pCoord, int nWidth, int* pBuffer);   // 0x0067CD30
 
-void __fastcall DRLGGRID_ResetGrid(D2DrlgGridStrc* pGrid);                                                       // 0x0067CDC0
 
 void __fastcall DRLGPRESET_AddPresetUnitToDrlgMap(void* pMemPool, D2DrlgMapStrc* pDrlgMap, D2SeedStrc* pSeed);                    // 0x00667620
 
@@ -103,9 +97,7 @@ int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordStrc* pCoord, int nX, 
 
 void __fastcall DRLGGRID_FillNewCellFlags(void* pMemPool, D2DrlgGridStrc* pGrid, int* pCellFlags, D2DrlgCoordStrc* pCoord, int nWidth);   // 0x0067CCC0
 
-void __fastcall DRLGGRID_AlterAllGridFlags(D2DrlgGridStrc* pGrid, int nFlags, int nOperation);                              // 0x0067C590
 
-void __fastcall DRLGGRID_AlterEdgeGridFlags(D2DrlgGridStrc* pGrid, int nFlags, int nOperation);                             // 0x0067C600
 
 D2LvlPrestTxt* __fastcall DATATBLS_GetLvlPrestTxtRecordFromLevelId(int nLevelId);                                                  // 0x0061F0E0
 
@@ -115,33 +107,21 @@ int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId)
 
 D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId);                                     // 0x00642BB0
 
-void __stdcall DRLG_InitLevel(D2DrlgLevelStrc* pLevel);                                                        // 0x006424A0
 
-D2ActiveRoomStrc* __fastcall DRLGACTIVATE_InitializeRoomEx(D2DrlgRoomStrc* pDrlgRoom); // 0x0061B730
 
-int __fastcall DRLGWARP_GetWarpDestinationFromArray(D2DrlgLevelStrc* pLevel, unsigned char nWarpId); // 0x0066AF30
 
-void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlags, int nOperation);             // 0x0067C4F0
 
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                                         // 0x00640E90
 
-void __fastcall DRLGROOMTILE_AllocTileGrid(D2DrlgRoomStrc* pDrlgRoom);                                                // 0x0066EEA0
 
-void __fastcall DRLGROOMTILE_CountAllTileTypes(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pGrid, int bCheckCoordinatesValidity, int bKillEdgeX, int bKillEdgeY);   // 0x0066ECE0
 
 void __fastcall DRLGANIM_TestLoadAnimatedRoomTiles(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pGrid, D2DrlgGridStrc* pTileTypeGrid, int nTileType, int bKillEdgeX, int bKillEdgeY);   // 0x0066D290
 
-void __fastcall DRLGROOMTILE_CountWallWarpTiles(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pGrid, D2DrlgGridStrc* pTileTypeGrid, int bKillEdgeX, int bKillEdgeY);   // 0x0066EDB0
 
-void __fastcall DRLGROOMTILE_AllocTileData(D2DrlgRoomStrc* pDrlgRoom);                                                 // 0x0066EEE0
 
-void __fastcall DRLGROOMTILE_LoadInitRoomTiles(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pGrid, D2DrlgGridStrc* pTileTypeGrid, int bCheckCoordinatesValidity, int bKillEdgeX, int bKillEdgeY);   // 0x0066EC10
 
-void __fastcall DRLGANIM_AllocAnimationTileGrids(D2DrlgRoomStrc* pDrlgRoom, int nAnimSpeed, D2DrlgGridStrc* pWallGrid, int nWallLayers, D2DrlgGridStrc* pFloorGrid, int nFloorLayers, D2DrlgGridStrc* pCellGrid);   // 0x0066D700
 
-void __fastcall DRLGLOGIC_InitializeDrlgCoordList(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pTileTypeGrid, D2DrlgGridStrc* pFloorGrid, D2DrlgGridStrc* pWallGrid);   // 0x0066D110
 
-void __fastcall DRLGLOGIC_AllocCoordLists(D2DrlgRoomStrc* pDrlgRoom);                                               // 0x0066CCB0
 
 D2LevelFileListStrc* gpLevelFilesList;                                                                            // 0x0096D60C
 
@@ -172,9 +152,7 @@ extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 
-void __fastcall DRLGPRESET_LoadDrlgFile(D2DrlgFileStrc** ppDrlgFile, void* hArchive, const char* szFile);
 
-void __fastcall DRLGPRESET_FreeDrlgFile(D2DrlgFileStrc** ppDrlgFile);
 
 void __fastcall DRLGPRESET_ParseDS1File(D2DrlgFileStrc* pDrlgFile, void* hArchive, const char* szFile);                  // 0x00665950
 
@@ -182,7 +160,6 @@ int __stdcall sub_00604B90(void* pTile);                                        
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void);                                // 0x006CC260
 
-void __fastcall DRLGGRID_FillGrid(D2DrlgGridStrc* pGrid, int nWidth, int nHeight, int* pCellPos, int* pCellFlags);   // 0x0067CBF0
 
 extern "C" const char gszEmptyAssertText;                                                                          // 0x006CC837
 
@@ -200,7 +177,6 @@ static void __stdcall DRLGPRESET_AddPresetRiverObjects(D2DrlgMapStrc* pDrlgMap, 
 
 static void DRLGPRESET_SpawnMapRivers(D2DrlgMapStrc* pDrlgMap, void* pMemPool); // 0x006663C0
 
-void __fastcall DRLGPRESET_AddPresetRoomMapTiles(D2DrlgRoomStrc* pDrlgRoom);
 
 #pragma intrinsic(memset)
 
@@ -271,14 +247,14 @@ struct D2StormListStrc
 
 struct D2Storm4167B0Strc
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
 
     ~D2Storm4167B0Strc();
 };
 
 struct D2Storm4168F0Strc
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
 
     ~D2Storm4168F0Strc();
 };
@@ -307,7 +283,6 @@ struct D2Unk00667420Strc
     D2Unk00667420BStrc* p14;
 };
 
-void __fastcall DRLGROOMTILE_CountAllTileTypes(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pGrid, int bFillBlanks, int bKillEdgeX, int bKillEdgeY); // 0x0066ECE0
 
 static void DRLGPRESET_FindTombStoneTiles(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom);
 
@@ -335,21 +310,15 @@ void __fastcall DRLGPRESET_FreeMapAI(void* pMemPool, D2MapAIStrc* pMapAI);
 
 static void __stdcall DRLGPRESET_FreeDrlgGrids(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom);
 
-void __fastcall DRLGPRESET_FreePresetRoomData(D2DrlgRoomStrc* pDrlgRoom);
 
-void __fastcall DRLGPRESET_FreeDrlgGridsFromPresetRoom(D2DrlgRoomStrc* pDrlgRoom);
 
-void __fastcall DRLGPRESET_AllocPresetRoomData(D2DrlgRoomStrc* pDrlgRoom);
 
 void __fastcall DRLGPRESET_GetTombStoneTileCoords(D2DrlgRoomStrc* pDrlgRoom, D2CoordStrc** ppTombStoneTiles, int* pnTombStoneTiles);
 
 int __fastcall DRLGPRESET_SetPickedFileInDrlgMap(D2DrlgMapStrc* pDrlgMap, int nPickedFile);
 
-int __fastcall DRLGPRESET_GetSizeX(int nLvlPrestId);
 
-int __fastcall DRLGPRESET_GetSizeY(int nLvlPrestId);
 
-char* __fastcall DRLGPRESET_GetPickedLevelPrestFilePathFromRoomEx(D2DrlgRoomStrc* pDrlgRoom);
 
 void __fastcall DRLGPRESET_ResetDrlgMap(D2DrlgLevelStrc* pLevel, int bKeepPreset);
 
@@ -365,17 +334,13 @@ void __fastcall DRLGPRESET_SpawnHardcodedPresetUnits(D2DrlgRoomStrc* pDrlgRoom);
 
 static void DRLGPRESET_MovePresetUnitsToRoom(D2DrlgRoomStrc* pDrlgRoom);
 
-void __fastcall DRLGPRESET_InitPresetRoomGrids(D2DrlgRoomStrc* pDrlgRoom);
 
 static void __stdcall DRLGPRESET_TogglePopsVisibility(D2DrlgRoomStrc* pDrlgRoom, int nPopSubIndex, D2DrlgCoordStrc* pDrlgCoord, int nTick, int bClose);
 
-void __fastcall DRLGPRESET_UpdatePops(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY, int bOtherRoom);
 
 void __stdcall DUNGEON_GameTileToSubtileCoords(int* pX, int* pY);
 
-void __fastcall DRLGGRID_FillGrid(D2DrlgGridStrc* pGrid, int nWidth, int nHeight, int* pCellPos, int* pCellFlags);
 
-void __fastcall DRLGPRESET_GenerateLevel(D2DrlgLevelStrc* pLevel);
 
 void __fastcall DRLGPRESET_FreeDrlgMap(void* pMemPool, D2DrlgMapStrc* pDrlgMap);
 
@@ -1453,7 +1418,7 @@ char* __fastcall sub_004167A0_LinkNext(D2StormLinkStrc* pLink)
 
 D2Storm4167B0Strc::~D2Storm4167B0Strc()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink)
@@ -1506,7 +1471,7 @@ char* __fastcall sub_00416880_LinkRawNext(D2StormLinkStrc* pLink)
 
 D2Storm4168F0Strc::~D2Storm4168F0Strc()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 void __fastcall sub_004169F0_InitTerminator(D2StormListStrc* pList)

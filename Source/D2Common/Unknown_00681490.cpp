@@ -10,7 +10,6 @@ static D2DrlgPathNodeStrc* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch,
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                         // 0x0067C570
 
 D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char nDirection);          // 0x0067CDD0
 
