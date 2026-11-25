@@ -40061,6 +40061,26 @@
    ]
   },
   {
+   "file": "Source/D2Lang/Unknown_00527090.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00527090",
+     "length": 258,
+     "name": "ContainsChar"
+    },
+    {
+     "va": "0x005271A0",
+     "length": 259,
+     "name": "?sub_005271A0_EndsWithCharOf@@YA_NPBDPBUUnicode@@@Z"
+    },
+    {
+     "va": "0x005272B0",
+     "length": 929
+    }
+   ]
+  },
+  {
    "file": "Source/D2Lang/StrTable/strtable.cpp",
    "rank": 0,
    "functions": [
@@ -40195,11 +40215,6 @@
      "va": "0x00525FB0",
      "length": 331,
      "name": "D2LANG_FormatInt"
-    },
-    {
-     "va": "0x00527090",
-     "length": 258,
-     "name": "ContainsChar"
     }
    ]
   },
@@ -40358,21 +40373,6 @@
      "va": "0x00526610",
      "length": 168,
      "name": "strnicmp"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Lang/Unknown_005271A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005271A0",
-     "length": 259,
-     "name": "?sub_005271A0_EndsWithCharOf@@YA_NPBDPBUUnicode@@@Z"
-    },
-    {
-     "va": "0x005272B0",
-     "length": 929
     }
    ]
   },

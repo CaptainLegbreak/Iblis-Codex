@@ -778,34 +778,6 @@ void __stdcall D2LANG_FormatInt(Unicode* pOut, int nValue, int nSize)
     }
 }
 
-// 0x00527090
-bool D2LangCharSetStrc::ContainsChar(const Unicode* pChar) const
-{
-    Unicode wszChars[20] = {};
-    int i;
-    for (i = 0; i < 20 && szChars[i] != '\0'; ++i)
-    {
-        wszChars[i].wChar = (unsigned char)szChars[i];
-    }
-    if (szChars[i] != '\0')
-    {
-        wszChars[i - 1].wChar = 0;
-    }
-    else
-    {
-        wszChars[i].wChar = 0;
-    }
-    const int nLength = sub_00526800(wszChars);
-    for (int j = 0; j < nLength; ++j)
-    {
-        if (pChar->wChar == wszChars[j].wChar)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
 // 0x00525350
 void __stdcall STR_GroupUintDigits(Unicode* pOut, unsigned int nValue, int nSize)
 {
