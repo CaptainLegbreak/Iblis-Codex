@@ -77390,6 +77390,10 @@
      "length": 429
     },
     {
+     "va": "0x006B7B30",
+     "length": 346
+    },
+    {
      "va": "0x006B7C90",
      "length": 233
     },
@@ -77536,16 +77540,6 @@
      "va": "0x006B76C0",
      "length": 3,
      "name": "sub_006B76C0"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B7B30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B7B30",
-     "length": 346
     }
    ]
   },
