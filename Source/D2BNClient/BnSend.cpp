@@ -22,6 +22,7 @@
 
 #include "D2BnMessages.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -156,7 +157,6 @@ extern "C" long __cdecl _time32(long* pTime); // 0x006850E6
 
 int __fastcall EXCEPTIONS_ReadCrashDump(char* pBuffer, unsigned int* pnSize); // 0x0040D290
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 int __fastcall BNSEND_SendReportVersion(unsigned int dwExeVersion, unsigned int dwExeHash, const char* szExeInfo); // 0x0051A8F0
 
@@ -326,7 +326,6 @@ struct D2BnLogonRealmPacketStrc
     char szRealmName[0x100];
 };
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 int gdwGlobal_008818BC; // 0x008818BC
 
@@ -426,7 +425,6 @@ struct D2BnKeyValuePacketStrc
     char szText[1];
 };
 
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
 
@@ -594,7 +592,6 @@ extern "C" __declspec(dllimport) unsigned short __stdcall GetSystemDefaultLangID
 
 char* __stdcall SStrUpper(char* szString);                                                      // 0x004141E0
 
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 
 int __fastcall sub_0051C9E0_GetSockName(void* pAddress, int* pnLength); // 0x0051C9E0
 

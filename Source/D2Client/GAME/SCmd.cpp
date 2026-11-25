@@ -20,6 +20,7 @@
 #include "D2UnitDropPacket.h"
 #include "D2Win32Message.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 struct D2ActiveRoomStrc;
 
@@ -781,9 +782,7 @@ void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBit
 
 int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc* pBuffer, int nBits); // 0x00411030
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
 int __cdecl GAME_IsExitPending(); // 0x0044DA30
 
@@ -1957,9 +1956,7 @@ struct D2ChatMessageStrc
     char szText[0x100];
 };
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
 #pragma pack(push, 1)
 struct D2EnvironmentPacketStrc
@@ -2158,7 +2155,6 @@ struct D2MsgRecordChunkStrc;
 
 
 
-int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam, int* pUseResult, int* pResult); // 0x00420B00
 
 int __cdecl RECORD_IsReplayActive(); // 0x00451990
 

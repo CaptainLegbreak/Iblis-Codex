@@ -29,6 +29,7 @@
 #include "D2DrlgDelete.h"
 #include "D2NpcEvent.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 #pragma function(memset)
 
@@ -342,9 +343,7 @@ unsigned int __fastcall CRC32_Compute(void* pData, unsigned int dwSize); // 0x00
 
 unsigned short __stdcall FOG_ComputeStringCRC16(const char* szString); // 0x004112C0
 
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
-unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 

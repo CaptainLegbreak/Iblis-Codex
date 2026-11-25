@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
 #include "D2Win32Types.h"
+#include "StormApi.h"
 
 struct D2StatStrc;
 struct D2StatsArrayStrc;
@@ -12,7 +13,6 @@ struct D2StatesTxt;
 
 typedef unsigned int size_t;
 
-extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 
 extern D2DataTablesStrc* sgptDataTables;
 extern unsigned int gdwBitMasks[];

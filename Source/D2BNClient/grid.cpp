@@ -1,6 +1,7 @@
 #include "D2BNClient.h"
 #include "D2BnCryptTypes.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 struct D2BnHashCtxStrc;
 
@@ -20,9 +21,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
-unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 
 int __stdcall SFileLoadFile(const char* szFileName, void** ppBuffer, unsigned int* pSize, unsigned int nExtraSize, void* pOverlapped); // 0x0041B650
 

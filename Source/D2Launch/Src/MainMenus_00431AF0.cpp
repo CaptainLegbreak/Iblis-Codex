@@ -1,6 +1,7 @@
 #include "D2Launch.h"
 #include "D2MultiTypes.h"
 #include "FogApi.h"
+#include "StormApi.h"
 struct D2FileTimeStrc;
 struct D2MenuCallbackArgStrc;
 struct D2ConfigStrc;
@@ -14,7 +15,6 @@ extern "C" __declspec(dllimport) int __stdcall FindNextFileA(void* hFindFile, D2
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(const char* szFileName); // 0x006CC1B0
 extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileName); // 0x006CC1A0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 const char* __stdcall Name(D2FuncRecordStrc* pRecord, int nIndex); // 0x005180A0
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -93,7 +93,6 @@ char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLeng
 
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 
-unsigned int __stdcall SStrLen(const char* szString);                                                       // 0x00413750
 
 // 0x0042FB20
 void __cdecl MAINMENUS_CreateVideoScreen()

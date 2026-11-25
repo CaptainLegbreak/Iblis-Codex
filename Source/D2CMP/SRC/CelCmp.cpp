@@ -19,6 +19,7 @@
 #include "D2FindTileEntry.h"
 #include "D2CmpDC6CacheEntry.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1482,7 +1483,6 @@ struct D2TileLibraryStrc
     D2TileLibraryEntryStrc* pTiles;
 };
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 D2TileFreeCallbackFn gpfnTileFreeCallback; // 0x0088CB1C
 

@@ -28,6 +28,7 @@
 #include "D2Win32Message.h"
 #include "D2CoordPair.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...); // 0x00409020
 
@@ -326,7 +327,6 @@ struct D2LaunchPayloadStrc
     D2LaunchThreadRecordStrc tRecord;
 };
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 void __cdecl MAINMENUS_ShowConnectingPopup(); // 0x0042F6E0
 
@@ -338,9 +338,7 @@ struct D2LaunchControlTemplateStrc;
 
 struct D2LaunchRecord3Strc;
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long nValue); // 0x004150E0
 
 void __fastcall BUTTON_SetText(D2WinControlStrc* pControl, int nMode, unsigned short* pText, int nArg); // 0x005009D0
 
@@ -1242,7 +1240,6 @@ extern "C" __declspec(dllimport) int __stdcall GetDiskFreeSpaceA(const char* szR
 
 int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
-int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 
 int __cdecl MAINMENUS_ShowTerms(); // 0x00433810
 

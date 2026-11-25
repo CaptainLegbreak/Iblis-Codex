@@ -7,6 +7,7 @@
 #include "D2ClientGfx.h"
 #include "D2Txt.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 #define UNIT_PLAYER 0
 
@@ -54,7 +55,6 @@ extern "C" char* __cdecl _strlwr(char* szString); // 0x006864E1
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 
-unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 
 
 

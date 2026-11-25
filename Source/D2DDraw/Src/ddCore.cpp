@@ -7,6 +7,7 @@
 #include "D2Win32Types.h"
 #include "D2FogSystemInfo.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 struct D2CriticalSectionStrc;
 
@@ -327,7 +328,6 @@ void __fastcall sub_0050C0F0_GlideDrawBoxAlpha(int nXStart, int nYStart, int nXE
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 
 void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT* pRect, unsigned char nColor);                     // 0x00512D90
 

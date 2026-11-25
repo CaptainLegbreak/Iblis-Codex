@@ -3,6 +3,7 @@
 #include "D2StormTypes.h"
 #include "D2Unicode.h"
 #include "FogApi.h"
+#include "StormApi.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct SMSGHANDLER_PARAMS;
@@ -191,7 +192,6 @@ extern int gnGlobal_00779DC4;                                                   
 int __cdecl FOG_IsExpansion();                                                                 // 0x00408F20
 extern "C" const char gszCharSelFile[];                                                            // 0x006D4DBC
 extern int gdwGlobal_00779DA4;                                                                              // 0x00779DA4
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 void __cdecl CHARSEL_RefreshCharList();                                                                        // 0x00438560
 int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode);                                // 0x005042F0
 void __stdcall D2Win_10149(D2CompositeUnitStrc* pCompositeUnit, unsigned char nValue);                     // 0x005051A0
@@ -254,7 +254,6 @@ D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId);                  
 void __cdecl CHARSEL_DisconnectBattleNet();                                                                                // 0x0043B9A0
 static int CHARSEL_FindSlotByName(const char* szName); // 0x00437A20
 struct D2WinTextBoxStrc;
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 int __cdecl GAME_GetSlotNameCount(); // 0x00430B40
 void __cdecl CHARSEL_CreateCharInfoControls(); // 0x00437BF0
 void __cdecl CHARSEL_RefreshCharEntry(); // 0x0043A650

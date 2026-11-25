@@ -1,6 +1,7 @@
 #include "D2Net.h"
 
 #include "D2NetTypes.h"
+#include "StormApi.h"
 
 
 struct D2NetPacketRecStrc;
@@ -619,7 +620,6 @@ extern "C" char* __stdcall inet_ntoa(D2InAddrStrc tAddress);                    
 
 extern "C" int __stdcall getsockname(unsigned int nSocket, void* pAddress, int* pnLength);                 // 0x006B0144
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax);                     // 0x004135D0
 
 extern int gClientSocket;                                                                                   // 0x00730AE0
 

@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "FogApi.h"
+#include "StormApi.h"
 #include "gen/data/Source/D2Client/GAME/Msg.inc"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -412,7 +413,6 @@ void __fastcall MSG_SendPartyCommand(unsigned char nCommand, int nUnitId)
     MSG_SendToServer((unsigned char*)&tPacket, 6);
 }
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
 // 0x004787B0
 void __fastcall MSG_SendStrings(const unsigned char* pData)

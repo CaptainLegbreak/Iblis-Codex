@@ -1,9 +1,9 @@
 #include "D2NetTypes.h"
+#include "StormApi.h"
 
 
 
 extern int ganServerPacketSizeTable[]; // 0x00730AE8
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 extern int ganClientPacketSizes[]; // 0x00730DC0
 
 // 0x0052B920

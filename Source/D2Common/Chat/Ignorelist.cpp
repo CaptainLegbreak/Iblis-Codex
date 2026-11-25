@@ -14,12 +14,12 @@
 #include "D2ProfileCounter.h"
 #include "D2ExperienceTxt.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags) throw(); // 0x00412650
 
 __declspec(nothrow) char* __stdcall SStrDup(const char* szString);                                                             // 0x00414310
 
-extern "C" int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
 struct D2StormHashKeyStrIAStrc
 {
@@ -981,7 +981,6 @@ extern "C" _iobuf* __cdecl fopen(const char* szFileName, const char* szMode);   
 
 extern "C" int __cdecl fclose(_iobuf* pFile);                                                               // 0x00681FDC
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                          // 0x004135D0
 
 extern "C" char* __cdecl strstr(const char* szString, const char* szSubString);
 
@@ -1009,9 +1008,7 @@ void __stdcall SMemZero(void* pDest, unsigned int nSize);                       
 
 const char* __stdcall SStrChrR(const char* szString, char nChar);                                                     // 0x004134D0
 
-unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize);                          // 0x00413800
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 // build: symbol ??4D2StormHashKeyStrIAStrc@@QAEAAU0@ABU0@@Z 0x0060DCB0
 // build: symbol ??4D2StormHashKeyStrIBStrc@@QAEAAU0@ABU0@@Z 0x0060E130
@@ -1056,7 +1053,6 @@ inline void D2CommonChatIgnoreListStrc::operator delete(void* pMemory)
     SMemFree(pMemory, "delete", -1, 0);
 }
 
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 struct D2CmpStringStrc
 {
     const char* szText;

@@ -16,6 +16,7 @@
 
 #include "D2Unicode.h"
 #include "D2LaunchRequest.h"
+#include "StormApi.h"
 
 static long BNDOWNLOAD_GetTime(long* pTime);
 
@@ -89,7 +90,6 @@ D2LaunchSlotStrc** gppSlots;                                                    
 
 int gnSlotCount;                                                                                     // 0x0077998C
 
-unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 
 char* __fastcall MAINMENUS_GetSlotName(int nIndex); // 0x00430B50
 
@@ -240,7 +240,6 @@ int __stdcall CHARSEL_HandleListKey(SMSGHANDLER_PARAMS* pMsg); // 0x00439E90
 
 static int gnTopRow; // 0x00779DC8
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
 
@@ -698,7 +697,6 @@ public:
 
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars);
 
-int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 
 int __cdecl GAME_GetSlotNameCount(); // 0x00430B40
 
@@ -2838,7 +2836,6 @@ int __fastcall CHARSEL_HandleStatus(D2StatusStrc* pStatus); // 0x0043B9F0
 
 extern "C" __declspec(dllimport) int __stdcall TerminateProcess(void* hProcess, unsigned int nExitCode); // 0x006CC274
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
 void __cdecl MAINMENUS_ShowProgressScreen(); // 0x0042F890
 
