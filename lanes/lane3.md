@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(none: crash-cmdline merged in #404)
+- lane3/fog-stubs 354ffd53 203->202 Fog's Unknown_00402370.cpp held three return-0 functions gathered by shape. 0x402370 is the default callback 0x402380 passes when given none (its only reference) and sits right before it, so it opens that object: Unknown_00402380.cpp. 0x40ABE0 follows AsyncData.cpp's last function and precedes ErrorManager.cpp's heap sort run: AsyncData.cpp, the object before it. 0x40EB10 follows ErrorManager.cpp's 0x40EA00 and precedes LogManager.cpp: ErrorManager.cpp. All three files equal; the placeholder goes. VERIFIED 354ffd53 on base #404 (7c275276); borrowed code 10,018 B in 7 functions, borrowed data 261 B (main the same); namesync had nothing to rename.
 
 ## Claimed
 
