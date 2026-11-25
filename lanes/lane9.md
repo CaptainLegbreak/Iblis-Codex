@@ -6,6 +6,13 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 `Source/D2DDraw/**`, `Source/D2Gdi/**`, `Source/D2Glide/**`, `Source/D2Hell/**`, taking over from lane 6.
 
 ## Claimed
+- **The .CRT$XCU initializer-table prototype** (coordinator's assignment), `lane9/crt-xcu-*`. What the compiler does,
+  from main's objects: the 49 initializers already written as real dynamic initializers (`build: symbol ??__E...`
+  lines, e.g. SUnit.cpp's gnUnitInitSeed, ErrorManager.cpp's gdwMainThreadId) each come out in a `.text$yc` section,
+  plus a 4 B `.CRT$XCU` section with one DIR32 to it. The atexit destructors (D2Hell's 0x6CB401 and the like) are
+  `.text$yd`. Nothing references the .CRT$XCU pieces, so link_exe.py's anchor-based data placement leaves them
+  unplaced (removed) and the table is copied. First step: anchor each piece at the original slot holding its
+  initializer's address.
 - The three unpadded placeholder runs as one file each (lane 10's object map): D2Hell 0x516D8B-0x5179A4 (25
   placeholders, plus the gFaultHandlerList init/fini 0x6CAE5F/0x6CB401; the two /O2 list-ctor units stay out), D2Gdi
   0x6C8A50-0x6C95D0, D2DDraw 0x511DF0-0x512D90. hell-run (#366), gdi-run and ddraw-run (#367) are in. Now: files-d2direct3d.tsv medium rows (d3d-7250, d3d-strays, d3d-2f60 are in, #369). Next: queues.md row..
@@ -25,13 +32,6 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-- lane9/hell-charclass ab7ce3f6, on main 5cc54de8 (#375), precheck 0 not all equal; full verify VERIFIED, borrowed data
-  844 B (main's). Placeholders -1: D2Hell's string helpers 0x6C9A38-0x6C9B6A are one object. D2Hell's placeholders
-  0x6C9A38 and 0x6C9A46 and Storm's three character-class pieces 0x6C9A68, 0x6C9AB9, 0x6C9B45 sit back to back at
-  unaligned addresses, interleaved; the number parser and space skipper read the same character-class table 0x74C5C8 as
-  the two class tests, and nothing else reads it. All five share Unknown_006C9A38.cpp with the table's plan entry, under
-  the D2Hell module default; 11 equal. (Lane 3: that's three functions and one table out of Storm/Unknown_006C9A68.cpp,
-  which keeps its five initializers.)
 - lane9/window-data 2bfe5553, on main 5cc54de8 (#375), precheck 0 not all equal; full verify VERIFIED, borrowed data 844 B
   (main's). Plan only: Window.cpp's .data run (0x72DA0C-0x72DBFB, then Unknown_004F6F60's 0x72DBFC and D2WinMain's
   copy 0x72DC00) held four items planned in D2Glide files, all read by Window.cpp itself: the flag 0x72DA7C (glCore.cpp)
