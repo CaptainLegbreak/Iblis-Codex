@@ -4790,8 +4790,8 @@
     "extern \"C\" void __cdecl sub_006C93A0_DrawLitTile(); // 0x006C93A0",
     "extern \"C\" void __cdecl sub_006C94B0_DrawTile(); // 0x006C94B0",
     "extern \"C\" void __cdecl sub_006C95D0_DrawShifted(); // 0x006C95D0",
-    "extern \"C\" void __cdecl sub_006C9640_GdiCloseSmacker(); // 0x006C9640",
-    "extern \"C\" void __cdecl sub_006C9710_GdiDecodeSmacker(); // 0x006C9710"
+    "extern \"C\" void __cdecl GDISMACK_GdiCloseSmacker(); // 0x006C9640",
+    "extern \"C\" void __cdecl GDISMACK_GdiDecodeSmacker(); // 0x006C9710"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Gdi/Src/gdiCore.inc",
@@ -74426,7 +74426,7 @@
      24,
      "0x006C7D80",
      "names.json",
-     "sub_006C7D80_LockAndSend",
+     "GDICORE_LockAndSend",
      0,
      "func"
     ],
@@ -74458,7 +74458,7 @@
      40,
      "0x006C7EF0",
      "names.json",
-     "sub_006C7EF0_ConvertPalette",
+     "GDICORE_ConvertPalette",
      0,
      "func"
     ],
@@ -74506,7 +74506,7 @@
      64,
      "0x006C9710",
      "source",
-     "sub_006C9710_GdiDecodeSmacker",
+     "GDISMACK_GdiDecodeSmacker",
      0,
      "func"
     ],
@@ -74522,7 +74522,7 @@
      72,
      "0x006C9640",
      "source",
-     "sub_006C9640_GdiCloseSmacker",
+     "GDISMACK_GdiCloseSmacker",
      0,
      "func"
     ],
@@ -74610,7 +74610,7 @@
      116,
      "0x006C8000",
      "names.json",
-     "sub_006C8000_SetPaletteView",
+     "GDICORE_SetPaletteView",
      0,
      "func"
     ],
@@ -74634,7 +74634,7 @@
      128,
      "0x006C8910",
      "names.json",
-     "sub_006C8910_ForwardDraw",
+     "GDICORE_ForwardDraw",
      0,
      "func"
     ],
@@ -74754,7 +74754,7 @@
      188,
      "0x006C8C00",
      "names.json",
-     "sub_006C8C00_DrawAlpha",
+     "GDICORE_DrawAlpha",
      0,
      "func"
     ],
@@ -74778,7 +74778,7 @@
      200,
      "0x006C8970",
      "source",
-     "sub_006C8970_GdiDebugPrintf",
+     "GDICORE_GdiDebugPrintf",
      0,
      "func"
     ],
@@ -74794,7 +74794,7 @@
      208,
      "0x006C88B0",
      "names.json",
-     "sub_006C88B0_DrawAt",
+     "GDICORE_DrawAt",
      0,
      "func"
     ],

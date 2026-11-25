@@ -78460,7 +78460,7 @@
     {
      "va": "0x006C7D80",
      "length": 108,
-     "name": "?sub_006C7D80_LockAndSend@@YIHPAXDHH@Z"
+     "name": "?GDICORE_LockAndSend@@YIHPAXDHH@Z"
     },
     {
      "va": "0x006C7DF0",
@@ -78474,7 +78474,7 @@
     {
      "va": "0x006C7EF0",
      "length": 146,
-     "name": "?sub_006C7EF0_ConvertPalette@@YIHPAE@Z"
+     "name": "?GDICORE_ConvertPalette@@YIHPAE@Z"
     },
     {
      "va": "0x006C7F90",
@@ -78489,7 +78489,7 @@
     {
      "va": "0x006C8000",
      "length": 29,
-     "name": "?sub_006C8000_SetPaletteView@@YIXPBUD2GfxPaletteViewStrc@@@Z"
+     "name": "?GDICORE_SetPaletteView@@YIXPBUD2GfxPaletteViewStrc@@@Z"
     },
     {
      "va": "0x006C8020",
@@ -78575,7 +78575,7 @@
     {
      "va": "0x006C8250",
      "length": 120,
-     "name": "?sub_006C8250_GetSetting@@YIHIPAH@Z"
+     "name": "?GDICORE_GetSetting@@YIHIPAH@Z"
     },
     {
      "va": "0x006C82D0",
@@ -78617,12 +78617,12 @@
     {
      "va": "0x006C88B0",
      "length": 92,
-     "name": "?sub_006C88B0_DrawAt@@YIHHH@Z"
+     "name": "?GDICORE_DrawAt@@YIHHH@Z"
     },
     {
      "va": "0x006C8910",
      "length": 28,
-     "name": "?sub_006C8910_ForwardDraw@@YIHPAXHHHHHH@Z"
+     "name": "?GDICORE_ForwardDraw@@YIHPAXHHHHHH@Z"
     },
     {
      "va": "0x006C8930",
@@ -78644,7 +78644,7 @@
     {
      "va": "0x006C8C00",
      "length": 67,
-     "name": "?sub_006C8C00_DrawAlpha@@YIXHHHHHE@Z"
+     "name": "?GDICORE_DrawAlpha@@YIXHHHHHE@Z"
     }
    ],
    "flags": [

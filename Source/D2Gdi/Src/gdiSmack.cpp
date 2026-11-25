@@ -7,14 +7,14 @@ extern "C" __declspec(dllimport) void __stdcall SmackClose(D2SmackStrc* hSmack);
 extern "C" __declspec(dllimport) int __stdcall SmackWait(D2SmackStrc* hSmack); // 0x006CC5F8
 extern "C" __declspec(dllimport) void __stdcall SmackDoFrame(D2SmackStrc* hSmack); // 0x006CC5FC
 extern "C" __declspec(dllimport) void __stdcall SmackNextFrame(D2SmackStrc* hSmack); // 0x006CC600
-void __fastcall sub_006C9640_GdiCloseSmacker(D2SmackRecordStrc* pRecord); // 0x006C9640
+void __fastcall GDISMACK_GdiCloseSmacker(D2SmackRecordStrc* pRecord); // 0x006C9640
 extern unsigned char* gpScreenBuffer_007C9154; // 0x007C9154
 extern unsigned char gabGdiSmackPaletteMap[256]; // 0x0098A178
 int gbRemapValid; // 0x0098A27C
 extern unsigned char gabGamePalette_007C8CC8[]; // 0x007C8CC8
 extern int gbSurfaceActive_007C9140; // 0x007C9140
 extern int gbRenderPaused; // 0x007C9144
-static void __stdcall sub_006C9690_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows);
+static void __stdcall GDISMACK_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows); // 0x006C9690
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" __declspec(dllimport) D2SmackStrc* __stdcall SmackOpen(const char* szName, unsigned int nFlags, unsigned int nExtraBuf); // 0x006CC604
@@ -26,7 +26,7 @@ int __stdcall SBmpDecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY
 static unsigned char* gpGdiSmackBuffer; // 0x0098A278
 
 // 0x006C9640
-void __fastcall sub_006C9640_GdiCloseSmacker(D2SmackRecordStrc* pRecord)
+void __fastcall GDISMACK_GdiCloseSmacker(D2SmackRecordStrc* pRecord)
 {
     if (gpGdiSmackBuffer)
     {
@@ -51,7 +51,7 @@ static inline void sub_006C9690_RemapSpan(unsigned char* pDst, const unsigned ch
 }
 
 // 0x006C9690
-static void __stdcall sub_006C9690_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows)
+static void __stdcall GDISMACK_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows)
 {
     unsigned char* pSrc = gpGdiSmackBuffer;
 // build: symbol ?gnRenderWidth@* 0x007C9138
@@ -69,7 +69,7 @@ static void __stdcall sub_006C9690_RemapRows(int nWidth, D2SmackRecordStrc* pRec
 unsigned char gabGdiSmackPaletteMap[256]; // 0x0098A178
 
 // 0x006C9710
-void __fastcall sub_006C9710_GdiDecodeSmacker(const char* szFile, D2SmackRecordStrc* pSmack, unsigned char nType)
+void __fastcall GDISMACK_GdiDecodeSmacker(const char* szFile, D2SmackRecordStrc* pSmack, unsigned char nType)
 {
     pSmack->nType = nType;
     switch (nType)
@@ -165,7 +165,7 @@ void __fastcall GDISMACK_PlaySmacker(D2SmackRecordStrc* pRecord)
             }
             SmackDoFrame(hSmack);
             if (hSmack->nFrameNum == hSmack->nFrames)
-                sub_006C9640_GdiCloseSmacker(pRecord);
+                GDISMACK_GdiCloseSmacker(pRecord);
             else
                 SmackNextFrame(hSmack);
         }
@@ -173,12 +173,12 @@ void __fastcall GDISMACK_PlaySmacker(D2SmackRecordStrc* pRecord)
             return;
         if (!gbRemapValid)
             return;
-        sub_006C9690_RemapRows(hSmack->nWidth, pRecord, hSmack->nHeight);
+        GDISMACK_RemapRows(hSmack->nWidth, pRecord, hSmack->nHeight);
         return;
     }
     case 'p':
         if (!gbRenderPaused)
-            sub_006C9690_RemapRows(468, pRecord, 60);
+            GDISMACK_RemapRows(468, pRecord, 60);
         break;
     }
 }
