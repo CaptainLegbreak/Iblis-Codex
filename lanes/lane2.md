@@ -2,13 +2,15 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 ~13:20 PT): decls-fog-storm-3 Ready (on #405, clean on #407). **0x679C80, not matched yet; what is established:**
-  - The original has no cast on the backtrack test, so the 450/450 cast form is not the source. Plain forms only.
-  - Whatever the spelling (casts, unions, declaration places, an inline step helper taking `&tCurCoords`, 300+ variants), the start-point block reaches the back end in one of three forms, decided only by which variable receives the load and which the tests read: (b) `tCurCoords = start; tPoint = tCurCoords` or both tests on tCurCoords: 447/450, 86 lines, a register copy of tCurCoords in eax; (a) `tPoint = start; tCurCoords = tPoint`, tests on tPoint: 446/450, pPathInfo keeps ebx, far off; (d) both loaded from the field, X from tCurCoords and Y from tPoint: 446/450, 94 lines, and **the right global picture**: start point straight into edi, pPathInfo spilled at entry, tNextPoint in ebx (tie 49:49 with pPathInfo, won on the key), Y from a late copy.
-  - What form (d) still has wrong, all in +0x91..+0xDB: our compiler forwards the stored tCurCoords into the X test (`cmp di,bx` before the store; the original re-reads `word [ebp-4]`); it keeps pPathInfo in ecx across the `if` (the original puts the Y copy in ecx and reloads pPathInfo after); in the `if` body it stores ebx to tCurCoords (the original copies ebx to edi first and stores edi).
+Status (Wed Nov 25 ~14:00 PT): decls-fog-storm-3 merged (#408); nothing Ready. On the borrowed functions. **0x679C80, not matched; time-box used, moving to 0x62B5B0 and coming back.** What is established:
+  - The original has no cast on the backtrack test (`lea ecx,[eax-4]; and ecx,7; cmp ecx,ebx`), so the 450/450 cast form is not the source. Plain forms only.
+  - Whatever the spelling (casts, unions, declaration places, an inline step helper taking `&tCurCoords`, 350+ variants), the start-point block reaches the back end in one of three forms, decided only by which variable receives the load: (a) `tPoint = start; tCurCoords = tPoint` (446/450, far off), (b) `tCurCoords = start; tPoint = tCurCoords` (447/450, 86 lines), (d) both loaded from pPathInfo (446/450, 94 lines). Variants are in /home/claude/b679/v on my machine; (b) is the closest.
+  - c2force sweeps on (b) and (d): no single override and no pair (all x all) gives an equal function. Region-builder calls: 0 for this function.
+  - On (b), with the tCurCoords register copy sent to memory (`--mem 6:10`) and `--sched 9:1:+1024`, the start block matches except three things, all one cause: pPathInfo stays in ecx across the `if` (so the Y temp takes eax, the store after the `if` is `mov [ebp-4],ebx` and there is no reload at +0xB8). c2split: in round 1 pPathInfo#3 (51) loses ebx to tNextPoint#8 on the key tie-break and is cut into {1828..1844}->ebx, {1844,1851,1860,1863}->ecx and the loop piece. The original needs that middle piece to end at the start-point load (1851) and nDistMax / the target point (1860, 1863) to come from a reload into edx. So the missing fact is a source form in which pPathInfo is not live in a register across the `if`, i.e. something between the start load and the target load that the compiler takes as a possible kill of ecx, or a second variable holding the start point's address.
+  - `nPrevDir +6` in round 1, or skipping one jump transform (`--jskip 0x10b2d161:14`), each give 450/450 but leave the start block wrong; with nPrevDir +6 as the base no second override gets below 25 differing lines.
   - Note for anyone reading with c2diag: `iblis_pp.py` preprocesses `IBLIS_ROOT` (default /home/claude/iblis-codex), not the worktree you are in. Set `IBLIS_ROOT` or the reading is of another source.
-  - mutsearch.py from form (d) reaches 450/450 only by padding with casts that change behaviour (`(unsigned char)tPoint.Y`); not usable.
-  Next: c2temps/c2split on forms (b) and (d) to see why the tCurCoords read is forwarded in one and not the other; then 0x62B5B0 from lane7/0062B5B0-wip.
+  - mutsearch.py from form (d) reaches 450/450 only by padding with casts that change behaviour; not usable.
+  Next: 0x62B5B0 from lane7/0062B5B0-wip, then 0x677880, then back here.
 
 ## Claimed
 
@@ -18,8 +20,6 @@ Status (Wed Nov 25 ~13:20 PT): decls-fog-storm-3 Ready (on #405, clean on #407).
 
 ## Ready
 
-- lane2/decls-fog-storm-3 ab871e803 (on #405; rebuilt fresh, #405's D2Client declarations conflicted with the earlier one in three files): 39 more Fog exports and 15 more Storm exports that 2+ units outside their modules redeclared get one declaration each in FogApi.h and StormApi.h; the units outside Fog/Storm drop their matching copies and include the headers (109 files). The pool functions and ten that callers declare differently stay out. DataTbls, MonsterTbls, Unknown_00668510 and PlrTrade go back to their own declarations of the first four Fog exports (the larger header changes their code). Full build: Game.exe identical, tree 7304b7c0e693178f17685eefded245e401c87ad9, borrowed code / data 10,018 / 261 B.
-- lane2/decls-fog-storm-2: replaced by decls-fog-storm-3 above; drop it.
 - `lane2/net-packet-buffer`: WITHDRAWN, never posted. It duplicates lane 10's `bn-crypt-records-r`; don't merge it. (The proxy here won't let me delete the remote branch.)
 
 ## Working on
