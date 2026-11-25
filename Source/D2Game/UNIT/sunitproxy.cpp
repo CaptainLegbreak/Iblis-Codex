@@ -48,8 +48,6 @@ struct D2EventTimerQueueStrc;
 
 struct D2QuestGUIDStrc;
 
-struct D2RegurgitatorAiCallbackArgStrc;
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -206,12 +204,6 @@ struct D2ItemDataTbl
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 unsigned char gbUnitProxyItemCacheInitialized[17]; // 0x00883E88
-
-struct D2RegurgitatorAiCallbackArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nDistance;
-};
 
 enum
 {

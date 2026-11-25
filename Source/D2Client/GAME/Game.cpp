@@ -1,3 +1,4 @@
+#include "SGAMEDATA.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2LevelTxt.h"
@@ -341,11 +342,10 @@ extern "C" char* __cdecl strcpy(char* pDest, const char* pSource);
 
 extern "C" unsigned int __cdecl strlen(const char* pString);
 
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void* lpCriticalSection); // 0x006CC218
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void* lpCriticalSection); // 0x006CC214
+extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 
-extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void* lpCriticalSection); // 0x006CC1FC
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
 
@@ -588,7 +588,7 @@ struct D2StormListAStrc
     D2StormLinkStrc* sub_0044ED20_Link(char* pNode);
     void sub_0044EDC0_UnlinkNode(char* pNode);
     void sub_0044EE10_InitLinkField(int nLinkOffset);
-    void sub_0044F980_ChangeLinkOffset(int nLinkOffset);
+    void sub_0044F980_ChangeLinkOffset(int nLinkOffset); // 0x0044F980
 };
 
 struct D2StormListBStrc
@@ -630,7 +630,7 @@ struct D2StormHashTableStrc
     D2StormListArrayStrc m_slotlistarray;
     unsigned int m_slotmask;
 
-    void sub_0044FA00_InternalClear(int bWarn);
+    void sub_0044FA00_InternalClear(int bWarn); // 0x0044FA00
 };
 
 struct D2StormListStrc
@@ -1485,165 +1485,17 @@ extern "C" int gCoordinateBase;
 
 extern "C" int gCoordinateOffset;
 
-struct D2SGameDataStrc
-{
-    unsigned int m_hashval;
-    D2StormLinkStrc m_linktoslot;
-    D2StormLinkStrc m_linktofull;
-    char unk0x14[0x1DE0];
-
-    ~D2SGameDataStrc();
-};
-
-struct D2StormGameDataArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    D2SGameDataStrc* m_data;
-    unsigned int m_chunk;
-
-    static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
-    {
-        unsigned int nRemainder = nValue % nAlign;
-        if (nRemainder)
-            nValue += nAlign - nRemainder;
-        return nValue;
-    }
-    unsigned int sub_00450810_CalcChunkSize(unsigned int nCount);                                           // 0x00450810
-    void sub_00450D90_ReallocData(unsigned int nAlloc);                                                     // 0x00450D90
-    void Reserve(unsigned int nCount, int bRound)
-    {
-        nCount += m_count;
-        if (nCount > m_alloc)
-        {
-            if (bRound)
-            {
-                unsigned int nChunk = m_chunk ? m_chunk : sub_00450810_CalcChunkSize(nCount);
-                nCount = RoundUp(nCount, nChunk);
-            }
-            sub_00450D90_ReallocData(nCount);
-        }
-    }
-    D2SGameDataStrc* sub_00450ED0_New();
-};
-
-struct D2SGameDataStrc;
-
-extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock);    // 0x006CC210
-
-struct SGAMEDATA;
-
-struct HSGAMEDATA__;
-
-struct HSGAMEDATALOCK__;
-
-class HASHKEY_NONE;
-
-class CCritSect;
-
-template <class T, class KEY> class TSHashTable;
-
-template <class T, class KEY, int CHUNKSIZE> class TSHashTableReuse;
-
-template <class T, class THANDLE, int CHUNKSIZE> class TSExportTableSimple;
-
-template <class T, class THANDLE, class TLOCKEDHANDLE, class TSYNC, int CHUNKSIZE> class TSExportTableSync;
-
-template <> class TSHashTableReuse<SGAMEDATA, HASHKEY_NONE, 0>;
-
-typedef TSHashTableReuse<SGAMEDATA, HASHKEY_NONE, 0> D2StormHashTableReuseStrc;
-
-template <> class TSExportTableSimple<SGAMEDATA, HSGAMEDATA__*, 0>;
-
-typedef TSExportTableSimple<SGAMEDATA, HSGAMEDATA__*, 0> D2StormExportTableSimpleStrc;
-
-template <> class TSExportTableSync<SGAMEDATA, HSGAMEDATA__*, HSGAMEDATALOCK__*, CCritSect, 0>;
-
-typedef TSExportTableSync<SGAMEDATA, HSGAMEDATA__*, HSGAMEDATALOCK__*, CCritSect, 0> D2StormExportTableSyncStrc;
-
-// build: symbol ??0?$TSExportTableSimple@USGAMEDATA@@PAUHSGAMEDATA__@@$0A@@@QAE@XZ 0x00451170
-// build: symbol ??0?$TSExportTableSync@USGAMEDATA@@PAUHSGAMEDATA__@@PAUHSGAMEDATALOCK__@@VCCritSect@@$0A@@@QAE@XZ 0x004511F0
-// build: symbol ??0?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@QAE@XZ 0x00451100
-
-template <> class TSHashTable<SGAMEDATA, HASHKEY_NONE>
-{
-public:
-    virtual void InternalDelete(D2SGameDataStrc* pNode);
-    virtual D2SGameDataStrc* InternalNew(D2StormListAStrc* pList, unsigned int nExtraBytes, unsigned int nFlags);
-    virtual ~TSHashTable();
-    virtual void Destroy();
-    static void operator delete(void* pMemory);
-};
-
-template <> class TSHashTableReuse<SGAMEDATA, HASHKEY_NONE, 0> : public TSHashTable<SGAMEDATA, HASHKEY_NONE>
-{
-public:
-    virtual void InternalDelete(D2SGameDataStrc* pNode);                                                    // 0x00450D60
-    virtual D2SGameDataStrc* InternalNew(D2StormListAStrc* pList, unsigned int nExtraBytes, unsigned int nFlags); // 0x00451000
-    virtual ~TSHashTableReuse();                                                                            // 0x00450760
-    virtual void Destroy();                                                                                 // 0x004510B0
-    static void operator delete(void* pMemory);
-    char unk0x04[0x40];
-
-    TSHashTableReuse();                                                                            // 0x00451100
-};
-
-template <> class TSExportTableSimple<SGAMEDATA, HSGAMEDATA__*, 0> : public D2StormHashTableReuseStrc
-{
-public:
-    unsigned int unk0x44;
-    unsigned int m_sequence;
-    void* m_wrapper;
-
-    TSExportTableSimple();
-    static void operator delete(void* pMemory);
-};
-
-struct D2StormCritSectStrc
-{
-    D2CriticalSectionStrc tLock;
-
-    ~D2StormCritSectStrc()
-    {
-        DeleteCriticalSection(&tLock);
-    }
-};
-
-template <> class TSExportTableSync<SGAMEDATA, HSGAMEDATA__*, HSGAMEDATALOCK__*, CCritSect, 0> : public D2StormExportTableSimpleStrc
-{
-public:
-    D2StormCritSectStrc m_cs;
-
-    TSExportTableSync();
-    static void operator delete(void* pMemory);
-};
-
-typedef struct _RTL_CRITICAL_SECTION CRITICAL_SECTION;
-
-// build: symbol ??1D2StormHashTableReuseStrc@@QAE@XZ 0x00450760
-
-inline void D2StormExportTableSimpleStrc::operator delete(void* pMemory)
-{
-    if (pMemory)
-        SMemFree(pMemory, "delete", -1, 0);
-}
-
-inline void D2StormExportTableSyncStrc::operator delete(void* pMemory)
-{
-    if (pMemory)
-        SMemFree(pMemory, "delete", -1, 0);
-}
-
 // build: symbol ??__EgtGameDataTable@@YAXXZ 0x006CA9C0
 // build: symbol ??__FgtGameDataTable@@YAXXZ 0x006CB3E0
+// build: symbol ??0?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@QAE@XZ 0x00451100
 // build: symbol ??1?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@UAE@XZ 0x00450760
-D2StormExportTableSyncStrc gtGameDataTable; // 0x007A0690
+D2SGameDataSyncTable gtGameDataTable; // 0x007A0690
 
 int __stdcall GAME_Shutdown(); // 0x0052C030
 
 D2McpInfoStrc gtMcpInfo; // 0x0079910C
 
-char gtQServerLock[0x18]; // 0x007A0468
+D2CriticalSectionStrc gtQServerLock; // 0x007A0468
 
 int gbQServerStop; // 0x007A0648
 
@@ -2696,10 +2548,10 @@ unsigned long __stdcall GAME_RunQServerThread(void* pArg)
 {
     int nLast = 0;
     void* pSession = 0;
-    EnterCriticalSection(gtQServerLock);
+    EnterCriticalSection(&gtQServerLock);
     int bStop = gbQServerStop;
     int bRestart = gbQServerRestart;
-    LeaveCriticalSection(gtQServerLock);
+    LeaveCriticalSection(&gtQServerLock);
     while (!bStop)
     {
         if (bRestart)
@@ -2745,14 +2597,14 @@ unsigned long __stdcall GAME_RunQServerThread(void* pArg)
         {
             Sleep(10);
         }
-        EnterCriticalSection(gtQServerLock);
+        EnterCriticalSection(&gtQServerLock);
         bStop = gbQServerStop;
         bRestart = gbQServerRestart;
-        LeaveCriticalSection(gtQServerLock);
+        LeaveCriticalSection(&gtQServerLock);
     }
     sub_0052E9C0();
     sub_0052FD90(0, 1);
-    DeleteCriticalSection(gtQServerLock);
+    DeleteCriticalSection(&gtQServerLock);
     OutputDebugStringA("Open server thread shut down\n");
     return 1;
 }
@@ -3806,84 +3658,9 @@ D2StormListAStrc::D2StormListAStrc(const D2StormListAStrc& source)
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
-// 0x0044F820
-D2SGameDataStrc::~D2SGameDataStrc()
-{
-}
-
-// 0x0044F890
-void D2StormListBStrc::sub_0044F890_UnlinkNode(char* pNode)
-{
-    Link(pNode)->Unlink();
-}
-
-// 0x0044F980
-void D2StormListAStrc::sub_0044F980_ChangeLinkOffset(int nLinkOffset)
-{
-    if (nLinkOffset != m_linkoffset)
-    {
-        UnlinkAll();
-        m_linkoffset = nLinkOffset;
-        InitializeTerminator();
-    }
-}
-
-// 0x0044FA00
-void D2StormHashTableStrc::sub_0044FA00_InternalClear(int bWarn)
-{
-    m_fullnessIndicator = 0;
-    m_fulllist.UnlinkAll();
-    for (unsigned int i = 0; i < m_slotlistarray.m_count; i++)
-    {
-        char* pNode;
-        while ((pNode = m_slotlistarray.m_data[i].Head()) != 0)
-        {
-            if (bWarn)
-                m_slotlistarray.m_data[i].Link(pNode)->Unlink();
-            else
-                InternalDelete(pNode);
-        }
-    }
-}
-
-// 0x0044FB80
-D2StormListBStrc::D2StormListBStrc(const D2StormListBStrc& source)
-{
-    m_linkoffset = source.m_linkoffset;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-// 0x0044FD50
-void __fastcall GAME_DestroyGameData(D2SGameDataStrc* pData)
-{
-    pData->~D2SGameDataStrc();
-}
-
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
 {
     return pWhere;
-}
-
-// 0x00450ED0
-D2SGameDataStrc* D2StormGameDataArrayStrc::sub_00450ED0_New()
-{
-    Reserve(1, 1);
-    new (&m_data[m_count]) D2SGameDataStrc;
-    return &m_data[m_count++];
-}
-
-// 0x00451170
-D2StormExportTableSimpleStrc::TSExportTableSimple()
-{
-    m_sequence = ~(unsigned int)this & 0x0FFFFFFF;
-    m_wrapper = 0;
-}
-
-// 0x004511F0
-D2StormExportTableSyncStrc::TSExportTableSync()
-{
-    InitializeCriticalSection(&m_cs.tLock);
 }
 
 // build: symbol ?WARDENCLIENT_SwapBytes@* 0x0047F8B0

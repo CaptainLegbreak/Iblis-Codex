@@ -670,35 +670,6 @@ int __cdecl CLIENT_GetConnectionStatus()
     return 1;
 }
 
-// 0x0052B1F0
-int __stdcall SERVER_WaitForSingleObject(int nArg1)
-{
-    return FOG_WaitForSingleObject(gpServer, nArg1);
-}
-
-// 0x0052B210
-int __stdcall SERVER_SwapSlotValue(int nArg1, int nArg2)
-{
-    return sub_006BE390(gpServer, nArg1, nArg2);
-}
-
-// 0x0052B230
-int __stdcall SERVER_AddKeyValuePair(int nArg1, int nArg2)
-{
-    return sub_006BF610(gpServer, nArg2, nArg1);
-}
-
-// 0x0052B250
-void __stdcall SERVER_SetMaxClientsPerGame(int nArg1)
-{
-    FOG_SetMaxClientsPerGame(gpServer, nArg1);
-}
-
-// 0x0052B490
-int __stdcall sub_0052B490_ObjectCall_6BED90(int nArg1, int nArg2, int nArg3)
-{
-    return sub_006BED90(gpServer, nArg1, nArg2, nArg3);
-}
 // 0x0052BDA0
 void __cdecl sub_0052BDA0_Empty()
 {

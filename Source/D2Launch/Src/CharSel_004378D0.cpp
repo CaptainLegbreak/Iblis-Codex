@@ -115,7 +115,7 @@ void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone
 void __fastcall CHATDLG_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
 void __fastcall CHATDLG_JoinChannel(const char* szText); // 0x004411E0
 int __fastcall CHATDLG_SendChatText(char* szText, int bWhisper); // 0x004428D0
-int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
+int __fastcall CHATDLG_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
 extern char gszLevelDiffText[]; // 0x0070EBD0
 extern char gszMaxPlayersText[]; // 0x0070EBD4
 extern D2LaunchCharSelectStrc* gpCharSelect_007795D4; // 0x007795D4
@@ -271,7 +271,7 @@ extern D2WinControlStrc* gpControl_00779C74;        // 0x00779C74
 extern D2WinControlStrc* gpControl_00779C7C;        // 0x00779C7C
 extern D2WinControlStrc* gpControl_00779D88;        // 0x00779D88
 extern D2WinControlStrc* gpControl_00779D9C;        // 0x00779D9C
-void __cdecl sub_00443630_UpdateCreateButton(); // 0x00443630
+void __cdecl CHATDLG_UpdateCreateButton(); // 0x00443630
 struct Unicode;
 struct D2FileTimeStrc;
 struct UnicodeChar;

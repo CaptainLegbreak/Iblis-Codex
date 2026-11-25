@@ -381,12 +381,10 @@
     "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
     "extern \"C\" char gpBnetCancelButtonBlankCelFileB[]; // 0x0077BD2C",
     "extern \"C\" void __cdecl sub_004438C0_OnCancel(); // 0x004438C0",
-    "extern \"C\" void __cdecl sub_00445530_ResetBuildPanel(); // 0x00445530",
     "extern \"C\" char gData_0070CD84[]; // 0x0070CD84",
     "extern \"C\" char gpPlayerProfileBckgCelFileA[]; // 0x0077BD3C",
     "extern \"C\" char gpPlayerProfileBckgCelFileB[]; // 0x0077BD40",
     "extern \"C\" void __cdecl CHATDLG_OnLadderSelect(); // 0x00443EF0",
-    "extern \"C\" void __cdecl sub_00443F70_OnRefresh(); // 0x00443F70",
     "extern \"C\" void __cdecl CHARSEL_SubmitProfile(); // 0x00443F80",
     "extern \"C\" void __cdecl sub_00447730(); // 0x00447730",
     "extern \"C\" void __cdecl CHATDLG_OnShowUser(); // 0x00449330",
@@ -413,15 +411,17 @@
     "extern \"C\" void __cdecl CHATDLG_ShowExpansionLadder(); // 0x00440C40",
     "extern \"C\" void __cdecl CHATDLG_ShowExpansionHardcoreLadder(); // 0x00440C70",
     "extern \"C\" void __cdecl CHATDLG_OpenLadderScreen(); // 0x00442350",
-    "extern \"C\" void __cdecl sub_00443C20_SelectNormal(); // 0x00443C20",
-    "extern \"C\" void __cdecl sub_00443C70_SelectNightmare(); // 0x00443C70",
-    "extern \"C\" void __cdecl sub_00443CC0_SelectHell(); // 0x00443CC0",
     "extern \"C\" void __cdecl sub_004456D0(); // 0x004456D0",
     "extern \"C\" void __cdecl CHATDLG_JoinByName(); // 0x004439F0",
     "extern \"C\" void __cdecl CHATDLG_IncrementMaxPlayers(); // 0x004433C0",
     "extern \"C\" void __cdecl CHATDLG_DecrementMaxPlayers(); // 0x00443420",
     "extern \"C\" void __cdecl CHATDLG_IncrementLevelRange(); // 0x00443480",
-    "extern \"C\" void __cdecl CHATDLG_DecrementLevelRange(); // 0x004434E0"
+    "extern \"C\" void __cdecl CHATDLG_DecrementLevelRange(); // 0x004434E0",
+    "extern \"C\" void __cdecl CHATDLG_ResetBuildPanel(); // 0x00445530",
+    "extern \"C\" void __cdecl CHATDLG_OnRefresh(); // 0x00443F70",
+    "extern \"C\" void __cdecl CHATDLG_SelectNormal(); // 0x00443C20",
+    "extern \"C\" void __cdecl CHATDLG_SelectNightmare(); // 0x00443C70",
+    "extern \"C\" void __cdecl CHATDLG_SelectHell(); // 0x00443CC0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Multi/Src/ComCallback.inc",
@@ -1339,8 +1339,8 @@
    "state": "included"
   },
   "Source/D2Glide/Src/glCore.cpp": {
-   "bytes": 424,
-   "definitions": 7,
+   "bytes": 420,
+   "definitions": 6,
    "externs": [
     "extern \"C\" void __cdecl GLDEBUGFONT_DebugPrintf(); // 0x0050BC90",
     "extern \"C\" void __cdecl GLIDE_DebugDraw(); // 0x0050BEF0",
@@ -1376,8 +1376,8 @@
    "state": "included"
   },
   "Source/D2Gfx/SRC/Window.cpp": {
-   "bytes": 300,
-   "definitions": 9,
+   "bytes": 484,
+   "definitions": 13,
    "externs": [
     "extern \"C\" void __cdecl sub_004F8B80(); // 0x004F8B80",
     "extern \"C\" void __cdecl sub_004F8DE0(); // 0x004F8DE0",
@@ -3748,8 +3748,8 @@
    "state": "included"
   },
   "Source/D2Glide/Src/glDebugFont.cpp": {
-   "bytes": 204,
-   "definitions": 5,
+   "bytes": 24,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Glide/Src/glDebugFont.inc",
@@ -4790,8 +4790,8 @@
     "extern \"C\" void __cdecl sub_006C93A0_DrawLitTile(); // 0x006C93A0",
     "extern \"C\" void __cdecl sub_006C94B0_DrawTile(); // 0x006C94B0",
     "extern \"C\" void __cdecl sub_006C95D0_DrawShifted(); // 0x006C95D0",
-    "extern \"C\" void __cdecl sub_006C9640_GdiCloseSmacker(); // 0x006C9640",
-    "extern \"C\" void __cdecl sub_006C9710_GdiDecodeSmacker(); // 0x006C9710"
+    "extern \"C\" void __cdecl GDISMACK_GdiCloseSmacker(); // 0x006C9640",
+    "extern \"C\" void __cdecl GDISMACK_GdiDecodeSmacker(); // 0x006C9710"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Gdi/Src/gdiCore.inc",
@@ -12314,7 +12314,7 @@
      32,
      "0x00445530",
      "names.json",
-     "sub_00445530_ResetBuildPanel",
+     "CHATDLG_ResetBuildPanel",
      0,
      "func"
     ]
@@ -12610,7 +12610,7 @@
      32,
      "0x00443F70",
      "names.json",
-     "sub_00443F70_OnRefresh",
+     "CHATDLG_OnRefresh",
      0,
      "func"
     ]
@@ -29043,7 +29043,7 @@
      32,
      "0x00443C20",
      "names.json",
-     "sub_00443C20_SelectNormal",
+     "CHATDLG_SelectNormal",
      0,
      "func"
     ]
@@ -29077,7 +29077,7 @@
      32,
      "0x00443C70",
      "names.json",
-     "sub_00443C70_SelectNightmare",
+     "CHATDLG_SelectNightmare",
      0,
      "func"
     ]
@@ -29111,7 +29111,7 @@
      32,
      "0x00443CC0",
      "names.json",
-     "sub_00443CC0_SelectHell",
+     "CHATDLG_SelectHell",
      0,
      "func"
     ]
@@ -73928,7 +73928,7 @@
      0,
      "0x006B4E80",
      "source",
-     "sub_006B4E80_LoadVideoConfiguration",
+     "D3DCORE_LoadVideoConfiguration",
      0,
      "func"
     ],
@@ -74112,7 +74112,7 @@
      92,
      "0x006B1C20",
      "names.json",
-     "sub_006B1C20_GetMaskedFlags",
+     "D3DCORE_GetMaskedFlags",
      0,
      "func"
     ],
@@ -74352,7 +74352,7 @@
      212,
      "0x006B1BC0",
      "source",
-     "sub_006B1BC0_ClearCaches",
+     "D3DCORE_ClearCaches",
      0,
      "func"
     ]
@@ -74426,7 +74426,7 @@
      24,
      "0x006C7D80",
      "names.json",
-     "sub_006C7D80_LockAndSend",
+     "GDICORE_LockAndSend",
      0,
      "func"
     ],
@@ -74458,7 +74458,7 @@
      40,
      "0x006C7EF0",
      "names.json",
-     "sub_006C7EF0_ConvertPalette",
+     "GDICORE_ConvertPalette",
      0,
      "func"
     ],
@@ -74506,7 +74506,7 @@
      64,
      "0x006C9710",
      "source",
-     "sub_006C9710_GdiDecodeSmacker",
+     "GDISMACK_GdiDecodeSmacker",
      0,
      "func"
     ],
@@ -74522,7 +74522,7 @@
      72,
      "0x006C9640",
      "source",
-     "sub_006C9640_GdiCloseSmacker",
+     "GDISMACK_GdiCloseSmacker",
      0,
      "func"
     ],
@@ -74610,7 +74610,7 @@
      116,
      "0x006C8000",
      "names.json",
-     "sub_006C8000_SetPaletteView",
+     "GDICORE_SetPaletteView",
      0,
      "func"
     ],
@@ -74634,7 +74634,7 @@
      128,
      "0x006C8910",
      "names.json",
-     "sub_006C8910_ForwardDraw",
+     "GDICORE_ForwardDraw",
      0,
      "func"
     ],
@@ -74754,7 +74754,7 @@
      188,
      "0x006C8C00",
      "names.json",
-     "sub_006C8C00_DrawAlpha",
+     "GDICORE_DrawAlpha",
      0,
      "func"
     ],
@@ -74778,7 +74778,7 @@
      200,
      "0x006C8970",
      "source",
-     "sub_006C8970_GdiDebugPrintf",
+     "GDICORE_GdiDebugPrintf",
      0,
      "func"
     ],
@@ -74794,7 +74794,7 @@
      208,
      "0x006C88B0",
      "names.json",
-     "sub_006C88B0_DrawAt",
+     "GDICORE_DrawAt",
      0,
      "func"
     ],
@@ -74818,7 +74818,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Glide/Src/glCore.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gdwGlobal_0072DA7C = ",
@@ -75132,7 +75132,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Glide/Src/glDebugFont.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "fill": 15,
    "form": "declared",
    "fwd": null,
@@ -75163,7 +75163,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Glide/Src/glDebugFont.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "fill": 15,
    "form": "declared",
    "fwd": null,
@@ -75194,7 +75194,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Glide/Src/glDebugFont.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "fill": 15,
    "form": "declared",
    "fwd": null,

@@ -34,8 +34,6 @@ struct D2CurseStrc;
 
 struct D2SkillsTxt;
 
-struct D2MonEquipTxt;
-
 struct Unit005A0180;
 
 union D2SeedStrc;
@@ -85,11 +83,6 @@ enum D2C_Y09SkillConstants
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 int __fastcall sub_0056F7F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5, int a6, int a7); // 0x0056F7F0
-
-struct D2MonEquipTxt
-{
-    char unk0x00[0x1C];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -155,12 +148,6 @@ enum D2C_SkillItemConstants
     UNITEVENT_13 = 13,
 };
 
-struct D2AffixIndexAndPtrStrc
-{
-    int nIndex;
-    D2MagicAffixTxt* pAffix;
-};
-
 struct D2AiCmdStrc;
 
 struct D2StaticPathStrc;
@@ -180,18 +167,10 @@ int __fastcall SKILLITEM_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pU
 struct D2MagicAffixTxt;
 
 
-struct D2SkillPairStrc;
-
 struct D2RareAffixIndexAndPtrStrc;
 
 struct D2SetItemsTxt;
 
-
-struct D2SkillPairStrc
-{
-    int nA;
-    int nB;
-};
 
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 {

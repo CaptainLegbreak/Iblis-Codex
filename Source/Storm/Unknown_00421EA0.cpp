@@ -6,7 +6,6 @@
 
 struct D2GameStrc;
 struct D2StormArrayAStrc;
-struct D2StormArray2Strc;
 struct BigBuffer;
 struct D2StormBigStrc;
 struct BigStack;
@@ -14,9 +13,6 @@ struct D2StormArrayBStrc;
 struct D2GameLinkStrc;
 struct D2StormListAStrc;
 struct D2StormGameArrayStrc;
-struct D2StormHashObjectChunkStrc;
-struct D2StormListArrayStrc;
-
 void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 
 struct D2StormArrayAStrc
@@ -56,26 +52,6 @@ struct D2StormArrayAStrc
             Reserve(nCount - m_count, 1);
         m_count = nCount;
     }
-};
-
-struct D2StormArray2Strc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    void* m_data;
-    unsigned int m_chunk;
-
-    static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
-    {
-        unsigned int nRemainder = nValue % nAlign;
-        if (nRemainder)
-            nValue += nAlign - nRemainder;
-        return nValue;
-    }
-    unsigned int sub_00450810_CalcChunkSize(unsigned int nCount);                                           // 0x00450810
-    void sub_00450D90_ReallocData(unsigned int nAlloc);                                                     // 0x00450D90
-    void sub_00450E70_Reserve(unsigned int nCount, int bRound);
-    void sub_00450F50_ReserveExact(unsigned int nCount);
 };
 
 struct BigBuffer
@@ -243,25 +219,6 @@ struct D2StormGameArrayStrc
     unsigned int m_chunk;
 
     ~D2StormGameArrayStrc();                                                                                // 0x0044FD80
-};
-
-struct D2StormHashObjectChunkStrc
-{
-    D2StormGameArrayStrc m_array;
-    D2StormLinkStrc m_link;
-
-    static void operator delete(void* pMemory);
-};
-
-struct D2StormListArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    D2StormListAStrc* m_data;
-    unsigned int m_chunk;
-
-    ~D2StormListArrayStrc();                                                                                // 0x0044FF60
-    static void operator delete(void* pMemory);
 };
 
 extern "C" unsigned int __cdecl _rotl(unsigned int nValue, int nShift);

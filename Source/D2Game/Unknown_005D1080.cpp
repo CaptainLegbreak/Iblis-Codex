@@ -297,17 +297,6 @@ enum D2C_F39Constants
 
 struct D2MonsterRegionStrc;
 
-struct D2Do142ArgsStrc
-{
-    D2DamageStrc* pDamage;
-    int nToHit;
-    unsigned short wResultFlags;
-    unsigned short unk0x0A;
-    unsigned int dwHitFlags;
-    unsigned char nSrcDam;
-    unsigned char unk0x11[3];
-};
-
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 

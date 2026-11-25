@@ -1026,8 +1026,6 @@ struct D2InactiveUnitListStrc;
 
 struct D2QuestTimerStrc;
 
-struct D2QuestInfoStrc;
-
 struct D2DrlgCoordsStrc;
 
 
@@ -1045,8 +1043,6 @@ struct D2NpcGambleStrc;
 
 struct D2NpcRecordStrc;
 
-struct D2NpcControlStrc;
-
 struct D2ArenaStrc;
 
 struct D2RosterIterateStrc;
@@ -1060,16 +1056,6 @@ enum D2C_MonStatsTxtFlagIndices
 };
 
 
-
-struct D2QuestInfoStrc
-{
-    D2QuestDataStrc* pLastQuest;
-    int bExecuting;
-    int bPickedSet;
-    D2BitBufferStrc* pQuestFlags;
-    D2QuestTimerStrc* pTimer;
-    unsigned int dwTick;
-};
 
 
 
@@ -1119,12 +1105,6 @@ int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath)
 
 void __stdcall QUESTRECORD_FreeRecord(void* pMemPool, D2BitBufferStrc* pQuestRecord); // 0x0065C490
 
-
-struct D2NpcControlStrc
-{
-    int nArraySize;
-    D2NpcRecordStrc* pFirstRecord;
-};
 
 
 

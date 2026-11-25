@@ -883,18 +883,6 @@ void __fastcall ITEMMODE_RebuildBookScrollSkillQuantities(D2GameStrc* pGame, D2U
 
 int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nItemGUID, unsigned char nBodyLoc, int bSkipRequirementCheck, int* pItemStatus);
 
-// 0x0052B270
-int __fastcall sub_0052B270()
-{
-    return FOG_10180(gpServer);
-}
-
-// 0x0052B6F0
-void __fastcall sub_0052B6F0()
-{
-    FOG_10182_Return(gpServer);
-}
-
 void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
 
 enum D2C_UnitFlags

@@ -251,13 +251,6 @@ struct D2MissileDataStrc0064A280
     short nSkill;
 };
 
-struct D2MissileUnitStrc0064A280
-{
-    int dwUnitType;
-    char unk0x04[0x10];
-    D2MissileDataStrc0064A280* pMissileData;
-};
-
 struct Data0064A190;
 
 struct Unit0064A190;

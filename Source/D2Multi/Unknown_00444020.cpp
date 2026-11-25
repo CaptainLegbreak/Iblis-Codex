@@ -77,9 +77,9 @@ int __fastcall CHATDLG_IsCharOverLimit(const char* szText); // 0x00442B20
 
 void __fastcall D2Win_10050_TEXTBOX_SetLine(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FB9D0
 
-int __stdcall sub_00443540_IsNameChar(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x00443540
+int __stdcall CHATDLG_IsNameChar(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x00443540
 
-void __cdecl sub_00443630_UpdateCreateButton(); // 0x00443630
+void __cdecl CHATDLG_UpdateCreateButton(); // 0x00443630
 
 void __cdecl COMCALLBACK_BuildCreateGamePanel(); // 0x004453B0
 
@@ -136,7 +136,7 @@ static inline char* sub_00444E70_NextString(char* p)
 
 // build: symbol ?gpGameList@* 0x00798BC0
 // build: symbol ?CHATDLG_FillGameListControl@* 0x00442C20
-void __cdecl sub_00444E70_FillGameList(); // 0x00444E70
+void __cdecl CHATDLG_FillGameList(); // 0x00444E70
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
@@ -164,7 +164,7 @@ void __cdecl CHARSEL_RequestGameList()
     }
     else
     {
-        sub_00444E70_FillGameList();
+        CHATDLG_FillGameList();
     }
 }
 

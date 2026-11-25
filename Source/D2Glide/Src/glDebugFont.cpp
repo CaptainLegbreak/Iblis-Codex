@@ -84,11 +84,6 @@ struct D2GlideFontVertexStrc
     float unk0x18;
 };
 
-struct D2GlideDebugGlyphStrc
-{
-    unsigned char pixels[16][8];
-};
-
 typedef void (__stdcall* GlideTexDownloadMipMapFn)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo);
 
 extern GlideTexDownloadMipMapFn gpfnGrTexDownloadMipMap;                 // 0x0087EAB8

@@ -510,7 +510,7 @@ unsigned int __stdcall sub_00505330_GetCompositeFlags(D2CompositeStrc* pComposit
 
 const char* __stdcall D2Win_10160_GetPlayerTitle(int nClass, int nRank, int bSoftCore); // 0x00505640
 
-void __cdecl sub_004451C0_UpdateLevelControls(); // 0x004451C0
+void __cdecl CHATDLG_UpdateLevelControls(); // 0x004451C0
 
 void __stdcall COMCALLBACK_RemoveChannelUser(const char* szName); // 0x004493E0
 
@@ -603,9 +603,9 @@ void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__s
 
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int)); // 0x004FDB00
 
-int __stdcall sub_004450A0_JoinNameKey(D2WinControlStrc* pControl, int nArg, const char* pChar);            // 0x004450A0
+int __stdcall CHATDLG_JoinNameKey(D2WinControlStrc* pControl, int nArg, const char* pChar);            // 0x004450A0
 
-int __stdcall sub_004450C0_JoinNameEnter(int nArg);                                                         // 0x004450C0
+int __stdcall CHATDLG_JoinNameEnter(int nArg);                                                         // 0x004450C0
 
 int __stdcall CHATDLG_IsPrintableChar(D2WinControlStrc* pControl, int nArg, const char* pChar);        // 0x00443600
 
@@ -804,7 +804,7 @@ void __fastcall CHATDLG_DisableControl(D2WinControlStrc* pControl);             
 
 int __stdcall CHATDLG_OnLevelRestrictToggle(int nArg); // 0x00445550
 
-int __stdcall sub_00443540_IsNameChar(D2WinControlStrc* pControl, int nArg, const char* pChar);             // 0x00443540
+int __stdcall CHATDLG_IsNameChar(D2WinControlStrc* pControl, int nArg, const char* pChar);             // 0x00443540
 
 int __stdcall sub_004456A0_OnEnter(int nArg);                                                               // 0x004456A0
 
@@ -851,7 +851,7 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
     CONTROL_SetEscapeButton(gpControl_00798C48);
     gpCreateName = CONTROL_Create(&gtCreateNameInit);
     sub_004FDD50_SetMaxLength(gpCreateName, 0x10);
-    sub_004FDAD0_SetKeyCallback(gpCreateName, sub_00443540_IsNameChar);
+    sub_004FDAD0_SetKeyCallback(gpCreateName, CHATDLG_IsNameChar);
     sub_004FDB00_SetEnterCallback(gpCreateName, sub_004456A0_OnEnter);
     gpCreatePassword = CONTROL_Create(&gtCreatePasswordInit);
     sub_004FDD50_SetMaxLength(gpCreatePassword, 0x10);
@@ -1131,7 +1131,7 @@ void __stdcall COMCALLBACK_RemoveTableString(Unicode* pText)
 }
 
 // 0x00446B30
-int __fastcall sub_00446B30_ShowText(int nArg, const char* szText)
+int __fastcall COMCALLBACK_ShowText(int nArg, const char* szText)
 {
     Unicode wszText[0x240];
     for (int i = 0; i < 0x240; i++)
@@ -1226,7 +1226,7 @@ static int COMCALLBACK_GetUserRank(D2MultiChannelUserStrc* pUser)
 }
 
 // 0x00446D60
-static int sub_00446D60_Classify(int code) {
+static int COMCALLBACK_Classify(int code) {
  switch(code) {
  case 0:
  case 1:
@@ -1550,7 +1550,7 @@ static void COMCALLBACK_UpdateUserText(D2MultiChannelUserStrc* pUser)
     sub_00504270_SetCompositeText(pUser->pComposite, wszName, wszAccount, wszS97, wszRealm, nLevel, dwCode);
 }
 
-int __fastcall EmitClassify(int code) { return sub_00446D60_Classify(code); }
+int __fastcall EmitClassify(int code) { return COMCALLBACK_Classify(code); }
 
 // 0x00447390
 static int COMCALLBACK_CompareNames(const char* szNameA, const char* szNameB)

@@ -436,7 +436,8 @@ void __cdecl sub_006B7F70_ClearTarget()
 // build: symbol ?gnRenderFlag@* 0x006CE290
     if (gnRenderFlags_0096F3A8 & gnRenderFlag)
     {
-        sub_006B3800_Flush();
+// build: symbol ?D3DCORE_Flush@* 0x006B3800
+        D3DCORE_Flush();
         return;
     }
     D2D3DRect006B7F70Strc tRect;
@@ -580,41 +581,7 @@ void __cdecl sub_006B9A00_ResetScale()
     gnScaleTableReady_00989748 = 256;
 }
 
-struct D2DeviceStrc;
 struct D2Point006B7F20Strc;
-
-struct D2DeviceStrc
-{
-    virtual void __stdcall Unused0() = 0;
-    virtual void __stdcall Unused1() = 0;
-    virtual void __stdcall Unused2() = 0;
-    virtual void __stdcall Unused3() = 0;
-    virtual void __stdcall Unused4() = 0;
-    virtual void __stdcall Unused5() = 0;
-    virtual void __stdcall Unused6() = 0;
-    virtual void __stdcall Unused7() = 0;
-    virtual void __stdcall Unused8() = 0;
-    virtual void __stdcall Unused9() = 0;
-    virtual void __stdcall Unused10() = 0;
-    virtual void __stdcall Unused11() = 0;
-    virtual void __stdcall Unused12() = 0;
-    virtual void __stdcall Unused13() = 0;
-    virtual void __stdcall Unused14() = 0;
-    virtual void __stdcall Unused15() = 0;
-    virtual void __stdcall Unused16() = 0;
-    virtual void __stdcall Unused17() = 0;
-    virtual void __stdcall Unused18() = 0;
-    virtual void __stdcall Unused19() = 0;
-    virtual void __stdcall Unused20() = 0;
-    virtual void __stdcall Unused21() = 0;
-    virtual void __stdcall Unused22() = 0;
-    virtual void __stdcall Unused23() = 0;
-    virtual void __stdcall Unused24() = 0;
-    virtual void __stdcall Unused25() = 0;
-    virtual void __stdcall Unused26() = 0;
-    virtual void __stdcall Unused27() = 0;
-    virtual int __stdcall DrawPrimitive(unsigned int type, unsigned int format, void* vertices, unsigned int count, unsigned int flags) = 0;
-};
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl FOG_DisplayHalt(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09

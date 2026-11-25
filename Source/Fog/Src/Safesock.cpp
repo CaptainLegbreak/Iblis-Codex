@@ -540,7 +540,7 @@ struct D2SystemTimeStrc;
 struct D2ModuleInfoStrc;
 
 
-unsigned long __stdcall sub_004101C0_LogThreadProc(void* pParam); // 0x004101C0
+unsigned long __stdcall LOGMANAGER_LogThreadProc(void* pParam); // 0x004101C0
 
 extern D2SystemTimeStrc gLogStartTime_0075D288; // 0x0075D288
 

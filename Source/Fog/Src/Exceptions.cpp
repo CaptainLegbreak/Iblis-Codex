@@ -72,7 +72,7 @@ extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-unsigned long __stdcall sub_004101C0_LogThreadProc(void* pParam); // 0x004101C0
+unsigned long __stdcall LOGMANAGER_LogThreadProc(void* pParam); // 0x004101C0
 
 extern D2SystemTimeStrc gLogStartTime_0075D288; // 0x0075D288
 
