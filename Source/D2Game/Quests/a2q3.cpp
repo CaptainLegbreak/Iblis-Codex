@@ -380,15 +380,6 @@ void __fastcall OBJECTS_InitFunction32_Unused(D2ObjInitFnStrc* pOp)
 {
 }
 
-void __fastcall sub_M118_Emit_0059A3C0(D2QuestDataStrc* pQuestData)
-{
-    if (pQuestData->bNotIntro)
-    {
-        ACT2Q3_EndTaintedSun(pQuestData, pQuestData->pGame);
-        QUESTS_TriggerFX(pQuestData->pGame, 6);
-    }
-}
-
 // 0x00599F10
 void __fastcall ACT2Q3_GetHoradricCubeInfo(D2GameStrc* pGame, int* pnValue, unsigned char* pbFlag)
 {
@@ -940,13 +931,7 @@ int __fastcall OBJECTS_OperateFunction24_TaintedSunAltar(D2ObjOperateFnStrc* pOp
 
     if (pQuestData->bNotIntro)
     {
-        D2GameStrc* pGame = pQuestData->pGame;
-        if (pGame->pAct[1])
-        {
-            ((D2Act2Quest3Strc*)pQuestData->pQuestDataEx)->bDarknessApplied = 0;
-            ENVIRONMENT_TaintedSunEnd(pGame->pAct[1]);
-            SUNIT_IterateUnitsOfType(pGame, 0, 0, ACT2Q3_UnitIterate_SendPacket0x53ToClient);
-        }
+        ACT2Q3_EndTaintedSun(pQuestData, pQuestData->pGame);
 
         QUESTS_DebugOutput(pQuestData->pGame, "Finished quest", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q3.cpp", 991);
         QUESTS_StateDebug(pQuestData, 4, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q3.cpp", 992);

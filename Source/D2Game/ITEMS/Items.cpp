@@ -695,20 +695,6 @@ static unsigned int ITEMS_HasUniqueBeenDroppedAlready(D2GameStrc* pGame, int nUn
     return pGame->dwUniqueFlags[nUniqueItemId >> 5] & gdwBitMasks[nUniqueItemId & 0x1F];
 }
 
-static unsigned int ITEMS_HasUniqueBeenDroppedAlready_Inlined(D2GameStrc* pGame, int nUniqueItemId)
-{
-    if (!pGame)
-    {
-        return 0;
-    }
-
-    if (nUniqueItemId < 0 || nUniqueItemId > 4096)
-    {
-        return 1;
-    }
-
-    return pGame->dwUniqueFlags[nUniqueItemId >> 5] & gdwBitMasks[nUniqueItemId & 0x1F];
-}
 
 // 0x005564D0
 int __fastcall ITEMS_IsUniqueAlreadyDropped(D2GameStrc* pGame, D2UnitStrc* pItem)
@@ -718,23 +704,9 @@ int __fastcall ITEMS_IsUniqueAlreadyDropped(D2GameStrc* pGame, D2UnitStrc* pItem
         return 0;
     }
 
-    return ITEMS_HasUniqueBeenDroppedAlready_Inlined(pGame, ITEMS_GetFileIndex(pItem));
+    return ITEMS_HasUniqueBeenDroppedAlready(pGame, ITEMS_GetFileIndex(pItem));
 }
 
-static unsigned int ITEMS_HasUniqueBeenDroppedAlready_Inline(D2GameStrc* pGame, int nUniqueItemId)
-{
-    if (!pGame)
-    {
-        return 0;
-    }
-
-    if (nUniqueItemId < 0 || nUniqueItemId > 4096)
-    {
-        return 1;
-    }
-
-    return pGame->dwUniqueFlags[nUniqueItemId >> 5] & gdwBitMasks[nUniqueItemId & 0x1F];
-}
 
 inline D2UniqueItemsTxt* ITEMS_GetUniqueItemsTxtRecord(int nUniqueItemId)
 {
@@ -771,16 +743,6 @@ static int __stdcall ITEMS_CanUniqueItemBeDropped(D2GameStrc* pGame, D2UnitStrc*
     {
         pGame->dwUniqueFlags[nFileIndex >> 5] |= gdwBitMasks[nFileIndex & 0x1F];
         return 1;
-    }
-
-    return 0;
-}
-
-int __fastcall sub_K11_Emit005564A0(D2GameStrc* pGame, D2UnitStrc* pItem)
-{
-    if (ITEMS_CanUniqueItemBeDropped(pGame, pItem))
-    {
-        return ITEMS_HasUniqueBeenDroppedAlready(pGame, ITEMS_GetFileIndex(pItem));
     }
 
     return 0;
@@ -919,7 +881,7 @@ int __stdcall ITEMS_RollUniqueItem(D2GameStrc* pGame,D2UnitStrc* pItem,D2ItemDro
  {
   nUniqueItemId=nSelected;
  }
- if(!pItemsTxtRecord->nQuest && ITEMS_HasUniqueBeenDroppedAlready_Inline(pGame,nUniqueItemId))
+ if(!pItemsTxtRecord->nQuest && ITEMS_HasUniqueBeenDroppedAlready(pGame,nUniqueItemId))
  {
   goto FailedUnique;
  }
@@ -1856,16 +1818,10 @@ static inline void ITEMS_RemoveItemFromAllPlayers(D2GameStrc* pGame, D2UnitStrc*
     SUNIT_IterateLivingPlayers(pGame, ITEMS_PlayerIterateCallback_RemoveItem, pItem);
 }
 
-void __fastcall sub_M110_Emit_00557FC0(D2GameStrc* pGame, D2UnitStrc* pItem)
-{
-    if (pItem)
-        ITEMS_RemoveItemFromAllPlayers(pGame, pItem);
-}
-
 // 0x00557FD0
 void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    SUNIT_IterateLivingPlayers(pGame, ITEMS_PlayerIterateCallback_RemoveItem, pUnit);
+    ITEMS_RemoveItemFromAllPlayers(pGame, pUnit);
     SUNIT_RemoveUnit(pGame, pUnit);
 }
 

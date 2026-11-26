@@ -472,15 +472,6 @@ static inline void CLIENTS_MoveClientBetweenRooms(D2ActiveRoomStrc* pNewRoom, D2
     D2Common_10077(pOldRoom, pNewRoom);
 }
 
-void __fastcall sub_M124_Emit_00537AB0(D2ClientStrc* pClient, D2ActiveRoomStrc* pRoom)
-{
-    if (pClient->hRoom != pRoom)
-    {
-        CLIENTS_MoveClientBetweenRooms(pRoom, pClient->hRoom);
-        pClient->hRoom = pRoom;
-    }
-}
-
 struct D2NpcRecordStrc;
 
 struct D2ItemCacheStrc;
@@ -787,8 +778,7 @@ static void __stdcall CLIENTS_ChangeRoom(D2ActiveRoomStrc* pRoom, D2ClientStrc* 
     {
         return;
     }
-    DUNGEON_ChangeClientRoom(pClientRoom, pRoom);
-    D2Common_10077(pClientRoom, pRoom);
+    CLIENTS_MoveClientBetweenRooms(pRoom, pClientRoom);
 
     D2ActiveRoomStrc** ppAdjacentRooms = 0;
     int nAdjacentRooms = 0;
@@ -843,13 +833,7 @@ static void __stdcall CLIENTS_ChangeRoom(D2ActiveRoomStrc* pRoom, D2ClientStrc* 
     }
 
     pClient->hRoom = pRoom;
-    if (pRoom && pClient->pPlayer)
-    {
-        const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-        int nPortalFlags = UNITS_GetPlayerPortalFlags(pClient->pPlayer);
-        nPortalFlags |= DUNGEON_GetPortalFlagFromLevelId(nLevelId);
-        UNITS_SetPlayerPortalFlags(pClient->pPlayer, nPortalFlags);
-    }
+    CLIENTS_UpdatePlayerPortalFlags(pClient);
 }
 
 // 0x00537D10
@@ -935,13 +919,6 @@ static void __stdcall CLIENTS_InsertPlayerUnitUpdate(D2UnitStrc* pRoomUnit, int 
     {
         *pMaxDistance = nDistance;
     }
-}
-
-void __fastcall sub_M468_Emit_00537B00(D2ClientStrc* pClient, D2ActiveRoomStrc* pRoom)
-{
-    pClient->hRoom = pRoom;
-    pClient->pPacketDataHead = (D2PacketDataStrc*)0x2D7;
-    CLIENTS_UpdatePlayerPortalFlags(pClient);
 }
 
 static int CLIENTS_GetUnitX_Inlined(D2UnitStrc* pUnit)

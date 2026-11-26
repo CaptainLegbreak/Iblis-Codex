@@ -1331,12 +1331,6 @@ char* __fastcall PLRSAVE_BytesToHexString(char* szOut, const unsigned char* pDat
     return szOut;
 }
 
-unsigned int __fastcall sub_K10_EmitSaveFileSize(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    unsigned char aBuffer[4];
-    return PLRSAVE_GetSaveFileSize(pGame, pPlayer, aBuffer, sizeof(aBuffer), 0, 0);
-}
-
 // 0x00531E30
 int __fastcall D2GAME_SAVE_CalculateChecksum(D2SaveHeaderStrc* pSaveHeader, int nSize)
 {
@@ -1379,11 +1373,10 @@ static int __stdcall D2GAME_SAVE_WriteFileOnRealm(D2GameStrc* pGame, D2UnitStrc*
     if (!gbWriteSaveFile) return 0;
     unsigned int nTotalSize;
     {
-    unsigned int nSize = 0;
-    PLRSAVE2_CreateSaveFile(pGame, pPlayer, pData + 2, &nSize, 0x2000, bInteractsWithPlayer, dwArg);
-    if ((int)nSize <= 0) return 0;
-    nTotalSize = nSize + 2;
-    }
+        const unsigned int nSize = PLRSAVE_GetSaveFileSize(pGame, pPlayer, pData + 2, 0x2000, bInteractsWithPlayer, dwArg);
+        if ((int)nSize <= 0) return 0;
+        nTotalSize = nSize + 2;
+        }
     *(unsigned short*)pData = (unsigned short)nTotalSize;
     D2ClientStrc* pClient = UnitGetClient(pPlayer, gszPlrSaveSourceFile, 0xA3B);
     unsigned int nOldChecksum = D2GAME_GetSaveChecksumFromClient(pClient);

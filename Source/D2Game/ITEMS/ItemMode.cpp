@@ -461,7 +461,6 @@ static void __stdcall ITEMMODE_RemoveItemAndNotify(D2GameStrc*, D2UnitStrc*, D2U
 
 static int ITEMMODE_GetBookOrScrollSkillId(D2UnitStrc*); // 0x0055E050
 
-static void __stdcall sub_0055E0D0_DecrementBookScrollSkillQuantity(D2UnitStrc*, int);
 
 unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
 
@@ -2285,12 +2284,6 @@ void __fastcall ITEMS_DropGoldPile(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigne
     ITEMS_DropGoldPiles(pGame, pUnit, nValue, pGoldPiles, &nCount, 32);
 }
 
-void __fastcall sub_K11_Emit0055D940(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
-{
-    ITEMMODE_DetachItemAndUpdate(pGame, pUnit, pItem);
-    ITEMMODE_DetachItemAndUpdate(pGame, pItem, pUnit);
-}
-
 // 0x0055FDE0
 void __fastcall D2GAME_UpdatePlayerItems(D2GameStrc* pGame, D2UnitStrc* pUnit, int bRefresh)
 {
@@ -2443,15 +2436,6 @@ static int ITEMMODE_AddScrollToFillableBook(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
 
     return 0;
-}
-
-void __fastcall sub_BF69_Emit_0055E0D0(D2UnitStrc* pUnit, int nSkillId)
-{
-    if (pUnit && nSkillId)
-    {
-        ITEMMODE_DecrementBookScrollSkillQuantity(pUnit, nSkillId);
-        ITEMMODE_DecrementBookScrollSkillQuantity(pUnit, nSkillId + 1);
-    }
 }
 
 static void __stdcall sub_0055E0D0_DecrementBook(D2UnitStrc* player, int skillId)
@@ -4537,29 +4521,6 @@ int __fastcall D2GAME_PickupItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nIte
     return 0;
 }
 
-static void __stdcall sub_0055E0D0_DecrementBookScrollSkillQuantity(D2UnitStrc* pUnit, int nSkillId)
-{
-    D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
-    if (pSkill)
-    {
-        int nQuantity = SKILLS_GetQuantity(pSkill) - 1;
-        if (nQuantity <= 0)
-        {
-            if (UNITS_GetRightSkill(pUnit) == pSkill)
-                D2GAME_AssignSkill(pUnit, 0, SKILL_ATTACK, -1);
-            nQuantity = 0;
-        }
-        SKILLS_SetQuantity(pSkill, nQuantity);
-        const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
-        const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
-        D2GAME_PACKETS_SendPacket0x22(UnitGetClient(pUnit, szItemModeCpp, 0xFC2), nUnitType, nUnitGUID, nSkillId, nQuantity);
-    }
-    else
-    {
-        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xFC4);
-        exit(-1);
-    }
-}
 
 // 0x0055DBC0
 void __fastcall ITEMMODE_RecalcEquippedItemStates(D2GameStrc* pGame,D2UnitStrc* pUnit,int bRefresh)
@@ -5224,7 +5185,7 @@ int __fastcall ITEMMODE_UseItemOnItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int
         const int nSkillId = ITEMMODE_GetBookOrScrollSkillId(pUseItem);
         if (nSkillId != -1)
         {
-            sub_0055E0D0_DecrementBookScrollSkillQuantity(hUnit, nSkillId);
+            ITEMMODE_DecrementBookScrollSkillQuantity(hUnit, nSkillId);
             ITEMMODE_RemoveBeltItem(ptGame, hUnit, pUseItem);
             ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x1034);
             goto Success;
@@ -5247,7 +5208,7 @@ int __fastcall ITEMMODE_UseItemOnItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int
         {
             STATLIST_AddUnitStat(pUseItem, STAT_QUANTITY, -1, 0);
             D2GAME_PACKETS_SendPacket0x3E(UnitGetClient(hUnit, szItemModeCpp, 0x103C), pUseItem, 1, 0x46, STATLIST_UnitGetStatValue(pUseItem, STAT_QUANTITY, 0), 0);
-            sub_0055E0D0_DecrementBookScrollSkillQuantity(hUnit, nSkillId);
+            ITEMMODE_DecrementBookScrollSkillQuantity(hUnit, nSkillId);
             const int nUnitGUID = !pUseItem ? -1 : pUseItem->dwUnitId;
             const int nUnitType = !pUseItem ? 6 : pUseItem->dwUnitType;
             D2GAME_PACKETS_SendPacketSize06(UnitGetClient(hUnit, szItemModeCpp, 0x104A), 0x7C, nUnitType, nUnitGUID);
@@ -5259,7 +5220,7 @@ int __fastcall ITEMMODE_UseItemOnItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int
     {
         const int nSkillId = ITEMMODE_GetBookOrScrollSkillId(pUseItem);
         if (nSkillId != -1)
-            sub_0055E0D0_DecrementBookScrollSkillQuantity(hUnit, nSkillId);
+            ITEMMODE_DecrementBookScrollSkillQuantity(hUnit, nSkillId);
     }
     ITEMMODE_RemoveItemAndNotify(ptGame, hUnit, pUseItem);
     ITEMMODE_ClearTargetingFlags(hUnit, szItemModeCpp, 0x104C);
@@ -6070,11 +6031,7 @@ void __fastcall ITEMMODE_BreakItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitS
 {
     D2InventoryStrc* pInventory = pUnit->pInventory;
     ITEMS_SetItemFlag(pItem, 0x100, 1);
-    INVENTORY_UpdateWeaponGUIDOnRemoval(pUnit->pInventory, pItem);
-    if (UNITS_GetAnimOrSeqMode(pItem) == 1)
-    {
-        D2GAME_ITEMS_UpdateTransferredProperties(pGame, pItem, pUnit, 1, 1);
-    }
+    ITEMMODE_DetachItemAndUpdate(pGame, pUnit, pItem);
 
     ITEMMODE_RecalcEquippedItemStates(pGame, pUnit, 0);
     INVENTORY_AddItemToTradeInventory(pInventory, pItem);
