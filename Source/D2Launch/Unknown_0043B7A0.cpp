@@ -30,7 +30,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 
-void __cdecl CHARSEL_DisconnectBattleNet(); // 0x0043B9A0
 
 int __stdcall CHARSEL_OnCreateAccountTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043B8E0
 
@@ -38,7 +37,6 @@ int __stdcall CHARSEL_OnChangePasswordTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043B
 
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText);                     // 0x006CC200
 
-void __cdecl MAINMENUS_ShowConnectingPopup();                                                                                // 0x0042F6E0
 
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback);                                          // 0x004FA590
 
@@ -64,7 +62,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
 
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern int gfHasCharEntries;                                                                              // 0x00779DA4
 
@@ -221,7 +218,6 @@ void __cdecl CHARSEL_DisconnectBattleNet()
     }
 }
 
-extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
 struct UnicodeChar : Unicode
 {
@@ -231,7 +227,6 @@ void __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int
 void __fastcall MAINMENUS_ShowTwoTexts(const Unicode* pText1, const Unicode* pText2, D2LaunchDoneFn pfnDone); // 0x00433130
 void __fastcall MAINMENUS_ShowThreeTexts(const Unicode* pText1, const Unicode* pText2, const Unicode* pText3, D2LaunchDoneFn pfnDone); // 0x004331C0
 void __fastcall MAINMENUS_ShowFourTexts(const Unicode* pText1, const Unicode* pText2, const Unicode* pText3, const Unicode* pText4, D2LaunchDoneFn pfnDone); // 0x004332B0
-void __cdecl MAINMENUS_ShowMainMenu(); // 0x004336C0
 void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
 extern int gnLogonRetries; // 0x0070CC4C
 extern char gszLastAccount[16]; // 0x0077ABF4

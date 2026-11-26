@@ -25,7 +25,6 @@ extern "C" const char gszEmptyAssertText_006CC837; // 0x006CC837
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
 extern "C" FILE* __cdecl fopen(const char* szFileName, const char* szMode); // 0x0068239A
 

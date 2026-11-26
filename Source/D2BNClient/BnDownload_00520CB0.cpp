@@ -23,7 +23,6 @@ void __fastcall sub_0051A540_SetValue(int nValue);                              
 
 int __fastcall BNDOWNLOAD_SetCheckRevisionValue(const char* szValue);                                    // 0x0051E3B0
 
-void __fastcall BNDOWNLOAD_RequestDownload(int nType, int nSubType, unsigned int nArg1, unsigned int nArg2, const D2FileTimeStrc* pFileTime, const char* szFile, const char* szLink); // 0x0051F910
 
 extern "C" const char gszConfiguration[];                                                           // 0x006DEC7C
 

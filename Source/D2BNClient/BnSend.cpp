@@ -208,7 +208,6 @@ void* gpChannelList;                                                            
 
 char* gpAdUrlReply; // 0x008818DC
 
-void __stdcall SMemCopy(void*, const void*, unsigned int); // 0x0041D2A0
 
 struct D2CommonChatIgnoreListStrc
 {

@@ -89,7 +89,6 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
-void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 int __fastcall sub_004FBD20_GetLastRow(D2WinControlStrc* pControl); // 0x004FBD20
 int __fastcall D2Win_10057(D2WinControlStrc* pControl, const char* szText, int nLineNum, int nColumn); // 0x004FCD40
 void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine); // 0x004FB9D0
@@ -104,7 +103,6 @@ int __fastcall MAINMENUS_DeleteCharacter(D2LaunchCharEntryStrc* pEntry, const ch
 int __fastcall MAINMENUS_UpgradeCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x004349B0
 void __fastcall MAINMENUS_ShowExpansionMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg); // 0x00435180
 int __stdcall sub_004370B0_ShowLoginScreen(int nArg); // 0x004370B0
-void __cdecl CHARSEL_InitCharSelectScreen(); // 0x0043B080
 void __fastcall MAINMENUS_DeleteCharFiles(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x0043C750
 int __fastcall CHATDLG_UpdateSaveFlags(const char* szName); // 0x0043CAA0
 int __stdcall sub_0043E6C0_OnError(int nArg); // 0x0043E6C0
@@ -137,7 +135,6 @@ extern D2WinControlStrc* gpSubmitEditA; // 0x00798C80
 extern D2WinControlStrc* gpSubmitEditB; // 0x00798C84
 extern D2WinControlStrc* gpSubmitEditC; // 0x00798C88
 extern int gnSubmitMode; // 0x00798CAC
-char* __fastcall MAINMENUS_GetSlotName(int nIndex); // 0x00430B50
 void __cdecl CHARSEL_UpdateStatus(); // 0x0043A270
 extern int gbFlag_00779C6C; // 0x00779C6C
 extern D2WinControlStrc* gpControl_00779D90; // 0x00779D90
@@ -157,9 +154,7 @@ extern Unicode gwszRealmNames[7][0x100];                                        
 #pragma intrinsic(strcpy)
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 #pragma intrinsic(strcat, strlen)
-extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 extern "C" long __cdecl _time32(long* pTime);                                                               // 0x006850E6
-void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc* pControl);                                         // 0x004FB6A0
 void __fastcall sub_004FB740(D2WinControlStrc* pList, int nA, int nB);                                      // 0x004FB740
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
 void __fastcall D2Win_10046(D2WinControlStrc* pControl, const char* szText, int nArg);            // 0x004FCFF0
@@ -167,9 +162,7 @@ void __stdcall D2Win_10152(D2CompositeUnitStrc* pCompositeUnit, int nX);        
 void __stdcall D2Win_10153(D2CompositeUnitStrc* pCompositeUnit, int nY);                              // 0x005052F0
 void __stdcall D2Win_10156(D2CompositeUnitStrc* pCompositeUnit, int nFlags);                                // 0x00505360
 const char* __stdcall D2Win_10161(int nA, int nB, int nC, int nD);                                         // 0x005068A0
-int __cdecl STRTABLE_GetLanguage();                                                                         // 0x00525150
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
-Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 extern const int gnFlagSet0_006CE278;                                                                       // 0x006CE278
 extern const int gdwBitMask5;                                                                       // 0x006CE27C
 extern const int gnFlagClear0;                                                                     // 0x006CE2F8
@@ -183,15 +176,11 @@ extern D2WinControlStrc* gpControl_00779DD0;                                    
 static Unicode* CHARSEL_GetClassName(Unicode* pBuffer, int nClass); // 0x00437F60
 static int CHARSEL_IsTestRealm(const Unicode* pName); // 0x00437D20
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
-extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
 extern int gnCharEntryCount;                                                                               // 0x00779DC4
-int __cdecl FOG_IsExpansion();                                                                 // 0x00408F20
 extern "C" const char gszCharSelFile[];                                                            // 0x006D4DBC
 extern int gfHasCharEntries;                                                                              // 0x00779DA4
-void __cdecl CHARSEL_RefreshCharList();                                                                        // 0x00438560
 int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode);                                // 0x005042F0
 void __stdcall D2Win_10149(D2CompositeUnitStrc* pCompositeUnit, unsigned char nValue);                     // 0x005051A0
 void __stdcall D2Win_10151(D2CompositeUnitStrc* pCompositeUnit, int nFrame);                               // 0x00505260
@@ -217,11 +206,8 @@ extern "C" const char gszCharSelFile[]; // 0x006D4DBC
 extern "C" const char gszNameTagFormat[]; // 0x006D4E34
 extern "C" const char gszLevelFormat[]; // 0x006D4E24
 int __cdecl CHARSEL_UpdateSelection(); // 0x004390A0
-void __stdcall SMemCopy(void*,const void*,unsigned int); // 0x0041D2A0
-void __fastcall CONTROL_SetEnabled(D2WinControlStrc*,int); // 0x004F96F0
 void __fastcall CONTROL_SetVisible(D2WinControlStrc*,int); // 0x004F9740
 void __stdcall IMAGE_SetCoordinates(D2WinControlStrc*,int,void*); // 0x004FD0B0
-void __fastcall sub_004FC9B0_SetText(D2WinControlStrc*,const Unicode*,int,int,int); // 0x004FC9B0
 void __stdcall sub_005041B0_FreeAnim(void*,int); // 0x005041B0
 void __stdcall sub_005051A0_SetAnimField(void*,int); // 0x005051A0
 void __stdcall sub_00505260_SetAnimField(void*,int); // 0x00505260
@@ -246,16 +232,11 @@ extern int gnGlobal_0070CC08;                                                   
 extern int gnGlobal_00779DD8;                                                                               // 0x00779DD8
 void __fastcall CHARSEL_CacheStore(const char* szKey, const void* pData, unsigned int nSize); // 0x00437AB0
 void __cdecl CHARSEL_FreeCache();                                                                      // 0x00437B90
-int __cdecl CHARSEL_Redraw(); // 0x00439210
 extern "C" int __stdcall CHARSEL_CreateNotice(const Unicode* pTitle, const Unicode* pText, int nState, unsigned char nSel); // 0x0043A460
-D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId);                                           // 0x0042F430
-void __cdecl CHARSEL_DisconnectBattleNet();                                                                                // 0x0043B9A0
 static int CHARSEL_FindSlotByName(const char* szName); // 0x00437A20
 struct D2WinTextBoxStrc;
-int __cdecl GAME_GetSlotNameCount(); // 0x00430B40
 void __cdecl CHARSEL_CreateCharInfoControls(); // 0x00437BF0
 void __cdecl CHARSEL_RefreshCharEntry(); // 0x0043A650
-int __stdcall D2Win_10033(D2WinControlStrc* pControlList, int nListValue); // 0x004FA470
 int __fastcall D2Win_10062(D2WinTextBoxStrc* pTextBox, int nWrappedLineGap, int nLineGap); // 0x004FB740
 void __fastcall D2Win_10050_TEXTBOX_SetLine(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FB9D0
 extern D2WinControlStrc* gpNameControl;        // 0x007799E8
@@ -274,7 +255,6 @@ void __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int
 void __fastcall MAINMENUS_ShowTwoTexts(const Unicode* pText1, const Unicode* pText2, D2LaunchDoneFn pfnDone); // 0x00433130
 void __fastcall MAINMENUS_ShowThreeTexts(const Unicode* pText1, const Unicode* pText2, const Unicode* pText3, D2LaunchDoneFn pfnDone); // 0x004331C0
 void __fastcall MAINMENUS_ShowFourTexts(const Unicode* pText1, const Unicode* pText2, const Unicode* pText3, const Unicode* pText4, D2LaunchDoneFn pfnDone); // 0x004332B0
-void __cdecl MAINMENUS_ShowMainMenu(); // 0x004336C0
 void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
 void __fastcall MAINMENUS_SetValue(int nValue); // 0x0042FF10
 extern D2ComInterfaceStrc* gpFuncTable; // 0x0077ABF0
@@ -477,7 +457,6 @@ static int CHARSEL_IsNotListedCode(int nValue)
 
     return 1;
 }
-int __cdecl CHARSEL_Redraw(); // 0x00439210
 // build: symbol ?MAINMENUS_CreateMultiplayerScreen@* 0x004301A0
 // build: symbol ?gpLaunchRecord@* 0x007795D4
 void __cdecl CHATDLG_UpdateOkEnabled(); // 0x0043E660

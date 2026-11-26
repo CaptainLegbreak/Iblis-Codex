@@ -32,7 +32,6 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 
 extern "C" int __cdecl rand();                                                                              // 0x00687461
 
-int __cdecl D2SOUND_IsExpansion();                                                                                  // 0x00513AE0
 
 void __cdecl D2SOUND_ClearChannelTable();                                                               // 0x00514860
 

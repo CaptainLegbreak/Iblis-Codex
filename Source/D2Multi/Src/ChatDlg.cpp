@@ -457,15 +457,12 @@ char gszMcpText2[28]; // 0x00798F60
 
 char gszMcpText1[4]; // 0x00799294
 
-unsigned int __stdcall SStrLen(const char* szString);                                                       // 0x00413750
 
 unsigned int __stdcall SStrHashHT(const char* szPath);                                           // 0x00414150
 
 extern "C" int __cdecl isalnum(int c);                                                                      // 0x006870FB
 
-void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
 
-extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
 const char* __fastcall COMCALLBACK_SkipNamePrefix(const char* szName); // 0x00446820
 
@@ -1902,9 +1899,7 @@ void __cdecl CHATDLG_FreeChatCellFile()
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 
-void __fastcall D2Win_10046(D2WinControlStrc* pControl, const char* szText, int nArg);            // 0x004FCFF0
 
-D2WinControlStrc* __stdcall CONTROL_Create(D2WinControlInitStrc* pControlInit);                             // 0x004F93C0
 
 extern D2WinControlStrc* gpAdImage;                                                                // 0x0077B094
 
@@ -2304,7 +2299,6 @@ int __fastcall sub_M110_Emit_0043E180(unsigned int nTime, _FILETIME* pFileTime)
     return 1;
 }
 
-void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags);                     // 0x004F96F0
 
 D2WinControlStrc* gpChannelOkButton; // 0x0077BCEC
 
@@ -3767,7 +3761,6 @@ int __stdcall CHATDLG_ShowExpansionHardcoreLadder(int nArg)
     return 1;
 }
 
-void __cdecl CHATDLG_DestroyPopupControls(); // 0x0043EA20
 
 int gbFlag_0077ADA4; // 0x0077ADA4
 
@@ -4047,7 +4040,6 @@ int __stdcall CHATDLG_UseEditText(int nArg)
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-int __stdcall sub_0043E6C0_OnError(int nArg); // 0x0043E6C0
 
 // build: symbol ?gnChatLaunchMode@* 0x0077BBE4
 
@@ -4731,7 +4723,6 @@ int __stdcall CHATDLG_SendChat(int nArg)
     return 1;
 }
 
-extern "C" char* __cdecl strtok(char* szText, const char* szDelim); // 0x0068264F
 
 int __fastcall CHATDLG_SendChatText(char* szText, int bWhisper); // 0x004428D0
 
@@ -4855,15 +4846,12 @@ void __fastcall CHATDLG_HandleGameListReply(D2LaunchReplyStrc* pReply)
     gnGameCount = nCount + 1;
 }
 
-extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix); // 0x00687605
 
 int __fastcall sub_004FBD20_GetLastRow(D2WinControlStrc* pControl); // 0x004FBD20
 
 int __fastcall D2Win_10057(D2WinControlStrc* pControl, const char* szText, int nLineNum, int nColumn); // 0x004FCD40
 
-void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine); // 0x004FB9D0
 
-int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
 
 extern D2LaunchGameRecStrc gaGames[]; // 0x0078A440
 
@@ -4873,7 +4861,6 @@ D2WinControlStrc* gpGameList; // 0x00798BC0
 
 int gnLastGameCount; // 0x00798CC8
 
-void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc* pControl);                                         // 0x004FB6A0
 
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
@@ -5132,7 +5119,6 @@ void __cdecl CHATDLG_DestroyJoinControls()
     sub_004FA450_SetActive(gpQuitButton);
 }
 
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long nValue); // 0x004150E0
 

@@ -11,7 +11,6 @@ struct D2CriticalSectionStrc;
 
 unsigned long __stdcall CLIENT_ConnectToHost(void* szIpAddress); // 0x0052A680
 
-int __fastcall NET_IsLocalConnection(); // 0x0052B7E0
 
 extern D2CriticalSectionStrc gCriticalSection; // 0x00882CE8
 

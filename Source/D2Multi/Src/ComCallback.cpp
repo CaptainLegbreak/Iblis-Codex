@@ -280,9 +280,7 @@ D2WinControlStrc* gpPanelCancelButton; // 0x00798C48
 
 typedef int (__stdcall* D2LaunchCallback)(int nArg);
 
-extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
-int __stdcall sub_0043E6C0_OnError(int nArg);                                                               // 0x0043E6C0
 
 int gbCheck; // 0x0077BD58
 
@@ -517,7 +515,6 @@ void __cdecl COMCALLBACK_BuildCreateScreen();                                   
 
 extern int gnChatLaunchMode;                                                                           // 0x0077BBE4
 
-extern "C" char* __cdecl strchr(const char* szString, int nChar);                                           // 0x00687740
 
 #pragma intrinsic(strcmp)
 

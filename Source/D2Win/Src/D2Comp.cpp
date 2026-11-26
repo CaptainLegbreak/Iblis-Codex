@@ -320,7 +320,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
 
-void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 
 void __fastcall D2COMP_UnlinkCompositeUnit(D2CompositeUnitStrc* pCompositeUnit); // 0x00504100
 
@@ -340,7 +339,6 @@ extern "C" const char gszItemTypesFieldEquiv2[]; // 0x006DCD0C
 
 extern "C" const char gszItemTypesTable[]; // 0x006DCD00
 
-D2TxtLinkStrc* __stdcall sub_006BD040(const char* szFile, int nLine); // 0x006BD040
 
 enum D2ControlTypes
 {
@@ -365,7 +363,6 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
 extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileName); // 0x006CC1A0
 
-extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
 
 void __stdcall WINDOW_DecodeSmacker(const char* szSmacker, unsigned char* pBuffer, int nVersion); // 0x004F5E00
 

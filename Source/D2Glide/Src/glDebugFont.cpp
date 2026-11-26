@@ -99,7 +99,6 @@ static int gnGlideDebugFontTmu;                                            // 0x
 
 
 
-extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
 #pragma intrinsic(memcpy)
 

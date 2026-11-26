@@ -41,7 +41,6 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFile(const char* szFile, int nType);                              // 0x004FA9B0
 
-void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile);                                        // 0x004FAAE0
 
 void* __stdcall D2Win_GetArchive(); // 0x004FAC80
 

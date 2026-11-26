@@ -27,17 +27,14 @@ void __cdecl MAINMENUS_CreateEmailScreen(); // 0x00436F30
 
 void __cdecl MAINMENUS_UpdatePasswordOk(); // 0x004371E0
 
-void __cdecl MAINMENUS_CreateInfoScreen(); // 0x004370C0
 
 void __cdecl MAINMENUS_CreatePasswordScreen(); // 0x004372B0
 
 int __cdecl sub_0043B830(); // 0x0043B830
 
-D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
 
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 
-D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
 
 
 int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
@@ -46,7 +43,6 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 
-void __cdecl CHARSEL_CreateBaseScreen(); // 0x0043C4F0
 
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
 
@@ -58,7 +54,6 @@ void __fastcall sub_0042E6A0(void (__cdecl* pfnCallback)()); // 0x0042E6A0
 
 void __cdecl CHARSEL_SetCancelled(); // 0x0043B810
 
-void __cdecl MAINMENUS_UpdateStatus(); // 0x00436AD0
 
 int __stdcall MAINMENUS_FilterRestrictedChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FEF0
 
@@ -92,26 +87,17 @@ D2WinControlStrc* gpEdit_007799DC; // 0x007799DC
 
 D2WinControlStrc* gpEdit_007799E0; // 0x007799E0
 
-int __stdcall D2Win_10033(D2WinControlStrc* pControl, int nArg);                                            // 0x004FA470
-
-void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*)); // 0x004FDAD0
-
-void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int)); // 0x004FDB00
-
-void __fastcall sub_004FDD50_SetMaxLength(D2WinControlStrc* pControl, int nLength); // 0x004FDD50
-
-void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStrc* pNext); // 0x004FDDD0
-
-void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0
-
-const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
 
 
-D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
+
+
+
+
+
+
 
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 
-D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
 
 int __stdcall MAINMENUS_FilterRestrictedChar(void* pControl, int nUnused, const char* pChar); // 0x0042FEF0
 
@@ -119,7 +105,6 @@ void __cdecl MAINMENUS_CreateLoginScreen(); // 0x00432100
 
 void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
 
-void __cdecl MAINMENUS_UpdateStatus(); // 0x00436AD0
 
 static int MAINMENUS_CheckAtAndDot(const char* szText); // 0x00436C10
 
@@ -129,7 +114,6 @@ int __stdcall MAINMENUS_OnEditChange(int nArg); // 0x00436F20
 
 int gnStatusDots; // 0x007799B4
 
-void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 
 extern D2WinControlStrc* gpEdit_007799CC; // 0x007799CC
 
@@ -139,13 +123,11 @@ extern D2WinControlStrc* gpControl_007799D4; // 0x007799D4
 
 void __cdecl MAINMENUS_UpdateTwoEditOk(); // 0x00436CF0
 
-void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 
 const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinControlStrc*); // 0x004FDD90
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
 int gfConnectCancelled; // 0x007799D8
 
