@@ -115,13 +115,22 @@ for t in TEXT.values():
             SHIMS[int(h.group(1), 16)] += 1
 
 
+# Fog's crash-handler run (0x401A70 and 0x401DF0-0x402AE0) was a /GL object in the original. The evidence is 0x401A70:
+# the usual `SetThreadName(DWORD dwThreadID, LPCSTR szThreadName)`, called once as `SetThreadName(-1, "MiniDump Thread")`,
+# comes out as the original only under cl /GL and link /LTCG, where the compiler writes both constants into the body
+# and drops the parameters; a plain build keeps them. So link-time code generation is these units' own option, listed
+# for completeness like the `__assume` macros below.
+LTCG_ORIGINAL = ('Source/Fog/Unknown_00401DF0.cpp', 'Source/Fog/Unknown_00402280.cpp', 'Source/Fog/Unknown_00402380.cpp',
+                 'Source/Fog/Unknown_00402530.cpp', 'Source/Fog/Unknown_004025F0.cpp')
+
+
 def flag_notes(u):
     base = MODULE_FLAGS.get(u['file'].split('/')[1]) or DEFAULT
     fl = u.get('flags') or base
     notes = ['compiler option %s' % x for x in fl if x not in base and x not in ('/GS-', '/EHsc')]
     notes += ['compiler option %s, without %s' % (x.replace('-', ''), x) for x in base if x not in fl and x.endswith('-')]
     if u.get('ltcg'):
-        notes.append('link-time code generation (/GL /LTCG)')
+        notes.append('link-time code generation (/GL /LTCG)' + (' (original)' if u['file'] in LTCG_ORIGINAL else ''))
     return notes
 
 
