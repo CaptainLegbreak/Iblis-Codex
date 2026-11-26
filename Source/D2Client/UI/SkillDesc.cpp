@@ -454,17 +454,6 @@ short __stdcall sub_006298A0_GetDexterityFactor(D2UnitStrc* pItem);
 
 
 
-static void SKILLDESC_AddEnvironSoundRefs(int nIndex)
-{
-    int nId = nIndex * 4 + 0xA9C;
-    for (int i = 3; i; --i)
-    {
-        sub_004822B0(nId, 1);
-        sub_004822B0(nId + 0x18, 1);
-        nId += 0x30;
-    }
-}
-
 static inline float GetEnvironVolume_Inline()
 {
     return sub_00473C40() ? sub_00473C80() : 0.0f;
@@ -603,6 +592,18 @@ float __cdecl SKILLDESC_GetFloatIfEnabled()
     return sub_00473C80();
 }
 
+
+// 0x004E4240
+static void SKILLDESC_AddEnvironSoundRefs(int nIndex)
+{
+    int nId = nIndex * 4 + 0xA9C;
+    for (int i = 3; i; --i)
+    {
+        sub_004822B0(nId, 1);
+        sub_004822B0(nId + 0x18, 1);
+        nId += 0x30;
+    }
+}
 
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 
@@ -1148,29 +1149,6 @@ static int __stdcall SKILLDESC_GetStatDisplayValue(int nValue, D2ItemStatCostTxt
         nValue += 50;
 
     return nValue;
-}
-
-int __stdcall SKILLDESC_IsStatGroupUniform(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int nStatId, int nValue, D2ItemStatCostTxt* pRecord, int* pIsSame)
-{
-    if (!pRecord->wDescGrp)
-        return 0;
-
-    for (int i = sgptDataTables->nItemStatCostTxtRecordCount - 1; i >= 0; --i)
-    {
-        D2ItemStatCostTxt* pOther = (i >= 0 && i < sgptDataTables->nItemStatCostTxtRecordCount) ? &sgptDataTables->pItemStatCostTxt[i] : 0;
-        if (!pOther)
-            return 0;
-
-        if (pRecord->wDescGrp == pOther->wDescGrp)
-        {
-            *pIsSame = i == nStatId;
-            const int nStat = STATLIST_GetStatValue(pStatList, i, 0);
-            if (nValue != SKILLDESC_GetStatDisplayValue(nStat, pOther, pUnit, i))
-                return 0;
-        }
-    }
-
-    return 1;
 }
 
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
@@ -5899,180 +5877,6 @@ static __forceinline void AppendString(Unicode* wszText, unsigned short nString)
     {
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString));
     }
-}
-
-int __fastcall SKILLDESC_CltDoTargetPrgOverlay(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    int nOverlay;
-    int nSound;
-    D2StatListStrc* pStatList;
-    if ((pSkillsTxtRecord->nFlags[2 >> 3] & gdwBitMasks[2 & 7])
-        && pSkillsTxtRecord->nAuraState >= 0 && pSkillsTxtRecord->nAuraState < sgptDataTables->nStatesTxtRecordCount
-        && pSkillsTxtRecord->wAuraStat[0] >= 0 && pSkillsTxtRecord->wAuraStat[0] < sgptDataTables->nItemStatCostTxtRecordCount
-        && (pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, pSkillsTxtRecord->nAuraState)) != 0)
-    {
-        const int nLevel = STATLIST_GetStatValue(pStatList, pSkillsTxtRecord->wAuraStat[0], 0);
-        const int nBonus = MIN(MAX(nLevel, 1), 3) - 1;
-        nOverlay = pSkillsTxtRecord->wPrgOverlay + nBonus;
-        nSound = pSkillsTxtRecord->wPrgSound + nBonus;
-    }
-    else
-    {
-        nOverlay = pSkillsTxtRecord->wPrgOverlay;
-        nSound = pSkillsTxtRecord->wPrgSound;
-    }
-
-    GFX_AddUnitOverlay(pTarget, nOverlay, 2, 0, 0, 0, 0, 0);
-    sub_004B9A00(nSound, pUnit, 0, 0, 0);
-    return 1;
-}
-
-int __fastcall SKILLDESC_CltDoPrgOverlay(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    int nOverlay;
-    int nSound;
-    D2StatListStrc* pStatList;
-    if ((pSkillsTxtRecord->nFlags[2 >> 3] & gdwBitMasks[2 & 7])
-        && pSkillsTxtRecord->nAuraState >= 0 && pSkillsTxtRecord->nAuraState < sgptDataTables->nStatesTxtRecordCount
-        && pSkillsTxtRecord->wAuraStat[0] >= 0 && pSkillsTxtRecord->wAuraStat[0] < sgptDataTables->nItemStatCostTxtRecordCount
-        && (pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, pSkillsTxtRecord->nAuraState)) != 0)
-    {
-        const int nLevel = STATLIST_GetStatValue(pStatList, pSkillsTxtRecord->wAuraStat[0], 0);
-        const int nBonus = MIN(MAX(nLevel, 1), 3) - 1;
-        nOverlay = pSkillsTxtRecord->wPrgOverlay + nBonus;
-        nSound = pSkillsTxtRecord->wPrgSound + nBonus;
-    }
-    else
-    {
-        nOverlay = pSkillsTxtRecord->wPrgOverlay;
-        nSound = pSkillsTxtRecord->wPrgSound;
-    }
-
-    GFX_AddUnitOverlay(pUnit, nOverlay, 2, 0, 0, 0, 0, 0);
-    sub_004B9A00(nSound, pUnit, 0, 0, 0);
-    return 1;
-}
-
-int __fastcall SKILLDESC_CreateCorpseExplosionMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nMonsterId)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nMissile = pSkillsTxtRecord->wCltMissileA;
-    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    if (!nX)
-    {
-        return 0;
-    }
-
-    if (!nY)
-    {
-        return 0;
-    }
-
-    D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(nMonsterId);
-    if (!pMonStats2TxtRecord)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    D2MissileStrc tMissileParams;
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.dwFlags = 0x2021;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.pOrigin = pUnit;
-    tMissileParams.nTargetX = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 3) + nX - 1;
-    tMissileParams.nTargetY = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 3) + nY - 1;
-    tMissileParams.nX = nX;
-    tMissileParams.nY = nY;
-    tMissileParams.nSkill = nSkillId;
-    tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.nMissile = nMissile;
-
-    if (pMonStats2TxtRecord->nFlags[1] & gdwBitMasks[2])
-    {
-        SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 0, 1);
-    }
-    else if (pMonStats2TxtRecord->nFlags[1] & gdwBitMasks[3])
-    {
-        SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 3, 3);
-        const short nSubMissile = sub_0046ACE0_GetMissilesTxtRecord(nMissile)->wSubMissile[0];
-        if (nSubMissile > 0 && nSubMissile < sgptDataTables->nMissilesTxtRecordCount)
-        {
-            tMissileParams.nMissile = nSubMissile;
-            SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 2, 4);
-        }
-    }
-    else
-    {
-        SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 2, 2);
-        const short nSubMissile = sub_0046ACE0_GetMissilesTxtRecord(nMissile)->wSubMissile[1];
-        if (nSubMissile > 0 && nSubMissile < sgptDataTables->nMissilesTxtRecordCount)
-        {
-            tMissileParams.nMissile = nSubMissile;
-            SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 1, 3);
-        }
-    }
-
-    tMissileParams.nY = nY;
-    tMissileParams.nX = nX;
-
-    D2UnitStrc* pMissile = 0;
-    const int nMissileB = pSkillsTxtRecord->wCltMissileB;
-    if (nMissileB > 0 && nMissileB < sgptDataTables->nMissilesTxtRecordCount)
-    {
-        tMissileParams.nMissile = nMissileB;
-        pMissile = MISSILE_CreateClientMissile(&tMissileParams);
-    }
-
-    const int nMissileC = pSkillsTxtRecord->wCltMissileC;
-    if (nMissileC > 0 && nMissileC < sgptDataTables->nMissilesTxtRecordCount)
-    {
-        tMissileParams.nSkillLevel = 2;
-        tMissileParams.nMissile = nMissileC;
-        MISSILE_CreateClientMissile(&tMissileParams);
-    }
-
-    if (!CUNIT_GetPathTargetUnit(pUnit) && pMissile)
-    {
-        const short nSound = pSkillsTxtRecord->wTgtSound;
-        if (nSound > 0)
-        {
-            sub_004B9A00(nSound, pMissile, 0, 0, 0);
-        }
-    }
-
-    return 1;
 }
 
 

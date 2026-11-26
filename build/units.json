@@ -30716,11 +30716,6 @@
      "name": "?SKILLDESC_ClearEnvironSoundRefs@@YAXXZ"
     },
     {
-     "va": "0x004E4240",
-     "length": 52,
-     "name": "?SKILLDESC_AddEnvironSoundRefs@@YAXH@Z"
-    },
-    {
      "va": "0x004E4640",
      "length": 37,
      "name": "?SKILLDESC_GetMonTypeTxtRecord@@YIPAUD2MonTypeTxt@@H@Z"
@@ -31013,6 +31008,11 @@
      "va": "0x004E4200",
      "length": 17,
      "name": "?SKILLDESC_GetFloatIfEnabled@@YAMXZ"
+    },
+    {
+     "va": "0x004E4240",
+     "length": 52,
+     "name": "?SKILLDESC_AddEnvironSoundRefs@@YAXH@Z"
     },
     {
      "va": "0x004E42E0",
