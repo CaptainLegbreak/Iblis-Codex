@@ -3,7 +3,7 @@
 Written by lane 5 only. Newest entries at the top of each section; delete what is done.
 
 ## Ready
-- lane5/audit-decls-d2game 73145f382 (on main b0acdcd50): D2GameFuncs.h declares 756 D2Game functions once; 120 files include it and drop 3,419 private copies (audit item 4 for D2Game). Monster_00573CB0, PlayerPets, SkillNec and Party keep their private copies (listed in the header). Every D2Game unit all equal, full build identical yes, auditguard: no count rose (a1/v12 1802 -> 1424, 1.10-address names 397 -> 392 from the deleted copies).
+- lane5/decls-d2game a4352075b (on main b0acdcd50): D2GameFuncs.h declares 756 D2Game functions once; 119 files include it and drop 3,336 private copies (audit item 4 for D2Game). Quests/QUESTS.CPP, Monster_00573CB0, PlayerPets, SkillNec and Party keep their private copies (listed in the header). Every D2Game unit all equal (upper-case .CPP units included), full build identical yes, borrowed code 8,373 B in 5 functions as on main, auditguard: no count rose. This replaces lane5/audit-decls-d2game 73145f382, which left QUESTS.CPP failing to compile (its 93 functions came out borrowed); please don't merge that one.
 
 ## Claimed
 
