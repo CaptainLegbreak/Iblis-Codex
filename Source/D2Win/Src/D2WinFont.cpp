@@ -79,6 +79,12 @@ unsigned int gdwLastShiftedTickCount;                                           
 
 bool gbKoreanFonts;                                                                                // 0x00841EC6
 
+struct D2CelStrc;
+int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
+void __stdcall TEXTURE_CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, int nSkipLines, int nDrawLines, int nDrawMode); // 0x004F64E0
+int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
+extern "C" const char gszD2WinFontSourceFile[]; // 0x006DC9FC
+
 // build: symbol ??__EgwszFramedText@@YAXXZ 0x006CAE20
 Unicode gwszFramedText[1024];                                                                      // 0x00841EC8
 
@@ -90,7 +96,6 @@ Unicode gwszColorCode_008426E0[2]; // 0x008426E0
 
 struct D2FontStrc;
 
-struct D2CmpCelContextStrc;
 
 struct D2CharStrc;
 
@@ -106,7 +111,7 @@ void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, uns
 
 int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
 
-D2CelStrc* __stdcall CelGetHandle(D2CmpCelContextStrc* pContext); // 0x00601840
+D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
@@ -655,6 +660,163 @@ inline int sub_K08_IsColorCodePrefix(unsigned short wChar)
     return wChar == 0xFF;
 }
 
+// 0x00501DF0
+void __fastcall D2WINFONT_DrawClippedFontText(const Unicode* pText, int nX, int nY, int nTextColor, int nSkipLines, int nDrawLines)
+{
+    if (nSkipLines < 0)
+        return;
+
+    const int nDisplayType = D2GFX_GetDisplayType();
+    const int nLength = UNICODE_StrLen(pText);
+    int nCount = 0;
+    const int nStartX = nX;
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.nDirection = 0;
+
+    if (nLength > 0)
+    {
+        const Unicode* pScan = pText - 1;
+        do
+        {
+            const Unicode c = pText[nCount++];
+            unsigned short awNext[1];
+                const unsigned short wScan = (++pScan)->wChar;
+            if (D2Win_IsColorCodePrefix(wScan))
+            {
+                awNext[0] = pText[nCount].wChar;
+                ++nCount;
+                ++pScan;
+                if (!Unicode::strncmp((const Unicode*)awNext, (const Unicode*)gwszColorCode_008426E0, 1))
+                {
+                    ++nCount;
+                    ++pScan;
+                    continue;
+                }
+                if (!Unicode::strncmp((const Unicode*)awNext, (const Unicode*)gwszMonsterCode_008426DC, 1))
+                {
+                    const Unicode* pMarker = pScan;
+                    ++nCount;
+                    ++pScan;
+                    const unsigned short wMarker = pMarker->wChar;
+                    D2CharStrc* pChar = ((D2CharStrc* (__fastcall*)(unsigned short))gpfnGetCharInfo)(wMarker);
+                    tContext.pCellFile = ghMonsterIndicators;
+                    tContext.nFrame = pChar->nImageIndex;
+                    TEXTURE_CelDraw(&tContext, nX, nY, -1, 5, 0);
+                    nY += 16 * gatFontCache[gnCurrentFont].pFontInfo[1]->nHeight / 10;
+                }
+            }
+            else if (c.wChar != '\n')
+            {
+                D2CharStrc* pChar = ((D2CharStrc* (__fastcall*)(unsigned short))gpfnGetCharInfo)(c.wChar);
+                if (nDisplayType != 6)
+                {
+                    tContext.pCellFile = gpFontCache->pCellFile;
+                    tContext.nFrame = pChar->nImageIndex;
+                    const int nHeight = CelGetHeight(CelGetHandle(&tContext));
+                    if (nSkipLines + nDrawLines <= nHeight)
+                        TEXTURE_CelDrawEx(&tContext, nX, nY, nSkipLines, nDrawLines, 5);
+                    else
+                        TEXTURE_CelDrawEx(&tContext, nX, nY, 0, nHeight, 5);
+                }
+                nX += pChar->nWidth;
+            }
+            else
+            {
+                nX = nStartX;
+                nY += -16 * gatFontCache[gnCurrentFont].pFontInfo[1]->nHeight / 10;
+            }
+        }
+        while (nCount < nLength);
+    }
+}
+
+// 0x00501FE0
+void __fastcall D2WINFONT_DrawTickerText(const Unicode* wszText, int nX, int nY, int nColor, int nScroll, int nWidth)
+{
+    const int nLength = UNICODE_StrLen(wszText);
+    int nCount = 0;
+    const int nStartX = nX;
+    nX += nScroll;
+
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = gpFontCache->pCellFile;
+    tContext.nDirection = 0;
+
+    if (nLength <= 0)
+    {
+        return;
+    }
+
+    const int nRight = nStartX + nWidth;
+    int nShift = nColor;
+    const Unicode* pText = wszText;
+    do
+    {
+        if (nX > nRight)
+        {
+            break;
+        }
+
+        const Unicode c = *pText;
+        unsigned short awNext[1];
+        ++nCount;
+        ++pText;
+        const int bColorPrefix = pText[-1].IsColorCodePrefix();
+        if (bColorPrefix)
+        {
+            awNext[0] = pText->wChar;
+            ++nCount;
+            ++pText;
+            if (!Unicode::strncmp((const Unicode*)awNext, (const Unicode*)gwszColorCode_008426E0, 1))
+            {
+                if (nCount >= nLength)
+                {
+                    nShift = 0;
+                }
+                else
+                {
+                    ++nCount;
+                    nShift = (pText++)->ToDigit();
+                    if (nShift >= 13)
+                    {
+                        nShift = 0;
+                    }
+                }
+            }
+            else
+            {
+                --nCount;
+                --pText;
+                D2CharStrc* pChar = ((D2CharStrc* (__fastcall*)(unsigned short))gpfnGetCharInfo)(c.wChar);
+                tContext.nFrame = pChar->nImageIndex;
+                if (nX > nStartX)
+                {
+                    TEXTURE_CelDrawColor(&tContext, nX, nY, -1, 5, nShift);
+                }
+                nX += pChar->nWidth;
+            }
+        }
+        else if (c.wChar != '\n')
+        {
+            D2CharStrc* pChar = ((D2CharStrc* (__fastcall*)(unsigned short))gpfnGetCharInfo)(c.wChar);
+            tContext.nFrame = pChar->nImageIndex;
+            if (nX > nStartX)
+            {
+                TEXTURE_CelDrawColor(&tContext, nX, nY, -1, 5, nShift);
+            }
+            nX += pChar->nWidth;
+        }
+        else
+        {
+            nX = nStartX;
+            nY += -16 * gatFontCache[gnCurrentFont].pFontInfo[1]->nHeight / 10;
+        }
+    }
+    while (nCount < nLength);
+}
+
 // 0x00502190
 static void D2Win_10126_DrawTextFromCache(const Unicode* pText, int nX, int nY)
 {
@@ -949,7 +1111,7 @@ void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, i
         for (unsigned int i = 0; i < nFrames; ++i)
         {
             tGfxData.nFrame = i;
-            D2CelStrc* pCel = CelGetHandle((D2CmpCelContextStrc*)&tGfxData);
+            D2CelStrc* pCel = CelGetHandle(&tGfxData);
             nWidth += CelGetWidth(pCel);
         }
 
@@ -1020,8 +1182,9 @@ void __fastcall D2Win_10200(D2SplittedTextStrc* pLines)
     }
 }
 
+// Kept noinline: D2WINFONT_SplitText (0x502970) calls this out of line in the image; without it the compiler inlines it there.
 // 0x005028E0
-D2SplittedTextStrc* __stdcall D2Win_AllocateSplitText(const Unicode* wszText, int nLength, int bSkipSpace)
+__declspec(noinline) D2SplittedTextStrc* __stdcall D2Win_AllocateSplitText(const Unicode* wszText, int nLength, int bSkipSpace)
 {
     const Unicode* pText = wszText;
     D2SplittedTextStrc* pSplitText = (D2SplittedTextStrc*)FOG_Alloc(sizeof(D2SplittedTextStrc), ".\\Src\\D2WinFont.cpp", 0x588, 0);
@@ -1036,6 +1199,162 @@ D2SplittedTextStrc* __stdcall D2Win_AllocateSplitText(const Unicode* wszText, in
     Unicode::strncpy(pSplitText->wszLine, pText, nCount);
     pSplitText->wszLine[nCount].wChar = 0;
     return pSplitText;
+}
+
+static inline D2SplittedTextStrc* AllocSplitTextLine_Inline(const Unicode* wszText, int nLength, int bSkipSpace)
+{
+    D2SplittedTextStrc* pSplitText = (D2SplittedTextStrc*)FOG_Alloc(sizeof(D2SplittedTextStrc), gszD2WinFontSourceFile, 0x588, 0);
+    int nCount = nLength;
+    const Unicode* pText = wszText;
+    if (bSkipSpace && pText->wChar < 0x100 && isspace(pText->wChar))
+    {
+        nCount = nCount - 1;
+        pText = pText + 1;
+    }
+    pSplitText->wszLine = (Unicode*)FOG_Alloc(sizeof(Unicode) * (nCount + 1), gszD2WinFontSourceFile, 0x591, 0);
+    pSplitText->pNextLine = 0;
+    Unicode::strncpy(pSplitText->wszLine, pText, nCount);
+    pSplitText->wszLine[nCount].wChar = 0;
+    return pSplitText;
+}
+
+// 0x00502970
+D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* wszText, int* pLineCount, int nWidth)
+{
+    const int nLength = UNICODE_StrLen(wszText);
+    D2SplittedTextStrc* pLast = 0;
+    D2SplittedTextStrc* pFirst = 0;
+    *pLineCount = 0;
+    if (D2Win_10123(wszText, nLength) <= nWidth)
+    {
+        *pLineCount = 1;
+        return AllocSplitTextLine_Inline(wszText, nLength + 1, 0);
+    }
+
+    int nStart = 0;
+    int nEnd = nLength;
+    for (;;)
+    {
+        int nTextWidth = 0;
+        for (; nEnd > nStart; --nEnd)
+        {
+            nTextWidth = D2Win_10123(&wszText[nStart], nEnd - nStart + 1);
+            if (nTextWidth <= nWidth)
+            {
+                break;
+            }
+        }
+        for (; nEnd > nStart; --nEnd)
+        {
+            if (nEnd == nLength || sub_00526D30_IsLineBreak(&wszText[nStart], nEnd - nStart + 1))
+            {
+                break;
+            }
+        }
+
+        if (nEnd == nStart)
+        {
+            for (nEnd = nLength; nEnd > nStart; --nEnd)
+            {
+                if (D2Win_10123(&wszText[nStart], nEnd - nStart + 1) <= nWidth)
+                {
+                    break;
+                }
+            }
+
+            D2SplittedTextStrc* pLine = AllocSplitTextLine_Inline(&wszText[nStart], nEnd - nStart + 1, 1);
+            ++*pLineCount;
+            if (pLast)
+            {
+                pLast->pNextLine = pLine;
+            }
+            pLast = pLine;
+            if (!pFirst)
+            {
+                pFirst = pLine;
+            }
+            nStart = nEnd + 1;
+            nEnd = nLength;
+            if (nStart > nLength)
+            {
+                break;
+            }
+        }
+        else
+        {
+            if (nTextWidth > nWidth)
+            {
+                for (nEnd = nLength; nEnd > nStart; --nEnd)
+                {
+                    if (D2Win_10123(&wszText[nStart], nEnd - nStart + 1) <= nWidth)
+                    {
+                        break;
+                    }
+                }
+                for (; nEnd > nStart; --nEnd)
+                {
+                    if (nEnd == nLength || sub_00526D30_IsLineBreak(&wszText[nStart], nEnd - nStart + 1))
+                    {
+                        break;
+                    }
+                }
+                D2SplittedTextStrc* pLine;
+                if (nEnd == nStart)
+                {
+                    for (nEnd = nLength; nEnd > nStart; --nEnd)
+                    {
+                        if (D2Win_10123(&wszText[nStart], nEnd - nStart + 1) <= nWidth)
+                        {
+                            break;
+                        }
+                    }
+                    pLine = D2Win_AllocateSplitText(&wszText[nStart], nEnd - nStart + 1, 1);
+                }
+                else
+                {
+                    pLine = D2Win_AllocateSplitText(&wszText[nStart], nEnd - nStart + 1, 1);
+                }
+                ++*pLineCount;
+                if (pLast)
+                {
+                    pLast->pNextLine = pLine;
+                }
+                pLast = pLine;
+                if (!pFirst)
+                {
+                    pFirst = pLine;
+                }
+                nStart = nEnd + 1;
+                nEnd = nLength;
+                if (nStart > nLength)
+                {
+                    break;
+                }
+            }
+            else
+            {
+                D2SplittedTextStrc* pLine = D2Win_AllocateSplitText(&wszText[nStart], nEnd - nStart + 1, 1);
+                ++*pLineCount;
+                if (pLast)
+                {
+                    pLast->pNextLine = pLine;
+                }
+                pLast = pLine;
+                if (!pFirst)
+                {
+                    pFirst = pLine;
+                }
+                nStart = nEnd + 1;
+                nEnd = nLength;
+                if (nStart > nLength)
+                {
+                    break;
+                }
+            }
+        }
+    }
+
+    return pFirst;
 }
 
 // 0x00502C40
