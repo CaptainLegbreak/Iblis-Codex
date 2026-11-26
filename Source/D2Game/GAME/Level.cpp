@@ -62,7 +62,7 @@ static inline int UNITS_GetUnitTypeOrInvalid_Inline(D2UnitStrc* pUnit)
 }
 
 
-int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int bSkipCollisionSearch, int bSyncOtherPlayersOnly); // 0x00554EA0
 
 void __fastcall OBJMODE_SendObjectUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00581AD0
 void __fastcall ITEMMODE_SendUpdatedGroundItemToClient(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x0055BF30
@@ -71,7 +71,7 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2A
 
 void __stdcall DUNGEON_RemoveClientFromRoom(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient); // 0x0061A700
 int __stdcall DUNGEON_GetTownLevelIdFromAct(D2DrlgActStrc* pAct); // 0x0061AE80
-void __fastcall sub_00553220(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553220
+void __fastcall SUNIT_ClearUpdateData(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553220
 
 // 0x0053A500
 static void __stdcall LEVEL_UpdateUnitForClient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
@@ -525,7 +525,7 @@ void __fastcall LEVEL_LoadAct(D2GameStrc* pGame, unsigned char nAct)
 struct D2MonsterDataStrc;
 
 
-int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
+int __stdcall SERVER_SendPacketToClient(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
 
 #pragma pack(push, 1)
 
@@ -552,7 +552,7 @@ void __fastcall LEVEL_UpdateQueuedUnitsInAllActs(D2GameStrc* pGame)
             {
                 for (D2UnitStrc* pUnit = pRoom->pUnitUpdate; pUnit; pUnit = pUnit->pChangeNextUnit)
                 {
-                    sub_00553220(pGame, pUnit);
+                    SUNIT_ClearUpdateData(pGame, pUnit);
                 }
 
                 UNITROOM_ClearUpdateQueue(pRoom);

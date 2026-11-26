@@ -34,7 +34,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
-int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
+int __stdcall SERVER_SendPacketToClient(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
 
 
 #define ITEMACTION_REMOVEFROMCONTAINER 5
@@ -131,7 +131,7 @@ extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); //
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetTail(D2ClientStrc* pClient); // 0x005392D0
 
@@ -379,7 +379,7 @@ int* __fastcall SCMD_GetMonsterOwnerGuidPtr(D2UnitStrc* pUnit)
 // 0x0053B1A0
 static inline void SCMD_SendToClient(int nClientId, void* pPacket, int nSize)
 {
-    sub_0052B330(0, nClientId, pPacket, nSize);
+    SERVER_SendPacketToClient(0, nClientId, pPacket, nSize);
 }
 void __stdcall sub_M121_Emit_0053B1A0(int nClientId, void* pPacket, int nSize) { SCMD_SendToClient(nClientId, pPacket, nSize); }
 
@@ -394,7 +394,7 @@ int __fastcall D2GAME_PACKETS_SendGameListEntry(int nClientId, short nGameId, sh
 
     SStrCopy(packetB1.szGameName, szGameName, 0x10);
 
-    return sub_0052B330(0, nClientId, &packetB1, sizeof(packetB1));
+    return SERVER_SendPacketToClient(0, nClientId, &packetB1, sizeof(packetB1));
 }
 
 // 0x0053B210
@@ -408,7 +408,7 @@ void __fastcall D2GAME_PACKETS_SendGameLeft(int nClientId)
 {
     D2GSPacketSrvB0 packetB0;
     packetB0.nHeader = 0xB0;
-    sub_0052B330(0, nClientId, &packetB0, sizeof(packetB0));
+    SERVER_SendPacketToClient(0, nClientId, &packetB0, sizeof(packetB0));
 }
 
 // 0x0053B240
@@ -416,7 +416,7 @@ void __fastcall D2GAME_PACKETS_SendGameExit(int nClientId)
 {
     D2GSPacketSrv06 packet06;
     packet06.nHeader = 0x06;
-    sub_0052B330(1, nClientId, &packet06, sizeof(packet06));
+    SERVER_SendPacketToClient(1, nClientId, &packet06, sizeof(packet06));
 }
 
 // 0x0053B260
@@ -425,7 +425,7 @@ void __fastcall D2GAME_PACKETS_SendSystemError(int nClientId, unsigned int nErro
     unsigned int packetB4[2];
     *(unsigned char*)packetB4 = 0xB4;
     *(unsigned int*)((unsigned char*)packetB4 + 1) = nErrorCode;
-    sub_0052B330(0, nClientId, packetB4, 5);
+    SERVER_SendPacketToClient(0, nClientId, packetB4, 5);
 }
 
 // 0x0053B280
@@ -453,7 +453,7 @@ static void __stdcall D2GAME_PACKETS_SendPacket(D2ClientStrc* pClient, const voi
         }
         else
         {
-            pPacketData = (D2PacketDataStrc*)sub_0040B430(0, sizeof(D2PacketDataStrc), ".\\GAME\\SCmd.cpp", 0xA0, 0);
+            pPacketData = (D2PacketDataStrc*)FOG_AllocPool(0, sizeof(D2PacketDataStrc), ".\\GAME\\SCmd.cpp", 0xA0, 0);
         }
 
         memset(pPacketData, 0, sizeof(D2PacketDataStrc));
@@ -1301,7 +1301,7 @@ void __fastcall SCMD_SendSkillList(D2ClientStrc* pClient, D2UnitStrc* hUnit)
     }
     D2GameStrc* pGame = CLIENTS_GetGame(pClient);
     int nSize = 6 + 3 * nCount;
-    D2GSPacketSrv94* pPacket = (D2GSPacketSrv94*)sub_0040B430(pGame->pMemoryPool, nSize, ".\\GAME\\SCmd.cpp", 0x568, 0);
+    D2GSPacketSrv94* pPacket = (D2GSPacketSrv94*)FOG_AllocPool(pGame->pMemoryPool, nSize, ".\\GAME\\SCmd.cpp", 0x568, 0);
     D2SkillPacketEntryStrc* pEntry = (D2SkillPacketEntryStrc*)(pPacket + 1);
     pPacket->nHeader = 0x94;
     D2_ASSERT(nCount < 256, 0x56E);
@@ -1580,7 +1580,7 @@ static int __stdcall SCMD_ShouldSendPartyLifeUpdate(D2UnitStrc* pUnit, int nLife
     {
         if (!pLifeSync)
         {
-            pLifeSync = (D2LifeSyncStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2LifeSyncStrc), ".\\GAME\\SCmd.cpp", 0x6FA, 0);
+            pLifeSync = (D2LifeSyncStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2LifeSyncStrc), ".\\GAME\\SCmd.cpp", 0x6FA, 0);
             if (!pLifeSync)
             {
                 return 0;
