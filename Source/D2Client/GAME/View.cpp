@@ -1,3 +1,6 @@
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00712C10
+
 #include "D2MissileIds.h"
 #include "D2LevelIds.h"
 #include "D2Client.h"

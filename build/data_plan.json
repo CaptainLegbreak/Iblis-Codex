@@ -796,8 +796,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/CUnit.cpp": {
-   "bytes": 1260,
-   "definitions": 6,
+   "bytes": 120,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004642B0.inc",
@@ -805,8 +805,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/CmdTbl.cpp": {
-   "bytes": 820,
-   "definitions": 4,
+   "bytes": 1960,
+   "definitions": 5,
    "externs": [
     "extern \"C\" void __cdecl D2Win_10168_WINMAIN_CreateScreenshot(); // 0x004FA7A0",
     "extern \"C\" void __cdecl SCMD_ShowHelpOnce(); // 0x004689D0",
@@ -881,37 +881,10 @@
    "state": "included"
   },
   "Source/D2Client/GAME/View.cpp": {
-   "bytes": 716,
-   "definitions": 4,
+   "bytes": 8,
+   "definitions": 2,
    "externs": [
     "extern \"C\" char gData_007B5788[]; // 0x007B5788",
-    "extern \"C\" char gData_007237A4[]; // 0x007237A4",
-    "extern \"C\" char gData_007237E4[]; // 0x007237E4",
-    "extern \"C\" char gData_00723824[]; // 0x00723824",
-    "extern \"C\" char gData_00723864[]; // 0x00723864",
-    "extern \"C\" char gData_007238A4[]; // 0x007238A4",
-    "extern \"C\" char gData_007238E4[]; // 0x007238E4",
-    "extern \"C\" char gData_00723924[]; // 0x00723924",
-    "extern \"C\" char gData_00723964[]; // 0x00723964",
-    "extern \"C\" char gData_007239A4[]; // 0x007239A4",
-    "extern \"C\" char gData_007239E4[]; // 0x007239E4",
-    "extern \"C\" char gData_00723A24[]; // 0x00723A24",
-    "extern \"C\" char gData_00723AE4[]; // 0x00723AE4",
-    "extern \"C\" char gData_00723B24[]; // 0x00723B24",
-    "extern \"C\" char gData_00723B64[]; // 0x00723B64",
-    "extern \"C\" char gData_00723BA4[]; // 0x00723BA4",
-    "extern \"C\" char gData_00723BE4[]; // 0x00723BE4",
-    "extern \"C\" char gData_00723C24[]; // 0x00723C24",
-    "extern \"C\" char gData_00723CA4[]; // 0x00723CA4",
-    "extern \"C\" char gData_00723CE4[]; // 0x00723CE4",
-    "extern \"C\" char gData_00723D64[]; // 0x00723D64",
-    "extern \"C\" char gData_00723DA4[]; // 0x00723DA4",
-    "extern \"C\" char gData_00723DE4[]; // 0x00723DE4",
-    "extern \"C\" char gData_00723E24[]; // 0x00723E24",
-    "extern \"C\" char gData_00723E64[]; // 0x00723E64",
-    "extern \"C\" char gtQuestTextsSevenTombs[]; // 0x00723A64",
-    "extern \"C\" char gtQuestTextsFallenAngel[]; // 0x00723C64",
-    "extern \"C\" char gtQuestTextsSiege[]; // 0x00723D24",
     "extern \"C\" char gData_007B5680[]; // 0x007B5680"
    ],
    "fn_types": {},
@@ -1006,8 +979,8 @@
    "static_definitions": 1
   },
   "Source/D2Client/UI/text_0049A950.cpp": {
-   "bytes": 88,
-   "definitions": 2,
+   "bytes": 0,
+   "definitions": 0,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/text_0049A950.inc",
@@ -1033,8 +1006,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/QuestLog.cpp": {
-   "bytes": 1928,
-   "definitions": 36,
+   "bytes": 2664,
+   "definitions": 39,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/QuestLog.inc",
@@ -40160,7 +40133,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/CUnit.cpp",
+   "file": "Source/D2Client/UI/CmdTbl.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern unsigned char gaKeyTable[0x474] = ",
@@ -42157,7 +42130,7 @@
    "cname": "gData_00723F38",
    "declared": true,
    "decorated": "?gaQuestLookup_00723F38@@3PAUD2QuestLookupEntryStrc@@A",
-   "file": "Source/D2Client/GAME/View.cpp",
+   "file": "Source/D2Client/UI/QuestLog.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00723F38_t gData_00723F38; // 0x00723F38",
    "head": "extern \"C\" struct d2data_00723F38_t gData_00723F38 = ",
@@ -50381,7 +50354,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_0049A950.cpp",
+   "file": "Source/D2Client/UI/QuestLog.cpp",
    "fill": 5,
    "form": "declared",
    "fwd": null,
@@ -50453,7 +50426,7 @@
    "cname": "gData_00723F00",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_0049A950.cpp",
+   "file": "Source/D2Client/UI/QuestLog.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00723F00_t gData_00723F00; // 0x00723F00",
    "head": "extern \"C\" struct d2data_00723F00_t gData_00723F00 = ",
@@ -144095,144 +144068,6 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_00721D18_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    unsigned char b15[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x00721D18",
    "va": "0x00721D18"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00712C10",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/GAME/View.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00712C10_t gData_00712C10; // 0x00712C10",
-   "head": "extern \"C\" struct d2data_00712C10_t gData_00712C10 = ",
-   "name": "gData_00712C10",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00712C10_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00712C10",
-   "va": "0x00712C10"
   },
   {
    "alias": false,
