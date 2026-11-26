@@ -74420,6 +74420,10 @@
      "length": 329
     },
     {
+     "va": "0x00679C80",
+     "length": 450
+    },
+    {
      "va": "0x00679E50",
      "length": 15,
      "name": "?sub_00679E50_RestartToward@@YIHPAUD2PathInfoStrc@@@Z"

@@ -14485,7 +14485,7 @@
   ["0x00679720", 827, "verified"],
   ["0x00679A60", 196, "verified", "?PATH_CheckCollisionsToNextPosition@@YAHPAUD2DynamicPathStrc@@PAUD2PathPointStrc@@@Z"],
   ["0x00679B30", 329, "verified"],
-  ["0x00679C80", 450, "unmatched"],
+  ["0x00679C80", 450, "verified"],
   ["0x00679E50", 15, "verified", "?sub_00679E50_RestartToward@@YIHPAUD2PathInfoStrc@@@Z"],
   ["0x00679E60", 99, "verified", "?PATH_BackupTurn_Compute@@YIHPAUD2PathInfoStrc@@@Z"],
   ["0x00679ED0", 156, "verified", "PATH_Straight_Compute"],
