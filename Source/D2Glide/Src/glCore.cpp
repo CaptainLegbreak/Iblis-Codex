@@ -28,7 +28,6 @@ extern int gbIsWindowed; // 0x007C8CB4
 
 extern int gfFixedAspectRatio; // 0x0072DA7C
 
-extern int gdwGlobal_007C8CBC; // 0x007C8CBC
 
 extern int gnScaleFactor; // 0x0072DB44
 
@@ -39,7 +38,6 @@ extern int gbIsMouseButtonPressed; // 0x007D55E0
 
 void __stdcall CONTROL_RemoveFromList(void* pArg); // 0x004F9310
 
-extern int gdwGlobal_0087E838; // 0x0087E838
 
 extern int gbGlidePlayingVideo; // 0x0087EFD0
 
@@ -57,7 +55,6 @@ extern int gnEaxVersion; // 0x00881774
 
 extern int gbEaxRoomOff; // 0x00881778
 
-extern int gdwGlobal_0072F830; // 0x0072F830
 
 extern int gnChannelValue; // 0x00881798
 
@@ -83,7 +80,6 @@ extern int gnLogonType; // 0x008818C0
 
 extern int gfSetEmailRequested; // 0x00881C04
 
-extern int gdwGlobal_00881C50; // 0x00881C50
 
 int __cdecl GLCORE_Close(); // 0x00509E10
 
