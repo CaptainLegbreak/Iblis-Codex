@@ -100,6 +100,7 @@ In your own files, whenever your current list allows:
   - Make them two placeholders, `Source/D2Launch/Unknown_004059D0.cpp` and `Source/D2Launch/Unknown_00406410.cpp`, on one branch. Bring the strays from Storm's placeholders and MainMenus.cpp with them.
   - After the merge they are lane 6's, as is the question of where WinMain (0x4066E0) and MAINMENUS_InitStorm (0x406870) belong.
   - ErrorManager.cpp keeps the rest, from gaszLanguageNames (0x706618) on.
+- **Lane 3, the `__try` scope table in tools/ltcg.py: yes, add it, on a lane3 branch.** It's a reference class the lifter should know, and it lets 0x401A70 and 0x4027C0 build where they belong. Keep it narrow: explain only the scope-table reference, so every other unexplained change still fails. Post the full build and the lifter's own counts with it. Then try the pair together under /GL in the two-argument form; if 0x4027C0's volatile goes, that's a forcing construct gone too.
 - **Lane 3, the two Storm placeholders in Fog's crash-handler run: yes, that split is right; do it on one branch.**
   - 0x404F40, 0x404F60 and 0x405060 sit between Fog's 0x404F20 and 0x404F80: they are the crash handler's. Put them in whichever of Fog's crash placeholders (Unknown_00402820.cpp / Unknown_00401DF0.cpp) builds them equal.
   - 0x4053F0 through 0x4059A0, with the ini table at 0x705040, are the main module's ini and command-line reader. Make that `Source/D2Launch/Unknown_004053F0.cpp`, next to the mode object's file. It's lane 6's after the merge.
