@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 18:23 PST 2026: next is the Hireables join with that lead (Left in place).
 - Wed Nov 25 18:21 PST 2026: join-004f0650 and ob1-004f4590 posted: the two D2Client /Ob1 functions are done.
 - Wed Nov 25 18:06 PST 2026: data-owners-3 is in #417. Nothing in Ready.
 - Wed Nov 25 18:05 PST 2026: tried every remaining D2Client forcing construct this session (0x474160, 0x4A9870, 0x4B8100, 0x4F2BE0); all are register allocation or scheduling cases that no plain form reproduces so far (Left in place).
@@ -125,5 +126,5 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - WardenClient.cpp 0x47F8B0-0x47F990 and Unknown_0047F950: no assert; they sit on the chat/Warden boundary just before 0x47FA20.
 - Weather block 0x472210-0x473F50: no assert path or data reference names its file yet.
 - Unknown_0046C7D0: Gfx.cpp would inline its functions into 0x46CE40 and 0x46D780.
-- Hireables.cpp's four placeholders (0x493A00, 0x493B50, 0x493CE0, 0x493E10): they disagree on the pet-icon helpers' argument order; aligning the calls made seven functions differ. Retried one at a time in Hireables.cpp: 0x493B50 and 0x493CE0 differ only by ebx/edi swaps, the other two are rejected forms.
+- Hireables.cpp's four placeholders (0x493A00, 0x493B50, 0x493CE0, 0x493E10): they disagree on the pet-icon helpers' argument order; aligning the calls made seven functions differ. Retried one at a time in Hireables.cpp: 0x493B50 and 0x493CE0 differ only by ebx/edi swaps, the other two are rejected forms. **New lead (from 0x4F0650):** these helpers are statics the compiler calls with a custom convention (a parameter in eax). Moving a register-passed parameter within the list leaves the callee's bytes alone but changes the caller's register choice, which is what fixed 0x4F0650's ebx/edi swap. Next attempt: one definition per helper (the marked one's stack order), then permute only the register-passed parameters.
 
