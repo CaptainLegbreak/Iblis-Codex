@@ -640,11 +640,6 @@ static inline void ACT1Q5_FinishCountessQuest(D2QuestDataStrc* pQuestData)
         pQuestData->pCallback[10] = ACT1Q5_Callback10_PlayerLeavesGame;
 }
 
-void __fastcall sub_M129_Emit_00594FD0(D2QuestDataStrc* pQuestData)
-{
-    ACT1Q5_FinishCountessQuest(pQuestData);
-}
-
 // 0x00595010
 void __fastcall ACT1Q5_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -990,16 +985,7 @@ void __fastcall ACT1Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         pQuestData->pCallback[2] = 0;
         QUESTS_StateDebug(pQuestData, 5, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q5.cpp", 947);
         pQuestDataEx->bTriggerSeqFilter = 1;
-        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT1Q5_UnitIterate_AttachCompletionSound);
-        QUESTS_SetGlobalState(pQuestData->pGame, 5, 13);
-        if (!((D2Act1Quest5Strc*)pQuestData->pQuestDataEx)->nUnitCount2)
-        {
-            pQuestData->bActive = 0;
-        }
-        else
-        {
-            pQuestData->pCallback[10] = ACT1Q5_Callback10_PlayerLeavesGame;
-        }
+        ACT1Q5_FinishCountessQuest(pQuestData);
         pQuestDataEx->bCountessKilled = 1;
         pQuestData->pCallback[8] = 0;
         QUESTS_SetGlobalState(pQuestArg->pGame, pQuestData->eFilter, 13);

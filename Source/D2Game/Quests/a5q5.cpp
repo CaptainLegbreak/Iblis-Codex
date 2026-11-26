@@ -1182,7 +1182,7 @@ static inline void ACT5Q5_PlayStatueSound(D2ObjOperateFnStrc* pOp)
 // 0x0058D1E0
 int __fastcall OBJECTS_OperateFunction62_AncientStatue(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
+    ACT5Q5_PlayStatueSound(pOp);
     return 0;
 }
 
@@ -1247,11 +1247,6 @@ int __fastcall ACT5Q5_UnitIterate_ClosePortals(D2GameStrc* pGame, D2UnitStrc* pU
     }
 
     return 0;
-}
-
-void __stdcall sub_M114_Emit_0058D1D0(D2ObjOperateFnStrc* pOp)
-{
-    ACT5Q5_PlayStatueSound(pOp);
 }
 
 // 0x0058D300

@@ -315,11 +315,6 @@ int __fastcall ACT5Q2_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
     return 0;
 }
 
-void __fastcall sub_M117_Emit_00588010(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
-{
-    ACT5Q2_CountWussieKill(pQuestData, pUnit);
-}
-
 int __fastcall ACT1Q1_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
 int __fastcall ACT1Q1_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
@@ -585,16 +580,7 @@ void __fastcall ACT5Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         {
             if ((!pTarget ? -1 : pTarget->dwUnitId) == pQuestDataEx->nFreedWussieUnitGUIDs[i])
             {
-                const int nGroup = ACT5Q2_GetWussieGroupIndex(pQuestData, pTarget);
-                if (nGroup >= 0)
-                {
-                    D2Act5Quest2Strc* pGroupData = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
-                    ++pGroupData->nGroupKills[nGroup];
-                    if (pGroupData->nGroupKills[nGroup] >= 5)
-                    {
-                        pGroupData->bGroupDone[nGroup] = 1;
-                    }
-                }
+                ACT5Q2_CountWussieKill(pQuestData, pTarget);
                 return;
             }
         }

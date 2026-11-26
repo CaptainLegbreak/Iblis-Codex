@@ -570,14 +570,7 @@ int __fastcall ACT4Q2_UnitIterate_WarpToTownEndGame(D2GameStrc* pGame, D2UnitStr
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
     if (QUESTRECORD_GetQuestState(pQuestFlags, 26, 13))
     {
-        LEVEL_WarpUnit(pGame, pUnit, 103, 0);
-
-        D2ClientStrc* pClient = UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 440);
-        D2GSPacketSrv5D packet5D = {};
-        packet5D.nHeader = 0x5D;
-        packet5D.nQuestId = 23;
-        packet5D.nFlags = 1;
-        SCMD_SendPacket0x5D(pClient, &packet5D);
+        ACT4Q2_WarpPlayerToFortress(pGame, pUnit);
     }
     else
     {
@@ -611,11 +604,6 @@ D2UnitStrc* __fastcall ACT4Q2_TrySpawnDiablo(D2GameStrc* pGame, D2ActiveRoomStrc
     pDiablo->dwFlags |= 0x3000000;
     pQuestDataEx->bDiabloSpawned = 1;
     return pDiablo;
-}
-
-void __fastcall sub_K13_Emit_005B4A30(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    ACT4Q2_WarpPlayerToFortress(pGame, pPlayer);
 }
 
 // 0x005B4D20
