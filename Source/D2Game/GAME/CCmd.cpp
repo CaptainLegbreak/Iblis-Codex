@@ -20,20 +20,16 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
 int __fastcall GAME_GetGameGUIDFromGameId(unsigned short nGameId); // 0x0052C060
-D2GameStrc* __fastcall GAME_LockGame(int nGameGUID); // 0x0052E860
-void __fastcall GAME_LeaveGamesCriticalSection(D2GameStrc* pGame); // 0x0052DA90
+#include "D2GameFuncs.h"
 D2ClientStrc* __fastcall CLIENTS_GetNext(D2ClientStrc* pClient); // 0x00539080
-char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient); // 0x00538830
 int __fastcall SrvVerifyCreateNewGame(int nClientId, D2GSPacketClt66* pPacket); // 0x0052C330
 void __fastcall sSrvSendGameInit(int nClientId, char* szGameName, unsigned char nGameType, unsigned char nCharTemplate, const char* szClientName, int nArena, unsigned int nFlags, int nArenaTemplate, int a9, int a10, unsigned char nDifficulty, unsigned char nLocale, int a13, int a14); // 0x00530BF0
 void __fastcall GAME_UpdatePing(int nClientId, int a2, int a3, int a4); // 0x0052C400
-void __cdecl GAME_LogMessage(int nLevel, const char* szFormat, ...); // 0x0052BE20
 void __fastcall D2GAME_PACKETS_SendSystemError(int nClientId, unsigned int nErrorCode); // 0x0053B260
 int __stdcall SERVER_HackListClient(int nClientId, const char* szFile, int nLine); // 0x0052B4F0
 int __fastcall SrvVerifyJoinGame(int nClientId, unsigned short nGameId, unsigned char nPlayerClass, const char* szClientName, int nTokenId, char* szAccountName, int* a7, unsigned char nLocale, int* a9, int* a10, int* a11, int* a12, int a13); // 0x0052C690
 void __fastcall SrvJoinGame(int dwClientId, unsigned short nGameId, int nClass, const char* szClientName, int a5, const char* szAccountName, int nCharSaveTransactionToken, int nLocale, int a8, int a9, int a11, int a12, int a13); // 0x0052FA50
 int __fastcall GAME_VerifyEndGame(int nClientId); // 0x0052C8E0
-void __fastcall SrvEndGame(int nClientId, int a2); // 0x005303D0
 int __fastcall D2GAME_Return1_6FC41900(int nClientId); // 0x0052DAF0
 void __fastcall GAME_HandleGameListRequest(int nClientId); // 0x0052E9B0
 int __fastcall GAME_VerifyJoinAct(int nClientId); // 0x0052C550
@@ -41,13 +37,10 @@ void __fastcall SrvJoinAct(int nClientId); // 0x00530190
 int __fastcall GAME_VerifyReceiveSaveFilePart(int nClientId); // 0x0052DB00
 int __fastcall GAME_ReceiveSaveFilePart(int nClientId, D2GSPacketClt6B* pPacket); // 0x0052DB10
 int __fastcall GAME_VerifyDisconnect(int nClientId); // 0x0052CBE0
-void __fastcall SrvDisconnectClientById(int nClientId, int nEventType); // 0x00530270
 D2ClientStrc* __fastcall CLIENTS_GetLockedClientFromId(int nClientId); // 0x00537760
 void __fastcall CLIENTS_UnlockClientList(int nClientId); // 0x005377A0
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
-D2ClientStrc* __fastcall CLIENTS_GetClientFromClientId(D2GameStrc* pGame, int nClientId); // 0x00537810
-D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
 int __fastcall D2GAME_PACKET_Handler(D2GameStrc* pGame,D2UnitStrc* pUnit,unsigned char* pPacket,int nSize); // 0x0054D750
 
 static int CCMD_IsStringZeroTerminated(const char* pData, int nDataSize)

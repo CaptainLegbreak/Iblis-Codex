@@ -66,8 +66,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 
-int __fastcall SKILLITEM_CastSkillOnTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int a5); // 0x005FDCA0
-
+#include "D2GameFuncs.h"
 
 
 enum D2C_Y09SkillConstants
@@ -82,8 +81,6 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 int __fastcall sub_0056F7F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5, int a6, int a7); // 0x0056F7F0
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-
-
 
 
 typedef void (__fastcall* RemoveCallback)(D2UnitStrc*,int,D2StatListStrc*);
@@ -130,7 +127,6 @@ enum D2C_G4Constants
 };
 
 
-
 int __fastcall SKILLS_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5);   // 0x0056F640
 
 struct D2ModeChangeStrc;
@@ -146,16 +142,9 @@ struct D2AiCmdStrc;
 
 struct D2StaticPathStrc;
 
-D2UnitStrc* __fastcall SKILLS_FindCorpseNearTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel); // 0x0056E390
-
-
-D2UnitStrc* __fastcall SUNIT_GetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553010
-
-D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
 void __fastcall SUNITMSG_QueueItemSkillOnUnit(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, unsigned char nUnitType, int nUnitGUID, unsigned char a6); // 0x005717C0
 
-int __fastcall SKILLITEM_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int nX, int nY, int* pUnitType, int* pUnitGUID, int* pX, int* pY, int a7); // 0x005FDA80
 
 struct D2MagicAffixTxt;
 
@@ -423,7 +412,5 @@ int __fastcall SKILLITEM_CastSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, in
     SUNITMSG_QueueItemSkillOnPosition(pUnit, nSkillId, nSkillLevel, nFinalX, nFinalY, nItemEffectParam);
     return 1;
 }
-
-
 
 
