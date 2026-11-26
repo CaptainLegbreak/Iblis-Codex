@@ -402,7 +402,6 @@
    "bytes": 1532,
    "definitions": 15,
    "externs": [
-    "extern \"C\" void __cdecl sub_004E1320_CastMissileBurst(); // 0x004E1320",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltDoLeap(); // 0x004C8C60",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltDoLeapAttack(); // 0x004C8ED0",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltDoCollide(); // 0x004C9320",
@@ -532,7 +531,8 @@
     "extern \"C\" void __cdecl SKILLDESC_VolleyAtTarget(); // 0x004E2F40",
     "extern \"C\" void __cdecl SKILLDESC_MissileAtTargetUnit(); // 0x004E3C50",
     "extern \"C\" void __cdecl GFXUTIL_SkillStartPlace(); // 0x004E0A40",
-    "extern \"C\" void __cdecl sub_004E0C90_SetSkillTargetPos(); // 0x004E0C90"
+    "extern \"C\" void __cdecl sub_004E0C90_SetSkillTargetPos(); // 0x004E0C90",
+    "extern \"C\" void __cdecl sub_004E1320_CastMissileBurst(); // 0x004E1320"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/SKILLS/Skills.inc",
