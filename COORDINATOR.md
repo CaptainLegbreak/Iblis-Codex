@@ -439,6 +439,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 ## Merge log (newest first)
 
 - #439 j193: names-sub-d2client-hi (lane 1; its SoundInst.cpp conflict with #436 resolved by the coordinator: the joined file keeps lane 1's names), sound-gs (lane 6).
+- #440 (j194): lane 8 forcing-621f90 (UNITS_AllocPlayerData plain stores; volatile 74 -> 73), lane 3 join-sbig, lane 6 join-charsel + join-charsel-3. Held: lane 4 join-editbox / join-soundinst (SoundInst.cpp conflicts with #439: rebase onto #441), lane 9 glide-spans (glCore.cpp conflict: rebase onto #441).
+- #441 (j195): **lane 10's 0x679C80 from source (borrowed code 8,373 -> 7,923 B, 5 -> 4 functions)**, lane 6 emit-trim-2, lane 1 spinner-fields, lane 8 d2common-param-names, lane 9 names-spritevalidate, lane 5 decls-d2game-3.
 - #438 j192: d2common-dup-decls, noinline-evidence (lane 8), decls-renderers-2 (lane 9).
 - #437 j191: joins Monster, MonsterUnique, SkillItem, superior items (lane 5), Missile damage (lane 8); Items 0x559CE0 note. Files in pieces 22 -> 18.
 - #436 j190: joins EditBox, SoundInst (lane 1), ErrorManager, SSIGNATURE (lane 3), AiThink4, MissMode (lane 5). Files in pieces 27 -> 22; eleven evidenced noinlines.
