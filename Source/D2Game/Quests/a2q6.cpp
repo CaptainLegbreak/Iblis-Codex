@@ -115,7 +115,7 @@ struct Quest
 
 extern "C" void* __cdecl memset(void*,int,unsigned int);
 
-void* __fastcall sub_0040B430(void*,int,const char*,int,int); // 0x0040B430
+void* __fastcall FOG_AllocPool(void*,int,const char*,int,int); // 0x0040B430
 
 extern char npc_messages[]; // 0x0073B288
 
@@ -456,7 +456,7 @@ void __fastcall ACT2Q6_InitQuestData(Quest* quest)
     quest->messages=npc_messages;
     quest->active=1;
     quest->state=0;
-    Extra* extra=(Extra*)sub_0040B430(quest->game->pool,0x68,"d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp",ALLOC_LINE,0);
+    Extra* extra=(Extra*)FOG_AllocPool(quest->game->pool,0x68,"d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp",ALLOC_LINE,0);
     quest->extra=extra;
     quest->filter=QUEST_FILTER;
     quest->statusFilter=ACT2Q6_StatusFilterCallback;
@@ -1097,7 +1097,7 @@ unsigned char __fastcall ACT2Q6_IsTombOpen(D2QuestArgStrc* pQuestArg)
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
-D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
 
 enum D2C_Q05QuestConstants
 {

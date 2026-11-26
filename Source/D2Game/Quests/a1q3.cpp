@@ -88,7 +88,7 @@ short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 void __fastcall ACT1Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005916A0
 
@@ -691,7 +691,7 @@ void __fastcall ACT1Q3_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->bActive = 1;
     pQuestData->eFilter = QUESTSTATEFLAG_A1Q3;
 
-    D2Act1Quest3Strc* pQuestDataEx = (D2Act1Quest3Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act1Quest3Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q3.cpp", LINE_INIT_ALLOC, 0);
+    D2Act1Quest3Strc* pQuestDataEx = (D2Act1Quest3Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act1Quest3Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q3.cpp", LINE_INIT_ALLOC, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
     pQuestData->fState = 0;
     pQuestData->pfStatusFilter = ACT1Q3_StatusFilterCallback;

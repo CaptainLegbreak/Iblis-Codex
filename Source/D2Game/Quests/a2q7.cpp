@@ -33,7 +33,7 @@ enum
 
 extern char gpAct2Q7NpcMessages[];                                                                          // 0x0073B8C0
 extern char gpAct2Q8NpcMessages[];                                                                          // 0x0073BD58
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId);                                // 0x00543640
 #include "D2GameFuncs.h"
@@ -227,7 +227,7 @@ void __fastcall ACT2Q7_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
     pQuestData->fLastState = 0;
-    D2Act2Quest7Strc* pQuestDataEx = (D2Act2Quest7Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest7Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q7.cpp", 194, 0);
+    D2Act2Quest7Strc* pQuestDataEx = (D2Act2Quest7Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest7Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q7.cpp", 194, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
     pQuestDataEx->unk0x00 = 0;
     pQuestData->eFilter = QUESTSTATEFLAG_A2Q7;
