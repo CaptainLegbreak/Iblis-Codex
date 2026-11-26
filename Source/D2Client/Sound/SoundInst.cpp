@@ -121,11 +121,14 @@ struct D2TimedHintEntryStrc
     int unk0x00;
     int nHintId;
     int nKey;
-    char unk0x0C[0x24];
+    char unk0x0C[0x20];
+    void* pSound;
     int nState;
 };
 
 extern D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
+
+int __fastcall sub_004DFA40_IsSoundPlaying(void* pSound);                                                   // 0x004DFA40
 
 // 0x004B93F0
 D2ClientSoundStrc* __cdecl SOUNDINST_AllocSoundEntry()
@@ -191,7 +194,9 @@ int __fastcall SOUNDINST_HasSoundHandle(int nHandle)
 }
 
 // 0x004B9590
-int __fastcall sub_004B9590(int nKey)
+// noinline: 0x004B95C0 calls this out of line in the original image (call 0x4B9590 at +0x29); without it the
+// compiler expands it into 0x004B95C0.
+__declspec(noinline) int __fastcall sub_004B9590(int nKey)
 {
     if (nKey)
     {
@@ -204,6 +209,30 @@ int __fastcall sub_004B9590(int nKey)
             }
         }
     }
+    return 0;
+}
+
+// 0x004B95C0
+int __fastcall sub_004B95C0_IsHintPlaying(int nKey)
+{
+    if (nKey)
+    {
+        for (D2TimedHintNodeStrc* pNode = gpClientSoundList; pNode; pNode = pNode->pNext)
+        {
+            D2TimedHintEntryStrc* pEntry = pNode->pEntry;
+            if (pEntry->nKey == nKey)
+            {
+                void* pSound = pEntry->pSound;
+                if (pSound && sub_004B9590(nKey) && sub_004DFA40_IsSoundPlaying(pSound))
+                {
+                    return 1;
+                }
+
+                break;
+            }
+        }
+    }
+
     return 0;
 }
 
@@ -440,6 +469,28 @@ int __fastcall sub_004B9B20(int nKey)
         }
     }
     return 0;
+}
+
+// 0x004B9B50
+// noinline: 0x004B9EF0 (+0xF7) and 0x004BAAB0 (+0xCB) call this out of line in the original image; without it
+// the compiler expands it into both.
+__declspec(noinline) void __fastcall SOUNDINST_SetValue(int nKey, int nValue)
+{
+    if (!nKey)
+        return;
+    D2SoundNodeStrc* pLink = gpSoundList_007C5458;
+    if (!pLink)
+        return;
+    do
+    {
+        D2ClientSoundStrc* pValue = pLink->pSound;
+        if (pValue->f_8 == nKey)
+        {
+            pValue->f_1C = nValue;
+            return;
+        }
+        pLink = pLink->pNext;
+    } while (pLink);
 }
 
 // 0x004B9B80

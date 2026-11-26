@@ -42,16 +42,16 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 590 |
-| … in a file with its original name, whole | 300 |
-| … pieces of an original file still split (in 27 files) | 93 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 197 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 1837 |
+| Compilation units | 583 |
+| … in a file with its original name, whole | 305 |
+| … pieces of an original file still split (in 22 files) | 82 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 196 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 1830 |
 | Unnamed fields (`unk0x..`) in the shared headers | 647 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 36 |
 | Calling-convention shims | 38 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
-| `__declspec(noinline)` / `__forceinline` | 97 / 183 |
+| `__declspec(noinline)` / `__forceinline` | 108 / 183 |
 | Function names: blizzard / library / d2moo / inferred / placeholder | 478 / 87 / 5337 / 6502 / 2523 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`, an `if`/`else` whose two arms are identical). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
 
-Not listed one by one: 3314 functions are compiled with `/GS-` and 1579 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 97 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
+Not listed one by one: 3314 functions are compiled with `/GS-` and 1580 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 108 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -190,17 +190,17 @@ Not listed one by one: 3314 functions are compiled with `/GS-` and 1579 with `/E
 | 0x00408220 | ERRORMANAGER_DebugPrintfIfCapsLock | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004082A0 | ERRORMANAGER_DebugPrintFlags | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004082C0 | ERRORMANAGER_DebugPrintLog | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x004082E0 | ERRORMANAGER_CrashHandler | `Fog/Src/ErrorManager_004082E0.cpp` | compiler option /EHa |
+| 0x004082E0 | ERRORMANAGER_CrashHandler | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00408660 | ERRORMANAGER_ShowErrorReport | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x004088C0 | ERRORMANAGER_ReportNestedError | `Fog/Src/ErrorManager_004082E0.cpp` | compiler option /EHa |
+| 0x004088C0 | ERRORMANAGER_ReportNestedError | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00408900 | ERRORMANAGER_RaiseErrorReport | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00408A30 | FOG_DisplayAssert | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00408A60 | FOG_DisplayHalt | `Fog/Src/ErrorManager_004082E0.cpp` | compiler option /EHa |
+| 0x00408A60 | FOG_DisplayHalt | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00408A90 | FOG_DisplayWarning | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00408AC0 | ERRORMANAGER_DisplayDeadlock | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00408AF0 | FOG_DisplayError | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00408B20 | ERRORMANAGER_ShowErrorBox | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00408CE0 | FOG_InitErrorMgr | `Fog/Src/ErrorManager_004082E0.cpp` | compiler option /EHa |
+| 0x00408CE0 | FOG_InitErrorMgr | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00408F20 | FOG_IsExpansion | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409000 | ERRORMANAGER_GetBitWidth | `Fog/Src/ErrorManager.cpp` | compiler option /EHa, inline assembly |
 | 0x00409020 | ERRORMANAGER_LogPoolError | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
