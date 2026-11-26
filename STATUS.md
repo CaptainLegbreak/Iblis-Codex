@@ -42,10 +42,10 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 603 |
+| Compilation units | 602 |
 | … in a file with its original name, whole | 294 |
 | … pieces of an original file still split (in 33 files) | 106 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 203 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 202 |
 | Record definitions private to a source file (`struct`/`union` in a .cpp) | 1903 |
 | Unnamed fields (`unk0x..`) in the shared headers | 647 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 40 |
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`, an `if`/`else` whose two arms are identical). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
 
-Not listed one by one: 4170 functions are compiled with `/GS-` and 1566 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 94 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
+Not listed one by one: 4169 functions are compiled with `/GS-` and 1566 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 94 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -435,9 +435,7 @@ Not listed one by one: 4170 functions are compiled with `/GS-` and 1566 with `/E
 | 0x004A9870 | SPELLSEL_DrawSkillSlot | `D2Client/UI/spellsel.cpp` | volatile read or qualifier |
 | 0x004B8100 | DIALOG_DrawDialog | `D2Client/UI/dialog.cpp` | volatile read or qualifier |
 | 0x004EB290 | SKILLDESC_DrawElemDamage | `D2Client/UI/SkillDesc.cpp` | volatile read or qualifier |
-| 0x004F0650 | sub_004F0650_CreateClientMissiles | `D2Client/Unknown_004F0650.cpp` | compiler option /Ob1 |
 | 0x004F2BE0 | SKILLDESC_InitCurvingMissilePath | `D2Client/UI/SkillDesc.cpp` | volatile read or qualifier |
-| 0x004F4590 | sub_004F4590_DoSkillSound | `D2Client/Unknown_004F4590.cpp` | compiler option /Ob1 |
 | 0x004F82D0 | CMNSUBTILE_DrawBlendVisTile | `D2Gfx/SRC/Window.cpp` | __assume |
 | 0x004F8F10 | D2Win_InitializeSpriteCache | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F8FC0 | D2Win_10014_SetWndProc | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |

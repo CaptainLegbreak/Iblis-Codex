@@ -32108,6 +32108,10 @@
      "name": "?SKILLSEMON_CreateMissileRequest@@YGHHHHHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004F0650",
+     "length": 185
+    },
+    {
      "va": "0x004F0C20",
      "length": 174,
      "name": "?sub_004F0C20_StoreTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
@@ -32151,31 +32155,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004F0650.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004F0650",
-     "length": 185
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
@@ -32421,8 +32400,7 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-",
-    "/Ob1"
+    "/GS-"
    ]
   },
   {
