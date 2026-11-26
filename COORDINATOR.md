@@ -5,7 +5,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 ## Current state
 
 - **Lanes 1, 7, 8, 9, 10 have stopped; lanes 2-6 have their work (see Ownership).**
-- `main`: #413 (round j167). Game.exe identical; 14,922 / 14,922 placed; **borrowed code 8,373 B in 5 functions**; borrowed data 261 B. Placeholder files 203; shims 38; context copies 3; forcing-construct functions 41. Names carrying a 1.10 address: 408.
+- `main`: #414 (round j168). Game.exe identical; 14,922 / 14,922 placed; **borrowed code 8,373 B in 5 functions**; borrowed data 261 B. Placeholder files 203; shims 38; context copies 3; forcing-construct functions 40. Names carrying a 1.10 address: 408.
 - **Push only `laneN/` branches, never main.** At 22:44 a commit went straight to main ("ErrorManager.cpp: drop a stray 0x00409020 marker...", for the ordinary link). The fix is fine and stays, but a direct push makes the round in progress miss main and need a rebase. Everything reaches main through a round.
 - **New: [audit-379.md](audit-379.md), a source audit on #379** (what in our tree Blizzard's source could not have, by owner, in priority order). Read your rows.
 - **[queues.md](queues.md), what's left per lane** (regenerated on #378): placeholder files, context copies, forcing constructs, shimmed functions, per-file options, with each lane's own list. When your current branch is done, take the next item from your row. The forcing constructs (42) are lane 7's job now: owners, leave them to lane 7 unless you settle it with lane 7 in its file. The context copies outside Storm/Fog/SRP are lane 2's trim first (see Answers), then the owners'. Also regenerated on #380: [borrowed-data.md](borrowed-data.md) (281 B, by current owner) and [language-objects.md](language-objects.md) (12 files still hold more than one copy, each a split to make).
@@ -407,6 +407,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #414 j168: forcing-4fbf30 (lane 6: TEXTBOX_Draw without volatile; forcing 41 -> 40), join-004a9bd0 (lane 4: npcmenu.cpp's NPC entry data). Lane 5's 0x55A6D0 at 42a739e4d: 2,252 / 2,253, 1,628 bytes (lanes/borrowed/55A6D0/).
 - #413 j167: copies-d2client-first (lane 4: five more files on D2LanguageNames.h).
 - #412 j166: suni-plain (lane 3: SUniConvertUTF16ToCP without volatile), forcing-50ca00 (lane 6: shadow tiles). Forcing-construct functions now 41; volatile 79 -> 77.
 - #411 j165: split-004df6c0 and copies-d2client-hi (lane 4: the language-table split, placeholders 202 -> 203; fifteen files on D2LanguageNames.h).

@@ -62,7 +62,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
                 int nNoDrop = pTC->nNoDrop;
                 if (nNoDrop)
                 {
-                    int nPlayerCount;
+                    int nPlayerCount = 1;
                     if (pPlayer)
                     {
                         D2UnitStrc* pOwner = pPlayer;
@@ -73,17 +73,9 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
 
                         if (pOwner && pOwner->dwUnitType == UNIT_PLAYER)
                         {
-                            nPlayerCount = PARTY_GetLivingPartyMemberCountInSameLevel(pGame, pOwner);
-                            nPlayerCount = D2_MIN(D2_MAX(nPlayerCount, 1), 8);
+                            const int nLiving = PARTY_GetLivingPartyMemberCountInSameLevel(pGame, pOwner);
+                            nPlayerCount = D2_MIN(D2_MAX(nLiving, 1), 8);
                         }
-                        else
-                        {
-                            nPlayerCount = 1;
-                        }
-                    }
-                    else
-                    {
-                        nPlayerCount = 1;
                     }
 
                     nPlayerCount += (PLAYER_GetPlayerCount(pGame) - nPlayerCount) / 2;
@@ -124,7 +116,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
                 {
                     nRand = 0;
                 }
-                else if ((nRand - 1) & nRand)
+                else if ((nRand - 1) & (unsigned int)nRand)
                 {
                     unsigned int nRoll;
                     D2_SEED_ROLL(pMonster, nRoll);
@@ -147,19 +139,17 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
 
                     nRand -= nNoDrop;
                 }
-
-                --tcArray[nCounter].nPicks;
             }
             else
             {
-                nRand = -pTC->nPicks - tcArray[nCounter].nPicks;
+                nRand = D2_ABS(pTC->nPicks) - tcArray[nCounter].nPicks;
                 if (nRand >= nChance)
                 {
                     break;
                 }
-
-                --tcArray[nCounter].nPicks;
             }
+
+            --tcArray[nCounter].nPicks;
 
             int nIndex;
             if (bExpansion)
