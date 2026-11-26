@@ -84,8 +84,6 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);      
 
 struct D2HostentStrc;
 
-struct D2ThreadNameInfoStrc;
-
 
 struct D2ListEntryStrc;
 
@@ -149,8 +147,6 @@ extern "C" __declspec(dllimport) int __stdcall WSAStartup(unsigned short wVersio
 extern "C" __declspec(dllimport) D2HostentStrc* __stdcall gethostbyname(const char* szName); // 0x006CC57C
 
 extern "C" __declspec(dllimport) int __stdcall WSACleanup(); // 0x006CC58C
-
-extern "C" __declspec(dllimport) int __stdcall IsDebuggerPresent(); // 0x006CC284
 
 extern "C" __declspec(dllimport) void __stdcall RaiseException(unsigned long dwCode, unsigned long dwFlags, unsigned long nArgs, const unsigned long* pArgs); // 0x006CC224
 
@@ -907,26 +903,6 @@ bool __cdecl ERRORMANAGER_IsInternalCheckLoopback()
     }
     WSACleanup();
     return bResult;
-}
-
-// 0x00401A70
-void __cdecl ERRORMANAGER_SetMiniDumpThreadName()
-{
-    if (IsDebuggerPresent() == 1)
-    {
-        D2ThreadNameInfoStrc tInfo;
-        tInfo.dwType = 0x1000;
-        tInfo.szName = "MiniDump Thread";
-        tInfo.dwThreadID = -1;
-        tInfo.dwFlags = 0;
-        __try
-        {
-            RaiseException(0x406D1388, 0, 4, (unsigned long*)&tInfo);
-        }
-        __except (-1)
-        {
-        }
-    }
 }
 
 // 0x00403070

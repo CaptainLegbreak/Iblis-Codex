@@ -44,8 +44,6 @@ struct D2FileTimeStrc;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 
-extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent); // 0x006CC130
-
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
@@ -57,10 +55,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x0068
 extern "C" size_t __cdecl fread(void* pBuffer, size_t nSize, size_t nCount, _iobuf* pFile); // 0x00684782
 
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
-
-void __cdecl ERRORMANAGER_SetMiniDumpThreadName(); // 0x00401A70
-
-void __cdecl sub_004026D0_WriteMiniDump(); // 0x004026D0
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
@@ -340,25 +334,6 @@ extern "C" const char gszLogDumpByte[]; // 0x006CE1AC
 extern "C" const char gszLogDumpByteSpaced[]; // 0x006CE1A4
 
 extern "C" const char gszLogLineFormat_006CD90C[]; // 0x006CD90C
-
-// 0x004027C0
-unsigned long __stdcall LOGMANAGER_DbgHelpThreadProc(void* pParam)
-{
-    // stands for a stack local the original stores 0 to and reads back unused (no plain-C form found)
-    volatile int nDummy = 0;
-    nDummy;
-    ERRORMANAGER_SetMiniDumpThreadName();
-// build: symbol ?ghDbgHelpWorkEvent@* 0x0098A6C0
-    WaitForSingleObject(ghDbgHelpWorkEvent, 0xFFFFFFFF);
-    while (gpMiniDumpRequest)
-    {
-        sub_004026D0_WriteMiniDump();
-// build: symbol ?ghDbgHelpDoneEvent@* 0x0098A6BC
-        SetEvent(ghDbgHelpDoneEvent);
-        WaitForSingleObject(ghDbgHelpWorkEvent, 0xFFFFFFFF);
-    }
-    return 0;
-}
 
 // 0x0040EBD0
 _iobuf* __fastcall LOGMANAGER_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize)
