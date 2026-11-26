@@ -176,7 +176,7 @@ void __cdecl CHARSEL_RefreshCharList()
     int y=gaSlotY_007799FC[0]-13;
     int index=0;
     char unusedText[256];
-    sub_005263E0(unusedText,D2LANG_GetStringFromTblIndex(0x1419),256);
+    UNICODE_ToUtf8(unusedText,D2LANG_GetStringFromTblIndex(0x1419),256);
     CONTROL_SetVisible(gpControl_00779D90,0);
     for(int i=0;i<gnVisibleRows;++i) {
         sub_004FB6A0_ClearText(gapRowControls[i]);

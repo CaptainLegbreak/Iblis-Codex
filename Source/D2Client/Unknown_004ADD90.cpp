@@ -30,7 +30,7 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                
 
 extern "C" unsigned short* __fastcall sub_005267E0(unsigned short* pDst, const unsigned short* pSrc);     // 0x005267E0
 
-extern "C" int __fastcall sub_00526800(const unsigned short* pText);                                      // 0x00526800
+extern "C" int __fastcall UNICODE_StrLen(const unsigned short* pText);                                      // 0x00526800
 
 typedef void (__fastcall* UMODCALLBACK)(void* pTarget, int nUMod, int bUnique);
 
@@ -774,7 +774,7 @@ void __fastcall MONSTER_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName, int 
     {
         nCount = 1;
         Unicode::strcat(wszName, D2LANG_GetStringFromTblIndex(nNameId));
-        nTextLength = sub_00526800((const unsigned short*)D2LANG_GetStringFromTblIndex(nNameId));
+        nTextLength = UNICODE_StrLen((const unsigned short*)D2LANG_GetStringFromTblIndex(nNameId));
         nWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(nNameId));
     }
 
@@ -807,9 +807,9 @@ void __fastcall MONSTER_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName, int 
         if (nTextLength < nLength - 1)
         {
             const Unicode* wszMod = D2LANG_GetStringFromTblIndex(gwUniqueModNameIds[nMod]);
-            if (sub_00526800((const unsigned short*)wszMod) + nTextLength < nLength - 1)
+            if (UNICODE_StrLen((const unsigned short*)wszMod) + nTextLength < nLength - 1)
             {
-                nTextLength += sub_00526800((const unsigned short*)wszMod);
+                nTextLength += UNICODE_StrLen((const unsigned short*)wszMod);
                 nWidth += D2Win_10121_GetTextWidth(wszMod);
                 Unicode::strcat(wszName, wszMod);
                 ++nCount;

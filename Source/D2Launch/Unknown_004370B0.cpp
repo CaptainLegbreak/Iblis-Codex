@@ -39,7 +39,7 @@ void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 
 int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 
@@ -229,8 +229,8 @@ void __cdecl MAINMENUS_UpdateTwoEditOk()
 {
  const Unicode* pText1=D2Win_10077_EDITBOX_GetText(gpEdit_007799CC);
  const Unicode* pText2=D2Win_10077_EDITBOX_GetText(gpEdit_007799D0);
- int bOk=sub_00526800(pText1)>0;
- bOk|=sub_00526800(pText2)>0;
+ int bOk=UNICODE_StrLen(pText1)>0;
+ bOk|=UNICODE_StrLen(pText2)>0;
  CONTROL_SetEnabled(gpControl_007799D4,bOk);
 }
 
@@ -285,11 +285,11 @@ int __cdecl sub_00436EA0()
 void __cdecl MAINMENUS_UpdateEmailOk()
 {
     char szText[0x100];
-    int bOk = sub_00526800(sub_004FDD90_GetEditText(gpEdit_007799DC)) > 0;
+    int bOk = UNICODE_StrLen(sub_004FDD90_GetEditText(gpEdit_007799DC)) > 0;
     if (bOk)
     {
         const Unicode* pText = sub_004FDD90_GetEditText(gpEdit_007799E0);
-        sub_005263E0(szText, pText, 0x100);
+        UNICODE_ToUtf8(szText, pText, 0x100);
         bOk = MAINMENUS_CheckAtAndDot(szText);
     }
     CONTROL_SetEnabled(gpButton, bOk);
@@ -395,24 +395,24 @@ void __cdecl MAINMENUS_UpdatePasswordOk()
     char szText1[0x100];
     char szText2[0x100];
 // build: symbol ?gpChangePwAccountEdit@* 0x007799BC
-    int bOk = sub_00526800(sub_004FDD90_GetEditText(gpChangePwAccountEdit)) > 2;
+    int bOk = UNICODE_StrLen(sub_004FDD90_GetEditText(gpChangePwAccountEdit)) > 2;
     if (bOk)
     {
 // build: symbol ?gpOldPasswordEdit@* 0x007799C0
         const Unicode* pText1 = sub_004FDD90_GetEditText(gpOldPasswordEdit);
-            sub_005263E0(szText1, pText1, 0x100);
+            UNICODE_ToUtf8(szText1, pText1, 0x100);
         bOk = MAINMENUS_CheckAtAndDot(szText1);
         if (bOk)
         {
 // build: symbol ?gpNewPasswordEdit@* 0x007799C8
             const Unicode* pText2 = sub_004FDD90_GetEditText(gpNewPasswordEdit);
-            sub_005263E0(szText2, pText2, 0x100);
+            UNICODE_ToUtf8(szText2, pText2, 0x100);
             bOk = MAINMENUS_CheckAtAndDot(szText2);
             if (bOk)
             {
 // build: symbol ?gpNewPasswordConfirmEdit@* 0x007799C4
                 const Unicode* pText3 = sub_004FDD90_GetEditText(gpNewPasswordConfirmEdit);
-            sub_005263E0(szText3, pText3, 0x100);
+            UNICODE_ToUtf8(szText3, pText3, 0x100);
                 bOk = MAINMENUS_CheckAtAndDot(szText3);
             }
         }
@@ -545,7 +545,7 @@ int __stdcall MAINMENUS_ConfirmText(int nArg)
     const Unicode* pText2 = sub_004FDD90_GetEditText(gpEdit_007799D0);
     if (!sub_005264F0_Compare(pText1, pText2))
     {
-        sub_005263E0(szText, pText1, 0x100);
+        UNICODE_ToUtf8(szText, pText1, 0x100);
         if (!MAINMENUS_CheckAtAndDot(szText))
         {
             MAINMENUS_ShowMessageBox(D2LANG_GetStringFromTblIndex(0x2B5C), D2LANG_GetStringFromTblIndex(0x2B5D), 0x13EE, 0, MAINMENUS_OnCloseBox, 0, 1, 0);
@@ -605,12 +605,12 @@ int __stdcall sub_00437730_ChangePassword(int bOk)
     {
         if (sub_005264F0_Compare(pOld, pNew))
         {
-            sub_005263E0(szName, pName, 0x100);
-            sub_005263E0(szOld, pOld, 0x100);
-            sub_005263E0(szNew, pNew, 0x100);
+            UNICODE_ToUtf8(szName, pName, 0x100);
+            UNICODE_ToUtf8(szOld, pOld, 0x100);
+            UNICODE_ToUtf8(szNew, pNew, 0x100);
             {
                 char szConfirm[0x100];
-                sub_005263E0(szConfirm, pNew, 0x100);
+                UNICODE_ToUtf8(szConfirm, pNew, 0x100);
             }
             if (gpFuncTable->pfnSlot68() && gpFuncTable->pfnSlotC0(szName, szOld, szNew))
             {
@@ -653,8 +653,8 @@ int __stdcall CHARSEL_SubmitPasswordReset(int nArg)
 
     const Unicode* pTextA = sub_004FDD90_GetEditText(gpEdit_007799DC);
     const Unicode* pTextB = sub_004FDD90_GetEditText(gpEdit_007799E0);
-    sub_005263E0(szA, pTextA, 0x100);
-    sub_005263E0(szB, pTextB, 0x100);
+    UNICODE_ToUtf8(szA, pTextA, 0x100);
+    UNICODE_ToUtf8(szB, pTextB, 0x100);
 
     if (gpFuncTable->pfnSlot68() && gpFuncTable->pfnSlotBC(szA, szB))
     {

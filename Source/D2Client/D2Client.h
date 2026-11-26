@@ -783,7 +783,7 @@ void __fastcall FOG_GetInstallPath(char* szPath, int nBufferSize); // 0x00406BA0
 void __fastcall FOG_FCloseFile(void* hFile); // 0x004068F0
 void __fastcall FOG_AsyncDataFree(AsyncData* pAsync); // 0x0040AB00
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
-void __fastcall sub_0043C6A0(int bSet); // 0x0043C6A0
+void __fastcall CHARSEL_SetFlagBit2(int bSet); // 0x0043C6A0
 void __fastcall UI_BuildItemHoverName(D2UnitStrc* pUnit, int nA, int nB); // 0x004527D0
 void __fastcall UI_TogglePanelHandlers(int bSet); // 0x004545C0
 void __fastcall UI_ClearPanelHandlers(int nUIVar); // 0x00455AE0

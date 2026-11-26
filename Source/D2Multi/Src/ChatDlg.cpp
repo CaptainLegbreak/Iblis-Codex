@@ -345,7 +345,7 @@ struct D2LaunchThreadRecordStrc;
 
 struct D2LaunchNameNodeStrc;
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
@@ -2197,7 +2197,7 @@ static void __stdcall CHATDLG_FileTimeToText(char* szDate, int nSize, const _FIL
     FileTimeToSystemTime(pFileTime, &tSystemTime);
     GetDateFormatA(0x400, 2, &tSystemTime, 0, szDate, nSize);
     MultiByteToWideChar(GetACP(), 1, szDate, -1, wszDate, 0x100);
-    sub_005263E0(szDate, (Unicode*)wszDate, nSize);
+    UNICODE_ToUtf8(szDate, (Unicode*)wszDate, nSize);
 }
 
 // 0x0043E4C0
@@ -2297,7 +2297,7 @@ void __cdecl CHATDLG_UpdateOkEnabled()
     int bEnable = 0;
     if (pText)
     {
-        sub_00526F70(szText, pText, 0x1F);
+        UNICODE_ToAscii(szText, pText, 0x1F);
         if (strlen(szText) >= 1)
             bEnable = 1;
     }
@@ -3171,7 +3171,7 @@ int __stdcall CHATDLG_ChatEditKeyCallback(void* pArg, int nCursor, const char* p
         {
             COMCALLBACK_CopyNamePrefix(gpSelectedChannelUser->szName, szName);
             Unicode wszText[0x100];
-            sub_00526F70(szText, pEditText, 0x100);
+            UNICODE_ToAscii(szText, pEditText, 0x100);
             const int nTextLength = strlen(szText);
             if ((int)strlen(szName) + nTextLength > 0xFF)
             {
@@ -3441,7 +3441,7 @@ int __cdecl CHATDLG_FindDashLine()
     for (; nLine < nEnd; ++nLine)
     {
         const Unicode* pText = D2Win_10196(gbSelectActive, nLine, 0);
-        sub_00526F70(szText, pText, 0x100);
+        UNICODE_ToAscii(szText, pText, 0x100);
         if (!strcmp(szText, "-"))
         {
             gnSelectIdA = gnSelectLine = nLine / 16 * 16;
@@ -4000,7 +4000,7 @@ static __forceinline int DoubleClick()
     {
         return 0;
     }
-    sub_00526F70((char*)aText, pEditText, 0x100);
+    UNICODE_ToAscii((char*)aText, pEditText, 0x100);
     CHATDLG_JoinChannel((const char*)aText);
     return 0;
 }
@@ -4018,7 +4018,7 @@ int __stdcall CHATDLG_UseEditText(int nArg)
     const Unicode* pText = sub_004FDD90_GetEditText(gpChannelNameEdit);
     if (pText)
     {
-        sub_00526F70(szText, pText, 0x100);
+        UNICODE_ToAscii(szText, pText, 0x100);
         CHATDLG_JoinChannel(szText);
     }
     return 1;
@@ -4749,13 +4749,13 @@ int __stdcall CHATDLG_OnChatLine(const Unicode* pText)
 
 // build: symbol ?gnHistoryIndex@* 0x0070CD74
     gnHistoryIndex = -1;
-    if (!sub_00526800(pText))
+    if (!UNICODE_StrLen(pText))
         return 0;
 
     D2_ASSERT(gpLaunchFuncs, 0x12C2);
 
     szText[0] = 0;
-    sub_00526F70(szText, pText, 0x100);
+    UNICODE_ToAscii(szText, pText, 0x100);
     strcpy(szCopy, szText);
 
     char szDelim[2] = " ";
@@ -4862,7 +4862,7 @@ void __cdecl CHATDLG_FillGameListControl()
     int bHaveSel = 0;
     if (pSel)
     {
-        sub_00526F70(szSel, pSel, 0x100);
+        UNICODE_ToAscii(szSel, pSel, 0x100);
         bHaveSel = 1;
     }
 
@@ -4970,7 +4970,7 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
             if (pText)
             {
                 char szText[0x100];
-                sub_00526F70(szText, pText, 0x100);
+                UNICODE_ToAscii(szText, pText, 0x100);
 // build: symbol ?gwRequestId@* 0x0070CD60
                 while (++gwRequestId == 0)
                 {
@@ -5178,7 +5178,7 @@ int __cdecl CHATDLG_GetMaxPlayers()
 {
     char szText[5];
     const Unicode* pText = sub_004FDD90_GetEditText(gpMaxPlayerControl);
-    sub_005263E0(szText, pText, 5);
+    UNICODE_ToUtf8(szText, pText, 5);
     return atoi(szText);
 }
 
@@ -5187,7 +5187,7 @@ int __cdecl CHATDLG_GetLevelRange()
 {
     char szText[5];
     const Unicode* pText = sub_004FDD90_GetEditText(gpEditBox_00798C3C);
-    sub_005263E0(szText, pText, 5);
+    UNICODE_ToUtf8(szText, pText, 5);
     return atoi(szText);
 }
 
@@ -5196,7 +5196,7 @@ int __stdcall CHATDLG_IncrementMaxPlayers(int nArg)
 {
     char szText[5];
     const Unicode* pText = sub_004FDD90_GetEditText(gpMaxPlayerControl);
-    sub_005263E0(szText, pText, 5);
+    UNICODE_ToUtf8(szText, pText, 5);
     int nValue = atoi(szText);
     if (nValue < 8)
         ++nValue;
@@ -5211,7 +5211,7 @@ int __stdcall CHATDLG_DecrementMaxPlayers(int nArg)
 {
     char szText[5];
     const Unicode* pText = sub_004FDD90_GetEditText(gpMaxPlayerControl);
-    sub_005263E0(szText, pText, 5);
+    UNICODE_ToUtf8(szText, pText, 5);
     int nValue = atoi(szText);
     if (nValue > 1)
         --nValue;
@@ -5225,7 +5225,7 @@ int __stdcall CHATDLG_IncrementLevelRange(int nArg)
 {
     char szText[5];
     const Unicode* pText = sub_004FDD90_GetEditText(gpEditBox_00798C3C);
-    sub_005263E0(szText, pText, 5);
+    UNICODE_ToUtf8(szText, pText, 5);
     int nValue = atoi(szText);
     if (nValue < 0x63)
         ++nValue;
@@ -5239,7 +5239,7 @@ int __stdcall CHATDLG_DecrementLevelRange(int nArg)
 {
     char szText[5];
     const Unicode* pText = sub_004FDD90_GetEditText(gpEditBox_00798C3C);
-    sub_005263E0(szText, pText, 5);
+    UNICODE_ToUtf8(szText, pText, 5);
     int nValue = atoi(szText);
     if (nValue > 0)
         --nValue;
@@ -5302,7 +5302,7 @@ void __cdecl CHATDLG_UpdateCreateButton()
     const Unicode* pText = sub_004FDD90_GetEditText(gpCreateName);
     if (pText)
     {
-        sub_00526F70(szText, pText, 0x10);
+        UNICODE_ToAscii(szText, pText, 0x10);
         int nLen = strlen(szText);
         if (szText[0] != ' ' && nLen >= 1 && szText[nLen - 1] != ' ')
             bName = 1;
@@ -5313,7 +5313,7 @@ void __cdecl CHATDLG_UpdateCreateButton()
         pText = sub_004FDD90_GetEditText(gpMaxPlayerControl);
         if (pText)
         {
-            sub_00526F70(szText, pText, 3);
+            UNICODE_ToAscii(szText, pText, 3);
             if (strlen(szText))
             {
                 bPlayers = 1;
@@ -5331,7 +5331,7 @@ void __cdecl CHATDLG_UpdateCreateButton()
         if (sub_00500960_IsPressed(gpLevelDiffCheck))
         {
             pText = sub_004FDD90_GetEditText(gpEditBox_00798C3C);
-            sub_00526F70(szText, pText, 3);
+            UNICODE_ToAscii(szText, pText, 3);
             if (strlen(szText) && atoi(szText) >= 0)
                 bLevel = 1;
         }
@@ -5364,7 +5364,7 @@ void __cdecl CHATDLG_UpdateJoinButtonState()
     int bEnable = 0;
     if (pText)
     {
-        sub_00526F70(szText, pText, 0xFF);
+        UNICODE_ToAscii(szText, pText, 0xFF);
         if (strlen(szText) >= 1)
             bEnable = 1;
     }
@@ -5492,8 +5492,8 @@ int __stdcall CHATDLG_JoinByName(int nArg)
     const Unicode* pPassword = sub_004FDD90_GetEditText(gpJoinPassword);
     if (pName)
     {
-        sub_00526F70(szName, pName, 0x100);
-        sub_00526F70(szPassword, pPassword, 0x100);
+        UNICODE_ToAscii(szName, pName, 0x100);
+        UNICODE_ToAscii(szPassword, pPassword, 0x100);
         sub_00411320_CapitalizeWords(szName);
         sub_00411320_CapitalizeWords(szPassword);
 
@@ -5803,9 +5803,9 @@ int __stdcall CHARSEL_SubmitProfile(int nArg)
         const Unicode* pTextC = sub_004FDD90_GetEditText(gpSubmitEditC);
 // build: symbol ?gpCharInfo@* 0x0077BBD8
         char* szName = gpCharInfo->szAccount;
-        sub_00526F70(szA, pTextA, 0x8);
-        sub_00526F70(szB, pTextB, 0x28);
-        sub_00526F70(szC, pTextC, 0xC8);
+        UNICODE_ToAscii(szA, pTextA, 0x8);
+        UNICODE_ToAscii(szB, pTextB, 0x28);
+        UNICODE_ToAscii(szC, pTextC, 0xC8);
         if (!CHATDLG_WriteUserData((int)szName, (int)szA, (int)szB, (int)szC))
             return 1;
     }

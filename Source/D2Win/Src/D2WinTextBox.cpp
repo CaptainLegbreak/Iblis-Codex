@@ -156,7 +156,7 @@ int __fastcall D2Win_10058_0(D2WinControlStrc* pControl, const Unicode* pText, i
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 extern D2FontCacheStrc gatFontCache[]; // 0x00841DA8
 
@@ -524,7 +524,7 @@ int __fastcall D2Win_10058_0(D2WinTextBoxStrc* pTextBox, const Unicode* pText, i
     if (ptLine)
     {
         D2_ASSERT(ptLine->pColumns[nColumn] == 0, 0x20F);
-        ptLine->pColumns[nColumn] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (sub_00526800(wszText) + 1), ".\\Src\\D2WinTextBox.cpp", 0x210, 0);
+        ptLine->pColumns[nColumn] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (UNICODE_StrLen(wszText) + 1), ".\\Src\\D2WinTextBox.cpp", 0x210, 0);
         sub_005267E0(ptLine->pColumns[nColumn], wszText);
     }
 
@@ -824,7 +824,7 @@ static int TEXTBOX_CountLinesFromCurrent(D2WinTextBoxStrc* pTextBox)
 static int __stdcall TEXTBOX_TruncateTextToWidth(int nWidth, Unicode* wszText)
 {
     int i = 0;
-    const int nLength = sub_00526800(wszText);
+    const int nLength = UNICODE_StrLen(wszText);
     while (i < nLength)
     {
         if (D2Win_10122(wszText, i + 1) >= nWidth)
@@ -1247,7 +1247,7 @@ static inline int sub_B03_AddLineRecord(D2WinTextBoxStrc* pTextBox, const Unicod
     Unicode* pDest;
     if (nIndent == 2)
     {
-        pLine->pColumns[0] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (sub_00526800(pText) + 6), ".\\Src\\D2WinTextBox.cpp", 0x161, 0);
+        pLine->pColumns[0] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (UNICODE_StrLen(pText) + 6), ".\\Src\\D2WinTextBox.cpp", 0x161, 0);
         pLine->pColumns[0][4].wChar = 0x20;
         pLine->pColumns[0][3].wChar = pLine->pColumns[0][4].wChar;
         pLine->pColumns[0][2].wChar = pLine->pColumns[0][3].wChar;
@@ -1257,7 +1257,7 @@ static inline int sub_B03_AddLineRecord(D2WinTextBoxStrc* pTextBox, const Unicod
     }
     else
     {
-        pLine->pColumns[0] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (sub_00526800(pText) + 1), ".\\Src\\D2WinTextBox.cpp", 0x167, 0);
+        pLine->pColumns[0] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (UNICODE_StrLen(pText) + 1), ".\\Src\\D2WinTextBox.cpp", 0x167, 0);
         pDest = pLine->pColumns[0];
     }
     sub_005267E0(pDest, pText);
@@ -1449,7 +1449,7 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText,
     D2WinTextBoxLineStrc* pLine = (D2WinTextBoxLineStrc*)FOG_Alloc(sizeof(D2WinTextBoxLineStrc), gszD2WinTextBoxCpp, 0x15D, 0);
     if (nIndent == 2)
     {
-        pLine->pColumns[0] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (sub_00526800(pText) + 6), gszD2WinTextBoxCpp, 0x161, 0);
+        pLine->pColumns[0] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (UNICODE_StrLen(pText) + 6), gszD2WinTextBoxCpp, 0x161, 0);
         pLine->pColumns[0][4].wChar = 0x20;
         pLine->pColumns[0][3].wChar = pLine->pColumns[0][4].wChar;
         pLine->pColumns[0][2].wChar = pLine->pColumns[0][3].wChar;
@@ -1459,7 +1459,7 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText,
     }
     else
     {
-        pLine->pColumns[0] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (sub_00526800(pText) + 1), gszD2WinTextBoxCpp, 0x167, 0);
+        pLine->pColumns[0] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (UNICODE_StrLen(pText) + 1), gszD2WinTextBoxCpp, 0x167, 0);
         sub_005267E0(pLine->pColumns[0], pText);
     }
 
@@ -1517,7 +1517,7 @@ int __fastcall D2Win_10198(D2WinTextBoxStrc* ptTextData, const Unicode* pText, i
     D2_ASSERT(ptTextData, 0x1A7);
     D2_ASSERT(ptTextData->controlHeader.eType == 4, 0x1A8);
 
-    const int nSize = sizeof(Unicode) * (sub_00526800(pText) + 1);
+    const int nSize = sizeof(Unicode) * (UNICODE_StrLen(pText) + 1);
     for (int i = 0; i < nCount; ++i)
     {
         D2WinTextBoxLineStrc* pLine = (D2WinTextBoxLineStrc*)FOG_Alloc(sizeof(D2WinTextBoxLineStrc), ".\\Src\\D2WinTextBox.cpp", 0x1AF, 0);
@@ -1588,7 +1588,7 @@ int __fastcall TEXTBOX_AddWrappedText(D2WinTextBoxStrc* pTextBox, const Unicode*
     sub_005267E0(pText, wszText);
 
     int nSplit = 0;
-    const int nLength = sub_00526800(pText);
+    const int nLength = UNICODE_StrLen(pText);
     Unicode* pChar = pText;
     Unicode* pSpace = 0;
     while (nSplit < nLength)

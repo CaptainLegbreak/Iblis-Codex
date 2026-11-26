@@ -133,7 +133,7 @@ int gnYBufferPitch; // 0x007D557C
 int gnViewMatrixAdjust; // 0x007C8CC4
 
 // 0x004F8DE0
-void __fastcall sub_004F8DE0(unsigned char* pBuffer, int nWidth, int nHeight, int nArg4)
+void __fastcall WINDOW_SetScreenBuffer(unsigned char* pBuffer, int nWidth, int nHeight, int nArg4)
 {
     gpScreenBuffer = pBuffer;
     gnScreenPitch = nWidth;
@@ -154,7 +154,7 @@ void __fastcall sub_004F8DE0(unsigned char* pBuffer, int nWidth, int nHeight, in
 }
 
 // 0x004F8EA0
-void __cdecl sub_004F8EA0()
+void __cdecl WINDOW_LoadGammaSettings()
 {
     unsigned long nContrast = gnDisplayType != DISPLAYTYPE_GLIDE ? 100 : 0;
     SRegLoadValue("Diablo II", "Contrast", 0, &nContrast);

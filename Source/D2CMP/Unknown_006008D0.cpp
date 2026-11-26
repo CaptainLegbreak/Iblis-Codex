@@ -16,7 +16,7 @@ extern "C" const char gszPalShiftGreyBrown[]; // 0x006DCD7C
 extern "C" const char gszPalShiftInvGrey[]; // 0x006DCD74
 extern "C" const char gszPalShiftInvGrey2[]; // 0x006DCD68
 extern "C" const char gszPalShiftInvGreyBrown[]; // 0x006DCD58
-void __fastcall sub_006009C0(const char* szName, int nIndex); // 0x006009C0
+void __fastcall D2CMP_LoadItemPalShift(const char* szName, int nIndex); // 0x006009C0
 
 static D2TileRecordStrc* gpTileRecords; // 0x008ADBB4
 
@@ -44,14 +44,14 @@ int __stdcall D2CMPIterateAllTiles(TILEFN pfnTile, void* pArg)
 }
 
 // 0x00600B80
-void __cdecl sub_00600B80()
+void __cdecl D2CMP_LoadItemPalShifts()
 {
-    sub_006009C0(gszPalShiftGrey, 1);
-    sub_006009C0(gszPalShiftGrey2, 2);
-    sub_006009C0(gszTxtField_gold, 3);
-    sub_006009C0(gszPalShiftBrown, 4);
-    sub_006009C0(gszPalShiftGreyBrown, 5);
-    sub_006009C0(gszPalShiftInvGrey, 6);
-    sub_006009C0(gszPalShiftInvGrey2, 7);
-    sub_006009C0(gszPalShiftInvGreyBrown, 8);
+    D2CMP_LoadItemPalShift(gszPalShiftGrey, 1);
+    D2CMP_LoadItemPalShift(gszPalShiftGrey2, 2);
+    D2CMP_LoadItemPalShift(gszTxtField_gold, 3);
+    D2CMP_LoadItemPalShift(gszPalShiftBrown, 4);
+    D2CMP_LoadItemPalShift(gszPalShiftGreyBrown, 5);
+    D2CMP_LoadItemPalShift(gszPalShiftInvGrey, 6);
+    D2CMP_LoadItemPalShift(gszPalShiftInvGrey2, 7);
+    D2CMP_LoadItemPalShift(gszPalShiftInvGreyBrown, 8);
 }

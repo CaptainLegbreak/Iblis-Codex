@@ -253,7 +253,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 extern D2ClientFlagsLowStrc gtClientFlagsLow_00712EFC; // 0x00712EFC
 
@@ -372,13 +372,13 @@ void __stdcall CHAT_OnImeComposition(SMSGHANDLER_PARAMS* pMsg)
             szComp[199] = 0;
             MultiByteToWideChar(0, 1, szComp, -1, (wchar_t*)wszText, 32);
             wszText[31].wChar = 0;
-            const int nTextLength = sub_00526800(wszText);
-            if (sub_00526800(gwszChatLine_007BB638) + sub_00526800(gwszImeResult) < 0x7F)
+            const int nTextLength = UNICODE_StrLen(wszText);
+            if (UNICODE_StrLen(gwszChatLine_007BB638) + UNICODE_StrLen(gwszImeResult) < 0x7F)
             {
                 sub_00526700(gwszChatLine_007BB638, gwszImeResult);
-                gnChatCaret += sub_00526800(gwszImeResult);
+                gnChatCaret += UNICODE_StrLen(gwszImeResult);
             }
-            if (sub_00526800(gwszChatLine_007BB638) + nTextLength < 0x7F)
+            if (UNICODE_StrLen(gwszChatLine_007BB638) + nTextLength < 0x7F)
             {
                 sub_00526700(gwszChatLine_007BB638, wszText);
                 gnChatCaret += nTextLength;
@@ -399,7 +399,7 @@ void __stdcall CHAT_OnImeComposition(SMSGHANDLER_PARAMS* pMsg)
                 {
                     szComp[199] = 0;
                     MultiByteToWideChar(0, 1, szComp, -1, (wchar_t*)wszText, 32);
-                    const int nCount = sub_00526800(wszText);
+                    const int nCount = UNICODE_StrLen(wszText);
                     if (nCount < 31)
                         wszText[nCount].wChar = 0;
                     else
@@ -1027,7 +1027,7 @@ void __stdcall CHAT_DrawImeText(int nX, int nY)
     int nWidth = 0;
     int nTextX = nX;
     int nTextY = nY;
-    if (sub_00526800(gwszImeResult))
+    if (UNICODE_StrLen(gwszImeResult))
     {
         nWidth = D2Win_10121_GetTextWidth(gwszImeResult);
         if (nWidth + nTextX - 0x83 > gnScreenWidth - 0x109)
@@ -1039,7 +1039,7 @@ void __stdcall CHAT_DrawImeText(int nX, int nY)
     }
 
     const int nWidth2 = D2Win_10121_GetTextWidth(gwszImeComposition);
-    if (sub_00526800(gwszImeComposition))
+    if (UNICODE_StrLen(gwszImeComposition))
     {
         if (nWidth2 + nTextX + nWidth - 0x83 > gnScreenWidth - 0x109)
         {
@@ -1105,7 +1105,7 @@ void __cdecl CHAT_DrawChatPanel()
     }
 
     int nRow = 0;
-    if (sub_00526800(gwszChatLine_007BB638) > 0)
+    if (UNICODE_StrLen(gwszChatLine_007BB638) > 0)
     {
         Unicode wszText[0x101];
         for (int i = 0; i < 0x101; ++i)
@@ -1429,9 +1429,9 @@ int __cdecl CHAT_HandleBnetChatMessage()
             sub_00526E40_Utf8ToUnicode(wszText, szText, 0x154);
             wszLine[0x153].wChar = 0;
             wszText[0x153].wChar = 0;
-            if (sub_00526800(wszText) + sub_00526800(wszLine) >= 0x154)
+            if (UNICODE_StrLen(wszText) + UNICODE_StrLen(wszLine) >= 0x154)
             {
-                const int nLength = sub_00526800(wszLine);
+                const int nLength = UNICODE_StrLen(wszLine);
                 if (nLength < 0x153)
                     wszText[0x153 - nLength].wChar = 0;
                 else
@@ -1464,7 +1464,7 @@ void __cdecl sub_0047B4E0()
 void __cdecl CHAT_RecallChatLine()
 {
     memcpy(gwszChatLine_007BB638, gawszChatHistory[gnChatHistoryCursor], sizeof(gawszChatHistory[0]));
-    gnChatCaret = sub_00526800(gawszChatHistory[gnChatHistoryCursor]);
+    gnChatCaret = UNICODE_StrLen(gawszChatHistory[gnChatHistoryCursor]);
 }
 
 struct D2OptionHeaderStrc;
@@ -1718,7 +1718,7 @@ extern void* gpMiniPanelCel; // 0x007BC960
 // 0x0047BD00
 bool __fastcall CHAT_IsNarrowText(const Unicode* pText)
 {
-    const int nLength = sub_00526800(pText);
+    const int nLength = UNICODE_StrLen(pText);
     for (int i = 0; i < nLength; i++)
     {
         if (pText[nLength].wChar > 0xFF)
@@ -1943,7 +1943,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
                     pNotify->pfnResign(pText);
             }
         }
-        else if (sub_00526800(pLine) > 0)
+        else if (UNICODE_StrLen(pLine) > 0)
         {
             memcpy(tSend.szText, pText, sizeof(tSend.szText) - 1);
             tSend.szText[sizeof(tSend.szText) - 1] = 0;
@@ -1991,7 +1991,7 @@ void __stdcall CHAT_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gnChatDrawCount < 1)
         return;
-    const int nLength = sub_00526800(gwszChatLine_007BB638);
+    const int nLength = UNICODE_StrLen(gwszChatLine_007BB638);
     switch (pMsg->wParam)
     {
     case 8:
@@ -2010,7 +2010,7 @@ void __stdcall CHAT_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
         while (gwszChatLine_007BB638[nSkip].isWhitespace())
             ++nSkip;
         const Unicode* pText = &gwszChatLine_007BB638[nSkip];
-        if (!sub_00526800(pText))
+        if (!UNICODE_StrLen(pText))
         {
             UI_SetUIVar(5, 1, 0);
             break;

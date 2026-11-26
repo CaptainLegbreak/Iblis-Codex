@@ -3814,7 +3814,7 @@ void __fastcall GAME_GetMonsterDescription(char* szDescription, int nClassId)
     if (pMonStatsTxtRecord)
     {
         const Unicode* pName = D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr);
-        sub_00526F70(szDescription, pName, 64);
+        UNICODE_ToAscii(szDescription, pName, 64);
     }
     else
         sprintf(szDescription, "Monster %d", nClassId);
@@ -3837,7 +3837,7 @@ void __fastcall GAME_GetItemDescription(char* szDescription, int nClassId)
     if (pItemsTxtRecord)
     {
         const Unicode* pName = D2LANG_GetStringFromTblIndex(pItemsTxtRecord->wNameStr);
-        sub_00526F70(szDescription, pName, 64);
+        UNICODE_ToAscii(szDescription, pName, 64);
     }
     else
         sprintf(szDescription, "Item %d", nClassId);

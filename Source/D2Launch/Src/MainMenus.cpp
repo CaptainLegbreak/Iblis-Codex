@@ -227,7 +227,7 @@ void __cdecl MAINMENUS_CreateArchivePopup(); // 0x00431970
 
 int gnLoaderFlag; // 0x007798E0
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 extern D2WinControlStrc* gpEdit_007799CC; // 0x007799CC
 
@@ -2217,7 +2217,7 @@ static __forceinline int FilterNoSeparator(D2WinControlStrc* pControl)
 {
     char szText[0x20];
     const Unicode* pText = sub_004FDD90_GetEditText(pControl);
-    sub_005263E0(szText, pText, 0x20);
+    UNICODE_ToUtf8(szText, pText, 0x20);
     for (int i = 0; szText[i]; i += 1)
     {
         if (szText[i] == '-' || szText[i] == '_')
@@ -2257,8 +2257,8 @@ void __cdecl MAINMENUS_UpdateNameOk()
     int bValid = 0;
     if (pText)
     {
-        const int nLen = sub_00526800(pText);
-        sub_005263E0(szText, pText, 0x20);
+        const int nLen = UNICODE_StrLen(pText);
+        UNICODE_ToUtf8(szText, pText, 0x20);
         if (nLen >= 2 && nLen <= 15)
         {
             const char cLast = szText[nLen - 1];
@@ -2289,8 +2289,8 @@ void __cdecl MAINMENUS_UpdateLoginOk()
     int bOk = 0;
     if (pName && pPassword)
     {
-        int nNameLength = sub_00526800(pName);
-        int nPasswordLength = sub_00526800(pPassword);
+        int nNameLength = UNICODE_StrLen(pName);
+        int nPasswordLength = UNICODE_StrLen(pPassword);
         if (nNameLength >= 1 && nNameLength <= 50 && nPasswordLength >= 1 && nPasswordLength <= 13)
             bOk = 1;
     }
@@ -2728,7 +2728,7 @@ int __fastcall MAINMENUS_ShowCredits(int nUnused)
                 sub_004FC9B0_SetText(gpCreditsList, wszLine, 1, 0, 0);
             else
                 nRemain = 0;
-            int nSkip = sub_00526800(wszLine) + 2;
+            int nSkip = UNICODE_StrLen(wszLine) + 2;
             nRemain -= nSkip;
             pCursor += nSkip;
         }
@@ -2745,7 +2745,7 @@ int __fastcall MAINMENUS_ShowCredits(int nUnused)
                 if (pCursor->wChar < 0x80 && isalpha((char)pCursor->wChar) && sub_005267E0(wszLine, pCursor))
                 {
                     sub_005267E0(wszLeft, wszLine);
-                    int nSkip = sub_00526800(wszLine) + 2;
+                    int nSkip = UNICODE_StrLen(wszLine) + 2;
                     nRemain -= nSkip;
                     pCursor += nSkip;
                 }
@@ -2759,7 +2759,7 @@ int __fastcall MAINMENUS_ShowCredits(int nUnused)
                     if (sub_005267E0(wszLine, pCursor))
                     {
                         sub_005267E0(wszRight, wszLine);
-                        int nSkip = sub_00526800(wszLine) + 2;
+                        int nSkip = UNICODE_StrLen(wszLine) + 2;
                         nRemain -= nSkip;
                         pCursor += nSkip;
                     }
@@ -3295,7 +3295,7 @@ int __cdecl MAINMENUS_SaveExists()
     char szName[0x100];
     FOG_GetSavePath(szDir, 0x400);
     const Unicode* pText = sub_004FDD90_GetEditText(gpNameEdit);
-    sub_005263E0(szUtf8, pText, 0x100);
+    UNICODE_ToUtf8(szUtf8, pText, 0x100);
 // build: symbol ?gszStringFormat@* 0x006FFC58
     sprintf(szName, gszStringFormat, szUtf8);
     sprintf(szPath, gszSavePathFormat_006D4230, szDir, szName);
@@ -3340,12 +3340,12 @@ static void MAINMENUS_StoreAccountTexts(D2WinControlStrc* pAccountEdit, D2WinCon
     if (pAccountEdit)
     {
         const Unicode* pText = sub_004FDD90_GetEditText(pAccountEdit);
-        sub_00526F70(gpLaunchRecord->szAccount, pText, 0x100);
+        UNICODE_ToAscii(gpLaunchRecord->szAccount, pText, 0x100);
     }
     if (pPasswordEdit)
     {
         const Unicode* pText = sub_004FDD90_GetEditText(pPasswordEdit);
-        sub_00526F70(gpLaunchRecord->szPassword, pText, 0x100);
+        UNICODE_ToAscii(gpLaunchRecord->szPassword, pText, 0x100);
         gpLaunchRecord->dwPasswordHash = SStrHashHT(gpLaunchRecord->szPassword);
         gpLaunchRecord->nPasswordLength = SStrLen(gpLaunchRecord->szPassword);
     }
@@ -3406,7 +3406,7 @@ int __stdcall MAINMENUS_OnLoginScreen(int nArg)
 int __stdcall MAINMENUS_StoreAccount(int nArg)
 {
     const Unicode* pText = sub_004FDD90_GetEditText(gpAccountEdit);
-    sub_00526F70(gpLaunchRecord->szAccount, pText, 0x100);
+    UNICODE_ToAscii(gpLaunchRecord->szAccount, pText, 0x100);
 // build: symbol ?MAINMENUS_CreateInfoScreen@* 0x004370C0
     MAINMENUS_CreateInfoScreen();
     return 1;
@@ -4168,7 +4168,7 @@ int __stdcall MAINMENUS_JoinTcpIp(int nUnused)
     int c;
     int d;
     const Unicode* pText = sub_004FDD90_GetEditText(gpAddressEdit);
-    sub_005263E0(szText, pText, 0x100);
+    UNICODE_ToUtf8(szText, pText, 0x100);
     if (!szText[0])
         return 1;
     strncpy(gszLastTcpIpAddress, szText, 0xFF);
@@ -4610,8 +4610,8 @@ int __stdcall MAINMENUS_ChangePasswordOk(int nArg)
     const Unicode* pOldPassword = sub_004FDD90_GetEditText(gpPasswordEdit);
     const Unicode* pPassword = sub_004FDD90_GetEditText(gpCreatePasswordEdit);
     const Unicode* pConfirm = sub_004FDD90_GetEditText(gpCreatePasswordConfirmEdit);
-    sub_00526F70(gszOldPassword, pOldPassword, 0x100);
-    int nLength = sub_00526800(pAccount);
+    UNICODE_ToAscii(gszOldPassword, pOldPassword, 0x100);
+    int nLength = UNICODE_StrLen(pAccount);
     if (nLength < 2)
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x1460);
@@ -4630,7 +4630,7 @@ int __stdcall MAINMENUS_ChangePasswordOk(int nArg)
         MAINMENUS_ShowMessage(pMessage, MAINMENUS_CreateLoginScreen, 1);
         return 1;
     }
-    nLength = sub_00526800(pPassword);
+    nLength = UNICODE_StrLen(pPassword);
     if (nLength < 2)
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x1463);
@@ -5154,7 +5154,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
                 return;
             }
 
-            sub_0043C6A0(1);
+            CHARSEL_SetFlagBit2(1);
             SStrCopy(gpLaunchRecord->szRealm, GAME_GetPreferredRealm(), 0x7FFFFFFF);
             gpLaunchRecord->wFlags1EF |= 2;
             gpLaunchRecord->nByte35E = 2;
@@ -5290,7 +5290,7 @@ int __stdcall MAINMENUS_SubmitCharacter(int nArg)
     if (gnLaunchMode == 3)
     {
         D2MCPClientCloseMCP();
-        sub_0043C6A0(0);
+        CHARSEL_SetFlagBit2(0);
         AUTOMAP_InitCharSaveHeader(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->aDataED, gpLaunchRecord->wFlags1EF);
         CHATDLG_WriteSaveHeader(gpLaunchRecord->szCharName);
         gpLaunchRecord->nByte35E = 4;
@@ -5318,7 +5318,7 @@ int __stdcall MAINMENUS_SubmitCharacter(int nArg)
     }
     if (gnLaunchMode == 2)
     {
-        sub_0043C6A0(0);
+        CHARSEL_SetFlagBit2(0);
         AUTOMAP_InitCharSaveHeader(gpLaunchRecord->szCharName, gpLaunchRecord->nClass, gpLaunchRecord->aDataED, gpLaunchRecord->wFlags1EF);
         CHATDLG_WriteSaveHeader(gpLaunchRecord->szCharName);
         gpLaunchRecord->nByte35E = 3;
@@ -5357,7 +5357,7 @@ void __cdecl MAINMENUS_CreateCharacter()
     if (gpLaunchRecord->nMode == 6 || gpLaunchRecord->nMode == 5)
         gpLaunchRecord->wFlags1EF |= 0x20;
     const Unicode* pText = sub_004FDD90_GetEditText(gpNameEdit);
-    sub_005263E0(szName, pText, 0x100);
+    UNICODE_ToUtf8(szName, pText, 0x100);
     sprintf((gpLaunchRecord->szPassword + 0x18), gszStringFormat, szName);
     gpLaunchRecord->szPassword[0x30] = 0;
     if (gpLaunchRecord->wFlags1EF & 0x20)
@@ -5385,7 +5385,7 @@ void __cdecl MAINMENUS_CreateCharacter()
     else if (gnLaunchMode == 2)
     {
         MAINMENUS_Reset();
-        sub_0043C6A0(0);
+        CHARSEL_SetFlagBit2(0);
         AUTOMAP_InitCharSaveHeader((gpLaunchRecord->szPassword + 0x18), gpLaunchRecord->nMode, (gpLaunchRecord->szPassword + 0x48), gpLaunchRecord->wFlags1EF);
         CHATDLG_WriteSaveHeader((gpLaunchRecord->szPassword + 0x18));
         gpLaunchRecord->nByte35E = 3;
@@ -5401,7 +5401,7 @@ void __cdecl MAINMENUS_CreateCharacter()
     {
         MAINMENUS_Reset();
         D2MCPClientCloseMCP();
-        sub_0043C6A0(0);
+        CHARSEL_SetFlagBit2(0);
         AUTOMAP_InitCharSaveHeader((gpLaunchRecord->szPassword + 0x18), gpLaunchRecord->nMode, (gpLaunchRecord->szPassword + 0x48), gpLaunchRecord->wFlags1EF);
         CHATDLG_WriteSaveHeader((gpLaunchRecord->szPassword + 0x18));
         gpLaunchRecord->nLevel = 1;
@@ -5438,7 +5438,7 @@ int __stdcall MAINMENUS_CreateAccountOk(int nArg)
     const Unicode* pAccount = sub_004FDD90_GetEditText(gpAccountEdit);
     const Unicode* pPassword = sub_004FDD90_GetEditText(gpPasswordEdit);
     const Unicode* pConfirm = sub_004FDD90_GetEditText(gpCreatePasswordConfirmEdit);
-    int nLength = sub_00526800(pAccount);
+    int nLength = UNICODE_StrLen(pAccount);
     if (nLength < 2)
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x1460);
@@ -5457,7 +5457,7 @@ int __stdcall MAINMENUS_CreateAccountOk(int nArg)
         MAINMENUS_ShowMessage(pMessage, MAINMENUS_CreateMultiplayerScreen, 1);
         return 1;
     }
-    nLength = sub_00526800(pPassword);
+    nLength = UNICODE_StrLen(pPassword);
     if (nLength < 2)
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x1463);
@@ -5514,7 +5514,7 @@ int __stdcall MAINMENUS_OnRealmListClick(SMSGHANDLER_PARAMS* pMsg)
 {
 // build: symbol ?gpNameControl@* 0x007799E8
     const Unicode* pText = sub_004FBB30_GetText(gpNameControl);
-    sub_005263E0(gszEnteredName, pText, 0x100);
+    UNICODE_ToUtf8(gszEnteredName, pText, 0x100);
     CHARSEL_UseName(gszEnteredName);
     CHARSEL_RefreshCharEntry();
     if (MAINMENUS_IsDoubleClick(pMsg))

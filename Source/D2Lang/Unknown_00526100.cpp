@@ -152,7 +152,7 @@ Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource,
 }
 
 // 0x005263E0
-char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength)
+char* __fastcall UNICODE_ToUtf8(char* szDest, const Unicode* pSource, int nMaxLength)
 {
     int nLength = 0;
     for (int i = 0; pSource[i].wChar; ++i)

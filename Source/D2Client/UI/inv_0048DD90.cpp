@@ -123,7 +123,7 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);       
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 
-unsigned int __fastcall sub_00526800(const Unicode* pString);                                             // 0x00526800
+unsigned int __fastcall UNICODE_StrLen(const Unicode* pString);                                             // 0x00526800
 
 
 Unicode* __fastcall sub_00526F20(Unicode* pDst, const char* szSrc, int nMaxLength);                  // 0x00526F20
@@ -1462,7 +1462,7 @@ void __stdcall INV_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 INV_PrefixColorCode(W(wszTooltip), nPopupArg);
             }
             sub_00452170(W(wszTooltip));
-            if (sub_00526800(W(wszTooltip)) >= 0x3FF)
+            if (UNICODE_StrLen(W(wszTooltip)) >= 0x3FF)
             {
                 W(wszTooltip)[0x3FF].wChar = 0;
             }
@@ -1885,7 +1885,7 @@ timer_done:
 
         Unicode wszText[0x17];
         sub_005267E0(wszText, MONSTER_GetTradePartnerName());
-        int nLength = sub_00526800(wszText);
+        int nLength = UNICODE_StrLen(wszText);
         while (D2Win_10121_GetTextWidth(wszText) > 0x70)
         {
             wszText[nLength].wChar = 0;
@@ -1894,7 +1894,7 @@ timer_done:
         D2Win_10117_DrawText(wszText, gnPanelOffsetX + 0x19, 0x1B - gnPanelOffsetY, 0, 0);
 
         sub_005267E0(wszText, wszName);
-        nLength = sub_00526800(wszText);
+        nLength = UNICODE_StrLen(wszText);
         while (D2Win_10121_GetTextWidth(wszText) > 0x70)
         {
             wszText[nLength].wChar = 0;

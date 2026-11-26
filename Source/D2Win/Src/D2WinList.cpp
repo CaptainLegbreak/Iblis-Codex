@@ -140,7 +140,7 @@ int __stdcall LIST_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg); // 0x0050742
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 extern int ganListFontHeight[]; // 0x006DD024
 
@@ -440,7 +440,7 @@ D2WinListStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight, D
     {
         D2WinListDataStrc* pData = (D2WinListDataStrc*)FOG_Alloc(sizeof(D2WinListDataStrc), ".\\Src\\D2WinList.cpp", 0x56, 0);
         const Unicode* pText = D2LANG_GetStringFromTblIndex((unsigned short)pEntry->nStringId);
-        D2_ASSERT(sub_00526800(pText) < 256, 0x58);
+        D2_ASSERT(UNICODE_StrLen(pText) < 256, 0x58);
         sub_005267E0(pData->wszText, pText);
 
         int nTextWidth;
@@ -506,7 +506,7 @@ void __fastcall D2Win_10137(D2WinListStrc* ptListData, const Unicode* wszText, D
     D2Win_10127_SetFont(ptListData->eFont);
 
     D2WinListDataStrc* pNewData = (D2WinListDataStrc*)FOG_Alloc(sizeof(D2WinListDataStrc), ".\\Src\\D2WinList.cpp", 0xA5, 0);
-    D2_ASSERT(sub_00526800(wszText) < 256, 0xA6);
+    D2_ASSERT(UNICODE_StrLen(wszText) < 256, 0xA6);
 
     sub_005267E0(pNewData->wszText, wszText);
 

@@ -107,7 +107,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 
 
-int __fastcall sub_00526800(const Unicode* wszText); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* wszText); // 0x00526800
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 
@@ -1317,7 +1317,7 @@ void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, 
         return;
     }
 
-    const int nLength = sub_00526800(wszBuffer);
+    const int nLength = UNICODE_StrLen(wszBuffer);
     if (!nLength)
     {
         sub_00526700(wszText, wszBuffer);
@@ -1458,9 +1458,9 @@ void __fastcall TEXT_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, 
         STATLIST_FreeStatList(pStatList);
     }
 
-    if (wszText[sub_00526800(wszText) - 1].isNewline())
+    if (wszText[UNICODE_StrLen(wszText) - 1].isNewline())
     {
-        wszText[sub_00526800(wszText) - 1].wChar = 0;
+        wszText[UNICODE_StrLen(wszText) - 1].wChar = 0;
     }
 }
 
@@ -1477,9 +1477,9 @@ void __fastcall SKILLDESC_BuildItemPropText(D2UnitStrc* pItem, int nArg, int nAr
         STATLIST_FreeStatList(pStatList);
     }
 
-    if (wszText[sub_00526800(wszText) - 1].isNewline())
+    if (wszText[UNICODE_StrLen(wszText) - 1].isNewline())
     {
-        wszText[sub_00526800(wszText) - 1].wChar = 0;
+        wszText[UNICODE_StrLen(wszText) - 1].wChar = 0;
     }
 }
 

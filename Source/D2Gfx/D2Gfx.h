@@ -18,7 +18,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern int gnDisplayType; // 0x007C8CB0
 extern void* ghInstance; // 0x007C8CA8
-void __cdecl sub_004F8EA0(); // 0x004F8EA0
+void __cdecl WINDOW_LoadGammaSettings(); // 0x004F8EA0
 
 struct tagPOINT;
 struct tagPALETTEENTRY;

@@ -31,7 +31,7 @@ D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags();                               
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc);                   // 0x00526700
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);            // 0x005267E0
-int __fastcall sub_00526800(const Unicode* pString);                                               // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString);                                               // 0x00526800
 
 extern const char gszFormatD[];                                                                    // 0x006D57BC
 extern D2QuestTextsStrc gtQuestTextsSevenTombs;                                                              // 0x00723A64
@@ -413,7 +413,7 @@ static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg)
                 sprintf(szNumber, gszFormatD, sub_004A1950_GetActNumber(pTexts));
                 sub_00526320_ToUnicode(wszNumber, szNumber, 9);
                 sub_005267E0(pMsg->wszText, pString);
-                D2_ASSERT(sub_00526800(pString) < 0x118, 0x4FA);
+                D2_ASSERT(UNICODE_StrLen(pString) < 0x118, 0x4FA);
                 sub_00526700(pMsg->wszText, wszNumber);
             }
             else
