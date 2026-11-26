@@ -48091,6 +48091,14 @@
      "name": "MONSTER_ResetMonsterModesInLevel"
     },
     {
+     "va": "0x00573CB0",
+     "length": 1426
+    },
+    {
+     "va": "0x00574250",
+     "length": 281
+    },
+    {
      "va": "0x00574370",
      "length": 160,
      "name": "MONSTER_Reinitialize"
@@ -48370,20 +48378,6 @@
     {
      "va": "0x00579D60",
      "length": 2765
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/Monster_00573CB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00573CB0",
-     "length": 1426
-    },
-    {
-     "va": "0x00574250",
-     "length": 281
     }
    ]
   },
@@ -54535,8 +54529,17 @@
      "name": "?D2GAME_BOSSES_AssignUMod@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005A48C0",
+     "length": 120,
+     "name": "?MONSTERUNIQUE_PromoteToChampion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@E@Z"
+    },
+    {
      "va": "0x005A4940",
      "length": 109
+    },
+    {
+     "va": "0x005A49B0",
+     "length": 1325
     }
    ]
   },
@@ -54954,35 +54957,6 @@
      "length": 62,
      "name": "?MONSTERMODE_GetHpPercent128@@YIEPAUD2UnitStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A48C0",
-     "length": 120,
-     "name": "?MONSTERUNIQUE_PromoteToChampion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@E@Z"
-    },
-    {
-     "va": "0x005A49B0",
-     "length": 1325
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -58405,6 +58379,10 @@
      "name": "?ITEMMODS_HasAffixWithGroup@@YAHPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x005C1560",
+     "length": 883
+    },
+    {
      "va": "0x005C18E0",
      "length": 81,
      "name": "ITEMS_RollMagicAffixes"
@@ -58457,6 +58435,15 @@
      "va": "0x005C2940",
      "length": 36,
      "name": "?ITEMS_RollSetItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+    },
+    {
+     "va": "0x005C2970",
+     "length": 338
+    },
+    {
+     "va": "0x005C2AD0",
+     "length": 23,
+     "name": "?ITEMS_RollSuperiorItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     },
     {
      "va": "0x005C2FB0",
@@ -58517,16 +58504,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/SKILLS/SkillItem_005C1560.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C1560",
-     "length": 883
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005C2AF0.cpp",
    "rank": 0,
    "functions": [
@@ -58549,27 +58526,6 @@
     {
      "va": "0x005C2740",
      "length": 510
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/Items_005C2970.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C2970",
-     "length": 338
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/Items_005C2AD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005C2AD0",
-     "length": 23,
-     "name": "?ITEMS_RollSuperiorItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     }
    ]
   },
@@ -70735,13 +70691,7 @@
     {
      "va": "0x0064B7C0",
      "length": 157
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/UNITS/Missile_0064B860.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0064B860",
      "length": 1780
