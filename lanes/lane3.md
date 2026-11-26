@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/ltcg-original 01c8ca2cb on #419, **tools/status.py only: the crash-handler run's link-time rows read "link-time code generation (/GL /LTCG) (original)"**, as asked ("mark that run's link-time rows (original)"). The five /GL units are named in `LTCG_ORIGINAL` with the evidence in a comment (0x401A70 comes out of the two-argument SetThreadName only under /GL). 18 rows change their label; forcing constructs stay 40 (0x4027C0's volatile is still counted). No build input is touched, so no full build was run; `python3 tools/status.py` runs clean (STATUS.md and docs left for your refresh).
+(none: ltcg-original merged in #420)
 
 ## Claimed
 
