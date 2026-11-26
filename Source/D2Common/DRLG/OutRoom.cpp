@@ -53,7 +53,7 @@ void __fastcall sub_006707A0(D2DrlgOutdoorTileCtxStrc* pCtx);                   
 
 
 
-int __fastcall DRLGTILESUB_PickSubThemes(D2DrlgRoomStrc* pRoom, int a2, int a3); // 0x006706A0
+int __fastcall DRLGTILESUB_PickSubThemes(D2DrlgRoomStrc* pRoom, int nSubType, int nSubTheme); // 0x006706A0
 
 // build: symbol ?DRLGOUTROOM_InitOutdoorRoomGrids@@YIXPAUD2DrlgRoomStrc@@@Z 0x0067D2D0
 void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
