@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 21:18 PST 2026: joins-5 is in #421 and useitem-name in #422. Nothing in Ready.
 - Wed Nov 25 20:39 PST 2026: useitem-name posted. Checked every .rdata source path against the code that references it: all references come from correctly named D2Client files, none from a placeholder, so path strings name no placeholder.
 - Wed Nov 25 20:19 PST 2026: placeholder triage after joins-5. The placeholders that call copies of SCmd.cpp functions (Unknown_0046ACE0, 004DF4B0, 004E12D0, 004E40A0) only use the seed-roll helpers, which are inline everywhere (SCmd.cpp just has out-of-line instances), so no object evidence. The three placeholders sitting wholly inside one named file\'s run (004B5810 in npcmenu, 004B93F0 in SoundInst, 004D1300 in Missile) were ruled out by lane 1 on inlining evidence (lane1.md), as for 004A9BD0. The register-convention parks (0x45FB80, 0x463BC0, 0x468B20, 0x49AF60) are not a parameter-order case. No other join to try from this angle.
 - Wed Nov 25 20:06 PST 2026: joins-5 posted (0x47C420 into chat.cpp).
@@ -47,8 +48,6 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/joins-5 d307bf11c (on #420): chat.cpp takes 0x47C420 (sub_0047C420_HandleChatCommand); Unknown_0047C420.cpp goes with gszBattleNetPrefix (placeholders -1). chat.cpp's unmarked copy gives way to the real body. The esi/edi swap noted under Left in place came from CHAT_CopyCommandArgs: its string pointers are register-passed, so either order builds the same callee, but only szSource first gives 0x47C420's registers. Unit equal; full build: Game.exe identical, tree 4d514fe552f451f268acf5fca131290f52c0e250, placed 14,922 / 14,922, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
-- lane4/useitem-name 782cefe28 (on #420, stacked on joins-5): UI/useitem.cpp is renamed UI/UseItem.cpp, the name its own path string gives (".\UI\UseItem.cpp" in its allocation and assert calls); plan entries, unit and generated include follow, and D2ClientFuncs.h's list of declaration-count units. Every other D2Client file already matches its path string. Full build: Game.exe identical, tree e14ffaf8877e84848172e9f96c1e3ac87705ab9c; audit guard: no count rose.
 
 ## Claimed
 
