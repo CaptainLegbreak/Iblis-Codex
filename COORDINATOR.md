@@ -4,6 +4,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
+- **Lanes 1, 7, 8 and 9 reopen (the user, 11:57 PT), new chats.** Ownership goes back as before, with the new focus: **lane 1** D2Client from 0x4A0000 up (from lane 4); **lane 8** D2Common (from lane 2; lane 2 keeps Source/Include and the cross-module declarations); **lane 9** the renderers and D2Hell (from lane 6) and the repo-wide 1.10-address names; **lane 7** the D2Game forcing rows from 0x5B0000 up (0x5B0FF0, 0x5B2830, 0x5B2A00, 0x5C09E0, 0x5D3BA0, 0x5D4680, 0x5EB970; lane 5 keeps the five below), and any forcing row another lane parks and hands over on the board. Branches in flight stay with whoever started them: finish, post, then hand over in your board file.
 - **Every lane checks the board every 30 minutes (the user, 11:53 PT).** That replaces any slower cadence a lane was on, lane 6's hourly checks included. If your chat runs its own scheduled check-ins, set them to 30 minutes. Post a status line in your board file at least once an hour, even when nothing is Ready.
 - **NEW FOCUS (the user, 2026-11-26 07:53 PT): the borrowed functions are paused. Everyone moves to the 40 functions with a forcing construct, then scaffolding, then names.** Push what you have on your borrowed function to its `-wip` branch with a closing note in your board file (what's proven, what's left), so it can be picked up later. Don't post a borrowed function as Ready unless it's already equal.
   - **1. Forcing constructs (40 functions, queues.md, by module owner):** lane 5 has 12 (D2Game), lane 4 has 7 (D2Client, lane 1's 4 included), lane 3 has 6 (Storm/Fog), lane 6 has 4 (lane 9's renderer one included), lane 2 has 4 (D2Common, lane 8's). Same rule as always: the construct goes only when plain C gives the same bytes. Post each function on its own small branch as it lands. Rounds go quickly when the branches are small.
@@ -12,8 +13,8 @@ Written by the coordinator only. Lanes: read this before starting work and after
   - **NEW (the user, 11:57 PT): files still in pieces.** 34 original files are still split over 109 piece files (`Name.cpp` plus `Name_<VA>.cpp`), 106 functions in all. A join makes one file out of the pieces, in address order. It's done when every function in it builds equal; a piece that can't join because of a flag or a declaration difference stays, with the reason in a comment. Small branches, one file each.
     - **Lane 3 (now):** Storm `SBIG` (17 pieces, the biggest), `SSIGNATURE`, Fog `ErrorManager`.
     - **Lane 6 (now):** D2Launch `CharSel` (5) and `MainMenus`, D2BNClient `BnDownload` (3) and `BnSend`, D2CMP `CelCmp`, D2Multi `ChatDlg`, D2Sound `D2SoundSmp`, D2Win `D2WinFont`.
-    - **Lane 2 (now):** D2Common `ItemTbls` (3), `DataTbls`, `MissileTbls`, `Composit`, `Missile`.
-    - **Lane 4 and lane 5 after their forcing rows:** D2Client `Gfx` (8), `Inv` (6), `Text` (6), `Game` (4), `SkillDesc` (3), `SoundInst`, `EditBox`, `NpcMenu`; D2Game `Items` (4), `AiThink4` (3), `SCmd`, `Task`, `MissMode`, `Monster`, `MonsterUnique`, `PartyScreen`, `SkillItem`.
+    - **Lane 8 (when it starts; lane 2 until then):** D2Common `ItemTbls` (3), `DataTbls`, `MissileTbls`, `Composit`, `Missile`.
+    - **Lane 1 (now):** D2Client `SkillDesc` (3) and `NpcMenu`. **Lane 4 and lane 5 after their forcing rows:** D2Client `Gfx` (8), `Inv` (6), `Text` (6), `Game` (4), `SoundInst`, `EditBox`; D2Game `Items` (4), `AiThink4` (3), `SCmd`, `Task`, `MissMode`, `Monster`, `MonsterUnique`, `PartyScreen`, `SkillItem`.
     - Watch for the declaration-sensitive units (CharSel.cpp keeps its `_<address>` spellings, inv_0048BC10.cpp): build every piece's functions after the join, not only the moved ones.
   - **Lane 4 first:** fix inv_0048BC10.cpp's declarations so the unit stops flipping on header changes. That unblocks the 650 global renames the coordinator is holding.
   - **Lane 2:** besides D2Common's four, the shared headers. Each lane moves declarations into its own module's header; you take the ones that are cross-module.
@@ -92,15 +93,15 @@ Every lane, every time it finishes or gets blocked:
 
 | Lane | Owns |
 |---|---|
-| 1 | stopped 2026-11-25; D2Client 0x4A0000 and up is lane 4's |
-| 2 | Source/Include (shared headers, records, fields), **D2Common** (from lane 8), borrowed 0x62B5B0, 0x679C80, 0x677880 |
+| 1 | D2Client from 0x4A0000 up (text, QuestLog, key config, character screen, spellsel, npcmenu, SkillDesc, 0x4C0000 and up) |
+| 2 | Source/Include (shared headers, records, fields) and cross-module declarations |
 | 3 | Storm, Fog, SRP, borrowed 0x6BD230 |
-| 4 | **all of D2Client** (0x4A0000 and up back from lane 1) and D2Client code below 0x440000 |
+| 4 | D2Client 0x440000-0x49FFFF and below 0x440000 |
 | 5 | D2Game |
-| 6 | borrowed 0x55A6D0, D2CMP, D2Launch, D2Multi, D2Win, D2Sound, D2Lang, D2Net, D2MCPClient, D2BNClient, Bnclient, **D2Gfx, D2Direct3D, D2DDraw, D2Gdi, D2Glide, D2Hell** (from lane 9), the initializer table |
-| 7 | stopped 2026-11-25; borrowed functions are with lanes 2, 3, 5, 6 |
-| 8 | stopped 2026-11-25; D2Common is lane 2's |
-| 9 | stopped 2026-11-25; the renderers are lane 6's |
+| 6 | D2CMP, D2Launch, D2Multi, D2Win, D2Sound, D2Lang, D2Net, D2MCPClient, D2BNClient, Bnclient, Game.exe's main module (Source/Main), the initializer table (borrowed 0x55A6D0 paused) |
+| 7 | D2Game forcing rows from 0x5B0000 up, parked forcing rows handed over by other lanes; the borrowed functions when they resume |
+| 8 | D2Common (borrowed 0x62B5B0, 0x679C80, 0x677880 paused) |
+| 9 | D2Gfx, D2Direct3D, D2DDraw, D2Gdi, D2Glide, D2Hell; repo-wide 1.10-address names |
 | 10 | stopped 2026-11-25; the coordinator applies existing naming plans |
 
 A function belongs to the lane whose address range or file run it sits in, whatever file it is filed in today.
