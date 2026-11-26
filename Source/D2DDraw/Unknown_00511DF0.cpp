@@ -30,7 +30,7 @@ struct D2DDrawCelClipStrc
     int nRows;
 };
 
-int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);
+int __stdcall D2CMPSpriteValidate(D2CelContextStrc* pContext, int nArg2, int nArg3);
 void __stdcall CelDrawEx(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nClipTop, int nClipRows, int nArg13); // 0x00601650
 
 extern D2PaletteTableStrc* gpGfxPaletteView; // 0x007C9150
@@ -128,7 +128,7 @@ void __fastcall sub_00512250_DrawCel(D2CelContextStrc* pContext, int nX, int nY,
     tOut.nRight = 0;
     tOut.nFirstRow = 0;
     tOut.nRows = 0;
-    if (!sub_006001F0(pContext, 0, 1))
+    if (!D2CMPSpriteValidate(pContext, 0, 1))
         return;
     if (sub_00511E80_ClipCel(pContext->pCel, nY, nX, &tOut, pClip))
         return;
@@ -140,7 +140,7 @@ void __fastcall sub_00512250_DrawCel(D2CelContextStrc* pContext, int nX, int nY,
 int __fastcall sub_00511FB0_DrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, void* pPalette)
 {
     D2CelContextStrc* pContext = (D2CelContextStrc*)pData;
-    if (!sub_006001F0(pContext, 0, 1))
+    if (!D2CMPSpriteValidate(pContext, 0, 1))
         return 0;
 
     if (sub_00511E10_IsCelOffScreen(pContext->pCel, nX, nY, 0))
@@ -174,7 +174,7 @@ void __fastcall sub_005123B0_DDrawDebugFillBackBuffer(int nX, int nY)
 
 struct D2CelStrc;
 
-int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);
+int __stdcall D2CMPSpriteValidate(D2CelContextStrc* pContext, int nArg2, int nArg3);
 int __stdcall CelGetWidth(D2CelStrc* pCel);                                                                 // 0x006018C0
 int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 int __stdcall CelGetOffsetX(D2CelStrc* pCel);                                                               // 0x00601920
@@ -185,7 +185,7 @@ int gnDDrawClipLeft;                                                            
 int __fastcall sub_005120A0_DrawImagePalette(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nPalette)
 {
     D2CelContextStrc* pContext = (D2CelContextStrc*)pData;
-    if (!sub_006001F0(pContext, 0, 1))
+    if (!D2CMPSpriteValidate(pContext, 0, 1))
         return 0;
 
     if (sub_00511E10_IsCelOffScreen(pContext->pCel, nX, nY, 0))
@@ -211,7 +211,7 @@ int __fastcall sub_005120A0_DrawImagePalette(void* pData, int nX, int nY, unsign
 }
 
 struct D2CelStrc;
-int __stdcall sub_006001F0_ValidateContext(D2CmpCelContextStrc*, int, int); // 0x006001F0
+int __stdcall D2CMPSpriteValidate(D2CmpCelContextStrc*, int, int); // 0x006001F0
 int __stdcall CelGetWidth(D2CelStrc*); // 0x006018C0
 int __stdcall CelGetHeight(D2CelStrc*); // 0x006018F0
 int __stdcall CelGetOffsetX(D2CelStrc*); // 0x00601920
@@ -224,14 +224,14 @@ extern unsigned char* gpScreenBuffer_007C9154; // 0x007C9154
 // 0x005121A0
 void __fastcall sub_005121A0_DrawClipped(D2CmpCelContextStrc* context, int x, int y, int top, int rows, int index)
 {
-    if (!sub_006001F0_ValidateContext(context, 0, 1)) return;
+    if (!D2CMPSpriteValidate(context, 0, 1)) return;
     if (sub_00511E10_IsCelOffScreen(context->pCel, x, y, 0)) return;
     int screenHeight = gnRenderHeight;
     CelDrawEx(context, x, y, gnDDrawClipLeft, gnDDrawClipRight, gpScreenBuffer_007C9154, screenHeight, gnRenderWidth, 0, DDCORE_GetDrawModePalette(index, &rows), top, rows, 0);
 }
 
 struct D2CelStrc;
-int __stdcall sub_006001F0(D2CmpCelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
+int __stdcall D2CMPSpriteValidate(D2CmpCelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
@@ -242,7 +242,7 @@ extern int* gpShadowTable_007C9150; // 0x007C9150
 // 0x005122E0
 void __fastcall sub_005122E0_DrawShadow(D2CmpCelContextStrc* pContext, int nX, int nY)
 {
-    if (!sub_006001F0(pContext, 0, 1))
+    if (!D2CMPSpriteValidate(pContext, 0, 1))
         return;
 
     if (sub_00511E10_IsCelOffScreen(pContext->pCel, nX, nY, 1))
