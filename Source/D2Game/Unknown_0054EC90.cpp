@@ -81,6 +81,7 @@ static D2UnitStrc* __stdcall sub_0054DF80_SpawnGroupInCoordList(D2GameStrc* pGam
     return pMonster;
 }
 
+// noinline: the function at 0x0054EC90 calls sub_0054E190_SpawnMonsterAtFreePosition (0x0054E190); the image calls it out of line there.
 static __declspec(noinline) int __stdcall sub_0054E190_SpawnMonsterAtFreePosition(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, D2UnkMonCreateStrc2* pCreate);
 static int __stdcall sub_0054E190_SpawnMonsterAtFreePosition(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, D2UnkMonCreateStrc2* pCreate); // 0x0054E190
 // 0x0054E190

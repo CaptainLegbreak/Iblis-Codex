@@ -740,6 +740,7 @@ int __fastcall PLRSAVE2_WriteSkillSection(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     return 0;
 }
 
+// noinline: PLRSAVE2_WriteCorpsesSection (0x005697F0) and PLRSAVE2_CreateSaveFile (0x00569AD0) call PLRSAVE2_WriteItemSection (0x005697B0); the image calls it out of line there.
 // 0x005697B0
 __declspec(noinline) int __fastcall PLRSAVE2_WriteItemSection(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char** ppCursor, const unsigned char* pEnd, int nArg5, int nArg6, int nArg7)
 {
