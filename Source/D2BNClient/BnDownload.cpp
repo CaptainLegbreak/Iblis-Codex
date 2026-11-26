@@ -413,7 +413,6 @@ void __fastcall sub_0051A540_SetValue(int nValue);                              
 
 int __fastcall BNDOWNLOAD_SetCheckRevisionValue(const char* szValue);                                    // 0x0051E3B0
 
-void __fastcall BNDOWNLOAD_RequestDownload(int nType, int nSubType, unsigned int nArg1, unsigned int nArg2, const D2FileTimeStrc* pFileTime, const char* szFile, const char* szLink); // 0x0051F910
 
 int __fastcall BNMESSQUEUE_QueueMessage(int nId, const void* pData, unsigned int nLength);                // 0x00520210
 
@@ -540,7 +539,6 @@ struct D2BnAccountLogonStrc
 
 extern D2BigLoginRecordStrc gtLoginRecord; // 0x00882680
 
-void __stdcall sub_0041D2A0_MemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
 
 void __cdecl sub_00524740_ClearKeySchedules(); // 0x00524740
 
@@ -2974,7 +2972,6 @@ int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
 
 int __fastcall sub_0051E340_BuildCDKeyInfoForSlot(D2CDKeyInfoStrc* pInfo, unsigned int dwClientToken, int nSlot); // 0x0051E340
 
-int __cdecl GAME_GetAbortFlag(); // 0x00520AE0
 
 void __cdecl GRID_LockCDKeys(); // 0x005234D0
 

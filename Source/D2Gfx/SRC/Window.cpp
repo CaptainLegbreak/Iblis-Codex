@@ -173,7 +173,6 @@ struct D2DevModeStrc
     unsigned int dmPanningHeight;
 };
 
-extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -319,7 +318,6 @@ extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(D2LargeIn
 typedef char* va_list;
 
 
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern int gnChangedScaleFactor; // 0x0072DB40
 

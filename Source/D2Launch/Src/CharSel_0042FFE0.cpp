@@ -7,14 +7,10 @@
 #include "D2LangApi.h"
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                  // 0x00412650
 int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
-D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId);                                           // 0x0042F430
-void __cdecl MAINMENUS_Reset();                                                                          // 0x0042F480
 void __cdecl MAINMENUS_ShowLocalAddress();                                                                                // 0x0042FF20
 int __cdecl MAINMENUS_FreeSlots();                                                                       // 0x00430A20
 void __cdecl MAINMENUS_UpdateTwoEditOk();                                                                                // 0x00436CF0
 int __stdcall MAINMENUS_OnTwoEditChange(int nArg);                                                                       // 0x00436D40
-void __cdecl CHARSEL_DisconnectBattleNet();                                                                                // 0x0043B9A0
-void __cdecl CHARSEL_CreateBaseScreen();                                                                                // 0x0043C4F0
 void __cdecl CHATDLG_DestroyDialogControls();                                                                // 0x0043DB20
 void __cdecl CHATDLG_DestroyPopupControls();                                                                           // 0x0043EA20
 void __cdecl CHATDLG_DestroyCreateControls();                                                                                // 0x00443220
@@ -46,8 +42,6 @@ struct D2WinButtonStrc;
 struct D2CelFileStrc;
 struct D2CharSelCacheStrc;
 class BNGatewayAccess;
-void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0
-int __cdecl CHARSEL_Redraw(); // 0x00439210
 void __cdecl CHARSEL_CreateCharListControls(); // 0x0043A800
 extern int gnSelected; // 0x0070CC00
 extern int gnSelectionA; // 0x0070CC04
@@ -63,12 +57,9 @@ extern int gnLaunchMode; // 0x007795EC
 extern int gbFlag_00779C6C; // 0x00779C6C
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
-void __cdecl MAINMENUS_ShowMainMenu(); // 0x004336C0
 void __cdecl CHARSEL_FreeCharList(); // 0x00438EA0
-int __stdcall CHARSEL_HandleCharList(const char* szName, int pPacket, int bFlag); // 0x0043AAB0
 int __fastcall D2Win_10047(D2WinTextBoxStrc* pTextBox); // 0x004FB6A0
 void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int nColor); // 0x004FCFF0
-void __cdecl CHARSEL_RefreshCharList(); // 0x00438560
 void __cdecl CHARSEL_ShowMessage(); // 0x0043A5D0
 void __cdecl sub_00438F70();
 extern D2ComInterfaceStrc* gpFuncTable; // 0x0077ABF0
@@ -88,8 +79,6 @@ public:
 };
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars);
-int __cdecl GAME_GetSlotNameCount(); // 0x00430B40
-void __cdecl MAINMENUS_BuildRealmList(); // 0x00434060
 void __cdecl CHARSEL_InitCharList(); // 0x0043AE30
 void __fastcall CHARSEL_UseName(char* szName); // 0x0043ADB0
 int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
@@ -110,7 +99,6 @@ int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 extern int gfCharSelCancelled; // 0x0077AC04
 void __cdecl sub_00518C20_DeleteQueueLock(); // 0x00518C20
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 int __fastcall MAINMENUS_ShowOptionDescription(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
 void __fastcall CHARSEL_JoinSelectedWithDifficulty(SMSGHANDLER_PARAMS* pMsg, int nMode); // 0x00439AF0

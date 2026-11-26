@@ -84,11 +84,8 @@ extern void* gapGlideTileStripA[10];                                            
 
 extern void* gapGlideTileStripB[10];                                                            // 0x0072F378
 
-void __fastcall GLVERTEX_SetVertexAmbientColor(D2GlideSpriteVertexStrc* pVertex, unsigned char nShade);   // 0x0050DBE0
 
-void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile);                                   // 0x0050FBD0
 
-int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int bAsync, int nFlags);                                   // 0x005FDEA0
 
 static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, int nScreenPanels, tagRECT* pRect, int* pOffset);
 
@@ -939,7 +936,6 @@ extern D2GlideSpriteVertexStrc gaGlideTileQuad[4]; // 0x00880600
 typedef void (__stdcall* GLIDEDRAWVERTEXARRAYCONTIGUOUS)(int nMode, int nCount, void* pVertices, int nStride);
 
 extern GLIDEDRAWVERTEXARRAYCONTIGUOUS gpfnGrDrawVertexArrayContiguous; // 0x0087EAC4
-void __fastcall GLVERTEX_SetVertexAmbientColor(D2GlideSpriteVertexStrc* pVertex, unsigned char nIntensity); // 0x0050DBE0
 
 struct D2TileVertexStrc
 {
