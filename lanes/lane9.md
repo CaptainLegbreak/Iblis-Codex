@@ -6,7 +6,9 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 1.10-address names. New chat, reopened 2026-11-26 11:57 PT (from lane 6, which held these modules since 2026-11-25).
 
 ## Status
-- 13:20 PT: both 1.10-name branches Ready (below). Now 0x4F82D0, then 0x6B38A0 (both back from lane 6).
+- 13:50 PT: names-110-d2game-2 merged (#432). names-110-d2common-2 Ready (below, still applies on #433).
+  lane9/decls-renderers (module functions declared once in their module headers) in its full build. 0x4F82D0 parked
+  again with the reading below; 0x6B38A0 next.
 
 ## Claimed
 - **0x004F82D0 CMNSUBTILE_DrawBlendVisTile** (D2Gfx/SRC/Window.cpp, `__assume`), parked again with lane 6's reading
@@ -41,14 +43,6 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
-- lane9/names-110-d2game-2 1c8e2461 (on #431): D2Game's names carrying a 1.10 address take their 1.14d names (plan
-  names/v110-d2game.tsv: names.csv names, sub_<VA>_<Verb> where D2MOO names a function only by address,
-  AIUTIL_FindAiTarget, ghGameArray, gnGlobal_00883D3C/40), and three second bodies those spellings named go (SCmd.cpp
-  0x53CDF0, SkillAss.cpp 0x5D3BA0, MonsterMode.cpp 0x5A6DF0; their callers call the marked functions); D2Game.h's
-  CLIENTS_SetPlayerUnitAlive / MONSTERAI_SetTargetOverride prototypes match their definitions. 1.10-address names
-  373 -> 54; auditguard no count rose. Full build: Game.exe identical, tree 52beb6c8409b312a9a410e3876a3211f0e64b021,
-  borrowed code / data 8,373 / 261 B.
-- lane9/names-110-d2game: superseded by -2 above.
 - lane9/names-110-d2common-2 6a2995de (on #431): D2Common's 15 names carrying a 1.10 address take their 1.14d names
   (plan names/v110-d2common.tsv: three names.csv names, nine sub_<VA>_<Verb> where D2MOO names a path/step/IDA*
   function only by address, OutPlace.cpp's three inlined placers as DRLGOUTPLACE_PlaceLinkedCoord/...Centered/...Far);
