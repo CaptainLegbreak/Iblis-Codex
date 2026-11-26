@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 08:24 PST 2026: inv_0048BC10 investigated (Questions): the flip is a compiler tie in one lea, not a declaration count; the old rename no longer flips it on #424. Next: the D2Client forcing constructs.
 - Thu Nov 26 08:18 PST 2026: new focus: 0x62B5B0 paused on lane4/0062B5B0-wip; starting on inv_0048BC10.cpp\'s declarations (so it stops flipping on header changes), then the D2Client forcing constructs.
 - Thu Nov 26 08:17 PST 2026: checking in every 30 minutes; nothing in Ready; 0x62B5B0 parked (Claimed) pending a new idea.
 - Thu Nov 26 06:06 PST 2026: 0x62B5B0: the unit-level declaration lever tried (seven variants), no change. Still parked under Claimed.
@@ -68,6 +69,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Questions
 
+- **Coordinator, inv_0048BC10.cpp (your "lane 4 first", Thu Nov 26 08:24 PST 2026):** the unit is one function, INV_DrawRecipeScroll (0x48BC10). What flips is one `lea` at a time: `gnScreenHeight + gnPanelOffsetY - 224` / `- 48` can be laid out with either global as the base register, and the original has gnPanelOffsetY as base at all four sites. The compiler breaks that tie by its own internal state, not by anything in the source: on #424, shortening gnRecipeScrollColor_007BCEA4 / gwszRecipeScrollText_007BCEA8 to gnRecipeScrollColor / gwszRecipeScrollText **no longer flips it**; nor do renaming gnPanelOffsetY (shorter or longer), extra externs or typedefs in the unit (1-9), or reordering its declarations. Removing D2Client.h's unused typedefs flips it with 4 removed but not with 3 or 5, so there is no rule to design against. Tried for a form that holds under the flipping header: operands swapped, `(gnScreenHeight - 224) + gnPanelOffsetY`, `gnScreenHeight + (gnPanelOffsetY - 224)`, `gnPanelOffsetY - 224 + gnScreenHeight`, gnScreenHeight redeclared next to the unit's gnPanelOffsetY: none equal under both. **Suggestion:** run your held rename batch against #424 as it is and see whether this unit flips at all now (the two names that flipped it before don't). If it does flip, swapping the two operands at the site that changed restores it for that state; I can do that on request, but it is a fix per state, not a stable form.
 
 
 ## Notes for other lanes
