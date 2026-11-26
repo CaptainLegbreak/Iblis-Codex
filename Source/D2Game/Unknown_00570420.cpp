@@ -166,12 +166,6 @@ static void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue
     }
 }
 
-void __fastcall sub_C899_Emit_00570A50(D2UnitStrc* pUnit, int nValue)
-{
-    sub_00570A50_SpendStatPointsOnStrength(pUnit, nValue);
-    sub_00570A50_SpendStatPointsOnStrength(pUnit, nValue + 1);
-}
-
 static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
 {
     if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
@@ -252,21 +246,9 @@ void __fastcall sub_00570C80_PLAYERSTATS_ResetToBaseStats(D2GameStrc* pGame, D2U
     {
         return;
     }
-    int nDiff = pCharStatsTxtRecord->nStr - STATLIST_GetUnitBaseStat(pUnit, STAT_STRENGTH, 0);
-    if (nDiff)
-    {
-        STATLIST_AddUnitStat(pUnit, STAT_STATPTS, -nDiff, 0);
-        STATLIST_AddUnitStat(pUnit, STAT_STRENGTH, nDiff, 0);
-        UNITROOM_RefreshUnit(pUnit);
-    }
+    sub_00570A50_SpendStatPointsOnStrength(pUnit, pCharStatsTxtRecord->nStr - STATLIST_GetUnitBaseStat(pUnit, STAT_STRENGTH, 0));
     sub_00570A80_AddEnergyPoints(pUnit, pCharStatsTxtRecord->nInt - STATLIST_GetUnitBaseStat(pUnit, STAT_ENERGY, 0));
-    nDiff = pCharStatsTxtRecord->nDex - STATLIST_GetUnitBaseStat(pUnit, STAT_DEXTERITY, 0);
-    if (nDiff)
-    {
-        STATLIST_AddUnitStat(pUnit, STAT_STATPTS, -nDiff, 0);
-        STATLIST_AddUnitStat(pUnit, STAT_DEXTERITY, nDiff, 0);
-        UNITROOM_RefreshUnit(pUnit);
-    }
+    sub_00570B30_SpendStatPointsOnDexterity(pUnit, pCharStatsTxtRecord->nDex - STATLIST_GetUnitBaseStat(pUnit, STAT_DEXTERITY, 0));
     sub_00570B60_AddVitalityPoints(pUnit, pCharStatsTxtRecord->nVit - STATLIST_GetUnitBaseStat(pUnit, STAT_VITALITY, 0));
 }
 
@@ -308,12 +290,6 @@ static void sub_00570B30_SpendStatPointsOnDexterity(D2UnitStrc* pUnit, int nValu
         STATLIST_AddUnitStat(pUnit, STAT_DEXTERITY, nValue, 0);
         UNITROOM_RefreshUnit(pUnit);
     }
-}
-
-void __fastcall sub_C899_Emit_00570B30(D2UnitStrc* pUnit, int nValue)
-{
-    sub_00570B30_SpendStatPointsOnDexterity(pUnit, nValue);
-    sub_00570B30_SpendStatPointsOnDexterity(pUnit, nValue + 1);
 }
 
 static inline D2StatesTxt* SKILLS_GetStatesTxtRecord(int id) { if (id < 0 || id >= sgptDataTables->nStatesTxtRecordCount) return 0; return &sgptDataTables->pStatesTxt[id]; }
