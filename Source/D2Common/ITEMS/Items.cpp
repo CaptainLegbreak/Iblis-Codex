@@ -8352,14 +8352,19 @@ inline int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit)
 // build: symbol ?GAME_GetUnitClassId@* 0x00451F60
 inline int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit)
 {
-    return pUnit ? pUnit->dwClassId : -1;
+    if (!pUnit)
+    {
+        return -1;
+    }
+
+    return pUnit->dwClassId;
 }
 
 // 0x0062B5B0
 int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
 {
     D2StatStrc pStat[64];
-    const int nQuality = ITEMS_GetItemQuality_Inl(pItem);
+    const int nQuality = ITEMS_GetItemQuality(pItem);
     int nRequiredLevel = 0;
     switch (nQuality)
     {
@@ -8377,12 +8382,12 @@ int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
     {
         for (int i = 0; i < 3; ++i)
         {
-            D2MagicAffixTxt* pPrefix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId_Inl(pItem, i));
-            D2MagicAffixTxt* pSuffix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId_Inl(pItem, i));
+            D2MagicAffixTxt* pPrefix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId(pItem, i));
+            D2MagicAffixTxt* pSuffix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId(pItem, i));
             nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(nRequiredLevel, pPrefix, pPlayer);
             nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(nRequiredLevel, pSuffix, pPlayer);
         }
-        D2MagicAffixTxt* pAutoAffix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetAutoAffix_Inl(pItem));
+        D2MagicAffixTxt* pAutoAffix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetAutoAffix(pItem));
         nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(nRequiredLevel, pAutoAffix, pPlayer);
         break;
     }
@@ -8391,8 +8396,8 @@ int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
         int nCraftBonus = 10;
         for (int i = 0; i < 3; ++i)
         {
-            D2MagicAffixTxt* pPrefix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId_Inl(pItem, i));
-            D2MagicAffixTxt* pSuffix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId_Inl(pItem, i));
+            D2MagicAffixTxt* pPrefix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId(pItem, i));
+            D2MagicAffixTxt* pSuffix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId(pItem, i));
             nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(nRequiredLevel, pPrefix, pPlayer);
             nRequiredLevel = ITEMS_ApplyAffixLevelRequirement(nRequiredLevel, pSuffix, pPlayer);
             if (pPrefix)
@@ -8452,7 +8457,7 @@ int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
     }
     }
 
-    D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
+    D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(GAME_GetUnitClassId(pItem));
     if (pItemsTxtRecord && pItemsTxtRecord->levelReq > nRequiredLevel)
     {
         nRequiredLevel = pItemsTxtRecord->levelReq;
