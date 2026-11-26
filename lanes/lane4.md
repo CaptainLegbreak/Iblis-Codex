@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 PST 2026: #435 took roster-record. join-soundinst and join-editbox posted on #435 (files in pieces -2, one evidenced noinline). Gfx join in progress.
+
 - Thu Nov 26 13:40 PST 2026: new ownership noted (lane 4 = D2Client below 0x4A0000). Parked forcing rows handed over (Notes). Starting the piece joins: Gfx first.
 
 - Thu Nov 26 13:37 PST 2026: #431 took names-sub-d2client-2 and #432 fields-d2client; roster-record posted on #432.
@@ -86,12 +88,13 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/roster-record 908e75d94 (on #432, full build identical, borrowed code unchanged at 8,373 B in 5 functions, audit guard clean): scaffolding, private copies of a shared record. Roster.cpp and Gfx.cpp each kept a partial private view of the stored-unit record under the name D2RosterUnitStrc (name and position in one, corpse and guild fields in the other). Both now use D2ClientGame.h's D2StoredUnitRecordStrc, which has the whole layout; Roster.cpp's own declaration of GFX_SortRosterByName already used it. The five Roster.cpp functions' recorded symbol names follow. (units.json still records PANEL_FindPartyRow, PARTY_InitRosterUnit, PARTY_DrawRosterArea, PARTY_SetRosterButtonState and sub_0049BB40_SetSlotCount with a `D2RosterUnitStrc` parameter that Party.cpp's source no longer has; I left those entries alone.) Next: packets 0x42/0x74/0x7D are in D2Packets.h, but SCmd.cpp and Item.cpp keep private copies. Moving Item.cpp onto the header also means reconciling its private 0x9C/0x9D copies, which the header defines too; Item.cpp is a declaration-count unit, so that gets its own branch.
+- lane4/join-soundinst 581554b23 (on #435): files in pieces. SoundInst.cpp takes SOUNDINST_SetValue (0x4B9B50, between SoundInst.cpp's 0x4B9B20 and 0x4B9B80) and SoundInst_004B9B50.cpp goes. **One evidenced noinline (noinline 96 -> 97 on #435):** SOUNDINST_ArmHint (0x4B9EF0) calls it out of line in the image, and in one unit the compiler would expand it there; the comment says so.
+- lane4/join-editbox a054758f9 (stacked on join-soundinst; full build of the two on #435 identical, borrowed code unchanged at 8,373 B in 5 functions, audit guard clean with AUDIT_ALLOW=noinline for the one above): editbox.cpp takes EditBoxImplementation::OnKeyDown (0x4BB620) and editbox_004BB620.cpp goes. The piece kept its own flat copy of EditBoxImplementation, so its field names now name editbox.cpp's record: UIWidget's filter callback pfFilter (was unk0x04), bNumeric, bAllowRepeat, nCaret, nTextLength (0x20, 0x24, 0x36, 0x3A) and the enter callback pfOnEnter (0x42). The two callbacks have their function-pointer types, with casts at the two `int` stores. OnKeyDown is a virtual override in editbox.cpp's class, so its address is stated with a `build: symbol` line beside the other overrides'. Files in pieces -2. (Both files are above 0x4A0000, lane 1's range now; the coordinator's 11:57 join list gave these joins to lane 4.)
 
 
 ## Claimed
 
-- Files in pieces (coordinator 11:57): D2Client `Gfx` (8 pieces) first, then `Inv`, `Text`, `Game`, `SoundInst`, `EditBox`. One branch per file.
+- Files in pieces (coordinator 11:57): SoundInst and EditBox done (Ready); Gfx in progress (see Left in place); then `Game`, `Inv`, `Text`.
 - D2Client scaffolding and names (the coordinator's order): next, `unk0x..` fields D2Client's code reads.
 
 
@@ -141,6 +144,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - Lane 2: `D2ClientTypes.h`'s `D2GfxDataStrc` holds its 20 entries as byte pairs because moving `D2GfxEntryStrc` out of D2Client.h changes code in useitem.cpp and inv_0048DD90.cpp.
 
 ## Left in place (and why)
+
+- **Gfx.cpp's eight pieces (in progress).** Gfx.cpp builds equal under /GS-, which all five /GS- pieces need, so the joined file takes /GS-. The piece data continues Gfx.cpp's (Gfx.cpp 0x712AA0-0x712AC4, then the piece 0x712AC4-0x712B10). Gfx_0046DB90.cpp (24 functions): joined, 23 build equal. 0x46E740 GFX_LoadGfxNode, a static that gets pUnit in eax, picks ebx where the original has edi: a pure allocation tie. It is equal in the piece alone, and none of these change it: definition order, the shared helpers, globals extern vs defined. The other six pieces each keep private copies of records Gfx.cpp also defines with different layouts (D2UnitOverlayStrc; D2GfxDataStrc vs the piece's D2StateOwnerStrc view; GetNodeLayer returning void* vs D2GfxLayerStrc*), plus static copies of Gfx.cpp functions (0x46DF40 in Gfx_00470C30.cpp). Those get reconciled one piece at a time, on their own branches.
 
 - **0x62B5B0 (Items.cpp), the unit's declarations (coordinator's lever, Thu Nov 26 10:12 PST 2026):** none moves it. On the draft (lane2/0062B5B0-wip rebased onto #426, 2 changed lines: `mov edi,[sgptDataTables]` before `mov ecx,[ebp-N]`), each of these built with every other Items.cpp function unchanged and the same 2 lines: the data tables extern first after the includes, after all declarations, or (not possible: it's read earlier) just before the function; the function's own prototype first, with `pPlayer` like the definition, or unnamed; the getters' redundant prototypes (GetPrefixId, GetAutoAffix) dropped; D2CommonApi.h included with Items.cpp's 28 private copies dropped (about 400 more declarations in the unit; 0x626E10's private copy has to stay, the header types its list as D2StatListExStrc); the function and its two inline getters moved from after the data include to after 0x62B560, or to before the data include. So the walk isn't sensitive to the unit's declarations or definition order here, unlike the inv_* units. The locals don't move it either (7 more builds): nLevel/nCharClass and the magic case's three records hoisted to function scope, before or after pStat, in either order; still the same 2 lines (the harness does react: changing one call argument gives 33). With lane 2's 31 builds, the walk here doesn't follow anything in the source I can find. I'm leaving it parked and back on scaffolding.
 
