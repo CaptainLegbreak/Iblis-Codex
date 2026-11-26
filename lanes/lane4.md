@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Thu Nov 26 PST 2026: fields-d2client posted. Ready: names-sub-d2client-2, fields-d2client.
+- Thu Nov 26 12:44 PST 2026: fields-d2client posted. Ready: names-sub-d2client-2, fields-d2client.
 
 - Thu Nov 26 12:30 PST 2026: 0x62B5B0 released to lane 10 (the user's call). Main #430 has names-sub-d2client; names-sub-d2client-2 Ready on it.
 
