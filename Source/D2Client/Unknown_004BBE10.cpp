@@ -106,17 +106,17 @@ public:
     int nUpY;
     int nDownX;
     int nDownY;
-    int unk0x20;
+    int bWheelStep;
     int nArrowHeight;
     int nArrowWidth;
     int f_2C;
-    int unk0x30;
-    int unk0x34;
-    int unk0x38;
+    int bMouseDown;
+    int bUpPressed;
+    int bDownPressed;
     void (__cdecl* pfUnk0x3C)();
     unsigned int nUnk0x3CCalls;
     unsigned int unk0x44;
-    unsigned int unk0x48;
+    unsigned int dwLastStepTick;
     int unk0x4C;
     void* pCellFile;
 };
@@ -295,7 +295,7 @@ SpinnerImplementation::~SpinnerImplementation()
 // 0x004BBE70
 void SpinnerImplementation::Draw()
 {
-    if (unk0x38 || unk0x34)
+    if (bDownPressed || bUpPressed)
     {
         ++nUnk0x3CCalls;
         pfUnk0x3C();
@@ -304,10 +304,10 @@ void SpinnerImplementation::Draw()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = pCellFile;
-    tContext.nFrame = 2 * unk0x34;
+    tContext.nFrame = 2 * bUpPressed;
     tContext.nDirection = 0;
     sub_004F6480(&tContext, nUpX, nUpY, -1, 5, 0);
-    tContext.nFrame = 2 * unk0x38 + 1;
+    tContext.nFrame = 2 * bDownPressed + 1;
     sub_004F6480(&tContext, nDownX, nDownY, -1, 5, 0);
 }
 
@@ -347,37 +347,37 @@ int SpinnerImplementation::HitTestDownArrow(SMSGHANDLER_PARAMS* pMsg)
 // build: symbol ?GetValue@SpinnerImplementation@@UAEHXZ 0x004BBF90
 int SpinnerImplementation::GetValue()
 {
-    if (unk0x34)
+    if (bUpPressed)
         return 1;
-    return unk0x38 ? 2 : 0;
+    return bDownPressed ? 2 : 0;
 }
 
 // 0x004BBFB0
 int SpinnerImplementation::sub_004BBFB0()
 {
-    if (!unk0x34 && !unk0x38)
+    if (!bUpPressed && !bDownPressed)
         return 0;
 
-    if (unk0x20)
+    if (bWheelStep)
     {
-        unk0x34 = 0;
-        unk0x38 = 0;
-        unk0x20 = 0;
+        bUpPressed = 0;
+        bDownPressed = 0;
+        bWheelStep = 0;
         return 1;
     }
 
     unsigned long dwNow = GetTickCount();
     if (unk0x4C)
     {
-        unk0x48 = dwNow;
+        dwLastStepTick = dwNow;
         return 1;
     }
 
     unsigned long dwElapsed = dwNow - unk0x44;
-    if (dwNow - unk0x48 < 0x46)
+    if (dwNow - dwLastStepTick < 0x46)
         return 0;
 
-    unk0x48 = dwNow;
+    dwLastStepTick = dwNow;
     if (dwElapsed > 0x1000)
         return (dwElapsed >> 11) * nUnk0x3CCalls;
     if (dwElapsed > 0xBB8)
@@ -395,15 +395,15 @@ int SpinnerImplementation::OnMouseWheel(SMSGHANDLER_PARAMS* pMsg)
 {
     if ((short)pMsg->wParamHigh > 0)
     {
-        unk0x34 = 1;
-        unk0x38 = 0;
-        unk0x20 = 1;
+        bUpPressed = 1;
+        bDownPressed = 0;
+        bWheelStep = 1;
     }
     else if ((short)pMsg->wParamHigh < 0)
     {
-        unk0x34 = 0;
-        unk0x38 = 1;
-        unk0x20 = 1;
+        bUpPressed = 0;
+        bDownPressed = 1;
+        bWheelStep = 1;
     }
 
     pMsg->bReturn = 1;
@@ -457,22 +457,22 @@ int __fastcall EDITBOX_HandleSpinnerPress(D2ButtonPairStrc* pButtons, int nUnuse
 // 0x004BC160
 int SpinnerImplementation::OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!unk0x30)
+    if (!bMouseDown)
     {
         return 0;
     }
 
     nUnk0x3CCalls = 0;
-    unk0x30 = 0;
-    if (unk0x34 == 1)
+    bMouseDown = 0;
+    if (bUpPressed == 1)
     {
-        unk0x34 = 0;
+        bUpPressed = 0;
         return 1;
     }
 
-    if (unk0x38 == 1)
+    if (bDownPressed == 1)
     {
-        unk0x38 = 0;
+        bDownPressed = 0;
         return 1;
     }
 
@@ -617,9 +617,9 @@ SpinnerImplementation::SpinnerImplementation(int nX, int nY, int bHorizontal, in
     this->nY = nY;
     pfUnk0x3C = (void (__cdecl*)())nArg0C;
     this->f_2C = bHorizontal;
-    unk0x34 = 0;
-    unk0x38 = 0;
-    unk0x30 = 0;
+    bUpPressed = 0;
+    bDownPressed = 0;
+    bMouseDown = 0;
     unk0x4C = 0;
     nUnk0x3CCalls = 0;
     D2CelContextStrc tContext;
