@@ -2,17 +2,17 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 15:10 PT): the seven joins are merged (#433, #434). sound-gs replayed on #437 as sound-gs-2. Next: CharSel's four pieces.
+Status (Thu Nov 26 2026, 15:15 PT): sound-gs-2, join-charsel, join-charsel-3 (stacked) and emit-trim-2 (stacked) Ready, every full build identical. CharSel's last two pieces stay (readings in Claimed).
 
 ## Ready
 
 - `lane6/sound-gs-2` @ e52c64d4b (on #437; the old `sound-gs` stacked on the join, now merged): D2Sound's module default becomes /GS-; three per-file entries go, every D2Sound unit equal (none has a cookie). auditguard: no count rose. Full build identical.
 
-- `lane6/join-charsel` @ fbd1cb58f (on #437): CharSel.cpp takes CHARSEL_RefreshCharList (0x438560) and CharSel_00438560.cpp goes. The image calls CHARSEL_GetDaysLeft from RefreshCharList (argument in eax) but has the time call and the division written out in CHARSEL_UpdateCharList (0x4380F0); so GetDaysLeft is kept out of line with noinline and UpdateCharList computes the days itself (expiry read before the time call, which is what puts it in edi). **noinline +0** (one added, the piece's own removed). CharSel.cpp all equal; auditguard: no count rose; full build queued.
+- `lane6/join-charsel` @ fbd1cb58f (on #437): CharSel.cpp takes CHARSEL_RefreshCharList (0x438560) and CharSel_00438560.cpp goes. The image calls CHARSEL_GetDaysLeft from RefreshCharList (argument in eax) but has the time call and the division written out in CHARSEL_UpdateCharList (0x4380F0); so GetDaysLeft is kept out of line with noinline and UpdateCharList computes the days itself (expiry read before the time call, which is what puts it in edi). **noinline +0** (one added, the piece's own removed). CharSel.cpp all equal; auditguard: no count rose; full build identical.
 
-- `lane6/join-charsel-3` @ 0ccf2866e (on join-charsel): CharSel_004378D0.cpp's four functions (CHARSEL_FindSlotByName, _SelectNamedSlot, _OnCharSelect, _JoinSelected) join CharSel.cpp under the file's own global spellings; CharSel.cpp's copies of the first two give way to the placed ones. **noinline +0.** CharSel.cpp all equal; auditguard: no count rose; full build queued.
+- `lane6/join-charsel-3` @ 0ccf2866e (on join-charsel): CharSel_004378D0.cpp's four functions (CHARSEL_FindSlotByName, _SelectNamedSlot, _OnCharSelect, _JoinSelected) join CharSel.cpp under the file's own global spellings; CharSel.cpp's copies of the first two give way to the placed ones. **noinline +0.** CharSel.cpp all equal; auditguard: no count rose; full build identical.
 
-- `lane6/emit-trim-2` @ 5e7bb1df2 (on join-charsel-3): 20 emit helpers go from CharSel.cpp (9), BnDownload.cpp (8) and D2WinFont.cpp (3), whose statics are called by the joined code now; each removed alone, kept out only where its unit stays equal (emit helpers 394 -> 374). Full build queued.
+- `lane6/emit-trim-2` @ 5e7bb1df2 (on join-charsel-3): 20 emit helpers go from CharSel.cpp (9), BnDownload.cpp (8) and D2WinFont.cpp (3), whose statics are called by the joined code now; each removed alone, kept out only where its unit stays equal (emit helpers 394 -> 374). Full build identical.
 
 ## Questions
 
