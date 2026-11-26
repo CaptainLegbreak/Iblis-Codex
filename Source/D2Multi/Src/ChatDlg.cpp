@@ -1780,6 +1780,7 @@ static int __stdcall CHATDLG_ReadRegValueHKLM(const char* szSubKey, const char* 
     return RegCloseKey(hKey) == 0;
 }
 
+// Kept noinline: the original calls this out of line from its callers in this file; without it the compiler inlines it.
 // 0x0043DAD0
 __declspec(noinline) int __fastcall CHATDLG_SetMainControlState(int bSet)
 {
@@ -1857,6 +1858,7 @@ int __stdcall CHATDLG_OnReceiveTick(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
+// Kept noinline: the original calls this out of line from its callers in this file; without it the compiler inlines it.
 // 0x0043DC30
 __declspec(noinline) int __cdecl CHATDLG_GetConnectStatus()
 {
@@ -2981,6 +2983,7 @@ int __stdcall CHATDLG_GetUserDataReply(int nUnused)
     return 1;
 }
 
+// Kept noinline: the original calls this out of line from its callers in this file; without it the compiler inlines it.
 // 0x0043F5F0
 __declspec(noinline) int __fastcall CHATDLG_WriteUserData(int nA, int nB, int nC, int nD)
 {
@@ -3094,6 +3097,7 @@ int __cdecl sub_0043F840()
     return 1;
 }
 
+// Kept noinline: the original calls this out of line from its callers in this file; without it the compiler inlines it.
 // 0x0043F850
 __declspec(noinline) int __cdecl CHARSEL_CancelGameCreate()
 {
@@ -4935,6 +4939,7 @@ void __fastcall CHATDLG_SetPendingText(const char* szText, unsigned short wReque
     gnPendingId = wRequestId;
 }
 
+// Kept noinline: the original calls this out of line from its callers in this file; without it the compiler inlines it.
 // 0x00442E00
 __declspec(noinline) void __cdecl CHATDLG_SendPendingText()
 {
@@ -5737,6 +5742,7 @@ int __stdcall CHATDLG_OnLadderSelect(int nArg)
     return 1;
 }
 
+// Kept noinline: the original calls this out of line from its callers in this file; without it the compiler inlines it.
 // 0x00443F50
 __declspec(noinline) void __fastcall CHATDLG_CopyName(char* szDest)
 {
@@ -6027,6 +6033,7 @@ int __cdecl sub_00444020_CreateControls()
     return 1;
 }
 
+// Kept noinline: the original calls this out of line from its callers in this file; without it the compiler inlines it.
 // 0x00444E20
 __declspec(noinline) int __cdecl CHATDLG_DestroyGameListControls()
 {

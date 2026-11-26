@@ -238,6 +238,7 @@ static int EDITBOX_HasSelection(D2WinEditBoxStrc* pEditBox)
     return 0;
 }
 
+// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 // 0x004FDCC0
 __declspec(noinline) void __fastcall EDITBOX_ClearSelection(D2WinEditBoxStrc* ptEditData)
 {
