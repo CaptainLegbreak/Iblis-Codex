@@ -30833,91 +30833,6 @@
      "name": "?SKILLDESC_GetMonTypeTxtRecord@@YIPAUD2MonTypeTxt@@H@Z"
     },
     {
-     "va": "0x004E6C50",
-     "length": 24,
-     "name": "?SKILLDESC_ValidateMonsterId@@YIHH@Z"
-    },
-    {
-     "va": "0x004E6C70",
-     "length": 43,
-     "name": "?SKILLDESC_GetSkillParamFive@@YIHH@Z"
-    },
-    {
-     "va": "0x004E6CA0",
-     "length": 57,
-     "name": "?SKILLDESC_GetSkillParamByLevel@@YIHHH@Z"
-    },
-    {
-     "va": "0x004E6D40",
-     "length": 77,
-     "name": "?SKILLDESC_GetSkillDescStrName@@YAGH@Z"
-    },
-    {
-     "va": "0x004E6D90",
-     "length": 77,
-     "name": "?SKILLDESC_GetSkillDescStrShort@@YAGH@Z"
-    },
-    {
-     "va": "0x004E6E80",
-     "length": 27,
-     "name": "?SKILLDESC_ApplyAiCurseDivisor@@YAHH@Z"
-    },
-    {
-     "va": "0x004E6FF0",
-     "length": 294,
-     "name": "?SKILLDESC_SumProgressiveBonus@@YAHXZ"
-    },
-    {
-     "va": "0x004E7900",
-     "length": 39,
-     "name": "?SKILLDESC_AppendStringLine@@YAHPA_WG@Z"
-    },
-    {
-     "va": "0x004E9160",
-     "length": 243,
-     "name": "?SKILLDESC_GetAttackRateValues@@YGHPAUD2UnitStrc@@0PAH1HPAUD2SkillStrc@@@Z"
-    },
-    {
-     "va": "0x004E9590",
-     "length": 43,
-     "name": "?SKILLDESC_DescAttackRate@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HPAH333@Z"
-    },
-    {
-     "va": "0x004E9870",
-     "length": 197,
-     "name": "?SKILLDESC_DrawTwoTexts@@YIXPBUUnicode@@0HHHHH@Z"
-    },
-    {
-     "va": "0x004EB940",
-     "length": 238,
-     "name": "?SKILLDESC_DrawWeaponDamageWithParam@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
-    },
-    {
-     "va": "0x004EDA20",
-     "length": 93,
-     "name": "?SKILLDESC_RefreshSkills@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004EFC20",
-     "length": 43,
-     "name": "?SKILLDESC_GetSkillParamTwo@@YIHH@Z"
-    },
-    {
-     "va": "0x004EFC50",
-     "length": 43,
-     "name": "?SKILLDESC_GetSkillParamThree@@YIHH@Z"
-    },
-    {
-     "va": "0x004EFC80",
-     "length": 43,
-     "name": "?SKILLDESC_GetSkillParamFour@@YIHH@Z"
-    },
-    {
-     "va": "0x004EFCB0",
-     "length": 57,
-     "name": "?SKILLDESC_GetSummonLevel@@YIHHH@Z"
-    },
-    {
      "va": "0x004EFCF0",
      "length": 256,
      "name": "?SKILLDESC_CltDoTurnedMissile@@YIHPAUD2UnitStrc@@HH@Z"
@@ -31229,14 +31144,44 @@
      "length": 855
     },
     {
+     "va": "0x004E6C50",
+     "length": 24,
+     "name": "?SKILLDESC_ValidateMonsterId@@YIHH@Z"
+    },
+    {
+     "va": "0x004E6C70",
+     "length": 43,
+     "name": "?SKILLDESC_GetSkillParamFive@@YIHH@Z"
+    },
+    {
+     "va": "0x004E6CA0",
+     "length": 57,
+     "name": "?SKILLDESC_GetSkillParamByLevel@@YIHHH@Z"
+    },
+    {
      "va": "0x004E6CE0",
      "length": 81,
      "name": "?SKILLDESC_GetSkillDescStringId@@YIGHH@Z"
     },
     {
+     "va": "0x004E6D40",
+     "length": 77,
+     "name": "?SKILLDESC_GetSkillDescStrName@@YAGH@Z"
+    },
+    {
+     "va": "0x004E6D90",
+     "length": 77,
+     "name": "?SKILLDESC_GetSkillDescStrShort@@YAGH@Z"
+    },
+    {
      "va": "0x004E6DE0",
      "length": 77,
      "name": "?SKILLDESC_GetSkillDescStrLong@@YAGH@Z"
+    },
+    {
+     "va": "0x004E6E80",
+     "length": 27,
+     "name": "?SKILLDESC_ApplyAiCurseDivisor@@YAHH@Z"
     },
     {
      "va": "0x004E6EA0",
@@ -31257,6 +31202,11 @@
      "va": "0x004E6FB0",
      "length": 64,
      "name": "?SKILLDESC_GetETypeColor@@YAHH@Z"
+    },
+    {
+     "va": "0x004E6FF0",
+     "length": 294,
+     "name": "?SKILLDESC_SumProgressiveBonus@@YAHXZ"
     },
     {
      "va": "0x004E7120",
@@ -31304,6 +31254,11 @@
      "va": "0x004E77A0",
      "length": 345,
      "name": "?SKILLDESC_AppendScaledRange@@YGHPA_WGGHHH@Z"
+    },
+    {
+     "va": "0x004E7900",
+     "length": 39,
+     "name": "?SKILLDESC_AppendStringLine@@YAHPA_WG@Z"
     },
     {
      "va": "0x004E7930",
@@ -31408,6 +31363,11 @@
      "name": "PLRSKILLS_DescAttackRating"
     },
     {
+     "va": "0x004E9160",
+     "length": 243,
+     "name": "?SKILLDESC_GetAttackRateValues@@YGHPAUD2UnitStrc@@0PAH1HPAUD2SkillStrc@@@Z"
+    },
+    {
      "va": "0x004E9260",
      "length": 157,
      "name": "?SKILLDESC_MergeOtherHandWeapon@@YAPAUD2UnitStrc@@PAU1@@Z"
@@ -31428,6 +31388,11 @@
      "name": "?SKILLDESC_DescAttackRating@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HPAH333@Z"
     },
     {
+     "va": "0x004E9590",
+     "length": 43,
+     "name": "?SKILLDESC_DescAttackRate@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HPAH333@Z"
+    },
+    {
      "va": "0x004E95C0",
      "length": 75,
      "name": "?SKILLDESC_DescAttackRatingOffhand@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HPAH333@Z"
@@ -31446,6 +31411,11 @@
      "va": "0x004E96E0",
      "length": 400,
      "name": "?SKILLDESC_DrawDamageRange@@YGXHHHHHH@Z"
+    },
+    {
+     "va": "0x004E9870",
+     "length": 197,
+     "name": "?SKILLDESC_DrawTwoTexts@@YIXPBUUnicode@@0HHHHH@Z"
     },
     {
      "va": "0x004E99F0",
@@ -31539,6 +31509,11 @@
     {
      "va": "0x004EB830",
      "length": 259
+    },
+    {
+     "va": "0x004EB940",
+     "length": 238,
+     "name": "?SKILLDESC_DrawWeaponDamageWithParam@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
      "va": "0x004EBA30",
@@ -31661,6 +31636,11 @@
      "length": 1189
     },
     {
+     "va": "0x004EDA20",
+     "length": 93,
+     "name": "?SKILLDESC_RefreshSkills@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004EDA80",
      "length": 171,
      "name": "SKILLDESC_CallSkillDescFunc"
@@ -31701,6 +31681,26 @@
      "va": "0x004EF990",
      "length": 644,
      "name": "?sub_004EF990_SetSkillPopUpText@@YIXPAUD2UnitStrc@@HHHHHH@Z"
+    },
+    {
+     "va": "0x004EFC20",
+     "length": 43,
+     "name": "?SKILLDESC_GetSkillParamTwo@@YIHH@Z"
+    },
+    {
+     "va": "0x004EFC50",
+     "length": 43,
+     "name": "?SKILLDESC_GetSkillParamThree@@YIHH@Z"
+    },
+    {
+     "va": "0x004EFC80",
+     "length": 43,
+     "name": "?SKILLDESC_GetSkillParamFour@@YIHH@Z"
+    },
+    {
+     "va": "0x004EFCB0",
+     "length": 57,
+     "name": "?SKILLDESC_GetSummonLevel@@YIHHH@Z"
     },
     {
      "va": "0x004EFDF0",
