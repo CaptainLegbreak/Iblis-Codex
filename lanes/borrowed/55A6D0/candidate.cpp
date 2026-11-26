@@ -73,10 +73,11 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
 
                         if (pOwner && pOwner->dwUnitType == UNIT_PLAYER)
                         {
-                            const int nLiving = PARTY_GetLivingPartyMemberCountInSameLevel(pGame, pOwner);
-                            nPlayerCount = D2_MIN(D2_MAX(nLiving, 1), 8);
+                            nPlayerCount = PARTY_GetLivingPartyMemberCountInSameLevel(pGame, pOwner);
                         }
                     }
+
+                    nPlayerCount = D2_MIN(D2_MAX(nPlayerCount, 1), 8);
 
                     nPlayerCount += (PLAYER_GetPlayerCount(pGame) - nPlayerCount) / 2;
                     if (pMonster && GAME_GetUnitTypeOrInvalid(pMonster) == 1)
@@ -270,7 +271,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
                 nItemQuality = nQuality;
                 if (!nItemQuality)
                 {
-                    nItemQuality = ITEMS_RollDropQuality(pGame, pMonster, pPlayer, (D2QualityModsStrc*)&tcArray[nCounter].tMods, nLvl, nItemId);
+                    nItemQuality = ITEMS_RollDropQuality(pGame, pMonster, pPlayer, nLvl, nItemId, (D2QualityModsStrc*)&tcArray[nCounter].tMods);
                 }
             }
 
@@ -307,7 +308,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
                 nItemId = DATATBLS_GetItemIdFromItemCode(0x2064736C);
             }
 
-            D2UnitStrc* pItem = ITEMS_CreateDropAtUnit(pGame, nItemQuality, nItemIndex, nFlags, nItemId, pMonster);
+            D2UnitStrc* pItem = ITEMS_CreateDropAtUnit(pGame, nItemQuality, nItemIndex, nItemId, nFlags, pMonster);
             if (!pItem)
             {
                 continue;
