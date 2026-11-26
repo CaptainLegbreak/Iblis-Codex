@@ -8915,6 +8915,10 @@
      "name": "?CHARSEL_RefreshRealmList@@YAXXZ"
     },
     {
+     "va": "0x00437A20",
+     "length": 55
+    },
+    {
      "va": "0x00437A60",
      "length": 5,
      "name": "?CHARSEL_FreeSlots@@YAHXZ"
@@ -8943,6 +8947,10 @@
      "va": "0x00437C90",
      "length": 26,
      "name": "?CHARSEL_ScrollNameControl@@YAXXZ"
+    },
+    {
+     "va": "0x00437CB0",
+     "length": 74
     },
     {
      "va": "0x00437D00",
@@ -9198,6 +9206,16 @@
      "name": "?CHARSEL_OnName@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x0043B520",
+     "length": 398,
+     "name": "?CHARSEL_OnCharSelect@@YGHH@Z"
+    },
+    {
+     "va": "0x0043B6B0",
+     "length": 229,
+     "name": "?CHARSEL_JoinSelected@@YGHH@Z"
+    },
+    {
      "va": "0x0043C6A0",
      "length": 12,
      "name": "?CHARSEL_SetFlagBit2@@YIXH@Z"
@@ -9302,30 +9320,6 @@
      "va": "0x0043C4F0",
      "length": 57,
      "name": "?CHARSEL_CreateBaseScreen@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/CharSel_004378D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00437A20",
-     "length": 55
-    },
-    {
-     "va": "0x00437CB0",
-     "length": 74
-    },
-    {
-     "va": "0x0043B520",
-     "length": 398,
-     "name": "?CHARSEL_OnCharSelect@@YGHH@Z"
-    },
-    {
-     "va": "0x0043B6B0",
-     "length": 229,
-     "name": "?CHARSEL_JoinSelected@@YGHH@Z"
     }
    ]
   },

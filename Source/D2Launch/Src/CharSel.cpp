@@ -1017,42 +1017,6 @@ static void CHARSEL_SelectNamedSlot(const char* szName);
 
 static int CHARSEL_FindSlotByName(const char* szName);
 
-// build: symbol ?CHARSEL_SelectNamedSlot@* 0x00437CB0
-static void CHARSEL_SelectNamedSlot(const char* szName)
-{
-    if (!gbFlag_00779C6C)
-        return;
-
-    int i = 0;
-    char* szSlot;
-    while ((szSlot = (i < GAME_GetSlotNameCount() ? MAINMENUS_GetSlotName(i) : 0)) != 0)
-    {
-        if (!SStrCmpI(szName, szSlot, 0x7FFFFFFF))
-            D2Win_10188(gpNameControl, i, 1);
-        ++i;
-    }
-}
-
-// build: symbol ?CHARSEL_FindSlotByName@* 0x00437A20
-static int CHARSEL_FindSlotByName(const char* szName)
-{
-    for (int i = 0; ; ++i)
-    {
-        char* szSlot = i < GAME_GetSlotNameCount() ? MAINMENUS_GetSlotName(i) : 0;
-        if (!szSlot)
-        {
-            break;
-        }
-
-        if (!SStrCmpI(szName, szSlot, 0x7FFFFFFF))
-        {
-            return 1;
-        }
-    }
-
-    return 0;
-}
-
 // 0x0042E5B0
 char* __cdecl CHARSEL_StrStr(char* szString, const char* szSubString)
 {
@@ -1106,6 +1070,26 @@ unsigned int __fastcall CHARSEL_GetProgression(unsigned int nValue)
 void __cdecl CHARSEL_RefreshRealmList()
 {
     MAINMENUS_BuildRealmList();
+}
+
+// 0x00437A20
+static int CHARSEL_FindSlotByName(const char* szName)
+{
+    for (int i = 0; ; ++i)
+    {
+        char* szSlot = i < GAME_GetSlotNameCount() ? MAINMENUS_GetSlotName(i) : 0;
+        if (!szSlot)
+        {
+            break;
+        }
+
+        if (!SStrCmpI(szName, szSlot, 0x7FFFFFFF))
+        {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 // 0x00437A60
@@ -1194,6 +1178,22 @@ void __cdecl CHARSEL_ScrollNameControl()
 }
 
 struct D2WinControlStrc;
+
+// 0x00437CB0
+static void CHARSEL_SelectNamedSlot(const char* szName)
+{
+    if (!gbFlag_00779C6C)
+        return;
+
+    int i = 0;
+    char* szSlot;
+    while ((szSlot = (i < GAME_GetSlotNameCount() ? MAINMENUS_GetSlotName(i) : 0)) != 0)
+    {
+        if (!SStrCmpI(szName, szSlot, 0x7FFFFFFF))
+            D2Win_10188(gpNameControl, i, 1);
+        ++i;
+    }
+}
 
 // 0x00437D00
 void* __cdecl GAME_GetPreferredRealm()
@@ -3068,6 +3068,117 @@ extern int gbConnectCancelled; // 0x007795F4
 
 // build: symbol ?MAINMENUS_ShowConnectingPopup@* 0x0042F6E0
 // build: symbol ?gszOldPassword@* 0x00779550
+
+// 0x0043B520
+int __stdcall CHARSEL_OnCharSelect(int nArg)
+{
+    char szName[0x100];
+
+    if (FOG_IsExpansion())
+    {
+        D2LaunchCharEntryStrc* pEntry = gpCharList;
+        for (int i = 0; pEntry; pEntry = pEntry->pNext, ++i)
+        {
+            if (gnSelected == i)
+                break;
+        }
+
+        if (pEntry)
+        {
+            if (pEntry->wFlags & 0x20)
+                return 1;
+
+            int bOk;
+            const Unicode* pwszName = pEntry->wszName;
+            if (pwszName && pwszName->wChar)
+            {
+                UNICODE_ToAscii(szName, pwszName, 0xFF);
+                bOk = MAINMENUS_UpgradeCharacter(pEntry, szName);
+                if (!bOk)
+                {
+                    if (GAME_GetConnectError() != 0x7B)
+                    {
+                        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x145B), CHARSEL_InitCharSelectScreen);
+                    }
+                    else
+                    {
+                        Unicode wszText[0x100];
+                        Unicode wszArg[0x100];
+                        sub_00526F20_ToUnicode(wszArg, pEntry->szName, 0x100);
+                        sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x2B89), wszArg);
+                        MAINMENUS_ShowText(wszText, CHARSEL_InitCharSelectScreen);
+                    }
+                    gbCharSelBusy = 0;
+                    return 1;
+                }
+            }
+            else
+            {
+                bOk = CHATDLG_UpdateSaveFlags(pEntry->szName);
+            }
+
+            if (bOk)
+            {
+                pEntry->wFlags |= 0x20;
+                CHARSEL_RefreshCharList();
+                MAINMENUS_DestroyControls();
+            }
+            else
+            {
+                MAINMENUS_ShowExpansionMessage(D2LANG_GetStringFromTblIndex(0x5570), CHARSEL_InitCharSelectScreen, 1);
+            }
+        }
+
+        CONTROL_SetEnabled(gpControl_00779C80, 0);
+    }
+    return 1;
+}
+
+// 0x0043B6B0
+int __stdcall CHARSEL_JoinSelected(int nArg)
+{
+    char szName[0x100];
+
+    D2LaunchCharEntryStrc* pEntry = gpCharList;
+    for (int i = 0; pEntry; pEntry = pEntry->pNext, ++i)
+    {
+        if (gnSelected == i)
+            break;
+    }
+
+    if (pEntry)
+    {
+        gbCharSelBusy = 1;
+
+        const Unicode* pwszName = pEntry->wszName;
+        if (pwszName && pwszName->wChar)
+        {
+            UNICODE_ToAscii(szName, pwszName, 0xFF);
+            if (MAINMENUS_DeleteCharacter(pEntry, szName))
+            {
+                ++gnCounter_00779DDC;
+                gbFlag_00779DD8 = 0;
+                MAINMENUS_DeleteCharFiles(pEntry, szName);
+            }
+            else
+            {
+                MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x145B), CHARSEL_InitCharSelectScreen);
+                gbCharSelBusy = 0;
+                return 1;
+            }
+        }
+        else
+        {
+            MAINMENUS_DeleteCharFiles(pEntry, &gszEmptyAssertText);
+        }
+
+        CHARSEL_InitCharSelectScreen();
+        gbCharSelBusy = 0;
+        return 1;
+    }
+
+    return 0;
+}
 
 // 0x0043C6A0
 void __fastcall CHARSEL_SetFlagBit2(int bSet)
