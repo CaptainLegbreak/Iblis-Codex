@@ -1777,6 +1777,101 @@ int __fastcall ITEMS_RollSetItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
     return sub_005C2740_RollLegacySetItem(pItem);
 }
 
+int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem);                                                    // 0x0062BA80
+
+static inline unsigned int ITEMS_RollItemSeed(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static inline unsigned int ITEMS_RollItemSeedLimited(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+
+    if ((nMax - 1) & nMax)
+    {
+        return ITEMS_RollItemSeed(pSeed) % nMax;
+    }
+
+    return ITEMS_RollItemSeed(pSeed) & (nMax - 1);
+}
+
+// 0x005C2970
+static int __stdcall ITEMS_RollSuperiorItemRecord(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
+{
+    D2QualityItemDataTbl* pQualityItemDataTbl = DATATBLS_GetQualityItemDataTables();
+    D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
+    if (!pQualityItemDataTbl)
+    {
+        return 0;
+    }
+
+    if (!pItemsTxtRecord)
+    {
+        return 0;
+    }
+
+    int nCount = pQualityItemDataTbl->nQualityItemsTxtRecordCount;
+    unsigned char bRecordChecked[10] = {};
+    if (ITEMS_CheckIfThrowable(pItem) || pItemsTxtRecord->nNoDurability)
+    {
+        nCount = 4;
+    }
+
+    while (1)
+    {
+        const unsigned int nFileIndex = ITEMS_RollItemSeedLimited(ITEMS_GetItemSeed(pItem), nCount);
+        if (bRecordChecked[nFileIndex])
+        {
+            continue;
+        }
+
+        D2QualityItemsTxt* pQualityItemsTxtRecord = DATATBLS_GetQualityItemsTxtRecord(nFileIndex);
+        if (!pQualityItemsTxtRecord)
+        {
+            return 0;
+        }
+
+        if (ITEMMODS_CanItemBeHighQuality(pItem, pQualityItemsTxtRecord))
+        {
+            ITEMS_SetFileIndex(pItem, nFileIndex);
+            ITEMMODS_AssignProperty(1, 0, pItem, pQualityItemsTxtRecord, 0, 0);
+            ITEMS_AssignStaffModsForFormat(pItem, pItemDrop);
+            return 1;
+        }
+
+        bRecordChecked[nFileIndex] = 1;
+
+        int bAllChecked = 1;
+        for (int i = 0; i < nCount; ++i)
+        {
+            if (!bRecordChecked[i])
+            {
+                bAllChecked = 0;
+                break;
+            }
+        }
+
+        if (bAllChecked)
+        {
+            return 0;
+        }
+    }
+}
+
+// 0x005C2AD0
+int __fastcall ITEMS_RollSuperiorItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
+{
+    ITEMS_GetItemFormat(pItem);
+    return ITEMS_RollSuperiorItemRecord(pItem, pItemDrop);
+}
+
 // 0x005C2FB0
 int __fastcall ITEMS_ApplyLowQualityForFormat(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
 {

@@ -58437,6 +58437,15 @@
      "name": "?ITEMS_RollSetItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     },
     {
+     "va": "0x005C2970",
+     "length": 338
+    },
+    {
+     "va": "0x005C2AD0",
+     "length": 23,
+     "name": "?ITEMS_RollSuperiorItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+    },
+    {
      "va": "0x005C2FB0",
      "length": 34,
      "name": "?ITEMS_ApplyLowQualityForFormat@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
@@ -58517,27 +58526,6 @@
     {
      "va": "0x005C2740",
      "length": 510
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/Items_005C2970.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C2970",
-     "length": 338
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/Items_005C2AD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005C2AD0",
-     "length": 23,
-     "name": "?ITEMS_RollSuperiorItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     }
    ]
   },
