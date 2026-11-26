@@ -4048,43 +4048,5 @@ int __fastcall SKILLS_SrvDo054_BladeShield(D2GameStrc* pGame, D2UnitStrc* pUnit,
     return 1;
 }
 
-void __fastcall SKILLS_ApplyProgressiveLeechAndElementalDamage(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
-{
-    if (!pDamage || !(pDamage->wResultFlags & 1))
-    {
-        return;
-    }
-
-    for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
-    {
-        if (STATES_CheckState(pUnit, SKILLS_GetProgressiveState(i)))
-        {
-            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, SKILLS_GetProgressiveState(i));
-            if (pStatList)
-            {
-                const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
-                if (nSkillId > 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-                {
-                    D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
-                    if (pSkillsTxtRecord)
-                    {
-                        switch (pSkillsTxtRecord->nPrgDamage)
-                        {
-                        case 2:
-                            SKILLS_ApplyProgressiveLeech(pUnit, pStatList, pDamage);
-                            break;
-                        case 3:
-                            SKILLS_ApplyProgressiveElementalDamage(pUnit, pStatList, pDamage);
-                            break;
-                        case 4:
-                            SKILLS_ApplyProgressiveElementalConversion(pUnit, pStatList, pDamage);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
 
 #include "gen/data/Source/D2Game/SKILLS/SkillAss.inc"

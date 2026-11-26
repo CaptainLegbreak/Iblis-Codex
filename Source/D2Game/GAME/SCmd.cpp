@@ -1789,37 +1789,6 @@ static D2LifeSyncStrc* GetMonsterLifeSync(D2UnitStrc* pUnit)
     return 0;
 }
 
-void __fastcall SCMD_SendUnitLifeAndPositionUpdate(D2ClientStrc* pClient, D2UnitStrc* pUnit)
-{
-    D2_ASSERT(pUnit, 0x72A);
-    const int nLifePercentage = UNITS_GetCurrentLifePercentage(pUnit);
-    D2GSPacketSrv7F tPacket7F = {};
-    tPacket7F.nHeader = 0x7F;
-    if (pUnit->dwUnitType == UNIT_PLAYER)
-    {
-        tPacket7F.bIsPlayer = 1;
-    }
-    tPacket7F.nUnitGUID = pUnit->dwUnitId;
-    tPacket7F.nLifePercentage = nLifePercentage;
-    if (nLifePercentage >= 0xFFFF)
-    {
-        tPacket7F.nLifePercentage = 0xFFFF;
-    }
-    tPacket7F.nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit));
-    if (SCMD_ShouldSendUnitLifeUpdate(CLIENTS_GetPlayerFromClient(pClient, 0), pUnit, nLifePercentage, tPacket7F.nLevelId))
-    {
-        D2GAME_PACKETS_SendPacket(pClient, &tPacket7F, sizeof(tPacket7F));
-    }
-    if (tPacket7F.bIsPlayer && DRLG_UnitEdgeDistance(CLIENTS_GetPlayerFromClient(pClient, 0), pUnit) > 50)
-    {
-        D2GSPacketSrv90 tPacket90 = {};
-        tPacket90.nHeader = 0x90;
-        tPacket90.dwGUID = pUnit->dwUnitId;
-        tPacket90.dwPosX = CLIENTS_GetUnitX(pUnit);
-        tPacket90.dwPosY = CLIENTS_GetUnitY(pUnit);
-        D2GAME_PACKETS_SendPacket(pClient, &tPacket90, sizeof(tPacket90));
-    }
-}
 
 // 0x0053E8F0
 void __fastcall SCMD_SendPlayerSpawnAndPartyRoster(D2ClientStrc* pClient, int nUnitGUID, unsigned char nClassId, const char* szName, short nX, short nY)

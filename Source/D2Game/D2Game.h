@@ -496,13 +496,13 @@ void __fastcall sub_005A9930_CreateAtMissile(D2GameStrc*, D2UnitStrc*, int); // 
 void __fastcall sub_005B1A90(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B1A90
 void __fastcall ITEMS_AssignStaffModsForFormat(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C1260
 void __fastcall SKILLS_DamagePaladinCaster(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005C2FF0
-void __fastcall CLIENTS_SetPlayerUnitAlive(D2ClientStrc* pClient); // 0x00537970
+extern "C" void __fastcall CLIENTS_SetPlayerUnitAlive(D2ClientStrc* pClient); // 0x00537970
 void __fastcall EVENT_SetRecurringEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int a4, int a5); // 0x00541650
 void __fastcall GAME_ActivateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x0052D0F0
 void __fastcall GAME_SendAllClientPackets(D2GameStrc* pGame, int a2); // 0x0052E440
 void __fastcall ITEMMODE_DropCursorItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID); // 0x00563C00
 void __fastcall ITEMMODE_RebuildBookScrollSkillQuantities(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0055FA40
-void __fastcall MONSTERAI_SetTargetOverride(D2UnitStrc* pUnit, int a2, int a3); // 0x00573090
+int __fastcall MONSTERAI_SetTargetOverride(D2UnitStrc* pUnit, int nState, int nValue); // 0x00573090
 void __fastcall MONSTERMODE_UpdateModeAttackStats(D2UnitStrc* pUnit, int nMode); // 0x005A4F50
 void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int a4); // 0x00598220
 void __fastcall PARTYSCREEN_RefreshPartyRelationsAfterLeave(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A5FF0

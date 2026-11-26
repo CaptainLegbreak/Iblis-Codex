@@ -401,7 +401,6 @@ int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C3E0
 
 int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc*, D2UnitStrc*, int, int, int, D2DamageStrc*, int, int, void*, int); // 0x0057E090
 
-static void __stdcall MONSTERMODE_ApplyDeathAreaDamage(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A6DF0
 
 typedef int (__fastcall* MonModeUnitFunc)(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
@@ -1225,25 +1224,6 @@ void __fastcall MONSTERMODE_DropTreasureForFindItem(D2GameStrc* pGame, D2UnitStr
     MONSTERMODE_DropTreasure(pGame, pUnit, 1, &modeChange);
 }
 
-static void __stdcall MONSTERMODE_ApplyDeathAreaDamage(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2UnitStrc* pTarget = UNITS_GetRoom(pUnit)->pUnitFirst;
-    while (pTarget)
-    {
-        if (pTarget->dwUnitType == UNIT_PLAYER && pTarget->dwAnimMode != PLRMODE_DEAD && DRLG_UnitEdgeDistance(pUnit, pTarget) <= 2 && !UNITS_TestCollisionBetweenInteractingUnits(pTarget, pUnit, 0x3C01))
-        {
-            D2DamageStrc damage;
-            memset(&damage, 0, sizeof(damage));
-            damage.dwPhysDamage = STATLIST_UnitGetStatValue(pTarget, 6, 0) >> 5;
-            damage.wResultFlags = 1;
-            if (!STATES_CheckState(pTarget, STATE_UNINTERRUPTABLE)) damage.wResultFlags |= 4;
-            sub_0057C1E0_CalculateDamage(pGame, pUnit, pTarget, &damage);
-            SUNITDMG_ExecuteEvents(pGame, pUnit, pTarget, 1, &damage);
-            sub_0057CEE0_ApplyDamage(pGame, pUnit, pTarget, &damage);
-        }
-        pTarget = pTarget->ptRoomNext;
-    }
-}
 
 inline D2MonStatsTxt* GetMonStatsById(int nId)
 {
