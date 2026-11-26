@@ -6,6 +6,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 1.10-address names. New chat, reopened 2026-11-26 11:57 PT (from lane 6, which held these modules since 2026-11-25).
 
 ## Status
+- 2026-11-27 00:00 UTC: glide-spans-2 and params-d2game-d Ready; both, and a2/b2/c2, merge cleanly onto #445. a2/b2/c2 full builds running.
 - 2026-11-26 23:35 UTC: rebuilding glide-spans and the D2Game naming branches on #443. Next: D2Game.h (38 placeholder parameters, 91 sub_<VA> declarations with names.csv names) after these merge; lane 5, tell me if you have that header in flight.
 - 14:20 PT: 1.10-address names done (54 -> 0, #435). decls-renderers-2 Ready; names-spritevalidate in its full
   build. Both forcing rows parked and offered to lane 7 (Questions). Waiting on the coordinator for lane 9's next work.
