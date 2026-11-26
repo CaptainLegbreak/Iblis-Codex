@@ -1036,7 +1036,7 @@ int __fastcall BNSEND_SendEnterChat(const char* szArg1, const char* szArg2, int 
     return BNSEND_SendPacket(0x0A, szBuffer, strlen(szBuffer) + strlen(&szBuffer[strlen(szBuffer) + 1]) + 2) >= 0;
 }
 
-// Kept noinline: the original calls this out of line from its callers in this file; without it the compiler inlines it.
+// Kept noinline: BNSEND_LeaveChat (0x51C460) calls this out of line in the image; without it the compiler inlines it there.
 // 0x0051AF20
 __declspec(noinline) int __cdecl BNSEND_SendLeaveChat()
 {
@@ -2535,7 +2535,7 @@ void* __cdecl sub_00520650()
     return gszInfoText;
 }
 
-// Kept noinline: the original calls this out of line from its callers in this file; without it the compiler inlines it.
+// Kept noinline: BNSEND_SplitPackets (0x51C760) calls this out of line in the image; without it the compiler inlines it there.
 // 0x00521B00
 __declspec(noinline) int __fastcall BNSEND_DispatchPacket(unsigned char nId, const void* pData, int nSize)
 {

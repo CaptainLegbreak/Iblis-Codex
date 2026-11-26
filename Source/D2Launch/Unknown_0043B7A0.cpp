@@ -472,7 +472,7 @@ int __fastcall CHARSEL_HandleStatus(D2StatusStrc* pStatus)
     return 0;
 }
 
-// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
+// Kept noinline: a static that takes its arguments in registers; CHARSEL_Connect (0x43C180) calls it out of line in the image (the #368 case).
 // 0x0043BF40
 static __declspec(noinline) void CHARSEL_ReportStatus(int nCode, int nArg)
 {
