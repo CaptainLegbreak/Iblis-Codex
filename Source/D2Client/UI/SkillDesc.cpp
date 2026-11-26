@@ -454,17 +454,6 @@ short __stdcall sub_006298A0_GetDexterityFactor(D2UnitStrc* pItem);
 
 
 
-static void SKILLDESC_AddEnvironSoundRefs(int nIndex)
-{
-    int nId = nIndex * 4 + 0xA9C;
-    for (int i = 3; i; --i)
-    {
-        sub_004822B0(nId, 1);
-        sub_004822B0(nId + 0x18, 1);
-        nId += 0x30;
-    }
-}
-
 static inline float GetEnvironVolume_Inline()
 {
     return sub_00473C40() ? sub_00473C80() : 0.0f;
@@ -603,6 +592,18 @@ float __cdecl SKILLDESC_GetFloatIfEnabled()
     return sub_00473C80();
 }
 
+
+// 0x004E4240
+static void SKILLDESC_AddEnvironSoundRefs(int nIndex)
+{
+    int nId = nIndex * 4 + 0xA9C;
+    for (int i = 3; i; --i)
+    {
+        sub_004822B0(nId, 1);
+        sub_004822B0(nId + 0x18, 1);
+        nId += 0x30;
+    }
+}
 
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 
@@ -1150,29 +1151,6 @@ static int __stdcall SKILLDESC_GetStatDisplayValue(int nValue, D2ItemStatCostTxt
     return nValue;
 }
 
-int __stdcall SKILLDESC_IsStatGroupUniform(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int nStatId, int nValue, D2ItemStatCostTxt* pRecord, int* pIsSame)
-{
-    if (!pRecord->wDescGrp)
-        return 0;
-
-    for (int i = sgptDataTables->nItemStatCostTxtRecordCount - 1; i >= 0; --i)
-    {
-        D2ItemStatCostTxt* pOther = (i >= 0 && i < sgptDataTables->nItemStatCostTxtRecordCount) ? &sgptDataTables->pItemStatCostTxt[i] : 0;
-        if (!pOther)
-            return 0;
-
-        if (pRecord->wDescGrp == pOther->wDescGrp)
-        {
-            *pIsSame = i == nStatId;
-            const int nStat = STATLIST_GetStatValue(pStatList, i, 0);
-            if (nValue != SKILLDESC_GetStatDisplayValue(nStat, pOther, pUnit, i))
-                return 0;
-        }
-    }
-
-    return 1;
-}
-
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 
 
@@ -1253,6 +1231,23 @@ static unsigned short SKILLDESC_GetSkillDescStrLong(int nSkillId)
         return 0x1506;
 
     return pSkillDescTxt->wStrLong;
+}
+
+// 0x004E6E30
+static unsigned short sub_004E6E30_GetSkillDescAltStr(int nSkillId)
+{
+    D2SkillsTxt* pSkillsTxtRecord = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
+    D2SkillDescTxt* pSkillDescTxtRecord = 0;
+    if (pSkillsTxtRecord)
+    {
+        const int nSkillDesc = pSkillsTxtRecord->wSkillDesc;
+        pSkillDescTxtRecord = (nSkillDesc >= 0 && nSkillDesc < sgptDataTables->nSkillDescTxtRecordCount) ? &sgptDataTables->pSkillDescTxt[nSkillDesc] : 0;
+    }
+
+    if (!pSkillDescTxtRecord)
+        return 0x1506;
+
+    return pSkillDescTxtRecord->wStrAlt;
 }
 
 // 0x004E6E80
@@ -2016,6 +2011,117 @@ static int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, 
     return SKILLDESC_AppendScaledValue((unsigned short)nSkillId, 0x1506, nMultiplier, wszOut, 0, nCost);
 }
 
+static inline int SDPHYS_TestFlag(const unsigned char* pFlags, int nBit)
+{
+    return pFlags[nBit >> 3] & gdwBitMasks_006CE268[nBit & 7];
+}
+
+// 0x004E86F0
+static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDamage, int* pColor, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem, int bStatBonus, D2UnitStrc* pUnit, int nBonus)
+{
+    if (!pSkill)
+        return 0;
+
+    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
+    if (!pSkillsTxt)
+        return 0;
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    if (!pInventory)
+        return 0;
+
+    if (!pItem)
+        pItem = INVENTORY_GetLeftHandWeapon(pInventory);
+
+    int nMin;
+    int nMax;
+    if (pItem)
+    {
+        DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
+        if (bStatBonus)
+        {
+            nMin = D2Common_11248(pUnit, pItem, 0x15);
+            nMax = D2Common_11248(pUnit, pItem, 0x16);
+        }
+        else if (INVENTORY_GetWieldType(pUnit, pInventory) != 2)
+        {
+            nMin = STATLIST_UnitGetStatValue(pUnit, STAT_MINDAMAGE, 0);
+            nMax = STATLIST_UnitGetStatValue(pUnit, STAT_MAXDAMAGE, 0);
+        }
+        else
+        {
+            nMin = STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MINDAMAGE, 0);
+            nMax = STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MAXDAMAGE, 0);
+        }
+    }
+    else
+    {
+        nMin = STATLIST_UnitGetStatValue(pUnit, STAT_MINDAMAGE, 0) + 1;
+        nMax = STATLIST_UnitGetStatValue(pUnit, STAT_MAXDAMAGE, 0) + 2;
+    }
+
+    if (!nSrcDam)
+        nSrcDam = pSkillsTxt->nSrcDam;
+
+    if (nSrcDam != 128)
+    {
+        nMin = nMin * nSrcDam / 128;
+        nMax = nMax * nSrcDam / 128;
+    }
+
+    if (nSrcDam)
+    {
+        if (nMin < 1)
+            nMin = 1;
+        *pMinDamage += nMin;
+        if (nMax < 2)
+            nMax = 2;
+        *pMaxDamage += nMax;
+    }
+
+    nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_DAMAGEPERCENT, 0);
+    nBonus += SKILLS_GetWeaponMasteryBonus(pUnit, pItem, pSkill, 1);
+    int nMinPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MINDAMAGE_PERCENT, 0);
+    int nMaxPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MAXDAMAGE_PERCENT, 0);
+    if (SDPHYS_TestFlag(pSkillsTxt->nFlags, 3))
+    {
+        int nProgressive = SKILLDESC_SumProgressiveBonus();
+        if (nProgressive)
+        {
+            nBonus += nProgressive;
+            *pColor = 3;
+        }
+    }
+
+    int nDamage = 0;
+    if (pItem)
+    {
+        int nFactor = ITEMS_GetStrengthBonus(pItem);
+        if (nFactor)
+            nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0) * nFactor / 100;
+        nFactor = ITEMS_GetDexBonus(pItem);
+        if (nFactor)
+            nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_DEXTERITY, 0) * nFactor / 100;
+        nDamage = STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_NORMALDAMAGE, 0);
+    }
+    else
+    {
+        nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0);
+    }
+
+    if (STATES_CheckStateMaskDamBlueOnUnit(pUnit))
+        *pColor = 3;
+    if (STATES_CheckStateMaskDamRedOnUnit(pUnit))
+        *pColor = 1;
+
+    if (nBonus <= -90)
+        nBonus = -90;
+
+    *pMinDamage = (nMinPercent + nBonus + 100) * *pMinDamage / 100 + nDamage + nAdd;
+    *pMaxDamage = (nMaxPercent + nBonus + 100) * *pMaxDamage / 100 + nDamage + nAdd;
+    return 1;
+}
+
 // 0x004E8D90
 static void SKILLDESC_AddElementalStatDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, unsigned char nType)
 {
@@ -2105,6 +2211,17 @@ int __fastcall SKILLDESC_AttackRatingCallback(D2UnitStrc* pUnit, int* pValue1, i
     return SKILLDESC_GetAttackRatingValues(pUnit, pItem, pValue1, pValue2, nAdd, pSkill);
 }
 
+
+// 0x004E9000
+void __fastcall sub_004E9000_SkillDescAttackRatingMain(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nLevel, int* pValue1, int* pValue2, int* pValue3, int* pValue4)
+{
+    D2UnitStrc* pItem = 0;
+    if (pUnit->pInventory)
+        pItem = INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
+    *pValue1 = 0;
+    *pValue2 = 0;
+    SKILLDESC_GetAttackRatingValues(pUnit, pItem, pValue1, pValue2, nLevel, pSkill);
+}
 
 // 0x004E9040
 void __fastcall PLRSKILLS_DescAttackRating(D2UnitStrc* pUnit, void* pArg, D2SkillsTxt* pSkillsTxtRecord, int nSkillLevel, int* pValue, int* pColor, int nArg5, int nArg6)
@@ -2234,6 +2351,14 @@ static D2UnitStrc* SKILLDESC_MergeOtherHandWeapon(D2UnitStrc* pUnit)
     return pOther;
 }
 
+static __forceinline D2UnitStrc* sub_P03_MergeLeftWeaponOnly(D2UnitStrc* pUnit, D2UnitStrc* pWeapon)
+{
+    if (ITEMS_CanBeEquipped(pWeapon))
+        STATLIST_MergeStatLists(pUnit, pWeapon, 1);
+    return pWeapon;
+}
+
+// 0x004E9300
 static D2UnitStrc* sub_004E9300_MergeWeaponPair(D2UnitStrc* pUnit)
 {
     if (!UNITS_CanDualWield(pUnit))
@@ -2249,21 +2374,17 @@ static D2UnitStrc* sub_004E9300_MergeWeaponPair(D2UnitStrc* pUnit)
 
     int nBodyLoc = ITEMS_GetBodyLocation(pWeapon);
     D2UnitStrc* pOther = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc == 4 ? 5 : 4);
-    if (pOther && pOther != pWeapon)
-    {
-        if (ITEMSIsA(pOther, 45))
-        {
-            if (ITEMS_CanBeEquipped(pWeapon) && ITEMS_CanBeEquipped(pOther))
-            {
-                STATLIST_MergeStatLists(pUnit, pOther, 0);
-                STATLIST_MergeStatLists(pUnit, pWeapon, 1);
-                return pWeapon;
-            }
-        }
-    }
+    if (!pOther || pOther == pWeapon)
+        return sub_P03_MergeLeftWeaponOnly(pUnit, pWeapon);
 
-    if (ITEMS_CanBeEquipped(pWeapon))
-        STATLIST_MergeStatLists(pUnit, pWeapon, 1);
+    if (!ITEMSIsA(pOther, 45))
+        return sub_P03_MergeLeftWeaponOnly(pUnit, pWeapon);
+
+    if (!ITEMS_CanBeEquipped(pWeapon) || !ITEMS_CanBeEquipped(pOther))
+        return sub_P03_MergeLeftWeaponOnly(pUnit, pWeapon);
+
+    STATLIST_MergeStatLists(pUnit, pOther, 0);
+    STATLIST_MergeStatLists(pUnit, pWeapon, 1);
     return pWeapon;
 }
 
@@ -2445,6 +2566,25 @@ void __fastcall SKILLDESC_DrawTwoTexts(const Unicode* wszText1, const Unicode* w
     TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnTextOffset2 + gnScreenHeight + gnPanelOffsetY + nY - 480, gnPanelOffsetX + nRight, wszText2, nColor2);
 }
 
+// 0x004E9940
+static void __stdcall sub_004E9940_DrawNumberCentered(int nColor, int nLeft, int nY, int nRight, int nValue)
+{
+    Unicode wszText[32];
+    char szText[32];
+    wsprintfA(szText, szFmtD_006D57BC, nValue);
+    sub_00526320_ToUnicode(wszText, szText, 32);
+    if (nValue < 1000)
+    {
+        D2Win_10127_SetFont(1);
+    }
+    else
+    {
+        D2Win_10127_SetFont(0);
+    }
+    TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnScreenHeight + gnPanelOffsetY + nY - 480,
+                            gnPanelOffsetX + nRight, wszText, nColor);
+}
+
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor)
 {
     if (!nDivisor)
@@ -2582,111 +2722,6 @@ static void __stdcall SKILLDESC_DrawWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc*
     SKILLDESC_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nColor1, nColor2);
 }
 
-
-static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDamage, int* pColor, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem, int bStatBonus, D2UnitStrc* pUnit, int nBonus)
-{
-    if (!pSkill)
-        return 0;
-
-    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
-    if (!pSkillsTxt)
-        return 0;
-
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    if (!pInventory)
-        return 0;
-
-    if (!pItem)
-        pItem = INVENTORY_GetLeftHandWeapon(pInventory);
-
-    int nMin;
-    int nMax;
-    if (pItem)
-    {
-        DATATBLS_GetItemsTxtRecord(pItem->dwClassId);
-        if (bStatBonus)
-        {
-            nMin = D2Common_11248(pUnit, pItem, 0x15);
-            nMax = D2Common_11248(pUnit, pItem, 0x16);
-        }
-        else if (INVENTORY_GetWieldType(pUnit, pInventory) != 2)
-        {
-            nMin = STATLIST_UnitGetStatValue(pUnit, STAT_MINDAMAGE, 0);
-            nMax = STATLIST_UnitGetStatValue(pUnit, STAT_MAXDAMAGE, 0);
-        }
-        else
-        {
-            nMin = STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MINDAMAGE, 0);
-            nMax = STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MAXDAMAGE, 0);
-        }
-    }
-    else
-    {
-        nMin = STATLIST_UnitGetStatValue(pUnit, STAT_MINDAMAGE, 0) + 1;
-        nMax = STATLIST_UnitGetStatValue(pUnit, STAT_MAXDAMAGE, 0) + 2;
-    }
-
-    if (!nSrcDam)
-        nSrcDam = pSkillsTxt->nSrcDam;
-
-    if (nSrcDam != 128)
-    {
-        nMin = nMin * nSrcDam / 128;
-        nMax = nMax * nSrcDam / 128;
-    }
-
-    if (nSrcDam)
-    {
-        if (nMin < 1)
-            nMin = 1;
-        *pMinDamage += nMin;
-        if (nMax < 2)
-            nMax = 2;
-        *pMaxDamage += nMax;
-    }
-
-    nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_DAMAGEPERCENT, 0);
-    nBonus += SKILLS_GetWeaponMasteryBonus(pUnit, pItem, pSkill, 1);
-    int nMinPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MINDAMAGE_PERCENT, 0);
-    int nMaxPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MAXDAMAGE_PERCENT, 0);
-    if (pSkillsTxt->nFlags[3 >> 3] & gdwBitMasks_006CE268[3 & 7])
-    {
-        int nProgressive = SKILLDESC_SumProgressiveBonus();
-        if (nProgressive)
-        {
-            nBonus += nProgressive;
-            *pColor = 3;
-        }
-    }
-
-    int nDamage = 0;
-    if (pItem)
-    {
-        int nFactor = ITEMS_GetStrengthBonus(pItem);
-        if (nFactor)
-            nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0) * nFactor / 100;
-        nFactor = ITEMS_GetDexBonus(pItem);
-        if (nFactor)
-            nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_DEXTERITY, 0) * nFactor / 100;
-        nDamage = STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_NORMALDAMAGE, 0);
-    }
-    else
-    {
-        nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0);
-    }
-
-    if (STATES_CheckStateMaskDamBlueOnUnit(pUnit))
-        *pColor = 3;
-    if (STATES_CheckStateMaskDamRedOnUnit(pUnit))
-        *pColor = 1;
-
-    if (nBonus <= -90)
-        nBonus = -90;
-
-    *pMinDamage = (nMinPercent + nBonus + 100) * *pMinDamage / 100 + nDamage + nAdd;
-    *pMaxDamage = (nMaxPercent + nBonus + 100) * *pMaxDamage / 100 + nDamage + nAdd;
-    return 1;
-}
 
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
@@ -4130,30 +4165,6 @@ static inline int SKILLDESC_HasOnlyBonusLevels(D2UnitStrc* pUnit, int nSkillId)
 int __fastcall sub_M119_Emit_004ED530(D2UnitStrc* pUnit, int nSkillId)
 {
     return SKILLDESC_HasOnlyBonusLevels(pUnit, nSkillId);
-}
-
-static unsigned short sub_004E6E30_GetSkillDescAltStr(int nSkillId)
-{
-    D2SkillsTxt* pSkillsTxtRecord = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
-    D2SkillDescTxt* pSkillDescTxtRecord = 0;
-    if (pSkillsTxtRecord)
-    {
-        const int nSkillDesc = pSkillsTxtRecord->wSkillDesc;
-        pSkillDescTxtRecord = (nSkillDesc >= 0 && nSkillDesc < sgptDataTables->nSkillDescTxtRecordCount) ? &sgptDataTables->pSkillDescTxt[nSkillDesc] : 0;
-    }
-    if (!pSkillDescTxtRecord) return 0x1506;
-    return pSkillDescTxtRecord->wStrAlt;
-}
-
-static void __stdcall sub_004E9940_DrawNumberCentered(int nColor, int nLeft, int nY, int nRight, int nValue)
-{
-    Unicode wszText[32];
-    char szText[32];
-    wsprintfA(szText, gszFormatD, nValue);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    if (nValue < 1000) D2Win_10127_SetFont(1);
-    else D2Win_10127_SetFont(0); // 0x00502EF0
-    TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnScreenHeight + gnPanelOffsetY + nY - 480, gnPanelOffsetX + nRight, wszText, nColor);
 }
 
 // 0x004ED570
@@ -5866,180 +5877,6 @@ static __forceinline void AppendString(Unicode* wszText, unsigned short nString)
     {
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString));
     }
-}
-
-int __fastcall SKILLDESC_CltDoTargetPrgOverlay(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    int nOverlay;
-    int nSound;
-    D2StatListStrc* pStatList;
-    if ((pSkillsTxtRecord->nFlags[2 >> 3] & gdwBitMasks[2 & 7])
-        && pSkillsTxtRecord->nAuraState >= 0 && pSkillsTxtRecord->nAuraState < sgptDataTables->nStatesTxtRecordCount
-        && pSkillsTxtRecord->wAuraStat[0] >= 0 && pSkillsTxtRecord->wAuraStat[0] < sgptDataTables->nItemStatCostTxtRecordCount
-        && (pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, pSkillsTxtRecord->nAuraState)) != 0)
-    {
-        const int nLevel = STATLIST_GetStatValue(pStatList, pSkillsTxtRecord->wAuraStat[0], 0);
-        const int nBonus = MIN(MAX(nLevel, 1), 3) - 1;
-        nOverlay = pSkillsTxtRecord->wPrgOverlay + nBonus;
-        nSound = pSkillsTxtRecord->wPrgSound + nBonus;
-    }
-    else
-    {
-        nOverlay = pSkillsTxtRecord->wPrgOverlay;
-        nSound = pSkillsTxtRecord->wPrgSound;
-    }
-
-    GFX_AddUnitOverlay(pTarget, nOverlay, 2, 0, 0, 0, 0, 0);
-    sub_004B9A00(nSound, pUnit, 0, 0, 0);
-    return 1;
-}
-
-int __fastcall SKILLDESC_CltDoPrgOverlay(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    int nOverlay;
-    int nSound;
-    D2StatListStrc* pStatList;
-    if ((pSkillsTxtRecord->nFlags[2 >> 3] & gdwBitMasks[2 & 7])
-        && pSkillsTxtRecord->nAuraState >= 0 && pSkillsTxtRecord->nAuraState < sgptDataTables->nStatesTxtRecordCount
-        && pSkillsTxtRecord->wAuraStat[0] >= 0 && pSkillsTxtRecord->wAuraStat[0] < sgptDataTables->nItemStatCostTxtRecordCount
-        && (pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, pSkillsTxtRecord->nAuraState)) != 0)
-    {
-        const int nLevel = STATLIST_GetStatValue(pStatList, pSkillsTxtRecord->wAuraStat[0], 0);
-        const int nBonus = MIN(MAX(nLevel, 1), 3) - 1;
-        nOverlay = pSkillsTxtRecord->wPrgOverlay + nBonus;
-        nSound = pSkillsTxtRecord->wPrgSound + nBonus;
-    }
-    else
-    {
-        nOverlay = pSkillsTxtRecord->wPrgOverlay;
-        nSound = pSkillsTxtRecord->wPrgSound;
-    }
-
-    GFX_AddUnitOverlay(pUnit, nOverlay, 2, 0, 0, 0, 0, 0);
-    sub_004B9A00(nSound, pUnit, 0, 0, 0);
-    return 1;
-}
-
-int __fastcall SKILLDESC_CreateCorpseExplosionMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nMonsterId)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nMissile = pSkillsTxtRecord->wCltMissileA;
-    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    if (!nX)
-    {
-        return 0;
-    }
-
-    if (!nY)
-    {
-        return 0;
-    }
-
-    D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(nMonsterId);
-    if (!pMonStats2TxtRecord)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    D2MissileStrc tMissileParams;
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.dwFlags = 0x2021;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.pOrigin = pUnit;
-    tMissileParams.nTargetX = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 3) + nX - 1;
-    tMissileParams.nTargetY = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 3) + nY - 1;
-    tMissileParams.nX = nX;
-    tMissileParams.nY = nY;
-    tMissileParams.nSkill = nSkillId;
-    tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.nMissile = nMissile;
-
-    if (pMonStats2TxtRecord->nFlags[1] & gdwBitMasks[2])
-    {
-        SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 0, 1);
-    }
-    else if (pMonStats2TxtRecord->nFlags[1] & gdwBitMasks[3])
-    {
-        SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 3, 3);
-        const short nSubMissile = sub_0046ACE0_GetMissilesTxtRecord(nMissile)->wSubMissile[0];
-        if (nSubMissile > 0 && nSubMissile < sgptDataTables->nMissilesTxtRecordCount)
-        {
-            tMissileParams.nMissile = nSubMissile;
-            SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 2, 4);
-        }
-    }
-    else
-    {
-        SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 2, 2);
-        const short nSubMissile = sub_0046ACE0_GetMissilesTxtRecord(nMissile)->wSubMissile[1];
-        if (nSubMissile > 0 && nSubMissile < sgptDataTables->nMissilesTxtRecordCount)
-        {
-            tMissileParams.nMissile = nSubMissile;
-            SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 1, 3);
-        }
-    }
-
-    tMissileParams.nY = nY;
-    tMissileParams.nX = nX;
-
-    D2UnitStrc* pMissile = 0;
-    const int nMissileB = pSkillsTxtRecord->wCltMissileB;
-    if (nMissileB > 0 && nMissileB < sgptDataTables->nMissilesTxtRecordCount)
-    {
-        tMissileParams.nMissile = nMissileB;
-        pMissile = MISSILE_CreateClientMissile(&tMissileParams);
-    }
-
-    const int nMissileC = pSkillsTxtRecord->wCltMissileC;
-    if (nMissileC > 0 && nMissileC < sgptDataTables->nMissilesTxtRecordCount)
-    {
-        tMissileParams.nSkillLevel = 2;
-        tMissileParams.nMissile = nMissileC;
-        MISSILE_CreateClientMissile(&tMissileParams);
-    }
-
-    if (!CUNIT_GetPathTargetUnit(pUnit) && pMissile)
-    {
-        const short nSound = pSkillsTxtRecord->wTgtSound;
-        if (nSound > 0)
-        {
-            sub_004B9A00(nSound, pMissile, 0, 0, 0);
-        }
-    }
-
-    return 1;
 }
 
 
