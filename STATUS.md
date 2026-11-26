@@ -17,12 +17,12 @@ Bytes of the built Game.exe by origin:
 
 | Origin | Bytes |
 |---|---:|
-| game code and data compiled from Source/ | 2,700,299 |
-| initialised data generated from your Game.exe (build/data_plan.json) | 368,472 |
+| game code and data compiled from Source/ | 2,700,363 |
+| initialised data generated from your Game.exe (build/data_plan.json) | 368,412 |
 | C runtime (libcmt.lib, placed by identity) | 239,696 |
 | import thunks and the import address table | 3,782 |
 | headers, import and export tables, relocations, checksum | 163,407 |
-| alignment padding | 122,214 |
+| alignment padding | 122,210 |
 | code taken from your Game.exe (unmatched functions) | 8,373 |
 | data no source defines yet, taken from your Game.exe | 261 |
 | resources (from your Game.exe) | 5,888 |
