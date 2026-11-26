@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(none: ltcg-seh merged in #419)
+- lane3/ltcg-original 01c8ca2cb on #419, **tools/status.py only: the crash-handler run's link-time rows read "link-time code generation (/GL /LTCG) (original)"**, as asked ("mark that run's link-time rows (original)"). The five /GL units are named in `LTCG_ORIGINAL` with the evidence in a comment (0x401A70 comes out of the two-argument SetThreadName only under /GL). 18 rows change their label; forcing constructs stay 40 (0x4027C0's volatile is still counted). No build input is touched, so no full build was run; `python3 tools/status.py` runs clean (STATUS.md and docs left for your refresh).
 
 ## Claimed
 
@@ -17,6 +17,10 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 - **lane3/stpl-one (the coordinator's header job for lane 4):** memory report (#374), game list object (#377) and Game.cpp (lane 4's game-stplhash-2, #377) are on main. Left, in this order: Game_0044B7B0.cpp (merged #381), then D2CMP's CELLIST copies (posted, lane3/stpl-cellist), then Ignorelist.cpp's chat tables (lane 8's file).
 
 ## Questions
+
+- **2026-11-26 03:25 UTC, hand-over to lane 6 (0x6BD230 second look, then 0x402A90), as answered.** Everything is on `lane3/006BD230-wip` (not for merging): `wip/README.md`, `wip/swapfn.py`, the candidate bodies, and Excel.cpp with the typed `sub_006BD230_AddCode` declaration. One command per try, a few seconds, nothing written under `out/`: `unset TMPDIR; python3 wip/swapfn.py Source/Fog/Src/Excel/Excel.cpp 0x006BD230 246 wip/6BD230/baseline_244.cpp` (and `... Source/Fog/Unknown_00402820.cpp 0x00402A90 70 wip/402A90/size_as_high_half.cpp`). It prints the size, the compiler's frame symbols from the `/FAs` listing and the instruction diff.
+  - **0x6BD230, the slot:** the missing `push ecx` is frame slot [ebp-4]; nothing in the original reads or writes it. In the 244 B baseline the listing shows `tv201 = 8 | _pLink$ = 8 | _nKey$ = 12`: the unreferenced temporary exists already (the count, shared by `nHigh = pLink->count` and `pLink->count - nLow`) and sits in pLink's home. The original is that temporary at -4, i.e. [ebp+8] was held by something else across the search when slots were given out, and that something also left no reference. Notes (8)-(12) under Claimed say what was ruled out. I keep trying plain forms too.
+  - **0x402A90:** `wip/402A90/size_as_high_half.cpp` reproduces the original's second half and shows the rule (the heavier operand of each store is evaluated first); the base read still comes out after ppBase.
 
 - **2026-11-26 02:10 UTC, alternatives for the coordinator on lane 3's three stuck functions.** The user asked me to put my fixes to you as options, to take or leave, and to keep trying for plain matches meanwhile (I am). None of these is posted under Ready.
   - **0x4027C0 (volatile local in the dbghelp thread procedure).**
