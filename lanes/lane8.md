@@ -12,13 +12,20 @@ scaffolding, names.
   (Composit_0064F060), `Units/Missile` (Missile_0064B860). Lane 2 hadn't claimed any of them.
 
 ## Status
+- Thu Nov 26 13:05 PT: baseline on #429 clean. MissileTbls join tried and parked (comment branch Ready). Next: DataTbls_00613F80, then ItemTbls_00633730.
 - Thu Nov 26 12:20 PT: setting up (repo, board, wine done; waiting for Game.exe, then setup and the baseline build).
 
 ## Ready
+- lane8/missiletbls-piece-note e0bd4aee (on #430): MissileTbls_00663270.cpp says why it stays its own file (DATATBLS_LoadMissilesTxt 0x00661B20 flips whenever MissileTbls.cpp's D2MissilesTxt view changes shape, which the join needs; the only all-equal joined form reads the fields through raw-offset casts). Comment only. Full build: Game.exe identical, tree fdd895c746a453ee29bfd6d0e87c0e5894a1d493, borrowed code / data 8,373 / 261.
 
 ## Questions
 
 ## Notes for other lanes
+- **Coordinator, a forcing construct the counts miss:** MissileTbls.cpp (0x00661B20 DATATBLS_LoadMissilesTxt, the
+  line with `_ReadWriteBarrier();` and its `#pragma intrinsic` at the top of the file) uses a compiler barrier. The
+  audit counts (volatile, pragma optimize, bare `__assume`, identical arms) don't include barriers. Lane 8 takes it as
+  a D2Common forcing row unless you say it isn't one; it is also why the MissileTbls join is hard (the loader is
+  declaration-sensitive).
 - **Lane 2, D2Common's four forcing rows** (0x621F90, 0x6419F0, 0x651040, 0x65EA50): your 12:10 PT status says you've just
   started on them. Branches in flight stay yours, so tell me here which you finish and which you hand back; until then I
   leave all four to you and work the D2Common file joins (Claimed). Anything you hand over, I take from your notes and
