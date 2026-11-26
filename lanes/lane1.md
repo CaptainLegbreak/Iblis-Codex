@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 13:04 PST 2026: both branches rebuilt on #430 (identical) and repushed; Ready lines carry the new SHAs. Now: 0x4EB290 plain forms on the joined SkillDesc.cpp.
 - Thu Nov 26 12:44 PST 2026: check-in. Main is #430 (lane 4's sub_ names); both my branches rebase clean onto it and namesync finds nothing to rename. Rebuilding both on #430 to repost their SHAs. (The 13:05/13:45 times on my two lines above were wrong; corrected to the commit times.)
 - Thu Nov 26 12:42 PST 2026: npcmenu-piece-note ready (the piece stays, reason in a comment). Both claimed joins are done or settled; next: my four forcing rows, starting with 0x4EB290 retried plain on the joined SkillDesc.cpp.
 - Thu Nov 26 12:31 PST 2026: skilldesc-run-join ready. The rest of SkillDesc_004E1FF0.cpp is not SkillDesc's (callbacks before 0x4E4640, the tail after 0x4EFCF0), so it stays. Next: the data those 17 functions read (gnTextOffset1/2, gnGlobal_0072D844/88C, gbTextOffsetInit, gbSkillRefreshInit: only SkillDesc reads them) as SkillDesc.cpp's, then npcmenu_004B5C60.cpp.
@@ -42,7 +43,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/npcmenu-piece-note 1acaaa011 (on #429): comment only. npcmenu_004B5C60.cpp says why NPCMENU_ShowMainMenu (0x4B5C60) can't join npcmenu.cpp: with /EHsc on npcmenu.cpp every other function there stays equal, but 0x4B5C60 swaps push esi / xor eax, eax at +0xCB wherever it and its declarations go (after 0x4B5C20, at the end, declarations at the top); its declarations match npcmenu.cpp's. Full build: Game.exe identical, tree bef569dac6b02a784f9c43c02cba64ce21e23905, borrowed code / data 8,373 B / 261 B.
+- lane1/npcmenu-piece-note 5782f3466 (on #430): comment only. npcmenu_004B5C60.cpp says why NPCMENU_ShowMainMenu (0x4B5C60) can't join npcmenu.cpp: with /EHsc on npcmenu.cpp every other function there stays equal, but 0x4B5C60 swaps push esi / xor eax, eax at +0xCB wherever it and its declarations go (after 0x4B5C20, at the end, declarations at the top); its declarations match npcmenu.cpp's. Full build: Game.exe identical, tree a10fa57eb934c66262533b65441ad76e79138e1c, borrowed code / data 8,373 B / 261 B.
 - lane1/skilldesc-run-join e003d3082 (on #430): SkillDesc.cpp takes the 17 functions of its run from SkillDesc_004E1FF0.cpp (0x4E6C50-0x4EFCB0), each after its address predecessor; the emit helpers of four uncalled statics move with them; 0x4EB940 calls SkillDesc.cpp's own SKILLDESC_DrawDamageRange (argument order fixed for its __fastcall signature) and getter in place of the piece's private copies, which go. Both units all equal. Full build: Game.exe identical, tree 5bb56b0326f808449972174f27d7d80356058bf0, borrowed code / data 8,373 B / 261 B. Audit guard: no count rose.
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
