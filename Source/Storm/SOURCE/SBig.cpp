@@ -38,6 +38,11 @@ struct D2StormArrayBStrc
     D2StormArrayBStrc() : m_alloc(0), m_count(0), m_data(0), m_chunk(0)
     {
     }
+    ~D2StormArrayBStrc()
+    {
+        if (m_data)
+            SMemFree(m_data, gszTypeNameUChar, -2, 0);
+    }
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
         unsigned int nRemainder = nValue % nAlign;
@@ -159,6 +164,11 @@ void __stdcall SBigToUnsigned(D2StormBigStrc* pBig, unsigned int* pnResult)
 }
 
 // build: symbol ??3@YAXPAX0@Z 0x0040EB30
+// 0x00421D80
+D2StormBigStrc::~D2StormBigStrc()
+{
+}
+
 // 0x00421E10
 D2StormBigStrc::D2StormBigStrc()
 {
