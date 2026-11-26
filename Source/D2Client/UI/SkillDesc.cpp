@@ -913,7 +913,7 @@ int __fastcall SKILLDESC_MissileAtTargetUnit(D2UnitStrc* pUnit, int nSkillId, in
 }
 
 // 0x004E4180
-int __fastcall sub_004E4180(int nFrame, int nOffset, int nStepLength)
+int __fastcall sub_004E4180_GetCyclicDistance(int nFrame, int nOffset, int nStepLength)
 {
     int nFrameMod;
     int nOffsetMod;

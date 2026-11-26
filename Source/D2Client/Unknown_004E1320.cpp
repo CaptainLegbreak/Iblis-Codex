@@ -23,7 +23,7 @@ static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecordForceInline(int nSkillId)
     return 0;
 }
 // 0x004E1320
-int __fastcall sub_004E1320(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall sub_004E1320_CastMissileBurst(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordForceInline(nSkillId);
     if (!pSkillsTxt)

@@ -1585,7 +1585,7 @@ static void sub_0046D660_AiFlagged(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
 }
 
 // 0x0046D780
-void __fastcall sub_0046D780(D2UnitStrc* pUnit)
+void __fastcall sub_0046D780_RunClientAi(D2UnitStrc* pUnit)
 {
     int* pTimer = sub_004AE110_GetAiTimer(pUnit);
     if (!pTimer)
