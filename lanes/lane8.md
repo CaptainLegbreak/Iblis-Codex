@@ -12,6 +12,7 @@ scaffolding, names.
   (Composit_0064F060), `Units/Missile` (Missile_0064B860). Lane 2 hadn't claimed any of them.
 
 ## Status
+- Thu Nov 26 15:35 PT: param-names and forcing-621f90 merged (#440), Ready lines gone; names-2 Ready. On 0x6419F0 now.
 - Thu Nov 26 15:05 PT: forcing rows, readings so far (no branch):
   - 0x651040: the bottom-copy form (copy `nId = nNext` before the depth test, `while ((short)nId >= 0)`) gets the original's registers (7 instructions unaligned) but folds the preheader's conversion into the parent load, so it is 110 / 113: only the original's `movzx eax, ax` after `movzx eax, word [parent]` is missing. Reading nId straight from wParent: 5 unaligned, still 110. Function-scope declarations, every type pair for nNext/nId, and lane 2's top-of-loop copy (both conversions but the copy stays in the loop head, other registers) don't give it. The __assume keeps it by giving the converted value a use of its own before the loop; I have not found a plain statement that does the same.
   - 0x65EA50: the nValue load is hoisted above the `nSet` branch in every form (if/else, early return either way, swapped arms, switch, shifted-value / layer / record / stat-list temporaries, alias locals). The original's arms load it into different registers (eax in the set arm, edx in the add arm).
@@ -29,8 +30,6 @@ scaffolding, names.
 
 ## Ready
 - lane8/d2common-names-2 05c46ce7 (on #440): more D2Common a1/v12 names: OutPlace.cpp's coordinate placers (nDirection, nOffsetMode), the item reader's skill-stat locals in Items.cpp (named for the stats they fill: skill tab, on-attack, on-hit, on-get-hit, charged), unused stub parameters (nUnused), and prototypes of functions defined in other units take the definition's names (D2Common.h, OutWild, OutDesr, OutSiege, OutRoom, AnimTbls, Unknown_0064FAD0). Independent of d2common-param-names (no file in common). a1/v12 names 1,747 -> 1,613. Full build: Game.exe identical, tree bc64325ba804a24f5488fd921d37475de27cfc38, borrowed code / data 8,373 / 261.
-- lane8/forcing-621f90 e9480877 (on #436): 0x00621F90 UNITS_AllocPlayerData loses its volatile read of pPlayerData. The record loop reaches the unit through its own pointer (`D2UnitStrc* pPlayer = ptUnit;` before the loop, every loop reference through it), which gives the original's `[edi+ecx-0xc]` quest store; with ptUnit throughout (or the alias also used after the loop) it stays 1 byte off, as lane 2 found. Plain C, no new construct, but say if a second pointer to the unit reads as steering to you. volatile 74 -> 73. Full build: Game.exe identical, tree ff5fcbdad9a5e8e41666fec1b5da0719ab434ce8, borrowed code / data 8,373 / 261.
-- lane8/d2common-param-names 36675aa1 (on #435): D2Common parameters named a2/a7/a9/v16 and the like take names from what the code does with them (ItemMods.cpp's ForceBase flag and trailing target unit, the skill packers' fields as Items.cpp's stat writers read them, DrlgLogic.cpp's flood-fill context and direction, PATH_NormalizeStep's step, and single parameters in DataTbls, Skills, Units, Inventory, Outdoors and Unknown_00679380); prototypes of functions defined elsewhere take the definition's names. a1/v12 names 1,764 -> 1,523. Full build: Game.exe identical, tree 813cd0efb4a9ce414de48aba7390fe0c5eb0b58a, borrowed code / data 8,373 / 261.
 
 ## Questions
 
