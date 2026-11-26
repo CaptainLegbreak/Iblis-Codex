@@ -127,7 +127,6 @@ extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 void __fastcall DLIGHTMAP_ReleaseLight(D2GfxLightStrc* pLight); // 0x004743D0
 
-void __stdcall MONSTER_RunUModCallbacks(D2UnitStrc* pUnit, void* pArg, int nMode); // 0x004ADD90
 
 void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory); // 0x0063AC40
 
@@ -188,7 +187,6 @@ int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMas
 
 
 
-void __fastcall MONSTER_RunUModFrameCallbacks(D2UnitStrc* pUnit); // 0x004ADE60
 
 void __stdcall MONSTER_SpawnQuillRatMissiles(D2UnitStrc* pUnit, int nMissile, int nX, int nY); // 0x004AF1B0
 
@@ -421,11 +419,8 @@ void __fastcall UNITMODE_SetUnitModeNoOverlay(D2UnitStrc* pUnit, int nMode);    
 
 void __fastcall sub_004AC840(D2UnitStrc* pUnit, int nFlag);                                                 // 0x004AC840
 
-void __fastcall MONSTER_RunUModCommandCallbacks(D2UnitStrc* pUnit);                                                            // 0x004ADE40
 
-void __fastcall MONSTER_RunUModUpdateCallbacks(D2UnitStrc* pUnit);                                                            // 0x004ADE50
 
-void __fastcall MONSTER_RunUModHitCallbacks(D2UnitStrc* pUnit);                                                            // 0x004ADE70
 
 void __fastcall MONSTER_SpawnBloodMissiles(D2UnitStrc* pUnit, int nArg1, int nArg2);                   // 0x004AF890
 

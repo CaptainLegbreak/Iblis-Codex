@@ -44,7 +44,6 @@ int gnSelectionTop;                                                             
 int gnSelectionBottom;                                                                      // 0x007A6A88
 static int gbWarpTileHovered;                                                                              // 0x007A6AA0
 
-int __cdecl TEXT_IsTextBoxOpen();                                                                                 // 0x004A0000
 D2UnitStrc* __cdecl TEXT_GetTextUnit();                                                             // 0x0049E8B0
 void __fastcall TEXT_SetHoverUnit(D2UnitStrc* pUnit);                                                            // 0x0049DA30
 void __cdecl TEXT_ClearHoverUnit();                                                                      // 0x0049DA50

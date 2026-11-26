@@ -54,7 +54,6 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId) {
 }
 
 void __stdcall SKILLS_SetParam3(D2SkillStrc*,int); // 0x006445E0
-int __fastcall SKILLDESC_GetMonSkillSound(D2UnitStrc*,int); // 0x004F4F40
 void __fastcall sub_004B9A00(int,D2UnitStrc*,int,int,int); // 0x004B9A00
 
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0

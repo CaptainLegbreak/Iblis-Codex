@@ -185,9 +185,7 @@ extern "C" char* __cdecl _strrev(char* szString); // 0x00687860
 
 void __fastcall UNITMODE_DoUnitAction(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00481030
 
-void __cdecl QUESTLOG_LoadDurielCofsOnce(); // 0x004A30A0
 
-void __cdecl QUESTLOG_LoadAncientsCofsOnce(); // 0x004A30C0
 
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 
@@ -204,11 +202,8 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
-char __cdecl QUESTLOG_HasQuestPacketValue(); // 0x004A3110
 
-char __cdecl QUESTLOG_IsQuestUnitPresent(); // 0x004A3120
 
-void __fastcall QUESTLOG_SpawnQuestUnits(int nX, int nY); // 0x004A3150
 
 static void OBJECT_FinishDoorMode(D2UnitStrc* pUnit); // 0x004BCA90
 

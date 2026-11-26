@@ -105,7 +105,6 @@ struct D2RequestStrc
 
 
 
-int __cdecl CUNIT_IsTrading(); // 0x004B8A10
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
@@ -179,13 +178,10 @@ int __stdcall HIREABLES_CanEquipHirelingItem(int nArg); // 0x004934D0
 
 int __fastcall SPELLSEL_GetSkillIconCel(D2SkillsTxt* pSkillsTxt); // 0x004A8C80
 
-int __fastcall SPELLSEL_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004A8D30
 
 void __fastcall SPELLSEL_DrawSkillInfoBase(int nValue, D2SkillsTxt* pSkillsTxt, int nOwnerGUID, int nCharges, int nState, int nX, int nY, int nArg); // 0x004A9690
 
-void __fastcall SPELLSEL_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY); // 0x004A8D50
 
-void __fastcall SPELLSEL_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
 
 
 
@@ -486,7 +482,6 @@ extern "C" int __cdecl atoi(const char* szString);                              
 
 
 
-void __cdecl SOUNDINST_ToggleHints();                                                                    // 0x004BABC0
 
 bool __fastcall CHAT_IsNarrowText(const Unicode* pText);                                            // 0x0047BD00
 

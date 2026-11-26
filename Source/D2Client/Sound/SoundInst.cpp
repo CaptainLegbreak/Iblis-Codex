@@ -30,7 +30,6 @@ void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned in
 
 extern "C" { int gnSoundSerial; }                                                                  // 0x007C5460
 
-void __fastcall SOUNDINST_SetValue(int nKey, int nValue); // 0x004B9B50
 
 
 
@@ -72,7 +71,6 @@ unsigned int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
 
 
 
-float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax); // 0x004B93A0
 
 D2ClientSoundStrc* __stdcall SOUNDINST_FindOldestEntry(int nGroup, D2UnitStrc* pUnit, D2ClientSoundStrc* pExclude); // 0x004B9690
 

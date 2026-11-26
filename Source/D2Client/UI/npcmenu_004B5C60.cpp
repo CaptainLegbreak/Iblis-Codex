@@ -74,9 +74,6 @@ D2UnitStrc* __fastcall sub_00463DD0();                                          
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                               // 0x00625480
 const Unicode* __fastcall MONSTERS_GetHirelingDescString(int nId); // 0x00663720
 void __cdecl INV_FormatArgs(Unicode* pDest, const Unicode* pFormat, ...);                          // 0x0048BE80
-int __cdecl NPCMENU_HireMercHandler();                                                                // 0x004B3660
-void __cdecl NPCMENU_BuildNpcMenu();                                                                        // 0x004B4830
-int __cdecl NPCMENU_CloseHireDialog();                                                                    // 0x004B5C20
 void __fastcall DIALOG_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int nArg8, int nArgC);   // 0x004B7C00
 // build: symbol ?DIALOG_CreateDialog@* 0x004B7EB0
 D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,

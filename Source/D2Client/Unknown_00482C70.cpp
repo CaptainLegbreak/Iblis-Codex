@@ -188,7 +188,6 @@ void __fastcall sub_0049EB10_PostRecord(D2ClientRecordStrc* pRecord); // 0x0049E
 
 void __stdcall sub_004A1770(SMSGHANDLER_PARAMS* pMsg); // 0x004A1770
 
-void __cdecl sub_004B8CB0_BeginTradeWait(); // 0x004B8CB0
 
 void __fastcall sub_004DC2B0(void* pResource); // 0x004DC2B0
 
@@ -321,7 +320,6 @@ void __fastcall sub_004786D0_SendPacket(char nHeader, int nArg1, int nArg2, int 
 
 void __fastcall TEXT_OpenTextData(D2UnitStrc* pUnit, D2ItemsTxt* pTxt); // 0x0049FF90
 
-int __fastcall ITEM_IsItemActionBlocked(D2UnitStrc* pItem); // 0x004C2240
 
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, unsigned char nInvPage, int bLoD); // 0x00621050
 
@@ -336,7 +334,6 @@ int __fastcall NPCMENU_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
 
 void __cdecl sub_K04_EmitUse(int nValue);
 
-int __cdecl NPCMENU_IsGambleShop(); // 0x004B3500
 
 
 struct RangeNode
@@ -641,7 +638,6 @@ void __stdcall INV_UpdateInventoryHover(SMSGHANDLER_PARAMS* pMsg);              
 
 void __fastcall sub_0049FF90_Close(int nArg, D2ClientStateStrc* pState);                                    // 0x0049FF90
 
-int __cdecl NPCMENU_IsAnyDialogOpen();                                                                                 // 0x004B34A0
 
 
 int __fastcall sub_004DF9D0_CheckCacheEntry(int nId);                                                       // 0x004DF9D0
@@ -726,14 +722,10 @@ struct D2InvRectStrc;
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
 
 
-void __fastcall sub_004BA020_UpdateSounds(unsigned int nTick); // 0x004BA020
-
-void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int nTick); // 0x004DCAA0
 
 
-void __cdecl sub_004DF890_ReleaseFinishedSlots(); // 0x004DF890
 
-void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int nTick); // 0x004E42E0
+
 
 char gbCinematicStop; // 0x007BC9D4
 
@@ -769,7 +761,6 @@ extern const D2CoordStrc gSocketLayouts[][6]; // 0x006D91E8
 
 void __fastcall sub_004B9070(int nArg); // 0x004B9070
 
-int __fastcall ITEM_GetItemUseSound(D2UnitStrc* pItem); // 0x004C1E20
 
 
 
@@ -984,12 +975,9 @@ extern "C" __declspec(dllimport) short __stdcall GetAsyncKeyState(int vKey);
 
 
 
-void __cdecl SPELLSEL_UpdateSkillIcons(); // 0x004A9DF0
 
 
-void __fastcall ITEM_SetUninterruptableState(D2UnitStrc* pItem); // 0x004C21F0
 
-void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
 void __fastcall sub_004DBEA0(D2UnitStrc* pUnit, int nArg2, int nArg3, unsigned int* pWidth, unsigned int* pHeight); // 0x004DBEA0
 
@@ -1172,7 +1160,6 @@ int __fastcall D2Win_10177(unsigned char nAct); // 0x004FB480
 void __cdecl sub_00477DD0(); // 0x00477DD0
 
 
-void __cdecl GFXUTIL_ClearFadeTimer(); // 0x004DC0A0
 
 
 

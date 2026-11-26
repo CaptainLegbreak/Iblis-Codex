@@ -258,7 +258,6 @@ void __stdcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int 
 
 
 
-void __fastcall MONSTER_SetMinionSpawnClass(D2ClientPacket7Strc* pPacket); // 0x004B1240
 
 void __fastcall sub_0049F8C0_UsePacket6(D2ClientPacket6Strc* pPacket); // 0x0049F8C0
 
@@ -472,23 +471,16 @@ void __fastcall ROSTER_SetPartyLife(int nUnitGUID, unsigned char nLifePct); // 0
 
 void __fastcall sub_004A1600(D2GSPacketSrv27Strc* pPacket); // 0x004A1600
 
-void __fastcall OBJECT_SetObjectOwnerName(D2UnitStrc* pUnit, const char* szName); // 0x004BDFE0
 
-void __fastcall ITEM_UpdateItemStat(unsigned int nA, unsigned char nB, unsigned int nC, unsigned int nD, unsigned short nE); // 0x004C1F30
 
-void __fastcall ITEM_ClearCursorItemFromPacket(D2GSPacketSrv42Strc* pPacket); // 0x004C2050
 
-void __fastcall ITEM_HandleItemStatePacket(D2GSPacketSrv7DStrc* pPacket); // 0x004C2270
 
-void __fastcall SKILLS_ApplySkillLevelBonus(D2UnitStrc* pUnit, int nA, int nB, unsigned char nC); // 0x004C7990
 
 int __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
-void __fastcall PLRSKILLS_BeginState(D2UnitStrc* pUnit, int nState); // 0x004D9B20
 
 int __fastcall PLRSKILLS_SetStateStat(D2UnitStrc* pUnit, int nPrev, int nState, int nStatId, int nValue, int nLayer); // 0x004D9D70
 
-void __fastcall PLRSKILLS_StartClientState(D2UnitStrc* pUnit, int nState); // 0x004D9E60
 
 
 struct D2GSPacketSrv10
@@ -509,7 +501,6 @@ struct D2GSPacketSrv10
 
 
 
-void __fastcall ITEM_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp); // 0x004C0EC0
 
 
 
@@ -526,7 +517,6 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLaye
 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
-unsigned char* __fastcall MONUNIQUE_GetMonUmods(D2UnitStrc* pUnit); // 0x004AC740
 
 void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005449E0
 
@@ -554,9 +544,7 @@ struct D2SkillLevelEntryStrc
 #pragma pack(pop)
 
 
-void __fastcall NPCMENU_NpcInteractPacket(unsigned char nUnitType, int nUnitId, unsigned char* pBuffer, unsigned char nArg); // 0x004B6DD0
 
-void __fastcall NPCMENU_OnUnitRemoved(unsigned char nUnitType, int nUnitId); // 0x004B5320
 
 void __fastcall sub_004B2620(const unsigned char* pData); // 0x004B2620
 
@@ -569,7 +557,6 @@ extern "C" void __cdecl INV_ClearSkillPointsHighlight(); // 0x004AA8F0
 
 
 
-int __fastcall SKILLS_TriggerSkillOnUnit(void* pArg1, int nArg2, int nArg3, int nArg4, int nArg5); // 0x004CA200
 
 
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pUnit); // 0x0063EA40
@@ -643,7 +630,6 @@ struct D2UnitStatPacket2Strc
 };
 #pragma pack(pop)
 
-void __fastcall ITEM_RefreshUnitItemsFromPacket(D2PacketRecord11Strc* pPacket, int nArg); // 0x004C1BC0
 
 
 
@@ -665,9 +651,7 @@ struct D2SkillPacketStrc
 };
 #pragma pack(pop)
 
-void __fastcall SKILLS_DoSkillPrgFunc(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nX, int nY, unsigned char nMode); // 0x004C6930
 
-void __fastcall SKILLS_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nX, int nY, int nMode); // 0x004C6AC0
 
 #pragma pack(push, 1)
 struct D2Packet18RecordStrc
@@ -757,7 +741,6 @@ struct D2GSPacketCoordinateStrc
 };
 #pragma pack(pop)
 
-int __fastcall SKILLS_DoSkillAtPosition(void* pArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x004CA230
 
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
@@ -799,17 +782,14 @@ struct D2GSPacketSrv8B
 #pragma pack(push, 1)
 #pragma pack(pop)
 
-void __fastcall UNITSND_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent); // 0x004CBDE0
 
 
 void __fastcall ROSTER_AddRosterUnit(int nUnitId, int nClassId, const char* szName, unsigned short wLevel, unsigned short wPartyId, int nUnused, int nPartyFlags, unsigned short wGuildFlags, const char* szGuildTag, const char* szGuildName); // 0x0047A6F0
 
 void __fastcall ROSTER_RemoveRosterUnit(int nPlayerGUID); // 0x0047A8B0
 
-void __fastcall ITEM_RemoveEquippedItems(D2UnitStrc* pUnit); // 0x004C23E0
 
 
-void __fastcall sub_004B9320_PlayCinematicFromPacket(const D2CinematicPacketStrc* pPacket); // 0x004B9320
 
 
 
@@ -819,7 +799,6 @@ void __fastcall sub_004B90D0(int nGold, unsigned char nOwner); // 0x004B90D0
 
 void __fastcall ROSTERPETS_DropPetEntry(int nKey); // 0x00478C90
 
-void __fastcall SPELLSEL_SetHotkeySkillSlot(int nSlot, int nValueA, int nValueB, int nValueC); // 0x004AA0C0
 
 
 
@@ -831,21 +810,16 @@ void __fastcall VIEW_UpdatePetLife(int nUnitId, int nLifePercent, unsigned short
 
 
 
-void __fastcall NPCMENU_SetNpcMenuState(unsigned short wValue, int nValue); // 0x004B6980
 
 extern "C" void __cdecl sub_0048A700(); // 0x0048A700
 
 void __stdcall DATATBLS_AddOrChangeRunesTxtRecord(int nRecordId, D2RunesTxt* pRecord); // 0x00639CC0
 
-void __fastcall PLRSKILLS_EndClientState(D2UnitStrc* pUnit, int nState); // 0x004D9F40
 
-void __fastcall PLRSKILLS_EndState(D2UnitStrc* pUnit, int nState); // 0x004D9C30
 
 void __cdecl sub_00473CA0_Empty(); // 0x00473CA0
 
-void __cdecl NPCMENU_ResetSlots(); // 0x004B3290
 
-void __fastcall sub_004B92B0_StorePacketText(const D2GSPacketSrv5E* pPacket); // 0x004B92B0
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
@@ -1136,19 +1110,14 @@ void __fastcall sub_0049EB10(D2GSPacket5AStrc* pPacket); // 0x0049EB10
 
 void __fastcall NPCMENU_HandleNpcTransaction(D2PacketRecord15Strc* pPacket); // 0x004B6390
 
-void __fastcall ITEM_HandleUseStackableItem(D2PacketRecord8Strc* pPacket); // 0x004C4620
 
-void __fastcall ITEM_SetItemFlagFromPacket(D2PacketRecord13Strc* pPacket); // 0x004C2020
 
-void __fastcall ITEM_RefreshUnitItemsFromRecord(D2PacketRecord11Strc* pPacket); // 0x004C1BF0
 
 void __fastcall sub_004B9210(D2PacketRecord15Strc* pPacket); // 0x004B9210
 
 void __fastcall sub_004B3240(D2PacketRecord7Strc* pPacket); // 0x004B3240
 
-void __fastcall sub_004C0550_HandleUseItemPacket(D2PacketRecord7Strc* pPacket); // 0x004C0550
 
-void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket); // 0x004A2CB0
 
 void __fastcall NPCMENU_FlagNpcEntries(D2GSPacket91Strc* pPacket); // 0x004B3510
 
@@ -1162,7 +1131,6 @@ void __fastcall ROSTERPETS_AssignMercEntry(int nKey, int nArg, int nType, int nV
 
 void __fastcall sub_004C51B0(D2PacketRecord6Strc* pPacket); // 0x004C51B0
 
-void __fastcall NPCMENU_OnNpcWantsInteract(D2PacketRecord6Strc* pPacket); // 0x004B3380
 
 
 void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619EE0
@@ -1236,7 +1204,6 @@ struct D2SkillEndPacketStrc
 #pragma pack(pop)
 
 
-void __fastcall SKILLSBAR_ResetLeapCollision(D2UnitStrc* pUnit); // 0x004C8B80
 
 
 void __stdcall sub_00639DB0_ToggleState(D2UnitStrc* pUnit, int nState, int nEnable); // 0x00639DB0
@@ -1269,51 +1236,29 @@ struct D2EnvironmentPacketStrc
 extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
 
 
-void __fastcall ITEM_HandleItemToCursor(D2GSPacketSrv9C* pPacket); // 0x004C20B0
 
-void __fastcall ITEM_HandleOwnedItemToCursor(D2GSPacketSrv9D* pPacket); // 0x004C2340
 
 void __fastcall sub_004C25B0(D2GSPacketSrv9C* pPacket); // 0x004C25B0
 
-void __fastcall ITEM_HandleGroundToCursor(D2GSPacketSrv9C* pPacket); // 0x004C2650
 
-void __fastcall ITEM_HandleDropToGround(D2GSPacketSrv9C* pPacket); // 0x004C26F0
 
-void __fastcall ITEM_HandleItemOnGround(D2GSPacketSrv9C* pPacket); // 0x004C2810
 
-void __fastcall ITEM_HandleItemToStorage(D2GSPacketSrv9C* pPacket); // 0x004C2AD0
 
-void __fastcall ITEM_HandleItemFromStorage(D2GSPacketSrv9D* pPacket); // 0x004C2C80
 
-void __fastcall ITEM_HandleEquipItem(D2GSPacketSrv9D* pPacket); // 0x004C2E90
 
-void __fastcall ITEM_HandleIndirectSwapBodyItem(D2GSPacketSrv9D* pPacket); // 0x004C3070
 
-void __fastcall ITEM_HandleUnequipItem(D2GSPacketSrv9D* pPacket); // 0x004C3380
 
-void __fastcall ITEM_HandleSwapBodyItem(D2GSPacketSrv9D* pPacket); // 0x004C3920
 
-void __fastcall ITEM_HandleWeaponSwitch(D2GSPacketSrv9D* pPacket); // 0x004C3B00
 
-void __fastcall ITEM_UpdateItemFromPacket(D2GSPacketSrv9C* pPacket); // 0x004C3B30
 
-void __fastcall ITEM_HandleShopItem(D2GSPacketSrv9C* pPacket); // 0x004C3C00
 
-void __fastcall ITEM_HandleCursorBeltSwap(D2GSPacketSrv9C* pPacket); // 0x004C40D0
 
-void __fastcall ITEM_HandlePutInBelt(D2GSPacketSrv9C* pPacket); // 0x004C4130
 
-void __fastcall ITEM_HandleRemoveFromBelt(D2GSPacketSrv9C* pPacket); // 0x004C42A0
 
-void __fastcall ITEM_HandleBeltSwap(D2GSPacketSrv9C* pPacket); // 0x004C45C0
 
-void __fastcall ITEM_HandleAutoUnequip(D2GSPacketSrv9D* pPacket); // 0x004C4740
 
-void __fastcall ITEM_HandleItemToSocket(D2GSPacketSrv9D* pPacket); // 0x004C4990
 
-void __fastcall ITEM_HandleGridItemToBody(D2GSPacketSrv9D* pPacket); // 0x004C4AA0
 
-D2UnitStrc* __fastcall ITEM_HandleBodyGridSwap(D2GSPacketSrv9D* pPacket); // 0x004C4C70
 
 #pragma pack(push, 1)
 struct D2PacketSpawnStrc
