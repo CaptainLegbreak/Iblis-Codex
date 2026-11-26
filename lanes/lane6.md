@@ -2,11 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 2026, 19:55 PT): module-gs ready (below). Next: 0x6BD230 with lane 3's notes (the coordinator's 18:35 assignment), then 0x402A90.
+Status (Thu Nov 26 2026, 22:10 PT Wed): everything posted is merged (module-gs in #422). Parked with readings in Claimed: forcing constructs 0x4F82D0, 0x518300, 0x522C30, 0x502550; identical arms 0x6B38A0; lane 3's 0x6BD230 and 0x402A90.
 
 ## Ready
 
-- `lane6/module-gs` @ 063d610db (rebased on #421, two commits, as asked): `/GS-` is the module default for D2Launch, D2Multi, D2MCPClient and D2Win (27 per-file entries gone), and Game.exe's own main module moves out of D2Launch into `Source/Main/` (Main.cpp, Unknown_004053F0.cpp, Unknown_004059D0.cpp; it builds with the base flags, /GS, so none of its units needs an entry). No Unknown_00406410.cpp exists any more; 0x406410 is in Main.cpp. Full build identical, 14,922 / 14,922 placed, borrowed totals unchanged. STATUS.md regenerated on it: the non-original-construct rows stay 614 (main's count today; the 28-row rise is gone), and the `/GS-` function count falls 4,169 -> 3,253 because those functions are now built under their module's default.
+(nothing outstanding; module-gs merged in #422)
 
 
 
