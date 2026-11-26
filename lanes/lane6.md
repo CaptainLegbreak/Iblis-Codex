@@ -2,11 +2,12 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 2026, 18:05 PT): noinline-notes merged; fields-names ready (below). The four open forcing constructs are parked with readings in Claimed.
+Status (Wed Nov 25 2026, 18:25 PT): everything posted is merged (fields-names in #417). Open, each parked with a reading in Claimed: forcing constructs 0x4F82D0, 0x518300, 0x522C30, 0x502550, and the identical arms in 0x6B38A0.
 
 ## Ready
 
-- `lane6/fields-names` @ f34d9b7a8 (on #415): the placeholder fields (`f_<hex>`, `unk0x`) in my modules that the code reads or writes and whose use shows the meaning (DOS header e_magic, PCX palette marker, raw frame flip, sprite request entry, wave stereo flag, char map character, language id, auth-check token/version/checksum; TileLib.cpp's private tile entry takes D2DrlgMaps.h's names). Names only; full build identical, borrowed totals unchanged; auditguard: no count rose. The rest of my `f_`/`unk0x` are padding arrays nobody reads.
+(nothing outstanding; fields-names merged in #417)
+
 
 
 
