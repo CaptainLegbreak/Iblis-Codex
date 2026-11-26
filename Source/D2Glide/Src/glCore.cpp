@@ -32,13 +32,10 @@ extern int gdwGlobal_007C8CBC; // 0x007C8CBC
 
 extern int gnScaleFactor; // 0x0072DB44
 
-extern int gdwGlobal_007D55CC; // 0x007D55CC
 
-extern int gdwGlobal_007D55E4; // 0x007D55E4
 
 extern int gbIsMouseButtonPressed; // 0x007D55E0
 
-extern int gdwGlobal_007D55D4; // 0x007D55D4
 
 void __stdcall CONTROL_RemoveFromList(void* pArg); // 0x004F9310
 

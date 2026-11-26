@@ -170,7 +170,7 @@ D2WinEditBoxStrc* gpFocusedEditBox; // 0x007D55CC
 
 WNDPROC gpfnWndProc; // 0x007D55D8
 
-int dword_6F8FE278; // 0x007D55E8
+int gbDimBehindActiveList; // 0x007D55E8
 
 struct D2WinEditBoxStrc;
 
@@ -697,7 +697,7 @@ int __stdcall D2Win_InitializeSpriteCache(int bWindowed, int nResolution)
     gpNextFocusedEditBox = 0;
     gpfnWndProc = 0;
     gpActiveControlList = 0;
-    dword_6F8FE278 = 0;
+    gbDimBehindActiveList = 0;
     gnCursorFrame = 0;
     gpfnQuitCallback = 0;
     gnResolution = nResolution;
@@ -843,12 +843,11 @@ int __stdcall CONTROL_SetFocusedEditBox(D2WinEditBoxStrc* pEditBox)
     return 1;
 }
 
-extern int gdwGlobal_007D55CC; // 0x007D55CC
 
 // 0x004F9200
 int __cdecl CONTROL_GetFocusedEditBox()
 {
-    return gdwGlobal_007D55CC;
+    return (int)gpFocusedEditBox;
 }
 
 // 0x004F9210
@@ -939,7 +938,7 @@ int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl)
     if (gpActiveControlList == pControl)
     {
         gpActiveControlList = 0;
-        dword_6F8FE278 = 0;
+        gbDimBehindActiveList = 0;
     }
 
     if (gpEscapeButton == pControl)
@@ -1166,12 +1165,11 @@ int __stdcall CONTROL_MouseInsideRect(const tagRECT* pRect)
     return PtInRect(pRect, gtMousePosition);
 }
 
-extern int gdwGlobal_007D55E4; // 0x007D55E4
 
 // 0x004F97D0
 int __cdecl D2Win_IsCtrlKeyDown()
 {
-    return gdwGlobal_007D55E4;
+    return gfCtrlKeyDown;
 }
 
 // 0x004F97E0
@@ -1277,7 +1275,7 @@ void __stdcall D2Win_UpdateAndDraw()
 
         CONTROL_DrawAllCompositeUnits();
 
-        if (dword_6F8FE278)
+        if (gbDimBehindActiveList)
         {
             D2GFX_DrawBoxAlpha(0, 0, nScreenWidth, nScreenHeight, 0, 127);
         }
@@ -1843,7 +1841,6 @@ void __stdcall CONTROL_SetEscapeButton(void* pButton)
     gpEscapeButton = pButton;
 }
 
-extern int gdwGlobal_007D55D4; // 0x007D55D4
 
 // 0x004FA460
 int __cdecl D2Win_IsMouseButtonPressed()
@@ -1852,10 +1849,10 @@ int __cdecl D2Win_IsMouseButtonPressed()
 }
 
 // 0x004FA470
-int __stdcall D2Win_10033(D2WinControlStrc* pControlList, int nListValue)
+int __stdcall D2Win_10033(D2WinControlStrc* pControlList, int bDimBehind)
 {
     gpActiveControlList = pControlList;
-    dword_6F8FE278 = nListValue;
+    gbDimBehindActiveList = bDimBehind;
     return 1;
 }
 
@@ -1870,7 +1867,7 @@ extern "C" __declspec(dllexport) unsigned int __stdcall CONTROL_GetType(Obj004FA
 // 0x004FA4B0
 int __cdecl CONTROL_GetActiveControlList()
 {
-    return gdwGlobal_007D55D4;
+    return (int)gpActiveControlList;
 }
 
 // 0x004FA4C0
