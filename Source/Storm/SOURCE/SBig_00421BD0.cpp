@@ -3,9 +3,8 @@ struct BigStack;
 struct D2StormArrayBStrc;
 struct D2StormBigStrc;
 
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
-
 #include "D2StormBigBuffer.h"
+#include "StormApi.h"
 
 
 struct D2StormArrayBStrc

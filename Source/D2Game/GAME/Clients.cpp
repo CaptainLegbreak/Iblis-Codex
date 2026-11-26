@@ -632,8 +632,6 @@ extern int gnArrowQuiverItemId; // 0x00883EA0
 
 void __fastcall SEED_InitSeed(D2SeedStrc*); // 0x00650E30
 
-void __fastcall SEED_InitLowSeed(D2SeedStrc*,unsigned int); // 0x00650E40
-
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
 #define UNIT_MONSTER 1

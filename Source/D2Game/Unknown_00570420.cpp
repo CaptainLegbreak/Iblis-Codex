@@ -68,7 +68,6 @@ extern const unsigned int gdwBitMasks[]; // 0x006CE268
 extern const unsigned int gdwInvBitMasks[]; // 0x006CE2E8
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 int __stdcall BITMANIP_GetSize(D2BitBufferStrc*); // 0x00410E90
-int __stdcall sub_004111A0_GetLowestSetBit(unsigned int); // 0x004111A0
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {

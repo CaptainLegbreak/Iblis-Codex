@@ -1,4 +1,6 @@
 #include "Fog.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(x,line) do { if (!(x)) { FOG_DisplayHalt(gszAssert_006CC837, sub_00408090(), line); exit(-1); } } while (0)
 
@@ -43,16 +45,11 @@ struct D2ThreadRecord006BC5A0Strc
     char tQueue[0x24];                      // 0x170
 };
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern const char gszAssert_006CC837[]; // 0x006CC837
 extern "C" unsigned int __cdecl strlen(const char*);
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 void __fastcall D2QSQUEUE_InitQueue(void* pList); // 0x006C1F60
 void __fastcall Destroy(void* pQueue); // 0x006C1F80
 void __fastcall D2QSQUEUE_Push(void* pQueue, unsigned char* pData, unsigned short nLength); // 0x006C1FF0
@@ -68,7 +65,6 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMillisecon
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent); // 0x006CC130
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void* lpfn); // 0x006CC34C
 
-int __fastcall FOG_SOCKET_CloseSocket(unsigned int s); // 0x0040D880
 void __fastcall FOG_SOCKET_Destroy(FSafeSock* pSafeSock); // 0x0040DBD0
 unsigned int __fastcall FOG_SOCKET_Receive(FSafeSock* pSafeSock, unsigned char* pData, unsigned int nLength); // 0x0040DC60
 int __fastcall FOG_SOCKET_Select(FSafeSock* pSafeSock); // 0x0040DDF0
@@ -77,7 +73,6 @@ FSafeSock* __fastcall FOG_SOCKET_Connect(void* pSocket, int nPort, void (__stdca
 
 struct D2PacketHeaderStrc { unsigned char id, command; unsigned short size; };
 
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void __fastcall FOG_SOCKET_Lock(FSafeSock* pSafeSock); // 0x0040DDD0
 void __fastcall FOG_SOCKET_Unlock(FSafeSock* pSafeSock); // 0x0040DDE0
 int __fastcall FOG_SOCKET_SendNoLock(FSafeSock* pSafeSock, char* pBuffer, int nBufferLength); // 0x0040DD80

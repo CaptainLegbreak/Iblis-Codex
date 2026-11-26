@@ -7,7 +7,6 @@ struct D2ProfileCounterStrc;
 typedef int (__cdecl* PROFHOOK0096BC24FN)();
 
 extern D2ProfileCounterStrc gaProfEntries[23]; // 0x00743800
-void __cdecl PROFCORE_WriteProfileCounters(); // 0x006116B0
 void __cdecl LOGGING_CloseLog(); // 0x00624B20
 extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC; // 0x0096C7CC
 extern D2TxtLinkStrc* gpMissilesLinker; // 0x0096C798
@@ -85,3 +84,4 @@ void __cdecl PROFCORE_DumpAndResetProfile()
 }
 
 #include "gen/data/Source/D2Common/Logging/ProfCore.inc"
+#include "D2CommonApi.h"

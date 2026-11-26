@@ -168,8 +168,6 @@ struct D2StatListExStrc;
 int __stdcall STATLIST_SetBaseStat(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer, D2UnitStrc* pUnit); // 0x00627170
 
 
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);
-
 
 #define STATLIST_NEWLENGTH 0x00000002
 
@@ -230,8 +228,6 @@ void __stdcall D2Common_10513(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, StatListUn
 int __stdcall D2COMMON_11269_CopyStats(D2StatListStrc* pStatList, int nStatId, D2StatStrc* pBuffer, int nBufferSize);
 
 int __stdcall STATLIST_CopyStats(D2UnitStrc* pUnit, int nStatId, D2StatStrc* pBuffer, int nBufferSize);
-
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer);
 
 void __stdcall D2Common_10525(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);
 
@@ -3041,3 +3037,4 @@ int __stdcall ITEMMODS_EvaluateItemFormula(D2UnitStrc* pUnit, D2UnitStrc* pItem,
 }
 
 #include "gen/data/Source/D2Common/Stats/StatsEx.inc"
+#include "D2CommonApi.h"

@@ -249,8 +249,6 @@ int __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc*,D2UnitStrc*,int); // 
 
 int __stdcall INVENTORY_PlaceItemInBodyLoc(D2InventoryStrc*,D2UnitStrc*,int); // 0x0063BDB0
 
-void __stdcall ITEMS_SetBodyLocation(D2UnitStrc*,unsigned char); // 0x00627D70
-
 void __fastcall SUNITDMG_DropCorpseGold(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int,int); // 0x0057F390
 
 void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers(D2GameStrc*,int,int,int); // 0x0053DF80

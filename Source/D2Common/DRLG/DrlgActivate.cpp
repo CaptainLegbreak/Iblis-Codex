@@ -135,8 +135,6 @@ static int gStatsFreedRooms; // 0x0096C8C0
 
 static int gStatsAllocatedRooms; // 0x0096C8C4
 
-void __stdcall DRLGACTIVATE_Update(D2DrlgStrc* pDrlg);
-
 
 static void DRLGACTIVATE_RoomSetAndPropagateStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus);
 
@@ -762,3 +760,4 @@ void __stdcall sub_K14_EmitSetColorForId(D2ColorRecordStrc* pRecord, int nId)
 }
 
 #include "gen/data/Source/D2Common/DRLG/DrlgActivate.inc"
+#include "D2CommonApi.h"

@@ -3544,7 +3544,6 @@ void __fastcall MONSTERUNIQUE_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUn
 }
 
 int __fastcall MONSTERSPAWN_SpawnLinkedMinionsAtCoordinates(D2GameStrc* pGame, D2UnitStrc* pOwner, int nMonsterId, int nAnimMode, int a5, int nCount, short nFlags); // 0x005B24E0
-int __stdcall D2Common_11063(D2ActiveRoomStrc* pRoom, int nMonsterId); // 0x0063EC70
 
 static inline int SuperUniqueHcIdx(int nSuperUnique)
 {

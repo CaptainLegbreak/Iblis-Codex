@@ -51,8 +51,6 @@ extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
 
 void* __fastcall FOG_AllocPool(void*,int,const char*,int,int); // 0x0040B430
 
-void __fastcall SEED_InitLowSeed(D2SeedStrc*,unsigned int); // 0x00650E40
-
 
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int); // 0x0061DB70
 
