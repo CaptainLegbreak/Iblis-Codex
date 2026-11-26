@@ -83,7 +83,7 @@ int __cdecl D2GFX_CheckLowQuality(); // 0x004F5210
 int __cdecl sub_0045AE90_GetPanelSlideMode();                                                                         // 0x0045AE90
 void __stdcall D2GFX_FloorTileDraw(D2GridInfoStrc* pInfo, D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nAlpha, int nMode, int nArg); // 0x004F68E0
 void __stdcall sub_004DE070_FillGridLight(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE070
-void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE260
+void __stdcall sub_004DE260_FillCellLights(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE260
 
 static void __stdcall WALL2_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCellStrc* pCells); // 0x004DDEF0
 
@@ -211,7 +211,7 @@ void __fastcall DFLOOR_UpdateFloorView(D2ViewStrc* pView)
                 {
                     if (bPerspective)
                     {
-                        sub_004DE260(tSmall, nSubX, nSubY, pInfo->wZ, nMode, nCorners);
+                        sub_004DE260_FillCellLights(tSmall, nSubX, nSubY, pInfo->wZ, nMode, nCorners);
                     }
                     else
                     {

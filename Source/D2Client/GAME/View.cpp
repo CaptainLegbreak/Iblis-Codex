@@ -893,7 +893,7 @@ static void VIEW_UpdateShakeSound(int nIntensity)
         return;
     }
 
-    const int nCurrent = sub_004B9B20(ghShakeSound);
+    const int nCurrent = sub_004B9B20_GetValue(ghShakeSound);
     if (nVolume == nCurrent)
     {
         return;

@@ -196,7 +196,7 @@ int __fastcall SOUNDINST_HasSoundHandle(int nHandle)
 // 0x004B9590
 // noinline: 0x004B95C0 calls this out of line in the original image (call 0x4B9590 at +0x29); without it the
 // compiler expands it into 0x004B95C0.
-__declspec(noinline) int __fastcall sub_004B9590(int nKey)
+__declspec(noinline) int __fastcall sub_004B9590_IsTypeOneSound(int nKey)
 {
     if (nKey)
     {
@@ -223,7 +223,7 @@ int __fastcall sub_004B95C0_IsHintPlaying(int nKey)
             if (pEntry->nKey == nKey)
             {
                 void* pSound = pEntry->pSound;
-                if (pSound && sub_004B9590(nKey) && sub_004DFA40_IsSoundPlaying(pSound))
+                if (pSound && sub_004B9590_IsTypeOneSound(nKey) && sub_004DFA40_IsSoundPlaying(pSound))
                 {
                     return 1;
                 }
@@ -455,7 +455,7 @@ int __fastcall SOUNDINST_PlaySound(int nSoundId, D2UnitStrc* pUnit, int nDelay, 
 }
 
 // 0x004B9B20
-int __fastcall sub_004B9B20(int nKey)
+int __fastcall sub_004B9B20_GetValue(int nKey)
 {
     if (nKey)
     {

@@ -138,7 +138,7 @@ extern int gnEnvVolume; // 0x00727568
 
 
 // 0x004DF770
-static bool __fastcall sub_004DF770(S* p, char unused, int x) { return p->type == x; }
+static bool __fastcall sub_004DF770_IsType(S* p, char unused, int x) { return p->type == x; }
 
 // 0x004DF790
 void __fastcall sub_004DF790_ReleaseSlotObject(D2SlotStrc* pSlot)
@@ -829,6 +829,6 @@ void __fastcall sub_004E0690_SetSoundTableFlag(int nValue)
 }
 
 // calling-convention shim (not game code)
-void sub_004DF770_Shim(S* p, int x) { (void)sub_004DF770(p, 0, x); }
+void sub_004DF770_Shim(S* p, int x) { (void)sub_004DF770_IsType(p, 0, x); }
 
 #include "gen/data/Source/D2Client/Unknown_004DF770.inc"
