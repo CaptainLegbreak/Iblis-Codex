@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 19:57 PST 2026: dead-statics-d2client is in #420. Nothing in Ready; looking for more placeholder joins.
 - Wed Nov 25 19:26 PST 2026: join-hireables is in #419; dead-statics-d2client rebased onto #419 and rebuilt (identical, no count rose).
 - Wed Nov 25 19:05 PST 2026: dead-statics-d2client posted (stacked on join-hireables). The quest-panel helpers were QuestLog.cpp\'s statics (making them global changes QuestLog\'s code), and the three other copies were never called, so they just go. (`lane4/join-quest-helpers` is the same commit under an earlier name; deleting it was refused, so ignore it.)
 - Wed Nov 25 18:47 PST 2026: join-004f0650 and ob1-004f4590 are in #418. join-hireables posted (four placeholders joined).
@@ -43,7 +44,6 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/dead-statics-d2client 934ece225 (on #419): 183 static functions in 29 D2Client files that nothing calls go (referenced only by their own definition, in the source and the generated data includes, so never emitted): mostly copies of other files' helpers, e.g. QuestLog.cpp's five quest-panel hit tests, which text.cpp, Unknown_004A43E0.cpp and Unknown_004A6460.cpp each carried unused, and inline helpers no function in the file uses. The eight declaration-count units are left alone. 2,355 lines out. Every changed unit equal; full build: Game.exe identical, tree 01d3b5926b9898af6e2028b4af6230e2e517c130, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
 
 ## Claimed
 
