@@ -402,7 +402,7 @@
    "bytes": 1532,
    "definitions": 15,
    "externs": [
-    "extern \"C\" void __cdecl sub_004E1320(); // 0x004E1320",
+    "extern \"C\" void __cdecl sub_004E1320_CastMissileBurst(); // 0x004E1320",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltDoLeap(); // 0x004C8C60",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltDoLeapAttack(); // 0x004C8ED0",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltDoCollide(); // 0x004C9320",
@@ -47924,7 +47924,7 @@
      4,
      "0x00490FC0",
      "names.json",
-     "sub_00490FC0",
+     "sub_00490FC0_ClickBodyLoc",
      0,
      "func"
     ],
@@ -47932,7 +47932,7 @@
      8,
      "0x00490FC0",
      "names.json",
-     "sub_00490FC0",
+     "sub_00490FC0_ClickBodyLoc",
      0,
      "func"
     ],
@@ -47940,7 +47940,7 @@
      12,
      "0x00490FC0",
      "names.json",
-     "sub_00490FC0",
+     "sub_00490FC0_ClickBodyLoc",
      0,
      "func"
     ],
@@ -47948,7 +47948,7 @@
      16,
      "0x00490780",
      "names.json",
-     "sub_00490780",
+     "sub_00490780_ClickRightArm",
      0,
      "func"
     ],
@@ -47956,7 +47956,7 @@
      20,
      "0x00490BA0",
      "names.json",
-     "sub_00490BA0",
+     "sub_00490BA0_ClickLeftArm",
      0,
      "func"
     ],
@@ -47964,7 +47964,7 @@
      24,
      "0x00490FC0",
      "names.json",
-     "sub_00490FC0",
+     "sub_00490FC0_ClickBodyLoc",
      0,
      "func"
     ],
@@ -47972,7 +47972,7 @@
      28,
      "0x00490FC0",
      "names.json",
-     "sub_00490FC0",
+     "sub_00490FC0_ClickBodyLoc",
      0,
      "func"
     ],
@@ -47980,7 +47980,7 @@
      32,
      "0x00490FC0",
      "names.json",
-     "sub_00490FC0",
+     "sub_00490FC0_ClickBodyLoc",
      0,
      "func"
     ],
@@ -47988,7 +47988,7 @@
      36,
      "0x00490FC0",
      "names.json",
-     "sub_00490FC0",
+     "sub_00490FC0_ClickBodyLoc",
      0,
      "func"
     ],
@@ -47996,7 +47996,7 @@
      40,
      "0x00490FC0",
      "names.json",
-     "sub_00490FC0",
+     "sub_00490FC0_ClickBodyLoc",
      0,
      "func"
     ]
@@ -58361,7 +58361,7 @@
      212,
      "0x004E1320",
      "names.json",
-     "sub_004E1320",
+     "sub_004E1320_CastMissileBurst",
      0,
      "func"
     ],

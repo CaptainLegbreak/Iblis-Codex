@@ -805,7 +805,7 @@ struct D2GridLightStrc
 extern int gnScreenWidth; // 0x0071146C
 
 
-void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE070
+void __stdcall sub_004DE070_FillGridLight(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE070
 
 void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE260
 
@@ -913,7 +913,7 @@ static void __stdcall WALL2_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY, int b
 }
 
 // 0x004DE070
-void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int bFlat, int nMode, int bCorners)
+void __stdcall sub_004DE070_FillGridLight(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int bFlat, int nMode, int bCorners)
 {
     const unsigned char nB0 = ENVIRONMENT_GetIntensityFromAct(gpGlobal_007A0634);
     D2GridCellStrc* pCell = pCells;
@@ -1136,7 +1136,7 @@ void __thiscall D2GridLightStrc::ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg,
             }
             else
             {
-                sub_004DE070(tSmall, nX, nY, nSubX, nSubY, 0, nMode, bCorners);
+                sub_004DE070_FillGridLight(tSmall, nX, nY, nSubX, nSubY, 0, nMode, bCorners);
             }
         }
         D2GFX_FloorTileDraw(pUnit->pInfo, tSmall, nX, nY, nSubX, nSubY, 0xFF, nMode, nArg);

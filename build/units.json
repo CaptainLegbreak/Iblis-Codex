@@ -14402,17 +14402,17 @@
     {
      "va": "0x00490780",
      "length": 1052,
-     "name": "?sub_00490780@@YIHPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
+     "name": "?sub_00490780_ClickRightArm@@YIHPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
     },
     {
      "va": "0x00490BA0",
      "length": 1052,
-     "name": "?sub_00490BA0@@YIHPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
+     "name": "?sub_00490BA0_ClickLeftArm@@YIHPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
     },
     {
      "va": "0x00490FC0",
      "length": 732,
-     "name": "?sub_00490FC0@@YIHPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
+     "name": "?sub_00490FC0_ClickBodyLoc@@YIHPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
     },
     {
      "va": "0x004912A0",
@@ -16668,7 +16668,7 @@
     {
      "va": "0x0045B5F0",
      "length": 702,
-     "name": "?sub_0045B5F0@@YGXPAUD2ActiveRoomStrc@@@Z"
+     "name": "?sub_0045B5F0_DrawRoomTileDebug@@YGXPAUD2ActiveRoomStrc@@@Z"
     },
     {
      "va": "0x0045B8B0",
@@ -19925,7 +19925,7 @@
     {
      "va": "0x00473470",
      "length": 584,
-     "name": "?sub_00473470@@YAXXZ"
+     "name": "?sub_00473470_DrawWeatherParticles@@YAXXZ"
     },
     {
      "va": "0x004736C0",
@@ -19954,7 +19954,7 @@
     {
      "va": "0x00473A70",
      "length": 391,
-     "name": "?sub_00473A70@@YIXPAUD2WeatherStrc@@PAUD2WeatherLayerStateStrc@@@Z"
+     "name": "?sub_00473A70_DrawWeatherSplashes@@YIXPAUD2WeatherStrc@@PAUD2WeatherLayerStateStrc@@@Z"
     },
     {
      "va": "0x00473C00",
@@ -30556,7 +30556,7 @@
     {
      "va": "0x004E1320",
      "length": 220,
-     "name": "?sub_004E1320@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?sub_004E1320_CastMissileBurst@@YIHPAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -31217,7 +31217,7 @@
     {
      "va": "0x004E4180",
      "length": 91,
-     "name": "?sub_004E4180@@YIHHHH@Z"
+     "name": "?sub_004E4180_GetCyclicDistance@@YIHHHH@Z"
     },
     {
      "va": "0x004E4200",

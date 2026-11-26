@@ -7806,7 +7806,7 @@ int __fastcall INV_IsInPlayerInvRect(int nX, int nY)
 #define PACKET(x) (x)
 
 // 0x00490780
-int __fastcall sub_00490780(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int nBodyLoc)
+int __fastcall sub_00490780_ClickRightArm(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int nBodyLoc)
 {
     int nResult = 0;
     D2UnitStrc* pItem = INVENTORY_GetCursorItem(pInventory);
@@ -7930,7 +7930,7 @@ int __fastcall sub_00490780(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
 }
 
 // 0x00490BA0
-int __fastcall sub_00490BA0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int nBodyLoc)
+int __fastcall sub_00490BA0_ClickLeftArm(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int nBodyLoc)
 {
     int nResult = 0;
     D2UnitStrc* pItem = INVENTORY_GetCursorItem(pInventory);
@@ -8054,7 +8054,7 @@ int __fastcall sub_00490BA0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, in
 }
 
 // 0x00490FC0
-int __fastcall sub_00490FC0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int nBodyLoc)
+int __fastcall sub_00490FC0_ClickBodyLoc(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int nBodyLoc)
 {
     int nResult = 0;
     D2UnitStrc* pItem = INVENTORY_GetCursorItem(pInventory);
