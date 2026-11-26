@@ -45,6 +45,11 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 - lane9/names-110-d2game WITHDRAWN: superseded by names-110-d2game-2, merged in #432. Don't merge 03c35c9a2 (the old
   tip): its content is on main already.
 - lane9/names-110-d2common WITHDRAWN: superseded by names-110-d2common-2, merged in #435.
+- lane9/names-spritevalidate 1691211c (on #434): 0x6001F0 takes its Blizzard name D2CMPSpriteValidate in the
+  renderer files (d3dSprite.cpp, D2DDraw Unknown_00511DF0.cpp, D2Gdi.h, gdiCore.cpp, glSprite.cpp), replacing three
+  placeholder spellings; d3dSprite.cpp's second identical prototype goes (Unknown_00511DF0.cpp keeps its repeats: it
+  differs without them). auditguard no count rose. Full build: Game.exe identical, tree
+  35e9103119d4e2064874a185b7c50c176055b9b7, borrowed code / data 8,373 / 261 B.
 - lane9/decls-renderers WITHDRAWN: superseded by decls-renderers-2 below.
 - lane9/decls-renderers-2 09b67cd9 (on #434): functions D2Gdi, D2DDraw, D2Direct3D and D2Glide define that other
   files of the same module declared privately are declared once in the module header (2 + 7 + 13 + 41), with the
