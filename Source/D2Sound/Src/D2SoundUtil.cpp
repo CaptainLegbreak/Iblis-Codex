@@ -61,7 +61,7 @@ struct D2VxdHeaderStrc
 
 struct D2DosHeaderStrc
 {
-    unsigned short f_0;
+    unsigned short e_magic;
     unsigned short unk0x02[29];
     long nHeaderOffset;
 };
@@ -195,7 +195,7 @@ int __fastcall D2SOUNDUTIL_ReadVxdVersionResource(const char* szFileName, unsign
             __leave;
 
         const D2DosHeaderStrc* pDos = (const D2DosHeaderStrc*)pView;
-        if (pDos->f_0 != 0x5A4D)
+        if (pDos->e_magic != 0x5A4D)
         {
             SetLastError(0x0B);
             __leave;

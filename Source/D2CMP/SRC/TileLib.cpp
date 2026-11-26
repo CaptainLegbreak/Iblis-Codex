@@ -51,15 +51,15 @@ struct D2TileLibraryEntryStrc
     unsigned short wFlags16;
     int nHeight;
     int nWidth;
-    int unk0x10;
+    int nHeightToBottom;
     int nOrientation;
-    int f_18;
+    int nIndex;
     int nSubIndex;
     int nRarity;
-    char unk0x24[4];
+    int transparentColorRGB24;
     unsigned char aSubtileFlags[25];
     char unk0x41[0x17];
-    int unk0x58;
+    int szFilePath;
 };
 
 struct D2TileLibraryHeaderStrc;
@@ -162,7 +162,7 @@ void* __stdcall CreateD2PaletteByteStream(void* pSource, int* pSize)
 }
 
 // 0x00604B90
-int __stdcall TileGetStyle(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 122); return pTile->f_18; }
+int __stdcall TileGetStyle(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 122); return pTile->nIndex; }
 
 // 0x00604BC0
 int __stdcall TileGetFlags(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 123); return hTile->wFlags16; }
@@ -186,10 +186,10 @@ int __stdcall TileGetTotalHeight(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTil
 unsigned char* __stdcall TileGetCollisionInfo(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 129); return pTile->aSubtileFlags; }
 
 // 0x00604D10
-int __stdcall TileGetHeightToBottom(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 130); return hTile->unk0x10; }
+int __stdcall TileGetHeightToBottom(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 130); return hTile->nHeightToBottom; }
 
 // 0x00604D40
 short __stdcall TileGetRoofHeight(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 131); return hTile->nRoofHeight; }
 
 // 0x00604D80
-int __stdcall TileGetFilename(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 132); return hTile->unk0x58; }
+int __stdcall TileGetFilename(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 132); return hTile->szFilePath; }

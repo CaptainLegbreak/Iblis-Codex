@@ -17,9 +17,9 @@ struct D2CDKeyInfoStrc
 
 struct D2AuthCheckPacketStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int f_8;
+    unsigned int dwClientToken;
+    unsigned int nVersion;
+    unsigned int nChecksum;
     unsigned int nKeys;
     unsigned int bSpawn;
     D2CDKeyInfoStrc pKeys[2];
@@ -81,7 +81,7 @@ int __cdecl sub_00521DC0_SendAuthCheck()
 
     const long nTime = _time32(0);
     gdwBnClientToken += GetTickCount() + nTime;
-    tPacket.f_0 = gdwBnClientToken;
+    tPacket.dwClientToken = gdwBnClientToken;
 
     if (!BNDOWNLOAD_HasArchiveName())
     {
@@ -98,7 +98,7 @@ int __cdecl sub_00521DC0_SendAuthCheck()
     }
 
     char szText[0x100];
-    if (!BNDOWNLOAD_RunCheckRevision(&tPacket.f_4, &tPacket.f_8, szText))
+    if (!BNDOWNLOAD_RunCheckRevision(&tPacket.nVersion, &tPacket.nChecksum, szText))
     {
         BNMESSQUEUE_SetError(1);
         return 0;
