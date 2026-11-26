@@ -484,7 +484,7 @@ struct D2ObjOperateStrc
     D2UnitStrc* player;
 };
 
-unsigned int __stdcall UNITS_GetUnitSizeX(D2UnitStrc*); // 0x00620510
+unsigned int __stdcall sub_00620510(D2UnitStrc*); // 0x00620510
 
 int __stdcall SUNIT_Dummy_00582AC0(D2UnitStrc* pUnit, int nValue);
 
@@ -1526,7 +1526,7 @@ int __fastcall OBJECTS_OperateFunction08_Door(D2ObjOperateStrc* context,int unus
  D2ActiveRoomStrc* room=UNITS_GetRoom(context->object);
  D2CoordStrc coords;
  UNITS_GetCoords(context->object,&coords);
- unsigned int sizeX=UNITS_GetUnitSizeX(context->object);
+ unsigned int sizeX=sub_00620510(context->object);
  unsigned int sizeY=UNITS_GetUnitSizeY(context->object);
  unsigned int tick=GetTickCount();
  unsigned int mode=GetAnimMode(context->object);
