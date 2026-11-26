@@ -199,7 +199,7 @@ struct D2StormBigStrc
 };
 
 unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue);                              // 0x004213B0
-int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight);                      // 0x004212F0
+int __stdcall sub_004212F0_Compare(const BigBuffer* pLeft, const BigBuffer* pRight);                      // 0x004212F0
 
 inline unsigned int ExtractLowPart(unsigned __int64& nValue)
 {

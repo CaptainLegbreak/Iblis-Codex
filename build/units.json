@@ -7159,30 +7159,14 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SBig_004212F0.cpp",
+   "file": "Source/Storm/SOURCE/SBig.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x004212F0",
      "length": 183,
-     "name": "?sub_004212F0_Compare@@YGHPAUBigBuffer@@0@Z"
+     "name": "?sub_004212F0_Compare@@YGHPBUBigBuffer@@0@Z"
     },
-    {
-     "va": "0x00421FE0",
-     "length": 104,
-     "name": "?GrowToFit@BigBuffer@@QAEXH@Z"
-    },
-    {
-     "va": "0x00422140",
-     "length": 99,
-     "name": "?sub_00422140_Trim@BigBuffer@@QAEXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SBig.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x00421440",
      "length": 41,
@@ -7236,6 +7220,16 @@
      "va": "0x00421E10",
      "length": 135,
      "name": "??0D2StormBigStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x00421FE0",
+     "length": 104,
+     "name": "?GrowToFit@BigBuffer@@QAEXH@Z"
+    },
+    {
+     "va": "0x00422140",
+     "length": 99,
+     "name": "?sub_00422140_Trim@BigBuffer@@QAEXXZ"
     },
     {
      "va": "0x004221F0",
