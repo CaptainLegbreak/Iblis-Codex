@@ -319,7 +319,7 @@ extern int gbDDrawBinkDone;                                                     
 
 int __fastcall GLDEBUGFONT_DownloadDebugFont(int nStartAddress, int nAlignment); // 0x0050B860
 
-int __fastcall GLSPRITE_SetSmackTexAddresses(int nBase, int nAlign); // 0x0050DFE0
+int __fastcall GLSMACK_SetSmackTexAddresses(int nBase, int nAlign); // 0x0050DFE0
 
 D2GlideTexCacheStrc gaGlideTexCaches[4]; // 0x0087F048
 
@@ -982,7 +982,7 @@ int __cdecl GLCORE_InitTextureMemory()
 	}
 	else if (gnRenderWidth == 800 && gnRenderHeight == 600)
 	{
-		nAddress += GLSPRITE_SetSmackTexAddresses(nAddress, gnTexAlign);
+		nAddress += GLSMACK_SetSmackTexAddresses(nAddress, gnTexAlign);
 		const unsigned int nFree = gadwTmuMaxAddress[0] - nAddress;
 		if (gnGlideTmuCount > 1)
 		{
@@ -1322,23 +1322,6 @@ int __fastcall GLCORE_Init(D2GfxSettingsStrc* pSettings, D2TileDrawFunctionsStrc
     gpRenderCriticalSection = (D2CriticalSectionStrc*)FOG_Alloc(sizeof(D2CriticalSectionStrc), ".\\Src\\glCore.cpp", 0x2D5, 0);
     InitializeCriticalSection(gpRenderCriticalSection);
     return 1;
-}
-
-// 0x0050A110
-void __fastcall GLCORE_ReleaseTexSlots(D2GlideTexSlotStrc* pSlots)
-{
-    for (int i = 0; i < 5; ++i)
-    {
-        const int nCache = pSlots[i].nCache - 1;
-        if (nCache >= 0)
-        {
-            const int nId = pSlots[i].nId - 1;
-            if (nId >= 0)
-            {
-                gaGlideTexCaches[nCache + 1].pEntries[nId].pOwner = 0;
-            }
-        }
-    }
 }
 
 // 0x00518C10

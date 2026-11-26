@@ -36,7 +36,7 @@ extern "C" __declspec(dllimport) void __stdcall SmackToBuffer(void* hSmack, unsi
 
 void __fastcall GLSMACK_SetSmackPalette(D2RgbColorStrc* pColors); // 0x0050E070
 
-void __cdecl GLSPRITE_UploadSmackTextures(); // 0x0050E330
+void __cdecl GLSMACK_UploadSmackTextures(); // 0x0050E330
 
 int __stdcall SBmpDecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
 
@@ -70,6 +70,8 @@ extern D2GrTexInfoStrc gtGlideSmackTexInfoA;                                    
 
 extern D2GrTexInfoStrc gtGlideSmackTexInfoB;                                                        // 0x0072F694
 
+extern void (__stdcall* gpfnGrTexDownloadMipMap)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EAB8
+
 // 0x0050DF10
 void __cdecl GLSMACK_SmackInit()
 {
@@ -80,21 +82,6 @@ void __cdecl GLSMACK_SmackInit()
     gpGlideSmackBufferB = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glSmack.cpp", 0x47, 0);
     gpGlideSmackBufferC = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glSmack.cpp", 0x48, 0);
     sgbSmack8BitBuffer = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glSmack.cpp", 0x49, 0);
-}
-
-static D2GlideTexCacheEntryStrc* sub_N19_TexPopHead(D2GlideTexCacheStrc* pCache)
-{
-    D2GlideTexCacheEntryStrc* pEntry = pCache->pHead;
-    if (!pEntry)
-        return 0;
-    pCache->pHead = pEntry->pNext;
-    if (pCache->pHead)
-        pCache->pHead->pPrev = 0;
-    else
-        pCache->pTail = 0;
-    pEntry->pNext = 0;
-    pEntry->pPrev = 0;
-    return pEntry;
 }
 
 static D2GlideTileCacheEntryStrc* sub_N19_TilePopHead(D2GlideTileCacheStrc* pCache)
@@ -140,19 +127,20 @@ static void sub_N19_TileEvict(D2GlideTileCacheStrc* pCache)
     --pCache->nUsed;
 }
 
-static D2GlideFloorCacheEntryStrc* sub_N19_FloorPopHead(D2GlideFloorCacheStrc* pCache)
+// 0x0050DFE0
+int __fastcall GLSMACK_SetSmackTexAddresses(int nBase, int nAlign)
 {
-    D2GlideFloorCacheEntryStrc* pEntry = pCache->pHead;
-    if (!pEntry)
-        return 0;
-    pCache->pHead = pEntry->pNext;
-    if (pCache->pHead)
-        pCache->pHead->pPrev = 0;
-    else
-        pCache->pTail = 0;
-    pEntry->pNext = 0;
-    pEntry->pPrev = 0;
-    return pEntry;
+    int nSize = 0x8000;
+    const int nMask = nAlign - 1;
+    if (nSize & nMask)
+        nSize = (nSize | nMask) + 1;
+    if (nBase & nMask)
+        nBase = (nBase | nMask) + 1;
+    gnGlideSmackTexAddrB = nBase + nSize;
+    gnGlideSmackTexAddrA = nBase;
+    gtGlideSmackTexInfoA.pData = gpGlideSmackBufferB;
+    gtGlideSmackTexInfoB.pData = gpGlideSmackBufferC;
+    return nSize * 2;
 }
 
 // 0x0050E030
@@ -195,6 +183,13 @@ void __fastcall GLSMACK_SetSmackPalette(D2RgbColorStrc* colors)
   }
   source+=512;left+=256;right+=256;
  }
+}
+
+// 0x0050E330
+void __cdecl GLSMACK_UploadSmackTextures()
+{
+    gpfnGrTexDownloadMipMap(gnGlideSmackTmu, gnGlideSmackTexAddrA, 3, &gtGlideSmackTexInfoA);
+    gpfnGrTexDownloadMipMap(gnGlideSmackTmu, gnGlideSmackTexAddrB, 3, &gtGlideSmackTexInfoB);
 }
 
 // 0x0050E370
@@ -272,7 +267,7 @@ void __fastcall GLSMACK_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pSm
     memset(gpGlideSmackBufferC, 0, 0x8000);
     if (!gbRenderPaused)
     {
-        GLSPRITE_UploadSmackTextures();
+        GLSMACK_UploadSmackTextures();
     }
 
     pSmack->nType = nType;
@@ -325,7 +320,7 @@ void __fastcall GLSMACK_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pSm
         }
 
         GLSMACK_SetSmackPalette(aColors);
-        GLSPRITE_UploadSmackTextures();
+        GLSMACK_UploadSmackTextures();
         return;
     }
 
@@ -363,7 +358,7 @@ void __fastcall GLSMACK_PlaySmacker(D2SmackRecordStrc* pRecord)
             if (gbRenderPaused)
                 return;
             GLSMACK_SetSmackPalette(hSmack->aPalette);
-            GLSPRITE_UploadSmackTextures();
+            GLSMACK_UploadSmackTextures();
         }
         if (gbRenderPaused)
             return;
@@ -375,165 +370,6 @@ void __fastcall GLSMACK_PlaySmacker(D2SmackRecordStrc* pRecord)
         break;
     }
 }
-
-// 0x0050EAE0
-D2GlideTexCacheEntryStrc* __fastcall GLSMACK_TexCacheUnlink(D2GlideTexCacheStrc* pCache, int nIndex)
-{
-    D2GlideTexCacheEntryStrc* pNode = pCache->pHead;
-    if (!pNode)
-        return 0;
-    D2GlideTexCacheEntryStrc* pEntry = &pCache->pEntries[nIndex];
-    if (pEntry == pNode)
-    {
-        pCache->pHead = pNode->pNext;
-        if (pCache->pHead)
-            pCache->pHead->pPrev = 0;
-        else
-            pCache->pTail = 0;
-        pNode->pNext = 0;
-        pNode->pPrev = 0;
-        return pNode;
-    }
-    pNode = pCache->pTail;
-    if (pEntry == pNode)
-    {
-        pNode = pNode->pPrev;
-        pCache->pTail = pNode;
-        pNode->pNext = 0;
-    }
-    else
-    {
-        pNode = pEntry->pPrev;
-        pNode->pNext = pEntry->pNext;
-        pNode = pEntry->pNext;
-        pNode->pPrev = pEntry->pPrev;
-    }
-    pEntry->pNext = 0;
-    pEntry->pPrev = 0;
-    return pEntry;
-}
-
-// 0x0050EC40
-void __fastcall GLSMACK_TexCacheEvict(D2GlideTexCacheStrc* pCache)
-{
-    if (!pCache->nUsed)
-        return;
-    D2GlideTexCacheEntryStrc* pEntry = sub_N19_TexPopHead(pCache);
-    if (pEntry)
-    {
-        if (pEntry->pOwner)
-        {
-            pEntry->pOwner[pEntry->nOwnerIndex].nCache = 0;
-            pEntry->pOwner[pEntry->nOwnerIndex].nId = 0;
-            pEntry->pOwner = 0;
-        }
-        if (!pCache->pFreeHead)
-        {
-            pCache->pFreeHead = pEntry;
-            pCache->pFreeTail = pEntry;
-        }
-        else
-        {
-            pCache->pFreeTail->pNext = pEntry;
-            pEntry->pPrev = pCache->pFreeTail;
-            pCache->pFreeTail = pEntry;
-        }
-    }
-    --pCache->nUsed;
-}
-
-
-// 0x0050F570
-D2GlideFloorCacheEntryStrc* __fastcall GLSMACK_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex)
-{
-    D2GlideFloorCacheEntryStrc* pNode = pCache->pHead;
-    if (!pNode)
-        return 0;
-    D2GlideFloorCacheEntryStrc* pEntry = &pCache->pEntries[nIndex];
-    if (pEntry == pNode)
-    {
-        pCache->pHead = pNode->pNext;
-        if (pCache->pHead)
-            pCache->pHead->pPrev = 0;
-        else
-            pCache->pTail = 0;
-        pNode->pNext = 0;
-        pNode->pPrev = 0;
-        return pNode;
-    }
-    pNode = pCache->pTail;
-    if (pEntry == pNode)
-    {
-        pNode = pNode->pPrev;
-        pCache->pTail = pNode;
-        pNode->pNext = 0;
-    }
-    else
-    {
-        pNode = pEntry->pPrev;
-        pNode->pNext = pEntry->pNext;
-        pNode = pEntry->pNext;
-        pNode->pPrev = pEntry->pPrev;
-    }
-    pEntry->pNext = 0;
-    pEntry->pPrev = 0;
-    return pEntry;
-}
-
-// 0x0050F6D0
-void __fastcall GLSMACK_FloorCacheEvict(D2GlideFloorCacheStrc* pCache)
-{
-    if (!pCache->nUsed)
-        return;
-    D2GlideFloorCacheEntryStrc* pEntry = sub_N19_FloorPopHead(pCache);
-    if (pEntry)
-    {
-        D2TileLibraryEntryStrc* pTile = pEntry->pTile;
-        D2_ASSERT(pTile, 0xD3);
-        pTile->nCacheIndex = 0;
-        pEntry->pTile = 0;
-        if (!pCache->pFreeHead)
-        {
-            pCache->pFreeHead = pEntry;
-            pCache->pFreeTail = pEntry;
-        }
-        else
-        {
-            pCache->pFreeTail->pNext = pEntry;
-            pEntry->pPrev = pCache->pFreeTail;
-            pCache->pFreeTail = pEntry;
-        }
-    }
-    --pCache->nUsed;
-}
-
-// 0x0050F750
-void __fastcall GLSMACK_FloorCacheRemove(D2GlideFloorCacheStrc* pCache, int nIndex)
-{
-    if (!pCache->nUsed)
-        return;
-    D2GlideFloorCacheEntryStrc* pEntry = GLSMACK_FloorCacheUnlink(pCache, nIndex);
-    if (pEntry)
-    {
-        D2TileLibraryEntryStrc* pTile = pEntry->pTile;
-        D2_ASSERT(pTile, 0xF1);
-        pTile->nCacheIndex = 0;
-        pEntry->pTile = 0;
-        if (!pCache->pFreeHead)
-        {
-            pCache->pFreeHead = pEntry;
-            pCache->pFreeTail = pEntry;
-        }
-        else
-        {
-            pCache->pFreeTail->pNext = pEntry;
-            pEntry->pPrev = pCache->pFreeTail;
-            pCache->pFreeTail = pEntry;
-        }
-    }
-    --pCache->nUsed;
-}
-
 
 // 0x0050DF70
 void __cdecl GLSMACK_SmackFree()
