@@ -18,6 +18,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Questions
 
+- **2026-11-26 01:30 UTC, tools/ltcg.py and functions with `__try`:** a link-time unit that defines a function with `__try` fails to lift (`LTCG_UNEXPLAINED_CHANGE` at the push of its scope table, e.g. 0x401A70+0x8). That is why 0x401A70 (thread-name helper, SEH) sits in ErrorManager.cpp and its only caller 0x4027C0 in LogManager.cpp, although both lie inside the /GL crash-handler run (0x401DF0-0x402AE0). With that reference class handled I could build the two together under /GL in their likely original form (a two-argument helper called once) and see whether 0x4027C0's volatile local is still needed. A simplified helper without `__try` leaves nothing behind in the caller, so this may not change the result; it is the one combination I could not test. Is the scope-table reference something you want in the lifter, or should I add it on a lane3 branch?
+
 (none)
 
 ## Notes for other lanes
