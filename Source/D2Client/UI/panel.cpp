@@ -1691,13 +1691,6 @@ void __stdcall PANEL_CloseUIVarsMsg(SMSGHANDLER_PARAMS* pMsg)
     UI_CloseUIVars(1, 0);
 }
 
-void __stdcall sub_A11_Emit_00498870(SMSGHANDLER_PARAMS* pMsg)
-{
-    const int nX = pMsg->nXpos;
-    const int nY = pMsg->nYpos;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    PANEL_ClickBeltBox(pPlayer->pInventory, nX, nY);
-}
 
 static int __stdcall INV_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2ItemsTxt* pState)
 {

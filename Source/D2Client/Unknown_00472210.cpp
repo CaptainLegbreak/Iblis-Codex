@@ -148,13 +148,6 @@ unsigned char gabPeriodLightColors[12]; // 0x007A898C
 
 static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nValue, unsigned char* pOut1);
 
-void __cdecl sub_B10_Emit_00472FB0(D2B10EmitWeatherStrc* pWeather, unsigned char* pOut1)
-{
-    if (pWeather->nValue < 8 && pWeather->nValue >= 0)
-    {
-        sub_00472FB0_GetPeriodLight(&pWeather->nOut2, pWeather->nValue, pOut1);
-    }
-}
 
 unsigned int gnPhaseTotal; // 0x007A8A38
 

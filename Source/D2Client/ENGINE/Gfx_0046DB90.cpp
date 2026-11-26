@@ -1205,13 +1205,6 @@ void __fastcall GFX_ResetMonsterModeGfx(D2UnitStrc* pUnit)
     }
 }
 
-void sub_M389_Emit_0046FF50(int bAsync, D2UnitStrc* pUnit)
-{
-    for (unsigned int i = 0; i < gnPlayerModeCount; ++i)
-    {
-        GFX_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes[i] + 0x13);
-    }
-}
 
 void __fastcall sub_00470B70_ResetMonsterMode(D2UnitStrc* pUnit)
 {
@@ -1248,10 +1241,5 @@ void __fastcall sub_00470B70_ResetMonsterMode(D2UnitStrc* pUnit)
     }
 }
 
-int __stdcall sub_M389_Emit_0046FEB0(int bAsync, D2UnitStrc* pUnit)
-{
-    GFX_PreloadMonsterModes(bAsync, pUnit);
-    return 0x3B;
-}
 
 #include "gen/data/Source/D2Client/ENGINE/Gfx_0046DB90.inc"

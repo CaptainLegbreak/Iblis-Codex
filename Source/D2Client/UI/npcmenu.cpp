@@ -1194,28 +1194,9 @@ static int NPCMENU_GetNpcDialogPos(D2CoordStrc* pCoords)
     return 0;
 }
 
-void __cdecl sub_F03_Emit_004B1640(D2UnitStrc* pRecord)
-{
-    NPCMENU_SetNpcInteract(pRecord);
-}
 
-int __cdecl sub_F03_Emit_004B19A0(int nNpcId)
-{
-// build: symbol ?gnHandlerCount@* 0x007253DC
-// build: symbol ?gpPlayerQuestFlags@* 0x007C0D43
-    return NPCMENU_RunNpcQuestHandlers(nNpcId, gpPlayerQuestFlags, gaNpcHandlers, gnHandlerCount);
-}
 
-void __cdecl sub_F03_Emit_004B1A10(int nClassId)
-{
-    if (NPCMENU_IsSpecialNpc(nClassId))
-        gbNpcInteracting = 1;
-}
 
-int __cdecl sub_F03_Emit_004B2E30(D2UnitStrc* pRecord)
-{
-    return NPCMENU_FindNpcIndex(pRecord);
-}
 
 // 0x004B1DD0
 int __cdecl NPCMENU_ResurrectMercWait()
@@ -1352,12 +1333,6 @@ void __cdecl NPCMENU_FreeDialogs()
     if (gpRes_007C0D77) { DIALOG_DestroyDialog(gpRes_007C0D77); gpRes_007C0D77 = 0; }
 }
 
-void __fastcall sub_Z12_EmitItemNeedsRepair(D2UnitStrc* pItem)
-{
-    for (; pItem; pItem = sub_Z12_EmitNext(pItem))
-        if (NPCMENU_ItemNeedsRepair(pItem))
-            sub_Z12_EmitUseItem(pItem);
-}
 
 // 0x004B21C0
 static inline void NPCMENU_SetEntryType2(int nIndex)
