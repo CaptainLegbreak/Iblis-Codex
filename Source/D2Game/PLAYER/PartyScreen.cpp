@@ -30,15 +30,15 @@ struct D2PartyScreenCallbackStrc
 };
 
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
-void __fastcall PLAYERLIST_SetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3); // 0x0055B3A0
+void __fastcall PLAYERLIST_SetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nPartyState); // 0x0055B3A0
 void __fastcall SCMD_BroadcastPlayerParty(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x0053DEC0
 
 short __fastcall PLAYERLIST_GetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B3F0
 void __fastcall PLAYERLIST_SendPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B440
 short __fastcall PARTY_CreateParty(D2GameStrc* pGame); // 0x00540100
-int __fastcall sub_00540320(D2GameStrc* pGame, short nPartyId, D2UnitStrc* pPlayer); // 0x00540320
+int __fastcall PARTY_AddPlayerToParty(D2GameStrc* pGame, short nPartyId, D2UnitStrc* pPlayer); // 0x00540320
 void __fastcall PLAYERLIST_ResetPendingPartyInvitations(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x0055B650
-void __fastcall PARTYSCREEN_PlayerIterate_PartyJoined(D2GameStrc* pGame, D2UnitStrc* pLocalPlayer, void* a3); // 0x005A5970
+void __fastcall PARTYSCREEN_PlayerIterate_PartyJoined(D2GameStrc* pGame, D2UnitStrc* pLocalPlayer, void* pArgs); // 0x005A5970
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
@@ -285,13 +285,13 @@ void __fastcall PARTYSCREEN_AcceptInvitation(D2GameStrc* pGame, D2UnitStrc* pPla
     if (nPartyId == 0xFFFF)
     {
         nPartyId = PARTY_CreateParty(pGame);
-        sub_00540320(pGame, nPartyId, pTarget);
-        sub_00540320(pGame, nPartyId, pPlayer);
+        PARTY_AddPlayerToParty(pGame, nPartyId, pTarget);
+        PARTY_AddPlayerToParty(pGame, nPartyId, pPlayer);
         PLAYERLIST_ResetPendingPartyInvitations(pGame, pTarget);
     }
     else
     {
-        sub_00540320(pGame, nPartyId, pPlayer);
+        PARTY_AddPlayerToParty(pGame, nPartyId, pPlayer);
     }
 
     PLAYERLIST_ResetPendingPartyInvitations(pGame, pPlayer);

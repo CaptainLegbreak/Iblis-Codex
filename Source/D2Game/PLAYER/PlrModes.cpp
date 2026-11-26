@@ -112,7 +112,7 @@ D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);
 
 int __fastcall PLRMODE_IsEndAnimDue(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0057ED70
 
-int __fastcall PLRMODE_CanInterruptCurrentMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int a4, D2SkillStrc* pSkill); // 0x0057EEC0
+int __fastcall PLRMODE_CanInterruptCurrentMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int bCheckUsedSkill, D2SkillStrc* pSkill); // 0x0057EEC0
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
@@ -201,7 +201,7 @@ struct D2UnkPlrModeStrc2
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 
 
-int __fastcall ITEMMODE_FindFreeBodyLocation(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int* pBodyLoc, int a4); // 0x0055D710
+int __fastcall ITEMMODE_FindFreeBodyLocation(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int* pBodyLoc, int bSkipRequirementCheck); // 0x0055D710
 
 
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
@@ -217,7 +217,7 @@ unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
-int __fastcall ITEMMODE_UnequipBodyItem(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nBodyLoc, int bSetQuantityFlag, int* a5); // 0x00560CD0
+int __fastcall ITEMMODE_UnequipBodyItem(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nBodyLoc, int bSetQuantityFlag, int* pItemStatus); // 0x00560CD0
 
 
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
@@ -227,7 +227,7 @@ D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 int __stdcall SKILLS_GetUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00647960
 
 
-void __fastcall D2GAME_AssignSkill(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags); // 0x005701B0
+void __fastcall D2GAME_AssignSkill(D2UnitStrc* pUnit, int bLeftSkill, int nSkillId, int nFlags); // 0x005701B0
 
 static void __stdcall sRestoreWeapon(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pWeapon); // 0x00580030
 
@@ -338,7 +338,7 @@ unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 
-void __fastcall PLRMODE_ChangeModeToCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7); // 0x005809D0
+void __fastcall PLRMODE_ChangeModeToCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int bAllowReEnter); // 0x005809D0
 
 
 extern const unsigned char gbMask_006CE284; // 0x006CE284

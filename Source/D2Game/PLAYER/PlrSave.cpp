@@ -256,7 +256,7 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
-int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int bSkipCollisionSearch, int bSyncOtherPlayersOnly); // 0x00554EA0
 
 int __fastcall PLRTRADE_CopyTradeSaveDataToBuffer(D2UnitStrc* pUnit, unsigned char* pBuffer, int nBufferSize); // 0x005675E0
 
@@ -290,7 +290,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc* pCorpse); // 0x0063D630
 
-__declspec(noalias) int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int* pSize, unsigned int nMaxSize, int a6, int a7); // 0x00569AD0
+__declspec(noalias) int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int* pSize, unsigned int nMaxSize, int bUseTradeInventory, int nUnused); // 0x00569AD0
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -326,7 +326,7 @@ unsigned int __fastcall CRC32_Compute(void* pData, unsigned int dwSize); // 0x00
 
 
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
@@ -367,7 +367,7 @@ extern "C" int __cdecl fclose(_iobuf* pFile); // 0x00681FDC
 
 int __fastcall CLIENTS_GetClientId(D2ClientStrc* pClient); // 0x00538590
 
-int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int nSize, int nTotalSize, int a5, int a6, int a7); // 0x00538CE0
+int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int nSize, int nTotalSize, int bUnlockCharacter, int nUnused1, int nUnused2); // 0x00538CE0
 
 D2SaveHeaderStrc* __fastcall CLIENTS_GetSaveHeader(D2ClientStrc* pClient); // 0x00538E00
 
@@ -521,7 +521,7 @@ void __fastcall SUNIT_InitSeed(D2UnitStrc* pUnit, D2SeedStrc* pSeed); // 0x00552
 
 int __fastcall CLIENTS_GetClassId(D2ClientStrc* pClient); // 0x005385F0
 
-D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
 
 void __fastcall SUNITMSG_SendUnitToClient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571F90
 
@@ -530,9 +530,9 @@ void __fastcall PLAYERSTATS_SetStatsForStartingAct(D2GameStrc* pGame, D2UnitStrc
 void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2GameStrc* pGame, unsigned char nAct); // 0x00534F10
 
 
-void __fastcall D2GAME_AssignSkill(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags); // 0x005701B0
+void __fastcall D2GAME_AssignSkill(D2UnitStrc* pUnit, int bLeftSkill, int nSkillId, int nFlags); // 0x005701B0
 
-void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3); // 0x00546270
+void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, int bGameEnter); // 0x00546270
 
 int __fastcall PLRSAVE_ReadSaveData(D2GameStrc* pGame, D2ClientStrc* pClient, D2SaveHeaderStrc* pSave, unsigned int nSize, D2UnitStrc** ppPlayer, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00534330
 
@@ -748,13 +748,13 @@ void __fastcall QUESTS_UpdateNPCIntros(D2GameStrc* pGame, D2UnitStrc* pUnit, uns
 
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
 
-void __fastcall SUNIT_SetAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
+void __fastcall SUNIT_SetAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int bUpdate); // 0x005543B0
 
 void __fastcall D2GAME_ITEMMODE_ServerStatlistCallback(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pOther, int nLayer_StatId, int nPreviousValue, int nNewValue); // 0x0055B800
 
 void __fastcall PLRTRADE_CloseCubeInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00567330
 
-int __fastcall PLRTRADE_PrepareItemChange(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* a3); // 0x00567620
+int __fastcall PLRTRADE_PrepareItemChange(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x00567620
 
 void __fastcall PLRTRADE_StopInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00568760
 
@@ -773,7 +773,7 @@ void __fastcall ACT1Q4_UpdateQuestStateOnActChange(D2GameStrc* pGame, D2UnitStrc
 void __fastcall D2GAME_INVMODE_First(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, D2InventoryStrc* pInventory); // 0x00597890
 
 
-void* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int a2, int a3); // 0x00619DA0
+void* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
 
 
 void __stdcall UNITS_SetSwitchLeftSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00623300
@@ -1421,7 +1421,7 @@ static inline int sub_00531C10_GetUnitY(D2UnitStrc* pUnit)
 }
 
 // 0x00531C10
-int __fastcall PLRSAVE_WriteCorpseSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int nSize, int a5)
+int __fastcall PLRSAVE_WriteCorpseSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int nSize, int nArg6)
 {
     D2InventoryStrc* pInventory = pPlayer->pInventory;
     D2UnitStrc* pCorpse = 0;
@@ -1459,16 +1459,16 @@ int __fastcall PLRSAVE_WriteCorpseSection(D2GameStrc* pGame, D2UnitStrc* pPlayer
     nSize -= sizeof(tCorpse);
 
     D2InventoryStrc* const tArg3 = pCorpse->pInventory;
-    const int nWritten = PLRSAVE_WriteItems(pGame, pCorpse, tArg3, pData, nSize, 0, a5, 0);
+    const int nWritten = PLRSAVE_WriteItems(pGame, pCorpse, tArg3, pData, nSize, 0, nArg6, 0);
     D2_ASSERT(nWritten > 0, 0x984);
     return nWritten + 16;
 }
 
 // 0x00531D30
-static unsigned int __stdcall PLRSAVE_GetSaveFileSize(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int nMaxSize, int bUseTradeInventory, int a7)
+static unsigned int __stdcall PLRSAVE_GetSaveFileSize(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int nMaxSize, int bUseTradeInventory, int nUnused)
 {
     unsigned int nSize = 0;
-    PLRSAVE2_CreateSaveFile(pGame, pPlayer, pData, &nSize, nMaxSize, bUseTradeInventory, a7);
+    PLRSAVE2_CreateSaveFile(pGame, pPlayer, pData, &nSize, nMaxSize, bUseTradeInventory, nUnused);
     return nSize;
 }
 
@@ -2028,7 +2028,7 @@ int __fastcall PLRSAVE_ReadLegacyStats(D2GameStrc* pGame, D2UnitStrc* pUnit, uns
     return 0;
 }
 
-void __fastcall D2GAME_SetSkills(int a1, int a2, int a3, int a4); // 0x0056DEB0
+void __fastcall D2GAME_SetSkills(int pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
 // 0x00532E70
 void __stdcall PLRSAVE_SetSkillIfLevelSet(int pUnit, int nSkillId, unsigned char nSkillLevel)
@@ -3031,7 +3031,7 @@ static void __stdcall SUNITPROXY_ClearNpcRecordData(D2NpcRecordStrc* pNpcRecord,
                 INVENTORY_FreeInventory(pGamble->pInventory);
                 pGamble->pInventory = 0;
             }
-            sub_0040B480(pGame->pMemoryPool, pGamble, ".\\UNIT\\sunitproxy.cpp", 0x1E6, 0);
+            FOG_FreePool(pGame->pMemoryPool, pGamble, ".\\UNIT\\sunitproxy.cpp", 0x1E6, 0);
             pGamble = pNextGamble;
         }
         pNpcRecord->pGamble = 0;
@@ -3049,7 +3049,7 @@ static void __stdcall SUNITPROXY_ClearNpcRecordData(D2NpcRecordStrc* pNpcRecord,
         {
             ITEMS_RemoveFromAllPlayers(pGame, pNpcEvent->pUnit);
         }
-        sub_0040B480(pGame->pMemoryPool, pNpcEvent, ".\\UNIT\\sunitproxy.cpp", 0x204, 0);
+        FOG_FreePool(pGame->pMemoryPool, pNpcEvent, ".\\UNIT\\sunitproxy.cpp", 0x204, 0);
         pNpcEvent = pNextEvent;
     }
     pNpcRecord->pEvent = 0;
@@ -3106,7 +3106,7 @@ void __fastcall SUNITPROXY_FreeNpcGamble(D2GameStrc* pGame, D2UnitStrc* pNpc, D2
                     pGamble->pInventory = 0;
                 }
 
-                sub_0040B480(pGame->pMemoryPool, pGamble, ".\\UNIT\\sunitproxy.cpp", 0x5D0, 0);
+                FOG_FreePool(pGame->pMemoryPool, pGamble, ".\\UNIT\\sunitproxy.cpp", 0x5D0, 0);
                 return;
             }
 

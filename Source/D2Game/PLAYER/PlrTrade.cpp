@@ -124,7 +124,7 @@ int __fastcall D2GAME_CheckHasFilledSockets(D2UnitStrc* pItem, const char* szFil
 
 void __fastcall ITEMMODE_ResetBookScrollSkillQuantity(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055F9C0
 
-int __fastcall D2GAME_PlaceItem(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int a8, int a9, D2InventoryStrc* pInventory); // 0x00560200
+int __fastcall D2GAME_PlaceItem(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int bAutoPosition, int bNotify, D2InventoryStrc* pInventory); // 0x00560200
 
 int __fastcall ITEMMODE_DuplicateSocketFillers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pSocketable, int bRefresh); // 0x00563350
 
@@ -178,9 +178,9 @@ struct Item { char pad0[0xF6]; unsigned short format; char padF8[5]; unsigned ch
 
 struct ItemRecordTable { int count; Item* records; };
 
-ItemRecordTable* __stdcall sub_00633590(); // 0x00633590
+ItemRecordTable* __stdcall DATATBLS_GetItemDataTables(); // 0x00633590
 
-unsigned __fastcall sub_0045C3E0(Seed*,int); // 0x0045C3E0
+unsigned __fastcall ITEMS_RollLimitedRandomNumber(Seed*,int); // 0x0045C3E0
 
 int __stdcall ITEMS_CheckItemTypeIdByItemId(int,int); // 0x00629A90
 
@@ -337,7 +337,7 @@ void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int
 
 void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit);                           // 0x00557FD0
 
-int __fastcall ITEMMODE_RemoveStoredItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int* a4, int a5, int bSetQuantityFlag, D2InventoryStrc* pInventoryArg, int a8); // 0x00560420
+int __fastcall ITEMMODE_RemoveStoredItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int* pItemStatus, int nUpdateMode, int bSetQuantityFlag, D2InventoryStrc* pInventoryArg, int bAllowOccupiedCursor); // 0x00560420
 
 
 
@@ -359,7 +359,7 @@ int __fastcall ITEMMODE_CanPickUpItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Un
 
 void __fastcall ITEMMODE_RebuildBookScrollSkillQuantities(D2GameStrc* pGame, D2UnitStrc* pUnit);                                         // 0x0055FA40
 
-void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3);                                 // 0x005678F0
+void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused);                                 // 0x005678F0
 
 int __stdcall UNITS_GetStashGoldLimit(D2UnitStrc* pUnit);                                                   // 0x00623460
 
@@ -1151,10 +1151,10 @@ static int __stdcall PLRTRADE_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemStrc*
 short __fastcall PLRTRADE_RollRandomItemClassOfSameType(Game* game,int level,int type)
 {
     short choices[256];
-    ItemRecordTable* table=sub_00633590();
+    ItemRecordTable* table=DATATBLS_GetItemDataTables();
     int count=0;
     if(!table) { FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),0x384); exit(-1); }
-    int start=sub_0045C3E0(&game->seed,table->count);
+    int start=ITEMS_RollLimitedRandomNumber(&game->seed,table->count);
     int stop=start-1;
     if(stop<0) stop=table->count-1;
     int index=start;
@@ -1170,7 +1170,7 @@ short __fastcall PLRTRADE_RollRandomItemClassOfSameType(Game* game,int level,int
         if(index>=table->count) index=0;
     }
     if(!count) return 0;
-    return choices[sub_0045C3E0(&game->seed,count)];
+    return choices[ITEMS_RollLimitedRandomNumber(&game->seed,count)];
 }
 
 // 0x00565A80

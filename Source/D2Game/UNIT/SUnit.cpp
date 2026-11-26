@@ -140,7 +140,7 @@ typedef int (__fastcall* SUNIT_ITERATEFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
 void __fastcall PLAYER_InitializePosition(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x00534AD0
 
-int __fastcall MONSTER_SetVelocityAndPosition(D2GameStrc* pGame, D2UnitStrc* pMonster, int nX, int nY, int a5); // 0x005735A0
+int __fastcall MONSTER_SetVelocityAndPosition(D2GameStrc* pGame, D2UnitStrc* pMonster, int nX, int nY, int bUnusedSkipRoomUpdate); // 0x005735A0
 
 void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00573780
 
@@ -400,9 +400,9 @@ D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster(D2GameStrc* pGame, D2ActiveRoom
 
 D2UnitStrc* __fastcall OBJECTS_SpawnPresetObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode); // 0x0054F490
 
-D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
 
-int __fastcall D2GAME_InitItemStats(D2GameStrc* pGame, D2UnitStrc** ppItem, D2ItemDropStrc* pItemDrop, int a4); // 0x00557AB0
+int __fastcall D2GAME_InitItemStats(D2GameStrc* pGame, D2UnitStrc** ppItem, D2ItemDropStrc* pItemDrop, int bQuestItem); // 0x00557AB0
 
 struct D2DynamicPathStrc;
 
@@ -446,7 +446,7 @@ void __fastcall MONSTER_Initialize(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D
 
 void __fastcall MISSILES_Initialize(D2GameStrc* pGame, D2UnitStrc* pMissile, int nUnitGUID);                 // 0x0059F8A0
 
-void __fastcall TARGETS_AllocPlayerNode(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3);                 // 0x005B1880
+void __fastcall TARGETS_AllocPlayerNode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNodeData);                 // 0x005B1880
 
 D2UnitStrc* __stdcall UNITS_AllocUnit(void* pMemPool, int nUnitType);                                       // 0x00620290
 
@@ -499,7 +499,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x07(D2ClientStrc* pClient, int nAreaId
 
 void __fastcall EVENT_SetEventWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, EventTimerCallback pCallback, int nCustomId, int nCustomParam); // 0x00541800
 
-int __fastcall SUNIT_EventClearTeleportCoordinates(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3, int a4, int a5); // 0x00554570
+int __fastcall SUNIT_EventClearTeleportCoordinates(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nEventType, int nUnusedParam1, int nUnusedParam2); // 0x00554570
 
 int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
 
@@ -2335,7 +2335,7 @@ void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
         break;
 
     case UNIT_MONSTER:
-        sub_005B1A90(pGame, pUnit);
+        TARGETS_RemoveUnitNode(pGame, pUnit);
 
         if (pUnit->pDynamicPath)
         {
