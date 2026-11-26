@@ -47,6 +47,12 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/params-d2game-a a64d4e0a (on #439): D2Game MISSILES, INVENTORY, DEBUG, ITEMS: Hex-Rays parameters take the
+  name the function's own definition gives that position, else D2MOO's (by name or its 1.14d notes); a few named by
+  use (nTargetFlags/nPathFlags, bRecharge; the empty debug stubs' nArg1..); callees spelled sub_<VA> take names.csv's
+  name; 0x55E9A0's definition takes names.csv's sub_0055E9A0_Return0, and names.csv's 0x564CA0 row returns to its
+  exported definition's spelling. a1/v12 1,747 -> 1,661; auditguard no count rose. Full build: Game.exe identical,
+  tree 37a90c100edbb65c652c089f8b3bb337e355812f, borrowed code / data 8,373 / 261 B.
 - lane9/glide-spans b53e11bb (on #435): eight D2Glide functions move to the file whose `.\Src\gl*.cpp` span they sit in
   (lane 6's scan): 0x50A110 -> glSprite.cpp; 0x50DFE0, 0x50E330 -> glSmack.cpp; 0x50EAE0, 0x50EC40 ->
   glTextureCache.cpp (its unmarked copy of the evict goes); 0x50F570, 0x50F6D0, 0x50F750 -> glFloorCache.cpp, beside
