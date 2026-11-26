@@ -911,8 +911,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/chat.cpp": {
-   "bytes": 264,
-   "definitions": 10,
+   "bytes": 278,
+   "definitions": 11,
    "externs": [
     "extern \"C\" void __cdecl sub_0047CD80(); // 0x0047CD80",
     "extern \"C\" char gData_006D7280[]; // 0x006D7280",
@@ -3829,15 +3829,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004DF770.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_0047C420.cpp": {
-   "bytes": 14,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_0047C420.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -46069,7 +46060,7 @@
    "cname": "gData_006D72B0",
    "declared": true,
    "decorated": "_gszBattleNetPrefix",
-   "file": "Source/D2Client/Unknown_0047C420.cpp",
+   "file": "Source/D2Client/UI/chat.cpp",
    "fill": 14,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006D72B0[14]; // 0x006D72B0",
