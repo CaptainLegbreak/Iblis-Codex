@@ -1169,6 +1169,7 @@ static void sub_0046CB40_CommandMode7(D2UnitStrc* pUnit)
 // 0x0046CBD0
 // Kept out of line: the original calls it from 0x0046D780 with its arguments in ecx/eax, a convention only a
 // static of this unit gets, so it is this unit's function; with /Ob2 it would otherwise be inlined there.
+// noinline: the original calls this; without it the compiler expands it into 0x0046D780.
 static __declspec(noinline) void sub_0046CBD0_SetAiTimerClamped(D2UnitStrc* pUnit, int nTicks)
 {
     if (nTicks >= 200)

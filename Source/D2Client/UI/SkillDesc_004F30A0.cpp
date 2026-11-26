@@ -261,7 +261,7 @@ static void __stdcall SKILLDESC_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int*
 }
 
 // build: symbol ?SKILLDESC_FormatSignedInt@* 0x004E73E0
-static __declspec(noinline) int __stdcall SKILLDESC_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue)
+static int __stdcall SKILLDESC_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue)
 {
     int szText_[8]; char* const szText = (char*)szText_;
     if (bPrefixSign && nValue >= 0)
@@ -272,7 +272,7 @@ static __declspec(noinline) int __stdcall SKILLDESC_FormatSignedInt(Unicode* wsz
     return 1;
 }
 
-static __declspec(noinline) int __stdcall SKILLDESC_FormatSignedDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction)
+static int __stdcall SKILLDESC_FormatSignedDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction)
 {
     int szText_[8]; char* const szText = (char*)szText_;
     if (bPrefixSign && nValue >= 0)

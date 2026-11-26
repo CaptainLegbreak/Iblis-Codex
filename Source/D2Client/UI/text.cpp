@@ -1027,6 +1027,7 @@ void __fastcall CUNIT_ForEachObject(UNITFN pfnCallback); // 0x004649D0
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
 
 
+// noinline: the original calls this; without it the compiler expands it into 0x004A0770.
 static __declspec(noinline) int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox);
 
 

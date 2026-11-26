@@ -4412,6 +4412,7 @@ static void INV_SetSellButton(int nButton)
 }
 
 // 0x00487EA0
+// noinline: the original calls this; without it the compiler expands it into 0x00487ED0.
 static __declspec(noinline) void INV_ClearButton(int nButton)
 {
     gaNpcButtons[nButton].nTextId = 0;
