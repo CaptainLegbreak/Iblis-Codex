@@ -1,3 +1,9 @@
+// D2GAME_CreateItemUnit (0x00559CE0) sits in Items.cpp's run but stays in a file of its own. The image has
+// ITEMS_GetItemLevelForNewItem (0x00558200) inline in it, and in one file with that function's definition the
+// compiler calls it instead (it doesn't inline that 99-byte function there). Written as a forceinline helper
+// that 0x00558200 also uses, both build equal, but the compiler also emits the helper's unused out-of-line
+// copy (95 bytes), and the checker counts that as a second form of 0x00558200. With that, ITEMS_DropGoldPiles
+// (0x0055A090) also needs a noinline on 0x00559CE0, which it calls out of line.
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
