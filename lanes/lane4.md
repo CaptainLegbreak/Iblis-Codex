@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Thu Nov 26 PST 2026: #428 took scmd-records; names-sub-d2client re-applied on #429, rebuilt and pushed. Emit-helper trim rerun: nothing more to remove.
+- Thu Nov 26 11:57 PST 2026: #428 took scmd-records; names-sub-d2client re-applied on #429, rebuilt and pushed. Emit-helper trim rerun: nothing more to remove.
 
 - Thu Nov 26 11:55 PST 2026: emit-helper trim rerun on #427: nothing more to remove (70 helpers, all needed). names-sub-d2client posted (101 names).
 
