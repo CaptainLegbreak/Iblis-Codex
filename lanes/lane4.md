@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Thu Nov 26 15:20 PST 2026: joins tried and left with readings: Game_0044D080 (Storm-list template copies; needs stpl.h), text_0049C9C0 (one lea tie, like inv_0048BC10). Ready: game-b7b0-note.
+- Thu Nov 26 14:58 PST 2026: joins tried and left with readings: Game_0044D080 (Storm-list template copies; needs stpl.h), text_0049C9C0 (one lea tie, like inv_0048BC10). Ready: game-b7b0-note.
 
 - Thu Nov 26 14:48 PST 2026: my join-soundinst and join-editbox are superseded by lane 1's joins of the same files in #436 (their range); dropped, though the proxy won't let me delete the remote branches. Game_0044B7B0 stays apart (Ready, note). Next: Game_0044D080/E5A0, which need the loading-timer and critical-section records sorted out; then Inv, Text; Gfx after its records.
 
