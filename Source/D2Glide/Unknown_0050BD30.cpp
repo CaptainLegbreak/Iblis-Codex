@@ -948,7 +948,6 @@ typedef void (__stdcall* GlideConstantColorFn)(unsigned int dwColor);
 
 typedef void (__stdcall* GlideDrawVertexArrayFn)(int nMode, int nCount, void** ppVertices);
 
-int __fastcall GLTEXTURECACHE_BindFloorTexture(void* pTile); // 0x0050FAD0
 extern GlideConstantColorFn gpfnGrConstantColorValue; // 0x0087EFA0
 extern GlideDrawVertexArrayFn gpfnGrDrawVertexArray; // 0x0087EB18
 extern unsigned char* gpBlendTable; // 0x00880B5C

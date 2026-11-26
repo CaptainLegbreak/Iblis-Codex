@@ -35,7 +35,6 @@ struct D2DrawDeviceStrc { D2DrawVtableStrc* vtable; };
 extern D2TLVertexStrc gaQuadVertices[4]; // 0x00971630
 extern D2DrawDeviceStrc* gpDrawDevice; // 0x00970E78
 void __fastcall D3DFLOORCACHE_BindTileTexture(D2TilePartStrc*); // 0x006BBA00
-void __fastcall sub_006B9730_SetQuadColor(D2TLVertexStrc*,unsigned char,int); // 0x006B9730
 
 struct D2PerspectiveTileStrc { short nX,nY; char unknown04[0x10]; };
 
@@ -44,7 +43,6 @@ struct D2PerspectiveSpriteStrc { char unknown00[0x50]; int nTiles; D2Perspective
 extern D2TLVertexStrc gaPerspectiveVertices[15]; // 0x00971450
 extern unsigned short gaPerspectiveIndices[22]; // 0x0074C0D0
 void __fastcall sub_006B9860_Project(int nX,int nY,int nZ,int* pOutX,int* pOutY); // 0x006B9860
-void __fastcall sub_006B9730_SetColor(D2TLVertexStrc* pVertex,unsigned char nIndex,unsigned char nAlpha); // 0x006B9730
 void __fastcall D3DFLOORCACHE_BindTileTexture(D2PerspectiveTileStrc* pTile); // 0x006BBA00
 int __stdcall D2CMPTileValidate(void*, int, int); // 0x005FDEA0
 static int __stdcall sub_006B8950_Lit(int, D2TileStrc*, int, int, unsigned int*, unsigned char); // 0x006B8950
@@ -94,7 +92,6 @@ extern D2VertexBufferStrc* gpGridBuffer_00971734; // 0x00971734
 extern unsigned short gaFlatIndices[4]; // 0x0074C3D0
 extern unsigned short gaGridIndices[65]; // 0x009716B0
 extern unsigned char gabMultiplyTable[256][256]; // 0x00971740
-int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile); // 0x006BB870
 void __fastcall D3DCORE_LogDDrawError(const char* szWhere,int hResult); // 0x006B20E0
 extern int gnD3DOriginX; // 0x00981740
 extern int gnOriginY; // 0x00981744

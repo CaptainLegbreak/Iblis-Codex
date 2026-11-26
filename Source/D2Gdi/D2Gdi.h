@@ -76,3 +76,5 @@ struct D2LogPalette006C7C10Strc
 
 int __fastcall GDICORE_GetSetting(unsigned int nSelector, int* pValue); // 0x006C8250
 int __cdecl sub_006C8A50_GetBlendedShadows(); // 0x006C8A50
+void __fastcall sub_006C8A60_Draw(int nX1, int nY1, int nX2, int nY2, unsigned char nColor, int nLevel); // 0x006C8A60
+void __fastcall sub_006C9280_Apply(int enabled, unsigned char unusedRegister, int unusedA, int unusedB); // 0x006C9280

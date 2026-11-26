@@ -3,11 +3,7 @@
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-D2GlideTexCacheEntryStrc* __fastcall GLSMACK_TexCacheUnlink(D2GlideTexCacheStrc* pCache, int nIndex); // 0x0050EAE0
 
-void __fastcall GLSMACK_TexCacheEvict(D2GlideTexCacheStrc* pCache); // 0x0050EC40
-void __fastcall GLFLOORCACHE_FloorCacheTouch(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F670
-short __fastcall GLFLOORCACHE_FloorCacheAdd(D2GlideFloorCacheStrc* pCache); // 0x0050F820
 extern D2GrTexInfoStrc gtGlideFloorTexInfo; // 0x0072F6BC
 extern void (__stdcall* gpfnGrTexDownloadMipMap)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EAB8
 extern void (__stdcall* gpfnGrTexSource)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98

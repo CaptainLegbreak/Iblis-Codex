@@ -971,8 +971,6 @@ char* D2StormListStrc::sub_0051772A_DeleteNode(char* node) {
 struct D2CriticalSectionStrc;
 struct TMESSAGESOURCE;
 
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
 
 
