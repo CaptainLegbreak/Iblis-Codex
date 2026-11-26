@@ -142,6 +142,16 @@ ASSUME_MACROS = ('SASSERT', 'DEFAULT_UNREACHABLE')
 ASSUME_RE = re.compile(r'\b(%s)\b' % '|'.join(ASSUME_MACROS))
 
 
+# Identical if/else arms that stand for a two-way branch the original had, whose test the compiler deleted only after
+# it had weighed the blocks (the user's ruling, 2026-11-26).
+# 0x6BD780 FOG_10207 (Fog Excel.cpp), `if(field->link)++input;else ++input;` in the callback case 23-25: with no branch
+# there the whole function is allocated differently (2,640 B for 2,576); with a branch whose test is kept
+# (`if(p)*p=0;`) everything but that test is the original's; the nearest plain form (a goto from the copy loop's
+# overflow exit) is 24 instructions off, because it lacks the deleted test's reference to `field`, which then ranks
+# lower and is coloured after the two type temporaries of the link lookups.
+ARMS_ORIGINAL = {0x006BD780}
+
+
 def constructs(a):
     u = OWNER.get(a)
     if not u:
@@ -160,7 +170,7 @@ def constructs(a):
     elif ASSUME_RE.search(b):
         out.append('__assume through a header macro (original)')
     if identical_arms(b):
-        out.append(FORCING[3])
+        out.append(FORCING[3] + ' (original)' if a in ARMS_ORIGINAL else FORCING[3])
     if '__asm' in b:
         out.append('inline assembly')
     return out
