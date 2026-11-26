@@ -29,7 +29,7 @@ typedef char QueueSizeCheck[(sizeof(D2EventTimerQueueStrc) == 0xA20) ? 1 : -1];
 
 typedef void(__fastcall* EventDefault3)(D2GameStrc*, D2UnitStrc*, int);
 
-D2EventTimerStrc* __fastcall SUNIT_GetTimerFromUnit(D2UnitStrc* pUnit); // 0x00553980
+#include "D2GameFuncs.h"
 
 void __fastcall D2GAME_EVENTS_Callback(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent, int nCustomId, int nCustomParam); // 0x00581220
 
@@ -43,7 +43,6 @@ void __fastcall D2GAME_Items_EventsHandler(D2GameStrc* pGame, D2UnitStrc* pItem,
 
 static void EVENT_FreeTimer(D2GameStrc* pGame, D2EventTimerStrc* pTimer); // 0x00540CD0
 
-void __fastcall EVENT_FreeUnitTimers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540EE0
 
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 
@@ -53,13 +52,11 @@ static D2EventTimerSlabListStrc* EVENT_AllocTimerSlab(D2GameStrc* pGame);
 
 static D2EventTimerStrc* __stdcall EVENT_AllocateTimer(D2GameStrc* pGame, D2EventTimerQueueStrc* pQueue);
 
-void __fastcall EVENT_AllocEventQueue(D2GameStrc* pGame);
 
 void __fastcall EVENT_SetRecurringEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nCustomId, int nCustomParam);
 
 void __fastcall EVENT_SetRecurringEventWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, EventTimerCallback pCallback, int nCustomId, int nCustomParam);
 
-void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int nCustomId, int nCustomParam); // 0x005417D0
 
 void __fastcall EVENT_SetEventWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, EventTimerCallback pCallback, int nCustomId, int nCustomParam);
 

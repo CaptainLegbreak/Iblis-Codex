@@ -27,10 +27,7 @@ int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D
 typedef void(__fastcall* MONUMODFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
 
 extern MONUMODFUNC gpfnSrvUModCallbacks[][6]; // 0x0073C0B8
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnLevelVariantAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B2490
-int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
-void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00573780
-void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
+#include "D2GameFuncs.h"
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag); // 0x005A0180
 
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
@@ -130,9 +127,7 @@ unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
 
 
 void __stdcall MONSTERUNIQUE_ExecuteUModCallbacks(D2GameStrc* pGame, D2UnitStrc* pMissile, int nCallbackIndex, D2UnitStrc* pUnit); // 0x005A4270
-void __fastcall MONSTERUNIQUE_ExecuteUModModeStartCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
-void __fastcall MONSTERUNIQUE_ExecuteUModModeChangeCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
 // 0x005A4370
 void __fastcall MONSTERUNIQUE_EventExecuteUModCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
@@ -140,10 +135,7 @@ void __fastcall MONSTERUNIQUE_EventExecuteUModCallbacks(D2GameStrc* pGame, D2Uni
     MONSTERUNIQUE_ExecuteUModCallbacks(pGame, 0, 2, pUnit);
 }
 
-void __fastcall MONSTERUNIQUE_ExecuteUModSuccessfulHitCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
 // build: symbol ?MONSTERUNIQUE_ExecuteUModDamagedCallbacks@* 0x005A43A0
-void __fastcall MONSTERUNIQUE_ExecuteUModDamagedCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
 // build: symbol ?MONSTERUNIQUE_OwnerMissileHook@* 0x005A43B0
-void __fastcall MONSTERUNIQUE_OwnerMissileHook(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMissile);

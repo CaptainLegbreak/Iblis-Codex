@@ -53,7 +53,6 @@ struct D2QuestGUIDStrc;
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
-
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 D2UnitProxyStrc gaUnitProxyItemCache[17]; // 0x00883D78
@@ -91,25 +90,17 @@ struct D2NpcControlStrc
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 
-
-
 D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner); // 0x0063ABD0
 
-void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
+#include "D2GameFuncs.h"
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
-void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00557FD0
-
-D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromClassId(D2GameStrc* pGame, int nNpcClassId, int* pIndex); // 0x00535EA0
 
 D2MonsterInteractStrc* __fastcall sub_00535E80_GetMonInteract(D2UnitStrc* pUnit); // 0x00535E80
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
 
-void __fastcall SUNITNPC_RemoveStoreItem(D2UnitStrc*,D2UnitStrc*,D2GameStrc*,int); // 0x005766D0
-
-int __fastcall D2GAME_PlaceItem(const char*,int,D2GameStrc*,D2UnitStrc*,int,int,int,int,int,D2InventoryStrc*); // 0x00560200
 
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc*); // 0x00628250
 
@@ -199,8 +190,6 @@ enum
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pUnit); // 0x0063EA40
 
 
-int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005B0BD0
-
 extern const int gnDifficultyBonus[]; // 0x006E21F4
 
 #define MAX_NPC_INVENTORY 17
@@ -243,9 +232,6 @@ void __fastcall SUNITPROXY_AllocNpcInventory(D2GameStrc* pGame, D2NpcRecordStrc*
 
 void __fastcall SUNITPROXY_FreeNpcGamble(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pPlayer);
 
-void __fastcall SUNITPROXY_FreeNpcControl(D2GameStrc* pGame);
-
-void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc);
 
 // 0x00535F30
 void __fastcall SUNITPROXY_AllocNpcEvent(D2UnitStrc* pNpc, D2GameStrc* pGame, D2UnitStrc* pPlayer, int bPending)
@@ -620,7 +606,6 @@ struct D2ActiveRoomStrc;
 struct D2UnitProxyArgStrc;
 
 
-
 // 0x00536820
 void __fastcall SUNITPROXY_CountPlayersInLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg)
 {
@@ -922,7 +907,6 @@ void __stdcall SUNITPROXY_FillIGlobaltemCacheRecordForNpc(int nNpcId)
     }
 }
 
-void __fastcall SUNITPROXY_FillGlobalItemCache(); // 0x00536F80
 
 enum D2C_MonStatsTxtFlagIndices
 {

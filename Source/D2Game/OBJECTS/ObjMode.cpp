@@ -121,7 +121,6 @@ typedef void(__fastcall* ObjTrapHandlerFunction)(D2GameStrc* pGame, D2UnitStrc* 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
-
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
@@ -130,11 +129,9 @@ extern ObjTrapHandlerFunction sgObjectTrapHandlers[10]; // 0x00732CEC
 
 extern int gnObjectTrapHandlers_00732D14; // 0x00732D14
 
-void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
+#include "D2GameFuncs.h"
 
 void __fastcall OBJEVAL_ApplyTrapObjectDamage(D2GameStrc* pGame, D2UnitStrc* pSrcUnit, D2UnitStrc* pTargetUnit, int nDamageType); // 0x005DFA00
-
-
 
 
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit); // 0x00623830
@@ -142,18 +139,14 @@ void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit); // 0x00623830
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
 
-
 void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005449E0
 
 
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
 
-D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
 int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
 
-
-D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
 void __fastcall D2GAME_PACKETS_SendPacket0x07(D2ClientStrc* pClient, int nAreaId, unsigned short nTileX, unsigned short nTileY); // 0x0053BC50
 
@@ -170,9 +163,6 @@ int __stdcall UNITS_GetUnitSizeY(D2UnitStrc* pUnit); // 0x006205A0
 
 D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, unsigned char bAllowNeighborRooms); // 0x00555DA0
 
-int __fastcall ITEMS_GetItemLevelForNewItem(D2UnitStrc* pUnit, int a2); // 0x00558200
-
-D2UnitStrc* __fastcall D2GAME_CreateItemEx(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int a3); // 0x00558D90
 
 struct D2ContextDataStrc
 {
@@ -203,20 +193,11 @@ int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 
 
 D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 
-void __fastcall D2GAME_SendPacket0x58(D2ClientStrc* pClient, D2GSPacketSrv58* pPacket); // 0x0053D8D0
-
-int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 
-void __stdcall SUNIT_SetInteractInfo(D2UnitStrc* pUnit, int nInteractUnitType, int nInteractUnitGUID); // 0x00554120
 
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
-
-D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00554D00
-
-
-
 
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
@@ -225,16 +206,13 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 
 
-
 extern "C" char* __cdecl _strrev(char* szString); // 0x00687860
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 
-
 void __fastcall D2GAME_UpdateClientItem(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int dwCmdFlag); // 0x0053D010
 
-void __fastcall D2GAME_RemoveItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int bSendPacket); // 0x0055DF10
 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
@@ -244,7 +222,6 @@ void __stdcall ITEMS_SetItemCell(D2UnitStrc* pItem, unsigned char nCell); // 0x0
 
 
 static int __stdcall OBJMODE_DropShrineGem(D2UnitStrc* pItem, int nItemId, D2GameStrc* pGame, D2UnitStrc* pPlayer);
-
 
 
 D2UnitStrc* __stdcall UNITFINDS_GetNearestTestedUnit(D2UnitStrc* pUnit, int nX, int nY, int nSize, int (__fastcall* pfnUnitTest)(D2UnitStrc*, D2UnitStrc*)); // 0x0065A800
@@ -283,7 +260,6 @@ int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
 
 D2StatListStrc* __fastcall OBJMODE_ApplyShrineCurse(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nDuration, int nStatValue, int nStat, int nState, StatListRemoveCallback pStateRemoveCallback); // 0x00582800
 
-void __fastcall OBJMODE_RemoveStaminaShrine(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x00583A40
 
 static int __stdcall OBJMODE_CalculateShrineStatBonus(int nStatId, int nValue, D2UnitStrc* pUnit); // 0x00583840
 
@@ -309,12 +285,6 @@ struct D2EventState00583BF0Strc
 
 extern D2EventState00583BF0Strc gaShrineSkillBoostStates[]; // 0x006E1858
 
-D2StatListStrc* __fastcall SKILLS_ApplyStateEffect(D2CurseStrc* pCurse); // 0x0056E970
-
-void __fastcall SKILLS_RefreshPassivesAndPetLimits(D2UnitStrc* pUnit); // 0x0056DE40
-
-void __fastcall OBJMODE_RemoveSkillShrine(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x00583BD0
-
 
 int __fastcall OBJECTS_OperateFunction07_ExplodingBarrel(D2ObjOperateFnStrc* pOp); // 0x00584330
 
@@ -323,7 +293,6 @@ enum
     ARCANE_TILECALC = 11,
 };
 
-void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDestinationLevelId, int nTileCalc); // 0x0053AEC0
 
 void __fastcall ACT2Q4_SetPortalMode(D2GameStrc* pGame, int nLevelId); // 0x0059BAF0
 
@@ -352,11 +321,6 @@ void __fastcall D2GAME_PACKETS_SendPacket0x0D(D2ClientStrc* pClient, unsigned ch
 
 void __fastcall OBJRGN_AllocObjectRoomCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00547170
 
-D2WaypointDataStrc* __fastcall sub_00547F50(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00547F50
-
-void __fastcall PLRMODE_ChangeModeToCoords(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7); // 0x005809D0
-
-
 
 int __stdcall WAYPOINTS_IsActivated(D2WaypointDataStrc* pData, int nWaypointNo); // 0x00660E50
 
@@ -376,9 +340,6 @@ struct D2PortalFlags00585580Strc
     unsigned char nFlags;
 };
 
-D2UnitStrc* __fastcall SUNIT_GetPortalOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553720
-
-void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
 
 D2UnitStrc* __fastcall D2GAME_CreateLinkPortal(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPortal, unsigned char nDestLevel, int nSourceLevel); // 0x0056CF40
 
@@ -391,13 +352,9 @@ typedef void (__fastcall* PetIterateCallback)(D2GameStrc* pGame, D2UnitStrc* pPl
 
 void __fastcall D2GAME_UpdateAttribute(D2UnitStrc* pUnit, unsigned short nStat, unsigned int nNewValue, D2UnitStrc* pPlayer); // 0x00548520
 
-unsigned char __fastcall OBJECTS_GetRegenerateMax(D2ObjectsTxt* pObjectsTxtRecord); // 0x00552AA0
-
-unsigned char __fastcall OBJECTS_GetRegenerateSteps(); // 0x00552AB0
 
 void __fastcall PLAYERPETS_IteratePets(D2GameStrc* pGame, D2UnitStrc* pPlayer, PetIterateCallback pCallback, void* pArg); // 0x00574DE0
 
-int __fastcall D2GAME_NPC_RemoveStates(D2UnitStrc* pUnit); // 0x00578C20
 
 void __fastcall OBJMODE_PetIterate_Heal(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pUnit2, void* pUnitHealed); // 0x005856A0
 
@@ -411,11 +368,9 @@ extern const int gnChestActLevelIds[10]; // 0x006E1988
 
 D2ObjectControlStrc* __fastcall OBJRGN_GetObjectControlFromGame(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x00546FA0
 
-D2UnitStrc* __fastcall OBJMODE_DropFromChestTCWithQuality(D2ObjOperateFnStrc* pOp, int nItemQuality); // 0x00585B90
 
 void __fastcall D2GAME_SHRINES_SkillBoost(D2SkillContext00583BF0Strc* pContext, D2Event00583BF0Strc* pEvent);
 
-D2UnitStrc* __fastcall D2GAME_DropItemAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
 
 struct D2SkillStrc;
 
@@ -434,7 +389,6 @@ void __fastcall sub_0053D960_SendPacket0x63(D2ClientStrc* pClient, D2GSPacketSrv
 
 void __fastcall QUESTS_HellPortalActChange(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nLevelId, D2UnitStrc* pObject); // 0x00546AC0
 
-int __fastcall OBJECTS_GetUnitIdFromTimerArg(D2UnitStrc* pUnit);                                            // 0x00552B10
 
 int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUnitGUID);                     // 0x00554100
 
@@ -442,20 +396,12 @@ int __fastcall ITEMS_GetHealthPotionDropCode(D2UnitStrc* pUnit); // 0x00558450
 
 int __fastcall ITEMS_GetManaPotionDropCode(D2UnitStrc* pUnit); // 0x005584C0
 
-void __fastcall SUNIT_WarpPlayer(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTile);                // 0x005550B0
-
-int __fastcall D2GAME_DoKeyCheck(D2GameStrc* pGame, D2UnitStrc* pPlayer);                          // 0x0055F140
 
 void __fastcall D2GAME_SHRINES_Refill(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord);   // 0x005828E0
 
 void __fastcall OBJMODE_ClearSteegStoneGUID(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x00584820
 
 int __fastcall OBJMODE_MainObeliskHandler(D2GameStrc* pGame, int nPlayerGUID, int nObjectGUID, int nItemGUID, unsigned short nState); // 0x005852E0
-
-
-
-
-
 
 
 #define EVENTTYPE_ENDANIM 1
@@ -473,7 +419,6 @@ void __fastcall D2GAME_PACKETS_SendPacket0x0E(D2ClientStrc* pClient, unsigned ch
 
 void __fastcall SCMD_SendUnitActionAtPosition(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned short a4, unsigned short a5, int a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D4D0
 
-void __fastcall SCMD_SendPortalState(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053D900
 
 extern "C" const char gszObjModeSourceFile[]; // 0x006E1970
 
@@ -490,7 +435,6 @@ int __stdcall SUNIT_Dummy_00582AC0(D2UnitStrc* pUnit, int nValue);
 
 static void __stdcall OBJMODE_GetToHitPercentage(int* pToHit, int nSkillLevel, D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2UnitStrc* pWeapon); // 0x00583740
 
-int __fastcall D2GAME_RemoveItemIfOnCursor(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x0055EEA0
 
 void __fastcall ACT2Q6_DeleteAllHoradricItemsAndOpenTomb(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pObject); // 0x0059DD80
 
@@ -508,19 +452,13 @@ struct D2PortalQuestStrc
 
 int __fastcall PLAYER_HasHostilePlayer(D2GameStrc*, D2UnitStrc*); // 0x00535B10
 
-void __fastcall ACT5Q5_OnPortalClosed(D2GameStrc*, D2UnitStrc*); // 0x0058CF50
 
 D2PortalQuestStrc* __fastcall DATATBLS_GetLevelDefRecord(int); // 0x0061E470
 
-int __fastcall PLAYER_GetUniqueIdFromPlayerData(D2UnitStrc* pPlayer); // 0x005353F0
-
-void __fastcall QUESTS_ChangeLevel(D2GameStrc* pGame, int nSourceLevelId, int nDestinationLevelId, D2UnitStrc* pPlayer); // 0x00543B90
 
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 
 int __fastcall PLAYERLIST_GetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B6C0
-
-void __fastcall SKILLS_RemoveStateAndRefreshPassives(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
 
 
 void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); // 0x0061AED0
@@ -550,22 +488,14 @@ struct D2MonStatsCountStrc;
 
 int __fastcall OBJRGN_GetTrapMonsterId(D2ObjOperateFnStrc* pOp); // 0x005474C0
 
-D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** ppMonsterRegion, int nLevelId); // 0x00547BB0
-
-void __fastcall OBJECTS_SetUnitIdInTimerArg(D2UnitStrc* pUnit, int nUnitId); // 0x00552AF0
-
-void __fastcall StartModeID(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter); // 0x00580A70
 
 D2UnitStrc* __fastcall MONSTERUNIQUE_SpawnUniqueGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nClassId, int bAllowChampion, unsigned short nX, unsigned short nY, int bAvoidWarps); // 0x005A43E0
-
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnLevelVariantAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B2490
 
 
 int __stdcall SKILLS_GetSkillMode(D2SkillStrc* pSkill); // 0x00644360
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc*, int);
 
-D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
 
 struct D2SfxStrc
 {
@@ -579,7 +509,6 @@ struct D2SfxArgStrc
     int unk, nDamagePct, nRadius;
 };
 
-int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
 void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataStrc* pFind, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize, void* pfnTest, D2UnitFindArgStrc* pArg); // 0x0065A950
 
@@ -624,9 +553,6 @@ int __fastcall OBJECTS_OperateFunction14_Corpse(D2ObjOperateFnStrc* pOp, int nOp
 
 int __fastcall OBJECTS_OperateFunction05_Barrel(D2ObjOperateFnStrc* pOp, int nOperate);
 
-unsigned char __fastcall D2GAME_CheckIfSparklyChest(D2UnitStrc* pUnit); // 0x005540D0
-
-void __fastcall D2GAME_UpdateUnit(D2UnitStrc* pUnit, D2ClientStrc* pClient);                       // 0x00571740
 
 D2UnitStrc* __fastcall OBJMODE_DropItemWithCodeAndQuality(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwCode, int nItemQuality); // 0x00585970
 
@@ -1099,11 +1025,6 @@ void __fastcall OBJMODE_SendObjectModeAndShrineUpdate(D2UnitStrc* pUnit, D2Clien
 
 #define UNITFLAG_HASEVENTSOUND 0x00000400
 
-void __fastcall SUNITMSG_SendHoverText(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571620
-
-void __fastcall D2GAME_INVMODE_First(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, D2InventoryStrc* pInventoryArg); // 0x00597890
-
-void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571CD0
 
 inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
@@ -1480,12 +1401,6 @@ D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, 
 void __fastcall D2GAME_SetSparkChest(D2UnitStrc* pUnit, unsigned char nSparkChest); // 0x005540A0
 
 int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char nAct); // 0x0061AB70
-
-int __fastcall D2GAME_CreatePortalObject(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nDestLevel, D2UnitStrc** ppSourceUnit, int nObjectId, int bPerm); // 0x0056D130
-
-D2UnitStrc* __fastcall D2GAME_DropArmor(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int a4, int a5, D2UnitStrc* pUnit); // 0x005594C0
-
-D2UnitStrc* __fastcall D2GAME_DropWeapon(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int a4, int a5, D2UnitStrc* pUnit); // 0x00559630
 
 
 // 0x00583E70

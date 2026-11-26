@@ -32,21 +32,16 @@ typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState,
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
 int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMonster); // 0x0063E9F0
 void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame); // 0x006260B0
-void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
+#include "D2GameFuncs.h"
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatListRemoveCallback pfStatRemove); // 0x00625CE0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
-void __fastcall SKILLS_RemoveStateAndRefreshPassives(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
-void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
-int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-void __fastcall SKILLS_ApplyAuraStatsToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel); // 0x005C6CC0
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
-void __fastcall PLAYERSTATS_OnPlayerLeveledUp(void* pUnused, D2UnitStrc* pUnit, int nArg); // 0x00570850
 
 typedef void (__fastcall* LevelCallback)(unsigned int, int);
 
@@ -60,8 +55,6 @@ int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc*); // 0x00625D60
 int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc*); // 0x00625DB0
 void __fastcall sub_00536850_UpdateLevel(D2GameStrc*,D2UnitStrc*,int); // 0x00536850
 void __fastcall SUNIT_AttachSound(D2UnitStrc*,int,D2UnitStrc*); // 0x00553380
-void __fastcall D2GAME_UpdatePlayerVitals(D2GameStrc*,D2UnitStrc*); // 0x0055F500
-void __fastcall D2GAME_UpdatePlayerItems(D2GameStrc*,D2UnitStrc*,int); // 0x0055FDE0
 int __stdcall UNITS_GetPlayerName(D2UnitStrc*,int,int); // 0x00622150
 static void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue);
 static void sub_00570B30_SpendStatPointsOnDexterity(D2UnitStrc* pUnit, int nValue);
@@ -75,7 +68,6 @@ extern const unsigned int gdwInvBitMasks[]; // 0x006CE2E8
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 int __stdcall BITMANIP_GetSize(D2BitBufferStrc*); // 0x00410E90
 int __stdcall sub_004111A0_GetLowestSetBit(unsigned int); // 0x004111A0
-void __fastcall SCMD_SendRawPacket(D2ClientStrc*, const void*, int); // 0x0053E8D0
 
 #define STAT_ENERGY 1
 

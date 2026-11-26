@@ -75,11 +75,10 @@ typedef void(__fastcall* EventCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* p
 
 extern const EventCallbackFunction gpfnPlayerEventCallbacks[15]; // 0x006E1810
 
-int __fastcall EVENT_GetEventFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent); // 0x005415A0
+#include "D2GameFuncs.h"
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-
 
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -112,23 +111,17 @@ D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);
 
 int __fastcall PLRMODE_IsEndAnimDue(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0057ED70
 
-int __fastcall PLRMODE_CanInterruptCurrentMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int a4, D2SkillStrc* pSkill); // 0x0057EEC0
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
 void __cdecl LOG_11100(int nA, int nB, int nC, int nFlags, const char* szFile, int nLine, const char* szFormat, ...); // 0x006248E0
 
 
-void __fastcall PLRMODE_HandleDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580310
-
-void __fastcall PLRMODE_BreakDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580380
-
 void __fastcall PLRMODE_StartXY_Dead(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int nX, int nY); // 0x0057FCA0
 
 void __fastcall PLRMODE_StartXY_Neutral(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, int nX, int nY); // 0x0057F020
 
 int __stdcall D2COMMON_11079_Return0(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0062A360
-
 
 
 void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BE30
@@ -146,35 +139,18 @@ void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 
 void __fastcall sub_0055D930(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nUnused); // 0x0055D930
 
 
-
-D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
-
-void __fastcall D2GAME_PACKETS_SendPacket0x42(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053D2E0
-
-
-
-D2UnitStrc* __fastcall ITEMS_Duplicate(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int bAddToGame); // 0x0055A2A0
-
-
-
 D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, unsigned char bAllowNeighborRooms); // 0x00555DA0
 
 void __fastcall D2GAME_DropItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00558AA0
 
 unsigned int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
 
-int __fastcall PLAYER_DropGold(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID, int nValue); // 0x00535510
-
-
 
 int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc* pCorpse); // 0x0063D630
 
 
-
 int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags); // 0x0055B300
 
-
-void __fastcall SUNITDMG_AddExperience(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nExperience); // 0x0057EAB0
 
 int __fastcall ITEMMODE_RecoverCorpseItems(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pDeadBody); // 0x00562F30
 
@@ -184,11 +160,9 @@ void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers(D2GameStrc* pGam
 
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit); // 0x00623830
 
-void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
 
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 
-D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
 
 struct D2UnkPlrModeStrc2
 {
@@ -201,9 +175,6 @@ struct D2UnkPlrModeStrc2
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 
 
-int __fastcall ITEMMODE_FindFreeBodyLocation(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int* pBodyLoc, int a4); // 0x0055D710
-
-
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
@@ -211,7 +182,6 @@ int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
-void __fastcall ITEMMODE_BreakItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055F850
 
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 
@@ -227,40 +197,21 @@ D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 int __stdcall SKILLS_GetUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00647960
 
 
-void __fastcall D2GAME_AssignSkill(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags); // 0x005701B0
-
 static void __stdcall sRestoreWeapon(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pWeapon); // 0x00580030
 
 typedef void(__fastcall* STATLIST_UpdateFn)(D2UnitStrc* pUnit, int nValue, int nStatId, D2UnitStrc* pOther);
 
-D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
 
 void __fastcall D2GAME_SendPacket0x47(D2ClientStrc* pClient, D2UnitStrc* pPlayer); // 0x0053D370
 
-void __fastcall D2GAME_SendPacket0x48(D2ClientStrc* pClient, D2UnitStrc* pPlayer, int a3); // 0x0053D3C0
 
 void __fastcall PLRMSG_SendKnockbackStatus(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00547F70
 
-void __fastcall PLRMSG_SendUnitMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005484B0
 
 void __fastcall D2GAME_UpdateAttribute(D2UnitStrc* pUnit, int nValue, int nStatId, D2UnitStrc* pOther); // 0x00548520
 
-void __fastcall D2GAME_STATES_SendStates(D2UnitStrc* pUnit, D2ClientStrc* pClient, int bPlayer); // 0x00571580
-
-void __fastcall SUNITMSG_SendOverlay(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005715A0
-
-void __fastcall SUNITMSG_SendHoverText(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571620
-
-void __fastcall D2GAME_UpdateUnit(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571740
-
-void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571CD0
-
-void __fastcall D2GAME_INVMODE_First(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, D2InventoryStrc* pInventoryArg); // 0x00597890
 
 void __stdcall D2Common_10512(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nStatId, STATLIST_UpdateFn pfCallback); // 0x00625870
-
-
-
 
 
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
@@ -268,24 +219,16 @@ int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
 
 
-
 void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList); // 0x00626CD0
 
 
 void __fastcall SUNITMSG_QueueLifeUpdate(D2UnitStrc* pUnit, unsigned char nLifePercent); // 0x00571A10
 
-int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
-
-void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
-
-int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
 static int EVENTS_HpRegen(D2UnitStrc* pUnit); // 0x00580610
 
 static void EVENTS_StaminaRegen(D2UnitStrc* pUnit); // 0x00580500
 
-
-void __fastcall PARTY_SynchronizeWithClient(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005406A0
 
 void __fastcall PLAYERPETS_UpdatePetStates(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00575630
 
@@ -299,17 +242,8 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,
 
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int,int,int,int,D2GameStrc*,D2ActiveRoomStrc*,char,int,unsigned int); // 0x00555230
 
-void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc*,D2ClientStrc*); // 0x00553180
-
-char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient); // 0x00538830
-
-
-void __fastcall SUNIT_InitSeed(D2UnitStrc* ptUnit, D2SeedStrc* pSeed); // 0x00552DF0
-
 
 int __fastcall CLIENTS_GetExperienceLoss(D2ClientStrc*); // 0x00539210
-
-void __fastcall CLIENTS_SetExperienceLoss(D2ClientStrc*,int); // 0x005391E0
 
 
 void __stdcall ITEMS_SetInvPage(D2UnitStrc*,unsigned char); // 0x00628280
@@ -320,7 +254,6 @@ int __stdcall INVENTORY_PlaceItemAtFreePosition(D2InventoryStrc*,D2UnitStrc*,int
 
 int __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc*,D2UnitStrc*,int); // 0x0063B210
 
-void __fastcall QUESTS_ItemPickedUp(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00543D80
 
 int __stdcall INVENTORY_PlaceItemInBodyLoc(D2InventoryStrc*,D2UnitStrc*,int); // 0x0063BDB0
 
@@ -338,11 +271,8 @@ unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 
-void __fastcall PLRMODE_ChangeModeToCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7); // 0x005809D0
-
 
 extern const unsigned char gbMask_006CE284; // 0x006CE284
-
 
 
 void __fastcall sub_0057F240_EmitWalk(D2UnitStrc* pPlayer);
@@ -357,29 +287,11 @@ struct D2StaticPathStrc;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
-int __fastcall PLRMSG_InteractWithUnit(D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID, int a4, D2GameStrc* pGame); // 0x00548B00
-
-void __fastcall SUNIT_ValidateTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553490
-
-void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode); // 0x00553570
-
-void __fastcall D2GAME_DeletePlayerPerFrameEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553990
-
-int __fastcall SUNIT_UpdateUnitPath(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00554CA0
-
-void __fastcall StartModeID(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter); // 0x00580A70
-
-void __fastcall SKILLS_CreateBlazeMissile(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005C9D90
-
-
-
 
 int __stdcall PATH_GetNumberOfPathPoints(D2DynamicPathStrc* pDynamicPath); // 0x00648780
 
 
-
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
-
 
 
 int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); // 0x006492A0
@@ -390,11 +302,9 @@ extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
 
 void __fastcall D2GAME_SetClientDead(D2ClientStrc* ptClient, const int* pDeathInfo); // 0x00538260
 
-void __fastcall D2GAME_EVENTS_Delete(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 
 D2UnitStrc* __fastcall PLRMODE_CreateDeadBody(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, D2ActiveRoomStrc* pRoom); // 0x0057F700
 
-void __fastcall D2GAME_KillPlayerPets(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00575BC0
 
 void __fastcall CLIENTS_ToggleFlag(D2ClientStrc* pClient, unsigned short nFlag, int bSet); // 0x00538650
 
@@ -402,17 +312,13 @@ int __fastcall CLIENTS_CheckFlag(D2ClientStrc* pClient, unsigned short nFlag); /
 
 int __fastcall D2GAME_SAVE_WriteFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName, unsigned int dwArg); // 0x00532400
 
-void __fastcall PLAYER_ApplyDeathPenalty(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pAttacker); // 0x00535AB0
 
 void __fastcall ITEMS_DropPlayerEar(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x0055A200
 
 void __fastcall D2GAME_PLRMSG_Last(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0054D8A0
 
-void __fastcall ARENA_ProcessKillEvent(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0053F720
 
 void __fastcall PLAYER_CloseInteraction(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005350F0
-
-
 
 
 static void __stdcall PLRMODE_StartMovement(D2GameStrc*, D2UnitStrc*, int); // 0x0057F090
@@ -1298,8 +1204,6 @@ void __fastcall PLRMODE_StartXY_GetHit(D2GameStrc* pGame, D2UnitStrc* hPlayer, i
 }
 
 
-int __fastcall SKILLS_StartUsedSkill(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056FAF0
-
 #define UNITFLAG_SKSRVDOFUNC 0x00000040
 
 // 0x0057FE90
@@ -1677,10 +1581,8 @@ void __fastcall PLRMODE_BreakDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pPla
 #define UNITFLAG_SKSRVDOFUNC 0x00000040
 
 
-
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
 
-void __fastcall SKILLS_ExecuteUsedSkill(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056FC50
 
 // 0x00580460
 int __fastcall PLRMODE_UpdateSkill(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId, int nSkillLevel)
