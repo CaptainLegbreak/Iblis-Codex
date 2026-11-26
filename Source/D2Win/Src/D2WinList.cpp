@@ -208,7 +208,6 @@ extern tagPOINT gtMousePosition; // 0x007D55A4
 
 unsigned long gdwListLastClickTick; // 0x0087E970
 
-D2CelFileStrc* __fastcall ARCHIVE_LoadCellFile(const char* szFile, int nType); // 0x004FA9B0
 
 int __stdcall CONTROL_SetFocusedEditBox(D2WinEditBoxStrc* pEditBox); // 0x004F91C0
 

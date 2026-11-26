@@ -133,13 +133,11 @@ void __cdecl CHATDLG_CreateProfileControls(); // 0x00443D50
 
 int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
 
-const char* __fastcall COMCALLBACK_SkipNamePrefix(const char* szName); // 0x00446820
 
 unsigned int __stdcall D2Win_10155(D2CompositeUnitStrc* pCompositeUnit); // 0x00505330
 
 void __stdcall D2Win_10156(D2CompositeUnitStrc* pCompositeUnit, int nFlags); // 0x00505360
 
-void __cdecl COMCALLBACK_RefreshChatButtons(); // 0x004477A0
 
 extern unsigned int gdwInvBitMasks[]; // 0x006CE2E8
 
@@ -222,7 +220,6 @@ const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinEditBoxStrc* pEditBox
 
 int __fastcall EDITBOX_SetText(D2WinEditBoxStrc* pEditBox, const Unicode* pText); // 0x004FF5A0
 
-int __fastcall CHATDLG_SendChatText(char* szText, int bWhisper); // 0x004428D0
 
 void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
 
@@ -320,7 +317,6 @@ int __fastcall CHATDLG_ShowChannelText(Unicode* pText);                         
 
 void __fastcall COMCALLBACK_SetNamedValue(const char* szName, const char* szValue);                        // 0x00447400
 
-void __fastcall CHATDLG_UpdateScroll(int nDelta);                                                      // 0x00448BD0
 
 void __stdcall sub_00504270_SetCompositeText(D2CompositeStrc* pComposite, Unicode* wszName, Unicode* wszAccount, Unicode* wszS97, Unicode* wszRealm, int nLevel, unsigned int dwCode); // 0x00504270
 
@@ -509,7 +505,6 @@ extern const unsigned char gabCdKeyMap[256]; // 0x006D59F0
 
 D2WinButtonStrc* gpLevelDiffCheck; // 0x00798C40
 
-void __cdecl CHATDLG_CreateJoinScreen();                                                               // 0x00445DF0
 
 void __cdecl COMCALLBACK_BuildCreateScreen();                                                              // 0x00445FF0
 
@@ -541,7 +536,6 @@ extern int gnChannelScroll; // 0x00798F44
 
 extern unsigned int gdwSelectionTick; // 0x00798F4C
 
-void __cdecl CHATDLG_DestroyProfileControls(); // 0x00443E10
 
 void __fastcall CHATDLG_ShowProfileDialog(const char*,int,int); // 0x00445A80
 
@@ -637,7 +631,6 @@ void __cdecl CHATDLG_LoadLevelRestriction(); // 0x00445300
 
 // build: symbol ?gszSpace@* 0x006FFC44
 // build: symbol ?gszFormatD@* 0x006D57BC
-void __cdecl COMCALLBACK_BuildCreateGamePanel(); // 0x004453B0
 
 void __fastcall CHATDLG_ShowProfileDialog(const char* szText, int nA, int nB); // 0x00445A80
 
@@ -764,7 +757,6 @@ void __fastcall CHATDLG_DisableControl(D2WinControlStrc* pControl);             
 
 int __stdcall CHATDLG_OnLevelRestrictToggle(int nArg); // 0x00445550
 
-int __stdcall CHATDLG_IsNameChar(D2WinControlStrc* pControl, int nArg, const char* pChar);             // 0x00443540
 
 int __stdcall sub_004456A0_OnEnter(int nArg);                                                               // 0x004456A0
 
@@ -968,7 +960,6 @@ int __stdcall COMCALLBACK_OpenCreateScreen(int nArg)
 }
 
 
-void __fastcall COMCALLBACK_CopyNamePrefix(const char* szName, char* szOut);                               // 0x00446840
 
 // 0x00446810
 char* __cdecl COMCALLBACK_StrChr(const char* szString, int nChar)
@@ -1641,7 +1632,6 @@ void __fastcall COMCALLBACK_SplitName(const char* szName, char* szTitle, char* s
 }
 
 D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
-void __cdecl CHATDLG_RefreshChatScreen(); // 0x0043FBD0
 
 // 0x004476F0
 int __cdecl sub_004476F0()

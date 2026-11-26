@@ -45,7 +45,6 @@ struct D2CmpCellListStrc;
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-int __stdcall D2CMPGetFindTile(void* pData); // 0x00600760
 
 void __fastcall sub_005179A4_FreeVirtualMemory(void* pMemory); // 0x005179A4
 
@@ -95,7 +94,6 @@ extern const char gszEmptyAssert[]; // 0x006CC837
 
 int __fastcall sub_0060D280_ScanSameRun(const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D280
 
-int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char* pData, const unsigned char* pEnd, unsigned char nValue, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D3A0
 
 typedef unsigned char (__stdcall* D2CmpMapColorFn)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);
 
@@ -184,7 +182,6 @@ unsigned char __stdcall Palette24BitTo8BitPixel(unsigned char nRed, unsigned cha
 
 extern int gbPaletteLoaded; // 0x008E9934
 
-unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 
 extern const D2ColorBlockStrc gtColorBlock; // 0x007434D8
 
@@ -220,7 +217,6 @@ void __stdcall FASTCMP_BuildMultiplyTable(unsigned char* pTables); // 0x00605AA0
 
 void __stdcall FASTCMP_BuildBlendTables(unsigned char* pData); // 0x00605B70
 
-void* __stdcall CreateD2Palette(void* pSource); // 0x00606930
 
 #define PAL_SATURATE(x) ((unsigned int)(x) < 255 ? (x) : 255)
 

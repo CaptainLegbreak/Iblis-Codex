@@ -26,11 +26,7 @@ extern "C" size_t __cdecl strlen(const char* szString);
 
 int __fastcall CHATDLG_SetupLogin(D2LaunchLoginStrc* pLogin, const char* szText0x37); // 0x0043FE40
 void __fastcall CHATDLG_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
-void __cdecl CHATDLG_DestroyCreateControls(); // 0x00443220
 int __stdcall CHATDLG_CheckStartAdvResult(int nUnused); // 0x00443840
-int __stdcall CHATDLG_SetCancel(int nArg); // 0x00443870
-int __stdcall CHATDLG_PollMcp(int nArg); // 0x00443880
-void __cdecl COMCALLBACK_BuildCreateGamePanel(); // 0x004453B0
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback); // 0x004FA590
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
 extern "C" const char gszMaxPlayer[]; // 0x006D57C0

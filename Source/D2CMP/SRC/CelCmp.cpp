@@ -321,7 +321,6 @@ extern D2CmpPoolStrc gCmpTilePool; // 0x0088DB20
 extern D2CmpTileCacheStrc gCmpTileCache; // 0x0089DB60
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
-void __fastcall CelIterateRgbPixels(D2CelStrc* pCel, int nArg, int nTermination); // 0x0060D110
 typedef void(__fastcall* CELFILECELLOPFN)(D2CelStrc* pCel, int nArg);
 extern CELFILECELLOPFN gpfnCelFileCellOp[]; // 0x006E3698
 
@@ -396,7 +395,6 @@ struct D2FindTileNodeStrc
 };
 
 
-unsigned char __fastcall FindTileHash(int a, int b, int c); // 0x0060CD70
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
