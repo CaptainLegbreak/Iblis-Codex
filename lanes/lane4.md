@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 20:06 PST 2026: joins-5 posted (0x47C420 into chat.cpp).
 - Wed Nov 25 19:57 PST 2026: dead-statics-d2client is in #420. Nothing in Ready; looking for more placeholder joins.
 - Wed Nov 25 19:26 PST 2026: join-hireables is in #419; dead-statics-d2client rebased onto #419 and rebuilt (identical, no count rose).
 - Wed Nov 25 19:05 PST 2026: dead-statics-d2client posted (stacked on join-hireables). The quest-panel helpers were QuestLog.cpp\'s statics (making them global changes QuestLog\'s code), and the three other copies were never called, so they just go. (`lane4/join-quest-helpers` is the same commit under an earlier name; deleting it was refused, so ignore it.)
@@ -44,6 +45,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
+- lane4/joins-5 d307bf11c (on #420): chat.cpp takes 0x47C420 (sub_0047C420_HandleChatCommand); Unknown_0047C420.cpp goes with gszBattleNetPrefix (placeholders -1). chat.cpp's unmarked copy gives way to the real body. The esi/edi swap noted under Left in place came from CHAT_CopyCommandArgs: its string pointers are register-passed, so either order builds the same callee, but only szSource first gives 0x47C420's registers. Unit equal; full build: Game.exe identical, tree 4d514fe552f451f268acf5fca131290f52c0e250, placed 14,922 / 14,922, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
 
 ## Claimed
 
@@ -117,7 +119,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 - WardenClient.cpp: of the strays listed earlier, 0x479230, 0x4936E0 and 0x496B10-0x496BE0 have gone to RosterPets.cpp and Hireables.cpp, and 0x4922A0 is on `warden-4922a0`. 0x4E6560 and the text panel opener 0x4A1320 are in lane 1's range now (0x4A1320 belongs to the text unit by its data, gnTextTop 0x7225FC, but brings the text panel globals WardenClient.cpp defines under other types).
 - 0x70F814 and 0x722314 (4 zero bytes before ui.cpp's and panel.cpp's language table copies): alignment padding, but only once the copy is the first data of its unit. D2LanguageNames.h with a build symbol marker stops the link ("static data marker disagrees with the section's other anchors"): neither unit's .data is in the original order (panel.cpp defines gbControlPanelMouseDown before gnUiRecordIndex; ui.cpp's data has another file's 32 bytes at 0x70F858). Parked until those units' data are in order.
-- 0x47C420: retried in chat.cpp. It differs only by an esi/edi swap throughout. Not the cause: any other chat.cpp function's definition (each one, and all its chat.cpp callees together, turned into declarations), or whether gbNoPickup, gnLanguageId and gbChatInputOpen are defined or extern. So it is the order or set of declarations.
+- 0x47C420 (done in joins-5: CHAT_CopyCommandArgs parameter order): retried in chat.cpp. It differs only by an esi/edi swap throughout. Not the cause: any other chat.cpp function's definition (each one, and all its chat.cpp callees together, turned into declarations), or whether gbNoPickup, gnLanguageId and gbChatInputOpen are defined or extern. So it is the order or set of declarations.
 - Weather block: in Unknown_00472210.cpp, 0x4726F0 and 0x473090 inline the seed roll differently (different length); Unknown_00472890/004737B0 and Gfx.cpp's 0x473A70 need their declarations sorted first.
 
 
