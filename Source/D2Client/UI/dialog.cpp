@@ -466,13 +466,6 @@ void __stdcall DIALOG_KeyMsg(SMSGHANDLER_PARAMS* pMsg)
         DIALOG_HandleDialogKey(pDialog->bModal == 0, pMsg);
 }
 
-static inline SelectionState* GetSelectionState(int line)
-{
-    SelectionState* state = gVar_007C0E54;
-    D2_ASSERT(state, line);
-    return state;
-}
-
 static inline bool DispatchWheelHandlers(HandlerNode* pNode, Message* pMessage)
 {
     for (; pNode; pNode = pNode->next)

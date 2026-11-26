@@ -3810,11 +3810,6 @@ static inline int AUTOMAP_GetUnitType(D2UnitStrc* pUnit)
     return nType;
 }
 
-static inline int AUTOMAP_GetUnitAnimMode(D2UnitStrc* pUnit)
-{
-    return pUnit ? pUnit->dwAnimMode : 0;
-}
-
 static inline int AUTOMAP_UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit)

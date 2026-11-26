@@ -1170,142 +1170,6 @@ Unicode* __fastcall strncpy(Unicode* pDest, const Unicode* pSource, int nCount);
 static void TEXT_FreeTextNode(D2TextNodeStrc* pNode); // 0x0049D490
 
 
-static inline int sub_F08_ListTop()
-{
-    return (gnAutomapHeight - 0x1A4) / 2;
-}
-
-static inline int sub_KEYCFG_Rows()
-{
-    return ((sub_F08_ListTop() + 0x16C) - (sub_F08_ListTop() + 0x28)) / 0x12;
-}
-
-static inline int sub_KEYCFG_TrackCels()
-{
-    return ((KEYCFG_Y + 0x131) - (KEYCFG_Y + 0x2F)) / 0x0C;
-}
-
-static inline int sub_KEYCFG_RowTrackCels()
-{
-    return (sub_KEYCFG_Rows() * 0x12 - 0x4E) / 0x0C + 1;
-}
-
-static inline int sub_KEYCFG_VisibleLines()
-{
-    return ((KEYCFG_Y + 0x136) - (KEYCFG_Y + 0x28)) / 0x12;
-}
-
-static inline int sub_F08_VisibleLines()
-{
-    return sub_KEYCFG_Rows() - 3;
-}
-
-static inline int sub_F08_LinesTop()
-{
-    return sub_F08_ListTop() + 0x28;
-}
-
-static inline int sub_F08_LinesBottom()
-{
-    return sub_F08_ListTop() + 0x136;
-}
-
-static inline int sub_I18_ListTop()
-{
-    return (gnAutomapHeight - 0x1A4) / 2;
-}
-
-static inline int sub_I18_TrackTop()
-{
-    return sub_I18_ListTop() + 0x2F;
-}
-
-static inline int sub_I18_TrackBottom()
-{
-    return sub_I18_ListTop() + 0x125;
-}
-
-static inline int sub_I18_ThumbHeight()
-{
-    return gnKeyConfigThumbScale * 12;
-}
-
-static inline int sub_I18_TrackSpan()
-{
-    return sub_I18_TrackBottom() - sub_I18_TrackTop() - sub_I18_ThumbHeight();
-}
-
-static inline int sub_F08_PanelLeft()
-{
-    return (gnScreenWidth - 0x26C) / 2;
-}
-
-static inline int sub_F08_PanelRight()
-{
-    return sub_F08_PanelLeft() + (gnScreenWidth - sub_F08_PanelLeft() * 2);
-}
-
-static inline int sub_F08_TrackTop()
-{
-    return sub_F08_ListTop() + 0x2F;
-}
-
-static inline int sub_F08_TrackBottom()
-{
-    return sub_F08_ListTop() + 0x125;
-}
-
-static inline int sub_F08_ThumbHeight()
-{
-    return gnKeyConfigThumbScale * 12;
-}
-
-static __forceinline int sub_F08_TrackSpan()
-{
-    return sub_KEYCFG_Rows() * 0x12 - sub_F08_ThumbHeight() - 0x4E;
-}
-
-static inline int sub_F08_NoOtherPressed(int nIndex)
-{
-    for (int i = 0; i < 7; ++i)
-    {
-        if (gaPressed[i] && i != nIndex)
-            return 0;
-    }
-    return 1;
-}
-
-static inline int sub_KEYCFG_ListTop()
-{
-    return (gnAutomapHeight - 0x1A4) / 2;
-}
-
-static inline int sub_KEYCFG_PanelRight()
-{
-    return KEYCFG_X + (gnScreenWidth_0071146C - KEYCFG_X * 2);
-}
-
-static inline int sub_KEYCFG_IsOnUpArrow(int nX, int nY)
-{
-    if (nX >= sub_KEYCFG_PanelRight() - 0x1F && nX <= sub_KEYCFG_PanelRight() - 0x12)
-    {
-        const int nTop = sub_KEYCFG_ListTop();
-        if (nY >= nTop + 0x23 && nY <= nTop + 0x2F)
-            return 1;
-    }
-    return 0;
-}
-
-static inline int sub_KEYCFG_IsOnDownArrow(int nX, int nY)
-{
-    if (nX >= sub_KEYCFG_PanelRight() - 0x1F && nX <= sub_KEYCFG_PanelRight() - 0x12)
-    {
-        const int nTop = sub_KEYCFG_ListTop();
-        if (nY >= nTop + 0x125 && nY <= nTop + 0x131)
-            return 1;
-    }
-    return 0;
-}
 
 
 
@@ -1314,18 +1178,6 @@ static inline int sub_KEYCFG_IsOnDownArrow(int nX, int nY)
 
 
 
-
-
-static int sub_0049C510_GetWaypointRowAtPoint(int nX, int nY)
-{
-    for (int i = 0; i < 9; ++i)
-    {
-        if (gaWaypointEntries[i].bEnabled && nX > gaWaypointRowRects[i].nX && nX < gaWaypointRowRects[i].nX + 0x118
-            && nY > gaWaypointRowRects[i].nY && nY < gaWaypointRowRects[i].nY + 0x1E)
-            return i;
-    }
-    return -1;
-}
 
 
 
@@ -1356,30 +1208,6 @@ void __stdcall sub_L04_EmitUse(const Unicode* pText);
 
 
 
-static __forceinline int sub_J06_IntersectsAnyHoverRect(const D2RectStrc* pRect, int nCount)
-{
-    for (int i = 0; i < nCount; ++i)
-    {
-        D2RectStrc tOverlap;
-        if (IntersectRect(&tOverlap, &gaHoverRects[i], pRect))
-            return 1;
-    }
-    return 0;
-}
-
-
-
-
-static inline int sub_F02_IntersectsAnyHoverRect(const D2RectStrc* pRect, int nCount)
-{
-    for (int i = 0; i < nCount; ++i)
-    {
-        D2RectStrc tOverlap;
-        if (IntersectRect(&tOverlap, &gaHoverRects[i], pRect))
-            return 1;
-    }
-    return 0;
-}
 
 
 
@@ -1405,20 +1233,6 @@ static inline int sub_F02_IntersectsAnyHoverRect(const D2RectStrc* pRect, int nC
 
 
 
-static __forceinline const unsigned short* TEXT_ReadLine(Unicode* pLine, const unsigned short* pText)
-{
-    int i = 0;
-    memset(pLine, 0, 100 * sizeof(Unicode));
-    for (; i < 100 && *pText != '\n'; ++i)
-    {
-        pLine[i] = *pText++;
-    }
-    if (i < 100 && *pText == '\n')
-    {
-        ++pText;
-    }
-    return pText;
-}
 
 
 
@@ -1427,26 +1241,6 @@ static __forceinline const unsigned short* TEXT_ReadLine(Unicode* pLine, const u
 
 
 
-// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
-static inline int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return -1;
-    }
-
-    return pUnit->dwClassId;
-}
-
-
-static inline int sub_004A1950_GetActNumber(const D2QuestTextsStrc* pTexts)
-{
-    if (pTexts->awIds[0] == 0xE82)
-    {
-        return gnQuestAct;
-    }
-    return 0;
-}
 
 
 
@@ -1462,139 +1256,6 @@ extern "C" { unsigned int gValue_007BF2A8; } // 0x007BF2A8
 
 
 
-
-static void sub_004A2390_ResetQuestSelection()
-{
-// build: symbol ?gbQuestSlotDown@* 0x007BF2B1
-    gbQuestSlotDown = 0;
-    gbGlobal_007BF2B2 = 0;
-    gbGlobal_007BF2B0 = 0;
-    gnQuestPressedSlot = -1;
-    gbGlobal_007BF2B4 = 0;
-    gbGlobal_007C025D = 0;
-    gbGlobal_007C025E = 0;
-    gbGlobal_007C025F = 0;
-    gbGlobal_007C0260 = 0;
-}
-
-// build: symbol ?TEXT_GetQuestTabAtPoint@* 0x004A26F0
-static int __stdcall TEXT_GetQuestTabAtPoint(int nY, int nX)
-{
-    if (nY < 0 || nY > 0x1B || nX < 0 || nX > 0x13F)
-    {
-        return -1;
-    }
-// build: symbol ?FOG_IsExpansion@* 0x00408F20
-    if (FOG_IsExpansion() && GAME_IsExpansion())
-    {
-        int i = 0;
-        for (int n = 0; n < 0x140; n += 0x40, ++i)
-        {
-            if (nX >= n && nX <= n + 0x40) return i;
-        }
-        return -1;
-    }
-    int i = 0;
-    for (int n = 0; n < 0x140; n += 0x50, ++i)
-    {
-        if (nX >= n && nX <= n + 0x50) return i;
-    }
-    return -1;
-}
-
-
-static __forceinline void sub_004A3E40_ClickSlot_Inline(int nIndex)
-{
-    for (int i = 0; i < gnQuestCount; ++i)
-    {
-        if (nIndex == gaQuestEntries[i].nSlot && gaQuestEntries[i].bEnabled)
-        {
-            gbQuestSlotDown = 1;
-            gnQuestPressedSlot = nIndex;
-            sub_004B9A00(4, 0, 0, 0, 0);
-        }
-    }
-}
-
-// build: symbol ?TEXT_GetQuestSlotAtPoint@* 0x004A2630
-static int TEXT_GetQuestSlotAtPoint(int nX, int nY)
-{
-    int nCount = gnQuestCount;
-    D2_ASSERT((unsigned int)nCount <= 6, 0x738);
-    for (int i = 0; i < nCount; ++i)
-    {
-        if (nX >= gaQuestSlots[i].nX && nX < gaQuestSlots[i].nX + 0x38 && nY >= gaQuestSlots[i].nY && nY < gaQuestSlots[i].nY + 0x34)
-        {
-            return i;
-        }
-    }
-    return -1;
-}
-
-// build: symbol ?TEXT_HitTestQuestCloseButton@* 0x004A2690
-static unsigned char TEXT_HitTestQuestCloseButton(int nX, int nY)
-{
-    if (nX >= 0x116 && nX <= 0x116 + 0x23 && nY >= 0x188 && nY <= 0x188 + 0x21)
-    {
-        return 1;
-    }
-    return 0;
-}
-
-// build: symbol ?TEXT_HitTestButtonA@* 0x004A2610
-static unsigned char TEXT_HitTestButtonA(int nX, int nY)
-{
-    if (nX >= 0xE6 && nX <= 0xE6 + 0x1D && nY >= 0x187 && nY <= 0x187 + 0x20)
-    {
-        return 1;
-    }
-    return 0;
-}
-
-
-
-
-
-
-// build: symbol ?TEXT_OpenQuestDescription@* 0x004A27D0
-static void TEXT_OpenQuestDescription(int nSlot)
-{
-    int nIndex = -1;
-    for (int i = 0; i < gnQuestCount; ++i)
-    {
-        if (gaQuestEntries[i].nSlot == nSlot)
-        {
-            nIndex = i;
-            break;
-        }
-    }
-    if (nIndex == -1)
-    {
-        return;
-    }
-    unsigned short wTextId = gaQuestEntries[nIndex].wTextId;
-    if (wTextId == 0xE8C || wTextId == 0xE8D)
-    {
-        return;
-    }
-    WARDENCLIENT_OpenTextPanel(wTextId, 1, 0);
-    TEXT_SetTextCallback(QUESTLOG_CloseQuestText, 0);
-    gbQuestDescriptionOpen = 1;
-}
-
-
-
-
-
-
-
-
-
-static int __stdcall sub_E10_IsAbovePanelLineCopy(int nY)
-{
-    int nHalf = (gnScreenWidth - 620) / 2;
-    return nY < nHalf + (gnScreenWidth - nHalf * 2 - 49) / 3 * 2 + 18;
-}
 
 
 
@@ -2687,16 +2348,6 @@ int __stdcall STATES_CheckStateMaskArmRedOnUnit(D2UnitStrc* pUnit); // 0x0063A5F
 int __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc* pInventory, D2UnitStrc** ppItem); // 0x0063C8F0
 
 static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, int nX, int nY); // 0x004A7AE0
-
-static inline D2MonStatsTxt* sub_MonStatsTxtRecord(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pMonStatsTxt[nMonsterId];
-    }
-
-    return 0;
-}
 
 static inline D2CharStatsTxt* sub_CharStatsTxtRecord(int nClass)
 {

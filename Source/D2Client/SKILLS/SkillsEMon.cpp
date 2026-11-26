@@ -67,32 +67,6 @@ static void MISSILE_SetPathDirectionInline(D2UnitStrc* pMissile, unsigned char n
 }
 
 // 0x004F04F0
-static int __stdcall SKILLSEMON_CreateMissileFan(int nMissile, int nSkillId, int nSkillLevel, int nCount, D2UnitStrc* pUnit)
-{
-    D2MissileStrc tMissileParams;
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nSkill = nSkillId;
-    tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.dwFlags = 3;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.nMissile = nMissile;
-    tMissileParams.pInitFunc = SKILLDESC_InitCappedChargedPath;
-    if (!ITEM_GetTargetPosition(pUnit, &tMissileParams.nX, &tMissileParams.nY))
-    {
-        return 0;
-    }
-
-    for (int i = 0; i < nCount; ++i)
-    {
-// build: symbol ?gaFanOffsetX@* 0x006DBF50
-        tMissileParams.nTargetX = gaFanOffsetX[i & 7];
-// build: symbol ?gaFanOffsetY@* 0x006DBF70
-        tMissileParams.nTargetY = gaFanOffsetY[i & 7];
-        tMissileParams.nInitArg = i;
-        MISSILE_CreateClientMissile(&tMissileParams);
-    }
-    return 1;
-}
 
 // 0x004F0590
 static int __stdcall SKILLSEMON_CreateMissileRequest(int nMissile, int nSkillId, int nSkillLevel, int bNotify, D2UnitStrc* pUnit)

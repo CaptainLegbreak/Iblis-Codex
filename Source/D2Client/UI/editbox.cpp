@@ -791,22 +791,6 @@ void EditBoxWrapper::sub_004BBB80_Forward(int nArg)
 
 
 
-static inline int sub_004BC0A0_IsInFirst(D2ButtonPairStrc* pButtons, D2MouseMessageStrc* pMessage)
-{
-    const int nX = pMessage->nX;
-    const int nY = pMessage->nY;
-    return nX > pButtons->nFirstX && nX < pButtons->nFirstX + pButtons->nWidth
-        && nY > pButtons->nFirstY - pButtons->nHeight && nY <= pButtons->nFirstY;
-}
-
-static inline int sub_004BC0A0_IsInSecond(D2ButtonPairStrc* pButtons, D2MouseMessageStrc* pMessage)
-{
-    const int nX = pMessage->nX;
-    const int nY = pMessage->nY;
-    return nX > pButtons->nSecondX && nX < pButtons->nSecondX + pButtons->nWidth
-        && nY > pButtons->nSecondY - pButtons->nHeight && nY < pButtons->nSecondY;
-}
-
 
 
 

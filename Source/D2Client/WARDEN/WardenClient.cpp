@@ -1033,11 +1033,6 @@ int __fastcall WARDENCLIENT_InitWarden(int nValue)
 }
 
 
-static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBottom)
-{
-    return nX >= nLeft && nX <= nRight && nY >= nTop && nY <= nBottom;
-}
-
 
 
 
@@ -1126,26 +1121,6 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
 }
 
 
-
-static D2MonStatsTxt* MONSTATS_GetTxtRecord(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pMonStatsTxt[nMonsterId];
-    }
-
-    return 0;
-}
-
-static D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-
-    return 0;
-}
 
 
 #include "gen/data/Source/D2Client/WARDEN/WardenClient.inc"

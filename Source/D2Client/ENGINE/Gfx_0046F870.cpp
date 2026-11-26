@@ -92,15 +92,6 @@ inline D2MonStats2Txt* DATATBLS_GetMonStats2TxtRecordInl(int nRecordId)
 }
 
 // 0x0046DB90
-static unsigned int GFX_HashName(const char* szName)
-{
-    D2_ASSERT(strlen(szName) < 8, 0x79);
-    const unsigned int nHash = SStrHash(szName, 1, 0);
-    unsigned int nBucket = (nHash >> 8) ^ nHash;
-    nBucket = (nBucket >> 8) ^ nHash;
-    nBucket = (nBucket >> 8) ^ nHash;
-    return nBucket & 0x1FF;
-}
 
 void __fastcall GFX_GetBaseName(const char* szPath, char* szDest); // 0x0046DBF0
 
