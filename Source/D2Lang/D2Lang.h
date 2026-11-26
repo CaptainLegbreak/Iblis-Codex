@@ -24,7 +24,7 @@ void* __fastcall sub_00517079(void* hArchive, const char* szPath, int* pSize, co
 struct D2LangCharMapEntryStrc
 {
     unsigned short wValue;
-    unsigned short f_2;
+    unsigned short wChar;
 };
 
 typedef unsigned int size_t;

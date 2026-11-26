@@ -4,7 +4,7 @@ struct D2CmpRawFrameStrc
 {
     int unk0x00;
     D2CmpRawFrameStrc* pNext;
-    int f_8;
+    int nFlip;
     int nWidth;
     int nHeight;
     int unk0x14;
@@ -36,7 +36,7 @@ void __fastcall RawBuildCelFile(D2CmpRawStrc* pRaw, D2CmpDC6HeaderStrc* pDC6)
     {
         unsigned int nLength = pRawFrame->nWidth * pRawFrame->nHeight * 3;
         D2CmpDC6FrameStrc* pFrame = (D2CmpDC6FrameStrc*)FOG_Alloc(nLength + 0x23, ".\\SRC\\Raw.cpp", 0x22, 0);
-        pFrame->nFlip = pRawFrame->f_8;
+        pFrame->nFlip = pRawFrame->nFlip;
         pFrame->nWidth = pRawFrame->nWidth;
         pFrame->nHeight = pRawFrame->nHeight;
         pFrame->nOffsetX = pRawFrame->nOffsetX;

@@ -47,7 +47,7 @@ struct D2BigLoginRecordStrc
 struct D2LangCharMapEntryStrc
 {
     unsigned short wValue;
-    unsigned short f_2;
+    unsigned short wChar;
 };
 
 struct D2SrpSha1ContextStrc

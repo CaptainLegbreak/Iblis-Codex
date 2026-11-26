@@ -172,7 +172,7 @@ int __fastcall UNISYS_LoadSysMap(void* hArchive, const char* szPath)
     for (int i = 0; i < *pMapCount; ++i)
     {
         pCharMap[i].wValue = pCursor[0];
-        pCharMap[i].f_2 = pCursor[2];
+        pCharMap[i].wChar = pCursor[2];
         pCursor += 4;
     }
 
@@ -231,13 +231,13 @@ static int UNISYS_MapCodePageChar(unsigned short wChar)
     const int nIndex = sub_00527A50_FindIndex(gpCharMap, wChar);
     if (nIndex < 0)
         return -1;
-    return gpCharMap[gpCharMapIndex[nIndex]].f_2;
+    return gpCharMap[gpCharMapIndex[nIndex]].wChar;
 }
 
 // 0x00527AE0
 int __cdecl sub_00527AE0_CompareKey(const void* pLeft, const void* pRight)
 {
-    return ((const D2LangCharMapEntryStrc*)pLeft)->f_2 - ((const D2LangCharMapEntryStrc*)pRight)->f_2;
+    return ((const D2LangCharMapEntryStrc*)pLeft)->wChar - ((const D2LangCharMapEntryStrc*)pRight)->wChar;
 }
 
 // 0x00527B00
@@ -248,7 +248,7 @@ static int sub_00527B00_MapUnicodeChar(unsigned short wChar)
         return wChar;
     }
     D2LangCharMapEntryStrc tKey;
-    tKey.f_2 = wChar;
+    tKey.wChar = wChar;
     const D2LangCharMapEntryStrc* pEntry = (const D2LangCharMapEntryStrc*)bsearch(&tKey, gpCharMap, gnCharMapCount, sizeof(D2LangCharMapEntryStrc), sub_00527AE0_CompareKey);
     if (!pEntry)
     {
