@@ -26318,17 +26318,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004B93F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004B95C0",
-     "length": 68,
-     "name": "?sub_004B95C0_IsHintPlaying@@YIHH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Sound/SoundInst.cpp",
    "rank": 1,
    "functions": [
@@ -26366,6 +26355,11 @@
      "va": "0x004B9590",
      "length": 43,
      "name": "?sub_004B9590@@YIHH@Z"
+    },
+    {
+     "va": "0x004B95C0",
+     "length": 68,
+     "name": "?sub_004B95C0_IsHintPlaying@@YIHH@Z"
     },
     {
      "va": "0x004B9610",
@@ -26420,6 +26414,11 @@
      "va": "0x004B9B20",
      "length": 37,
      "name": "?sub_004B9B20@@YIHH@Z"
+    },
+    {
+     "va": "0x004B9B50",
+     "length": 37,
+     "name": "?SOUNDINST_SetValue@@YIXHH@Z"
     },
     {
      "va": "0x004B9B80",
@@ -26554,17 +26553,6 @@
      "va": "0x004BABC0",
      "length": 26,
      "name": "?SOUNDINST_ToggleHints@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Sound/SoundInst_004B9B50.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B9B50",
-     "length": 37,
-     "name": "?SOUNDINST_SetValue@@YIXHH@Z"
     }
    ]
   },
