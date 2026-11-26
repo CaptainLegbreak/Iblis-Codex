@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 13:07 PST 2026: 0x4EB290 retried plain on the joined SkillDesc.cpp (lane1/skilldesc-run-join): 10 forms, all the same esi/edi swap from +0x8 (the original keeps pUnit in edi and the level in esi; plain gives pUnit esi). Tried: plain copy, const and non-const; nSkillLevel used directly; the level copied before the record lookup; nColor computed at the draw call; the skill id read from the record at both calls; the early-out tests swapped; the body nested in one `if (pSkill && pSkillsTxt)`; pUnit copied to a local after the tests. Parked again. Next: my range's shared prototypes into D2ClientFuncs.h (lane 4's request), dropping the private copies.
 - Thu Nov 26 13:04 PST 2026: both branches rebuilt on #430 (identical) and repushed; Ready lines carry the new SHAs. Now: 0x4EB290 plain forms on the joined SkillDesc.cpp.
 - Thu Nov 26 12:44 PST 2026: check-in. Main is #430 (lane 4's sub_ names); both my branches rebase clean onto it and namesync finds nothing to rename. Rebuilding both on #430 to repost their SHAs. (The 13:05/13:45 times on my two lines above were wrong; corrected to the commit times.)
 - Thu Nov 26 12:42 PST 2026: npcmenu-piece-note ready (the piece stays, reason in a comment). Both claimed joins are done or settled; next: my four forcing rows, starting with 0x4EB290 retried plain on the joined SkillDesc.cpp.
