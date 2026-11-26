@@ -103,7 +103,7 @@ D2SpriteCacheStrc gCmpTileCache;                                                
 
 D2SpriteCacheNodeStrc* __fastcall D2CMPSpriteCacheEvict(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
 
-extern D2CmpCacheListEntryStrc* gpCmpCacheEntries; // 0x0089DB7C
+D2CmpCacheListEntryStrc* gpCmpCacheEntries; // 0x0089DB7C
 
 
 

@@ -267,15 +267,15 @@ const unsigned char* __fastcall D2SOUNDSMP_ReadWaveHeader(const unsigned int* pR
 static void D2SOUNDSMP_ReleaseSoundBuffers(D2SoundStrc* pSound); // 0x00516070
 
 
-// build: symbol ?D2SOUNDSMP_CreateSoundBuffer@* 0x005153C0
+// 0x005153C0
 static int __stdcall D2SOUNDSMP_CreateSoundBuffer(unsigned int nFlags, D2SoundStrc* pSound)
 {
     D2WaveFormatStrc tFormat;
     D2SOUNDSMP_InitWaveFormat(&tFormat, (nFlags & 1) ? 2 : 1);
 
+    const unsigned int nBytes = (nFlags & 1) ? 0x40000 : 0x20000;
     D2DSBufferDescStrc tDesc;
     memset(&tDesc, 0, sizeof(tDesc));
-    const unsigned int nBytes = (nFlags & 1) ? 0x40000 : 0x20000;
     tDesc.dwSize = 0x14;
     tDesc.dwFlags = gbSoundGlobalFocus ? 0x80A0 : 0xA0;
     if (nFlags & 2)
@@ -285,8 +285,7 @@ static int __stdcall D2SOUNDSMP_CreateSoundBuffer(unsigned int nFlags, D2SoundSt
     tDesc.dwBufferBytes = nBytes;
     tDesc.lpwfxFormat = &tFormat;
 
-    D2DirectSoundStrc* pDirectSound = D2SOUND_GetDirectSound();
-    if (pDirectSound->CreateSoundBuffer(&tDesc, &pSound->pBuffer, 0) < 0)
+    if (D2SOUND_GetDirectSound()->CreateSoundBuffer(&tDesc, &pSound->pBuffer, 0) < 0)
         return 0;
 
     if (nFlags & 2)
@@ -308,17 +307,24 @@ static int __stdcall D2SOUNDSMP_CreateSoundBuffer(unsigned int nFlags, D2SoundSt
         }
 
         unsigned long dwSupport = 0;
-        long hr;
 // build: symbol ?D2SOUND_GetEaxVersion@* 0x00513B90
         if (D2SOUND_GetEaxVersion() == 1)
-            hr = pSound->pPropertySet->QuerySupport(gtEaxBuffer10PropertySet, 1, &dwSupport);
-        else
-            hr = pSound->pPropertySet->QuerySupport(gtEaxBuffer20PropertySet, 1, &dwSupport);
-        if (hr < 0 || (dwSupport & 3) != 3)
         {
-            pSound->pPropertySet->Release();
-            pSound->pBuffer->Release();
-            return 0;
+            if (pSound->pPropertySet->QuerySupport(gtEaxBuffer10PropertySet, 1, &dwSupport) < 0 || (dwSupport & 3) != 3)
+            {
+                pSound->pPropertySet->Release();
+                pSound->pBuffer->Release();
+                return 0;
+            }
+        }
+        else
+        {
+            if (pSound->pPropertySet->QuerySupport(gtEaxBuffer20PropertySet, 1, &dwSupport) < 0 || (dwSupport & 3) != 3)
+            {
+                pSound->pPropertySet->Release();
+                pSound->pBuffer->Release();
+                return 0;
+            }
         }
     }
 
@@ -1095,8 +1101,9 @@ static const unsigned char* __stdcall D2SOUNDSMP_FindRiffChunk(const unsigned ch
     return 0;
 }
 
+// Kept noinline: D2SOUNDSMP_CreateSoundBuffer (0x5153C0) calls this out of line in the image; without it the compiler inlines it there.
 // 0x00516720
-void __fastcall D2SOUNDSMP_InitWaveFormat(D2WaveFormatStrc* pFormat, int nChannels)
+__declspec(noinline) void __fastcall D2SOUNDSMP_InitWaveFormat(D2WaveFormatStrc* pFormat, int nChannels)
 {
     memset(pFormat, 0, sizeof(D2WaveFormatStrc));
     pFormat->wFormatTag = 1;
