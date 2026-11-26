@@ -2293,12 +2293,12 @@ void __stdcall UNITS_AllocPlayerData(D2UnitStrc* ptUnit)
     memset(ptUnit->pPlayerData, 0x00, sizeof(D2PlayerDataStrc));
     ptUnit->pPlayerData->szName[0] = 0;
 
+    // The loop reaches the unit through its own pointer: with ptUnit, the quest store's address operands come out swapped.
+    D2UnitStrc* pPlayer = ptUnit;
     for (int i = 0; i < 3; ++i)
     {
-        D2BitBufferStrc* const pQuestRecord = QUESTRECORD_AllocRecord(GFXUTIL_GetNextRosterInfo((D2RosterInfoStrc*)ptUnit));
-        // volatile: stands in for the reload of pPlayerData after the call (the original indexes it as [loop + record])
-        (*(D2PlayerDataStrc* volatile*)&ptUnit->pPlayerData)->pQuestData[i] = pQuestRecord;
-        ptUnit->pPlayerData->pWaypointData[i] = WAYPOINTS_AllocWaypointData(GFXUTIL_GetNextRosterInfo((D2RosterInfoStrc*)ptUnit));
+        pPlayer->pPlayerData->pQuestData[i] = QUESTRECORD_AllocRecord(GFXUTIL_GetNextRosterInfo((D2RosterInfoStrc*)pPlayer));
+        pPlayer->pPlayerData->pWaypointData[i] = WAYPOINTS_AllocWaypointData(GFXUTIL_GetNextRosterInfo((D2RosterInfoStrc*)pPlayer));
     }
 
     ptUnit->pPlayerData->nPortalFlags = DUNGEON_GetPortalFlagFromLevelId(1);

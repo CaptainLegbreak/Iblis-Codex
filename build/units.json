@@ -7180,30 +7180,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SBig_00421470.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00421470",
-     "length": 145
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SBig.cpp",
    "rank": 0,
    "functions": [
@@ -7211,6 +7187,10 @@
      "va": "0x00421440",
      "length": 41,
      "name": "?BigIsEven@@YAHABUBigBuffer@@@Z"
+    },
+    {
+     "va": "0x00421470",
+     "length": 145
     },
     {
      "va": "0x00421510",
@@ -8915,6 +8895,10 @@
      "name": "?CHARSEL_RefreshRealmList@@YAXXZ"
     },
     {
+     "va": "0x00437A20",
+     "length": 55
+    },
+    {
      "va": "0x00437A60",
      "length": 5,
      "name": "?CHARSEL_FreeSlots@@YAHXZ"
@@ -8943,6 +8927,10 @@
      "va": "0x00437C90",
      "length": 26,
      "name": "?CHARSEL_ScrollNameControl@@YAXXZ"
+    },
+    {
+     "va": "0x00437CB0",
+     "length": 74
     },
     {
      "va": "0x00437D00",
@@ -8987,6 +8975,10 @@
     {
      "va": "0x004380F0",
      "length": 1124
+    },
+    {
+     "va": "0x00438560",
+     "length": 1384
     },
     {
      "va": "0x00438AD0",
@@ -9194,6 +9186,16 @@
      "name": "?CHARSEL_OnName@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x0043B520",
+     "length": 398,
+     "name": "?CHARSEL_OnCharSelect@@YGHH@Z"
+    },
+    {
+     "va": "0x0043B6B0",
+     "length": 229,
+     "name": "?CHARSEL_JoinSelected@@YGHH@Z"
+    },
+    {
      "va": "0x0043C6A0",
      "length": 12,
      "name": "?CHARSEL_SetFlagBit2@@YIXH@Z"
@@ -9298,30 +9300,6 @@
      "va": "0x0043C4F0",
      "length": 57,
      "name": "?CHARSEL_CreateBaseScreen@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/CharSel_004378D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00437A20",
-     "length": 55
-    },
-    {
-     "va": "0x00437CB0",
-     "length": 74
-    },
-    {
-     "va": "0x0043B520",
-     "length": 398,
-     "name": "?CHARSEL_OnCharSelect@@YGHH@Z"
-    },
-    {
-     "va": "0x0043B6B0",
-     "length": 229,
-     "name": "?CHARSEL_JoinSelected@@YGHH@Z"
     }
    ]
   },
@@ -11658,16 +11636,6 @@
      "va": "0x004378D0",
      "length": 233,
      "name": "?CHARSEL_SubmitPasswordReset@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/CharSel_00438560.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00438560",
-     "length": 1384
     }
    ]
   },
