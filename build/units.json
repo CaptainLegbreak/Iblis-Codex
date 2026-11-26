@@ -54625,8 +54625,17 @@
      "name": "?D2GAME_BOSSES_AssignUMod@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005A48C0",
+     "length": 120,
+     "name": "?MONSTERUNIQUE_PromoteToChampion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@E@Z"
+    },
+    {
      "va": "0x005A4940",
      "length": 109
+    },
+    {
+     "va": "0x005A49B0",
+     "length": 1325
     }
    ]
   },
@@ -55044,35 +55053,6 @@
      "length": 62,
      "name": "?MONSTERMODE_GetHpPercent128@@YIEPAUD2UnitStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A48C0",
-     "length": 120,
-     "name": "?MONSTERUNIQUE_PromoteToChampion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@E@Z"
-    },
-    {
-     "va": "0x005A49B0",
-     "length": 1325
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
