@@ -359,6 +359,21 @@ void __stdcall SBigXor(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
     BigXor(pResult->tPrimary, pA->tPrimary, pB->tPrimary);
 }
 
+// 0x00423D80
+void BigStack::sub_00423D80_Release(BigBuffer* pResult, BigBuffer* pWork)
+{
+    if (pResult != pWork)
+    {
+        D2StormArrayViewStrc tView;
+        tView.pData = pWork->m_array.m_data;
+        tView.nCount = pWork->m_array.m_count;
+        pResult->m_array.sub_004215C0_Set(tView.nCount, tView.pData);
+        pResult->m_array.m_chunk = pWork->m_array.m_chunk;
+        pResult->m_start = pWork->m_start;
+        nUsed--;
+    }
+}
+
 // 0x004221F0
 static void __stdcall BigAddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c)
 {
