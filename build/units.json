@@ -770,7 +770,7 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Main.cpp",
+   "file": "Source/Main/Main.cpp",
    "rank": 0,
    "functions": [
     {
@@ -833,23 +833,10 @@
      "length": 71,
      "name": "WinMain"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd"
    ]
   },
   {
-   "file": "Source/D2Launch/Unknown_004053F0.cpp",
+   "file": "Source/Main/Unknown_004053F0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -907,23 +894,10 @@
      "length": 44,
      "name": "?ParseCmdLine@@YIXPAUD2ConfigStrc@@PBD@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd"
    ]
   },
   {
-   "file": "Source/D2Launch/Unknown_004059D0.cpp",
+   "file": "Source/Main/Unknown_004059D0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -951,19 +925,6 @@
      "length": 698,
      "name": "?GameStart@@YIHPAXPAUD2ConfigStrc@@H@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd"
    ]
   },
   {

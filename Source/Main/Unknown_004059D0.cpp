@@ -300,4 +300,4 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
 }
 
 
-#include "gen/data/Source/D2Launch/Unknown_004059D0.inc"
+#include "gen/data/Source/Main/Unknown_004059D0.inc"
