@@ -570,7 +570,6 @@ int gnMonPresetTxtActRecordCounts[5]; // 0x0096C6F0
 
 void __fastcall DATATBLS_MonPresetPlaceLinker(char* pSrc, D2MonPresetTxt* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00659990
 
-extern D2TxtLinkStrc* gpSoundsLinker; // 0x0096BDC8
 
 extern int gnSoundsGuard; // 0x0096C8B4
 
@@ -675,7 +674,6 @@ extern "C" const char gszTxtField_equiv1[];                                     
 
 extern "C" const char gszTxtField_equiv2[];                                                                 // 0x006DCD0C
 
-extern "C" const char gszTxtField_end[];                                                                    // 0x006D9060
 
 int gnMonTypeTxtRecordCount;                                                                                // 0x0096C870
 
@@ -695,7 +693,6 @@ D2TxtLinkStrc* gpHireDescLinker;                                                
 
 extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC;                                                              // 0x0096C7CC
 
-extern "C" const char gszTxtField_version[]; // 0x006DCCF0
 
 extern "C" const char gszTxtField_gold[]; // 0x006DCD90
 
@@ -812,15 +809,12 @@ extern const char gszField_monster[]; // 0x006ED574
 
 extern const char gszField_monequip[]; // 0x006ED57C
 
-extern D2TxtLinkStrc* gpTreasureClassExLinker;                                                              // 0x0096C5E8
 
 D2TxtLinkStrc* gpSetItemsLinker;                                                                            // 0x0096C844
 
 void* gpSetItemsTxt;                                                                                        // 0x0096C848
 
-extern D2TxtLinkStrc* gpUniqueItemsLinker;                                                                  // 0x0096C850
 
-extern void* gpUniqueItemsTxt;                                                                              // 0x0096C854
 
 // Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 static int __declspec(noinline) DATATBLS_GetNextIntToken(char** ppString, char chSeparator);

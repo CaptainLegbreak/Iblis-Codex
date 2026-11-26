@@ -55,11 +55,9 @@ extern "C" const char gszPandemoniumFinalePortal[]; // 0x006EE85C
 
 extern D2TxtLinkStrc* gpItemTypesLinker_0096C824; // 0x0096C824
 
-extern D2TxtLinkStrc* gpSetItemsLinker; // 0x0096C844
 
 extern D2SetItemsTxt* gpSetItemsTxt_0096C848; // 0x0096C848
 
-extern D2TxtLinkStrc* gpUniqueItemsLinker; // 0x0096C850
 
 extern D2UniqueItemsTxt* gpUniqueItemsTxt_0096C854; // 0x0096C854
 

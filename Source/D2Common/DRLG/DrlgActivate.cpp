@@ -37,7 +37,6 @@ struct D2DrlgTableRefStrc
     int nIndex;
 };
 
-extern int gnTimeRates[]; // 0x007443E4
 
 
 void __fastcall DRLGACTIVATE_RoomExPropagateUnsetStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus); // 0x0061B5B0
@@ -565,7 +564,6 @@ D2ActiveRoomStrc* __fastcall DRLGACTIVATE_GetARoomInClientSight(D2DrlgStrc* pDrl
     return 0;
 }
 
-D2DrlgRoomStrc* __stdcall sub_M121_Emit_0061B810(D2DrlgStrc* pDrlg, unsigned char nStatus) { return DRLGACTIVATE_RoomExStatusList_GetFirst(pDrlg, nStatus); }
 
 static inline D2Entry0061B7E0Strc* sub_0061B870_GetFirst(D2Owner0061B7E0Strc* pOwner, unsigned char nIndex)
 {

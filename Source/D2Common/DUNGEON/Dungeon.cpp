@@ -99,7 +99,6 @@ typedef void (__stdcall* AUTOMAPFN)(void* pRoom);
 
 typedef void (__stdcall* TOWNAUTOMAPFN)(int nLevelId, int nPickedFile, int nX, int nY);
 
-typedef void (__fastcall* ACTCALLBACKFN)(D2ActiveRoomStrc* pRoom);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 

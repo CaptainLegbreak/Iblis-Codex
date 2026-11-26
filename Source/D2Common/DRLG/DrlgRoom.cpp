@@ -115,7 +115,6 @@ void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const
 
 
 
-void __fastcall DRLGROOM_AddOrth(D2DrlgOrthStrc** ppDrlgOrth, D2DrlgLevelStrc* pLevel, int nDirection, int bIsPreset);
 
 
 inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
