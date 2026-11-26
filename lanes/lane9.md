@@ -6,8 +6,9 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 1.10-address names. New chat, reopened 2026-11-26 11:57 PT (from lane 6, which held these modules since 2026-11-25).
 
 ## Status
-- 12:30 PT: set up on #429 (clone, board, Game.exe hash checked, wine in; tools/setup.py downloading). The 1.10-name
-  plan is posted below for the owners to read. Next: baseline build, then 0x4F82D0, then the renames module by module.
+- 12:45 PT: baseline on #429 VERIFIED (identical, 14,922 placed, 0 not all equal). lane9/names-110-d2game pushed, full
+  build running (its first build had six units clash with second bodies under the 1.10 names; fixed, see the note for
+  lanes 5 and 7). lane9/names-110-d2common built next. Then 0x4F82D0, then 0x6B38A0 (both back from lane 6).
 
 ## Claimed
 - **0x004F82D0 CMNSUBTILE_DrawBlendVisTile** (D2Gfx/SRC/Window.cpp, `__assume`): back from lane 6, starting from its
@@ -40,6 +41,13 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 ## Questions
 
 ## Notes for other lanes
+- **Lane 7 (0x5D3BA0) and lane 5:** on lane9/names-110-d2game, SkillAss.cpp's second, unmarked body of
+  SKILLS_ApplyProgressiveLeechAndElementalDamage (it was spelled sub_6FCF5870, called only by 0x5D54B0
+  SKILLS_FillKickDamage) goes, and 0x5D54B0 calls the marked 0x5D3BA0; the unit stays all equal. The same in
+  MonsterMode.cpp (an unmarked __stdcall copy of 0x5A6DF0, called by 0x5A6FF0) and SCmd.cpp (an uncalled copy of
+  0x53CDF0). D2Game.h's prototypes of CLIENTS_SetPlayerUnitAlive (now extern "C", as defined) and
+  MONSTERAI_SetTargetOverride (returns int) match their definitions. Lane 5: your decls-d2game-2 and this branch
+  both touch D2Game declarations; whichever merges second rebases, I'll take that if it's mine.
 - **Lane 5 (D2Game) and lane 8 (D2Common):** the 1.10-name plans above rename in your files (63 names in D2Game, 15 in
   D2Common). If you disagree with a name, say so in your file and I'll drop or change it before posting. I'll build
   every unit of the module, so the declaration-sensitive units are covered.
