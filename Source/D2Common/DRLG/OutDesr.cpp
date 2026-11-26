@@ -32,7 +32,7 @@ void __fastcall DRLGOUTDESR_PlaceDesertTransitionToTown(D2DrlgLevelStrc* pLevel)
 
 void __fastcall DRLGOUTDESR_AddExits(D2DrlgLevelStrc* pLevel);                                              // 0x0067F670
 
-int __fastcall DRLGOUTDOORS_SpawnPresetFarAway(D2DrlgLevelStrc* pLevel, D2DrlgCoordStrc* pCoords, int nLevelPrestId, int nPickedFile, int a5, int a6); // 0x006744F0
+int __fastcall DRLGOUTDOORS_SpawnPresetFarAway(D2DrlgLevelStrc* pLevel, D2DrlgCoordStrc* pCoords, int nLevelPrestId, int nPickedFile, int nOffset, int nFlags); // 0x006744F0
 
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

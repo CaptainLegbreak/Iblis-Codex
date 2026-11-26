@@ -92,7 +92,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 D2LvlPrestRecordStrc* __stdcall sub_0061F0B0(int nPresetId); // 0x0061F0B0
 
 
-int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nPresetId, int nArg, int a4, int a5); // 0x00674730
+int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nPresetId, int nArg, int nOffset, int nFlags); // 0x00674730
 
 
 void __fastcall DRLGTILESUB_ApplySubstitutionBorder(D2DrlgOutPlaceCtxStrc* pCtx); // 0x00670750

@@ -26,8 +26,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 #pragma function(memset)
 unsigned int __fastcall sub_006C9A38(const char* szString);                                                    // 0x006C9A38
 D2AnimDataTableStrc* __fastcall DATATBLS_GetAnimData();                                                            // 0x00611D20
-void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* pUnit, int nClassId, int nMode, int nUnitType, void* pInventory, char* szPath, int* pWeaponClassCode, int a8, int a9);   // 0x0064F5B0
-void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* hUnit, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int a5, D2InventoryStrc* pInventory, int nAnimMode); // 0x0064FA00
+void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* pUnit, int nClassId, int nMode, int nUnitType, void* pInventory, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int bDetermine);   // 0x0064F5B0
+void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* hUnit, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int bDetermine, D2InventoryStrc* pInventory, int nAnimMode); // 0x0064FA00
 extern "C" const char gszEmptyAssertText;                                                                         // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                                // 0x00681E09
 
