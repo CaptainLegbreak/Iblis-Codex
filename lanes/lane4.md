@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 19:05 PST 2026: dead-statics-d2client posted (stacked on join-hireables). The quest-panel helpers were QuestLog.cpp\'s statics (making them global changes QuestLog\'s code), and the three other copies were never called, so they just go.
+- Wed Nov 25 19:05 PST 2026: dead-statics-d2client posted (stacked on join-hireables). The quest-panel helpers were QuestLog.cpp\'s statics (making them global changes QuestLog\'s code), and the three other copies were never called, so they just go. (`lane4/join-quest-helpers` is the same commit under an earlier name; deleting it was refused, so ignore it.)
 - Wed Nov 25 18:47 PST 2026: join-004f0650 and ob1-004f4590 are in #418. join-hireables posted (four placeholders joined).
 - Wed Nov 25 18:23 PST 2026: next is the Hireables join with that lead (Left in place).
 - Wed Nov 25 18:21 PST 2026: join-004f0650 and ob1-004f4590 posted: the two D2Client /Ob1 functions are done.
