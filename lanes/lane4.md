@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Thu Nov 26 11:25 PST 2026: scmd-records posted (SCmd.cpp takes all 51 packet records from D2Packets.h). Main still #426, nothing of lane 4's merged yet.
+- Thu Nov 26 11:05 PST 2026: scmd-records posted (SCmd.cpp takes all 51 packet records from D2Packets.h). Main still #426, nothing of lane 4's merged yet.
 
 - Thu Nov 26 10:12 PST 2026 (after #426): constructs branch rebased (39 -> 36); the D2Client stack is rebased and building; 0x62B5B0 declaration lever tried, no effect (Left in place).
 
