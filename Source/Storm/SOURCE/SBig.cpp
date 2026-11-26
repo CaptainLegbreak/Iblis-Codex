@@ -27,6 +27,7 @@ inline void operator delete(void* pMemory)
 // build: symbol ??1BigStack@@QAE@XZ 0x00421830
 // build: symbol ??0BigStack@@QAE@XZ 0x00421B70
 // build: symbol ?GrowToFit@D2StormArrayAStrc@@QAEXIH@Z 0x00421EA0
+// build: symbol ?CalcChunkSize@D2StormArrayBStrc@@QAEII@Z 0x00421160
 
 struct D2StormArrayBStrc
 {
@@ -119,7 +120,7 @@ unsigned int __stdcall sub_00421470_FindLowestSetBit(BigBuffer* pQueue);        
 extern const unsigned int gaSBigFermatBases[1];                                                         // 0x006CFF70
 extern const unsigned int gaSBigSmallPrimes[171];                                                        // 0x006CFF78
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);                            // 0x0041D2A0
-void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, BigBuffer* pIn);                         // 0x00421CB0
+static void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, const BigBuffer* pIn);                         // 0x00421CB0
 int __stdcall Rand(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack); // 0x00424700
 int __stdcall sub_00424B00_Square(BigBuffer* pResult, BigBuffer* pA, BigStack* pStack); // 0x00424B00
 
@@ -161,6 +162,19 @@ int __stdcall SBigCompare(D2StormBigStrc* pA, D2StormBigStrc* pB)
 void __stdcall SBigToUnsigned(D2StormBigStrc* pBig, unsigned int* pnResult)
 {
     BigToUnsigned(pnResult, pBig->tPrimary);
+}
+
+// 0x00421CB0
+static void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, const BigBuffer* pIn)
+{
+    for (unsigned int i = 0; i < 4 * pIn->Count(); ++i)
+    {
+        unsigned int nDigit = i / 4;
+        unsigned int nByte = i % 4;
+        unsigned int nValue = (*pIn)[nDigit] >> (8 * nByte);
+        if (nValue || nDigit + 1 < pIn->Count())
+            *pOut->New() = (unsigned char)nValue;
+    }
 }
 
 // build: symbol ??3@YAXPAX0@Z 0x0040EB30
