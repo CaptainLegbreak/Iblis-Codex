@@ -5,6 +5,7 @@
 #include "D2DrlgPresets.h"
 #include "D2DrlgTiles.h"
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 #include "FogApi.h"
 
 #pragma function(memset)
@@ -84,10 +85,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-
-int __fastcall DRLG_CheckNotOverlappingUsingManhattanDistance(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int nMaxDistance); // 0x0066B860
-
-int __fastcall DRLGROOM_AreXYInsideCoordinatesOrOnBorder(D2DrlgCoordStrc* pDrlgCoord, int nX, int nY); // 0x0066B9D0
 
 
 

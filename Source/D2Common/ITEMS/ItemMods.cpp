@@ -27,6 +27,7 @@
 #include "D2StatIds.h"
 
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 
 #include "D2Structs.h"
 
@@ -85,16 +86,8 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
 
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
-
-D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
 
 
-
-void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
-
-
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
 
@@ -103,8 +96,6 @@ D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
 
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
-
-D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
 int __fastcall ITEMMODS_RollRandomValueInRange(D2UnitStrc* pItem, int nMin, int nMax); // 0x0065E9E0
 
@@ -118,16 +109,12 @@ void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nVal
 
 int __stdcall STATLIST_GetBaseStatValueByLayer(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x006254E0
 
-void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szFile, int nLine); // 0x006286C0
-
 
 static inline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId);
 
 enum { SOCKET_FLAG = 0x800 };
 
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
-
-const D2RunesTxt* __stdcall ITEMS_GetRunesTxtRecordFromItem(D2UnitStrc* pItem); // 0x0062BED0
 
 void __stdcall D2COMMON_11292_ItemAssignProperty(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* a10); // 0x0065FD70
 
@@ -144,8 +131,6 @@ static inline int ITEMMODS_RollPropertyValueA(D2UnitStrc* pItem, int nMin, int n
 static inline int ITEMMODS_RollPropertyValueB(D2UnitStrc* pItem, int nMin, int nMax);
 
 static int __stdcall ITEMMODS_AddValueStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int nState, int fStatList);
-
-int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 
 int __fastcall ITEMMODS_PropertyFunc06(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11); // 0x0065EE80
 
@@ -304,8 +289,6 @@ void __stdcall sub_00627150(D2StatListStrc* pStatList, int nStatId, int nValue, 
 
 int __fastcall ITEMMODS_AssignByTimeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
 
-int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
-
 int __fastcall ITEMMODS_AssignRangeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
 
 int __fastcall ITEMMODS_AssignRolledStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
@@ -402,8 +385,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2StatListStrc* __stdcall STATLIST_GetStatListFromFlag(D2StatListStrc* pStatList, int nFlag); // 0x00625730
 
 
-
-D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 
 
 
@@ -555,7 +536,6 @@ void __stdcall D2Common_10846(int nDataBits, int* a2, int* a3, int* a4, int* a5)
 }
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromFlag(D2StatListStrc* pStatList, int nFlag); // 0x00625730
-D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 void __stdcall STATLIST_SetBaseStat2(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer, D2UnitStrc* pUnit); // 0x00627220
 
 // 0x0065C820

@@ -547,7 +547,8 @@ int __fastcall sub_004B9610_FindHint(int nId); // 0x004B9610
 int __fastcall UNITSND_GetFootstepSound(D2UnitStrc* pUnit, int nMode); // 0x004CAEB0
 int __fastcall MISSILE_GetSkillMissileRange(int nSkillId, int nSkillLevel); // 0x004CC7C0
 int __fastcall sub_004DAB40_CheckCel(D2CelStrc* pCel, int nX, int nY, int nArg4); // 0x004DAB40
-int __fastcall sub_004DBB50_InitCelContext(D2CelContextStrc* pContext, D2UnitStrc* pUnit, int a3, int nDirection, int nFrame, int* pOut, int a7, int a8); // 0x004DBB50
+// Also in D2ClientFuncs.h; kept here because inv_0048DD90.cpp's code changes with the number of declarations before it.
+int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 int __fastcall GFXUTIL_GetComponentsMaxHeight(D2UnitStrc* pUnit, D2GfxLayerHeaderStrc* pHeader, unsigned char* pLayers, int* pOut, int nDirection, int nFrame); // 0x004DBD30
 int __fastcall sub_004E4120(int nRange); // 0x004E4120
 int __fastcall sub_004F2260_GetSkillCount(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004F2260
@@ -877,7 +878,7 @@ void __stdcall D2GFX_ClearScreen(int bPartial); // 0x004F63B0
 void __stdcall D2GFX_DrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6340
 void __stdcall D2GFX_UtilDiamond(tagRECT* pRect, unsigned char nPaletteIndex); // 0x004F6280
 void __stdcall D2Win_10004(int nResolution); // 0x004F9060
-void __stdcall D2Win_10029(int a1); // 0x004FA410
+void __stdcall D2Win_10029(int bDrawCursor); // 0x004FA410
 void __stdcall D2Win_10030_CONTROL_ToggleFourthFlag(D2WinControlStrc* pControl, int bSet); // 0x004FA420
 void __stdcall DATATBLS_ComputeSequenceAnimation(D2AnimSeqTxt* pMonSeqTxt, int nTargetFramePoint, int nCurrentFramePoint, int* pMode, int* pFrame, int* pDirection, int* pEvent); // 0x00663410
 void __stdcall DUNGEON_ClientToGameSubtileCoords(int* pX, int* pY); // 0x00643510

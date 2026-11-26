@@ -219,14 +219,13 @@ static int TEXT_UpdateScrollText(D2TextScrollStrc* pRec)
 }
 
 #pragma pack(push, 1)
-typedef int(__fastcall* PANELCLOSEFN)(void* pArg, int a2, int a3);
 #pragma pack(pop)
 
 extern D2TextScrollStrc* gpTextBox; // 0x007BF0A4
 extern int gbTextBoxDone; // 0x007BF1BC
 extern void* gpHint_007BF202; // 0x007BF202
 extern void* gpHint_007BF24B; // 0x007BF24B
-extern PANELCLOSEFN gpfnTextCallback; // 0x007BF258
+extern D2TextCallback gpfnTextCallback; // 0x007BF258
 extern void* gpTextCallbackContext; // 0x007BF25C
 extern int gbTextHandlersRegistered; // 0x007BF27C
 extern char gaTextMsgHandlers[]; // 0x00722600

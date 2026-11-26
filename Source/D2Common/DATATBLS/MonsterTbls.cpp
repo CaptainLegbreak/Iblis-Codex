@@ -1,6 +1,7 @@
 #include "D2ItemTypes.h"
 
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 
 #include "D2Structs.h"
 
@@ -129,8 +130,6 @@ extern D2TxtLinkStrc* gTxtLink_0096BC4C; // 0x0096BC4C
 
 void __fastcall DATATBLS_MonStatsSkillModeLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00651150
 
-void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
@@ -171,8 +170,6 @@ struct D2MonStatsInitStrc
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
-
-int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
@@ -238,8 +235,6 @@ int __stdcall FOG_GetStringFromLinkIndex(D2TxtLinkStrc* pLinker, int nIndex, cha
 extern "C" D2ItemTypesTxt* __fastcall SUNIT_GetTableRow(int index); // 0x00555C90
 
 
-D2ItemDataTbl* __stdcall DATATBLS_GetItemDataTables(); // 0x00633590
-
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 D2TCExShortStrc* __fastcall DATATBLS_NewTreasureClassEx(const char* szTreasureClass); // 0x00653F90
@@ -273,8 +268,6 @@ extern "C" unsigned int __cdecl strlen(const char* sz);
 D2TCExShortStrc* gpTreasureClassEx; // 0x0096C5EC
 
 extern "C" const char gszTxtField_magic[]; // 0x006DCFBC
-
-D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
 D2TxtLinkStrc* gpMonUModLinker; // 0x0096C87C
 
@@ -690,8 +683,6 @@ unsigned int* gpMonTypeNest;                                                    
 
 int gnMonTypeIndex;                                                                                         // 0x0096C878
 
-D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine);                                    // 0x006BD040
-
 int __fastcall DATATBLS_CheckNestedMonsterTypes(int nMonType1, int nMonType2);
 
 
@@ -703,8 +694,6 @@ int __fastcall DATATBLS_CheckNestedMonsterTypes(int nMonType1, int nMonType2);
 D2TxtLinkStrc* gpHireDescLinker;                                                                   // 0x0096BCE8
 
 extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC;                                                              // 0x0096C7CC
-
-int __cdecl FOG_IsExpansion(); // 0x00408F20
 
 extern "C" const char gszTxtField_version[]; // 0x006DCCF0
 
@@ -822,8 +811,6 @@ extern const char gszField_oninit[]; // 0x006ED56C
 extern const char gszField_monster[]; // 0x006ED574
 
 extern const char gszField_monequip[]; // 0x006ED57C
-
-extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
 
 extern D2TxtLinkStrc* gpTreasureClassExLinker;                                                              // 0x0096C5E8
 

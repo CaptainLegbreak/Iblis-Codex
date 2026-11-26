@@ -1,5 +1,6 @@
 #include "D2LevelIds.h"
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Drlg.h"
@@ -34,8 +35,6 @@ void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 
-void __fastcall DRLGVER_FreeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex); // 0x0067D1E0
-
 
 
 
@@ -47,8 +46,6 @@ void __fastcall DRLGVER_FreeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex
 
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                                            // 0x006427F0
-
-D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                          // 0x0061E470
 
 void __fastcall sub_00680C80(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom);                                // 0x00680C80
 

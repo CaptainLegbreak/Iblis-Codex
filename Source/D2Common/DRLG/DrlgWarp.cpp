@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
@@ -119,28 +120,16 @@ struct D2DrlgStrc
     D2DrlgWarpStrc* pWarp;
 };
 
-int* __fastcall DRLGWARP_GetWarpIdArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId); // 0x0066AEC0
-
-int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId); // 0x0066C040
-
 struct D2LvlWarpTxt
 {
     int dwLevelId;
 };
 
 
-D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId); // 0x0061E470
-
 unsigned int __fastcall DRLGROOM_CheckWaypointFlags(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BAA0
-
-D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
-
-D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId); // 0x00642BB0
 
 
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
-
-D2PresetUnitStrc* __fastcall DRLGROOM_GetPresetUnits(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BFA0
 
 void __fastcall DRLGOUTPLACE_CreateLevelConnections(D2DrlgStrc* pDrlg); // 0x00678AD0
 
@@ -291,7 +280,6 @@ static inline int* sub_0066AEC0(D2DrlgStrc* pDrlg, int nLevelId)
 }
 
 extern D2TileGroupStrc gaTileGroups[];                                                             // 0x006EED88
-D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pRoomHint, D2DrlgLevelStrc* pLevel); // 0x00642C30
 
 static inline int TileMatches(int nTileIndex, int nOther)
 {

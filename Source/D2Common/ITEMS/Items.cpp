@@ -461,8 +461,6 @@ int __stdcall INVENTORY_HasSimilarPotionInBelt(D2InventoryStrc* pInventory, D2Un
 
 int __stdcall STATLIST_CopyStats(D2UnitStrc* pUnit, int nStatId, D2StatStrc* pBuffer, int nBufferSize); // 0x006261D0
 
-int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
-
 
 int __stdcall ITEMS_GetLevelRequirement(D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x0062BA60
 
@@ -661,8 +659,6 @@ void __stdcall UNITS_SetYForStaticUnit(D2UnitStrc* pUnit, int nY);              
 
 
 
-void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState);                                       // 0x006252D0
-
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
 
@@ -697,8 +693,6 @@ void __stdcall D2Common_10845(int nValue, int* pSkillId, int* pSkillLevel, int* 
 void __stdcall D2Common_10848(int nValue, int* pClass, int* pTab, int* pLevel);             // 0x0065CB60
 
 static int __stdcall ITEMS_GetGambleCost(D2UnitStrc* pItem, int nLevel);                             // 0x00629370
-
-int __fastcall ITEMS_CalculateTransactionCost(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nVendorId, int nTransactionType);
 
 #define D2_NORETURN __declspec(noreturn)
 

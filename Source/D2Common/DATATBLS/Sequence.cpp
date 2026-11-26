@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 #include "D2Structs.h"
 #include "D2AnimData.h"
 #include "FogApi.h"
@@ -14,7 +15,6 @@ struct D2PlayerWeaponSequencesStrc
 
 extern D2PlayerWeaponSequencesStrc* gPlayerWeaponsSequenceTable[];                                                           // 0x007483B8
 extern const int gWeaponIndexToClassMap[14][2];                                                               // 0x00748418
-D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit);                                                 // 0x00620250
 int __fastcall SKILLS_GetSeqNumFromSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                                       // 0x00643D00
 void* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                                           // 0x00451F80
 D2AnimSeqRecordStrc* __stdcall DATATBLS_GetMonSeqTableRecord(int nSequence);                                                // 0x00659E30

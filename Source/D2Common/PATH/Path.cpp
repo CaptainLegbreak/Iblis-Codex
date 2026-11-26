@@ -31,6 +31,7 @@
 #include "D2PathFind.h"
 
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 
 #include "D2Structs.h"
 
@@ -1022,10 +1023,6 @@ extern int gaPathTypeFlags[]; // 0x006EB690
 
 void __stdcall DUNGEON_ClientToGameCoords(int* pX, int* pY); // 0x00643540
 
-void __fastcall PATH_GetDirectionVector(D2CoordStrc* pDirectionVector, int* pOutDirection, unsigned int dwStartPrecisionX, unsigned int dwStartPrecisionY, unsigned int dwTargetPrecisionX, unsigned int dwTargetPrecisionY); // 0x0064FC60
-
-
-int __stdcall UNITS_GetUnitSizeY(D2UnitStrc* pUnit); // 0x006205A0
 
 
 int __stdcall UNITS_HasCollision(D2UnitStrc* pUnit); // 0x006219C0
@@ -1288,8 +1285,6 @@ static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
 #define MONSTATS2FLAGINDEX_ISATT 9
 
 #define MONSTATS2FLAGINDEX_SMALL 10
-
-int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit); // 0x00622D00
 
 struct D2SkillFormulaCtxStrc { D2UnitStrc* pUnit; int nSkillId; int nSkillLevel; };
 

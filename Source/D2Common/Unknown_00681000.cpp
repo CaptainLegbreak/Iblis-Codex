@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
 #include "D2Structs.h"
@@ -21,15 +22,11 @@ extern const int gnOutdoorScanYOffsets[4]; // 0x006F2800
 
 struct D2DrlgGridStrc;
 
-void __fastcall DRLGGRID_SetVertexGridFlags(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, int nFlag); // 0x0067C890
-
 void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel); // 0x00680D70
 
 void __stdcall sub_00681000(D2DrlgLevelStrc* pLevel); // 0x00681000
 
 int __fastcall sub_006817D0(D2DrlgLevelStrc* pLevel, int nRoad); // 0x006817D0
-
-D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char nDirection); // 0x0067CDD0
 
 extern const int gnAct1PathOffsetX[4]; // 0x006F2820
 

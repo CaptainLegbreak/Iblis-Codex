@@ -1585,7 +1585,7 @@ static void sub_0046D660_AiFlagged(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
 }
 
 // 0x0046D780
-void __fastcall sub_0046D780(D2UnitStrc* pUnit)
+void __fastcall sub_0046D780_RunClientAi(D2UnitStrc* pUnit)
 {
     int* pTimer = sub_004AE110_GetAiTimer(pUnit);
     if (!pTimer)
@@ -1934,7 +1934,7 @@ void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay
                 memset(&tContext, 0, sizeof(tContext));
                 tContext.nOverlay = nOverlay;
                 int nOut;
-                if (!sub_004DBB50_InitCelContext(&tContext, 0, 0, UNITS_GetDirection(pUnit), nFrame, &nOut, 1, -1))
+                if (!GFXUTIL_InitUnitCelContext(&tContext, 0, 0, UNITS_GetDirection(pUnit), nFrame, &nOut, 1, -1))
                 {
                     return;
                 }
@@ -2712,7 +2712,7 @@ int __fastcall GFX_DrawSimpleUnitShadow(D2UnitStrc* pUnit)
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nOut;
-    if (!sub_004DBB50_InitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, 1, -1))
+    if (!GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, 1, -1))
     {
         return 0;
     }
@@ -2776,7 +2776,7 @@ int __fastcall GFX_GetHealthBarOffset(D2UnitStrc* pUnit)
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nOut;
-    if (!sub_004DBB50_InitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, 1, -1))
+    if (!GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, 1, -1))
     {
         return 0;
     }
@@ -2867,7 +2867,7 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
                     D2CelContextStrc tContext;
                     memset(&tContext, 0, sizeof(tContext));
                     int nOut;
-                    if (sub_004DBB50_InitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, nLayer, -1))
+                    if (GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, nLayer, -1))
                     {
                         TEXTURE_CelDrawHilight(&tContext, nX, nY, nColor);
                     }

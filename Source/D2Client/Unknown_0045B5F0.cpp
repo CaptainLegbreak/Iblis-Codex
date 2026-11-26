@@ -30,7 +30,7 @@ extern int gnAutomapOriginX; // 0x007A520C
 
 int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 void __stdcall AUTOMAP_DrawRoomCollision(D2ActiveRoomStrc* pRoom); // 0x0045B4F0
-void __stdcall sub_0045B5F0(D2ActiveRoomStrc* pRoom); // 0x0045B5F0
+void __stdcall sub_0045B5F0_DrawRoomTileDebug(D2ActiveRoomStrc* pRoom); // 0x0045B5F0
 
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, va_list args); // 0x006CC4AC
 
@@ -66,7 +66,7 @@ inline void* operator new(unsigned int nSize, void* pWhere) throw()
 }
 
 // 0x0045B5F0
-void __stdcall sub_0045B5F0(D2ActiveRoomStrc* pRoom)
+void __stdcall sub_0045B5F0_DrawRoomTileDebug(D2ActiveRoomStrc* pRoom)
 {
     int nTiles;
     D2DrlgTileDataStrc* pTiles = DUNGEON_GetWallTilesFromRoom(pRoom, &nTiles);
@@ -188,7 +188,7 @@ void __cdecl sub_0045B8B0_DrawLogicalRoom()
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
     D2GFX_OutputString(10, 0x37, "Logical Room->%d", sub_0061B130_GetCollision(pRoom, nX, nY));
     AUTOMAP_DrawRoomCollision(pRoom);
-    sub_0045B5F0(pRoom);
+    sub_0045B5F0_DrawRoomTileDebug(pRoom);
 }
 
 // 0x0045B960

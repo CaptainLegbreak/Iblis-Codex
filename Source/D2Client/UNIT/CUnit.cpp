@@ -342,7 +342,7 @@ extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
 
 void __fastcall UNITMODE_UpdateUnit(D2UnitStrc* pUnit); // 0x00480810
 
-void __fastcall sub_0046D780(D2UnitStrc* pUnit); // 0x0046D780
+void __fastcall sub_0046D780_RunClientAi(D2UnitStrc* pUnit); // 0x0046D780
 
 
 int __fastcall GFX_GetGfxBasePalShift(D2GfxDataStrc* pGfxData); // 0x0046F1F0
@@ -587,7 +587,7 @@ extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
-D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int a2, int a3); // 0x00619DA0
+D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
 
 
 
@@ -940,7 +940,7 @@ void __stdcall CUNIT_FreeUnitTable(D2UnitStrc** ppTable)
             {
                 if (pFound->dwUnitType == UNIT_MONSTER)
                 {
-                    sub_0046D780(pFound);
+                    sub_0046D780_RunClientAi(pFound);
                 }
                 else if (pFound->dwUnitType == UNIT_OBJECT)
                 {

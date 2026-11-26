@@ -194,7 +194,7 @@ int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pReco
 int __cdecl CLIENT_GetConnectionStatus();                                                                   // 0x0052B050
 
 
-void __stdcall SERVER_Initialize(int a1, int a2);                                                           // 0x0052B7A0
+void __stdcall SERVER_Initialize(int nState, int bDisableNt);                                                           // 0x0052B7A0
 
 void __stdcall CLIENT_Initialize(int nArg, const char* szAddress);                                               // 0x0052A750
 

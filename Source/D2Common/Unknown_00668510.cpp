@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 #include "D2TxtItems.h"
 #include "D2LevelTxt.h"
 #include "D2Records.h"
@@ -40,8 +41,6 @@ extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
-D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
-
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError); // 0x006BD130
 
 extern "C" const char gszComma[]; // 0x006EE82C
@@ -69,12 +68,6 @@ static int __stdcall sub_00668A90_ParseCubeInput(D2CubeInputItemStrc* pInput, ch
 static void sub_00668510_MakeCode(const char* szText, char* szCode);
 
 static char* sub_00668590_NextSetToken(char** ppString, const char* szSet);
-
-extern "C" unsigned int __cdecl strcspn(const char* szString, const char* szSet);                          // 0x00688990
-
-extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
-
-extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2);                              // 0x006841E9
 
 int __stdcall FOG_GetRowFromTxt(void* pLinker, const char* szText, int nColumn);                            // 0x006BD3C0
 

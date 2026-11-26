@@ -18,6 +18,7 @@
 #include "D2ItemsWorld.h"
 
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 
 #include "D2Structs.h"
 
@@ -40,10 +41,6 @@ struct D2Roll20Strc;
 struct D2Roll28Strc;
 
 struct D2HirelingTxt;
-
-void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
-
-void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
@@ -474,7 +471,6 @@ int __fastcall sub_00663A20_SetItemBonusStates(D2UnitStrc* pItem, unsigned int n
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 D2SetItemsTxt* __fastcall DATATBLS_GetSetItemsTxtRecord(int nIndex);                                    // 0x00483440
-void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
 // 0x00663B40
 int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3)
