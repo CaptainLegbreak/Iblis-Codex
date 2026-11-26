@@ -42,10 +42,10 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 574 |
+| Compilation units | 573 |
 | … in a file with its original name, whole | 309 |
 | … pieces of an original file still split (in 18 files) | 69 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 196 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 195 |
 | Record definitions private to a source file (`struct`/`union` in a .cpp) | 1813 |
 | Unnamed fields (`unk0x..`) in the shared headers | 647 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 34 |
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`, an `if`/`else` whose two arms are identical). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
 
-Not listed one by one: 3240 functions are compiled with `/GS-` and 1581 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 110 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
+Not listed one by one: 3242 functions are compiled with `/GS-` and 1581 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 110 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
