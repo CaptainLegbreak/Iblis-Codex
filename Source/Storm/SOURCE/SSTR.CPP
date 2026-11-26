@@ -2,14 +2,11 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
+#include "StormApi.h"
 
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
 
-unsigned int __stdcall SStrLen(const char* szString);                                                       // 0x00413750
-
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
-
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);                              // 0x0041D2A0
 
 double __cdecl sub_00414260_PowInt(double x, int nExp);
 
@@ -18,8 +15,6 @@ extern "C" int __cdecl strncmp(const char* szLeft, const char* szRight, unsigned
 extern "C" int __cdecl _strnicmp(const char* szString1, const char* szString2, unsigned int nCount); // 0x00686040
 
 unsigned int gdwSStrScanWord; // 0x007788D8
-
-const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
 
 extern "C" const unsigned __int64 gqwSStrHash64Table[16]; // 0x006CEE70
 
@@ -42,15 +37,11 @@ extern "C" __declspec(dllimport) __declspec(noreturn) void __stdcall ExitProcess
 
 int __stdcall SErrDisplayError(unsigned int nErrorCode, const char* szFile, int nLine, const char* szDescription, int bRecoverable, unsigned int nExitCode); // 0x0041CAF0
 
-unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
-
 static void FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock); // 0x00411AA0
 
 static int CheckPointer(void* pMemory, int bReport, const char* szFile, int nLine); // 0x00411910
 
 typedef void (__stdcall* SMEMDUMPCALLBACK)(void* pParam, const char* szText);
-
-const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 
 extern "C" const unsigned int gadwSStrHashTable[16]; // 0x006CEE30
 
@@ -804,8 +795,6 @@ static int InternalVPrintf(char* szDest, size_t nSize, const char* szFormat, va_
     }
     return 0;
 }
-
-extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...);
 
 extern "C" int __cdecl SStrVPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, va_list args);
 

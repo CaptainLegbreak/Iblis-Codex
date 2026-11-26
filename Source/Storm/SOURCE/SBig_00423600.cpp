@@ -4,10 +4,9 @@ inline void* operator new(unsigned int, void* pWhere) throw()
     return pWhere;
 }
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
-
 #include "D2StormArrayA.h"
 #include "D2StormArrayC.h"
+#include "StormApi.h"
 
 struct D2StormArrayBStrc
 {
