@@ -32,7 +32,6 @@ struct D2DDrawCelClipStrc
 
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);
 void __stdcall CelDrawEx(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nClipTop, int nClipRows, int nArg13); // 0x00601650
-int __fastcall DDCORE_GetDrawModePalette(int nIndex, int* pType); // 0x00511D70
 
 extern D2PaletteTableStrc* gpGfxPaletteView; // 0x007C9150
 extern int gnDDrawClipRight; // 0x008812A0
@@ -180,7 +179,6 @@ int __stdcall CelGetWidth(D2CelStrc* pCel);                                     
 int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 int __stdcall CelGetOffsetX(D2CelStrc* pCel);                                                               // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc* pCel);                                                               // 0x00601950
-int __fastcall DDCORE_GetDrawModePalette(int nIndex, int* pType);                                           // 0x00511D70
 int gnDDrawClipLeft;                                                                                // 0x0088129C
 
 // 0x005120A0
@@ -218,7 +216,6 @@ int __stdcall CelGetWidth(D2CelStrc*); // 0x006018C0
 int __stdcall CelGetHeight(D2CelStrc*); // 0x006018F0
 int __stdcall CelGetOffsetX(D2CelStrc*); // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc*); // 0x00601950
-int __fastcall DDCORE_GetDrawModePalette(int, int*); // 0x00511D70
 void __stdcall CelDrawEx(D2CmpCelContextStrc*, int, int, int, int, unsigned char*, int, int, int, int, int, int, int); // 0x00601650
 extern int gnRenderWidth; // 0x007C9138
 extern int gnRenderHeight; // 0x007C913C
@@ -266,7 +263,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
-int __fastcall DDCORE_GetDrawModePalette(int nIndex, int* pType);                                           // 0x00511D70
 
 // 0x00512410
 int __fastcall GLVERTEX_CelFlatSpriteDraw(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nScreenMode, void* pPalette)

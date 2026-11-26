@@ -101,13 +101,9 @@ int __fastcall GLCORE_ChangeRes(void* hWnd, int nResolution); // 0x00509F70
 
 void __fastcall GLCORE_SetGamma(int nGamma); // 0x005090B0
 
-void __cdecl GLSMACK_SmackFree(); // 0x0050DF70
 
-void __cdecl GLBLOCKS_FreeBlockBuffers(); // 0x0050F8C0
 
-void __cdecl GLPERSPECTIVE_FreePerspectiveTable(); // 0x0050DCA0
 
-void __cdecl GLVERTEX_FreeBlendTable(); // 0x0050DB40
 
 int gnRenderWidth;                                                                                 // 0x007C9138
 
@@ -160,7 +156,6 @@ void (__stdcall* gpfnGrGlideInit)(); // 0x0087EB04
 
 void (__stdcall* gpfnGrSstSelect)(int nSst); // 0x0087EB3C
 
-void __cdecl GLDEBUGFONT_CreateDebugFont(); // 0x0050B9E0
 
 int __cdecl GLCORE_InitTextureMemory(); // 0x00509670
 
@@ -184,21 +179,13 @@ int gbGlideInit; // 0x0087EFCC
 
 void __cdecl GLCORE_CloseAtExit(); // 0x00509FD0
 
-void __cdecl sub_0050C760_GlideInitVertices(); // 0x0050C760
 
-void __cdecl sub_0050D540_GlideInitD(); // 0x0050D540
 
-void __cdecl GLVERTEX_AllocBlendTable(); // 0x0050DB20
 
-void __cdecl GLVERTEX_BuildBlendTable(); // 0x0050DB70
 
-void __cdecl GLPERSPECTIVE_AllocPerspectiveTable(); // 0x0050DC80
 
-void __cdecl GLPERSPECTIVE_FillPerspectiveTable(); // 0x0050DCD0
 
-void __cdecl GLSMACK_SmackInit(); // 0x0050DF10
 
-void __cdecl GLBLOCKS_InitBlockBuffers(); // 0x0050F870
 
 char gnFloorCacheSize[12]; // 0x007C90C8
 
@@ -217,15 +204,12 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 
 int __fastcall GLCORE_CreateSurface(void* hWnd, int nResolution); // 0x00509E90
 
-int __cdecl sub_0050BF40_GlideGetBlendedShadows();                                                                    // 0x0050BF40
-
-
-void __fastcall sub_0050C270_GlideDrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, unsigned char nAlpha); // 0x0050C270
 
 
 
 
-void __fastcall sub_0050FDF0_GlidePlaySmacker(const char* szFile, int nResolutionMode, void* pfFrame);      // 0x0050FDF0
+
+
 
 
 void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT* pRect, unsigned char nColor);                     // 0x00512D90
@@ -317,21 +301,14 @@ extern unsigned int gnDDrawBinkFlags;                                           
 
 extern int gbDDrawBinkDone;                                                                        // 0x008816CC
 
-int __fastcall GLDEBUGFONT_DownloadDebugFont(int nStartAddress, int nAlignment); // 0x0050B860
 
-int __fastcall GLSPRITE_SetSmackTexAddresses(int nBase, int nAlign); // 0x0050DFE0
 
 D2GlideTexCacheStrc gaGlideTexCaches[4]; // 0x0087F048
 
-int __fastcall GLTEXTURECACHE_TexCacheInit(D2GlideTexCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050E890
 
-int __fastcall GLSUBTILECACHE_TileCacheInit(D2GlideTileCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050ED90
 
-int __fastcall GLFLOORCACHE_FloorCacheInit(D2GlideFloorCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050F320
 
-void __cdecl GLSPRITE_InitSprites(); // 0x0050B7B0
 
-void __stdcall GLFLOORCACHE_ReleaseTileCache(); // 0x0050FCB0
 
 void __stdcall TileSetHardwareFreeCallback(void* pfnCallback); // 0x00604A30
 
@@ -369,13 +346,9 @@ void __fastcall GLFLOORCACHE_FloorCacheDestroy(D2GlideTexCacheStrc* pCache, int 
 
 void __fastcall GLSUBTILECACHE_TileCacheDestroy(D2GlideTexCacheStrc* pCache, int bFree); // 0x0050F210
 
-void __cdecl GLSMACK_SmackFlush(); // 0x0050E030
 
-void __fastcall GLTEXTURECACHE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFree); // 0x0050ECB0
 
-void __cdecl GLSPRITE_FreeSpriteBuffers(); // 0x0050A0C0
 
-void __cdecl GLDEBUGFONT_FreeDebugFont(); // 0x0050BB70
 
 typedef void (__stdcall* D2GlideFinishFn)();
 
@@ -417,7 +390,6 @@ extern void (__stdcall* gpfnGrGlideInit)(); // 0x0087EB04
 extern void (__stdcall* gpfnGrGlideShutdown)(); // 0x0087EAB0
 
 int __cdecl GLCORE_GlideLoadLibrary(); // 0x00508970
-void __fastcall GLTEXTURECACHE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush); // 0x0050ECB0
 void __fastcall GLSUBTILECACHE_TileCacheDestroy(D2GlideTileCacheStrc* pCache, int bFlush); // 0x0050F210
 void __fastcall GLFLOORCACHE_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush); // 0x0050F7C0
 extern D2GlideTileCacheStrc gtGlideTileCache; // 0x0087EB48
@@ -428,7 +400,6 @@ void* ghGlideLibrary; // 0x0087EFA8
 
 void (__stdcall* gpfnGuGammaCorrectionRGB)(float fRed, float fGreen, float fBlue); // 0x0087EABC
 
-void (__stdcall* gpfnGrDrawPoint)(const D2GlideSpriteVertexStrc* pVertex); // 0x0087EAA0
 
 void (__stdcall* gpfnGrDrawLine)(const D2GlideSpriteVertexStrc* pStart, const D2GlideSpriteVertexStrc* pEnd); // 0x0087E978
 
@@ -472,9 +443,7 @@ void (__stdcall* gpfnGrTexDownloadTable)(int nType, void* pData); // 0x0087EB40
 
 void* gpfnGrTexMipMapMode; // 0x0087EAD4
 
-int (__stdcall* gpfnGrLfbLock)(int nType, int nBuffer, int nWriteMode, int nOrigin, int bPixelPipeline, D2GrLfbInfoStrc* pInfo); // 0x0087EADC
 
-int (__stdcall* gpfnGrLfbUnlock)(int nType, int nBuffer); // 0x0087EAD8
 
 // 0x00507EE0
 void __fastcall SCROLLBAR_Destroy(void* pArg)
@@ -482,7 +451,6 @@ void __fastcall SCROLLBAR_Destroy(void* pArg)
     CONTROL_RemoveFromList(pArg);
 }
 
-void __fastcall GLTEXTURECACHE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush);                     // 0x0050ECB0
 
 void __fastcall GLSUBTILECACHE_TileCacheDestroy(D2GlideTileCacheStrc* pCache, int bFlush);                    // 0x0050F210
 
@@ -584,7 +552,6 @@ int __cdecl GLCORE_CheckCutScene()
 
 int gnSceneScaleFactor; // 0x007B57E4
 
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC218
 
 D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
 

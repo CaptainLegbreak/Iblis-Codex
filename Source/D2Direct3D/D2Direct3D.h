@@ -73,3 +73,16 @@ void __fastcall D3DCORE_SetTextureFilterMode(int nMode); // 0x006B2030
 void __fastcall D3DCORE_ShowD3DError(const char* text,long result); // 0x006B39B0
 int __cdecl sub_006B77A0_GetBlendedShadows(); // 0x006B77A0
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
+void __cdecl D3DSPRITE_ReleaseSprites(); // 0x006B5B10
+void __cdecl D3DSPRITE_InitSprites(); // 0x006B7110
+void __cdecl sub_006B7250_ReleaseAll(); // 0x006B7250
+void __fastcall sub_006B9730_SetColor(D2TLVertexStrc* pVertex,unsigned char nIndex,unsigned char nAlpha); // 0x006B9730
+void __fastcall sub_006B9730_SetQuadColor(D2TLVertexStrc*,unsigned char,int); // 0x006B9730
+void __cdecl D3DSMACK_SmackInit(); // 0x006B9A10
+char* __fastcall D3DSMACK_CreateSmackSurfaces(char*); // 0x006B9A50
+extern "C" void __cdecl D3DSMACK_SmackFree(); // 0x006B9B00
+void __cdecl D3DSMACK_ReleaseSmackSurfaces(); // 0x006B9B30
+void __cdecl D3DFLOORCACHE_CreateTileSurfaces(); // 0x006BB5E0
+void __cdecl D3DFLOORCACHE_ReleaseTileSurfaces(); // 0x006BB640
+int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile); // 0x006BB870
+void __fastcall D3DFLOORCACHE_InvalidateTileCaches(D2TileLibraryEntryStrc* pTile); // 0x006BBB90

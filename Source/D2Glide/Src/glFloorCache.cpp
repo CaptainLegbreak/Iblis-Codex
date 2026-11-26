@@ -7,8 +7,6 @@ extern int gdwGlobal_0087EFB8; // 0x0087EFB8
 
 extern D2GlideTileCacheStrc gtGlideTileCache; // 0x0087EB48
 extern D2GlideFloorCacheStrc gtGlideFloorCache; // 0x0087EB68
-void __fastcall GLSUBTILECACHE_TileCacheRelease(D2GlideTileCacheStrc* pCache, int nIndex); // 0x0050F1B0
-void __fastcall GLSMACK_FloorCacheRemove(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F750
 
 
 // 0x0050F320

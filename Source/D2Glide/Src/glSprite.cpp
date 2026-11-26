@@ -17,15 +17,12 @@ void* __stdcall CelGetHardwareData(D2CelStrc* pCel); // 0x00601B10
 
 
 
-int __cdecl sub_0050BF40_GlideGetBlendedShadows(); // 0x0050BF40
 
 
 
 void __fastcall GLPERSPECTIVE_PerspectiveTransform(int nX, int nY, int nZ, int* pScreenX, int* pScreenY); // 0x0050DD60
 
-void __fastcall GLTEXTURECACHE_TexCacheTouch(D2GlideTexCacheStrc* pCache, int nId); // 0x0050EBE0
 
-int __fastcall GLTEXTURECACHE_TexCacheAdd(D2GlideTexCacheStrc* pList); // 0x0050ED10
 
 void (__stdcall* gpfnGrTexDownloadMipMap)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo);        // 0x0087EAB8
 
@@ -99,9 +96,7 @@ static int __stdcall GLSPRITE_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, cons
 
 typedef void (__fastcall* PixelDataFreeCallback)(void* pData);
 
-int __cdecl GLCORE_GetFloorTilesFlag();                                                                                  // 0x00509650
 
-void __fastcall GLCORE_ReleaseTexSlots(void* pData);                                                 // 0x0050A110
 
 void __stdcall CelSetHardwareFreeCallback(PixelDataFreeCallback pfnCallback); // 0x00601A30
 
