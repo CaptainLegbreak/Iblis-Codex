@@ -42,6 +42,11 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/glide-spans b53e11bb (on #435): eight D2Glide functions move to the file whose `.\Src\gl*.cpp` span they sit in
+  (lane 6's scan): 0x50A110 -> glSprite.cpp; 0x50DFE0, 0x50E330 -> glSmack.cpp; 0x50EAE0, 0x50EC40 ->
+  glTextureCache.cpp (its unmarked copy of the evict goes); 0x50F570, 0x50F6D0, 0x50F750 -> glFloorCache.cpp, beside
+  their callers; inferred names take the new file's prefix. All 12 D2Glide units equal; auditguard no count rose.
+  Full build: Game.exe identical, tree dbcc1d94dd57b602413334d3e22b6b5cb453f8f5, borrowed code / data 8,373 / 261 B.
 - lane9/names-110-d2game WITHDRAWN: superseded by names-110-d2game-2, merged in #432. Don't merge 03c35c9a2 (the old
   tip): its content is on main already.
 - lane9/names-110-d2common WITHDRAWN: superseded by names-110-d2common-2, merged in #435.
