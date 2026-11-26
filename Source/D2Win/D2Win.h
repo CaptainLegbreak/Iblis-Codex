@@ -27,8 +27,6 @@ extern "C" const char gszD2CompSourceFile[]; // 0x006DCC20
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char gszMonstersDir[]; // 0x006D6CAC
 extern "C" const char gszDataGlobal[]; // 0x006D4118
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" int __cdecl isspace(int c); // 0x00687006
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" int __cdecl sub_00517ABB_BitScanForward1(unsigned int nValue); // 0x00517ABB
 extern "C" unsigned int __security_cookie; // 0x00749DE0
@@ -61,7 +59,6 @@ extern unsigned int gnUnitTokens; // 0x0072E04C
 extern unsigned int gnWClassTokens; // 0x0072E198
 extern void (__stdcall* gpfnGrTexDownloadMipMap)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EAB8
 extern void (__stdcall* gpfnGrTexSource)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
-int __cdecl FOG_UseDirect(); // 0x00406D20
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl CONTROL_GetFocusedEditBox(); // 0x004F9200
 int __cdecl D2Win_IsMouseButtonPressed(); // 0x004FA460
@@ -69,11 +66,9 @@ int __cdecl CONTROL_GetActiveControlList(); // 0x004FA4B0
 int __cdecl sub_00525150(); // 0x00525150
 int __fastcall SCROLLBAR_GetCurrentStep(D2WinScrollBarStrc* pScrollBar); // 0x00507FA0
 int __fastcall SCROLLBAR_GetMaxSteps(D2WinScrollBarStrc* pScrollBar); // 0x00507EF0
-int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 int __stdcall WINDOW_GetState(); // 0x004F6070
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __stdcall EDITBOX_HandleMultiLineMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x004FE710
 int __stdcall sub_00504A20_CheckItemType(int nItemType, int nCheckType); // 0x00504A20
 int __stdcall sub_006001F0(D2GfxDataStrc* pContext, int nArg2, int nArg3); // 0x006001F0
@@ -82,13 +77,11 @@ int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 unsigned char __stdcall D2Win_10034_MixRGB(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 unsigned char* __fastcall D2COMP_GetComponentPalette(int nColor); // 0x005038D0
-void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void __fastcall FOG_FCloseFile(void* hFile); // 0x004068F0
 void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 void __fastcall D2Win_10176_StartPaletteFlash(int bActive); // 0x004FB130
 void __stdcall D2GFX_SetPaletteTables(D2PaletteTableStrc* pPaletteTables); // 0x004F6410
 void __stdcall sub_004F6540(D2GfxDataStrc* pContext, int nX, int nY); // 0x004F6540
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 void* __stdcall sub_004FAC80(); // 0x004FAC80

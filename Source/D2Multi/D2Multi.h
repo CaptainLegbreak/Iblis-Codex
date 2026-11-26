@@ -47,7 +47,6 @@ extern "C" const char gszNobodyToReply[]; // 0x006D561C
 extern "C" const char gszReplyFormat[]; // 0x006D55EC
 extern "C" const char gszSpace[]; // 0x006FFC44
 extern "C" const char gszStar[]; // 0x006D5830
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" int __cdecl tolower(int nChar); // 0x0068523E
 extern "C" int __cdecl toupper(int nChar); // 0x00685385
@@ -94,8 +93,6 @@ int __cdecl GAME_IsMcpCreateQueued(); // 0x00449E40
 int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
 int __fastcall D2Win_10055(D2WinControlStrc* pTextBox); // 0x004FBAB0
 int __fastcall D2Win_10082(D2WinControlStrc* pEditBox); // 0x004FDD00
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-int __fastcall FOG_CloseFile(void* hFile); // 0x004069A0
 int __fastcall WINMAIN_SendMcpJoinGame(const char* szName, const char* szRealm, unsigned short wRequestId); // 0x0044A4E0
 int __fastcall sub_004F9710_TestFlag(D2WinControlStrc* pControl); // 0x004F9710
 int __fastcall sub_004FB950_GetFirstVisible(D2WinControlStrc* pControl); // 0x004FB950
@@ -146,14 +143,12 @@ void __fastcall sub_004FFE10_SetTextA(D2WinControlStrc* pControl, const char* sz
 void __fastcall sub_00500B20_SetValue(D2WinControlStrc* pControl, int nValue); // 0x00500B20
 void __stdcall D2Win_10030_CONTROL_ToggleFourthFlag(D2WinControlStrc* pControl, int bSet); // 0x004FA420
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
-void __stdcall sub_00411320_CapitalizeWords(char* szText); // 0x00411320
 void __stdcall sub_004F9160_SetLoopValue(int nValue); // 0x004F9160
 void __stdcall sub_004FA450_SetActive(D2WinControlStrc* pControl); // 0x004FA450
 void __stdcall sub_00504F80_UpdateComposite(D2CompositeStrc* pComposite, int nToken, int nMode, unsigned char* pComponents, unsigned char* pColors); // 0x00504F80
 void __stdcall sub_005051A0(void* pObject, int nValue); // 0x005051A0
 void __stdcall sub_00505260(void* pObject, int nValue); // 0x00505260
 void __stdcall sub_005052F0(void* pObject, int nValue); // 0x005052F0
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))

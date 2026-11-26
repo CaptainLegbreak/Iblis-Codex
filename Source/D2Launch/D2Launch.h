@@ -46,7 +46,6 @@ int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (
 int __fastcall sub_005259C0(void* pArg, int nArg); // 0x005259C0
 int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars); // 0x00413550
 int __stdcall MAINMENUS_OnCloseBox(int nArg); // 0x004334D0
-void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void __cdecl MAINMENUS_Reset(); // 0x0042F480
 void __cdecl MAINMENUS_ShowConnectingPopup(); // 0x0042F6E0
 void __cdecl MAINMENUS_ReturnToCharSelect(); // 0x0042FDD0
@@ -68,7 +67,6 @@ void __stdcall D2Win_10004(int nResolution); // 0x004F9060
 void __stdcall D2Win_10029(int bDrawCursor); // 0x004FA410
 void __stdcall WINDOW_OpenSmackCutscene(const char* szFile, int nResolution, void* pfFrame); // 0x004F5D90
 void __stdcall sub_004F90A0(int nResolution); // 0x004F90A0
-void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField); // 0x00525260
 struct D2StatusStrc
 {
     int nCode;
@@ -101,7 +99,6 @@ extern "C" const char gszStringFormat[]; // 0x006FFC58
 extern "C" const char gszDataGlobal[]; // 0x006D4118
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" const unsigned char gabDefault[]; // 0x006D4D88
-extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); // 0x00684BD5
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -158,7 +155,6 @@ int __fastcall sub_004FC620_GetValue(D2WinControlStrc* pControl); // 0x004FC620
 int __stdcall D2Win_10033(D2WinControlStrc* pControl, int nArg); // 0x004FA470
 int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
-int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
@@ -206,7 +202,6 @@ void __fastcall D2SOUNDSMP_SetMasterVolume(int nVolume); // 0x00515CE0
 void __fastcall D2SOUNDSMP_FadeOutMasterVolume(int nArg); // 0x00515F50
 char* __fastcall UNICODE_ToUtf8(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 void __stdcall D2Win_10030_CONTROL_ToggleFourthFlag(D2WinControlStrc* pControl, int bSet); // 0x004FA420
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void __stdcall MCPCONNECT_SetPacket(const char* pData, int nSize); // 0x00449E70
 void __stdcall WINDOW_OpenSmackCutscene(const char* szFile, int nMode, int nArg); // 0x004F5D90
 void __stdcall sub_004FA450_SetActive(D2WinControlStrc* pControl); // 0x004FA450
