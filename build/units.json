@@ -1569,6 +1569,10 @@
      "length": 233
     },
     {
+     "va": "0x004027C0",
+     "length": 96
+    },
+    {
      "va": "0x00402AE0",
      "length": 106
     }
@@ -1740,11 +1744,6 @@
    "file": "Source/Fog/Src/LogManager.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004027C0",
-     "length": 96,
-     "name": "LOGMANAGER_DbgHelpThreadProc"
-    },
     {
      "va": "0x0040EB20",
      "length": 8,

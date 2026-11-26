@@ -34,6 +34,8 @@ extern "C" __declspec(dllimport) int __stdcall GetThreadContext(void* hThread, D
 extern "C" __declspec(dllimport) unsigned long __stdcall ResumeThread(void* hThread);                          // 0x006CC28C
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);                                  // 0x006CC134
+extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
+extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent); // 0x006CC130
 
 typedef int (__stdcall* SymGetSymFromAddr64Fn)(void* hProcess, unsigned __int64 qwAddr, unsigned __int64* pqwDisplacement, D2ImagehlpSymbol64Strc* pSymbol);
 
@@ -79,6 +81,9 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetCurrentProcessId(); 
 extern D2MiniDumpWriteDumpFn gpfnMiniDumpWriteDump; // 0x0098A6E0
 
 extern D2MiniDumpRequestStrc* gpMiniDumpRequest; // 0x0098A6E4
+extern void* ghDbgHelpWorkEvent; // 0x0098A6C0
+extern void* ghDbgHelpDoneEvent; // 0x0098A6BC
+void __cdecl ERRORMANAGER_SetMiniDumpThreadName(); // 0x00401A70
 
 typedef int (__stdcall* SymCleanupFn)(void* hProcess);
 
@@ -320,6 +325,23 @@ void __cdecl sub_004026D0_WriteMiniDump()
         pRequest->bResult = gpfnMiniDumpWriteDump(ghProcess, GetCurrentProcessId(), pRequest->hFile, 0x40,
             pInfo->pExceptionPointers ? &tExceptionInfo : 0, &tStreamInfo, 0) != 0;
     }
+}
+
+// 0x004027C0
+unsigned long __stdcall LOGMANAGER_DbgHelpThreadProc(void* pParam)
+{
+    // stands for a stack local the original stores 0 to and reads back unused (no plain-C form found)
+    volatile int nDummy = 0;
+    nDummy;
+    ERRORMANAGER_SetMiniDumpThreadName();
+    WaitForSingleObject(ghDbgHelpWorkEvent, 0xFFFFFFFF);
+    while (gpMiniDumpRequest)
+    {
+        sub_004026D0_WriteMiniDump();
+        SetEvent(ghDbgHelpDoneEvent);
+        WaitForSingleObject(ghDbgHelpWorkEvent, 0xFFFFFFFF);
+    }
+    return 0;
 }
 
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
