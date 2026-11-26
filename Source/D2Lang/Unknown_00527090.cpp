@@ -8,8 +8,6 @@ struct UnicodeZ;
 struct UnicodeChar;
 struct D2LangCharSetStrc;
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
-Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
 
 struct UnicodeZ
 {

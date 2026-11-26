@@ -25,7 +25,6 @@ const char* __stdcall SStrChr(const char* szString, char nChar);                
 unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone);                     // 0x00440140
-void __fastcall CHATDLG_JoinChannel(const char* szText);                                                       // 0x004411E0
 int __fastcall CHATDLG_PrintMessage(const Unicode* pText, int nColor); // 0x0043E5F0
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 

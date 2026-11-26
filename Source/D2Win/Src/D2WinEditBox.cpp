@@ -55,7 +55,6 @@ Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCo
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
-void __fastcall EDITBOX_ClearSelection(D2WinEditBoxStrc* pEditBox); // 0x004FDCC0
 
 struct UnicodeChar : Unicode
 {
@@ -70,7 +69,6 @@ int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength); // 0x005017
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
-int __stdcall D2Win_10125(); // 0x00501A40
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
@@ -119,7 +117,6 @@ extern unsigned int gdwBitMasks[];                                              
 
 extern int gnWinCallbackDepth;                                                                     // 0x007D55C4
 
-int __stdcall EDITBOX_PlaceMultiLineCaret(SMSGHANDLER_PARAMS* pMsg, int nX, int nY);                          // 0x004FE3B0
 
 static int EDITBOX_HasSelection(D2WinEditBoxStrc* pEditBox); // 0x004FDC70
 

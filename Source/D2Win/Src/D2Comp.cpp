@@ -149,7 +149,6 @@ extern "C" const char gszExcelDirectory[]; // 0x006D8ED4
 
 extern void* sghPentagram; // 0x0087E96C
 
-D2CelFileStrc* __fastcall ARCHIVE_LoadCellFile(const char* szFile, int nType); // 0x004FA9B0
 
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9
 
@@ -416,7 +415,6 @@ extern "C" __declspec(dllimport) int __stdcall EmptyClipboard();                
 
 void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, int bUnlink); // 0x005041B0
 
-int __stdcall SMACK_DeleteFile(D2WinSmackStrc* pSmack);                                                     // 0x00506990
 
 extern D2EmblemColorStrc gaEmblemColorRGB1[10];                                                    // 0x0072E19C
 

@@ -74,7 +74,6 @@ void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (_
 
 void __cdecl CHATDLG_ResetChatControls(); // 0x0043E130
 
-void __cdecl COMCALLBACK_RefreshChatButtons(); // 0x004477A0
 
 int __stdcall COMCALLBACK_ButtonCallback(D2ChatMessageStrc* pMsg); // 0x00448C70
 
@@ -269,7 +268,6 @@ void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* 
 
 void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
 
-void __fastcall CHATDLG_JoinChannel(const char* szText); // 0x004411E0
 
 int __fastcall CHATDLG_PrintMessage(const Unicode* pText, int nColor); // 0x0043E5F0
 
@@ -352,7 +350,6 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 
-void __cdecl CHATDLG_RefreshChatScreen(); // 0x0043FBD0
 
 int __fastcall WINMAIN_SendMcpCharRank(const char* szName, int nB, int nC); // 0x0044AAE0
 
@@ -464,7 +461,6 @@ extern "C" int __cdecl isalnum(int c);                                          
 
 
 
-const char* __fastcall COMCALLBACK_SkipNamePrefix(const char* szName); // 0x00446820
 
 void __fastcall CHATDLG_ShowMessage(const Unicode* pTitle, const Unicode* pText);                      // 0x0043EA70
 
@@ -526,7 +522,6 @@ void __cdecl CHATDLG_ReleaseClassButtons();                                     
 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
 
-void __fastcall COMCALLBACK_CopyNamePrefix(const char* szName, char* szOut);                               // 0x00446840
 
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl);                             // 0x004FDD90
 
@@ -578,7 +573,6 @@ void __cdecl CHATDLG_OpenExpansionHardcoreLadder(); // 0x00440B30
 
 unsigned long gdwSelectTime; // 0x0077BD5C
 
-void __fastcall CHATDLG_UpdateScroll(int nDelta); // 0x00448BD0
 
 struct D2LaunchReplyStrc
 {
@@ -775,9 +769,7 @@ struct D2GameDetailsStrc;
 
 const Unicode* __fastcall sub_004FBB30_GetText(D2WinControlStrc* pControl); // 0x004FBB30
 
-int __stdcall CHATDLG_JoinByName(int nArg); // 0x004439F0
 
-void __fastcall CHATDLG_SetPendingText(const char* szText, unsigned short wRequestId); // 0x00442DD0
 
 extern D2LaunchGameRecStrc gaNewGames[]; // 0x0077BDC8
 
@@ -875,7 +867,6 @@ int __fastcall CHATDLG_IsNightmareOpen(unsigned int nFlags); // 0x00442A80
 
 int __fastcall CHATDLG_IsHellOpen(unsigned int nFlags); // 0x00442AB0
 
-int __stdcall CHATDLG_IsNameChar(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x00443540
 
 int __stdcall sub_004435D0(void* unused1,void* unused2,const Character* text); // 0x004435D0
 
@@ -897,15 +888,11 @@ extern int gnPendingValueB;                                                     
 
 int __cdecl WINMAIN_PollMcpConnection();                                                               // 0x00449B70
 
-void __cdecl CHATDLG_DestroyCreateControls();                                                                // 0x00443220
 
-void __cdecl CHATDLG_DestroyProfileControls();                                                                                // 0x00443E10
 
 void __fastcall CHATDLG_SelectEntry(const char* szName, int nValueA, int nValueB);                    // 0x0043EC60
 
-int __stdcall CHATDLG_SetCancel(int nArg); // 0x00443870
 
-int __stdcall CHATDLG_PollMcp(int nArg); // 0x00443880
 
 int __stdcall sub_004438C0_OnCancel(int nArg); // 0x004438C0
 
@@ -957,7 +944,6 @@ int __stdcall sub_0043DBC0(int nArg);                                           
 
 int __stdcall sub_0043DBF0(int nArg);                                                                       // 0x0043DBF0
 
-void __cdecl CHATDLG_UpdateCreateButton();                                                                                // 0x00443630
 
 int __stdcall CHATDLG_RequestCharLogon(const char* szName);                                                    // 0x00449E10
 
@@ -4724,7 +4710,6 @@ int __stdcall CHATDLG_SendChat(int nArg)
 }
 
 
-int __fastcall CHATDLG_SendChatText(char* szText, int bWhisper); // 0x004428D0
 
 // 0x004428D0
 int __fastcall CHATDLG_SendChatText(char* szText, int bWhisper)
@@ -5640,7 +5625,6 @@ void __fastcall CHATDLG_ShowProfileDialog(const char*,int,int); // 0x00445A80
 
 void __fastcall CHATDLG_ShowUserInfoDialog(const char*,const char*,int,int); // 0x00445C70
 
-const char* __fastcall COMCALLBACK_SkipNamePrefix(const char* szName); // 0x00446820
 
 // build: symbol ?gbCharSelBusy@* 0x00779DA0
 // build: symbol ?gpCharList@* 0x00779DBC
@@ -5768,7 +5752,6 @@ extern D2GameListRecordStrc gtGameList_0077BDC9[]; // 0x0077BDC9
 
 void __fastcall D2Win_10050_TEXTBOX_SetLine(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FB9D0
 
-void __cdecl COMCALLBACK_BuildCreateGamePanel(); // 0x004453B0
 
 D2WinControlStrc* gpControl_00798CB0; // 0x00798CB0
 
@@ -6380,7 +6363,6 @@ void __fastcall CHATDLG_ShowUserInfoDialog(const char* szUser, const char* szTex
     CHATDLG_SetPendingName(nA, nB, szText);
 }
 
-void __cdecl CHATDLG_CreateJoinScreen();                                                               // 0x00445DF0
 
 extern D2WinControlInitStrc gtJoinGameBckgImageInit;                                                         // 0x0070D630
 

@@ -434,3 +434,19 @@ struct D2TileListHeaderStrc
 };
 
 typedef unsigned int size_t;
+
+struct D2CelStrc;
+struct D2CmpTileBlockStrc;
+struct D2CmpTileLibraryStrc;
+struct D2TileLibraryHeaderStrc;
+
+void __fastcall D2CMPTileCacheFreeProject(D2CmpTileLibraryStrc* pLibrary); // 0x005FE080
+int __stdcall D2CMPGetFindTile(void* pData); // 0x00600760
+void __stdcall D2CMPLoadProjectRecord(D2TileLibraryHeaderStrc** ppLibrary, const char* szFilePath); // 0x00600790
+unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
+void* __stdcall CreateD2Palette(void* pSource); // 0x00606930
+void __fastcall CelDrawRleShadow(D2CelStrc* pCel, unsigned char* pDst, int nX, int nClipLeft, int nClipRight, int nPitch, int nSkip, int nLines, int nTable, int nColor); // 0x00608D60
+unsigned char __fastcall FindTileHash(int a, int b, int c); // 0x0060CD70
+void __fastcall FindTileAddTile(D2TileLibraryHashStrc* pHash, D2CmpTileBlockStrc* pTile); // 0x0060CFA0
+void __fastcall CelIterateRgbPixels(D2CelStrc* pCel, int nArg, int nTermination); // 0x0060D110
+int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char* pData, const unsigned char* pEnd, unsigned char nValue, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D3A0

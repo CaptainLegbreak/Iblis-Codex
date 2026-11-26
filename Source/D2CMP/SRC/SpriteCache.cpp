@@ -106,9 +106,7 @@ D2SpriteCacheNodeStrc* __fastcall D2CMPSpriteCacheEvict(D2SpriteCacheStrc* pCach
 extern D2CmpCacheListEntryStrc* gpCmpCacheEntries; // 0x0089DB7C
 
 
-void __fastcall CelDrawRleShadow(D2CelStrc* pCel, unsigned char* pDst, int nX, int nClipLeft, int nClipRight, int nPitch, int nSkip, int nLines, int nTable, int nColor); // 0x00608D60
 
-void __fastcall FindTileAddTile(D2TileLibraryHashStrc* pHash, D2CmpTileBlockStrc* pTile); // 0x0060CFA0
 
 struct D2CmpBlockTableAStrc
 {
@@ -201,7 +199,6 @@ extern int gaDirectionIndex64A[8][64]; // 0x006E4DA0
 
 extern int gaDirectionIndex64B[8][64]; // 0x006E55A0
 
-void __fastcall CelIterateRgbPixels(D2CelStrc* pCel, int nArg, int nTermination); // 0x0060D110
 
 typedef void(__fastcall* CELFILECELLOPFN)(D2CelStrc* pCel, int nArg);
 
@@ -213,7 +210,6 @@ extern CELDRAWFN gpfnCelDraw[]; // 0x006E3688
 
 typedef void(__fastcall* PixelDataFreeCallback)(void* pData);
 
-void __stdcall D2CMPLoadProjectRecord(D2TileLibraryHeaderStrc** ppLibrary, const char* szFilePath); // 0x00600790
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 

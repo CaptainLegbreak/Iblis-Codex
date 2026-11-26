@@ -48,7 +48,6 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern tagPOINT gtMousePosition; // 0x007D55A4
 
-int __fastcall D2Win_10053(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FBA30
 
 extern "C" void* __cdecl memset(void* destination, int value, unsigned int size); // 0x00681EF0
 
@@ -77,7 +76,6 @@ int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl); // 0x004F9310
 
 int __fastcall POPUP_UpdateHoveredLine(D2WinControlStrc* pControl); // 0x00508710
 
-int __fastcall POPUP_Draw(D2WinControlStrc* pControl); // 0x005087A0
 
 extern D2WinPopUpStrc* gpPopUp; // 0x0087E974
 

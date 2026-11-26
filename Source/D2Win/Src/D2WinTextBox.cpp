@@ -54,7 +54,6 @@ extern tagPOINT gtMousePosition; // 0x007D55A4
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
-int __stdcall D2Win_10125(); // 0x00501A40
 
 int __stdcall CONTROL_AppendToList(D2WinTextBoxStrc* pControl); // 0x004F9210
 
@@ -154,7 +153,6 @@ void __stdcall TEXTURE_CelDrawClipped(D2CelContextStrc* pData, int nXPos, int nY
 
 int __fastcall D2Win_10058_0(D2WinControlStrc* pControl, const Unicode* pText, int nLineNum, int nColumn); // 0x004FB790
 
-int __fastcall D2Win_10055(D2WinTextBoxStrc* pTextBox); // 0x004FBAB0
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
@@ -267,11 +265,8 @@ extern int gbPaletteFlash; // 0x0072DE50
 
 extern D2Palette256Strc gatShadowsLightGammaPalette[49]; // 0x0081EA68
 
-int __cdecl ARCHIVE_ShowInsertExpansionDiscMessage(); // 0x004FAB00
 
-int __cdecl ARCHIVE_ShowInsertPlayDiscMessage(); // 0x004FAB30
 
-int __cdecl ARCHIVE_ShowInsertCinematicsDisc(); // 0x004FAB60
 
 extern D2ArchiveHandleStrc* gpD2XMusicMPQ; // 0x007D5604
 
@@ -291,7 +286,6 @@ extern D2ArchiveHandleStrc* gpD2PatchMPQ; // 0x007D5630
 
 extern D2ArchiveHandleStrc* gpD2ExpMPQ; // 0x007D5634
 
-int __cdecl ARCHIVE_LoadArchives(); // 0x004FAB90
 
 void __fastcall D2Win_10178_CopyGammaTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
 
@@ -303,12 +297,9 @@ extern int gbPaletteFlashWaiting; // 0x00841B68
 
 extern unsigned long gdwPaletteFlashTick; // 0x00841B6C
 
-unsigned char* __fastcall D2Win_10175_GetPL2Shift(int nIndex); // 0x004FB0C0
-
-void __stdcall D2Win_10179_UpdatePaletteFlash(); // 0x004FB0D0
 
 
-void* __stdcall D2Win_GetArchive(); // 0x004FAC80
+
 
 void __fastcall sub_004E6850_BuildSocketFillerText(D2UnitStrc* pItem, Unicode* pBuffer, int nSize)
 {

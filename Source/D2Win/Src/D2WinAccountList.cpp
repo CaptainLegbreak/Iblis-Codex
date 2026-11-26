@@ -19,7 +19,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
-int __stdcall D2Win_10125();                                                                                // 0x00501A40
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 

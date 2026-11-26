@@ -90,7 +90,6 @@ int __stdcall SCmdProcess(const char* szCmdLine, int bSkipProgName, int (__stdca
 
 unsigned short __stdcall FOG_ConnectionReceive(void* pConnection, char* pBuffer, int nSize); // 0x006BC120
 
-int __fastcall GAME_DispatchMcpPacket(const char* pPacket, unsigned int nSize); // 0x0044B190
 
 int __fastcall GAME_RunInitHandlers(void* pArg); // 0x0044D9F0
 
@@ -194,7 +193,6 @@ typedef void (__fastcall* D2McpCallback)(int nId, unsigned int nSize, const unsi
 
 void __stdcall sub_00449E30_SetValue(int nValue);                                                           // 0x00449E30
 
-void __stdcall sub_00449E50_SetValue(int nValue);                                                           // 0x00449E50
 
 void __stdcall MCPCONNECT_SetPacket(const char* pData, int nSize);                                     // 0x00449E70
 
@@ -406,7 +404,6 @@ int __fastcall sub_0044AB70_McpIncomingIgnore(void* pPacket, int nSize)
 
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent);                                      // 0x006CC130
 
-void __stdcall CHATDLG_SetCharLogonReceived(int nValue);                                                           // 0x00449C40
 
 void __stdcall CHATDLG_SetCharDeleteReceived(int nValue);                                                           // 0x00449C60
 

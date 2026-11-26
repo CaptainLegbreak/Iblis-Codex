@@ -152,7 +152,6 @@ extern D2ArchiveHandleStrc* gpD2XTalkMPQ; // 0x007D5618
 extern D2ArchiveHandleStrc* gpD2MusicMPQ; // 0x007D5628
 extern D2ArchiveHandleStrc* gpD2XMusicMPQ; // 0x007D5604
 typedef int (__cdecl* DiscCallback)();
-void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
 extern void* ghXMusicMpq; // 0x007D5604
 extern void* ghCharMpq; // 0x007D5610
 extern void* ghMusicMpq; // 0x007D5628

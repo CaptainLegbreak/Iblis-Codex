@@ -240,7 +240,6 @@ int __stdcall D2GFX_HardwareAcceleratedRenderMode(); // 0x004F6270
 
 D2WinControlStrc* __fastcall D2Win_10042_TEXTBOX_Create(int nX, int nY, int nWidth, int nHeight, int nInsetX, int nInsetY, D2CelFileStrc* pCellFile, int pfCallback, int dwTextBoxFlags, int pFontInfo, int pScrollBarRect); // 0x004FC7A0
 
-void __fastcall EDITBOX_ClearSelection(D2WinEditBoxStrc* pEditBox); // 0x004FDCC0
 
 D2WinControlStrc* __fastcall IMAGE2_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int pfnOnClick, int pClickRect, int pfHandleVirtualKeyInput); // 0x004FD6C0
 
@@ -315,11 +314,8 @@ void __stdcall D2Win_COMMANDS_MouseMove(SMSGHANDLER_PARAMS* pMsg); // 0x004FA6B0
 
 void __stdcall D2Win_10168_WINMAIN_CreateScreenshot(); // 0x004FA7A0
 
-int __fastcall D2Win_10053(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FBA30
 
-int __fastcall D2Win_10055(D2WinTextBoxStrc* pTextBox); // 0x004FBAB0
 
-int __stdcall EDITBOX_PlaceMultiLineCaret(SMSGHANDLER_PARAMS* pMsg, int nX, int nY); // 0x004FE3B0
 
 int __fastcall D2Win_10074(D2WinEditBoxStrc* pEditBox, char nChar); // 0x004FEAE0
 
@@ -622,11 +618,8 @@ extern tagPALETTEENTRY gatRGBAPalette[]; // 0x0081E668
 
 extern int gbTextBoxSmallGap; // 0x00841B70
 
-int __cdecl ARCHIVE_ShowInsertExpansionDiscMessage(); // 0x004FAB00
 
-int __cdecl ARCHIVE_ShowInsertPlayDiscMessage(); // 0x004FAB30
 
-int __cdecl ARCHIVE_ShowInsertCinematicsDisc(); // 0x004FAB60
 
 extern D2ArchiveHandleStrc* gpD2XMusicMPQ; // 0x007D5604
 
@@ -644,7 +637,6 @@ extern D2ArchiveHandleStrc* gpD2PatchMPQ; // 0x007D5630
 
 extern D2ArchiveHandleStrc* gpD2ExpMPQ; // 0x007D5634
 
-int __cdecl ARCHIVE_LoadArchives(); // 0x004FAB90
 
 void __fastcall D2Win_10178_CopyGammaTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
 
@@ -654,14 +646,11 @@ extern int gbPaletteFlashWaiting; // 0x00841B68
 
 extern unsigned long gdwPaletteFlashTick; // 0x00841B6C
 
-unsigned char* __fastcall D2Win_10175_GetPL2Shift(int nIndex); // 0x004FB0C0
 
-void __stdcall D2Win_10179_UpdatePaletteFlash(); // 0x004FB0D0
 
 
 void __fastcall TEXTBOX_SetSmallGap(int nValue); // 0x004FB590
 
-void* __stdcall D2Win_GetArchive(); // 0x004FAC80
 
 struct D2ConfigStrc;
 
@@ -674,7 +663,6 @@ extern "C" const char gszD2CharMpq[]; // 0x006DC77C
 
 typedef int (__cdecl* DiscCallback)();
 
-void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
 
 extern void* ghXMusicMpq; // 0x007D5604
 
