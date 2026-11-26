@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 08:48 PT): on 0x55A6D0 (borrowed, from lane 5, the coordinator's 07:05 assignment), working from lane5/0055A6D0-wip (2,273 / 2,253 B) on my branch lane6/55a6d0. Other items parked with readings in Claimed.
+Status (Thu Nov 26 2026, 08:50 PT): new focus taken (borrowed paused). 0x55A6D0 closed for now: no code of mine beyond lane 5's draft, which stays on lane5/0055A6D0-wip (55bb6186f); proven and left is in its Claimed entry. Now: scaffolding in my modules (private prototypes a shared header already declares), since my four forcing rows are parked with readings; then names.
 
 ## Ready
 
