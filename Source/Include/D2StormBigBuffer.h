@@ -26,7 +26,7 @@ struct BigBuffer
     }
     unsigned int Count() const
     {
-        return m_array.m_count - m_start;
+        return m_array.Count() - m_start;
     }
     int IsUsed(unsigned int nIndex) const
     {
