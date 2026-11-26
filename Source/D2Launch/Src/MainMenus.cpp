@@ -665,7 +665,7 @@ extern int gnGatewayValue_007795BC; // 0x007795BC
 
 void __cdecl MAINMENUS_FlushInput();                                                                     // 0x004317D0
 
-void __cdecl sub_00430520();                                                                                // 0x00430520
+void __cdecl sub_00430520_CreateControls();                                                                                // 0x00430520
 
 void __stdcall MAINMENUS_CreateLevelScreen(int nLevel);                                                                    // 0x004313D0
 
@@ -1325,9 +1325,9 @@ extern D2WinControlStrc* gpControl_007795A0; // 0x007795A0
 
 extern D2WinControlStrc* gpControl_007795A4; // 0x007795A4
 
-void __cdecl sub_0042F800(); // 0x0042F800
+void __cdecl sub_0042F800_CreateControls(); // 0x0042F800
 
-void __cdecl sub_0042FA20(); // 0x0042FA20
+void __cdecl sub_0042FA20_ClearStopMainLoop(); // 0x0042FA20
 
 // 0x00406870
 void __fastcall MAINMENUS_InitStorm(int nDirectFlags, int nValue)
@@ -1762,7 +1762,7 @@ int __stdcall MAINMENUS_ShowCantConnect(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0042F800
-void __cdecl sub_0042F800()
+void __cdecl sub_0042F800_CreateControls()
 {
     MAINMENUS_DestroyControls();
     gbGatewayFlag = 1;
@@ -1841,7 +1841,7 @@ void __cdecl MAINMENUS_UpdateProgress()
 // build: symbol ?MAINMENUS_CreateFromTemplate@* 0x0042F3A0
 
 // 0x0042FA20
-void __cdecl sub_0042FA20()
+void __cdecl sub_0042FA20_ClearStopMainLoop()
 {
     gbStopMainLoop = 0;
 }
@@ -2199,7 +2199,7 @@ int __stdcall MAINMENUS_ScrollDown(int nArg)
 }
 
 // 0x00430520
-void __cdecl sub_00430520()
+void __cdecl sub_00430520_CreateControls()
 {
     D2WinControlStrc* pControl = MAINMENUS_CreateFromTemplate(0xCD);
     D2Win_10033(pControl, 1);
@@ -5364,7 +5364,7 @@ void __cdecl MAINMENUS_CreateCharacter()
         gbFlag_00779984 = 1;
     if (gpLaunchRecord->wFlags1EF & 4)
     {
-        sub_00430520();
+        sub_00430520_CreateControls();
         return;
     }
     if (gnLaunchMode == 0)
@@ -5505,7 +5505,7 @@ int __stdcall MAINMENUS_OnCharCreateOk(int nUnused)
     return 1;
 }
 
-int __cdecl sub_0043B830(); // 0x0043B830
+int __cdecl sub_0043B830_IsCancelled(); // 0x0043B830
 
 int gnStatusDots; // 0x007799B4
 

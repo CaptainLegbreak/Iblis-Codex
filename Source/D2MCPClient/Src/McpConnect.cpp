@@ -283,13 +283,13 @@ void __stdcall sub_00449C90_SetValue(int nValue)
 }
 
 // 0x00449CA0
-int __cdecl sub_00449CA0()
+int __cdecl sub_00449CA0_IsPacket0BReceived()
 {
     return gbMcpPacket0BReceived;
 }
 
 // 0x00449CB0
-int __cdecl sub_00449CB0()
+int __cdecl sub_00449CB0_IsPacket0CReceived()
 {
     return gbMcpPacket0CReceived;
 }
@@ -329,7 +329,7 @@ void __cdecl CHATDLG_ClearReply()
 }
 
 // 0x00449D80
-int __cdecl sub_00449D80()
+int __cdecl sub_00449D80_IsPacket0DReceived()
 {
     return gbMcpPacket0DReceived;
 }
@@ -341,7 +341,7 @@ void __stdcall sub_00449D90_SetValue(int nValue)
 }
 
 // 0x00449DA0
-int __cdecl sub_00449DA0()
+int __cdecl sub_00449DA0_IsPacket0FReceived()
 {
     return gbMcpPacket0FReceived;
 }
@@ -407,7 +407,7 @@ void __stdcall sub_00449E50_SetValue(int nValue)
 }
 
 // 0x00449E60
-int __cdecl sub_00449E60()
+int __cdecl sub_00449E60_GetPacket()
 {
     return (int)gpMcpPacket;
 }

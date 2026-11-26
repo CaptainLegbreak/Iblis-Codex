@@ -868,7 +868,7 @@ int __fastcall CHATDLG_IsNightmareOpen(unsigned int nFlags); // 0x00442A80
 int __fastcall CHATDLG_IsHellOpen(unsigned int nFlags); // 0x00442AB0
 
 
-int __stdcall sub_004435D0(void* unused1,void* unused2,const Character* text); // 0x004435D0
+int __stdcall sub_004435D0_IsPrintableChar(void* unused1,void* unused2,const Character* text); // 0x004435D0
 
 extern int gfCreateGameCancelled;                                                                                     // 0x00798CC4
 
@@ -3072,7 +3072,7 @@ void __cdecl CHATDLG_FreeNameList()
 }
 
 // 0x0043F840
-int __cdecl sub_0043F840()
+int __cdecl sub_0043F840_AlwaysOne()
 {
     return 1;
 }
@@ -5269,7 +5269,7 @@ int __stdcall CHATDLG_IsNameChar(D2WinControlStrc* pControl, int nArg, const cha
 }
 
 // 0x004435D0
-int __stdcall sub_004435D0(void* unused1,void* unused2,const Character* text)
+int __stdcall sub_004435D0_IsPrintableChar(void* unused1,void* unused2,const Character* text)
 {
     return text->value>=FIRST_PRINTABLE && text->value<AFTER_PRINTABLE;
 }

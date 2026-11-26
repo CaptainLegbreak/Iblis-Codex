@@ -1202,7 +1202,7 @@ void* __cdecl GAME_GetPreferredRealm()
 }
 
 // 0x00437D10
-int __cdecl sub_00437D10()
+int __cdecl sub_00437D10_AlwaysZero()
 {
     return 0;
 }
@@ -2786,7 +2786,7 @@ int __stdcall CHARSEL_PollConnect(int nUnused)
     {
         CHARSEL_UpdateStatus();
         sub_00449B70_Receive();
-        int pPacket = sub_00449E60();
+        int pPacket = sub_00449E60_GetPacket();
         if (pPacket)
         {
             gnBusy = 0;
@@ -2945,7 +2945,7 @@ void __cdecl CHARSEL_CreateConnectScreen(); // 0x00436D50
 
 int __stdcall sub_00436E90_AlwaysOne(int nArg); // 0x00436E90
 
-int __cdecl sub_00436EA0(); // 0x00436EA0
+int __cdecl sub_00436EA0_IsCancelled(); // 0x00436EA0
 
 int __stdcall CHARSEL_OnLogonTick(int nArg); // 0x0043B890
 
@@ -2960,7 +2960,7 @@ extern "C" __declspec(dllimport) int __stdcall TerminateProcess(void* hProcess, 
 
 void __cdecl MAINMENUS_ShowProgressScreen(); // 0x0042F890
 
-void __cdecl sub_0042FA20(); // 0x0042FA20
+void __cdecl sub_0042FA20_ClearStopMainLoop(); // 0x0042FA20
 
 int __stdcall sub_004374F0_UpdateStatusWait(int nArg); // 0x004374F0
 

@@ -155,7 +155,7 @@ extern D2CelFileStrc* gapCellFiles_00779888[3]; // 0x00779888
 extern D2CelFileStrc* gapCellFiles_0077989C[3]; // 0x0077989C
 
 // 0x0042E610
-extern "C" unsigned short __fastcall sub_0042E610(const Value* object) { return object->value; }
+extern "C" unsigned short __fastcall sub_0042E610_GetValue(const Value* object) { return object->value; }
 
 // 0x0042E650
 Unicode Unicode::toUpper() const
