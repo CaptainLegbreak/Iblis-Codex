@@ -159,7 +159,6 @@ void __fastcall CelDrawRleBlend(const unsigned char*,unsigned char*,int,int,cons
 
 void __fastcall CelDrawRleBlendClipped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const unsigned char* pBlend); // 0x006082E0
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 
 int gnGenericRle; // 0x008F03C8

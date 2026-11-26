@@ -269,17 +269,14 @@ static D2SpriteCacheNodeStrc* __stdcall D2CMPSpriteCacheTakeNode(unsigned int nS
 
 struct D2CmpGfxHashEntryStrc;
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 
 
-extern int gbCmpCompressedDataMode;                                                                         // 0x00741EFC
 
 extern "C" const char gszMonstersDir[];                                                            // 0x006D6CAC
 
 extern "C" const char gszCharsDir[];                                                               // 0x006DCC34
 
-extern "C" const char gszSpriteCacheSourceFile[];                                                           // 0x006E364C
 
 static int D2CMPSpriteBuildName(D2CmpSpriteContextStrc* pContext, char* szOut); // 0x005FE2B0
 

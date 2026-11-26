@@ -24,8 +24,6 @@ extern D2WinControlStrc* gpControl_007795A4;                                    
 extern D2WinControlStrc* gpControl_007795E0;                                                                       // 0x007795E0
 extern D2WinControlStrc* gpControl_007795E4;                                                                       // 0x007795E4
 extern int gbGatewayFlag;                                                                          // 0x00779954
-extern D2WinControlStrc* gpEdit_007799CC;                                                                          // 0x007799CC
-extern D2WinControlStrc* gpEdit_007799D0;                                                                          // 0x007799D0
 extern D2WinControlStrc* gpControl_007799D4;                                                                       // 0x007799D4
 extern int gfConnectCancelled;                                                                              // 0x007799D8
 extern D2CharSelCacheStrc* gpCharSelCache;                                                         // 0x00779DE8
@@ -42,7 +40,6 @@ struct D2CelFileStrc;
 struct D2CharSelCacheStrc;
 class BNGatewayAccess;
 void __cdecl CHARSEL_CreateCharListControls(); // 0x0043A800
-extern int gnSelected; // 0x0070CC00
 extern int gnSelectionA; // 0x0070CC04
 extern D2WinControlStrc* gpControl_007799F8; // 0x007799F8
 extern D2WinControlStrc* gpScrollUpButton; // 0x00779A1C
@@ -52,7 +49,6 @@ extern char gszEnteredName[]; // 0x00779C88
 extern int gnCharEntryCount; // 0x00779DC4
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 void __cdecl CHARSEL_UpdateButtons(); // 0x0043A730
-extern int gnLaunchMode; // 0x007795EC
 extern int gbFlag_00779C6C; // 0x00779C6C
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
@@ -61,11 +57,8 @@ int __fastcall D2Win_10047(D2WinTextBoxStrc* pTextBox); // 0x004FB6A0
 void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int nColor); // 0x004FCFF0
 void __cdecl CHARSEL_ShowMessage(); // 0x0043A5D0
 void __cdecl sub_00438F70();
-extern D2ComInterfaceStrc* gpFuncTable; // 0x0077ABF0
-extern int gfConnectError; // 0x00779DB8
 extern int gnBusy; // 0x00779DAC
 extern char* gpszName; // 0x00779DB0
-extern int gbFlag_00779DD8; // 0x00779DD8
 class BNGatewayAccess
 {
 public:
@@ -88,31 +81,24 @@ void __fastcall TIMER_DisableSpaceKey(D2WinTimerStrc* pTimer); // 0x004FD830
 void __fastcall TIMER_SetRepeating(D2WinTimerStrc* pTimer); // 0x004FDA50
 void __fastcall BUTTON_SetCoordinates(D2WinButtonStrc* pButton, int nX, int nY, int nWidth, int nHeight); // 0x00500A70
 extern D2CelFileStrc* gpCharSelectBckgCelFile; // 0x00779768
-extern D2WinControlStrc* gpControl_00779D8C; // 0x00779D8C
 extern int gnTopRow; // 0x00779DC8
-extern D2WinControlStrc* gpCharSelectText; // 0x00779DD4
 int __cdecl GAME_GetStopMainLoop(); // 0x0042FA30
 void __cdecl MAINMENUS_UpdateProgress(); // 0x0042F990
 int __cdecl sub_0042F6D0_GetMenusDone(); // 0x0042F6D0
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
-extern int gfCharSelCancelled; // 0x0077AC04
 void __cdecl sub_00518C20_DeleteQueueLock(); // 0x00518C20
-extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 int __fastcall MAINMENUS_ShowOptionDescription(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
 void __fastcall CHARSEL_JoinSelectedWithDifficulty(SMSGHANDLER_PARAMS* pMsg, int nMode); // 0x00439AF0
 int __fastcall D2Win_10192(D2WinTextBoxStrc* ptTextData); // 0x004FC620
 int __fastcall D2Win_10193(D2WinTextBoxStrc* ptTextData, int nCurrentStep); // 0x004FC660
 extern void** gppSlots; // 0x00779988
-extern D2WinControlStrc* gpControl_00779C84; // 0x00779C84
 extern "C" long __cdecl _time32(long* pTime);
 extern "C" int __cdecl tolower(int nChar);
 extern D2WinControlStrc* gpCharDescriptionText; // 0x007799F0
 extern void* gapRowControls[1]; // 0x00779A20
 extern D2WinControlStrc* gpControl_00779C70; // 0x00779C70
 extern D2WinControlStrc* gpControl_00779C78; // 0x00779C78
-extern D2WinControlStrc* gpControl_00779D98; // 0x00779D98
-extern D2WinControlStrc* gpControl_00779DD0; // 0x00779DD0
 
 void __cdecl CHARSEL_FreeCache(); // 0x00437B90
 void __cdecl CHARSEL_UpdateButtons(); // 0x0043A730

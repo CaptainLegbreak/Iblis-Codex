@@ -42,7 +42,6 @@
 #include "D2NetTypes.h"
 #include "FogApi.h"
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 
 

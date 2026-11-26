@@ -13,7 +13,6 @@ struct D2ComInterfaceStrc;
 
 void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
 
-extern D2ComInterfaceStrc* gpFuncTable; // 0x0077ABF0
 
 extern int gnStatusDots; // 0x007799B4
 
@@ -115,9 +114,7 @@ int __stdcall MAINMENUS_OnEditChange(int nArg); // 0x00436F20
 int gnStatusDots; // 0x007799B4
 
 
-extern D2WinControlStrc* gpEdit_007799CC; // 0x007799CC
 
-extern D2WinControlStrc* gpEdit_007799D0; // 0x007799D0
 
 extern D2WinControlStrc* gpControl_007799D4; // 0x007799D4
 
@@ -126,7 +123,6 @@ void __cdecl MAINMENUS_UpdateTwoEditOk(); // 0x00436CF0
 
 const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinControlStrc*); // 0x004FDD90
 
-extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
 int gfConnectCancelled; // 0x007799D8

@@ -47,7 +47,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl);                                             // 0x004F9210
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }

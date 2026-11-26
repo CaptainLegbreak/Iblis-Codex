@@ -20,7 +20,6 @@
 
 struct D2CelFileStrc;
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 
 
@@ -57,7 +56,6 @@ extern "C" const char gszDataLocal[];                                           
 
 extern const char* gaFontNames[14];                                                                // 0x006DC980
 
-extern int gnCurrentFont;                                                                          // 0x0072DFFC
 
 extern int gnFontMetric1;                                                                          // 0x0072E000
 

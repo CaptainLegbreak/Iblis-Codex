@@ -229,9 +229,7 @@ int gnLoaderFlag; // 0x007798E0
 
 int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
-extern D2WinControlStrc* gpEdit_007799CC; // 0x007799CC
 
-extern D2WinControlStrc* gpEdit_007799D0; // 0x007799D0
 
 extern D2WinControlStrc* gpControl_007799D4; // 0x007799D4
 
@@ -496,7 +494,6 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 #pragma intrinsic(strcpy)
 
-extern D2ComInterfaceStrc* gpFuncTable;                                                      // 0x0077ABF0
 
 int gnLaunchMode;                                                                                  // 0x007795EC
 
@@ -1114,7 +1111,6 @@ extern "C" const char gszFeCharPalDat[]; // 0x006D39E8
 
 extern int gnTextMode; // 0x00708D0C
 
-extern int gnTextSentinel; // 0x0070CB80
 
 extern D2WinControlStrc* gpOkButton; // 0x00779330
 
@@ -1166,7 +1162,6 @@ int gnGlobal_00779DA4; // 0x00779DA4
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
 
@@ -1188,7 +1183,6 @@ int __fastcall sub_005264F0_Compare(const Unicode* pString1, const Unicode* pStr
 
 void __fastcall MAINMENUS_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
 
-extern "C" const unsigned char gabDefault[]; // 0x006D4D88
 
 
 int __stdcall MAINMENUS_PollCharCreate(int nArg); // 0x00432FA0
@@ -1330,7 +1324,6 @@ extern const char gszTextExt[]; // 0x006D48E0
 extern const char gszTosPrefix[]; // 0x006D48E8
 int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820
 extern D2WinControlStrc* gpControl_0077933C; // 0x0077933C
-extern D2WinControlStrc* gpNameEdit; // 0x0077934C
 extern D2WinControlStrc* gpControl_007795B0; // 0x007795B0
 extern D2WinControlStrc* gpControl_007795B8; // 0x007795B8
 extern D2WinControlStrc* gpControl_007795C4; // 0x007795C4
@@ -4626,7 +4619,6 @@ int __stdcall SetCurGateway(D2FuncRecordStrc* pRecord, int nIndex);             
 
 struct D2ComInterfaceStrc;
 
-extern D2ComInterfaceStrc* gpFuncTable; // 0x0077ABF0
 
 // 0x00434700
 int __stdcall MAINMENUS_OnRealmSelected(SMSGHANDLER_PARAMS* pMsg)

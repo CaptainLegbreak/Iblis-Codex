@@ -621,7 +621,6 @@ extern "C" char* __stdcall inet_ntoa(D2InAddrStrc tAddress);                    
 extern "C" int __stdcall getsockname(unsigned int nSocket, void* pAddress, int* pnLength);                 // 0x006B0144
 
 
-extern int gClientSocket;                                                                                   // 0x00730AE0
 
 // 0x0052AFE0
 void __stdcall CLIENT_GetLocalIpAddressString(char* szBuffer)

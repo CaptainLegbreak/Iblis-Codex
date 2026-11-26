@@ -141,9 +141,7 @@ int __fastcall D2Win_10195(D2WinTextBoxStrc* pTextBox, void(__stdcall* pfScrollC
 void __fastcall BUTTON_SetStringId(D2WinButtonStrc* pButton, int nStringId);                                // 0x00500BF0
 extern D2WinControlStrc* gpControl_007799F8;                                                                       // 0x007799F8
 extern void* gapRowControls[];                                                                     // 0x00779A20
-extern char gszPreferredRealm[];                                                                               // 0x00779A40
 extern void* gapRowControlsX[8];                                                                          // 0x00779B40
-extern D2WinControlStrc* gpControl_00779C84;                                                                       // 0x00779C84
 static int gnSelected;         // 0x0070CC00
 static D2WinControlStrc* gpCharSelectText; // 0x00779DD4
 static D2WinControlStrc* gpControl_00779DD0;        // 0x00779DD0

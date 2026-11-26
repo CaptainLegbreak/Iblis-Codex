@@ -89,7 +89,6 @@ void __cdecl BNNEWS_ReportNews(); // 0x0051D510
 
 int __fastcall CACHE_LoadCachedFile(const char*, D2FileTimeStrc*, void**, unsigned int*); // 0x00519920
 
-extern const char* gpszNewsName; // 0x0072FF80
 
 unsigned int gnNewsNewest;        // 0x00881C44
 
