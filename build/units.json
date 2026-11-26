@@ -23481,9 +23481,44 @@
      "name": "TEXT_LoadPopupHireling"
     },
     {
+     "va": "0x00493A00",
+     "length": 241,
+     "name": "?sub_00493A00_DrawLifeBar@@YGXHHH@Z"
+    },
+    {
      "va": "0x00493B00",
      "length": 79,
      "name": "?HIREABLES_DrawUnitName@@YGXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x00493B50",
+     "length": 400,
+     "name": "?sub_00493B50_DrawRosterIcons@@YGHPAH0PAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x00493CE0",
+     "length": 294,
+     "name": "?sub_00493CE0_DrawSummonIcon@@YGHPAUD2UnitStrc@@PAH11@Z"
+    },
+    {
+     "va": "0x00493E10",
+     "length": 145,
+     "name": "?sub_00493E10_DrawPetIcon@@YGHPAUD2UnitStrc@@PAH1H1@Z"
+    },
+    {
+     "va": "0x00493EB0",
+     "length": 207,
+     "name": "?sub_00493EB0_DrawPetCountIcon@@YGHPAUD2UnitStrc@@PAH11H@Z"
+    },
+    {
+     "va": "0x00493F80",
+     "length": 145,
+     "name": "?sub_00493F80_DrawPetIcon3@@YGHPAUD2UnitStrc@@PAH1H1@Z"
+    },
+    {
+     "va": "0x00494020",
+     "length": 679,
+     "name": "?sub_00494020_DrawPetIcons@@YAXXZ"
     },
     {
      "va": "0x004942D0",
@@ -23645,121 +23680,6 @@
      "length": 267,
      "name": "WARDENCLIENT_DrawSkillInfo"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00493A00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00493A00",
-     "length": 241,
-     "name": "?sub_00493A00_DrawLifeBar@@YGXHHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00493B50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00493B50",
-     "length": 400,
-     "name": "?sub_00493B50_DrawRosterIcons@@YGHPAH0PAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x00494020",
-     "length": 679,
-     "name": "?sub_00494020_DrawPetIcons@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00493CE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00493CE0",
-     "length": 294,
-     "name": "?sub_00493CE0_DrawSummonIcon@@YGHPAUD2UnitStrc@@PAH11@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00493E10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00493E10",
-     "length": 145,
-     "name": "?sub_00493E10_DrawPetIcon@@YGHPAUD2UnitStrc@@PAH1H1@Z"
-    },
-    {
-     "va": "0x00493EB0",
-     "length": 207,
-     "name": "?sub_00493EB0_DrawPetCountIcon@@YGHPAUD2UnitStrc@@PAH11H@Z"
-    },
-    {
-     "va": "0x00493F80",
-     "length": 145,
-     "name": "?sub_00493F80_DrawPetIcon3@@YGHPAUD2UnitStrc@@PAH1H1@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
