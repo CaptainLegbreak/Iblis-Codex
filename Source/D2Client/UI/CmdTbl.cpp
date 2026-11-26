@@ -1340,7 +1340,6 @@ enum D2C_CmdTblConstants
 
 
 
-void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 
 
@@ -1355,7 +1354,6 @@ void __fastcall SPELLSEL_SetSkillSelectRight(int nValue); // 0x004A8CE0
 
 void __fastcall SPELLSEL_AssignHotkey(int nHotkey); // 0x004A9E60
 
-void __fastcall SPELLSEL_SelectHotkey(int nSlot); // 0x004AA030
 
 
 

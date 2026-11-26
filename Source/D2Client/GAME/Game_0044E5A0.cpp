@@ -201,7 +201,6 @@ int __fastcall ROSTER_GetKillCount(D2StoredUnitRecordStrc* pEntry); // 0x00479B8
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 void __cdecl GAME_DrawEndGameTitle(); // 0x0044D3E0
 
@@ -225,7 +224,6 @@ void __fastcall MSG_SetProgress(int nValue, int nDivisor); // 0x00478130
 
 
 
-int __stdcall INV_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 

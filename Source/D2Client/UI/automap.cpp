@@ -1106,13 +1106,10 @@ void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOve
 
 void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004AFF60
 
-void __fastcall OBJECT_HandleObjectCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004BD6D0
 
 void __fastcall ITEM_HandleItemCommand(int nCommand, D2UnitStrc* pUnit, int nParam1, int nParam2); // 0x004C1B80
 
-int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 
-D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
@@ -1180,11 +1177,9 @@ void __fastcall SCMD_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHA
 
 
 
-int __fastcall NPCMENU_GetInteractNpcId(int* pLow); // 0x004B3230
 
 int __fastcall MONSTER_IsUniqueMonster(D2UnitStrc* pUnit); // 0x004AE360
 
-int __fastcall MONSTER_IsMinionMonster(D2UnitStrc* pUnit); // 0x004AE380
 
 void __fastcall MONSTER_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName, int nLength, unsigned short nNameId); // 0x004ADEA0
 
@@ -1457,7 +1452,6 @@ int __fastcall ROSTERPETS_GetPetRelation(int nUnitId); // 0x00478D90
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x00451F30
 
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 
 
@@ -1553,12 +1547,9 @@ static inline int AUTOMAP_UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag);
 
 #define TOWNCEL_HARROGATH_FULL 0
 
-void __cdecl AUTOMAP_SaveAutomapLayer();                                                                         // 0x004584C0
 
 
-void __cdecl AUTOMAP_LoadAutomapLayer();                                                                        // 0x00458750
 
-D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                         // 0x0061E470
 
 
 extern const int gaTownSkipCels[];                                                                 // 0x006D6608
@@ -1577,7 +1568,6 @@ void __stdcall TEXTURE_CelDrawClipped(D2CelContextStrc* pData, int nXPos, int nY
 
 static void AUTOMAP_WriteAutomapLayer(D2AutomapSaveStrc* pSave); // 0x00458200
 
-void __cdecl AUTOMAP_SaveAutomapLayer();
 
 static void __stdcall AUTOMAP_AddUnitAutomapCell(int nCellNo, D2AutomapCellStrc** ppRoot, D2UnitStrc* pUnit); // 0x00457E80
 

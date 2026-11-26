@@ -132,7 +132,6 @@ int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, 
 
 D2UnitStrc* __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0x004CD540
 
-void __fastcall MISSILE_AddMissileEffect(D2UnitStrc* pMissile, int nMissile, int nArg1, int nArg2, int nArg3); // 0x004CEFE0
 
 int __fastcall GFXUTIL_GetCofLayerValue(void* pEntry, int nArg); // 0x004DB0D0
 
@@ -168,11 +167,9 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg
 
 void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 
-int __fastcall sub_004E0650_GetStringSound(unsigned short nStringId); // 0x004E0650
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 
 

@@ -84,7 +84,6 @@ void __fastcall sub_004647A0_SetPacketBuffer(void* pArg, D2PacketBufferStrc* pBu
 
 void __fastcall D2GFX_SetViewMatrixAdjust(int nOffset); // 0x004F52A0
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
@@ -213,7 +212,6 @@ int __stdcall PLAYER_IsPendingMode(int nArg1, int nArg2);                       
 int __fastcall CUNIT_CanUseSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                            // 0x00464600
 
 
-int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x00465C60
 
 
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit();                                                             // 0x00467A10
@@ -363,7 +361,6 @@ void __stdcall D2Common_10954(D2UnitStrc* pUnit, int nOwnerGUID, int nSkillId, i
 
 static void __stdcall PLAYER_SetModeAndSync(int bSync, D2UnitStrc* pUnit, int nState); // 0x00460830
 
-void __fastcall PLAYER_FreeClientPlayer(D2UnitStrc* pUnit); // 0x00460D50
 
 static void PLAYER_UpdateRoomPosition(D2UnitStrc* pUnit); // 0x00460DE0
 
@@ -416,13 +413,11 @@ int __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc*, D2UnitStrc**); // 0x
 
 void __stdcall PATH_SetType(D2DynamicPathStrc*, int); // 0x00648CF0
 
-void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc*); // 0x00648DC0
 
 void __stdcall PATH_SetDist(D2DynamicPathStrc*, unsigned char); // 0x00648E40
 
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*, D2InventoryStrc*, int*, int, int); // 0x0064F380
 
-void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc*); // 0x00650590
 
 extern "C" const char gszPlayerCpp[]; // 0x006D6A34
 
@@ -2306,7 +2301,6 @@ struct D2PlayerModeInfoStrc
 extern D2PlayerModeInfoStrc gaPlayerModeInfo[]; // 0x00711E00
 struct D2DynamicPathStrc;
 struct D2RoomStrc;
-int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 void __stdcall sub_00650C60_UpdatePath(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00650C60
 void __stdcall sub_0063E510_FillInventoryTables(D2UnitStrc* pUnit, unsigned char* pTableA, unsigned char* pTableB); // 0x0063E510
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc*); // 0x00648A00
@@ -2315,14 +2309,8 @@ D2UnitStrc* __stdcall sub_00643A00_GetRelatedUnit(D2UnitStrc*, int); // 0x00643A
 struct D2InventoryStrc;
 extern D2PlayerModeInfoStrc gaPlayerModeInfo[];                                                    // 0x00711E00
 extern "C" int __fastcall UNITMODE_UpdateUnitPath(D2UnitStrc* unit); // 0x004807C0
-void __fastcall SKILLS_RunStateActiveFuncs(D2UnitStrc* pUnit);                                                            // 0x004C72F0
-void __fastcall UNITSND_UpdateFootsteps(D2UnitStrc* pUnit);                                                            // 0x004CAF60
 void __stdcall UNITS_SetCurrentRoomInvalid(D2UnitStrc* pUnit, int a2);                                      // 0x00620FA0
-int __stdcall UNITS_IsAtEndOfFrameCycle(D2UnitStrc* pUnit);                                                 // 0x006217C0
 void __stdcall UNITS_StopSequence(D2UnitStrc* pUnit);                                                       // 0x00623E00
-int __stdcall STATES_CheckStateMaskActiveOnUnit(D2UnitStrc* pUnit);                                                              // 0x0063A340
-void __stdcall D2COMMON_10193_PATH_AdjustDirection(D2DynamicPathStrc* pDynamicPath);                        // 0x00648640
-D2UnitStrc* __stdcall PATH_GetTargetUnit(D2DynamicPathStrc* pDynamicPath); // 0x00648BF0
 enum D2PlayerModes
 {
     PLAYER_MODE_WALK = 2,

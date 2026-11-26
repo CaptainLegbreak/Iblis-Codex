@@ -34,7 +34,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 #pragma pack(pop)
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

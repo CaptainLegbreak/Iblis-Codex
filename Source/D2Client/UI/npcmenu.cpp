@@ -159,7 +159,6 @@ extern void* gpRes_007C0D7B; // 0x007C0D7B
 
 extern D2ClientStringListStrc gtStringList; // 0x007C0D9A
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 void __fastcall CUNIT_ForEachObject(UNITFN pfnCallback); // 0x004649D0
 
@@ -368,11 +367,9 @@ struct D2ClientValueBlockStrc
 
 #pragma pack(pop)
 
-void __cdecl TEXT_LoadPopupHireling(); // 0x004939B0
 
 
 
-void __cdecl NPCMENU_ShowTradeDialog(); // 0x004B2F50
 
 extern "C" D2UnitStrc* __fastcall CUNIT_FindClientUnit(int nUnitId, int nUnitType); // 0x00463990
 
@@ -396,7 +393,6 @@ void __cdecl NPCMENU_FreeDialogs(); // 0x004B2110
 
 int __cdecl sub_004C0440_Thunk(); // 0x004C0440
 
-void __cdecl INV_ResetNpcCursor(); // 0x0048A6A0
 
 typedef int (__cdecl* Callback)();
 
@@ -408,7 +404,6 @@ int __cdecl NPCMENU_NpcMenuReturn(); // 0x004B4CF0
 
 
 
-int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
 
 extern const char empty; // 0x006CC837
@@ -770,7 +765,6 @@ void __cdecl INV_ResetNpcButtonsFromPending(); // 0x00487C20
 void __fastcall USEITEM_OpenNpcItemPanel(int nArg); // 0x004C0620
 
 
-int __fastcall ROSTERPETS_CountPets(D2UnitStrc* pOwner, int nPetType); // 0x00478EE0
 
 void __cdecl NPCMENU_CloseTradeDialog(); // 0x004B3610
 
@@ -821,9 +815,6 @@ struct D2DynamicPathStrc;
 
 typedef int (__fastcall* D2TextCallback)(void* pContext, int nArg, int nValue);
 
-int __cdecl FOG_IsExpansion();                                                                 // 0x00408F20
-void __fastcall TEXT_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, int nArg);                         // 0x004A10E0
-void __stdcall QUESTRECORD_CopyBufferToRecord(D2BitBufferStrc* pQuestRecord, unsigned char* pBuffer, unsigned short nBufferSize, int bResetStates); // 0x0065C4D0
 
 static inline int NPC_GetUnitClassId(D2UnitStrc* pUnit)
 {

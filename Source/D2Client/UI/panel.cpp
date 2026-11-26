@@ -169,7 +169,6 @@ int __fastcall ITEM_IsItemActionBlocked(D2UnitStrc* pItem); // 0x004C2240
 
 void __fastcall ITEM_SetUninterruptableState(D2UnitStrc* pItem); // 0x004C21F0
 
-int __fastcall ITEM_GetDropSound(D2UnitStrc* pItem); // 0x004C1D60
 
 int __fastcall ITEM_GetItemUseSound(D2UnitStrc* pItem); // 0x004C1E20
 
@@ -206,7 +205,6 @@ D2UnitStrc* gpBeltItemA; // 0x007BEFA8
 extern "C" size_t __cdecl strlen(const char* szString);
 
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 
 
@@ -323,7 +321,6 @@ void __fastcall SPELLSEL_AssignHotkey(int nHotkey); // 0x004A9E60
 
 void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage); // 0x004AAAE0
 
-void __cdecl sub_004AB530_DrawTabCel(); // 0x004AB530
 
 struct D2StaticPathStrc;
 

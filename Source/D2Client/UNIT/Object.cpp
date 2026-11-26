@@ -102,7 +102,6 @@ void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, 
 
 
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 
 
@@ -146,7 +145,6 @@ void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);                  
 
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem);                                                   // 0x00629900
 
-void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg);                             // 0x00466CB0
 
 
 
@@ -230,7 +228,6 @@ static void __stdcall OBJECT_PlayShrineSound(D2UnitStrc* pPlayer, D2UnitStrc* pU
 
 static void OBJECT_InitShrine(D2UnitStrc* pUnit); // 0x004BD650
 
-void __fastcall OBJECT_SetShrine(D2UnitStrc* pUnit); // 0x004BD6B0
 
 
 

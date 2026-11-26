@@ -64,7 +64,6 @@ void __fastcall MSG_SendPartyCommand(int nCommand, int nUnitId); // 0x00478780
 void __cdecl ROSTER_RebuildRosterOrder(); // 0x00479AB0
 
 
-unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
 
 struct Obj00479B80 {
     unsigned int dwUnknown00;
@@ -220,13 +219,9 @@ unsigned short __fastcall CUNIT_GetPlayerPartyId(D2UnitStrc* pUnit);            
 
 static void ROSTER_ToggleRelationFlag(D2StoredUnitRecordStrc* pEntry, unsigned short nFlag); // 0x00479D30
 
-void __fastcall ROSTER_ToggleLoot(D2StoredUnitRecordStrc* pEntry); // 0x00479DA0
 
-void __fastcall ROSTER_ToggleMute(D2StoredUnitRecordStrc* pEntry); // 0x00479DE0
 
-void __fastcall ROSTER_ToggleSquelch(D2StoredUnitRecordStrc* pEntry); // 0x00479E20
 
-void __fastcall ROSTER_ToggleHostile(D2StoredUnitRecordStrc* pEntry); // 0x00479FE0
 
 
 
@@ -245,7 +240,6 @@ char* __fastcall ROSTER_GetNameEx(int nUnitId); // 0x0047A1F0
 
 int __fastcall ROSTER_IsSameParty(int nUnitId1, int nUnitId2); // 0x0047A520
 
-int __fastcall ROSTER_GetOtherPartyLife(int nUnitId); // 0x0047A6B0
 
 
 static void ROSTER_MoveGroupMembers(D2RosterGroupStrc* pGroup); // 0x00479800

@@ -325,7 +325,6 @@ struct D2ClientNotifyStrc;
 
 #pragma pack(pop)
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 

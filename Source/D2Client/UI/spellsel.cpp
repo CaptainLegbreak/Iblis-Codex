@@ -183,7 +183,6 @@ void __cdecl SPELLSEL_FreeSkillIcons()
     }
 }
 
-void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 
 // 0x004A8C80

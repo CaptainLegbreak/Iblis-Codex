@@ -92,7 +92,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
@@ -102,7 +101,6 @@ void __cdecl INV_SetupPanelButtons(); // 0x00487ED0
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 extern D2ClientTabStrc gaNpcTabStates[]; // 0x0072211A
 
@@ -738,7 +736,6 @@ static int TEXT_GetKeyConfigButtonAt(int nX, int nY);
 
 
 
-int __fastcall TEXT_IsInRightPanelButton(int, int, int); // 0x004A6630
 
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
@@ -765,7 +762,6 @@ extern int global_00724728; // 0x00724728
 
 enum { REPEAT_MASK = 0x40000000, UI_VARIABLE = 11 };
 
-void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 
 
@@ -852,7 +848,6 @@ int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 void __fastcall CUNIT_ForEachMonster(UNITFN pfnCallback); // 0x00464990
 
 
-void __fastcall GFX_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
 
 void __cdecl INV_StopCinematic(); // 0x00483300
 
@@ -2328,7 +2323,6 @@ int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 void* __cdecl GAME_GetBuySellButtonCells(); // 0x00454600
 
 
-void __cdecl PANEL_SetBlackColour(); // 0x00499E30
 
 void __fastcall SKILLDESC_RefreshSkills(D2UnitStrc* pUnit); // 0x004EDA20
 

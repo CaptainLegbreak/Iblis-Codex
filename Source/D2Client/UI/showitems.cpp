@@ -50,9 +50,7 @@ int __stdcall UNITS_GetPrecisionX(D2UnitStrc*); // 0x006203B0
 
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc*); // 0x00620410
 
-int __stdcall SCALE_CheckPerspectivePosition(int,int); // 0x004F66E0
 
-void __stdcall SCALE_AdjustPerspectivePosition(int,int,int,int*,int*); // 0x004F6760
 
 
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc*); // 0x00620650

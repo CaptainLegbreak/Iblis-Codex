@@ -465,7 +465,6 @@ extern int gnAutomapWidth; // 0x007A5220
 
 void __stdcall sub_00467FA0(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 
-int __fastcall ITEM_GetDropSound(D2UnitStrc* pItem); // 0x004C1D60
 
 
 
@@ -560,7 +559,6 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 extern D2CelFileStrc* gpGoldButtonCel_007BCC34; // 0x007BCC34
 
@@ -645,7 +643,6 @@ void __fastcall sub_0049FF90_Close(int nArg, D2ClientStateStrc* pState);        
 
 int __cdecl NPCMENU_IsAnyDialogOpen();                                                                                 // 0x004B34A0
 
-void __cdecl NPCMENU_CloseNpcShop();                                                                                // 0x004B3ED0
 
 int __fastcall sub_004DF9D0_CheckCacheEntry(int nId);                                                       // 0x004DF9D0
 
@@ -733,7 +730,6 @@ void __fastcall sub_004BA020(unsigned int nTick); // 0x004BA020
 
 void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int nTick); // 0x004DCAA0
 
-int __cdecl sub_004DF870(); // 0x004DF870
 
 void __cdecl sub_004DF890(); // 0x004DF890
 
@@ -872,7 +868,6 @@ void __stdcall sub_E05_Emit_00486E60(SMSGHANDLER_PARAMS* pMsg); // 0x00486E60
 
 
 
-void __cdecl INV_RestoreSelectedShopButton(); // 0x00488F10
 
 void __stdcall sub_E05_Emit_004844A0(D2InventoryStrc* pInventory, Unicode* pText, int nSetItemId); // 0x004844A0
 
@@ -964,7 +959,6 @@ unsigned char __stdcall ITEMS_GetEarLevel(D2UnitStrc* pItem);                   
 
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem);                                                        // 0x00629DA0
 
-int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                                                         // 0x0062B400
 
 
 
@@ -992,7 +986,6 @@ extern "C" __declspec(dllimport) short __stdcall GetAsyncKeyState(int vKey);
 
 void __cdecl SPELLSEL_UpdateSkillIcons(); // 0x004A9DF0
 
-int __fastcall NPCMENU_GetInteractNpcId(int* pUnitId); // 0x004B3230
 
 void __fastcall ITEM_SetUninterruptableState(D2UnitStrc* pItem); // 0x004C21F0
 
@@ -1981,7 +1974,6 @@ extern D2SkillIconStateStrc gtHotkeySlots;                                      
 
 extern int gbSkillSelectRight;                                                                               // 0x007C07FC
 
-void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLeft, int bNoSlots, int bNoDraw); // 0x004AA3A0
 
 
 

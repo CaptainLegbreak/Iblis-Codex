@@ -142,7 +142,6 @@ struct D2SkillStrc;
 
 extern "C" const char gszUnitModeFile[];                                                            // 0x006D8E84
 
-int __fastcall sub_00480C10_UnitEvent(int nEvent, D2UnitStrc* pUnit, int* pArgs, int nFlag);                // 0x00480C10
 
 static int UNITMODE_CanUseSkillNow(D2UnitStrc* pPlayer); // 0x00480BA0
 
@@ -181,9 +180,7 @@ void __fastcall GFX_UpdateStateOverlays(D2UnitStrc* unit); // 0x00470C30
 
 void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* unit); // 0x00463390
 
-void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* unit); // 0x004B13A0
 
-void __fastcall OBJECT_UpdateObject(D2UnitStrc* unit); // 0x004BDFF0
 
 void __fastcall MISSILE_CltDoMissile(D2UnitStrc* unit); // 0x004D2C70
 
@@ -200,7 +197,6 @@ int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
-int __fastcall GFXUTIL_HitTestUnitCel(D2UnitStrc* pUnit, int nX, int nY); // 0x004DBF20
 
 D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
 
@@ -216,7 +212,6 @@ int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTa
 
 void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004AFF60
 
-void __fastcall OBJECT_HandleObjectCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004BD6D0
 
 void __fastcall ITEM_HandleItemCommand(int nCommand, D2UnitStrc* pUnit, int nParam1, int nParam2); // 0x004C1B80
 

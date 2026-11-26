@@ -113,7 +113,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 int __fastcall GFXUTIL_UnitSupportsMode(D2UnitStrc* pUnit, int nMode);                                 // 0x004DAE60
 
-int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
 
@@ -127,7 +126,6 @@ int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit);                         
 
 int __stdcall PARTICLE_GetGfxClientY(D2UnitStrc* pUnit);                                          // 0x004DA0D0
 
-int __stdcall PARTICLE_GetGfxClientZ(D2UnitStrc* pUnit);                                          // 0x004DA0F0
 
 typedef int (__fastcall* SKILLSELECTPROC)(D2UnitStrc* pPlayer, D2UnitStrc* pTarget);
 
@@ -159,7 +157,6 @@ void __fastcall DLIGHTMAP_ReleaseLight(D2GfxLightStrc* pLight);                 
 
 D2GfxLightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* pValue);                                         // 0x00643A00
 
-void __stdcall PARTICLE_FreeGfxMotion(D2UnitStrc* pUnit);                                               // 0x004DA080
 
 void __fastcall UNITSND_ReleaseUnitHints(D2UnitStrc* pUnit, int bForce);                               // 0x004CA9C0
 
@@ -202,7 +199,6 @@ void __stdcall UNITS_InitializeStaticPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* p
 
 
 
-void __fastcall PLAYERLIST_InitGfxData(D2UnitStrc* pUnit);                                                // 0x004DC510
 
 void __fastcall OBJECT_UpdateObjectOverlay(D2UnitStrc* pUnit);                                        // 0x004BC8D0
 
@@ -248,7 +244,6 @@ void __fastcall sub_004AC7A0(D2UnitStrc* pUnit, unsigned short wValue);         
 
 short __fastcall sub_004AC7C0_GetSuperUniqueId(D2UnitStrc* pUnit);                                          // 0x004AC7C0
 
-void __fastcall MONSTER_SetClientFlags(D2UnitStrc* pUnit, unsigned short wFlags);                      // 0x004AE0A0
 
 void __fastcall MONSTER_SetOwnerGUID(D2UnitStrc* pUnit, unsigned int dwValue);                                      // 0x004AE150
 
@@ -276,15 +271,10 @@ static D2UnitStrc* __stdcall CUNIT_FindUnitInTable(D2UnitStrc** ppTable, unsigne
 static void CUNIT_ApplyClassEffects(D2UnitStrc* pUnit, int nClassId); // 0x004656C0
 
 
-void __stdcall PARTICLE_ResetGfxMotion(D2UnitStrc* pUnit);                                              // 0x004DA000
 
-void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ);                    // 0x004DA1D0
 
-void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA200
 
-void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift);        // 0x004DA2A0
 
-void __fastcall GFXUTIL_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
 
 static D2UnitStrc* CUNIT_InsertUnit(D2UnitStrc* pUnit); // 0x00465F20
 
@@ -354,7 +344,6 @@ void __fastcall UNITMODE_UpdateUnit(D2UnitStrc* pUnit); // 0x00480810
 
 void __fastcall sub_0046D780(D2UnitStrc* pUnit); // 0x0046D780
 
-char __fastcall OBJECT_RunClientFunction(D2UnitStrc* pUnit); // 0x004BDEE0
 
 int __fastcall GFX_GetGfxBasePalShift(D2GfxDataStrc* pGfxData); // 0x0046F1F0
 
@@ -367,7 +356,6 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int bSet
 
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
 
-int __fastcall OBJECT_UpdateEnvObject(D2UnitStrc* pUnit, int nArg); // 0x004BC5E0
 
 
 
@@ -607,7 +595,6 @@ D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* 
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
@@ -620,7 +607,6 @@ extern int gnScreenWidth; // 0x0071146C
 int __fastcall CUNIT_IsPetSkillTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00464EC0
 
 
-unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
 
 extern "C" void* __cdecl memmove(void*, const void*, unsigned int); // 0x00683840
 
@@ -652,7 +638,6 @@ static D2UnitStrc* __stdcall CUNIT_InitUnit(unsigned int nUnitId, int nClassId, 
 int __stdcall CUNIT_CheckSkillSelectProc(D2UnitStrc* pPlayer, D2UnitStrc* pTarget, int nSkillId); // 0x004642B0
 
 
-int __fastcall CUNIT_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, int bHitTest);
 
 
 
