@@ -255,7 +255,7 @@ struct D2WinTextBoxStrc;
 int __cdecl GAME_GetSlotNameCount(); // 0x00430B40
 void __cdecl CHARSEL_CreateCharInfoControls(); // 0x00437BF0
 void __cdecl CHARSEL_RefreshCharEntry(); // 0x0043A650
-int __stdcall D2Win_10033(D2WinControlStrc* a1, int a2); // 0x004FA470
+int __stdcall D2Win_10033(D2WinControlStrc* pControlList, int nListValue); // 0x004FA470
 int __fastcall D2Win_10062(D2WinTextBoxStrc* pTextBox, int nWrappedLineGap, int nLineGap); // 0x004FB740
 void __fastcall D2Win_10050_TEXTBOX_SetLine(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FB9D0
 extern D2WinControlStrc* gpNameControl;        // 0x007799E8

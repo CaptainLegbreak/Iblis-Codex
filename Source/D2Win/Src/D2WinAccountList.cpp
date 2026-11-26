@@ -232,14 +232,14 @@ void __fastcall ACCOUNTLIST_AllocData(D2WinAccountListStrc* ptListData, const ch
 }
 
 // 0x00507CA0
-D2WinAccountListStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, int nHeight, int a5, D2WinAccountListFontStrc* pFont)
+D2WinAccountListStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, int nHeight, int nField4C, D2WinAccountListFontStrc* pFont)
 {
     D2WinAccountListStrc* pAccountList = (D2WinAccountListStrc*)FOG_Alloc(sizeof(D2WinAccountListStrc), ".\\Src\\D2WinAccountList.cpp", 0x24, 0);
     memset(pAccountList, 0, sizeof(D2WinAccountListStrc));
     pAccountList->controlHeader.eType = D2WIN_ACCOUNTLIST;
     pAccountList->controlHeader.dwFlags |= gdwBitMasks[0];
     pAccountList->controlHeader.dwFlags |= gdwBitMasks[2];
-    pAccountList->unk0x4C = a5;
+    pAccountList->unk0x4C = nField4C;
     pAccountList->controlHeader.nImageX = nX;
     pAccountList->controlHeader.nImageY = nY;
     pAccountList->controlHeader.nWidth = nWidth;

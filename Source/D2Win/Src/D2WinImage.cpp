@@ -402,7 +402,7 @@ int __stdcall IMAGE_SetCellFile(D2WinImageStrc* pImage, D2CelFileStrc* pCellFile
 }
 
 // 0x004FD6C0
-D2WinImage2Strc* __fastcall IMAGE2_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, D2WinMsgHandler a6, D2WinImageClickRectStrc* pClickRect, D2WinMsgHandler pfHandleVirtualKeyInput)
+D2WinImage2Strc* __fastcall IMAGE2_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, D2WinMsgHandler pfnOnClick, D2WinImageClickRectStrc* pClickRect, D2WinMsgHandler pfHandleVirtualKeyInput)
 {
     D2WinImage2Strc* pImage = (D2WinImage2Strc*)FOG_Alloc(sizeof(D2WinImage2Strc), ".\\Src\\D2WinImage.cpp", 0x1D, 0);
     memset(pImage, 0, sizeof(D2WinImage2Strc));
@@ -420,7 +420,7 @@ D2WinImage2Strc* __fastcall IMAGE2_Create(int nX, int nY, int nWidth, int nHeigh
     pImage->controlHeader.pfHandleMouseUp = 0;
     pImage->controlHeader.pfHandleCharInput = 0;
     pImage->controlHeader.pfHandleVirtualKeyInput = pfHandleVirtualKeyInput;
-    pImage->controlHeader.field_34 = a6;
+    pImage->controlHeader.field_34 = pfnOnClick;
     pImage->pClickRect = pClickRect;
     pImage->nFrame = 0;
     pImage->eDrawMode = 5;
@@ -429,7 +429,7 @@ D2WinImage2Strc* __fastcall IMAGE2_Create(int nX, int nY, int nWidth, int nHeigh
 }
 
 // 0x004FD770
-D2WinImageStrc* __fastcall IMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7)
+D2WinImageStrc* __fastcall IMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int nField4C, int nField50)
 {
     D2WinImageStrc* pImage = (D2WinImageStrc*)FOG_Alloc(sizeof(D2WinImageStrc), ".\\Src\\D2WinImage.cpp", 0x3B, 0);
     memset(pImage, 0, sizeof(D2WinImageStrc));
@@ -451,8 +451,8 @@ D2WinImageStrc* __fastcall IMAGE_Create(int nX, int nY, int nWidth, int nHeight,
     pImage->pClickRect = 0;
     pImage->nFrame = 0;
     pImage->eDrawMode = 5;
-    pImage->field_4C = a6;
-    pImage->field_50 = a7;
+    pImage->field_4C = nField4C;
+    pImage->field_50 = nField50;
     CONTROL_AppendToList(&pImage->controlHeader);
     return pImage;
 }
