@@ -7,6 +7,7 @@
 #include "D2Primitives.h"
 #include "D2DrlgPresets.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #define RAYTRACE_LOAD_ROOM() \
     nRoomX = pRoom->tCoords.nSubtileX; \
@@ -66,10 +67,6 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-
-D2DrlgTileDataStrc* __stdcall DUNGEON_GetFloorTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pCount); // 0x00619660
-
-D2DrlgTileDataStrc* __stdcall DUNGEON_GetWallTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pCount); // 0x006196A0
 
 D2DrlgTileDataStrc* __stdcall DUNGEON_GetRoofTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pRoofCount); // 0x006196E0
 
@@ -169,19 +166,11 @@ static void __fastcall COLLISION_SetCollisionMaskForSquare(D2ActiveRoomStrc* pRo
 
 void __stdcall COLLISION_SetMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask);
 
-void __stdcall COLLISION_ResetMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask);
-
-unsigned short __stdcall COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask);
-
 void __stdcall COLLISION_SetMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, int nMask);
 
 
 
 D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY);
-
-D2DrlgTileDataStrc* __stdcall DUNGEON_GetFloorTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pCount); // 0x00619660
-
-D2DrlgTileDataStrc* __stdcall DUNGEON_GetWallTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pCount); // 0x006196A0
 
 void __stdcall COLLISION_ClearTileCollisionFlags(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0064C580
 

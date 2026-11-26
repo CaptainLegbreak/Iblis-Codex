@@ -8,6 +8,7 @@
 #include "D2DrlgRooms.h"
 #include "D2DrlgTiles.h"
 #include "D2DrlgPresets.h"
+#include "D2CommonApi.h"
 
 struct D2DrlgOutdoorTileCtxStrc
 {
@@ -44,8 +45,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 
 
-
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                                            // 0x006427F0
 
 void __fastcall sub_00680C80(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom);                                // 0x00680C80
 

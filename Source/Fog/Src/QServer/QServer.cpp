@@ -3,6 +3,8 @@
 #include "D2GameTypes.h"
 #include "D2NetTypes.h"
 #include "D2SysTypes.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -13,8 +15,6 @@ struct D2QServerConfigStrc;
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
-
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds);
 
@@ -37,8 +37,6 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 extern "C" char* __stdcall inet_ntoa(D2InAddrStrc); // 0x006B013E
 
-unsigned int __stdcall SStrCopy(char*, const char*, unsigned int); // 0x004135D0
-
 extern "C" int __stdcall getpeername(unsigned int, void*, int*); // 0x006B018C
 
 char* __stdcall sub_006B013E_InetNtoa(unsigned long dwAddress); // 0x006B013E
@@ -47,11 +45,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
-
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
-
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int nFlags); // 0x0040B380
 
 int __cdecl SYSTEM_IsPlatformNT(); // 0x00410960
 
@@ -90,8 +84,6 @@ long __cdecl SYSTEM_GetSyncTime(); // 0x00410A80
 
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC1FC
-
-int __fastcall FOG_SOCKET_CloseSocket(unsigned int s); // 0x0040D880
 
 extern "C" int __stdcall WSACleanup(void); // 0x006B0138
 
@@ -160,8 +152,6 @@ static void QSERVER_DestroyClient(D2QClientStrc* pClient); // 0x006BE650
 extern "C" void _ReadWriteBarrier(void);
 
 #pragma intrinsic(_ReadWriteBarrier)
-
-extern "C" const char* __cdecl sub_00408090();                                       // 0x00408090
 
 extern "C" void* __cdecl memmove(void*,const void*,unsigned int); // 0x00683840
 

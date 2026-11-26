@@ -24,6 +24,7 @@
 #include "D2Unicode.h"
 #include "D2LangApi.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #pragma intrinsic(strcpy)
 
@@ -302,8 +303,6 @@ struct D2EnvironmentCycleStrc
 
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount(); // 0x006CC260
 
-
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 extern D2EnvironmentCycleStrc gNormalEnvironmentCycle[]; // 0x007443F0
 

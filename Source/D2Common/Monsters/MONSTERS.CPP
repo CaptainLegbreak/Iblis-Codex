@@ -25,6 +25,7 @@
 
 #include "D2MonModes.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #define CHECK(p,line) if (!(p)) { FOG_DisplayHalt(text_006CC837,sub_00408090(),line); sub_00681E09(-1); }
 
@@ -46,11 +47,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern const unsigned int gdwBitMasks[]; // 0x006CE268
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
-
-int __stdcall DATATBLS_GetMonsterChainInfo(int nMonsterId, int* pMaxChainId, int* pChainId); // 0x006510C0
 
 
 struct Coord { int x,y; };
@@ -108,20 +105,6 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
 int __fastcall SKILLS_GetMonsterClassFromChain(int nMonsterId, int nChainSteps); // 0x0054DA60
-
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-
-void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
-
-int __stdcall D2Common_11063(D2ActiveRoomStrc* pRoom, int nMonsterId); // 0x0063EC70
-
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
-
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
-
-int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
-
-int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 
 // 0x0063E810
 void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const Unicode* wszName)

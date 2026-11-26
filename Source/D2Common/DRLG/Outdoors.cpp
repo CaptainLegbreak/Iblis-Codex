@@ -45,6 +45,7 @@
 
 #include "D2DrlgRooms.h"
 #include "D2DrlgOutdoor.h"
+#include "D2CommonApi.h"
 
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 
@@ -117,8 +118,6 @@ int __fastcall DRLGPRESET_SetPickedFileInDrlgMap(D2DrlgMapStrc* pDrlgMap, int nP
 
 
 static void DRLGOUTDOORS_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel);
-
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 
 
