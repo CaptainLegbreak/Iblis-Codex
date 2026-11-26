@@ -95,7 +95,7 @@ public:
     virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
     virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
     virtual int GetValue();
-    virtual int sub_004BBFB0();
+    virtual int sub_004BBFB0_GetRepeatStep();
 
     int HitTestUpArrow(SMSGHANDLER_PARAMS* pMsg);
     int HitTestDownArrow(SMSGHANDLER_PARAMS* pMsg);
@@ -353,7 +353,7 @@ int SpinnerImplementation::GetValue()
 }
 
 // 0x004BBFB0
-int SpinnerImplementation::sub_004BBFB0()
+int SpinnerImplementation::sub_004BBFB0_GetRepeatStep()
 {
     if (!unk0x34 && !unk0x38)
         return 0;
@@ -602,7 +602,7 @@ int SpinnerWrapper::GetValue()
 // 0x004BC330
 int SpinnerWrapper::sub_004BC330_ForwardSlot30(int nArg)
 {
-    return pImpl->sub_004BBFB0();
+    return pImpl->sub_004BBFB0_GetRepeatStep();
 }
 
 // build: symbol ??_GSpinnerImplementation@@UAEPAXI@Z 0x004BC450

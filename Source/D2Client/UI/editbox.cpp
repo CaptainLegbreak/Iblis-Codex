@@ -183,7 +183,7 @@ public:
     virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
     virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
     virtual int GetValue();
-    virtual int sub_004BBFB0();
+    virtual int sub_004BBFB0_GetRepeatStep();
 
     int HitTestUpArrow(SMSGHANDLER_PARAMS* pMsg);
     int HitTestDownArrow(SMSGHANDLER_PARAMS* pMsg);

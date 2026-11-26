@@ -1094,7 +1094,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         }
         if (gnWeatherSoundHandle)
         {
-            const int nCurrent = sub_004B9B20(gnWeatherSoundHandle);
+            const int nCurrent = sub_004B9B20_GetValue(gnWeatherSoundHandle);
             int nNext;
             if (nVolume > nCurrent)
             {

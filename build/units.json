@@ -23910,7 +23910,7 @@
     {
      "va": "0x004A17D0",
      "length": 151,
-     "name": "sub_004A17D0"
+     "name": "sub_004A17D0_FilterNpcClick"
     },
     {
      "va": "0x004A1870",
@@ -26322,7 +26322,7 @@
     {
      "va": "0x004B9590",
      "length": 43,
-     "name": "?sub_004B9590@@YIHH@Z"
+     "name": "?sub_004B9590_IsTypeOneSound@@YIHH@Z"
     },
     {
      "va": "0x004B95C0",
@@ -26381,7 +26381,7 @@
     {
      "va": "0x004B9B20",
      "length": 37,
-     "name": "?sub_004B9B20@@YIHH@Z"
+     "name": "?sub_004B9B20_GetValue@@YIHH@Z"
     },
     {
      "va": "0x004B9B50",
@@ -26992,7 +26992,7 @@
     {
      "va": "0x004BBFB0",
      "length": 154,
-     "name": "?sub_004BBFB0@SpinnerImplementation@@UAEHXZ"
+     "name": "?sub_004BBFB0_GetRepeatStep@SpinnerImplementation@@UAEHXZ"
     },
     {
      "va": "0x004BC050",
@@ -36088,20 +36088,6 @@
      "va": "0x00516830",
      "length": 287
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -36247,20 +36233,6 @@
      "va": "0x00514990",
      "length": 462
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -36386,20 +36358,6 @@
      "length": 235,
      "name": "?D2SOUNDUTIL_GetVxdFileVersion@@YIHPBDPAI11@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
