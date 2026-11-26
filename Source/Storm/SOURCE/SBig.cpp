@@ -400,7 +400,22 @@ static int __stdcall BigCompareUInt(BigBuffer& a, unsigned int b)
     return 0;
 }
 
-void __stdcall sub_004225C0_DivUInt(BigBuffer& a, unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c); // 0x004225C0
+// 0x004225C0
+static void __stdcall sub_004225C0_DivUInt(unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c, BigBuffer& a)
+{
+    a.m_array.SetCount((int)a.m_start - (int)b.m_start + b.m_array.m_count);
+    unsigned __int64 nData = 0;
+    unsigned int i = b.Count();
+    while (i)
+    {
+        --i;
+        nData = nData * 0x100000000ui64 + b[i];
+        a[i] = (unsigned int)(nData / c);
+        nData %= c;
+    }
+    a.sub_00422140_Trim();
+    *pRemainder = (unsigned int)nData;
+}
 
 // 0x00422750
 static int IsOne(BigBuffer& a)
@@ -492,13 +507,15 @@ static void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
     a.SetCount(i);
 }
 
+// 0x00422FC0
 static void __stdcall sub_00422FC0_SubUInt(BigBuffer& a, const BigBuffer& b, unsigned int c)
 {
     unsigned __int64 nBorrow = ~(unsigned __int64)c + 1;
     unsigned int i = 0;
-    for (; b.IsUsed(i); i++)
+    unsigned int nCount;
+    for (; nCount = b.m_array.m_count, b.m_start + i < nCount; i++)
     {
-        nBorrow += b[i];
+        nBorrow += b.m_start + i < nCount ? b.m_array.m_data[b.m_start + i] : 0;
         a[i] = ExtractLowPartSx(nBorrow);
     }
     a.SetCount(i);
@@ -543,7 +560,7 @@ static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput
     do
     {
         unsigned int nDigit;
-        sub_004225C0_DivUInt(tBuffer, &nDigit, tBuffer, 10);
+        sub_004225C0_DivUInt(&nDigit, tBuffer, 10, tBuffer);
         unsigned char nChar = (unsigned char)(nDigit + '0');
         tOutput.Add(1, &nChar);
     } while (BigCompareUInt(tBuffer, 0));
@@ -675,7 +692,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     if (nDCount <= 1)
     {
         const BigBuffer& tD = d;
-        sub_004225C0_DivUInt(a, &b.Ref(0), c, tD[0]);
+        sub_004225C0_DivUInt(&b.Ref(0), c, tD[0], a);
         b.sub_004220D0_SetCount(1);
         return;
     }
@@ -883,7 +900,7 @@ static int __stdcall IsPrime(BigStack* pStack, BigBuffer& a) // 0x00425350
         if (nPrime < 0x100000000ui64)
         {
             unsigned int nRemainder;
-            sub_004225C0_DivUInt(tWork, &nRemainder, a, nPrime);
+            sub_004225C0_DivUInt(&nRemainder, a, nPrime, tWork);
             bZero = !nRemainder;
         }
         else

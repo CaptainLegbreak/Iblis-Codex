@@ -7233,6 +7233,10 @@
      "name": "?BigCompareUInt@@YGHAAUBigBuffer@@I@Z"
     },
     {
+     "va": "0x004225C0",
+     "length": 325
+    },
+    {
      "va": "0x00422710",
      "length": 49,
      "name": "?IsOdd@@YAHPAUBigBuffer@@@Z"
@@ -7280,6 +7284,10 @@
      "va": "0x00422E70",
      "length": 330,
      "name": "?Shr@@YGXAAUBigBuffer@@ABU1@I@Z"
+    },
+    {
+     "va": "0x00422FC0",
+     "length": 309
     },
     {
      "va": "0x00423250",
@@ -7933,14 +7941,6 @@
    "file": "Source/Storm/SOURCE/SBig_00425350.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x004225C0",
-     "length": 325
-    },
-    {
-     "va": "0x00422FC0",
-     "length": 309
-    },
     {
      "va": "0x00425350",
      "length": 616
