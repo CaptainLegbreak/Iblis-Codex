@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 13:19 PST 2026: check-in. #431 took skilldesc-run-join (Ready line dropped). npcmenu-piece-note still ready, merges clean on #431. Building `decls-d2client-hi` on #431: 252 of my range's functions get one prototype in D2ClientFuncs.h and 334 private copies go from 57 files (all 116 including units equal, audit guard clean); full build running.
 - Thu Nov 26 13:07 PST 2026: 0x4EB290 retried plain on the joined SkillDesc.cpp (lane1/skilldesc-run-join): 10 forms, all the same esi/edi swap from +0x8 (the original keeps pUnit in edi and the level in esi; plain gives pUnit esi). Tried: plain copy, const and non-const; nSkillLevel used directly; the level copied before the record lookup; nColor computed at the draw call; the skill id read from the record at both calls; the early-out tests swapped; the body nested in one `if (pSkill && pSkillsTxt)`; pUnit copied to a local after the tests. Parked again. Next: my range's shared prototypes into D2ClientFuncs.h (lane 4's request), dropping the private copies.
 - Thu Nov 26 13:04 PST 2026: both branches rebuilt on #430 (identical) and repushed; Ready lines carry the new SHAs. Now: 0x4EB290 plain forms on the joined SkillDesc.cpp.
 - Thu Nov 26 12:44 PST 2026: check-in. Main is #430 (lane 4's sub_ names); both my branches rebase clean onto it and namesync finds nothing to rename. Rebuilding both on #430 to repost their SHAs. (The 13:05/13:45 times on my two lines above were wrong; corrected to the commit times.)
@@ -45,13 +46,12 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 ## Ready
 
 - lane1/npcmenu-piece-note 5782f3466 (on #430): comment only. npcmenu_004B5C60.cpp says why NPCMENU_ShowMainMenu (0x4B5C60) can't join npcmenu.cpp: with /EHsc on npcmenu.cpp every other function there stays equal, but 0x4B5C60 swaps push esi / xor eax, eax at +0xCB wherever it and its declarations go (after 0x4B5C20, at the end, declarations at the top); its declarations match npcmenu.cpp's. Full build: Game.exe identical, tree a10fa57eb934c66262533b65441ad76e79138e1c, borrowed code / data 8,373 B / 261 B.
-- lane1/skilldesc-run-join e003d3082 (on #430): SkillDesc.cpp takes the 17 functions of its run from SkillDesc_004E1FF0.cpp (0x4E6C50-0x4EFCB0), each after its address predecessor; the emit helpers of four uncalled statics move with them; 0x4EB940 calls SkillDesc.cpp's own SKILLDESC_DrawDamageRange (argument order fixed for its __fastcall signature) and getter in place of the piece's private copies, which go. Both units all equal. Full build: Game.exe identical, tree 5bb56b0326f808449972174f27d7d80356058bf0, borrowed code / data 8,373 B / 261 B. Audit guard: no count rose.
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
 
 ## Claimed
 
-- **SkillDesc join (file in pieces).** On #429, `UI/SkillDesc_004E1FF0.cpp` is not one piece: it spans 0x4E1FF0-0x4F48F0 and holds three language copies. Only its functions inside SkillDesc.cpp's run (0x4E6C50, 0x4E6D40, 0x4E6D90, 0x4E6E80, 0x4E6FF0, 0x4E7900, 0x4E9160, 0x4E9590, 0x4E9870, 0x4EB940, 0x4EDA20, 0x4EFC20-0x4EFCB0) join SkillDesc.cpp, in address order. The skill callbacks before 0x4E4640 and the tail (0x4F47B0, 0x4F48F0, and `SkillDesc_004F30A0.cpp`) are other objects' and stay, with the reason in a comment.
+- **Done (#431): SkillDesc join (file in pieces).** On #429, `UI/SkillDesc_004E1FF0.cpp` is not one piece: it spans 0x4E1FF0-0x4F48F0 and holds three language copies. Only its functions inside SkillDesc.cpp's run (0x4E6C50, 0x4E6D40, 0x4E6D90, 0x4E6E80, 0x4E6FF0, 0x4E7900, 0x4E9160, 0x4E9590, 0x4E9870, 0x4EB940, 0x4EDA20, 0x4EFC20-0x4EFCB0) join SkillDesc.cpp, in address order. The skill callbacks before 0x4E4640 and the tail (0x4F47B0, 0x4F48F0, and `SkillDesc_004F30A0.cpp`) are other objects' and stay, with the reason in a comment.
 
 ## In progress
 
