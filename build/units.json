@@ -70011,7 +70011,7 @@
     {
      "va": "0x00647FB0",
      "length": 104,
-     "name": "?sub_6FDA8220@@YIXPAUD2DynamicPathStrc@@@Z"
+     "name": "?PATH_CheckPathInRoom@@YIXPAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x00648020",
@@ -71284,7 +71284,7 @@
     {
      "va": "0x006502D0",
      "length": 125,
-     "name": "?sub_6FD5CEB0@@YAXHPAUD2DynamicPathStrc@@@Z"
+     "name": "?sub_006502D0_UpdateVelocity@@YAXHPAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x00650350",
@@ -71341,7 +71341,7 @@
     {
      "va": "0x00650910",
      "length": 386,
-     "name": "?sub_6FDAD5E0@@YGHPAUD2ActiveRoomStrc@@UD2PathPointStrc@@PAUD2DynamicPathStrc@@@Z"
+     "name": "?sub_00650910_UpdateCollisionMask@@YGHPAUD2ActiveRoomStrc@@UD2PathPointStrc@@PAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x00650AA0",
@@ -74542,7 +74542,7 @@
     {
      "va": "0x00679E50",
      "length": 15,
-     "name": "?sub_6FDAB0B0@@YIHPAUD2PathInfoStrc@@@Z"
+     "name": "?sub_00679E50_RestartToward@@YIHPAUD2PathInfoStrc@@@Z"
     },
     {
      "va": "0x00679E60",
@@ -74698,7 +74698,7 @@
     {
      "va": "0x0067A690",
      "length": 174,
-     "name": "?sub_6FDC0840@@YGPAUD2PathIDAStarNodeStrc@@PAUD2PathIDAStarContextStrc@@PAU1@@Z"
+     "name": "?sub_0067A690_NextNode@@YGPAUD2PathIDAStarNodeStrc@@PAUD2PathIDAStarContextStrc@@PAU1@@Z"
     },
     {
      "va": "0x0067A740",
