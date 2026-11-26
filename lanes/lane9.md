@@ -48,7 +48,10 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
-- Building now, posted when verified: lane9/glide-spans-2 (glide-spans rebased onto #443), lane9/params-d2game-a2,
+- lane9/glide-spans-2 bb945f89 (on #443): glide-spans rebased (glCore.cpp and four others: prototypes main's
+  D2Glide.h now holds are dropped from the moved code). auditguard no count rose. Full build: Game.exe identical,
+  tree 504165c957670f8cd2aad791ce7cda32a325d5df, borrowed code / data 7,923 / 261 B.
+- Building now, posted when verified: lane9/params-d2game-a2,
   -b2, -c2 (the same folders regenerated on #443 after #441's shared D2Game declarations) and lane9/params-d2game-d
   (SKILLS, GAME). Not merge-ready until their own Ready lines appear.
 - WITHDRAWN (conflicts with #441; replaced by the -2 / d branches below) lane9/params-d2game-c 1ccf64af (on #439): D2Game UNIT, PLAYER: the same naming (definitions'/D2MOO's parameter
