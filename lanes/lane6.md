@@ -2,15 +2,13 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 15:20 PT): sound-gs merged (#439). join-charsel, join-charsel-3 (stacked) and emit-trim-2 (stacked) Ready, every full build identical. CharSel's last two pieces stay (readings in Claimed).
+Status (Thu Nov 26 2026, 15:45 PT): join-charsel, join-charsel-3 and emit-trim-2 merged. Now: scaffolding and names in my modules (three branches below).
 
 ## Ready
 
-- `lane6/join-charsel` @ fbd1cb58f (on #437): CharSel.cpp takes CHARSEL_RefreshCharList (0x438560) and CharSel_00438560.cpp goes. The image calls CHARSEL_GetDaysLeft from RefreshCharList (argument in eax) but has the time call and the division written out in CHARSEL_UpdateCharList (0x4380F0); so GetDaysLeft is kept out of line with noinline and UpdateCharList computes the days itself (expiry read before the time call, which is what puts it in edi). **noinline +0** (one added, the piece's own removed). CharSel.cpp all equal; auditguard: no count rose; full build identical.
-
-- `lane6/join-charsel-3` @ 0ccf2866e (on join-charsel): CharSel_004378D0.cpp's four functions (CHARSEL_FindSlotByName, _SelectNamedSlot, _OnCharSelect, _JoinSelected) join CharSel.cpp under the file's own global spellings; CharSel.cpp's copies of the first two give way to the placed ones. **noinline +0.** CharSel.cpp all equal; auditguard: no count rose; full build identical.
-
-- `lane6/emit-trim-2` @ 5e7bb1df2 (on join-charsel-3): 20 emit helpers go from CharSel.cpp (9), BnDownload.cpp (8) and D2WinFont.cpp (3), whose statics are called by the joined code now; each removed alone, kept out only where its unit stays equal (emit helpers 394 -> 374). Full build identical.
+- `lane6/decls-3` @ 638362412: 77 extern declarations in D2Launch, D2Multi, D2Win, D2CMP, D2Sound, D2Net and D2BNClient files that repeat, with the same type, an extern of a header the file includes. CelCmp.cpp keeps its copies (its output changes with its declarations). Unit builds equal; auditguard: no count rose; full build running.
+- `lane6/names-sub-3` @ 82901ebd1: nine more placeholder functions named from their bodies (sub_0043BF60_ConnectToBattleNet, sub_005269D0_FormatText (the Unicode format routine; its callers in D2Client, D2Game and D2LangApi.h follow), sub_00520650_GetInfoText, sub_0052B910_GetLastError, two value getters, three constant callbacks). Every touched unit equal (38); auditguard: no count rose; full build queued. Left: CelCmp.cpp's cel-list template members (several folded with other modules' copies) and 0x503F70 (an emit helper's static).
+- `lane6/fields-bnftp` @ 244733bbb: BnDownload.cpp's BNFTP request header names its protocol version bytes. Unit equal; full build queued.
 
 ## Questions
 
