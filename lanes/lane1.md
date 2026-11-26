@@ -4,7 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
-- Thu Nov 26 14:20 PST 2026: check-in. #435 took decls-d2client-hi, #436 soundinst-join and editbox-join (Ready lines dropped). names-sub-d2client-hi and spinner-fields merge clean on #436.
+- Thu Nov 26 14:20 PST 2026: check-in. #435 took decls-d2client-hi, #436 soundinst-join and editbox-join (Ready lines dropped). spinner-fields merges clean on #436; names-sub-d2client-hi conflicts with soundinst-join (a renamed file is gone): redoing it on #436 now.
 - Thu Nov 26 14:20 PST 2026: spinner-fields ready. Next: 0x4F2BE0 plain forms on the joined SkillDesc.cpp (#431 changed its surroundings).
 - Thu Nov 26 14:08 PST 2026: names-sub-d2client-hi ready. Next: field names in Unknown_004BBE10.cpp's SpinnerImplementation (the unk0x fields the code reads).
 - Thu Nov 26 13:57 PST 2026: Unknown_004D1300.cpp retried against Missile.cpp with the noinline ruling: no (Left in place). Next: names in my range (the 10 bare sub_ functions, unk0x fields the code reads).
