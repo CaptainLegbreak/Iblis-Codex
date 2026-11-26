@@ -48091,6 +48091,14 @@
      "name": "MONSTER_ResetMonsterModesInLevel"
     },
     {
+     "va": "0x00573CB0",
+     "length": 1426
+    },
+    {
+     "va": "0x00574250",
+     "length": 281
+    },
+    {
      "va": "0x00574370",
      "length": 160,
      "name": "MONSTER_Reinitialize"
@@ -48370,20 +48378,6 @@
     {
      "va": "0x00579D60",
      "length": 2765
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/Monster_00573CB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00573CB0",
-     "length": 1426
-    },
-    {
-     "va": "0x00574250",
-     "length": 281
     }
    ]
   },
