@@ -32231,11 +32231,6 @@
      "name": "?GLCORE_Init@@YIHPAUD2GfxSettingsStrc@@PAUD2TileDrawFunctionsStrc@@@Z"
     },
     {
-     "va": "0x0050A110",
-     "length": 199,
-     "name": "?GLCORE_ReleaseTexSlots@@YIXPAUD2GlideTexSlotStrc@@@Z"
-    },
-    {
      "va": "0x00518C10",
      "length": 6,
      "name": "BNCLIENT_GetInterfaceTable"
@@ -35023,6 +35018,11 @@
      "name": "?GLSPRITE_FreeSpriteBuffers@@YAXXZ"
     },
     {
+     "va": "0x0050A110",
+     "length": 199,
+     "name": "?GLSPRITE_ReleaseTexSlots@@YIXPAUD2GlideTexSlotStrc@@@Z"
+    },
+    {
      "va": "0x0050A1E0",
      "length": 64,
      "name": "?GLSPRITE_RoundTexSize@@YAHH@Z"
@@ -35110,16 +35110,6 @@
      "va": "0x0050B7B0",
      "length": 162,
      "name": "?GLSPRITE_InitSprites@@YAXXZ"
-    },
-    {
-     "va": "0x0050DFE0",
-     "length": 78,
-     "name": "?GLSPRITE_SetSmackTexAddresses@@YIHHH@Z"
-    },
-    {
-     "va": "0x0050E330",
-     "length": 53,
-     "name": "?GLSPRITE_UploadSmackTextures@@YAXXZ"
     }
    ]
   },
@@ -35346,6 +35336,11 @@
      "name": "?GLSMACK_SmackFree@@YAXXZ"
     },
     {
+     "va": "0x0050DFE0",
+     "length": 78,
+     "name": "?GLSMACK_SetSmackTexAddresses@@YIHHH@Z"
+    },
+    {
      "va": "0x0050E030",
      "length": 1,
      "name": "?GLSMACK_SmackFlush@@YAXXZ"
@@ -35358,6 +35353,11 @@
     {
      "va": "0x0050E070",
      "length": 693
+    },
+    {
+     "va": "0x0050E330",
+     "length": 53,
+     "name": "?GLSMACK_UploadSmackTextures@@YAXXZ"
     },
     {
      "va": "0x0050E370",
@@ -35373,31 +35373,6 @@
      "va": "0x0050E7F0",
      "length": 145,
      "name": "?GLSMACK_PlaySmacker@@YIXPAUD2GlideSmackStrc@@@Z"
-    },
-    {
-     "va": "0x0050EAE0",
-     "length": 121,
-     "name": "?GLSMACK_TexCacheUnlink@@YIPAUD2GlideTexCacheEntryStrc@@PAUD2GlideTexCacheStrc@@H@Z"
-    },
-    {
-     "va": "0x0050EC40",
-     "length": 105,
-     "name": "?GLSMACK_TexCacheEvict@@YIXPAUD2GlideTexCacheStrc@@@Z"
-    },
-    {
-     "va": "0x0050F570",
-     "length": 115,
-     "name": "?GLSMACK_FloorCacheUnlink@@YIPAUD2GlideFloorCacheEntryStrc@@PAUD2GlideFloorCacheStrc@@H@Z"
-    },
-    {
-     "va": "0x0050F6D0",
-     "length": 122,
-     "name": "?GLSMACK_FloorCacheEvict@@YIXPAUD2GlideFloorCacheStrc@@@Z"
-    },
-    {
-     "va": "0x0050F750",
-     "length": 108,
-     "name": "?GLSMACK_FloorCacheRemove@@YIXPAUD2GlideFloorCacheStrc@@H@Z"
     }
    ]
   },
@@ -35431,6 +35406,11 @@
      "name": "?GLTEXTURECACHE_TexCachePopFree@@YAPAUD2GlideTexCacheEntryStrc@@PAUD2GlideTexCacheStrc@@@Z"
     },
     {
+     "va": "0x0050EAE0",
+     "length": 121,
+     "name": "?GLTEXTURECACHE_TexCacheUnlink@@YIPAUD2GlideTexCacheEntryStrc@@PAUD2GlideTexCacheStrc@@H@Z"
+    },
+    {
      "va": "0x0050EB60",
      "length": 123,
      "name": "?GLTEXTURECACHE_TexCacheAlloc@@YAHPAUD2GlideTexCacheStrc@@@Z"
@@ -35439,6 +35419,11 @@
      "va": "0x0050EBE0",
      "length": 88,
      "name": "?GLTEXTURECACHE_TexCacheTouch@@YIXPAUD2GlideTexCacheStrc@@H@Z"
+    },
+    {
+     "va": "0x0050EC40",
+     "length": 105,
+     "name": "?GLTEXTURECACHE_TexCacheEvict@@YIXPAUD2GlideTexCacheStrc@@@Z"
     },
     {
      "va": "0x0050ECB0",
@@ -35553,6 +35538,11 @@
      "name": "?sub_M117_TilePopHead@@YAPAUD2GlideTileCacheEntryStrc@@PAUD2GlideTileCacheStrc@@@Z"
     },
     {
+     "va": "0x0050F570",
+     "length": 115,
+     "name": "?GLFLOORCACHE_FloorCacheUnlink@@YIPAUD2GlideFloorCacheEntryStrc@@PAUD2GlideFloorCacheStrc@@H@Z"
+    },
+    {
      "va": "0x0050F5F0",
      "length": 123,
      "name": "?GLFLOORCACHE_FloorCacheAlloc@@YAHPAUD2GlideFloorCacheStrc@@@Z"
@@ -35561,6 +35551,16 @@
      "va": "0x0050F670",
      "length": 88,
      "name": "?GLFLOORCACHE_FloorCacheTouch@@YIXPAUD2GlideFloorCacheStrc@@H@Z"
+    },
+    {
+     "va": "0x0050F6D0",
+     "length": 122,
+     "name": "?GLFLOORCACHE_FloorCacheEvict@@YIXPAUD2GlideFloorCacheStrc@@@Z"
+    },
+    {
+     "va": "0x0050F750",
+     "length": 108,
+     "name": "?GLFLOORCACHE_FloorCacheRemove@@YIXPAUD2GlideFloorCacheStrc@@H@Z"
     },
     {
      "va": "0x0050F7C0",
