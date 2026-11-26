@@ -861,7 +861,7 @@ int __fastcall SKILLS_SrvDo066_HolyFire_HolyShock_Sanctuary_Conviction(D2GameStr
 
     SKILLS_ApplyAuraToSelf(pGame, pUnit, SKILLS_AuraCallback_BasicAura, &args1);
 
-    if (DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
+    if (!SKILLS_IsUnitOutsideTown(pUnit))
     {
         return 1;
     }
@@ -1005,14 +1005,6 @@ int __fastcall SKILLS_SrvSt31_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     return 1;
 }
 
-void __stdcall sub_M217_Emit_005CF280(D2UnitStrc* pUnit, int* pResult)
-{
-    if (pUnit)
-    {
-        *pResult = SKILLS_IsUnitOutsideTown(pUnit);
-    }
-}
-
 // 0x005CF8A0
 static inline D2UnitStrc* SKILLS_FindMeleeTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID)
 {
@@ -1075,7 +1067,7 @@ int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
         {
             SKILLS_SetFlags(pSkill, 0);
             SUNITMSG_QueueSkillStop(pUnit, nSkillId);
-            pTarget = SKILLS_FindNextAuraTarget(pGame, pUnit, 0, 0, 3, 3, nTargetId, 0);
+            pTarget = SKILLS_FindMeleeTarget(pGame, pUnit, nTargetId);
             if (pTarget && UNITS_IsInMeleeRange(pUnit, pTarget, 0))
             {
                 SKILLS_SetParam1(pSkill, GetUnitType(pTarget));
@@ -1322,11 +1314,6 @@ int __fastcall SKILLS_SrvDo073_BlessedHammer(D2GameStrc* pGame, D2UnitStrc* pUni
     }
 
     return 1;
-}
-
-int __fastcall sub_M132_Emit_005CF8A0(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    return SKILLS_FindMeleeTarget(pGame, pUnit, 0x4D3) != 0;
 }
 
 // 0x005D0180

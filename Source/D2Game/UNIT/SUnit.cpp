@@ -608,11 +608,6 @@ static D2UnitStrc** __stdcall SUNIT_GetUnitList(D2GameStrc* pGame, int nUnitType
     return 0;
 }
 
-D2UnitStrc* __fastcall sub_K11_Emit00552F30(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    return sub_K11_EmitUse(SUNIT_GetUnitList(pGame, pUnit->dwUnitType, pUnit->dwUnitId));
-}
-
 // 0x00555770
 void __fastcall SUNIT_RemoveAllTiles(D2GameStrc* pGame)
 {
@@ -666,12 +661,6 @@ D2UnitStrc* __fastcall SUNIT_GetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUni
     return 0;
 }
 
-static inline D2UnitStrc** SUNIT_GetUnitList_Inline(D2GameStrc* pGame, int nUnitType, unsigned int nUnitGUID)
-{
-    if (nUnitType >= 0 && nUnitType <= 4)
-        return (D2UnitStrc**)((char*)pGame + gnUnitListOffsets[nUnitType]) + (nUnitGUID & 0x7F);
-    return 0;
-}
 
 // 0x00553160
 static int SUNIT_RoomHasClients(D2UnitStrc* pUnit)
@@ -695,7 +684,7 @@ static void SUNIT_RemoveFromUnitList(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
     else
     {
-        ppUnitList = SUNIT_GetUnitList_Inline(pGame, pUnit->dwUnitType, pUnit->dwUnitId);
+        ppUnitList = SUNIT_GetUnitList(pGame, pUnit->dwUnitType, pUnit->dwUnitId);
     }
 
     D2UnitStrc* pPrevious = 0;
@@ -729,7 +718,7 @@ void __fastcall SUNIT_AddToUnitList(D2UnitStrc* pUnit, D2GameStrc* pGame)
     if (pUnit->dwUnitType == UNIT_TILE)
         ppUnitList = (D2UnitStrc**)((char*)pGame + 0x1B20);
     else
-        ppUnitList = SUNIT_GetUnitList_Inline(pGame, pUnit->dwUnitType, pUnit->dwUnitId);
+        ppUnitList = SUNIT_GetUnitList(pGame, pUnit->dwUnitType, pUnit->dwUnitId);
 
     D2UnitStrc* i = *ppUnitList;
     D2UnitStrc* pPrevious = 0;
