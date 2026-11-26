@@ -12,11 +12,14 @@ PADMIN = 32
 DATA_PAD = 0x10000
 EH_CODE = ("__ehhandler$", "__unwindfunclet$", "__catch$")
 EH_DATA = ("__ehfuncinfo$", "__unwindtable$", "__tryblocktable$", "__catchsym$")
+SEH_DATA = ("__sehtable$",)
+SEH_HANDLERS = ("__except_handler4",)
 REL32, DIR32 = 0x14, 0x06
 CODE_CH = 0x60501020
 CODEX_CH = 0x60501020
 DATA_CH = 0x40301040
 XDATA_CH = 0x40300040
+SEHDATA_CH = 0x40400040
 
 
 class GLError(Exception):
@@ -482,6 +485,37 @@ class Program(object):
         self.data_syms.sort()
         return fi
 
+    def _seh_table(self, func, st):
+        """The scope table an SEH prologue of `func` pushes at +st: found by its content in every image (the map does not list it)."""
+        nm = SEH_DATA[0] + func
+        if nm in self.pos["A"]:
+            return nm
+        if not hasattr(self, "eh_size"):
+            self.eh_size = {}; self.eh_children = {}
+        sizes = set(); where = {}
+        for k in "ABCD":
+            img = self.img[k]; fa = self.pos[k][func]; fn = self.extent[k][func]
+            v = struct.unpack_from("<I", img.read(fa + st, 4), 0)[0]
+            c = self.contrib_of(k, v)
+            if c is None:
+                raise GLError("UNSUPPORTED", "scope table of %s at 0x%08X is in no section contribution of image %s" % (func, v, k))
+            end = c[0] + c[1]; j = 0
+            while v + 16 + 12 * (j + 1) <= end:
+                level, filt, hand = struct.unpack_from("<III", img.read(v + 16 + 12 * j, 12), 0)
+                if not (level == 0xFFFFFFFE or level < j) or not fa <= hand < fa + fn or not (filt == 0 or fa <= filt < fa + fn):
+                    break
+                j += 1
+            if not j:
+                raise GLError("UNSUPPORTED", "no scope entry of %s at 0x%08X in image %s" % (func, v, k))
+            sizes.add(16 + 12 * j); where[k] = v
+        if len(sizes) != 1:
+            raise GLError("UNSUPPORTED", "scope table of %s measures %s across the images" % (func, sorted(sizes)))
+        for k in "ABCD":
+            self.pos[k][nm] = where[k]
+        self.eh_size[nm] = sizes.pop()
+        self.data_syms.append((where["A"], nm)); self.data_syms.sort()
+        return nm
+
     def canonical(self, names, prefer=None):
         for n in names:
             if prefer and n in prefer:
@@ -523,6 +557,13 @@ class Program(object):
         relocs = []; covered = 0; i = 0
         u32 = lambda b, o: struct.unpack_from("<I", b, o)[0]
 
+        def seh_push(st):
+            # `push -2; push offset scope table; push offset __except_handler4`, the start of an SEH frame
+            if st < 3 or st + 9 > n or bytes(ba[st - 3:st]) != b"\x6a\xfe\x68" or ba[st + 4] != 0x68:
+                return False
+            k = by_shift.get((u32(bb, st + 5) - u32(ba, st + 5)) & 0xFFFFFFFF)
+            return k is not None and k.lstrip("_") in tuple(h.lstrip("_") for h in SEH_HANDLERS)
+
         def classify(st):
             va_ = u32(ba, st); dB = (u32(bb, st) - va_) & 0xFFFFFFFF; dC = (u32(bc, st) - va_) & 0xFFFFFFFF; dD = (u32(bd, st) - va_) & 0xFFFFFFFF
             P = pa + st; out = []
@@ -542,6 +583,11 @@ class Program(object):
                 if name.startswith("__ehhandler$") and not any(a == T for a, _ in self.data_syms):
                     try:
                         self._eh_funcinfo(name, st)
+                    except GLError:
+                        return []
+                if not name.startswith(EH_CODE) and not any(a == T for a, _ in self.data_syms) and seh_push(st):
+                    try:
+                        self._seh_table(name, st)
                     except GLError:
                         return []
                 lo = self.data_piece_at(T)
@@ -663,10 +709,10 @@ def lift(prog, want=None, log=None):
             data, rels = prog.lift_code(nm)
             kind = "ehcode" if nm.startswith(EH_CODE) else "func"
             pieces[nm] = dict(kind=kind, data=data, relocs=rels, aliases=groups.get(nm, [nm]))
-        elif nm.startswith(EH_DATA):
+        elif nm.startswith(EH_DATA + SEH_DATA):
             size = prog.eh_size[nm]
             data, rels = prog.lift_data(nm, size)
-            pieces[nm] = dict(kind="ehdata", data=data, relocs=rels, aliases=[nm])
+            pieces[nm] = dict(kind="sehdata" if nm.startswith(SEH_DATA) else "ehdata", data=data, relocs=rels, aliases=[nm])
         elif nm.startswith(checker.LITERALS):
             size = literal_size(nm)
             if size is None:
@@ -683,22 +729,22 @@ def lift(prog, want=None, log=None):
                     _eh_tables(prog, sym)
                     pending.append(sym)
                     pending.extend(t for t in prog.eh_children.get(sym, []))
-                elif sym.startswith(checker.LITERALS):
+                elif sym.startswith(SEH_DATA) or sym.startswith(checker.LITERALS):
                     pending.append(sym)
     order = list(pieces)
     secs = []; syms = []; index = {}
     sec_of = {}
     for nm in order:
         p = pieces[nm]
-        sname = {"func": ".text", "ehcode": ".text$x", "ehdata": ".xdata$x", "literal": ".rdata"}[p["kind"]]
-        ch = {"func": CODE_CH, "ehcode": CODEX_CH, "ehdata": XDATA_CH, "literal": DATA_CH}[p["kind"]]
+        sname = {"func": ".text", "ehcode": ".text$x", "ehdata": ".xdata$x", "sehdata": ".xdata$x", "literal": ".rdata"}[p["kind"]]
+        ch = {"func": CODE_CH, "ehcode": CODEX_CH, "ehdata": XDATA_CH, "sehdata": SEHDATA_CH, "literal": DATA_CH}[p["kind"]]
         secs.append(dict(name=sname, data=p["data"], ch=ch, relocs=[])); sec_of[nm] = len(secs)
     for nm in order:
         p = pieces[nm]; scn = sec_of[nm]
         sel = 2 if p["kind"] in ("func", "literal") else 0
         syms.append(dict(name=secs[scn - 1]["name"], value=0, scn=scn, cls=3, aux=[R.secaux(len(p["data"]), len(p["relocs"]), sel)]))
         for a in p["aliases"]:
-            st = a in prog.static or p["kind"] in ("ehcode", "ehdata")
+            st = a in prog.static or p["kind"] in ("ehcode", "ehdata", "sehdata")
             index[a] = sum(1 + len(y.get("aux", [])) for y in syms)
             syms.append(dict(name=a, value=0, scn=scn, type=0x20 if p["kind"] in ("func", "ehcode") else 0, cls=3 if st else 2))
     undef = sorted({sym for p in pieces.values() for _, _, sym, _, _ in p["relocs"] if sym not in index})
