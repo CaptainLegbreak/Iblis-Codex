@@ -49,7 +49,6 @@ extern unsigned char gabQuestFlagsB[];                                          
 
 
 
-void __stdcall TEXT_LoadQuestPage(int nPage, int bReset);                                           // 0x004A3220
 static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg);                                          // 0x004A1950
 
 
@@ -121,7 +120,6 @@ struct SMSGHANDLER_PARAMS;
 
 
 
-void __stdcall TEXT_LoadQuestPage(int nPage, int nArg); // 0x004A3220
 
 extern char gbQuestCloseButtonDown; // 0x007BF2B2
 

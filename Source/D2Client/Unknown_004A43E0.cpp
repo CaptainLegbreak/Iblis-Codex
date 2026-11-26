@@ -696,7 +696,6 @@ extern "C" void __cdecl GAME_RegisterMouseHandlers(); // 0x0044DD20
 
 
 
-void __cdecl TEXT_InitKeyConfigEntries(); // 0x004A43E0
 
 extern int gbRedraw; // 0x007C0280
 
