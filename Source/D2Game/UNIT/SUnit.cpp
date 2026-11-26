@@ -2335,7 +2335,7 @@ void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
         break;
 
     case UNIT_MONSTER:
-        TARGETS_RemoveUnitNode(pGame, pUnit);
+        sub_005B1A90(pGame, pUnit);
 
         if (pUnit->pDynamicPath)
         {

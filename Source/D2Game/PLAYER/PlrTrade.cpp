@@ -178,9 +178,9 @@ struct Item { char pad0[0xF6]; unsigned short format; char padF8[5]; unsigned ch
 
 struct ItemRecordTable { int count; Item* records; };
 
-ItemRecordTable* __stdcall DATATBLS_GetItemDataTables(); // 0x00633590
+ItemRecordTable* __stdcall sub_00633590(); // 0x00633590
 
-unsigned __fastcall ITEMS_RollLimitedRandomNumber(Seed*,int); // 0x0045C3E0
+unsigned __fastcall sub_0045C3E0(Seed*,int); // 0x0045C3E0
 
 int __stdcall ITEMS_CheckItemTypeIdByItemId(int,int); // 0x00629A90
 
@@ -1151,10 +1151,10 @@ static int __stdcall PLRTRADE_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemStrc*
 short __fastcall PLRTRADE_RollRandomItemClassOfSameType(Game* game,int level,int type)
 {
     short choices[256];
-    ItemRecordTable* table=DATATBLS_GetItemDataTables();
+    ItemRecordTable* table=sub_00633590();
     int count=0;
     if(!table) { FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),0x384); exit(-1); }
-    int start=ITEMS_RollLimitedRandomNumber(&game->seed,table->count);
+    int start=sub_0045C3E0(&game->seed,table->count);
     int stop=start-1;
     if(stop<0) stop=table->count-1;
     int index=start;
@@ -1170,7 +1170,7 @@ short __fastcall PLRTRADE_RollRandomItemClassOfSameType(Game* game,int level,int
         if(index>=table->count) index=0;
     }
     if(!count) return 0;
-    return choices[ITEMS_RollLimitedRandomNumber(&game->seed,count)];
+    return choices[sub_0045C3E0(&game->seed,count)];
 }
 
 // 0x00565A80
