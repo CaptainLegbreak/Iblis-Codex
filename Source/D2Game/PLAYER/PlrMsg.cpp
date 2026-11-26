@@ -4637,7 +4637,7 @@ static int __stdcall D2GAME_MERCS_EquipItem(D2UnitStrc* pPlayer, D2UnitStrc* pIt
 
         if (!ITEMS_CheckRequirements(pItem, pMerc, 0, 0, 0, 0))
         {
-            INVENTORY_PlaceItemInBodyLoc(pMercInventory, pExchangeItem, nTargetBodyLoc);
+            sub_0063BDB0(pMercInventory, pExchangeItem, nTargetBodyLoc);
             INVENTORY_PlaceItemInSocket(pMercInventory, pExchangeItem, 3);
             ITEMS_SetBodyLocation(pExchangeItem, nTargetBodyLoc);
             UNITS_ChangeAnimMode(pExchangeItem, 1);

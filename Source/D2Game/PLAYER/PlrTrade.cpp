@@ -144,7 +144,7 @@ struct Item { char pad0[0xF6]; unsigned short format; char padF8[5]; unsigned ch
 
 struct ItemRecordTable { int count; Item* records; };
 
-ItemRecordTable* __stdcall DATATBLS_GetItemDataTables(); // 0x00633590
+ItemRecordTable* __stdcall sub_00633590(); // 0x00633590
 
 unsigned __fastcall ITEMS_RollLimitedRandomNumber(Seed*,int); // 0x0045C3E0
 
@@ -1087,7 +1087,7 @@ static int __stdcall PLRTRADE_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemStrc*
 short __fastcall PLRTRADE_RollRandomItemClassOfSameType(Game* game,int level,int type)
 {
     short choices[256];
-    ItemRecordTable* table=DATATBLS_GetItemDataTables();
+    ItemRecordTable* table=sub_00633590();
     int count=0;
     if(!table) { FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),0x384); exit(-1); }
     int start=ITEMS_RollLimitedRandomNumber(&game->seed,table->count);
