@@ -257,22 +257,6 @@ static void LEVEL_DeleteMonsterEvents(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom
     }
 }
 
-void __fastcall sub_M126_Emit_0053A880(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nUnused)
-{
-    LEVEL_UpdateMonsterAiCallbacks(pGame, pRoom);
-}
-
-void __fastcall sub_M126_Emit_0053A8B0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nUnused)
-{
-    LEVEL_DeleteMonsterEvents(pGame, pRoom);
-}
-
-void __fastcall sub_M126_Emit_0053AA70(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget)
-{
-    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
-        LEVEL_ClearUnitTargetIfMatch(pGame, pUnit, pTarget);
-}
-
 inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
     if (pUnit) return pUnit->dwUnitType;
@@ -289,14 +273,7 @@ void __fastcall LEVEL_AddClient(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D2Cl
     DUNGEON_AddClientToRoom(hRoom, pClient);
     if (hRoom->nNumClients <= 1)
     {
-        for (D2UnitStrc* pUnit = hRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
-        {
-            const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
-            switch (nUnitType)
-            {
-            case 1: MONSTER_UpdateAiCallbackEvent(pGame, pUnit); break;
-            }
-        }
+        LEVEL_UpdateMonsterAiCallbacks(pGame, hRoom);
     }
     D2UnitStrc* pUnit = hRoom->pUnitFirst;
     D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
@@ -321,16 +298,7 @@ void __fastcall LEVEL_RemoveClient(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D
 
     if (!hRoom->nNumClients)
     {
-        for (D2UnitStrc* pUnit = hRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
-        {
-            const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
-            switch (nUnitType)
-            {
-            case UNIT_MONSTER:
-                MONSTER_DeleteEvents(pGame, pUnit);
-                break;
-            }
-        }
+        LEVEL_DeleteMonsterEvents(pGame, hRoom);
     }
 
     D2DrlgCoordsStrc drlgCoords;
@@ -360,16 +328,7 @@ void __fastcall LEVEL_ClearRoomUnitTargets(D2GameStrc* pGame, D2ActiveRoomStrc* 
 
     for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
     {
-        switch (UNITS_GetUnitTypeOrInvalid_Inline(pUnit))
-        {
-        case 0:
-            PLAYER_ClearTargetIfMatch(pGame, pUnit, pTarget);
-            break;
-
-        case 1:
-            MONSTER_ClearTargetIfMatches(pGame, pUnit, pTarget);
-            break;
-        }
+        LEVEL_ClearUnitTargetIfMatch(pGame, pUnit, pTarget);
     }
 }
 
