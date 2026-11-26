@@ -44,7 +44,7 @@ struct D2StormArrayBStrc
         if (m_data)
             SMemFree(m_data, gszTypeNameUChar, -2, 0);
     }
-    static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
+    unsigned int RoundUp(unsigned int nValue, unsigned int nAlign)
     {
         unsigned int nRemainder = nValue % nAlign;
         if (nRemainder)
@@ -55,10 +55,9 @@ struct D2StormArrayBStrc
     {
         if (nCount < 0x100)
         {
-            unsigned int nResult = nCount;
-            while (nResult & (nResult - 1))
-                nResult &= nResult - 1;
-            return nResult < 1 ? 1 : nResult;
+            while (nCount & (nCount - 1))
+                nCount &= nCount - 1;
+            return nCount < 1 ? 1 : nCount;
         }
         m_chunk = 0x100;
         return 0x100;
@@ -70,7 +69,9 @@ struct D2StormArrayBStrc
         {
             if (bRound)
             {
-                unsigned int nChunk = m_chunk ? m_chunk : CalcChunkSize(nCount);
+                unsigned int nChunk = m_chunk;
+                if (!nChunk)
+                    nChunk = CalcChunkSize(nCount);
                 nCount = RoundUp(nCount, nChunk);
             }
             sub_004211C0_ReallocData(nCount);
@@ -162,6 +163,17 @@ int __stdcall SBigCompare(D2StormBigStrc* pA, D2StormBigStrc* pB)
 void __stdcall SBigToUnsigned(D2StormBigStrc* pBig, unsigned int* pnResult)
 {
     BigToUnsigned(pnResult, pBig->tPrimary);
+}
+
+// 0x00421BD0
+static void EncodeDataBytes(unsigned int nValue, D2StormArrayBStrc* pArray)
+{
+    while (nValue)
+    {
+        *pArray->New() = (unsigned char)(nValue % 255);
+        nValue /= 255;
+    }
+    *pArray->New() = 0xFF;
 }
 
 // 0x00421CB0
@@ -325,6 +337,20 @@ static void __stdcall BigXor(BigBuffer& a, const BigBuffer& b, const BigBuffer& 
         a[i] = b[i] ^ c[i];
     }
     a.SetCount(i);
+}
+
+// 0x00423380
+static void __stdcall sub_00423380_FromBytes(BigBuffer* pThis, const unsigned char* pData, unsigned int nSize)
+{
+    pThis->SetCount(0);
+    for (unsigned int i = 0; i < nSize; ++i)
+    {
+        unsigned int nIdx = i >> 2;
+        unsigned int nShift = i & 3;
+        unsigned int nByte = pData[i];
+        unsigned int nCur = nShift ? pThis->Ref(nIdx) : 0;
+        (*pThis)[nIdx] = (nByte << (nShift * 8)) + nCur;
+    }
 }
 
 // 0x00423D60
@@ -521,6 +547,12 @@ static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput
 void __stdcall SBigDec(D2StormBigStrc* pResult, D2StormBigStrc* pA)
 {
     sub_00422FC0_SubUInt(pResult->tPrimary, pA->tPrimary, 1);
+}
+
+// 0x00423850
+void __stdcall SBigFromBinary(D2StormBigStrc* pBig, const void* pData, unsigned int nSize)
+{
+    sub_00423380_FromBytes(&pBig->tPrimary, (const unsigned char*)pData, nSize);
 }
 
 // 0x00423870
@@ -1018,16 +1050,6 @@ static void __stdcall InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack&
 void __stdcall SBigInvMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     InvMod(pResult->tPrimary, pA->tPrimary, pB->tPrimary, pResult->tStack);
-}
-
-static void EncodeDataBytes(unsigned int nValue, D2StormArrayBStrc* pArray) // 0x00421BD0
-{
-    while (nValue)
-    {
-        pArray->Push((unsigned char)(nValue % 255));
-        nValue /= 255;
-    }
-    pArray->Push(0xFF);
 }
 
 // 0x004235F0

@@ -6735,11 +6735,6 @@
      "va": "0x004234F0",
      "length": 65,
      "name": "?FromStream@@YGXPAUBigBuffer@@PAIIPBE@Z"
-    },
-    {
-     "va": "0x00423850",
-     "length": 25,
-     "name": "?sub_00423850@@YGXPAXPBXI@Z"
     }
    ]
   },
@@ -7192,6 +7187,10 @@
      "name": "??0BigStack@@QAE@XZ"
     },
     {
+     "va": "0x00421BD0",
+     "length": 221
+    },
+    {
      "va": "0x00421CB0",
      "length": 206
     },
@@ -7287,6 +7286,10 @@
      "length": 289
     },
     {
+     "va": "0x00423380",
+     "length": 294
+    },
+    {
      "va": "0x004234B0",
      "length": 53,
      "name": "?FromStr@@YAXAAUBigBuffer@@PBD@Z"
@@ -7320,6 +7323,11 @@
      "va": "0x00423800",
      "length": 26,
      "name": "?SBigDec@@YGXPAUD2StormBigStrc@@0@Z"
+    },
+    {
+     "va": "0x00423850",
+     "length": 25,
+     "name": "?SBigFromBinary@@YGXPAUD2StormBigStrc@@PBXI@Z"
     },
     {
      "va": "0x00423870",
@@ -7539,34 +7547,6 @@
     "/Ob1",
     "/Gd",
     "/EHsc"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SBig_00421BD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00421BD0",
-     "length": 221
-    },
-    {
-     "va": "0x00423380",
-     "length": 294
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
