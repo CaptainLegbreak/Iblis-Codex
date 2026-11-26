@@ -149,7 +149,15 @@ ASSUME_RE = re.compile(r'\b(%s)\b' % '|'.join(ASSUME_MACROS))
 # (`if(p)*p=0;`) everything but that test is the original's; the nearest plain form (a goto from the copy loop's
 # overflow exit) is 24 instructions off, because it lacks the deleted test's reference to `field`, which then ranks
 # lower and is coloured after the two type temporaries of the link lookups.
-ARMS_ORIGINAL = {0x006BD780}
+# 0x44CD70 GAME_TickKeepAlive and 0x44EFA0 GAME_RunGameFrame (D2Client): the original tests gpClientConfig bit 2 and
+# runs the same code either way, so the test is the original's and nothing depends on it.
+ARMS_ORIGINAL = {0x0044CD70, 0x0044EFA0, 0x006BD780}
+# `#pragma optimize("", off)` the original had. 0x477170 PALSHIFT_LoadPalShift (D2Client PalShift.cpp) sits inside
+# PalShift.cpp's object (0x476FB0, 0x477030 and 0x477060 before it, 0x477470 and 0x477530 after it, all built optimized
+# in the same unit), and its code keeps every value on the stack. One unoptimized function in an optimized object is
+# what the pragma makes; a per-file option would change the whole object, and no plain C form turns the optimizer off
+# for one function (accepted 2026-11-26).
+PRAGMA_ORIGINAL = {0x00477170}
 
 
 def constructs(a):
@@ -164,7 +172,7 @@ def constructs(a):
     if re.search(r'\bvolatile\b', b):
         out.append(FORCING[0])
     if '#pragma optimize' in b or a in PRAGMA_OFF:
-        out.append(FORCING[1])
+        out.append(FORCING[1] + ' (original)' if a in PRAGMA_ORIGINAL else FORCING[1])
     if '__assume' in b:
         out.append(FORCING[2])
     elif ASSUME_RE.search(b):
