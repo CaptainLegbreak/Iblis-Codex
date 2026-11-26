@@ -690,7 +690,7 @@ typedef int (__fastcall* SKILLSTARTFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, i
 
 extern SKILLSTARTFUNC gpSkillSrvStartFnTable_00732140[];                                                    // 0x00732140
 
-D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                          // 0x0046ACE0
+D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId);                          // 0x0046ACE0
 
 void __stdcall STATLIST_SetListExpireFrame(D2StatListStrc* pStatList, int nExpireFrame);                                // 0x006260B0
 
@@ -2769,7 +2769,7 @@ int __fastcall SKILLS_ExecuteSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
         nResult = pDoFunc(pGame, pUnit, nSkillId, nSkillLevel);
     }
 
-    if (pSkillsTxtRecord->wSrvMissile >= 0 && sub_0046ACE0(pSkillsTxtRecord->wSrvMissile))
+    if (pSkillsTxtRecord->wSrvMissile >= 0 && sub_0046ACE0_GetMissilesTxtRecord(pSkillsTxtRecord->wSrvMissile))
     {
         pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
 

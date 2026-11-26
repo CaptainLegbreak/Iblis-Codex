@@ -3098,7 +3098,7 @@ void __cdecl MONSTER_CloseNpcResource()
 }
 
 // 0x004B1DC0
-int __cdecl sub_004B1DC0()
+int __cdecl sub_004B1DC0_Return0()
 {
     return 0;
 }
@@ -3108,13 +3108,13 @@ int __cdecl sub_004B1DC0()
 
 
 // 0x004BF9B0
-int __cdecl sub_004BF9B0()
+int __cdecl sub_004BF9B0_Return0()
 {
     return 0;
 }
 
 // 0x004E4040
-void __stdcall sub_004E4040(int nUnused1)
+void __stdcall sub_004E4040_Nop(int nUnused1)
 {
 }
 

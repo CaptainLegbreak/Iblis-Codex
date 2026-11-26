@@ -136,7 +136,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
         break;
     case 3:
     {
-        D2MissilesTxt* pMisTxt = sub_0046ACE0(!pUnit ? -1 : pUnit->dwClassId);
+        D2MissilesTxt* pMisTxt = sub_0046ACE0_GetMissilesTxtRecord(!pUnit ? -1 : pUnit->dwClassId);
         if (!pMisTxt)
             break;
         if (GFX_DrawUnit(pUnit, nColor, nX + pMisTxt->nOffsetX, nY + pMisTxt->nOffsetY + pMisTxt->wYoffset, 0, 1) && pUnit)

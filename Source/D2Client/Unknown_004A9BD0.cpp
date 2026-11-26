@@ -42,7 +42,7 @@ struct D2WeatherLayerStateStrc
 };
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
-void __stdcall sub_004B1680(D2NpcEntryStrc* pEntry); // 0x004B1680
+void __stdcall sub_004B1680_PickNpcChoice(D2NpcEntryStrc* pEntry); // 0x004B1680
 extern D2UiCelFileStrc gaPanelCels[7]; // 0x00724BF0
 extern D2WeatherLayerStateStrc gtSplashCels; // 0x007A89B0
 extern D2WeatherLayerStateStrc gtBubbleCels; // 0x007A893C
@@ -59,11 +59,11 @@ extern unsigned char gbNpcEntriesProcessed; // 0x007C0C6A
 
 
 // 0x004B17A0
-void __cdecl sub_004B17A0()
+void __cdecl sub_004B17A0_ProcessNpcEntries()
 {
 // build: symbol ?gnNpcEntryCount@* 0x0072554C
     for (int i = 0; i < gnNpcEntryCount; ++i)
-        sub_004B1680(&gaNpcEntries[i]);
+        sub_004B1680_PickNpcChoice(&gaNpcEntries[i]);
     gbNpcEntriesProcessed = 1;
 }
 

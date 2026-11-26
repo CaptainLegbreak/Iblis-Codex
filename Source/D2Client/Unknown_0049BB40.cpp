@@ -504,7 +504,7 @@ void __cdecl sub_0049CF50_SendWaypointClose()
 }
 
 // 0x0049CF90
-void __fastcall sub_0049CF90(D2PacketRecord21Strc* pPacket)
+void __fastcall sub_0049CF90_OpenWaypointPanel(D2PacketRecord21Strc* pPacket)
 {
     if (UI_SetUIVar(0x14, 0, 1) == 1)
     {

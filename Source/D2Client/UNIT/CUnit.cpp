@@ -59,7 +59,7 @@ struct D2PalShiftEntryStrc
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn);                                  // 0x006CC34C
 
 
-int __cdecl sub_0044DA90();                                                                                 // 0x0044DA90
+int __cdecl sub_0044DA90_GetTickCounter();                                                                                 // 0x0044DA90
 
 int __fastcall RECORD_DispatchRecordedMessage(D2MsgRecordStrc* pRecord);                                          // 0x00451880
 
@@ -3142,7 +3142,7 @@ static void CUNIT_SpawnPresetUnitInRoom(D2ActiveRoomStrc* pRoom, D2PresetUnitStr
 int __fastcall CUNIT_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, int bHitTest)
 {
     const int nMouseX=sub_00468730();
-    switch(sub_0045AE90())
+    switch(sub_0045AE90_GetPanelSlideMode())
     {
     case 3: return 0;
     case 1: if(nMouseX>=gnScreenWidth_0071146C/2) return 0; break;
@@ -3345,7 +3345,7 @@ D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex)
 
 
 // 0x004898A0
-void __fastcall sub_004898A0(int nMode)
+void __fastcall sub_004898A0_DisableGoldButton(int nMode)
 {
     gbGoldButtonDisabled = 1;
     if (gnInvPanelMode == 13)

@@ -45,7 +45,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
 
 
-void __fastcall sub_004BA840(void* pUnitSfx); // 0x004BA840
+void __fastcall sub_004BA840_StopSound(void* pUnitSfx); // 0x004BA840
 
 
 
@@ -94,7 +94,7 @@ void __fastcall SKILLS_EndLoopSoundSkill(D2UnitStrc* pUnit, int nSkillId)
         if (nFlags & 1)
             SKILLS_SetFlags(pSkill, nFlags | 2);
     }
-    sub_004BA840(UNITSND_FindUnitSfxInRange(pUnit, 0x9E3));
+    sub_004BA840_StopSound(UNITSND_FindUnitSfxInRange(pUnit, 0x9E3));
 }
 
 // 0x004C9460
@@ -218,7 +218,7 @@ int __fastcall MISSILE_SkillStartAtTargetPos(D2UnitStrc* pUnit, int nSkillId, in
 }
 
 // 0x004C96D0
-int __fastcall sub_004C96D0(D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
+int __fastcall sub_004C96D0_CreateMissileAtTarget(D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
 {
  if(!SKILLS_GetSkillsTxtRecord(nSkillId)) return 0;
  const int nMissile=SKILLDESC_GetCltMissileId(pUnit,nSkillId);

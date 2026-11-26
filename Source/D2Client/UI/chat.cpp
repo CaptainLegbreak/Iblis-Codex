@@ -837,13 +837,13 @@ struct D2MenuItemStrc
 
 int __cdecl sub_004DF980_IsSoundMode1Or2();
 
-void __fastcall sub_004776C0(void* pArg);
+void __fastcall sub_004776C0_SetGamma(void* pArg);
 
 int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 
-int __cdecl sub_004DF940(); // 0x004DF940
+int __cdecl sub_004DF940_IsPositionalSoundEnabled(); // 0x004DF940
 
-int __cdecl sub_004DF960(); // 0x004DF960
+int __cdecl sub_004DF960_IsEaxEnabled(); // 0x004DF960
 
 int __cdecl sub_004E00D0_ToggleSoundMode01(); // 0x004E00D0
 
@@ -909,7 +909,7 @@ void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
 
 
-static inline int sub_0047D500(D2OptionEntryStrc* pEntry);
+static inline int sub_0047D500_IsOptionEnabled(D2OptionEntryStrc* pEntry);
 
 
 
@@ -1454,7 +1454,7 @@ void __cdecl sub_0047B4D0_Nop()
 }
 
 // 0x0047B4E0
-void __cdecl sub_0047B4E0()
+void __cdecl sub_0047B4E0_Nop()
 {
 }
 

@@ -26,7 +26,7 @@ D2TimedHintStrc gtTimedHint;                                                    
 int gnSpeechLevelId;                                                                                      // 0x007C8A04
 
 int __fastcall sub_004B9590(void* pEntry);                                                                  // 0x004B9590
-void* __fastcall sub_004B9610(int nId);                                                                     // 0x004B9610
+void* __fastcall sub_004B9610_GetSoundHandle(int nId);                                                                     // 0x004B9610
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
 int __cdecl SOUNDINST_IsSongPlaying();                                                                   // 0x004B9C60
 int __fastcall SOUNDINST_GetPosition(void* pEntry);                                                      // 0x004B9D50
@@ -63,7 +63,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
     if (pSoundEnvironTxtRecord)
     {
         nSong = pSoundEnvironTxtRecord->nSong;
-        if (nSong && (nSong < sub_004817F0() || nSong > sub_00481800()))
+        if (nSong && (nSong < sub_004817F0_GetSongMin() || nSong > sub_00481800_GetSongMax()))
         {
             nSong = 0;
         }
@@ -94,23 +94,23 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
 
     if (!bEnabled)
     {
-        sub_004BA8F0();
+        sub_004BA8F0_StopSongs();
     }
 
     if (!gnCurrentSongId)
     {
-        sub_004BA8F0();
+        sub_004BA8F0_StopSongs();
     }
 
     if (gtTimedHint.bActive)
     {
-        if (gtTimedHint.bActive2 && sub_0044DB00() >= gtTimedHint.nEndTickA)
+        if (gtTimedHint.bActive2 && sub_0044DB00_GetTickCounter() >= gtTimedHint.nEndTickA)
         {
             sub_004B9A00((int)gtTimedHint.pOwner, 0, 0, 0, 0);
             gtTimedHint.bActive2 = 0;
         }
 
-        if (gtTimedHint.nArgG && sub_0044DB00() >= gtTimedHint.nEndTickF)
+        if (gtTimedHint.nArgG && sub_0044DB00_GetTickCounter() >= gtTimedHint.nEndTickF)
         {
             D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
             if (!CUNIT_IsDeadOrDying(pPlayer))
@@ -121,7 +121,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
             gtTimedHint.nArgG = 0;
         }
 
-        if (sub_0044DB00() < gtTimedHint.nEndTickC)
+        if (sub_0044DB00_GetTickCounter() < gtTimedHint.nEndTickC)
         {
             return;
         }
@@ -133,12 +133,12 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
         }
     }
 
-    if (gnCurrentSongId && bEnabled && !sub_004B9610(gnCurrentSongId))
+    if (gnCurrentSongId && bEnabled && !sub_004B9610_GetSoundHandle(gnCurrentSongId))
     {
-        const int nOffset = 4 * (gnCurrentSongId - sub_004817F0());
+        const int nOffset = 4 * (gnCurrentSongId - sub_004817F0_GetSongMin());
         int nValue = *(int*)(sub_00481810() + nOffset);
         int nMode = !SOUNDINST_IsSongPlaying() && !nValue ? 2 : 0;
-        sub_004BA8F0();
+        sub_004BA8F0_StopSongs();
         sub_004B9A00(gnCurrentSongId, 0, 0, nMode, nValue);
         gdwSongStartTick = dwTick;
     }
@@ -155,7 +155,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
     }
 
     D2SoundsTxt* pSoundTxt = SOUNDHDR_GetSoundRecord(gnCurrentSongId);
-    void* pEntry = sub_004B9610(gnCurrentSongId);
+    void* pEntry = sub_004B9610_GetSoundHandle(gnCurrentSongId);
     if (!pEntry || !sub_004B9590(pEntry))
     {
         return;
@@ -178,7 +178,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
         nValue = pSoundTxt->nBlock[2];
     }
 
-    const int nOffset = 4 * (gnCurrentSongId - sub_004817F0());
+    const int nOffset = 4 * (gnCurrentSongId - sub_004817F0_GetSongMin());
     *(int*)(sub_00481810() + nOffset) = nValue;
     gdwSongPositionTick = dwTick;
 }
@@ -189,25 +189,25 @@ void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsig
     if (gnCurrentSongId)
     {
         D2SoundsTxt* pSoundTxt = SOUNDHDR_GetSoundRecord(gnCurrentSongId);
-        void* pEntry = sub_004B9610(gnCurrentSongId);
+        void* pEntry = sub_004B9610_GetSoundHandle(gnCurrentSongId);
         if (pEntry && sub_004B9590(pEntry))
         {
             const int nValue = nIndex > 0 ? pSoundTxt->nBlock[nIndex - 1] : 0;
-            const int nOffset = 4 * (gnCurrentSongId - sub_004817F0());
+            const int nOffset = 4 * (gnCurrentSongId - sub_004817F0_GetSongMin());
             *(int*)(sub_00481810() + nOffset) = nValue;
             gdwSongPositionTick = DLIGHTMAP_GetSoundTick();
         }
     }
 
-    sub_004BA8F0();
+    sub_004BA8F0_StopSongs();
     gtTimedHint.bActive = 1;
     gtTimedHint.pOwner = pOwner;
-    gtTimedHint.nEndTickA = sub_0044DB00() + nDelayA;
+    gtTimedHint.nEndTickA = sub_0044DB00_GetTickCounter() + nDelayA;
     gtTimedHint.bActive2 = 1;
     gtTimedHint.nArgE = nArgE;
-    gtTimedHint.nEndTickF = sub_0044DB00() + nDelayF;
+    gtTimedHint.nEndTickF = sub_0044DB00_GetTickCounter() + nDelayF;
     gtTimedHint.nArgG = nArgG;
-    gtTimedHint.nEndTickC = sub_0044DB00() + nDelayC;
+    gtTimedHint.nEndTickC = sub_0044DB00_GetTickCounter() + nDelayC;
 }
 
 // 0x004DCE10
@@ -217,7 +217,7 @@ void __fastcall sub_004DCE10_UpdateTimedHint(int nDelay, int nArg)
     {
         if (nArg)
         {
-            gtTimedHint.nEndTickF = sub_0044DB00() + nDelay;
+            gtTimedHint.nEndTickF = sub_0044DB00_GetTickCounter() + nDelay;
         }
 
         gtTimedHint.nArgG = nArg;
@@ -242,7 +242,7 @@ void __cdecl sub_004DCA30_ResetTokenCache()
     void* pTokenData = sub_00481810_GetTokenData();
     if (pTokenData)
     {
-        memset(pTokenData, 0, (1 - sub_004817F0() + sub_00481800()) * 4);
+        memset(pTokenData, 0, (1 - sub_004817F0_GetSongMin() + sub_00481800_GetSongMax()) * 4);
     }
 }
 

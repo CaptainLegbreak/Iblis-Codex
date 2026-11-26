@@ -1676,7 +1676,7 @@ void __cdecl CMDTBL_Hotkey15()
 }
 
 // 0x00468F00
-void __cdecl sub_00468F00()
+void __cdecl sub_00468F00_ShowBelt()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer)
@@ -1917,7 +1917,7 @@ void __cdecl CMDTBL_HotkeyUiVarOn()
 }
 
 // 0x00469230
-void __cdecl sub_00469230()
+void __cdecl sub_00469230_RunMButtonDown()
 {
     if (gpfnMButtonDownCommand)
     {
@@ -1927,7 +1927,7 @@ void __cdecl sub_00469230()
 }
 
 // 0x00469270
-void __cdecl sub_00469270()
+void __cdecl sub_00469270_RunMButtonUp()
 {
     if (gpfnMButtonUpCommand)
     {
@@ -1937,7 +1937,7 @@ void __cdecl sub_00469270()
 }
 
 // 0x004692B0
-void __cdecl sub_004692B0()
+void __cdecl sub_004692B0_RunXButton1Down()
 {
     if (gpfnXButton1DownCommand)
     {
@@ -1947,7 +1947,7 @@ void __cdecl sub_004692B0()
 }
 
 // 0x004692F0
-void __cdecl sub_004692F0()
+void __cdecl sub_004692F0_RunXButton1Up()
 {
     if (gpfnXButton1UpCommand)
     {
@@ -1957,7 +1957,7 @@ void __cdecl sub_004692F0()
 }
 
 // 0x00469330
-void __cdecl sub_00469330()
+void __cdecl sub_00469330_RunXButton2Down()
 {
     if (gpfnXButton2DownCommand)
     {

@@ -79,7 +79,7 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int bSet
 
 
 
-int __cdecl sub_0044DA90(); // 0x0044DA90
+int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
 
 
 void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int nArg); // 0x004CB6A0
@@ -259,7 +259,7 @@ void __fastcall SKILLS_EndCharge(D2UnitStrc* pUnit, int nSkillId)
 // 0x004CA030
 int __fastcall sub_004CA030_TickEvent(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
-    const unsigned int nTick = sub_0044DA90();
+    const unsigned int nTick = sub_0044DA90_GetTickCounter();
     if (nTick > gdwNextTick)
     {
         gdwNextTick = nTick + 5;

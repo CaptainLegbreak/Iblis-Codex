@@ -142,7 +142,7 @@ void __fastcall TEXT_ToggleKeyConfigPanel(int nArg); // 0x004A5200
 
 void __cdecl TEXT_ResetNpcPanel(); // 0x00491940
 
-void __cdecl sub_004B8920(); // 0x004B8920
+void __cdecl sub_004B8920_ClearTradeGold(); // 0x004B8920
 
 void __cdecl INV_ClearPanelPage(); // 0x0048A680
 
@@ -484,7 +484,7 @@ struct D2Block0xA0Strc
 
 void __cdecl CHAT_CloseChatInput(); // 0x0047B2E0
 
-void __cdecl sub_0047B4E0(); // 0x0047B4E0
+void __cdecl sub_0047B4E0_Nop(); // 0x0047B4E0
 
 
 void __cdecl INV_CloseStashPanel(); // 0x00489EE0
@@ -495,7 +495,7 @@ void __cdecl INV_ShutdownCubePanel(); // 0x0048A500
 
 void __cdecl sub_0049CF50_SendWaypointClose(); // 0x0049CF50
 
-void __cdecl sub_0049FF00(); // 0x0049FF00
+void __cdecl sub_0049FF00_Nop(); // 0x0049FF00
 
 void __cdecl TEXT_CloseMessageLogDialog(); // 0x004A01A0
 
@@ -513,7 +513,7 @@ void __fastcall sub_004B8940_CloseWait(int bReopen); // 0x004B8940
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
-int __cdecl sub_00478150(); // 0x00478150
+int __cdecl sub_00478150_GetProgress(); // 0x00478150
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
@@ -581,7 +581,7 @@ void __cdecl TEXT_DrawWaypointPanel(); // 0x0049C9C0
 
 void __cdecl HIREABLES_LoadHelpCels(); // 0x00494320
 
-void __cdecl sub_00494EB0(); // 0x00494EB0
+void __cdecl sub_00494EB0_DrawHelpShade(); // 0x00494EB0
 
 void __cdecl PANEL_DrawControlPanel(); // 0x00499450
 
@@ -758,7 +758,7 @@ void __cdecl QUESTLOG_FreeQuestPanel(); // 0x004A2600
 
 void __cdecl TEXT_ClearQuestFlags(); // 0x004A3020
 
-void __cdecl sub_004A3050(); // 0x004A3050
+void __cdecl sub_004A3050_ResetQuestPages(); // 0x004A3050
 
 void __cdecl TEXT_FreeTextSliderCel(); // 0x004A51E0
 
@@ -766,7 +766,7 @@ void __cdecl TEXT_FreeLevelCels(); // 0x004A6480
 
 void __cdecl sub_004A7AA0_InitTextEntryLengths(); // 0x004A7AA0
 
-void __cdecl sub_004A7AD0(); // 0x004A7AD0
+void __cdecl sub_004A7AD0_Nop(); // 0x004A7AD0
 
 void __cdecl SPELLSEL_InitSkillIcons(); // 0x004A8A30
 
@@ -774,18 +774,18 @@ void __cdecl SPELLSEL_FreeSkillIcons(); // 0x004A8C00
 
 void __cdecl sub_004AA920_LoadPanelCel(); // 0x004AA920
 
-void __cdecl sub_004AA980(); // 0x004AA980
+void __cdecl sub_004AA980_FreePanelCel(); // 0x004AA980
 
 
 void __cdecl NPCMENU_ResetNpcMenu(); // 0x004B32F0
 
 void __cdecl DIALOG_FreeDialogs(); // 0x004B7B50
 
-void __cdecl sub_004B8720(); // 0x004B8720
+void __cdecl sub_004B8720_ResetTradeState(); // 0x004B8720
 
-void __cdecl sub_004B91F0(); // 0x004B91F0
+void __cdecl sub_004B91F0_CloseWait(); // 0x004B91F0
 
-void __cdecl sub_004BE060(); // 0x004BE060
+void __cdecl sub_004BE060_FreeSliderCel(); // 0x004BE060
 
 void __cdecl USEITEM_FreeUseItemPanel(); // 0x004C0100
 
@@ -890,7 +890,7 @@ struct D2UiControlCStrc : D2UiControlBaseStrc
 
 void __cdecl TEXT_SetGoldDialogFlag();                                                                                // 0x004A7A90
 
-void __fastcall sub_004898A0(int nMode);                                                                    // 0x004898A0
+void __fastcall sub_004898A0_DisableGoldButton(int nMode);                                                                    // 0x004898A0
 
 void* __fastcall DIALOG_CreateDialogFromFile(int nX, int nY, int (__cdecl* pfnCallback)(), int nArg4, int nArg5, int nArg6); // 0x004B7CD0
 
@@ -1187,7 +1187,7 @@ static int __stdcall UI_GetRosterHoverName(D2UnitStrc* pUnit, Unicode* pDst, int
 // 0x00452D20
 void __cdecl UI_DrawPetHover()
 {
-    if (sub_0045AE90() == 3)
+    if (sub_0045AE90_GetPanelSlideMode() == 3)
     {
         return;
     }
@@ -1330,7 +1330,7 @@ second_text:
 // 0x00453330
 void __fastcall UI_DrawPartyMemberText(D2UnitStrc* pUnit)
 {
-    const int nBorder = sub_0045AE90();
+    const int nBorder = sub_0045AE90_GetPanelSlideMode();
     if (nBorder == 3)
     {
         return;
@@ -1694,11 +1694,11 @@ void __cdecl UI_LoadPlayerUI()
     sub_004A7AA0_InitTextEntryLengths();
     sub_004AA920_LoadPanelCel();
     SPELLSEL_InitSkillIcons();
-    sub_004B8720();
+    sub_004B8720_ResetTradeState();
     INV_ResetHover();
     PANEL_ClearPair();
     INV_FreeHoradricCel();
-    sub_004A3050();
+    sub_004A3050_ResetQuestPages();
     TEXT_LoadPopupHireling();
     AUTOMAP_ResetBaseOffset(1);
     sub_0047E720_LoadAlwaysRun();
@@ -1708,12 +1708,12 @@ void __cdecl UI_LoadPlayerUI()
 void __cdecl UI_FreePlayerUI()
 {
     PANEL_FreePartyCels();
-    sub_004A7AD0();
-    sub_004AA980();
+    sub_004A7AD0_Nop();
+    sub_004AA980_FreePanelCel();
     SPELLSEL_FreeSkillIcons();
     TEXT_ClearQuestFlags();
     NPCMENU_ResetNpcMenu();
-    sub_004B91F0();
+    sub_004B91F0_CloseWait();
     TEXT_FreeTextLists();
     VIEW_ResetLifeColors();
     if (gpLoadingCell)
@@ -1967,22 +1967,22 @@ void __fastcall UI_OpenGoldPanel(int nMode)
         break;
     case 1:
         nStringId = 0xFC1;
-        sub_004898A0(1);
+        sub_004898A0_DisableGoldButton(1);
         nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
         break;
     case 2:
         nStringId = 0xFCE;
-        sub_004898A0(2);
+        sub_004898A0_DisableGoldButton(2);
         nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
         break;
     case 3:
         nStringId = 0xFD1;
-        sub_004898A0(3);
+        sub_004898A0_DisableGoldButton(3);
         nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
         break;
     case 4:
         nStringId = 0xFD2;
-        sub_004898A0(4);
+        sub_004898A0_DisableGoldButton(4);
         nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLDBANK, 0);
         break;
     default:
@@ -2237,7 +2237,7 @@ static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit)
         int nY;
 // build: symbol ?SCALE_AdjustPerspectivePosition@* 0x004F6760
         SCALE_AdjustPerspectivePosition(nPrecisionX, nPrecisionY, 0, &nX, &nY);
-        switch (sub_0045AE90())
+        switch (sub_0045AE90_GetPanelSlideMode())
         {
         case 1:
             nX -= gnScreenWidth / 4;
@@ -2334,7 +2334,7 @@ void __cdecl UI_DrawHoverText()
 // 0x00454F30
 void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
 {
-    if (sub_0045AE90() == 3)
+    if (sub_0045AE90_GetPanelSlideMode() == 3)
     {
         return;
     }
@@ -2620,7 +2620,7 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
         return;
     case 0x17:
         CMDTBL_SetHotkeyHandlers(0, 0x1);
-        sub_004B8920();
+        sub_004B8920_ClearTradeGold();
         INV_ClearPanelPage();
         UI_SetPanelHotkeys(&gtMpTradeHotkeys);
         SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaMpTradeHandlers, 0xD);
@@ -2695,7 +2695,7 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         return;
     case 0x5:
         CHAT_CloseChatInput();
-        sub_0047B4E0();
+        sub_0047B4E0_Nop();
         if (!gaUIVarStates[0xC] && !gaUIVarStates[0x17] && !gaUIVarStates[0x19]
             && !gaUIVarStates[0x1A] && !gaUIVarStates[0x1B] && !gaUIVarStates[0x1C]
             && !gaUIVarStates[0x1D] && !gaUIVarStates[0x1E] && !gaUIVarStates[0x20])
@@ -2742,7 +2742,7 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         return;
     case 0x10:
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaIniScrollHandlers, 0x2);
-        sub_0049FF00();
+        sub_0049FF00_Nop();
         UI_StartUIVarDelay();
         return;
     case 0x14:
@@ -3052,7 +3052,7 @@ void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame)
             D2GFX_DrawBox(gnScreenWidth / 2 - 0x82, gnScreenHeight / 2 + 0x9E, gnScreenWidth / 2 + 0x82, gnScreenHeight / 2 + 0xB2, gnLoadingBoxColor, 1);
             D2GFX_DrawBox(gnScreenWidth / 2 - 0x80, gnScreenHeight / 2 + 0xA0, gnScreenWidth / 2 + 0x80, gnScreenHeight / 2 + 0xB0, 0, 5);
 
-            const int nWidth = sub_00478150();
+            const int nWidth = sub_00478150_GetProgress();
             if (nWidth)
             {
                 AUTOMAP_DrawFramedBox(gnScreenWidth / 2 - 0x80, gnScreenHeight / 2 + 0xA0, nWidth, 0x10, gnLoadingBarColor, 5);
@@ -3155,7 +3155,7 @@ void __cdecl UI_InitUI()
     TEXT_InitNpcMenu();
     AUTOMAP_InitAutomap();
     TEXT_InitWaypointData();
-    sub_004B8720();
+    sub_004B8720_ResetTradeState();
 // build: symbol ?gpGoldPanel@* 0x007A27A0
     gpGoldPanel = 0;
     gpGoldControlA = 0;
@@ -3314,7 +3314,7 @@ void __cdecl UI_ShutdownUI()
     if (sub_00463DD0_GetPlayerUnit())
     {
         SPELLSEL_FreeSkillIcons();
-        sub_004AA980();
+        sub_004AA980_FreePanelCel();
     }
     D2Win_10116();
     TEXT_FreeTextResources();
@@ -3325,14 +3325,14 @@ void __cdecl UI_ShutdownUI()
     NPCMENU_FreeNpcMenu();
     AUTOMAP_FreeAutomap();
     TEXT_CloseWaypointPanel();
-    sub_004B91F0();
+    sub_004B91F0_CloseWait();
     UI_CloseGoldDialog();
     INV_FreeInvPanelCels();
     USEITEM_FreeUseItemPanel();
     QUESTLOG_FreeQuestPanel();
     INV_FreeNpcCels();
     DIALOG_FreeDialogs();
-    sub_004BE060();
+    sub_004BE060_FreeSliderCel();
     if (gpPentspinCel)
     {
         ARCHIVE_FreeClientCellFile(gpPentspinCel);
@@ -3393,7 +3393,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
         PANEL_DrawDurabilityIcons();
         PANEL_DrawQuantityWarningIcons();
     }
-    if (gaUIVarStates[10] && sub_0045AE90() != 3)
+    if (gaUIVarStates[10] && sub_0045AE90_GetPanelSlideMode() != 3)
         PLAYER_DrawAutomap();
     GAME_DrawLevelLoadingScreen();
     HIREABLES_UpdateHirelingPanel();
@@ -3429,7 +3429,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     if (gaUIVarStates[33])
     {
         HIREABLES_LoadHelpCels();
-        sub_00494EB0();
+        sub_00494EB0_DrawHelpShade();
     }
     PANEL_DrawControlPanel();
     if (gaUIVarStates[3])
@@ -3519,7 +3519,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
 done:
         INV_DrawHelpScreen();
     }
-    if (gaUIVarStates[13] && sub_0045AE90() != 3)
+    if (gaUIVarStates[13] && sub_0045AE90_GetPanelSlideMode() != 3)
     {
         SHOWITEMS_DrawUnitNames();
         if (GAME_GetConnectionType())

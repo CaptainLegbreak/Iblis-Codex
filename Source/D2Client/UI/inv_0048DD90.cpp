@@ -67,7 +67,7 @@ int __cdecl FOG_IsExpansion();                                                  
 
 int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
 
-Unicode* __fastcall sub_00452170(Unicode* pText);                                                           // 0x00452170
+Unicode* __fastcall sub_00452170_ReturnText(Unicode* pText);                                                           // 0x00452170
 
 Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit);                               // 0x004521C0
 
@@ -81,7 +81,7 @@ int __cdecl sub_00468730();                                                     
 
 int __cdecl sub_00468740();                                                                                 // 0x00468740
 
-int __cdecl sub_00468830();                                                                                 // 0x00468830
+int __cdecl sub_00468830_GetCursorState();                                                                                 // 0x00468830
 
 unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB);                                                     // 0x00469AA0
 
@@ -1218,7 +1218,7 @@ void __stdcall INV_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
             }
 
             const int nQuality = ITEMS_GetItemQuality(gpHoverItem);
-            if (sub_00468830() == 8 || ITEMS_GetTransmogrify(gpHoverItem))
+            if (sub_00468830_GetCursorState() == 8 || ITEMS_GetTransmogrify(gpHoverItem))
             {
                 INV_DrawTransmogrifyTooltip();
                 return;
@@ -1461,7 +1461,7 @@ void __stdcall INV_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 nPopupArg = 4;
                 INV_PrefixColorCode(W(wszTooltip), nPopupArg);
             }
-            sub_00452170(W(wszTooltip));
+            sub_00452170_ReturnText(W(wszTooltip));
             if (UNICODE_StrLen(W(wszTooltip)) >= 0x3FF)
             {
                 W(wszTooltip)[0x3FF].wChar = 0;

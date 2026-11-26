@@ -37,18 +37,18 @@ typedef char check_scalar_width[sizeof(unsigned int)==4?1:-1];
 extern "C" int __stdcall SKILLS_GetUseState(D2UnitStrc* unit,D2SkillStrc* skill); // 0x00647960
 
 
-int __cdecl sub_0044DA90(); // 0x0044DA90
+int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
 
 
 // 0x004D9FC0
-extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill)
+extern "C" int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* unit,D2SkillStrc* skill)
 {
     int status = SKILLS_GetUseState(unit,skill);
     if (status)
         return status;
     if (unit == sub_00463DE0_GetPlayerUnit())
     {
-        unsigned int first = sub_0044DA90();
+        unsigned int first = sub_0044DA90_GetTickCounter();
         unsigned int second = GAME_GetSkillDelayUntil();
         if (first < second)
             return 8;

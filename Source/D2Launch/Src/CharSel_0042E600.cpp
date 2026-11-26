@@ -46,7 +46,7 @@ int __fastcall MAINMENUS_ShowOptionDescription(unsigned int nArg, int nMode, int
 void __fastcall CHARSEL_JoinSelectedWithDifficulty(SMSGHANDLER_PARAMS* pMsg, int nMode); // 0x00439AF0
 void __fastcall sub_004FC660_SetValue(D2WinControlStrc* pControl, int nValue); // 0x004FC660
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
-int __cdecl sub_0042F6D0(); // 0x0042F6D0
+int __cdecl sub_0042F6D0_GetMenusDone(); // 0x0042F6D0
 extern D2WinControlStrc* gpControl_007795E0; // 0x007795E0
 extern D2WinControlStrc* gpControl_007795E4; // 0x007795E4
 extern void** gppSlots; // 0x00779988

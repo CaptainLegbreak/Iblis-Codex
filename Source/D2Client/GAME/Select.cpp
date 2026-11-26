@@ -60,7 +60,7 @@ void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataSt
 int __fastcall SELECT_IsMetalItemUnit(D2UnitStrc* pUnit, void* pArg);                                    // 0x00467470
 D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitFindCallback pCallback, void* pArg, int nSize); // 0x00641CB0
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);                           // 0x00644140
-extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
+extern "C" int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY);                                                   // 0x00643260
 
 inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
@@ -310,7 +310,7 @@ static void __stdcall SELECT_AdjustCursorPerspective(int* pnX, int* pnY)
 // 0x00467130
 static int SELECT_GetHoverCursorPos(int* pnX, int* pnY)
 {
-    const int nMode = sub_0045AE90();
+    const int nMode = sub_0045AE90_GetPanelSlideMode();
     if (nMode == 3)
     {
         if (gbHoverLocked)
@@ -682,7 +682,7 @@ skip:
         return pUnit;
     }
 
-    if (sub_004D9FC0(pPlayer, pSkill))
+    if (sub_004D9FC0_GetSkillUseState(pPlayer, pSkill))
     {
         return pUnit;
     }

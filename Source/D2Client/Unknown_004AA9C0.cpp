@@ -117,7 +117,7 @@ void __cdecl sub_004AA920_LoadPanelCel()
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 // 0x004AA980
-void __cdecl sub_004AA980()
+void __cdecl sub_004AA980_FreePanelCel()
 {
     if (gaPanelCels[gnCharClass].pCelFile)
     {

@@ -93,7 +93,7 @@ extern int gnTopRow; // 0x00779DC8
 extern D2WinControlStrc* gpCharSelectText; // 0x00779DD4
 int __cdecl GAME_GetStopMainLoop(); // 0x0042FA30
 void __cdecl MAINMENUS_UpdateProgress(); // 0x0042F990
-int __cdecl sub_0042F6D0(); // 0x0042F6D0
+int __cdecl sub_0042F6D0_GetMenusDone(); // 0x0042F6D0
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 extern int gfCharSelCancelled; // 0x0077AC04
 void __cdecl sub_00518C20_DeleteQueueLock(); // 0x00518C20

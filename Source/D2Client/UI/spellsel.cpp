@@ -57,7 +57,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);                            // 0x00644140
 
 
-extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
+extern "C" int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
 
 
 void __fastcall SPELLSEL_DrawSkillSlot(D2SkillsTxt* pSkillsTxt, int nOwner, int nCharges, int nState, int nX, int nY, int bLeft); // 0x004A9870
@@ -216,7 +216,7 @@ void __fastcall SPELLSEL_SetSkillSelectRight(int nValue)
 // 0x004A8D30
 int __fastcall SPELLSEL_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
-    const int nState = sub_004D9FC0(pUnit, pSkill);
+    const int nState = sub_004D9FC0_GetSkillUseState(pUnit, pSkill);
     if (nState)
     {
         return nState == 6 ? 4 : 1;
@@ -682,7 +682,7 @@ void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLef
             else if (!bItem)
                 continue;
             int nState;
-            const int nUse = sub_004D9FC0(pUnit, pSkill);
+            const int nUse = sub_004D9FC0_GetSkillUseState(pUnit, pSkill);
             if (nUse)
                 nState = nUse == 6 ? 4 : 1;
             else

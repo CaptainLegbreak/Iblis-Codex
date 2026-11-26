@@ -177,13 +177,13 @@ struct D2MenuItemStrc
 
 int __cdecl sub_004DF980_IsSoundMode1Or2();
 
-void __fastcall sub_004776C0(void* pArg);
+void __fastcall sub_004776C0_SetGamma(void* pArg);
 
 int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 
-int __cdecl sub_004DF940(); // 0x004DF940
+int __cdecl sub_004DF940_IsPositionalSoundEnabled(); // 0x004DF940
 
-int __cdecl sub_004DF960(); // 0x004DF960
+int __cdecl sub_004DF960_IsEaxEnabled(); // 0x004DF960
 
 int __cdecl sub_004E00D0_ToggleSoundMode01(); // 0x004E00D0
 
@@ -250,7 +250,7 @@ void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
 
 
-static inline int sub_0047D500(D2OptionEntryStrc* pEntry);
+static inline int sub_0047D500_IsOptionEnabled(D2OptionEntryStrc* pEntry);
 
 
 
@@ -385,7 +385,7 @@ void __fastcall sub_0047CDC0_MasterVolumeOption(D2MenuItemStrc* pItem, int nArg)
 // 0x0047CDE0
 int __fastcall sub_0047CDE0()
 {
-    return sub_004DF880();
+    return sub_004DF880_IsSoundSystemInit();
 }
 
 // 0x0047CDF0
@@ -427,7 +427,7 @@ void __fastcall sub_0047CED0_SoundMode2Option(D2MenuItemStrc* pItem, int nArg)
 // 0x0047CEE0
 int __fastcall sub_0047CEE0()
 {
-    return sub_004DF880();
+    return sub_004DF880_IsSoundSystemInit();
 }
 
 // 0x0047CEF0
@@ -455,7 +455,7 @@ void __fastcall sub_0047CEF0_NpcSpeechSelect(D2MenuItemStrc* pItem, SMSGHANDLER_
 void __fastcall sub_0047CF50_NpcSpeechOption(D2MenuItemStrc* pItem, int nArg)
 {
     pItem->dwMoveCount = D2SOUND_GetNpcSpeechOption();
-    if (sub_004DF880())
+    if (sub_004DF880_IsSoundSystemInit())
     {
         sub_0047CEF0_NpcSpeechSelect(pItem, (SMSGHANDLER_PARAMS*)nArg);
     }
@@ -527,7 +527,7 @@ static int sub_0047D520_FindOptionAtY(int nY)
 
         if (nResult >= 0)
         {
-            if (gpOptionEntries[nResult].nKind != -1 && sub_0047D500(&gpOptionEntries[nResult]))
+            if (gpOptionEntries[nResult].nKind != -1 && sub_0047D500_IsOptionEnabled(&gpOptionEntries[nResult]))
             {
                 return nResult;
             }
@@ -562,7 +562,7 @@ static void sub_0047D670_UpdateOptionSlider(int nX, int nY)
     }
 
     const unsigned int nOldValue = gpOptionEntries[gnOptionSelected].nValue;
-    if (sub_0047D500(&gpOptionEntries[gnOptionSelected]))
+    if (sub_0047D500_IsOptionEnabled(&gpOptionEntries[gnOptionSelected]))
     {
         switch (gpOptionEntries[gnOptionSelected].nKind)
         {
@@ -805,19 +805,19 @@ int gbSlotBarBlocked; // 0x007BC970
 // 0x0047CD80
 int __fastcall sub_0047CD80_IsSoundEnabled()
 {
-    return sub_004DF880();
+    return sub_004DF880_IsSoundSystemInit();
 }
 
 // 0x0047CD90
 int __fastcall sub_0047CD90_IsSoundEnabled()
 {
-    return sub_004DF880();
+    return sub_004DF880_IsSoundSystemInit();
 }
 
 // 0x0047CE30
 int __fastcall sub_0047CE30_Is3DSoundEnabled()
 {
-    return sub_004DF940();
+    return sub_004DF940_IsPositionalSoundEnabled();
 }
 
 // 0x0047CE40
@@ -835,7 +835,7 @@ int __fastcall sub_0047CE60_Is3DBiasEnabled()
 // 0x0047CEB0
 int __fastcall sub_0047CEB0_IsEAXEnabled()
 {
-    return sub_004DF960();
+    return sub_004DF960_IsEaxEnabled();
 }
 
 // 0x0047CEC0
@@ -926,7 +926,7 @@ void __fastcall sub_0047D200_GammaSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARA
 {
     const unsigned int nGamma = sub_0047CD00_SliderToValue(pItem, 0x37, 0xFF);
     SRegSaveValue("Diablo II", "Gamma", 0, nGamma);
-    sub_004776C0((void*)nGamma);
+    sub_004776C0_SetGamma((void*)nGamma);
 }
 
 // 0x0047D230
@@ -1051,7 +1051,7 @@ void __fastcall sub_0047D4D0_AutoMapPartyNamesLoad(D2OptionEntryStrc* pEntry, in
 }
 
 // 0x0047D500
-static inline int sub_0047D500(D2OptionEntryStrc* pEntry)
+static inline int sub_0047D500_IsOptionEnabled(D2OptionEntryStrc* pEntry)
 {
     return !pEntry->pfnEnabled || pEntry->pfnEnabled();
 }
@@ -1059,7 +1059,7 @@ static inline int sub_0047D500(D2OptionEntryStrc* pEntry)
 // 0x0047D5C0
 static void sub_0047D5C0_ActivateOption(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!sub_0047D500(&gpOptionEntries[gnOptionSelected]))
+    if (!sub_0047D500_IsOptionEnabled(&gpOptionEntries[gnOptionSelected]))
     {
         return;
     }
@@ -1164,7 +1164,7 @@ void __stdcall sub_0047D920_SelectPreviousOption(SMSGHANDLER_PARAMS* pMsg)
 void __stdcall sub_0047D9A0_OptionKeyLeft(SMSGHANDLER_PARAMS* pMsg)
 {
     const unsigned int nOldValue = gpOptionEntries[gnOptionSelected].nValue;
-    if (sub_0047D500(&gpOptionEntries[gnOptionSelected]))
+    if (sub_0047D500_IsOptionEnabled(&gpOptionEntries[gnOptionSelected]))
     {
         switch (gpOptionEntries[gnOptionSelected].nKind)
         {
@@ -1202,7 +1202,7 @@ void __stdcall sub_0047D9A0_OptionKeyLeft(SMSGHANDLER_PARAMS* pMsg)
 void __stdcall sub_0047DA90_OptionKeyRight(SMSGHANDLER_PARAMS* pMsg)
 {
     const unsigned int nOldValue = gpOptionEntries[gnOptionSelected].nValue;
-    if (sub_0047D500(&gpOptionEntries[gnOptionSelected]))
+    if (sub_0047D500_IsOptionEnabled(&gpOptionEntries[gnOptionSelected]))
     {
         switch (gpOptionEntries[gnOptionSelected].nKind)
         {
@@ -1882,7 +1882,7 @@ void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
         return;
     if (INVENTORY_GetCursorItem(pInventory))
         return;
-    if (sub_00468830() != 7)
+    if (sub_00468830_GetCursorState() != 7)
         CURSOR_SetCursorItemState(0);
     int nCount = 8;
     if (gbSmallPanel)

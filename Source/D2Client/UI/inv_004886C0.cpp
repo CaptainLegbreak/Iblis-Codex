@@ -184,7 +184,7 @@ void __cdecl UI_CancelCursorItemUse();                                          
 
 int __cdecl CUNIT_IsPlayerDeadOrMissing();                                                                                 // 0x00463DF0
 
-int __cdecl sub_00468830();                                                                                 // 0x00468830
+int __cdecl sub_00468830_GetCursorState();                                                                                 // 0x00468830
 
 void __cdecl INV_LoadUiRecords();                                                                                // 0x004835B0
 
@@ -194,7 +194,7 @@ int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg);   
 
 struct D2InvRectStrc;
 
-int __cdecl sub_0045AE90();
+int __cdecl sub_0045AE90_GetPanelSlideMode();
 
 D2UnitStrc* __cdecl sub_00463DD0();
 
@@ -326,7 +326,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-void __fastcall sub_00468040(int nArg, int nArg2); // 0x00468040
+void __fastcall sub_00468040_ResetCursorState(int nArg, int nArg2); // 0x00468040
 
 int __cdecl sub_00468730(); // 0x00468730
 
@@ -335,7 +335,7 @@ int __cdecl sub_00468740(); // 0x00468740
 void __fastcall MSG_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
 
 
-void __cdecl sub_004B8CB0(); // 0x004B8CB0
+void __cdecl sub_004B8CB0_BeginTradeWait(); // 0x004B8CB0
 
 void __fastcall sub_004B9070(int nArg); // 0x004B9070
 
@@ -837,7 +837,7 @@ void __stdcall INV_DrawUnitInventory(D2UnitStrc* pUnit)
         }
         if (pItem == gpHoverItem && gbHoverInGrid)
         {
-            if (sub_00468830() == 8 && !ITEMS_GetTransmogrify(gpHoverItem))
+            if (sub_00468830_GetCursorState() == 8 && !ITEMS_GetTransmogrify(gpHoverItem))
             {
                 INV_DrawGridCells(pGrid, nX, 0, nWidth, nHeight, nY);
             }
@@ -1247,7 +1247,7 @@ int __cdecl INV_CanUseCursor()
         {
             return 0;
         }
-        const int nMode = sub_00468830();
+        const int nMode = sub_00468830_GetCursorState();
         if (nMode == 7 || nMode == 1 || nMode == 4)
         {
             return 1;
@@ -1338,7 +1338,7 @@ void __stdcall INV_TradePanelMsg(SMSGHANDLER_PARAMS* pMsg)
     D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
     if (!AUTOMAP_IsCursorOverMiniPanelButton(pMsg) && !INVENTORY_GetCursorItem(pInventory) && INV_IsInNpcPanelRect(nX, nY))
     {
-        sub_004B8CB0();
+        sub_004B8CB0_BeginTradeWait();
         return;
     }
     if (!sub_00483B10_IsInGrid7BCA30(nX, nY))
@@ -1360,7 +1360,7 @@ void __stdcall INV_TradePanelMsg(SMSGHANDLER_PARAMS* pMsg)
         {
             if (gbTradeCancelClicked && gbTradeCancelButtonDown)
             {
-                sub_004B8CB0();
+                sub_004B8CB0_BeginTradeWait();
                 gbTradeCancelClicked = 0;
             }
             gbTradeCancelButtonDown = 0;
@@ -1650,7 +1650,7 @@ void __stdcall INV_NpcPanelButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
                         }
                         else
                         {
-                            sub_00468040(pButton->nArg, 0);
+                            sub_00468040_ResetCursorState(pButton->nArg, 0);
                             gnSelectedShopButton = i;
                             gnSelectedShopButtonKey = pButton->nKey;
                         }
@@ -1908,14 +1908,14 @@ void __stdcall INV_GridClickMsg(SMSGHANDLER_PARAMS* pMsg)
 
     if (gnInvPanelMode)
     {
-        if (sub_00468830() == 6)
+        if (sub_00468830_GetCursorState() == 6)
         {
             UI_CancelCursorItemUse();
             sub_00420290_BreakHandlerChain(pMsg);
             return;
         }
 
-        if (sub_00468830() == 8)
+        if (sub_00468830_GetCursorState() == 8)
         {
             MSG_SendDword(0x4C, -1);
             sub_00420290_BreakHandlerChain(pMsg);
@@ -1930,13 +1930,13 @@ void __stdcall INV_GridClickMsg(SMSGHANDLER_PARAMS* pMsg)
     }
     else
     {
-        if (sub_00468830() == 6)
+        if (sub_00468830_GetCursorState() == 6)
         {
             UI_CancelCursorItemUse();
             return;
         }
 
-        if (sub_00468830() == 8)
+        if (sub_00468830_GetCursorState() == 8)
         {
             MSG_SendDword(0x4C, -1);
         }
@@ -2039,15 +2039,15 @@ static void __stdcall INV_ClickOutsidePanel(int nY, SMSGHANDLER_PARAMS* pMsg, in
     {
         return;
     }
-    if (sub_0045AE90() == 1 && nX < gnScreenWidth / 2)
+    if (sub_0045AE90_GetPanelSlideMode() == 1 && nX < gnScreenWidth / 2)
     {
         return;
     }
-    if (sub_00468830() == 6)
+    if (sub_00468830_GetCursorState() == 6)
     {
         UI_CancelCursorItemUse();
     }
-    if (sub_0045AE90() == 3 && gnInvPanelMode == 0 && nX < gnScreenWidth / 2)
+    if (sub_0045AE90_GetPanelSlideMode() == 3 && gnInvPanelMode == 0 && nX < gnScreenWidth / 2)
     {
         return;
     }

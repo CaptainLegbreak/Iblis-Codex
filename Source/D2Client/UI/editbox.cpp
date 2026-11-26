@@ -77,7 +77,7 @@ public:
 
 
 // 0x004BB5D0
-int __cdecl sub_004BB5D0()
+int __cdecl sub_004BB5D0_Return0()
 {
     return 0;
 }

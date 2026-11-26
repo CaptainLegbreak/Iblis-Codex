@@ -710,7 +710,7 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);  
 
 void __fastcall MONSTER_RunUModMissileCallbacks(D2UnitStrc* pUnit, void* pArg);                                                // 0x004ADE80
 
-void __fastcall sub_004BA840(void* pUnitSfx);                                                                 // 0x004BA840
+void __fastcall sub_004BA840_StopSound(void* pUnitSfx);                                                                 // 0x004BA840
 
 
 D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(void* pAct, int nX, int nY);                             // 0x00619DA0
@@ -6675,7 +6675,7 @@ D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams
                 void* pUnitSfx = UNITSND_FindUnitSfxInRange(pMissileParams->pOwner, 0x13A);
                 if (pUnitSfx)
                 {
-                    sub_004BA840(pUnitSfx);
+                    sub_004BA840_StopSound(pUnitSfx);
                 }
             }
         }

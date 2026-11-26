@@ -233,7 +233,7 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
 
 
-void __fastcall sub_004BA840(void* pUnitSfx); // 0x004BA840
+void __fastcall sub_004BA840_StopSound(void* pUnitSfx); // 0x004BA840
 
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
@@ -433,7 +433,7 @@ D2UnitStrc* __fastcall SKILLS_FireMissileAtTarget(int,D2UnitStrc*,int,int,int,in
 
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*,unsigned int,int,int); // 0x00646CA0
 
-int __cdecl sub_0044DA90(); // 0x0044DA90
+int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
 
 
 
@@ -986,7 +986,7 @@ int __fastcall SKILLS_CanScanUnit(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nF
         {
             return 0;
         }
-        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(pTarget->dwClassId);
+        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(pTarget->dwClassId);
         if (!pMissilesTxtRecord || pMissilesTxtRecord->nMissileFlags[0] & gdwBitMasks[1])
         {
             return 0;
@@ -1838,7 +1838,7 @@ int __fastcall SKILLS_DoClientSkill(D2UnitStrc* unit,int skillId,int skillLevel,
  if(delay>0 && sub_00463DD0_GetPlayerUnit()==unit){
   if(delay>12)delay=12;
   if(skill->nAnim!=18 || !(unit->dwSeqFrame & 0xffffff00))
-   GAME_SetSkillDelayUntil(sub_0044DA90()+delay);
+   GAME_SetSkillDelayUntil(sub_0044DA90_GetTickCounter()+delay);
  }
  return 1;
 }
@@ -2988,7 +2988,7 @@ void __fastcall SKILLS_SpawnOffsetMissile(int nUnitId, int nUnused, D2UnitStrc* 
 
 int __fastcall MISSILE_SkillStartAtTargetPos(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004C95E0
 
-int __fastcall sub_004C96D0(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004C96D0
+int __fastcall sub_004C96D0_CreateMissileAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004C96D0
 
 int __fastcall SKILLS_CltDoCharge(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004C9DB0
 

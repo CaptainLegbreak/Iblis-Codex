@@ -65,7 +65,7 @@ struct D2LightPairStrc
     int nB;
 };
 
-int __cdecl sub_0045AE90();                                                                         // 0x0045AE90
+int __cdecl sub_0045AE90_GetPanelSlideMode();                                                                         // 0x0045AE90
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 int __cdecl DLIGHTMAP_GetRenderMode();                                                                                 // 0x00477730
 void __fastcall SCMD_ReadGridCell(D2LightPointStrc* pA, D2LightPointStrc* pB, unsigned char* pC0, unsigned char* pC1, unsigned char* pC2, unsigned char* pC3); // 0x00475AA0
@@ -87,7 +87,7 @@ static D2LightPairStrc* __stdcall sub_004DEDB0_GetLightOffsets(D2TileGfxStrc* pT
 // 0x004DEF80
 void __stdcall DWALL_DrawCellTiles(D2GridCellStrc* pCell, int nPass, D2CellGridViewStrc* pView)
 {
-    const int nGamma = sub_0045AE90();
+    const int nGamma = sub_0045AE90_GetPanelSlideMode();
     const int bPerspective = D2GFX_CheckPerspective();
     const int nDetail = DLIGHTMAP_GetRenderMode();
     const unsigned int dwTick = GetTickCount();

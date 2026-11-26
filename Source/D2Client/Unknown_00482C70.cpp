@@ -188,7 +188,7 @@ void __fastcall sub_0049EB10_PostRecord(D2ClientRecordStrc* pRecord); // 0x0049E
 
 void __stdcall sub_004A1770(SMSGHANDLER_PARAMS* pMsg); // 0x004A1770
 
-void __cdecl sub_004B8CB0(); // 0x004B8CB0
+void __cdecl sub_004B8CB0_BeginTradeWait(); // 0x004B8CB0
 
 void __fastcall sub_004DC2B0(void* pResource); // 0x004DC2B0
 
@@ -726,12 +726,12 @@ struct D2InvRectStrc;
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
 
 
-void __fastcall sub_004BA020(unsigned int nTick); // 0x004BA020
+void __fastcall sub_004BA020_UpdateSounds(unsigned int nTick); // 0x004BA020
 
 void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int nTick); // 0x004DCAA0
 
 
-void __cdecl sub_004DF890(); // 0x004DF890
+void __cdecl sub_004DF890_ReleaseFinishedSlots(); // 0x004DF890
 
 void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int nTick); // 0x004E42E0
 
@@ -935,7 +935,7 @@ extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nSize, const char* 
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 
-Unicode* __fastcall sub_00452170(Unicode* pText);                                                           // 0x00452170
+Unicode* __fastcall sub_00452170_ReturnText(Unicode* pText);                                                           // 0x00452170
 
 
 
@@ -1513,7 +1513,7 @@ void __fastcall INV_PlayCinematic(int nIndex)
         strcpy(szName, gaAuxLevelEntries[nIndex].szFile);
     }
 
-    sub_00481830();
+    sub_00481830_StopAllSounds();
     sub_004DCA30();
 // build: symbol ?ARCHIVE_UnloadExpansionArchives@* 0x004FAD70
     ARCHIVE_UnloadExpansionArchives();

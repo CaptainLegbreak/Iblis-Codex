@@ -350,7 +350,7 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
 
     if (bPerspective)
     {
-        switch (sub_0045AE90())
+        switch (sub_0045AE90_GetPanelSlideMode())
         {
         case 1:
             nDrawX += -(gnScreenWidth_0071146C / 4);

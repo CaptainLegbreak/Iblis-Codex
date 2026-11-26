@@ -235,7 +235,7 @@ struct D2AnimModeModulatorStrc;
 
 struct D2AnimModeStatBasePercentageStrc;
 
-D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
+D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId); // 0x0046ACE0
 
 
 int __stdcall UNITS_GetUnitSizeY(D2UnitStrc* pUnit); // 0x006205A0
@@ -752,7 +752,7 @@ int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit)
             return SIZE_ITEM;
 
         case UNIT_MISSILE:
-            if (D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(pUnit->dwClassId))
+            if (D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(pUnit->dwClassId))
             {
                 return pMissilesTxtRecord->nSize;
             }
@@ -793,7 +793,7 @@ int __stdcall UNITS_GetUnitSizeY(D2UnitStrc* ptUnit)
         return SIZE_ITEM;
 
     case UNIT_MISSILE:
-        if (D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(ptUnit->dwClassId))
+        if (D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(ptUnit->dwClassId))
         {
             return pMissilesTxtRecord->nSize;
         }
@@ -4207,7 +4207,7 @@ int __stdcall UNITS_SetAnimStartFrame(D2UnitStrc* ptUnit)
 
     case 3:
     {
-        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(ptUnit->dwClassId);
+        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(ptUnit->dwClassId);
         if (!pMissilesTxtRecord)
         {
             return 0;
