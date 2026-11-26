@@ -838,11 +838,6 @@ static inline int SUNITNPC_GetItemStorePage(D2UnitStrc* pItem)
     return sub_0062E880(pItem);
 }
 
-int __stdcall sub_M114_Emit_00576320(D2UnitStrc* pItem)
-{
-    return SUNITNPC_GetItemStorePage(pItem) + 1;
-}
-
 // 0x00576330
 D2UnitStrc* __fastcall D2GAME_NPC_GenerateStoreItem(D2UnitStrc* hNPC, unsigned int dwCode, D2GameStrc* ptGame, int bVendorItem, int nQuality, int nItemLevel, int nPlayerLevel)
 {
@@ -922,7 +917,7 @@ D2UnitStrc* __fastcall D2GAME_NPC_GenerateStoreItem(D2UnitStrc* hNPC, unsigned i
     }
     if (pItem)
     {
-        unsigned char nPage = ITEMS_GetStorePage(pItem);
+        unsigned char nPage = SUNITNPC_GetItemStorePage(pItem);
         if (nPage == 0xFF)
         {
             ITEMS_RemoveFromAllPlayers(ptGame, pItem);

@@ -1335,11 +1335,6 @@ void __fastcall PLRMODE_StartID_AttackCastThrowKickSpecialSequence(D2GameStrc* p
     SKILLS_StartUsedSkill(pGame, pPlayer);
 }
 
-int __fastcall sub_M120_Emit_0057FC60(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
-{
-    return PLRMODE_IsOtherPlayerOrMinion(pUnit, pTarget);
-}
-
 // 0x0057FF70
 static void __stdcall PLRMODE_RestoreWeapon(D2GameStrc* pGame, unsigned char nBodyLoc, D2UnitStrc* pPlayer)
 {
@@ -2215,14 +2210,9 @@ void __fastcall PLRMODE_StartID_Death(D2GameStrc* pGame, D2UnitStrc* pDefender, 
         pDefender->dwFlags &= ~0x02;
     }
 
-    if (pDefender && pAttacker && pDefender->dwUnitType == UNIT_PLAYER && pDefender != pAttacker)
+    if (PLRMODE_IsOtherPlayerOrMinion(pDefender, pAttacker))
     {
-        D2UnitStrc* pOwner;
-        if (pAttacker->dwUnitType == UNIT_PLAYER
-            || pAttacker->dwUnitType == UNIT_MONSTER && (pOwner = AIGENERAL_GetMinionOwner(pAttacker)) != 0 && pOwner->dwUnitType == UNIT_PLAYER && pOwner != pDefender)
-        {
-            ITEMS_DropPlayerEar(pGame, pDefender);
-        }
+        ITEMS_DropPlayerEar(pGame, pDefender);
     }
 
     if (pAttacker)
