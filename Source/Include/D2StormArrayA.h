@@ -10,6 +10,11 @@ struct D2StormArrayAStrc
     unsigned int* m_data;
     unsigned int m_chunk;
 
+    unsigned int Count() const
+    {
+        return m_count;
+    }
+
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
         unsigned int nRemainder = nValue % nAlign;

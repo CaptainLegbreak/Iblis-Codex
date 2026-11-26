@@ -7192,6 +7192,10 @@
      "name": "??0BigStack@@QAE@XZ"
     },
     {
+     "va": "0x00421CB0",
+     "length": 206
+    },
+    {
      "va": "0x00421D80",
      "length": 129,
      "name": "??1D2StormBigStrc@@QAE@XZ"
@@ -7548,30 +7552,6 @@
     {
      "va": "0x00423380",
      "length": 294
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SBig_00421CB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00421CB0",
-     "length": 206
     }
    ],
    "flags": [
