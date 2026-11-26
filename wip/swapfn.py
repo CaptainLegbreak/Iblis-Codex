@@ -17,10 +17,10 @@ rel, va, length, cand = sys.argv[1], int(sys.argv[2], 16), int(sys.argv[3]), ope
 s = settings(); os.environ.pop('TMPDIR', None)
 unit = [u for u in json.load(open('build/units.json'))['units'] if u['file'] == rel][0]
 flags = list(unit.get('flags') or default_flags(rel))
-src = open(rel, encoding='latin-1').read(); mark = '// 0x%08X\n' % va
-part = sys.argv[5] if len(sys.argv) > 5 else re.search(r'(\w+)\s*\(', cand[cand.index(mark) + len(mark):]).group(1)
+src = open(rel, encoding='latin-1').read(); mark = '\n// 0x%08X\n' % va
+part = sys.argv[5] if len(sys.argv) > 5 else re.search(r'(\w+)\s*\(', ('\n' + cand)[('\n' + cand).index(mark) + len(mark):]).group(1)
 if mark in src and re.match(r'[^;{]*\{', src[src.index(mark) + len(mark):]):
-    i = src.index(mark); new = src[:i] + cand + src[src.index('\n}\n', i) + 3:]
+    i = src.index(mark) + 1; new = src[:i] + cand + src[src.index('\n}\n', i) + 3:]
 else:
     i = src.rfind('#include "gen/'); i = len(src) if i < 0 else i; new = src[:i] + cand + '\n' + src[i:]
 tmp = tempfile.mkdtemp(); obj, asm = os.path.join(tmp, 'u.obj'), os.path.join(tmp, 'u.asm')
