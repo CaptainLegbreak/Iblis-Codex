@@ -28,7 +28,6 @@ struct D2CmpPaletteStrc;
 
 int __fastcall CmpScanRun(unsigned char nValue, const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D310
 
-int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char* pData, const unsigned char* pEnd, unsigned char nValue, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D3A0
 
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09

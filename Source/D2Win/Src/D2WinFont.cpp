@@ -39,10 +39,8 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 
-D2CelFileStrc* __fastcall ARCHIVE_LoadCellFile(const char* szFile, int nType);                              // 0x004FA9B0
 
 
-void* __stdcall D2Win_GetArchive(); // 0x004FAC80
 
 D2CharStrc* __fastcall FONT_GetCharInfoByIndex(unsigned short wChar);                                                  // 0x00501650
 

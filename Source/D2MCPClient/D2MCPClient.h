@@ -15,3 +15,7 @@ struct D2LaunchThreadRecordStrc
 {
     int nData[0x52];
 };
+
+void __stdcall CHATDLG_SetCharLogonReceived(int nValue); // 0x00449C40
+void __stdcall sub_00449E50_SetValue(int nValue); // 0x00449E50
+int __fastcall GAME_DispatchMcpPacket(const char* pPacket, unsigned int nSize); // 0x0044B190

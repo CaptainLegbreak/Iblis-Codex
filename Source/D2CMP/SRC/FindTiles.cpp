@@ -7,7 +7,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
-unsigned char __fastcall FindTileHash(int a, int b, int c);                                       // 0x0060CD70
 
 
 struct D2FindTileNodeStrc

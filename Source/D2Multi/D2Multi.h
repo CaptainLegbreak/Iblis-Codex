@@ -177,3 +177,22 @@ struct D2LaunchThreadRecordStrc
 #include "D2Win32Types.h"
 
 typedef unsigned int size_t;
+
+
+void __cdecl CHATDLG_RefreshChatScreen(); // 0x0043FBD0
+void __fastcall CHATDLG_JoinChannel(const char* szText); // 0x004411E0
+int __fastcall CHATDLG_SendChatText(char* szText, int bWhisper); // 0x004428D0
+void __fastcall CHATDLG_SetPendingText(const char* szText, unsigned short wRequestId); // 0x00442DD0
+void __cdecl CHATDLG_DestroyCreateControls(); // 0x00443220
+int __stdcall CHATDLG_IsNameChar(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x00443540
+void __cdecl CHATDLG_UpdateCreateButton(); // 0x00443630
+int __stdcall CHATDLG_SetCancel(int nArg); // 0x00443870
+int __stdcall CHATDLG_PollMcp(int nArg); // 0x00443880
+int __stdcall CHATDLG_JoinByName(int nArg); // 0x004439F0
+void __cdecl CHATDLG_DestroyProfileControls(); // 0x00443E10
+void __cdecl COMCALLBACK_BuildCreateGamePanel(); // 0x004453B0
+void __cdecl CHATDLG_CreateJoinScreen(); // 0x00445DF0
+const char* __fastcall COMCALLBACK_SkipNamePrefix(const char* szName); // 0x00446820
+void __fastcall COMCALLBACK_CopyNamePrefix(const char* szName, char* szOut); // 0x00446840
+void __cdecl COMCALLBACK_RefreshChatButtons(); // 0x004477A0
+void __fastcall CHATDLG_UpdateScroll(int nDelta); // 0x00448BD0

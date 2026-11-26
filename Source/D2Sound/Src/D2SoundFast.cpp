@@ -16,17 +16,11 @@
 
 struct D2SoundStrc;
 
-int __cdecl D2SOUNDSMP_GetMasterVolume();                                                                  // 0x00515D60
 
-int __fastcall D2SOUNDSMP_IsSoundStreaming(D2SoundStrc* pSound);                                          // 0x00515C30
 
-void __fastcall D2SOUNDSMP_ResetSound(D2SoundStrc* pSound);                                                // 0x00516140
 
-void __fastcall D2SOUNDSMP_SetSoundVolume(D2SoundStrc* pSound, int nVolume);                              // 0x005157B0
 
-int __fastcall D2SOUNDSMP_StartSoundStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop); // 0x00515D70
 
-void __fastcall D2SOUNDSMP_StopSound(D2SoundStrc* pSound);                                                // 0x00515EE0
 
 D2SoundStrc* gpSoundChannel;                                                                       // 0x00881794
 
@@ -55,23 +49,16 @@ struct D2WaveStrc;
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-void __cdecl D2SOUND_ReleaseSoundObjects(); // 0x00513AF0
 
 int __cdecl D2SOUND_GetDirectSound(); // 0x00513B50
 
-void __cdecl D2SOUND_DestroyStreamChannel(); // 0x005147B0
 
-void __cdecl D2SOUND_ClearChannelTable(); // 0x00514860
 
-void __cdecl D2SOUNDSMP_StopSoundThread(); // 0x00515120
 
-D2SoundStrc* __fastcall D2SOUNDSMP_CreateSound(unsigned int nFlags, int nValue); // 0x00515530
 
 int __fastcall D2SOUNDSMP_GetSoundPlayingFlag(D2SoundStrc* pSound); // 0x00515710
 
-void __fastcall D2SOUNDSMP_StartSoundFade(D2SoundStrc* pFade, int nTarget, int nDuration); // 0x00515C60
 
-void __fastcall D2SOUNDSMP_SetMasterVolume(int nVolume); // 0x00515CE0
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 
@@ -118,7 +105,6 @@ int gnChannelValue; // 0x00881798
 
 int gbChannelFlag; // 0x0088179C
 
-void __fastcall D2SOUNDSMP_DestroySound(D2SoundStrc* pSound); // 0x005160D0
 
 extern int gnChannelValue; // 0x00881798
 

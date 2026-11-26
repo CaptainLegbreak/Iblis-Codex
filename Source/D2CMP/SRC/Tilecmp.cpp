@@ -29,10 +29,8 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
-void __fastcall FindTileAddTile(D2TileLibraryHashStrc* pHash, D2CmpTileBlockStrc* pTile); // 0x0060CFA0
 
 
-unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 
 extern const unsigned char gaDirection8To4[]; // 0x006E5DA0
 
@@ -111,7 +109,6 @@ void __stdcall TileAddAddFloorTile(D2CmpTileStrc* pTile, const unsigned char* pP
 
 static int TileProjectGetSerializedSize(D2CmpTileLibraryStrc* pLibrary);
 
-void __fastcall D2CMPTileCacheFreeProject(D2CmpTileLibraryStrc* pLibrary); // 0x005FE080
 
 
 void __stdcall TileProjectConvert24To8(D2CmpTileLibraryStrc* pSrc, D2CmpTileLibraryStrc** ppLibrary, D2CmpMapColorFn pfnMapColor);

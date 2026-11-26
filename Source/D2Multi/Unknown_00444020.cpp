@@ -77,11 +77,8 @@ int __fastcall CHATDLG_IsCharOverLimit(const char* szText); // 0x00442B20
 
 void __fastcall D2Win_10050_TEXTBOX_SetLine(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FB9D0
 
-int __stdcall CHATDLG_IsNameChar(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x00443540
 
-void __cdecl CHATDLG_UpdateCreateButton(); // 0x00443630
 
-void __cdecl COMCALLBACK_BuildCreateGamePanel(); // 0x004453B0
 
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 

@@ -39,11 +39,9 @@ unsigned short __cdecl CHATDLG_GetRequestId();                                  
 
 void __cdecl CHATDLG_ClearReply();                                                                     // 0x00449D60
 
-void __stdcall sub_00449E50_SetValue(int nValue); // 0x00449E50
 
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
 
-void __stdcall CHATDLG_SetCharLogonReceived(int nValue); // 0x00449C40
 
 int __stdcall CHATDLG_RequestCharLogon(const char* szName);                                                    // 0x00449E10
 
@@ -180,7 +178,6 @@ int __cdecl MCPCONNECT_QueryAddress()
 }
 
 unsigned short __stdcall FOG_ConnectionReceive(void* pConnection, char* pBuffer, int nSize); // 0x006BC120
-int __fastcall GAME_DispatchMcpPacket(const char* pPacket, unsigned int nSize); // 0x0044B190
 extern int (__cdecl* const gpfnLaunchInit[1])(); // 0x006D5BE0
 extern int (__cdecl* gpfnLaunchStates[])(); // 0x0070EE54
 

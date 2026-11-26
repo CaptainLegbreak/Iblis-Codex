@@ -24,9 +24,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 int __fastcall FindTileGetTiles(D2CmpTileProjectStrc* pProject, D2CmpTileStrc** ppTiles, int nMaxTiles, int nOrientation, int nMainIndex, int nSubIndex); // 0x0060D040
-void* __stdcall CreateD2Palette(void* pSource); // 0x00606930
 
-void __fastcall D2CMPTileCacheFreeProject(D2CmpTileLibraryStrc* pLibrary); // 0x005FE080
 
 struct D2CmpGfxHashStrc
 {
@@ -63,7 +61,6 @@ struct D2TileLibraryEntryStrc
 };
 
 struct D2TileLibraryHeaderStrc;
-void __stdcall D2CMPLoadProjectRecord(D2TileLibraryHeaderStrc** ppLibrary, const char* szFilePath); // 0x00600790
 
 // 0x00604A40
 void __stdcall TileLibraryAddProject(D2TileLibraryHeaderStrc** ptTileLibrary, const char* szFilePath)
@@ -82,7 +79,6 @@ void __stdcall TileLibraryAddProject(D2TileLibraryHeaderStrc** ptTileLibrary, co
     D2_ASSERT(i < 32, 0x2A);
 }
 
-int __stdcall D2CMPGetFindTile(void* pData); // 0x00600760
 
 // 0x00604AA0
 void __stdcall TileLibraryReleaseProject(int* pSlots, char* pEntry)

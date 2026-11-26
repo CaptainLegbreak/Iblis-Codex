@@ -14,8 +14,6 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
 void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine);
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 extern "C" const char gszNewline[];                                                                // 0x006FFCB0
 

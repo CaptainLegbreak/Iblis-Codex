@@ -63,7 +63,6 @@ struct Unicode
     static Unicode* __fastcall strncat(Unicode* dest, const Unicode* src, int count);
 };
 
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 int __fastcall sub_00527D50_GetCodePageCharCount(const char* szSource, int nLength); // 0x00527D50
 
@@ -107,11 +106,8 @@ extern "C" char* __cdecl _i64toa(__int64 nValue, char* szOut, int nRadix); // 0x
 
 extern Unicode gawszUnitSuffix[4][2]; // 0x00730510
 
-Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
 static D2TblHeaderStrc* STRTABLE_LoadTblFile(const char* szPath); // 0x00525920
 

@@ -36,7 +36,6 @@ extern tagPOINT gtMousePosition;                                                
 
 int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
-int __stdcall D2Win_10125();                                                                                // 0x00501A40
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 

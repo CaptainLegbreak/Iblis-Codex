@@ -55,7 +55,6 @@ int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);               
 
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210
 
-int __fastcall POPUP_Draw(D2WinControlStrc* pControl); // 0x005087A0
 
 extern "C" void* __cdecl memset(void* destination, int value, unsigned int size); // 0x00681EF0
 

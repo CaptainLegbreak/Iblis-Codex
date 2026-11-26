@@ -66,3 +66,8 @@ struct Unicode
         return wChar;
     }
 };
+
+void* __fastcall sub_0052A240_BigFromUnsigned(unsigned int nValue); // 0x0052A240
+void* __fastcall sub_0052A270_BigFromBinary(const void* pData, unsigned int nSize); // 0x0052A270
+unsigned int __fastcall sub_0052A2A0_BigToBinary(void* hBig, void* pBuffer, unsigned int nSize); // 0x0052A2A0
+int __fastcall sub_0052A2F0_BigCompareUnsigned(void* hBig, unsigned int nValue); // 0x0052A2F0

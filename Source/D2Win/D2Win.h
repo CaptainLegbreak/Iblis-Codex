@@ -132,3 +132,25 @@ struct D2WinAccountListDataStrc
 };
 
 #include "D2Win32Base.h"
+
+struct D2WinControlStrc;
+struct D2WinEditBoxStrc;
+struct D2WinSmackStrc;
+struct D2WinTextBoxStrc;
+
+D2CelFileStrc* __fastcall ARCHIVE_LoadCellFile(const char* szFile, int nType); // 0x004FA9B0
+int __cdecl ARCHIVE_ShowInsertExpansionDiscMessage(); // 0x004FAB00
+int __cdecl ARCHIVE_ShowInsertPlayDiscMessage(); // 0x004FAB30
+int __cdecl ARCHIVE_ShowInsertCinematicsDisc(); // 0x004FAB60
+int __cdecl ARCHIVE_LoadArchives(); // 0x004FAB90
+void* __stdcall D2Win_GetArchive(); // 0x004FAC80
+void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
+unsigned char* __fastcall D2Win_10175_GetPL2Shift(int nIndex); // 0x004FB0C0
+void __stdcall D2Win_10179_UpdatePaletteFlash(); // 0x004FB0D0
+int __fastcall D2Win_10053(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FBA30
+int __fastcall D2Win_10055(D2WinTextBoxStrc* pTextBox); // 0x004FBAB0
+void __fastcall EDITBOX_ClearSelection(D2WinEditBoxStrc* pEditBox); // 0x004FDCC0
+int __stdcall EDITBOX_PlaceMultiLineCaret(SMSGHANDLER_PARAMS* pMsg, int nX, int nY); // 0x004FE3B0
+int __stdcall D2Win_10125(); // 0x00501A40
+int __stdcall SMACK_DeleteFile(D2WinSmackStrc* pSmack); // 0x00506990
+int __fastcall POPUP_Draw(D2WinControlStrc* pControl); // 0x005087A0

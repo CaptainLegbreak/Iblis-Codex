@@ -66,18 +66,14 @@ int __stdcall SFileDdaEnd(void* hStream); // 0x0041A990
 
 D2DirectSoundStrc* __cdecl D2SOUND_GetDirectSound(); // 0x00513B50
 
-void __fastcall D2SOUNDSMP_SetSoundVolume(D2SoundStrc* pSound, int nVolume); // 0x005157B0
 
-void __fastcall D2SOUNDSMP_StopSound(D2SoundStrc* pSound); // 0x00515EE0
 
 
 int __stdcall SFileDdaBeginEx(void* hFile, int nBufferSize, unsigned int nFlags, unsigned int nOffset, int nVolume, int nPan, D2DSoundBufferStrc* pBuffer); // 0x0041B280
 
-int __fastcall D2SOUNDSMP_FillSoundBuffer(D2SoundStrc* sound,unsigned int sourcePosition,unsigned int destinationPosition,unsigned int size); // 0x00515180
 
 void* __fastcall D2SOUNDSMP_ReadWaveHeader(const void* pFile, unsigned int* pnSize, D2WaveFormatStrc* pFormat); // 0x00516760
 
-void __fastcall D2SOUNDSMP_DestroySound(D2SoundStrc* pSound); // 0x005160D0
 
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent); // 0x006CC130
 
@@ -192,17 +188,14 @@ struct D2SoundFadeStrc
     unsigned int dwFadeEndTick;
 };
 
-unsigned long __stdcall D2SOUNDSMP_SoundThreadProc(void* pParameter); // 0x00516250
 
 void* ghSoundEvent; // 0x0088180C
 
 void* ghSoundThread; // 0x00881810
 
-void __fastcall D2SOUNDSMP_CloseSoundStream(D2SoundStrc* pSound); // 0x00515E40
 
 int __cdecl D2SOUND_IsEaxRoomOff(); // 0x00513BA0
 
-float __stdcall sub_00516670_RoomToVolume(float fRoom); // 0x00516670
 
 extern const D2GuidStrc gtEaxListener20PropertySet; // 0x006DE460
 
@@ -218,15 +211,10 @@ extern int gnEaxVersion; // 0x00881774
 
 extern int gbEaxRoomOff; // 0x00881778
 
-void __fastcall D2SOUNDSMP_SetSoundPosition(D2SoundStrc* pSound, float x, float y, float z); // 0x00515950
 
-void __fastcall D2SOUNDSMP_SetSoundAttenuation(D2SoundStrc* pSound, float fAttenuation); // 0x00515A90
 
-void __fastcall D2SOUNDSMP_InitWaveFormat(D2WaveFormatStrc* pFormat, int nChannels); // 0x00516720
 
-void __fastcall D2SOUNDUTIL_ListAddHead(D2SoundNodeStrc** ppList, void* pData); // 0x00516950
 
-void __fastcall D2SOUNDUTIL_ListRemove(D2SoundNodeStrc** ppList, void* pData); // 0x00516980
 
 extern const D2GuidStrc gtIidDirectSound3DBuffer; // 0x006DE3D0
 
@@ -251,7 +239,6 @@ int gbSoundGlobalFocus; // 0x00881804
 extern "C" { int gnStreamChannelArg; } // 0x008817A0
 
 
-D2SoundStrc* __fastcall D2SOUNDSMP_CreateSound(unsigned int nFlags, int nValue); // 0x00515530
 
 extern const char gszEmptyAssert[]; // 0x006CC837
 
@@ -265,15 +252,11 @@ extern int gbIconic; // 0x00881814
 
 extern "C" void* __cdecl sub_004F59A0_GetHwnd(); // 0x004F59A0
 
-int __cdecl D2SOUND_GetStreamChannelValue(); // 0x00514920
 
-int __cdecl D2SOUND_IsStreamChannelPlaying(); // 0x00514840
 
-int __cdecl sub_00514990_PickRandomChannel(); // 0x00514990
 
 int __fastcall D2SOUNDSMP_ClearSoundBuffer(D2DSoundBufferStrc* pBuffer, unsigned long nOffset, unsigned long nBytes); // 0x00515300
 
-int __fastcall D2SOUNDSMP_RestoreLostBuffer(D2SoundStrc* pSound); // 0x00515FD0
 
 extern "C" double __cdecl sqrt(double x); // 0x006879C0
 
@@ -283,7 +266,6 @@ const unsigned char* __fastcall D2SOUNDSMP_ReadWaveHeader(const unsigned int* pR
 
 static void D2SOUNDSMP_ReleaseSoundBuffers(D2SoundStrc* pSound); // 0x00516070
 
-void __fastcall D2SOUNDSMP_ResetSound(D2SoundStrc* pSound); // 0x00516140
 
 // build: symbol ?D2SOUNDSMP_CreateSoundBuffer@* 0x005153C0
 static int __stdcall D2SOUNDSMP_CreateSoundBuffer(unsigned int nFlags, D2SoundStrc* pSound)
