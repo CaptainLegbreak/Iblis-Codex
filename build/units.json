@@ -53988,6 +53988,10 @@
      "length": 489
     },
     {
+     "va": "0x005ADF10",
+     "length": 732
+    },
+    {
      "va": "0x005AE1F0",
      "length": 523
     },
@@ -55194,16 +55198,6 @@
      "va": "0x005A6130",
      "length": 94,
      "name": "MONSTERUNIQUE_AreUnitsFriendly"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MISSILES/MissMode_005ADF10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005ADF10",
-     "length": 732
     }
    ]
   },

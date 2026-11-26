@@ -614,7 +614,6 @@ int __fastcall MISSMODE_SrvDo10_BlizzardCenter(D2GameStrc* pGame, D2UnitStrc* pM
 
 int __fastcall MISSMODE_SrvDo25_EruptionCenter(D2GameStrc* pGame, D2UnitStrc* pMissile);
 
-static int sub_005ADA80_GetPierceFlags(D2UnitStrc* pMissile); // 0x005ADA80
 
 extern "C" int __stdcall MISSILE_GetMissileTargetStatus(D2UnitStrc* pMissile); // 0x0064A730
 
@@ -4396,22 +4395,6 @@ static void __fastcall MISSMODE_ApplyDamageFlagsAndTargetAc(D2GameStrc* pGame, D
     }
 }
 
-static int sub_005ADA80_GetPierceFlags(D2UnitStrc* pMissile)
-{
-    int nResult = 3;
-    D2MissilesTxt* pTxt = pMissile ? SKILLS_GetMissilesTxtRecord(pMissile->dwClassId) : 0;
-    if ((pTxt->nMissileFlags[0] & gdwBitMasks_006CE268[2]))
-    {
-        const int nPierce = STATLIST_UnitGetStatValue(pMissile, 0x148, 0);
-        if (nPierce)
-        {
-            nResult = 2;
-            STATLIST_SetUnitStat(pMissile, 0x148, nPierce - 1, 0);
-        }
-    }
-    return nResult;
-}
-
 static int sub_005ADA80_GetPierceFlags_005B01F0(D2UnitStrc* pMissile)
 {
     int nResult = 3;
@@ -4428,13 +4411,14 @@ static int sub_005ADA80_GetPierceFlags_005B01F0(D2UnitStrc* pMissile)
     return nResult;
 }
 
+// 0x005ADF10
 __declspec(noinline) int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, int bForceCollision)
 {
-    D2MissilesTxt* pTxt = 0;
-    if (pMissile)
-    {
-        pTxt = SKILLS_GetMissilesTxtRecord(pMissile->dwClassId);
-    }
+    D2MissilesTxt* pTxt;
+    if (!pMissile || pMissile->dwClassId < 0 || pMissile->dwClassId >= sgptDataTables->nMissilesTxtRecordCount)
+        pTxt = 0;
+    else
+        pTxt = &sgptDataTables->pMissilesTxt[pMissile->dwClassId];
 
     D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
     int nHitResult = 2;
@@ -4464,9 +4448,9 @@ __declspec(noinline) int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame,
     }
 
     if (pOwner && pUnit && (pTxt->nMissileFlags[0] & gdwBitMasks_006CE268[2])
-        && (STATLIST_UnitGetStatValue(pOwner, 0xA6, 0) || STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, 0x9C, 0)))
+        && (STATLIST_UnitGetStatValue(pOwner, STAT_SKILL_PIERCE, 0) || STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, STAT_ITEM_PIERCE, 0)))
     {
-        nPierceFlags = sub_005ADA80_GetPierceFlags(pMissile);
+        nPierceFlags = MISSMODE_GetPierceFlags(pMissile);
     }
 
     if (pTxt->nCollideKill)
@@ -4505,17 +4489,7 @@ __declspec(noinline) int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame,
     }
     else if (!bForceCollision && !pTxt->nAlwaysExplode)
     {
-        if (!(nHitResult & 1) && !bForceCollision || !(nPierceFlags & 1))
-        {
-            return 1;
-        }
-
-        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pMissile);
-        if (pRoom)
-        {
-            COLLISION_ResetMaskWithSize(pRoom, CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), UNITS_GetUnitSizeX(pMissile), 0x40);
-        }
-        return 2;
+        goto finish_collision;
     }
 
     if (nPierceFlags & 2)
@@ -4538,7 +4512,6 @@ __declspec(noinline) int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame,
         D2DamageStrc tDamage;
         MISSMODE_FillDamageParams(pGame, pOwner, pMissile, pUnit, &tDamage);
         const short nDmgFunc = pTxt->wSrvDmgFunc;
-// build: symbol ?gnMissileSrvDmgFnCount@* 0x0073C95C
         if (nDmgFunc > 0 && nDmgFunc < gnMissileSrvDmgFnCount)
         {
             gpfnMissileSrvDmgFunctions[nDmgFunc](pGame, pMissile, pUnit, &tDamage);
@@ -4546,17 +4519,17 @@ __declspec(noinline) int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame,
         MISSMODE_ApplyDamageFlagsAndTargetAc(pGame, pMissile, pUnit, &tDamage);
     }
 
-    if (!(nHitResult & 1) && !bForceCollision || !(nPierceFlags & 1))
+finish_collision:
+    if (((nHitResult & 1) || bForceCollision) && (nPierceFlags & 1))
     {
-        return 1;
+        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pMissile);
+        if (pRoom)
+        {
+            COLLISION_ResetMaskWithSize(pRoom, CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), UNITS_GetUnitSizeX(pMissile), 0x40);
+        }
+        return 2;
     }
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pMissile);
-    if (pRoom)
-    {
-        COLLISION_ResetMaskWithSize(pRoom, CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), UNITS_GetUnitSizeX(pMissile), 0x40);
-    }
-    return 2;
+    return 1;
 }
 
 static inline int __fastcall MISSMODE_SrvDmgHitHandler_005B01F0(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, int bForceCollision)
