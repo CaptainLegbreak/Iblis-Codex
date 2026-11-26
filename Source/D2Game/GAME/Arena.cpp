@@ -43,12 +43,12 @@ static int __stdcall ARENA_HasFlag(D2GameStrc* pGame, unsigned int nFlag)
 {
     D2ArenaStrc* pArena = pGame->pArenaCtrl;
     D2_ASSERT(pArena, 39);
-    return (pArena->fFlags & nFlag) != 0;
-}
+    if (pArena->fFlags & nFlag)
+    {
+        return 1;
+    }
 
-int __fastcall sub_K10_EmitArenaTestFlag(D2GameStrc* pGame)
-{
-    return ARENA_HasFlag(pGame, 0x800);
+    return 0;
 }
 
 // 0x0053F4B0
@@ -76,17 +76,6 @@ static int ARENA_IsPlayerUnit_Inlined(D2UnitStrc* pUnit)
     return pUnit && pUnit->dwUnitType == UNIT_PLAYER;
 }
 
-static int __stdcall ARENA_TestFlag_Inlined(D2GameStrc* pGame, unsigned int nFlag)
-{
-    D2ArenaStrc* pArena = pGame->pArenaCtrl;
-    D2_ASSERT(pArena, 39);
-    if (pArena->fFlags & nFlag)
-    {
-        return 1;
-    }
-
-    return 0;
-}
 
 // 0x0053F530
 void __fastcall ARENA_AllocArenaUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
@@ -155,7 +144,7 @@ unsigned int __fastcall ARENA_IsInArenaMode(D2GameStrc* pGame)
 // 0x0053FE70
 unsigned int __fastcall ARENA_ShouldTreatClassIdAsTemplateId(D2GameStrc* pGame)
 {
-    return ARENA_TestFlag_Inlined(pGame, GAMEFLAG_ARENA_CLASS_OR_TEMPLATE_ID);
+    return ARENA_HasFlag(pGame, GAMEFLAG_ARENA_CLASS_OR_TEMPLATE_ID);
 }
 
 // 0x0053FEA0
@@ -197,11 +186,12 @@ int __fastcall ARENA_GetAlternateStartTown(D2GameStrc* pGame)
     return ptArena->nAlternateStartTown;
 }
 
-static D2ArenaStrc* ARENA_GetArenaCtrl_Inlined(D2GameStrc* pGame)
+// 0x0053F600
+static int ARENA_GetArenaType(D2GameStrc* pGame)
 {
     D2ArenaStrc* pArena = pGame->pArenaCtrl;
     D2_ASSERT(pArena, 0x6C);
-    return pArena;
+    return pArena->nType;
 }
 
 // 0x0053F630
@@ -211,7 +201,7 @@ static void __stdcall ARENA_UpdateScore(D2GameStrc* pGame, D2UnitStrc* pAttacker
     D2_ASSERT(bAttackerIsPlayer, 0x73);
     D2ArenaUnitStrc* pArenaUnit = UNITS_GetPlayerData(pAttacker)->pArenaUnit;
     D2_ASSERT(pArenaUnit, 0x77);
-    D2ArenaTxt* pArenaTxtRecord = DATATBLS_GetArenaTxtRecord(ARENA_GetArenaCtrl_Inlined(pGame)->nType);
+    D2ArenaTxt* pArenaTxtRecord = DATATBLS_GetArenaTxtRecord(ARENA_GetArenaType(pGame));
     D2_ASSERT(eScore < NUM_ARENA_SCORES, 0x7D);
     switch (eScore)
     {
@@ -386,18 +376,6 @@ int __cdecl ARENA_Return0()
     return 0;
 }
 
-// 0x0053F600
-static int ARENA_GetArenaType(D2GameStrc* pGame)
-{
-    D2ArenaStrc* pArena = pGame->pArenaCtrl;
-    D2_ASSERT(pArena, 0x6C);
-    return pArena->nType;
-}
-
-int __fastcall sub_M116_Emit_0053F600(D2GameStrc* pGame)
-{
-    return ARENA_GetArenaType(pGame) == 3;
-}
 
 // 0x0053FE00
 unsigned int __fastcall ARENA_TestArenaFlag40(D2GameStrc* pGame)
@@ -428,6 +406,6 @@ unsigned int __fastcall ARENA_TestArenaFlag200(D2GameStrc* pGame)
 // 0x0053FD10
 int __fastcall ARENA_IsActive(D2GameStrc* pGame)
 {
-    return ARENA_TestFlag_Inlined(pGame, GAMEFLAG_ARENA_ACTIVE);
+    return ARENA_HasFlag(pGame, GAMEFLAG_ARENA_ACTIVE);
 }
 
