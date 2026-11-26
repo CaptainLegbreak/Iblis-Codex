@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 08:39 PST 2026: dup-decls posted (287 duplicate private prototypes out of D2Client).
 - Thu Nov 26 08:24 PST 2026: 0x477170 judged the original\'s own pragma (Questions). All D2Client forcing rows are now parked with readings or waiting on a judgement; moving to scaffolding (private declarations shared headers already have).
 - Thu Nov 26 08:24 PST 2026: inv_0048BC10 investigated (Questions): the flip is a compiler tie in one lea, not a declaration count; the old rename no longer flips it on #424. Next: the D2Client forcing constructs.
 - Thu Nov 26 08:18 PST 2026: new focus: 0x62B5B0 paused on lane4/0062B5B0-wip; starting on inv_0048BC10.cpp\'s declarations (so it stops flipping on header changes), then the D2Client forcing constructs.
@@ -62,6 +63,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
+- lane4/dup-decls d731d5514 (on #424): scaffolding, D2Client part. 287 private prototypes in 78 D2Client files go: each repeated, with the same return type, convention and parameter types, a declaration the file already gets from a header it includes (D2ClientFuncs.h, D2CommonApi.h, FogApi.h, StormApi.h, D2LangApi.h and the others). Removed per file, kept out only where the unit stays equal (all 78 did); the eight declaration-count units untouched. Full build: Game.exe identical, tree 482b287533f2b39210927172904935e7a02c2fb8, placed 14,922 / 14,922, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
 
 ## Claimed
 
