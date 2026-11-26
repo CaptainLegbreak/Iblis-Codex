@@ -42,13 +42,13 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 577 |
+| Compilation units | 574 |
 | … in a file with its original name, whole | 309 |
-| … pieces of an original file still split (in 18 files) | 72 |
+| … pieces of an original file still split (in 18 files) | 69 |
 | … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 196 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 1823 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 1820 |
 | Unnamed fields (`unk0x..`) in the shared headers | 647 |
-| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 36 |
+| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 35 |
 | Calling-convention shims | 38 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
 | `__declspec(noinline)` / `__forceinline` | 110 / 180 |
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`, an `if`/`else` whose two arms are identical). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
 
-Not listed one by one: 3240 functions are compiled with `/GS-` and 1580 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 110 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
+Not listed one by one: 3239 functions are compiled with `/GS-` and 1581 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 110 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -548,7 +548,6 @@ Not listed one by one: 3240 functions are compiled with `/GS-` and 1580 with `/E
 | 0x006009C0 | D2CMP_LoadItemPalShift | `D2CMP/Unknown_006009C0.cpp` | compiler option /Od, compiler option /Oi, compiler option /Oy, without /Oy- |
 | 0x00613F80 | DATATBLS_LoadSkills_SkillDescTxt | `D2Common/DATATBLS/DataTbls_00613F80.cpp` | identical if/else arms |
 | 0x0061F500 | DATATBLS_LoadLvlSubTxt | `D2Common/DATATBLS/LvlTbls.cpp` | identical if/else arms |
-| 0x00621F90 | UNITS_AllocPlayerData | `D2Common/UNITS/Units.cpp` | volatile read or qualifier |
 | 0x0062FFF0 | ITEMS_SerializeItemComplete | `D2Common/ITEMS/Items.cpp` | identical if/else arms |
 | 0x006419F0 | D2Common_10406 | `D2Common/DRLG/Drlg.cpp` | volatile read or qualifier |
 | 0x00651040 | DATATBLS_ComputeMonStatsDepths | `D2Common/DATATBLS/MonsterTbls.cpp` | __assume |
