@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 13:55 PST 2026: Unknown_004A9BD0.cpp does not join npcmenu.cpp, now with evidence (Left in place). Next: Unknown_004D1300.cpp against Missile.cpp.
 - Thu Nov 26 13:54 PST 2026: check-in. #432 took npcmenu-piece-note (Ready line dropped); decls-d2client-hi and soundinst-join still merge clean on #433. editbox-join ready. Next: Unknown_004A9BD0.cpp into npcmenu.cpp.
 - Thu Nov 26 13:40 PST 2026: soundinst-join ready (two placeholders joined, noinline +2 with evidence). Next: editbox_004BB620.cpp into editbox.cpp, then Unknown_004A9BD0.cpp into npcmenu.cpp.
 - Thu Nov 26 13:28 PST 2026: decls-d2client-hi ready. Next, with the new evidenced-noinline ruling: the placeholder joins my notes parked on inlining, in my range: Unknown_004B93F0.cpp and SoundInst_004B9B50.cpp into SoundInst.cpp, editbox_004BB620.cpp into editbox.cpp, Unknown_004A9BD0.cpp into npcmenu.cpp (claimed below).
@@ -56,7 +57,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- **Joins in my range (0x4A0000 up), with the evidenced-noinline ruling:** SoundInst (Unknown_004B93F0.cpp: 0x4B95C0 inlined 0x4B9590, which the original calls; SoundInst_004B9B50.cpp: 0x4B9EF0 went unequal with it), EditBox (editbox_004BB620.cpp), and Unknown_004A9BD0.cpp into npcmenu.cpp (0x4B5C00/0x4B6D10 inlined 0x4B1D70, which the original calls). The board listed SoundInst and EditBox for lanes 4/5 after their forcing rows; they sit in my range, so I take them unless lane 4 has started.
+- **Joins in my range (0x4A0000 up), with the evidenced-noinline ruling:** SoundInst (Unknown_004B93F0.cpp: 0x4B95C0 inlined 0x4B9590, which the original calls; SoundInst_004B9B50.cpp: 0x4B9EF0 went unequal with it), EditBox (editbox_004BB620.cpp). The board listed SoundInst and EditBox for lanes 4/5 after their forcing rows; they sit in my range, so I take them unless lane 4 has started.
 - **Done (#431): SkillDesc join (file in pieces).** On #429, `UI/SkillDesc_004E1FF0.cpp` is not one piece: it spans 0x4E1FF0-0x4F48F0 and holds three language copies. Only its functions inside SkillDesc.cpp's run (0x4E6C50, 0x4E6D40, 0x4E6D90, 0x4E6E80, 0x4E6FF0, 0x4E7900, 0x4E9160, 0x4E9590, 0x4E9870, 0x4EB940, 0x4EDA20, 0x4EFC20-0x4EFCB0) join SkillDesc.cpp, in address order. The skill callbacks before 0x4E4640 and the tail (0x4F47B0, 0x4F48F0, and `SkillDesc_004F30A0.cpp`) are other objects' and stay, with the reason in a comment.
 
 ## In progress
@@ -100,6 +101,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Left in place (and why)
 
+- **Unknown_004A9BD0.cpp (0x4B17A0, 0x4B1D70) is not npcmenu.cpp's unit.** 0x4B5C00 and 0x4B6D10 call 0x4B1D70 (+0xA, +0x6C) and drop its result; 0x4B1D70 only reads (no side effects). Joined into npcmenu.cpp, the compiler inlines it, and with a noinline it deletes the call outright, since it sees the body has no effect. The original keeps the call, so its callers could not see the body: 0x4B1D70 was compiled in another object.
 - npcmenu.cpp's run, not npcmenu.cpp's as built, though they sit in its run on its .bss: 0x4B5BC0 (Unknown_004B5810.cpp: 0x4B18C0 changes with it there), 0x4B17A0/0x4B1D70 (Unknown_004A9BD0.cpp: 0x4B5C00/0x4B6D10 inline 0x4B1D70, the original calls it) and Monster.cpp's 0x4B17D0-0x4B1800/0x4B1D50/0x4B1DC0 (they don't build equal there). The calls the original keeps out of line suggest npcmenu.cpp's run is more than one unit; left for an object map.
 
 - SoundInst.cpp pieces: 0x4B95C0 (Unknown_004B93F0.cpp) on SoundInst's types builds, but in SoundInst.cpp it inlines 0x4B9590, which the original calls; 0x4B9B50 in SoundInst.cpp turns 0x4B9EF0 unequal. Both may be what they look like: code outside SoundInst.cpp's unit.
