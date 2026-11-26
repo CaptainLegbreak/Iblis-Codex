@@ -175,104 +175,91 @@ int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo); // 0x00679C80
 
 int __fastcall PATH_AStar_ComputePath(D2PathInfoStrc* pPathInfo); // 0x0067B850
 
+static inline void PATH_StepPoint(D2PathPointStrc* pPoint, int nDirection)
+{
+    pPoint->X += gatDirectionToOffset[nDirection].nX;
+    pPoint->Y += gatDirectionToOffset[nDirection].nY;
+}
+
+// 0x00679C80
 int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
 {
     D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
     pPath->dwCurrentPointIdx = 0;
     pPath->dwPathPoints = 0;
     if (pPath->nDirOffset)
-    {
         return sub_6FDAA720(pPathInfo);
-    }
+    D2PathPointStrc tNextPoint = pPathInfo->tTargetCoord;
+    pPath->PathPoints[0] = tNextPoint;
 
-    D2PathPointStrc nNextPoint = pPathInfo->tTargetCoord;
-    pPath->PathPoints[0] = nNextPoint;
-
-    if (PATH_CheckCollisionsToNextPosition(pPath, &nNextPoint))
+    if (PATH_CheckCollisionsToNextPosition(pPath, &tNextPoint))
     {
-        pPath->PathPoints[pPath->dwPathPoints] = nNextPoint;
-        pPath->dwPathPoints += 1;
+        pPath->PathPoints[pPath->dwPathPoints] = tNextPoint;
+        pPath->dwPathPoints++;
         return pPath->dwPathPoints;
     }
 
-    if (PATH_GetTableHeuristic(nNextPoint, pPathInfo->tTargetCoord) <= pPathInfo->field_14)
+    if (PATH_GetTableHeuristic(tNextPoint, pPathInfo->tTargetCoord) <= pPathInfo->field_14)
     {
-        pPath->PathPoints[pPath->dwPathPoints] = nNextPoint;
-        pPath->dwPathPoints += 1;
+        pPath->PathPoints[pPath->dwPathPoints] = tNextPoint;
+        pPath->dwPathPoints++;
         return pPath->dwPathPoints;
     }
 
+    D2PathPointStrc tCurCoords = pPathInfo->tStartCoord;
+    D2PathPointStrc tPoint = tCurCoords;
+    if (tCurCoords.X != tNextPoint.X || tPoint.Y != tNextPoint.Y)
     {
-        D2PathPointStrc tPoint = pPathInfo->tStartCoord;
-        D2PathPointStrc tCurCoords = pPathInfo->tStartCoord;
-        if (tPoint.X != nNextPoint.X || tPoint.Y != nNextPoint.Y)
-        {
-            pPath->PathPoints[pPath->dwPathPoints] = nNextPoint;
-            pPath->dwPathPoints += 1;
-            tPoint = nNextPoint;
-            tCurCoords = nNextPoint;
-        }
-
-        const int nDistMax = pPathInfo->nDistMax;
-        nNextPoint = pPathInfo->tTargetCoord;
-        int nPrevDir = 0xFF;
-        int nNewPointsCount = pPath->dwPathPoints;
-        int bNotStraightLine = 0;
-        int nCurDist = 0;
-        if (nDistMax > 0)
-        {
-            D2PathPointStrc* pPathPointsEnd = &pPath->PathPoints[pPath->dwPathPoints];
-            do
-            {
-                if (tCurCoords.X == nNextPoint.X && tCurCoords.Y == nNextPoint.Y)
-                {
-                    break;
-                }
-
-                bNotStraightLine = 0;
-                int aTestDir[3];
-// build: symbol ?PATH_GetDirections@* 0x00678D70
-                PATH_GetDirections(aTestDir, tPoint, nNextPoint);
-                int nDirection;
-                if (!sub_6FDAA880(tPoint, aTestDir, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDir)
-                {
-                    goto ADD_LAST_POINT;
-                }
-
-                tCurCoords.X += gatDirectionToOffset[nDirection].nX;
-                tCurCoords.Y += gatDirectionToOffset[nDirection].nY;
-                if (nDirection != nPrevDir)
-                {
-                    if (tPoint.X != pPathInfo->tStartCoord.X || tPoint.Y != pPathInfo->tStartCoord.Y)
-                    {
-                        *pPathPointsEnd = tPoint;
-                        nNewPointsCount += 1;
-                        ++pPathPointsEnd;
-                    }
-                    bNotStraightLine = 1;
-                }
-                tPoint = tCurCoords;
-                nPrevDir = nDirection;
-                nCurDist += 1;
-            }
-            while (nCurDist < nDistMax);
-
-            if (bNotStraightLine)
-            {
-                goto STORE_POINT_COUNT;
-            }
-        ADD_LAST_POINT:
-            if (nCurDist)
-            {
-                pPath->PathPoints[nNewPointsCount] = tPoint;
-                nNewPointsCount += 1;
-            }
-        }
-    STORE_POINT_COUNT:
-        pPath->dwPathPoints = nNewPointsCount;
+        tPoint = tNextPoint;
+        pPath->PathPoints[pPath->dwPathPoints] = tNextPoint;
+        pPath->dwPathPoints++;
+        tCurCoords = tPoint;
     }
-
-    return pPath->dwPathPoints;
+    tNextPoint = pPathInfo->tTargetCoord;
+    int nPrevDir = 0xFF;
+    int nNewPointsCount = pPath->dwPathPoints;
+    const int nDistMax = pPathInfo->nDistMax;
+    int bNotStraightLine = 0;
+    int nCurDist = 0;
+    if (nDistMax > 0)
+    {
+        D2PathPointStrc* pPathPointsEnd = &pPath->PathPoints[nNewPointsCount];
+        do
+        {
+            if (tCurCoords.X == tNextPoint.X && tCurCoords.Y == tNextPoint.Y)
+                break;
+            bNotStraightLine = 0;
+            int aTestDir[3];
+            PATH_GetDirections(aTestDir, tPoint, tNextPoint);
+            int nDirection;
+            if (!sub_6FDAA880(tPoint, aTestDir, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDir)
+                goto LABEL_20;
+            tCurCoords.X += gatDirectionToOffset[nDirection].nX;
+            tCurCoords.Y += gatDirectionToOffset[nDirection].nY;
+            if (nDirection != nPrevDir)
+            {
+                const D2PathPointStrc tPrev = tPoint;
+                if (tPrev.X != pPathInfo->tStartCoord.X || tPrev.Y != pPathInfo->tStartCoord.Y)
+                {
+                    *pPathPointsEnd = tPoint;
+                    ++nNewPointsCount;
+                    ++pPathPointsEnd;
+                }
+                bNotStraightLine = 1;
+            }
+            tPoint = tCurCoords;
+            nPrevDir = nDirection;
+            ++nCurDist;
+        } while (nCurDist < nDistMax);
+        if (bNotStraightLine)
+            goto LABEL_STORE;
+    LABEL_20:
+        if (nCurDist)
+            pPath->PathPoints[nNewPointsCount++] = tPoint;
+    }
+LABEL_STORE:
+    pPath->dwPathPoints = nNewPointsCount;
+    return nNewPointsCount;
 }
 
 // 0x00679A60
