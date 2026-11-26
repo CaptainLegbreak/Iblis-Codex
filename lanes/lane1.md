@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 13:05 PST 2026: skilldesc-run-join ready. The rest of SkillDesc_004E1FF0.cpp is not SkillDesc's (callbacks before 0x4E4640, the tail after 0x4EFCF0), so it stays. Next: the data those 17 functions read (gnTextOffset1/2, gnGlobal_0072D844/88C, gbTextOffsetInit, gbSkillRefreshInit: only SkillDesc reads them) as SkillDesc.cpp's, then npcmenu_004B5C60.cpp.
 - Thu Nov 26 12:20 PST 2026: lane 1 restarted (new chat), on #429. Taking my range back from lane 4: its handover list and Left in place notes are my starting point; lane 4's `names-sub-d2client` (Ready, covers my range too) stays with lane 4 to finish. Order: the two file joins first (SkillDesc, npcmenu), then my four forcing rows (0x4A9870, 0x4B8100, 0x4EB290, 0x4F2BE0) with fresh eyes on lane 4's readings, then scaffolding and names. Baseline build running.
 - Wed Nov 25 09:39:05 PST 2026: check-in. Main is still #402 and lane 2's decls-d2common-b isn't in, so SkillDesc joins stay paused. Ready is empty.
 - Wed Nov 25 09:06:59 PST 2026: check-in. lang-copies is on main, so Ready is empty. Lane 2's decls-d2common-b hasn't landed yet, so SkillDesc joins stay paused.
@@ -39,6 +40,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/skilldesc-run-join 0704b905a (on #429): SkillDesc.cpp takes the 17 functions of its run from SkillDesc_004E1FF0.cpp (0x4E6C50-0x4EFCB0), each after its address predecessor; the emit helpers of four uncalled statics move with them; 0x4EB940 calls SkillDesc.cpp's own SKILLDESC_DrawDamageRange (argument order fixed for its __fastcall signature) and getter in place of the piece's private copies, which go. Both units all equal. Full build: Game.exe identical, tree 9283e487e43e08006ee5d75c411779fadf1f773c, borrowed code / data 8,373 B / 261 B. Audit guard: no count rose.
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
 
