@@ -159,7 +159,7 @@ static int shim_2;
 
 void __stdcall shim_1(int nLength, int nY, int nWidth, int nPalette, int bCentered);
 
-// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
+// Kept noinline: a static that takes its arguments in registers; D2Win_10132 (0x5023B0) calls it out of line in the image (the #368 case).
 __declspec(noinline) static void __stdcall sub_00501A80_DrawString(const Unicode* wszText, int nX, int nY, int nWidth, int nPalette, int bCentered);
 
 extern unsigned int gaFontCharValidBits[8]; // 0x006DC9B8

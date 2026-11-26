@@ -327,7 +327,7 @@ void __stdcall TileAddAddSubTile(D2CmpTileStrc* pTile, unsigned char* pPixels, i
         pTile->nMinY = nY - 0x20;
 }
 
-// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
+// Kept noinline: a static that takes its arguments in registers; TileExtractFloorSubTile (0x609980) calls it out of line in the image (the #368 case).
 // 0x00609940
 static __declspec(noinline) int __stdcall TileHasNonKeyPixel(D2CmpColorStrc tColor, const unsigned char* pData)
 {

@@ -79,7 +79,7 @@ extern "C" void __fastcall BUTTON_SetBaseFrame(D2WinButtonStrc* ptBtnData, int n
     ptBtnData->nBaseFrame = nValue;
 }
 
-// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
+// Kept noinline: a static that takes its arguments in registers; BUTTON_Draw (0x500DB0) calls it out of line in the image (the #368 case).
 // 0x00500C20
 static __declspec(noinline) int BUTTON_IsPointInside(D2WinButtonStrc* pButton, int nX, int nY)
 {
