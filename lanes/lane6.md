@@ -2,11 +2,10 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 11:30 PT): decls-1, names-110 and globals-1 rebased onto #425 and reposted (below).
+Status (Thu Nov 26 2026, 10:45 PT): decls-1 merged (#426); names-110 and globals-1 ready (below). Now: prototypes several of my files share, into their module header.
 
 ## Ready
 
-- `lane6/decls-1` @ a92075e67 (redone on #425, as asked): 199 private prototypes in my modules that a header the file includes already declares with the same signature, across 38 files; CelCmp.cpp left as it was (its declaration order shapes its code). Full build identical, borrowed totals unchanged; namesync had nothing to rename.
 - `lane6/names-110` @ 944115d9b (redone on #425): D2Win's 0x007D55E8 takes the name gbDimBehindActiveList (set with the active control list, darkens the screen behind it; it carried a 1.10 address), and D2WinMain.cpp's int-typed second names of the focused edit box, the active control list and the Ctrl flag give way to the real globals (main's #425 already named 0x007D55E4 gfCtrlKeyDown; I use that). Full build identical.
 - `lane6/globals-1` @ 468a9bece (on top of names-110, so the two don't conflict in glCore.cpp): nine unused `gdwGlobal_<VA>` externs in CharSel_0042FFE0.cpp, glCore.cpp and CelCmp.cpp. #425 named the rest of what my first version did. Full build identical.
 
