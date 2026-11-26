@@ -193,7 +193,6 @@ static void __stdcall COLLISION_SetTileCollisionFlags(D2RoomCollisionGridStrc* p
 
 static void __stdcall COLLISION_SetCollisionMaskRect(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, unsigned short nFlags);
 
-void __fastcall COLLISION_ReplaceTileCollision(D2ActiveRoomStrc* pRoom, D2DrlgTileDataStrc* pTileData, D2TileLibraryEntryStrc* pTileLibraryEntry);
 
 
 

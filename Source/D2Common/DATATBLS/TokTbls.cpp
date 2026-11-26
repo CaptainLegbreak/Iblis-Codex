@@ -24,7 +24,6 @@ struct D2ObjModeTypeTxt
     char unk0x24[16];
 };
 
-extern "C" const char gszTxtField_end[];                                                                    // 0x006D9060
 
 int gnObjModeTypeTxtRecordCount;                                                                            // 0x0096D4C8
 

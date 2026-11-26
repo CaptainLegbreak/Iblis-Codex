@@ -130,7 +130,6 @@ void __fastcall DRLGMAZE_PlaceArcaneSanctuary(D2DrlgLevelStrc* pLevel);
 
 extern const D2MazeLavaSetStrc gnMazeAct5LavaSets[8];                                       // 0x006EF828
 
-extern const int gnMazeTombBaalPrevPresets[4][2];                                           // 0x006EF888
 
 extern const D2MazeLevelIdStrc gnAct1CavePrevIds[4];                                        // 0x006EF8A8
 

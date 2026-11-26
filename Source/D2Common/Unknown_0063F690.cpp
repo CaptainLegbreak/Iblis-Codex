@@ -7,7 +7,6 @@ struct D2TxtLinkStrc;
 
 
 
-extern "C" const char gszTxtField_end[];                                                                    // 0x006D9060
 extern D2ObjectsTxt* gpObjectsTxt;                                                                          // 0x0096D470
 int gnObjectsTxtRecordCount;                                                                                // 0x0096D474
 extern void* gpObjgroupTxt; // 0x0096D478

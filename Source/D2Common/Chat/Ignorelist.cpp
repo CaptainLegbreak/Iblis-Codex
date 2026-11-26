@@ -997,9 +997,7 @@ extern const char gszBangLineFormat[]; // 0x006E62A8
 
 void __cdecl operator delete(void* pMemory, void* pWhere) throw();
 
-extern "C" const char gszTypeNameStringEntryList[];                                                          // 0x0074366C
 
-extern "C" const char gszTypeNameMappingEntryList[];                                                         // 0x007436AC
 
 
 

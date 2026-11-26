@@ -15,7 +15,6 @@ struct D2ItemStatCostTxt;
 
 
 
-typedef void (__fastcall* StatListValueChangeFunc)(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nLayer_StatId, int nPreviousValue, int nNewValue);
 
 
 

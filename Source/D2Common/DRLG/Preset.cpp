@@ -70,7 +70,6 @@ struct D2RoomStrc;
 
 struct D2DrlgRoomStrc;
 
-extern "C" const char gszDrlgPresetSourceFile;                                                                    // 0x006EE7C4
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);          // 0x0040B430
 
@@ -283,7 +282,6 @@ extern const char gszPresetFile[]; // 0x006EE7C4
 
 int __fastcall sub_0045C3E0(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
-D2DrlgRoomStrc* __fastcall DRLGPRESET_BuildArea(D2DrlgLevelStrc* pLevel, D2DrlgMapStrc* pDrlgMap, int nFlags, int bSingleRoom);
 
 D2MapAIStrc* __fastcall DRLGPRESET_CreateCopyOfMapAI(void* pMemPool, D2MapAIStrc* pMapAI);
 

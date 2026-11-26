@@ -204,7 +204,6 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListSt
 
 inline int STATLIST_IsExtended(D2StatListStrc* pStatList);
 
-typedef void (__fastcall* StatListValueChangeFunc)(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nLayer_StatId, int nPreviousValue, int nNewValue);
 
 static int STATLIST_FindStatInsertIndex(D2StatsArrayStrc* pStatsArray, int nLayer_StatId);
 
