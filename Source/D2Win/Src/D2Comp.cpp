@@ -315,7 +315,6 @@ struct D2WinSmackStrc;
 
 struct D2WinListStrc;
 
-extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
 

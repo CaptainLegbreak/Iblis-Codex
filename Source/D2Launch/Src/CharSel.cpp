@@ -459,13 +459,11 @@ D2ComInterfaceStrc* __cdecl sub_00518C00();                                     
 
 int __fastcall UNICODE_StrLen(const Unicode* pString);                                                      // 0x00526800
 
-extern "C" const char* const gapszSkyPalette[2];                                                   // 0x006D3A08
 
 #include "gen/data/Source/D2Launch/Src/CharSel/gnSelectionA.inc"
 
 extern D2WinControlStrc* gpGatewayList;                                                                // 0x00779590
 
-extern D2ConfigStrc* gpLaunchRecord;                                                         // 0x007795D4
 
 D2WinControlStrc* gpList_0077995C;                                                                          // 0x0077995C
 
@@ -481,7 +479,6 @@ D2WinControlStrc* gpCharDescriptionText; // 0x007799F0
 
 D2WinControlStrc* gpControl_007799F4;                                                                       // 0x007799F4
 
-extern int ganRowValues_007799FC[];                                                                         // 0x007799FC
 
 D2WinControlStrc* gpScrollUpButton; // 0x00779A1C
 
@@ -641,7 +638,6 @@ class BNGatewayAccess;
 
 void __cdecl CHARSEL_CreateCharListControls(); // 0x0043A800
 
-extern int gnLaunchMode; // 0x007795EC
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 
@@ -660,7 +656,6 @@ extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 
 int gdwGlobal_00779DB8; // 0x00779DB8
 
-extern int gbFlag_00779DD8; // 0x00779DD8
 
 class BNGatewayAccess
 {
@@ -702,7 +697,6 @@ extern int gdwGlobal_0077AC04; // 0x0077AC04
 
 void __cdecl sub_00518C20_DeleteQueueLock(); // 0x00518C20
 
-extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
 
@@ -887,7 +881,6 @@ extern const int gnFlagClear0;                                                  
 
 extern const int gnFlagClear1;                                                                     // 0x006CE2FC
 
-extern int gnVisibleRows;                                                                          // 0x0070CC0C
 
 int gnListTop_007799FC;                                                                                     // 0x007799FC
 

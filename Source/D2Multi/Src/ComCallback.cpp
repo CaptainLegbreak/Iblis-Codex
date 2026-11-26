@@ -121,7 +121,6 @@ extern D2WinControlStrc* gpNamesButton; // 0x0077BD08
 
 extern D2LaunchNameNodeStrc* gpNameList; // 0x0077BDB4
 
-extern D2WinControlStrc* gpCreateButton; // 0x00798C28
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 

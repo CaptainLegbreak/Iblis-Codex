@@ -79,7 +79,6 @@ int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
 
 static int CodecDccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt); // 0x0060B2B0
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 
 
@@ -114,7 +113,6 @@ extern const unsigned int gadwDccSignExtend[33];                                
 
 extern "C" const unsigned int gData_006E6030[33]; // 0x006E6030
 
-extern unsigned int gdwBitMasks_006CE268[];                                                                 // 0x006CE268
 
 void __stdcall CodecDccDecodeCells(D2DccDirStrc* pDir, D2DccCellStrc* pCells, D2CmpBitCursorStrc* pEqual, D2CmpBitCursorStrc* pMask, D2CmpBitCursorStrc* pEncoding, D2CmpBitCursorStrc* pRaw, D2CmpBitCursorStrc* pCode, D2CmpByteRunStrc* pRun, int* pnBitsUsed); // 0x0060B9A0
 

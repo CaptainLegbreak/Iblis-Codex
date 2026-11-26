@@ -46,7 +46,6 @@ static void __cdecl GRID_CopyDecodedKeys(Byte** first, Byte** second); // 0x0052
 static void* GRID_LoadKeyFile(const char* szFileName, unsigned int* pSize); // 0x00523480
 
 // build: base-profile
-extern "C" unsigned int __security_cookie; // 0x00749DE0
 
 extern "C" void __fastcall __security_check_cookie(unsigned int cookie); // 0x00681A48
 

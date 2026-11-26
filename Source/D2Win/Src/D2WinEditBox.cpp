@@ -102,7 +102,6 @@ static void EDITBOX_DeleteSelection(D2WinEditBoxStrc* pEditBox); // 0x004FE9F0
 
 struct D2WinControlStrc;
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 
 #define D2WIN_MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -115,7 +114,6 @@ extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSiz
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 
-extern int gnWinCallbackDepth;                                                                     // 0x007D55C4
 
 
 static int EDITBOX_HasSelection(D2WinEditBoxStrc* pEditBox); // 0x004FDC70

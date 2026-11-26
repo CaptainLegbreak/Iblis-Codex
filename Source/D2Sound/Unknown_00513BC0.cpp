@@ -16,7 +16,6 @@
 #include "FogApi.h"
 #include "StormApi.h"
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 
 

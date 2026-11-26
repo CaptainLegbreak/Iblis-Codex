@@ -193,7 +193,6 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 
 struct D2WinScrollBarStrc;
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 
 extern "C" int __fastcall SCROLLBAR_GetScrollBarField48(D2WinScrollBarStrc* ptScrollbarData); // 0x00507EF0

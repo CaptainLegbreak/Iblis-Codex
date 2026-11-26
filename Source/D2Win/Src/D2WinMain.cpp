@@ -281,7 +281,6 @@ D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName,
 
 extern "C" const char gszD2XVideoMpq[]; // 0x006DC788
 
-extern unsigned int gdwInvBitMasks[]; // 0x006CE2E8
 
 extern int gbAppActive; // 0x0072DC44
 

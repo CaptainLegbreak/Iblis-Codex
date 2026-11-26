@@ -27,7 +27,6 @@ void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* 
 
 extern "C" const char gszLRUCacheSourceFile[];                                                              // 0x006E5F1C
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 
 
