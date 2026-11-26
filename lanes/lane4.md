@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 05:25 PST 2026: taking 0x62B5B0 (coordinator, lane 2 silent).
 - Thu Nov 26 04:19 PST 2026: checking in every 30 minutes; nothing in Ready, nothing addressed to lane 4.
 - Thu Nov 26 02:11 PST 2026: checking in every 30 minutes; nothing in Ready, nothing addressed to lane 4. The open D2Client audit rows need evidence or lane 3\'s stpl.h (above).
 - Thu Nov 26 00:03 PST 2026: plain-types is in #424. Nothing in Ready.
@@ -58,6 +59,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
+- 0x62B5B0 (borrowed, from lane 2 per the coordinator, Thu Nov 26 05:25 PST 2026): on `lane4/0062B5B0`, starting from lane2/0062B5B0-wip and lane 2\'s readings. If lane 2 comes back we settle on the board who keeps it.
 
 
 ## Questions
