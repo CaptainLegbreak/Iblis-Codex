@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Drlg.h"
@@ -62,10 +63,6 @@ D2MissilesTxt* __fastcall sub_0046ACE0(int); // 0x0046ACE0
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc*,int); // 0x00451F30
 
 
-int __stdcall D2Common_11098(D2FieldStrc*,int*,int*); // 0x0066A5D0
-
-
-void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
 struct UnitFindArgStrc
 {

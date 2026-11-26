@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 
 #include "D2Win32Base.h"
 
@@ -124,8 +125,6 @@ void __fastcall DRLGROOM_GetRGB_IntensityFromRoomEx(D2DrlgRoomStrc* pDrlgRoom, u
 
 D2ActiveRoomStrc* __fastcall DRLGWARP_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int nLevelId, int nTileIndex, int* pX, int* pY); // 0x0066B2B0
 
-D2PresetUnitStrc* __fastcall DRLGROOM_GetPresetUnits(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BFA0
-
 void __fastcall DRLGACTIVATE_SetClientIsInSight(D2DrlgStrc* pDrlg, int nLevelId, int nX, int nY, D2DrlgRoomStrc* pDrlgRoom); // 0x0061B640
 
 void __fastcall DRLGACTIVATE_UnsetClientIsInSight(D2DrlgStrc* pDrlg, int nLevelId, int nX, int nY, D2DrlgRoomStrc* pDrlgRoom); // 0x0061B690
@@ -197,8 +196,6 @@ typedef char sub_G03_AssertRoomSeed[(int)&((D2ActiveRoomStrc*)0)->pSeed == 0x6C 
 typedef char sub_G03_AssertRoomNext[(int)&((D2ActiveRoomStrc*)0)->pRoomNext == 0x7C ? 1 : -1];
 
 typedef char sub_G03_AssertActPool[(int)&((D2DrlgActStrc*)0)->pMemPool == 0x5C ? 1 : -1];
-
-void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
 
 void __fastcall DRLGROOM_SetRoom(D2DrlgRoomStrc* pDrlgRoom, D2ActiveRoomStrc* pRoom); // 0x0066BFC0
@@ -283,8 +280,6 @@ void __stdcall DUNGEON_GameToClientTileDrawPositionCoords(int nX, int nY, int* p
 
 void __stdcall UNITROOM_SortUnitListByTargetY(D2ActiveRoomStrc* pRoom); // 0x0064C0C0
 
-D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
-
 
 
 void __fastcall DRLGROOM_InitNearRooms(void* pContext, D2CommonLevelNodeStrc* pNode); // 0x0066C370
@@ -295,8 +290,6 @@ D2UniqueNameTxt* gpUniqueNameTxtTables[4]; // 0x0096D488
 int gnUniqueNameTxtRecordCounts[4]; // 0x0096D498
 
 Unicode gwszDataTablesDefault; // 0x0096D4B4
-
-D2DrlgEnvironmentStrc* __fastcall DUNGEON_GetEnvironmentFromAct(D2DrlgActStrc* pAct);                       // 0x0061AA60
 
 int gStatsClientAllocatedRooms;                                                                             // 0x0096C8B8
 
@@ -330,17 +323,9 @@ enum D2C_J07DungeonConstants
 
 extern const int gnTownLevelIdsByAct[5]; // 0x006E7D1C
 
-int __fastcall DRLG_GetHoradricStaffTombLevelId(D2DrlgStrc* pDrlg); // 0x00642230
-
 
 void __fastcall DRLGROOM_InitNearRooms(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom); // 0x0066C370
 
-
-void __fastcall DRLG_CreateRoomForRoomEx(D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoom); // 0x006422A0
-
-D2DrlgStrc* __fastcall DRLGROOM_GetDrlgFromRoomEx(D2DrlgRoomStrc* pRoom); // 0x0066C0B0
-
-int __fastcall DRLG_IsOnClient(D2DrlgStrc* pDrlg); // 0x00642A00
 
 // 0x006194A0
 D2DrlgActStrc* __stdcall DUNGEON_AllocAct(unsigned char nAct, unsigned int nInitSeed, int bClient, D2GameStrc* pGame, unsigned char nDifficulty, void* pMemPool, int nTownLevelId, AUTOMAPFN pfAutoMap, TOWNAUTOMAPFN pfTownAutoMap)

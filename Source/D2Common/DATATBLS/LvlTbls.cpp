@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 
 #include "D2DataTbls.h"
 
@@ -78,8 +79,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 D2LevelDefBin* gpLevelDefBin; // 0x0096C890
 
-void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
-
 extern "C" const char gszTxtFieldEnd[]; // 0x006D9060
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
@@ -135,16 +134,10 @@ struct D2AutomapIndexStrc
     int nEnd;
 };
 
-void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
-
-void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
-
 
 extern D2SeedStrc* gpAutomapSeed; // 0x00744504
 
 D2AutomapRecordStrc* gpAutomapRecords; // 0x0096CA28
-
-int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId); // 0x0066C040
 
 int gnLvlwarpTxtRecordCount; // 0x0096CA04
 
@@ -308,8 +301,6 @@ struct D2EnvironmentCycleStrc
 };
 
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount(); // 0x006CC260
-
-D2DrlgEnvironmentStrc* __fastcall DUNGEON_GetEnvironmentFromAct(D2DrlgActStrc* pAct); // 0x0061AA60
 
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0

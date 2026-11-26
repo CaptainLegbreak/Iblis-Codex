@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
@@ -15,7 +16,6 @@ struct D2DrlgCoordsStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619EE0
 D2UnitStrc** __fastcall DUNGEON_GetUnitListFromRoom(D2ActiveRoomStrc* pRoom); // 0x00619F60
 D2UnitStrc** __fastcall DUNGEON_GetUnitUpdateListFromRoom(D2ActiveRoomStrc* pRoom, int bUpdate); // 0x00619F90

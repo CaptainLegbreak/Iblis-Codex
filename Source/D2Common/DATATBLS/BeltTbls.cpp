@@ -1,12 +1,11 @@
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 #include "D2Records.h"
 #include "D2ClientTypes.h"
 #include "D2TxtItems.h"
 #include "FogApi.h"
 
 D2BeltsTxt* sgptBeltInitStats;                                                                                       // 0x0096D4F8
-
-void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize);// 0x006122F0
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 

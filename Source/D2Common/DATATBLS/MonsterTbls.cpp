@@ -1,6 +1,7 @@
 #include "D2ItemTypes.h"
 
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 
 #include "D2Structs.h"
 
@@ -129,8 +130,6 @@ extern D2TxtLinkStrc* gTxtLink_0096BC4C; // 0x0096BC4C
 
 void __fastcall DATATBLS_MonStatsSkillModeLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00651150
 
-void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
@@ -236,8 +235,6 @@ int __stdcall FOG_GetStringFromLinkIndex(D2TxtLinkStrc* pLinker, int nIndex, cha
 extern "C" D2ItemTypesTxt* __fastcall SUNIT_GetTableRow(int index); // 0x00555C90
 
 
-D2ItemDataTbl* __stdcall DATATBLS_GetItemDataTables(); // 0x00633590
-
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 D2TCExShortStrc* __fastcall DATATBLS_NewTreasureClassEx(const char* szTreasureClass); // 0x00653F90
@@ -271,8 +268,6 @@ extern "C" unsigned int __cdecl strlen(const char* sz);
 D2TCExShortStrc* gpTreasureClassEx; // 0x0096C5EC
 
 extern "C" const char gszTxtField_magic[]; // 0x006DCFBC
-
-D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
 D2TxtLinkStrc* gpMonUModLinker; // 0x0096C87C
 

@@ -15,6 +15,7 @@
 #include "D2DrlgPresets.h"
 #include "D2DrlgTiles.h"
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 #include "D2StormLink.h"
 #include "FogApi.h"
 
@@ -37,8 +38,6 @@ unsigned int __fastcall sub_006C9A38(const char* szString);                     
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
-
-D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId);                // 0x00633640
 
 D2MonPresetTxt* __stdcall DATATBLS_GetMonPresetTxtActSection(int nAct, int* pnRecords);                     // 0x00659B40
 
@@ -77,12 +76,8 @@ void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);         // 0x0040B480
 
-D2LvlPrestTxt* __stdcall DATATBLS_GetLvlPrestTxtRecord(int nLvlPrestId);                                                  // 0x0061F0B0
 
 
-
-
-void __fastcall DRLGVER_FreeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertices);                              // 0x0067D1E0
 
 
 struct D2PresetUnitStrc* __fastcall DRLGROOM_AllocPresetUnit(D2DrlgRoomStrc* pDrlgRoom, void* pMemPool, int nUnitType, int nIndex, int nMode, int nX, int nY);   // 0x0066BF30
@@ -95,23 +90,13 @@ void __fastcall DRLGPRESET_AddPresetUnitToDrlgMap(void* pMemPool, D2DrlgMapStrc*
 
 int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordStrc* pCoord, int nX, int nY);                                          // 0x0066B980
 
-void __fastcall DRLGGRID_FillNewCellFlags(void* pMemPool, D2DrlgGridStrc* pGrid, int* pCellFlags, D2DrlgCoordStrc* pCoord, int nWidth);   // 0x0067CCC0
-
 
 
 D2LvlPrestTxt* __fastcall DATATBLS_GetLvlPrestTxtRecordFromLevelId(int nLevelId);                                                  // 0x0061F0E0
 
-D2DrlgMapStrc* __fastcall DRLGPRESET_AllocDrlgMap(D2DrlgLevelStrc* pLevel, int nLvlPrestId, D2DrlgCoordStrc* pDrlgCoord, D2SeedStrc* pSeed);   // 0x00666ED0
-
-int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId);                                                  // 0x0066C040
-
-D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId);                                     // 0x00642BB0
 
 
 
-
-
-D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                                         // 0x00640E90
 
 
 
@@ -297,8 +282,6 @@ static void __stdcall DRLGPRESET_InitPopsLocations(D2DrlgMapStrc* pDrlgMap, int 
 extern const char gszPresetFile[]; // 0x006EE7C4
 
 int __fastcall sub_0045C3E0(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
-
-void __fastcall DRLG_SetLevelPositionAndSize(D2DrlgStrc* pDrlg, D2DrlgLevelStrc* pLevel); // 0x00642D10
 
 D2DrlgRoomStrc* __fastcall DRLGPRESET_BuildArea(D2DrlgLevelStrc* pLevel, D2DrlgMapStrc* pDrlgMap, int nFlags, int bSingleRoom);
 

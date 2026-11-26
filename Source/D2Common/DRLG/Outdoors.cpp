@@ -33,6 +33,7 @@
 #include "D2PathFind.h"
 
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 
 #include "D2Structs.h"
 
@@ -92,8 +93,6 @@ extern "C" const int gdwAct12ShrineFlags[4]; // 0x006F061C
 
 struct D2DrlgStrc;
 
-int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId); // 0x0066C040
-
 #define BORDER 2
 
 #define CELL_OFFSET 1
@@ -114,19 +113,13 @@ struct D2DrlgOrthStrc;
 
 struct D2DrlgCoordStrc;
 
-D2DrlgMapStrc* __fastcall DRLGPRESET_AllocDrlgMap(D2DrlgLevelStrc* pLevel, int nLvlPrestId, D2DrlgCoordStrc* pDrlgCoord, D2SeedStrc* pSeed); // 0x00666ED0
-
 int __fastcall DRLGPRESET_SetPickedFileInDrlgMap(D2DrlgMapStrc* pDrlgMap, int nPickedFile); // 0x00666EC0
-
-D2DrlgRoomStrc* __fastcall DRLGPRESET_BuildArea(D2DrlgLevelStrc* pLevel, D2DrlgMapStrc* pDrlgMap, int nFlags, int bSingleRoom); // 0x00667ED0
 
 
 static void DRLGOUTDOORS_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel);
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
-
-void __fastcall DRLGVER_CreateVertices(void* pMemPool, D2DrlgVertexStrc** ppVertices, D2DrlgCoordStrc* pDrlgCoord, unsigned char nDirection, D2DrlgOrthStrc* pDrlgOrth); // 0x0067D050
 
 
 void __fastcall sub_0067E890(D2DrlgLevelStrc* pLevel); // 0x0067E890
@@ -137,10 +130,6 @@ void __fastcall DRLGOUTWILD_InitAct1OutdoorLevel(D2DrlgLevelStrc* pLevel); // 0x
 
 static void DRLGOUTDOORS_ScaleAndMergeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex);
 
-void __fastcall DRLGROOM_FreeRoomData(void* pMemPool, D2DrlgOrthStrc* pDrlgOrth);                           // 0x0066B530
-
-
-void __fastcall DRLGVER_FreeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertices);                        // 0x0067D1E0
 
 // 0x00674320
 static int __cdecl DRLGOUTDOORS_PickNextPresetFile(D2DrlgLevelStrc* pLevel, int nPresetId)
@@ -844,8 +833,6 @@ int __fastcall DRLGOUTDOORS_GetBorderLookupId(D2DrlgLevelStrc* pLevel, bool bFla
 extern int gaDesertBorderIds[][2]; // 0x006F112C
 
 void __fastcall DRLGOUTPLACE_SetBlankBorderGridCells(D2DrlgLevelStrc* pLevel); // 0x00675670
-
-void __fastcall DRLGVER_GetCoordDiff(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY); // 0x0067D280
 
 // 0x00675850
 void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel)

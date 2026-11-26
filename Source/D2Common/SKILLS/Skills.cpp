@@ -17,6 +17,7 @@
 #include "D2StatIds.h"
 
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 
 #include "D2Structs.h"
 
@@ -171,10 +172,6 @@ extern const int gaIdaStar_PointCacheHashMaskY[]; // 0x006F1B98
 int __stdcall UNITROOM_AddUnitToRoomEx(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nUnused); // 0x0064C2C0
 
 
-void __fastcall PATH_GetDirectionVector(D2CoordStrc* pDirectionVector, int* pOutDirection, unsigned int dwStartPrecisionX, unsigned int dwStartPrecisionY, unsigned int dwTargetPrecisionX, unsigned int dwTargetPrecisionY); // 0x0064FC60
-
-void __fastcall PATH_GetDirectionVectorFromPoints(D2CoordStrc* pDirectionVector, int* pOutDirection, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0064FD70
-
 void __fastcall DRLGTILESUB_ApplySubstitutionBorder(D2UnkOutdoorStrc* pOutdoor); // 0x00670750
 
 void __fastcall DRLGOUTDOORS_AlterAdjacentPresetGridCells(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674160
@@ -199,10 +196,6 @@ void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, 
 void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc* pUnit); // 0x004DC0B0
 
 
-int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit); // 0x00622D00
-
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
-
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
@@ -212,8 +205,6 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned
 
 int __fastcall SKILLS_CalcSpecialParamCallback(int nParamId, void* pUserData); // 0x00646BE0
 
-
-int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 void __stdcall SKILLS_RefreshSkill(D2UnitStrc* pUnit, int nSkillId); // 0x00646D60
 
@@ -286,14 +277,8 @@ int __stdcall D2Common_11014_ConvertShapeShiftedMode(int nArrayIndex, int nMonst
 int __stdcall ITEMS_GetWeaponAttackSpeed(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0062A710
 
 
-D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
 
-
-int __stdcall STATLIST_CopyStats(D2UnitStrc* pUnit, int nStatId, D2StatStrc* pStat, int nArraySize); // 0x006261D0
-
-
-int __stdcall COLLISION_RayTrace(D2ActiveRoomStrc* pRoom, D2CoordStrc* pBegin, D2CoordStrc* pEnd, int nCollisionMask); // 0x0064E260
 
 
 
@@ -310,8 +295,6 @@ int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int n
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
 
 int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
-
-D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
 
 struct D2SkillFormulaCtxStrc { D2UnitStrc* pUnit; int nSkillId; int nSkillLevel; };
 
@@ -354,14 +337,6 @@ int __fastcall STATES_CheckStateMaskRestrictOnUnit(D2UnitStrc* pUnit); // 0x0063
 
 inline D2SkillStrc* __fastcall SKILLS_GetSkillInl(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);
 
-D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
-
-D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
-
-D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
-
-int __stdcall INVENTORY_GetEquippedWeapon(D2InventoryStrc* pInventory, D2UnitStrc** ppItem, int* pBodyLoc, int* pIsLeftHand); // 0x0063C9B0
-
 
 
 D2TCExShortStrc* gpChestTreasureClasses[45]; // 0x0096C5F4
@@ -377,8 +352,6 @@ int __stdcall COMPOSIT_IsWeaponBowOrXBow(D2UnitStrc* pUnit); // 0x0064F460
 
 
 
-int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInventory); // 0x0063D340
-
 int __stdcall STATLIST_GetMaxDamageFromUnit(D2UnitStrc* pItem, int a2); // 0x00625E60
 
 
@@ -387,8 +360,6 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);                                 // 0x00650E40
 
 int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
@@ -422,8 +393,6 @@ int __fastcall STATES_CheckStateMaskRestrictOnUnit(D2UnitStrc* pUnit, D2SkillStr
 
 static int __stdcall SKILLS_IsPointOutsideTown(int nX, int nY, D2UnitStrc* pUnit); // 0x00645C60
 
-
-void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150
 

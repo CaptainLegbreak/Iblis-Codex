@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "FogApi.h"
@@ -7,7 +8,6 @@ struct D2TxtLinkStrc;
 
 
 extern "C" const char gszTxtField_end[];                                                                    // 0x006D9060
-void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize);// 0x006122F0
 extern D2ObjectsTxt* gpObjectsTxt;                                                                          // 0x0096D470
 int gnObjectsTxtRecordCount;                                                                                // 0x0096D474
 extern void* gpObjgroupTxt; // 0x0096D478

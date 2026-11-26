@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 #include "D2PathFind.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -44,8 +45,6 @@ extern const D2CoordStrc gatDirectionToOffset[8]; // 0x006F1798
 int __stdcall sub_6FDAA880(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo); // 0x006793E0
 
 static int __stdcall PATH_RayTrace(D2PathPointStrc tStartCoord, D2PathPointStrc* pPathDestination, D2DynamicPathStrc* pDynamicPath); // 0x00679720
-
-int __fastcall sub_6FDAA720(D2PathInfoStrc* pPathInfo); // 0x00679B30
 
 typedef int BOOL;
 
