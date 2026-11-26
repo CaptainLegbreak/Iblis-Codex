@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Thu Nov 26 15:40 PST 2026: join-game-e5a0 posted on #443 (Game.cpp pieces 3 -> 2: B7B0 stays apart with its note, D080 waits on stpl.h).
+- Thu Nov 26 15:25 PST 2026: join-game-e5a0 posted on #443 (Game.cpp pieces 3 -> 2: B7B0 stays apart with its note, D080 waits on stpl.h).
 
 - Thu Nov 26 14:58 PST 2026: joins tried and left with readings: Game_0044D080 (Storm-list template copies; needs stpl.h), text_0049C9C0 (one lea tie, like inv_0048BC10). Ready: game-b7b0-note.
 
