@@ -51,7 +51,7 @@ How far the sources are from reading like the original source tree. Byte matchin
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 40 |
 | Calling-convention shims | 38 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
-| `__declspec(noinline)` / `__forceinline` | 94 / 201 |
+| `__declspec(noinline)` / `__forceinline` | 94 / 185 |
 | Function names: blizzard / library / d2moo / inferred / placeholder | 478 / 87 / 5336 / 6493 / 2533 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -97,26 +97,26 @@ Not listed one by one: 4169 functions are compiled with `/GS-` and 1568 with `/E
 | 0x00401740 | ERRORMANAGER_SetReportText | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00401A30 | ?strrchr@@YAPADPADH@Z | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00401A40 | ERRORMANAGER_LockSymbols | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00401A70 | ERRORMANAGER_SetMiniDumpThreadName | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) |
-| 0x00401DF0 | sub_00401DF0_GetModuleFromAddr | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) |
-| 0x00401F10 | sub_00401F10_GetSymbolFromAddr | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) |
-| 0x004020D0 | sub_004020D0_GetLineFromAddr | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) |
-| 0x004021D0 | sub_004021D0_EnumerateModules | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) |
-| 0x00402280 | sub_00402280_SetSearchPath | `Fog/Unknown_00402280.cpp` | link-time code generation (/GL /LTCG) |
-| 0x00402370 | sub_00402370 | `Fog/Unknown_00402380.cpp` | link-time code generation (/GL /LTCG) |
-| 0x00402380 | sub_00402380_FindFileInPath | `Fog/Unknown_00402380.cpp` | link-time code generation (/GL /LTCG) |
-| 0x00402460 | sub_00402460_LoadModule | `Fog/Unknown_00402380.cpp` | calling-convention shim, link-time code generation (/GL /LTCG) |
-| 0x00402530 | sub_00402530_UnloadModule | `Fog/Unknown_00402530.cpp` | link-time code generation (/GL /LTCG) |
-| 0x004025F0 | sub_004025F0_StackWalk | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) |
-| 0x004026D0 | sub_004026D0_WriteMiniDump | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) |
-| 0x004027C0 | LOGMANAGER_DbgHelpThreadProc | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG), volatile read or qualifier |
+| 0x00401A70 | ERRORMANAGER_SetMiniDumpThreadName | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) (original) |
+| 0x00401DF0 | sub_00401DF0_GetModuleFromAddr | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) (original) |
+| 0x00401F10 | sub_00401F10_GetSymbolFromAddr | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) (original) |
+| 0x004020D0 | sub_004020D0_GetLineFromAddr | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) (original) |
+| 0x004021D0 | sub_004021D0_EnumerateModules | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) (original) |
+| 0x00402280 | sub_00402280_SetSearchPath | `Fog/Unknown_00402280.cpp` | link-time code generation (/GL /LTCG) (original) |
+| 0x00402370 | sub_00402370 | `Fog/Unknown_00402380.cpp` | link-time code generation (/GL /LTCG) (original) |
+| 0x00402380 | sub_00402380_FindFileInPath | `Fog/Unknown_00402380.cpp` | link-time code generation (/GL /LTCG) (original) |
+| 0x00402460 | sub_00402460_LoadModule | `Fog/Unknown_00402380.cpp` | calling-convention shim, link-time code generation (/GL /LTCG) (original) |
+| 0x00402530 | sub_00402530_UnloadModule | `Fog/Unknown_00402530.cpp` | link-time code generation (/GL /LTCG) (original) |
+| 0x004025F0 | sub_004025F0_StackWalk | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) (original) |
+| 0x004026D0 | sub_004026D0_WriteMiniDump | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) (original) |
+| 0x004027C0 | LOGMANAGER_DbgHelpThreadProc | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) (original), volatile read or qualifier |
 | 0x00402A90 | sub_00402A90_GetDbgHelpModuleRange | `Fog/Unknown_00402820.cpp` | volatile read or qualifier |
-| 0x00402AE0 | sub_00402AE0_ShutdownSymbols | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) |
+| 0x00402AE0 | sub_00402AE0_ShutdownSymbols | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) (original) |
 | 0x00402C10 | ERRORMANAGER_CompareUInt | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00402D60 | sub_00402D60_FormatStackFrame | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) |
+| 0x00402D60 | sub_00402D60_FormatStackFrame | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) (original) |
 | 0x00403040 | ??_H@YGXPAXIHP6EPAX0@Z@Z | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00403070 | ERRORMANAGER_DumpThread | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00403100 | sub_00403100_PrintFrames | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) |
+| 0x00403100 | sub_00403100_PrintFrames | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) (original) |
 | 0x00403A20 | ERRORMANAGER_DumpOtherThreads | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00403F60 | ERRORMANAGER_SetCrashHandler | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00403FA0 | ERRORMANAGER_CopyPathIfHasDirectory | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
@@ -135,7 +135,7 @@ Not listed one by one: 4169 functions are compiled with `/GS-` and 1568 with `/E
 | 0x00404C60 | sub_00404C60_EnumModulesPsapi | `Fog/Unknown_00404330.cpp` | compiler option /Oy, compiler option /Oy, without /Oy- |
 | 0x00404DC0 | sub_00404DC0_EnumModulesToolhelp | `Fog/Unknown_00404330.cpp` | compiler option /Oy, compiler option /Oy, without /Oy- |
 | 0x00404E60 | ERRORMANAGER_EnumLoadedModules | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00405250 | sub_00405250_DescribeAddress | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) |
+| 0x00405250 | sub_00405250_DescribeAddress | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) (original) |
 | 0x004067C0 | ERRORMANAGER_SetBasePathToCurrent | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004067D0 | ERRORMANAGER_GetKnownFolderPathA | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004068E0 | FOG_FOpenFile | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
