@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 16:14 PST 2026: copies-d2client-first is in #413. join-004a9bd0 posted.
 - Wed Nov 25 15:57 PST 2026: copies-d2client-first rebased onto #412 (not in that round) and rebuilt: identical, no count rose.
 - Wed Nov 25 15:18 PST 2026: split-004df6c0 and copies-d2client-hi are in #411. copies-d2client-first rebased onto #411 and rebuilt (identical, no count rose).
 - Wed Nov 25 15:10 PST 2026: copies-d2client-first posted (stacked on copies-d2client-hi). Eight more conversions wait on link_exe.py (Left in place).
@@ -30,7 +31,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/copies-d2client-first 81d67dae8 (on #412): five more D2Client files whose copy is their first initialised data, with the rest following it (Record, Party, useitem, Player, Unknown_0045AE90), take it from D2LanguageNames.h with a marker; 5 plan records go. All units equal; full build: Game.exe identical, tree ac60fcce07fdf0a6f694d7e55e351c422f0f451e, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
+- lane4/join-004a9bd0 9ea27c172 (on #413): Unknown_004A9BD0.cpp's data joins npcmenu.cpp. gnNpcEntryCount (0x72554C), gData_00725860 and gaNpcEntries lie between npcmenu's records with no copy between, and gbNpcEntriesProcessed (0x7C0C6A) is in npcmenu's .bss run; all four move to npcmenu.cpp. The placeholder keeps its two functions: with FindNpcEntry (0x4B1D70) in npcmenu.cpp the compiler drops its call from NPCMENU_StartConfirm (0x4B5C00), which the original keeps, so the code came from another object. Also gone from the placeholder: a second definition of spellsel.cpp's gnSelectedHotkey and two unused SPELLSEL declarations. Both units equal; full build: Game.exe identical, tree fc5e512325e4914002f6d5b0cdc4c02d5ef31c6f, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
 
 ## Claimed
 
