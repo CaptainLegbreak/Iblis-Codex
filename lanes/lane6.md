@@ -6,7 +6,7 @@ Status (Wed Nov 25 2026, 16:55 PT): two branches ready (below). The four open fo
 
 ## Ready
 
-- `lane6/names-params` @ acd2055a3 (on #413): the decompiler-style parameter names (`a1`..`a11`) in lane 6's modules get names, 92 uses, none left in my folders. Names only; full build identical, 14,922 / 14,922 placed, borrowed code 8,373 B in 5 functions, borrowed data 261 B; auditguard: a1/v12 names 1896 -> 1804, no count rose. Touches D2Launch.h (one prototype) and CharSel/MainMenus/ComCallback prototypes of D2Win exports.
+- `lane6/names-params` @ d053c7883 (on #413, two commits): MainMenus.cpp loses an unused private U16 type block (the audit's decompiler-types row for my modules, 4 -> 0); and the decompiler-style parameter names (`a1`..`a11`) in lane 6's modules get names, 92 uses, none left in my folders. Names only; full build identical, 14,922 / 14,922 placed, borrowed code 8,373 B in 5 functions, borrowed data 261 B; auditguard: a1/v12 names 1896 -> 1804, no count rose. Touches D2Launch.h (one prototype) and CharSel/MainMenus/ComCallback prototypes of D2Win exports.
 - `lane6/forcing-4fbf30` @ 43723fe19 (on #412): 0x004FBF30 TEXTBOX_Draw without the `volatile` read. The column width was kept in two variables that always held the same value; with one width variable the column pointer gets its stack home as in the original. Numbered locals named. Equal; full build identical, 14,922 / 14,922 placed, borrowed code 8,373 B in 5 functions, borrowed data 261 B; auditguard: no count rose (a1/v12 names 1926 -> 1896).
 
 
