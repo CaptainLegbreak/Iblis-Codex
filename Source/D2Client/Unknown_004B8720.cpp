@@ -41,7 +41,6 @@ int __cdecl sub_004B8BA0_OnClose2(); // 0x004B8BA0
 
 
 int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
-void __fastcall SOUNDINST_SetValue(int nKey, int nValue); // 0x004B9B50
 extern D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
 
 D2ClientDialogStrc* gpTradeRequestDialog; // 0x007C0E64
@@ -64,7 +63,6 @@ void __cdecl INV_ResetStashPanel(); // 0x00489F50
 
 void __fastcall INV_SetTradePanelOpen(int bOpen); // 0x00489360
 
-void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
 
 

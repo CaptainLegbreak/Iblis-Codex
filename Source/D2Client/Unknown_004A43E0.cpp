@@ -1124,7 +1124,6 @@ extern void* gapQuestIconCels[]; // 0x007BF2E1
 
 extern unsigned char gabQuestFlagsA[]; // 0x007BF356
 
-void __stdcall TEXT_LoadQuestPage(int nPage, int bReset); // 0x004A3220
 
 static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg); // 0x004A1950
 
@@ -1157,7 +1156,6 @@ static void TEXT_SetQuestPage(int nPageArg); // 0x004A2220
 
 void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg);
 
-void __cdecl QUESTLOG_DrawQuestPage(); // 0x004A34F0
 
 void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg);
 

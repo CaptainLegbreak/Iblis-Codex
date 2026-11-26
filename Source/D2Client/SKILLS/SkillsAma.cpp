@@ -73,7 +73,6 @@ static int MONSTERS_GetBaseIdInline_J03(int nMonsterId)
 
 
 
-int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
 
 
 // 0x004F4C20

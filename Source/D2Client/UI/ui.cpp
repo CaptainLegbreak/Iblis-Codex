@@ -137,12 +137,10 @@ void __cdecl CHAT_InitChatIme(); // 0x0047B090
 void __cdecl sub_0047B4D0_Nop(); // 0x0047B4D0
 
 
-void __fastcall TEXT_ToggleKeyConfigPanel(int nArg); // 0x004A5200
 
 
 void __cdecl TEXT_ResetNpcPanel(); // 0x00491940
 
-void __cdecl sub_004B8920_ClearTradeGold(); // 0x004B8920
 
 void __cdecl INV_ClearPanelPage(); // 0x0048A680
 
@@ -150,7 +148,6 @@ void __cdecl INV_LoadStashPanelCels(); // 0x00489E50
 
 void __cdecl INV_LoadCubePanelCel(); // 0x0048A4B0
 
-void TEXT_OpenMessageLogDialog(); // 0x004A0050
 
 
 extern D2MsgHandlerEntryStrc gaGameUIHandlers[]; // 0x006D5F28
@@ -256,7 +253,6 @@ void __cdecl INV_ClearGoldDialogFlag(); // 0x004A7A80
 
 void __cdecl UI_CloseGoldDialog(); // 0x00453EE0
 
-void __fastcall sub_004B9110_SendGoldRequest(unsigned long nGold); // 0x004B9110
 
 
 
@@ -265,9 +261,7 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg
 
 void __fastcall DIALOG_DrawDialog(void* pObj); // 0x004B8100
 
-void __cdecl TEXT_ToggleListDialogUI(); // 0x004A02F0
 
-void __cdecl NPCMENU_CloseTrade(); // 0x004B69E0
 
 D2UiControlAStrc* gpGoldControlA; // 0x007A27A4
 
@@ -309,7 +303,6 @@ const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
-int __fastcall MONSTER_IsUniqueMonster(D2UnitStrc* pUnit); // 0x004AE360
 
 int __fastcall UI_GetHoverRect(D2RectStrc* pRect); // 0x00454880
 
@@ -322,7 +315,6 @@ int __fastcall AUTOMAP_GetHoverMonsterName(D2UnitStrc* pUnit, unsigned short nAr
 void __fastcall GAME_SetHoverLine(const Unicode* pText, int nColor); // 0x00452520
 
 
-int __cdecl TEXT_IsTextBoxOpen(); // 0x004A0000
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
@@ -497,17 +489,12 @@ void __cdecl sub_0049CF50_SendWaypointClose(); // 0x0049CF50
 
 void __cdecl sub_0049FF00_Nop(); // 0x0049FF00
 
-void __cdecl TEXT_CloseMessageLogDialog(); // 0x004A01A0
 
-void __cdecl QUESTLOG_ResetQuestButton(); // 0x004A28D0
 
 extern "C" void __cdecl QUESTLOG_ResetQuestButtonState(); // 0x004A3000
 
-void __cdecl sub_004ABF10_ClearSkillStates(); // 0x004ABF10
 
-void __cdecl NPCMENU_CloseByState(); // 0x004B3F10
 
-void __fastcall sub_004B8940_CloseWait(int bReopen); // 0x004B8940
 
 
 
@@ -539,11 +526,9 @@ D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit); // 0x00454F30
 
 
-void __fastcall TEXT_UpdateTexts(D2ViewStrc* pView); // 0x004A0E70
 
 void __cdecl sub_0047E3D0_DrawOptions(); // 0x0047E3D0
 
-void __cdecl TEXT_DrawKeyConfigPanel(); // 0x004A5270
 
 void __cdecl UI_DrawPetHover(); // 0x00452D20
 
@@ -562,16 +547,12 @@ void __cdecl INV_DrawMercPanel(); // 0x004929F0
 
 void __stdcall INV_DrawRecipeScroll(); // 0x0048BC10
 
-void __cdecl QUESTLOG_DrawQuestPage(); // 0x004A34F0
 
 void __cdecl INV_DrawInventoryPanel(); // 0x0048EDF0
 
-void __cdecl sub_004B8730_DrawDialogHover(); // 0x004B8730
 
 
-void __cdecl sub_004AC690_DrawSkillPanel(); // 0x004AC690
 
-void __cdecl sub_004A7D00_DrawCharStats(); // 0x004A7D00
 
 void __cdecl PANEL_DrawPartyPanel(); // 0x0049C3D0
 
@@ -585,23 +566,16 @@ void __cdecl sub_00494EB0_DrawHelpShade(); // 0x00494EB0
 
 void __cdecl PANEL_DrawControlPanel(); // 0x00499450
 
-void __cdecl SPELLSEL_ResetSkillIcons(); // 0x004AA7E0
 
 void __cdecl PANEL_SetBeltExpandedMode(); // 0x00498E90
 
-void __cdecl TEXT_UpdateLevelUpButtons(); // 0x004A64C0
 
 void __cdecl VIEW_DrawHelpButtons(); // 0x00495180
 
-void __cdecl TEXT_DrawStatButton(); // 0x004A6B30
 
-void __cdecl sub_004A6A70_DrawLeftPanelButton(); // 0x004A6A70
 
-void __cdecl TEXT_DrawSkillButton(); // 0x004A6E60
 
-void __cdecl sub_004A6DA0_DrawRightPanelButton(); // 0x004A6DA0
 
-void __cdecl QUESTLOG_DrawQuestButton(); // 0x004A2A80
 
 void __cdecl PANEL_DrawLifeManaText(); // 0x00498120
 
@@ -611,11 +585,8 @@ void __cdecl CHAT_DrawChatPanel(); // 0x0047B720
 
 void __cdecl INV_DrawHelpScreen(); // 0x004966C0
 
-void __cdecl SHOWITEMS_DrawUnitNames(); // 0x004C0810
 
-void __cdecl NPCMENU_UpdateNpcInteract(); // 0x004B4380
 
-void __cdecl USEITEM_DrawPanelUnit(); // 0x004C01E0
 
 void __cdecl WARDENCLIENT_DrawHostileIcon(); // 0x00496B10
 
@@ -696,7 +667,6 @@ void __fastcall CURSOR_SetCursorPosition(int nA, int nB);                       
 
 void __cdecl CHAT_ClearChatLine();                                                                                // 0x0047BDC0
 
-void __cdecl TEXT_CloseKeyCaptureHandlers();                                                                                // 0x004A5DE0
 
 extern const int gaUIVarDefaults[];                                                                // 0x006D6378
 
@@ -750,44 +720,25 @@ void __cdecl PANEL_FreePartyCels(); // 0x0049C0F0
 
 void __cdecl TEXT_CloseWaypointPanel(); // 0x0049C700
 
-void __cdecl TEXT_FreeTextLists(); // 0x004A0010
-
-void __cdecl TEXT_FreeTextResources(); // 0x004A0680
-
-void __cdecl QUESTLOG_FreeQuestPanel(); // 0x004A2600
-
-void __cdecl TEXT_ClearQuestFlags(); // 0x004A3020
-
-void __cdecl sub_004A3050_ResetQuestPages(); // 0x004A3050
-
-void __cdecl TEXT_FreeTextSliderCel(); // 0x004A51E0
-
-void __cdecl TEXT_FreeLevelCels(); // 0x004A6480
-
-void __cdecl sub_004A7AA0_InitTextEntryLengths(); // 0x004A7AA0
-
-void __cdecl sub_004A7AD0_Nop(); // 0x004A7AD0
-
-void __cdecl SPELLSEL_InitSkillIcons(); // 0x004A8A30
-
-void __cdecl SPELLSEL_FreeSkillIcons(); // 0x004A8C00
-
-void __cdecl sub_004AA920_LoadPanelCel(); // 0x004AA920
-
-void __cdecl sub_004AA980_FreePanelCel(); // 0x004AA980
 
 
-void __cdecl NPCMENU_ResetNpcMenu(); // 0x004B32F0
 
-void __cdecl DIALOG_FreeDialogs(); // 0x004B7B50
 
-void __cdecl sub_004B8720_ResetTradeState(); // 0x004B8720
 
-void __cdecl sub_004B91F0_CloseWait(); // 0x004B91F0
 
-void __cdecl sub_004BE060_FreeSliderCel(); // 0x004BE060
 
-void __cdecl USEITEM_FreeUseItemPanel(); // 0x004C0100
+
+
+
+
+
+
+
+
+
+
+
+
 
 void __stdcall D2Win_10116(); // 0x005015F0
 
@@ -888,7 +839,6 @@ struct D2UiControlCStrc : D2UiControlBaseStrc
 
 
 
-void __cdecl TEXT_SetGoldDialogFlag();                                                                                // 0x004A7A90
 
 void __fastcall sub_004898A0_DisableGoldButton(int nMode);                                                                    // 0x004898A0
 
@@ -2279,18 +2229,12 @@ void __cdecl TEXT_InitWaypointData(); // 0x0049C6A0
 
 void __cdecl TEXT_LoadTextSettings(); // 0x0049D440
 
-void __cdecl TEXT_ResetQuestPanel(); // 0x004A3410
-
-void __cdecl TEXT_InitTextSlider(); // 0x004A5190
-
-void __cdecl TEXT_LoadLevelCels(); // 0x004A6460
 
 
-void __cdecl DIALOG_InitDialogs(); // 0x004B7B40
 
-void __cdecl TEXT_LoadTextSliderCel(); // 0x004BE020
 
-void __cdecl USEITEM_InitUseItemPanel(); // 0x004BF9D0
+
+
 
 // 0x004549F0
 static void __stdcall UI_DrawHoverCenteredText(const Unicode* wszText, int nFont, int nY, int nColor)

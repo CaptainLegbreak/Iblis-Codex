@@ -143,11 +143,8 @@ void __cdecl ROSTER_SortGroupMembers(); // 0x004799C0
 
 void __cdecl ROSTER_JoinRosterGroups(); // 0x00479A00
 
-void __fastcall PLAYERLIST_AddRosterInfo(int nUnitId1, int nUnitId2); // 0x004DC320
 
-void __fastcall GFXUTIL_SetRelationFlag(int nUnitId1, int nUnitId2, unsigned int nFlags, int bSet); // 0x004DC3E0
 
-void __fastcall GFXUTIL_SetRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC4C0
 
 
 static D2StoredUnitRecordStrc* gpStoredUnits; // 0x007BB5C0
@@ -169,7 +166,6 @@ void __cdecl ROSTER_BuildRosterGroups();                                        
 D2StoredUnitRecordStrc* __cdecl ROSTER_LeaveParty();                                                  // 0x00479F60
 
 
-D2RosterInfoStrc** __cdecl PLAYERLIST_AllocRosterInfoList();                                              // 0x004DC270
 
 // build: symbol ?ROSTER_SetCtrlState@* 0x004B8370
 struct ROSTER_SetCtrlState

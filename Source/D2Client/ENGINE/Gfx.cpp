@@ -171,7 +171,6 @@ int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, 
 
 void __stdcall TEXTURE_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, unsigned char nColor); // 0x004F6570
 
-int __stdcall PARTICLE_GetGfxClientY(D2UnitStrc* pUnit); // 0x004DA0D0
 
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
 
@@ -190,7 +189,6 @@ D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void* pGfx); // 0x0
 
 void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
 
-int __fastcall GFXUTIL_UpdateUnitGfx(D2UnitStrc* pUnit, int nLayer); // 0x004DB670
 
 
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
@@ -235,7 +233,6 @@ void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOve
 
 int __cdecl D2Win_10185_CheckCharMpq(); // 0x004FAC90
 
-void __cdecl GFXUTIL_InitModeTokens(); // 0x004DA790
 
 extern char gData_007A7490[0x460]; // 0x007A7490
 
@@ -484,7 +481,6 @@ D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequ
 
 
 
-void __stdcall GFXUTIL_UpdateMotion(D2UnitStrc* pUnit);                                                // 0x004DA350
 
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                                                        // 0x0063EA40
 
@@ -910,7 +906,6 @@ extern unsigned int gnWeatherTick;                                              
 int* __fastcall MONSTER_GetAiValuePtr(D2UnitStrc* pUnit);                                                 // 0x004AE170
 void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pTarget);    // 0x004AFF60
 D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB);// 0x004CDB40
-void __stdcall GFXUTIL_UpdateMotion(D2UnitStrc* pUnit);                                                // 0x004DA350
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                                                        // 0x0063EA40
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask);         // 0x00648C30

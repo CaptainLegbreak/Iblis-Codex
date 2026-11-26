@@ -253,7 +253,6 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg
 
 
 
-void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
@@ -402,7 +401,6 @@ int __fastcall sub_00479150_GetOwnerId(int nUnitId); // 0x00479150
 
 
 
-void __fastcall SKILLSBAR_ResetLeapCollision(D2UnitStrc* pUnit); // 0x004C8B80
 
 
 extern "C" const char gszSkillsCppFile[]; // 0x006DAB88
@@ -460,9 +458,7 @@ unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 
 int __stdcall ITEMS_GetAmmoType(D2UnitStrc* pItem); // 0x0062E6F0
 
-int __fastcall SKILLS_FindEventFrame(D2UnitStrc* pUnit); // 0x004C9D70
 
-void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int nArg); // 0x004CB6A0
 
 void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
 
@@ -2946,7 +2942,6 @@ static inline D2UnitStrc* sub_004C9D50_FindDestinationById(D2UnitStrc* pUnit, in
     return sub_004C5EB0_FindDestination(pUnit, 0, 0, 3, 3, nUnitId, 0);
 }
 
-int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
 
 void __stdcall PATH_SetType(D2DynamicPathStrc* pPath, int nType); // 0x00648CF0
 
@@ -2986,12 +2981,8 @@ void __fastcall SKILLS_SpawnOffsetMissile(int nUnitId, int nUnused, D2UnitStrc* 
     }
 }
 
-int __fastcall MISSILE_SkillStartAtTargetPos(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004C95E0
 
-int __fastcall sub_004C96D0_CreateMissileAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004C96D0
 
-int __fastcall SKILLS_CltDoCharge(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004C9DB0
 
-int __fastcall sub_004CA030_TickEvent(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004CA030
 
 #include "gen/data/Source/D2Client/SKILLS/Skills.inc"
