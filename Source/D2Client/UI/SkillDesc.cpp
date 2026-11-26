@@ -1255,6 +1255,23 @@ static unsigned short SKILLDESC_GetSkillDescStrLong(int nSkillId)
     return pSkillDescTxt->wStrLong;
 }
 
+// 0x004E6E30
+static unsigned short sub_004E6E30_GetSkillDescAltStr(int nSkillId)
+{
+    D2SkillsTxt* pSkillsTxtRecord = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
+    D2SkillDescTxt* pSkillDescTxtRecord = 0;
+    if (pSkillsTxtRecord)
+    {
+        const int nSkillDesc = pSkillsTxtRecord->wSkillDesc;
+        pSkillDescTxtRecord = (nSkillDesc >= 0 && nSkillDesc < sgptDataTables->nSkillDescTxtRecordCount) ? &sgptDataTables->pSkillDescTxt[nSkillDesc] : 0;
+    }
+
+    if (!pSkillDescTxtRecord)
+        return 0x1506;
+
+    return pSkillDescTxtRecord->wStrAlt;
+}
+
 // 0x004E6E80
 static int SKILLDESC_ApplyAiCurseDivisor(int nValue)
 {
@@ -4130,19 +4147,6 @@ static inline int SKILLDESC_HasOnlyBonusLevels(D2UnitStrc* pUnit, int nSkillId)
 int __fastcall sub_M119_Emit_004ED530(D2UnitStrc* pUnit, int nSkillId)
 {
     return SKILLDESC_HasOnlyBonusLevels(pUnit, nSkillId);
-}
-
-static unsigned short sub_004E6E30_GetSkillDescAltStr(int nSkillId)
-{
-    D2SkillsTxt* pSkillsTxtRecord = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
-    D2SkillDescTxt* pSkillDescTxtRecord = 0;
-    if (pSkillsTxtRecord)
-    {
-        const int nSkillDesc = pSkillsTxtRecord->wSkillDesc;
-        pSkillDescTxtRecord = (nSkillDesc >= 0 && nSkillDesc < sgptDataTables->nSkillDescTxtRecordCount) ? &sgptDataTables->pSkillDescTxt[nSkillDesc] : 0;
-    }
-    if (!pSkillDescTxtRecord) return 0x1506;
-    return pSkillDescTxtRecord->wStrAlt;
 }
 
 static void __stdcall sub_004E9940_DrawNumberCentered(int nColor, int nLeft, int nY, int nRight, int nValue)

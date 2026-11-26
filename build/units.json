@@ -28254,17 +28254,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004E6E30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004E6E30",
-     "length": 77,
-     "name": "?sub_004E6E30_GetSkillDescAltStr@@YAGH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "rank": 0,
    "functions": [
@@ -31081,6 +31070,11 @@
      "va": "0x004E6DE0",
      "length": 77,
      "name": "?SKILLDESC_GetSkillDescStrLong@@YAGH@Z"
+    },
+    {
+     "va": "0x004E6E30",
+     "length": 77,
+     "name": "?sub_004E6E30_GetSkillDescAltStr@@YAGH@Z"
     },
     {
      "va": "0x004E6E80",
