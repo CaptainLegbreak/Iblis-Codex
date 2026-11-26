@@ -239,6 +239,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 D2TCExShortStrc* __fastcall DATATBLS_NewTreasureClassEx(const char* szTreasureClass); // 0x00653F90
 
+// Kept noinline: DATATBLS_ParseTreasureClassItem (0x00654440) calls it four times out of line in the image, and inlining it here changes that caller.
 __declspec(noinline) D2TCExInfoStrc* __fastcall DATATBLS_AddTreasureClassInfo(D2TCExShortStrc* pTCExShort); // 0x00654080
 
 void __fastcall DATATBLS_UpdateTreasureClassProbabilities(D2TCExShortStrc* pTCExShort, D2TCExInfoStrc* pTCExInfo, int nProbability, int bExpansion); // 0x006540C0

@@ -43,6 +43,7 @@ D2MonPresetTxt* __stdcall DATATBLS_GetMonPresetTxtActSection(int nAct, int* pnRe
 
 int __fastcall DATATBLS_GetSuperUniquesTxtRecordCount(); // 0x00655710
 
+// Kept noinline: DRLGPRESET_ParseDS1File (0x00665950) calls it twice out of line in the image, and inlining it here changes that caller.
 __declspec(noinline) int __fastcall SKILLDESC_ValidateMonsterId(int nMonsterId); // 0x004E6C50
 
 int __fastcall DRLGPRESET_MapTileType(int nId);                                                             // 0x0066D7F0

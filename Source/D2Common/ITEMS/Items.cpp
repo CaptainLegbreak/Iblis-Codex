@@ -1039,6 +1039,7 @@ extern "C" __declspec(dllexport) void __stdcall sub_00628070(Unit00628070* pUnit
     }
 }
 
+// Kept noinline: ITEMS_CalculateTransactionCost (0x0062EFB0) calls it twice out of line in the image, and inlining it here changes that caller.
 // 0x006280A0
 __declspec(noinline) unsigned int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile)
 {
@@ -7674,6 +7675,7 @@ void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet)
     }
 }
 
+// Kept noinline: ITEMS_GetColor (0x0062C100) calls it once out of line in the image, and inlining it here changes that caller.
 // 0x00639DF0
 __declspec(noinline) int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState)
 {
