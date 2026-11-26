@@ -1552,7 +1552,6 @@ static inline int AUTOMAP_UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag);
 
 
 
-extern const int gaTownSkipCels[];                                                                 // 0x006D6608
 
 struct D2CropRectStrc
 {

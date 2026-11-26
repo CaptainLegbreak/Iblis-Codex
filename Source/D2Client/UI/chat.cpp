@@ -880,7 +880,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
-extern int gbSmallPanel; // 0x007BC978
 
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
 
@@ -1553,7 +1552,6 @@ unsigned int __fastcall D2Win_10128(unsigned char nChar);                       
 
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
 
-extern int gbNoPickup;                                                                             // 0x007A6A90
 
 extern unsigned short gwChatHistoryCount;                                                          // 0x007BB5E4
 

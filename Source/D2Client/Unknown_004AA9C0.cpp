@@ -23,7 +23,6 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern "C" const char gszFormatD[];                                                                // 0x006D57BC
 extern int gnScreenWidth;                                                                               // 0x0071146C
-extern int gnScreenHeight;                                                                               // 0x00711470
 extern int gnPanelOffsetX;                                                                               // 0x007A2858
 extern int gnPanelOffsetY;                                                                               // 0x007A285C
 extern int gnSkillPage;                                                                               // 0x00724BEC
@@ -94,7 +93,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2UiCelFileStrc gaPanelCels[7]; // 0x00724BF0
 
 
-extern unsigned char gnCharClass; // 0x007A0522
 
 
 // 0x004AA900

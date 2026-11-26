@@ -514,7 +514,6 @@ extern unsigned char gbChatInputOpen;                                           
 
 extern int gnChatDrawCount;                                                                              // 0x007BB5EC
 
-extern int gbNoPickup;                                                                             // 0x007A6A90
 
 extern unsigned short gwChatHistoryCount;                                                          // 0x007BB5E4
 

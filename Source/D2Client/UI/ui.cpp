@@ -253,7 +253,6 @@ void __cdecl INV_ReturnToStashState(); // 0x00489880
 void __cdecl INV_ClearGoldDialogFlag(); // 0x004A7A80
 
 
-extern unsigned int gnGoldPanelValue; // 0x007A2A68
 
 void __cdecl UI_CloseGoldDialog(); // 0x00453EE0
 
@@ -915,7 +914,6 @@ int __cdecl UI_ConfirmGoldDialog();                                             
 
 int __cdecl UI_CancelGoldDialog();                                                                                 // 0x00454140
 
-extern int gnGoldPanelMode;                                                                        // 0x007A279C
 
 void* gpGoldPanel;                                                                                    // 0x007A27A0
 
