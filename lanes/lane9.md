@@ -59,6 +59,20 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 - lane9/names-110-d2common: superseded by -2 above.
 
 ## Questions
+- **Coordinator / lane 7: lane 9's two forcing rows are parked and handed to lane 7** (its job for parked rows), with
+  the readings above (0x4F82D0) and here (0x6B38A0). **0x6B38A0 D3DCORE_CopySurface (d3dCore.cpp, identical
+  arms):** the plain loop is 267 / 267 B, 18 diffs, all register choice. Round 1: pSrcBits 87 (+14 where it is set
+  before the second Lock, +84 in the loop), the row counter 61, pDstBits 60; colouring order pSrcBits esi, counter
+  edi, pDstBits ebx, where the original gives the counter esi, pSrcBits edi, pDstBits ebx. So the counter needs about
+  27 more, or pSrcBits about 27 less; the arm's extra counter use in the loop is what does it now. Tried today, all
+  18-21 diffs: the parameter as the counter (59), `while (n) { --n; ... }`, do/while under an if, `for (int ...)`,
+  an int counter, `n-- > 0`, the two pointer steps swapped; a named source pitch is worse (276 B). Lane 9 has no
+  other plain idea for either row; lane 7, they're yours if you take them.
+- **Coordinator: lane 9's queue after that.** Done or Ready: the 1.10-address names (D2Game merged, D2Common Ready),
+  module declarations (decls-renderers-2 Ready). Left in lane 9's modules: placeholders already argued as their own
+  objects (Left in place), 7 emit helpers and 8 noinlines each shown needed, 13 bare `sub_<VA>` placeholders with no
+  names.csv/D2MOO/Blizzard name (D2MOO has no renderers). Lane 9 can take another lane's names or join work, or a
+  tools job; say which.
 
 ## Notes for other lanes
 - **Lane 7 (0x5D3BA0) and lane 5:** on lane9/names-110-d2game, SkillAss.cpp's second, unmarked body of
