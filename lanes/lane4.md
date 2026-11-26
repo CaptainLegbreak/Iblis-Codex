@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 18:06 PST 2026: data-owners-3 is in #417. Nothing in Ready.
 - Wed Nov 25 18:05 PST 2026: tried every remaining D2Client forcing construct this session (0x474160, 0x4A9870, 0x4B8100, 0x4F2BE0); all are register allocation or scheduling cases that no plain form reproduces so far (Left in place).
 - Wed Nov 25 17:56 PST 2026: joins-data-2 and questlog-data are in #416; data-owners-3 rebased onto #416 and rebuilt (identical, no count rose).
 - Wed Nov 25 17:38 PST 2026: sandwich scan over all D2Client data (a record whose neighbours on both sides are one other file, no copy between). Apart from data-owners-3\'s moves the hits are the split units (Game_0044D080/Game_0044E5A0/WINMAIN/Game/ui, inv/inv_004886C0, text/text_0049DA50: parts of one object each, so which unit holds a record changes nothing) and the skill-area tangle already in Left in place. **For lane 2 (D2Common):** sgptDataTables (0x744304) is planned in D2Client's UI/SkillDesc_004E1FF0.cpp as declared_owner, but it sits between DataTbls.cpp's copy (0x7442C8) and DATATBLS_LoadFromBin (0x744308), so it is DataTbls.cpp's definition. I have not moved it since the new owner file is yours.
@@ -37,7 +38,6 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/data-owners-3 89096fd09 (on #416): plan records that lie between another file's own records, with no copy between, move to that file: gaQuestSlots and gData_00723F00 (from text_0049A950.cpp) and gaQuestLookup_00723F38 (from View.cpp) to QuestLog.cpp; gaKeyTable (from CUnit.cpp) to CmdTbl.cpp (between its copy and gaHotkeyCommands). Each new owner is also the file that reads the table. View.cpp's data then stays in its own object, so its copy (0x712C10) comes from D2LanguageNames.h with a marker (one of the eight held conversions), and its plan entry drops the 27 quest-text externs only gaQuestLookup needed. Units equal; full build: Game.exe identical, tree 41a81d871b534d30fda32556ceb30596434c5592, data sections 10,068 -> 10,060 (the moved records share their owners' sections), borrowed code / data 8,373 / 261 B; audit guard: no count rose.
 
 ## Claimed
 
