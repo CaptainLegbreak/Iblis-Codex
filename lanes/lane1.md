@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 13:28 PST 2026: decls-d2client-hi ready. Next, with the new evidenced-noinline ruling: the placeholder joins my notes parked on inlining, in my range: Unknown_004B93F0.cpp and SoundInst_004B9B50.cpp into SoundInst.cpp, editbox_004BB620.cpp into editbox.cpp, Unknown_004A9BD0.cpp into npcmenu.cpp (claimed below).
 - Thu Nov 26 13:19 PST 2026: check-in. #431 took skilldesc-run-join (Ready line dropped). npcmenu-piece-note still ready, merges clean on #431. Building `decls-d2client-hi` on #431: 252 of my range's functions get one prototype in D2ClientFuncs.h and 334 private copies go from 57 files (all 116 including units equal, audit guard clean); full build running.
 - Thu Nov 26 13:07 PST 2026: 0x4EB290 retried plain on the joined SkillDesc.cpp (lane1/skilldesc-run-join): 10 forms, all the same esi/edi swap from +0x8 (the original keeps pUnit in edi and the level in esi; plain gives pUnit esi). Tried: plain copy, const and non-const; nSkillLevel used directly; the level copied before the record lookup; nColor computed at the draw call; the skill id read from the record at both calls; the early-out tests swapped; the body nested in one `if (pSkill && pSkillsTxt)`; pUnit copied to a local after the tests. Parked again. Next: my range's shared prototypes into D2ClientFuncs.h (lane 4's request), dropping the private copies.
 - Thu Nov 26 13:04 PST 2026: both branches rebuilt on #430 (identical) and repushed; Ready lines carry the new SHAs. Now: 0x4EB290 plain forms on the joined SkillDesc.cpp.
@@ -45,12 +46,14 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/decls-d2client-hi 7908be947 (on #431): D2ClientFuncs.h declares 252 D2Client functions from 0x4A0000 up once (each prototype taken from its definition, plus 16 forward-declared records), and 334 private copies of them go from 57 files that include the header. Left private, with the reason in the commit: copies whose types differ from the definition (87 functions), static/extern "C" definitions, 4 functions some file declares extern "C", prototypes using Unicode, and the 8 units that don't include the header. All 116 including units equal. Full build: Game.exe identical, tree 20e406e1e697913857059a1a10a13bbc79d0c694, borrowed code / data 8,373 B / 261 B. Audit guard: no count rose.
 - lane1/npcmenu-piece-note 5782f3466 (on #430): comment only. npcmenu_004B5C60.cpp says why NPCMENU_ShowMainMenu (0x4B5C60) can't join npcmenu.cpp: with /EHsc on npcmenu.cpp every other function there stays equal, but 0x4B5C60 swaps push esi / xor eax, eax at +0xCB wherever it and its declarations go (after 0x4B5C20, at the end, declarations at the top); its declarations match npcmenu.cpp's. Full build: Game.exe identical, tree a10fa57eb934c66262533b65441ad76e79138e1c, borrowed code / data 8,373 B / 261 B.
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
 
 ## Claimed
 
+- **Joins in my range (0x4A0000 up), with the evidenced-noinline ruling:** SoundInst (Unknown_004B93F0.cpp: 0x4B95C0 inlined 0x4B9590, which the original calls; SoundInst_004B9B50.cpp: 0x4B9EF0 went unequal with it), EditBox (editbox_004BB620.cpp), and Unknown_004A9BD0.cpp into npcmenu.cpp (0x4B5C00/0x4B6D10 inlined 0x4B1D70, which the original calls). The board listed SoundInst and EditBox for lanes 4/5 after their forcing rows; they sit in my range, so I take them unless lane 4 has started.
 - **Done (#431): SkillDesc join (file in pieces).** On #429, `UI/SkillDesc_004E1FF0.cpp` is not one piece: it spans 0x4E1FF0-0x4F48F0 and holds three language copies. Only its functions inside SkillDesc.cpp's run (0x4E6C50, 0x4E6D40, 0x4E6D90, 0x4E6E80, 0x4E6FF0, 0x4E7900, 0x4E9160, 0x4E9590, 0x4E9870, 0x4EB940, 0x4EDA20, 0x4EFC20-0x4EFCB0) join SkillDesc.cpp, in address order. The skill callbacks before 0x4E4640 and the tail (0x4F47B0, 0x4F48F0, and `SkillDesc_004F30A0.cpp`) are other objects' and stay, with the reason in a comment.
 
 ## In progress
