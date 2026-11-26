@@ -43,7 +43,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
-- lane9/decls-renderers-2 09b67cd9 (on #433): functions D2Gdi, D2DDraw, D2Direct3D and D2Glide define that other
+- lane9/decls-renderers-2 09b67cd9 (on #434): functions D2Gdi, D2DDraw, D2Direct3D and D2Glide define that other
   files of the same module declared privately are declared once in the module header (2 + 7 + 13 + 41), with the
   private copies' spelling, and the copies go; ten private copies of declarations an included header already had go
   too. Every includer of the four headers builds all equal; kept private where a unit differs or doesn't include the
