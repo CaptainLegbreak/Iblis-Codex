@@ -918,7 +918,7 @@ static void __stdcall INV_AppendItemFormulaText(D2UnitStrc* pItem, D2ItemsTxt* p
     {
         int nValue = ITEMMODS_EvaluateItemFormula(pPlayer, pItem, pRecord->dwCalc[0]);
         unsigned int wszText[0x100];
-        sub_005269D0(0x200, W(wszText), D2LANG_GetStringFromTblIndex(pRecord->wStringId), nValue);
+        sub_005269D0_FormatText(0x200, W(wszText), D2LANG_GetStringFromTblIndex(pRecord->wStringId), nValue);
         sub_00526700(pBuffer, W(wszText));
         sub_00526700(pBuffer, pLineEnd);
         break;
@@ -1633,7 +1633,7 @@ timer_done:
 
         const int nGoldLimit = UNITS_GetStashGoldLimit(sub_00463DD0_GetPlayerUnit());
         Unicode wszGold[100];
-        sub_005269D0(100, wszGold, D2LANG_GetStringFromTblIndex(0xFD3), nGoldLimit);
+        sub_005269D0_FormatText(100, wszGold, D2LANG_GetStringFromTblIndex(0xFD3), nGoldLimit);
         if (GAME_IsExpansion())
         {
             D2Win_10117_DrawText(wszGold, gnPanelOffsetX + 0x4E, gnScreenHeight + gnPanelOffsetY - 0x19F, 0, 0);

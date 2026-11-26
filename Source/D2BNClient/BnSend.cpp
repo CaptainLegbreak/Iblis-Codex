@@ -2530,7 +2530,7 @@ int __fastcall BNSEND_SetInfoText(const char* szText)
 }
 
 // 0x00520650
-void* __cdecl sub_00520650()
+void* __cdecl sub_00520650_GetInfoText()
 {
     return gszInfoText;
 }

@@ -1489,7 +1489,7 @@
     "extern \"C\" void __cdecl BNDOWNLOAD_RequestNamedFile(); // 0x00520020",
     "extern \"C\" void __cdecl BNMESSQUEUE_TakeMessage(); // 0x005203B0",
     "extern \"C\" void __cdecl BNMESSQUEUE_TakeState(); // 0x00520580",
-    "extern \"C\" void __cdecl sub_00520650(); // 0x00520650"
+    "extern \"C\" void __cdecl sub_00520650_GetInfoText(); // 0x00520650"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2BNClient/Unknown_00518C00.inc",
@@ -1510,7 +1510,7 @@
    "definitions": 3,
    "externs": [
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleChatEvent(); // 0x00520660",
-    "extern \"C\" void __cdecl sub_00520C40(); // 0x00520C40",
+    "extern \"C\" void __cdecl sub_00520C40_AlwaysOne(); // 0x00520C40",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleCreateAccount(); // 0x00520C50",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleCreateAccountEx(); // 0x00520C60",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleChangePassword(); // 0x00520C80",
@@ -1527,7 +1527,7 @@
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleServerList(); // 0x005210A0",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleGetChannelList(); // 0x005210C0",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleGetAdvListEx(); // 0x005210D0",
-    "extern \"C\" void __cdecl sub_005210E0(); // 0x005210E0",
+    "extern \"C\" void __cdecl sub_005210E0_AlwaysOne(); // 0x005210E0",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleEnterChat(); // 0x005210F0",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleGetFileTime(); // 0x00521110",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleCheckAd(); // 0x00521150",
@@ -78726,7 +78726,7 @@
      24,
      "0x00520650",
      "names.json",
-     "sub_00520650",
+     "sub_00520650_GetInfoText",
      0,
      "func"
     ],
@@ -79251,7 +79251,7 @@
      0,
      "0x00520C40",
      "names.json",
-     "sub_00520C40",
+     "sub_00520C40_AlwaysOne",
      0,
      "func"
     ],
@@ -79347,7 +79347,7 @@
      128,
      "0x005210E0",
      "names.json",
-     "sub_005210E0",
+     "sub_005210E0_AlwaysOne",
      0,
      "func"
     ],

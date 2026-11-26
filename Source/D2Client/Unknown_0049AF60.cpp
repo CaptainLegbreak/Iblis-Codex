@@ -213,7 +213,7 @@ static void PARTY_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
     else
     {
         const unsigned short nFormat = bE ? gawRosterHostileMale[nA][nC] : gawRosterHostileFemale[nA][nC];
-        sub_005269D0(0x80, wszLine1, D2LANG_GetStringFromTblIndex(nFormat), wszName);
+        sub_005269D0_FormatText(0x80, wszLine1, D2LANG_GetStringFromTblIndex(nFormat), wszName);
     }
     if (WINMAIN_IsHardcore())
     {
@@ -230,9 +230,9 @@ static void PARTY_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
         else
         {
             if (ROSTER_IsMaleClass(pEntry))
-                sub_005269D0(0x80, wszLine2, D2LANG_GetStringFromTblIndex(gawRosterLootMale[nB][nD]), wszName);
+                sub_005269D0_FormatText(0x80, wszLine2, D2LANG_GetStringFromTblIndex(gawRosterLootMale[nB][nD]), wszName);
             else
-                sub_005269D0(0x80, wszLine2, D2LANG_GetStringFromTblIndex(gawRosterLootFemale[nB][nD]), wszName);
+                sub_005269D0_FormatText(0x80, wszLine2, D2LANG_GetStringFromTblIndex(gawRosterLootFemale[nB][nD]), wszName);
         }
     }
     if (nA)

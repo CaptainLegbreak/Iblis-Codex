@@ -290,7 +290,7 @@ static __forceinline void Unicode_strcpy_Inline(Unicode* pDest, const Unicode* p
 }
 
 // 0x005269D0
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...)
+void __cdecl sub_005269D0_FormatText(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...)
 {
     if (!pFormat)
     {

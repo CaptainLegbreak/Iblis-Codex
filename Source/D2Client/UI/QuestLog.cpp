@@ -465,7 +465,7 @@ static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg)
             }
             else
             {
-                sub_005269D0(300, pMsg->wszText, D2LANG_GetStringFromTblIndex(0x5860), gnQuestParam);
+                sub_005269D0_FormatText(300, pMsg->wszText, D2LANG_GetStringFromTblIndex(0x5860), gnQuestParam);
             }
         }
 

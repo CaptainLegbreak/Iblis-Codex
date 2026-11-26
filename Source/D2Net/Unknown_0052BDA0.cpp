@@ -35,7 +35,7 @@ void __cdecl sub_0052BDB0_Empty()
 }
 
 // 0x0052BDC0
-int __cdecl sub_0052BDC0()
+int __cdecl sub_0052BDC0_GetValue()
 {
     return gdwGlobal_00882D14;
 }

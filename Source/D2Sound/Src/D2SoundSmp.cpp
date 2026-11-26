@@ -864,7 +864,7 @@ void __fastcall D2SOUNDSMP_ResetSound(D2SoundStrc* pSound)
     D2_ASSERT(!pSound->hStream, 0x227);
 
     EnterCriticalSection(&gtSoundLock);
-    if (sub_00513BB0())
+    if (sub_00513BB0_GetValue())
     {
         pSound->pData = 0;
         pSound->nDataSize = 0;

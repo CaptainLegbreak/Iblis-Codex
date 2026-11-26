@@ -592,7 +592,7 @@ void __cdecl INV_DrawButtonHoverText()
                 if (pPlayer && pNpc)
                 {
                     const int nNpcClass = pNpc->dwClassId;
-                    sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x276F),
+                    sub_005269D0_FormatText(0x100, wszText, D2LANG_GetStringFromTblIndex(0x276F),
                         ITEMS_GetAllRepairCosts(0, pPlayer, nNpcClass, GAME_GetDifficulty(), MONSTER_GetQuestFlags(), 0));
                     D2Win_10129_DrawFramedText(wszText, gaNpcButtonX[gnButtonRow][i] + gnPanelOffsetX,
                         gnScreenHeight + gnPanelOffsetY - 0x64, 0, 0);

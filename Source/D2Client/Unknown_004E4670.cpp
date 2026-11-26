@@ -588,18 +588,18 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
             if (nRate <= 30)
             {
                 const Unicode* pFormat = D2LANG_GetStringFromTblIndex(0x52F9);
-                sub_005269D0(128, pOut, pFormat, 1);
+                sub_005269D0_FormatText(128, pOut, pFormat, 1);
             }
             else
             {
                 const Unicode* pFormat = D2LANG_GetStringFromTblIndex(0x52FA);
-                sub_005269D0(128, pOut, pFormat, 1, (nRate + 12) / 25);
+                sub_005269D0_FormatText(128, pOut, pFormat, 1, (nRate + 12) / 25);
             }
         }
         else
         {
             const Unicode* pFormat = D2LANG_GetStringFromTblIndex(0x52F9);
-            sub_005269D0(128, pOut, pFormat, 25);
+            sub_005269D0_FormatText(128, pOut, pFormat, 25);
         }
         break;
     case 13:
@@ -648,7 +648,7 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
         if (nTab < 0 || nTab > 2)
             return 0;
 
-        sub_005269D0(256, pOut, D2LANG_GetStringFromTblIndex(pCharStats->wStrSkillTab[nTab]), nDisplay);
+        sub_005269D0_FormatText(256, pOut, D2LANG_GetStringFromTblIndex(pCharStats->wStrSkillTab[nTab]), nDisplay);
         sub_00526700(pOut, pSpace);
         sub_00526700(pOut, D2LANG_GetStringFromTblIndex(pCharStats->wStrClassOnly));
         break;
@@ -660,7 +660,7 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
         if (nSkillId <= 0 || nSkillId >= sgptDataTables->nSkillsTxtRecordCount)
             return 0;
 
-        sub_005269D0(256, pOut, D2LANG_GetStringFromTblIndex(pRecord->wDescStrPos), nDisplay, 0, nLevel, D2LANG_GetStringFromTblIndex(SKILLDESC_GetSkillDescStringId(nSkillId, 0)));
+        sub_005269D0_FormatText(256, pOut, D2LANG_GetStringFromTblIndex(pRecord->wDescStrPos), nDisplay, 0, nLevel, D2LANG_GetStringFromTblIndex(SKILLDESC_GetSkillDescStringId(nSkillId, 0)));
         break;
     }
     case 16:
@@ -669,7 +669,7 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
         if (!pSkillName)
             return 0;
 
-        sub_005269D0(256, pOut, pText, nDisplay, pSkillName);
+        sub_005269D0_FormatText(256, pOut, pText, nDisplay, pSkillName);
         break;
     }
     case 17:
@@ -724,7 +724,7 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
         break;
     }
     case 19:
-        sub_005269D0(256, pOut, pText, nDisplay);
+        sub_005269D0_FormatText(256, pOut, pText, nDisplay);
         break;
     case 22:
     {
@@ -809,7 +809,7 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
         sub_00526700(pOut, pSpace);
         sub_00526700(pOut, pSkillName);
         sub_00526700(pOut, pSpace);
-        sub_005269D0(128, wszValue, pText, nDisplay & 0xFF, nDisplay >> 8);
+        sub_005269D0_FormatText(128, wszValue, pText, nDisplay & 0xFF, nDisplay >> 8);
         sub_00526700(pOut, wszValue);
         break;
     }
@@ -994,36 +994,36 @@ static int __stdcall sub_004E5A20_BuildCombinedStatText(int nStatId, Unicode* pO
         if (!pCombined->tFire.bCombined)
             return 0;
         if (pCombined->tFire.nMin >= pCombined->tFire.nMax)
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE1C), pCombined->tFire.nMax);
+            sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(0xE1C), pCombined->tFire.nMax);
         else
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE1D), pCombined->tFire.nMin, pCombined->tFire.nMax);
+            sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(0xE1D), pCombined->tFire.nMin, pCombined->tFire.nMax);
         bAppend = 1;
         break;
     case 54:
         if (!pCombined->tCold.bCombined)
             return 0;
         if (pCombined->tCold.nMin >= pCombined->tCold.nMax)
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE1E), pCombined->tCold.nMax);
+            sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(0xE1E), pCombined->tCold.nMax);
         else
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE1F), pCombined->tCold.nMin, pCombined->tCold.nMax);
+            sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(0xE1F), pCombined->tCold.nMin, pCombined->tCold.nMax);
         bAppend = 1;
         break;
     case 50:
         if (!pCombined->tLightning.bCombined)
             return 0;
         if (pCombined->tLightning.nMin >= pCombined->tLightning.nMax)
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE20), pCombined->tLightning.nMax);
+            sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(0xE20), pCombined->tLightning.nMax);
         else
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE21), pCombined->tLightning.nMin, pCombined->tLightning.nMax);
+            sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(0xE21), pCombined->tLightning.nMin, pCombined->tLightning.nMax);
         bAppend = 1;
         break;
     case 52:
         if (!pCombined->tMagic.bCombined)
             return 0;
         if (pCombined->tMagic.nMin >= pCombined->tMagic.nMax)
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE22), pCombined->tMagic.nMax);
+            sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(0xE22), pCombined->tMagic.nMax);
         else
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE23), pCombined->tMagic.nMin, pCombined->tMagic.nMax);
+            sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(0xE23), pCombined->tMagic.nMin, pCombined->tMagic.nMax);
         bAppend = 1;
         break;
     case 57:
@@ -1035,9 +1035,9 @@ static int __stdcall sub_004E5A20_BuildCombinedStatText(int nStatId, Unicode* pO
         pCombined->tPoison.nMin = (pCombined->tPoison.nMin * pCombined->tPoison.nLength + 0x80) >> 8;
         pCombined->tPoison.nMax = (pCombined->tPoison.nMax * pCombined->tPoison.nLength + 0x80) >> 8;
         if (pCombined->tPoison.nMin >= pCombined->tPoison.nMax)
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE24), pCombined->tPoison.nMax, pCombined->tPoison.nLength / 25);
+            sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(0xE24), pCombined->tPoison.nMax, pCombined->tPoison.nLength / 25);
         else
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE25), pCombined->tPoison.nMin, pCombined->tPoison.nMax, pCombined->tPoison.nLength / 25);
+            sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(0xE25), pCombined->tPoison.nMin, pCombined->tPoison.nMax, pCombined->tPoison.nLength / 25);
         bAppend = 1;
         break;
     case 24:
@@ -1058,7 +1058,7 @@ static int __stdcall sub_004E5A20_BuildCombinedStatText(int nStatId, Unicode* pO
                 return 0;
             }
             pCombined->tDamage.bShown = 1;
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE27), pCombined->tDamage.nMin, pCombined->tDamage.nMax);
+            sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(0xE27), pCombined->tDamage.nMin, pCombined->tDamage.nMax);
         }
         bAppend = 1;
         break;
