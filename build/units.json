@@ -34158,6 +34158,14 @@
      "length": 436
     },
     {
+     "va": "0x00501DF0",
+     "length": 489
+    },
+    {
+     "va": "0x00501FE0",
+     "length": 419
+    },
+    {
      "va": "0x00502190",
      "length": 227,
      "name": "?D2Win_10126_DrawTextFromCache@@YAXPBUUnicode@@HH@Z"
@@ -34230,6 +34238,10 @@
      "name": "D2Win_AllocateSplitText"
     },
     {
+     "va": "0x00502970",
+     "length": 716
+    },
+    {
      "va": "0x00502C40",
      "length": 18,
      "name": "?D2WINFONT_ClearTable@@YIPAHPAH@Z"
@@ -34261,24 +34273,6 @@
      "va": "0x006CAE50",
      "length": 15,
      "name": "?sub_006CAE50_InitializeMonsterCode@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinFont_00501DF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00501DF0",
-     "length": 489
-    },
-    {
-     "va": "0x00501FE0",
-     "length": 419
-    },
-    {
-     "va": "0x00502970",
-     "length": 716
     }
    ]
   },
