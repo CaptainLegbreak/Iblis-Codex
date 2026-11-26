@@ -26,6 +26,7 @@
 #include "D2LangApi.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2Packets.h"
 
 struct D2ActiveRoomStrc;
 
@@ -47,15 +48,7 @@ struct D2GSPacketSrv4F;
 
 struct D2GSPacketSrv54;
 
-struct D2GSPacketSrv5E;
-
 struct D2GSPacketSrv66;
-
-struct D2GSPacketSrv77;
-
-struct D2GSPacketSrv89;
-
-struct D2GSPacketSrv8F;
 
 struct Unicode;
 
@@ -63,29 +56,11 @@ struct D2WinMsgStrc;
 
 struct D2UnitFlagsStrc;
 
-struct D2GSPacketSrv0C;
-
 struct D2GSPacketSrv0E;
 
 struct D2GSPacketSrv0F;
 
 struct D2GSPacketSrv17;
-
-struct D2GSPacketSrv4C;
-
-struct D2GSPacketSrv4D;
-
-struct D2GSPacketSrv67;
-
-struct D2GSPacketSrv68;
-
-struct D2GSPacketSrv69;
-
-struct D2GSPacketSrv6A;
-
-struct D2GSPacketSrv6B;
-
-struct D2GSPacketSrv6C;
 
 struct D2ClientPacket7Strc;
 
@@ -95,33 +70,21 @@ struct D2SaveChunkPacketStrc;
 
 struct D2ErrorPacketStrc;
 
-struct D2GSPacketSrv01;
-
 struct D2GSPacketSrv03;
 
 struct D2PlayerDataStrc;
-
-struct D2GSPacketSrv09;
 
 struct D2GSPacketSrv0A;
 
 struct D2GSPacketSrv0B;
 
-struct D2GSPacketSrv51;
-
 struct D2ItemStatCostTxt;
 
-struct D2GSPacketSrv0D;
-
 struct D2ClientUnitUpdateStrc;
-
-struct D2GSPacketSrv16;
 
 struct D2GSPacketSrv93;
 
 struct D2GSPacketSrv27Strc;
-
-struct D2GSPacketSrv3E;
 
 struct D2GSPacketSrv42Strc;
 
@@ -129,35 +92,13 @@ struct D2GSPacketSrv74Strc;
 
 struct D2GSPacketSrv7DStrc;
 
-struct D2GSPacketSrv82;
-
-struct D2GSPacketSrvA8;
-
-struct D2GSPacketSrvAA;
-
 struct D2GSPacketSrv10;
 
 struct D2UnitDropItemsPacketStrc;
 
-struct D2GSPacketSrv11;
-
-struct D2GSPacketSrv28;
-
 struct D2GSPacketSrv62;
 
-struct D2GSPacketSrvA4;
-
-struct D2GSPacketSrv21;
-
 struct D2SkillLevelEntryStrc;
-
-struct D2GSPacketSrv94;
-
-struct D2GSPacketSrv22;
-
-struct D2GSPacketSrv23;
-
-struct D2GSPacketSrv99;
 
 struct D2PacketRecord11Strc;
 
@@ -181,57 +122,15 @@ struct D2PacketTableEntryStrc;
 
 struct D2GSPacketCoordinateStrc;
 
-struct D2GSPacketSrv2C;
-
-struct D2GSPacketSrv59;
-
-struct D2GSPacketSrv5B;
-
-struct D2GSPacketSrv5C;
-
 struct D2GSPacketSrv92;
 
 struct D2GSPacketSrv5F;
 
-struct D2GSPacketSrv61;
-
 struct D2GSPacketSrv65;
-
-struct D2GSPacketSrv75;
-
-struct D2GSPacketSrv79;
-
-struct D2GSPacketSrv7A;
-
-struct D2GSPacketSrv7B;
-
-struct D2GSPacketSrv7E;
-
-struct D2GSPacketSrv7F;
-
-struct D2GSPacketSrv90;
 
 struct D2GSPacketSrv8B;
 
-struct D2GSPacketSrv8C;
-
-struct D2GSPacketSrv8D;
-
-struct D2GSPacketSrv8E;
-
-struct D2GSPacketSrv9B;
-
-struct D2GSPacketSrv97;
-
-struct D2GSPacketSrvA6;
-
-struct D2GSPacketSrvA7;
-
-struct D2GSPacketSrvA9;
-
 union D2SeedStrc;
-
-struct D2GSPacketSrv73;
 
 struct D2MissileStrc;
 
@@ -248,16 +147,6 @@ struct D2UnitFlagsStrc
 {
     char unk0x00[0xC8];
     unsigned int dwFlagEx;
-};
-
-struct D2GSPacketSrv0C
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    unsigned char dwUnitGUID[4];
-    unsigned char nMessage;
-    unsigned char nHitClass;
-    unsigned char nLife;
 };
 
 struct D2GSPacketSrv0E
@@ -291,103 +180,6 @@ struct D2GSPacketSrv17
     unsigned char unk0x07;
     unsigned char unk0x08[2];
     unsigned char unk0x0A[2];
-};
-
-struct D2GSPacketSrv4C
-{
-    unsigned char nHeader;
-    unsigned char unk0x01[5];
-    unsigned char unk0x06[2];
-    unsigned char unk0x08;
-    unsigned char unk0x09;
-    unsigned char unk0x0A[4];
-};
-
-struct D2GSPacketSrv4D
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    unsigned char unk0x02[4];
-    unsigned char unk0x06[4];
-    unsigned char nSkillLevel;
-    unsigned char unk0x0B[2];
-    unsigned char unk0x0D[2];
-};
-
-struct D2GSPacketSrv67
-{
-    unsigned char nHeader;
-    unsigned char nUnitGUID[4];
-    unsigned char nMessage;
-    unsigned char nX[2];
-    unsigned char nY[2];
-    unsigned char unk0x0A;
-    unsigned char unk0x0B;
-    unsigned char nPathType;
-    unsigned char nVelocity[2];
-    unsigned char unk0x0F;
-};
-
-struct D2GSPacketSrv68
-{
-    unsigned char nHeader;
-    unsigned char nUnitGUID[4];
-    unsigned char nMessage;
-    unsigned char nX[2];
-    unsigned char nY[2];
-    unsigned char unk0x0A;
-    unsigned char unk0x0B[4];
-    unsigned char unk0x0F;
-    unsigned char unk0x10;
-    unsigned char nPathType;
-    unsigned char nVelocity[2];
-    unsigned char unk0x14;
-};
-
-struct D2GSPacketSrv69
-{
-    unsigned char nHeader;
-    unsigned char unk0x01[4];
-    unsigned char nMessage;
-    unsigned char unk0x06[2];
-    unsigned char unk0x08[2];
-    unsigned char nUnitLife;
-    unsigned char nHitClass;
-};
-
-struct D2GSPacketSrv6A
-{
-    unsigned char nHeader;
-    unsigned char nUnitGUID[4];
-    unsigned char nMessage;
-    unsigned char nTargetUnitType;
-    unsigned char nTargetUnitGuid[4];
-    unsigned char nDirection;
-};
-
-struct D2GSPacketSrv6B
-{
-    unsigned char nHeader;
-    unsigned char unk0x01[4];
-    unsigned char nMessage;
-    unsigned char unk0x06[2];
-    unsigned char unk0x08[2];
-    unsigned char nUnitLife;
-    unsigned char nHitClass;
-    unsigned char unk0x0C[2];
-    unsigned char unk0x0E[2];
-};
-
-struct D2GSPacketSrv6C
-{
-    unsigned char nHeader;
-    unsigned char unk0x01[4];
-    unsigned char nMessage;
-    unsigned char nTargetUnitType;
-    unsigned char unk0x07[4];
-    unsigned char nUnitLife;
-    unsigned char unk0x0C[2];
-    unsigned char unk0x0E[2];
 };
 
 struct D2ClientPacket7Strc
@@ -522,17 +314,6 @@ void __cdecl GAME_SaveCharFile(); // 0x0045C520
 extern int gbGameServerReady; // 0x007A0618
 
 #pragma pack(push, 1)
-struct D2GSPacketSrv01
-{
-    unsigned char nHeader;
-    unsigned char nDifficulty;
-    unsigned int dwArenaFlags;
-    unsigned char nExpansion;
-    unsigned char nLadder;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
 struct D2GSPacketSrv03
 {
     unsigned char nHeader;
@@ -559,18 +340,6 @@ extern int gbActUnloaded; // 0x007A0624
 void __fastcall sub_00470B10_PreloadForceAct(int nAct); // 0x00470B10
 
 #pragma pack(push, 1)
-struct D2GSPacketSrv09
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    unsigned int dwUnitGUID;
-    unsigned char nClassId;
-    unsigned short nPosX;
-    unsigned short nPosY;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
 struct D2GSPacketSrv0A
 {
     unsigned char nHeader;
@@ -585,20 +354,6 @@ struct D2GSPacketSrv0B
     unsigned char nHeader;
     unsigned char nUnitType;
     unsigned int dwUnitGUID;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv51
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    unsigned int dwUnitGUID;
-    unsigned short nObject;
-    unsigned short nPosX;
-    unsigned short nPosY;
-    unsigned char nObjectParam;
-    unsigned char nInteractType;
 };
 #pragma pack(pop)
 
@@ -627,26 +382,6 @@ enum D2C_F23Constants
     STATE_ID_END = 0xFF,
 };
 
-struct D2GSPacketSrv0D
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    unsigned char dwUnitGUID[4];
-    unsigned char nHitClass;
-    unsigned char nX[2];
-    unsigned char nY[2];
-    unsigned char nHitType;
-    unsigned char nUnitLifePct;
-};
-
-struct D2GSPacketSrv16
-{
-    unsigned char nHeader;
-    unsigned char nSize[2];
-    unsigned char nNumUpdates;
-    D2ClientUnitUpdateStrc unitUpdate[1];
-};
-
 struct D2GSPacketSrv93
 {
     unsigned char nHeader;
@@ -668,13 +403,6 @@ struct D2GSPacketSrv27Strc
     int nData1C;
     int nData20;
     int nData24;
-};
-
-struct D2GSPacketSrv3E
-{
-    unsigned char nHeader;
-    unsigned char nSize;
-    unsigned char pBuffer[32];
 };
 
 struct D2GSPacketSrv42Strc
@@ -721,34 +449,6 @@ struct D2GSPacketSrv7DStrc
     unsigned char unk0x0F;
     unsigned char unk0x10;
     unsigned char unk0x11;
-};
-
-struct D2GSPacketSrv82
-{
-    unsigned char nHeader;
-    unsigned char dwOwnerGUID[4];
-    char szOwnerName[16];
-    unsigned char dwPortalGUID0[4];
-    unsigned char dwPortalGUID1[4];
-};
-
-struct D2GSPacketSrvA8
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    unsigned char nUnitId[4];
-    unsigned char nSize;
-    unsigned char nState;
-    unsigned char pStream[1];
-};
-
-struct D2GSPacketSrvAA
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    unsigned char nUnitId[4];
-    unsigned char nSize;
-    unsigned char pStream[1];
 };
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -831,52 +531,11 @@ unsigned char* __fastcall MONUNIQUE_GetMonUmods(D2UnitStrc* pUnit); // 0x004AC74
 void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005449E0
 
 #pragma pack(push, 1)
-struct D2GSPacketSrv11
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    int dwUnitGUID;
-    unsigned short wOverlay;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv28
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    int nUnitGUID;
-    unsigned char nTerminateType;
-    unsigned char pBuffer[1];
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
 struct D2GSPacketSrv62
 {
     unsigned char nHeader;
     unsigned char nUnitType;
     int nUnitId;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrvA4
-{
-    unsigned char nHeader;
-    unsigned short wMonsterId;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv21
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    unsigned char bRemove;
-    int nUnitId;
-    unsigned short nSkillId;
-    unsigned char nSkillLevel;
 };
 #pragma pack(pop)
 
@@ -889,52 +548,9 @@ struct D2SkillLevelEntryStrc
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct D2GSPacketSrv94
-{
-    unsigned char nHeader;
-    unsigned char nCount;
-    int nUnitId;
-    D2SkillLevelEntryStrc pEntries[1];
-};
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct D2GSPacketSrv22
-{
-    unsigned char nHeader;
-    unsigned char unk0x01[2];
-    int nUnitId;
-    unsigned short wSkillId;
-    unsigned char nQuantity;
-    unsigned char unk0x0A;
-    unsigned char bSkip;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv23
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    int nUnitId;
-    unsigned char nPosition;
-    unsigned short nSkill;
-    int nOwnerGUID;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv99
-{
-    unsigned char nHeader;
-    unsigned char nSourceUnitType;
-    int nUnitId;
-    unsigned short nSkillId;
-    unsigned char nSkillLevel;
-    unsigned char nUnitType;
-    int nUnitGUID;
-    unsigned short nItemEffect;
-};
 #pragma pack(pop)
 
 
@@ -1146,53 +762,6 @@ int __fastcall SKILLS_DoSkillAtPosition(void* pArg1, int nArg2, int nArg3, int n
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
 #pragma pack(push, 1)
-struct D2GSPacketSrv2C
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    int dwUnitGUID;
-    unsigned short nSoundEvent;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv59
-{
-    unsigned char nHeader;
-    unsigned int dwGUID;
-    unsigned char nClass;
-    char szName[16];
-    unsigned short nPosX;
-    unsigned short nPosY;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv5B
-{
-    unsigned char nHeader;
-    unsigned short nPacketLen;
-    int nUnitGUID;
-    unsigned char nClass;
-    char szName[16];
-    unsigned short nLevel;
-    unsigned short nPartyId;
-    unsigned short unk0x1C;
-    unsigned short nPartyFlags;
-    unsigned short nGuildFlags;
-    char szText[1];
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv5C
-{
-    unsigned char nHeader;
-    int dwPlayerGUID;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
 struct D2GSPacketSrv92
 {
     unsigned char nHeader;
@@ -1210,91 +779,11 @@ struct D2GSPacketSrv5F
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct D2GSPacketSrv61
-{
-    unsigned char nHeader;
-    unsigned char nCinematic;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
 struct D2GSPacketSrv65
 {
     unsigned char nHeader;
     int dwUnitId;
     unsigned short unk0x05;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv75
-{
-    unsigned char nHeader;
-    int nUnitGUID;
-    unsigned short nPartyId;
-    unsigned short nLevel;
-    unsigned short nFlags;
-    unsigned short nPartyFlags;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv79
-{
-    unsigned char nHeader;
-    unsigned char bOwnGold;
-    int dwGold;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv7A
-{
-    unsigned char nHeader;
-    unsigned char bAdd;
-    unsigned char nPetType;
-    unsigned short nPetClass;
-    int unk0x05;
-    int unk0x09;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv7B
-{
-    unsigned char nHeader;
-    unsigned char nSlot;
-    unsigned short nSkill;
-    int nItemGUID;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv7E
-{
-    unsigned char nHeader;
-    unsigned char unk0x001[4];
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv7F
-{
-    unsigned char nHeader;
-    unsigned char bIsPlayer;
-    unsigned short nLifePercentage;
-    int nUnitGUID;
-    unsigned short nLevelId;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv90
-{
-    unsigned char nHeader;
-    int dwGUID;
-    int dwPosX;
-    int dwPosY;
 };
 #pragma pack(pop)
 
@@ -1308,79 +797,6 @@ struct D2GSPacketSrv8B
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct D2GSPacketSrv8C
-{
-    unsigned char nHeader;
-    int dwPlayerGUID1;
-    int dwPlayerGUID2;
-    unsigned short nFlags;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv8D
-{
-    unsigned char nHeader;
-    int dwPlayerGUID;
-    unsigned short nPartyGUID;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv8E
-{
-    unsigned char nHeader;
-    unsigned char nType;
-    int dwPlayerGUID;
-    int dwCorpseGUID;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv9B
-{
-    unsigned char nHeader;
-    unsigned short unk0x01;
-    unsigned short unk0x03;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrv97
-{
-    unsigned char nHeader;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrvA6
-{
-    unsigned char nHeader;
-    unsigned char nType;
-    unsigned char unk0x02[2];
-    unsigned short nRecordId;
-    unsigned char pRecord[1];
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrvA7
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    int nUnitId;
-    unsigned char nState;
-};
-#pragma pack(pop)
-
-#pragma pack(push, 1)
-struct D2GSPacketSrvA9
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    int nUnitId;
-    unsigned char nState;
-};
 #pragma pack(pop)
 
 void __fastcall UNITSND_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent); // 0x004CBDE0
@@ -1431,22 +847,6 @@ void __cdecl NPCMENU_ResetSlots(); // 0x004B3290
 
 void __fastcall sub_004B92B0_StorePacketText(const D2GSPacketSrv5E* pPacket); // 0x004B92B0
 
-struct D2GSPacketSrv73
-{
-    unsigned char nHeader;
-    unsigned char unk0x01[4];
-    unsigned char nMissileId[2];
-    unsigned char nX[4];
-    unsigned char nY[4];
-    unsigned char nFirstX[4];
-    unsigned char nFirstY[4];
-    unsigned char nCurrentFrame[2];
-    unsigned char nUnitType;
-    unsigned char nUnitGUID[4];
-    unsigned char nLevel;
-    unsigned char nPierce;
-};
-
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
@@ -1470,8 +870,6 @@ int gnPopUpTextMode; // 0x007A2D28
 
 struct D2ClientSightPacketStrc;
 
-struct D2GSPacketSrvAE;
-
 void __fastcall sub_0044E380_SetConnectionError(int nError);
 
 #pragma pack(push, 1)
@@ -1487,15 +885,6 @@ struct D2ClientSightPacketStrc
 extern "C" void __stdcall DUNGEON_SetClientIsInSight(void* pAct, int nLevelId, int nX, int nY, void* pRoom); // 0x0061A070
 
 extern "C" void __stdcall DUNGEON_UnsetClientIsInSight(void* pAct, int nLevelId, int nX, int nY, void* pRoom); // 0x0061A0C0
-
-#pragma pack(push, 1)
-struct D2GSPacketSrvAE
-{
-    unsigned char nHeader;
-    unsigned short nSize;
-    unsigned char pData[1];
-};
-#pragma pack(pop)
 
 void __fastcall sub_004802E0(unsigned char* pData, int nLength); // 0x004802E0
 
@@ -1820,13 +1209,7 @@ struct D2StatListStrc;
 
 struct D2UnitStrc;
 
-struct D2GSPacketSrv26;
-
 struct D2EnvironmentPacketStrc;
-
-struct D2GSPacketSrv9C;
-
-struct D2GSPacketSrv9D;
 
 struct D2PacketSpawnStrc;
 
@@ -1858,18 +1241,6 @@ void __fastcall SKILLSBAR_ResetLeapCollision(D2UnitStrc* pUnit); // 0x004C8B80
 
 void __stdcall sub_00639DB0_ToggleState(D2UnitStrc* pUnit, int nState, int nEnable); // 0x00639DB0
 
-struct D2GSPacketSrv26
-{
-    unsigned char nHeader;
-    unsigned char nMessageType;
-    unsigned char nLang;
-    unsigned char nUnitType;
-    int nUnitId;
-    unsigned char nMessageColor;
-    unsigned char nNameColor;
-    char szName[0x10];
-};
-
 struct D2ChatMessageStrc
 {
     unsigned char nHeader;
@@ -1897,28 +1268,6 @@ struct D2EnvironmentPacketStrc
 
 extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
 
-
-struct D2GSPacketSrv9C
-{
-    unsigned char nHeader;
-    unsigned char nAction;
-    unsigned char nPacketSize;
-    unsigned char nComponent;
-    int nItemId;
-    unsigned char pBitstream[244];
-};
-
-struct D2GSPacketSrv9D
-{
-    unsigned char nHeader;
-    unsigned char nAction;
-    unsigned char nPacketSize;
-    unsigned char nComponent;
-    unsigned char pItemId[4];
-    unsigned char nUnitType;
-    unsigned char nUnitId[4];
-    unsigned char pBitstream[0xF4];
-};
 
 void __fastcall ITEM_HandleItemToCursor(D2GSPacketSrv9C* pPacket); // 0x004C20B0
 
@@ -2499,10 +1848,10 @@ void __fastcall SCMD_HandleUnitHit(D2UnitStrc* pUnit, const D2GSPacketSrv0C* pPa
 // 0x0045CCC0
 void __fastcall SCMD_HandlePlayerStop(D2UnitStrc* pUnit, const D2GSPacketSrv0D* pPacket)
 {
-    const int nUnitGUID = *(const int*)pPacket->dwUnitGUID;
+    const int nUnitGUID = pPacket->dwUnitGUID;
     int args[7];
-    args[0] = *(const unsigned short*)pPacket->nX;
-    args[1] = *(const unsigned short*)pPacket->nY;
+    args[0] = pPacket->nX;
+    args[1] = pPacket->nY;
     args[2] = pPacket->nHitType;
     sub_00480C10_UnitEvent(pPacket->nHitClass, pUnit, args, 1);
     if (pPacket->nUnitType == UNIT_PLAYER)
@@ -2545,13 +1894,13 @@ void __fastcall SCMD_HandlePlayerMoveToTarget(D2UnitStrc* pUnit, const D2GSPacke
 void __fastcall SCMD_HandleMonsterMove(D2UnitStrc* pUnit, const D2GSPacketSrv67* pPacket)
 {
     int args[7];
-    args[0] = *(const unsigned short*)pPacket->nX;
-    args[1] = *(const unsigned short*)pPacket->nY;
-    args[2] = pPacket->unk0x0A;
+    args[0] = pPacket->nX;
+    args[1] = pPacket->nY;
+    args[2] = pPacket->nUnitLife;
     args[3] = pPacket->nPathType;
-    args[4] = *(const short*)pPacket->nVelocity;
-    args[5] = pPacket->unk0x0F;
-    args[6] = pPacket->unk0x0B;
+    args[4] = pPacket->nVelocity;
+    args[5] = pPacket->nMaxDistance;
+    args[6] = pPacket->nHitClass;
     sub_00480C10_UnitEvent(pPacket->nMessage, pUnit, args, 1);
 }
 
@@ -2559,14 +1908,14 @@ void __fastcall SCMD_HandleMonsterMove(D2UnitStrc* pUnit, const D2GSPacketSrv67*
 void __fastcall SCMD_HandleMonsterMoveToTarget(D2UnitStrc* pUnit, const D2GSPacketSrv68* pPacket)
 {
     int args[7];
-    args[0] = pPacket->unk0x0A;
-    args[1] = *(const int*)pPacket->unk0x0B;
-    args[2] = pPacket->unk0x0F;
+    args[0] = pPacket->nTargetUnitType;
+    args[1] = pPacket->nTargetUnitGUID;
+    args[2] = pPacket->nUnitLife;
     args[3] = pPacket->nPathType;
-    args[4] = *(const short*)pPacket->nVelocity;
-    args[5] = pPacket->unk0x14;
-    args[6] = pPacket->unk0x10;
-    UNITMODE_SetPosition(pUnit, *(const unsigned short*)pPacket->nX, *(const unsigned short*)pPacket->nY, 0, 0, 0);
+    args[4] = pPacket->nVelocity;
+    args[5] = pPacket->nMaxDistance;
+    args[6] = pPacket->nHitClass;
+    UNITMODE_SetPosition(pUnit, pPacket->nX, pPacket->nY, 0, 0, 0);
     sub_00480C10_UnitEvent(pPacket->nMessage, pUnit, args, 1);
 }
 
@@ -2574,8 +1923,8 @@ void __fastcall SCMD_HandleMonsterMoveToTarget(D2UnitStrc* pUnit, const D2GSPack
 void __fastcall SCMD_HandleMonsterState(D2UnitStrc* pUnit, const D2GSPacketSrv69* pPacket)
 {
     int args[7];
-    args[0] = *(const unsigned short*)pPacket->unk0x06;
-    args[1] = *(const unsigned short*)pPacket->unk0x08;
+    args[0] = pPacket->nX;
+    args[1] = pPacket->nY;
     args[2] = pPacket->nUnitLife;
     args[3] = 2;
     args[4] = 0;
@@ -2589,7 +1938,7 @@ void __fastcall SCMD_HandleMonsterTargetEvent(D2UnitStrc* pUnit, const D2GSPacke
 {
     int args[7];
     args[0] = pPacket->nTargetUnitType;
-    args[1] = *(const int*)pPacket->nTargetUnitGuid;
+    args[1] = pPacket->nTargetUnitGuid;
     args[2] = pPacket->nDirection;
     args[3] = 2;
     args[4] = 0;
@@ -2601,9 +1950,9 @@ void __fastcall SCMD_HandleMonsterTargetEvent(D2UnitStrc* pUnit, const D2GSPacke
 void __fastcall SCMD_HandleMonsterAction(D2UnitStrc* pUnit, const D2GSPacketSrv6B* pPacket)
 {
     int args[7];
-    UNITMODE_SetPosition(pUnit, *(const unsigned short*)pPacket->unk0x0C, *(const unsigned short*)pPacket->unk0x0E, 0, 0, 0);
-    args[0] = *(const unsigned short*)pPacket->unk0x06;
-    args[1] = *(const unsigned short*)pPacket->unk0x08;
+    UNITMODE_SetPosition(pUnit, pPacket->nX, pPacket->nY, 0, 0, 0);
+    args[0] = pPacket->nTargetX;
+    args[1] = pPacket->nTargetY;
     args[2] = pPacket->nUnitLife;
     args[3] = 2;
     args[4] = 0;
@@ -2616,9 +1965,9 @@ void __fastcall SCMD_HandleMonsterAction(D2UnitStrc* pUnit, const D2GSPacketSrv6
 void __fastcall SCMD_HandleMonsterAttack(D2UnitStrc* pUnit, const D2GSPacketSrv6C* pPacket)
 {
     int args[7];
-    UNITMODE_SetPosition(pUnit, *(const unsigned short*)pPacket->unk0x0C, *(const unsigned short*)pPacket->unk0x0E, 0, 0, 0);
+    UNITMODE_SetPosition(pUnit, pPacket->nX, pPacket->nY, 0, 0, 0);
     args[0] = pPacket->nTargetUnitType;
-    args[1] = *(const int*)pPacket->unk0x07;
+    args[1] = pPacket->nTargetUnitGUID;
     args[2] = pPacket->nUnitLife;
     args[3] = 2;
     args[4] = 0;
@@ -2695,10 +2044,10 @@ void __fastcall SCMD_HandleReassignUnit(const unsigned char* pPacket)
 // 0x0045D2E0
 void __fastcall SCMD_HandleUnitsUpdate(const D2GSPacketSrv16* pPacket)
 {
-    D2_ASSERT(pPacket->nNumUpdates, 2133);
+    D2_ASSERT(pPacket->nCount, 2133);
 
-    const D2ClientUnitUpdateStrc* pUpdate = pPacket->unitUpdate;
-    for (int i = 0; i < pPacket->nNumUpdates; ++i)
+    const D2ClientUnitUpdateStrc* pUpdate = (const D2ClientUnitUpdateStrc*)pPacket->entries;
+    for (int i = 0; i < pPacket->nCount; ++i)
     {
         unsigned short nX = pUpdate->nX;
         unsigned short nY = pUpdate->nY;
@@ -2714,7 +2063,7 @@ void __fastcall SCMD_HandleUnitsUpdate(const D2GSPacketSrv16* pPacket)
 // 0x0045D370
 void __fastcall SCMD_HandleNpcInteract(const D2GSPacketSrv28* pPacket)
 {
-    NPCMENU_NpcInteractPacket(pPacket->nUnitType, pPacket->nUnitGUID, (unsigned char*)pPacket->pBuffer, pPacket->nTerminateType);
+    NPCMENU_NpcInteractPacket(pPacket->nUnitType, pPacket->nUnitGUID, (unsigned char*)pPacket->pData, pPacket->nTerminateType);
 }
 
 // 0x0045D390
@@ -3053,7 +2402,7 @@ void __fastcall SCMD_HandleSkillEnd(D2SkillEndPacketStrc* pPacket)
 // 0x0045D760
 void __fastcall SCMD_HandlePreloadMonster(const D2GSPacketSrvA4* pPacket)
 {
-    const unsigned short wMonsterId = pPacket->wMonsterId;
+    const unsigned short wMonsterId = pPacket->nMonStatsId;
     if (wMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
         GFX_LoadMonsterCofs(wMonsterId, 0);
@@ -3187,7 +2536,7 @@ void __fastcall SCMD_HandleWalkVerify(unsigned char* pPacket)
 void __fastcall SCMD_HandleAssignSkill(const D2GSPacketSrv21* pPacket)
 {
     const unsigned short wSkillId = pPacket->nSkillId;
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->nUnitId, pPacket->nUnitType);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->nUnitGUID, pPacket->nUnitType);
     if (pUnit)
     {
         SKILLS_AssignSkill(pUnit, wSkillId, pPacket->nSkillLevel, pPacket->bRemove, ".\\GAME\\SCmd.cpp", 2700);
@@ -3282,12 +2631,12 @@ void __cdecl SCMD_ShowHelpOnce()
 // 0x0045DDB0
 void __fastcall SCMD_HandleSetSkillQuantity(const D2GSPacketSrv22* pPacket)
 {
-    if (pPacket->bSkip)
+    if (pPacket->bIsCorpse)
     {
         return;
     }
-    const unsigned short wSkillId = pPacket->wSkillId;
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->nUnitId, 0);
+    const unsigned short wSkillId = pPacket->nSkillId;
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->nUnitGUID, 0);
     if (pUnit)
     {
         D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, wSkillId, -1);
@@ -3301,7 +2650,7 @@ void __fastcall SCMD_HandleSetActiveSkill(const D2GSPacketSrv23* pPacket)
 {
     const unsigned short wSkillId = pPacket->nSkill;
     const int nOwnerGUID = pPacket->nOwnerGUID;
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->nUnitId, 0);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitGUID, 0);
     if (pUnit)
     {
         if (pPacket->nPosition)
@@ -3325,7 +2674,7 @@ void __fastcall SCMD_HandleSetMinionClass(const D2ClientPacket7Strc* pPacket)
 // 0x0045DE80
 void __fastcall SCMD_HandleTriggerSkillOnUnit(const D2GSPacketSrv99* pPacket)
 {
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->nUnitId, pPacket->nSourceUnitType);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->nSourceUnitGUID, pPacket->nSourceUnitType);
     if (pUnit)
     {
         D2UnitStrc* pTarget = CUNIT_FindClientUnit(pPacket->nUnitGUID, pPacket->nUnitType);
@@ -3350,10 +2699,10 @@ void __fastcall SCMD_HandleUnitCastOnTarget(D2UnitStrc* pUnit, const D2GSPacketS
     if (pUnit)
     {
         int args[7] = {};
-        args[0] = *(const unsigned short*)pPacket->unk0x06;
-        args[2] = pPacket->unk0x09;
-        args[3] = *(const int*)pPacket->unk0x0A;
-        args[4] = pPacket->unk0x08;
+        args[0] = pPacket->wSkill;
+        args[2] = pPacket->nTargetType;
+        args[3] = pPacket->dwTargetGUID;
+        args[4] = pPacket->nSkillLevel;
         args[1] = -1;
         sub_00480C10_UnitEvent(0x16, pUnit, args, 1);
     }
@@ -3365,9 +2714,9 @@ void __fastcall SCMD_HandleUnitCastAtPosition(D2UnitStrc* pUnit, const D2GSPacke
     if (pUnit)
     {
         int args[7] = {};
-        args[0] = *(const int*)pPacket->unk0x06;
-        args[2] = *(const unsigned short*)pPacket->unk0x0B;
-        args[3] = *(const unsigned short*)pPacket->unk0x0D;
+        args[0] = pPacket->nSkillId;
+        args[2] = pPacket->nX;
+        args[3] = pPacket->nY;
         args[4] = pPacket->nSkillLevel;
         args[1] = -1;
         sub_00480C10_UnitEvent(0x15, pUnit, args, 1);
@@ -3383,7 +2732,7 @@ void __fastcall SCMD_HandleChatMessage(const D2GSPacketSrv26* pPacket)
     tMessage.nType = pPacket->nMessageType;
     tMessage.f_2 = pPacket->nLang;
     tMessage.nUnitType = pPacket->nUnitType;
-    tMessage.nUnitId = pPacket->nUnitId;
+    tMessage.nUnitId = pPacket->dwUnitGUID;
     tMessage.nColor = pPacket->nMessageColor;
     tMessage.nSubType = pPacket->nNameColor;
     SStrCopy(tMessage.szName, szName, 0x10);
@@ -3586,7 +2935,7 @@ void __fastcall SCMD_HandleEventMessage(const D2GSPacket5AStrc* pPacket)
 // 0x0045E4E0
 void __fastcall SCMD_HandlePlayerJoined(const D2GSPacketSrv5B* pPacket)
 {
-    const char* szText = pPacket->szText;
+    const char* szText = pPacket->szGuildTag;
     ROSTER_AddRosterUnit(pPacket->nUnitGUID, pPacket->nClass, pPacket->szName, pPacket->nLevel, pPacket->nPartyId, pPacket->unk0x1C,
                  pPacket->nPartyFlags, pPacket->nGuildFlags, szText, szText + strlen(szText) + 1);
 }
@@ -3673,13 +3022,13 @@ void __fastcall SCMD_Packet66(const D2GSPacketSrv66* pPacket)
 // 0x0045E6D0
 void __fastcall SCMD_HandleCreateMissile(const D2GSPacketSrv73* pPacket)
 {
-    const int nX = *(const int*)pPacket->nX;
-    const int nY = *(const int*)pPacket->nY;
-    const int nFirstX = *(const int*)pPacket->nFirstX;
-    const int nFirstY = *(const int*)pPacket->nFirstY;
-    const unsigned short nCurrentFrame = *(const unsigned short*)pPacket->nCurrentFrame;
-    const unsigned short nMissileId = *(const unsigned short*)pPacket->nMissileId;
-    const int nUnitGUID = *(const int*)pPacket->nUnitGUID;
+    const int nX = pPacket->nX;
+    const int nY = pPacket->nY;
+    const int nFirstX = pPacket->nFirstX;
+    const int nFirstY = pPacket->nFirstY;
+    const unsigned short nCurrentFrame = pPacket->nCurrentFrame;
+    const unsigned short nMissileId = pPacket->nMissileId;
+    const int nUnitGUID = pPacket->nUnitGUID;
 
     D2UnitStrc* pOwner = sub_00463DE0_GetPlayerUnit();
     D2MissileStrc tMissileParams;
@@ -3751,10 +3100,10 @@ void __fastcall SCMD_HandleClearHoverText(const D2ClientPacket6Strc* pPacket)
 // 0x0045E860
 void __fastcall SCMD_HandlePetAction(const D2GSPacketSrv7A* pPacket)
 {
-    const int nKey = pPacket->unk0x09;
+    const int nKey = pPacket->nPetGUID;
     if (pPacket->bAdd)
     {
-        ROSTERPETS_SetRosterEntry(nKey, pPacket->unk0x05, pPacket->nPetType, pPacket->nPetClass);
+        ROSTERPETS_SetRosterEntry(nKey, pPacket->nUnitGUID, pPacket->nPetType, pPacket->nPetClass);
     }
     else
     {
@@ -3800,9 +3149,9 @@ void __fastcall SCMD_HandlePartyPosition(const D2GSPacketSrv90* pPacket)
 // 0x0045E9D0
 void __fastcall SCMD_HandlePortalOwnership(const D2GSPacketSrv82* pPacket)
 {
-    const int nOwnerGUID = *(const int*)pPacket->dwOwnerGUID;
-    const int nPortalGUID0 = *(const int*)pPacket->dwPortalGUID0;
-    const int nPortalGUID1 = *(const int*)pPacket->dwPortalGUID1;
+    const int nOwnerGUID = pPacket->dwOwnerGUID;
+    const int nPortalGUID0 = pPacket->dwPortalGUID0;
+    const int nPortalGUID1 = pPacket->dwPortalGUID1;
 
     D2UnitStrc* pPortal = CUNIT_FindClientUnit(nPortalGUID0, UNIT_OBJECT);
     if (pPortal)
@@ -3900,7 +3249,7 @@ void __fastcall SCMD_HandleCorpseAssign(const D2GSPacketSrv8E* pPacket)
 // 0x0045EAC0
 void __fastcall SCMD_HandleNpcMenuState(const D2GSPacketSrv9B* pPacket)
 {
-    NPCMENU_SetNpcMenuState(pPacket->unk0x01, pPacket->unk0x03);
+    NPCMENU_SetNpcMenuState(pPacket->nMercNameStringId, (unsigned short)pPacket->nReviveCost);
 }
 
 // 0x0045EAD0
@@ -3936,9 +3285,9 @@ void __fastcall SCMD_HandleSkillLevelBonus(const D2GSPacketSrv93* pPacket)
 // 0x0045DD60
 void __fastcall SCMD_HandleAssignSkills(const D2GSPacketSrv94* pPacket)
 {
-    const int nUnitId = pPacket->nUnitId;
+    const int nUnitId = pPacket->nGUID;
     const unsigned char nCount = pPacket->nCount;
-    const D2SkillLevelEntryStrc* pEntry = pPacket->pEntries;
+    const D2SkillLevelEntryStrc* pEntry = (const D2SkillLevelEntryStrc*)(pPacket + 1);
     D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, 0);
     if (pUnit)
     {
@@ -4114,7 +3463,7 @@ void __fastcall SCMD_HandleRunesRecord(const D2GSPacketSrvA6* pPacket)
 {
     if (!pPacket->nType)
     {
-        DATATBLS_AddOrChangeRunesTxtRecord(pPacket->nRecordId, (D2RunesTxt*)pPacket->pRecord);
+        DATATBLS_AddOrChangeRunesTxtRecord(pPacket->wArg, (D2RunesTxt*)pPacket->data);
     }
 }
 
@@ -4143,7 +3492,7 @@ static inline void sub_0045F7B0_FindStoppedPlayer(const unsigned char* pPacket)
 // 0x0045EE20
 void __fastcall SCMD_HandleSetState(D2GSPacketSrvA8* pPacket)
 {
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(*(const int*)pPacket->nUnitId, pPacket->nUnitType);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->nUnitId, pPacket->nUnitType);
     if (!pUnit)
         return;
 
@@ -4151,7 +3500,7 @@ void __fastcall SCMD_HandleSetState(D2GSPacketSrvA8* pPacket)
     PLRSKILLS_BeginState(pUnit, nState);
 
     D2BitBufferStrc tBuffer;
-    BITMANIP_Initialize(&tBuffer, pPacket->pStream, pPacket->nSize - 8);
+    BITMANIP_Initialize(&tBuffer, pPacket->pData, pPacket->nSize - 8);
     int nPrev = 0;
     int nStatId = sub_00411020_ReadBits(&tBuffer, 9);
     while (nStatId < STAT_ID_END)
@@ -4236,7 +3585,7 @@ void __fastcall SCMD_HandleMonsterModeChange(D2UnitStrc* pUnit, unsigned char nO
 // 0x0045EFA0
 void __fastcall SCMD_HandleAddUnitStates(D2GSPacketSrvAA* pPacket)
 {
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(*(const int*)pPacket->nUnitId, pPacket->nUnitType);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->nUnitId, pPacket->nUnitType);
     if (!pUnit)
         return;
 
@@ -4392,7 +3741,7 @@ void __fastcall SCMD_HandleAssignMonster(D2PacketSpawnStrc* pPacket)
 void __fastcall SCMD_HandleWardenRequest(D2GSPacketSrvAE* pPacket)
 {
     if (gnGameType == 2 || gnGameType == 3)
-        sub_004802E0(pPacket->pData, pPacket->nSize);
+        sub_004802E0(pPacket->data, pPacket->nSize);
 }
 
 inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)

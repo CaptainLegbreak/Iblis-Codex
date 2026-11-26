@@ -160,13 +160,13 @@ struct D2GSPacketSrv67
     unsigned char nHeader; // 0x00
     int nUnitGUID; // 0x01
     unsigned char nMessage; // 0x05
-    short nX; // 0x06
-    short nY; // 0x08
-    char nUnitLife; // 0x0A
-    char nHitClass; // 0x0B
+    unsigned short nX; // 0x06
+    unsigned short nY; // 0x08
+    unsigned char nUnitLife; // 0x0A
+    unsigned char nHitClass; // 0x0B
     unsigned char nPathType; // 0x0C
     short nVelocity; // 0x0D
-    char nMaxDistance; // 0x0F
+    unsigned char nMaxDistance; // 0x0F
 };
 
 struct D2GSPacketSrv68
@@ -174,15 +174,15 @@ struct D2GSPacketSrv68
     unsigned char nHeader; // 0x00
     int nUnitGUID; // 0x01
     unsigned char nMessage; // 0x05
-    short nX; // 0x06
-    short nY; // 0x08
-    char nTargetUnitType; // 0x0A
+    unsigned short nX; // 0x06
+    unsigned short nY; // 0x08
+    unsigned char nTargetUnitType; // 0x0A
     int nTargetUnitGUID; // 0x0B
-    char nUnitLife; // 0x0F
-    char nHitClass; // 0x10
+    unsigned char nUnitLife; // 0x0F
+    unsigned char nHitClass; // 0x10
     unsigned char nPathType; // 0x11
     short nVelocity; // 0x12
-    char nMaxDistance; // 0x14
+    unsigned char nMaxDistance; // 0x14
 };
 
 struct D2GSPacketSrv9E
@@ -902,8 +902,8 @@ struct D2GSPacketSrv59
     unsigned int dwGUID; // 0x01
     unsigned char nClass; // 0x05
     char szName[16]; // 0x06
-    short nPosX; // 0x16
-    short nPosY; // 0x18
+    unsigned short nPosX; // 0x16
+    unsigned short nPosY; // 0x18
 };
 
 struct D2GSPacketSrv19
@@ -937,7 +937,7 @@ struct D2GSPacketSrvA6
     unsigned char nHeader; // 0x00
     unsigned char nType; // 0x01
     unsigned short nPacketSize; // 0x02
-    short wArg; // 0x04
+    unsigned short wArg; // 0x04
     unsigned char data[0x1000]; // 0x06
 };
 
