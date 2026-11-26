@@ -496,7 +496,7 @@ int __fastcall sub_0044AC20_McpIncoming04(D2McpIncoming04Strc* pPacket, int nSiz
 
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 
 
@@ -960,12 +960,12 @@ void __fastcall GAME_SetMcpChatCallback(void (__fastcall* pfnCallback)(void* pAr
 // 0x0044B230
 void __stdcall GAME_StripColorCodes(Unicode* pString)
 {
-    D2_ASSERT(sub_00526800(pString) < 500, 0x342);
+    D2_ASSERT(UNICODE_StrLen(pString) < 500, 0x342);
     const Unicode* pPattern = D2LANG_GetStringFromTblIndex(0xF9A);
-    int nLength = sub_00526800(pPattern);
+    int nLength = UNICODE_StrLen(pPattern);
     for (Unicode* pFound = sub_00526940_FindSubstring(pString, pPattern); pFound && pFound[nLength].wChar; pFound = sub_00526940_FindSubstring(pString, pPattern))
     {
-        memmove(pFound, &pFound[nLength + 1], (sub_00526800(pFound) - nLength) * sizeof(Unicode));
+        memmove(pFound, &pFound[nLength + 1], (UNICODE_StrLen(pFound) - nLength) * sizeof(Unicode));
     }
 }
 
@@ -999,7 +999,7 @@ int __fastcall WINMAIN_HandleMcpGameList(D2McpPacket05Strc* pPacket, int nSize)
     sub_00526F20_ToUnicode(wszText, szFirst, 0x240);
     GAME_StripColorCodes(wszText);
     char szText[0x400];
-    sub_00526F70(szText, wszText, 0x400);
+    UNICODE_ToAscii(szText, wszText, 0x400);
     SStrCopy(gtMcpInfo.unk0x18, szText, 0x10);
     SStrCopy(gtMcpInfo.szName, szSecond, 0x10);
     gdwGlobal_00799108 = (unsigned int)(szSecond + nSecondLength + 1 - (const char*)pPacket) < (unsigned int)nSize;

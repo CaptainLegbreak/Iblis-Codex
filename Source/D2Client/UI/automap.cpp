@@ -1409,7 +1409,7 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 
 
@@ -3613,7 +3613,7 @@ void __cdecl AUTOMAP_DrawDifficultyLine()
     Unicode wszText[300];
     for (int i = 0; i < 300; ++i)
         wszText[i].wChar = 0;
-    D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(nString)) + sub_00526800(D2LANG_GetStringFromTblIndex(0x1057)) + 3 < 300, 0xB2A);
+    D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(nString)) + UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0x1057)) + 3 < 300, 0xB2A);
     sub_005269D0(300, wszText, D2LANG_GetStringFromTblIndex(0x1057), D2LANG_GetStringFromTblIndex(nString));
     D2Win_10117_DrawText(wszText, gnAutomapWidth - D2Win_10121_GetTextWidth(wszText) - 0x10, gnAutomapTextY, 4, 0);
     gnAutomapTextY += 0x10;

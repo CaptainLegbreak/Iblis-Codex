@@ -941,7 +941,7 @@ void __cdecl STRTABLE_InitUnitSuffixes()
 {
     char szBuffer[8];
 
-    sub_00526F70(szBuffer, D2LANG_GetStringFromTblIndex_Inline(0x14D0), 5);
+    UNICODE_ToAscii(szBuffer, D2LANG_GetStringFromTblIndex_Inline(0x14D0), 5);
     if (strlen(szBuffer) > 1)
     {
         gawszUnitSuffix[0][0].wChar = 'K';
@@ -951,7 +951,7 @@ void __cdecl STRTABLE_InitUnitSuffixes()
         gawszUnitSuffix[0][0].wChar = szBuffer[0];
     }
 
-    sub_00526F70(szBuffer, D2LANG_GetStringFromTblIndex_Inline(0x14D1), 5);
+    UNICODE_ToAscii(szBuffer, D2LANG_GetStringFromTblIndex_Inline(0x14D1), 5);
     if (strlen(szBuffer) > 1)
     {
         gawszUnitSuffix[1][0].wChar = 'M';
@@ -961,7 +961,7 @@ void __cdecl STRTABLE_InitUnitSuffixes()
         gawszUnitSuffix[1][0].wChar = szBuffer[0];
     }
 
-    sub_00526F70(szBuffer, D2LANG_GetStringFromTblIndex_Inline(0x14D2), 5);
+    UNICODE_ToAscii(szBuffer, D2LANG_GetStringFromTblIndex_Inline(0x14D2), 5);
     if (strlen(szBuffer) > 1)
     {
         gawszUnitSuffix[2][0].wChar = 'B';
@@ -971,7 +971,7 @@ void __cdecl STRTABLE_InitUnitSuffixes()
         gawszUnitSuffix[2][0].wChar = szBuffer[0];
     }
 
-    sub_00526F70(szBuffer, D2LANG_GetStringFromTblIndex_Inline(0x14D3), 5);
+    UNICODE_ToAscii(szBuffer, D2LANG_GetStringFromTblIndex_Inline(0x14D3), 5);
     if (strlen(szBuffer) > 1)
     {
         gawszUnitSuffix[3][0].wChar = 'T';

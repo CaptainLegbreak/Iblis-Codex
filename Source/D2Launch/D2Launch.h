@@ -60,7 +60,7 @@ void __cdecl sub_004FA550(); // 0x004FA550
 void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
 void __cdecl STRTABLE_UnloadStringTables(); // 0x00524E40
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
-void __fastcall sub_0043C6A0(int bSet); // 0x0043C6A0
+void __fastcall CHARSEL_SetFlagBit2(int bSet); // 0x0043C6A0
 void __fastcall sub_004F9740_SetControlState(D2WinControlStrc* pControl, int bSet); // 0x004F9740
 void __fastcall sub_004FCF80_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 void __fastcall D2SOUND_10034(int nValue); // 0x005148F0
@@ -77,7 +77,7 @@ struct D2StatusStrc
 
 D2CelFileStrc* __fastcall sub_004FA9B0_LoadCellFile(const char* szFile, int nType); // 0x004FA9B0
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
+char* __fastcall UNICODE_ToAscii(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 const Unicode* __fastcall sub_004FBB30_GetText(D2WinControlStrc* pControl); // 0x004FBB30
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
 const char* __fastcall FOG_ResolveHostIPAddress(const char* szHostName); // 0x0040E0D0
@@ -204,7 +204,7 @@ void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStr
 void __fastcall sub_004FFE10_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FFE10
 void __fastcall D2SOUNDSMP_SetMasterVolume(int nVolume); // 0x00515CE0
 void __fastcall D2SOUNDSMP_FadeOutMasterVolume(int nArg); // 0x00515F50
-char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
+char* __fastcall UNICODE_ToUtf8(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 void __stdcall D2Win_10030_CONTROL_ToggleFourthFlag(D2WinControlStrc* pControl, int bSet); // 0x004FA420
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void __stdcall MCPCONNECT_SetPacket(const char* pData, int nSize); // 0x00449E70

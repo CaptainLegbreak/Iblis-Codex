@@ -242,7 +242,7 @@ extern "C" char* __cdecl sub_006883F8_Copy(char*, const char*); // 0x006883F8
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
+char* __fastcall UNICODE_ToAscii(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
 ObjectRecord* __stdcall sub_00640E90_Object(int); // 0x00640E90
 
@@ -1031,7 +1031,7 @@ static void DATATBLS_GetMonsterDebugName(char* buffer, int length, int id)
         if (record && record->nameIndex != 0x1506)
         {
             const Unicode* name = D2LANG_GetStringFromTblIndex(record->nameIndex);
-            sub_00526F70(buffer, name, length);
+            UNICODE_ToAscii(buffer, name, length);
             return;
         }
     }
@@ -1061,7 +1061,7 @@ static void DATATBLS_GetItemDebugName(char* buffer, int length, int id)
     if (record && record->nameIndex != 0x1506)
     {
         const Unicode* name = D2LANG_GetStringFromTblIndex(record->nameIndex);
-            sub_00526F70(buffer, name, length);
+            UNICODE_ToAscii(buffer, name, length);
         return;
     }
     if (length > 0)

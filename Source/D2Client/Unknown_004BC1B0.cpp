@@ -42,7 +42,7 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 
 
@@ -439,15 +439,15 @@ void ListBoxImplementation::DrawClippedText(const Unicode* wszSource, int nX, in
 {
     Unicode wszText[1024];
     sub_005267E0(wszText, wszSource);
-    if (D2Win_10123(wszText, sub_00526800(wszText)) < nRectWidth - 0x32)
+    if (D2Win_10123(wszText, UNICODE_StrLen(wszText)) < nRectWidth - 0x32)
     {
         D2Win_10117_DrawText(wszText, nX, nY, nColor, 0);
         return;
     }
 
-    while (D2Win_10123(wszText, sub_00526800(wszText)) > nRectWidth - 0x32)
+    while (D2Win_10123(wszText, UNICODE_StrLen(wszText)) > nRectWidth - 0x32)
     {
-        wszText[sub_00526800(wszText) - 1].wChar = 0;
+        wszText[UNICODE_StrLen(wszText) - 1].wChar = 0;
     }
     D2Win_10117_DrawText(wszText, nX, nY, nColor, 0);
 }

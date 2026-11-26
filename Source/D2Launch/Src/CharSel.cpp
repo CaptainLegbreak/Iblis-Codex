@@ -457,7 +457,7 @@ int __stdcall SetCurGateway(D2FuncRecordStrc* pRecord, int nIndex);             
 
 D2ComInterfaceStrc* __cdecl sub_00518C00();                                                           // 0x00518C00
 
-int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString);                                                      // 0x00526800
 
 extern "C" const char* const gapszSkyPalette[2];                                                   // 0x006D3A08
 
@@ -2011,7 +2011,7 @@ int __stdcall CHARSEL_OnCharSelectOk(int nArg)
             }
         }
 
-        sub_00526F70(szName, pEntry->wszName, 0xFF);
+        UNICODE_ToAscii(szName, pEntry->wszName, 0xFF);
 // build: symbol ?MAINMENUS_JoinGame@* 0x00434A00
         MAINMENUS_JoinGame(pEntry, pEntry->wFlags, pEntry->nType, szName);
     }
@@ -2039,7 +2039,7 @@ void __fastcall CHARSEL_JoinSelectedWithDifficulty(SMSGHANDLER_PARAMS* pMsg, int
 
     gpCharSelect_007795D4->nMode = nMode;
     MAINMENUS_DestroyControls();
-    sub_00526F70(szName, pEntry->wszName, 0xFF);
+    UNICODE_ToAscii(szName, pEntry->wszName, 0xFF);
     MAINMENUS_JoinGame(pEntry, pEntry->wFlags, pEntry->nType, szName);
 }
 
@@ -2457,7 +2457,7 @@ fail:
 extern "C" int __stdcall CHARSEL_CreateNotice(const Unicode* pTitle, const Unicode* pText, int nState, unsigned char nSel)
 {
     D2LaunchCharEntryStrc* pEntry = (D2LaunchCharEntryStrc*)FOG_Alloc(sizeof(D2LaunchCharEntryStrc), ".\\Src\\CharSel.cpp", 0xBAF, 0);
-    sub_005263E0(pEntry->szName, pTitle, 0x100);
+    UNICODE_ToUtf8(pEntry->szName, pTitle, 0x100);
     sub_005267E0(pEntry->wszName, pText);
     memset(pEntry->aFlags, 0, sizeof(pEntry->aFlags));
     memset(pEntry->aColors, 0, sizeof(pEntry->aColors));
@@ -2978,7 +2978,7 @@ extern int gbConnectCancelled; // 0x007795F4
 // build: symbol ?gszOldPassword@* 0x00779550
 
 // 0x0043C6A0
-void __fastcall sub_0043C6A0(int bSet)
+void __fastcall CHARSEL_SetFlagBit2(int bSet)
 {
     if (bSet)
         gdwFlags_0077AC34 |= 2;
@@ -2999,9 +2999,9 @@ int __stdcall CHARSEL_SendChatLine(int nArg)
     char szText[0x100];
 
     const Unicode* pText = sub_004FDD90_GetEditText(gpChatEdit);
-    if (pText && sub_00526800(pText))
+    if (pText && UNICODE_StrLen(pText))
     {
-        sub_00526F70(szText, pText, 0x100);
+        UNICODE_ToAscii(szText, pText, 0x100);
         return CHATDLG_SendChatText(szText, 0);
     }
     return 1;

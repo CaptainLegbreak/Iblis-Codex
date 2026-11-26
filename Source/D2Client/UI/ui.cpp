@@ -368,7 +368,7 @@ extern "C" const char gszUiCpp[]; // 0x006D6458
 
 void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 Unicode* __fastcall sub_00526F20(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
@@ -1078,7 +1078,7 @@ void __fastcall UI_BuildItemHoverName(D2UnitStrc* pUnit, Unicode* pOut, int nMax
         }
 
         INV_PrefixColorCode(wszText, nColor);
-        D2_ASSERT(sub_00526800(wszText) < nMaxLength, 0x5E0);
+        D2_ASSERT(UNICODE_StrLen(wszText) < nMaxLength, 0x5E0);
         sub_005267E0(pOut, wszText);
         return;
     }
@@ -1093,7 +1093,7 @@ void __fastcall UI_BuildItemHoverName(D2UnitStrc* pUnit, Unicode* pOut, int nMax
         }
 
         INV_PrefixColorCode((Unicode*)wszItem, nColor);
-        D2_ASSERT(sub_00526800((Unicode*)wszItem) < nMaxLength, 0x5EB);
+        D2_ASSERT(UNICODE_StrLen((Unicode*)wszItem) < nMaxLength, 0x5EB);
         sub_005267E0(pOut, (Unicode*)wszItem);
     }
 }
@@ -2519,7 +2519,7 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
 // 0x004554B0
 void __cdecl UI_DrawHoverName()
 {
-    if (!sub_00526800(gwszHoverName))
+    if (!UNICODE_StrLen(gwszHoverName))
     {
         return;
     }

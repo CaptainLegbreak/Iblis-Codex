@@ -87,7 +87,7 @@ extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 int __fastcall sub_004FBD20_GetLastRow(D2WinControlStrc* pControl); // 0x004FBD20
 int __fastcall D2Win_10057(D2WinControlStrc* pControl, const char* szText, int nLineNum, int nColumn); // 0x004FCD40
@@ -499,7 +499,7 @@ int __stdcall CHARSEL_OnCharSelect(int nArg)
             const Unicode* pwszName = pEntry->wszName;
             if (pwszName && pwszName->wChar)
             {
-                sub_00526F70(szName, pwszName, 0xFF);
+                UNICODE_ToAscii(szName, pwszName, 0xFF);
                 bOk = MAINMENUS_UpgradeCharacter(pEntry, szName);
                 if (!bOk)
                 {
@@ -559,7 +559,7 @@ int __stdcall CHARSEL_JoinSelected(int nArg)
         const Unicode* pwszName = pEntry->wszName;
         if (pwszName && pwszName->wChar)
         {
-            sub_00526F70(szName, pwszName, 0xFF);
+            UNICODE_ToAscii(szName, pwszName, 0xFF);
             if (MAINMENUS_DeleteCharacter(pEntry, szName))
             {
                 ++gnCounter;

@@ -160,7 +160,7 @@ Unicode* __fastcall Unicode::strcpy(Unicode* dest, const Unicode* src)
 }
 
 // 0x00526800
-extern "C" __declspec(dllexport) int __fastcall sub_00526800(const unsigned short* pText) {
+extern "C" __declspec(dllexport) int __fastcall UNICODE_StrLen(const unsigned short* pText) {
     int nLength = 0;
     if (!pText) {
         return 0;
@@ -539,7 +539,7 @@ Unicode* __fastcall Unicode::win2Unicode(Unicode* dest, const char* src, int cou
 }
 
 // 0x00526F70
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount)
+char* __fastcall UNICODE_ToAscii(char* szDest, const Unicode* pSource, int nCount)
 {
     char* pCurrentDest = szDest;
     while (nCount > 1 && pSource->wChar != 0)

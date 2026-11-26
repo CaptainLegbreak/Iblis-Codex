@@ -401,7 +401,7 @@ extern "C" int __cdecl abs(int nValue);
 
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 
 
@@ -1261,7 +1261,7 @@ void __cdecl D2CMPTileFreeAsyncLoads();                                         
 
 void __cdecl D2CMPSpriteFreeAsyncLoads();                                                                                // 0x005FF3A0
 
-void __cdecl sub_00600B80();                                                                                // 0x00600B80
+void __cdecl D2CMP_LoadItemPalShifts();                                                                                // 0x00600B80
 
 extern "C" const char gszLngFileName[];                                                            // 0x006D5EE0
 
@@ -3905,7 +3905,7 @@ void __fastcall GAME_StrToUpper(Unicode* pText)
 {
     if (!pText)
         return;
-    const int nLength = sub_00526800(pText);
+    const int nLength = UNICODE_StrLen(pText);
     for (int i = 0; i < nLength; i++)
     {
         const unsigned short wChar = pText[i].wChar;
@@ -3928,7 +3928,7 @@ void __fastcall GAME_SetHoverLine(const Unicode* pText, int nColor)
 // 0x00453060
 void __cdecl GAME_DrawPopUpText()
 {
-    if (!sub_00526800(gwszPopUpText))
+    if (!UNICODE_StrLen(gwszPopUpText))
         return;
     const int nWidth = D2Win_10121_GetTextWidth(gwszPopUpText) + 8;
     const int nHeight = D2Win_10125() + 7;

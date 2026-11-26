@@ -1274,11 +1274,11 @@
    "bytes": 492,
    "definitions": 15,
    "externs": [
-    "extern \"C\" void __cdecl sub_004F8DE0(); // 0x004F8DE0",
     "extern \"C\" struct d2data_0072F178_t gData_0072F178; // 0x0072F178",
     "extern \"C\" struct d2data_0072F6D0_t gData_0072F6D0; // 0x0072F6D0",
     "extern \"C\" struct d2data_0074BF28_t gData_0074BF28; // 0x0074BF28",
-    "extern \"C\" struct d2data_0074C4A8_t gData_0074C4A8; // 0x0074C4A8"
+    "extern \"C\" struct d2data_0074C4A8_t gData_0074C4A8; // 0x0074C4A8",
+    "extern \"C\" void __cdecl WINDOW_SetScreenBuffer(); // 0x004F8DE0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Gfx/SRC/Window.inc",
@@ -73071,7 +73071,7 @@
      0,
      "0x004F8DE0",
      "queue_function",
-     "sub_004F8DE0",
+     "WINDOW_SetScreenBuffer",
      0,
      "func"
     ],

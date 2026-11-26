@@ -248,7 +248,7 @@ int __stdcall SMsgUnregisterKeyUp(void* hWnd, int nId, SMSGHANDLER pfnHandler); 
 
 int __stdcall SMsgUnregisterMessage(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420CD0
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
@@ -1454,7 +1454,7 @@ Unicode* __fastcall sub_00452270_AppendDigitText(Unicode* pText, int nValue)
     char szNumber[4];
     unsigned short wszNumberBuf[3];
     Unicode* wszNumber = (Unicode*)wszNumberBuf;
-    D2_ASSERT(sub_00526800(pText) < 500, 0x36C);
+    D2_ASSERT(UNICODE_StrLen(pText) < 500, 0x36C);
     sub_00526700(pText, D2LANG_GetStringFromTblIndex(0xF9A));
     wszNumber[0].wChar = 0;
     wszNumber[1].wChar = 0;
@@ -1468,14 +1468,14 @@ Unicode* __fastcall sub_00452270_AppendDigitText(Unicode* pText, int nValue)
 // 0x00452300
 Unicode* __fastcall SCMD_StripColorCodes(Unicode* pString)
 {
-    D2_ASSERT(sub_00526800(pString) < 500, 0x37F);
+    D2_ASSERT(UNICODE_StrLen(pString) < 500, 0x37F);
 
     const Unicode* pPattern = D2LANG_GetStringFromTblIndex(0xF9A);
-    const int nLength = sub_00526800(pPattern);
+    const int nLength = UNICODE_StrLen(pPattern);
     Unicode* pFound = sub_00526940_FindSubstring(pString, pPattern);
     while (pFound && pFound[nLength].wChar)
     {
-        memmove(pFound, &pFound[nLength + 1], sizeof(Unicode) * (sub_00526800(pFound) - nLength));
+        memmove(pFound, &pFound[nLength + 1], sizeof(Unicode) * (UNICODE_StrLen(pFound) - nLength));
         pFound = sub_00526940_FindSubstring(pString, pPattern);
     }
 
@@ -1489,7 +1489,7 @@ Unicode* __fastcall SCMD_FormatRangeText(Unicode* pText, int nFirst, int nSecond
 {
     if (pText->wChar)
     {
-        D2_ASSERT(sub_00526800(pText) < 500, 0x39A);
+        D2_ASSERT(UNICODE_StrLen(pText) < 500, 0x39A);
         unsigned short wszBufferBuf[0x200];
         Unicode* wszBuffer = (Unicode*)wszBufferBuf;
         wszBuffer[0].wChar = 0;

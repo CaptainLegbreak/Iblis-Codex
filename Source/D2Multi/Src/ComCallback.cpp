@@ -97,7 +97,7 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x0
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
@@ -612,7 +612,7 @@ static __forceinline int FilterNoSeparator(D2WinControlStrc* pControl)
 {
     char szText[0x20];
     const Unicode* pText = sub_004FDD90_GetEditText(pControl);
-    sub_005263E0(szText, pText, 0x20);
+    UNICODE_ToUtf8(szText, pText, 0x20);
     for (int i = 0; szText[i]; i += 1)
     {
         if (szText[i] == '-' || szText[i] == '_')
@@ -1007,12 +1007,12 @@ int __stdcall COMCALLBACK_SendChatLine(int nUnused)
 {
     char szText[0x100];
     const Unicode* wszText = D2Win_10077_EDITBOX_GetText(gpChatEditBox_0077BD94);
-    if (!wszText || !sub_00526800(wszText))
+    if (!wszText || !UNICODE_StrLen(wszText))
     {
         return 1;
     }
 
-    sub_00526F70(szText, wszText, sizeof(szText));
+    UNICODE_ToAscii(szText, wszText, sizeof(szText));
     return CHATDLG_SendChatText(szText, 1);
 }
 
@@ -1030,9 +1030,9 @@ int __stdcall COMCALLBACK_SendEmoteLine(int nUnused)
     char szText[0x12C];
     char szLine[0x12C];
     const Unicode* wszText = D2Win_10077_EDITBOX_GetText(gpChatEditBox_0077BD94);
-    if (wszText && sub_00526800(wszText))
+    if (wszText && UNICODE_StrLen(wszText))
     {
-        sub_00526F70(szText, wszText, sizeof(szText));
+        UNICODE_ToAscii(szText, wszText, sizeof(szText));
         if (szText[0] != '/')
         {
             const unsigned long dwTick = GetTickCount();
@@ -1070,13 +1070,13 @@ int __stdcall COMCALLBACK_SendAwayCommand(int nUnused)
 // 0x00446A90
 void __stdcall COMCALLBACK_RemoveTableString(Unicode* pText)
 {
-    D2_ASSERT(sub_00526800(pText) < 500, 0x300);
+    D2_ASSERT(UNICODE_StrLen(pText) < 500, 0x300);
     const Unicode* pPattern = D2LANG_GetStringFromTblIndex(0xF9A);
-    const int nPatternLength = sub_00526800(pPattern);
+    const int nPatternLength = UNICODE_StrLen(pPattern);
     Unicode* pFound = sub_00526940_FindSubstring(pText, pPattern);
     while (pFound && pFound[nPatternLength].wChar)
     {
-        memmove(pFound, &pFound[nPatternLength + 1], (sub_00526800(pFound) - nPatternLength) * sizeof(Unicode));
+        memmove(pFound, &pFound[nPatternLength + 1], (UNICODE_StrLen(pFound) - nPatternLength) * sizeof(Unicode));
         pFound = sub_00526940_FindSubstring(pText, pPattern);
     }
 }
@@ -1679,7 +1679,7 @@ void __cdecl COMCALLBACK_RefreshChatButtons()
 {
     const Unicode* pText = sub_004FDD90_GetEditText(gpChatEdit);
     int bHasText = 0;
-    if (pText && sub_00526800(pText))
+    if (pText && UNICODE_StrLen(pText))
         bHasText = 1;
 
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
@@ -1716,7 +1716,7 @@ void __fastcall COMCALLBACK_AppendNumberText(Unicode* pText, int nValue)
     }
     else
     {
-        D2_ASSERT(sub_00526800(pText) < 500, 0xB7D);
+        D2_ASSERT(UNICODE_StrLen(pText) < 500, 0xB7D);
         sub_00526700(pText, wszBuffer);
     }
 }
@@ -1739,7 +1739,7 @@ void __fastcall COMCALLBACK_PrependNumberText(Unicode* pText, int nValue)
     }
     else
     {
-        D2_ASSERT(sub_00526800(pText) < 500, 0xB9B);
+        D2_ASSERT(UNICODE_StrLen(pText) < 500, 0xB9B);
         sub_00526700(wszBuffer, pText);
         sub_005267E0(pText, wszBuffer);
     }

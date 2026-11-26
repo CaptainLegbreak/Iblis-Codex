@@ -354,7 +354,7 @@ static void __stdcall HIREABLES_DrawRosterName(const char* szName, int nX, int n
 struct D2UnitStrc;
 
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 
 // 0x00493100
@@ -378,7 +378,7 @@ void __stdcall INV_DrawIconNumber(int nValue, int nX)
     sub_00526320_ToUnicode(wszConverted, szNumber, 32);
     Unicode::strncpy(wszText, wszConverted, 32);
     wszText[31].wChar = 0;
-    Unicode* pEnd = &wszText[sub_00526800(wszText)];
+    Unicode* pEnd = &wszText[UNICODE_StrLen(wszText)];
     while (D2Win_10121_GetTextWidth(wszText) > 0x2E)
     {
         --pEnd;

@@ -68,7 +68,7 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
             if (pText)
             {
                 char szText[0x100];
-                sub_00526F70(szText, pText, 0x100);
+                UNICODE_ToAscii(szText, pText, 0x100);
 // build: symbol ?gwRequestId@* 0x0070CD60
                 while (++gwRequestId == 0)
                 {

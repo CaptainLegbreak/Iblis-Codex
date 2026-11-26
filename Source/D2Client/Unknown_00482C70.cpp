@@ -194,7 +194,7 @@ void __fastcall sub_004DC2B0(void* pResource); // 0x004DC2B0
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
 

@@ -109,7 +109,7 @@ void __stdcall sub_00405450_LoadIniSettings(char* pSettings)
 #include "gen/data/Source/Main/Unknown_004053F0.inc"
 
 // 0x00405550
-void __fastcall sub_00405550(Character* text)
+void __fastcall MAIN_ToLowerInPlace(Character* text)
 {
     while(text->value) {
         if(text->value>=UPPER_FIRST && text->value<=UPPER_LAST)

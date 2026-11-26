@@ -778,7 +778,7 @@ int __stdcall WINDOW_Create(int bWindowed, int nResolution)
         }
     }
 
-    sub_004F8EA0();
+    WINDOW_LoadGammaSettings();
     SetWindowPos(ghWnd, (void*)-2, 0, 0, nWidth, nHeight, 2);
     return bResult;
 }
@@ -901,7 +901,7 @@ int __stdcall WINDOW_Resize(int nResolution, int bForceResize)
     }
 
     const int bResult = gpGraphicsInterface->pfChangeRes(ghWnd, nResolution);
-    sub_004F8EA0();
+    WINDOW_LoadGammaSettings();
     return bResult;
 }
 
@@ -1092,7 +1092,7 @@ void __cdecl WINDOW_UpdatePauseState()
     if (!gbWindowState)
     {
         D2GFX_SetPalette(0);
-        sub_004F8EA0();
+        WINDOW_LoadGammaSettings();
     }
 }
 

@@ -137,7 +137,7 @@ unsigned short gawIconValues[8]; // 0x007C07A8
 
 extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix);
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
@@ -927,7 +927,7 @@ void __fastcall SPELLSEL_DrawKeyLabel(int nKeyId, int nX, int nY, int nColor)
     {
         Unicode::strncpy(wszBuf, wszText, 16);
         wszText = wszBuf;
-        Unicode* pEnd = &wszBuf[sub_00526800(wszText)];
+        Unicode* pEnd = &wszBuf[UNICODE_StrLen(wszText)];
         do
         {
             --pEnd;
@@ -974,7 +974,7 @@ static void __stdcall SPELLSEL_DrawSkillCharges(int nCharges, int nX, int nY)
     if (nCharges > 0)
     {
         sub_00526320_ToUnicode(wszText, _itoa(nCharges, szText, 10), 16);
-        int nLength = sub_00526800(wszText);
+        int nLength = UNICODE_StrLen(wszText);
         while (D2Win_10121_GetTextWidth(wszText) > 40)
         {
             wszText[nLength].wChar = 0;
