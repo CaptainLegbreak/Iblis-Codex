@@ -1388,6 +1388,7 @@ int __stdcall QUESTS_CheckNotIntroQuest(D2GameStrc* ptGame, int nQuestId)
     return 1;
 }
 
+// noinline: QUESTS_NPCActivateSpeeches (0x00545780) and QUESTS_SequenceCycler (0x00546270) call QUESTS_SendCurrentFlags (0x00544520); the image calls it out of line there.
 // 0x00544520
 __declspec(noinline) void __fastcall QUESTS_SendCurrentFlags(D2GameStrc* pGame, D2ClientStrc* pClient)
 {

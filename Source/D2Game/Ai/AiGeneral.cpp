@@ -527,6 +527,7 @@ D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit)
     return SUNIT_GetServerUnit(pAiControl->pGame, pAiControl->dwOwnerTypeEx, pAiControl->dwOwnerGUIDEx);
 }
 
+// noinline: AIGENERAL_TransferMinionsToNewLeader (0x0058F530) calls AIGENERAL_AllocMinionList (0x0058F100); the image calls it out of line there.
 // 0x0058F100
 __declspec(noinline) void __fastcall AIGENERAL_AllocMinionList(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMinion)
 {

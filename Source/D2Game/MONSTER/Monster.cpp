@@ -407,6 +407,7 @@ extern const int gnExperienceBonusTable[9]; // 0x006E15B4
 
 int __fastcall MONSTER_GetHpBonus(int nPlayerCount); // 0x005738F0
 
+// noinline: MONSTER_GetPlayerCountBonus (0x00573930) calls MONSTER_GetHpBonus (0x005738F0); the image calls it out of line there.
 // 0x005738F0
 __declspec(noinline) int __fastcall MONSTER_GetHpBonus(int nPlayerCount)
 {
@@ -420,6 +421,7 @@ __declspec(noinline) int __fastcall MONSTER_GetHpBonus(int nPlayerCount)
 
 int __fastcall MONSTER_GetExperienceBonus(int nPlayerCount); // 0x00573910
 
+// noinline: MONSTER_GetPlayerCountBonus (0x00573930) calls MONSTER_GetExperienceBonus (0x00573910); the image calls it out of line there.
 // 0x00573910
 __declspec(noinline) int __fastcall MONSTER_GetExperienceBonus(int nPlayerCount)
 {

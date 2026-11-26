@@ -4328,7 +4328,7 @@ static int sub_005ADA80_GetPierceFlags_005B01F0(D2UnitStrc* pMissile)
 }
 
 // 0x005ADF10
-__declspec(noinline) int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, int bForceCollision)
+int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, int bForceCollision)
 {
     D2MissilesTxt* pTxt;
     if (!pMissile || pMissile->dwClassId < 0 || pMissile->dwClassId >= sgptDataTables->nMissilesTxtRecordCount)
