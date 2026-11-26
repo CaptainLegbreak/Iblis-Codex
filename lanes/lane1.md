@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 13:45 PST 2026: npcmenu-piece-note ready (the piece stays, reason in a comment). Both claimed joins are done or settled; next: my four forcing rows, starting with 0x4EB290 retried plain on the joined SkillDesc.cpp.
 - Thu Nov 26 13:05 PST 2026: skilldesc-run-join ready. The rest of SkillDesc_004E1FF0.cpp is not SkillDesc's (callbacks before 0x4E4640, the tail after 0x4EFCF0), so it stays. Next: the data those 17 functions read (gnTextOffset1/2, gnGlobal_0072D844/88C, gbTextOffsetInit, gbSkillRefreshInit: only SkillDesc reads them) as SkillDesc.cpp's, then npcmenu_004B5C60.cpp.
 - Thu Nov 26 12:20 PST 2026: lane 1 restarted (new chat), on #429. Taking my range back from lane 4: its handover list and Left in place notes are my starting point; lane 4's `names-sub-d2client` (Ready, covers my range too) stays with lane 4 to finish. Order: the two file joins first (SkillDesc, npcmenu), then my four forcing rows (0x4A9870, 0x4B8100, 0x4EB290, 0x4F2BE0) with fresh eyes on lane 4's readings, then scaffolding and names. Baseline build running.
 - Wed Nov 25 09:39:05 PST 2026: check-in. Main is still #402 and lane 2's decls-d2common-b isn't in, so SkillDesc joins stay paused. Ready is empty.
@@ -40,6 +41,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/npcmenu-piece-note 1acaaa011 (on #429): comment only. npcmenu_004B5C60.cpp says why NPCMENU_ShowMainMenu (0x4B5C60) can't join npcmenu.cpp: with /EHsc on npcmenu.cpp every other function there stays equal, but 0x4B5C60 swaps push esi / xor eax, eax at +0xCB wherever it and its declarations go (after 0x4B5C20, at the end, declarations at the top); its declarations match npcmenu.cpp's. Full build: Game.exe identical, tree bef569dac6b02a784f9c43c02cba64ce21e23905, borrowed code / data 8,373 B / 261 B.
 - lane1/skilldesc-run-join 0704b905a (on #429): SkillDesc.cpp takes the 17 functions of its run from SkillDesc_004E1FF0.cpp (0x4E6C50-0x4EFCB0), each after its address predecessor; the emit helpers of four uncalled statics move with them; 0x4EB940 calls SkillDesc.cpp's own SKILLDESC_DrawDamageRange (argument order fixed for its __fastcall signature) and getter in place of the piece's private copies, which go. Both units all equal. Full build: Game.exe identical, tree 9283e487e43e08006ee5d75c411779fadf1f773c, borrowed code / data 8,373 B / 261 B. Audit guard: no count rose.
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
@@ -47,7 +49,6 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 ## Claimed
 
 - **SkillDesc join (file in pieces).** On #429, `UI/SkillDesc_004E1FF0.cpp` is not one piece: it spans 0x4E1FF0-0x4F48F0 and holds three language copies. Only its functions inside SkillDesc.cpp's run (0x4E6C50, 0x4E6D40, 0x4E6D90, 0x4E6E80, 0x4E6FF0, 0x4E7900, 0x4E9160, 0x4E9590, 0x4E9870, 0x4EB940, 0x4EDA20, 0x4EFC20-0x4EFCB0) join SkillDesc.cpp, in address order. The skill callbacks before 0x4E4640 and the tail (0x4F47B0, 0x4F48F0, and `SkillDesc_004F30A0.cpp`) are other objects' and stay, with the reason in a comment.
-- **npcmenu join:** `UI/npcmenu_004B5C60.cpp` (0x4B5C60) into npcmenu.cpp. Known from my old notes: the piece builds with /EHsc, npcmenu.cpp without, and with /EHsc on npcmenu.cpp 0x4B5C60 was still one push/xor order off.
 
 ## In progress
 
