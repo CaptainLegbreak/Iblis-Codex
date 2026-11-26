@@ -12,12 +12,14 @@ scaffolding, names.
   (Composit_0064F060), `Units/Missile` (Missile_0064B860). Lane 2 hadn't claimed any of them.
 
 ## Status
+- Thu Nov 26 13:32 PT: ItemTbls_00634DC0 parked with its reason too (Ready). MissileTbls note merged in #432, its Ready line gone. On Missile_0064B860 now.
 - Thu Nov 26 13:25 PT: the ItemTbls_00633730 and Composit joins don't build equal; both pieces get reason comments (Ready). The ItemTbls_00634DC0 join flips the same way, its comment branch is in its full build. Next: Missile_0064B860, then DataTbls_00613F80 once lane 7 is done with it.
 - Thu Nov 26 13:25 PT: the three identical-arm rows re-read on #430 and handed to lane 7 (Notes); back on the D2Common joins.
 - Thu Nov 26 13:05 PT: baseline on #429 clean. MissileTbls join tried and parked (comment branch Ready). Next: the three identical-arm rows (Claimed), starting with 0x62FFF0 (4 bytes off in the helper form on 2026-11-25).
 - Thu Nov 26 12:20 PT: setting up (repo, board, wine done; waiting for Game.exe, then setup and the baseline build).
 
 ## Ready
+- lane8/itemtbls-sets-piece-note 35f8a485 (on #431): ItemTbls_00634DC0.cpp says why the sets loader stays its own file (moved into ItemTbls.cpp with the shared set records, it permutes the registers holding its repeated table constants and 0x00633F40 swaps its record-count loads). Comment only. Full build: Game.exe identical, tree 1b2f7bf03b6adee14a55323a38ea915cf2a3dcd4, borrowed code / data 8,373 / 261. (The audit guard against #432 flags the 1.10-name count only because #432 renamed names; against its base #431 no count rose.)
 - lane8/composit-piece-note e565f0d4 (on #431): Composit_0064F060.cpp says why COMPOSIT_GetWeaponClassCode stays its own file (with its body in Composit.cpp, the compiler folds 0x0064F5B0's object-mode call `COMPOSIT_GetWeaponClassCode(unit, 2, ...)` to ' hth' and drops it, wherever the body sits; the joined 0x0064F060 itself builds equal). Comment only. Full build: Game.exe identical, tree 97f48ce36c36be3bd9490ae4ddf3201b7a19bf4d, borrowed code / data 8,373 / 261.
 - lane8/itemtbls-piece-note 7018a03a (on #431): ItemTbls_00633730.cpp says why the affix loader stays its own file (moved into ItemTbls.cpp, it and 0x00633F40 swap their record-count loads; adding only its two field types to ItemTbls.cpp's enums already flips 0x00633F40, wherever the members go). Comment only. Full build: Game.exe identical, tree 26ae6e1250f6a03f7c16bde73b13ecb6af44a893, borrowed code / data 8,373 / 261.
 
