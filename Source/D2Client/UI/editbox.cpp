@@ -23,12 +23,16 @@ class ButtonWrapper;
 class EditBoxWrapper;
 class SpinnerImplementation;
 
+typedef int (__fastcall* EDITBOX_FILTER)(EditBoxImplementation* pEditBox, SMSGHANDLER_PARAMS* pMsg);
+typedef void (*EDITBOX_CALLBACK)();
+
 void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 
 // build: symbol ??1ButtonWrapper@@UAE@XZ 0x004BADD0
 // build: symbol ??1EditBoxImplementation@@UAE@XZ 0x004BB170
+// build: symbol ?OnKeyDown@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB620
 // build: symbol ??1EditBoxWrapper@@UAE@XZ 0x004BB9F0
 // build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
 // build: symbol ??_GButtonImplementation@@UAEPAXI@Z 0x004BAFD0
@@ -71,9 +75,21 @@ public:
     virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int GetValue() = 0;
 
-    int unk0x04;
+    EDITBOX_FILTER pfFilter;
 };
 
+
+
+#define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
+unsigned int __fastcall D2Win_10128(unsigned char nCharCode); // 0x00502550
+D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const unsigned short* pText, int* pLineCount, int nWidth); // 0x00502970
+void __fastcall UNICODE_ToUtf8(char* szDest, const unsigned short* pSource, int nMaxLength);         // 0x005263E0
+extern "C" int __fastcall UNICODE_StrLen(const unsigned short* pText);                                      // 0x00526800
+unsigned short* __fastcall sub_00526F20(Unicode* pDst, const char* szSrc, int nMaxLength);    // 0x00526F20
+extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
+extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
+extern "C" const char gszFmtDecimal_006D57BC[];                                                             // 0x006D57BC
 
 
 // 0x004BB5D0
@@ -116,16 +132,16 @@ public:
     int nTextY;
     int nTextWidth;
     int nHeight;
-    int unk0x20;
-    int unk0x24;
+    int bNumeric;
+    int bAllowRepeat;
     Unicode* pText;
     Unicode* pTextCopy;
     int nMaxValue;
     unsigned short nMaxLength;
-    int unk0x36;
-    int unk0x3A;
+    int nCaret;
+    int nTextLength;
     int unk0x3E;
-    int unk0x42;
+    EDITBOX_CALLBACK pfOnEnter;
     unsigned int unk0x46;
     int unk0x4A;
     int nFont;
@@ -191,7 +207,7 @@ public:
     int nUpY;
     int nDownX;
     int nDownY;
-    int unk0x20;
+    int bNumeric;
     int nArrowHeight;
     int nArrowWidth;
     int f_2C;
@@ -337,7 +353,7 @@ EditBoxImplementation::~EditBoxImplementation()
 // 0x004BB200
 void EditBoxImplementation::sub_004BB200_SetUnk20(int nValue)
 {
-    unk0x20 = nValue;
+    bNumeric = nValue;
 }
 
 extern "C" unsigned int __cdecl strlen(const char* szString);
@@ -391,12 +407,12 @@ void EditBoxImplementation::Draw()
         }
 
         D2Win_10117_DrawText(&pText[nStart], nTextX, nTextY, 0, 0);
-        if (unk0x36 < nMaxLength && unk0x4A && unk0x36 <= unk0x3A)
+        if (nCaret < nMaxLength && unk0x4A && nCaret <= nTextLength)
         {
             if (UNICODE_StrLen(&pText[nStart]))
             {
                 sub_005267E0(pTextCopy, pText);
-                pTextCopy[unk0x36] = 0;
+                pTextCopy[nCaret] = 0;
                 D2Win_10117_DrawText(wszCursor, D2Win_10121_GetTextWidth(pTextCopy) + nTextX, nTextY, 0, 0);
             }
             else
@@ -419,10 +435,10 @@ void EditBoxImplementation::Draw()
         D2SplittedTextStrc* pNext = pLine->pNextLine;
         nChars += nLength;
         ++nLine;
-        if (unk0x36 < nMaxLength && unk0x4A && nChars >= unk0x36 && !bDone)
+        if (nCaret < nMaxLength && unk0x4A && nChars >= nCaret && !bDone)
         {
             bDone = 1;
-            int nColumn = unk0x36 - nChars + nLength;
+            int nColumn = nCaret - nChars + nLength;
             if (nColumn < 0)
             {
                 nColumn = 0;
@@ -463,8 +479,8 @@ void EditBoxImplementation::sub_004BB4D0_Slot15(int nValue)
     }
     sub_00526F20_ToUnicode(pText, szBuffer, nMaxLength);
     const int nLength = UNICODE_StrLen(pText);
-    unk0x36 = nLength;
-    unk0x3A = nLength;
+    nCaret = nLength;
+    nTextLength = nLength;
 }
 
 // 0x004BB530
@@ -472,8 +488,8 @@ void EditBoxImplementation::sub_004BB530_Slot14(const char* szText)
 {
     sub_00526F20_ToUnicode(pText, szText, nMaxLength);
     const int nLength = UNICODE_StrLen(pText);
-    unk0x36 = nLength;
-    unk0x3A = nLength;
+    nCaret = nLength;
+    nTextLength = nLength;
 }
 
 // build: symbol ?GetValue@EditBoxImplementation@@UAEHXZ 0x004BB560
@@ -522,6 +538,162 @@ int EditBoxImplementation::OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
+// 0x004BB620
+int EditBoxImplementation::OnKeyDown(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (!bAllowRepeat && (pMsg->lParam & 0x40000000))
+        return 1;
+
+    if (pMsg->wParam > 0x7F)
+    {
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        return 1;
+    }
+
+    const char nChar = (char)pMsg->wParam;
+    int bAccepted;
+    if (pfFilter)
+    {
+        bAccepted = pfFilter(this, pMsg);
+    }
+    else if (bNumeric)
+    {
+        bAccepted = isdigit(nChar);
+    }
+    else
+    {
+        bAccepted = D2Win_10128(nChar);
+        if (nChar == '\r' || nChar == 0x1B)
+        {
+            pfOnEnter();
+            pMsg->lResult = 0;
+            pMsg->bReturn = 1;
+            sub_00420290_BreakHandlerChain(pMsg);
+            return 1;
+        }
+    }
+
+    if (nChar == 8)
+    {
+        if (nTextLength > 0)
+        {
+            if (nCaret != nTextLength && nCaret != 0)
+            {
+                for (int i = nCaret - 1; i < D2_MIN(nTextLength, nMaxLength) - 1; ++i)
+                    pText[i] = pText[i + 1];
+            }
+
+            pText[nTextLength - 1] = 0;
+            --nTextLength;
+        }
+
+        if (nCaret)
+            --nCaret;
+
+        pMsg->lResult = 0;
+        pMsg->bReturn = 1;
+        sub_00420290_BreakHandlerChain(pMsg);
+        return 1;
+    }
+
+    if (nChar == 0x2E)
+    {
+        if (nTextLength > 0 && nCaret != nTextLength)
+        {
+            for (int i = nCaret; i < D2_MIN(nTextLength, nMaxLength); ++i)
+                pText[i] = pText[i + 1];
+
+            pText[nTextLength - 1] = 0;
+            --nTextLength;
+        }
+
+        pMsg->lResult = 0;
+        pMsg->bReturn = 1;
+        sub_00420290_BreakHandlerChain(pMsg);
+        return 1;
+    }
+
+    if (bAccepted)
+    {
+        if (nTextLength < nMaxLength - 1)
+        {
+            if (nCaret == nTextLength)
+            {
+                pText[nCaret] = nChar;
+                ++nCaret;
+                pText[nCaret] = 0;
+                ++nTextLength;
+            }
+            else
+            {
+                for (int i = D2_MIN(nTextLength, nMaxLength); i >= nCaret; --i)
+                    pText[i] = pText[i - 1];
+
+                if (nTextLength < nMaxLength)
+                    ++nTextLength;
+
+                pText[nTextLength] = 0;
+                pText[nCaret] = nChar;
+            }
+        }
+
+        if (nTextLength)
+        {
+            D2Win_10127_SetFont(nFont);
+            int nLines;
+            D2SplittedTextStrc* pLine = D2WINFONT_SplitText(pText, &nLines, nTextWidth);
+            while (pLine)
+            {
+                D2SplittedTextStrc* pNext = pLine->pNextLine;
+                FOG_Free(pLine->wszLine, ".\\UI\\editbox.cpp", 0x203, 0);
+                FOG_Free(pLine, ".\\UI\\editbox.cpp", 0x204, 0);
+                pLine = pNext;
+            }
+
+            if (nLines > nHeight)
+            {
+                --nTextLength;
+                --nCaret;
+                pText[nTextLength] = 0;
+            }
+        }
+
+        if (!pfFilter && UNICODE_StrLen(pText))
+        {
+            if (bNumeric)
+            {
+                char szValue[0x800];
+                UNICODE_ToUtf8(szValue, pText, nMaxLength);
+                const unsigned int nMax = nMaxValue;
+                if (atoi(szValue) > nMax)
+                {
+                    sprintf(szValue, gszFmtDecimal_006D57BC, nMax);
+                    memset(pText, 0, nMaxLength * 2);
+                    sub_00526F20(pText, szValue, nMaxLength);
+                    const int nNewLength = UNICODE_StrLen(pText);
+                    nCaret = nNewLength;
+                    nTextLength = nNewLength;
+                }
+            }
+            else
+            {
+                nTextLength = UNICODE_StrLen(pText);
+            }
+        }
+    }
+    else if (nChar == ' ' || nChar == 0x1B || nChar == '\r')
+    {
+        return 0;
+    }
+
+    pMsg->lResult = 0;
+    pMsg->bReturn = 1;
+    sub_00420290_BreakHandlerChain(pMsg);
+    return 1;
+}
+
 // build: symbol ?MsgSlot05@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB950
 // 0x004BB950
 int EditBoxImplementation::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
@@ -546,7 +718,7 @@ int EditBoxImplementation::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
 // 0x004BB980
 void EditBoxImplementation::sub_004BB980_SetUnk04(int nValue)
 {
-    unk0x04 = nValue;
+    pfFilter = (EDITBOX_FILTER)nValue;
 }
 
 // 0x004BB990
@@ -558,15 +730,15 @@ void EditBoxImplementation::sub_004BB990_SetUnk18(int nValue)
 // 0x004BB9A0
 void EditBoxImplementation::sub_004BB9A0_SetUnk24(int nValue)
 {
-    unk0x24 = nValue;
+    bAllowRepeat = nValue;
 }
 
 // build: symbol ?OnKeyRight@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB9B0
 // 0x004BB9B0
 int EditBoxImplementation::OnKeyRight(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (unk0x36 < unk0x3A)
-        unk0x36 += 1;
+    if (nCaret < nTextLength)
+        nCaret += 1;
     return 1;
 }
 
@@ -574,8 +746,8 @@ int EditBoxImplementation::OnKeyRight(SMSGHANDLER_PARAMS* pMsg)
 // 0x004BB9D0
 int EditBoxImplementation::OnKeyLeft(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (unk0x36 > 0)
-        unk0x36 -= 1;
+    if (nCaret > 0)
+        nCaret -= 1;
     return 1;
 }
 
@@ -713,7 +885,7 @@ EditBoxImplementation::EditBoxImplementation(int nX, int nY, int nTextWidth, int
     pCellFile = ARCHIVE_LoadClientCellFile(szPath, 0);
     this->nX = nX;
     this->nY = nY;
-    unk0x42 = nArg18;
+    pfOnEnter = (EDITBOX_CALLBACK)nArg18;
     unk0x3E = 0;
     unk0x46 = 0;
     const int nSize = (nMaxLength + 1) * sizeof(Unicode);
@@ -723,12 +895,12 @@ EditBoxImplementation::EditBoxImplementation(int nX, int nY, int nTextWidth, int
     memset(pTextCopy, 0, nSize);
     nMaxValue = nArg10;
     this->nMaxLength = nMaxLength;
-    unk0x36 = 0;
-    unk0x3A = 0;
+    nCaret = 0;
+    nTextLength = 0;
     this->nFont = nFont;
     nTextX = nX + 1;
     nTextY = nY;
-    unk0x20 = 1;
+    bNumeric = 1;
     unk0x4A = 1;
     char szDigits[11] = "0000000000";
     Unicode wszDigits[11];
@@ -753,8 +925,8 @@ EditBoxImplementation::EditBoxImplementation(int nX, int nY, int nTextWidth, int
         this->nHeight = nHeight;
         unk0x56 = 0;
     }
-    unk0x24 = 0;
-    unk0x04 = 0;
+    bAllowRepeat = 0;
+    pfFilter = 0;
 }
 
 // 0x004BBD80
