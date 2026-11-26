@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 13:40 PT): names-sub-2 merged (#432). Seven of the eight joins posted (CharSel left, reading in Claimed); full builds running for the rebased ones.
+Status (Thu Nov 26 2026, 14:25 PT): names-sub-2 merged (#432). Seven of the eight joins posted, every full build identical; CharSel left (reading in Claimed).
 
 ## Ready
 
@@ -11,10 +11,10 @@ All on #431, rebased after the noinline ruling (13:15 PT). Each noinline's comme
 - `lane6/join-bnsend-2` @ a16203740: BnSend_0051C460.cpp joins BnSend.cpp. **noinline +1** (BNSEND_SendLeaveChat). Full build identical.
 - `lane6/join-bndownload` @ 5907407d6: both BnDownload pieces join BnDownload.cpp; the piece's placeholder static PermuteKeyBits goes (the real one is a static of the file: its caller leaves ecx unset for the unused first argument). **noinline +2** (three added: BNDOWNLOAD_ConfigureLog, _SetCheckRevisionValue, _SetArchiveName; the piece's one removed). Full build identical.
 - `lane6/join-soundsmp` @ 2715d03d9: D2SoundSmp_005153C0.cpp joins D2SoundSmp.cpp, which builds /GS- (the piece's option). **noinline +1** (D2SOUNDSMP_InitWaveFormat). Full build identical.
-- `lane6/sound-gs` @ 363442f5f (on join-soundsmp): D2Sound's module default becomes /GS-; three per-file entries go, every D2Sound unit equal (none has a cookie). Full build running.
+- `lane6/sound-gs` @ 363442f5f (on join-soundsmp): D2Sound's module default becomes /GS-; three per-file entries go, every D2Sound unit equal (none has a cookie). Full build identical.
 - `lane6/join-celcmp-2` @ 499370e26: CelCmp.cpp takes eleven of the piece's twelve functions and gaDirectionIndex64 (its data entry merged into CelCmp.cpp's); gpCmpCacheEntries is now defined by SpriteCache.cpp, whose .bss it sits in. The twelfth, the cel list table's GenerateHandle (0x603280), stays alone as CelCmp_00603280.cpp: with InternalFind's body in the same unit the compiler keeps the table in ecx across the call (and NewHandle, 0x604840, does the same around GenerateHandle), where the image keeps it in esi; a noinline doesn't change that, so the image compiled it without InternalFind in view. Piece files unchanged in number (one renamed). **noinline +1** (CelGameDirToFileDir). Full build identical.
 - `lane6/join-mainmenus` @ 893d0b72e: MainMenus_00431AF0.cpp's twelve functions, its three data definitions and the six globals it defined move into MainMenus.cpp; MainMenus.cpp's copies of MAINMENUS_SetMultilineText and MAINMENUS_ShowMessage give way to the placed ones. The class portraits are one array, gapClassImages[7] (the file had seven globals), and the control callback's first field is pControl. The video and terms screens' text buffers are plain 16-bit arrays (the original neither constructs nor zeroes them through Unicode's constructor). **noinline +0.** Full build identical.
-- `lane6/join-winfont-2` @ 1bb8ef47e: D2WinFont_00501DF0.cpp's three functions join D2WinFont.cpp. Two readings: (1) the character after a colour prefix is held in a one-element 16-bit array that lives for the whole loop body. The original gives it its own slot on every pass (address-taken, so its slot follows its scope) and does not zero it; a `Unicode` local is zeroed by the constructor (0x42F530 zeroes, so D2Unicode.h's constructor is the original's), and a scalar `unsigned short` or `wchar_t` is promoted to a dword store. (2) D2WINFONT_SplitText was compiled without D2Win_AllocateSplitText inlined (hiding its body makes it equal). **noinline +1** (D2Win_AllocateSplitText). Full build running.
+- `lane6/join-winfont-2` @ 1bb8ef47e: D2WinFont_00501DF0.cpp's three functions join D2WinFont.cpp. Two readings: (1) the character after a colour prefix is held in a one-element 16-bit array that lives for the whole loop body. The original gives it its own slot on every pass (address-taken, so its slot follows its scope) and does not zero it; a `Unicode` local is zeroed by the constructor (0x42F530 zeroes, so D2Unicode.h's constructor is the original's), and a scalar `unsigned short` or `wchar_t` is promoted to a dword store. (2) D2WINFONT_SplitText was compiled without D2Win_AllocateSplitText inlined (hiding its body makes it equal). **noinline +1** (D2Win_AllocateSplitText). Full build identical.
 
 ## Questions
 
