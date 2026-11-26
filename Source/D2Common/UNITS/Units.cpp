@@ -182,8 +182,6 @@ void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nSta
 
 
 
-int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
-
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int); // 0x00451FE0
 
 int __stdcall INVENTORY_GetEquippedWeapon(D2InventoryStrc*, D2UnitStrc**, int*, int*); // 0x0063C9B0
@@ -358,8 +356,6 @@ void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nVal
 int __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc* pInventory, D2UnitStrc** ppItem); // 0x0063C8F0
 
 
-int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
-
 
 void __stdcall D2Common_10534(D2UnitStrc* pUnit); // 0x00625A00
 
@@ -430,8 +426,6 @@ void __stdcall sub_0066A250(int nUnused);
 struct D2SkillStrc;
 
 struct D2TimerArgStrc;
-
-void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
 int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit);                                                      // 0x00622D00
 

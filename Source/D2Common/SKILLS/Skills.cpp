@@ -234,8 +234,6 @@ struct R00601DC0
 
 extern const int gnShapeShiftedModeTable[]; // 0x006EB348
 
-int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
-
 D2SkillStrc* __stdcall UNITS_GetStartSkill(D2UnitStrc* pUnit); // 0x00620150
 
 
@@ -276,8 +274,6 @@ int __fastcall SKILLS_GetBaseSkillLevelById(D2UnitStrc* pUnit, int nSkillId); //
 int __stdcall UNITS_IsSoftMonster(D2UnitStrc* pUnit); // 0x00621F60
 
 typedef unsigned int size_t;
-
-int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 
 int __stdcall SKILLS_GetPassiveState(int nSkillId); // 0x00643690
 

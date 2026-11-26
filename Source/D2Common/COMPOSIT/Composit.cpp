@@ -50,7 +50,6 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char*,const char*,...); /
 D2ModeTypeTxt* __stdcall DATATBLS_GetPlrModeTypeTxtRecord(int,int); // 0x0065B480
 D2ModeTypeTxt* __stdcall DATATBLS_GetMonModeTxtRecord(int,int); // 0x0065B500
 D2ModeTypeTxt* __stdcall DATATBLS_GetObjModeTypeTxtRecord(int,int); // 0x0065B570
-int __fastcall MONSTERREGION_CheckMonStats2Flag(int,int); // 0x004638A0
 
 // 0x0064F020
 int __stdcall COMPOSIT_GetWeaponClassIdFromCode(int nWeaponClassCode)

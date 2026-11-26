@@ -1002,8 +1002,6 @@ extern "C" const char gszTypeNameStringEntryList[];                             
 extern "C" const char gszTypeNameMappingEntryList[];                                                         // 0x007436AC
 
 
-void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                             // 0x0041D300
-
 
 
 

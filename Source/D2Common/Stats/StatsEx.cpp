@@ -77,8 +77,6 @@ D2ItemStatCostTxt* __fastcall PLAYER_GetItemStatCostTxtRecord(int nStatId); // 0
 
 extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClass); // 0x004833E0
 
-int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
-
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
 
 

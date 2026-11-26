@@ -87,8 +87,6 @@ unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMa
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 
-D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
-
 
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
@@ -144,8 +142,6 @@ static inline int ITEMMODS_RollPropertyValueA(D2UnitStrc* pItem, int nMin, int n
 static inline int ITEMMODS_RollPropertyValueB(D2UnitStrc* pItem, int nMin, int nMax);
 
 static int __stdcall ITEMMODS_AddValueStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int nState, int fStatList);
-
-int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 
 int __fastcall ITEMMODS_PropertyFunc06(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11); // 0x0065EE80
 
@@ -303,8 +299,6 @@ struct D2SkillsTxt;
 void __stdcall sub_00627150(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150
 
 int __fastcall ITEMMODS_AssignByTimeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
-
-int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 
 int __fastcall ITEMMODS_AssignRangeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
 

@@ -119,8 +119,6 @@ struct D2LvlPrestTxt;
 
 D2LvlPrestTxt* __stdcall DATATBLS_GetLvlPrestTxtRecord(int nId); // 0x0061F0B0
 
-void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6); // 0x006743C0
-
 int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nRand, int nOffset, char nFlags); // 0x00674730
 
 int __fastcall sub_006741E0(D2DrlgLevelStrc* pLevel, int nX, int nY);

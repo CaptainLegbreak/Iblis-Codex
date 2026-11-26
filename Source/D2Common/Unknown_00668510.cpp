@@ -70,12 +70,6 @@ static void sub_00668510_MakeCode(const char* szText, char* szCode);
 
 static char* sub_00668590_NextSetToken(char** ppString, const char* szSet);
 
-extern "C" unsigned int __cdecl strcspn(const char* szString, const char* szSet);                          // 0x00688990
-
-extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
-
-extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2);                              // 0x006841E9
-
 int __stdcall FOG_GetRowFromTxt(void* pLinker, const char* szText, int nColumn);                            // 0x006BD3C0
 
 static int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItem* pCubeInput, char* szInput);

@@ -189,8 +189,6 @@ extern const char gszPathFormat[]; // 0x006D4124
 extern const char gszLvlSubTableName[]; // 0x006E8928
 
 
-int __cdecl FOG_IsExpansion(); // 0x00408F20
-
 
 __declspec(noreturn) void __cdecl sub_00681E09_Exit(int);
 
