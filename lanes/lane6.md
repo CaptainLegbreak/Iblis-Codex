@@ -2,12 +2,14 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 13:00 PT): names-110, globals-1, names-sub-1 merged (#429). Joins: ChatDlg, BnSend, BnDownload and D2SoundSmp done (Ready); D2WinFont, CelCmp, MainMenus and CharSel parked with readings (Claimed). Renderer and D2Hell items handed to lane 9 (Handover).
+Status (Thu Nov 26 2026, 13:20 PT): names-110, globals-1, names-sub-1 merged (#429). Joins: ChatDlg, BnSend, BnDownload and D2SoundSmp done (Ready); D2WinFont, CelCmp, MainMenus and CharSel parked with readings (Claimed). Renderer and D2Hell items handed to lane 9 (Handover).
 
 ## Ready
 
-- `lane6/join-chatdlg` @ 3882ca481 (on #429): ChatDlg.cpp places its own CHATDLG_RunCommand at 0x4423B0 and ChatDlg_004423B0.cpp (a second copy of it with copies of its helpers) goes. The file's copy passed the reply command's arguments reversed; CHATDLG_NotifyCommand and CHATDLG_GetArgument take the text first, the order the original's registers in RunCommand follow. ChatDlg.cpp all equal; auditguard: no count rose. Full build running.
+- `lane6/join-chatdlg` @ 3882ca481 (on #429): ChatDlg.cpp places its own CHATDLG_RunCommand at 0x4423B0 and ChatDlg_004423B0.cpp (a second copy of it with copies of its helpers) goes. The file's copy passed the reply command's arguments reversed; CHATDLG_NotifyCommand and CHATDLG_GetArgument take the text first, the order the original's registers in RunCommand follow. ChatDlg.cpp all equal; full build identical; auditguard: no count rose.
 - `lane6/join-bnsend-2` @ 3867768fb, `lane6/join-bndownload` @ 890436a57, `lane6/join-soundsmp` @ 8c366e207 (each on #429, full build identical): BnSend_0051C460.cpp, both BnDownload pieces and D2SoundSmp_005153C0.cpp join their files. **Each needs AUDIT_ALLOW=noinline (question below):** the callee the piece called out of line is defined in the joined file, so the join adds a commented noinline (BnSend +1, BnDownload +2 net: three added, the piece's placeholder static with its noinline removed; D2SoundSmp +1). Without them the compiler inlines the callee; `/Ob1` on the file instead breaks two other functions in BnSend.cpp. BnDownload also loses the piece's placeholder PermuteKeyBits: the real one is a static of the file (its caller leaves ecx unset for the unused first argument, which only a static callee allows). D2SoundSmp.cpp builds /GS- whole (the piece's option; every function stays equal).
+
+- `lane6/names-sub-2` @ 021b0ca39 (on #430): 19 placeholder functions in D2Launch, D2Multi, D2MCPClient, D2Win and Main get `sub_<VA>_<Verb>` names from their bodies (control builders, cancel flags, always-one/zero callbacks, the MCP packet-received getters, the chat input filter, the colour-code test, the expansion check); names.csv's 0x431F50 row carried another function's address. Left: 0x503F70 (an emit helper's static, no caller to name it from) and 0x446880 (folded with D2Common's and D2Game's SKILLS_Return0). Unit builds equal; auditguard: no count rose; full build running.
 
 ## Questions
 
