@@ -6,9 +6,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 1.10-address names. New chat, reopened 2026-11-26 11:57 PT (from lane 6, which held these modules since 2026-11-25).
 
 ## Status
-- 12:45 PT: baseline on #429 VERIFIED (identical, 14,922 placed, 0 not all equal). lane9/names-110-d2game pushed, full
-  build running (its first build had six units clash with second bodies under the 1.10 names; fixed, see the note for
-  lanes 5 and 7). lane9/names-110-d2common built next. Then 0x4F82D0, then 0x6B38A0 (both back from lane 6).
+- 13:20 PT: both 1.10-name branches Ready (below). Now 0x4F82D0, then 0x6B38A0 (both back from lane 6).
 
 ## Claimed
 - **0x004F82D0 CMNSUBTILE_DrawBlendVisTile** (D2Gfx/SRC/Window.cpp, `__assume`): back from lane 6, starting from its
@@ -45,6 +43,14 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
   373 -> 54; auditguard no count rose. Full build: Game.exe identical, tree 52beb6c8409b312a9a410e3876a3211f0e64b021,
   borrowed code / data 8,373 / 261 B.
 - lane9/names-110-d2game: superseded by -2 above.
+- lane9/names-110-d2common-2 6a2995de (on #431): D2Common's 15 names carrying a 1.10 address take their 1.14d names
+  (plan names/v110-d2common.tsv: three names.csv names, nine sub_<VA>_<Verb> where D2MOO names a path/step/IDA*
+  function only by address, OutPlace.cpp's three inlined placers as DRLGOUTPLACE_PlaceLinkedCoord/...Centered/...Far);
+  names.csv, units.json, functions.json, data_plan.json follow. Independent of names-110-d2game-2 (no shared file but
+  names.csv, different rows). 1.10-address names 373 -> 319 alone (54 with the D2Game branch: 0 left); auditguard no
+  count rose. Full build: Game.exe identical, tree 2c34b6e1316046bcef43d28edaa94e79386bcfa9, borrowed code / data
+  8,373 / 261 B.
+- lane9/names-110-d2common: superseded by -2 above.
 
 ## Questions
 
