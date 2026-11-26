@@ -1860,12 +1860,6 @@ int __fastcall MONSTERMODE_StartDead(D2GameStrc* pGame, D2ModeChangeStrc* pModeC
     return 1;
 }
 
-void __fastcall sub_Emit_005A6DF0(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    if (pUnit)
-        MONSTERMODE_ApplyDeathAreaDamage(pGame, pUnit);
-}
-
 // 0x005A7B30
 static int __stdcall MONSTERMODE_StartNeutralUnlessDead(D2GameStrc* pGame, int nMode, D2UnitStrc* pUnit)
 {
