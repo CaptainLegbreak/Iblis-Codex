@@ -2,11 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 08:50 PT): new focus taken (borrowed paused). 0x55A6D0 closed for now: no code of mine beyond lane 5's draft, which stays on lane5/0055A6D0-wip (55bb6186f); proven and left is in its Claimed entry. Now: scaffolding in my modules (private prototypes a shared header already declares), since my four forcing rows are parked with readings; then names.
+Status (Thu Nov 26 2026, 09:20 PT): decls-1 ready (below), the new focus's scaffolding row. Next: more of it (prototypes duplicated across my files that belong in the module header), then names.
 
 ## Ready
 
-(nothing outstanding; module-gs merged in #422)
+- `lane6/decls-1` @ 4f40ee3c9 (on #424): 199 private prototypes in my modules that a header the file already includes declares with the same signature (D2Launch.h, D2Multi.h, D2CommonApi.h, StormApi.h, FogApi.h, the CRT declarations), across 38 files. Each touched unit built equal on its own; CelCmp.cpp was not (its declaration order shapes its code) and is left as it was. Full build identical, 14,922 / 14,922 placed, borrowed totals unchanged; auditguard: no count rose.
 
 
 
