@@ -1300,8 +1300,9 @@ void __cdecl CHARSEL_FreeCharEntry()
     }
 }
 
+// Kept noinline: CHARSEL_RefreshCharList (0x438560) calls this out of line in the image; without it the compiler inlines it there.
 // 0x004380B0
-static unsigned int CHARSEL_GetDaysLeft(unsigned int nExpireTime)
+__declspec(noinline) static unsigned int CHARSEL_GetDaysLeft(unsigned int nExpireTime)
 {
     long nNow;
     const unsigned int nTime = _time32(&nNow);
@@ -1451,7 +1452,10 @@ void __cdecl CHARSEL_UpdateCharList()
                     D2Win_10051(gapRowControls[nRow], D2LANG_GetStringFromTblIndex(0x2AAF), 4, 0, 0);
                 }
 
-                const unsigned int nDays = CHARSEL_GetDaysLeft(pEntry->nExpireTime);
+                const unsigned int nExpireTime = pEntry->nExpireTime;
+                long nNow;
+                const unsigned int nTime = _time32(&nNow);
+                const unsigned int nDays = nExpireTime <= nTime ? 0 : (nExpireTime - nTime) / 86400;
                 if (gnLaunchMode == 1 && nDays <= 60)
                 {
                     int nColor = 1;
@@ -1509,6 +1513,94 @@ static inline int sub_F4B0_IsMaleClass(int nClass)
     }
 
     return 1;
+}
+
+extern "C" const char gszTagFormat[]; // 0x006D4E2C
+static inline int GetCharType(D2LaunchCharEntryStrc* entry)
+{
+    return entry ? entry->nType : 0;
+}
+// 0x00438560
+void __cdecl CHARSEL_RefreshCharList()
+{
+    if(FOG_IsExpansion()) {CHARSEL_UpdateCharList();return;}
+    D2LaunchCharEntryStrc* entry=gpCharList;
+    int y=ganRowValues_007799FC[0]-13;
+    int index=0;
+    char unusedText[256];
+    UNICODE_ToUtf8(unusedText,D2LANG_GetStringFromTblIndex(0x1419),256);
+    CONTROL_SetVisible(gpControl_00779D90,0);
+    for(int i=0;i<gnVisibleRows;++i) {
+        sub_004FB6A0_ClearText(gapRowControls[i]);
+        if(STRTABLE_GetLanguage()==7) sub_004FB740(gapRowControls[i],-1,-5);
+    }
+    if(gpControl_00779DD0) sub_004FB6A0_ClearText(gpControl_00779DD0);
+    if(gnLaunchMode==1 && gnBusy) return;
+    for(;entry;entry=entry->pNext,++index) {
+        if(index>=gnTopRow && index<gnTopRow+gnVisibleRows) {
+            int row=index-gnTopRow;
+            sub_005052B0_SetAnimX(entry->pAnim,0x221);
+            sub_005052F0_SetAnimY(entry->pAnim,y);
+            if(entry->nState==1) {
+                sub_00505360_SetAnimFlags(entry->pAnim,0);
+                IMAGE_SetCoordinates(gpControl_00779D90,0x200,(void*)(ganRowValues_007799FC[row]-3));
+                CONTROL_SetVisible(gpControl_00779D90,1);
+                sub_004FC9B0_SetText(gapRowControls[row],D2LANG_GetStringFromTblIndex(0x1419),1,0,0);
+                if(gnLaunchMode==1 && gbFlag_00779DD8) {
+                    sub_004FC9B0_SetText(gapRowControls[row],D2LANG_GetStringFromTblIndex(0x1416),0,0,0);
+                    sub_004FC9B0_SetText(gapRowControls[row],D2LANG_GetStringFromTblIndex(0x1417),0,0,0);
+                } else {
+                    sub_004FC9B0_SetText(gapRowControls[row],D2LANG_GetStringFromTblIndex(0x1418),0,0,0);
+                    sub_004FC9B0_SetText(gapRowControls[row],entry->wszName,0,0,0);
+                }
+                goto VISIBLE_END;
+            }
+            const int hardcore=entry->wFlags&4;
+            unsigned int flags=1;
+            if(entry->wFlags&8) flags|=gdwBitMasks[4];else flags&=gdwInverseMasks[4];
+            if(hardcore) flags|=gdwBitMasks[5];else flags&=gdwInverseMasks[5];
+            sub_00505360_SetAnimFlags(entry->pAnim,flags);
+            if(entry->nState==2) {
+                sub_004FC9B0_SetText(gapRowControls[row],D2LANG_GetStringFromTblIndex(0x2B3B),1,0,0);
+                goto VISIBLE_END;
+            }
+            if(entry->nState!=0) {FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),0x3B0);exit(-1);}
+            char text[100];text[0]=0;
+            Unicode className[100];
+            const int bExpansion=entry->wFlags&32;
+            const char* title=D2Win_10161(GetCharType(entry),(entry->wFlags>>8)&31,hardcore,bExpansion);
+            if(title) strcat(text,title);
+            strcat(text,entry->szName);
+            if(strlen(entry->szCode32A)) {
+                int length=strlen(text);
+                char* end=text+length;
+                sprintf(end,gszTagFormat,entry->szCode32A);
+            }
+            D2Win_10046(gapRowControls[row],text,hardcore?1:4);
+            CHARSEL_GetClassName(className,entry->nType);
+            Unicode description[100];
+            Unicode level[10];
+            sprintf(text,gszLevelFormat,entry->nLevel);
+            sub_00526F20_ToUnicode(level,text,9);
+            sub_005267E0(description,D2LANG_GetStringFromTblIndex(0xFD9));
+            sub_00526700(description,level);
+            sub_00526700(description,className);
+            sub_004FC9B0_SetText(gapRowControls[row],description,0,0,0);
+            if(entry->wFlags&32) sub_004FC9B0_SetText(gapRowControls[row],D2LANG_GetStringFromTblIndex(0x2B45),2,0,0);
+            if(entry->nByte32E) sub_004FC9B0_SetText(gapRowControls[row],D2LANG_GetStringFromTblIndex(0x2AAF),4,0,0);
+            unsigned int days=CHARSEL_GetDaysLeft(entry->nExpireTime);
+            if(gnLaunchMode==1 && days<=60) {
+                int color=1;unsigned short str;
+                if(days==0) str=0x2B7E;
+                else if(days<2) str=0x2B7C;
+                else {str=0x2B7D;if(days>=15) color=0;}
+                sub_005269D0(100,description,D2LANG_GetStringFromTblIndex(str),days);
+                sub_004FC9B0_SetText(gapRowControls[row],description,color,0,0);
+            }
+VISIBLE_END:
+            y+=93;
+        } else sub_00505360_SetAnimFlags(entry->pAnim,0);
+    }
 }
 
 // 0x00438AD0

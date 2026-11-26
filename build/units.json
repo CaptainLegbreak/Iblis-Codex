@@ -8969,6 +8969,10 @@
      "length": 1124
     },
     {
+     "va": "0x00438560",
+     "length": 1384
+    },
+    {
      "va": "0x00438AD0",
      "length": 970
     },
@@ -11638,16 +11642,6 @@
      "va": "0x004378D0",
      "length": 233,
      "name": "?CHARSEL_SubmitPasswordReset@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/CharSel_00438560.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00438560",
-     "length": 1384
     }
    ]
   },
