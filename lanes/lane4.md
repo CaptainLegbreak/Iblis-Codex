@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 10:12 PST 2026 (after #426): constructs branch rebased (39 -> 36); the D2Client stack is rebased and building; 0x62B5B0 declaration lever tried, no effect (Left in place).
+
 - Thu Nov 26 10:03 PST 2026: rebased onto #425; constructs branch posted; packet-names stack building; next, 0x62B5B0 on the unit's declarations (coordinator's lever).
 
 - Thu Nov 26 09:15 PST 2026: noinline posted (stacked on dup-decls).
@@ -66,8 +68,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/original-constructs 570e52eb3 (on #425, tools/status.py only): the coordinator's 08:48 answer. FORCING_ORIGINAL lists 0x477170 (PalShift's `#pragma optimize("", off)`) and 0x44CD70/0x44EFA0 (identical gpClientConfig arms) with the evidence in a comment; their rows read "(original)" and forcing-construct functions go 40 -> 37. Regenerating STATUS.md changes only those four lines. STATUS.md and the svgs are left for the round's refresh.
-- lane4/dup-externs, lane4/noinline, lane4/scmd-packets (one stack on #425, full build running; line updated with hashes when it's verified): the 287 prototypes are on main; the externs commit is regenerated on #425 (the renames made 43 duplicates in 19 files, was 11), noinline is unchanged, and SCmd.cpp's packet records take D2Packets.h's field names for 44 fields in 25 records where offset, size and type agree (unk0x reads in SCmd.cpp 239 -> 194).
+- lane4/original-constructs a705fd21b (on #426, tools/status.py only): the coordinator's 08:48 answer. 0x44CD70 and 0x44EFA0 join lane 3's ARMS_ORIGINAL set (rebased onto it), and a PRAGMA_ORIGINAL set holds 0x477170 (PalShift's `#pragma optimize("", off)`), each with the evidence in a comment. Their rows read "(original)" and forcing-construct functions go 39 -> 36; regenerating STATUS.md changes only those four lines, so STATUS.md and the svgs are left for the round's refresh.
+- lane4/dup-externs, lane4/noinline, lane4/scmd-packets (one stack, rebased onto #426, full build running; this line gets its hashes once that build is verified): the 287 prototypes are on main; the externs commit is regenerated on #425 (the renames made 43 duplicates in 19 files, was 11), noinline is unchanged, and SCmd.cpp's packet records take D2Packets.h's field names for 44 fields in 25 records where offset, size and type agree (unk0x reads in SCmd.cpp 239 -> 194).
 
 
 ## Claimed
@@ -115,6 +117,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - Lane 2: `D2ClientTypes.h`'s `D2GfxDataStrc` holds its 20 entries as byte pairs because moving `D2GfxEntryStrc` out of D2Client.h changes code in useitem.cpp and inv_0048DD90.cpp.
 
 ## Left in place (and why)
+
+- **0x62B5B0 (Items.cpp), the unit's declarations (coordinator's lever, Thu Nov 26 10:12 PST 2026):** none moves it. On the draft (lane2/0062B5B0-wip rebased onto #426, 2 changed lines: `mov edi,[sgptDataTables]` before `mov ecx,[ebp-N]`), each of these built with every other Items.cpp function unchanged and the same 2 lines: the data tables extern first after the includes, after all declarations, or (not possible: it's read earlier) just before the function; the function's own prototype first, with `pPlayer` like the definition, or unnamed; the getters' redundant prototypes (GetPrefixId, GetAutoAffix) dropped; D2CommonApi.h included with Items.cpp's 28 private copies dropped (about 400 more declarations in the unit; 0x626E10's private copy has to stay, the header types its list as D2StatListExStrc); the function and its two inline getters moved from after the data include to after 0x62B560, or to before the data include. So the walk isn't sensitive to the unit's declarations or definition order here, unlike the inv_* units. Next: the locals' declaration order and scope inside the function (pStat[64], the class/record temporaries), which lane 2 hasn't listed as tried.
 
 - **0x474160 DLIGHTMAP_MakeLightEntry (volatile on nIntensity, nMode).** The original loads both from their stack slots right after the UNITS_GetPrecisionY call, keeping nMode in ecx through the stores; plain forms schedule those loads later. Tried: direct parameter stores, the stores reordered, the mode test on the field, the Y read inline. Parked.
 - **0x4A9870 SPELLSEL_DrawSkillSlot (volatile on y).** The original reuses mouseX's register (esi) for drawY and loads y separately in each branch after the x test; a plain drawY = y (or using y throughout) loads it before the test into another register. Tried: plain copy, no copy, the copy at the end of the branch, one combined hover condition, the inner test on y. Parked.
