@@ -26410,6 +26410,11 @@
      "name": "?sub_004B9B20@@YIHH@Z"
     },
     {
+     "va": "0x004B9B50",
+     "length": 37,
+     "name": "?SOUNDINST_SetValue@@YIXHH@Z"
+    },
+    {
      "va": "0x004B9B80",
      "length": 37,
      "name": "SOUNDINST_StartFade"
@@ -26542,17 +26547,6 @@
      "va": "0x004BABC0",
      "length": 26,
      "name": "?SOUNDINST_ToggleHints@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Sound/SoundInst_004B9B50.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B9B50",
-     "length": 37,
-     "name": "?SOUNDINST_SetValue@@YIXHH@Z"
     }
    ]
   },

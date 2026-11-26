@@ -442,6 +442,27 @@ int __fastcall sub_004B9B20(int nKey)
     return 0;
 }
 
+// 0x004B9B50
+// noinline: SOUNDINST_ArmHint (0x4B9EF0) calls SOUNDINST_SetValue (0x4B9B50); the image calls it out of line, and without this the compiler expands it there.
+__declspec(noinline) void __fastcall SOUNDINST_SetValue(int nKey, int nValue)
+{
+    if (!nKey)
+        return;
+    D2SoundNodeStrc* pLink = gpSoundList_007C5458;
+    if (!pLink)
+        return;
+    do
+    {
+        D2ClientSoundStrc* pValue = pLink->pSound;
+        if (pValue->f_8 == nKey)
+        {
+            pValue->f_1C = nValue;
+            return;
+        }
+        pLink = pLink->pNext;
+    } while (pLink);
+}
+
 // 0x004B9B80
 void __fastcall SOUNDINST_StartFade(D2ClientSoundStrc* pSound, int nValue, int nBase, int nOffset)
 {
