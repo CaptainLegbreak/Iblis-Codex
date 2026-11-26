@@ -2115,19 +2115,7 @@ extern int gbPanelFlag; // 0x0071315C
 
 
 
-void __cdecl sub_M04_Emit_0047BD80(char* szDest, const char* szSource)
-{
-    CHAT_CopyCharacterPart(szSource, szDest);
-}
 
-int __fastcall sub_F07_Emit_0047C100(char* szInput)
-{
-    if (CHAT_HandleHelpCommand(szInput, "/help"))
-        return 1;
-    if (CHAT_HandleHelpCommand(szInput, "/?"))
-        return 1;
-    return 0;
-}
 
 
 
@@ -2178,20 +2166,7 @@ extern const char gszM134CmdB[];
 
 void __stdcall sub_M134_Use(const char* szText);
 
-void __fastcall sub_M134_Emit_0047C100(const char* szText)
-{
-    if (!CHAT_CompareCommand(szText, gszM134CmdA))
-        return;
-    if (!CHAT_CompareCommand(szText, gszM134CmdB))
-        sub_M134_Use(szText);
-}
 
-void sub_A23_Emit_0047BA00(int nSkip)
-{
-    const Unicode* pText = &gwszChatLine_007BB638[nSkip];
-    if (sub_00526800(pText))
-        CHAT_PushChatHistory(pText);
-}
 
 
 #include "gen/data/Source/D2Client/UI/chat.inc"

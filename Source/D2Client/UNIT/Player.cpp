@@ -1464,11 +1464,6 @@ static void PLAYER_ResumeWalk(D2PlayerCmdStrc* pCmd)
     PLAYER_WalkTo(nMode, pPlayer, pCmd->nX, pCmd->nY);
 }
 
-void __stdcall sub_E06_Emit_00461C70(int nArg1, int nArg2, D2PlayerCmdStrc* pCmd)
-{
-    PLAYER_UseSkillOnTarget(nArg1, nArg2, pCmd);
-    PLAYER_UseSkillOnTarget(0, nArg2, pCmd);
-}
 
 static inline D2MonStatsTxt* E06_GetMonStatsTxtRecord(int nClassId)
 {
@@ -1614,17 +1609,7 @@ check_range:
     UNITMODE_DoUnitAction(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
 }
 
-int __stdcall sub_M135_Emit_00461160A(D2PlayerCmdStrc* pCmd, int* pUseState)
-{
-    return PLAYER_CheckCommandSkill(pCmd, pUseState) + 0x3131;
-}
 
-int __stdcall sub_M135_Emit_00461160B(int nSkip, D2PlayerCmdStrc* pCmd)
-{
-    if (!PLAYER_CheckCommandSkill(pCmd, 0))
-        return nSkip;
-    return 0x3133;
-}
 
 static inline int E06_GetPlayerMode(D2UnitStrc* pUnit)
 {
@@ -1673,14 +1658,6 @@ int __stdcall PLAYER_IsPendingMode(int nValue1, int nValue2)
     return 0;
 }
 
-int __cdecl sub_E06_Emit_004621D0(D2PlayerCmdStrc* pCmd)
-{
-    if (!PLAYER_PrepareCommand(pCmd))
-    {
-        return 0;
-    }
-    return pCmd->nMode;
-}
 
 // 0x004621D0
 static int PLAYER_PrepareCommand(D2PlayerCmdStrc* pCmd)
@@ -2249,16 +2226,6 @@ static int sub_00462CA0_UpdatePetCommandNoWalk(D2PlayerCmdStrc* pCmd)
 }
 
 int __fastcall PLAYER_PlayerCommand(int nCommand, int nX, int nY, unsigned char nKeyFlags); // 0x00462D00
-void sub_E06_Emit_Player1()
-{
-    PLAYER_SetModeAndSync(1, gpEmitUnit_E06, gnEmitArg_E06);
-    PLAYER_UpdateRoomPosition(gpEmitUnit_E06);
-    PLAYER_UpdateRoomState(gpEmitUnit_E06);
-    PLAYER_PlaceOnFreeCoords(gpEmitUnit_E06);
-    PLAYER_ResetPlayerState(gpEmitUnit_E06);
-    PLAYER_RefreshSkillRef(0, gpEmitUnit_E06, gpEmitRef_E06);
-    PLAYER_ReleaseUsedSkill(gnEmitArg_E06 == 1, gpEmitUnit_E06);
-}
 
 // 0x00462D00
 int __fastcall PLAYER_PlayerCommand(int nCommand, int nX, int nY, unsigned char nKeyFlags)

@@ -866,16 +866,6 @@ static void __stdcall PARTY_DrawRosterLevel(int nY, int nLevel, int nColor)
     D2Win_10117_DrawText(wszText, gnPanelOffsetX + 0x10A, nY - gnPanelOffsetY, nColor, 0);
 }
 
-void __cdecl sub_Z12_EmitRosterRows(D2PartyRowStrc* pEntry, int nColor)
-{
-    int nY = 0x3A;
-    for (; pEntry; pEntry = pEntry->pNext)
-    {
-        PARTY_DrawRosterLevel(nY + 0xE, pEntry->nLevel, nColor);
-        PARTY_DrawRosterArea(nY, pEntry, nColor);
-        nY += 0x22;
-    }
-}
 
 
 

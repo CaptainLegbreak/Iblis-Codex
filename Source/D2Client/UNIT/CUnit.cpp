@@ -1264,14 +1264,6 @@ int __fastcall CUNIT_SelectProcSoftCorpse(D2UnitStrc* pPlayer, D2UnitStrc* pTarg
     return D2Common_11020(pTarget);
 }
 
-int __fastcall sub_M210_Emit_00464310(D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
-{
-    if (!sub_M210_EmitTest(pPlayer, pUnit))
-        return 0;
-    if (CUNIT_CheckMonsterSkillSelect(pUnit, pPlayer))
-        return sub_M210_EmitUse(pUnit);
-    return sub_M210_EmitUse(pPlayer);
-}
 
 // 0x004642A0
 int __fastcall CUNIT_SkillSelectProc5(D2UnitStrc* pPlayer, D2UnitStrc* pTarget)
@@ -1920,10 +1912,6 @@ static int __stdcall CUNIT_CanInterruptSequence(int nUnused, D2UnitStrc* pUnit)
     return (pUnit->dwSeqFrame >> 8) >= nFrame;
 }
 
-int __fastcall sub_Emit_004645B0(D2UnitStrc* pUnit, int nArg)
-{
-    return CUNIT_CanInterruptSequence(nArg, pUnit);
-}
 
 static inline D2SkillsTxt* SKILLCLT_GetSkillsTxtRecord(int nSkillId)
 {
@@ -3156,10 +3144,6 @@ D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int n
     return CUNIT_InitUnit(gnPresetUnitId, nClassId, nY, nUnitType, nArg, 0, pUnit, nX);
 }
 
-void sub_I08_Emit_004656C0(D2UnitStrc* pUnit, int nClassId)
-{
-    CUNIT_ApplyClassEffects(pUnit, nClassId);
-}
 
 // 0x004667F0
 static void CUNIT_SpawnPresetUnitInRoom(D2ActiveRoomStrc* pRoom, D2PresetUnitStrc* pPresetUnit)
@@ -3337,44 +3321,8 @@ void __fastcall sub_M109_Emit_00463C60(D2UnitStrc* pUnit)
     CUNIT_RemoveUnitFromRoom(pUnit);
 }
 
-int __fastcall sub_Q03_Emit_ObjectSelectBox(D2UnitStrc* pUnit, int nX, int nY)
-{
-    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pUnit->dwClassId);
-    if (pObjectsTxtRecord->nIsDoor)
-    {
-        return CUNIT_IsInObjectSelectBox(nY, pObjectsTxtRecord, pUnit, nX);
-    }
 
-    return 0;
-}
 
-int __fastcall sub_Q03_Emit_UnitSelectRect(D2UnitStrc* pUnit, int nX)
-{
-    int nFrameNo;
-    int nFrameCount;
-    UNITS_GetShiftedFrameMetrics(pUnit, &nFrameNo, &nFrameCount);
-
-    D2RectStrc tRect;
-    for (int nMode = 0; nMode < 16; ++nMode)
-    {
-        if (CUNIT_GetUnitSelectRect(pUnit, nMode, &tRect, nFrameNo) && nX >= tRect.nLeft && nX <= tRect.nRight)
-        {
-            return 1;
-        }
-    }
-
-    return 0;
-}
-
-int __stdcall sub_O05_Emit_004642B0(D2UnitStrc* pPlayer, D2UnitStrc* pTarget)
-{
-    if (CUNIT_CheckSkillSelectProc(pPlayer, pTarget, sub_O05_EmitArg_SkillId(pPlayer)))
-    {
-        return 1;
-    }
-
-    return CUNIT_CheckSkillSelectProc(pPlayer, pTarget, sub_O05_EmitArg_SkillId(pTarget)) != 0;
-}
 
 // 0x00483410
 D2SetsTxt* __fastcall DATATBLS_GetSetsTxtRecord(int nSetId)

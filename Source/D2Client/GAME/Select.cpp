@@ -294,12 +294,6 @@ static int __stdcall SELECT_CheckWarpTileHover(D2UnitStrc* pPlayer, D2HoverCoord
     return 0;
 }
 
-int __stdcall sub_662F_Emit_00467AC0(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nPX, int nPY, int nX, int nY)
-{
-    D2HoverCoordStrc tY1;
-    tY1.nValue = nPY;
-    return SELECT_CheckWarpTileHover(pPlayer, tY1, nX, nY, pUnit, nPX, &gbWarpTileHovered);
-}
 
 // 0x004670A0
 static void __stdcall SELECT_AdjustCursorPerspective(int* pnX, int* pnY)
@@ -628,15 +622,6 @@ static D2UnitStrc* __stdcall SELECT_FindAdjacentTarget(D2SkillsTxt* pSkillsTxtRe
     return 0;
 }
 
-D2UnitStrc* __fastcall sub_807B_Emit_00467660(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pPlayer, int bArg)
-{
-    if (bArg && pPlayer->dwUnitType == UNIT_PLAYER)
-    {
-        return SELECT_FindAdjacentTarget(pSkillsTxtRecord, pPlayer);
-    }
-    UNITS_SetTargetUnitForDynamicUnit(pPlayer, 0);
-    return pPlayer;
-}
 
 // 0x004677B0
 static D2UnitStrc* __stdcall SELECT_FindFreeTargetCoords(int* pnX, int* pnY, D2UnitStrc* pUnit)
@@ -724,46 +709,6 @@ skip:
 }
 
 
-void __cdecl sub_E01_Emit_00467AC0(D2UnitStrc* pFirst)
-{
-    int nX = 0;
-    int nY = 0;
-    if (SELECT_GetHoverCursorPos(&nX, &nY))
-    {
-        return;
-    }
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    int nPX = CLIENTS_GetUnitX(pPlayer);
-    int nPY = CLIENTS_GetUnitY(pPlayer);
-    DUNGEON_GameSubtileToClientCoords(&nPX, &nPY);
-    D2UnitStrc* pBest = 0;
-    for (D2UnitStrc* pUnit = pFirst; pUnit; pUnit = pUnit->ptRoomNext)
-    {
-        D2HoverCoordStrc tPlayerY = { nPY };
-        if (SELECT_CheckWarpTileHover(pPlayer, tPlayerY, nX, nY, pUnit, nPX, &gbWarpTileHovered))
-        {
-            continue;
-        }
-        if (!pBest)
-        {
-            pBest = pUnit;
-            continue;
-        }
-        if (SELECT_CheckDoorSideA(pUnit, pBest))
-        {
-            pBest = pUnit;
-        }
-        else if (SELECT_CheckDoorSideB(pBest, pUnit))
-        {
-            pBest = pUnit;
-        }
-        else if (SELECT_GetDistanceSquared(pPlayer, pUnit) < SELECT_GetDistanceSquared(pPlayer, pBest))
-        {
-            pBest = pUnit;
-        }
-    }
-    SELECT_SetHoverUnit(pBest);
-}
 
 // 0x00467A00
 void __cdecl SELECT_ResetHoverClassIds()

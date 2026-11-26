@@ -2957,10 +2957,6 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* pPath, int nType); // 0x00648CF0
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 
 
-D2UnitStrc* __fastcall sub_M109_Emit_004C9D50(D2UnitStrc* pUnit, int nUnitId)
-{
-    return sub_004C9D50_FindDestinationById(pUnit, nUnitId + 1);
-}
 
 // 0x004D16C0
 void __fastcall SKILLS_SpawnOffsetMissile(int nUnitId, int nUnused, D2UnitStrc* pMissile, D2UnitStrc* pOwner)
