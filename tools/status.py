@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate STATUS.md, docs/grid.svg and docs/shape.svg from the build data.
+"""Regenerate STATUS.md, docs/grid.svg, docs/shape.svg and the table in docs/index.html from the build data.
 
   python tools/status.py [--out DIR]
 
@@ -368,6 +368,39 @@ svg('docs/shape.svg', 'Iblis Codex · source shape',
      (PURPLE, 'needs a construct that forces code generation · %s' % format(sc[PURPLE], ',')),
      (RED, 'not reconstructed yet · %s' % format(sc[RED], ',')),
      (GREY, 'C runtime, PKWARE library or import thunk · %s' % format(sc[GREY], ','))], SC['whole'])
+
+# docs/index.html: the interactive grid's per-function table, in the same states as docs/grid.svg
+ip = os.path.join(ROOT, 'docs', 'index.html')
+if os.path.exists(ip):
+    page = open(ip, encoding='latin-1').read()
+    i = page.find('const DATA=')
+    if i >= 0:
+        j = page.find(';\nconst REPO=', i)
+        # read the old rows one by one, so a malformed row cannot stop the rewrite
+        old = {m.group(1): [m.group(1), int(m.group(2)), m.group(3), m.group(4), m.group(5), m.group(6), '']
+               for m in re.finditer(r'\["(0x[0-9A-F]{8})",(\d+),"(\w+)","([^"]*)","([^"]*)","([^"]*)"', page[i:j])}
+        size = {int(f[0], 16): f[1] for f in FUNCS}
+
+        def page_state(a, k):
+            if k in ('crt', 'pkware', 'thunk'): return 'library'
+            if k == 'unmatched': return 'missing'
+            if a in forced: return 'construct'
+            if raw: return 'raw' if a in raw else 'linked'
+            prev = old.get('0x%08X' % a)
+            return prev[2] if prev and prev[2] in ('raw', 'linked') else 'linked'
+
+        rows = []
+        for a, k in cells:
+            va = '0x%08X' % a
+            prev = old.get(va)
+            n, s = NAMES.get(a, (prev[3] if prev else '', prev[4] if prev else ''))
+            u = OWNER.get(a)
+            rows.append([va, size.get(a, prev[1] if prev else 0), page_state(a, k), n, s,
+                         prev[5] if prev else '', u['file'] if u else (prev[6] if prev else '')])
+        page = page[:i] + 'const DATA=' + json.dumps(rows, separators=(',', ':')) + page[j:]
+        page = page.replace('"byte-identical, but only with a non-original construct"',
+                            '"byte-identical, but only with a construct that forces code generation"')
+        open(ip, 'w', encoding='latin-1', newline='').write(page)
 
 # README: the unit count in the layout table
 rp = os.path.join(ROOT, 'README.md')
