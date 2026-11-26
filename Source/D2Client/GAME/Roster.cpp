@@ -42,9 +42,9 @@ struct D2RosterUnitStrc
     char unk0x00[0x38];
     D2RosterCorpseStrc* pCorpse;
     char unk0x3C[0x08];
-    unsigned short wUnk0x44;
-    unsigned char unk0x46[4];
-    unsigned char unk0x4A[4];
+    unsigned short wGuildFlags;
+    unsigned char szGuildTag[4];
+    unsigned char szGuildName[4];
 };
 
 
@@ -776,7 +776,7 @@ unsigned short __fastcall ROSTER_GetGuildFlags(D2RosterUnitStrc* pRosterUnit)
     {
         return 0;
     }
-    return pRosterUnit->wUnk0x44;
+    return pRosterUnit->wGuildFlags;
 }
 
 // 0x00479B60
@@ -786,7 +786,7 @@ unsigned char* __fastcall ROSTER_GetGuildTag(D2RosterUnitStrc* pRosterUnit)
     {
         return 0;
     }
-    return pRosterUnit->unk0x46;
+    return pRosterUnit->szGuildTag;
 }
 
 // 0x00479B70
@@ -796,7 +796,7 @@ unsigned char* __fastcall ROSTER_GetGuildName(D2RosterUnitStrc* pRosterUnit)
     {
         return 0;
     }
-    return pRosterUnit->unk0x4A;
+    return pRosterUnit->szGuildName;
 }
 
 // 0x00479B80
