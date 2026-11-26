@@ -93,7 +93,6 @@ struct D2HirelingTxt;
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-void __fastcall D2GAME_MERCS_SendStat(D2UnitStrc* pUnit, unsigned short nStatId, int nValue); // 0x005718C0
 
 #include "D2GameFuncs.h"
 
@@ -146,8 +145,6 @@ struct List00572DE0 { Node00572DE0* pHead; };
 
 int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
-void __fastcall SCMD_SendInteractionTarget(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitId, int a5); // 0x0053D6D0
-
 
 int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUnitGUID); // 0x00554100
 
@@ -170,8 +167,6 @@ struct D2GSPacketSrv27
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x00681CE0
 
-
-void __fastcall D2GAME_SendPacket0x28(D2ClientStrc* pClient, unsigned char nHeader, unsigned char a3, int a4, D2BitBufferStrc* a5, unsigned char a6); // 0x0053D670
 
 D2BitBufferStrc* __fastcall sub_00543520(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00543520
 
@@ -206,10 +201,6 @@ struct D2HirelingInitStrc
     int nHireDesc;
     int unk0x34[2];
 };
-
-void __fastcall D2GAME_PACKETS_SendPacket0x9B(D2ClientStrc* pClient, unsigned short a2, int a3); // 0x0053E0E0
-
-void __fastcall SUNIT_SetAlignment(D2UnitStrc* pUnit, unsigned char nAlignment, int a3); // 0x005543B0
 
 
 void __fastcall D2GAME_BOSSES_AssignUMod(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int a4); // 0x005A4850

@@ -143,9 +143,6 @@ struct D2AiCmdStrc;
 struct D2StaticPathStrc;
 
 
-void __fastcall SUNITMSG_QueueItemSkillOnUnit(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, unsigned char nUnitType, int nUnitGUID, unsigned char a6); // 0x005717C0
-
-
 struct D2MagicAffixTxt;
 
 

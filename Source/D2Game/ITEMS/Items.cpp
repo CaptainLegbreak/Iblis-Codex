@@ -128,8 +128,6 @@ int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc*); // 0x0062BA80
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc*); // 0x00625E00
 
 
-void __fastcall D2GAME_PACKETS_SendPacket0x3E(D2ClientStrc* pClient, D2UnitStrc* pItem, unsigned char a3, int nStatId, unsigned int nValue, unsigned short a6); // 0x0053D130
-
 int __stdcall sub_006280A0(D2UnitStrc*,int,int,const char*); // 0x006280A0
 
 
@@ -392,8 +390,6 @@ static int __stdcall ITEMS_RollDropQuality(D2GameStrc* pGame, D2UnitStrc* pItem,
 
 static D2UnitStrc* __stdcall ITEMS_CreateDropAtUnit(D2GameStrc* pGame, int nQuality, int nItemIndex, int nFlags, int nItemId, D2UnitStrc* pUnit);
 
-
-int __fastcall CLIENTS_CheckFlag(D2ClientStrc* pClient, unsigned short nFlag); // 0x00538670
 
 void __stdcall ITEMS_SetItemLevel(D2UnitStrc* pItem, int nItemLevel);                                       // 0x00628220
 

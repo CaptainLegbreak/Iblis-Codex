@@ -147,7 +147,6 @@ struct D2RoomCoordListStrc {
     D2RoomRectStrc boxes[2]; int bNode; int unknown24; int index; D2RoomCoordListStrc* next;
 };
 extern "C" __declspec(dllimport) int __stdcall CopyRect(D2RoomRectStrc*, const D2RoomRectStrc*);
-int __fastcall MONSTERCHOOSE_GetPresetMonsterId(D2GameStrc* pGame, D2MonsterRegionStrc* pMonsterRegion, D2ActiveRoomStrc* pRoom, D2MonStatsTxt** ppMonStatsTxtRecord, unsigned char nChance, int bSpawnUMon); // 0x005BDE80
 int __fastcall MONSTERCHOOSE_GetBossSpawnType(D2MonsterRegionStrc*,D2ActiveRoomStrc*); // 0x005BE020
 int __fastcall sub_0054EC40_IsSpecialBaseMonster(int); // 0x0054EC40
 D2UnkMonCreateStrc2* __fastcall MONSTERCHOOSE_RollFormation(D2ActiveRoomStrc*); // 0x005BDFF0

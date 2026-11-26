@@ -131,11 +131,9 @@ D2ActiveRoomStrc* __fastcall SUNIT_GetRoom(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
 
 void __fastcall PLAYER_PlaceCorpse(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nPlayerGUID, D2CoordStrc* pCoord); // 0x005352C0
-void __fastcall D2GAME_PACKETS_SendPacket0x15(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned short nPosX, unsigned short nPosY, unsigned char a7); // 0x0053BC10
 void __fastcall D2GAME_PACKETS_SendPacket0x07(D2ClientStrc* pClient, int nAreaId, unsigned short nTileX, unsigned short nTileY); // 0x0053BC50
 void __fastcall D2GAME_PACKETS_SendPacket0x7E(D2ClientStrc* pClient, int nUnused); // 0x0053DB70
 void __fastcall SUNITNPC_UpdateHirelingPosition(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005773D0
-D2UnitStrc* __fastcall D2GAME_MERCS_Create(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short wName, int nSeed, unsigned short wVersion, int nBaseMonster, int bDead); // 0x005774F0
 int __fastcall sub_0056F7F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5, int a6, int a7);
 int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char nAct); // 0x0061AB70
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
@@ -323,11 +321,8 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 
 void __fastcall D2GAME_PACKETS_SendPacketSize06(D2ClientStrc* pClient, unsigned char nHeader, int dwUnitType, int dwUnitId); // 0x0053B3D0
 
-void __fastcall D2GAME_SendPacketSize05(D2ClientStrc* pClient, unsigned char nHeader, int nValue); // 0x0053B400
 
 void __fastcall D2GAME_PACKETS_SendPacket0x7B(D2ClientStrc* pClient, unsigned char nIndex, int nSkill, int nHand, int nItemGUID); // 0x0053DB20
-
-void __fastcall D2GAME_PACKETS_SendPacket0x23(D2ClientStrc* pClient, unsigned char nUnitType, int nUnitGUID, unsigned char a4, unsigned short a5, int a6); // 0x0053C590
 
 
 void __fastcall D2GAME_UpdateAttribute(D2UnitStrc* pUnit, unsigned short nStat, unsigned int nNewValue, D2UnitStrc* pPlayer); // 0x00548520
@@ -1566,9 +1561,6 @@ int __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc*); // 0x00627D40
 
 
-int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, unsigned char nBodyLoc, int bSkipRequirementCheck, int* pItemStatus); // 0x005606B0
-
-
 void __fastcall sub_00538410_RemoveUnitIfNotAdjacent2(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x00538410
 
 int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUnitGUID); // 0x00554100
@@ -1581,9 +1573,6 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLaye
 extern int gnBaseStatIdsToSend[]; // 0x00731AD8
 
 void __fastcall PLRSAVE_CountInventoryItems(int nCount); // 0x00531750
-
-
-void __fastcall D2GAME_SendPacket0x9C(D2ClientStrc* pClient, D2UnitStrc* pItem, char nAction, unsigned int dwFlag, int bGamble); // 0x0053EAE0
 
 
 int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
@@ -1657,9 +1646,6 @@ extern "C" const char gszPlrSaveSourceFile[]; // 0x006E09AC
 extern int gnUnchangedSaveCount; // 0x00883D6C
 
 
-void __fastcall CLIENTS_CopySaveDataToClient(D2ClientStrc* pClient, const void* pData, unsigned int nSize); // 0x00538E60
-
-
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
@@ -1708,10 +1694,6 @@ static int __stdcall PLRSAVE_PlaceCorpseItem(D2GameStrc* pGame, D2UnitStrc* pPla
 D2UnitStrc* __fastcall ITEMS_CreateItemFromBitstream(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char* pBitstream, unsigned int nBufferSize, int bCheckForHeader, D2ItemSaveStrc* pItemSave, int* pSize, unsigned int dwVersion); // 0x00558CB0
 
 
-int __fastcall PLRSAVE_ReadLegacyItems(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pSection, unsigned int dwVersion, int nSize, int bCorpseItems, int* pSize); // 0x00533350
-
-int __fastcall PLRSAVE_ReadItems(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pSection, unsigned int dwVersion, int nSize, int bCorpseItems, int* pSize); // 0x005335E0
-
 static int PLRSAVE_ClearValue(int* pValue);
 
 static D2UnitStrc* PLRSAVE_CreateItemFromSavedData(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem); // 0x00530F40
@@ -1719,12 +1701,8 @@ static D2UnitStrc* PLRSAVE_CreateItemFromSavedData(D2GameStrc* pGame, D2SavedIte
 
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
 
-void __fastcall PLAYERSTATS_SetStatsForStartingAct(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char nAct); // 0x005706D0
 
 void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2GameStrc* pGame, unsigned char nAct); // 0x00534F10
-
-
-int __fastcall PLRSAVE_ReadSaveData(D2GameStrc* pGame, D2ClientStrc* pClient, D2SaveHeaderStrc* pSave, unsigned int nSize, D2UnitStrc** ppPlayer, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00534330
 
 
 extern "C" int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
@@ -1903,11 +1881,6 @@ D2GameStrc* gpGame; // 0x00882D34
 int gnGamesGUIDs[1024];                                                                            // 0x00882D38
 
 
-void __fastcall D2GAME_PACKETS_SendPacket0x8E(D2ClientStrc*, int, int, unsigned char); // 0x0053DFB0
-
-int __fastcall GAME_GetGameGUIDFromGameId(unsigned short nGameId); // 0x0052C060
-
-
 int __fastcall CCMD_IsStringZeroTerminated(const char* pData, int nDataSize); // 0x0053EFC0
 
 
@@ -2039,9 +2012,6 @@ extern int gbFixedCpuTargetRatio; // 0x0073100C
 extern "C" void _ReadWriteBarrier(void);
 
 
-int __fastcall D2GAME_SAVE_WriteFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName, unsigned int dwArg); // 0x00532400
-
-
 int gdwGlobal_00882D14; // 0x00882D14
 
 
@@ -2063,7 +2033,6 @@ int gnLastGamesUpdateTimeMs; // 0x00883D58
 
 int gnTargetMsPerFrame; // 0x00883D60
 
-int __stdcall GAME_GetPlayerUnitsCount(unsigned short nGameId);
 
 #define BUCKETS 128
 
@@ -2098,9 +2067,6 @@ extern int gnTargetFrameRate;                                                   
 int gnAct;                                                                                         // 0x00883D44
 
 
-void __fastcall D2GAME_PACKETS_SendHeaderOnlyPacket(D2ClientStrc* pClient, unsigned char nHeader);          // 0x0053B320
-
-
 extern int gbCheckHeartbeat;                                                                       // 0x00730FFC
 
 int __stdcall SERVER_ReadGamePacket(unsigned char* pBuffer, int nSize);                              // 0x0052B2D0
@@ -2111,11 +2077,6 @@ int __stdcall SERVER_ReadAdminPacket(unsigned char* pBuffer, int nSize);        
 
 void __fastcall GAME_ProcessAdminMessage(void* pData, int nSize);                                                       // 0x0052CC20
 
-
-void __fastcall PLRMSG_BroadcastSystemMessage(D2GameStrc* pGame, const char* szMessage, unsigned char nColor);               // 0x0054A9B0
-
-
-void __fastcall D2GAME_PACKETS_SendSystemError(int nClientId, unsigned int nReason);           // 0x0053B260
 
 #define INPUT_PREFIX 0
 
@@ -2178,7 +2139,6 @@ void __stdcall D2NET_10016(int);  // 0x0052B570
 
 extern "C" int __cdecl strncmp(const char*,const char*,unsigned int);
 
-void __fastcall PLRMSG_BroadcastSystemMessage(D2GameStrc*,const char*,unsigned char);  // 0x0054A9B0
 
 enum { MODE_MASK = 15 };
 
@@ -2199,7 +2159,6 @@ static unsigned int gnPeakMemoryUsageInLast10s; // 0x00883D48
 
 static unsigned int gnPreviousMemUsageTick; // 0x00883D68
 
-void __stdcall GAME_GetUnitsDescriptions(unsigned short nGameId, D2UnitDescriptionListStrc* pUnitDescriptionsList, unsigned int eType);
 
 struct D2PoolSystemStrc;
 
@@ -2243,21 +2202,12 @@ extern "C" const char gszQuestsSourceFile[]; // 0x006E0BE4
 extern D2UnkPlrMsgStrc gaUnitModeMessages[20]; // 0x007319E8
 
 
-void __fastcall D2GAME_PACKETS_SendPacket0x0F(D2ClientStrc* pClient, char nHeader, unsigned char bTOU, int a4, char a5, short a6, short a7, char a8, short a9, short a10); // 0x0053B570
-
-
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 
 
 extern int gnVirtualPlayerCount; // 0x00883D70
 
 void __fastcall D2GAME_SetSkills(int a1, int a2, int a3, int a4); // 0x0056DEB0
-
-
-int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags); // 0x0055B300
-
-
-void __fastcall D2GAME_PACKETS_SendPacket0x03(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nAct, unsigned int dwInitSeed, unsigned int dwObjSeed, int nTownLevelId); // 0x0053B390
 
 
 #define CLIENTS_MAX_UPDATES 55u
@@ -2275,30 +2225,20 @@ int __cdecl sub_0052B910();                                                     
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0
 
 
-void __fastcall D2GAME_PACKETS_SendPacket0x0A_RemoveObject(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID); // 0x0053BDA0
-
 extern "C" const char gszSGameDataTypeName[];                                                               // 0x0070F56C
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                  // 0x00412650
 
 void __cdecl FOG_CreateNewPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize); // 0x00409DD0
 
-void __stdcall GAME_SetReservedGameGUID(int hGame, unsigned short nGameId);                            // 0x0052C110
 
 unsigned short __cdecl sub_0052C170_AllocGameId();
-
-void __fastcall GAME_ResolveGameNameConflict(D2GameStrc* pGame, const char* szGameName, unsigned int a3);                    // 0x0052F940
-
-
-void __fastcall ARENA_AllocArena(D2GameStrc* pGame, int a2, unsigned int nFlags, unsigned char a4);         // 0x0053F4B0
 
 
 int __fastcall OBJRGN_AllocObjectControl(D2GameStrc* pGame); // 0x00546C60
 
 
 void __fastcall TASK_QueueGame(void* pTask, int a2, unsigned int hGame); // 0x00564A00
-
-void __fastcall LEVEL_LoadAct(D2GameStrc* pGame, unsigned char nAct);                              // 0x0053AFB0
 
 
 static inline D2GameLinkStrc* GAMELINK_NextLink(D2GameLinkStrc* pLink, int nLinkOffset)

@@ -88,8 +88,6 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, in
 
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 
-int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, unsigned char nBodyLoc, int a5, int* pUnused); // 0x005606B0
-
 
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00
 
@@ -104,8 +102,6 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex); // 0x00483470
-
-void __fastcall D2GAME_PACKETS_SendPacket0x3E(D2ClientStrc* pClient, D2UnitStrc* pItem, unsigned char a3, int nStatId, unsigned int nValue, unsigned short a6); // 0x0053D130
 
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
@@ -148,7 +144,6 @@ typedef void (__fastcall* PetIterateCallback)(D2GameStrc* pGame, D2UnitStrc* pPl
 
 void __fastcall D2GAME_SendPacket0x2A(D2ClientStrc* pClient, char nHeader, char nResult, int nGold, int nUnitGUID, char nTransactionType); // 0x0053D740
 
-void __fastcall D2GAME_PACKETS_SendPacket0x9B(D2ClientStrc* pClient, unsigned short nUnitGUID, int a3); // 0x0053E0E0
 
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 
@@ -198,8 +193,6 @@ D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc*); // 0x006201D0
 
 
 void __fastcall D2GAME_PACKETS_SendPacket0x22(D2ClientStrc*, unsigned char, int, int, int); // 0x0053C520
-
-void __fastcall ITEMS_HandleGoldTransaction(D2GameStrc*,D2UnitStrc*,unsigned int); // 0x0055B060
 
 
 void __fastcall D2GAME_STORES_FillGamble(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pUnit, D2NpcRecordStrc* pNpcRecord); // 0x00578790
@@ -284,8 +277,6 @@ int __fastcall SUNITNPC_RelinkItemStatLists(D2UnitStrc* pUnit); // 0x00577470
 
 
 int __fastcall SUNITNPC_GetHirelingNamesAndClass(D2GameStrc* pGame, int nHirelingId, int* pNameFirst, int* pNameLast, int* pClass); // 0x00575FF0
-
-void __fastcall D2GAME_PACKETS_SendHeaderOnlyPacket(D2ClientStrc* pClient, unsigned char nHeader);          // 0x0053B320
 
 
 void __fastcall SUNITNPC_InitializeHirelingRoster(D2GameStrc* pGame, int nVendorId, D2NpcRecordStrc* pNpcRecord); // 0x00576070
@@ -468,10 +459,6 @@ int __stdcall ITEMS_HasUsedCharges(D2UnitStrc* pItem, int* pHasChargedSkills); /
 
 #define SEND_0x2A(nResult, nLine, bSuccess) D2GAME_SendPacket0x2A(UnitGetClient(pUnit, gszNpcSourceFile, nLine), 0x2A, nResult, STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0), -1, bSuccess)
 
-void __fastcall D2GAME_UpdateClientItem(D2ClientStrc*,D2UnitStrc*,D2UnitStrc*,unsigned int); // 0x0053D010
-
-
-int __fastcall ITEMMODE_UnequipBodyItem(D2GameStrc*,D2UnitStrc*,unsigned char,int,int*); // 0x00560CD0
 
 int __fastcall SUNITNPC_IsUniqueCarryOneItem(D2UnitStrc*); // 0x00575FA0
 
