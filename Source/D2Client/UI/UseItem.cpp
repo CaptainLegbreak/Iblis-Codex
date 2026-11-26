@@ -752,4 +752,4 @@ void __fastcall USEITEM_OpenNpcItemPanel(int nValue)
     USEITEM_OpenPanel();
 }
 
-#include "gen/data/Source/D2Client/UI/useitem.inc"
+#include "gen/data/Source/D2Client/UI/UseItem.inc"

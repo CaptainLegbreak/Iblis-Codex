@@ -1080,7 +1080,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UI/useitem.cpp": {
+  "Source/D2Client/UI/UseItem.cpp": {
    "bytes": 180,
    "definitions": 3,
    "externs": [],
@@ -56948,7 +56948,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/useitem.cpp",
+   "file": "Source/D2Client/UI/UseItem.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnHotspotCount = ",
@@ -56973,7 +56973,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/useitem.cpp",
+   "file": "Source/D2Client/UI/UseItem.cpp",
    "fill": 2,
    "form": "declared",
    "fwd": null,
@@ -57706,7 +57706,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/useitem.cpp",
+   "file": "Source/D2Client/UI/UseItem.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": null,
