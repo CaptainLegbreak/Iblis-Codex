@@ -6,7 +6,7 @@ Status (Wed Nov 25 2026, 19:55 PT): module-gs ready (below). Next: 0x6BD230 with
 
 ## Ready
 
-- `lane6/module-gs` @ eb886ca2f (on #420): `/GS-` is the module default for D2Launch, D2Multi, D2MCPClient and D2Win (config.json `module_flags`). 27 per-file entries went; 3 came in: D2Launch Main.cpp, Unknown_004053F0.cpp and Unknown_004059D0.cpp have cookie functions and keep the base flags (with /GS) as their own entry. Net per-file options -24. Full build identical, 14,922 / 14,922 placed, borrowed totals unchanged.
+- `lane6/module-gs` @ 063d610db (rebased on #421, two commits, as asked): `/GS-` is the module default for D2Launch, D2Multi, D2MCPClient and D2Win (27 per-file entries gone), and Game.exe's own main module moves out of D2Launch into `Source/Main/` (Main.cpp, Unknown_004053F0.cpp, Unknown_004059D0.cpp; it builds with the base flags, /GS, so none of its units needs an entry). No Unknown_00406410.cpp exists any more; 0x406410 is in Main.cpp. Full build identical, 14,922 / 14,922 placed, borrowed totals unchanged. STATUS.md regenerated on it: the non-original-construct rows stay 614 (main's count today; the 28-row rise is gone), and the `/GS-` function count falls 4,169 -> 3,253 because those functions are now built under their module's default.
 
 
 
