@@ -876,7 +876,8 @@ int D2ThreadContextStrc::sub_00405060_CaptureFrames(unsigned long dwThreadId, D2
 }
 
 // 0x004016A0
-void __cdecl ERRORMANAGER_StartDbgHelpThread()
+// noinline: FOG_InitErrorMgr (0x408CE0) calls it out of line in the image
+__declspec(noinline) void __cdecl ERRORMANAGER_StartDbgHelpThread()
 {
     sub_00402980_StartDbgHelpWorker();
 }
@@ -1759,7 +1760,8 @@ void __stdcall sub_K01_Emit_00407FC0(const char* szPrefix, const char* szText, i
 }
 
 // 0x004013C0
-void __fastcall ERRORMANAGER_TerminateCurrentProcess(unsigned int nExitCode)
+// noinline: ERRORMANAGER_CrashHandler (0x4082E0) calls it out of line in the image
+__declspec(noinline) void __fastcall ERRORMANAGER_TerminateCurrentProcess(unsigned int nExitCode)
 {
     TerminateProcess(GetCurrentProcess(), nExitCode);
 }
@@ -1787,7 +1789,8 @@ int __cdecl ERRORMANAGER_GetProcessThreadCount()
 }
 
 // 0x00401690
-unsigned long __cdecl ERRORMANAGER_GetCurrentThreadId()
+// noinline: ERRORMANAGER_CrashHandler (0x4082E0) calls it out of line in the image
+__declspec(noinline) unsigned long __cdecl ERRORMANAGER_GetCurrentThreadId()
 {
     return GetCurrentThreadId();
 }
@@ -1878,7 +1881,8 @@ void __fastcall ERRORMANAGER_DumpOtherThreads(D2CrashPrintFn pfnPrint, void* pCo
 }
 
 // 0x00403F60
-void __fastcall ERRORMANAGER_SetCrashHandler(void* pfnHandler, void* pContext, int nUnused)
+// noinline: FOG_InitErrorMgr (0x408CE0) calls it out of line in the image
+__declspec(noinline) void __fastcall ERRORMANAGER_SetCrashHandler(void* pfnHandler, void* pContext, int nUnused)
 {
     gpfnCrashHandler = pfnHandler;
     gpCrashContext = pContext;
@@ -2134,6 +2138,175 @@ void __cdecl ERRORMANAGER_DebugPrintFlags(unsigned int nFlags, const char* szFor
 void __cdecl ERRORMANAGER_DebugPrintLog(const char* szFormat, ...)
 {
     ERRORMANAGER_DebugPrintV(1, szFormat, (va_list)(&szFormat + 1));
+}
+
+extern long volatile gnReportBusy;                                                                 // 0x007076B8
+
+extern "C" const char gszCrashFile[];                                                              // 0x006CD1C0
+
+extern "C" const char gszAssertionBegin[];                                                         // 0x006CD170
+
+extern "C" const char gszAssertionEnd[];                                                           // 0x006CD158
+
+extern "C" const char gszRegisters[];                                                              // 0x006CD14C
+
+extern "C" const char gszThreads[];                                                                // 0x006CD140
+
+
+struct D2ExceptionPointersStrc { void* pRecord; D2ThreadContextStrc* pContext; };
+
+void __fastcall sub_00402EE0_DumpModules(D2CrashPrintFn pfnPrint,void* pContext); // 0x00402EE0
+
+bool __fastcall sub_00402820_WriteMiniDump(const char* szPath,const char* szComment,void* pExceptionPointers,unsigned long dwThreadId); // 0x00402820
+
+extern const char gszCrashSummary[]; // 0x006CD1A8
+
+extern const char gszCrashDetail[]; // 0x006CD1A0
+
+extern const char gszCrashNewline[]; // 0x006CD188
+
+extern const char gszModules[]; // 0x006CD124
+
+extern const char gszMore1[]; // 0x006CD108
+
+extern const char gszMore2[]; // 0x006CD0F0
+
+extern const char gszMore3[]; // 0x006CD0D4
+
+extern const char gszMore4[]; // 0x006CD0C4
+
+extern const char gszMinidump[]; // 0x006CD0B4
+
+extern const char gszMore5[]; // 0x006CD09C
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extern "C" int __cdecl atexit(void (__cdecl* pfnExit)()); // 0x00683824
+
+void __cdecl AUTOMAP_CaptureSystemInfo(); // 0x00407DE0
+
+int __fastcall ERRORMANAGER_CrashHandler(D2CrashInputStrc* pInput); // 0x004082E0
+
+int __cdecl EXCEPTIONS_LoadImageHlp(); // 0x0040D5B0
+
+void __cdecl LOGMANAGER_InitLogSystem(); // 0x00410540
+
+int __cdecl SYSTEM_IsPlatformNT(); // 0x00410960
+
+void __cdecl SYSTEM_InitTimeBase(); // 0x004109D0
+
+void __cdecl sub_00411210_InitTimer(); // 0x00411210
+
+void __fastcall SetErrorReportCallback(void* pfnHandler); // 0x0041C0E0
+
+extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
+
+
+
+
+
+
+
+// build: symbol ?BNNEWS_CopyNewsItem@* 0x0051D350
+
+// build: symbol ?strrchr@@YAPADPADH@Z 0x00401A30
+
+char gszVersion[4096]; // 0x0074C848
+
+char gszInspectorVersion[4096]; // 0x0074D8C8
+
+int gbIsPlatformNT; // 0x0074F0CC
+
+unsigned long gdwRegValue; // 0x0074F0E0
+
+
+// 0x004082E0
+int __fastcall ERRORMANAGER_CrashHandler(D2CrashInputStrc* pInput)
+{
+    D2ThreadContextStrc* pThread = pInput->pException->pContext;
+    const long nBusy = InterlockedIncrement(&gnReportBusy);
+    if (nBusy == 0)
+    {
+        gbWritingCrashReport = 1;
+        crashy::Report report;
+        if (!report.OpenReport(gszCrashFile))
+        {
+            gbWritingCrashReport = 0;
+        }
+        else
+        {
+            report.WriteInspectorHeader();
+            report.sub_00401380(gszCrashSummary,pInput->szSummary);
+            if (pInput->szDetail[0]) report.sub_00401380(gszCrashDetail,pInput->szDetail);
+            report.sub_00401380(gszCrashNewline);
+            report.sub_00401380(gszAssertionBegin);
+            int nSkip = 0;
+            if (!pThread && !pInput->pFrames)
+            {
+                nSkip = pInput->nSkip;
+                if (pInput->dwThreadId == ERRORMANAGER_GetCurrentThreadId()) nSkip += 2;
+            }
+            if (pInput->pFrames)
+                sub_00403100_PrintFrames(pInput->dwThreadId,pInput->pFrames,pInput->nFrames,ERRORMANAGER_ReportPrint,&report,0,1);
+            else
+                ERRORMANAGER_DumpThread(pInput->dwThreadId,pThread,ERRORMANAGER_ReportPrint,&report,0,1,nSkip);
+            report.sub_00401380(gszAssertionEnd);
+            report.sub_00401380(gszRegisters);
+            sub_004032F0_DumpRegisters(pInput->dwThreadId,ERRORMANAGER_ReportPrint,&report);
+            report.sub_00401380(gszThreads);
+            ERRORMANAGER_DumpOtherThreads(ERRORMANAGER_ReportPrint,&report,pInput->dwThreadId);
+            report.sub_00401380(gszModules);
+            sub_00402EE0_DumpModules(ERRORMANAGER_ReportPrint,&report);
+            report.sub_00401380(gszMore1);
+            report.sub_00401380(gszMore2);
+            report.sub_00401380(gszMore3);
+            if (pInput->pFrames)
+                sub_00403100_PrintFrames(pInput->dwThreadId,pInput->pFrames,pInput->nFrames,ERRORMANAGER_ReportPrint,&report,0,0);
+            else
+                ERRORMANAGER_DumpThread(pInput->dwThreadId,pThread,ERRORMANAGER_ReportPrint,&report,0,0,nSkip);
+            report.sub_00401380(gszMore4);
+            SStrCopy(gszProcessPath,report.m_szText408,0x800);
+            SStrPack(gszProcessPath,gszMinidump,0x800);
+            if (sub_00402820_WriteMiniDump(gszProcessPath,&gszEmptyAssertText,pInput->pException,0))
+                report.sub_00401220_AddFile(gszProcessPath,false);
+            report.sub_00401380(gszMore5);
+            report.sub_004011F0_Close();
+            D2CrashSubmitInfoStrc info;
+            memset(&info,0,sizeof(info));
+            info.szName=gtInspectorInfo.szUnused04;
+            for (int i=0;i<report.m_nLineCount;++i)
+            {
+                if (i < sizeof(info.apszLines)/sizeof(info.apszLines[0]))
+                {
+                    info.apszLines[i]=report.m_aszLines[i];
+                    ++info.nLines;
+                }
+            }
+            sub_00401790_SubmitReport(report.m_szText08,&info);
+            gbWritingCrashReport=0;
+        }
+        InterlockedDecrement(&gnReportBusy);
+        ERRORMANAGER_TerminateCurrentProcess(-1);
+    }
+    return 2;
 }
 
 // 0x00409770
@@ -2758,6 +2931,18 @@ bool __fastcall ERRORMANAGER_ShowErrorReport(const char* szSummary, const char* 
     return bResult;
 }
 
+// 0x004088C0
+// noinline: ERRORMANAGER_RaiseErrorReport (0x408900) calls it out of line in the image
+__declspec(noinline) int __fastcall ERRORMANAGER_ReportNestedError(const char* szFile, int nLine, const char* szMessage)
+{
+    if (gbWritingCrashReport)
+    {
+        LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "\n***** ENCOUNTERED ERROR DURING ERROR HANDLING!!!\n%s,%d\n%s\n*****", ERRORMANAGER_StripSourcePath(szFile), nLine, szMessage);
+        return 1;
+    }
+    return 0;
+}
+
 // 0x00406B20
 int __fastcall ERRORMANAGER_AppendBackslash(char* szPath, unsigned int nSize)
 {
@@ -2779,7 +2964,8 @@ int __fastcall ERRORMANAGER_AppendBackslash(char* szPath, unsigned int nSize)
 }
 
 // 0x00406B60
-int __fastcall ERRORMANAGER_GetModuleDirectory(char* szPath, unsigned int nSize)
+// noinline: FOG_InitErrorMgr (0x408CE0) calls it out of line in the image
+__declspec(noinline) int __fastcall ERRORMANAGER_GetModuleDirectory(char* szPath, unsigned int nSize)
 {
     const unsigned long nLength = GetModuleFileNameA(0, szPath, nSize);
     if (nLength && nLength != nSize)
@@ -3161,13 +3347,70 @@ void __fastcall ERRORMANAGER_ShowErrorBox(int nType, const char* szFile, int nLi
     MessageBoxA(0, szBoxText, szCaption, 0x30);
 }
 
-char gszVersion[4096]; // 0x0074C848
+// 0x00408CE0
+void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersion, int bLogToFile)
+{
+    char szPath[0x1000];
+    if (gbErrorMgrInit)
+    {
+        if (bLogToFile)
+        {
+            ERRORMANAGER_LogSystemInfo();
+        }
+        return;
+    }
+    ERRORMANAGER_StartDbgHelpThread();
+    ERRORMANAGER_SetCrashHandler(ERRORMANAGER_CrashHandler, 0, 0);
+    if (ERRORMANAGER_GetModuleDirectory(szPath, 0x1000))
+    {
+        ERRORMANAGER_SetReportText(szPath);
+    }
+    gtInspectorInfo.nProjectId = 0x108;
+    gtInspectorInfo.szUnused04 = "Diablo II";
+    gtInspectorInfo.szApplication = "Diablo II";
+    gtInspectorInfo.szModule = "Diablo II";
+    sprintf(gszInspectorVersion, "D2 %i.%i%c", 1, 14, 'd');
+    gtInspectorInfo.szMilestone = gszInspectorVersion;
+    gtInspectorInfo.szBuildNumber = "77";
+    gtInspectorInfo.szPlatform = "Windows";
+    gtInspectorInfo.szPrimaryAssignment = ".ClassicErrorReporter";
+    gtInspectorInfo.szAssignments = ".ClassicErrorReporter";
+    if (szVersion)
+    {
+        SStrCopy(gszVersion, szVersion, 0x1000);
+    }
+    gbIsPlatformNT = SYSTEM_IsPlatformNT();
+    InitializeCriticalSection(&gtLock_0074C830);
+    InitializeCriticalSection(&gtLock_0074D848);
+    gbErrorMgrInit = 1;
+    SYSTEM_InitTimeBase();
+    unsigned long dwValue = 0;
+    SRegLoadValue("Diablo II", "TraceUnfreedMemory", 0, &dwValue);
+    gdwRegValue = dwValue;
+// build: symbol ?FOG_CreateNewPoolSystem@* 0x00409DD0
+    FOG_CreateNewPoolSystem(0, "Global Pool System", 0x40000, 0x8000);
+    sub_00411210_InitTimer();
+    for (int i = 0; i < 0x20; ++i)
+    {
+        const unsigned int nMask = 1 << i;
+        FOG_ASSERT(gdwBitMasks_006CE268[i] == nMask, 0x576);
+        FOG_ASSERT(gdwInvBitMasks[i] == ~nMask, 0x577);
+    }
+    AUTOMAP_CaptureSystemInfo();
+    LOGMANAGER_InitLogSystem();
+    if (bLogToFile)
+    {
+        ERRORMANAGER_LogSystemInfo();
+    }
+    atexit(ERRORMANAGER_ExitHandler);
+    EXCEPTIONS_LoadImageHlp();
+// build: symbol ?ERRORMANAGER_ShowErrorReport@* 0x00408660
+    SetErrorReportCallback(ERRORMANAGER_ShowErrorReport);
+}
 
-char gszInspectorVersion[4096]; // 0x0074D8C8
 
-int gbIsPlatformNT; // 0x0074F0CC
 
-unsigned long gdwRegValue; // 0x0074F0E0
+
 
 static int gbExpansionChecked; // 0x0074F0DC
 
@@ -3360,6 +3603,15 @@ void __cdecl FOG_DisplayAssert(const char* szMsg, const char* szFile, int nLine)
 {
     FOG_SOCKET_WSACleanup();
     ERRORMANAGER_RaiseErrorReport(5, &gszEmptyAssertText, nLine, "Unrecoverable internal error %08x", szFile);
+    LOGMANAGER_CloseLogFiles();
+}
+
+// 0x00408A60
+// noinline: the image calls it out of line from the D2_ASSERT expansions in this file (0x406D30, 0x409370 and the rest)
+extern "C" __declspec(noinline) void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine)
+{
+    FOG_SOCKET_WSACleanup();
+    ERRORMANAGER_RaiseErrorReport(6, &gszEmptyAssertText, nLine, "Unrecoverable internal error %08x", szFile);
     LOGMANAGER_CloseLogFiles();
 }
 
