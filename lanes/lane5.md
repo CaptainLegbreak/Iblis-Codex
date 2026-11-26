@@ -4,7 +4,6 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 - lane5/audit-decls-d2game 73145f382 (on main b0acdcd50): D2GameFuncs.h declares 756 D2Game functions once; 120 files include it and drop 3,419 private copies (audit item 4 for D2Game). Monster_00573CB0, PlayerPets, SkillNec and Party keep their private copies (listed in the header). Every D2Game unit all equal, full build identical yes, auditguard: no count rose (a1/v12 1802 -> 1424, 1.10-address names 397 -> 392 from the deleted copies).
-(none: 005DD7F0 merged in #410)
 
 ## Claimed
 
