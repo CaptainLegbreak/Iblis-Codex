@@ -58496,6 +58496,10 @@
      "name": "?ITEMMODS_HasAffixWithGroup@@YAHPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x005C1560",
+     "length": 883
+    },
+    {
      "va": "0x005C18E0",
      "length": 81,
      "name": "ITEMS_RollMagicAffixes"
@@ -58604,16 +58608,6 @@
     {
      "va": "0x005C25C0",
      "length": 379
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillItem_005C1560.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C1560",
-     "length": 883
     }
    ]
   },
