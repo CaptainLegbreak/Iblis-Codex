@@ -15,8 +15,6 @@ D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char n
 
 int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordStrc* pCoords, int nX, int nY);          // 0x0066B980
 
-int __fastcall PATH_GetFirstDirectionXY(int nX1, int nY1, int nX2, int nY2);              // 0x00678CF0
-
 extern const unsigned char gPathTurns[4][4]; // 0x006F2840
 
 extern const char gPathStepY[4]; // 0x006F2850

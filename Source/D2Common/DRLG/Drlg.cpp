@@ -251,8 +251,6 @@ static int SKILLS_IsPointNearRoom(D2ActiveRoomStrc*,int,int,int); // 0x00641930
 
 inline int D2_ABS(int n) { return n < 0 ? -n : n; }
 
-int __stdcall DRLGROOMTILE_FindTilePresetUnitIndex(int nLevelId, unsigned int nPackedTileInformation, int bIsRightWallWithDoor); // 0x0066D960
-
 struct D2GfxLightStrc;
 
 struct D2BinFieldStrc;

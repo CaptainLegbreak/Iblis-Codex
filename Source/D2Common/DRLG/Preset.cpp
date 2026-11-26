@@ -330,15 +330,11 @@ static void DRLGPRESET_SpawnRiver(D2DrlgMapStrc* pDrlgMap, int nX, int nY, void*
 
 static void __stdcall DRLGPRESET_AddNaviPresetUnit(D2DrlgMapStrc* pDrlgMap, void* pMemPool);
 
-void __fastcall DRLGPRESET_SpawnHardcodedPresetUnits(D2DrlgRoomStrc* pDrlgRoom);
-
 static void DRLGPRESET_MovePresetUnitsToRoom(D2DrlgRoomStrc* pDrlgRoom);
 
 
 static void __stdcall DRLGPRESET_TogglePopsVisibility(D2DrlgRoomStrc* pDrlgRoom, int nPopSubIndex, D2DrlgCoordStrc* pDrlgCoord, int nTick, int bClose);
 
-
-void __stdcall DUNGEON_GameTileToSubtileCoords(int* pX, int* pY);
 
 
 

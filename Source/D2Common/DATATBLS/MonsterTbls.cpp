@@ -172,8 +172,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
-
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
 
@@ -690,8 +688,6 @@ unsigned int* gpMonTypeNest;                                                    
 
 int gnMonTypeIndex;                                                                                         // 0x0096C878
 
-D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine);                                    // 0x006BD040
-
 int __fastcall DATATBLS_CheckNestedMonsterTypes(int nMonType1, int nMonType2);
 
 
@@ -703,8 +699,6 @@ int __fastcall DATATBLS_CheckNestedMonsterTypes(int nMonType1, int nMonType2);
 D2TxtLinkStrc* gpHireDescLinker;                                                                   // 0x0096BCE8
 
 extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC;                                                              // 0x0096C7CC
-
-int __cdecl FOG_IsExpansion(); // 0x00408F20
 
 extern "C" const char gszTxtField_version[]; // 0x006DCCF0
 
@@ -822,8 +816,6 @@ extern const char gszField_oninit[]; // 0x006ED56C
 extern const char gszField_monster[]; // 0x006ED574
 
 extern const char gszField_monequip[]; // 0x006ED57C
-
-extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
 
 extern D2TxtLinkStrc* gpTreasureClassExLinker;                                                              // 0x0096C5E8
 

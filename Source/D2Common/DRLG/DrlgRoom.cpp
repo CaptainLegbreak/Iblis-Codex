@@ -106,10 +106,6 @@ struct D2DrlgRoomStrc;
 
 #pragma intrinsic(memset)
 
-void __fastcall DRLGROOMTILE_FreeRoom(D2DrlgRoomStrc* pDrlgRoom, int bKeepRoom);                       // 0x0066F1A0
-
-
-void __fastcall DRLGROOM_FreeRoomTiles(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom);
 
 void __fastcall DRLGROOM_AllocDrlgOrthForRoom(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, int nDirection);
 
