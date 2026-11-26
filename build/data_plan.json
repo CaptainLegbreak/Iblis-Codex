@@ -516,7 +516,6 @@
     "extern \"C\" void __cdecl sub_004F4170(); // 0x004F4170",
     "extern \"C\" void __cdecl sub_004F42E0(); // 0x004F42E0",
     "extern \"C\" void __cdecl sub_004F4450_InitializeSkillTarget(); // 0x004F4450",
-    "extern \"C\" void __cdecl sub_004E0C90_SetSkillTargetPos(); // 0x004E0C90",
     "extern \"C\" void __cdecl SKILLSAMA_CltDoRepeatAttack(); // 0x004F4C20",
     "extern \"C\" void __cdecl SKILLSPAL_StartCharge(); // 0x004C9B40",
     "extern \"C\" void __cdecl SKILLSMON_CreateTargetMissile(); // 0x004E3720",
@@ -532,7 +531,8 @@
     "extern \"C\" void __cdecl GFXUTIL_SkillDoFrameOffset(); // 0x004E0D40",
     "extern \"C\" void __cdecl SKILLDESC_VolleyAtTarget(); // 0x004E2F40",
     "extern \"C\" void __cdecl SKILLDESC_MissileAtTargetUnit(); // 0x004E3C50",
-    "extern \"C\" void __cdecl GFXUTIL_SkillStartPlace(); // 0x004E0A40"
+    "extern \"C\" void __cdecl GFXUTIL_SkillStartPlace(); // 0x004E0A40",
+    "extern \"C\" void __cdecl sub_004E0C90_SetSkillTargetPos(); // 0x004E0C90"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/SKILLS/Skills.inc",
@@ -687,7 +687,6 @@
     "extern \"C\" void __cdecl INV_MercInvClickMsg(); // 0x0048B7C0",
     "extern \"C\" void __cdecl INV_MercPanelHoverMsg(); // 0x0048BA50",
     "extern \"C\" void __cdecl INV_CloseRecipeScrollClickMsg(); // 0x0048BD80",
-    "extern \"C\" void __cdecl sub_0048BDF0_Nop(); // 0x0048BDF0",
     "extern \"C\" void __cdecl INV_HandlePanelClick(); // 0x004912A0",
     "extern \"C\" void __cdecl INV_GridClickMsg(); // 0x004917C0",
     "extern \"C\" void __cdecl INV_InventoryClickMsg(); // 0x00491AD0",
@@ -730,7 +729,6 @@
     "extern \"C\" void __cdecl sub_0047ED90_SlotsClickMsg(); // 0x0047ED90",
     "extern \"C\" void __cdecl sub_0047EF30_SlotsClick(); // 0x0047EF30",
     "extern \"C\" void __cdecl ROSTERPETS_HandleHelpButtonDown(); // 0x00494F30",
-    "extern \"C\" void __cdecl sub_00494FB0_Nop(); // 0x00494FB0",
     "extern \"C\" void __cdecl INV_HelpCloseButtonMsg(); // 0x00496720",
     "extern \"C\" char gData_007A28A0[]; // 0x007A28A0",
     "extern \"C\" char gData_007A2938[]; // 0x007A2938",
@@ -738,7 +736,6 @@
     "extern \"C\" void __cdecl PANEL_BeltMouseReleaseMsg(); // 0x004996A0",
     "extern \"C\" void __cdecl PANEL_BeltMouseMove(); // 0x00499BB0",
     "extern \"C\" void __cdecl PANEL_BeltClickMsg(); // 0x00499D10",
-    "extern \"C\" void __cdecl sub_00457510_Nop(); // 0x00457510",
     "extern \"C\" void __cdecl TEXT_OnWaypointMouseUp(); // 0x0049D010",
     "extern \"C\" void __cdecl INV_OnKeyCloseHelp(); // 0x004967A0",
     "extern \"C\" void __cdecl PANEL_OnMouseClick(); // 0x00499500",
@@ -752,7 +749,10 @@
     "extern \"C\" void __cdecl HIREABLES_HirelingIconHoverMsg(); // 0x00493760",
     "extern \"C\" void __cdecl HIREABLES_HirelingIconClickMsg(); // 0x004938E0",
     "extern \"C\" void __cdecl HIREABLES_ButtonDownMsg(); // 0x004952B0",
-    "extern \"C\" void __cdecl HIREABLES_ButtonUpMsg(); // 0x00495320"
+    "extern \"C\" void __cdecl HIREABLES_ButtonUpMsg(); // 0x00495320",
+    "extern \"C\" void __cdecl sub_0048BDF0_Nop(); // 0x0048BDF0",
+    "extern \"C\" void __cdecl sub_00494FB0_Nop(); // 0x00494FB0",
+    "extern \"C\" void __cdecl sub_00457510_Nop(); // 0x00457510"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/ui.inc",
