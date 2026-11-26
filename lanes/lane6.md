@@ -12,6 +12,8 @@ Status (Thu Nov 26 2026, 15:45 PT): join-charsel, join-charsel-3 and emit-trim-2
 
 - `lane6/emit-trim-3` @ 80d92c6b1: seven more emit helpers go (Bnclient Unknown_00527BE0.cpp 3, D2WinEditBox.cpp 2, strtable.cpp 1, FastCmp.cpp 1; emit helpers 373 -> 366); each removed alone, kept out only where its unit stays equal. Full build queued.
 
+- `lane6/noinline-callers` @ e0dedd23f: the eighteen noinline comments in my modules that said only "its callers in this file" now name the caller (and its address) that calls the kept function out of line in the image, per the 13:15 PT ruling. Comments only; every touched unit equal. Full build queued.
+
 ## Questions
 
 ## Claimed
