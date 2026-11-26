@@ -26797,6 +26797,10 @@
      "name": "?OnLButtonUp@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004BB620",
+     "length": 804
+    },
+    {
      "va": "0x004BB950",
      "length": 5,
      "name": "?MsgSlot05@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
@@ -27151,30 +27155,6 @@
      "length": 122,
      "name": "??0SpinnerWrapper@@QAE@HHHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/editbox_004BB620.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004BB620",
-     "length": 804
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
