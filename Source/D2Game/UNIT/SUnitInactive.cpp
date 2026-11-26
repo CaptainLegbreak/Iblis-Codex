@@ -84,7 +84,7 @@ D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* 
 
 int __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nPage); // 0x0063B210
 
-void __fastcall D2GAME_ITEMS_UpdateStatList_6FC4BC00(D2GameStrc* pGame, D2UnitStrc* pSocketable, D2UnitStrc* pItem); // 0x0055FE60
+void __fastcall D2GAME_ITEMS_UpdateStatList(D2GameStrc* pGame, D2UnitStrc* pSocketable, D2UnitStrc* pItem); // 0x0055FE60
 
 
 
@@ -405,7 +405,7 @@ static D2UnitStrc* __stdcall SUNITINACTIVE_RestoreInactiveItem(D2GameStrc* pGame
             pBitstream += nSize;
             nAvailableSize -= nSize;
             INVENTORY_PlaceItemInSocket(pInventory, pSocketable, 1);
-            D2GAME_ITEMS_UpdateStatList_6FC4BC00(pGame, pSocketable, pItem);
+            D2GAME_ITEMS_UpdateStatList(pGame, pSocketable, pItem);
         }
     }
 

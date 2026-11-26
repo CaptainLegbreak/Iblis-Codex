@@ -552,11 +552,10 @@ void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc
 
 extern int nInitSeed_6FDC2CA08;                                                                             // 0x00731004
 
-int dword_6FD4581C;                                                                                         // 0x00883D3C
+int gnGlobal_00883D3C;                                                                                         // 0x00883D3C
 
-int dword_6FD45820;                                                                                         // 0x00883D40
+int gnGlobal_00883D40;                                                                                         // 0x00883D40
 
-int gnPeakMemoryUsageInLast10s_6FD45828;                                                                    // 0x00883D48
 
 extern int gnTargetFrameRate;                                                                      // 0x00731014
 
@@ -737,7 +736,7 @@ int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem);                      
 
 void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);            // 0x00542B40
 
-void __fastcall sub_6FC84D40(D2GameStrc* pGame, D2GSPacketSrv5A* pPacket);                                 // 0x0054AA40
+void __fastcall PLRMSG_BroadcastEventMessage(D2GameStrc* pGame, D2GSPacketSrv5A* pPacket);                                 // 0x0054AA40
 
 void __fastcall D2GAME_PopulateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);                  // 0x0054EC90
 

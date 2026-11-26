@@ -643,7 +643,7 @@ static D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-static int D2GAME_GetMonsterBaseId_6FC64B10(D2UnitStrc* pUnit)
+static int D2GAME_GetMonsterBaseId(D2UnitStrc* pUnit)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == UNIT_MONSTER)
@@ -2474,7 +2474,7 @@ int __fastcall MISSMODE_SrvHit21_BattleCry(D2GameStrc* pGame, D2UnitStrc* pMissi
         nAuraFilter = 0xA783;
     }
 
-    if (!sub_6FD0FA00(pOwner, pUnit, nAuraFilter))
+    if (!SKILLS_CheckAuraTarget(pOwner, pUnit, nAuraFilter))
     {
         return 1;
     }
@@ -2980,7 +2980,7 @@ int __fastcall MISSMODE_SrvHit38_CatapultChargedBall(D2GameStrc* pGame, D2UnitSt
         }
     }
 
-    sub_6FD14260(pGame, nCalc, &missileParams);
+    SKILLS_CreateMissilePattern(pGame, nCalc, &missileParams);
     return 1;
 }
 
@@ -3056,7 +3056,7 @@ int __fastcall MISSMODE_SrvHit45_LightningTrailingJavelin(D2GameStrc* pGame, D2U
         missileParams.pInitFunc = MISSMODE_CatapultChargedBall_LightningTrailingJavelin_SubmissileInitFunc;
     }
 
-    sub_6FD14260(pGame, pMissilesTxtRecord->dwHitPar[0], &missileParams);
+    SKILLS_CreateMissilePattern(pGame, pMissilesTxtRecord->dwHitPar[0], &missileParams);
     return 1;
 }
 

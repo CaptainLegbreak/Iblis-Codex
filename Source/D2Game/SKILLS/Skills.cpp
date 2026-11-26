@@ -926,7 +926,7 @@ void __fastcall SKILLS_IterateAuraTargets(D2GameStrc* pGame, D2UnitStrc* pUnit, 
                 while (pTarget)
                 {
                     D2UnitStrc* pNextTarget = pTarget->ptRoomNext;
-                    if (pTarget != pUnit && nAuraRangeSq >= PATH_ComputeSquaredDistance(nX, nY, UNITS_GetUnitXPosition(pTarget), UNITS_GetUnitYPosition(pTarget)) && sub_6FD0FA00(pUnit, pTarget, nAuraFilter))
+                    if (pTarget != pUnit && nAuraRangeSq >= PATH_ComputeSquaredDistance(nX, nY, UNITS_GetUnitXPosition(pTarget), UNITS_GetUnitYPosition(pTarget)) && SKILLS_CheckAuraTarget(pUnit, pTarget, nAuraFilter))
                     {
 // build: symbol ?MONSTERUNIQUE_CheckMonStatsFlag@* 0x00457490
                         if (!bCheckMonAuraFlag || pTarget->dwUnitType != UNIT_MONSTER || !MONSTERUNIQUE_CheckMonStatsFlag(pTarget->dwClassId, MONSTATSFLAGINDEX_NOAURA))
@@ -1606,7 +1606,7 @@ void __fastcall SKILLS_HandleTransmogrify(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         SUNIT_AttachSound(pUnit, 4, pUnit);
     }
 
-    D2GAME_PACKETS_SendPacket0x3F_6FC3EDC0(UnitGetClient(pUnit, ".\\SKILLS\\Skills.cpp", 1711), 0, 0xFF, 1, 0, 0xFFFF);
+    D2GAME_PACKETS_SendPacket0x3F(UnitGetClient(pUnit, ".\\SKILLS\\Skills.cpp", 1711), 0, 0xFF, 1, 0, 0xFFFF);
 }
 
 static inline D2SkillsTxt* GetSkillsTxtRecord(int nSkillId)
@@ -1686,7 +1686,7 @@ int __fastcall SKILLS_IterateTargetsAroundTarget(D2GameStrc* pGame, unsigned int
             {
                 for (D2UnitStrc* j = ppRoomList[i]->pUnitFirst; j; j = j->ptRoomNext)
                 {
-                    if (nDistanceSq >= PATH_ComputeSquaredDistance(nX, nY, UNITS_GetUnitXPosition(j), UNITS_GetUnitYPosition(j)) && sub_6FD0FA00(pUnit, j, nFlags))
+                    if (nDistanceSq >= PATH_ComputeSquaredDistance(nX, nY, UNITS_GetUnitXPosition(j), UNITS_GetUnitYPosition(j)) && SKILLS_CheckAuraTarget(pUnit, j, nFlags))
                     {
                         pCallback(j, pArgs);
                     }
@@ -1768,7 +1768,7 @@ void __fastcall SKILLS_ResetSkillsAndRefundPoints(D2GameStrc* pGame, D2UnitStrc*
     }
 
     STATLIST_AddUnitStat(pUnit, STAT_SKILLPTS, nSkillPoints, 0);
-    D2GAME_UpdatePlayerVitals_6FC4B240(pGame, pUnit);
+    D2GAME_UpdatePlayerVitals(pGame, pUnit);
     D2GAME_UpdatePlayerItems(pGame, pUnit, 1);
 }
 
@@ -2098,7 +2098,7 @@ int __fastcall SKILLS_SrvSt01_Attack_LeftHandSwing(D2GameStrc* pGame, D2UnitStrc
     pUnit->nSeqCurrentFramePrecise = UNITS_GetFrameBonus(pUnit) << 8;
     if (STATES_CheckStateMaskOnUnit(pUnit, 38))
     {
-        return sub_6FD00370(pGame, pUnit, nSkillLevel);
+        return SKILLS_AllocTransformSkillCombat(pGame, pUnit, nSkillLevel);
     }
 
     if (!COMPOSIT_IsWeaponBowOrXBow(pUnit) || SKILLS_CanUseWeaponAmmo(pUnit))
@@ -2319,7 +2319,7 @@ int __fastcall SKILLS_StartUsedSkill(D2GameStrc* pGame, D2UnitStrc* pUnit)
         }
     }
 
-    const int nResult = sub_6FD12950(pGame, pUnit, nSkillId, nSkillLevel, 0);
+    const int nResult = SKILLS_StartSkill(pGame, pUnit, nSkillId, nSkillLevel, 0);
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && !nResult)
     {
         PLRMODE_ChangeModeToCoords(pGame, pUnit, 0, PLRMODE_TOWNNEUTRAL, 0, 0, 1);
@@ -3047,7 +3047,7 @@ D2UnitStrc* __fastcall D2GAME_CreateLinkPortal(D2GameStrc* pGame, int nUnused, D
     D2ActiveRoomStrc* pRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[nAct], nDestLevel, 11, &nX, &nY, 3);
     D2ActiveRoomStrc* pDestinationRoom = pRoom;
 
-    sub_6FC385A0(pGame, pRoom);
+    GAME_ActivateRoom(pGame, pRoom);
 
     if (!pRoom)
     {
@@ -3417,7 +3417,7 @@ static void __stdcall SKILLS_RegisterSummonedPet(D2GameStrc* pGame, D2SummonArgS
     {
         nPetMax = 1;
     }
-    sub_6FC7D7A0(pGame, pSummonArg->pOwner, pPet, pSummonArg->nPetType, nPetMax);
+    PLAYERPETS_AddSummonedPet(pGame, pSummonArg->pOwner, pPet, pSummonArg->nPetType, nPetMax);
 }
 
 // 0x0056D940

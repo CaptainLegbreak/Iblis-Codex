@@ -45,7 +45,7 @@ typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 
-int __fastcall D2GAME_GetSummonIdFromSkill_6FD15580(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
+int __fastcall D2GAME_GetSummonIdFromSkill(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
 
 D2UnitStrc* __fastcall D2GAME_SummonPet(D2GameStrc* pGame, D2SummonArgStrc* pSummonArg); // 0x0056D940
 
@@ -548,7 +548,7 @@ int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc*, D2UnitS
 
 int __fastcall AIUTIL_HasClearApproachToTarget(D2UnitStrc*, D2UnitStrc*); // 0x005DC640
 
-D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, int*, int*); // 0x005DD7F0
+D2UnitStrc* __fastcall AIUTIL_FindAiTarget(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, int*, int*); // 0x005DD7F0
 
 D2UnitStrc* __fastcall AITACTICS_FindTargetInRange(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, int*, int*, int); // 0x005DDE50
 
@@ -1013,7 +1013,7 @@ void __fastcall SKILLS_AttachImpToMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         UNITS_StoreOwner(pUnit, pTarget);
         UNITS_StoreOwner(pTarget, pUnit);
         D2GAME_EVENTS_Delete(pGame, pUnit, EVENTTYPE_ACTIVESTATE, nSkillId);
-        sub_6FC35570(pGame, pUnit, EVENTTYPE_ACTIVESTATE, nSkillId, nSkillLevel);
+        EVENT_SetRecurringEvent(pGame, pUnit, EVENTTYPE_ACTIVESTATE, nSkillId, nSkillLevel);
         pUnit->dwFlags &= ~UNITFLAG_TARGETFLAGS;
         AITHINK_ExecuteAiFn(pGame, pUnit, AIGENERAL_GetAiControlFromUnitInline(pUnit), AISPECIALSTATE_MOUNTING_UNIT);
         break;

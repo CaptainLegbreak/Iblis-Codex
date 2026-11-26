@@ -52,7 +52,7 @@ unsigned short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
-void __fastcall sub_6FC3E200(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053CDF0
+void __fastcall SCMD_SendUnitLifeAndPositionUpdate(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053CDF0
 
 unsigned short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540710
 
@@ -205,7 +205,7 @@ static void __stdcall PARTY_FreeParty(D2PartyStrc* pParty, D2GameStrc* pGame)
     {
         D2UnitStrc* pMember = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, pNode->nUnitGUID);
         D2_ASSERT(pMember, 154);
-        sub_6FC7B450(pGame, pMember);
+        PARTYSCREEN_RefreshPartyRelationsAfterLeave(pGame, pMember);
         D2GAME_PACKETS_SendPacket0x8D(pMember, pMember);
         D2PartyNodeStrc* pNext = pNode->pNext;
         FOG_FreeServerMemory(pGame->pMemoryPool, pNode, ".\\UNIT\\Party.cpp", 162, 0);
@@ -443,7 +443,7 @@ void __fastcall PARTY_SynchronizeWithClient(D2GameStrc* pGame, D2UnitStrc* pUnit
         D2UnitStrc* pPartyMember = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, pPartyNode->nUnitGUID);
         if (pPartyMember && pPartyMember != pUnit)
         {
-            sub_6FC3E200(pClient, pPartyMember);
+            SCMD_SendUnitLifeAndPositionUpdate(pClient, pPartyMember);
         }
     }
 }
@@ -549,7 +549,7 @@ void __fastcall PARTY_LeaveParty(D2GameStrc* pGame, D2UnitStrc* pUnit)
             {
                 ptParty->pPartyNodes = pPartyNode->pNext;
             }
-            sub_6FC7B450(pGame, pUnit);
+            PARTYSCREEN_RefreshPartyRelationsAfterLeave(pGame, pUnit);
             D2GAME_PACKETS_SendPacket0x8D(pUnit, pUnit);
             FOG_FreeServerMemory(pGame->pMemoryPool, pPartyNode, ".\\UNIT\\Party.cpp", 328, 0);
             break;

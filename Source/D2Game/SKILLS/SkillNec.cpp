@@ -197,7 +197,7 @@ void __fastcall SKILLS_SetGolemStats(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
-void __fastcall sub_6FC3E200(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053CDF0
+void __fastcall SCMD_SendUnitLifeAndPositionUpdate(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053CDF0
 
 void __fastcall D2GAME_UpdateSummonAI(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nNodeIndex); // 0x005B1900
 
@@ -319,7 +319,7 @@ void __stdcall STATES_ToggleGfxStateFlag(D2UnitStrc* pUnit, int nState, int bSet
 
 void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList);                                            // 0x00626CD0
 
-int __fastcall D2GAME_GetSummonIdFromSkill_6FD15580(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
+int __fastcall D2GAME_GetSummonIdFromSkill(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
 
 int __fastcall D2GAME_GetXAndYFromTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pX, int* pY); // 0x0056D2C0
 
@@ -349,7 +349,7 @@ D2UnitEventStrc* __fastcall SKILLS_RegisterUnitEvent(D2GameStrc* pGame, D2UnitSt
 
 int __fastcall SKILLS_IterateTargetsAroundTarget(D2GameStrc* pGame, unsigned int nFlags, D2UnitStrc* pUnit, int nDistance, int (__fastcall* pCallback)(D2UnitStrc*, void*), void* pArgs); // 0x0056E780
 
-int __fastcall sub_6FD0B450(D2UnitStrc* pUnit, void* pArgs); // 0x005C35C0
+int __fastcall SKILLS_AuraCallback_ApplyCurse(D2UnitStrc* pUnit, void* pArgs); // 0x005C35C0
 
 int __fastcall SKILLS_AuraCallback_ApplyConfuse(D2UnitStrc* pUnit, void* pArgs); // 0x005C3DE0
 
@@ -415,7 +415,7 @@ void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc*); // 0x0064C370
 
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
 
-void __fastcall D2GAME_SetSummonResistance_6FD0C2E0(D2UnitStrc* pUnit, D2UnitStrc* pPet); // 0x005C40D0
+void __fastcall SKILLS_SetSummonResistance(D2UnitStrc* pUnit, D2UnitStrc* pPet); // 0x005C40D0
 
 void __fastcall SKILLS_SetNecroPetComponents(D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel); // 0x005C4430
 
@@ -1082,7 +1082,7 @@ int __fastcall SKILLS_SrvDo030_Curse(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
         args.nAuraEventFunc[i] = pSkillsTxtRecord->wAuraEventFunc[i];
     }
 
-    return SKILLS_IterateTargetsAroundTarget(pGame, pSkillsTxtRecord->dwAuraFilter, pUnit, nRange, sub_6FD0B450, &args);
+    return SKILLS_IterateTargetsAroundTarget(pGame, pSkillsTxtRecord->dwAuraFilter, pUnit, nRange, SKILLS_AuraCallback_ApplyCurse, &args);
 }
 
 inline D2ItemStatCostTxt* SKILLS_GetItemStatCostTxtRecord(int nStatId)
@@ -1293,11 +1293,11 @@ int __fastcall SKILLS_AuraCallback_SetAttractTarget(D2UnitStrc* pUnit, void* pAr
 
     if (pParam->nUnitType == 0)
     {
-        sub_6FC61E30(pUnit, 1, pParam->nUnitGUID);
+        MONSTERAI_SetTargetOverride(pUnit, 1, pParam->nUnitGUID);
     }
     else
     {
-        sub_6FC61E30(pUnit, 2, pParam->nUnitGUID);
+        MONSTERAI_SetTargetOverride(pUnit, 2, pParam->nUnitGUID);
     }
 
     EVENT_SetEvent(pParam->pGame, pUnit, 0x0A, pParam->pGame->dwGameFrame + pParam->nLength, 0, 0);
@@ -1355,7 +1355,7 @@ int __fastcall SKILLS_AuraCallback_ApplyConfuse(D2UnitStrc* pUnit, D2UnkNecSkill
 
     SUNIT_SetAlignment(pUnit, 1, 1);
     TARGETS_InsertUnitNode(pArgs->pGame, pUnit, 0, 9);
-    sub_6FC61E30(pUnit, 3, 0);
+    MONSTERAI_SetTargetOverride(pUnit, 3, 0);
     EVENT_SetEvent(pArgs->pGame, pUnit, EVENTTYPE_AIRESET, pArgs->pGame->dwGameFrame + pArgs->nDuration, 0, 0);
     return 1;
 }
@@ -1732,7 +1732,7 @@ int __fastcall SKILLS_SrvDo031_RaiseSkeleton_Mage(D2GameStrc* pGame, D2UnitStrc*
         if (pSkillsTxtRecord)
         {
             int nSpawnMode;
-            const int nMonsterId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+            const int nMonsterId = D2GAME_GetSummonIdFromSkill(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
             if (nMonsterId >= 0)
             {
                 const int nPetType = (signed char)pSkillsTxtRecord->nPetType;
@@ -1759,7 +1759,7 @@ int __fastcall SKILLS_SrvDo031_RaiseSkeleton_Mage(D2GameStrc* pGame, D2UnitStrc*
                         D2GAME_SKILLS_SetSummonBaseStats(pGame, pUnit, pPet, 0, nSkillLevel);
                         SKILLS_SetNecroPetComponents(pUnit, pPet, nSkillId, nSkillLevel);
                         D2GAME_SetSummonPassiveStats(pGame, pUnit, pPet, nSkillId, nSkillLevel, 0);
-                        D2GAME_SetSummonResistance_6FD0C2E0(pUnit, pPet);
+                        SKILLS_SetSummonResistance(pUnit, pPet);
                         D2GAME_UpdateSummonAI(pGame, pPet, 0, pUnit->dwNodeIndex);
                         return 1;
                     }
@@ -1879,7 +1879,7 @@ void __fastcall SKILLS_SetGolemStats(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
 {
     D2GAME_SKILLS_SetSummonBaseStats(pGame, pUnit, pPet, 0, nSkillLevel);
     D2GAME_SetSummonPassiveStats(pGame, pUnit, pPet, nSkillId, nSkillLevel, 0);
-    D2GAME_SetSummonResistance_6FD0C2E0(pUnit, pPet);
+    SKILLS_SetSummonResistance(pUnit, pPet);
 }
 
 // 0x005C5100
@@ -1924,7 +1924,7 @@ int __fastcall SKILLS_SrvDo056_Golem(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     }
 
     SKILLS_SetGolemStats(pGame, pUnit, pPet, nSkillId, nSkillLevel);
-    sub_6FC3E200(UnitGetClient(pUnit, ".\\SKILLS\\SkillNec.cpp", 1787), pPet);
+    SCMD_SendUnitLifeAndPositionUpdate(UnitGetClient(pUnit, ".\\SKILLS\\SkillNec.cpp", 1787), pPet);
     D2GAME_UpdateSummonAI(pGame, pPet, 0, pUnit->dwNodeIndex);
     return 1;
 }
@@ -1940,7 +1940,7 @@ int __fastcall SKILLS_SrvDo057_IronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     if (!nSkillId)
         return 0;
     int nSpawnMode;
-    int nMonsterId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    int nMonsterId = D2GAME_GetSummonIdFromSkill(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
     if (nMonsterId < 0)
         return 0;
     unsigned char nPetType = pSkillsTxtRecord->nPetType;
@@ -1977,7 +1977,7 @@ int __fastcall SKILLS_SrvDo057_IronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, i
         ITEMMODE_EquipCursorItem(pGame, pPet, !pTarget ? -1 : pTarget->dwUnitId, nBodyLoc1, 1, 0);
     }
     SKILLS_SetGolemStats(pGame, pUnit, pPet, nSkillId, nSkillLevel);
-    sub_6FC3E200(UnitGetClient(pUnit, ".\\SKILLS\\SkillNec.cpp", 1871), pPet);
+    SCMD_SendUnitLifeAndPositionUpdate(UnitGetClient(pUnit, ".\\SKILLS\\SkillNec.cpp", 1871), pPet);
     D2GAME_UpdateSummonAI(pGame, pPet, 0, pUnit->dwNodeIndex);
     return 1;
 }
@@ -2120,7 +2120,7 @@ int __fastcall SKILLS_SrvDo058_Revive(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     }
     D2GAME_SetSummonPassiveStats(pGame, pUnit, pTarget, nSkillId, nSkillLevel, 0);
     SKILLS_InitializeRevivedMonster(pGame, pUnit, pTarget, nSkillId, nSkillLevel);
-    sub_6FC7D7A0(pGame, pUnit, pTarget, nPetType, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwPetMax, nSkillId, nSkillLevel));
+    PLAYERPETS_AddSummonedPet(pGame, pUnit, pTarget, nPetType, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwPetMax, nSkillId, nSkillLevel));
     D2GAME_UpdateSummonAI(pGame, pTarget, 0, pUnit->dwNodeIndex);
     D2Common_10214(pTarget);
     return 1;
@@ -2151,7 +2151,7 @@ int __fastcall SKILLS_SrvDo060_BoneWall(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     D2SkillsTxt* pSkills = SKILLS_GetSkillsTxtRecordForceInline(nSkillId);
     if (!nSkillId) return 0;
     int nSpawnMode;
-    int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    int nSummonId = D2GAME_GetSummonIdFromSkill(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
     if (nSummonId < 0) return 0;
     unsigned char nPetType = pSkills->nPetType;
     if (nPetType >= sgptDataTables->nPetTypeTxtRecordCount) nPetType = 0;
@@ -2247,7 +2247,7 @@ static D2UnitStrc* __stdcall SKILLS_SpawnBonePrisonPet(D2GameStrc* pGame, int nS
     }
 
     int nSpawnMode;
-    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    const int nSummonId = D2GAME_GetSummonIdFromSkill(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
     if (nSummonId < 0)
     {
         return 0;

@@ -1625,7 +1625,7 @@ void __fastcall D2GAME_SKILLS_RewindSkillEx(D2GameStrc* pGame, D2UnitStrc* pUnit
 void __fastcall SUNIT_ResetRecurringModeChangeEvent(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2GAME_EVENTS_Delete(pGame, pUnit, EVENTTYPE_MODECHANGE, 0);
-    sub_6FC35570(pGame, pUnit, EVENTTYPE_MODECHANGE, 0, 0);
+    EVENT_SetRecurringEvent(pGame, pUnit, EVENTTYPE_MODECHANGE, 0, 0);
 }
 
 // 0x00553F30
@@ -2884,7 +2884,7 @@ int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* hUnit, D2Active
         }
 
         EVENT_SetEventWithCallback(pGame, hUnit, 14, pGame->dwGameFrame + 50, SUNIT_EventClearTeleportCoordinates, 0, 0);
-        sub_6FC7E310(pGame, hUnit, tCoords.nX, tCoords.nY);
+        PLAYERPETS_UpdatePetsForOwnerMove(pGame, hUnit, tCoords.nX, tCoords.nY);
     }
     else
     {

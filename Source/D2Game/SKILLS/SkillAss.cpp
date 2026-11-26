@@ -170,7 +170,7 @@ int __fastcall SKILLS_CanSwitchAi(D2UnitStrc* pUnit, int nAiSpecialState); // 0x
 
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nAiSpecialState); // 0x005B0E00
 
-int __fastcall D2GAME_GetSummonIdFromSkill_6FD15580(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
+int __fastcall D2GAME_GetSummonIdFromSkill(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
 
 D2UnitStrc* __fastcall SKILLS_SummonSkillMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel); // 0x005D5E10
 
@@ -668,7 +668,7 @@ int __fastcall SKILLS_SrvDo133_Impregnate(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         return 0;
     }
 
-    if (!sub_6FD01910(pUnit, pTarget))
+    if (!SKILLS_CanImpregnateTarget(pUnit, pTarget))
     {
         return 0;
     }
@@ -736,7 +736,7 @@ int __fastcall SKILLS_SrvSt62_MinionSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit
     int nSpawnMode;
     int nX;
     int nY;
-    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 1, nSkillId, nSkillLevel, &nSpawnMode, &nX, &nY);
+    const int nSummonId = D2GAME_GetSummonIdFromSkill(pUnit, 1, nSkillId, nSkillLevel, &nSpawnMode, &nX, &nY);
     SKILLS_SetParam1(pSkill, nSummonId);
     SKILLS_SetParam2(pSkill, nX);
     SKILLS_SetParam3(pSkill, nY);
@@ -2527,7 +2527,7 @@ static void __stdcall SKILLS_FillKickDamage(D2GameStrc* pGame, D2DamageStrc* pDa
     }
 
     SUNITDMG_FillDamageValues(pGame, pUnit, pTarget, pDamage, 1, 0x80);
-    sub_6FCF5870(pUnit, pDamage);
+    SKILLS_ApplyProgressiveLeechAndElementalDamage(pUnit, pDamage);
 
     if (pMainWeapon)
     {
@@ -2615,7 +2615,7 @@ int __fastcall SKILLS_SrvDo042_DragonTalon(D2GameStrc* pGame, D2UnitStrc* pUnit,
         return 0;
     }
 
-    sub_6FCF77E0(pGame, pUnit, SUNITDMG_GetDamageFromUnits(pUnit, pTarget));
+    SKILLS_ReleaseProgressiveCharges(pGame, pUnit, SUNITDMG_GetDamageFromUnits(pUnit, pTarget));
     SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
 
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
@@ -2804,7 +2804,7 @@ static inline int UNITS_GetUnitType_Inline(D2UnitStrc* pUnit)
 D2UnitStrc* __fastcall SKILLS_SummonSkillMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel)
 {
     int nSpawnMode;
-    const int nMonsterId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    const int nMonsterId = D2GAME_GetSummonIdFromSkill(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
     {
         return 0;
@@ -2885,7 +2885,7 @@ int __fastcall SKILLS_SrvDo044_BladeSentinel(D2GameStrc* pGame, D2UnitStrc* pUni
     }
 
     int nSpawnMode;
-    if (D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0) < 0)
+    if (D2GAME_GetSummonIdFromSkill(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0) < 0)
     {
         return 0;
     }
@@ -3004,7 +3004,7 @@ int __fastcall SKILLS_SrvDo046_DragonClaw(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         D2DamageStrc* pDamage = SUNITDMG_GetDamageFromUnits(pUnit, pTarget);
         if (pDamage)
         {
-            sub_6FCF77E0(pGame, pUnit, pDamage);
+            SKILLS_ReleaseProgressiveCharges(pGame, pUnit, pDamage);
         }
         SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
         pUnit->dwFlags &= ~0x40;
@@ -3015,7 +3015,7 @@ int __fastcall SKILLS_SrvDo046_DragonClaw(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         D2DamageStrc* pDamage = SUNITDMG_GetDamageFromUnits(pUnit, pTarget);
         if (pDamage)
         {
-            sub_6FCF77E0(pGame, pUnit, pDamage);
+            SKILLS_ReleaseProgressiveCharges(pGame, pUnit, pDamage);
         }
         SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
         pUnit->dwFlags |= 0x40;
@@ -3490,7 +3490,7 @@ int __fastcall SKILLS_SrvDo049_ShadowWarrior_Master(D2GameStrc* pGame, D2UnitStr
     }
 
     int nSpawnMode;
-    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    const int nSummonId = D2GAME_GetSummonIdFromSkill(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
     if (nSummonId < 0)
     {
         return 0;
@@ -3566,7 +3566,7 @@ int __fastcall SKILLS_SrvSt27_DragonTail(D2GameStrc* pGame, D2UnitStrc* pUnit, i
         return 0;
     }
 
-    sub_6FD15470(pUnit, GetSkillParam3ById_Inline(nSkillId));
+    SKILLS_ApplyAttackRateModifier(pUnit, GetSkillParam3ById_Inline(nSkillId));
 
     D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
     if (!pTarget)
@@ -3618,7 +3618,7 @@ int __fastcall SKILLS_SrvDo050_DragonTail(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     }
 
     D2DamageStrc physDamage = *pDamage;
-    sub_6FCF77E0(pGame, pUnit, pDamage);
+    SKILLS_ReleaseProgressiveCharges(pGame, pUnit, pDamage);
     SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
 
     if (SUNIT_IsDead(pUnit))
@@ -3885,7 +3885,7 @@ int __fastcall SKILLS_SrvDo052_DragonFlight(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
 
     SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, nSrcDam);
-    sub_6FCF77E0(pGame, pUnit, SUNITDMG_GetDamageFromUnits(pUnit, pTarget));
+    SKILLS_ReleaseProgressiveCharges(pGame, pUnit, SUNITDMG_GetDamageFromUnits(pUnit, pTarget));
     SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
     return 1;
 }
@@ -4048,7 +4048,7 @@ int __fastcall SKILLS_SrvDo054_BladeShield(D2GameStrc* pGame, D2UnitStrc* pUnit,
     return 1;
 }
 
-void __fastcall sub_6FCF5870(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
+void __fastcall SKILLS_ApplyProgressiveLeechAndElementalDamage(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
 {
     if (!pDamage || !(pDamage->wResultFlags & 1))
     {

@@ -646,7 +646,7 @@ int __fastcall SKILLS_SrvDo150_Smite(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     }
     else
     {
-        sub_6FC627B0(pUnit, MONMODE_ATTACK2);
+        MONSTERMODE_UpdateModeAttackStats(pUnit, MONMODE_ATTACK2);
         damage.dwStunLen = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
         damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, 0, 0);
     }
@@ -1270,7 +1270,7 @@ int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
             case 211: case 436: nMode = 5; break;
             default: nMode = 4; break;
             }
-            sub_6FC627B0(pUnit, nMode);
+            MONSTERMODE_UpdateModeAttackStats(pUnit, nMode);
         }
         damage.dwHitClass = 0x70;
         SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, pRecord->nSrcDam);

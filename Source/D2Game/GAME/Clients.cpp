@@ -1114,7 +1114,7 @@ void __fastcall CLIENTS_SynchronizePlayer(D2GameStrc* pGame, D2ClientStrc* pClie
     D2Common_10513(pPlayer, pPlayer, D2GAME_UpdateAttribute);
     if (UNITS_HasFlagEx(pPlayer, 0x200000))
     {
-        D2GAME_ITEMS_UpdateInventoryItems_6FC45050(pGame, pPlayer, 1, 1);
+        D2GAME_ITEMS_UpdateInventoryItems(pGame, pPlayer, 1, 1);
         sub_0055F4F0(pGame, pPlayer, 1);
     }
     ++pClient->nPlayerSyncCount;
@@ -1644,7 +1644,7 @@ void __fastcall sub_00538410_RemoveUnitIfNotAdjacent2(D2ClientStrc* pClient, D2U
 
 int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUnitGUID); // 0x00554100
 
-int __fastcall D2GAME_Return1_6FC41900(D2UnitStrc* pItem); // 0x00564CA0
+int __fastcall sub_00564CA0_Return1(D2UnitStrc* pItem); // 0x00564CA0
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 
@@ -2277,11 +2277,10 @@ void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc
 
 extern int nInitSeed_6FDC2CA08;                                                                             // 0x00731004
 
-int dword_6FD4581C;                                                                                         // 0x00883D3C
+int gnGlobal_00883D3C;                                                                                         // 0x00883D3C
 
-int dword_6FD45820;                                                                                         // 0x00883D40
+int gnGlobal_00883D40;                                                                                         // 0x00883D40
 
-int gnPeakMemoryUsageInLast10s_6FD45828;                                                                    // 0x00883D48
 
 extern int gnTargetFrameRate;                                                                      // 0x00731014
 
@@ -2438,7 +2437,7 @@ int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem);                      
 
 void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);            // 0x00542B40
 
-void __fastcall sub_6FC84D40(D2GameStrc* pGame, D2GSPacketSrv5A* pPacket);                                 // 0x0054AA40
+void __fastcall PLRMSG_BroadcastEventMessage(D2GameStrc* pGame, D2GSPacketSrv5A* pPacket);                                 // 0x0054AA40
 
 void __fastcall D2GAME_PopulateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);                  // 0x0054EC90
 

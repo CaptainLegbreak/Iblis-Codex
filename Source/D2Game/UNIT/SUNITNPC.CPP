@@ -780,7 +780,7 @@ void __fastcall D2GAME_NPC_RepairItem(D2GameStrc* pGame, D2UnitStrc* pItem, D2Un
 
         if (ITEMS_CheckItemFlag(pItem, IFLAG_BROKEN, 191, gszNpcSourceFile))
         {
-            D2GAME_RepairBrokenItem_6FC4B630(pGame, pPlayer, pItem);
+            D2GAME_RepairBrokenItem(pGame, pPlayer, pItem);
         }
         else
         {
@@ -1529,7 +1529,7 @@ void __fastcall SUNITNPC_UpdateHirelingPosition(D2GameStrc* pGame, D2UnitStrc* p
 {
     if (PLAYERPETS_GetFirstPetByType(pGame, pPlayer, PETTYPE_HIREABLE, 0))
     {
-        sub_6FC7E310(pGame, pPlayer, UNITS_GetUnitXPosition(pPlayer), UNITS_GetUnitYPosition(pPlayer));
+        PLAYERPETS_UpdatePetsForOwnerMove(pGame, pPlayer, UNITS_GetUnitXPosition(pPlayer), UNITS_GetUnitYPosition(pPlayer));
     }
 }
 

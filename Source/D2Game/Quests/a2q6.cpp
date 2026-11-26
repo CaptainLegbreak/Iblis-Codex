@@ -1586,7 +1586,7 @@ int __fastcall ACT2Q6_ActivateTomb(D2GameStrc* pGame, D2CoordStrc* pCoord, D2Act
         D2ActiveRoomStrc* pRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[1], LEVEL_LUTGHOLEIN, 12, &nX, &nY, 3);
         if (pRoom)
         {
-            sub_6FC385A0(pGame, pRoom);
+            GAME_ActivateRoom(pGame, pRoom);
             pRoom = COLLISION_GetFreeCoordinatesEx(pRoom, pCoord, 3, 0xBE11, 7);
             if (pRoom)
             {

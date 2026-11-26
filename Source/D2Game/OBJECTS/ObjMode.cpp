@@ -2327,7 +2327,7 @@ static void OBJMODE_SpawnTrapMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     D2CoordStrc tCoord;
     UNITS_GetCoords(pUnit, &tCoord);
 
-    if (!sub_6FC6A090(pGame, UNITS_GetRoom(pUnit), tCoord.nX, tCoord.nY, nMonsterId, 1, 136))
+    if (!MONSTERSPAWN_SpawnAtCoordinates(pGame, UNITS_GetRoom(pUnit), tCoord.nX, tCoord.nY, nMonsterId, 1, 136))
     {
         D2ActiveRoomStrc* pRoom;
         D2Common_10136(UNITS_GetRoom(pUnit), &tCoord, 0, COLLIDE_MASK_PLACEMENT, &pRoom);
@@ -2840,7 +2840,7 @@ D2UnitStrc* __fastcall OBJMODE_DropFromChestTCWithQuality(D2ObjOperateFnStrc* pO
 
     int nItemDropCount = 0;
     D2UnitStrc* ppDroppableItems[6] = {};
-    D2GAME_DropTC_6FC51360(ptGame, pOp->hObject, pOp->hPlayer, pTCExRecord, nItemQuality, nTCIndex, 0, ppDroppableItems, &nItemDropCount, 6);
+    sub_0055A6D0_DropTC(ptGame, pOp->hObject, pOp->hPlayer, pTCExRecord, nItemQuality, nTCIndex, 0, ppDroppableItems, &nItemDropCount, 6);
     return ppDroppableItems[0];
 }
 
@@ -3693,14 +3693,14 @@ void __fastcall D2GAME_SHRINES_DefensiveBoost(D2ObjOperateFnStrc* pOp, D2Shrines
 // 0x00583BC0
 void __fastcall OBJMODE_RefreshPassives(D2UnitStrc* pUnit)
 {
-    sub_6FD14C30(pUnit);
+    SKILLS_RefreshPassivesAndPetLimits(pUnit);
 }
 
 // 0x00583BD0
 void __fastcall OBJMODE_RemoveSkillShrine(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
 {
     SKILLS_RemoveStateAndRefreshPassives(pUnit, nState, pStatList);
-    sub_6FD14C30(pUnit);
+    SKILLS_RefreshPassivesAndPetLimits(pUnit);
 }
 
 // 0x005839B0

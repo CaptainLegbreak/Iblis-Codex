@@ -260,7 +260,7 @@ void __fastcall SKILLS_StunMonster(D2GameStrc* pGame, D2UnitStrc* pUnused, D2Uni
 
 int __fastcall SKILLS_CanUseWeaponAmmo(D2UnitStrc* pUnit); // 0x0056C4E0
 
-void __fastcall sub_6FC7D260(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int a4);
+void __fastcall PLAYERPETS_RemovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int a4);
 
 int __fastcall SKILLS_SrvDo077_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
@@ -311,7 +311,7 @@ int __fastcall SKILLS_SrvSt32_Conversion_Bash_Stun_Concentrate_BearSmite(D2GameS
         return 0;
     }
 
-    sub_6FD15470(pUnit, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[2], nSkillId, nSkillLevel));
+    SKILLS_ApplyAttackRateModifier(pUnit, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[2], nSkillId, nSkillLevel));
 
     D2DamageStrc damage;
     memset(&damage, 0, sizeof(damage));
@@ -520,7 +520,7 @@ int __fastcall SKILLS_ApplyWarcryStats(D2GameStrc* pGame, D2UnitStrc* pTarget, D
     D2COMMON_10476(pStatList, nExpireFrame);
     EVENT_SetEvent(pGame, pTarget, 12, nExpireFrame, 0, 0);
     SKILLS_ApplyAuraStatsToStatList(pUnit, pStatList, pSkillsTxtRecord, nSkillId, nSkillLevel);
-    sub_6FD14C30(pTarget);
+    SKILLS_RefreshPassivesAndPetLimits(pTarget);
     return 1;
 }
 
@@ -572,7 +572,7 @@ int __fastcall SKILLS_SrvDo070_DoubleSwing(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
 
-    const int nAuraRange = sub_6FD15460(pUnit);
+    const int nAuraRange = SKILLS_GetMeleeSearchRange(pUnit);
     const int nTargetGUID = pTarget->dwUnitId;
     pTarget = SKILLS_FindNextAuraTarget(pGame, pUnit, 0, 0, nAuraRange, AURAFILTER_DOUBLESWING, nTargetGUID, 0);
     if (!pTarget)
@@ -1060,7 +1060,7 @@ void __fastcall SKILLS_CurseStateCallback_Whirlwind(D2UnitStrc* pUnit, int nStat
     {
         STATES_ToggleState(pUnit, nState, 0);
         UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkillBar.cpp", LINE_WHIRLWIND_ANIMRATE);
-        sub_6FD14C30(pUnit);
+        SKILLS_RefreshPassivesAndPetLimits(pUnit);
     }
 }
 
@@ -1642,7 +1642,7 @@ static int __stdcall SKILLS_StartMonsterLeapAttack(D2GameStrc* pGame, D2UnitStrc
         return 0;
     }
 
-    sub_6FC627B0(pUnit, 4);
+    MONSTERMODE_UpdateModeAttackStats(pUnit, 4);
     MONSTERMODE_AllocateTargetCombat(pUnit, pGame);
     SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
     SKILLS_SetParam3(pSkill, !pTarget ? 6 : pTarget->dwUnitType);
@@ -2067,7 +2067,7 @@ static D2UnitStrc* __stdcall SKILLS_FindLeapAttackTarget(D2GameStrc* pGame, D2Un
 
         if (!pTarget)
         {
-            const int nRange = sub_6FD15460(pUnit);
+            const int nRange = SKILLS_GetMeleeSearchRange(pUnit);
             pTarget = SKILLS_FindNextAuraTarget(pGame, pUnit, 0, 0, nRange, 0x20003, -1, 0);
         }
     }

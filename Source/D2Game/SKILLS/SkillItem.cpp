@@ -1558,7 +1558,7 @@ int __fastcall SKILLITEM_pSpell01_Initializer(D2GameStrc* pGame, D2UnitStrc* pUn
     const int nSpellIcon = ITEMS_GetSpellIcon(pItem);
     if (nSpellIcon >= 0)
     {
-        D2GAME_PACKETS_SendPacket0x3F_6FC3EDC0(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 64), pItem, nSpellIcon, 0, 1, nSkillId);
+        D2GAME_PACKETS_SendPacket0x3F(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 64), pItem, nSpellIcon, 0, 1, nSkillId);
     }
 
     return 1;
@@ -1660,7 +1660,7 @@ static void SKILLITEM_ClearTargetingItems(D2UnitStrc* pUnit)
         if (ITEMS_CheckItemFlag(pItem, IFLAG_TARGETING, 119, ".\\SKILLS\\SkillItem.cpp"))
         {
             ITEMS_SetItemFlag(pItem, IFLAG_TARGETING, 0);
-            D2GAME_PACKETS_SendPacket0x3F_6FC3EDC0(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 122), pItem, -1, 1, 0, -1);
+            D2GAME_PACKETS_SendPacket0x3F(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 122), pItem, -1, 1, 0, -1);
         }
     }
 }
@@ -2223,13 +2223,13 @@ int __fastcall SKILLITEM_pSpell07_OpenCube(D2GameStrc* pGame, D2UnitStrc* pUnit,
         }
 
         SUNIT_ResetInteractInfo(pUnit);
-        sub_6FC4B830(pGame, pUnit);
+        ITEMMODE_RebuildBookScrollSkillQuantities(pGame, pUnit);
         D2GAME_PACKETS_SendPacket0x77_Ui(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 947), UPDATEUI_CLOSEALL);
     }
 
     SUNIT_SetInteractInfo(pUnit, UNIT_ITEM, !pItem ? -1 : pItem->dwUnitId);
     D2GAME_PACKETS_SendPacket0x77_Ui(UnitGetClient(pUnit, ".\\SKILLS\\SkillItem.cpp", 961), UPDATEUI_OPENCUBE);
-    sub_6FC4B830(pGame, pUnit);
+    ITEMMODE_RebuildBookScrollSkillQuantities(pGame, pUnit);
     return 0;
 }
 

@@ -656,7 +656,7 @@ void __fastcall PLAYER_CloseInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit)
                 return;
 
             case UNIT_PLAYER:
-                sub_6FC91250(pGame, pUnit, 6, 0);
+                PLRTRADE_HandleTradeButton(pGame, pUnit, 6, 0);
                 return;
 
             case UNIT_ITEM:
