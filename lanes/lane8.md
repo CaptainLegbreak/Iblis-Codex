@@ -12,6 +12,7 @@ scaffolding, names.
   (Composit_0064F060), `Units/Missile` (Missile_0064B860). Lane 2 hadn't claimed any of them.
 
 ## Status
+- Thu Nov 26 15:58 PT: names-3 Ready. D2Common's a1/v12 names left are in ItemTbls.cpp and MissileTbls.cpp (declaration-sensitive; I leave them) and a few parameters whose meaning the code doesn't show (D2Common_10434's and 10236's flags, Path's unk0x67 setter). Next: D2Common scaffolding again.
 - Thu Nov 26 15:30 PT: 0x6419F0: the plain range tests compare nX / nY in memory (`cmp [ebp-4], edx`) where the original loads them first (`mov ecx, [ebp-4]; cmp ecx, edx`); copies, a coordinate struct, and inline range helpers (min/max or centre/radius) all keep the memory compare. Parked with 0x651040 and 0x65EA50 (readings above); back to names and scaffolding.
 - Thu Nov 26 15:35 PT: param-names and forcing-621f90 merged (#440), Ready lines gone; names-2 Ready. On 0x6419F0 now.
 - Thu Nov 26 15:05 PT: forcing rows, readings so far (no branch):
@@ -30,6 +31,7 @@ scaffolding, names.
 - Thu Nov 26 12:20 PT: setting up (repo, board, wine done; waiting for Game.exe, then setup and the baseline build).
 
 ## Ready
+- lane8/d2common-names-3 5087e94a (on #443): ITEMS_UpdateSets and sub_00663B40_SetBonusStatList take nUpdateMode (0 adds the set's stat list, 1 removes it) and bForceStateUpdate in place of a3/a4; DataTbls.cpp's prototype of D2Common_10884_COMPOSIT_unk takes the definition's names. a1/v12 names 892 -> 879. Full build: Game.exe identical, tree 8ea2b75e1df8881871623705a2b6d307983e69e5, borrowed code / data 7,923 / 261.
 - lane8/d2common-names-2 05c46ce7 (on #440): more D2Common a1/v12 names: OutPlace.cpp's coordinate placers (nDirection, nOffsetMode), the item reader's skill-stat locals in Items.cpp (named for the stats they fill: skill tab, on-attack, on-hit, on-get-hit, charged), unused stub parameters (nUnused), and prototypes of functions defined in other units take the definition's names (D2Common.h, OutWild, OutDesr, OutSiege, OutRoom, AnimTbls, Unknown_0064FAD0). Independent of d2common-param-names (no file in common). a1/v12 names 1,747 -> 1,613. Full build: Game.exe identical, tree bc64325ba804a24f5488fd921d37475de27cfc38, borrowed code / data 8,373 / 261.
 
 ## Questions
