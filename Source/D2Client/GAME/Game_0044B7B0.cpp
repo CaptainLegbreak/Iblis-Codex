@@ -1,3 +1,8 @@
+// These six functions (0x0044E200 GAME_InitGameState, the Lng module functions 0x00451260-0x00451330 and
+// 0x00452130 GAME_InitColors) stay out of Game.cpp. This object's data starts with its own copy of the
+// language-name table (0x0070F728, the marker below), past the end of Game.cpp's data (0x0070F564), so the two are
+// separate objects. Joined into Game.cpp, the copy goes and its bytes have no source, and GAME_LoadAct (0x0044E100)
+// expands GAME_InitColors, which the image calls out of line.
 #include "D2LanguageNames.h"
 // build: symbol _gaszLanguageNames 0x0070F728
 
