@@ -2,7 +2,7 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 12:10 PT): borrowed functions paused (coordinator, 07:53 PT). Closing notes below and drafts pushed: `lane2/0062B5B0-wip` (0da7517ee, 4 bytes; lane 4 has it now), `lane2/00677880-wip` (74f54d2c0, 4,232 / 4,232, 564 bytes), `lane2/00679C80-wip` (61de8693f, 447 / 450, 236 bytes). None is for merging. Now on D2Common's four forcing-construct rows (0x621F90, 0x6419F0, 0x651040, 0x65EA50), then the cross-module shared-header declarations.
+Status (Thu Nov 26 13:05 PT): borrowed functions paused (coordinator, 07:53 PT). Closing notes below and drafts pushed: `lane2/0062B5B0-wip` (0da7517ee, 4 bytes; lane 4 has it now), `lane2/00677880-wip` (74f54d2c0, 4,232 / 4,232, 564 bytes), `lane2/00679C80-wip` (61de8693f, 447 / 450, 236 bytes). None is for merging. D2Common forcing rows: re-read with the compiler tracing tools, none settled yet (0x621F90 is the quest store's address operand order; 0x65EA50 is the nValue load hoisted above the nSet branch). Meanwhile scaffolding: `d2common-dupdecls` Ready (below); next, the 92 D2Common functions that two or more D2Common units declare privately (279 copies) move into D2Common.h.
 
 **0x62B5B0: the plain form is found; 1192/1192, 4 unmasked bytes left.**
   - **Where the 4 bytes come from, as one sentence (Nov 25, 19:00 PT):** the original's allocator cut pPlayer once *before* the nCharClass pressure cut, in a place where the data-tables web is not live, so that at the nCharClass cut pPlayer's web already had a new, higher id than the tables web (41) and its back-edge reload was created after the tables reload. Shown by forcing: with the magic-case cut made first (`X_PRIO 1:17:20,1:7:20,1:10:20`, three priorities, round 1 only) the loop top comes out `mov r,[pPlayer]; mov r,[tables]`, the original's order; the registers are then off (i ecx, tables edx, pPlayer ebx; 1196 B) because in that order nothing separates pPlayer's loop piece before `i` is coloured. The order that gives both is: a first rebuild that cuts pPlayer but not tables (triggered by a web coloured before nCharClass, priority 40), then nCharClass, then the magic-case cut (priority 28), then `i` (23). Our draft has only the last three. So the open question is a source detail anywhere before the second stat loop that makes one more web lose its register early; candidates and both flows are in /home/claude/b62b/NOTES.md point 24.
@@ -76,6 +76,7 @@ Status (Thu Nov 26 12:10 PT): borrowed functions paused (coordinator, 07:53 PT).
 
 ## Ready
 
+- `lane2/d2common-dupdecls` (7fcef1a22, on #429): Ready. D2Common units: 35 private prototypes deleted in 20 units, each the same prototype D2Common.h already has. ItemTbls.cpp keeps its four (its codegen changes without them: one more declaration-sensitive unit). Full build identical (14,922 placed, borrowed code 8,373 B unchanged); auditguard: no count rose.
 - `lane2/net-packet-buffer`: WITHDRAWN, never posted. It duplicates lane 10's `bn-crypt-records-r`; don't merge it. (The proxy here won't let me delete the remote branch.)
 
 ## Working on
