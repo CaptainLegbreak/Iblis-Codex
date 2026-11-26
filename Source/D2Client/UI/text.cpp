@@ -657,7 +657,6 @@ extern unsigned char gbFlag_007BF2B0; // 0x007BF2B0
 
 extern D2Record42Strc gtQuestRecord; // 0x007BF355
 
-extern int gnPage; // 0x007C0255
 
 extern D2SliderButtonStrc gaKeyConfigButtons[3]; // 0x007246D8
 
@@ -786,7 +785,6 @@ int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInv
 
 
 
-extern int gbKeyConfigReady; // 0x00724728
 
 enum { REPEAT_MASK = 0x40000000, UI_VARIABLE = 11 };
 
@@ -1095,11 +1093,9 @@ static int TEXT_GetKeyConfigEntryState(int nIndex, int nFlag);
 
 typedef int(__fastcall* PANELCLOSEFN)(void* pArg, int a2, int a3);
 
-extern int gbTextBoxPending; // 0x007BF1C4
 
 extern void* gpHint_007BF202; // 0x007BF202
 
-extern int gbTextFromObject; // 0x007BF20A
 
 extern void* gpHint_007BF24B; // 0x007BF24B
 

@@ -143,7 +143,6 @@ extern int gnStringMapCount; // 0x00725C04
 
 extern D2StringMapStrc gaStringMap[]; // 0x0072739C
 
-extern int gnNpcEntryCount; // 0x0072554C
 
 extern D2PartyRecordStrc gaNpcEntryFlags[]; // 0x00726861
 
@@ -794,7 +793,6 @@ typedef int (__cdecl* D2MenuHandler)();
 
 typedef char CheckNpcIndexSize[sizeof(D2NpcIndexStrc)==39?1:-1];
 
-extern int gnInteractNpcClassId; // 0x007C0D2D
 
 extern unsigned int gnHirelingName_00725494; // 0x00725494
 

@@ -111,7 +111,6 @@ extern int gnTabSelection; // 0x00724CE0
 
 extern int gnSkillPage; // 0x00724BEC
 
-extern unsigned char gnCharClass; // 0x007A0522
 
 extern int gnPanelOffsetX; // 0x007A2858
 

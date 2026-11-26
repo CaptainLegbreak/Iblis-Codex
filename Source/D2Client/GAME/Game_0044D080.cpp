@@ -76,7 +76,6 @@ extern char gszServerIP[]; // 0x0070EF20
 
 extern char gszMcpIP[]; // 0x0070F130
 
-extern unsigned char gnCharClass; // 0x007A0522
 
 void __fastcall WINMAIN_PushStateValue(int nValue); // 0x0044B440
 

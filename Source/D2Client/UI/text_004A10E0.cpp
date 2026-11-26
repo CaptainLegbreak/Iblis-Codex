@@ -23,7 +23,6 @@ void* __stdcall WINDOW_GetWindow(); // 0x004F59A0
 void __fastcall SCMD_RegisterMsgHandlers(void* hWnd, void* pHandlers, int nCount); // 0x00451DB0
 
 extern const char gszTextSourceFile[]; // 0x006DA13C
-extern int gnTextTop; // 0x007225FC
 extern unsigned char gaHandlers_00722600[]; // 0x00722600
 extern D2TextBlockStrc* gpTextBox; // 0x007BF0A4
 extern D2TextBlockStrc* gpMainTextBox; // 0x007BF1A8

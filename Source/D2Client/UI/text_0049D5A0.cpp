@@ -32,9 +32,6 @@ void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, i
 void __fastcall D2WINFONT_DrawClippedFontText(const Unicode* pText, int nX, int nY, int nTextColor, int nSkipLines, int nDrawLines); // 0x00501DF0
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 
-extern int gnTextTop;                                                                               // 0x007225FC
-extern unsigned long gnTextDisplaySetting;                                                                     // 0x007BF1F6
-extern int gbTextPanelOpen;                                                                               // 0x007BF1FA
 extern int gbTextSide;                                                                             // 0x007BF236
 extern int gnGlobal_007BF264;                                                                               // 0x007BF264
 extern int gnTextLeft;                                                                               // 0x007BF278
@@ -227,9 +224,7 @@ typedef int(__fastcall* PANELCLOSEFN)(void* pArg, int a2, int a3);
 
 extern D2TextScrollStrc* gpTextBox; // 0x007BF0A4
 extern int gbTextBoxDone; // 0x007BF1BC
-extern int gbTextBoxPending; // 0x007BF1C4
 extern void* gpHint_007BF202; // 0x007BF202
-extern int gbTextFromObject; // 0x007BF20A
 extern void* gpHint_007BF24B; // 0x007BF24B
 extern PANELCLOSEFN gpfnTextCallback; // 0x007BF258
 extern void* gpTextCallbackContext; // 0x007BF25C
