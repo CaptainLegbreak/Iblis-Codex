@@ -3155,14 +3155,7 @@ int __fastcall MISSMODE_SrvHit57_BaalFxControl(D2GameStrc* pGame, D2UnitStrc* pM
 {
     if (!pUnit && !MISSILE_GetTargetX(pMissile))
     {
-        MISSILE_SetTargetX(pMissile, 1);
-        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pMissile);
-        if (QUESTS_CheckNotIntroQuest(pGame, QUEST_A5Q6_BAAL))
-        {
-            ACT5Q6_SpawnTyrael(pGame, pRoom, pMissile);
-        }
-
-        DUNGEON_ToggleHasPortalFlag(pRoom, 1);
+        MISSMODE_BaalFxOpenPortal(pGame, pMissile);
     }
 
     return 0;
@@ -4153,11 +4146,6 @@ void __fastcall MISSMODE_SetDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile,
     }
 
     SUNITDMG_ExecuteMissileDamage(pGame, pOwner, pDefender, pDamage);
-}
-
-void __fastcall sub_M250_Emit_005AD930(D2GameStrc* pGame, D2UnitStrc* pMissile)
-{
-    MISSMODE_BaalFxOpenPortal(pGame, pMissile);
 }
 
 inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
