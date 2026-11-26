@@ -1734,7 +1734,7 @@ bool __fastcall CHAT_IsNarrowText(const Unicode* pText)
 }
 
 // 0x0047C3F0
-static void __stdcall CHAT_CopyCommandArgs(char* szDest, const char* szSource, unsigned int nSize)
+static void __stdcall CHAT_CopyCommandArgs(const char* szSource, char* szDest, unsigned int nSize)
 {
     const char* pArgs = SStrChr(szSource, ' ');
     if (pArgs)
@@ -1813,6 +1813,7 @@ static int __stdcall CHAT_HandleWhisperCommand(int bCheckStored, char* szInput, 
 }
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x0047C420
 static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char* szText, int nSkip)
 {
     D2ChatSendStrc tSend;
