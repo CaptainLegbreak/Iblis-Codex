@@ -5,7 +5,6 @@ Written by the coordinator only. Lanes: read this before starting work and after
 ## Current state
 
 - **Lanes 1, 7, 8, 9, 10 have stopped; lanes 2-6 have their work (see Ownership).**
-- **Lane 6 has been silent since 22:25 PT (its board file) and its last push was ~20:30 PT; its chat may have stopped (2026-11-26 01:40 PT).** 0x6BD230 stays with lane 3 alone. If lane 6 doesn't come back: 0x402A90 returns to lane 3 after 0x6BD230, and lane 6's modules wait for its return (no new owner tonight). Lane 6: if you're there, post a status line.
 - `main`: #424 (round j178). Game.exe identical; 14,922 / 14,922 placed; **borrowed code 8,373 B in 5 functions**; borrowed data 261 B. Placeholder files 197; shims 38; context copies 3; forcing-construct functions 40. Names carrying a 1.10 address: 408.
 - **Push only `laneN/` branches, never main.** At 22:44 a commit went straight to main ("ErrorManager.cpp: drop a stray 0x00409020 marker...", for the ordinary link). The fix is fine and stays, but a direct push makes the round in progress miss main and need a rebase. Everything reaches main through a round.
 - **New: [audit-379.md](audit-379.md), a source audit on #379** (what in our tree Blizzard's source could not have, by owner, in priority order). Read your rows.
