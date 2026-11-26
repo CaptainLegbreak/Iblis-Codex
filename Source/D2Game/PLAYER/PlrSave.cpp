@@ -2855,7 +2855,7 @@ static void __stdcall SUNITPROXY_ClearNpcRecordData(D2NpcRecordStrc* pNpcRecord,
                 INVENTORY_FreeInventory(pGamble->pInventory);
                 pGamble->pInventory = 0;
             }
-            FOG_FreePool(pGame->pMemoryPool, pGamble, ".\\UNIT\\sunitproxy.cpp", 0x1E6, 0);
+            sub_0040B480(pGame->pMemoryPool, pGamble, ".\\UNIT\\sunitproxy.cpp", 0x1E6, 0);
             pGamble = pNextGamble;
         }
         pNpcRecord->pGamble = 0;
@@ -2873,7 +2873,7 @@ static void __stdcall SUNITPROXY_ClearNpcRecordData(D2NpcRecordStrc* pNpcRecord,
         {
             ITEMS_RemoveFromAllPlayers(pGame, pNpcEvent->pUnit);
         }
-        FOG_FreePool(pGame->pMemoryPool, pNpcEvent, ".\\UNIT\\sunitproxy.cpp", 0x204, 0);
+        sub_0040B480(pGame->pMemoryPool, pNpcEvent, ".\\UNIT\\sunitproxy.cpp", 0x204, 0);
         pNpcEvent = pNextEvent;
     }
     pNpcRecord->pEvent = 0;
@@ -2930,7 +2930,7 @@ void __fastcall SUNITPROXY_FreeNpcGamble(D2GameStrc* pGame, D2UnitStrc* pNpc, D2
                     pGamble->pInventory = 0;
                 }
 
-                FOG_FreePool(pGame->pMemoryPool, pGamble, ".\\UNIT\\sunitproxy.cpp", 0x5D0, 0);
+                sub_0040B480(pGame->pMemoryPool, pGamble, ".\\UNIT\\sunitproxy.cpp", 0x5D0, 0);
                 return;
             }
 
