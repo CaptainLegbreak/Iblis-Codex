@@ -153,15 +153,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/SOURCE/SBig_004212F0.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/SOURCE/SBig_004212F0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/Storm/Unknown_00425720.cpp": {
    "bytes": 64,
    "definitions": 1,
@@ -183,8 +174,8 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SBig.cpp": {
-   "bytes": 688,
-   "definitions": 2,
+   "bytes": 692,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SBig.inc",
@@ -9299,7 +9290,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/SOURCE/SBig_004212F0.cpp",
+   "file": "Source/Storm/SOURCE/SBig.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": null,
