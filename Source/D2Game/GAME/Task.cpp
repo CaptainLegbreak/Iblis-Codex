@@ -23,7 +23,6 @@ struct D2CriticalSectionStrc;
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
-
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
@@ -34,9 +33,8 @@ extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(D2Large
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-int __fastcall TASK_GetClockTime(); // 0x00564340
+#include "D2GameFuncs.h"
 
-D2LinkStrc* __fastcall TASK_LinkList_Remove(D2LinkStrc* pLink); // 0x005642E0
 
 void __stdcall TASK_BalanceQueues(D2TaskStrc* pTask); // 0x00564460
 
@@ -106,21 +104,8 @@ extern D2TaskQueueStrc* gpTaskQueues_0088C708[32]; // 0x0088C708
 
 static D2LinkStrc gpTaskQueueLink; // 0x0088C788
 
-D2GameStrc* __fastcall GAME_LockGame(int nGameGUID);                                                        // 0x0052E860
-
-void __fastcall GAME_UpdateProgress(D2GameStrc* pGame);                                                     // 0x0052D870
-
-void __fastcall D2GAME_PACKETS_SendGameLeft(int nClientId);                                             // 0x0053B220
 
 void __fastcall ClientRemoveFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave);          // 0x00539DA0
-
-void __fastcall GAME_LeaveGamesCriticalSection(D2GameStrc* pGame);                                          // 0x0052DA90
-
-void __fastcall GAME_CloseGame(int nGameGUID);                                                              // 0x0052E770
-
-void __fastcall TASK_LinkList_PushFront(D2LinkStrc* pList, D2LinkStrc* pLink);                              // 0x00564250
-
-
 
 
 extern "C" const char gszTaskSourceFile[];                                                                  // 0x006E11B8
@@ -134,7 +119,6 @@ struct D2TaskGameStrc
     unsigned int hGame;
     D2LinkStrc tLink;
 };
-
 
 
 // 0x005641C0

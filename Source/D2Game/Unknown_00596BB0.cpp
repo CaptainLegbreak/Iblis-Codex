@@ -19,7 +19,6 @@ struct D2PlayerDataStrc;
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 
 
-
 enum D2QuestConstants
 {
     QUEST_A1Q1_DENOFEVIL = 1,
@@ -27,7 +26,7 @@ enum D2QuestConstants
     QFLAG_PRIMARYGOALDONE = 13,
 };
 
-int __fastcall QUESTS_GetGlobalState(D2GameStrc* pGame, int nQuestId, int nState); // 0x00544760
+#include "D2GameFuncs.h"
 
 // 0x00596BC0
 bool __fastcall ACT1Q7_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
@@ -96,6 +95,4 @@ void __fastcall sub_00596C40_InitQuestCallbacks(D2QuestData00596C40Strc* pQuestD
     pQuestData->pfActiveFilterEC = (void*)ACT1Q7_ActiveFilterCallback;
 }
 
-bool __fastcall ACT3Q7_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
 
-void __cdecl sub_005BDB10_Return();
