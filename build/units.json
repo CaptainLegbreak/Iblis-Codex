@@ -37188,6 +37188,11 @@
      "name": "?BNDOWNLOAD_HandleChangePassword@@YIHPBHI@Z"
     },
     {
+     "va": "0x00520CB0",
+     "length": 155,
+     "name": "?BNDOWNLOAD_HandleClientId@@YIHPBUD2BnClientIdReplyStrc@@I@Z"
+    },
+    {
      "va": "0x00520D50",
      "length": 13,
      "name": "?BNDOWNLOAD_HandleLogonChallenge@@YIHPBHI@Z"
@@ -37196,6 +37201,11 @@
      "va": "0x00520D60",
      "length": 16,
      "name": "?BNDOWNLOAD_HandleStartAdvex@@YIHPBHI@Z"
+    },
+    {
+     "va": "0x00520D70",
+     "length": 45,
+     "name": "?BNDOWNLOAD_HandleLogonChallengeEx@@YIHPBHI@Z"
     },
     {
      "va": "0x00520DA0",
@@ -37210,6 +37220,11 @@
     {
      "va": "0x00520E50",
      "length": 262
+    },
+    {
+     "va": "0x00520F60",
+     "length": 91,
+     "name": "?BNDOWNLOAD_HandleStartVersioning@@YIHPBUD2BnStartVersioningStrc@@I@Z"
     },
     {
      "va": "0x00520FC0",
@@ -37279,6 +37294,11 @@
      "va": "0x00521210",
      "length": 5,
      "name": "?BNDOWNLOAD_HandleNewsInfo@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00521220",
+     "length": 166,
+     "name": "?BNDOWNLOAD_HandleAuthInfo@@YIHPBEI@Z"
     },
     {
      "va": "0x005212D0",
@@ -37383,9 +37403,17 @@
      "name": "BNDOWNLOAD_DecodeKeyDigits"
     },
     {
+     "va": "0x005226D0",
+     "length": 678
+    },
+    {
      "va": "0x00522980",
      "length": 349,
      "name": "BNDOWNLOAD_SubstituteKeyNibbles"
+    },
+    {
+     "va": "0x00522AE0",
+     "length": 202
     },
     {
      "va": "0x00522BC0",
@@ -37433,46 +37461,6 @@
     {
      "va": "0x006CB470",
      "length": 12
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BnDownload_005226D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005226D0",
-     "length": 678
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BnDownload_00520CB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00520CB0",
-     "length": 155,
-     "name": "?BNDOWNLOAD_HandleClientId@@YIHPBUD2BnClientIdReplyStrc@@I@Z"
-    },
-    {
-     "va": "0x00520D70",
-     "length": 45,
-     "name": "?BNDOWNLOAD_HandleLogonChallengeEx@@YIHPBHI@Z"
-    },
-    {
-     "va": "0x00520F60",
-     "length": 91,
-     "name": "?BNDOWNLOAD_HandleStartVersioning@@YIHPBUD2BnStartVersioningStrc@@I@Z"
-    },
-    {
-     "va": "0x00521220",
-     "length": 166,
-     "name": "?BNDOWNLOAD_HandleAuthInfo@@YIHPBEI@Z"
-    },
-    {
-     "va": "0x00522AE0",
-     "length": 202
     }
    ]
   },
