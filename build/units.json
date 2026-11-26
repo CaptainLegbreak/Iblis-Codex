@@ -21555,6 +21555,10 @@
      "name": "?CHAT_CopyCommandArgs@@YGXPADPBDI@Z"
     },
     {
+     "va": "0x0047C420",
+     "length": 1607
+    },
+    {
      "va": "0x0047CA70",
      "length": 540,
      "name": "?CHAT_OnChatChar@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
@@ -78456,30 +78460,6 @@
      "length": 141,
      "name": "PROGRESSBAR_Create"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0047C420.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0047C420",
-     "length": 1607
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
