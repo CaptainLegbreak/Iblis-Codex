@@ -899,11 +899,6 @@ static int __stdcall BNDOWNLOAD_RecvAll(unsigned int nSocket, char* pBuffer, uns
     return 1;
 }
 
-unsigned long __fastcall sub_H04_Emit_0051E640(const char* szFile, const __int64* pFileTime)
-{
-    return BNDOWNLOAD_GetFileSizeIfTimeMatches(szFile, pFileTime);
-}
-
 // 0x0051E640
 static unsigned long BNDOWNLOAD_GetFileSizeIfTimeMatches(const char* szFile, const __int64* pFileTime)
 {
@@ -1054,11 +1049,6 @@ __declspec(noinline) int __fastcall BNDOWNLOAD_SetArchiveName(const char* szName
 {
     SStrCopy(gszDownloadArchive, szName, 0x7FFFFFFF);
     return 1;
-}
-
-int __cdecl sub_B03_Emit_0051E9D0(const char* szList, const char* szDirectory)
-{
-    return BNDOWNLOAD_RunProgramList(szList, szDirectory);
 }
 
 // 0x0051EAA0
@@ -1567,21 +1557,6 @@ void __fastcall BNDOWNLOAD_RequestDownload(int nType, int nSubType, unsigned int
     void* hThread = (void*)_beginthreadex(0, 0, BNDOWNLOAD_DownloadThread, pRecord, 0, &nThreadId);
     if (hThread)
         CloseHandle(hThread);
-}
-
-int __fastcall sub_A12_Emit_0051E5F0(unsigned int nSocket, char* pBuffer, unsigned int nSize)
-{
-    return BNDOWNLOAD_RecvAll(nSocket, pBuffer, nSize);
-}
-
-int __fastcall sub_A12_Emit_0051EAB0(unsigned int nSocket, const char* szFile, const D2FileTimeStrc* pFileTime, int nType, int nFlags, char** ppBuffer, unsigned int nSize)
-{
-    return BNDOWNLOAD_RecvToBuffer(nSocket, szFile, pFileTime, nType, nFlags, ppBuffer, nSize);
-}
-
-int __fastcall sub_A12_Emit_0051EBB0(unsigned int nSocket, unsigned int nOffset, unsigned int nTotal, int nType, const char* szFile, const D2FileTimeStrc* pFileTime)
-{
-    return BNDOWNLOAD_RecvToFile(nSocket, szFile, pFileTime, nOffset, nTotal, nType);
 }
 
 // 0x0051FAB0
@@ -2764,21 +2739,6 @@ static int BNSEND_MapKeyChar(unsigned char cChar)
 long __stdcall sub_M106_Emit_0051DC70(long* pTime)
 {
     return BNDOWNLOAD_GetTime(pTime);
-}
-
-unsigned int __stdcall sub_M106_Emit_0051DD10(int n)
-{
-    return BNSEND_NibbleToHex(tolower(n)) + BNSEND_NibbleToHex(tolower(n + 1));
-}
-
-int __stdcall sub_M106_Emit_0051DD20(int n)
-{
-    return BNSEND_HexToNibble((char)tolower(n)) * 16 + BNSEND_HexToNibble((char)tolower(n + 1));
-}
-
-int __stdcall sub_M106_Emit_0051DD40(int n)
-{
-    return BNSEND_MapKeyChar((unsigned char)tolower(n)) * 24 + BNSEND_MapKeyChar((unsigned char)tolower(n + 1));
 }
 
 // 0x00521BA0

@@ -404,11 +404,6 @@ static int FONT_GetMaxLineWidth(const Unicode* pText)
     return nWidth;
 }
 
-void __fastcall sub_Emit_00501840(const Unicode* pText, int* pWidth, int nExtra)
-{
-    *pWidth = FONT_GetMaxLineWidth(pText) + nExtra;
-}
-
 // 0x00501910
 static int FONT_GetFirstLineWidth(const Unicode* pText)
 {
@@ -434,11 +429,6 @@ static int FONT_GetFirstLineWidth(const Unicode* pText)
         ++pText;
     }
     return nWidth;
-}
-
-void __fastcall sub_M388_Emit_00501910(const Unicode* pText, int* pWidth, int nExtra)
-{
-    *pWidth = FONT_GetFirstLineWidth(pText) + nExtra;
 }
 
 // 0x005019C0
@@ -1088,11 +1078,6 @@ void __fastcall FONT_DrawTextWithBackground(const Unicode* wszText, int nX, int 
     const int nInset = nLeft - 4;
     D2GFX_DrawBox(nInset, nY + nPad - nTextHeight, nInset + nWidth, nY, nColor, eDrawMode);
     sub_00501A80_DrawTextLine(nY - 2, 0, nTextColor, 0, wszText, nLeft);
-}
-
-void __fastcall sub_M98_Emit_005019C0(const Unicode* pText, int* pHeight, int nExtra)
-{
-    *pHeight = FONT_GetTextHeight(pText) + nExtra;
 }
 
 // 0x00502680

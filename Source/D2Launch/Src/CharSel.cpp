@@ -1314,11 +1314,6 @@ __declspec(noinline) static unsigned int CHARSEL_GetDaysLeft(unsigned int nExpir
     return (nExpireTime - nTime) / 86400;
 }
 
-int __stdcall sub_M216_Emit_00437D20(const Unicode* pName, int n)
-{
-    return CHARSEL_IsTestRealm(pName) + n;
-}
-
 // 0x004380F0
 void __cdecl CHARSEL_UpdateCharList()
 {
@@ -1882,16 +1877,6 @@ int __cdecl CHARSEL_UpdateSelection()
     return 1;
 }
 
-void __cdecl sub_LEG_Emit_00438F70()
-{
-    CHARSEL_ScanCharFiles();
-}
-
-void __stdcall sub_LEG_Emit_00438AD0(const char* szName, char* szPath, int nArg3, unsigned int nTimeLow, unsigned int nTimeHigh, int nMode)
-{
-    CHARSEL_AddCharEntry(szName, szPath, nArg3, nTimeLow, nTimeHigh, (const char*)nMode);
-}
-
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x00439210
 int __cdecl CHARSEL_Redraw()
@@ -2154,23 +2139,6 @@ int __stdcall CHARSEL_OnHellDifficulty(SMSGHANDLER_PARAMS* pMsg)
 {
     CHARSEL_JoinSelectedWithDifficulty(pMsg, 2);
     return 1;
-}
-
-void __fastcall sub_A15_Emit_00437F60(const unsigned char* pClass)
-{
-    Unicode wszText[0x40];
-    CHARSEL_GetClassName(wszText, *pClass);
-    sub_A15_UseText(wszText);
-}
-
-int __fastcall sub_A15_Emit_00438030(const unsigned char* pClass)
-{
-    return CHARSEL_IsNotListedCode(*pClass);
-}
-
-unsigned int __fastcall sub_A15_Emit_004380B0(const unsigned int* pExpire)
-{
-    return CHARSEL_GetDaysLeft(*pExpire);
 }
 
 // 0x00439BE0
@@ -3237,21 +3205,6 @@ static int BNSEND_MapKeyChar(unsigned char cChar)
 long __stdcall sub_M106_Emit_0051DC70(long* pTime)
 {
     return BNDOWNLOAD_GetTime(pTime);
-}
-
-unsigned int __stdcall sub_M106_Emit_0051DD10(int n)
-{
-    return BNSEND_NibbleToHex(tolower(n)) + BNSEND_NibbleToHex(tolower(n + 1));
-}
-
-int __stdcall sub_M106_Emit_0051DD20(int n)
-{
-    return BNSEND_HexToNibble((char)tolower(n)) * 16 + BNSEND_HexToNibble((char)tolower(n + 1));
-}
-
-int __stdcall sub_M106_Emit_0051DD40(int n)
-{
-    return BNSEND_MapKeyChar((unsigned char)tolower(n)) * 24 + BNSEND_MapKeyChar((unsigned char)tolower(n + 1));
 }
 
 #include "gen/data/Source/D2Launch/Src/CharSel.inc"
