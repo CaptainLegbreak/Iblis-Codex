@@ -354,4 +354,4 @@ extern "C" int __stdcall WinMain(void* hInstance, void* hPrevInstance, char* lpC
     return 0;
 }
 
-#include "gen/data/Source/D2Launch/Main.inc"
+#include "gen/data/Source/Main/Main.inc"
