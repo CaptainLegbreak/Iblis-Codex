@@ -12344,6 +12344,10 @@
      "name": "?CHATDLG_ReleaseAndCreate@@YGHH@Z"
     },
     {
+     "va": "0x004423B0",
+     "length": 1118
+    },
+    {
      "va": "0x00442810",
      "length": 153,
      "name": "?CHATDLG_SendChatBuffer@@YAHXZ"
@@ -12681,16 +12685,6 @@
     {
      "va": "0x006CA980",
      "length": 20
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ChatDlg_004423B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004423B0",
-     "length": 1118
     }
    ]
   },
@@ -37904,6 +37898,11 @@
      "name": "?BNSEND_GetChangePasswordResult@@YIHPAH@Z"
     },
     {
+     "va": "0x0051C460",
+     "length": 11,
+     "name": "?BNSEND_LeaveChat@@YAHXZ"
+    },
+    {
      "va": "0x0051C570",
      "length": 75
     },
@@ -38108,17 +38107,6 @@
     {
      "va": "0x006CB480",
      "length": 10
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BnSend_0051C460.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0051C460",
-     "length": 11,
-     "name": "?BNSEND_LeaveChat@@YAHXZ"
     }
    ]
   },

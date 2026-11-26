@@ -1036,8 +1036,9 @@ int __fastcall BNSEND_SendEnterChat(const char* szArg1, const char* szArg2, int 
     return BNSEND_SendPacket(0x0A, szBuffer, strlen(szBuffer) + strlen(&szBuffer[strlen(szBuffer) + 1]) + 2) >= 0;
 }
 
+// Kept noinline: the original calls this out of line from its callers in this file; without it the compiler inlines it.
 // 0x0051AF20
-int __cdecl BNSEND_SendLeaveChat()
+__declspec(noinline) int __cdecl BNSEND_SendLeaveChat()
 {
     return BNSEND_SendPacket(0x10, 0, 0) >= 0;
 }
@@ -1702,6 +1703,13 @@ int __fastcall BNSEND_GetChangePasswordResult(int* pResult)
 extern long volatile gnConnected; // 0x00881BF0
 
 extern const char gszLineEnd_006FFCB0[]; // 0x006FFCB0
+
+// 0x0051C460
+int __cdecl BNSEND_LeaveChat()
+{
+    BNSEND_SendLeaveChat();
+    return 1;
+}
 
 // 0x0051C570
 int __fastcall BNSEND_SendLine(const char* szLine)
