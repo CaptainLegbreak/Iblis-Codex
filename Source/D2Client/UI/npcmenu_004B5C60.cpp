@@ -1,3 +1,10 @@
+// NPCMENU_ShowMainMenu (0x4B5C60) sits in npcmenu.cpp's run but stays a piece of its own. It needs /EHsc (the
+// `new ListBoxWrapper` keeps an exception state), which npcmenu.cpp builds equal with too. Joined into
+// npcmenu.cpp after 0x4B5C20, at the end of the file, or with its declarations at the top, every other npcmenu.cpp
+// function stays equal and this one differs only in order: the original saves esi before clearing eax for the
+// wszGold zeroing (push esi; xor eax, eax at +0xCB), npcmenu.cpp's build clears eax first. The declarations it
+// uses are the same in both files, so the difference comes from npcmenu.cpp's surroundings, not this code.
+
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2ClientFuncs.h"
