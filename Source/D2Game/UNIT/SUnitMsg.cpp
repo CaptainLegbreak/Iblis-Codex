@@ -1077,7 +1077,7 @@ void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pCl
             break;
 
         case 0xA1:
-            D2GAME_PACKETS_SendPacket0xA0_A1_A2_6FC3D610(pClient, pUnit, pMsg->pStat.nStatId, pMsg->pStat.dwValue, pMsg->pStat.dwFullValue);
+            D2GAME_PACKETS_SendPacket0xA0_A1_A2(pClient, pUnit, pMsg->pStat.nStatId, pMsg->pStat.dwValue, pMsg->pStat.dwFullValue);
             break;
 
         case 0xA4:

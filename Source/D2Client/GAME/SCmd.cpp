@@ -56,10 +56,6 @@ struct D2WinMsgStrc;
 
 struct D2UnitFlagsStrc;
 
-struct D2GSPacketSrv0E;
-
-struct D2GSPacketSrv0F;
-
 struct D2GSPacketSrv17;
 
 struct D2ClientPacket7Strc;
@@ -69,8 +65,6 @@ struct D2ClientPacket6Strc;
 struct D2SaveChunkPacketStrc;
 
 struct D2ErrorPacketStrc;
-
-struct D2GSPacketSrv03;
 
 struct D2PlayerDataStrc;
 
@@ -82,8 +76,6 @@ struct D2ItemStatCostTxt;
 
 struct D2ClientUnitUpdateStrc;
 
-struct D2GSPacketSrv93;
-
 struct D2GSPacketSrv27Strc;
 
 struct D2GSPacketSrv42Strc;
@@ -91,8 +83,6 @@ struct D2GSPacketSrv42Strc;
 struct D2GSPacketSrv74Strc;
 
 struct D2GSPacketSrv7DStrc;
-
-struct D2GSPacketSrv10;
 
 struct D2UnitDropItemsPacketStrc;
 
@@ -126,10 +116,6 @@ struct D2GSPacketSrv92;
 
 struct D2GSPacketSrv5F;
 
-struct D2GSPacketSrv65;
-
-struct D2GSPacketSrv8B;
-
 union D2SeedStrc;
 
 struct D2MissileStrc;
@@ -147,29 +133,6 @@ struct D2UnitFlagsStrc
 {
     char unk0x00[0xC8];
     unsigned int dwFlagEx;
-};
-
-struct D2GSPacketSrv0E
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    unsigned char dwUnitGUID[4];
-    unsigned char unk0x06;
-    unsigned char unk0x07;
-    unsigned char unk0x08[4];
-};
-
-struct D2GSPacketSrv0F
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    unsigned char dwUnitGUID[4];
-    unsigned char nFlags;
-    unsigned char nDestPosX[2];
-    unsigned char nDestPosY[2];
-    unsigned char unk0x0B;
-    unsigned char nCurrentPosX[2];
-    unsigned char nCurrentPosY[2];
 };
 
 struct D2GSPacketSrv17
@@ -314,14 +277,6 @@ void __cdecl GAME_SaveCharFile(); // 0x0045C520
 extern int gbGameServerReady; // 0x007A0618
 
 #pragma pack(push, 1)
-struct D2GSPacketSrv03
-{
-    unsigned char nHeader;
-    unsigned char nAct;
-    unsigned int dwGameSeed;
-    unsigned short nTownLevelId;
-    unsigned int nObjectSeed;
-};
 #pragma pack(pop)
 
 
@@ -380,15 +335,6 @@ enum D2C_F23Constants
     ITEMSTATCOSTFLAGINDEX_SIGNED = 1,
     STAT_ID_END = 0x1FF,
     STATE_ID_END = 0xFF,
-};
-
-struct D2GSPacketSrv93
-{
-    unsigned char nHeader;
-    unsigned char nUnitGUID[4];
-    unsigned char unk0x05;
-    unsigned char unk0x06;
-    unsigned char unk0x07;
 };
 
 struct D2GSPacketSrv27Strc
@@ -490,18 +436,6 @@ int __fastcall PLRSKILLS_SetStateStat(D2UnitStrc* pUnit, int nPrev, int nState, 
 
 void __fastcall PLRSKILLS_StartClientState(D2UnitStrc* pUnit, int nState); // 0x004D9E60
 
-
-struct D2GSPacketSrv10
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    unsigned char dwUnitGUID[4];
-    unsigned char nFlags;
-    unsigned char nTargetType;
-    unsigned char dwTargetGUID[4];
-    unsigned char nCurrentPosX[2];
-    unsigned char nCurrentPosY[2];
-};
 
 
 
@@ -779,21 +713,9 @@ struct D2GSPacketSrv5F
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct D2GSPacketSrv65
-{
-    unsigned char nHeader;
-    int dwUnitId;
-    unsigned short unk0x05;
-};
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct D2GSPacketSrv8B
-{
-    unsigned char nHeader;
-    int nUnitGUID;
-    unsigned char bParty;
-};
 #pragma pack(pop)
 
 #pragma pack(push, 1)
@@ -1799,7 +1721,7 @@ void __fastcall SCMD_HandleUnsetClientInSight(D2ClientSightPacketStrc* pPacket)
 }
 
 // 0x0045C8E0
-void __fastcall SCMD_HandleLoadAct(D2GSPacketSrv03* pPacket)
+void __fastcall SCMD_HandleLoadAct(D2GSPacketSrv03Strc* pPacket)
 {
     GAME_LoadAct(pPacket->nAct, pPacket->dwGameSeed, pPacket->nObjectSeed, pPacket->nTownLevelId);
 }
@@ -1861,32 +1783,32 @@ void __fastcall SCMD_HandlePlayerStop(D2UnitStrc* pUnit, const D2GSPacketSrv0D* 
 }
 
 // 0x0045CD10
-void __fastcall SCMD_HandleObjectState(D2UnitStrc* pUnit, const D2GSPacketSrv0E* pPacket)
+void __fastcall SCMD_HandleObjectState(D2UnitStrc* pUnit, const D2GSPacketSrv0EStrc* pPacket)
 {
     int args[7];
-    args[0] = pPacket->unk0x07;
-    args[1] = *(const int*)pPacket->unk0x08;
-    sub_00480C10_UnitEvent(pPacket->unk0x06, pUnit, args, 1);
+    args[0] = pPacket->bTargetable;
+    args[1] = pPacket->nAnimMode;
+    sub_00480C10_UnitEvent(pPacket->nEvent, pUnit, args, 1);
 }
 
 // 0x0045CD40
-void __fastcall SCMD_HandlePlayerMove(D2UnitStrc* pUnit, const D2GSPacketSrv0F* pPacket)
+void __fastcall SCMD_HandlePlayerMove(D2UnitStrc* pUnit, const D2GSPacketSrv0FStrc* pPacket)
 {
     int args[7];
-    args[0] = *(const unsigned short*)pPacket->nDestPosX;
-    args[1] = *(const unsigned short*)pPacket->nDestPosY;
-    args[2] = pPacket->unk0x0B;
-    UNITMODE_SetPosition(pUnit, *(const unsigned short*)pPacket->nCurrentPosX, *(const unsigned short*)pPacket->nCurrentPosY, 0, 0, 0);
+    args[0] = pPacket->nDestPosX;
+    args[1] = pPacket->nDestPosY;
+    args[2] = pPacket->nHitClass;
+    UNITMODE_SetPosition(pUnit, pPacket->nCurrentPosX, pPacket->nCurrentPosY, 0, 0, 0);
     sub_00480C10_UnitEvent(pPacket->nFlags, pUnit, args, 1);
 }
 
 // 0x0045CD90
-void __fastcall SCMD_HandlePlayerMoveToTarget(D2UnitStrc* pUnit, const D2GSPacketSrv10* pPacket)
+void __fastcall SCMD_HandlePlayerMoveToTarget(D2UnitStrc* pUnit, const D2GSPacketSrv10Strc* pPacket)
 {
     int args[7];
     args[0] = pPacket->nTargetType;
-    args[1] = *(const int*)pPacket->dwTargetGUID;
-    UNITMODE_SetPosition(pUnit, *(const unsigned short*)pPacket->nCurrentPosX, *(const unsigned short*)pPacket->nCurrentPosY, 0, 0, 0);
+    args[1] = pPacket->nTargetGUID;
+    UNITMODE_SetPosition(pUnit, pPacket->nCurrentPosX, pPacket->nCurrentPosY, 0, 0, 0);
     sub_00480C10_UnitEvent(pPacket->nFlags, pUnit, args, 1);
 }
 
@@ -3009,9 +2931,9 @@ void __fastcall SCMD_HandleWaypointMenu(const D2PacketRecord21Strc* pPacket)
 }
 
 // 0x0045E6B0
-void __fastcall SCMD_HandleKillCount(const D2GSPacketSrv65* pPacket)
+void __fastcall SCMD_HandleKillCount(const D2GSPacketSrv65Strc* pPacket)
 {
-    ROSTER_SetKillCount(pPacket->dwUnitId, pPacket->unk0x05);
+    ROSTER_SetKillCount(pPacket->dwUnitId, pPacket->nKillCount);
 }
 
 // 0x0045E6C0
@@ -3214,7 +3136,7 @@ void __fastcall SCMD_HandleNpcWantsInteract(const D2PacketRecord6Strc* pPacket)
 }
 
 // 0x0045EA60
-void __fastcall SCMD_HandlePartyRelationship(const D2GSPacketSrv8B* pPacket)
+void __fastcall SCMD_HandlePartyRelationship(const D2GSPacketSrv8BStrc* pPacket)
 {
     ROSTER_SetPartyFlags(pPacket->nUnitGUID, pPacket->bParty);
 }
@@ -3266,14 +3188,14 @@ void __fastcall SCMD_HandlePong(const D2GSPacketSrv8F* pPacket)
 }
 
 // 0x0045DD10
-void __fastcall SCMD_HandleSkillLevelBonus(const D2GSPacketSrv93* pPacket)
+void __fastcall SCMD_HandleSkillLevelBonus(const D2GSPacketSrv93Strc* pPacket)
 {
-    const int nUnitGUID = *(const int*)pPacket->nUnitGUID;
-    int nValue = pPacket->unk0x05;
+    const int nUnitGUID = pPacket->dwUnitGUID;
+    int nValue = pPacket->nBonus;
     if (nValue > 0x80)
         nValue -= 0x100;
-    const int nB = pPacket->unk0x06;
-    const char nC = pPacket->unk0x07;
+    const int nB = pPacket->nCharClass;
+    const char nC = pPacket->nSkillTab;
 
     D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitGUID, UNIT_PLAYER);
     if (pUnit)

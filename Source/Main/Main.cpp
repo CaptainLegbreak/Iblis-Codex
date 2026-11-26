@@ -22,7 +22,7 @@ void __fastcall SaveCmdLine(const char** argv); // 0x00405F00
 void __cdecl MoveBetaSettingsToRelease(); // 0x00406040
 void __fastcall ParseCmdLine(D2ConfigStrc* pCfg, const char* argv); // 0x004059A0
 int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType); // 0x00405C30
-int __cdecl sub_00405EF0(); // 0x00405EF0
+int __cdecl sub_00405EF0_AllowExpansion(); // 0x00405EF0
 extern "C" __declspec(dllimport) void* __stdcall OpenEventA(unsigned long dwDesiredAccess, int bInheritHandle, const char* szName); // 0x006CC12C
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent); // 0x006CC130
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
@@ -66,7 +66,7 @@ void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** lpszArgv); // 0x
 void __stdcall D2ServerServiceHandlerProc(unsigned long dwCtrlCode); // 0x00406410
 
 // 0x00405EF0
-int __cdecl sub_00405EF0()
+int __cdecl sub_00405EF0_AllowExpansion()
 {
     return 1;
 }
@@ -288,7 +288,7 @@ int __fastcall GameInit(int argc, const char** argv)
     MAIN_SelectModule(lpArgvCmd, &nChosenModule);
     D2ConfigStrc tCfg;
     ParseCmdLine(&tCfg, lpArgvCmd);
-    tCfg.pfnAllowExpansion = sub_00405EF0;
+    tCfg.pfnAllowExpansion = sub_00405EF0_AllowExpansion;
     tCfg.bOpenGL = 0;
     if (!tCfg.b3DFX)
     {

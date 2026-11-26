@@ -342,7 +342,7 @@ void __fastcall ACT1Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
         QUESTRECORD_ClearQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING);
         QUESTS_UpdatePlayerFlags(pQuestData->pGame, pQuestArg->pPlayer);
         QUESTS_AddPlayerGUID(&pQuestData->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
-        D2GAME_NPC_AssignMercenary_6FCCB520(pQuestData->pGame, pQuestArg->pPlayer, MONSTER_KASHYA);
+        D2GAME_NPC_AssignMercenary(pQuestData->pGame, pQuestArg->pPlayer, MONSTER_KASHYA);
         QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
     }
 }

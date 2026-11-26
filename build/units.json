@@ -776,7 +776,7 @@
     {
      "va": "0x00405EF0",
      "length": 6,
-     "name": "sub_00405EF0"
+     "name": "sub_00405EF0_AllowExpansion"
     },
     {
      "va": "0x00405F00",
@@ -2748,7 +2748,7 @@
     {
      "va": "0x0042F800",
      "length": 122,
-     "name": "?sub_0042F800@@YAXXZ"
+     "name": "?sub_0042F800_CreateControls@@YAXXZ"
     },
     {
      "va": "0x0042F880",
@@ -2768,7 +2768,7 @@
     {
      "va": "0x0042FA20",
      "length": 11,
-     "name": "?sub_0042FA20@@YAXXZ"
+     "name": "?sub_0042FA20_ClearStopMainLoop@@YAXXZ"
     },
     {
      "va": "0x0042FA40",
@@ -2888,7 +2888,7 @@
     {
      "va": "0x00430520",
      "length": 112,
-     "name": "?sub_00430520@@YAXXZ"
+     "name": "?sub_00430520_CreateControls@@YAXXZ"
     },
     {
      "va": "0x00430590",
@@ -8914,7 +8914,7 @@
     {
      "va": "0x00437D10",
      "length": 3,
-     "name": "sub_00437D10"
+     "name": "sub_00437D10_AlwaysZero"
     },
     {
      "va": "0x00437D20",
@@ -9198,7 +9198,7 @@
     {
      "va": "0x0043B830",
      "length": 6,
-     "name": "sub_0043B830"
+     "name": "sub_0043B830_IsCancelled"
     },
     {
      "va": "0x0043B840",
@@ -9326,7 +9326,7 @@
     {
      "va": "0x0042E610",
      "length": 4,
-     "name": "@sub_0042E610@4"
+     "name": "@sub_0042E610_GetValue@4"
     },
     {
      "va": "0x0042E650",
@@ -10843,7 +10843,7 @@
     {
      "va": "0x004473F0",
      "length": 6,
-     "name": "sub_004473F0"
+     "name": "sub_004473F0_AlwaysOne"
     },
     {
      "va": "0x00447400",
@@ -10858,7 +10858,7 @@
     {
      "va": "0x004476F0",
      "length": 6,
-     "name": "sub_004476F0"
+     "name": "sub_004476F0_AlwaysOne"
     },
     {
      "va": "0x00447700",
@@ -10868,7 +10868,7 @@
     {
      "va": "0x00447730",
      "length": 5,
-     "name": "sub_00447730"
+     "name": "sub_00447730_AlwaysZero"
     },
     {
      "va": "0x00447740",
@@ -11590,7 +11590,7 @@
     {
      "va": "0x00436EA0",
      "length": 6,
-     "name": "sub_00436EA0"
+     "name": "sub_00436EA0_IsCancelled"
     },
     {
      "va": "0x00436EB0",
@@ -12106,7 +12106,7 @@
     {
      "va": "0x0043F840",
      "length": 6,
-     "name": "sub_0043F840"
+     "name": "sub_0043F840_AlwaysOne"
     },
     {
      "va": "0x0043F850",
@@ -12470,7 +12470,7 @@
     {
      "va": "0x004435D0",
      "length": 38,
-     "name": "?sub_004435D0@@YGHPAX0PBUCharacter@@@Z"
+     "name": "?sub_004435D0_IsPrintableChar@@YGHPAX0PBUCharacter@@@Z"
     },
     {
      "va": "0x00443600",
@@ -12812,12 +12812,12 @@
     {
      "va": "0x00449CA0",
      "length": 6,
-     "name": "sub_00449CA0"
+     "name": "sub_00449CA0_IsPacket0BReceived"
     },
     {
      "va": "0x00449CB0",
      "length": 6,
-     "name": "sub_00449CB0"
+     "name": "sub_00449CB0_IsPacket0CReceived"
     },
     {
      "va": "0x00449CC0",
@@ -12847,7 +12847,7 @@
     {
      "va": "0x00449D80",
      "length": 6,
-     "name": "sub_00449D80"
+     "name": "sub_00449D80_IsPacket0DReceived"
     },
     {
      "va": "0x00449D90",
@@ -12857,7 +12857,7 @@
     {
      "va": "0x00449DA0",
      "length": 6,
-     "name": "sub_00449DA0"
+     "name": "sub_00449DA0_IsPacket0FReceived"
     },
     {
      "va": "0x00449DB0",
@@ -12912,7 +12912,7 @@
     {
      "va": "0x00449E60",
      "length": 6,
-     "name": "sub_00449E60"
+     "name": "sub_00449E60_GetPacket"
     },
     {
      "va": "0x00449E70",
@@ -33807,7 +33807,7 @@
     {
      "va": "0x004FDA80",
      "length": 24,
-     "name": "@sub_004FDA80@4"
+     "name": "@sub_004FDA80_IsColorCodePrefix@4"
     }
    ]
   },
@@ -60361,7 +60361,7 @@
     {
      "va": "0x005DD7F0",
      "length": 1084,
-     "name": "?sub_6FCF2110@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2AiControlStrc@@PAH3@Z"
+     "name": "?AIUTIL_FindAiTarget@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2AiControlStrc@@PAH3@Z"
     },
     {
      "va": "0x005DDC30",

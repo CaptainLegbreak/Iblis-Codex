@@ -361,7 +361,7 @@ int __stdcall CHARSEL_PollConnect(int nUnused)
     {
         CHARSEL_UpdateStatus();
         sub_00449B70_Receive();
-        int pPacket = sub_00449E60();
+        int pPacket = sub_00449E60_GetPacket();
         if (pPacket)
         {
             gnBusy = 0;

@@ -86,7 +86,7 @@ struct UnkAiStrc1
 
 int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget, D2UnitStrc* pSource); // 0x005DC380
 
-D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat); // 0x005DD7F0
+D2UnitStrc* __fastcall AIUTIL_FindAiTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat); // 0x005DD7F0
 
 int __fastcall AIUTIL_IsGettingHit(D2UnitStrc* pUnit); // 0x005DD2B0
 
@@ -240,7 +240,7 @@ int __fastcall AITACTICS_WalkAroundTargetWithScaledDistance(D2GameStrc* pGame, D
 // 0x005DE890
 D2UnitStrc* __fastcall AITACTICS_FindTargetOrIdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat)
 {
-    D2UnitStrc* pResult = sub_6FCF2110(pGame, pUnit, pAiControl, pDistance, pCombat);
+    D2UnitStrc* pResult = AIUTIL_FindAiTarget(pGame, pUnit, pAiControl, pDistance, pCombat);
     if (pResult)
     {
         return pResult;
@@ -294,7 +294,7 @@ void __fastcall AITACTICS_Idle(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames
 // 0x005DDE50
 D2UnitStrc* __fastcall AITACTICS_FindTargetInRange(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat, int nMaxDistance)
 {
-    D2UnitStrc* pResult = sub_6FCF2110(pGame, pUnit, pAiControl, pDistance, pCombat);
+    D2UnitStrc* pResult = AIUTIL_FindAiTarget(pGame, pUnit, pAiControl, pDistance, pCombat);
     if (pResult && *pDistance <= nMaxDistance)
     {
         return pResult;
@@ -631,7 +631,7 @@ static inline void AITACTICS_IdleInline(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 // 0x005DE9D0
 D2UnitStrc* __fastcall AITACTICS_FindTargetOrIdle(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat)
 {
-    D2UnitStrc* pTarget = sub_6FCF2110(pGame, pUnit, pAiControl, pDistance, pCombat);
+    D2UnitStrc* pTarget = AIUTIL_FindAiTarget(pGame, pUnit, pAiControl, pDistance, pCombat);
     if (pTarget)
         return pTarget;
     const int nCollisionPattern = PATH_GetUnitCollisionPattern(pUnit);

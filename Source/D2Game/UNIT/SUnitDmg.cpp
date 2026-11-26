@@ -4055,7 +4055,7 @@ static void __stdcall SUNITDMG_AddExperienceForHireling(D2GameStrc* pGame, D2Uni
     }
 
     STATLIST_SetUnitStat(pHireling, STAT_EXPERIENCE, nNewExp, 0);
-    D2GAME_PACKETS_SendPacket0xA0_A1_A2_6FC3D610(UnitGetClient(pPlayer, ".\\UNIT\\SUnitDmg.cpp", 4029), pHireling, STAT_EXPERIENCE, nCurrentExp, nNewExp);
+    D2GAME_PACKETS_SendPacket0xA0_A1_A2(UnitGetClient(pPlayer, ".\\UNIT\\SUnitDmg.cpp", 4029), pHireling, STAT_EXPERIENCE, nCurrentExp, nNewExp);
 
     int nNewLevel = nLevel;
     do

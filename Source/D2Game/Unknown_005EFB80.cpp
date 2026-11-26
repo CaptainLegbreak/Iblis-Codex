@@ -280,7 +280,7 @@ enum D2C_M81OverseerAi
 
 int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback); // 0x005DF7D0
 
-int __fastcall sub_6FC68350(int, D2ActiveRoomStrc*, int, int, int); // 0x005FD350
+int __fastcall MONSTERSPAWN_CanSpawnAtSpawnerExit(int, D2ActiveRoomStrc*, int, int, int); // 0x005FD350
 
 inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed);
 
@@ -2351,7 +2351,7 @@ void __fastcall AITHINK_Fn028_Vampire(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
                 return;
             }
             if (bAttack && pNewTarget && nNewDistance <= 20) { if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50) { AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[0], pStats->nSkill[0], pNewTarget, 0, 0); return; } AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[3], pStats->nSkill[3], pNewTarget, 0, 0); return; }
-            else sub_6FCD0E80(pGame, pUnit, pTarget, 4, 0);
+            else AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
             return;
         }
         AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
@@ -2370,7 +2370,7 @@ void __fastcall AITHINK_Fn028_Vampire(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
             }
             if (nNewDistance <= 20) { { if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50) { AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[0], pStats->nSkill[0], pNewTarget, 0, 0); return; } AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[3], pStats->nSkill[3], pNewTarget, 0, 0); return; } return; }
         }
-        if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 33) sub_6FCD0E80(pGame, pUnit, pTarget, 4, 0);
+        if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 33) AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
         else AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
         return;
     }
@@ -2389,7 +2389,7 @@ void __fastcall AITHINK_Fn028_Vampire(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
             }
             if (bAttack && pNewTarget && nNewDistance <= 20) {
                 if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 75) { if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50) { AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[0], pStats->nSkill[0], pNewTarget, 0, 0); return; } AITACTICS_UseSkill(pGame, pUnit, pStats->nSkillMode[3], pStats->nSkill[3], pNewTarget, 0, 0); return; }
-                else sub_6FCD0E80(pGame, pUnit, pTarget, 4, 0);
+                else AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
             } else AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
             return;
         }
@@ -2398,7 +2398,7 @@ void __fastcall AITHINK_Fn028_Vampire(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
             AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 8, 0);
             return;
         }
-        if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50) sub_6FCD0E80(pGame, pUnit, pTarget, 4, 0);
+        if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50) AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 4, 0);
         else AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
         return;
     }
@@ -2606,7 +2606,7 @@ void __fastcall AITHINK_Fn037_SkeletonBow(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
     if (AIUTIL_IsGettingHit(pUnit))
     {
-        D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, 0);
+        D2UnitStrc* pTarget = AIUTIL_SelectAiTargetWithCollisionCheck(pGame, pUnit, &nDistance, 0);
         if (pTarget)
         {
             AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
@@ -2614,7 +2614,7 @@ void __fastcall AITHINK_Fn037_SkeletonBow(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         }
     }
 
-    D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, 0);
+    D2UnitStrc* pTarget = AIUTIL_SelectAiTargetWithCollisionCheck(pGame, pUnit, &nDistance, 0);
     if (pTarget && nDistance < 20)
     {
         if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, SKELETONBOW_AI_PARAM_SHOOT_CHANCE_PCT))
@@ -2727,7 +2727,7 @@ void __fastcall AITHINK_Fn043_FoulCrowNest(D2GameStrc* pGame, D2UnitStrc* pUnit,
     {
         pAiControl->dwAiParam[0] = pGame->dwGameFrame;
         const int nMonsterId = MONSTER_CROWNEST1 >= sgptDataTables->nMonStatsTxtRecordCount ? -1 : MONSTER_CROWNEST1;
-        if (sub_6FC68350(nMonsterId, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0))
+        if (MONSTERSPAWN_CanSpawnAtSpawnerExit(nMonsterId, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0))
         {
             ++pAiControl->dwAiParam[1];
             AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
@@ -2814,7 +2814,7 @@ void __fastcall AITHINK_Fn045_Sarcophagus(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     if (pMonStatsTxt->nSkill[0] >= 0 && nDiff >= pMonStatsTxt->wAiParam[0][pGame->nDifficulty])
     {
         const int nMonsterId = MONSTER_SARCOPHAGUS >= sgptDataTables->nMonStatsTxtRecordCount ? -1 : MONSTER_SARCOPHAGUS;
-        if (sub_6FC68350(nMonsterId, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0))
+        if (MONSTERSPAWN_CanSpawnAtSpawnerExit(nMonsterId, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0))
         {
             pAiControl->dwAiParam[0] = pGame->dwGameFrame;
             ++pAiControl->dwAiParam[1];
@@ -3609,7 +3609,7 @@ void __fastcall AITHINK_Fn064_SkeletonMage(D2GameStrc* pGame, D2UnitStrc* pUnit,
     D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
     int nDistance = pAiTickParam->nTargetDistance;
     D2UnitStrc* pTickTarget = pAiTickParam->pTarget;
-    D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, 0);
+    D2UnitStrc* pTarget = AIUTIL_SelectAiTargetWithCollisionCheck(pGame, pUnit, &nDistance, 0);
     if (pTarget)
     {
         if (nDistance > AI_PARAM(pGame, pMonStatsTxt, SKELETONMAGE_AI_PARAM_APPROACH_DISTANCE) && (int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, SKELETONMAGE_AI_PARAM_APPROACH_CHANCE_PCT))
@@ -3714,7 +3714,7 @@ int __fastcall AITHINK_VileMotherTrySpawnInDirection(D2GameStrc* pGame, D2UnitSt
         const int nFinalX = 3 * nX + CLIENTS_GetUnitXInline_005E17E0(pUnit);
         const int nFinalY = 3 * nY + CLIENTS_GetUnitYInline_005E17E0(pUnit);
         const int nMonsterId = SKILLDESC_ValidateMonsterId(MONSTER_VILEMOTHER1);
-        if (pMonStatsTxt->nSkill[0] >= 0 && sub_6FC68350(nMonsterId, UNITS_GetRoom(pUnit), nFinalX, nFinalY, 0))
+        if (pMonStatsTxt->nSkill[0] >= 0 && MONSTERSPAWN_CanSpawnAtSpawnerExit(nMonsterId, UNITS_GetRoom(pUnit), nFinalX, nFinalY, 0))
         {
             AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], 0, nFinalX, nFinalY);
             return 1;
@@ -4574,7 +4574,7 @@ void __fastcall AITHINK_Fn013_FallenShaman(D2GameStrc* pGame, D2UnitStrc* pUnit,
         return;
     }
 
-    D2UnitStrc* pNearTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, 0);
+    D2UnitStrc* pNearTarget = AIUTIL_SelectAiTargetWithCollisionCheck(pGame, pUnit, &nDistance, 0);
     if (pNearTarget && nDistance < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_SHOOT_DISTANCE) && (int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_SHOOT_CHANCE_PCT))
     {
         AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pNearTarget, 0, 0);

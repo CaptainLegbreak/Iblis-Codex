@@ -358,7 +358,7 @@ static D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-static int D2GAME_GetMonsterBaseId_6FC64B10(D2UnitStrc* pUnit)
+static int D2GAME_GetMonsterBaseId(D2UnitStrc* pUnit)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == UNIT_MONSTER)
@@ -380,7 +380,7 @@ void __fastcall MONSTERMODE_AddSandLeaperKnockback(D2GameStrc* pGame, D2UnitStrc
 {
     if (pDamage->wResultFlags & 4)
     {
-        const int nBaseId = D2GAME_GetMonsterBaseId_6FC64B10(pUnit);
+        const int nBaseId = D2GAME_GetMonsterBaseId(pUnit);
         if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_SANDLEAPER1 && !STATES_CheckState(pUnit, STATE_FREEZE))
         {
             pDamage->wResultFlags |= 8;

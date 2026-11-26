@@ -39,7 +39,7 @@ extern const char gszTextExt[]; // 0x006D48E0
 extern const char gszTosPrefix[]; // 0x006D48E8
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(void*, unsigned long*); // 0x006CC2F0
 extern "C" unsigned int __cdecl strlen(const char*);
-void __cdecl sub_0042F800(); // 0x0042F800
+void __cdecl sub_0042F800_CreateControls(); // 0x0042F800
 void __cdecl MAINMENUS_PollDownloadDone(); // 0x00430400
 void __stdcall D2Win_RunMessageLoop(D2LaunchDoneFn); // 0x004FA590
 void __fastcall MAINMENUS_ShowMessage(const Unicode*, D2LaunchDoneFn, int); // 0x00433380
@@ -361,7 +361,7 @@ int __cdecl MAINMENUS_ShowTerms()
     Unicode wszLine[200];
     char szFileName[128];
     gnCancelled = 0;
-    sub_0042F800();
+    sub_0042F800_CreateControls();
     STRTABLE_GetLanguageInfoField(szLanguage, 2);
     SStrCopy(szFileName, gszTosPrefix, 128);
     SStrPack(szFileName, szLanguage, 128);

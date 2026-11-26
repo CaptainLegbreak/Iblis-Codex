@@ -178,7 +178,7 @@ void __fastcall PLAYERPETS_InitPetTypeMax(D2GameStrc* pGame, D2UnitStrc* pPlayer
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
-void __fastcall sub_6FC3E200(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053CDF0
+void __fastcall SCMD_SendUnitLifeAndPositionUpdate(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053CDF0
 
 #define PETFLAG_DEAD 1
 
@@ -1193,7 +1193,7 @@ void __fastcall PLAYERPETS_UpdatePetStates(D2GameStrc* pGame, D2UnitStrc* pPlaye
                         D2UnitStrc* pPet = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, pPetData->nUnitGUID);
                         if (pPet)
                         {
-                            sub_6FC3E200(pClient, pPet);
+                            SCMD_SendUnitLifeAndPositionUpdate(pClient, pPet);
                         }
                     }
                 }
