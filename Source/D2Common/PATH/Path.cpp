@@ -45,6 +45,7 @@
 
 #include "D2Txt.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #define PATH_UNKNOWN_FLAG_0x00010 0x00010
 
@@ -971,7 +972,6 @@ struct Obj00649120 { unsigned char bUnknown00[0x94]; unsigned char bValue94; };
 
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648C30
 
-void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pPath); // 0x00650590
 
 static unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* pPathInfo);
 
@@ -1027,7 +1027,6 @@ void __stdcall DUNGEON_ClientToGameCoords(int* pX, int* pY); // 0x00643540
 
 int __stdcall UNITS_HasCollision(D2UnitStrc* pUnit); // 0x006219C0
 
-void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EA90
 
 
 void __stdcall COLLISION_ResetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, int nMask); // 0x0064EBA0

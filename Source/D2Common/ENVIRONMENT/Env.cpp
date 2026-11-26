@@ -6,6 +6,7 @@
 #include "D2DrlgRooms.h"
 #include "D2DataTbls.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 struct D2DrlgActStrc;
 
@@ -23,7 +24,6 @@ extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount(); // 0x006
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 extern D2EnvironmentCycleStrc gNormalEnvironmentCycle[]; // 0x007443F0
 

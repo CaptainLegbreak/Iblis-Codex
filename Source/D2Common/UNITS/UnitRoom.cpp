@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 struct D2CoordStrc;
 struct D2StaticPathStrc;
 struct D2DrlgCoordsStrc;
@@ -22,7 +23,6 @@ D2UnitStrc** __fastcall DUNGEON_GetUnitUpdateListFromRoom(D2ActiveRoomStrc* pRoo
 int __stdcall D2Common_10084(D2ActiveRoomStrc* pRoom); // 0x0061AB60
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 void __stdcall PATH_ResetDynamicPathRoom(D2DynamicPathStrc* pDynamicPath); // 0x0064FC20
-void __stdcall DUNGEON_DecreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619F20
 void __stdcall UNITS_ResetRoom(D2UnitStrc* pUnit); // 0x00620B50
 void __stdcall UNITROOM_RemoveUnitFromUpdateQueue(D2UnitStrc* pUnit); // 0x0064C1B0
 
