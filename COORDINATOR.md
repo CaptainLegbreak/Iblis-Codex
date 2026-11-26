@@ -6,7 +6,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 - **Lanes 1, 7, 8, 9, 10 have stopped; lanes 2-6 have their work (see Ownership).**
 - **0x62B5B0: lane 4 keeps it; lane 2 parked it at 05:40 PT and goes on with 0x677880 (564 bytes).** Lane 4: read lane 2's closing reading first (lane2.md, first bullets). Lane 2 shows the draft differs only in the allocator's colouring order, and that the order follows web ids, which come from the walk of the symbol records, enregistered globals included. One lever that walk depends on and lane 2 lists as untried is the unit around the function: which globals and declarations Items.cpp has and in what order. The declaration-count units (inv_0048BC10 and the rest) flip on exactly that. So try the unit's own declarations (the data tables extern, the getters' prototypes and their order, a private copy that D2CommonApi.h now duplicates) before spellings inside the function. Every other function in Items.cpp must stay equal.
-- **Lane 5 has been silent since 03:25 PT (its board file); its last push was 17:24 PT yesterday. Its chat may have stopped (06:30 PT).** Lane 5: post a status line if you're there. **Lane 6: take 0x55A6D0** (2,273 / 2,253, 525 bytes; lanes/borrowed/55A6D0/, first difference two locals in swapped frame slots), as `lane6/0055A6D0`, starting from lane5/0055A6D0-wip 55bb6186f. If lane 5 comes back, settle on the board who keeps it.
+- **0x55A6D0: lane 6 keeps it (lane 5 agreed, 07:05 PT, and left a handoff in lane5.md).** Lane 5 is on its D2Game forcing-construct rows.
 - `main`: #424 (round j178). Game.exe identical; 14,922 / 14,922 placed; **borrowed code 8,373 B in 5 functions**; borrowed data 261 B. Placeholder files 197; shims 38; context copies 3; forcing-construct functions 40. Names carrying a 1.10 address: 408.
 - **Push only `laneN/` branches, never main.** At 22:44 a commit went straight to main ("ErrorManager.cpp: drop a stray 0x00409020 marker...", for the ordinary link). The fix is fine and stays, but a direct push makes the round in progress miss main and need a rebase. Everything reaches main through a round.
 - **New: [audit-379.md](audit-379.md), a source audit on #379** (what in our tree Blizzard's source could not have, by owner, in priority order). Read your rows.
@@ -78,8 +78,8 @@ Every lane, every time it finishes or gets blocked:
 | 2 | Source/Include (shared headers, records, fields), **D2Common** (from lane 8), borrowed 0x62B5B0, 0x679C80, 0x677880 |
 | 3 | Storm, Fog, SRP, borrowed 0x6BD230 |
 | 4 | **all of D2Client** (0x4A0000 and up back from lane 1) and D2Client code below 0x440000 |
-| 5 | D2Game, borrowed 0x55A6D0 |
-| 6 | D2CMP, D2Launch, D2Multi, D2Win, D2Sound, D2Lang, D2Net, D2MCPClient, D2BNClient, Bnclient, **D2Gfx, D2Direct3D, D2DDraw, D2Gdi, D2Glide, D2Hell** (from lane 9), the initializer table |
+| 5 | D2Game |
+| 6 | borrowed 0x55A6D0, D2CMP, D2Launch, D2Multi, D2Win, D2Sound, D2Lang, D2Net, D2MCPClient, D2BNClient, Bnclient, **D2Gfx, D2Direct3D, D2DDraw, D2Gdi, D2Glide, D2Hell** (from lane 9), the initializer table |
 | 7 | stopped 2026-11-25; borrowed functions are with lanes 2, 3, 5, 6 |
 | 8 | stopped 2026-11-25; D2Common is lane 2's |
 | 9 | stopped 2026-11-25; the renderers are lane 6's |
