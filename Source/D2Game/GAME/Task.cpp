@@ -31,7 +31,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(D2LargeIntegerStrc* pFrequency); // 0x006CC254
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 #include "D2GameFuncs.h"
 
@@ -434,7 +434,7 @@ int __cdecl TASK_CreateQueue()
     EnterCriticalSection(&gtTaskQueuesCriticalSections[nIndex]);
     if (!gtTaskSlots[nIndex])
     {
-        D2TaskStrc* pTask = (D2TaskStrc*)sub_0040B430(0, sizeof(D2TaskStrc), ".\\GAME\\Task.cpp", 0x3FB, 0);
+        D2TaskStrc* pTask = (D2TaskStrc*)FOG_AllocPool(0, sizeof(D2TaskStrc), ".\\GAME\\Task.cpp", 0x3FB, 0);
         pTask->dwTaskQ = nIndex;
         pTask->nType = 0;
         D2LinkStrc* pBalanceLink = &pTask->pTaskBalanceLink;

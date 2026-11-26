@@ -139,7 +139,7 @@ extern int gdwGlobal_00730190; // 0x00730190
 
 extern int gdwGlobal_00882750; // 0x00882750
 
-int __stdcall sub_00424E40(void* pArg); // 0x00424E40
+int __stdcall SBigDel(void* pArg); // 0x00424E40
 
 extern const char gszEmptyLoadComplete[184]; // 0x006E0498
 
@@ -660,7 +660,7 @@ extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* lpThreadAttr
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);          // 0x0040B430
 
-int __stdcall SERVER_HackListClient(int nClientId, int a2, int a3);                                                  // 0x0052B4F0
+int __stdcall SERVER_HackListClient(int nClientId, int nArg2, int nArg3);                                                  // 0x0052B4F0
 
 
 extern int nInitSeed_6FDC2CA08;                                                                             // 0x00731004
@@ -883,7 +883,7 @@ typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 extern int gnVirtualPlayerCount; // 0x00883D70
 
-void __fastcall D2GAME_SetSkills(int a1, int a2, int a3, int a4); // 0x0056DEB0
+void __fastcall D2GAME_SetSkills(int pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
 
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
@@ -938,7 +938,7 @@ unsigned short __cdecl sub_0052C170_AllocGameId();
 int __fastcall OBJRGN_AllocObjectControl(D2GameStrc* pGame); // 0x00546C60
 
 
-void __fastcall TASK_QueueGame(void* pTask, int a2, unsigned int hGame); // 0x00564A00
+void __fastcall TASK_QueueGame(void* pTask, int nArg, unsigned int hGame); // 0x00564A00
 
 
 static inline D2GameLinkStrc* GAMELINK_NextLink(D2GameLinkStrc* pLink, int nLinkOffset)
@@ -994,7 +994,7 @@ int __cdecl GAME_GetChangePasswordResult()
 // 0x0052A600
 int __fastcall GAME_DeleteBigNum(void* pArg)
 {
-    return sub_00424E40(pArg);
+    return SBigDel(pArg);
 }
 
 // 0x0052BE20
@@ -1284,9 +1284,9 @@ void __stdcall D2Game_10056(int nValue)
 }
 
 // 0x0052C400
-void __fastcall GAME_UpdatePing(int nClientId, int nTick, int nDelay, int a4)
+void __fastcall GAME_UpdatePing(int nClientId, int nTick, int nDelay, int nUnused)
 {
-    CLIENTS_UpdatePing(nClientId, nTick, nDelay, a4);
+    CLIENTS_UpdatePing(nClientId, nTick, nDelay, nUnused);
 }
 
 // 0x0052C410
@@ -2238,11 +2238,11 @@ const char* __fastcall GAME_GetLoadCompleteString()
 }
 
 // 0x005306E0
-int __stdcall SrvRecvDatabaseCharacter(int nClientId, const unsigned char* pSaveData, unsigned short nSaveSize, unsigned short nTotalSize, int nResult, int a6, D2FileTimeStrc* pSaveCreationTimestamp, int nCharSaveTransactionToken)
+int __stdcall SrvRecvDatabaseCharacter(int nClientId, const unsigned char* pSaveData, unsigned short nSaveSize, unsigned short nTotalSize, int nResult, int nUnused, D2FileTimeStrc* pSaveCreationTimestamp, int nCharSaveTransactionToken)
 {
     GAME_LogMessage(6, "[JOIN 3] %d clientid, %d csresult - Recv'ed char from CS", nClientId, nResult);
 
-    if (nTotalSize && !CLIENTS_AttachSaveFile(nClientId, pSaveData, nSaveSize, nTotalSize, nResult == 0, 1, a6))
+    if (nTotalSize && !CLIENTS_AttachSaveFile(nClientId, pSaveData, nSaveSize, nTotalSize, nResult == 0, 1, nUnused))
     {
         GAME_LogMessage(6, "[JOIN]  SrvRecvDatabaseCharacter: Didn't recv full char from db - CSResult(%d), ClientID(%d)", nResult, nClientId);
         return 1;
@@ -2387,7 +2387,7 @@ D2GameStrc* D2GameListStrc::Next(D2GameStrc* pGame)
 }
 
 // 0x0052FA50
-void __fastcall SrvJoinGame(int dwClientId, unsigned short nGameId, int nClass, const char* szClientName, int a5, const char* szAccountName, int nCharSaveTransactionToken, int nLocale, int a8, int a9, int a11, int a12, int a13)
+void __fastcall SrvJoinGame(int dwClientId, unsigned short nGameId, int nClass, const char* szClientName, int a5, const char* szAccountName, int nCharSaveTransactionToken, int nLocale, int nUnused1, int nUnused2, int a11, int a12, int a13)
 {
     if (!gpGameDataTbl)
     {
@@ -2416,7 +2416,7 @@ void __fastcall SrvJoinGame(int dwClientId, unsigned short nGameId, int nClass, 
 
     SERVER_SetClientGameGUID(dwClientId, nGUID);
 
-    D2ClientStrc* pClient = ClientAddToGame(pGame, dwClientId, nClass, szClientName, szAccountName, nCharSaveTransactionToken, nLocale, a8, a9);
+    D2ClientStrc* pClient = ClientAddToGame(pGame, dwClientId, nClass, szClientName, szAccountName, nCharSaveTransactionToken, nLocale, nUnused1, nUnused2);
     if (!pClient)
     {
         if (gpD2EventCallbackTable && gpD2EventCallbackTable->pfUnlockDatabaseCharacter)
