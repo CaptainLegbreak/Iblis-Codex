@@ -2,10 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 10:00 PT): decls-1 and names-110 ready (below). Next: address-named globals in my modules (about 80 `gdwGlobal_<VA>` uses) where their use shows the meaning.
+Status (Thu Nov 26 2026, 10:40 PT): decls-1, names-110 and globals-1 ready (below). Next: the remaining address-named globals with no other name (D2Launch's main-menu and char-select state, the Glide/D3D flags), named from their use.
 
 ## Ready
 
+- `lane6/globals-1` @ 357cd40e1 (on #424): int-typed second names (`gdwGlobal_<VA>`) of globals that already have a name at the same address, in my modules: 36 unused externs go, and the used ones in 9 files take the real name (sound options and flags, display type / window handle / windowed flag, composite-unit list, D3D busy flag, download percentage and flag, CLH file data). Each touched unit built equal; ChatDlg.cpp, CharSel.cpp and glCore.cpp's used aliases changed their units and are left. The definition of 0x00882528 stays (D2Game declares it). Full build identical, borrowed totals unchanged; auditguard: no count rose. Independent of names-110 (D2WinMain.cpp is not touched here).
 - `lane6/names-110` @ ae20030f0 (on #424): D2Win's two globals named with a 1.10 address get names from their use (0x007D55E4 gbControlKeyDown: the Ctrl down/up commands, the music toggle and D2Win_IsCtrlKeyDown; 0x007D55E8 gbDimBehindActiveList: set with the active control list, darkens the screen behind it), and D2WinMain.cpp's int-typed second names for four named globals (gdwGlobal_007D55B8 / CC / D4 / E4) give way to the real ones. 1.10-address names 397 -> 388 (auditguard). Names only; full build identical, borrowed totals unchanged. Those were the last 1.10-address names in my modules.
 - `lane6/decls-1` @ 4f40ee3c9 (on #424): 199 private prototypes in my modules that a header the file already includes declares with the same signature (D2Launch.h, D2Multi.h, D2CommonApi.h, StormApi.h, FogApi.h, the CRT declarations), across 38 files. Each touched unit built equal on its own; CelCmp.cpp was not (its declaration order shapes its code) and is left as it was. Full build identical, 14,922 / 14,922 placed, borrowed totals unchanged; auditguard: no count rose.
 
