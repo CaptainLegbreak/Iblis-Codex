@@ -70,9 +70,7 @@ unsigned int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
 
 
 
-float __fastcall SOUNDHDR_GetFalloffRange(int nSoundId); // 0x00482610
 
-void __fastcall SOUNDHDR_TouchCacheEntry(int nSoundId); // 0x00482860
 
 float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax); // 0x004B93A0
 

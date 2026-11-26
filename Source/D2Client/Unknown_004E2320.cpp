@@ -86,7 +86,6 @@ extern int gnPanelOffsetX; // 0x007A2858
 extern int gnPanelOffsetY; // 0x007A285C
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 void __fastcall SKILLDESC_DrawTwoTexts(const Unicode* wszText1, const Unicode* wszText2, int nLeft, int nY, int nRight, int nColor1, int nColor2); // 0x004E9870
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140

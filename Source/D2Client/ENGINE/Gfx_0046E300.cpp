@@ -44,11 +44,8 @@ D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit);                  
 int __cdecl DLIGHTMAP_GetLocalBloodPalette();                                                                                 // 0x00477680
 extern "C" int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit);                                     // 0x004DA0B0
 int __stdcall PARTICLE_GetGfxClientY(D2UnitStrc* pUnit);                                          // 0x004DA0D0
-int __stdcall PARTICLE_GetGfxClientZ(D2UnitStrc* pUnit);                                          // 0x004DA0F0
-int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pCel, D2UnitStrc* pUnit, int a3, int nDirection, int nFrame, int* pOut, unsigned char a7, int a8); // 0x004DBB50
 int __stdcall D2GFX_CheckPerspective();                                                                     // 0x004F51D0
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nX, int nY, unsigned int nColor, int nDrawMode, unsigned char* pPalette); // 0x004F6480
-void __stdcall SCALE_AdjustPerspectivePosition(int nX, int nY, int nBias, int* pX, int* pY);               // 0x004F6760
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                                                       // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                                                       // 0x00620410
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                                                     // 0x00620650

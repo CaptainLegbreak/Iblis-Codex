@@ -29,10 +29,8 @@ extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);     
 
 void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect);                                               // 0x00452E50
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
-int __stdcall D2Win_10125();                                                                                // 0x00501A40
 void __fastcall D2WINFONT_DrawClippedFontText(const Unicode* pText, int nX, int nY, int nTextColor, int nSkipLines, int nDrawLines); // 0x00501DF0
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
-int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
 extern int gnTextTop;                                                                               // 0x007225FC
 extern unsigned long gnTextDisplaySetting;                                                                     // 0x007BF1F6
@@ -239,7 +237,6 @@ extern int gbHandlers_007BF27C; // 0x007BF27C
 extern char gHandlerTable_00722600[]; // 0x00722600
 
 int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
-int __fastcall sub_004B95C0_IsHintPlaying(void* pHint); // 0x004B95C0
 void __stdcall TEXT_FreeTextBox(D2TextScrollStrc* pTextBox); // 0x0049D410
 void __fastcall SELECT_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
 void __fastcall NPCMENU_CancelNpcAndFlag(void* pHint); // 0x004B3D10

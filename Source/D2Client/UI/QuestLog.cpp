@@ -62,7 +62,6 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                
 void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);   // 0x00502320
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
-int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 extern D2QuestPosStrc gaQuestPos[];                                                                // 0x00723EA8
 extern int gnPanelOffsetX;                                                                               // 0x007A2858
 extern int gnPanelOffsetY;                                                                               // 0x007A285C

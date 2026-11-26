@@ -41,17 +41,13 @@ void* __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
 int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit); // 0x004DA0B0
 int __stdcall PARTICLE_GetGfxClientY(D2UnitStrc* pUnit); // 0x004DA0D0
-int __stdcall PARTICLE_GetGfxClientZ(D2UnitStrc* pUnit); // 0x004DA0F0
 int __stdcall GFXUTIL_GetMotionRawAZ(D2UnitStrc* pUnit); // 0x004DA1B0
 D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void* pGfx); // 0x004DB040
 int __fastcall GFXUTIL_GetCofLayerShadow(void* pGfx, int nLayer); // 0x004DB090
 int __fastcall GFXUTIL_IsPlayerMonsterOrObject(D2UnitStrc* pUnit); // 0x004DB180
 void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
-int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pContext, D2UnitStrc* pItem, int nArg3, int nArg4, int nArg5, int* pOut, unsigned char nArg7, int nArg8); // 0x004DBB50
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 void __stdcall TEXTURE_CelDrawShadow(D2CelContextStrc* pContext, int nX, int nY); // 0x004F6540
-int __stdcall SCALE_CheckPerspectivePosition(int nX, int nY); // 0x004F66E0
-void __stdcall SCALE_AdjustPerspectivePosition(int nX, int nY, int nBias, int* pX, int* pY); // 0x004F6760
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650

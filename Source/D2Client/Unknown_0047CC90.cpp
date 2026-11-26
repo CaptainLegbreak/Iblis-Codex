@@ -174,7 +174,6 @@ struct D2MenuItemStrc
 
 
 
-int __cdecl sub_004DF880();
 
 int __cdecl sub_004DF980_IsSoundMode1Or2();
 
@@ -225,7 +224,6 @@ extern int gbSmallPanel; // 0x007BC978
 
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
 
-void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 
 
@@ -302,7 +300,6 @@ extern int gnImeLanguage_007BB5F0;                                              
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
-int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
 
 extern int gnScreenWidth;                                                                               // 0x0071146C
@@ -655,7 +652,6 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 
 

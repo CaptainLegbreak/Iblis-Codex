@@ -78,7 +78,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 
 
-int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 
 void __fastcall SCMD_SetLightColorBytes(D2GfxLightStrc* pLight, unsigned char nValue0, unsigned char nValue1, unsigned char nValue2); // 0x00474390
 
@@ -184,7 +183,6 @@ void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame);
 
 int __fastcall CUNIT_IsPetSkillTarget(D2UnitStrc* unit, D2UnitStrc* target); // 0x00464EC0
 
-int __fastcall CUNIT_IsTargetBlocked(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00464F70
 
 struct D2CltRateStrc
 {
@@ -316,7 +314,6 @@ void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, 
 extern const D2CltRateStrc gaCltRateJitter[4]; // 0x006DB890
 
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 D2GfxLightStrc* __fastcall DLIGHTMAP_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 
@@ -664,7 +661,6 @@ extern int gnCltHitFuncCount;                                                   
 
 extern CLTHITFUNC gpfnCltHitFuncs[];                                                                // 0x0072A508
 
-void __fastcall CUNIT_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
 
 
 void __fastcall MISSILE_StatRemoveToggleStateOff(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x004CD380
@@ -750,9 +746,7 @@ extern int gaMissileFanTargetX[]; // 0x006DB100
 
 extern int gaMissileFanTargetY[]; // 0x006DB120
 
-void __stdcall PATH_SetMaxVelocity(D2DynamicPathStrc* pDynamicPath, int nMaxVelocity); // 0x006486D0
 
-void __stdcall PATH_SetAcceleration(D2DynamicPathStrc* pDynamicPath, int nAcceleration); // 0x00648700
 
 void __stdcall PATH_SetTargetPos(D2DynamicPathStrc* pDynamicPath, unsigned short nX, unsigned short nY); // 0x00648AD0
 
@@ -762,7 +756,6 @@ void __stdcall MISSILE_SetMissileLevel(D2UnitStrc* pMissile, int nSkillLevel); /
 
 #define SUBMISSILE_ID 375
 
-int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile);                                                     // 0x0064A730
 
 
 struct D2CltSpreadStrc
@@ -1339,7 +1332,6 @@ void __fastcall SOUNDINST_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOther, 
 
 struct D2OwnerStrc_004CA990;
 
-unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask);         // 0x0064CB30
 
 #define SPAWN_FLAGS 0x2001
 

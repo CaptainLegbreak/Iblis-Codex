@@ -468,7 +468,6 @@ static inline int TEXT_FindEntryIndex(int nId);
 
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 

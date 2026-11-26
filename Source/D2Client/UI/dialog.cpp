@@ -193,7 +193,6 @@ void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, i
 
 void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect); // 0x00452E50
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 void* __cdecl UI_GetFocusCel(); // 0x00453AB0
 

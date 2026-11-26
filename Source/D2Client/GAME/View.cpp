@@ -311,7 +311,6 @@ int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-int __fastcall sub_004B9B20(int nHandle); // 0x004B9B20
 
 void __fastcall SOUNDINST_SetValue(int nKey, int nValue); // 0x004B9B50
 
@@ -462,7 +461,6 @@ void __cdecl DLIGHTMAP_DebugDrawLights();                                       
 
 void __cdecl sub_00473910_UpdateWeather();                                                                                 // 0x00473910
 
-void __cdecl GFXUTIL_DrawFadeBox();                                                                     // 0x004DC000
 
 extern const unsigned int gdwBitMasks[32];                                                                   // 0x006CE268
 
@@ -1237,7 +1235,6 @@ void __fastcall VIEW_AdjustViewPos(int* pX, int* pY)
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
-void __cdecl D2GFX_OutputString(int nXPos, int nYPos, const char* szFormat, ...);                           // 0x004F6890
 
 void __cdecl sub_00477760_DrawCacheStats(); // 0x00477760
 

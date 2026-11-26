@@ -220,7 +220,6 @@ struct D2DynamicPathStrc;
 
 
 
-unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
 
 
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource);                                       // 0x004743D0
@@ -258,7 +257,6 @@ unsigned int gadwLightMapRows[64][64]; // 0x007A8A50
 
 static void __stdcall DLIGHTMAP_UpdateLight(int nLevel, D2R01LightStrc* pLight); // 0x004755A0
 
-void __cdecl DLIGHTMAP_RunLightPass(); // 0x00475800
 
 enum D2C_DLightMapConstants
 {

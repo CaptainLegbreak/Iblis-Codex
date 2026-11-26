@@ -26,7 +26,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 int __fastcall sub_004B9590(int nKey);                                                                      // 0x004B9590
 int __fastcall sub_004DFA40_IsSoundPlaying(void* pSound);                                                   // 0x004DFA40
 int __fastcall sub_004DF900_GetSoundPosition(void* pSound);                                                 // 0x004DF900
-D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId);                                                         // 0x00481860
 void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount);               // 0x004B9EF0
 int __cdecl sub_004817F0();                                                                                 // 0x004817F0
 int __cdecl sub_00481800();                                                                                 // 0x00481800

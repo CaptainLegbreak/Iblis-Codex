@@ -123,7 +123,6 @@ extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 
 
-void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg); // 0x00466CB0
 
 
 void __fastcall DLIGHTMAP_ReleaseLight(D2GfxLightStrc* pLight); // 0x004743D0
@@ -185,7 +184,6 @@ unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax
 int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask); // 0x00463720
 
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 
 
@@ -286,7 +284,6 @@ typedef char I20_check_unit_d[(I20_OFFSET(D2UnitStrc, dwFlagEx) == 0xC8) ? 1 : -
 
 typedef char I20_check_misc[(I20_OFFSET(D2MissileStrc, nSkillLevel) == 0x30 && sizeof(D2MonAnimRecStrc) == 12) ? 1 : -1];
 
-int __stdcall MONSTERS_IsSandLeaper(D2UnitStrc* pMonster, int bAlwaysReturnFalse); // 0x0063E8D0
 
 static D2MonAnimRecStrc* MONSTER_GetAnimRecord(D2UnitStrc* pUnit); // 0x004AF400
 
@@ -351,7 +348,6 @@ void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc*, int); // 0x006
 
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int); // 0x00611D30
 
-void __stdcall SKILLS_SetSkillMode(D2SkillStrc*, int); // 0x00644340
 
 void __stdcall sub_0063EBC0(D2UnitStrc*, int); // 0x0063EBC0
 
@@ -371,7 +367,6 @@ extern "C" { Unicode gwszNameSeparator[1]; }                                    
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
-int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
 extern "C" unsigned short* __fastcall sub_005267E0(unsigned short* pDst, const unsigned short* pSrc);     // 0x005267E0
 
@@ -399,23 +394,18 @@ int __fastcall sub_004AC7E0(D2UnitStrc* pUnit, unsigned short wFlag); // 0x004AC
 
 extern D2MonCmdRecordStrc gaMonCmdRecords[];                                                        // 0x006DA4D8
 
-int __cdecl GAME_GetLeftClickState();                                                                                 // 0x0044BF00
 
-int __cdecl GAME_GetRightClickState();                                                                                 // 0x0044BF10
 
 void __cdecl GAME_ResetMouseState();                                                                                // 0x0044DA40
 
 void __fastcall AUTOMAP_SetUnitFlag(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x00457460
 
 
-void __fastcall CUNIT_SetTargetByGUID(D2UnitStrc* pUnit, int nUnitType, unsigned int nUnitId); // 0x004643F0
 
-void __fastcall CUNIT_UpdateAttackableFlag(D2UnitStrc* pUnit);                                       // 0x004647D0
 
 
 void __fastcall CUNIT_SetDrawDelay(D2UnitStrc* pUnit);                                               // 0x00464C90
 
-void __fastcall CUNIT_SetOverlayWithSound(D2UnitStrc* pUnit, int nOverlay, int nArg);                // 0x00464E50
 
 
 
@@ -423,13 +413,9 @@ D2UnitStrc* __cdecl SELECT_GetSelectedUnit();                                   
 
 
 
-int __fastcall sub_004804A0_SetPathTargetPos(D2UnitStrc* pUnit, int nX, int nY);                           // 0x004804A0
 
-void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nMode, int nTargetX, int nTargetY); // 0x004804E0
 
-int __fastcall UNITMODE_SetPathTargetUnit(D2UnitStrc* pUnit, int nUnitType, int nUnitGUID);            // 0x00480780
 
-void __fastcall UNITMODE_SetModeOverlay(D2UnitStrc* pUnit, int nMode);                                  // 0x00480D20
 
 void __fastcall UNITMODE_SetUnitModeNoOverlay(D2UnitStrc* pUnit, int nMode);                            // 0x00480EC0
 
@@ -467,7 +453,6 @@ void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX,
 
 void __stdcall PATH_SetType(D2DynamicPathStrc* pPath, int nType);                                           // 0x00648CF0
 
-void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc* pDynamicPath);                                   // 0x00648DC0
 
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance);            // 0x00648E70
 
@@ -477,7 +462,6 @@ void __stdcall PATH_SetUnitDeadCollision(D2UnitStrc* pUnit, int bForGameLogic); 
 
 void __stdcall PATH_AddCollisionFootprintForOptionalUnit(D2UnitStrc* pUnit);                                // 0x0064A0E0
 
-void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pDynamicPath);                                   // 0x00650590
 
 static void MONSTER_RefreshMonsterMode(D2UnitStrc* pUnit);                                             // 0x004AE1D0
 

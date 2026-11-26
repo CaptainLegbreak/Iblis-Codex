@@ -32,7 +32,6 @@ void __cdecl SOUNDINST_FreeAllSounds(); // 0x004B9D20
 
 void __cdecl sub_004E00C0_CloseSoundChannels(); // 0x004E00C0
 
-void __cdecl SOUNDHDR_ReleaseSoundTables(); // 0x004828B0
 
 extern int gdwSoundTick; // 0x007BC9BC
 
@@ -61,7 +60,6 @@ unsigned int gnCacheLastLoadTick; // 0x007BC9C4
 
 unsigned int gnCacheLoading; // 0x007BC9C8
 
-void __fastcall SOUNDHDR_LoadCacheEntry(int nIndex, int bDirect, int nArg); // 0x00482970
 
 struct D2SlotStrc;
 
@@ -79,7 +77,6 @@ extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
-void __cdecl SOUNDHDR_LoadSoundTables(); // 0x00481950
 
 void __fastcall sub_004E0050_RestartSound(int nArg); // 0x004E0050
 
@@ -109,7 +106,6 @@ extern int gTextRight;
 
 void* __fastcall Allocate(unsigned int bytes, const char* file, int line, unsigned int flags);
 
-void __fastcall SOUNDHDR_ReleaseCacheEntry(int nIndex); // 0x004823E0
 
 void* __cdecl sub_004646A0();
 
@@ -747,7 +743,6 @@ void __fastcall sub_004BA020(unsigned int nTick); // 0x004BA020
 
 void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int nTick); // 0x004DCAA0
 
-int __cdecl sub_004DF870(); // 0x004DF870
 
 void __cdecl sub_004DF890(); // 0x004DF890
 

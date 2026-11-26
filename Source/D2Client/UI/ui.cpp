@@ -110,7 +110,6 @@ void __fastcall CUNIT_ForEachPlayer(void (__fastcall* pfnCallback)(D2UnitStrc*))
 
 void __fastcall UI_DrawPartyMemberText(D2UnitStrc* pUnit); // 0x00453330
 
-int __cdecl sub_004B85E0(); // 0x004B85E0
 
 
 
@@ -226,7 +225,6 @@ void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
@@ -254,7 +252,6 @@ void __cdecl INV_ReturnToStashState(); // 0x00489880
 
 void __cdecl INV_ClearGoldDialogFlag(); // 0x004A7A80
 
-void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
 extern unsigned int gnGoldPanelValue; // 0x007A2A68
 
@@ -325,7 +322,6 @@ int __fastcall AUTOMAP_GetHoverMonsterName(D2UnitStrc* pUnit, unsigned short nAr
 
 void __fastcall GAME_SetHoverLine(const Unicode* pText, int nColor); // 0x00452520
 
-int __fastcall NPCMENU_GetInteractNpcId(int* pLow); // 0x004B3230
 
 int __cdecl TEXT_IsTextBoxOpen(); // 0x004A0000
 
@@ -426,7 +422,6 @@ void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTo
 
 const char* __fastcall ROSTER_GetPortalOwnerName(int nUnitId);                                              // 0x0047A290
 
-int __stdcall INV_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
 
 const Unicode* __fastcall D2LANG_GetStringByReferenceString(const char* szKey);                                       // 0x00524E20
 
@@ -531,7 +526,6 @@ void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 
 
-void __fastcall NPCMENU_EndNpcInteraction(int nValue); // 0x004B3C20
 
 
 
@@ -682,7 +676,6 @@ static int __stdcall UI_GetRosterHoverName(D2UnitStrc* pUnit, Unicode* pDst, int
 
 static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit);
 
-int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 
 
 
@@ -784,7 +777,6 @@ void __cdecl sub_004AA920_LoadPanelCel(); // 0x004AA920
 
 void __cdecl sub_004AA980(); // 0x004AA980
 
-void __cdecl NPCMENU_FreeNpcMenu(); // 0x004B24A0
 
 void __cdecl NPCMENU_ResetNpcMenu(); // 0x004B32F0
 
@@ -896,7 +888,6 @@ struct D2UiControlCStrc : D2UiControlBaseStrc
 };
 
 
-void __fastcall CMDTBL_SetHotkeyHandlers(int nArg1, int nArg2);                                                         // 0x0046AA20
 
 void __cdecl TEXT_SetGoldDialogFlag();                                                                                // 0x004A7A90
 
@@ -2296,7 +2287,6 @@ void __cdecl TEXT_InitTextSlider(); // 0x004A5190
 
 void __cdecl TEXT_LoadLevelCels(); // 0x004A6460
 
-void __cdecl TEXT_InitNpcMenu(); // 0x004B23E0
 
 void __cdecl DIALOG_InitDialogs(); // 0x004B7B40
 

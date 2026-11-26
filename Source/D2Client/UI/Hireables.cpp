@@ -157,7 +157,6 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 
-int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
 

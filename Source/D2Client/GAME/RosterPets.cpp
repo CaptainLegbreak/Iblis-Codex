@@ -57,13 +57,11 @@ void __fastcall ROSTERPETS_RemoveHirelingEntries(int nUnused, int nKey);        
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);  // 0x004A7080
 
-int __stdcall INV_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
 
 extern int gnScreenWidth;                                                                               // 0x0071146C
@@ -134,7 +132,6 @@ struct D2HirelingInfoStrc
 
 
 
-void __fastcall MONSTER_SetMonsterLight(D2UnitStrc* pUnit); // 0x004AE210
 
 void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInfo); // 0x004B1090
 
@@ -383,7 +380,6 @@ D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey)
 }
 
 
-unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
 
 
 static inline D2RosterPetStrc* PETS_FindRosterPetInl(int nUnitId)

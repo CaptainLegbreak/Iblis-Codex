@@ -96,7 +96,6 @@ int __fastcall sub_0045C390_RollRandom(D2SeedStrc* pSeed, int nMax);            
 
 int __cdecl INV_FormatArgs(wchar_t* wszDest, const wchar_t* wszFormat, ...);                          // 0x0048BE80
 
-int __fastcall MONSTER_IsChampionMonster(D2UnitStrc* pUnit);                                                             // 0x004AE320
 
 wchar_t* __fastcall D2LANG_GetStringFromTblIndex(unsigned short wIndex);                                    // 0x00524A30
 

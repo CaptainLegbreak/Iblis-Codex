@@ -98,11 +98,9 @@ void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, i
 
 void __cdecl INV_SetupPanelButtons(); // 0x00487ED0
 
-int __fastcall NPCMENU_GetInteractNpcId(int* pUnitId); // 0x004B3230
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 extern D2ClientTabStrc gaNpcTabStates[]; // 0x0072211A
 
@@ -189,7 +187,6 @@ void __stdcall TEXT_FreeTextList(D2TextListStrc* pList); // 0x0049D4D0
 
 D2SplittedTextStrc* __stdcall TEXT_BuildTextLines(const Unicode* wszText, int* pLineCount, unsigned short* pMaxLines); // 0x004A0320
 
-void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
 void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 
@@ -446,7 +443,6 @@ static bool TEXT_ConvertHoverText(int nLangId, Unicode* wszText, const char* szT
 
 static void __stdcall TEXT_SetHoverText(int nLangId, const char* szText, D2UnitStrc* pUnit); // 0x0049F410
 
-int __cdecl TEXT_CloseMessageLogCallback(); // 0x004A0030
 
 void __fastcall DIALOG_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int nArg8, int nArgC); // 0x004B7C00
 
@@ -454,7 +450,6 @@ void __fastcall DIALOG_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int
 D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,
     int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28); // 0x004B7EB0
 
-void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
 
 void __fastcall ROSTER_SetCtrlState(D2ClientDialogStrc* pDialog, int nValue); // 0x004B8370
 
@@ -630,13 +625,9 @@ struct D2MonStatsTxt;
 
 
 
-void __cdecl QUESTLOG_UpdateQuestPage(); // 0x004A2300
 
-void __cdecl QUESTLOG_LoadQuestPanelCels(); // 0x004A23D0
 
-int __stdcall QUESTLOG_OpenQuestPanel(int nArg); // 0x004A26B0
 
-int __cdecl TEXT_Forward(); // 0x004A1760
 
 void __stdcall sub_004A3220(int nPage, int nArg);
 
@@ -675,14 +666,11 @@ int gaPressed[7]; // 0x007C0288
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
-void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 
-void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, int bSound); // 0x004A1320
 
 void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
 
-int __fastcall QUESTLOG_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
 
 extern D2QuestSlotRectStrc gaQuestSlots[]; // 0x00723EB0
 
@@ -703,7 +691,6 @@ extern char gbGlobal_007C025F; // 0x007C025F
 extern char gbGlobal_007C0260; // 0x007C0260
 
 
-int __cdecl TEXT_GetMaxFirstEntry(); // 0x004A44C0
 
 int gnKeyConfigThumbScale; // 0x007C0278
 
@@ -768,22 +755,16 @@ static int TEXT_GetKeyConfigButtonAt(int nX, int nY);
 int gtQuestLog; // 0x007BF298
 
 
-int __stdcall TEXT_IsAbovePanelLine(int nX); // 0x004A4780
 
 
 
 
 
-int __fastcall TEXT_IsInPanelButton(int, int, int); // 0x004A6580
-
-int __cdecl TEXT_IsMouseOnStatButton(); // 0x004A65E0
 
 
-int __cdecl NPCMENU_IsNpcTalkActive(); // 0x004B3470
 
-int __fastcall TEXT_IsInRightPanelButton(int, int, int); // 0x004A6630
 
-int __cdecl TEXT_IsMouseOnSkillButton(); // 0x004A6690
+
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
@@ -796,7 +777,6 @@ void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int
 
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 
-void __fastcall TEXT_ScrollKeyConfigList(int nStep);
 
 #define STAT_STATPTS 4
 
@@ -819,9 +799,7 @@ extern "C" int gnFlag_007C02EC; // 0x007C02EC
 
 void __stdcall CURSOR_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 
-bool __stdcall TEXT_IsStatButtonHidden(int nArg); // 0x004A6A00
 
-bool __stdcall TEXT_IsSkillButtonHidden(int nArg); // 0x004A6D50
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
@@ -862,7 +840,6 @@ static int TEXT_IsOnKeyConfigButton(int nX, int nY);
 
 static int TEXT_IsOnPressedButton(int nX, int nY);
 
-void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit); // 0x004A0B30
 
 
 
@@ -898,17 +875,13 @@ extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
 void __fastcall CUNIT_ForEachMonster(UNITFN pfnCallback); // 0x00464990
 
 
-void __fastcall GFX_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
 
 void __cdecl INV_StopCinematic(); // 0x00483300
 
 void __cdecl INV_ChainCinematic(); // 0x00483340
 
-void __fastcall QUESTLOG_SelectQuestPage(int nCondition); // 0x004A2C30
 
-void __fastcall QUESTLOG_ClearCainFlag(D2UnitStrc* pUnit); // 0x004A2C70
 
-void __fastcall QUESTLOG_ClearNihlathakFlag(D2UnitStrc* pUnit); // 0x004A2C90
 
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 
@@ -922,7 +895,6 @@ void __fastcall DATATBLS_CallFree(void* pMemory); // 0x00600C60
 struct D2StringSoundStrc;
 
 
-void __cdecl DIALOG_LoadDialogHotkeys(); // 0x004B7C60
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
@@ -1034,7 +1006,6 @@ extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pE
 
 
 
-unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
 
 void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor); // 0x0049E5C0
 
@@ -1065,9 +1036,7 @@ void __cdecl TEXT_DrawOverheadTextList(); // 0x0049DEE0
 
 
 
-void __cdecl TEXT_CloseTextUnit(); // 0x004A0880
 
-void __fastcall TEXT_DrawObjectHoverText(D2UnitStrc* pUnit); // 0x004A0D20
 
 extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
 
@@ -1170,14 +1139,12 @@ struct D2HoverTextPacketStrc
 
 #pragma pack(pop)
 
-void __fastcall TEXT_ShowTextBox(unsigned short nStringId); // 0x004A1510
 
 
 void __stdcall TEXT_CreateTextHeaderFromMessageList(D2TextHeaderStrc* pTextHeader, D2MessageListStrc* pMessageList); // 0x00661510
 
 
 
-int __stdcall INV_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
 
 extern D2QuestTextsStrc gtQuestTextsSevenTombs; // 0x00723A64
 
@@ -1224,7 +1191,6 @@ static int TEXT_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate); // 0x004A730
 
 static void TEXT_SetQuestPage(int nPageArg); // 0x004A2220
 
-int __fastcall TEXT_TestQuestCondition(int nCondition);
 
 void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg);
 
@@ -3730,7 +3696,6 @@ void __cdecl TEXT_ClearTextPanel()
 }
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-void __cdecl QUESTLOG_LoadQuestPanelCels(); // 0x004A23D0
 
 extern "C" { unsigned int gValue_007BF2A8; } // 0x007BF2A8
 
@@ -3753,7 +3718,6 @@ void __fastcall SCMD_HandleQuestEvent(const D2PacketRecord6Strc* pPacket)
     TEXT_HandleQuestEvent(1, &tPacket);
 }
 
-void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 
 
@@ -3795,7 +3759,6 @@ int __fastcall AITHINK_BaalThroneCheckAiParamFlag(D2AiTickParamStrc* pAiTickPara
 
 int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, unsigned short* pKey);               // 0x00469C20
 
-void __stdcall TEXT_UnregisterKeyConfigHandlers(int bReset);                                                // 0x004A5D70
 
 
 
