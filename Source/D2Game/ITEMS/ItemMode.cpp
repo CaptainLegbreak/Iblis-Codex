@@ -149,7 +149,7 @@ void __fastcall ITEMMODE_ClearTargetingFlags(D2UnitStrc* pUnit, const char* szFi
 
 void __fastcall ITEMMODE_AddItemScrollSkillQuantity(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055C270
 
-void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int a4); // 0x0055C2C0
+void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int bAllowBrokenItemStats); // 0x0055C2C0
 
 void __fastcall ITEMMODE_RemoveItemScrollSkillQuantity(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055C6E0
 
@@ -187,7 +187,7 @@ void __stdcall D2COMMON_10267_Return(D2InventoryStrc* pInventory, int nX); // 0x
 int __fastcall D2GAME_SAVE_SerializeItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned char* pBitstream, unsigned int nSize, int a4, int a5, int a6); // 0x005316D0
 
 
-void __fastcall D2GAME_SendP0x9C_ItemAction_OnGround(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, int a4); // 0x0053ECF0
+void __fastcall D2GAME_SendP0x9C_ItemAction_OnGround(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, int dwFlags); // 0x0053ECF0
 
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
@@ -389,7 +389,7 @@ void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLev
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 
 
-void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
+void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* pTargetUnit, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 
 
 extern D2QuestItemPairStrc gaQuestItemPairs[4]; // 0x00731FEC
@@ -1157,7 +1157,7 @@ static inline D2InventoryStrc* GetUnitInventory(D2UnitStrc* pUnit)
 }
 
 // 0x0055C2C0
-void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int a4)
+void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int bAllowBrokenItemStats)
 {
     if (!pUnit || sub_0044BE50(pItem) != 4)
     {
@@ -1235,7 +1235,7 @@ void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitS
             bType = 0;
         }
 
-        if (ITEMS_CheckItemFlag(pItem, 0x100, 0x2B8, szItemModeCpp) && !a4)
+        if (ITEMS_CheckItemFlag(pItem, 0x100, 0x2B8, szItemModeCpp) && !bAllowBrokenItemStats)
         {
             {
                 if (pUnit->pDynamicPath)
@@ -1248,7 +1248,7 @@ void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitS
     }
     else
     {
-        if (ITEMS_CheckItemFlag(pItem, 0x100, 0x2C1, szItemModeCpp) && !a4)
+        if (ITEMS_CheckItemFlag(pItem, 0x100, 0x2C1, szItemModeCpp) && !bAllowBrokenItemStats)
         {
             goto skip_merge;
         }
