@@ -2252,7 +2252,7 @@
     {
      "va": "0x00457510",
      "length": 3,
-     "name": "sub_00457510"
+     "name": "sub_00457510_Nop"
     },
     {
      "va": "0x00457520",
@@ -9352,7 +9352,7 @@
     {
      "va": "0x0042F6D0",
      "length": 6,
-     "name": "sub_0042F6D0"
+     "name": "sub_0042F6D0_GetMenusDone"
     },
     {
      "va": "0x0042FA30",
@@ -9387,7 +9387,7 @@
     {
      "va": "0x0044BE20",
      "length": 14,
-     "name": "sub_0044BE20"
+     "name": "sub_0044BE20_ClearPair"
     },
     {
      "va": "0x0044BE60",
@@ -9632,12 +9632,12 @@
     {
      "va": "0x0044CE70",
      "length": 6,
-     "name": "sub_0044CE70"
+     "name": "sub_0044CE70_GetPingAverage"
     },
     {
      "va": "0x0044CE80",
      "length": 6,
-     "name": "sub_0044CE80"
+     "name": "sub_0044CE80_GetPongData"
     },
     {
      "va": "0x0044CE90",
@@ -9872,7 +9872,7 @@
     {
      "va": "0x0044DA90",
      "length": 6,
-     "name": "sub_0044DA90"
+     "name": "sub_0044DA90_GetTickCounter"
     },
     {
      "va": "0x0044DAA0",
@@ -9882,7 +9882,7 @@
     {
      "va": "0x0044DAB0",
      "length": 6,
-     "name": "sub_0044DAB0"
+     "name": "sub_0044DAB0_GetFrameCount"
     },
     {
      "va": "0x0044DAC0",
@@ -9907,7 +9907,7 @@
     {
      "va": "0x0044DB00",
      "length": 6,
-     "name": "sub_0044DB00"
+     "name": "sub_0044DB00_GetTickCounter"
     },
     {
      "va": "0x0044DB10",
@@ -10007,12 +10007,12 @@
     {
      "va": "0x0044DE40",
      "length": 6,
-     "name": "sub_0044DE40"
+     "name": "sub_0044DE40_Return4"
     },
     {
      "va": "0x0044DE50",
      "length": 14,
-     "name": "sub_0044DE50"
+     "name": "sub_0044DE50_ClearPair"
     },
     {
      "va": "0x0044DE60",
@@ -10032,7 +10032,7 @@
     {
      "va": "0x0044DEE0",
      "length": 14,
-     "name": "sub_0044DEE0"
+     "name": "sub_0044DEE0_ClearPair"
     },
     {
      "va": "0x0044DF00",
@@ -10627,7 +10627,7 @@
     {
      "va": "0x00452170",
      "length": 3,
-     "name": "?sub_00452170@@YIPAUUnicode@@PAU1@@Z"
+     "name": "?sub_00452170_ReturnText@@YIPAUUnicode@@PAU1@@Z"
     },
     {
      "va": "0x00452180",
@@ -11526,7 +11526,7 @@
     {
      "va": "0x004C96D0",
      "length": 228,
-     "name": "?sub_004C96D0@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?sub_004C96D0_CreateMissileAtTarget@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004C97C0",
@@ -13600,7 +13600,7 @@
     {
      "va": "0x00477DA0",
      "length": 39,
-     "name": "sub_00477DA0"
+     "name": "sub_00477DA0_SendPacket6B"
     },
     {
      "va": "0x00477DD0",
@@ -13619,7 +13619,7 @@
     {
      "va": "0x00478010",
      "length": 39,
-     "name": "sub_00478010"
+     "name": "sub_00478010_SendPacket6A"
     },
     {
      "va": "0x004834A0",
@@ -15412,7 +15412,7 @@
     {
      "va": "0x0045AE90",
      "length": 6,
-     "name": "sub_0045AE90"
+     "name": "sub_0045AE90_GetPanelSlideMode"
     },
     {
      "va": "0x0045AEA0",
@@ -16266,7 +16266,7 @@
     {
      "va": "0x0045F7A0",
      "length": 3,
-     "name": "sub_0045F7A0"
+     "name": "sub_0045F7A0_Nop"
     },
     {
      "va": "0x0045F7B0",
@@ -18044,7 +18044,7 @@
     {
      "va": "0x004898A0",
      "length": 43,
-     "name": "?sub_004898A0@@YIXH@Z"
+     "name": "?sub_004898A0_DisableGoldButton@@YIXH@Z"
     },
     {
      "va": "0x004898D0",
@@ -18277,7 +18277,7 @@
     {
      "va": "0x00468040",
      "length": 42,
-     "name": "?sub_00468040@@YIXHH@Z"
+     "name": "?sub_00468040_ResetCursorState@@YIXHH@Z"
     },
     {
      "va": "0x00468070",
@@ -18354,12 +18354,12 @@
     {
      "va": "0x00468820",
      "length": 1,
-     "name": "?sub_00468820@@YIXHH@Z"
+     "name": "?sub_00468820_Nop@@YIXHH@Z"
     },
     {
      "va": "0x00468830",
      "length": 6,
-     "name": "sub_00468830"
+     "name": "sub_00468830_GetCursorState"
     },
     {
      "va": "0x00468840",
@@ -18543,7 +18543,7 @@
     {
      "va": "0x00468F00",
      "length": 52,
-     "name": "?sub_00468F00@@YAXXZ"
+     "name": "?sub_00468F00_ShowBelt@@YAXXZ"
     },
     {
      "va": "0x00468F40",
@@ -18678,27 +18678,27 @@
     {
      "va": "0x00469230",
      "length": 58,
-     "name": "?sub_00469230@@YAXXZ"
+     "name": "?sub_00469230_RunMButtonDown@@YAXXZ"
     },
     {
      "va": "0x00469270",
      "length": 58,
-     "name": "?sub_00469270@@YAXXZ"
+     "name": "?sub_00469270_RunMButtonUp@@YAXXZ"
     },
     {
      "va": "0x004692B0",
      "length": 58,
-     "name": "?sub_004692B0@@YAXXZ"
+     "name": "?sub_004692B0_RunXButton1Down@@YAXXZ"
     },
     {
      "va": "0x004692F0",
      "length": 58,
-     "name": "?sub_004692F0@@YAXXZ"
+     "name": "?sub_004692F0_RunXButton1Up@@YAXXZ"
     },
     {
      "va": "0x00469330",
      "length": 58,
-     "name": "?sub_00469330@@YAXXZ"
+     "name": "?sub_00469330_RunXButton2Down@@YAXXZ"
     },
     {
      "va": "0x00469370",
@@ -18840,7 +18840,7 @@
     {
      "va": "0x0046ACE0",
      "length": 36,
-     "name": "?sub_0046ACE0@@YIPAUD2MissilesTxt@@H@Z"
+     "name": "?sub_0046ACE0_GetMissilesTxtRecord@@YIPAUD2MissilesTxt@@H@Z"
     },
     {
      "va": "0x0046AD10",
@@ -19819,7 +19819,7 @@
     {
      "va": "0x00472280",
      "length": 98,
-     "name": "?sub_00472280@@YIHPATD2SeedStrc@@HH@Z"
+     "name": "?sub_00472280_RollInRange@@YIHPATD2SeedStrc@@HH@Z"
     },
     {
      "va": "0x004722F0",
@@ -19834,12 +19834,12 @@
     {
      "va": "0x00472320",
      "length": 146,
-     "name": "?sub_00472320@@YAXXZ"
+     "name": "?sub_00472320_InitWeather@@YAXXZ"
     },
     {
      "va": "0x004723C0",
      "length": 33,
-     "name": "?sub_004723C0@@YAXXZ"
+     "name": "?sub_004723C0_FreeWeather@@YAXXZ"
     },
     {
      "va": "0x004723F0",
@@ -19877,7 +19877,7 @@
     {
      "va": "0x00472BD0",
      "length": 69,
-     "name": "?sub_00472BD0@@YAXXZ"
+     "name": "?sub_00472BD0_FreeWeatherCels@@YAXXZ"
     },
     {
      "va": "0x00472C20",
@@ -19887,7 +19887,7 @@
     {
      "va": "0x00472C50",
      "length": 41,
-     "name": "?sub_00472C50@@YIXH@Z"
+     "name": "?sub_00472C50_StartLightning@@YIXH@Z"
     },
     {
      "va": "0x00472C80",
@@ -20034,7 +20034,7 @@
     {
      "va": "0x004B17A0",
      "length": 47,
-     "name": "?sub_004B17A0@@YAXXZ"
+     "name": "?sub_004B17A0_ProcessNpcEntries@@YAXXZ"
     },
     {
      "va": "0x004B1D70",
@@ -20089,7 +20089,7 @@
     {
      "va": "0x00474380",
      "length": 6,
-     "name": "sub_00474380"
+     "name": "sub_00474380_Return32"
     },
     {
      "va": "0x004743D0",
@@ -20228,27 +20228,27 @@
     {
      "va": "0x00478150",
      "length": 6,
-     "name": "sub_00478150"
+     "name": "sub_00478150_GetProgress"
     },
     {
      "va": "0x00486E00",
      "length": 3,
-     "name": "sub_00486E00"
+     "name": "sub_00486E00_Return0"
     },
     {
      "va": "0x00489870",
      "length": 6,
-     "name": "sub_00489870"
+     "name": "sub_00489870_GetNpcButtonHandled"
     },
     {
      "va": "0x00489CD0",
      "length": 3,
-     "name": "sub_00489CD0"
+     "name": "sub_00489CD0_Nop"
     },
     {
      "va": "0x0048BDF0",
      "length": 3,
-     "name": "sub_0048BDF0"
+     "name": "sub_0048BDF0_Nop"
     },
     {
      "va": "0x0049E8A0",
@@ -20263,7 +20263,7 @@
     {
      "va": "0x004A8A20",
      "length": 6,
-     "name": "sub_004A8A20"
+     "name": "sub_004A8A20_Return7"
     }
    ]
   },
@@ -20356,7 +20356,7 @@
     {
      "va": "0x004776C0",
      "length": 7,
-     "name": "sub_004776C0"
+     "name": "sub_004776C0_SetGamma"
     },
     {
      "va": "0x004776D0",
@@ -20416,7 +20416,7 @@
     {
      "va": "0x00477980",
      "length": 600,
-     "name": "?sub_00477980@@YIXXZ"
+     "name": "?sub_00477980_DrawFpsStats@@YIXXZ"
     },
     {
      "va": "0x00477BE0",
@@ -21240,7 +21240,7 @@
     {
      "va": "0x0047B4E0",
      "length": 1,
-     "name": "?sub_0047B4E0@@YAXXZ"
+     "name": "?sub_0047B4E0_Nop@@YAXXZ"
     },
     {
      "va": "0x0047B4F0",
@@ -21687,7 +21687,7 @@
     {
      "va": "0x0047D500",
      "length": 23,
-     "name": "?sub_0047D500@@YAHPAUD2OptionEntryStrc@@@Z"
+     "name": "?sub_0047D500_IsOptionEnabled@@YAHPAUD2OptionEntryStrc@@@Z"
     },
     {
      "va": "0x0047D520",
@@ -22061,7 +22061,7 @@
     {
      "va": "0x00481830",
      "length": 10,
-     "name": "?sub_00481830@@YAXXZ"
+     "name": "?sub_00481830_StopAllSounds@@YAXXZ"
     }
    ]
   },
@@ -22096,17 +22096,17 @@
     {
      "va": "0x004817E0",
      "length": 6,
-     "name": "sub_004817E0"
+     "name": "sub_004817E0_GetSoundEnvironCount"
     },
     {
      "va": "0x004817F0",
      "length": 6,
-     "name": "sub_004817F0"
+     "name": "sub_004817F0_GetSongMin"
     },
     {
      "va": "0x00481800",
      "length": 6,
-     "name": "sub_00481800"
+     "name": "sub_00481800_GetSongMax"
     },
     {
      "va": "0x00481810",
@@ -22126,7 +22126,7 @@
     {
      "va": "0x00481850",
      "length": 1,
-     "name": "?sub_00481850@@YAXXZ"
+     "name": "?sub_00481850_Nop@@YAXXZ"
     },
     {
      "va": "0x00481860",
@@ -22586,7 +22586,7 @@
     {
      "va": "0x0049FF00",
      "length": 1,
-     "name": "?sub_0049FF00@@YAXXZ"
+     "name": "?sub_0049FF00_Nop@@YAXXZ"
     },
     {
      "va": "0x0049FF10",
@@ -22843,7 +22843,7 @@
     {
      "va": "0x004A7AD0",
      "length": 1,
-     "name": "?sub_004A7AD0@@YAXXZ"
+     "name": "?sub_004A7AD0_Nop@@YAXXZ"
     },
     {
      "va": "0x004A7AE0",
@@ -23353,7 +23353,7 @@
     {
      "va": "0x00494EB0",
      "length": 42,
-     "name": "?sub_00494EB0@@YAXXZ"
+     "name": "?sub_00494EB0_DrawHelpShade@@YAXXZ"
     },
     {
      "va": "0x00494EE0",
@@ -23368,7 +23368,7 @@
     {
      "va": "0x00494FB0",
      "length": 3,
-     "name": "sub_00494FB0"
+     "name": "sub_00494FB0_Nop"
     },
     {
      "va": "0x00494FC0",
@@ -24071,7 +24071,7 @@
     {
      "va": "0x0049CF90",
      "length": 124,
-     "name": "?sub_0049CF90@@YIXPAUD2PacketRecord21Strc@@@Z"
+     "name": "?sub_0049CF90_OpenWaypointPanel@@YIXPAUD2PacketRecord21Strc@@@Z"
     },
     {
      "va": "0x0049D160",
@@ -24224,7 +24224,7 @@
     {
      "va": "0x004A18F0",
      "length": 29,
-     "name": "?sub_004A3050@@YAXXZ"
+     "name": "?sub_004A3050_ResetQuestPages@@YAXXZ"
     },
     {
      "va": "0x004A1910",
@@ -24376,7 +24376,7 @@
     {
      "va": "0x004A3050",
      "length": 29,
-     "name": "?sub_004A3050@@YAXXZ"
+     "name": "?sub_004A3050_ResetQuestPages@@YAXXZ"
     },
     {
      "va": "0x004A3070",
@@ -24765,17 +24765,17 @@
     {
      "va": "0x004B1DC0",
      "length": 3,
-     "name": "sub_004B1DC0"
+     "name": "sub_004B1DC0_Return0"
     },
     {
      "va": "0x004BF9B0",
      "length": 3,
-     "name": "sub_004BF9B0"
+     "name": "sub_004BF9B0_Return0"
     },
     {
      "va": "0x004E4040",
      "length": 3,
-     "name": "sub_004E4040"
+     "name": "sub_004E4040_Nop"
     }
    ],
    "flags": [
@@ -25130,7 +25130,7 @@
     {
      "va": "0x004AA980",
      "length": 56,
-     "name": "?sub_004AA980@@YAXXZ"
+     "name": "?sub_004AA980_FreePanelCel@@YAXXZ"
     },
     {
      "va": "0x004AA9C0",
@@ -25333,7 +25333,7 @@
     {
      "va": "0x004B2010",
      "length": 3,
-     "name": "sub_004B2010"
+     "name": "sub_004B2010_Return0"
     },
     {
      "va": "0x004B2020",
@@ -25403,7 +25403,7 @@
     {
      "va": "0x004B2640",
      "length": 5,
-     "name": "?sub_004B2640@@YIXH@Z"
+     "name": "?sub_004B2640_SetInvRequest@@YIXH@Z"
     },
     {
      "va": "0x004B2650",
@@ -25422,27 +25422,27 @@
     {
      "va": "0x004B29E0",
      "length": 32,
-     "name": "?sub_004B29E0@@YIXH@Z"
+     "name": "?sub_004B29E0_FinishPendingAction@@YIXH@Z"
     },
     {
      "va": "0x004B2A00",
      "length": 32,
-     "name": "?sub_004B2A00@@YIXH@Z"
+     "name": "?sub_004B2A00_FinishPendingAction@@YIXH@Z"
     },
     {
      "va": "0x004B2A20",
      "length": 32,
-     "name": "?sub_004B2A20@@YIXH@Z"
+     "name": "?sub_004B2A20_FinishPendingAction@@YIXH@Z"
     },
     {
      "va": "0x004B2A40",
      "length": 32,
-     "name": "?sub_004B2A40@@YIXH@Z"
+     "name": "?sub_004B2A40_FinishPendingAction@@YIXH@Z"
     },
     {
      "va": "0x004B2A60",
      "length": 32,
-     "name": "?sub_004B2A60@@YIXH@Z"
+     "name": "?sub_004B2A60_FinishPendingAction@@YIXH@Z"
     },
     {
      "va": "0x004B2A80",
@@ -25599,7 +25599,7 @@
     {
      "va": "0x004B3C00",
      "length": 32,
-     "name": "?sub_004B3C00@@YIXH@Z"
+     "name": "?sub_004B3C00_FinishPendingAction@@YIXH@Z"
     },
     {
      "va": "0x004B3C20",
@@ -25644,7 +25644,7 @@
     {
      "va": "0x004B3FE0",
      "length": 42,
-     "name": "?sub_004B3FE0@@YAXXZ"
+     "name": "?sub_004B3FE0_CloseNpcMenu@@YAXXZ"
     },
     {
      "va": "0x004B4010",
@@ -25774,7 +25774,7 @@
     {
      "va": "0x004B5850",
      "length": 64,
-     "name": "?sub_004B5850@@YAHXZ"
+     "name": "?sub_004B5850_CloseConfirmDialog@@YAHXZ"
     },
     {
      "va": "0x004B5890",
@@ -26185,7 +26185,7 @@
     {
      "va": "0x004B8720",
      "length": 13,
-     "name": "?sub_004B8720@@YAXXZ"
+     "name": "?sub_004B8720_ResetTradeState@@YAXXZ"
     },
     {
      "va": "0x004B8730",
@@ -26195,7 +26195,7 @@
     {
      "va": "0x004B8920",
      "length": 20,
-     "name": "?sub_004B8920@@YAXXZ"
+     "name": "?sub_004B8920_ClearTradeGold@@YAXXZ"
     },
     {
      "va": "0x004B8940",
@@ -26240,7 +26240,7 @@
     {
      "va": "0x004B8CB0",
      "length": 54,
-     "name": "?sub_004B8CB0@@YAXXZ"
+     "name": "?sub_004B8CB0_BeginTradeWait@@YAXXZ"
     },
     {
      "va": "0x004B8CF0",
@@ -26294,7 +26294,7 @@
     {
      "va": "0x004B91F0",
      "length": 7,
-     "name": "?sub_004B91F0@@YAXXZ"
+     "name": "?sub_004B91F0_CloseWait@@YAXXZ"
     },
     {
      "va": "0x006CAD80",
@@ -26370,7 +26370,7 @@
     {
      "va": "0x004B9610",
      "length": 37,
-     "name": "?sub_004B9610@@YIPAXH@Z"
+     "name": "?sub_004B9610_GetSoundHandle@@YIPAXH@Z"
     },
     {
      "va": "0x004B9640",
@@ -26518,7 +26518,7 @@
     {
      "va": "0x004BA840",
      "length": 78,
-     "name": "?sub_004BA840@@YIXH@Z"
+     "name": "?sub_004BA840_StopSound@@YIXH@Z"
     },
     {
      "va": "0x004BA890",
@@ -26528,7 +26528,7 @@
     {
      "va": "0x004BA8F0",
      "length": 94,
-     "name": "?sub_004BA8F0@@YAXXZ"
+     "name": "?sub_004BA8F0_StopSongs@@YAXXZ"
     },
     {
      "va": "0x004BA950",
@@ -26791,7 +26791,7 @@
     {
      "va": "0x004BB5D0",
      "length": 3,
-     "name": "sub_004BB5D0"
+     "name": "sub_004BB5D0_Return0"
     },
     {
      "va": "0x004BB5E0",
@@ -27212,7 +27212,7 @@
     {
      "va": "0x004BE060",
      "length": 26,
-     "name": "?sub_004BE060@@YAXXZ"
+     "name": "?sub_004BE060_FreeSliderCel@@YAXXZ"
     },
     {
      "va": "0x004BE080",
@@ -27585,7 +27585,7 @@
     {
      "va": "0x004C0550",
      "length": 200,
-     "name": "?sub_004C0550@@YIXPAUD2PacketRecord7Strc@@@Z"
+     "name": "?sub_004C0550_HandleUseItemPacket@@YIXPAUD2PacketRecord7Strc@@@Z"
     },
     {
      "va": "0x004C0620",
@@ -27808,7 +27808,7 @@
     {
      "va": "0x004BDFD0",
      "length": 7,
-     "name": "@sub_004BDFD0@4"
+     "name": "@sub_004BDFD0_GetObjectOwner@4"
     },
     {
      "va": "0x004BDFE0",
@@ -28034,7 +28034,7 @@
     {
      "va": "0x004C2530",
      "length": 3,
-     "name": "sub_004C2530"
+     "name": "sub_004C2530_Return0"
     },
     {
      "va": "0x004C2540",
@@ -29649,12 +29649,12 @@
     {
      "va": "0x004D9160",
      "length": 7,
-     "name": "sub_004D9160"
+     "name": "sub_004D9160_RefreshPassiveSkills"
     },
     {
      "va": "0x004D9170",
      "length": 7,
-     "name": "sub_004D9170"
+     "name": "sub_004D9170_RefreshPassiveSkills"
     },
     {
      "va": "0x004D9180",
@@ -29799,7 +29799,7 @@
     {
      "va": "0x004D9FC0",
      "length": 50,
-     "name": "@sub_004D9FC0@8"
+     "name": "@sub_004D9FC0_GetSkillUseState@8"
     }
    ]
   },
@@ -29881,7 +29881,7 @@
     {
      "va": "0x004DDDF0",
      "length": 1,
-     "name": "?sub_004DDDF0@@YAXXZ"
+     "name": "?sub_004DDDF0_Nop@@YAXXZ"
     }
    ]
   },
@@ -30098,7 +30098,7 @@
     {
      "va": "0x004DED10",
      "length": 12,
-     "name": "?sub_004DED10@@YIXPAX@Z"
+     "name": "?sub_004DED10_UpdateView@@YIXPAX@Z"
     },
     {
      "va": "0x004DED20",
@@ -30249,7 +30249,7 @@
     {
      "va": "0x004E0C90",
      "length": 172,
-     "name": "?sub_004E0C90@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?sub_004E0C90_SetSkillTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E0EB0",
@@ -30284,7 +30284,7 @@
     {
      "va": "0x004E4020",
      "length": 1,
-     "name": "?sub_004E4020@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?sub_004E4020_Nop@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004E4050",
@@ -30394,22 +30394,22 @@
     {
      "va": "0x004DF800",
      "length": 103,
-     "name": "?sub_004DF800@@YAXXZ"
+     "name": "?sub_004DF800_StopAllSlots@@YAXXZ"
     },
     {
      "va": "0x004DF870",
      "length": 6,
-     "name": "sub_004DF870"
+     "name": "sub_004DF870_IsSoundSystemInit"
     },
     {
      "va": "0x004DF880",
      "length": 6,
-     "name": "sub_004DF880"
+     "name": "sub_004DF880_IsSoundSystemInit"
     },
     {
      "va": "0x004DF890",
      "length": 102,
-     "name": "?sub_004DF890@@YAXXZ"
+     "name": "?sub_004DF890_ReleaseFinishedSlots@@YAXXZ"
     },
     {
      "va": "0x004DF900",
@@ -30434,12 +30434,12 @@
     {
      "va": "0x004DF940",
      "length": 17,
-     "name": "?sub_004DF940@@YAHXZ"
+     "name": "?sub_004DF940_IsPositionalSoundEnabled@@YAHXZ"
     },
     {
      "va": "0x004DF960",
      "length": 17,
-     "name": "?sub_004DF960@@YAHXZ"
+     "name": "?sub_004DF960_IsEaxEnabled@@YAHXZ"
     },
     {
      "va": "0x004DF980",
@@ -30464,7 +30464,7 @@
     {
      "va": "0x004DFA60",
      "length": 56,
-     "name": "?sub_004DFA60@@YAXXZ"
+     "name": "?sub_004DFA60_ShutdownSound@@YAXXZ"
     },
     {
      "va": "0x004DFAA0",
@@ -31073,7 +31073,7 @@
     {
      "va": "0x004E40A0",
      "length": 85,
-     "name": "?sub_004E40A0@@YIHH@Z"
+     "name": "?sub_004E40A0_RollPlayerSeed@@YIHH@Z"
     }
    ]
   },

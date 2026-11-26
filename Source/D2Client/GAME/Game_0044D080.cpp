@@ -310,10 +310,10 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView); // 0x00456EE0
 
 void __stdcall D2Win_UpdateAndDraw(); // 0x004F98E0
 
-void __fastcall sub_00468820(int nArg1, int nArg2); // 0x00468820
+void __fastcall sub_00468820_Nop(int nArg1, int nArg2); // 0x00468820
 
 
-void __fastcall sub_00477980(); // 0x00477980
+void __fastcall sub_00477980_DrawFpsStats(); // 0x00477980
 
 
 
@@ -500,14 +500,14 @@ void __fastcall GAME_DrawGameView(int bNoCursor)
 // build: symbol ?D2Win_10179_UpdatePaletteFlash@* 0x004FB0D0
     D2Win_10179_UpdatePaletteFlash();
     AUTOMAP_UpdateAutomapOrigin();
-    if (sub_0045AE90() != 3)
+    if (sub_0045AE90_GetPanelSlideMode() != 3)
         VIEW_PrepareSceneLighting(gpClientView);
     UI_DrawUIPanels(gpClientView);
     D2Win_UpdateAndDraw();
-    sub_00468820(10, 10);
+    sub_00468820_Nop(10, 10);
     if (!bNoCursor)
         CURSOR_DrawCursor();
-    sub_00477980();
+    sub_00477980_DrawFpsStats();
 // build: symbol ?gnClearScreenCount@* 0x0070F2C0
     if (gnClearScreenCount)
     {

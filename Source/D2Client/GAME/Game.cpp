@@ -411,15 +411,15 @@ int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 void __fastcall CUNIT_DispatchMouseWheel(int nSteps); // 0x004693B0
 
-void __cdecl sub_00469270(); // 0x00469270
+void __cdecl sub_00469270_RunMButtonUp(); // 0x00469270
 
-void __cdecl sub_00469230(); // 0x00469230
+void __cdecl sub_00469230_RunMButtonDown(); // 0x00469230
 
-void __cdecl sub_004692B0(); // 0x004692B0
+void __cdecl sub_004692B0_RunXButton1Down(); // 0x004692B0
 
-void __cdecl sub_00469330(); // 0x00469330
+void __cdecl sub_00469330_RunXButton2Down(); // 0x00469330
 
-void __cdecl sub_004692F0(); // 0x004692F0
+void __cdecl sub_004692F0_RunXButton1Up(); // 0x004692F0
 
 void __cdecl CMDTBL_CallBoundCommand(); // 0x00469370
 
@@ -477,7 +477,7 @@ void __cdecl INV_SetRenderModeDirect3D(); // 0x00477710
 
 void __cdecl INV_SetRenderModeRave(); // 0x00477720
 
-void __fastcall sub_004776C0(int nGamma); // 0x004776C0
+void __fastcall sub_004776C0_SetGamma(int nGamma); // 0x004776C0
 
 void __cdecl D2GFX_EnableVSync(); // 0x004F5270
 
@@ -1704,7 +1704,7 @@ sub_00426D80::~sub_00426D80()
 }
 
 // 0x0042F6D0
-int __cdecl sub_0042F6D0()
+int __cdecl sub_0042F6D0_GetMenusDone()
 {
     return gfMenusDone;
 }
@@ -1782,7 +1782,7 @@ int __fastcall GAME_GetRangeEnd(D2RangeStrc* pRange)
 }
 
 // 0x0044BE20
-void __fastcall sub_0044BE20(PairStrc_0044BE20* pPair)
+void __fastcall sub_0044BE20_ClearPair(PairStrc_0044BE20* pPair)
 {
     pPair->nFirst = 0;
     pPair->nSecond = 0;
@@ -1970,7 +1970,7 @@ void __stdcall GAME_HandleLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
 static inline int GAME_IsInLeftPanel(int nX, int nY)
 {
     int bLeftPanel = 0;
-    if (sub_0045AE90() == 2 && nX > 0 && nX < gnScreenWidth / 2 && nY > 0 && nY < gnScreenHeight - 0x2F)
+    if (sub_0045AE90_GetPanelSlideMode() == 2 && nX > 0 && nX < gnScreenWidth / 2 && nY > 0 && nY < gnScreenHeight - 0x2F)
     {
         bLeftPanel = 1;
     }
@@ -1981,7 +1981,7 @@ static inline int GAME_IsInLeftPanel(int nX, int nY)
 static inline int GAME_IsInRightPanel(int nX, int nY)
 {
     int bRightPanel = 0;
-    if (sub_0045AE90() == 1 && nX > gnScreenWidth / 2 && nX < gnScreenWidth && nY > 0 && nY < gnAutomapHeight_007A521C)
+    if (sub_0045AE90_GetPanelSlideMode() == 1 && nX > gnScreenWidth / 2 && nX < gnScreenWidth && nY > 0 && nY < gnAutomapHeight_007A521C)
     {
         bRightPanel = 1;
     }
@@ -1994,19 +1994,19 @@ void __stdcall GAME_HandleRightButtonDown(SMSGHANDLER_PARAMS* pMsg)
     gnRightClickState = 4;
     gbClickHandled = 0;
     SELECT_UnlockHover();
-    if (!gbPositionalSound || sub_0045AE90() == 3)
+    if (!gbPositionalSound || sub_0045AE90_GetPanelSlideMode() == 3)
     {
         return;
     }
     const int nY = pMsg->nYpos;
     const int nX = pMsg->nXpos;
     int bLeftPanel = 0;
-    if (sub_0045AE90() == 2 && nX > 0 && nX < gnScreenWidth / 2 && nY > 0 && nY < gnScreenHeight - 0x2F)
+    if (sub_0045AE90_GetPanelSlideMode() == 2 && nX > 0 && nX < gnScreenWidth / 2 && nY > 0 && nY < gnScreenHeight - 0x2F)
     {
         bLeftPanel = 1;
     }
     int bRightPanel = 0;
-    if (sub_0045AE90() == 1 && nX > gnScreenWidth / 2 && nX < gnScreenWidth && nY > 0 && nY < gnAutomapHeight_007A521C)
+    if (sub_0045AE90_GetPanelSlideMode() == 1 && nX > gnScreenWidth / 2 && nX < gnScreenWidth && nY > 0 && nY < gnAutomapHeight_007A521C)
     {
         bRightPanel = 1;
     }
@@ -2096,7 +2096,7 @@ void __stdcall GAME_HandleMiddleButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gbPositionalSound)
     {
-        sub_00469270();
+        sub_00469270_RunMButtonUp();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -2108,7 +2108,7 @@ void __stdcall GAME_HandleMiddleButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gbPositionalSound)
     {
-        sub_00469230();
+        sub_00469230_RunMButtonDown();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -2122,9 +2122,9 @@ void __stdcall GAME_HandleXButtonDown(SMSGHANDLER_PARAMS* pMsg)
     {
         unsigned short nCode = pMsg->wParamHigh;
         if (nCode == 1)
-            sub_004692B0();
+            sub_004692B0_RunXButton1Down();
         else if (nCode == 2)
-            sub_00469330();
+            sub_00469330_RunXButton2Down();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -2138,7 +2138,7 @@ void __stdcall GAME_HandleXButtonUp(SMSGHANDLER_PARAMS* pMsg)
     {
         unsigned short nCode = pMsg->wParamHigh;
         if (nCode == 1)
-            sub_004692F0();
+            sub_004692F0_RunXButton1Up();
         else if (nCode == 2)
             CMDTBL_CallBoundCommand();
         pMsg->bReturn = 1;
@@ -2245,13 +2245,13 @@ int __cdecl GAME_IsCinematicExit()
 // 0x0044C880
 void __cdecl GAME_FreeWeather()
 {
-    sub_00472BD0();
+    sub_00472BD0_FreeWeatherCels();
 }
 
 // 0x0044C890
 void __cdecl GAME_ReleaseGameState()
 {
-    sub_00472BD0();
+    sub_00472BD0_FreeWeatherCels();
     PALSHIFT_FreePalShifts();
     CUNIT_FreeAllUnits();
     if (gpAct)
@@ -2265,7 +2265,7 @@ void __cdecl GAME_ReleaseGameState()
     UI_ShutdownUI();
     sub_00473CF0_Nop();
     DLIGHTMAP_FreeAllLights();
-    sub_004723C0();
+    sub_004723C0_FreeWeather();
     FOG_DestroyMemoryPoolSystem(gpMemPool);
     memset(gaClientState_007A0480, 0, sizeof(gaClientState_007A0480));
     FOG_Free(gpAutomapRecord, ".\\GAME\\Game.cpp", 0x599, 0);
@@ -2354,13 +2354,13 @@ int __cdecl GAME_GetPing()
 }
 
 // 0x0044CE70
-int __cdecl sub_0044CE70()
+int __cdecl sub_0044CE70_GetPingAverage()
 {
     return gdwPingAverage;
 }
 
 // 0x0044CE80
-void* __cdecl sub_0044CE80()
+void* __cdecl sub_0044CE80_GetPongData()
 {
     return gtPongData;
 }
@@ -2602,7 +2602,7 @@ void __fastcall sub_0044D7C0_ApplyConfigNop(D2ConfigStrc* pConfig)
 void __fastcall GAME_ApplyConfigGamma(D2ConfigStrc* pConfig)
 {
     if (pConfig->dwGamma)
-        sub_004776C0(pConfig->dwGamma);
+        sub_004776C0_SetGamma(pConfig->dwGamma);
 }
 
 // 0x0044D7E0
@@ -2765,7 +2765,7 @@ void __cdecl GAME_ResetMouseButtons()
 }
 
 // 0x0044DA90
-int __cdecl sub_0044DA90()
+int __cdecl sub_0044DA90_GetTickCounter()
 {
     return gnTickCounter;
 }
@@ -2777,7 +2777,7 @@ int __cdecl GAME_GetCurrentTime()
 }
 
 // 0x0044DAB0
-int __cdecl sub_0044DAB0()
+int __cdecl sub_0044DAB0_GetFrameCount()
 {
     return gnFrameCount;
 }
@@ -2807,7 +2807,7 @@ int __cdecl GAME_GetSkippedFrames()
 }
 
 // 0x0044DB00
-int __cdecl sub_0044DB00()
+int __cdecl sub_0044DB00_GetTickCounter()
 {
     return gnTickCounter;
 }
@@ -2947,13 +2947,13 @@ char* __fastcall sub_0044DE30_LinkNext(D2StormLinkStrc* pLink)
 }
 
 // 0x0044DE40
-int __cdecl sub_0044DE40()
+int __cdecl sub_0044DE40_Return4()
 {
     return 4;
 }
 
 // 0x0044DE50
-void __fastcall sub_0044DE50(PairStrc_0044DE50* pPair)
+void __fastcall sub_0044DE50_ClearPair(PairStrc_0044DE50* pPair)
 {
     pPair->nFirst = 0;
     pPair->nSecond = 0;
@@ -2982,7 +2982,7 @@ char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset)
 }
 
 // 0x0044DEE0
-void __fastcall sub_0044DEE0(PairStrc_0044DEE0* pPair)
+void __fastcall sub_0044DEE0_ClearPair(PairStrc_0044DEE0* pPair)
 {
     pPair->nFirst = 0;
     pPair->nSecond = 0;
@@ -3895,7 +3895,7 @@ void __cdecl sub_00452160_Nop()
 }
 
 // 0x00452170
-Unicode* __fastcall sub_00452170(Unicode* pText)
+Unicode* __fastcall sub_00452170_ReturnText(Unicode* pText)
 {
     return pText;
 }

@@ -27,8 +27,8 @@ int __fastcall sub_004B9590(int nKey);                                          
 int __fastcall sub_004DFA40_IsSoundPlaying(void* pSound);                                                   // 0x004DFA40
 int __fastcall sub_004DF900_GetSoundPosition(void* pSound);                                                 // 0x004DF900
 void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount);               // 0x004B9EF0
-int __cdecl sub_004817F0();                                                                                 // 0x004817F0
-int __cdecl sub_00481800();                                                                                 // 0x00481800
+int __cdecl sub_004817F0_GetSongMin();                                                                                 // 0x004817F0
+int __cdecl sub_00481800_GetSongMax();                                                                                 // 0x00481800
 
 extern D2TimedHintNodeStrc* gpClientSoundList;                                                       // 0x007C5458
 

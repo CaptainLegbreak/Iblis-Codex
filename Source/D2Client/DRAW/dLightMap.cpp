@@ -429,7 +429,7 @@ int __fastcall DLIGHTMAP_GetLightSize(D2R01LightStrc* pLight)
 }
 
 // 0x00474380
-int __cdecl sub_00474380()
+int __cdecl sub_00474380_Return32()
 {
     return 32;
 }
@@ -1455,7 +1455,7 @@ int gbCacheStatsChecked;                                                        
 
 
 // 0x00478150
-int __cdecl sub_00478150()
+int __cdecl sub_00478150_GetProgress()
 {
     return gnProgress;
 }
@@ -1470,24 +1470,24 @@ int __cdecl sub_00478150()
 
 
 // 0x00486E00
-int __cdecl sub_00486E00()
+int __cdecl sub_00486E00_Return0()
 {
     return 0;
 }
 
 // 0x00489870
-int __cdecl sub_00489870()
+int __cdecl sub_00489870_GetNpcButtonHandled()
 {
     return gbNpcButtonHandled;
 }
 
 // 0x00489CD0
-void __stdcall sub_00489CD0(int nUnused1)
+void __stdcall sub_00489CD0_Nop(int nUnused1)
 {
 }
 
 // 0x0048BDF0
-void __stdcall sub_0048BDF0(int nUnused1)
+void __stdcall sub_0048BDF0_Nop(int nUnused1)
 {
 }
 
@@ -1506,7 +1506,7 @@ int __cdecl DLIGHTMAP_GetTextHeader()
 }
 
 // 0x004A8A20
-int __cdecl sub_004A8A20()
+int __cdecl sub_004A8A20_Return7()
 {
     return 7;
 }

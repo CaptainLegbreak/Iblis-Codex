@@ -175,7 +175,7 @@ extern D2StringRefStrc gaStringRefs[]; // 0x00711DDC
 
 void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
-extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
+extern "C" int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
 
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 
@@ -197,7 +197,7 @@ extern void* gpDrlgAct_007A0634;                                                
 unsigned int gdwLastClampTick; // 0x007A5268
 
 
-int __cdecl sub_0044DA90(); // 0x0044DA90
+int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
 
 
 unsigned int __cdecl GAME_GetInteractDeadline(); // 0x0044DAC0
@@ -892,7 +892,7 @@ static int __stdcall PLAYER_CheckSkillUse(D2SkillStrc** ppSkill, int* pUseState,
     if (!ppSkill || !*ppSkill)
         return 0;
 
-    int nUseState = sub_004D9FC0(pUnit, *ppSkill);
+    int nUseState = sub_004D9FC0_GetSkillUseState(pUnit, *ppSkill);
     if (pUseState)
         *pUseState = nUseState;
 
@@ -904,7 +904,7 @@ static int __stdcall PLAYER_CheckSkillUse(D2SkillStrc** ppSkill, int* pUseState,
         && (pSkillsTxt->nFlags[3] & gdwBitMasks[4]))
     {
         *ppSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_ATTACK);
-        nUseState = sub_004D9FC0(pUnit, *ppSkill);
+        nUseState = sub_004D9FC0_GetSkillUseState(pUnit, *ppSkill);
     }
 
     if (nUseState == 5 || nUseState == 0)
@@ -1709,12 +1709,12 @@ static int PLAYER_PrepareCommand(D2PlayerCmdStrc* pCmd)
     if ((pCmd->dwFlags & 2) && !pCmd->pTarget)
         bForce = 1;
     pCmd->pTarget = SELECT_GetSkillTarget(pCmd->pSkill, pCmd->pTarget, &pCmd->nX, &pCmd->nY, pCmd->dwFlags, bForce);
-    if (sub_00468830() == 6)
+    if (sub_00468830_GetCursorState() == 6)
     {
         UI_CancelCursorItemUse();
         return 1;
     }
-    if (sub_00468830() == 8)
+    if (sub_00468830_GetCursorState() == 8)
         MSG_SendDword(0x4C, -1);
     return 1;
 }
@@ -1803,7 +1803,7 @@ static int __stdcall PLAYER_ClampTarget(D2UnitStrc* pUnit, D2PlayerCmdStrc* pCmd
 
     pCmd->nX = nX + nDX;
     pCmd->nY = nY + nDY;
-    const unsigned int dwTick = sub_0044DA90();
+    const unsigned int dwTick = sub_0044DA90_GetTickCounter();
     if (pUnit->dwUnitType == UNIT_PLAYER && (pCmd->dwFlags & 8))
     {
         const unsigned int nAnimMode = pUnit->dwAnimMode;
@@ -2081,9 +2081,9 @@ static int PLAYER_CmdLeftSkill(D2PlayerCmdStrc* pCmd)
         return 1;
     }
 
-    if (sub_00468830() == 6)
+    if (sub_00468830_GetCursorState() == 6)
         UI_CancelCursorItemUse();
-    else if (sub_00468830() == 8)
+    else if (sub_00468830_GetCursorState() == 8)
         MSG_SendDword(0x4C, -1);
 
     D2UnitStrc* pItem = INVENTORY_GetCursorItem(pCmd->pPlayer->pInventory);

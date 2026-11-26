@@ -148,7 +148,7 @@ extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 typedef char check_scalar_width[(sizeof(unsigned int) == 4 && sizeof(int) == 4) ? 1 : -1];
 
-extern "C" int __fastcall sub_004E40A0(int nRange); // 0x004E40A0
+extern "C" int __fastcall sub_004E40A0_RollPlayerSeed(int nRange); // 0x004E40A0
 
 typedef char check_int_width[sizeof(int)==4?1:-1];
 
@@ -180,7 +180,7 @@ void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned in
 void __fastcall SOUNDINST_SetValue(int nKey, int nValue); // 0x004B9B50
 
 
-void __fastcall sub_004BA840(int nHandle); // 0x004BA840
+void __fastcall sub_004BA840_StopSound(int nHandle); // 0x004BA840
 
 extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 
@@ -491,7 +491,7 @@ int __fastcall SKILLDESC_CltDoComponentMissileA(D2UnitStrc* pUnit, int nSkillId,
         return 0;
     }
 
-    if (sub_0046ACE0(nMissile))
+    if (sub_0046ACE0_GetMissilesTxtRecord(nMissile))
     {
         if (pUnit)
         {
@@ -529,7 +529,7 @@ int __fastcall SKILLDESC_CltDoComponentMissileB(D2UnitStrc* pUnit, int nSkillId,
     }
 
     nMissile += MONSTER_GetComponent11(pUnit);
-    if (nMissile < sgptDataTables->nMissilesTxtRecordCount && sub_0046ACE0(nMissile))
+    if (nMissile < sgptDataTables->nMissilesTxtRecordCount && sub_0046ACE0_GetMissilesTxtRecord(nMissile))
     {
         if (pUnit)
         {
@@ -598,7 +598,7 @@ int __fastcall SKILLDESC_CltDoWeaponOrSkillMissile(D2UnitStrc* pUnit, int nSkill
     }
 
     const int nCltMissile = pSkillsTxtRecord->wCltMissileA;
-    if (nCltMissile < 0 || nCltMissile >= sgptDataTables->nMissilesTxtRecordCount || !sub_0046ACE0(nCltMissile))
+    if (nCltMissile < 0 || nCltMissile >= sgptDataTables->nMissilesTxtRecordCount || !sub_0046ACE0_GetMissilesTxtRecord(nCltMissile))
     {
         return 0;
     }
@@ -874,7 +874,7 @@ int __fastcall SKILLDESC_OwnerMissileEvent(int nEvent, D2UnitStrc* pUnit, D2Unit
         return 0;
     }
 
-    if (!(sub_0046ACE0(pMissileUnit->dwClassId)->nMissileFlags[1] & gnBitMasks_006CE268[1]))
+    if (!(sub_0046ACE0_GetMissilesTxtRecord(pMissileUnit->dwClassId)->nMissileFlags[1] & gnBitMasks_006CE268[1]))
     {
         return 0;
     }
@@ -984,7 +984,7 @@ void __cdecl sub_004E4030_Nothing()
 extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax)
 {
     unsigned int width = (unsigned int)nMax - (unsigned int)nMin + 1u;
-    return sub_004E40A0((int)width) + nMin;
+    return sub_004E40A0_RollPlayerSeed((int)width) + nMin;
 }
 
 // 0x004E4120
@@ -992,7 +992,7 @@ extern "C" int __fastcall SKILLDESC_RandomSpread(int nRange)
 {
     const unsigned int uRange = (unsigned int)nRange;
     const unsigned int uWidth = 2u * uRange + 1u;
-    const unsigned int uRoll = (unsigned int)sub_004E40A0((int)uWidth);
+    const unsigned int uRoll = (unsigned int)sub_004E40A0_RollPlayerSeed((int)uWidth);
     return (int)(uRoll - uRange);
 }
 
@@ -1032,7 +1032,7 @@ static inline float GetEnvironVolume_Inline()
 
 void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
 {
-    if (!sub_004DF870())
+    if (!sub_004DF870_IsSoundSystemInit())
         return;
     const int nLevelId = UNITMODE_GetPlayerLevelId();
     if (!nLevelId)
@@ -1127,7 +1127,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
             }
             else
             {
-                sub_004BA840(gnWeatherSoundHandle);
+                sub_004BA840_StopSound(gnWeatherSoundHandle);
                 gnWeatherSoundHandle = 0;
             }
         }
@@ -1135,7 +1135,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
     }
     else
     {
-        sub_004BA840(gnWeatherSoundHandle);
+        sub_004BA840_StopSound(gnWeatherSoundHandle);
         gnWeatherSoundHandle = 0;
         gnWeatherSoundId = 0;
     }
@@ -1145,7 +1145,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         if (nAmbient != gnEnvironAmbientId)
         {
             gnAmbientDelay = sub_004E4120(pEnv->nEventDelay / 3) + pEnv->nEventDelay;
-            gnAmbientTick = dwTick - sub_004E40A0(gnAmbientDelay);
+            gnAmbientTick = dwTick - sub_004E40A0_RollPlayerSeed(gnAmbientDelay);
             gnEnvironAmbientId = nAmbient;
         }
         if (dwTick - gnAmbientTick >= gnAmbientDelay)
@@ -1153,7 +1153,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
             const int nHandle = sub_004B9A00(nAmbient, 0, 0, 0, 0);
             if (nHandle)
             {
-                const int nSign = sub_004E40A0(2) ? 1 : -1;
+                const int nSign = sub_004E40A0_RollPlayerSeed(2) ? 1 : -1;
                 const int nPan = SKILLDESC_RandomInRange(0x1C2, 0x2EE) * nSign;
                 const int nPanVolume = sub_004E4120(0x64);
 // build: symbol ?SOUNDINST_MoveSound@* 0x004B99A0

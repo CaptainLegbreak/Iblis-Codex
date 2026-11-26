@@ -276,7 +276,7 @@ void __cdecl TEXT_LoadTextSliderCel()
 }
 
 // 0x004BE060
-void __cdecl sub_004BE060()
+void __cdecl sub_004BE060_FreeSliderCel()
 {
     if (gpListBoxSliderCel)
     {

@@ -83,7 +83,7 @@ int __fastcall GAME_RunInitHandlers(void* pArg); // 0x0044D9F0
 int __cdecl GAME_IsExitPending(); // 0x0044DA30
 void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 int __cdecl GAME_GetSkippedFrames(); // 0x0044DAF0
-int __cdecl sub_0044DB00(); // 0x0044DB00
+int __cdecl sub_0044DB00_GetTickCounter(); // 0x0044DB00
 int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 void __fastcall GAME_ExtendDelay(int nDelay); // 0x0044DB40
 void __cdecl GAME_ReadColorFlag(); // 0x0044DBE0
@@ -144,7 +144,7 @@ void __cdecl AUTOMAP_DrawDifficultyLine(); // 0x0045A190
 void __cdecl AUTOMAP_InitAutomapColors(); // 0x0045A620
 int __cdecl UI_GetAutomapMode(); // 0x0045A710
 void __cdecl AUTOMAP_DrawAutomapUnits(); // 0x0045AC90
-int __cdecl sub_0045AE90(); // 0x0045AE90
+int __cdecl sub_0045AE90_GetPanelSlideMode(); // 0x0045AE90
 void __fastcall PLAYER_SetPanelSlide(int nMode); // 0x0045AEA0
 void __fastcall AUTOMAP_ScreenToMap(int* pX, int* pY); // 0x0045AFF0
 void __fastcall GFX_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
@@ -183,14 +183,14 @@ int __cdecl SELECT_GetHoverMonClassId(); // 0x00466DC0
 int __cdecl SELECT_GetHoverClassId(); // 0x00466DD0
 void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 void __cdecl SELECT_UnlockHover(); // 0x00466FF0
-void __fastcall sub_00468040(int nArg, int nArg2); // 0x00468040
+void __fastcall sub_00468040_ResetCursorState(int nArg, int nArg2); // 0x00468040
 void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 void __cdecl CURSOR_ShutdownCursor(); // 0x00468170
 void __cdecl CURSOR_DrawCursor(); // 0x004684C0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
-int __cdecl sub_00468830(); // 0x00468830
-void __cdecl sub_00468F00(); // 0x00468F00
+int __cdecl sub_00468830_GetCursorState(); // 0x00468830
+void __cdecl sub_00468F00_ShowBelt(); // 0x00468F00
 void __fastcall CMDTBL_ResetKeyConfig(int nArg); // 0x00469A60
 unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 void __cdecl CMDTBL_SaveHotkeys(); // 0x00469D20
@@ -223,9 +223,9 @@ int __cdecl UI_GetCofMemoryUsed(); // 0x0046F990
 int __cdecl UI_GetCofMemoryLimit(); // 0x0046F9A0
 void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
-void __cdecl sub_00472320(); // 0x00472320
-void __cdecl sub_004723C0(); // 0x004723C0
-void __cdecl sub_00472BD0(); // 0x00472BD0
+void __cdecl sub_00472320_InitWeather(); // 0x00472320
+void __cdecl sub_004723C0_FreeWeather(); // 0x004723C0
+void __cdecl sub_00472BD0_FreeWeatherCels(); // 0x00472BD0
 void __fastcall sub_00473C90_SetGlobal(int nValue); // 0x00473C90
 void __cdecl sub_00473CE0_Nop(); // 0x00473CE0
 void __cdecl sub_00473CF0_Nop(); // 0x00473CF0
@@ -307,8 +307,8 @@ void __fastcall sub_0047F400_OpenPanel(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 void __fastcall sub_0047F430_ShowPage0(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg); // 0x0047F430
 void __cdecl WARDENCLIENT_ActivatePendingModule(); // 0x00480230
 void __fastcall GFX_RefreshPathTarget(D2UnitStrc* pUnit); // 0x00480420
-void __cdecl sub_00481830(); // 0x00481830
-void __cdecl sub_00481850(); // 0x00481850
+void __cdecl sub_00481830_StopAllSounds(); // 0x00481830
+void __cdecl sub_00481850_Nop(); // 0x00481850
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 void __fastcall SOUNDHDR_UpdateCache(unsigned int nTick); // 0x00482B40
 void __cdecl SOUNDHDR_TickSound(); // 0x00482C20
@@ -439,12 +439,12 @@ int __fastcall UI_SetTimerUnitId(D2UnitStrc* pUnit); // 0x0046BC70
 void __fastcall sub_0046BC90_RequestAtMonster220(D2UnitStrc* pUnit); // 0x0046BC90
 void __fastcall GFX_RemoveOverlays(D2UnitStrc* pUnit); // 0x0046F170
 void __fastcall GFX_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent, int* pOffsetX, int* pOffsetY); // 0x004706E0
-void __fastcall sub_00472C50(int nArg); // 0x00472C50
+void __fastcall sub_00472C50_StartLightning(int nArg); // 0x00472C50
 void __cdecl VIEW_ClearGlobals(); // 0x00476AF0
 int __cdecl DLIGHTMAP_GetRenderMode(); // 0x00477730
 int __cdecl UNITMODE_GetPlayerLevelId(); // 0x00481780
-int __cdecl sub_004817F0(); // 0x004817F0
-int __cdecl sub_00481800(); // 0x00481800
+int __cdecl sub_004817F0_GetSongMin(); // 0x004817F0
+int __cdecl sub_00481800_GetSongMax(); // 0x00481800
 int __cdecl sub_00481810(); // 0x00481810
 int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
 unsigned char __fastcall SOUNDHDR_GetGroupSize(int nId); // 0x004818C0
@@ -556,8 +556,8 @@ void __fastcall CUNITEVENT_RemoveCltUnitEvents(D2UnitStrc* pUnit, int nParam4, i
 unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
 void __fastcall PLAYERLIST_InitGfxData(D2UnitStrc* pUnit); // 0x004DC510
 void __fastcall GFXUTIL_ApplySoundEnviron(int nEnvironId); // 0x004DF6C0
-int __cdecl sub_004DF870(); // 0x004DF870
-int __cdecl sub_004DF880(); // 0x004DF880
+int __cdecl sub_004DF870_IsSoundSystemInit(); // 0x004DF870
+int __cdecl sub_004DF880_IsSoundSystemInit(); // 0x004DF880
 void __fastcall SKILLDESC_ToggleStateOffCallback(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x004E3050
 D2UnitStrc* __fastcall SKILLDESC_CltDoRandomMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004E31C0
 void __fastcall sub_004E4050_Nothing(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x004E4050
@@ -568,7 +568,7 @@ int __cdecl SKILLDESC_SumProgressiveBonus(); // 0x004E6FF0
 void __stdcall TEXT_DrawHintText(int nArg1, int nStringIndex); // 0x004ED3F0
 int __fastcall CUNIT_ValidateMonsterId(int nMonsterId); // 0x00463900
 void __fastcall CUNIT_SetPathTargetToTargetUnit(D2UnitStrc* pUnit, int nArg); // 0x00465BF0
-D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
+D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId); // 0x0046ACE0
 int __fastcall TEXT_IsInPanelButton(int nMode, int nX, int nY); // 0x004A6580
 void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* pUnit); // 0x004B13A0
 int __fastcall NPCMENU_GetInteractNpcId(int* pLow); // 0x004B3230

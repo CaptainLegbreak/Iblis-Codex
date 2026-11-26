@@ -1015,7 +1015,7 @@ static int sub_E10_GetButtonLayoutCopy(int nMode)
 // 0x004A2970
 int __stdcall QUESTLOG_IsMouseOnQuestButton(int nX, int nY)
 {
-    const int nMode = sub_0045AE90();
+    const int nMode = sub_0045AE90_GetPanelSlideMode();
     const int nIndex = sub_E10_GetButtonLayoutCopy(nMode);
     const int nLeft = gaButtonLayouts[nIndex].nTextX + (nMode == 2 ? (gnScreenWidth - 0x280) / 2 : 0);
     const int nTop = gaButtonLayouts[nIndex].nTop + gnScreenHeight - 0x1E0;
@@ -1068,7 +1068,7 @@ void __cdecl QUESTLOG_DrawQuestButton()
         return;
     }
 
-    const int nMode = sub_0045AE90();
+    const int nMode = sub_0045AE90_GetPanelSlideMode();
     if (nMode == 3)
         return;
     if (GAME_GetUIVarState(0x0F))
@@ -1084,13 +1084,13 @@ void __cdecl QUESTLOG_DrawQuestButton()
     const int nTextWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF58));
     int nTextX = nCelWidth / 2 - nTextWidth / 2 + gaButtonLayouts[nIndex].nTextX + 1;
     const int nTextY = gaButtonLayouts[nIndex].nTextY + gnScreenHeight - 0x1E0;
-    if (sub_0045AE90() == 2)
+    if (sub_0045AE90_GetPanelSlideMode() == 2)
         nTextX += (gnScreenWidth - 0x280) / 2;
     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF58), nTextX, nTextY, 0, 0);
 
     int nCelX = gaButtonLayouts[nIndex].nTextX;
     const int nCelY = gaButtonLayouts[nIndex].nBottom + gnScreenHeight - 0x1E0;
-    if (sub_0045AE90() == 2)
+    if (sub_0045AE90_GetPanelSlideMode() == 2)
         nCelX += (gnScreenWidth - 0x280) / 2;
     sub_004F6480(&tCel, nCelX, nCelY, -1, 5, 0);
 
@@ -1314,7 +1314,7 @@ void __cdecl TEXT_ClearQuestFlags()
 }
 
 // 0x004A3050
-void __cdecl sub_004A3050()
+void __cdecl sub_004A3050_ResetQuestPages()
 {
     gaQuestPageDefault[0] = -1;
     gaQuestPageDefault[1] = -1;

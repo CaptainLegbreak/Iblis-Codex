@@ -59,7 +59,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
+int __fastcall sub_00472280_RollInRange(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 
 int __fastcall ITEMMODE_SelectRandomArmorItemId(D2GameStrc* pGame, D2SeedStrc* pSeed, int nLevelId, int nItemType, int bIgnoreRarity); // 0x00555E70
 
@@ -680,7 +680,7 @@ static int __stdcall ITEMS_SelectRandomDropItemId(D2GameStrc* pGame, D2SeedStrc*
     int& nWeaponChanceRef = nWeaponChance;
     nWeaponChanceRef = nBaseLayerChance + nAdd;
 
-    const int nRand = sub_00472280(pSeed, 0, 100);
+    const int nRand = sub_00472280_RollInRange(pSeed, 0, 100);
     if (nRand < nDiff)
     {
         return s_nGoldItemId;
@@ -712,7 +712,7 @@ static void ITEMS_RollArmorClass(D2UnitStrc* pItem)
 
     const unsigned int nMinAc = pItemsTxtRecord->dwMinAc;
     const unsigned int nMaxAc = pItemsTxtRecord->dwMaxAc;
-    const unsigned int nACValue = sub_00472280(&pItem->pSeed, nMinAc, nMaxAc - nMinAc + 1);
+    const unsigned int nACValue = sub_00472280_RollInRange(&pItem->pSeed, nMinAc, nMaxAc - nMinAc + 1);
     D2_ASSERT(nACValue <= nMaxAc, 0x1CE);
     STATLIST_SetUnitStat(pItem, STAT_ARMORCLASS, nACValue, 0);
 }
@@ -981,7 +981,7 @@ int __stdcall ITEMS_RollUniqueItem(D2GameStrc* pGame,D2UnitStrc* pItem,D2ItemDro
  int nUniqueItemId;
  if(nSelected<0)
  {
-  int nRoll=sub_00472280(ITEMS_GetItemSeed(pItem),0,nTotalRarity);
+  int nRoll=sub_00472280_RollInRange(ITEMS_GetItemSeed(pItem),0,nTotalRarity);
   int i=1;
   while(i<nCount && nRoll>=gUniqueSelections[i].nRarity) ++i;
   nUniqueItemId=gUniqueSelections[i-1].nIndex;
@@ -1681,7 +1681,7 @@ static void ITEMS_RollVarInvGfx(D2UnitStrc* pItem)
 {
     if (ITEMS_GetVarInvGfxCount(pItem))
     {
-        const unsigned char nIndex = sub_00472280(&pItem->pSeed, 0, ITEMS_GetVarInvGfxCount(pItem));
+        const unsigned char nIndex = sub_00472280_RollInRange(&pItem->pSeed, 0, ITEMS_GetVarInvGfxCount(pItem));
         ITEMS_SetVarGfxIndex(pItem, nIndex);
     }
 }

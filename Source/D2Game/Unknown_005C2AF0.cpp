@@ -18,7 +18,7 @@ struct D2LowQualityItemDataTbl;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
+int __fastcall sub_00472280_RollInRange(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 
 short __stdcall ITEMS_RollMagicAffixesOld(D2UnitStrc* pItem, int bRequireSpawnableAffix, int bForceAffixRoll, int bAssignProperties, int bPrefix, int nPreferredAffixIndex); // 0x005C12F0
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
@@ -116,7 +116,7 @@ static unsigned short __stdcall SKILLITEM_RollRareAffixLegacy(D2UnitStrc* pItem,
         return 0;
     }
 
-    const int nIndex = sub_00472280(ITEMS_GetItemSeed(pItem), 0, nMax);
+    const int nIndex = sub_00472280_RollInRange(ITEMS_GetItemSeed(pItem), 0, nMax);
     if (nIndex >= nMax)
     {
         return 0;
@@ -179,7 +179,7 @@ static unsigned short __stdcall SKILLITEM_RollRareAffix(D2UnitStrc* pItem, int b
         return 0;
     }
 
-    const int nIndex = sub_00472280(ITEMS_GetItemSeed(pItem), 0, nMax);
+    const int nIndex = sub_00472280_RollInRange(ITEMS_GetItemSeed(pItem), 0, nMax);
     if (nIndex >= nMax)
     {
         return 0;

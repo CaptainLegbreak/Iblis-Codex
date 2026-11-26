@@ -38,7 +38,7 @@ extern "C" void __stdcall sub_00628070(D2UnitStrc* pItem, unsigned short nSuffix
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
 unsigned char __stdcall ITEMS_GetItemQlvl(const D2UnitStrc* hItem); // 0x00628740
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
-int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
+int __fastcall sub_00472280_RollInRange(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 void __stdcall ITEMMODS_AssignProperty(int nMode, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pProperty, int nSet, int nUnused); // 0x0065FEC0
 unsigned short __stdcall ITEMS_GetSuffixId(D2UnitStrc* pItem, int nSuffixNo); // 0x00627F80
 
@@ -207,7 +207,7 @@ static short __stdcall ITEMS_RollMagicAffixesNew(D2UnitStrc* pItem, int bRequire
         {
             if (nPotentialCount <= 0)
                 return 0;
-            int nRoll = sub_00472280(ITEMS_GetItemSeed(pItem), 0, nTotalFrequency + 1);
+            int nRoll = sub_00472280_RollInRange(ITEMS_GetItemSeed(pItem), 0, nTotalFrequency + 1);
             D2MagicAffixIndexAndPtrStrc* pRolled = 0;
             for (int i = 0; i < nPotentialCount; ++i)
             {

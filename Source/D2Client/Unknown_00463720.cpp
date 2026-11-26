@@ -36,7 +36,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern D2DataTablesStrc* sgptDataTables;
 extern unsigned int gdwBitMasks[];
 extern void* gpDrlgAct_007A0634;
-unsigned int __cdecl sub_0044DA90();
+unsigned int __cdecl sub_0044DA90_GetTickCounter();
 unsigned int __cdecl GAME_GetInteractDeadline(); // 0x0044DAC0
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);
 int __stdcall PLAYER_IsPendingMode(int nArg1, int nArg2); // 0x00461D60

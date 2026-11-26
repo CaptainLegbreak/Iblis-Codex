@@ -224,13 +224,13 @@ extern D2TimedHintStrc gtTimedHint; // 0x007C89E4
 
 extern void* gpGlobal_007A0634; // 0x007A0634
 
-int __cdecl sub_0044DB00(); // 0x0044DB00
+int __cdecl sub_0044DB00_GetTickCounter(); // 0x0044DB00
 
 int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
 int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 
-int __cdecl sub_004817F0(); // 0x004817F0
+int __cdecl sub_004817F0_GetSongMin(); // 0x004817F0
 
 int __cdecl sub_00481810(); // 0x00481810
 
@@ -240,7 +240,7 @@ D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 
 int __fastcall sub_004B9590(void* pEntry); // 0x004B9590
 
-void* __fastcall sub_004B9610(int nId); // 0x004B9610
+void* __fastcall sub_004B9610_GetSoundHandle(int nId); // 0x004B9610
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -272,7 +272,7 @@ D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, 
 
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
-extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit, D2SkillStrc* skill); // 0x004D9FC0
+extern "C" int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* unit, D2SkillStrc* skill); // 0x004D9FC0
 
 int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bEquipping, int* bStrength, int* bDexterity, int* bLevel); // 0x0062EAF0
 
@@ -395,7 +395,7 @@ extern int gaCursorKind[]; // 0x00727A40
 
 extern unsigned int gnCursorKindCount; // 0x00727A48
 
-void __fastcall sub_004B29E0(int nUnitId); // 0x004B29E0
+void __fastcall sub_004B29E0_FinishPendingAction(int nUnitId); // 0x004B29E0
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 
@@ -468,9 +468,9 @@ void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
 void __cdecl INV_ResetHover(); // 0x00487990
 
-void __fastcall sub_004B2A00(int nUnitId); // 0x004B2A00
+void __fastcall sub_004B2A00_FinishPendingAction(int nUnitId); // 0x004B2A00
 
-void __fastcall sub_004B2A40(int nUnitId); // 0x004B2A40
+void __fastcall sub_004B2A40_FinishPendingAction(int nUnitId); // 0x004B2A40
 
 void __fastcall ITEM_SetItemMode(D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMode, int bArg); // 0x004C1910
 
@@ -486,7 +486,7 @@ int __stdcall ITEMS_GetCompactItemDataFromBitstreamDefault(unsigned char* pBitst
 
 void __stdcall ITEM_HandleItemToBody(D2GSPacketSrv9D* pPacket, D2ItemSaveStrc* pItemSave); // 0x004C35F0
 
-void __fastcall sub_004B2640(D2UnitStrc* pUnit); // 0x004B2640
+void __fastcall sub_004B2640_SetInvRequest(D2UnitStrc* pUnit); // 0x004B2640
 
 void __fastcall NPCMENU_ResetHoverForItem(int nUnitId); // 0x004B2A80
 
@@ -498,7 +498,7 @@ void __fastcall VIEW_SetBeltSlotValue(int nX, int nArg); // 0x00498D50
 
 void __cdecl VIEW_ResetBeltHover(); // 0x00498D60
 
-void __fastcall sub_004B2A60(int nUnitId); // 0x004B2A60
+void __fastcall sub_004B2A60_FinishPendingAction(int nUnitId); // 0x004B2A60
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -583,9 +583,9 @@ static void ITEM_StoreHandWeaponClass(D2UnitStrc* pItem, unsigned char nType); /
 
 void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue);                        // 0x0046F020
 
-void __fastcall sub_004B2A20(int nUnitId);                                                                  // 0x004B2A20
+void __fastcall sub_004B2A20_FinishPendingAction(int nUnitId);                                                                  // 0x004B2A20
 
-void __fastcall sub_004B3C00(int nUnitId);                                                                  // 0x004B3C00
+void __fastcall sub_004B3C00_FinishPendingAction(int nUnitId);                                                                  // 0x004B3C00
 
 int __fastcall ITEM_PlaceBodyItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc);    // 0x004C1C50
 
@@ -861,7 +861,7 @@ struct D2SkillStrc;
 // 0x004C10C0
 int __fastcall ITEM_IsSkillStateUsable(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
-    switch (sub_004D9FC0(pUnit, pSkill))
+    switch (sub_004D9FC0_GetSkillUseState(pUnit, pSkill))
     {
     case 2:
     case 7:
@@ -1613,7 +1613,7 @@ void __fastcall ITEM_ClearCursorItemFromPacket(D2GSPacketSrv42Strc* pPacket)
     INVENTORY_SetCursorItem(pInventory, 0);
     CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
     CUNIT_RemoveClientSideUnit(nItemId, pItem->dwUnitType);
-    sub_004B29E0(nItemId);
+    sub_004B29E0_FinishPendingAction(nItemId);
 }
 
 // 0x004C20B0
@@ -1792,7 +1792,7 @@ void __fastcall ITEM_RemoveEquippedItems(D2UnitStrc* pUnit)
 }
 
 // 0x004C2530
-int __cdecl sub_004C2530()
+int __cdecl sub_004C2530_Return0()
 {
     return 0;
 }
@@ -2077,7 +2077,7 @@ void __fastcall ITEM_HandleItemToStorage(D2GSPacketSrv9C* pPacket)
 
     UI_SendMouseMove();
     ITEM_ClearUninterruptableState(pItem);
-    sub_004B2A40(!pItem ? -1 : pItem->dwUnitId);
+    sub_004B2A40_FinishPendingAction(!pItem ? -1 : pItem->dwUnitId);
 }
 
 // 0x004C2C80
@@ -2168,7 +2168,7 @@ void __fastcall ITEM_HandleItemFromStorage(D2GSPacketSrv9D* pPacket)
 
     if (pOwner == sub_00463DD0_GetPlayerUnit())
     {
-        sub_004B2A00(pItem->dwUnitId);
+        sub_004B2A00_FinishPendingAction(pItem->dwUnitId);
     }
 }
 
@@ -2278,7 +2278,7 @@ void __fastcall ITEM_HandleEquipItem(D2GSPacketSrv9D* pPacket)
     ITEM_RefreshEquippedItems(pUnit);
     UI_SendMouseMove();
     ITEM_ClearUninterruptableState(pItem);
-    sub_004B3C00(!pItem ? -1 : pItem->dwUnitId);
+    sub_004B3C00_FinishPendingAction(!pItem ? -1 : pItem->dwUnitId);
 }
 
 static inline int ITEMPKT_UnitFlag9(D2UnitStrc* pUnit)
@@ -2492,7 +2492,7 @@ void __fastcall ITEM_HandleUnequipItem(D2GSPacketSrv9D* pPacket)
 
     if (pUnit == pPlayer)
     {
-        sub_004B2A20(!hItem ? -1 : hItem->dwUnitId);
+        sub_004B2A20_FinishPendingAction(!hItem ? -1 : hItem->dwUnitId);
         INV_ResetHover();
         if (tItemSave.nBodyloc == 4)
         {
@@ -2891,7 +2891,7 @@ void __fastcall ITEM_HandleShopItem(D2GSPacketSrv9C* pPacket)
     }
 
     ITEM_PlaceItemAt(tItemSave.nY, tItemSave.nStorePage, pUnit, pItem, tItemSave.nX);
-    sub_004B2640(pUnit);
+    sub_004B2640_SetInvRequest(pUnit);
     ITEM_ClearUninterruptableState(pItem);
 }
 
@@ -2981,7 +2981,7 @@ void __fastcall sub_004C2C80_ItemFromStorage9D(D2GSPacketSrv9D* pPacket)
 
     if (pUnit == sub_00463DD0_GetPlayerUnit())
     {
-        sub_004B2A00(pItem->dwUnitId);
+        sub_004B2A00_FinishPendingAction(pItem->dwUnitId);
     }
 }
 
@@ -3142,7 +3142,7 @@ void __fastcall ITEM_HandlePutInBelt(D2GSPacketSrv9C* pPacket)
     VIEW_SetBeltSlotValue(ITEMPKT_GetUnitX(pItem), 1);
     UI_SendMouseMove();
     ITEM_ClearUninterruptableState(pItem);
-    sub_004B2A60(pItem->dwUnitId);
+    sub_004B2A60_FinishPendingAction(pItem->dwUnitId);
 }
 
 // 0x004C42A0

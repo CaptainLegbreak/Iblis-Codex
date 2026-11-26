@@ -267,7 +267,7 @@ void* __stdcall SMemAlloc(int nSize, const char* szFile, int nLine, int nFlags);
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 
 
-int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
+int __fastcall sub_00472280_RollInRange(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 
 void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
 
@@ -2690,7 +2690,7 @@ int __fastcall GFX_DrawSimpleUnitShadow(D2UnitStrc* pUnit)
     int nY = nOffsetY - PLAYER_GetScreenOffsetY() + UNITS_GetClientCoordY(pUnit) + GFXUTIL_GetMotionAY(pUnit);
     if (bPerspective)
     {
-        switch (sub_0045AE90())
+        switch (sub_0045AE90_GetPanelSlideMode())
         {
         case 1:
             nX += -(gnScreenWidth / 4);
@@ -2754,7 +2754,7 @@ int __fastcall GFX_GetHealthBarOffset(D2UnitStrc* pUnit)
     int nY = nOffsetY - PLAYER_GetScreenOffsetY() + UNITS_GetClientCoordY(pUnit);
     if (bPerspective)
     {
-        switch (sub_0045AE90())
+        switch (sub_0045AE90_GetPanelSlideMode())
         {
         case 1:
             nX += -(gnScreenWidth / 4);
@@ -2796,7 +2796,7 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
         {
             int nZ = sub_004DA0F0_GetUnitGfxOffsetZ(pUnit);
             SCALE_AdjustPerspectivePosition(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), nZ, &nX, &nY);
-            switch (sub_0045AE90())
+            switch (sub_0045AE90_GetPanelSlideMode())
             {
             case 1:
                 nX += -(gnScreenWidth / 4);

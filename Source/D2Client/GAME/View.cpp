@@ -307,14 +307,14 @@ extern int gpLastHoverItem; // 0x007BCBF8
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 
-int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
+int __fastcall sub_00472280_RollInRange(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
 
 void __fastcall SOUNDINST_SetValue(int nKey, int nValue); // 0x004B9B50
 
-void __fastcall sub_004BA840(int nHandle); // 0x004BA840
+void __fastcall sub_004BA840_StopSound(int nHandle); // 0x004BA840
 
 int gdwViewEffectStartTick; // 0x007B8D10
 
@@ -419,7 +419,7 @@ typedef char Obj004DCF10Size[(sizeof(Obj004DCF10) == 0xEABC) ? 1 : -1];
 
 #define SYN_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-void __fastcall sub_004DDDF0(void* rows, void* data); // 0x004DDDF0
+void __fastcall sub_004DDDF0_Nop(void* rows, void* data); // 0x004DDDF0
 
 extern "C" void __fastcall WALL2_ResetViewCells(Obj004DCF10*); // 0x004DCF10
 
@@ -449,7 +449,7 @@ void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                         
 
 void __fastcall sub_004DF480_UpdateAllTileLights(D2TileLightCtxStrc* pCtx);                                  // 0x004DF480
 
-void __fastcall sub_004DED10(void* pArg);                                                                    // 0x004DED10
+void __fastcall sub_004DED10_UpdateView(void* pArg);                                                                    // 0x004DED10
 
 void __cdecl sub_00473C00_DrawWeatherLayers();                                                               // 0x00473C00
 
@@ -695,7 +695,7 @@ Obj004DCF10* __cdecl VIEW_CreateView()
     view->rows = rows;
     view->data = data;
     view->table = table;
-    sub_004DDDF0(rows, data);
+    sub_004DDDF0_Nop(rows, data);
     WALL2_ResetViewCells(view);
     view->flags |= 1;
     gdwLightTick = 0;
@@ -731,7 +731,7 @@ void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView)
         SCALE_SetPerspectiveScale(nX, nY);
     }
 
-    const int nTick = sub_0044DB00();
+    const int nTick = sub_0044DB00_GetTickCounter();
     if (nTick > gdwLightTick_007B9530)
     {
         gdwLightTick_007B9530 = nTick;
@@ -769,7 +769,7 @@ void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView)
     {
         sub_004DF480_UpdateAllTileLights((D2TileLightCtxStrc*)pView);
     }
-    sub_004DED10(pView);
+    sub_004DED10_UpdateView(pView);
     sub_00473C00_DrawWeatherLayers();
     if (pView->dwDrawFlags & gdwBitMasks[3])
     {
@@ -862,7 +862,7 @@ void __fastcall VIEW_PrepareView(D2ViewStrc* pView, int nArg)
     D2_ASSERT(pView, 0x1DD);
     if (pView->tRect.right || pView->tRect.bottom)
     {
-        if (sub_0045AE90() != 3)
+        if (sub_0045AE90_GetPanelSlideMode() != 3)
             WALL2_PrepareWallCells(pView, nArg);
         pView->dwFlags &= ~1;
     }
@@ -929,7 +929,7 @@ static void VIEW_UpdateShakeSound(int nIntensity)
         return;
     }
 
-    sub_004BA840(ghShakeSound);
+    sub_004BA840_StopSound(ghShakeSound);
     ghShakeSound = 0;
 }
 
@@ -1224,8 +1224,8 @@ void __fastcall VIEW_AdjustViewPos(int* pX, int* pY)
     if (nMagnitude)
     {
         D2SeedStrc* pSeed = &sub_00463DD0_GetPlayerUnit()->pSeed;
-        gnViewShiftX = sub_00472280(pSeed, -nMagnitude, 2 * nMagnitude);
-        const int nOffsetY = sub_00472280(pSeed, -nMagnitude, 2 * nMagnitude);
+        gnViewShiftX = sub_00472280_RollInRange(pSeed, -nMagnitude, 2 * nMagnitude);
+        const int nOffsetY = sub_00472280_RollInRange(pSeed, -nMagnitude, 2 * nMagnitude);
         *pX += gnViewShiftX;
         *pY += nOffsetY;
         gnViewShiftY = nOffsetY;

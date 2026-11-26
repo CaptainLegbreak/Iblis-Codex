@@ -283,7 +283,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 
 
-void __cdecl sub_00477DA0(); // 0x00477DA0
+void __cdecl sub_00477DA0_SendPacket6B(); // 0x00477DA0
 
 void __fastcall sub_004A40D0_StorePacket52(void* pPacket); // 0x004A40D0
 
@@ -1146,7 +1146,7 @@ void __fastcall sub_004B9210(D2PacketRecord15Strc* pPacket); // 0x004B9210
 
 void __fastcall sub_004B3240(D2PacketRecord7Strc* pPacket); // 0x004B3240
 
-void __fastcall sub_004C0550(D2PacketRecord7Strc* pPacket); // 0x004C0550
+void __fastcall sub_004C0550_HandleUseItemPacket(D2PacketRecord7Strc* pPacket); // 0x004C0550
 
 void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket); // 0x004A2CB0
 
@@ -1154,7 +1154,7 @@ void __fastcall NPCMENU_FlagNpcEntries(D2GSPacket91Strc* pPacket); // 0x004B3510
 
 void __fastcall sub_004BDF30(D2PacketRecord7Strc* pPacket); // 0x004BDF30
 
-void __fastcall sub_0049CF90(D2PacketRecord21Strc* pPacket); // 0x0049CF90
+void __fastcall sub_0049CF90_OpenWaypointPanel(D2PacketRecord21Strc* pPacket); // 0x0049CF90
 
 void __fastcall sub_004B9010(D2PacketRecord21Strc* pPacket); // 0x004B9010
 
@@ -1812,7 +1812,7 @@ void __fastcall SCMD_IgnorePacket(void* pPacket)
 // 0x0045C910
 void __fastcall SCMD_HandleLoadSuccessful(void* pPacket)
 {
-    sub_00477DA0();
+    sub_00477DA0_SendPacket6B();
 }
 
 // 0x0045CB90
@@ -2545,7 +2545,7 @@ void __fastcall SCMD_HandleAssignSkill(const D2GSPacketSrv21* pPacket)
 }
 
 // 0x0045F7A0
-void __stdcall sub_0045F7A0(int nUnused1, int nUnused2)
+void __stdcall sub_0045F7A0_Nop(int nUnused1, int nUnused2)
 {
 }
 
@@ -2916,7 +2916,7 @@ void __fastcall SCMD_HandleMonsterEnchants(const unsigned char* p)
 void __fastcall SCMD_HandleOpenPanel(const D2PacketRecord7Strc* pPacket)
 {
     D2PacketRecord7Strc tPacket = *pPacket;
-    sub_004C0550(&tPacket);
+    sub_004C0550_HandleUseItemPacket(&tPacket);
 }
 
 // 0x0045E4C0
@@ -3005,7 +3005,7 @@ void __fastcall SCMD_HandlePlayCinematic(const D2GSPacketSrv61* pPacket)
 void __fastcall SCMD_HandleWaypointMenu(const D2PacketRecord21Strc* pPacket)
 {
     D2PacketRecord21Strc tPacket = *pPacket;
-    sub_0049CF90(&tPacket);
+    sub_0049CF90_OpenWaypointPanel(&tPacket);
 }
 
 // 0x0045E6B0

@@ -476,7 +476,7 @@ D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
 
 
 
-int __fastcall sub_00472280(D2SeedStrc*, int, int); // 0x00472280
+int __fastcall sub_00472280_RollInRange(D2SeedStrc*, int, int); // 0x00472280
 
 void __stdcall ITEMMODS_AssignProperty(int, D2UnitStrc*, D2UnitStrc*, const void*, int, int); // 0x0065FEC0
 

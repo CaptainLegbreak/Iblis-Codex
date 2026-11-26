@@ -21,7 +21,7 @@ extern unsigned int gdwBitMasks[];                                              
 
 extern D2MissileUnitFindTableStrc gtMissileCollisionModes[];                                                // 0x0073C720
 
-D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                                    // 0x0046ACE0
+D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId);                                    // 0x0046ACE0
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 
@@ -207,7 +207,7 @@ static void __stdcall MISSILES_RollMissilePierce(D2UnitStrc* pMissile, D2UnitStr
         return;
     }
 
-    D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(pMissile->dwClassId);
+    D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(pMissile->dwClassId);
     if (!MISSILE_FLAGBIT(pMissilesTxtRecord, 2))
     {
         return;
@@ -258,7 +258,7 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
         return 0;
     }
 
-    D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(pMissileParams->nMissile);
+    D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(pMissileParams->nMissile);
     if (!pMissilesTxtRecord)
     {
         return 0;

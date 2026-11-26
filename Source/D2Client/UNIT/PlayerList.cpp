@@ -121,7 +121,7 @@ void __fastcall PLAYERLIST_InitGfxData(D2UnitStrc* pUnit)
 }
 
 // 0x004DDDF0
-void __cdecl sub_004DDDF0()
+void __cdecl sub_004DDDF0_Nop()
 {
 }
 

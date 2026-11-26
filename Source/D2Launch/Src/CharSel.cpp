@@ -81,7 +81,7 @@ void __fastcall sub_004FC660_SetValue(D2WinControlStrc* pControl, int nValue); /
 
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 
-int __cdecl sub_0042F6D0(); // 0x0042F6D0
+int __cdecl sub_0042F6D0_GetMenusDone(); // 0x0042F6D0
 
 D2WinControlStrc* gpControl_007795E0;                                                                       // 0x007795E0
 

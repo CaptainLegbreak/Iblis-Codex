@@ -23,13 +23,13 @@ extern const char gszGfxFile[];                                                 
 extern int gnScreenWidth;                                                                               // 0x0071146C
 
 int __cdecl GAME_GetColorFlag();                                                                                 // 0x0044DC60
-int __cdecl sub_0045AE90();                                                                         // 0x0045AE90
+int __cdecl sub_0045AE90_GetPanelSlideMode();                                                                         // 0x0045AE90
 extern "C" int __cdecl PLAYER_GetScreenOffsetX();                                                          // 0x0045AFC0
 extern "C" int __cdecl PLAYER_GetScreenOffsetY();                                                      // 0x0045AFD0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __fastcall CUNIT_TickDrawDelay(D2UnitStrc* pUnit);                                          // 0x00464C40
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit();                                                             // 0x00467A10
-D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                                    // 0x0046ACE0
+D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId);                                    // 0x0046ACE0
 void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int dwColor, int bFront, int nX, int nY, int bLift); // 0x0046E300
 int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit);                                               // 0x00471BD0
 unsigned char* __cdecl DLIGHTMAP_GetLocalBloodPalette();                                                                      // 0x00477680
@@ -150,7 +150,7 @@ int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int
     nY = nY + nOffsetY - PLAYER_GetScreenOffsetY();
     if (bPerspective)
     {
-        switch (sub_0045AE90())
+        switch (sub_0045AE90_GetPanelSlideMode())
         {
         case 1:
             nDrawX -= gnScreenWidth / 4;
@@ -182,7 +182,7 @@ int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int
 
     if (nUnitType == UNIT_MISSILE)
     {
-        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(pUnit->dwClassId);
+        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(pUnit->dwClassId);
         int nDrawMode = 5;
         if (pMissilesTxtRecord->nTrans == 1)
         {
@@ -297,7 +297,7 @@ static int __stdcall GFX_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverla
     int nDrawX = nX - PLAYER_GetScreenOffsetX();
     int nDrawY = nY - PLAYER_GetScreenOffsetY();
     int bPerspective = D2GFX_CheckPerspective();
-    int nBorder = sub_0045AE90();
+    int nBorder = sub_0045AE90_GetPanelSlideMode();
     if (bPerspective)
     {
         switch (nBorder)

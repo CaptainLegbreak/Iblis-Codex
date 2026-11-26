@@ -74,7 +74,7 @@ int __cdecl sub_004776B0_ToggleLowQuality()
 void __stdcall D2GFX_SetGamma(void* pArg); // 0x004F5230
 
 // 0x004776C0
-void __fastcall sub_004776C0(void* pArg)
+void __fastcall sub_004776C0_SetGamma(void* pArg)
 {
     D2GFX_SetGamma(pArg);
 }
@@ -478,7 +478,7 @@ extern int gbCacheStatsChecked; // 0x007BB3AC
 #define MEMORY_SHIFT 20
 
 // 0x00477980
-void __fastcall sub_00477980()
+void __fastcall sub_00477980_DrawFpsStats()
 {
     unsigned int nNow=GetTickCount();
     unsigned int nElapsed=nNow-gdwFpsCounterTick;
@@ -511,7 +511,7 @@ void __fastcall sub_00477980()
         D2GFX_OutputString(SCREEN_X,144,"Sprite Cache Memory->%i of %i",D2CMPSpriteCacheGetUsedMemory(),D2CMPSpriteCacheGetMaxMemory());
         D2GFX_OutputString(SCREEN_X,156,"Async Files->%i",sub_0040ABE0());
         D2GFX_OutputString(SCREEN_X,168,"CelData Cache Memory->%i of %i",D2CMPCelDataCacheGetUsedMemory(),D2CMPCelDataCacheGetMaxMemory());
-        sub_00481850();
+        sub_00481850_Nop();
         sub_00477760_DrawCacheStats();
     }
 }

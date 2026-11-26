@@ -472,7 +472,7 @@ void __cdecl GAME_InitGameState()
     gpAutomapRecord = (D2AutomapRecordStrc*)FOG_Alloc(8, ".\\GAME\\Game.cpp", 0x546, 0);
     CUNIT_ClearUnitTables();
     DLIGHTMAP_ClearLightGrid();
-    sub_00472320();
+    sub_00472320_InitWeather();
     CHAT_ResetChatHistory();
     gbCinematicExit = 0;
     gbPositionalSound = 0;
@@ -560,7 +560,7 @@ void __cdecl GAME_InitColors()
     HIREABLES_InitTextColorB();
 }
 
-Unicode* __fastcall sub_00452170(Unicode* pText); // 0x00452170
+Unicode* __fastcall sub_00452170_ReturnText(Unicode* pText); // 0x00452170
 
 void __fastcall GAME_StrToUpper(Unicode* pText); // 0x00452180
 

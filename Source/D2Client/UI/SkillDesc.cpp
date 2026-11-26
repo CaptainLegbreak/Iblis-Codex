@@ -52,9 +52,9 @@ void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned in
 void __fastcall SOUNDINST_SetValue(int nKey, int nValue); // 0x004B9B50
 
 
-void __fastcall sub_004BA840(int nHandle); // 0x004BA840
+void __fastcall sub_004BA840_StopSound(int nHandle); // 0x004BA840
 
-int __fastcall sub_004E40A0(int nRange); // 0x004E40A0
+int __fastcall sub_004E40A0_RollPlayerSeed(int nRange); // 0x004E40A0
 
 extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 
@@ -279,7 +279,7 @@ void __fastcall GAME_StrToUpper(Unicode*); // 0x00452180
 
 int __fastcall TEXT_SplitAtNewline(Unicode*, Unicode**); // 0x004A7660
 
-extern "C" int __fastcall sub_004D9FC0(D2UnitStrc*, D2SkillStrc*); // 0x004D9FC0
+extern "C" int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc*, D2SkillStrc*); // 0x004D9FC0
 
 static void __stdcall sub_004E9940_DrawNumberCentered(int nColor, int nLeft, int nY, int nRight, int nValue); // 0x004E9940
 
@@ -893,7 +893,7 @@ int __fastcall SKILLDESC_MissileAtTargetUnit(D2UnitStrc* pUnit, int nSkillId, in
             GFXUTIL_SetMotionVectorB(pMissile, 0, 0, -0x28, 1);
         }
 
-        sub_00472C50(0);
+        sub_00472C50_StartLightning(0);
         const short nOverlay = pSkillsTxtRecord->wPrgOverlay;
         if (nOverlay > 0)
         {
@@ -932,7 +932,7 @@ int __fastcall sub_004E4180(int nFrame, int nOffset, int nStepLength)
 // 0x004E42E0
 void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
 {
-    if (!sub_004DF870())
+    if (!sub_004DF870_IsSoundSystemInit())
         return;
     const int nLevelId = UNITMODE_GetPlayerLevelId();
     if (!nLevelId)
@@ -1030,7 +1030,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
             }
             else
             {
-                sub_004BA840(gnWeatherSoundHandle);
+                sub_004BA840_StopSound(gnWeatherSoundHandle);
                 gnWeatherSoundHandle = 0;
             }
         }
@@ -1038,7 +1038,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
     }
     else
     {
-        sub_004BA840(gnWeatherSoundHandle);
+        sub_004BA840_StopSound(gnWeatherSoundHandle);
         gnWeatherSoundHandle = 0;
         gnWeatherSoundId = 0;
     }
@@ -1048,7 +1048,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         if (nAmbient != gnEnvironAmbientId)
         {
             gnAmbientDelay = sub_004E4120(pEnv->nEventDelay / 3) + pEnv->nEventDelay;
-            gnAmbientTick = dwTick - sub_004E40A0(gnAmbientDelay);
+            gnAmbientTick = dwTick - sub_004E40A0_RollPlayerSeed(gnAmbientDelay);
             gnEnvironAmbientId = nAmbient;
         }
         if (dwTick - gnAmbientTick >= gnAmbientDelay)
@@ -1056,7 +1056,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
             const int nHandle = sub_004B9A00(gnEnvironAmbientId, 0, 0, 0, 0);
             if (nHandle)
             {
-                const int nSign = sub_004E40A0(2) ? 1 : -1;
+                const int nSign = sub_004E40A0_RollPlayerSeed(2) ? 1 : -1;
                 const int nPan = SKILLDESC_RandomInRange(0x1C2, 0x2EE) * nSign;
                 const int nPanVolume = sub_004E4120(0x64);
 // build: symbol ?SOUNDINST_MoveSound@* 0x004B99A0
@@ -3917,7 +3917,7 @@ void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
     DRAW_SKILL_TEXT(nIndex, wszName);
     int bDamage = 0;
     int bDescription = 0;
-    switch (sub_004D9FC0(pUnit, pSkill))
+    switch (sub_004D9FC0_GetSkillUseState(pUnit, pSkill))
     {
     case 0: case 1: case 6: case 8:
         bDamage = 1;
@@ -5670,7 +5670,7 @@ int __fastcall SKILLDESC_CreateCorpseExplosionMissiles(D2UnitStrc* pUnit, int nS
     else if (pMonStats2TxtRecord->nFlags[1] & gdwBitMasks[3])
     {
         SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 3, 3);
-        const short nSubMissile = sub_0046ACE0(nMissile)->wSubMissile[0];
+        const short nSubMissile = sub_0046ACE0_GetMissilesTxtRecord(nMissile)->wSubMissile[0];
         if (nSubMissile > 0 && nSubMissile < sgptDataTables->nMissilesTxtRecordCount)
         {
             tMissileParams.nMissile = nSubMissile;
@@ -5680,7 +5680,7 @@ int __fastcall SKILLDESC_CreateCorpseExplosionMissiles(D2UnitStrc* pUnit, int nS
     else
     {
         SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 2, 2);
-        const short nSubMissile = sub_0046ACE0(nMissile)->wSubMissile[1];
+        const short nSubMissile = sub_0046ACE0_GetMissilesTxtRecord(nMissile)->wSubMissile[1];
         if (nSubMissile > 0 && nSubMissile < sgptDataTables->nMissilesTxtRecordCount)
         {
             tMissileParams.nMissile = nSubMissile;
@@ -5871,7 +5871,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 23:
         nMissileId = pSkillDescTxt->wDescMissile[0];
-        pMissilesTxt = sub_0046ACE0(nMissileId);
+        pMissilesTxt = sub_0046ACE0_GetMissilesTxtRecord(nMissileId);
         if (!pMissilesTxt)
         {
             return 0;
@@ -5919,7 +5919,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 28:
     {
-        D2MissilesTxt* pMissilesTxt = sub_0046ACE0(pSkillDescTxt->wDescMissile[0]);
+        D2MissilesTxt* pMissilesTxt = sub_0046ACE0_GetMissilesTxtRecord(pSkillDescTxt->wDescMissile[0]);
         if (!pMissilesTxt)
         {
             return 0;
@@ -5930,7 +5930,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 29:
     {
-        D2MissilesTxt* pMissilesTxt = sub_0046ACE0(pSkillDescTxt->wDescMissile[0]);
+        D2MissilesTxt* pMissilesTxt = sub_0046ACE0_GetMissilesTxtRecord(pSkillDescTxt->wDescMissile[0]);
         if (!pMissilesTxt)
         {
             return 0;
@@ -5940,13 +5940,13 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
     }
 
     case 30:
-        pMissilesTxt = sub_0046ACE0(pSkillDescTxt->wDescMissile[0]);
+        pMissilesTxt = sub_0046ACE0_GetMissilesTxtRecord(pSkillDescTxt->wDescMissile[0]);
         if (!pMissilesTxt)
         {
             return 0;
         }
         nMissileId = pMissilesTxt->wSubMissile[0];
-        pMissilesTxt = sub_0046ACE0(nMissileId);
+        pMissilesTxt = sub_0046ACE0_GetMissilesTxtRecord(nMissileId);
         if (!pMissilesTxt)
         {
             return 0;

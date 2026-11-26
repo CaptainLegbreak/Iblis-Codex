@@ -34,7 +34,7 @@ void __fastcall D2SOUND_SetSoundMixerOption(int nMode); // 0x00514CA0
 
 D2SoundStrc* __fastcall D2SOUNDSMP_CreateSound(int nType, int nArg); // 0x00515530
 
-void __cdecl sub_004DFA60(); // 0x004DFA60
+void __cdecl sub_004DFA60_ShutdownSound(); // 0x004DFA60
 
 #pragma pack(push, 1)
 
@@ -92,7 +92,7 @@ extern D2NpcSoundStrc gaNpcSounds[];                                            
 
 extern D2DrlgActStrc* gpAct;                                                                       // 0x007A0634
 
-int __fastcall sub_004E40A0(int nRange);                                                                    // 0x004E40A0
+int __fastcall sub_004E40A0_RollPlayerSeed(int nRange);                                                                    // 0x004E40A0
 
 
 int __fastcall SOUNDINST_CompareSounds(D2SlotObjectStrc* pA, D2SlotObjectStrc* pB, int bCompareFloat, int bCompareValue); // 0x004B9DA0
@@ -176,7 +176,7 @@ void __fastcall sub_004DF7B0_StopSlot(D2SlotStrc* pSlot)
 }
 
 // 0x004DF800
-void __cdecl sub_004DF800()
+void __cdecl sub_004DF800_StopAllSlots()
 {
 // build: symbol ?D2SOUND_GetDirectSound@* 0x00513B50
     if (!D2SOUND_GetDirectSound())
@@ -195,19 +195,19 @@ void __cdecl sub_004DF800()
 }
 
 // 0x004DF870
-int __cdecl sub_004DF870()
+int __cdecl sub_004DF870_IsSoundSystemInit()
 {
     return gbSoundSystemInit;
 }
 
 // 0x004DF880
-int __cdecl sub_004DF880()
+int __cdecl sub_004DF880_IsSoundSystemInit()
 {
     return gbSoundSystemInit;
 }
 
 // 0x004DF890
-void __cdecl sub_004DF890()
+void __cdecl sub_004DF890_ReleaseFinishedSlots()
 {
     for (int i = 0; i < 16; ++i)
     {
@@ -253,7 +253,7 @@ void __cdecl sub_004DF930_Nop()
 }
 
 // 0x004DF940
-int __cdecl sub_004DF940()
+int __cdecl sub_004DF940_IsPositionalSoundEnabled()
 {
     if (!gbSoundSystemInit)
     {
@@ -264,7 +264,7 @@ int __cdecl sub_004DF940()
 }
 
 // 0x004DF960
-int __cdecl sub_004DF960()
+int __cdecl sub_004DF960_IsEaxEnabled()
 {
     if (!gbSoundSystemInit)
     {
@@ -337,11 +337,11 @@ int __fastcall sub_004DFA40_IsSlotPlaying(D2SlotStrc* pSlot)
 }
 
 // 0x004DFA60
-void __cdecl sub_004DFA60()
+void __cdecl sub_004DFA60_ShutdownSound()
 {
     if (gbSoundSystemInit)
     {
-        sub_004DF800();
+        sub_004DF800_StopAllSlots();
         for (int i = 0; i < 16; ++i)
         {
             D2SOUNDSMP_DestroySound(gaSlots[i].pSound);
@@ -374,7 +374,7 @@ static int sub_004DFAA0_InitSoundChannels(int nMode)
         gaSlots[i].pSound = D2SOUNDSMP_CreateSound(gaSlots[i].nType, gnSoundRestartArg);
         if (!gaSlots[i].pSound)
         {
-            sub_004DFA60();
+            sub_004DFA60_ShutdownSound();
             return 0;
         }
     }
@@ -512,7 +512,7 @@ int __fastcall sub_004E0000_SetSoundMode(int nMode)
     if (nMode == 2 && !D2SOUND_IsEaxEnabled())
         return 0;
 
-    sub_004DFA60();
+    sub_004DFA60_ShutdownSound();
     if (!sub_004DFAA0_InitSoundChannels(nMode))
         return 0;
 
@@ -533,7 +533,7 @@ void __fastcall sub_004E0050_RestartSound(int nArg)
 // 0x004E00C0
 void __cdecl sub_004E00C0_CloseSoundChannels()
 {
-    sub_004DFA60();
+    sub_004DFA60_ShutdownSound();
 }
 
 // 0x004E00D0
@@ -751,14 +751,14 @@ int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType)
     for (unsigned int i = 0; i < 20; ++i)
     {
         nSound = pSound->f_0;
-        if (!nType && pSound->nDaySound && !sub_004E40A0(2))
+        if (!nType && pSound->nDaySound && !sub_004E40A0_RollPlayerSeed(2))
         {
             nSound = pSound->nDaySound;
         }
 
         if (pSound->nNightSound)
         {
-            if (!nSound || !sub_004E40A0(3))
+            if (!nSound || !sub_004E40A0_RollPlayerSeed(3))
             {
                 const int nCycle = ENVIRONMENT_GetCycleIndexFromAct(gpAct);
                 nSound = pSound->nNightSound;
@@ -789,7 +789,7 @@ int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType)
     }
 
     pSound->nLastSound = nSound;
-    pSound->nLastTick = sub_0044DB00();
+    pSound->nLastTick = sub_0044DB00_GetTickCounter();
     return nSound;
 }
 

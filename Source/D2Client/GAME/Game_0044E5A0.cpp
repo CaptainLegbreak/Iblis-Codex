@@ -869,7 +869,7 @@ int __cdecl GAME_RunGameSession()
     SCMD_RunMessageLoop(GAME_RunGameFrame);
     GetTickCount();
     D2SOUNDSMP_FadeOutMasterVolume(180);
-    sub_00481830();
+    sub_00481830_StopAllSounds();
     if(GAME_IsTimerRunning(&gtLoadingTimer) && !gnDifficultyDirty && !gnCinematicPlayed)SCMD_RunMessageLoop(GAME_LoadingTimerCallback);
     if(RECORD_IsRecordingEnabled())RECORD_WriteRecordFile();
     if(gnBetaScreens)

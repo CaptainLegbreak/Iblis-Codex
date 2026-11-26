@@ -64,7 +64,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern int gnScreenWidth; // 0x0071146C
 
 
-unsigned int __cdecl sub_0044DA90(); // 0x0044DA90
+unsigned int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
 
 int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 
@@ -329,7 +329,7 @@ static void PANEL_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY); // 
 
 struct D2QtyWarnStrc;
 
-Unicode* __fastcall sub_00452170(Unicode* pText); // 0x00452170
+Unicode* __fastcall sub_00452170_ReturnText(Unicode* pText); // 0x00452170
 
 Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit); // 0x004521C0
 
@@ -499,7 +499,7 @@ static int PANEL_GetSmoothedOrbValue(int nStatId)
     if (!nMax)
         return 0;
 
-    if (sub_0044DA90() <= 1)
+    if (sub_0044DA90_GetTickCounter() <= 1)
     {
         gaOrbSmooth[nIndex].f_8 = nValue;
         gaOrbSmooth[nIndex].nValue = nValue;
@@ -509,7 +509,7 @@ static int PANEL_GetSmoothedOrbValue(int nStatId)
     {
         gaOrbSmooth[nIndex].f_8 = nValue;
         gaOrbSmooth[nIndex].nValue = nValue;
-        const unsigned int nTick = sub_0044DA90();
+        const unsigned int nTick = sub_0044DA90_GetTickCounter();
         gaOrbSmooth[nIndex].nTick = nTick;
         gaOrbSmooth[nIndex].nPrevTick = nTick;
     }
@@ -522,7 +522,7 @@ static int PANEL_GetSmoothedOrbValue(int nStatId)
         if (nDiff >= nMax / 8)
         {
             gaOrbSmooth[nIndex].f_8 = nValue;
-            gaOrbSmooth[nIndex].nPrevTick = sub_0044DA90();
+            gaOrbSmooth[nIndex].nPrevTick = sub_0044DA90_GetTickCounter();
         }
         else
         {
@@ -533,11 +533,11 @@ static int PANEL_GetSmoothedOrbValue(int nStatId)
                 gaOrbSmooth[nIndex].f_8 = nLast;
         }
         gaOrbSmooth[nIndex].nValue = nValue;
-        gaOrbSmooth[nIndex].nTick = sub_0044DA90();
+        gaOrbSmooth[nIndex].nTick = sub_0044DA90_GetTickCounter();
     }
 
     const int nStart = gaOrbSmooth[nIndex].nTick;
-    const int nElapsed = sub_0044DA90() - nStart;
+    const int nElapsed = sub_0044DA90_GetTickCounter() - nStart;
     int nDuration = nStart - gaOrbSmooth[nIndex].nPrevTick;
     if (nDuration < 7)
         nDuration = 7;
@@ -1117,7 +1117,7 @@ void __cdecl PANEL_DrawBeltItemHoverText()
         return;
     }
 
-    sub_00452170(wszText);
+    sub_00452170_ReturnText(wszText);
     if (INV_IsInvPanelTradeMode())
     {
         Unicode wszSocket[0x40] = { 0 };
@@ -1531,7 +1531,7 @@ static void __stdcall PANEL_ClickBeltBox(D2InventoryStrc* pInventory, int nX, in
 
     D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
     D2UnitStrc* pBeltItem = INVENTORY_GetItemFromBeltSlot(pInventory, nBox);
-    if (sub_00468830() == 6)
+    if (sub_00468830_GetCursorState() == 6)
     {
         return;
     }
@@ -1573,7 +1573,7 @@ static void PANEL_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY)
     }
 
     D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
-    if (sub_00468830() == 6 || sub_00468830() == 8)
+    if (sub_00468830_GetCursorState() == 6 || sub_00468830_GetCursorState() == 8)
     {
         return;
     }
@@ -2009,11 +2009,11 @@ void __cdecl PANEL_DrawControlPanel()
     }
     if (D2GFX_GetResolutionMode() == 2)
     {
-        if (sub_0045AE90() == 2 || sub_0045AE90() == 3)
+        if (sub_0045AE90_GetPanelSlideMode() == 2 || sub_0045AE90_GetPanelSlideMode() == 3)
         {
             PANEL_DrawBorderFrameLeft();
         }
-        if (sub_0045AE90() == 1 || sub_0045AE90() == 3)
+        if (sub_0045AE90_GetPanelSlideMode() == 1 || sub_0045AE90_GetPanelSlideMode() == 3)
         {
             PANEL_DrawBorderFrameRight();
         }
@@ -2043,8 +2043,8 @@ void __cdecl PANEL_DrawControlPanel()
 
 static __forceinline void CancelCursorMode()
 {
-    if(sub_00468830()==6) UI_CancelCursorItemUse();
-    else if(sub_00468830()==8) MSG_SendDword(0x4C,-1);
+    if(sub_00468830_GetCursorState()==6) UI_CancelCursorItemUse();
+    else if(sub_00468830_GetCursorState()==8) MSG_SendDword(0x4C,-1);
 }
 
 // 0x004996A0
@@ -2210,11 +2210,11 @@ void __stdcall PANEL_BeltClickMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        if (sub_00468830() == 6)
+        if (sub_00468830_GetCursorState() == 6)
         {
             UI_CancelCursorItemUse();
         }
-        else if (sub_00468830() == 8)
+        else if (sub_00468830_GetCursorState() == 8)
         {
             MSG_SendDword(0x4C, -1);
         }

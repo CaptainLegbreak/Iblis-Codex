@@ -807,7 +807,7 @@ const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
 
 int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam, int* pbUseResult, int* plResult); // 0x00420B00
 
-void* __cdecl sub_0044DA90(); // 0x0044DA90
+void* __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
 
 void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
