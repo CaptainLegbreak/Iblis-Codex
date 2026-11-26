@@ -7,14 +7,12 @@ Lane 8 reopened (new chat, 2026-11-26 12:00 PT). Owns `Source/D2Common/**` again
 scaffolding, names.
 
 ## Claimed
-- D2Common's three identical-arm forcing rows (STATUS.md), which no lane holds: 0x613F80 DATATBLS_LoadSkills_SkillDescTxt
-  (`DataTbls_00613F80.cpp`, also a piece of DataTbls.cpp), 0x61F500 DATATBLS_LoadLvlSubTxt (`LvlTbls.cpp`), 0x62FFF0
-  ITEMS_SerializeItemComplete (`Items.cpp`). Lane 2 keeps the four volatile / `__assume` rows. These come before the joins.
 - File joins in D2Common, one branch each (`lane8/join-<file>`): `DataTbls/ItemTbls` (ItemTbls_00633730, ItemTbls_00634DC0),
   `DataTbls/DataTbls` (DataTbls_00613F80), `DataTbls/MissileTbls` (MissileTbls_00663270), `Composit/Composit`
   (Composit_0064F060), `Units/Missile` (Missile_0064B860). Lane 2 hadn't claimed any of them.
 
 ## Status
+- Thu Nov 26 13:25 PT: the three identical-arm rows re-read on #430 and handed to lane 7 (Notes); back on the D2Common joins.
 - Thu Nov 26 13:05 PT: baseline on #429 clean. MissileTbls join tried and parked (comment branch Ready). Next: the three identical-arm rows (Claimed), starting with 0x62FFF0 (4 bytes off in the helper form on 2026-11-25).
 - Thu Nov 26 12:20 PT: setting up (repo, board, wine done; waiting for Game.exe, then setup and the baseline build).
 
@@ -24,6 +22,24 @@ scaffolding, names.
 ## Questions
 
 ## Notes for other lanes
+- **Lane 7, three D2Common forcing rows handed over** (identical if/else arms; plain forms re-read today on #430, one
+  unit build each; none uses a forcing construct, and each is a register or slot choice, your c2diag's ground):
+  - **0x62FFF0 ITEMS_SerializeItemComplete (Items.cpp ~7449, the stat writer's `if (nStats > 1)` pair).** The arms
+    as one plain `if (nStatId < 0) goto L_NO_RECORD;` give 4,800 / 4,800 with 4 unmasked bytes: nStats and nLayer
+    swap their frame slots (-0x14 / -0x18). The original's `nStats > 1` test is not in its code, so the compiler
+    deleted it after weighing; its extra nStats reference is what puts nStats nearer ebp. No change from nLayer read
+    from the record's `nLayer` field, from nStatId from `nStat`, or from the two declarations swapped. Worse: no
+    nLayer local (the frame changes), an explicit `if (nStats > 0) do {} while (++i < nStats)` (shape changes).
+    D2MOO has `while (nStatCounter < nStats)` and no layer local.
+  - **0x613F80 DATATBLS_LoadSkills_SkillDescTxt (DataTbls_00613F80.cpp ~542, the passive-skill count's
+    `if (nSkillId > 0)` pair).** As `if (pSkillsTxtRecord->nPassiveState >= 0) ++gnPassiveSkills;` it differs in 6
+    bytes, all one swap at the loop entry: the original zeroes the counter in edx and the record offset in esi, ours
+    the other way round. Same pattern as 0x62FFF0 (the counter's deleted test lifts it).
+  - **0x61F500 DATATBLS_LoadLvlSubTxt (LvlTbls.cpp ~879, the type-start loop's `dwType > lastType` pair).** D2MOO
+    writes the loop with no inner test. Yesterday's reading still holds: every plain form swaps edi/edx in that loop
+    and also flips 0x61FCF0 in the same unit, so LvlTbls.cpp is sensitive to its own text.
+  - I'm not on any of them now, and DataTbls_00613F80.cpp stays untouched by me while you have it (I'll join it into
+    DataTbls.cpp after). If you'd rather I keep one, say so here.
 - **Coordinator, a forcing construct the counts miss:** MissileTbls.cpp (0x00661B20 DATATBLS_LoadMissilesTxt, the
   line with `_ReadWriteBarrier();` and its `#pragma intrinsic` at the top of the file) uses a compiler barrier. The
   audit counts (volatile, pragma optimize, bare `__assume`, identical arms) don't include barriers. Lane 8 takes it as
