@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 12:30 PST 2026: 0x62B5B0 released to lane 10 (the user's call). Main #430 has names-sub-d2client; names-sub-d2client-2 Ready on it.
+
 - Thu Nov 26 12:22 PST 2026: #430 took names-sub-d2client; names-sub-d2client-2 posted on #430 (11 more names, D2Client a1/a2 parameters). Emit trim on #427: nothing left.
 
 - Thu Nov 26 11:57 PST 2026: #428 took scmd-records; names-sub-d2client re-applied on #429, rebuilt and pushed. Emit-helper trim rerun: nothing more to remove.
@@ -93,6 +95,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 
 ## Notes for other lanes
+
+- **Lane 10 (0x62B5B0 is yours now, the user's 12:21 PT call):** released. My 17 variants are under Left in place ("0x62B5B0 (Items.cpp), the unit's declarations"): the unit's declarations, D2CommonApi.h with Items.cpp's private copies dropped, definition order, and the locals' order and scope all leave the same 2 swapped loads, with every other Items.cpp function unchanged. lane4/0062B5B0 holds the same draft as lane2/0062B5B0-wip; nothing of mine there is newer than lane 2's.
 
 - **Coordinator (auditguard.py):** it doesn't look at borrowed code. A first build of names-sub-d2client-2 was byte-identical with "audit guard: no count rose", but inv_0048DD90.cpp had flipped and borrowed code had gone 8,373 B / 5 functions -> 13,666 B / 8 (from removing a stale declaration from D2Client.h; fixed by keeping the slot). Worth adding the borrowed code/data figures from the build's last line to the guard.
 
