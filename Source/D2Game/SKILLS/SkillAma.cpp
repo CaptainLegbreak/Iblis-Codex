@@ -27,17 +27,8 @@ struct D2DataTablesStrc;
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 
 
+#include "D2GameFuncs.h"
 
-
-int __fastcall SKILLS_ConsumeWeaponOrAmmoQuantity(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056C3F0
-
-void __fastcall ITEMMODE_BreakItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055F850
-
-D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
-
-void __fastcall D2GAME_PACKETS_SendPacket0x3E(D2ClientStrc* pClient, D2UnitStrc* pItem, unsigned char a3, int nStatId, unsigned int nValue, unsigned short a6); // 0x0053D130
-
-D2UnitStrc* __fastcall PLAYER_GetWeaponForSkill(D2UnitStrc* pUnit); // 0x00535BC0
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -45,15 +36,12 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 
-int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
 
 int __fastcall D2GAME_RollElementalDamage(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E0C0
 
-int __fastcall SUNITDMG_ApplyDamageBonuses(D2UnitStrc* pUnit, int bGetStats, D2UnitStrc* pItem, int nMinDmg, int nMaxDmg, int nDamagePercent, int nDamage, unsigned char nSrcDam); // 0x0057B420
 
 void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, unsigned char nSrcDam); // 0x0057DBF0
 
-unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nStatValue, int nRangeOffset); // 0x0057EC10
 
 int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x006449F0
 
@@ -86,41 +74,22 @@ typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 
 int __stdcall sub_00646CA0(D2UnitStrc*,unsigned,int,int); // 0x00646CA0
 
-int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc*,int); // 0x005D3CF0
 
-D2UnitStrc* __fastcall sub_0059FA30(D2GameStrc*,D2MissileStrc*); // 0x0059FA30
 
 
 enum { MISSILE_FLAGS = 0x20 };
 
-int __fastcall SKILLS_CanUseWeaponAmmo(D2UnitStrc* pUnit); // 0x0056C4E0
-
-void __fastcall PLRMODE_HandleDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580310
-
-void __fastcall PLRMODE_BreakDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580380
 
 int __fastcall SKILLS_CountAuraTargets(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter); // 0x0056BC80
-
-D2UnitStrc* __fastcall SKILLS_FindNextAuraTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int nPrevious, int* pCount); // 0x0056BD10
-
 
 
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 
-int __fastcall D2GAME_GetXAndYFromTargetUnit(D2GameStrc*, D2UnitStrc*, int*, int*); // 0x0056D2C0
-
-void __fastcall SKILLS_EnlargeVector(int*, int*); // 0x0056D370
-
-void __fastcall SKILLS_MakeShortPerpendicularVector(int*, int*); // 0x0056D3B0
-
-D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc*, D2MissileStrc*); // 0x0059FA30
 
 int __fastcall UNITS_GetWeaponClass(D2UnitStrc*); // 0x00623C60
 
 
-
 int __stdcall SKILLS_GetParam1(D2SkillStrc*); // 0x006444A0
-
 
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60
@@ -130,15 +99,12 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 
-void __fastcall SKILLS_AddDamagePercentBonus(D2UnitStrc*, int); // 0x005DB6A0
 
 int __fastcall SKILLDESC_GetSkillParamSix(int); // 0x004F4110
 
-void __fastcall SKILLS_RewindUnitAnimation(D2UnitStrc*, int); // 0x0056E210
 
 int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId); // 0x004EFC20
 
-int __fastcall SKILLS_GetMeleeSearchRange(D2UnitStrc* pUnit); // 0x0056E510
 
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
 
@@ -147,20 +113,12 @@ struct D2GameStrc;
 
 int __fastcall D2GAME_GetSummonIdFromSkill(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
 
-D2UnitStrc* __fastcall D2GAME_SummonPet(D2GameStrc* pGame, D2SummonArgStrc* pSummonArg);         // 0x0056D940
-
-int __fastcall D2GAME_SKILLS_SetSummonBaseStats(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nPetLevelArg, int nSkillLevel); // 0x005C49E0
 
 void __fastcall D2GAME_SetSummonPassiveStats(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel, int nItemLevel); // 0x005C4470
-
-void __fastcall D2GAME_EVENTS_Delete(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
-
-void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
 
 void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner);                                     // 0x00621CE0
 
-void __fastcall D2GAME_UpdateSummonAI(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nNodeIndex); // 0x005B1900
 
 enum
 {
@@ -591,7 +549,6 @@ struct D2SrvDo06Strc
     int nAuraStatCalcValue;
 };
 
-D2StatListStrc* __fastcall SKILLS_ApplyStateEffect(D2CurseStrc* pCurse); // 0x0056E970
 void __fastcall SKILLS_IterateAuraTargets(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int (__fastcall* pCallback)(D2AuraCallbackStrc*, D2UnitStrc*), void* pArgs, int a9, const char* szFile, int nLine); // 0x0056B7E0
 
 // 0x005DB150
@@ -1148,13 +1105,11 @@ int __fastcall SKILLS_SrvDo014_LightningStrike(D2GameStrc* game,D2UnitStrc* unit
     params.nMissile=missileId;
     params.nTargetX=CLIENTS_GetUnitX(other);
     params.nTargetY=CLIENTS_GetUnitY(other);
-    D2UnitStrc* missile=sub_0059FA30(game,&params);
+    D2UnitStrc* missile=MISSILES_CreateMissileFromParams(game,&params);
     if(missile) MISSILE_SetTargetX(missile,duration);
     return 1;
 }
 
-
-int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
 
 void __fastcall D2GAME_BOSSES_AssignUMod(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4850
 
