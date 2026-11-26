@@ -78,7 +78,7 @@ struct D2LanguageInfoStrc
     const char* szAltCode;
     const char* szRegion;
     int nFourCC;
-    int f_14;
+    int nLanguageId;
 };
 
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9
@@ -469,7 +469,7 @@ int __fastcall STRTABLE_GetLanguageIdFromName(const char* szLanguage)
     for (int i = 0; i < 13; ++i)
     {
         if (!_stricmp(szLanguage, gaLanguageInfo[i].szName))
-            return gaLanguageInfo[i].f_14;
+            return gaLanguageInfo[i].nLanguageId;
     }
     return 0;
 }
@@ -691,14 +691,14 @@ int __fastcall STRTABLE_LoadStringTables(void* pMemPool, const char* szLanguage,
 void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField)
 {
     const int nLanguageId = sub_00525150();
-    D2_ASSERT(gaLanguageInfo[0].f_14 == 0, 0x490);
+    D2_ASSERT(gaLanguageInfo[0].nLanguageId == 0, 0x490);
 
     int nIndex = 0;
     if (nLanguageId < 14)
     {
         for (nIndex = 0; nIndex < 13; ++nIndex)
         {
-            if (gaLanguageInfo[nIndex].f_14 == nLanguageId)
+            if (gaLanguageInfo[nIndex].nLanguageId == nLanguageId)
             {
                 break;
             }

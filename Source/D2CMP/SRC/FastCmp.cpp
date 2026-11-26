@@ -235,7 +235,7 @@ struct D2PcxRgbStrc
 
 struct D2PcxPaletteStrc
 {
-    unsigned char f_0;
+    unsigned char nMarker;
     D2PcxRgbStrc aColors[256];
 };
 
@@ -532,7 +532,7 @@ int __fastcall FASTCMP_LoadPcxPalette(const char* szFileName)
     memset(&palette, 0, sizeof(palette));
     SetFilePointer(hFile, -(long)sizeof(palette), 0, 2);
     ReadFile(hFile, &palette, sizeof(palette), &nRead, 0);
-    if (nRead != sizeof(palette) || palette.f_0 != 0x0C)
+    if (nRead != sizeof(palette) || palette.nMarker != 0x0C)
     {
         OutputDebugStringA("Unable to extract palette from\n");
         CloseHandle(hFile);

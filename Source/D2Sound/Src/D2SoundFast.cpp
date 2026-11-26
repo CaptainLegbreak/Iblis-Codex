@@ -90,7 +90,7 @@ struct D2SoundWaveStrc
     char szName[0x50];
     void* pFile;
     unsigned int nFileSize;
-    int f_58;
+    int bStereo;
     D2SoundWaveStrc* pNext;
 };
 
@@ -187,7 +187,7 @@ void __fastcall D2SOUNDFAST_PreloadWave(const char* szName)
     pWave->pFile = pFile;
     pWave->nFileSize = nFileSize;
     gpSoundWaveList_00881800 = pWave;
-    pWave->f_58 = tFormat.nChannels == 2;
+    pWave->bStereo = tFormat.nChannels == 2;
     strcpy(pWave->szName, szName);
 }
 

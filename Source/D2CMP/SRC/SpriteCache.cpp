@@ -149,7 +149,7 @@ struct D2SpriteLoadRequestStrc
 {
     int unk0x00;
     D2SpriteFileStrc* pFile;
-    D2SpriteEntryStrc* f_8;
+    D2SpriteEntryStrc* pEntry;
     int nArg0C;
     int nArg10;
     int nResult;
@@ -1452,7 +1452,7 @@ static int __stdcall D2CMPSpriteLoadDc6CacheEntry(D2CmpSpriteFileStrc* pFile, in
 int __stdcall D2CMPSpriteAsyncLoadCallback(void* hArg, int nArg, D2SpriteLoadRequestStrc* pRequest)
 {
     D2SpriteFileStrc* pFile = pRequest->pFile;
-    D2SpriteEntryStrc* pEntry = pRequest->f_8;
+    D2SpriteEntryStrc* pEntry = pRequest->pEntry;
     D2SpriteCacheNodeStrc* pNode = pEntry->pNode;
     pNode->dwFlags |= 2;
     pRequest->nResult = CodecDecodeDccData(hArg, gCmpTileCache.pMemPool, nArg, pFile, pEntry, pRequest->nArg0C, pRequest->nArg10, &pRequest->nSize, pFile->pData);
