@@ -2447,12 +2447,6 @@ void __fastcall ITEMS_DropGoldPile(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigne
     ITEMS_DropGoldPiles(pGame, pUnit, nValue, pGoldPiles, &nCount, 32);
 }
 
-void __fastcall sub_K11_Emit0055D940(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
-{
-    ITEMMODE_DetachItemAndUpdate(pGame, pUnit, pItem);
-    ITEMMODE_DetachItemAndUpdate(pGame, pItem, pUnit);
-}
-
 // 0x0055FDE0
 void __fastcall D2GAME_UpdatePlayerItems(D2GameStrc* pGame, D2UnitStrc* pUnit, int bRefresh)
 {
@@ -6201,11 +6195,7 @@ void __fastcall ITEMMODE_BreakItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitS
 {
     D2InventoryStrc* pInventory = pUnit->pInventory;
     ITEMS_SetItemFlag(pItem, 0x100, 1);
-    INVENTORY_UpdateWeaponGUIDOnRemoval(pUnit->pInventory, pItem);
-    if (UNITS_GetAnimOrSeqMode(pItem) == 1)
-    {
-        D2GAME_ITEMS_UpdateTransferredProperties(pGame, pItem, pUnit, 1, 1);
-    }
+    ITEMMODE_DetachItemAndUpdate(pGame, pUnit, pItem);
 
     ITEMMODE_RecalcEquippedItemStates(pGame, pUnit, 0);
     INVENTORY_AddItemToTradeInventory(pInventory, pItem);
