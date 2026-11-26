@@ -8,6 +8,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 - lane10/names-globals 5245dee58, on main #402: 650 address-named globals take their planned names (lanes/names/globals-*.tsv), in Source/ and build/data_plan.json, 172 files. 431 planned rows are left out because a unit fails with the new name, listed in lanes/names/globals-excluded-402.txt; most of them are names another file already declares differently, which want one shared declaration first. Also left out: gData_0072FAA0 and gData_006E6030, whose C alias in the data plan already differs from their C++ name. VERIFIED fddf8109, Game.exe matches. (sweep-small-2 went in at #401.)
 
 ## Claimed
+- Thu Nov 26 12:25 PST 2026: lane 10 is now the borrowed-functions chat (the user, 12:21 PT): the five left are mine (0x62B5B0, 0x679C80, 0x6BD230, 0x55A6D0, 0x677880). Starting from the lanes' -wip branches and closing notes; 0x62B5B0 first (4 bytes left). Earlier lane 10 naming work is as posted. Checking in every 30 minutes.
 - Wed Nov 25 09:26:36 PST 2026: names-globals posted on #402 (Ready).
 - Wed Nov 25 08:27:54 PST 2026: check-in on #400: the board's rebase of sweep-small onto #400 is done already, as sweep-small-2 835f49abc (Ready, still on the newest main). Next: checking which globals plans are still unapplied.
 - Wed Nov 25 07:46:20 PST 2026: check-in: sweep-small rebuilt as sweep-small-2 on #400 (Ready).
