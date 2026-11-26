@@ -26,6 +26,7 @@ inline void operator delete(void* pMemory)
 // build: symbol ??1BigBuffer@@QAE@XZ 0x00421810
 // build: symbol ??1BigStack@@QAE@XZ 0x00421830
 // build: symbol ??0BigStack@@QAE@XZ 0x00421B70
+// build: symbol ?GrowToFit@D2StormArrayAStrc@@QAEXIH@Z 0x00421EA0
 
 struct D2StormArrayBStrc
 {
@@ -106,7 +107,7 @@ struct D2StormBigStrc
 };
 
 unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue);                              // 0x004213B0
-int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight);                      // 0x004212F0
+int __stdcall sub_004212F0_Compare(const BigBuffer* pLeft, const BigBuffer* pRight);                      // 0x004212F0
 int __stdcall sub_004242C0_BigOp(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack); // 0x004242C0
 
 unsigned int __stdcall sub_00421470_FindLowestSetBit(BigBuffer* pQueue);                            // 0x00421470
@@ -161,6 +162,34 @@ void __stdcall SBigToUnsigned(D2StormBigStrc* pBig, unsigned int* pnResult)
 // 0x00421E10
 D2StormBigStrc::D2StormBigStrc()
 {
+}
+
+// 0x00421FE0
+void BigBuffer::GrowToFit(int nIndex)
+{
+    unsigned int nPosition = m_start + nIndex;
+    if (nPosition >= m_array.m_count)
+    {
+        unsigned int nNewCount = nPosition + 1;
+        if (nNewCount > m_array.m_alloc)
+        {
+            unsigned int nChunk = m_array.m_chunk ? m_array.m_chunk : m_array.sub_004210A0_CalcChunkSize(nNewCount);
+            m_array.sub_004216E0_ReallocData(D2StormArrayAStrc::RoundUp(nNewCount, nChunk));
+        }
+        SMemZero(&m_array.m_data[m_array.m_count], (nPosition - m_array.m_count + 1) * sizeof(unsigned int));
+        m_array.m_count = nNewCount;
+    }
+}
+
+// 0x00422140
+void BigBuffer::sub_00422140_Trim()
+{
+    while (Count())
+    {
+        if (*m_array.sub_00420FE0_Top())
+            break;
+        m_array.SetCount(m_array.m_count - 1);
+    }
 }
 
 // 0x00423950
@@ -834,6 +863,18 @@ static int __stdcall IsPrime(BigStack* pStack, BigBuffer& a) // 0x00425350
     }
     pStack->nUsed -= 4;
     return bPrime;
+}
+
+// 0x004212F0
+int __stdcall sub_004212F0_Compare(const BigBuffer* pLeft, const BigBuffer* pRight)
+{
+    int nResult = 0;
+    for (unsigned int i = 0; pLeft->IsUsed(i) || pRight->IsUsed(i); ++i)
+    {
+        if ((*pLeft)[i] != (*pRight)[i])
+            nResult = (*pLeft)[i] > (*pRight)[i] ? 1 : -1;
+    }
+    return nResult;
 }
 
 // 0x00421440
