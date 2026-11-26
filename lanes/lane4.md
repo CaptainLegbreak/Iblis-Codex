@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 17:10 PST 2026: #415 did not take joins-data-2; rebased onto #415 with questlog-data stacked on it. The 0x727DBC-0x727E70 copy run before UnitSnd: the four holders and UnitSnd come in the same code order, so the present assignment fits, and so would giving the last copy to UnitSnd; left.
 - Wed Nov 25 16:52 PST 2026: join-004a9bd0 is in #414. joins-data-2 posted. Checked Unknown_004ADD90 (follows MonUnique\'s data, nothing ties them), Unknown_004EDA80 (inside SkillDesc.cpp\'s records, but that stretch holds SkillsEMon\'s path string, so SkillDesc.cpp itself spans objects there): left.
 - Wed Nov 25 16:14 PST 2026: copies-d2client-first is in #413. join-004a9bd0 posted.
 - Wed Nov 25 15:57 PST 2026: copies-d2client-first rebased onto #412 (not in that round) and rebuilt: identical, no count rose.
@@ -32,7 +33,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/joins-data-2 c27e3d5a2 (on #414): the language copy at 0x712B10 moves from Gfx_0046DB90.cpp to Unknown_00472210.cpp. Gfx_0046DB90's data ends at 0x712B0C (before the copy, so not its object) and its code before 0x472210; the copy is followed by gbPlayThunderSound and then dLightMap's own copy at 0x712B50 (language-objects.md also has it starting Unknown_00472210). Plan record goes; the placeholder includes D2LanguageNames.h with a marker. Both units equal; full build: Game.exe identical, tree 058041d1dced9eca49e24447d9fae515fac46dc0, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
+- lane4/joins-data-2 6a49ecee7 (on #415): the language copy at 0x712B10 moves from Gfx_0046DB90.cpp to Unknown_00472210.cpp. Gfx_0046DB90's data ends at 0x712B0C (before the copy, so not its object) and its code before 0x472210; the copy is followed by gbPlayThunderSound and then dLightMap's own copy at 0x712B50 (language-objects.md also has it starting Unknown_00472210). Plan record goes; the placeholder includes D2LanguageNames.h with a marker. Both units equal; full build: Game.exe identical, tree 01de281a2caf89529a7e6d12ee53f2678c66d4d2, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
+- lane4/questlog-data 8e952785b (on #415, stacked on joins-data-2): QuestLog.cpp takes the 28 records from 0x7237A4 to 0x723F30 (quest text tables, gaQuestPageRanges) that were planned in text.cpp. text.cpp's code ends at 0x4A1730, before QuestLog's starts (0x4A18E0), its last record before them ends at QuestLog's copy 0x723768, and there is no other copy until 0x724228. QuestLog.cpp already declared the tables. Plan entries only. Both units equal; full build of the stack: Game.exe identical, tree bfb42f59bf88fb029e5ff8be46dae9ac3842cb9f, borrowed code / data 8,373 / 261 B; audit guard: no count rose. QuestLog's copy conversion still fails link_exe.py's marker check, now with anchors all a few bytes from real data (0x723764, 0x7237BC, 0x723A38, 0x723AA0, 0x7241D4): the addend case, no longer a second object.
 
 ## Claimed
 
