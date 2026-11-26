@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 14:37 PST 2026: 0x4F2BE0 retried plain on #436 (7 forms, same esi/edi swap); Unknown_004B5810.cpp tried again (below). SkillDesc's data question left (Left in place).
 - Thu Nov 26 14:33 PST 2026: names-sub-d2client-hi redone on #436 (identical) and repushed. Next: 0x4F2BE0 plain forms on SkillDesc.cpp.
 - Thu Nov 26 14:20 PST 2026: check-in. #435 took decls-d2client-hi, #436 soundinst-join and editbox-join (Ready lines dropped). spinner-fields merges clean on #436; names-sub-d2client-hi conflicts with soundinst-join (a renamed file is gone): redoing it on #436 now.
 - Thu Nov 26 14:20 PST 2026: spinner-fields ready. Next: 0x4F2BE0 plain forms on the joined SkillDesc.cpp (#431 changed its surroundings).
@@ -105,6 +106,9 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Left in place (and why)
 
+- **0x4F2BE0 (SkillDesc.cpp, volatile gnChargedBoltTurnBase), #436:** plain reads in both sums, base first or roll first, the seed pointer as a const or plain local, declared before or after the path pointer or at the seed roll, or no seed local at all (`&pMissile->pSeed` throughout): all give the same esi/edi swap from +0x5 (the original keeps pMissile in edi, the seed pointer in esi). Parked.
+- **Unknown_004B5810.cpp (0x4B5BC0, npcmenu.cpp's run), #436:** joined in address order (after 0x4B5AD0), 0x4B5BC0 is equal but 0x4B18C0 swaps esi/edi for the whole function; placed at the end of npcmenu.cpp every function is equal, but that breaks npcmenu.cpp's address order (the file is otherwise strictly ordered), so it stays.
+- **SkillDesc_004E1FF0.cpp's data plan entry still owns 0x72D844, 0x72D88C, 0x72D890 (64 B), 0x72D8D0, 0x72D8D4,** which only SkillDesc.cpp's code reads since #431, and the copies block 0x72D8D8. They sit inside SkillDesc.cpp's data run (0x72D728-0x72D990), but SkillDesc.cpp itself spans four objects (four copies), so which object owns them waits on that object map; I'm not moving them yet.
 - **Unknown_004A9BD0.cpp (0x4B17A0, 0x4B1D70) is not npcmenu.cpp's unit.** 0x4B5C00 and 0x4B6D10 call 0x4B1D70 (+0xA, +0x6C) and drop its result; 0x4B1D70 only reads (no side effects). Joined into npcmenu.cpp, the compiler inlines it, and with a noinline it deletes the call outright, since it sees the body has no effect. The original keeps the call, so its callers could not see the body: 0x4B1D70 was compiled in another object.
 - npcmenu.cpp's run, not npcmenu.cpp's as built, though they sit in its run on its .bss: 0x4B5BC0 (Unknown_004B5810.cpp: 0x4B18C0 changes with it there), 0x4B17A0/0x4B1D70 (Unknown_004A9BD0.cpp: 0x4B5C00/0x4B6D10 inline 0x4B1D70, the original calls it) and Monster.cpp's 0x4B17D0-0x4B1800/0x4B1D50/0x4B1DC0 (they don't build equal there). The calls the original keeps out of line suggest npcmenu.cpp's run is more than one unit; left for an object map.
 
