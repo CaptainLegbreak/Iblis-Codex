@@ -2781,6 +2781,11 @@
      "name": "?MAINMENUS_GetAuxBattleNetFlag@@YAHXZ"
     },
     {
+     "va": "0x0042FB20",
+     "length": 433,
+     "name": "?MAINMENUS_CreateVideoScreen@@YAXXZ"
+    },
+    {
      "va": "0x0042FCE0",
      "length": 44,
      "name": "?MAINMENUS_IsArchiveFilePresent@@YAHPBD@Z"
@@ -3124,6 +3129,11 @@
      "name": "MAINMENUS_IsDoubleClick"
     },
     {
+     "va": "0x00431AF0",
+     "length": 311,
+     "name": "?MAINMENUS_ShowCurrentGateway@@YAXXZ"
+    },
+    {
      "va": "0x00431C30",
      "length": 33,
      "name": "?MAINMENUS_Leave@@YGHH@Z"
@@ -3272,6 +3282,31 @@
      "name": "?MAINMENUS_PollCharUpgrade@@YGHH@Z"
     },
     {
+     "va": "0x004330A0",
+     "length": 134,
+     "name": "?MAINMENUS_SetMultilineText@@YGHPAUD2WinControlStrc@@HPBUUnicode@@_N@Z"
+    },
+    {
+     "va": "0x00433130",
+     "length": 143,
+     "name": "?MAINMENUS_ShowTwoTexts@@YIXPBUUnicode@@0P6AXXZ@Z"
+    },
+    {
+     "va": "0x004331C0",
+     "length": 237,
+     "name": "?MAINMENUS_ShowThreeTexts@@YIXPBUUnicode@@00P6AXXZ@Z"
+    },
+    {
+     "va": "0x004332B0",
+     "length": 205,
+     "name": "?MAINMENUS_ShowFourTexts@@YIXPBUUnicode@@000P6AXXZ@Z"
+    },
+    {
+     "va": "0x00433380",
+     "length": 184,
+     "name": "?MAINMENUS_ShowMessage@@YIXPBUUnicode@@P6AXXZH@Z"
+    },
+    {
      "va": "0x00433440",
      "length": 8,
      "name": "?MAINMENUS_ShowMessageNoArg@@YIXPBUUnicode@@P6AXXZ@Z"
@@ -3280,6 +3315,11 @@
      "va": "0x00433450",
      "length": 8,
      "name": "?MAINMENUS_ShowText@@YIXPBUUnicode@@P6AXXZ@Z"
+    },
+    {
+     "va": "0x00433460",
+     "length": 109,
+     "name": "?MAINMENUS_ShowTextBox@@YIXPBUUnicode@@P6AXXZ@Z"
     },
     {
      "va": "0x004334D0",
@@ -3302,6 +3342,10 @@
      "name": "?MAINMENUS_ShowMainMenu@@YAXXZ"
     },
     {
+     "va": "0x00433810",
+     "length": 956
+    },
+    {
      "va": "0x00433BD0",
      "length": 13,
      "name": "?MAINMENUS_OnNameChanged@@YGHH@Z"
@@ -3310,6 +3354,10 @@
      "va": "0x00433BE0",
      "length": 13,
      "name": "?MAINMENUS_OnLoginChanged@@YGHH@Z"
+    },
+    {
+     "va": "0x00433BF0",
+     "length": 1132
     },
     {
      "va": "0x00434060",
@@ -3440,6 +3488,11 @@
      "name": "?MAINMENUS_ChangePasswordOk@@YGHH@Z"
     },
     {
+     "va": "0x00435180",
+     "length": 127,
+     "name": "?MAINMENUS_ShowExpansionMessage@@YIXPBUUnicode@@P6AXXZH@Z"
+    },
+    {
      "va": "0x00435200",
      "length": 33,
      "name": "?MAINMENUS_CancelDownload@@YGHH@Z"
@@ -3556,6 +3609,11 @@
      "va": "0x0043B4C0",
      "length": 82,
      "name": "MAINMENUS_OnRealmListClick"
+    },
+    {
+     "va": "0x0043C750",
+     "length": 322,
+     "name": "?LAUNCHER_DeleteCharacterFiles@@YIXPBD0@Z"
     }
    ]
   },
@@ -11079,70 +11137,6 @@
      "va": "0x00449860",
      "length": 45,
      "name": "?COMCALLBACK_IsValidKeyText@@YIHPBD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/MainMenus_00431AF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0042FB20",
-     "length": 433,
-     "name": "?MAINMENUS_CreateVideoScreen@@YAXXZ"
-    },
-    {
-     "va": "0x00431AF0",
-     "length": 311,
-     "name": "?MAINMENUS_ShowCurrentGateway@@YAXXZ"
-    },
-    {
-     "va": "0x004330A0",
-     "length": 134,
-     "name": "?MAINMENUS_SetMultilineText@@YGHPAUD2WinControlStrc@@HPBUUnicode@@_N@Z"
-    },
-    {
-     "va": "0x00433130",
-     "length": 143,
-     "name": "?MAINMENUS_ShowTwoTexts@@YIXPBUUnicode@@0P6AXXZ@Z"
-    },
-    {
-     "va": "0x004331C0",
-     "length": 237,
-     "name": "?MAINMENUS_ShowThreeTexts@@YIXPBUUnicode@@00P6AXXZ@Z"
-    },
-    {
-     "va": "0x004332B0",
-     "length": 205,
-     "name": "?MAINMENUS_ShowFourTexts@@YIXPBUUnicode@@000P6AXXZ@Z"
-    },
-    {
-     "va": "0x00433380",
-     "length": 184,
-     "name": "?MAINMENUS_ShowMessage@@YIXPBUUnicode@@P6AXXZH@Z"
-    },
-    {
-     "va": "0x00433460",
-     "length": 109,
-     "name": "?MAINMENUS_ShowTextBox@@YIXPBUUnicode@@P6AXXZ@Z"
-    },
-    {
-     "va": "0x00433810",
-     "length": 956
-    },
-    {
-     "va": "0x00433BF0",
-     "length": 1132
-    },
-    {
-     "va": "0x00435180",
-     "length": 127,
-     "name": "?MAINMENUS_ShowExpansionMessage@@YIXPBUUnicode@@P6AXXZH@Z"
-    },
-    {
-     "va": "0x0043C750",
-     "length": 322,
-     "name": "?LAUNCHER_DeleteCharacterFiles@@YIXPBD0@Z"
     }
    ]
   },
