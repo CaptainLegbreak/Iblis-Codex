@@ -33,7 +33,6 @@ extern D2WinControlStrc* gpControlMain;                                         
 extern D2WinControlStrc* gbSelectActive;                                                                   // 0x0077BD00
 extern D2WinControlStrc* gpControl_0077BD90;                                                                       // 0x0077BD90
 extern D2WinControlStrc* gpWaitText_0077BD9C;                                                               // 0x0077BD9C
-extern int gdwGlobal_00798CC0;                                                                              // 0x00798CC0
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
 struct D2WinTextBoxStrc;

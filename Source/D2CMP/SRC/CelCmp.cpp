@@ -443,7 +443,6 @@ struct PairStrc_0060E290
     int nSecond;
 };
 
-extern int gdwGlobal_0096CA48; // 0x0096CA48
 
 int __fastcall DRLGOUTSIEGE_GetBorderLookupId(D2DrlgLevelStrc* pLevel); // 0x0067DCE0
 
