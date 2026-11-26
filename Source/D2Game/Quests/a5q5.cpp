@@ -55,12 +55,12 @@ struct D2QuestArgStrc;
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
 
-void __fastcall SUNIT_SetUninterruptable(D2UnitStrc* pUnit, int a2); // 0x005544B0
+void __fastcall SUNIT_SetUninterruptable(D2UnitStrc* pUnit, int bSetUninterruptable); // 0x005544B0
 
 
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 
-int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
+int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int bClearUsedSkill); // 0x005A7C20
 
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
 
@@ -173,7 +173,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern int gpAct5Q5NpcMessages[]; // 0x00735100
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 void __fastcall ACT5Q5_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0058BE80
 
@@ -229,9 +229,9 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                             
 
 void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
 
-void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char a2);                                      // 0x00545760
+void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char nEvent);                                      // 0x00545760
 
-D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
 
 bool __fastcall ACT5Q5_Timer_RespawnAncientStatueObjects(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);   // 0x0058BD50
 
@@ -482,7 +482,7 @@ void __fastcall ACT5Q5_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
 
-    D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act5Quest5Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q5.cpp", 1053, 0);
+    D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act5Quest5Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q5.cpp", 1053, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
     pQuestData->eFilter = QUESTSTATEFLAG_A5Q5;
     pQuestData->pfStatusFilter = 0;

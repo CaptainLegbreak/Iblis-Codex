@@ -203,7 +203,7 @@ extern int gdwGlobal_00730190; // 0x00730190
 
 extern int gdwGlobal_00882750; // 0x00882750
 
-int __stdcall sub_00424E40(void* pArg); // 0x00424E40
+int __stdcall SBigDel(void* pArg); // 0x00424E40
 
 extern const char gszEmptyLoadComplete[184]; // 0x006E0498
 
@@ -337,13 +337,13 @@ typedef int (__fastcall* D2NET_Unk_Callback)(int, int, int, int);
 
 int __stdcall SERVER_SetRemoveClientCallback(D2NET_Unk_Callback pfCallback); // 0x0052B5C0
 
-int __stdcall GAME_AbortClientById(int nClientId, int a2, int a3); // 0x005300F0
+int __stdcall GAME_AbortClientById(int nClientId, int szFile, int nLine); // 0x005300F0
 
 void __fastcall SUNITPROXY_FillGlobalItemCache(); // 0x00536F80
 
 void __fastcall CLIENTS_Initialize(); // 0x005376C0
 
-int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int nSize, int nTotalSize, int bUnlockCharacter, int a6, int a7); // 0x00538CE0
+int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int nSize, int nTotalSize, int bUnlockCharacter, int nUnused1, int nUnused2); // 0x00538CE0
 
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
@@ -363,7 +363,7 @@ typedef void(__fastcall* UnitDescriptionFunction)(char* szDescription, int nClas
 
 extern UnitDescriptionFunction gpfnGetDescription[5]; // 0x0073107C
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 
 
@@ -535,13 +535,13 @@ static inline D2GameStrc* GAMELINK_Next(D2GameLinkStrc* pLink)
 
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* lpThreadAttributes, unsigned long dwStackSize, unsigned long (__stdcall* lpStartAddress)(D2MessageThreadArgsStrc*), D2MessageThreadArgsStrc* lpParameter, unsigned long dwCreationFlags, unsigned long* lpThreadId); // 0x006CC250
 
-int __stdcall SERVER_HackListClient(int nClientId, int a2, int a3);                                                  // 0x0052B4F0
+int __stdcall SERVER_HackListClient(int nClientId, int nArg2, int nArg3);                                                  // 0x0052B4F0
 
-void __stdcall GAME_SendMessageToAllClients(int a1, int nPacketParam, const char* szMessage);               // 0x0052F4C0
+void __stdcall GAME_SendMessageToAllClients(int nMessageType, int nPacketParam, const char* szMessage);               // 0x0052F4C0
 
 void __fastcall SrvDisconnectClientById(int nClientId, int nEventType);                                   // 0x00530270
 
-void __fastcall CLIENTS_UpdatePing(int nClientId, int a2, int a3, int a4);                                  // 0x005389A0
+void __fastcall CLIENTS_UpdatePing(int nClientId, int nTick, int nDelay, int nUnused);                                  // 0x005389A0
 
 int __fastcall CLIENTS_GetClientIdByName(const char* szClientName);                                         // 0x00538BF0
 
@@ -569,7 +569,7 @@ void __fastcall CLIENTS_EnableCharacterUnlock(D2ClientStrc* pClient);           
 
 void __fastcall CLIENTS_SetClientState(D2ClientStrc* pClient, int nClientState);                            // 0x005386D0
 
-D2ClientStrc* __fastcall ClientAddToGame(D2GameStrc* pGame, int nClientId, unsigned char nClassIdOrCharTemplate, const char* szClientName, const char* szAccount, int nCharSaveTransactionToken, unsigned char nLocale, int a8, int a9); // 0x00539A30
+D2ClientStrc* __fastcall ClientAddToGame(D2GameStrc* pGame, int nClientId, unsigned char nClassIdOrCharTemplate, const char* szClientName, const char* szAccount, int nCharSaveTransactionToken, unsigned char nLocale, int nUnused1, int nUnused2); // 0x00539A30
 
 void __fastcall D2GAME_PACKETS_SendHeaderOnlyPacket(D2ClientStrc* pClient, unsigned char nHeader);          // 0x0053B320
 
@@ -604,7 +604,7 @@ void __fastcall GAME_ClientEnterAct(D2GameStrc* pGame, D2ClientStrc* pClient);  
 
 void __fastcall CLIENTS_SpawnPlayer(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x005394A0
 
-int __fastcall ClientAddPlayerToGame(D2ClientStrc* pClient, D2GameStrc* pGame, int a3, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00539760
+int __fastcall ClientAddPlayerToGame(D2ClientStrc* pClient, D2GameStrc* pGame, int bLoadFromSave, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00539760
 
 void __fastcall D2GAME_PACKETS_SendSystemError(int nClientId, unsigned int nReason);           // 0x0053B260
 
@@ -665,7 +665,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volati
 
 int __stdcall CLIENT_ObjectCall_6BED90(int,int,int); // 0x0052B490
 
-int __stdcall sub_0052B330(unsigned char,int,void*,int);  // 0x0052B330
+int __stdcall SERVER_SendPacketToClient(unsigned char,int,void*,int);  // 0x0052B330
 
 void __stdcall D2NET_10016(int);  // 0x0052B570
 
@@ -740,7 +740,7 @@ void __fastcall PLRMSG_BroadcastEventMessage(D2GameStrc* pGame, D2GSPacketSrv5A*
 
 void __fastcall D2GAME_PopulateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);                  // 0x0054EC90
 
-void __fastcall D2GAME_ITEMS_UpdateInventoryItems(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int bRefresh); // 0x0055DF00
+void __fastcall D2GAME_ITEMS_UpdateInventoryItems(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused, int bRefresh); // 0x0055DF00
 
 
 
@@ -837,9 +837,9 @@ void __stdcall SUNITPROXY_FillIGlobaltemCacheRecordForNpc(int nNpcId); // 0x0053
 
 int __fastcall CLIENTS_IsInUnitsRoom(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005387F0
 
-void __fastcall D2GAME_PACKETS_SendPacket0x10(D2ClientStrc* pClient, char nHeader, char a3, int a4, char a5, int a6, int a7, short a8, short a9); // 0x0053B520
+void __fastcall D2GAME_PACKETS_SendPacket0x10(D2ClientStrc* pClient, char nHeader, char nUnitType, int nUnitGUID, char nFlags, int nTargetType, int nTargetGUID, short nCurrentPosX, short nCurrentPosY); // 0x0053B520
 
-void __fastcall D2GAME_PACKETS_SendPacket0x0F(D2ClientStrc* pClient, char nHeader, unsigned char bTOU, int a4, char a5, short a6, short a7, char a8, short a9, short a10); // 0x0053B570
+void __fastcall D2GAME_PACKETS_SendPacket0x0F(D2ClientStrc* pClient, char nHeader, unsigned char bTOU, int nUnitGUID, char nFlags, short nDestPosX, short nDestPosY, char nHitClass, short nCurrentPosX, short nCurrentPosY); // 0x0053B570
 
 void __fastcall D2GAME_SendPacket0x53(D2ClientStrc* pClient, D2GSPacketSrv53* pPacket); // 0x0053C900
 
@@ -849,7 +849,7 @@ D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
-void __fastcall D2GAME_UpdatePlayerItems(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x0055FDE0
+void __fastcall D2GAME_UpdatePlayerItems(D2GameStrc* pGame, D2UnitStrc* pUnit, int bRefresh); // 0x0055FDE0
 
 
 
@@ -866,10 +866,10 @@ typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 extern int gnVirtualPlayerCount; // 0x00883D70
 
-void __fastcall D2GAME_SetSkills(int a1, int a2, int a3, int a4); // 0x0056DEB0
+void __fastcall D2GAME_SetSkills(int pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
 
-void __fastcall PLRMODE_ChangeModeToCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7); // 0x005809D0
+void __fastcall PLRMODE_ChangeModeToCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int bAllowReEnter); // 0x005809D0
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
@@ -961,13 +961,13 @@ void __stdcall GAME_SetReservedGameGUID(int hGame, unsigned short nGameId);     
 
 unsigned short __cdecl sub_0052C170_AllocGameId();
 
-void __fastcall GAME_ResolveGameNameConflict(D2GameStrc* pGame, const char* szGameName, unsigned int a3);                    // 0x0052F940
+void __fastcall GAME_ResolveGameNameConflict(D2GameStrc* pGame, const char* szGameName, unsigned int dwFlags);                    // 0x0052F940
 
 void __fastcall SUNITPROXY_InitializeNpcControl(D2GameStrc* pGame); // 0x00536070
 
 void __fastcall CLIENTS_SetGameData(D2ClientStrc* pClient);                                            // 0x005379A0
 
-void __fastcall ARENA_AllocArena(D2GameStrc* pGame, int a2, unsigned int nFlags, unsigned char a4);         // 0x0053F4B0
+void __fastcall ARENA_AllocArena(D2GameStrc* pGame, int nUnused, unsigned int nFlags, unsigned char nTemplate);         // 0x0053F4B0
 
 void __fastcall PARTY_AllocPartyControl(D2GameStrc* pGame);                                                 // 0x0053FF90
 
@@ -977,7 +977,7 @@ void __fastcall QUESTS_QuestInit(D2GameStrc* pGame); // 0x00545D80
 
 void __fastcall MONSTERREGION_InitializeForGame(D2GameStrc* pGame);                                         // 0x00547D20
 
-void __fastcall TASK_QueueGame(void* pTask, int a2, unsigned int hGame); // 0x00564A00
+void __fastcall TASK_QueueGame(void* pTask, int nArg, unsigned int hGame); // 0x00564A00
 
 void __fastcall CLIENTS_SetActNo(D2ClientStrc* pClient, unsigned char nAct);                                // 0x005382E0
 
@@ -1273,7 +1273,7 @@ extern "C" const char gszPlrMsgSourceFile[]; // 0x006E1050
 
 void __fastcall D2GAME_PACKETS_SendPacket0x5E(D2ClientStrc* pClient, D2GSPacketSrv5E* pPacket); // 0x0053D830
 
-void __fastcall D2GAME_SendPacket0x28(D2ClientStrc* pClient, unsigned char nHeader, unsigned char a3, int a4, D2BitBufferStrc* a5, unsigned char a6); // 0x0053D670
+void __fastcall D2GAME_SendPacket0x28(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, D2BitBufferStrc* pQuestRecord, unsigned char nQuestFlags); // 0x0053D670
 
 void __fastcall QUESTS_SendCurrentFlags(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x00544520
 
@@ -1315,7 +1315,7 @@ void __fastcall ACT1Q5_SpawnChestMissilesAndEvent(D2QuestDataStrc* pQuestData, D
 
 void __fastcall ACT2Q4_InitializeHaremBlockerObject(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x0059B710
 
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B23C0
 
 void __fastcall ACT4Q2_SpawnSealBoss(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B5750
 
@@ -1472,7 +1472,7 @@ void __fastcall D2GAME_DropItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc
 
 D2UnitStrc* __fastcall D2GAME_CreateItemUnit(D2UnitStrc* pPlayer, int nItemId, D2GameStrc* pGame, int nSpawnTarget, int nQuality, int bNoSockets, int bNoEthereal, int nItemLevel, int bUseSeed, int dwSeed, int dwItemSeed); // 0x00559CE0
 
-int __fastcall D2GAME_PlaceItem(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int a8, int a9, D2InventoryStrc* pInventory); // 0x00560200
+int __fastcall D2GAME_PlaceItem(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int bAutoPosition, int bNotify, D2InventoryStrc* pInventory); // 0x00560200
 
 void __fastcall D2GAME_ITEMS_Identify(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x00562590
 
@@ -1524,7 +1524,7 @@ void __stdcall MONSTERCHOOSE_GenerateComponentVariants(D2SeedStrc* pSeed, D2MonR
 void __fastcall OBJRGN_AllocObjectRoomCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom)
 {
     D2ObjectControlStrc* pObjectControl = pGame->pObjectControl;
-    D2ObjectRoomCoordStrc* pObjectRoomCoord = (D2ObjectRoomCoordStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2ObjectRoomCoordStrc), ".\\OBJECTS\\objrgn.cpp", 375, 0);
+    D2ObjectRoomCoordStrc* pObjectRoomCoord = (D2ObjectRoomCoordStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2ObjectRoomCoordStrc), ".\\OBJECTS\\objrgn.cpp", 375, 0);
 
     int nX;
     switch (pUnit->dwUnitType)

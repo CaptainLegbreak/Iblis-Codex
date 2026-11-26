@@ -209,7 +209,7 @@ int gbQuestDebug; // 0x008846DC
 
 extern const D2UnkPlrMsgStrc gaUnitModeMessages[]; // 0x007319E8
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 void __fastcall PLRMSG_BroadcastChatMessage(D2GameStrc* pGame, const char* szMessage, unsigned char nColor); // 0x0054A930
 
@@ -304,7 +304,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 void __fastcall D2GAME_PACKETS_SendPacket0x5E(D2ClientStrc* pClient, D2GSPacketSrv5E* pPacket); // 0x0053D830
 
-void __fastcall D2GAME_SendPacket0x28(D2ClientStrc* pClient, unsigned char nHeader, unsigned char a3, int a4, D2BitBufferStrc* a5, unsigned char a6); // 0x0053D670
+void __fastcall D2GAME_SendPacket0x28(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, D2BitBufferStrc* pQuestRecord, unsigned char nQuestFlags); // 0x0053D670
 
 void __fastcall QUESTS_SendCurrentFlags(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x00544520
 
@@ -346,7 +346,7 @@ void __fastcall ACT1Q5_SpawnChestMissilesAndEvent(D2QuestDataStrc* pQuestData, D
 
 void __fastcall ACT2Q4_InitializeHaremBlockerObject(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x0059B710
 
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B23C0
 
 void __fastcall ACT4Q2_SpawnSealBoss(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B5750
 
@@ -539,7 +539,7 @@ void __fastcall D2GAME_DropItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc
 
 D2UnitStrc* __fastcall D2GAME_CreateItemUnit(D2UnitStrc* pPlayer, int nItemId, D2GameStrc* pGame, int nSpawnTarget, int nQuality, int bNoSockets, int bNoEthereal, int nItemLevel, int bUseSeed, int dwSeed, int dwItemSeed); // 0x00559CE0
 
-int __fastcall D2GAME_PlaceItem(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int a8, int a9, D2InventoryStrc* pInventory); // 0x00560200
+int __fastcall D2GAME_PlaceItem(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int bAutoPosition, int bNotify, D2InventoryStrc* pInventory); // 0x00560200
 
 void __fastcall D2GAME_ITEMS_Identify(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x00562590
 
@@ -585,7 +585,7 @@ static void QUESTS_SetActNpcIntroFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, u
 
 void __fastcall MONSTERREGION_InitializeAll(void* pool,D2MonsterRegionStrc** regions,D2SeedStrc* seed,unsigned int lowSeed,unsigned char difficulty,int expansion); // 0x005479C0
 
-void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int a5); // 0x0040B480
+void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
 void __fastcall MONSTER_ToggleSummonerFlag(D2UnitStrc* pUnit, int nFlag, int bSet); // 0x00573570
 
@@ -641,7 +641,7 @@ static int __stdcall QUESTS_AddQuestToUnitEventList(D2GameStrc* pGame, D2UnitStr
             return 0;
         }
     }
-    D2QuestChainStrc* pNew = (D2QuestChainStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2QuestChainStrc), gszQuestsSourceFile, 104, 0);
+    D2QuestChainStrc* pNew = (D2QuestChainStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2QuestChainStrc), gszQuestsSourceFile, 104, 0);
     pNew->pQuestData = pQuestData;
     pNew->pNext = pUnit->pQuestEventList;
     pUnit->pQuestEventList = pNew;
@@ -757,8 +757,8 @@ static void __stdcall QUESTS_DeleteItemEx(D2InventoryStrc* pInventory, D2GameStr
     case 1:
     {
         const int nBodyLoc = INVENTORY_GetItemsXPosition(pInventory, pItem);
-        int a5;
-        ITEMMODE_UnequipBodyItem(pGame, pPlayer, nBodyLoc, 1, &a5);
+        int nItemStatus;
+        ITEMMODE_UnequipBodyItem(pGame, pPlayer, nBodyLoc, 1, &nItemStatus);
         break;
     }
     case 4:
@@ -1207,7 +1207,7 @@ void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallb
     D2_ASSERT(!pQuestControl->bExecuting, 1047);
 
     D2QuestTimerStrc* pPrevious = pQuestControl->pTimer;
-    D2QuestTimerStrc* pQuestTimer = (D2QuestTimerStrc*)sub_0040B430(pQuest->pGame->pMemoryPool, sizeof(D2QuestTimerStrc), gszQuestsSourceFile, 1050, 0);
+    D2QuestTimerStrc* pQuestTimer = (D2QuestTimerStrc*)FOG_AllocPool(pQuest->pGame->pMemoryPool, sizeof(D2QuestTimerStrc), gszQuestsSourceFile, 1050, 0);
     pQuestTimer->pNext = pPrevious;
     pQuestTimer->pfUpdate = pfnCallback;
     pQuestTimer->pQuest = pQuest;

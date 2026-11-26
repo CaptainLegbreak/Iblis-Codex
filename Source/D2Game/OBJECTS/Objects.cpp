@@ -100,7 +100,7 @@ struct D2ObjectTableStrc
 
 extern const D2ObjectTableStrc gaShrineObjectTable[6]; // 0x006E1080
 
-D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
@@ -203,9 +203,9 @@ int __fastcall QUESTS_LevelWarpCheck(D2GameStrc* pGame, D2UnitStrc* pPlayer, int
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
-int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int bSkipCollisionSearch, int bSyncOtherPlayersOnly); // 0x00554EA0
 
-void __fastcall PLRMODE_ChangeModeToCoords(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7); // 0x005809D0
+void __fastcall PLRMODE_ChangeModeToCoords(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int bAllowReEnter); // 0x005809D0
 
 
 int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char nAct); // 0x0061AB70
@@ -402,13 +402,13 @@ void __fastcall D2GAME_PACKETS_SendPacketSize06(D2ClientStrc* pClient, unsigned 
 
 void __fastcall D2GAME_PACKETS_SendPacket0x77_Ui(D2ClientStrc* pClient, unsigned char nUiNo); // 0x0053CAB0
 
-void __fastcall sub_0053DA90(D2UnitStrc* pUnit, int nArg); // 0x0053DA90
+void __fastcall SCMD_Send0x75_PartyRosterUpdate(D2UnitStrc* pUnit, int nArg); // 0x0053DA90
 
 void __fastcall SCMD_BroadcastPlayerRelationship(D2GameStrc* pGame, int dwPlayerId1, int dwPlayerId2, short wRelationState); // 0x0053DE20
 
 int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuestId); // 0x005436B0
 
-void __fastcall sub_0056DCC0(D2GameStrc* pGame, D2Unk0056DCC0Strc* pRecord); // 0x0056DCC0
+void __fastcall SKILLS_ApplyAreaEffect(D2GameStrc* pGame, D2Unk0056DCC0Strc* pRecord); // 0x0056DCC0
 
 int __fastcall AIGENERAL_GetMinionSpawnClassId(D2UnitStrc* pUnit); // 0x0058F710
 
@@ -2662,7 +2662,7 @@ int __fastcall SKILL_ComputePeriodicRate(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 // 0x00570850
 void __fastcall PLAYERSTATS_OnPlayerLeveledUp(void* pUnused, D2UnitStrc* pUnit, int nArg)
 {
-    sub_0053DA90(pUnit, nArg);
+    SCMD_Send0x75_PartyRosterUpdate(pUnit, nArg);
 }
 
 #include "gen/data/Source/D2Game/OBJECTS/Objects.inc"

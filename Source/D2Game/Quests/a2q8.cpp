@@ -14,7 +14,7 @@ void __fastcall ACT2Q8_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
 
 extern char gpAct2Q8NpcMessages[];                                                                          // 0x0073BD58
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
 
 enum
 {
@@ -130,7 +130,7 @@ void __fastcall ACT2Q8_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
     pQuestData->fLastState = 0;
-    D2Act2Quest8Strc* pQuestDataEx = (D2Act2Quest8Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest8Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q8.cpp", 150, 0);
+    D2Act2Quest8Strc* pQuestDataEx = (D2Act2Quest8Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest8Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q8.cpp", 150, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
     pQuestDataEx->unk0x00 = 0;
     pQuestDataEx->unk0x01 = 0;

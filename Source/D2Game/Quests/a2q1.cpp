@@ -54,7 +54,7 @@ bool __fastcall ACT3Q7_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc*
 
 bool __fastcall ACT2Q0_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x00598780
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pQuestGUID); // 0x00545300
 
@@ -503,7 +503,7 @@ int __fastcall ACT2Q1_UnitIterate_DetermineSkillBookDropCount(D2GameStrc* pGame,
 
 #define QUEST_A2Q1_RADAMENT 8
 #define ITEMQUAL_NORMAL 2
-D2UnitStrc* __fastcall D2GAME_DropItemAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
+D2UnitStrc* __fastcall D2GAME_DropItemAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int nItemType, int bIgnoreRarity); // 0x00559A30
 void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, const char* szFile, int nLine); // 0x00544070
 void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
 int __fastcall ACT2Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00598E20
@@ -712,7 +712,7 @@ void __fastcall ACT2Q1_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfSeqFilter = ACT2Q1_SeqCallback;
     pQuestData->pNPCMessages = gpAct2Q1NpcMessages;
 
-    D2Act2Quest1Strc* pQuestDataEx = (D2Act2Quest1Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest1Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q1.cpp", 670, 0);
+    D2Act2Quest1Strc* pQuestDataEx = (D2Act2Quest1Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest1Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q1.cpp", 670, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
     pQuestData->eFilter = QUESTSTATEFLAG_A2Q1;
     pQuestData->pfStatusFilter = 0;

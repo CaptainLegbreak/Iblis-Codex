@@ -107,7 +107,7 @@ typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* p
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 extern char gpAct1Q2NpcMessages[]; // 0x00736CE8
 
@@ -180,7 +180,7 @@ void __fastcall ACT1Q2_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->eFilter = QUESTSTATEFLAG_A1Q2;
     pQuestData->bActive = 1;
 
-    D2Act1Quest2Strc* pQuestDataEx = (D2Act1Quest2Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act1Quest2Strc), gszA1Q2SourceFile, LINE_INIT_ALLOC, 0);
+    D2Act1Quest2Strc* pQuestDataEx = (D2Act1Quest2Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act1Quest2Strc), gszA1Q2SourceFile, LINE_INIT_ALLOC, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
     pQuestData->pfStatusFilter = 0;
     pQuestData->nInitNo = A1Q2_INITNO;

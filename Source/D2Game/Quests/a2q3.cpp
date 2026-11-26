@@ -115,7 +115,7 @@ D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 int __fastcall ACT2Q3_UnitIterate_SendPacket0x53ToClient(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059A170
 
-void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char a2); // 0x00545760
+void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char nEvent); // 0x00545760
 
 enum
 {
@@ -125,7 +125,7 @@ enum
 
 extern char gpAct2Q3NpcMessages[]; // 0x0073A188
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
 
@@ -899,7 +899,7 @@ void __fastcall ACT2Q3_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pNPCMessages = gpAct2Q3NpcMessages;
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
-    D2Act2Quest3Strc* pQuestDataEx = (D2Act2Quest3Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest3Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q3.cpp", 803, 0);
+    D2Act2Quest3Strc* pQuestDataEx = (D2Act2Quest3Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest3Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q3.cpp", 803, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
     pQuestData->eFilter = QUESTSTATEFLAG_A2Q3;
     pQuestData->pfStatusFilter = 0;

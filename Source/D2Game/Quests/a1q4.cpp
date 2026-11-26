@@ -104,7 +104,7 @@ int __fastcall QUESTS_QuickCheckPlayerGUID(D2QuestGUIDStrc* pGUIDs, int dwGUID);
 
 void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005455B0
 
-void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char a2); // 0x00545760
+void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char nEvent); // 0x00545760
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
@@ -277,7 +277,7 @@ void __fastcall ACT1Q4_SendPacket0x5DToClient(D2UnitStrc* pUnit); // 0x00592880
 
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 
-int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
+int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int bClearUsedSkill); // 0x005A7C20
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -315,7 +315,7 @@ D2UnitStrc* __fastcall sub_0056EDE0_CreatePortal(D2GameStrc*,D2UnitStrc*,int,int
 
 int __fastcall sub_005936B0_UpdateParty(D2GameStrc*,D2UnitStrc*,void*); // 0x005936B0
 
-void __fastcall sub_00540510(D2GameStrc*,unsigned short,QUESTUNITITERATE,void*); // 0x00540510
+void __fastcall PARTY_IteratePartyMembers(D2GameStrc*,unsigned short,QUESTUNITITERATE,void*); // 0x00540510
 
 static inline int GetGUID(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
 
@@ -1461,7 +1461,7 @@ int __fastcall OBJECTS_OperateFunction09_Monolith(D2ObjOperateFnStrc* pOp,int nO
   pQuestInfo->dwFlags&=0xFFFFFF00;
   QUESTS_UnitIterate(pQuestInfo,4,pOp->hPlayer,ACT1Q4_UnitIterate_StatusCyclerEx,true);
   unsigned short nParty=SUNIT_GetPartyId(pOp->hPlayer);
-  if(nParty!=0xFFFF) sub_00540510(pOp->pGame,nParty,sub_005936B0_UpdateParty,0);
+  if(nParty!=0xFFFF) PARTY_IteratePartyMembers(pOp->pGame,nParty,sub_005936B0_UpdateParty,0);
   QUESTRECORD_SetQuestState(pFlags,4,4);
  }
  QUESTS_TriggerFX(pQuestInfo->pGame,1);
@@ -1972,7 +1972,7 @@ int __fastcall ACT1Q4_GetCainPortalInTownCoordinates(D2GameStrc* pGame, D2UnitSt
 
 #define PORTAL_RETRY_STEP 3
 
-D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
 
 // 0x005943B0
 int __fastcall ACT1Q4_SpawnCainPortalOutsideTown(D2GameStrc* pGame, D2UnitStrc* pUnit)
