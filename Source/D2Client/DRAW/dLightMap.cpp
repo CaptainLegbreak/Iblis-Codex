@@ -61,11 +61,8 @@ struct D2LightCellStrc
 
 
 
-extern int gbBlendLightColor; // 0x00712B8C
 
-extern int gnCellOriginX; // 0x007B0A54
 
-extern int gnCellOriginY; // 0x007B0A58
 
 typedef void (__fastcall* ACTCALLBACKFN)(D2ActiveRoomStrc* pRoom);
 
@@ -201,7 +198,6 @@ int gnLightsAllocated; // 0x007B566C
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
-extern int gbBlendLightColor;                                                                               // 0x00712B8C
 
 static void __stdcall DLIGHTMAP_AddGridLight(int nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue, int nY, int nX); // 0x004747C0
 
@@ -229,9 +225,7 @@ void __stdcall DLIGHTMAP_UpdateLightGrid(int nArg);                             
 
 int __cdecl DLIGHTMAP_GetIndicatorLevel();                                                               // 0x00475780
 
-extern int gnCellOriginX;                                                                               // 0x007B0A54
 
-extern int gnCellOriginY;                                                                               // 0x007B0A58
 
 int gnLightCount;                                                                                  // 0x007B5674
 
@@ -274,6 +268,7 @@ int __fastcall DLIGHTMAP_GetDistance(int nDX, int nDY)
 }
 
 // 0x004740D0
+// noinline: the original calls this; without it the compiler expands it into 0x004748D0, 0x004755A0.
 static __declspec(noinline) unsigned int __stdcall DLIGHTMAP_ApproxDistance(int nB, int nA)
 {
     const int nAbsA = abs(nA);

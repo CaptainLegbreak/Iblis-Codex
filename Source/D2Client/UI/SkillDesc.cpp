@@ -349,8 +349,10 @@ extern "C" const char gszFmtPlusDecimal[]; // 0x006DBE9C
 
 extern "C" const char gszFmtDecimal[]; // 0x006DBE94
 
+// noinline: the original calls this; without it the compiler expands it into 0x004E7A90.
 __declspec(noinline) static int __stdcall SKILLDESC_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue);
 
+// noinline: the original calls this; without it the compiler expands it into 0x004E7A90, 0x004E85C0.
 __declspec(noinline) static int __stdcall SKILLDESC_FormatSignedDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction);
 
 static int SKILLDESC_FormatIntOrDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction);
@@ -1299,6 +1301,7 @@ int __stdcall SKILLDESC_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDamage,
 }
 
 // 0x004E73E0
+// noinline: the original calls this; without it the compiler expands it into 0x004E7A90.
 static __declspec(noinline) int __stdcall SKILLDESC_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue)
 {
     char szText[32];
@@ -1311,6 +1314,7 @@ static __declspec(noinline) int __stdcall SKILLDESC_FormatSignedInt(Unicode* wsz
 }
 
 // 0x004E7430
+// noinline: the original calls this; without it the compiler expands it into 0x004E7A90, 0x004E85C0.
 static __declspec(noinline) int __stdcall SKILLDESC_FormatSignedDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction)
 {
     char szText[32];

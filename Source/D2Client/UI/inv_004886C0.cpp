@@ -2202,6 +2202,7 @@ void __stdcall INV_StashButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
     gbStashButtonClicked = 0;
 }
 
+// noinline: the original calls this; without it the compiler expands it into its callers.
 static __declspec(noinline) int sub_00483BF0_IsInRect(int nX, int nY)
 {
     if (nX >= gnGlobal_007BCB74 && nX < gnGlobal_007BCB78 && nY >= gnGlobal_007BCB7C && nY <= gnGlobal_007BCB80)

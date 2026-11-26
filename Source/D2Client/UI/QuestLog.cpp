@@ -2070,7 +2070,6 @@ extern unsigned char gbFlag_007BF2B0; // 0x007BF2B0
 
 extern D2Record42Strc gtQuestRecord; // 0x007BF355
 
-extern int gnPage; // 0x007C0255
 
 // 0x004A40D0
 void __fastcall QUESTLOG_SetQuestRecord(const D2Record42Strc* pRecord)

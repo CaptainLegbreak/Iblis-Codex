@@ -48,10 +48,10 @@ How far the sources are from reading like the original source tree. Byte matchin
 | … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 197 |
 | Record definitions private to a source file (`struct`/`union` in a .cpp) | 1902 |
 | Unnamed fields (`unk0x..`) in the shared headers | 647 |
-| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 39 |
+| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 36 |
 | Calling-convention shims | 38 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
-| `__declspec(noinline)` / `__forceinline` | 94 / 185 |
+| `__declspec(noinline)` / `__forceinline` | 91 / 185 |
 | Function names: blizzard / library / d2moo / inferred / placeholder | 478 / 87 / 5336 / 6493 / 2533 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`, an `if`/`else` whose two arms are identical). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
 
-Not listed one by one: 3253 functions are compiled with `/GS-` and 1568 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 94 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
+Not listed one by one: 3253 functions are compiled with `/GS-` and 1568 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 91 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -427,10 +427,10 @@ Not listed one by one: 3253 functions are compiled with `/GS-` and 1568 with `/E
 | 0x0042DC90 | zcfree | `Storm/zlib/zutil.c` | compiler option /Ob2, compiler option /TC |
 | 0x0042DCA0 | inflate_fast | `Storm/zlib/inffast.c` | compiler option /Ob2 |
 | 0x0042E120 | inflate_table | `Storm/zlib/inftrees.c` | compiler option /Ob2 |
-| 0x0044CD70 | GAME_TickKeepAlive | `D2Client/GAME/Game.cpp` | identical if/else arms |
-| 0x0044EFA0 | GAME_RunGameFrame | `D2Client/GAME/Game_0044D080.cpp` | identical if/else arms |
+| 0x0044CD70 | GAME_TickKeepAlive | `D2Client/GAME/Game.cpp` | identical if/else arms (original) |
+| 0x0044EFA0 | GAME_RunGameFrame | `D2Client/GAME/Game_0044D080.cpp` | identical if/else arms (original) |
 | 0x00474160 | DLIGHTMAP_MakeLightEntry | `D2Client/DRAW/dLightMap.cpp` | volatile read or qualifier |
-| 0x00477170 | PALSHIFT_LoadPalShift | `D2Client/GAME/PalShift.cpp` | #pragma optimize |
+| 0x00477170 | PALSHIFT_LoadPalShift | `D2Client/GAME/PalShift.cpp` | #pragma optimize (original) |
 | 0x00477DD0 | sub_00477DD0 | `D2Client/UI/inv.cpp` | __assume |
 | 0x004A9870 | SPELLSEL_DrawSkillSlot | `D2Client/UI/spellsel.cpp` | volatile read or qualifier |
 | 0x004B8100 | DIALOG_DrawDialog | `D2Client/UI/dialog.cpp` | volatile read or qualifier |

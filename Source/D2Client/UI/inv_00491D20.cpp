@@ -487,6 +487,7 @@ static int INV_IsOverGoldButton(int nX, int nY)
     return 0;
 }
 
+// noinline: the original calls this; without it the compiler expands it into 0x00491D20.
 __declspec(noinline) int __fastcall INV_IsInNpcPanelRect(int nX, int nY);
 int __fastcall INV_IsInNpcPanelRect(int nX, int nY); // 0x00486E10
 // 0x00486E10

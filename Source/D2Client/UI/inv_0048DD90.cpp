@@ -1952,6 +1952,7 @@ timer_done:
     INV_DrawItemTooltip(pPanelUnit, bOther);
 }
 
+// noinline: the original calls this; without it the compiler expands it into its callers.
 static __declspec(noinline) int INV_IsInTradeGrid(int nX, int nY)
 {
     if (nX > gnGlobal_007BCA34 && nX < gnGlobal_007BCA38 && nY >= gnGlobal_007BCA3C && nY <= gnGlobal_007BCA40)

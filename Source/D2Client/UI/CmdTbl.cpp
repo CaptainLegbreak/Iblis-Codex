@@ -2047,6 +2047,7 @@ public:
 // 0x00469420
 // Kept out of line: 0x00469C20 calls it with its arguments in eax/edx/ecx, a convention only a static of this unit
 // gets, so it is this unit's function; with /Ob2 it would otherwise be inlined there.
+// noinline: the original calls this; without it the compiler expands it into 0x00469C20.
 static __declspec(noinline) int sub_00469420_CheckWheelKey(int nId, unsigned short nKey, unsigned short* pKey)
 {
     switch (nKey)

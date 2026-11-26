@@ -1126,6 +1126,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
 }
 
 // 0x004BA760
+// noinline: the original calls this; without it the compiler expands it into 0x004BA790.
 static __declspec(noinline) void SOUNDINST_RefreshHint(D2ClientSoundStrc* pSound)
 {
     D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pSound->nSoundId);

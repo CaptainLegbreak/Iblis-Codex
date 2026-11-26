@@ -43,7 +43,6 @@ struct D2WeatherLayerStateStrc
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 void __stdcall sub_004B1680(D2NpcEntryStrc* pEntry); // 0x004B1680
-extern unsigned char gnCharClass; // 0x007A0522
 extern D2UiCelFileStrc gaPanelCels[7]; // 0x00724BF0
 extern D2WeatherLayerStateStrc gtSplashCels; // 0x007A89B0
 extern D2WeatherLayerStateStrc gtBubbleCels; // 0x007A893C
