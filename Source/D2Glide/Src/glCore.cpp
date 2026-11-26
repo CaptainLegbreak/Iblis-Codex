@@ -428,7 +428,6 @@ void* ghGlideLibrary; // 0x0087EFA8
 
 void (__stdcall* gpfnGuGammaCorrectionRGB)(float fRed, float fGreen, float fBlue); // 0x0087EABC
 
-void (__stdcall* gpfnGrDrawPoint)(const D2GlideSpriteVertexStrc* pVertex); // 0x0087EAA0
 
 void (__stdcall* gpfnGrDrawLine)(const D2GlideSpriteVertexStrc* pStart, const D2GlideSpriteVertexStrc* pEnd); // 0x0087E978
 
@@ -472,9 +471,7 @@ void (__stdcall* gpfnGrTexDownloadTable)(int nType, void* pData); // 0x0087EB40
 
 void* gpfnGrTexMipMapMode; // 0x0087EAD4
 
-int (__stdcall* gpfnGrLfbLock)(int nType, int nBuffer, int nWriteMode, int nOrigin, int bPixelPipeline, D2GrLfbInfoStrc* pInfo); // 0x0087EADC
 
-int (__stdcall* gpfnGrLfbUnlock)(int nType, int nBuffer); // 0x0087EAD8
 
 // 0x00507EE0
 void __fastcall SCROLLBAR_Destroy(void* pArg)
@@ -584,7 +581,6 @@ int __cdecl GLCORE_CheckCutScene()
 
 int gnSceneScaleFactor; // 0x007B57E4
 
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC218
 
 D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
 
