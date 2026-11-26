@@ -10,7 +10,6 @@
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc*, int, int, int, int, int, int); // 0x004C5EB0
 void __stdcall SKILLS_SetParam3(D2SkillStrc*, int); // 0x006445E0
-int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*, unsigned int, int, int); // 0x00646CA0
 void __stdcall D2Common_10216(D2DynamicPathStrc*, int, int, int); // 0x00649EF0
 
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int skillId)

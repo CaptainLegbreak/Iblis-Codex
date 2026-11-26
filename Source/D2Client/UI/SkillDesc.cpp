@@ -536,11 +536,8 @@ static int SKILLDESC_AddNextLevelParam(int nSkillId, int nSkillLevel, Unicode* w
 static int __stdcall SKILLDESC_AddSeconds(int nFrames, unsigned short nString, int bPlus, Unicode* wszText); // 0x004EDB30
 static int SKILLDESC_AddSecondsPlus(unsigned short nString, int nFrames, Unicode* wszText); // 0x004EDC30
 static int __stdcall SKILLDESC_AddElemDuration(Unicode* wszText, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004EDC40
-void __fastcall SKILLDESC_ShowSkillPopup(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY); // 0x004EEF00
-void __fastcall SKILLDESC_ShowSkillPopupB(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY); // 0x004EF410
 int __fastcall SKILLDESC_CltDoLobMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004EFDF0
 int __fastcall SKILLDESC_CltDoLaunchMissileAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004F0050
-int __fastcall SKILLDESC_IsVineBeastMissile(D2UnitStrc* unit, void* unused); // 0x004F0F10
 
 static int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel); // 0x004EDDD0
 
