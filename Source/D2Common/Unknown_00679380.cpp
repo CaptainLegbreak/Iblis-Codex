@@ -44,7 +44,7 @@ int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, in
 
 
 static int PATH_CheckCollisionsToNextPosition(D2DynamicPathStrc* pDynamicPath, D2PathPointStrc* pGameCoord); // 0x00679A60
-int __fastcall sub_6FDAA720(D2PathInfoStrc* pPathInfo); // 0x00679B30
+int __fastcall sub_00679B30_ComputeOffsetPath(D2PathInfoStrc* pPathInfo); // 0x00679B30
 static int __stdcall PATH_RayTrace(D2PathPointStrc tStartCoord, D2PathPointStrc* pPathDestination, D2DynamicPathStrc* pDynamicPath); // 0x00679720
 
 
@@ -53,7 +53,7 @@ extern const D2CoordStrc gatDirectionToOffset[8]; // 0x006F1798
 
 void __fastcall PATH_GetScaledDirectionVector(int nVelocity, D2CoordStrc* pDirectionVector, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0067A390
 
-static int __stdcall sub_6FDAA880(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo); // 0x006793E0
+static int __stdcall sub_006793E0_FindFreeDirection(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo); // 0x006793E0
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
@@ -134,7 +134,7 @@ int __stdcall PATH_GetTableHeuristic(D2PathPointStrc pPoint1, D2PathPointStrc pP
 }
 
 // 0x006793E0
-static int __stdcall sub_6FDAA880(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo)
+static int __stdcall sub_006793E0_FindFreeDirection(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo)
 {
     D2_ASSERT(((pPathInfo->pDynamicPath->pUnit && pPathInfo->pDynamicPath->pUnit->dwUnitType == UNIT_PLAYER) || (pPathInfo->pDynamicPath->pUnit && pPathInfo->pDynamicPath->pUnit->dwUnitType == UNIT_MONSTER)) != 0, 52);
 
@@ -171,18 +171,18 @@ static int __stdcall sub_6FDAA880(D2PathPointStrc tPoint, int* pTestDir, int* pD
     return 0;
 }
 
-int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo); // 0x00679C80
+int __fastcall sub_00679C80_Toward(D2PathInfoStrc* pPathInfo); // 0x00679C80
 
 int __fastcall PATH_AStar_ComputePath(D2PathInfoStrc* pPathInfo); // 0x0067B850
 
-int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
+int __fastcall sub_00679C80_Toward(D2PathInfoStrc* pPathInfo)
 {
     D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
     pPath->dwCurrentPointIdx = 0;
     pPath->dwPathPoints = 0;
     if (pPath->nDirOffset)
     {
-        return sub_6FDAA720(pPathInfo);
+        return sub_00679B30_ComputeOffsetPath(pPathInfo);
     }
 
     D2PathPointStrc nNextPoint = pPathInfo->tTargetCoord;
@@ -234,7 +234,7 @@ int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
 // build: symbol ?PATH_GetDirections@* 0x00678D70
                 PATH_GetDirections(aTestDir, tPoint, nNextPoint);
                 int nDirection;
-                if (!sub_6FDAA880(tPoint, aTestDir, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDir)
+                if (!sub_006793E0_FindFreeDirection(tPoint, aTestDir, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDir)
                 {
                     goto ADD_LAST_POINT;
                 }
@@ -307,7 +307,7 @@ static int PATH_CheckCollisionsToNextPosition(D2DynamicPathStrc* pDynamicPath, D
 }
 
 // 0x00679B30
-int __fastcall sub_6FDAA720(D2PathInfoStrc* pPathInfo)
+int __fastcall sub_00679B30_ComputeOffsetPath(D2PathInfoStrc* pPathInfo)
 {
     D2DynamicPathStrc* pDynamicPath = pPathInfo->pDynamicPath;
     int nPrevDirection = 0xFF;
@@ -335,7 +335,7 @@ int __fastcall sub_6FDAA720(D2PathInfoStrc* pPathInfo)
             nDirections[1] = (nDirections[1] + nDirectionOffset) & 7;
             nDirections[2] = (nDirections[2] + nDirectionOffset) & 7;
             int nDirection;
-            if (!sub_6FDAA880(tLastSegmentEndCoord, nDirections, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDirection)
+            if (!sub_006793E0_FindFreeDirection(tLastSegmentEndCoord, nDirections, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDirection)
             {
                 break;
             }
@@ -474,10 +474,10 @@ static int __stdcall sub_00679530_TraceLineFP16(D2DynamicPathStrc* pDynamicPath,
 }
 
 // 0x00679E50
-int __fastcall sub_6FDAB0B0(D2PathInfoStrc* pPathInfo)
+int __fastcall sub_00679E50_RestartToward(D2PathInfoStrc* pPathInfo)
 {
     pPathInfo->pDynamicPath->dwCurrentPointIdx = 0;
-    return PATH_Toward_6FDAA9F0(pPathInfo);
+    return sub_00679C80_Toward(pPathInfo);
 }
 
 // 0x00679E60
@@ -487,7 +487,7 @@ int __fastcall PATH_BackupTurn_Compute(D2PathInfoStrc* pPathInfo)
     pDynamicPath->dwCurrentPointIdx = 0;
     pDynamicPath->nDirOffset = -4;
 
-    const int nResult = sub_6FDAA720(pPathInfo);
+    const int nResult = sub_00679B30_ComputeOffsetPath(pPathInfo);
     if (!nResult)
     {
         return 0;
@@ -496,11 +496,11 @@ int __fastcall PATH_BackupTurn_Compute(D2PathInfoStrc* pPathInfo)
     pDynamicPath->dwPathPoints = nResult;
     pDynamicPath->nDirOffset = -2;
 
-    int nExtra = sub_6FDAA720(pPathInfo) - nResult;
+    int nExtra = sub_00679B30_ComputeOffsetPath(pPathInfo) - nResult;
     if (!nExtra)
     {
         pDynamicPath->nDirOffset = 2;
-        nExtra = sub_6FDAA720(pPathInfo) - nResult;
+        nExtra = sub_00679B30_ComputeOffsetPath(pPathInfo) - nResult;
     }
 
     pDynamicPath->nDirOffset = -4;
@@ -514,7 +514,7 @@ int __fastcall PATH_Straight_Compute(D2PathInfoStrc* pPathInfo)
     pDynamicPath->dwCurrentPointIdx = 0;
     pDynamicPath->dwPathPoints = 0;
 
-    int nPathPoints = PATH_Toward_6FDAA9F0(pPathInfo);
+    int nPathPoints = sub_00679C80_Toward(pPathInfo);
     if (nPathPoints)
     {
         D2PathPointStrc tPathLastPoint = pDynamicPath->PathPoints[nPathPoints - 1];
@@ -542,7 +542,7 @@ int __fastcall PATH_Straight_Compute(D2PathInfoStrc* pPathInfo)
         }
         else if (nPathPoints)
         {
-            nPathPoints = PATH_Toward_6FDAA9F0(pPathInfo);
+            nPathPoints = sub_00679C80_Toward(pPathInfo);
         }
     }
     return nPathPoints;

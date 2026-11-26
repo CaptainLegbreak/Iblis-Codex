@@ -41,11 +41,11 @@ int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, in
 
 extern const D2CoordStrc gatDirectionToOffset[8]; // 0x006F1798
 
-int __stdcall sub_6FDAA880(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo); // 0x006793E0
+int __stdcall sub_006793E0_FindFreeDirection(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo); // 0x006793E0
 
 static int __stdcall PATH_RayTrace(D2PathPointStrc tStartCoord, D2PathPointStrc* pPathDestination, D2DynamicPathStrc* pDynamicPath); // 0x00679720
 
-int __fastcall sub_6FDAA720(D2PathInfoStrc* pPathInfo); // 0x00679B30
+int __fastcall sub_00679B30_ComputeOffsetPath(D2PathInfoStrc* pPathInfo); // 0x00679B30
 
 typedef int BOOL;
 
@@ -120,14 +120,14 @@ static inline int PATH_TestCollision(const D2CollisionTestStrc* pTest, int nX, i
     return COLLISION_CheckAnyCollisionWithPattern(pTest->pRoom, nX, nY, pTest->nCollisionPattern, pTest->nCollisionMask);
 }
 
-int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
+int __fastcall sub_00679C80_Toward(D2PathInfoStrc* pPathInfo)
 {
     D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
     pPath->dwCurrentPointIdx = 0;
     pPath->dwPathPoints = 0;
     if (pPath->nDirOffset)
     {
-        return sub_6FDAA720(pPathInfo);
+        return sub_00679B30_ComputeOffsetPath(pPathInfo);
     }
 
     D2PathPointStrc nNextPoint = pPathInfo->tTargetCoord;
@@ -179,7 +179,7 @@ int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
 // build: symbol ?PATH_GetDirections@* 0x00678D70
                 PATH_GetDirections(aTestDir, tPoint, nNextPoint);
                 int nDirection;
-                if (!sub_6FDAA880(tPoint, aTestDir, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDir)
+                if (!sub_006793E0_FindFreeDirection(tPoint, aTestDir, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDir)
                 {
                     goto ADD_LAST_POINT;
                 }

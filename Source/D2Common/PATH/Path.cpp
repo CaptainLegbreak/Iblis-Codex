@@ -1122,7 +1122,7 @@ struct D2DynamicPath00647FB0Strc
 };
 
 // 0x00647FB0
-void __fastcall sub_6FDA8220(D2DynamicPathStrc* pDynamicPath)
+void __fastcall PATH_CheckPathInRoom(D2DynamicPathStrc* pDynamicPath)
 {
     D2DynamicPath00647FB0Strc* const pPath = (D2DynamicPath00647FB0Strc*)pDynamicPath;
     D2PathPoint00647FB0Strc* const pPathPoints = pPath->PathPoints;
@@ -1210,7 +1210,7 @@ static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
     aTestDirPathPoints[2].Y = nTargetY;
 
     int aTestDir[3];
-    sub_6FDAB7D0(aTestDir, pPathInfo->tTargetCoord, pPathInfo->tStartCoord);
+    PATH_GetAltDirectionTriplet(aTestDir, pPathInfo->tTargetCoord, pPathInfo->tStartCoord);
     while (1)
     {
         if (nStartX == aTestDirPathPoints[0].X && nStartY == aTestDirPathPoints[0].Y)
@@ -1276,7 +1276,7 @@ static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
         }
 
         int aNextTestDir[3];
-        sub_6FDAB7D0(aNextTestDir, aTestDirPathPoints[0], pPathInfo->tStartCoord);
+        PATH_GetAltDirectionTriplet(aNextTestDir, aTestDirPathPoints[0], pPathInfo->tStartCoord);
         aTestDir[0] = aNextTestDir[0];
     }
 
@@ -2018,7 +2018,7 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
                         PATH_ComputeVelocityAndDirectionVectorsToNextPoint(pPath, PATH_TRUE, PATH_TRUE);
                         if (pPath->dwCurrentPointIdx < pPath->dwPathPoints)
                         {
-                            sub_6FDA8220(pPath);
+                            PATH_CheckPathInRoom(pPath);
                             pPath->unk0x38 = 0;
                             pPath->tPrevTargetCoord.X = pPath->tTargetCoord.X;
                             pPath->tPrevTargetCoord.Y = pPath->tTargetCoord.Y;
@@ -2571,7 +2571,7 @@ static unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* pPathInfo)
         case UNIT_MONSTER:
             if (pPath->dwSpeed)
             {
-                PATHUtil_AdvanceTowardsTarget_6FDAB890(pPath);
+                PATHUTIL_AdvanceTowardsTarget(pPath);
             }
             return 1;
 
