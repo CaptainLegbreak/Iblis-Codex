@@ -60668,6 +60668,16 @@
      "name": "CelNormalDirToFileDir"
     },
     {
+     "va": "0x00600C90",
+     "length": 32,
+     "name": "?CelGameDirToFileDir@@YGHHI@Z"
+    },
+    {
+     "va": "0x00600D30",
+     "length": 37,
+     "name": "?D2CMPSpriteCanConvertDirections@@YGHHH@Z"
+    },
+    {
      "va": "0x00600EE0",
      "length": 44,
      "name": "CelFileHalve"
@@ -60721,6 +60731,11 @@
      "name": "CelDrawEx"
     },
     {
+     "va": "0x00601730",
+     "length": 213,
+     "name": "?CelDrawShadow@@YGXPAUD2CmpCelContextStrc@@HHHHPAEHHHH@Z"
+    },
+    {
      "va": "0x00601810",
      "length": 44,
      "name": "CelValidateContext"
@@ -60729,6 +60744,26 @@
      "va": "0x00601840",
      "length": 121,
      "name": "?CelGetHandle@@YGPAUD2CelStrc@@PAUD2CmpCelContextStrc@@@Z"
+    },
+    {
+     "va": "0x006018C0",
+     "length": 48,
+     "name": "CelGetWidth"
+    },
+    {
+     "va": "0x006018F0",
+     "length": 48,
+     "name": "?GetDC6Height@@YGHPAUD2CelStrc@@@Z"
+    },
+    {
+     "va": "0x00601920",
+     "length": 48,
+     "name": "?GetDC6OffsetX@@YGHPAUD2CelStrc@@@Z"
+    },
+    {
+     "va": "0x00601950",
+     "length": 48,
+     "name": "?CelGetOffsetY@@YGHPAUD2CelStrc@@@Z"
     },
     {
      "va": "0x00601980",
@@ -60741,9 +60776,29 @@
      "name": "?CelFileGetNumDirections@@YGHPAUUnit@@@Z"
     },
     {
+     "va": "0x006019F0",
+     "length": 49,
+     "name": "CelFileGetCelsPerDirection"
+    },
+    {
+     "va": "0x00601A30",
+     "length": 15,
+     "name": "CelSetHardwareFreeCallback"
+    },
+    {
+     "va": "0x00601A40",
+     "length": 6,
+     "name": "CelGetHardwareFreeCallback"
+    },
+    {
      "va": "0x00601A50",
      "length": 183,
      "name": "CelFileFreeHardware"
+    },
+    {
+     "va": "0x00601B10",
+     "length": 48,
+     "name": "CelGetHardwareData"
     },
     {
      "va": "0x00601B40",
@@ -61752,64 +61807,9 @@
    ]
   },
   {
-   "file": "Source/D2CMP/SRC/CelCmp_005FF2A0.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp_00603280.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00600C90",
-     "length": 32,
-     "name": "?CelGameDirToFileDir@@YGHHI@Z"
-    },
-    {
-     "va": "0x00600D30",
-     "length": 37,
-     "name": "?D2CMPSpriteCanConvertDirections@@YGHHH@Z"
-    },
-    {
-     "va": "0x00601730",
-     "length": 213,
-     "name": "?CelDrawShadow@@YGXPAUD2CmpCelContextStrc@@HHHHPAEHHHH@Z"
-    },
-    {
-     "va": "0x006018C0",
-     "length": 48,
-     "name": "CelGetWidth"
-    },
-    {
-     "va": "0x006018F0",
-     "length": 48,
-     "name": "?GetDC6Height@@YGHPAUD2CelStrc@@@Z"
-    },
-    {
-     "va": "0x00601920",
-     "length": 48,
-     "name": "?GetDC6OffsetX@@YGHPAUD2CelStrc@@@Z"
-    },
-    {
-     "va": "0x00601950",
-     "length": 48,
-     "name": "?CelGetOffsetY@@YGHPAUD2CelStrc@@@Z"
-    },
-    {
-     "va": "0x006019F0",
-     "length": 49,
-     "name": "CelFileGetCelsPerDirection"
-    },
-    {
-     "va": "0x00601A30",
-     "length": 15,
-     "name": "CelSetHardwareFreeCallback"
-    },
-    {
-     "va": "0x00601A40",
-     "length": 6,
-     "name": "CelGetHardwareFreeCallback"
-    },
-    {
-     "va": "0x00601B10",
-     "length": 48,
-     "name": "CelGetHardwareData"
-    },
     {
      "va": "0x00603280",
      "length": 57,

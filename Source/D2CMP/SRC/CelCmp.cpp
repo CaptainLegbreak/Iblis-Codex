@@ -1514,6 +1514,30 @@ void __stdcall D2CMPBuildFileName(char* output,int allowCompressed,const char* f
     strcat(output,suffix);
 }
 
+// Kept noinline: CelGetRawData (0x6015D0) calls this out of line in the image; without it the compiler inlines it there.
+// 0x00600C90
+__declspec(noinline) int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections)
+{
+// build: symbol ?gaDirectionIndex64@* 0x006E45A0
+    return gaDirectionIndex64[sub_00517ABB_FindLowestSetBit(nDirections)][nDirection];
+}
+
+// 0x00600D30
+int __stdcall D2CMPSpriteCanConvertDirections(int nDirections, int nNewDirections)
+{
+    if (nDirections == 4)
+    {
+        return 0;
+    }
+
+    if (nDirections == 8 && nNewDirections == 16)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
 // 0x00601180
 void __stdcall CelFileIteratePixels(D2CelFileStrc* pCelFile, int nArg)
 {
@@ -1772,6 +1796,49 @@ void __stdcall CelDrawEx(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg
     pfnDraw(pCel, &pBuffer[nEnd * nPitch + nX], nX, nArg4, nArg5, nPitch, nY - nEnd, nRows, nArg9, nArg10, nArg13);
 }
 
+// 0x00601730
+void __stdcall CelDrawShadow(D2CmpCelContextStrc* pContext, int nX, int nY, int nClipLeft, int nClipRight, unsigned char* pBuffer, int nHeightLimit, int nPitch, int nTable, int nColor)
+{
+    D2CelFileStrc* pCelFile = pContext->pCelFile;
+    if (pCelFile)
+    {
+        D2_ASSERT(pCelFile->dwVersion == 6, 0x50D);
+        D2_ASSERT(!(pCelFile->dwFlags & 4), 0x50E);
+    }
+
+    D2_ASSERT(pBuffer, 0x511);
+    D2CelStrc* pCel = pContext->pCel;
+    D2_ASSERT(pCel, 0x514);
+
+    nX += pCel->nXOffset + pCel->nYOffset / 2;
+    nY += pCel->nYOffset / 2;
+    int nLines = (unsigned int)pCel->nHeight / 2;
+    int nSkip = 0;
+    if (nY - pCel->nHeight / 2 < 0)
+    {
+        nLines = nY + 1;
+    }
+
+    if (nLines <= 0)
+    {
+        return;
+    }
+
+    if (nY >= nHeightLimit)
+    {
+        nSkip = nY - nHeightLimit + 1;
+        nLines -= nSkip;
+        if (nLines <= 0)
+        {
+            return;
+        }
+        nY = nHeightLimit - 1;
+    }
+
+    const int nStart = nX - nSkip;
+    CelDrawRleShadow(pCel, pBuffer + nY * nPitch + nStart, nStart, nClipLeft, nClipRight, nPitch, nSkip, nLines, nTable, nColor);
+}
+
 // 0x00601810
 int __stdcall CelValidateContext(D2CmpCelContextStrc* pContext)
 {
@@ -1799,6 +1866,38 @@ int __stdcall CelValidateContext(D2CmpCelContextStrc* pContext)
     return 1;
 }
 
+// 0x006018C0
+int __stdcall CelGetWidth(D2CelStrc* pCel)
+{
+    D2_ASSERT(pCel, 1403);
+
+    return pCel->nWidth;
+}
+
+// 0x006018F0
+int __stdcall CelGetHeight(D2CelStrc* pCel)
+{
+    D2_ASSERT(pCel, 0x589);
+
+    return pCel->nHeight;
+}
+
+// 0x00601920
+int __stdcall CelGetOffsetX(D2CelStrc* pCel)
+{
+    D2_ASSERT(pCel, 0x597);
+
+    return pCel->nXOffset;
+}
+
+// 0x00601950
+int __stdcall CelGetOffsetY(D2CelStrc* pCel)
+{
+    D2_ASSERT(pCel, 0x5A5);
+
+    return pCel->nYOffset;
+}
+
 // 0x00601980
 char* __stdcall CelGetControlData(D2CelStrc* pCel)
 {
@@ -1814,6 +1913,26 @@ int __stdcall CelFileGetNumDirections(D2UnitStrc* unit)
         exit(-1);
     }
     return unit->dwAnimMode;
+}
+
+// 0x006019F0
+int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pFile)
+{
+    D2_ASSERT(pFile->dwVersion == 6, 1489);
+
+    return pFile->nCelsPerDirection;
+}
+
+// 0x00601A30
+void __stdcall CelSetHardwareFreeCallback(PixelDataFreeCallback pfnCallback)
+{
+    gpfnPixelDataFree = pfnCallback;
+}
+
+// 0x00601A40
+PixelDataFreeCallback __stdcall CelGetHardwareFreeCallback()
+{
+    return gpfnPixelDataFree;
 }
 
 // 0x00601A50
@@ -1979,7 +2098,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 // Three members of the cel list table keep the forms this file had before: the original reloads the slot list
 // on every step of its loops, and no plain form of the templates' members has given that yet. InternalFind is
-// defined at the end of the file; GenerateHandle is CelCmp_005FF2A0.cpp's.
+// defined at the end of the file; GenerateHandle is CelCmp_00603280.cpp's.
 template<>
 CELLIST* TSHashTable<CELLIST, HASHKEY_NONE>::InternalFind(unsigned int hashval, const HASHKEY_NONE& key);
 template<>
@@ -1987,6 +2106,14 @@ int TSHashTable<CELLIST, HASHKEY_NONE>::MonitorFullness(unsigned int slot);
 template<>
 HCELLIST__* TSExportTableSimple<CELLIST, HCELLIST__*, 0>::GenerateHandle();
 
+
+// 0x00601B10
+void* __stdcall CelGetHardwareData(D2CelStrc* pCel)
+{
+    D2_ASSERT(pCel, 1578);
+
+    return pCel->pBlockPixelData;
+}
 
 // 0x006045B0
 template<>
