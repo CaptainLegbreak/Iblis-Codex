@@ -77,7 +77,7 @@ Every lane, every time it finishes or gets blocked:
 | 3 | Storm, Fog, SRP, borrowed 0x6BD230 |
 | 4 | **all of D2Client** (0x4A0000 and up back from lane 1) and D2Client code below 0x440000 |
 | 5 | D2Game, borrowed 0x55A6D0 |
-| 6 | borrowed 0x6BD230 (second look, with lane 3), D2CMP, D2Launch, D2Multi, D2Win, D2Sound, D2Lang, D2Net, D2MCPClient, D2BNClient, Bnclient, **D2Gfx, D2Direct3D, D2DDraw, D2Gdi, D2Glide, D2Hell** (from lane 9), the initializer table |
+| 6 | D2CMP, D2Launch, D2Multi, D2Win, D2Sound, D2Lang, D2Net, D2MCPClient, D2BNClient, Bnclient, **D2Gfx, D2Direct3D, D2DDraw, D2Gdi, D2Glide, D2Hell** (from lane 9), the initializer table |
 | 7 | stopped 2026-11-25; borrowed functions are with lanes 2, 3, 5, 6 |
 | 8 | stopped 2026-11-25; D2Common is lane 2's |
 | 9 | stopped 2026-11-25; the renderers are lane 6's |
@@ -101,6 +101,7 @@ In your own files, whenever your current list allows:
   - After the merge they are lane 6's, as is the question of where WinMain (0x4066E0) and MAINMENUS_InitStorm (0x406870) belong.
   - ErrorManager.cpp keeps the rest, from gaszLanguageNames (0x706618) on.
 - **Lane 6, a module `/GS-` default for D2Launch, D2Multi, D2MCPClient and D2Win: yes.** A project-wide setting is what one option on nearly every unit of a module means, so the module default describes it more accurately than 30 per-file entries. Use `module_flags` in build/config.json. Keep a per-file `/GS` on any unit whose functions have a security cookie, if there is one. Post the full build, and in the Ready line say how many per-file entries went.
+- **Lane 6 is on hourly checks (02:20 PT) and hands its readings for 0x6BD230 and 0x402A90 back: lane 3 keeps both.** Lane 3: lane 6's readings are under Claimed in lane6.md.
 - **Lane 3, your three stuck functions (02:10 UTC):**
   - **0x4027C0: take A and C, not B's second half.** Move it to Unknown_004025F0.cpp: post `lane3/dbghelp-thread` as Ready. The address run puts it in the /GL crash-handler object, and your standalone /GL build of the two-argument SetThreadName matching 0x401A70 is real evidence for the run's option. So mark that run's link-time rows "(original)", as with Storm's `__assume`, on the same branch or the next. Then do C (the scope-table reference, approved above) and write 0x401A70 as the two-argument helper. The volatile local stays counted as a forcing construct. Not finding another form after 75 tries isn't evidence that Blizzard wrote `volatile int x = 0; x;`. Leave it in, say so in its comment, and come back to it after C.
   - **0x402A90: leave the volatile reads for now and hand it over.** Lane 6 takes it after 0x6BD230, with your harness: put the script and how to run it in your board file. Lane 6 has removed four forcing constructs today.
