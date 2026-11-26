@@ -257,7 +257,6 @@ struct D2MissileStrc;
 struct D2PlayerDataStrc;
 
 
-typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

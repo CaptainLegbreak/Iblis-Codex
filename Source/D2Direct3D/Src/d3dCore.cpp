@@ -9,8 +9,6 @@
 #include "StormApi.h"
 #include "FogApi.h"
 
-extern "C" __declspec(dllimport) int __stdcall lstrlenA(const char* sz); // 0x006CC154
-extern "C" __declspec(dllimport) long __stdcall RegSetValueExA(void* hKey, const char* szValueName, unsigned long nReserved, unsigned long dwType, const unsigned char* pData, unsigned long cbData); // 0x006CC034
 extern "C" __declspec(dllimport) long __stdcall RegCloseKey(void* hKey);
 extern "C" __declspec(dllimport) long __stdcall RegCreateKeyExA(void* hKey, const char* lpSubKey, unsigned long Reserved, char* lpClass, unsigned long dwOptions, unsigned long samDesired, void* lpSecurityAttributes, void** phkResult, unsigned long* lpdwDisposition);
 
@@ -401,7 +399,6 @@ void __cdecl D3DCORE_ReleaseResources(); // 0x006B3320
 
 void __cdecl sub_006B3080(); // 0x006B3080
 
-void __cdecl D3DFLOORCACHE_CreateTileSurfaces(); // 0x006BB5E0
 
 void __cdecl sub_006B8F10(); // 0x006B8F10
 
@@ -471,7 +468,6 @@ void __cdecl sub_006B96C0_BuildScaleTable(); // 0x006B96C0
 
 void __cdecl sub_006B97D0_BuildScaleTable(); // 0x006B97D0
 
-void __cdecl D3DSMACK_SmackInit(); // 0x006B9A10
 
 extern const unsigned int gnDeviceFlagMask_006CE268; // 0x006CE268
 
@@ -526,7 +522,6 @@ extern int gn_007C9140; // 0x007C9140
 
 extern D2ComObject006B5550Strc* gpObject_00970E60; // 0x00970E60
 
-extern "C" void __cdecl D3DSMACK_SmackFree(); // 0x006B9B00
 
 extern D2CriticalSectionStrc* gpCriticalSection_007C9134; // 0x007C9134
 
@@ -552,7 +547,6 @@ void __cdecl D3DCORE_ReleaseRenderer(); // 0x006B32B0
 
 void __cdecl sub_006B9150_ReleaseResource(); // 0x006B9150
 
-void __cdecl D3DFLOORCACHE_ReleaseTileSurfaces(); // 0x006BB640
 
 unsigned int gadwColors[256]; // 0x009702C0
 
@@ -666,11 +660,8 @@ struct D2Cache006BA830Strc
     int unk0x00[7];
 };
 
-void __cdecl D3DSPRITE_ReleaseSprites(); // 0x006B5B10
 
-void __cdecl sub_006B7250_ReleaseAll(); // 0x006B7250
 
-void __cdecl D3DSMACK_ReleaseSmackSurfaces(); // 0x006B9B30
 
 void __fastcall sub_006BA830_FreeCache(D2Cache006BA830Strc* pCache, int bFree); // 0x006BA830
 
@@ -2644,11 +2635,8 @@ extern D2DDrawDeviceStrc gaDDrawDevices[]; // 0x0096F4E0
 
 
 
-void __cdecl D3DSPRITE_ReleaseSprites(); // 0x006B5B10
 
-void __cdecl sub_006B7250_ReleaseAll(); // 0x006B7250
 
-void __cdecl D3DSMACK_ReleaseSmackSurfaces(); // 0x006B9B30
 
 void __fastcall sub_006BA830_FreeCache(D2Cache006BA830Strc* pCache, int bFree); // 0x006BA830
 
@@ -2742,16 +2730,12 @@ extern BufferPool gLargePool; // 0x00970EC8
 extern BufferPool gMediumPool; // 0x00970EE4
 extern BufferPool gSmallPool; // 0x00970F00
 char* __fastcall sub_006B76D0_InitVertices(char*); // 0x006B76D0
-char* __fastcall D3DSMACK_CreateSmackSurfaces(char*); // 0x006B9A50
 char* __fastcall D3DFLOORCACHE_FloorCacheInit(BufferPool*,char*,char*,unsigned int); // 0x006BAFC0
 char* __fastcall D3DSUBTILECACHE_SubtileCacheInit(BufferPool*,char*,char*,unsigned int); // 0x006BA9A0
 char* __fastcall sub_006BA420(BufferPool*,char*,char*,unsigned int,unsigned int); // 0x006BA420
-void __cdecl D3DSPRITE_InitSprites(); // 0x006B7110
-void __fastcall D3DFLOORCACHE_InvalidateTileCaches(D2TileLibraryEntryStrc* pTile); // 0x006BBB90
 void __stdcall TileSetHardwareFreeCallback(void*); // 0x00604A30
 extern D2ComObjectStrc* gpInterface_00970E78; // 0x00970E78
 void __cdecl sub_006B9150_ReleaseResource(); // 0x006B9150
-void __cdecl D3DFLOORCACHE_ReleaseTileSurfaces(); // 0x006BB640
 int gbVideoUp; // 0x00970E40
 int gnVideoState; // 0x00970E44
 D2ComObjectStrc* gpPrimarySurface; // 0x00970E68

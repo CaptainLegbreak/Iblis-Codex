@@ -74,7 +74,6 @@ void __cdecl DDCORE_ReleaseSurfaces(); // 0x00511A80
 
 int __fastcall DDCORE_CreateSurface(void* hWnd, int nResolutionMode); // 0x005115E0
 
-void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x00512710
 
 int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int bAsync, int nFlags); // 0x005FDEA0
 
@@ -219,7 +218,6 @@ public:
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
-void __fastcall sub_00511DF0_DDrawSetMode(int nResolutionMode);                                             // 0x00511DF0
 
 int gbDDrawReady;                                                                                  // 0x00881264
 
@@ -279,9 +277,7 @@ int __cdecl DDCORE_SetDisplayMode();                                            
 
 void __cdecl DDCORE_CloseAtExit();                                                               // 0x00511CD0
 
-void __cdecl DDDEBUGFONT_CreateDebugFont();                                                           // 0x00512430
 
-void __cdecl DDDEBUGFONT_FreeDebugFont();                                                             // 0x005125B0
 
 extern "C" const char gszDirectDrawCreateFailed[];                                                  // 0x006DE1B4
 
@@ -293,7 +289,6 @@ D2DDrawObjectClass* gpDDrawObject;                                              
 
 int __fastcall DDCORE_Blit();                                                                     // 0x00511870
 
-void __fastcall sub_00512ED0_ClearScreen(int bPartial);                                                     // 0x00512ED0
 
 extern int gaDDrawCapsTypes[8];                                                                    // 0x0072F7D0
 
@@ -327,7 +322,6 @@ void __fastcall sub_0050C0F0_GlideDrawBoxAlpha(int nXStart, int nYStart, int nXE
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 
-void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT* pRect, unsigned char nColor);                     // 0x00512D90
 
 
 // 0x00510020

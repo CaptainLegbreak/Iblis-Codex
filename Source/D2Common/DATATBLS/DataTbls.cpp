@@ -456,7 +456,6 @@ struct D2PetTypeTxt
     short unk0xDE;
 };
 
-extern D2TxtLinkStrc* gpPettypeLinker; // 0x0096C81C
 
 
 

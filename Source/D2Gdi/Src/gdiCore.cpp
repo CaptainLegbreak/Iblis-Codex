@@ -35,7 +35,6 @@ extern void* ghBufferBitmap; // 0x0098A164
 
 extern D2Callbacks006C7CF0Strc* gpCallbacks_007C914C; // 0x007C914C
 
-void __fastcall sub_006C9280_Apply(int enabled, unsigned char unusedRegister, int unusedA, int unusedB); // 0x006C9280
 
 
 extern "C" __declspec(dllimport) void* __stdcall CreateCompatibleDC(void* hDC);
@@ -189,7 +188,6 @@ extern unsigned long gdwGdiDebugTextColor; // 0x0074C5C0
 extern void* ghGdiDebugFont; // 0x0098A170
 
 extern D2GfxSettingsStrc* gpGfxSettings; // 0x007C9148
-void __fastcall sub_006C8A60_Draw(int nX1, int nY1, int nX2, int nY2, unsigned char nColor, int nLevel); // 0x006C8A60
 
 int __fastcall GDICORE_Init(void* pArg1, void* pArg2); // 0x006C7A70
 int __cdecl GDICORE_Close(); // 0x006C7AB0
@@ -300,7 +298,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
 extern int gnValue_007C9144; // 0x007C9144
-void __fastcall sub_006C9280_Apply(int enabled, unsigned char unusedRegister, int unusedA, int unusedB); // 0x006C9280
 
 
 extern "C" __declspec(dllimport) void* __stdcall GetDC(void* hWnd);
