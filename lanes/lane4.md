@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 23:30 PST 2026: audit-379 rows for D2Client on main: decompiler labels and T<address> names are already gone; a1..a10/v12 is down to about 20 parameter names in prototypes and function-pointer typedefs (mostly D2Common/D2Win imports such as D2Common_10434, SERVER_Initialize, DUNGEON_FindRoomBySubtileCoordinates) whose meaning the callers here do not show, so I am leaving them rather than inventing names. Remaining: f_<hex>/unk0x fields (Game.cpp, SCmd.cpp lead), which need the records worked out field by field.
 - Wed Nov 25 23:29 PST 2026: emit-trim is in #423. plain-types posted.
 - Wed Nov 25 22:54 PST 2026: emit-trim posted (audit-379 emit helpers in D2Client: 69 out, 70 still needed).
 - Wed Nov 25 21:55 PST 2026: withdrew my link_exe.py diagnosis (Left in place): the marker check is right; the held copy conversions fail on our own .data layout (definition order, alignment).
