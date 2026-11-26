@@ -174,6 +174,7 @@ int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo); // 0x00679C80
 
 int __fastcall PATH_AStar_ComputePath(D2PathInfoStrc* pPathInfo); // 0x0067B850
 
+// 0x00679C80
 int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
 {
     D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
@@ -202,21 +203,19 @@ int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
     }
 
     {
-        D2PathPointStrc tPoint = pPathInfo->tStartCoord;
         D2PathPointStrc tCurCoords = pPathInfo->tStartCoord;
-        if (tPoint.X != nNextPoint.X || tPoint.Y != nNextPoint.Y)
+        if (tCurCoords.X != nNextPoint.X || tCurCoords.Y != nNextPoint.Y)
         {
             pPath->PathPoints[pPath->dwPathPoints] = nNextPoint;
             pPath->dwPathPoints += 1;
-            tPoint = nNextPoint;
             tCurCoords = nNextPoint;
         }
 
-        const int nDistMax = pPathInfo->nDistMax;
-        nNextPoint = pPathInfo->tTargetCoord;
         int nPrevDir = 0xFF;
         int nNewPointsCount = pPath->dwPathPoints;
+        const int nDistMax = pPathInfo->nDistMax;
         int bNotStraightLine = 0;
+        nNextPoint = pPathInfo->tTargetCoord;
         int nCurDist = 0;
         if (nDistMax > 0)
         {
@@ -231,26 +230,26 @@ int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
                 bNotStraightLine = 0;
                 int aTestDir[3];
 // build: symbol ?PATH_GetDirections@* 0x00678D70
-                PATH_GetDirections(aTestDir, tPoint, nNextPoint);
+                PATH_GetDirections(aTestDir, tCurCoords, nNextPoint);
                 int nDirection;
-                if (!sub_6FDAA880(tPoint, aTestDir, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDir)
+                if (!sub_6FDAA880(tCurCoords, aTestDir, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDir)
                 {
                     goto ADD_LAST_POINT;
                 }
 
+                const D2PathPointStrc tPrevCoords = tCurCoords;
                 tCurCoords.X += gatDirectionToOffset[nDirection].nX;
                 tCurCoords.Y += gatDirectionToOffset[nDirection].nY;
                 if (nDirection != nPrevDir)
                 {
-                    if (tPoint.X != pPathInfo->tStartCoord.X || tPoint.Y != pPathInfo->tStartCoord.Y)
+                    if (tPrevCoords.X != pPathInfo->tStartCoord.X || tPrevCoords.Y != pPathInfo->tStartCoord.Y)
                     {
-                        *pPathPointsEnd = tPoint;
+                        *pPathPointsEnd = tPrevCoords;
                         nNewPointsCount += 1;
                         ++pPathPointsEnd;
                     }
                     bNotStraightLine = 1;
                 }
-                tPoint = tCurCoords;
                 nPrevDir = nDirection;
                 nCurDist += 1;
             }
@@ -263,15 +262,14 @@ int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
         ADD_LAST_POINT:
             if (nCurDist)
             {
-                pPath->PathPoints[nNewPointsCount] = tPoint;
+                pPath->PathPoints[nNewPointsCount] = tCurCoords;
                 nNewPointsCount += 1;
             }
         }
     STORE_POINT_COUNT:
         pPath->dwPathPoints = nNewPointsCount;
+        return nNewPointsCount;
     }
-
-    return pPath->dwPathPoints;
 }
 
 // 0x00679A60
