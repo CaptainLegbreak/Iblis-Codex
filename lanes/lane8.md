@@ -12,6 +12,7 @@ scaffolding, names.
   (Composit_0064F060), `Units/Missile` (Missile_0064B860). Lane 2 hadn't claimed any of them.
 
 ## Status
+- Thu Nov 26 14:45 PT: param-names Ready. Lane 2 handed over D2Common's four forcing rows (lane2.md 14:25 PT): taking 0x621F90, 0x6419F0, 0x651040 and 0x65EA50 now, closest first (0x621F90, 1 byte).
 - Thu Nov 26 14:12 PT: three piece notes merged (#434), their Ready lines gone. noinline-evidence Ready. Next: D2Common a1/v12 names, starting with ItemMods.cpp's property-function parameters.
 - Thu Nov 26 14:10 PT: D2Common scaffolding: each of the 41 emit helpers removed alone and its unit rebuilt; only 0x0061B810's comes out (Ready, with the repeated declarations). Next: the eight `noinline`s with no evidence comment (Units, MonsterTbls, Items x2, RoomTile, Preset, Inventory x2).
 - Thu Nov 26 13:58 PT: Missile_0064B860 joined into Missile.cpp (Ready). D2Common joins left: DataTbls_00613F80 (waiting on lane 7's 0x613F80). Then scaffolding in Source/D2Common.
@@ -22,6 +23,7 @@ scaffolding, names.
 - Thu Nov 26 12:20 PT: setting up (repo, board, wine done; waiting for Game.exe, then setup and the baseline build).
 
 ## Ready
+- lane8/d2common-param-names 36675aa1 (on #435): D2Common parameters named a2/a7/a9/v16 and the like take names from what the code does with them (ItemMods.cpp's ForceBase flag and trailing target unit, the skill packers' fields as Items.cpp's stat writers read them, DrlgLogic.cpp's flood-fill context and direction, PATH_NormalizeStep's step, and single parameters in DataTbls, Skills, Units, Inventory, Outdoors and Unknown_00679380); prototypes of functions defined elsewhere take the definition's names. a1/v12 names 1,764 -> 1,523. Full build: Game.exe identical, tree 813cd0efb4a9ce414de48aba7390fe0c5eb0b58a, borrowed code / data 8,373 / 261.
 - lane8/noinline-evidence 25a3210f (on #434): the eight D2Common `noinline`s with no comment get one each naming the caller that calls the function out of line in the image (UNITS_TestCollisionWithUnit, DATATBLS_ParseTreasureClassItem, ITEMS_CalculateTransactionCost, ITEMS_GetColor, DRLGROOMTILE_AddLinkedTileData, DRLGPRESET_ParseDS1File, INVENTORY_RemoveItemFromInventory, INVENTORY_UpdateWeaponGUIDOnRemoval); each was dropped alone and its caller stopped building equal. Comments only, noinline count unchanged. Full build: Game.exe identical, tree 9dec1dbc921c64edd8a175f746891a492050b6c0, borrowed code / data 8,373 / 261.
 - lane8/d2common-dup-decls 84d59e36 (on #433): 24 declarations in 16 D2Common units that repeat token for token a prototype, extern or typedef from D2Common.h or an included Source/Include header go; DrlgActivate.cpp's emit helper for 0x0061B810 goes (the static builds equal without it; emit helpers 394 -> 393). ItemTbls.cpp's four repeats stay: removing them flips 0x00633F40 again. Full build: Game.exe identical, tree 79418873d3d9879748559e722aa9cbab778e38ac, borrowed code / data 8,373 / 261.
 - lane8/join-missile-damage 7b34cd96 (on #432): Missile.cpp takes in MISSILE_CalculateDamageData (0x0064B860) from Missile_0064B860.cpp, which goes. The marked function replaces Missile.cpp's unmarked copy of it, and the four static damage helpers (0x0064A850, 0x0064A930, 0x0064AA60, 0x0064ABA0) take their arguments in the caller's order (damage record or unit first), which is what gives the caller its 0x30-byte frame (0x34 with the old order). Every Missile.cpp function equal; files in pieces 109 -> 108. Full build: Game.exe identical, tree 0ac6009fd4233a591b327cfdbf155996260b5cbb, borrowed code / data 8,373 / 261.
@@ -52,7 +54,7 @@ scaffolding, names.
   audit counts (volatile, pragma optimize, bare `__assume`, identical arms) don't include barriers. Lane 8 takes it as
   a D2Common forcing row unless you say it isn't one; it is also why the MissileTbls join is hard (the loader is
   declaration-sensitive).
-- **Lane 2, D2Common's four forcing rows** (0x621F90, 0x6419F0, 0x651040, 0x65EA50): your 12:10 PT status says you've just
+- **Lane 2, thanks for the four forcing rows' readings** (lane2.md 14:25 PT); lane 8 has them now. Old note: (0x621F90, 0x6419F0, 0x651040, 0x65EA50): your 12:10 PT status says you've just
   started on them. Branches in flight stay yours, so tell me here which you finish and which you hand back; until then I
   leave all four to you and work the D2Common file joins (Claimed). Anything you hand over, I take from your notes and
   pushed branches. Your three borrowed drafts (0x62B5B0 with lane 4 now, 0x677880, 0x679C80) stay paused and untouched.
