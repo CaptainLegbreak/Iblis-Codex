@@ -326,7 +326,7 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static void __fastcall sub_6FD815E0(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
+static void __fastcall DRLGOUTPLACE_PlaceLinkedCoordCentered(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
 {
     switch (a3)
     {
@@ -635,7 +635,7 @@ int __fastcall DRLGOUTPLACE_PlaceLevel(D2DrlgLevelLinkDataStrc* pData)
     return 1;
 }
 
-static inline void sub_6FD81430(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
+static inline void DRLGOUTPLACE_PlaceLinkedCoord(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
 {
 	switch (a3)
 	{
@@ -700,7 +700,7 @@ static inline void sub_6FD81430(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* p
 	}
 }
 
-static inline void sub_6FD81850(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
+static inline void DRLGOUTPLACE_PlaceLinkedCoordFar(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
 {
 	switch (a3)
 	{
@@ -766,7 +766,7 @@ static inline void sub_6FD81850(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* p
 }
 
 // 0x006769A0
-int __fastcall sub_6FD81B30(D2DrlgLevelLinkDataStrc* pLevelLinkData)
+int __fastcall sub_006769A0_RollLinkDirection(D2DrlgLevelLinkDataStrc* pLevelLinkData)
 {
     int nRand = 0;
 
@@ -792,11 +792,11 @@ int __fastcall sub_6FD81B30(D2DrlgLevelLinkDataStrc* pLevelLinkData)
     const int nDirection = pLevelLinkData->nRand[0][pLevelLinkData->nIteration];
     if (nDirection == 1)
     {
-        sub_6FD81430(pDrlgCoord1, pDrlgCoord2, 1, 0);
+        DRLGOUTPLACE_PlaceLinkedCoord(pDrlgCoord1, pDrlgCoord2, 1, 0);
     }
     else
     {
-        sub_6FD81850(pDrlgCoord1, pDrlgCoord2, nDirection, 0);
+        DRLGOUTPLACE_PlaceLinkedCoordFar(pDrlgCoord1, pDrlgCoord2, nDirection, 0);
     }
 
     return 1;
@@ -824,7 +824,7 @@ int __fastcall DRLGOUTPLACE_TryNextCenteredSide(D2DrlgLevelLinkDataStrc* pLevelL
         pLevelLinkData->nRand[0][pLevelLinkData->nIteration] = nRand;
     }
 
-    sub_6FD815E0(&pLevelLinkData->pLevelCoord[pLevelLinkData->pLink[pLevelLinkData->nIteration].nLevelLink], &pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration], pLevelLinkData->nRand[0][pLevelLinkData->nIteration], 0);
+    DRLGOUTPLACE_PlaceLinkedCoordCentered(&pLevelLinkData->pLevelCoord[pLevelLinkData->pLink[pLevelLinkData->nIteration].nLevelLink], &pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration], pLevelLinkData->nRand[0][pLevelLinkData->nIteration], 0);
 
     return 1;
 }
@@ -941,7 +941,7 @@ int __fastcall DRLGOUTPLACE_TryNextCenteredSideOffset(D2DrlgLevelLinkDataStrc* p
         pLevelLinkData->nRand[0][pLevelLinkData->nIteration] = nRand;
     }
 
-    sub_6FD815E0(&pLevelLinkData->pLevelCoord[pLevelLinkData->pLink[pLevelLinkData->nIteration].nLevelLink], &pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration], pLevelLinkData->nRand[0][pLevelLinkData->nIteration], 1);
+    DRLGOUTPLACE_PlaceLinkedCoordCentered(&pLevelLinkData->pLevelCoord[pLevelLinkData->pLink[pLevelLinkData->nIteration].nLevelLink], &pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration], pLevelLinkData->nRand[0][pLevelLinkData->nIteration], 1);
 
     return 1;
 }

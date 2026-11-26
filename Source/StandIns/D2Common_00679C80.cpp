@@ -110,9 +110,9 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
 extern const D2CoordStrc gatDirectionToOffset[8]; // 0x006F1798
-static int __stdcall sub_6FDAA880(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo);
+static int __stdcall sub_006793E0_FindFreeDirection(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo);
 static int PATH_CheckCollisionsToNextPosition(D2DynamicPathStrc* pDynamicPath, D2PathPointStrc* pGameCoord);
-int __fastcall sub_6FDAA720(D2PathInfoStrc* pPathInfo); // 0x00679B30
+int __fastcall sub_00679B30_ComputeOffsetPath(D2PathInfoStrc* pPathInfo); // 0x00679B30
 
 inline const int& PATH_MaxRef(const int& a, const int& b)
 {
@@ -144,7 +144,7 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 }
 
 // 0x006793E0
-static int __stdcall sub_6FDAA880(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo)
+static int __stdcall sub_006793E0_FindFreeDirection(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo)
 {
     D2_ASSERT(((pPathInfo->pDynamicPath->pUnit && pPathInfo->pDynamicPath->pUnit->dwUnitType == 0) || (pPathInfo->pDynamicPath->pUnit && pPathInfo->pDynamicPath->pUnit->dwUnitType == 1)) != 0, 52);
 
@@ -377,13 +377,13 @@ static int PATH_CheckCollisionsToNextPosition(D2DynamicPathStrc* pDynamicPath, D
 }
 
 // 0x00679C80
-int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
+int __fastcall sub_00679C80_Toward(D2PathInfoStrc* pPathInfo)
 {
     D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
     pPath->dwCurrentPointIdx = 0;
     pPath->dwPathPoints = 0;
     if (pPath->nDirOffset)
-        return sub_6FDAA720(pPathInfo);
+        return sub_00679B30_ComputeOffsetPath(pPathInfo);
     D2PathPointStrc nNextPoint = pPathInfo->tTargetCoord;
     pPath->PathPoints[0] = nNextPoint;
 
@@ -427,7 +427,7 @@ int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
                 int aTestDir[3];
                 PATH_GetDirections(aTestDir, tPoint, nNextPoint);
                 int nDirection;
-                if (!sub_6FDAA880(tPoint, aTestDir, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDir)
+                if (!sub_006793E0_FindFreeDirection(tPoint, aTestDir, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDir)
                     goto LABEL_20;
                 tCurCoords.X += gatDirectionToOffset[nDirection].nX;
                 tCurCoords.Y += gatDirectionToOffset[nDirection].nY;
