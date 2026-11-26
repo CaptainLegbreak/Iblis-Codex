@@ -2,10 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 10:45 PT): decls-1 merged (#426); names-110 and globals-1 ready (below). Now: prototypes several of my files share, into their module header.
+Status (Thu Nov 26 2026, 11:05 PT): names-110, globals-1 and decls-2 ready (below). Next: `sub_<VA>` names in my modules from their bodies.
 
 ## Ready
 
+- `lane6/decls-2` @ 78ce6ae2e (on #426): prototypes that two or more files of a module declared identically, for functions that module defines, move into the module header (D2CMP.h, D2Multi.h, D2Win.h, D2Sound.h, D2Lang.h, D2MCPClient.h, Bnclient.h, with forward declarations of the structs they name) and the private copies go: 46 files, -183 / +103 lines. Every unit that includes those headers builds equal; full build identical, borrowed totals unchanged; auditguard: no count rose. D2Launch, D2BNClient and D2Glide keep theirs for now (their headers lack the class and data declarations the moved prototypes need).
 - `lane6/names-110` @ 944115d9b (redone on #425): D2Win's 0x007D55E8 takes the name gbDimBehindActiveList (set with the active control list, darkens the screen behind it; it carried a 1.10 address), and D2WinMain.cpp's int-typed second names of the focused edit box, the active control list and the Ctrl flag give way to the real globals (main's #425 already named 0x007D55E4 gfCtrlKeyDown; I use that). Full build identical.
 - `lane6/globals-1` @ 468a9bece (on top of names-110, so the two don't conflict in glCore.cpp): nine unused `gdwGlobal_<VA>` externs in CharSel_0042FFE0.cpp, glCore.cpp and CelCmp.cpp. #425 named the rest of what my first version did. Full build identical.
 
