@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 20:19 PST 2026: placeholder triage after joins-5. The placeholders that call copies of SCmd.cpp functions (Unknown_0046ACE0, 004DF4B0, 004E12D0, 004E40A0) only use the seed-roll helpers, which are inline everywhere (SCmd.cpp just has out-of-line instances), so no object evidence. The three placeholders sitting wholly inside one named file\'s run (004B5810 in npcmenu, 004B93F0 in SoundInst, 004D1300 in Missile) were ruled out by lane 1 on inlining evidence (lane1.md), as for 004A9BD0. The register-convention parks (0x45FB80, 0x463BC0, 0x468B20, 0x49AF60) are not a parameter-order case. No other join to try from this angle.
 - Wed Nov 25 20:06 PST 2026: joins-5 posted (0x47C420 into chat.cpp).
 - Wed Nov 25 19:57 PST 2026: dead-statics-d2client is in #420. Nothing in Ready; looking for more placeholder joins.
 - Wed Nov 25 19:26 PST 2026: join-hireables is in #419; dead-statics-d2client rebased onto #419 and rebuilt (identical, no count rose).
