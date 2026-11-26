@@ -9,9 +9,15 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 - 13:20 PT: both 1.10-name branches Ready (below). Now 0x4F82D0, then 0x6B38A0 (both back from lane 6).
 
 ## Claimed
-- **0x004F82D0 CMNSUBTILE_DrawBlendVisTile** (D2Gfx/SRC/Window.cpp, `__assume`): back from lane 6, starting from its
-  reading in lane6.md (plain sibling form 533 / 532 B, one priority step short: `p` 427 vs the clip position 420 in round
-  1; `c2force --prio 1:p:-8` is equal).
+- **0x004F82D0 CMNSUBTILE_DrawBlendVisTile** (D2Gfx/SRC/Window.cpp, `__assume`), parked again with lane 6's reading
+  confirmed: the plain sibling form is 533 / 532 B, and in round 1 the clip block (`pNextSrc` .. `nLength`) is one
+  block with w=2, K=15: the clip temporary gets 14 x 2 x 15 = 420, `p` gets 427 (+120 there). The `__assume` form wins
+  by adding a 16th candidate to that block (a second web of nPosX): 448 against 435. So the plain source needs one
+  more candidate referenced in that block, or 8 less for `p` elsewhere. Tried today, all 533 B / 219 diffs unless
+  noted: nLeft/nRight as compound `-=` from the globals, nPosX built in two statements, nPosX first, the globals in
+  named locals, `nX + (int)p - (int)pDst`, a copy of p for the run (`pRun`), the clamps duplicated inline,
+  `-nPosX + global`, `x < 0 ? 0 : x` (221), the count clamp as a ternary; worse: if-clamps (513 B), the negation
+  first or as `pDst - p - nX` (527 B), nRight before nLeft (534 B), a per-branch row cursor (543 B).
 - **The 1.10-address names (78 names, 374 uses on #429, all in D2Game, D2Common and StandIns).** Plan, one line per
   name with the evidence: [names/v110-d2game.tsv](names/v110-d2game.tsv) (63) and
   [names/v110-d2common.tsv](names/v110-d2common.tsv) (15). How the new names were chosen:
