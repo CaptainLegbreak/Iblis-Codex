@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(none: fog10207-original merged in #426)
+- lane3/join-errormanager-2 5cc241bf7 on #433, **Fog ErrorManager_004082E0.cpp joins ErrorManager.cpp** (your 11:57 PT join order). The four functions (0x4082E0, 0x4088C0, 0x408A60, 0x408CE0) go in after their address predecessors, with the piece's declarations the file lacked; four globals move up before their first use; the piece file goes. **noinline count +7**, each with a comment naming caller and callee (the 13:15 PT ruling): FOG_DisplayHalt (D2_ASSERT expansions, e.g. 0x406D30, 0x409370), ERRORMANAGER_TerminateCurrentProcess and ERRORMANAGER_GetCurrentThreadId (crash handler), ERRORMANAGER_ReportNestedError (RaiseErrorReport), ERRORMANAGER_StartDbgHelpThread, ERRORMANAGER_SetCrashHandler, ERRORMANAGER_GetModuleDirectory (FOG_InitErrorMgr): in one file the compiler inlines them, the image calls them out of line. All 155 functions of the unit equal. VERIFIED on #431 (full build identical; borrowed code 8,373 B in 5 functions, borrowed data 261 B, main the same); rebased cleanly onto #433 (main's changes since touch no Fog file), unit equal again, namesync nothing.
 
 ## Claimed
 
