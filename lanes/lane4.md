@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 PST 2026: fields-d2client posted. Ready: names-sub-d2client-2, fields-d2client.
+
 - Thu Nov 26 12:30 PST 2026: 0x62B5B0 released to lane 10 (the user's call). Main #430 has names-sub-d2client; names-sub-d2client-2 Ready on it.
 
 - Thu Nov 26 12:22 PST 2026: #430 took names-sub-d2client; names-sub-d2client-2 posted on #430 (11 more names, D2Client a1/a2 parameters). Emit trim on #427: nothing left.
@@ -80,6 +82,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
+- lane4/fields-d2client fe2ceaad7 (on #430, independent of names-sub-d2client-2; full build identical, borrowed code unchanged at 8,373 B in 5 functions, audit guard clean): names, `unk0x..` fields D2Client reads. SCmd.cpp reads seven more server packets through D2Packets.h's `...Strc` records instead of private copies (0x03, 0E, 0F, 10, 65, 8B, 93; my first pass missed them because the header names them with a Strc suffix). That names their fields from the header, which matches D2Game's senders: nEvent, bTargetable, nAnimMode, nHitClass, nKillCount, nBonus, nCharClass, nSkillTab. **Lane 2:** the client reads 0x0F's and 0x10's positions unsigned, so they're `unsigned short` in the header now; all 31 includers stay equal. Roster.cpp's record names the fields its getters return: wGuildFlags, szGuildTag, szGuildName. SCmd.cpp's unk0x count goes 127 -> 111. D2Client has 43 `unk0x` field reads in all; the rest have no evidence for a name yet (the client-config bytes inv.cpp copies into a packet, Overlay.txt's 0x7C column, the quest-log message flag, the 21 private packets D2Packets.h doesn't have).
 - lane4/names-sub-d2client-2 62f1b89f3 (on #430; same sources as its full build on #429: identical, borrowed code unchanged at 8,373 B in 5 functions, audit guard clean): two commits. (1) 11 more `sub_<VA>_<Verb>` names for the longer functions held back (DrawWeatherParticles, DrawWeatherSplashes, RollAct5Weather, RunClientAi, ClickRightArm/ClickLeftArm/ClickBodyLoc in inv.cpp, CastMissileBurst, GetCyclicDistance, FillGridLight, DrawRoomTileDebug). (2) `a1`/`a2` parameters in D2Client's declarations take their definitions' names (D2Win_10029, SERVER_Initialize, DUNGEON_FindRoomBySubtileCoordinates, SkillDesc's range helper; 0x4E4670's two unread ones become nUnused3/nUnused4). Gfx.cpp calls 0x4DBB50 by its real name, GFXUTIL_InitUnitCelContext, instead of a stale `sub_004DBB50_InitCelContext` declaration (D2Client.h keeps the slot under the real name, commented: inv_0048DD90.cpp flips without it), and four private PANELCLOSEFN typedefs give way to D2Client.h's D2TextCallback. data_plan.json's Skills.cpp extern list may want the round's re-sort, as #430's follow-up did. Left: six `a2`/`a3` in D2Client's copies of D2Common functions whose definitions still say a2/a3 (D2Common_10434, _11050, 11017, UNITS_SetCurrentRoomInvalid, ITEMMODS_AssignProperty, ITEMS_UpdateSets): lane 2's to name at the definition.
 
 
