@@ -422,31 +422,13 @@ char gszOldPassword[24];                                                        
 
 int gbConnectCancelled; // 0x007795F4
 
-typedef unsigned short U16;
-
-struct U16Cell
-{
-    U16 value;
-
-};
-
-typedef char U16_is_two[(sizeof(U16)==2)?1:-1];
-
-typedef char Cell_size[(sizeof(U16Cell)==2)?1:-1];
-
-typedef char Cell_value_zero[((unsigned int)&((U16Cell*)0)->value==0)?1:-1];
-
 struct UiControl;
 
 extern "C" int __cdecl sub_00525150_Language();
 
 extern "C" void __fastcall sub_004F9740_ControlFlag(UiControl* control,int value);
 
-extern "C" int __fastcall sub_00526800_UnicodeLength(const U16* text);
-
 extern "C" UiControl* gControl;
-
-extern "C" const U16Cell gUpperTable[];
 
 extern "C" int gLayout_00709C48; // 0x00709C48
 
