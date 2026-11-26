@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Thu Nov 26 PST 2026: #435 took roster-record. join-soundinst and join-editbox posted on #435 (files in pieces -2, one evidenced noinline). Gfx join in progress.
+- Thu Nov 26 14:14 PST 2026: #435 took roster-record. join-soundinst and join-editbox posted on #435 (files in pieces -2, one evidenced noinline). Gfx join in progress.
 
 - Thu Nov 26 13:40 PST 2026: new ownership noted (lane 4 = D2Client below 0x4A0000). Parked forcing rows handed over (Notes). Starting the piece joins: Gfx first.
 
