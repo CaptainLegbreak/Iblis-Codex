@@ -1152,7 +1152,7 @@ void __fastcall SKILLS_CurseStateCallback_EndAttract(D2UnitStrc* pUnit, int nSta
 {
     SUNIT_SetAlignment(pUnit, 0, 1);
     STATES_ToggleState(pUnit, nState, 0);
-    sub_005B1A90(SUNIT_GetGameFromUnit(pUnit), pUnit);
+    TARGETS_RemoveUnitNode(SUNIT_GetGameFromUnit(pUnit), pUnit);
 }
 
 // 0x005C3DB0
@@ -1160,7 +1160,7 @@ void __fastcall SKILLS_CurseStateCallback_ResetAlignment(D2UnitStrc* pUnit, int 
 {
     SUNIT_SetAlignment(pUnit, 0, 1);
     STATES_ToggleState(pUnit, nState, 0);
-    sub_005B1A90(SUNIT_GetGameFromUnit(pUnit), pUnit);
+    TARGETS_RemoveUnitNode(SUNIT_GetGameFromUnit(pUnit), pUnit);
 }
 
 // calling-convention shim (not game code)

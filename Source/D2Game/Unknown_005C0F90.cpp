@@ -33,7 +33,6 @@ struct D2ItemsTxt
 };
 
 
-
 struct D2ItemDropStrc
 {
     char unk0x00[0x40];
@@ -43,7 +42,7 @@ struct D2ItemDropStrc
 };
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
-int __stdcall sub_005C2740_RollLegacySetItem(D2UnitStrc* pItem); // 0x005C2740
+#include "D2GameFuncs.h"
 void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 static int __stdcall sub_005C25C0_RollSetItemRecord(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem);
 
