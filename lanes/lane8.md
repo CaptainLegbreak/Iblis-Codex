@@ -12,6 +12,7 @@ scaffolding, names.
   (Composit_0064F060), `Units/Missile` (Missile_0064B860). Lane 2 hadn't claimed any of them.
 
 ## Status
+- Thu Nov 26 15:30 PT: 0x6419F0: the plain range tests compare nX / nY in memory (`cmp [ebp-4], edx`) where the original loads them first (`mov ecx, [ebp-4]; cmp ecx, edx`); copies, a coordinate struct, and inline range helpers (min/max or centre/radius) all keep the memory compare. Parked with 0x651040 and 0x65EA50 (readings above); back to names and scaffolding.
 - Thu Nov 26 15:35 PT: param-names and forcing-621f90 merged (#440), Ready lines gone; names-2 Ready. On 0x6419F0 now.
 - Thu Nov 26 15:05 PT: forcing rows, readings so far (no branch):
   - 0x651040: the bottom-copy form (copy `nId = nNext` before the depth test, `while ((short)nId >= 0)`) gets the original's registers (7 instructions unaligned) but folds the preheader's conversion into the parent load, so it is 110 / 113: only the original's `movzx eax, ax` after `movzx eax, word [parent]` is missing. Reading nId straight from wParent: 5 unaligned, still 110. Function-scope declarations, every type pair for nNext/nId, and lane 2's top-of-loop copy (both conversions but the copy stays in the loop head, other registers) don't give it. The __assume keeps it by giving the converted value a use of its own before the loop; I have not found a plain statement that does the same.
@@ -34,6 +35,7 @@ scaffolding, names.
 ## Questions
 
 ## Notes for other lanes
+- **Everyone with a declaration-sensitive unit: what flips ItemTbls.cpp's 0x00633F40.** Its only difference when it flips is the operand order of `nRareSuffixCount + nRarePrefixCount` (two address-taken locals): which of the two is loaded into ecx. The order does not follow the locals' names (six renamings, same result either way) and does not follow anything declared after the function. It follows the number of symbols declared before it: adding N dummy enumerators near the top gives equal for N = 0, 4, 5, 6, 7, 13 and the flip for 1-3, 8-12, 14-20 (an extern counts the same as an enumerator). So any declaration added or removed above that function is a coin flip, and a join is only safe if what it adds sits after the functions that tie like this. With the sets loader's include placed just above it (after 0x00633F40), 0x00633F40 stays equal and only the loader itself differs (it caches three table constants in registers, and their order also moves with the count). Other units' commutative-operand flips may be the same thing.
 - **Lane 7, three D2Common forcing rows handed over** (identical if/else arms; plain forms re-read today on #430, one
   unit build each; none uses a forcing construct, and each is a register or slot choice, your c2diag's ground):
   - **0x62FFF0 ITEMS_SerializeItemComplete (Items.cpp ~7449, the stat writer's `if (nStats > 1)` pair).** The arms
