@@ -512,12 +512,6 @@ static void SUNITINACTIVE_FreeInactiveMonsters(D2GameStrc* pGame, D2InactiveUnit
     }
 }
 
-D2InactiveMonsterNodeStrc* __stdcall sub_C899_Emit_00541DE0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int bAlloc)
-{
-    D2InactiveUnitListStrc* pList = SUNITINACTIVE_GetListNodeFromRoom(pGame, pRoom, bAlloc);
-    return pList ? pList->pInactiveMonsters : 0;
-}
-
 // 0x00541D20
 static D2InactiveUnitListStrc* __stdcall SUNITINACTIVE_GetListNodeFromActAndCoordinates(D2GameStrc* pGame, int nAct, int nX, int nY, int bAllocNewNode)
 {
@@ -978,10 +972,7 @@ inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* unit)
 // 0x005424F0
 static void __stdcall SUNITINACTIVE_RestoreInactiveMonsters(D2GameStrc* pGame,D2ActiveRoomStrc* pRoom)
 {
-    D2DrlgCoordsStrc coords;
-    DUNGEON_GetRoomCoordinates(pRoom,&coords);
-    const int act = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
-    D2InactiveUnitListStrc* list = SUNITINACTIVE_GetListNodeFromActAndCoordinates(pGame,act,coords.nSubtileX,coords.nSubtileY,0);
+    D2InactiveUnitListStrc* list = SUNITINACTIVE_GetListNodeFromRoom(pGame, pRoom, 0);
     if (!list) return;
     D2InactiveMonsterNodeStrc* next = list->pInactiveMonsters;
     int chaos = 0;
