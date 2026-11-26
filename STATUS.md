@@ -48,7 +48,7 @@ How far the sources are from reading like the original source tree. Byte matchin
 | … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 203 |
 | Record definitions private to a source file (`struct`/`union` in a .cpp) | 1904 |
 | Unnamed fields (`unk0x..`) in the shared headers | 647 |
-| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 41 |
+| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 40 |
 | Calling-convention shims | 38 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
 | `__declspec(noinline)` / `__forceinline` | 95 / 201 |
@@ -500,7 +500,6 @@ Not listed one by one: 4170 functions are compiled with `/GS-` and 1566 with `/E
 | 0x004FA7A0 | D2Win_10168_WINMAIN_CreateScreenshot | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FA840 | D2Win_COMMANDS_Snapshot | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FA860 | D2Win_COMMANDS_MouseButton | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
-| 0x004FBF30 | TEXTBOX_Draw | `D2Win/Src/D2WinTextBox.cpp` | volatile read or qualifier |
 | 0x00502550 | D2Win_10128 | `D2Win/Src/D2WinFont.cpp` | __assume, identical if/else arms |
 | 0x005179B3 | sub_005179B3_CopyRect | `D2Hell/Unknown_00516D8B.cpp` | inline assembly |
 | 0x00517A36 | sub_00517A36_CompareMemory | `D2Hell/Unknown_00516D8B.cpp` | inline assembly |
