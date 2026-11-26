@@ -1,3 +1,7 @@
+// COMPOSIT_GetWeaponClassCode is kept out of Composit.cpp because the join doesn't build equal: with its body in the
+// same unit, the compiler folds D2Common_10884_COMPOSIT_unk's (0x0064F5B0) object-mode call
+// COMPOSIT_GetWeaponClassCode(unit, 2, ...) to the constant ' hth' and drops the call, where the original makes it. The
+// fold happens wherever the body sits in the file, so only a noinline declaration would keep the call; the piece stays.
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
