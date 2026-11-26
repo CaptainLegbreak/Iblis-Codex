@@ -893,14 +893,6 @@ typedef int (__stdcall* D2CelDrawRetFn)(D2CelContextStrc*, int, int, unsigned in
 
 static int gbLightningEnabled; // 0x007A8A08
 
-static inline unsigned int sub_00472400_SeedStep(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return (unsigned int)lSeed;
-}
-
 void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
 
 static inline void GFX_SetPhaseActive(int bValue); // 0x00472530
@@ -940,126 +932,6 @@ extern int gnViewDeltaY;                                                        
 
 extern unsigned int gnWeatherTick;                                                                 // 0x007A8A34
 
-static inline unsigned __int64 sub_U01_RollSeedInline(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return lSeed;
-}
-
-static inline void sub_U01_StepSeedInline(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-}
-
-static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nValue, unsigned char* pOut1)
-{
-    int n = D2GFX_GetDisplayType();
-    int bFlag;
-    if (n > 0 && (n <= 3 || n == 6))
-    {
-        bFlag = 0;
-    }
-    else
-    {
-        bFlag = 1;
-    }
-
-    DUNGEON_GetLevelIdFromRoom(CUNIT_GetPlayerRoom());
-    int nPeriod = ENVIRONMENT_GetPeriodOfDayFromAct(gpDrlgAct_007A0634, 0);
-    D2_ASSERT(nPeriod >= 0 && nPeriod <= 3, 0x356);
-
-    if (pOut1)
-    {
-        *pOut1 = gaPeriodLights[nPeriod].nLight;
-    }
-
-    if (pOut2)
-    {
-        int nIndex = nValue * 12 / 8;
-        if (bFlag)
-        {
-            *pOut2 = gabOutdoorLightColors[nIndex];
-            return;
-        }
-
-        switch (nPeriod)
-        {
-        case 1:
-        case 3:
-            nIndex /= 2;
-            break;
-        case 2:
-            nIndex /= 4;
-            break;
-        }
-        *pOut2 = gabPeriodLightColors[nIndex];
-    }
-}
-
-static void sub_00473090_InitParticle(D2SeedStrc* pSeed)
-{
-    const int nRecord = DATAARRAYS_AllocateHandle(gpWeatherParticles);
-    if (nRecord == -1)
-    {
-        return;
-    }
-
-    D2WeatherParticleStrc* pParticle = &gpWeatherParticles->pParticles[(short)(nRecord >> 0x10)];
-    pParticle->bDrop = 0;
-    pParticle->nX = sub_00472280(pSeed, 0, gnScreenWidth);
-    pParticle->nYEnd = sub_00472280(pSeed, 0x28, gnScreenHeight - 0x57);
-    pParticle->nY = sub_00472280(pSeed, -0x14, pParticle->nYEnd + 0x14);
-    sub_U01_StepSeedInline(pSeed);
-    pParticle->nFrame = pSeed->nLowSeed & 0x1FF;
-
-    const float fRatio = (float)(pParticle->nYEnd - 0x28) / (gnScreenHeight - 0x57);
-    if (gbWeatherSplash)
-    {
-        pParticle->nAlpha = 0xFF;
-        unsigned char* pAlpha = &pParticle->nAlpha;
-        sub_U01_RollSeedInline(pSeed);
-        pParticle->nType = 1;
-        pParticle->nParam2 = 8 - (int)(fRatio * -28.0);
-        pParticle->nParam = 7 * (pParticle->nYEnd - 0x28) / (gnScreenHeight - 0x57);
-        if (gbSnowWeather)
-        {
-            ++pParticle->nParam;
-        }
-
-        D2_ASSERT(pParticle->nParam < 8 && pParticle->nParam >= 0, 0x390);
-        sub_00472FB0_GetPeriodLight(&pParticle->nColor, pParticle->nParam, pAlpha);
-        return;
-    }
-
-    const unsigned int nColor = (unsigned int)sub_U01_RollSeedInline(pSeed) % 12;
-    switch (ENVIRONMENT_GetPeriodOfDayFromAct(gpDrlgAct_007A0634, 0))
-    {
-    case 2:
-        pParticle->nColor = gabParticleColorsNight[nColor];
-        pParticle->nAlpha = 0xFF;
-        break;
-
-    case 1:
-    case 3:
-        pParticle->nColor = gabParticleColorsTwilight[nColor];
-        pParticle->nAlpha = 0xFF;
-        break;
-
-    case 0:
-        pParticle->nColor = gabParticleColorsDay[nColor];
-        pParticle->nAlpha = 0x7F;
-        break;
-    }
-
-    pParticle->nParam = 4 - (int)(fRatio * -8.0);
-    pParticle->nParam2 = 0xF - (int)(fRatio * -15.0);
-    pParticle->nType = 3;
-}
-
 int* __fastcall MONSTER_GetAiValuePtr(D2UnitStrc* pUnit);                                                 // 0x004AE170
 void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pTarget);    // 0x004AFF60
 D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB);// 0x004CDB40
@@ -1076,17 +948,6 @@ void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames);  
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame);                            // 0x0064A330
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY);                                      // 0x0064A760
 
-
-static inline unsigned int SEED_RollRandomNumber64_Inline(D2SeedStrc* pSeed)
-{
-    pSeed->lSeed = (pSeed->lSeed >> 32) + 0x6AC690C5i64 * (unsigned int)pSeed->lSeed;
-    return (unsigned int)pSeed->lSeed;
-}
-
-static inline int SEED_RollPercentage64_Inline(D2SeedStrc* pSeed)
-{
-    return SEED_RollRandomNumber64_Inline(pSeed) % 100;
-}
 
 static D2UnitStrc* __stdcall GFX_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance); // 0x0046C720
 

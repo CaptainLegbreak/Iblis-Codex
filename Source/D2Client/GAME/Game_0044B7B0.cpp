@@ -414,30 +414,6 @@ struct Unicode;
 
 extern int gbStringsLoaded_007A070C; // 0x007A070C
 
-static unsigned short __cdecl sub_0044BEC0_GetClickFlags_static()
-{
-    int nFlags = 0;
-    if (gbRunKeyHeld)
-        nFlags = 8;
-    if (gbAlwaysRun)
-        nFlags |= 8;
-    if (gbStandStillHeld)
-        nFlags |= 4;
-    return nFlags;
-}
-
-
-static __forceinline int CLIENT_GetClickFlags_inl()
-{
-    int nFlags = 0;
-    if (gbRunKeyHeld)
-        nFlags = 8;
-    if (gbAlwaysRun)
-        nFlags |= 8;
-    if (gbStandStillHeld)
-        nFlags |= 4;
-    return nFlags;
-}
 
 
 void __stdcall GAME_HandleLeftButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x0044C0F0

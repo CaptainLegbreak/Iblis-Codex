@@ -516,15 +516,6 @@ static inline D2MonStats2Txt* sub_n5b_GetMonStats2TxtRecord(int nMonsterId);
 static __forceinline void sub_b1_WalkTo(D2UnitStrc* pUnit, D2MonCommandStrc* pCommand, int nMode);
 
 
-static D2MonsterDataStrc* CLIENT_GetMonsterData(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
-    {
-        return pUnit->pMonsterData;
-    }
-    return 0;
-}
-
 #pragma pack(push, 1)
 
 struct D2ClientPacket7Strc
@@ -535,14 +526,6 @@ struct D2ClientPacket7Strc
 };
 
 #pragma pack(pop)
-
-static int sub_0044BE50(D2UnitStrc* pUnit)
-{
-    int nType = 6;
-    if (pUnit)
-        nType = pUnit->dwUnitType;
-    return nType;
-}
 
 void __fastcall MONSTER_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName, int nLength, unsigned short nNameId); // 0x004ADEA0
 
@@ -774,25 +757,6 @@ static inline unsigned int sub_H12_SeedStep(D2SeedStrc* pSeed)
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
     pSeed->nLowSeed = (unsigned int)lSeed;
     return (unsigned int)lSeed;
-}
-
-static inline D2SkillsTxt* sub_H12_GetSkillsTxt(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-    return 0;
-}
-
-static inline int sub_H12_HasUnitFlagBit(D2UnitStrc* pUnit)
-{
-    int bResult = 0;
-    if (pUnit)
-    {
-        bResult = (pUnit->dwFlags >> 0x15) & 1;
-    }
-    return bResult;
 }
 
 static inline int sub_H12_UnitX(D2UnitStrc* pUnit)
@@ -1446,14 +1410,6 @@ void __fastcall sub_M103_Emit_004B1000(D2UnitStrc* pItem, int nArg)
     MONSTER_SetNpcMenuValue((unsigned short)nArg);
 }
 
-static inline unsigned int sub_J20_SeedStep(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return (unsigned int)lSeed;
-}
-
 static inline D2SkillsTxt* sub_J20_GetSkillsTxt(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -1481,40 +1437,6 @@ static inline int sub_J20_HasUnitFlagBit(D2UnitStrc* pUnit)
         bResult = (pUnit->dwFlags >> 0x15) & 1;
     }
     return bResult;
-}
-
-static inline int sub_J20_UnitX(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            return PATH_GetXPosition(pUnit->pDynamicPath);
-        }
-        return 0;
-    }
-}
-
-static inline int sub_J20_UnitY(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            return PATH_GetYPosition(pUnit->pDynamicPath);
-        }
-        return 0;
-    }
 }
 
 // 0x004AF400
@@ -2707,67 +2629,6 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
     }
 }
 
-static inline unsigned int sub_I20_SeedStep(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return (unsigned int)lSeed;
-}
-
-static inline D2SkillsTxt* sub_I20_GetSkillsTxt(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-    return 0;
-}
-
-static inline int sub_I20_HasUnitFlagBit(D2UnitStrc* pUnit)
-{
-    int bResult = 0;
-    if (pUnit)
-    {
-        bResult = (pUnit->dwFlags >> 0x15) & 1;
-    }
-    return bResult;
-}
-
-static inline int sub_I20_UnitX(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            return PATH_GetXPosition(pUnit->pDynamicPath);
-        }
-        return 0;
-    }
-}
-
-static inline int sub_I20_UnitY(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            return PATH_GetYPosition(pUnit->pDynamicPath);
-        }
-        return 0;
-    }
-}
-
 
 // 0x004B1020
 int __cdecl MONSTER_GetEventUnit()
@@ -2880,11 +2741,6 @@ __declspec(noinline) void __fastcall CUNIT_SetOverlayWithSound(D2UnitStrc* pUnit
     }
 }
 
-static inline int sub_n5b_IsClassId(D2UnitStrc* pUnit, int nClassId)
-{
-    return pUnit->dwClassId == nClassId;
-}
-
 static inline int sub_n5b_Distance(int nDelta)
 {
     if (nDelta < 0)
@@ -2930,13 +2786,6 @@ int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit)
             return pUnit->dwClassId;
         return pMonStatsTxtRecord->nBaseId;
     }
-    return -1;
-}
-
-static inline int sub_n5b_ValidateMonsterId(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-        return nMonsterId;
     return -1;
 }
 

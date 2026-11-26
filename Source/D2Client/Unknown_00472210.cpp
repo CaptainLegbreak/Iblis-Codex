@@ -176,13 +176,6 @@ static inline unsigned __int64 sub_U01_RollSeedInline(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-static inline void sub_U01_StepSeedInline(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-}
-
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange);
 
 static inline void sub_00473720_GetLevelWeather(int* pRain, int* pMud);

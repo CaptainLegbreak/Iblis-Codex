@@ -324,21 +324,6 @@ static int __stdcall SKILLDESC_AppendScaledValue(unsigned short wStr1, unsigned 
 }
 
 // 0x004E7B90
-static int __stdcall SKILLDESC_AppendLabelDecimal(unsigned short wStr, Unicode* wszOut, int bPrefixSign, int nValue, int nFraction)
-{
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
-
-    if (!nValue && nFraction <= 0)
-        return 0;
-
-    SKILLDESC_FormatIntOrDecimal(wszText, bPrefixSign, nValue, nFraction);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr));
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
 
 // 0x004E7C30
 static int __stdcall SKILLDESC_AppendValueLabel(Unicode* wszOut, unsigned short wStr, int nValue, int bPrefixSign)
@@ -590,27 +575,6 @@ static int __stdcall SKILLDESC_AppendSecondsTenths(unsigned short wStr, Unicode*
 }
 
 // 0x004E84F0
-static int __stdcall SKILLDESC_AppendManaValue(int nValue, Unicode* wszOut)
-{
-    const Unicode* wszStr1 = D2LANG_GetStringFromTblIndex(0x5300);
-    const Unicode* wszStr2 = D2LANG_GetStringFromTblIndex(0x5304);
-    const Unicode* wszStr3 = D2LANG_GetStringFromTblIndex(0x5305);
-    const Unicode* wszStr4 = D2LANG_GetStringFromTblIndex(0xF9B);
-    int wszText_[8]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 16; ++i)
-        wszText[i] = 0;
-
-    int szText_[8]; char* const szText = (char*)szText_;
-    wsprintfA(szText, gszFormatD, nValue);
-    sub_00526320_ToUnicode(wszText, szText, 32);
-    sub_00526700(wszOut, wszStr2);
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, wszStr4);
-    sub_00526700(wszOut, wszStr1);
-    sub_00526700(wszOut, wszStr3);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
 
 int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, int nLevel, int nMultiplier, D2SkillsTxt* pSkillsTxt, int nValue); // 0x004E85C0
 
