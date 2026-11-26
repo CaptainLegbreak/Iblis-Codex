@@ -759,7 +759,7 @@ static int __stdcall CHATDLG_CompareCommand(const char* szText, const char* szCo
 
 static void CHATDLG_PushHistory(const char* szText);
 
-static void __stdcall CHATDLG_GetArgument(int nSize, char* szDest, const char* szText);
+static void __stdcall CHATDLG_GetArgument(int nSize, const char* szText, char* szDest);
 
 struct D2WinEditBoxStrc;
 
@@ -2331,7 +2331,7 @@ static int __stdcall CHATDLG_CompareCommand(const char* szText, const char* szCo
 }
 
 // 0x0043E780
-static int CHATDLG_NotifyCommand(const char* szCommand, const char* szText)
+static int CHATDLG_NotifyCommand(const char* szText, const char* szCommand)
 {
     const size_t nLength = strlen(szCommand);
     if (!CHATDLG_CompareCommand(szText, szCommand) && (szText[nLength] == ' ' || !szText[nLength]))
@@ -2534,121 +2534,6 @@ void __fastcall CHATDLG_SelectEntry(const char* szName, int nB, int nC)
     gnSelectIdB = -1;
     WINMAIN_SendMcpCharRank(szName, nB, nC);
     gdwSelectTime = GetTickCount() + 1000;
-}
-
-void __fastcall CHATDLG_RunCommand(char* szText)
-{
-    CHATDLG_PushHistory(szText);
-// build: symbol ?gszCmdR@* 0x006D56D4
-    if (CHATDLG_ReplyCommand(gszCmdR, szText))
-        return;
-
-// build: symbol ?gszCmdReply@* 0x006D56CC
-    if (CHATDLG_ReplyCommand(gszCmdReply, szText))
-        return;
-
-// build: symbol ?gszCmdD2Notify@* 0x006D56C0
-    if (CHATDLG_NotifyCommand(gszCmdD2Notify, szText))
-        return;
-
-    if (!CHATDLG_CompareCommand(szText, "/ignorepersist"))
-    {
-        sub_00611560_GetSquelchList()->SetPersist(!sub_00611560_GetSquelchList()->GetPersist());
-        if (sub_00611560_GetSquelchList()->GetPersist())
-            CHATDLG_PrintMessage(D2LANG_GetStringFromTblIndex(0x2BA1), 3);
-        else
-            CHATDLG_PrintMessage(D2LANG_GetStringFromTblIndex(0x2BA2), 3);
-        return;
-    }
-
-// build: symbol ?gszCmdSquelch@* 0x006D5698
-    if (!CHATDLG_CompareCommand(szText, "/ignore ") || !CHATDLG_CompareCommand(szText, gszCmdSquelch))
-    {
-        Unicode wszFormat[0x208];
-        Unicode wszMessage[0x208];
-        Unicode wszName[0x22];
-        char szName[0x11];
-        CHATDLG_GetArgument(0x11, szName, szText);
-        if (!SStrCmpI(&szName[1], gpCharInfo->szAccount, 0x7FFFFFFF))
-            return;
-
-        sub_00526320_ToUnicode(wszName, szName, 0x22);
-        if (sub_00611560_GetSquelchList()->Squelch(szName))
-            sub_005269D0(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA3), wszName);
-        else
-            sub_005269D0(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA4), wszName);
-        sub_00526700(wszMessage, wszFormat);
-        CHATDLG_PrintMessage(wszMessage, 3);
-        return;
-    }
-
-// build: symbol ?gszCmdUnsquelch@* 0x006D5680
-    if (!CHATDLG_CompareCommand(szText, "/unignore ") || !CHATDLG_CompareCommand(szText, gszCmdUnsquelch))
-    {
-        Unicode wszFormat[0x208];
-        Unicode wszMessage[0x208];
-        Unicode wszName[0x22];
-        char szName[0x11];
-        CHATDLG_GetArgument(0x11, szName, szText);
-        sub_00526320_ToUnicode(wszName, szName, 0x22);
-        if (sub_00611560_GetSquelchList()->Unsquelch(szName))
-            sub_005269D0(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA5), wszName);
-        else
-            sub_005269D0(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA6), wszName);
-        sub_00526700(wszMessage, wszFormat);
-        CHATDLG_PrintMessage(wszMessage, 3);
-        return;
-    }
-
-    if (!CHATDLG_CompareCommand(szText, "/filtermsg "))
-    {
-        char szFilter[0x104];
-        CHATDLG_GetArgument(0x104, szFilter, szText);
-        if (sub_00611560_GetSquelchList()->AddFilter(szFilter))
-            CHATDLG_PrintMessage(D2LANG_GetStringFromTblIndex(0x2BA7), 3);
-        else
-            CHATDLG_PrintMessage(D2LANG_GetStringFromTblIndex(0x2BA8), 3);
-        return;
-    }
-
-    if (!CHATDLG_CompareCommand(szText, "/unfiltermsg "))
-    {
-        char szFilter[0x104];
-        CHATDLG_GetArgument(0x104, szFilter, szText);
-        if (sub_00611560_GetSquelchList()->RemoveFilter(szFilter))
-            CHATDLG_PrintMessage(D2LANG_GetStringFromTblIndex(0x2BA9), 3);
-        else
-            CHATDLG_PrintMessage(D2LANG_GetStringFromTblIndex(0x2BAA), 3);
-        return;
-    }
-
-// build: symbol ?gszCmdHomeSpace@* 0x006D5638
-// build: symbol ?gszCmdDefaultChannel@* 0x006D5640
-// build: symbol ?gszCmdHomeChannel@* 0x006D5654
-    if (!CHATDLG_CompareCommand(szText, gszCmdHomeChannel) || !CHATDLG_CompareCommand(szText, gszCmdDefaultChannel) || !CHATDLG_CompareCommand(szText, gszCmdHomeSpace))
-    {
-        char szChannel[0x20];
-        CHATDLG_GetArgument(0x20, szChannel, szText);
-        SRegSaveString("Diablo II", "Default Channel", 0, szChannel);
-        return;
-    }
-
-// build: symbol ?gszCmdHome@* 0x006D5630
-    if (!CHATDLG_CompareCommand(szText, gszCmdHome))
-    {
-        char szChannel[0x20];
-        if (SRegLoadString("Diablo II", "Default Channel", 0, szChannel, 0x20))
-            CHATDLG_JoinChannel(szChannel);
-        return;
-    }
-
-    if (!gpLaunchFuncs->pfnIsSocketConnected())
-    {
-        CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
-        return;
-    }
-
-    gpLaunchFuncs->pfnChatCommand(szText);
 }
 
 // 0x0043ECE0
@@ -3087,7 +2972,7 @@ __declspec(noinline) int __cdecl CHARSEL_CancelGameCreate()
 }
 
 // 0x0043F870
-static void __stdcall CHATDLG_GetArgument(int nSize, char* szDest, const char* szText)
+static void __stdcall CHATDLG_GetArgument(int nSize, const char* szText, char* szDest)
 {
     const char* pArg = SStrChr(szText, ' ');
     if (pArg)
@@ -4674,6 +4559,122 @@ int __stdcall CHATDLG_ReleaseAndCreate(int nArg)
     CHATDLG_ResetLaunchState();
     CHATDLG_CreateGatewayControls();
     return 1;
+}
+
+// 0x004423B0
+void __fastcall CHATDLG_RunCommand(char* szText)
+{
+    CHATDLG_PushHistory(szText);
+// build: symbol ?gszCmdR@* 0x006D56D4
+    if (CHATDLG_ReplyCommand(szText, gszCmdR))
+        return;
+
+// build: symbol ?gszCmdReply@* 0x006D56CC
+    if (CHATDLG_ReplyCommand(szText, gszCmdReply))
+        return;
+
+// build: symbol ?gszCmdD2Notify@* 0x006D56C0
+    if (CHATDLG_NotifyCommand(szText, gszCmdD2Notify))
+        return;
+
+    if (!CHATDLG_CompareCommand(szText, "/ignorepersist"))
+    {
+        sub_00611560_GetSquelchList()->SetPersist(!sub_00611560_GetSquelchList()->GetPersist());
+        if (sub_00611560_GetSquelchList()->GetPersist())
+            CHATDLG_PrintMessage(D2LANG_GetStringFromTblIndex(0x2BA1), 3);
+        else
+            CHATDLG_PrintMessage(D2LANG_GetStringFromTblIndex(0x2BA2), 3);
+        return;
+    }
+
+// build: symbol ?gszCmdSquelch@* 0x006D5698
+    if (!CHATDLG_CompareCommand(szText, "/ignore ") || !CHATDLG_CompareCommand(szText, gszCmdSquelch))
+    {
+        Unicode wszFormat[0x208];
+        Unicode wszMessage[0x208];
+        Unicode wszName[0x22];
+        char szName[0x11];
+        CHATDLG_GetArgument(0x11, szText, szName);
+        if (!SStrCmpI(&szName[1], gpCharInfo->szAccount, 0x7FFFFFFF))
+            return;
+
+        sub_00526320_ToUnicode(wszName, szName, 0x22);
+        if (sub_00611560_GetSquelchList()->Squelch(szName))
+            sub_005269D0(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA3), wszName);
+        else
+            sub_005269D0(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA4), wszName);
+        sub_00526700(wszMessage, wszFormat);
+        CHATDLG_PrintMessage(wszMessage, 3);
+        return;
+    }
+
+// build: symbol ?gszCmdUnsquelch@* 0x006D5680
+    if (!CHATDLG_CompareCommand(szText, "/unignore ") || !CHATDLG_CompareCommand(szText, gszCmdUnsquelch))
+    {
+        Unicode wszFormat[0x208];
+        Unicode wszMessage[0x208];
+        Unicode wszName[0x22];
+        char szName[0x11];
+        CHATDLG_GetArgument(0x11, szText, szName);
+        sub_00526320_ToUnicode(wszName, szName, 0x22);
+        if (sub_00611560_GetSquelchList()->Unsquelch(szName))
+            sub_005269D0(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA5), wszName);
+        else
+            sub_005269D0(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA6), wszName);
+        sub_00526700(wszMessage, wszFormat);
+        CHATDLG_PrintMessage(wszMessage, 3);
+        return;
+    }
+
+    if (!CHATDLG_CompareCommand(szText, "/filtermsg "))
+    {
+        char szFilter[0x104];
+        CHATDLG_GetArgument(0x104, szText, szFilter);
+        if (sub_00611560_GetSquelchList()->AddFilter(szFilter))
+            CHATDLG_PrintMessage(D2LANG_GetStringFromTblIndex(0x2BA7), 3);
+        else
+            CHATDLG_PrintMessage(D2LANG_GetStringFromTblIndex(0x2BA8), 3);
+        return;
+    }
+
+    if (!CHATDLG_CompareCommand(szText, "/unfiltermsg "))
+    {
+        char szFilter[0x104];
+        CHATDLG_GetArgument(0x104, szText, szFilter);
+        if (sub_00611560_GetSquelchList()->RemoveFilter(szFilter))
+            CHATDLG_PrintMessage(D2LANG_GetStringFromTblIndex(0x2BA9), 3);
+        else
+            CHATDLG_PrintMessage(D2LANG_GetStringFromTblIndex(0x2BAA), 3);
+        return;
+    }
+
+// build: symbol ?gszCmdHomeSpace@* 0x006D5638
+// build: symbol ?gszCmdDefaultChannel@* 0x006D5640
+// build: symbol ?gszCmdHomeChannel@* 0x006D5654
+    if (!CHATDLG_CompareCommand(szText, gszCmdHomeChannel) || !CHATDLG_CompareCommand(szText, gszCmdDefaultChannel) || !CHATDLG_CompareCommand(szText, gszCmdHomeSpace))
+    {
+        char szChannel[0x20];
+        CHATDLG_GetArgument(0x20, szText, szChannel);
+        SRegSaveString("Diablo II", "Default Channel", 0, szChannel);
+        return;
+    }
+
+// build: symbol ?gszCmdHome@* 0x006D5630
+    if (!CHATDLG_CompareCommand(szText, gszCmdHome))
+    {
+        char szChannel[0x20];
+        if (SRegLoadString("Diablo II", "Default Channel", 0, szChannel, 0x20))
+            CHATDLG_JoinChannel(szChannel);
+        return;
+    }
+
+    if (!gpLaunchFuncs->pfnIsSocketConnected())
+    {
+        CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
+        return;
+    }
+
+    gpLaunchFuncs->pfnChatCommand(szText);
 }
 
 // 0x00442810
