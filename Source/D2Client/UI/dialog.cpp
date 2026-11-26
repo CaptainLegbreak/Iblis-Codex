@@ -608,6 +608,7 @@ extern "C" void __stdcall DIALOG_SelectNextAltMsg(Message* message)
 }
 
 // 0x004B7970
+// noinline: the original calls this; without it the compiler expands it into 0x004B7A90.
 static __declspec(noinline) int DIALOG_IsChatKey(D2ClientDialogStrc* pDialog, int nKey)
 {
     if (pDialog->bKeepKeys)

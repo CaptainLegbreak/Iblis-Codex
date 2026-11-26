@@ -448,7 +448,7 @@ int __fastcall INV_IsInPlayerInvRect(int nX, int nY)
     return 0;
 }
 
-static __declspec(noinline) int sub_00483AE0_IsInGrid7BCB18(int nX, int nY)
+static int sub_00483AE0_IsInGrid7BCB18(int nX, int nY)
 {
     if (nX > gtTradePage1Grid.nGridLeft && nX < gtTradePage1Grid.nGridRight && nY >= gtTradePage1Grid.nGridTop && nY <= gtTradePage1Grid.nGridBottom)
     {

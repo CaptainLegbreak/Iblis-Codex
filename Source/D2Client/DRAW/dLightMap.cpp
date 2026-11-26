@@ -268,6 +268,7 @@ int __fastcall DLIGHTMAP_GetDistance(int nDX, int nDY)
 }
 
 // 0x004740D0
+// noinline: the original calls this; without it the compiler expands it into 0x004748D0, 0x004755A0.
 static __declspec(noinline) unsigned int __stdcall DLIGHTMAP_ApproxDistance(int nB, int nA)
 {
     const int nAbsA = abs(nA);

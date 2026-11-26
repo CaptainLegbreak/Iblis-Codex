@@ -621,6 +621,7 @@ int __fastcall MONSTER_GetMinionSpawnClassId(D2UnitStrc* pUnit)
 }
 
 // 0x004AE1D0
+// noinline: the original calls this; without it the compiler expands it into 0x004AFF60.
 static __declspec(noinline) void MONSTER_RefreshMonsterMode(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
@@ -2704,6 +2705,7 @@ void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInf
     ITEM_RefreshUnitEquipment(pUnit);
 }
 
+// noinline: the original calls this; without it the compiler expands it into 0x004AFF60.
 __declspec(noinline) void __fastcall CUNIT_SetOverlayWithSound(D2UnitStrc* pUnit, int nOverlay, int nArg)
 {
     if (!pUnit)

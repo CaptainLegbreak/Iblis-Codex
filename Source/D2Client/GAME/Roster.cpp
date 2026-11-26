@@ -739,6 +739,7 @@ static void ROSTER_MovePlayerToFront(int nPlayerId)
 }
 
 // 0x00479AB0
+// noinline: the original calls this; without it the compiler expands it into 0x0047A850, 0x0047A8B0.
 __declspec(noinline) void __cdecl ROSTER_RebuildRosterOrder()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();

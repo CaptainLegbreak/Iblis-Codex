@@ -153,6 +153,7 @@ void __fastcall sub_004DCE10_UpdateTimedHint(int nDelay, int nArg); // 0x004DCE1
 
 void __stdcall UNITSND_ReleaseMonsterSfx(D2UnitStrc* pUnit); // 0x004CB2C0
 
+// noinline: the original calls this; without it the compiler expands it into 0x004CC410.
 __declspec(noinline) void __fastcall UNITSND_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta);
 
 unsigned int gnNeutralTick; // 0x007C88B8
@@ -630,6 +631,7 @@ void __fastcall sub_K06_Emitsfx74(D2UnitStrc* pUnit, int nSfxMode)
 }
 
 // 0x004CAB30
+// noinline: the original calls this; without it the compiler expands it into 0x004CB460.
 static __declspec(noinline) unsigned int UNITSND_ReadSoundTick(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0xCBB);
@@ -720,6 +722,7 @@ static D2DrlgTileDataStrc* UNITSND_FindFloorTileAt(D2ActiveRoomStrc* pRoom, int 
 }
 
 // 0x004CAD60
+// noinline: the original calls this; without it the compiler expands it into 0x004CADB0.
 static __declspec(noinline) int UNITSND_GetTileMaterial(D2DrlgTileDataStrc* pTileData)
 {
     D2TileLibraryEntryStrc* pTile = pTileData->pTile;
@@ -1766,6 +1769,7 @@ void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStri
 }
 
 // 0x004CC160
+// noinline: the original calls this; without it the compiler expands it into 0x004CC410.
 __declspec(noinline) void __fastcall UNITSND_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta)
 {
     const int nType = UNITSND_GetUnitSndType(pUnit);
