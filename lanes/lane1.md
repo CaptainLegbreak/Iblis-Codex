@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 14:33 PST 2026: names-sub-d2client-hi redone on #436 (identical) and repushed. Next: 0x4F2BE0 plain forms on SkillDesc.cpp.
 - Thu Nov 26 14:20 PST 2026: check-in. #435 took decls-d2client-hi, #436 soundinst-join and editbox-join (Ready lines dropped). spinner-fields merges clean on #436; names-sub-d2client-hi conflicts with soundinst-join (a renamed file is gone): redoing it on #436 now.
 - Thu Nov 26 14:20 PST 2026: spinner-fields ready. Next: 0x4F2BE0 plain forms on the joined SkillDesc.cpp (#431 changed its surroundings).
 - Thu Nov 26 14:08 PST 2026: names-sub-d2client-hi ready. Next: field names in Unknown_004BBE10.cpp's SpinnerImplementation (the unk0x fields the code reads).
@@ -54,7 +55,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 ## Ready
 
 - lane1/spinner-fields 581a80137 (on #433): names, SpinnerImplementation's five fields its code reads: bWheelStep +0x20, bMouseDown +0x30, bUpPressed +0x34, bDownPressed +0x38, dwLastStepTick +0x48, in the class's three copies (Unknown_004BBE10.cpp, Unknown_004BABF0.cpp, editbox.cpp) and its members. All three units equal. Full build: Game.exe identical, tree 1efea0e745501d028b7df0296297349beedf087a, borrowed code / data 8,373 B / 261 B. Audit guard: no count rose. (editbox-join touches editbox.cpp's EditBoxImplementation, not the spinner: the two merge clean.)
-- lane1/names-sub-d2client-hi 14c2259bd (on #433): names, six of the ten bare `sub_<VA>` functions left in my range take `sub_<VA>_<Verb>` from their bodies (FilterNpcClick 0x4A17D0, GetRepeatStep 0x4BBFB0, FillCellLights 0x4DE260, IsTypeOneSound 0x4B9590, GetValue 0x4B9B20, IsType 0x4DF770), in Source/, units.json, functions.json and names.csv; all 119 touched or header-including units equal (Item.cpp included). Left: the three getters of unnamed globals (0x4B70F0, 0x4B8580, 0x4B85E0) and 0x4A18F0, whose record shares 0x4A3050's symbol (two identical functions). Full build: Game.exe identical, tree f32364eac4fcb657c17c80c44649ec02403e5a44, borrowed code / data 8,373 B / 261 B. Audit guard: no count rose.
+- lane1/names-sub-d2client-hi 93efe143d (on #436, redone after soundinst-join): names, six of the ten bare `sub_<VA>` functions left in my range take `sub_<VA>_<Verb>` from their bodies (FilterNpcClick 0x4A17D0, GetRepeatStep 0x4BBFB0, FillCellLights 0x4DE260, IsTypeOneSound 0x4B9590, GetValue 0x4B9B20, IsType 0x4DF770), in Source/, units.json, functions.json and names.csv; all 118 touched or header-including units equal (Item.cpp included). Left: the three getters of unnamed globals (0x4B70F0, 0x4B8580, 0x4B85E0) and 0x4A18F0, whose record shares 0x4A3050's symbol (two identical functions). Full build: Game.exe identical, tree fb6785f6c6cc5f9dae643114ef3e25f99986d9f9, borrowed code / data 8,373 B / 261 B. Audit guard: no count rose.
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
 
