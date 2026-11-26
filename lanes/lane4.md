@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 18:47 PST 2026: join-004f0650 and ob1-004f4590 are in #418. join-hireables posted (four placeholders joined).
 - Wed Nov 25 18:23 PST 2026: next is the Hireables join with that lead (Left in place).
 - Wed Nov 25 18:21 PST 2026: join-004f0650 and ob1-004f4590 posted: the two D2Client /Ob1 functions are done.
 - Wed Nov 25 18:06 PST 2026: data-owners-3 is in #417. Nothing in Ready.
@@ -40,8 +41,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/join-004f0650 d65635469 (on #417): 0x4F0650 joins Unknown_004EDA80.cpp and Unknown_004F0650.cpp goes, with its two stand-in bodies for SKILLSEMON_CreateMissileRequest/Fan and its /Ob1. The real callees are statics in Unknown_004EDA80.cpp right before 0x4F0650, and the original passes pUnit to them in eax, which only a same-file caller gets. Unknown_004EDA80.cpp already had the function's source (unmarked); it builds equal once the two statics take pUnit first (same callee bytes either way under that convention; only this order gives the caller's registers). Placeholders -1, per-file options -1. Unit equal; full build: Game.exe identical, tree 6b354dc72b313e97e5ff952be287fee5632378df, placed 14,922 / 14,922, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
-- lane4/ob1-004f4590 44b2985c2 (on #417, stacked on join-004f0650): Unknown_004F4590.cpp builds equal at the module default /Ob2, so its /Ob1 goes (per-file options -1). Full build of the stack: Game.exe identical, tree 76949d7a48856b9f0d9f252a2174b958231576ba; audit guard: no count rose.
+- lane4/join-hireables 6634c9484 (on #418): Hireables.cpp takes 0x493A00, 0x493B50, 0x493CE0, 0x493E10, 0x493EB0, 0x493F80 and 0x494020; Unknown_00493A00/00493B50/00493CE0/00493E10.cpp go (placeholders -4). Each placeholder carried copies of all the pet-icon statics; Hireables.cpp's own unmarked copies were approximations and give way to the real bodies. The copies disagreed only on where register-passed parameters sit (DrawLifeBar's nX in edi, DrawPetCountIcon's pnX in ebx): any position builds the same callee, but only last gives every caller's registers. Hireables.cpp now declares D2GFX_DrawBox with a byte colour as the placeholders did (the callers push the byte unwidened; D2Gfx defines it with unsigned int, so this is D2Client's view of the import). Unit equal; full build: Game.exe identical, tree 2f43f6eb8fba2914caf7b7f1efecefed21c0d36d, placed 14,922 / 14,922, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
 
 ## Claimed
 
@@ -126,5 +126,5 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - WardenClient.cpp 0x47F8B0-0x47F990 and Unknown_0047F950: no assert; they sit on the chat/Warden boundary just before 0x47FA20.
 - Weather block 0x472210-0x473F50: no assert path or data reference names its file yet.
 - Unknown_0046C7D0: Gfx.cpp would inline its functions into 0x46CE40 and 0x46D780.
-- Hireables.cpp's four placeholders (0x493A00, 0x493B50, 0x493CE0, 0x493E10): they disagree on the pet-icon helpers' argument order; aligning the calls made seven functions differ. Retried one at a time in Hireables.cpp: 0x493B50 and 0x493CE0 differ only by ebx/edi swaps, the other two are rejected forms. **New lead (from 0x4F0650):** these helpers are statics the compiler calls with a custom convention (a parameter in eax). Moving a register-passed parameter within the list leaves the callee's bytes alone but changes the caller's register choice, which is what fixed 0x4F0650's ebx/edi swap. Next attempt: one definition per helper (the marked one's stack order), then permute only the register-passed parameters.
+- Hireables.cpp's four placeholders (0x493A00, 0x493B50, 0x493CE0, 0x493E10): they disagree on the pet-icon helpers' argument order; aligning the calls made seven functions differ. Retried one at a time in Hireables.cpp: 0x493B50 and 0x493CE0 differ only by ebx/edi swaps, the other two are rejected forms. **Done in join-hireables (lead from 0x4F0650):** these helpers are statics the compiler calls with a custom convention (a parameter in eax). Moving a register-passed parameter within the list leaves the callee's bytes alone but changes the caller's register choice, which is what fixed 0x4F0650's ebx/edi swap. Next attempt: one definition per helper (the marked one's stack order), then permute only the register-passed parameters.
 
