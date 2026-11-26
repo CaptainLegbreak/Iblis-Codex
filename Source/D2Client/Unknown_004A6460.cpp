@@ -193,7 +193,7 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 D2TextBoxStrc* __stdcall CHAT_GetUsedFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x00661200
 
@@ -2060,7 +2060,7 @@ int __fastcall TEXT_SplitAtNewline(Unicode* wszText, Unicode** ppNext)
 {
     Unicode* pChar = wszText;
     *ppNext = 0;
-    int nLen = sub_00526800(wszText);
+    int nLen = UNICODE_StrLen(wszText);
     int i = 0;
     while (pChar->wChar)
     {
@@ -2229,7 +2229,7 @@ void __cdecl sub_004A7AA0_InitTextEntryLengths()
 {
     for (unsigned int i = 0; i < sizeof(gaTextEntries) / sizeof(gaTextEntries[0]); ++i)
     {
-        gaTextEntries[i].nLength = sub_00526800(D2LANG_GetStringFromTblIndex(gaTextEntries[i].wStringId));
+        gaTextEntries[i].nLength = UNICODE_StrLen(D2LANG_GetStringFromTblIndex(gaTextEntries[i].wStringId));
     }
 }
 
@@ -2487,7 +2487,7 @@ void __cdecl sub_004A7D00_DrawCharStats()
         const int nY = gaCharTexts[i].nY + gnPanelOffsetY + gnScreenHeight - 0x1E0;
         wszLine[99].wChar = 0;
         Unicode* pChar = wszLine;
-        const int nLength = sub_00526800(wszLine);
+        const int nLength = UNICODE_StrLen(wszLine);
         int nPos = 0;
         while (pChar->wChar)
         {

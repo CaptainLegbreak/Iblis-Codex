@@ -226,7 +226,7 @@ Unicode* __fastcall sub_005267E0(Unicode*,const Unicode*); // 0x005267E0
 
 Unicode* __fastcall sub_00526700(Unicode*,const Unicode*); // 0x00526700
 
-int __fastcall sub_00526800(const Unicode*); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode*); // 0x00526800
 
 Unicode* __fastcall sub_00526F20(Unicode*,const char*,int); // 0x00526F20
 
@@ -1049,7 +1049,7 @@ int __stdcall D2COMP_TruncateTextToWidth(Unicode* wszText, int nMaxWidth)
 {
     char szText[300];
     int nCount = 0;
-    sub_00526F70(szText, wszText, 300);
+    UNICODE_ToAscii(szText, wszText, 300);
     const int nLength = strlen(szText);
     int bTruncated = 0;
     while (nCount < nLength)
@@ -1966,7 +1966,7 @@ int __fastcall D2COMP_DrawCompositeLabel(D2CompositeUnitStrc* unit)
   else sub_005267E0(text,(Unicode*)unit->wszAccountName);
  }
  Unicode decoration[256];
- if(sub_00526800((Unicode*)unit->wszGuildTag)){
+ if(UNICODE_StrLen((Unicode*)unit->wszGuildTag)){
   sub_00526320_ToUnicode(decoration,gszGuildPrefix,256);
   sub_00526700(text,decoration);
   sub_00526700(text,(Unicode*)unit->wszGuildTag);

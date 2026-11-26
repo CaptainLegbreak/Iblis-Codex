@@ -8,7 +8,7 @@ struct D2LangByteRangeStrc;
 struct D2SrpSha1ContextStrc;
 struct Unicode;
 
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
+char* __fastcall UNICODE_ToAscii(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" int __cdecl rand(); // 0x00687461
@@ -23,7 +23,7 @@ int __fastcall sub_0051E370_SetText(const char* szText, int nLength); // 0x0051E
 void __fastcall BNDOWNLOAD_RequestDownload(int nType, int nSubType, unsigned int nArg1, unsigned int nArg2, const D2FileTimeStrc* pFileTime, const char* szFile, const char* szLink); // 0x0051F910
 int __fastcall BNMESSQUEUE_SetState(int nState); // 0x00520520
 int __fastcall BNMESSQUEUE_SetStateArg(void* pArg); // 0x00520550
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 int __fastcall GAME_DeleteBigNum(void* pArg); // 0x0052A600
 int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, const void* pData, unsigned long nSize); // 0x00415000
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750

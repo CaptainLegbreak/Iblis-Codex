@@ -280,7 +280,7 @@ const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB);                    
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 
-int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString);                                                      // 0x00526800
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile);  // 0x006280A0
 
@@ -1979,7 +1979,7 @@ void __cdecl PANEL_DrawBelt()
             if (CUNIT_GetHotkeyBinding(gaBeltKeys[nSlot], 1) != 0xFFFF || CUNIT_GetHotkeyBinding(gaBeltKeys[nSlot], 0) != 0xFFFF)
             {
                 sub_005267E0(wszKey, CMDTBL_GetKeyName(gaBeltKeys[nSlot], 1));
-                const int nLength = sub_00526800(wszKey);
+                const int nLength = UNICODE_StrLen(wszKey);
                 if (D2Win_10121_GetTextWidth(wszKey) > 0x1C)
                 {
                     Unicode* pEnd = &wszKey[nLength];

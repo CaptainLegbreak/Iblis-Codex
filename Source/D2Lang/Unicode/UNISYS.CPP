@@ -308,7 +308,7 @@ char* __fastcall sub_00527BE0_UnicodeToCodePage(char* szDest, const Unicode* pSr
 {
     if (!gpCharMap)
     {
-        return sub_00526F70(szDest, pSrc, nCount);
+        return UNICODE_ToAscii(szDest, pSrc, nCount);
     }
     int i = 0;
     for (; i < nCount; ++pSrc)
@@ -345,7 +345,7 @@ int __fastcall sub_00527CA0_GetCodePageLength(const Unicode* pSrc, int nCount)
 {
     if (!gpCharMap)
     {
-        return sub_00526800(pSrc);
+        return UNICODE_StrLen(pSrc);
     }
     int nLength = 0;
     for (int i = 0; i < nCount; ++i)

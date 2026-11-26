@@ -245,7 +245,7 @@ extern D2ButtonStringStrc gaButtonStrings[]; // 0x007275A8
 
 
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
@@ -380,7 +380,7 @@ void EditBoxImplementation::Draw()
         int nStart = 0;
         if (D2Win_10121_GetTextWidth(pText) > nTextWidth)
         {
-            const int nLength = sub_00526800(pText);
+            const int nLength = UNICODE_StrLen(pText);
             for (nStart = 0; nStart < nLength; ++nStart)
             {
                 if (D2Win_10121_GetTextWidth(&pText[nStart]) <= nTextWidth)
@@ -393,7 +393,7 @@ void EditBoxImplementation::Draw()
         D2Win_10117_DrawText(&pText[nStart], nTextX, nTextY, 0, 0);
         if (unk0x36 < nMaxLength && unk0x4A && unk0x36 <= unk0x3A)
         {
-            if (sub_00526800(&pText[nStart]))
+            if (UNICODE_StrLen(&pText[nStart]))
             {
                 sub_005267E0(pTextCopy, pText);
                 pTextCopy[unk0x36] = 0;
@@ -415,7 +415,7 @@ void EditBoxImplementation::Draw()
     while (pLine)
     {
         D2Win_10117_DrawText(pLine->wszLine, nTextX, nTextY + 20 * nLine, 0, 0);
-        const int nLength = sub_00526800(pLine->wszLine);
+        const int nLength = UNICODE_StrLen(pLine->wszLine);
         D2SplittedTextStrc* pNext = pLine->pNextLine;
         nChars += nLength;
         ++nLine;
@@ -427,9 +427,9 @@ void EditBoxImplementation::Draw()
             {
                 nColumn = 0;
             }
-            if (sub_00526800(pLine->wszLine))
+            if (UNICODE_StrLen(pLine->wszLine))
             {
-                if (sub_00526800(pLine->wszLine) > 199)
+                if (UNICODE_StrLen(pLine->wszLine) > 199)
                 {
                     return;
                 }
@@ -462,7 +462,7 @@ void EditBoxImplementation::sub_004BB4D0_Slot15(int nValue)
         szBuffer[nMaxLength - 1] = 0;
     }
     sub_00526F20_ToUnicode(pText, szBuffer, nMaxLength);
-    const int nLength = sub_00526800(pText);
+    const int nLength = UNICODE_StrLen(pText);
     unk0x36 = nLength;
     unk0x3A = nLength;
 }
@@ -471,7 +471,7 @@ void EditBoxImplementation::sub_004BB4D0_Slot15(int nValue)
 void EditBoxImplementation::sub_004BB530_Slot14(const char* szText)
 {
     sub_00526F20_ToUnicode(pText, szText, nMaxLength);
-    const int nLength = sub_00526800(pText);
+    const int nLength = UNICODE_StrLen(pText);
     unk0x36 = nLength;
     unk0x3A = nLength;
 }
@@ -480,12 +480,12 @@ void EditBoxImplementation::sub_004BB530_Slot14(const char* szText)
 // 0x004BB560
 int EditBoxImplementation::GetValue()
 {
-    if (!sub_00526800(pText))
+    if (!UNICODE_StrLen(pText))
     {
         return 0;
     }
     char szBuffer[100];
-    sub_005263E0(szBuffer, pText, nMaxLength);
+    UNICODE_ToUtf8(szBuffer, pText, nMaxLength);
     const int nValue = atoi(szBuffer);
     if (nValue > nMaxValue)
     {
@@ -497,7 +497,7 @@ int EditBoxImplementation::GetValue()
 // 0x004BB5B0
 void EditBoxImplementation::sub_004BB5B0_Slot12(char* szBuffer)
 {
-    sub_005263E0(szBuffer, pText, nMaxLength);
+    UNICODE_ToUtf8(szBuffer, pText, nMaxLength);
 }
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260

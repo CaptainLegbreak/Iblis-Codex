@@ -40,7 +40,7 @@ struct Coord;
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -130,7 +130,7 @@ void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const
     {
         if (wszName)
         {
-            const int nLength = sub_00526800(wszName);
+            const int nLength = UNICODE_StrLen(wszName);
             pMonster->pMonsterData->wszMonName = (Unicode*)FOG_Alloc((nLength + 1) * sizeof(Unicode), ".\\Monsters\\MONSTERS.CPP", 195, 0);
             sub_005267E0(pMonster->pMonsterData->wszMonName, wszName);
         }

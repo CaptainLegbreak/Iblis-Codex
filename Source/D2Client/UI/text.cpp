@@ -194,7 +194,7 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 D2TextBoxStrc* __stdcall CHAT_GetUsedFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x00661200
 
@@ -1681,7 +1681,7 @@ D2ClientStringListStrc* __fastcall TEXT_CloneStringList(D2ClientStringListStrc* 
     memset(pCopy, 0, 0x26);
     for (int i = 0; i < pSource->nCount; ++i)
     {
-        pCopy->pStrings[i] = (Unicode*)FOG_Alloc((sub_00526800(pSource->pStrings[i]) + 1) * sizeof(Unicode), ".\\UI\\text.cpp", 0x9D4, 0);
+        pCopy->pStrings[i] = (Unicode*)FOG_Alloc((UNICODE_StrLen(pSource->pStrings[i]) + 1) * sizeof(Unicode), ".\\UI\\text.cpp", 0x9D4, 0);
         sub_005267E0(pCopy->pStrings[i], pSource->pStrings[i]);
     }
     pCopy->nCount = pSource->nCount;
@@ -1753,7 +1753,7 @@ void __cdecl TEXT_DrawMessageList()
                     do
                     {
                         pNextLine = pTextLine->pNextLine;
-                        nWidth = D2Win_10123(pTextLine->wszLine, sub_00526800(pTextLine->wszLine));
+                        nWidth = D2Win_10123(pTextLine->wszLine, UNICODE_StrLen(pTextLine->wszLine));
                         if (nWidth)
                         {
                             AUTOMAP_DrawFramedBox(nX - 5, nY - 0xE, nWidth + 0xA, 0x10, 0, 1);
@@ -1770,7 +1770,7 @@ void __cdecl TEXT_DrawMessageList()
             }
             else
             {
-                nWidth = D2Win_10123(pNode->pLines[i], sub_00526800(pNode->pLines[i]));
+                nWidth = D2Win_10123(pNode->pLines[i], UNICODE_StrLen(pNode->pLines[i]));
                 if (nWidth)
                 {
                     AUTOMAP_DrawFramedBox(nX - 4, 15 * nLine + nBaseY - 0xE, nWidth + 8, 0x10, 0, 1);
@@ -1845,7 +1845,7 @@ void __cdecl TEXT_DrawOverheadTextList()
                 if (pNode->pLines[i])
                 {
                     AUTOMAP_DrawFramedBox(nX - 5, gnScreenHeight - 25 * nBoxRow - i * 25 / 2 - 0x81,
-                                               D2Win_10123(pNode->pLines[i], sub_00526800(pNode->pLines[i])) + 10, 0x10, 0, 1);
+                                               D2Win_10123(pNode->pLines[i], UNICODE_StrLen(pNode->pLines[i])) + 10, 0x10, 0, 1);
                     D2Win_10117_DrawText(pNode->pLines[i], nX, gnScreenHeight + 25 * nTextRow - i * 25 / 2 - 0x73, pNode->nColor, 0);
                 }
             }
@@ -1935,7 +1935,7 @@ void __fastcall sub_0049E5C0_PrintWrappedLine(const Unicode* wszText, char nColo
     pNode->pNext = 0;
     pNode->dwEndTick = GetTickCount() + 10000;
 
-    int nCount = sub_00526800(wszText);
+    int nCount = UNICODE_StrLen(wszText);
     const int nTotal = nCount;
     int nStart = 0;
     pNode->nLines = 0;
@@ -1957,7 +1957,7 @@ void __fastcall sub_0049E5C0_PrintWrappedLine(const Unicode* wszText, char nColo
 
         const Unicode* pSource = &wszText[nStart];
         char szLine[0x400];
-        sub_005263E0(szLine, pSource, nCount);
+        UNICODE_ToUtf8(szLine, pSource, nCount);
         if (pNode->nLines >= 6)
             break;
 
@@ -2195,7 +2195,7 @@ void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor)
     if (pNode->nColor == 4 && pNode->nLines == 1)
     {
         char szName[0x100] = {0};
-        sub_005263E0(szName, pNode->pLines[0], 0x100);
+        UNICODE_ToUtf8(szName, pNode->pLines[0], 0x100);
         sub_00611560_GetSquelchList()->AddName(szName, 0x100);
     }
 
@@ -2239,7 +2239,7 @@ void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor)
     pNode->pNext = 0;
     pNode->dwEndTick = GetTickCount() + 10000;
 
-    int nCount = sub_00526800(wszText);
+    int nCount = UNICODE_StrLen(wszText);
     const int nTotal = nCount;
     int nStart = 0;
     pNode->nLines = 0;
@@ -2259,7 +2259,7 @@ void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor)
 
         const Unicode* pSource = &wszText[nStart];
         int aLine[0x100];
-        sub_005263E0((char*)aLine, pSource, nCount);
+        UNICODE_ToUtf8((char*)aLine, pSource, nCount);
         if (pNode->nLines >= 6)
             break;
 
@@ -2470,13 +2470,13 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
         sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xFCC));
         break;
     case 0:
-        D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE37)) < 0x104, 0x114C);
+        D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE37)) < 0x104, 0x114C);
         sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
         sub_005267E0(wszBuffer, wszName);
         sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE37));
         break;
     case 1:
-        D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE38)) < 0x104, 0x1152);
+        D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE38)) < 0x104, 0x1152);
         sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
         sub_005267E0(wszBuffer, wszName);
         sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE38));
@@ -2484,7 +2484,7 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
     case 2:
         if (sub_00463DD0_GetPlayerUnit() && !strcmp(pPacket->szTextData[0], sub_0047A210(sub_00463DD0_GetPlayerUnit())))
             break;
-        D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE39)) < 0x104, 0x115C);
+        D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE39)) < 0x104, 0x115C);
         sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
         if (strlen(pPacket->szTextData[1]))
         {
@@ -2496,7 +2496,7 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
         sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE39), wszName);
         break;
     case 3:
-        D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE3A)) < 0x104, 0x116A);
+        D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE3A)) < 0x104, 0x116A);
         sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
         if (strlen(pPacket->szTextData[1]))
         {
@@ -2508,19 +2508,19 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
         sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3A), wszName);
         break;
     case 4:
-        D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE3D)) < 0x104, 0x1178);
+        D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE3D)) < 0x104, 0x1178);
         sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
         sub_005267E0(wszBuffer, wszName);
         sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE3D));
         break;
     case 13:
-        D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE44)) < 0x104, 0x117E);
+        D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE44)) < 0x104, 0x117E);
         sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
         sub_005267E0(wszBuffer, wszName);
         sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE44));
         break;
     case 5:
-        D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE3E)) < 0x104, 0x1184);
+        D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE3E)) < 0x104, 0x1184);
         sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
         sub_005267E0(wszBuffer, wszName);
         sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE3E));
@@ -2586,7 +2586,7 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
             sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE41));
             break;
         }
-        if (sub_00526800(D2LANG_GetStringFromTblIndex(nStringId)) + sub_00526800(pKiller) + 16 >= 0x132)
+        if (UNICODE_StrLen(D2LANG_GetStringFromTblIndex(nStringId)) + UNICODE_StrLen(pKiller) + 16 >= 0x132)
             return;
         sub_005267E0(wszBuffer, wszName);
         sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(nStringId));
@@ -3159,7 +3159,7 @@ D2SplittedTextStrc* __stdcall TEXT_BuildTextLines(const unsigned short* wszText,
         D2SplittedTextStrc* pLine = (D2SplittedTextStrc*)FOG_Alloc(sizeof(D2SplittedTextStrc), ".\\UI\\text.cpp", 0x5B8, 0);
         if (bFirstLine == 1)
         {
-            const int nLength = sub_00526800(szLine);
+            const int nLength = UNICODE_StrLen(szLine);
             int bAscii = 1;
             for (int j = 0; j < nLength; ++j)
             {
@@ -3172,7 +3172,7 @@ D2SplittedTextStrc* __stdcall TEXT_BuildTextLines(const unsigned short* wszText,
             if (bAscii)
             {
                 char szNumber[100];
-                sub_005263E0(szNumber, szLine, 100);
+                UNICODE_ToUtf8(szNumber, szLine, 100);
                 *pMaxLines = atoi(szNumber);
             }
             else
@@ -3186,7 +3186,7 @@ D2SplittedTextStrc* __stdcall TEXT_BuildTextLines(const unsigned short* wszText,
             pText = TEXT_ReadLine(szLine, pText);
         }
 
-        const int nLength = sub_00526800(szLine);
+        const int nLength = UNICODE_StrLen(szLine);
         if (D2Win_10121_GetTextWidth(szLine) >= 0x134)
         {
             char szMessage[80];
@@ -3407,7 +3407,7 @@ void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit)
             {
                 Unicode wszBuffer[0xC8];
                 memset(wszBuffer, 0, sizeof(wszBuffer));
-                int nLength = sub_00526800(wszString);
+                int nLength = UNICODE_StrLen(wszString);
                 if (nLength >= 0xC8)
                     nLength = 0xC7;
                 sub_00526790(wszBuffer, wszString, nLength);
@@ -3467,7 +3467,7 @@ void __fastcall TEXT_DrawObjectHoverText(D2UnitStrc* pUnit)
 
     Unicode wszBuffer[0xC8];
     memset(wszBuffer, 0, sizeof(wszBuffer));
-    int nLength = sub_00526800(wszString);
+    int nLength = UNICODE_StrLen(wszString);
     if (nLength >= 0xC8)
         nLength = 0xC7;
     sub_00526790(wszBuffer, wszString, nLength);
@@ -3601,7 +3601,7 @@ void __fastcall TEXT_ShowTextBox(unsigned short nStringId)
     if (gpMainTextBox)
     {
         gpMainTextBox->nScroll = 1;
-        gdwTextEndTick = GetTickCount() + (sub_00526800(wszText) + 0x19) * 0xC8;
+        gdwTextEndTick = GetTickCount() + (UNICODE_StrLen(wszText) + 0x19) * 0xC8;
         gbTextBoxShown = 1;
 // build: symbol ?gbTextBoxPending@* 0x007BF1C4
         gbTextBoxPending = 1;

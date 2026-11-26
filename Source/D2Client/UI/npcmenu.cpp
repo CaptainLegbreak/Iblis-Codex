@@ -441,7 +441,7 @@ int __cdecl NPCMENU_MenuClose(); // 0x004B2F00
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
@@ -1833,7 +1833,7 @@ int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pC
     if (!nStringId)
         return 0;
     const Unicode* pString = D2LANG_GetStringFromTblIndex(nStringId);
-    if (sub_00526800(pString) + 10 > nMaxLength)
+    if (UNICODE_StrLen(pString) + 10 > nMaxLength)
         return 0;
     sub_005267E0(pText, pString);
     Unicode wszCost[20];
@@ -1964,7 +1964,7 @@ void __cdecl NPCMENU_ShowTradeDialog()
 
         Unicode wszName[0xC0];
         INV_BuildItemName(pItem, wszName, 0xBF);
-        const int nLength = sub_00526800(wszName);
+        const int nLength = UNICODE_StrLen(wszName);
         int i = 0;
         int bDone = 0;
         while (!bDone)
@@ -3056,7 +3056,7 @@ void __cdecl NPCMENU_BuildNpcMenu()
     ROSTER_SetCtrlState(gpNpcMainMenuDialog,1);
     Unicode wszName[80];
     sub_005267E0(wszName,CUNIT_GetUnitName(NPC_GetInteractUnit_Inline()));
-    sub_00526800(wszName);
+    UNICODE_StrLen(wszName);
     DIALOG_AddTextLine(gpNpcMainMenuDialog,wszName,21,0,4,1,0,0);
     int nIndex=NPC_FindIndex_Inline(NPC_GetInteractUnit_Inline());
     if(nIndex<0 || nIndex>=gnNpcIndexCount)return;
@@ -3188,7 +3188,7 @@ void __cdecl NPCMENU_OpenGreetingDialog()
     }
 
     sub_005267E0(wszName, CUNIT_GetUnitName(NPC_GetInteractUnit_Inline()));
-    const int nLength = sub_00526800(wszName);
+    const int nLength = UNICODE_StrLen(wszName);
     for (int i = 0; i < nLength; ++i)
     {
         const unsigned short wChar = wszName[i].wChar;

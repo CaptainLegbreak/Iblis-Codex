@@ -215,7 +215,7 @@ void __fastcall sub_004DC2B0(void* pResource); // 0x004DC2B0
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
 
@@ -1717,7 +1717,7 @@ void __cdecl sub_00478010()
 // 0x004834A0
 const Unicode* __fastcall INV_SkipBracketTag(const Unicode* pString)
 {
-    int n = sub_00526800(pString);
+    int n = UNICODE_StrLen(pString);
     for (; n > 0; --n)
     {
         if (pString[n].wChar == ']')
@@ -1737,13 +1737,13 @@ void __fastcall INV_ReplaceToken(Unicode* pText, int nIndex, const Unicode* pIns
 {
     Unicode wszBuffer[400];
     const int nDigit = nIndex + '0';
-    const int nLength = sub_00526800(pText);
+    const int nLength = UNICODE_StrLen(pText);
     for (int i = 0; i < nLength - 1; ++i)
     {
         if (pText[i].wChar == '%' && pText[i + 1].wChar == nDigit)
         {
             sub_00526700(wszBuffer, pInsert);
-            const Unicode* pEnd = &wszBuffer[sub_00526800(wszBuffer) - 1];
+            const Unicode* pEnd = &wszBuffer[UNICODE_StrLen(wszBuffer) - 1];
             const int bSpace = pEnd->wChar == ' ';
             Unicode* pDest = pText;
             const Unicode* pRest;
@@ -6682,8 +6682,8 @@ void __fastcall INV_CutBracketToken(Unicode* pString, const Unicode* pToken)
     if (pFound)
     {
         pFound += 4;
-        const int nLength = sub_00526800(pFound);
-        Unicode::strncpy(wszText, pFound, nLength - sub_00526800(sub_00526940_UnicodeStrStr(pFound, wszOpen)));
+        const int nLength = UNICODE_StrLen(pFound);
+        Unicode::strncpy(wszText, pFound, nLength - UNICODE_StrLen(sub_00526940_UnicodeStrStr(pFound, wszOpen)));
         sub_005267E0(pString, wszText);
     }
 }
@@ -6878,7 +6878,7 @@ void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int nMaxLen)
                 {
                     if (pRarePrefix->wStringId)
                     {
-                        nLen = sub_00526800(D2LANG_GetStringFromTblIndex(pRarePrefix->wStringId));
+                        nLen = UNICODE_StrLen(D2LANG_GetStringFromTblIndex(pRarePrefix->wStringId));
                         sub_005267E0(WSZ(aPrefix), D2LANG_GetStringFromTblIndex(pRarePrefix->wStringId));
                     }
                     else
@@ -6900,7 +6900,7 @@ void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int nMaxLen)
                 {
                     if (pRareSuffix->wStringId)
                     {
-                        nLen += sub_00526800(D2LANG_GetStringFromTblIndex(pRareSuffix->wStringId));
+                        nLen += UNICODE_StrLen(D2LANG_GetStringFromTblIndex(pRareSuffix->wStringId));
                         if (pRarePrefix)
                         {
                             sub_00526700(WSZ(aSuffix), D2LANG_GetStringFromTblIndex(pRareSuffix->wStringId));
@@ -6918,7 +6918,7 @@ void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int nMaxLen)
                         strcat(SZ(aBuffer), pRareSuffix->szName);
                         strcat(SZ(aBuffer), ")");
                         sub_00526320_ToUnicode(WSZ(aTemp), SZ(aBuffer), 0x200);
-                        nLen += sub_00526800(WSZ(aTemp));
+                        nLen += UNICODE_StrLen(WSZ(aTemp));
                         if (pRarePrefix)
                         {
                             sub_00526700(WSZ(aSuffix), WSZ(aTemp));
@@ -6934,7 +6934,7 @@ void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int nMaxLen)
                     WSZ(aSuffix)->wChar = 0;
                 }
 
-                nLen += sub_00526800(D2LANG_GetStringFromTblIndex(pItemsTxt->wNameStr)) + 3;
+                nLen += UNICODE_StrLen(D2LANG_GetStringFromTblIndex(pItemsTxt->wNameStr)) + 3;
                 D2_ASSERT(nLen < nMaxLen, 0x822);
                 D2_ASSERT(nLen < nMaxLen, 0x822);
 
@@ -7023,7 +7023,7 @@ void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int nMaxLen)
                 {
                     if (pPrefix->wTblIndex)
                     {
-                        nLen = sub_00526800(D2LANG_GetStringFromTblIndex(pPrefix->wTblIndex));
+                        nLen = UNICODE_StrLen(D2LANG_GetStringFromTblIndex(pPrefix->wTblIndex));
                         sub_005267E0(WSZ(aPrefix), D2LANG_GetStringFromTblIndex(pPrefix->wTblIndex));
                     }
                     else
@@ -7045,7 +7045,7 @@ void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int nMaxLen)
                 {
                     if (pSuffix->wTblIndex)
                     {
-                        nLen += sub_00526800(D2LANG_GetStringFromTblIndex(pSuffix->wTblIndex));
+                        nLen += UNICODE_StrLen(D2LANG_GetStringFromTblIndex(pSuffix->wTblIndex));
                         sub_00526700(WSZ(aSuffix), D2LANG_GetStringFromTblIndex(pSuffix->wTblIndex));
                     }
                     else
@@ -7065,7 +7065,7 @@ void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int nMaxLen)
                     WSZ(aSuffix)->wChar = 0;
                 }
 
-                nLen += sub_00526800(D2LANG_GetStringFromTblIndex(pItemsTxt->wNameStr)) + 3;
+                nLen += UNICODE_StrLen(D2LANG_GetStringFromTblIndex(pItemsTxt->wNameStr)) + 3;
                 D2_ASSERT(nLen < nMaxLen, 0x8C5);
                 D2_ASSERT(nLen < nMaxLen, 0x8C5);
                 INV_FormatArgs(pOut, D2LANG_GetStringFromTblIndex(0x6B2), WSZ(aPrefix), D2LANG_GetStringFromTblIndex(pItemsTxt->wNameStr), WSZ(aSuffix), 0);

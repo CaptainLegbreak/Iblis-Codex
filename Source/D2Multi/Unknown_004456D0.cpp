@@ -60,7 +60,7 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
     pName = sub_004FDD90_GetEditText(gpCreateName);
     if (pName)
     {
-        sub_00526F70(szName, pName, 0xFF);
+        UNICODE_ToAscii(szName, pName, 0xFF);
         if (strlen(szName) < 1)
             return 0;
 
@@ -74,20 +74,20 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
             if (sub_00500960_IsPressed(gpLevelDiffCheck))
             {
                 const Unicode* pLevel = sub_004FDD90_GetEditText(gpEditBox_00798C3C);
-                sub_00526F70(szNumber, pLevel, 3);
+                UNICODE_ToAscii(szNumber, pLevel, 3);
                 tLogin.nValue0x45 = atoi(szNumber);
             }
             else
             {
                 tLogin.nValue0x45 = -1;
             }
-            sub_00526F70(szNumber, pMaxPlayers, 3);
+            UNICODE_ToAscii(szNumber, pMaxPlayers, 3);
             tLogin.nValue0x46 = atoi(szNumber);
         }
 
-        sub_00526F70(tLogin.szText0x00, pName, 0x10);
-        sub_00526F70(tLogin.szText0x10, pPassword, 0x10);
-        sub_00526F70(tLogin.szText0x20, pDesc, 0x20);
+        UNICODE_ToAscii(tLogin.szText0x00, pName, 0x10);
+        UNICODE_ToAscii(tLogin.szText0x10, pPassword, 0x10);
+        UNICODE_ToAscii(tLogin.szText0x20, pDesc, 0x20);
         tLogin.nValue0x40 = 0;
         sub_00411320_CapitalizeWords(tLogin.szText0x00);
         sub_00411320_CapitalizeWords(tLogin.szText0x10);
@@ -136,7 +136,7 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
         {
             char szValue[5];
             const Unicode* pValue = sub_004FDD90_GetEditText(gpMaxPlayerControl);
-            sub_005263E0(szValue, pValue, 5);
+            UNICODE_ToUtf8(szValue, pValue, 5);
 // build: symbol ?gszDiabloII@* 0x006CC8B8
             SRegSaveValue(gszDiabloII, gszMaxPlayer, 0, atoi(szValue));
             SRegSaveValue(gszDiabloII, gszDiffLevel, 0, gnDiffSelect);
@@ -147,7 +147,7 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
             else
             {
                 pValue = sub_004FDD90_GetEditText(gpEditBox_00798C3C);
-                sub_005263E0(szValue, pValue, 5);
+                UNICODE_ToUtf8(szValue, pValue, 5);
                 SRegSaveValue(gszDiabloII, gszLvlRest, 0, atoi(szValue));
             }
         }

@@ -443,7 +443,7 @@ extern "C" void* gpClhFileData; // 0x00882750
 
 const Unicode* __fastcall sub_00463810_GetMonsterName(D2UnitStrc* pUnit); // 0x00463810
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
@@ -1702,7 +1702,7 @@ const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit)
     case UNIT_MONSTER:
     {
         pName = sub_00463810_GetMonsterName(pUnit);
-        if (!sub_00526800(pName))
+        if (!UNICODE_StrLen(pName))
         {
             return D2LANG_GetStringFromTblIndex(DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId)->wNameStr);
         }

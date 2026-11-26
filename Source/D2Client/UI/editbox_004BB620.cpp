@@ -49,8 +49,8 @@ public:
 
 unsigned int __fastcall D2Win_10128(unsigned char nCharCode); // 0x00502550
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const unsigned short* pText, int* pLineCount, int nWidth); // 0x00502970
-void __fastcall sub_005263E0(char* szDest, const unsigned short* pSource, int nMaxLength);         // 0x005263E0
-extern "C" int __fastcall sub_00526800(const unsigned short* pText);                                      // 0x00526800
+void __fastcall UNICODE_ToUtf8(char* szDest, const unsigned short* pSource, int nMaxLength);         // 0x005263E0
+extern "C" int __fastcall UNICODE_StrLen(const unsigned short* pText);                                      // 0x00526800
 unsigned short* __fastcall sub_00526F20(unsigned short* pDst, const char* szSrc, int nMaxLength);    // 0x00526F20
 extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
@@ -179,26 +179,26 @@ int EditBoxImplementation::OnKeyDown(SMSGHANDLER_PARAMS* pMsg)
             }
         }
 
-        if (!pfFilter && sub_00526800(pText))
+        if (!pfFilter && UNICODE_StrLen(pText))
         {
             if (bNumeric)
             {
                 char szValue[0x800];
-                sub_005263E0(szValue, pText, nMaxLength);
+                UNICODE_ToUtf8(szValue, pText, nMaxLength);
                 const unsigned int nMax = nMaxValue;
                 if (atoi(szValue) > nMax)
                 {
                     sprintf(szValue, gszFmtDecimal_006D57BC, nMax);
                     memset(pText, 0, nMaxLength * 2);
                     sub_00526F20(pText, szValue, nMaxLength);
-                    const int nNewLength = sub_00526800(pText);
+                    const int nNewLength = UNICODE_StrLen(pText);
                     nCaret = nNewLength;
                     nLength = nNewLength;
                 }
             }
             else
             {
-                nLength = sub_00526800(pText);
+                nLength = UNICODE_StrLen(pText);
             }
         }
     }

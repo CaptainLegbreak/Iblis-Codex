@@ -87,7 +87,7 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
@@ -583,7 +583,7 @@ static void __stdcall PARTY_DrawRosterArea(int nY, D2PartyRowStrc* pEntry, int n
     Unicode* pEnd = &wszName[0xFE];
     if (D2Win_10121_GetTextWidth(wszName) > 0x8C)
     {
-        const int nLength = sub_00526800(wszName);
+        const int nLength = UNICODE_StrLen(wszName);
         const Unicode wLast = wszName[nLength - 1];
         char szDots[] = "....";
         Unicode wszDots[5];

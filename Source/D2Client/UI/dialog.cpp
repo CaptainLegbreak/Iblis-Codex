@@ -223,7 +223,7 @@ struct Obj004B8580 {
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 
@@ -1132,7 +1132,7 @@ void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* w
     pDialog->pLines[nIndex].nType = nType;
     pDialog->pLines[nIndex].pfnCallback = pfnCallback;
     pDialog->pLines[nIndex].bEnabled = bEnabled;
-    int nLen = sub_00526800(wszText) + 1;
+    int nLen = UNICODE_StrLen(wszText) + 1;
     if (nLen > 0x77)
         nLen = 0x77;
     sub_00526790(pDialog->pLines[nIndex].wszText, wszText, nLen);

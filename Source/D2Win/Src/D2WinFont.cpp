@@ -112,7 +112,7 @@ void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, un
 
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0
 
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 int gnFramedTextAlign;                                                                             // 0x008426D4
 
@@ -358,7 +358,7 @@ int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength)
 // 0x00501820
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText)
 {
-    return D2Win_10122(wszText, sub_00526800(wszText));
+    return D2Win_10122(wszText, UNICODE_StrLen(wszText));
 }
 
 // 0x00501840
@@ -367,7 +367,7 @@ static int FONT_GetMaxLineWidth(const Unicode* pText)
     D2_ASSERT(pText, 525);
     int nWidth = 0;
     int nMax = 0;
-    const int nLength = sub_00526800((const Unicode*)pText);
+    const int nLength = UNICODE_StrLen((const Unicode*)pText);
     for (int nCount = 0; nCount < nLength; ++nCount)
     {
         const unsigned short wChar = pText->wChar;
@@ -409,7 +409,7 @@ static int FONT_GetFirstLineWidth(const Unicode* pText)
 {
     D2_ASSERT(pText, 572);
     int nWidth = 0;
-    const int nLength = sub_00526800((const Unicode*)pText);
+    const int nLength = UNICODE_StrLen((const Unicode*)pText);
     for (int nCount = 0; nCount < nLength; ++nCount)
     {
         const unsigned short wChar = pText->wChar;
@@ -442,7 +442,7 @@ static int FONT_GetTextHeight(const Unicode* pText)
     D2_ASSERT(pText, 606);
 
     int nLines = 1;
-    int nLength = sub_00526800(pText);
+    int nLength = UNICODE_StrLen(pText);
     const Unicode* pChar = pText;
     if (nLength > 0)
     {
@@ -473,7 +473,7 @@ static void __stdcall FONT_DrawBox(int nX, int nY, int nWidth, int nHeight, unsi
 // 0x00501A80
 static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, int nWidth, int nGlobalPaletteShift, int bCentered)
 {
-    const int nLength = sub_00526800(wszText);
+    const int nLength = UNICODE_StrLen(wszText);
     int nCount = 0;
     const int nStartX = nX;
     if (bCentered)
@@ -559,7 +559,7 @@ static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, in
 // 0x00501C30
 static void __stdcall FONT_DrawTextLineWithDrawMode(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int bCentered, int eDrawMode)
 {
-    const int nLength = sub_00526800(wszText);
+    const int nLength = UNICODE_StrLen(wszText);
     int nCount = 0;
     const int nStartX = nX;
     if (bCentered)
@@ -660,7 +660,7 @@ static void D2Win_10126_DrawTextFromCache(const Unicode* pText, int nX, int nY)
 {
     const Unicode* wszText = pText;
     const int nStartX = nX;
-    const int nLength = sub_00526800(pText);
+    const int nLength = UNICODE_StrLen(pText);
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -698,7 +698,7 @@ static void D2Win_10126_DrawTextFromCache(const Unicode* pText, int nX, int nY)
 // 0x00502280
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign)
 {
-    if (wszText && sub_00526800(wszText) < 1024)
+    if (wszText && UNICODE_StrLen(wszText) < 1024)
         sub_005267E0(gwszFramedText, wszText);
     else
         memset(gwszFramedText, 0, sizeof(gwszFramedText));
@@ -744,7 +744,7 @@ void __fastcall FONT_DrawTextFromCache(const Unicode* pText, int nX, int nY)
 static void __stdcall sub_00501A80_DrawString(const Unicode* wszText, int nX, int nY, int nWidth, int nPalette, int bCentered)
 {
     shim_2 = nX;
-    const int nLength = sub_00526800((const Unicode*)wszText);
+    const int nLength = UNICODE_StrLen((const Unicode*)wszText);
     shim_1(nLength, nY, nWidth, nPalette, bCentered);
 }
 
@@ -808,7 +808,7 @@ static int FONT_GetMaxLineWidth(unsigned short wChar)
 
 static void __stdcall sub_00501A80_DrawTextLine(int nY, int nWidth, int nShift, int bCentre, const Unicode* pText, int nX)
 {
-    const int nLength = sub_00526800(pText);
+    const int nLength = UNICODE_StrLen(pText);
     int nCount = 0;
     const int nStartX = nX;
     if (bCentre)
@@ -986,7 +986,7 @@ void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, i
 // 0x00502750
 void __fastcall D2Win_10120(const Unicode* text,int x,int y,int color,int centered,int fill)
 {
- if(!sub_00526800(text)) return;
+ if(!UNICODE_StrLen(text)) return;
  const int width=FONT_GetMaxLineWidth(text)+8;
  int screenWidth,screenHeight;
  int rest;
@@ -1197,7 +1197,7 @@ void __stdcall D2Win_10124()
     const int nSavedFont = gnCurrentFont;
     int nFont = gnCurrentFont;
 
-    if (!sub_00526800(gwszFramedText))
+    if (!UNICODE_StrLen(gwszFramedText))
     {
         return;
     }

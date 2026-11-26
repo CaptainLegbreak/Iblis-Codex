@@ -68,7 +68,7 @@ extern D2CombinedStatIdStrc gaCombinedStatIds[]; // 0x0072CDD0
 extern D2FileIndexTextStrc gaFileIndexText[]; // 0x0072D6C0
 extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, int nUnused, int bQuantity, int nState, int nState2, int nFlag, int bNewline); // 0x004E60A0
-int __fastcall sub_00526800(const Unicode* wszText); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* wszText); // 0x00526800
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 void __fastcall TEXT_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E6720
 void __fastcall SKILLDESC_BuildItemPropText(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E67D0

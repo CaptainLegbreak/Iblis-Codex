@@ -189,13 +189,13 @@ void __fastcall sub_005177B2_SetLoadStringFn(void* pfnLoadString); // 0x005177B2
 
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);                                 // 0x005267E0
 
-int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString);                                                      // 0x00526800
 
 void __cdecl D2CMPTileFreeAsyncLoads();                                                                                // 0x005FE070
 
 void __cdecl D2CMPSpriteFreeAsyncLoads();                                                                                // 0x005FF3A0
 
-void __cdecl sub_00600B80();                                                                                // 0x00600B80
+void __cdecl D2CMP_LoadItemPalShifts();                                                                                // 0x00600B80
 
 extern "C" const char gszLngFileName[];                                                            // 0x006D5EE0
 
@@ -455,7 +455,7 @@ void __cdecl GAME_InitGameState()
         MSG_UploadSaveFile(1);
     sub_005173D3_SetRecordHandler(GAME_DestroyWindowAndGfx);
     PALSHIFT_AllocPalShiftEntries();
-    sub_00600B80();
+    D2CMP_LoadItemPalShifts();
     SKILLS_InitGfxCaches(gpMemPool, 1);
     gbLeavingGame = GAME_GetConnectFailed() != 0;
     gdwUnloadCompleteTick = GetTickCount();

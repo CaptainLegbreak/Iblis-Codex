@@ -18,7 +18,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(cons
 extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileName); // 0x006CC1A0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 const char* __stdcall Name(D2FuncRecordStrc* pRecord, int nIndex); // 0x005180A0
-int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 void __fastcall BUTTON_SetText(D2WinControlStrc* pControl, int nMode, Unicode* pText, int nArg); // 0x005009D0
 int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A8B0
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
@@ -101,12 +101,12 @@ void __cdecl MAINMENUS_CreateVideoScreen()
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (FOG_IsExpansion())
     {
-        sub_005263E0(szText, D2LANG_GetStringFromTblIndex(0x557A), 0x200);
+        UNICODE_ToUtf8(szText, D2LANG_GetStringFromTblIndex(0x557A), 0x200);
         szKey = "2001";
     }
     else
     {
-        sub_005263E0(szText, D2LANG_GetStringFromTblIndex(0x13F0), 0x200);
+        UNICODE_ToUtf8(szText, D2LANG_GetStringFromTblIndex(0x13F0), 0x200);
         szKey = "2000";
     }
     int nKeyLen = SStrLen(szKey);
@@ -150,7 +150,7 @@ void __cdecl MAINMENUS_ShowCurrentGateway()
     memset(wszOut, 0, 0x100);
     sub_005269D0(0x100, wszOut, wszFormat, wszText);
 
-    for (int i = 0; i < sub_00526800(wszOut); ++i)
+    for (int i = 0; i < UNICODE_StrLen(wszOut); ++i)
     {
         const unsigned short wChar = wszOut[i].wChar;
 // build: symbol ?gawToUpperTable@* 0x00730578
@@ -432,7 +432,7 @@ int __cdecl MAINMENUS_ShowTerms()
             else { ++i; wszLine[nLine++].wChar = ' '; }
             if (D2Win_10121_GetTextWidth(wszLine) > 540)
             {
-                int nLength = sub_00526800(wszLine);
+                int nLength = UNICODE_StrLen(wszLine);
                 while (nLength > 1 && !sub_00526D30_IsLineBreak(pChars + nStart, nLength)) --nLength;
                 i = nStart + nLength;
                 wszLine[nLength].wChar = 0;
@@ -440,7 +440,7 @@ int __cdecl MAINMENUS_ShowTerms()
                 break;
             }
         } while (nLine < 200);
-        int nLength = sub_00526800(wszLine);
+        int nLength = UNICODE_StrLen(wszLine);
         for (int j = 0; j < nLength; ++j)
         {
             if (wszLine[j].wChar != ' ')

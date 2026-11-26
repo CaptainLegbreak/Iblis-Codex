@@ -370,7 +370,7 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                
 
 extern "C" unsigned short* __fastcall sub_005267E0(unsigned short* pDst, const unsigned short* pSrc);     // 0x005267E0
 
-extern "C" int __fastcall sub_00526800(const unsigned short* pText);                                      // 0x00526800
+extern "C" int __fastcall UNICODE_StrLen(const unsigned short* pText);                                      // 0x00526800
 
 struct D2SeqModeStrc;
 

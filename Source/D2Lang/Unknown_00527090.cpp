@@ -46,7 +46,7 @@ bool D2LangCharSetStrc::ContainsChar(const Unicode* pChar) const
     {
         wszChars[i].wChar = 0;
     }
-    const int nLength = sub_00526800(wszChars);
+    const int nLength = UNICODE_StrLen(wszChars);
     for (int j = 0; j < nLength; ++j)
     {
         if (pChar->wChar == wszChars[j].wChar)
@@ -74,8 +74,8 @@ static bool sub_005271A0_EndsWithCharOf(const char* szChars, const Unicode* pTex
     {
         wszChars[i].wChar = 0;
     }
-    const int nLength = sub_00526800(wszChars);
-    const int nTextLength = sub_00526800(pText);
+    const int nLength = UNICODE_StrLen(wszChars);
+    const int nTextLength = UNICODE_StrLen(pText);
     for (int j = 0; j < nLength; ++j)
     {
         if (pText[nTextLength - 1].wChar == wszChars[j].wChar)
@@ -107,8 +107,8 @@ static inline void win2UnicodeInline(Unicode* pDst, const char* szSrc, int nMaxL
 // 0x005272B0
 void __fastcall sub_005272B0_FormatText(Unicode* pDst, const Unicode* pOwner, const Unicode* pItem, int nMaxLength, int nLanguage)
 {
-    const int nOwnerLength = sub_00526800(pOwner);
-    const int nItemLength = sub_00526800(pItem);
+    const int nOwnerLength = UNICODE_StrLen(pOwner);
+    const int nItemLength = UNICODE_StrLen(pItem);
     if (nItemLength + nOwnerLength + 5 > nMaxLength)
     {
         if (nItemLength < nMaxLength)

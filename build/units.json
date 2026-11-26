@@ -862,7 +862,7 @@
     {
      "va": "0x00405550",
      "length": 28,
-     "name": "?sub_00405550@@YIXPAUCharacter@@@Z"
+     "name": "?MAIN_ToLowerInPlace@@YIXPAUCharacter@@@Z"
     },
     {
      "va": "0x00405570",
@@ -9158,7 +9158,7 @@
     {
      "va": "0x0043C6A0",
      "length": 12,
-     "name": "?sub_0043C6A0@@YIXH@Z"
+     "name": "?CHARSEL_SetFlagBit2@@YIXH@Z"
     },
     {
      "va": "0x00446890",
@@ -32995,7 +32995,7 @@
     {
      "va": "0x004F8DE0",
      "length": 90,
-     "name": "?sub_004F8DE0@@YIXPAEHHH@Z"
+     "name": "?WINDOW_SetScreenBuffer@@YIXPAEHHH@Z"
     },
     {
      "va": "0x004F8E90",
@@ -33005,7 +33005,7 @@
     {
      "va": "0x004F8EA0",
      "length": 104,
-     "name": "?sub_004F8EA0@@YAXXZ"
+     "name": "?WINDOW_LoadGammaSettings@@YAXXZ"
     }
    ]
   },
@@ -39594,7 +39594,7 @@
     {
      "va": "0x00526800",
      "length": 29,
-     "name": "@sub_00526800@4"
+     "name": "@UNICODE_StrLen@4"
     },
     {
      "va": "0x00526820",
@@ -39630,7 +39630,7 @@
     {
      "va": "0x00526F70",
      "length": 54,
-     "name": "?sub_00526F70@@YIPADPADPBUUnicode@@H@Z"
+     "name": "?UNICODE_ToAscii@@YIPADPADPBUUnicode@@H@Z"
     },
     {
      "va": "0x00526FB0",
@@ -39670,7 +39670,7 @@
     {
      "va": "0x005263E0",
      "length": 78,
-     "name": "?sub_005263E0@@YIPADPADPBUUnicode@@H@Z"
+     "name": "?UNICODE_ToUtf8@@YIPADPADPBUUnicode@@H@Z"
     },
     {
      "va": "0x00526430",
@@ -61855,7 +61855,7 @@
     {
      "va": "0x00600B80",
      "length": 120,
-     "name": "?sub_00600B80@@YAXXZ"
+     "name": "?D2CMP_LoadItemPalShifts@@YAXXZ"
     }
    ]
   },
@@ -61866,7 +61866,7 @@
     {
      "va": "0x006009C0",
      "length": 445,
-     "name": "?sub_006009C0@@YIXPBDH@Z"
+     "name": "?D2CMP_LoadItemPalShift@@YIXPBDH@Z"
     }
    ],
    "flags": [
