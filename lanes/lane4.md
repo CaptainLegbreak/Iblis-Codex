@@ -63,7 +63,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/dup-decls d731d5514 (on #424): scaffolding, D2Client part. 287 private prototypes in 78 D2Client files go: each repeated, with the same return type, convention and parameter types, a declaration the file already gets from a header it includes (D2ClientFuncs.h, D2CommonApi.h, FogApi.h, StormApi.h, D2LangApi.h and the others). Removed per file, kept out only where the unit stays equal (all 78 did); the eight declaration-count units untouched. Full build: Game.exe identical, tree 482b287533f2b39210927172904935e7a02c2fb8, placed 14,922 / 14,922, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
+- lane4/dup-decls 365ffad4a (on #424; two commits): scaffolding, D2Client part. 287 private prototypes in 78 D2Client files go: each repeated, with the same return type, convention and parameter types, a declaration the file already gets from a header it includes (D2ClientFuncs.h, D2CommonApi.h, FogApi.h, StormApi.h, D2LangApi.h and the others). Removed per file, kept out only where the unit stays equal (all 78 did); the eight declaration-count units untouched. Second commit: 11 private externs of globals an included header already declares with the same type, 7 files. Full build of both: Game.exe identical, tree c1670f81d8dd80a93ce36aa416bf903c3b8dfd64, placed 14,922 / 14,922, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
 
 ## Claimed
 
