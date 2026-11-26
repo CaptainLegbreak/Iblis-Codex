@@ -43,7 +43,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Launch/Unknown_004059D0.cpp": {
+  "Source/Main/Unknown_004059D0.cpp": {
    "bytes": 108,
    "definitions": 2,
    "externs": [
@@ -59,7 +59,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Launch/Main.cpp": {
+  "Source/Main/Main.cpp": {
    "bytes": 148,
    "definitions": 5,
    "externs": [],
@@ -1080,7 +1080,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UI/useitem.cpp": {
+  "Source/D2Client/UI/UseItem.cpp": {
    "bytes": 180,
    "definitions": 3,
    "externs": [],
@@ -4879,7 +4879,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Launch/Unknown_004053F0.cpp": {
+  "Source/Main/Unknown_004053F0.cpp": {
    "bytes": 5336,
    "definitions": 1,
    "externs": [],
@@ -5572,7 +5572,7 @@
    "cname": "gData_00706518",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Unknown_004059D0.cpp",
+   "file": "Source/Main/Unknown_004059D0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00706518_t gData_00706518; // 0x00706518",
    "head": "extern \"C\" struct d2data_00706518_t gData_00706518 = ",
@@ -5710,7 +5710,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Unknown_004059D0.cpp",
+   "file": "Source/Main/Unknown_004059D0.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": null,
@@ -5827,7 +5827,7 @@
    "cname": "gData_00706584",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Main.cpp",
+   "file": "Source/Main/Main.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00706584_t gData_00706584; // 0x00706584",
    "head": "extern \"C\" struct d2data_00706584_t gData_00706584 = ",
@@ -5965,7 +5965,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Main.cpp",
+   "file": "Source/Main/Main.cpp",
    "fill": 32,
    "form": "declared",
    "fwd": null,
@@ -5996,7 +5996,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Main.cpp",
+   "file": "Source/Main/Main.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gbD2ServerStopEvent = ",
@@ -6021,7 +6021,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Main.cpp",
+   "file": "Source/Main/Main.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2ServiceStatusStrc gD2ServerServiceStatus = ",
@@ -7073,7 +7073,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Unknown_004053F0.cpp",
+   "file": "Source/Main/Unknown_004053F0.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern D2IniEntryStrc gaIniEntries_00705040[58] = ",
@@ -7179,7 +7179,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Main.cpp",
+   "file": "Source/Main/Main.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern const char* gaszModuleTypes_007065C4[6] = ",
@@ -56948,7 +56948,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/useitem.cpp",
+   "file": "Source/D2Client/UI/UseItem.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnHotspotCount = ",
@@ -56973,7 +56973,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/useitem.cpp",
+   "file": "Source/D2Client/UI/UseItem.cpp",
    "fill": 2,
    "form": "declared",
    "fwd": null,
@@ -57706,7 +57706,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/useitem.cpp",
+   "file": "Source/D2Client/UI/UseItem.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": null,

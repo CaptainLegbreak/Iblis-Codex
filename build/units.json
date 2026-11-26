@@ -770,7 +770,7 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Main.cpp",
+   "file": "Source/Main/Main.cpp",
    "rank": 0,
    "functions": [
     {
@@ -836,7 +836,7 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Unknown_004053F0.cpp",
+   "file": "Source/Main/Unknown_004053F0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -897,7 +897,7 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Unknown_004059D0.cpp",
+   "file": "Source/Main/Unknown_004059D0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -3557,20 +3557,6 @@
      "length": 82,
      "name": "MAINMENUS_OnRealmListClick"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -9183,20 +9169,6 @@
      "va": "0x006CA940",
      "length": 17
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -9278,20 +9250,6 @@
      "length": 872,
      "name": "?CHARSEL_Connect@@YIHPAUD2LaunchRecordStrc@@HH@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -9303,20 +9261,6 @@
      "length": 57,
      "name": "?CHARSEL_CreateBaseScreen@@YAXXZ"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -9341,20 +9285,6 @@
      "length": 229,
      "name": "?CHARSEL_JoinSelected@@YGHH@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -11150,20 +11080,6 @@
      "length": 45,
      "name": "?COMCALLBACK_IsValidKeyText@@YIHPBD@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -11228,20 +11144,6 @@
      "length": 322,
      "name": "?LAUNCHER_DeleteCharacterFiles@@YIXPBD0@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -11783,20 +11685,6 @@
      "length": 233,
      "name": "?CHARSEL_SubmitPasswordReset@@YGHH@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -11807,39 +11695,11 @@
      "va": "0x00438560",
      "length": 1384
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
    "file": "Source/D2Multi/Src/ChatDlg.cpp",
    "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
    "functions": [
     {
      "va": "0x0043CBF0",
@@ -12822,20 +12682,6 @@
      "va": "0x006CA980",
      "length": 20
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -12846,20 +12692,6 @@
      "va": "0x004423B0",
      "length": 1118
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -12881,20 +12713,6 @@
      "va": "0x004450D0",
      "length": 232
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -13116,20 +12934,6 @@
      "length": 63,
      "name": "CHATDLG_StartThread"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -13140,20 +12944,6 @@
      "va": "0x004456D0",
      "length": 929
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -13604,20 +13394,6 @@
      "length": 300,
      "name": "?WINMAIN_HandleMcpGameList@@YIHPAUD2McpPacket05Strc@@H@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -27715,7 +27491,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/useitem.cpp",
+   "file": "Source/D2Client/UI/UseItem.cpp",
    "rank": 0,
    "functions": [
     {
@@ -33625,20 +33401,6 @@
      "va": "0x004FAEC0",
      "length": 328
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -33684,39 +33446,11 @@
      "va": "0x004FB1E0",
      "length": 665
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
    "file": "Source/D2Win/Src/D2WinTextBox.cpp",
    "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
    "functions": [
     {
      "va": "0x004FB480",
@@ -34080,20 +33814,6 @@
   {
    "file": "Source/D2Win/Src/D2WinEditBox.cpp",
    "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
    "functions": [
     {
      "va": "0x004FDAA0",
@@ -34371,20 +34091,6 @@
   {
    "file": "Source/D2Win/Src/D2WinFont.cpp",
    "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
    "functions": [
     {
      "va": "0x005013A0",
@@ -34586,20 +34292,6 @@
      "va": "0x00502970",
      "length": 716
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -34917,20 +34609,6 @@
      "length": 72,
      "name": "SMACK_SetCoordinates"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -35058,20 +34736,6 @@
      "length": 85,
      "name": "?D2Win_10138@@YIXPAUD2WinListStrc@@PBDP6GHPAUSMSGHANDLER_PARAMS@@@ZDHHH@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -35118,20 +34782,6 @@
      "length": 197,
      "name": "ACCOUNTLIST_Create"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -35201,20 +34851,6 @@
      "length": 171,
      "name": "SCROLLBAR_Create"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -78425,20 +78061,6 @@
   {
    "file": "Source/D2Win/Src/D2WinProgressBar.cpp",
    "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
    "functions": [
     {
      "va": "0x00507D70",

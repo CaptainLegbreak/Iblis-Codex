@@ -5,7 +5,7 @@
 //
 // Eight units keep their own private declarations of these instead and don't include this header:
 // GAME/Msg.cpp, UI/inv.cpp, UI/inv_004886C0.cpp, UI/inv_0048BC10.cpp, UI/inv_0048DD90.cpp,
-// UI/useitem.cpp, UNIT/Item.cpp and UNIT/UnitSnd.cpp. Their code depends on how many declarations
+// UI/UseItem.cpp, UNIT/Item.cpp and UNIT/UnitSnd.cpp. Their code depends on how many declarations
 // precede it, and a header that grows changes that.
 
 struct D2ClientEntryStrc;
