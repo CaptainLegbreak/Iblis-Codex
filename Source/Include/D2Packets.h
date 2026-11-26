@@ -357,8 +357,8 @@ struct D2GSPacketSrv10Strc
     unsigned char nFlags; // 0x06
     unsigned char nTargetType; // 0x07
     int nTargetGUID; // 0x08
-    short nCurrentPosX; // 0x0C
-    short nCurrentPosY; // 0x0E
+    unsigned short nCurrentPosX; // 0x0C
+    unsigned short nCurrentPosY; // 0x0E
 };
 
 struct D2GSPacketSrv0FStrc
@@ -367,11 +367,11 @@ struct D2GSPacketSrv0FStrc
     unsigned char nUnitType; // 0x01
     int nUnitGUID; // 0x02
     unsigned char nFlags; // 0x06
-    short nDestPosX; // 0x07
-    short nDestPosY; // 0x09
+    unsigned short nDestPosX; // 0x07
+    unsigned short nDestPosY; // 0x09
     unsigned char nHitClass; // 0x0B
-    short nCurrentPosX; // 0x0C
-    short nCurrentPosY; // 0x0E
+    unsigned short nCurrentPosX; // 0x0C
+    unsigned short nCurrentPosY; // 0x0E
 };
 
 #pragma pack(pop)
