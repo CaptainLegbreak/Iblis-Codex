@@ -144,7 +144,6 @@ static void ACT5Q3_RemoveTownNpcs(D2QuestDataStrc* pQuestData);
 
 static void __stdcall ACT5Q3_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData, D2Act5Quest3Strc* pQuestDataEx);
 
-static void __stdcall sub_005891D0_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData, D2Act5Quest3Strc* pQuestDataEx); // 0x005891D0
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -426,59 +425,6 @@ static inline int CLIENTS_GetUnitY_A5Q3(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-static void __stdcall sub_005891D0_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData, D2Act5Quest3Strc* pQuestDataEx)
-{
-    if (pQuestDataEx->bDrehyaInTownInitialized != 1)
-    {
-        return;
-    }
-
-    D2UnitStrc* pDrehyaInTown = SUNIT_GetServerUnit(pQuestData->pGame, 2, pQuestDataEx->nDrehyaObjectInTownGUID);
-    if (!pDrehyaInTown)
-    {
-        return;
-    }
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pDrehyaInTown);
-    const int nX = CLIENTS_GetUnitX_A5Q3(pDrehyaInTown);
-    const int nY = CLIENTS_GetUnitY_A5Q3(pDrehyaInTown);
-    if (pQuestDataEx->bDrehyaMonsterInTownSpawned)
-    {
-        return;
-    }
-
-    D2UnitStrc* pDrehya = QUESTS_SpawnCriticalMonster(pQuestData->pGame, nX, nY, pRoom, 1, MONSTER_DREHYA);
-    if (!pDrehya)
-    {
-        return;
-    }
-
-    pQuestDataEx->nDrehyaMonsterInTownGUID = pDrehya->dwUnitId;
-    pQuestDataEx->bDrehyaMonsterInTownSpawned = 1;
-
-    D2MapAIStrc* pMapAi = AIGENERAL_GetMapAiFromUnit(pDrehya);
-    if (pQuestDataEx->pDrehyaMapAI && pQuestDataEx->pDrehyaMapAI->pPosition && !pQuestDataEx->bDrehyaMapAIChanged)
-    {
-        pQuestDataEx->bDrehyaMapAIChanged = 1;
-        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pDrehyaMapAI, pMapAi);
-    }
-
-    D2CoordStrc pCoord;
-    UNITS_GetCoords(pDrehya, &pCoord);
-
-    D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pDrehya), pCoord.nX, pCoord.nY);
-    if (pTargetRoom)
-    {
-        D2UnitStrc* pDrehyaPortal = SUNIT_AllocUnitData(2, 0xBD, pCoord.nX, pCoord.nY, pQuestData->pGame, pTargetRoom, 1, 1, 0);
-        if (pDrehyaPortal)
-        {
-            pQuestDataEx->bDrehyaPortalInTownSpawned = 1;
-            pQuestDataEx->nDrehyaPortalInTownGUID = pDrehyaPortal->dwUnitId;
-        }
-    }
-
-    ACT5Q3_SeqCallback(pQuestData);
-}
 
 // 0x0058A2A0
 static int ACT5Q3_HasDefrostPotion(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer)
@@ -576,12 +522,6 @@ void __fastcall ACT5Q3_InitQuestData(D2QuestDataStrc* pQuestData)
     QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
     pQuestDataEx->unk0x84[0] = 0;
     pQuestDataEx->unk0x84[1] = 0;
-}
-
-void __fastcall sub_005891D0_EmitCaller(D2QuestDataStrc* pQuestData, D2Act5Quest3Strc* pQuestDataEx)
-{
-    ACT5Q3_SpawnDrehyaInTown(pQuestData, pQuestDataEx);
-    ACT5Q3_SeqCallback(pQuestData);
 }
 
 static inline D2BitBufferStrc* QUESTS_GetPlayerFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
@@ -994,7 +934,7 @@ void __fastcall ACT5Q3_OnDrehyaRescued(D2GameStrc* pGame, D2UnitStrc* pUnit)
     D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
     pQuestDataEx->bChangeToSpecialObjectModeOutsideTown = 1;
     pQuestDataEx->unk0x84[0] = 2;
-    sub_005891D0_SpawnDrehyaInTown(pQuestData, pQuestDataEx);
+    ACT5Q3_SpawnDrehyaInTown(pQuestData, pQuestDataEx);
 }
 
 // 0x0058A9B0
@@ -1499,7 +1439,7 @@ void __fastcall ACT5Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                         SUNITINACTIVE_DeleteSingleListNode(pQuestData->pGame, 1, 527, 4);
                     pQuestDataEx->bChangeToSpecialObjectModeOutsideTown = 1;
                     pQuestDataEx->unk0x84[0] = 2;
-                    sub_005891D0_SpawnDrehyaInTown(pQuestData, pQuestDataEx);
+                    ACT5Q3_SpawnDrehyaInTown(pQuestData, pQuestDataEx);
                 }
                 QUESTS_UpdatePlayerFlags(pQuestArg->pGame, pQuestArg->pPlayer);
                 return;

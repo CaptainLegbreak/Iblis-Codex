@@ -633,11 +633,6 @@ static int __stdcall MONSTERMODE_ComputePath(int nPathType, D2AiParamStrc* pAiPa
     return nPathType;
 }
 
-void __fastcall sub_M111_Emit_005A64F0(D2UnitStrc* pUnit, int* pResult)
-{
-    *pResult = MONSTERMODE_IsActionFrame(pUnit) + 1;
-}
-
 // 0x005A6380
 static void MONSTERMODE_SetVelocityPercent(D2UnitStrc* pUnit, D2AiParamStrc* pParam)
 {
@@ -740,9 +735,17 @@ void __fastcall D2GAME_MONSTERMODE_FreeParams(D2GameStrc* pGame, D2AiParamStrc* 
 // 0x005A64F0
 static inline int MONSTERMODE_IsActionFrame(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwAnimMode == 14)
+    if (pUnit && pUnit->dwAnimMode == MONMODE_SEQUENCE)
+    {
         return (pUnit->dwFlags >> 6) & 1;
-    return pUnit->nActionFrame == 1;
+    }
+
+    if (pUnit->nActionFrame == 1)
+    {
+        return 1;
+    }
+
+    return 0;
 }
 
 inline D2MonStatsTxt* GetMonStatsTxtRecord(D2UnitStrc* pUnit)
@@ -1783,20 +1786,6 @@ int __fastcall MONSTERMODE_StartGetHit(D2GameStrc* pGame, D2ModeChangeStrc* pMod
     return 1;
 }
 
-static inline int sub_C04_IsAtSkillFrame(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwAnimMode == MONMODE_SEQUENCE)
-    {
-        return (pUnit->dwFlags >> 6) & 1;
-    }
-
-    if (pUnit->nActionFrame == 1)
-    {
-        return 1;
-    }
-
-    return 0;
-}
 
 // 0x005A7670
 int __fastcall MONSTERMODE_UpdateAttackOrSkill(D2GameStrc* pGame, D2UnitStrc* pUnit)
@@ -1812,7 +1801,7 @@ int __fastcall MONSTERMODE_UpdateAttackOrSkill(D2GameStrc* pGame, D2UnitStrc* pU
             {
                 SKILLS_SetFlags(pSkill, nFlags | 2);
                 SKILLS_ExecuteUsedSkill(pGame, pUnit);
-                if (sub_C04_IsAtSkillFrame(pUnit))
+                if (MONSTERMODE_IsActionFrame(pUnit))
                 {
                     SKILLS_ExecuteUsedSkill(pGame, pUnit);
                 }
@@ -1837,7 +1826,7 @@ int __fastcall MONSTERMODE_UpdateAttackOrSkill(D2GameStrc* pGame, D2UnitStrc* pU
             return 2;
         }
 
-        if (!sub_C04_IsAtSkillFrame(pUnit))
+        if (!MONSTERMODE_IsActionFrame(pUnit))
         {
             return 1;
         }
