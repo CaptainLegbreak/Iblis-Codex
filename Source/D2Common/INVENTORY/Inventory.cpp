@@ -3237,7 +3237,7 @@ void __stdcall INVENTORY_CreateCorpseForPlayer(D2InventoryStrc* pInventory, int 
 }
 
 // 0x0063D4E0
-int __stdcall INVENTORY_FreeCorpse(D2InventoryStrc* pInventory, unsigned int nUnitId, unsigned int a3)
+int __stdcall INVENTORY_FreeCorpse(D2InventoryStrc* pInventory, unsigned int nUnitId, unsigned int bWasCounted)
 {
     if (!pInventory)
     {
@@ -3253,7 +3253,7 @@ int __stdcall INVENTORY_FreeCorpse(D2InventoryStrc* pInventory, unsigned int nUn
     D2CorpseStrc* pCorpse = pInventory->pFirstCorpse;
     for (; pCorpse; pCorpse = pCorpse->pNextCorpse)
     {
-        if (pCorpse->dwUnitId == nUnitId && pCorpse->bCounted == a3)
+        if (pCorpse->dwUnitId == nUnitId && pCorpse->bCounted == bWasCounted)
         {
             break;
         }

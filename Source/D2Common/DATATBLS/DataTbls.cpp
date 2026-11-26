@@ -363,7 +363,7 @@ void __fastcall DATATBLS_LoadCubeMainTxt(void* hArchive); // 0x00669130
 void __stdcall DATATBLS_LoadDifficultyLevelsTxt(void* hArchive); // 0x00617D90
 
 
-void __fastcall DATATBLS_LoadLvlSubTxt(void* hArchive, int a2, int a3); // 0x0061F500
+void __fastcall DATATBLS_LoadLvlSubTxt(void* hArchive, int bLoadFiles, int extra); // 0x0061F500
 
 void __fastcall DATATBLS_UnloadSoundsTxt(); // 0x00659C30
 
@@ -388,7 +388,7 @@ extern "C" const char gszTxtField_int[]; // 0x006E67EC
 
 D2TxtLinkStrc* gpBodyLocsLinker_0096BC3C; // 0x0096BC3C
 
-void __fastcall DATATBLS_InitUnicodeClassNamesInCharStatsTxt(void* pTable, int nRecordCount, int nRecordSize, int nNameOffset, int a5, int nNameLength); // 0x00612600
+void __fastcall DATATBLS_InitUnicodeClassNamesInCharStatsTxt(void* pTable, int nRecordCount, int nRecordSize, int nNameOffset, int nUnicodeNameOffset, int nNameLength); // 0x00612600
 
 enum
 {
@@ -1231,7 +1231,7 @@ void __stdcall DATATBLS_UnloadBin(void* pBinFile)
 }
 
 // 0x00612600
-void __fastcall DATATBLS_InitUnicodeClassNamesInCharStatsTxt(void* pTable, int nRecordCount, int nRecordSize, int nNameOffset, int a5, int nNameLength)
+void __fastcall DATATBLS_InitUnicodeClassNamesInCharStatsTxt(void* pTable, int nRecordCount, int nRecordSize, int nNameOffset, int nUnicodeNameOffset, int nNameLength)
 {
     Unicode wszClass[512];
     Unicode wszName[512];
@@ -1252,7 +1252,7 @@ void __fastcall DATATBLS_InitUnicodeClassNamesInCharStatsTxt(void* pTable, int n
     for (int i = 0; i < nRecordCount; ++i)
     {
         char* pRecord = (char*)pTable + i * nRecordSize;
-        memset(pRecord + a5, 0, nNameLength);
+        memset(pRecord + nUnicodeNameOffset, 0, nNameLength);
 
         const Unicode* pString = D2LANG_GetStringByReferenceString(pRecord + nNameOffset);
         if (!pString)
@@ -1261,11 +1261,11 @@ void __fastcall DATATBLS_InitUnicodeClassNamesInCharStatsTxt(void* pTable, int n
             sub_00526320_ToUnicode(wszName, pRecord + nNameOffset, nNameLength - 1);
             sub_00526700(wszClass, wszName);
             sub_00526700(wszClass, wszClose);
-            sub_00526790((Unicode*)(pRecord + a5), wszClass, nNameLength);
+            sub_00526790((Unicode*)(pRecord + nUnicodeNameOffset), wszClass, nNameLength);
         }
         else
         {
-            sub_00526790((Unicode*)(pRecord + a5), pString, nNameLength);
+            sub_00526790((Unicode*)(pRecord + nUnicodeNameOffset), pString, nNameLength);
         }
     }
 }
@@ -1910,7 +1910,7 @@ void __stdcall DATATBLS_UnloadAllBins()
 }
 
 // 0x00619300
-void __stdcall DATATBLS_LoadAllTxts(void* hArchive, int a2, int extra)
+void __stdcall DATATBLS_LoadAllTxts(void* hArchive, int bLoadFiles, int extra)
 {
     DATATBLS_LoadSomeTxts(hArchive);
     DATATBLS_LoadItemTypesTxt(hArchive);
@@ -1949,14 +1949,14 @@ void __stdcall DATATBLS_LoadAllTxts(void* hArchive, int a2, int extra)
     DATATBLS_LoadLevelsTxt(hArchive);
     DATATBLS_LoadLevelDefsBin(hArchive);
     DATATBLS_LoadLevelTypesTxt(hArchive);
-    if (a2)
+    if (bLoadFiles)
     {
         DATATBLS_AllocGlobalTileLibraryHash(hArchive);
     }
-    DATATBLS_LoadLvlPrestTxt(hArchive, a2);
+    DATATBLS_LoadLvlPrestTxt(hArchive, bLoadFiles);
     DATATBLS_LoadLvlWarpTxt(hArchive);
     DATATBLS_LoadLvlMazeTxt(hArchive);
-    DATATBLS_LoadLvlSubTxt(hArchive, a2, extra);
+    DATATBLS_LoadLvlSubTxt(hArchive, bLoadFiles, extra);
     DATATBLS_LoadAutomapTxt(hArchive);
     DATATBLS_LoadObjectsTxt(hArchive);
     DATATBLS_LoadObjGroupTxt(hArchive);

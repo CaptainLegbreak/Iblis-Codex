@@ -443,7 +443,7 @@ D2AnimDataRecordStrc* __fastcall DATATBLS_GetAnimDataRecord(D2UnitStrc* pUnit, i
 
 int __stdcall PATH_IsCurrentRoomInvalid(D2DynamicPathStrc* pPath); // 0x00648B30
 
-void __stdcall PATH_SetCurrentRoomInvalid(D2DynamicPathStrc* pPath, int a2); // 0x00648B40
+void __stdcall PATH_SetCurrentRoomInvalid(D2DynamicPathStrc* pPath, int bInvalid); // 0x00648B40
 
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int bSetBothDirections); // 0x00649EF0
 
@@ -1261,7 +1261,7 @@ int __stdcall UNITS_IsCurrentRoomInvalid(D2UnitStrc* ptUnit)
 }
 
 // 0x00620FA0
-void __stdcall UNITS_SetCurrentRoomInvalid(D2UnitStrc* ptUnit, int a2)
+void __stdcall UNITS_SetCurrentRoomInvalid(D2UnitStrc* ptUnit, int bInvalid)
 {
     D2_ASSERT(ptUnit, 2558);
 
@@ -1270,11 +1270,11 @@ void __stdcall UNITS_SetCurrentRoomInvalid(D2UnitStrc* ptUnit, int a2)
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        ptUnit->pStaticPath->bRoomNeedsUpdate = a2 != 0;
+        ptUnit->pStaticPath->bRoomNeedsUpdate = bInvalid != 0;
         return;
 
     default:
-        PATH_SetCurrentRoomInvalid(ptUnit->pDynamicPath, a2);
+        PATH_SetCurrentRoomInvalid(ptUnit->pDynamicPath, bInvalid);
         return;
     }
 }

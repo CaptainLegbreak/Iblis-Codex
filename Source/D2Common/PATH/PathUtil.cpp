@@ -326,39 +326,39 @@ int __fastcall PATH_UpdateMotionVelocity(D2MotionPathStrc* pPath)
 }
 
 // 0x00678F00
-void __fastcall PATH_NormalizeStep(int* a1, int* a2)
+void __fastcall PATH_NormalizeStep(int* pX, int* pY)
 {
-    if (*a1 >= 0)
+    if (*pX >= 0)
     {
-        while (*a1 > 65536)
+        while (*pX > 65536)
         {
-            *a1 >>= 1;
-            *a2 >>= 1;
+            *pX >>= 1;
+            *pY >>= 1;
         }
     }
     else
     {
-        while (*a1 < -65536)
+        while (*pX < -65536)
         {
-            *a1 >>= 1;
-            *a2 >>= 1;
+            *pX >>= 1;
+            *pY >>= 1;
         }
     }
 
-    if (*a2 >= 0)
+    if (*pY >= 0)
     {
-        while (*a2 > 65536)
+        while (*pY > 65536)
         {
-            *a1 >>= 1;
-            *a2 >>= 1;
+            *pX >>= 1;
+            *pY >>= 1;
         }
     }
     else
     {
-        while (*a2 < -65536)
+        while (*pY < -65536)
         {
-            *a1 >>= 1;
-            *a2 >>= 1;
+            *pX >>= 1;
+            *pY >>= 1;
         }
     }
 }
