@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 22:54 PST 2026: emit-trim posted (audit-379 emit helpers in D2Client: 69 out, 70 still needed).
 - Wed Nov 25 21:55 PST 2026: withdrew my link_exe.py diagnosis (Left in place): the marker check is right; the held copy conversions fail on our own .data layout (definition order, alignment).
 - Wed Nov 25 21:18 PST 2026: joins-5 is in #421 and useitem-name in #422. Nothing in Ready.
 - Wed Nov 25 20:39 PST 2026: useitem-name posted. Checked every .rdata source path against the code that references it: all references come from correctly named D2Client files, none from a placeholder, so path strings name no placeholder.
@@ -49,6 +50,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
+- lane4/emit-trim f4e471628 (on #422): audit-379 row "emit helpers", D2Client part. 69 helper definitions in 19 files go (distinct _Emit names in D2Client 189 -> 122), 584 lines: their statics are now called by real code in the same file, so they come out without the helper. Each was removed on its own and left out only where its unit still builds equal; the 70 that change their unit stay, and the eight declaration-count units were not touched. Full build: Game.exe identical, tree 7631ab2a2ac7d2265b2249a420734a4d101d19be, placed 14,922 / 14,922, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
 
 ## Claimed
 
