@@ -366,39 +366,39 @@ inline unsigned int PATH_ToFP16Center(unsigned short value)
 }
 
 // 0x00678F00
-void __fastcall PATH_NormalizeStep(int* a1, int* a2)
+void __fastcall PATH_NormalizeStep(int* pX, int* pY)
 {
-    if (*a1 >= 0)
+    if (*pX >= 0)
     {
-        while (*a1 > 65536)
+        while (*pX > 65536)
         {
-            *a1 >>= 1;
-            *a2 >>= 1;
+            *pX >>= 1;
+            *pY >>= 1;
         }
     }
     else
     {
-        while (*a1 < -65536)
+        while (*pX < -65536)
         {
-            *a1 >>= 1;
-            *a2 >>= 1;
+            *pX >>= 1;
+            *pY >>= 1;
         }
     }
 
-    if (*a2 >= 0)
+    if (*pY >= 0)
     {
-        while (*a2 > 65536)
+        while (*pY > 65536)
         {
-            *a1 >>= 1;
-            *a2 >>= 1;
+            *pX >>= 1;
+            *pY >>= 1;
         }
     }
     else
     {
-        while (*a2 < -65536)
+        while (*pY < -65536)
         {
-            *a1 >>= 1;
-            *a2 >>= 1;
+            *pX >>= 1;
+            *pY >>= 1;
         }
     }
 }
@@ -870,13 +870,13 @@ int __fastcall PATH_ComputePathChargedBolt(D2DynamicPathStrc* pDynamicPath, D2Se
     nPrevPoint.X = pDynamicPath->wPosX;
     nPrevPoint.Y = pDynamicPath->wPosY;
 
-    int v16[3];
-    PATH_GetDirections(v16, nPrevPoint, pDynamicPath->tTargetCoord);
+    int aDirections[3];
+    PATH_GetDirections(aDirections, nPrevPoint, pDynamicPath->tTargetCoord);
 
     for (; nCurPointIdx < nMaxPathPoints; nCurPointIdx++)
     {
         unsigned int nDir = dirOffsetSequence[SEED_RollRandomNumber(pSeed) & 31];
-        nDir = (v16[0] + nDir) % 8;
+        nDir = (aDirections[0] + nDir) % 8;
         pDynamicPath->PathPoints[nCurPointIdx] = nPrevPoint;
         nPrevPoint.X += 2 * gatDirectionToOffset[nDir].nX;
         nPrevPoint.Y += 2 * gatDirectionToOffset[nDir].nY;

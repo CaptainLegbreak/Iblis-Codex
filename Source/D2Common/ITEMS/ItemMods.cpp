@@ -116,11 +116,11 @@ enum { SOCKET_FLAG = 0x800 };
 
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 
-void __stdcall D2COMMON_11292_ItemAssignProperty(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* a10); // 0x0065FD70
+void __stdcall D2COMMON_11292_ItemAssignProperty(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* pTargetUnit); // 0x0065FD70
 
 D2ItemsTxt* __fastcall ITEMMODS_GetItemsTxtRecordFromUnitOrItem(D2UnitStrc* pUnit, D2UnitStrc* pItem);
 
-static int __stdcall ITEMMODS_AddRolledStatEx(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int a7, int nState, int fStatList);
+static int __stdcall ITEMMODS_AddRolledStatEx(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int bForceBase, int nState, int fStatList);
 
 static void __stdcall ITEMMODS_SetItemBaseStats(D2UnitStrc* pItem, int nStatId);
 
@@ -132,7 +132,7 @@ static inline int ITEMMODS_RollPropertyValueB(D2UnitStrc* pItem, int nMin, int n
 
 static int __stdcall ITEMMODS_AddValueStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int nState, int fStatList);
 
-int __fastcall ITEMMODS_PropertyFunc06(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11); // 0x0065EE80
+int __fastcall ITEMMODS_PropertyFunc06(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit); // 0x0065EE80
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
@@ -211,7 +211,7 @@ struct D2ItemTypeCheckStrc
     int nItemType;
 };
 
-typedef int(__fastcall* PROPERTYASSIGNFN)(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+typedef int(__fastcall* PROPERTYASSIGNFN)(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
 extern int gnPropertyFunctionCount; // 0x00745B54
 
@@ -222,7 +222,7 @@ int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem); // 0x00629900
 
 
 
-int __fastcall ITEMMODS_PropertyFunc05(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11); // 0x0065ECF0
+int __fastcall ITEMMODS_PropertyFunc05(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit); // 0x0065ECF0
 
 struct D2GradeModsStrc
 {
@@ -230,7 +230,7 @@ struct D2GradeModsStrc
     D2PropertyStrc pProperties[12];
 };
 
-typedef int (__fastcall* ITEMMODS_PROPERTYFN)(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatlist, D2UnitStrc* a9);
+typedef int (__fastcall* ITEMMODS_PROPERTYFN)(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatlist, D2UnitStrc* pTargetUnit);
 
 struct D2PropertyAssignStrc
 {
@@ -250,25 +250,25 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 
 extern D2PropertyAssignStrc gaPropertyAssignTable[]; // 0x00745B58
 
-int __fastcall ITEMMODS_PropertyFunc08(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+int __fastcall ITEMMODS_PropertyFunc08(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_PropertyFunc09(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+int __fastcall ITEMMODS_PropertyFunc09(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_PropertyFunc10(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+int __fastcall ITEMMODS_PropertyFunc10(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_PropertyFunc15(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+int __fastcall ITEMMODS_PropertyFunc15(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_PropertyFunc16(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+int __fastcall ITEMMODS_PropertyFunc16(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_PropertyFunc17(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+int __fastcall ITEMMODS_PropertyFunc17(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_PropertyFunc21(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+int __fastcall ITEMMODS_PropertyFunc21(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_PropertyFunc36(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+int __fastcall ITEMMODS_PropertyFunc36(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_PropertyFunc22(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+int __fastcall ITEMMODS_PropertyFunc22(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_PropertyFunc12(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+int __fastcall ITEMMODS_PropertyFunc12(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
 #define STAT_POISONMAXDAM 58
 
@@ -287,54 +287,54 @@ struct D2SkillsTxt;
 
 void __stdcall sub_00627150(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150
 
-int __fastcall ITEMMODS_AssignByTimeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+int __fastcall ITEMMODS_AssignByTimeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_AssignRangeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+int __fastcall ITEMMODS_AssignRangeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_AssignRolledStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+int __fastcall ITEMMODS_AssignRolledStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_AssignRolledStatForceBase(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+int __fastcall ITEMMODS_AssignRolledStatForceBase(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_AssignAllSkills(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+int __fastcall ITEMMODS_AssignAllSkills(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_PropertyFunc01(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+int __fastcall ITEMMODS_PropertyFunc01(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_PropertyFunc02(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+int __fastcall ITEMMODS_PropertyFunc02(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_PropertyFunc03(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+int __fastcall ITEMMODS_PropertyFunc03(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_PropertyFunc04(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+int __fastcall ITEMMODS_PropertyFunc04(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_PropertyFunc13(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+int __fastcall ITEMMODS_PropertyFunc13(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
 static void ITEMMODS_ShiftStatValue(int nStatId, int* pValue);
 
-static int __stdcall ITEMMODS_AddRolledStatEx(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int a7, int nState, int fStatList);
+static int __stdcall ITEMMODS_AddRolledStatEx(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int bForceBase, int nState, int fStatList);
 
 static void __stdcall ITEMMODS_SetItemBaseStats(D2UnitStrc* pItem, int nStatId);
 
-static int __stdcall ITEMMODS_AddValueStatEx(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int a7, int nState, int fStatList);
+static int __stdcall ITEMMODS_AddValueStatEx(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int bForceBase, int nState, int fStatList);
 
-int __fastcall ITEMMODS_AssignLayerStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+int __fastcall ITEMMODS_AssignLayerStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_AssignDamagePercent(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+int __fastcall ITEMMODS_AssignDamagePercent(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_AssignAllResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+int __fastcall ITEMMODS_AssignAllResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_AssignAllMaxResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+int __fastcall ITEMMODS_AssignAllMaxResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_AssignMinDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+int __fastcall ITEMMODS_AssignMinDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_AssignMaxDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+int __fastcall ITEMMODS_AssignMaxDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-int __fastcall ITEMMODS_AssignStatPair(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+int __fastcall ITEMMODS_AssignStatPair(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit);
 
-static void __stdcall ITEMMODS_DispatchPropertyAssign(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, int nApplyType, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* a11);
+static void __stdcall ITEMMODS_DispatchPropertyAssign(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, int nApplyType, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* pTargetUnit);
 
 
 void __stdcall ITEMMODS_AddCraftPropertyList(D2UnitStrc* pItem, D2PropertyStrc* pProperty, int nUnused);
 
-void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType);
+void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* pTargetUnit, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType);
 
 // 0x0065C5D0
 int __cdecl ITEMMODS_GetPropertiesTxtRecordCount()
@@ -378,7 +378,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
-void __stdcall sub_C01_EmitSink(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, int nApplyType, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* a11);
+void __stdcall sub_C01_EmitSink(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, int nApplyType, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* pTargetUnit);
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -527,12 +527,12 @@ void __stdcall D2Common_10844_ITEMMODS_First(int nDataBits, int* pLayer, int* pV
 }
 
 // 0x0065C7D0
-void __stdcall D2Common_10846(int nDataBits, int* a2, int* a3, int* a4, int* a5)
+void __stdcall D2Common_10846(int nDataBits, int* pSkillId, int* pSkillLevel, int* pCharges, int* pMaxCharges)
 {
-    *a2 = nDataBits & 511;
-    *a3 = (nDataBits >> 9) & 31;
-    *a4 = (nDataBits >> 14) & 255;
-    *a5 = (nDataBits >> 22) & 255;
+    *pSkillId = nDataBits & 511;
+    *pSkillLevel = (nDataBits >> 9) & 31;
+    *pCharges = (nDataBits >> 14) & 255;
+    *pMaxCharges = (nDataBits >> 22) & 255;
 }
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromFlag(D2StatListStrc* pStatList, int nFlag); // 0x00625730
@@ -689,23 +689,23 @@ int __stdcall ITEMMODS_GetByTimeAdjustment(int nAmount, int nPeriodOfDay, int nB
 }
 
 // 0x0065CB00
-int __stdcall D2Common_10849(int a1, int a2)
+int __stdcall D2Common_10849(int nSkillId, int nSkillLevel)
 {
-    return a1 + (a2 << 9);
+    return nSkillId + (nSkillLevel << 9);
 }
 
 // 0x0065CB10
-void __stdcall D2Common_10845(int nDataBits, int* a2, int* a3, int* a4)
+void __stdcall D2Common_10845(int nDataBits, int* pSkillId, int* pSkillLevel, int* pChance)
 {
-    *a2 = nDataBits & 511;
-    *a3 = (nDataBits >> 9) & 31;
-    *a4 = (nDataBits >> 14) & 127;
+    *pSkillId = nDataBits & 511;
+    *pSkillLevel = (nDataBits >> 9) & 31;
+    *pChance = (nDataBits >> 14) & 127;
 }
 
 // 0x0065CB40
-int __stdcall D2Common_10850(int a1, int a2, int a3)
+int __stdcall D2Common_10850(int nSkillId, int nSkillLevel, int nChance)
 {
-    return a1 + ((a2 + 32 * a3) << 9);
+    return nSkillId + ((nSkillLevel + 32 * nChance) << 9);
 }
 
 // 0x0065CB60
@@ -757,7 +757,7 @@ static D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatList(D2UnitStrc* pUnit,
     return hStatsList;
 }
 
-int __fastcall sub_0065E070_AddStatTriple(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall sub_0065E070_AddStatTriple(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     int nMin = pProperty->nMin;
     int nMax = pProperty->nMax;
@@ -899,10 +899,10 @@ static void ITEMMODS_ShiftStatValue(int nStatId, int* pValue)
 }
 
 // 0x0065CF40
-static int __stdcall ITEMMODS_AddRolledStatEx(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int a7, int nState, int fStatList)
+static int __stdcall ITEMMODS_AddRolledStatEx(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int bForceBase, int nState, int fStatList)
 {
     int nValue;
-    if (a7)
+    if (bForceBase)
     {
         nValue = ITEMMODS_RollPropertyValueA(pItem, pProperty->nMin, pProperty->nMax);
     }
@@ -939,9 +939,9 @@ skip_base:
 
 // Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 // 0x0065D070
-static __declspec(noinline) int __stdcall ITEMMODS_AddValueStatEx(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int a7, int nState, int fStatList)
+static __declspec(noinline) int __stdcall ITEMMODS_AddValueStatEx(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int bForceBase, int nState, int fStatList)
 {
-    if (a7 || nType == 1)
+    if (bForceBase || nType == 1)
     {
         ITEMMODS_SetItemBaseStats(pItem, nStatId);
     }
@@ -961,7 +961,7 @@ static __declspec(noinline) int __stdcall ITEMMODS_AddValueStatEx(int nType, D2U
 }
 
 // 0x0065D110
-int __fastcall ITEMMODS_AssignLayerStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignLayerStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     D2_ASSERT(ptProperty, 738);
     int nValue = ptProperty->nLayer;
@@ -985,7 +985,7 @@ int __fastcall ITEMMODS_AssignLayerStat(int nType, D2UnitStrc* pUnit, D2UnitStrc
 }
 
 // 0x0065D1C0
-int __fastcall ITEMMODS_AssignRolledStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignRolledStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     return ITEMMODS_AddRolledStatEx(nType, pUnit, pItem, pProperty, nStatId, nApplyType, 0, nState, fStatList);
 }
@@ -1091,7 +1091,7 @@ void __stdcall ITEMMODS_ApplyEthereality(D2UnitStrc* hItem)
 }
 
 // 0x0065D220
-int __fastcall ITEMMODS_AssignSockets(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignSockets(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     D2_ASSERT(ptProperty, 786);
 
@@ -1102,9 +1102,9 @@ int __fastcall ITEMMODS_AssignSockets(int nType, D2UnitStrc* pUnit, D2UnitStrc* 
 }
 
 // 0x0065D270
-int __fastcall ITEMMODS_AssignIndestructible(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignIndestructible(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
-    D2UnitStrc* pTarget = a9;
+    D2UnitStrc* pTarget = pTargetUnit;
     if (!pTarget || pTarget->dwUnitType != UNIT_ITEM)
     {
         pTarget = pItem;
@@ -1116,7 +1116,7 @@ int __fastcall ITEMMODS_AssignIndestructible(int nType, D2UnitStrc* pUnit, D2Uni
 }
 
 // 0x0065D2B0
-int __fastcall ITEMMODS_AssignRolledStatForceBase(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignRolledStatForceBase(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     return ITEMMODS_AddRolledStatEx(nType, pUnit, pItem, pProperty, nStatId, nApplyType, 1, nState, fStatList);
 }
@@ -1128,7 +1128,7 @@ static int __stdcall ITEMMODS_AddValueStatForceBase(int nType, D2UnitStrc* pUnit
 }
 
 // 0x0065D310
-int __fastcall ITEMMODS_AssignAllResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignAllResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1)
     {
@@ -1150,7 +1150,7 @@ int __fastcall ITEMMODS_AssignAllResist(int nType, D2UnitStrc* pUnit, D2UnitStrc
 }
 
 // 0x0065D4B0
-int __fastcall ITEMMODS_AssignAllMaxResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignAllMaxResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1)
     {
@@ -1172,7 +1172,7 @@ int __fastcall ITEMMODS_AssignAllMaxResist(int nType, D2UnitStrc* pUnit, D2UnitS
 }
 
 // 0x0065D650
-int __fastcall ITEMMODS_AssignMinDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignMinDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     D2_ASSERT(ptProperty, 891);
     const int nValue = ITEMMODS_RollPropertyValueB(pItem, ptProperty->nMin, ptProperty->nMax);
@@ -1193,7 +1193,7 @@ int __fastcall ITEMMODS_AssignMinDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc
 }
 
 // 0x0065D7D0
-int __fastcall ITEMMODS_AssignMaxDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignMaxDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     D2_ASSERT(ptProperty, 919);
     const int nValue = ITEMMODS_RollPropertyValueB(pItem, ptProperty->nMin, ptProperty->nMax);
@@ -1223,7 +1223,7 @@ static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 }
 
 // 0x0065D950
-int __fastcall ITEMMODS_AssignDamagePercent(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignDamagePercent(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1)
     {
@@ -1263,14 +1263,14 @@ int __fastcall ITEMMODS_AssignDamagePercent(int nType, D2UnitStrc* pUnit, D2Unit
 }
 
 // 0x0065DB90
-int __fastcall ITEMMODS_AssignAllSkills(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignAllSkills(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     ITEMMODS_AddRolledStatEx(nType, pUnit, pItem, pProperty, 127, nApplyType, 0, nState, fStatList);
     return nStatId;
 }
 
 // 0x0065DBC0
-int __fastcall ITEMMODS_AssignChargedSkill(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignChargedSkill(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -1332,7 +1332,7 @@ int __fastcall ITEMMODS_AssignChargedSkill(int nType, D2UnitStrc* pUnit, D2UnitS
 }
 
 // 0x0065DE40
-int __fastcall ITEMMODS_AssignStatPair(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignStatPair(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     int nMin = pProperty->nMin;
     int nMax = pProperty->nMax;
@@ -1387,7 +1387,7 @@ int __fastcall ITEMMODS_AssignStatPair(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065E070
-int __fastcall ITEMMODS_AssignStatTriple(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignStatTriple(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
 
     const int nMinValue = (nStatId == (int)pProperty) ? pProperty->nMin : pProperty->nMin;
@@ -1421,7 +1421,7 @@ int __fastcall ITEMMODS_AssignStatTriple(int nType, D2UnitStrc* pUnit, D2UnitStr
 }
 
 // 0x0065E170
-int __fastcall ITEMMODS_AssignSingleSkill(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nPropertyId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignSingleSkill(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nPropertyId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -1480,7 +1480,7 @@ int __fastcall ITEMMODS_AssignSingleSkill(int nType, D2UnitStrc* pUnit, D2UnitSt
 }
 
 // 0x0065E230
-int __fastcall ITEMMODS_AssignElemSkill(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignElemSkill(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     int nValue;
     int nMin = pProperty->nMin;
@@ -1533,7 +1533,7 @@ int __fastcall ITEMMODS_AssignElemSkill(int nType, D2UnitStrc* pUnit, D2UnitStrc
 }
 
 // 0x0065E2D0
-int __fastcall ITEMMODS_AssignClassSkills(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nPropertyId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignClassSkills(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nPropertyId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     int nValue;
     int nMin = pProperty->nMin;
@@ -1612,20 +1612,20 @@ int __fastcall ITEMMODS_AssignClassSkills(int nType, D2UnitStrc* pUnit, D2UnitSt
 }
 
 // 0x0065E440
-int __fastcall ITEMMODS_AssignNothing(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignNothing(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     return 1;
 }
 
 // 0x0065E450
-int __fastcall ITEMMODS_AssignRangeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignRangeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     const int nMin = ITEMMODS_RollPropertyValueB(pItem, pProperty->nMin, pProperty->nMax);
     return ITEMMODS_AddValueStat(nType, pUnit, pItem, nMin, nStatId, nApplyType, nState, fStatList);
 }
 
 // 0x0065DD80
-int __fastcall ITEMMODS_AssignByTimeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall ITEMMODS_AssignByTimeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     D2_ASSERT(ptProperty->nMin <= ptProperty->nMax, 0x444);
     int nPeriod = ptProperty->nLayer;
@@ -1646,7 +1646,7 @@ int __fastcall sub_M115_Emit_0065E600(unsigned int nMask)
 }
 
 // 0x0065E610
-void __stdcall ITEMMODS_Nop(int a1, int a2, int a3)
+void __stdcall ITEMMODS_Nop(int nUnused1, int nUnused2, int nUnused3)
 {
 }
 
@@ -1918,7 +1918,7 @@ int __fastcall ITEMMODS_AddPropertyToItemStatList(D2UnitStrc* pItem, int fStatLi
 }
 
 // 0x0065EB30
-int __fastcall ITEMMODS_PropertyFunc01(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc01(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -1935,7 +1935,7 @@ int __fastcall ITEMMODS_PropertyFunc01(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065EBA0
-int __fastcall ITEMMODS_PropertyFunc02(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc02(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -1952,7 +1952,7 @@ int __fastcall ITEMMODS_PropertyFunc02(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065EC10
-int __fastcall ITEMMODS_PropertyFunc03(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc03(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -1974,7 +1974,7 @@ int __fastcall ITEMMODS_PropertyFunc03(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065EC80
-int __fastcall ITEMMODS_PropertyFunc04(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc04(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -1996,7 +1996,7 @@ int __fastcall ITEMMODS_PropertyFunc04(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065ECF0
-int __fastcall ITEMMODS_PropertyFunc05(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc05(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2076,7 +2076,7 @@ int __fastcall ITEMMODS_PropertyFunc05(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065EE80
-int __fastcall ITEMMODS_PropertyFunc06(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc06(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2156,7 +2156,7 @@ int __fastcall ITEMMODS_PropertyFunc06(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065F010
-int __fastcall ITEMMODS_PropertyFunc07(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc07(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2245,7 +2245,7 @@ int __fastcall ITEMMODS_PropertyFunc07(int nType, D2UnitStrc* pUnit, D2UnitStrc*
     const int nMaxDamage = nMax;
     if (ITEMSIsA(pItem, 45) && nMaxDamage + DATATBLS_ApplyRatio(nMaxDamage, nValue, 100) <= nMaxDamage)
     {
-        return ITEMMODS_PropertyFunc06(nType, pUnit, pItem, pProperty, nSet, nStatId, 0, 1, nState, fStatList, a11);
+        return ITEMMODS_PropertyFunc06(nType, pUnit, pItem, pProperty, nSet, nStatId, 0, 1, nState, fStatList, pTargetUnit);
     }
 
     ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, 18, 0, nValue, nState);
@@ -2254,7 +2254,7 @@ int __fastcall ITEMMODS_PropertyFunc07(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065F2B0
-int __fastcall ITEMMODS_PropertyFunc08(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc08(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2271,7 +2271,7 @@ int __fastcall ITEMMODS_PropertyFunc08(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065F310
-int __fastcall ITEMMODS_PropertyFunc09(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc09(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2298,7 +2298,7 @@ int __fastcall ITEMMODS_PropertyFunc09(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065F390
-int __fastcall ITEMMODS_PropertyFunc24(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc24(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2315,7 +2315,7 @@ int __fastcall ITEMMODS_PropertyFunc24(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065F3F0
-int __fastcall ITEMMODS_PropertyFunc10(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc10(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2338,7 +2338,7 @@ int __fastcall ITEMMODS_PropertyFunc10(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 
 // Skill-on-event property: chance (default 5) and a skill level derived from the item level when the level is 0 or negative.
 // 0x0065F470
-int __fastcall ITEMMODS_PropertyFunc11(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc11(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2391,7 +2391,7 @@ int __fastcall ITEMMODS_PropertyFunc11(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065F590
-int __fastcall ITEMMODS_PropertyFunc14(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc14(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2437,7 +2437,7 @@ int __fastcall ITEMMODS_PropertyFunc14(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065F6A0
-int __fastcall ITEMMODS_PropertyFunc19(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc19(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2517,7 +2517,7 @@ static inline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId)
 }
 
 // 0x0065F870
-int __fastcall ITEMMODS_PropertyFunc18(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc18(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2547,7 +2547,7 @@ int __fastcall ITEMMODS_PropertyFunc18(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065F960
-int __fastcall ITEMMODS_PropertyFunc15(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc15(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2557,7 +2557,7 @@ int __fastcall ITEMMODS_PropertyFunc15(int nType, D2UnitStrc* pUnit, D2UnitStrc*
     const int nMin = pProperty->nMin;
     if (nStatId == 21)
     {
-        ITEMMODS_PropertyFunc05(nType, pUnit, pItem, pProperty, nSet, 21, 0, nMin, nState, fStatList, a11);
+        ITEMMODS_PropertyFunc05(nType, pUnit, pItem, pProperty, nSet, 21, 0, nMin, nState, fStatList, pTargetUnit);
     }
     else
     {
@@ -2568,7 +2568,7 @@ int __fastcall ITEMMODS_PropertyFunc15(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065F9D0
-int __fastcall ITEMMODS_PropertyFunc16(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc16(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2578,7 +2578,7 @@ int __fastcall ITEMMODS_PropertyFunc16(int nType, D2UnitStrc* pUnit, D2UnitStrc*
     const int nMax = pProperty->nMax;
     if (nStatId == 22)
     {
-        ITEMMODS_PropertyFunc06(nType, pUnit, pItem, pProperty, nSet, 22, 0, nMax, nState, fStatList, a11);
+        ITEMMODS_PropertyFunc06(nType, pUnit, pItem, pProperty, nSet, 22, 0, nMax, nState, fStatList, pTargetUnit);
     }
     else
     {
@@ -2589,7 +2589,7 @@ int __fastcall ITEMMODS_PropertyFunc16(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065FA40
-int __fastcall ITEMMODS_PropertyFunc17(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc17(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2608,7 +2608,7 @@ int __fastcall ITEMMODS_PropertyFunc17(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 
     if (nStatId == 22)
     {
-        ITEMMODS_PropertyFunc06(nType, pUnit, pItem, pProperty, nSet, 22, 0, nTemp, nState, fStatList, a11);
+        ITEMMODS_PropertyFunc06(nType, pUnit, pItem, pProperty, nSet, 22, 0, nTemp, nState, fStatList, pTargetUnit);
     }
     else
     {
@@ -2629,7 +2629,7 @@ static inline D2ItemStatCostTxt* DATATBLS_GetItemStatCostTxtRecordInline(int nSt
 }
 
 // 0x0065FAE0
-int __fastcall ITEMMODS_PropertyFunc20(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc20(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if ((pItem ? pItem->dwUnitType : UNIT_INVALID) != UNIT_ITEM)
         return 0;
@@ -2645,7 +2645,7 @@ int __fastcall ITEMMODS_PropertyFunc20(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065FB50
-int __fastcall ITEMMODS_PropertyFunc21(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc21(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2657,7 +2657,7 @@ int __fastcall ITEMMODS_PropertyFunc21(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065FBA0
-int __fastcall ITEMMODS_PropertyFunc36(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc36(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2669,7 +2669,7 @@ int __fastcall ITEMMODS_PropertyFunc36(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065FBF0
-int __fastcall ITEMMODS_PropertyFunc22(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc22(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2681,7 +2681,7 @@ int __fastcall ITEMMODS_PropertyFunc22(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065FC40
-int __fastcall ITEMMODS_PropertyFunc12(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc12(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty)
     {
@@ -2693,7 +2693,7 @@ int __fastcall ITEMMODS_PropertyFunc12(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065FC90
-int __fastcall ITEMMODS_PropertyFunc13(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc13(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (!pProperty || !pItem)
     {
@@ -2724,7 +2724,7 @@ int __fastcall ITEMMODS_PropertyFunc13(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 
 
 // 0x0065FD20
-int __fastcall ITEMMODS_PropertyFunc23(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+int __fastcall ITEMMODS_PropertyFunc23(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* pTargetUnit)
 {
     if (pProperty && pItem && pItem->dwUnitType == UNIT_ITEM && !ITEMS_IsEthereal(pItem) && ITEMS_HasDurability(pItem))
     {
@@ -2736,11 +2736,11 @@ int __fastcall ITEMMODS_PropertyFunc23(int nType, D2UnitStrc* pUnit, D2UnitStrc*
 }
 
 // 0x0065FE10
-static void __stdcall ITEMMODS_DispatchPropertyAssign(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, int nApplyType, const D2PropertyStrc* ptProperty, int nState, int fStatlist, D2UnitStrc* a11)
+static void __stdcall ITEMMODS_DispatchPropertyAssign(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, int nApplyType, const D2PropertyStrc* ptProperty, int nState, int fStatlist, D2UnitStrc* pTargetUnit)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1)
     {
-        D2COMMON_11292_ItemAssignProperty(nType, pUnit, pItem, pMods, nIndex, nPropSet, ptProperty, nState, fStatlist, a11);
+        D2COMMON_11292_ItemAssignProperty(nType, pUnit, pItem, pMods, nIndex, nPropSet, ptProperty, nState, fStatlist, pTargetUnit);
     }
     else
     {
@@ -2752,14 +2752,14 @@ static void __stdcall ITEMMODS_DispatchPropertyAssign(int nType, D2UnitStrc* pUn
             ITEMMODS_PROPERTYFN pfAssign = gaPropertyAssignTable[nProperty].pfAssign;
             if (pfAssign)
             {
-                pfAssign(nType, pUnit, pItem, ptProperty, gaPropertyAssignTable[nProperty].nStatId, nApplyType, nState, fStatlist, a11);
+                pfAssign(nType, pUnit, pItem, ptProperty, gaPropertyAssignTable[nProperty].nStatId, nApplyType, nState, fStatlist, pTargetUnit);
             }
         }
     }
 }
 
 // 0x0065FD70
-void __stdcall D2COMMON_11292_ItemAssignProperty(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* a10)
+void __stdcall D2COMMON_11292_ItemAssignProperty(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* pTargetUnit)
 {
     if (pProperty)
     {
@@ -2780,7 +2780,7 @@ void __stdcall D2COMMON_11292_ItemAssignProperty(int nType, D2UnitStrc* pUnit, D
                     break;
                 }
 
-                const int nResult = pfAssign(nType, pUnit, pItem, pProperty, pPropertiesTxtRecord->nSet[i], pPropertiesTxtRecord->wStat[i], pPropertiesTxtRecord->wVal[i], nFirstValue, nState, fStatlist, a10);
+                const int nResult = pfAssign(nType, pUnit, pItem, pProperty, pPropertiesTxtRecord->nSet[i], pPropertiesTxtRecord->wStat[i], pPropertiesTxtRecord->wVal[i], nFirstValue, nState, fStatlist, pTargetUnit);
                 if (!i)
                 {
                     nFirstValue = nResult;
@@ -2807,7 +2807,7 @@ static inline int SetItemState(const D2SetItemsTxt* pRecord, int nIndex)
 }
 
 // 0x0065FEC0
-void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType)
+void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* pTargetUnit, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType)
 {
     int nProperties = 0;
     switch (nType)
@@ -2878,7 +2878,7 @@ void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pI
             break;
         }
 
-        ITEMMODS_DispatchPropertyAssign(nType, 0, pItem, pMods, nMod, nPropSet, nApplyType, pProperty, 0, 0x40, a2);
+        ITEMMODS_DispatchPropertyAssign(nType, 0, pItem, pMods, nMod, nPropSet, nApplyType, pProperty, 0, 0x40, pTargetUnit);
     }
 }
 
