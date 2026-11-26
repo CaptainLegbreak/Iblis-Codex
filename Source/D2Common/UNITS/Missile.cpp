@@ -1244,7 +1244,7 @@ static __forceinline unsigned int RollPercent(Unit* unit)
 }
 
 // 0x0064A850
-static int __stdcall MISSILE_CheckCritical(Unit* item, Unit* unit)
+static int __stdcall MISSILE_CheckCritical(Unit* unit, Unit* item)
 {
     int chance = sub_00625480_GetStat(unit, 337, 0);
     if ((int)RollPercent(unit) < chance)
@@ -1268,7 +1268,7 @@ static int __stdcall MISSILE_CheckCritical(Unit* item, Unit* unit)
 }
 
 // 0x0064A930
-static void MISSILE_AddElements(int shift, Unit* unit, Damage* damage)
+static void MISSILE_AddElements(Damage* damage, Unit* unit, int shift)
 {
     damage->fireMin += sub_00625480_GetStat(unit, 48, 0) << shift;
     damage->fireMax += sub_00625480_GetStat(unit, 49, 0) << shift;
@@ -1297,7 +1297,7 @@ static void MISSILE_AddElements(int shift, Unit* unit, Damage* damage)
 }
 
 // 0x0064AA60
-static void MISSILE_ScaleElements(int factor, Damage* damage)
+static void MISSILE_ScaleElements(Damage* damage, int factor)
 {
     if (factor != 128)
     {
@@ -1322,7 +1322,7 @@ static void MISSILE_ScaleElements(int factor, Damage* damage)
 }
 
 // 0x0064ABA0
-static int sub_0064ABA0_ElementBonus(int amount, int kind, Unit* unit)
+static int sub_0064ABA0_ElementBonus(Unit* unit, int kind, int amount)
 {
     int bonus;
     switch (kind)
@@ -1913,168 +1913,173 @@ int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc* pMissile, D2UnitStrc* p
     return DATATBLS_CalcEvaluateExpression((char*)sgptDataTables->pMissCode + nCalc, sgptDataTables->nMissCodeSize - nCalc, MISSILE_GetCalcParamValue, gpfnMissileCalcFunctions, gnMissileCalcFunctionCount, &pMissileCalc);
 }
 
-extern "C" void __stdcall MISSILE_CalculateDamageData(Damage* damage, Unit* owner, Unit* origin, Unit* missile, int level)
+// 0x0064B860
+void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOwner, Unit* pOrigin, Unit* pMissile, int nLevel)
 {
-    memset(damage, 0, 124);
-    if (!owner) return;
-    if (!missile) return;
-    if (missile->type != 3) return;
-    int missileId = missile->classId;
-    if (missileId < 0) return;
-    if (missileId >= gVar_00744304->missileCount) return;
-    MissileRecord* record = &gVar_00744304->missiles[missileId];
-    if (!record) return;
+    memset(pMissileDamageData, 0, sizeof(Damage));
+    if (!pOwner) return;
+    if (!pMissile) return;
+    if (pMissile->type != 3) return;
+    int missileId = pMissile->classId;
+    MissileRecord* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(missileId);
+    if (!pMissilesTxtRecord) return;
 
     int sourceDamage, originDamage, element;
     int physicalMin, physicalMax, elementMin, elementMax, elementLength;
-    if (record->skill > 0 || (record->flags & gdwBitMask7))
+    if (pMissilesTxtRecord->skill <= 0 && !(pMissilesTxtRecord->flags & gdwBitMask7))
     {
-        int skill = record->skill;
-        if (record->flags & gdwBitMask7)
+        sourceDamage = pMissilesTxtRecord->sourceDamage;
+        originDamage = pMissilesTxtRecord->originDamage;
+        physicalMin = sub_0064AF20_GetMissilePhysicalMin(pMissile, pOwner, missileId, nLevel);
+        physicalMax = sub_0064AFF0_GetMissilePhysicalMax(pMissile, pOwner, missileId, nLevel);
+        element = pMissilesTxtRecord->element;
+        elementMin = sub_0064B100_GetMissileElementMin(pMissile, pOwner, missileId, nLevel);
+        elementMax = sub_0064B1D0_GetMissileElementMax(pMissile, pOwner, missileId, nLevel);
+        elementLength = MISSILE_GetElementalLength(pMissile, pOwner, missileId, nLevel);
+        if (pMissilesTxtRecord->flags & gVar_006CE268)
         {
-            int missileSkill = MISSILE_GetSkill((D2UnitStrc*)missile);
-            if (missileSkill > 0) skill = missileSkill;
+            elementMin += sub_0064ABA0_ElementBonus(pOwner, element, elementMin);
+            elementMax += sub_0064ABA0_ElementBonus(pOwner, element, elementMax);
         }
-        SkillRecord* skillRecord = sub_0045C4B0_GetSkillRecord(skill);
-        if (!skillRecord) return;
-        sourceDamage = skillRecord->sourceDamage;
-        originDamage = 0;
-        if (record->sourceDamage == 255) sourceDamage = 0;
-        physicalMin = sub_00647BC0_GetSkillPhysicalMin(owner, skill, level, 0);
-        physicalMax = sub_00647D00_GetSkillPhysicalMax(owner, skill, level, 0);
-        element = skillRecord->element;
-        elementMin = sub_00644D50_GetSkillElementMin(owner, skill, level, 1);
-        elementMax = sub_00644E40_GetSkillElementMax(owner, skill, level, 1);
-        elementLength = sub_00644F20_GetSkillElementLength(owner, skill, level, 1);
     }
     else
     {
-        sourceDamage = record->sourceDamage;
-        originDamage = record->originDamage;
-        physicalMin = sub_0064AF20_GetMissilePhysicalMin(missile, owner, missileId, level);
-        physicalMax = sub_0064AFF0_GetMissilePhysicalMax(missile, owner, missileId, level);
-        element = record->element;
-        elementMin = sub_0064B100_GetMissileElementMin(missile, owner, missileId, level);
-        elementMax = sub_0064B1D0_GetMissileElementMax(missile, owner, missileId, level);
-        elementLength = MISSILE_GetElementalLength(missile, owner, missileId, level);
-        if (record->flags & gVar_006CE268)
+        int skill = pMissilesTxtRecord->skill;
+        if (pMissilesTxtRecord->flags & gdwBitMask7)
         {
-            elementMin += sub_0064ABA0_ElementBonus(elementMin, element, owner);
-            elementMax += sub_0064ABA0_ElementBonus(elementMax, element, owner);
+            skill = MISSILE_GetSkill((D2UnitStrc*)pMissile);
+            if (skill <= 0) skill = pMissilesTxtRecord->skill;
         }
+        SkillRecord* pSkillsTxtRecord = sub_0045C4B0_GetSkillRecord(skill);
+        if (!pSkillsTxtRecord) return;
+        originDamage = 0;
+        sourceDamage = pSkillsTxtRecord->sourceDamage;
+        if (pMissilesTxtRecord->sourceDamage == 255) sourceDamage = 0;
+        physicalMin = sub_00647BC0_GetSkillPhysicalMin(pOwner, skill, nLevel, 0);
+        physicalMax = sub_00647D00_GetSkillPhysicalMax(pOwner, skill, nLevel, 0);
+        element = pSkillsTxtRecord->element;
+        elementMin = sub_00644D50_GetSkillElementMin(pOwner, skill, nLevel, 1);
+        elementMax = sub_00644E40_GetSkillElementMax(pOwner, skill, nLevel, 1);
+        elementLength = sub_00644F20_GetSkillElementLength(pOwner, skill, nLevel, 1);
     }
-    if (record->hitFlags & 1) damage->flags |= 256;
-    if (record->hitFlags & 2) damage->flags |= 512;
-    if (record->hitFlags & 4) damage->flags |= 1024;
+    if (pMissilesTxtRecord->hitFlags & 1) pMissileDamageData->flags |= 0x100;
+    if (pMissilesTxtRecord->hitFlags & 2) pMissileDamageData->flags |= 0x200;
+    if (pMissilesTxtRecord->hitFlags & 4) pMissileDamageData->flags |= 0x400;
 
-    int sourceMin = 0, sourceMax = 0, percent = 0;
+    int sourceMin = 0;
+    int sourceMax = 0;
+    int percent = 0;
     int itemBonus = 0, maximumPercent = 0;
     Unit* item = 0;
     if (sourceDamage)
     {
-        damage->flags |= 1;
-        if (owner->type == 0)
-            item = sub_00623990_GetWeaponSlot(owner, 1);
-        else if (owner->type == 1 && owner->inventory)
-            item = sub_00622830_GetWeapon(owner);
-        if (MISSILE_CheckCritical(item, owner)) damage->flags |= 2;
-        itemBonus = 0;
+        pMissileDamageData->flags |= 1;
+        if (pOwner->type == 0)
+            item = sub_00623990_GetWeaponSlot(pOwner, 1);
+        else if (pOwner->type == 1 && pOwner->inventory)
+            item = sub_00622830_GetWeapon(pOwner);
+        if (MISSILE_CheckCritical(pOwner, item)) pMissileDamageData->flags |= 2;
+        int bonus = 0;
         if (item && item->type == 4)
         {
-            if ((record->flags & gdwBitMask6) && sub_006289C0_IsWeapon(item))
+            if ((pMissilesTxtRecord->flags & gdwBitMask6) && sub_006289C0_IsWeapon(item))
                 sourceDamage /= 2;
-            itemBonus = sub_00645830_GetItemBonus(owner, item, 0, 1);
+            bonus = sub_00645830_GetItemBonus(pOwner, item, 0, 1);
             int strengthFactor = sub_00629860_GetStrengthFactor(item);
             if (strengthFactor)
-                itemBonus += sub_00625480_GetStat(owner, 0, 0) * strengthFactor / 100;
+                bonus += sub_00625480_GetStat(pOwner, 0, 0) * strengthFactor / 100;
             int dexterityFactor = sub_006298A0_GetDexterityFactor(item);
             if (dexterityFactor)
-                itemBonus += sub_00625480_GetStat(owner, 2, 0) * dexterityFactor / 100;
+                bonus += sub_00625480_GetStat(pOwner, 2, 0) * dexterityFactor / 100;
             if (sub_0062BA80_UsesThrowDamage(item))
             {
-                sourceMin = sub_00625480_GetStat(owner, 159, 0) << 8;
-                sourceMax = sub_00625480_GetStat(owner, 160, 0) << 8;
+                sourceMin = sub_00625480_GetStat(pOwner, 159, 0) << 8;
+                sourceMax = sub_00625480_GetStat(pOwner, 160, 0) << 8;
             }
-            else if (owner->inventory && sub_0063D340_GetWeaponMode(owner, owner->inventory) == 2)
+            else if (pOwner->inventory && sub_0063D340_GetWeaponMode(pOwner, pOwner->inventory) == 2)
             {
-                sourceMin = sub_00625480_GetStat(owner, 23, 0) << 8;
-                sourceMax = sub_00625480_GetStat(owner, 24, 0) << 8;
+                sourceMin = sub_00625480_GetStat(pOwner, 23, 0) << 8;
+                sourceMax = sub_00625480_GetStat(pOwner, 24, 0) << 8;
             }
             else
             {
-                sourceMin = sub_00625480_GetStat(owner, 21, 0) << 8;
-                sourceMax = sub_00625480_GetStat(owner, 22, 0) << 8;
+                sourceMin = sub_00625480_GetStat(pOwner, 21, 0) << 8;
+                sourceMax = sub_00625480_GetStat(pOwner, 22, 0) << 8;
             }
-            if (sub_00629BB0_IsItemType(item, 57)) damage->undeadBonus += 50;
+            if (sub_00629BB0_IsItemType(item, 57)) pMissileDamageData->undeadBonus += 50;
         }
         else
         {
-            if (owner->type == 1 && sub_0063EE90_UsesDexterity(owner))
-                percent = sub_00625480_GetStat(owner, 2, 0);
-            sourceMin = sub_00625480_GetStat(owner, 21, 0) << 8;
-            sourceMax = sub_00625480_GetStat(owner, 22, 0) << 8;
+            if (pOwner->type == 1 && sub_0063EE90_UsesDexterity(pOwner))
+                percent = sub_00625480_GetStat(pOwner, 2, 0);
+            sourceMin = sub_00625480_GetStat(pOwner, 21, 0) << 8;
+            sourceMax = sub_00625480_GetStat(pOwner, 22, 0) << 8;
         }
         sourceMin = sourceMin * sourceDamage / 128;
         sourceMax = sourceMax * sourceDamage / 128;
-        percent += sub_00625480_GetStat(owner, 25, 0) + itemBonus;
-        itemBonus = sub_00625480_GetStat(owner, 18, 0);
-        maximumPercent = sub_00625480_GetStat(owner, 17, 0);
-        damage->demonBonus += sub_00625480_GetStat(owner, 121, 0);
-        damage->undeadBonus += sub_00625480_GetStat(owner, 122, 0);
-        damage->armorReduction += sub_00625480_GetStat(owner, 120, 0);
-        if (sub_00625480_GetStat(owner, 103, 0)) damage->flags |= 256;
-        if (sub_00625480_GetStat(owner, 104, 0)) damage->flags |= 512;
-        if (sub_00625480_GetStat(owner, 106, 0)) damage->flags |= 1024;
+        percent += sub_00625480_GetStat(pOwner, 25, 0) + bonus;
+        itemBonus = sub_00625480_GetStat(pOwner, 18, 0);
+        maximumPercent = sub_00625480_GetStat(pOwner, 17, 0);
+        const int nDemonBonus = sub_00625480_GetStat(pOwner, 121, 0);
+        pMissileDamageData->demonBonus += nDemonBonus;
+        const int nUndeadBonus = sub_00625480_GetStat(pOwner, 122, 0);
+        pMissileDamageData->undeadBonus += nUndeadBonus;
+        const int nArmorReduction = sub_00625480_GetStat(pOwner, 120, 0);
+        pMissileDamageData->armorReduction += nArmorReduction;
+        if (sub_00625480_GetStat(pOwner, 103, 0)) pMissileDamageData->flags |= 0x100;
+        if (sub_00625480_GetStat(pOwner, 104, 0)) pMissileDamageData->flags |= 0x200;
+        if (sub_00625480_GetStat(pOwner, 106, 0)) pMissileDamageData->flags |= 0x400;
     }
-    else if (originDamage && origin)
+    else if (originDamage && pOrigin)
     {
-        if (MISSILE_CheckCritical(0, origin)) damage->flags |= 2;
-        sourceMin = sub_00625480_GetStat(origin, 21, 0) * originDamage / 128;
-        sourceMax = sub_00625480_GetStat(origin, 22, 0) * originDamage / 128;
-        percent = sub_00625480_GetStat(origin, 25, 0);
-        itemBonus = sub_00625480_GetStat(origin, 18, 0);
-        maximumPercent = sub_00625480_GetStat(origin, 17, 0);
-        damage->demonBonus += sub_00625480_GetStat(origin, 121, 0);
-        damage->undeadBonus += sub_00625480_GetStat(origin, 122, 0);
-        damage->armorReduction += sub_00625480_GetStat(origin, 120, 0);
+        if (MISSILE_CheckCritical(pOrigin, 0)) pMissileDamageData->flags |= 2;
+        sourceMin = sub_00625480_GetStat(pOrigin, 21, 0) * originDamage / 128;
+        sourceMax = sub_00625480_GetStat(pOrigin, 22, 0) * originDamage / 128;
+        percent = sub_00625480_GetStat(pOrigin, 25, 0);
+        itemBonus = sub_00625480_GetStat(pOrigin, 18, 0);
+        maximumPercent = sub_00625480_GetStat(pOrigin, 17, 0);
+        const int nDemonBonus = sub_00625480_GetStat(pOrigin, 121, 0);
+        pMissileDamageData->demonBonus += nDemonBonus;
+        const int nUndeadBonus = sub_00625480_GetStat(pOrigin, 122, 0);
+        pMissileDamageData->undeadBonus += nUndeadBonus;
+        const int nArmorReduction = sub_00625480_GetStat(pOrigin, 120, 0);
+        pMissileDamageData->armorReduction += nArmorReduction;
     }
-    percent += sub_00625480_GetStat(missile, 25, 0);
+    percent += sub_00625480_GetStat(pMissile, 25, 0);
     if (itemBonus > maximumPercent) percent += itemBonus;
     else percent += maximumPercent;
     if (percent <= -90) percent = -90;
-    damage->percent = percent;
-    damage->physicalMin = sourceMin + physicalMin;
-    damage->physicalMax = sourceMax + physicalMax;
+    pMissileDamageData->percent = percent;
+    pMissileDamageData->physicalMin = sourceMin + physicalMin;
+    pMissileDamageData->physicalMax = sourceMax + physicalMax;
     if (element)
     {
         switch (element)
         {
-        case 1: damage->fireMin = elementMin; damage->fireMax = elementMax; damage->fireLength = elementLength; break;
-        case 2: damage->lightMin = elementMin; damage->lightMax = elementMax; break;
-        case 3: damage->magicMin = elementMin; damage->magicMax = elementMax; break;
-        case 4: case 12: damage->coldMin = elementMin; damage->coldMax = elementMax; damage->coldLength = elementLength; break;
-        case 5: damage->poisonMin = elementMin; damage->poisonMax = elementMax; damage->poisonLength = elementLength; break;
-        case 6: damage->lifeMin = elementMin; damage->lifeMax = elementMax; break;
-        case 7: damage->manaMin = elementMin; damage->manaMax = elementMax; break;
-        case 8: damage->staminaMin = elementMin; damage->staminaMax = elementMax; break;
-        case 9: damage->stunLength = elementLength; break;
-        case 11: damage->burnMin = elementMin; damage->burnMax = elementMax; damage->burnLength = elementLength; break;
+        case 1: pMissileDamageData->fireMin = elementMin; pMissileDamageData->fireMax = elementMax; pMissileDamageData->fireLength = elementLength; break;
+        case 2: pMissileDamageData->lightMin = elementMin; pMissileDamageData->lightMax = elementMax; break;
+        case 3: pMissileDamageData->magicMin = elementMin; pMissileDamageData->magicMax = elementMax; break;
+        case 4: case 12: pMissileDamageData->coldMin = elementMin; pMissileDamageData->coldMax = elementMax; pMissileDamageData->coldLength = elementLength; break;
+        case 5: pMissileDamageData->poisonMin = elementMin; pMissileDamageData->poisonMax = elementMax; pMissileDamageData->poisonLength = elementLength; break;
+        case 6: pMissileDamageData->lifeMin = elementMin; pMissileDamageData->lifeMax = elementMax; break;
+        case 7: pMissileDamageData->manaMin = elementMin; pMissileDamageData->manaMax = elementMax; break;
+        case 8: pMissileDamageData->staminaMin = elementMin; pMissileDamageData->staminaMax = elementMax; break;
+        case 9: pMissileDamageData->stunLength = elementLength; break;
+        case 11: pMissileDamageData->burnMin = elementMin; pMissileDamageData->burnMax = elementMax; pMissileDamageData->burnLength = elementLength; break;
         }
     }
     if (sourceDamage)
     {
-        sub_00623C80_BeginWeapon(owner, 1);
-        MISSILE_AddElements(8, owner, damage);
-        MISSILE_ScaleElements(sourceDamage, damage);
-        sub_00622E90_EndWeapon(owner, 1);
+        sub_00623C80_BeginWeapon(pOwner, 1);
+        MISSILE_AddElements(pMissileDamageData, pOwner, 8);
+        MISSILE_ScaleElements(pMissileDamageData, sourceDamage);
+        sub_00622E90_EndWeapon(pOwner, 1);
     }
-    else if (originDamage && origin)
+    else if (originDamage && pOrigin)
     {
-        MISSILE_AddElements(0, origin, damage);
-        MISSILE_ScaleElements(originDamage, damage);
+        MISSILE_AddElements(pMissileDamageData, pOrigin, 0);
+        MISSILE_ScaleElements(pMissileDamageData, originDamage);
     }
 }
-
-void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOwner, Unit* pOrigin, Unit* pMissile, int nLevel); // 0x0064B860
 
 #include "gen/data/Source/D2Common/UNITS/Missile.inc"
