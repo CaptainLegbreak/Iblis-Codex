@@ -522,7 +522,7 @@ void __stdcall TEXT_KeyUpMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A17D0
-void __stdcall sub_004A17D0(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall sub_004A17D0_FilterNpcClick(SMSGHANDLER_PARAMS* pMsg)
 {
     gdwGlobal_007BF23F = 1;
     if (SELECT_GetSelectedUnit())

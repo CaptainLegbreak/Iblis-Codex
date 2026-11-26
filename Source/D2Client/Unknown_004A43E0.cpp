@@ -246,7 +246,7 @@ public:
     virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
     virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
     virtual int GetValue();
-    virtual void sub_004BBFB0();
+    virtual void sub_004BBFB0_GetRepeatStep();
     virtual void Slot13();
     virtual void Slot14();
     virtual void Refresh();

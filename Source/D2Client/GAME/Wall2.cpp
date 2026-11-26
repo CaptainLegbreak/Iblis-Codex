@@ -807,7 +807,7 @@ extern int gnScreenWidth; // 0x0071146C
 
 void __stdcall sub_004DE070_FillGridLight(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE070
 
-void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE260
+void __stdcall sub_004DE260_FillCellLights(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE260
 
 int __fastcall sub_00472280_RollInRange(int nSeed, int nZero, int nMax); // 0x00472280
 
@@ -1012,7 +1012,7 @@ static inline int CLIENTS_GetUnitY_FloorView(D2UnitStrc* pUnit)
 }
 
 // 0x004DE260
-void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners)
+void __stdcall sub_004DE260_FillCellLights(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners)
 {
     const unsigned char nB0 = ENVIRONMENT_GetIntensityFromAct(gpGlobal_007A0634);
     D2GridCellStrc* pCell = pCells;
@@ -1123,7 +1123,7 @@ void __thiscall D2GridLightStrc::ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg,
             }
             else
             {
-                sub_004DE260(tSmall, nSubX, nSubY, 0, nMode, bCorners);
+                sub_004DE260_FillCellLights(tSmall, nSubX, nSubY, 0, nMode, bCorners);
             }
         }
         else
