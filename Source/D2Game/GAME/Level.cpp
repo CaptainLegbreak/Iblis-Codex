@@ -123,7 +123,7 @@ static void __stdcall LEVEL_UpdateUnitForClient(D2GameStrc* pGame, D2UnitStrc* p
         PLRMODE_SendPlayerUpdates(pGame, pUnit, pClient, v10);
         break;
     case UNIT_MONSTER:
-        sub_6FC659E0(pGame, pUnit, pClient, v10);
+        MONSTERMSG_SendMonsterUpdates(pGame, pUnit, pClient, v10);
         break;
     case UNIT_OBJECT:
         OBJMODE_SendObjectUpdates(pGame, pUnit, pClient);

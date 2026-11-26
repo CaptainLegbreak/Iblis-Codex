@@ -158,7 +158,7 @@ void __fastcall MISSILES_Initialize(D2GameStrc* pGame, D2UnitStrc* pMissile, int
     pMissile->dwUnitId = nUnitGUID;
     pMissile->dwFlags &= ~(UNITFLAG_TARGETABLE | UNITFLAG_ISVALIDTARGET);
     D2GAME_DeleteTimersOnUnit(pGame, pMissile);
-    sub_6FC35570(pGame, pMissile, 0, 0, 0);
+    EVENT_SetRecurringEvent(pGame, pMissile, 0, 0, 0);
 }
 
 // 0x0059F8E0

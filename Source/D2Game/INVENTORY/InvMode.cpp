@@ -379,7 +379,7 @@ void __fastcall D2GAME_INVMODE_First(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Cli
 
     if (MONSTERS_GetHirelingTypeId(pUnit))
     {
-        D2GAME_ITEMS_UpdateInventoryItems_6FC45050(pGame, pUnit, 0, 1);
+        D2GAME_ITEMS_UpdateInventoryItems(pGame, pUnit, 0, 1);
         sub_0055F4F0(pGame, pUnit, 1);
     }
 }

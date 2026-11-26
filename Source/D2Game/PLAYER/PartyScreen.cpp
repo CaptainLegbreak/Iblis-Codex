@@ -252,7 +252,7 @@ static void PARTYSCREEN_UpdatePartyStateWithPlayer(D2UnitStrc* pLocalPlayer, D2U
     const unsigned short nPartyId = SUNIT_GetPartyId(pLocalPlayer);
     if (nPartyId == 0xFFFF)
     {
-        if (sub_6FCBA9D0(pOtherPlayer, pLocalPlayer) == 4)
+        if (PLAYERLIST_GetPartyState(pOtherPlayer, pLocalPlayer) == 4)
         {
             PLAYERLIST_SetPartyState(pLocalPlayer, pOtherPlayer, 2);
         }
@@ -322,8 +322,8 @@ void __fastcall PARTYSCREEN_PlayerIterate_PartyJoined(D2GameStrc* pGame, D2UnitS
         UnitGetClient(pLocalPlayer, ".\\PLAYER\\PartyScreen.cpp", 183)->PARTYSCREEN_SendEventUpdateToClient(!pArg->pPlayer2 ? -1 : pArg->pPlayer2->dwUnitId, 7);
     }
 
-    sub_6FCBAA20(pLocalPlayer, pArg->pPlayer1);
-    sub_6FCBAA20(pLocalPlayer, pArg->pPlayer2);
+    PLAYERLIST_SendPartyState(pLocalPlayer, pArg->pPlayer1);
+    PLAYERLIST_SendPartyState(pLocalPlayer, pArg->pPlayer2);
     SCMD_BroadcastPlayerParty(pGame, pLocalPlayer);
 }
 
@@ -333,10 +333,10 @@ void __fastcall PARTYSCREEN_ReceivedInvitation(D2GameStrc* pGame, D2UnitStrc* pP
     PLAYERLIST_AllocPlayerList(pGame, pPlayer1, pPlayer2);
     PLAYERLIST_AllocPlayerList(pGame, pPlayer2, pPlayer1);
 
-    if (sub_6FCBA9D0(pPlayer1, pPlayer2))
+    if (PLAYERLIST_GetPartyState(pPlayer1, pPlayer2))
     {
-        sub_6FCBAA20(pPlayer1, pPlayer2);
-        sub_6FCBAA20(pPlayer2, pPlayer1);
+        PLAYERLIST_SendPartyState(pPlayer1, pPlayer2);
+        PLAYERLIST_SendPartyState(pPlayer2, pPlayer1);
         return;
     }
 
@@ -345,8 +345,8 @@ void __fastcall PARTYSCREEN_ReceivedInvitation(D2GameStrc* pGame, D2UnitStrc* pP
 
     UnitGetClient(pPlayer2, ".\\PLAYER\\PartyScreen.cpp", 306)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer1 ? -1 : pPlayer1->dwUnitId, 5);
 
-    sub_6FCBAA20(pPlayer1, pPlayer2);
-    sub_6FCBAA20(pPlayer2, pPlayer1);
+    PLAYERLIST_SendPartyState(pPlayer1, pPlayer2);
+    PLAYERLIST_SendPartyState(pPlayer2, pPlayer1);
 }
 
 // 0x005A5B30
@@ -355,7 +355,7 @@ void __fastcall PARTYSCREEN_InvitationCancelled(D2GameStrc* pGame, D2UnitStrc* p
     PLAYERLIST_AllocPlayerList(pGame, pPlayer1, pPlayer2);
     PLAYERLIST_AllocPlayerList(pGame, pPlayer2, pPlayer1);
 
-    if (sub_6FCBA9D0(pPlayer1, pPlayer2) == 4)
+    if (PLAYERLIST_GetPartyState(pPlayer1, pPlayer2) == 4)
     {
         if (SUNIT_GetPartyId(pPlayer2) == -1)
         {
@@ -378,8 +378,8 @@ void __fastcall PARTYSCREEN_InvitationCancelled(D2GameStrc* pGame, D2UnitStrc* p
         UnitGetClient(pPlayer2, ".\\PLAYER\\PartyScreen.cpp", 274)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer1 ? -1 : pPlayer1->dwUnitId, 6);
     }
 
-    sub_6FCBAA20(pPlayer1, pPlayer2);
-    sub_6FCBAA20(pPlayer2, pPlayer1);
+    PLAYERLIST_SendPartyState(pPlayer1, pPlayer2);
+    PLAYERLIST_SendPartyState(pPlayer2, pPlayer1);
 }
 
 // 0x005A5C70

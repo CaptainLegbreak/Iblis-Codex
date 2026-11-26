@@ -700,7 +700,7 @@ void __stdcall TASK_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask)
         return;
     }
     GAME_UpdateProgress(pGame);
-    sub_6FC39270(pGame, 0);
+    GAME_SendAllClientPackets(pGame, 0);
 // build: symbol ?SYSTEM_GetSyncTime@* 0x00410A80
     const int nTime = SYSTEM_GetSyncTime();
     const unsigned int nSyncTimer = pGame->nSyncTimer;

@@ -493,7 +493,7 @@ static D2UnitStrc* __stdcall ITEMS_CreateDropAtUnit(D2UnitStrc* pUnit, int nItem
 }
 
 // 0x0055A6D0
-void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, D2UnitStrc* pPlayer, D2TCExShortStrc* pTCTxtRecord, int nQuality, int nLvl, int bIgnoreNoDrop, D2UnitStrc** ppItems, int* pnItemsDropped, int nMaxItems)
+void __fastcall sub_0055A6D0_DropTC(D2GameStrc* pGame, D2UnitStrc* pMonster, D2UnitStrc* pPlayer, D2TCExShortStrc* pTCTxtRecord, int nQuality, int nLvl, int bIgnoreNoDrop, D2UnitStrc** ppItems, int* pnItemsDropped, int nMaxItems)
 {
     const int bExpansion = pGame->bExpansion;
     int nThrowableCounter = 0;

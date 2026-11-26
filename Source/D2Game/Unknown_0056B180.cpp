@@ -85,7 +85,7 @@ static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
 // build: symbol ?PLRSAVE2_CreateNewbiePlayer@* 0x00569F80
 static int __stdcall PLRSAVE2_CreateNewbiePlayer(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc** ppPlayer)
 {
-    sub_6FC32220(pClient);
+    CLIENTS_SetPlayerUnitAlive(pClient);
     const int nClassId = CLIENTS_GetClassId(pClient);
     D2UnitStrc* pPlayer = SUNIT_AllocUnitData(UNIT_PLAYER, nClassId, 0, 0, pGame, 0, 0, 0, 0);
     PLRSAVE2_InitPlayerFromClient(pGame, pPlayer, pClient);

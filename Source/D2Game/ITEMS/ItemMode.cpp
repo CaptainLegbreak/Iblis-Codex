@@ -604,7 +604,7 @@ int __stdcall D2COMMON_10254_Return0(D2InventoryStrc*, int); // 0x0063BE30
 
 #define ITEMACTION_FLAG_BELT 0x20
 
-void __fastcall sub_6FC45930(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x005608C0
+void __fastcall ITEMMODE_MoveExcessBeltItems(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x005608C0
 
 void __fastcall D2GAME_SendP0x9C_ItemAction_RemoveFromBelt(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlag); // 0x0053EED0
 
@@ -1124,7 +1124,7 @@ void __fastcall ITEMMODE_ClearTargetingFlags(D2UnitStrc* pUnit, const char* szFi
             ITEMS_SetItemFlag(pInvItem, IFLAG_TARGETING, 0);
             if (GAME_GetUnitTypeOrInvalid(pUnit) == UNIT_PLAYER)
             {
-                D2GAME_PACKETS_SendPacket0x3F_6FC3EDC0(UnitGetClient(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x1DA), pInvItem, 0xFF, 1, 0, 0xFFFF);
+                D2GAME_PACKETS_SendPacket0x3F(UnitGetClient(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x1DA), pInvItem, 0xFF, 1, 0, 0xFFFF);
             }
         }
     }
@@ -2436,7 +2436,7 @@ void __fastcall ITEMS_DropTreasureClassById(D2GameStrc* pGame, D2UnitStrc* pMons
     D2TCExShortStrc* pTCRecord = DATATBLS_GetTreasureClassExRecordFromIdAndLevel(nTCId, nLevel);
     if (pTCRecord)
     {
-        D2GAME_DropTC_6FC51360(pGame, pMonster, pPlayer, pTCRecord, nQuality, nItemLevel, bIgnoreNoDrop, ppItems, pnItemsDropped, nMaxItems);
+        sub_0055A6D0_DropTC(pGame, pMonster, pPlayer, pTCRecord, nQuality, nItemLevel, bIgnoreNoDrop, ppItems, pnItemsDropped, nMaxItems);
     }
 }
 
@@ -3860,7 +3860,7 @@ static int __stdcall ITEMMODE_ReplenishItemStat(D2GameStrc* pGame, D2UnitStrc* p
                 {
                     if (ITEMS_CheckItemFlag(pItem, IFLAG_BROKEN, 5510, ".\\ITEMS\\ItemMode.cpp"))
                     {
-                        D2GAME_RepairBrokenItem_6FC4B630(pGame, pOwner, pItem);
+                        D2GAME_RepairBrokenItem(pGame, pOwner, pItem);
                     }
                 }
             }
@@ -4276,7 +4276,7 @@ int __fastcall ITEMMODE_UnequipBodyItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, u
 
     if (ITEMS_GetItemType(hRemove) == ITEMTYPE_BELT)
     {
-        sub_6FC45930(ptGame, pUnit, 0);
+        ITEMMODE_MoveExcessBeltItems(ptGame, pUnit, 0);
     }
 
     if (bSetQuantityFlag)
@@ -5870,7 +5870,7 @@ int __fastcall D2GAME_Transmogrify(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2Unit
             }
 
             const int nDropGUID = (pNewItem ? pNewItem->dwUnitId : -1);
-            sub_6FC44030(ptGame, pUnit, nDropGUID);
+            ITEMMODE_DropCursorItem(ptGame, pUnit, nDropGUID);
             return 1;
         }
     }

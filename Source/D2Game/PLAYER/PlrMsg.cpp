@@ -232,7 +232,7 @@ int __fastcall ITEMMODE_UseStoredItemAtCoordinates(D2GameStrc* pGame, D2UnitStrc
 
 int __fastcall ITEMMODE_MergeItemStacks(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID1, int nItemGUID2, int* pItemStatus); // 0x0055E7C0
 
-int __fastcall D2GAME_Return0_6FC48930(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int* pItemStatus); // 0x0055E9A0
+int __fastcall sub_0055E9A0_Return0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int* pItemStatus); // 0x0055E9A0
 
 int __fastcall ITEMMODE_AddScrollToBook(D2GameStrc* pGame, D2UnitStrc* pUnit, int nScrollGUID, int nBookGUID, int* pItemStatus); // 0x0055EF20
 
@@ -514,7 +514,7 @@ void __fastcall SrvDisconnectClient(D2GameStrc* pGame, D2ClientStrc* pClient, in
 
 int __fastcall PLAYER_DropGold(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID, int nValue); // 0x00535510
 
-int __fastcall sub_6FC7C450(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nHotkeyId, short nSkillId, int nHand, int nFlags); // 0x005356B0
+int __fastcall PLAYER_SetSkillHotKey(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nHotkeyId, short nSkillId, int nHand, int nFlags); // 0x005356B0
 
 int __fastcall CLIENTS_CheckFlag(D2ClientStrc* pClient, unsigned short nFlag); // 0x00538670
 
@@ -2833,7 +2833,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x17_DropItemOnGround(D2GameStrc* pGame,
         return 3;
     }
 
-    sub_6FC44030(pGame, pUnit, nItemGUID);
+    ITEMMODE_DropCursorItem(pGame, pUnit, nItemGUID);
     return 0;
 }
 
@@ -3328,7 +3328,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x22_UnstackItems(D2GameStrc* pGame, D2U
     }
 
     int nItemStatus;
-    if (D2GAME_Return0_6FC48930(pGame, pUnit, nItemGUID, &nItemStatus) || !nItemStatus)
+    if (sub_0055E9A0_Return0(pGame, pUnit, nItemGUID, &nItemStatus) || !nItemStatus)
     {
         return 0;
     }
@@ -3851,7 +3851,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x3B_AddSkillPoint(D2GameStrc* pGame, D2
         return 2;
     }
     sub_0055F4F0(pGame, pUnit, 1);
-    sub_6FD14C30(pUnit);
+    SKILLS_RefreshPassivesAndPetLimits(pUnit);
     return 0;
 }
 
@@ -4376,7 +4376,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x4F_ClickButton(D2GameStrc* pGame, D2Un
     const unsigned short nButton = *(unsigned short*)((char*)pPacket + 1);
     const unsigned short nHigh = *(unsigned short*)((char*)pPacket + 3);
     const unsigned short nLow = *(unsigned short*)((char*)pPacket + 5);
-    return sub_6FC91250(pGame, pUnit, nButton, (nHigh << 16) | nLow);
+    return PLRTRADE_HandleTradeButton(pGame, pUnit, nButton, (nHigh << 16) | nLow);
 }
 
 // 0x0054C800
@@ -4433,7 +4433,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x51_BindHotkeyToSkill(D2GameStrc* pGame
             }
         }
 
-        return sub_6FC7C450(pGame, pUnit, nHotKeyId, nSkillId, (nValue >> 15) & 1, nOwnerGUID) ? 0 : 3;
+        return PLAYER_SetSkillHotKey(pGame, pUnit, nHotKeyId, nSkillId, (nValue >> 15) & 1, nOwnerGUID) ? 0 : 3;
     }
 
     return 3;
@@ -4675,7 +4675,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x5F_UpdatePlayerPos(D2GameStrc* pGame, 
     {
         if (!PLRMSG_TestPathToCoords(pGame, pUnit, nX, nY) || !PLRMSG_WarpToCoords(pGame, pUnit, nX, nY))
         {
-            sub_6FC81CA0(pUnit, hClient, 0);
+            PLRMSG_SendUnitPosition(pUnit, hClient, 0);
         }
 
         return 0;
@@ -4775,7 +4775,7 @@ static int __stdcall D2GAME_MERCS_EquipItem(D2UnitStrc* pPlayer, D2UnitStrc* pIt
 
         sub_0063BE30(pMercInventory, nTargetBodyLoc);
         D2GAME_ITEMS_UpdateTransferredProperties(pGame, pExchangeItem, pMerc, 0, 0);
-        D2GAME_ITEMS_UpdateInventoryItems_6FC45050(pGame, pMerc, 0, 0);
+        D2GAME_ITEMS_UpdateInventoryItems(pGame, pMerc, 0, 0);
 
         if (!ITEMS_CheckRequirements(pItem, pMerc, 0, 0, 0, 0))
         {
@@ -4815,7 +4815,7 @@ static int __stdcall D2GAME_MERCS_EquipItem(D2UnitStrc* pPlayer, D2UnitStrc* pIt
         ITEMMODE_MarkItemOnCursor(pGame, pPlayer, pCursorItem);
     }
 
-    D2GAME_ITEMS_UpdateInventoryItems_6FC45050(pGame, pMerc, 0, 0);
+    D2GAME_ITEMS_UpdateInventoryItems(pGame, pMerc, 0, 0);
     sub_0055F4F0(pGame, pMerc, 0);
     D2GAME_EVENTS_Delete(pGame, pMerc, 3, 0);
     EVENT_SetEvent(pGame, pMerc, 3, pGame->dwGameFrame + 1, 0, 0);
@@ -5209,7 +5209,7 @@ void __fastcall D2GAME_PLRMSG_Last(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2U
         break;
     }
 
-    sub_6FC84D40(pGame, &packet5A);
+    PLRMSG_BroadcastEventMessage(pGame, &packet5A);
 }
 
 // 0x0054DA10
