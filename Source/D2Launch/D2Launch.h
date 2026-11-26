@@ -65,7 +65,7 @@ void __fastcall sub_004F9740_SetControlState(D2WinControlStrc* pControl, int bSe
 void __fastcall sub_004FCF80_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 void __fastcall D2SOUND_10034(int nValue); // 0x005148F0
 void __stdcall D2Win_10004(int nResolution); // 0x004F9060
-void __stdcall D2Win_10029(int a1); // 0x004FA410
+void __stdcall D2Win_10029(int bDrawCursor); // 0x004FA410
 void __stdcall WINDOW_OpenSmackCutscene(const char* szFile, int nResolution, void* pfFrame); // 0x004F5D90
 void __stdcall sub_004F90A0(int nResolution); // 0x004F90A0
 void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField); // 0x00525260

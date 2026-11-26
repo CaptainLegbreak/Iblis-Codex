@@ -1154,7 +1154,7 @@ void __cdecl BNSEND_FreeGamesList()
 }
 
 // 0x0051B240
-void* __fastcall BNSEND_GetGamesList(const char* szGameName, const char* szGamePassword, int a3, int a4)
+void* __fastcall BNSEND_GetGamesList(const char* szGameName, const char* szGamePassword, int nUnused1, int nUnused2)
 {
     D2BnGamesListPacketStrc tPacket;
     tPacket.unk0x00 = 0;

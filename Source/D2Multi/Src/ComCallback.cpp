@@ -759,7 +759,7 @@ extern D2WinControlInitStrc gtNormalRadioInit;                                  
 
 extern int gnDiffSelect;                                                                           // 0x00798CD0
 
-void __stdcall CONTROL_SetEscapeButton(void* a1); // 0x004FA450
+void __stdcall CONTROL_SetEscapeButton(void* pButton); // 0x004FA450
 
 void __cdecl MAINMENUS_LoadMaxPlayers();                                                                                // 0x004431B0
 

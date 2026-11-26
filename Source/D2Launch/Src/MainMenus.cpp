@@ -422,31 +422,13 @@ char gszOldPassword[24];                                                        
 
 int gbConnectCancelled; // 0x007795F4
 
-typedef unsigned short U16;
-
-struct U16Cell
-{
-    U16 value;
-
-};
-
-typedef char U16_is_two[(sizeof(U16)==2)?1:-1];
-
-typedef char Cell_size[(sizeof(U16Cell)==2)?1:-1];
-
-typedef char Cell_value_zero[((unsigned int)&((U16Cell*)0)->value==0)?1:-1];
-
 struct UiControl;
 
 extern "C" int __cdecl sub_00525150_Language();
 
 extern "C" void __fastcall sub_004F9740_ControlFlag(UiControl* control,int value);
 
-extern "C" int __fastcall sub_00526800_UnicodeLength(const U16* text);
-
 extern "C" UiControl* gControl;
-
-extern "C" const U16Cell gUpperTable[];
 
 extern "C" int gLayout_00709C48; // 0x00709C48
 
@@ -1155,7 +1137,7 @@ int __stdcall MAINMENUS_OnNameChanged(int nArg); // 0x00433BD0
 
 void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0
 
-void __stdcall CONTROL_SetEscapeButton(void* a1); // 0x004FA450
+void __stdcall CONTROL_SetEscapeButton(void* pButton); // 0x004FA450
 
 void __fastcall sub_004FB740(D2WinControlStrc* pList, int nA, int nB); // 0x004FB740
 
@@ -1356,7 +1338,7 @@ int __fastcall D2Win_10015();                                                   
 
 int __stdcall CURSOR_SetCellFile(D2CelFileStrc* pCellFile);                                                 // 0x004F9160
 
-void __stdcall D2Win_SetQuitCallback(int (__cdecl* a1)());                                                            // 0x004F9180
+void __stdcall D2Win_SetQuitCallback(int (__cdecl* pfnQuitCallback)());                                                            // 0x004F9180
 
 int __stdcall D2Win_RunMessageLoop(void (__stdcall* pCallback)(unsigned long));                                      // 0x004FA590
 
@@ -1370,7 +1352,7 @@ int __cdecl D2SOUNDFAST_IsAnyWavePlaying();                                     
 
 void __cdecl D2SOUNDFAST_FreeWaveSlots();                                                                                // 0x00515070
 
-void __stdcall D2Win_10029(int a1); // 0x004FA410
+void __stdcall D2Win_10029(int bDrawCursor); // 0x004FA410
 
 void __cdecl sub_0042F880_DestroyControls(); // 0x0042F880
 

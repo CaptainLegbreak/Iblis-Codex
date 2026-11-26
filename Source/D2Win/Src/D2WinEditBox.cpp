@@ -1021,7 +1021,7 @@ static void EDITBOX_DeleteSelection(D2WinEditBoxStrc* pEditBox)
 }
 
 // 0x005001D0
-D2WinEditBoxStrc* __fastcall D2Win_10070_EDITBOX_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6, D2CelFileStrc* pCellFile, int a8, D2WinMsgHandler a9, int nEditBoxFlags, D2WinFontAndColorStrc* pFontAndColor)
+D2WinEditBoxStrc* __fastcall D2Win_10070_EDITBOX_Create(int nX, int nY, int nWidth, int nHeight, int nTextInsetX, int nTextInsetY, D2CelFileStrc* pCellFile, int pfnOnEnter, D2WinMsgHandler pfnOnClick, int nEditBoxFlags, D2WinFontAndColorStrc* pFontAndColor)
 {
     D2WinEditBoxStrc* pEditBox = (D2WinEditBoxStrc*)FOG_Alloc(sizeof(D2WinEditBoxStrc), ".\\Src\\D2WinEditBox.cpp", 0x39, 0);
     memset(pEditBox, 0, sizeof(D2WinEditBoxStrc));
@@ -1032,8 +1032,8 @@ D2WinEditBoxStrc* __fastcall D2Win_10070_EDITBOX_Create(int nX, int nY, int nWid
     pEditBox->controlHeader.nImageX = nX;
     pEditBox->controlHeader.nWidth = nWidth;
     pEditBox->controlHeader.nHeight = nHeight;
-    pEditBox->nTextInsetX = a5;
-    pEditBox->nTextInsetY = a6;
+    pEditBox->nTextInsetX = nTextInsetX;
+    pEditBox->nTextInsetY = nTextInsetY;
     pEditBox->nMaxLength = 256;
     pEditBox->controlHeader.nImageY = nY;
     pEditBox->nFirstVisibleChar = 0;
@@ -1045,8 +1045,8 @@ D2WinEditBoxStrc* __fastcall D2Win_10070_EDITBOX_Create(int nX, int nY, int nWid
     pEditBox->controlHeader.pfHandleCharInput = 0;
     pEditBox->controlHeader.pfHandleVirtualKeyInput = 0;
     pEditBox->pfFilter = 0;
-    pEditBox->controlHeader.field_34 = a9;
-    pEditBox->pfOnEnter = (void*)a8;
+    pEditBox->controlHeader.field_34 = pfnOnClick;
+    pEditBox->pfOnEnter = (void*)pfnOnEnter;
     pEditBox->controlHeader.pNext = 0;
     pEditBox->wszText[0] = 0;
     pEditBox->nCaretPosition = 0;

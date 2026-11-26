@@ -189,7 +189,7 @@ int __stdcall ANIMIMAGE_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00500850
-D2WinAnimImageStrc* __fastcall ANIMIMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, unsigned int nAnimSpeed, D2WinMsgHandler a7, D2AnimatedImageDescriptor* pDescriptor, int eDrawMode, D2WinMsgHandler a10)
+D2WinAnimImageStrc* __fastcall ANIMIMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, unsigned int nAnimSpeed, D2WinMsgHandler pfnOnClick, D2AnimatedImageDescriptor* pDescriptor, int eDrawMode, D2WinMsgHandler pfnField58)
 {
     D2WinAnimImageStrc* pAnimImage = (D2WinAnimImageStrc*)FOG_Alloc(sizeof(D2WinAnimImageStrc), ".\\D2WinAnimImage.cpp", 0x1C, 0);
     memset(pAnimImage, 0, sizeof(D2WinAnimImageStrc));
@@ -207,7 +207,7 @@ D2WinAnimImageStrc* __fastcall ANIMIMAGE_Create(int nX, int nY, int nWidth, int 
     pAnimImage->controlHeader.pfHandleMouseUp = 0;
     pAnimImage->controlHeader.pfHandleCharInput = 0;
     pAnimImage->controlHeader.pfHandleVirtualKeyInput = 0;
-    pAnimImage->controlHeader.field_34 = a7;
+    pAnimImage->controlHeader.field_34 = pfnOnClick;
     pAnimImage->pAnimatedImageDescriptor = pDescriptor;
     pAnimImage->nAnimSpeed = nAnimSpeed;
     pAnimImage->nFrame = 0;
@@ -219,7 +219,7 @@ D2WinAnimImageStrc* __fastcall ANIMIMAGE_Create(int nX, int nY, int nWidth, int 
         pAnimImage->eDrawMode = 5;
     else
         pAnimImage->eDrawMode = eDrawMode;
-    pAnimImage->field_58 = a10;
+    pAnimImage->field_58 = pfnField58;
     pAnimImage->bIsRunning = 1;
     CONTROL_AppendToList(&pAnimImage->controlHeader);
     return pAnimImage;
