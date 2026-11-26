@@ -30839,24 +30839,6 @@
     {
      "va": "0x004E2320",
      "length": 235
-    },
-    {
-     "va": "0x004E86F0",
-     "length": 675
-    },
-    {
-     "va": "0x004E9000",
-     "length": 60
-    },
-    {
-     "va": "0x004E9300",
-     "length": 155,
-     "name": "?sub_004E9300_MergeWeaponPair@@YAPAUD2UnitStrc@@PAU1@@Z"
-    },
-    {
-     "va": "0x004E9940",
-     "length": 170,
-     "name": "?sub_004E9940_DrawNumberCentered@@YGXHHHHH@Z"
     }
    ],
    "flags": [
@@ -31241,6 +31223,10 @@
      "length": 290
     },
     {
+     "va": "0x004E86F0",
+     "length": 675
+    },
+    {
      "va": "0x004E8D90",
      "length": 296,
      "name": "?SKILLDESC_AddElementalStatDamage@@YAXPAUD2UnitStrc@@PAH1E@Z"
@@ -31256,6 +31242,10 @@
      "name": "?SKILLDESC_AttackRatingCallback@@YIHPAUD2UnitStrc@@PAH1HHHPAUD2SkillStrc@@H0@Z"
     },
     {
+     "va": "0x004E9000",
+     "length": 60
+    },
+    {
      "va": "0x004E9040",
      "length": 285,
      "name": "PLRSKILLS_DescAttackRating"
@@ -31269,6 +31259,11 @@
      "va": "0x004E9260",
      "length": 157,
      "name": "?SKILLDESC_MergeOtherHandWeapon@@YAPAUD2UnitStrc@@PAU1@@Z"
+    },
+    {
+     "va": "0x004E9300",
+     "length": 155,
+     "name": "?sub_004E9300_MergeWeaponPair@@YAPAUD2UnitStrc@@PAU1@@Z"
     },
     {
      "va": "0x004E93A0",
@@ -31314,6 +31309,11 @@
      "va": "0x004E9870",
      "length": 197,
      "name": "?SKILLDESC_DrawTwoTexts@@YIXPBUUnicode@@0HHHHH@Z"
+    },
+    {
+     "va": "0x004E9940",
+     "length": 170,
+     "name": "?sub_004E9940_DrawNumberCentered@@YGXHHHHH@Z"
     },
     {
      "va": "0x004E99F0",
