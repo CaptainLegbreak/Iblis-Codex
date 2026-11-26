@@ -12,6 +12,10 @@ scaffolding, names.
   (Composit_0064F060), `Units/Missile` (Missile_0064B860). Lane 2 hadn't claimed any of them.
 
 ## Status
+- Thu Nov 26 15:05 PT: forcing rows, readings so far (no branch):
+  - 0x651040: the bottom-copy form (copy `nId = nNext` before the depth test, `while ((short)nId >= 0)`) gets the original's registers (7 instructions unaligned) but folds the preheader's conversion into the parent load, so it is 110 / 113: only the original's `movzx eax, ax` after `movzx eax, word [parent]` is missing. Reading nId straight from wParent: 5 unaligned, still 110. Function-scope declarations, every type pair for nNext/nId, and lane 2's top-of-loop copy (both conversions but the copy stays in the loop head, other registers) don't give it. The second conversion only survives when something else uses the ushort before the loop (the __assume does that).
+  - 0x65EA50: the nValue load is hoisted above the `nSet` branch in every form (if/else, early return either way, swapped arms, switch, shifted-value / layer / record / stat-list temporaries, alias locals). The original's arms load it into different registers (eax in the set arm, edx in the add arm).
+  - Going back to names and scaffolding between tries on these and 0x6419F0.
 - Thu Nov 26 14:50 PT: Missile join, dup-decls and noinline-evidence merged (#437, #438), Ready lines gone. forcing-621f90 Ready. 0x65EA50: the nValue hoist survives every arm shape and temporary tried (early returns, swapped arms, switch, shifted-value and layer temporaries, alias locals); parked. On 0x651040 now (lane 2's top-of-loop copy, 38 bytes).
 - Thu Nov 26 14:45 PT: param-names Ready. Lane 2 handed over D2Common's four forcing rows (lane2.md 14:25 PT): taking 0x621F90, 0x6419F0, 0x651040 and 0x65EA50 now, closest first (0x621F90, 1 byte).
 - Thu Nov 26 14:12 PT: three piece notes merged (#434), their Ready lines gone. noinline-evidence Ready. Next: D2Common a1/v12 names, starting with ItemMods.cpp's property-function parameters.
