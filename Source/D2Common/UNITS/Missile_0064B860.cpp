@@ -486,7 +486,7 @@ void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOw
 
     int sourceDamage, originDamage, element;
     int physicalMin, physicalMax, elementMin, elementMax, elementLength;
-    if (pMissilesTxtRecord->skill <= 0 && !(pMissilesTxtRecord->flags & gVar_006CE284))
+    if (pMissilesTxtRecord->skill <= 0 && !(pMissilesTxtRecord->flags & gdwBitMask7))
     {
         sourceDamage = pMissilesTxtRecord->sourceDamage;
         originDamage = pMissilesTxtRecord->originDamage;
@@ -505,7 +505,7 @@ void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOw
     else
     {
         int skill = pMissilesTxtRecord->skill;
-        if (pMissilesTxtRecord->flags & gVar_006CE284)
+        if (pMissilesTxtRecord->flags & gdwBitMask7)
         {
             skill = MISSILE_GetSkill((D2MissileUnitStrc0064A280*)pMissile);
             if (skill <= 0) skill = pMissilesTxtRecord->skill;
@@ -542,7 +542,7 @@ void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOw
         int bonus = 0;
         if (item && item->type == 4)
         {
-            if ((pMissilesTxtRecord->flags & gVar_006CE280) && sub_006289C0_IsWeapon(item))
+            if ((pMissilesTxtRecord->flags & gdwBitMask6) && sub_006289C0_IsWeapon(item))
                 sourceDamage /= 2;
             bonus = sub_00645830_GetItemBonus(pOwner, item, 0, 1);
             int strengthFactor = sub_00629860_GetStrengthFactor(item);

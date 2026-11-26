@@ -345,9 +345,9 @@ int gnRenderMode; // 0x007D5590
 
 extern D2WinPopUpStrc* gpPopUp; // 0x0087E974
 
-int gdwGlobal_007D55B4; // 0x007D55B4
+int gbWindowed; // 0x007D55B4
 
-int dword_6F8FE274; // 0x007D55E4
+int gfCtrlKeyDown; // 0x007D55E4
 
 int gbMouseTracking; // 0x007D55F0
 
@@ -540,7 +540,7 @@ void __cdecl MAINMENUS_UpdateEmailOk(); // 0x00436EB0
 
 void __cdecl MAINMENUS_UpdatePasswordOk(); // 0x004371E0
 
-extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
+extern D2ComInterfaceStrc* gpFuncTable; // 0x0077ABF0
 
 extern D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 
@@ -576,9 +576,9 @@ extern D2WinControlStrc* gpEdit_007799DC; // 0x007799DC
 
 extern D2WinControlStrc* gpEdit_007799E0; // 0x007799E0
 
-extern D2WinControlStrc* gpButton_007799E4; // 0x007799E4
+extern D2WinControlStrc* gpButton; // 0x007799E4
 
-extern int gdwGlobal_007D55B8; // 0x007D55B8
+extern int gnResolution; // 0x007D55B8
 
 void __stdcall WINDOW_ClearCaches(); // 0x004F5D50
 
@@ -752,7 +752,7 @@ int __stdcall D2Win_CloseSpriteCache()
 // 0x004F9050
 int __cdecl D2Win_10003()
 {
-    gdwGlobal_007D55B8 = 0x0;
+    gnResolution = 0x0;
     return sub_004F5D60();
 }
 
@@ -904,7 +904,7 @@ int __fastcall CONTROL_AppendToDeadList(D2WinControlStrc* pControl)
 // 0x004F9290
 int __stdcall CONTROL_FreeDeadList()
 {
-    if (gnWinCallbackDepth_007D55C4 > 0)
+    if (gnWinCallbackDepth > 0)
     {
         return 1;
     }
@@ -1475,14 +1475,14 @@ done:
 // 0x004F9C80
 void __stdcall D2Win_COMMANDS_ControlDown(SMSGHANDLER_PARAMS* pMsg)
 {
-    dword_6F8FE274 = 1;
+    gfCtrlKeyDown = 1;
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x004F9CA0
 void __stdcall D2Win_COMMANDS_ControlUp(SMSGHANDLER_PARAMS* pMsg)
 {
-    dword_6F8FE274 = 0;
+    gfCtrlKeyDown = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
@@ -1601,7 +1601,7 @@ void __stdcall D2Win_COMMANDS_ActivateApp(SMSGHANDLER_PARAMS* pMsg)
         }
 
         gbDeactivated = 1;
-        if (gdwGlobal_007D55B4 != 1)
+        if (gbWindowed != 1)
         {
             WINDOW_SetPaused(1);
         }
@@ -1684,7 +1684,7 @@ void __fastcall D2Win_SaveScreenshotToFile(const char* szFile)
 // 0x004FA160
 void __stdcall D2Win_COMMANDS_ToggleMusic(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!dword_6F8FE274 || !D2SOUNDFAST_AreWaveSlotsInitialized())
+    if (!gfCtrlKeyDown || !D2SOUNDFAST_AreWaveSlotsInitialized())
     {
         return;
     }
@@ -1926,7 +1926,7 @@ int __stdcall D2Win_CreateWindow(void* hInstance, int nRenderMode, int bWindowed
 // 0x004FA550
 int __fastcall D2Win_10016()
 {
-    gnWinCallbackDepth_007D55C4 = 0;
+    gnWinCallbackDepth = 0;
     CONTROL_FreeDeadList();
     LIST_UnloadPentspinCellfile();
     D2Win_10116();

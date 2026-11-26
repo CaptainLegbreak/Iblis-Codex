@@ -176,7 +176,7 @@ int __stdcall BNGatewayAccess::CurGateway()
     return m_nCurGateway;
 }
 
-D2CelFileStrc* gpCellFile_00779700; // 0x00779700
+D2CelFileStrc* gpCellFile; // 0x00779700
 
 D2CelFileStrc* gpCharacterCreateCelFile; // 0x00779724
 

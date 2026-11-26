@@ -1545,7 +1545,7 @@ void __fastcall sub_00477CA0_SendPacket67(const char* szName)
     D2ClientPacket67Strc tPacket;
     tPacket.nHeader = 0x67;
     SStrCopy(tPacket.szName, szName, 0x7FFFFFFF);
-    switch (gdwGlobal_007A0610)
+    switch (gnGameType)
     {
     case 0:
         tPacket.nGameType = 3;
@@ -1664,14 +1664,14 @@ void __cdecl INV_SendLeaveGame()
     CLIENT_Send(1, 0, &nHeader);
     gnSentBytes += 1;
     gnSentPackets += 1;
-    if (gdwGlobal_007A0610 != 0 && gdwGlobal_007A0610 != 1 && gdwGlobal_007A0610 != 6 && gdwGlobal_007A0610 != 7
-        && gdwGlobal_007A0610 != 8 && gdwGlobal_007A0610 != 9)
+    if (gnGameType != 0 && gnGameType != 1 && gnGameType != 6 && gnGameType != 7
+        && gnGameType != 8 && gnGameType != 9)
     {
         gbLeavingGame = 1;
         gbPositionalSound = 0;
         gbGameServerReady = 0;
     }
-    if (gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 7)
+    if (gnGameType == 6 || gnGameType == 7)
     {
         D2ClientNotifyStrc* pNotify = WINMAIN_GetClientNotify();
         if (pNotify)
@@ -1697,7 +1697,7 @@ void __fastcall INV_SendGameLogon(int nServerToken, int nServerHash)
     *(unsigned int*)tPacket.nKey1 = FOG_IsExpansion() ? 0xED5DCC50 : 0x2185EDD6;
     *(unsigned int*)tPacket.nKey2 = 0x91A519B6;
     tPacket.nLanguage = STRTABLE_GetLanguage();
-    tPacket.nClass = CHAT_HasClassOverride() ? sub_0047AA20_GetClassOverride() : gnCharClass_007A0522;
+    tPacket.nClass = CHAT_HasClassOverride() ? sub_0047AA20_GetClassOverride() : gnCharClass;
     SStrCopy(tPacket.szName, gszClientCharName, 0x7FFFFFFF);
 // build: symbol ?CLIENT_Send@* 0x0052AE50
     CLIENT_Send(sizeof(D2GameLogonPacketStrc), 0, &tPacket);
@@ -2063,7 +2063,7 @@ void __stdcall INV_DrawItemSockets(D2UnitStrc* item, D2InventoryGridInfoStrc* gr
         int drawY = (offsets[i].nY + 1) * grid->nGridBoxHeight / 2 + y;
         D2CelContextStrc context;
         memset(&context, 0, sizeof(context));
-        context.pCellFile = gpCellFile_007BEF14;
+        context.pCellFile = gpGemSocketCel;
         context.nDirection = 0;
         context.nFrame = 0;
         sub_004F6480(&context, drawX - 1, drawY, -1, 0, 0);
@@ -2624,14 +2624,14 @@ static void __stdcall INV_AppendDurability(D2UnitStrc* pItem, Unicode* pText)
             bBonus = 1;
         }
         sub_005267E0(pText, D2LANG_GetStringFromTblIndex(0xD81));
-        SStrPrintf(szNumber, 10, szFmtInt_006D6454, STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0));
+        SStrPrintf(szNumber, 10, gszFormatI, STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0));
         sub_00526700(pText, pColorStart);
         sub_00526F20(wszNumber, szNumber, 9);
         sub_00526700(pText, wszNumber);
         sub_00526700(pText, pColorStart);
         sub_00526700(pText, D2LANG_GetStringFromTblIndex(0xD87));
         sub_00526700(pText, pColorStart);
-        SStrPrintf(szNumber, 10, szFmtInt_006D6454, STATLIST_GetMaxDurabilityFromUnit(pItem));
+        SStrPrintf(szNumber, 10, gszFormatI, STATLIST_GetMaxDurabilityFromUnit(pItem));
         sub_00526F20(wszNumber, szNumber, 9);
         if (bBonus)
         {
@@ -2650,7 +2650,7 @@ static void __stdcall INV_AppendLabeledNumber(int nValue, Unicode* pText)
     const Unicode* pColorStart = D2LANG_GetStringFromTblIndex(0xF9B);
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
     sub_005267E0(pText, D2LANG_GetStringFromTblIndex(0xD8D));
-    SStrPrintf(szNumber, 10, szFmtInt_006D6454, nValue);
+    SStrPrintf(szNumber, 10, gszFormatI, nValue);
     sub_00526F20(wszNumber, szNumber, 9);
     sub_00526700(pText, pColorStart);
     sub_00526700(pText, wszNumber);
@@ -2671,7 +2671,7 @@ static void __stdcall INV_AppendReqStr(D2ItemsTxt* pItemsTxt, int nBonus, Unicod
         return;
     }
     sub_005267E0(pText, D2LANG_GetStringFromTblIndex(0xD82));
-    SStrPrintf(szNumber, 10, szFmtInt_006D6454, nValue);
+    SStrPrintf(szNumber, 10, gszFormatI, nValue);
     sub_00526F20(wszNumber, szNumber, 9);
     sub_00526700(pText, pColorStart);
     sub_00526700(pText, wszNumber);
@@ -2692,7 +2692,7 @@ static void __stdcall INV_AppendReqDex(D2ItemsTxt* pItemsTxt, int nBonus, Unicod
         return;
     }
     sub_005267E0(pText, D2LANG_GetStringFromTblIndex(0xD83));
-    SStrPrintf(szNumber, 10, szFmtInt_006D6454, nValue);
+    SStrPrintf(szNumber, 10, gszFormatI, nValue);
     sub_00526F20(wszNumber, szNumber, 9);
     sub_00526700(pText, pColorStart);
     sub_00526700(pText, wszNumber);
@@ -3017,13 +3017,13 @@ static void __stdcall INV_AppendThrowDamage(D2UnitStrc* pItem, D2ItemsTxt* pItem
         nStringId = 0x5516;
     }
     sub_005267E0(pText, D2LANG_GetStringFromTblIndex(nStringId));
-    SStrPrintf(szNumber, 10, szFmtInt_006D6454, nMin);
+    SStrPrintf(szNumber, 10, gszFormatI, nMin);
     sub_00526F20(wszNumber, szNumber, 9);
     sub_00526700(pText, pColorStart);
     sub_00526700(pText, wszNumber);
     sub_00526700(pText, pColorStart);
     sub_00526700(pText, D2LANG_GetStringFromTblIndex(0xD88));
-    SStrPrintf(szNumber, 10, szFmtInt_006D6454, nMax);
+    SStrPrintf(szNumber, 10, gszFormatI, nMax);
     sub_00526F20(wszNumber, szNumber, 9);
     sub_00526700(pText, pColorStart);
     sub_00526700(pText, wszNumber);
@@ -3096,7 +3096,7 @@ void __stdcall INV_AppendDefense(D2UnitStrc* pUnit, D2UnitStrc* pItem, Unicode* 
 
     sub_005267E0(pText, D2LANG_GetStringFromTblIndex(0xD85));
     Unicode::strcat(pText, pColorStart);
-    SStrPrintf(szNumber, 10, szFmtInt_006D6454, nDefense);
+    SStrPrintf(szNumber, 10, gszFormatI, nDefense);
     Unicode::win2Unicode(wszNumber, szNumber, 9);
     if (bModified)
     {
@@ -8482,7 +8482,7 @@ void __stdcall INV_DrawWarningIcon(int nFrame)
     }
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpCellFile_007BEF24;
+    tContext.pCellFile = gpInvWarnCel;
     tContext.nDirection = 0;
     tContext.nFrame = nFrame;
     if (GAME_GetUIVarState(0xA))

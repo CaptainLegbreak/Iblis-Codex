@@ -25,11 +25,11 @@ extern int gbSurfaceActive_007C9140; // 0x007C9140
 extern int gnBufferHeight_007C913C; // 0x007C913C
 extern int gnBufferWidth_007C9138; // 0x007C9138
 extern int gnHeight_007C913C; // 0x007C913C
-extern int gnModeWidth_0098A16C; // 0x0098A16C
-extern int gnOriginX_0098A168; // 0x0098A168
+extern int gnModeWidth; // 0x0098A16C
+extern int gnGdiOriginX; // 0x0098A168
 extern int gnStride_007C9138; // 0x007C9138
-extern int gnSurfaceHeight_007C913C; // 0x007C913C
-extern int gnSurfaceWidth_007C9138; // 0x007C9138
+extern int gnRenderHeight; // 0x007C913C
+extern int gnRenderWidth; // 0x007C9138
 extern int gnValue_007C9140; // 0x007C9140
 extern int gnValue_007C9154; // 0x007C9154
 extern unsigned char* gpBuffer_007C9154; // 0x007C9154

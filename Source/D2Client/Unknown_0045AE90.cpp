@@ -28,7 +28,6 @@ struct D2UnitStrc;
 
 
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 
 extern void* gpGlobal_007A0634; // 0x007A0634

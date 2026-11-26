@@ -24,11 +24,11 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 
 void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szChannel, const char* szFormat, ...); // 0x00410660
 
-extern const char gszHackChannel_006FC4A8[]; // 0x006FC4A8
+extern const char gszHack[]; // 0x006FC4A8
 
 extern const char gszHackListSizeFormat[]; // 0x006FC4B0
 
-extern unsigned long gdwLastLogTick_00989C34; // 0x00989C34
+extern unsigned long gdwLastHackListLog; // 0x00989C34
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -133,7 +133,7 @@ int __stdcall FOG_10157(D2QueueServerStrc* pServer, unsigned int nKey, char* pDa
 
 extern const char gszHackCategory_006FC4A8[]; // 0x006FC4A8
 
-extern const char gszHackListSize_006FC4B0[]; // 0x006FC4B0
+extern const char gszHackListSizeFormat[]; // 0x006FC4B0
 
 extern unsigned long gdwLastHackListLog; // 0x00989C34
 
@@ -165,7 +165,7 @@ extern "C" const char* __cdecl sub_00408090();                                  
 
 extern "C" void* __cdecl memmove(void*,const void*,unsigned int); // 0x00683840
 
-extern const char gszFile_006FC460[]; // 0x006FC460
+extern const char gszQServerCppFile[]; // 0x006FC460
 
 // A second view of 0x006C0770 for QSERVER_BanAddress, which calls it with three stack arguments and the table
 // already in EDI, where the static definition below takes it.
@@ -363,10 +363,10 @@ static void QSERVER_DestroyClient(D2QClientStrc* pClient)
 void __stdcall QSERVER_LogHackListSize(int nSize)
 {
     const unsigned long dwNow = GetTickCount();
-    if (dwNow - gdwLastLogTick_00989C34 > 2000)
+    if (dwNow - gdwLastHackListLog > 2000)
     {
-        LOGMANAGER_LogWritePrefixedLine(gszHackChannel_006FC4A8, gszHackListSizeFormat, nSize);
-        gdwLastLogTick_00989C34 = dwNow;
+        LOGMANAGER_LogWritePrefixedLine(gszHack, gszHackListSizeFormat, nSize);
+        gdwLastHackListLog = dwNow;
     }
 }
 
@@ -440,7 +440,7 @@ void D2QueueServerStrc::ExpireEntries()
             unsigned int logTick = GetTickCount();
             if (logTick - gnLastHackListLog_00989C34 > 2000)
             {
-                LOGMANAGER_LogWritePrefixedLine(gszHackCategory_006FC4A8, gszHackListSize_006FC4B0, count);
+                LOGMANAGER_LogWritePrefixedLine(gszHackCategory_006FC4A8, gszHackListSizeFormat, count);
                 gnLastHackListLog_00989C34 = logTick;
             }
         }
@@ -760,7 +760,7 @@ void __stdcall QSERVER_HackUnlistIP(D2QueueServerStrc* pServer, unsigned long dw
 {
     if (pServer->bEnabled)
     {
-        LOGMANAGER_LogWritePrefixedLine(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSHackUnlistIP() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(dwAddress), szFile, nLine);
+        LOGMANAGER_LogWritePrefixedLine(gszHack, "[HACKLIST]  IP:%s  QSHackUnlistIP() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(dwAddress), szFile, nLine);
         QSERVER_UnlistIP(pServer, szFile, dwAddress, nLine);
     }
 }
@@ -1755,8 +1755,8 @@ void __stdcall QSERVER_DisconnectIP(D2QueueServerStrc* pServer, unsigned int nIP
     if (pNode)
         QSrvCloseRemoteConnection(pServer, pNode->iId, pFile, nLine);
     else
-        LOGMANAGER_LogWritePrefixedLine(gszHackChannel_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_FormatIP(nIP));
-    LOGMANAGER_LogWritePrefixedLine(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSDisconnectIP() from FILE:%s  LINE:%d", sub_006B013E_FormatIP(nIP), pFile, nLine);
+        LOGMANAGER_LogWritePrefixedLine(gszHack, "[HACKLIST]  Client %s is already closed", sub_006B013E_FormatIP(nIP));
+    LOGMANAGER_LogWritePrefixedLine(gszHack, "[HACKLIST]  IP:%s  QSDisconnectIP() from FILE:%s  LINE:%d", sub_006B013E_FormatIP(nIP), pFile, nLine);
 }
 
 // calling-convention shim (not game code)
@@ -1803,14 +1803,14 @@ void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc* server, D2QClientStrc
         case 2:
             if (server->bEnabled && !QSERVER_AccountTraffic(server, charge, client)) {
                 LOGMANAGER_LogWritePrefixedLine(gszHack, "[HACKLIST]  User at %s banned due to sQSSpamCheck in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
-                QSERVER_BanClient(server, client->iId, gszFile_006FC460, 0x649);
+                QSERVER_BanClient(server, client->iId, gszQServerCppFile, 0x649);
                 return;
             }
             break;
         case 3: return;
         case 4:
             LOGMANAGER_LogWritePrefixedLine(gszHack, "[HACKLIST]  User at %s banned due to PACKET_INVALID in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
-            QSERVER_BanClient(server, client->iId, gszFile_006FC460, 0x635);
+            QSERVER_BanClient(server, client->iId, gszQServerCppFile, 0x635);
             return;
         }
         if (result != 5) {
@@ -1819,9 +1819,9 @@ void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc* server, D2QClientStrc
                 EnterCriticalSection(&server->tLock);
                 message = server->pFreeMessages;
                 if (message) server->pFreeMessages = message->pNext;
-                else message = (D2MessageStrc*)FOG_Alloc(sizeof(D2MessageStrc), gszFile_006FC460, 0x664, 0);
+                else message = (D2MessageStrc*)FOG_Alloc(sizeof(D2MessageStrc), gszQServerCppFile, 0x664, 0);
                 LeaveCriticalSection(&server->tLock);
-            } else message = (D2MessageStrc*)FOG_Alloc(sizeof(D2MessageStrc), gszFile_006FC460, 0x66D, 0);
+            } else message = (D2MessageStrc*)FOG_Alloc(sizeof(D2MessageStrc), gszQServerCppFile, 0x66D, 0);
             int size = consumed - start;
             if (size > 0) {
                 EnterCriticalSection(&client->tLock);

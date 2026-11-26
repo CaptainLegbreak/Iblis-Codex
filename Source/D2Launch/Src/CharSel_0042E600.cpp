@@ -39,7 +39,7 @@ struct Unicode
 extern "C" char* __cdecl strstr(const char* szString, const char* szSubString); // 0x00686900
 extern "C" int __stdcall CHARSEL_CreateNotice(const Unicode* pTitle, const Unicode* pText, int nState, unsigned char nSel); // 0x0043A460
 static int gnCharEntryCount; // 0x00779DC4
-extern int gdwGlobal_0070CC08; // 0x0070CC08
+extern int gnSelectionB; // 0x0070CC08
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 void __fastcall CONTROL_SetVisible(D2WinControlStrc* pControl, int bSet); // 0x004F9740
 int __fastcall MAINMENUS_ShowOptionDescription(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
@@ -55,7 +55,7 @@ char* __fastcall MAINMENUS_GetSlotName(int nIndex); // 0x00430B50
 int __cdecl MAINMENUS_FreeSlots(); // 0x00430A20
 extern D2CharSelCacheStrc* gpCharSelCache; // 0x00779DE8
 static int gbFlag_00779C6C;             // 0x00779C6C
-extern char gszBaseName_00779B68[]; // 0x00779B68
+extern char gszCharName[]; // 0x00779B68
 struct D2GridCellStrc
 {
     int nFlag;
@@ -101,9 +101,9 @@ unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, in
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern unsigned short gwRequestId; // 0x0070CD60
-extern int gnGlobal_007111CC; // 0x007111CC
-extern int gnGlobal_007111D0; // 0x007111D0
-extern int gnGlobal_007111D4; // 0x007111D4
+extern int gnProgressiveStatesBottomWide; // 0x007111CC
+extern int gnProgressiveStatesRight; // 0x007111D0
+extern int gnProgressiveStatesBottom; // 0x007111D4
 extern int gnScreenWidth; // 0x0071146C
 extern int gnScreenHeight; // 0x00711470
 extern unsigned short gwSavedRequestId; // 0x0077BBDC

@@ -10,7 +10,7 @@ typedef void (__fastcall* TILEFN)(D2TileLibraryEntryStrc* pTile, void* pArg);
 
 extern "C" const char gszPalShiftGrey[]; // 0x006DCDA0
 extern "C" const char gszPalShiftGrey2[]; // 0x006DCD98
-extern "C" const char szPalShiftGold_006DCD90[]; // 0x006DCD90
+extern "C" const char gszTxtField_gold[]; // 0x006DCD90
 extern "C" const char gszPalShiftBrown[]; // 0x006DCD88
 extern "C" const char gszPalShiftGreyBrown[]; // 0x006DCD7C
 extern "C" const char gszPalShiftInvGrey[]; // 0x006DCD74
@@ -48,7 +48,7 @@ void __cdecl sub_00600B80()
 {
     sub_006009C0(gszPalShiftGrey, 1);
     sub_006009C0(gszPalShiftGrey2, 2);
-    sub_006009C0(szPalShiftGold_006DCD90, 3);
+    sub_006009C0(gszTxtField_gold, 3);
     sub_006009C0(gszPalShiftBrown, 4);
     sub_006009C0(gszPalShiftGreyBrown, 5);
     sub_006009C0(gszPalShiftInvGrey, 6);

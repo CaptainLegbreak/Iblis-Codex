@@ -38,7 +38,7 @@ extern D2WinControlStrc* gpNewPasswordConfirmEdit; // 0x007799C4
 extern D2WinControlStrc* gpNewPasswordEdit; // 0x007799C8
 extern char gszOldPassword[]; // 0x00779550
 extern int ganRowValues_007799FC[]; // 0x007799FC
-extern int gdwGlobal_00779974; // 0x00779974
+extern int gfMenusDone; // 0x00779974
 int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 int __cdecl MAINMENUS_HasSaveFiles(); // 0x00430BC0
 int __cdecl D2Win_10003(); // 0x004F9050
@@ -94,7 +94,7 @@ extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned in
 extern "C" const char gszDataLocal[]; // 0x006D41A8
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char gszFormatD[]; // 0x006D57BC
-extern "C" const char gszPathFormat_006D4124[]; // 0x006D4124
+extern "C" const char gszPathFormat[]; // 0x006D4124
 extern "C" const char gszSaveMask[]; // 0x006D41D4
 extern "C" const char gszSavePathFormat_006D4230[]; // 0x006D4230
 extern "C" const char gszStringFormat[]; // 0x006FFC58
@@ -106,7 +106,7 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x00
 extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); // 0x00684BD5
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
-extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
+extern D2ComInterfaceStrc* gpFuncTable; // 0x0077ABF0
 extern D2ConfigStrc* gpCharInfo; // 0x0077BBD8
 extern D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
 extern D2WinControlStrc* gpCharSelectText; // 0x00779DD4
@@ -118,22 +118,22 @@ extern D2WinControlStrc* gpControl_00779D98; // 0x00779D98
 extern D2WinControlStrc* gpControl_00779DD0; // 0x00779DD0
 extern D2WinControlStrc* gpPasswordEdit; // 0x00779334
 extern D2WinControlStrc* gpAccountEdit; // 0x0077958C
-extern D2WinControlStrc* gpEdit_0077BCF4; // 0x0077BCF4
-extern D2WinControlStrc* gpMaxPlayerControl_00798C38; // 0x00798C38
+extern D2WinControlStrc* gpChannelNameEdit; // 0x0077BCF4
+extern D2WinControlStrc* gpMaxPlayerControl; // 0x00798C38
 extern D2WinControlStrc* gpNameControl; // 0x007799E8
-extern D2WinControlStrc* gpNameEdit_0077934C; // 0x0077934C
+extern D2WinControlStrc* gpNameEdit; // 0x0077934C
 extern char gszPreferredRealm[]; // 0x00779A40
 extern int gbFlag_00779DD8; // 0x00779DD8
-extern int gdwGlobal_00779DA4; // 0x00779DA4
-extern int gdwGlobal_00779DB8; // 0x00779DB8
-extern int gdwGlobal_0077AC04; // 0x0077AC04
+extern int gfHasCharEntries; // 0x00779DA4
+extern int gfConnectError; // 0x00779DB8
+extern int gfCharSelCancelled; // 0x0077AC04
 extern int gnHistoryIndex; // 0x0070CD74
 extern int gnLaunchMode; // 0x007795EC
 extern int gnChatLaunchMode; // 0x0077BBE4
 extern int gnLaunchState; // 0x007795E8
 extern int gnSelected; // 0x0070CC00
 extern int gnTextSentinel; // 0x0070CB80
-extern int gnValue_00798CCC; // 0x00798CCC
+extern int gnGameCount; // 0x00798CCC
 extern int gnVisibleRows; // 0x0070CC0C
 extern int gnWaitDone; // 0x00779994
 extern unsigned short gawToUpperTable[0x100]; // 0x00730578

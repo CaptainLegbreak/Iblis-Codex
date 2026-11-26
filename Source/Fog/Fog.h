@@ -59,7 +59,7 @@ extern "C" void* __stdcall CreateToolhelp32Snapshot(unsigned long dwFlags, unsig
 extern _iobuf* gapLogFiles[20]; // 0x0075E790
 extern char gaszLogNames[20][0x10]; // 0x0075D148
 extern char gszLogPrefix[]; // 0x00708018
-extern const char gszQServerNT_006FC8A0[]; // 0x006FC8A0
+extern const char gszQServerNTFile[]; // 0x006FC8A0
 extern const char gszServerFile_006FC460[]; // 0x006FC460
 extern const char* gaszErrorTypeNames[]; // 0x00706654
 extern int gbLogThreadStop; // 0x0075E830

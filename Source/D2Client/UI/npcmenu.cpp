@@ -143,7 +143,7 @@ extern int gnStringMapCount; // 0x00725C04
 
 extern D2StringMapStrc gaStringMap[]; // 0x0072739C
 
-extern int gnPartyCount_0072554C; // 0x0072554C
+extern int gnNpcEntryCount; // 0x0072554C
 
 extern D2PartyRecordStrc gaNpcEntryFlags[]; // 0x00726861
 
@@ -159,7 +159,6 @@ extern void* gpRes_007C0D7B; // 0x007C0D7B
 
 extern D2ClientStringListStrc gtStringList; // 0x007C0D9A
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 void __fastcall CUNIT_ForEachObject(UNITFN pfnCallback); // 0x004649D0
 
@@ -296,9 +295,9 @@ int __cdecl NPCMENU_IdentifyItemsWait(); // 0x004B2020
 
 extern D2NpcMenuEntryStrc gaNpcMenuEntries[]; // 0x00726C4C
 
-extern int gnGlobal_007C0D39; // 0x007C0D39
+extern int gbNpcSubIdReceived; // 0x007C0D39
 
-extern short gwGlobal_007C0D3D; // 0x007C0D3D
+extern short gwNpcSubId; // 0x007C0D3D
 
 unsigned char g007C0D89; // 0x007C0D89
 
@@ -368,11 +367,9 @@ struct D2ClientValueBlockStrc
 
 #pragma pack(pop)
 
-void __cdecl TEXT_LoadPopupHireling(); // 0x004939B0
 
 
 
-void __cdecl NPCMENU_ShowTradeDialog(); // 0x004B2F50
 
 extern "C" D2UnitStrc* __fastcall CUNIT_FindClientUnit(int nUnitId, int nUnitType); // 0x00463990
 
@@ -396,7 +393,6 @@ void __cdecl NPCMENU_FreeDialogs(); // 0x004B2110
 
 int __cdecl sub_004C0440_Thunk(); // 0x004C0440
 
-void __cdecl INV_ResetNpcCursor(); // 0x0048A6A0
 
 typedef int (__cdecl* Callback)();
 
@@ -408,7 +404,6 @@ int __cdecl NPCMENU_NpcMenuReturn(); // 0x004B4CF0
 
 
 
-int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
 
 extern const char empty; // 0x006CC837
@@ -493,9 +488,9 @@ int __cdecl NPCMENU_ShowMainMenu();                                             
 
 extern D2ClientDialogStrc* gpNpcSubMenuDialog;                                                               // 0x007C0D63
 
-extern int (__cdecl* gpfnGlobal_00726E0B)();                                                                // 0x00726E0B
+extern int (__cdecl* gpfnHireMenuHandler)();                                                                // 0x00726E0B
 
-extern short gwGlobal_00726DFF;                                                                             // 0x00726DFF
+extern short gwHireMenuStringId;                                                                             // 0x00726DFF
 
 typedef char check_size_npcindex[(sizeof(D2NpcIndexStrc) == 0x27) ? 1 : -1];
 
@@ -583,13 +578,13 @@ void __cdecl INV_EnterNpcMenuState(); // 0x0048A630
 
 
 
-extern int gnGlobal_007C0D3F; // 0x007C0D3F
+extern int gbTradeItemOnCursor; // 0x007C0D3F
 
-extern int gnGlobal_007C0D5B; // 0x007C0D5B
+extern int gnTradeItemDropSound; // 0x007C0D5B
 
-extern int gnGlobal_007C0DB0; // 0x007C0DB0
+extern int gbGambleShop; // 0x007C0DB0
 
-extern D2UnitStrc* gpPlayer_007C0DD4; // 0x007C0DD4
+extern D2UnitStrc* gpNpcPlayerUnit; // 0x007C0DD4
 
 extern unsigned long gdwGlobal_007C0DE9; // 0x007C0DE9
 
@@ -651,9 +646,9 @@ void __cdecl NPCMENU_BuildNpcMenu(); // 0x004B4830
 
 void __cdecl sub_004B5140(); // 0x004B5140
 
-extern void (__cdecl* gpfnCallback_00726E59)(); // 0x00726E59
+extern void (__cdecl* gpfnCallback)(); // 0x00726E59
 
-extern unsigned short gwGlobal_00726E4D; // 0x00726E4D
+extern unsigned short gwTravelLutGholeinStringId; // 0x00726E4D
 
 int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
 
@@ -661,9 +656,9 @@ int __cdecl NPCMENU_TravelToKurastDocks();                                      
 
 int __cdecl NPCMENU_TravelToHarrogath();                                                                                 // 0x004B5200
 
-extern short gwGlobal_00726E9B;                                                                             // 0x00726E9B
+extern short gwTravelKurastDocksStringId;                                                                             // 0x00726E9B
 
-extern int (__cdecl* gpfnGlobal_00726EA7)();                                                                // 0x00726EA7
+extern int (__cdecl* gpfnTravelKurastDocksHandler)();                                                                // 0x00726EA7
 
 static void NPCMENU_SetNpcInteract(D2UnitStrc* pRecord);
 
@@ -770,21 +765,20 @@ void __cdecl INV_ResetNpcButtonsFromPending(); // 0x00487C20
 void __fastcall USEITEM_OpenNpcItemPanel(int nArg); // 0x004C0620
 
 
-int __fastcall ROSTERPETS_CountPets(D2UnitStrc* pOwner, int nPetType); // 0x00478EE0
 
 void __cdecl NPCMENU_CloseTradeDialog(); // 0x004B3610
 
-extern int (__cdecl* gpfnGlobal_00726CD7)(); // 0x00726CD7
+extern int (__cdecl* gpfnImbueMenuHandler)(); // 0x00726CD7
 
-extern short gwGlobal_00726CC9; // 0x00726CC9
+extern short gwImbueMenuStringId; // 0x00726CC9
 
-extern int (__cdecl* gpfnGlobal_00727253)(); // 0x00727253
+extern int (__cdecl* gpfnSocketMenuHandler)(); // 0x00727253
 
-extern short gwGlobal_00727245; // 0x00727245
+extern short gwSocketMenuStringId; // 0x00727245
 
-extern int (__cdecl* gpfnGlobal_007272A5)(); // 0x007272A5
+extern int (__cdecl* gpfnPersonalizeMenuHandler)(); // 0x007272A5
 
-extern short gwGlobal_00727295; // 0x00727295
+extern short gwPersonalizeMenuStringId; // 0x00727295
 
 extern unsigned char gnPendingNpcActionType; // 0x007C0D89
 
@@ -800,7 +794,7 @@ typedef int (__cdecl* D2MenuHandler)();
 
 typedef char CheckNpcIndexSize[sizeof(D2NpcIndexStrc)==39?1:-1];
 
-extern int gnGlobal_007C0D2D; // 0x007C0D2D
+extern int gnInteractNpcClassId; // 0x007C0D2D
 
 extern unsigned int gnHirelingName_00725494; // 0x00725494
 
@@ -821,9 +815,6 @@ struct D2DynamicPathStrc;
 
 typedef int (__fastcall* D2TextCallback)(void* pContext, int nArg, int nValue);
 
-int __cdecl FOG_IsExpansion();                                                                 // 0x00408F20
-void __fastcall TEXT_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, int nArg);                         // 0x004A10E0
-void __stdcall QUESTRECORD_CopyBufferToRecord(D2BitBufferStrc* pQuestRecord, unsigned char* pBuffer, unsigned short nBufferSize, int bResetStates); // 0x0065C4D0
 
 static inline int NPC_GetUnitClassId(D2UnitStrc* pUnit)
 {
@@ -843,9 +834,9 @@ static D2MonStatsTxt* GetMonStatsTxtRecord(int nMonsterId)
 
 extern int gnGlobal_00726C4C;                                                                               // 0x00726C4C
 
-extern int (__cdecl* gpfnGlobal_00726C62)();                                                                // 0x00726C62
+extern int (__cdecl* gpfnConfirmMenuHandler)();                                                                // 0x00726C62
 
-extern short gwGlobal_00726C54;                                                                             // 0x00726C54
+extern short gwConfirmMenuStringId;                                                                             // 0x00726C54
 
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
@@ -1491,8 +1482,8 @@ void __fastcall NPCMENU_OnNpcPacketStoreSubId(D2NpcPacketStrc* pPacket)
     D2_ASSERT(pPacket, 0xFC6);
     if (pPacket->wSubId == 3 && gbNpcInteracting && CUNIT_FindClientUnit(gnInteractNpcId, 1))
     {
-        gnGlobal_007C0D39 = 1;
-        gwGlobal_007C0D3D = pPacket->wSubId;
+        gbNpcSubIdReceived = 1;
+        gwNpcSubId = pPacket->wSubId;
     }
 }
 
@@ -1583,8 +1574,8 @@ void __stdcall NPCMENU_SendTradeRequest(int bAlternate, int nFlags)
             nMode = (unsigned short)pUnit->dwAnimMode;
             if (gnNpcTradeMode == 2)
             {
-                D2InventoryStrc* const pInventory = gpPlayer_007C0DD4->pInventory;
-                gnGlobal_007C0D3F = INVENTORY_GetCursorItem(pInventory) == pUnit;
+                D2InventoryStrc* const pInventory = gpNpcPlayerUnit->pInventory;
+                gbTradeItemOnCursor = INVENTORY_GetCursorItem(pInventory) == pUnit;
             }
         }
         else
@@ -1612,7 +1603,7 @@ void __stdcall NPCMENU_SendTradeRequest(int bAlternate, int nFlags)
     gdwGlobal_007C0DF1 = GetTickCount();
     if (nCommand == 0x32)
     {
-        if (gnGlobal_007C0DB0)
+        if (gbGambleShop)
             nMode = ((unsigned int)(unsigned short)nMode << 16) | 2;
         else
             nMode = (unsigned int)(unsigned short)nMode << 16;
@@ -1626,7 +1617,7 @@ void __stdcall NPCMENU_SendTradeRequest(int bAlternate, int nFlags)
         }
 // build: symbol ?gnNpcTransactionCost@* 0x007C0D7F
         MSG_SendFourDwords(0x32, gnInteractNpcId, gnTradeItemUnitId, nMode, gnNpcTransactionCost);
-        gnGlobal_007C0D5B = ITEM_GetDropSound(pUnit);
+        gnTradeItemDropSound = ITEM_GetDropSound(pUnit);
     }
     else if (nCommand == 0x35)
     {
@@ -1834,7 +1825,7 @@ int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pC
     else
     {
         int nType = 0;
-        if (gnGlobal_007C0DB0)
+        if (gbGambleShop)
             nType = 2;
         D2UnitStrc* pVendor = GetInteractNpc_Inline();
         const int nVendorId = !pVendor ? -1 : pVendor->dwClassId;
@@ -2074,7 +2065,7 @@ void __cdecl NPCMENU_ResetNpcMenu()
     NPCMENU_FreeNpcMenu();
     TEXT_InitNpcMenu();
     gbNpcEntriesProcessed = 0;
-    for (int i = 0; i < gnPartyCount_0072554C; ++i)
+    for (int i = 0; i < gnNpcEntryCount; ++i)
     {
         gaNpcEntryFlags[i].nFlag0 = 0;
         gaNpcEntryFlags[i].nFlag1 = 0;
@@ -2273,8 +2264,8 @@ int __cdecl NPCMENU_HireMercHandler()
 int __cdecl NPCMENU_InitImbueHandler()
 {
     gnGlobal_00726CC1 = 4;
-    gpfnGlobal_00726CD7 = NPCMENU_OpenItemServicePanel;
-    gwGlobal_00726CC9 = 0xFB1;
+    gpfnImbueMenuHandler = NPCMENU_OpenItemServicePanel;
+    gwImbueMenuStringId = 0xFB1;
     return 1;
 }
 
@@ -2282,8 +2273,8 @@ int __cdecl NPCMENU_InitImbueHandler()
 int __cdecl NPCMENU_InitSocketHandler()
 {
     gnGlobal_0072723D = 4;
-    gpfnGlobal_00727253 = NPCMENU_OpenItemServicePanel;
-    gwGlobal_00727245 = 0x58DC;
+    gpfnSocketMenuHandler = NPCMENU_OpenItemServicePanel;
+    gwSocketMenuStringId = 0x58DC;
     return 1;
 }
 
@@ -2291,8 +2282,8 @@ int __cdecl NPCMENU_InitSocketHandler()
 int __cdecl NPCMENU_InitPersonalizeHandler()
 {
     gnGlobal_0072728B = 5;
-    gpfnGlobal_007272A5 = NPCMENU_OpenItemServicePanel;
-    gwGlobal_00727295 = 0x58DD;
+    gpfnPersonalizeMenuHandler = NPCMENU_OpenItemServicePanel;
+    gwPersonalizeMenuStringId = 0x58DD;
     return 1;
 }
 
@@ -2377,8 +2368,8 @@ int __fastcall NPCMENU_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
 // build: symbol ?gnTradeItemUnitId@* 0x007C0DE5
         gnTradeItemUnitId = 0;
         SELECT_RefreshHoverUnit(0);
-        gnGlobal_007C0D4B = nX;
-        gnGlobal_007C0D4F = nY;
+        gnTradeClickX = nX;
+        gnTradeClickY = nY;
     }
     else
     {
@@ -2387,8 +2378,8 @@ int __fastcall NPCMENU_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
 // build: symbol ?gdwLastTradeSendTick@* 0x007C0DF1
         if (bCheckTick && GetTickCount() - gdwLastTradeSendTick < 0x1F4)
             return 0;
-        gnGlobal_007C0D4B = nX;
-        gnGlobal_007C0D4F = nY;
+        gnTradeClickX = nX;
+        gnTradeClickY = nY;
         if (nMode == 1)
         {
             switch (nNpcClass)
@@ -3054,7 +3045,7 @@ void __cdecl NPCMENU_BuildNpcMenu()
         UI_SetUIVar(8,1,0);
         return;
     }
-    if(gnGlobal_007C0D2D==252 || gnGlobal_007C0D2D==198 || gnGlobal_007C0D2D==515 || gnGlobal_007C0D2D==150)
+    if(gnInteractNpcClassId==252 || gnInteractNpcClassId==198 || gnInteractNpcClassId==515 || gnInteractNpcClassId==150)
     {
         D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
         MSG_SendDwords3(0x38,3,gnInteractNpcId,!pPlayer?-1:pPlayer->dwUnitId);
@@ -3745,8 +3736,8 @@ void __fastcall NPCMENU_HandleNpcTransaction(D2GSPacketSrv2A* pPacket)
 int __cdecl NPCMENU_InitHireHandler()
 {
     gnGlobal_00726DF9 = 3;
-    gpfnGlobal_00726E0B = NPCMENU_ShowMainMenu;
-    gwGlobal_00726DFF = 0xD45;
+    gpfnHireMenuHandler = NPCMENU_ShowMainMenu;
+    gwHireMenuStringId = 0xD45;
     return 1;
 }
 
@@ -3819,8 +3810,8 @@ static int __stdcall NPCMENU_ToggleNpcHandler(int bAdd, int nIndex)
 int __cdecl NPCMENU_InitTravelLutGholeinHandler()
 {
     gnGlobal_00726E47 = 3;
-    gpfnCallback_00726E59 = sub_004B5140;
-    gwGlobal_00726E4D = 0xD36;
+    gpfnCallback = sub_004B5140;
+    gwTravelLutGholeinStringId = 0xD36;
     return 1;
 }
 
@@ -3828,8 +3819,8 @@ int __cdecl NPCMENU_InitTravelLutGholeinHandler()
 int __cdecl NPCMENU_InitTravelKurastDocksHandler()
 {
     gnGlobal_00726E95 = 3;
-    gpfnGlobal_00726EA7 = NPCMENU_TravelToKurastDocks;
-    gwGlobal_00726E9B = 0xD38;
+    gpfnTravelKurastDocksHandler = NPCMENU_TravelToKurastDocks;
+    gwTravelKurastDocksStringId = 0xD38;
     return 1;
 }
 
@@ -4140,8 +4131,8 @@ int __cdecl NPCMENU_OpenConfirm()
 int __cdecl sub_004B6DA0_InitHandler()
 {
     gnGlobal_00726C4C = 4;
-    gpfnGlobal_00726C62 = NPCMENU_OpenConfirm;
-    gwGlobal_00726C54 = 0x2BA0;
+    gpfnConfirmMenuHandler = NPCMENU_OpenConfirm;
+    gwConfirmMenuStringId = 0x2BA0;
     return 1;
 }
 

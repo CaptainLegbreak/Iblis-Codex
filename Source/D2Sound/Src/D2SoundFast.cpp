@@ -120,7 +120,7 @@ int gbChannelFlag; // 0x0088179C
 
 void __fastcall D2SOUNDSMP_DestroySound(D2SoundStrc* pSound); // 0x005160D0
 
-extern int gdwGlobal_00881798; // 0x00881798
+extern int gnChannelValue; // 0x00881798
 
 // 0x00514DB0
 void __cdecl D2SOUNDFAST_InitWaveSlots()
@@ -135,12 +135,12 @@ void __cdecl D2SOUNDFAST_InitWaveSlots()
     }
 }
 
-extern int gdwGlobal_008817FC; // 0x008817FC
+extern int gbWaveSlotsInit; // 0x008817FC
 
 // 0x00515060
 int __cdecl D2SOUNDFAST_AreWaveSlotsInitialized()
 {
-    return gdwGlobal_008817FC;
+    return gbWaveSlotsInit;
 }
 
 // 0x00515070

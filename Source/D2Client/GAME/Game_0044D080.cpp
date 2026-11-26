@@ -66,13 +66,13 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern "C" int __cdecl strcmp(const char* s1, const char* s2);
 
-extern int gnState_0070EF18; // 0x0070EF18
+extern int gnGameState; // 0x0070EF18
 
 extern D2BetaScreenStrc gaBetaScreens[]; // 0x0070F238
 
 extern int gnBetaScreenCount; // 0x0070F024
 
-extern char gszServerIP_0070EF20[]; // 0x0070EF20
+extern char gszServerIP[]; // 0x0070EF20
 
 extern char gszMcpIP[]; // 0x0070F130
 
@@ -172,17 +172,17 @@ extern unsigned int gdwLastCheck_007A04A0; // 0x007A04A0
 
 extern unsigned int gdwFpsWindowStart; // 0x007A04B8
 
-extern unsigned int gdwGlobal_007A04BC; // 0x007A04BC
+extern unsigned int gdwDelayEnd; // 0x007A04BC
 
 extern int gbPositionalSound; // 0x007A061C
 
 int gbLeavingGame; // 0x007A0620
 
-extern int gnGlobal_007A0648; // 0x007A0648
+extern int gbQServerStop; // 0x007A0648
 
-extern int gnGlobal_007A0650; // 0x007A0650
+extern int gbLeftButtonDown; // 0x007A0650
 
-extern int gnGlobal_007A0654; // 0x007A0654
+extern int gbRightButtonDown; // 0x007A0654
 
 unsigned char gnBetaScreenIndex; // 0x007A060D
 
@@ -325,7 +325,6 @@ struct D2ClientNotifyStrc;
 
 #pragma pack(pop)
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 
@@ -386,7 +385,7 @@ extern int gbGameServerReady; // 0x007A0618
 
 extern int gnCinematicPlayed; // 0x007A062C
 
-extern D2LoadingTimerStrc gtLoadingTimer_007A0684; // 0x007A0684
+extern D2LoadingTimerStrc gtLoadingTimer; // 0x007A0684
 
 void __cdecl GAME_DrawLoadingText(); // 0x0044CB60
 
@@ -633,9 +632,9 @@ void __fastcall GAME_StorePong(const D2GSPacketSrv8F* pPacket)
 // 0x0044D080
 int __cdecl GAME_PushState()
 {
-    if (gnState_0070EF18 == 5)
-        WINMAIN_PushStateValue(gnState_0070EF18 - 3);
-    return gnState_0070EF18;
+    if (gnGameState == 5)
+        WINMAIN_PushStateValue(gnGameState - 3);
+    return gnGameState;
 }
 
 // 0x0044D100
@@ -759,9 +758,9 @@ void __fastcall GAME_ApplyConfigAct(D2ConfigStrc* pConfig)
 void __fastcall GAME_ApplyConfigGame(D2ConfigStrc* pConfig)
 {
     if (strcmp(pConfig->szServerIP, "0"))
-        SStrCopy(gszServerIP_0070EF20, pConfig->szServerIP, 0x7FFFFFFF);
+        SStrCopy(gszServerIP, pConfig->szServerIP, 0x7FFFFFFF);
     SStrCopy(gszGameName, pConfig->szGameName, 0x7FFFFFFF);
-    gdwGlobal_007A0610 = pConfig->dwGameType;
+    gnGameType = pConfig->dwGameType;
     gwJoinId = pConfig->wJoinID;
     gnServerHash = pConfig->dwGameHash;
 }
@@ -1010,7 +1009,7 @@ int __fastcall GAME_IsTimerExpired(D2LoadingTimerStrc* pTimer)
 // 0x0044E380
 void __fastcall GAME_ShowLoadingMessage(int nIndex)
 {
-    if (GAME_IsTimerRunning(&gtLoadingTimer_007A0684))
+    if (GAME_IsTimerRunning(&gtLoadingTimer))
     {
         return;
     }
@@ -1032,8 +1031,8 @@ void __fastcall GAME_ShowLoadingMessage(int nIndex)
     }
 
     UI_CloseUIVars(1, 0);
-    gtLoadingTimer_007A0684.dwStart = GetTickCount();
-    gtLoadingTimer_007A0684.dwLength = 2500;
+    gtLoadingTimer.dwStart = GetTickCount();
+    gtLoadingTimer.dwLength = 2500;
     gbLeavingGame = 1;
     gbPositionalSound = 0;
     gbGameServerReady = 0;
@@ -1044,7 +1043,7 @@ void __fastcall GAME_ShowLoadingMessage(int nIndex)
 int __stdcall GAME_LoadingTimerCallback(void* pArg)
 {
     int bResult = 0;
-    if (GAME_IsTimerExpired(&gtLoadingTimer_007A0684))
+    if (GAME_IsTimerExpired(&gtLoadingTimer))
     {
         UI_FreeLoadingScreen();
         bResult = 1;
@@ -1126,7 +1125,7 @@ void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
 // 0x0044EEC0
 void __cdecl GAME_CheckConnectionTimeouts()
 {
-    if (!gdwGlobal_007A0610 || gdwGlobal_007A0610 == 1)
+    if (!gnGameType || gnGameType == 1)
     {
         return;
     }
@@ -1149,7 +1148,7 @@ void __cdecl GAME_CheckConnectionTimeouts()
     }
 
     if (!gbGameServerReady && !gbPositionalSound && !gbLeavingGame && !gbActUnloaded
-        && (gdwGlobal_007A0610 == 9 || gdwGlobal_007A0610 == 7))
+        && (gnGameType == 9 || gnGameType == 7))
     {
         GAME_ShowLoadingMessage(6);
     }
@@ -1195,12 +1194,12 @@ int __stdcall GAME_RunGameFrame(int nUnused)
     }
 
     RECORD_ReplayRecords();
-    if (gnGlobal_007A0650)
+    if (gbLeftButtonDown)
     {
         GAME_StartClick();
     }
 
-    if (gnGlobal_007A0654)
+    if (gbRightButtonDown)
     {
         GAME_StartRightClick();
     }
@@ -1238,7 +1237,7 @@ int __stdcall GAME_RunGameFrame(int nUnused)
     {
         gdwLastFrame = gdwTickCount;
         bFrame = 1;
-        if (gdwTickCount < gdwGlobal_007A04BC)
+        if (gdwTickCount < gdwDelayEnd)
         {
             nElapsed -= gdwFrameTime;
             unsigned int nLate = gdwFrameTime - 1;
@@ -1391,7 +1390,7 @@ int __stdcall GAME_RunGameFrame(int nUnused)
     if (gnGameType == 6 || gnGameType == 8)
     {
         EnterCriticalSection(&gCriticalSection_007A0468);
-        gnGlobal_007A0648 = 1;
+        gbQServerStop = 1;
         LeaveCriticalSection(&gCriticalSection_007A0468);
         WaitForSingleObject(ghQServerThread, 10000);
         ghQServerThread = 0;

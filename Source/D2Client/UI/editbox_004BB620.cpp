@@ -49,7 +49,6 @@ public:
 
 unsigned int __fastcall D2Win_10128(unsigned char nCharCode); // 0x00502550
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const unsigned short* pText, int* pLineCount, int nWidth); // 0x00502970
-int __fastcall D2Win_10127_SetFont(int nFontSize);                                                                 // 0x00502EF0
 void __fastcall sub_005263E0(char* szDest, const unsigned short* pSource, int nMaxLength);         // 0x005263E0
 extern "C" int __fastcall sub_00526800(const unsigned short* pText);                                      // 0x00526800
 unsigned short* __fastcall sub_00526F20(unsigned short* pDst, const char* szSrc, int nMaxLength);    // 0x00526F20

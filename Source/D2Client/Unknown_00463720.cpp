@@ -41,7 +41,6 @@ unsigned int __cdecl GAME_GetInteractDeadline(); // 0x0044DAC0
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);
 int __stdcall PLAYER_IsPendingMode(int nArg1, int nArg2); // 0x00461D60
 int __fastcall CUNIT_CanUseSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00464600
-int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 D2UnitStrc* __fastcall SELECT_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pX, int* pY, unsigned int dwFlags, int bForce); // 0x00467880
 int __cdecl INV_GetScreenHeightMinusPanel(); // 0x00454970
@@ -88,7 +87,6 @@ int __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);
 int __stdcall SKILLS_GetSkillModeFromUnit(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);
 int __stdcall UNITS_IsObjectInInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject);
-int __stdcall PATH_GetVelocity(D2DynamicPathStrc* pDynamicPath); // 0x006486C0
 void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath);
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit);
 void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory);

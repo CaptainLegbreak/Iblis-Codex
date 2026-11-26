@@ -264,9 +264,9 @@ int __fastcall BUTTON_Draw(D2WinButtonStrc* pButton)
         SMSGHANDLER_PARAMS tMsg;
         tMsg.hWnd = pButton;
         tMsg.lParam = pButton->isButtonHovered;
-        ++gnWinCallbackDepth_007D55C4;
+        ++gnWinCallbackDepth;
         pButton->pfUpdateHoverState(&tMsg);
-        --gnWinCallbackDepth_007D55C4;
+        --gnWinCallbackDepth;
     }
 
     return 1;
@@ -338,9 +338,9 @@ int __fastcall BUTTON_OnMouseWheelScrolled(D2WinButtonStrc* ptBtnData, int nMous
 
     if (ptBtnData->controlHeader.field_34)
     {
-        ++gnWinCallbackDepth_007D55C4;
+        ++gnWinCallbackDepth;
         ptBtnData->controlHeader.field_34(&msg);
-        --gnWinCallbackDepth_007D55C4;
+        --gnWinCallbackDepth;
     }
 
     return 0;
@@ -366,9 +366,9 @@ void __fastcall BUTTON_SimulateClick(SMSGHANDLER_PARAMS* pMsg)
         {
             SMSGHANDLER_PARAMS tMsg;
             tMsg.hWnd = pMsg->hWnd;
-            ++gnWinCallbackDepth_007D55C4;
+            ++gnWinCallbackDepth;
             ptBtnData->controlHeader.pfHandleMouseUp(&tMsg);
-            --gnWinCallbackDepth_007D55C4;
+            --gnWinCallbackDepth;
         }
     }
 }
@@ -431,7 +431,7 @@ int __stdcall BUTTON_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
         D2SOUND_10039("data\\global\\sfx\\cursor\\button.wav");
     if ((pButton->dwButtonFlags & 3) && pButton->controlHeader.field_34)
     {
-        D2_ASSERT(gnWinCallbackDepth_007D55C4 > 0, 0x221);
+        D2_ASSERT(gnWinCallbackDepth > 0, 0x221);
         pButton->controlHeader.field_34(pMsg);
     }
     return 1;
@@ -454,7 +454,7 @@ int __stdcall BUTTON_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg)
         pButton->bIsPressed = 0;
         if (pButton->bIsCallbackPending && pButton->controlHeader.field_34)
         {
-            D2_ASSERT(gnWinCallbackDepth_007D55C4 > 0, 0x243);
+            D2_ASSERT(gnWinCallbackDepth > 0, 0x243);
             nResult = pButton->controlHeader.field_34(pMsg);
         }
         pButton->bIsCallbackPending = 0;
@@ -472,15 +472,15 @@ int __stdcall BUTTON_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
     if (pMsg->uMessage != 0x102 && pButton->nActivationVirtualKey == pMsg->wParam && pButton->controlHeader.pfHandleMouseDown)
     {
         pButton->nActivationCounter = 1;
-        D2_ASSERT(gnWinCallbackDepth_007D55C4 > 0, 0x263);
+        D2_ASSERT(gnWinCallbackDepth > 0, 0x263);
         nResult = pButton->controlHeader.pfHandleMouseDown(pMsg);
         if (pButton->controlHeader.pfHandleMouseUp)
         {
             SMSGHANDLER_PARAMS msg;
             msg.hWnd = pMsg->hWnd;
-            ++gnWinCallbackDepth_007D55C4;
+            ++gnWinCallbackDepth;
             pButton->controlHeader.pfHandleMouseUp(&msg);
-            --gnWinCallbackDepth_007D55C4;
+            --gnWinCallbackDepth;
         }
     }
     return nResult;

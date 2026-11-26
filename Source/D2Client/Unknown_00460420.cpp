@@ -58,7 +58,6 @@ void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 
 extern int gnScreenWidth; // 0x0071146C

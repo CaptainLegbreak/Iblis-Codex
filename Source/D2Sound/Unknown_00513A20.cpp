@@ -30,27 +30,27 @@ int __stdcall sub_00513A20_EnumCallback(void* pGuid, const char* szDescription, 
     return 1;
 }
 
-extern int gdwGlobal_00881768; // 0x00881768
+extern int gpDirectSound; // 0x00881768
 
-extern int gdwGlobal_0088176C; // 0x0088176C
+extern int gfPositionalSound; // 0x0088176C
 
-extern int gdwGlobal_00881770; // 0x00881770
+extern int gbEaxEnabled; // 0x00881770
 
-extern int gdwGlobal_00881774; // 0x00881774
+extern int gnEaxVersion; // 0x00881774
 
-extern int gdwGlobal_00881778; // 0x00881778
+extern int gbEaxRoomOff; // 0x00881778
 
-int gdwGlobal_00881790; // 0x00881790
+int gfSoundExpansion; // 0x00881790
 
 // 0x00513AE0
 int __cdecl D2SOUND_IsExpansion()
 {
-    return gdwGlobal_00881790;
+    return gfSoundExpansion;
 }
 
 extern D2ComObjectStrc* gpSoundObject_008816D8; // 0x008816D8
-extern D2ComObjectStrc* gpSoundObject_00881740; // 0x00881740
-extern D2ComObjectStrc* gpSoundObject_00881744; // 0x00881744
+extern D2ComObjectStrc* gpSoundObject; // 0x00881740
+extern D2ComObjectStrc* gpEaxBuffer; // 0x00881744
 
 // 0x00513AF0
 void __cdecl D2SOUND_ReleaseSoundObjects()
@@ -60,34 +60,34 @@ void __cdecl D2SOUND_ReleaseSoundObjects()
         gpSoundObject_008816D8->Release();
         gpSoundObject_008816D8 = 0;
     }
-    if (gpSoundObject_00881740)
+    if (gpSoundObject)
     {
-        gpSoundObject_00881740->Release();
-        gpSoundObject_00881740 = 0;
+        gpSoundObject->Release();
+        gpSoundObject = 0;
     }
-    if (gpSoundObject_00881744)
+    if (gpEaxBuffer)
     {
-        gpSoundObject_00881744->Release();
-        gpSoundObject_00881744 = 0;
+        gpEaxBuffer->Release();
+        gpEaxBuffer = 0;
     }
 }
 
 // 0x00513B50
 int __cdecl D2SOUND_GetDirectSound()
 {
-    return gdwGlobal_00881768;
+    return gpDirectSound;
 }
 
 // 0x00513B60
 int __cdecl D2SOUND_IsPositionalSoundEnabled()
 {
-    return gdwGlobal_0088176C;
+    return gfPositionalSound;
 }
 
 // 0x00513B70
 int __cdecl D2SOUND_IsEaxEnabled()
 {
-    return gdwGlobal_00881770;
+    return gbEaxEnabled;
 }
 
 // 0x00513B80
@@ -99,13 +99,13 @@ int __cdecl sub_00513B80()
 // 0x00513B90
 int __cdecl D2SOUND_GetEaxVersion()
 {
-    return gdwGlobal_00881774;
+    return gnEaxVersion;
 }
 
 // 0x00513BA0
 int __cdecl D2SOUND_IsEaxRoomOff()
 {
-    return gdwGlobal_00881778;
+    return gbEaxRoomOff;
 }
 
 // 0x00513BB0

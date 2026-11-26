@@ -104,7 +104,7 @@ static int __stdcall GFX_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit)
 
 static int GFX_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex); // 0x0046EA50
 
-extern "C" const char gszPathFormat_006D4124[]; // 0x006D4124
+extern "C" const char gszPathFormat[]; // 0x006D4124
 
 extern const char* gaszHashedFileNames[]; // 0x006D6C30
 
@@ -119,7 +119,6 @@ int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInv
 
 void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
 
-int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pContext, D2UnitStrc* pItem, int nArg3, int nArg4, int nArg5, int* pOut, unsigned char nArg7, int nArg8); // 0x004DBB50
 
 
 
@@ -144,7 +143,6 @@ void __fastcall GFX_ResetMonsterModeGfx(D2UnitStrc* pUnit); // 0x00470B70
 
 
 
-void __fastcall GFXUTIL_SetGfxEntryByte(D2UnitStrc* pUnit, int nIndex, unsigned char nValue); // 0x004DB1C0
 
 extern "C" D2GfxLayerHeaderStrc* __fastcall GFXUTIL_identity(void* pGfx); // 0x004DB040
 
@@ -590,7 +588,7 @@ void __fastcall GFX_LoadGlobalHashedFile(unsigned char nIndex)
 {
     char szPath[0x104];
 // build: symbol ?gszDataGlobal@* 0x006D4118
-    wsprintfA(szPath, gszPathFormat_006D4124, gszDataGlobal, gaszHashedFileNames[nIndex]);
+    wsprintfA(szPath, gszPathFormat, gszDataGlobal, gaszHashedFileNames[nIndex]);
     GFX_LoadHashedFile(&gtGlobalHashedFile, szPath);
 }
 

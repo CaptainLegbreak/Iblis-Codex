@@ -63,9 +63,9 @@ struct D2LightCellStrc
 
 extern int gbBlendLightColor; // 0x00712B8C
 
-extern int gnCellOriginX_007B0A54; // 0x007B0A54
+extern int gnCellOriginX; // 0x007B0A54
 
-extern int gnCellOriginY_007B0A58; // 0x007B0A58
+extern int gnCellOriginY; // 0x007B0A58
 
 typedef void (__fastcall* ACTCALLBACKFN)(D2ActiveRoomStrc* pRoom);
 
@@ -113,21 +113,21 @@ extern unsigned char** gppRampTable_007B954C; // 0x007B954C
 
 extern unsigned char* gpLerpTable40; // 0x007B9550
 
-extern int gdwGlobal_007BB384; // 0x007BB384
+extern int gpBloodRemap; // 0x007BB384
 
 void __stdcall D2GFX_SetGamma(void* pArg); // 0x004F5230
 
-extern int gdwGlobal_00712CCC; // 0x00712CCC
+extern int gnLightmapRenderMode; // 0x00712CCC
 
 extern int gdwGlobal_007BB38C; // 0x007BB38C
 
-extern int gdwGlobal_007BB3B4; // 0x007BB3B4
+extern int gnProgress; // 0x007BB3B4
 
 extern int gdwGlobal_00712F04; // 0x00712F04
 
-extern int gdwGlobal_007BC9B0; // 0x007BC9B0
+extern int gnSongMin; // 0x007BC9B0
 
-extern int gdwGlobal_007BC9B4; // 0x007BC9B4
+extern int gnSongMax; // 0x007BC9B4
 
 extern int gdwGlobal_007BC99C; // 0x007BC99C
 
@@ -201,7 +201,7 @@ int gnLightsAllocated; // 0x007B566C
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
-extern int gnGlobal_00712B8C;                                                                               // 0x00712B8C
+extern int gbBlendLightColor;                                                                               // 0x00712B8C
 
 static void __stdcall DLIGHTMAP_AddGridLight(int nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue, int nY, int nX); // 0x004747C0
 
@@ -220,7 +220,6 @@ struct D2DynamicPathStrc;
 
 
 
-unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
 
 
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource);                                       // 0x004743D0
@@ -252,13 +251,12 @@ unsigned long gdwIndicatorTick; // 0x007B5678
 
 int gdwGlobal_007BB388; // 0x007BB388
 
-int gdwGlobal_007BCC48; // 0x007BCC48
+int gbNpcButtonHandled; // 0x007BCC48
 
 unsigned int gadwLightMapRows[64][64]; // 0x007A8A50
 
 static void __stdcall DLIGHTMAP_UpdateLight(int nLevel, D2R01LightStrc* pLight); // 0x004755A0
 
-void __cdecl DLIGHTMAP_RunLightPass(); // 0x00475800
 
 enum D2C_DLightMapConstants
 {
@@ -611,14 +609,14 @@ void __stdcall DLIGHTMAP_UpdateLightGrid(int bClear)
             D2DrlgCoordsStrc tCoords;
             DUNGEON_GetRoomCoordinates(ppRoomList[i], &tCoords);
 
-            int nX0 = tCoords.nSubtileX - gnCellOriginX_007B0A54;
+            int nX0 = tCoords.nSubtileX - gnCellOriginX;
             int nX1 = nX0 + tCoords.nSubtileWidth;
             if (nX0 > 48 || nX1 < 0)
             {
                 continue;
             }
 
-            int nY0 = tCoords.nSubtileY - gnCellOriginY_007B0A58;
+            int nY0 = tCoords.nSubtileY - gnCellOriginY;
             int nY1 = nY0 + tCoords.nSubtileHeight;
             if (nY0 > 48 || nY1 < 0)
             {
@@ -660,13 +658,13 @@ void __cdecl DLIGHTMAP_ClearLightGrid()
 // 0x004747C0
 static void __stdcall DLIGHTMAP_AddGridLight(int nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue, int nY, int nX)
 {
-    const int nGridX = (nX >> 3) - gnCellOriginX_007B0A54;
+    const int nGridX = (nX >> 3) - gnCellOriginX;
     if ((unsigned int)nGridX > 0x2F)
     {
         return;
     }
 
-    const int nGridY = (nY >> 3) - gnCellOriginY_007B0A58;
+    const int nGridY = (nY >> 3) - gnCellOriginY;
     if ((unsigned int)nGridY > 0x2F)
     {
         return;
@@ -743,8 +741,8 @@ static void __stdcall DLIGHTMAP_AddAreaLight(D2R01LightStrc* pLight, int bNoClam
     const int nStartX = pLight->nX - (pLight->nX & 7) - nRadius;
     const int nStartY = pLight->nY - (pLight->nY & 7) - nRadius;
     const int nSpan = (nRadius * 2) >> 3;
-    if ((nStartX >> 3) > gnCellLimitX || (nStartX >> 3) + nSpan + 1 < gnCellOriginX_007B0A54
-        || (nStartY >> 3) > gnCellLimitY || (nStartY >> 3) + nSpan + 1 < gnCellOriginY_007B0A58)
+    if ((nStartX >> 3) > gnCellLimitX || (nStartX >> 3) + nSpan + 1 < gnCellOriginX
+        || (nStartY >> 3) > gnCellLimitY || (nStartY >> 3) + nSpan + 1 < gnCellOriginY)
     {
         return;
     }
@@ -773,7 +771,7 @@ static void __stdcall DLIGHTMAP_AddAreaLight(D2R01LightStrc* pLight, int bNoClam
 // 0x00474A30
 static inline unsigned char DLIGHTMAP_IsCellBlocked(int nX, int nY)
 {
-    nX = (nX >> 3) - gnCellOriginX_007B0A54;
+    nX = (nX >> 3) - gnCellOriginX;
     if (nX < 0)
     {
         return 1;
@@ -782,7 +780,7 @@ static inline unsigned char DLIGHTMAP_IsCellBlocked(int nX, int nY)
     {
         return 1;
     }
-    nY = (nY >> 3) - gnCellOriginY_007B0A58;
+    nY = (nY >> 3) - gnCellOriginY;
     if (nY < 0)
     {
         return 1;
@@ -929,13 +927,13 @@ static void DLIGHTMAP_AddBlendedAreaLight(D2R01LightStrc* pLight)
     const int nStartY = pLight->nY - (pLight->nY & 7) - pLight->nRadius;
     const int nSpan = (pLight->nRadius * 2) >> 3;
     const int nCellStartX = nStartX >> 3;
-    if (nCellStartX > gnCellLimitX || nCellStartX + nSpan + 1 < gnCellOriginX_007B0A54)
+    if (nCellStartX > gnCellLimitX || nCellStartX + nSpan + 1 < gnCellOriginX)
     {
         return;
     }
 
     const int nCellStartY = nStartY >> 3;
-    if (nCellStartY > gnCellLimitY || nCellStartY + nSpan + 1 < gnCellOriginY_007B0A58)
+    if (nCellStartY > gnCellLimitY || nCellStartY + nSpan + 1 < gnCellOriginY)
     {
         return;
     }
@@ -1273,7 +1271,7 @@ void __fastcall SCMD_ReadGridCell(int nX, int nY, unsigned char* pValue0, unsign
 
     D2GridCellStrc* pCell = &gtGridCells_007B0E68[nCellY * GRID_SIZE + nCellX];
     *pValue0 = pCell->nValue0;
-    if (gnGlobal_00712B8C)
+    if (gbBlendLightColor)
     {
         *pValue1 = pCell->nValue1;
         *pValue2 = pCell->f_6;
@@ -1464,7 +1462,7 @@ int gbCacheStatsChecked;                                                        
 // 0x00478150
 int __cdecl sub_00478150()
 {
-    return gdwGlobal_007BB3B4;
+    return gnProgress;
 }
 
 
@@ -1485,7 +1483,7 @@ int __cdecl sub_00486E00()
 // 0x00489870
 int __cdecl sub_00489870()
 {
-    return gdwGlobal_007BCC48;
+    return gbNpcButtonHandled;
 }
 
 // 0x00489CD0

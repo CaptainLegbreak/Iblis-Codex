@@ -53,20 +53,20 @@ extern "C" int __cdecl tolower(int nChar); // 0x0068523E
 extern "C" int __cdecl toupper(int nChar); // 0x00685385
 extern "C" void __cdecl srand(unsigned int nSeed); // 0x00687454
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
-extern D2CelFileStrc* gpChatBackground_0077BC04; // 0x0077BC04
-extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
+extern D2CelFileStrc* gpChatBackground; // 0x0077BC04
+extern D2ComInterfaceStrc* gpFuncTable; // 0x0077ABF0
 extern D2LaunchCharEntryStrc* gpCharList; // 0x00779DBC
 extern D2LaunchCharSelectStrc* gpCharSelect_007795D4; // 0x007795D4
 extern D2WinControlStrc* gpControl_00798BC4; // 0x00798BC4
-extern D2WinControlStrc* gpControl_00798BCC; // 0x00798BCC
-extern D2WinControlStrc* gpControl_00798BF0; // 0x00798BF0
-extern D2WinControlStrc* gpControl_00798BF4; // 0x00798BF4
-extern D2WinControlStrc* gpControl_00798C28; // 0x00798C28
-extern D2WinControlStrc* gpControl_00798C48; // 0x00798C48
-extern D2WinControlStrc* gpEdit_0077BCF4; // 0x0077BCF4
+extern D2WinControlStrc* gpJoinButton; // 0x00798BCC
+extern D2WinControlStrc* gpPanelTitle; // 0x00798BF0
+extern D2WinControlStrc* gpPanelText; // 0x00798BF4
+extern D2WinControlStrc* gpCreateButton; // 0x00798C28
+extern D2WinControlStrc* gpPanelCancelButton; // 0x00798C48
+extern D2WinControlStrc* gpChannelNameEdit; // 0x0077BCF4
 extern D2WinControlStrc* gpGameList; // 0x00798BC0
-extern D2WinControlStrc* gpGameText_00798BC4; // 0x00798BC4
-extern D2WinControlStrc* gpMaxPlayerControl_00798C38; // 0x00798C38
+extern D2WinControlStrc* gpGameInfoText; // 0x00798BC4
+extern D2WinControlStrc* gpMaxPlayerControl; // 0x00798C38
 extern char gnSelectModeB_0070CD63; // 0x0070CD63
 extern char gszLevelDiffText[]; // 0x0070EBD0
 extern char gszMaxPlayersText[]; // 0x0070EBD4
@@ -77,10 +77,10 @@ extern int gnLastGameCount; // 0x00798CC8
 extern int gnHistoryIndex; // 0x0070CD74
 extern int gnGameListLastSelection; // 0x0070EBDC
 extern int gnSelectFlag; // 0x0070CD6C
-extern int gnSelectIdA_0070CD7C; // 0x0070CD7C
+extern int gnSelectIdA; // 0x0070CD7C
 extern int gnSelectIdB; // 0x0070CD80
 extern int gnSelectedLine; // 0x0070EC1C
-extern int gnValue_00798CCC; // 0x00798CCC
+extern int gnGameCount; // 0x00798CCC
 extern unsigned short gwRequestId; // 0x0070CD60
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl GAME_IsLaunchExpansion(); // 0x0043DB10

@@ -390,7 +390,7 @@ void __fastcall GAME_SetResolution(int nResolution)
 int __stdcall WINMAIN_PollSystemPackets(int nUnused)
 {
     unsigned char pBuffer[0x200];
-    if ((gdwGlobal_007A0610 != 0 && gdwGlobal_007A0610 != 1) || !WINDOW_GetState())
+    if ((gnGameType != 0 && gnGameType != 1) || !WINDOW_GetState())
     {
         if (GetTickCount() - gdwStartSessionTick > 10000)
         {
@@ -441,7 +441,7 @@ int __cdecl GAME_GetConnectFailed()
 // 0x0044BBB0
 int __stdcall WINMAIN_WaitConnect(int nUnused)
 {
-    if ((gdwGlobal_007A0610 != 0 && gdwGlobal_007A0610 != 1) || !WINDOW_GetState())
+    if ((gnGameType != 0 && gnGameType != 1) || !WINDOW_GetState())
     {
         const int nStatus = CLIENT_GetConnectionStatus();
         if (nStatus == 0)
@@ -468,7 +468,7 @@ int __fastcall GAME_RunClient(int nArg, const char* szAddress)
 int __cdecl WINMAIN_StartSession()
 {
     gbGameServerReady = 0;
-    if (gdwGlobal_007A0610 == 0)
+    if (gnGameType == 0)
     {
         SERVER_Initialize(1, 1);
         CLIENT_Initialize(1, 0);
@@ -479,7 +479,7 @@ int __cdecl WINMAIN_StartSession()
         gnSubsystemActive = 1;
         GAME_Initialize();
     }
-    else if (gdwGlobal_007A0610 == 1)
+    else if (gnGameType == 1)
     {
         SERVER_Initialize(2, 1);
         CLIENT_Initialize(2, 0);
@@ -489,13 +489,13 @@ int __cdecl WINMAIN_StartSession()
         gnSubsystemActive = 1;
         GAME_Initialize();
     }
-    else if (gdwGlobal_007A0610 == 4)
+    else if (gnGameType == 4)
     {
 // build: symbol ?gszBattleNetIP@* 0x0070F028
         CLIENT_Initialize(0, gszBattleNetIP);
         SCMD_RunMessageLoop(WINMAIN_WaitConnect);
     }
-    else if (gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 8)
+    else if (gnGameType == 6 || gnGameType == 8)
     {
         SERVER_Initialize(0, 1);
         SERVER_SetMaxClientsPerGame(8);
@@ -523,7 +523,7 @@ int __stdcall WINMAIN_PumpSystemPackets(int nUnused)
 {
     unsigned char pBuffer[0x200];
     WINDOW_GetState();
-    if (gdwGlobal_007A0610 == 0 || gdwGlobal_007A0610 == 1)
+    if (gnGameType == 0 || gnGameType == 1)
     {
 // build: symbol ?GAME_ProcessNetworkMessages@* 0x0052CFE0
         GAME_ProcessNetworkMessages();
@@ -544,7 +544,7 @@ int __cdecl WINMAIN_StopSession()
     gdwStopSessionTick = GetTickCount();
     SCMD_RunMessageLoop(WINMAIN_PumpSystemPackets);
     CLIENT_Release();
-    if (gdwGlobal_007A0610 == 0 || gdwGlobal_007A0610 == 1 || gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 8)
+    if (gnGameType == 0 || gnGameType == 1 || gnGameType == 6 || gnGameType == 8)
         SERVER_Release();
     return WINMAIN_PopStateValue();
 }

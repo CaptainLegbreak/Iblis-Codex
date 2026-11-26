@@ -23,7 +23,7 @@ struct D2UiBlockRectStrc
     char unk0x10[0x110];
 };
 
-extern int gnBlockRectCount_007C54A0;                                                                       // 0x007C54A0
+extern int gnItemLabelCount;                                                                       // 0x007C54A0
 
 extern D2UiBlockRectStrc gaBlockRects_007C54A8[32];                                                         // 0x007C54A8
 
@@ -50,9 +50,7 @@ int __stdcall UNITS_GetPrecisionX(D2UnitStrc*); // 0x006203B0
 
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc*); // 0x00620410
 
-int __stdcall SCALE_CheckPerspectivePosition(int,int); // 0x004F66E0
 
-void __stdcall SCALE_AdjustPerspectivePosition(int,int,int,int*,int*); // 0x004F6760
 
 
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc*); // 0x00620650
@@ -126,13 +124,13 @@ int __fastcall SHOWITEMS_ClampRectToScreen(int* pLeft, int* pTop, int* pRight, i
 
     sub_004C0640_ClampToScreen(pLeft, pTop, pRight, pBottom, nMaxX, nMinX, nMaxY);
 
-    if (gnBlockRectCount_007C54A0 >= 32)
+    if (gnItemLabelCount >= 32)
     {
         FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x47);
         exit(-1);
     }
 
-    for (int i = 0; i < gnBlockRectCount_007C54A0; ++i)
+    for (int i = 0; i < gnItemLabelCount; ++i)
     {
         const int bX = (*pLeft <= gaBlockRects_007C54A8[i].nRight && *pRight >= gaBlockRects_007C54A8[i].nLeft) ? 1 : 0;
         const int bY = (*pTop <= gaBlockRects_007C54A8[i].nBottom && *pBottom >= gaBlockRects_007C54A8[i].nTop) ? 1 : 0;

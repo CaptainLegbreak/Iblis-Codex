@@ -52,7 +52,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 static int gnPetIconPopupState;                                                                               // 0x007BEECC
 
-extern void* gpCel_007BEF18; // 0x007BEF18
+extern void* gpBorderFrameCel; // 0x007BEF18
 
 extern void* gpCtrlPnl7Cel; // 0x007BEF1C
 
@@ -157,7 +157,6 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 
-int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
 
@@ -1392,24 +1391,24 @@ void __cdecl INV_LoadPanelCels()
         {
             sprintf(szPath, "%s\\UI\\InvChar", szDataLocal_006D41A8);
         }
-        gpCellFile_007BEF64 = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gpInvCharCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
     else
     {
-        gpCellFile_007BEF64 = GAME_LoadUiCelFile(bExpansion ? "Panel\\InvChar6" : "Panel\\InvChar");
+        gpInvCharCel = GAME_LoadUiCelFile(bExpansion ? "Panel\\InvChar6" : "Panel\\InvChar");
     }
     gpCellFile_007BEF78 = GAME_LoadUiCelFile("Panel\\Arrow");
-    gpCellFile_007BEF24 = GAME_LoadUiCelFile("Panel\\Invwarn");
-    gpCellFile_007BEF60 = GAME_LoadUiCelFile("Panel\\DuroIcon");
-    gpCellFile_007BEF14 = GAME_LoadUiCelFile("Panel\\GemSocket");
+    gpInvWarnCel = GAME_LoadUiCelFile("Panel\\Invwarn");
+    gpDuroIconCel = GAME_LoadUiCelFile("Panel\\DuroIcon");
+    gpGemSocketCel = GAME_LoadUiCelFile("Panel\\GemSocket");
     gpCellFile_007BEF10 = GAME_LoadUiCelFile("Panel\\ctrlpnl_popbelt");
-    gpCellFile_007BEF68 = GAME_LoadUiCelFile("Panel\\Hlthmana");
-    gpCellFile_007BEF80 = GAME_LoadUiCelFile("Panel\\overlap");
-    gpStateButtonCel_007BEF70 = GAME_LoadUiCelFile("Panel\\menubutton");
+    gpHlthManaCel = GAME_LoadUiCelFile("Panel\\Hlthmana");
+    gpOverlapCel = GAME_LoadUiCelFile("Panel\\overlap");
+    gpStateButtonCel = GAME_LoadUiCelFile("Panel\\menubutton");
     gpCellFile_007BEF2C = GAME_LoadUiCelFile("Panel\\menupanel");
     gpCellFile_007BEF20 = GAME_LoadUiCelFile("Panel\\skillpoints");
-    gpGlobal_007BEF0C = GAME_LoadUiCelFile("Panel\\runbutton");
-    gpCellFile_007BEF28 = GAME_LoadUiCelFile("Panel\\hostilepic");
+    gpRunButtonCel = GAME_LoadUiCelFile("Panel\\runbutton");
+    gpHostilePicCel = GAME_LoadUiCelFile("Panel\\hostilepic");
     memset(gabGlobal_007BEF30, 0, sizeof(gabGlobal_007BEF30));
     SRegLoadValue("Diablo II", "Show HP Text", 0, &gdwShowHpText_007BEFDC);
     SRegLoadValue("Diablo II", "Show MP Text", 0, &gdwShowMpText_007BEFE0);
@@ -1431,7 +1430,7 @@ void __cdecl HIREABLES_FreePanelCels()
     D2_FREE_PANEL_CEL(gpGemSocketCel);
     D2_FREE_PANEL_CEL(gpPopBeltCel);
     D2_FREE_PANEL_CEL(gp800CtrlPnl7Cel);
-    D2_FREE_PANEL_CEL(gpCel_007BEF18);
+    D2_FREE_PANEL_CEL(gpBorderFrameCel);
     D2_FREE_PANEL_CEL(gpCtrlPnl7Cel);
     D2_FREE_PANEL_CEL(gpHlthManaCel);
     D2_FREE_PANEL_CEL(gpOverlapCel);
@@ -1485,7 +1484,7 @@ void __cdecl WARDENCLIENT_DrawHostileIcon()
     {
         return;
     }
-    tContext.pCellFile = gpCellFile_007BEF28;
+    tContext.pCellFile = gpHostilePicCel;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     if (GAME_GetUIVarState(0x0A))

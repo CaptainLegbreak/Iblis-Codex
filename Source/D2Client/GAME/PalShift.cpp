@@ -79,11 +79,8 @@ int __fastcall DATATBLS_GetMonStatsTxtRecordCount();                            
 
 D2PalShiftNodeStrc* __fastcall PALSHIFT_FindPalShiftNode(int nId);                                          // 0x00477030
 
-int __fastcall ARCHIVE_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped); // 0x00516E46
 
-void __fastcall ARCHIVE_CloseFile(void* hArchive, void* hFile);                                             // 0x00516E84
 
-void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuffer, unsigned int dwBytesToRead); // 0x00516F85
 
 
 

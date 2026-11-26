@@ -232,11 +232,11 @@ static D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
 
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError); // 0x006BD130
 
-extern D2TxtLinkStrc* gpSkillCalcLinker_0096BC6C; // 0x0096BC6C
+extern D2TxtLinkStrc* gpSkillCalcLinker; // 0x0096BC6C
 
-extern D2TxtLinkStrc* gpSkillCodeLinker_0096BCA0; // 0x0096BCA0
+extern D2TxtLinkStrc* gpSkillCodeLinker; // 0x0096BCA0
 
-extern D2TxtLinkStrc* gpMissilesLinker_0096C798; // 0x0096C798
+extern D2TxtLinkStrc* gpMissilesLinker; // 0x0096C798
 
 extern char* gpMissCode; // 0x0096BC90
 
@@ -250,7 +250,7 @@ int __stdcall DATATBLS_CompileExpression(const char* szFormulaString, char* pOut
 
 static int __stdcall DATATBLS_ClampMissileField(D2BinFieldStrc* pFields, int nMissileId, int nOffset, int nType, int nMin, int nMax); // 0x00661A30
 
-D2TxtLinkStrc* gpMissileCalcLinker_0096BC8C; // 0x0096BC8C
+D2TxtLinkStrc* gpMissileCalcLinker; // 0x0096BC8C
 
 int gnMissCodeSize; // 0x0096BC94
 
@@ -341,9 +341,9 @@ int __fastcall DATATBLS_MissileLinkerResolveKeyword(char* szText, int* a2, int a
     {
         if (nKeywordNumber == 3)
         {
-            if (gpSkillCodeLinker_0096BCA0)
+            if (gpSkillCodeLinker)
             {
-                const int nRow = FOG_GetRowFromTxt(gpSkillCodeLinker_0096BCA0, szText, 0);
+                const int nRow = FOG_GetRowFromTxt(gpSkillCodeLinker, szText, 0);
                 if (nRow >= 0)
                 {
                     *a2 = 1;
@@ -351,16 +351,16 @@ int __fastcall DATATBLS_MissileLinkerResolveKeyword(char* szText, int* a2, int a
                 }
 
                 DATATBLS_TextToLinkCode(szText, szCode);
-                const int nIndex = FOG_GetLinkIndex(gpSkillCalcLinker_0096BC6C, *(unsigned int*)szCode, 1);
+                const int nIndex = FOG_GetLinkIndex(gpSkillCalcLinker, *(unsigned int*)szCode, 1);
                 *a2 = 0;
                 return nIndex;
             }
         }
         else if (nKeywordNumber == 4)
         {
-            if (gpMissilesLinker_0096C798)
+            if (gpMissilesLinker)
             {
-                const int nRow = FOG_GetRowFromTxt(gpMissilesLinker_0096C798, szText, 0);
+                const int nRow = FOG_GetRowFromTxt(gpMissilesLinker, szText, 0);
                 if (nRow >= 0)
                 {
                     *a2 = 1;
@@ -369,14 +369,14 @@ int __fastcall DATATBLS_MissileLinkerResolveKeyword(char* szText, int* a2, int a
             }
 
             DATATBLS_TextToLinkCode(szText, szCode);
-            const int nIndex = FOG_GetLinkIndex(gpMissileCalcLinker_0096BC8C, *(unsigned int*)szCode, 1);
+            const int nIndex = FOG_GetLinkIndex(gpMissileCalcLinker, *(unsigned int*)szCode, 1);
             *a2 = 0;
             return nIndex;
         }
     }
 
     DATATBLS_TextToLinkCode(szText, szCode);
-    const int nIndex = FOG_GetLinkIndex(gpMissileCalcLinker_0096BC8C, *(unsigned int*)szCode, 1);
+    const int nIndex = FOG_GetLinkIndex(gpMissileCalcLinker, *(unsigned int*)szCode, 1);
     *a2 = 0;
     return nIndex;
 }

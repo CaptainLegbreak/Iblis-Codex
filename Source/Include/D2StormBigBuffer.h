@@ -4,7 +4,7 @@
 #include "D2StormArrayA.h"
 #include "stpl.h"
 
-extern char gszTypeNameUInt_00708874[];                                                                     // 0x00708874
+extern char gszTypeNameUInt[];                                                                     // 0x00708874
 
 struct BigBuffer
 {
@@ -22,7 +22,7 @@ struct BigBuffer
     ~BigBuffer()
     {
         if (m_array.m_data)
-            SMemFree(m_array.m_data, gszTypeNameUInt_00708874, -2, 0);
+            SMemFree(m_array.m_data, gszTypeNameUInt, -2, 0);
     }
     unsigned int Count() const
     {

@@ -396,9 +396,9 @@ void __fastcall D2Win_10117_DrawText(const unsigned short* wszText, int nX, int 
 
 extern struct D2CelFileStrc* gpRecipeScrollCel;                                                  // 0x007BCE8C
 
-extern int gnRecipeScrollColor_007BCEA4;                                                                    // 0x007BCEA4
+extern int gnRecipeScrollColor;                                                                    // 0x007BCEA4
 
-extern unsigned short gwszRecipeScrollText_007BCEA8[];                                                      // 0x007BCEA8
+extern unsigned short gwszRecipeScrollText[];                                                      // 0x007BCEA8
 
 static int INV_IsOverGoldButton(int nX, int nY); // 0x00486DA0
 
@@ -733,7 +733,7 @@ void __stdcall INV_DrawRecipeScroll()
     TEXTURE_CelDraw(&tContext, gnPanelOffsetX + 256, gnScreenHeight + gnPanelOffsetY - 48, -1, DRAWMODE_NORMAL, 0);
 
     const int nOldSize = D2Win_10127_SetFont(4);
-    D2Win_10117_DrawText(gwszRecipeScrollText_007BCEA8, gnPanelOffsetX + 80, 130 - gnPanelOffsetY, gnRecipeScrollColor_007BCEA4, 0);
+    D2Win_10117_DrawText(gwszRecipeScrollText, gnPanelOffsetX + 80, 130 - gnPanelOffsetY, gnRecipeScrollColor, 0);
     D2Win_10127_SetFont(nOldSize);
 }
 

@@ -90,7 +90,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 void __cdecl CURSOR_UpdateCursor();                                                                // 0x00468310
 
-int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
 

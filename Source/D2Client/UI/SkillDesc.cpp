@@ -159,7 +159,6 @@ extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
@@ -274,7 +273,7 @@ extern D2SkillTextPositionStrc gaSkillTextPositions[]; // 0x0072D840
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 extern "C" const char gszFormatD[]; // 0x006D57BC
 
-extern const char gszSkillDescFile_006DBF24[]; // 0x006DBF24
+extern const char gszSkillDescFile[]; // 0x006DBF24
 
 void __fastcall GAME_StrToUpper(Unicode*); // 0x00452180
 
@@ -346,9 +345,9 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
 
 static int SKILLDESC_AppendSkillDescStrLong(Unicode* wszOut, int nSkillId);
 
-extern "C" const char szFmtPlusDec_006DBE9C[]; // 0x006DBE9C
+extern "C" const char gszFmtPlusDecimal[]; // 0x006DBE9C
 
-extern "C" const char szFmtDec_006DBE94[]; // 0x006DBE94
+extern "C" const char gszFmtDecimal[]; // 0x006DBE94
 
 __declspec(noinline) static int __stdcall SKILLDESC_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue);
 
@@ -606,7 +605,6 @@ D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
 
-int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 
 
 
@@ -3904,7 +3902,7 @@ void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
     D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxt) return;
     int nLevel = SKILLS_GetSkillLevel(pUnit, pSkill, 1);
-    int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile_006DBF24, 0x1588);
+    int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0x1588);
     D2SkillDescTxt* pDesc = sub_004A89D0_SkillDescRec(nSkillId);
     if (!pDesc) return;
     D2Win_10127_SetFont(6);
@@ -4366,7 +4364,6 @@ static int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unico
 
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 
 int __fastcall UNITS_GetWeaponClass(D2UnitStrc* pUnit); // 0x00623C60

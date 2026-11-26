@@ -97,7 +97,7 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
 
 int __fastcall CodecEncodeSprite(D2DccFrameStrc* pFrame, D2Dc6FrameStrc* pHeader, unsigned char* pDst); // 0x0060BDB0
 
-extern D2CriticalSectionStrc gtCodecLock_008F03CC;                                                          // 0x008F03CC
+extern D2CriticalSectionStrc gtCodecLock;                                                          // 0x008F03CC
 
 extern unsigned char gabDccPixels[];                                                               // 0x008F03E8
 
@@ -711,7 +711,7 @@ int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSiz
     D2DccIterStrc tIt;
     D2CmpByteMapStrc tInverse;
 
-    EnterCriticalSection(&gtCodecLock_008F03CC);
+    EnterCriticalSection(&gtCodecLock);
 
     DccCopyHeader(&tHeader, DccGetFile(dwFile));
     sub_0060B140_BitBufferInit(nSize, (unsigned int*)pData, &tCursor);
@@ -886,7 +886,7 @@ int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSiz
         tCursor.AlignToByte();
     }
 
-    LeaveCriticalSection(&gtCodecLock_008F03CC);
+    LeaveCriticalSection(&gtCodecLock);
     return (int)pResult;
 }
 

@@ -160,12 +160,12 @@ unsigned char __stdcall PALETTE_FindPaletteIndex(unsigned char nRed, unsigned ch
     return GetClosestColor((const unsigned char*)gatRGBAPalette, 0x100, nRed, nGreen, nBlue);
 }
 
-tagPALETTEENTRY gaPalette_0081E668[256]; // 0x0081E668
+tagPALETTEENTRY gatRGBAPalette[256]; // 0x0081E668
 
 // 0x004FB1B0
 void __cdecl PALETTE_ApplyScreenPalette()
 {
-    D2GFX_SetPalette(gaPalette_0081E668);
+    D2GFX_SetPalette(gatRGBAPalette);
 }
 
 // build: symbol ?FOG_IsExpansion@* 0x00408F20

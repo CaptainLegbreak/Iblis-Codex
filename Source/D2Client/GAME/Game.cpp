@@ -263,17 +263,17 @@ struct D2AutomapRecordStrc;
 
 extern int gbStopMainLoop; // 0x0077932C
 
-extern int gdwGlobal_007799D8; // 0x007799D8
+extern int gfConnectCancelled; // 0x007799D8
 
 extern char gszPreferredRealm[]; // 0x00779A40
 
-extern int gdwGlobal_0077AC04; // 0x0077AC04
+extern int gfCharSelCancelled; // 0x0077AC04
 
 extern int gdwGlobal_0077BBF8; // 0x0077BBF8
 
 extern char gszChannelName[]; // 0x00798D30
 
-extern int gdwGlobal_007992A4; // 0x007992A4
+extern int ghThread; // 0x007992A4
 
 extern char gszMcpGameServerIP[]; // 0x007992CC
 
@@ -283,7 +283,7 @@ extern int gdwGlobal_0079929C; // 0x0079929C
 
 extern int gdwMcpGameHash; // 0x00798F88
 
-extern int gdwGlobal_007992F4; // 0x007992F4
+extern int gpMcpPacket; // 0x007992F4
 
 extern int gbConnectFailed; // 0x007A0460
 
@@ -307,11 +307,11 @@ int gbCinematicExit; // 0x007A0674
 
 int gnSkillDelayUntil;                                                                                     // 0x007A04FC
 
-extern int gdwGlobal_007A04A4; // 0x007A04A4
+extern int gdwPing; // 0x007A04A4
 
-extern int gdwGlobal_007A04D0; // 0x007A04D0
+extern int gdwPingAverage; // 0x007A04D0
 
-extern char gData_007A04D4[]; // 0x007A04D4
+extern char gtPongData[]; // 0x007A04D4
 
 extern int gdwGlobal_007A05F4; // 0x007A05F4
 
@@ -459,11 +459,11 @@ extern int gnAutomapHeight_007A521C; // 0x007A521C
 
 int __stdcall sub_00420290_BreakHandlerChain(void* pMsg); // 0x00420290
 
-extern int gnGlobal_007A0608; // 0x007A0608
+extern int gbEndScreenDismissed; // 0x007A0608
 
 void __fastcall ROSTER_SetPrimaryClientFlag(int bClear); // 0x0047A9B0
 
-extern char gszRealm_007A0500[]; // 0x007A0500
+extern char gszRealm[]; // 0x007A0500
 
 void __cdecl sub_004776E0_SetModeValuesOne(); // 0x004776E0
 
@@ -1050,7 +1050,7 @@ unsigned char gnClientDifficulty;                                               
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);
 
-extern "C" const char szWardenClientFile_006D8E18[];
+extern "C" const char szWardenClientFile[];
 
 class WardenModule
 {
@@ -1111,7 +1111,7 @@ void __cdecl DLIGHTMAP_InitLightTables(); // 0x00475B40
 
 D2DrlgActStrc* __stdcall DUNGEON_AllocAct(unsigned char nAct, unsigned int nInitSeed, int bClient, D2GameStrc* pGame, unsigned char nDifficulty, void* pMemPool, int nTownLevelId, AUTOMAPFN pfAutoMap, TOWNAUTOMAPFN pfTownAutoMap); // 0x006194A0
 
-int gdwGlobal_0077AC08; // 0x0077AC08
+int gbBattleNetConnected; // 0x0077AC08
 
 int gbMcpCharCreateReceived; // 0x007992E8
 
@@ -1277,7 +1277,7 @@ extern char gaClientState_007A0480[0x80];                                       
 
 D2PoolSystemStrc* gpMemPool;                                                                       // 0x007A0488
 
-extern unsigned long gdwNextTick_007A049C;                                                                  // 0x007A049C
+extern unsigned long gdwNextKeepAliveTick;                                                                  // 0x007A049C
 
 extern unsigned long gdwLastPingTick;                                                                  // 0x007A04A0
 
@@ -1317,7 +1317,7 @@ extern int gnPopUpTextX;                                                        
 
 extern int gnPopUpTextY;                                                                              // 0x007A2D24
 
-extern Unicode gwszHoverLine_007A2D30[];                                                                    // 0x007A2D30
+extern Unicode gwszHoverLine[];                                                                    // 0x007A2D30
 
 extern int gnHoverTextColor;                                                                       // 0x007A2F30
 
@@ -1707,7 +1707,7 @@ sub_00426D80::~sub_00426D80()
 // 0x0042F6D0
 int __cdecl sub_0042F6D0()
 {
-    return gdwGlobal_00779974;
+    return gfMenusDone;
 }
 
 // 0x0042FA30
@@ -2301,11 +2301,11 @@ void __cdecl GAME_AverageFrameCounters()
     const int nNow = gdwTickCount;
     if ((unsigned int)(nNow - gdwFpsWindowStart) > 3000)
     {
-        gnFramesPerSecond = gdwGlobal_007A04AC / 3;
-        gdwGlobal_007A04B0 = gdwGlobal_007A04B4 / 3;
+        gnFramesPerSecond = gnFpsFrameCount / 3;
+        gnSkippedFrames = gnFpsSkipCount / 3;
         gdwFpsWindowStart = nNow;
-        gdwGlobal_007A04AC = 0;
-        gdwGlobal_007A04B4 = 0;
+        gnFpsFrameCount = 0;
+        gnFpsSkipCount = 0;
     }
 }
 
@@ -2314,25 +2314,25 @@ void __cdecl GAME_ResetFrameTimer()
 {
     gdwFpsWindowStart = gdwTickCount;
     gnFramesPerSecond = 0x19;
-    gdwGlobal_007A04B0 = 0;
-    gdwGlobal_007A04AC = 0;
-    gdwGlobal_007A04B4 = 0;
+    gnSkippedFrames = 0;
+    gnFpsFrameCount = 0;
+    gnFpsSkipCount = 0;
 }
 
 // 0x0044CD70
 void __cdecl GAME_TickKeepAlive()
 {
     const unsigned long dwNow = GetTickCount();
-    if (gdwNextTick_007A049C < dwNow)
+    if (gdwNextKeepAliveTick < dwNow)
     {
         sub_00477DD0();
         gdwLastPingTick = dwNow;
         // Both arms set the same interval, but the original still tests the config flag: its code reads
         // gpClientConfig and tests 0x1EF bit 2 with nothing depending on the result.
         if (gpClientConfig->wFlags1EF & 4)
-            gdwNextTick_007A049C = dwNow + 5000;
+            gdwNextKeepAliveTick = dwNow + 5000;
         else
-            gdwNextTick_007A049C = dwNow + 5000;
+            gdwNextKeepAliveTick = dwNow + 5000;
     }
 }
 
@@ -2351,19 +2351,19 @@ int __cdecl GAME_GetSkillDelayUntil()
 // 0x0044CE60
 int __cdecl GAME_GetPing()
 {
-    return gdwGlobal_007A04A4;
+    return gdwPing;
 }
 
 // 0x0044CE70
 int __cdecl sub_0044CE70()
 {
-    return gdwGlobal_007A04D0;
+    return gdwPingAverage;
 }
 
 // 0x0044CE80
 void* __cdecl sub_0044CE80()
 {
-    return gData_007A04D4;
+    return gtPongData;
 }
 
 // 0x0044CE90
@@ -2507,7 +2507,7 @@ void __stdcall GAME_HandleKeyDown(void* pMsg)
 {
     int nOne = 1;
     if ((*(int*)((char*)pMsg + 0x0C) & 0x40000000) == 0)
-        gnGlobal_007A0608 = nOne;
+        gbEndScreenDismissed = nOne;
     *(int*)((char*)pMsg + 0x18) = nOne;
     *(int*)((char*)pMsg + 0x1C) = 0;
     sub_00420290_BreakHandlerChain(pMsg);
@@ -2660,7 +2660,7 @@ void __fastcall sub_0044D880_ApplyConfigNop(D2ConfigStrc* pConfig)
 // 0x0044D900
 void __fastcall GAME_ApplyConfigRealm(D2ConfigStrc* pConfig)
 {
-    SStrCopy(gszRealm_007A0500, pConfig->szRealm, 0x20);
+    SStrCopy(gszRealm, pConfig->szRealm, 0x20);
 }
 
 // 0x0044D920
@@ -2780,7 +2780,7 @@ int __cdecl GAME_GetCurrentTime()
 // 0x0044DAB0
 int __cdecl sub_0044DAB0()
 {
-    return gdwGlobal_007A0494;
+    return gnFrameCount;
 }
 
 // 0x0044DAC0
@@ -2804,7 +2804,7 @@ int __cdecl GAME_GetFramesPerSecond()
 // 0x0044DAF0
 int __cdecl GAME_GetSkippedFrames()
 {
-    return gdwGlobal_007A04B0;
+    return gnSkippedFrames;
 }
 
 // 0x0044DB00
@@ -2828,7 +2828,7 @@ int __cdecl sub_0044DB20()
 // 0x0044DB30
 int __cdecl GAME_GetConnectionType()
 {
-    return gdwGlobal_007A0610;
+    return gnGameType;
 }
 
 // 0x0044DB40
@@ -2889,7 +2889,7 @@ void __fastcall GAME_SetLadderFlag(int nValue)
 // 0x0044DCA0
 int __cdecl GAME_GetLadderFlag()
 {
-    return (gdwGlobal_007A0610 >= 2 && gdwGlobal_007A0610 <= 3) ? gbLadder : 1;
+    return (gnGameType >= 2 && gnGameType <= 3) ? gbLadder : 1;
 }
 
 // 0x0044DCC0
@@ -3105,13 +3105,13 @@ D2WardenModuleHolderBStrc::~D2WardenModuleHolderBStrc()
 // build: symbol ?WARDENCLIENT_AllocLoaderMemory@* 0x0047FBF0
 void* __fastcall WARDENCLIENT_AllocLoaderMemory(unsigned int nSize)
 {
-    return SMemAlloc(nSize, szWardenClientFile_006D8E18, 0x10D, 0);
+    return SMemAlloc(nSize, szWardenClientFile, 0x10D, 0);
 }
 
 // build: symbol ?WARDENCLIENT_FreeLoaderMemory@* 0x0047FC10
 void __fastcall WARDENCLIENT_FreeLoaderMemory(void* pMemory)
 {
-    SMemFree(pMemory, szWardenClientFile_006D8E18, 0x117, 0);
+    SMemFree(pMemory, szWardenClientFile, 0x117, 0);
 }
 
 namespace NWardenClient
@@ -3919,10 +3919,10 @@ void __fastcall GAME_SetHoverLine(const Unicode* pText, int nColor)
 {
     if (!pText)
     {
-        gwszHoverLine_007A2D30[0].wChar = 0;
+        gwszHoverLine[0].wChar = 0;
         return;
     }
-    sub_005267E0(gwszHoverLine_007A2D30, pText);
+    sub_005267E0(gwszHoverLine, pText);
     gnHoverTextColor = nColor;
 }
 

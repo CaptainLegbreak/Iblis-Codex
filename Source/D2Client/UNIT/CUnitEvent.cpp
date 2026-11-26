@@ -2,7 +2,6 @@
 #include "D2Structs.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc* pUnit); // 0x004DC0B0
 
 typedef int (__fastcall* D2CltUnitEventFn)(int nType, D2UnitStrc* pUnit, int nArg1, int nArg2, int nParam1, int nParam2);
 

@@ -38,7 +38,7 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); /
 
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
 
-extern unsigned int gaCrc32Table_00708448[256]; // 0x00708448
+extern unsigned int gaCrc32Table[256]; // 0x00708448
 
 struct D2StormNodeListStrc
 {
@@ -373,7 +373,7 @@ void __fastcall CrcBuffer(const unsigned char* pData, unsigned int nSize, unsign
     {
         while (nSize)
         {
-            nCrc = (nCrc >> 8) ^ gaCrc32Table_00708448[(*pData ^ nCrc) & 0xFF];
+            nCrc = (nCrc >> 8) ^ gaCrc32Table[(*pData ^ nCrc) & 0xFF];
             nSize--;
             pData++;
         }

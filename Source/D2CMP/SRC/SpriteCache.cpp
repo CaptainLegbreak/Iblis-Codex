@@ -252,11 +252,11 @@ extern "C" const char gszDataGlobal[]; // 0x006D4118
 
 struct D2CmpDC6CelStrc { char unk0x00[0x2C]; };
 
-int gdwGlobal_0089DB64; // 0x0089DB64
+int gnSpriteCacheMaxMemory; // 0x0089DB64
 
-int gdwGlobal_0088DB28; // 0x0088DB28
+int gnCelDataCacheUsedMemory; // 0x0088DB28
 
-int gdwGlobal_0088DB24; // 0x0088DB24
+int gnCelDataCacheMaxMemory; // 0x0088DB24
 
 struct D2CmpCelFileViewStrc;
 
@@ -416,9 +416,9 @@ extern "C" int ganSlotArrayA[94];
 // build: symbol _ganSlotArrayB 0x008822A8
 extern "C" int ganSlotArrayB[94];
 
-extern "C" int gnValue_00882744;
+extern "C" int gpGidFileData;
 
-extern "C" int gnValue_0088274C;
+extern "C" int gpKeyFile3Data;
 
 extern "C" int gnValue_0088CB0C; // 0x0088CB0C
 
@@ -826,7 +826,7 @@ unsigned int __cdecl D2CMPSpriteCacheGetUsedMemory()
 // 0x005FEE40
 int __cdecl D2CMPSpriteCacheGetMaxMemory()
 {
-    return gdwGlobal_0089DB64;
+    return gnSpriteCacheMaxMemory;
 }
 
 // 0x005FEE50
@@ -838,13 +838,13 @@ void __cdecl D2CMPCelDataCacheDumpHashTableStats()
 // 0x005FEE60
 int __cdecl D2CMPCelDataCacheGetUsedMemory()
 {
-    return gdwGlobal_0088DB28;
+    return gnCelDataCacheUsedMemory;
 }
 
 // 0x005FEE70
 int __cdecl D2CMPCelDataCacheGetMaxMemory()
 {
-    return gdwGlobal_0088DB24;
+    return gnCelDataCacheMaxMemory;
 }
 
 // 0x005FEE80

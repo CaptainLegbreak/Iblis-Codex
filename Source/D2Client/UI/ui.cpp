@@ -110,7 +110,6 @@ void __fastcall CUNIT_ForEachPlayer(void (__fastcall* pfnCallback)(D2UnitStrc*))
 
 void __fastcall UI_DrawPartyMemberText(D2UnitStrc* pUnit); // 0x00453330
 
-int __cdecl sub_004B85E0(); // 0x004B85E0
 
 
 
@@ -226,7 +225,6 @@ void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
@@ -254,7 +252,6 @@ void __cdecl INV_ReturnToStashState(); // 0x00489880
 
 void __cdecl INV_ClearGoldDialogFlag(); // 0x004A7A80
 
-void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
 extern unsigned int gnGoldPanelValue; // 0x007A2A68
 
@@ -325,7 +322,6 @@ int __fastcall AUTOMAP_GetHoverMonsterName(D2UnitStrc* pUnit, unsigned short nAr
 
 void __fastcall GAME_SetHoverLine(const Unicode* pText, int nColor); // 0x00452520
 
-int __fastcall NPCMENU_GetInteractNpcId(int* pLow); // 0x004B3230
 
 int __cdecl TEXT_IsTextBoxOpen(); // 0x004A0000
 
@@ -426,7 +422,6 @@ void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTo
 
 const char* __fastcall ROSTER_GetPortalOwnerName(int nUnitId);                                              // 0x0047A290
 
-int __stdcall INV_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
 
 const Unicode* __fastcall D2LANG_GetStringByReferenceString(const char* szKey);                                       // 0x00524E20
 
@@ -531,7 +526,6 @@ void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 
 
-void __fastcall NPCMENU_EndNpcInteraction(int nValue); // 0x004B3C20
 
 
 
@@ -682,7 +676,6 @@ static int __stdcall UI_GetRosterHoverName(D2UnitStrc* pUnit, Unicode* pDst, int
 
 static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit);
 
-int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 
 
 
@@ -784,7 +777,6 @@ void __cdecl sub_004AA920_LoadPanelCel(); // 0x004AA920
 
 void __cdecl sub_004AA980(); // 0x004AA980
 
-void __cdecl NPCMENU_FreeNpcMenu(); // 0x004B24A0
 
 void __cdecl NPCMENU_ResetNpcMenu(); // 0x004B32F0
 
@@ -800,7 +792,7 @@ void __cdecl USEITEM_FreeUseItemPanel(); // 0x004C0100
 
 void __stdcall D2Win_10116(); // 0x005015F0
 
-extern D2DrlgActStrc* gpGlobal_007A063C; // 0x007A063C
+extern D2DrlgActStrc* gnTownLevelId; // 0x007A063C
 
 extern D2CelFileStrc* gpLoadingCell; // 0x007A2794
 
@@ -896,7 +888,6 @@ struct D2UiControlCStrc : D2UiControlBaseStrc
 };
 
 
-void __fastcall CMDTBL_SetHotkeyHandlers(int nArg1, int nArg2);                                                         // 0x0046AA20
 
 void __cdecl TEXT_SetGoldDialogFlag();                                                                                // 0x004A7A90
 
@@ -924,7 +915,7 @@ int __cdecl UI_ConfirmGoldDialog();                                             
 
 int __cdecl UI_CancelGoldDialog();                                                                                 // 0x00454140
 
-extern int gnGoldPanelMode_007A279C;                                                                        // 0x007A279C
+extern int gnGoldPanelMode;                                                                        // 0x007A279C
 
 void* gpGoldPanel;                                                                                    // 0x007A27A0
 
@@ -1399,11 +1390,11 @@ extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId); // 0x0
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-extern int gnGlobal_007111CC; // 0x007111CC
+extern int gnProgressiveStatesBottomWide; // 0x007111CC
 
-extern int gnGlobal_007111D0; // 0x007111D0
+extern int gnProgressiveStatesRight; // 0x007111D0
 
-extern int gnGlobal_007111D4; // 0x007111D4
+extern int gnProgressiveStatesBottom; // 0x007111D4
 
 extern void* gpGlobal_007A0634; // 0x007A0634
 
@@ -1422,10 +1413,10 @@ void __cdecl UI_DrawProgressiveStates()
         return;
     if (!gbOverlaysEnabled)
         return;
-    int nY = gnScreenHeight - gnGlobal_007111D4;
-    int nX = gnScreenWidth - gnGlobal_007111D0;
+    int nY = gnScreenHeight - gnProgressiveStatesBottom;
+    int nX = gnScreenWidth - gnProgressiveStatesRight;
     if (D2GFX_GetResolutionMode() == 2)
-        nY = gnScreenHeight - gnGlobal_007111CC;
+        nY = gnScreenHeight - gnProgressiveStatesBottomWide;
     D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
     for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
     {
@@ -1786,7 +1777,7 @@ void __cdecl UI_CloseGoldDialog()
 
     if (gpGoldControlB)
     {
-        gnGoldPanelValue_007A2A68 = gpGoldControlB->GetValue();
+        gnGoldPanelValue = gpGoldControlB->GetValue();
     }
 
     if (gpGoldPanel)
@@ -1819,9 +1810,9 @@ void __cdecl UI_CloseGoldDialog()
         gpGoldControlD = 0;
     }
 
-    if (gnGoldPanelMode_007A279C != 0)
+    if (gnGoldPanelMode != 0)
     {
-        if (IsGoldPanelMode(gnGoldPanelMode_007A279C))
+        if (IsGoldPanelMode(gnGoldPanelMode))
         {
             INV_ReturnToStashState();
         }
@@ -1852,11 +1843,11 @@ int __cdecl UI_GoldSpinnerChanged()
     const unsigned int nStep = gpGoldControlA->GetStep(0);
     if (gpGoldControlB)
     {
-        gnGoldPanelValue_007A2A68 = gpGoldControlB->GetValue();
+        gnGoldPanelValue = gpGoldControlB->GetValue();
     }
-    unsigned int nValue = gnGoldPanelValue_007A2A68;
+    unsigned int nValue = gnGoldPanelValue;
     unsigned int nMax;
-    if (gnGoldPanelMode_007A279C == 4)
+    if (gnGoldPanelMode == 4)
     {
         nMax = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLDBANK, 0);
     }
@@ -1883,7 +1874,7 @@ int __cdecl UI_GoldSpinnerChanged()
             nValue -= nStep;
         }
     }
-    gnGoldPanelValue_007A2A68 = nValue;
+    gnGoldPanelValue = nValue;
     if (gpGoldControlB)
     {
         gpGoldControlB->SetValue(nValue);
@@ -1965,7 +1956,7 @@ void __fastcall UI_OpenGoldPanel(int nMode)
         CMDTBL_SetHotkeyHandlers(0, 1);
         gbGoldPanelFlag = 1;
     }
-    gnGoldPanelValue_007A2A68 = 0;
+    gnGoldPanelValue = 0;
 
     int nStringId;
     int nGold;
@@ -2001,7 +1992,7 @@ void __fastcall UI_OpenGoldPanel(int nMode)
         return;
     }
 
-    gnGoldPanelMode_007A279C = nMode;
+    gnGoldPanelMode = nMode;
     gpGoldPanel = DIALOG_CreateDialogFromFile(0xD7, 0x8C, UI_GoldPanelCloseCallback, 0, 0, 1);
     ROSTER_SetCtrlState(gpGoldPanel, 1);
     D2Win_10127_SetFont(1);
@@ -2154,7 +2145,7 @@ void __fastcall UI_FreeLoadingScreen()
         sub_004972B0();
 // build: symbol ?HIREABLES_InitTextColorB@* 0x00497290
         HIREABLES_InitTextColorB();
-        sub_00472890(gpGlobal_007A063C);
+        sub_00472890(gnTownLevelId);
         GAME_ExtendDelay(0x7D0);
     }
     gdwGlobal_007A2884 = 0;
@@ -2296,7 +2287,6 @@ void __cdecl TEXT_InitTextSlider(); // 0x004A5190
 
 void __cdecl TEXT_LoadLevelCels(); // 0x004A6460
 
-void __cdecl TEXT_InitNpcMenu(); // 0x004B23E0
 
 void __cdecl DIALOG_InitDialogs(); // 0x004B7B40
 
@@ -2446,7 +2436,7 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
         {
             Unicode wszOwner[0x80];
             sub_005267E0(wszText, UI_GetLevelName(pUnit->pObjectData->InteractType));
-            if (gdwGlobal_007A0610 != 0 && gdwGlobal_007A0610 != 1)
+            if (gnGameType != 0 && gnGameType != 1)
             {
                 char szOwner[0x80];
                 const char* szName = ROSTER_GetPortalOwnerName(pUnit->dwUnitId);

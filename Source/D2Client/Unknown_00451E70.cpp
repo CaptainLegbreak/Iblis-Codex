@@ -239,7 +239,7 @@ int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int))
             }
 
 // build: symbol ?gbClientAppActive@* 0x0070F7E0
-            if (!gbClientAppActive && gdwGlobal_007A0610 != 6 && gdwGlobal_007A0610 != 8)
+            if (!gbClientAppActive && gnGameType != 6 && gnGameType != 8)
             {
                 Sleep(10);
             }

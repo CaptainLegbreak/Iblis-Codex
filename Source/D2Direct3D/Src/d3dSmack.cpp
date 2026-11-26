@@ -24,7 +24,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern void* gpArray_009897D4[2]; // 0x009897D4
 
-extern void* gpArray_009897DC[2]; // 0x009897DC
+extern void* gapObjectsDC[2]; // 0x009897DC
 
 extern void* gpArray_009897E4[2]; // 0x009897E4
 
@@ -101,12 +101,12 @@ char* __fastcall D3DSMACK_CreateSmackSurfaces(char* pBuffer)
     for (int i = 0; i < 2; ++i)
     {
         void** ppFirst = &gpArray_009897D4[i];
-        void** ppSecond = &gpArray_009897DC[i];
+        void** ppSecond = &gapObjectsDC[i];
         D3DCORE_CreateMemoryTexture(ppFirst, ppSecond, 256, 64);
         D2_ASSERT(*ppFirst, 0x4A);
         D2_ASSERT(*ppSecond, 0x4B);
         ppFirst = &gpArray_009897E4[i];
-        ppSecond = &gpArray_009897EC[i];
+        ppSecond = &gapObjectsEC[i];
         int nResult = sub_006B58A0_Allocate(ppFirst, ppSecond, 256, 64);
         D2_ASSERT(*ppFirst, 0x4E);
         D2_ASSERT(*ppSecond, 0x4F);
@@ -203,7 +203,7 @@ static void __stdcall D3DSMACK_DrawSmackFrame(D2SmackRecordStrc* video, int widt
     gatVideoVertices[3].fRhw = 1.0f;
     gatVideoVertices[3].fU = 1.0f;
     gatVideoVertices[3].fV = 0.0f;
-    gpDevice_00970E78->lpVtbl->SetTexture(gpDevice_00970E78, 0, gpArray_009897EC[0]);
+    gpDevice_00970E78->lpVtbl->SetTexture(gpDevice_00970E78, 0, gapObjectsEC[0]);
     gpDevice_00970E78->lpVtbl->DrawPrimitive(gpDevice_00970E78, 6, 0x1C4, gatVideoVertices, 4, 0x1C);
 
     x += 256;
@@ -233,7 +233,7 @@ static void __stdcall D3DSMACK_DrawSmackFrame(D2SmackRecordStrc* video, int widt
     gatVideoVertices[3].fRhw = 1.0f;
     gatVideoVertices[3].fU = u;
     gatVideoVertices[3].fV = 0.0f;
-    gpDevice_00970E78->lpVtbl->SetTexture(gpDevice_00970E78, 0, gpArray_009897EC[1]);
+    gpDevice_00970E78->lpVtbl->SetTexture(gpDevice_00970E78, 0, gapObjectsEC[1]);
     gpDevice_00970E78->lpVtbl->DrawPrimitive(gpDevice_00970E78, 6, 0x1C4, gatVideoVertices, 4, 0x1C);
 }
 

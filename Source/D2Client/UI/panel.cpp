@@ -169,7 +169,6 @@ int __fastcall ITEM_IsItemActionBlocked(D2UnitStrc* pItem); // 0x004C2240
 
 void __fastcall ITEM_SetUninterruptableState(D2UnitStrc* pItem); // 0x004C21F0
 
-int __fastcall ITEM_GetDropSound(D2UnitStrc* pItem); // 0x004C1D60
 
 int __fastcall ITEM_GetItemUseSound(D2UnitStrc* pItem); // 0x004C1E20
 
@@ -206,7 +205,6 @@ D2UnitStrc* gpBeltItemA; // 0x007BEFA8
 extern "C" size_t __cdecl strlen(const char* szString);
 
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 
 
@@ -323,7 +321,6 @@ void __fastcall SPELLSEL_AssignHotkey(int nHotkey); // 0x004A9E60
 
 void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage); // 0x004AAAE0
 
-void __cdecl sub_004AB530_DrawTabCel(); // 0x004AB530
 
 struct D2StaticPathStrc;
 
@@ -585,7 +582,7 @@ void __cdecl PANEL_DrawLifeOrb()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.nDirection = 0;
-    tContext.pCellFile = gpCellFile_007BEF68;
+    tContext.pCellFile = gpHlthManaCel;
     tContext.nFrame = 0;
     if (STATES_CheckState(sub_00463DD0_GetPlayerUnit(), STATE_HEALTHPOT))
     {
@@ -617,7 +614,7 @@ void __cdecl PANEL_DrawLifeOrb()
         }
     }
 
-    tContext.pCellFile = gpCellFile_007BEF80;
+    tContext.pCellFile = gpOverlapCel;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, 0x1C, gnScreenHeight - 5, -1, 5, 0);
 }
@@ -638,7 +635,7 @@ void __cdecl PANEL_DrawManaOrb()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.nDirection = 0;
-    tContext.pCellFile = gpCellFile_007BEF68;
+    tContext.pCellFile = gpHlthManaCel;
     tContext.nFrame = 1;
     if (STATES_CheckState(sub_00463DD0_GetPlayerUnit(), STATE_MANAPOT))
     {
@@ -665,7 +662,7 @@ void __cdecl PANEL_DrawManaOrb()
         break;
     }
 
-    tContext.pCellFile = gpCellFile_007BEF80;
+    tContext.pCellFile = gpOverlapCel;
     tContext.nFrame = 1;
     sub_004F6480(&tContext, gnScreenWidth - 0x6E, gnScreenHeight - 9, -1, 5, 0);
 }
@@ -764,7 +761,7 @@ void __cdecl VIEW_DrawRunButton()
     int nY = sub_00468740();
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpGlobal_007BEF0C;
+    tContext.pCellFile = gpRunButtonCel;
     tContext.nDirection = 0;
     if (GAME_GetAlwaysRun())
     {
@@ -1006,11 +1003,11 @@ void __cdecl PANEL_DrawMiniPanelButton()
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpStateButtonCel_007BEF70;
+    tContext.pCellFile = gpStateButtonCel;
     tContext.nDirection = 0;
     if (GAME_GetUIVarState(21))
     {
-        if (gbGlobal_007BEFD0 && sub_004977C0_IsInButtonRect(sub_00468730(), sub_00468740()))
+        if (gbMiniPanelButtonDown && sub_004977C0_IsInButtonRect(sub_00468730(), sub_00468740()))
         {
             tContext.nFrame = 3;
         }
@@ -1021,7 +1018,7 @@ void __cdecl PANEL_DrawMiniPanelButton()
     }
     else
     {
-        if (gbGlobal_007BEFD0 && sub_004977C0_IsInButtonRect(sub_00468730(), sub_00468740()))
+        if (gbMiniPanelButtonDown && sub_004977C0_IsInButtonRect(sub_00468730(), sub_00468740()))
         {
             tContext.nFrame = 1;
         }
@@ -1177,7 +1174,7 @@ static void __stdcall PANEL_DrawDurabilityIcon(int nState, int bType, int nQuive
     int nOffset = 0;
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpCellFile_007BEF60;
+    tContext.pCellFile = gpDuroIconCel;
     tContext.nDirection = 0;
     tContext.nFrame = nFrame;
     if (GAME_GetUIVarState(10))

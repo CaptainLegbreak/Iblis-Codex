@@ -86,7 +86,7 @@ extern int gnTradeState;                                                        
 
 unsigned char* gpDDrawDebugFontGlyphs;                                                             // 0x008815AC
 
-extern void* gpReply_008818D0;                                                                              // 0x008818D0
+extern void* gpReply;                                                                              // 0x008818D0
 
 extern "C" void* gpGidFileData;                                                                    // 0x00882744
 

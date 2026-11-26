@@ -944,7 +944,6 @@ void __fastcall NPCMENU_OnUnitRemoved(unsigned char nUnitType, int nUnitId); // 
 
 void __fastcall sub_004B2620(const unsigned char* pData); // 0x004B2620
 
-void __fastcall GFX_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
 
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 
@@ -1031,7 +1030,6 @@ struct D2UnitStatPacket2Strc
 void __fastcall ITEM_RefreshUnitItemsFromPacket(D2PacketRecord11Strc* pPacket, int nArg); // 0x004C1BC0
 
 
-void __fastcall ITEM_RefreshUnitEquipment(D2UnitStrc* pUnit); // 0x004C1C10
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
@@ -1501,7 +1499,6 @@ struct D2GSPacketSrvAE
 
 void __fastcall sub_004802E0(unsigned char* pData, int nLength); // 0x004802E0
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
@@ -1855,11 +1852,9 @@ struct D2SkillEndPacketStrc
 };
 #pragma pack(pop)
 
-void __fastcall SKILLS_EndCharge(D2UnitStrc* pUnit, int nSkillId); // 0x004CA000
 
 void __fastcall SKILLSBAR_ResetLeapCollision(D2UnitStrc* pUnit); // 0x004C8B80
 
-void __fastcall SKILLS_EndLoopSoundSkill(D2UnitStrc* pUnit, int nSkillId); // 0x004C9420
 
 void __stdcall sub_00639DB0_ToggleState(D2UnitStrc* pUnit, int nState, int nEnable); // 0x00639DB0
 
@@ -2414,12 +2409,12 @@ void __fastcall SCMD_HandleUnloadComplete(void* pPacket)
 // 0x0045CA60
 void __fastcall SCMD_HandleLogoutComplete(void* pPacket)
 {
-    if (gdwGlobal_007A0610 == 7 || gdwGlobal_007A0610 == 9)
+    if (gnGameType == 7 || gnGameType == 9)
     {
         if (!GAME_IsCinematicExit())
             GAME_ShowLoadingMessage(8);
     }
-    if ((gdwGlobal_007A0610 == 2 || gdwGlobal_007A0610 == 3) && gbPositionalSound)
+    if ((gnGameType == 2 || gnGameType == 3) && gbPositionalSound)
         GAME_ShowLoadingMessage(7);
     gbLeavingGame = 1;
 }
@@ -4396,7 +4391,7 @@ void __fastcall SCMD_HandleAssignMonster(D2PacketSpawnStrc* pPacket)
 // 0x0045F5F0
 void __fastcall SCMD_HandleWardenRequest(D2GSPacketSrvAE* pPacket)
 {
-    if (gdwGlobal_007A0610 == 2 || gdwGlobal_007A0610 == 3)
+    if (gnGameType == 2 || gnGameType == 3)
         sub_004802E0(pPacket->pData, pPacket->nLength);
 }
 

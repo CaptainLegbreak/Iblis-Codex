@@ -92,7 +92,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
@@ -102,7 +101,6 @@ void __cdecl INV_SetupPanelButtons(); // 0x00487ED0
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 extern D2ClientTabStrc gaNpcTabStates[]; // 0x0072211A
 
@@ -433,7 +431,7 @@ extern "C" unsigned int gValue_007BF2A4; // 0x007BF2A4
 
 extern "C" unsigned int gValue_007BF2AC; // 0x007BF2AC
 
-extern "C" HashState gStates_00882760[];
+extern "C" HashState gatBnHashCtx[];
 
 extern "C" ClassTableView* gClassTable_00744304;
 
@@ -633,7 +631,7 @@ extern unsigned char gbFlag_007BF2B0; // 0x007BF2B0
 
 extern D2Record42Strc gtQuestRecord; // 0x007BF355
 
-extern int gnPage_007C0255; // 0x007C0255
+extern int gnPage; // 0x007C0255
 
 extern D2SliderButtonStrc gaKeyConfigButtons[3]; // 0x007246D8
 
@@ -652,19 +650,19 @@ extern D2QuestSlotRectStrc gaQuestSlots[]; // 0x00723EB0
 
 extern int gnQuestCount; // 0x007BF2A0
 
-extern char gbGlobal_007BF2B0; // 0x007BF2B0
+extern char gbQuestButtonDown; // 0x007BF2B0
 
 extern char gbQuestDescriptionOpen; // 0x007BF2B3
 
 extern D2QuestPanelEntryStrc gaQuestEntries[]; // 0x007BF3AA
 
-extern char gbGlobal_007C025D; // 0x007C025D
+extern char gbDurielCofsLoaded; // 0x007C025D
 
-extern char gbGlobal_007C025E; // 0x007C025E
+extern char gbAncientsCofsLoaded; // 0x007C025E
 
-extern char gbGlobal_007C025F; // 0x007C025F
+extern char gbHasQuestPacketValue; // 0x007C025F
 
-extern char gbGlobal_007C0260; // 0x007C0260
+extern char gbQuestUnitsSpawned; // 0x007C0260
 
 
 
@@ -738,7 +736,6 @@ static int TEXT_GetKeyConfigButtonAt(int nX, int nY);
 
 
 
-int __fastcall TEXT_IsInRightPanelButton(int, int, int); // 0x004A6630
 
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
@@ -761,11 +758,10 @@ int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInv
 
 
 
-extern int global_00724728; // 0x00724728
+extern int gbKeyConfigReady; // 0x00724728
 
 enum { REPEAT_MASK = 0x40000000, UI_VARIABLE = 11 };
 
-void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 
 
@@ -793,9 +789,9 @@ extern int gbSkillButtonPressed; // 0x007C02E8
 
 void __fastcall TEXT_MoveKeyConfigSelection(int nStep);
 
-extern char gbGlobal_007BF2B2; // 0x007BF2B2
+extern char gbQuestCloseButtonDown; // 0x007BF2B2
 
-extern char gbGlobal_007BF2B4; // 0x007BF2B4
+extern char gbQuestDescButtonDown; // 0x007BF2B4
 
 
 static int TEXT_GetKeyConfigLineAt(int nY);
@@ -852,7 +848,6 @@ int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 void __fastcall CUNIT_ForEachMonster(UNITFN pfnCallback); // 0x00464990
 
 
-void __fastcall GFX_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
 
 void __cdecl INV_StopCinematic(); // 0x00483300
 
@@ -952,7 +947,7 @@ Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 void __stdcall ITEMMODS_AssignProperty(int nPass, int nArg1, D2UnitStrc* pItem, int nArg, int nArg2, int nArg5); // 0x0065FEC0
 
-extern Unicode gwszName_007C0E84[]; // 0x007C0E84
+extern Unicode gwszTradePartnerName[]; // 0x007C0E84
 
 #pragma pack(push, 1)
 
@@ -1066,15 +1061,15 @@ static int TEXT_GetKeyConfigEntryState(int nIndex, int nFlag);
 
 typedef int(__fastcall* PANELCLOSEFN)(void* pArg, int a2, int a3);
 
-extern int gnPending_007BF1C4; // 0x007BF1C4
+extern int gbTextBoxPending; // 0x007BF1C4
 
 extern void* gpHint_007BF202; // 0x007BF202
 
-extern int gbHintActive_007BF20A; // 0x007BF20A
+extern int gbTextFromObject; // 0x007BF20A
 
 extern void* gpHint_007BF24B; // 0x007BF24B
 
-extern PANELCLOSEFN gpfnClose_007BF258; // 0x007BF258
+extern PANELCLOSEFN gpfnTextCallback; // 0x007BF258
 
 void __fastcall SELECT_SetSelectionRect(void* pRect); // 0x00467430
 
@@ -2311,7 +2306,7 @@ struct D2PointsTextStrc
     Unicode w0, w1, w2, w3, w4, w5, w6, w7, w8, w9;
 };
 
-extern "C" const char gszFormatLd_006D9BE8[]; // 0x006D9BE8
+extern "C" const char gszFormatLd[]; // 0x006D9BE8
 
 extern void* gpInvCharCel; // 0x007BEF64
 
@@ -2328,7 +2323,6 @@ int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 void* __cdecl GAME_GetBuySellButtonCells(); // 0x00454600
 
 
-void __cdecl PANEL_SetBlackColour(); // 0x00499E30
 
 void __fastcall SKILLDESC_RefreshSkills(D2UnitStrc* pUnit); // 0x004EDA20
 
@@ -2638,7 +2632,7 @@ NEXT_TEXT:;
 
         case STAT_STAMINA:
             nValue >>= 8;
-            wsprintfA((char*)anNumber, gszFormatLd_006D9BE8, nValue);
+            wsprintfA((char*)anNumber, gszFormatLd, nValue);
             bCheckWidth = 1;
             break;
 

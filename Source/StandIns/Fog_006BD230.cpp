@@ -16,7 +16,7 @@ extern "C" const char* __cdecl ASSERT_GetSourceFile(); // 0x00408090
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 void* __fastcall FOG_ReallocServerMemory(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
-extern const char gszExcelSourceFile_006FC448[]; // 0x006FC448
+extern const char gszExcelSourceFile[]; // 0x006FC448
 
 #define D2_ASSERT(expr, line) if (!(expr)) { ASSERT_Report(&gszEmptyAssertText, ASSERT_GetSourceFile(), line); exit(-1); }
 
@@ -30,7 +30,7 @@ int __stdcall sub_006BD230_InsertLinkKey(D2TxtLink006BD230Strc* pLink, unsigned 
     {
         int nNewCapacity = pLink->nCapacity + 0x40;
         pLink->pEntries = (D2TxtLinkEntry006BD230Strc*)FOG_ReallocServerMemory(0, pLink->pEntries,
-            nNewCapacity * sizeof(D2TxtLinkEntry006BD230Strc), gszExcelSourceFile_006FC448, 0x3DF, 0);
+            nNewCapacity * sizeof(D2TxtLinkEntry006BD230Strc), gszExcelSourceFile, 0x3DF, 0);
         memset(&pLink->pEntries[pLink->nCapacity], 0, 0x40 * sizeof(D2TxtLinkEntry006BD230Strc));
         pLink->nCapacity = nNewCapacity;
     }

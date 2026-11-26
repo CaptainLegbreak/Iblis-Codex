@@ -72,16 +72,16 @@ void __fastcall SCMD_ReadGridCell(D2LightPointStrc* pA, D2LightPointStrc* pB, un
 int __stdcall TILE_TileDrawLit(D2TileGfxStrc* pTile, int nX, int nY, unsigned int* pLight, int nGamma);   // 0x004F6920
 int __stdcall TILE_TileDrawTrans(D2TileGfxStrc* pTile, int nX, int nY, unsigned int* pLight, int nGamma, unsigned char nAlpha); // 0x004F6950
 
-extern unsigned int gaLightPairCounts_006DB9D8[];                                                           // 0x006DB9D8
-extern D2LightPairStrc gaLightPairsB_0072A9E8[][6];                                                         // 0x0072A9E8
-extern D2LightPairStrc gaLightPairsA_0072ABC8[][6];                                                         // 0x0072ABC8
+extern unsigned int gaLightSampleCounts[];                                                           // 0x006DB9D8
+extern D2LightPairStrc gaLightOffsetsB[][6];                                                         // 0x0072A9E8
+extern D2LightPairStrc gaLightOffsetsA[][6];                                                         // 0x0072ABC8
 
 static D2LightPairStrc* __stdcall sub_004DEDB0_GetLightOffsets(D2TileGfxStrc* pTile, unsigned int* pCount, int bAlternate)
 {
-    *pCount = gaLightPairCounts_006DB9D8[pTile->nOrientation];
+    *pCount = gaLightSampleCounts[pTile->nOrientation];
     if (bAlternate)
-        return gaLightPairsA_0072ABC8[pTile->nOrientation];
-    return gaLightPairsB_0072A9E8[pTile->nOrientation];
+        return gaLightOffsetsA[pTile->nOrientation];
+    return gaLightOffsetsB[pTile->nOrientation];
 }
 
 // 0x004DEF80

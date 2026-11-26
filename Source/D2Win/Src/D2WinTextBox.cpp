@@ -89,7 +89,7 @@ struct D2WinControl004FBB30Strc
 
 int gbTextBoxSmallGap; // 0x00841B70
 
-tagPALETTEENTRY gaPalette_0081E668[256]; // 0x0081E668
+tagPALETTEENTRY gatRGBAPalette[256]; // 0x0081E668
 
 struct D2WinTextBoxLineStrc;
 
@@ -227,7 +227,7 @@ void __fastcall D2WINFONT_DrawTickerText(const Unicode* wszText, int nX, int nY,
 
 static void TEXTBOX_SetLineGapForFont(int nFont); // 0x004FB5A0
 
-extern "C" const char gszPathFormat_006D4124[];                                                             // 0x006D4124
+extern "C" const char gszPathFormat[];                                                             // 0x006D4124
 
 extern "C" const char gszPalDat[];                                                                  // 0x006DC7FC
 
@@ -409,8 +409,8 @@ int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Fi
         char szPalDatFilename[260];
         char szPalPL2Filename[260];
 // build: symbol ?gszDataGlobal@* 0x006D4118
-        wsprintfA(szPalDatFilename, gszPathFormat_006D4124, gszDataGlobal, gszPalDat);
-        wsprintfA(szPalPL2Filename, gszPathFormat_006D4124, gszDataGlobal, "palette\\act1\\pal.pl2");
+        wsprintfA(szPalDatFilename, gszPathFormat, gszDataGlobal, gszPalDat);
+        wsprintfA(szPalPL2Filename, gszPathFormat, gszDataGlobal, "palette\\act1\\pal.pl2");
         PALETTE_LoadPaletteFiles(szPalDatFilename, szPalPL2Filename);
     }
     else

@@ -31,7 +31,7 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* 
 
 extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int nRadix); // 0x006867B2
 
-extern "C" const char gszFmtUnsigned_006CEF68[]; // 0x006CEF68
+extern "C" const char gszFmtUnsigned[]; // 0x006CEF68
 
 static int __stdcall LoadRegistryEntry(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pType, unsigned char* pData, unsigned long nSize, unsigned long* pcbData); // 0x00414B00
 
@@ -257,7 +257,7 @@ int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, uns
     switch (nType)
     {
     case 4:
-        wsprintfA(szBuffer, gszFmtUnsigned_006CEF68, *(unsigned long*)szBuffer);
+        wsprintfA(szBuffer, gszFmtUnsigned, *(unsigned long*)szBuffer);
         return 1;
     case 1:
     {

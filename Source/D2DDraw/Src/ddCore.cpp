@@ -98,7 +98,7 @@ extern unsigned int gaGlidePalette[256]; // 0x0087EBA0
 
 extern void (__stdcall* gpfnGrConstantColorValue)(unsigned int dwColor); // 0x0087EFA0
 
-extern int gbGlidePaletteTable_0087EFC8; // 0x0087EFC8
+extern int gbGlidePaletteTable; // 0x0087EFC8
 
 extern int gnGlideColorCombineState; // 0x0087EFD8
 
@@ -1068,7 +1068,7 @@ extern unsigned int gnDDrawBinkFlags; // 0x008816C8
 
 void __fastcall DDCORE_SetPalette(tagPALETTEENTRY* pPalette); // 0x00510160
 
-extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
+extern D2PaletteTableStrc* gpGfxPaletteView; // 0x007C9150
 
 extern tagPALETTEENTRY gaDDrawSavedPalette[256]; // 0x00880D40
 
@@ -1277,7 +1277,7 @@ void __fastcall DDCORE_GetDimensions(int* pWidth, int* pHeight)
 void __fastcall DDCORE_SetPaletteTables(D2PaletteTableStrc* pSource)
 {
     gtDDrawPaletteView = *pSource;
-    gpGfxPaletteView_007C9150 = &gtDDrawPaletteView;
+    gpGfxPaletteView = &gtDDrawPaletteView;
 }
 
 // 0x00510300

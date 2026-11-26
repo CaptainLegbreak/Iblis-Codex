@@ -12,7 +12,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2CursorAnimStrc gaCursorAnim[CURSOR_ANIM_COUNT]; // 0x00712010
 
 void __fastcall SPELLSEL_AssignHotkey(int nHotkey); // 0x004A9E60
-void __fastcall SPELLSEL_SelectHotkey(int nSlot); // 0x004AA030
 
 
 // 0x00468B20

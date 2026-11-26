@@ -41,14 +41,14 @@ extern int gbRenderPaused; // 0x007C9144
 extern int gnCurrentFont; // 0x0072DFFC
 extern int gnDDrawGammaScale; // 0x0072F7C8
 extern int gnDDrawGamma; // 0x0072F7CC
-extern int gnResolutionMode_007C8CC4; // 0x007C8CC4
+extern int gnViewMatrixAdjust; // 0x007C8CC4
 extern int ganRowOffsets[732]; // 0x007C97A8
 extern int gnRenderWidth; // 0x007C9138
 extern int ganSubtileRowSrcOffset[]; // 0x0072DBC0
 extern int ganSubtileRowWidth[]; // 0x0072DB84
 extern int ganSubtileRowXOffset[]; // 0x0072DB48
 extern int gnTextBoxLineGap; // 0x0072DE90
-extern int gnWinCallbackDepth_007D55C4; // 0x007D55C4
+extern int gnWinCallbackDepth; // 0x007D55C4
 extern unsigned char gaDirectionIndex[][64]; // 0x006DCA60
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 extern unsigned int gadwComponentTokens[]; // 0x0072E108

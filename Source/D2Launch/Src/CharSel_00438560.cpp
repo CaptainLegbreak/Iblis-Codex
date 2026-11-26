@@ -145,10 +145,10 @@ extern D2WinControlStrc* gpControl_00779D94; // 0x00779D94
 extern int gaSlotY_007799FC[]; // 0x007799FC
 
 extern int gnLaunchMode; // 0x007795EC
-extern int gnBusy_00779DAC; // 0x00779DAC
+extern int gnBusy; // 0x00779DAC
 extern D2WinControlStrc* gpControl_00779D90; // 0x00779D90
 extern D2WinControlStrc* gpControl_00779DD0; // 0x00779DD0
-extern D2WinControlStrc* gaRowControls_00779A20[]; // 0x00779A20
+extern D2WinControlStrc* gapRowControls[]; // 0x00779A20
 extern "C" const char gszTagFormat[]; // 0x006D4E2C
 void __cdecl CHARSEL_UpdateCharList(); // 0x004380F0
 void __fastcall sub_004FB740_SetTextOffset(D2WinControlStrc*,int,int); // 0x004FB740
@@ -179,11 +179,11 @@ void __cdecl CHARSEL_RefreshCharList()
     sub_005263E0(unusedText,D2LANG_GetStringFromTblIndex(0x1419),256);
     CONTROL_SetVisible(gpControl_00779D90,0);
     for(int i=0;i<gnVisibleRows;++i) {
-        sub_004FB6A0_ClearText(gaRowControls_00779A20[i]);
-        if(STRTABLE_GetLanguage()==7) sub_004FB740_SetTextOffset(gaRowControls_00779A20[i],-1,-5);
+        sub_004FB6A0_ClearText(gapRowControls[i]);
+        if(STRTABLE_GetLanguage()==7) sub_004FB740_SetTextOffset(gapRowControls[i],-1,-5);
     }
     if(gpControl_00779DD0) sub_004FB6A0_ClearText(gpControl_00779DD0);
-    if(gnLaunchMode==1 && gnBusy_00779DAC) return;
+    if(gnLaunchMode==1 && gnBusy) return;
     for(;entry;entry=entry->pNext,++index) {
         if(index>=gnTopRow && index<gnTopRow+gnVisibleRows) {
             int row=index-gnTopRow;
@@ -193,13 +193,13 @@ void __cdecl CHARSEL_RefreshCharList()
                 sub_00505360_SetAnimFlags(entry->pAnim,0);
                 IMAGE_SetCoordinates(gpControl_00779D90,0x200,(void*)(gaSlotY_007799FC[row]-3));
                 CONTROL_SetVisible(gpControl_00779D90,1);
-                sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x1419),1,0,0);
+                sub_004FC9B0_SetText(gapRowControls[row],D2LANG_GetStringFromTblIndex(0x1419),1,0,0);
                 if(gnLaunchMode==1 && gbFlag_00779DD8) {
-                    sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x1416),0,0,0);
-                    sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x1417),0,0,0);
+                    sub_004FC9B0_SetText(gapRowControls[row],D2LANG_GetStringFromTblIndex(0x1416),0,0,0);
+                    sub_004FC9B0_SetText(gapRowControls[row],D2LANG_GetStringFromTblIndex(0x1417),0,0,0);
                 } else {
-                    sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x1418),0,0,0);
-                    sub_004FC9B0_SetText(gaRowControls_00779A20[row],entry->wszName,0,0,0);
+                    sub_004FC9B0_SetText(gapRowControls[row],D2LANG_GetStringFromTblIndex(0x1418),0,0,0);
+                    sub_004FC9B0_SetText(gapRowControls[row],entry->wszName,0,0,0);
                 }
                 goto VISIBLE_END;
             }
@@ -209,7 +209,7 @@ void __cdecl CHARSEL_RefreshCharList()
             if(hardcore) flags|=gdwBitMasks[5];else flags&=gdwInverseMasks[5];
             sub_00505360_SetAnimFlags(entry->pAnim,flags);
             if(entry->nState==2) {
-                sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x2B3B),1,0,0);
+                sub_004FC9B0_SetText(gapRowControls[row],D2LANG_GetStringFromTblIndex(0x2B3B),1,0,0);
                 goto VISIBLE_END;
             }
             if(entry->nState!=0) {FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),0x3B0);exit(-1);}
@@ -224,7 +224,7 @@ void __cdecl CHARSEL_RefreshCharList()
                 char* end=text+length;
                 sprintf(end,gszTagFormat,entry->szCode32A);
             }
-            D2Win_10046(gaRowControls_00779A20[row],text,hardcore?1:4);
+            D2Win_10046(gapRowControls[row],text,hardcore?1:4);
             CHARSEL_GetClassName(className,entry->nType);
             Unicode description[100];
             Unicode level[10];
@@ -233,9 +233,9 @@ void __cdecl CHARSEL_RefreshCharList()
             sub_005267E0(description,D2LANG_GetStringFromTblIndex(0xFD9));
             sub_00526700(description,level);
             sub_00526700(description,className);
-            sub_004FC9B0_SetText(gaRowControls_00779A20[row],description,0,0,0);
-            if(entry->wFlags&32) sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x2B45),2,0,0);
-            if(entry->nByte32E) sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x2AAF),4,0,0);
+            sub_004FC9B0_SetText(gapRowControls[row],description,0,0,0);
+            if(entry->wFlags&32) sub_004FC9B0_SetText(gapRowControls[row],D2LANG_GetStringFromTblIndex(0x2B45),2,0,0);
+            if(entry->nByte32E) sub_004FC9B0_SetText(gapRowControls[row],D2LANG_GetStringFromTblIndex(0x2AAF),4,0,0);
             unsigned int days=CHARSEL_GetDaysLeft(entry->nExpireTime);
             if(gnLaunchMode==1 && days<=60) {
                 int color=1;unsigned short str;
@@ -243,7 +243,7 @@ void __cdecl CHARSEL_RefreshCharList()
                 else if(days<2) str=0x2B7C;
                 else {str=0x2B7D;if(days>=15) color=0;}
                 sub_005269D0(100,description,D2LANG_GetStringFromTblIndex(str),days);
-                sub_004FC9B0_SetText(gaRowControls_00779A20[row],description,color,0,0);
+                sub_004FC9B0_SetText(gapRowControls[row],description,color,0,0);
             }
 VISIBLE_END:
             y+=93;

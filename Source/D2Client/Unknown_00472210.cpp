@@ -217,10 +217,9 @@ void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, un
 extern D2WeatherLineStrc gaWeatherLines[]; // 0x006D6E78
 void __fastcall sub_00473A70(D2WeatherStrc* pWeather, D2WeatherLayerStateStrc* pState); // 0x00473A70
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);
-void __fastcall SOUNDINST_MoveSound(int a1, int a2, int a3, int a4); // 0x004B99A0
 extern "C" void __cdecl sub_004736C0_DrawPanelShade(); // 0x004736C0
 void __cdecl sub_00473470(); // 0x00473470
-extern unsigned int gdwGlobal_007BB390; // 0x007BB390
+extern unsigned int gnDisplayFps; // 0x007BB390
 
 extern "C" double __cdecl fabs(double x);
 int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
@@ -301,7 +300,6 @@ struct D2CelFileStrc;
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);          // 0x006CC468
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFileWithFileSize(const char* szFile, unsigned int* pFileSize, int nType); // 0x00478950
-unsigned char __stdcall PALETTE_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile);                                                // 0x006019F0
 int __stdcall sub_004726F0(int nArg);                                                                       // 0x004726F0
 void __cdecl sub_00472610_InitWindAngle();                                                                  // 0x00472610
@@ -319,9 +317,7 @@ float gfPhaseLevel;                                                             
 
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
-int __stdcall SCALE_CheckPerspectivePosition(int nXPos, int nYPos); // 0x004F66E0
 
-void __stdcall SCALE_AdjustPerspectivePosition(int nXPos, int nYPos, int nBias, int* pXAdjust, int* pYAdjust); // 0x004F6760
 
 typedef int (__stdcall* D2CelDrawRetFn)(D2CelContextStrc*, int, int, unsigned int, int, unsigned char*);
 
@@ -1206,7 +1202,7 @@ void __cdecl sub_00473910_UpdateWeather()
             }
         }
 
-        if (gdwGlobal_007BB390 >= 10)
+        if (gnDisplayFps >= 10)
         {
             sub_004736C0_DrawPanelShade();
             return;
@@ -1408,7 +1404,7 @@ void __cdecl sub_00473DC0_ToggleWeather()
         gbPhaseActive = 0;
         gnPhase = 0;
         D2_ASSERT(sub_00463DD0_GetPlayerUnit(), 0x137);
-        gnGlobal_007A89E0 = 0;
+        gnPhaseLevel = 0;
         DATAARRAYS_Reset(gpWeatherParticles);
         D2_ASSERT(!gpWeatherParticles->nCount, 0x15B);
     }

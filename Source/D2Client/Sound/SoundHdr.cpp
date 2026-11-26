@@ -32,7 +32,6 @@ void __cdecl SOUNDINST_FreeAllSounds(); // 0x004B9D20
 
 void __cdecl sub_004E00C0_CloseSoundChannels(); // 0x004E00C0
 
-void __cdecl SOUNDHDR_ReleaseSoundTables(); // 0x004828B0
 
 extern int gdwSoundTick; // 0x007BC9BC
 
@@ -61,7 +60,6 @@ unsigned int gnCacheLastLoadTick; // 0x007BC9C4
 
 unsigned int gnCacheLoading; // 0x007BC9C8
 
-void __fastcall SOUNDHDR_LoadCacheEntry(int nIndex, int bDirect, int nArg); // 0x00482970
 
 struct D2SlotStrc;
 
@@ -79,7 +77,6 @@ extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
-void __cdecl SOUNDHDR_LoadSoundTables(); // 0x00481950
 
 void __fastcall sub_004E0050_RestartSound(int nArg); // 0x004E0050
 
@@ -109,7 +106,6 @@ extern int gTextRight;
 
 void* __fastcall Allocate(unsigned int bytes, const char* file, int line, unsigned int flags);
 
-void __fastcall SOUNDHDR_ReleaseCacheEntry(int nIndex); // 0x004823E0
 
 void* __cdecl sub_004646A0();
 
@@ -150,9 +146,9 @@ static void SOUNDHDR_FinishCacheLoad(D2SoundsTxt* pEntry)
     gnCacheLoading -= 1;
 }
 
-extern int gdwGlobal_007BC9B0; // 0x007BC9B0
+extern int gnSongMin; // 0x007BC9B0
 
-extern int gdwGlobal_007BC9B4; // 0x007BC9B4
+extern int gnSongMax; // 0x007BC9B4
 
 extern int gdwGlobal_007BC99C; // 0x007BC99C
 
@@ -167,19 +163,19 @@ int __cdecl sub_004817D0()
 // 0x004817E0
 int __cdecl sub_004817E0()
 {
-    return gdwGlobal_007BC9AC;
+    return gnSoundEnvironTxtRecordCount;
 }
 
 // 0x004817F0
 int __cdecl sub_004817F0()
 {
-    return gdwGlobal_007BC9B0;
+    return gnSongMin;
 }
 
 // 0x00481800
 int __cdecl sub_00481800()
 {
-    return gdwGlobal_007BC9B4;
+    return gnSongMax;
 }
 
 // 0x00481810
@@ -230,7 +226,7 @@ int __fastcall SOUNDHDR_GetLoopFlag(int nIndex)
 // 0x00481920
 D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnvironId)
 {
-    if (sgptSoundEnvironTable && nEnvironId >= 0 && nEnvironId < gdwGlobal_007BC9AC)
+    if (sgptSoundEnvironTable && nEnvironId >= 0 && nEnvironId < gnSoundEnvironTxtRecordCount)
     {
         return &sgptSoundEnvironTable[nEnvironId];
     }
@@ -747,7 +743,6 @@ void __fastcall sub_004BA020(unsigned int nTick); // 0x004BA020
 
 void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int nTick); // 0x004DCAA0
 
-int __cdecl sub_004DF870(); // 0x004DF870
 
 void __cdecl sub_004DF890(); // 0x004DF890
 

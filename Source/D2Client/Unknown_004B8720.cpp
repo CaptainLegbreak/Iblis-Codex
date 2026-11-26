@@ -67,7 +67,6 @@ void __fastcall INV_SetTradePanelOpen(int bOpen); // 0x00489360
 void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 
 
@@ -113,7 +112,6 @@ void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int n
 int __stdcall DUNGEON_IsTownLevelId(int nLevelId); // 0x0061AAF0
 
 
-void __cdecl INV_ResetNpcState(); // 0x00487B30
 
 void __fastcall DIALOG_DrawDialog(D2ClientDialogStrc* pDialog); // 0x004B8100
 

@@ -111,9 +111,9 @@ int __fastcall D3DSUBTILECACHE_SubtileCacheAdd(D2CacheListStrc* pList); // 0x006
 
 static void D3DFLOORCACHE_DecodeTileBlock(const unsigned char* source, unsigned char* destination); // 0x006BB6B0
 
-extern "C" const char gszFailedToUnlockMemorySurface_006FC284[]; // 0x006FC284
+extern "C" const char gszFailedToUnlockMemorySurface[]; // 0x006FC284
 
-extern "C" const char gszFailedToLockMemorySurface_006FC2A4[]; // 0x006FC2A4
+extern "C" const char gszFailedToLockMemorySurface[]; // 0x006FC2A4
 
 extern const unsigned int gnRenderFlag; // 0x006CE290
 
@@ -159,7 +159,7 @@ D2DDSurfaceStrc* gpMemorySurface32; // 0x00989C00
 
 int __fastcall D3DCORE_CreateMemoryTexture(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
 
-extern int gnWidth_0096F4DC; // 0x0096F4DC
+extern int gTileWidth; // 0x0096F4DC
 
 int __fastcall sub_006B58A0_CreateTexture(D2D3DObjStrc** ppTexture, D2D3DObjStrc** ppSurface, int nWidth, int nHeight); // 0x006B58A0
 
@@ -180,7 +180,7 @@ struct D2TileBlockStrc {
 
 struct D2TileStrc { int unk00[20]; int count; D2TileBlockStrc* blocks; };
 
-extern unsigned short gwPalette_0096FA80[]; // 0x0096FA80
+extern unsigned short gawColors16[]; // 0x0096FA80
 
 int __fastcall D3DFLOORCACHE_FloorCacheAdd(D2FloorPoolStrc* pPool); // 0x006BB520
 
@@ -503,7 +503,7 @@ int __fastcall D3DFLOORCACHE_FloorCacheAdd(D2FloorPoolStrc* pPool)
 // 0x006BB5E0
 void __cdecl D3DFLOORCACHE_CreateTileSurfaces()
 {
-    D2_ASSERT(D3DCORE_CreateMemoryTexture((void**)&gpMemorySurface, (void**)&gpMemoryTexture, gnWidth_0096F4DC, gnHeight_009702B8), 0x27);
+    D2_ASSERT(D3DCORE_CreateMemoryTexture((void**)&gpMemorySurface, (void**)&gpMemoryTexture, gTileWidth, gnHeight_009702B8), 0x27);
     D2_ASSERT(D3DCORE_CreateMemoryTexture((void**)&gpSurface_00989C00, (void**)&gpMemoryTexture32, 0x20, 0x20), 0x2A);
 }
 
@@ -569,7 +569,7 @@ void __stdcall D3DFLOORCACHE_RenderTile(D2TileStrc* tile,unsigned short* output,
       p+=skip;
       while(count) {
        --count;
-       *p++=gwPalette_0096FA80[*data++];
+       *p++=gawColors16[*data++];
       }
      }
     } while(rows);
@@ -584,7 +584,7 @@ void __stdcall D3DFLOORCACHE_RenderTile(D2TileStrc* tile,unsigned short* output,
      if(count>0) {
       int n=count;
       do {
-       *pixel++=gwPalette_0096FA80[*source++];
+       *pixel++=gawColors16[*source++];
       } while(--n);
      }
      data+=count;
@@ -619,11 +619,11 @@ int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile)
             {
                 D2DDSurfaceDesc2Strc tDesc = { sizeof(D2DDSurfaceDesc2Strc) };
                 long hResult = ((D2DDSurfaceStrc*)gpMemorySurface)->lpVtbl->Lock((D2DDSurfaceStrc*)gpMemorySurface, 0, &tDesc, 0x21, 0);
-                if (hResult) D3DCORE_LogDDrawError(gszFailedToLockMemorySurface_006FC2A4, hResult);
+                if (hResult) D3DCORE_LogDDrawError(gszFailedToLockMemorySurface, hResult);
                 D2_ASSERT(tDesc.dwFlags & 8, 0x1AD);
                 D3DFLOORCACHE_RenderTile((D2TileStrc*)pTile, (unsigned short*)tDesc.lpSurface, tDesc.lPitch >> 1);
                 hResult = ((D2DDSurfaceStrc*)gpMemorySurface)->lpVtbl->Unlock((D2DDSurfaceStrc*)gpMemorySurface, 0);
-                if (hResult) D3DCORE_LogDDrawError(gszFailedToUnlockMemorySurface_006FC284, hResult);
+                if (hResult) D3DCORE_LogDDrawError(gszFailedToUnlockMemorySurface, hResult);
             }
             if (gnRenderFlags_0096F3A8 & gnRenderFlag)
                 D3DCORE_CopySurface(pNode->pSurface, (D2DDSurfaceStrc*)gpMemorySurface, gnHeight_009702B8);
@@ -662,7 +662,7 @@ void __fastcall D3DFLOORCACHE_BindTileTexture(D2CacheBindingStrc* pTile)
         long hResult = gpMemorySurface32->lpVtbl->Lock(gpMemorySurface32, 0, &tDesc, 0x21, 0);
         if (hResult)
         {
-            D3DCORE_LogDDrawError(gszFailedToLockMemorySurface_006FC2A4, hResult);
+            D3DCORE_LogDDrawError(gszFailedToLockMemorySurface, hResult);
         }
 
         D2_ASSERT(tDesc.dwFlags & 8, 0x20B);
@@ -672,7 +672,7 @@ void __fastcall D3DFLOORCACHE_BindTileTexture(D2CacheBindingStrc* pTile)
         hResult = gpMemorySurface32->lpVtbl->Unlock(gpMemorySurface32, 0);
         if (hResult)
         {
-            D3DCORE_LogDDrawError(gszFailedToUnlockMemorySurface_006FC284, hResult);
+            D3DCORE_LogDDrawError(gszFailedToUnlockMemorySurface, hResult);
         }
 
         if (gnRenderFlags_0096F3A8 & gnRenderFlag)
