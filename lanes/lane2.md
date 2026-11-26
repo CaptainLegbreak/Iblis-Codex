@@ -2,7 +2,7 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 15:20 PT): lane 8 is back and has D2Common again, so lane 2 hands over D2Common's four forcing rows (readings just below) and goes on with Source/Include and the cross-module declarations. `d2common-decls` is in (#431); `d2common-dupdecls` is Ready if it isn't merged yet.
+Status (Thu Nov 26 15:35 PT): lane 8 is back and has D2Common again, so lane 2 hands over D2Common's four forcing rows (readings just below) and goes on with Source/Include and the cross-module declarations. `d2common-decls` is in (#431); `d2common-dupdecls` is Ready if it isn't merged yet.
 - **For lane 8, the four D2Common forcing rows as lane 2 left them (no branch; plain-C attempts only):**
   - 0x651040 (`__assume`): plain is 110/113, 81 bytes. Writing the id copy at the TOP of the loop body (`unsigned short nNext = parent; int nDepth = 0; int nId; do { nId = nNext; ...; } while ((short)nNext >= 0);`, or `for (;;)` with breaks) gives the original's double zero-extension (`movzx eax,word; movzx eax,ax`): 38 bytes. Left: register choice (ours nNext eax, nId ecx, nDepth edx by priority 136/116/108; the original has nId eax, nDepth ecx, nNext edx) and the copy (the original puts it on both loop edges and re-enters after it). An inline getter for the parent id with `int nId = getter(i)` gives 68; type pairs for the two locals and declaration orders give nothing better.
   - 0x621F90: plain is 1 byte off (the quest store's address `[ecx+edi-0xc]` vs the original's `[edi+ecx-0xc]`). edi is the strength-reduced waypoint offset (0x1c + 4i); the quest store is that minus 0xc. The name store before the loop, a pQuestRecord local or not, a player-data local, a roster temp: no change.
@@ -121,6 +121,43 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
 
 
 ## Notes for other lanes
+
+- **Module-header declarations that repeat a shared header (Thu Nov 26 15:35 PT), for the owners.** `shared-header-dupdecls` removed the 86 that were safe. The rest stay because some unit uses the function, includes the module header and not the shared one; giving those units the shared include (and building them: several are declaration-sensitive) lets the copy go. Per module header (copies; shared header; units that would need it):
+  - D2Common/D2Common.h: 48 copies; D2CommonApi.h needed by 29 units: D2Common/COLLISN/Collisn.cpp, D2Common/Chat/Ignorelist.cpp, D2Common/DATATBLS/DataTbls.cpp, D2Common/DRLG/Drlg.cpp, D2Common/DRLG/DrlgAnim.cpp, D2Common/DRLG/Preset.cpp, D2Common/DRLG/RoomTile.cpp, D2Common/DUNGEON/Dungeon.cpp, D2Common/ENVIRONMENT/Env.cpp, D2Common/INVENTORY/Inventory.cpp, D2Common
+  - D2Client/D2Client.h: 26 copies; D2CommonApi.h needed by 6 units: D2Client/ENGINE/Gfx_0046E300.cpp, D2Client/SKILLS/Skills.cpp, D2Client/UNIT/Item.cpp, D2Client/UNIT/Monster.cpp, D2Client/UNIT/Player.cpp, D2Client/Unknown_004E12D0.cpp
+  - D2Common/D2CommonInternal.h: 12 copies; D2CommonApi.h needed by 18 units: D2Common/COLLISN/Collisn.cpp, D2Common/DATATBLS/LvlTbls.cpp, D2Common/DATATBLS/Sequence.cpp, D2Common/DRLG/Drlg.cpp, D2Common/DRLG/DrlgRoom.cpp, D2Common/DRLG/DrlgWarp.cpp, D2Common/DRLG/Preset.cpp, D2Common/DRLG/RoomTile.cpp, D2Common/DUNGEON/Dungeon.cpp, D2Common/ITEMS/ItemMods.cpp, D2Common/PATH/
+  - D2Game/D2Game.h: 19 copies; D2CommonApi.h needed by 5 units: D2Game/Ai/AiThink4.cpp, D2Game/Ai/AiUtil.cpp, D2Game/GAME/SCmd.cpp, D2Game/SKILLS/SkillItem.cpp, D2Game/SKILLS/Skills.cpp
+  - D2Glide/D2Glide.h: 4 copies; FogApi.h needed by 8 units: D2Glide/Src/glBlocks.cpp, D2Glide/Src/glFloorCache.cpp, D2Glide/Src/glPerspective.cpp, D2Glide/Src/glSmack.cpp, D2Glide/Src/glSprite.cpp, D2Glide/Src/glSubtileCache.cpp, D2Glide/Src/glTextureCache.cpp, D2Glide/Src/glVertex.cpp
+  - Fog/Fog.h: 2 copies; FogApi.h needed by 13 units: Fog/Src/AsyncData.cpp, Fog/Src/D2QSQueue.cpp, Fog/Src/D2QSSocket.cpp, Fog/Src/DataArrays.cpp, Fog/Src/ErrorManager.cpp, Fog/Src/Excel/Excel.cpp, Fog/Src/Exceptions.cpp, Fog/Src/LogManager.cpp, Fog/Src/QServer/QServer.cpp, Fog/Src/QServer/QServerNT.cpp, Fog/Src/Safesock.cpp, Fog/Src/System/system.cpp
+  - Fog/Fog.h: 4 copies; StormApi.h needed by 5 units: Fog/Src/ErrorManager.cpp, Fog/Src/Excel/Excel.cpp, Fog/Src/Exceptions.cpp, Fog/Src/LogManager.cpp, Fog/Src/Safesock.cpp
+  - Storm/Storm.h: 1 copies; D2StormArrayA.h needed by 7 units: Storm/SOURCE/SBig_00423DC0.cpp, Storm/SOURCE/SBig_00424700.cpp, Storm/SOURCE/SBig_00424B00.cpp, Storm/SOURCE/SBig_00424FB0.cpp, Storm/SOURCE/SSignature_0041D4D0.cpp, Storm/Unknown_0041EBC0.cpp, Storm/Unknown_00425720.cpp
+  - D2Lang/D2Lang.h: 2 copies; D2LangApi.h needed by 3 units: D2Lang/StrTable/strtable.cpp, D2Lang/Unknown_00526100.cpp, D2Lang/Unknown_00526490.cpp
+  - D2Client/D2Client.h: 1 copies; StormApi.h needed by 4 units: D2Client/UI/inv_0048DD90.cpp, D2Client/Unknown_00482C70.cpp, D2Client/Unknown_004E2320.cpp, D2Client/Unknown_004E4670.cpp
+  - D2Multi/D2Multi.h: 3 copies; StormApi.h needed by 2 units: D2Multi/Src/ChatDlg.cpp, D2Multi/Src/ComCallback.cpp
+  - D2Common/D2Common.h: 1 copies; FogApi.h needed by 4 units: D2Common/DATATBLS/DataTbls.cpp, D2Common/DATATBLS/ItemTbls.cpp, D2Common/DATATBLS/MonsterTbls.cpp, D2Common/DATATBLS/OverlayTbls.cpp
+  - D2Launch/D2Launch.h: 3 copies; FogApi.h needed by 1 units: D2Launch/Src/CharSel.cpp
+  - D2Hell/D2Hell.h: 2 copies; StormApi.h needed by 2 units: D2Hell/SRC/Archive.cpp, D2Hell/Unknown_00516D8B.cpp
+  - D2Launch/D2Launch.h: 3 copies; D2LangApi.h needed by 1 units: D2Launch/Src/CharSel.cpp
+  - D2CMP/D2CMP.h: 1 copies; StormApi.h needed by 3 units: D2CMP/SRC/CelDataHash.cpp, D2CMP/SRC/GfxHash.cpp, D2CMP/Unknown_0060AE80.cpp
+  - D2Hell/D2Hell.h: 2 copies; FogApi.h needed by 1 units: D2Hell/SRC/CRC.cpp
+  - D2Sound/D2Sound.h: 2 copies; FogApi.h needed by 1 units: D2Sound/Src/D2SoundUtil.cpp
+  - D2DDraw/D2DDraw.h: 2 copies; FogApi.h needed by 1 units: D2DDraw/Src/ddSmack.cpp
+  - D2Gdi/D2Gdi.h: 2 copies; FogApi.h needed by 1 units: D2Gdi/Src/gdiSmack.cpp
+  - D2BNClient/D2BNClient.h: 2 copies; StormApi.h needed by 1 units: D2BNClient/BnDownload.cpp
+  - D2BNClient/D2BNClient.h: 1 copies; D2StormArrayA.h needed by 2 units: D2BNClient/BNetGW.cpp, D2BNClient/BnSend.cpp
+  - Fog/Fog.h: 1 copies; D2StormArrayA.h needed by 2 units: Fog/Src/Excel/Excel.cpp, Fog/Src/QServer/QServerNT.cpp
+  - D2Client/D2Client.h: 2 copies; D2LangApi.h needed by 1 units: D2Client/UI/ui.cpp
+  - D2Win/D2Win.h: 2 copies; stpl.h needed by 1 units: D2Win/Src/D2WinTextBox.cpp
+  - D2Glide/D2Glide.h: 1 copies; stpl.h needed by 2 units: D2Glide/Src/glCore.cpp, D2Glide/Src/glSmack.cpp
+  - D2Net/D2Net.h: 1 copies; FogApi.h needed by 1 units: D2Net/SRC/D2Net.cpp
+  - D2Common/D2Common.h: 1 copies; D2StormArrayA.h needed by 1 units: D2Common/Chat/Ignorelist.cpp
+  - D2Multi/D2Multi.h: 1 copies; D2StormArrayA.h needed by 1 units: D2Multi/Src/ChatDlg.cpp
+  - D2Launch/D2Launch.h: 1 copies; StormApi.h needed by 1 units: D2Launch/Unknown_004370B0.cpp
+  - D2Common/D2Common.h: 1 copies; stpl.h needed by 1 units: D2Common/Chat/Ignorelist.cpp
+  - D2CMP/D2CmpStormList.h: 1 copies; stpl.h needed by 1 units: D2CMP/SRC/CelCmp.cpp
+  - D2Client/D2Client.h: 1 copies; D2Unicode.h needed by 1 units: D2Client/GAME/Roster.cpp
+  - D2Win/D2Win.h: 1 copies; StormApi.h needed by 1 units: D2Win/Unknown_004F6F60.cpp
+  - 15 functions also have module-header copies whose prototype differs from the shared one. The shared prototypes all match the definitions; the differing copies are D2Client.h's D2COMMON_10267_Return, DATATBLS_GetLevelThreshold, DUNGEON_GetFloorTilesFromRoom, FOG_GetInstallPath, MONSTERS_GetActFromHirelingTxt, WAYPOINTS_CopyAndValidateWaypointData, SRegLoadString; D2CommonInternal.h's D2COMMON_10475_PostStatToStatList, STATLIST_GetUnitBaseStat, STATLIST_SetUnitStat; D2Game.h's STATLIST_SetStatValue, UNITS_InitializeStaticPath; D2Common.h's SStrCmpI (twice, int and unsigned); D2BNClient.h's SRegLoadData; D2Hell.h's SStrChr; Fog.h / D2Multi.h / D2Launch.h's SRegLoadString / SStrCmpI. Their callers built equal with those prototypes, so each change needs its callers rebuilt.
 
 - Coordinator and lane 3, Fog's pool pair (FOG_AllocPool 0x40B430, FOG_FreePool 0x40B480): not moved. Their definitions take `D2PoolSystemStrc*` (and FreePool returns int), but all 74 caller units declare the pool as `void*` (14 declare FreePool as void), and they pass `void*` fields: D2GameStrc's pMemoryPool, D2DrlgRooms/D2Structs/D2ItemsWorld/D2Skills/D2SpriteCache's pMemPool, 8 fields in Source/Include. C++ won't convert void* to D2PoolSystemStrc* implicitly, so no caller compiles with the definition's prototype unchanged. The way through is to retype those pool fields as `D2PoolSystemStrc*` first (Source/Include is mine; the fields' users are every lane's units), then move the two declarations. It's a project of its own: every includer gets built, and a field type can change code. Tried on #401: retyping the 8 fields builds 486 of 495 includers equal, but 7 D2Common/D2CMP units (Dungeon, Units, StatsEx, Inventory, Skills, UnitFinds, SpriteCache) store a `void* pMemPool` parameter into those fields, and two more (inv_004886C0, ItemTbls) change code. Fixing them means retyping those D2Common functions' parameters, which changes their symbols, or adding casts. And most pool-pair callers pass their own `void*` locals, so the move still wouldn't reach them. Parked: not worth the risk now. If you want the pool pair in FogApi.h anyway, the only form that builds is a `void*` declaration, and that needs your ruling.
 - Lane 8, `lane2/decls-d2common-b` (Ready): the 311 D2Common exports that 2-9 units outside D2Common each redeclared now have their one cross-module declaration in Source/Include/D2CommonApi.h (the full list is the header itself). As agreed, nothing in Source/D2Common changes. Left out: functions whose callers declare them with other types or linkage (UNITS_GetWeaponClass, ITEMS_GetSockets, INVENTORY_GetItemCount, CHAT_GetUsedFromHoverMsg, STATLIST_GetSkillId, SKILLS_GetUseState and a few more), and prototypes using types the header can't forward-declare (enums, typedefs, PathView, D2TokRecord). Those callers need their own types fixed first; they're the owners' files.
