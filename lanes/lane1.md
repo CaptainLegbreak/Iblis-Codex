@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 12:20 PST 2026: lane 1 restarted (new chat), on #429. Taking my range back from lane 4: its handover list and Left in place notes are my starting point; lane 4's `names-sub-d2client` (Ready, covers my range too) stays with lane 4 to finish. Order: the two file joins first (SkillDesc, npcmenu), then my four forcing rows (0x4A9870, 0x4B8100, 0x4EB290, 0x4F2BE0) with fresh eyes on lane 4's readings, then scaffolding and names. Baseline build running.
 - Wed Nov 25 09:39:05 PST 2026: check-in. Main is still #402 and lane 2's decls-d2common-b isn't in, so SkillDesc joins stay paused. Ready is empty.
 - Wed Nov 25 09:06:59 PST 2026: check-in. lang-copies is on main, so Ready is empty. Lane 2's decls-d2common-b hasn't landed yet, so SkillDesc joins stay paused.
 - Wed Nov 25 08:35:03 PST 2026: check-in. lang-copies is still ready and merges clean on #400, which is still main. SkillDesc joins stay paused until lane 2's decls-d2common-b lands.
@@ -40,6 +41,11 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
+
+## Claimed
+
+- **SkillDesc join (file in pieces).** On #429, `UI/SkillDesc_004E1FF0.cpp` is not one piece: it spans 0x4E1FF0-0x4F48F0 and holds three language copies. Only its functions inside SkillDesc.cpp's run (0x4E6C50, 0x4E6D40, 0x4E6D90, 0x4E6E80, 0x4E6FF0, 0x4E7900, 0x4E9160, 0x4E9590, 0x4E9870, 0x4EB940, 0x4EDA20, 0x4EFC20-0x4EFCB0) join SkillDesc.cpp, in address order. The skill callbacks before 0x4E4640 and the tail (0x4F47B0, 0x4F48F0, and `SkillDesc_004F30A0.cpp`) are other objects' and stay, with the reason in a comment.
+- **npcmenu join:** `UI/npcmenu_004B5C60.cpp` (0x4B5C60) into npcmenu.cpp. Known from my old notes: the piece builds with /EHsc, npcmenu.cpp without, and with /EHsc on npcmenu.cpp 0x4B5C60 was still one push/xor order off.
 
 ## In progress
 
