@@ -2197,12 +2197,6 @@ int __fastcall AUTOMAP_InsertAutomapCell(D2AutomapCellStrc* pCell, D2AutomapCell
     return nResult;
 }
 
-void __fastcall sub_J02_EmitSetAutomapContext(D2AutomapLayerStrc* pContext, D2AutomapCellBlockStrc* pBlock)
-{
-    gpAutomapContext = pContext;
-    gpAutomapCellBlocks = pBlock;
-    gnAutomapCellCount_007A515C = 7;
-}
 
 // 0x00457C30
 D2AutomapCellStrc* __cdecl AUTOMAP_AllocAutomapCell()

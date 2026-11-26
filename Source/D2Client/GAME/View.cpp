@@ -1343,11 +1343,6 @@ void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, i
 
 unsigned char gnHelpShadeColor; // 0x007BEEF8
 
-void __stdcall sub_M114_Emit_00492BD0(int nMode, int nPopupX)
-{
-    gnPetIconPopupState = nMode;
-    gnPopupX = nPopupX;
-}
 
 // 0x004D1640
 D2UnitStrc* __fastcall VIEW_SpawnDirectionalMissile(D2UnitStrc* pUnit, int nFrame)

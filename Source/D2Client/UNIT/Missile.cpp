@@ -7758,10 +7758,6 @@ int __cdecl MISSILE_GetMissileLights()
     return gbMissileLights;
 }
 
-int __stdcall sub_M119_Emit_004CC800(D2ActiveRoomStrc* pRoom, int nOffsetX, int nOffsetY, int nMaxDistanceSq, int nX, int nY)
-{
-    return MISSILE_CheckDistanceAndLineOfSight(nMaxDistanceSq, nX, nY, pRoom, nOffsetX, nOffsetY);
-}
 
 // 0x004CC790
 int __fastcall MISSILE_RollRange(D2SeedStrc* pSeed, int nMin, int nMax)

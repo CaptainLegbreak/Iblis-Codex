@@ -478,17 +478,6 @@ static void __stdcall sub_0046CA60_CommandToXY(int nCommand, D2UnitStrc* pUnit, 
 
 static void GFX_AiType3(D2UnitStrc* pUnit); // 0x0046CE40
 
-void __fastcall sub_E19_Emit_0046CE40(D2UnitStrc* pUnit, int nClassId)
-{
-    switch (nClassId)
-    {
-    case 0x9D:
-    case 0x9E:
-    case 0x13F:
-        GFX_AiType3(pUnit);
-        return;
-    }
-}
 
 
 
@@ -846,11 +835,6 @@ static void __stdcall GFX_PreloadPlayerMode(int bAsync, D2UnitStrc* pUnit, int n
     }
 }
 
-int __stdcall sub_M389_Emit_0046FEB0(int bAsync, D2UnitStrc* pUnit)
-{
-    GFX_PreloadMonsterModes(bAsync, pUnit);
-    return 0x3B;
-}
 
 static void GFX_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit);
 

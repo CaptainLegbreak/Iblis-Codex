@@ -938,10 +938,6 @@ WardenClient::WardenClient()
 
 struct D2UnitStrc;
 
-void WardenModule_EmitDelete(WardenModule* pModule)
-{
-    delete pModule;
-}
 
 // 0x004801D0
 void __cdecl WARDENCLIENT_UnloadWarden()

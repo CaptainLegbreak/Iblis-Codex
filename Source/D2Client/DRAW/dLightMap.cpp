@@ -485,11 +485,6 @@ void __fastcall DLIGHTMAP_FadeOutLight(D2R01LightStrc* pLight)
     D2_ASSERT(pLight->nMode != LIGHT_TYPE_2, 0x190);
 }
 
-void __stdcall sub_R01_Emit_00474C00(int nRow, int nColA, int nColB)
-{
-    DLIGHTMAP_BlendLightCell(nColA, nRow);
-    DLIGHTMAP_BlendLightCell(nColB, nRow);
-}
 
 // 0x004744B0
 static void __stdcall DLIGHTMAP_FillLightGrid(int nX0, int nY0, int nX1, unsigned int nColor, int nY1)
@@ -713,20 +708,7 @@ static void __stdcall DLIGHTMAP_AddGridLight(int nIntensity, unsigned char nRed,
     }
 }
 
-int __stdcall sub_W04_Emit_004740D0(int nX, int nY, int nDx, int nDy)
-{
-    int nA = nX - nDx;
-    if (nA < 0) nA = -nA;
-    int nB = nY - nDy;
-    if (nB < 0) nB = -nB;
-    return DLIGHTMAP_ApproxDistance(nB, nA) + nX;
-}
 
-void __stdcall sub_W04_Emit_00474B50(D2R01LightStrc* pPoint, int nX, int nY)
-{
-    DLIGHTMAP_SetupStepDirection(nX, nY, pPoint);
-    DLIGHTMAP_SetupStepDirection(nY, nX, pPoint);
-}
 
 // 0x004748D0
 static void __stdcall DLIGHTMAP_AddAreaLight(D2R01LightStrc* pLight, int bNoClamp)
@@ -812,13 +794,6 @@ static inline unsigned char DLIGHTMAP_IsCellBlocked(int nX, int nY)
     return gaLightGrid[nY][nX].f_0;
 }
 
-void __stdcall sub_P08_Emit_004747C0(D2P08LightSourceStrc* pSource, int nX, int nY, int nIntensity)
-{
-    if (nIntensity > 0)
-    {
-        DLIGHTMAP_AddGridLight(nIntensity, pSource->nRed, pSource->nGreen, pSource->nBlue, nY, nX);
-    }
-}
 
 // 0x00474A70
 static void DLIGHTMAP_BuildOverrideWindow(D2R01LightStrc* pLight)
@@ -895,14 +870,6 @@ static void __stdcall DLIGHTMAP_SetupStepDirection(int nX, int nY, D2R01LightStr
     }
 }
 
-void __stdcall sub_R01_Emit_004748D0(D2R01LightStrc* pLight, int nMode)
-{
-    if (pLight->nUnitType != 6)
-    {
-        DLIGHTMAP_AddAreaLight(pLight, nMode);
-    }
-    pLight->nRadius = 0;
-}
 
 // 0x00474C00
 static void DLIGHTMAP_BlendLightCell(int nCol, int nRow)
@@ -1039,16 +1006,6 @@ static void DLIGHTMAP_AddBlendedAreaLight(D2R01LightStrc* pLight)
     }
 }
 
-void __stdcall sub_E4F1_Emit_00474D70(int nLevel, D2R01LightStrc* pLight)
-{
-    if (!pLight->nMode && nLevel > 1)
-    {
-        DLIGHTMAP_AddBlendedAreaLight(pLight);
-        return;
-    }
-
-    pLight->nRadius = 0;
-}
 
 // 0x004750F0
 static void DLIGHTMAP_BuildLightMask(D2R01LightStrc* pLight)
@@ -1400,10 +1357,6 @@ void __fastcall DLIGHTMAP_ActRoomCallback(D2ActiveRoomStrc* pRoom)
     }
 }
 
-void sub_M241_Emit_00474D70(D2R01LightStrc* pLight)
-{
-    DLIGHTMAP_BuildOverrideWindow(pLight);
-}
 
 // 0x00475B40
 void __cdecl DLIGHTMAP_InitLightTables()

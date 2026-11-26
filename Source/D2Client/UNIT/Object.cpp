@@ -728,10 +728,6 @@ static void OBJECT_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget)
         pUnit->dwFlags &= ~0x20;
 }
 
-void __fastcall sub_M256_Emit_004BCB20(D2UnitStrc* pUnit)
-{
-    OBJECT_StepDoorFrame(pUnit);
-}
 
 static inline unsigned int SEED_RollRandomNumberLoFirst(D2SeedStrc* pSeed)
 {

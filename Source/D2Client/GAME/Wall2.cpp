@@ -986,13 +986,6 @@ static void __stdcall WALL2_BuildSmallGrid(int nSubX, int nSubY, int nZ, int bCo
     }
 }
 
-void __stdcall sub_004DD550_Emit(D2ActiveRoomStrc* room, Context* context, Tile* tile, unsigned int count, Cell* cells)
-{
-    for (unsigned int i = 0; i < count; ++i, tile = (Tile*)((unsigned char*)tile + 48))
-    {
-        WALL2_AddFloor((Cell*)((unsigned char*)cells + 36 * i), room, context, tile);
-    }
-}
 
 static inline int CLIENTS_GetUnitX_FloorView(D2UnitStrc* pUnit)
 {
