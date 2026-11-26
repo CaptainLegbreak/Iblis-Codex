@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 14:55 PST 2026: my join-soundinst and join-editbox are superseded by lane 1's joins of the same files in #436 (their range); dropped, though the proxy won't let me delete the remote branches. Game_0044B7B0 stays apart (Ready, note). Next: Game_0044D080/E5A0, which need the loading-timer and critical-section records sorted out; then Inv, Text; Gfx after its records.
+
 - Thu Nov 26 14:14 PST 2026: #435 took roster-record. join-soundinst and join-editbox posted on #435 (files in pieces -2, one evidenced noinline). Gfx join in progress.
 
 - Thu Nov 26 13:40 PST 2026: new ownership noted (lane 4 = D2Client below 0x4A0000). Parked forcing rows handed over (Notes). Starting the piece joins: Gfx first.
@@ -88,8 +90,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/join-soundinst 581554b23 (on #435): files in pieces. SoundInst.cpp takes SOUNDINST_SetValue (0x4B9B50, between SoundInst.cpp's 0x4B9B20 and 0x4B9B80) and SoundInst_004B9B50.cpp goes. **One evidenced noinline (noinline 96 -> 97 on #435):** SOUNDINST_ArmHint (0x4B9EF0) calls it out of line in the image, and in one unit the compiler would expand it there; the comment says so.
-- lane4/join-editbox a054758f9 (stacked on join-soundinst; full build of the two on #435 identical, borrowed code unchanged at 8,373 B in 5 functions, audit guard clean with AUDIT_ALLOW=noinline for the one above): editbox.cpp takes EditBoxImplementation::OnKeyDown (0x4BB620) and editbox_004BB620.cpp goes. The piece kept its own flat copy of EditBoxImplementation, so its field names now name editbox.cpp's record: UIWidget's filter callback pfFilter (was unk0x04), bNumeric, bAllowRepeat, nCaret, nTextLength (0x20, 0x24, 0x36, 0x3A) and the enter callback pfOnEnter (0x42). The two callbacks have their function-pointer types, with casts at the two `int` stores. OnKeyDown is a virtual override in editbox.cpp's class, so its address is stated with a `build: symbol` line beside the other overrides'. Files in pieces -2. (Both files are above 0x4A0000, lane 1's range now; the coordinator's 11:57 join list gave these joins to lane 4.)
+- lane4/game-b7b0-note d5605982f (on #437, comment only; the unit builds equal): files in pieces. Game_0044B7B0.cpp says why its six functions stay out of Game.cpp. Its object's data starts with its own copy of the language-name table (0x0070F728), past the end of Game.cpp's data (0x0070F564), so they are two objects. I joined it first: 23/23 equal with one noinline (GAME_LoadAct would expand GAME_InitColors), but the full build showed borrowed data 261 -> 328 B, because the copy went and its bytes then had no source. **All lanes doing joins:** a piece with its own `build: symbol _gaszLanguageNames` marker is its own object; check for one before joining, and compare borrowed data, not only borrowed code, against main.
 
 
 ## Claimed
