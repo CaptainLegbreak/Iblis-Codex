@@ -10,6 +10,8 @@ Status (Thu Nov 26 2026, 15:45 PT): join-charsel, join-charsel-3 and emit-trim-2
 - `lane6/names-sub-3` @ 82901ebd1: nine more placeholder functions named from their bodies (sub_0043BF60_ConnectToBattleNet, sub_005269D0_FormatText (the Unicode format routine; its callers in D2Client, D2Game and D2LangApi.h follow), sub_00520650_GetInfoText, sub_0052B910_GetLastError, two value getters, three constant callbacks). Every touched unit equal (38); auditguard: no count rose; full build queued. Left: CelCmp.cpp's cel-list template members (several folded with other modules' copies) and 0x503F70 (an emit helper's static).
 - `lane6/fields-bnftp` @ 244733bbb: BnDownload.cpp's BNFTP request header names its protocol version bytes. Unit equal; full build queued.
 
+- `lane6/emit-trim-3` @ 80d92c6b1: seven more emit helpers go (Bnclient Unknown_00527BE0.cpp 3, D2WinEditBox.cpp 2, strtable.cpp 1, FastCmp.cpp 1; emit helpers 373 -> 366); each removed alone, kept out only where its unit stays equal. Full build queued.
+
 ## Questions
 
 ## Claimed
