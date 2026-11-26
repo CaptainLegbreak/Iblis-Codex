@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/fog10207-original 7fae94931 on #425 (8fa932e18), **tools/status.py only: 0x6BD780's identical arms marked "(original)"**, as ruled ("mark them (original) in tools/status.py with your evidence"). `ARMS_ORIGINAL` holds the address, with the evidence in a comment; the row reads "identical if/else arms (original)". `python3 tools/status.py`: forcing-construct functions 40 -> 39 (lane 4's three would make it 36); STATUS.md and docs left for your refresh. No build input touched, no full build. If lane 4 adds its own set for the D2Client arms, the two merge as one set.
+(none: fog10207-original merged in #426)
 
 ## Claimed
 
