@@ -100,8 +100,8 @@ void __fastcall GLCORE_SetAlphaBlendMode(int nMode); // 0x00509500
 void __fastcall GLCORE_SetColorCombineMode(int nState); // 0x005094B0
 void __fastcall GLCORE_SetTextureCombineMode(int nTmu); // 0x00509460
 void __fastcall GLCORE_SetTextureFilterMode(int nMode); // 0x005095D0
-void __fastcall GLSMACK_FloorCacheEvict(D2GlideFloorCacheStrc* pCache); // 0x0050F6D0
-D2GlideFloorCacheEntryStrc* __fastcall GLSMACK_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F570
+void __fastcall GLFLOORCACHE_FloorCacheEvict(D2GlideFloorCacheStrc* pCache); // 0x0050F6D0
+D2GlideFloorCacheEntryStrc* __fastcall GLFLOORCACHE_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F570
 void __stdcall GLVERTEX_DecodeTileBlocks(D2TileLibraryEntryStrc* pTile, unsigned char* pDst); // 0x0050F980
 int __cdecl GLVERTEX_IsPerspective(); // 0x0050DD30
 void __fastcall GLVERTEX_SetAmbientColor(int nRed, int nGreen, int nBlue); // 0x0050DBC0
