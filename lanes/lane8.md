@@ -2,127 +2,32 @@
 
 Written by lane 8 only. Newest entries at the top of each section; delete what is done.
 
-Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lane 6.
+Lane 8 reopened (new chat, 2026-11-26 12:00 PT). Owns `Source/D2Common/**` again, from lane 2; lane 2 keeps
+`Source/Include` and the cross-module declarations (D2CommonApi.h). Focus order: forcing constructs, files in pieces,
+scaffolding, names.
 
 ## Claimed
-- Lane 7, please confirm or object: lane 8 takes the six D2Common `volatile` functions from STATUS.md: 0x621F90 UNITS_AllocPlayerData, 0x6419F0 D2Common_10406, 0x647280 SKILLS_AssignSkill, 0x649970 D2Common_10142, 0x65EA50 ITEMMODS_AddPropertyToItemStatList, 0x660D10 DATATBLS_GetInvRectFromBeltsTxt. The __assume one (0x651040 DATATBLS_ComputeMonStatsDepths) stays yours with your assume macros. I'm starting with 0x660D10; tell me here if you already have any of them in progress and I'll drop it.
+- File joins in D2Common, one branch each (`lane8/join-<file>`): `DataTbls/ItemTbls` (ItemTbls_00633730, ItemTbls_00634DC0),
+  `DataTbls/DataTbls` (DataTbls_00613F80), `DataTbls/MissileTbls` (MissileTbls_00663270), `Composit/Composit`
+  (Composit_0064F060), `Units/Missile` (Missile_0064B860). Lane 2 hadn't claimed any of them.
 
 ## Status
-- Wed Nov 25 09:55 PST 2026, grinding 0x651040: the chain record's parent/next fields as signed short (as in
-  D2MonStatsTxt) with ushort/short/uint locals and the id straight from the field: the entry copy still goes.
-- Wed Nov 25 09:20 PST 2026 (17:20 UTC), grinding 0x621F90: ten more spellings of the quest store's address
-  (`[i+0]`, `&a[0]+i`, `(a+i)[0]`, `[i*1]`, byte-offset casts from pPlayerData in four operand orders): the SIB byte
-  doesn't move, so the source's address spelling isn't what sets it; only an opaque pPlayerData load (the volatile)
-  does. Next idea to try: the player data reached through a non-inlined accessor whose result the compiler can't
-  fold (if one exists in the original's call graph here; the original makes no call, so probably not).
-- Wed Nov 25 09:35 PST 2026, grinding 0x6419F0: plain, the function is 5 bytes short, all in the range-test cases. The
-  original loads nX/nY from their spill slots into ecx once per test (`mov ecx,[ebp-4]; lea edx,[esi-1]; cmp ecx,edx;
-  jl; add esi,1; cmp ecx,esi; jg`) and shares the final `cmp ecx,eax; jg` between cases 3/7 and 9; the plain source
-  compares the spill slots directly. Also of note: 10406's cases 6 and 8 are two identical blocks in our source where
-  the original has one (10407 writes `case 6: case 8:`); merging them to `case 6: case 8:` breaks 0x6419F0 (volatile
-  kept), so the duplicate block is steering too.
-- Wed Nov 25 09:20 PST 2026, grinding: 0x65EA50: the shift or the shifted value computed before `if (nSet)`, the
-  branches swapped (`if (!nSet)`), the set branch as its own `if` with a return, and an inline set helper (both
-  parameter orders): ours still hoists the nValue load. 0x62FFF0 (helper form): unsigned/short count, a count-down
-  loop, an `if (nStats > 0)` guard, the counter declared outside: the nStats/nLayer slots stay swapped.
-- Wed Nov 25 09:00 PST 2026: 0x651040 (the __assume): the original's loop is rotated: nId = nNext both before the
-  loop (movzx eax,word; movzx eax,ax) and at the latch (movzx eax,dx); ours drops the first copy. Writing the copy
-  at the loop head (`for (;;) { unsigned/int nId = nNext; ...; nNext = rec[nId].wNext; ...; if (... ) break; }`)
-  brings the movzx copy back, but the compiler keeps it at the head (not rotated, 3 bytes shorter) with nId/nNext/
-  depth in ecx/eax/edx instead of eax/edx/ecx. short/ushort/int nId, short nNext, do/while/while/for-with-breaks:
-  none rotates it. A lead: the copy-at-head shape is the right kind of source. Also tried with the original's rotated
-  shape: nId and nNext assigned in one chain, nId straight from the field, int nNext, a record pointer, and casts on the
-  first copy ((unsigned short)(short), (short), (int)(unsigned short), & 0xFFFF): the compiler drops the first copy.
-- Wed Nov 25 09:05 PST 2026 (grinding, the user's call):
-  - 0x621F90 without volatile is 1 byte off (the quest store's SIB order [ecx+edi-0xC] vs the original's
-    [edi+ecx-0xC]; the waypoint store [edi+edx] matches). New forms tried, none moves that byte: one statement per
-    store, pointer arithmetic, i[array], a roster temp, the player data in a local after the call, unsigned/long/
-    short/char loop index (unsigned only flips jl to jb), (unsigned) cast on one index, post-increment, while,
-    do/while, `i <= 2`.
-  - 0x65EA50 without volatile: ours hoists the nValue load above the nSet branch. A temp for the shifted value, an
-    int or char shift local, a return inside the set branch, an unsigned shift: still hoisted. `nValue * (1 << shift)`
-    removes the hoist (the load stays in the branch) but then builds 1<<shift and an imul; the original's set branch
-    loads shift, value, layer in that order (the add branch: layer, value, shift). Lead for whoever continues.
-  - 0x62FFF0 (identical arms): 4 bytes off with Items.cpp's own ITEMS_GetItemStatCostTxtRecordInl(); nStats and
-    nLayer swap stack slots. Declaring both at the top in eight orders, dropping nLayer for the field read (worse),
-    a stat pointer, non-const nStats: no change.
-- Wed Nov 25 08:15 PST 2026: D2Common's volatile: Preset.cpp's two are the Win32 Interlocked prototypes (not forcing).
-  The real ones are 0x6419F0 (Drlg.cpp, 4), 0x621F90 (Units.cpp, 1) and 0x65EA50 (ItemMods.cpp, 1), each already
-  tried in dozens of forms (notes below). Checked one more lead on 0x6419F0: its sibling D2Common_10407 (0x641CB0)
-  matches with the plain range tests, but there nX/nY are parameters; in 10406 they are CLIENTS_GetUnitX/Y results
-  spilled to [ebp-4]/[ebp-8] (not a coordinate struct: X sits above Y). No new form yet.
-- Wed Nov 25 07:50 PST 2026: Items.cpp 0x62FFF0's identical arms (the `nStats > 1` pair in the stat writer, and the
-  `pBuffer` pair before it): with the record lookup written as Items.cpp's own ITEMS_GetItemStatCostTxtRecordInl()
-  in place of the nStats/goto block, the function is within 4 bytes: only nStats and nLayer swap stack slots
-  (-0x14/-0x18). Declaration order, int vs short layer, the packed fields, nStats declared late don't swap them back;
-  the arm's extra nStats use is what does. Lane 7, a lead if you take it: the helper form plus whatever else uses nStats.
-- Wed Nov 25 07:12 PST 2026: identical-arm site DataTbls_00613F80.cpp (0x613F80, the passive-skill count): without the
-  `nSkillId > 0` arm the loop's index and record offset swap esi/edx (the arm adds uses of nSkillId). Tried: plain
-  `>= 0` test, negated test, continue, a single goto, `!= -1`, the records indexed directly, an inner `int i`, a mixed
-  form. None holds. Stays a forcing construct for now.
-- Wed Nov 25 06:45 PST 2026: identical-arm site LvlTbls.cpp (0x61F500, the LvlSub type-start loop): the plain loop
-  (one store, no if/else) and four for-loop spellings all swap edi/edx in that loop, and every one of them also flips
-  0x61FCF0 in the same unit, a function the edit doesn't touch (the same unit that flips with D2Common.h's contents).
-  So LvlTbls.cpp's unit is sensitive to its own text as a whole; the arm stays until someone finds a form that holds
-  both. Lane 7, noted for your list.
-- Wed Nov 25 05:50 PST 2026: coordinator, `audit-noinline-d2common` (51b6e227) was pushed and its two changes are on main since #395 (TileSub.cpp and Unknown_00668510.cpp have no noinline there), so it is done; dropped from Ready with labels, emit, decls and fields (all merged by #396).
-- Wed Nov 25 03:20 PST 2026: **at the user's request the lane 9 session now also works as lane 8** (D2Common), posting here and pushing lane8/ branches. Lane 9 stays on standby. Starting with lane 8's audit rows (audit-379-lanes.md): labels, decompiler types, emit helpers, noinline, fields, the D2Common.h declaration move. D2Common's a1/v12 parameter names and 1.10 names stay lane 10's (COORDINATOR.md).
-- Tue Nov 24 21:16:23 PST 2026: #378 took path-10142-stores, belt-invrect, join-profcore and data-records-4; dropped from Ready. Nothing of lane 8's is pending; this session works as lane 1 now.
-- Tue Nov 24 20:29:00 PST 2026: at the user's request this session now works as **lane 1** (posting in lanes/lane1.md, pushing lane1/ branches). Lane 8's ready branches (path-10142-stores, belt-invrect, join-profcore, data-records-4) stand as posted; I'll still rebase them if the coordinator asks here.
-- Tue Nov 24 20:25:17 PST 2026: survey of other lanes' forcing constructs (plain form vs current, differing lines; non-LTCG units only, D2Game's LTCG units can't be tested in a single-unit compile): BNetGW 0x518300 +3 and Fog 0x402A90 +6 (both only the load order of an out-pointer store: ~12 forms each, no change), dLightMap 0x474160 +10 (argument loads scheduled after the call), spellsel 0x4A9870 +16 (y load hoisted above the if, the same thing as ItemMods 0x65EA50), SkillDesc 0x4EB290 +24, D2WinTextBox 0x4FBF30 +29, dialog 0x4B8100 +47; D2Glide 0x50CA00 and D2Direct3D 0x6B83A0 +180. SkillAss 0x5D4680 (charged-bolt turn base): the plain form reassociates `roll % 3 + base` into `base - 3q + roll`; six cast/split forms keep it. No plain form for any yet.
-- Tue Nov 24 20:22:34 PST 2026: the user has cleared lane 8 to work on other lanes' files (only lanes 7-10 are active). data-records-4 replaces data-records-3: borrowed data 844 -> 517 B. Next: other lanes' forcing constructs (survey posted as I go).
-- Tue Nov 24 19:52:04 PST 2026: check-in; no new notes for lane 8. Ready: path-10142-stores, belt-invrect, join-profcore, data-records-3. Continuing on 0x621F90 / 0x6419F0 / 0x651040 / 0x65EA50.
-- Tue Nov 24 19:51:32 PST 2026: data-records-3 replaces data-records-2 (adds DrlgRoom.cpp's 3-byte pad): borrowed data 844 -> 533 B.
-- Tue Nov 24 19:43:54 PST 2026: data-records-2 replaces data-records (rebased on #377, plus two 2-byte string pads): borrowed data 844 -> 536 B.
-- Tue Nov 24 19:27:04 PST 2026: 0x660D10 matched in plain C++ (branch ready below). Forcing constructs left: 0x621F90, 0x6419F0, 0x651040, 0x65EA50.
-- Tue Nov 24 19:19:26 PST 2026: check-in. Thanks, lane 7, for the notes. Ready and waiting: path-10142-stores, data-records (independent of lane 9's crt-xcu-tool: different blocks), join-profcore. Continuing on 0x660D10, 0x651040 and 0x679C80.
-- Tue Nov 24 19:16:50 PST 2026: placeholder join ready (ProfCore.cpp takes Unknown_006115F0.cpp). Tried Unknown_00624740.cpp into StatsEx.cpp: it changes StatsEx's 0x627340 (not equal), so it stays.
-- Tue Nov 24 18:57:34 PST 2026: withdrew my placeholder-renaming question: the coordinator already answered it (no; they stay Unknown_<VA>.cpp without an assert path, Blizzard name or run inside a known file). Sorry for the repeat.
-- Tue Nov 24 18:52:32 PST 2026: borrowed data: four D2Common blocks get records, 844 -> 540 B (branch ready below). Next: the remaining D2Common blocks (0x6E867A and 0x6E8E22 are pads before records whose alignment the link plan doesn't see; 0x6EEE11 crosses DrlgWarp/DrlgLogic; 0x6F28D0 and the .data run 0x749DEC-0x74B614 between Unknown_00681490.cpp and d3dCore.cpp).
-- Tue Nov 24 18:37:44 PST 2026: 0x649970 matched in plain C++, branch ready (below). Forcing constructs left: 0x621F90, 0x6419F0, 0x651040, 0x65EA50, 0x660D10.
-- Tue Nov 24 18:02:41 PST 2026: skills-assign-plain is merged (#372, forcing constructs 38 -> 37); dropped from Ready. Question below about the D2Common placeholders.
-- Tue Nov 24 17:59:16 PST 2026: 0x677880 DRLG_GenerateJungles: mapped our stack slots against the original's (CodeView + aligned listing). The differences come in rotated triples (ours -0x14/-0x1c/-0x20 = nBX group / nIdx group / nJ, original nJ / nBX group / nIdx group; the same at -0x28..-0x30 and -0x38..-0x40), and the original has an extra slot at -0x40 that holds second live ranges of nJ, nBX/nBaseOn/nP0 and bHadNoPreset. A greedy search over 11 variable-reuse choices (loop variables, the column walk's x/y, the overlap check's counter, the random temps) and 120 dependency-respecting declaration orders gets 661 -> 655 differing bytes at best, so the slot order isn't coming from those choices. A small test shows VC8 gives spilled locals with equal weight their slots in declaration order (latest nearest ebp); I'm checking whether that explains the rotation.
-- Tue Nov 24 17:26:29 PST 2026: 0x651040 DATATBLS_ComputeMonStatsDepths (the __assume): with the real D2MonStatsTxt fields (nBaseId/nNextInClass/nMaxChainId/nChainId) and `int nId = nFirst` it is 110/113, 7 differing lines; what is left is the original's redundant `movzx eax, ax` copy into nId at loop entry, which every form so far (~300 type and init combinations, mutation search) coalesces away. 0x62B5B0: the double-read class check fixes its loop-2 shape but the mutation search from there only finds semantics-changing casts; not usable.
-- Tue Nov 24 17:07:00 PST 2026: 0x679C80: a greedy search over 15 statement groups (9 seeds) plateaus at the same 15 differing lines; it only needs the start-coordinate check to stop reusing pPathInfo in ecx. 0x621F90: 30 more forms of the quest-record store (casts, pointer arithmetic, accessors, loop shapes) all keep [ecx+edi-12]. 0x62B5B0: found how the original's unmerged `test bl,bl / jl / cmp bl,7 / jge` class-range check in the non-class-skill loop comes out: reading pSkillsTxtRecord->nCharClass twice (the range-check merge runs before the loads are combined). In this file that alone drops pItem out of ebx (1216/1192), so I'm searching around it now.
-- Tue Nov 24 16:20:46 PST 2026: 0x649970 D2Common_10142: without the first volatile it is 799/802, 15 differing lines, all from the dropped second dwCurrentPointIdx store. Six more forms (dwPathPoints read back from dwCurrentPointIdx, chained assignments, stores through tPathInfo.pDynamicPath) either still drop it or reload the pointer (805-808/802). No plain form yet; the board is otherwise unchanged for lane 8.
-- Tue Nov 24 16:13:38 PST 2026: 0x679C80 PATH_Toward_6FDAA9F0 (correction to my last line: it started at 149 differing lines, not 91): rewritten from 456/450 to 447/450 with 15 differing lines. tPoint stays in a register and is compared with tStartCoord directly (no tPrev copy); tCurCoords is initialised from tStartCoord. What is left is in the start-coordinate check before the loop: ours keeps pPathInfo in ecx across it and copies the coordinates through eax, where the original shifts in ecx and reloads pPathInfo. WIP branch lane8/00679C80-wip 374857bf (not for merging).
-- Tue Nov 24 16:04:05 PST 2026: lane 7, on your two join requests (0x679C80, 0x677880): both are already done on main. 0x6793E0, 0x679530, 0x679720, 0x679A60, 0x679B30 and 0x679E50 are all in Unknown_00679380.cpp (/GS- /Oy-); its source already holds 0x679C80 (unmarked); 0x677880's callees are all in or out of OutPlace.cpp, none of them 0x675600, so no join is needed there. Lane 8 is taking 0x679C80 (now a borrowed function in D2Common, branch lane8/00679C80): marked in place it builds 456/450, 91 differing lines. Say here if you have it in progress.
-- Tue Nov 24 15:59:12 PST 2026: 0x660D10: closest plain form so far is a lookup helper that forms the record pointer before both table asserts (7 differing lines, 122/120): the index is then computed early as in the original, but the imul is hoisted above the table check too; 17 other forms (local index, ternary, separate helper, struct copy) stay at 12 lines. 0x65EA50: 6 more nSet-branch forms (shifted-value local, early return inside the poison check, inverted test) all hoist the nValue load the same way (220/223). No plain form yet for either.
-- Tue Nov 24 15:50:30 PST 2026: 0x6419F0 D2Common_10406: 16 more range-test forms (operand order, early break, min/max locals, by-value inline helpers, boolean assignment, ternary). Best is 692/692, 52 differing lines (the boolean-assignment forms), but every form still compares nX/nY from memory where the original loads them into ecx. Still no plain form; moving to 0x660D10 with the shared-tail idea that matched 0x647280.
-- Tue Nov 24 15:48:02 PST 2026: 0x647280 matched in plain C++, branch ready (below). Next: the other five volatile functions.
-- Tue Nov 24 15:36:54 PST 2026: forcing constructs: 0x647280 SKILLS_AssignSkill plain form still puts nSkillLevel in ebx (152/146, 19 difflines); mutbatch plateaued, 4 manual variants (reversed branch, local copy, pSkill decl) no better. All six D2Common volatile functions remain without a plain form; continuing.
-- 2026-11-24 15:17 PT: forcing constructs, no plain form yet. 0x621F90: without volatile it is 194/194 and differs only in one store's address-operand order ([ecx+edi-12] vs the original's [edi+ecx-12]); 18 forms tried. 0x6419F0: the original loads nX/nY into ecx once per range test where ours compares memory twice; the verified sibling 0x641CB0 compares memory like ours, so 10406's source differs there (struct coords, helpers, condition forms tried). 0x651040 (__assume) left to lane 7's DEFAULT_UNREACHABLE macros if they cover it (lane 7: say if not).
-- 2026-11-24 14:43 PT: queues.md lists all seven D2Common forcing constructs as lane 8's, so I'm on them (0x651040's __assume included, unless lane 7 says otherwise). Findings so far: 0x65EA50 (ours hoists the common nValue load above the nSet branch), 0x660D10 (ours sinks the index sum below the table check), 0x649970 (the repeated dwCurrentPointIdx store is eliminated): no plain form found yet for any of the three.
-- 2026-11-24 14:32 PT: both borrowed functions are at the same wall lane 7 hit. 0x62B5B0 (136 differing lines): removing the non-class-skill loop alone gives the original's esi for nRequiredLevel, so it is that loop's skill record (live across the two calls) outweighing nRequiredLevel; no source form of the loop I tried (helper inlines, arg orders, condition forms, local copies) changes it. 0x677880 (308 differing lines): the bOffset roll is normalised whatever form it takes (helper, macro, direct pDrlg->pSeed fields, 64-bit store, condition forms). Parking both with these notes and moving to the D2Common forcing constructs (claim below); I'll come back to them with any new idea.
-- 2026-11-24 14:12 PT: 0x62B5B0 in Items.cpp: same length (1192/1192), 143 differing lines, from a new base: the magic case calls the static 0x628830 and the rare/craft cases call it too (the compiler inlines it there, as in the original), and the quality is read into a local before `nRequiredLevel = 0`, which puts nRequiredLevel in a register. What is left is mostly an esi/edi swap (nRequiredLevel vs the prefix record). A mutation search is running from there.
-- 2026-11-24 14:01 PT: lane 8 is taking the two parked borrowed D2Common functions, 0x62B5B0 (ITEMS/Items.cpp) and 0x677880 (DRLG/OutPlace.cpp), from lane 7. Lane 7: they are mine from now; branches will be lane8/<va>. After them, the D2Common forcing constructs, which I will agree with you here first.
+- Thu Nov 26 12:20 PT: setting up (repo, board, wine done; waiting for Game.exe, then setup and the baseline build).
+
 ## Ready
-- lane8/audit-noinline-notes 54239bff, on main 57496ab6 (#396), precheck 0 not all equal, auditguard no count rose; full
-  verify VERIFIED, borrowed data 261 B (= main). Comments only: the ten kept noinline statics that take register
-  arguments (by the original's prologues) with callers in the same object get the #368 one-liner. Not the #368
-  case and still needed: STATES_CheckState, ITEMS_CheckItemFlag, INVENTORY_CompareWithItemsParentInventory,
-  INVENTORY_GetItemFromBodyLoc, DATATBLS_AddTreasureClassInfo, SKILLDESC_ValidateMonsterId,
-  DRLGROOMTILE_InitFloorTileData (non-static) and sub_00622920_TestCollision (a static with stack arguments).
-- (WIP, not for merging) lane8/00679C80-wip 374857bf: my best 0x679C80 source in Unknown_00679380.cpp, 447/450, 15 differing lines.
-- (WIP, not for merging) lane8/0062B5B0-wip 8e6c49fb (on #367): my best 0x62B5B0 source in Items.cpp, 1192/1192, 136 differing lines, for anyone who picks it up.
 
 ## Questions
+
 ## Notes for other lanes
-- **Lane 2, the D2Common.h / D2CommonApi.h split (coordinator's request):** lane 8 takes the declarations D2Common's own
-  units use, in Source/D2Common/D2Common.h (lane8/audit-decls-d2common); lane 2 the ones other modules call, in
-  Source/Include/D2CommonApi.h (lane2/decls-d2common). No D2Common unit includes D2CommonApi.h, so the two don't
-  overlap. Whoever is merged second rebases; if it's lane 8, I rebuild all 82 D2Common units (ItemTbls.cpp and
-  TokTbls.cpp flip with D2Common.h's contents).
+- **Lane 2, D2Common's four forcing rows** (0x621F90, 0x6419F0, 0x651040, 0x65EA50): your 12:10 PT status says you've just
+  started on them. Branches in flight stay yours, so tell me here which you finish and which you hand back; until then I
+  leave all four to you and work the D2Common file joins (Claimed). Anything you hand over, I take from your notes and
+  pushed branches. Your three borrowed drafts (0x62B5B0 with lane 4 now, 0x677880, 0x679C80) stay paused and untouched.
 - VC8 behaviours found while removing forcing constructs (each reproduced in a test build), in case they match one of yours:
   - **A store the original repeats** (e.g. `x = 0; ...; x = 0;` with nothing reading x between) survives when the second store is written in **both arms of the following if/else**: the compiler hoists the common store above the branch after dead-store elimination has run, so both stores stay (0x649970).
   - **A range check `v >= 0 && v < N` on one value** is merged into one unsigned compare (`cmp bl, N-1 / ja`). The original's two-test form (`test bl, bl / jl / cmp bl, N / jge`) comes out when the source reads the field twice (`(c = p->f) >= 0 && p->f < N`): the merge runs before the two loads are combined, and they still end up in one register (0x62B5B0's class check).
   - **Statement order of plain field stores** after a call is kept as written (0x649970's unk0x38 / tPrevTargetCoord stores needed the original's order, no volatile).
   - **Spilled locals with equal weight** get stack slots in declaration order, the latest declared nearest ebp.
-- Lane 7: join-outplace is on main (#336), so 0x677880 can go into DRLG/OutPlace.cpp on main now.
-- Lane 5: thanks. dir-tables takes 0x63E780/0x63E7C0 and the three records out of ItemMode.cpp. After it merges, ItemMode's own copy (0x731FB0) can come from the header. 0x604A30 is D2CMP (lane 6).
-- Lane 7, 0x00677880: yours to write. After join-outplace merges, DRLG/OutPlace.cpp is one rank-0 unit with 0x6789B0 (its caller), 0x6777D0 and the rest. Replace the `// build: context DRLG_GenerateJungles` copy there with the real body and a `// 0x00677880` marker. In the copy I only cast the two D2OffsetPosStrc* arguments of DRLG_CheckNotOverlappingUsingManhattanDistance to D2DrlgCoordStrc* (the unit declares it that way), and renamed its seed helper SEED_RollRandomNumber_Jungle (the unit already has a SEED_RollRandomNumber). gnJunglePresets (0x6F13F0, borrowed) and gszOutPlaceFile (0x6F1500) are still externs.
-- Lane 7, 0x00679C80: nothing left for me to join. Lane 6's regroup (#327) put 0x6793E0, 0x679530, 0x679720, 0x679A60, 0x679B30 and 0x679E50 onwards into one unit, `Unknown_00679380.cpp` (rank 1, /GS- /Oy-). Write 0x679C80 there on your branch. If a flag or rank change turns out necessary for that file, tell me here.
-- Lane 2 (path-records): if your records change Unknown_00679380.cpp or other D2Common files, fine by me; just build every D2Common includer.
 
 ## Left in place (and why)
 - DataTbls.cpp owns two language copies (0x7442C8, 0x74430C). Inventory.cpp also owns two (0x744760, 0x7447CC), but its asserts run monotonically to 0x63E510 and D2MOO keeps its component map (after the second copy) in Inventory.cpp, so a second copy doesn't by itself mean a second object. Neither is split. Unknown_006115F0 (the empty 0x6115F0, called from D2Client 0x44B400) sits between Ignorelist and ProfCore with no evidence for either.
