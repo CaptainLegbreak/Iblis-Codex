@@ -1570,6 +1570,7 @@ static D2DrlgLevelStrc* DRLG_GenerateJungles(D2DrlgLevelStrc* pLevel);
 
 static D2DrlgLevelStrc* DRLG_GenerateJungles(D2DrlgLevelStrc* pLevel); // 0x00677880
 
+// 0x00677880
 static D2DrlgLevelStrc* DRLG_GenerateJungles(D2DrlgLevelStrc* pLevel)
 {
     D2LevelDefBin* pLevelDef = DATATBLS_GetLevelDefRecord(LEVEL_SPIDERFOREST);
@@ -1664,7 +1665,12 @@ RESTART:
         int bOffset;
         if (nJ == 0)
         {
-            bOffset = SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 2);
+            D2SeedStrc* pSeed = &pDrlg->pSeed;
+            unsigned int nHighSeed = pSeed->nHighSeed;
+            unsigned __int64 lSeed = nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+            pSeed->nLowSeed = (unsigned int)lSeed;
+            pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+            bOffset = (unsigned int)lSeed & 1;
         }
         else
         {

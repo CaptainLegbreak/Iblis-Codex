@@ -74891,6 +74891,10 @@
      "length": 12
     },
     {
+     "va": "0x00677880",
+     "length": 4232
+    },
+    {
      "va": "0x00678910",
      "length": 146,
      "name": "DRLGOUTPLACE_PlaceKurastLevels"
