@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 23:29 PST 2026: emit-trim is in #423. plain-types posted.
 - Wed Nov 25 22:54 PST 2026: emit-trim posted (audit-379 emit helpers in D2Client: 69 out, 70 still needed).
 - Wed Nov 25 21:55 PST 2026: withdrew my link_exe.py diagnosis (Left in place): the marker check is right; the held copy conversions fail on our own .data layout (definition order, alignment).
 - Wed Nov 25 21:18 PST 2026: joins-5 is in #421 and useitem-name in #422. Nothing in Ready.
@@ -50,7 +51,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/emit-trim f4e471628 (on #422): audit-379 row "emit helpers", D2Client part. 69 helper definitions in 19 files go (distinct _Emit names in D2Client 189 -> 122), 584 lines: their statics are now called by real code in the same file, so they come out without the helper. Each was removed on its own and left out only where its unit still builds equal; the 70 that change their unit stay, and the eight declaration-count units were not touched. Full build: Game.exe identical, tree 7631ab2a2ac7d2265b2249a420734a4d101d19be, placed 14,922 / 14,922, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
+- lane4/plain-types 425c3fc0c (on #423): audit-379 "decompiler types", D2Client part. Wall2.cpp spells its types with int / unsigned int / unsigned short / unsigned char instead of D2Client.h's s32/u32/u16/u8 shorthands (141 lines). D2Client.h keeps those typedefs: without them the declaration-count units inv_0048BC10, inv_004886C0 and inv_0048DD90 build differently. Full build: Game.exe identical, tree fd648611227d886be922dbfd1e9a1dd161f06ab9; audit guard: no count rose. The row's other D2Client entries are already gone on main except inv.cpp's LOBYTE/HIBYTE (the Windows macros, in a declaration-count unit).
 
 ## Claimed
 
