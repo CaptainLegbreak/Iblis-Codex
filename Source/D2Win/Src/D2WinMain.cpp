@@ -154,7 +154,7 @@ int __fastcall BUTTON_OnMouseWheelScrolled(D2WinButtonStrc* pButton, int nMouseW
 
 void __fastcall BUTTON_SimulateClick(SMSGHANDLER_PARAMS* pMsg); // 0x00500AB0
 
-int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* pScrollBar, int a3); // 0x00508030
+int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* pScrollBar, int nWheelDelta); // 0x00508030
 
 int __stdcall POPUP_IsActive(); // 0x005085C0
 
@@ -238,19 +238,19 @@ int __stdcall WINDOW_CheckCutScene(); // 0x004F5DD0
 
 int __stdcall D2GFX_HardwareAcceleratedRenderMode(); // 0x004F6270
 
-D2WinControlStrc* __fastcall D2Win_10042_TEXTBOX_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6, D2CelFileStrc* pCellFile, int a8, int a9, int a10, int a11); // 0x004FC7A0
+D2WinControlStrc* __fastcall D2Win_10042_TEXTBOX_Create(int nX, int nY, int nWidth, int nHeight, int nInsetX, int nInsetY, D2CelFileStrc* pCellFile, int pfCallback, int dwTextBoxFlags, int pFontInfo, int pScrollBarRect); // 0x004FC7A0
 
 void __fastcall EDITBOX_ClearSelection(D2WinEditBoxStrc* pEditBox); // 0x004FDCC0
 
-D2WinControlStrc* __fastcall IMAGE2_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7, int a8); // 0x004FD6C0
+D2WinControlStrc* __fastcall IMAGE2_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int pfnOnClick, int pClickRect, int pfHandleVirtualKeyInput); // 0x004FD6C0
 
-D2WinControlStrc* __fastcall IMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7); // 0x004FD770
+D2WinControlStrc* __fastcall IMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int nField4C, int nField50); // 0x004FD770
 
 D2WinControlStrc* __fastcall TIMER_Create(int nTimeout, int pfCallback); // 0x004FD9D0
 
-D2WinControlStrc* __fastcall D2Win_10070_EDITBOX_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6, D2CelFileStrc* pCellFile, int a8, int a9, int a10, int a11); // 0x005001D0
+D2WinControlStrc* __fastcall D2Win_10070_EDITBOX_Create(int nX, int nY, int nWidth, int nHeight, int nTextInsetX, int nTextInsetY, D2CelFileStrc* pCellFile, int pfnOnEnter, int pfnOnClick, int nEditBoxFlags, int pFontAndColor); // 0x005001D0
 
-D2WinControlStrc* __fastcall ANIMIMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7, int a8, int a9, int a10); // 0x00500850
+D2WinControlStrc* __fastcall ANIMIMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int nAnimSpeed, int pfnOnClick, int pDescriptor, int eDrawMode, int pfnField58); // 0x00500850
 
 D2WinControlStrc* __fastcall BUTTON_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int pCallback, int nVirtualKey, int nBaseFrame, int dwButtonFlags, int nStringId, int pUpdateHoverState); // 0x00501290
 
@@ -258,7 +258,7 @@ D2WinControlStrc* __fastcall SMACK_Create(int nX, int nY, int nWidth, int nHeigh
 
 D2WinControlStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight, int pInit, int pFont); // 0x005075E0
 
-D2WinControlStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6); // 0x00507CA0
+D2WinControlStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, int nHeight, int nField4C, int pFont); // 0x00507CA0
 
 D2WinControlStrc* __fastcall PROGRESSBAR_Create(int nX, int nY, int nWidth, int nHeight); // 0x00507E50
 
@@ -818,9 +818,9 @@ int __stdcall CURSOR_SetCellFile(D2CelFileStrc* pCellFile)
 }
 
 // 0x004F9180
-void __stdcall D2Win_SetQuitCallback(int (__cdecl* a1)())
+void __stdcall D2Win_SetQuitCallback(int (__cdecl* pfnQuitCallback)())
 {
-    gpfnQuitCallback = a1;
+    gpfnQuitCallback = pfnQuitCallback;
 }
 
 // 0x004F9190
@@ -1832,9 +1832,9 @@ done:
 }
 
 // 0x004FA410
-void __stdcall D2Win_10029(int a1)
+void __stdcall D2Win_10029(int bDrawCursor)
 {
-    gbDrawCursor = a1;
+    gbDrawCursor = bDrawCursor;
 }
 
 // 0x004FA420
@@ -1851,9 +1851,9 @@ void __stdcall D2Win_10030_CONTROL_ToggleFourthFlag(D2WinControlStrc* pControl, 
 }
 
 // 0x004FA450
-void __stdcall CONTROL_SetEscapeButton(void* a1)
+void __stdcall CONTROL_SetEscapeButton(void* pButton)
 {
-    gpEscapeButton = a1;
+    gpEscapeButton = pButton;
 }
 
 extern int gdwGlobal_007D55D4; // 0x007D55D4
@@ -1865,10 +1865,10 @@ int __cdecl D2Win_IsMouseButtonPressed()
 }
 
 // 0x004FA470
-int __stdcall D2Win_10033(D2WinControlStrc* a1, int a2)
+int __stdcall D2Win_10033(D2WinControlStrc* pControlList, int nListValue)
 {
-    gpActiveControlList = a1;
-    dword_6F8FE278 = a2;
+    gpActiveControlList = pControlList;
+    dword_6F8FE278 = nListValue;
     return 1;
 }
 
@@ -2166,6 +2166,6 @@ void __stdcall D2Win_COMMANDS_MouseButton(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
-int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* ptScrollbarData, int a3); // 0x00508030
+int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* ptScrollbarData, int nWheelDelta); // 0x00508030
 
 #include "gen/data/Source/D2Win/Src/D2WinMain.inc"

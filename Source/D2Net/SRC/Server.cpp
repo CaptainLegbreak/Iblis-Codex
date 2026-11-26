@@ -89,7 +89,7 @@ void __stdcall FOG_10183_Return(QServer* pServer, int nUnused);                 
 
 int __fastcall SERVER_SendToLocalClientCallback(QServer* nUnused, D2PacketBufferStrc* pPacketBuffer, int nBufferSize); // 0x0052B0E0
 
-int __fastcall SERVER_ValidateClientPacket(int a1, int a2, int a3, int a4);                                 // 0x0052B100
+int __fastcall SERVER_ValidateClientPacket(int pPacketBuffer, int nBufferSize, int pPacketSize, int pFlags);                                 // 0x0052B100
 
 int __fastcall SERVER_OnClientConnectedCallback(int pServer, int nClientId, int szFile, int nLine);                                                // 0x0052B720
 
@@ -337,14 +337,14 @@ void __stdcall D2NET_10016(int nClientId)
 }
 
 // 0x0052B5A0
-void __stdcall D2NET_10018(int a1)
+void __stdcall D2NET_10018(int nClientId)
 {
     if (!gpServer)
     {
         return;
     }
 
-    FOG_10170(gpServer, a1);
+    FOG_10170(gpServer, nClientId);
 }
 
 // 0x0052B5C0
@@ -378,11 +378,11 @@ int __stdcall SERVER_GetClientGameGUID(int nClientId)
 }
 
 // 0x0052B640
-int __fastcall SERVER_EnqueueClientPacket(const unsigned char* pBuffer, unsigned short nBufferSize, int a3)
+int __fastcall SERVER_EnqueueClientPacket(const unsigned char* pBuffer, unsigned short nBufferSize, int nClientId)
 {
     D2_ASSERT(nBufferSize <= MAX_MSG_SIZE, 521);
 
-    return FOG_10175(gpServer, pBuffer, nBufferSize, a3);
+    return FOG_10175(gpServer, pBuffer, nBufferSize, nClientId);
 }
 
 // 0x0052B690
@@ -423,11 +423,11 @@ int __fastcall SERVER_OnClientConnectedCallback(QServer* pServer, int nClientId,
 }
 
 // 0x0052B750
-int __fastcall SERVER_OnClientDisconnectedCallback(int a1, int a2, int a3, int a4)
+int __fastcall SERVER_OnClientDisconnectedCallback(int nArg1, int nClientId, int nArg3, int nArg4)
 {
     const unsigned char data[1] = { 0x70 };
 
-    FOG_10175(gpServer, data, sizeof(data), a2);
+    FOG_10175(gpServer, data, sizeof(data), nClientId);
     return 1;
 }
 
@@ -441,7 +441,7 @@ void __fastcall SERVER_SendConnectionInfo()
 }
 
 // 0x0052B7A0
-void __stdcall SERVER_Initialize(int a1, int a2)
+void __stdcall SERVER_Initialize(int nState, int bDisableNt)
 {
-    gpServer = QSInit(a1, 3, GAME_PORT, a2, SERVER_ValidateClientPacket, SERVER_OnClientConnectedCallback, SERVER_OnClientDisconnectedCallback, SERVER_SendToLocalClientCallback);
+    gpServer = QSInit(nState, 3, GAME_PORT, bDisableNt, SERVER_ValidateClientPacket, SERVER_OnClientConnectedCallback, SERVER_OnClientDisconnectedCallback, SERVER_SendToLocalClientCallback);
 }

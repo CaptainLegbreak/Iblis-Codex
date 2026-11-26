@@ -103,21 +103,21 @@ extern "C" int __fastcall SCROLLBAR_SetScrollCallback(D2WinScrollBarStrc* pScrol
     return 1;
 }
 
-int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* pScrollBar, int a3); // 0x00508030
+int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* pScrollBar, int nWheelDelta); // 0x00508030
 
 // 0x00508030
-int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* ptScrollbarData, int a3)
+int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* ptScrollbarData, int nWheelDelta)
 {
     D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_SCROLLBAR, 0x99);
 
     if (!ptScrollbarData->bIsStepIndicatorDragged)
     {
-        if (a3 > 0)
+        if (nWheelDelta > 0)
         {
             --ptScrollbarData->nCurrentStep;
             ptScrollbarData->bIsUpperArrowPressed = 1;
         }
-        else if (a3 < 0)
+        else if (nWheelDelta < 0)
         {
             ++ptScrollbarData->nCurrentStep;
             ptScrollbarData->bIsLowerArrowPressed = 1;

@@ -3249,7 +3249,7 @@ void __stdcall D2CMPTileCacheFreeTile(D2CmpCacheBlockOwnerStrc* pOwner)
 }
 
 // 0x005FDEA0
-int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pEntry, int a2, int a3)
+int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pEntry, int nUnused1, int nUnused2)
 {
     if (pEntry->pNode)
     {

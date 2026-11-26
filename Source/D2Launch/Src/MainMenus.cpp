@@ -1155,7 +1155,7 @@ int __stdcall MAINMENUS_OnNameChanged(int nArg); // 0x00433BD0
 
 void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0
 
-void __stdcall CONTROL_SetEscapeButton(void* a1); // 0x004FA450
+void __stdcall CONTROL_SetEscapeButton(void* pButton); // 0x004FA450
 
 void __fastcall sub_004FB740(D2WinControlStrc* pList, int nA, int nB); // 0x004FB740
 
@@ -1356,7 +1356,7 @@ int __fastcall D2Win_10015();                                                   
 
 int __stdcall CURSOR_SetCellFile(D2CelFileStrc* pCellFile);                                                 // 0x004F9160
 
-void __stdcall D2Win_SetQuitCallback(int (__cdecl* a1)());                                                            // 0x004F9180
+void __stdcall D2Win_SetQuitCallback(int (__cdecl* pfnQuitCallback)());                                                            // 0x004F9180
 
 int __stdcall D2Win_RunMessageLoop(void (__stdcall* pCallback)(unsigned long));                                      // 0x004FA590
 
@@ -1370,7 +1370,7 @@ int __cdecl D2SOUNDFAST_IsAnyWavePlaying();                                     
 
 void __cdecl D2SOUNDFAST_FreeWaveSlots();                                                                                // 0x00515070
 
-void __stdcall D2Win_10029(int a1); // 0x004FA410
+void __stdcall D2Win_10029(int bDrawCursor); // 0x004FA410
 
 void __cdecl sub_0042F880_DestroyControls(); // 0x0042F880
 
