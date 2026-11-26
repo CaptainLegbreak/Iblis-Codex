@@ -502,16 +502,6 @@ void __fastcall VIEW_AdjustViewPos(int* pX, int* pY); // 0x00476D40
 void* gpCel_007B9554;                                                                                       // 0x007B9554
 void* gpCel_007B9558;                                                                                       // 0x007B9558
 
-static inline D2ClientListLinkStrc* ListNextLink(D2ClientListLinkStrc* pLink, int nLinkOffset)
-{
-    int nOffset = (int)pLink->pNext;
-    if (nOffset < 0)
-        return (D2ClientListLinkStrc*)~nOffset;
-    if (nLinkOffset < 0)
-        nLinkOffset = (int)pLink - (int)pLink->pPrevLink->pNext;
-    return (D2ClientListLinkStrc*)(nOffset + nLinkOffset);
-}
-
 // 0x00466820
 void __fastcall VIEW_SpawnRoomPresets(D2ActiveRoomStrc* pRoom)
 {
@@ -543,40 +533,6 @@ unsigned int gdwLevelEventBits;                                                 
 
 
 
-
-static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
-{
-    int nResult;
-    switch (pUnit->dwUnitType)
-    {
-    default:
-        if (pUnit->pDynamicPath) nResult = PATH_GetXPosition(pUnit->pDynamicPath); else nResult = 0;
-        break;
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        nResult = pUnit->pStaticPath->nXPos;
-        break;
-    }
-    return nResult;
-}
-
-static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
-{
-    int nResult;
-    switch (pUnit->dwUnitType)
-    {
-    default:
-        if (pUnit->pDynamicPath) nResult = PATH_GetYPosition(pUnit->pDynamicPath); else nResult = 0;
-        break;
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        nResult = pUnit->pStaticPath->nYPos;
-        break;
-    }
-    return nResult;
-}
 
 void __fastcall D2Win_10178_CopyGammaTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
 
@@ -1387,22 +1343,10 @@ void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, i
 
 unsigned char gnHelpShadeColor; // 0x007BEEF8
 
-static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBottom)
-{
-    return nX >= nLeft && nX <= nRight && nY >= nTop && nY <= nBottom;
-}
-
 void __stdcall sub_M114_Emit_00492BD0(int nMode, int nPopupX)
 {
     gnPetIconPopupState = nMode;
     gnPopupX = nPopupX;
-}
-
-static int ButtonHitTest_00497480(int nX, int nY)
-{
-    int nHeight = gnScreenHeight;
-    int nWidth = gnScreenWidth;
-    return nX >= nWidth / 2 - 0x91 && nX <= nWidth / 2 - 0x80 && nY >= nHeight - 0x1C && nY <= nHeight - 8;
 }
 
 // 0x004D1640

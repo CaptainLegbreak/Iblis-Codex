@@ -1012,25 +1012,6 @@ static int sub_E10_GetButtonLayoutCopy(int nMode)
 }
 
 // 0x004A2900
-static int QUESTLOG_GetButtonLayout(int nMode)
-{
-    if (GAME_GetUIVarState(6) && !GAME_GetUIVarState(2))
-    {
-        const int nResolution = D2GFX_GetResolutionMode();
-        if (nMode == 2)
-            return nResolution == 2 ? 1 : 3;
-        return nResolution == 2 ? 0 : 2;
-    }
-
-    const int nResolution = D2GFX_GetResolutionMode();
-    if (nMode == 2)
-    {
-        if (nResolution == 2 || GAME_GetUIVarState(2))
-            return 1;
-        return 3;
-    }
-    return nResolution == 2 ? 0 : 2;
-}
 
 // 0x004A2970
 int __stdcall QUESTLOG_IsMouseOnQuestButton(int nX, int nY)

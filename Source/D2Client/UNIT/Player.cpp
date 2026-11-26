@@ -1682,16 +1682,6 @@ int __cdecl sub_E06_Emit_004621D0(D2PlayerCmdStrc* pCmd)
     return pCmd->nMode;
 }
 
-static inline D2MonStatsTxt* E06_GetUnitMonStatsTxt(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return 0;
-    const int nClassId = pUnit->dwClassId;
-    if (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount)
-        return &sgptDataTables->pMonStatsTxt[nClassId];
-    return 0;
-}
-
 // 0x004621D0
 static int PLAYER_PrepareCommand(D2PlayerCmdStrc* pCmd)
 {
@@ -2520,16 +2510,6 @@ static inline int PLAYER_GetPlayerMode(D2UnitStrc* pUnit)
     if (pUnit && (!pUnit ? 6 : pUnit->dwUnitType) == 0 && pUnit->pPlayerData)
         return pUnit->pPlayerData->nMode;
     return 0;
-}
-
-static inline D2PlayerDataStrc* PLAYER_GetPlayerData(D2UnitStrc* pUnit)
-{
-    return (pUnit && pUnit->dwUnitType == UNIT_PLAYER) ? pUnit->pPlayerData : 0;
-}
-
-static inline int PLAYER_IsLocalPlayer(D2UnitStrc* pUnit)
-{
-    return pUnit == sub_00463DD0_GetPlayerUnit();
 }
 
 static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int bForce)
