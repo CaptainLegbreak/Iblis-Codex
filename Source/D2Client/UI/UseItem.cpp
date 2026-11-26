@@ -93,7 +93,7 @@ void __cdecl USEITEM_OpenPanel(); // 0x004C0380
 
 void __fastcall MSG_SendFourDwords(char nCommand, int nUnitId, int nArg1, int nArg2, int nArg3); // 0x00478700
 
-void __cdecl sub_004B3FE0(); // 0x004B3FE0
+void __cdecl sub_004B3FE0_CloseNpcMenu(); // 0x004B3FE0
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10
 
@@ -196,7 +196,7 @@ void __fastcall ROSTER_SetCtrlState(D2ClientDialogStrc*, int); // 0x004B8370
 
 void __fastcall NPCMENU_SendNpcAction(int); // 0x004B2370
 
-int __cdecl sub_004BF9B0(); // 0x004BF9B0
+int __cdecl sub_004BF9B0_Return0(); // 0x004BF9B0
 
 void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nHeight, int nArg4, int nType, int nFont, int (__cdecl* pfnCallback)(), int bEnabled); // 0x004B85F0
 
@@ -206,7 +206,7 @@ int __cdecl USEITEM_ShowConfirmation()
     if (gnUseItemDialogState == 2)
     {
     sub_004B9A00(2, 0, 0, 0, 0);
-    gpUseItemConfirmDialog = DIALOG_CreateDialog(0x96, 0x82, sub_004BF9B0, 0, 1, 0, 1, 0, 0, 0, 1);
+    gpUseItemConfirmDialog = DIALOG_CreateDialog(0x96, 0x82, sub_004BF9B0_Return0, 0, 1, 0, 1, 0, 0, 0, 1);
     ROSTER_SetCtrlState(gpUseItemConfirmDialog, 0);
     DIALOG_AddTextLine(gpUseItemConfirmDialog, D2LANG_GetStringFromTblIndex(0xD19), 15, 0, 0, 1, 0, 0);
     gnUseItemDialogState = 3;
@@ -468,7 +468,7 @@ int __cdecl USEITEM_ClosePanel()
         MSG_SendFourDwords(0x44, id, value, 0, 2);
         USEITEM_CloseUseItemPanel();
     } else {
-        sub_004B3FE0();
+        sub_004B3FE0_CloseNpcMenu();
         USEITEM_CloseUseItemPanel();
     }
     return 1;
@@ -594,7 +594,7 @@ void __stdcall USEITEM_OnPanelCloseMsg(SMSGHANDLER_PARAMS* pMsg)
     }
     else
     {
-        sub_004B3FE0();
+        sub_004B3FE0_CloseNpcMenu();
         USEITEM_CloseUseItemPanel();
     }
 }
@@ -617,7 +617,7 @@ void __cdecl USEITEM_OpenPanel()
         }
         else
         {
-            sub_004B3FE0();
+            sub_004B3FE0_CloseNpcMenu();
             USEITEM_CloseUseItemPanel();
         }
         return;
@@ -694,7 +694,7 @@ void __stdcall USEITEM_OnHotspotClick(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004C0550
-void __fastcall sub_004C0550(D2PacketRecord7Strc* pPacket)
+void __fastcall sub_004C0550_HandleUseItemPacket(D2PacketRecord7Strc* pPacket)
 {
     switch (pPacket->nType)
     {

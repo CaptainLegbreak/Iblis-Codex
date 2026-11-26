@@ -475,7 +475,7 @@ int __stdcall SErrGetErrorStr(unsigned long error, char* buffer, unsigned long s
 
 void __cdecl RECORD_AddRecordChunk(); // 0x00451400
 
-int __cdecl sub_0044DA90(); // 0x0044DA90
+int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
 
 int __cdecl RECORD_IsReplayActive(); // 0x00451990
 

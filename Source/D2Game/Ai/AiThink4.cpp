@@ -369,7 +369,7 @@ int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                    
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);                                      // 0x0045C4B0
 
-D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                                    // 0x0046ACE0
+D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId);                                    // 0x0046ACE0
 
 D2MonStatsTxt* __fastcall sub_0055B7E0_GetMonStatsTxtFromUnit(D2UnitStrc* pUnit);                           // 0x0055B7E0
 
@@ -1499,7 +1499,7 @@ void __fastcall AITHINK_Fn085_HighPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D
             return;
         }
         if (AI_PARAM(pGame, pMonStatsTxt, 4) > 0 && pMonStatsTxt->wMissiles[2] > 0) {
-            D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(pMonStatsTxt->wMissiles[2]);
+            D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(pMonStatsTxt->wMissiles[2]);
             if (pMissilesTxtRecord && nDistance < pMissilesTxtRecord->wRange - 2 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 4)) {
                 AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 8, pTarget);
                 return;
@@ -5439,7 +5439,7 @@ static inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
         return 0;
     }
 
-    return sub_0046ACE0(nMissileId);
+    return sub_0046ACE0_GetMissilesTxtRecord(nMissileId);
 }
 
 static __forceinline D2StatListStrc* GetAuraStateStatList(D2UnitStrc* pUnit, D2SkillsTxt* pSkillsTxtRecord)

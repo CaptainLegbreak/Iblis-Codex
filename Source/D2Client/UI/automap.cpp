@@ -1703,7 +1703,7 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 int __fastcall AUTOMAP_GetHoverMonsterName(D2UnitStrc* pUnit, int nArg)
 {
     int nTick;
-    if (sub_0045AE90() == 3)
+    if (sub_0045AE90_GetPanelSlideMode() == 3)
     {
         return 0;
     }
@@ -1824,7 +1824,7 @@ void __stdcall AUTOMAP_IncreaseBaseX(int nUnused)
 }
 
 // 0x00457510
-void __stdcall sub_00457510(int nUnused1)
+void __stdcall sub_00457510_Nop(int nUnused1)
 {
 }
 
@@ -3071,7 +3071,7 @@ void __fastcall AUTOMAP_DrawAutomapCells(D2AutomapCellStrc* pCell, D2AutomapDraw
     }
 
     int nShift = 0;
-    switch (sub_0045AE90())
+    switch (sub_0045AE90_GetPanelSlideMode())
     {
     case 1:
         nShift = -(gnScreenWidth / 4);
@@ -3191,7 +3191,7 @@ void __cdecl AUTOMAP_PaintAutomap()
     if (!gpAutomapContext)
         return;
     int nShift = 0;
-    switch (sub_0045AE90())
+    switch (sub_0045AE90_GetPanelSlideMode())
     {
     case 1:
         if (gnAutomapMode != 1)

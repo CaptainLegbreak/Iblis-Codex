@@ -1419,7 +1419,7 @@ void __stdcall TEXT_StatButtonDownMsg(SMSGHANDLER_PARAMS* message)
     {
         return;
     }
-    int border = sub_0045AE90();
+    int border = sub_0045AE90_GetPanelSlideMode();
     if (D2GFX_GetResolutionMode() != 2)
     {
         if (TEXT_IsInPanelButton(border, x, y))
@@ -1466,7 +1466,7 @@ void __stdcall TEXT_SkillButtonDownMsg(SMSGHANDLER_PARAMS* message)
     const int nResolution = D2GFX_GetResolutionMode();
     if (nResolution == 2 && GAME_GetUIVarState(nResolution + 7))
         return;
-    int border = sub_0045AE90();
+    int border = sub_0045AE90_GetPanelSlideMode();
     if (D2GFX_GetResolutionMode() != 2)
     {
         if (TEXT_IsInRightPanelButton(border, x, y))
@@ -1514,7 +1514,7 @@ void __stdcall TEXT_StatButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     CURSOR_HandleButtonUp(pMsg);
     if (D2GFX_GetResolutionMode() != 2)
     {
-        if (gbStatButtonPressed && CLIENT_HitPanelButton(sub_0045AE90(), nX, nY))
+        if (gbStatButtonPressed && CLIENT_HitPanelButton(sub_0045AE90_GetPanelSlideMode(), nX, nY))
         {
             gbStatButtonPressed = 0;
             UI_SetUIVar(6, 1, 0);
@@ -1560,7 +1560,7 @@ void __stdcall TEXT_SkillButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     CURSOR_HandleButtonUp(pMsg);
     if (D2GFX_GetResolutionMode() != 2)
     {
-        if (gbSkillButtonPressed && CLIENT_HitRightPanelButton(sub_0045AE90(), nX, nY))
+        if (gbSkillButtonPressed && CLIENT_HitRightPanelButton(sub_0045AE90_GetPanelSlideMode(), nX, nY))
         {
             gbSkillButtonPressed = 0;
             UI_SetUIVar(7, 1, 0);
@@ -1628,7 +1628,7 @@ void __cdecl sub_004A6A70_DrawLeftPanelButton()
 // 0x004A6B30
 void __cdecl TEXT_DrawStatButton()
 {
-    const int nBorder = sub_0045AE90();
+    const int nBorder = sub_0045AE90_GetPanelSlideMode();
     if (D2GFX_GetResolutionMode() != 2 && TEXT_IsStatButtonHidden(nBorder))
     {
         gbStatButtonPressed = 0;
@@ -1722,7 +1722,7 @@ void __cdecl sub_004A6DA0_DrawRightPanelButton()
 // 0x004A6E60
 void __cdecl TEXT_DrawSkillButton()
 {
-    const int nBorder = sub_0045AE90();
+    const int nBorder = sub_0045AE90_GetPanelSlideMode();
     if (D2GFX_GetResolutionMode() != 2 && TEXT_IsSkillButtonHidden(nBorder))
     {
         gbSkillButtonPressed = 0;
@@ -2093,7 +2093,7 @@ static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
 {
     if (D2GFX_GetResolutionMode() == 2 && !AUTOMAP_IsCursorOverMiniPanelButton(pMsg) && pMsg->nXpos <= gnScreenWidth / 2 && pMsg->nYpos < gnScreenHeight - 0x2F)
     {
-        if (sub_00468830() == 6)
+        if (sub_00468830_GetCursorState() == 6)
             UI_CancelCursorItemUse();
         pMsg->bReturn = 1;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -2234,7 +2234,7 @@ void __cdecl sub_004A7AA0_InitTextEntryLengths()
 }
 
 // 0x004A7AD0
-void __cdecl sub_004A7AD0()
+void __cdecl sub_004A7AD0_Nop()
 {
 }
 

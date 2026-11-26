@@ -100,7 +100,7 @@ typedef char check_scalar_width[sizeof(unsigned int)==4?1:-1];
 extern "C" int __stdcall SKILLS_GetUseState(D2UnitStrc* unit,D2SkillStrc* skill); // 0x00647960
 
 
-int __cdecl sub_0044DA90(); // 0x0044DA90
+int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
 
 
 void __fastcall SCMD_SetLightColorBytes(D2GfxLightStrc* pLight, unsigned char nValue0, unsigned char nValue1, unsigned char nValue2); // 0x00474390
@@ -1090,13 +1090,13 @@ void __stdcall PLRSKILLS_UpdateStateColor(D2UnitStrc* pUnit)
 }
 
 // 0x004D9160
-void __fastcall sub_004D9160(D2UnitStrc* pArg)
+void __fastcall sub_004D9160_RefreshPassiveSkills(D2UnitStrc* pArg)
 {
     SKILLS_RefreshPassiveSkills(pArg);
 }
 
 // 0x004D9170
-void __fastcall sub_004D9170(D2UnitStrc* pArg)
+void __fastcall sub_004D9170_RefreshPassiveSkills(D2UnitStrc* pArg)
 {
     SKILLS_RefreshPassiveSkills(pArg);
 }

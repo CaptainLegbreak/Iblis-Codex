@@ -60,7 +60,7 @@ extern int gnTimerEnd; // 0x007A7464
 extern int gbThroneEventPending; // 0x007A7468
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-void __stdcall sub_0046AF70(D2ActiveRoomStrc* pRoom); // 0x0046AF70
+void __stdcall sub_0046AF70_CreateDenOfEvilLight(D2ActiveRoomStrc* pRoom); // 0x0046AF70
 void __cdecl sub_0046AD10_UpdateTimedBox(); // 0x0046AD10
 extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 extern D2ClientTimedBoxStrc gtTimedBox; // 0x007A742C
@@ -70,7 +70,7 @@ extern D2ClientTimedBoxStrc gtTimedBox; // 0x007A742C
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
 // 0x0046ACE0
-D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId)
+D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
@@ -159,7 +159,7 @@ static inline D2MonStats2Txt* MONSTATS2_GetRecordInline(int nMonStatsEx)
 }
 
 // 0x0046AF70
-void __stdcall sub_0046AF70(D2ActiveRoomStrc* pRoom)
+void __stdcall sub_0046AF70_CreateDenOfEvilLight(D2ActiveRoomStrc* pRoom)
 {
     D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
     if (pPlayer)
@@ -606,7 +606,7 @@ void __cdecl sub_0046B0D0_ApplyDenOfEvilRooms()
     {
         if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_DENOFEVIL)
         {
-            sub_0046AF70(pRoom);
+            sub_0046AF70_CreateDenOfEvilLight(pRoom);
         }
     }
 }
@@ -844,7 +844,7 @@ void __fastcall sub_0046BE60_ApplyDenOfEvilRoom(D2ActiveRoomStrc* pRoom)
     D2_ASSERT(pRoom, 0x344);
     if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_DENOFEVIL && gbPulseDone != 0)
     {
-        sub_0046AF70(pRoom);
+        sub_0046AF70_CreateDenOfEvilLight(pRoom);
     }
 }
 

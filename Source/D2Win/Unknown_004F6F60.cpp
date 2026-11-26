@@ -76,7 +76,7 @@ void __cdecl InitPowTable(); // 0x004142A0
 
 extern "C" void __cdecl CMNSUBTILE_BuildGouraudCache(); // 0x004F7CC0
 
-extern "C" void __cdecl sub_004E4280(); // 0x004E4280
+extern "C" void __cdecl sub_004E4280_ResetEnvironSounds(); // 0x004E4280
 
 int __stdcall GAME_Shutdown(); // 0x0052C030
 

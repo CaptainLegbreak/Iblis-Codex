@@ -46,14 +46,14 @@ struct D2UnitTargetStrc;
 
 
 
-void __fastcall sub_004E4020(D2UnitStrc* pUnit); // 0x004E4020
+void __fastcall sub_004E4020_Nop(D2UnitStrc* pUnit); // 0x004E4020
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
 
 
 
-void __cdecl sub_004DF800(); // 0x004DF800
+void __cdecl sub_004DF800_StopAllSlots(); // 0x004DF800
 
 struct D2ClientSkillCmdStrc
 {
@@ -762,7 +762,7 @@ void __fastcall UNITMODE_SetModeOverlay(D2UnitStrc* pUnit, int nMode)
 // 0x00480E30
 static int __stdcall UNITMODE_ChangeModeAndRefresh(D2UnitStrc* pUnit, int nMode)
 {
-    sub_004E4020(pUnit);
+    sub_004E4020_Nop(pUnit);
     if (pUnit)
         pUnit->dwFlags &= ~0x40u;
     if (UNITS_ChangeAnimMode(pUnit, nMode))
@@ -776,7 +776,7 @@ static int __stdcall UNITMODE_ChangeModeAndRefresh(D2UnitStrc* pUnit, int nMode)
 // 0x00480E70
 void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nMode)
 {
-    sub_004E4020(pUnit);
+    sub_004E4020_Nop(pUnit);
     if (pUnit)
         pUnit->dwFlags &= ~0x40;
     if (UNITS_ChangeAnimMode(pUnit, nMode))
@@ -790,7 +790,7 @@ void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nMode)
 // 0x00480EC0
 void __fastcall UNITMODE_SetUnitModeNoOverlay(D2UnitStrc* pUnit, int nMode)
 {
-    sub_004E4020(pUnit);
+    sub_004E4020_Nop(pUnit);
     if (pUnit)
         pUnit->dwFlags &= ~0x40;
     if (UNITS_ChangeAnimMode(pUnit, nMode))
@@ -1279,9 +1279,9 @@ int __cdecl UNITMODE_GetPlayerSoundEnviron()
 }
 
 // 0x00481830
-void __cdecl sub_00481830()
+void __cdecl sub_00481830_StopAllSounds()
 {
-    sub_004DF800();
+    sub_004DF800_StopAllSlots();
     sub_004BAAB0();
 }
 

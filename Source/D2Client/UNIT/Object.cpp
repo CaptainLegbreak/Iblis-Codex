@@ -1378,7 +1378,7 @@ void __fastcall ITEM_ApplyTownPortalState(D2GSPacketSrv60* pPacket)
 
 
 // 0x004BDFD0
-char* __fastcall sub_004BDFD0(D2UnitStrc* pUnit)
+char* __fastcall sub_004BDFD0_GetObjectOwner(D2UnitStrc* pUnit)
 {
     return pUnit->pObjectData->szOwner;
 }

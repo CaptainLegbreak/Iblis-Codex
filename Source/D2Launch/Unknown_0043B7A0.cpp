@@ -24,7 +24,7 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 
-int __cdecl sub_0042F6D0(); // 0x0042F6D0
+int __cdecl sub_0042F6D0_GetMenusDone(); // 0x0042F6D0
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -171,7 +171,7 @@ int __stdcall CHARSEL_OnLogonTick(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gpFuncTable->pfnSlot0C())
         D2Win_StopMessageLoop();
-    if (gfCharSelCancelled || !gpFuncTable->pfnSlot68() || sub_0042F6D0())
+    if (gfCharSelCancelled || !gpFuncTable->pfnSlot68() || sub_0042F6D0_GetMenusDone())
         D2Win_StopMessageLoop();
     return 1;
 }
@@ -182,7 +182,7 @@ int __stdcall CHARSEL_OnCreateAccountTick(SMSGHANDLER_PARAMS* pMsg)
     int nValue;
     if (gpFuncTable->pfnSlot64(&nValue))
         D2Win_StopMessageLoop();
-    if (gfCharSelCancelled || !gpFuncTable->pfnSlot68() || sub_0042F6D0())
+    if (gfCharSelCancelled || !gpFuncTable->pfnSlot68() || sub_0042F6D0_GetMenusDone())
     {
         gpFuncTable->pfnSlot10();
         D2Win_StopMessageLoop();
@@ -196,7 +196,7 @@ int __stdcall CHARSEL_OnChangePasswordTick(SMSGHANDLER_PARAMS* pMsg)
     int nValue;
     if (gpFuncTable->pfnSlotA0(&nValue))
         D2Win_StopMessageLoop();
-    if (gfCharSelCancelled || !gpFuncTable->pfnSlot68() || sub_0042F6D0())
+    if (gfCharSelCancelled || !gpFuncTable->pfnSlot68() || sub_0042F6D0_GetMenusDone())
     {
         gpFuncTable->pfnSlot10();
         D2Win_StopMessageLoop();
@@ -670,7 +670,7 @@ int __fastcall CHARSEL_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
         gpFuncTable->pfnSlot08(pRecord->szAccount, pRecord->szPassword);
         memset(pRecord->szPassword, 0, 0x18);
         sub_004FA590_RunLoop(CHARSEL_OnLogonTick);
-        if (gfCharSelCancelled || sub_0042F6D0())
+        if (gfCharSelCancelled || sub_0042F6D0_GetMenusDone())
         {
             sub_0042F880_DestroyControls();
             return 0;

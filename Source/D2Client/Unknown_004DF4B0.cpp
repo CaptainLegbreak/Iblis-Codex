@@ -40,7 +40,7 @@ struct D2CellGridViewStrc
     void __thiscall sub_004DF510_DrawCellNodes();
 };
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
+int __cdecl sub_0045AE90_GetPanelSlideMode(); // 0x0045AE90
 
 void __fastcall SCMD_ReadGridCell(int nA, int nB, unsigned char* pByte0, unsigned char* pByte1, unsigned char* pByte2, unsigned char* pByte3); // 0x00475AA0
 
@@ -64,7 +64,7 @@ extern int gnAmbientDelay; // 0x007C8C94
 
 extern int gnAmbientTick; // 0x007C8C98
 
-void __fastcall sub_004BA840(int nHandle); // 0x004BA840
+void __fastcall sub_004BA840_StopSound(int nHandle); // 0x004BA840
 
 struct D2ClientModuleListStrc
 {
@@ -139,7 +139,7 @@ void __thiscall D2CellGridViewStrc::sub_004DF510_DrawCellNodes()
     const int nCells = nSize;
     int nCount = nCells * nCells;
     D2GridCellStrc* pCell = pCells;
-    const int nArg = sub_0045AE90();
+    const int nArg = sub_0045AE90_GetPanelSlideMode();
     while (nCount--)
     {
         for (D2CellNodeStrc* pNode = pCell->pNodes; pNode; pNode = pNode->pNext)
@@ -211,7 +211,7 @@ void __fastcall sub_004E3170_SetMissileFrames(D2UnitStrc* pMissile, int nDivisor
 }
 
 // 0x004E4020
-void __fastcall sub_004E4020(D2UnitStrc* pUnit)
+void __fastcall sub_004E4020_Nop(D2UnitStrc* pUnit)
 {
 }
 
@@ -221,7 +221,7 @@ void __fastcall sub_004E4050_Nothing(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 }
 
 // 0x004E4280
-extern "C" void __cdecl sub_004E4280()
+extern "C" void __cdecl sub_004E4280_ResetEnvironSounds()
 {
     gnEnvironLevelId = 0;
     gnEnvironAmbientId = 0;
@@ -229,14 +229,14 @@ extern "C" void __cdecl sub_004E4280()
     gnAmbientTick = 0;
     if (gnEnvironSoundHandle)
     {
-        sub_004BA840(gnEnvironSoundHandle);
+        sub_004BA840_StopSound(gnEnvironSoundHandle);
         gnEnvironSoundHandle = 0;
     }
 
     gnEnvironSoundId = 0;
     if (gnWeatherSoundHandle)
     {
-        sub_004BA840(gnWeatherSoundHandle);
+        sub_004BA840_StopSound(gnWeatherSoundHandle);
         gnWeatherSoundHandle = 0;
     }
 
@@ -344,7 +344,7 @@ int __fastcall sub_004E0EB0_CltStartPathToTarget(D2UnitStrc* pUnit, int nSkillId
 }
 
 // 0x004E0C90
-int __fastcall sub_004E0C90(D2UnitStrc* unit, int skillId, int skillLevel)
+int __fastcall sub_004E0C90_SetSkillTargetPos(D2UnitStrc* unit, int skillId, int skillLevel)
 {
     D2UnitStrc* target = CUNIT_GetPathTargetUnit(unit);
     if (!target) return 0;

@@ -1580,7 +1580,7 @@ static int TEXT_DrawTextBoxAt(D2TextBoxStrc* pTextBox, D2RectStrc* pRect)
     else if (pTextBox->nScroll == 3)
         return 1;
 
-    switch (sub_0045AE90())
+    switch (sub_0045AE90_GetPanelSlideMode())
     {
     case 1:
         if (pRect->nLeft > gnScreenWidth / 2 - 10)
@@ -1721,7 +1721,7 @@ void __cdecl TEXT_DrawMessageList()
     nX = 0xF;
     nLine = 0;
     bSplit = 0;
-    switch (sub_0045AE90())
+    switch (sub_0045AE90_GetPanelSlideMode())
     {
     case 1:
         bSplit = 1;
@@ -2991,7 +2991,7 @@ void __stdcall TEXT_PanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0049FF00
-void __cdecl sub_0049FF00()
+void __cdecl sub_0049FF00_Nop()
 {
 }
 
@@ -3377,7 +3377,7 @@ void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit)
     UNITS_GetClientCoords(pUnit, &tPos);
     tPos.nY += -0x1E - gtHoverOffset.nTop;
     tPos.nX -= gtHoverOffset.nLeft;
-    switch (sub_0045AE90())
+    switch (sub_0045AE90_GetPanelSlideMode())
     {
     case 1:
         tPos.nX -= gnScreenWidth / 4;
@@ -3438,7 +3438,7 @@ void __fastcall TEXT_DrawObjectHoverText(D2UnitStrc* pUnit)
     UNITS_GetClientCoords(pUnit, &tPos);
     tPos.nY += -0x0A - gtHoverOffset.nTop;
     tPos.nX -= gtHoverOffset.nLeft;
-    switch (sub_0045AE90())
+    switch (sub_0045AE90_GetPanelSlideMode())
     {
     case 1:
         tPos.nX -= gnScreenWidth / 4;

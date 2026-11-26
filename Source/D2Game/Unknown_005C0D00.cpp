@@ -457,7 +457,7 @@ D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
 
 
 
-int __fastcall sub_00472280(D2SeedStrc*, int, int); // 0x00472280
+int __fastcall sub_00472280_RollInRange(D2SeedStrc*, int, int); // 0x00472280
 
 void __stdcall ITEMMODS_AssignProperty(int, D2UnitStrc*, D2UnitStrc*, const void*, int, int); // 0x0065FEC0
 
@@ -845,7 +845,7 @@ short __stdcall ITEMS_RollMagicAffixesOld(D2UnitStrc* pItem, int bRequireSpawnab
             }
         }
         if (nMax <= 0) return 0;
-        const int nRandom = sub_00472280(ITEMS_GetItemSeed(pItem), 0, nMax);
+        const int nRandom = sub_00472280_RollInRange(ITEMS_GetItemSeed(pItem), 0, nMax);
         if (nRandom >= nMax) return 0;
         D2AffixIndexAndPtrStrc* pAffix = &tAffixes[nRandom];
         if (!pAffix) return 0;
@@ -978,7 +978,7 @@ static unsigned short __stdcall SKILLITEM_RollRareAffixLegacy(D2UnitStrc* pItem,
         return 0;
     }
 
-    const int nIndex = sub_00472280(ITEMS_GetItemSeed(pItem), 0, nMax);
+    const int nIndex = sub_00472280_RollInRange(ITEMS_GetItemSeed(pItem), 0, nMax);
     if (nIndex >= nMax)
     {
         return 0;
@@ -1041,7 +1041,7 @@ static unsigned short __stdcall SKILLITEM_RollRareAffix(D2UnitStrc* pItem, int b
         return 0;
     }
 
-    const int nIndex = sub_00472280(ITEMS_GetItemSeed(pItem), 0, nMax);
+    const int nIndex = sub_00472280_RollInRange(ITEMS_GetItemSeed(pItem), 0, nMax);
     if (nIndex >= nMax)
     {
         return 0;
@@ -1150,7 +1150,7 @@ static int __stdcall sub_005C1BF0_RollRareItemNew(D2ItemDropStrc* pItemDrop, D2U
     int nAffixCount = 0;
     if (ITEMS_GetItemType(pItem) == ITEMTYPE_JEWEL)
     {
-        nAffixCount = sub_00472280(pSeed, 3, 2);
+        nAffixCount = sub_00472280_RollInRange(pSeed, 3, 2);
     }
     else
     {
@@ -1280,11 +1280,11 @@ static int __stdcall ITEMS_RollLegacyRareItem(D2ItemDropStrc* pItemDrop, D2UnitS
     unsigned int nAffixCount = 0;
     if (ITEMS_GetItemType(pItem) == ITEMTYPE_JEWEL)
     {
-        nAffixCount = sub_00472280(pSeed, 3, 2);
+        nAffixCount = sub_00472280_RollInRange(pSeed, 3, 2);
     }
     else
     {
-        nAffixCount = sub_00472280(pSeed, 4, 3);
+        nAffixCount = sub_00472280_RollInRange(pSeed, 4, 3);
     }
 
     for (unsigned int i = 0; i < nAffixCount; ++i)

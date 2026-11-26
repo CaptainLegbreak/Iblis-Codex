@@ -57,7 +57,7 @@ extern const unsigned char gMissileMask_006CE26C; // 0x006CE26C
 
 int __stdcall MONSTERS_IsUndead(D2UnitStrc*); // 0x0063E990
 
-D2MissilesTxt* __fastcall sub_0046ACE0(int); // 0x0046ACE0
+D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int); // 0x0046ACE0
 
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc*,int); // 0x00451F30
 
@@ -362,7 +362,7 @@ int __stdcall UNITFINDS_TestUnit(D2UnitStrc* unit,D2UnitFindArgStrc* args)
   case UNIT_OBJECT:if(!(args->flags&16))return 0;break;
   case UNIT_MISSILE: {
    if(!(args->flags&8))return 0;
-   D2MissilesTxt* record=sub_0046ACE0(unit->dwClassId);
+   D2MissilesTxt* record=sub_0046ACE0_GetMissilesTxtRecord(unit->dwClassId);
    if(!record || (record->flags&gMissileMask_006CE26C))return 0;
    break;
   }

@@ -120,7 +120,7 @@ extern int gnPanelOffsetX; // 0x007A2858
 extern int gnPanelOffsetY; // 0x007A285C
 
 // 0x004B8720
-void __cdecl sub_004B8720()
+void __cdecl sub_004B8720_ResetTradeState()
 {
     gnTradeState = 0;
     gbGlobal_007C0E74 = 0;
@@ -176,7 +176,7 @@ void __cdecl sub_004B8730_DrawDialogHover()
 
 
 // 0x004B8920
-void __cdecl sub_004B8920()
+void __cdecl sub_004B8920_ClearTradeGold()
 {
     gdwSecondaryTradeGold = 0;
     gdwPrimaryTradeGold = 0;
@@ -245,7 +245,7 @@ int __cdecl sub_004B8AD0_OpenWait()
 }
 
 // 0x004B8CB0
-void __cdecl sub_004B8CB0()
+void __cdecl sub_004B8CB0_BeginTradeWait()
 {
     MSG_SendShorts(0x4F, 2, 0, 0);
     if (gnTradeState != 7)
@@ -364,7 +364,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
             {
                 if (!UI_SetUIVar(0x17, 0, 0))
                 {
-                    sub_004B8CB0();
+                    sub_004B8CB0_BeginTradeWait();
                     return;
                 }
 
@@ -378,7 +378,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
             return;
         }
 
-        sub_004B8CB0();
+        sub_004B8CB0_BeginTradeWait();
         return;
 
     case 9:
@@ -415,7 +415,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
             {
                 if (!UI_SetUIVar(0x17, 0, 0))
                 {
-                    sub_004B8CB0();
+                    sub_004B8CB0_BeginTradeWait();
                     return;
                 }
 
@@ -427,7 +427,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
             return;
         }
 
-        sub_004B8CB0();
+        sub_004B8CB0_BeginTradeWait();
         return;
 
     case 2:
@@ -461,7 +461,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
             return;
 
         default:
-            sub_004B8CB0();
+            sub_004B8CB0_BeginTradeWait();
             return;
         }
 
@@ -501,7 +501,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
             return;
 
         default:
-            sub_004B8CB0();
+            sub_004B8CB0_BeginTradeWait();
             return;
         }
 
@@ -601,7 +601,7 @@ int __cdecl sub_004B9180_PollWait()
 }
 
 // 0x004B91F0
-void __cdecl sub_004B91F0()
+void __cdecl sub_004B91F0_CloseWait()
 {
     sub_004B8940_CloseWait(0);
 }

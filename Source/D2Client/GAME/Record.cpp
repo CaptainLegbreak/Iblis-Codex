@@ -35,7 +35,7 @@ struct D2RecordFileHeaderStrc
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC19C
-int __cdecl sub_0044DA90(); // 0x0044DA90
+int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
 int __stdcall DUNGEON_GetInitSeedFromAct(D2DrlgActStrc* pAct); // 0x0061AAC0
 extern D2DrlgActStrc* gpAct; // 0x007A0634
 void __stdcall RECORD_RecordMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451450
@@ -104,7 +104,7 @@ void __stdcall RECORD_RecordMessage(unsigned int uMessage, unsigned int wParam, 
     if (gpMsgRecordChunk_0070F7A0->nCount >= 500)
         RECORD_AddRecordChunk();
     D2MsgRecordStrc* pRecord = &gpMsgRecordChunk_0070F7A0->tRecords[gpMsgRecordChunk_0070F7A0->nCount++];
-    pRecord->nTick = sub_0044DA90();
+    pRecord->nTick = sub_0044DA90_GetTickCounter();
     pRecord->uMessage = uMessage;
     pRecord->wParam = wParam;
     pRecord->lParam = lParam;
@@ -152,7 +152,7 @@ void __cdecl RECORD_WriteRecordFile()
         pChunk = pChunk->pNext;
     }
     tHeader.nEntries = pChunk->nCount + 500 * (tHeader.nBlocks - 1);
-    tHeader.nTick = sub_0044DA90();
+    tHeader.nTick = sub_0044DA90_GetTickCounter();
     tHeader.nSeed = DUNGEON_GetInitSeedFromAct(gpAct);
 
     unsigned long nSize = sizeof(tHeader);
@@ -230,7 +230,7 @@ int __fastcall RECORD_DispatchRecordedMessage(D2MsgRecordStrc* pMsg)
 {
     int bUseResult = 0;
     int lResult = 0;
-    D2_ASSERT(pMsg->nTick == sub_0044DA90(), 0x12A);
+    D2_ASSERT(pMsg->nTick == sub_0044DA90_GetTickCounter(), 0x12A);
     return SMsgDispatchMessage(WINDOW_GetWindow(), pMsg->uMessage, pMsg->wParam, pMsg->lParam, &bUseResult, &lResult);
 }
 
@@ -322,7 +322,7 @@ void __cdecl RECORD_ReplayRecords()
         return;
     if (!gpMsgRecordChunk_0070F7A0)
         return;
-    const int nNow = sub_0044DA90();
+    const int nNow = sub_0044DA90_GetTickCounter();
     if (nNow >= gnReplayEndTick)
     {
         gbRecordPlaying = 0;

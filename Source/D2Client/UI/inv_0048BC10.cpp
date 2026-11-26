@@ -58,7 +58,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
+int __cdecl sub_0045AE90_GetPanelSlideMode(); // 0x0045AE90
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
@@ -66,7 +66,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
-void __fastcall sub_00468040(int nArg, int nArg2); // 0x00468040
+void __fastcall sub_00468040_ResetCursorState(int nArg, int nArg2); // 0x00468040
 
 void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
@@ -76,7 +76,7 @@ int __cdecl sub_00468730(); // 0x00468730
 
 int __cdecl sub_00468740(); // 0x00468740
 
-int __cdecl sub_00468830(); // 0x00468830
+int __cdecl sub_00468830_GetCursorState(); // 0x00468830
 
 void __fastcall MSG_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
 
@@ -94,7 +94,7 @@ void __fastcall TEXT_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStrc* pText
 
 int __fastcall NPCMENU_GetInteractNpcId(int* pUnitId); // 0x004B3230
 
-void __cdecl sub_004B8CB0(); // 0x004B8CB0
+void __cdecl sub_004B8CB0_BeginTradeWait(); // 0x004B8CB0
 
 void __fastcall sub_004B9070(int nArg); // 0x004B9070
 
@@ -658,7 +658,7 @@ int __cdecl INV_CanUseCursor()
         {
             return 0;
         }
-        const int nMode = sub_00468830();
+        const int nMode = sub_00468830_GetCursorState();
         if (nMode == 7 || nMode == 1 || nMode == 4)
         {
             return 1;

@@ -834,7 +834,7 @@ void __cdecl VIEW_DrawHelpPanelCel()
 
 
 // 0x00494EB0
-void __cdecl sub_00494EB0()
+void __cdecl sub_00494EB0_DrawHelpShade()
 {
     PANEL_SetBlackColour();
     AUTOMAP_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);
@@ -898,7 +898,7 @@ void __stdcall ROSTERPETS_HandleHelpButtonDown(SMSGHANDLER_PARAMS* pMsg)
 
 
 // 0x00494FB0
-void __stdcall sub_00494FB0(int nUnused1)
+void __stdcall sub_00494FB0_Nop(int nUnused1)
 {
 }
 
@@ -1981,7 +1981,7 @@ void __cdecl sub_00494020_DrawPetIcons()
     int nY = 0x48;
     int bAlternate = 0;
     int nX = 0xF;
-    const int nMode = sub_0045AE90();
+    const int nMode = sub_0045AE90_GetPanelSlideMode();
     if (nMode != 3 && nMode != 2 && !GAME_GetUIVarState(9) && !GAME_GetUIVarState(0xB) && gnPetIconPopupState != 2)
     {
         if (GAME_IsExpansion() && !GAME_GetUIVarState(0x23) && gnPetIconPopupState != 2 && ROSTERPETS_FindPetIdByOwner(pPlayer, 7, 0) != -1)

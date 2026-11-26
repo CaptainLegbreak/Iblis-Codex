@@ -538,7 +538,7 @@ void __fastcall PLAYER_RestoreWeaponStats(D2UnitStrc*,int); // 0x00535E20
 
 int __fastcall SUNITDMG_ApplyDamageBonuses(D2UnitStrc* pUnit, int bGetStats, D2UnitStrc* pItem, int nMinDmg, int nMaxDmg, int nDamagePercent, int nDamage, unsigned char nSrcDam); // 0x0057B420
 
-int __fastcall sub_00472280(D2SeedStrc*,int,int); // 0x00472280
+int __fastcall sub_00472280_RollInRange(D2SeedStrc*,int,int); // 0x00472280
 
 void __fastcall D2GAME_MONSTER_ApplyCriticalDamage(D2UnitStrc*,D2UnitStrc*,D2DamageStrc*); // 0x005A5560
 
@@ -1403,14 +1403,14 @@ void __fastcall SUNITDMG_FillDamageValues(D2GameStrc* pGame,D2UnitStrc* pAttacke
             if(pWeapon)
             {
                 int nChance=SKILLS_GetWeaponMasteryBonus(pAttacker,pWeapon,0,2);
-                if(nChance>0 && sub_00472280(&pAttacker->pSeed,0,100)<nChance) goto critical;
+                if(nChance>0 && sub_00472280_RollInRange(&pAttacker->pSeed,0,100)<nChance) goto critical;
             }
         }
         {
             int nChance=STATLIST_UnitGetStatValue(pAttacker,STAT_PASSIVE_CRITICAL_STRIKE,0);
-            if(nChance>0 && sub_00472280(&pAttacker->pSeed,0,100)<nChance) goto critical;
+            if(nChance>0 && sub_00472280_RollInRange(&pAttacker->pSeed,0,100)<nChance) goto critical;
             nChance=STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker,STAT_ITEM_DEADLYSTRIKE,0);
-            if(nChance<=0 || sub_00472280(&pAttacker->pSeed,0,100)>=nChance) goto elemental;
+            if(nChance<=0 || sub_00472280_RollInRange(&pAttacker->pSeed,0,100)>=nChance) goto elemental;
         }
 critical:
         pDamage->dwPhysDamage*=2;

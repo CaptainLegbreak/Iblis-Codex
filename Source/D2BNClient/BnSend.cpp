@@ -742,7 +742,7 @@ unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB)
     return 0xFFFF;
 }
 
-void __fastcall sub_004898A0(int nMode)
+void __fastcall sub_004898A0_DisableGoldButton(int nMode)
 {
     gbGoldButtonDisabled = 1;
     if (gnInvPanelMode == 13)

@@ -249,7 +249,7 @@ void __cdecl SHOWITEMS_DrawUnitNames()
                 if(!SCALE_CheckPerspectivePosition(nPrecisionX,nPrecisionY))continue;
                 int nProjectedX,nProjectedY;
                 SCALE_AdjustPerspectivePosition(nPrecisionX,nPrecisionY,0,&nProjectedX,&nProjectedY);
-                switch(sub_0045AE90())
+                switch(sub_0045AE90_GetPanelSlideMode())
                 {
                 case 1:nProjectedX+=-(gnScreenWidth_0071146C/4);break;
                 case 2:nProjectedX+=gnScreenWidth_0071146C/4;break;
@@ -266,7 +266,7 @@ void __cdecl SHOWITEMS_DrawUnitNames()
             }
             int nMinX=0;
             int nMaxX=gnScreenWidth_0071146C;
-            switch(sub_0045AE90())
+            switch(sub_0045AE90_GetPanelSlideMode())
             {
             case 1:nMaxX=gnScreenWidth_0071146C/2-32;break;
             case 2:nMinX=gnScreenWidth_0071146C/2;break;
