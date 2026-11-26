@@ -2996,8 +2996,8 @@
    "state": "included"
   },
   "Source/D2CMP/SRC/CelCmp.cpp": {
-   "bytes": 2984,
-   "definitions": 8,
+   "bytes": 5032,
+   "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl CelFileConvertRle24To8(); // 0x00606B50",
     "extern \"C\" void __cdecl sub_00608540(); // 0x00608540",
@@ -3005,15 +3005,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/SRC/CelCmp.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2CMP/SRC/CelCmp_005FF2A0.cpp": {
-   "bytes": 2048,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2CMP/SRC/CelCmp_005FF2A0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -103390,7 +103381,7 @@
    "cname": "gData_006E45A0",
    "declared": true,
    "decorated": "?gaDirectionIndex64@@3PAY0EA@HA",
-   "file": "Source/D2CMP/SRC/CelCmp_005FF2A0.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E45A0[8][64]; // 0x006E45A0",
