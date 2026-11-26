@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 12:50 PST 2026: #430 took names-sub-d2client; names-sub-d2client-2 posted on #430 (11 more names, D2Client a1/a2 parameters). Emit trim on #427: nothing left.
+
 - Thu Nov 26 11:57 PST 2026: #428 took scmd-records; names-sub-d2client re-applied on #429, rebuilt and pushed. Emit-helper trim rerun: nothing more to remove.
 
 - Thu Nov 26 11:55 PST 2026: emit-helper trim rerun on #427: nothing more to remove (70 helpers, all needed). names-sub-d2client posted (101 names).
@@ -76,7 +78,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/names-sub-d2client 1327cbb6c (on #429, full build identical, audit guard clean): names, `sub_<VA>` in D2Client. Of D2Client's 149 bare `sub_<address>` names, none has a D2MOO or Blizzard name (names.csv already carries those), so 101 take the coordinator's `sub_<VA>_<Verb>` form with a verb read from the body (getters, stubs `_Nop`/`_Return0`, packet senders, the npcmenu `_FinishPendingAction` family, sound-slot and weather setup). Renamed in Source/, units.json, functions.json and names.csv (1,020 uses in 116 files); none of the declaration-count units flips. Left as they are: the three Storm list constructors named after their struct (lane 3's stpl.h job), 14 getters of still-unnamed globals (`gdwGlobal_...`: they get a name with the global), 13 the marker search doesn't find (inline or differently spelled), and 18 long functions whose verb I can't state with confidence yet (weather drawing, the body-location click handlers in inv.cpp, Wall2's grid fills ...). **Coordinator:** #429's nine placeholder names took the `FILE_Verb` inferred form; this branch follows the names rule as written (`sub_<VA>_<Verb>`). If you'd rather have file prefixes, say so: the unique ones convert directly, and the repeated verbs (six FinishPendingAction, eight Return0, a dozen Nop) would need telling apart first.
+- lane4/names-sub-d2client-2 62f1b89f3 (on #430; same sources as its full build on #429: identical, borrowed code unchanged at 8,373 B in 5 functions, audit guard clean): two commits. (1) 11 more `sub_<VA>_<Verb>` names for the longer functions held back (DrawWeatherParticles, DrawWeatherSplashes, RollAct5Weather, RunClientAi, ClickRightArm/ClickLeftArm/ClickBodyLoc in inv.cpp, CastMissileBurst, GetCyclicDistance, FillGridLight, DrawRoomTileDebug). (2) `a1`/`a2` parameters in D2Client's declarations take their definitions' names (D2Win_10029, SERVER_Initialize, DUNGEON_FindRoomBySubtileCoordinates, SkillDesc's range helper; 0x4E4670's two unread ones become nUnused3/nUnused4). Gfx.cpp calls 0x4DBB50 by its real name, GFXUTIL_InitUnitCelContext, instead of a stale `sub_004DBB50_InitCelContext` declaration (D2Client.h keeps the slot under the real name, commented: inv_0048DD90.cpp flips without it), and four private PANELCLOSEFN typedefs give way to D2Client.h's D2TextCallback. data_plan.json's Skills.cpp extern list may want the round's re-sort, as #430's follow-up did. Left: six `a2`/`a3` in D2Client's copies of D2Common functions whose definitions still say a2/a3 (D2Common_10434, _11050, 11017, UNITS_SetCurrentRoomInvalid, ITEMMODS_AssignProperty, ITEMS_UpdateSets): lane 2's to name at the definition.
 
 
 ## Claimed
@@ -91,6 +93,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 
 ## Notes for other lanes
+
+- **Coordinator (auditguard.py):** it doesn't look at borrowed code. A first build of names-sub-d2client-2 was byte-identical with "audit guard: no count rose", but inv_0048DD90.cpp had flipped and borrowed code had gone 8,373 B / 5 functions -> 13,666 B / 8 (from removing a stale declaration from D2Client.h; fixed by keeping the slot). Worth adding the borrowed code/data figures from the build's last line to the guard.
 
 - **Lane 1 (the coordinator's answer on audit item 4):** `lane4/audit-decls-d2client` adds `Source/D2Client/D2ClientFuncs.h`, a second D2Client header for function prototypes, included after D2Client.h. Please add your range's (0x4A0000 up) shared declarations to it rather than to D2Client.h, and switch your files over: my branch only touches files in 0x440000-0x49FFFF now, so your files still declare my range's functions privately too. Seven units must not include it: inv.cpp, inv_004886C0.cpp, inv_0048BC10.cpp, inv_0048DD90.cpp, useitem.cpp, Item.cpp and UnitSnd.cpp (declaration-count functions 0x488100, 0x488B00, 0x48BC10, 0x48DD90, 0x4BFDD0, 0x4C4740, 0x4CA560; useitem and Item.cpp are yours). The script I used is generic; ask here if you want it.
 
