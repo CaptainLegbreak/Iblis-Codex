@@ -161,7 +161,6 @@ int __fastcall D3DCORE_CreateMemoryTexture(void** ppSurface, void** ppTexture, i
 
 extern int gTileWidth; // 0x0096F4DC
 
-int __fastcall sub_006B58A0_CreateTexture(D2D3DObjStrc** ppTexture, D2D3DObjStrc** ppSurface, int nWidth, int nHeight); // 0x006B58A0
 
 extern int gnFloorTextureWidth; // 0x0096F4DC
 

@@ -20,7 +20,6 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
-void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 
 void __cdecl BNDOWNLOAD_LogPrintf(const char* szFormat, ...); // 0x00518D40
 

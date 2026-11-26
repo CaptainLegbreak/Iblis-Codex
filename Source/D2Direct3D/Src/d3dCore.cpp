@@ -851,7 +851,6 @@ extern D2Surface006B3570Strc* gpRenderSurface_00970E6C; // 0x00970E6C
 __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 
 
-int __stdcall SRegLoadValue(const char*,const char*,unsigned int,unsigned long*); // 0x00414F10
 
 int __stdcall SRegLoadData(const char*,const char*,unsigned int,void*,unsigned int,unsigned int*); // 0x00414DE0
 

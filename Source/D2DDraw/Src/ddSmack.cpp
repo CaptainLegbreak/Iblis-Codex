@@ -144,7 +144,6 @@ void __fastcall DDSMACK_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pRe
     DDSMACK_CloseSmacker(pRecord);
 }
 
-unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 extern int gbSurfaceActive_007C9140;                                                                        // 0x007C9140
 
 // 0x005135F0

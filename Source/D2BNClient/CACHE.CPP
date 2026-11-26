@@ -49,7 +49,6 @@ extern "C" const char gszEmptyAssertText;                                       
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-extern "C" int __cdecl toupper(int nChar);                                                                  // 0x00685385
 
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC19C
 
@@ -62,7 +61,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall SetFilePointer(void* hF
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 
-void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);                                         // 0x0041C340
 
 void __cdecl BNDOWNLOAD_LogPrintf(const char* szFormat, ...);                                                   // 0x00518D40
 

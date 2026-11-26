@@ -51,7 +51,6 @@ extern D2WinControlStrc* gpControl_007795E0; // 0x007795E0
 extern D2WinControlStrc* gpControl_007795E4; // 0x007795E4
 extern void** gppSlots; // 0x00779988
 extern int gnSlotCount; // 0x0077998C
-char* __fastcall MAINMENUS_GetSlotName(int nIndex); // 0x00430B50
 int __cdecl MAINMENUS_FreeSlots(); // 0x00430A20
 extern D2CharSelCacheStrc* gpCharSelCache; // 0x00779DE8
 static int gbFlag_00779C6C;             // 0x00779C6C
@@ -114,9 +113,7 @@ extern int gnProgress; // 0x007BB3B4
 void __stdcall CHARSEL_AddToScrollValue(int nDelta); // 0x00439E60
 int __stdcall CHARSEL_HandleListKey(SMSGHANDLER_PARAMS* pMsg); // 0x00439E90
 static int gnTopRow; // 0x00779DC8
-D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
 void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
-void __cdecl CHARSEL_DisconnectBattleNet(); // 0x0043B9A0
 extern int gnBusy; // 0x00779DAC
 extern "C" unsigned int __cdecl strlen(const char* sz);
 struct D2LaunchCharEntryStrc
@@ -137,7 +134,6 @@ int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFil
 int __stdcall CHARSEL_OnScroll(SMSGHANDLER_PARAMS* pMsg);                                              // 0x00439DF0
 int __cdecl CHARSEL_InitRealmScreen();                                                                 // 0x0043A2B0
 void __fastcall CHARSEL_UseName(char* szName);                                                         // 0x0043ADB0
-void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags);                     // 0x004F96F0
 void __fastcall TEXTBOX_SetSmallGap(int nFont);                                                                    // 0x004FB590
 int __fastcall D2Win_10191(D2WinTextBoxStrc* pTextBox, int nMaxSteps);                                      // 0x004FC5E0
 int __fastcall D2Win_10194(D2WinTextBoxStrc* pTextBox, D2WinTextBoxStrc* pLinkedTextBox);                   // 0x004FC6A0

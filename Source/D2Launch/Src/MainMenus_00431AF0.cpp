@@ -27,7 +27,6 @@ extern D2WinControlStrc* gpControl_007795AC; // 0x007795AC
 extern int gfMenusDone; // 0x00779974
 
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
-D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 extern int gbFeCharPalette; // 0x007795F0
@@ -41,15 +40,10 @@ extern const char gszTosPrefix[]; // 0x006D48E8
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(void*, unsigned long*); // 0x006CC2F0
 extern "C" unsigned int __cdecl strlen(const char*);
 void __cdecl sub_0042F800(); // 0x0042F800
-unsigned int __stdcall SStrPack(char*, const char*, unsigned int); // 0x00413800
 void __cdecl MAINMENUS_PollDownloadDone(); // 0x00430400
 void __stdcall D2Win_RunMessageLoop(D2LaunchDoneFn); // 0x004FA590
-void __cdecl MAINMENUS_ShowMainMenu(); // 0x004336C0
 void __fastcall MAINMENUS_ShowMessage(const Unicode*, D2LaunchDoneFn, int); // 0x00433380
 void __cdecl MAINMENUS_CreateTermsControls(); // 0x00430390
-D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int); // 0x0042F430
-void* __fastcall FOG_CreateFileA(const char*, unsigned long, unsigned long, void*, unsigned long, unsigned long, void*); // 0x00406960
-int __fastcall FOG_ReadFile(void*, void*, unsigned long, unsigned long*, void*); // 0x004069B0
 void __fastcall CHARSEL_SwapUnicodeBytes(Unicode*, unsigned int); // 0x0042E5D0
 Unicode* __fastcall win2Unicode(Unicode*, const char*, int); // 0x00526F20
 int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820
@@ -75,7 +69,6 @@ extern "C" int __fastcall D2Win_10106(D2WinControlStrc*); // 0x00500310
 int __fastcall D2Win_10104(D2WinControlStrc*); // 0x00500340
 extern "C" void __fastcall BUTTON_SetIsPressed(D2WinControlStrc*, int); // 0x005009A0
 void __fastcall D2SOUND_10039(const char*); // 0x00514EC0
-void __cdecl D2SOUNDFAST_FadeOutWaves(); // 0x00515020
 
 int gdwGlobal_00779990; // 0x00779990
 
@@ -84,7 +77,6 @@ extern "C" char* __cdecl strstr(const char* szString, const char* szSubString); 
 int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 
 
-void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 
 
 // 0x0042FB20

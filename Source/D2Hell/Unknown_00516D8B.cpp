@@ -1053,7 +1053,6 @@ struct D2MessageLock {D2CriticalSectionStrc lock;int enabled;};
 extern D2MessageList gtMessages;  // 0x0072FA14
 extern D2MessageLock gMessageLock_00881818;  // 0x00881818
 extern "C" const char gszFaultError[];  // 0x006DEBCC
-unsigned int __stdcall SStrCopy(char*,const char*,unsigned int);  // 0x004135D0
 // 0x00517804
 void __fastcall sub_00517804_GetMessage(unsigned int id,char* dest,unsigned int size) {
  if(gMessageLock_00881818.enabled) {
