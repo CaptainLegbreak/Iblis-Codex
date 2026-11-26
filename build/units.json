@@ -55930,6 +55930,11 @@
      "name": "AITHINK_InitializeVineState"
     },
     {
+     "va": "0x005EC6C0",
+     "length": 501,
+     "name": "AITHINK_Fn110_Vines"
+    },
+    {
      "va": "0x005EC8C0",
      "length": 682
     },
@@ -55951,6 +55956,10 @@
     {
      "va": "0x005ECEE0",
      "length": 953
+    },
+    {
+     "va": "0x005ED2A0",
+     "length": 1131
     },
     {
      "va": "0x005ED710",
@@ -60355,27 +60364,6 @@
      "va": "0x005E0070",
      "length": 225,
      "name": "?QUESTSFX_UberPrimeEvil@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005E17E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005EC6C0",
-     "length": 501,
-     "name": "AITHINK_Fn110_Vines"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005ED2A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005ED2A0",
-     "length": 1131
     }
    ]
   },
