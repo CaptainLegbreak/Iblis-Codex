@@ -152,6 +152,12 @@ ASSUME_RE = re.compile(r'\b(%s)\b' % '|'.join(ASSUME_MACROS))
 # 0x44CD70 GAME_TickKeepAlive and 0x44EFA0 GAME_RunGameFrame (D2Client): the original tests gpClientConfig bit 2 and
 # runs the same code either way, so the test is the original's and nothing depends on it.
 ARMS_ORIGINAL = {0x0044CD70, 0x0044EFA0, 0x006BD780}
+# A volatile local the original had. 0x4027C0 LOGMANAGER_DbgHelpThreadProc (Fog, the /GL crash-handler run) begins
+# `mov dword ptr [ebp-4],0; mov eax,[ebp-4]` with eax then unused, before the call to the thread-name helper. About 80
+# plain forms (in its /EHa file, in the /GL unit and in a standalone cl /GL + link /LTCG build) delete a read nobody
+# uses, through pointers, references, arrays, struct members and zero-initialised aggregates alike, and drop an unused
+# argument with its evaluation; only a volatile read leaves the store/load pair (accepted 2026-11-26).
+VOLATILE_ORIGINAL = {0x004027C0}
 # `#pragma optimize("", off)` the original had. 0x477170 PALSHIFT_LoadPalShift (D2Client PalShift.cpp) sits inside
 # PalShift.cpp's object (0x476FB0, 0x477030 and 0x477060 before it, 0x477470 and 0x477530 after it, all built optimized
 # in the same unit), and its code keeps every value on the stack. One unoptimized function in an optimized object is
@@ -170,7 +176,7 @@ def constructs(a):
     out += flag_notes(u)
     b = BODY.get(a, '')
     if re.search(r'\bvolatile\b', b):
-        out.append(FORCING[0])
+        out.append(FORCING[0] + ' (original)' if a in VOLATILE_ORIGINAL else FORCING[0])
     if '#pragma optimize' in b or a in PRAGMA_OFF:
         out.append(FORCING[1] + ' (original)' if a in PRAGMA_ORIGINAL else FORCING[1])
     if '__assume' in b:

@@ -19,7 +19,6 @@ extern "C" const char gszSpriteCacheSourceFile[]; // 0x006E364C
 extern "C" const char szFastCmpFile[]; // 0x006E5F08
 extern "C" const char szSubTileFile[]; // 0x006E61F8
 extern "C" const char szTileCodecFile[]; // 0x006E61F8
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" double __cdecl sqrt(double x); // 0x006879C0
 extern const char gszSubTileFile[]; // 0x006E61F8
 extern int gaDirectionIndex64[][64]; // 0x006E45A0

@@ -123,14 +123,11 @@ extern unsigned int gnRenderFlags_0096F3A8; // 0x0096F3A8
 extern unsigned short gwLocale_0077905C; // 0x0077905C
 extern void* ghDbgHelp; // 0x0098A680
 extern void* ghProcess; // 0x0074C6F0
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __fastcall deflate(z_stream* strm, int flush); // 0x00428C60
-int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
 int __stdcall GetCmdIndex(const char* s); // 0x00405570
 unsigned long __stdcall SFileSetFilePointer(void* hFile, long lDistanceToMove, long* plDistanceToMoveHigh, unsigned long dwMoveMethod); // 0x004165A0
 void __stdcall SErrSetLastError(unsigned int); // 0x0041C340
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
 // build: symbol ?FOG_DisplayHalt@* 0x00408A60
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }

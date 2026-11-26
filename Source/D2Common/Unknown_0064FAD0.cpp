@@ -66,7 +66,7 @@ void __fastcall COLLISION_SetUnitCollisionMask(D2ActiveRoomStrc* pRoom1, int nX1
 
 
 
-void __fastcall PATH_NormalizeStep(int* a1, int* a2); // 0x00678F00
+void __fastcall PATH_NormalizeStep(int* pX, int* pY); // 0x00678F00
 
 void __fastcall PATHUTIL_GetTargetPathPoint(D2PathPointStrc* pOutPathPoint, D2DynamicPathStrc* pPath); // 0x00679250
 
@@ -698,14 +698,14 @@ static BOOL sub_006503F0_CheckPathDone(D2DynamicPathStrc* pDynamicPath)
     tCoord.X = pDynamicPath->tGameCoords.wPosX;
     tCoord.Y = pDynamicPath->tGameCoords.wPosY;
 
-    D2PathPointStrc a3;
-    PATHUTIL_GetTargetPathPoint(&a3, pDynamicPath);
+    D2PathPointStrc tTargetPoint;
+    PATHUTIL_GetTargetPathPoint(&tTargetPoint, pDynamicPath);
 
     pTargetUnit = pDynamicPath->hTarget;
     if (pTargetUnit && pTargetUnit->dwUnitType >= 0 && pTargetUnit->dwUnitType <= 1)
     {
-        const int nDiffX = pDynamicPath->tPrevTargetCoord.X - a3.X;
-        const int nDiffY = pDynamicPath->tPrevTargetCoord.Y - a3.Y;
+        const int nDiffX = pDynamicPath->tPrevTargetCoord.X - tTargetPoint.X;
+        const int nDiffY = pDynamicPath->tPrevTargetCoord.Y - tTargetPoint.Y;
         if (D2_ABS(nDiffX) > 5 || D2_ABS(nDiffY) > 5)
         {
             return D2Common_10236(pUnit, TRUE);
@@ -1072,7 +1072,7 @@ int __stdcall D2Common_10231(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit_
 }
 
 // 0x00650C60
-BOOL __stdcall D2Common_10230(D2DynamicPathStrc* pDynamicPath, int a2, D2ActiveRoomStrc* pRoom, unsigned int X, short Y)
+BOOL __stdcall D2Common_10230(D2DynamicPathStrc* pDynamicPath, int nUnused, D2ActiveRoomStrc* pRoom, unsigned int X, short Y)
 {
     D2PathPointStrc tPos;
     tPos.X = (unsigned short)X;

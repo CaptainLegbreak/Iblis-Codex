@@ -412,7 +412,7 @@ int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x0062B5B0
 
 unsigned int __stdcall ITEMS_GetWeaponClassCode(D2UnitStrc* pItem); // 0x00628500
 
-void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* pUnit, int nClassId, int nMode, int nUnitType, D2InventoryStrc* pInventory, char* szPath, int* pWeaponClassCode, int a8, int a9); // 0x0064F5B0
+void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* pUnit, int nClassId, int nMode, int nUnitType, D2InventoryStrc* pInventory, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int bDetermine); // 0x0064F5B0
 
 int __stdcall DATATBLS_GetAnimDataInfo(char* szPath, int* pOutLength, int* pOutAnimSpeed, int* pOutFirstFrameTagged); // 0x0066AA80
 
@@ -4725,7 +4725,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
     int nTabLevel;
     int nSkillValue;
     unsigned int dwCode;
-    int v237, v238, nSkillId, v240, v241, v242, v243, v244, v245, v246, v247, v248, v249, v250, v251, v252;
+    int nTab, nTabClass, nSkillId, nOnAttackLevel, nOnAttackSkill, nOnAttackChance, nOnHitLevel, nOnHitSkill, nOnHitChance, nOnGetHitLevel, nOnGetHitSkill, nOnGetHitChance, nChargedSkill, nChargedLevel, nCharges, nMaxCharges;
     int nLastStatId;
     D2ItemStatCostTxt* pItemStatCostTxtRecord;
     D2ItemsTxt* pItemsTxtRecord;
@@ -5551,12 +5551,12 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 if (dwVersion <= 92)
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 10);
-                    D2Common_10848(nValue, &v238, &v237, &nTabLevel);
+                    D2Common_10848(nValue, &nTabClass, &nTab, &nTabLevel);
                     if (nTabLevel > 7)
                     {
                         nTabLevel = 7;
                     }
-                    STATLIST_SetStatValue(pStatList, 188, nTabLevel, v237 + 8 * v238);
+                    STATLIST_SetStatValue(pStatList, 188, nTabLevel, nTab + 8 * nTabClass);
                 }
                 else
                 {
@@ -5618,8 +5618,8 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 if (dwVersion <= 92)
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 21);
-                    D2Common_10845(nValue, &v241, &v240, &v242);
-                    STATLIST_SetStatValue(pStatList, 195, v242, (v240 & 0x3F) + ((unsigned short)v241 << 6));
+                    D2Common_10845(nValue, &nOnAttackSkill, &nOnAttackLevel, &nOnAttackChance);
+                    STATLIST_SetStatValue(pStatList, 195, nOnAttackChance, (nOnAttackLevel & 0x3F) + ((unsigned short)nOnAttackSkill << 6));
                 }
                 else
                 {
@@ -5633,8 +5633,8 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 if (dwVersion <= 92)
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 21);
-                    D2Common_10845(nValue, &v244, &v243, &v245);
-                    STATLIST_SetStatValue(pStatList, 198, v245, (v243 & 0x3F) + ((unsigned short)v244 << 6));
+                    D2Common_10845(nValue, &nOnHitSkill, &nOnHitLevel, &nOnHitChance);
+                    STATLIST_SetStatValue(pStatList, 198, nOnHitChance, (nOnHitLevel & 0x3F) + ((unsigned short)nOnHitSkill << 6));
                 }
                 else
                 {
@@ -5648,8 +5648,8 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 if (dwVersion <= 92)
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 21);
-                    D2Common_10845(nValue, &v247, &v246, &v248);
-                    STATLIST_SetStatValue(pStatList, 201, v248, (v246 & 0x3F) + ((unsigned short)v247 << 6));
+                    D2Common_10845(nValue, &nOnGetHitSkill, &nOnGetHitLevel, &nOnGetHitChance);
+                    STATLIST_SetStatValue(pStatList, 201, nOnGetHitChance, (nOnGetHitLevel & 0x3F) + ((unsigned short)nOnGetHitSkill << 6));
                 }
                 else
                 {
@@ -5677,8 +5677,8 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                     {
                         nValue = BITMANIP_ReadInl(pBuffer, 30);
                     }
-                    D2Common_10846(nValue, &v249, &v250, &v251, &v252);
-                    STATLIST_SetStatValue(pStatList, 204, (v251 & 0xFF) + (v252 << 8), (v250 & (unsigned short)sgptDataTables->nShiftedStuff) + ((unsigned short)v249 << sgptDataTables->nStuff));
+                    D2Common_10846(nValue, &nChargedSkill, &nChargedLevel, &nCharges, &nMaxCharges);
+                    STATLIST_SetStatValue(pStatList, 204, (nCharges & 0xFF) + (nMaxCharges << 8), (nChargedLevel & (unsigned short)sgptDataTables->nShiftedStuff) + ((unsigned short)nChargedSkill << sgptDataTables->nStuff));
                 }
                 else
                 {

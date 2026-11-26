@@ -48,7 +48,7 @@ How far the sources are from reading like the original source tree. Byte matchin
 | … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 196 |
 | Record definitions private to a source file (`struct`/`union` in a .cpp) | 1813 |
 | Unnamed fields (`unk0x..`) in the shared headers | 647 |
-| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 35 |
+| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 34 |
 | Calling-convention shims | 38 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
 | `__declspec(noinline)` / `__forceinline` | 110 / 178 |
@@ -109,7 +109,7 @@ Not listed one by one: 3240 functions are compiled with `/GS-` and 1581 with `/E
 | 0x00402530 | sub_00402530_UnloadModule | `Fog/Unknown_00402530.cpp` | link-time code generation (/GL /LTCG) (original) |
 | 0x004025F0 | sub_004025F0_StackWalk | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) (original) |
 | 0x004026D0 | sub_004026D0_WriteMiniDump | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) (original) |
-| 0x004027C0 | LOGMANAGER_DbgHelpThreadProc | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) (original), volatile read or qualifier |
+| 0x004027C0 | LOGMANAGER_DbgHelpThreadProc | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) (original), volatile read or qualifier (original) |
 | 0x00402A90 | sub_00402A90_GetDbgHelpModuleRange | `Fog/Unknown_00402820.cpp` | volatile read or qualifier |
 | 0x00402AE0 | sub_00402AE0_ShutdownSymbols | `Fog/Unknown_004025F0.cpp` | link-time code generation (/GL /LTCG) (original) |
 | 0x00402C10 | ERRORMANAGER_CompareUInt | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |

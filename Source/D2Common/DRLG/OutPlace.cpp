@@ -48,9 +48,9 @@ struct D2PosStrc;
 
 
 
-static void __stdcall DRLGOUTPLACE_PlaceCoordBeside(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4); // 0x00675EB0
+static void __stdcall DRLGOUTPLACE_PlaceCoordBeside(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int nOffsetMode); // 0x00675EB0
 
-static void __stdcall DRLGOUTPLACE_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4); // 0x00675F80
+static void __stdcall DRLGOUTPLACE_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int nOffsetMode); // 0x00675F80
 
 extern D2DrlgLinkStrc gAct1MonasteryDrlgLink[]; // 0x006F0840
 
@@ -177,14 +177,14 @@ void __fastcall EmitPlacement(D2DrlgCoordStrc* src,int mode,int side,D2DrlgCoord
 #undef SMALL_SHIFT
 
 // 0x00675EB0
-static void __stdcall DRLGOUTPLACE_PlaceCoordBeside(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4)
+static void __stdcall DRLGOUTPLACE_PlaceCoordBeside(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int nOffsetMode)
 {
     switch (nDirection)
     {
     case 0:
         pCoord->nPosX = pLinkCoord->nWidth - pCoord->nWidth + pLinkCoord->nPosX;
         pCoord->nPosY = pLinkCoord->nHeight + pLinkCoord->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosX += 16;
         }
@@ -192,11 +192,11 @@ static void __stdcall DRLGOUTPLACE_PlaceCoordBeside(D2DrlgCoordStrc* pLinkCoord,
     case 1:
         pCoord->nPosX = pLinkCoord->nPosX - pCoord->nWidth;
         pCoord->nPosY = pLinkCoord->nHeight - pCoord->nHeight + pLinkCoord->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosY += 16;
         }
-        else if (a4 == 2)
+        else if (nOffsetMode == 2)
         {
             pCoord->nPosY -= 8;
         }
@@ -204,7 +204,7 @@ static void __stdcall DRLGOUTPLACE_PlaceCoordBeside(D2DrlgCoordStrc* pLinkCoord,
     case 2:
         pCoord->nPosX = pLinkCoord->nPosX;
         pCoord->nPosY = pLinkCoord->nPosY - pCoord->nHeight;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosX -= 16;
         }
@@ -212,15 +212,15 @@ static void __stdcall DRLGOUTPLACE_PlaceCoordBeside(D2DrlgCoordStrc* pLinkCoord,
     case 3:
         pCoord->nPosX = pLinkCoord->nWidth + pLinkCoord->nPosX;
         pCoord->nPosY = pLinkCoord->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosY -= 16;
         }
-        else if (a4 == 2)
+        else if (nOffsetMode == 2)
         {
             pCoord->nPosY += 8;
         }
-        else if (a4 == 3)
+        else if (nOffsetMode == 3)
         {
             pCoord->nPosY -= 8;
         }
@@ -238,14 +238,14 @@ void __fastcall sub_00675EB0_Shim(D2DrlgCoordStrc* pCoords, int nCount)
 }
 
 // 0x00675F80
-static void __stdcall DRLGOUTPLACE_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4)
+static void __stdcall DRLGOUTPLACE_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int nOffsetMode)
 {
     switch (nDirection)
     {
     case 0:
         pCoord->nPosX = pLinkCoord->nPosX;
         pCoord->nPosY = pLinkCoord->nHeight + pLinkCoord->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosX -= pCoord->nWidth / 2 + 8;
         }
@@ -253,7 +253,7 @@ static void __stdcall DRLGOUTPLACE_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoor
     case 1:
         pCoord->nPosX = pLinkCoord->nPosX;
         pCoord->nPosY = pLinkCoord->nHeight + pLinkCoord->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosX += pCoord->nWidth / 2 + 8;
         }
@@ -261,7 +261,7 @@ static void __stdcall DRLGOUTPLACE_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoor
     case 2:
         pCoord->nPosX = pLinkCoord->nPosX - pCoord->nWidth;
         pCoord->nPosY = pLinkCoord->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosY -= pCoord->nHeight / 2 + 8;
         }
@@ -269,7 +269,7 @@ static void __stdcall DRLGOUTPLACE_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoor
     case 3:
         pCoord->nPosX = pLinkCoord->nPosX - pCoord->nWidth;
         pCoord->nPosY = pLinkCoord->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosY += pCoord->nHeight / 2 + 8;
         }
@@ -277,7 +277,7 @@ static void __stdcall DRLGOUTPLACE_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoor
     case 4:
         pCoord->nPosX = pLinkCoord->nPosX;
         pCoord->nPosY = pLinkCoord->nPosY - pCoord->nHeight;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosX -= pCoord->nWidth / 2 + 8;
         }
@@ -285,7 +285,7 @@ static void __stdcall DRLGOUTPLACE_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoor
     case 5:
         pCoord->nPosX = pLinkCoord->nPosX;
         pCoord->nPosY = pLinkCoord->nPosY - pCoord->nHeight;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosX += pCoord->nWidth / 2 + 8;
         }
@@ -293,7 +293,7 @@ static void __stdcall DRLGOUTPLACE_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoor
     case 6:
         pCoord->nPosX = pLinkCoord->nWidth + pLinkCoord->nPosX;
         pCoord->nPosY = pLinkCoord->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosY -= pCoord->nHeight / 2 + 8;
         }
@@ -301,7 +301,7 @@ static void __stdcall DRLGOUTPLACE_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoor
     case 7:
         pCoord->nPosX = pLinkCoord->nWidth + pLinkCoord->nPosX;
         pCoord->nPosY = pLinkCoord->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosY += pCoord->nHeight / 2 + 8;
         }
@@ -326,14 +326,14 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static void __fastcall DRLGOUTPLACE_PlaceLinkedCoordCentered(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
+static void __fastcall DRLGOUTPLACE_PlaceLinkedCoordCentered(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int nDirection, int nOffsetMode)
 {
-    switch (a3)
+    switch (nDirection)
     {
     case 0:
         pDrlgCoord2->nPosX = pDrlgCoord1->nPosX;
         pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pDrlgCoord2->nPosX -= pDrlgCoord2->nWidth / 2 + 8;
         }
@@ -341,7 +341,7 @@ static void __fastcall DRLGOUTPLACE_PlaceLinkedCoordCentered(D2DrlgCoordStrc* pD
     case 1:
         pDrlgCoord2->nPosX = pDrlgCoord1->nPosX;
         pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pDrlgCoord2->nPosX += pDrlgCoord2->nWidth / 2 + 8;
         }
@@ -349,7 +349,7 @@ static void __fastcall DRLGOUTPLACE_PlaceLinkedCoordCentered(D2DrlgCoordStrc* pD
     case 2:
         pDrlgCoord2->nPosX = pDrlgCoord1->nPosX - pDrlgCoord2->nWidth;
         pDrlgCoord2->nPosY = pDrlgCoord1->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pDrlgCoord2->nPosY -= pDrlgCoord2->nHeight / 2 + 8;
         }
@@ -357,7 +357,7 @@ static void __fastcall DRLGOUTPLACE_PlaceLinkedCoordCentered(D2DrlgCoordStrc* pD
     case 3:
         pDrlgCoord2->nPosX = pDrlgCoord1->nPosX - pDrlgCoord2->nWidth;
         pDrlgCoord2->nPosY = pDrlgCoord1->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pDrlgCoord2->nPosY += pDrlgCoord2->nHeight / 2 + 8;
         }
@@ -365,7 +365,7 @@ static void __fastcall DRLGOUTPLACE_PlaceLinkedCoordCentered(D2DrlgCoordStrc* pD
     case 4:
         pDrlgCoord2->nPosX = pDrlgCoord1->nPosX;
         pDrlgCoord2->nPosY = pDrlgCoord1->nPosY - pDrlgCoord2->nHeight;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pDrlgCoord2->nPosX -= pDrlgCoord2->nWidth / 2 + 8;
         }
@@ -373,7 +373,7 @@ static void __fastcall DRLGOUTPLACE_PlaceLinkedCoordCentered(D2DrlgCoordStrc* pD
     case 5:
         pDrlgCoord2->nPosX = pDrlgCoord1->nPosX;
         pDrlgCoord2->nPosY = pDrlgCoord1->nPosY - pDrlgCoord2->nHeight;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pDrlgCoord2->nPosX += pDrlgCoord2->nWidth / 2 + 8;
         }
@@ -381,7 +381,7 @@ static void __fastcall DRLGOUTPLACE_PlaceLinkedCoordCentered(D2DrlgCoordStrc* pD
     case 6:
         pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth;
         pDrlgCoord2->nPosY = pDrlgCoord1->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pDrlgCoord2->nPosY -= pDrlgCoord2->nHeight / 2 + 8;
         }
@@ -389,7 +389,7 @@ static void __fastcall DRLGOUTPLACE_PlaceLinkedCoordCentered(D2DrlgCoordStrc* pD
     case 7:
         pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth;
         pDrlgCoord2->nPosY = pDrlgCoord1->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pDrlgCoord2->nPosY += pDrlgCoord2->nHeight / 2 + 8;
         }
@@ -487,14 +487,14 @@ int __fastcall DRLGOUTPLACE_LinkStepDirectionSide(D2DrlgLevelLinkDataStrc* pData
     return 1;
 }
 
-static inline void DRLGOUTPLACE_PlaceCoordSide1(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4)
+static inline void DRLGOUTPLACE_PlaceCoordSide1(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int nOffsetMode)
 {
     switch (nDirection)
     {
     case 0:
         pCoord->nPosX = pLinkCoord->nPosX;
         pCoord->nPosY = pLinkCoord->nHeight + pLinkCoord->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosX -= 16;
         }
@@ -502,7 +502,7 @@ static inline void DRLGOUTPLACE_PlaceCoordSide1(D2DrlgCoordStrc* pLinkCoord, D2D
     case 1:
         pCoord->nPosX = pLinkCoord->nPosX - pCoord->nWidth;
         pCoord->nPosY = pLinkCoord->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosY -= 16;
         }
@@ -510,7 +510,7 @@ static inline void DRLGOUTPLACE_PlaceCoordSide1(D2DrlgCoordStrc* pLinkCoord, D2D
     case 2:
         pCoord->nPosX = pLinkCoord->nWidth - pCoord->nWidth + pLinkCoord->nPosX;
         pCoord->nPosY = pLinkCoord->nPosY - pCoord->nHeight;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosX += 16;
         }
@@ -518,7 +518,7 @@ static inline void DRLGOUTPLACE_PlaceCoordSide1(D2DrlgCoordStrc* pLinkCoord, D2D
     case 3:
         pCoord->nPosX = pLinkCoord->nWidth + pLinkCoord->nPosX;
         pCoord->nPosY = pLinkCoord->nHeight - pCoord->nHeight + pLinkCoord->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosY += 16;
         }
@@ -526,14 +526,14 @@ static inline void DRLGOUTPLACE_PlaceCoordSide1(D2DrlgCoordStrc* pLinkCoord, D2D
     }
 }
 
-static inline void DRLGOUTPLACE_PlaceCoordSide0(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4)
+static inline void DRLGOUTPLACE_PlaceCoordSide0(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int nOffsetMode)
 {
     switch (nDirection)
     {
     case 0:
         pCoord->nPosX = pLinkCoord->nWidth - pCoord->nWidth + pLinkCoord->nPosX;
         pCoord->nPosY = pLinkCoord->nHeight + pLinkCoord->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosX += 16;
         }
@@ -541,7 +541,7 @@ static inline void DRLGOUTPLACE_PlaceCoordSide0(D2DrlgCoordStrc* pLinkCoord, D2D
     case 1:
         pCoord->nPosX = pLinkCoord->nPosX - pCoord->nWidth;
         pCoord->nPosY = pLinkCoord->nHeight - pCoord->nHeight + pLinkCoord->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosY += 16;
         }
@@ -549,7 +549,7 @@ static inline void DRLGOUTPLACE_PlaceCoordSide0(D2DrlgCoordStrc* pLinkCoord, D2D
     case 2:
         pCoord->nPosX = pLinkCoord->nPosX;
         pCoord->nPosY = pLinkCoord->nPosY - pCoord->nHeight;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosX -= 16;
         }
@@ -557,7 +557,7 @@ static inline void DRLGOUTPLACE_PlaceCoordSide0(D2DrlgCoordStrc* pLinkCoord, D2D
     case 3:
         pCoord->nPosX = pLinkCoord->nWidth + pLinkCoord->nPosX;
         pCoord->nPosY = pLinkCoord->nPosY;
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pCoord->nPosY -= 16;
         }
@@ -635,15 +635,15 @@ int __fastcall DRLGOUTPLACE_PlaceLevel(D2DrlgLevelLinkDataStrc* pData)
     return 1;
 }
 
-static inline void DRLGOUTPLACE_PlaceLinkedCoord(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
+static inline void DRLGOUTPLACE_PlaceLinkedCoord(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int nDirection, int nOffsetMode)
 {
-	switch (a3)
+	switch (nDirection)
 	{
 	case 0:
 		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX;
 		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight;
 
-		if (a4 == 1)
+		if (nOffsetMode == 1)
 		{
 			pDrlgCoord2->nPosX -= 16;
 		}
@@ -653,11 +653,11 @@ static inline void DRLGOUTPLACE_PlaceLinkedCoord(D2DrlgCoordStrc* pDrlgCoord1, D
 		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX - pDrlgCoord2->nWidth;
 		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY;
 
-		if (a4 == 1)
+		if (nOffsetMode == 1)
 		{
 			pDrlgCoord2->nPosY -= 16;
 		}
-		else if (a4 == 2)
+		else if (nOffsetMode == 2)
 		{
 			pDrlgCoord2->nPosY += 8;
 		}
@@ -667,7 +667,7 @@ static inline void DRLGOUTPLACE_PlaceLinkedCoord(D2DrlgCoordStrc* pDrlgCoord1, D
 		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth - pDrlgCoord2->nWidth;
 		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY - pDrlgCoord2->nHeight;
 
-		if (a4 == 1)
+		if (nOffsetMode == 1)
 		{
 			pDrlgCoord2->nPosX += 16;
 		}
@@ -677,7 +677,7 @@ static inline void DRLGOUTPLACE_PlaceLinkedCoord(D2DrlgCoordStrc* pDrlgCoord1, D
 		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth;
 		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight - pDrlgCoord2->nHeight;
 
-		switch (a4)
+		switch (nOffsetMode)
 		{
 		case 1:
 			pDrlgCoord2->nPosY += 16;
@@ -700,15 +700,15 @@ static inline void DRLGOUTPLACE_PlaceLinkedCoord(D2DrlgCoordStrc* pDrlgCoord1, D
 	}
 }
 
-static inline void DRLGOUTPLACE_PlaceLinkedCoordFar(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
+static inline void DRLGOUTPLACE_PlaceLinkedCoordFar(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int nDirection, int nOffsetMode)
 {
-	switch (a3)
+	switch (nDirection)
 	{
 	case 0:
 		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth - pDrlgCoord2->nWidth;
 		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight;
 
-		if (a4 == 1)
+		if (nOffsetMode == 1)
 		{
 			pDrlgCoord2->nPosX += 16;
 		}
@@ -718,11 +718,11 @@ static inline void DRLGOUTPLACE_PlaceLinkedCoordFar(D2DrlgCoordStrc* pDrlgCoord1
 		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX - pDrlgCoord2->nWidth;
 		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight - pDrlgCoord2->nHeight;
 
-		if (a4 == 1)
+		if (nOffsetMode == 1)
 		{
 			pDrlgCoord2->nPosY += 16;
 		}
-		else if (a4 == 2)
+		else if (nOffsetMode == 2)
 		{
 			pDrlgCoord2->nPosY -= 8;
 		}
@@ -732,7 +732,7 @@ static inline void DRLGOUTPLACE_PlaceLinkedCoordFar(D2DrlgCoordStrc* pDrlgCoord1
 		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX;
 		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY - pDrlgCoord2->nHeight;
 
-		if (a4 == 1)
+		if (nOffsetMode == 1)
 		{
 			pDrlgCoord2->nPosX -= 16;
 		}
@@ -742,7 +742,7 @@ static inline void DRLGOUTPLACE_PlaceLinkedCoordFar(D2DrlgCoordStrc* pDrlgCoord1
 		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth;
 		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY;
 
-		switch (a4)
+		switch (nOffsetMode)
 		{
 		case 1:
 			pDrlgCoord2->nPosY -= 16;
@@ -829,15 +829,15 @@ int __fastcall DRLGOUTPLACE_TryNextCenteredSide(D2DrlgLevelLinkDataStrc* pLevelL
     return 1;
 }
 
-static inline void DRLGOUTPLACE_PlaceCoord(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
+static inline void DRLGOUTPLACE_PlaceCoord(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int nDirection, int nOffsetMode)
 {
-    switch (a3)
+    switch (nDirection)
     {
     case 0:
         pDrlgCoord2->nPosX = pDrlgCoord1->nPosX;
         pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight;
 
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pDrlgCoord2->nPosX -= 16;
         }
@@ -847,11 +847,11 @@ static inline void DRLGOUTPLACE_PlaceCoord(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgC
         pDrlgCoord2->nPosX = pDrlgCoord1->nPosX - pDrlgCoord2->nWidth;
         pDrlgCoord2->nPosY = pDrlgCoord1->nPosY;
 
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pDrlgCoord2->nPosY -= 16;
         }
-        else if (a4 == 2)
+        else if (nOffsetMode == 2)
         {
             pDrlgCoord2->nPosY += 8;
         }
@@ -861,7 +861,7 @@ static inline void DRLGOUTPLACE_PlaceCoord(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgC
         pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth - pDrlgCoord2->nWidth;
         pDrlgCoord2->nPosY = pDrlgCoord1->nPosY - pDrlgCoord2->nHeight;
 
-        if (a4 == 1)
+        if (nOffsetMode == 1)
         {
             pDrlgCoord2->nPosX += 16;
         }
@@ -871,7 +871,7 @@ static inline void DRLGOUTPLACE_PlaceCoord(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgC
         pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth;
         pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight - pDrlgCoord2->nHeight;
 
-        switch (a4)
+        switch (nOffsetMode)
         {
         case 1:
             pDrlgCoord2->nPosY += 16;

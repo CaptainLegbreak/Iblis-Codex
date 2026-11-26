@@ -1,3 +1,7 @@
+// TASK_TASK_ProcessGame (0x005645E0) belongs to Task.cpp (it sits between 0x00564460 and 0x00564870) but stays
+// in a file of its own. In one file with Task.cpp's TASK_LinkList_Remove (0x005642E0) and TASK_LinkList_PushFront
+// (0x00564250) the compiler inlines both into it, where the image calls them. A noinline on TASK_LinkList_Remove
+// fixes 0x005645E0 but breaks TASK_FreeAllQueueSlots (0x00564890), which has it inline in the image.
 #include "D2GameTypes.h"
 #include "D2Game.h"
 #include "D2GameStrc.h"
