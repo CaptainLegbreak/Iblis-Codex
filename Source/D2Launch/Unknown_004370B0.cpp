@@ -30,7 +30,7 @@ void __cdecl MAINMENUS_UpdatePasswordOk(); // 0x004371E0
 
 void __cdecl MAINMENUS_CreatePasswordScreen(); // 0x004372B0
 
-int __cdecl sub_0043B830(); // 0x0043B830
+int __cdecl sub_0043B830_IsCancelled(); // 0x0043B830
 
 
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
@@ -276,7 +276,7 @@ int __stdcall sub_00436E90_AlwaysOne(int nArg)
 }
 
 // 0x00436EA0
-int __cdecl sub_00436EA0()
+int __cdecl sub_00436EA0_IsCancelled()
 {
     return gfConnectCancelled;
 }
@@ -502,7 +502,7 @@ int __stdcall sub_004374F0_UpdateStatusWait(int nArg)
         D2Win_StopMessageLoop();
     }
 
-    if (sub_0043B830())
+    if (sub_0043B830_IsCancelled())
     {
         gpFuncTable->pfnSlot10();
         D2Win_StopMessageLoop();

@@ -84,7 +84,7 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
-extern "C" int __fastcall sub_004FDA80(Obj004FDA80* pObj); // 0x004FDA80
+extern "C" int __fastcall sub_004FDA80_IsColorCodePrefix(Obj004FDA80* pObj); // 0x004FDA80
 
 extern "C" unsigned short* __fastcall sub_005267E0_2(unsigned short* pDst, const unsigned short* pSrc); // 0x005267E0
 
@@ -1261,7 +1261,7 @@ int __fastcall D2Win_10074(D2WinEditBoxStrc* pEditBox, char nChar)
         if (!D2Win_10128(nChar))
         {
             const unsigned int dwEditBoxFlags = pEditBox->dwEditBoxFlags;
-            if (!((dwEditBoxFlags & 0x20) && sub_004FDA80((Obj004FDA80*)&wKey))
+            if (!((dwEditBoxFlags & 0x20) && sub_004FDA80_IsColorCodePrefix((Obj004FDA80*)&wKey))
                 && !((dwEditBoxFlags & 8) && nChar == '\r')
                 && !((dwEditBoxFlags & 0x10) && nChar == 0x0E)
                 && nChar != 0x16 && nChar != 3 && nChar != 0x18 && nChar != 1)

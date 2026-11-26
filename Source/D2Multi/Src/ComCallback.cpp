@@ -1534,7 +1534,7 @@ static inline const char* sub_SkipStarPrefix(const char* szName)
 }
 
 // 0x004473F0
-int __cdecl sub_004473F0()
+int __cdecl sub_004473F0_AlwaysOne()
 {
     return 1;
 }
@@ -1634,7 +1634,7 @@ void __fastcall COMCALLBACK_SplitName(const char* szName, char* szTitle, char* s
 D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
 
 // 0x004476F0
-int __cdecl sub_004476F0()
+int __cdecl sub_004476F0_AlwaysOne()
 {
     return 1;
 }
@@ -1648,7 +1648,7 @@ int __fastcall CHATDLG_OnChannelDoesNotExist(int nA, int nB, const char* szText,
 }
 
 // 0x00447730
-int __stdcall sub_00447730(int nUnused1, int nUnused2)
+int __stdcall sub_00447730_AlwaysZero(int nUnused1, int nUnused2)
 {
     return 0;
 }

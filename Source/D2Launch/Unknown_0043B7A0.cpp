@@ -81,7 +81,7 @@ void __cdecl CHARSEL_CreateConnectScreen(); // 0x00436D50
 
 int __stdcall sub_00436E90_AlwaysOne(int nArg); // 0x00436E90
 
-int __cdecl sub_00436EA0(); // 0x00436EA0
+int __cdecl sub_00436EA0_IsCancelled(); // 0x00436EA0
 
 int __stdcall CHARSEL_OnLogonTick(int nArg); // 0x0043B890
 
@@ -96,7 +96,7 @@ extern "C" __declspec(dllimport) int __stdcall TerminateProcess(void* hProcess, 
 
 void __cdecl MAINMENUS_ShowProgressScreen(); // 0x0042F890
 
-void __cdecl sub_0042FA20(); // 0x0042FA20
+void __cdecl sub_0042FA20_ClearStopMainLoop(); // 0x0042FA20
 
 int __stdcall sub_004374F0_UpdateStatusWait(int nArg); // 0x004374F0
 
@@ -143,7 +143,7 @@ void __cdecl CHARSEL_ClearCancelled()
 }
 
 // 0x0043B830
-int __cdecl sub_0043B830()
+int __cdecl sub_0043B830_IsCancelled()
 {
     return gfCharSelCancelled;
 }
@@ -499,7 +499,7 @@ int __cdecl sub_0043BF60()
     D2_ASSERT(!gbConnecting, 296);
     gbConnecting = 1;
     gfHasCharEntries = 1;
-    sub_0042FA20();
+    sub_0042FA20_ClearStopMainLoop();
     OutputDebugStringA("------------------\nConnect to Battle.net\n------------------\n");
     D2MCPClientCloseMCP();
 
@@ -691,7 +691,7 @@ int __fastcall CHARSEL_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
         CHARSEL_CreateConnectScreen();
         sub_004FA590_RunLoop(sub_00436E90_AlwaysOne);
         sub_0042F880_DestroyControls();
-        if (sub_00436EA0())
+        if (sub_00436EA0_IsCancelled())
         {
             D2MCPClientCloseMCP();
             gpFuncTable->pfnSlot10Result();

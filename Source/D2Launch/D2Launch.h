@@ -144,7 +144,7 @@ int __cdecl sub_00432400_GetStatus(); // 0x00432400
 int __cdecl MCPCONNECT_QueryAddress(); // 0x00449B30
 int __cdecl sub_00449B70_Receive(); // 0x00449B70
 int __cdecl GAME_GetConnectError(); // 0x00449C00
-int __cdecl sub_00449E60(); // 0x00449E60
+int __cdecl sub_00449E60_GetPacket(); // 0x00449E60
 int __cdecl VIEW_SendMcpCharListRequest(); // 0x0044AAB0
 int __cdecl D2Win_10185_CheckCharMpq(); // 0x004FAC90
 int __cdecl D2SOUND_GetOptionsMusicOption(); // 0x00514D80
