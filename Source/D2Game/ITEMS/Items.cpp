@@ -1889,16 +1889,10 @@ static inline void ITEMS_RemoveItemFromAllPlayers(D2GameStrc* pGame, D2UnitStrc*
     SUNIT_IterateLivingPlayers(pGame, ITEMS_PlayerIterateCallback_RemoveItem, pItem);
 }
 
-void __fastcall sub_M110_Emit_00557FC0(D2GameStrc* pGame, D2UnitStrc* pItem)
-{
-    if (pItem)
-        ITEMS_RemoveItemFromAllPlayers(pGame, pItem);
-}
-
 // 0x00557FD0
 void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    SUNIT_IterateLivingPlayers(pGame, ITEMS_PlayerIterateCallback_RemoveItem, pUnit);
+    ITEMS_RemoveItemFromAllPlayers(pGame, pUnit);
     SUNIT_RemoveUnit(pGame, pUnit);
 }
 

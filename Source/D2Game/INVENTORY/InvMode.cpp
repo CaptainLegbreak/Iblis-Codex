@@ -451,16 +451,6 @@ static void INVMODE_ResetSwitchBodyLoc(D2UnitStrc* pItem)
     }
 }
 
-void __fastcall sub_M105_Emit_00597AA0(D2GameStrc* pGame, D2UnitStrc* pItem)
-{
-    if (pItem)
-    {
-        INVMODE_ResetSwitchBodyLoc(pItem);
-        D2GAME_ResetSomeItemFlags(pGame, pItem);
-        ITEMS_RemoveFromAllPlayers(pGame, pItem);
-    }
-}
-
 // 0x00597B00
 void __fastcall D2GAME_INVMODE_Last(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -477,15 +467,7 @@ void __fastcall D2GAME_INVMODE_Last(D2GameStrc* pGame, D2UnitStrc* pUnit)
         D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, INVENTORY_GetItemGUIDFromNode(pInventoryNode));
         if (pItem)
         {
-            if (ITEMS_CheckItemCMDFlag(pItem, 0x10) || ITEMS_CheckItemCMDFlag(pItem, 0x4000))
-            {
-                ITEMS_SetBodyLocation(pItem, 0);
-            }
-
-            if (ITEMS_CheckItemCMDFlag(pItem, 0x20) && ITEMS_CheckItemFlag(pItem, IFLAG_SWITCHOUT, 384, ".\\INVENTORY\\InvMode.cpp"))
-            {
-                ITEMS_SetBodyLocation(pItem, 0);
-            }
+            INVMODE_ResetSwitchBodyLoc(pItem);
 
             D2GAME_ResetSomeItemFlags(pGame, pItem);
 
