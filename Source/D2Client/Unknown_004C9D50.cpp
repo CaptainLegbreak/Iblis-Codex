@@ -44,15 +44,15 @@ int __fastcall MISSILE_DoSkillWithTempTarget(void* pArg1, int nArg2, int nArg3, 
 
 extern int gaLevelVisited[]; // 0x007C78B8
 
-extern int gnGlobal_007C88B8; // 0x007C88B8
+extern int gnNeutralTick; // 0x007C88B8
 
-extern int gnGlobal_007C88BC; // 0x007C88BC
+extern int gnSfxTick; // 0x007C88BC
 
-extern int gnGlobal_007C88C0; // 0x007C88C0
+extern int gnNeutralDelay; // 0x007C88C0
 
-extern int gnGlobal_007C88C4; // 0x007C88C4
+extern int gnLastRequestTick; // 0x007C88C4
 
-extern int gnGlobal_007C88C8; // 0x007C88C8
+extern int gnLastRequestSound; // 0x007C88C8
 
 
 int __fastcall SKILLS_DoClientSkill(D2UnitStrc* pUnit, int nSkillId, int nArg, int nMode); // 0x004C6680
@@ -379,11 +379,11 @@ int __cdecl SKILLS_GetLevelsTxtRecordCount()
 // 0x004CA280
 void __cdecl SKILLS_ResetLevelSpeech()
 {
-    gnGlobal_007C88B8 = 0;
-    gnGlobal_007C88BC = 0;
-    gnGlobal_007C88C0 = 0x5A;
-    gnGlobal_007C88C4 = 0;
-    gnGlobal_007C88C8 = 0;
+    gnNeutralTick = 0;
+    gnSfxTick = 0;
+    gnNeutralDelay = 0x5A;
+    gnLastRequestTick = 0;
+    gnLastRequestSound = 0;
     memset(gaLevelVisited, 0, 0x1000);
 }
 

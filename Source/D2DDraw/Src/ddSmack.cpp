@@ -33,9 +33,9 @@ int __stdcall SBmpDecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY
 
 extern tagPALETTEENTRY gatGamePalette[256];                                                     // 0x007C8CC8
 
-extern unsigned char gaDDrawSmackRemap_008815B0[256];                                                       // 0x008815B0
+extern unsigned char gabDDrawSmackRemap[256];                                                       // 0x008815B0
 
-extern int gbDDrawSmackRemapReady_008816B4;                                                                 // 0x008816B4
+extern int gbDDrawSmackRemapReady;                                                                 // 0x008816B4
 
 static void* gpDDrawSmackBuffer; // 0x008816B0
 
@@ -104,7 +104,7 @@ void __fastcall DDSMACK_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pRe
         gpDDrawSmackBuffer = pBuffer;
         memset(pBuffer, 0, pSmack->nWidth * pSmack->nHeight);
         SmackToBuffer(pRecord->hSmack, 0, 0, pSmack->nWidth, pSmack->nHeight, pBuffer, 0);
-        gbDDrawSmackRemapReady_008816B4 = 0;
+        gbDDrawSmackRemapReady = 0;
         return;
     }
 
@@ -132,7 +132,7 @@ void __fastcall DDSMACK_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pRe
 
         for (int i = 0; i < 256; ++i)
         {
-            gaDDrawSmackRemap_008815B0[i] = GetClosestColor((const unsigned char*)gatGamePalette, 256, aPalette[i].peRed, aPalette[i].peGreen, aPalette[i].peBlue);
+            gabDDrawSmackRemap[i] = GetClosestColor((const unsigned char*)gatGamePalette, 256, aPalette[i].peRed, aPalette[i].peGreen, aPalette[i].peBlue);
         }
         return;
     }

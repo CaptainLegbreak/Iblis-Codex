@@ -32,4 +32,4 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
 void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
-extern const unsigned char gCharacterClass_0074C5C8[]; // 0x0074C5C8
+extern const unsigned char gCharacterClass[]; // 0x0074C5C8

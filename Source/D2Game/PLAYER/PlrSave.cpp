@@ -295,9 +295,9 @@ __declspec(noalias) int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-extern D2CriticalSectionStrc gSrvClientListByNameLock_6FD443B8; // 0x008846C0
+extern D2CriticalSectionStrc gSrvClientListByNameLock; // 0x008846C0
 
-extern D2ClientStrc* gpClientListByName_6FD443D0[256]; // 0x00883EA8
+extern D2ClientStrc* gpClientListByName[256]; // 0x00883EA8
 
 extern int gbHasHighResolutionClock; // 0x0088C7A0
 
@@ -385,7 +385,7 @@ void __fastcall CLIENTS_CopyAccountNameToBuffer(D2ClientStrc* pClient, char* szB
 
 extern "C" const char gszSaveFormat_006D4230[]; // 0x006D4230
 
-extern "C" const char gszFileModeWb_006D69E0[]; // 0x006D69E0
+extern "C" const char gszFileModeWb[]; // 0x006D69E0
 
 extern "C" const char gszSaveOpenError[]; // 0x006E09C4
 
@@ -566,7 +566,7 @@ int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc*); // 0x00625DB0
 
 unsigned int __fastcall ARENA_IsInArenaMode(D2GameStrc*); // 0x0053FCE0
 
-extern "C" const char gszPlrSaveFile_006E09AC[]; // 0x006E09AC
+extern "C" const char gszPlrSaveSourceFile[]; // 0x006E09AC
 
 void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers(D2GameStrc* pGame, int nUnitId, int nCorpseId, unsigned char bAssign); // 0x0053DF80
 
@@ -1672,7 +1672,7 @@ static void __stdcall PLRSAVE_SaveToLocalFile(int bInteractsWithPlayer, unsigned
         return;
     }
 
-    _iobuf* pFile = fopen(szFile, gszFileModeWb_006D69E0);
+    _iobuf* pFile = fopen(szFile, gszFileModeWb);
     if (pFile)
     {
         fwrite(pData, nSize, 1, pFile);
@@ -2425,7 +2425,7 @@ static int __stdcall PLRSAVE_ReadCorpse(D2UnitStrc* pUnit, D2GameStrc* pGame, un
 
     pUnit->dwFlags &= ~4;
     {
-        D2ClientStrc* pClient = UnitGetClient(pPlayer, gszPlrSaveFile_006E09AC, 0x1511);
+        D2ClientStrc* pClient = UnitGetClient(pPlayer, gszPlrSaveSourceFile, 0x1511);
         SUNIT_InitClientInPlayerData(pUnit, pClient);
         char* const szName = CLIENTS_GetName(pClient);
         UNITS_SetNameInPlayerData(pUnit, szName);

@@ -57,7 +57,7 @@ void __fastcall D2QSQUEUE_InitQueue(void* pList); // 0x006C1F60
 void __fastcall Destroy(void* pQueue); // 0x006C1F80
 void __fastcall D2QSQUEUE_Push(void* pQueue, unsigned char* pData, unsigned short nLength); // 0x006C1FF0
 extern const char gszSocketFile[]; // 0x006FC418
-extern const char gszUnknown_006CCED8[]; // 0x006CCED8
+extern const char gszUnknownUpper[]; // 0x006CCED8
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION* lpCriticalSection);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION* lpCriticalSection);
@@ -386,7 +386,7 @@ D2ThreadRecord006BC5A0Strc* __stdcall D2QSSOCKET_CreateRecord(const char* szName
         if (szLabel)
             SStrCopy(pRecord->szLabel, szLabel, 4);
         else
-            SStrCopy(pRecord->szLabel, gszUnknown_006CCED8, 0x40);
+            SStrCopy(pRecord->szLabel, gszUnknownUpper, 0x40);
         pRecord->nPort = nPort;
         D2QSQUEUE_InitQueue(pRecord->tQueue);
         pRecord->nHeaderSize = 2;

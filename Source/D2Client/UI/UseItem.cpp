@@ -45,7 +45,7 @@ void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 extern D2HotspotStrc gaUseItemHotspots[]; // 0x00727900
 
-int gnGlobal_007C5478; // 0x007C5478
+int gnUseItemNpcValue; // 0x007C5478
 
 int gnAnvilObjectId; // 0x007C547C
 
@@ -176,7 +176,7 @@ void __cdecl USEITEM_InitUseItemPanel()
 {
     gnUseItemDialogState = 0;
     gnAnvilObjectId = 0;
-    gnGlobal_007C5478 = 0;
+    gnUseItemNpcValue = 0;
     gdwUseItemClickTick = 0;
     gpUpgradeCel = GAME_LoadUiCelFile("menu\\upgrade");
     gpHoradricBackCel = GAME_LoadUiCelFile("menu\\horadricback");
@@ -748,7 +748,7 @@ void __fastcall sub_004C0550(D2PacketRecord7Strc* pPacket)
 void __fastcall USEITEM_OpenNpcItemPanel(int nValue)
 {
     gnUseItemPanelMode = 1;
-    gnGlobal_007C5478 = nValue;
+    gnUseItemNpcValue = nValue;
     USEITEM_OpenPanel();
 }
 

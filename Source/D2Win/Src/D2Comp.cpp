@@ -145,7 +145,7 @@ int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength); // 0x005017
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
 
-extern "C" const char gszExcelDirectory_006D8ED4[]; // 0x006D8ED4
+extern "C" const char gszExcelDirectory[]; // 0x006D8ED4
 
 extern void* sghPentagram; // 0x0087E96C
 
@@ -165,7 +165,7 @@ D2BinFileStrc* __stdcall FOG_CreateBinFile(void* pDataBuffer, int nBufferSize); 
 
 void __stdcall FOG_10207(D2BinFileStrc* pBinFile, D2BinFieldStrc* pBinField, void* pTxt, int nRecordCount, int nRecordSize); // 0x006BD780
 
-extern "C" const char szBinExtension_006DCC68[]; // 0x006DCC68
+extern "C" const char gszBinExtension[]; // 0x006DCC68
 
 extern int gbD2WinBinMode; // 0x0072EF2C
 
@@ -195,7 +195,7 @@ extern "C" const char gszItemTypesFieldCode[]; // 0x006DCCE0
 
 extern "C" const char gszItemsFieldType[]; // 0x006DCCE8
 
-extern "C" const char szItemsFieldVersion_006DCCF0[]; // 0x006DCCF0
+extern "C" const char gszTxtField_version[]; // 0x006DCCF0
 
 extern "C" const char gszItemsTableWeapons[]; // 0x006DCCF8
 
@@ -287,7 +287,7 @@ extern D2CompPairStrc gaCompPairs[]; // 0x0072EF68
 
 extern unsigned int gnCompPairs; // 0x0072EFD0
 
-extern int gnItemsTxtRecordCount_008426EC; // 0x008426EC
+extern int gnItemsTotalCount; // 0x008426EC
 
 static void D2COMP_CopyTokenPadded(char* pDst, const char* pSrc);
 
@@ -332,7 +332,7 @@ struct D2PaletteRecordStrc
 
 void __stdcall FOG_FreeLinker(D2TxtLinkStrc* pLinker); // 0x006BD0B0
 
-extern D2TxtLinkStrc* gpCompItemsLinker_0087D824; // 0x0087D824
+extern D2TxtLinkStrc* gpCompItemsLinker; // 0x0087D824
 
 extern "C" const char gszItemTypesFieldEquiv1[]; // 0x006DCD14
 
@@ -1275,7 +1275,7 @@ void __stdcall D2COMP_Stub4(int, int, int, int)
 void* __stdcall D2COMP_LoadExcelFile(void* hArchive, const char* szName, const char* szExtension, unsigned int* pnFileSize)
 {
     char szFilename[260];
-    wsprintfA(szFilename, "%s\\%s%s", gszExcelDirectory_006D8ED4, szName, szExtension);
+    wsprintfA(szFilename, "%s\\%s%s", gszExcelDirectory, szName, szExtension);
     return sub_00517079_LoadFile(hArchive, szFilename, pnFileSize, ".\\Src\\D2Comp.cpp", 0x958);
 }
 
@@ -1287,7 +1287,7 @@ void* __stdcall D2COMP_CompileTxt(void* hArchive, const char* szName, D2BinField
     if (gbD2WinBinMode)
     {
         char szFilename[260];
-        wsprintfA(szFilename, "%s\\%s%s", gszExcelDirectory_006D8ED4, szName, szBinExtension_006DCC68);
+        wsprintfA(szFilename, "%s\\%s%s", gszExcelDirectory, szName, gszBinExtension);
         pFileData = sub_00517079_LoadFile(hArchive, szFilename, &nFileSize, ".\\Src\\D2Comp.cpp", 0x958);
     }
     else if (!_stricmp(szName, "leveldefs"))
@@ -1332,7 +1332,7 @@ void __fastcall D2COMP_LoadItems(void* hArchive)
 {
     D2BinFieldStrc aItemsFields[] =
     {
-        { szItemsFieldVersion_006DCCF0, 3, 0, 0xF6, 0 },
+        { gszTxtField_version, 3, 0, 0xF6, 0 },
         { gszItemsFieldType, 0xF, 0, 0x11E, &gpCompItemTypesLinker },
         { gszItemTypesFieldCode, 9, 0, 0x80, 0 },
         { gszItemsFieldAlternateGfx, 9, 0, 0x90, 0 },
@@ -1412,10 +1412,10 @@ void __fastcall D2COMP_LoadItemTypes(void* hArchive)
 // 0x005049D0
 void __stdcall D2COMP_FreeLinkers()
 {
-    if (gpCompItemsLinker_0087D824)
+    if (gpCompItemsLinker)
     {
-        FOG_FreeLinker(gpCompItemsLinker_0087D824);
-        gpCompItemsLinker_0087D824 = 0;
+        FOG_FreeLinker(gpCompItemsLinker);
+        gpCompItemsLinker = 0;
     }
     if (gpCompItemTypesLinker)
     {
@@ -2242,7 +2242,7 @@ void __stdcall D2COMP_InitCompItems()
     gaItems[3].nWeaponClass = gaWClassTokens[0];
 
     int nNext = 4;
-    for (int i = 0; i < gnItemsTxtRecordCount_008426EC; ++i)
+    for (int i = 0; i < gnItemsTotalCount; ++i)
     {
         D2ItemsTxt* pRecord = &gpCompItemsTxt[i];
 

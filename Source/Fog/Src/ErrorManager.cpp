@@ -447,7 +447,7 @@ extern D2CriticalSectionStrc gtSymbolLock; // 0x0098A6F0
 
 extern void* gpfnCrashHandler; // 0x00992B10
 
-extern D2FogSystemInfoStrc gtSystemInfo_0074D88C; // 0x0074D88C
+extern D2FogSystemInfoStrc gbSystemInfoCaptured; // 0x0074D88C
 
 extern "C" int __stdcall Process32FirstW(void* hSnapshot, D2ProcessEntryWStrc* pEntry); // 0x006B1524
 
@@ -1968,7 +1968,7 @@ bool __fastcall ERRORMANAGER_CreateDirectoryWide(wchar_t* wszPath)
 // 0x00407360
 D2FogSystemInfoStrc* __cdecl FOG_GetSystemInfo()
 {
-    return gtSystemInfo_0074D88C.bCaptured ? &gtSystemInfo_0074D88C : 0;
+    return gbSystemInfoCaptured.bCaptured ? &gbSystemInfoCaptured : 0;
 }
 
 // 0x00407440
@@ -2283,7 +2283,7 @@ void __cdecl sub_0040ADA0_Nop()
 
 typedef unsigned char Byte;
 
-extern Byte gnSymbolCodes_0075B6A0[256]; // 0x0075B6A0
+extern Byte gabHuffmanCode[256]; // 0x0075B6A0
 extern Byte* gpDecodeTable_0075AFA0[256]; // 0x0075AFA0
 extern Byte gabDecodeStorage[768]; // 0x0075B3A0
 
@@ -2327,10 +2327,10 @@ int __fastcall FOG_10219(Byte* lengths)
         sortedLengths[i] = lengths[sortedSymbols[i]];
         gabHuffmanCodeLength[i] = lengths[i];
     }
-    gnSymbolCodes_0075B6A0[sortedSymbols[0]] = 0;
+    gabHuffmanCode[sortedSymbols[0]] = 0;
     for (i = 1; i < 256; ++i)
-        gnSymbolCodes_0075B6A0[sortedSymbols[i]] =
-            (Byte)((gnSymbolCodes_0075B6A0[sortedSymbols[i - 1]] + 1) >> (sortedLengths[i - 1] - sortedLengths[i]));
+        gabHuffmanCode[sortedSymbols[i]] =
+            (Byte)((gabHuffmanCode[sortedSymbols[i - 1]] + 1) >> (sortedLengths[i - 1] - sortedLengths[i]));
     Byte* storage = gabDecodeStorage;
     for (i = 255; i >= 0; --i)
     {
@@ -2338,7 +2338,7 @@ int __fastcall FOG_10219(Byte* lengths)
         if (length <= 8)
         {
             Byte symbol = sortedSymbols[i];
-            int prefix = gnSymbolCodes_0075B6A0[symbol] << (8 - length);
+            int prefix = gabHuffmanCode[symbol] << (8 - length);
             int count = 1u << (8 - length);
             Byte** ppEntry = &gpDecodeTable_0075AFA0[prefix];
             *ppEntry = storage;
@@ -2351,7 +2351,7 @@ int __fastcall FOG_10219(Byte* lengths)
         else
         {
             Byte* pSymbol = &sortedSymbols[i];
-            unsigned int code = gnSymbolCodes_0075B6A0[*pSymbol];
+            unsigned int code = gabHuffmanCode[*pSymbol];
             unsigned int prefix = code >> ((Byte)(length - 8));
             if ((code & ((1 << (length - 8)) - 1)) == 0)
             {

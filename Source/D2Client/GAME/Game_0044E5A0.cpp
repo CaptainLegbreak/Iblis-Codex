@@ -288,15 +288,15 @@ extern D2MsgHandlerEntryStrc gaBetaScreenHandlers[7]; // 0x0070F3C0
 
 extern D2MsgHandlerEntryStrc gaEndScreenHandlers[9]; // 0x0070F418
 
-extern D2CriticalSectionStrc gtCriticalSection_007A0468; // 0x007A0468
+extern D2CriticalSectionStrc gtQServerLock; // 0x007A0468
 
-extern int gnServerToken_007A0520; // 0x007A0520
+extern int gwJoinId; // 0x007A0520
 
 extern D2VersionInfoStrc gtVersionInfo; // 0x007A0528
 
-extern void* ghThread_007A05BC; // 0x007A05BC
+extern void* ghQServerThread; // 0x007A05BC
 
-extern int gnServerHash_007A05C0; // 0x007A05C0
+extern int gnServerHash; // 0x007A05C0
 
 extern const char gszGameName[]; // 0x007A05DC
 
@@ -304,25 +304,25 @@ extern unsigned long gnThreadId; // 0x007A05F0
 
 extern D2ComInterfaceStrc* gpComInterface; // 0x007A05F4
 
-extern int gnBetaScreens_007A0600; // 0x007A0600
+extern int gnBetaScreens; // 0x007A0600
 
-extern int gnDifficultyDirty_007A0604; // 0x007A0604
+extern int gnDifficultyDirty; // 0x007A0604
 
 extern unsigned char gnClientDifficulty; // 0x007A060C
 
 extern int gnMode_007A0610; // 0x007A0610
 
-extern int gnPlayCinematic_007A0628; // 0x007A0628
+extern int gnPlayCinematic; // 0x007A0628
 
-extern int gnCinematicPlayed_007A062C; // 0x007A062C
+extern int gnCinematicPlayed; // 0x007A062C
 
 extern int gnVersionValid; // 0x007A0644
 
 extern int gnThreadStop_007A0648; // 0x007A0648
 
-extern int gnThreadReady_007A064C; // 0x007A064C
+extern int gbQServerRestart; // 0x007A064C
 
-extern D2LoadingTimerStrc gtLoadingTimer_007A0684; // 0x007A0684
+extern D2LoadingTimerStrc gtLoadingTimer; // 0x007A0684
 
 void __fastcall WINMAIN_PushStateValue(int); // 0x0044B440
 
@@ -822,7 +822,7 @@ int __stdcall GAME_DrawEndGameScreen(int nUnused)
 // 0x0044F360
 int __cdecl GAME_RunGameSession()
 {
-    if(TimerExpired(&gtLoadingTimer_007A0684))WINMAIN_SetExitApplication(1);
+    if(TimerExpired(&gtLoadingTimer))WINMAIN_SetExitApplication(1);
     GetTickCount();
     gtVersionInfo.dwSize=sizeof(gtVersionInfo);
     if(GetVersionExA(&gtVersionInfo))gnVersionValid=1;
@@ -840,15 +840,15 @@ int __cdecl GAME_RunGameSession()
         if(gnMode_007A0610==6 || gnMode_007A0610==8)
         {
             gnThreadStop_007A0648=0;
-            gnThreadReady_007A064C=0;
-            InitializeCriticalSection(&gtCriticalSection_007A0468);
-            ghThread_007A05BC=CreateThread(0,0,GAME_RunQServerThread,0,0,&gnThreadId);
+            gbQServerRestart=0;
+            InitializeCriticalSection(&gtQServerLock);
+            ghQServerThread=CreateThread(0,0,GAME_RunQServerThread,0,0,&gnThreadId);
         }
     }
     else
     {
-        INV_SendGameLogon(gnServerToken_007A0520,gnServerHash_007A05C0);
-        if(gnMode_007A0610==2 || gnMode_007A0610==3)WARDENCLIENT_InitWarden(gnServerHash_007A05C0);
+        INV_SendGameLogon(gwJoinId,gnServerHash);
+        if(gnMode_007A0610==2 || gnMode_007A0610==3)WARDENCLIENT_InitWarden(gnServerHash);
     }
     SOUNDHDR_UpdateSoundSystem(gpClientConfig->bSoundBackground);
     GAME_InitGameState();
@@ -862,17 +862,17 @@ int __cdecl GAME_RunGameSession()
     FOG_SetMemoryPoolSystemMode(0,0);
     if(gnMode_007A0610==6 || gnMode_007A0610==8)
     {
-        EnterCriticalSection(&gtCriticalSection_007A0468);
-        gnThreadReady_007A064C=1;
-        LeaveCriticalSection(&gtCriticalSection_007A0468);
+        EnterCriticalSection(&gtQServerLock);
+        gbQServerRestart=1;
+        LeaveCriticalSection(&gtQServerLock);
     }
     SCMD_RunMessageLoop(GAME_RunGameFrame);
     GetTickCount();
     D2SOUNDSMP_FadeOutMasterVolume(180);
     sub_00481830();
-    if(GAME_IsTimerRunning(&gtLoadingTimer_007A0684) && !gnDifficultyDirty_007A0604 && !gnCinematicPlayed_007A062C)SCMD_RunMessageLoop(GAME_LoadingTimerCallback);
+    if(GAME_IsTimerRunning(&gtLoadingTimer) && !gnDifficultyDirty && !gnCinematicPlayed)SCMD_RunMessageLoop(GAME_LoadingTimerCallback);
     if(RECORD_IsRecordingEnabled())RECORD_WriteRecordFile();
-    if(gnBetaScreens_007A0600)
+    if(gnBetaScreens)
     {
         sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gaGameMouseHandlers,10);
         sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gaGameWheelHandlers,1);
@@ -881,7 +881,7 @@ int __cdecl GAME_RunGameSession()
         SCMD_RegisterMsgHandlers(WINDOW_GetWindow(),gaBetaScreenHandlers,7);
         SCMD_RunMessageLoop(GAME_ShowBetaScreens);
     }
-    else if(gnDifficultyDirty_007A0604)
+    else if(gnDifficultyDirty)
     {
         INV_PlayCinematic(5);
         sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gaGameMouseHandlers,10);
@@ -890,13 +890,13 @@ int __cdecl GAME_RunGameSession()
         SCMD_RegisterMsgHandlers(WINDOW_GetWindow(),gaEndScreenHandlers,9);
         SCMD_RunMessageLoop(GAME_DrawEndGameScreen);
     }
-    else if(gnPlayCinematic_007A0628)
+    else if(gnPlayCinematic)
     {
         INV_PlayCinematic(7);
-        gnCinematicPlayed_007A062C=1;
+        gnCinematicPlayed=1;
     }
     unsigned char bEndGame=1;
-    if(gnCinematicPlayed_007A062C)
+    if(gnCinematicPlayed)
     {
         int nDifficulty=gnClientDifficulty;
         int nProgress=gpClientConfig->aFlags1EF[1]&31;
@@ -927,20 +927,20 @@ int __cdecl GAME_RunGameSession()
     CURSOR_ShutdownCursor();
     D2Win_10006_ClearDrawCaches();
     WINMAIN_PushStateValue(4);
-    if(gnBetaScreens_007A0600)
+    if(gnBetaScreens)
     {
         sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gaBetaScreenHandlers,7);
-        gnBetaScreens_007A0600=0;
+        gnBetaScreens=0;
     }
-    else if(gnDifficultyDirty_007A0604)
+    else if(gnDifficultyDirty)
     {
         sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gaEndScreenHandlers,9);
-        gnDifficultyDirty_007A0604=0;
+        gnDifficultyDirty=0;
     }
-    else if(bEndGame && gnCinematicPlayed_007A062C)
+    else if(bEndGame && gnCinematicPlayed)
     {
         sub_00451E10_UnregisterMsgHandlers(WINDOW_GetWindow(),gaEndScreenHandlers,9);
-        gnCinematicPlayed_007A062C=0;
+        gnCinematicPlayed=0;
     }
     else
     {

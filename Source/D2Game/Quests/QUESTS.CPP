@@ -205,7 +205,7 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* 
 
 extern "C" const char gszQuestsSourceFile[]; // 0x006E0BE4
 
-int dword_6FD4DC34; // 0x008846DC
+int gbQuestDebug; // 0x008846DC
 
 extern const D2UnkPlrMsgStrc gaUnitModeMessages[]; // 0x007319E8
 
@@ -728,7 +728,7 @@ int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 // 0x00544070
 void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, const char* szFile, int nLine)
 {
-    if (dword_6FD4DC34)
+    if (gbQuestDebug)
     {
         PLRMSG_BroadcastChatMessage(pGame, szMessage, STRCOLOR_DARK_GOLD);
     }
@@ -737,7 +737,7 @@ void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, con
 // 0x00544090
 void __fastcall QUESTS_SetQuestDebugFlag(int nValue)
 {
-    dword_6FD4DC34 = nValue;
+    gbQuestDebug = nValue;
 }
 
 // 0x005440A0
@@ -1318,7 +1318,7 @@ void __fastcall QUESTS_StateDebug(D2QuestDataStrc* pQuestData, int nState, const
     char szMsg[128];
     pQuestData->fState = nState;
     wsprintfA(szMsg, "changing state to %d\n", nState);
-    if (dword_6FD4DC34)
+    if (gbQuestDebug)
     {
         PLRMSG_BroadcastChatMessage(pQuestData->pGame, szMsg, STRCOLOR_DARK_GOLD);
     }
@@ -1942,7 +1942,7 @@ void __fastcall QUESTS_AttachLevelChainRecord(D2GameStrc* pGame, D2UnitStrc* pUn
         }
     }
 
-    if (dword_6FD4DC34)
+    if (gbQuestDebug)
     {
         PLRMSG_BroadcastChatMessage(pGame, "Error attaching to unit", STRCOLOR_DARK_GOLD);
     }
@@ -2647,7 +2647,7 @@ void __fastcall QUESTS_RemoveTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfUpdate
         pPrev = pTimer;
     }
 
-    if (dword_6FD4DC34)
+    if (gbQuestDebug)
         PLRMSG_BroadcastChatMessage(pGame, "Error in timer usage", 4);
 }
 

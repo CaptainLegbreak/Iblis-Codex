@@ -1,11 +1,11 @@
 #include "Storm.h"
 
-extern const unsigned int gdwUtf8FirstByteMark_006FCDA0[]; // 0x006FCDA0
-extern unsigned char gnUtf8Trailing_006FCCA0[]; // 0x006FCCA0
-extern unsigned int gnUtf8Offsets_006FCC88[]; // 0x006FCC88
+extern const unsigned int gadwUtf8FirstByteMarks[]; // 0x006FCDA0
+extern unsigned char gaTrailingBytesForUtf8[]; // 0x006FCCA0
+extern unsigned int gaOffsetsFromUtf8[]; // 0x006FCC88
 extern const unsigned char gaTrailingBytesForUtf8_006FCCA0[256]; // 0x006FCCA0
 extern const unsigned int gaOffsetsFromUtf8_006FCC88[6]; // 0x006FCC88
-extern const unsigned short gWideTable_006FCDC0[]; // 0x006FCDC0
+extern const unsigned short gawWinTranslateTable[]; // 0x006FCDC0
 
 
 // 0x006C7030
@@ -194,7 +194,7 @@ int __stdcall SUniConvertUTF16to8(char* pDest, unsigned int nDestSize, const uns
             *--pDest = (char)((ch & 0x3F) | 0x80);
             ch >>= 6;
         case 1:
-            *--pDest = (char)(gdwUtf8FirstByteMark_006FCDA0[nBytes] | ch);
+            *--pDest = (char)(gadwUtf8FirstByteMarks[nBytes] | ch);
         }
 
         pSrc += nUnits;
@@ -225,7 +225,7 @@ int __stdcall SUniConvertUTF8to16Len(const char* source, int maxLength, int* con
  int length=0;
  for(;;) {
   if(source>=end) { length=-1; break; }
-  unsigned int trailing=gnUtf8Trailing_006FCCA0[*source];
+  unsigned int trailing=gaTrailingBytesForUtf8[*source];
   if(source+trailing>=end) { length=-1-trailing; break; }
   unsigned int ch=0;
   switch(trailing) {
@@ -236,7 +236,7 @@ int __stdcall SUniConvertUTF8to16Len(const char* source, int maxLength, int* con
    case 1: ch+=*source++; ch<<=6;
    case 0: ch+=*source++;
   }
-  ch-=gnUtf8Offsets_006FCC88[trailing];
+  ch-=gaOffsetsFromUtf8[trailing];
   if(ch<=0xFFFF) { ++length; if(!ch) break; }
   else if(ch>0x10FFFF) ++length;
   else length+=2;
@@ -519,35 +519,35 @@ static int TranslateToUnicode(unsigned short* pDest, const unsigned char* pSourc
 // 0x006C7900
 int __stdcall SUniConvertUTF16ToWin(char* pDest, const unsigned short* pSource, unsigned int nCount)
 {
-    return SUniConvertUTF16ToCP(pSource, nCount, gWideTable_006FCDC0, pDest);
+    return SUniConvertUTF16ToCP(pSource, nCount, gawWinTranslateTable, pDest);
 }
 
 // 0x006C7920
 int __stdcall SUniConvertUTF16ToMac(char* pDest, const unsigned short* pSource, unsigned int nCount)
 {
-    return SUniConvertUTF16ToCP(pSource, nCount, gWideTable_006FCFC0, pDest);
+    return SUniConvertUTF16ToCP(pSource, nCount, gawTranslateTable, pDest);
 }
 
 // 0x006C7940
 int __stdcall SUniConvertUTF16ToDos(char* pDest, const unsigned short* pSource, unsigned int nCount)
 {
-    return SUniConvertUTF16ToCP(pSource, nCount, gWideTable_006FD1C0, pDest);
+    return SUniConvertUTF16ToCP(pSource, nCount, gawDosTranslateTable, pDest);
 }
 
 // 0x006C7960
 int __stdcall SUniConvertWinToUTF16(unsigned short* pDest, const unsigned char* pSource, unsigned int nCount)
 {
-    return TranslateToUnicode(pDest, pSource, nCount, gWideTable_006FCDC0);
+    return TranslateToUnicode(pDest, pSource, nCount, gawWinTranslateTable);
 }
 
 // 0x006C7980
 int __stdcall SUniConvertMacToUTF16(unsigned short* pDest, const unsigned char* pSource, unsigned int nCount)
 {
-    return TranslateToUnicode(pDest, pSource, nCount, gWideTable_006FCFC0);
+    return TranslateToUnicode(pDest, pSource, nCount, gawTranslateTable);
 }
 
 // 0x006C79A0
 int __stdcall SUniConvertDosToUTF16(unsigned short* pDest, const unsigned char* pSource, unsigned int nCount)
 {
-    return TranslateToUnicode(pDest, pSource, nCount, gWideTable_006FD1C0);
+    return TranslateToUnicode(pDest, pSource, nCount, gawDosTranslateTable);
 }

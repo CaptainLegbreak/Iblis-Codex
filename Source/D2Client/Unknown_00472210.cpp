@@ -219,7 +219,7 @@ void __fastcall sub_00473A70(D2WeatherStrc* pWeather, D2WeatherLayerStateStrc* p
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);
 extern "C" void __cdecl sub_004736C0_DrawPanelShade(); // 0x004736C0
 void __cdecl sub_00473470(); // 0x00473470
-extern unsigned int gdwGlobal_007BB390; // 0x007BB390
+extern unsigned int gnDisplayFps; // 0x007BB390
 
 extern "C" double __cdecl fabs(double x);
 int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
@@ -1202,7 +1202,7 @@ void __cdecl sub_00473910_UpdateWeather()
             }
         }
 
-        if (gdwGlobal_007BB390 >= 10)
+        if (gnDisplayFps >= 10)
         {
             sub_004736C0_DrawPanelShade();
             return;
@@ -1404,7 +1404,7 @@ void __cdecl sub_00473DC0_ToggleWeather()
         gbPhaseActive = 0;
         gnPhase = 0;
         D2_ASSERT(sub_00463DD0_GetPlayerUnit(), 0x137);
-        gnGlobal_007A89E0 = 0;
+        gnPhaseLevel = 0;
         DATAARRAYS_Reset(gpWeatherParticles);
         D2_ASSERT(!gpWeatherParticles->nCount, 0x15B);
     }

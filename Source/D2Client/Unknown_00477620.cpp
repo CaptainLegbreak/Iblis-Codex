@@ -39,12 +39,12 @@ int __fastcall sub_00477620_RollUnitValue(D2UnitStrc* pUnit, unsigned short nOff
     return (unsigned int)SEED_RollRandomNumber(pSeed) % 30 + 9;
 }
 
-extern int gdwGlobal_007BB384; // 0x007BB384
+extern int gpBloodRemap; // 0x007BB384
 
 // 0x00477680
 int __cdecl DLIGHTMAP_GetLocalBloodPalette()
 {
-    return gdwGlobal_007BB384;
+    return gpBloodRemap;
 }
 
 int __stdcall D2GFX_TogglePerspective();                                                                    // 0x004F54B0
@@ -465,9 +465,9 @@ unsigned int gnCacheStatsFrames;        // 0x007BB39C
 
 unsigned int gdwCacheStatsStart;        // 0x007BB3A0
 
-extern int g_007BB3A4; // 0x007BB3A4
+extern int gbCacheStats; // 0x007BB3A4
 
-extern int g_007BB3AC; // 0x007BB3AC
+extern int gbCacheStatsChecked; // 0x007BB3AC
 
 #define FRAME_INTERVAL 1000
 
@@ -482,10 +482,10 @@ void __fastcall sub_00477980()
 {
     unsigned int nNow=GetTickCount();
     unsigned int nElapsed=nNow-gdwFpsCounterTick;
-    if(g_007BB3A4 && !gdwCacheStatsStart){gdwCacheStatsStart=nNow;gnCacheStatsFrames=0;}
+    if(gbCacheStats && !gdwCacheStatsStart){gdwCacheStatsStart=nNow;gnCacheStatsFrames=0;}
     if(nElapsed<=FRAME_INTERVAL){++gnFpsCounterFrames;++gnCacheStatsFrames;}
     else {gdwFpsCounterTick=nNow;gnDisplayFps=gnFpsCounterFrames;gnFpsCounterFrames=0;}
-    if(!g_007BB3A4){gdwCacheStatsStart=0;return;}
+    if(!gbCacheStats){gdwCacheStatsStart=0;return;}
     D2GFX_OutputString(SCREEN_X,2,"%d FPS  %d Skip",gnDisplayFps,GAME_GetSkippedFrames());
     D2GFX_OutputString(SCREEN_RIGHT,2,"Ping: %d",GAME_GetPing());
     D2MemoryStatusStrc memory;
@@ -505,7 +505,7 @@ void __fastcall sub_00477980()
     default:sprintf(text,gszUnknownText);break;
     }
     D2GFX_OutputString(500,2,"Video: %s",text);
-    if(!g_007BB3AC){
+    if(!gbCacheStatsChecked){
         D2GFX_OutputString(SCREEN_X,120,"GFX Memory->%i",UI_GetGfxMemory());
         D2GFX_OutputString(SCREEN_X,132,"COF Memory->%i of %i",UI_GetCofMemoryUsed(),UI_GetCofMemoryLimit());
         D2GFX_OutputString(SCREEN_X,144,"Sprite Cache Memory->%i of %i",D2CMPSpriteCacheGetUsedMemory(),D2CMPSpriteCacheGetMaxMemory());

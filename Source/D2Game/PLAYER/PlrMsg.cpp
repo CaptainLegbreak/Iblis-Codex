@@ -733,9 +733,9 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x44_StaffInOrifice(D2GameStrc* pGame, D
 
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x49_TakeOrCloseWp(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize); // 0x0054C5D0
 
-int gbWhispReceiverNotListening_6FD4DC24; // 0x008846E0
+int gbWhispReceiverNotListening; // 0x008846E0
 
-int gbWhispReceiverInGame_6FD4DC20; // 0x008846E4
+int gbWhispReceiverInGame; // 0x008846E4
 
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x49_TakeOrCloseWp(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pPacket, int nSize); // 0x0054C5D0
 
@@ -2611,19 +2611,19 @@ void __fastcall D2GAME_PACKETS_HandleWhisper(D2ClientStrc* pClient, void* pArgs)
             {
                 if (PLAYERLIST_CheckFlag(pLocalPlayer, pReceiver, 4))
                 {
-                    gbWhispReceiverNotListening_6FD4DC24 = 1;
+                    gbWhispReceiverNotListening = 1;
                     return;
                 }
 
                 if (PLAYERLIST_CheckFlag(pReceiver, pLocalPlayer, 2))
                 {
-                    gbWhispReceiverNotListening_6FD4DC24 = 1;
+                    gbWhispReceiverNotListening = 1;
                     return;
                 }
             }
         }
 
-        gbWhispReceiverInGame_6FD4DC20 = 1;
+        gbWhispReceiverInGame = 1;
         D2GAME_PACKETS_SendPacket0x26_ServerMessage(pClient, pPacket26);
     }
 }

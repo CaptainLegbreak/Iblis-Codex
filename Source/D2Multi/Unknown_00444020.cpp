@@ -46,7 +46,7 @@ extern D2WinControlStrc* gpChatControl_0077B074; // 0x0077B074
 
 extern D2WinControlStrc* gpJoinScreenButton; // 0x0077B078
 
-extern D2WinControlStrc* gpControlC_0077B07C; // 0x0077B07C
+extern D2WinControlStrc* gpControlC; // 0x0077B07C
 
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -109,7 +109,7 @@ D2WinControlStrc* gpControl_00798CB8; // 0x00798CB8
 
 D2WinControlStrc* gpHelpBckgImage; // 0x00798CBC
 
-int gnValue_00798CC0; // 0x00798CC0
+int gfGameListControlsCreated; // 0x00798CC0
 
 // build: symbol ?CHATDLG_ResetLaunchState@* 0x0043F8C0
 // build: symbol ?GAME_IsLaunchExpansion@* 0x0043DB10
@@ -148,7 +148,7 @@ void __cdecl CHARSEL_RequestGameList()
 {
 // build: symbol ?gnChatLaunchMode@* 0x0077BBE4
     gnChatLaunchMode = 3;
-    gnValue_00798CCC = 0;
+    gnGameCount = 0;
 // build: symbol ?gpCharInfo@* 0x0077BBD8
     if (gpCharInfo->nStartMode == 2)
     {

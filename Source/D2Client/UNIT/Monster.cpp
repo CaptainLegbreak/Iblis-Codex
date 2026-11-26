@@ -334,7 +334,7 @@ void __stdcall PATH_SetDirection(D2DynamicPathStrc* pDynamicPath, unsigned char 
 
 static void MONSTER_HandleMonsterEvent(D2UnitStrc* pUnit, int nEvent); // 0x004AE4F0
 
-extern const char gszMonsterFile_006DA5C8[]; // 0x006DA5C8
+extern const char gszMonsterSourceFile[]; // 0x006DA5C8
 
 void __stdcall MONSTERS_ApplyClassicScaling(D2UnitStrc*, int, unsigned char); // 0x0063EEF0
 
@@ -991,7 +991,7 @@ void __fastcall MONSTER_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, int nX
     STATLIST_SetUnitStat(pUnit,STAT_HITPOINTS,0x6400,0);
     PATH_AllocDynamicPath(0,pRoom,nX,nY,pUnit,1);
     D2DynamicPathStrc* pPath=pUnit->pDynamicPath;
-    PATH_SetVelocity(pPath,pMonStats->nVelocity<<8,gszMonsterFile_006DA5C8,0x208);
+    PATH_SetVelocity(pPath,pMonStats->nVelocity<<8,gszMonsterSourceFile,0x208);
     if (!pUnit->pInventory && ((pMonStats->nMonStatsFlags[1]&gdwBitMasks[1]) || nClassId==0x123 || nClassId==0x165 || nClassId==0x1A1 || nClassId==0x1A2))
         pUnit->pInventory=INVENTORY_AllocInventory(0,pUnit);
     UNITS_ChangeAnimMode(pUnit,nMode);
@@ -1017,7 +1017,7 @@ void __fastcall MONSTER_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, int nX
     {
         if(pMonStats->nSkill[i]>=0 && pMonStats->nSkLvl[i]>0)
         {
-            SKILLS_AssignSkill(pUnit,pMonStats->nSkill[i],pMonStats->nSkLvl[i]+nSkillBonus,1,gszMonsterFile_006DA5C8,0x23F);
+            SKILLS_AssignSkill(pUnit,pMonStats->nSkill[i],pMonStats->nSkLvl[i]+nSkillBonus,1,gszMonsterSourceFile,0x23F);
             SKILLS_SetSkillMode(SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit,pMonStats->nSkill[i]),(char)pMonStats->nSkillMode[i]);
         }
     }

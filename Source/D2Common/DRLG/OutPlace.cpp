@@ -955,7 +955,7 @@ int __fastcall DRLGOUTPLACE_TryNextCenteredSideOffset(D2DrlgLevelLinkDataStrc* p
     return 1;
 }
 
-static int gnDrlgLinkFlags_0096D66C; // 0x0096D66C
+static int gnDrlgLinkFlags; // 0x0096D66C
 
 // 0x00676C00
 int __fastcall DRLGOUTPLACE_PlaceLevelNextTo(D2DrlgLevelLinkDataStrc* pLevelLinkData)
@@ -987,7 +987,7 @@ int __fastcall DRLGOUTPLACE_PlaceLevelNextTo(D2DrlgLevelLinkDataStrc* pLevelLink
             pDst->nPosY = pSrc->nHeight - pDst->nHeight + pSrc->nPosY + 8;
             break;
         }
-        gnDrlgLinkFlags_0096D66C = 0x800000;
+        gnDrlgLinkFlags = 0x800000;
     }
     else
     {
@@ -1011,7 +1011,7 @@ int __fastcall DRLGOUTPLACE_PlaceLevelNextTo(D2DrlgLevelLinkDataStrc* pLevelLink
             pDst->nPosY = pSrc->nPosY - 8;
             break;
         }
-        gnDrlgLinkFlags_0096D66C = 0x400000;
+        gnDrlgLinkFlags = 0x400000;
     }
 
     return 1;
@@ -2175,7 +2175,7 @@ static void DRLGOUTPLACE_CreateAct4LevelConnections(D2DrlgStrc* pDrlg)
     DRLGOUTPLACE_InitLevelLinks(gAct4OutdoorDrlgLink, DRLGOUTPLACE_LinkAct4Outdoors, 0, pDrlg);
     DRLGOUTPLACE_InitLevelLinks(gAct4ChaosSanctumDrlgLink, DRLGOUTPLACE_LinkAct4ChaosSanctum, 0, pDrlg);
 
-    DRLG_GetLevel(pDrlg, LEVEL_OUTERSTEPPES)->pOutdoors->dwFlags |= gnDrlgLinkFlags_0096D66C;
+    DRLG_GetLevel(pDrlg, LEVEL_OUTERSTEPPES)->pOutdoors->dwFlags |= gnDrlgLinkFlags;
 
     DRLGOUTPLACE_AddLevelOrths(pDrlg, 0x6A, 0x67);
 }

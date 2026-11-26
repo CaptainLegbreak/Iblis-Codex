@@ -26,9 +26,9 @@ int __cdecl sub_00405EF0(); // 0x00405EF0
 extern "C" __declspec(dllimport) void* __stdcall OpenEventA(unsigned long dwDesiredAccess, int bInheritHandle, const char* szName); // 0x006CC12C
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent); // 0x006CC130
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
-extern "C" const char gszDash_006CCA2C[]; // 0x006CCA2C
-extern const char* gaszModuleTypes_007065C4[6]; // 0x007065C4
-extern void* ghCurrentProcess_0074C718; // 0x0074C718
+extern "C" const char gszDash[]; // 0x006CCA2C
+extern const char* gaszModuleTypes[6]; // 0x007065C4
+extern void* ghCurrentProcess; // 0x0074C718
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 0x006829C0
 extern int gbRunningAsService; // 0x0074C720
 extern char szSRegReadBuf[]; // 0x0074C728
@@ -206,11 +206,11 @@ static int __stdcall MAIN_SelectModule(const char* szArgvCmd, int* pChosenModule
     const size_t nArgvLength = strlen(szArgvCmd) + 1;
     char* szArgvDupe = (char*)FOG_Alloc(nArgvLength, ".\\Main.cpp", 442, 0);
     SStrCopy(szArgvDupe, szArgvCmd, nArgvLength);
-    for (char* pCurrentParam = strtok(szArgvDupe, gszDash_006CCA2C); pCurrentParam; pCurrentParam = strtok(0, gszDash_006CCA2C))
+    for (char* pCurrentParam = strtok(szArgvDupe, gszDash); pCurrentParam; pCurrentParam = strtok(0, gszDash))
     {
         for (int i = 0; i < 6; i++)
         {
-            if (0 == strncmp(pCurrentParam, gaszModuleTypes_007065C4[i], strlen(gaszModuleTypes_007065C4[i])) && i != 1)
+            if (0 == strncmp(pCurrentParam, gaszModuleTypes[i], strlen(gaszModuleTypes[i])) && i != 1)
             {
                 *pChosenModule = i;
             }
@@ -294,7 +294,7 @@ int __fastcall GameInit(int argc, const char** argv)
     {
         tCfg.bD3D = !tCfg.bWindow;
     }
-    return GameStart(ghCurrentProcess_0074C718, &tCfg, nChosenModule);
+    return GameStart(ghCurrentProcess, &tCfg, nChosenModule);
 }
 
 // 0x004065E0
@@ -341,7 +341,7 @@ int gnCmdShow; // 0x0074C71C
 // 0x004066E0
 extern "C" int __stdcall WinMain(void* hInstance, void* hPrevInstance, char* lpCmdLine, int nShowCmd)
 {
-    ghCurrentProcess_0074C718 = hInstance;
+    ghCurrentProcess = hInstance;
     gnCmdShow = nShowCmd;
     if (!MAIN_StartServiceDispatcher())
     {

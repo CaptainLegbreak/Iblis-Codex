@@ -15,7 +15,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" double __cdecl log(double x); // 0x00687AC0
 extern "C" double __cdecl pow(double x, double y); // 0x00687C10
 extern int gnSoundMasterVolume; // 0x0072F9B0
-extern int gnSoundState_00881764; // 0x00881764
+extern int gbSoundReady; // 0x00881764
 float __stdcall sub_005165F0_ToDecibels(float fMin, float fMax, float fValue); // 0x005165F0
 int __cdecl D2SOUND_IsExpansion(); // 0x00513AE0
 int __cdecl D2SOUND_IsPositionalSoundEnabled(); // 0x00513B60

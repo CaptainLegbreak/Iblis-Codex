@@ -696,7 +696,7 @@ extern int gnInvMouseX; // 0x007BCA4C
 extern int gnInvMouseY; // 0x007BCBD8
 extern int gnGlobal_007BCBB0; // 0x007BCBB0
 extern int gnGlobal_007BCBB4; // 0x007BCBB4
-extern int gnGlobal_007BCBB8; // 0x007BCBB8
+extern int gnNpcInvRectTop; // 0x007BCBB8
 extern int gnGlobal_007BCBBC; // 0x007BCBBC
 extern int gbPanelButtonClicked; // 0x007BCE9C
 extern D2InventoryGridInfoStrc gtNpcInvGrid; // 0x007BCB58
@@ -792,7 +792,7 @@ void __stdcall INV_HandleNpcClick(SMSGHANDLER_PARAMS* msg)
             msg->bReturn=1;msg->lResult=0;sub_00420290_BreakHandlerChain(msg);return;
         }
     }
-    if(y<gnGlobal_007BCBB8 || y>gnGlobal_007BCBBC) goto OUTSIDE;
+    if(y<gnNpcInvRectTop || y>gnGlobal_007BCBBC) goto OUTSIDE;
     {
     int nArg;
     if((gnInvPanelMode==1 || gnInvPanelMode==2) && x>=gtNpcInvGrid.nGridLeft && x<=gtNpcInvGrid.nGridRight && y>=gtNpcInvGrid.nGridTop && y<=gtNpcInvGrid.nGridBottom && NPCMENU_GetInteractNpcId(&nArg)) {

@@ -67,7 +67,7 @@ extern "C" int __stdcall CHARSEL_CreateNotice(const Unicode* pTitle, const Unico
 
 static int gnCharEntryCount; // 0x00779DC4
 
-extern int gdwGlobal_0070CC08; // 0x0070CC08
+extern int gnSelectionB; // 0x0070CC08
 
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 
@@ -100,7 +100,7 @@ D2CharSelCacheStrc* gpCharSelCache; // 0x00779DE8
 
 static int gbFlag_00779C6C;             // 0x00779C6C
 
-extern char gszBaseName_00779B68[]; // 0x00779B68
+extern char gszCharName[]; // 0x00779B68
 
 
 struct D2UnitDropItemsPacketStrc
@@ -206,11 +206,11 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern unsigned short gwRequestId; // 0x0070CD60
 
-extern int gnGlobal_007111CC; // 0x007111CC
+extern int gnProgressiveStatesBottomWide; // 0x007111CC
 
-extern int gnGlobal_007111D0; // 0x007111D0
+extern int gnProgressiveStatesRight; // 0x007111D0
 
-extern int gnGlobal_007111D4; // 0x007111D4
+extern int gnProgressiveStatesBottom; // 0x007111D4
 
 extern int gnScreenWidth; // 0x0071146C
 
@@ -475,11 +475,11 @@ extern D2WinControlStrc* gpGatewayList;                                         
 
 extern D2ConfigStrc* gpLaunchRecord;                                                         // 0x007795D4
 
-D2WinControlStrc* gpList_0077995C;                                                                          // 0x0077995C
+D2WinControlStrc* gpCreditsLeftList;                                                                          // 0x0077995C
 
-D2WinControlStrc* gpList_00779960;                                                                          // 0x00779960
+D2WinControlStrc* gpCreditsRightList;                                                                          // 0x00779960
 
-D2WinControlStrc* gpList_00779964;                                                                          // 0x00779964
+D2WinControlStrc* gpCreditsList;                                                                          // 0x00779964
 
 extern int gnListPos;                                                                              // 0x0077996C
 
@@ -559,7 +559,7 @@ extern D2WinControlStrc* gpControl_0077BCF0;                                    
 
 extern D2WinControlStrc* gpChannelListBox;                                                                // 0x0077BCFC
 
-extern int gdwGlobal_0077BD50;                                                                              // 0x0077BD50
+extern int gnHistoryCount;                                                                              // 0x0077BD50
 
 extern D2ChatMessageStrc* gpChatQueueHead;                                                         // 0x0077BDAC
 
@@ -632,9 +632,9 @@ D2WinControlStrc* gpEdit_007799D0;                                              
 
 D2WinControlStrc* gpControl_007799D4;                                                                       // 0x007799D4
 
-extern int gdwGlobal_007799D8;                                                                              // 0x007799D8
+extern int gfConnectCancelled;                                                                              // 0x007799D8
 
-extern D2WinControlStrc* gpControlMain_0077BC4C;                                                            // 0x0077BC4C
+extern D2WinControlStrc* gpControlMain;                                                            // 0x0077BC4C
 
 extern D2WinControlStrc* gbSelectActive;                                                                   // 0x0077BD00
 
@@ -670,9 +670,9 @@ void __cdecl CHARSEL_ShowMessage(); // 0x0043A5D0
 
 void __cdecl sub_00438F70();
 
-extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
+extern D2ComInterfaceStrc* gpFuncTable; // 0x0077ABF0
 
-int gdwGlobal_00779DB8; // 0x00779DB8
+int gfConnectError; // 0x00779DB8
 
 extern int gbFlag_00779DD8; // 0x00779DD8
 
@@ -714,7 +714,7 @@ int __cdecl GAME_GetStopMainLoop(); // 0x0042FA30
 
 void __cdecl MAINMENUS_UpdateProgress(); // 0x0042F990
 
-extern int gdwGlobal_0077AC04; // 0x0077AC04
+extern int gfCharSelCancelled; // 0x0077AC04
 
 void __cdecl sub_00518C20_DeleteQueueLock(); // 0x00518C20
 
@@ -835,17 +835,17 @@ extern D2WinControlStrc* gpEdit_007799DC; // 0x007799DC
 
 extern D2WinControlStrc* gpEdit_007799E0; // 0x007799E0
 
-extern int gnCounter_00779DDC; // 0x00779DDC
+extern int gnCounter; // 0x00779DDC
 
 extern D2LaunchGameRecStrc gaNewGames[]; // 0x0077BDC8
 
 extern D2LaunchGameRecStrc gaGames[]; // 0x0078A440
 
-extern D2WinControlStrc* gpGameText_00798BC4; // 0x00798BC4
+extern D2WinControlStrc* gpGameInfoText; // 0x00798BC4
 
 extern D2WinControlStrc* gpJoinName; // 0x00798BD4
 
-extern D2WinControlStrc* gpJoinPassword_00798BD8; // 0x00798BD8
+extern D2WinControlStrc* gpJoinPassword; // 0x00798BD8
 
 extern D2WinControlStrc* gpCreateButton; // 0x00798C28
 
@@ -865,7 +865,7 @@ extern int gnSubmitMode; // 0x00798CAC
 
 static void CHARSEL_SelectNamedSlot(const char* szName); // 0x00437CB0
 
-D2WinControlStrc* gpButton_007799E4; // 0x007799E4
+D2WinControlStrc* gpButton; // 0x007799E4
 
 int gbCharSelBusy; // 0x00779DA0
 
@@ -920,13 +920,13 @@ static int CHARSEL_IsTestRealm(const Unicode* pName); // 0x00437D20
 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
 
-extern int gnGlobal_00779DC4;                                                                               // 0x00779DC4
+extern int gnCharEntryCount;                                                                               // 0x00779DC4
 
 int __cdecl FOG_IsExpansion();                                                                 // 0x00408F20
 
 extern "C" const char gszCharSelFile[];                                                            // 0x006D4DBC
 
-extern int gdwGlobal_00779DA4;                                                                              // 0x00779DA4
+extern int gfHasCharEntries;                                                                              // 0x00779DA4
 
 D2CompositeUnitStrc* __stdcall D2COMP_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors); // 0x005066C0
 
@@ -990,9 +990,9 @@ extern void* ganSlotY[]; // 0x007799FC
 
 extern "C" __declspec(dllimport) int __stdcall FindClose(void* hFindFile);                                  // 0x006CC1D8
 
-extern int gnGlobal_007795EC;                                                                               // 0x007795EC
+extern int gnLaunchMode;                                                                               // 0x007795EC
 
-extern int gnGlobal_0070CC04;                                                                               // 0x0070CC04
+extern int gnSelectionA;                                                                               // 0x0070CC04
 
 extern int gnGlobal_0070CC08;                                                                               // 0x0070CC08
 
@@ -1272,7 +1272,7 @@ static int CHARSEL_IsTestRealm(const Unicode* pName)
 // 0x00437F30
 void __fastcall CHARSEL_CopyBaseName(const char* szName)
 {
-    char* pDest = gszBaseName_00779B68;
+    char* pDest = gszCharName;
     while (*szName && *szName != '.')
         *pDest++ = *szName++;
     *pDest = 0;
@@ -1688,9 +1688,9 @@ static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStat
         gpCharList = pEntry;
     }
 
-    gnGlobal_00779DC4 += 1;
+    gnCharEntryCount += 1;
     CHARSEL_RefreshCharList();
-    gdwGlobal_00779DA4 = 1;
+    gfHasCharEntries = 1;
     return 1;
 }
 
@@ -1810,7 +1810,7 @@ int __cdecl CHARSEL_UpdateSelection()
     CONTROL_SetEnabled(gpControl_00779C80, 1);
     if (pEntry->nFlags & 0x20)
         CONTROL_SetEnabled(gpControl_00779C80, 0);
-    CONTROL_SetEnabled(gpControl_00779D90, gdwGlobal_00779DB8 == 0);
+    CONTROL_SetEnabled(gpControl_00779D90, gfConnectError == 0);
 // build: symbol ?gnLaunchMode@* 0x007795EC
     if (gnLaunchMode == 1 && gbFlag_00779DD8)
         CONTROL_SetEnabled(gpControl_00779D90, 0);
@@ -1963,7 +1963,7 @@ char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount);
 
 int gbFlag_00779DD8; // 0x00779DD8
 
-int gnCounter_00779DDC; // 0x00779DDC
+int gnCounter; // 0x00779DDC
 
 // 0x00439840
 int __stdcall CHARSEL_OnCharSelectOk(int nArg)
@@ -1980,8 +1980,8 @@ int __stdcall CHARSEL_OnCharSelectOk(int nArg)
         if (gnLaunchMode != 1 || !gbFlag_00779DD8)
         {
             MAINMENUS_Back(nArg);
-            gnCounter_00779DDC -= 1;
-            if (gnCounter_00779DDC <= 0)
+            gnCounter -= 1;
+            if (gnCounter <= 0)
             {
                 gbFlag_00779DD8 = 1;
                 return 1;
@@ -2407,7 +2407,7 @@ static void CHARSEL_ShowConnectError(int nError)
         break;
     }
 
-    gdwGlobal_00779DB8 = 1;
+    gfConnectError = 1;
     gnBusy = 0;
     sub_004FB6A0_ClearText(gpControl_00779DD0);
     sub_004FC9B0_SetText(gpControl_00779DD0, D2LANG_GetStringFromTblIndex(nStringId), 4, 0, 0);
@@ -2450,7 +2450,7 @@ int __cdecl CHARSEL_InitRealmScreen()
 
                 if (!SRegLoadString("Diablo II", "Preferred Realm", 0, gszPreferredRealm, 0x100) || !CHARSEL_FindSlotByName(gszPreferredRealm))
                 {
-                    D2FuncRecordStrc* pRecord = gpFuncTable_0077ABF0->pfnGetRecord();
+                    D2FuncRecordStrc* pRecord = gpFuncTable->pfnGetRecord();
                     const int nIndex = pRecord->nIndex;
                     SStrCopy(gszPreferredRealm, Realm(pRecord, nIndex), 0x7FFFFFFF);
                     SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
@@ -2551,7 +2551,7 @@ void __cdecl CHARSEL_ShowString()
     const Unicode* pTitle = D2LANG_GetStringFromTblIndex(0x2B3B);
     Unicode wEmpty;
     wEmpty.wChar = 0;
-    gdwGlobal_0070CC08 = gnCharEntryCount;
+    gnSelectionB = gnCharEntryCount;
     CHARSEL_CreateNotice(pTitle, &wEmpty, 2, 0x12);
 }
 
@@ -2597,7 +2597,7 @@ void __cdecl CHARSEL_UpdateButtons()
     if (FOG_IsExpansion())
     {
         CONTROL_SetEnabled(gpControl_00779C80, 1);
-        CONTROL_SetEnabled(gpControl_00779D90, gdwGlobal_00779DB8 == 0);
+        CONTROL_SetEnabled(gpControl_00779D90, gfConnectError == 0);
     }
     gnSelected = 0;
     CHARSEL_Redraw();
@@ -2725,10 +2725,10 @@ void __stdcall CHARSEL_HandleCharList(const char* szName, unsigned char* pPacket
     {
         const Unicode* wszTitle = D2LANG_GetStringFromTblIndex(0x1419);
         unsigned short nText = 0x141B;
-        if (gnGlobal_007795EC != 1)
+        if (gnLaunchMode != 1)
             nText = 0x141A;
         const Unicode* wszText = D2LANG_GetStringFromTblIndex(nText);
-        gnGlobal_0070CC04 = gnGlobal_00779DC4;
+        gnSelectionA = gnCharEntryCount;
         CHARSEL_CreateNotice(wszTitle, wszText, 1, 0xC);
     }
 
@@ -2773,7 +2773,7 @@ void __stdcall CHARSEL_HandleCharList(const char* szName, unsigned char* pPacket
         const Unicode* wszTitle = D2LANG_GetStringFromTblIndex(0x2B3B);
         Unicode wszEmpty;
         wszEmpty.wChar = 0;
-        gnGlobal_0070CC08 = gnGlobal_00779DC4;
+        gnGlobal_0070CC08 = gnCharEntryCount;
         CHARSEL_CreateNotice(wszTitle, &wszEmpty, 2, 0x12);
     }
 
@@ -2846,14 +2846,14 @@ static inline void* CharSelCache_FindData(unsigned int dwHash, int nTick)
 static void CHARSEL_RequestCharList(char* szName)
 {
     CHARSEL_FreeCharList();
-    gdwGlobal_00779DB8 = 0;
+    gfConnectError = 0;
     CONTROL_SetEnabled(gpControl_00779D90, 1);
     const unsigned int dwHash = SStrHash(szName, 0, 0);
     const int nTick = GetTickCount();
     void* pData = CharSelCache_FindData(dwHash, nTick);
     if (!pData)
     {
-        if (!gpFuncTable_0077ABF0->pfnSlot68())
+        if (!gpFuncTable->pfnSlot68())
         {
             MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
             return;
@@ -2893,7 +2893,7 @@ void __cdecl CHARSEL_InitCharList()
     MAINMENUS_Reset();
 // build: symbol ?gapszSkyPalette@* 0x006D3A08
     MAINMENUS_ReadPaletteFiles(gapszSkyPalette[0], gapszSkyPalette[1]);
-    gdwGlobal_00779DA4 = 1;
+    gfHasCharEntries = 1;
     gnCharEntryCount = 0;
     gnTopRow = 0;
     gnSelected = 0;
@@ -2961,7 +2961,7 @@ int __stdcall CHARSEL_OnName(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
-int gdwGlobal_0077AC04; // 0x0077AC04
+int gfCharSelCancelled; // 0x0077AC04
 static int gbBattleNetConnected; // 0x0077AC08
 static int gbConnecting; // 0x0077AC0C
 

@@ -218,7 +218,7 @@ extern const int gnExpFactorHigherLevel[11]; // 0x006E1694
 extern const int gnExpFactorLowerLevel[11]; // 0x006E1668
 extern const int gnMeteorSubmissileOffsetsX[18]; // 0x006E2550
 extern const int gnMeteorSubmissileOffsetsY[18]; // 0x006E2598
-extern const int gnPrimePoisonNovaX_006E31E8[16]; // 0x006E31E8
+extern const int gnPrimePoisonNovaX[16]; // 0x006E31E8
 extern const int gnPrimePoisonNovaY[16]; // 0x006E31A8
 extern const int gnSrvDo15_XPositions[64]; // 0x006E2B78
 extern const int gnSrvDo15_YPositions[64]; // 0x006E2A78

@@ -19,17 +19,17 @@ unsigned long gdwGameListLastClickTick;                                         
 // 0x00442E30
 static void CHATDLG_ShowGameInfo(int nIndex)
 {
-    if (!gpGameText_00798BC4)
+    if (!gpGameInfoText)
         return;
 
     D2LaunchGameRecStrc* pGame = &gaNewGames[nIndex];
-    sub_004FB6A0_ClearText(gpGameText_00798BC4);
+    sub_004FB6A0_ClearText(gpGameInfoText);
     if (strlen(&pGame->szName[0x10]))
     {
-        sub_004FCF80_SetTextA(gpGameText_00798BC4, &pGame->szName[0x10]);
-        sub_004FCF80_SetTextA(gpGameText_00798BC4, &gszEmptyAssertText);
+        sub_004FCF80_SetTextA(gpGameInfoText, &pGame->szName[0x10]);
+        sub_004FCF80_SetTextA(gpGameInfoText, &gszEmptyAssertText);
     }
-    D2Win_10053(gpGameText_00798BC4, 0);
+    D2Win_10053(gpGameInfoText, 0);
     if (pGame->szName)
     {
         sub_004FFE10_SetTextA(gpJoinName, pGame->szName);
@@ -54,7 +54,7 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
 {
 // build: symbol ?gpGameList@* 0x00798BC0
     const int nSelection = sub_004FB990_GetSelection(gpGameList);
-    sub_004FB6A0_ClearText(gpGameText_00798BC4);
+    sub_004FB6A0_ClearText(gpGameInfoText);
     if (nSelection != -1)
     {
         if (pMsg->uMessage == 0x201 && sub_004450D0_IsDoubleClick(nSelection))

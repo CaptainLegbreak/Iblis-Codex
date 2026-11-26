@@ -185,7 +185,7 @@ struct D2FileTimeStrc;
 
 
 
-extern char gData_00882028[]; // 0x00882028
+extern char gszInfoText[]; // 0x00882028
 
 extern int gdwGlobal_00882528; // 0x00882528
 
@@ -1196,7 +1196,7 @@ struct D2GSPacketSrv27
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 
-int dword_6FD4DC34; // 0x008846DC
+int gbQuestDebug; // 0x008846DC
 
 void __fastcall PLRMSG_BroadcastChatMessage(D2GameStrc* pGame, const char* szMessage, unsigned char nColor); // 0x0054A930
 

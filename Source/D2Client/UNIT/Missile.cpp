@@ -463,7 +463,7 @@ void __fastcall MISSILE_InitMotion(D2UnitStrc* pMissile);                       
 
 
 
-extern "C" const char gszMissileFile_006DAEF4[]; // 0x006DAEF4
+extern "C" const char gszMissileSourceFile[]; // 0x006DAEF4
 
 
 void __fastcall MISSILE_CltDoFallingSpawn(D2UnitStrc* pMissile); // 0x004D66E0
@@ -1316,9 +1316,9 @@ extern const int gaHitRing64OffsetY[64]; // 0x006DB140
 
 extern const int gaHitRing64OffsetX[64]; // 0x006DB240
 
-extern const int gaRingOffsetY_006DB340[64]; // 0x006DB340
+extern const int gaRingOffsetY[64]; // 0x006DB340
 
-extern const int gaRingOffsetX_006DB440[64]; // 0x006DB440
+extern const int gaRingOffsetX[64]; // 0x006DB440
 
 
 extern "C" void __stdcall sub_006488A0(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x006488A0
@@ -1653,13 +1653,13 @@ int __fastcall sub_004D05E0_HitRing64(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 
             for (int i = 0; i < 64; i += nStep)
             {
-                tMissileParams.nTargetX = gaRingOffsetX_006DB440[i];
-                tMissileParams.nTargetY = gaRingOffsetY_006DB340[i];
+                tMissileParams.nTargetX = gaRingOffsetX[i];
+                tMissileParams.nTargetY = gaRingOffsetY[i];
                 D2UnitStrc* pSubMissile = MISSILE_CreateClientMissile(&tMissileParams);
                 if (pSubMissile)
                 {
-                    MISSILE_SetTargetX(pSubMissile, gaRingOffsetX_006DB440[i]);
-                    MISSILE_SetTargetY(pSubMissile, gaRingOffsetY_006DB340[i]);
+                    MISSILE_SetTargetX(pSubMissile, gaRingOffsetX[i]);
+                    MISSILE_SetTargetY(pSubMissile, gaRingOffsetY[i]);
                 }
             }
         }
@@ -4585,7 +4585,7 @@ void __fastcall MISSILE_CltDoStateTarget(D2UnitStrc* pMissile)
             switch (nNewState)
             {
             case 2:
-                PATH_SetVelocity(pPath, 0xF00, gszMissileFile_006DAEF4, 0x19DB);
+                PATH_SetVelocity(pPath, 0xF00, gszMissileSourceFile, 0x19DB);
                 D2COMMON_10170_PathSetTargetPos(pPath, 0x3B1F, 0x170C);
                 D2Common_10142(pPath, pMissile, 0);
                 break;
@@ -4597,7 +4597,7 @@ void __fastcall MISSILE_CltDoStateTarget(D2UnitStrc* pMissile)
             {
                 MISSILE_SetTargetY(pMissile, 1);
                 GFXUTIL_ReplaceMotionFlag1With8(pMissile);
-                PATH_SetVelocity(pPath, 0xF00, gszMissileFile_006DAEF4, 0x19E6);
+                PATH_SetVelocity(pPath, 0xF00, gszMissileSourceFile, 0x19E6);
                 if (SEED_RollLimitedRandomNumber(pSeed, 2))
                 {
                     GFXUTIL_SetMotionVectorB(pMissile, 0, 0, 1, 1);
@@ -5646,7 +5646,7 @@ void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile)
     if (!pMissilesTxtRecord)
         return;
     int bRepeat = 0;
-    switch (gdwGlobal_007A0610)
+    switch (gnGameType)
     {
     case 0:
     case 1:

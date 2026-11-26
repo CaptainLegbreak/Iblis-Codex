@@ -435,7 +435,7 @@ extern "C" unsigned int gValue_007BF2A4; // 0x007BF2A4
 
 extern "C" unsigned int gValue_007BF2AC; // 0x007BF2AC
 
-extern "C" HashState gStates_00882760[];
+extern "C" HashState gatBnHashCtx[];
 
 extern "C" ClassTableView* gClassTable_00744304;
 
@@ -657,7 +657,7 @@ extern unsigned char gbFlag_007BF2B0; // 0x007BF2B0
 
 extern D2Record42Strc gtQuestRecord; // 0x007BF355
 
-extern int gnPage_007C0255; // 0x007C0255
+extern int gnPage; // 0x007C0255
 
 extern D2SliderButtonStrc gaKeyConfigButtons[3]; // 0x007246D8
 
@@ -676,19 +676,19 @@ extern D2QuestSlotRectStrc gaQuestSlots[]; // 0x00723EB0
 
 extern int gnQuestCount; // 0x007BF2A0
 
-extern char gbGlobal_007BF2B0; // 0x007BF2B0
+extern char gbQuestButtonDown; // 0x007BF2B0
 
 extern char gbQuestDescriptionOpen; // 0x007BF2B3
 
 extern D2QuestPanelEntryStrc gaQuestEntries[]; // 0x007BF3AA
 
-extern char gbGlobal_007C025D; // 0x007C025D
+extern char gbDurielCofsLoaded; // 0x007C025D
 
-extern char gbGlobal_007C025E; // 0x007C025E
+extern char gbAncientsCofsLoaded; // 0x007C025E
 
-extern char gbGlobal_007C025F; // 0x007C025F
+extern char gbHasQuestPacketValue; // 0x007C025F
 
-extern char gbGlobal_007C0260; // 0x007C0260
+extern char gbQuestUnitsSpawned; // 0x007C0260
 
 
 
@@ -786,7 +786,7 @@ int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInv
 
 
 
-extern int global_00724728; // 0x00724728
+extern int gbKeyConfigReady; // 0x00724728
 
 enum { REPEAT_MASK = 0x40000000, UI_VARIABLE = 11 };
 
@@ -814,9 +814,9 @@ int gbSkillButtonPressed; // 0x007C02E8
 
 void __fastcall TEXT_MoveKeyConfigSelection(int nStep);
 
-char gbGlobal_007BF2B2; // 0x007BF2B2
+char gbQuestCloseButtonDown; // 0x007BF2B2
 
-char gbGlobal_007BF2B4; // 0x007BF2B4
+char gbQuestDescButtonDown; // 0x007BF2B4
 
 
 static int TEXT_GetKeyConfigLineAt(int nY);
@@ -1095,15 +1095,15 @@ static int TEXT_GetKeyConfigEntryState(int nIndex, int nFlag);
 
 typedef int(__fastcall* PANELCLOSEFN)(void* pArg, int a2, int a3);
 
-extern int gnPending_007BF1C4; // 0x007BF1C4
+extern int gbTextBoxPending; // 0x007BF1C4
 
 extern void* gpHint_007BF202; // 0x007BF202
 
-extern int gbHintActive_007BF20A; // 0x007BF20A
+extern int gbTextFromObject; // 0x007BF20A
 
 extern void* gpHint_007BF24B; // 0x007BF24B
 
-extern PANELCLOSEFN gpfnClose_007BF258; // 0x007BF258
+extern PANELCLOSEFN gpfnTextCallback; // 0x007BF258
 
 void __fastcall SELECT_SetSelectionRect(void* pRect); // 0x00467430
 
@@ -2936,7 +2936,7 @@ void __stdcall TEXT_OpenTextPanel(int bDraw)
 
 extern "C" void __fastcall sub_00524280_InitializeDigest(unsigned int index)
 {
-    HashState* state = &gStates_00882760[index];
+    HashState* state = &gatBnHashCtx[index];
     state->a = 0x67452301u;
     state->b = 0xEFCDAB89u;
     state->c = 0x98BADCFEu;
@@ -3292,7 +3292,7 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextBoxStrc* pTextBox)
         if (sub_0049D5A0_UpdateTextBox(pTextBox))
         {
             gbTextBoxDone = 1;
-            if (!gbHintActive_007BF20A && gpTextBox)
+            if (!gbTextFromObject && gpTextBox)
             {
                 TEXT_FreeTextBox(gpTextBox);
                 gpTextBox = 0;
@@ -3300,22 +3300,22 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextBoxStrc* pTextBox)
             }
 
             TEXT_ResetTextBox();
-            if (gpfnClose_007BF258)
+            if (gpfnTextCallback)
             {
-                return gpfnClose_007BF258(gpTextCallbackContext, 0, 0);
+                return gpfnTextCallback(gpTextCallbackContext, 0, 0);
             }
 
-            if (gnPending_007BF1C4 == 1)
+            if (gbTextBoxPending == 1)
             {
-                gnPending_007BF1C4 = 0;
+                gbTextBoxPending = 0;
             }
-            else if (gbHintActive_007BF20A)
+            else if (gbTextFromObject)
             {
                 NPCMENU_CancelNpcAndFlag(gpHint_007BF202);
             }
 
             UI_StartUIVarDelay();
-            gbHintActive_007BF20A = 0;
+            gbTextFromObject = 0;
             SELECT_SetSelectionRect(0);
             if (gbTextHandlersRegistered == 1)
             {

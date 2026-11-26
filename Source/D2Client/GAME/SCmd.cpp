@@ -2409,12 +2409,12 @@ void __fastcall SCMD_HandleUnloadComplete(void* pPacket)
 // 0x0045CA60
 void __fastcall SCMD_HandleLogoutComplete(void* pPacket)
 {
-    if (gdwGlobal_007A0610 == 7 || gdwGlobal_007A0610 == 9)
+    if (gnGameType == 7 || gnGameType == 9)
     {
         if (!GAME_IsCinematicExit())
             GAME_ShowLoadingMessage(8);
     }
-    if ((gdwGlobal_007A0610 == 2 || gdwGlobal_007A0610 == 3) && gbPositionalSound)
+    if ((gnGameType == 2 || gnGameType == 3) && gbPositionalSound)
         GAME_ShowLoadingMessage(7);
     gbLeavingGame = 1;
 }
@@ -4391,7 +4391,7 @@ void __fastcall SCMD_HandleAssignMonster(D2PacketSpawnStrc* pPacket)
 // 0x0045F5F0
 void __fastcall SCMD_HandleWardenRequest(D2GSPacketSrvAE* pPacket)
 {
-    if (gdwGlobal_007A0610 == 2 || gdwGlobal_007A0610 == 3)
+    if (gnGameType == 2 || gnGameType == 3)
         sub_004802E0(pPacket->pData, pPacket->nLength);
 }
 

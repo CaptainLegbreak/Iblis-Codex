@@ -161,7 +161,7 @@ extern "C" const char gszDataGlobal[]; // 0x006D4118
 extern "C" const char szDataLocal_006D41A8[]; // 0x006D41A8
 extern "C" const char gszFmtDecRange[]; // 0x006DBEC8
 extern "C" const char gszFmtDecimal[]; // 0x006DBE94
-extern "C" const char szFmtInt_006D6454[]; // 0x006D6454
+extern "C" const char gszFormatI[]; // 0x006D6454
 extern "C" const char gszFormatLd[]; // 0x006D9BE8
 extern "C" const char gszFmtPlusD[]; // 0x006DBE90
 extern "C" const char gszFmtPlusDecimal[]; // 0x006DBE9C
@@ -270,8 +270,8 @@ extern int ganGlobal_007C0225[6]; // 0x007C0225
 extern int ganGlobal_007C023D[6]; // 0x007C023D
 extern int gaQuestPageSelection[]; // 0x007BF2BD
 extern int ganRowValues_007799FC[]; // 0x007799FC
-extern int gbGlobal_007BEFD0; // 0x007BEFD0
-extern int gbSmallPanel_007BC978; // 0x007BC978
+extern int gbMiniPanelButtonDown; // 0x007BEFD0
+extern int gbSmallPanel; // 0x007BC978
 extern int gbExitApplication; // 0x0070EE8C
 extern int gnLeftClickState; // 0x0070F234
 extern int gnRightClickState; // 0x0070F2BC
@@ -286,19 +286,19 @@ extern int gnHoverClassId; // 0x00711F94
 extern int gdwClientFlags; // 0x00712EFC
 extern int gnCTemp; // 0x00712F00
 extern int gbNpcSpeechAudio; // 0x0072AE24
-extern int gdwGlobal_00779974; // 0x00779974
+extern int gfMenusDone; // 0x00779974
 extern int gnSlotCount; // 0x0077998C
-extern int gdwGlobal_00779DA4; // 0x00779DA4
-extern int gdwGlobal_007A0494; // 0x007A0494
-extern int gdwGlobal_007A04AC; // 0x007A04AC
-extern int gdwGlobal_007A04B0; // 0x007A04B0
-extern int gdwGlobal_007A04B4; // 0x007A04B4
-extern int gdwGlobal_007A0610; // 0x007A0610
-extern int gdwGlobal_007A6A90; // 0x007A6A90
+extern int gfHasCharEntries; // 0x00779DA4
+extern int gnFrameCount; // 0x007A0494
+extern int gnFpsFrameCount; // 0x007A04AC
+extern int gnSkippedFrames; // 0x007A04B0
+extern int gnFpsSkipCount; // 0x007A04B4
+extern int gnGameType; // 0x007A0610
+extern int gbNoPickup; // 0x007A6A90
 extern int gdwGlobal_007A6AE0; // 0x007A6AE0
-extern int gdwGlobal_007B57E4; // 0x007B57E4
+extern int gnSceneScaleFactor; // 0x007B57E4
 extern int gdwGlobal_007BC9A4; // 0x007BC9A4
-extern int gdwGlobal_007BC9AC; // 0x007BC9AC
+extern int gnSoundEnvironTxtRecordCount; // 0x007BC9AC
 extern int gnTextNpcId; // 0x007BF202
 extern int gnTextObjectId; // 0x007BF206
 extern int gbTextFromObject; // 0x007BF20A
@@ -326,7 +326,7 @@ extern int gaFanOffsetX[]; // 0x006DBF50
 extern int gaFanOffsetY[]; // 0x006DBF70
 extern int gnLevelEffectTick; // 0x007129D0
 extern int gbPlayThunderSound; // 0x00712B4C
-extern int gnGlobal_00712B8C; // 0x00712B8C
+extern int gbBlendLightColor; // 0x00712B8C
 extern int gnNpcTabCount; // 0x00722158
 extern int gbControlPanelMouseDown; // 0x00722358
 extern int gnTextTop; // 0x007225FC
@@ -353,7 +353,7 @@ extern int gnGlobal_007272D9; // 0x007272D9
 extern int gnHotspotCount; // 0x007278FC
 extern int gnWindAngleMax; // 0x007A8998
 extern int gnWindAngleMin; // 0x007A89D8
-extern int gnGlobal_007A89E0; // 0x007A89E0
+extern int gnPhaseLevel; // 0x007A89E0
 extern int gnCellOriginX; // 0x007B0A54
 extern int gnCellOriginY; // 0x007B0A58
 extern int gnWaypointId; // 0x007BF07D
@@ -367,8 +367,8 @@ extern int gnNpcEntryIndex; // 0x007C0C81
 extern int gnInteractNpcId; // 0x007C0D25
 extern int gbNpcInteracting; // 0x007C0D29
 extern int gnNpcTradeMode; // 0x007C0D31
-extern int gnGlobal_007C0D4B; // 0x007C0D4B
-extern int gnGlobal_007C0D4F; // 0x007C0D4F
+extern int gnTradeClickX; // 0x007C0D4B
+extern int gnTradeClickY; // 0x007C0D4F
 extern int gdwNpcTransactionTick; // 0x007C0D57
 extern int gnNpcTransactionCost; // 0x007C0D7F
 extern int gnPendingNpcActionUnitId; // 0x007C0D8E
@@ -378,7 +378,7 @@ extern int gnTradeItemUnitId; // 0x007C0DE5
 extern int gdwTradeRequestTick; // 0x007C0DE9
 extern int gnTradeRequestFailCount; // 0x007C0DED
 extern int gdwLastTradeSendTick; // 0x007C0DF1
-extern int gnGoldPanelMode_007A279C; // 0x007A279C
+extern int gnGoldPanelMode; // 0x007A279C
 extern int gnHandlerCount; // 0x007253DC
 extern int ghHintSound; // 0x007BF24B
 extern int gnHoverX; // 0x0070F854
@@ -389,11 +389,11 @@ extern int gnClientLaunchState; // 0x0070EE4C
 extern int gnNpcEntryCount; // 0x0072554C
 extern int gnNpcIndexCount; // 0x00725A74
 extern int gnPhaseLevel; // 0x007A89E0
-extern int gnPressedButton_007C02B4; // 0x007C02B4
+extern int gnKeyConfigPressedButton; // 0x007C02B4
 extern int gnScreenHeight; // 0x00711470
 extern int gnScreenWidth_0071146C; // 0x0071146C
 extern int gnSkillSelectProcs; // 0x00711F50
-extern int gnSlotState_007BC8F8[]; // 0x007BC8F8
+extern int gaSlotState[]; // 0x007BC8F8
 extern int gnState_007BF298; // 0x007BF298
 extern int gaSkillTabX[][3]; // 0x00724CE4
 extern int gnTargetAngle; // 0x007A89F8
@@ -412,12 +412,12 @@ extern short gwGlobal_007BB5F8; // 0x007BB5F8
 extern short gwGlobal_007BC850; // 0x007BC850
 extern unsigned char gaKeyTable[0x474]; // 0x00712220
 extern unsigned char gabGlobal_007BEF30[0x30]; // 0x007BEF30
-extern unsigned char gnCharClass_007A0522; // 0x007A0522
+extern unsigned char gnCharClass; // 0x007A0522
 extern unsigned int gaLightSampleCounts[]; // 0x006DB9D8
 extern unsigned int gdwLightTick_007B9530; // 0x007B9530
 extern unsigned int gnCofModeCodeCount; // 0x00712B0C
 extern unsigned int gnFileIndexTextCount; // 0x0072D720
-extern unsigned int gnGoldPanelValue_007A2A68; // 0x007A2A68
+extern unsigned int gnGoldPanelValue; // 0x007A2A68
 extern unsigned int gnPlayerModeCount; // 0x00712AC0
 extern unsigned int gnPresetUnitId; // 0x00711F30
 extern unsigned long gdwNpcRequestTimeout; // 0x007C0D53
@@ -445,22 +445,22 @@ extern void* gpQuestTabsCel; // 0x007BF2D9
 extern void* gpQuestDoneCel; // 0x007BF2DD
 extern void* gpQuestLastCel; // 0x007BF34D
 extern void* gpInvPsCel; // 0x007BF351
-extern void* gpCellFile_007BEF14; // 0x007BEF14
-extern void* gpCellFile_007BEF24; // 0x007BEF24
-extern void* gpCellFile_007BEF28; // 0x007BEF28
-extern void* gpCellFile_007BEF60; // 0x007BEF60
-extern void* gpCellFile_007BEF64; // 0x007BEF64
-extern void* gpCellFile_007BEF68; // 0x007BEF68
-extern void* gpCellFile_007BEF80; // 0x007BEF80
+extern void* gpGemSocketCel; // 0x007BEF14
+extern void* gpInvWarnCel; // 0x007BEF24
+extern void* gpHostilePicCel; // 0x007BEF28
+extern void* gpDuroIconCel; // 0x007BEF60
+extern void* gpInvCharCel; // 0x007BEF64
+extern void* gpHlthManaCel; // 0x007BEF68
+extern void* gpOverlapCel; // 0x007BEF80
 extern void* gpChatBuffer_007BB5F4; // 0x007BB5F4
 extern void* gpGoldPanel; // 0x007A27A0
-extern void* gpGlobal_007BEF0C; // 0x007BEF0C
+extern void* gpRunButtonCel; // 0x007BEF0C
 extern void* gpGlobal_007C0D47; // 0x007C0D47
 extern void* gpRes_007C0D5F; // 0x007C0D5F
 extern void* gpRes_007C0D6B; // 0x007C0D6B
 extern void* gpRes_007C0D6F; // 0x007C0D6F
 extern void* gpRes_007C0D77; // 0x007C0D77
-extern void* gpStateButtonCel_007BEF70; // 0x007BEF70
+extern void* gpStateButtonCel; // 0x007BEF70
 float __cdecl sub_00473C80(); // 0x00473C80
 float __stdcall FOG_10083_Cos_LUT(int nAngle); // 0x0040B330
 float __stdcall FOG_10084_Sin_LUT(int nAngle); // 0x0040B350
@@ -994,14 +994,14 @@ void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* s
 #define D2_LOWORD(l) ((unsigned short)((unsigned int)(l) & 0xFFFF))
 #define D2_RESET_QUEST_SELECTION() \
     gbQuestSlotDown = 0; \
-    gbGlobal_007BF2B2 = 0; \
-    gbGlobal_007BF2B0 = 0; \
+    gbQuestCloseButtonDown = 0; \
+    gbQuestButtonDown = 0; \
     gnQuestPressedSlot = -1; \
-    gbGlobal_007BF2B4 = 0; \
-    gbGlobal_007C025D = 0; \
-    gbGlobal_007C025E = 0; \
-    gbGlobal_007C025F = 0; \
-    gbGlobal_007C0260 = 0
+    gbQuestDescButtonDown = 0; \
+    gbDurielCofsLoaded = 0; \
+    gbAncientsCofsLoaded = 0; \
+    gbHasQuestPacketValue = 0; \
+    gbQuestUnitsSpawned = 0
 #define E06_ABS(x) ((x) < 0 ? -(x) : (x))
 #define GENERIC_WRITE 0x40000000
 #define GFX_ENTRY_COUNT 20

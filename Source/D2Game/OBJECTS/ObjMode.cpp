@@ -128,7 +128,7 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x
 
 extern ObjTrapHandlerFunction sgObjectTrapHandlers[10]; // 0x00732CEC
 
-extern int gnObjectTrapHandlers_00732D14; // 0x00732D14
+extern int gnObjectTrapHandlerCount; // 0x00732D14
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
@@ -795,7 +795,7 @@ void __fastcall OBJMODE_DispatchTrap(D2GameStrc* pGame, D2UnitStrc* pObject)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pObject));
     const unsigned char nTrapType = pObject->pObjectData->InteractType & 0x7F;
-    if (nTrapType >= gnObjectTrapHandlers_00732D14)
+    if (nTrapType >= gnObjectTrapHandlerCount)
     {
         return;
     }

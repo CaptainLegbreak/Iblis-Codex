@@ -49,18 +49,18 @@ extern "C" char* __cdecl fgets(char* szBuffer, int nCount, _iobuf* pFile); // 0x
 extern "C" const char gszDrlgPresetSourceFile; // 0x006EE7C4
 extern "C" const char gszDrlgPresetSourceFile_006EE7C4[]; // 0x006EE7C4
 extern "C" const char gszDrlgRoomTileSourceFile; // 0x006EF540
-extern "C" const char gszExcelDirectory_006D8ED4[]; // 0x006D8ED4
+extern "C" const char gszExcelDirectory[]; // 0x006D8ED4
 extern "C" const char gszInventorySourceFile[]; // 0x006EA918
 extern "C" const char gszMonsterTblsSourceFile[]; // 0x006EBE70
 extern "C" const char gszNewline[]; // 0x006FFCB0
 extern "C" const char gszOutRoomSourceFile; // 0x006F1F68
-extern "C" const char gszPathFormat_006D4124[]; // 0x006D4124
+extern "C" const char gszPathFormat[]; // 0x006D4124
 extern "C" const char gszTxtField_Expansion[]; // 0x006DCF44
 extern "C" const char gszTxtField_code[]; // 0x006DCCE0
 extern "C" const char gszTxtField_end[]; // 0x006D9060
 extern "C" const char gszTxtField_version[]; // 0x006DCCF0
-extern "C" const char gszTypeNameMappingEntryList_007436AC[]; // 0x007436AC
-extern "C" const char gszTypeNameStringEntryList_0074366C[]; // 0x0074366C
+extern "C" const char gszTypeNameMappingEntryList[]; // 0x007436AC
+extern "C" const char gszTypeNameStringEntryList[]; // 0x0074366C
 extern "C" const char gszDataGlobal[]; // 0x006D4118
 extern "C" double __cdecl cos(double x); // 0x006886C0
 extern "C" double __cdecl sin(double x); // 0x00688590
@@ -84,8 +84,8 @@ extern "C" int __stdcall sub_0064AFF0_GetMissilePhysicalMax(Unit*, Unit*, int, i
 extern "C" int __stdcall sub_0064B100_GetMissileElementMin(Unit*, Unit*, int, int); // 0x0064B100
 extern "C" int __stdcall sub_0064B1D0_GetMissileElementMax(Unit*, Unit*, int, int); // 0x0064B1D0
 extern "C" unsigned char gVar_006CE268; // 0x006CE268
-extern "C" unsigned char gVar_006CE280; // 0x006CE280
-extern "C" unsigned char gVar_006CE284; // 0x006CE284
+extern "C" unsigned char gdwBitMask6; // 0x006CE280
+extern "C" unsigned char gdwBitMask7; // 0x006CE284
 extern "C" unsigned int __cdecl fwrite(const void* pBuffer, unsigned int nSize, unsigned int nCount, _iobuf* pFile); // 0x00684449
 extern "C" unsigned int __cdecl strcspn(const char* szString, const char* szSet); // 0x00688990
 extern "C" void __cdecl _chkstk(); // 0x006831B0
@@ -98,7 +98,7 @@ extern D2TxtLinkStrc* gTxtLink_0096C7CC; // 0x0096C7CC
 extern D2TxtLinkStrc* gTxtLink_0096C800; // 0x0096C800
 extern D2TxtLinkStrc* gpItemStatCostLinker; // 0x0096C800
 extern D2TxtLinkStrc* gpItemTypesLinker; // 0x0096C824
-extern D2TxtLinkStrc* gpMonModeLinker_0096BC5C; // 0x0096BC5C
+extern D2TxtLinkStrc* gpMonModeLinker; // 0x0096BC5C
 extern D2TxtLinkStrc* gpMonStatsLinker; // 0x0096C6AC
 extern D2TxtLinkStrc* gpMonTableLinker_96C7AC; // 0x0096C7AC
 extern D2TxtLinkStrc* gpPettypeLinker; // 0x0096C81C

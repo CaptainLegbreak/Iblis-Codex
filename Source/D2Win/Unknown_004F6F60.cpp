@@ -60,11 +60,11 @@ void __fastcall CMNSUBTILE_DrawVisTile(unsigned char* pSrc, int nX, int nY); // 
 
 void __fastcall CMNSUBTILE_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight); // 0x004F8050
 
-extern "C" int gnFlag_007788DC;
+extern "C" int gfSStrInitialized;
 
 extern "C" int gnBufferBase_007D5448; // 0x007D5448
 
-extern "C" int gnSoundFlag_007C545C;
+extern "C" int gbClientSoundReady;
 
 // build: symbol _gnSoundSerial 0x007C5460
 extern "C" int gnSoundSerial;

@@ -823,7 +823,7 @@ extern unsigned int gnGlideBinkX;                                               
 extern D2BinkStrc* gpGlideBink;                                                                    // 0x00880C0C
 extern unsigned int gnGlideBinkFlags;                                                              // 0x00880C14
 extern int gbGlideBinkDone;                                                                        // 0x00880C18
-extern D2DDrawObjectStrc* gpDDrawObject_00881290;                                                           // 0x00881290
+extern D2DDrawObjectStrc* gpDDrawPalette;                                                           // 0x00881290
 extern int gaDDrawDebugFontGlyphOffsets[96];                                                       // 0x008812A8
 extern int gaDDrawDebugFontCharWidths[96];                                                         // 0x00881428
 extern unsigned long gdwDDrawDebugFontBkColor;                                                     // 0x008815A8

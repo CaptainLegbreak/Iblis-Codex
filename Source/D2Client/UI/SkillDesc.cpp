@@ -273,7 +273,7 @@ extern D2SkillTextPositionStrc gaSkillTextPositions[]; // 0x0072D840
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 extern "C" const char gszFormatD[]; // 0x006D57BC
 
-extern const char gszSkillDescFile_006DBF24[]; // 0x006DBF24
+extern const char gszSkillDescFile[]; // 0x006DBF24
 
 void __fastcall GAME_StrToUpper(Unicode*); // 0x00452180
 
@@ -345,9 +345,9 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
 
 static int SKILLDESC_AppendSkillDescStrLong(Unicode* wszOut, int nSkillId);
 
-extern "C" const char szFmtPlusDec_006DBE9C[]; // 0x006DBE9C
+extern "C" const char gszFmtPlusDecimal[]; // 0x006DBE9C
 
-extern "C" const char szFmtDec_006DBE94[]; // 0x006DBE94
+extern "C" const char gszFmtDecimal[]; // 0x006DBE94
 
 __declspec(noinline) static int __stdcall SKILLDESC_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue);
 
@@ -3902,7 +3902,7 @@ void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
     D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     if (!pSkillsTxt) return;
     int nLevel = SKILLS_GetSkillLevel(pUnit, pSkill, 1);
-    int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile_006DBF24, 0x1588);
+    int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0x1588);
     D2SkillDescTxt* pDesc = sub_004A89D0_SkillDescRec(nSkillId);
     if (!pDesc) return;
     D2Win_10127_SetFont(6);

@@ -216,11 +216,11 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void*);
 
 extern "C" int __cdecl _stricmp(const char*, const char*); // 0x006841E9
 
-extern const char gszTga_006FCC7C[]; // 0x006FCC7C
+extern const char gszTga[]; // 0x006FCC7C
 
-extern const char gszPcx_006FCC74[]; // 0x006FCC74
+extern const char gszPcx[]; // 0x006FCC74
 
-extern const char gszGif_006FCC6C[]; // 0x006FCC6C
+extern const char gszGif[]; // 0x006FCC6C
 
 struct D2TgaSourceColorStrc
 {
@@ -1658,7 +1658,7 @@ int __stdcall SBmpSaveImageEx(char* szFile, unsigned char* pPalette, unsigned ch
     VALIDATEEND;
 
     const char* pExtension = FindFileExtension(szFile);
-    if (pExtension && !_stricmp(pExtension, gszTga_006FCC7C))
+    if (pExtension && !_stricmp(pExtension, gszTga))
     {
         if (nBits != 8 && nBits != 24 && nBits != 32)
         {
@@ -1683,21 +1683,21 @@ int __stdcall SBmpSaveImageEx(char* szFile, unsigned char* pPalette, unsigned ch
 
     if (pExtension)
     {
-        if (!_stricmp(pExtension, gszPcx_006FCC74))
+        if (!_stricmp(pExtension, gszPcx))
         {
             const int nResult = EncodePcx256File(nWidth, nHeight, hFile, (D2PaletteStrc*)pPalette, pPixels);
             CloseHandle(hFile);
             return nResult;
         }
 
-        if (!_stricmp(pExtension, gszGif_006FCC6C))
+        if (!_stricmp(pExtension, gszGif))
         {
             const int nResult = EncodeGif256File(hFile, (const RGBQuad*)pPalette, pPixels, nWidth, nHeight);
             CloseHandle(hFile);
             return nResult;
         }
 
-        if (!_stricmp(pExtension, gszTga_006FCC7C))
+        if (!_stricmp(pExtension, gszTga))
         {
             const int nResult = EncodeTgaFile(hFile, pPixels, (const D2TgaSourceColorStrc*)pPalette, nWidth, nHeight, nBits, nPitch);
             CloseHandle(hFile);

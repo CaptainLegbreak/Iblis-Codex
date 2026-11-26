@@ -43,54 +43,54 @@ typedef void (__stdcall* B27RecordHandler)(int, int, int);
 typedef int (__cdecl* B27UIAction)();
 extern "C" int __cdecl NPCMENU_ResurrectMercWait(); // 0x004B1DD0
 extern "C" int __cdecl NPCMENU_IdentifyItemsWait(); // 0x004B2020
-extern "C" unsigned int gB27_00726CC1;
+extern "C" unsigned int gnImbueMenuState;
 extern "C" unsigned short gB27_00726CCB;
 extern "C" unsigned int gB27_00726CDB;
-extern "C" unsigned int gB27_00726DF9;
+extern "C" unsigned int gnHireMenuState;
 extern "C" unsigned short gB27_00726E01;
 extern "C" unsigned int gB27_00726E0F;
-extern "C" unsigned int gB27_00726E47;
+extern "C" unsigned int gnTravelLutGholeinState;
 extern "C" unsigned short gB27_00726E4F;
 extern "C" unsigned int gB27_00726E5D;
-extern "C" unsigned int gB27_00726E95;
+extern "C" unsigned int gnTravelKurastDocksState;
 extern "C" unsigned short gB27_00726E9D;
 extern "C" unsigned int gB27_00726EAB;
-extern "C" unsigned int gB27_00726EBC;
-extern "C" unsigned short gB27_00726EC2;
-extern "C" B27UIAction gB27_00726ECE;
-extern "C" unsigned int gB27_00726EE3;
-extern "C" unsigned short gB27_00726EE9;
-extern "C" B27UIAction gB27_00726EF5;
-extern "C" unsigned int gB27_00726F0A;
-extern "C" unsigned short gB27_00726F10;
-extern "C" B27UIAction gB27_00726F1C;
-extern "C" unsigned int gB27_00726F31;
-extern "C" unsigned short gB27_00726F37;
-extern "C" B27UIAction gB27_00726F43;
-extern "C" unsigned int gB27_00726F7F;
-extern "C" unsigned short gB27_00726F85;
+extern "C" unsigned int gnIdentifyMenu1State;
+extern "C" unsigned short gwIdentifyMenu1StringId;
+extern "C" B27UIAction gpfnIdentifyMenu1Handler;
+extern "C" unsigned int gnIdentifyMenu2State;
+extern "C" unsigned short gwIdentifyMenu2StringId;
+extern "C" B27UIAction gpfnIdentifyMenu2Handler;
+extern "C" unsigned int gnIdentifyMenu3State;
+extern "C" unsigned short gwIdentifyMenu3StringId;
+extern "C" B27UIAction gpfnIdentifyMenu3Handler;
+extern "C" unsigned int gnIdentifyMenu4State;
+extern "C" unsigned short gwIdentifyMenu4StringId;
+extern "C" B27UIAction gpfnIdentifyMenu4Handler;
+extern "C" unsigned int gnTravelHarrogathState;
+extern "C" unsigned short gwTravelHarrogathStringId;
 extern "C" unsigned short gB27_00726F87;
-extern "C" unsigned int gB27_00726F91;
+extern "C" unsigned int gpfnTravelHarrogathHandler;
 extern "C" unsigned int gB27_00726F95;
-extern "C" unsigned int gB27_00727216;
-extern "C" unsigned short gB27_0072721C;
-extern "C" B27UIAction gB27_00727228;
-extern "C" unsigned int gB27_0072723D;
+extern "C" unsigned int gnIdentifyMenu5State;
+extern "C" unsigned short gwIdentifyMenu5StringId;
+extern "C" B27UIAction gpfnIdentifyMenu5Handler;
+extern "C" unsigned int gnSocketMenuState;
 extern "C" unsigned short gB27_00727247;
 extern "C" unsigned int gB27_00727257;
-extern "C" unsigned int gB27_0072728B;
+extern "C" unsigned int gnPersonalizeMenuState;
 extern "C" unsigned short gB27_00727297;
 extern "C" unsigned int gB27_007272A9;
-extern "C" unsigned int gB27_007272D9;
+extern "C" unsigned int gnResurrectMenuState;
 extern "C" unsigned short gB27_007272E1;
-extern "C" B27UIAction gB27_007272EB;
+extern "C" B27UIAction gpfnResurrectMenuHandler;
 extern "C" unsigned int gB27_007272EF;
 extern "C" int gB27_007BCBF0;
 extern "C" int gB27_007BF298;
 extern "C" unsigned char gB27_007C025F;
-extern "C" unsigned int gB27_007C0265;
+extern "C" unsigned int gbQuestPacketValue;
 extern "C" { B27RecordHandler gpfnRecordHandler; } // 0x00881834
-extern "C" unsigned int gB27_00883D70;
+extern "C" unsigned int gnVirtualPlayerCount;
 
 // build: symbol _CUNIT_IsInvPanelTradeMode 0x00489840
 extern "C" int __cdecl INV_IsInvPanelTradeMode()
@@ -108,50 +108,50 @@ extern "C" void __fastcall QUESTLOG_SetQuestPacketValue(unsigned int value); // 
 // build: symbol _NPCMENU_ResetHandlers 0x004B2250
 extern "C" void __cdecl NPCMENU_ResetHandlers()
 {
-    bool oldAction = (gB27_007272EB == NPCMENU_ResurrectMercWait);
-    gB27_00726DF9 = 2;
+    bool oldAction = (gpfnResurrectMenuHandler == NPCMENU_ResurrectMercWait);
+    gnHireMenuState = 2;
     gB27_00726E01 = 0;
     gB27_00726E0F = 0;
-    gB27_00726E47 = 2;
+    gnTravelLutGholeinState = 2;
     gB27_00726E4F = 0;
     gB27_00726E5D = 0;
-    gB27_00726E95 = 2;
+    gnTravelKurastDocksState = 2;
     gB27_00726E9D = 0;
     gB27_00726EAB = 0;
-    gB27_00726CC1 = 3;
+    gnImbueMenuState = 3;
     gB27_00726CCB = 0;
     gB27_00726CDB = 0;
-    gB27_007272D9 = 2;
+    gnResurrectMenuState = 2;
     gB27_007272E1 = 0;
     gB27_007272EF = 0;
     if (oldAction)
-        gB27_007272D9 = 3;
+        gnResurrectMenuState = 3;
     gB27_00727247 = 0;
     gB27_00727257 = 0;
     gB27_00727297 = 0;
     gB27_007272A9 = 0;
-    gB27_00726F7F = 2;
+    gnTravelHarrogathState = 2;
     gB27_00726F87 = 0;
     gB27_00726F95 = 0;
-    gB27_00726F85 = 0;
-    gB27_00726F91 = 0;
-    gB27_0072723D = 3;
-    gB27_0072728B = 4;
-    gB27_00726EC2 = 0xfb4;
-    gB27_00726ECE = NPCMENU_IdentifyItemsWait;
-    gB27_00726EBC = 3;
-    gB27_00726EE9 = 0xfb4;
-    gB27_00726EF5 = NPCMENU_IdentifyItemsWait;
-    gB27_00726EE3 = 3;
-    gB27_00726F10 = 0xfb4;
-    gB27_00726F1C = NPCMENU_IdentifyItemsWait;
-    gB27_00726F0A = 3;
-    gB27_00726F37 = 0xfb4;
-    gB27_00726F43 = NPCMENU_IdentifyItemsWait;
-    gB27_00726F31 = 3;
-    gB27_0072721C = 0xfb4;
-    gB27_00727228 = NPCMENU_IdentifyItemsWait;
-    gB27_00727216 = 3;
+    gwTravelHarrogathStringId = 0;
+    gpfnTravelHarrogathHandler = 0;
+    gnSocketMenuState = 3;
+    gnPersonalizeMenuState = 4;
+    gwIdentifyMenu1StringId = 0xfb4;
+    gpfnIdentifyMenu1Handler = NPCMENU_IdentifyItemsWait;
+    gnIdentifyMenu1State = 3;
+    gwIdentifyMenu2StringId = 0xfb4;
+    gpfnIdentifyMenu2Handler = NPCMENU_IdentifyItemsWait;
+    gnIdentifyMenu2State = 3;
+    gwIdentifyMenu3StringId = 0xfb4;
+    gpfnIdentifyMenu3Handler = NPCMENU_IdentifyItemsWait;
+    gnIdentifyMenu3State = 3;
+    gwIdentifyMenu4StringId = 0xfb4;
+    gpfnIdentifyMenu4Handler = NPCMENU_IdentifyItemsWait;
+    gnIdentifyMenu4State = 3;
+    gwIdentifyMenu5StringId = 0xfb4;
+    gpfnIdentifyMenu5Handler = NPCMENU_IdentifyItemsWait;
+    gnIdentifyMenu5State = 3;
 }
 
 // 0x005173D3
@@ -166,7 +166,7 @@ extern "C" B27RecordHandler __fastcall sub_005173D3_ExchangeRecordHandler(B27Rec
 extern "C" void __fastcall PLAYER_SetVirtualPlayerCount(unsigned int count)
 {
     if (count <= 8)
-        gB27_00883D70 = count;
+        gnVirtualPlayerCount = count;
 }
 
 extern "C" __declspec(dllimport) void* __stdcall GetCurrentProcess(); // 0x006CC13C

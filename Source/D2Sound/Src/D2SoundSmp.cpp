@@ -89,9 +89,9 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 
 extern D2ComObjectStrc* gpSoundObject_008816D8; // 0x008816D8
 
-extern D2ComObjectStrc* gpSoundObject_00881740; // 0x00881740
+extern D2ComObjectStrc* gpSoundObject; // 0x00881740
 
-extern D2ComObjectStrc* gpSoundObject_00881744; // 0x00881744
+extern D2ComObjectStrc* gpEaxBuffer; // 0x00881744
 
 extern D2SoundStrc* gpSoundChannel; // 0x00881794
 
@@ -228,9 +228,9 @@ void __fastcall D2SOUNDUTIL_ListAddHead(D2SoundNodeStrc** ppList, void* pData); 
 
 void __fastcall D2SOUNDUTIL_ListRemove(D2SoundNodeStrc** ppList, void* pData); // 0x00516980
 
-extern const D2GuidStrc gIidDirectSound3DBuffer_006DE3D0; // 0x006DE3D0
+extern const D2GuidStrc gtIidDirectSound3DBuffer; // 0x006DE3D0
 
-extern const D2GuidStrc gIidKsPropertySet_006DE410; // 0x006DE410
+extern const D2GuidStrc gtIidKsPropertySet; // 0x006DE410
 
 D2KsPropertySetStrc* gpEaxListenerPropertySet; // 0x008816D8
 
@@ -309,7 +309,7 @@ static int __stdcall D2SOUNDSMP_CreateSoundBuffer(unsigned int nFlags, D2SoundSt
 
     if (nFlags & 2)
     {
-        if (pSound->pBuffer->QueryInterface(gIidDirectSound3DBuffer_006DE3D0, (void**)&pSound->p3DBuffer) < 0)
+        if (pSound->pBuffer->QueryInterface(gtIidDirectSound3DBuffer, (void**)&pSound->p3DBuffer) < 0)
         {
             pSound->pBuffer->Release();
             return 0;
@@ -319,7 +319,7 @@ static int __stdcall D2SOUNDSMP_CreateSoundBuffer(unsigned int nFlags, D2SoundSt
 // build: symbol ?D2SOUND_IsEaxEnabled@* 0x00513B70
     if ((nFlags & 2) && D2SOUND_IsEaxEnabled())
     {
-        if (pSound->p3DBuffer->QueryInterface(gIidKsPropertySet_006DE410, (void**)&pSound->pPropertySet) < 0)
+        if (pSound->p3DBuffer->QueryInterface(gtIidKsPropertySet, (void**)&pSound->pPropertySet) < 0)
         {
             pSound->pBuffer->Release();
             return 0;

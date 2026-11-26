@@ -35,7 +35,7 @@ void __cdecl sub_00521B90_ClearSrpState(); // 0x00521B90
 
 extern BnClientInterface gtBnClientInterface; // 0x0072FAA0
 
-extern int gdwGlobal_008818BC; // 0x008818BC
+extern int gdwServerToken; // 0x008818BC
 
 extern long volatile gnConnected; // 0x00881BF0
 
@@ -78,7 +78,7 @@ extern "C" __declspec(dllimport) int __stdcall SystemTimeToFileTime(const D2Syst
 
 int __cdecl sub_0051C470_CloseBNetConnection();
 
-int gdwGlobal_008818C0; // 0x008818C0
+int gnLogonType; // 0x008818C0
 
 // 0x00518C00
 BnClientInterface* __cdecl sub_00518C00_GetInterface()
@@ -95,19 +95,19 @@ void __cdecl sub_0051A480_DebugLog(const char* szFormat, ...)
 // 0x0051A540
 void __fastcall sub_0051A540_SetValue(int nValue)
 {
-    gdwGlobal_008818BC = nValue;
+    gdwServerToken = nValue;
 }
 
 // 0x0051A550
 int __cdecl BNCLIENT_GetServerToken()
 {
-    return gdwGlobal_008818BC;
+    return gdwServerToken;
 }
 
 // 0x0051A560
 void __fastcall sub_0051A560_SetValue(int nValue)
 {
-    gdwGlobal_008818C0 = nValue;
+    gnLogonType = nValue;
 }
 
 // 0x0051BEC0

@@ -24,7 +24,7 @@ int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nB
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 int __fastcall WINMAIN_DecodeCdKey(const char* szCdKey, unsigned int* pProduct, unsigned int* pValue); // 0x00449920
 extern D2WinControlStrc* gpControl_007795AC; // 0x007795AC
-extern int gdwGlobal_00779974; // 0x00779974
+extern int gfMenusDone; // 0x00779974
 
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
@@ -33,7 +33,7 @@ Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCo
 extern int gbFeCharPalette; // 0x007795F0
 
 
-extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
+extern D2ComInterfaceStrc* gpFuncTable; // 0x0077ABF0
 extern int gnCancelled; // 0x0077932C
 extern const char gszMainMenus[]; // 0x006D41C0
 extern const char gszTextExt[]; // 0x006D48E0
@@ -57,7 +57,7 @@ void __fastcall D2Win_10053(D2WinControlStrc*, int); // 0x004FBA30
 
 struct D2MenuCallbackArgStrc { D2WinControlStrc* pControl; unsigned int nMessage, nParam, nArg; };
 
-extern D2WinControlStrc* gpClassImages_0077956C[7]; // 0x0077956C
+extern D2WinControlStrc* gapClassImages[7]; // 0x0077956C
 extern D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 extern D2WinControlStrc* gpOkButton; // 0x00779330
 extern D2WinControlStrc* gpControl_0077933C; // 0x0077933C
@@ -137,7 +137,7 @@ void __cdecl MAINMENUS_CreateVideoScreen()
 // 0x00431AF0
 void __cdecl MAINMENUS_ShowCurrentGateway()
 {
-    D2FuncRecordStrc* pRecord = gpFuncTable_0077ABF0->pfnGetRecord();
+    D2FuncRecordStrc* pRecord = gpFuncTable->pfnGetRecord();
     char szText[0x100];
     const int nIndex = pRecord->nIndex;
     SStrCopy(szText, Name(pRecord, nIndex), 0x100);
@@ -374,10 +374,10 @@ int __cdecl MAINMENUS_ShowTerms()
     SStrCopy(szFileName, gszTosPrefix, 128);
     SStrPack(szFileName, szLanguage, 128);
     SStrPack(szFileName, gszTextExt, 128);
-    gpFuncTable_0077ABF0->pfnRequest(szFileName, strlen(szFileName));
+    gpFuncTable->pfnRequest(szFileName, strlen(szFileName));
     D2Win_RunMessageLoop(MAINMENUS_PollDownloadDone);
     if (gnCancelled) { MAINMENUS_DestroyControls(); return 0; }
-    if (!gpFuncTable_0077ABF0->pfnSlot68())
+    if (!gpFuncTable->pfnSlot68())
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x14E3);
         MAINMENUS_ShowMessage(pMessage, MAINMENUS_ShowMainMenu, 1);
@@ -510,12 +510,12 @@ int __stdcall MAINMENUS_SelectCharacterClass(D2MenuCallbackArgStrc* pArg)
     if (FOG_IsExpansion())
     {
         for (int i = 0; i < 7; ++i)
-            if (!D2Win_10104(gpClassImages_0077956C[i])) return 0;
+            if (!D2Win_10104(gapClassImages[i])) return 0;
     }
     else
     {
         for (int i = 0; i < 5; ++i)
-            if (!D2Win_10104(gpClassImages_0077956C[i])) return 0;
+            if (!D2Win_10104(gapClassImages[i])) return 0;
     }
 // build: symbol ?gnTextSentinel@* 0x0070CB80
     int nPreviousClass = gnTextSentinel;
@@ -535,37 +535,37 @@ int __stdcall MAINMENUS_SelectCharacterClass(D2MenuCallbackArgStrc* pArg)
         case 6: D2SOUND_10039("data\\global\\sfx\\cursor\\intro\\assassin deselect.wav"); break;
         }
     }
-    if (pArg->pControl == gpClassImages_0077956C[0])
+    if (pArg->pControl == gapClassImages[0])
     {
         nClass = 4;
         MAINMENUS_ShowOptionDescription(pArg->nArg, 4, 0xFA7, 0x140A);
     }
-    else if (pArg->pControl == gpClassImages_0077956C[1])
+    else if (pArg->pControl == gapClassImages[1])
     {
         nClass = 2;
         MAINMENUS_ShowOptionDescription(pArg->nArg, 2, 0xFA9, 0x1409);
     }
-    else if (pArg->pControl == gpClassImages_0077956C[2])
+    else if (pArg->pControl == gapClassImages[2])
     {
         nClass = 0;
         MAINMENUS_ShowOptionDescription(pArg->nArg, 0, 0xFAB, 0x1408);
     }
-    else if (pArg->pControl == gpClassImages_0077956C[3])
+    else if (pArg->pControl == gapClassImages[3])
     {
         nClass = 1;
         MAINMENUS_ShowOptionDescription(pArg->nArg, 1, 0xFAA, 0x140B);
     }
-    else if (pArg->pControl == gpClassImages_0077956C[4])
+    else if (pArg->pControl == gapClassImages[4])
     {
         nClass = 3;
         MAINMENUS_ShowOptionDescription(pArg->nArg, 3, 0xFA8, 0x140C);
     }
-    else if (pArg->pControl == gpClassImages_0077956C[5])
+    else if (pArg->pControl == gapClassImages[5])
     {
         nClass = 5;
         MAINMENUS_OnSelectDruid(pArg);
     }
-    else if (pArg->pControl == gpClassImages_0077956C[6])
+    else if (pArg->pControl == gapClassImages[6])
     {
         nClass = 6;
         MAINMENUS_OnSelectAssassin(pArg);
@@ -614,7 +614,7 @@ int __stdcall MAINMENUS_SelectCharacterClass(D2MenuCallbackArgStrc* pArg)
     {
         CONTROL_SetVisible(gpControl_00779598, 1);
         CONTROL_SetVisible(gpControl_007795CC, 1);
-        if (gdwGlobal_00779DA4)
+        if (gfHasCharEntries)
         {
             CONTROL_SetVisible(gpControl_007795B0, 1);
             CONTROL_SetVisible(gpControl_007795C4, 1);

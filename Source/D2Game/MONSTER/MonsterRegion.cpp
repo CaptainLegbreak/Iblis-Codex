@@ -226,7 +226,7 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* 
 
 extern "C" const char gszQuestsSourceFile[]; // 0x006E0BE4
 
-int dword_6FD4DC34; // 0x008846DC
+int gbQuestDebug; // 0x008846DC
 
 extern const D2UnkPlrMsgStrc gaUnitModeMessages[]; // 0x007319E8
 

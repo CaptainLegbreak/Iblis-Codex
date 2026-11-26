@@ -447,21 +447,21 @@ extern int gnCasketClusterIds[]; // 0x00731D50
 
 extern int gnCasket6ClusterIds[]; // 0x00731D5C
 
-extern int gnValues_00731D64[]; // 0x00731D64
+extern int gnUrnClusterIds[]; // 0x00731D64
 
 extern int gnMummyCoffinClusterIds[]; // 0x00731D78
 
 extern int gnBasketClusterIds[]; // 0x00731D80
 
-extern int gnValues_00731B7C[]; // 0x00731B7C
+extern int gnObjectSpawnOffsetsX[]; // 0x00731B7C
 
-extern int gnValues_00731B9C[]; // 0x00731B9C
+extern int gnObjectSpawnOffsetsY[]; // 0x00731B9C
 
 extern int gnCasketClusterIdCount; // 0x00731D88
 
 extern int gnCasket6ClusterIdCount; // 0x00731D8C
 
-extern int gnCount_00731D90; // 0x00731D90
+extern int gnUrnClusterIdCount; // 0x00731D90
 
 extern int gnMummyCoffinClusterIdCount; // 0x00731D94
 
@@ -2243,7 +2243,7 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn1_CasketJarSarcophagusUrn(D2GameStrc* p
     } else if (nObjectId == OBJECT_CASKET3 || nObjectId == OBJECT_CASKET5) {
         pIds = gnCasketClusterIds; nObjectId = gnCasketClusterIdCount; nRange = 5; nBase = 5;
     } else if (nObjectId == OBJECT_URN1) {
-        pIds = gnValues_00731D64; nObjectId = gnCount_00731D90; nRange = 0; nBase = 1; bSmall = true;
+        pIds = gnUrnClusterIds; nObjectId = gnUrnClusterIdCount; nRange = 0; nBase = 1; bSmall = true;
     } else if (nObjectId == OBJECT_MUMMY_COFFIN_LEFT) {
         pIds = gnMummyCoffinClusterIds; nObjectId = gnMummyCoffinClusterIdCount; nRange = 5; nBase = 5;
     } else if (nObjectId == OBJECT_BASKET1 || nObjectId == OBJECT_BASKET2) {
@@ -2271,8 +2271,8 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn1_CasketJarSarcophagusUrn(D2GameStrc* p
                 while (!bSuccess) {
                     if (i >= nLimit) break;
                     nClassId = OBJECTS_RollSeedHi_Inline(&pControl->pSeed) & 7;
-                    position.nX += 2 * gnValues_00731B7C[nClassId] * (nBase + RollLimited(&pControl->pSeed, nRange));
-                    position.nY += 2 * gnValues_00731B9C[nClassId] * (nBase + RollLimited(&pControl->pSeed, nRange));
+                    position.nX += 2 * gnObjectSpawnOffsetsX[nClassId] * (nBase + RollLimited(&pControl->pSeed, nRange));
+                    position.nY += 2 * gnObjectSpawnOffsetsY[nClassId] * (nBase + RollLimited(&pControl->pSeed, nRange));
                     coord.nX = position.nX; coord.nY = position.nY;
                     if (bSmall) bSuccess = OBJECTS_CanPlaceObject(&roomCoords, &coord, hRoom, pRecord->dwSizeX, pRecord->dwSizeY);
                     else bSuccess = OBJECTS_CanPlaceObjectWithClearance(hRoom, pRecord->dwSizeY, &roomCoords, &coord, pRecord->dwSizeX);

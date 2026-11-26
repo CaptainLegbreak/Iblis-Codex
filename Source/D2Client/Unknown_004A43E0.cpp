@@ -431,7 +431,7 @@ extern "C" unsigned int gValue_007BF2A4; // 0x007BF2A4
 
 extern "C" unsigned int gValue_007BF2AC; // 0x007BF2AC
 
-extern "C" HashState gStates_00882760[];
+extern "C" HashState gatBnHashCtx[];
 
 extern "C" ClassTableView* gClassTable_00744304;
 
@@ -633,7 +633,7 @@ extern unsigned char gbFlag_007BF2B0; // 0x007BF2B0
 
 extern D2Record42Strc gtQuestRecord; // 0x007BF355
 
-extern int gnPage_007C0255; // 0x007C0255
+extern int gnPage; // 0x007C0255
 
 extern D2SliderButtonStrc gaKeyConfigButtons[3]; // 0x007246D8
 
@@ -652,19 +652,19 @@ extern D2QuestSlotRectStrc gaQuestSlots[]; // 0x00723EB0
 
 extern int gnQuestCount; // 0x007BF2A0
 
-extern char gbGlobal_007BF2B0; // 0x007BF2B0
+extern char gbQuestButtonDown; // 0x007BF2B0
 
 extern char gbQuestDescriptionOpen; // 0x007BF2B3
 
 extern D2QuestPanelEntryStrc gaQuestEntries[]; // 0x007BF3AA
 
-extern char gbGlobal_007C025D; // 0x007C025D
+extern char gbDurielCofsLoaded; // 0x007C025D
 
-extern char gbGlobal_007C025E; // 0x007C025E
+extern char gbAncientsCofsLoaded; // 0x007C025E
 
-extern char gbGlobal_007C025F; // 0x007C025F
+extern char gbHasQuestPacketValue; // 0x007C025F
 
-extern char gbGlobal_007C0260; // 0x007C0260
+extern char gbQuestUnitsSpawned; // 0x007C0260
 
 static int gnKeyConfigEntryCount; // 0x007C0274
 
@@ -780,7 +780,7 @@ int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInv
 
 
 
-extern int global_00724728; // 0x00724728
+extern int gbKeyConfigReady; // 0x00724728
 
 enum { REPEAT_MASK = 0x40000000, UI_VARIABLE = 11 };
 
@@ -808,9 +808,9 @@ extern int gbSkillButtonPressed; // 0x007C02E8
 
 void __fastcall TEXT_MoveKeyConfigSelection(int nStep);
 
-extern char gbGlobal_007BF2B2; // 0x007BF2B2
+extern char gbQuestCloseButtonDown; // 0x007BF2B2
 
-extern char gbGlobal_007BF2B4; // 0x007BF2B4
+extern char gbQuestDescButtonDown; // 0x007BF2B4
 
 void* gpKeyConfigSliderCel; // 0x007C02BC
 
@@ -966,7 +966,7 @@ Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 void __stdcall ITEMMODS_AssignProperty(int nPass, int nArg1, D2UnitStrc* pItem, int nArg, int nArg2, int nArg5); // 0x0065FEC0
 
-extern Unicode gwszName_007C0E84[]; // 0x007C0E84
+extern Unicode gwszTradePartnerName[]; // 0x007C0E84
 
 #pragma pack(push, 1)
 
@@ -1085,15 +1085,15 @@ static int TEXT_GetKeyConfigEntryState(int nIndex, int nFlag);
 
 typedef int(__fastcall* PANELCLOSEFN)(void* pArg, int a2, int a3);
 
-extern int gnPending_007BF1C4; // 0x007BF1C4
+extern int gbTextBoxPending; // 0x007BF1C4
 
 extern void* gpHint_007BF202; // 0x007BF202
 
-extern int gbHintActive_007BF20A; // 0x007BF20A
+extern int gbTextFromObject; // 0x007BF20A
 
 extern void* gpHint_007BF24B; // 0x007BF24B
 
-extern PANELCLOSEFN gpfnClose_007BF258; // 0x007BF258
+extern PANELCLOSEFN gpfnTextCallback; // 0x007BF258
 
 void __fastcall SELECT_SetSelectionRect(void* pRect); // 0x00467430
 
@@ -2185,14 +2185,14 @@ void __stdcall TEXT_ClearEntryKeyMsg(SMSGHANDLER_PARAMS* pMsg)
 void __stdcall TEXT_CancelKeyConfigMsg(SMSGHANDLER_PARAMS* message)
 {
     if (GAME_IsExitPending()) { message->bReturn = 0; return; }
-    if (global_00724728) {
+    if (gbKeyConfigReady) {
         if (!(message->lParam & REPEAT_MASK)) {
             CMDTBL_RestoreHotkeys();
             UI_SetUIVar(UI_VARIABLE, 1, 0);
             WARDENCLIENT_ToggleEscMenuUIState(0, 1);
             sub_004B9A00(1, 0, 0, 0, 0);
         }
-    } else global_00724728 = 1;
+    } else gbKeyConfigReady = 1;
     message->bReturn = 1;
     message->lResult = 0;
     sub_00420290_BreakHandlerChain(message);
