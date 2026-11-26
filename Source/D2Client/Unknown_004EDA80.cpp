@@ -150,7 +150,7 @@ static void MISSILE_SetPathDirectionInline(D2UnitStrc* pMissile, unsigned char n
 }
 
 // 0x004F04F0
-static int __stdcall SKILLSEMON_CreateMissileFan(int nMissile, int nSkillId, int nSkillLevel, int nCount, D2UnitStrc* pUnit)
+static int __stdcall SKILLSEMON_CreateMissileFan(D2UnitStrc* pUnit, int nMissile, int nSkillId, int nSkillLevel, int nCount)
 {
     D2MissileStrc tMissileParams;
     memset(&tMissileParams, 0, sizeof(tMissileParams));
@@ -178,7 +178,7 @@ static int __stdcall SKILLSEMON_CreateMissileFan(int nMissile, int nSkillId, int
 }
 
 // 0x004F0590
-static int __stdcall SKILLSEMON_CreateMissileRequest(int nMissile, int nSkillId, int nSkillLevel, int bNotify, D2UnitStrc* pUnit)
+static int __stdcall SKILLSEMON_CreateMissileRequest(D2UnitStrc* pUnit, int nMissile, int nSkillId, int nSkillLevel, int bNotify)
 {
     D2UnitStrc* pMissile = MISSILE_SubmitMissileRequest(pUnit, nMissile, UNITS_GetXPositionInline(pUnit), UNITS_GetYPositionInline(pUnit), nSkillId, nSkillLevel);
     if (!pMissile)
@@ -194,6 +194,7 @@ static int __stdcall SKILLSEMON_CreateMissileRequest(int nMissile, int nSkillId,
     return 1;
 }
 
+// 0x004F0650
 int __fastcall sub_004F0650_CltSkillMissileFan(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordInline(nSkillId);
@@ -210,14 +211,14 @@ int __fastcall sub_004F0650_CltSkillMissileFan(D2UnitStrc* pUnit, int nSkillId, 
     const int nMissileA = pSkillsTxtRecord->wCltMissileA;
     if (nMissileA >= 0 && nMissileA < sgptDataTables->nMissilesTxtRecordCount)
     {
-        SKILLSEMON_CreateMissileRequest(nMissileA, nSkillId, nSkillLevel, 0, pUnit);
+        SKILLSEMON_CreateMissileRequest(pUnit, nMissileA, nSkillId, nSkillLevel, 0);
     }
 
     const int nMissileB = pSkillsTxtRecord->wCltMissileB;
     if (nMissileB >= 0 && nMissileB < sgptDataTables->nMissilesTxtRecordCount)
     {
         const int nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[0], nSkillId, nSkillLevel);
-        SKILLSEMON_CreateMissileFan(nMissileB, nSkillId, nSkillLevel, nCount, pUnit);
+        SKILLSEMON_CreateMissileFan(pUnit, nMissileB, nSkillId, nSkillLevel, nCount);
     }
     return 1;
 }
@@ -296,7 +297,7 @@ int __fastcall SKILLSEMON_CltSkillMonMissile(D2UnitStrc* pUnit, int nSkillId, in
         SKILLS_SetParam1(pSkill, 0);
         SKILLS_SetParam2(pSkill, CLIENTS_GetUnitX(pUnit));
         SKILLS_SetParam3(pSkill, CLIENTS_GetUnitY(pUnit));
-        SKILLSEMON_CreateMissileRequest(nMissile, nSkill, nSkillLevel, 1, pUnit);
+        SKILLSEMON_CreateMissileRequest(pUnit, nMissile, nSkill, nSkillLevel, 1);
     }
     return 1;
 }
