@@ -92,7 +92,7 @@ struct D2BinFieldStrc { const char* name; unsigned type; int length,offset; void
 
 static int __stdcall EXCEL_MapColumns(unsigned short* pOut, D2BinFileStrc* pList, D2BinFieldStrc* pEntries); // 0x006BCE20
 
-int __stdcall sub_006BD230_AddCode(void*,unsigned); // 0x006BD230
+int __stdcall sub_006BD230_AddCode(D2TxtLinkStrc* pLink, unsigned int nCode); // 0x006BD230
 
 int __stdcall FOG_10216_AddRecordToLinkingTable(D2TxtLinkStrc* pLinker, const char* szCode); // 0x006BD500
 
@@ -365,7 +365,7 @@ void __stdcall FOG_10207(D2BinFileStrc* bin,D2BinFieldStrc* fields,char* output,
     switch(field->type) {
     case 10:case 12:case 14: {
      READ_CODE(); PAD_CODE(code);
-     int index=sub_006BD230_AddCode(*(void**)field->link,*(unsigned*)code);
+     int index=sub_006BD230_AddCode(*(D2TxtLinkStrc**)field->link,*(unsigned*)code);
      switch(field->type) {
       case 10:*(unsigned*)dst=*(unsigned*)code;break;
       case 12:D2_ASSERT(index<=255,0x156);*dst=code[0];break;
