@@ -1738,7 +1738,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
                 switch (gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].nState)
                 {
                 case 0:
-                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].unk0x000[0] = 1;
+                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].bShown = 1;
                     nFrame = gtQuestLog_007BF298.anAnim[gtQuestLog_007BF298.f_8];
                     if (nFrame >= 0x19)
                     {
@@ -1766,7 +1766,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
                     gtQuestLog_007BF298.f_8 += 1;
                     break;
                 case 1:
-                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].unk0x000[0] = 1;
+                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].bShown = 1;
                     if (gtQuestLog_007BF298.nIndexB5 == pEntry->nCelId2)
                     {
                         tDraw.pCellFile = gtQuestLog_007BF298.pCelDD;
@@ -1784,7 +1784,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
                     gtQuestLog_007BF298.f_8 += 1;
                     break;
                 case 2:
-                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].unk0x000[0] = 1;
+                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].bShown = 1;
                     tDraw.nFrame = 0x1A;
                     tDraw.pCellFile = gtQuestLog_007BF298.apCel[pEntry->nCelId];
                     sub_004F6480(&tDraw, gaQuestPos[pEntry->nCelId2].nX + gnPanelOffsetX, gaQuestPos[pEntry->nCelId2].nY - gnPanelOffsetY, -1, 5, 0);
@@ -1794,7 +1794,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
                 case 3:
                     if (gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].wTitle == 0x3A0 && gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].nStep == 7)
                         bSpecial = 1;
-                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].unk0x000[0] = 1;
+                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].bShown = 1;
                     tDraw.pCellFile = gtQuestLog_007BF298.apCel[pEntry->nCelId];
                     tDraw.nFrame = (gtQuestLog_007BF298.nIndexB5 == pEntry->nCelId2) ? 0x19 : 0;
                     sub_004F6480(&tDraw, gaQuestPos[pEntry->nCelId2].nX + gnPanelOffsetX, gaQuestPos[pEntry->nCelId2].nY - gnPanelOffsetY, -1, 5, 0);
@@ -1848,7 +1848,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
             }
         }
 
-        if (nFound != -1 && gtQuestLog_007BF298.aMsgs[nFound].unk0x000[0])
+        if (nFound != -1 && gtQuestLog_007BF298.aMsgs[nFound].bShown)
         {
             if (gtQuestLog_007BF298.aMsgs[nFound].wTitle != 0xE8C)
             {

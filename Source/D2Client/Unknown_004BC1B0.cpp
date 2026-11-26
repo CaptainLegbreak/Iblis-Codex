@@ -174,8 +174,8 @@ public:
     virtual int sub_004BE0A0_GetLineCount();
     virtual void sub_004BE0B0_Clear();
     virtual void sub_004BE500_AddLine(const Unicode* wszText0, const Unicode* wszText1, const Unicode* wszText2,
-        const Unicode* wszText3, const Unicode* wszText4, const Unicode* wszText5, int nArg20, int nData,
-        int bUseDefault, int nArg2C);
+        const Unicode* wszText3, const Unicode* wszText4, const Unicode* wszText5, int nEntryData, int nColor,
+        int bUseDefault, int nFont);
 
     void DrawClippedText(const Unicode* wszSource, int nX, int nY, int nColor);
     int HitTestScrollDown(SMSGHANDLER_PARAMS* pMsg); // 0x004BE770
@@ -237,7 +237,7 @@ public:
     virtual int GetValue();
     virtual void sub_004BEDE0_ForwardSlot3C(const Unicode* wszText0, const Unicode* wszText1,
         const Unicode* wszText2, const Unicode* wszText3, const Unicode* wszText4, const Unicode* wszText5,
-        int nArg20, int nData, int bUseDefault, int nArg2C);
+        int nEntryData, int nColor, int bUseDefault, int nFont);
     virtual int sub_004BEDF0_ForwardGetEntryData(int nIndex);
     virtual int sub_004BEE00_Slot14();
     virtual void sub_004BEE10_Slot15();
@@ -454,15 +454,15 @@ void ListBoxImplementation::DrawClippedText(const Unicode* wszSource, int nX, in
 
 // 0x004BE500
 void ListBoxImplementation::sub_004BE500_AddLine(const Unicode* wszText0, const Unicode* wszText1, const Unicode* wszText2,
-    const Unicode* wszText3, const Unicode* wszText4, const Unicode* wszText5, int nArg20, int nData, int bUseDefault,
-    int nArg2C)
+    const Unicode* wszText3, const Unicode* wszText4, const Unicode* wszText5, int nEntryData, int nColor, int bUseDefault,
+    int nFont)
 {
     if (nEntryCount >= 0x80)
     {
         return;
     }
 
-    aLines[nEntryCount].unk0x3002 = nArg20;
+    aLines[nEntryCount].nData = nEntryData;
     if (nSelectedIndex == -1)
     {
         nSelectedIndex = 0;
@@ -505,13 +505,13 @@ void ListBoxImplementation::sub_004BE500_AddLine(const Unicode* wszText0, const 
     }
     if (bUseDefault)
     {
-        aLines[nEntryCount].nData = nArg14;
+        aLines[nEntryCount].nColor = nArg14;
     }
     else
     {
-        aLines[nEntryCount].nData = nData;
+        aLines[nEntryCount].nColor = nColor;
     }
-    aLines[nEntryCount].nFont = nArg2C;
+    aLines[nEntryCount].nFont = nFont;
     ++nEntryCount;
 }
 
@@ -720,7 +720,7 @@ int ListBoxImplementation::GetListEntryData(int nIndex)
 {
     if (nIndex >= 0 && nIndex < nEntryCount && nIndex < 0x80)
     {
-        return aLines[nIndex].unk0x3002;
+        return aLines[nIndex].nData;
     }
     D2_ASSERT(nEntryCount < 0x80, 0x46C);
     D2_ASSERT(nEntryCount < nIndex, 0x46D);
@@ -807,10 +807,10 @@ void ListBoxWrapper::Draw()
 // 0x004BEDE0
 void ListBoxWrapper::sub_004BEDE0_ForwardSlot3C(const Unicode* wszText0, const Unicode* wszText1,
     const Unicode* wszText2, const Unicode* wszText3, const Unicode* wszText4, const Unicode* wszText5,
-    int nArg20, int nData, int bUseDefault, int nArg2C)
+    int nEntryData, int nColor, int bUseDefault, int nFont)
 {
-    pImpl->sub_004BE500_AddLine(wszText0, wszText1, wszText2, wszText3, wszText4, wszText5, nArg20, nData,
-        bUseDefault, nArg2C);
+    pImpl->sub_004BE500_AddLine(wszText0, wszText1, wszText2, wszText3, wszText4, wszText5, nEntryData, nColor,
+        bUseDefault, nFont);
 }
 
 // 0x004BEDF0
@@ -886,7 +886,7 @@ void ListBoxImplementation::Draw()
         }
         else
         {
-            nColor = aLines[nLine].nData;
+            nColor = aLines[nLine].nColor;
         }
 
         D2Win_10127_SetFont(aLines[nLine].nFont != 14 ? aLines[nLine].nFont : nArg18);
@@ -1124,9 +1124,9 @@ ListBoxImplementation::ListBoxImplementation(int nX, int nY, int nWidth, int nHe
         aLines[n].wszText4[0].wChar = 0;
         aLines[n].wszText5[0].wChar = 0;
         aLines[n].nFlags = 0;
-        aLines[n].nData = 0;
+        aLines[n].nColor = 0;
         aLines[n].nFont = 1;
-        aLines[n].unk0x3002 = 0;
+        aLines[n].nData = 0;
     }
     pfnCallback = (void (__cdecl*)())nCallback;
     this->nArg10 = nArg10;
