@@ -48,7 +48,7 @@ How far the sources are from reading like the original source tree. Byte matchin
 | … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 197 |
 | Record definitions private to a source file (`struct`/`union` in a .cpp) | 1902 |
 | Unnamed fields (`unk0x..`) in the shared headers | 647 |
-| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 40 |
+| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 39 |
 | Calling-convention shims | 38 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
 | `__declspec(noinline)` / `__forceinline` | 94 / 185 |
@@ -556,7 +556,7 @@ Not listed one by one: 3253 functions are compiled with `/GS-` and 1568 with `/E
 | 0x00651040 | DATATBLS_ComputeMonStatsDepths | `D2Common/DATATBLS/MonsterTbls.cpp` | __assume |
 | 0x0065EA50 | ITEMMODS_AddPropertyToItemStatList | `D2Common/ITEMS/ItemMods.cpp` | volatile read or qualifier |
 | 0x006B38A0 | D3DCORE_CopySurface | `D2Direct3D/Src/d3dCore.cpp` | identical if/else arms |
-| 0x006BD780 | FOG_10207 | `Fog/Src/Excel/Excel.cpp` | __assume through a header macro (original), identical if/else arms |
+| 0x006BD780 | FOG_10207 | `Fog/Src/Excel/Excel.cpp` | __assume through a header macro (original), identical if/else arms (original) |
 | 0x006BE310 | FOG_SetServerConfig | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006BE350 | FOG_StartServer | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006BE390 | FOG_10186 | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
