@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 13:57 PST 2026: Unknown_004D1300.cpp retried against Missile.cpp with the noinline ruling: no (Left in place). Next: names in my range (the 10 bare sub_ functions, unk0x fields the code reads).
 - Thu Nov 26 13:55 PST 2026: Unknown_004A9BD0.cpp does not join npcmenu.cpp, now with evidence (Left in place). Next: Unknown_004D1300.cpp against Missile.cpp.
 - Thu Nov 26 13:54 PST 2026: check-in. #432 took npcmenu-piece-note (Ready line dropped); decls-d2client-hi and soundinst-join still merge clean on #433. editbox-join ready. Next: Unknown_004A9BD0.cpp into npcmenu.cpp.
 - Thu Nov 26 13:40 PST 2026: soundinst-join ready (two placeholders joined, noinline +2 with evidence). Next: editbox_004BB620.cpp into editbox.cpp, then Unknown_004A9BD0.cpp into npcmenu.cpp.
@@ -113,5 +114,5 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 - Unknown_004CA560 (GetHitSounds): still MISMATCH in UnitSnd.cpp on #304; it moves with the declaration count (window now +4..+6), so not landed.
 - Unknown_004C0440 (0x4C0550), Unknown_004C7C80, Unknown_004C97C0 (handed back by lane 4): not started. The evidence points at useitem.cpp and Skills.cpp, where lane 4 saw register changes.
 - ITEM_QueryCacheAddress (0x4DF630, Item.cpp): waiting for better evidence.
-- Unknown_004D1300: only builds equal without Missile.cpp's callee bodies in the same unit, so it is not Missile.cpp code.
+- Unknown_004D1300 (0x4D1300, 0x4D3630, 0x4D6130, 0x4D66E0): only builds equal without Missile.cpp's callee bodies in the same unit, so it is not Missile.cpp code. Retried on #433 with the noinline ruling: joined (with the two ForceInl helpers above their first use), 0x4D1300 is equal but 0x4D3630, 0x4D6130 and 0x4D66E0 differ in frame size and registers; noinline on the four Missile.cpp callees the original calls out of line (0x4CD540, 0x4D30C0, 0x4CD390, 0x4D2D70) changes nothing. Left.
 - Unknown_004DEDB0 (tile lights), _004DF4B0 / _004DF1C0 leftovers: no file evidence yet.
