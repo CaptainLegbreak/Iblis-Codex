@@ -34,7 +34,7 @@ extern int gnValue_007C9140; // 0x007C9140
 extern int gnValue_007C9154; // 0x007C9154
 extern unsigned char* gpBuffer_007C9154; // 0x007C9154
 extern unsigned char* gpScreenBuffer_007C9154; // 0x007C9154
-int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
+int __stdcall D2CMPSpriteValidate(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
 void __cdecl sub_006C8930_Init(); // 0x006C8930
 void __fastcall sub_006C82D0_Apply(int nArg); // 0x006C82D0
 void __stdcall CelDraw(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0

@@ -58,7 +58,7 @@ extern D2D3DObjStrc* gapSpriteSurfaces[3]; // 0x00970F28
 
 extern D2D3DObjStrc* gpSpriteObject_00970F3C; // 0x00970F3C
 
-int __stdcall sub_006001F0_Prepare(D2CelContextStrc* pContext, int bAsync, int nFlags); // 0x006001F0
+int __stdcall D2CMPSpriteValidate(D2CelContextStrc* pContext, int bAsync, int nFlags); // 0x006001F0
 
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
@@ -156,7 +156,6 @@ int gnPerspectiveScale;        // 0x00989748
 
 extern const char gszSpriteError[]; // 0x006FC238
 
-int __stdcall sub_006001F0(D2CelContextStrc* context, int bAsync, int nFlags); // 0x006001F0
 
 int __stdcall CelGetWidth(D2CelStrc* cel); // 0x006018C0
 
@@ -283,7 +282,7 @@ void __fastcall D3DSPRITE_ClearResourceEntries(D2ResourceSetStrc* set)
 // 0x006B5C80
 static int __stdcall D3D_LoadSpriteInfo(D2CelContextStrc* pContext, D2SpriteInfoStrc* pInfo)
 {
-    if (!sub_006001F0_Prepare(pContext, 0, 1))
+    if (!D2CMPSpriteValidate(pContext, 0, 1))
     {
         return 0;
     }

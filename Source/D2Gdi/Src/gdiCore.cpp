@@ -786,7 +786,7 @@ static inline int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX,
 int __fastcall GDICORE_DrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, void* pPalette)
 {
     D2CelContextStrc* pContext = (D2CelContextStrc*)pData;
-    if (!sub_006001F0(pContext, 0, 1))
+    if (!D2CMPSpriteValidate(pContext, 0, 1))
         return 0;
 
     if (sub_00511E10_IsCelOffScreen(pContext->pCel, nX, nY, 0))
@@ -809,7 +809,7 @@ int __fastcall GDICORE_DrawImage(void* pData, int nX, int nY, unsigned int dwGam
 int __fastcall GDICORE_CelDrawColor(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nPalette)
 {
     D2CelContextStrc* pContext = (D2CelContextStrc*)pData;
-    if (!sub_006001F0(pContext, 0, 1))
+    if (!D2CMPSpriteValidate(pContext, 0, 1))
         return 0;
 
     if (sub_00511E10_IsCelOffScreen(pContext->pCel, nX, nY, 0))
@@ -837,7 +837,7 @@ int __fastcall GDICORE_CelDrawColor(void* pData, int nX, int nY, unsigned int dw
 // 0x006C86A0
 void __fastcall GDICORE_DrawImageRows(D2CelContextStrc* pContext, int nX, int nY, int nSkipTop, int nDrawHeight, int nDrawMode)
 {
-    if (!sub_006001F0(pContext, 0, 1))
+    if (!D2CMPSpriteValidate(pContext, 0, 1))
         return;
 
     if (sub_00511E10_IsCelOffScreen(pContext->pCel, nX, nY, 0))
@@ -852,7 +852,7 @@ void __fastcall GDICORE_DrawImageRows(D2CelContextStrc* pContext, int nX, int nY
 void __fastcall GDICORE_DrawShadow(void* pData, int nX, int nY)
 {
     D2CelContextStrc* pContext = (D2CelContextStrc*)pData;
-    if (!sub_006001F0(pContext, 0, 1))
+    if (!D2CMPSpriteValidate(pContext, 0, 1))
         return;
 
     if (sub_00511E10_IsCelOffScreen(pContext->pCel, nX, nY, 1))
@@ -870,7 +870,7 @@ void __fastcall GDICORE_DrawShadow(void* pData, int nX, int nY)
 void __fastcall GDICORE_DrawCelClipped(D2CelContextStrc* pContext, int nX, int nY, const D2ClipRectStrc* pClip, int nDrawMode)
 {
     D2ClipResultStrc tClip = {};
-    if (!sub_006001F0(pContext, 0, 1))
+    if (!D2CMPSpriteValidate(pContext, 0, 1))
         return;
 
     if (GDICORE_ClipCel(pContext->pCel, nX, nY, pClip, &tClip))
