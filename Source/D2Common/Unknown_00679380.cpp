@@ -174,6 +174,7 @@ int __fastcall sub_00679C80_Toward(D2PathInfoStrc* pPathInfo); // 0x00679C80
 
 int __fastcall PATH_AStar_ComputePath(D2PathInfoStrc* pPathInfo); // 0x0067B850
 
+// 0x00679C80
 int __fastcall sub_00679C80_Toward(D2PathInfoStrc* pPathInfo)
 {
     D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
@@ -202,21 +203,19 @@ int __fastcall sub_00679C80_Toward(D2PathInfoStrc* pPathInfo)
     }
 
     {
-        D2PathPointStrc tPoint = pPathInfo->tStartCoord;
         D2PathPointStrc tCurCoords = pPathInfo->tStartCoord;
-        if (tPoint.X != nNextPoint.X || tPoint.Y != nNextPoint.Y)
+        if (tCurCoords.X != nNextPoint.X || tCurCoords.Y != nNextPoint.Y)
         {
             pPath->PathPoints[pPath->dwPathPoints] = nNextPoint;
             pPath->dwPathPoints += 1;
-            tPoint = nNextPoint;
             tCurCoords = nNextPoint;
         }
 
-        const int nDistMax = pPathInfo->nDistMax;
-        nNextPoint = pPathInfo->tTargetCoord;
         int nPrevDir = 0xFF;
         int nNewPointsCount = pPath->dwPathPoints;
+        const int nDistMax = pPathInfo->nDistMax;
         int bNotStraightLine = 0;
+        nNextPoint = pPathInfo->tTargetCoord;
         int nCurDist = 0;
         if (nDistMax > 0)
         {
@@ -231,26 +230,26 @@ int __fastcall sub_00679C80_Toward(D2PathInfoStrc* pPathInfo)
                 bNotStraightLine = 0;
                 int aTestDir[3];
 // build: symbol ?PATH_GetDirections@* 0x00678D70
-                PATH_GetDirections(aTestDir, tPoint, nNextPoint);
+                PATH_GetDirections(aTestDir, tCurCoords, nNextPoint);
                 int nDirection;
-                if (!sub_006793E0_FindFreeDirection(tPoint, aTestDir, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDir)
+                if (!sub_006793E0_FindFreeDirection(tCurCoords, aTestDir, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDir)
                 {
                     goto ADD_LAST_POINT;
                 }
 
+                const D2PathPointStrc tPrevCoords = tCurCoords;
                 tCurCoords.X += gatDirectionToOffset[nDirection].nX;
                 tCurCoords.Y += gatDirectionToOffset[nDirection].nY;
                 if (nDirection != nPrevDir)
                 {
-                    if (tPoint.X != pPathInfo->tStartCoord.X || tPoint.Y != pPathInfo->tStartCoord.Y)
+                    if (tPrevCoords.X != pPathInfo->tStartCoord.X || tPrevCoords.Y != pPathInfo->tStartCoord.Y)
                     {
-                        *pPathPointsEnd = tPoint;
+                        *pPathPointsEnd = tPrevCoords;
                         nNewPointsCount += 1;
                         ++pPathPointsEnd;
                     }
                     bNotStraightLine = 1;
                 }
-                tPoint = tCurCoords;
                 nPrevDir = nDirection;
                 nCurDist += 1;
             }
@@ -263,15 +262,14 @@ int __fastcall sub_00679C80_Toward(D2PathInfoStrc* pPathInfo)
         ADD_LAST_POINT:
             if (nCurDist)
             {
-                pPath->PathPoints[nNewPointsCount] = tPoint;
+                pPath->PathPoints[nNewPointsCount] = tCurCoords;
                 nNewPointsCount += 1;
             }
         }
     STORE_POINT_COUNT:
         pPath->dwPathPoints = nNewPointsCount;
+        return nNewPointsCount;
     }
-
-    return pPath->dwPathPoints;
 }
 
 // 0x00679A60
@@ -368,39 +366,39 @@ inline unsigned int PATH_ToFP16Center(unsigned short value)
 }
 
 // 0x00678F00
-void __fastcall PATH_NormalizeStep(int* a1, int* a2)
+void __fastcall PATH_NormalizeStep(int* pX, int* pY)
 {
-    if (*a1 >= 0)
+    if (*pX >= 0)
     {
-        while (*a1 > 65536)
+        while (*pX > 65536)
         {
-            *a1 >>= 1;
-            *a2 >>= 1;
+            *pX >>= 1;
+            *pY >>= 1;
         }
     }
     else
     {
-        while (*a1 < -65536)
+        while (*pX < -65536)
         {
-            *a1 >>= 1;
-            *a2 >>= 1;
+            *pX >>= 1;
+            *pY >>= 1;
         }
     }
 
-    if (*a2 >= 0)
+    if (*pY >= 0)
     {
-        while (*a2 > 65536)
+        while (*pY > 65536)
         {
-            *a1 >>= 1;
-            *a2 >>= 1;
+            *pX >>= 1;
+            *pY >>= 1;
         }
     }
     else
     {
-        while (*a2 < -65536)
+        while (*pY < -65536)
         {
-            *a1 >>= 1;
-            *a2 >>= 1;
+            *pX >>= 1;
+            *pY >>= 1;
         }
     }
 }
@@ -872,13 +870,13 @@ int __fastcall PATH_ComputePathChargedBolt(D2DynamicPathStrc* pDynamicPath, D2Se
     nPrevPoint.X = pDynamicPath->wPosX;
     nPrevPoint.Y = pDynamicPath->wPosY;
 
-    int v16[3];
-    PATH_GetDirections(v16, nPrevPoint, pDynamicPath->tTargetCoord);
+    int aDirections[3];
+    PATH_GetDirections(aDirections, nPrevPoint, pDynamicPath->tTargetCoord);
 
     for (; nCurPointIdx < nMaxPathPoints; nCurPointIdx++)
     {
         unsigned int nDir = dirOffsetSequence[SEED_RollRandomNumber(pSeed) & 31];
-        nDir = (v16[0] + nDir) % 8;
+        nDir = (aDirections[0] + nDir) % 8;
         pDynamicPath->PathPoints[nCurPointIdx] = nPrevPoint;
         nPrevPoint.X += 2 * gatDirectionToOffset[nDir].nX;
         nPrevPoint.Y += 2 * gatDirectionToOffset[nDir].nY;

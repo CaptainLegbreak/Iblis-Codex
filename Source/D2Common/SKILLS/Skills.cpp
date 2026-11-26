@@ -352,7 +352,7 @@ int __stdcall COMPOSIT_IsWeaponBowOrXBow(D2UnitStrc* pUnit); // 0x0064F460
 
 
 
-int __stdcall STATLIST_GetMaxDamageFromUnit(D2UnitStrc* pItem, int a2); // 0x00625E60
+int __stdcall STATLIST_GetMaxDamageFromUnit(D2UnitStrc* pItem, int b2Handed); // 0x00625E60
 
 
 extern "C" void _ReadWriteBarrier(void);
@@ -442,7 +442,7 @@ int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkil
 
 int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyMastery); // 0x00644E40
 
-int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00644F20
+int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bFlag); // 0x00644F20
 
 int __stdcall D2Common_11032(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nType); // 0x00647E00
 
@@ -2402,11 +2402,11 @@ void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pC
 }
 
 // 0x00645390
-void __stdcall D2Common_11015(D2UnitStrc* pUnit, int a2, int nSkillId)
+void __stdcall D2Common_11015(D2UnitStrc* pUnit, int bByUnitId, int nSkillId)
 {
     D2SkillStrc* ptSkill = SKILLS_GetSkillInl(pUnit, nSkillId, -1);
     int nPosition;
-    if (a2)
+    if (bByUnitId)
     {
         const int nType = pUnit->dwUnitType;
         const int nId = pUnit->dwUnitId;
@@ -2494,11 +2494,11 @@ static int __stdcall SKILLS_IsSelectableCorpse(int bDying, D2UnitStrc* pUnit)
 }
 
 // 0x00645510
-int __stdcall D2COMMON_11017_CheckUnitIfConsumeable(D2UnitStrc* pUnit, int a2)
+int __stdcall D2COMMON_11017_CheckUnitIfConsumeable(D2UnitStrc* pUnit, int bAllowDying)
 {
     int nClassId;
     int bCorpseSelectable = 0;
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && (pUnit->dwAnimMode == MONMODE_DEAD || a2 && pUnit->dwAnimMode == MONMODE_DEATH) && !STATES_CheckStateMaskUdeadOnUnit(pUnit))
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && (pUnit->dwAnimMode == MONMODE_DEAD || bAllowDying && pUnit->dwAnimMode == MONMODE_DEATH) && !STATES_CheckStateMaskUdeadOnUnit(pUnit))
     {
         nClassId = pUnit->dwClassId;
         bCorpseSelectable = MONSTERREGION_CheckMonStats2Flag(nClassId, MONSTATS2FLAGINDEX_CORPSESEL);
@@ -2976,7 +2976,7 @@ int __fastcall SKILLS_CalcOtherSkillParamCallback(int nSkillId, int nParamId, in
 }
 
 // 0x00646C60
-int __fastcall SKILLS_CalcNestedParamCallback(int nSkillId, int nParamId, int a3, void* pUserData)
+int __fastcall SKILLS_CalcNestedParamCallback(int nSkillId, int nParamId, int nOuterParamId, void* pUserData)
 {
     D2SkillCalcStrc* pSkillCalc = (D2SkillCalcStrc*)pUserData;
     if (!pSkillCalc)
@@ -2984,7 +2984,7 @@ int __fastcall SKILLS_CalcNestedParamCallback(int nSkillId, int nParamId, int a3
         return 0;
     }
 
-    return SKILLS_GetSpecialParamValue(pSkillCalc->pUnit, a3, nSkillId, SKILLS_GetSpecialParamValue(pSkillCalc->pUnit, nParamId, pSkillCalc->nSkillId, pSkillCalc->nSkillLevel));
+    return SKILLS_GetSpecialParamValue(pSkillCalc->pUnit, nOuterParamId, nSkillId, SKILLS_GetSpecialParamValue(pSkillCalc->pUnit, nParamId, pSkillCalc->nSkillId, pSkillCalc->nSkillLevel));
 }
 
 // 0x00646CA0
@@ -4084,13 +4084,13 @@ inline D2SkillStrc* __fastcall SKILLS_GetSkillInl(D2UnitStrc* pUnit, int nSkillI
 }
 
 // 0x00647B20
-void __stdcall D2Common_11031(D2UnitStrc* pUnit, int nSkillId, int a3)
+void __stdcall D2Common_11031(D2UnitStrc* pUnit, int nSkillId, int nBonus)
 {
     D2SkillStrc* pSkill = SKILLS_GetSkillForceInl(pUnit, nSkillId, -1);
 
     if (!pSkill)
     {
-        if (a3 <= 0)
+        if (nBonus <= 0)
         {
             return;
         }
@@ -4117,7 +4117,7 @@ void __stdcall D2Common_11031(D2UnitStrc* pUnit, int nSkillId, int a3)
 
     if (pSkill->nOwnerGUID == -1)
     {
-        pSkill->nLevelBonus += a3;
+        pSkill->nLevelBonus += nBonus;
         if (pSkill->nLevelBonus < 0)
         {
             pSkill->nLevelBonus = 0;

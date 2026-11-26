@@ -298,14 +298,14 @@ int __fastcall SKILLDESC_ValidateMonsterId(int nMonsterId); // 0x004E6C50
 int __fastcall SKILLDESC_GetSkillParamFive(int nSkillId); // 0x004E6C70
 int __fastcall SKILLDESC_GetSkillParamThree(int nSkillId); // 0x004EFC50
 int __fastcall SKILLDESC_GetSkillParamFour(int nSkillId); // 0x004EFC80
-int __fastcall sub_00560200_PlaceItem(const char*,int,D2GameStrc*,D2UnitStrc*,int,int,int,int,int,D2InventoryStrc*); // 0x00560200
+int __fastcall D2GAME_PlaceItem(const char*,int,D2GameStrc*,D2UnitStrc*,int,int,int,int,int,D2InventoryStrc*); // 0x00560200
 int __fastcall PLRSAVE2_ReadPlrIntroSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion); // 0x0056A470
 int __fastcall sub_005A0070(D2UnitStrc* pUnit, int nMonType); // 0x005A0070
 int __fastcall sub_005B3270(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitStrc* pOwner, int nClassId, int nAnimMode, D2UnkMonCreateStrc2* a8, short nFlags); // 0x005B3270
 int __fastcall sub_005B5210(D2GameStrc* pGame); // 0x005B5210
 int __fastcall ACT3Q3_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, void* pArg); // 0x005B9980
 int __fastcall sub_005C2FB0_ApplyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C2FB0
-int __fastcall sub_005DD290_HasClearPath(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005DD290
+int __fastcall AIUTIL_HasClearMissilePath(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005DD290
 int __fastcall sub_005E3EA0(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int mode, int run, int velocity, int a7); // 0x005E3EA0
 int __fastcall sub_005E45D0_PetFollow(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2UnitStrc* pOwner, int bCombat, D2AiTickParamStrc* pTick, int a7, int a8); // 0x005E45D0
 int __fastcall sub_00623C20(D2UnitStrc* pUnit); // 0x00623C20
@@ -486,14 +486,14 @@ void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, 
 void __fastcall GAME_RemoveUnit(D2UnitStrc*,D2GameStrc*); // 0x0052E050
 void __fastcall sub_00539230_SetWeaponSwitch(D2ClientStrc*, unsigned char); // 0x00539230
 void __fastcall sub_0053B240_SendHeaderOnly0x06(int nClientId); // 0x0053B240
-void __fastcall sub_00540E60(D2GameStrc*,D2UnitStrc*,int,int); // 0x00540E60
+void __fastcall D2GAME_EVENTS_Delete(D2GameStrc*,D2UnitStrc*,int,int); // 0x00540E60
 void __fastcall sub_00547390_Increment(Game*,int); // 0x00547390
 void __fastcall sub_00547490_Add(Game*,int,int,int); // 0x00547490
 void __fastcall sub_00553220(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553220
 void __fastcall SUNITDMG_SetExperienceForTargetLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEntry); // 0x0057EB10
 void __fastcall ACT2Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00599A20
 void __fastcall sub_005A9930_CreateAtMissile(D2GameStrc*, D2UnitStrc*, int); // 0x005A9930
-void __fastcall sub_005B1A90(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B1A90
+void __fastcall TARGETS_RemoveUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B1A90
 void __fastcall ITEMS_AssignStaffModsForFormat(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C1260
 void __fastcall SKILLS_DamagePaladinCaster(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005C2FF0
 extern "C" void __fastcall CLIENTS_SetPlayerUnitAlive(D2ClientStrc* pClient); // 0x00537970

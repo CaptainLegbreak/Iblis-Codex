@@ -9,7 +9,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
+int __stdcall D2CMPSpriteValidate(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
 
 void* __stdcall CelGetHardwareData(D2CelStrc* pCel); // 0x00601B10
 
@@ -168,7 +168,7 @@ void (__stdcall* gpfnGrConstantColorValue)(unsigned int dwColor); // 0x0087EFA0
 // 0x0050A260
 static int GLSPRITE_InitTexInfo(D2CelContextStrc* pContext, D2GlideTexInfoStrc* pInfo)
 {
-    if (!sub_006001F0(pContext, 0, 1))
+    if (!D2CMPSpriteValidate(pContext, 0, 1))
         return 0;
 
     D2_ASSERT(pContext->pCel, 0xCE);

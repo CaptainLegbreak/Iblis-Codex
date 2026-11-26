@@ -643,22 +643,22 @@ void __fastcall DRLGOUTDOORS_SetBlankGridCell(D2DrlgLevelStrc* pLevel, int nX, i
 void __fastcall DRLGOUTDOORS_AddAct124SecondaryBorder(D2DrlgLevelStrc* pLevel, int nLvlSubId, int nLevelPrestId)
 {
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
-    D2UnkOutdoorStrc a1 = {};
+    D2UnkOutdoorStrc tOutdoorInfo = {};
 
-    a1.pLevel = pLevel;
-    a1.field_4 = &pOutdoors->nWidth;
-    a1.pGrid1 = &pOutdoors->pGrid[0];
-    a1.pGrid2 = &pOutdoors->pGrid[2];
-    a1.nLevelPrestId = nLevelPrestId;
-    a1.field_14 = -1;
-    a1.nLvlSubId = nLvlSubId;
-    a1.field_1C = DRLGOUTDOORS_TestGridCellNonLvlLink;
-    a1.field_20 = DRLGOUTDOORS_TestOutdoorLevelPreset;
-    a1.field_2C = DRLGOUTDOORS_AlterAdjacentPresetGridCells;
-    a1.field_30 = DRLGOUTDOORS_SetBlankGridCell;
-    a1.field_34 = DRLGOUTDOORS_SpawnOutdoorLevelPresetEx;
+    tOutdoorInfo.pLevel = pLevel;
+    tOutdoorInfo.field_4 = &pOutdoors->nWidth;
+    tOutdoorInfo.pGrid1 = &pOutdoors->pGrid[0];
+    tOutdoorInfo.pGrid2 = &pOutdoors->pGrid[2];
+    tOutdoorInfo.nLevelPrestId = nLevelPrestId;
+    tOutdoorInfo.field_14 = -1;
+    tOutdoorInfo.nLvlSubId = nLvlSubId;
+    tOutdoorInfo.field_1C = DRLGOUTDOORS_TestGridCellNonLvlLink;
+    tOutdoorInfo.field_20 = DRLGOUTDOORS_TestOutdoorLevelPreset;
+    tOutdoorInfo.field_2C = DRLGOUTDOORS_AlterAdjacentPresetGridCells;
+    tOutdoorInfo.field_30 = DRLGOUTDOORS_SetBlankGridCell;
+    tOutdoorInfo.field_34 = DRLGOUTDOORS_SpawnOutdoorLevelPresetEx;
 
-    DRLGTILESUB_ApplySubstitutionBorder(&a1);
+    DRLGTILESUB_ApplySubstitutionBorder(&tOutdoorInfo);
 }
 
 // 0x00675320

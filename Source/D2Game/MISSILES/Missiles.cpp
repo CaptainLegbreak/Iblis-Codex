@@ -29,13 +29,10 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                             
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY);              // 0x00463740
 
-void __fastcall PLAYER_ApplyWeaponStatsForSkill(D2UnitStrc* pUnit, int a2);                                 // 0x00535D10
+#include "D2GameFuncs.h"
 
-void __fastcall PLAYER_RestoreWeaponStats(D2UnitStrc* pUnit, int a2);                                       // 0x00535E20
 
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
-
-void __fastcall MONSTERUNIQUE_OwnerMissileHook(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pMissile); // 0x005A43B0
 
 
 void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner);                                     // 0x00621CE0
@@ -45,7 +42,6 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLaye
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
 
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStat, int nLayer);           // 0x00625500
-
 
 
 void __stdcall STATLIST_AllocStatListEx(D2UnitStrc* pUnit, int nFlags, void* pCallback, D2GameStrc* pGame); // 0x00626D40
@@ -69,9 +65,6 @@ void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames);  
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame);                            // 0x0064A330
 
 
-
-void __fastcall EVENT_FreeUnitTimers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540EE0
-
 #define UNIT_MONSTER 1
 
 struct D2MissilesTxt;
@@ -91,18 +84,12 @@ union D2SeedStrc;
 
 extern const unsigned char gnMissileFlag_006CE27C; // 0x006CE27C
 
-D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc*, D2UnitStrc*); // 0x00552FD0
-
-
-
 
 int __stdcall sub_0064A380_GetRemainingFrames(D2UnitStrc*); // 0x0064A380
 
 int __stdcall MISSILE_GetLevel(D2UnitStrc*); // 0x0064A210
 
 void __fastcall D2GAME_PACKETS_SendPacket0x73(D2ClientStrc*, D2GSPacketSrv73*); // 0x0053DA10
-
-
 
 
 static void __stdcall MISSILES_RollMissilePierce(D2UnitStrc* pMissile, D2UnitStrc* pOwner); // 0x0059F940
@@ -120,9 +107,6 @@ static inline int GetUnitType(D2UnitStrc* pUnit)
     return !pUnit ? 6 : pUnit->dwUnitType;
 }
 
-D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit); // 0x00552DB0
-
-void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
 
 // 0x0059F840
 void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame)
@@ -143,8 +127,6 @@ void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame)
 
 #define UNITFLAG_ISVALIDTARGET 0x00000008
 
-
-void __fastcall D2GAME_DeleteTimersOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
 
 // 0x0059F8A0
 void __fastcall MISSILES_Initialize(D2GameStrc* pGame, D2UnitStrc* pMissile, int nUnitGUID)
