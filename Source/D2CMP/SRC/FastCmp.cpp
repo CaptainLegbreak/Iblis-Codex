@@ -2479,9 +2479,4 @@ int D2CmpStringStrc::EqualsNoCase(const D2CmpStringStrc* pOther)
 }
 
 static void FASTCMP_BuildBrightnessTable(unsigned char* pTables, D2HslStrc* pHsl); // 0x00606890
-void __cdecl sub_M386_Emit_00606890(int nUnused, unsigned char* pTables, D2HslStrc* pHsl)
-{
-    FASTCMP_BuildBrightnessTable(pTables, pHsl);
-}
-
 #include "gen/data/Source/D2CMP/SRC/FastCmp.inc"
