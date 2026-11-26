@@ -147,7 +147,7 @@ extern int gnPartyCount_0072554C; // 0x0072554C
 
 extern D2PartyRecordStrc gaNpcEntryFlags[]; // 0x00726861
 
-extern unsigned char gbNpcEntriesProcessed; // 0x007C0C6A
+unsigned char gbNpcEntriesProcessed; // 0x007C0C6A
 
 extern void* gpRes_007C0D63; // 0x007C0D63
 

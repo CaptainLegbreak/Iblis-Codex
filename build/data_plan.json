@@ -863,8 +863,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_004A9BD0.cpp": {
-   "bytes": 225,
-   "definitions": 3,
+   "bytes": 0,
+   "definitions": 0,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004A9BD0.inc",
@@ -1069,8 +1069,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/npcmenu.cpp": {
-   "bytes": 7973,
-   "definitions": 105,
+   "bytes": 8198,
+   "definitions": 108,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/npcmenu.inc",
@@ -41891,7 +41891,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004A9BD0.cpp",
+   "file": "Source/D2Client/UI/npcmenu.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnNpcEntryCount = ",
@@ -41916,7 +41916,7 @@
    "cname": "gData_00725860",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004A9BD0.cpp",
+   "file": "Source/D2Client/UI/npcmenu.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00725860_t gData_00725860; // 0x00725860",
    "head": "extern \"C\" struct d2data_00725860_t gData_00725860 = ",
@@ -41933,7 +41933,7 @@
    "cname": "gData_00726850",
    "declared": true,
    "decorated": "?gaNpcEntries@@3PAUD2NpcEntryStrc@@A",
-   "file": "Source/D2Client/Unknown_004A9BD0.cpp",
+   "file": "Source/D2Client/UI/npcmenu.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00726850_t gData_00726850; // 0x00726850",
    "head": "extern \"C\" struct d2data_00726850_t gData_00726850 = ",
