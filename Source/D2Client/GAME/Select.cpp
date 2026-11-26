@@ -315,32 +315,6 @@ static void __stdcall SELECT_AdjustCursorPerspective(int* pnX, int* pnY)
     *pnY += PLAYER_GetScreenOffsetY();
 }
 
-static inline void HOVER_ClearHoverUnit()
-{
-    if (gbHoverLocked)
-    {
-        return;
-    }
-
-    if (TEXT_IsTextBoxOpen() && !TEXT_GetTextUnit())
-    {
-        TEXT_SetHoverUnit(0);
-        return;
-    }
-
-    TEXT_ClearHoverUnit();
-    if (gbHasSelectedUnit && gnSelectedUnitType == 5)
-    {
-        D2UnitStrc* pOld = CUNIT_FindClientUnit(gnSelectedUnitId, 5);
-        if (pOld)
-        {
-            DUNGEON_UpdateWarpRoomDeselect(UNITS_GetRoom(pOld), pOld->dwClassId);
-            VIEW_SetViewDirty(gpClientView);
-        }
-    }
-    gbHasSelectedUnit = 0;
-}
-
 // 0x00467130
 static int SELECT_GetHoverCursorPos(int* pnX, int* pnY)
 {

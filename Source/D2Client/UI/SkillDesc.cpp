@@ -1080,88 +1080,6 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
     }
 }
 
-static void __stdcall sub_004E49C0_CollectCombinedStats(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2CombinedStatsStrc* pCombined)
-{
-    memset(pCombined, 0, sizeof(D2CombinedStatsStrc));
-
-// build: symbol ?gnCombinedStatCount@* 0x0072CDCC
-    for (int i = 0; i < gnCombinedStatCount; ++i)
-    {
-        const int nStatId = gaCombinedStatIds[i].nStatId;
-        if (nStatId == -1)
-            continue;
-
-        switch (nStatId)
-        {
-        case 48:
-            pCombined->tFire.nMin = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            break;
-        case 49:
-            pCombined->tFire.nMax = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            break;
-        case 50:
-            pCombined->tLightning.nMin = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            break;
-        case 51:
-            pCombined->tLightning.nMax = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            break;
-        case 52:
-            pCombined->tMagic.nMin = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            break;
-        case 53:
-            pCombined->tMagic.nMax = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            break;
-        case 54:
-            pCombined->tCold.nMin = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            break;
-        case 55:
-            pCombined->tCold.nMax = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            break;
-        case 57:
-            pCombined->tPoison.nMin = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            break;
-        case 58:
-            pCombined->tPoison.nMax = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            break;
-        case 59:
-            pCombined->tPoison.nLength = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            pCombined->tPoison.nCount = STATLIST_UnitGetStatValue(pUnit, STAT_POISON_COUNT, 0);
-            break;
-        case 21:
-            pCombined->tDamage.nMin = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            if (!pCombined->tDamage.nMin)
-                pCombined->tDamage.nMin = STATLIST_GetStatValue(pStatList, STAT_SECONDARY_MINDAMAGE, 0);
-            break;
-        case 22:
-            pCombined->tDamage.nMax = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            if (!pCombined->tDamage.nMax)
-                pCombined->tDamage.nMax = STATLIST_GetStatValue(pStatList, STAT_SECONDARY_MAXDAMAGE, 0);
-            break;
-        case 18:
-            pCombined->tDamagePercent.nMin = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            break;
-        case 17:
-            pCombined->tDamagePercent.nMax = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            break;
-        }
-    }
-
-    if (pCombined->tDamage.nMin > 0 && pCombined->tDamage.nMax > 0)
-        pCombined->tDamage.bCombined = 1;
-    if (pCombined->tDamagePercent.nMin > 0 && pCombined->tDamagePercent.nMax > 0)
-        pCombined->tDamagePercent.bCombined = 1;
-    if (pCombined->tCold.nMin > 0 && pCombined->tCold.nMax > 0)
-        pCombined->tCold.bCombined = 1;
-    if (pCombined->tLightning.nMin > 0 && pCombined->tLightning.nMax > 0)
-        pCombined->tLightning.bCombined = 1;
-    if (pCombined->tFire.nMin > 0 && pCombined->tFire.nMax > 0)
-        pCombined->tFire.bCombined = 1;
-    if (pCombined->tPoison.nMin > 0 && pCombined->tPoison.nMax > 0)
-        pCombined->tPoison.bCombined = 1;
-    if (pCombined->tMagic.nMin > 0 && pCombined->tMagic.nMax > 0)
-        pCombined->tMagic.bCombined = 1;
-}
-
 static int __stdcall SKILLDESC_GetStatDisplayValue(int nValue, D2ItemStatCostTxt* pRecord, D2UnitStrc* pUnit, int nStatId)
 {
     if (pRecord->nOp >= 2 && pRecord->nOp <= 5)
@@ -1205,127 +1123,6 @@ int __stdcall SKILLDESC_IsStatGroupUniform(D2UnitStrc* pUnit, D2StatListStrc* pS
 }
 
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
-// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-static int __stdcall sub_004E5A20_BuildCombinedStatText(int nStatId, Unicode* pOut, D2CombinedStatsStrc* pCombined)
-{
-    Unicode wszText[256];
-    memset(wszText, 0, sizeof(wszText));
-
-    int bAppend = 0;
-    switch (nStatId)
-    {
-    case 49:
-        return pCombined->tFire.bCombined;
-    case 55:
-        return pCombined->tCold.bCombined;
-    case 51:
-        return pCombined->tLightning.bCombined;
-    case 53:
-        return pCombined->tMagic.bCombined;
-    case 58:
-    case 59:
-        return pCombined->tPoison.bCombined;
-    case 17:
-        return pCombined->tDamagePercent.bCombined;
-    case 48:
-        if (!pCombined->tFire.bCombined)
-            return 0;
-        if (pCombined->tFire.nMin >= pCombined->tFire.nMax)
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE1C), pCombined->tFire.nMax);
-        else
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE1D), pCombined->tFire.nMin, pCombined->tFire.nMax);
-        bAppend = 1;
-        break;
-    case 54:
-        if (!pCombined->tCold.bCombined)
-            return 0;
-        if (pCombined->tCold.nMin >= pCombined->tCold.nMax)
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE1E), pCombined->tCold.nMax);
-        else
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE1F), pCombined->tCold.nMin, pCombined->tCold.nMax);
-        bAppend = 1;
-        break;
-    case 50:
-        if (!pCombined->tLightning.bCombined)
-            return 0;
-        if (pCombined->tLightning.nMin >= pCombined->tLightning.nMax)
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE20), pCombined->tLightning.nMax);
-        else
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE21), pCombined->tLightning.nMin, pCombined->tLightning.nMax);
-        bAppend = 1;
-        break;
-    case 52:
-        if (!pCombined->tMagic.bCombined)
-            return 0;
-        if (pCombined->tMagic.nMin >= pCombined->tMagic.nMax)
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE22), pCombined->tMagic.nMax);
-        else
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE23), pCombined->tMagic.nMin, pCombined->tMagic.nMax);
-        bAppend = 1;
-        break;
-    case 57:
-        if (!pCombined->tPoison.bCombined)
-            return 0;
-        if (pCombined->tPoison.nCount <= 0)
-            pCombined->tPoison.nCount = 1;
-        pCombined->tPoison.nLength /= pCombined->tPoison.nCount;
-        pCombined->tPoison.nMin = (pCombined->tPoison.nMin * pCombined->tPoison.nLength + 0x80) >> 8;
-        pCombined->tPoison.nMax = (pCombined->tPoison.nMax * pCombined->tPoison.nLength + 0x80) >> 8;
-        if (pCombined->tPoison.nMin >= pCombined->tPoison.nMax)
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE24), pCombined->tPoison.nMax, pCombined->tPoison.nLength / 25);
-        else
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE25), pCombined->tPoison.nMin, pCombined->tPoison.nMax, pCombined->tPoison.nLength / 25);
-        bAppend = 1;
-        break;
-    case 24:
-        if (pCombined->tDamage.bShown)
-            return 1;
-        return pCombined->tDamage.bCombined;
-    case 21:
-    case 22:
-    case 23:
-        if (!pCombined->tDamage.bShown)
-        {
-            if (!pCombined->tDamage.bCombined)
-                return 0;
-            if (pCombined->tDamage.nMin >= pCombined->tDamage.nMax)
-            {
-                pCombined->tDamage.bShown = 0;
-                pCombined->tDamage.bCombined = 0;
-                return 0;
-            }
-            pCombined->tDamage.bShown = 1;
-            sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0xE27), pCombined->tDamage.nMin, pCombined->tDamage.nMax);
-        }
-        bAppend = 1;
-        break;
-    case 18:
-    {
-        const Unicode* pPercent = D2LANG_GetStringFromTblIndex(0xFA1);
-        const Unicode* pSpace = D2LANG_GetStringFromTblIndex(0xF9B);
-        const Unicode* pPlus = D2LANG_GetStringFromTblIndex(0xFA2);
-        Unicode wszNumber[10];
-        char szNumber[10];
-        SStrPrintf(szNumber, 10, gszFormatI, pCombined->tDamagePercent.nMin);
-        sub_00526320_ToUnicode(wszNumber, szNumber, 9);
-        if (!pCombined->tDamagePercent.bCombined)
-            return 0;
-
-        sub_005267E0(wszText, pPlus);
-        sub_00526700(wszText, wszNumber);
-        sub_00526700(wszText, pPercent);
-        sub_00526700(wszText, pSpace);
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x2727));
-        bAppend = 1;
-        break;
-    }
-    }
-
-    if (bAppend)
-        sub_00526700(pOut, wszText);
-
-    return bAppend;
-}
 
 
 static D2SkillsTxt* sub_H14_GetSkillsTxtRecord(int nSkillId)
@@ -1376,13 +1173,6 @@ static unsigned short SKILLDESC_GetSkillDescStrLong(int nSkillId)
 int sub_H14_Emit_004E83B0(Unicode* wszOut, int nSkillId)
 {
     return SKILLDESC_AppendSkillDescStrLong(wszOut, nSkillId);
-}
-
-static D2SkillsTxt* sub_D05_GetSkillsTxtRecord(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    return 0;
 }
 
 // 0x004E6EA0
@@ -2386,23 +2176,6 @@ static void __stdcall SKILLDESC_AddScaledWeaponDamage(D2UnitStrc* pUnit, int* pM
     *pMaxDamage += nMax * nRatio / 128;
 }
 
-static inline int sub_I05_ETypeColor(int nEType)
-{
-    switch (nEType)
-    {
-    case 1:
-        return 1;
-    case 2:
-        return 9;
-    case 3:
-    case 4:
-        return 3;
-    case 5:
-        return 2;
-    }
-    return 0;
-}
-
 // 0x004E96E0
 static void __fastcall SKILLDESC_DrawDamageRange(int nMin, int nMax, int nColor, int nY, int nLeft, int nRight)
 {
@@ -2882,16 +2655,6 @@ void __fastcall SKILLDESC_DrawKickBaseDamage(D2UnitStrc* pUnit, D2SkillStrc* pSk
     int nDamage = pSkillsTxt->dwMinDam << (pSkillsTxt->nToHitShift - 8);
     nDamage += STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_KICKDAMAGE, 0);
     SKILLDESC_DrawDamageRange(nDamage, nDamage, 0, nY, nLeft, nRight);
-}
-
-static D2SkillsTxt* sub_I05_GetSkillsTxtRecord(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-
-    return 0;
 }
 
 static inline int ApplyRatio_Inline(int nValue, int nMultiplier, int nDivisor)
@@ -3819,38 +3582,6 @@ static int __stdcall SKILLDESC_AddMissileElemRate(D2UnitStrc* pUnit, Unicode* ws
     return SKILLDESC_AddElemRatePerSecond(nString, wszText, nMinRate, nMaxRate);
 }
 
-static void __stdcall sub_004E6EA0_ApplyFireMastery(int* pMin, int* pMax, D2SkillsTxt* pSkillsTxt)
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (pSkillsTxt && pSkillsTxt->nEType == 1)
-    {
-        const int nMastery = STATLIST_UnitGetStatValue(pPlayer, STAT_PASSIVE_FIRE_MASTERY, 0);
-        if (nMastery)
-        {
-            const int nMin = *pMin;
-            *pMin = DATATBLS_ApplyRatio(nMin, nMastery, 100) + nMin;
-            const int nMax = *pMax;
-            *pMax = DATATBLS_ApplyRatio(nMax, nMastery, 100) + nMax;
-        }
-    }
-}
-
-static void __stdcall sub_004E6F00_ApplyLightningMastery(int* pMin, int* pMax, D2SkillsTxt* pSkillsTxt)
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (pSkillsTxt && pSkillsTxt->nEType == 2)
-    {
-        const int nMastery = STATLIST_UnitGetStatValue(pPlayer, STAT_PASSIVE_LTNG_MASTERY, 0);
-        if (nMastery)
-        {
-            const int nMin = *pMin;
-            *pMin = DATATBLS_ApplyRatio(nMin, nMastery, 100) + nMin;
-            const int nMax = *pMax;
-            *pMax = DATATBLS_ApplyRatio(nMax, nMastery, 100) + nMax;
-        }
-    }
-}
-
 // 0x004EC740
 static int __stdcall SKILLDESC_AddSkillElemRateByType(Unicode* wszText, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -3979,52 +3710,6 @@ static int __stdcall SKILLDESC_AddSummonDamage(D2UnitStrc* pUnit, Unicode* wszTe
 
     SKILLDESC_AddElemRange(wszText, nMin, 0x10A0, nMax, 0);
     return 1;
-}
-
-static inline int ApplyPercent_2E0(int nValue, int nPercent)
-{
-    if (nValue > 0x100000)
-    {
-        if (100 > (nValue >> 4))
-        {
-            return (int)(nValue * (__int64)nPercent / 100);
-        }
-        return nPercent * (nValue / 100);
-    }
-
-    if (nPercent > 0x10000)
-    {
-        if (100 > (nPercent >> 4))
-        {
-            return (int)(nValue * (__int64)nPercent / 100);
-        }
-        return nValue * (nPercent / 100);
-    }
-
-    return nPercent * nValue / 100;
-}
-
-static inline int ApplyPercent_150(int nValue, int nPercent)
-{
-    if (nValue > 0x100000)
-    {
-        if (100 > (nValue >> 4))
-        {
-            return (int)(nValue * (__int64)nPercent / 100);
-        }
-        return nPercent * (nValue / 100);
-    }
-
-    if (nPercent > 0x10000)
-    {
-        if (100 > (nPercent >> 4))
-        {
-            return (int)(nValue * (__int64)nPercent / 100);
-        }
-        return nValue * (nPercent / 100);
-    }
-
-    return nPercent * nValue / 100;
 }
 
 static inline int IsSingleValue(int nMin, int nMax)
@@ -4352,51 +4037,6 @@ void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
     }
     else if (nValue1)
         sub_004E9940_DrawNumberCentered(nColor1, TP[nIndex].nLeft, TP[nIndex].nY, TP[nIndex].nRight, nValue1);
-}
-
-static inline unsigned int SEED_RollRandomNumber_Spray(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return (unsigned int)lSeed;
-}
-
-static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Spray(int nSkillId)
-{
-    return (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
-}
-
-static inline int CLIENTS_GetUnitX_Spray(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    }
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
-static inline int CLIENTS_GetUnitY_Spray(D2UnitStrc* pUnit)
-{
-    int nResult;
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        nResult = pUnit->pStaticPath->nYPos;
-        break;
-    default:
-        if (pUnit->pDynamicPath)
-            nResult = PATH_GetYPosition(pUnit->pDynamicPath);
-        else
-            nResult = 0;
-        break;
-    }
-    return nResult;
 }
 
 
@@ -5097,25 +4737,6 @@ int __fastcall SKILLDESC_CltDoChargedMissile(D2UnitStrc* pUnit, int nSkillId, in
 }
 
 
-
-static D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline_J03(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pMonStatsTxt[nMonsterId];
-    }
-    return 0;
-}
-
-static int MONSTERS_GetBaseIdInline_J03(int nMonsterId)
-{
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInline_J03(nMonsterId);
-    if (pMonStatsTxtRecord)
-    {
-        return pMonStatsTxtRecord->nBaseId;
-    }
-    return nMonsterId;
-}
 
 static __forceinline int ApplyPercentChecked(int nValue, int nPercent)
 {
@@ -6165,29 +5786,6 @@ void __fastcall sub_004EF990_SetSkillPopUpText(D2UnitStrc* pUnit, int nSkillId, 
 
     D2Win_10131_GetTextDimensions(wszText, &nWidth, &nHeight);
     D2Win_10129_DrawFramedText(wszText, nX, nHeight + nY + 3, nArg5, 0);
-}
-
-static __forceinline int ApplyPercent(int nValue, int nPercent)
-{
-    if (nValue > 0x100000)
-    {
-        if (100 > (nValue >> 4))
-        {
-            return (int)(nValue * (__int64)nPercent / 100);
-        }
-        return nPercent * (nValue / 100);
-    }
-
-    if (nPercent > 0x10000)
-    {
-        if (100 > (nPercent >> 4))
-        {
-            return (int)(nValue * (__int64)nPercent / 100);
-        }
-        return nValue * (nPercent / 100);
-    }
-
-    return nPercent * nValue / 100;
 }
 
 static __forceinline void AppendString(Unicode* wszText, unsigned short nString)

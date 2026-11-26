@@ -1696,18 +1696,6 @@ struct D2ClientTextDataStrc;
 
 
 
-static __forceinline void sub_004845A0_DrawOtherHandFrame(D2InvCompGridStrc* pCompGrid)
-{
-    const int nLeft = pCompGrid->rect.nLeft;
-    if (nLeft >= 0 && nLeft < gnAutomapWidth)
-    {
-        const int nTop = pCompGrid->rect.nTop;
-        if (nTop >= 0 && nTop < gnAutomapHeight)
-        {
-            AUTOMAP_DrawFramedBox(nLeft, nTop, pCompGrid->nWidth, pCompGrid->nHeight, gabColors_007BCAD8[0], 0);
-        }
-    }
-}
 
 
 
@@ -1760,33 +1748,6 @@ static __forceinline void sub_004845A0_DrawOtherHandFrame(D2InvCompGridStrc* pCo
 
 
 
-
-
-static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    }
-
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
-static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    }
-
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
 
 
 
@@ -1871,11 +1832,6 @@ static int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 
 
 
-static inline int InRect(int nX, int nY, int nLeft, int nRight, int nTop, int nBottom)
-{
-    return nX >= nLeft && nX < nRight && nY >= nTop && nY <= nBottom;
-}
-
 
 
 
@@ -1904,31 +1860,9 @@ struct D2SkillStrc;
 
 
 
-static __forceinline int IsCursorInRectInline(int nLeft, int nTop, int nRight, int nBottom)
-{
-    int nX = sub_00468730();
-    int nY = sub_00468740();
-    if (nX >= nLeft && nX <= nRight && nY >= nTop && nY <= nBottom)
-        return 1;
-    return 0;
-}
-
-static __forceinline void DrawBodyLocRectInline(D2InvCompGridStrc* pRect, int nColor)
-{
-    const int nX = pRect->rect.nLeft;
-    const int nY = pRect->rect.nTop;
-    if (nX >= 0 && nX < gnAutomapWidth && nY >= 0 && nY < gnAutomapHeight)
-        AUTOMAP_DrawFramedBox(nX, nY, pRect->nWidth, pRect->nHeight, nColor, 0);
-}
 
 
 
-
-
-static inline int INV_GetUnitIdInline(D2UnitStrc* pUnit)
-{
-    return !pUnit ? -1 : pUnit->dwUnitId;
-}
 
 
 
@@ -2018,36 +1952,9 @@ static void __stdcall sub_00486BD0_GetItemCell(unsigned int nX, unsigned int nY,
 
 
 
-static inline int INV_IsModeInRange(int nMode)
-{
-    if (nMode < 2)
-    {
-        return 0;
-    }
-    if (nMode > 4)
-    {
-        return 0;
-    }
-    return 1;
-}
 
 
 
-
-
-static int __fastcall GetCenteredXInline(unsigned short nString, int nX)
-{
-    unsigned short wszTextBuf[100];
-    Unicode* wszText = (Unicode*)wszTextBuf;
-    for (int i = 0; i < 100; ++i)
-    {
-        wszText[i].wChar = 0;
-    }
-    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nString));
-    int nWidth = D2Win_10121_GetTextWidth(wszText);
-    nWidth /= 2;
-    return nX - nWidth;
-}
 
 
 
@@ -2056,20 +1963,6 @@ static int __fastcall GetCenteredXInline(unsigned short nString, int nX)
 
 
 extern int gbHelpUiOpened;                                                                         // 0x007BEF00
-
-static int __fastcall GetCenteredX_Inl(unsigned short nString, int nX)
-{
-    unsigned short wszTextBuf[100];
-    Unicode* wszText = (Unicode*)wszTextBuf;
-    for (int i = 0; i < 100; ++i)
-    {
-        wszText[i].wChar = 0;
-    }
-    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nString));
-    int nWidth = D2Win_10121_GetTextWidth(wszText);
-    nWidth /= 2;
-    return nX - nWidth;
-}
 
 
 

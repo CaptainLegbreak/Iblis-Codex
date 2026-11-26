@@ -1050,31 +1050,6 @@ void __stdcall sub_E4F1_Emit_00474D70(int nLevel, D2R01LightStrc* pLight)
     pLight->nRadius = 0;
 }
 
-static inline unsigned char sub_K01_GetGridCellByte(int nX, int nY)
-{
-    const int nGridX = (nX >> 3) - gnCellOriginX;
-    if (nGridX < 0)
-    {
-        return 1;
-    }
-    if (nGridX >= 0x30)
-    {
-        return 1;
-    }
-
-    const int nGridY = (nY >> 3) - gnCellOriginY;
-    if (nGridY < 0)
-    {
-        return 1;
-    }
-    if (nGridY >= 0x30)
-    {
-        return 1;
-    }
-
-    return (unsigned char)gtGridCells_007B0E68[nGridY * 48 + nGridX].nFlag;
-}
-
 // 0x004750F0
 static void DLIGHTMAP_BuildLightMask(D2R01LightStrc* pLight)
 {

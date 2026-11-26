@@ -2935,31 +2935,11 @@ D2UnitStrc* __fastcall CUNIT_CreateObjectUnit(unsigned int nUnitId, int nClassId
     return pUnit;
 }
 
-static inline D2MonStatsTxt* sub_F4B0_GetMonStatsTxt(int nId)
-{
-    if (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pMonStatsTxt[nId];
-    }
-
-    return 0;
-}
-
 static inline D2MonStats2Txt* sub_A3_GetMonStats2TxtRecord(int nMonStatsEx)
 {
     if (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount)
     {
         return &sgptDataTables->pMonStats2Txt[nMonStatsEx];
-    }
-
-    return 0;
-}
-
-static inline D2MonStatsTxt* sub_A3_GetMonStatsTxtRecord(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pMonStatsTxt[nMonsterId];
     }
 
     return 0;

@@ -675,13 +675,6 @@ static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
     return 0;
 }
 
-static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    return 0;
-}
-
 // 0x004C5680
 void __fastcall SKILLS_AttachMissileLight(D2UnitStrc* pUnit, int nMissileId)
 {
@@ -725,11 +718,6 @@ static inline unsigned int SKILLCLT_RollSeed(D2SeedStrc* pSeed)
 static inline unsigned char SKILLCLT_GetUnitTypeByte(D2UnitStrc* pUnit)
 {
     return pUnit->dwUnitType;
-}
-
-static inline int SKILLCLT_GetUnitType(D2UnitStrc* pUnit)
-{
-    return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
 }
 
 static __forceinline void SKILLCLT_SetCastState(D2UnitStrc* pUnit)
@@ -2968,24 +2956,6 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* pPath, int nType); // 0x00648CF0
 
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 
-
-static inline int sub_GetUnitTypeChecked(D2UnitStrc* pUnit)
-{
-    if (pUnit)
-    {
-        return pUnit->dwUnitType;
-    }
-    return 6;
-}
-
-static inline int sub_GetUnitGUIDChecked(D2UnitStrc* pUnit)
-{
-    if (pUnit)
-    {
-        return pUnit->dwUnitId;
-    }
-    return -1;
-}
 
 D2UnitStrc* __fastcall sub_M109_Emit_004C9D50(D2UnitStrc* pUnit, int nUnitId)
 {

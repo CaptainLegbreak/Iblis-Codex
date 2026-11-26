@@ -592,19 +592,6 @@ extern "C" void __cdecl TEXT_ClearListFlags(void)
 
 void __cdecl QUESTLOG_FreeQuestCels(); // 0x004A2550
 
-static void sub_004A2390_ResetQuestSelection()
-{
-    gbQuestSlotDown = 0;
-    gbGlobal_007BF2B2 = 0;
-    gbGlobal_007BF2B0 = 0;
-    gnQuestPressedSlot = -1;
-    gbGlobal_007BF2B4 = 0;
-    gbGlobal_007C025D = 0;
-    gbGlobal_007C025E = 0;
-    gbGlobal_007C025F = 0;
-    gbGlobal_007C0260 = 0;
-}
-
 
 
 
@@ -676,35 +663,6 @@ extern "C" void __fastcall PLAYER_SetVirtualPlayerCount(unsigned int count)
 {
     if (count <= 8)
         gB27_00883D70 = count;
-}
-
-static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return (unsigned int)lSeed;
-}
-
-static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
-{
-    if (nMax <= 0)
-    {
-        return 0;
-    }
-
-    if ((nMax - 1) & nMax)
-    {
-        return SEED_RollRandomNumber(pSeed) % nMax;
-    }
-
-    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
-}
-
-static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
-{
-    if (!pUnit) return -1;
-    return pUnit->dwUnitId;
 }
 
 
