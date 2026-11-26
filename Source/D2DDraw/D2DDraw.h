@@ -45,3 +45,10 @@ struct D2SmackRecordStrc;
 
 int __cdecl DDCORE_GetBlendedShadows(); // 0x00512700
 void __fastcall DDSMACK_CloseSmacker(D2SmackRecordStrc* pRecord); // 0x00513330
+int __fastcall DDCORE_GetDrawModePalette(int nIndex, int*pType); // 0x00511D70
+void __fastcall sub_00511DF0_DDrawSetMode(int nResolutionMode); // 0x00511DF0
+void __cdecl DDDEBUGFONT_CreateDebugFont(); // 0x00512430
+void __cdecl DDDEBUGFONT_FreeDebugFont(); // 0x005125B0
+void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x00512710
+void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT*pRect, unsigned char nColor); // 0x00512D90
+void __fastcall sub_00512ED0_ClearScreen(int bPartial); // 0x00512ED0

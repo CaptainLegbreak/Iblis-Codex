@@ -111,3 +111,44 @@ void __cdecl sub_0050BE20_GlideDebugRefresh(); // 0x0050BE20
 void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x0050BF50
 int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, unsigned char nShade, int nScreenPanels); // 0x0050C890
 int __fastcall sub_0050CA00_GlideShadowTileDrawPerspective(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels); // 0x0050CA00
+int __cdecl GLCORE_GetFloorTilesFlag(); // 0x00509650
+void __cdecl GLSPRITE_FreeSpriteBuffers(); // 0x0050A0C0
+void __fastcall GLCORE_ReleaseTexSlots(void*pData); // 0x0050A110
+void __cdecl GLSPRITE_InitSprites(); // 0x0050B7B0
+int __fastcall GLDEBUGFONT_DownloadDebugFont(int nStartAddress, int nAlignment); // 0x0050B860
+void __cdecl GLDEBUGFONT_CreateDebugFont(); // 0x0050B9E0
+void __cdecl GLDEBUGFONT_FreeDebugFont(); // 0x0050BB70
+int __cdecl sub_0050BF40_GlideGetBlendedShadows(); // 0x0050BF40
+void __fastcall sub_0050C270_GlideDrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, unsigned char nAlpha); // 0x0050C270
+void __cdecl sub_0050C760_GlideInitVertices(); // 0x0050C760
+void __cdecl sub_0050D540_GlideInitD(); // 0x0050D540
+void __cdecl GLVERTEX_AllocBlendTable(); // 0x0050DB20
+void __cdecl GLVERTEX_FreeBlendTable(); // 0x0050DB40
+void __cdecl GLVERTEX_BuildBlendTable(); // 0x0050DB70
+void __cdecl GLPERSPECTIVE_AllocPerspectiveTable(); // 0x0050DC80
+void __cdecl GLPERSPECTIVE_FreePerspectiveTable(); // 0x0050DCA0
+void __cdecl GLPERSPECTIVE_FillPerspectiveTable(); // 0x0050DCD0
+void __cdecl GLSMACK_SmackInit(); // 0x0050DF10
+void __cdecl GLSMACK_SmackFree(); // 0x0050DF70
+int __fastcall GLSPRITE_SetSmackTexAddresses(int nBase, int nAlign); // 0x0050DFE0
+void __cdecl GLSMACK_SmackFlush(); // 0x0050E030
+void __cdecl GLSPRITE_UploadSmackTextures(); // 0x0050E330
+int __fastcall GLTEXTURECACHE_TexCacheInit(D2GlideTexCacheStrc*pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050E890
+D2GlideTexCacheEntryStrc*__fastcall GLSMACK_TexCacheUnlink(D2GlideTexCacheStrc*pCache, int nIndex); // 0x0050EAE0
+void __fastcall GLTEXTURECACHE_TexCacheTouch(D2GlideTexCacheStrc*pCache, int nId); // 0x0050EBE0
+void __fastcall GLSMACK_TexCacheEvict(D2GlideTexCacheStrc*pCache); // 0x0050EC40
+void __fastcall GLTEXTURECACHE_TexCacheDestroy(D2GlideTexCacheStrc*pCache, int bFree); // 0x0050ECB0
+int __fastcall GLTEXTURECACHE_TexCacheAdd(D2GlideTexCacheStrc*pList); // 0x0050ED10
+int __fastcall GLSUBTILECACHE_TileCacheInit(D2GlideTileCacheStrc*pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050ED90
+void __fastcall GLSUBTILECACHE_TileCacheTouch(D2GlideTileCacheStrc*pCache, int nIndex); // 0x0050F0F0
+void __fastcall GLSUBTILECACHE_TileCacheRelease(D2GlideTileCacheStrc*pCache, int nIndex); // 0x0050F1B0
+short __fastcall GLSUBTILECACHE_TileCacheAdd(D2GlideTileCacheStrc*pCache); // 0x0050F2B0
+int __fastcall GLFLOORCACHE_FloorCacheInit(D2GlideFloorCacheStrc*pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050F320
+void __fastcall GLFLOORCACHE_FloorCacheTouch(D2GlideFloorCacheStrc*pCache, int nIndex); // 0x0050F670
+void __fastcall GLSMACK_FloorCacheRemove(D2GlideFloorCacheStrc*pCache, int nIndex); // 0x0050F750
+short __fastcall GLFLOORCACHE_FloorCacheAdd(D2GlideFloorCacheStrc*pCache); // 0x0050F820
+void __cdecl GLBLOCKS_InitBlockBuffers(); // 0x0050F870
+void __cdecl GLBLOCKS_FreeBlockBuffers(); // 0x0050F8C0
+int __fastcall GLTEXTURECACHE_BindFloorTexture(void*pTile); // 0x0050FAD0
+void __stdcall GLFLOORCACHE_ReleaseTileCache(); // 0x0050FCB0
+void __fastcall sub_0050FDF0_GlidePlaySmacker(const char*szFile, int nResolutionMode, void*pfFrame); // 0x0050FDF0

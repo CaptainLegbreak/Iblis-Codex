@@ -33,3 +33,5 @@ int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068
 void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 extern const unsigned char gCharacterClass[]; // 0x0074C5C8
+void __fastcall sub_005174E2_DestroyMember(void*pMember); // 0x005174E2
+void __fastcall sub_0051763C_Destroy(void*pObject); // 0x0051763C

@@ -36,7 +36,6 @@ extern "C" __declspec(dllimport) void __stdcall SmackToBuffer(void* hSmack, unsi
 
 void __fastcall GLSMACK_SetSmackPalette(D2RgbColorStrc* pColors); // 0x0050E070
 
-void __cdecl GLSPRITE_UploadSmackTextures(); // 0x0050E330
 
 int __stdcall SBmpDecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
 
