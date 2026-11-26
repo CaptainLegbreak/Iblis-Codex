@@ -716,7 +716,6 @@ extern "C" void __cdecl GAME_RegisterMouseHandlers(); // 0x0044DD20
 
 
 
-void __cdecl TEXT_InitKeyConfigEntries(); // 0x004A43E0
 
 extern int gbRedraw; // 0x007C0280
 
@@ -1153,7 +1152,6 @@ extern void* gapQuestIconCels[]; // 0x007BF2E1
 
 extern unsigned char gabQuestFlagsA[]; // 0x007BF356
 
-void __stdcall TEXT_LoadQuestPage(int nPage, int bReset); // 0x004A3220
 
 static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg); // 0x004A1950
 
@@ -1189,7 +1187,6 @@ static void TEXT_SetQuestPage(int nPageArg); // 0x004A2220
 
 void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg);
 
-void __cdecl QUESTLOG_DrawQuestPage(); // 0x004A34F0
 
 void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg);
 
@@ -1226,7 +1223,6 @@ Unicode* __fastcall strncpy(Unicode* pDest, const Unicode* pSource, int nCount);
 static void TEXT_FreeTextNode(D2TextNodeStrc* pNode); // 0x0049D490
 
 
-void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket); // 0x004A2CB0
 
 
 

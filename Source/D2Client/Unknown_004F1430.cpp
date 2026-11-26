@@ -49,14 +49,10 @@ enum D2C_SkillsTxtFlagIndices
 };
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
-int __fastcall SKILLSMON_StartStateList(D2UnitStrc* pUnit, int nSkillId, int nArg); // 0x004F2450
 extern int gaMissileRingX[]; // 0x006DBFE8
 extern int gaMissileRingY[]; // 0x006DC0E8
-void __fastcall SKILLDESC_MissileInit(D2UnitStrc* pMissile, int nArg); // 0x004F2AC0
-int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
 extern int gaMissileRing2X[]; // 0x006DC228
 extern int gaMissileRing2Y[]; // 0x006DC328
-void __fastcall SKILLDESC_InitCurvingMissilePath(D2UnitStrc* pMissile, int nArg); // 0x004F2BE0
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {

@@ -60,7 +60,6 @@ void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 bool __stdcall sub_004A2970(int nX, int nY); // 0x004A2970
 
 
-void __fastcall TEXT_MoveKeyConfigSelection(int nStep); // 0x004A45C0
 
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
@@ -281,7 +280,6 @@ D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
-void __stdcall TEXT_LoadQuestPage(int nPage, int nArg); // 0x004A3220
 
 
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
@@ -589,7 +587,6 @@ extern "C" void __cdecl TEXT_ClearListFlags(void)
 
 
 
-void __cdecl QUESTLOG_FreeQuestCels(); // 0x004A2550
 
 
 

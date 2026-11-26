@@ -110,7 +110,6 @@ void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x00
 void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatListRemoveCallback pfStatRemove); // 0x00625CE0
 
 
-void __fastcall sub_004E3170_SetMissileFrames(D2UnitStrc* pMissile, int nDivisor); // 0x004E3170
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
@@ -128,12 +127,9 @@ int __fastcall SKILLS_ScanFindUnit(D2UnitStrc* pUnit, int nX, int nY, int nRange
 
 
 
-void __stdcall GFXUTIL_UpdateMotion(D2UnitStrc* pUnit); // 0x004DA350
 
 
-int __fastcall SKILLDESC_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int nMissile, int nSkillId, int nSkillLevel, int nArg6, int nArg7, int nArg8); // 0x004F16F0
 
-int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
 
 
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
@@ -177,7 +173,6 @@ void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned in
 
 
 
-void __fastcall SOUNDINST_SetValue(int nKey, int nValue); // 0x004B9B50
 
 
 void __fastcall sub_004BA840_StopSound(int nHandle); // 0x004BA840
@@ -235,7 +230,6 @@ extern int gnGlobal_0072D88C; // 0x0072D88C
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
-void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nSlot); // 0x004ED570
 
 
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
@@ -274,13 +268,11 @@ int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInvent
 
 
 
-int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill); // 0x004E89A0
 
 char gbTextOffsetInit; // 0x007C8C9C
 
 char gbSkillRefreshInit; // 0x007C8CA4
 
-void __fastcall SKILLDESC_MissileScatter(D2UnitStrc* pUnit, int nSeed, int nMissile, int nX, int nY, int nCount, int nSkillId, int nSkillLevel); // 0x004F28A0
 
 
 
@@ -288,7 +280,6 @@ void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPat
 
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 
-void __fastcall SKILLDESC_DrawWeaponPhysElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight); // 0x004EAD60
 
 static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecordForceInline(int nSkillId)
 {

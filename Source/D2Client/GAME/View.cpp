@@ -249,7 +249,6 @@ struct D2PalShiftNodeStrc
 
 void __cdecl VIEW_FreeCels(); // 0x00475EB0
 
-void __fastcall WALL2_FreeViewCells(D2ViewStrc* pView); // 0x004DCF30
 
 
 void __fastcall WALL2_PrepareWallCells(D2ViewStrc* pView, int nValue); // 0x004DDB70
@@ -312,7 +311,6 @@ int __fastcall sub_00472280_RollInRange(D2SeedStrc* pSeed, int nOffset, int nRan
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
 
-void __fastcall SOUNDINST_SetValue(int nKey, int nValue); // 0x004B9B50
 
 void __fastcall sub_004BA840_StopSound(int nHandle); // 0x004BA840
 
@@ -439,7 +437,6 @@ int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                           
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                                                        // 0x00620410
 
 
-void __cdecl WALL2_UpdateRoomColor();                                                                 // 0x004DED20
 
 
 
@@ -447,15 +444,12 @@ void __cdecl VIEW_DrawStarfield();                                              
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                                                                    // 0x00478A00
 
-void __fastcall sub_004DF480_UpdateAllTileLights(D2TileLightCtxStrc* pCtx);                                  // 0x004DF480
 
-void __fastcall sub_004DED10_UpdateView(void* pArg);                                                                    // 0x004DED10
 
 void __cdecl sub_00473C00_DrawWeatherLayers();                                                               // 0x00473C00
 
 void __fastcall sub_004DF1C0(D2ViewStrc* pView);                                                             // 0x004DF1C0
 
-void __fastcall DFLOOR_UpdateFloorView(D2ViewStrc* pView);                                                             // 0x004DEA70
 
 void __cdecl DLIGHTMAP_DebugDrawLights();                                                                 // 0x00475B20
 

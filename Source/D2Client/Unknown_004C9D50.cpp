@@ -55,7 +55,6 @@ extern int gnLastRequestTick; // 0x007C88C4
 extern int gnLastRequestSound; // 0x007C88C8
 
 
-int __fastcall SKILLS_DoClientSkill(D2UnitStrc* pUnit, int nSkillId, int nArg, int nMode); // 0x004C6680
 
 
 
@@ -82,7 +81,6 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int bSet
 int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
 
 
-void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int nArg); // 0x004CB6A0
 
 
 

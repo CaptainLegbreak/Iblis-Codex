@@ -26,11 +26,8 @@ int __stdcall INV_FreeCacheEntries(unsigned int nFree, int bTwoPasses, int bChec
 
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
-void __cdecl sub_004DF800_StopAllSlots(); // 0x004DF800
 
-void __cdecl SOUNDINST_FreeAllSounds(); // 0x004B9D20
 
-void __cdecl sub_004E00C0_CloseSoundChannels(); // 0x004E00C0
 
 
 extern int gdwSoundTick; // 0x007BC9BC
@@ -78,11 +75,9 @@ extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
 
-void __fastcall sub_004E0050_RestartSound(int nArg); // 0x004E0050
 
 extern "C" void __cdecl SOUNDINST_ResetSoundState(); // 0x004B9D00
 
-void __cdecl SKILLS_ResetLevelSpeech(); // 0x004CA280
 
 D2SlotStrc* __fastcall SoundChannelFind(int nOwner); // 0x004DF9D0
 
@@ -739,14 +734,10 @@ void __fastcall SOUNDHDR_UpdateCache(unsigned int nTick)
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
 
-void __fastcall sub_004BA020_UpdateSounds(unsigned int nTick); // 0x004BA020
-
-void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int nTick); // 0x004DCAA0
 
 
-void __cdecl sub_004DF890_ReleaseFinishedSlots(); // 0x004DF890
 
-void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int nTick); // 0x004E42E0
+
 
 
 // 0x00482C20

@@ -1,3 +1,9 @@
+// A piece of ItemTbls.cpp (0x00631430-0x00639CC0), kept as its own file because the join doesn't build equal. Moved into
+// ItemTbls.cpp (with D2SetsTxt.h, D2Records.h's set-item record, the field names as literals and TBL_ASSERT), this
+// loader permutes the registers it keeps the repeated table constants in (&sgtDataTables.pPropertiesLinker, field type
+// 25, DATATBLS_ItemParamLinker), and DATATBLS_LoadRareSuffix_PrefixTxt (0x00633F40) swaps its record-count loads, the
+// same flip that keeps ItemTbls_00633730.cpp apart. The piece stays until that unit's declaration sensitivity is
+// understood.
 struct D2TxtLinkStrc;
 
 struct D2BinFieldStrc

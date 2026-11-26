@@ -20,8 +20,6 @@ struct D2RosterGroupStrc;
 
 struct D2RosterCorpseStrc;
 
-struct D2RosterUnitStrc;
-
 struct Obj00479B80;
 
 struct Obj00479BA0;
@@ -36,16 +34,6 @@ struct Obj0047A670;
 
 extern D2RosterPetStrc* gpRosterPets; // 0x007BB5BC
 
-
-struct D2RosterUnitStrc
-{
-    char unk0x00[0x38];
-    D2RosterCorpseStrc* pCorpse;
-    char unk0x3C[0x08];
-    unsigned short wGuildFlags;
-    unsigned char szGuildTag[4];
-    unsigned char szGuildName[4];
-};
 
 
 
@@ -143,11 +131,8 @@ void __cdecl ROSTER_SortGroupMembers(); // 0x004799C0
 
 void __cdecl ROSTER_JoinRosterGroups(); // 0x00479A00
 
-void __fastcall PLAYERLIST_AddRosterInfo(int nUnitId1, int nUnitId2); // 0x004DC320
 
-void __fastcall GFXUTIL_SetRelationFlag(int nUnitId1, int nUnitId2, unsigned int nFlags, int bSet); // 0x004DC3E0
 
-void __fastcall GFXUTIL_SetRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC4C0
 
 
 static D2StoredUnitRecordStrc* gpStoredUnits; // 0x007BB5C0
@@ -169,7 +154,6 @@ void __cdecl ROSTER_BuildRosterGroups();                                        
 D2StoredUnitRecordStrc* __cdecl ROSTER_LeaveParty();                                                  // 0x00479F60
 
 
-D2RosterInfoStrc** __cdecl PLAYERLIST_AllocRosterInfoList();                                              // 0x004DC270
 
 // build: symbol ?ROSTER_SetCtrlState@* 0x004B8370
 struct ROSTER_SetCtrlState
@@ -271,7 +255,7 @@ void __cdecl ROSTER_SortMainListByKills(); // 0x00479740
 
 
 // 0x004792C0
-static inline int ROSTER_HasCorpse(D2RosterUnitStrc* pRosterUnit, unsigned int dwCorpseId)
+static inline int ROSTER_HasCorpse(D2StoredUnitRecordStrc* pRosterUnit, unsigned int dwCorpseId)
 {
     for (D2RosterCorpseStrc* pCorpse = pRosterUnit->pCorpse; pCorpse; pCorpse = pCorpse->pNext)
     {
@@ -343,7 +327,7 @@ static void __stdcall ROSTER_FillRosterUnit(int nUnitId, int nClassId, unsigned 
 }
 
 // 0x00479470
-static inline void ROSTER_FreeCorpses(D2RosterUnitStrc* pRosterUnit)
+static inline void ROSTER_FreeCorpses(D2StoredUnitRecordStrc* pRosterUnit)
 {
     D2RosterCorpseStrc* pCorpse = pRosterUnit->pCorpse;
     while (pCorpse)
@@ -355,7 +339,7 @@ static inline void ROSTER_FreeCorpses(D2RosterUnitStrc* pRosterUnit)
     pRosterUnit->pCorpse = 0;
 }
 
-int __fastcall sub_M119_Emit_004792C0(D2RosterUnitStrc* pRosterUnit, unsigned int dwCorpseId)
+int __fastcall sub_M119_Emit_004792C0(D2StoredUnitRecordStrc* pRosterUnit, unsigned int dwCorpseId)
 {
     if (ROSTER_HasCorpse(pRosterUnit, dwCorpseId + 1))
     {
@@ -770,7 +754,7 @@ void __fastcall ROSTER_SetKillCount(int nUnitId, unsigned short nValue)
 }
 
 // 0x00479B50
-unsigned short __fastcall ROSTER_GetGuildFlags(D2RosterUnitStrc* pRosterUnit)
+unsigned short __fastcall ROSTER_GetGuildFlags(D2StoredUnitRecordStrc* pRosterUnit)
 {
     if (!pRosterUnit)
     {
@@ -780,23 +764,23 @@ unsigned short __fastcall ROSTER_GetGuildFlags(D2RosterUnitStrc* pRosterUnit)
 }
 
 // 0x00479B60
-unsigned char* __fastcall ROSTER_GetGuildTag(D2RosterUnitStrc* pRosterUnit)
+unsigned char* __fastcall ROSTER_GetGuildTag(D2StoredUnitRecordStrc* pRosterUnit)
 {
     if (!pRosterUnit)
     {
         return 0;
     }
-    return pRosterUnit->szGuildTag;
+    return (unsigned char*)pRosterUnit->szGuildTag;
 }
 
 // 0x00479B70
-unsigned char* __fastcall ROSTER_GetGuildName(D2RosterUnitStrc* pRosterUnit)
+unsigned char* __fastcall ROSTER_GetGuildName(D2StoredUnitRecordStrc* pRosterUnit)
 {
     if (!pRosterUnit)
     {
         return 0;
     }
-    return pRosterUnit->szGuildName;
+    return (unsigned char*)pRosterUnit->szGuildName;
 }
 
 // 0x00479B80

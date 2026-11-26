@@ -1350,9 +1350,7 @@ int __cdecl AUTOMAP_GetAutomapLeft(); // 0x00457770
 
 int __fastcall AUTOMAP_SaveAutomapLeft(int nValue); // 0x00457780
 
-void __fastcall SPELLSEL_SetSkillSelectRight(int nValue); // 0x004A8CE0
 
-void __fastcall SPELLSEL_AssignHotkey(int nHotkey); // 0x004A9E60
 
 
 
@@ -1368,14 +1366,11 @@ void __fastcall GAME_SetRunKeyHeld(int nValue); // 0x0044BE60
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-int __cdecl NPCMENU_IsAnyDialogOpen(); // 0x004B34A0
-
-int __cdecl TEXT_IsTextBoxOpen(); // 0x004A0000
 
 
 
 
-void __fastcall SPELLSEL_CycleHotkey(int nDelta); // 0x004AA740
+
 
 void __cdecl INV_ResetEquipSounds(); // 0x0048A730
 

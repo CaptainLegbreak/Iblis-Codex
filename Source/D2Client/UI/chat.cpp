@@ -841,13 +841,9 @@ void __fastcall sub_004776C0_SetGamma(void* pArg);
 
 int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 
-int __cdecl sub_004DF940_IsPositionalSoundEnabled(); // 0x004DF940
 
-int __cdecl sub_004DF960_IsEaxEnabled(); // 0x004DF960
 
-int __cdecl sub_004E00D0_ToggleSoundMode01(); // 0x004E00D0
 
-int __cdecl sub_004E0140_ToggleSoundMode12(); // 0x004E0140
 
 void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
 
@@ -1281,14 +1277,11 @@ int __fastcall D2SOUND_SetPositionalBiasOption(int nValue); // 0x00514D30
 
 int __fastcall sub_00514D60_SetNpcSpeech(int nValue); // 0x00514D60
 
-int __cdecl sub_004DF9B0_IsSoundMode2(); // 0x004DF9B0
 
-void __fastcall sub_004E0690_SetSoundTableFlag(int nValue); // 0x004E0690
 
 
 void __stdcall D2GFX_SetLowQuality(int bLowQuality); // 0x004F5220
 
-void __fastcall MISSILE_SetMissileLights(int nValue); // 0x004CCF20
 
 
 static void sub_0047D5C0_ActivateOption(SMSGHANDLER_PARAMS* pMsg);
@@ -1537,7 +1530,6 @@ extern "C" int __cdecl atoi(const char* szString);                              
 
 
 
-void __cdecl SOUNDINST_ToggleHints();                                                                    // 0x004BABC0
 
 int __stdcall CHAT_ParseChatCommand(char** ppText, char* pCode, char* szArgument);                  // 0x0047BAD0
 

@@ -32,6 +32,22 @@ struct D2SoundEnvironTxtStrc;
 struct D2UnitTargetStrc;
 struct D2MissilesTxt;
 struct D2UnitStrc;
+struct D2CinematicPacketStrc;
+struct D2ClientPacket7Strc;
+struct D2GSPacketSrv42Strc;
+struct D2GSPacketSrv5E;
+struct D2GSPacketSrv7DStrc;
+struct D2GSPacketSrv9C;
+struct D2GSPacketSrv9D;
+struct D2HirelingInfoStrc;
+struct D2ItemStatCostTxt;
+struct D2PacketRecord11Strc;
+struct D2PacketRecord13Strc;
+struct D2PacketRecord6Strc;
+struct D2PacketRecord7Strc;
+struct D2PacketRecord8Strc;
+struct D2SkillsTxt;
+struct D2TileLightCtxStrc;
 
 void __fastcall GAME_CalcCdKeyChecksum(char* szKey, unsigned int* pChecksum); // 0x00449890
 int __cdecl WINMAIN_PollMcpConnection(); // 0x00449B70
@@ -590,3 +606,257 @@ unsigned short __fastcall SKILLDESC_GetSkillDescStringId(int skillId, int string
 void __fastcall sub_004EF990_SetSkillPopUpText(D2UnitStrc* pUnit, int nSkillId, int nArg3, int nArg4, int nArg5, int nX, int nY); // 0x004EF990
 int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId); // 0x004EFC20
 int __fastcall SKILLDESC_GetSkillParamSix(int nSkillId); // 0x004F4110
+
+// D2Client from 0x004A0000 up
+int __cdecl TEXT_IsTextBoxOpen(); // 0x004A0000
+void __cdecl TEXT_FreeTextLists(); // 0x004A0010
+void TEXT_OpenMessageLogDialog(); // 0x004A0050
+void __cdecl TEXT_CloseMessageLogDialog(); // 0x004A01A0
+void __cdecl TEXT_ToggleListDialogUI(); // 0x004A02F0
+void __cdecl TEXT_FreeTextResources(); // 0x004A0680
+void __fastcall TEXT_UpdateTexts(D2ViewStrc* pView); // 0x004A0E70
+void __cdecl QUESTLOG_FreeQuestCels(); // 0x004A2550
+void __cdecl QUESTLOG_FreeQuestPanel(); // 0x004A2600
+void __cdecl QUESTLOG_ResetQuestButton(); // 0x004A28D0
+void __cdecl QUESTLOG_DrawQuestButton(); // 0x004A2A80
+void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket); // 0x004A2CB0
+void __cdecl TEXT_ClearQuestFlags(); // 0x004A3020
+void __cdecl sub_004A3050_ResetQuestPages(); // 0x004A3050
+void __cdecl QUESTLOG_LoadDurielCofsOnce(); // 0x004A30A0
+void __cdecl QUESTLOG_LoadAncientsCofsOnce(); // 0x004A30C0
+char __cdecl QUESTLOG_HasQuestPacketValue(); // 0x004A3110
+char __cdecl QUESTLOG_IsQuestUnitPresent(); // 0x004A3120
+void __fastcall QUESTLOG_SpawnQuestUnits(int nX, int nY); // 0x004A3150
+void __stdcall TEXT_LoadQuestPage(int nPage, int bReset); // 0x004A3220
+void __cdecl TEXT_ResetQuestPanel(); // 0x004A3410
+void __cdecl QUESTLOG_DrawQuestPage(); // 0x004A34F0
+void __cdecl TEXT_InitKeyConfigEntries(); // 0x004A43E0
+void __fastcall TEXT_MoveKeyConfigSelection(int nStep); // 0x004A45C0
+void __cdecl TEXT_InitTextSlider(); // 0x004A5190
+void __cdecl TEXT_FreeTextSliderCel(); // 0x004A51E0
+void __fastcall TEXT_ToggleKeyConfigPanel(int nArg); // 0x004A5200
+void __cdecl TEXT_DrawKeyConfigPanel(); // 0x004A5270
+void __cdecl TEXT_CloseKeyCaptureHandlers(); // 0x004A5DE0
+void __cdecl TEXT_LoadLevelCels(); // 0x004A6460
+void __cdecl TEXT_FreeLevelCels(); // 0x004A6480
+void __cdecl TEXT_UpdateLevelUpButtons(); // 0x004A64C0
+void __cdecl sub_004A6A70_DrawLeftPanelButton(); // 0x004A6A70
+void __cdecl TEXT_DrawStatButton(); // 0x004A6B30
+void __cdecl sub_004A6DA0_DrawRightPanelButton(); // 0x004A6DA0
+void __cdecl TEXT_DrawSkillButton(); // 0x004A6E60
+void __cdecl TEXT_SetGoldDialogFlag(); // 0x004A7A90
+void __cdecl sub_004A7AA0_InitTextEntryLengths(); // 0x004A7AA0
+void __cdecl sub_004A7AD0_Nop(); // 0x004A7AD0
+void __cdecl sub_004A7D00_DrawCharStats(); // 0x004A7D00
+void __cdecl SPELLSEL_InitSkillIcons(); // 0x004A8A30
+void __cdecl SPELLSEL_FreeSkillIcons(); // 0x004A8C00
+void __fastcall SPELLSEL_SetSkillSelectRight(int nValue); // 0x004A8CE0
+int __fastcall SPELLSEL_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004A8D30
+void __fastcall SPELLSEL_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY); // 0x004A8D50
+void __cdecl SPELLSEL_UpdateSkillIcons(); // 0x004A9DF0
+void __fastcall SPELLSEL_AssignHotkey(int nHotkey); // 0x004A9E60
+void __fastcall SPELLSEL_SetHotkeySkillSlot(int nSlot, int nValueA, int nValueB, int nValueC); // 0x004AA0C0
+void __fastcall SPELLSEL_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
+void __fastcall SPELLSEL_CycleHotkey(int nDelta); // 0x004AA740
+void __cdecl SPELLSEL_ResetSkillIcons(); // 0x004AA7E0
+void __cdecl sub_004AA920_LoadPanelCel(); // 0x004AA920
+void __cdecl sub_004AA980_FreePanelCel(); // 0x004AA980
+void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage); // 0x004AAAE0
+void __cdecl sub_004ABF10_ClearSkillStates(); // 0x004ABF10
+void __cdecl sub_004AC690_DrawSkillPanel(); // 0x004AC690
+unsigned char* __fastcall MONUNIQUE_GetMonUmods(D2UnitStrc* pUnit); // 0x004AC740
+short __fastcall sub_004AC7C0_GetSuperUniqueId(D2UnitStrc* pUnit); // 0x004AC7C0
+void __stdcall MONSTER_RunUModCallbacks(D2UnitStrc* pUnit, void* pArgument, int nMode); // 0x004ADD90
+void __fastcall MONSTER_RunUModCommandCallbacks(D2UnitStrc* pUnit); // 0x004ADE40
+void __fastcall MONSTER_RunUModUpdateCallbacks(D2UnitStrc* pUnit); // 0x004ADE50
+void __fastcall MONSTER_RunUModFrameCallbacks(D2UnitStrc* pUnit); // 0x004ADE60
+void __fastcall MONSTER_RunUModHitCallbacks(D2UnitStrc* pUnit); // 0x004ADE70
+void __fastcall MONSTER_RunUModMissileCallbacks(D2UnitStrc* pUnit, void* pArg); // 0x004ADE80
+int __fastcall MONSTER_IsUniqueMonster(D2UnitStrc* pUnit); // 0x004AE360
+void __fastcall MONSTER_FreeClientUnit(D2UnitStrc* pUnit); // 0x004AED30
+void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInfo); // 0x004B1090
+void __fastcall MONSTER_SetMinionSpawnClass(D2ClientPacket7Strc* pPacket); // 0x004B1240
+void __stdcall sub_004B1680_PickNpcChoice(D2NpcEntryStrc* pEntry); // 0x004B1680
+int __cdecl sub_004B1DC0_Return0(); // 0x004B1DC0
+void __cdecl NPCMENU_ResetSlots(); // 0x004B3290
+void __cdecl NPCMENU_ResetNpcMenu(); // 0x004B32F0
+void __fastcall NPCMENU_ReloadHirelingPopup(unsigned short nArg); // 0x004B3340
+void __fastcall NPCMENU_OnNpcWantsInteract(D2PacketRecord6Strc* pPacket); // 0x004B3380
+int __cdecl NPCMENU_IsAnyDialogOpen(); // 0x004B34A0
+int __cdecl NPCMENU_IsGambleShop(); // 0x004B3500
+int __cdecl NPCMENU_HireMercHandler(); // 0x004B3660
+void __fastcall NPCMENU_RefreshNpcEntries(D2UnitStrc* pUnit); // 0x004B3E10
+void __cdecl NPCMENU_CloseByState(); // 0x004B3F10
+void __cdecl NPCMENU_UpdateNpcInteract(); // 0x004B4380
+void __cdecl NPCMENU_BuildNpcMenu(); // 0x004B4830
+void __fastcall NPCMENU_OnUnitRemoved(unsigned char nUnitType, int nUnitId); // 0x004B5320
+int __cdecl sub_004B5BC0_SelectNpcEntry(); // 0x004B5BC0
+int __cdecl NPCMENU_CloseHireDialog(); // 0x004B5C20
+int __cdecl NPCMENU_ShowMainMenu(); // 0x004B5C60
+void __fastcall NPCMENU_SetNpcMenuState(unsigned short wValue, int nValue); // 0x004B6980
+void __cdecl NPCMENU_CloseTrade(); // 0x004B69E0
+void __fastcall NPCMENU_NpcInteractPacket(unsigned char nUnitType, int nUnitId, unsigned char* pBuffer, unsigned char nArg); // 0x004B6DD0
+void __cdecl DIALOG_InitDialogs(); // 0x004B7B40
+void __cdecl DIALOG_FreeDialogs(); // 0x004B7B50
+void __cdecl sub_004B8720_ResetTradeState(); // 0x004B8720
+void __cdecl sub_004B8730_DrawDialogHover(); // 0x004B8730
+void __cdecl sub_004B8920_ClearTradeGold(); // 0x004B8920
+void __fastcall sub_004B8940_CloseWait(int bReopen); // 0x004B8940
+int __cdecl CUNIT_IsTrading(); // 0x004B8A10
+void __cdecl sub_004B8CB0_BeginTradeWait(); // 0x004B8CB0
+void __fastcall sub_004B9110_SendGoldRequest(unsigned long nGold); // 0x004B9110
+void __cdecl sub_004B91F0_CloseWait(); // 0x004B91F0
+void __fastcall sub_004B92B0_StorePacketText(const D2GSPacketSrv5E* pPacket); // 0x004B92B0
+void __fastcall sub_004B9320_PlayCinematicFromPacket(const D2CinematicPacketStrc* pPacket); // 0x004B9320
+float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax); // 0x004B93A0
+void __fastcall SOUNDINST_SetValue(int nKey, int nValue); // 0x004B9B50
+int __cdecl SOUNDINST_IsSongPlaying(); // 0x004B9C60
+void __cdecl SOUNDINST_FreeAllSounds(); // 0x004B9D20
+void __fastcall sub_004BA020_UpdateSounds(unsigned int nTick); // 0x004BA020
+void __fastcall SOUNDINST_LockSoundsById(int nHintId); // 0x004BA890
+void __cdecl SOUNDINST_ToggleHints(); // 0x004BABC0
+void __fastcall OBJECT_UpdateObjectOverlay(D2UnitStrc* pUnit); // 0x004BC8D0
+void __fastcall OBJECT_ReleaseObjectUnit(D2UnitStrc* pUnit); // 0x004BCA50
+void __fastcall OBJECT_SetObjectOwnerName(D2UnitStrc* pUnit, const char* szName); // 0x004BDFE0
+void __cdecl TEXT_LoadTextSliderCel(); // 0x004BE020
+void __cdecl sub_004BE060_FreeSliderCel(); // 0x004BE060
+void __cdecl USEITEM_InitUseItemPanel(); // 0x004BF9D0
+void __cdecl USEITEM_FreeUseItemPanel(); // 0x004C0100
+void __cdecl USEITEM_DrawPanelUnit(); // 0x004C01E0
+int __cdecl sub_004C0440_Thunk(); // 0x004C0440
+void __fastcall sub_004C0550_HandleUseItemPacket(D2PacketRecord7Strc* pPacket); // 0x004C0550
+void __fastcall USEITEM_OpenNpcItemPanel(int nValue); // 0x004C0620
+void __cdecl SHOWITEMS_DrawUnitNames(); // 0x004C0810
+void __fastcall ITEM_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp); // 0x004C0EC0
+void __fastcall ITEM_ReleaseItemUnit(D2UnitStrc* pUnit); // 0x004C1A70
+void __fastcall ITEM_UpdateItemAnim(D2UnitStrc* pUnit); // 0x004C1AD0
+void __fastcall ITEM_HandleItemCommand(int nEvent, D2UnitStrc* pUnit, int bSet, int nMode); // 0x004C1B80
+void __fastcall ITEM_RefreshUnitItemsFromPacket(D2PacketRecord11Strc* pPacket, int nArg); // 0x004C1BC0
+void __fastcall ITEM_RefreshUnitItemsFromRecord(D2PacketRecord11Strc* pPacket); // 0x004C1BF0
+int __fastcall ITEM_GetItemUseSound(D2UnitStrc* pItem); // 0x004C1E20
+void __cdecl ITEM_ResetWeaponClasses(); // 0x004C1E30
+void __fastcall ITEM_UpdateItemStat(unsigned int nA, unsigned char nB, unsigned int nC, unsigned int nD, unsigned short nE); // 0x004C1F30
+void __fastcall ITEM_SetItemFlagFromPacket(D2PacketRecord13Strc* pPacket); // 0x004C2020
+void __fastcall ITEM_ClearCursorItemFromPacket(D2GSPacketSrv42Strc* pPacket); // 0x004C2050
+void __fastcall ITEM_HandleItemToCursor(D2GSPacketSrv9C* pPacket); // 0x004C20B0
+void __fastcall ITEM_SetUninterruptableState(D2UnitStrc* pUnit); // 0x004C21F0
+int __fastcall ITEM_IsItemActionBlocked(D2UnitStrc* pUnit); // 0x004C2240
+void __fastcall ITEM_HandleItemStatePacket(D2GSPacketSrv7DStrc* pPacket); // 0x004C2270
+void __fastcall ITEM_HandleOwnedItemToCursor(D2GSPacketSrv9D* pPacket); // 0x004C2340
+void __fastcall ITEM_RemoveEquippedItems(D2UnitStrc* pUnit); // 0x004C23E0
+void __fastcall ITEM_HandleGroundToCursor(D2GSPacketSrv9C* pPacket); // 0x004C2650
+void __fastcall ITEM_HandleDropToGround(D2GSPacketSrv9C* pPacket); // 0x004C26F0
+void __fastcall ITEM_HandleItemOnGround(D2GSPacketSrv9C* pPacket); // 0x004C2810
+void __fastcall ITEM_HandleItemToStorage(D2GSPacketSrv9C* pPacket); // 0x004C2AD0
+void __fastcall ITEM_HandleItemFromStorage(D2GSPacketSrv9D* pPacket); // 0x004C2C80
+void __fastcall ITEM_HandleEquipItem(D2GSPacketSrv9D* pPacket); // 0x004C2E90
+void __fastcall ITEM_HandleIndirectSwapBodyItem(D2GSPacketSrv9D* pPacket); // 0x004C3070
+void __fastcall ITEM_HandleUnequipItem(D2GSPacketSrv9D* pPacket); // 0x004C3380
+void __fastcall ITEM_HandleSwapBodyItem(D2GSPacketSrv9D* pPacket); // 0x004C3920
+void __fastcall ITEM_HandleWeaponSwitch(D2GSPacketSrv9D* pPacket); // 0x004C3B00
+void __fastcall ITEM_UpdateItemFromPacket(D2GSPacketSrv9C* pPacket); // 0x004C3B30
+void __fastcall ITEM_HandleShopItem(D2GSPacketSrv9C* pPacket); // 0x004C3C00
+void __fastcall ITEM_HandleCursorBeltSwap(D2GSPacketSrv9C* pPacket); // 0x004C40D0
+void __fastcall ITEM_HandlePutInBelt(D2GSPacketSrv9C* pPacket); // 0x004C4130
+void __fastcall ITEM_HandleRemoveFromBelt(D2GSPacketSrv9C* pPacket); // 0x004C42A0
+void __fastcall ITEM_HandleBeltSwap(D2GSPacketSrv9C* pPacket); // 0x004C45C0
+void __fastcall ITEM_HandleUseStackableItem(D2PacketRecord8Strc* pPacket); // 0x004C4620
+void __fastcall ITEM_HandleAutoUnequip(D2GSPacketSrv9D* pPacket); // 0x004C4740
+void __fastcall ITEM_HandleItemToSocket(D2GSPacketSrv9D* pPacket); // 0x004C4990
+void __fastcall ITEM_HandleGridItemToBody(D2GSPacketSrv9D* pPacket); // 0x004C4AA0
+D2UnitStrc* __fastcall ITEM_HandleBodyGridSwap(D2GSPacketSrv9D* pPacket); // 0x004C4C70
+int __fastcall SKILLS_DoClientSkill(D2UnitStrc* unit,int skillId,int skillLevel,int mode); // 0x004C6680
+void __fastcall SKILLS_DoSkillPrgFunc(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nX, int nY, unsigned char nMode); // 0x004C6930
+void __fastcall SKILLS_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nX, int nY, int nCharges); // 0x004C6AC0
+void __fastcall SKILLS_CreateSpiralMissiles(int nCount, D2MissileStrc* pMissileParams); // 0x004C71F0
+void __fastcall SKILLS_ApplySkillLevelBonus(D2UnitStrc* pUnit, int nA, int nB, unsigned char nC); // 0x004C7990
+void __fastcall SKILLSBAR_ResetLeapCollision(D2UnitStrc* pUnit); // 0x004C8B80
+int __fastcall MISSILE_SkillStartAtTargetPos(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004C95E0
+int __fastcall sub_004C96D0_CreateMissileAtTarget(D2UnitStrc* pUnit,int nSkillId,int nSkillLevel); // 0x004C96D0
+int __fastcall SKILLS_FindEventFrame(D2UnitStrc* pUnit); // 0x004C9D70
+int __fastcall SKILLS_CltDoCharge(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004C9DB0
+int __fastcall sub_004CA030_TickEvent(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004CA030
+int __fastcall SKILLS_TriggerSkillOnUnit(void* pArg1, int nArg2, int nArg3, int nArg4, int nArg5); // 0x004CA200
+int __fastcall SKILLS_DoSkillAtPosition(void* pArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x004CA230
+void __cdecl SKILLS_ResetLevelSpeech(); // 0x004CA280
+void* __fastcall UNITSND_GetLinkFirst(D2UnitStrc* pUnit); // 0x004CA990
+void __fastcall UNITSND_ReleaseUnitHints(D2UnitStrc* pUnit, int bForce); // 0x004CA9C0
+void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int bDelay); // 0x004CB6A0
+void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
+void __fastcall UNITSND_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent); // 0x004CBDE0
+void __cdecl UNITSND_CheckLevelSpeech(); // 0x004CC270
+void __fastcall UNITSND_PlayInitSound(D2UnitStrc* pUnit); // 0x004CC380
+void __fastcall UNITSND_UpdateUnitSound(D2UnitStrc* pUnit, int nMode, int bModeGiven); // 0x004CC5B0
+void __fastcall MISSILE_SetMissileLights(int nValue); // 0x004CCF20
+int __cdecl MISSILE_GetMissileLights(); // 0x004CCF30
+void __fastcall MISSILE_FreeMissileUnit(D2UnitStrc* pMissile); // 0x004CD170
+void __fastcall MISSILE_CltDoMissile(D2UnitStrc* pMissile); // 0x004D2C70
+void __fastcall MISSILE_CltDoFallingSpawn(D2UnitStrc* pMissile); // 0x004D66E0
+void __fastcall PLRSKILLS_SkillSeqDoForward(D2UnitStrc* pUnit, int nArg); // 0x004D8520
+void __fastcall PLRSKILLS_CallSkillSeqDoForward(D2UnitStrc* pUnit, int nArg); // 0x004D85B0
+void __fastcall PLRSKILLS_CallSkillSeqDoBackward(D2UnitStrc* pUnit, int nArg); // 0x004D8650
+void __fastcall PLRSKILLS_BeginState(D2UnitStrc* pUnit, int nState); // 0x004D9B20
+void __fastcall PLRSKILLS_EndState(D2UnitStrc* pUnit, int nState); // 0x004D9C30
+void __fastcall PLRSKILLS_StartClientState(D2UnitStrc* pUnit, int nState); // 0x004D9E60
+void __fastcall PLRSKILLS_EndClientState(D2UnitStrc* pUnit, int nState); // 0x004D9F40
+int __stdcall PARTICLE_GetGfxClientY(D2UnitStrc* pUnit); // 0x004DA0D0
+int __stdcall GFXUTIL_GetMotionRawAZ(D2UnitStrc* pUnit); // 0x004DA1B0
+void __stdcall GFXUTIL_SetMotionParams(D2UnitStrc* pUnit, int nParam0, int nParam1); // 0x004DA2F0
+int __stdcall GFXUTIL_GetMotionFirstParam(D2UnitStrc* pUnit); // 0x004DA320
+void __stdcall GFXUTIL_UpdateMotion(D2UnitStrc* pUnit); // 0x004DA350
+void __stdcall GFXUTIL_SetMotionFlag1(D2UnitStrc* pUnit); // 0x004DA640
+int __stdcall GFXUTIL_TestMotionFlags(D2UnitStrc* pUnit); // 0x004DA6B0
+void __cdecl GFXUTIL_InitModeTokens(); // 0x004DA790
+int __fastcall GFXUTIL_UnitSupportsMode(D2UnitStrc* pUnit, int nMode); // 0x004DAE60
+int __fastcall GFXUTIL_GetCofLayerShadow(void* pCof, int nComponent); // 0x004DB090
+int __fastcall GFXUTIL_IsPlayerMonsterOrObject(D2UnitStrc* pUnit); // 0x004DB180
+unsigned char __fastcall GFXUTIL_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex); // 0x004DB1A0
+int __fastcall GFXUTIL_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x004DB670
+void __cdecl GFXUTIL_StartFadeTimer(); // 0x004DBFE0
+void __cdecl GFXUTIL_ClearFadeTimer(); // 0x004DC0A0
+void __fastcall CUNITEVENT_FreeCltUnitEvents(D2UnitStrc* pUnit); // 0x004DC0C0
+D2RosterInfoStrc** __cdecl PLAYERLIST_AllocRosterInfoList(); // 0x004DC270
+void __fastcall PLAYERLIST_AddRosterInfo(int nUnitId1, int nUnitId2); // 0x004DC320
+void __fastcall GFXUTIL_SetRelationFlag(int nUnitId1, int nUnitId2, unsigned int nFlags, int bSet); // 0x004DC3E0
+void __fastcall GFXUTIL_SetRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC4C0
+void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick); // 0x004DCAA0
+void __fastcall WALL2_FreeViewCells(D2ViewStrc* pView); // 0x004DCF30
+void __fastcall DFLOOR_UpdateFloorView(D2ViewStrc* pView); // 0x004DEA70
+void __fastcall sub_004DED10_UpdateView(void* pArg); // 0x004DED10
+void __cdecl WALL2_UpdateRoomColor(); // 0x004DED20
+void __fastcall sub_004DF480_UpdateAllTileLights(D2TileLightCtxStrc* pCtx); // 0x004DF480
+void __cdecl sub_004DF800_StopAllSlots(); // 0x004DF800
+void __cdecl sub_004DF890_ReleaseFinishedSlots(); // 0x004DF890
+int __cdecl sub_004DF940_IsPositionalSoundEnabled(); // 0x004DF940
+int __cdecl sub_004DF960_IsEaxEnabled(); // 0x004DF960
+int __cdecl sub_004DF9B0_IsSoundMode2(); // 0x004DF9B0
+void __fastcall sub_004E0050_RestartSound(int nArg); // 0x004E0050
+void __cdecl sub_004E00C0_CloseSoundChannels(); // 0x004E00C0
+int __cdecl sub_004E00D0_ToggleSoundMode01(); // 0x004E00D0
+int __cdecl sub_004E0140_ToggleSoundMode12(); // 0x004E0140
+int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType); // 0x004E0590
+void __fastcall sub_004E0690_SetSoundTableFlag(int nValue); // 0x004E0690
+int __fastcall PLRSKILLS_FireAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004E1B10
+void __fastcall sub_004E1C80_CltMissileInitDiabWall(D2UnitStrc* pMissile, int nInitSeed); // 0x004E1C80
+void __fastcall sub_004E3170_SetMissileFrames(D2UnitStrc* pMissile, int nDivisor); // 0x004E3170
+void __fastcall sub_004E4020_Nop(D2UnitStrc* pUnit); // 0x004E4020
+float __stdcall GFXUTIL_VectorLength(float fX, float fY); // 0x004E4130
+void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick); // 0x004E42E0
+int __stdcall SKILLDESC_IsStatGroupUniform(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int nStatId, int nValue, D2ItemStatCostTxt* pRecord, int* pIsSame); // 0x004E4CE0
+int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill); // 0x004E89A0
+void __fastcall SKILLDESC_DrawWeaponPhysElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight); // 0x004EAD60
+void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nSlot); // 0x004ED570
+void __fastcall SKILLDESC_RefreshSkills(D2UnitStrc* pUnit); // 0x004EDA20
+int __fastcall SKILLDESC_CallSkillDescFunc(D2UnitStrc* pUnit, int bLeft); // 0x004EDA80
+void __fastcall SKILLDESC_ShowSkillPopup(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY); // 0x004EEF00
+void __fastcall SKILLDESC_ShowSkillPopupB(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY); // 0x004EF410
+int __fastcall sub_004F0650_CltSkillMissileFan(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004F0650
+int __fastcall SKILLDESC_IsVineBeastMissile(D2UnitStrc* unit, void* unused); // 0x004F0F10
+int __fastcall SKILLDESC_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int nArg0, int nArg3, int nArg4, int nMissileArg, int bFirst, int bClearPathFlag); // 0x004F16F0
+int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
+int __fastcall SKILLSMON_StartStateList(D2UnitStrc* pUnit, int nSkillId, int nArg); // 0x004F2450
+void __fastcall SKILLDESC_MissileScatter(D2UnitStrc* pUnit, int nSeed, int nMissile, int nX, int nY, int nRadius, int nSkillId, int nSkillLevel); // 0x004F28A0
+void __fastcall SKILLDESC_MissileInit(D2UnitStrc* pMissile, int nSeed); // 0x004F2AC0
+void __fastcall SKILLDESC_InitCurvingMissilePath(D2UnitStrc* pMissile, int nInitSeed); // 0x004F2BE0
+int __fastcall SKILLDESC_CreateCorpseExplosionMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nMonsterId); // 0x004F3A60
+int __fastcall SKILLDESC_GetMonSkillSound(D2UnitStrc* pUnit, int nSkillId); // 0x004F4F40

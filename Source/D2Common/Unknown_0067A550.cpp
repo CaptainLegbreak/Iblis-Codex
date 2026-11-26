@@ -116,7 +116,7 @@ static void PATH_IDAStar_GetNextNeighborIndex(D2PathIDAStarNodeStrc* pNode, D2Pa
 }
 
 // 0x0067A690
-static D2PathIDAStarNodeStrc* __stdcall sub_6FDC0840(D2PathIDAStarContextStrc* pContext, D2PathIDAStarNodeStrc* pNode)
+static D2PathIDAStarNodeStrc* __stdcall sub_0067A690_NextNode(D2PathIDAStarContextStrc* pContext, D2PathIDAStarNodeStrc* pNode)
 {
     if (pNode->nEvaluationsCount < 4)
     {
@@ -258,7 +258,7 @@ static D2PathIDAStarNodeStrc* __stdcall PATH_IDAStar_VisitNodes(int nFScoreCutof
             }
         }
 
-        pCurrentNode = sub_6FDC0840(pContext, pCurrentNode);
+        pCurrentNode = sub_0067A690_NextNode(pContext, pCurrentNode);
         if (!pCurrentNode)
         {
             return 0;

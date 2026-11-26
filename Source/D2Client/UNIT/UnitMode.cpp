@@ -46,14 +46,12 @@ struct D2UnitTargetStrc;
 
 
 
-void __fastcall sub_004E4020_Nop(D2UnitStrc* pUnit); // 0x004E4020
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
 
 
 
-void __cdecl sub_004DF800_StopAllSlots(); // 0x004DF800
 
 struct D2ClientSkillCmdStrc
 {
@@ -77,7 +75,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 
 int __fastcall SKILLS_StartSkillOnUnit(D2UnitStrc* pUnit, D2ClientSkillCmdStrc* pArgs); // 0x004C6EB0
 
-void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
 unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
 
@@ -174,7 +171,6 @@ extern "C" int __stdcall sub_00650840_UpdatePath(D2UnitStrc* unit, unsigned int 
 
 void __stdcall STATLIST_UpdateStatListsExpiration(D2UnitStrc* unit, int value); // 0x00627460
 
-void __stdcall GFXUTIL_UpdateMotion(D2UnitStrc* unit); // 0x004DA350
 
 void __fastcall GFX_UpdateStateOverlays(D2UnitStrc* unit); // 0x00470C30
 
@@ -182,9 +178,7 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* unit); // 0x00463390
 
 
 
-void __fastcall MISSILE_CltDoMissile(D2UnitStrc* unit); // 0x004D2C70
 
-void __fastcall ITEM_UpdateItemAnim(D2UnitStrc* unit); // 0x004C1AD0
 
 
 void __fastcall sub_0045FA40_FreeUnit(D2UnitStrc* unit); // 0x0045FA40
@@ -213,7 +207,6 @@ int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTa
 void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004AFF60
 
 
-void __fastcall ITEM_HandleItemCommand(int nCommand, D2UnitStrc* pUnit, int nParam1, int nParam2); // 0x004C1B80
 
 // 0x00480490
 void __fastcall UNITMODE_RecacheUnitPath(D2UnitStrc* pUnit)

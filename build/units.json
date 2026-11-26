@@ -20594,7 +20594,7 @@
     {
      "va": "0x004792C0",
      "length": 27,
-     "name": "?ROSTER_HasCorpse@@YAHPAUD2RosterUnitStrc@@I@Z"
+     "name": "?ROSTER_HasCorpse@@YAHPAUD2StoredUnitRecordStrc@@I@Z"
     },
     {
      "va": "0x004792E0",
@@ -20619,7 +20619,7 @@
     {
      "va": "0x00479470",
      "length": 51,
-     "name": "?ROSTER_FreeCorpses@@YAXPAUD2RosterUnitStrc@@@Z"
+     "name": "?ROSTER_FreeCorpses@@YAXPAUD2StoredUnitRecordStrc@@@Z"
     },
     {
      "va": "0x004794B0",
@@ -20709,17 +20709,17 @@
     {
      "va": "0x00479B50",
      "length": 13,
-     "name": "?ROSTER_GetGuildFlags@@YIGPAUD2RosterUnitStrc@@@Z"
+     "name": "?ROSTER_GetGuildFlags@@YIGPAUD2StoredUnitRecordStrc@@@Z"
     },
     {
      "va": "0x00479B60",
      "length": 11,
-     "name": "?ROSTER_GetGuildTag@@YIPAEPAUD2RosterUnitStrc@@@Z"
+     "name": "?ROSTER_GetGuildTag@@YIPAEPAUD2StoredUnitRecordStrc@@@Z"
     },
     {
      "va": "0x00479B70",
      "length": 11,
-     "name": "?ROSTER_GetGuildName@@YIPAEPAUD2RosterUnitStrc@@@Z"
+     "name": "?ROSTER_GetGuildName@@YIPAEPAUD2StoredUnitRecordStrc@@@Z"
     },
     {
      "va": "0x00479B80",
@@ -70011,7 +70011,7 @@
     {
      "va": "0x00647FB0",
      "length": 104,
-     "name": "?sub_6FDA8220@@YIXPAUD2DynamicPathStrc@@@Z"
+     "name": "?PATH_CheckPathInRoom@@YIXPAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x00648020",
@@ -71284,7 +71284,7 @@
     {
      "va": "0x006502D0",
      "length": 125,
-     "name": "?sub_6FD5CEB0@@YAXHPAUD2DynamicPathStrc@@@Z"
+     "name": "?sub_006502D0_UpdateVelocity@@YAXHPAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x00650350",
@@ -71341,7 +71341,7 @@
     {
      "va": "0x00650910",
      "length": 386,
-     "name": "?sub_6FDAD5E0@@YGHPAUD2ActiveRoomStrc@@UD2PathPointStrc@@PAUD2DynamicPathStrc@@@Z"
+     "name": "?sub_00650910_UpdateCollisionMask@@YGHPAUD2ActiveRoomStrc@@UD2PathPointStrc@@PAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x00650AA0",
@@ -74542,7 +74542,7 @@
     {
      "va": "0x00679E50",
      "length": 15,
-     "name": "?sub_6FDAB0B0@@YIHPAUD2PathInfoStrc@@@Z"
+     "name": "?sub_00679E50_RestartToward@@YIHPAUD2PathInfoStrc@@@Z"
     },
     {
      "va": "0x00679E60",
@@ -74698,7 +74698,7 @@
     {
      "va": "0x0067A690",
      "length": 174,
-     "name": "?sub_6FDC0840@@YGPAUD2PathIDAStarNodeStrc@@PAUD2PathIDAStarContextStrc@@PAU1@@Z"
+     "name": "?sub_0067A690_NextNode@@YGPAUD2PathIDAStarNodeStrc@@PAUD2PathIDAStarContextStrc@@PAU1@@Z"
     },
     {
      "va": "0x0067A740",

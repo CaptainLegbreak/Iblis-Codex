@@ -241,7 +241,6 @@ void __fastcall ROSTER_SetCtrlState(void* pPanel, int nValue); // 0x004B8370
 void __fastcall DIALOG_AddTextLine(void* pPanel, const Unicode* pText, int nArg3, int nArg4, int nArg5, int nArg6,
     int (__cdecl* pfnArg7)(), int nArg8); // 0x004B85F0
 
-int __cdecl sub_004B1DC0_Return0(); // 0x004B1DC0
 
 int __cdecl NPCMENU_CloseSubMenuToMain(); // 0x004B5810
 
@@ -390,7 +389,6 @@ void __cdecl NPCMENU_CloseNpc(); // 0x004B3DE0
 void __cdecl NPCMENU_FreeDialogs(); // 0x004B2110
 
 
-int __cdecl sub_004C0440_Thunk(); // 0x004C0440
 
 
 typedef int (__cdecl* Callback)();
@@ -465,7 +463,6 @@ void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext)
 
 unsigned short __fastcall NPCMENU_GetFreeStringId(unsigned short wStringId); // 0x004B1830
 
-int __cdecl sub_004B5BC0_SelectNpcEntry(); // 0x004B5BC0
 
 int __fastcall sub_004B8580(D2ClientDialogStrc* pDialog); // 0x004B8580
 
@@ -483,7 +480,6 @@ struct D2NpcMonListPacketStrc
 void __cdecl TEXT_ClearTextPanel();                                                                     // 0x004A1730
 
 
-int __cdecl NPCMENU_ShowMainMenu();                                                                         // 0x004B5C60
 
 extern D2ClientDialogStrc* gpNpcSubMenuDialog;                                                               // 0x007C0D63
 
@@ -517,7 +513,6 @@ void __stdcall NPCMENU_OpenNpcWindow(D2UnitStrc* pUnit); // 0x004B4FD0
 int __cdecl NPCMENU_InitHireHandler();                                                                     // 0x004B6410
 
 
-int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType);                                     // 0x004E0590
 
 void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath);                                             // 0x00648730
 
@@ -761,7 +756,6 @@ typedef char TablesView_count_offset[(FIELD_OFFSET(TablesView,count)==0xa80)?1:-
 void __cdecl INV_ResetNpcButtonsFromPending(); // 0x00487C20
 
 
-void __fastcall USEITEM_OpenNpcItemPanel(int nArg); // 0x004C0620
 
 
 

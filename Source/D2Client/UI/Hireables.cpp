@@ -82,7 +82,6 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*,unsigned int,int,const char*); // 
 
 
 
-void __fastcall UNITSND_PlayEventSound(int,unsigned char,unsigned short); // 0x004CBDE0
 
 int gnGlobal_007BEEDC; // 0x007BEEDC
 
@@ -1445,17 +1444,13 @@ void __cdecl HIREABLES_FreePanelCels()
 struct D2SkillsTxt;
 
 
-int __cdecl CUNIT_IsTrading(); // 0x004B8A10
 
 int __fastcall SPELLSEL_GetSkillIconCel(D2SkillsTxt* pSkillsTxt); // 0x004A8C80
 
-int __fastcall SPELLSEL_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004A8D30
 
 void __fastcall SPELLSEL_DrawSkillInfoBase(int nValue, D2SkillsTxt* pSkillsTxt, int nOwnerGUID, int nCharges, int nState, int nX, int nY, int nArg); // 0x004A9690
 
-void __fastcall SPELLSEL_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY); // 0x004A8D50
 
-void __fastcall SPELLSEL_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
 
 
 

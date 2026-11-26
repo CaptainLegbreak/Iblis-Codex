@@ -159,7 +159,6 @@ int __fastcall sub_004C9490_MissileAroundUnit(D2UnitStrc* pUnit, int nSkillId, i
     return 1;
 }
 
-int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
 
 
 

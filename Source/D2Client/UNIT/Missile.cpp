@@ -89,7 +89,6 @@ D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams
 
 
 
-int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
 
 
 
@@ -135,9 +134,7 @@ int __fastcall SOUNDINST_GetSoundIdByHandle(void* pKey); // 0x004B9CA0
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce); // 0x004BA790
 
 
-int __fastcall SKILLS_DoClientSkill(D2UnitStrc* pUnit, int nSkillId, int nArg, int nMode); // 0x004C6680
 
-void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nId); // 0x004CB9C0
 
 D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
@@ -175,7 +172,6 @@ void __fastcall MISSILE_DispatchSubMissileSpawn(D2UnitStrc* pOwner, D2UnitStrc* 
 
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
-void __stdcall GFXUTIL_UpdateMotion(D2UnitStrc* pUnit); // 0x004DA350
 
 void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
 
@@ -237,7 +233,6 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom
 
 
 
-int __stdcall GFXUTIL_GetMotionFirstParam(D2UnitStrc* pUnit); // 0x004DA320
 
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
 
@@ -276,7 +271,6 @@ struct D2CltMissileModeStrc
 extern D2CltMissileModeStrc gaCltMissileModes[]; // 0x0072A350
 
 
-int __stdcall GFXUTIL_TestMotionFlags(D2UnitStrc* pUnit); // 0x004DA6B0
 
 void __stdcall D2COMMON_10375_UNITS_SetFrameNonRate(D2UnitStrc* pUnit, int nRate, int nFailRate); // 0x00621330
 
@@ -369,7 +363,6 @@ D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, i
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 
-void __fastcall SKILLS_CreateSpiralMissiles(int nCount, D2MissileStrc* pMissileParams); // 0x004C71F0
 
 void __fastcall MISSMODE_CatapultChargedBall_LightningTrailingJavelin_SubmissileInitFunc(D2UnitStrc* pMissile, int nUnused); // 0x004CCCC0
 
@@ -377,7 +370,6 @@ extern const int gaCltHitRingOffsetY[8];                                        
 
 extern const int gaCltHitRingOffsetX[8];                                                                 // 0x006DAFA8
 
-void __stdcall GFXUTIL_SetMotionParams(D2UnitStrc* pUnit, int nParam0, int nParam1);                   // 0x004DA2F0
 
 
 
@@ -466,7 +458,6 @@ void __fastcall MISSILE_InitMotion(D2UnitStrc* pMissile);                       
 extern "C" const char gszMissileSourceFile[]; // 0x006DAEF4
 
 
-void __fastcall MISSILE_CltDoFallingSpawn(D2UnitStrc* pMissile); // 0x004D66E0
 
 static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -667,7 +658,6 @@ void __fastcall MISSILE_StatRemoveToggleStateOff(D2UnitStrc* pUnit, int nState, 
 
 
 
-void __stdcall GFXUTIL_SetMotionFlag1(D2UnitStrc* pUnit);                                              // 0x004DA640
 
 int __fastcall CUNITEVENT_RunCltUnitEvents(int nType, D2UnitStrc* pUnit, D2UnitStrc* pOther, int nArg);   // 0x004DC210
 
@@ -708,7 +698,6 @@ static int MISSILE_UseCharge(D2UnitStrc* pUnit); // 0x004CD310
 
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
 
-void __fastcall MONSTER_RunUModMissileCallbacks(D2UnitStrc* pUnit, void* pArg);                                                // 0x004ADE80
 
 void __fastcall sub_004BA840_StopSound(void* pUnitSfx);                                                                 // 0x004BA840
 
@@ -1284,7 +1273,6 @@ extern "C" int __stdcall sub_0064A300(D2UnitStrc* pUnit); // 0x0064A300
 
 void __fastcall DLIGHTMAP_ResetLightSize(D2GfxLightStrc* pLight, int nSize); // 0x004742D0
 
-void* __fastcall UNITSND_GetLinkFirst(D2UnitStrc* pUnit); // 0x004CA990
 
 #define UNIT_INVALID 6
 

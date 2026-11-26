@@ -28,10 +28,7 @@ int gnSpeechLevelId;                                                            
 int __fastcall sub_004B9590(void* pEntry);                                                                  // 0x004B9590
 void* __fastcall sub_004B9610_GetSoundHandle(int nId);                                                                     // 0x004B9610
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
-int __cdecl SOUNDINST_IsSongPlaying();                                                                   // 0x004B9C60
 int __fastcall SOUNDINST_GetPosition(void* pEntry);                                                      // 0x004B9D50
-void __fastcall SOUNDINST_LockSoundsById(int nHintId);                                                 // 0x004BA890
-void __cdecl UNITSND_CheckLevelSpeech();                                                               // 0x004CC270
 int __cdecl D2SOUND_GetMasterVolumeOption();                                                                                 // 0x00514CC0
 int __cdecl D2SOUND_GetMusicVolumeOption();                                                                                 // 0x00514CF0
 

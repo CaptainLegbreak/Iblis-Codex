@@ -77,7 +77,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 int __cdecl D2GFX_CheckLowQuality(); // 0x004F5210
 
-int __cdecl MISSILE_GetMissileLights(); // 0x004CCF30
 
 int __cdecl GAME_GetFramesPerSecond(); // 0x0044DAE0
 

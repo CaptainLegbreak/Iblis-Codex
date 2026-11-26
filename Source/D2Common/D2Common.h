@@ -191,9 +191,9 @@ void __fastcall DRLGROOMTILE_ReallocRoofTileGrid(void* pMemPool, D2DrlgTileGridS
 void __fastcall DRLGROOM_AllocDrlgOrthsForRooms(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, int nDirection); // 0x0066B5E0
 void __fastcall DRLGROOM_FreeRoomTiles(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom); // 0x0066B4F0
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
-void __fastcall PATHUtil_AdvanceTowardsTarget_6FDAB890(D2DynamicPathStrc* pPath); // 0x00679190
-void __fastcall sub_6FDA8220(D2DynamicPathStrc* pPath); // 0x00647FB0
-void __fastcall sub_6FDAB7D0(int* pTestDir, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x00678DF0
+void __fastcall PATHUTIL_AdvanceTowardsTarget(D2DynamicPathStrc* pPath); // 0x00679190
+void __fastcall PATH_CheckPathInRoom(D2DynamicPathStrc* pPath); // 0x00647FB0
+void __fastcall PATH_GetAltDirectionTriplet(int* pTestDir, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x00678DF0
 void __stdcall BITMANIP_GoToNextByte(D2BitBufferStrc* pBuffer); // 0x00411070
 void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
 void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0

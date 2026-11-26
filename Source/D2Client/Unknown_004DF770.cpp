@@ -115,7 +115,6 @@ void __fastcall D2SOUNDSMP_ResetSound(D2SoundStrc* pSound); // 0x00516140
 
 extern "C" int __cdecl memcmp(const void* pA, const void* pB, unsigned int nSize);
 
-float __stdcall GFXUTIL_VectorLength(float fX, float fY); // 0x004E4130
 
 int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
 

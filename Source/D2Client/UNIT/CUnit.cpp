@@ -111,7 +111,6 @@ void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY);             
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-int __fastcall GFXUTIL_UnitSupportsMode(D2UnitStrc* pUnit, int nMode);                                 // 0x004DAE60
 
 
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
@@ -124,7 +123,6 @@ int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                         
 
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit);                                                     // 0x006206B0
 
-int __stdcall PARTICLE_GetGfxClientY(D2UnitStrc* pUnit);                                          // 0x004DA0D0
 
 
 typedef int (__fastcall* SKILLSELECTPROC)(D2UnitStrc* pPlayer, D2UnitStrc* pTarget);
@@ -158,17 +156,11 @@ void __fastcall DLIGHTMAP_ReleaseLight(D2GfxLightStrc* pLight);                 
 D2GfxLightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* pValue);                                         // 0x00643A00
 
 
-void __fastcall UNITSND_ReleaseUnitHints(D2UnitStrc* pUnit, int bForce);                               // 0x004CA9C0
 
-void __fastcall MONSTER_FreeClientUnit(D2UnitStrc* pUnit);                                             // 0x004AED30
 
-void __fastcall ITEM_ReleaseItemUnit(D2UnitStrc* pUnit);                                            // 0x004C1A70
 
-void __fastcall OBJECT_ReleaseObjectUnit(D2UnitStrc* pUnit);                                                // 0x004BCA50
 
-void __fastcall MISSILE_FreeMissileUnit(D2UnitStrc* pMissile);                                         // 0x004CD170
 
-void __fastcall CUNITEVENT_FreeCltUnitEvents(D2UnitStrc* pUnit);                                          // 0x004DC0C0
 
 void __fastcall SCMD_FreePacketBuffer(void* pArg);                                                  // 0x0045F9F0
 
@@ -183,7 +175,6 @@ void __fastcall VIEW_ResetSelectionForUnit(D2UnitStrc* pUnit);                  
 
 
 
-void __fastcall ITEM_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp);  // 0x004C0EC0
 
 
 D2ActiveRoomStrc* __fastcall CUNIT_FindRoomBySubtile(int nX, int nY);                                // 0x00465420
@@ -200,7 +191,6 @@ void __stdcall UNITS_InitializeStaticPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* p
 
 
 
-void __fastcall OBJECT_UpdateObjectOverlay(D2UnitStrc* pUnit);                                        // 0x004BC8D0
 
 D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pArg2, unsigned char* pArg3, int nArg4, int nArg5, int nArg6); // 0x00466360
 
@@ -238,22 +228,17 @@ int __fastcall sub_00477620_RollUnitValue(D2UnitStrc* pUnit, unsigned short nOff
 
 
 
-unsigned char* __fastcall MONUNIQUE_GetMonUmods(D2UnitStrc* pUnit);                                  // 0x004AC740
 
 void __fastcall sub_004AC7A0(D2UnitStrc* pUnit, unsigned short wValue);                                     // 0x004AC7A0
 
-short __fastcall sub_004AC7C0_GetSuperUniqueId(D2UnitStrc* pUnit);                                          // 0x004AC7C0
 
 
 void __fastcall MONSTER_SetOwnerGUID(D2UnitStrc* pUnit, unsigned int dwValue);                                      // 0x004AE150
 
-int __fastcall MONSTER_IsUniqueMonster(D2UnitStrc* pUnit);                                              // 0x004AE360
 
 void __fastcall MONSTER_InitMonster(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nMode); // 0x004AE8D0
 
-void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInfo);                    // 0x004B1090
 
-void __fastcall UNITSND_PlayInitSound(D2UnitStrc* pUnit);                                              // 0x004CC380
 
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                           // 0x00624690
@@ -368,7 +353,6 @@ int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTa
 
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
-void __cdecl GFXUTIL_StartFadeTimer(); // 0x004DBFE0
 
 
 unsigned char __stdcall DATATBLS_GetNoPerFromLevelsTxt(int nLevelId); // 0x0061DBE0
@@ -483,7 +467,6 @@ int __fastcall GFX_HitTestUnitGfx(D2UnitStrc*,int,int,int,int); // 0x00470860
 
 
 
-int __fastcall GFXUTIL_UpdateUnitGfx(D2UnitStrc*,int); // 0x004DB670
 
 D2UnitStrc* gapAiTargets[1]; // 0x007A7470
 
