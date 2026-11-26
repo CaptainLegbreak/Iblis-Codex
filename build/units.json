@@ -9386,6 +9386,11 @@
      "name": "?GAME_CalcCdKeyChecksum@@YIXPADPAI@Z"
     },
     {
+     "va": "0x0044BDD0",
+     "length": 4,
+     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
      "va": "0x0044BDE0",
      "length": 16,
      "name": "??0sub_0044BDE0@@QAE@XZ"
@@ -9404,6 +9409,15 @@
      "va": "0x0044BE20",
      "length": 14,
      "name": "sub_0044BE20_ClearPair"
+    },
+    {
+     "va": "0x0044BE30",
+     "length": 22
+    },
+    {
+     "va": "0x0044BE50",
+     "length": 12,
+     "name": "?GAME_GetUnitTypeOrInvalid@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0044BE60",
@@ -9946,6 +9960,11 @@
      "name": "?GAME_ExtendDelay@@YIXH@Z"
     },
     {
+     "va": "0x0044DB60",
+     "length": 120,
+     "name": "?GAME_PreloadActTiles@@YGXE@Z"
+    },
+    {
      "va": "0x0044DBE0",
      "length": 83,
      "name": "GAME_ReadColorFlag"
@@ -10106,6 +10125,15 @@
      "name": "?GAME_LoadAct@@YIXEIIH@Z"
     },
     {
+     "va": "0x0044E5A0",
+     "length": 455
+    },
+    {
+     "va": "0x0044E770",
+     "length": 1235,
+     "name": "?GAME_DrawEndGameScreen@@YGHH@Z"
+    },
+    {
      "va": "0x0044EC50",
      "length": 33,
      "name": "?GAME_ResetBetaScreen@@YAXXZ"
@@ -10174,6 +10202,10 @@
      "va": "0x0044EE90",
      "length": 39,
      "name": "?0D2StormListAStrc"
+    },
+    {
+     "va": "0x0044F360",
+     "length": 1203
     },
     {
      "va": "0x0044F820",
@@ -10664,6 +10696,39 @@
      "va": "0x004538D0",
      "length": 44,
      "name": "?GAME_GetUIVarState@@YIHI@Z"
+    },
+    {
+     "va": "0x00453BB0",
+     "length": 470,
+     "name": "?GAME_DrawEntryList@@YAXXZ"
+    },
+    {
+     "va": "0x00454600",
+     "length": 66,
+     "name": "?GAME_GetBuySellButtonCells@@YAPAUD2CelFileStrc@@XZ"
+    },
+    {
+     "va": "0x00454740",
+     "length": 79,
+     "name": "?GAME_LoadLoadingPalette@@YAXXZ"
+    },
+    {
+     "va": "0x00455510",
+     "length": 513,
+     "name": "?GAME_DrawLevelLoadingScreen@@YAXXZ"
+    },
+    {
+     "va": "0x00456550",
+     "length": 135,
+     "name": "?GAME_LoadLoadingScreen@@YAXXZ"
+    },
+    {
+     "va": "0x0045C3E0",
+     "length": 75
+    },
+    {
+     "va": "0x0045C520",
+     "length": 251
     },
     {
      "va": "0x006CA9C0",
@@ -14736,91 +14801,6 @@
     {
      "va": "0x0044EFA0",
      "length": 945
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0044BDD0",
-     "length": 4,
-     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x0044BE30",
-     "length": 22
-    },
-    {
-     "va": "0x0044BE50",
-     "length": 12,
-     "name": "?GAME_GetUnitTypeOrInvalid@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0044DB60",
-     "length": 120,
-     "name": "?GAME_PreloadActTiles@@YGXE@Z"
-    },
-    {
-     "va": "0x0044E5A0",
-     "length": 455
-    },
-    {
-     "va": "0x0044E770",
-     "length": 1235,
-     "name": "?GAME_DrawEndGameScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x0044F360",
-     "length": 1203
-    },
-    {
-     "va": "0x00453BB0",
-     "length": 470,
-     "name": "?GAME_DrawEntryList@@YAXXZ"
-    },
-    {
-     "va": "0x00454600",
-     "length": 66,
-     "name": "?GAME_GetBuySellButtonCells@@YAPAUD2CelFileStrc@@XZ"
-    },
-    {
-     "va": "0x00454740",
-     "length": 79,
-     "name": "?GAME_LoadLoadingPalette@@YAXXZ"
-    },
-    {
-     "va": "0x00455510",
-     "length": 513,
-     "name": "?GAME_DrawLevelLoadingScreen@@YAXXZ"
-    },
-    {
-     "va": "0x00456550",
-     "length": 135,
-     "name": "?GAME_LoadLoadingScreen@@YAXXZ"
-    },
-    {
-     "va": "0x0045C3E0",
-     "length": 75
-    },
-    {
-     "va": "0x0045C520",
-     "length": 251
     }
    ],
    "flags": [
