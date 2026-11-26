@@ -32,7 +32,6 @@ scaffolding, names.
 
 ## Ready
 - lane8/d2common-names-3 5087e94a (on #443): ITEMS_UpdateSets and sub_00663B40_SetBonusStatList take nUpdateMode (0 adds the set's stat list, 1 removes it) and bForceStateUpdate in place of a3/a4; DataTbls.cpp's prototype of D2Common_10884_COMPOSIT_unk takes the definition's names. a1/v12 names 892 -> 879. Full build: Game.exe identical, tree 8ea2b75e1df8881871623705a2b6d307983e69e5, borrowed code / data 7,923 / 261.
-- lane8/d2common-names-2 05c46ce7 (on #440): more D2Common a1/v12 names: OutPlace.cpp's coordinate placers (nDirection, nOffsetMode), the item reader's skill-stat locals in Items.cpp (named for the stats they fill: skill tab, on-attack, on-hit, on-get-hit, charged), unused stub parameters (nUnused), and prototypes of functions defined in other units take the definition's names (D2Common.h, OutWild, OutDesr, OutSiege, OutRoom, AnimTbls, Unknown_0064FAD0). Independent of d2common-param-names (no file in common). a1/v12 names 1,747 -> 1,613. Full build: Game.exe identical, tree bc64325ba804a24f5488fd921d37475de27cfc38, borrowed code / data 8,373 / 261.
 
 ## Questions
 
