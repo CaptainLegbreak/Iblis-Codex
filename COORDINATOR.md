@@ -441,6 +441,9 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - #439 j193: names-sub-d2client-hi (lane 1; its SoundInst.cpp conflict with #436 resolved by the coordinator: the joined file keeps lane 1's names), sound-gs (lane 6).
 - #440 (j194): lane 8 forcing-621f90 (UNITS_AllocPlayerData plain stores; volatile 74 -> 73), lane 3 join-sbig, lane 6 join-charsel + join-charsel-3. Held: lane 4 join-editbox / join-soundinst (SoundInst.cpp conflicts with #439: rebase onto #441), lane 9 glide-spans (glCore.cpp conflict: rebase onto #441).
 - #441 (j195): **lane 10's 0x679C80 from source (borrowed code 8,373 -> 7,923 B, 5 -> 4 functions)**, lane 6 emit-trim-2, lane 1 spinner-fields, lane 8 d2common-param-names, lane 9 names-spritevalidate, lane 5 decls-d2game-3.
+- #442-#443: README/STATUS refresh; tools/status.py now regenerates docs/index.html's table with the grids (it still showed 9 missing and had a malformed row).
+- #444 (j196): lane 3 volatile-original (0x4027C0 counted as the original's), lane 2 shared-header-dupdecls, lane 8 d2common-names-2, lane 4 game-b7b0-note, lane 5 note-task-5645e0 (a1/v12 892 -> 757).
+- #445 (j197): lane 1 skilldesc-dead-copies (with e2320-strays, e6e30-join) and lane 5 emit-d2game, hand-resolved on fix/ branches (emit helpers 373 -> 336). **Lane 9: params-d2game-a conflicts in 40 hunks over 6 files with #441's D2Game declarations: regenerate it from current main.**
 - #438 j192: d2common-dup-decls, noinline-evidence (lane 8), decls-renderers-2 (lane 9).
 - #437 j191: joins Monster, MonsterUnique, SkillItem, superior items (lane 5), Missile damage (lane 8); Items 0x559CE0 note. Files in pieces 22 -> 18.
 - #436 j190: joins EditBox, SoundInst (lane 1), ErrorManager, SSIGNATURE (lane 3), AiThink4, MissMode (lane 5). Files in pieces 27 -> 22; eleven evidenced noinlines.
