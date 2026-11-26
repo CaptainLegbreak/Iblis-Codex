@@ -55,18 +55,8 @@ extern int gnPanelOffsetY; // 0x007A285C
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 
-int gnSelectedHotkey; // 0x007C0708
 
-static int SPELLSEL_IsHotkeyUsable(int nSlot); // 0x004A9FC0
-
-
-
-static void SPELLSEL_AssignFreeHotkey(int nSlot, int nIndex); // 0x004AA0F0
-
-
-
-unsigned char gbNpcEntriesProcessed; // 0x007C0C6A
-
+extern unsigned char gbNpcEntriesProcessed; // 0x007C0C6A
 
 
 // 0x004B17A0
@@ -98,7 +88,5 @@ int __cdecl sub_004B1D70_FindNpcEntry()
 }
 
 #include "gen/data/Source/D2Client/Unknown_004A9BD0.inc"
-
-
 
 
