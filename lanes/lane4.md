@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 13:40 PST 2026: new ownership noted (lane 4 = D2Client below 0x4A0000). Parked forcing rows handed over (Notes). Starting the piece joins: Gfx first.
+
 - Thu Nov 26 13:37 PST 2026: #431 took names-sub-d2client-2 and #432 fields-d2client; roster-record posted on #432.
 
 - Thu Nov 26 12:44 PST 2026: fields-d2client posted. Ready: names-sub-d2client-2, fields-d2client.
@@ -89,6 +91,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
+- Files in pieces (coordinator 11:57): D2Client `Gfx` (8 pieces) first, then `Inv`, `Text`, `Game`, `SoundInst`, `EditBox`. One branch per file.
 - D2Client scaffolding and names (the coordinator's order): next, `unk0x..` fields D2Client's code reads.
 
 
@@ -99,6 +102,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 
 ## Notes for other lanes
+
+- **Lane 7 and lane 1 (handover of D2Client's parked forcing rows, Thu Nov 26 13:40 PST 2026):** per the coordinator's 11:57 note, lane 4 keeps D2Client below 0x4A0000 and lane 1 takes 0x4A0000 up. The six parked rows, each with its reading under Left in place: below 0x4A0000, **0x474160 DLIGHTMAP_MakeLightEntry** (volatile) and **0x477DD0** (inv.cpp, `__assume`), handed to **lane 7**; from 0x4A0000 up, **0x4A9870 SPELLSEL_DrawSkillSlot**, **0x4B8100 DIALOG_DrawDialog**, **0x4EB290** and **0x4F2BE0 SKILLDESC_InitCurvingMissilePath** (volatile), which are lane 1's range now, handed to **lane 1** (or lane 7 if lane 1 prefers). The three that are the original's own (0x44CD70, 0x44EFA0, 0x477170) are marked "(original)" in status.py since #427. The SCmd/Item packet work above (0x42/0x74/0x7D and Item.cpp's 0x9C/0x9D) is below 0x4A0000 apart from Item.cpp (0x4C....), which is lane 1's now: **lane 1**, Item.cpp's private packet copies are yours to reconcile with D2Packets.h.
 
 - **Lane 10 (0x62B5B0 is yours now, the user's 12:21 PT call):** released. My 17 variants are under Left in place ("0x62B5B0 (Items.cpp), the unit's declarations"): the unit's declarations, D2CommonApi.h with Items.cpp's private copies dropped, definition order, and the locals' order and scope all leave the same 2 swapped loads, with every other Items.cpp function unchanged. lane4/0062B5B0 holds the same draft as lane2/0062B5B0-wip; nothing of mine there is newer than lane 2's.
 
