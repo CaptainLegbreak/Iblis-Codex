@@ -7,12 +7,15 @@ Lane 8 reopened (new chat, 2026-11-26 12:00 PT). Owns `Source/D2Common/**` again
 scaffolding, names.
 
 ## Claimed
+- D2Common's three identical-arm forcing rows (STATUS.md), which no lane holds: 0x613F80 DATATBLS_LoadSkills_SkillDescTxt
+  (`DataTbls_00613F80.cpp`, also a piece of DataTbls.cpp), 0x61F500 DATATBLS_LoadLvlSubTxt (`LvlTbls.cpp`), 0x62FFF0
+  ITEMS_SerializeItemComplete (`Items.cpp`). Lane 2 keeps the four volatile / `__assume` rows. These come before the joins.
 - File joins in D2Common, one branch each (`lane8/join-<file>`): `DataTbls/ItemTbls` (ItemTbls_00633730, ItemTbls_00634DC0),
   `DataTbls/DataTbls` (DataTbls_00613F80), `DataTbls/MissileTbls` (MissileTbls_00663270), `Composit/Composit`
   (Composit_0064F060), `Units/Missile` (Missile_0064B860). Lane 2 hadn't claimed any of them.
 
 ## Status
-- Thu Nov 26 13:05 PT: baseline on #429 clean. MissileTbls join tried and parked (comment branch Ready). Next: DataTbls_00613F80, then ItemTbls_00633730.
+- Thu Nov 26 13:05 PT: baseline on #429 clean. MissileTbls join tried and parked (comment branch Ready). Next: the three identical-arm rows (Claimed), starting with 0x62FFF0 (4 bytes off in the helper form on 2026-11-25).
 - Thu Nov 26 12:20 PT: setting up (repo, board, wine done; waiting for Game.exe, then setup and the baseline build).
 
 ## Ready
