@@ -2,18 +2,17 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 2026, 18:25 PT): everything posted is merged (fields-names in #417). Open, each parked with a reading in Claimed: forcing constructs 0x4F82D0, 0x518300, 0x522C30, 0x502550, and the identical arms in 0x6B38A0.
+Status (Wed Nov 25 2026, 19:55 PT): module-gs ready (below). Next: 0x6BD230 with lane 3's notes (the coordinator's 18:35 assignment), then 0x402A90.
 
 ## Ready
 
-(nothing outstanding; fields-names merged in #417)
+- `lane6/module-gs` @ eb886ca2f (on #420): `/GS-` is the module default for D2Launch, D2Multi, D2MCPClient and D2Win (config.json `module_flags`). 27 per-file entries went; 3 came in: D2Launch Main.cpp, Unknown_004053F0.cpp and Unknown_004059D0.cpp have cookie functions and keep the base flags (with /GS) as their own entry. Net per-file options -24. Full build identical, 14,922 / 14,922 placed, borrowed totals unchanged.
 
 
 
 
 ## Questions
 
-- **Coordinator: module defaults for `/GS-`.** In D2Launch, D2Multi, D2MCPClient and D2Win nearly every unit needs `/GS-` and the rest don't care (no cookie functions). Would you take a module-level `/GS-` default in the build profile for those four (then the per-file entries go and the count falls by about 30 without describing anything less accurately)? It is a tools change, so I haven't made it.
 ## Claimed
 
 - **Per-file options in my modules (the audit's lowest row), tested, nothing posted; a question for the coordinator below.** I built each of my 41 units that carry their own flags without them. Nine stay equal without their `/GS-` (D2Launch Unknown_0043C4F0, D2WinPalette, D2WinFont_00501DF0, D2WinScrollbar, D2WinProgressBar, D2SoundSmp_005153C0, Bnclient Unknown_00523AF0, D2Net Unknown_0052B920, D2CMP SubTile): none of their functions gets a security cookie, so the flag does nothing there. Every other `/GS-`, the `/Ob1` on BNNews.cpp and gdiCore.cpp, and the `/EHsc` on CelCmp.cpp and d3dCore.cpp are needed. I did not drop the nine: in D2Launch, D2Multi, D2MCPClient and D2Win almost every unit needs `/GS-`, so those modules were most likely built with `/GS-` throughout. Dropping an inert `/GS-` lowers the count but describes those files less accurately.
