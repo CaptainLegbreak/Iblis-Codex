@@ -14,8 +14,6 @@ extern "C" __declspec(dllimport) long __stdcall ChangeDisplaySettingsA(void* lpD
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(); // 0x006CC1B4
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern int gnDisplayType; // 0x007C8CB0
 extern void* ghInstance; // 0x007C8CA8
 void __cdecl WINDOW_LoadGammaSettings(); // 0x004F8EA0

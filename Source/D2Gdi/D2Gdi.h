@@ -7,7 +7,6 @@ unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
 struct D2BitmapInfoStrc;
 struct D2CelContextStrc;

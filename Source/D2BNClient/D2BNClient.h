@@ -34,7 +34,6 @@ extern "C" const char gszConfiguration[]; // 0x006DEC7C
 extern "C" const char gszDiabloGateways[]; // 0x006DEC8C
 extern "C" const char gszOverrideGateways[]; // 0x006DECAC
 extern "C" const char gszWritingDefaultGateways[]; // 0x006DED24
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" int __cdecl _strnicmp(const char* szString1, const char* szString2, unsigned int nCount); // 0x00686040
 extern "C" int __cdecl _vsnprintf(char* szDest, unsigned int nCount, const char* szFormat, char* pArgs); // 0x00682F22
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
@@ -52,7 +51,6 @@ void __cdecl SLogWrite(void* hLog, const char* szFormat, ...); // 0x00420190
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl BNCLIENT_GetLogonType(); // 0x0051A570
 int __cdecl GAME_GetAbortFlag(); // 0x00520AE0
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __fastcall FOG_SOCKET_GetPeerName(FSafeSock* pSafeSock, void* pAddress, int* pnLength); // 0x0040DEE0
 int __fastcall FOG_SOCKET_Receive(FSafeSock* pSafeSock, char* pBuffer, int nBufferLength); // 0x0040DC60
 int __fastcall FOG_SOCKET_Select(FSafeSock* pSafeSock); // 0x0040DDF0
@@ -79,7 +77,6 @@ void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 void __stdcall sub_0041D2A0_MemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 void __stdcall sub_00420120_LogAdjust(void* hLog, int nValue); // 0x00420120
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
 #define CACHE_CRC32(dwCrc, pBytes, nCount) \
     dwCrc = 0xFFFFFFFF; \

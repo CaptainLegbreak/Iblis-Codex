@@ -59,7 +59,6 @@ int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
-void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void __cdecl sub_00509AA0_GlideSuspend(); // 0x00509AA0
 void __fastcall GLVERTEX_SetVertexAmbientColor(D2GlideSpriteVertexStrc* pVertex, unsigned char nShade); // 0x0050DBE0
 void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile); // 0x0050FBD0

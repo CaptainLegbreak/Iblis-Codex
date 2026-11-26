@@ -325,8 +325,6 @@ void __cdecl WARDENCLIENT_ActivatePendingModule(); // 0x00480230
 void __fastcall GFX_RefreshPathTarget(D2UnitStrc* pUnit); // 0x00480420
 void __cdecl sub_00481830_StopAllSounds(); // 0x00481830
 void __cdecl sub_00481850_Nop(); // 0x00481850
-D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
-void __fastcall SOUNDHDR_UpdateCache(unsigned int nTick); // 0x00482B40
 void __cdecl SOUNDHDR_TickSound(); // 0x00482C20
 void __fastcall INV_UpdateAuxBattleNetAddress(int nIndex); // 0x00482CA0
 unsigned char __cdecl INV_IsCinematicBusy(); // 0x00483350
@@ -421,7 +419,6 @@ void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsig
 int __fastcall UNITMODE_SetPathTargetUnit(D2UnitStrc* pUnit, int nUnitType, int nUnitId); // 0x00480780
 void __fastcall UNITMODE_SetModeOverlay(D2UnitStrc* pUnit, int nMode); // 0x00480D20
 void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nMode); // 0x00480E70
-void __fastcall SOUNDHDR_TouchCacheEntry(int nIndex); // 0x00482860
 D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex); // 0x00483470
 int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
@@ -462,8 +459,6 @@ int __cdecl UNITMODE_GetPlayerLevelId(); // 0x00481780
 int __cdecl sub_004817F0_GetSongMin(); // 0x004817F0
 int __cdecl sub_00481800_GetSongMax(); // 0x00481800
 int __cdecl sub_00481810(); // 0x00481810
-int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
-unsigned char __fastcall SOUNDHDR_GetGroupSize(int nId); // 0x004818C0
 D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 int __cdecl TEXT_CloseMessageLogCallback(); // 0x004A0030
 void __cdecl TEXT_CloseTextUnit(); // 0x004A0880
