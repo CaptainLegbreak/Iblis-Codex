@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 18:21 PST 2026: join-004f0650 and ob1-004f4590 posted: the two D2Client /Ob1 functions are done.
 - Wed Nov 25 18:06 PST 2026: data-owners-3 is in #417. Nothing in Ready.
 - Wed Nov 25 18:05 PST 2026: tried every remaining D2Client forcing construct this session (0x474160, 0x4A9870, 0x4B8100, 0x4F2BE0); all are register allocation or scheduling cases that no plain form reproduces so far (Left in place).
 - Wed Nov 25 17:56 PST 2026: joins-data-2 and questlog-data are in #416; data-owners-3 rebased onto #416 and rebuilt (identical, no count rose).
@@ -38,6 +39,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
+- lane4/join-004f0650 d65635469 (on #417): 0x4F0650 joins Unknown_004EDA80.cpp and Unknown_004F0650.cpp goes, with its two stand-in bodies for SKILLSEMON_CreateMissileRequest/Fan and its /Ob1. The real callees are statics in Unknown_004EDA80.cpp right before 0x4F0650, and the original passes pUnit to them in eax, which only a same-file caller gets. Unknown_004EDA80.cpp already had the function's source (unmarked); it builds equal once the two statics take pUnit first (same callee bytes either way under that convention; only this order gives the caller's registers). Placeholders -1, per-file options -1. Unit equal; full build: Game.exe identical, tree 6b354dc72b313e97e5ff952be287fee5632378df, placed 14,922 / 14,922, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
+- lane4/ob1-004f4590 44b2985c2 (on #417, stacked on join-004f0650): Unknown_004F4590.cpp builds equal at the module default /Ob2, so its /Ob1 goes (per-file options -1). Full build of the stack: Game.exe identical, tree 76949d7a48856b9f0d9f252a2174b958231576ba; audit guard: no count rose.
 
 ## Claimed
 
