@@ -15064,7 +15064,7 @@
   ["0x006BD0B0", 117, "verified", "_FOG_FreeLinker@4"],
   ["0x006BD130", 75, "verified", "_FOG_GetLinkIndexByCode@12"],
   ["0x006BD180", 176, "verified"],
-  ["0x006BD230", 246, "unmatched"],
+  ["0x006BD230", 246, "verified"],
   ["0x006BD330", 75, "verified"],
   ["0x006BD380", 64, "verified"],
   ["0x006BD3C0", 196, "verified"],
