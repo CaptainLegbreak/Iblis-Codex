@@ -258,8 +258,8 @@
    "static_definitions": 3
   },
   "Source/D2Launch/Src/MainMenus.cpp": {
-   "bytes": 16924,
-   "definitions": 67,
+   "bytes": 16948,
+   "definitions": 70,
    "externs": [
     "extern \"C\" void __cdecl MAINMENUS_OnConnectCancel(); // 0x00436CD0",
     "extern \"C\" void __cdecl sub_004371B0_OnLoginScreen(); // 0x004371B0",
@@ -270,7 +270,6 @@
     "extern \"C\" void __cdecl sub_00437720_OnPasswordScreen(); // 0x00437720",
     "extern \"C\" void __cdecl sub_00437730_ChangePassword(); // 0x00437730",
     "extern \"C\" void __cdecl CHARSEL_SubmitPasswordReset(); // 0x004378D0",
-    "extern \"C\" void __cdecl MAINMENUS_SelectCharacterClass(); // 0x00433BF0",
     "extern \"C\" void __cdecl CHARSEL_OnNormalDifficulty(); // 0x00439B80",
     "extern \"C\" void __cdecl CHARSEL_OnNightmareDifficulty(); // 0x00439BA0",
     "extern \"C\" void __cdecl CHARSEL_OnHellDifficulty(); // 0x00439BC0",
@@ -386,15 +385,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Multi/Src/ComCallback.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Launch/Src/MainMenus_00431AF0.cpp": {
-   "bytes": 24,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Src/MainMenus_00431AF0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -12956,7 +12946,7 @@
    "cname": "gData_006D48E8",
    "declared": true,
    "decorated": "?gszTosPrefix@@3QBDB",
-   "file": "Source/D2Launch/Src/MainMenus_00431AF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "fill": 16,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006D48E8[16]; // 0x006D48E8",
@@ -12987,7 +12977,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00431AF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnTextSentinel = ",
@@ -13012,7 +13002,7 @@
    "cname": "gData_0070CB84",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00431AF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070CB84_t gData_0070CB84; // 0x0070CB84",
    "head": "extern \"C\" struct d2data_0070CB84_t gData_0070CB84 = ",
