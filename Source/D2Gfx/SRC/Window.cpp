@@ -1294,6 +1294,7 @@ void __stdcall D2GFX_ClearScreen(int bPartial)
     return gpGraphicsInterface->pfClearScreen(bPartial);
 }
 
+// Kept noinline: the original calls this out of line from its callers in this file; without it the compiler inlines it.
 // 0x004F63D0
 __declspec(noinline) void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette)
 {

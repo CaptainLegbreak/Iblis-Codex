@@ -2528,6 +2528,7 @@ void* __cdecl sub_00520650()
     return gData_00882028;
 }
 
+// Kept noinline: the original calls this out of line from its callers in this file; without it the compiler inlines it.
 // 0x00521B00
 __declspec(noinline) int __fastcall BNSEND_DispatchPacket(unsigned char nId, const void* pData, int nSize)
 {

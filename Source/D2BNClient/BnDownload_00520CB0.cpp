@@ -41,6 +41,7 @@ void __fastcall BNDOWNLOAD_DecodeKeyDigits(const char* szKey, unsigned char* pOu
 
 void __stdcall BNDOWNLOAD_SubstituteKeyNibbles(unsigned int* pKey); // 0x00522980
 
+// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 // build: symbol ?BNDOWNLOAD_PermuteKeyBits@* 0x005226D0
 __declspec(noinline) static unsigned int __fastcall BNDOWNLOAD_PermuteKeyBits(int nUnused, unsigned int* pKey);
 
