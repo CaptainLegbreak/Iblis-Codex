@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 15:20 PST 2026: joins tried and left with readings: Game_0044D080 (Storm-list template copies; needs stpl.h), text_0049C9C0 (one lea tie, like inv_0048BC10). Ready: game-b7b0-note.
+
 - Thu Nov 26 14:48 PST 2026: my join-soundinst and join-editbox are superseded by lane 1's joins of the same files in #436 (their range); dropped, though the proxy won't let me delete the remote branches. Game_0044B7B0 stays apart (Ready, note). Next: Game_0044D080/E5A0, which need the loading-timer and critical-section records sorted out; then Inv, Text; Gfx after its records.
 
 - Thu Nov 26 14:14 PST 2026: #435 took roster-record. join-soundinst and join-editbox posted on #435 (files in pieces -2, one evidenced noinline). Gfx join in progress.
@@ -145,6 +147,10 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - Lane 2: `D2ClientTypes.h`'s `D2GfxDataStrc` holds its 20 entries as byte pairs because moving `D2GfxEntryStrc` out of D2Client.h changes code in useitem.cpp and inv_0048DD90.cpp.
 
 ## Left in place (and why)
+
+- **Game_0044D080.cpp (28 functions) and Game.cpp: blocked on Storm's list templates.** Joined, it compiles once three things are reconciled: gtLoadingTimer is one D2LoadingTimerStrc (its inline zeroing constructor adds no initializer, which I checked by building), gtPongData takes the piece's D2PongDataStrc, and the piece's gCriticalSection_007A0468 is Game.cpp's gtQServerLock. The blocker: the image has three Storm-list members twice, at two addresses, with the same code (0x44DED0/0x44DEF0 sub_0060E280_AddLinkOffset, 0x44ED00/0x44ED10 GetStringListHead, 0x44EE50/0x44EE70 ResetStringList). Those are two template instantiations, and our source gives both one class name (D2ChatStormListAStrc), so one unit can hold only one. That needs lane 3's one stpl.h definition first. Also left: GAME_ShutdownClient (0x44D550) and the end-screen button handlers (0x44E460, 0x44E4F0) mismatch, not yet read. (Also on main: Game.cpp and Game_0044B7B0.cpp both define `int gtLoadingTimer` and `gdwGlobal_007A0688`, its second half; which object owns 0x7A0684 isn't settled.)
+- **text_0049C9C0.cpp (TEXT_DrawWaypointPanel) and text.cpp: one compiler tie.** Joined (once the piece's private D2CelContextStrc, Unicode and waypoint-entry copies give way to the headers'), 1276/1276 with two `lea` operands swapped (gnScreenHeight + gnPanelOffsetY). That's the inv_0048BC10 tie again, and rewriting the sum the other way round doesn't change it.
+- (Tool note for anyone merging pieces by script: never deduplicate `#pragma pack` lines, or a dropped `pop` packs the rest of the file.)
 
 - **Gfx.cpp's eight pieces (in progress).** Gfx.cpp builds equal under /GS-, which all five /GS- pieces need, so the joined file takes /GS-. The piece data continues Gfx.cpp's (Gfx.cpp 0x712AA0-0x712AC4, then the piece 0x712AC4-0x712B10). Gfx_0046DB90.cpp (24 functions): joined, 23 build equal. 0x46E740 GFX_LoadGfxNode, a static that gets pUnit in eax, picks ebx where the original has edi: a pure allocation tie. It is equal in the piece alone, and none of these change it: definition order, the shared helpers, globals extern vs defined. The other six pieces each keep private copies of records Gfx.cpp also defines with different layouts (D2UnitOverlayStrc; D2GfxDataStrc vs the piece's D2StateOwnerStrc view; GetNodeLayer returning void* vs D2GfxLayerStrc*), plus static copies of Gfx.cpp functions (0x46DF40 in Gfx_00470C30.cpp). Those get reconciled one piece at a time, on their own branches.
 
