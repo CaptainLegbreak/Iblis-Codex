@@ -23,6 +23,7 @@
 #include "D2Structs.h"
 
 #include "D2LevelTxt.h"
+#include "D2CommonApi.h"
 
 struct D2InventoryStrc;
 
@@ -111,7 +112,6 @@ D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromClassId(int bExpan
 
 D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromNameId(int bExpansion, unsigned short nNameId, D2HirelingTxt* pOldRecord); // 0x00656390
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 
 extern const int gnSetMaskToBonusMappingTable[0x40]; // 0x006EE440
 
@@ -394,9 +394,7 @@ __forceinline unsigned int ITEMS_GetStoreSetItemsMaskInline(D2UnitStrc* pUnit, D
 extern const int gnItemSetStates[]; // 0x006EE424
 
 
-D2SetItemsTxt* __stdcall ITEMS_GetSetItemsTxtRecordFromItem(D2UnitStrc* pItem); // 0x0062A490
 
-int __stdcall ITEMS_GetNoOfSetItemsFromItem(D2UnitStrc* pItem); // 0x0062B3A0
 
 int __stdcall D2Common_10574(D2UnitStrc* pUnit, int nStateId, int bSet); // 0x006279A0
 

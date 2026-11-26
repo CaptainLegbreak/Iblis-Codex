@@ -46,6 +46,7 @@
 #include "D2ItemsWorld.h"
 #include "D2SetsTxt.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -95,7 +96,6 @@ D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
 
 
 
-D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 int __fastcall ITEMMODS_RollRandomValueInRange(D2UnitStrc* pItem, int nMin, int nMax); // 0x0065E9E0
 
@@ -114,7 +114,6 @@ static inline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId);
 
 enum { SOCKET_FLAG = 0x800 };
 
-void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 
 void __stdcall D2COMMON_11292_ItemAssignProperty(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* pTargetUnit); // 0x0065FD70
 
@@ -388,7 +387,6 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromFlag(D2StatListStrc* pStatList
 
 
 
-void __stdcall STATLIST_SetBaseStat2(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer, D2UnitStrc* pUnit); // 0x00627220
 
 
 // 0x0065C5E0
@@ -536,7 +534,6 @@ void __stdcall D2Common_10846(int nDataBits, int* pSkillId, int* pSkillLevel, in
 }
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromFlag(D2StatListStrc* pStatList, int nFlag); // 0x00625730
-void __stdcall STATLIST_SetBaseStat2(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer, D2UnitStrc* pUnit); // 0x00627220
 
 // 0x0065C820
 int __stdcall ITEMMODS_GetItemCharges(D2UnitStrc* pItem, int nSkillId, int nSkillLevel, int* pValue, D2StatListStrc** ppStatList)
