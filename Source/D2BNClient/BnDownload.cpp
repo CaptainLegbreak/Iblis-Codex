@@ -623,8 +623,9 @@ static D2BnLogStrc& BNDOWNLOAD_GetLog()
 
 // build: symbol ?$S1@?1??BNDOWNLOAD_GetLog@@YAAAUD2BnLogStrc@@XZ@4IA 0x0088187C
 // build: symbol ??__FtLog_00881878@?1??BNDOWNLOAD_GetLog@@YAAAUD2BnLogStrc@@XZ@YAXXZ 0x006CB430
+// Kept noinline: BNDOWNLOAD_HandleClientId (0x520CB0) and BNDOWNLOAD_HandleLogonChallengeEx (0x520D70) call this out of line in the image; without it the compiler inlines it there.
 // 0x00518C70
-int __cdecl BNDOWNLOAD_ConfigureLog(int nMode, int nValue)
+__declspec(noinline) int __cdecl BNDOWNLOAD_ConfigureLog(int nMode, int nValue)
 {
     int nResult = 0;
     EnterCriticalSection(&gtBnLogLock);
@@ -798,8 +799,9 @@ int __fastcall BNDOWNLOAD_SetDownloadText(const void* pSource, unsigned int nSiz
     return 1;
 }
 
+// Kept noinline: BNDOWNLOAD_HandleStartVersioning (0x520F60) and BNDOWNLOAD_HandleAuthInfo (0x521220) call this out of line in the image; without it the compiler inlines it there.
 // 0x0051E3B0
-int __fastcall BNDOWNLOAD_SetCheckRevisionValue(const char* szValue)
+__declspec(noinline) int __fastcall BNDOWNLOAD_SetCheckRevisionValue(const char* szValue)
 {
     SStrCopy(gszCheckRevisionValue, szValue, 0x104);
     return 1;
@@ -1046,8 +1048,9 @@ int __cdecl BNCLIENT_GetDownloadPercent()
     return gdwGlobal_00881C50;
 }
 
+// Kept noinline: BNDOWNLOAD_HandleAuthInfo (0x521220) calls this out of line in the image; without it the compiler inlines it there.
 // 0x0051EA80
-int __fastcall BNDOWNLOAD_SetArchiveName(const char* szName)
+__declspec(noinline) int __fastcall BNDOWNLOAD_SetArchiveName(const char* szName)
 {
     SStrCopy(gszDownloadArchive, szName, 0x7FFFFFFF);
     return 1;
@@ -2035,6 +2038,29 @@ int __fastcall BNDOWNLOAD_HandleChangePassword(const int* pData, unsigned int nS
     return 1;
 }
 
+// 0x00520CB0
+int __fastcall BNDOWNLOAD_HandleClientId(const D2BnClientIdReplyStrc* pData, unsigned int nSize)
+{
+    if (!pData || nSize < 0x10)
+    {
+        BNDOWNLOAD_LogPrintf("ERROR BDClientId: invalid response");
+        return 0;
+    }
+
+    unsigned int nRegistrationVersion = pData->dwRegistrationVersion;
+    unsigned int nRegistrationAuthority = pData->dwRegistrationAuthority;
+    unsigned int nClientId = pData->dwClientId;
+    unsigned int nClientToken = pData->dwRegistrationToken;
+    SRegSaveValue(gszConfiguration, "Registration Version", 2, nRegistrationVersion);
+    SRegSaveValue(gszConfiguration, "Registration Authority", 2, nRegistrationAuthority);
+    SRegSaveValue(gszConfiguration, "Client ID", 2, nClientId);
+    SRegSaveValue(gszConfiguration, "Client Token", 2, nClientToken);
+    BNDOWNLOAD_ConfigureLog(2, 4);
+    BNDOWNLOAD_LogPrintf("client acknowledged");
+    BNDOWNLOAD_ConfigureLog(2, -4);
+    return 1;
+}
+
 // 0x00520D50
 int __fastcall BNDOWNLOAD_HandleLogonChallenge(const int* pData, unsigned int nSize)
 {
@@ -2047,6 +2073,16 @@ int __fastcall BNDOWNLOAD_HandleStartAdvex(const int* pData, unsigned int nSize)
 {
     if (!pData[0])
         gdwGlobal_00882318 = 1;
+    return 1;
+}
+
+// 0x00520D70
+int __fastcall BNDOWNLOAD_HandleLogonChallengeEx(const int* pData, unsigned int nSize)
+{
+    sub_0051A540_SetValue(pData[1]);
+    BNDOWNLOAD_ConfigureLog(2, 4);
+    BNDOWNLOAD_LogPrintf("logon acknowledged");
+    BNDOWNLOAD_ConfigureLog(2, -4);
     return 1;
 }
 
@@ -2140,6 +2176,16 @@ int __fastcall BNDOWNLOAD_HandleReportVersion(D2VersionReplyStrc* pReply, int nS
 
     gnUpdateState = 0;
     BNDOWNLOAD_LogPrintf("user has unknown version");
+    return 1;
+}
+
+// 0x00520F60
+int __fastcall BNDOWNLOAD_HandleStartVersioning(const D2BnStartVersioningStrc* pData, unsigned int nSize)
+{
+    const char* szFileName = pData->szFileName;
+    if (sizeof(D2FileTimeStrc) + strlen(szFileName) + 1 < nSize)
+        BNDOWNLOAD_SetCheckRevisionValue(szFileName + strlen(szFileName) + 1);
+    BNDOWNLOAD_RequestDownload(0x80000001, 3, 0, 0, &pData->tFileTime, szFileName, 0);
     return 1;
 }
 
@@ -2308,6 +2354,26 @@ static int BNAUTH_IsValidAuthCheck(const unsigned char* pData, unsigned int nSiz
     }
     if (nCount != 0)
         return 0;
+    return 1;
+}
+
+// 0x00521220
+int __fastcall BNDOWNLOAD_HandleAuthInfo(const unsigned char* pData, unsigned int nSize)
+{
+    if (!BNAUTH_IsValidAuthInfo(pData, nSize))
+        return 0;
+
+    const D2BnAuthInfoStrc* pInfo = (const D2BnAuthInfoStrc*)pData;
+    D2FileTimeStrc tFileTime = pInfo->tFileTime;
+    unsigned int nLogonType = pInfo->dwLogonType;
+    unsigned int nServerToken = pInfo->dwServerToken;
+    const char* szFileName = pInfo->szFileName;
+    const char* szValue = szFileName + SStrLen(szFileName) + 1;
+    sub_0051A540_SetValue(nServerToken);
+    sub_0051A560_SetValue(nLogonType);
+    BNDOWNLOAD_SetCheckRevisionValue(szValue);
+    BNDOWNLOAD_SetArchiveName(&gszEmptyAssertText);
+    BNDOWNLOAD_RequestDownload(0x80000001, 3, 0, 0, &tFileTime, szFileName, 0);
     return 1;
 }
 
@@ -2794,7 +2860,7 @@ unsigned int __fastcall BNDOWNLOAD_GetKeyBit(const unsigned int* pKey, unsigned 
 // 0x005225A0
 void __fastcall BNDOWNLOAD_SetKeyBit(unsigned int* pKey, unsigned int nIndex, unsigned char nValue)
 {
-    const int nShift = nIndex & 0x1F;
+    const unsigned int nShift = nIndex & 0x1F;
     const unsigned int nWord = 3 - (nIndex >> 5);
     pKey[nWord] = (pKey[nWord] & ~(1 << nShift)) | ((nValue & 1) << nShift);
 }
@@ -2829,6 +2895,31 @@ void __fastcall BNDOWNLOAD_DecodeKeyDigits(const char* szKey, unsigned char* pOu
     }
 }
 
+// 0x005226D0
+static void __fastcall BNDOWNLOAD_PermuteKeyBits(int nUnused, unsigned int* pKey)
+{
+    unsigned int aCopy[4];
+    aCopy[0] = pKey[0];
+    aCopy[1] = pKey[1];
+    aCopy[2] = pKey[2];
+    aCopy[3] = pKey[3];
+
+    unsigned int nPos = 0;
+    for (unsigned int i = 0; i < 120; ++i)
+    {
+        BNDOWNLOAD_SetKeyBit(pKey, i, (unsigned char)BNDOWNLOAD_GetKeyBit(aCopy, nPos));
+        nPos += 11;
+        if (nPos >= 120)
+        {
+            nPos -= 120;
+            if ((int)nPos < 0)
+            {
+                nPos += 11;
+            }
+        }
+    }
+}
+
 // 0x00522980
 void __stdcall BNDOWNLOAD_SubstituteKeyNibbles(unsigned int* pKey)
 {
@@ -2841,6 +2932,33 @@ void __stdcall BNDOWNLOAD_SubstituteKeyNibbles(unsigned int* pKey)
             nValue = gaSubstitutionBox[i][(unsigned char)GetNibble(pKey, j) ^ gaSubstitutionBox[i][nValue]];
         SetNibble(pKey, i, gaSubstitutionBox[i][nValue]);
     }
+}
+
+// 0x00522AE0
+void __fastcall BNDOWNLOAD_DecodeCDKey(const char* szKey, unsigned int* pProduct, unsigned int* pPublic, unsigned char* pPrivate)
+{
+    if (!szKey || !pPrivate)
+    {
+        return;
+    }
+
+    unsigned char aDigits[52];
+    BNDOWNLOAD_DecodeKeyDigits(szKey, aDigits);
+
+    unsigned int aKey[4] = { 0 };
+    for (int i = 52; i > 0; --i)
+    {
+        BNDOWNLOAD_MulAddWords(4, 5, aKey, aKey, aDigits[i - 1]);
+    }
+
+    BNDOWNLOAD_SubstituteKeyNibbles(aKey);
+    BNDOWNLOAD_PermuteKeyBits(0, aKey);
+
+    *pProduct = aKey[0] >> 10;
+    *pPublic = ((aKey[0] & 0x3FF) << 16) | (aKey[1] >> 16);
+    *(unsigned short*)pPrivate = (unsigned short)aKey[1];
+    *(unsigned int*)(pPrivate + 2) = aKey[2];
+    *(unsigned int*)(pPrivate + 6) = aKey[3];
 }
 
 // 0x00522BC0
