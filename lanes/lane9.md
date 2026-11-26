@@ -51,9 +51,14 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 - lane9/glide-spans-2 bb945f89 (on #443): glide-spans rebased (glCore.cpp and four others: prototypes main's
   D2Glide.h now holds are dropped from the moved code). auditguard no count rose. Full build: Game.exe identical,
   tree 504165c957670f8cd2aad791ce7cda32a325d5df, borrowed code / data 7,923 / 261 B.
+- lane9/params-d2game-d 36bcb08b (on #443): D2Game SKILLS, GAME: placeholder parameters in prototypes and
+  definitions from the definitions and D2MOO, parameters passed on unchanged take the callee's name, names.csv names
+  for sub_<VA> callees the unit declares; Clients.cpp's SKILLS_ExecuteSkill declaration gets its address marker.
+  a1/v12 892 -> 779 alone; auditguard no count rose. Full build: Game.exe identical, tree
+  c9bd8942f00b4b8627ddcfb632139d7e5645508c, borrowed code / data 7,923 / 261 B.
 - Building now, posted when verified: lane9/params-d2game-a2,
   -b2, -c2 (the same folders regenerated on #443 after #441's shared D2Game declarations) and lane9/params-d2game-d
-  (SKILLS, GAME). Not merge-ready until their own Ready lines appear.
+  (posted above). Not merge-ready until their own Ready lines appear.
 - WITHDRAWN (conflicts with #441; replaced by the -2 / d branches below) lane9/params-d2game-c 1ccf64af (on #439): D2Game UNIT, PLAYER: the same naming (definitions'/D2MOO's parameter
   names; parameters passed on unchanged take the callee's name; names.csv names for sub_<VA> callees the unit itself
   declares). auditguard no count rose. Full build: Game.exe identical, tree 60312fd861ed667fb18d90861620112566073147,
