@@ -6,7 +6,7 @@ Status (Thu Nov 26 2026, 15:45 PT): join-charsel, join-charsel-3 and emit-trim-2
 
 ## Ready
 
-- `lane6/decls-3` @ 638362412: 77 extern declarations in D2Launch, D2Multi, D2Win, D2CMP, D2Sound, D2Net and D2BNClient files that repeat, with the same type, an extern of a header the file includes. CelCmp.cpp keeps its copies (its output changes with its declarations). Unit builds equal; auditguard: no count rose; full build running.
+- `lane6/decls-3` @ 638362412: 77 extern declarations in D2Launch, D2Multi, D2Win, D2CMP, D2Sound, D2Net and D2BNClient files that repeat, with the same type, an extern of a header the file includes. CelCmp.cpp keeps its copies (its output changes with its declarations). Unit builds equal; auditguard: no count rose; full build identical.
 - `lane6/names-sub-3` @ 82901ebd1: nine more placeholder functions named from their bodies (sub_0043BF60_ConnectToBattleNet, sub_005269D0_FormatText (the Unicode format routine; its callers in D2Client, D2Game and D2LangApi.h follow), sub_00520650_GetInfoText, sub_0052B910_GetLastError, two value getters, three constant callbacks). Every touched unit equal (38); auditguard: no count rose; full build queued. Left: CelCmp.cpp's cel-list template members (several folded with other modules' copies) and 0x503F70 (an emit helper's static).
 - `lane6/fields-bnftp` @ 244733bbb: BnDownload.cpp's BNFTP request header names its protocol version bytes. Unit equal; full build queued.
 
