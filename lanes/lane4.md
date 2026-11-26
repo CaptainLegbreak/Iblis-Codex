@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 00:03 PST 2026: plain-types is in #424. Nothing in Ready.
 - Wed Nov 25 23:30 PST 2026: audit-379 rows for D2Client on main: decompiler labels and T<address> names are already gone; a1..a10/v12 is down to about 20 parameter names in prototypes and function-pointer typedefs (mostly D2Common/D2Win imports such as D2Common_10434, SERVER_Initialize, DUNGEON_FindRoomBySubtileCoordinates) whose meaning the callers here do not show, so I am leaving them rather than inventing names. Remaining: f_<hex>/unk0x fields. Game.cpp's 179 `f_0` are one link member in each of its Storm list-node structs (struct sub_0041C720 { D2StormLinkStrc f_0; } and the like), i.e. Storm's list templates; they belong with the Game.cpp/Storm template entry in Left in place (one stpl.h definition from lane 3), not a rename. SCmd.cpp's 239 unk0x are packet records, which need working out field by field.
 - Wed Nov 25 23:29 PST 2026: emit-trim is in #423. plain-types posted.
 - Wed Nov 25 22:54 PST 2026: emit-trim posted (audit-379 emit helpers in D2Client: 69 out, 70 still needed).
@@ -52,7 +53,6 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/plain-types 425c3fc0c (on #423): audit-379 "decompiler types", D2Client part. Wall2.cpp spells its types with int / unsigned int / unsigned short / unsigned char instead of D2Client.h's s32/u32/u16/u8 shorthands (141 lines). D2Client.h keeps those typedefs: without them the declaration-count units inv_0048BC10, inv_004886C0 and inv_0048DD90 build differently. Full build: Game.exe identical, tree fd648611227d886be922dbfd1e9a1dd161f06ab9; audit guard: no count rose. The row's other D2Client entries are already gone on main except inv.cpp's LOBYTE/HIBYTE (the Windows macros, in a declaration-count unit).
 
 ## Claimed
 
