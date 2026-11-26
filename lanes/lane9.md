@@ -12,7 +12,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 ## Claimed
 - **D2Game's names (the coordinator's 14:40 assignment): `a1`/`v12` parameters and locals and `sub_<VA>` functions,
   one branch per folder.** Lane 5, skip these folders: **MISSILES, INVENTORY, DEBUG, ITEMS** (built, lane9/params-d2game-a) and **Ai,
-  MONSTER, OBJECTS, Quests** (lane9/params-d2game-b), **UNIT, PLAYER** (now, lane9/params-d2game-c); then SKILLS, GAME. Parameters take the name the function's own
+  MONSTER, OBJECTS, Quests** (lane9/params-d2game-b), **UNIT, PLAYER** (lane9/params-d2game-c), **SKILLS, GAME** (now, lane9/params-d2game-d). Parameters take the name the function's own
   definition gives that position, else D2MOO's; definitions take D2MOO's names; `sub_<VA>` functions take
   names.csv/D2MOO names or `sub_<VA>_<Verb>` from the body.
 - **0x004F82D0 CMNSUBTILE_DrawBlendVisTile** (D2Gfx/SRC/Window.cpp, `__assume`), parked again with lane 6's reading
@@ -47,6 +47,10 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/params-d2game-c 1ccf64af (on #439): D2Game UNIT, PLAYER: the same naming (definitions'/D2MOO's parameter
+  names; parameters passed on unchanged take the callee's name; names.csv names for sub_<VA> callees the unit itself
+  declares). auditguard no count rose. Full build: Game.exe identical, tree 60312fd861ed667fb18d90861620112566073147,
+  borrowed code / data 8,373 / 261 B.
 - lane9/params-d2game-b 492ae490 (on #439): D2Game Ai, MONSTER, OBJECTS, Quests: the same naming as params-d2game-a
   (definitions' or D2MOO's parameter names, the Raven walk's two by the arguments they become, names.csv names for
   sub_<VA> callees; ObjMode.cpp keeps its second spelling of 0x620510). a1/v12 1,747 -> 1,482 alone; auditguard no
