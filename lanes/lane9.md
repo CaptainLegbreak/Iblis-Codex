@@ -10,6 +10,11 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
   build. Both forcing rows parked and offered to lane 7 (Questions). Waiting on the coordinator for lane 9's next work.
 
 ## Claimed
+- **D2Game's names (the coordinator's 14:40 assignment): `a1`/`v12` parameters and locals and `sub_<VA>` functions,
+  one branch per folder.** Lane 5, skip these folders: **MISSILES, INVENTORY, DEBUG, ITEMS** (now), then Ai,
+  MONSTER, OBJECTS, Quests (next; I'll post each before starting). Parameters take the name the function's own
+  definition gives that position, else D2MOO's; definitions take D2MOO's names; `sub_<VA>` functions take
+  names.csv/D2MOO names or `sub_<VA>_<Verb>` from the body.
 - **0x004F82D0 CMNSUBTILE_DrawBlendVisTile** (D2Gfx/SRC/Window.cpp, `__assume`), parked again with lane 6's reading
   confirmed: the plain sibling form is 533 / 532 B, and in round 1 the clip block (`pNextSrc` .. `nLength`) is one
   block with w=2, K=15: the clip temporary gets 14 x 2 x 15 = 420, `p` gets 427 (+120 there). The `__assume` form wins
