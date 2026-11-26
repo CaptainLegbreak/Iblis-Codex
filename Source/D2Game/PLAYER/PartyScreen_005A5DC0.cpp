@@ -1,3 +1,7 @@
+// These two functions belong to PartyScreen.cpp (their assert strings name it) but stay in a file of
+// their own: in one file with the definition of PARTYSCREEN_PlayerLeftParty (0x005A5D20, which never
+// reads pFailure), PARTYSCREEN_ToggleHostile's nPartyId, whose address it passes there, stays in ebx
+// instead of its stack slot and 0x005A5E50 stops building equal, wherever in the file they go.
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
