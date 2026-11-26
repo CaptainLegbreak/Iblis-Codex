@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 10:03 PST 2026: rebased onto #425; constructs branch posted; packet-names stack building; next, 0x62B5B0 on the unit's declarations (coordinator's lever).
+
 - Thu Nov 26 09:15 PST 2026: noinline posted (stacked on dup-decls).
 - Thu Nov 26 08:39 PST 2026: dup-decls posted (287 duplicate private prototypes out of D2Client).
 - Thu Nov 26 08:24 PST 2026: 0x477170 judged the original\'s own pragma (Questions). All D2Client forcing rows are now parked with readings or waiting on a judgement; moving to scaffolding (private declarations shared headers already have).
@@ -64,8 +66,9 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/dup-decls 365ffad4a (on #424; two commits): scaffolding, D2Client part. 287 private prototypes in 78 D2Client files go: each repeated, with the same return type, convention and parameter types, a declaration the file already gets from a header it includes (D2ClientFuncs.h, D2CommonApi.h, FogApi.h, StormApi.h, D2LangApi.h and the others). Removed per file, kept out only where the unit stays equal (all 78 did); the eight declaration-count units untouched. Second commit: 11 private externs of globals an included header already declares with the same type, 7 files. Full build of both: Game.exe identical, tree c1670f81d8dd80a93ce36aa416bf903c3b8dfd64, placed 14,922 / 14,922, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
-- lane4/noinline c1162c4e5 (on #424, stacked on dup-decls): audit-379 "noinline with no evidence", D2Client part. Each of the 22 `__declspec(noinline)` uses was taken out on its own: 3 go (SkillDesc_004F30A0.cpp's two formatters, inv_0048BC10.cpp's sub_00483AE0_IsInGrid7BCB18; units equal without them); the other 19 are needed, since without each the compiler expands the function into a caller the original calls it from, and each now has a `// noinline:` comment naming those callers. Full build: Game.exe identical, tree a73b07ffc94feb170c3878406f681a0340714dee; audit guard: no count rose.
+- lane4/original-constructs 570e52eb3 (on #425, tools/status.py only): the coordinator's 08:48 answer. FORCING_ORIGINAL lists 0x477170 (PalShift's `#pragma optimize("", off)`) and 0x44CD70/0x44EFA0 (identical gpClientConfig arms) with the evidence in a comment; their rows read "(original)" and forcing-construct functions go 40 -> 37. Regenerating STATUS.md changes only those four lines. STATUS.md and the svgs are left for the round's refresh.
+- lane4/dup-externs, lane4/noinline, lane4/scmd-packets (one stack on #425, full build running; line updated with hashes when it's verified): the 287 prototypes are on main; the externs commit is regenerated on #425 (the renames made 43 duplicates in 19 files, was 11), noinline is unchanged, and SCmd.cpp's packet records take D2Packets.h's field names for 44 fields in 25 records where offset, size and type agree (unk0x reads in SCmd.cpp 239 -> 194).
+
 
 ## Claimed
 
