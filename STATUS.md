@@ -17,8 +17,8 @@ Bytes of the built Game.exe by origin:
 
 | Origin | Bytes |
 |---|---:|
-| game code and data compiled from Source/ | 2,700,239 |
-| initialised data generated from your Game.exe (build/data_plan.json) | 368,532 |
+| game code and data compiled from Source/ | 2,700,299 |
+| initialised data generated from your Game.exe (build/data_plan.json) | 368,472 |
 | C runtime (libcmt.lib, placed by identity) | 239,696 |
 | import thunks and the import address table | 3,782 |
 | headers, import and export tables, relocations, checksum | 163,407 |
@@ -51,7 +51,7 @@ How far the sources are from reading like the original source tree. Byte matchin
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 40 |
 | Calling-convention shims | 38 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
-| `__declspec(noinline)` / `__forceinline` | 95 / 201 |
+| `__declspec(noinline)` / `__forceinline` | 94 / 201 |
 | Function names: blizzard / library / d2moo / inferred / placeholder | 478 / 87 / 5336 / 6493 / 2533 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`, an `if`/`else` whose two arms are identical). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
 
-Not listed one by one: 4170 functions are compiled with `/GS-` and 1566 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 95 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
+Not listed one by one: 4170 functions are compiled with `/GS-` and 1566 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 94 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|

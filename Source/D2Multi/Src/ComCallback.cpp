@@ -1645,7 +1645,6 @@ void __fastcall COMCALLBACK_SplitName(const char* szName, char* szTitle, char* s
 
 D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
 void __cdecl CHATDLG_RefreshChatScreen(); // 0x0043FBD0
-__declspec(noinline) void __cdecl CHATDLG_RefreshChatScreen(); // 0x0043FBD0
 
 // 0x004476F0
 int __cdecl sub_004476F0()

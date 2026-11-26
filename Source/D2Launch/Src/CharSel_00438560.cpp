@@ -154,6 +154,7 @@ void __cdecl CHARSEL_UpdateCharList(); // 0x004380F0
 void __fastcall sub_004FB740_SetTextOffset(D2WinControlStrc*,int,int); // 0x004FB740
 const char* __stdcall D2Win_10161(int,int,int,int); // 0x005068A0
 extern "C" char* __cdecl strcat(char*,const char*);
+// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 __declspec(noinline) static unsigned int CHARSEL_GetDaysLeft(unsigned int nExpireTime);
 static unsigned int CHARSEL_GetDaysLeft(unsigned int nExpireTime); // 0x004380B0
 // 0x004380B0

@@ -291,6 +291,7 @@ extern int gnItemsTxtRecordCount_008426EC; // 0x008426EC
 
 static void D2COMP_CopyTokenPadded(char* pDst, const char* pSrc);
 
+// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 static __declspec(noinline) D2CofDataStrc* __stdcall D2COMP_LoadCofFile(const char* szPath, unsigned int* pnSize);
 
 struct D2WinEditBoxStrc;
@@ -799,6 +800,7 @@ void __fastcall D2COMP_InitGfxData(D2CompositeUnitStrc* pCompositeUnit, D2GfxDat
     }
 }
 
+// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 // 0x005038A0
 static __declspec(noinline) void __stdcall D2COMP_SetupGfxData(D2CompositeUnitStrc* pCompositeUnit, unsigned char nComponent, int nFrame, int nDirection, D2GfxDataStrc* pGfxData, D2CelFileStrc* pCelFile)
 {

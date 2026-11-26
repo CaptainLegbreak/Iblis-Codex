@@ -613,6 +613,7 @@ void __fastcall sub_00514530_InitSound(int nArg1, int nArg2)
     }
 }
 
+// Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 // 0x00514710
 __declspec(noinline) static D2SoundChannelEntryStrc* D2SOUND_GetChannelEntry(int nIndex)
 {
@@ -653,6 +654,7 @@ extern "C" void __fastcall D2SOUND_CreateStreamChannel(int nArg)
     gpSoundChannel = D2SOUNDSMP_CreateSound(1, gnStreamChannelArg);
 }
 
+// Kept noinline: the original calls this out of line from its callers in this file; without it the compiler inlines it.
 // 0x005147B0
 __declspec(noinline) void __cdecl D2SOUND_DestroyStreamChannel()
 {
