@@ -12,6 +12,8 @@ Status (Thu Nov 26 2026, 15:10 PT): the seven joins are merged (#433, #434). sou
 
 - `lane6/join-charsel-3` @ 0ccf2866e (on join-charsel): CharSel_004378D0.cpp's four functions (CHARSEL_FindSlotByName, _SelectNamedSlot, _OnCharSelect, _JoinSelected) join CharSel.cpp under the file's own global spellings; CharSel.cpp's copies of the first two give way to the placed ones. **noinline +0.** CharSel.cpp all equal; auditguard: no count rose; full build queued.
 
+- `lane6/emit-trim-2` @ 5e7bb1df2 (on join-charsel-3): 20 emit helpers go from CharSel.cpp (9), BnDownload.cpp (8) and D2WinFont.cpp (3), whose statics are called by the joined code now; each removed alone, kept out only where its unit stays equal (emit helpers 394 -> 374). Full build queued.
+
 ## Questions
 
 ## Claimed
