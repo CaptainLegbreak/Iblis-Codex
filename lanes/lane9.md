@@ -6,9 +6,8 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 1.10-address names. New chat, reopened 2026-11-26 11:57 PT (from lane 6, which held these modules since 2026-11-25).
 
 ## Status
-- 13:50 PT: names-110-d2game-2 merged (#432). names-110-d2common-2 Ready (below, still applies on #433).
-  lane9/decls-renderers (module functions declared once in their module headers) in its full build. 0x4F82D0 parked
-  again with the reading below; 0x6B38A0 next.
+- 14:20 PT: 1.10-address names done (54 -> 0, #435). decls-renderers-2 Ready; names-spritevalidate in its full
+  build. Both forcing rows parked and offered to lane 7 (Questions). Waiting on the coordinator for lane 9's next work.
 
 ## Claimed
 - **0x004F82D0 CMNSUBTILE_DrawBlendVisTile** (D2Gfx/SRC/Window.cpp, `__assume`), parked again with lane 6's reading
@@ -43,20 +42,16 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/names-110-d2game WITHDRAWN: superseded by names-110-d2game-2, merged in #432. Don't merge 03c35c9a2 (the old
+  tip): its content is on main already.
+- lane9/names-110-d2common WITHDRAWN: superseded by names-110-d2common-2, merged in #435.
+- lane9/decls-renderers WITHDRAWN: superseded by decls-renderers-2 below.
 - lane9/decls-renderers-2 09b67cd9 (on #434): functions D2Gdi, D2DDraw, D2Direct3D and D2Glide define that other
   files of the same module declared privately are declared once in the module header (2 + 7 + 13 + 41), with the
   private copies' spelling, and the copies go; ten private copies of declarations an included header already had go
   too. Every includer of the four headers builds all equal; kept private where a unit differs or doesn't include the
   header (listed in the commit). auditguard no count rose. Full build: Game.exe identical, tree
-  ea7c98399e6a44fbc1bc5adda75660781a8b7a7e, borrowed code / data 8,373 / 261 B. (lane9/decls-renderers: superseded.)
-- lane9/names-110-d2common-2 6a2995de (on #431): D2Common's 15 names carrying a 1.10 address take their 1.14d names
-  (plan names/v110-d2common.tsv: three names.csv names, nine sub_<VA>_<Verb> where D2MOO names a path/step/IDA*
-  function only by address, OutPlace.cpp's three inlined placers as DRLGOUTPLACE_PlaceLinkedCoord/...Centered/...Far);
-  names.csv, units.json, functions.json, data_plan.json follow. Independent of names-110-d2game-2 (no shared file but
-  names.csv, different rows). 1.10-address names 373 -> 319 alone (54 with the D2Game branch: 0 left); auditguard no
-  count rose. Full build: Game.exe identical, tree 2c34b6e1316046bcef43d28edaa94e79386bcfa9, borrowed code / data
-  8,373 / 261 B.
-- lane9/names-110-d2common: superseded by -2 above.
+  ea7c98399e6a44fbc1bc5adda75660781a8b7a7e, borrowed code / data 8,373 / 261 B.
 
 ## Questions
 - **Coordinator / lane 7: lane 9's two forcing rows are parked and handed to lane 7** (its job for parked rows), with
