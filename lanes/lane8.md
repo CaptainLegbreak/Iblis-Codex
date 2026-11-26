@@ -12,6 +12,7 @@ scaffolding, names.
   (Composit_0064F060), `Units/Missile` (Missile_0064B860). Lane 2 hadn't claimed any of them.
 
 ## Status
+- Thu Nov 26 15:58 PT: check-in on #444. api-decls Ready (13 units take D2CommonApi.h); names-3 Ready. Next: the remaining D2Common scaffolding (private copies that D2Common.h could hold, unit by unit with the full build deciding).
 - Thu Nov 26 15:58 PT: names-3 Ready. D2Common's a1/v12 names left are in ItemTbls.cpp and MissileTbls.cpp (declaration-sensitive; I leave them) and a few parameters whose meaning the code doesn't show (D2Common_10434's and 10236's flags, Path's unk0x67 setter). Next: D2Common scaffolding again.
 - Thu Nov 26 15:30 PT: 0x6419F0: the plain range tests compare nX / nY in memory (`cmp [ebp-4], edx`) where the original loads them first (`mov ecx, [ebp-4]; cmp ecx, edx`); copies, a coordinate struct, and inline range helpers (min/max or centre/radius) all keep the memory compare. Parked with 0x651040 and 0x65EA50 (readings above); back to names and scaffolding.
 - Thu Nov 26 15:35 PT: param-names and forcing-621f90 merged (#440), Ready lines gone; names-2 Ready. On 0x6419F0 now.
