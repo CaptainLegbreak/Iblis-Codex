@@ -1449,17 +1449,7 @@ static inline void GAME_RemoveGameGUID(int nGameGUID)
 // 0x0052C7F0
 void __fastcall SrvFreeGame(int nGameGUID, D2GameStrc* pGame)
 {
-    EnterCriticalSection(&gGameListLock);
-
-    for (int i = 0; i < 1024; ++i)
-    {
-        if (gnGamesGUIDs[i] == nGameGUID)
-        {
-            gnGamesGUIDs[i] = 0;
-        }
-    }
-
-    LeaveCriticalSection(&gGameListLock);
+    GAME_RemoveGameGUID(nGameGUID);
 
     MONSTERREGION_FreeAll(pGame->pMemoryPool, pGame->pMonReg);
     OBJRGN_FreeObjectControl(pGame);
@@ -1601,11 +1591,6 @@ int __fastcall GAME_VerifyDisconnect(int nClientId)
     return CLIENTS_GetNameById(nClientId, szClientName) != 0;
 }
 
-void __fastcall sub_M117_Emit_0052C7C0(int nGameGUID)
-{
-    GAME_RemoveGameGUID(nGameGUID + 1);
-}
-
 // 0x0052CC10
 void __fastcall GAME_SendHeaderAndRelease(int nClientId)
 {
@@ -1737,10 +1722,7 @@ void __fastcall GAME_ActivateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
 
     if (!(pRoom->dwFlags & 1))
     {
-        SUNIT_SpawnPresetUnitsInRoom(pGame, pRoom);
-        SUNITINACTIVE_RestoreInactiveUnits(pGame, pRoom);
-        OBJECTS_PopulationHandler(pGame, pRoom);
-        D2GAME_PopulateRoom(pGame, pRoom);
+        GAME_PopulateRoom(pGame, pRoom);
         pRoom->dwFlags |= 1;
         D2Common_10075(pRoom, 1);
     }
@@ -1884,12 +1866,7 @@ void __stdcall GAME_RemoveUntilableRooms(D2GameStrc* pGame)
                 pNextRoom = pRoom->pRoomNext;
                 if (D2Common_10081_GetTileCountFromRoom(pRoom) > 10 && DUNGEON_TestRoomCanUnTile(pGame->pAct[i], pRoom))
                 {
-                    D2UnitStrc* pNextUnit = 0;
-                    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pNextUnit)
-                    {
-                        pNextUnit = pUnit->ptRoomNext;
-                        SUNITINACTIVE_CompressUnitIfNeeded(pGame, pUnit);
-                    }
+                    GAME_CompressRoomUnits(pGame, pRoom);
 
                     DUNGEON_RemoveRoomFromAct(pGame->pAct[i], pRoom);
                 }
