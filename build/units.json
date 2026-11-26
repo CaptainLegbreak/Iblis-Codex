@@ -20606,7 +20606,7 @@
     {
      "va": "0x004792C0",
      "length": 27,
-     "name": "?ROSTER_HasCorpse@@YAHPAUD2RosterUnitStrc@@I@Z"
+     "name": "?ROSTER_HasCorpse@@YAHPAUD2StoredUnitRecordStrc@@I@Z"
     },
     {
      "va": "0x004792E0",
@@ -20631,7 +20631,7 @@
     {
      "va": "0x00479470",
      "length": 51,
-     "name": "?ROSTER_FreeCorpses@@YAXPAUD2RosterUnitStrc@@@Z"
+     "name": "?ROSTER_FreeCorpses@@YAXPAUD2StoredUnitRecordStrc@@@Z"
     },
     {
      "va": "0x004794B0",
@@ -20721,17 +20721,17 @@
     {
      "va": "0x00479B50",
      "length": 13,
-     "name": "?ROSTER_GetGuildFlags@@YIGPAUD2RosterUnitStrc@@@Z"
+     "name": "?ROSTER_GetGuildFlags@@YIGPAUD2StoredUnitRecordStrc@@@Z"
     },
     {
      "va": "0x00479B60",
      "length": 11,
-     "name": "?ROSTER_GetGuildTag@@YIPAEPAUD2RosterUnitStrc@@@Z"
+     "name": "?ROSTER_GetGuildTag@@YIPAEPAUD2StoredUnitRecordStrc@@@Z"
     },
     {
      "va": "0x00479B70",
      "length": 11,
-     "name": "?ROSTER_GetGuildName@@YIPAEPAUD2RosterUnitStrc@@@Z"
+     "name": "?ROSTER_GetGuildName@@YIPAEPAUD2StoredUnitRecordStrc@@@Z"
     },
     {
      "va": "0x00479B80",
