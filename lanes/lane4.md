@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Thu Nov 26 14:55 PST 2026: my join-soundinst and join-editbox are superseded by lane 1's joins of the same files in #436 (their range); dropped, though the proxy won't let me delete the remote branches. Game_0044B7B0 stays apart (Ready, note). Next: Game_0044D080/E5A0, which need the loading-timer and critical-section records sorted out; then Inv, Text; Gfx after its records.
+- Thu Nov 26 14:48 PST 2026: my join-soundinst and join-editbox are superseded by lane 1's joins of the same files in #436 (their range); dropped, though the proxy won't let me delete the remote branches. Game_0044B7B0 stays apart (Ready, note). Next: Game_0044D080/E5A0, which need the loading-timer and critical-section records sorted out; then Inv, Text; Gfx after its records.
 
 - Thu Nov 26 14:14 PST 2026: #435 took roster-record. join-soundinst and join-editbox posted on #435 (files in pieces -2, one evidenced noinline). Gfx join in progress.
 
