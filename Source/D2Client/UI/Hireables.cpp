@@ -151,7 +151,7 @@ const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB);                    
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
+void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, int eDrawMode); // 0x004F6300
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
@@ -1548,17 +1548,17 @@ void __fastcall WARDENCLIENT_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkil
 
 
 
-static void __stdcall sub_00493A00_DrawLifeBar(int nPetType, int nX, int nUnitId)
+// 0x00493A00
+static void __stdcall sub_00493A00_DrawLifeBar(int nPetType, int nUnitId, int nX)
 {
     int nLife = nPetType ? ROSTER_GetPetLife(nUnitId) : ROSTER_GetPartyLife(nUnitId);
     if (!nLife)
         return;
 
-    nLife = nLife <= 0 ? 0 : nLife;
     const int nXEnd = nX + 0x2E;
-    if (nLife >= 100)
-        nLife = 100;
-    const int nXFill = nX + nLife * 0x2E / 100;
+    nLife = nLife <= 0 ? 0 : nLife;
+    const int nPct = nLife < 100 ? nLife : 100;
+    const int nXFill = nX + nPct * 0x2E / 100;
     if (!gbLifeColorsInit)
     {
         gbLifeColorsInit = 1;
@@ -1567,9 +1567,9 @@ static void __stdcall sub_00493A00_DrawLifeBar(int nPetType, int nX, int nUnitId
         gnLifeColorLow = D2Win_10034_MixRGB(0xFF, 0, 0);
     }
     unsigned char nColor = gnLifeColorHigh;
-    if (nLife < 50)
+    if (nPct < 50)
         nColor = gnLifeColorMid;
-    if (nLife < 25)
+    if (nPct < 25)
         nColor = gnLifeColorLow;
     D2GFX_DrawBox(nX, 0xE, nXFill, 0x13, nColor, 5);
     D2GFX_DrawBox(nXFill, 0xE, nXEnd, 0x13, 0, 5);
@@ -1769,85 +1769,88 @@ int __cdecl HIREABLES_GetHelpMenuSetting()
     return gdwHelpMenu;
 }
 
+// 0x00493B50
 static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2UnitStrc* pPlayer, int* pnX)
 {
     int bDrawn = 0;
     const unsigned short nIndex = CUNIT_GetPlayerPartyId(pPlayer);
-    const int nPlayerId = pPlayer ? pPlayer->dwUnitId : -1;
-    if (nIndex == 0xFFFF || gnPetIconPopupState)
-        return 0;
+    int nPlayerId;
+    int nUnitId;
+    if (!pPlayer)
+        nPlayerId = -1;
+    else
+        nPlayerId = pPlayer->dwUnitId;
 
-    D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(0);
-    if (!pEntry)
-        return 0;
-
-    do
+    if (nIndex != 0xFFFF && !gnPetIconPopupState)
     {
-        if (ROSTER_GetEntryIndex(pEntry) != nIndex)
-            continue;
-
-        const int nUnitId = ROSTER_GetRecordUnitId(pEntry);
-        if (nUnitId == nPlayerId)
-            continue;
-
-        D2CelFileStrc* pCelFile;
-        switch (ROSTER_GetClassId(pEntry))
+        for (D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(0); pEntry; pEntry = ROSTER_GetNextStoredUnit(pEntry))
         {
-        case 0:
-            pCelFile = gapHirelingIcons[0];
-            break;
-        case 1:
-            pCelFile = gapHirelingIcons[1];
-            break;
-        case 2:
-            pCelFile = gapHirelingIcons[2];
-            break;
-        case 3:
-            pCelFile = gapHirelingIcons[3];
-            break;
-        case 4:
-            pCelFile = gapHirelingIcons[4];
-            break;
-        case 5:
-            pCelFile = gapHirelingIcons[5];
-            break;
-        case 6:
-            pCelFile = gapHirelingIcons[6];
-            break;
-        default:
-            continue;
+            if (nIndex != ROSTER_GetEntryIndex(pEntry))
+                continue;
+
+            nUnitId = ROSTER_GetRecordUnitId(pEntry);
+            if (nUnitId == nPlayerId)
+                continue;
+
+            D2CelFileStrc* pCelFile;
+            switch (ROSTER_GetClassId(pEntry))
+            {
+            case 0:
+                pCelFile = gapHirelingIcons[0];
+                break;
+            case 1:
+                pCelFile = gapHirelingIcons[1];
+                break;
+            case 4:
+                pCelFile = gapHirelingIcons[2];
+                break;
+            case 3:
+                pCelFile = gapHirelingIcons[3];
+                break;
+            case 2:
+                pCelFile = gapHirelingIcons[4];
+                break;
+            case 6:
+                pCelFile = gapHirelingIcons[5];
+                break;
+            case 5:
+                pCelFile = gapHirelingIcons[6];
+                break;
+            default:
+                continue;
+            }
+
+            if (!pCelFile)
+                continue;
+
+            sub_00493A00_DrawLifeBar(0, nUnitId, *pnX);
+            HIREABLES_DrawRosterName(ROSTER_GetEntryName(pEntry), *pnX, *pnY);
+            if (*pbAlternate)
+            {
+                *pnY -= *pbAlternate;
+                *pbAlternate = 0;
+            }
+            else
+            {
+                *pbAlternate = 10;
+                *pnY += 10;
+            }
+            D2CelContextStrc tContext;
+            memset(&tContext, 0, sizeof(tContext));
+            tContext.pCellFile = pCelFile;
+            sub_004F6480(&tContext, *pnX, 0x3C, -1, 1, 0);
+            *pnX += 0x38;
+            bDrawn = 1;
         }
 
-        if (!pCelFile)
-            continue;
-
-        sub_00493A00_DrawLifeBar(0, *pnX, nUnitId);
-        HIREABLES_DrawRosterName(ROSTER_GetEntryName(pEntry), *pnX, *pnY);
-        if (*pbAlternate)
-        {
-            *pnY -= *pbAlternate;
-            *pbAlternate = 0;
-        }
-        else
-        {
-            *pbAlternate = 10;
-            *pnY += 10;
-        }
-        D2CelContextStrc tContext;
-        memset(&tContext, 0, sizeof(tContext));
-        tContext.pCellFile = pCelFile;
-        sub_004F6480(&tContext, *pnX, 0x3C, -1, 1, 0);
-        *pnX += 0x38;
-        bDrawn = 1;
+        if (bDrawn)
+            return 1;
     }
-    while ((pEntry = ROSTER_GetNextStoredUnit(pEntry)) != 0);
 
-    if (!bDrawn)
-        return 0;
-
-    return 1;
+    return 0;
 }
 
+// 0x00493CE0
 static int __stdcall sub_00493CE0_DrawSummonIcon(D2UnitStrc* pPlayer, int* pbAlternate, int* pnX, int* pnY)
 {
     D2CelContextStrc tContext;
@@ -1857,7 +1860,7 @@ static int __stdcall sub_00493CE0_DrawSummonIcon(D2UnitStrc* pPlayer, int* pbAlt
     if (!tContext.pCellFile)
         return 0;
 
-    sub_00493A00_DrawLifeBar(7, *pnX, nUnitId);
+    sub_00493A00_DrawLifeBar(7, nUnitId, *pnX);
     HIREABLES_DrawUnitName(CUNIT_FindClientUnit(nUnitId, 1), *pnX, *pnY);
     if (*pbAlternate)
     {
@@ -1872,25 +1875,18 @@ static int __stdcall sub_00493CE0_DrawSummonIcon(D2UnitStrc* pPlayer, int* pbAlt
     gnPopupX = *pnX;
     gnPopupY = *pnY;
     if (gbPopupPending && gdwPopupTick && GetTickCount() - gdwPopupTick >= 700)
-    {
         gbPopupShown = 1;
-        sub_004F6480(&tContext, *pnX, 0x3C, -1, 7, 0);
-        *pnX += 0x38;
-        return 1;
-    }
 
     if (gbPopupShown)
-    {
         sub_004F6480(&tContext, *pnX, 0x3C, -1, 7, 0);
-        *pnX += 0x38;
-        return 1;
-    }
+    else
+        sub_004F6480(&tContext, *pnX, 0x3C, -1, 1, 0);
 
-    sub_004F6480(&tContext, *pnX, 0x3C, -1, 1, 0);
     *pnX += 0x38;
     return 1;
 }
 
+// 0x00493E10
 static int __stdcall sub_00493E10_DrawPetIcon(D2UnitStrc* pPlayer, int* pnX, int* pbAlternate, int nPetType, int* pnY)
 {
     D2CelContextStrc tContext;
@@ -1900,7 +1896,7 @@ static int __stdcall sub_00493E10_DrawPetIcon(D2UnitStrc* pPlayer, int* pnX, int
     if (!tContext.pCellFile)
         return 0;
 
-    sub_00493A00_DrawLifeBar(nPetType, *pnX, nUnitId);
+    sub_00493A00_DrawLifeBar(nPetType, nUnitId, *pnX);
     HIREABLES_DrawPetTypeName(*pnX, *pnY, nPetType);
     if (*pbAlternate)
     {
@@ -1917,7 +1913,8 @@ static int __stdcall sub_00493E10_DrawPetIcon(D2UnitStrc* pPlayer, int* pnX, int
     return 1;
 }
 
-static int __stdcall sub_00493EB0_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY, int* pbAlternate, int* pnX, int nPetType)
+// 0x00493EB0
+static int __stdcall sub_00493EB0_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY, int* pbAlternate, int nPetType, int* pnX)
 {
     const int nCount = ROSTERPETS_CountPets(pPlayer, nPetType);
     if (!nCount)
@@ -1932,7 +1929,7 @@ static int __stdcall sub_00493EB0_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY
         return 0;
 
     if (nCount == 1 && bSingle)
-        sub_00493A00_DrawLifeBar(nPetType, *pnX, ROSTERPETS_FindPetIdByOwner(pPlayer, nPetType, 0));
+        sub_00493A00_DrawLifeBar(nPetType, ROSTERPETS_FindPetIdByOwner(pPlayer, nPetType, 0), *pnX);
 
     INV_DrawIconNumber(nCount, *pnX);
     HIREABLES_DrawPetTypeName(*pnX, *pnY, nPetType);
@@ -1951,6 +1948,7 @@ static int __stdcall sub_00493EB0_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY
     return 1;
 }
 
+// 0x00493F80
 static int __stdcall sub_00493F80_DrawPetIcon3(D2UnitStrc* pPlayer, int* pnX, int* pbAlternate, int nPetType, int* pnY)
 {
     D2CelContextStrc tContext;
@@ -1960,7 +1958,7 @@ static int __stdcall sub_00493F80_DrawPetIcon3(D2UnitStrc* pPlayer, int* pnX, in
     if (!tContext.pCellFile)
         return 0;
 
-    sub_00493A00_DrawLifeBar(nPetType, *pnX, nUnitId);
+    sub_00493A00_DrawLifeBar(nPetType, nUnitId, *pnX);
     HIREABLES_DrawPetTypeName(*pnX, *pnY, nPetType);
     if (*pbAlternate)
     {
@@ -1977,6 +1975,7 @@ static int __stdcall sub_00493F80_DrawPetIcon3(D2UnitStrc* pPlayer, int* pnX, in
     return 1;
 }
 
+// 0x00494020
 void __cdecl sub_00494020_DrawPetIcons()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -2003,7 +2002,7 @@ void __cdecl sub_00494020_DrawPetIcons()
                 bAny |= sub_00493E10_DrawPetIcon(pPlayer, &nX, &bAlternate, i, &nY);
                 break;
             case 2:
-                bAny |= sub_00493EB0_DrawPetCountIcon(pPlayer, &nY, &bAlternate, &nX, i);
+                bAny |= sub_00493EB0_DrawPetCountIcon(pPlayer, &nY, &bAlternate, i, &nX);
                 break;
             case 3:
                 bAny |= sub_00493F80_DrawPetIcon3(pPlayer, &nX, &bAlternate, i, &nY);
