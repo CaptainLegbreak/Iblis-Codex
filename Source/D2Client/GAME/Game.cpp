@@ -1269,7 +1269,6 @@ extern int gbInitHandlersResult;                                                
 
 extern D2InitHandlerFn gpfnInitHandlers[52];                                                       // 0x0070F488
 
-extern unsigned short gawToUpperTable[0x100];                                                       // 0x00730578
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 

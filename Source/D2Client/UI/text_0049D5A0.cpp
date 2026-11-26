@@ -32,9 +32,6 @@ void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, i
 void __fastcall D2WINFONT_DrawClippedFontText(const Unicode* pText, int nX, int nY, int nTextColor, int nSkipLines, int nDrawLines); // 0x00501DF0
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 
-extern int gnTextTop;                                                                               // 0x007225FC
-extern unsigned long gnTextDisplaySetting;                                                                     // 0x007BF1F6
-extern int gbTextPanelOpen;                                                                               // 0x007BF1FA
 extern int gbTextSide;                                                                             // 0x007BF236
 extern int gnGlobal_007BF264;                                                                               // 0x007BF264
 extern int gnTextLeft;                                                                               // 0x007BF278

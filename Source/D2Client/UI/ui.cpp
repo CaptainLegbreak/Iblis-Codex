@@ -915,7 +915,6 @@ int __cdecl UI_ConfirmGoldDialog();                                             
 
 int __cdecl UI_CancelGoldDialog();                                                                                 // 0x00454140
 
-extern int gnGoldPanelMode_007A279C;                                                                        // 0x007A279C
 
 void* gpGoldPanel;                                                                                    // 0x007A27A0
 
