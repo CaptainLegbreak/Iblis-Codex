@@ -442,20 +442,6 @@ static void __stdcall EDITBOX_GetCaretPosition(int* pX, int* pY, D2WinEditBoxStr
     }
 }
 
-int sub_A23_Emit_004FDC70(D2WinEditBoxStrc* pEditBox, unsigned char nKey)
-{
-    if (nKey != 0x18 && nKey != 1)
-        return 0;
-    return EDITBOX_HasSelection(pEditBox);
-}
-
-int __fastcall sub_A23_Emit_004FE9F0(D2WinEditBoxStrc* pEditBox, int nKey)
-{
-    if (nKey != 0x18 && nKey != 1)
-        EDITBOX_DeleteSelection(pEditBox);
-    return UNICODE_StrLen((Unicode*)pEditBox->wszText) + pEditBox->nCaretPosition;
-}
-
 tagPOINT gtMousePosition; // 0x007D55A4
 
 struct Point { int x, y; };
