@@ -47,6 +47,11 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/params-d2game-b 492ae490 (on #439): D2Game Ai, MONSTER, OBJECTS, Quests: the same naming as params-d2game-a
+  (definitions' or D2MOO's parameter names, the Raven walk's two by the arguments they become, names.csv names for
+  sub_<VA> callees; ObjMode.cpp keeps its second spelling of 0x620510). a1/v12 1,747 -> 1,482 alone; auditguard no
+  count rose. Full build: Game.exe identical, tree 37b84929ceee44e2b1310ccc37fb9c941837b3c8, borrowed code / data
+  8,373 / 261 B.
 - lane9/params-d2game-a a64d4e0a (on #439): D2Game MISSILES, INVENTORY, DEBUG, ITEMS: Hex-Rays parameters take the
   name the function's own definition gives that position, else D2MOO's (by name or its 1.14d notes); a few named by
   use (nTargetFlags/nPathFlags, bRecharge; the empty debug stubs' nArg1..); callees spelled sub_<VA> take names.csv's
