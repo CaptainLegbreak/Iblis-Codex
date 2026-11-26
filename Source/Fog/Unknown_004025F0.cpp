@@ -351,7 +351,7 @@ void __cdecl sub_004026D0_WriteMiniDump()
 // 0x004027C0
 unsigned long __stdcall LOGMANAGER_DbgHelpThreadProc(void* pParam)
 {
-    // stands for a stack local the original stores 0 to and reads back unused (no plain-C form found)
+    // the original's own: it stores 0 to this stack local and reads it back unused, which only a volatile read keeps
     volatile int nDummy = 0;
     nDummy;
     ERRORMANAGER_SetMiniDumpThreadName((unsigned long)-1, "MiniDump Thread");
