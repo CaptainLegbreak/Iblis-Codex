@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 11:25 PST 2026: scmd-records posted (SCmd.cpp takes all 51 packet records from D2Packets.h). Main still #426, nothing of lane 4's merged yet.
+
 - Thu Nov 26 10:12 PST 2026 (after #426): constructs branch rebased (39 -> 36); the D2Client stack is rebased and building; 0x62B5B0 declaration lever tried, no effect (Left in place).
 
 - Thu Nov 26 10:03 PST 2026: rebased onto #425; constructs branch posted; packet-names stack building; next, 0x62B5B0 on the unit's declarations (coordinator's lever).
@@ -73,6 +75,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - lane4/noinline 6353185a2 (stacked on dup-externs): unchanged from c1162c4e5 except the rebase. Three noinlines go; the 19 that stay each carry a comment naming the function it would otherwise expand into.
 - lane4/scmd-packets 35acab728 (stacked on noinline): names, `unk0x` fields the code reads. SCmd.cpp's private packet records take D2Packets.h's field names for 44 fields in 25 records, only where offset, size and type all agree with the shared record (40 uses renamed; unk0x reads in SCmd.cpp 239 -> 194). The records stay private for now: replacing them with the header's is next, and needs the five whose layouts differ (Srv16, 22, 4C, 94, 9B) sorted out by hand.
 - The three above: full build on #426 identical, audit guard clean.
+- lane4/scmd-records f9b521ed8 (stacked on scmd-packets, full build on #426 identical, audit guard clean): scaffolding, private copies of shared records. SCmd.cpp drops its private definitions of the 51 server packet records D2Packets.h has (and 55 forward declarations) and includes the header, so unk0x reads in SCmd.cpp go 194 -> 127. Byte blobs read through casts (`*(const unsigned short*)pPacket->nX`) become field reads. **Lane 2 (D2Packets.h is yours):** the client's reads show some header fields are unsigned. I changed them where all 31 includers, D2Game's senders among them, stay equal: 0x67/0x68 nX, nY to unsigned short and nUnitLife, nHitClass, nMaxDistance (and 0x68's nTargetUnitType) to unsigned char; 0x59 nPosX/nPosY to unsigned short; 0xA6 wArg to unsigned short. Two to look at: 0x9B's handler reads only the low word of nReviveCost, written `(unsigned short)pPacket->nReviveCost` at the call; and 0x16's entries are D2UnitUpdateEntry, a 9-byte view of D2ClientUnitUpdateStrc that D2Game copies into and the client casts back. Typing `entries` as D2ClientUnitUpdateStrc would drop both the view and the casts.
 
 
 ## Claimed
