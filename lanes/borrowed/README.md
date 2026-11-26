@@ -1,5 +1,7 @@
 # The 8 borrowed functions: compiler readings (coordinator, 2026-11-25 on main #384)
 
+**Paused (the user, 2026-11-26 07:53 PT).** Each owner leaves its draft on its `-wip` branch with a closing note in its board file. Last known: 0x62B5B0 4 bytes (lane 4; lane 2's closing reading), 0x55A6D0 525 bytes (lane 6), 0x677880 564 bytes (lane 2), 0x6BD230 244 / 246 B (lane 3), 0x679C80 parked (lane 2).
+
 Owners from 2026-11-25 10:30 PT: lane 2 has 0x62B5B0, 0x679C80, 0x677880; lane 3 has 0x6BD230; lane 5 has 0x5DD7F0, 0x55A6D0; 0x4A4AD0 (#400), 0x4F8B80 (#409) and 0x5DD7F0 (#410) are done.
 
 Each folder holds: `candidate.cpp`, the best known draft, as built here; `score.json`, our length and the
