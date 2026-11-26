@@ -8630,7 +8630,7 @@ address,name,source,alias
 0x00564B20,TASK_DequeueGame,d2moo,
 0x00564BE0,TASK_GetQueueDelay,d2moo,
 0x00564C70,TASK_ProcessGame,d2moo,
-0x00564CA0,sub_00564CA0_Return1,placeholder,
+0x00564CA0,sub_00564CA0,placeholder,
 0x00564CB0,sub_00564CB0_Nop,placeholder,
 0x00564CC0,TASK_SetType,inferred,
 0x00564CD0,OBJECTS_OperateFunction32_Bank,d2moo,

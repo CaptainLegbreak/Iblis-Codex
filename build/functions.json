@@ -8773,7 +8773,7 @@
   ["0x0055E590", 557, "verified"],
   ["0x0055E7C0", 286, "verified"],
   ["0x0055E8E0", 186, "verified", "?ITEMMODE_InitItemDropFromItem@@YGXHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"],
-  ["0x0055E9A0", 5, "verified", "sub_0055E9A0"],
+  ["0x0055E9A0", 5, "verified", "sub_0055E9A0_Return0"],
   ["0x0055E9B0", 376, "verified", "ITEMMODE_PlaceCursorItemInBelt"],
   ["0x0055EB30", 497, "verified", "ITEMMODE_SwapCursorAndBeltItem"],
   ["0x0055ED30", 143, "verified", "ITEMMODE_RemoveInventoryItemFromAllPlayers"],

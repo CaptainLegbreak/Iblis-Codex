@@ -66,7 +66,7 @@ int __stdcall DEBUG_GetMonsterCount()
 
 struct D2DrlgActStrc;
 
-void* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int a2, int a3); // 0x00619DA0
+void* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
 
 // 0x00534730
 void* __stdcall DEBUG_GetRoomBySubtileCoordinates(unsigned char bAct, int nX, int nY)
@@ -93,22 +93,22 @@ char* __fastcall DEBUG_ClearText(int nUnused, char* szText)
 }
 
 // 0x005347B0
-void __fastcall sub_005347B0_Stub5(int a1, int a2, int a3, int a4, int a5)
+void __fastcall sub_005347B0_Stub5(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5)
 {
 }
 
 // 0x005347C0
-void __fastcall DEBUG_Stub6(int a1, int a2, int a3, int a4, int a5, int a6)
+void __fastcall DEBUG_Stub6(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6)
 {
 }
 
 // 0x005347D0
-void __fastcall DEBUG_Stub9(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9)
+void __fastcall DEBUG_Stub9(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, int nArg9)
 {
 }
 
 // 0x005347E0
-void __fastcall sub_005347E0_Stub5(int a1, int a2, int a3, int a4, int a5)
+void __fastcall sub_005347E0_Stub5(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5)
 {
 }
 

@@ -29,11 +29,11 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                             
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY);              // 0x00463740
 
-void __fastcall PLAYER_ApplyWeaponStatsForSkill(D2UnitStrc* pUnit, int a2);                                 // 0x00535D10
+void __fastcall PLAYER_ApplyWeaponStatsForSkill(D2UnitStrc* pUnit, int bTemporaryWeaponStats);                                 // 0x00535D10
 
-void __fastcall PLAYER_RestoreWeaponStats(D2UnitStrc* pUnit, int a2);                                       // 0x00535E20
+void __fastcall PLAYER_RestoreWeaponStats(D2UnitStrc* pUnit, int bTemporaryWeaponStats);                                       // 0x00535E20
 
-D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
 
 void __fastcall MONSTERUNIQUE_OwnerMissileHook(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pMissile); // 0x005A43B0
 

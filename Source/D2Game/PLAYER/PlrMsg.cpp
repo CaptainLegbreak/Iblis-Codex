@@ -458,7 +458,7 @@ int __stdcall STATLIST_GetListExpireFrame(D2StatListStrc* pStatList); // 0x00626
 
 static unsigned char PLRMSG_GetPotionLifePercent(D2UnitStrc* pUnit);
 
-int __stdcall sub_0055E9A0(int nUnused1, int nUnused2); // 0x0055E9A0
+int __stdcall sub_0055E9A0_Return0(int nUnused1, int nUnused2); // 0x0055E9A0
 
 int __fastcall OBJMODE_OperateObjectInRange(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned short nObjectType, int nObjectGUID); // 0x00584540
 

@@ -67,7 +67,7 @@ int __fastcall ITEMMODE_SelectRandomWeaponItemId(D2GameStrc* pGame, D2SeedStrc* 
 
 int __fastcall ITEMMODE_SelectRandomMiscItemId(D2GameStrc* pGame, D2SeedStrc* pSeed, int nLevelId, int nItemType, int bIgnoreRarity, int bAllowBodyParts); // 0x005560F0
 
-D2UnitStrc* __fastcall D2GAME_CreateItemEx(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int a3); // 0x00558D90
+D2UnitStrc* __fastcall D2GAME_CreateItemEx(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int bUseSeed); // 0x00558D90
 
 
 
@@ -97,7 +97,7 @@ void __stdcall STATLIST_SetUnitStat(D2UnitStrc*,int,int,int); // 0x00627260
 
 
 
-void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
+void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 
 
 
@@ -136,7 +136,7 @@ void __fastcall ITEMS_ScheduleDurabilityReplenishment(D2GameStrc*,D2UnitStrc*); 
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531C0
 
-void __fastcall D2GAME_PACKETS_SendPacket0x3E(D2ClientStrc* pClient, D2UnitStrc* pItem, unsigned char a3, int nStatId, unsigned int nValue, unsigned short a6); // 0x0053D130
+void __fastcall D2GAME_PACKETS_SendPacket0x3E(D2ClientStrc* pClient, D2UnitStrc* pItem, unsigned char a3, int nStatId, unsigned int nValue, unsigned short nStatLayer); // 0x0053D130
 
 int __stdcall sub_006280A0(D2UnitStrc*,int,int,const char*); // 0x006280A0
 
@@ -247,7 +247,7 @@ D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D
 int __fastcall ITEMS_GetDiminishedMagicFind(int nMagicFind, int nFactor, int nFactor2); // 0x00558610
 
 
-D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned short wUnitInitFlags, int nMode, unsigned int a9); // 0x00555230
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned short wUnitInitFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
 
 
 void __fastcall ITEMS_ScheduleQuantityReplenishment(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00558580
@@ -260,7 +260,7 @@ int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
 
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 
-void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
+void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nUnused); // 0x0057D4F0
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
@@ -268,7 +268,7 @@ void __fastcall ITEMMODE_ClearTargetingFlags(D2UnitStrc* pUnit, const char* szFi
 
 void __fastcall ITEMMODE_AddItemScrollSkillQuantity(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055C270
 
-void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int a4); // 0x0055C2C0
+void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int bAllowBrokenItemStats); // 0x0055C2C0
 
 D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, unsigned char bAllowNeighborRooms); // 0x00555DA0
 
@@ -456,7 +456,7 @@ static int __stdcall ITEMS_RollDropQuality(D2GameStrc* pGame, D2UnitStrc* pItem,
 
 static D2UnitStrc* __stdcall ITEMS_CreateDropAtUnit(D2GameStrc* pGame, int nQuality, int nItemIndex, int nFlags, int nItemId, D2UnitStrc* pUnit);
 
-int __fastcall D2GAME_InitItemStats(D2GameStrc* pGame, D2UnitStrc** ppItem, D2ItemDropStrc* pItemDrop, int a4); // 0x00557AB0
+int __fastcall D2GAME_InitItemStats(D2GameStrc* pGame, D2UnitStrc** ppItem, D2ItemDropStrc* pItemDrop, int bQuestItem); // 0x00557AB0
 
 int __fastcall CLIENTS_CheckFlag(D2ClientStrc* pClient, unsigned short nFlag); // 0x00538670
 
@@ -1357,7 +1357,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
         ITEMS_SetItemQuality(*ppItem, 4);
     }
 
-    if (sub_00628C70(*ppItem))
+    if (ITEMS_GetUniqueColumnFromItemsTxt(*ppItem))
     {
         ITEMS_SetItemQuality(*ppItem, 7);
     }

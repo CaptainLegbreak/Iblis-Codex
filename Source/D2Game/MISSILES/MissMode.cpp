@@ -200,9 +200,9 @@ int __stdcall QUESTS_CheckNotIntroQuest(D2GameStrc* pGame, int nQuestId); // 0x0
 
 void __fastcall ACT5Q6_SpawnTyrael(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pMissile); // 0x0058E920
 
-int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, int a4); // 0x005ADF10
+int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, int bForceCollision); // 0x005ADF10
 
-void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int a3); // 0x00621E40
+void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int nUnused); // 0x00621E40
 
 
 
@@ -304,7 +304,7 @@ int __fastcall MISSMODE_CreatePantherPotGreenSubmissiles(D2GameStrc* pGame, D2Un
 
 void __fastcall SKILLS_ApplyAuraStatsToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel); // 0x005C6CC0
 
-int __fastcall SKILLS_ApplyWarcryStats(D2GameStrc* pGame, D2UnitStrc* a2, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D8290
+int __fastcall SKILLS_ApplyWarcryStats(D2GameStrc* pGame, D2UnitStrc* pTarget, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D8290
 
 
 void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame);                                 // 0x006260B0
@@ -434,7 +434,7 @@ void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX,
 
 int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
-D2UnitStrc* __fastcall SKILLS_FindNextAuraTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int a7, int* a8); // 0x0056BD10
+D2UnitStrc* __fastcall SKILLS_FindNextAuraTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int nPreviousTargetGUID, int* pTargetCount); // 0x0056BD10
 
 unsigned short __stdcall D2Common_10201(D2DynamicPathStrc* pDynamicPath); // 0x00648EB0
 
@@ -855,20 +855,20 @@ int __fastcall MISSMODE_SrvHit10_GuidedArrow_BoneSpirit(D2GameStrc* pGame, D2Uni
         return 1;
     }
 
-    const int v8 = MISSILE_GetTargetX(pMissile);
-    if (!pUnit && v8 & 4)
+    const int nTargetFlags = MISSILE_GetTargetX(pMissile);
+    if (!pUnit && nTargetFlags & 4)
     {
         return 1;
     }
 
     D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
-    const unsigned short v9 = D2Common_10201(pPath);
-    if (!pUnit && v9 & 4)
+    const unsigned short nPathFlags = D2Common_10201(pPath);
+    if (!pUnit && nPathFlags & 4)
     {
         return 1;
     }
 
-    if (v8 & 1)
+    if (nTargetFlags & 1)
     {
         if (pUnit && pUnit != SUNIT_GetTargetUnit(pGame, pMissile))
         {
@@ -878,14 +878,14 @@ int __fastcall MISSMODE_SrvHit10_GuidedArrow_BoneSpirit(D2GameStrc* pGame, D2Uni
         return 3;
     }
 
-    if (v8 & 2)
+    if (nTargetFlags & 2)
     {
         if (sub_0064A380_GetRemainingFrames(pMissile) <= 0)
         {
             return MISSMODE_FindGuidedMissileTarget(pGame, pMissile) ? 1 : 4;
         }
 
-        return (v8 & 4) ? 3 : 4;
+        return (nTargetFlags & 4) ? 3 : 4;
     }
 
     return 3;
@@ -2647,8 +2647,8 @@ int __fastcall MISSMODE_SrvHit26_GrimWardStart(D2GameStrc* pGame, D2UnitStrc* pM
         return 1;
     }
 
-    const int nSkillId = sub_0064A280(pMissile);
-    const int nSkillLevel = sub_0064A210(pMissile);
+    const int nSkillId = MISSILE_GetSkill(pMissile);
+    const int nSkillLevel = MISSILE_GetLevel(pMissile);
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord_Inline(nSkillId);
     if (!pSkillsTxtRecord)
     {
@@ -3392,8 +3392,8 @@ int __fastcall MISSMODE_SrvHit47_MoltenBoulder(D2GameStrc* pGame, D2UnitStrc* pM
         int nRange = pMissilesTxtRecord->dwHitPar[0];
         if (nRange <= 0)
         {
-            const int nSkillId = sub_0064A280(pMissile);
-            const int nLevel = sub_0064A210(pMissile);
+            const int nSkillId = MISSILE_GetSkill(pMissile);
+            const int nLevel = MISSILE_GetLevel(pMissile);
             D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
             if (!pSkillsTxtRecord)
             {
@@ -3795,8 +3795,8 @@ int __fastcall MISSMODE_SrvHit58_BaalTauntLightningControl(D2GameStrc* pGame, D2
     missileParams.dwFlags = 32;
     missileParams.pOwner = pOwner;
     missileParams.pOrigin = pMissile;
-    missileParams.nSkill = sub_0064A280(pMissile);
-    missileParams.nSkillLevel = sub_0064A210(pMissile);
+    missileParams.nSkill = MISSILE_GetSkill(pMissile);
+    missileParams.nSkillLevel = MISSILE_GetLevel(pMissile);
     missileParams.nMissile = pMissilesTxtRecord->wHitSubMissile[0];
     missileParams.nTargetX = nTargetX;
     missileParams.nTargetY = nTargetY;

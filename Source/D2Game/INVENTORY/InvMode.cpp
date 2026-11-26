@@ -53,27 +53,27 @@ void __fastcall D2GAME_SendP0x9D_ItemAction_Unknown0x14(D2ClientStrc* pClient, D
 
 void __fastcall D2GAME_SendP0x9D_ItemAction_UpdateStats(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags); // 0x0053D420
 
-void __fastcall SCMD_SendItemFlagUpdate(D2ClientStrc* pClient, D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int a4, int a5); // 0x0053D440
+void __fastcall SCMD_SendItemFlagUpdate(D2ClientStrc* pClient, D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int dwFlag, int bSet); // 0x0053D440
 
 void __fastcall D2GAME_SendP0x9D_ItemAction_Unknown0x16(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags); // 0x0053D4B0
 
-void __fastcall D2GAME_SendP0x9C_ItemAction_GroundToCursor(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a4); // 0x0053EC20
+void __fastcall D2GAME_SendP0x9C_ItemAction_GroundToCursor(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int dwFlags); // 0x0053EC20
 
 void __fastcall D2GAME_SendP0x9C_ItemAction_PutInContainer(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags); // 0x0053ED50
 
-void __fastcall D2GAME_SendP0x9C_ItemAction_AddQuantity(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a4); // 0x0053EDB0
+void __fastcall D2GAME_SendP0x9C_ItemAction_AddQuantity(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int dwFlags); // 0x0053EDB0
 
-void __fastcall D2GAME_SendP0x9C_ItemAction_SwapInContainer(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a4); // 0x0053EE10
+void __fastcall D2GAME_SendP0x9C_ItemAction_SwapInContainer(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int dwFlags); // 0x0053EE10
 
 void __fastcall D2GAME_SendP0x9C_ItemAction_PutInBelt(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags); // 0x0053EE70
 
 void __fastcall D2GAME_SendP0x9C_ItemAction_RemoveFromBelt(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlag); // 0x0053EED0
 
-void __fastcall D2GAME_SendP0x9C_ItemAction_SwapInBelt(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int a3); // 0x0053EEF0
+void __fastcall D2GAME_SendP0x9C_ItemAction_SwapInBelt(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int dwFlags); // 0x0053EEF0
 
 void __fastcall D2GAME_SendP0x9C_ItemAction_ToCursor(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x0053EF10
 
-void __fastcall D2GAME_SendP0x9C_ItemAction_AddOrRemoveFromShop(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned char a3); // 0x0053EF30
+void __fastcall D2GAME_SendP0x9C_ItemAction_AddOrRemoveFromShop(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned char nShopAction); // 0x0053EF30
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
@@ -81,7 +81,7 @@ D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc* pGame, D2UnitStrc* pUni
 
 void __fastcall sub_0055F4F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x0055F4F0
 
-int __fastcall D2GAME_NPC_IsItemInNpcInventory(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2UnitStrc* pItem, int a4); // 0x00579360
+int __fastcall D2GAME_NPC_IsItemInNpcInventory(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2UnitStrc* pItem, int bRemoveFromShop); // 0x00579360
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
@@ -114,11 +114,11 @@ void __stdcall INVENTORY_FreeTradeInventory(D2InventoryStrc* pInventory); // 0x0
 
 struct D2StaticPathStrc;
 
-void __fastcall D2GAME_PACKETS_SendPacket0x0C(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned char a5, unsigned char nHitClass, unsigned char nLifePct); // 0x0053B430
+void __fastcall D2GAME_PACKETS_SendPacket0x0C(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned char nMessage, unsigned char nHitClass, unsigned char nLifePct); // 0x0053B430
 
-void __fastcall D2GAME_PACKETS_SendPacket0x15(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned short nPosX, unsigned short nPosY, unsigned char a7); // 0x0053BC10
+void __fastcall D2GAME_PACKETS_SendPacket0x15(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned short nPosX, unsigned short nPosY, unsigned char bReassign); // 0x0053BC10
 
-void __fastcall SCMD_SendUniqueMonsterInfo(D2ClientStrc* pClient, int a2, unsigned char a3, unsigned short a4, unsigned short a5, unsigned short a6, unsigned short a7); // 0x0053D880
+void __fastcall SCMD_SendUniqueMonsterInfo(D2ClientStrc* pClient, int dwUnitGUID, unsigned char nUnitType, unsigned short nNameSeed, unsigned short nUMods01, unsigned short nUMods23, unsigned short bChampion); // 0x0053D880
 
 void __fastcall SUNITPROXY_UpdateGambleInventory(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPlayer, D2ClientStrc* pClient); // 0x00537680
 
