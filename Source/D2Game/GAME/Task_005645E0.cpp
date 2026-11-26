@@ -160,7 +160,7 @@ void __stdcall TASK_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask)
     if (D2GameStrc* pGame = GAME_LockGame(nGameHashKey))
     {
         GAME_UpdateProgress(pGame);
-        sub_6FC39270(pGame, 0);
+        GAME_SendAllClientPackets(pGame, 0);
 // build: symbol ?SYSTEM_GetSyncTime@* 0x00410A80
         const unsigned int nSyncTime = SYSTEM_GetSyncTime();
         const unsigned int nSyncTimer = pGame->nSyncTimer;

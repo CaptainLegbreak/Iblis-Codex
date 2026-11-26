@@ -1457,7 +1457,7 @@ int __fastcall SKILLS_EventFunc24_EnergyShield(D2GameStrc* pGame, int nEvent, D2
 
 struct D2SummonArgStrc;
 
-int __fastcall D2GAME_GetSummonIdFromSkill_6FD15580(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
+int __fastcall D2GAME_GetSummonIdFromSkill(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
 
 D2UnitStrc* __fastcall D2GAME_SummonPet(D2GameStrc* pGame, D2SummonArgStrc* pSummonArg); // 0x0056D940
 
@@ -1483,7 +1483,7 @@ int __fastcall SKILLS_SrvDo144_Hydra(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     if (!pSkillsTxtRecord)
         return 0;
     int nSpawnMode;
-    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    const int nSummonId = D2GAME_GetSummonIdFromSkill(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
     if (nSummonId < 0)
         return 0;
     int nPetType = (signed char)pSkillsTxtRecord->nPetType;

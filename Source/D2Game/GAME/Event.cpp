@@ -198,15 +198,6 @@ static inline void EVENT_ReleaseTimer(D2EventTimerQueueStrc* pQueue, D2EventTime
     pTimer->nFlags = 2;
 }
 
-static inline D2EventTimerStrc** sub_6FC353D0(D2GameStrc* pGame, int nUnitType, int nExpireFrame)
-{
-    if (nExpireFrame == -1)
-    {
-        return &pGame->pTimerQueue->pInfinite[gaSlotRows[nUnitType]];
-    }
-    return &pGame->pTimerQueue->pHead[gaSlotRows[nUnitType]][nExpireFrame % 64];
-}
-
 static inline D2EventTimerStrc** sub_6FC353D0_00540CD0(D2GameStrc* pGame, int nUnitType, int nExpireFrame)
 {
     const int nRow = gaSlotRows[nUnitType];

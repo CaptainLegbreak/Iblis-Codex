@@ -772,11 +772,10 @@ void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc
 
 extern int nInitSeed_6FDC2CA08;                                                                             // 0x00731004
 
-int dword_6FD4581C;                                                                                         // 0x00883D3C
+int gnGlobal_00883D3C;                                                                                         // 0x00883D3C
 
-int dword_6FD45820;                                                                                         // 0x00883D40
+int gnGlobal_00883D40;                                                                                         // 0x00883D40
 
-int gnPeakMemoryUsageInLast10s_6FD45828;                                                                    // 0x00883D48
 
 extern int gnTargetFrameRate;                                                                      // 0x00731014
 
@@ -973,7 +972,7 @@ int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem);                      
 
 void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);            // 0x00542B40
 
-void __fastcall sub_6FC84D40(D2GameStrc* pGame, D2GSPacketSrv5A* pPacket);                                 // 0x0054AA40
+void __fastcall PLRMSG_BroadcastEventMessage(D2GameStrc* pGame, D2GSPacketSrv5A* pPacket);                                 // 0x0054AA40
 
 void __fastcall D2GAME_PopulateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);                  // 0x0054EC90
 
@@ -1453,7 +1452,7 @@ void __stdcall GAME_SetReservedGameGUID(int nGameGUID, unsigned short nGameId)
 
 typedef void* HGAMEDATA;
 
-extern HGAMEDATA hGameArray_6FD447F8[1024];                                                                 // 0x00882D38
+extern HGAMEDATA ghGameArray[1024];                                                                 // 0x00882D38
 
 // 0x0052C170
 unsigned short __fastcall GAME_ReserveGameId()
@@ -1467,7 +1466,7 @@ unsigned short __fastcall GAME_ReserveGameId()
         gwGameId = 1;
     }
 
-    if (hGameArray_6FD447F8[(unsigned short)nGameId - 1])
+    if (ghGameArray[(unsigned short)nGameId - 1])
     {
         while (1)
         {
@@ -1483,14 +1482,14 @@ unsigned short __fastcall GAME_ReserveGameId()
                 return 0;
             }
 
-            if (!hGameArray_6FD447F8[(unsigned short)nGameId - 1])
+            if (!ghGameArray[(unsigned short)nGameId - 1])
             {
                 break;
             }
         }
     }
 
-    hGameArray_6FD447F8[(unsigned short)nGameId - 1] = (HGAMEDATA)-1;
+    ghGameArray[(unsigned short)nGameId - 1] = (HGAMEDATA)-1;
     LeaveCriticalSection(&gGameListLock);
     return nGameId;
 }
@@ -1565,8 +1564,8 @@ int __fastcall SrvVerifyCreateNewGame(int nClientId, D2GSPacketClt66* pPacket)
 // 0x0052C3E0
 void __stdcall D2Game_10056(int nValue)
 {
-    dword_6FD4581C = nValue;
-    dword_6FD45820 = 0;
+    gnGlobal_00883D3C = nValue;
+    gnGlobal_00883D40 = 0;
 }
 
 // 0x0052C400
@@ -1853,7 +1852,7 @@ void __fastcall SrvDisconnectClient(D2GameStrc* pGame, D2ClientStrc* pClient, in
     CLIENTS_CopyAccountNameToBuffer(pClient, &tPacket.szText[16]);
     tPacket.szText[31] = '\0';
     SStrCopy(tPacket.szText, CLIENTS_GetName(pClient), 16);
-    sub_6FC84D40(pGame, &tPacket);
+    PLRMSG_BroadcastEventMessage(pGame, &tPacket);
 
     ClientRemoveFromGame(pGame, CLIENTS_GetClientId(pClient), 1);
     D2GAME_PACKETS_SendGameLeft(nClientId);
@@ -2270,7 +2269,7 @@ static void GAME_UpdateAllClients(D2GameStrc* pGame)
                 D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
                 if (pPlayer)
                 {
-                    D2GAME_ITEMS_UpdateInventoryItems_6FC45050(pGame, pPlayer, 0, 1);
+                    D2GAME_ITEMS_UpdateInventoryItems(pGame, pPlayer, 0, 1);
                 }
 
                 GAME_SynchronizePlayerWithClients(pGame, pClient);
@@ -2302,7 +2301,7 @@ static void GAME_UpdateAllClients(D2GameStrc* pGame)
                 }
 
                 SStrCopy(packet5A.szText, pClient->szName, 16);
-                sub_6FC84D40(pGame, &packet5A);
+                PLRMSG_BroadcastEventMessage(pGame, &packet5A);
             }
             break;
         }
@@ -2323,7 +2322,7 @@ static void GAME_UpdateAllClients(D2GameStrc* pGame)
                 D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
                 if (pPlayer)
                 {
-                    D2GAME_ITEMS_UpdateInventoryItems_6FC45050(pGame, pPlayer, 0, 1);
+                    D2GAME_ITEMS_UpdateInventoryItems(pGame, pPlayer, 0, 1);
                 }
             }
             break;
@@ -3283,7 +3282,7 @@ void __stdcall GAME_RemoveClientById(int nClientId)
     tPacket.dwParam = 0;
     tPacket.szText[16] = 0;
     SStrCopy(tPacket.szText, CLIENTS_GetName(pClient), 16);
-    sub_6FC84D40(pGame, &tPacket);
+    PLRMSG_BroadcastEventMessage(pGame, &tPacket);
     ClientRemoveFromGame(pGame, CLIENTS_GetClientId(pClient), 1);
     GAME_LeaveGamesCriticalSection(pGame);
 }
@@ -3344,7 +3343,7 @@ void __fastcall SrvEndGame(int nClientId, int bSendLeaveMessage)
 
             if (bSendLeaveMessage)
             {
-                sub_6FC84D40(pGame, &packet5A);
+                PLRMSG_BroadcastEventMessage(pGame, &packet5A);
             }
 
             if (!bOwner)
@@ -3715,7 +3714,7 @@ int __cdecl GAME_GetFrameRate()
 void __stdcall GAME_GetMemoryUsage(int* pCurrentMemoryUsage, int* pPeakMemoryUsageInLast10s)
 {
     *pCurrentMemoryUsage = FOG_GetMemoryUsage(0);
-    *pPeakMemoryUsageInLast10s = gnPeakMemoryUsageInLast10s_6FD45828;
+    *pPeakMemoryUsageInLast10s = gnPeakMemoryUsageInLast10s;
 }
 
 // 0x0052DBC0
@@ -4611,7 +4610,7 @@ void __stdcall GAME_SendMessageToAllClients(int nMessageType, int nPacketParam, 
                 packet5A.nColor = 4;
                 packet5A.dwParam = nPacketParam;
                 packet5A.szText[16] = 0;
-                sub_6FC84D40(ptGame, &packet5A);
+                PLRMSG_BroadcastEventMessage(ptGame, &packet5A);
                 break;
             }
             default:

@@ -256,7 +256,7 @@ void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
 
 void __fastcall SKILLS_ApplyPassiveStatsToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel); // 0x005C6DC0
 
-int __fastcall D2GAME_GetSummonIdFromSkill_6FD15580(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
+int __fastcall D2GAME_GetSummonIdFromSkill(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
 
 void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pDefender, D2UnitStrc* pAttacker, int bSendMsg); // 0x0057CCB0
 
@@ -602,7 +602,7 @@ int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc*, D2UnitS
 
 int __fastcall AIUTIL_HasClearApproachToTarget(D2UnitStrc*, D2UnitStrc*); // 0x005DC640
 
-D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, int*, int*); // 0x005DD7F0
+D2UnitStrc* __fastcall AIUTIL_FindAiTarget(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, int*, int*); // 0x005DD7F0
 
 D2UnitStrc* __fastcall AITACTICS_FindTargetInRange(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, int*, int*, int); // 0x005DDE50
 
@@ -703,7 +703,7 @@ int __fastcall SKILLS_SrvSt42_FireHit(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
                 damage.dwHitClass = pSkillsTxtRecord->dwHitClass;
             }
 
-            sub_6FC627B0(pUnit, 8);
+            MONSTERMODE_UpdateModeAttackStats(pUnit, 8);
         }
 
         SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, 0x80);
@@ -750,7 +750,7 @@ int __fastcall SKILLS_SrvDo084_MaggotEgg(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     }
 
     int nSpawnMode;
-    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 1, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    const int nSummonId = D2GAME_GetSummonIdFromSkill(pUnit, 1, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
     if (nSummonId < 0)
     {
         return 0;
@@ -926,7 +926,7 @@ int __fastcall SKILLS_SrvDo087_MaggotLay(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     }
 
     int nSpawnMode;
-    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 1, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    const int nSummonId = D2GAME_GetSummonIdFromSkill(pUnit, 1, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
     if (nSummonId < 0)
     {
         return 0;
@@ -1350,7 +1350,7 @@ int __fastcall SKILLS_SrvSt49_Nest_EvilHutSpawner(D2GameStrc* pGame, D2UnitStrc*
     int nSpawnMode;
     int nX;
     int nY;
-    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 1, nSkillId, nSkillLevel, &nSpawnMode, &nX, &nY);
+    const int nSummonId = D2GAME_GetSummonIdFromSkill(pUnit, 1, nSkillId, nSkillLevel, &nSpawnMode, &nX, &nY);
     if (nSummonId < 0)
     {
         return 0;
@@ -2411,7 +2411,7 @@ int __fastcall SKILLS_SrvDo104_DiabPrison(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     }
 
     int nSpawnMode;
-    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    const int nSummonId = D2GAME_GetSummonIdFromSkill(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
     if (nSummonId < 0)
     {
         return 0;
@@ -2617,7 +2617,7 @@ extern const int gaMonCurseIds[5]; // 0x006E3228
 
 int __fastcall SKILLS_IterateTargetsAroundTarget(D2GameStrc* pGame, unsigned int nFlags, D2UnitStrc* pUnit, int nDistance, int (__fastcall* pCallback)(D2UnitStrc*, void*), void* pArgs); // 0x0056E780
 
-int __fastcall sub_6FD0B450(D2UnitStrc* pUnit, void* pArgs); // 0x005C35C0
+int __fastcall SKILLS_AuraCallback_ApplyCurse(D2UnitStrc* pUnit, void* pArgs); // 0x005C35C0
 
 unsigned char __stdcall PATH_GetNewDirection(D2DynamicPathStrc*); // 0x00648810
 
@@ -3153,7 +3153,7 @@ int __fastcall SKILLS_SrvDo112_MonCurseCast(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
     }
 
-    return SKILLS_IterateTargetsAroundTarget(pGame, 3, pUnit, nRange, sub_6FD0B450, &args);
+    return SKILLS_IterateTargetsAroundTarget(pGame, 3, pUnit, nRange, SKILLS_AuraCallback_ApplyCurse, &args);
 }
 
 // 0x005CE4F0
@@ -3229,16 +3229,16 @@ int __fastcall SKILLS_SrvDo111_FetishAura(D2GameStrc* pGame, D2UnitStrc* pUnit, 
             case MONSTER_FETISHBLOW3:
             case MONSTER_FETISHBLOW4:
             case MONSTER_FETISHBLOW5:
-                if (sub_6FD0B2B0(pGame, pUnit, pFoundUnit))
+                if (SKILLS_CanApplyCurseToTarget(pGame, pUnit, pFoundUnit))
                 {
-                    sub_6FD11260(pUnit, pFoundUnit, nSkillId, nSkillLevel, STAT_ATTACKRATE, STATE_FETISHAURA, 0);
+                    SKILLS_ApplyStateFromSkillParams(pUnit, pFoundUnit, nSkillId, nSkillLevel, STAT_ATTACKRATE, STATE_FETISHAURA, 0);
                 }
                 break;
             }
         }
     }
 
-    sub_6FD10E20(pGame, pUnitFindData);
+    SKILLS_FreeUnitSearch(pGame, pUnitFindData);
     return 1;
 }
 

@@ -179,8 +179,8 @@ void __fastcall PLAYERLIST_IterateCallback_InitializePlayerRelation(D2GameStrc* 
         PLAYERLIST_SetPartyState(pOther, pPlayer, 1);
     }
 
-    sub_6FCBAA20(pOther, pPlayer);
-    sub_6FCBAA20(pPlayer, pOther);
+    PLAYERLIST_SendPartyState(pOther, pPlayer);
+    PLAYERLIST_SendPartyState(pPlayer, pOther);
 
     for (D2PlayerListStrc* pPlayerList = UNITS_GetPlayerData(pPlayer)->pPlayerList; pPlayerList; pPlayerList = pPlayerList->pNext)
     {
@@ -200,7 +200,7 @@ void __fastcall PLAYERLIST_ResetPendingPartyInvitations(D2GameStrc* pGame, D2Uni
             if (pOther)
             {
                 pPlayerList->field_C = PARTY_GetPartyIdForUnitOwner(pGame, pOther) != -1;
-                sub_6FCBAA20(pPlayer, pOther);
+                PLAYERLIST_SendPartyState(pPlayer, pOther);
             }
         }
     }

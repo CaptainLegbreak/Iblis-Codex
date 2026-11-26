@@ -34,7 +34,7 @@ int __fastcall SrvVerifyJoinGame(int nClientId, unsigned short nGameId, unsigned
 void __fastcall SrvJoinGame(int dwClientId, unsigned short nGameId, int nClass, const char* szClientName, int a5, const char* szAccountName, int nCharSaveTransactionToken, int nLocale, int a8, int a9, int a11, int a12, int a13); // 0x0052FA50
 int __fastcall GAME_VerifyEndGame(int nClientId); // 0x0052C8E0
 void __fastcall SrvEndGame(int nClientId, int a2); // 0x005303D0
-int __fastcall D2GAME_Return1_6FC41900(int nClientId); // 0x0052DAF0
+int __fastcall sub_0052DAF0_Return1(int nClientId); // 0x0052DAF0
 void __fastcall GAME_HandleGameListRequest(int nClientId); // 0x0052E9B0
 int __fastcall GAME_VerifyJoinAct(int nClientId); // 0x0052C550
 void __fastcall SrvJoinAct(int nClientId); // 0x00530190
@@ -163,7 +163,7 @@ void __fastcall CCMD_ProcessClientSystemMessage(void* pData, int nSize)
         }
         break;
     case 0x6A:
-        if (D2GAME_Return1_6FC41900(nClientId))
+        if (sub_0052DAF0_Return1(nClientId))
         {
             GAME_HandleGameListRequest(nClientId);
         }

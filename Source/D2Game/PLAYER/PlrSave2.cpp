@@ -1217,7 +1217,7 @@ static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
 // 0x00569F80
 static int __stdcall PLRSAVE2_CreateNewbiePlayer(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc** ppPlayer)
 {
-    sub_6FC32220(pClient);
+    CLIENTS_SetPlayerUnitAlive(pClient);
     const int nClassId = CLIENTS_GetClassId(pClient);
     D2UnitStrc* pPlayer = SUNIT_AllocUnitData(UNIT_PLAYER, nClassId, 0, 0, pGame, 0, 0, 0, 0);
     PLRSAVE2_InitPlayerFromClient(pGame, pPlayer, pClient);
@@ -1686,7 +1686,7 @@ int __fastcall PLRSAVE2_ReadSkills(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsig
     }
 
     SCMD_SendSkillList(pClient, pPlayer);
-    sub_6FD14C30(pPlayer);
+    SKILLS_RefreshPassivesAndPetLimits(pPlayer);
 
     *ppSection = &pData[nSkills];
     return 0;
@@ -1964,7 +1964,7 @@ int __fastcall PLRSAVE2_ReadPetSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
             return PLRSAVE2ERROR_BAD_PET;
         }
 
-        D2GAME_ITEMS_UpdateInventoryItems_6FC45050(pGame, pMerc, 0, 0);
+        D2GAME_ITEMS_UpdateInventoryItems(pGame, pMerc, 0, 0);
         sub_0055F4F0(pGame, pMerc, 0);
         if (!SUNIT_IsDead(pMerc))
         {

@@ -776,7 +776,7 @@ void __fastcall ACT3Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
         }
 
         QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q3, 7);
-        D2GAME_NPC_AssignMercenary_6FCCB520(pQuestData->pGame, pQuestArg->pPlayer, MONSTER_ASHEARA);
+        D2GAME_NPC_AssignMercenary(pQuestData->pGame, pQuestArg->pPlayer, MONSTER_ASHEARA);
 
         if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q3, 8))
         {

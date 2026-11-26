@@ -145,7 +145,7 @@ void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAtt
 
 struct D2GameStrc;
 
-int __fastcall D2GAME_GetSummonIdFromSkill_6FD15580(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
+int __fastcall D2GAME_GetSummonIdFromSkill(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
 
 D2UnitStrc* __fastcall D2GAME_SummonPet(D2GameStrc* pGame, D2SummonArgStrc* pSummonArg);         // 0x0056D940
 
@@ -424,7 +424,7 @@ int __fastcall SKILLS_SrvSt09_Fend(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill)
         return 0;
-    int nRange = sub_6FD15460(pUnit);
+    int nRange = SKILLS_GetMeleeSearchRange(pUnit);
     D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
     int nTargets = 0;
     if (!pTarget)
@@ -464,7 +464,7 @@ int __fastcall SKILLS_SrvSt37_Zeal_Fury_BloodLordFrenzy(D2GameStrc* pGame, D2Uni
         return 0;
     }
 
-    const int nAuraRange = sub_6FD15460(pUnit);
+    const int nAuraRange = SKILLS_GetMeleeSearchRange(pUnit);
     D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
     if (!pTarget)
     {
@@ -665,7 +665,7 @@ int __fastcall SKILLS_SrvDo007_Jab(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
     const int nToHit = SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel);
     if (nType == UNIT_MONSTER)
     {
-        sub_6FC627B0(pUnit, 8);
+        MONSTERMODE_UpdateModeAttackStats(pUnit, 8);
     }
 
     damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, nToHit, 0);
@@ -1170,7 +1170,7 @@ int __fastcall SKILLS_SrvDo015_Dopplezon(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     }
 
     int nSpawnMode;
-    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    const int nSummonId = D2GAME_GetSummonIdFromSkill(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
     if (nSummonId < 0)
     {
         return 0;
@@ -1241,7 +1241,7 @@ int __fastcall SKILLS_SrvDo016_Valkyrie(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     }
 
     int nSpawnMode;
-    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    const int nSummonId = D2GAME_GetSummonIdFromSkill(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
     if (nSummonId < 0)
     {
         return 0;

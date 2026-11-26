@@ -220,7 +220,7 @@ int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUni
 
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
 
-int __fastcall D2GAME_Return1_6FC41900(D2UnitStrc* pItem); // 0x00564CA0
+int __fastcall sub_00564CA0_Return1(D2UnitStrc* pItem); // 0x00564CA0
 
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
 
@@ -1274,7 +1274,7 @@ int __stdcall D2GAME_SAVE_SerializeItem(D2UnitStrc* pItem, unsigned char* pBitst
     if (pItem)
     {
         const int bFlag = (pItem->dwFlagEx >> 15) & 1;
-        if (!bFlag && (a4 != bFlag || a5 == bFlag || a6 != bFlag || D2GAME_Return1_6FC41900(pItem)))
+        if (!bFlag && (a4 != bFlag || a5 == bFlag || a6 != bFlag || sub_00564CA0_Return1(pItem)))
         {
             const int nBits = ITEMS_SerializeItemToBitstream(pItem, pBitstream, nBitstreamSize, 1, 1, 0);
             D2_ASSERT(nBits, 1884);
@@ -1780,7 +1780,7 @@ void __cdecl sub_00532580_Empty()
 // 0x00532590
 static int __stdcall PLRSAVE_CreateNewPlayer(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc** ppPlayer)
 {
-    sub_6FC32220(pClient);
+    CLIENTS_SetPlayerUnitAlive(pClient);
     const int nClassId = CLIENTS_GetClassId(pClient);
     D2UnitStrc* pPlayer = SUNIT_AllocUnitData(UNIT_PLAYER, nClassId, 0, 0, pGame, 0, 0, 0, 0);
     PLRSAVE_AttachPlayerToClient(pGame, pPlayer, pClient);
@@ -2065,7 +2065,7 @@ int __fastcall PLRSAVE_ReadLegacySkills(D2GameStrc* pGame, D2ClientStrc* pClient
     SCMD_SendSkillList(pClient, pUnit);
 
     const int nCount = SKILLS_GetPlayerSkillCount(nClassId) + 2;
-    sub_6FD14C30(pUnit);
+    SKILLS_RefreshPassivesAndPetLimits(pUnit);
     *pSkillCount = nCount;
     return 0;
 }
@@ -2954,7 +2954,7 @@ int __fastcall D2GAME_SAVE_GetUnitDataFromFile(D2GameStrc* pGame, D2ClientStrc* 
         return SYSERROR_UNK_14;
     }
 
-    sub_6FD14C30(*ppPlayer);
+    SKILLS_RefreshPassivesAndPetLimits(*ppPlayer);
     return 0;
 }
 
