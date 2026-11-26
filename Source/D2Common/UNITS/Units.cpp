@@ -478,6 +478,7 @@ static int UNITS_GetBaseAnimSpeed(int nUnitType, int nClassId, int nAnimMode);
 
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
+// Kept noinline: UNITS_TestCollisionWithUnit (0x00622AA0) calls it once out of line in the image, and inlining it here changes that caller.
 static __declspec(noinline) int __stdcall sub_00622920_TestCollision(int nX1, int nY1, int nSize1, int nX2, int nY2, int nSize2, D2ActiveRoomStrc* pRoom, int nCollisionMask);
 
 extern int gaClassesWeaponFrameBonus[][7]; // 0x006E8E60

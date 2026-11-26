@@ -848,6 +848,7 @@ void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory)
     }
 }
 
+// Kept noinline: INVENTORY_RemoveItemFromInventory (0x0063AD90) calls it once out of line in the image, and inlining it here changes that caller.
 // 0x0063AD50
 __declspec(noinline) int __stdcall INVENTORY_CompareWithItemsParentInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem)
 {
@@ -1805,6 +1806,7 @@ static inline unsigned int INVENTORY_GetUnitXInline(D2UnitStrc* pUnit)
     }
 }
 
+// Kept noinline: INVENTORY_UpdateWeaponGUIDOnRemoval (0x0063D2B0) calls it once out of line in the image, and inlining it here changes that caller.
 // 0x0063BDE0
 __declspec(noinline) D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc)
 {
