@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 #include "D2TxtItems.h"
 #include "D2LevelTxt.h"
 #include "D2Records.h"
@@ -39,8 +40,6 @@ struct D2CubeInputItemStrc
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 
 extern "C" unsigned int __cdecl strlen(const char* szString);
-
-D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError); // 0x006BD130
 

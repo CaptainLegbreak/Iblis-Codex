@@ -2,6 +2,7 @@
 #include "D2DrlgPresets.h"
 
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 
 #include "D2Path.h"
 
@@ -275,8 +276,6 @@ struct D2PathRoomsAABBStrc : D2DrlgCoordsStrc
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                         // 0x006829C0
-
-void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
 // 0x0067A9F0
 static int PATH_IDAStar_FlushNodeToDynamicPath(D2PathInfoStrc* pPathInfo, D2PathIDAStarNodeStrc* pNode)

@@ -1,6 +1,7 @@
 #include "D2Drlg.h"
 
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 
 #include "D2DrlgMaps.h"
 
@@ -10,8 +11,6 @@ static D2DrlgPathNodeStrc* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch,
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-
-D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char nDirection);          // 0x0067CDD0
 
 int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordStrc* pCoords, int nX, int nY);          // 0x0066B980
 

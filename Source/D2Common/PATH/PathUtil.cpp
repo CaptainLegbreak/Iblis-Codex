@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "FogApi.h"
@@ -293,8 +294,6 @@ struct D2MotionPathStrc
     char unk_1D[3];
     unsigned int nFlags;
 };
-
-void __fastcall PATH_GetDirectionVectorFromPoints(D2CoordStrc* pDirectionVector, int* pOutDirection, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0064FD70
 
 // 0x00678E30
 int __fastcall PATH_UpdateMotionVelocity(D2MotionPathStrc* pPath)

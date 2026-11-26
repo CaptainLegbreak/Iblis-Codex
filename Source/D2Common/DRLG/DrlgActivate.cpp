@@ -10,6 +10,7 @@
 #include "D2TxtTables.h"
 
 #include "D2Common.h"
+#include "D2CommonInternal.h"
 
 #include "D2Drlg.h"
 
@@ -38,15 +39,11 @@ struct D2DrlgTableRefStrc
 
 extern int gnTimeRates[]; // 0x007443E4
 
-int __fastcall DRLG_IsOnClient(D2DrlgStrc* pDrlg); // 0x00642A00
-
 
 void __fastcall DRLGACTIVATE_RoomExPropagateUnsetStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus); // 0x0061B5B0
 
 void __fastcall DRLGROOM_InitNearRooms(void* pContext, D2DrlgRoomStrc* pNode); // 0x0066C370
 
-
-void __fastcall DRLG_CreateRoomForRoomEx(D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoom); // 0x006422A0
 
 struct D2Entry0061B7E0Strc
 {
@@ -119,10 +116,6 @@ extern const int gnTownLevelIdsByAct[5]; // 0x006E7D1C
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
 
-int __fastcall DRLG_GetHoradricStaffTombLevelId(D2DrlgStrc* pDrlg); // 0x00642230
-
-D2DrlgStrc* __fastcall DRLGROOM_GetDrlgFromRoomEx(D2DrlgRoomStrc* pRoom); // 0x0066C0B0
-
 static int DRLGACTIVATE_RoomEx_EnsureHasRoom(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom);
 
 static int gnStatsClientAllocatedRooms; // 0x0096C8B8
@@ -144,10 +137,6 @@ static int gStatsFreedRooms; // 0x0096C8C0
 static int gStatsAllocatedRooms; // 0x0096C8C4
 
 void __stdcall DRLGACTIVATE_Update(D2DrlgStrc* pDrlg);
-
-D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId); // 0x00642BB0
-
-D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoom, D2DrlgLevelStrc* pLevel); // 0x00642C30
 
 
 static void DRLGACTIVATE_RoomSetAndPropagateStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus);
