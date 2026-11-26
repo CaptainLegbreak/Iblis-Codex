@@ -1092,15 +1092,13 @@ extern unsigned int gdwMessageTick_007C02C8; // 0x007C02C8
 
 static int TEXT_GetKeyConfigEntryState(int nIndex, int nFlag);
 
-typedef int(__fastcall* PANELCLOSEFN)(void* pArg, int a2, int a3);
-
 
 extern void* gpHint_007BF202; // 0x007BF202
 
 
 extern void* gpHint_007BF24B; // 0x007BF24B
 
-extern PANELCLOSEFN gpfnTextCallback; // 0x007BF258
+extern D2TextCallback gpfnTextCallback; // 0x007BF258
 
 void __fastcall SELECT_SetSelectionRect(void* pRect); // 0x00467430
 

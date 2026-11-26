@@ -1934,7 +1934,7 @@ void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay
                 memset(&tContext, 0, sizeof(tContext));
                 tContext.nOverlay = nOverlay;
                 int nOut;
-                if (!sub_004DBB50_InitCelContext(&tContext, 0, 0, UNITS_GetDirection(pUnit), nFrame, &nOut, 1, -1))
+                if (!GFXUTIL_InitUnitCelContext(&tContext, 0, 0, UNITS_GetDirection(pUnit), nFrame, &nOut, 1, -1))
                 {
                     return;
                 }
@@ -2712,7 +2712,7 @@ int __fastcall GFX_DrawSimpleUnitShadow(D2UnitStrc* pUnit)
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nOut;
-    if (!sub_004DBB50_InitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, 1, -1))
+    if (!GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, 1, -1))
     {
         return 0;
     }
@@ -2776,7 +2776,7 @@ int __fastcall GFX_GetHealthBarOffset(D2UnitStrc* pUnit)
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nOut;
-    if (!sub_004DBB50_InitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, 1, -1))
+    if (!GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, 1, -1))
     {
         return 0;
     }
@@ -2867,7 +2867,7 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
                     D2CelContextStrc tContext;
                     memset(&tContext, 0, sizeof(tContext));
                     int nOut;
-                    if (sub_004DBB50_InitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, nLayer, -1))
+                    if (GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, nLayer, -1))
                     {
                         TEXTURE_CelDrawHilight(&tContext, nX, nY, nColor);
                     }

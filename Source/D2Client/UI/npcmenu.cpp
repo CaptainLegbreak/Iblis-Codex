@@ -811,8 +811,6 @@ extern "C" const char gszNpcMenuFile[];                                         
 struct D2InventoryStrc;
 struct D2DynamicPathStrc;
 
-typedef int (__fastcall* D2TextCallback)(void* pContext, int nArg, int nValue);
-
 
 static inline int NPC_GetUnitClassId(D2UnitStrc* pUnit)
 {

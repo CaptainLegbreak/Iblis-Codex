@@ -1619,7 +1619,7 @@ int __cdecl CLIENT_GetConnectionStatus();                                       
 
 int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int));                                     // 0x00451BB0
 
-void __stdcall SERVER_Initialize(int a1, int a2);                                                           // 0x0052B7A0
+void __stdcall SERVER_Initialize(int nState, int bDisableNt);                                                           // 0x0052B7A0
 
 void __stdcall CLIENT_Initialize(int nArg, const char* szAddress);                                               // 0x0052A750
 

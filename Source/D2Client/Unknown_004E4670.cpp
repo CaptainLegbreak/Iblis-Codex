@@ -140,7 +140,7 @@ struct D2GemsTxt;
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 
 // 0x004E4670
-void __fastcall sub_004E4670_BuildSkillBonusText(D2UnitStrc* pUnit, Unicode* pBuffer, int a3, int a4, int nStatId)
+void __fastcall sub_004E4670_BuildSkillBonusText(D2UnitStrc* pUnit, Unicode* pBuffer, int nUnused3, int nUnused4, int nStatId)
 {
     D2StatStrc tStats[128];
     unsigned short wszLine[128];

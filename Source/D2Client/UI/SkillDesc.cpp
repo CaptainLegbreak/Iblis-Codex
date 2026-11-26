@@ -1550,9 +1550,9 @@ static void __stdcall SKILLDESC_FormatDecimalRange(Unicode* wszText, int bPrefix
     sub_00526320_ToUnicode(wszText, szText, 32);
 }
 
-extern "C" void __stdcall sub_K07_EmitB(Unicode* p, int b, int a1, int a2, int a3, int a4)
+extern "C" void __stdcall sub_K07_EmitB(Unicode* wszText, int bPrefixSign, int nMin, int nMinFrac, int nMax, int nMaxFrac)
 {
-    SKILLDESC_FormatDecimalRange(p, b, a1, a2, a3, a4);
+    SKILLDESC_FormatDecimalRange(wszText, bPrefixSign, nMin, nMinFrac, nMax, nMaxFrac);
 }
 
 // 0x004E7650
