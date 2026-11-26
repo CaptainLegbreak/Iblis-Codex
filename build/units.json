@@ -429,9 +429,18 @@
      "name": "?ERRORMANAGER_DebugPrintLog@@YAXPBDZZ"
     },
     {
+     "va": "0x004082E0",
+     "length": 888
+    },
+    {
      "va": "0x00408660",
      "length": 604,
      "name": "?ERRORMANAGER_ShowErrorReport@@YI_NPBD0PAPBDHI_N@Z"
+    },
+    {
+     "va": "0x004088C0",
+     "length": 56,
+     "name": "ERRORMANAGER_ReportNestedError"
     },
     {
      "va": "0x00408900",
@@ -442,6 +451,11 @@
      "va": "0x00408A30",
      "length": 42,
      "name": "FOG_DisplayAssert"
+    },
+    {
+     "va": "0x00408A60",
+     "length": 42,
+     "name": "_FOG_DisplayHalt"
     },
     {
      "va": "0x00408A90",
@@ -462,6 +476,11 @@
      "va": "0x00408B20",
      "length": 445,
      "name": "?ERRORMANAGER_ShowErrorBox@@YIXHPBDH0PAD@Z"
+    },
+    {
+     "va": "0x00408CE0",
+     "length": 571,
+     "name": "?FOG_InitErrorMgr@@YIXPBD0H@Z"
     },
     {
      "va": "0x00408F20",
@@ -925,45 +944,6 @@
      "length": 698,
      "name": "?GameStart@@YIHPAXPAUD2ConfigStrc@@H@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/ErrorManager_004082E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004082E0",
-     "length": 888
-    },
-    {
-     "va": "0x004088C0",
-     "length": 56,
-     "name": "ERRORMANAGER_ReportNestedError"
-    },
-    {
-     "va": "0x00408A60",
-     "length": 42,
-     "name": "_FOG_DisplayHalt"
-    },
-    {
-     "va": "0x00408CE0",
-     "length": 571,
-     "name": "?FOG_InitErrorMgr@@YIXPBD0H@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHa"
    ]
   },
   {
