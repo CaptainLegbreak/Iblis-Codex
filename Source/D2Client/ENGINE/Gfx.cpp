@@ -223,8 +223,6 @@ struct D2MonGfxCacheStrc;
 
 struct D2RosterPetStrc;
 
-struct D2RosterUnitStrc;
-
 struct D2MonStats2Txt;
 
 struct D2GfxBoundsStrc;
@@ -239,17 +237,6 @@ extern char gData_007A7490[0x460]; // 0x007A7490
 extern int gdwLastPreloadTick; // 0x007A8910
 
 extern int gnCofMemoryLimit; // 0x007A891C
-
-struct D2RosterUnitStrc
-{
-    char szName[16];
-    unsigned int dwUnitId;
-    char unk0x14[0x14];
-    int nXPos;
-    int nYPos;
-    char unk0x30[0x50];
-    D2RosterUnitStrc* pNext;
-};
 
 extern "C" int __cdecl strcmp(const char* szA, const char* szB);
 
@@ -2906,15 +2893,15 @@ unsigned char* __stdcall GFX_BuildLerpTable(unsigned int nCount, int nSteps)
 }
 
 // 0x004795F0
-D2RosterUnitStrc* __stdcall GFX_SortRosterByName(D2RosterUnitStrc* pList)
+D2StoredUnitRecordStrc* __stdcall GFX_SortRosterByName(D2StoredUnitRecordStrc* pList)
 {
-    D2RosterUnitStrc* pSorted = 0;
-    D2RosterUnitStrc* pCurrent = pList;
+    D2StoredUnitRecordStrc* pSorted = 0;
+    D2StoredUnitRecordStrc* pCurrent = pList;
     while (pCurrent)
     {
         pList = pCurrent->pNext;
-        D2RosterUnitStrc* pPrevious = 0;
-        for (D2RosterUnitStrc* pRoster = pSorted; pRoster; pRoster = pRoster->pNext)
+        D2StoredUnitRecordStrc* pPrevious = 0;
+        for (D2StoredUnitRecordStrc* pRoster = pSorted; pRoster; pRoster = pRoster->pNext)
         {
             if (strcmp(pCurrent->szName, pRoster->szName) < 0)
             {
