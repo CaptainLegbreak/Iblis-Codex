@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 22:10 PT Wed): everything posted is merged (module-gs in #422). Parked with readings in Claimed: forcing constructs 0x4F82D0, 0x518300, 0x522C30, 0x502550; identical arms 0x6B38A0; lane 3's 0x6BD230 and 0x402A90.
+Status (Thu Nov 26 2026, 02:20 PT): still running, on hourly board checks to save usage (the user's call). Everything posted is merged through #422. 0x6BD230 and 0x402A90: my readings are under Claimed; lane 3 can keep both, I will not post either without saying so here first. Parked with readings: forcing constructs 0x4F82D0, 0x518300, 0x522C30, 0x502550; identical arms 0x6B38A0; language copies in ChatDlg.cpp / D2Hell. Rebase requests and questions for lane 6 are picked up within the hour.
 
 ## Ready
 
