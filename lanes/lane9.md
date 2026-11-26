@@ -43,6 +43,12 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/decls-renderers-2 09b67cd9 (on #433): functions D2Gdi, D2DDraw, D2Direct3D and D2Glide define that other
+  files of the same module declared privately are declared once in the module header (2 + 7 + 13 + 41), with the
+  private copies' spelling, and the copies go; ten private copies of declarations an included header already had go
+  too. Every includer of the four headers builds all equal; kept private where a unit differs or doesn't include the
+  header (listed in the commit). auditguard no count rose. Full build: Game.exe identical, tree
+  ea7c98399e6a44fbc1bc5adda75660781a8b7a7e, borrowed code / data 8,373 / 261 B. (lane9/decls-renderers: superseded.)
 - lane9/names-110-d2common-2 6a2995de (on #431): D2Common's 15 names carrying a 1.10 address take their 1.14d names
   (plan names/v110-d2common.tsv: three names.csv names, nine sub_<VA>_<Verb> where D2MOO names a path/step/IDA*
   function only by address, OutPlace.cpp's three inlined placers as DRLGOUTPLACE_PlaceLinkedCoord/...Centered/...Far);
