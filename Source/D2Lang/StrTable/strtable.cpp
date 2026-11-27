@@ -2,6 +2,7 @@
 #include "D2LangTypes.h"
 #include "FogApi.h"
 #include "D2LangApi.h"
+#include "D2HellApi.h"
 
 #pragma intrinsic(strcmp)
 
@@ -15,8 +16,6 @@ struct D2LanguageInfoStrc;
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName, void* hFile, void* pfShowMessage, int nPriority); // 0x00517332
-
-void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
 
 extern "C" const char gszExpansionMpq[]; // 0x006CD3A0
 
@@ -80,8 +79,6 @@ struct D2LanguageInfoStrc
 };
 
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9
-
-void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
 extern D2LanguageInfoStrc gaLanguageInfo[13]; // 0x007303D8
 

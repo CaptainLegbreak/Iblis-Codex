@@ -15,6 +15,8 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "FogApi.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -109,8 +111,6 @@ void __fastcall ITEM_SetUninterruptableState(D2UnitStrc* pItem); // 0x004C21F0
 int __fastcall ITEM_IsItemActionBlocked(D2UnitStrc* pItem); // 0x004C2240
 
 void __fastcall sub_004DBEA0(D2UnitStrc* pUnit, int nArg2, int nArg3, unsigned int* pWidth, unsigned int* pHeight); // 0x004DBEA0
-
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign); // 0x00502280
 
@@ -334,8 +334,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 struct D2CelFileStrc* __fastcall GAME_LoadUiCelFile(const char* szPath);                          // 0x004520C0
 
-int __fastcall D2Win_10127_SetFont(int nSize);                                                                     // 0x00502EF0
-
 enum D2C_UIvars
 {
     UI_GAME = 0x00,
@@ -389,8 +387,6 @@ enum DrawMode
     DRAWMODE_TRANSHIGHLIGHT,
     DRAWMODE_HIGHLIGHT
 };
-
-int __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pContext, int nX, int nY, unsigned int nGamma, DrawMode eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 void __fastcall D2Win_10117_DrawText(const unsigned short* wszText, int nX, int nY, int nColor, int bCentered);   // 0x00502320
 

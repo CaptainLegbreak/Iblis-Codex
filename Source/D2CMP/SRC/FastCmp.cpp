@@ -10,6 +10,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "StormApi.h"
+#include "D2HellApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -45,8 +46,6 @@ struct D2CmpCellListStrc;
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-
-void __fastcall sub_005179A4_FreeVirtualMemory(void* pMemory); // 0x005179A4
 
 void __stdcall PaletteBuildAdditiveTable(unsigned char* pData); // 0x006059B0
 
