@@ -128,7 +128,7 @@ extern "C" const char gszPercentS_006FFC58[]; // 0x006FFC58
 
 extern "C" const char gszKernel32[]; // 0x006CD6E4
 
-extern char gszServiceName[]; // 0x007065DC
+extern char gszServiceName[32]; // 0x007065DC
 
 extern D2ServiceStatusStrc gD2ServerServiceStatus; // 0x007065FC
 

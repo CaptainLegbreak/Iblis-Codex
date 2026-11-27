@@ -123,9 +123,9 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long nMillisecond
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
+extern "C" void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int dwFlags); // 0x00413020
 
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
+extern "C" int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags); // 0x00412650
 
 void __cdecl CHATDLG_FillGameList(); // 0x00444E70
 
@@ -487,7 +487,7 @@ D2WinControlStrc* gpControl_00779C7C;        // 0x00779C7C
 
 D2WinControlStrc* gpControl_00779C80;                                                                       // 0x00779C80
 
-extern char gszEnteredName[];                                                                             // 0x00779C88
+extern char gszEnteredName[256]; // 0x00779C88
 
 D2WinControlStrc* gpControl_00779D88;        // 0x00779D88
 
@@ -505,7 +505,7 @@ extern D2CharSaveHeaderStrc gtCharSaveHeader;                                   
 
 #define gdwFlags_0077AC34 (gtCharSaveHeader.dwFlags)
 
-extern D2WinControlStrc* gapControls[];                                                             // 0x0077ADA8
+extern D2WinControlStrc* gapControls[32]; // 0x0077ADA8
 
 extern D2CriticalSectionStrc gtChatLock;                                                           // 0x0077AE28
 
@@ -734,7 +734,7 @@ int __fastcall D2Win_10057(D2WinControlStrc* pControl, const char* szText, int n
 
 void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine); // 0x004FB9D0
 
-int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
+int __fastcall D2Win_10053(D2WinTextBoxStrc* ptTextData, int nLine); // 0x004FBA30
 
 void __fastcall EDITBOX_SetText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
 
@@ -876,7 +876,7 @@ extern int gdwGlobal_00779DA4;                                                  
 
 D2CompositeUnitStrc* __stdcall D2COMP_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors); // 0x005066C0
 
-unsigned short __stdcall FOG_Decode14BitsFromString(const unsigned char* pData);                           // 0x006BBF20
+int __stdcall FOG_Decode14BitsFromString(const unsigned char* pBuffer); // 0x006BBF20
 
 static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStats, int nFlag, unsigned int nKeyLow, unsigned int nKeyHigh, const char* szRealm); // 0x00438AD0
 
@@ -2972,11 +2972,11 @@ int __stdcall sub_00436E90_AlwaysOne(int nArg); // 0x00436E90
 
 int __cdecl sub_00436EA0_IsCancelled(); // 0x00436EA0
 
-int __stdcall CHARSEL_OnLogonTick(int nArg); // 0x0043B890
+int __stdcall CHARSEL_OnLogonTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043B890
 
-int __stdcall CHARSEL_OnCreateAccountTick(int nArg); // 0x0043B8E0
+int __stdcall CHARSEL_OnCreateAccountTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043B8E0
 
-int __stdcall CHARSEL_OnChangePasswordTick(int nArg); // 0x0043B940
+int __stdcall CHARSEL_OnChangePasswordTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043B940
 
 int __fastcall CHARSEL_HandleStatus(D2StatusStrc* pStatus); // 0x0043B9F0
 
@@ -2991,7 +2991,7 @@ int __stdcall sub_004374F0_UpdateStatusWait(int nArg); // 0x004374F0
 
 void __cdecl MAINMENUS_CreateStatusScreen(); // 0x00437550
 
-int __stdcall CHARSEL_OnDownloadTick(int nArg); // 0x0043B850
+int __stdcall CHARSEL_OnDownloadTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043B850
 
 int __stdcall D2Win_CloseSpriteCache(); // 0x004F9030
 
