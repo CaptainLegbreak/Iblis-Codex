@@ -44,15 +44,10 @@ int __fastcall MISSILE_DoSkillWithTempTarget(void* pArg1, int nArg2, int nArg3, 
 
 extern int gaLevelVisited[]; // 0x007C78B8
 
-extern int gnNeutralTick; // 0x007C88B8
 
-extern int gnSfxTick; // 0x007C88BC
 
-extern int gnNeutralDelay; // 0x007C88C0
 
-extern int gnLastRequestTick; // 0x007C88C4
 
-extern int gnLastRequestSound; // 0x007C88C8
 
 
 

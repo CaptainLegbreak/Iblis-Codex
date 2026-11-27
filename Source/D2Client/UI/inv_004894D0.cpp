@@ -18,7 +18,6 @@ extern D2InvRectStrc gtPlayerInvRect; // 0x007BCAA0
 
 extern D2InventoryGridInfoStrc gtTradePage1Grid; // 0x007BCB18
 
-extern int gnInvPanelMode; // 0x007BCBF0
 
 extern int gnInvMouseY; // 0x007BCBD8
 

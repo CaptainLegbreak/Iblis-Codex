@@ -35,9 +35,7 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 
 
-extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnPanelOffsetY; // 0x007A285C
 
 extern void* gpPartyButtonsCel; // 0x007BF01C
 
@@ -150,7 +148,6 @@ static void __stdcall PARTY_DrawTextFrame(unsigned short nAltString, unsigned sh
 extern D2PartyRowStrc* gpRosterUnits; // 0x007BF014
 extern int gnScreenWidth; // 0x0071146C
 extern int gbRosterMode; // 0x007BF038
-extern int gbRosterButtonDown; // 0x007BF030
 
 // 0x00499DE0
 D2PartyRowStrc* __fastcall PANEL_FindPartyRow(int nId) {

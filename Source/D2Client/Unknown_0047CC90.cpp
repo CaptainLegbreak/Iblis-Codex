@@ -201,9 +201,7 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 
 extern D2ViewStrc* gpClientView; // 0x007A0640
 
-extern int gnAutomapHeight_007A521C; // 0x007A521C
 
-extern int gnAutomapWidth; // 0x007A5220
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 

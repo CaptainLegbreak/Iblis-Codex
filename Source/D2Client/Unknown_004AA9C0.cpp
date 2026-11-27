@@ -23,8 +23,6 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern "C" const char gszFormatD[];                                                                // 0x006D57BC
 extern int gnScreenWidth;                                                                               // 0x0071146C
-extern int gnPanelOffsetX;                                                                               // 0x007A2858
-extern int gnPanelOffsetY;                                                                               // 0x007A285C
 extern int gnSkillPage;                                                                               // 0x00724BEC
 extern int gnTabSelection;                                                                         // 0x00724CE0
 int gbSkillTabPressed; // 0x007C0C38
@@ -183,7 +181,6 @@ void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage)
 
 #define TEXT(y, id) sub_004AAAA0_DrawSkillTreeText(D2LANG_GetStringFromTblIndex(id), y)
 
-extern int gnAutomapWidth; // 0x007A5220
 
 // 0x004AAAA0
 static void __stdcall sub_004AAAA0_DrawSkillTreeText(const Unicode* wszText, int nY)

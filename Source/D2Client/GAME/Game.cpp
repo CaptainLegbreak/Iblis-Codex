@@ -450,7 +450,6 @@ int gbPositionalSound; // 0x007A061C
 
 int gbClickHandled; // 0x007A0658
 
-extern int gnAutomapHeight_007A521C; // 0x007A521C
 
 
 
@@ -1168,7 +1167,6 @@ int gnStateStackCount; // 0x007A044C
 
 extern int gnBeltUiRecordRow; // 0x007A5218
 
-extern int gnAutomapWidth; // 0x007A5220
 
 void __stdcall WINDOW_ShowAll(); // 0x004F5F60
 

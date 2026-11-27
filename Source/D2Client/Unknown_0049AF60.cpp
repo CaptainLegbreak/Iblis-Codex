@@ -26,8 +26,6 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 int __fastcall ROSTER_IsMaleClass(D2StoredUnitRecordStrc* pEntry); // 0x0047A670
 int __cdecl WINMAIN_IsHardcore(); // 0x0044B850
-extern int gnPanelOffsetX; // 0x007A2858
-extern int gnPanelOffsetY; // 0x007A285C
 extern unsigned char gnBoxColor; // 0x007BF034
 extern D2PartyRowStrc* gpRosterUnits; // 0x007BF014
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
@@ -44,7 +42,6 @@ extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
 int __fastcall ROSTER_GetPartyFlags(D2StoredUnitRecordStrc* pEntry); // 0x00479D20
 extern int gnScreenWidth; // 0x0071146C
-extern int gbRosterButtonDown; // 0x007BF030
 extern int gbRosterMode; // 0x007BF038
 
 static inline int GetCenteredStringXInline(unsigned short nStringIndex, int nCenterX)

@@ -34,7 +34,6 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 
 extern int gbTextSide;                                                                             // 0x007BF236
 extern int gnGlobal_007BF264;                                                                               // 0x007BF264
-extern int gnTextLeft;                                                                               // 0x007BF278
 
 // 0x0049D590
 unsigned int __fastcall TEXT_CalcTextOffset(unsigned int nValue)
@@ -222,11 +221,9 @@ static int TEXT_UpdateScrollText(D2TextScrollStrc* pRec)
 #pragma pack(pop)
 
 extern D2TextScrollStrc* gpTextBox; // 0x007BF0A4
-extern int gbTextBoxDone; // 0x007BF1BC
 extern void* gpHint_007BF202; // 0x007BF202
 extern void* gpHint_007BF24B; // 0x007BF24B
 extern D2TextCallback gpfnTextCallback; // 0x007BF258
-extern void* gpTextCallbackContext; // 0x007BF25C
 extern int gbTextHandlersRegistered; // 0x007BF27C
 extern char gaTextMsgHandlers[]; // 0x00722600
 

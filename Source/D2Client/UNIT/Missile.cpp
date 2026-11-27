@@ -115,7 +115,6 @@ extern int gnScreenWidth; // 0x0071146C
 
 extern void* gpGlobal_007A0634; // 0x007A0634
 
-extern unsigned int gdwFadeTick; // 0x007C89CC
 
 
 
@@ -283,9 +282,7 @@ unsigned short __stdcall D2Common_10201(D2DynamicPathStrc* pDynamicPath); // 0x0
 
 D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitFindCallback pCallback, void* pArg, int nSize); // 0x00641CB0
 
-extern int gnAutomapWidth; // 0x007A5220
 
-extern int gnAutomapHeight_007A521C; // 0x007A521C
 
 extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 
@@ -1279,7 +1276,6 @@ void __fastcall DLIGHTMAP_ResetLightSize(D2GfxLightStrc* pLight, int nSize); // 
 struct D2GfxEntryStrc;
 
 
-extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 void __stdcall MISSTREAM_FreeMissileStream(D2UnitStrc* pMissile); // 0x00663D90
 

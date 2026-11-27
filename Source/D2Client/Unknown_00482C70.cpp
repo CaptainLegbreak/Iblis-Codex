@@ -217,13 +217,10 @@ extern int gnHoverCellY; // 0x00721E50
 
 extern int gbGameServerReady; // 0x007A0618
 
-extern int gbPositionalSound; // 0x007A061C
 
 extern int gbLeavingGame; // 0x007A0620
 
-extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnPanelOffsetY; // 0x007A285C
 
 extern D2ClientNodeStrc* gpNodeList_007BB5BC; // 0x007BB5BC
 
@@ -239,7 +236,6 @@ extern D2ClientSlotHolderStrc* gpSlotHolder; // 0x007BC990
 extern int gnRecipeScrollColor; // 0x007BCEA4
 
 
-extern unsigned char gbTextHoverSet; // 0x007BF23A
 
 extern int gdwGlobal_007BF23F; // 0x007BF23F
 
@@ -457,7 +453,6 @@ void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, u
 
 extern D2InvCompGridStrc gaBodyLocRects[11]; // 0x007BCD38
 
-extern int gnAutomapWidth; // 0x007A5220
 
 
 void __stdcall sub_00467FA0(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0

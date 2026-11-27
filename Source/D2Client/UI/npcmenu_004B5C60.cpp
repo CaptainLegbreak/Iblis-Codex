@@ -95,7 +95,6 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);           
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                   // 0x00526F20
 
 extern int gnScreenWidth;                                                                               // 0x0071146C
-extern int gnAutomapHeight_007A521C;                                                                        // 0x007A521C
 extern D2ClientItemSlotStrc gaNpcItemSlots[10];                                                       // 0x007C0C85
 extern ListBoxWrapper* gpListBox_007C0D83;                                                                  // 0x007C0D83
 

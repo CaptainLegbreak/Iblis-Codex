@@ -80,7 +80,6 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 
-extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 struct D2MonTypeTxt;
 

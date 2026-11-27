@@ -1240,9 +1240,7 @@ extern int gnPacketRecordSize; // 0x007A5230
 
 extern D2PacketTableEntryStrc gaPacketTable[]; // 0x007114D0
 
-extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnPanelOffsetY; // 0x007A285C
 
 extern int gbOkCancelAccepted; // 0x007A5258
 

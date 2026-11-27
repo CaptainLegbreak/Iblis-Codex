@@ -342,7 +342,6 @@ extern void* ghConnectEvent;                                                    
 
 extern int gnScreenWidth; // 0x0071146C
 
-extern int gnAutomapHeight_007A521C; // 0x007A521C
 
 
 
@@ -356,7 +355,6 @@ extern int gnSavedScreenWidth; // 0x00711474
 
 extern int gnBeltUiRecordRow; // 0x007A5218
 
-extern int gnAutomapWidth; // 0x007A5220
 
 // 0x0044BA20
 void __fastcall GAME_SetResolution(int nResolution)

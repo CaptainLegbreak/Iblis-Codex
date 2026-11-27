@@ -229,9 +229,7 @@ extern int gnScreenWidth; // 0x0071146C
 
 unsigned long gdwUIVarTick;                                                                        // 0x007A2790
 
-extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnPanelOffsetY; // 0x007A285C
 
 extern int gbCinematicExpansion; // 0x007A5238
 
@@ -636,7 +634,6 @@ D2CelFileStrc* gpYouDiedHardcoreCel;                                            
 
 D2CelFileStrc* gpYouDiedInstCel;                                                                  // 0x007A2898
 
-extern int gnAutomapWidth;                                                                         // 0x007A5220
 
 static void __stdcall UI_GetPlayerHoverName(D2UnitStrc* pUnit, Unicode* pDst, int nMaxLength, int* pValue, int* pFlag);
 
@@ -672,7 +669,6 @@ extern const int gaUIVarDefaults[];                                             
 
 extern int gbGameServerReady;                                                                              // 0x007A0618
 
-extern int gbPositionalSound;                                                                              // 0x007A061C
 
 
 void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10

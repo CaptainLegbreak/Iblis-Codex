@@ -40,8 +40,6 @@ extern D2QuestTextsStrc gtQuestTextsSiege;                                      
 extern D2QuestPageRangeStrc gaQuestPageRanges[];                                                   // 0x00723F08
 extern D2QuestTableStrc gaQuestTable[];                                                            // 0x00723F30
 extern int gaQuestPageDefault[5];                                                                    // 0x007BF280
-extern int gnQuestAct;                                                                               // 0x007BF2A4
-extern int gnQuestParam;                                                                               // 0x007BF2AC
 extern void* gapQuestIconCels[27];                                                                        // 0x007BF2E1
 extern unsigned char gabQuestFlagsA[];                                                             // 0x007BF356
 extern unsigned char gabQuestFlagsB[];                                                             // 0x007BF380
@@ -62,8 +60,6 @@ void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);   // 0x00502320
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 extern D2QuestPosStrc gaQuestPos[];                                                                // 0x00723EA8
-extern int gnPanelOffsetX;                                                                               // 0x007A2858
-extern int gnPanelOffsetY;                                                                               // 0x007A285C
 
 
 extern D2QuestLogStateStrc gtQuestLog_007BF298;                                                             // 0x007BF298
@@ -121,9 +117,7 @@ struct SMSGHANDLER_PARAMS;
 
 
 
-extern char gbQuestCloseButtonDown; // 0x007BF2B2
 
-extern char gbQuestDescButtonDown; // 0x007BF2B4
 
 extern int gnIndex_007BF2BD; // 0x007BF2BD
 
@@ -136,13 +130,9 @@ extern int gnIndex_007BF2C9; // 0x007BF2C9
 extern int gnIndex_007BF2CD; // 0x007BF2CD
 
 
-extern char gbDurielCofsLoaded; // 0x007C025D
 
-extern char gbAncientsCofsLoaded; // 0x007C025E
 
-extern char gbHasQuestPacketValue; // 0x007C025F
 
-extern char gbQuestUnitsSpawned; // 0x007C0260
 
 bool __stdcall sub_004A2970(int nX, int nY); // 0x004A2970
 
@@ -161,7 +151,6 @@ struct D2QuestTextBufferStrc
 };
 
 
-extern int gnQuestCount; // 0x007BF2A0
 
 // 0x004A18E0
 static inline void TEXT_SetQuestIndex(int nIndex)
@@ -803,7 +792,6 @@ static unsigned char TEXT_HitTestQuestCloseButton(int nX, int nY)
 }
 
 
-extern int gtQuestLog; // 0x007BF298
 
 char gbQuestButtonDown; // 0x007BF2B0
 
@@ -1048,9 +1036,7 @@ D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
-extern void* gpLevelCel; // 0x007C02DC
 
-extern void* gpLevelSocketCel; // 0x007C02E0
 
 // 0x004A2A80
 void __cdecl QUESTLOG_DrawQuestButton()

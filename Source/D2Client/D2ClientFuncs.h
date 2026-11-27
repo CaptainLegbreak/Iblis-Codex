@@ -855,3 +855,61 @@ void __fastcall SKILLDESC_MissileInit(D2UnitStrc* pMissile, int nSeed); // 0x004
 void __fastcall SKILLDESC_InitCurvingMissilePath(D2UnitStrc* pMissile, int nInitSeed); // 0x004F2BE0
 int __fastcall SKILLDESC_CreateCorpseExplosionMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nMonsterId); // 0x004F3A60
 int __fastcall SKILLDESC_GetMonSkillSound(D2UnitStrc* pUnit, int nSkillId); // 0x004F4F40
+
+// D2Client globals that several of the module's files use, declared once here.
+class ListBoxWrapper;
+extern int gbPositionalSound; // 0x007A061C
+extern D2DrlgActStrc* gpAct; // 0x007A0634
+extern int gnPanelOffsetX; // 0x007A2858
+extern int gnPanelOffsetY; // 0x007A285C
+extern int gnAutomapHeight_007A521C; // 0x007A521C
+extern int gnAutomapWidth; // 0x007A5220
+extern int gnGlobal_007BCAF0; // 0x007BCAF0
+extern int gnInvPanelMode; // 0x007BCBF0
+extern int gdwNpcPanelDelayTick; // 0x007BCC08
+extern int gnSelectedShopButton; // 0x007BCC40
+extern int gbRosterButtonDown; // 0x007BF030
+extern char gbSent; // 0x007BF085
+extern D2ClientDialogStrc* gpListDialog; // 0x007BF1B0
+extern ListBoxWrapper* gpListBox; // 0x007BF1B4
+extern int gbTextBoxDone; // 0x007BF1BC
+extern int gnTextActive; // 0x007BF1C0
+extern int gbTextBoxShown; // 0x007BF1C8
+extern unsigned short gwTextStringId; // 0x007BF212
+extern D2ClientTextDataStrc* gpTextData; // 0x007BF228
+extern unsigned long gnStartTick; // 0x007BF22C
+extern int gbTextSound; // 0x007BF230
+extern unsigned char gbTextHoverSet; // 0x007BF23A
+extern int gbTextDataOpen; // 0x007BF254
+extern void* gpTextCallbackContext; // 0x007BF25C
+extern int gnHintId; // 0x007BF260
+extern int gnTextLeft; // 0x007BF278
+extern int gtQuestLog; // 0x007BF298
+extern int gnQuestCount; // 0x007BF2A0
+extern int gnQuestAct; // 0x007BF2A4
+extern int gnQuestParam; // 0x007BF2AC
+extern char gbQuestButtonDown; // 0x007BF2B0
+extern char gbQuestCloseButtonDown; // 0x007BF2B2
+extern char gbQuestDescriptionOpen; // 0x007BF2B3
+extern char gbQuestDescButtonDown; // 0x007BF2B4
+extern char gbDurielCofsLoaded; // 0x007C025D
+extern char gbAncientsCofsLoaded; // 0x007C025E
+extern char gbHasQuestPacketValue; // 0x007C025F
+extern char gbQuestUnitsSpawned; // 0x007C0260
+extern int gnKeyConfigThumbScale; // 0x007C0278
+extern int gbKeyCaptureActive; // 0x007C02B8
+extern void* gpLevelCel; // 0x007C02DC
+extern void* gpLevelSocketCel; // 0x007C02E0
+extern int gbSkillButtonPressed; // 0x007C02E8
+extern int gbGambleShop; // 0x007C0DB0
+extern int gbWaitSoundPlayed; // 0x007C0DBC
+extern int gbWaitSoundScheduled; // 0x007C0DC0
+extern void* gpBuySellCel; // 0x007C0DC8
+extern void* gpGoldBtnCel; // 0x007C0DCC
+extern D2UnitStrc* gpNpcPlayerUnit; // 0x007C0DD4
+extern int gnNeutralTick; // 0x007C88B8
+extern int gnSfxTick; // 0x007C88BC
+extern int gnNeutralDelay; // 0x007C88C0
+extern int gnLastRequestTick; // 0x007C88C4
+extern int gnLastRequestSound; // 0x007C88C8
+extern unsigned int gdwFadeTick; // 0x007C89CC

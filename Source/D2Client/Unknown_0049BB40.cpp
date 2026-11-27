@@ -19,8 +19,6 @@ struct D2WaypointRowRectStrc;
 
 
 extern int gnScreenWidth; // 0x0071146C
-extern int gnPanelOffsetX; // 0x007A2858
-extern int gnPanelOffsetY; // 0x007A285C
 extern D2PartyRowStrc* gpRosterUnits; // 0x007BF014
 extern int gnWaypointSelected; // 0x007BF06D
 
@@ -37,7 +35,6 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg
 extern D2WaypointRowRectStrc gaWaypointRowRects[9]; // 0x007224F8
 extern D2WaypointMenuEntryStrc gaWaypointEntries[9]; // 0x007BF03C
 extern bool gbWaypointClosePressed; // 0x007BF06C
-extern char gbSent; // 0x007BF085
 // 0x0049BB40
 static inline void sub_0049BB40_SetSlotCount(D2PartyRowStrc* pRow, int nSlot)
 {

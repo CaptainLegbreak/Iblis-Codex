@@ -105,9 +105,7 @@ extern int gnAutomapOriginX; // 0x007A520C
 
 extern int gnPanelSlideMode; // 0x007A5210
 
-extern int gnAutomapHeight_007A521C; // 0x007A521C
 
-extern int gnAutomapWidth; // 0x007A5220
 
 extern int gbPlayerCommandPending; // 0x007A5264
 
