@@ -253,7 +253,7 @@ void __fastcall AIGENERAL_UpdateMinionList(D2UnitStrc* pUnit); // 0x0058F6C0
 int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMonster); // 0x0063E9F0
 
 
-void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
+void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
 
 D2BitBufferStrc* __fastcall sub_00543520(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00543520
 
@@ -303,7 +303,7 @@ int __fastcall MONSTERMODE_StartDead(D2GameStrc* pGame, D2ModeChangeStrc* pModeC
 
 void __fastcall MONSTERMODE_TryDropTreasure(D2GameStrc*, D2ModeChangeStrc*, int); // 0x005A6830
 
-void __fastcall sub_00547E50_RemoveMonster(void*, D2UnitStrc*); // 0x00547E50
+void __fastcall MONSTERREGION_RecordMonsterKill(void*, D2UnitStrc*); // 0x00547E50
 
 void __stdcall DUNGEON_SaveKilledUnitGUID(D2ActiveRoomStrc*, int); // 0x0061AFA0
 
@@ -674,7 +674,7 @@ static void __stdcall MONSTERMODE_CleanupDeath(int nDirection, D2GameStrc* pGame
         PATH_SetUnitDeadCollision(pUnit, 1);
     }
 
-    sub_006488A0_SetDirection(pPath, nDirection);
+    PATH_SetDirection(pPath, nDirection);
     MONSTER_DeleteEvents(pGame, pUnit);
 }
 
@@ -1516,7 +1516,7 @@ int __fastcall MONSTERMODE_StartDeath(D2GameStrc* pGame, D2ModeChangeStrc* pMode
     SUNIT_SetCombatMode(pGame, pUnit, 0);
     MONSTERMODE_CleanupDeath(pModeChange->nDirection, pGame, pUnit);
     MONSTERMODE_TryDropTreasure(pGame, pModeChange, 0);
-    sub_00547E50_RemoveMonster(pGame->pMonReg, pUnit);
+    MONSTERREGION_RecordMonsterKill(pGame->pMonReg, pUnit);
     int nUnitId;
     if (!pUnit) nUnitId = -1;
     else nUnitId = pUnit->dwUnitId;

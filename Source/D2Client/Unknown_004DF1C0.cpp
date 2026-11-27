@@ -160,7 +160,7 @@ extern const unsigned char gaDirection4[4]; // 0x006DBA58
 
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
-void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
+void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
 
 
 static D2LightOffsetsStrc* __stdcall sub_004DEDB0_GetLightOffsets(D2TileLibraryEntryStrc* pTile, unsigned int* pCount, int bAlternate)
@@ -504,7 +504,7 @@ int __fastcall sub_004E1120_SkillCreateTargetMissile(D2UnitStrc* pUnit, int nSki
     tMissile.nSkill = nSkillId;
     tMissile.nSkillLevel = nSkillLevel;
     tMissile.nMissile = nMissile;
-    sub_006488A0_SetDirection(pUnit->pDynamicPath, gaDirection4[gaDirection64To4[UNITS_GetDirectionToCoords(pUnit, nEndX, nEndY) & 0x3F] & 3]);
+    PATH_SetDirection(pUnit->pDynamicPath, gaDirection4[gaDirection64To4[UNITS_GetDirectionToCoords(pUnit, nEndX, nEndY) & 0x3F] & 3]);
     MISSILE_CreateClientMissile(&tMissile);
     return 1;
 }

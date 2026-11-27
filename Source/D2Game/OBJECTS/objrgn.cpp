@@ -639,7 +639,6 @@ extern "C" const char gszSGameDataTypeName[];                                   
 void __cdecl FOG_CreateNewPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize); // 0x00409DD0
 
 
-unsigned short __cdecl sub_0052C170_AllocGameId();
 
 
 void __fastcall TASK_QueueGame(void* pTask, int nArg, unsigned int hGame); // 0x00564A00
@@ -846,9 +845,9 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoo
 void __fastcall MONSTER_SetLevelId(D2UnitStrc* pUnit, int nLevelId); // 0x00573500
 
 
-void __fastcall sub_0059B6C0_JerhynSpawnHook(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x0059B6C0
+void __fastcall ACT2Q4_OnJerhynSpawned(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x0059B6C0
 
-void __fastcall sub_0059B6D0_Act2Guard2SpawnHook(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x0059B6D0
+void __fastcall ACT2Q4_OnPalaceGuardSpawned(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x0059B6D0
 
 
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250

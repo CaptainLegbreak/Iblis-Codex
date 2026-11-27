@@ -141,7 +141,7 @@ D2UnitStrc* __fastcall SKILLS_CreateMissileAtOffset(D2GameStrc* pGame, int nMiss
 void __fastcall SKILLS_ApplyWeaponBonusToMissile(D2UnitStrc* pUnit, D2UnitStrc* pMissile, D2UnitStrc* pWeapon); // 0x0056C600
 
 
-int __fastcall sub_0056F7F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyCosts, int bSkipSkillCheck, int bItemEffect); // 0x0056F7F0
+int __fastcall SKILLS_ExecuteSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyCosts, int bSkipSkillCheck, int bItemEffect); // 0x0056F7F0
 
 int __fastcall SKILLS_SchedulePeriodicStat(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventKey, int nSkillId, int nSkillLevel, int bUseRightSkill); // 0x0056CE70
 
@@ -492,7 +492,7 @@ typedef int (__fastcall* SKILLDOFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
 
 typedef int (__fastcall* SKILLSTARTFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
-extern SKILLSTARTFUNC gpSkillSrvStartFnTable_00732140[];                                                    // 0x00732140
+extern SKILLSTARTFUNC gpfnSkillSrvStartFunctions[];                                                    // 0x00732140
 
 D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId);                          // 0x0046ACE0
 
@@ -2203,7 +2203,7 @@ void __fastcall SKILLS_ExecuteUsedSkill(D2GameStrc* pGame, D2UnitStrc* pUnit)
     {
         const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, ".\\SKILLS\\Skills.cpp", 3235);
         const int nSkillLevel = SKILLS_GetSkillLevel(pUnit, pSkill, 1);
-        sub_0056F7F0(pGame, pUnit, nSkillId, nSkillLevel, 1, 0, 0);
+        SKILLS_ExecuteSkill(pGame, pUnit, nSkillId, nSkillLevel, 1, 0, 0);
         SKILLS_SchedulePeriodicSkill(pGame, pUnit, nSkillId, nSkillLevel, 0);
     }
 }
@@ -2572,7 +2572,7 @@ int __fastcall SKILLS_ExecuteSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
     {
         if (bLivingUnit)
         {
-            if (!gpSkillSrvStartFnTable_00732140[pSkillsTxtRecord->wSrvStartFunc] || SKILLS_CHECK_FLAG(pSkillsTxtRecord, SKILLSFLAGINDEX2_USEMANAONDO))
+            if (!gpfnSkillSrvStartFunctions[pSkillsTxtRecord->wSrvStartFunc] || SKILLS_CHECK_FLAG(pSkillsTxtRecord, SKILLSFLAGINDEX2_USEMANAONDO))
             {
                 SKILLS_ConsumeSkillMana(pGame, pUnit, nSkillId, nSkillLevel);
             }
@@ -2616,7 +2616,7 @@ void __fastcall SKILLS_EventCallback_PeriodicSkillAura(D2GameStrc* pGame, D2Unit
             D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
             if (pSkillsTxtRecord && pSkillsTxtRecord->nFlags[5 >> 3] & gdwBitMasks[5 & 7] && !SUNIT_IsDead(pUnit))
             {
-                sub_0056F7F0(pGame, pUnit, nSkillId, nSkillLevel, 1, 0, 0);
+                SKILLS_ExecuteSkill(pGame, pUnit, nSkillId, nSkillLevel, 1, 0, 0);
                 SKILLS_SchedulePeriodicSkill(pGame, pUnit, nSkillId, nSkillLevel, 1);
                 return;
             }
@@ -2649,7 +2649,7 @@ void __fastcall SKILLS_EventCallback_PeriodicSkillAura(D2GameStrc* pGame, D2Unit
         const int nSkillLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
         if (SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillIdArg) && nSkillIdArg == STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0))
         {
-            sub_0056F7F0(pGame, pUnit, nSkillIdArg, nSkillLevel, 1, 0, 0);
+            SKILLS_ExecuteSkill(pGame, pUnit, nSkillIdArg, nSkillLevel, 1, 0, 0);
             SKILLS_SchedulePeriodicSkill(pGame, pUnit, nSkillIdArg, nSkillLevel, 0);
         }
         else
@@ -2682,7 +2682,7 @@ void __fastcall SKILLS_EventCallback_ItemAura(D2GameStrc* pGame, D2UnitStrc* pUn
         return;
     }
 
-    sub_0056F7F0(pGame, pUnit, nSkillId, nAura, 1, 1, 0);
+    SKILLS_ExecuteSkill(pGame, pUnit, nSkillId, nAura, 1, 1, 0);
     SKILLS_SchedulePeriodicStat(pGame, pUnit, nEventCustomId, nSkillId, nAura, 0);
 }
 
@@ -2712,7 +2712,7 @@ static void __stdcall SKILLS_StartAssignedAura(D2GameStrc* pGame, D2UnitStrc* pU
                 {
                     if (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_IMMEDIATE >> 3] & gdwBitMasks[SKILLSFLAGINDEX_IMMEDIATE & 7])
                     {
-                        sub_0056F7F0(pGame, pUnit, nSkillId, nSkillLevel, 1, 0, 0);
+                        SKILLS_ExecuteSkill(pGame, pUnit, nSkillId, nSkillLevel, 1, 0, 0);
                     }
                     else
                     {
@@ -3357,7 +3357,7 @@ struct D2Unk0056DCC0Strc
     void* pUnk0x20;
 };
 
-void __fastcall sub_0056DCC0(D2GameStrc* pGame, D2Unk0056DCC0Strc* pRecord); // 0x0056DCC0
+void __fastcall SKILLS_ApplyAreaEffect(D2GameStrc* pGame, D2Unk0056DCC0Strc* pRecord); // 0x0056DCC0
 
 // 0x0056DDE0
 void __fastcall SKILLS_ApplyAreaEffectAtCoordinates(D2GameStrc* pGame, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, void* pArg8)
@@ -3370,7 +3370,7 @@ void __fastcall SKILLS_ApplyAreaEffectAtCoordinates(D2GameStrc* pGame, int nArg2
     record.nUnk0x08 = nArg6;
     record.nUnk0x18 = nArg7;
     record.pUnk0x20 = pArg8;
-    sub_0056DCC0(pGame, &record);
+    SKILLS_ApplyAreaEffect(pGame, &record);
 }
 
 // 0x0056DFA0

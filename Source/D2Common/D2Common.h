@@ -170,7 +170,7 @@ int __stdcall TileGetSequence(D2TileLibraryEntryStrc* pTile); // 0x00604C50
 int __stdcall sub_00629BB0_CheckItemType(D2UnitStrc* pItem, int nType); // 0x00629BB0
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 int __stdcall sub_0062C0B0_GetItemTypeClass(D2UnitStrc* pItem); // 0x0062C0B0
-int __stdcall sub_00645910_TestLine(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStrc* pRoom, int nMask); // 0x00645910
+int __stdcall D2Common_11025(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStrc* pRoom, int nMask); // 0x00645910
 int __stdcall DRLGROOMTILE_FindTilePresetUnitIndex(int nLevelId, unsigned int nPackedTileInformation, int bIsRightWallWithDoor); // 0x0066D960
 int* __fastcall DATATBLS_GetPortalLevels(int* pnPortalLevels); // 0x0061DDF0
 unsigned char* __stdcall D2CMPPalShiftGetTransform(int nSet, int nIndex); // 0x00600C20

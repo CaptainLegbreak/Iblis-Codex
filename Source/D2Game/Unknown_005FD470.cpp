@@ -60,7 +60,7 @@ int __fastcall MONSTERSPAWN_CheckSkillPlacement(D2GameStrc* pGame, D2UnitStrc* p
             if (!pRoom || DUNGEON_IsRoomInTown(pRoom) || COLLISION_CheckAnyCollisionWithPattern(pRoom, nX, nY, PATH_GetUnitCollisionPattern(pUnit), 0x3C01)) return 0;
             const int nUnitX = CLIENTS_GetUnitX(pUnit);
             const int nUnitY = CLIENTS_GetUnitY(pUnit);
-            return sub_00645910_TestLine(nUnitX, nUnitY, nX, nY, pRoom, 0xC01) != 0;
+            return D2Common_11025(nUnitX, nUnitY, nX, nY, pRoom, 0xC01) != 0;
         }
         if (pSkillsTxt->wSrvDoFunc == 67)
         {
@@ -69,7 +69,7 @@ int __fastcall MONSTERSPAWN_CheckSkillPlacement(D2GameStrc* pGame, D2UnitStrc* p
             if (!pRoom || DUNGEON_IsRoomInTown(pRoom)) return 0;
             const int nUnitX = CLIENTS_GetUnitX(pUnit);
             const int nUnitY = CLIENTS_GetUnitY(pUnit);
-            return sub_00645910_TestLine(nUnitX, nUnitY, nX, nY, pRoom, 0xC01) != 0;
+            return D2Common_11025(nUnitX, nUnitY, nX, nY, pRoom, 0xC01) != 0;
         }
         if (nSkillId == SKILL_DESERTTURRET)
         {
@@ -78,7 +78,7 @@ int __fastcall MONSTERSPAWN_CheckSkillPlacement(D2GameStrc* pGame, D2UnitStrc* p
             if (!pRoom || DUNGEON_IsRoomInTown(pRoom)) return 0;
             const int nUnitX = CLIENTS_GetUnitX(pUnit);
             const int nUnitY = CLIENTS_GetUnitY(pUnit);
-            return sub_00645910_TestLine(nUnitX, nUnitY, nX, nY, pRoom, 0x805) != 0;
+            return D2Common_11025(nUnitX, nUnitY, nX, nY, pRoom, 0x805) != 0;
         }
         return 1;
     }
@@ -111,5 +111,5 @@ int __fastcall MONSTERSPAWN_CheckSkillPlacement(D2GameStrc* pGame, D2UnitStrc* p
 reflectionFailed:
             return 0;
         }
-        return sub_00645910_TestLine(nUnitX, nUnitY, nTargetX, nTargetY, pRoom, 0xC01) != 0;
+        return D2Common_11025(nUnitX, nUnitY, nTargetX, nTargetY, pRoom, 0xC01) != 0;
     }

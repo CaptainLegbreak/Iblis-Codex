@@ -4304,7 +4304,7 @@ int __stdcall SKILLS_CheckIfCanLeapTo(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, in
         nY = tCoord.nY;
     }
 
-    if (!sub_00645910_TestLine(UNITS_GetXPositionForceInl(pUnit1), UNITS_GetYPositionForceInl(pUnit1), nX, nY, hRoom, COLLIDE_MASK_LINE))
+    if (!D2Common_11025(UNITS_GetXPositionForceInl(pUnit1), UNITS_GetYPositionForceInl(pUnit1), nX, nY, hRoom, COLLIDE_MASK_LINE))
     {
         return 0;
     }

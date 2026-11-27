@@ -2427,7 +2427,7 @@ void __fastcall SCMD_DropUnitItems(D2UnitDropItemsPacketStrc* pPacket)
         D2DynamicPathStrc* pPath = pOther->pDynamicPath;
         PATH_SetMoveTestCollisionMask(pPath, 0);
         sub_00649190_SetPathMode(pOther, 5);
-        D2_ASSERT(sub_00650BE0_PlaceUnit(pPath, pOther, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit)), 0xABA);
+        D2_ASSERT(D2Common_10229(pPath, pOther, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit)), 0xABA);
         PATH_SetDirection(pOther->pDynamicPath, PATH_GetDirection(pUnit->pDynamicPath));
     }
     D2InventoryStrc* pInventory = pUnit->pInventory;

@@ -114,7 +114,7 @@ void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2Mod
 
 int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); // 0x006492A0
 
-int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
+int __stdcall D2Common_10229(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
 
 D2UnitStrc* __fastcall PLAYERPETS_GetFirstPetByType(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int bIncludeDead);
 
@@ -550,11 +550,11 @@ static void __stdcall PLAYERPETS_RelocatePet(D2GameStrc* pGame, D2UnitStrc* pPet
     {
         if (pPet->nAct != DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)))
         {
-            sub_00650BE0_PlaceUnit(pPet->pDynamicPath, pPet, 0, 0, 0);
+            D2Common_10229(pPet->pDynamicPath, pPet, 0, 0, 0);
         }
     }
 
-    sub_00650BE0_PlaceUnit(pPet->pDynamicPath, pPet, pRoom, nX, nY);
+    D2Common_10229(pPet->pDynamicPath, pPet, pRoom, nX, nY);
 
     if (pRoom != pPetRoom)
     {

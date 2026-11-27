@@ -222,7 +222,7 @@ typedef char I07_check_unit_a[(I07_OFFSET(D2UnitStrc, pSeed) == 0x20 && I07_OFFS
 
 typedef char I07_check_unit_b[(I07_OFFSET(D2UnitStrc, dwFlagEx) == 0xC8 && I07_OFFSET(D2StaticPathStrc, nYPos) == 0x10) ? 1 : -1];
 
-void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, D2DirectionArgStrc tDirection); // 0x006488A0
+void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, D2DirectionArgStrc tDirection); // 0x006488A0
 
 extern const int gaBloodOffsetY[]; // 0x006DA5F0
 
@@ -841,7 +841,7 @@ static void MONSTER_HandleMonsterEvent(D2UnitStrc* pUnit, int nEvent)
         tDirection.nDirection = sub_I07_SeedRoll(&pPlayer->pSeed) & 0x3F;
         D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
         D2COMMON_10203_PATH_SetRotateFlag(pPath, 1);
-        sub_006488A0_SetDirection(pPath, tDirection);
+        PATH_SetDirection(pPath, tDirection);
         D2COMMON_10203_PATH_SetRotateFlag(pPath, 0);
         break;
     }
@@ -1036,7 +1036,7 @@ void __fastcall MONSTER_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, int nX
     else if(nClassId==0x160) tDirection.nDirection=0;
     else if(nClassId==0x161) tDirection.nDirection=0x28;
     else if(nClassId==0x165 || nClassId==0x158) tDirection.nDirection=0;
-    sub_006488A0_SetDirection(pPath,tDirection);
+    PATH_SetDirection(pPath,tDirection);
 }
 
 // 0x004AED30

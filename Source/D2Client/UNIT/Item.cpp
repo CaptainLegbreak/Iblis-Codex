@@ -1318,7 +1318,7 @@ int __fastcall ITEM_PlaceBodyItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem
         sub_0063BE30(pInventory, nBodyLoc);
     }
 
-    return sub_0063BDB0(pInventory, pItem, nBodyLoc) != 0;
+    return INVENTORY_PlaceItemInBodyLoc(pInventory, pItem, nBodyLoc) != 0;
 }
 
 // 0x004C1C90
@@ -2619,7 +2619,7 @@ static void __stdcall ITEM_SwapBodyItem(D2ItemSaveStrc* pItemSave, D2GSPacketSrv
         return;
     }
 
-    if (!sub_0063BDB0(pInventory, pItem, pItemSave->nBodyloc))
+    if (!INVENTORY_PlaceItemInBodyLoc(pInventory, pItem, pItemSave->nBodyloc))
     {
         return;
     }

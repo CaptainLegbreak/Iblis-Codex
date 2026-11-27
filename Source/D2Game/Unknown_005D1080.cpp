@@ -936,7 +936,7 @@ static void __stdcall SKILLS_ApplyShapeshift(Unit* owner, int level, int skill, 
         return;
 
     int variant;
-    sub_006510C0_ClassInfo(!target ? -1 : target->classId, 0, &variant);
+    DATATBLS_GetMonsterChainInfo(!target ? -1 : target->classId, 0, &variant);
 // build: symbol ?SKILLS_GetMonsterClassFromChain@* 0x0054DA60
     int resolved = SKILLS_GetMonsterClassFromChain(selected, variant);
 // build: symbol ?MONSTER_Reinitialize@* 0x00574370
@@ -947,12 +947,12 @@ static void __stdcall SKILLS_ApplyShapeshift(Unit* owner, int level, int skill, 
         ai = target->monster->ai;
     else
         ai = 0;
-    sub_005B0E00_Ai(game, target, ai, 15);
+    AITHINK_ExecuteAiFn(game, target, ai, 15);
 
     ModeRequest mode;
     MONSTERMODE_GetModeChangeInfo(target, level, &mode);
     D2GAME_ModeChange(game, &mode, 1);
-    sub_00639DB0_SetState(target, 142, 1);
+    STATES_ToggleState(target, 142, 1);
 
     int ownerType;
     unsigned int ownerId;
@@ -969,7 +969,7 @@ static void __stdcall SKILLS_ApplyShapeshift(Unit* owner, int level, int skill, 
     D2StatListStrc* list = sub_006251F0_Allocate(game->pool, 0, 0, ownerType, ownerId);
     if (list)
     {
-        sub_00626E10_Attach(target, list, 1);
+        D2COMMON_10475_PostStatToStatList(target, list, 1);
         sub_006252D0_State(list, 142);
         sub_00627150_Stat(list, 355, resolved, 0);
     }
@@ -990,7 +990,7 @@ extern "C" int __fastcall SKILLS_SrvDo131_OverseerWhip(Game* game, Unit* owner, 
     if (record->state >= gVar_00744304->stateCount)
         return 0;
     Unit* target = SUNIT_GetTargetUnit(game, owner);
-    if (target && !sub_005541B0_Inactive(target))
+    if (target && !SUNIT_IsDead(target))
     {
         const int type = GetUnitType(target);
         int bSkip = 1;
@@ -1002,7 +1002,7 @@ extern "C" int __fastcall SKILLS_SrvDo131_OverseerWhip(Game* game, Unit* owner, 
         {
             SKILLS_ApplyAuraStateToTarget(owner, target, level, skill);
         }
-        else if (sub_00639DF0_HasState(target, record->state))
+        else if (STATES_CheckState(target, record->state))
         {
             SKILLS_ApplyAuraStateToTarget(owner, target, level, skill);
         }

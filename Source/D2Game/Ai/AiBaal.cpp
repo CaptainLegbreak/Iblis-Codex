@@ -120,7 +120,7 @@ int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc*); // 0x00625D60
 void __stdcall SKILLS_AssignSkill(D2UnitStrc*,int,int,int,const char*,int); // 0x00647280
 
 
-int __fastcall sub_005DF7D0_WalkRandomPath(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,unsigned char,int); // 0x005DF7D0
+int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,unsigned char,int); // 0x005DF7D0
 
 
 int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2SpawnAreaStrc* pArea, int nClassId, int* pX, int* pY, int bAvoidWarps); // 0x0054DC40
@@ -950,7 +950,7 @@ void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         AITACTICS_WalkCloseToUnit(pGame, pUnit, 16);
         return;
     case 3:
-        sub_005DF7D0_WalkRandomPath(pGame, pUnit, pTarget, 6, 1);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame, pUnit, pTarget, 6, 1);
         return;
     case 2:
     case 6:

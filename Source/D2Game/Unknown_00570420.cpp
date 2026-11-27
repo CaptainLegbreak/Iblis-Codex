@@ -50,7 +50,7 @@ extern D2ServerCallbacks* gpServerCallbacks; // 0x00883D50
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*, int, int); // 0x006253B0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, int); // 0x00627260
-void __fastcall sub_00536850_UpdateLevel(D2GameStrc*,D2UnitStrc*,int); // 0x00536850
+void __fastcall SUNITPROXY_InitializeNpcEventChain(D2GameStrc*,D2UnitStrc*,int); // 0x00536850
 void __fastcall SUNIT_AttachSound(D2UnitStrc*,int,D2UnitStrc*); // 0x00553380
 int __stdcall UNITS_GetPlayerName(D2UnitStrc*,int,int); // 0x00622150
 static void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue);
@@ -205,7 +205,7 @@ void __fastcall PLAYERSTATS_LevelUp(D2GameStrc* game,D2UnitStrc* unit)
   STATLIST_SetUnitStat(unit,STAT_STAMINA,maxStamina,0);
   STATLIST_AddUnitStat(unit,STAT_STATPTS,record->statPerLevel*gained,0);
   STATLIST_AddUnitStat(unit,STAT_SKILLPTS,gained,0);
-  sub_00536850_UpdateLevel(game,unit,level);
+  SUNITPROXY_InitializeNpcEventChain(game,unit,level);
   SUNIT_AttachSound(unit,2,unit);
    sub_00570870_ForwardToLivingPlayers(game,unit);
   D2GAME_UpdatePlayerVitals(game,unit);

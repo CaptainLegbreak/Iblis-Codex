@@ -656,7 +656,7 @@ typedef char LegacyHeaderSizeCheck[sizeof(D2LegacySaveHeaderStrc)==130?1:-1];
 
 extern "C" int __cdecl _stricmp(const char*,const char*); // 0x006841E9
 
-void __fastcall sub_00538630(D2ClientStrc*,unsigned short); // 0x00538630
+void __fastcall CLIENTS_SetFlags(D2ClientStrc*,unsigned short); // 0x00538630
 
 
 void __fastcall CLIENTS_SetGuildFlags(D2ClientStrc*,int); // 0x00539120
@@ -1605,7 +1605,7 @@ int __fastcall PLRSAVE_ReadLegacyHeader(D2GameStrc* pGame,D2ClientStrc* pClient,
  char szGuildTag[4];
  *pHeaderSize=0;
  D2LegacySaveHeaderStrc header=*pSave;
- sub_00538630(pClient,0);
+ CLIENTS_SetFlags(pClient,0);
  if(header.dwMagic!=0xAA55AA55) {
   if(gpD2EventCallbackTable) { *pNewPlayer=1;return 0; }
   return 1;
@@ -1645,14 +1645,14 @@ int __fastcall PLRSAVE_ReadLegacyHeader(D2GameStrc* pGame,D2ClientStrc* pClient,
  CLIENTS_SetGuildEmblem(pClient,header.guildColors[0],*(int*)&header.guildColors[1],*(int*)&header.guildColors[2]);
  if(header.dwFlags & 1) {
   *pNewPlayer=1;header.dwFlags &= ~1;
-  sub_00538630(pClient,header.dwFlags);
+  CLIENTS_SetFlags(pClient,header.dwFlags);
   return 0;
  }
  sub_00539230_SetFlag(pClient,(header.dwFlags>>13)&1);
  const int nClass=header.nClass;
  *pNewPlayer=0;
  CLIENTS_SetClassId(pClient,nClass);
- sub_00538630(pClient,nSaveFlags);
+ CLIENTS_SetFlags(pClient,nSaveFlags);
  unsigned char nAct=header.nLocation & 15;
  const unsigned char nDifficulty=header.nLocation>>4;
  if(nAct>=5 || nDifficulty>=3) return 9;

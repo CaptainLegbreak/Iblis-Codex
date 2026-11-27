@@ -64,7 +64,7 @@ union D2SeedStrc;
 extern const unsigned char gnMissileFlag_006CE27C; // 0x006CE27C
 
 
-int __stdcall sub_0064A380_GetRemainingFrames(D2UnitStrc*); // 0x0064A380
+int __stdcall MISSILE_GetCurrentFrame(D2UnitStrc*); // 0x0064A380
 
 void __fastcall D2GAME_PACKETS_SendPacket0x73(D2ClientStrc*, D2GSPacketSrv73*); // 0x0053DA10
 
@@ -508,7 +508,7 @@ void __fastcall MISSILES_SyncToClient(D2ClientStrc* pClient, D2GameStrc* pGame, 
         packet.nFirstX = D2COMMON_10175_PathGetFirstPointX(pMissile->pDynamicPath);
         packet.nFirstY = D2COMMON_10176_PathGetFirstPointY(pMissile->pDynamicPath);
     }
-    packet.nCurrentFrame = sub_0064A380_GetRemainingFrames(pMissile);
+    packet.nCurrentFrame = MISSILE_GetCurrentFrame(pMissile);
     const int nOwnerType = pOwner ? pOwner->dwUnitType : UNIT_INVALID;
     packet.nUnitType = nOwnerType;
     packet.nUnitGUID = pOwner->dwUnitId;

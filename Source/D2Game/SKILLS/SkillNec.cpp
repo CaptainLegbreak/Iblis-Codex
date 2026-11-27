@@ -180,9 +180,9 @@ extern int __fastcall sub_0046C140_TestMode(int,int);
 
 extern int __fastcall sub_005A0180_TestMonType(Unit*,int);
 
-extern int __fastcall sub_005541B0_IsDead(Unit*);
+extern int __fastcall SUNIT_IsDead(Unit*);
 
-extern int __fastcall sub_00554200_CheckTarget(Game*,Unit*,Unit*);
+extern int __fastcall SUNIT_AreUnitsHostile(Game*,Unit*,Unit*);
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 
@@ -203,7 +203,7 @@ int __stdcall sub_00625480(Unit*,int,unsigned short); // 0x00625480
 
 D2StatListStrc* __stdcall sub_006251F0(void*,unsigned,unsigned,int,int); // 0x006251F0
 
-void __stdcall sub_00626E10(Unit*,D2StatListStrc*,int); // 0x00626E10
+void __stdcall D2COMMON_10475_PostStatToStatList(Unit*,D2StatListStrc*,int); // 0x00626E10
 
 void __stdcall sub_00627150(D2StatListStrc*,int,int,int); // 0x00627150
 
@@ -349,7 +349,7 @@ int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 void __fastcall AIGENERAL_AllocMinionList(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMinion); // 0x0058F100
 
-void __stdcall sub_006488A0_SetDirection(D2PathRecordStrc* pPath, int nDirection); // 0x006488A0
+void __stdcall PATH_SetDirection(D2PathRecordStrc* pPath, int nDirection); // 0x006488A0
 
 
 
@@ -786,8 +786,8 @@ int __fastcall SKILLS_CanApplyCurseToTarget(Game* game,Unit* unit,Unit* target)
     if (!TestFlag(target,4)) return 0;
     if (!TestFlag(target,8)) return 0;
     if (!TestFlag(target,2)) return 0;
-    if (sub_005541B0_IsDead(target)) return 0;
-    return sub_00554200_CheckTarget(game,unit,target)!=0;
+    if (SUNIT_IsDead(target)) return 0;
+    return SUNIT_AreUnitsHostile(game,unit,target)!=0;
 }
 
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
@@ -1388,7 +1388,7 @@ void __fastcall SKILLS_SetSummonResistance(Unit* unit,Unit* pet)
     if (!resist) return;
     D2StatListStrc* list=sub_006251F0(!pet ? 0 : pet->pool,0,0,!pet ? 6 : pet->type,!pet ? -1 : pet->id);
     if (!list) return;
-    sub_00626E10(pet,list,1);
+    D2COMMON_10475_PostStatToStatList(pet,list,1);
     if(sub_00625480(pet,142,0)<=0) sub_00627150(list,39,resist,0);
     if(sub_00625480(pet,144,0)<=0) sub_00627150(list,41,resist,0);
     if(sub_00625480(pet,148,0)<=0) sub_00627150(list,43,resist,0);
@@ -2192,7 +2192,7 @@ static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
         return pUnit->pStaticPath->nYPos;
     }
 
-    return pUnit->pDynamicPath ? sub_00648900_PathGetY((D2PathRecordStrc*)pUnit->pDynamicPath) : 0;
+    return pUnit->pDynamicPath ? PATH_GetYPosition((D2PathRecordStrc*)pUnit->pDynamicPath) : 0;
 }
 
 // 0x005C5BC0
@@ -2280,7 +2280,7 @@ int __fastcall SKILLS_SrvDo062_BonePrison(D2GameStrc* pGame, D2UnitStrc* pUnit, 
             }
 
             UNITS_StoreOwner(pPet, pUnit);
-            sub_006488A0_SetDirection((D2PathRecordStrc*)pPet->pDynamicPath, PATH_ComputeDirection(UNITS_GetXPositionInline(pPet), UNITS_GetYPositionInline(pPet), nTargetX, nTargetY));
+            PATH_SetDirection((D2PathRecordStrc*)pPet->pDynamicPath, PATH_ComputeDirection(UNITS_GetXPositionInline(pPet), UNITS_GetYPositionInline(pPet), nTargetX, nTargetY));
         }
     }
 
