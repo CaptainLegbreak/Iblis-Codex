@@ -4,6 +4,10 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Ready
 
+- **lane11/names-d2common 01f554d07, on main #479.** Two commits:
+  1. different_identifier: 18 placeholder spellings take their definition's name (1 with the unit's private placeholder declaration dropped). The ones D2Common.h declares stay for now: renamed together they change how DATATBLS/ItemTbls.cpp compiles, though no single one does (the declaration-count effect), so they wait for the header work. Renames whose new name is an ordinal (D2Common_10434, D2Common_11025) are left too.
+  2. placeholder: 395 data plan entries generated as gData_<VA> now define their declared name; 52 stay (their units fail with it).
+  Link debt, main #478 -> this branch (measured on #478; #479 changed no D2Common file): 27,112 -> 26,576. D2Common 4,368 -> 3,832 (different_identifier 408 -> 356, placeholder 863 -> 322; type_disagreement 715 -> 770, unsourced_data 804 -> 806), D2Game level (5,384); no module rose. Audit guard against #479: no count rose. Full build on #479: VERIFIED tree dcca4bb17dd579a9f5873796591745183f38eea8, Game.exe identical, 14,927 / 14,927 placed, borrowed code 0, 0 not all equal.
 - **lane11/names-d2game-2 7680fb135, on main #478** (replaces names-d2game, which conflicted with #477; redone on #478 with the same lists). Two commits:
   1. different_identifier: 280 placeholder spellings take their definition's name everywhere (4 with the unit's private placeholder declaration dropped); 61 stay, their units failing with the new name.
   2. placeholder: 86 data plan entries generated as gData_<VA> now define their declared name; 14 stay.
@@ -15,6 +19,7 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Claimed
 
+- Fri Nov 27 07:51 PST 2026: check-in. names-d2common posted on #479. Next: D2Multi and D2Launch (500+ different_identifier each), then the smaller modules.
 - Fri Nov 27 07:11 PST 2026: check-in. names-d2game-2 posted on #478. Next: names-d2common on #478 (built once on #476; 18 spellings and 395 data plan names).
 - Fri Nov 27 06:24 PST 2026: check-in. names-d2client-3 posted on #478 (the board's rebase request). Rebasing names-d2game onto #478 next, then posting names-d2common.
 - Fri Nov 27 05:05 PST 2026: check-in. D2Common: of 59 placeholder spellings, the ones D2Common.h declares change how DATATBLS/ItemTbls.cpp compiles when renamed together (no single one does; the declaration-count effect), so this branch takes the 18 declared only in .cpp files; the D2Common.h group waits for lane 2/8's header work.
