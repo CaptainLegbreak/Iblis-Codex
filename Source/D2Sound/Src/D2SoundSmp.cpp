@@ -371,11 +371,6 @@ extern "C" void* __fastcall UNITSND_GetLinkFirst(D2OwnerStrc_004CA990* pOwner)
     return 0;
 }
 
-extern "C" void __fastcall CLIENTS_SetPlayerUnitAlive(D2ClientStrc* pClient)
-{
-    D2_ASSERT(pClient, 518);
-    pClient->dwFlags |= 1;
-}
 
 void __cdecl sub_00650EA0_Nop()
 {

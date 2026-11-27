@@ -1486,10 +1486,5 @@ extern "C" void __fastcall D2SOUND_SetSoundLoopStart(D2SoundObjStrc_00515A30* pS
     pSound->nValue44 = nValue;
 }
 
-extern "C" void __fastcall CLIENTS_SetPlayerUnitAlive(D2ClientStrc* pClient)
-{
-    D2_ASSERT(pClient, 518);
-    pClient->dwFlags |= 1;
-}
 
 #include "gen/data/Source/D2Client/GAME/Roster.inc"

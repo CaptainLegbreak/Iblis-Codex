@@ -97,7 +97,7 @@ static int __stdcall STATLIST_GetTotalStat(D2StatListStrc* pStatList, int nLayer
     return nValue;
 }
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer)
+static int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer)
 {
     if (!pUnit)
     {
