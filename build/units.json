@@ -22432,11 +22432,6 @@
      "va": "0x004A18C0",
      "length": 22,
      "name": "TEXT_KeyDownMsg"
-    },
-    {
-     "va": "0x004ED3F0",
-     "length": 142,
-     "name": "?TEXT_DrawHintText@@YGXHH@Z"
     }
    ],
    "flags": [
@@ -31250,6 +31245,11 @@
     {
      "va": "0x004ED150",
      "length": 663
+    },
+    {
+     "va": "0x004ED3F0",
+     "length": 142,
+     "name": "?TEXT_DrawHintText@@YGXHH@Z"
     },
     {
      "va": "0x004ED480",
