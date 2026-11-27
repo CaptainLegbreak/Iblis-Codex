@@ -127,8 +127,6 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x
 
 extern ObjTrapHandlerFunction sgObjectTrapHandlers[10]; // 0x00732CEC
 
-extern int gnObjectTrapHandlerCount; // 0x00732D14
-
 #include "D2GameFuncs.h"
 
 void __fastcall OBJEVAL_ApplyTrapObjectDamage(D2GameStrc* pGame, D2UnitStrc* pSrcUnit, D2UnitStrc* pTargetUnit, int nDamageType); // 0x005DFA00
@@ -200,8 +198,6 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
 
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
 
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 
@@ -210,8 +206,6 @@ extern "C" char* __cdecl _strrev(char* szString); // 0x00687860
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 
@@ -245,8 +239,6 @@ D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); 
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 
 int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType); // 0x00645830
-
-int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
@@ -317,8 +309,6 @@ int __fastcall OBJECTS_OperateFunction23_Waypoint(D2ObjOperateFnStrc* pOp, int n
 
 void __fastcall OBJRGN_AllocObjectRoomCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00547170
 
-
-int __stdcall WAYPOINTS_IsActivated(D2WaypointDataStrc* pData, int nWaypointNo); // 0x00660E50
 
 typedef int(__fastcall* ObeliskPowerUpFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue);
 
@@ -514,18 +504,10 @@ int __fastcall OBJMODE_IsLivingPlayerOrMonster(D2UnitStrc* unit, void* unused); 
 
 struct D2InventoryStrc;
 
-extern int gnShrineTableCount;                                                                     // 0x00732EAC
-
-int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker);                                                   // 0x00622560
-
-D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2);                                            // 0x00623990
-
 
 extern "C" void _ReadWriteBarrier();
 
 #pragma intrinsic(_ReadWriteBarrier)
-
-D2TimerArgStrc* __fastcall UNITS_GetTimerArg(D2UnitStrc* pUnit); // 0x006234F0
 
 static int __stdcall OBJMODE_IsTrapMonsterAllowed(D2ActiveRoomStrc* pRoom, int nMonsterId);
 

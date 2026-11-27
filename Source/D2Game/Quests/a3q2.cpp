@@ -84,6 +84,8 @@ void __fastcall ACT3Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
 
 
 
+
+
 typedef int (__stdcall* FARPROC)();
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

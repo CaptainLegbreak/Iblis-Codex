@@ -32,7 +32,6 @@ enum
 };
 
 extern char gpAct2Q7NpcMessages[];                                                                          // 0x0073B8C0
-extern char gpAct2Q8NpcMessages[];                                                                          // 0x0073BD58
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId);                                // 0x00543640
 #include "D2GameFuncs.h"

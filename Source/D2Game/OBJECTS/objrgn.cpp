@@ -45,7 +45,6 @@ extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-int __cdecl DATATBLS_GetShrinesTxtRecordCount(); // 0x00641500
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
 
@@ -441,6 +440,7 @@ void __fastcall GAME_ProcessAdminMessage(void* pData, int nSize);               
 
 
 
+
 #define INPUT_PREFIX 0
 
 #define REPLY_FA 0xFA
@@ -499,8 +499,6 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volati
 int __stdcall CLIENT_ObjectCall_6BED90(int,int,int); // 0x0052B490
 
 int __stdcall SERVER_SendPacketToClient(unsigned char,int,void*,int);  // 0x0052B330
-
-void __stdcall D2NET_10016(int);  // 0x0052B570
 
 extern "C" int __cdecl strncmp(const char*,const char*,unsigned int);
 
