@@ -22,9 +22,7 @@
 
 #define QUEST_A2Q6_DURIEL 13
 
-struct Arg;
 
-struct Flags;
 
 struct D2PlayerDataStrc;
 
@@ -40,7 +38,6 @@ struct D2Act2Quest5Strc;
 
 struct D2Act2Quest6Strc;
 
-struct Extra;
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 
@@ -71,78 +68,33 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
-struct Game
-{
-    char pad[0x1C];
-    void* pool;
-};
-
-typedef void (__fastcall *Callback)(Quest*,Arg*);
-
-typedef bool (__fastcall *Status)(Quest*,D2UnitStrc*,Flags*,Flags*,unsigned char*);
-
-typedef bool (__fastcall *Active)(Quest*,int,D2UnitStrc*,Flags*,D2UnitStrc*);
-
-typedef bool (__fastcall *Sequence)(Quest*);
-
-struct Extra
-{
-    unsigned char f0,f1,f2,f3;
-    char pad4[0x14];
-    int value18,value1c;
-    char pad20[0x14];
-    int value34;
-    char f_38[0x30];
-};
-
-struct Quest
-{
-    int number;
-    Game* game;
-    unsigned char act,notIntro,active,lastState,state,init;
-    short padE;
-    int sequenceId;
-    unsigned int flags;
-    Extra* extra;
-    char guidPad[0x84];
-    Callback callbacks[15];
-    void* messages;
-    int filter;
-    int padE4;
-    Status statusFilter;
-    Active activeFilter;
-    Sequence sequenceFilter;
-};
-
 extern "C" void* __cdecl memset(void*,int,unsigned int);
 
 void* __fastcall FOG_AllocPool(void*,int,const char*,int,int); // 0x0040B430
 
 extern char npc_messages[]; // 0x0073B288
 
-void __fastcall ACT2Q6_Callback03_ChangedLevel(Quest*,Arg*); // 0x0059D1C0
+void __fastcall ACT2Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059D1C0
 
-void __fastcall ACT2Q6_Callback00_NpcActivate(Quest*,Arg*); // 0x0059C3C0
+void __fastcall ACT2Q6_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059C3C0
 
-void __fastcall ACT2Q6_Callback11_ScrollMessage(Quest*,Arg*); // 0x0059CB20
+void __fastcall ACT2Q6_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059CB20
 
-void __fastcall ACT2Q6_RemovePlayerGUID(Quest*,Arg*); // 0x0059C6B0
+void __fastcall ACT2Q6_RemovePlayerGUID(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059C6B0
 
-void __fastcall ACT2Q6_Callback02_NpcDeactivate(Quest*,Arg*); // 0x0059C760
 
-void __fastcall ACT2Q6_Callback13_PlayerStartedGame(Quest*,Arg*); // 0x0059D4F0
+void __fastcall ACT2Q6_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059D4F0
 
-void __fastcall ACT2Q6_Callback14_PlayerJoinedGame(Quest*,Arg*); // 0x0059D4D0
+void __fastcall ACT2Q6_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059D4D0
 
-void __fastcall ACT2Q6_Callback08_MonsterKilled(Quest*,Arg*); // 0x0059D050
+void __fastcall ACT2Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059D050
 
-bool __fastcall ACT2Q6_StatusFilterCallback(Quest*,D2UnitStrc*,Flags*,Flags*,unsigned char*); // 0x0059CA50
+bool __fastcall ACT2Q6_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x0059CA50
 
-bool __fastcall ACT2Q6_ActiveFilterCallback(Quest*,int,D2UnitStrc*,Flags*,D2UnitStrc*); // 0x0059D300
+bool __fastcall ACT2Q6_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x0059D300
 
-bool __fastcall ACT2Q6_SeqCallback(Quest*); // 0x0059D450
+bool __fastcall ACT2Q6_SeqCallback(D2QuestDataStrc* pQuestData); // 0x0059D450
 
-enum { QUEST_FILTER = 14, ALLOC_LINE = 1090 };
 
 #define QUEST_A2Q4_HORAZONTOME 11
 
@@ -439,34 +391,34 @@ bool __fastcall ACT2Q6_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
 }
 
 // 0x0059D5B0
-void __fastcall ACT2Q6_InitQuestData(Quest* quest)
+void __fastcall ACT2Q6_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(quest->callbacks,0,sizeof(quest->callbacks));
-    quest->callbacks[3]=ACT2Q6_Callback03_ChangedLevel;
-    quest->callbacks[0]=ACT2Q6_Callback00_NpcActivate;
-    quest->callbacks[11]=ACT2Q6_Callback11_ScrollMessage;
-    quest->callbacks[10]=ACT2Q6_RemovePlayerGUID;
-    quest->callbacks[2]=ACT2Q6_Callback02_NpcDeactivate;
-    quest->callbacks[13]=ACT2Q6_Callback13_PlayerStartedGame;
-    quest->callbacks[14]=ACT2Q6_Callback14_PlayerJoinedGame;
-    quest->callbacks[8]=ACT2Q6_Callback08_MonsterKilled;
-    quest->messages=npc_messages;
-    quest->active=1;
-    quest->state=0;
-    Extra* extra=(Extra*)FOG_AllocPool(quest->game->pool,0x68,"d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp",ALLOC_LINE,0);
-    quest->extra=extra;
-    quest->filter=QUEST_FILTER;
-    quest->statusFilter=ACT2Q6_StatusFilterCallback;
-    quest->init=4;
-    quest->activeFilter=ACT2Q6_ActiveFilterCallback;
-    quest->sequenceFilter=ACT2Q6_SeqCallback;
-    memset(extra,0,0x68);
-    extra->f1=0;
-    extra->f2=0;
-    extra->f3=0;
-    extra->value18=0;
-    extra->value1c=0;
-    extra->value34=0;
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pCallback[3] = ACT2Q6_Callback03_ChangedLevel;
+    pQuestData->pCallback[0] = ACT2Q6_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT2Q6_Callback11_ScrollMessage;
+    pQuestData->pCallback[10] = ACT2Q6_RemovePlayerGUID;
+    pQuestData->pCallback[2] = ACT2Q6_Callback02_NpcDeactivate;
+    pQuestData->pCallback[13] = ACT2Q6_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[14] = ACT2Q6_Callback14_PlayerJoinedGame;
+    pQuestData->pCallback[8] = ACT2Q6_Callback08_MonsterKilled;
+    pQuestData->pNPCMessages = npc_messages;
+    pQuestData->bActive = 1;
+    pQuestData->fState = 0;
+    D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, 0x68, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 1090, 0);
+    pQuestData->pQuestDataEx = pQuestDataEx;
+    pQuestData->eFilter = 14;
+    pQuestData->pfStatusFilter = ACT2Q6_StatusFilterCallback;
+    pQuestData->nInitNo = 4;
+    pQuestData->pfActiveFilter = ACT2Q6_ActiveFilterCallback;
+    pQuestData->pfSeqFilter = ACT2Q6_SeqCallback;
+    memset(pQuestDataEx, 0x00, 0x68);
+    pQuestDataEx->bDurielKilled = 0;
+    pQuestDataEx->unk0x02 = 0;
+    pQuestDataEx->bTimerActive = 0;
+    pQuestDataEx->nTyraelsDoorObjectMode = 0;
+    pQuestDataEx->unk0x1C = 0;
+    pQuestDataEx->nStaffTombLevelId = 0;
 }
 
 // 0x0059C3C0
