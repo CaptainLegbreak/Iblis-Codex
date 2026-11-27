@@ -7494,6 +7494,10 @@
      "name": "?Pow@@YGXPAUBigBuffer@@0IPAUBigStack@@@Z"
     },
     {
+     "va": "0x00424700",
+     "length": 1014
+    },
+    {
      "va": "0x00424E40",
      "length": 38,
      "name": "SBigDel"
@@ -7772,30 +7776,6 @@
     {
      "va": "0x004242C0",
      "length": 814
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SBig_00424700.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00424700",
-     "length": 1014
     }
    ],
    "flags": [

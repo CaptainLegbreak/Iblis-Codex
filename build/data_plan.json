@@ -164,18 +164,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/SOURCE/SBig_00424700.cpp": {
-   "bytes": 8,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/SOURCE/SBig_00424700.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/Storm/SOURCE/SBig.cpp": {
-   "bytes": 692,
-   "definitions": 3,
+   "bytes": 700,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SBig.inc",
@@ -9341,7 +9332,7 @@
    "cname": "gData_006CFF68",
    "declared": true,
    "decorated": "?gabSBigRandSeed_006CFF68@@3QBEB",
-   "file": "Source/Storm/SOURCE/SBig_00424700.cpp",
+   "file": "Source/Storm/SOURCE/SBig.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006CFF68[8]; // 0x006CFF68",
    "head": "extern \"C\" const unsigned char gData_006CFF68[8] = ",

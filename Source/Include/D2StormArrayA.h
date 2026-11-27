@@ -63,6 +63,21 @@ struct D2StormArrayAStrc
         m_chunk = 0x40;
         return 0x40;
     }
+    void ReserveInline(unsigned int nCount)
+    {
+        nCount += m_count;
+        if (nCount > m_alloc)
+        {
+            unsigned int nChunk = m_chunk ? m_chunk : CalcChunkSizeInline(nCount);
+            sub_004216E0_ReallocData(RoundUp(nCount, nChunk));
+        }
+    }
+    void SetCountInline(unsigned int nCount)
+    {
+        if (nCount > m_count)
+            ReserveInline(nCount - m_count);
+        m_count = nCount;
+    }
     void GrowToFitInline(unsigned int nIndex)
     {
         if (nIndex < m_count)
