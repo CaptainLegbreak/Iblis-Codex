@@ -4,7 +4,7 @@
 #include "D2GfxTypes.h"
 #include "D2GlideTypes.h"
 
-struct D2CelContextStrc;
+struct D2GfxDataStrc;
 struct D2CelStrc;
 struct D2CriticalSectionStrc;
 struct D2PaletteTableStrc;
@@ -62,7 +62,7 @@ int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 void __cdecl sub_00509AA0_GlideSuspend(); // 0x00509AA0
 void __fastcall GLVERTEX_SetVertexAmbientColor(D2GlideSpriteVertexStrc* pVertex, unsigned char nShade); // 0x0050DBE0
 void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile); // 0x0050FBD0
-void __stdcall CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
+void __stdcall CelDraw(D2GfxDataStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }

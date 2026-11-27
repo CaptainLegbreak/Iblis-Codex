@@ -574,7 +574,7 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x00
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
-int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 extern D2ScrollPosStrc gaScrollPiecePos[5]; // 0x00722EB8
 
@@ -788,7 +788,7 @@ void __stdcall CURSOR_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
-D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
+D2CelStrc* __stdcall CelGetHandle(D2GfxDataStrc* pContext); // 0x00601840
 
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
@@ -1230,7 +1230,7 @@ void* gpTextCallbackContext; // 0x007BF25C
 
 bool __stdcall sub_004A2970(int nX, int nY); // 0x004A2970
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 char gbQuestButtonDown; // 0x007BF2B0
 
@@ -3106,7 +3106,7 @@ void __cdecl TEXT_ResetTextBox()
 void __cdecl TEXT_DrawPanelFrame()
 {
     char szPath[0x104];
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
 
     D2GFX_DrawBox(gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0xE0, gnScreenWidth / 2, gnScreenHeight - 0x30, 0, 5);
 
@@ -3119,7 +3119,7 @@ void __cdecl TEXT_DrawPanelFrame()
     }
 
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = pCelFile;
+    tContext.pCelFile = pCelFile;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     TEXTURE_CelDraw(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0x6D, -1, 5, 0);
@@ -3129,7 +3129,7 @@ void __cdecl TEXT_DrawPanelFrame()
     TEXTURE_CelDraw(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0x31, -1, 5, 0);
     tContext.nFrame = 3;
     TEXTURE_CelDraw(&tContext, gnPanelOffsetX + 0x100, gnScreenHeight + gnPanelOffsetY - 0x31, -1, 5, 0);
-    tContext.pCellFile = sub_00454600();
+    tContext.pCelFile = sub_00454600();
     tContext.nFrame = 10;
     TEXTURE_CelDraw(&tContext, gnPanelOffsetX + 0x115, gnScreenHeight + gnPanelOffsetY - 0x3D, -1, 5, 0);
 }
@@ -3142,7 +3142,7 @@ void __stdcall TEXT_OpenTextPanel(int bDraw)
         return;
     }
 
-    D2CelContextStrc tPiece;
+    D2GfxDataStrc tPiece;
     memset(&tPiece, 0, sizeof(tPiece));
     TEXT_DrawPanelFrame();
 
@@ -3166,7 +3166,7 @@ void __stdcall TEXT_OpenTextPanel(int bDraw)
     }
 
     const int nOldMode = D2Win_10127_SetFont(5);
-    tPiece.pCellFile = gpScroin2_007BF270;
+    tPiece.pCelFile = gpScroin2_007BF270;
     if (!gdwScrollTick)
     {
         gdwScrollTick = GetTickCount();
@@ -3208,9 +3208,9 @@ void __stdcall TEXT_OpenTextPanel(int bDraw)
                 D2_ASSERT(nSlot < 5, 0x1673);
                 TEXTURE_CelDraw(&tPiece, gaScrollPiecePos[nSlot].nX + gnPanelOffsetX, gaScrollPiecePos[nSlot].nY - gnPanelOffsetY, -1, nDrawMode, 0);
 
-                D2CelContextStrc tFade;
+                D2GfxDataStrc tFade;
                 memset(&tFade, 0, sizeof(tFade));
-                tFade.pCellFile = gpScroin3_007BF26C;
+                tFade.pCelFile = gpScroin3_007BF26C;
                 tFade.nFrame = nTicks >= 21 ? 0 : nTicks;
                 TEXTURE_CelDraw(&tFade, gaScrollFadePos[nSlot].nX + gnPanelOffsetX, gaScrollFadePos[nSlot].nY - gnPanelOffsetY, -1, 3, 0);
             }

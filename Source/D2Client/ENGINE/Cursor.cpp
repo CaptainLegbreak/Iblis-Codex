@@ -72,7 +72,7 @@ struct D2CelFileStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 D2CelFileStrc* gpCursorCel;        // 0x007A6AD8
 
@@ -90,7 +90,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 void __cdecl CURSOR_UpdateCursor();                                                                // 0x00468310
 
 
-int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
+int __stdcall sub_006001F0(D2GfxDataStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
 
 unsigned int __stdcall CelGetWidth(D2CelStrc* pCel);                                                        // 0x006018C0
 
@@ -419,9 +419,9 @@ void __cdecl CURSOR_DrawDefaultCursor()
     {
         nX = gnScreenWidth - gnCursorOffsetX - 1;
     }
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gapCursorCels[gnCursorAnim];
+    tContext.pCelFile = gapCursorCels[gnCursorAnim];
     tContext.nDirection = 0;
     tContext.nFrame = gnCursorAnimFrame >> 8;
     sub_004F6480(&tContext, nX, nY, -1, 5, 0);
@@ -431,9 +431,9 @@ void __cdecl CURSOR_DrawDefaultCursor()
 // 0x00468460
 void __cdecl CURSOR_DrawCursorCel()
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpCursorCel;
+    tContext.pCelFile = gpCursorCel;
     tContext.nFrame = gnCursorAnimFrame;
     const int nX = gnCursorX + gnCursorOffsetX;
     const int nY = gnCursorY + 0x21;
@@ -451,7 +451,7 @@ void __cdecl CURSOR_DrawCursor()
     D2UnitStrc* pItem = gpCursorItem;
     if (pItem && pItem->dwUnitType == UNIT_ITEM && gnCursorState < 6 && gnCursorState < 8)
     {
-        D2CelContextStrc tContext;
+        D2GfxDataStrc tContext;
         int nOut;
         memset(&tContext, 0, sizeof(tContext));
         if (GFXUTIL_InitUnitCelContext(&tContext, pItem, 0, 0, 0, &nOut, 1, -1) && sub_006001F0(&tContext, 0, 1))
@@ -475,7 +475,7 @@ void __cdecl CURSOR_PaintCursorItem()
         return;
     }
     D2UnitStrc* pItem = gpCursorItem;
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
         int nOut;
@@ -511,7 +511,7 @@ void __cdecl CURSOR_PaintCursorItem()
                 nX = gnCursorMaxX - gnCursorOffsetX - 1;
             }
             memset(&tContext, 0, sizeof(tContext));
-            tContext.pCellFile = gapCursorCels[nType];
+            tContext.pCelFile = gapCursorCels[nType];
             tContext.nDirection = 0;
             tContext.nFrame = gnCursorAnimFrame >> 8;
             sub_004F6480(&tContext, nX, nY, -1, 5, 0);

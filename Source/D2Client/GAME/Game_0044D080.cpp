@@ -82,7 +82,7 @@ void __fastcall WINMAIN_PushStateValue(int nValue); // 0x0044B440
 
 void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
-void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
@@ -634,7 +634,7 @@ int __cdecl GAME_PushState()
 int __stdcall GAME_ShowBetaScreens(int nArg)
 {
     char szPath[0x104];
-    D2CelContextStrc tData;
+    D2GfxDataStrc tData;
     if (!WINDOW_GetState())
     {
         if (!D2GFX_StartDraw(1, 0, 0, 0))
@@ -650,7 +650,7 @@ int __stdcall GAME_ShowBetaScreens(int nArg)
                 D2Win_10177(gaBetaScreens[gnBetaScreenIndex].nAct);
             }
             memset(&tData, 0, sizeof(tData));
-            tData.pCellFile = gaBetaScreens[gnBetaScreenIndex].pCelFile;
+            tData.pCelFile = gaBetaScreens[gnBetaScreenIndex].pCelFile;
             tData.nDirection = 0;
             tData.nFrame = 0;
             TEXTURE_CelDraw(&tData, 0, 0x100, -1, 5, 0);

@@ -132,7 +132,7 @@ unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMa
 
 
 
-D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
+D2UnitGfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
 
 D2GfxLightStrc* __fastcall DLIGHTMAP_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
@@ -158,7 +158,7 @@ extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 
 int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 
-void __stdcall TEXTURE_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, unsigned char nColor); // 0x004F6570
+void __stdcall TEXTURE_CelDrawHilight(D2GfxDataStrc* pContext, int nX, int nY, unsigned char nColor); // 0x004F6570
 
 
 
@@ -172,7 +172,7 @@ void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, i
 
 
 
-int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
+int __stdcall sub_006001F0(D2GfxDataStrc* pContext, int nArg2, int nArg3); // 0x006001F0
 
 int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 
@@ -180,7 +180,7 @@ int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 
 
@@ -192,7 +192,7 @@ int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int
 
 
 
-void __stdcall sub_004F6540(D2CelContextStrc* pContext, int nX, int nY); // 0x004F6540
+void __stdcall sub_004F6540(D2GfxDataStrc* pContext, int nX, int nY); // 0x004F6540
 
 #define GFX_MODE_KEEP 0x11
 
@@ -606,7 +606,7 @@ inline int IsShapeShifted(D2UnitStrc* pUnit)
 
 static inline D2GfxLayerStrc* GetNodeLayer(D2UnitStrc* pUnit, int nMode)
 {
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (pGfxData)
     {
         for (D2GfxListNodeStrc* pNode = pGfxData->pList; pNode; pNode = pNode->pNext)
@@ -676,7 +676,7 @@ static int __stdcall GFX_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit
     {
         const int nLayer = pOrder[tArg.nIndex];
         D2_ASSERT(nLayer < 0x10, 0x6DD);
-        D2CelContextStrc tContext;
+        D2GfxDataStrc tContext;
         memset(&tContext, 0, sizeof(tContext));
         int nItemId;
         if (GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, UNITS_GetDirection(pUnit), 0, &nItemId, nLayer, nMode))
@@ -689,7 +689,7 @@ static int __stdcall GFX_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit
                 {
                     return -1;
                 }
-                if (!(tContext.nFlags44 & 4))
+                if (!(tContext.dwFlags & 4))
                 {
                     nResult = 0;
                 }
@@ -812,11 +812,11 @@ extern int gbWeatherSplash; // 0x007A8A14
 
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 
-void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 
 
-typedef int (__stdcall* D2CelDrawRetFn)(D2CelContextStrc*, int, int, unsigned int, int, unsigned char*);
+typedef int (__stdcall* D2CelDrawRetFn)(D2GfxDataStrc*, int, int, unsigned int, int, unsigned char*);
 
 static int gbLightningEnabled; // 0x007A8A08
 
@@ -1724,7 +1724,7 @@ D2InventoryStrc* __fastcall GFX_GetCompInventory(D2UnitStrc* pUnit, int* pOut)
 }
 
 // 0x0046DEF0
-static void GFX_SyncStateOverlay(D2UnitOverlayStrc* pOverlay, D2GfxDataStrc* pGfx)
+static void GFX_SyncStateOverlay(D2UnitOverlayStrc* pOverlay, D2UnitGfxDataStrc* pGfx)
 {
     for (D2UnitOverlayStrc* pOther = pGfx->pOverlays; pOther; pOther = pOther->pNext)
     {
@@ -1813,7 +1813,7 @@ static void __stdcall GFX_RecalcStateOverlays(D2StateOwnerStrc* pOwner, D2UnitSt
 // 0x0046E100
 int __fastcall GFX_HasOverlay(D2UnitStrc* pUnit, int nOverlay)
 {
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0x1EA);
     for (D2UnitOverlayStrc* pOverlay = pGfxData->pOverlays; pOverlay; pOverlay = pOverlay->pNext)
     {
@@ -1828,7 +1828,7 @@ int __fastcall GFX_HasOverlay(D2UnitStrc* pUnit, int nOverlay)
 // 0x0046E1B0
 void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY)
 {
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (!pGfxData)
     {
         return;
@@ -1872,7 +1872,7 @@ void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay
                 {
                     return;
                 }
-                D2CelContextStrc tContext;
+                D2GfxDataStrc tContext;
                 memset(&tContext, 0, sizeof(tContext));
                 tContext.nOverlay = nOverlay;
                 int nOut;
@@ -1892,7 +1892,7 @@ void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay
 // 0x0046E570
 int __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode)
 {
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (pGfxData)
     {
         for (D2GfxListNodeStrc* pNode = pGfxData->pList; pNode; pNode = pNode->pNext)
@@ -1933,7 +1933,7 @@ static void __stdcall GFX_ResetGfxIndex(D2UnitStrc* pUnit, int nIndex)
     {
         GFXUTIL_SetGfxEntryByte(pUnit, i, 0);
     }
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0x668);
     D2GfxListNodeStrc* pNode = pGfxData->pList;
     while (pNode)
@@ -1955,7 +1955,7 @@ static inline void GFX_ResetGfxBytes8(D2UnitStrc* pUnit)
 }
 
 // 0x0046EB70
-static void GFX_FreeOverlays(D2GfxDataStrc* pGfxData)
+static void GFX_FreeOverlays(D2UnitGfxDataStrc* pGfxData)
 {
     D2UnitOverlayStrc* pOverlay = pGfxData->pOverlays;
     while (pOverlay)
@@ -1971,11 +1971,11 @@ static void GFX_FreeOverlays(D2GfxDataStrc* pGfxData)
 }
 
 // 0x0046EBB0
-D2GfxDataStrc* __cdecl GFX_AllocGfxData()
+D2UnitGfxDataStrc* __cdecl GFX_AllocGfxData()
 {
-    D2GfxDataStrc* pGfxData = (D2GfxDataStrc*)FOG_Alloc(sizeof(D2GfxDataStrc), ".\\ENGINE\\Gfx.cpp", 0x804, 0);
+    D2UnitGfxDataStrc* pGfxData = (D2UnitGfxDataStrc*)FOG_Alloc(sizeof(D2UnitGfxDataStrc), ".\\ENGINE\\Gfx.cpp", 0x804, 0);
     D2_ASSERT(pGfxData, 0x805);
-    memset(pGfxData, 0, sizeof(D2GfxDataStrc));
+    memset(pGfxData, 0, sizeof(D2UnitGfxDataStrc));
     pGfxData->nBasePalShift = 2;
     pGfxData->nPalShift = 2;
     return pGfxData;
@@ -1984,7 +1984,7 @@ D2GfxDataStrc* __cdecl GFX_AllocGfxData()
 // 0x0046EC10
 void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit)
 {
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0x814);
     D2GfxListNodeStrc* pNode = pGfxData->pList;
     while (pNode)
@@ -2000,7 +2000,7 @@ void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit)
 // 0x0046EC80
 void __fastcall GFX_FreeGfxNodes(D2UnitStrc* pUnit)
 {
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0x82A);
     D2GfxListNodeStrc* pNode = pGfxData->pList;
     while (pNode)
@@ -2015,7 +2015,7 @@ void __fastcall GFX_FreeGfxNodes(D2UnitStrc* pUnit)
 // 0x0046ECE0
 void __fastcall GFX_PruneGfxNodes(D2UnitStrc* pUnit)
 {
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0x83D);
     D2GfxListNodeStrc* pPrev = 0;
     D2GfxListNodeStrc* pNode = pGfxData->pList;
@@ -2116,7 +2116,7 @@ int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY)
             }
         }
     }
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nOut;
     const int bReady = GFXUTIL_InitUnitCelContext(&tContext, pItem, 0, nSize, 0, &nOut, 1, -1)
@@ -2151,7 +2151,7 @@ void __fastcall GFX_ResetGfx(D2UnitStrc* pUnit)
 // 0x0046F020
 void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue)
 {
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 0xBBA);
     for (int i = 0; i < GFX_ENTRY_COUNT; ++i)
     {
@@ -2162,7 +2162,7 @@ void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue)
 // 0x0046F060
 D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit)
 {
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (pGfxData)
         return pGfxData->pMotion;
     return 0;
@@ -2171,7 +2171,7 @@ D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit)
 // 0x0046F070
 void __fastcall GFX_SetGfxMotionFlag(D2UnitStrc* pUnit, D2GfxMotionStrc* pMotion)
 {
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (pGfxData)
     {
         pGfxData->pMotion = pMotion;
@@ -2193,7 +2193,7 @@ static int GFX_IsNotMonsterOrNoFlag2(D2UnitStrc* pUnit)
 // 0x0046F170
 void __fastcall GFX_RemoveOverlays(D2UnitStrc* pUnit)
 {
-    D2GfxDataStrc* ptGfxInfo = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* ptGfxInfo = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(ptGfxInfo, 0xCCF);
     D2UnitOverlayStrc* pOverlay = ptGfxInfo->pOverlays;
     while (pOverlay)
@@ -2205,28 +2205,28 @@ void __fastcall GFX_RemoveOverlays(D2UnitStrc* pUnit)
 }
 
 // 0x0046F1C0
-void __fastcall GFX_SetGfxBasePalShift(D2GfxDataStrc* pGfxData, int nValue)
+void __fastcall GFX_SetGfxBasePalShift(D2UnitGfxDataStrc* pGfxData, int nValue)
 {
     D2_ASSERT(pGfxData, 0xCE4);
     pGfxData->nBasePalShift = nValue;
 }
 
 // 0x0046F1F0
-int __fastcall GFX_GetGfxBasePalShift(D2GfxDataStrc* pGfxData)
+int __fastcall GFX_GetGfxBasePalShift(D2UnitGfxDataStrc* pGfxData)
 {
     D2_ASSERT(pGfxData, 0xCF1);
     return pGfxData->nBasePalShift;
 }
 
 // 0x0046F220
-void __fastcall GFX_SetGfxPalShift(D2GfxDataStrc* pGfxData, int nValue)
+void __fastcall GFX_SetGfxPalShift(D2UnitGfxDataStrc* pGfxData, int nValue)
 {
     D2_ASSERT(pGfxData, 0xCFD);
     pGfxData->nPalShift = nValue;
 }
 
 // 0x0046F250
-int __fastcall GFX_GetGfxPalShift(D2GfxDataStrc* pGfxData)
+int __fastcall GFX_GetGfxPalShift(D2UnitGfxDataStrc* pGfxData)
 {
     D2_ASSERT(pGfxData, 0xD0A);
     return pGfxData->nPalShift;
@@ -2455,7 +2455,7 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nType, i
             sub_00474290(pNew->pLight, pTxt->n74);
     }
 
-    D2GfxDataStrc* pGfx = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfx = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfx, 0xC7A);
     pNew->n34 = pTxt->nByte48;
     pNew->pNext = pGfx->pOverlays;
@@ -2504,7 +2504,7 @@ void __fastcall GFX_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent, int* pO
     }
 
     const int nGfxMode = nMode;
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (!pGfxData)
     {
         return;
@@ -2521,7 +2521,7 @@ void __fastcall GFX_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent, int* pO
         return;
     }
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
 
     int nOut;
@@ -2560,7 +2560,7 @@ int __fastcall GFX_HitTestUnitGfx(D2UnitStrc* pUnit, int nOriginX, int nOriginY,
     D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, ".\\ENGINE\\Gfx.cpp", 0xD90);
 
     const int nGfxMode = nMode;
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (!pGfxData)
     {
         return 0;
@@ -2651,7 +2651,7 @@ int __fastcall GFX_DrawSimpleUnitShadow(D2UnitStrc* pUnit)
     int nFrameNo;
     int nFrameCount;
     UNITS_GetShiftedFrameMetrics(pUnit, &nFrameNo, &nFrameCount);
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nOut;
     if (!GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, 1, -1))
@@ -2715,7 +2715,7 @@ int __fastcall GFX_GetHealthBarOffset(D2UnitStrc* pUnit)
     int nFrameNo;
     int nFrameCount;
     UNITS_GetShiftedFrameMetrics(pUnit, &nFrameNo, &nFrameCount);
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nOut;
     if (!GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, 1, -1))
@@ -2806,7 +2806,7 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
                 int nLayer = pLayers[i];
                 if (GFXUTIL_UpdateUnitGfx(pUnit, nLayer))
                 {
-                    D2CelContextStrc tContext;
+                    D2GfxDataStrc tContext;
                     memset(&tContext, 0, sizeof(tContext));
                     int nOut;
                     if (GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, nLayer, -1))

@@ -40,16 +40,16 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 extern "C" int __cdecl PLAYER_GetScreenOffsetX();                                                          // 0x0045AFC0
 extern "C" int __cdecl PLAYER_GetScreenOffsetY();                                                      // 0x0045AFD0
-D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit);                                       // 0x00463E10
+D2UnitGfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit);                                       // 0x00463E10
 int __cdecl DLIGHTMAP_GetLocalBloodPalette();                                                                                 // 0x00477680
 extern "C" int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit);                                     // 0x004DA0B0
 int __stdcall D2GFX_CheckPerspective();                                                                     // 0x004F51D0
-void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nX, int nY, unsigned int nColor, int nDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nX, int nY, unsigned int nColor, int nDrawMode, unsigned char* pPalette); // 0x004F6480
 
 // 0x0046E300
 void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int bFront, int nX, int nY, int bLift)
 {
-    D2GfxDataStrc* pGfx = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfx = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfx, 625);
 
     const int bPerspective = D2GFX_CheckPerspective();
@@ -126,7 +126,7 @@ void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int 
             }
             D2_ASSERT(pOverlayTxtRecord, 721);
 
-            D2CelContextStrc tCel;
+            D2GfxDataStrc tCel;
             memset(&tCel, 0, sizeof(tCel));
             tCel.nOverlay = nOverlayId;
             if (!GFXUTIL_InitUnitCelContext(&tCel, 0, 0, UNITS_GetDirection(pUnit), nFrame, &nX, 1, -1))

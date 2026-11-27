@@ -138,7 +138,7 @@ void __cdecl EDITBOX_UpdateVisibleChars(); // 0x004FE7C0
 
 #define EDITBOX_MAX(a, b) ((a) > (b) ? (a) : (b))
 
-struct D2CelContextStrc;
+struct D2GfxDataStrc;
 
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 
@@ -148,7 +148,7 @@ void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, uns
 
 int __stdcall EDITBOX_HandleSingleLineMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x004FFBF0
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 void __fastcall D2Win_10133(const Unicode* wszText, int nX, int nY, int nColor, int nDrawMode, int nTextColor); // 0x00502480
 
@@ -172,7 +172,7 @@ int __fastcall EDITBOX_DrawMultiLine(D2WinEditBoxStrc* pEditBox);               
 
 int __fastcall EDITBOX_DrawSingleLine(D2WinEditBoxStrc* pEditBox);                                        // 0x004FFE50
 
-D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
+D2CelStrc* __stdcall CelGetHandle(D2GfxDataStrc* pContext);                                        // 0x00601840
 
 int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 
@@ -1629,9 +1629,9 @@ int __fastcall EDITBOX_DrawSingleLine(D2WinEditBoxStrc* pEditBox)
         UnicodeChar wszText[300];
         if (pEditBox->controlHeader.pCellFile)
         {
-            D2CelContextStrc tContext;
+            D2GfxDataStrc tContext;
             memset(&tContext, 0, sizeof(tContext));
-            tContext.pCellFile = pEditBox->controlHeader.pCellFile;
+            tContext.pCelFile = pEditBox->controlHeader.pCellFile;
             tContext.nDirection = 0;
             tContext.nFrame = 0;
             sub_004F6480(&tContext, pEditBox->controlHeader.nImageX, pEditBox->controlHeader.nImageY - 1, -1, 5, 0);
