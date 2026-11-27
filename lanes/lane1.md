@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 19:28 PST 2026: check-in. Main is #461 and has skilldesc-environ and callbacks-join (Ready lines dropped); Ready is empty. Next: the skill callbacks in SkillsMon.cpp's run (0x4E1FF0, 0x4E2320, 0x4E2630).
 - Thu Nov 26 18:57 PST 2026: check-in. Main is #459: it took proto-dups-2 and listbox-join, and #455 extern-dups-2 (hand-resolved) (Ready lines dropped). skilldesc-environ and callbacks-join still ready, all merge clean on #459.
 - Thu Nov 26 18:57 PST 2026: callbacks-join ready (stacked on skilldesc-environ).
 - Thu Nov 26 18:41 PST 2026: skilldesc-environ ready. A scan for functions whose two address neighbours both belong to one named file finds a few more in my range (Unknown_004DF4B0.cpp between GfxUtil.cpp functions, Unknown_004EDA80.cpp between SkillsMon.cpp functions); trying those next.
@@ -71,8 +72,6 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/callbacks-join a67666862 (on skilldesc-environ): GfxUtil.cpp takes three client skill callbacks from Unknown_004DF4B0.cpp (0x4E0BD0, 0x4E0C90, 0x4E0EB0) and SkillsMon.cpp two from Unknown_004EDA80.cpp (0x4F0C20, 0x4F0DD0). Each sits between two functions of the file it joins, and the image reaches all five only through the client skill tables (0x727B14-0x727B5C). Each goes in after its address predecessor, with the declarations and inline helpers it used; the pieces drop the helpers nothing in them uses any more. All four units equal. Full build: Game.exe identical, tree cebcdf8a0bb7feedb524d13319a9aa552e854896, borrowed code / data 5,424 B / 261 B. Audit guard: no count rose.
-- lane1/skilldesc-environ 20800eba3 (on #456): SkillDesc.cpp takes five functions that sit between two SkillDesc.cpp functions in address order, each placed after its address predecessor: 0x4E41E0 (SKILLDESC_IsOutsideDayCycle) and 0x4E4220 (SKILLDESC_ClearEnvironSoundRefs) from SkillDesc_004E1FF0.cpp, which nothing in the image references; 0x4E4280 (sub_004E4280_ResetEnvironSounds) from Unknown_004DF4B0.cpp, between 0x4E4240 and 0x4E42E0, which resets the environment-sound state 0x4E42E0 keeps; 0x4EFCF0 and 0x4F29F0 (two client skill callbacks) from SkillDesc_004E1FF0.cpp, reached only through the client skill tables. All three units equal. Full build: Game.exe identical, tree 0bb4749c078960ef76f4808f1c7af034dd71f975, borrowed code / data 5,424 B / 261 B. Audit guard: no count rose. (0x4F2B20, Unknown_004F1430.cpp, also sits between SkillDesc.cpp functions but Unknown_004F1430.cpp calls it too; left.)
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
 
