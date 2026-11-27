@@ -75,7 +75,6 @@ struct D2DrlgCoordsStrc;
 
 struct Obj00619720;
 
-struct sub_Z16_EmitRoomHolder;
 
 union D2SeedStrc;
 
@@ -182,11 +181,6 @@ struct Obj00619720 { unsigned int dwUnknown00[6]; unsigned int dwMember18; };
 
 int __fastcall DRLGROOM_ReorderNearRoomList(D2DrlgRoomStrc* pDrlgRoom, D2ActiveRoomStrc** ppRoomList); // 0x0066BD00
 
-struct sub_Z16_EmitRoomHolder
-{
-    char unk0x00[0x5C];
-    void* pMemory;
-};
 
 typedef char sub_G03_AssertRoomSize[sizeof(D2ActiveRoomStrc) == 0x80 ? 1 : -1];
 
