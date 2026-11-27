@@ -104663,14 +104663,26 @@
   },
   {
    "alias": false,
-   "cname": "gpfnRoomExUnsetStatus",
-   "declared": false,
+   "cname": null,
+   "declared": true,
    "decorated": null,
    "file": "Source/D2Common/DRLG/DrlgActivate.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00744394_t gpfnRoomExUnsetStatus; // 0x00744394",
-   "head": "extern \"C\" struct d2data_00744394_t gpfnRoomExUnsetStatus = ",
-   "name": "gpfnRoomExUnsetStatus",
+   "fill": 4,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern ROOMEXSTATUSFN gRoomExUnsetStatus[4] = ",
+   "model": {
+    "elem": {
+     "fn": true,
+     "k": "ptr",
+     "size": 4,
+     "spell": "ROOMEXSTATUSFN"
+    },
+    "k": "arr",
+    "n": 4,
+    "size": 16
+   },
+   "name": "gRoomExUnsetStatus",
    "pointers": [
     [
      0,
@@ -104679,27 +104691,9 @@
      "DRLGACTIVATE_RoomExStatusUnset_ClientInRoom",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00744394_t\n{\n    const void* p0;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00744394",
-   "va": "0x00744394"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00744398",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Common/DRLG/DrlgActivate.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00744398_t gData_00744398; // 0x00744398",
-   "head": "extern \"C\" struct d2data_00744398_t gData_00744398 = ",
-   "name": "gData_00744398",
-   "pointers": [
+    ],
     [
-     0,
+     4,
      "0x0061B540",
      "names.json",
      "DRLGACTIVATE_RoomExStatusUnset_ClientInSight",
@@ -104707,7 +104701,7 @@
      "func"
     ],
     [
-     4,
+     8,
      "0x0061B550",
      "names.json",
      "DRLGACTIVATE_RoomExStatusUnset_ClientOutOfSight",
@@ -104715,7 +104709,7 @@
      "func"
     ],
     [
-     8,
+     12,
      "0x0061B560",
      "names.json",
      "DRLGACTIVATE_RoomExStatusUnset_Untile",
@@ -104725,9 +104719,28 @@
    ],
    "region": "data",
    "size": 16,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00744398_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    unsigned char b3[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00744398",
-   "va": "0x00744398"
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00744394",
+   "type": "ROOMEXSTATUSFN",
+   "va": "0x00744394"
+  },
+  {
+   "alias": false,
+   "cname": "gData_007443A4",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/DRLG/DrlgActivate.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_007443A4_t gData_007443A4; // 0x007443A4",
+   "head": "extern \"C\" struct d2data_007443A4_t gData_007443A4 = ",
+   "name": "gData_007443A4",
+   "pointers": [],
+   "region": "data",
+   "size": 4,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_007443A4_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x007443A4",
+   "va": "0x007443A4"
   },
   {
    "alias": false,
