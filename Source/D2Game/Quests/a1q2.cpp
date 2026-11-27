@@ -393,7 +393,6 @@ void __fastcall ACT1Q2_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, 
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 // 0x00590C40
 int __fastcall ACT1Q2_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
@@ -425,7 +424,7 @@ int __fastcall ACT1Q2_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc
         D2_ASSERT(pRoom, 334);
 
         D2ActiveRoomStrc** ppRoomList;
-        unsigned int nRooms;
+        int nRooms;
         DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nRooms);
         for (unsigned int i = 0; i < nRooms; ++i)
         {

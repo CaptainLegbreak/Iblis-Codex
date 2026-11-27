@@ -224,7 +224,6 @@ void __fastcall ACT2Q5_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -258,7 +257,7 @@ int __fastcall ACT2Q5_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitSt
         D2_ASSERT(pUnitRoom, 284);
 
         D2ActiveRoomStrc** ppRoomList;
-        unsigned int nNumRooms;
+        int nNumRooms;
         DUNGEON_GetAdjacentRoomsListFromRoom(pUnitRoom, &ppRoomList, &nNumRooms);
         for (unsigned int i = 0; i < nNumRooms; ++i)
         {

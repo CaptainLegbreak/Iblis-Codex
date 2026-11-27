@@ -987,7 +987,6 @@ bool __fastcall ACT4Q1_SpawnIzualGhost(D2GameStrc* pGame, D2QuestDataStrc* pQues
     return 1;
 }
 
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 // 0x005B3F20
 int __fastcall ACT4Q1_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
@@ -1014,7 +1013,7 @@ int __fastcall ACT4Q1_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc
         D2_ASSERT(pUnitRoom, 473);
 
         D2ActiveRoomStrc** ppRoomList;
-        unsigned int nNumRooms;
+        int nNumRooms;
         DUNGEON_GetAdjacentRoomsListFromRoom(pUnitRoom, &ppRoomList, &nNumRooms);
         for (unsigned int i = 0; i < nNumRooms; ++i)
         {

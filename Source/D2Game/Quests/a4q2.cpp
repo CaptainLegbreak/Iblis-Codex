@@ -83,7 +83,6 @@ D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
 
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 
 int __fastcall ACT4Q2_UnitIterate_UpdateQuestStateFlags(D2GameStrc*, D2UnitStrc*, void*); // 0x005B4560
@@ -905,7 +904,7 @@ int __fastcall ACT4Q2_UnitIterate_UpdatePlayerState(D2GameStrc* pGame, D2UnitStr
     else
     {
         D2ActiveRoomStrc** ppRoomList;
-        unsigned int nNumRooms;
+        int nNumRooms;
         DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
         for (unsigned int i = 0; i < nNumRooms; ++i)
         {

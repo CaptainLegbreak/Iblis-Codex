@@ -27,7 +27,6 @@ D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);              // 0x00552F60
 
 
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -218,7 +217,7 @@ int __fastcall ACT3Q5_UnitIterate_UpdateQuestStateAfterMonsterKill(D2GameStrc* p
         D2ActiveRoomStrc* pUnitRoom=UNITS_GetRoom(pUnit);
         D2_ASSERT(pUnitRoom,ROOM_ASSERT_LINE);
         D2ActiveRoomStrc** ppRoomList;
-        unsigned int nNumRooms;
+        int nNumRooms;
         DUNGEON_GetAdjacentRoomsListFromRoom(pUnitRoom,&ppRoomList,&nNumRooms);
         for(unsigned int i=0;i<nNumRooms;++i){
             if(ppRoomList[i]==pMonsterRoom){bInRange=1;break;}

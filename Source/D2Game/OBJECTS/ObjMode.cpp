@@ -148,7 +148,6 @@ int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Active
 
 void __fastcall D2GAME_PACKETS_SendPacket0x07(D2ClientStrc* pClient, int nAreaId, unsigned short nTileX, unsigned short nTileY); // 0x0053BC50
 
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
@@ -1515,7 +1514,7 @@ int __fastcall OBJECTS_OperateFunction47_Stair(D2ObjOperateFnStrc* pOp)
                 pTile = pTile->ptRoomNext;
             }
             D2ActiveRoomStrc** ppRooms;
-            unsigned int nRooms;
+            int nRooms;
             DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRooms, &nRooms);
             unsigned int i = 0;
             if (i >= nRooms) goto done;
@@ -1763,7 +1762,7 @@ int __fastcall OBJECTS_OperateFunction27_TeleportPad(D2ObjOperateFnStrc* pOp, in
         }
 
         D2ActiveRoomStrc** ppRoomList;
-        unsigned int nNumRooms;
+        int nNumRooms;
         DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
         for (unsigned int i = 0; i < nNumRooms; ++i)
         {
