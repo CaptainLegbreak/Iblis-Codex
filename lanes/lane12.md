@@ -8,7 +8,7 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
-- Fri Nov 27 05:35 PST 2026: **lane12/genheaders-2** (0d0127af9, on #476 9a4b7d477): lane12/genheaders rebased,
+- Fri Nov 27 05:23 PST 2026: **lane12/genheaders-2** (0d0127af9, on #476 9a4b7d477): lane12/genheaders rebased,
   plus a third commit: a unit includes the export header after the last #include above its first removed copy (or
   at the copy), so the declaration precedes every use; a corrected line in another module's header gets forward
   declarations just above it; --plan writes the symbols taken as JSON. Take this one instead of lane12/genheaders.
