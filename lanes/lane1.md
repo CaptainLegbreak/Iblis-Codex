@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 19:44 PST 2026: skillsmon-callbacks ready.
 - Thu Nov 26 19:28 PST 2026: check-in. Main is #461 and has skilldesc-environ and callbacks-join (Ready lines dropped); Ready is empty. Next: the skill callbacks in SkillsMon.cpp's run (0x4E1FF0, 0x4E2320, 0x4E2630).
 - Thu Nov 26 18:57 PST 2026: check-in. Main is #459: it took proto-dups-2 and listbox-join, and #455 extern-dups-2 (hand-resolved) (Ready lines dropped). skilldesc-environ and callbacks-join still ready, all merge clean on #459.
 - Thu Nov 26 18:57 PST 2026: callbacks-join ready (stacked on skilldesc-environ).
@@ -72,6 +73,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/skillsmon-callbacks 77e313c8b (on #461): SkillsMon.cpp takes three client skill callbacks that each sit between two SkillsMon.cpp functions and that the image reaches only through the client skill tables (0x727B38, 0x727C98, 0x727CA8): 0x4E1FF0 and 0x4E2630 from SkillDesc_004E1FF0.cpp, and 0x4E2320 from Unknown_004E2320.cpp, its last function, so that placeholder goes (placeholder files -1). They bring their frame constants and three declarations. Both units equal. Full build: Game.exe identical, tree d716481e8c7f2dd7a920ade3bc8317b3968129dd, borrowed code / data 5,424 B / 261 B. Audit guard: no count rose.
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
 
