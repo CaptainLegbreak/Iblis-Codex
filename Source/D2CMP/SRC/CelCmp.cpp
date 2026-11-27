@@ -22,6 +22,7 @@
 #include "StormApi.h"
 #include "FogApi.h"
 #include "D2CommonApi2.h"
+#include "D2HellApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -376,8 +377,6 @@ extern D2TileRecordStrc* gpTileRecords; // 0x008ADBB4
 extern int gnCmpGfxMode; // 0x00741F08
 
 extern unsigned char gaItemShiftMaps[][105][256]; // 0x008ADBB8
-
-int __cdecl sub_00517ABB_FindLowestSetBit(unsigned int dwMask); // 0x00517ABB
 
 extern int gaDirectionIndex32[][32]; // 0x006E3A20
 
@@ -1466,8 +1465,6 @@ struct D2TileLibraryStrc
 
 
 D2TileFreeCallbackFn gpfnTileFreeCallback; // 0x0088CB1C
-
-int __fastcall ARCHIVE_SetFilePointer(void* unused, void* file, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00516F14
 
 void __fastcall LRUCacheTouch(D2CmpPoolStrc* pPool, D2LRUNodeStrc* pNode); // 0x00609380
 

@@ -18,6 +18,7 @@
 #include "D2Unicode.h"
 #include "D2DataTbls.h"
 #include "D2ExperienceTxt.h"
+#include "D2HellApi.h"
 
 struct D2SkillListStrc;
 
@@ -415,8 +416,6 @@ struct D2AnimDataTableStrc;
 struct Unicode;
 
 struct D2PetTypeTxt;
-
-void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
 extern "C" const char gszOpenBracket[]; // 0x006E6438
 

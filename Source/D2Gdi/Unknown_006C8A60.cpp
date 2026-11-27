@@ -4,6 +4,7 @@
 #include "D2GlideTypes.h"
 #include "D2DrlgMaps.h"
 #include "FogApi.h"
+#include "D2CMPApi.h"
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -444,7 +445,6 @@ extern int gnRenderHeight;                                                      
 extern unsigned char* gpSurfaceBits_007C9154;                                                               // 0x007C9154
 
 
-int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int bAsync, int nFlags); // 0x005FDEA0
 extern int gnRenderHeight; // 0x007C913C
 
 // 0x006C9290

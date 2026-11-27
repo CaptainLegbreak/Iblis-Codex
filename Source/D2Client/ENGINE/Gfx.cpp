@@ -23,6 +23,9 @@
 #include "FogApi2.h"
 #include "D2Constants.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
+#include "D2CMPApi.h"
 
 struct D2UnitStrc;
 
@@ -160,8 +163,6 @@ extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 
 int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 
-void __stdcall TEXTURE_CelDrawHilight(D2GfxDataStrc* pContext, int nX, int nY, unsigned char nColor); // 0x004F6570
-
 
 
 
@@ -175,10 +176,6 @@ void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, i
 
 
 int __stdcall sub_006001F0(D2GfxDataStrc* pContext, int nArg2, int nArg3); // 0x006001F0
-
-int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
-
-int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
@@ -212,8 +209,6 @@ struct D2GfxBoundsStrc;
 
 static void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 0x0046E040
 
-int __cdecl D2Win_10185_CheckCharMpq(); // 0x004FAC90
-
 
 extern char gData_007A7490[0x460]; // 0x007A7490
 
@@ -240,8 +235,6 @@ void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
 
 
 int __fastcall ROSTERPETS_IsPetFriendly(D2UnitStrc* pPlayer, D2UnitStrc* pUnit); // 0x00478E70
-
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
@@ -366,7 +359,6 @@ int __stdcall PARTICLE_GetGfxClientY(D2UnitStrc* pUnit);                        
 int __stdcall PARTICLE_GetGfxClientZ(D2UnitStrc* pUnit);                                          // 0x004DA0F0
 int __fastcall GFXUTIL_IsPlayerMonsterOrObject(D2UnitStrc* pUnit);                                               // 0x004DB180
 int __fastcall GFXUTIL_InitUnitCelContext(D2GfxDataStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
-unsigned char* __fastcall D2Win_10175_GetPL2Shift(int nIndex);                                              // 0x004FB0C0
 static int __stdcall GFX_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverlay, D2UnitStrc* pUnit, int nX, int nY); // 0x00470EC0
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a,b) ((a) > (b) ? (a) : (b))
@@ -384,9 +376,6 @@ int __fastcall GFXUTIL_GetCofLayerNewTransLvl(void*, int); // 0x004DB140
 int __fastcall GFXUTIL_GetCompTransparency(D2UnitStrc*, int, int*, int); // 0x004DB360
 unsigned char* __fastcall GFXUTIL_GetBodyLocItemShift(D2UnitStrc*, int, unsigned char*); // 0x004DB570
 void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int bForce); // 0x004DC7B0
-int __cdecl D2GFX_CheckUnitPerspective(); // 0x004F5170
-void __stdcall D2GFX_SetTownMode(int); // 0x004F5190
-void __stdcall TEXTURE_CelFlatSpriteDraw(D2GfxDataStrc*, int, int, unsigned int, int, int, unsigned char*); // 0x004F6450
 
 extern "C" size_t __cdecl strlen(const char* szString);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
@@ -394,7 +383,6 @@ extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned in
 extern "C" char* __cdecl _strlwr(char* szString);
 void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine);
 void __stdcall sub_M274_EmitBuildPath(char* szPath, int nMode);
-void __stdcall TEXTURE_CelDrawShadow(D2GfxDataStrc* pContext, int nX, int nY); // 0x004F6540
 
 // build: symbol ?GFX_HashName@* 0x0046DB90
 static unsigned int GFX_HashName(const char* szName)
@@ -884,10 +872,6 @@ extern int gnBaseWindAngleMin; // 0x007A89DC
 
 extern int gbWeatherSplash; // 0x007A8A14
 
-int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
-
-void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
-
 
 
 typedef int (__stdcall* D2CelDrawRetFn)(D2GfxDataStrc*, int, int, unsigned int, int, unsigned char*);
@@ -904,8 +888,6 @@ void __fastcall sub_M110_Emit_00472530(int bValue)
 }
 
 extern "C" double __cdecl fabs(double x);
-
-int __cdecl D2GFX_GetDisplayType();                                                                                 // 0x004F5140
 
 extern D2DrlgActStrc* gpDrlgAct_007A0634;                                                                   // 0x007A0634
 

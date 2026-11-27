@@ -30,6 +30,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 #include "D2GameFuncs.h"
 #include "D2CommonApi2.h"
+#include "D2NetApi.h"
 
 void __fastcall PLAYER_ClearTargetIfMatch(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00534AB0
 
@@ -479,8 +480,6 @@ void __fastcall LEVEL_LoadAct(D2GameStrc* pGame, unsigned char nAct)
 }
 struct D2MonsterDataStrc;
 
-
-int __stdcall SERVER_SendPacketToClient(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
 
 #pragma pack(push, 1)
 

@@ -13,6 +13,7 @@
 
 #include "D2SoundTypes.h"
 #include "FogApi.h"
+#include "D2HellApi.h"
 
 struct D2SoundStrc;
 
@@ -88,8 +89,6 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
 void* __fastcall D2SOUNDSMP_ReadWaveHeader(const void* pFile, unsigned int* pnSize, D2WaveFormatStrc* pFormat); // 0x00516760
-
-void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
 extern D2SoundWaveStrc* gpSoundWaveList_00881800; // 0x00881800
 

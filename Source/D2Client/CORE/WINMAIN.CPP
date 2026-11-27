@@ -8,6 +8,10 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "FogApi2.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
+#include "D2NetApi.h"
+#include "D2MCPClientApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1504,10 +1508,6 @@ int __stdcall WINMAIN_HandleArgumentError(const char* szArgument); // 0x0044B5D0
 
 void __fastcall GAME_ShowLoadingMessage(int nError); // 0x0044E380
 
-int __stdcall CLIENT_DequeueGamePacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A890
-
-int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A8B0
-
 void __fastcall SCMD_HandleSystemPacket(unsigned char* pPacket, int nLength); // 0x0045C850
 
 void __fastcall SCMD_ProcessPackets(unsigned char* pPacket, int nLength); // 0x0045F7B0
@@ -1555,8 +1555,6 @@ struct D2McpInfoStrc
     char szName[0x20];
 };
 
-void __stdcall sub_00449DD0_SetValue(int nValue); // 0x00449DD0
-
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
@@ -1598,16 +1596,6 @@ typedef void (__fastcall* D2McpCallback)(int nId, unsigned int nSize, const unsi
 
 
 
-void __stdcall sub_00449E30_SetValue(int nValue);                                                           // 0x00449E30
-
-void __stdcall sub_00449E50_SetValue(int nValue);                                                           // 0x00449E50
-
-void __stdcall MCPCONNECT_SetPacket(const char* pData, int nSize);                                     // 0x00449E70
-
-
-void __cdecl sub_0052BDA0_Empty();                                                                          // 0x0052BDA0
-
-void __cdecl sub_0052BDB0_Empty();                                                                          // 0x0052BDB0
 
 
 int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
@@ -1616,27 +1604,13 @@ void __cdecl RECORD_ToggleRecordPlayback();                                     
 
 void __cdecl RECORD_StartPlayback();                                                                  // 0x004518E0
 
-int __cdecl CLIENT_GetConnectionStatus();                                                                   // 0x0052B050
-
 int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int));                                     // 0x00451BB0
-
-void __stdcall SERVER_Initialize(int nState, int bDisableNt);                                                           // 0x0052B7A0
-
-void __stdcall CLIENT_Initialize(int nArg, const char* szAddress);                                               // 0x0052A750
-
-void __stdcall SERVER_SetMaxClientsPerGame(int nArg1);                                                   // 0x0052B250
-
-int __stdcall SERVER_SetHackListEnabled(int nArg1);                                                    // 0x0052B280
 
 void __stdcall GAME_InitGameDataTable(D2GameDataTableStrc* pGameDataTbl, void* pGameList);                  // 0x0052C0A0
 
 int __stdcall WINMAIN_PollSystemPackets(int nUnused);                                                  // 0x0044BAD0
 
 int __stdcall WINMAIN_PumpSystemPackets(int nUnused);                                                  // 0x0044BD20
-
-void __cdecl CLIENT_Release();                                                                                // 0x0052A7E0
-
-void __cdecl SERVER_Release();                                                              // 0x0052B2A0
 
 int __cdecl WINMAIN_PopStateValue();                                                                        // 0x0044B480
 
@@ -1671,10 +1645,6 @@ extern int gnRecordPos;                                                         
 
 void __cdecl RECORD_LoadRecordFile();                                                                 // 0x00451710
 
-int __fastcall WINMAIN_SendMcpCharCreate(const char* szText, int nValue, unsigned short wValue);
-
-int __fastcall WINMAIN_SendMcpCharLogon(const char* szText);
-
 int __fastcall WINMAIN_SendMcpJoinGame(const char* szName, const char* szRealm, unsigned short wRequestId);
 
 int __fastcall sub_0044A680_SendPacket08(const char* szText, unsigned short wRequestId);
@@ -1684,8 +1654,6 @@ int __fastcall sub_0044A710_SendPacket09(const char* szText, unsigned short wReq
 int __fastcall sub_0044A870_SendPacket0B(const char* szText1, const char* szText2);
 
 int __fastcall sub_0044A900_SendPacket0C(const char* szText);
-
-int __fastcall WINMAIN_SendMcpCharRank(const char* szName, int nB, int nC); // 0x0044AAE0
 
 // 0x00449920
 int __fastcall WINMAIN_DecodeCdKey(const char* szCdKey, unsigned int* pProduct, unsigned int* pValue)
@@ -1783,22 +1751,6 @@ extern unsigned char gabChunkBuffer[]; // 0x00799318
 
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent);                                      // 0x006CC130
 
-void __stdcall CHATDLG_SetCharLogonReceived(int nValue);                                                           // 0x00449C40
-
-void __stdcall CHATDLG_SetCharDeleteReceived(int nValue);                                                           // 0x00449C60
-
-void __stdcall CHATDLG_SetCharUpgradeReceived(int nValue);                                                           // 0x00449C80
-
-void __stdcall sub_00449C90_SetValue(int nValue);                                                           // 0x00449C90
-
-void __stdcall sub_00449CC0_SetValue(int nValue);                                                           // 0x00449CC0
-
-void __stdcall CHATDLG_SetMcpTexts(int nResult, const char* szText1, const char* szText2);                // 0x00449D10
-
-void __stdcall sub_00449D90_SetValue(int nValue);                                                           // 0x00449D90
-
-void __stdcall sub_00449DB0_SetValue(int nValue);                                                           // 0x00449DB0
-
 extern void* ghConnectEvent;                                                                       // 0x007992EC
 
 
@@ -1859,10 +1811,6 @@ int __stdcall WINMAIN_SaveDefaultCmdLine(D2CmdLineArgStrc* pArg, int nUnused)
 {
     return SRegSaveString("Diablo II", "Default Command Line", 0, pArg->szValue);
 }
-
-void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
-
-void __stdcall WINDOW_ShowAll(); // 0x004F5F60
 
 // 0x0044B780
 void __cdecl WINMAIN_RaiseGameWindow()
@@ -1958,8 +1906,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetModuleFileNameA(void
 typedef long (__stdcall* WNDPROC)(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam);
 
 int __cdecl GAME_LoadLngModule(); // 0x00451330
-
-int __fastcall D2Win_10015(); // 0x004F8FE0
 
 int __stdcall D2Win_10014_SetWndProc(WNDPROC wndProc); // 0x004F8FC0
 
