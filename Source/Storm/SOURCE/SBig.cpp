@@ -1056,7 +1056,8 @@ void __stdcall SBigFindPrime(D2StormBigStrc* pResult, unsigned int nBits, D2Stor
     FindPrime(nBits, pRandom->tPrimary, pExponent->tPrimary, &pResult->tStack, pResult->tPrimary);
 }
 
-static void __stdcall InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack) // 0x00424FB0
+// 0x00424FB0
+static void __stdcall InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack)
 {
     BigBuffer& tPrev = tStack.pRecords[tStack.nUsed++];
     BigBuffer& tNum = tStack.pRecords[tStack.nUsed++];
