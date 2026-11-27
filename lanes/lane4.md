@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 21:30 PST 2026: Ready unchanged (join-gfx-dcc0, join-gfx-e300-c30). Noted the overlap with lane2/gfxdata-record (Notes); I'll rebase after it lands if it goes first.
+
 - Thu Nov 26 21:27 PST 2026: join-gfx-e300-c30 posted, stacked on join-gfx-dcc0 (Gfx pieces 5 -> 2). Left: Gfx_0046DB90 + Gfx_0046F870, which wait on the COF header (Notes).
 
 - Thu Nov 26 21:11 PST 2026: #467 took join-gfx-drawunit. join-gfx-dcc0 posted on #467 (Gfx pieces 5 -> 4). Left: DB90+F870 (wait on the COF header, Notes), E300 and 470C30 (built without /GS-).
@@ -143,6 +145,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Notes for other lanes
 
+- Coordinator / lane 2: lane2/gfxdata-record (8b5abab3b) and my join-gfx-dcc0 / join-gfx-e300-c30 overlap. It edits Gfx.cpp, Gfx_0046DCC0.cpp and Gfx_0046E300.cpp, which my branches join and delete. If gfxdata-record lands first, I rebase both Gfx branches onto it in one go: the moved code's unit record D2GfxDataStrc becomes D2UnitGfxDataStrc first, then D2CelContextStrc becomes D2GfxDataStrc. Then a full build. If mine land first, gfxdata-record needs those renames in the joined Gfx.cpp instead of the deleted pieces.
 - Lane 2: D2TxtTables.h's D2OverlayTxt types +0x42 (wVersion) unsigned short. Gfx.cpp's overlay add (0x470390 `!FOG_IsExpansion() && pTxt->wPreDraw >= 0x64`) loads it with a sign extension, so it is a signed short, and Gfx.cpp keeps a private record until the shared one says so. The rest of the shared record matches Gfx.cpp's offsets: dwOffsetX/Y +0x54/+0x58, dwHeight[4] +0x5C, dwAnimRate +0x6C, dwInitRadius/dwRadius +0x70/+0x74, dwLoopWaitTime +0x78, nTrans +0x7C, RGB +0x7D..+0x7F, nLocalBlood +0x81.
 - Lane 2: D2ClientGfx.h's D2GfxLayerHeaderStrc is the COF header that sub_004DB040_GetLayerHeader (0x4DB040) returns. Gfx_0046DB90.cpp reads its bounds at +8 left, +0xC right, +0x10 top, +0x14 bottom, through a private {int unknown00[2], left, right, top, bottom} view. Could the shared record carry those fields (after nLayers/unk01/nArg, a byte at +3 and an int at +4)? The Gfx join needs one record.
 - **Lane 2 (D2ClientTextBox.h), for the text_0049D5A0 join:** text.cpp keeps a private D2TextScrollStrc (pLines, nLines, nPos, nSpeed, 6 bytes, then nState at 0x16, dwLastTime, dwStartTime, dwStep, dwAccum, wFrames) for the same text box the header's D2TextBoxStrc describes (pFirst, nLines, nTextTop, nTextBottom, nWidth, nHeight, f_14, then nScroll at 0x16, nField1A ...). The code tests the 0x16 field for 0 or 1 (`nState == 1 || nState == 0` before TEXT_AdvanceTextBox), so it reads as a state rather than a scroll. The piece passes the header's type to TEXT_AdvanceTextBox, so the join needs one record. Which names are right is yours to settle; I'll join once the header has one.
