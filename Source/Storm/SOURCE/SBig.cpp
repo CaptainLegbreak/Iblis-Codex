@@ -838,7 +838,8 @@ void __stdcall SBigPow(D2StormBigStrc* pResult, D2StormBigStrc* pBase, unsigned 
     Pow(&pResult->tPrimary, &pBase->tPrimary, nExp, &pResult->tStack);
 }
 
-static void __stdcall PowMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack) // 0x00425150
+// 0x00425150
+static void __stdcall PowMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
 {
     c.sub_00422140_Trim();
     if (!c.Count())
@@ -849,36 +850,44 @@ static void __stdcall PowMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer
     BigBuffer& tQuot = tStack.pRecords[tStack.nUsed++];
     BigBuffer& tSquare = tStack.pRecords[tStack.nUsed++];
     BigBuffer& tCube = tStack.pRecords[tStack.nUsed++];
-    BigBuffer& tWork = (&a == &b || &a == &c || &a == &d) ? tStack.pRecords[tStack.nUsed++] : a;
+    int bDistinct = &a == &b || &a == &c || &a == &d;
+    BigBuffer& tWork = bDistinct ? tStack.pRecords[tStack.nUsed++] : a;
     BigMulMod(tSquare, b, b, d, tStack);
     BigMulMod(tCube, tSquare, b, d, tStack);
     BigBuffer* aPowers[3] = { &b, &tSquare, &tCube };
     SetOne(tWork);
     const BigBuffer& tExp = c;
-    for (unsigned int i = c.Count(); i; i--)
+
+    unsigned int i = c.Count();
+    if (c.Count())
     {
-        unsigned int nDigit = tExp[i - 1];
-        unsigned int nBits = 32;
-        if (i == c.Count())
+        do
         {
-            while (!(nDigit & 0xC0000000))
+            --i;
+            const unsigned int nEnd = tExp.m_array.m_count;
+            unsigned int nDigit = tExp[i];
+            unsigned int nBits = 32;
+            if (i + 1 == nEnd - tExp.m_start)
             {
-                nDigit <<= 2;
-                nBits -= 2;
+                while (!(nDigit & 0xC0000000))
+                {
+                    nDigit <<= 2;
+                    nBits -= 2;
+                }
             }
-        }
-        for (; nBits; nBits -= 2)
-        {
-            sub_00424B00_Square(&tWork, &tWork, &tStack);
-            Div(tQuot, tWork, tWork, d, tStack);
-            sub_00424B00_Square(&tWork, &tWork, &tStack);
-            Div(tQuot, tWork, tWork, d, tStack);
-            if (nDigit >> 30)
-                BigMulMod(tWork, tWork, *aPowers[(nDigit >> 30) - 1], d, tStack);
-            nDigit <<= 2;
-        }
+            for (; nBits > 0; nBits -= 2)
+            {
+                sub_00424B00_Square(&tWork, &tWork, &tStack);
+                Div(tQuot, tWork, tWork, d, tStack);
+                sub_00424B00_Square(&tWork, &tWork, &tStack);
+                Div(tQuot, tWork, tWork, d, tStack);
+                if (nDigit >> 30)
+                    BigMulMod(tWork, tWork, *aPowers[(nDigit >> 30) - 1], d, tStack);
+                nDigit <<= 2;
+            }
+        } while (i);
     }
-    if (&tWork != &a)
+    if (&a != &tWork)
     {
         a.CopyFrom(tWork);
         tStack.nUsed--;
