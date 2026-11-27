@@ -26,7 +26,7 @@ struct D2QuestLogStateStrc
 {
     int nState;
     char unk0x004[4];
-    int f_8;
+    int nMsgCount;
     char unk0x00C[4];
     int nA8;
     char unk0x014[4];

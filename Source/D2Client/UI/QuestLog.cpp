@@ -1709,23 +1709,23 @@ void __cdecl QUESTLOG_DrawQuestPage()
     unsigned char bSpecial = 0;
     if (gtQuestLog_007BF298.nPage < 5)
     {
-        gtQuestLog_007BF298.f_8 = 0;
+        gtQuestLog_007BF298.nMsgCount = 0;
         int nRow = 0;
         unsigned char bDone = 0;
         D2QuestTableStrc* pEntry = gaQuestTable;
         do
         {
             int nSlot = -1;
-            if (pEntry->nPage == gtQuestLog_007BF298.nPage && pEntry->bEnabled && pEntry->nCelId < 0x1B && gtQuestLog_007BF298.apCel[pEntry->nCelId] && gtQuestLog_007BF298.f_8 < 6)
+            if (pEntry->nPage == gtQuestLog_007BF298.nPage && pEntry->bEnabled && pEntry->nCelId < 0x1B && gtQuestLog_007BF298.apCel[pEntry->nCelId] && gtQuestLog_007BF298.nMsgCount < 6)
             {
-                gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].nQuestId = pEntry->nQuestId;
-                TEXT_BuildQuestText(&gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8]);
+                gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.nMsgCount].nQuestId = pEntry->nQuestId;
+                TEXT_BuildQuestText(&gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.nMsgCount]);
                 int nFrame;
-                switch (gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].nState)
+                switch (gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.nMsgCount].nState)
                 {
                 case 0:
-                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].bShown = 1;
-                    nFrame = gtQuestLog_007BF298.anAnim[gtQuestLog_007BF298.f_8];
+                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.nMsgCount].bShown = 1;
+                    nFrame = gtQuestLog_007BF298.anAnim[gtQuestLog_007BF298.nMsgCount];
                     if (nFrame >= 0x19)
                     {
                         nFrame = 0x18;
@@ -1738,21 +1738,21 @@ void __cdecl QUESTLOG_DrawQuestPage()
                     sub_004F6480(&tDraw, gaQuestPos[pEntry->nCelId2].nX + gnPanelOffsetX, gaQuestPos[pEntry->nCelId2].nY - gnPanelOffsetY, -1, 5, 0);
                     {
                         const unsigned int dwTick = GetTickCount();
-                        if (!gtQuestLog_007BF298.anTick[gtQuestLog_007BF298.f_8])
-                            gtQuestLog_007BF298.anTick[gtQuestLog_007BF298.f_8] = dwTick;
-                        if (dwTick - gtQuestLog_007BF298.anTick[gtQuestLog_007BF298.f_8] > 100)
+                        if (!gtQuestLog_007BF298.anTick[gtQuestLog_007BF298.nMsgCount])
+                            gtQuestLog_007BF298.anTick[gtQuestLog_007BF298.nMsgCount] = dwTick;
+                        if (dwTick - gtQuestLog_007BF298.anTick[gtQuestLog_007BF298.nMsgCount] > 100)
                         {
-                            gtQuestLog_007BF298.anTick[gtQuestLog_007BF298.f_8] = dwTick;
-                            gtQuestLog_007BF298.anAnim[gtQuestLog_007BF298.f_8] += 1;
-                            if (gtQuestLog_007BF298.anAnim[gtQuestLog_007BF298.f_8] == 1 && FOG_IsExpansion())
+                            gtQuestLog_007BF298.anTick[gtQuestLog_007BF298.nMsgCount] = dwTick;
+                            gtQuestLog_007BF298.anAnim[gtQuestLog_007BF298.nMsgCount] += 1;
+                            if (gtQuestLog_007BF298.anAnim[gtQuestLog_007BF298.nMsgCount] == 1 && FOG_IsExpansion())
                                 sub_004B9A00(0xE, 0, 0, 0, 0);
                         }
                     }
                     nSlot = pEntry->nCelId2;
-                    gtQuestLog_007BF298.f_8 += 1;
+                    gtQuestLog_007BF298.nMsgCount += 1;
                     break;
                 case 1:
-                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].bShown = 1;
+                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.nMsgCount].bShown = 1;
                     if (gtQuestLog_007BF298.nIndexB5 == pEntry->nCelId2)
                     {
                         tDraw.pCellFile = gtQuestLog_007BF298.pCelDD;
@@ -1767,25 +1767,25 @@ void __cdecl QUESTLOG_DrawQuestPage()
                         sub_004F6480(&tDraw, gaQuestPos[pEntry->nCelId2].nX + gnPanelOffsetX, gaQuestPos[pEntry->nCelId2].nY - gnPanelOffsetY, -1, 5, 0);
                     }
                     nSlot = pEntry->nCelId2;
-                    gtQuestLog_007BF298.f_8 += 1;
+                    gtQuestLog_007BF298.nMsgCount += 1;
                     break;
                 case 2:
-                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].bShown = 1;
+                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.nMsgCount].bShown = 1;
                     tDraw.nFrame = 0x1A;
                     tDraw.pCellFile = gtQuestLog_007BF298.apCel[pEntry->nCelId];
                     sub_004F6480(&tDraw, gaQuestPos[pEntry->nCelId2].nX + gnPanelOffsetX, gaQuestPos[pEntry->nCelId2].nY - gnPanelOffsetY, -1, 5, 0);
                     nSlot = pEntry->nCelId2;
-                    gtQuestLog_007BF298.f_8 += 1;
+                    gtQuestLog_007BF298.nMsgCount += 1;
                     break;
                 case 3:
-                    if (gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].wTitle == 0x3A0 && gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].nStep == 7)
+                    if (gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.nMsgCount].wTitle == 0x3A0 && gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.nMsgCount].nStep == 7)
                         bSpecial = 1;
-                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.f_8].bShown = 1;
+                    gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.nMsgCount].bShown = 1;
                     tDraw.pCellFile = gtQuestLog_007BF298.apCel[pEntry->nCelId];
                     tDraw.nFrame = (gtQuestLog_007BF298.nIndexB5 == pEntry->nCelId2) ? 0x19 : 0;
                     sub_004F6480(&tDraw, gaQuestPos[pEntry->nCelId2].nX + gnPanelOffsetX, gaQuestPos[pEntry->nCelId2].nY - gnPanelOffsetY, -1, 5, 0);
                     nSlot = pEntry->nCelId2;
-                    gtQuestLog_007BF298.f_8 += 1;
+                    gtQuestLog_007BF298.nMsgCount += 1;
                     break;
                 }
 
@@ -1804,7 +1804,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
             }
 
             ++nRow;
-            if (nRow > 0x29 || gtQuestLog_007BF298.f_8 >= 6)
+            if (nRow > 0x29 || gtQuestLog_007BF298.nMsgCount >= 6)
                 bDone = 1;
             ++pEntry;
         }
@@ -1822,10 +1822,10 @@ void __cdecl QUESTLOG_DrawQuestPage()
 
     D2Win_10127_SetFont(8);
     const int nSelected = gtQuestLog_007BF298.nIndexB9;
-    if (nSelected != -1 && nSelected < 6 && nSelected < gtQuestLog_007BF298.f_8)
+    if (nSelected != -1 && nSelected < 6 && nSelected < gtQuestLog_007BF298.nMsgCount)
     {
         int nFound = -1;
-        for (int k = 0; k < gtQuestLog_007BF298.f_8; ++k)
+        for (int k = 0; k < gtQuestLog_007BF298.nMsgCount; ++k)
         {
             if (gtQuestLog_007BF298.aMsgs[k].nCelId == nSelected)
             {

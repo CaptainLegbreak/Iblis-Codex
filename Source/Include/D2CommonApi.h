@@ -283,7 +283,7 @@ D2TextHeaderStrc* __stdcall TEXT_AllocTextHeader(void* pMemPool); // 0x00661240
 void __stdcall TEXT_SortTextNodeListByStringId(D2TextHeaderStrc* pTextHead); // 0x006616E0
 void __stdcall STATLIST_FreeModStats(D2UnitStrc* pUnit); // 0x00625960
 void __stdcall DUNGEON_UpdatePops(D2ActiveRoomStrc* ptRoom, int nX, int nY, int bOtherRoom); // 0x0061ACD0
-int __stdcall ITEMS_UpdateSets(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3, int a4); // 0x00663CC0
+int __stdcall ITEMS_UpdateSets(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nUpdateMode, int bForceStateUpdate); // 0x00663CC0
 int __stdcall ITEMS_GetCompactItemDataFromBitstreamDefault(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
 int __stdcall MISSILE_GetClassId(D2UnitStrc* pMissile); // 0x0064A3E0
 D2HirelingTxt* __stdcall DATATBLS_GetHirelingTxtRecordFromIdAndLevel(int bExpansion, int nId, int nLevel); // 0x006562F0
@@ -296,7 +296,7 @@ int __stdcall D2Common_11016(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00645
 void __stdcall DUNGEON_InitRoomTileAnimation(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom1, D2ActiveRoomStrc* pRoom2); // 0x0061AF10
 void __stdcall UNITS_GetRunAndWalkSpeedForPlayer(int nUnused, int nCharId, int* pWalkSpeed, int* pRunSpeed); // 0x00620E40
 int __stdcall UNITS_IsInMovingModeEx(D2UnitStrc* pUnit); // 0x00622DC0
-void __stdcall UNITS_SetCurrentRoomInvalid(D2UnitStrc* ptUnit, int a2); // 0x00620FA0
+void __stdcall UNITS_SetCurrentRoomInvalid(D2UnitStrc* ptUnit, int bInvalid); // 0x00620FA0
 int __stdcall MONSTERS_GetSpawnMode_XY(D2UnitStrc* pMonster, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0063EA70
 int __stdcall PATH_GetVelocity(D2DynamicPathStrc* pDynamicPath); // 0x006486C0
 int __stdcall SKILLS_GetClassSkillId(int nClassId, int nPosition); // 0x006460F0
@@ -322,11 +322,11 @@ int __stdcall ITEMS_GetSpellIcon(D2UnitStrc* hItem); // 0x0062BB20
 D2MagicAffixDataTbl* __stdcall DATATBLS_GetMagicAffixDataTables(); // 0x00633ED0
 int __stdcall ITEMMODS_CanItemHaveMagicAffix(D2UnitStrc* pItem, const D2MagicAffixTxt* pMagicAffixTxtRecord); // 0x0065E620
 int __stdcall DATATBLS_GetMissileVelocityFromMissilesTxt(int nMissileId, int nLevel); // 0x00663270
-void __stdcall DATATBLS_LoadAllTxts(void* hArchive, int a2, int a3); // 0x00619300
+void __stdcall DATATBLS_LoadAllTxts(void* hArchive, int bLoadFiles, int extra); // 0x00619300
 void __stdcall DATATBLS_UnloadAllBins(); // 0x00619140
 void __cdecl PROFCORE_WriteProfileCounters(); // 0x006116B0
 D2UnitStrc* __stdcall INVENTORY_GetCompositItem(D2InventoryStrc* pInventory, int nComponent); // 0x0063C050
-void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* hUnit, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int a5, D2InventoryStrc* pInventory, int nAnimMode); // 0x0064FA00
+void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* hUnit, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int determine, D2InventoryStrc* pInventory, int nAnimMode); // 0x0064FA00
 unsigned char __stdcall UNITS_GetDirection(D2UnitStrc* pUnit); // 0x00620100
 int __stdcall STATES_CheckStateMaskGreenOnUnit(D2UnitStrc* pUnit); // 0x0063A790
 void __stdcall DUNGEON_AnimateTiles(D2ActiveRoomStrc* pRoom); // 0x0061AEF0
@@ -337,7 +337,7 @@ void __stdcall ENVIRONMENT_InitializeEnvironment(D2DrlgActStrc* pAct, D2ActiveRo
 void __stdcall UNITS_StoreOwnerTypeAndGUID(D2UnitStrc* pUnit, int nOwnerType, int nOwnerId); // 0x00621CC0
 void __stdcall DUNGEON_DecreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619F20
 int __stdcall ITEMS_IsMetalItem(int nItemId); // 0x00629CC0
-int __stdcall D2Common_11025(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStrc* pRoom, int a6); // 0x00645910
+int __stdcall D2Common_11025(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStrc* pRoom, int nCollisionMask); // 0x00645910
 int __stdcall SKILLS_CheckIfCanLeapTo(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int* pX, int* pY); // 0x00645CA0
 void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY); // 0x00643310
 int __stdcall ITEMS_Is1Or2Handed(D2UnitStrc* hPlayer, D2UnitStrc* hItem); // 0x0062A1E0
@@ -382,7 +382,7 @@ int __stdcall ITEMS_GetNoOfSetItemsFromItem(D2UnitStrc* pItem); // 0x0062B3A0
 void __stdcall COLLISION_ResetMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CBE0
 void __stdcall DUNGEON_ChangeClientRoom(D2ActiveRoomStrc* pRoom1, D2ActiveRoomStrc* pRoom2); // 0x0061A110
 void __stdcall D2Common_10077(D2ActiveRoomStrc* pRoom1, D2ActiveRoomStrc* pRoom2); // 0x0061A9F0
-int __stdcall INVENTORY_FreeCorpse(D2InventoryStrc* pInventory, unsigned int nUnitId, unsigned int a3); // 0x0063D4E0
+int __stdcall INVENTORY_FreeCorpse(D2InventoryStrc* pInventory, unsigned int nUnitId, unsigned int bWasCounted); // 0x0063D4E0
 int __fastcall DATATBLS_GetClassFromCharTemplateTxtRecord(int nTemplate, int nLevel); // 0x006657C0
 int __stdcall DATATBLS_MapOldItemIndexToCurrent(int nItemId); // 0x006335A0
 D2DrlgDeleteStrc* __stdcall DUNGEON_GetDrlgDeleteFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A330
