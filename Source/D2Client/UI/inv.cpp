@@ -6,7 +6,6 @@
 #include "D2ClientTypes.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
-#include "D2PongData.h"
 #include "D2Primitives.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -1473,6 +1472,8 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 extern unsigned char gnCharClass; // 0x007A0522
 extern "C" __declspec(dllimport) int __stdcall ReadProcessMemory(void* hProcess, const void* pBaseAddress, void* pBuffer, unsigned long nSize, unsigned long* pBytesRead); // 0x006CC350
 unsigned int __cdecl sub_0044CE70_GetPingAverage(); // 0x0044CE70
+
+#include "D2PongData.h"
 
 
 
