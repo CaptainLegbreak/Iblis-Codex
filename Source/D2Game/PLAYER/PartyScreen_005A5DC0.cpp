@@ -19,8 +19,6 @@ typedef void(__fastcall* PARTYCALLBACK)(D2GameStrc* pGame, D2UnitStrc* pUnit, vo
 
 #include "D2GameFuncs.h"
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer);                                                     // 0x00554630
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
 void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, short nPartyId, PARTYCALLBACK pfCallback, void* pArg); // 0x00540510
 void __fastcall PARTYSCREEN_PartyIterate_OpenHostility(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);                             // 0x005A5D50
 void __fastcall PLAYERLIST_BroadcastFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2);                // 0x0055B4C0

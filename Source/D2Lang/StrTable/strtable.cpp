@@ -1,6 +1,7 @@
 #include "D2Lang.h"
 #include "D2LangTypes.h"
 #include "FogApi.h"
+#include "D2LangApi.h"
 
 #pragma intrinsic(strcmp)
 
@@ -43,8 +44,6 @@ extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
 
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
-
-unsigned short __stdcall STRTABLE_FindString(const char* szKey, const wchar_t** ppText); // 0x00524D30
 
 int __fastcall STRTABLE_GetLanguageIdFromName(const char* szLanguage); // 0x00525100
 
@@ -122,8 +121,6 @@ void* ghExpansionMpq; // 0x008829E4
 extern unsigned short gwCrc16Table_007301D8[0x100];                                                         // 0x007301D8
 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
-
-void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField);                                                 // 0x00525260
 
 void __cdecl STRTABLE_InitUnitSuffixes();                                                               // 0x00525770
 

@@ -2,6 +2,7 @@
 #include "D2StormAutoLink.h"
 #include "D2StormTypes.h"
 #include "D2StormSha1.h"
+#include "StormApi.h"
 
 struct D2StormNodeListStrc;
 
@@ -33,8 +34,6 @@ int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned 
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
 
 int __stdcall SMemCmp(void* pLocation1, void* pLocation2, unsigned int nSize); // 0x0041D200
-
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
 

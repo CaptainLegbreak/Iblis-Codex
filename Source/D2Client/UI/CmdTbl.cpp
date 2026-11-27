@@ -1364,8 +1364,6 @@ void __fastcall GAME_SetRunKeyHeld(int nValue); // 0x0044BE60
 
 
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
 
 
 

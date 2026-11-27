@@ -43,6 +43,7 @@
 #include "D2MissileData.h"
 #include "D2DrlgOutdoor.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #define LVLSUB_UNUSED_INVALID -1
 
@@ -196,17 +197,11 @@ void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, 
 void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc* pUnit); // 0x004DC0B0
 
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
-
 
 
 
 int __fastcall SKILLS_CalcSpecialParamCallback(int nParamId, void* pUserData); // 0x00646BE0
 
-
-void __stdcall SKILLS_RefreshSkill(D2UnitStrc* pUnit, int nSkillId); // 0x00646D60
 
 struct R0052E0F0
 {
@@ -274,8 +269,6 @@ extern const int gnShapeshiftMonModes[]; // 0x006EB308
 int __stdcall D2Common_11014_ConvertShapeShiftedMode(int nArrayIndex, int nMonsterId); // 0x00645190
 
 
-int __stdcall ITEMS_GetWeaponAttackSpeed(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0062A710
-
 
 
 
@@ -287,8 +280,6 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoo
 
 
 
-int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40
-
 
 
 
@@ -298,17 +289,9 @@ int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, in
 
 struct D2SkillFormulaCtxStrc { D2UnitStrc* pUnit; int nSkillId; int nSkillLevel; };
 
-void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643BC0
-
-void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643C50
-
-D2SkillStrc* __stdcall SKILLS_AddSkill(D2UnitStrc* pUnit, int nSkillId); // 0x00647110
-
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
 
 extern "C" const char gszSkillsSourceFile;
-
-D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 
 void __stdcall SKILLS_UpdateChargedSkill(D2UnitStrc* pUnit, int nOwnerGUID, int nSkillId, int nSkillLevel, int nCharges, int bFreeMemory); // 0x00647320
 
@@ -351,8 +334,6 @@ int __stdcall COMPOSIT_IsWeaponBowOrXBow(D2UnitStrc* pUnit); // 0x0064F460
 
 
 
-
-int __stdcall STATLIST_GetMaxDamageFromUnit(D2UnitStrc* pItem, int b2Handed); // 0x00625E60
 
 
 extern "C" void _ReadWriteBarrier(void);
@@ -404,12 +385,6 @@ struct D2ItemsTxt;
 
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 
-short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem); // 0x00629860
-
-short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem); // 0x006298A0
-
-
-D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
 
@@ -420,8 +395,6 @@ int __fastcall MISSILE_GetSkillMissileRange(int nSkillId, int nLevel); // 0x004C
 int __stdcall D2Common_11035(int nSkillLevel, int nSkillId); // 0x00645BC0
 
 int __fastcall SKILLDESC_GetSummonLevel(int nSkillId, int nSkillLevel); // 0x004EFCB0
-
-int __stdcall D2COMMON_11036_GetMonCurseResistanceSubtraction(int nLevel, int nSkillId); // 0x00645C10
 
 int __fastcall SKILLS_GetSkillParam7Formula(int nSkillId, int nSkillLevel); // 0x00643580
 
@@ -438,10 +411,6 @@ int __fastcall SKILLDESC_GetSkillParamFive(int nSkillId); // 0x004E6C70
 
 int __fastcall SKILLDESC_GetSkillParamSix(int nSkillId); // 0x004F4110
 
-int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyMastery); // 0x00644D50
-
-int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyMastery); // 0x00644E40
-
 int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bFlag); // 0x00644F20
 
 int __stdcall D2Common_11032(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nType); // 0x00647E00
@@ -450,21 +419,9 @@ D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId); // 0x004A89D
 
 D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId); // 0x0046ACE0
 
-int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B100
-
-int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
-
-int __stdcall MISSILE_GetElementalLength(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B2A0
-
 static D2SkillStrc* SKILLS_GetHighestLevelSkillFromSkillId(D2UnitStrc* pUnit, int nSkillId);
 
-int __stdcall SKILLS_CheckIfCanLeapTo(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int* pX, int* pY);
-
-int __stdcall SKILLS_GetMaxPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bAddWeaponDamage);
-
 static int __stdcall SKILLS_GetKickDamage(D2UnitStrc* pUnit, int bMin);
-
-int __stdcall SKILLS_GetMinPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bAddWeaponDamage);
 
 int __stdcall sub_00436E90_AlwaysOne(int nArg)
 {
@@ -4313,8 +4270,6 @@ int __stdcall D2Common_11033(int nLevel, int nParam, int nMax)
 
     return nValue;
 }
-
-int __stdcall MISSILE_CheckUnitIfOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x0064A470
 
 // 0x00645B70
 int __stdcall D2Common_11034(int nLevel, int nSkillId)

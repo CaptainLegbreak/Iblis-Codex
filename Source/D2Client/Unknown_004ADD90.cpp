@@ -89,8 +89,6 @@ void __fastcall VIEW_SpawnMissileNearObject(D2UnitStrc* pUnit);                 
 
 
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
 
 
 

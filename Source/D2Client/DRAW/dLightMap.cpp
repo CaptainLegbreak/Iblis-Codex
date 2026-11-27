@@ -510,10 +510,6 @@ struct D2ClientTimedBoxStrc;
 
 
 
-void __stdcall ENVIRONMENT_GetLightColorFromAct(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
-
-int __stdcall ENVIRONMENT_GetIntensityFromAct(void* pAct); // 0x0061C0E0
-
 extern int gbChaosLightEvent; // 0x007A7460
 
 extern D2ClientTimedBoxStrc gtTimedBox; // 0x007A742C

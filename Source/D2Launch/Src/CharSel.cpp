@@ -18,6 +18,8 @@
 #include "D2LaunchRequest.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
+#include "FogApi.h"
 
 static long BNDOWNLOAD_GetTime(long* pTime);
 
@@ -60,8 +62,6 @@ struct D2FuncRecordStrc;
 struct D2LaunchCharEntryStrc;
 
 extern "C" char* __cdecl strstr(const char* szString, const char* szSubString); // 0x00686900
-
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 extern "C" int __stdcall CHARSEL_CreateNotice(const Unicode* pTitle, const Unicode* pText, int nState, unsigned char nSel); // 0x0043A460
 
@@ -184,8 +184,6 @@ void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x006
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 
 
-
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
 void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask); // 0x00648CE0
 
@@ -408,8 +406,6 @@ struct D2ChatMessageStrc
 };
 
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText);                     // 0x006CC200
-
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 
 
 void __cdecl MAINMENUS_DestroyControls();                                                                // 0x0042F3F0
@@ -668,8 +664,6 @@ public:
     int m_nCurGateway;
 };
 
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars);
-
 
 
 
@@ -742,13 +736,7 @@ extern "C" char* __cdecl strtok(char* szText, const char* szDelim); // 0x0068264
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
-void __stdcall sub_00411320_CapitalizeWords(char* szText); // 0x00411320
-
-char* __fastcall FOG_inet_ntoa(int nAddress); // 0x0040E080
-
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
-
-void __cdecl sub_005269D0_FormatText(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
 int __fastcall sub_004FBD20_GetLastRow(D2WinControlStrc* pControl); // 0x004FBD20
 
@@ -931,8 +919,6 @@ extern "C" const char gszLevelFormat[]; // 0x006D4E24
 
 int __cdecl CHARSEL_UpdateSelection(); // 0x004390A0
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-
 
 void __stdcall IMAGE_SetCoordinates(D2WinControlStrc*,int,void*); // 0x004FD0B0
 
@@ -985,8 +971,6 @@ void __cdecl CHATDLG_UpdateCreateButton(); // 0x00443630
 struct D2FileTimeStrc;
 
 struct D2StatusStrc;
-
-void __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);
 
 void __fastcall MAINMENUS_ShowTwoTexts(const Unicode* pText1, const Unicode* pText2, D2LaunchDoneFn pfnDone); // 0x00433130
 

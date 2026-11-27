@@ -568,8 +568,6 @@ struct D2TimeModStrc
         tLoop.nRep += *pRepCost * (nMult) * (nValue) / 1024 + (nAdd);                             \
     }
 
-int __stdcall ITEMS_GetStaffMods(D2UnitStrc* pItem);
-
 #define STAT_MINDAMAGE 21
 
 #define STAT_MAXDAMAGE 22

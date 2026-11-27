@@ -70,10 +70,10 @@ extern unsigned long gadwLogWriteTick[20]; // 0x0075D2F0
 extern void* ghDbgHelpDoneEvent; // 0x0098A6BC
 extern void* ghDbgHelpWorkEvent; // 0x0098A6C0
 int __fastcall FOG_SOCKET_WSACleanup(); // 0x0040D8D0
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned int nBufferSize); // 0x00414E50
+int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars); // 0x00413590
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 int __stdcall sub_006B0144_GetSockAddr(unsigned int s, D2SockAddrInStrc* pAddr, int* pAddrLen); // 0x006B0144
 int __stdcall sub_006B018C_GetSockAddr(unsigned int s, D2SockAddrInStrc* pAddr, int* pAddrLen); // 0x006B018C
 unsigned int __cdecl sub_00410A80_GetTime(); // 0x00410A80
