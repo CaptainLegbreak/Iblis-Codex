@@ -2030,7 +2030,7 @@ D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromIdAndLevel(unsig
 }
 
 // 0x00654E70
-int __stdcall sub_00654E70(int a1, int a2)
+int __stdcall sub_00654E70_Return0(int a1, int a2)
 {
     return 0;
 }

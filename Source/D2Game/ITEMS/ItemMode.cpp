@@ -239,7 +239,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall ITEMMODS_UpdateItemWithSkillCharges(D2UnitStrc* pItem, int nSkillId, int nSkillLevel, int nCharges); // 0x0065C940
 
 
-extern "C" unsigned int __stdcall sub_006280A0(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
 extern "C" char __stdcall ITEMS_GetInventoryPage(D2UnitStrc* pUnit); // 0x00628250
 
@@ -1406,7 +1405,7 @@ void __fastcall D2GAME_ITEMS_UpdateTransferredProperties(D2GameStrc* pGame, D2Un
     }
     ITEMMODE_RemoveItemScrollSkillQuantity(pTarget, pItem);
     if (bUpdateVitals)
-        sub_006275B0(pTarget);
+        STATLIST_ClampStaminaManaHP(pTarget);
 }
 
 // 0x0055C850
@@ -2046,14 +2045,14 @@ int __fastcall ITEMMODE_FindFreeBodyLocation(D2UnitStrc* pUnit, D2UnitStrc* hIte
     D2_ASSERT(hItem, 0x6DD);
     if (bSkipRequirementCheck)
     {
-        if (!ITEMS_IsBodyItem(hItem) || !sub_006280A0(hItem, 0x10, 0x6E2, ".\\ITEMS\\ItemMode.cpp") || !ITEMS_CanBeEquipped(hItem) || ITEMS_GetItemType(hItem) == ITEMTYPE_MISSILE_POTION)
+        if (!ITEMS_IsBodyItem(hItem) || !ITEMS_CheckItemFlag(hItem, 0x10, 0x6E2, ".\\ITEMS\\ItemMode.cpp") || !ITEMS_CanBeEquipped(hItem) || ITEMS_GetItemType(hItem) == ITEMTYPE_MISSILE_POTION)
         {
             return 0;
         }
     }
     else
     {
-        if (!ITEMS_CheckRequirements(hItem, pUnit, 0, 0, 0, 0) || !ITEMS_IsBodyItem(hItem) || !sub_006280A0(hItem, 0x10, 0x6EB, ".\\ITEMS\\ItemMode.cpp") || !ITEMS_CanBeEquipped(hItem) || ITEMS_GetItemType(hItem) == ITEMTYPE_MISSILE_POTION)
+        if (!ITEMS_CheckRequirements(hItem, pUnit, 0, 0, 0, 0) || !ITEMS_IsBodyItem(hItem) || !ITEMS_CheckItemFlag(hItem, 0x10, 0x6EB, ".\\ITEMS\\ItemMode.cpp") || !ITEMS_CanBeEquipped(hItem) || ITEMS_GetItemType(hItem) == ITEMTYPE_MISSILE_POTION)
         {
             return 0;
         }
@@ -2736,7 +2735,7 @@ int __fastcall ITEMMODE_RemoveStoredItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, 
             ITEMS_SetItemFlag(hItem, IFLAG_NEWITEM, 1);
         }
 
-        if (sub_006280A0(hItem, IFLAG_NOEQUIP, 0x978, ".\\ITEMS\\ItemMode.cpp"))
+        if (ITEMS_CheckItemFlag(hItem, IFLAG_NOEQUIP, 0x978, ".\\ITEMS\\ItemMode.cpp"))
         {
             ITEMS_SetItemFlag(hItem, IFLAG_NOEQUIP, 0);
         }
@@ -4138,7 +4137,7 @@ int __fastcall ITEMMODE_UnequipBodyItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, u
 static inline int UNIT_GetMode(D2UnitStrc* pUnit) { return !pUnit ? 0 : pUnit->dwAnimMode; }
 
 // 0x00562660
-int __fastcall D2GAME_ITEMSOCKET_PlaceItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSocketFillerGUID, int nItemGUID, int* bPlaced, int bRefresh, int bResetCursorItem, int bCheckMode, int a9)
+int __fastcall D2GAME_ITEMSOCKET_PlaceItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSocketFillerGUID, int nItemGUID, int* bPlaced, int bRefresh, int bResetCursorItem, int bCheckMode, int bRecharge)
 {
     D2_ASSERT(pGame, 0x13A9);
     *bPlaced = 0;
@@ -4188,7 +4187,7 @@ int __fastcall D2GAME_ITEMSOCKET_PlaceItem(D2GameStrc* pGame, D2UnitStrc* pUnit,
         ITEMMODS_UpdateRuneword(pItem, pFiller, 0);
         ITEMS_ScheduleDurabilityReplenishment(pGame, pItem);
         ITEMS_ScheduleQuantityReplenishment(pGame, pItem);
-        if (a9) D2GAME_RechargeItem(pGame, pUnit, pItem);
+        if (bRecharge) D2GAME_RechargeItem(pGame, pUnit, pItem);
         bRefresh = 1;
     }
     if (bRefresh)
@@ -5043,7 +5042,7 @@ int __fastcall ITEMMODE_SwapCursorAndStoredItem(D2GameStrc* ptGame, D2UnitStrc* 
         ITEMS_SetItemFlag(hGridItem, 1, 1);
     }
 
-    if (sub_006280A0(hGridItem, 0x4000, 0xF22, ".\\ITEMS\\ItemMode.cpp"))
+    if (ITEMS_CheckItemFlag(hGridItem, 0x4000, 0xF22, ".\\ITEMS\\ItemMode.cpp"))
     {
         ITEMS_SetItemFlag(hGridItem, 0x4000, 0);
     }
@@ -5074,7 +5073,7 @@ int __fastcall ITEMMODE_SwapCursorAndStoredItem(D2GameStrc* ptGame, D2UnitStrc* 
                 ITEMS_SetItemFlag(pCursorItem, 1, 1);
             }
 
-            if (sub_006280A0(pCursorItem, 0x4000, 0xF4B, ".\\ITEMS\\ItemMode.cpp"))
+            if (ITEMS_CheckItemFlag(pCursorItem, 0x4000, 0xF4B, ".\\ITEMS\\ItemMode.cpp"))
             {
                 ITEMS_SetItemFlag(pCursorItem, 0x4000, 0);
             }

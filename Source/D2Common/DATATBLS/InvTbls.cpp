@@ -48,7 +48,7 @@ struct D2Record16Strc
     int a[4];
 };
 
-static D2Table96D4F4Record* sub_0065C140(unsigned int nIndex);
+static D2Table96D4F4Record* sub_0065C140_GetInventoryRecord(unsigned int nIndex); // 0x0065C140
 
 // 0x0065B660
 void __fastcall DATATBLS_LoadInventoryTxt(void* hArchive)
@@ -135,13 +135,13 @@ void __fastcall DATATBLS_LoadInventoryTxt(void* hArchive)
 }
 
 // 0x0065C130
-void __fastcall sub_0065C130()
+void __fastcall DATATBLS_UnloadInventoryTxt()
 {
     DATATBLS_UnloadBin(gpTable96D4F4);
 }
 
 // 0x0065C140
-static D2Table96D4F4Record* sub_0065C140(unsigned int nIndex)
+static D2Table96D4F4Record* sub_0065C140_GetInventoryRecord(unsigned int nIndex)
 {
     T4_ASSERT(gpTable96D4F4, 127);
 
@@ -154,27 +154,27 @@ static D2Table96D4F4Record* sub_0065C140(unsigned int nIndex)
 }
 
 // 0x0065C180
-void __stdcall sub_0065C180(int nId, int nGroup, D2Block0* pBlock)
+void __stdcall DATATBLS_GetInventoryRect(int nId, int nGroup, D2Block0* pBlock)
 {
-    D2Table96D4F4Record* pRecord = sub_0065C140(nId + 16 * nGroup);
+    D2Table96D4F4Record* pRecord = sub_0065C140_GetInventoryRecord(nId + 16 * nGroup);
     T4_ASSERT(pRecord, 140);
 
     *pBlock = pRecord->tBlock0;
 }
 
 // 0x0065C1F0
-void __stdcall sub_0065C1F0(int nId, int nGroup, D2Block1* pBlock)
+void __stdcall DATATBLS_GetInventoryGridInfo(int nId, int nGroup, D2Block1* pBlock)
 {
-    D2Table96D4F4Record* pRecord = sub_0065C140(nId + 16 * nGroup);
+    D2Table96D4F4Record* pRecord = sub_0065C140_GetInventoryRecord(nId + 16 * nGroup);
     T4_ASSERT(pRecord, 151);
 
     *pBlock = pRecord->tBlock1;
 }
 
 // 0x0065C270
-void __stdcall sub_0065C270(int nId, int nGroup, D2Block2* pBlock, int nEntry)
+void __stdcall DATATBLS_GetInventoryComponentGrid(int nId, int nGroup, D2Block2* pBlock, int nEntry)
 {
-    D2Table96D4F4Record* pRecord = sub_0065C140(nId + 16 * nGroup);
+    D2Table96D4F4Record* pRecord = sub_0065C140_GetInventoryRecord(nId + 16 * nGroup);
     T4_ASSERT(pRecord, 163);
 
     D2Block2* pEntry = &pRecord->tBlock2[nEntry];

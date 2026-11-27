@@ -266,7 +266,7 @@ int __fastcall SKILLSMON_ChargeFrames(D2UnitStrc* pUnit, int nSkillId, int nSkil
     }
 
     D2UnitStrc* pTarget = PATH_GetTargetUnit(pPath);
-    if (pTarget && sub_00641530(pTarget, pUnit) <= 1)
+    if (pTarget && D2Common_10399(pTarget, pUnit) <= 1)
     {
         SKILLS_SetFlags(pSkill, 0);
         pUnit->dwFrameCountPrecise = pSkillsTxtRecord->dwParam[0] << 8;

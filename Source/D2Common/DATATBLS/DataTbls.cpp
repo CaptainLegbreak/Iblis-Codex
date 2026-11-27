@@ -356,7 +356,7 @@ void __fastcall DATATBLS_LoadBeltsTxt(void* hArchive); // 0x00660290
 
 void __fastcall DATATBLS_LoadMonItemPercentTxt(void* hArchive); // 0x00654F20
 
-void __fastcall sub_0066A270(void* hArchive); // 0x0066A270
+void __fastcall sub_0066A270_Nop(void* hArchive); // 0x0066A270
 
 void __fastcall DATATBLS_LoadCubeMainTxt(void* hArchive); // 0x00669130
 
@@ -535,7 +535,7 @@ void __fastcall DATATBLS_UnloadObjGroupTxt(); // 0x00640F00
 
 void __fastcall DATATBLS_UnloadShrinesTxt(); // 0x00641510
 
-void __fastcall sub_0065C130(); // 0x0065C130
+void __fastcall DATATBLS_UnloadInventoryTxt(); // 0x0065C130
 
 void __fastcall DATATBLS_UnloadRunesTxt(); // 0x00639C90
 
@@ -1886,7 +1886,7 @@ void __stdcall DATATBLS_UnloadAllBins()
     DATATBLS_UnloadObjectsTxt();
     DATATBLS_UnloadObjGroupTxt();
     DATATBLS_UnloadShrinesTxt();
-    sub_0065C130();
+    DATATBLS_UnloadInventoryTxt();
     DATATBLS_UnloadRunesTxt();
     DATATBLS_FreeCollisionFieldTable();
     DATATBLS_UnloadBeltsTxt();
@@ -1954,7 +1954,7 @@ void __stdcall DATATBLS_LoadAllTxts(void* hArchive, int bLoadFiles, int extra)
     DATATBLS_LoadExpFieldD2(hArchive);
     DATATBLS_LoadBeltsTxt(hArchive);
     DATATBLS_LoadMonItemPercentTxt(hArchive);
-    sub_0066A270(hArchive);
+    sub_0066A270_Nop(hArchive);
     DATATBLS_LoadCubeMainTxt(hArchive);
     DATATBLS_LoadDifficultyLevelsTxt(hArchive);
     DATATBLS_UnloadSoundsTxt();

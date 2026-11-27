@@ -628,7 +628,6 @@ class BNGatewayAccess;
 void __cdecl CHARSEL_CreateCharListControls(); // 0x0043A800
 
 
-extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 
 
 void __cdecl CHARSEL_FreeCharList(); // 0x00438EA0
@@ -885,7 +884,6 @@ static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStat
 
 #pragma intrinsic(strlen)
 
-extern "C" __declspec(dllimport) void* __stdcall FindFirstFileA(const char* szFileName, D2FindDataStrc* pFindData);
 
 extern "C" __declspec(dllimport) int __stdcall FindNextFileA(void* hFindFile, D2FindDataStrc* pFindData);
 
@@ -932,7 +930,6 @@ void __stdcall sub_00505360_SetAnimFlags(void*,unsigned int); // 0x00505360
 
 extern void* ganSlotY[]; // 0x007799FC
 
-extern "C" __declspec(dllimport) int __stdcall FindClose(void* hFindFile);                                  // 0x006CC1D8
 
 extern int gnGlobal_007795EC;                                                                               // 0x007795EC
 

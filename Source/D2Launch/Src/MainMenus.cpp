@@ -765,7 +765,6 @@ extern D2ConfigStrc* gpConfig_007795D4; // 0x007795D4
 
 extern "C" const char gszMainMenusFile[]; // 0x006D41C0
 
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 
 int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
@@ -1145,7 +1144,6 @@ int gnGlobal_00779DA4; // 0x00779DA4
 
 
 
-extern "C" __declspec(dllimport) int __stdcall GetDiskFreeSpaceA(const char* szRootPathName, unsigned long* pnSectorsPerCluster, unsigned long* pnBytesPerSector, unsigned long* pnFreeClusters, unsigned long* pnTotalClusters); // 0x006CC270
 
 
 

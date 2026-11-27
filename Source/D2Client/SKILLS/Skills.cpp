@@ -2333,7 +2333,7 @@ int __fastcall SKILLS_ScatterRequestsAroundTarget(D2UnitStrc* pMissile, int nMis
     {
         const int nX = SEED_RollLimitedRandomNumberInline(pSeed, 2 * nRange) - nRange + nTargetX;
         const int nY = SEED_RollLimitedRandomNumberInline(pSeed, 2 * nRange) - nRange + nTargetY;
-        if (sub_006492A0(CLIENTS_GetUnitXInline(pMissile), CLIENTS_GetUnitYInline(pMissile), nX, nY) >= 4)
+        if (PATH_ComputeSquaredDistance(CLIENTS_GetUnitXInline(pMissile), CLIENTS_GetUnitYInline(pMissile), nX, nY) >= 4)
         {
             MISSILE_SubmitOffsetRequest(pMissile, nMissile, 0, 0, nX, nY, nSkill, nSkillLevel, 0);
         }

@@ -227,12 +227,12 @@ void __stdcall ITEMS_InitItemSeed(D2UnitStrc* pItem); // 0x00627DC0
 unsigned int __stdcall ITEMS_GetItemStartSeed(D2UnitStrc* pItem); // 0x00627DF0
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 void __stdcall ITEMS_SetItemQuality(D2UnitStrc* pItem, unsigned int dwQuality); // 0x00627EA0
-void __stdcall sub_00627EF0(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo); // 0x00627EF0
+void __stdcall ITEMS_AssignPrefix(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo); // 0x00627EF0
 unsigned short __stdcall ITEMS_GetSuffixId(D2UnitStrc* pItem, int nSuffixNo); // 0x00627F80
-void __stdcall sub_00627FB0(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo); // 0x00627FB0
+void __stdcall ITEMS_AssignSuffix(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo); // 0x00627FB0
 unsigned short __stdcall ITEMS_GetRarePrefixIndex(D2UnitStrc* pItem); // 0x00627FE0
 unsigned short __stdcall ITEMS_GetRareSuffixIndex(D2UnitStrc* pItem); // 0x00628040
-void __stdcall sub_00628070(D2UnitStrc* pItem, unsigned short nSuffix); // 0x00628070
+void __stdcall ITEMS_AssignRareSuffix(D2UnitStrc* pItem, unsigned short nSuffix); // 0x00628070
 void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 void __stdcall ITEMS_SetItemLevel(D2UnitStrc* pItem, int nItemLevel); // 0x00628220
 char __stdcall ITEMS_GetInventoryPage(D2UnitStrc* pItem); // 0x00628250
@@ -358,7 +358,7 @@ int __stdcall D2COMMON_10209_PathCheckPathingFlag(D2DynamicPathStrc* pDynamicPat
 extern "C" void __stdcall PATH_SetNumberOfPathPoints(Obj00648790* pObj, int nValue); // 0x00648790
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pDynamicPath); // 0x006487F0
 void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char bDir); // 0x00648820
-extern "C" void __stdcall sub_006488A0(Obj006488A0* pObj, unsigned char nValue); // 0x006488A0
+extern "C" void __stdcall PATH_SetDirection(Obj006488A0* pObj, unsigned char nValue); // 0x006488A0
 extern "C" unsigned int __stdcall PATH_GetFinalTargetX(Obj00648A20* pObj); // 0x00648A20
 extern "C" unsigned int __stdcall PATH_GetFinalTargetY(Obj00648A30* pObj); // 0x00648A30
 extern "C" unsigned int __stdcall PATH_GetLastPointX(Obj00648A40* pObj); // 0x00648A40
@@ -381,7 +381,7 @@ extern "C" int __stdcall PATH_GetStepNum(Obj006490A0* pObj); // 0x006490A0
 void __stdcall PATH_SetDistance(D2DynamicPathStrc* pDynamicPath, int nDist); // 0x006490E0
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
 extern "C" void __stdcall PATH_SetUnitCollisionPattern(UnitView* unit,int collisionPattern); // 0x00649190
-extern "C" int __stdcall sub_006492A0(int nX1, int nY1, int nX2, int nY2); // 0x006492A0
+int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); // 0x006492A0
 void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit); // 0x00649400
 void __stdcall D2Common_10216(D2DynamicPathStrc* pDynamicPath, int nX, int nY, int bSetBothDirections); // 0x00649EF0
 void __stdcall PATH_AddCollisionFootprintForOptionalUnit(D2UnitStrc* pUnit); // 0x0064A0E0
@@ -411,8 +411,8 @@ void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, i
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 void __stdcall D2Common_10235_PATH_UpdateRiderPath(D2UnitStrc* pRiderUnit, D2UnitStrc* pMountUnit); // 0x006505E0
 int __fastcall SEED_GetRandomValue(int nValue); // 0x00650DE0
-extern "C" void __fastcall sub_00650E60(Pair00650E60* pPair, unsigned int dwFirst, unsigned int dwSecond); // 0x00650E60
-extern "C" void __fastcall sub_00650E70(Pair00650E70* pPair, unsigned int* pFirst, unsigned int* pSecond); // 0x00650E70
+extern "C" void __fastcall SEED_SetSeeds(Pair00650E60* pPair, unsigned int dwFirst, unsigned int dwSecond); // 0x00650E60
+extern "C" void __fastcall SEED_GetSeeds(Pair00650E70* pPair, unsigned int* pFirst, unsigned int* pSecond); // 0x00650E70
 D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromIdAndLevel(unsigned short wTCId, int nLvl); // 0x00654E00
 D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromActAndDifficulty(int nDifficulty, int nAct, int nIndex); // 0x00654E80
 D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId); // 0x006556E0
@@ -423,9 +423,9 @@ D2MonSoundsTxt* __stdcall DATATBLS_GetMonSoundsTxtRecordFromMonsterId(int nMonst
 int __stdcall UNITFINDS_TestUnit(D2UnitStrc* unit,D2UnitFindArgStrc* args); // 0x0065AA40
 D2TokRecord* __stdcall DATATBLS_GetCompositTxtRecord(int nComposit); // 0x0065B5E0
 D2TokRecord* __stdcall DATATBLS_GetArmTypeTxtRecord(int nId); // 0x0065B620
-void __stdcall sub_0065C180(int nId, int nGroup, D2Block0* pBlock); // 0x0065C180
-void __stdcall sub_0065C1F0(int nId, int nGroup, D2Block1* pBlock); // 0x0065C1F0
-void __stdcall sub_0065C270(int nId, int nGroup, D2Block2* pBlock, int nEntry); // 0x0065C270
+void __stdcall DATATBLS_GetInventoryRect(int nId, int nGroup, D2Block0* pBlock); // 0x0065C180
+void __stdcall DATATBLS_GetInventoryGridInfo(int nId, int nGroup, D2Block1* pBlock); // 0x0065C1F0
+void __stdcall DATATBLS_GetInventoryComponentGrid(int nId, int nGroup, D2Block2* pBlock, int nEntry); // 0x0065C270
 void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* hQuestRecord, int nQuest, int nState); // 0x0065C3A0
 int __stdcall ITEMMODS_GetItemCharges(D2UnitStrc* pItem, int nSkillId, int nSkillLevel, int* pValue, D2StatListStrc** ppStatList); // 0x0065C820
 int __stdcall ITEMMODS_UpdateItemWithSkillCharges(D2UnitStrc* pItem, int nSkillId, int nSkillLevel, int nCharges); // 0x0065C940

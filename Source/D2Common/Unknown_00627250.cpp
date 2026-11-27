@@ -120,7 +120,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned
 }
 
 // 0x006275B0
-void __stdcall sub_006275B0(D2UnitStrc* pUnit)
+void __stdcall STATLIST_ClampStaminaManaHP(D2UnitStrc* pUnit)
 {
     if (!pUnit || !pUnit->pStatListEx)
     {

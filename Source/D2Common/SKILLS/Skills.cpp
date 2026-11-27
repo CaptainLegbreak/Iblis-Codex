@@ -626,7 +626,7 @@ inline void* UNITS_GetMemoryPool(D2UnitStrc* pUnit)
     return !pUnit ? 0 : pUnit->pMemoryPool;
 }
 
-inline int sub_0044BE50(D2UnitStrc* pUnit)
+inline int GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit)
 {
     return !pUnit ? 6 : pUnit->dwUnitType;
 }
@@ -645,7 +645,7 @@ static D2StatListStrc* __stdcall SKILLS_GetOrRemoveStateStatList(D2UnitStrc* pUn
     {
         if (!pStatList)
         {
-            pStatList = STATLIST_AllocStatList(UNITS_GetMemoryPool(pUnit), 0, 0, sub_0044BE50(pUnit), UNITS_GetUnitId(pUnit));
+            pStatList = STATLIST_AllocStatList(UNITS_GetMemoryPool(pUnit), 0, 0, GAME_GetUnitTypeOrInvalid(pUnit), UNITS_GetUnitId(pUnit));
             STATLIST_SetState(pStatList, nState);
             D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
         }
@@ -4517,7 +4517,7 @@ int __stdcall SKILLS_RemoveTransformStatesFromShapeshiftedUnit(D2UnitStrc* pUnit
 }
 
 // 0x006460B0
-extern "C" void __stdcall sub_006460B0(unsigned arg0,unsigned arg1,unsigned arg2) {}
+extern "C" void __stdcall sub_006460B0_Nop(unsigned arg0,unsigned arg1,unsigned arg2) {}
 
 // 0x006460C0
 void __stdcall sub_006460C0_Empty(int nUnused)

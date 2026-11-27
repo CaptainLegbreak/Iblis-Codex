@@ -7,7 +7,7 @@
 
 #include "D2DrlgRooms.h"
 
-static D2DrlgPathNodeStrc* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal);
+static D2DrlgPathNodeStrc* __stdcall sub_00681630_SearchRoad(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
@@ -21,7 +21,7 @@ extern const char gPathStepY[4]; // 0x006F2850
 extern const char gPathStepX[4]; // 0x006F2854
 
 // 0x00681490
-static D2DrlgPathNodeStrc* sub_00681490(D2DrlgPathSearchStrc* pSearch)
+static D2DrlgPathNodeStrc* sub_00681490_AllocPathNode(D2DrlgPathSearchStrc* pSearch)
 {
     if (pSearch->nNodes == 900)
     {
@@ -34,7 +34,7 @@ static D2DrlgPathNodeStrc* sub_00681490(D2DrlgPathSearchStrc* pSearch)
 }
 
 // 0x006814E0
-static int __stdcall sub_006814E0(int nX1, int nY1, int nX2, int nY2)
+static int __stdcall sub_006814E0_EstimateCost(int nX1, int nY1, int nX2, int nY2)
 {
     int nDiffX = nX1 - nX2;
     if (nDiffX < 0)
@@ -54,20 +54,20 @@ static int __stdcall sub_006814E0(int nX1, int nY1, int nX2, int nY2)
 }
 
 // 0x00681510
-static int __stdcall sub_00681510(D2DrlgPathNodeStrc* pNode, int nX, int nY)
+static int __stdcall sub_00681510_GetStepCost(D2DrlgPathNodeStrc* pNode, int nX, int nY)
 {
     return (pNode->nX == nX || pNode->nY == nY) ? 2 : 3;
 }
 
 // 0x00681540
-static const unsigned char* __stdcall sub_00681540(unsigned char nDirection, unsigned char nBase)
+static const unsigned char* __stdcall sub_00681540_GetTurnTable(unsigned char nDirection, unsigned char nBase)
 {
     return gPathTurns[(unsigned char)(nDirection - nBase) & 3];
 }
 
 
 // 0x00681560
-static D2DrlgPathNodeStrc* __stdcall sub_00681560(D2DrlgPathNodeStrc* pNode, D2DrlgPathNodeStrc** ppStart)
+static D2DrlgPathNodeStrc* __stdcall sub_00681560_NextTurn(D2DrlgPathNodeStrc* pNode, D2DrlgPathNodeStrc** ppStart)
 {
     if (pNode->nTried < 4)
     {
@@ -93,7 +93,7 @@ static D2DrlgPathNodeStrc* __stdcall sub_00681560(D2DrlgPathNodeStrc* pNode, D2D
 }
 
 // 0x006815C0
-static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2DrlgLevelStrc* pLevel, D2DrlgPathNodeStrc* pNode)
+static int __stdcall sub_006815C0_CanStep(D2DrlgVertexStrc* pGoal, int nX, int nY, D2DrlgLevelStrc* pLevel, D2DrlgPathNodeStrc* pNode)
 {
     if (nX == pGoal->nPosX && nY == pGoal->nPosY)
     {
@@ -118,7 +118,7 @@ static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2Drl
 }
 
 // 0x00681630
-static D2DrlgPathNodeStrc* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal)
+static D2DrlgPathNodeStrc* __stdcall sub_00681630_SearchRoad(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal)
 {
     D2DrlgPathNodeStrc* pNode = pSearch->pStart;
     int nGoalX = pGoal->nPosX;
@@ -133,9 +133,9 @@ static D2DrlgPathNodeStrc* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch,
 
         int nX = gPathStepX[pNode->nDirection] + pNode->nX;
         int nY = gPathStepY[pNode->nDirection] + pNode->nY;
-        if (!sub_006815C0(pGoal, nX, nY, pLevel, pNode))
+        if (!sub_006815C0_CanStep(pGoal, nX, nY, pLevel, pNode))
         {
-            pNode = sub_00681560(pNode, &pSearch->pStart);
+            pNode = sub_00681560_NextTurn(pNode, &pSearch->pStart);
             if (!pNode)
             {
                 return 0;
@@ -143,7 +143,7 @@ static D2DrlgPathNodeStrc* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch,
             continue;
         }
 
-        int nSpent = pNode->nSpent + sub_00681510(pNode, nX, nY);
+        int nSpent = pNode->nSpent + sub_00681510_GetStepCost(pNode, nX, nY);
 
         const int rawX = nX - nGoalX;
         int dx = rawX < 0 ? -rawX : rawX;
@@ -160,7 +160,7 @@ static D2DrlgPathNodeStrc* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch,
         int nCost = nEstimate + nSpent;
         if (nCost > nMaxCost)
         {
-            pNode = sub_00681560(pNode, &pSearch->pStart);
+            pNode = sub_00681560_NextTurn(pNode, &pSearch->pStart);
             if (!pNode)
             {
                 return 0;
@@ -170,7 +170,7 @@ static D2DrlgPathNodeStrc* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch,
 
         if (!pNode->pChild)
         {
-            pNode->pChild = sub_00681490(pSearch);
+            pNode->pChild = sub_00681490_AllocPathNode(pSearch);
             if (!pNode->pChild)
             {
                 return 0;
@@ -184,7 +184,7 @@ static D2DrlgPathNodeStrc* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch,
         pNode->nSpent = nSpent;
         pNode->nTried = 0;
         int nBase = PATH_GetFirstDirectionXY(nX, nY, nGoalX, nGoalY) / 2;
-        pNode->pTurn = sub_00681540(pNode->pParent->nDirection, nBase);
+        pNode->pTurn = sub_00681540_GetTurnTable(pNode->pParent->nDirection, nBase);
         pNode->nDirection = (*pNode->pTurn + nBase) & 3;
         pNode->nX = nX;
         pNode->nY = nY;
@@ -207,16 +207,16 @@ D2DrlgPathNodeStrc* __stdcall sub_M_Emit_006814E0(D2DrlgPathSearchStrc* pSearch,
 
         int nX = gPathStepX[pNode->nDirection] + pNode->nX;
         int nY = gPathStepY[pNode->nDirection] + pNode->nY;
-        if (sub_006815C0(pGoal, nX, nY, pLevel, pNode))
+        if (sub_006815C0_CanStep(pGoal, nX, nY, pLevel, pNode))
         {
-            int nSpent = pNode->nSpent + sub_00681510(pNode, nX, nY);
-            int nEstimate = sub_006814E0(nX, nY, nGoalX, nGoalY);
+            int nSpent = pNode->nSpent + sub_00681510_GetStepCost(pNode, nX, nY);
+            int nEstimate = sub_006814E0_EstimateCost(nX, nY, nGoalX, nGoalY);
             int nCost = nEstimate + nSpent;
             if (nCost <= nMaxCost)
             {
                 if (!pNode->pChild)
                 {
-                    pNode->pChild = sub_00681490(pSearch);
+                    pNode->pChild = sub_00681490_AllocPathNode(pSearch);
                     if (!pNode->pChild)
                     {
                         return 0;
@@ -230,7 +230,7 @@ D2DrlgPathNodeStrc* __stdcall sub_M_Emit_006814E0(D2DrlgPathSearchStrc* pSearch,
                 pNode->nSpent = nSpent;
                 pNode->nTried = 0;
                 int nBase = PATH_GetFirstDirectionXY(nX, nY, nGoalX, nGoalY) / 2;
-                pNode->pTurn = sub_00681540(pNode->pParent->nDirection, nBase);
+                pNode->pTurn = sub_00681540_GetTurnTable(pNode->pParent->nDirection, nBase);
                 pNode->nDirection = (*pNode->pTurn + nBase) & 3;
                 pNode->nX = nX;
                 pNode->nY = nY;
@@ -238,7 +238,7 @@ D2DrlgPathNodeStrc* __stdcall sub_M_Emit_006814E0(D2DrlgPathSearchStrc* pSearch,
             }
         }
 
-        pNode = sub_00681560(pNode, &pSearch->pStart);
+        pNode = sub_00681560_NextTurn(pNode, &pSearch->pStart);
         if (!pNode)
         {
             return 0;
@@ -247,7 +247,7 @@ D2DrlgPathNodeStrc* __stdcall sub_M_Emit_006814E0(D2DrlgPathSearchStrc* pSearch,
 }
 
 // 0x006817D0
-int __fastcall sub_006817D0(D2DrlgLevelStrc* pLevel, int nRoad)
+int __fastcall sub_006817D0_BuildRoad(D2DrlgLevelStrc* pLevel, int nRoad)
 {
     void* pMemPool = pLevel->pDrlg->pMempool;
     D2DrlgVertexStrc tGoal = {};
@@ -311,7 +311,7 @@ int __fastcall sub_006817D0(D2DrlgLevelStrc* pLevel, int nRoad)
     do
     {
         *tSearch.pStart = tStart;
-        D2DrlgPathNodeStrc* pNode = sub_00681630(&tSearch, nMaxCost, pLevel, &tGoal);
+        D2DrlgPathNodeStrc* pNode = sub_00681630_SearchRoad(&tSearch, nMaxCost, pLevel, &tGoal);
         nMaxCost += 5;
         if (tSearch.nNodes >= 900)
         {

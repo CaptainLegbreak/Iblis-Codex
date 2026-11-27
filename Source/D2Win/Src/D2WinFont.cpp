@@ -27,7 +27,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);           // 0x006CC468
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 

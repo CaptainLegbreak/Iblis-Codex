@@ -696,7 +696,7 @@ enum { ALLOC_FLAG = 8 };
 struct D2Object00610D30Strc
 {
     ~D2Object00610D30Strc(); // 0x00610AA0
-    void* sub_00610D30(unsigned int nFlags);
+    void* sub_00610D30_Delete(unsigned int nFlags);
     static void operator delete(void* pMemory)
     {
         if (pMemory)
@@ -2545,7 +2545,7 @@ int D2CommonStormHashTableBStrc::IGNORELIST_MonitorMappingTableFullness(unsigned
 }
 
 // 0x00610D30
-void* D2Object00610D30Strc::sub_00610D30(unsigned int nFlags)
+void* D2Object00610D30Strc::sub_00610D30_Delete(unsigned int nFlags)
 {
     this->~D2Object00610D30Strc();
     if (nFlags & 1)

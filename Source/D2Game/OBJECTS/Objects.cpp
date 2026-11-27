@@ -22,6 +22,7 @@
 #include "D2CommonApi.h"
 #include "FogApi.h"
 #include "D2CommonApi2.h"
+#include "D2TxtItems.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -52,10 +53,6 @@ struct D2ObjInitFnStrc;
 struct D2LevelsTxt;
 
 struct D2ObjectTableStrc;
-
-struct ObjectData;
-
-struct InitContext;
 
 struct D2LvlWarpTxt;
 
@@ -123,47 +120,6 @@ int __fastcall ACT2Q6_GetObjectIdForArcaneThing(D2GameStrc* pGame); // 0x0059D83
 
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
-struct Seed
-{
-    unsigned int lo;
-    unsigned int hi;
-};
-
-struct Unit
-{
-    int type;
-    int classId;
-    void* pool;
-    int id;
-    int mode;
-    ObjectData* data;
-    char reserved24[N20];
-    Path* path;
-    char reserved48[N148];
-    unsigned int flags;
-};
-
-struct Room
-{
-    char reserved0[N108];
-    Seed seed;
-};
-
-struct InitContext
-{
-    Game* game;
-    Unit* object;
-    Room* room;
-    Seed* control;
-    ObjectRecord* record;
-    int x;
-    int y;
-};
-
-Unit* __stdcall sub_00550A30_Spawn(Game*,int,int,int,Room*,int,int,Permit); // 0x00550A30
-
-unsigned int __stdcall DUNGEON_GetLevelIdFromRoom(Room*); // 0x0061A1B0
-
 
 void __fastcall OBJECTS_InitFunction02_Urn(D2ObjInitFnStrc* pOp); // 0x0054FBB0
 
@@ -206,7 +162,6 @@ struct R00601DC0
 void __fastcall OBJECTS_FreeTimerArg(D2GameStrc* pGame, D2TimerArgStrc* pTimerArg); // 0x0054F580
 
 
-#define GAMEV (game)
 
 struct D2DrlgCoordsStrc;
 
@@ -420,7 +375,9 @@ D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* 
 
 #define D2_MAX(a,b) ((a)>(b)?(a):(b))
 
-typedef char (__fastcall* D2ObjectSpawnCallback)(D2GameStrc* pGame, int nArg, int nX, int nY);
+#define UNITFLAG_TARGETABLE 0x02
+
+typedef bool (__fastcall* D2ObjectSpawnCallback)(D2GameStrc* pGame, int nArg, int nX, int nY);
 
 typedef bool (__fastcall* OBJRGN_SpawnCheckFn)(D2GameStrc* pGame, int nLevelId, int nX, int nY);
 
@@ -440,7 +397,7 @@ extern int gnUrnClusterIds[]; // 0x00731D64
 
 D2UnitStrc* __fastcall OBJECTS_PopulateFn7_RogueOnStick(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char nDensity, unsigned int nObjectId, unsigned short nProbability);
 
-Unit* __fastcall OBJECTS_PopulateFn2_WaypointShrine(Game* game,Room* room,int unusedGroup,int classId,unsigned short probability);
+D2UnitStrc* __fastcall OBJECTS_PopulateFn2_WaypointShrine(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nUnused, int nObjectId, unsigned short nProbability);
 
 int __fastcall OBJECTS_SpawnBarrel(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords);
 
@@ -457,11 +414,11 @@ static int __stdcall OBJECTS_PopulateRoomTheme(D2GameStrc* pGame, D2ActiveRoomSt
 static int __stdcall OBJECTS_CanPopulateRoom(D2GameStrc* pGame, D2LevelsTxt* pLevelsTxtRecord, D2ActiveRoomStrc* pRoom);
 
 
-static int __stdcall OBJECTS_GetShrineId(Game* game,unsigned int level,Room* room,unsigned char category);
+static int __stdcall OBJECTS_GetShrineId(D2GameStrc* pGame, unsigned int nLevelId, D2ActiveRoomStrc* pRoom, unsigned char nShrineClass);
 
-void __fastcall OBJECTS_InitFunction01_Shrine(InitContext* context);
+void __fastcall OBJECTS_InitFunction01_Shrine(D2ObjInitFnStrc* pOp);
 
-static void __cdecl OBJECTS_ApplySubclassClassId(Unit* unit);
+static void __cdecl OBJECTS_ApplySubclassClassId(D2UnitStrc* pUnit);
 
 void __stdcall DUNGEON_GetRoomCoordinates_Local(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords);
 
@@ -781,67 +738,67 @@ void __fastcall OBJECTS_InitFunction10_Unused(D2ObjInitFnStrc* pOp)
     }
 }
 
-static inline unsigned int Roll(Seed* seed)
+static inline unsigned int OBJECTS_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
-    unsigned __int64 value = (unsigned __int64)seed->hi + (unsigned __int64)seed->lo * NRNG;
-    seed->hi = (unsigned int)(value >> N32);
-    seed->lo = (unsigned int)value;
-    return (unsigned int)value;
+    const unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
 }
 
-static inline unsigned int Limited(Seed* seed,int maximum)
+static inline unsigned int OBJECTS_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
-    if (maximum <= N0)
-        return N0;
-    if (maximum & (maximum - N1))
-        return Roll(seed) % maximum;
-    return Roll(seed) & (maximum - N1);
+    if (nMax <= 0)
+        return 0;
+    if (nMax & (nMax - 1))
+        return OBJECTS_RollRandomNumberInline(pSeed) % nMax;
+    return OBJECTS_RollRandomNumberInline(pSeed) & (nMax - 1);
 }
 
 // 0x0054F770
-static int __stdcall OBJECTS_GetShrineId(Game* game,unsigned int level,Room* room,unsigned char category)
+static int __stdcall OBJECTS_GetShrineId(D2GameStrc* pGame, unsigned int nLevelId, D2ActiveRoomStrc* pRoom, unsigned char nShrineClass)
 {
-    if (!category || category > N4)
-        category = N2;
-    ShrineLists* lists = OBJRGN_GetShrineDataFromGame(game);
-    if (lists->counts[category])
+    if (!nShrineClass || nShrineClass > 4)
+        nShrineClass = 2;
+    D2ShrineDataStrc* pShrineData = OBJRGN_GetShrineDataFromGame(pGame);
+    if (pShrineData->nShrineSubTypes[nShrineClass])
     {
-        int retries = N8;
-        int choice;
+        int nRetries = 8;
+        int nShrineId;
         do
         {
-            int count = lists->counts[category];
-            Seed* seed = sub_00546FA0_Control(game,room);
-            unsigned int index = Limited(seed,count);
-            choice = lists->lists[category][index];
-            if (!choice)
-                choice = N1;
-            if (level >= sub_006414B0_ShrineRecord(choice)->minimumLevel)
+            const int nShrineSubTypes = pShrineData->nShrineSubTypes[nShrineClass];
+            D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, pRoom);
+            const unsigned int nIndex = OBJECTS_RollLimitedRandomNumberInline(&pObjectControl->pSeed, nShrineSubTypes);
+            nShrineId = pShrineData->pShrineSubTypeIds[nShrineClass][nIndex];
+            if (!nShrineId)
+                nShrineId = 1;
+            if (nLevelId >= DATATBLS_GetShrinesTxtRecord(nShrineId)->dwLevelMin)
                 break;
-            --retries;
-        } while (retries > N0);
-        return choice;
+            --nRetries;
+        } while (nRetries > 0);
+        return nShrineId;
     }
-    FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),N716);
-    exit(NNEG1);
+    FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),716);
+    exit(-1);
 }
 
-static inline int CoordinateX(Unit* object)
+static inline int OBJECTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
-    if (object->type == N2 || (object->type > N3 && object->type <= N5))
-        return object->path->x;
-    if (object->path)
-        return sub_006488C0_PathX(object->path);
-    return N0;
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
+        return pUnit->pStaticPath->nXPos;
+    if (pUnit->pDynamicPath)
+        return PATH_GetXPosition(pUnit->pDynamicPath);
+    return 0;
 }
 
-static inline int CoordinateY(Unit* object)
+static inline int OBJECTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
-    if (object->type == N2 || (object->type > N3 && object->type <= N5))
-        return object->path->y;
-    if (object->path)
-        return sub_00648900_PathY(object->path);
-    return N0;
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > UNIT_MISSILE && pUnit->dwUnitType <= UNIT_TILE))
+        return pUnit->pStaticPath->nYPos;
+    if (pUnit->pDynamicPath)
+        return PATH_GetYPosition(pUnit->pDynamicPath);
+    return 0;
 }
 
 // 0x00552830
@@ -947,48 +904,48 @@ static int __stdcall OBJECTS_CanPopulateRoom(D2GameStrc* pGame, D2LevelsTxt* pLe
 }
 
 // 0x0054F9D0
-void __fastcall OBJECTS_InitFunction01_Shrine(InitContext* context)
+void __fastcall OBJECTS_InitFunction01_Shrine(D2ObjInitFnStrc* pOp)
 {
-    int mode = context->record->selection;
-    unsigned int level = DUNGEON_GetLevelIdFromRoom(context->room);
-    int choice;
-    if (mode)
+    const int nSelection = pOp->pObjectTxt->dwParm[0];
+    const unsigned int nLevelId = DUNGEON_GetLevelIdFromRoom(pOp->pRoom);
+    int nShrineId;
+    if (nSelection)
     {
-        int category;
-        switch (mode)
+        int nShrineClass;
+        switch (nSelection)
         {
-        case N1: category = N2; break;
-        case N2: category = N3; break;
+        case 1: nShrineClass = 2; break;
+        case 2: nShrineClass = 3; break;
         default:
-            category = N4;
-            if (!(Roll(context->control) % N10))
-                category = N1;
+            nShrineClass = 4;
+            if (!(OBJECTS_RollRandomNumberInline(&pOp->pObjectregion->pSeed) % 10))
+                nShrineClass = 1;
             break;
         }
-        choice = OBJECTS_GetShrineId(context->game,level,context->room,(unsigned char)category);
+        nShrineId = OBJECTS_GetShrineId(pOp->pGame, nLevelId, pOp->pRoom, (unsigned char)nShrineClass);
     }
     else
     {
-        int retries = N8;
-        const unsigned int randomLevel = DUNGEON_GetLevelIdFromRoom(context->room);
+        int nRetries = 8;
+        const unsigned int nRandomLevelId = DUNGEON_GetLevelIdFromRoom(pOp->pRoom);
         do
         {
 // build: symbol ?DATATBLS_GetShrinesTxtRecordCount@* 0x00641500
-            int count = DATATBLS_GetShrinesTxtRecordCount() - N1;
-            choice = Limited(context->control,count) + N1;
-            if (randomLevel >= sub_006414B0_ShrineRecord(choice)->minimumLevel)
+            const int nCount = DATATBLS_GetShrinesTxtRecordCount() - 1;
+            nShrineId = OBJECTS_RollLimitedRandomNumberInline(&pOp->pObjectregion->pSeed, nCount) + 1;
+            if (nRandomLevelId >= DATATBLS_GetShrinesTxtRecord(nShrineId)->dwLevelMin)
                 break;
-            --retries;
-        } while (retries > N0);
+            --nRetries;
+        } while (nRetries > 0);
     }
-    if (choice == N5)
-        choice = N3;
-    else if (choice == N4)
-        choice = N2;
-    else if (choice == N16)
-        choice = N18;
-    context->object->data->interact = (unsigned char)choice;
-    sub_00621BB0_SetShrine(context->object,sub_006414B0_ShrineRecord(choice));
+    if (nShrineId == 5)
+        nShrineId = 3;
+    else if (nShrineId == 4)
+        nShrineId = 2;
+    else if (nShrineId == 16)
+        nShrineId = 18;
+    pOp->pObject->pObjectData->InteractType = (unsigned char)nShrineId;
+    UNITS_SetShrineTxtRecordInObjectData(pOp->pObject, DATATBLS_GetShrinesTxtRecord(nShrineId));
 }
 
 // 0x0054FB30
@@ -2464,18 +2421,18 @@ unsigned char __fastcall OBJECTS_GetRegenerateSteps()
 }
 
 // 0x00552AC0
-static void __cdecl OBJECTS_ApplySubclassClassId(Unit* unit)
+static void __cdecl OBJECTS_ApplySubclassClassId(D2UnitStrc* pUnit)
 {
-    int id;
-    if (!unit)
-        id = NNEG1;
+    int nClassId;
+    if (!pUnit)
+        nClassId = -1;
     else
-        id = unit->classId;
-    int replacement = sub_00640E90_ObjectRecord(id)->subclass;
-    int classId = N84;
-    if (replacement && replacement < N573)
-        classId = replacement;
-    unit->classId = classId;
+        nClassId = pUnit->dwClassId;
+    const int nSubClassId = DATATBLS_GetObjectsTxtRecord(nClassId)->dwParm[1];
+    int nNewClassId = 84;
+    if (nSubClassId && nSubClassId < 573)
+        nNewClassId = nSubClassId;
+    pUnit->dwClassId = nNewClassId;
 }
 
 // 0x00552AF0
@@ -2506,66 +2463,66 @@ void __fastcall OBJECTS_InitFunction16_Well(D2ObjInitFnStrc* pOp)
     pOp->pObject->pObjectData->InteractType = 2 * (unsigned char)pOp->pObjectTxt->dwParm[WELL_PARAM];
 }
 
-static inline int UNITS_GetAnimMode(Unit* pUnit)
+static inline int UNITS_GetAnimMode(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
         return 0;
     }
 
-    return pUnit->mode;
+    return pUnit->dwAnimMode;
 }
 
 // 0x00552B50
-Unit* __fastcall OBJECTS_PopulateFn2_WaypointShrine(Game* game,Room* room,int unusedGroup,int classId,unsigned short probability)
+D2UnitStrc* __fastcall OBJECTS_PopulateFn2_WaypointShrine(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nUnused, int nObjectId, unsigned short nProbability)
 {
-    ObjectRecord* record = sub_00640E90_ObjectRecord(classId);
-    int sizeX = record->sizeX;
-    int sizeY = record->sizeY;
-    RoomBounds bounds;
-    sub_00619730_Bounds(room,&bounds);
-    int region = sub_0061A1F0_Region(room);
-    Seed* seed = room ? &room->seed : N0;
-    unsigned int roll = Roll(seed);
-    unsigned char forced = N0;
-    int retries = N3;
-    if (sub_00547330_Force(game,region))
+    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
+    const int nSizeX = pObjectsTxtRecord->dwSizeX;
+    const int nSizeY = pObjectsTxtRecord->dwSizeY;
+    D2DrlgCoordsStrc tCoords;
+    DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
+    const int nLevelId = DUNGEON_GetLevelIdFromPopulatedRoom(pRoom);
+    D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;
+    const unsigned int nRoll = OBJECTS_RollRandomNumberInline(pSeed);
+    unsigned char bForce = 0;
+    int nRetries = 3;
+    if (OBJRGN_ShouldSpawnHealingShrineOrWell(pGame, nLevelId))
     {
-        forced = N1;
-        retries = N30;
+        bForce = 1;
+        nRetries = 30;
     }
-    else if (roll % N100 > probability)
-        return N0;
-    if (OBJRGN_CanNotSpawnMoreShrines(game,region))
-        return N0;
-    while (retries > N0)
+    else if (nRoll % 100 > nProbability)
+        return 0;
+    if (OBJRGN_CanNotSpawnMoreShrines(pGame, nLevelId))
+        return 0;
+    while (nRetries > 0)
     {
-        Unit* object = sub_00550A30_Spawn(GAMEV,classId,sizeX,sizeY,room,record->placement,region,OBJRGN_CanSpawnShrine);
-        if (object)
+        D2UnitStrc* pObject = OBJECTS_SpawnObjectInRoomWithCallback(pGame, nObjectId, nSizeX, nSizeY, pRoom, pObjectsTxtRecord->nSide, nLevelId, OBJRGN_CanSpawnShrine);
+        if (pObject)
         {
-            if (record->collisions[UNITS_GetAnimMode(object)])
-                object->flags |= N2;
+            if (pObjectsTxtRecord->nSelectable[UNITS_GetAnimMode(pObject)])
+                pObject->dwFlags |= UNITFLAG_TARGETABLE;
             else
-                object->flags &= ~N2;
-            if (object->data->interact != N2)
+                pObject->dwFlags &= ~UNITFLAG_TARGETABLE;
+            if (pObject->pObjectData->InteractType != 2)
             {
-                if (forced)
+                if (bForce)
                 {
-                    OBJECTS_ApplySubclassClassId(object);
-                    OBJECTS_GetShrineId(game,N1,room,N2);
-                    object->data->interact = N2;
-                    sub_00621BB0_SetShrine(object,sub_006414B0_ShrineRecord(N2));
-                    OBJRGN_IncreaseHealingShrineCount(game,region);
+                    OBJECTS_ApplySubclassClassId(pObject);
+                    OBJECTS_GetShrineId(pGame, 1, pRoom, 2);
+                    pObject->pObjectData->InteractType = 2;
+                    UNITS_SetShrineTxtRecordInObjectData(pObject, DATATBLS_GetShrinesTxtRecord(2));
+                    OBJRGN_IncreaseHealingShrineCount(pGame, nLevelId);
                 }
             }
             else
-                OBJRGN_IncreaseHealingShrineCount(GAMEV,region);
-            OBJRGN_SetShrineCoordinates(GAMEV,region,CoordinateX(object),CoordinateY(object));
-            return object;
+                OBJRGN_IncreaseHealingShrineCount(pGame, nLevelId);
+            OBJRGN_SetShrineCoordinates(pGame, nLevelId, OBJECTS_GetUnitXInline(pObject), OBJECTS_GetUnitYInline(pObject));
+            return pObject;
         }
-        --retries;
+        --nRetries;
     }
-    return N0;
+    return 0;
 }
 
 // 0x00555CD0

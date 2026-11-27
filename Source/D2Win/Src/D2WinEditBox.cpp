@@ -108,7 +108,6 @@ struct D2WinControlStrc;
 
 #define D2WIN_MIN(a, b) (((a) < (b)) ? (a) : (b))
 
-extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey);                                 // 0x006CC45C
 
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize);                         // 0x00683840
 
