@@ -32,8 +32,6 @@ typedef char cc_M439_D2GlideSpriteVertexStrc_size[sizeof(D2GlideSpriteVertexStrc
 
 struct D2GfxLightStrc;
 
-struct D2GlideVtxStrc;
-
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, char* args); // 0x006CC4AC
 
 extern void (__stdcall* gpfnGrTexSource)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
@@ -41,6 +39,12 @@ extern void (__stdcall* gpfnGrTexSource)(int nTmu, int nStartAddress, int nEvenO
 extern void (__stdcall* gpfnGrDrawVertexArrayContiguous)(int nMode, int nCount, void* pVertices, int nStride); // 0x0087EAC4
 
 extern D2GlideSpriteVertexStrc gaGlideDebugFontVertices[4]; // 0x00880258
+
+// The floor tile mesh: 6 x 6 vertices, drawn as 5 strips of 12 (two rows each).
+D2GlideSpriteVertexStrc gatGlideTileVertices[36]; // 0x00880678
+
+// Vertex pointers for grDrawVertexArray: each strip runs down two rows of gatGlideTileVertices.
+void* gapGlideTileStrips[5][12]; // 0x00880A68
 
 extern int gaGlideDebugFontTexAddr[96]; // 0x008800D8
 
@@ -53,12 +57,6 @@ extern void (__stdcall* gpfnGrDrawVertexArray)(int nMode, int nCount, void** ppV
 
 
 void __fastcall GLPERSPECTIVE_PerspectiveTransform(int nX, int nY, int nZ, int* pScreenX, int* pScreenY); // 0x0050DD60
-
-struct D2GlideVtxStrc { float x; float y; float z; float oow; float sow; float tow; unsigned int color; };
-
-extern D2GlideVtxStrc gaGlideVertices_00880678[36]; // 0x00880678
-
-extern D2GlideVtxStrc* gapGlideTileStrips[60]; // 0x00880A68
 
 int gaGlideDebugFontCharWidths[96]; // 0x008802C8
 
@@ -732,7 +730,7 @@ static inline float ScaleTexCoord(double dA, double dB, double dScale)
 // 0x0050D540
 void __cdecl sub_0050D540_GlideInitD()
 {
-    D2GlideVtxStrc* pVertex = &gaGlideVertices_00880678[0];
+    D2GlideSpriteVertexStrc* pVertex = &gatGlideTileVertices[0];
     for (int nRow = 0; nRow < 6; ++nRow)
     {
         for (int nCol = 0; nCol < 6; ++nCol, ++pVertex)
@@ -770,9 +768,9 @@ void __cdecl sub_0050D540_GlideInitD()
     {
         for (int nCol = 0; nCol < 6; ++nCol)
         {
-            gapGlideTileStrips[12 * nRow + 2 * nCol] = &gaGlideVertices_00880678[6 * nRow + nCol];
-            D2GlideVtxStrc** ppBottom = &gapGlideTileStrips[12 * nRow + 2 * nCol + 1];
-            *ppBottom = &gaGlideVertices_00880678[6 * nRow + nCol + 6];
+            gapGlideTileStrips[nRow][2 * nCol] = &gatGlideTileVertices[6 * nRow + nCol];
+            void** ppBottom = &gapGlideTileStrips[nRow][2 * nCol + 1];
+            *ppBottom = &gatGlideTileVertices[6 * nRow + nCol + 6];
         }
     }
 }
@@ -952,9 +950,7 @@ extern GlideConstantColorFn gpfnGrConstantColorValue; // 0x0087EFA0
 extern GlideDrawVertexArrayFn gpfnGrDrawVertexArray; // 0x0087EB18
 extern unsigned char* gpBlendTable; // 0x00880B5C
 extern D2GfxSettingsStrc* gpGfxSettings; // 0x007C9148
-extern D2GlideSpriteVertexStrc gatGlideTileVertices[36]; // 0x00880678
 extern void* gapGlideTileFan[4]; // 0x0072F670
-extern void* gapGlideTileStrips_00880A68[5][12]; // 0x00880A68
 
 // 0x0050C890
 int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, unsigned char nShade, int nScreenPanels)
@@ -1053,7 +1049,7 @@ void __fastcall sub_0050D6A0_GlideDrawFloorTile(void* pTile, const D2TileVertexS
         GLIDE_SetTileVertex(pSrc, pDst);
 
     for (int i = 0; i < 5; i++)
-        gpfnGrDrawVertexArray(4, 12, gapGlideTileStrips_00880A68[i]);
+        gpfnGrDrawVertexArray(4, 12, gapGlideTileStrips[i]);
 }
 
 struct D2TileLibraryEntryStrc;
