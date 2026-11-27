@@ -204,16 +204,6 @@ extern int gdwGlobal_00882750; // 0x00882750
 
 int __stdcall sub_00424E40(void* pArg); // 0x00424E40
 
-extern const char gszEmptyLoadComplete[184]; // 0x006E0498
-
-extern const char gData_006E0550[24]; // 0x006E0550
-
-extern const char gData_006E0568[272]; // 0x006E0568
-
-extern int gdwGlobal_00731010; // 0x00731010
-
-extern int gdwGlobal_00731008; // 0x00731008
-
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 
@@ -384,8 +374,6 @@ extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(D2LargeIn
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void); // 0x006CC544
 
-extern int gbFixedCpuTargetRatio; // 0x0073100C
-
 
 extern "C" void _ReadWriteBarrier(void);
 
@@ -438,21 +426,15 @@ extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* lpThreadAttr
 int __stdcall SERVER_HackListClient(int nClientId, int a2, int a3);                                                  // 0x0052B4F0
 
 
-extern int nInitSeed_6FDC2CA08;                                                                             // 0x00731004
-
 int gnGlobal_00883D3C;                                                                                         // 0x00883D3C
 
 int gnGlobal_00883D40;                                                                                         // 0x00883D40
 
 
-extern int gnTargetFrameRate;                                                                      // 0x00731014
-
 int gnAct;                                                                                         // 0x00883D44
 
 struct D2ClientInfoStrc;
 
-
-extern int gbCheckHeartbeat;                                                                       // 0x00730FFC
 
 int __stdcall SERVER_ReadGamePacket(unsigned char* pBuffer, int nSize);                              // 0x0052B2D0
 
@@ -540,9 +522,6 @@ struct HASHKEY_NONE;
 struct D2GameHashLinkStrc;
 
 struct D2GameHashListStrc;
-
-
-extern int gnFrameRate; // 0x00731010
 
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
@@ -1015,11 +994,8 @@ struct D2QuestIntroTableStrc
     unsigned char pad0x05[3];
 };
 
-extern int gnQuestInitTableCount;                                                                  // 0x00731888
 
 extern D2QuestIntroTableStrc sgQuestIntro[];                                                  // 0x0073188C
-
-extern int gnQuestIntroTableCount;                                                                 // 0x007318AC
 
 
 #define QUESTS_SEED_STEP_HIGH_FIRST(pSeed, nOut) { const unsigned __int64 lSeed_ = (unsigned __int64)(pSeed)->nHighSeed + (unsigned __int64)(pSeed)->nLowSeed * 0x6AC690C5; (pSeed)->nHighSeed = (unsigned int)(lSeed_ >> 32); (pSeed)->nLowSeed = (unsigned int)lSeed_; nOut = (unsigned int)lSeed_; }

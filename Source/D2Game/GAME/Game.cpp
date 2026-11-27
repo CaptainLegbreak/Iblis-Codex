@@ -141,15 +141,6 @@ extern int gdwGlobal_00882750; // 0x00882750
 
 int __stdcall sub_00424E40(void* pArg); // 0x00424E40
 
-extern const char gszEmptyLoadComplete[184]; // 0x006E0498
-
-extern const char gData_006E0550[24]; // 0x006E0550
-
-extern const char gData_006E0568[272]; // 0x006E0568
-
-extern int gdwGlobal_00731010; // 0x00731010
-
-extern int gdwGlobal_00731008; // 0x00731008
 
 #include "D2GameFuncs.h"
 
@@ -491,8 +482,6 @@ extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(D2LargeIn
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void); // 0x006CC544
 
-extern int gbFixedCpuTargetRatio; // 0x0073100C
-
 
 extern "C" void _ReadWriteBarrier(void);
 
@@ -611,7 +600,6 @@ D2GameDataTableStrc* gpGameDataTbl; // 0x00883D38
 
 int gnLastGamesUpdateTimeMs; // 0x00883D58
 
-extern int gnTargetFrameRate; // 0x00731014
 // build: symbol ??__EgnTargetMsPerFrame@@YAXXZ 0x006CAF10
 int gnTargetMsPerFrame = 1000 / gnTargetFrameRate; // 0x00883D60
 
@@ -663,21 +651,15 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
 int __stdcall SERVER_HackListClient(int nClientId, int a2, int a3);                                                  // 0x0052B4F0
 
 
-extern int nInitSeed_6FDC2CA08;                                                                             // 0x00731004
-
 int gnGlobal_00883D3C;                                                                                         // 0x00883D3C
 
 int gnGlobal_00883D40;                                                                                         // 0x00883D40
 
 
-extern int gnTargetFrameRate;                                                                      // 0x00731014
-
 int gnAct;                                                                                         // 0x00883D44
 
 struct D2ClientInfoStrc;
 
-
-extern int gbCheckHeartbeat;                                                                       // 0x00730FFC
 
 int __stdcall SERVER_ReadGamePacket(unsigned char* pBuffer, int nSize);                              // 0x0052B2D0
 
@@ -772,9 +754,6 @@ struct HASHKEY_NONE;
 struct D2GameHashLinkStrc;
 
 struct D2GameHashListStrc;
-
-
-extern int gnFrameRate; // 0x00731010
 
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480

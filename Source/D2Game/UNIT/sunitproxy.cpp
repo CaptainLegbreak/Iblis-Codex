@@ -190,8 +190,6 @@ enum
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pUnit); // 0x0063EA40
 
 
-extern const int gnDifficultyBonus[]; // 0x006E21F4
-
 #define MAX_NPC_INVENTORY 17
 
 extern "C" const char szSUnitProxyCppFile[];                                                                // 0x006E0A30

@@ -933,3 +933,34 @@ int __fastcall SKILLITEM_CastSkillOnTarget(D2UnitStrc* pUnit, int nSkillId, int 
 int __fastcall SKILLITEM_CastSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nItemEffectParam); // 0x005FDD60
 int __fastcall CUNIT_ValidateMonsterId(int nMonsterId);
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);
+
+// D2Game data that two or more of the module's files use.
+extern const char gszEmptyLoadComplete[184]; // 0x006E0498
+extern const char gData_006E0550[24]; // 0x006E0550
+extern const char gData_006E0568[272]; // 0x006E0568
+extern const int gnBugLightningYOffsets[]; // 0x006E2198
+extern const int gnBugLightningXOffsets[]; // 0x006E21A8
+extern const int gnDifficultyBonus[]; // 0x006E21F4
+extern const int gnRareAffixCounts[]; // 0x006E3014
+extern const int gnHydraOffsetY[]; // 0x006E3120
+extern const int gnHydraOffsetX[]; // 0x006E312C
+extern const unsigned char gnGargoyleTrapDirectionAxis[]; // 0x006E353C
+extern const unsigned char gnGargoyleTrapDirectionMap[]; // 0x006E3540
+extern int gbCheckHeartbeat; // 0x00730FFC
+extern int nInitSeed_6FDC2CA08; // 0x00731004
+extern int gdwGlobal_00731008; // 0x00731008
+extern int gbFixedCpuTargetRatio; // 0x0073100C
+extern int gdwGlobal_00731010; // 0x00731010
+extern int gnFrameRate; // 0x00731010
+extern int gnTargetFrameRate; // 0x00731014
+extern int gnQuestInitTableCount; // 0x00731888
+extern int gnQuestIntroTableCount; // 0x007318AC
+extern int gnBaseStatIdsToSend[]; // 0x00731AD8
+extern unsigned int gnA5Q4NpcIndices[]; // 0x007350E8
+extern char gpAct1IntroNpcMessages[]; // 0x007361F8
+extern char gpAct1Q0NpcMessages[]; // 0x00736460
+extern char gpAct2Q8NpcMessages[]; // 0x0073BD58
+extern char gpAct4Q0NpcMessages[]; // 0x0073D580
+extern char gpAct4Q1NpcMessages[]; // 0x0073D708
+extern char gpAct3IntroNpcMessages[]; // 0x0073E850
+extern char gpAct3Q0NpcMessages[]; // 0x0073EAA0
