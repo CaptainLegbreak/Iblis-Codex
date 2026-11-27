@@ -7476,6 +7476,10 @@
      "name": "?sub_00423D80_Release@BigStack@@QAEXPAUBigBuffer@@0@Z"
     },
     {
+     "va": "0x00423DC0",
+     "length": 950
+    },
+    {
      "va": "0x00424180",
      "length": 306
     },
@@ -7744,30 +7748,6 @@
     {
      "va": "0x00423100",
      "length": 330
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SBig_00423DC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00423DC0",
-     "length": 950
     }
    ],
    "flags": [
