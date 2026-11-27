@@ -6,6 +6,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 1.10-address names. New chat, reopened 2026-11-26 11:57 PT (from lane 6, which held these modules since 2026-11-25).
 
 ## Status
+- 2026-11-27 02:45 UTC: names-d2game-h conflicts with #457 (Skills.cpp); regenerated as -h2 on #457 (131 includers compile equal), full build running. locals-d2game, names-d2game-moo, -verbs merge cleanly onto #457.
 - 2026-11-27 02:17 UTC: names-d2game-h and locals-d2game Ready; names-d2game-moo (17 D2MOO names) building. D2Game placeholders left after these: about 170 a1/v12 (packet-struct fields, unused stub parameters, save flags D2MOO leaves unnamed) and 54 bare sub_<VA> definitions D2MOO has no note for.
 - 2026-11-27 01:50 UTC: every D2Game folder and top-level unit is in (#447-#452). Now D2Game.h / D2GameFuncs.h (lane9/names-d2game-h, building).
 - 2026-11-27 01:03 UTC: a2, c2 in (#449). b3 conflicts with #450 (a2q7.cpp, a2q8.cpp): reposting as -b4 (unit builds equal, a1/v12 531 -> 437 alone), full build running. e2 still merges cleanly.
@@ -53,6 +54,10 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/names-d2game-verbs c798910a (on names-d2game-moo, so merge it after that one): thirty-seven D2Game placeholder
+  stubs and accessors take sub_<VA>_<Verb> names from their bodies (_Nop for the empty ones, _Return0/_Return5/_Return43,
+  GetWaypointData, GetMonStats2Record, ...); exported functions keep their names. auditguard against its base: no count
+  rose. Full build: Game.exe identical, tree b33c0c3f92c2914e11cfd4c64b0843b150cd6c83, borrowed code / data 7,677 / 261 B.
 - lane9/names-d2game-moo e53ec740 (on #455): seventeen D2Game placeholder functions take the name D2MOO's 1.14d note gives
   their address (AITHINK_Fn000, ACT3Q3_SpawnGidbinnBoss, ITEMS_RollLegacySetItem, MONSTERREGION_SpawnMonsterGroup, ...),
   in source, units.json, functions.json, data_plan.json and names.csv. Also touches lane 1's Unknown_00463720.cpp and
@@ -63,7 +68,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
   (out-parameters `&a5` into `pItemStatus` -> nItemStatus), plus bIdle, nParam2Value/nParam3Value, nResult by hand;
   6 units, none shared with names-d2game-h. auditguard no count rose. Full build: Game.exe identical, tree
   5325f7d7a0fccf5c727726dfd7e9fbfa96db451b, borrowed code / data 7,677 / 261 B.
-- lane9/names-d2game-h 97603fd4 (on #453): D2Game.h, D2GameFuncs.h: placeholder parameters from the definitions and
+- WITHDRAWN (Skills.cpp conflict with #457; replaced by -h2) lane9/names-d2game-h 97603fd4 (on #453): D2Game.h, D2GameFuncs.h: placeholder parameters from the definitions and
   D2MOO; names.csv names for seventeen sub_<VA> declarations, renamed in the 23 units that call them (the 48 left are in
   Notes). a1/v12 387 -> 351 alone; auditguard no count rose; merges cleanly onto #455. Full build: Game.exe identical,
   tree 7c933685309edf6baa94c1ed5f270cdd9f85d543, borrowed code / data 7,677 / 261 B.
