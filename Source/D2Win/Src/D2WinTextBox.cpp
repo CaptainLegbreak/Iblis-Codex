@@ -25,6 +25,8 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2GfxApi.h"
+#include "D2HellApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -100,7 +102,7 @@ struct D2WinImageStrc;
 
 struct D2CropRectStrc;
 
-struct D2CelContextStrc;
+struct D2GfxDataStrc;
 
 struct D2CharStrc;
 
@@ -148,8 +150,6 @@ enum DrawMode
 {
     DRAWMODE_NORMAL = 5,
 };
-
-void __stdcall TEXTURE_CelDrawClipped(D2CelContextStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
 
 int __fastcall D2Win_10058_0(D2WinControlStrc* pControl, const Unicode* pText, int nLineNum, int nColumn); // 0x004FB790
 
@@ -211,8 +211,6 @@ void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc* pControl);             
 
 void __fastcall SCROLLBAR_Destroy(void* pArg);                                                                   // 0x00507EE0
 
-void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
-
 void __fastcall FONT_DrawTextWithBackground(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int eDrawMode, int nTextColor); // 0x005025C0
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
@@ -229,13 +227,9 @@ void __fastcall D2COMP_InitEmblemColorTables();                                 
 
 struct D2Palette256Strc;
 
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
-
 extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void* hWnd, const char* szText, const char* szCaption, unsigned int nType); // 0x006CC464
 
 D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName, void* hFile, void* pfShowMessage, int nPriority); // 0x00517332
-
-void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
 
 extern "C" const char gszExpansionMpq[]; // 0x006CD3A0
 
@@ -855,9 +849,9 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
     D2CelFileStrc* pCellFile = pTextBox->controlHeader.pCellFile;
     if (pCellFile)
     {
-        D2CelContextStrc tGfxData;
+        D2GfxDataStrc tGfxData;
         memset(&tGfxData, 0, sizeof(tGfxData));
-        tGfxData.pCellFile = pCellFile;
+        tGfxData.pCelFile = pCellFile;
         tGfxData.nDirection = 0;
         tGfxData.nFrame = 0;
         TEXTURE_CelDraw(&tGfxData, pTextBox->controlHeader.nImageX, pTextBox->controlHeader.nImageY - 1, -1, 5, 0);

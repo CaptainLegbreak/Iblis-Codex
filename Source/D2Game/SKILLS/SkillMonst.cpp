@@ -78,6 +78,7 @@ void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); /
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
 
 #include "D2GameFuncs.h"
+#include "D2GfxApi.h"
 
 
 D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId); // 0x0046ACE0

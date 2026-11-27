@@ -13,6 +13,7 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
 
 struct D2StoredUnitRecordStrc;
 
@@ -23,7 +24,7 @@ struct D2PartyRowStrc;
 struct D2SevenIntStrc;
 
 
-struct D2CelContextStrc;
+struct D2GfxDataStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -31,7 +32,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 
 
@@ -136,8 +137,6 @@ int __cdecl WINMAIN_IsHardcore();                                               
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, unsigned char nColor, unsigned char nArg6); // 0x0046EFD0
 
 
-void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
-
 
 
 void* gpPartyBoxesCel; // 0x007BF020
@@ -179,9 +178,9 @@ int gaRosterIndex[8]; // 0x007BEFF4
 // 0x00499E50
 void __cdecl PARTY_DrawPanelQuad()
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpPanelQuadCel;
+    tContext.pCelFile = gpPanelQuadCel;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 224, -1, 5, 0);
@@ -196,9 +195,9 @@ void __cdecl PARTY_DrawPanelQuad()
 // 0x00499F40
 static void PARTY_DrawRowSeparator(int nY)
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpPartyBarCel;
+    tContext.pCelFile = gpPartyBarCel;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, gnPanelOffsetX + 0xC, nY - gnPanelOffsetY, -1, 5, 0);
@@ -209,9 +208,9 @@ static void PARTY_DrawRowSeparator(int nY)
 // 0x00499FC0
 static void __stdcall PARTY_DrawPanelCel(void* pCellFile, int nX, int nFrame, int nY)
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = pCellFile;
+    tContext.pCelFile = pCellFile;
     tContext.nFrame = nFrame;
     tContext.nDirection = 0;
     sub_004F6480(&tContext, gnPanelOffsetX + nX, nY - gnPanelOffsetY, -1, 5, 0);
@@ -425,7 +424,7 @@ void __stdcall PARTY_DrawPanelIcons(D2PanelIconRecordStrc* pRecord)
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
 
-    D2CelContextStrc tGfx;
+    D2GfxDataStrc tGfx;
     memset(&tGfx, 0, sizeof(tGfx));
     tGfx.nDirection = 0;
 
@@ -433,7 +432,7 @@ void __stdcall PARTY_DrawPanelIcons(D2PanelIconRecordStrc* pRecord)
     {
         if (pRecord->pIcons[i].nType || pRecord->pIcons[i].nState != 1)
         {
-            tGfx.pCellFile = pRecord->pIcons[i].pCelFile;
+            tGfx.pCelFile = pRecord->pIcons[i].pCelFile;
             const unsigned int nFrame = pRecord->pIcons[i].nFrame;
             tGfx.nFrame = nFrame;
 
@@ -867,9 +866,9 @@ static void __stdcall PARTY_DrawRosterLevel(int nY, int nLevel, int nColor)
 // 0x0049A950
 void __cdecl TEXT_DrawPanelCloseButton()
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = sub_00454600();
+    tContext.pCelFile = sub_00454600();
     tContext.nFrame = (gbRosterButtonDown != 0) + 10;
     tContext.nDirection = 0;
     sub_004F6480(&tContext, gnPanelOffsetX + 278, 421 - gnPanelOffsetY, -1, 5, 0);

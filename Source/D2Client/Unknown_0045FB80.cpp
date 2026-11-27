@@ -11,6 +11,7 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "D2CommonApi2.h"
+#include "D2GfxApi.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);
@@ -52,7 +53,6 @@ int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);
 void __fastcall SKILLDESC_ShowSkillPopup(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY);
 void __fastcall SKILLDESC_ShowSkillPopupB(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY);
-void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift);
 void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
@@ -449,9 +449,9 @@ void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt,
     if (!nBaseLevel && SKILLS_GetBonusSkillLevelFromSkillId(pPlayer, nSkillId) && nState != -1)
         nMode = 3;
 
-    D2CelContextStrc tCel;
+    D2GfxDataStrc tCel;
     memset(&tCel, 0, sizeof(tCel));
-    tCel.pCellFile = pCellFile;
+    tCel.pCelFile = pCellFile;
     tCel.nDirection = 0;
     tCel.nFrame = nFrame;
     TEXTURE_CelDrawColor(&tCel, nX, nY, -1, 5, nMode);

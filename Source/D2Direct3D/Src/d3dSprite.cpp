@@ -3,6 +3,7 @@
 #include "D2CelContext.h"
 
 #include "D2D3DTypes.h"
+#include "D2CMPApi.h"
 
 struct D2Direct3D006B7110Strc;
 
@@ -58,18 +59,10 @@ extern D2D3DObjStrc* gapSpriteSurfaces[3]; // 0x00970F28
 
 extern D2D3DObjStrc* gpSpriteObject_00970F3C; // 0x00970F3C
 
-int __stdcall D2CMPSpriteValidate(D2CelContextStrc* pContext, int bAsync, int nFlags); // 0x006001F0
-
-int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
-
-int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
-
-int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
-
-int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
+int __stdcall D2CMPSpriteValidate(D2GfxDataStrc* pContext, int bAsync, int nFlags); // 0x006001F0
 
 
-static int __stdcall D3D_LoadSpriteInfo(D2CelContextStrc* pContext, D2SpriteInfoStrc* pInfo); // 0x006B5C80
+static int __stdcall D3D_LoadSpriteInfo(D2GfxDataStrc* pContext, D2SpriteInfoStrc* pInfo); // 0x006B5C80
 
 static void __stdcall D3DSPRITE_SetTextureSize(D2SpriteInfoStrc* pInfo); // 0x006B5CF0
 
@@ -117,7 +110,7 @@ extern "C" const char gszEmptyAssertText;                                       
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                // 0x00681EF0
 
 
-void __stdcall CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
+void __stdcall CelDraw(D2GfxDataStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
 
 
 void __fastcall D3DCORE_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
@@ -157,14 +150,6 @@ int gnPerspectiveScale;        // 0x00989748
 extern const char gszSpriteError[]; // 0x006FC238
 
 
-int __stdcall CelGetWidth(D2CelStrc* cel); // 0x006018C0
-
-int __stdcall CelGetHeight(D2CelStrc* cel); // 0x006018F0
-
-int __stdcall CelGetOffsetX(D2CelStrc* cel); // 0x00601920
-
-int __stdcall CelGetOffsetY(D2CelStrc* cel); // 0x00601950
-
 int* __stdcall sub_00601B10_GetCelTextureSlots(D2CelStrc* cel); // 0x00601B10
 
 
@@ -200,8 +185,6 @@ static void __stdcall D3DSPRITE_DrawTexturedQuad(int nOffsetX, int nOffsetY, uns
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
-int __stdcall CelGetHardwareData(D2CelStrc* pCel);                                                  // 0x00601B10
-
 void __fastcall sub_006B9860_Project(int nX, int nY, int nZ, int* pScreenX, int* pScreenY);                  // 0x006B9860
 
 extern int gnRenderWidth; // 0x007C9138
@@ -215,9 +198,9 @@ extern const char gszEmptyString[]; // 0x006CC837
 static int __stdcall D3DSPRITE_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds, D2ClipStrc* pClip); // 0x006B6D70
 
 
-void __fastcall D3DSPRITE_DrawSpriteRows(D2CelContextStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nBlendMode); // 0x006B6C90
+void __fastcall D3DSPRITE_DrawSpriteRows(D2GfxDataStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nBlendMode); // 0x006B6C90
 
-void __fastcall D3DSPRITE_DrawSpriteClipped(D2CelContextStrc* pContext, int nX, int nY, const D2BoundsStrc* pBounds, int nBlendMode); // 0x006B6EE0
+void __fastcall D3DSPRITE_DrawSpriteClipped(D2GfxDataStrc* pContext, int nX, int nY, const D2BoundsStrc* pBounds, int nBlendMode); // 0x006B6EE0
 
 static int gnVertexBufferPos; // 0x00970F40
 
@@ -280,7 +263,7 @@ void __fastcall D3DSPRITE_ClearResourceEntries(D2ResourceSetStrc* set)
 }
 
 // 0x006B5C80
-static int __stdcall D3D_LoadSpriteInfo(D2CelContextStrc* pContext, D2SpriteInfoStrc* pInfo)
+static int __stdcall D3D_LoadSpriteInfo(D2GfxDataStrc* pContext, D2SpriteInfoStrc* pInfo)
 {
     if (!D2CMPSpriteValidate(pContext, 0, 1))
     {
@@ -289,7 +272,7 @@ static int __stdcall D3D_LoadSpriteInfo(D2CelContextStrc* pContext, D2SpriteInfo
 
     if (!pContext->pCel)
     {
-        LOGMANAGER_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", pContext->nType, pContext->nClass, pContext->nMode, pContext->szName);
+        LOGMANAGER_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", pContext->nUnitType, pContext->nUnitIndex, pContext->nMode, pContext->szName);
         return 0;
     }
 
@@ -690,7 +673,7 @@ static inline int D3DSPRITE_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc*
 }
 
 // 0x006B6730
-int __fastcall D3DSPRITE_DrawFlatSprite(D2CelContextStrc* pData, int nX, int nY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)
+int __fastcall D3DSPRITE_DrawFlatSprite(D2GfxDataStrc* pData, int nX, int nY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)
 {
 	D2SpriteInfoStrc tInfo;
 	D2TLVertexStrc pVertices[4];
@@ -809,7 +792,7 @@ int __fastcall D3DSPRITE_DrawFlatSprite(D2CelContextStrc* pData, int nX, int nY,
 }
 
 // 0x006B6B40
-int __fastcall D3DSPRITE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, unsigned int nColor, int nBlendMode, int nArg)
+int __fastcall D3DSPRITE_CelDraw(D2GfxDataStrc* pContext, int nX, int nY, unsigned int nColor, int nBlendMode, int nArg)
 {
     D2SpriteInfoStrc tInfo;
 
@@ -866,7 +849,7 @@ static int D3D_IsOnScreen(D2SpriteInfoStrc* pInfo, int nX, int nY)
 }
 
 // 0x006B6BF0
-int __fastcall D3DSPRITE_CelDrawColor(D2CelContextStrc* pContext, int nX, int nY, unsigned int nColor, int nBlendMode, int nPaletteIndex)
+int __fastcall D3DSPRITE_CelDrawColor(D2GfxDataStrc* pContext, int nX, int nY, unsigned int nColor, int nBlendMode, int nPaletteIndex)
 {
     D2SpriteInfoStrc tInfo;
 
@@ -891,7 +874,7 @@ int __fastcall D3DSPRITE_CelDrawColor(D2CelContextStrc* pContext, int nX, int nY
 }
 
 // 0x006B6C90
-void __fastcall D3DSPRITE_DrawSpriteRows(D2CelContextStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nBlendMode)
+void __fastcall D3DSPRITE_DrawSpriteRows(D2GfxDataStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nBlendMode)
 {
     D2SpriteInfoStrc tInfo;
 
@@ -981,7 +964,7 @@ int __stdcall D3DSPRITE_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, cons
 }
 
 // 0x006B6EE0
-void __fastcall D3DSPRITE_DrawSpriteClipped(D2CelContextStrc* pContext, int nX, int nY, const D2BoundsStrc* pBounds, int nBlendMode)
+void __fastcall D3DSPRITE_DrawSpriteClipped(D2GfxDataStrc* pContext, int nX, int nY, const D2BoundsStrc* pBounds, int nBlendMode)
 {
     D2SpriteInfoStrc tInfo;
     D2ClipStrc tClip;
@@ -1033,7 +1016,7 @@ void __fastcall D3DSPRITE_DrawSpriteClipped(D2CelContextStrc* pContext, int nX, 
 }
 
 // 0x006B7000
-void __fastcall D3DSPRITE_DrawSpriteShadow(D2CelContextStrc* pContext, int nX, int nY)
+void __fastcall D3DSPRITE_DrawSpriteShadow(D2GfxDataStrc* pContext, int nX, int nY)
 {
     D2SpriteInfoStrc tInfo;
     unsigned char nAlpha = 255;
@@ -1064,7 +1047,7 @@ void __fastcall D3DSPRITE_DrawSpriteShadow(D2CelContextStrc* pContext, int nX, i
 }
 
 // 0x006B7090
-int __fastcall D3DSPRITE_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, int nArg)
+int __fastcall D3DSPRITE_CelDrawHilight(D2GfxDataStrc* pContext, int nX, int nY, int nArg)
 {
     D2SpriteInfoStrc tInfo;
 

@@ -21,6 +21,8 @@
 #include "StormApi.h"
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
+#include "D2WinApi.h"
+#include "D2CMPApi.h"
 
 struct D2CelFileStrc;
 
@@ -47,7 +49,7 @@ struct D2ClientEntryStrc;
 
 struct D2RosterPetStrc;
 
-struct D2CelContextStrc;
+struct D2GfxDataStrc;
 
 struct D2UnitStrc;
 
@@ -91,7 +93,7 @@ D2CelFileStrc* gpBoxPiecesCel; // 0x007A2798
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 struct D2SlotStrc
 {
@@ -492,8 +494,6 @@ int __cdecl sub_00478150_GetProgress(); // 0x00478150
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
-int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
-
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 
@@ -578,8 +578,6 @@ void __cdecl INV_DrawHelpScreen(); // 0x004966C0
 
 void __cdecl WARDENCLIENT_DrawHostileIcon(); // 0x00496B10
 
-void __stdcall D2Win_10124(); // 0x00503000
-
 void __cdecl UI_DrawHoverText(); // 0x00454A70
 
 
@@ -613,8 +611,6 @@ int __cdecl WINMAIN_IsHardcore();                                               
 
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType);                             // 0x004788B0
-
-void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC);  // 0x00502680
 
 void __cdecl sub_005269D0_FormatText(int nBufferSize, Unicode* pDst, const Unicode* pFormat, ...);                  // 0x005269D0
 
@@ -725,8 +721,6 @@ void __cdecl TEXT_CloseWaypointPanel(); // 0x0049C700
 
 
 
-
-void __stdcall D2Win_10116(); // 0x005015F0
 
 extern D2DrlgActStrc* gnTownLevelId; // 0x007A063C
 
@@ -1157,10 +1151,10 @@ void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect)
     int nHeight = pRect->nBottom - pRect->nTop;
     int nTop = pRect->nTop;
     int nBottom = nTop + nHeight + 1;
-    D2CelContextStrc context;
+    D2GfxDataStrc context;
     int nPiece = 0;
     memset(&context, 0, sizeof(context));
-    context.pCellFile = gpBoxPiecesCel;
+    context.pCelFile = gpBoxPiecesCel;
     context.nDirection = 0;
 
     const int nRightCorner = nRight - 12;
@@ -2996,8 +2990,8 @@ void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame)
         gnLoadingFrame = nFrames - 1;
     }
 
-    D2CelContextStrc tContext;
-    tContext.pCellFile = gpLoadingScreen;
+    D2GfxDataStrc tContext;
+    tContext.pCelFile = gpLoadingScreen;
     tContext.nFrame = gnLoadingFrame;
     tContext.nDirection = 0;
     sub_004F6480(&tContext, gnScreenWidth / 2 - 0x80, gnScreenHeight / 2 + 0x80, -1, 5, 0);

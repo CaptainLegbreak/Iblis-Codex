@@ -4,6 +4,7 @@
 #include "D2ClientSound.h"
 #include "D2SoundEnvironTxt.h"
 #include "D2MultiTypes.h"
+#include "D2SoundApi.h"
 
 struct D2TimedHintStrc
 {
@@ -29,8 +30,6 @@ int __fastcall sub_004B9590_IsTypeOneSound(void* pEntry);                       
 void* __fastcall sub_004B9610_GetSoundHandle(int nId);                                                                     // 0x004B9610
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
 int __fastcall SOUNDINST_GetPosition(void* pEntry);                                                      // 0x004B9D50
-int __cdecl D2SOUND_GetMasterVolumeOption();                                                                                 // 0x00514CC0
-int __cdecl D2SOUND_GetMusicVolumeOption();                                                                                 // 0x00514CF0
 
 int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
 

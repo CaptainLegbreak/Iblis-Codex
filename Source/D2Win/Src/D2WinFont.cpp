@@ -17,6 +17,9 @@
 #include "D2WinSplitText.h"
 #include "FogApi.h"
 #include "D2LangApi.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
+#include "D2HellApi.h"
 
 struct D2CelFileStrc;
 
@@ -43,8 +46,6 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 D2CharStrc* __fastcall FONT_GetCharInfoByIndex(unsigned short wChar);                                                  // 0x00501650
 
 D2CharStrc* __fastcall FONT_FindCharInfo(unsigned short wChar);                                                  // 0x00501690
-
-void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFilePath, unsigned int* pdwBytesWritten, const char* szSrcPath, int nLine); // 0x00517079
 
 
 void __fastcall sub_00526320_ToUnicode(wchar_t* pDest, const char* szSource, int nLength);                  // 0x00526320
@@ -77,9 +78,7 @@ unsigned int gdwLastShiftedTickCount;                                           
 bool gbKoreanFonts;                                                                                // 0x00841EC6
 
 struct D2CelStrc;
-int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
-void __stdcall TEXTURE_CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, int nSkipLines, int nDrawLines, int nDrawMode); // 0x004F64E0
-int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
+void __stdcall TEXTURE_CelDrawEx(D2GfxDataStrc* pContext, int nX, int nY, int nSkipLines, int nDrawLines, int nDrawMode); // 0x004F64E0
 extern "C" const char gszD2WinFontSourceFile[]; // 0x006DC9FC
 
 // build: symbol ??__EgwszFramedText@@YAXXZ 0x006CAE20
@@ -100,19 +99,11 @@ struct D2FontCacheStrc;
 
 struct D2SplittedTextStrc;
 
-struct D2CelContextStrc;
+struct D2GfxDataStrc;
 
 struct Unicode;
 
-void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
-
-int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
-
-D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
-
-void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
-
-void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0
+D2CelStrc* __stdcall CelGetHandle(D2GfxDataStrc* pContext); // 0x00601840
 
 int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
@@ -140,7 +131,7 @@ static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, in
 
 static void __stdcall FONT_DrawTextLineWithDrawMode(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int bCentered, int eDrawMode); // 0x00501C30
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 extern "C" int __fastcall sub_00526800_2(const unsigned short* pText);
 
@@ -149,8 +140,6 @@ static int FONT_GetTextHeight(const Unicode* pText); // 0x005019C0
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
-
-int __stdcall WINDOW_GetDimensions(int* pWidth, int* pHeight);                                              // 0x004F59B0
 
 extern unsigned int gaFontCharValidBits[8]; // 0x006DC9B8
 
@@ -465,9 +454,9 @@ static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, in
         nX += (nWidth - FONT_GetFirstLineWidth(wszText)) >> 1;
     }
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpFontCache->pCellFile;
+    tContext.pCelFile = gpFontCache->pCellFile;
     tContext.nDirection = 0;
 
     const Unicode* wszTextCur = wszText;
@@ -551,9 +540,9 @@ static void __stdcall FONT_DrawTextLineWithDrawMode(const Unicode* wszText, int 
         nX += (nWidth - FONT_GetFirstLineWidth(wszText)) >> 1;
     }
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpFontCache->pCellFile;
+    tContext.pCelFile = gpFontCache->pCellFile;
     tContext.nDirection = 0;
 
     if (nLength <= 0)
@@ -649,7 +638,7 @@ void __fastcall D2WINFONT_DrawClippedFontText(const Unicode* pText, int nX, int 
     const int nLength = UNICODE_StrLen(pText);
     int nCount = 0;
     const int nStartX = nX;
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.nDirection = 0;
 
@@ -679,7 +668,7 @@ void __fastcall D2WINFONT_DrawClippedFontText(const Unicode* pText, int nX, int 
                     ++pScan;
                     const unsigned short wMarker = pMarker->wChar;
                     D2CharStrc* pChar = ((D2CharStrc* (__fastcall*)(unsigned short))gpfnGetCharInfo)(wMarker);
-                    tContext.pCellFile = ghMonsterIndicators;
+                    tContext.pCelFile = ghMonsterIndicators;
                     tContext.nFrame = pChar->nImageIndex;
                     TEXTURE_CelDraw(&tContext, nX, nY, -1, 5, 0);
                     nY += 16 * gatFontCache[gnCurrentFont].pFontInfo[1]->nHeight / 10;
@@ -690,7 +679,7 @@ void __fastcall D2WINFONT_DrawClippedFontText(const Unicode* pText, int nX, int 
                 D2CharStrc* pChar = ((D2CharStrc* (__fastcall*)(unsigned short))gpfnGetCharInfo)(c.wChar);
                 if (nDisplayType != 6)
                 {
-                    tContext.pCellFile = gpFontCache->pCellFile;
+                    tContext.pCelFile = gpFontCache->pCellFile;
                     tContext.nFrame = pChar->nImageIndex;
                     const int nHeight = CelGetHeight(CelGetHandle(&tContext));
                     if (nSkipLines + nDrawLines <= nHeight)
@@ -718,9 +707,9 @@ void __fastcall D2WINFONT_DrawTickerText(const Unicode* wszText, int nX, int nY,
     const int nStartX = nX;
     nX += nScroll;
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpFontCache->pCellFile;
+    tContext.pCelFile = gpFontCache->pCellFile;
     tContext.nDirection = 0;
 
     if (nLength <= 0)
@@ -803,9 +792,9 @@ static void D2Win_10126_DrawTextFromCache(const Unicode* pText, int nX, int nY)
     const int nStartX = nX;
     const int nLength = UNICODE_StrLen(pText);
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpFontCache->pCellFile;
+    tContext.pCelFile = gpFontCache->pCellFile;
     tContext.nDirection = 0;
 
     if (nLength <= 0)
@@ -1002,9 +991,9 @@ void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, i
 {
     const unsigned int nFrames = CelFileGetCelsPerDirection((D2CelFileStrc*)pCell);
     unsigned int nWidth;
-    D2CelContextStrc tGfxData;
+    D2GfxDataStrc tGfxData;
     memset(&tGfxData, 0, sizeof(tGfxData));
-    tGfxData.pCellFile = (D2CelFileStrc*)pCell;
+    tGfxData.pCelFile = (D2CelFileStrc*)pCell;
     tGfxData.nDirection = 0;
     nWidth = 0;
 

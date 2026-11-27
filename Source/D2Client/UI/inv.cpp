@@ -33,6 +33,8 @@
 #include "D2LangApi.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
 
 struct D2ClientInterfaceStrc;
 
@@ -90,7 +92,7 @@ struct D2ItemsTxt;
 
 struct D2AuxLevelEntryStrc;
 
-struct D2GfxDataStrc;
+struct D2UnitGfxDataStrc;
 
 extern void* ghDbgHelp; // 0x0098A680
 
@@ -212,8 +214,6 @@ void __stdcall sub_004A1770(SMSGHANDLER_PARAMS* pMsg); // 0x004A1770
 void __cdecl sub_004B8CB0_BeginTradeWait(); // 0x004B8CB0
 
 void __fastcall sub_004DC2B0(void* pResource); // 0x004DC2B0
-
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
@@ -474,8 +474,6 @@ extern void* gResourceB;
 
 void __cdecl InitializePalette();
 
-void __fastcall D2GFX_DrawBox(int x, int y, int width, int height, int color, int mode); // 0x004F6300
-
 int __stdcall ReleaseResource(void* resource);
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
@@ -590,13 +588,9 @@ int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 
 
 
-void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
-
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
-
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 extern D2CelFileStrc* gpGoldButtonCel_007BCC34; // 0x007BCC34
 
@@ -687,7 +681,7 @@ void __cdecl NPCMENU_CloseNpcShop();                                            
 
 int __fastcall sub_004DF9D0_CheckCacheEntry(int nId);                                                       // 0x004DF9D0
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 
 
@@ -1304,10 +1298,6 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC19C
 
 void __fastcall INV_UpdateAuxBattleNetAddress(int nIndex); // 0x00482CA0
-
-int __fastcall ARCHIVE_LoadVideoArchives(void* pfShowMessage, void* hFile, int bExpansion); // 0x004FAD10
-
-int __fastcall D2Win_10177(unsigned char nAct); // 0x004FB480
 
 void __fastcall PLAYER_SetCinematicExpansion(int bExpansion); // 0x00460480
 
@@ -2155,9 +2145,9 @@ void __stdcall INV_DrawItemSockets(D2UnitStrc* item, D2InventoryGridInfoStrc* gr
     {
         int drawX = (offsets[i].nX - 1) * grid->nGridBoxWidth / 2 + x;
         int drawY = (offsets[i].nY + 1) * grid->nGridBoxHeight / 2 + y;
-        D2CelContextStrc context;
+        D2GfxDataStrc context;
         memset(&context, 0, sizeof(context));
-        context.pCellFile = gpGemSocketCel;
+        context.pCelFile = gpGemSocketCel;
         context.nDirection = 0;
         context.nFrame = 0;
         sub_004F6480(&context, drawX - 1, drawY, -1, 0, 0);
@@ -4605,7 +4595,7 @@ void __cdecl INV_ClearClickPos()
 void __fastcall INV_DrawGold(int nType)
 {
     int nOldFont = D2Win_10127_SetFont(1);
-    D2CelContextStrc tData = {};
+    D2GfxDataStrc tData = {};
     tData.nDirection = 0;
 
     int nGold;
@@ -4688,7 +4678,7 @@ void __fastcall INV_DrawGold(int nType)
         }
         nIconX += 2;
         nIconY -= 2;
-        tData.pCellFile = gpGoldButtonCel_007BCC34;
+        tData.pCelFile = gpGoldButtonCel_007BCC34;
         tData.nFrame = nFrame;
         TEXTURE_CelDraw(&tData, nIconX, nIconY, -1, 5, 0);
         break;
@@ -4700,7 +4690,7 @@ void __fastcall INV_DrawGold(int nType)
         }
         nIconX += 1;
         nIconY -= 2;
-        tData.pCellFile = gpGoldButtonCel_007BCC34;
+        tData.pCelFile = gpGoldButtonCel_007BCC34;
         tData.nFrame = nFrame;
         TEXTURE_CelDraw(&tData, nIconX, nIconY, -1, 5, 0);
         break;
@@ -4728,9 +4718,9 @@ void __cdecl INV_DrawNpcShopPanel()
         gbNpcTradeClicked = 0;
     }
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpBuySellCel;
+    tContext.pCelFile = gpBuySellCel;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0xE0, -1, 5, 0);
@@ -4751,7 +4741,7 @@ void __cdecl INV_DrawNpcShopPanel()
         }
     }
 
-    tContext.pCellFile = GAME_GetBuySellButtonCells();
+    tContext.pCelFile = GAME_GetBuySellButtonCells();
     for (int i = 0; i < gnButtonCount; ++i)
     {
         tContext.nFrame = gaPanelButtons_007BC9E0[i].nValue + gaPanelButtons_007BC9E0[i].nFrame;
@@ -4771,7 +4761,7 @@ void __cdecl INV_DrawNpcShopPanel()
         {
             const Unicode* wszText = D2LANG_GetStringFromTblIndex(gaNpcTabs[i].nString);
             const int nWidth = D2Win_10121_GetTextWidth(wszText);
-            tContext.pCellFile = gpBuySellTabsCel;
+            tContext.pCelFile = gpBuySellTabsCel;
             if (nColor == 4)
             {
                 tContext.nFrame = i;
@@ -6561,20 +6551,20 @@ static void INV_DrawMercStats(D2UnitStrc* pUnit)
 // 0x0048B0A0
 void __stdcall INV_DrawMercEmptyBodyLocs(D2UnitStrc* pUnit)
 {
-    D2CelContextStrc tGfx;
+    D2GfxDataStrc tGfx;
     memset(&tGfx, 0, sizeof(tGfx));
 
     D2InventoryStrc* pInventory = pUnit->pInventory;
     if (!pInventory || !INVENTORY_GetItemFromBodyLoc(pInventory, 3))
     {
-        tGfx.pCellFile = gpTorsoCell_007BCE68;
+        tGfx.pCelFile = gpTorsoCell_007BCE68;
         tGfx.nFrame = 0;
         TEXTURE_CelDraw(&tGfx, gnRectTorsoLeft + gtOffsetTorso.nX, gnRectTorsoBottom + gtOffsetTorso.nY, -1, 5, 0);
     }
 
     if (!pInventory || !INVENTORY_GetItemFromBodyLoc(pInventory, 1))
     {
-        tGfx.pCellFile = gpHeadCell_007BCE74;
+        tGfx.pCelFile = gpHeadCell_007BCE74;
         tGfx.nFrame = 1;
         TEXTURE_CelDraw(&tGfx, gnRectHeadLeft + gtOffsetHead.nX, gnRectHeadBottom + gtOffsetHead.nY, -1, 5, 0);
     }
@@ -6585,7 +6575,7 @@ void __stdcall INV_DrawMercEmptyBodyLocs(D2UnitStrc* pUnit)
 
     if (!pLeftItem)
     {
-        tGfx.pCellFile = gpArmCell_007BCE7C;
+        tGfx.pCelFile = gpArmCell_007BCE7C;
         tGfx.nFrame = 0;
         if (pRightItem)
         {
@@ -6602,7 +6592,7 @@ void __stdcall INV_DrawMercEmptyBodyLocs(D2UnitStrc* pUnit)
 
     if (!pRightItem)
     {
-        tGfx.pCellFile = gpArmCell_007BCE7C;
+        tGfx.pCelFile = gpArmCell_007BCE7C;
         tGfx.nFrame = 0;
         if (pLeftItem)
         {
@@ -9170,9 +9160,9 @@ void __stdcall INV_DrawWarningIcon(int nFrame)
             break;
         }
     }
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpInvWarnCel;
+    tContext.pCelFile = gpInvWarnCel;
     tContext.nDirection = 0;
     tContext.nFrame = nFrame;
     if (GAME_GetUIVarState(0xA))

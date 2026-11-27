@@ -9,6 +9,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "FogApi.h"
+#include "D2HellApi.h"
 
 extern "C" __declspec(dllimport) long __stdcall RegCloseKey(void* hKey);
 extern "C" __declspec(dllimport) long __stdcall RegCreateKeyExA(void* hKey, const char* lpSubKey, unsigned long Reserved, char* lpClass, unsigned long dwOptions, unsigned long samDesired, void* lpSecurityAttributes, void** phkResult, unsigned long* lpdwDisposition);
@@ -899,8 +900,6 @@ extern "C" __declspec(dllimport) HWND __stdcall CreateWindowExA(unsigned long dw
 extern "C" HRESULT __stdcall DirectDrawEnumerateA(LPDDENUMCALLBACKA pCallback, void* pContext);             // 0x006C9B82
 
 void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...) throw();                                                  // 0x00410610
-
-void __cdecl sub_0051793E_FormatAndRaise(unsigned long dwError, ...); // 0x0051793E
 
 void __fastcall D3DCORE_LogDDrawError(const char* szMessage, long hResult) throw();                      // 0x006B20E0
 

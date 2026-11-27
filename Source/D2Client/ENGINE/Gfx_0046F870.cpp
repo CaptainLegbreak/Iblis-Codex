@@ -10,6 +10,7 @@
 #include "StormApi.h"
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
+#include "D2HellApi.h"
 struct D2UnitStrc;
 
 #define UNIT_PLAYER 0
@@ -41,12 +42,11 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
 extern "C" char* __cdecl _strlwr(char* szString); // 0x006864E1
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
-void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
-D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
+D2UnitGfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 int __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
 extern "C" D2GfxLayerHeaderStrc* __fastcall GFXUTIL_identity(void* pGfx); // 0x004DB040
-int __fastcall GFXUTIL_InitMonsterCelContext(D2CelContextStrc* pContext, int nA, int nB, unsigned char nLayer, int nMode, unsigned int dwCode, D2HashedFileEntryStrc* pEntry, D2MonCofInfoStrc* pInfo, D2MonStatsTxt* pMonStats, int nIndex); // 0x004DBCF0
-int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
+int __fastcall GFXUTIL_InitMonsterCelContext(D2GfxDataStrc* pContext, int nA, int nB, unsigned char nLayer, int nMode, unsigned int dwCode, D2HashedFileEntryStrc* pEntry, D2MonCofInfoStrc* pInfo, D2MonStatsTxt* pMonStats, int nIndex); // 0x004DBCF0
+int __stdcall sub_006001F0(D2GfxDataStrc* pContext, int nArg2, int nArg3); // 0x006001F0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern D2CofModeEntryStrc gaCofModeCodes[]; // 0x00712B04
@@ -121,7 +121,7 @@ static int __stdcall GFX_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit)
         return 0;
     }
 
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (!pGfxData)
     {
         return 0;
@@ -204,7 +204,7 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
         {
             for (unsigned int j = 0; j < pInfo->nCount; ++j)
             {
-                D2CelContextStrc tContext;
+                D2GfxDataStrc tContext;
                 memset(&tContext, 0, sizeof(tContext));
                 if (GFXUTIL_InitMonsterCelContext(&tContext, 0, 0, nLayer, nMode, dwCode, pEntry, pInfo, pMonStatsTxtRecord, j))
                 {
@@ -226,7 +226,7 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
         }
         else
         {
-            D2CelContextStrc tContext;
+            D2GfxDataStrc tContext;
             memset(&tContext, 0, sizeof(tContext));
             if (GFXUTIL_InitMonsterCelContext(&tContext, 0, 0, nLayer, nMode, dwCode, pEntry, pInfo, pMonStatsTxtRecord, 0))
             {
@@ -292,7 +292,7 @@ static inline D2InventoryStrc* GetInventory(D2UnitStrc* unit) {
 }
 
 static inline void* GetModeGfx(D2UnitStrc* unit,int mode) {
- D2GfxDataStrc* data=CUNIT_GetGfxData(unit);
+ D2UnitGfxDataStrc* data=CUNIT_GetGfxData(unit);
  if(!data) return 0;
  D2GfxListNodeStrc* node=data->pList;
  if(!node) return 0;

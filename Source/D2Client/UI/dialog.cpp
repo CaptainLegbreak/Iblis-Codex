@@ -7,6 +7,8 @@
 #include "D2ClientDialogWidget.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
 
 #pragma function(memset)
 
@@ -116,8 +118,6 @@ void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable
 
 
 
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
-
 extern D2MsgHandlerEntryStrc gaDialogWheelHandlers[]; // 0x007273E4
 
 extern D2MsgHandlerEntryStrc gaDialogHandlers[]; // 0x007273F0
@@ -168,13 +168,9 @@ extern const char* gaszDialogCels[]; // 0x007274AC
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
-int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
-
-int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
-
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
-D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
+D2CelStrc* __stdcall CelGetHandle(D2GfxDataStrc* pContext); // 0x00601840
 
 
 static int DIALOG_FindDialogItem(D2ClientDialogStrc* pDialog, SMSGHANDLER_PARAMS* pMsg);
@@ -185,7 +181,7 @@ void __stdcall DIALOG_LButtonUpMsg(SMSGHANDLER_PARAMS* pMsg);
 
 void __stdcall DIALOG_LButtonDownMsg(SMSGHANDLER_PARAMS* pMsg);
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
@@ -733,7 +729,7 @@ void __fastcall DIALOG_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int
 D2ClientDialogStrc* __fastcall DIALOG_CreateDialogFromFile(int nArg1, int nArg2, int nArg8, int nArgC, int nType, int nArg14)
 {
     char szPath[0x104];
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
 
 // build: symbol ?UI_TogglePanelHandlers@* 0x004545C0
     UI_TogglePanelHandlers(0);
@@ -778,7 +774,7 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialogFromFile(int nArg1, int nArg2,
     pDialog->pCelFile = ARCHIVE_LoadClientCellFile(szPath, 0);
 
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = pDialog->pCelFile;
+    tContext.pCelFile = pDialog->pCelFile;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     D2CelStrc* hCel = CelGetHandle(&tContext);
@@ -913,7 +909,7 @@ void __fastcall DIALOG_DrawDialog(D2ClientDialogStrc* pDialog)
 {
     D2_ASSERT(pDialog, 0x48E);
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
 
     ++pDialog->nState;
@@ -929,7 +925,7 @@ void __fastcall DIALOG_DrawDialog(D2ClientDialogStrc* pDialog)
     {
         if (pDialog->pCelFile)
         {
-            tContext.pCellFile = pDialog->pCelFile;
+            tContext.pCelFile = pDialog->pCelFile;
             tContext.nFrame = 0;
             sub_004F6480(&tContext, pDialog->nX, pDialog->nY + pDialog->nHeight, -1, 5, 0);
         }
@@ -969,7 +965,7 @@ void __fastcall DIALOG_DrawDialog(D2ClientDialogStrc* pDialog)
 
             if (pDialog->nMode == 2)
             {
-                tContext.pCellFile = UI_GetFocusCel();
+                tContext.pCelFile = UI_GetFocusCel();
                 tContext.nFrame = gnSelectionFrame % 7;
                 sub_004F6480(&tContext, nLineX - 24, nLineY + 4, -1, 5, 0);
                 sub_004F6480(&tContext, pLine->nWidth + nLineX + 2, nLineY + 4, -1, 5, 0);

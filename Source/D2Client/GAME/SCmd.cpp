@@ -28,6 +28,7 @@
 #include "StormApi.h"
 #include "D2Packets.h"
 #include "D2CommonApi2.h"
+#include "D2GfxApi.h"
 
 struct D2ActiveRoomStrc;
 
@@ -193,8 +194,6 @@ extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSiz
 
 void __cdecl TEXT_ClearListFlags(); // 0x004A01E0
 
-
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 int __stdcall SMsgRegisterCommand(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420BF0
 
@@ -1044,7 +1043,7 @@ void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x
 
 
 
-D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
+D2UnitGfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
 void __stdcall ENVIRONMENT_GetLightColorFromAct(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
 
@@ -3768,7 +3767,7 @@ void __fastcall SCMD_ProcessPackets(unsigned char* pData, int nSize)
 // 0x0046E150
 void __fastcall SCMD_SetGfxNodeValue(D2UnitStrc* pUnit, int nId, int nValue)
 {
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfxData, 510);
 
     for (D2UnitOverlayStrc* pNode = pGfxData->pOverlays; pNode; pNode = pNode->pNext)

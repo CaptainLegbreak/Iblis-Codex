@@ -28,6 +28,8 @@
 #include "D2LangApi.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 
@@ -75,7 +77,7 @@ struct D2GfxLightStrc;
 
 struct D2UnitStrc;
 
-struct D2GfxDataStrc;
+struct D2UnitGfxDataStrc;
 
 struct D2DataTablesStrc;
 
@@ -1100,7 +1102,7 @@ void __cdecl AUTOMAP_ReloadAutomapCels(); // 0x0045A2B0
 int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00461250
 
 
-D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
+D2UnitGfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
 void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 0x0046E040
 
@@ -1109,8 +1111,6 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
 
 
 
-
-void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
 
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
@@ -1266,10 +1266,6 @@ void __cdecl GFX_FreeHashedFiles(); // 0x00470290
 
 int __cdecl VIEW_IsPetIconVisible(); // 0x00492C10
 
-void __stdcall D2CMPTileCacheDestroy(int bFree); // 0x005FDE10
-
-void __stdcall D2CMPSpriteCacheDestroy(int bFree); // 0x005FFE30
-
 int gnAutomapMode;                                                                                     // 0x007A5150
 
 static D2AutomapLayerStrc* gpAutomapContext; // 0x007A5164
@@ -1288,12 +1284,6 @@ struct D2AutomapRoomStrc
 };
 
 void* __stdcall DRLG_GetLevelTypeFromLevelId(int nLevelId); // 0x00642750
-
-int __stdcall TileGetType(D2TileLibraryEntryStrc* pTile); // 0x00604B60
-
-int __stdcall TileGetStyle(D2TileLibraryEntryStrc* pTile); // 0x00604B90
-
-int __stdcall TileGetSequence(D2TileLibraryEntryStrc* pTile); // 0x00604C50
 
 int __fastcall DATATBLS_GetAutomapCellId(void* pAutomapLevelType, int nAutomapTileType, int nStyle, int nSequence); // 0x0061FFF0
 
@@ -1421,8 +1411,6 @@ int gnAutomapWidth = gnScreenWidth; // 0x007A5220
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, va_list args); // 0x006CC4AC
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
-
-int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
 
 extern "C" size_t __cdecl strlen(const char* szString);
 
@@ -1556,8 +1544,6 @@ struct D2CropRectStrc
     int nBottom;
 };
 
-
-void __stdcall TEXTURE_CelDrawClipped(D2CelContextStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
 
 
 static void AUTOMAP_WriteAutomapLayer(D2AutomapSaveStrc* pSave); // 0x00458200
@@ -3089,10 +3075,10 @@ void __fastcall AUTOMAP_DrawAutomapCells(D2AutomapCellStrc* pCell, D2AutomapDraw
     if (nY >= pInfo->nTop && nY <= pInfo->nBottom && nX >= pInfo->nLeft && nX <= pInfo->nRight)
     {
         int nDrawMode = 5;
-        D2CelContextStrc tData;
+        D2GfxDataStrc tData;
         memset(&tData, 0, sizeof(tData));
         tData.nFrame = pCell->nCellNo;
-        tData.pCellFile = pInfo->pCelFile;
+        tData.pCelFile = pInfo->pCelFile;
         tData.nDirection = 0;
 
         switch (AUTOMAP_GetAutomapFade())
@@ -4168,7 +4154,7 @@ void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValu
     {
         return;
     }
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (!pGfxData)
     {
         return;

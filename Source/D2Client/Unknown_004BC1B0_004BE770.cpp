@@ -11,6 +11,7 @@
 #include "D2ListBoxLine.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
 
 class UIWidget;
 class ListBoxImplementation;
@@ -32,9 +33,7 @@ D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nTy
 
 int __fastcall PANEL_CountLinesInView(ListBoxImplementation* pListBox); // 0x004BE340
 
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
-
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 
@@ -100,7 +99,7 @@ struct D2ListScrollStrc
     int nY;
     int nRows;
 
-    int DrawRows(D2CelContextStrc* pContext);
+    int DrawRows(D2GfxDataStrc* pContext);
 };
 
 // 0x004BF8C0
