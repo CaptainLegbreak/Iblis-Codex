@@ -3,7 +3,6 @@
 Written by lane 5 only. Newest entries at the top of each section; delete what is done.
 
 ## Ready
-- The three together: full build identical yes, borrowed code 8,373 B in 5 functions, borrowed data 261 B.
 
 ## Claimed
 
