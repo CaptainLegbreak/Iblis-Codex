@@ -103,7 +103,6 @@ D2SpriteCacheStrc gCmpTileCache;                                                
 
 D2SpriteCacheNodeStrc* __fastcall D2CMPSpriteCacheEvict(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
 
-D2CmpCacheListEntryStrc* gpCmpCacheEntries; // 0x0089DB7C
 
 
 
@@ -248,7 +247,6 @@ extern "C" const char gszDataGlobal[]; // 0x006D4118
 
 struct D2CmpDC6CelStrc { char unk0x00[0x2C]; };
 
-int gnSpriteCacheMaxMemory; // 0x0089DB64
 
 int gnCelDataCacheUsedMemory; // 0x0088DB28
 
@@ -812,7 +810,7 @@ unsigned int __cdecl D2CMPSpriteCacheGetUsedMemory()
 // 0x005FEE40
 int __cdecl D2CMPSpriteCacheGetMaxMemory()
 {
-    return gnSpriteCacheMaxMemory;
+    return gCmpTileCache.nMaxSize;
 }
 
 // 0x005FEE50
@@ -1047,13 +1045,13 @@ static void D2CMPSpriteCacheUnlink(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeS
 int __cdecl D2CMPSpriteNumAsyncLoads()
 {
     int nCount = 0;
-    for (D2CmpCacheListEntryStrc* pEntry = gpCmpCacheEntries; pEntry; pEntry = pEntry->pNext)
+    for (D2SpriteCacheNodeStrc* pNode = gCmpTileCache.pHeadB; pNode; pNode = pNode->pNext)
     {
-        D2CmpCacheKeyStrc* pKey = pEntry->pKey;
+        D2CmpSpriteEntryStrc* pKey = pNode->pEntry;
         if (pKey && !(pKey->nFlags & 1))
         {
-            D2_ASSERT(pKey->pAsyncData, 0xB5B);
-            if (!FOG_AsyncDataTestLoaded(pKey->pAsyncData))
+            D2_ASSERT(pKey->pAsync, 0xB5B);
+            if (!FOG_AsyncDataTestLoaded(pKey->pAsync))
             {
                 nCount += 1;
             }
@@ -1066,13 +1064,13 @@ int __cdecl D2CMPSpriteNumAsyncLoads()
 // 0x005FF300
 int __stdcall D2CMPSpriteFindAsynchSiblings(int nKeyA, int nKeyB, int nKeyC)
 {
-    for (D2CmpCacheListEntryStrc* pEntry = gpCmpCacheEntries; pEntry; pEntry = pEntry->pNext)
+    for (D2SpriteCacheNodeStrc* pNode = gCmpTileCache.pHeadB; pNode; pNode = pNode->pNext)
     {
-        D2CmpCacheKeyStrc* pKey = pEntry->pKey;
-        if (pKey && !(pKey->nFlags & 1) && pKey->nKeyC == nKeyC && pKey->nKeyB == nKeyB && pKey->nKeyA == nKeyA)
+        D2CmpSpriteEntryStrc* pKey = pNode->pEntry;
+        if (pKey && !(pKey->nFlags & 1) && pKey->nArg08 == nKeyC && pKey->nArg04 == nKeyB && pKey->nType == nKeyA)
         {
-            D2_ASSERT(pKey->pAsyncData, 0xB7B);
-            if (!FOG_AsyncDataTestLoaded(pKey->pAsyncData))
+            D2_ASSERT(pKey->pAsync, 0xB7B);
+            if (!FOG_AsyncDataTestLoaded(pKey->pAsync))
             {
                 return 1;
             }
@@ -1090,16 +1088,16 @@ void __cdecl sub_005FF390_Nop()
 // 0x005FF3A0
 void __cdecl D2CMPSpriteFreeAsyncLoads()
 {
-    for (D2CmpCacheListEntryStrc* pEntry = gpCmpCacheEntries; pEntry; pEntry = pEntry->pNext)
+    for (D2SpriteCacheNodeStrc* pNode = gCmpTileCache.pHeadB; pNode; pNode = pNode->pNext)
     {
-        D2CmpCacheKeyStrc* pKey = pEntry->pKey;
+        D2CmpSpriteEntryStrc* pKey = pNode->pEntry;
         if (pKey)
         {
-            AsyncData* pAsyncData = pKey->pAsyncData;
+            AsyncData* pAsyncData = pKey->pAsync;
             if (pAsyncData && !FOG_AsyncDataTestLoaded(pAsyncData))
             {
                 FOG_AsyncDataFree(pAsyncData);
-                pKey->pAsyncData = 0;
+                pKey->pAsync = 0;
             }
         }
     }
