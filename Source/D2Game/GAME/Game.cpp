@@ -144,6 +144,7 @@ int __stdcall SBigDel(void* pArg); // 0x00424E40
 
 #include "D2GameFuncs.h"
 #include "D2NetApi.h"
+#include "FogApi2.h"
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -155,8 +156,6 @@ typedef void (__fastcall* GAME_ForEachIngameClientCallbackPtr)(D2ClientStrc*, vo
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
-
-void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem); // 0x00409C80
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
 

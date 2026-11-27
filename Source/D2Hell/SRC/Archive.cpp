@@ -23,8 +23,6 @@ static void* __stdcall ARCHIVE_FindAndOpenArchive(char* szOutPath, const char* s
 
 int __stdcall SFileCloseArchive(void* hArchive); // 0x00419A80
 
-int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
-
 // build: symbol ?FOG_DisplayHalt@* 0x00408A60
 #define D2_ASSERT(expr,line) if(!(expr)) {FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
 

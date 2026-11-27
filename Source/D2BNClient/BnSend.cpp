@@ -387,8 +387,6 @@ int __fastcall BNSEND_SendAccountChange(const char* szAccountName, const char* s
 
 int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
 
-int __fastcall QSERVER_CheckClientMask(void* pServer, int nClientId); // 0x006BF6C0
-
 extern "C" const char gszNewsItemTypeName_0072FF8C[]; // 0x0072FF8C
 
 extern int gbNewsActive; // 0x00881C24

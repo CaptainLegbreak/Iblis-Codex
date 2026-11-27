@@ -77,7 +77,7 @@ int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 unsigned char __stdcall D2Win_10034_MixRGB(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 unsigned char* __fastcall D2COMP_GetComponentPalette(int nColor); // 0x005038D0
-void __fastcall FOG_FCloseFile(void* hFile); // 0x004068F0
+int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
 void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 void __fastcall D2Win_10176_StartPaletteFlash(int bActive); // 0x004FB130
 void __stdcall D2GFX_SetPaletteTables(D2PaletteTableStrc* pPaletteTables); // 0x004F6410

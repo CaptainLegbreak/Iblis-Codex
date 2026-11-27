@@ -134,8 +134,6 @@ extern D2ServiceStatusStrc gD2ServerServiceStatus; // 0x007065FC
 
 extern void* ghD2ServerServiceStatus; // 0x0074C714
 
-extern int gbRunningAsService; // 0x0074C720
-
 extern int gnLaunchDirectFlags; // 0x0074C82C
 
 extern void* gpStormOwnerB_007790C4; // 0x007790C4
@@ -750,12 +748,6 @@ int __cdecl MAINMENUS_PromptExpansionDisc(); // 0x004342E0
 extern D2ConfigStrc* gpConfig_007795D4; // 0x007795D4
 
 extern "C" const char gszMainMenusFile[]; // 0x006D41C0
-
-
-
-int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
-
-
 
 
 
