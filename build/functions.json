@@ -10871,7 +10871,7 @@
   ["0x005C0BE0", 66, "verified", "SUNITEVENT_GetEvent"],
   ["0x005C0C30", 200, "verified", "SUNITEVENT_Trigger"],
   ["0x005C0D00", 27, "verified", "?ITEMS_AddPotentialMagicAffix@@YGHHPAUD2MagicAffixTxt@@PAUD2MagicAffixIndexAndPtrStrc@@H@Z"],
-  ["0x005C0D20", 21, "verified", "?ITEMS_GetSkillPairEntry@@YGPAUD2SkillPairStrc@@HPAU1@H@Z"],
+  ["0x005C0D20", 21, "verified", "?ITEMS_GetPotentialMagicAffix@@YGPAUD2MagicAffixIndexAndPtrStrc@@HPAU1@H@Z"],
   ["0x005C0D40", 36, "verified", "?SKILLITEM_PercentWithMinimum@@YGHHHH@Z"],
   ["0x005C0D70", 537, "verified"],
   ["0x005C0F90", 706, "verified"],
