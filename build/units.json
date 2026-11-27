@@ -53812,6 +53812,11 @@
      "name": "?MONSTERUNIQUE_GetSuperUniqueBossHcIdx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005A03E0",
+     "length": 278,
+     "name": "?MONSTERUNIQUE_CanAssignUMod@@YGHPAUD2UnitStrc@@PAUD2MonUModTxt@@H@Z"
+    },
+    {
      "va": "0x005A0500",
      "length": 249,
      "name": "?MONSTERUNIQUE_RollChampionUMod@@YAHPAUD2UnitStrc@@PAUD2GameStrc@@@Z"
@@ -54225,17 +54230,6 @@
      "va": "0x005A0000",
      "length": 37,
      "name": "@MISSILES_GetMonLvlTxtRecord@4"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A03E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A03E0",
-     "length": 278,
-     "name": "?MONSTERUNIQUE_CanAssignUMod@@YGHPAUD2UnitStrc@@PAUD2MonUModTxt@@H@Z"
     }
    ]
   },

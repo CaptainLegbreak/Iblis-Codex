@@ -470,7 +470,7 @@ static inline D2MonStatsTxt* MonStatsTxtRecordOrNull(int nMonsterId)
     return &sgptDataTables->pMonStatsTxt[nMonsterId];
 }
 
-static inline unsigned int TestMonStatsFlag(int nMonsterId, int nFlag)
+static __forceinline unsigned int TestMonStatsFlag(int nMonsterId, int nFlag)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MonStatsTxtRecordOrNull(nMonsterId);
     if (!pMonStatsTxtRecord)
