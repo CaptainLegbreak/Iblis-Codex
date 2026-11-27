@@ -389,10 +389,6 @@ int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId); // 0x004EFC20
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 
 
-extern const int gnHydraOffsetX[]; // 0x006E312C
-
-extern const int gnHydraOffsetY[]; // 0x006E3120
-
 void __fastcall D2GAME_SetSkills(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
 

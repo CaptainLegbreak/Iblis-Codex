@@ -108,10 +108,6 @@ typedef void(__fastcall* MissileInitFunc)(D2UnitStrc*, int);
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer); // 0x00627260
 
 
-extern const int gnBugLightningXOffsets[]; // 0x006E21A8
-
-extern const int gnBugLightningYOffsets[]; // 0x006E2198
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
