@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 21:26 PST 2026: check-in. Main is #467; monster-join and names-dialog still ready, both merge clean.
 - Thu Nov 26 21:18 PST 2026: names-dialog ready. Tried Unknown_004B9200.cpp's float helpers (0x4B9340-0x4B93A0) in SoundInst.cpp: its callers 0x4B98F0, 0x4B99A0, 0x4B9A00, 0x4BA020 change registers with the bodies visible, noinline or not, so they stay a separate object.
 - Thu Nov 26 20:54 PST 2026: monster-join ready.
 - Thu Nov 26 20:44 PST 2026: check-in. #466 took skillsmon-callbacks and hinttext-join (Ready lines dropped); Ready is empty. Next: functions in my range whose every caller is in one named file whose run they sit in.
