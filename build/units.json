@@ -54086,6 +54086,10 @@
      "name": "?MONSTERUNIQUE_SetTrapDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005A3D20",
+     "length": 330
+    },
+    {
      "va": "0x005A3E70",
      "length": 119,
      "name": "MONSTERUNIQUE_SuicideModeChange"
@@ -54520,16 +54524,6 @@
     {
      "va": "0x005A8730",
      "length": 113
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A3D20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A3D20",
-     "length": 330
     }
    ]
   },

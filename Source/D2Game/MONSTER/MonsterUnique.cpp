@@ -1846,6 +1846,68 @@ void __fastcall MONSTERUNIQUE_CastNova(D2GameStrc* pGame, D2UnitStrc* pUnit, int
     SKILLS_CreateMissileRing(pGame, pUnit, pUnit, MISSILE_NOVA, 0, nSkillLevel, DATATBLS_GetMissileVelocityFromMissilesTxt(MISSILE_NOVA, 0));
 }
 
+static inline unsigned int MONSTERUNIQUE_RollSeed_005A3D20(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static inline unsigned int MONSTERUNIQUE_RollLimited_005A3D20(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+
+    if ((nMax - 1) & nMax)
+    {
+        return MONSTERUNIQUE_RollSeed_005A3D20(pSeed) % nMax;
+    }
+
+    return MONSTERUNIQUE_RollSeed_005A3D20(pSeed) & (nMax - 1);
+}
+
+static inline D2MonStatsTxt* MONSTERUNIQUE_GetMonStatsTxtRecord_005A3D20(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwClassId >= 0 && pUnit->dwClassId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[pUnit->dwClassId];
+    }
+    return 0;
+}
+
+static inline int MONSTERUNIQUE_GetUnitX_005A3D20(D2UnitStrc* pUnit)
+{
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
+        return pUnit->pStaticPath->tGameCoords.nX;
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static inline int MONSTERUNIQUE_GetUnitY_005A3D20(D2UnitStrc* pUnit)
+{
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
+        return pUnit->pStaticPath->tGameCoords.nY;
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x005A3D20
+void __fastcall MONSTERUNIQUE_ApplyCorpseFireDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = MONSTERUNIQUE_GetMonStatsTxtRecord_005A3D20(pUnit);
+    const int nFireDamage = (MONSTERUNIQUE_RollLimited_005A3D20(&pUnit->pSeed, pMonStatsTxtRecord->nElMaxD[0][0] - pMonStatsTxtRecord->nElMinD[0][0]) + pMonStatsTxtRecord->nElMinD[0][0]) << 8;
+    const int nSize = pMonStatsTxtRecord->wAiParam[2][pGame->nDifficulty] * STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
+
+    D2DamageStrc damage;
+    memset(&damage, 0, sizeof(damage));
+    damage.dwFireDamage = nFireDamage;
+
+    const int nX = MONSTERUNIQUE_GetUnitX_005A3D20(pUnit);
+    const int nY = MONSTERUNIQUE_GetUnitY_005A3D20(pUnit);
+    SUNITDMG_SetMissileDamageFlagsForNearbyUnits(pGame, pUnit, nX, nY, nSize, &damage, 0, 0, 0, 0);
+}
+
 // 0x005A3E70
 void __fastcall MONSTERUNIQUE_SuicideModeChange(D2GameStrc* pGame, D2UnitStrc* pBoss, int nUMod, int bUnique)
 {
