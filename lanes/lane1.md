@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 17:05 PST 2026: extern-dups-2 ready (stacked on extern-dups).
 - Thu Nov 26 16:50 PST 2026: check-in. Main is #450; extern-dups still ready and merges clean. Next: the same hoist for arrays and records D2Client.h defines.
 - Thu Nov 26 16:34 PST 2026: extern-dups ready.
 - Thu Nov 26 16:18 PST 2026: check-in. #446/#447 took api-dups, names-fields-2 and the SkillDesc stack (e6e30-join, e2320-strays, dead-copies): Ready lines dropped, Ready is empty. Next: more scaffolding in my range (private externs a shared header already has).
@@ -64,6 +65,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/extern-dups-2 ba80afba7 (on extern-dups, merges clean on #450): scaffolding, the same hoist for nine more globals: int arrays, gnScreenWidth, and arrays of two records D2Client.h defines (gaWaypointEntries, gaHoverRects); 63 private copies go from 45 files. gabQuestFlagsA stays private (defined char, declared unsigned char). All 114 units that include the header equal. Full build: Game.exe identical, tree 307e5b0706ea9807df2aa47b52fcae75a602e84a, borrowed code / data 7,923 B / 261 B. Audit guard against its base: no count rose (against #450 it shows main's own drops since #447 as rises).
 - lane1/extern-dups 71f9630a7 (on #447): scaffolding. D2ClientFuncs.h declares 55 D2Client globals once: each is defined in D2Client and declared privately, with the same scalar or pointer type, in two or more files that include the header, at least one in my range. The 240 private copies go from 50 files (some are lane 4's: the same rule the prototype hoist used). The eight declaration-sensitive units don't include the header and keep theirs. All 114 units that include it equal. Full build: Game.exe identical, tree 70bc426d75a9234ad2ed82b5062fa3e3825e07b1, borrowed code / data 7,923 B / 261 B. Audit guard: no count rose.
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
