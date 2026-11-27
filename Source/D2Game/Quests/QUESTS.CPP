@@ -1849,12 +1849,6 @@ static void __stdcall QUESTS_SetIntroFlags(D2GameStrc* pGame, D2UnitStrc* pPlaye
     }
 }
 
-void __fastcall sub_K10_EmitSetIntroFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    static const int aNpcs[2] = { 1, 2 };
-    QUESTS_SetIntroFlags(pGame, pPlayer, aNpcs, 2);
-}
-
 // 0x00544FA0
 static void QUESTS_SetActNpcIntroFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char nAct)
 {
@@ -1862,34 +1856,26 @@ static void QUESTS_SetActNpcIntroFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, u
     {
     case 0:
     {
-        D2PlrIntroStrc* pIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
-        for (int i = 0; i < 6; ++i)
 // build: symbol ?gnAct1NpcIds@* 0x007318B0
-            PLRINTRO_SetNpcIntroFlag(pIntro, gnAct1NpcIds[i]);
+        QUESTS_SetIntroFlags(pGame, pPlayer, gnAct1NpcIds, 6);
         break;
     }
     case 1:
     {
-        D2PlrIntroStrc* pIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
-        for (int i = 0; i < 11; ++i)
 // build: symbol ?gnAct2NpcIds@* 0x007318C8
-            PLRINTRO_SetNpcIntroFlag(pIntro, gnAct2NpcIds[i]);
+        QUESTS_SetIntroFlags(pGame, pPlayer, gnAct2NpcIds, 11);
         break;
     }
     case 2:
     {
-        D2PlrIntroStrc* pIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
-        for (int i = 0; i < 7; ++i)
 // build: symbol ?gnAct3NpcIds@* 0x007318F4
-            PLRINTRO_SetNpcIntroFlag(pIntro, gnAct3NpcIds[i]);
+        QUESTS_SetIntroFlags(pGame, pPlayer, gnAct3NpcIds, 7);
         break;
     }
     case 4:
     {
-        D2PlrIntroStrc* pIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
-        for (int i = 0; i < 7; ++i)
 // build: symbol ?gnAct5NpcIds@* 0x00731910
-            PLRINTRO_SetNpcIntroFlag(pIntro, gnAct5NpcIds[i]);
+        QUESTS_SetIntroFlags(pGame, pPlayer, gnAct5NpcIds, 7);
         break;
     }
     }
