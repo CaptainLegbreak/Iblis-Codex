@@ -1239,9 +1239,9 @@ void __cdecl PARTY_DrawRosterHoverHints(); // 0x0049ABD0
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
-void* gpInvGoldBtnCel; // 0x007BF024
+extern void* gpInvGoldBtnCel; // 0x007BF024
 
-void* gpPartyBarCel; // 0x007BF028
+extern void* gpPartyBarCel; // 0x007BF028
 
 // 0x0049C0A0
 void __cdecl PANEL_LoadPartyCels()

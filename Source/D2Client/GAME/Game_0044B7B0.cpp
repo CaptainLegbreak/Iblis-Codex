@@ -97,7 +97,7 @@ int gbRunKeyHeld; // 0x007A065C
 
 int gbAlwaysRun; // 0x007A0660
 
-int gbStandStillHeld; // 0x007A0664
+extern int gbStandStillHeld; // 0x007A0664
 
 int gbLeftClickRepeating; // 0x007A066C
 
@@ -196,7 +196,7 @@ extern char gaClientState_007A0480[0x80];                                       
 
 extern D2ClientCallbackFn gpfnClientCallback;                                                      // 0x007A0484
 
-D2PoolSystemStrc* gpMemPool;                                                                       // 0x007A0488
+extern D2PoolSystemStrc* gpMemPool; // 0x007A0488
 
 extern int gdwTickCount;                                                                              // 0x007A048C
 
@@ -218,7 +218,7 @@ extern int gbExpansion;                                                         
 
 int gbLadder;                                                                                     // 0x007A04F8
 
-int gnSkillDelayUntil;                                                                                     // 0x007A04FC
+extern int gnSkillDelayUntil; // 0x007A04FC
 
 extern int gdwUnloadCompleteTick;                                                                              // 0x007A0524
 
@@ -232,9 +232,9 @@ extern int gbLeavingGame;                                                       
 
 extern int gbActUnloaded;                                                                                // 0x007A0624
 
-int gnPlayCinematic;                                                                                     // 0x007A0628
+extern int gnPlayCinematic; // 0x007A0628
 
-int gnCinematicPlayed;                                                                                     // 0x007A062C
+extern int gnCinematicPlayed; // 0x007A062C
 
 extern D2AutomapRecordStrc* gpAutomapRecord;                                                       // 0x007A0638
 
@@ -258,7 +258,7 @@ extern int gbRecordPlaying;                                                     
 
 extern int gaUIVarStates[];                                                                        // 0x007A27C0
 
-Unicode gwszPopUpText[80];                                                                              // 0x007A2C80
+extern Unicode gwszPopUpText[80]; // 0x007A2C80
 
 extern int gnPopUpTextX;                                                                              // 0x007A2D20
 

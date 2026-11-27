@@ -233,7 +233,7 @@ extern "C" unsigned int __cdecl strlen(const char* sz);
 
 int __stdcall sub_005041B0_Destroy(D2CelFileStrc* pCellFile, int nFlag); // 0x005041B0
 
-D2LaunchCharEntryStrc* gpCharEntry_00779DC0;                                                                // 0x00779DC0
+extern D2LaunchCharEntryStrc* gpCharEntry_00779DC0; // 0x00779DC0
 
 struct D2WinTextBoxStrc;
 

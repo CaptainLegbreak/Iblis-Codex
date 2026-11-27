@@ -1198,7 +1198,7 @@ int gnValue_0077994C; // 0x0077994C
 
 int gnValue_00779950; // 0x00779950
 
-int gbGatewayFlag; // 0x00779954
+extern int gbGatewayFlag; // 0x00779954
 
 int __cdecl MAINMENUS_FreeSlots();
 
@@ -2431,7 +2431,7 @@ extern "C" int __fastcall CHATDLG_SetMainControlState(int value)
     return 1;
 }
 
-int gnSlotCount;                                                                                     // 0x0077998C
+extern int gnSlotCount; // 0x0077998C
 
 // build: symbol ?gpAccountEdit@* 0x0077958C
 // build: symbol ?gpPasswordEdit@* 0x00779334

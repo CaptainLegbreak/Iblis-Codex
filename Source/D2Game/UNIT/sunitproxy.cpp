@@ -172,7 +172,7 @@ struct Obj00536B40 {
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-unsigned char gbUnitProxyItemCacheInitialized[17]; // 0x00883E88
+extern unsigned char gbUnitProxyItemCacheInitialized[17]; // 0x00883E88
 
 enum
 {

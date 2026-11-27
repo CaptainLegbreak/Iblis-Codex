@@ -163,7 +163,7 @@ int __cdecl VIEW_IsAcceleratedRenderMode()
 
 extern int gbCacheStats;                                                                           // 0x007BB3A4
 
-int gbCacheStatsChecked;                                                                                      // 0x007BB3AC
+extern int gbCacheStatsChecked; // 0x007BB3AC
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
@@ -439,15 +439,15 @@ int __stdcall sub_0040ABE0(); // 0x0040ABE0
 
 extern "C" const char gszUnknownText[]; // 0x006CC780
 
-unsigned int gnDisplayFps;        // 0x007BB390
+extern unsigned int gnDisplayFps; // 0x007BB390
 
-unsigned int gdwFpsCounterTick;        // 0x007BB394
+extern unsigned int gdwFpsCounterTick; // 0x007BB394
 
-unsigned int gnFpsCounterFrames;        // 0x007BB398
+extern unsigned int gnFpsCounterFrames; // 0x007BB398
 
-unsigned int gnCacheStatsFrames;        // 0x007BB39C
+extern unsigned int gnCacheStatsFrames; // 0x007BB39C
 
-unsigned int gdwCacheStatsStart;        // 0x007BB3A0
+extern unsigned int gdwCacheStatsStart; // 0x007BB3A0
 
 extern int gbCacheStats; // 0x007BB3A4
 
@@ -538,7 +538,7 @@ void __cdecl sub_00477C60_CheckCacheStats()
     gbCacheStatsChecked = 1;
 }
 
-int gdwGlobal_007BB388; // 0x007BB388
+extern int gdwGlobal_007BB388; // 0x007BB388
 
 // 0x00477C90
 int __cdecl sub_00477C90()

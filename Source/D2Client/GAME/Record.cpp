@@ -259,7 +259,7 @@ int __cdecl RECORD_IsRecordingEnabled()
 
 typedef void (__stdcall* D2RecordHandlerFn)(int nArg1, int nArg2, int nArg3);
 
-D2RecordHandlerFn gpfnPrevHandler; // 0x007A2764
+extern D2RecordHandlerFn gpfnPrevHandler; // 0x007A2764
 
 // 0x00451920
 void __stdcall RECORD_RecordHandler(int nArg1, int nArg2, int nArg3)

@@ -1773,7 +1773,7 @@ extern void* ghConnectEvent;                                                    
 
 int gaStateStack[1]; // 0x007A0424
 
-int gnStateStackCount; // 0x007A044C
+extern int gnStateStackCount; // 0x007A044C
 
 
 // 0x0044B440
@@ -1821,7 +1821,7 @@ void __cdecl WINMAIN_RaiseGameWindow()
 
 struct D2ConfigStrc;
 
-D2ConfigStrc* gpClientConfig; // 0x007A0438
+extern D2ConfigStrc* gpClientConfig; // 0x007A0438
 
 // 0x0044B7A0
 D2ConfigStrc* __cdecl WINMAIN_GetClientInfo()
@@ -1919,11 +1919,11 @@ void __cdecl GAME_FreeLngModule(); // 0x00451290
 
 extern "C" int __cdecl GAME_ShutdownIfActive(); // 0x0044BB80
 
-void* ghLaunchInstance; // 0x007A043C
+extern void* ghLaunchInstance; // 0x007A043C
 
-char gszModulePath[260]; // 0x007A0320
+extern char gszModulePath[260]; // 0x007A0320
 
-int gnLaunchResult; // 0x007A0440
+extern int gnLaunchResult; // 0x007A0440
 
 
 // 0x0044C6E0

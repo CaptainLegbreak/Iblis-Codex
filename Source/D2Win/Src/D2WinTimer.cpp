@@ -72,7 +72,7 @@ void __fastcall TIMER_DisableSpaceKey(D2WinTimerStrc* ptTimerData)
     ptTimerData->controlHeader.pfHandleVirtualKeyInput = 0;
 }
 
-unsigned int gdwTimeoutTickCount; // 0x00841B74
+extern unsigned int gdwTimeoutTickCount; // 0x00841B74
 
 // 0x004FD860
 int __fastcall TIMER_UpdateDefault(D2WinControlStrc* pControl)

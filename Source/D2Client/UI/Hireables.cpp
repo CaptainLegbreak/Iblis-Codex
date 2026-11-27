@@ -79,11 +79,11 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*,unsigned int,int,const char*); // 
 
 
 
-int gnGlobal_007BEEDC; // 0x007BEEDC
+extern int gnGlobal_007BEEDC; // 0x007BEEDC
 
 static int gbPopupPending; // 0x007BEEE0
 
-int gnGlobal_007BEEE8; // 0x007BEEE8
+extern int gnGlobal_007BEEE8; // 0x007BEEE8
 
 void* gpHelpBorderCel; // 0x007BEEEC
 
@@ -418,7 +418,7 @@ static inline D2PetTypeTxt* sub_00493240_GetPetTypeTxtRecord(int nPetType)
 
 
 
-int gnGlobal_007BEED4; // 0x007BEED4
+extern int gnGlobal_007BEED4; // 0x007BEED4
 
 // 0x004936E0
 void __stdcall WARDENCLIENT_HandlePetIconClick(SMSGHANDLER_PARAMS* pMsg)
@@ -645,15 +645,15 @@ static int gbHelpCloseButtonDown; // 0x007BEEFC
 
 
 
-int gnGlobal_007BEF04; // 0x007BEF04
+extern int gnGlobal_007BEF04; // 0x007BEF04
 
-int gbHelpButtonVisible; // 0x007BEF08
+extern int gbHelpButtonVisible; // 0x007BEF08
 
 void __cdecl PANEL_SetBlackColour();
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
-unsigned char gnHelpShadeColor; // 0x007BEEF8
+extern unsigned char gnHelpShadeColor; // 0x007BEEF8
 
 // 0x004943B0
 void __cdecl VIEW_DrawHelpFrameLowRes()
@@ -1032,7 +1032,7 @@ extern void* gpCellFile_007BEF2C; // 0x007BEF2C
 
 extern void* gpCellFile_007BEF20; // 0x007BEF20
 
-int gdwGlobal_007BEEFC; // 0x007BEEFC
+extern int gdwGlobal_007BEEFC; // 0x007BEEFC
 
 
 const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2);                                     // 0x00469DE0

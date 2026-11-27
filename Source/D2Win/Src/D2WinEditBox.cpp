@@ -440,7 +440,7 @@ static void __stdcall EDITBOX_GetCaretPosition(int* pX, int* pY, D2WinEditBoxStr
     }
 }
 
-tagPOINT gtMousePosition; // 0x007D55A4
+extern tagPOINT gtMousePosition; // 0x007D55A4
 
 struct Point { int x, y; };
 

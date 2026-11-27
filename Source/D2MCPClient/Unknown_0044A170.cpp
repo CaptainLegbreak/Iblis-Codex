@@ -398,11 +398,11 @@ void __stdcall sub_00449DB0_SetValue(int nValue);                               
 
 extern void* ghConnectEvent;                                                                       // 0x007992EC
 
-unsigned short gwMcpReplyRequestId;                                                                        // 0x00798F80
+extern unsigned short gwMcpReplyRequestId; // 0x00798F80
 
-D2McpCallbackFn gpfnMcpPacket08Callback;                                                                   // 0x007992F8
+extern D2McpCallbackFn gpfnMcpPacket08Callback; // 0x007992F8
 
-D2McpCallbackFn gpfnMcpPacket09Callback;                                                                   // 0x007992FC
+extern D2McpCallbackFn gpfnMcpPacket09Callback; // 0x007992FC
 
 // 0x0044AB80
 int __fastcall sub_0044AB80_McpIncoming1B(D2McpPacketValueStrc* pPacket, int nSize)

@@ -21,18 +21,18 @@ extern int gnPositionalBias; // 0x008817B8
 
 extern int gnOptionsMusic; // 0x008817C0
 
-int gnSoundMode; // 0x008817AC
+extern int gnSoundMode; // 0x008817AC
 
-int gnMusicVolume; // 0x008817B4
+extern int gnMusicVolume; // 0x008817B4
 
-int gnOptionsMusic; // 0x008817C0
+extern int gnOptionsMusic; // 0x008817C0
 
 
-int gnMasterVolume; // 0x008817B0
+extern int gnMasterVolume; // 0x008817B0
 
-int gnPositionalBias; // 0x008817B8
+extern int gnPositionalBias; // 0x008817B8
 
-int gnNpcSpeech; // 0x008817BC
+extern int gnNpcSpeech; // 0x008817BC
 
 // 0x00514B60
 void __cdecl D2SOUND_LoadRegistrySettings()
