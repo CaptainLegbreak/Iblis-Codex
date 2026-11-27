@@ -1038,9 +1038,7 @@ extern "C" int __cdecl sub_00517ABB_BitScanForward1(unsigned int nValue);
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
 
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
 
 int gpCharstatsTxt; // 0x0096C7F4
 
@@ -1740,7 +1738,6 @@ int __fastcall DATATBLS_CallFree(void* pMemory)
     return sub_00517ABB_FindLowestSetBit((unsigned int)pMemory);
 }
 
-extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
 
 
 // 0x005FDE50
