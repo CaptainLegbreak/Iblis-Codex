@@ -106,4 +106,4 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 - 2026-11-26 18:10 PT: status: emit-d2game-5 Ready (replaces -4). 22 D2Game emit helpers left.
 - 2026-11-26 18:13 PT: status: emit-d2game-6 Ready (replaces -5). 16 D2Game emit helpers left (PlrMsg 3, Unknown_00570420 2, SUnitDmg 2, and one each in Game, Player, PlrSave, PlrTrade, SUnitInactive, SUnitMsg, Unknown_00555C90, Unknown_005C0D00, Unknown_0054DAC0).
 - 2026-11-26 18:33 PT: status: emit-d2game-7 Ready (on top of -6). 14 D2Game emit helpers left.
-- 2026-11-26 19:05 PT: status: emit-d2game-8 Ready (replaces -7). 13 D2Game emit helpers left; the easy ones are done.
+- 2026-11-26 18:43 PT: status: emit-d2game-8 Ready (replaces -7). 13 D2Game emit helpers left; the easy ones are done.
