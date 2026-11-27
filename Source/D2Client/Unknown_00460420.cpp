@@ -47,11 +47,11 @@ void __cdecl sub_0045FB40_LoadPopupCels()
 
 struct Unicode;
 
-struct D2CelContextStrc;
+struct D2GfxDataStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
@@ -69,12 +69,12 @@ void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unico
 // 0x0045FBC0
 void __stdcall UI_DrawCelPair(int bFirst)
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     if (bFirst)
-        tContext.pCellFile = gpPopupOkCelA;
+        tContext.pCelFile = gpPopupOkCelA;
     else
-        tContext.pCellFile = gpPopupOkCelB;
+        tContext.pCelFile = gpPopupOkCelB;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, gnPanelOffsetX + 0xBC, 0x148 - gnPanelOffsetY, -1, 5, 0);
@@ -113,9 +113,9 @@ void __cdecl SCMD_DrawLoadingTexts()
 // 0x0045FD20
 void __stdcall VIEW_DrawPanelCel(int nFrame)
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpOkCancelButtonCel;
+    tContext.pCelFile = gpOkCancelButtonCel;
     tContext.nFrame = nFrame;
     tContext.nDirection = 0;
     sub_004F6480(&tContext, gnPanelOffsetX + 0x110, 0x13E - gnPanelOffsetY, -1, 5, 0);
@@ -249,9 +249,9 @@ void __cdecl UI_DrawCenteredStrings()
 // 0x00460060
 void __stdcall VIEW_DrawPanelCels(int nFrame1, int nFrame2)
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpOkCancelButtonCel;
+    tContext.pCelFile = gpOkCancelButtonCel;
     tContext.nFrame = nFrame1;
     tContext.nDirection = 0;
     sub_004F6480(&tContext, gnPanelOffsetX + 0xCE, 0x13E - gnPanelOffsetY, -1, 5, 0);

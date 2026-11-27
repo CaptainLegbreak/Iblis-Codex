@@ -390,7 +390,7 @@ enum DrawMode
     DRAWMODE_HIGHLIGHT
 };
 
-int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, unsigned int nGamma, DrawMode eDrawMode, unsigned char* pPalette); // 0x004F6480
+int __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pContext, int nX, int nY, unsigned int nGamma, DrawMode eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 void __fastcall D2Win_10117_DrawText(const unsigned short* wszText, int nX, int nY, int nColor, int bCentered);   // 0x00502320
 
@@ -704,7 +704,7 @@ void __stdcall INV_MercPanelHoverMsg(SMSGHANDLER_PARAMS* pMsg); // 0x0048BA50
 // 0x0048BC10
 void __stdcall INV_DrawRecipeScroll()
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
 
     if (!GAME_IsExpansion() || !GAME_GetUIVarState(UI_RECIPESCROLL))
     {
@@ -721,7 +721,7 @@ void __stdcall INV_DrawRecipeScroll()
     }
 
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpRecipeScrollCel;
+    tContext.pCelFile = gpRecipeScrollCel;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     TEXTURE_CelDraw(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 224, -1, DRAWMODE_NORMAL, 0);

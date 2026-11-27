@@ -109,7 +109,7 @@ struct Unicode { unsigned short value; };
 
 struct D2SplittedTextStrc { Unicode* text; D2SplittedTextStrc* next; };
 
-struct D2CelContextStrc { int frame; int unk04[12]; void* cellFile; int unk38[2]; int direction; int unk44; };
+struct D2GfxDataStrc { int frame; int unk04[12]; void* cellFile; int unk38[2]; int direction; int unk44; };
 
 extern const char gszUseItemCpp[]; // 0x006DAB50
 
@@ -121,7 +121,7 @@ void __fastcall AUTOMAP_DrawFramedBox(int,int,int,int,int,int); // 0x0046EFD0
 
 void __fastcall DIALOG_DrawDialog(void*); // 0x004B8100
 
-int __stdcall sub_004F6480(D2CelContextStrc*,int,int,int,int,int); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc*,int,int,int,int,int); // 0x004F6480
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820
 
@@ -343,7 +343,7 @@ void __cdecl USEITEM_DrawUseItemPanel()
  int oldFont=D2Win_10127_SetFont(1);
  int mode=gnUseItemPanelMode;
  if(mode==1 || mode==0){
-  D2CelContextStrc context;
+  D2GfxDataStrc context;
   memset(&context,0,sizeof(context));
   context.direction=0;
   if(mode==0)context.cellFile=gpHoradricBackCel;

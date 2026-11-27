@@ -221,7 +221,7 @@ void __stdcall LIST_LoadPentspinCellfile()
     sghPentagram = ARCHIVE_LoadCellFile(szFile, 0);
 }
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 // 0x00507160
@@ -244,9 +244,9 @@ int __fastcall LIST_Draw(D2WinControlStrc* pControl)
         }
     }
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = sghPentagram;
+    tContext.pCelFile = sghPentagram;
     tContext.nDirection = 0;
     tContext.nFrame = pList->field_5C;
 

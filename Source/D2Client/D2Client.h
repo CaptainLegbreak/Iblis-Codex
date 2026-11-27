@@ -6,7 +6,7 @@ struct D2ActiveRoomStrc;
 struct D2AnimSeqTxt;
 struct D2BitBufferStrc;
 struct D2CacheStatsStrc;
-struct D2CelContextStrc;
+struct D2GfxDataStrc;
 struct D2CelFileStrc;
 struct D2CelStrc;
 struct D2CellPosStrc;
@@ -24,7 +24,7 @@ struct D2DataTablesStrc;
 struct D2DrlgActStrc;
 struct D2DrlgTileDataStrc;
 struct D2DynamicPathStrc;
-struct D2GfxDataStrc;
+struct D2UnitGfxDataStrc;
 struct D2GfxLayerHeaderStrc;
 struct D2GfxMotionStrc;
 struct D2GridCellStrc;
@@ -548,7 +548,7 @@ int __fastcall UNITSND_GetFootstepSound(D2UnitStrc* pUnit, int nMode); // 0x004C
 int __fastcall MISSILE_GetSkillMissileRange(int nSkillId, int nSkillLevel); // 0x004CC7C0
 int __fastcall sub_004DAB40_CheckCel(D2CelStrc* pCel, int nX, int nY, int nArg4); // 0x004DAB40
 // Also in D2ClientFuncs.h; kept here because inv_0048DD90.cpp's code changes with the number of declarations before it.
-int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
+int __fastcall GFXUTIL_InitUnitCelContext(D2GfxDataStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 int __fastcall GFXUTIL_GetComponentsMaxHeight(D2UnitStrc* pUnit, D2GfxLayerHeaderStrc* pHeader, unsigned char* pLayers, int* pOut, int nDirection, int nFrame); // 0x004DBD30
 int __fastcall sub_004E4120(int nRange); // 0x004E4120
 int __fastcall sub_004F2260_GetSkillCount(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004F2260
@@ -654,11 +654,11 @@ int __stdcall MAINMENUS_OnCloseBox(int nArg); // 0x004334D0
 int __stdcall sub_004DA0B0_GetUnitGfxOffsetX(D2UnitStrc* pUnit); // 0x004DA0B0
 int __stdcall sub_004DA0F0_GetUnitGfxOffsetZ(D2UnitStrc* pUnit); // 0x004DA0F0
 int __stdcall sub_004E89A0(D2UnitStrc*, int*, int*, int*, D2SkillStrc*); // 0x004E89A0
-int __stdcall TEXTURE_CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, int nTop, int nHeight, int nDrawMode); // 0x004F64E0
+int __stdcall TEXTURE_CelDrawEx(D2GfxDataStrc* pContext, int nX, int nY, int nTop, int nHeight, int nDrawMode); // 0x004F64E0
 int __stdcall SCALE_CheckPerspectivePosition(int nPrecisionX, int nPrecisionY); // 0x004F66E0
 int __stdcall CLIENT_Send(int nSize, int nFlags, void* pData); // 0x0052AE50
 int __stdcall D2CMPSpriteFindAsynchSiblings(int nKeyA, int nKeyB, int nKeyC); // 0x005FF300
-int __stdcall D2CMPSpriteRequest(D2CelContextStrc* pContext); // 0x006004E0
+int __stdcall D2CMPSpriteRequest(D2GfxDataStrc* pContext); // 0x006004E0
 int __stdcall CelConvertDir(unsigned int nDirection, unsigned int nDirections, int nNewDirections, int bAlt); // 0x00600CB0
 int __stdcall CelGameDirToNormalDir(unsigned int nIndex, unsigned int nDirections); // 0x00600E20
 int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
@@ -801,8 +801,8 @@ void __fastcall sub_00465F00_RemoveClientUnit(int nUnitId, int nUnitType); // 0x
 void __fastcall CMDTBL_SetHotkeyHandlers(int nArg1, int nArg2); // 0x0046AA20
 void __fastcall sub_0046BFF0(D2UnitStrc* pUnit); // 0x0046BFF0
 void __fastcall GFX_SetGfxMotionFlag(D2UnitStrc* pUnit, D2GfxMotionStrc* pMotion); // 0x0046F070
-void __fastcall GFX_SetGfxBasePalShift(D2GfxDataStrc* pGfxData, int nValue); // 0x0046F1C0
-void __fastcall GFX_SetGfxPalShift(D2GfxDataStrc* pGfxData, int nValue); // 0x0046F220
+void __fastcall GFX_SetGfxBasePalShift(D2UnitGfxDataStrc* pGfxData, int nValue); // 0x0046F1C0
+void __fastcall GFX_SetGfxPalShift(D2UnitGfxDataStrc* pGfxData, int nValue); // 0x0046F220
 void __fastcall GFX_LoadMonsterCofs(int nItemId, int nArg); // 0x0046F870
 void __fastcall GFX_DrawUnitShadow(D2CellPosStrc* pPos); // 0x00471620
 void __fastcall sub_00472DA0(int nX, int nY, int nSubX, int nSubY); // 0x00472DA0
