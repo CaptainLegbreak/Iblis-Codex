@@ -31902,7 +31902,7 @@
     {
      "va": "0x0051CA10",
      "length": 6,
-     "name": "sub_0051CA10"
+     "name": "sub_0051CA10_Return14"
     },
     {
      "va": "0x0051CA70",
@@ -75087,7 +75087,7 @@
     {
      "va": "0x006B2F20",
      "length": 6,
-     "name": "sub_006B2F20"
+     "name": "sub_006B2F20_GetModeFlag"
     },
     {
      "va": "0x006B2F30",
@@ -75855,7 +75855,7 @@
     {
      "va": "0x006B76C0",
      "length": 3,
-     "name": "sub_006B76C0"
+     "name": "sub_006B76C0_Nop"
     }
    ]
   },
@@ -77115,7 +77115,7 @@
     {
      "va": "0x006C8020",
      "length": 6,
-     "name": "sub_006C8020"
+     "name": "sub_006C8020_GetBufferBitmap"
     },
     {
      "va": "0x006C8030",
@@ -77191,7 +77191,7 @@
     {
      "va": "0x006C8240",
      "length": 6,
-     "name": "sub_006C8240"
+     "name": "sub_006C8240_GetTileDrawFunctions"
     },
     {
      "va": "0x006C8250",

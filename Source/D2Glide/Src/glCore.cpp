@@ -1305,7 +1305,7 @@ int __cdecl BNCLIENT_GetLogonType()
 }
 
 // 0x0051CA10
-int __cdecl sub_0051CA10()
+int __cdecl sub_0051CA10_Return14()
 {
     return 14;
 }

@@ -397,10 +397,10 @@ void __fastcall D3DCORE_LogDDrawError(const char* szWhere, int hResult); // 0x00
 
 void __cdecl D3DCORE_ReleaseResources(); // 0x006B3320
 
-void __cdecl sub_006B3080(); // 0x006B3080
+void __cdecl sub_006B3080_InitBufferPools(); // 0x006B3080
 
 
-void __cdecl sub_006B8F10(); // 0x006B8F10
+void __cdecl sub_006B8F10_CreateGridVertexBuffer(); // 0x006B8F10
 
 
 static int D3DCORE_InitFullscreen(void*,int); // 0x006B4FD0
@@ -2226,7 +2226,7 @@ static int D3DCORE_InitFullscreen(void* window,int mode)
     gpDevice->SetTextureStageState(0,3,0);
     gpDevice->SetTextureStageState(0,5,2);
     gpDevice->SetTextureStageState(0,6,0);
-    sub_006B3080(); D3DFLOORCACHE_CreateTileSurfaces(); sub_006B8F10();
+    sub_006B3080_InitBufferPools(); D3DFLOORCACHE_CreateTileSurfaces(); sub_006B8F10_CreateGridVertexBuffer();
     return 1;
 D3DFail:
     D3DCORE_ShowD3DError(msg,error);
@@ -2600,7 +2600,7 @@ void __fastcall D3DCORE_ClearCaches(); // 0x006B1BC0
 int gnModeFlag;        // 0x00970E8C
 
 // 0x006B2F20
-int __cdecl sub_006B2F20()
+int __cdecl sub_006B2F20_GetModeFlag()
 {
     return gnModeFlag;
 }
@@ -2732,7 +2732,7 @@ extern BufferPool gSmallPool; // 0x00970F00
 char* __fastcall sub_006B76D0_InitVertices(char*); // 0x006B76D0
 char* __fastcall D3DFLOORCACHE_FloorCacheInit(BufferPool*,char*,char*,unsigned int); // 0x006BAFC0
 char* __fastcall D3DSUBTILECACHE_SubtileCacheInit(BufferPool*,char*,char*,unsigned int); // 0x006BA9A0
-char* __fastcall sub_006BA420(BufferPool*,char*,char*,unsigned int,unsigned int); // 0x006BA420
+char* __fastcall sub_006BA420_Init(BufferPool*,char*,char*,unsigned int,unsigned int); // 0x006BA420
 void __stdcall TileSetHardwareFreeCallback(void*); // 0x00604A30
 extern D2ComObjectStrc* gpInterface_00970E78; // 0x00970E78
 void __cdecl sub_006B9150_ReleaseResource(); // 0x006B9150
@@ -2746,7 +2746,7 @@ D2ComObjectStrc* gpViewport; // 0x00970E7C
 char gabGammaRamp[1536]; // 0x0096FCB8
 
 // 0x006B3080
-void __cdecl sub_006B3080()
+void __cdecl sub_006B3080_InitBufferPools()
 {
  unsigned int memory;
  gBufferCopies=2;
@@ -2776,19 +2776,19 @@ void __cdecl sub_006B3080()
   secondary+=(unsigned int)current;
   current=D3DSUBTILECACHE_SubtileCacheInit(&gAuxiliaryPool,current,(char*)secondary,2048);
   start=current;remaining=memory-(unsigned int)current;
-  current=sub_006BA420(&gLargePool,current,current+remaining*20/100,256,256);
+  current=sub_006BA420_Init(&gLargePool,current,current+remaining*20/100,256,256);
   gLargeBudget=gLargePool.count*gBufferCopies*65536;
-  current=sub_006BA420(&gMediumPool,current,start+remaining*75/100,128,128);
+  current=sub_006BA420_Init(&gMediumPool,current,start+remaining*75/100,128,128);
  } else {
   gPrimaryBudget=0;gSecondaryBudget=0;
   current=D3DSMACK_CreateSmackSurfaces(current);
   start=current;remaining=memory-(unsigned int)current;
-  current=sub_006BA420(&gLargePool,current,current+remaining*70/100,256,256);
+  current=sub_006BA420_Init(&gLargePool,current,current+remaining*70/100,256,256);
   gLargeBudget=gLargePool.count*gBufferCopies*65536;
-  current=sub_006BA420(&gMediumPool,current,start+remaining*80/100,128,128);
+  current=sub_006BA420_Init(&gMediumPool,current,start+remaining*80/100,128,128);
  }
  gMediumBudget=gMediumPool.count*gBufferCopies*16384;
- sub_006BA420(&gSmallPool,current,(char*)memory,32,32);
+ sub_006BA420_Init(&gSmallPool,current,(char*)memory,32,32);
  gSmallBudget=gSmallPool.count*gBufferCopies*1024;
  D3DSPRITE_InitSprites();
  TileSetHardwareFreeCallback((void*)D3DFLOORCACHE_InvalidateTileCaches);

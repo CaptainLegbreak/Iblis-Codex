@@ -519,7 +519,7 @@ int __cdecl sub_00517ABB_FindLowestSetBit(unsigned int dwMask)
 }
 
 // 0x00517AD6
-int __fastcall sub_00517AD6(const char* szPath)
+int __fastcall sub_00517AD6_VerifyFileTrust(const char* szPath)
 {
     if (!szPath || !*szPath)
         return 4;

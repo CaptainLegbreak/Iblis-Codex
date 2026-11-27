@@ -547,7 +547,7 @@ int __fastcall sub_006B8E90_DrawWallTile(D2TileStrc* pTile, int nPosX, int nPosY
 }
 
 // 0x006B8F10
-void __cdecl sub_006B8F10()
+void __cdecl sub_006B8F10_CreateGridVertexBuffer()
 {
     float xStep = (float)(160.0 / gTileWidth);
     xStep = (float)(xStep / 10.0);
