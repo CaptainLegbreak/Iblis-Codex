@@ -78,6 +78,19 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
 - Fri Nov 27 01:14:52 PST 2026: starting. Running tools/shortdata.py and tools/linkdebt.py on lane10/short-data for the baseline counts. Claimed: the short globals in D2Common UNITS, D2Client UNIT/GAME, D2Game PLAYER/MONSTER, and the D2Win clusters 0x00842710 and 0x0081EA68.
 
 ## Questions
+- Fri Nov 27 07:40 PST 2026: **reading of the D2CMP/D2Common cluster 0x0096BC30-0x0096D66C** (6,716 B, 231 globals, 1,384 refs). I haven't changed anything there.
+  - **What it is.** It is one object: D2Common's static `D2DataTablesStrc`.
+    - D2DataTbls.h checks `D2DataTablesStrc` at 0x1A3C bytes, which is exactly 6,716.
+    - `sgptDataTables` (0x00744304) is initialised in Game.exe to 0x0096BC30, a pointer to it.
+    - D2MOO has the same thing: a static `D2DataTablesStrc` and `sgptDataTables = &it`.
+  - **How the sources reach it.** Most code reaches it as `sgptDataTables->field` (149 files). But the DATATBLS loaders, and a few others, reach its fields as separate globals. There are 284 names at those addresses, in 36 files including D2Common.h and Storm.h: gpPlayerClassTxt, gpHirelingTxt, gaAutomapIndex, gn*TxtRecordCount, gpUniqueNameTxtTables and the rest.
+  - **What makes the cluster.** All 308 triggers are fields of the struct read through the first of those globals plus an offset. 122 distinct offsets come from `gpPlayerClassTxt` alone (DataTbls.cpp 84, ItemTbls 51, MonsterTbls 46, FieldTbls 27, MissileTbls 22, ...).
+  - **Proposal.**
+    - DataTbls.cpp defines `D2DataTablesStrc gDataTables; // 0x0096BC30` (bss), and the plan's `sgptDataTables` record points at it by name.
+    - Every one of the 284 names becomes `gDataTables.<field>`, with D2DataTablesStrc's field at that offset; where a name has no field yet, I name the field after the global.
+    - Their declarations go away, except in shared headers (D2Common.h, Storm.h) where removing a declaration changes other units' code (the declaration-count effect I hit in D2Client.h). Those stay, unused, and I list them in the Ready entry.
+    - Byte-identical as always, and a full rebuild since D2Common.h's users are everywhere.
+  - **Question:** go ahead with that, or would you rather reads go through `sgptDataTables->field` (what the rest of the code does)? The pointer reads change the bytes in the loaders, so to stay byte-identical it has to be the struct's own name in those functions. Your board says Fable for this one; tell me if lane 13 should leave it.
 - Fri Nov 27 01:43:35 PST 2026: **reading of the two D2Win clusters, and a question on link.py's cluster rule.** Neither is a split object.
   - 0x00842710 (gabItemPalettes[9][0x6900] + gabEmblemColor1[12]) clusters on one reference: 0x5053A0's `mov al, [ecx + 0x87D80F]`. That is D2Comp.cpp's `gabEmblemColor1[nColor1 - 1]` (line 1813), with the compiler folding the -1 into the displacement (gabEmblemColor1 - 1).
   - 0x0081EA68 (gatShadowsLightGammaPalette[49] + gabLuminancePalette[65536]) clusters on 0x4FB010's `cmp eax, 0x821B68`. That is the loop end pointer of `for (i = 0; i < 49; ++i) ... gatShadowsLightGammaPalette[i]` (D2WinPalette.cpp line 80), i.e. gatShadowsLightGammaPalette + 49.
