@@ -414,40 +414,4 @@ void BigStack::Drop(unsigned int nCount)
     nUsed -= nCount;
 }
 
-// 0x004212D0
-int BigBuffer::sub_004212D0_Get(unsigned int nIndex)
-{
-    return InRange(nIndex) ? m_array.m_data[m_start + nIndex] : 0;
-}
-
-// 0x004213B0
-unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue)
-{
-    unsigned int nCount = pQueue->m_array.m_count;
-    unsigned int nStart = pQueue->m_start;
-    unsigned int nWords = nCount - nStart;
-    for (unsigned int i = nWords; i != 0; )
-    {
-        i--;
-        if (nStart + i < nCount && pQueue->m_array.m_data[nStart + i])
-        {
-            unsigned int nMask = 0x80000000;
-            for (unsigned int nBit = 32; nBit != 0; )
-            {
-                nBit--;
-                if (pQueue->sub_004212D0_Get(i) & nMask)
-                    return i * 32 + nBit;
-                nMask >>= 1;
-            }
-        }
-    }
-    return 0;
-}
-
-// 0x004220D0
-void BigBuffer::sub_004220D0_SetCount(unsigned int nCount)
-{
-    m_array.SetCount(m_start + nCount);
-}
-
 #include "gen/data/Source/Storm/SOURCE/SSignature.inc"
