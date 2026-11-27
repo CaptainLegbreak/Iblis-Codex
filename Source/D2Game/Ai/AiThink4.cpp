@@ -1885,7 +1885,7 @@ void __fastcall AITHINK_Fn113_SiegeTower(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         {
             D2SiegeBeastTowerAiCallbackArgStrc arg;
             arg.nMaxDistance = 400;
-            arg.unk0x04 = 0;
+            arg.unused0x04 = 0;
             D2UnitStrc* pBeast = AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_SiegeBeast, 1);
             if (pBeast)
             {
@@ -9746,7 +9746,7 @@ void __fastcall AITHINK_Fn138_BaalToStairs(D2GameStrc* pGame, D2UnitStrc* pUnit,
 {
     D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
     D2BaalToStairsAiCallbackArgStrc arg;
-    arg.unk0x00 = 0;
+    arg.unused0x00 = 0;
     arg.nMaxDistance = 25;
     D2UnitStrc* pTarget = AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_BaalToStairs, 1);
     if (pTarget)
