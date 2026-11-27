@@ -87,8 +87,9 @@ _IMM8_0F = frozenset([0x70, 0x71, 0x72, 0x73, 0xA4, 0xAC, 0xBA, 0xC2, 0xC4, 0xC5
 
 
 def x86_insn(code, p):
-    """One 32-bit instruction at code[p:]: (length, disp, imm, has_reg) with disp and imm as (offset, size) or None,
-    has_reg telling whether a memory operand adds a register; None where the bytes are not one this decoder knows."""
+    """One 32-bit instruction at code[p:]: (length, disp, imm, has_reg, is_cmp) with disp and imm as (offset, size) or
+    None, has_reg telling whether a memory operand adds a register and is_cmp whether the instruction is a `cmp` with
+    an immediate (3D, 81 /7); None where the bytes are not one this decoder knows."""
     q = p; osz = 4; asz = 4
     while q < len(code) and code[q] in _PREFIXES:
         if code[q] == 0x66:
@@ -98,7 +99,7 @@ def x86_insn(code, p):
         q += 1
     if q >= len(code) or asz != 4:
         return None
-    op = code[q]; q += 1; modrm = False; imm = 0
+    op = code[q]; q += 1; modrm = False; imm = 0; is_cmp = op == 0x3D
     if op == 0x0F:
         if q >= len(code):
             return None
@@ -120,7 +121,7 @@ def x86_insn(code, p):
         elif op in (0xA0, 0xA1, 0xA2, 0xA3):
             if q + 4 > len(code):
                 return None
-            return (q + 4 - p, (q, 4), None, False)
+            return (q + 4 - p, (q, 4), None, False, False)
         elif op in (0xC2, 0xCA):
             imm = 2
         elif op == 0xC8:
@@ -134,6 +135,7 @@ def x86_insn(code, p):
         if q >= len(code):
             return None
         m = code[q]; q += 1; mod = m >> 6; rm = m & 7
+        is_cmp = is_cmp or (op == 0x81 and (m >> 3) & 7 == 7)
         if op in (0xF6, 0xF7) and (m >> 3) & 7 in (0, 1):
             imm = 1 if op == 0xF6 else osz
         if mod != 3:
@@ -158,23 +160,23 @@ def x86_insn(code, p):
     q += imm
     if q > len(code):
         return None
-    return (q - p, disp, imm_f, has_reg)
+    return (q - p, disp, imm_f, has_reg, is_cmp)
 
 
 def x86_field(code, start, off):
-    """What the 4-byte field at code[off:] is in the instructions decoded from start: ("imm", False) for an immediate
-    value, ("mem", has_reg) for a memory displacement, None where decoding does not land on it."""
+    """What the 4-byte field at code[off:] is in the instructions decoded from start: ("imm", is_cmp) for an
+    immediate value, ("mem", has_reg) for a memory displacement, None where decoding does not land on it."""
     p = start
     while p <= off:
         d = x86_insn(code, p)
         if d is None:
             return None
-        n, disp, imm, has_reg = d
+        n, disp, imm, has_reg, is_cmp = d
         if p + n > off:
             if disp and disp[0] == off:
                 return ("mem", has_reg)
             if imm and imm[0] == off and imm[1] == 4:
-                return ("imm", False)
+                return ("imm", is_cmp)
             return None
         p += n
     return None
@@ -644,16 +646,17 @@ class Link(object):
 
     def plain_array_ref(self, k, scn, n, S, add):
         """A reference outside its global that is still plain C on that one array, so an ordinary link resolves it as
-        the array's symbol plus the addend: its one-past-the-end address used as a value (a loop bound, `cmp reg,
-        a + size`), or an indexed access with a negative constant folded into the displacement (`a[i - k]`, which
-        reads `[reg + a - k]`). A constant read past the end with no register stays a layout dependency."""
+        the array's symbol plus the addend: its one-past-the-end address used as a value, an address outside it that
+        is only compared with (a loop bound, `cmp reg, a + size`, also an unrolled loop's `a + size + 4`: a compare
+        reads no memory), or an indexed access with a negative constant folded into the displacement (`a[i - k]`,
+        which reads `[reg + a - k]`). A constant read past the end with no register stays a layout dependency."""
         ext = self.dext.get(S)
         if ext is None or 0 <= add < ext:
             return False
         f = self.ref_field(k, scn, n)
         if f is None:
             return False
-        return (f[0] == "imm" and add == ext) or (f[0] == "mem" and f[1] and add < 0)
+        return (f[0] == "imm" and (add == ext or f[1])) or (f[0] == "mem" and f[1] and add < 0)
 
     def cluster_data(self, pending, own):
         """Globals the code treats as one object keep their original layout.
@@ -1144,6 +1147,8 @@ def verify(K, exe, mapfile):
             u.home_sym = {}
         u.home_sym[(y["scn"], a)] = i
         n = min(K.dext[a], len(u.sec(y["scn"])["raw"]) - y["value"])
+        if n <= 0:
+            continue                                  # in the section's uninitialised tail: nothing to read back
         st["globals_ok" if check(u, y["scn"], a, n, known[a][0], False) else "globals_bad"] += 1
     return dict(st), bad
 
