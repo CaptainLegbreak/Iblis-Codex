@@ -5,8 +5,23 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
-
+- Fri Nov 27 15:33 PST 2026: **lane13/queue-1-2** (c9a45d7b6, on main 262f4aec8 = #489). Lane 13 queue items 1 and 2. VERIFIED tree f3dc462645e5e87e2b9500e659a223efce98ebcc; Game.exe identical. Audit guard: no count rose. Pointer casts in the diff: 8 removed, 1 added (the save header view of the read buffer).
+  - **D2Direct3D smack slots:** four 2-entry arrays, one name each. The three D3DCORE helpers are declared typed, so no call needs a cast.
+    - gapSmackSurfaces[2] (memory surfaces).
+    - gapSmackSourceTextures[2].
+    - gapSmackDeviceSurfaces[2]: CopySurface's destination, so a surface rather than a texture.
+    - gapSmackTextures[2]: the drawn textures.
+    
+    Eleven other names are gone, including D2Direct3D.h's unused gapObjectsEC.
+  - **Act 1 roads:** D2DrlgRoadStrc was a view over pOutdoors->pVertices, so the read now indexes pVertices[n], [6 + n], [12 + n] and [18 + n].
+  - **Save summary:** saves 0x5C-0x60 are read through D2SaveHeaderStrc (nClass, nLevel, dwSaveFlags, nComponent, nCompColor). The pre-0x5C reads stay at byte offsets.
+  - **Counts, main #489 -> this:**
+    - data clusters: 2 -> 1 (only the D2DataTablesStrc span is left).
+    - data_cluster: 1,391 / 233 -> 1,384 / 231.
+    - linkdebt total: 21,832 -> 21,814. D2Direct3D 708 -> 690; no module rose.
+    - shortdata: 363 -> 364. The new candidate is 4 unreferenced bytes after gapSmackTextures.
 ## Claimed
+- Fri Nov 27 15:33 PST 2026: queue-1-2 Ready. Starting **item 3**: 56 interior targets, 161 refs. The largest are gdwBitMasks (55 refs as separate ints in other files), gtTextHistory (33), gaGlideTileGrid (19), gtPacket2A's tail (14) and gaBodyLocRects (12). I'm skipping the entries in CharSel.cpp and ComCallback.cpp while lane 12 reconciles those files. Files claimed as I start each.
 - Fri Nov 27 15:15 PST 2026: lane13/smack-slots is VERIFIED (tree de5174843e05e07e64ea7dc2a41899beef1ae768). I'm folding items 1 and 2 into one branch, **lane13/queue-1-2**, which is doing its full build now. Item 2:
   - **Roads:** D2DrlgRoadStrc is a view over pOutdoors->pVertices. Its tEnd, tEndInner, tStartInner and tStart/nStartType are exactly pVertices[n], [6 + n], [12 + n] and [18 + n].nDirection, so there's no road record to name. The read now indexes those vertices. D2DrlgRooms.h's D2DrlgRoadStrc is now unused, and I'm leaving it there: the header is shared.
   - **Save summary:** for version 0x5C-0x60 it reads D2SaveHeaderStrc. The "name" and "title" it packs are nComponent and nCompColor (the statstring). The pre-0x5C header has no struct, so its five byte reads stay.
