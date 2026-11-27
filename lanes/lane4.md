@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 20:58 PST 2026: join-gfx-drawunit posted on #465 (Gfx pieces 7 -> 5). join-game-d080 is still Ready. Gfx_0046F870 waits on Gfx_0046DB90: it holds static copies of DB90's functions, including 0x46E740 with its allocation tie.
+
 - Thu Nov 26 20:08 PST 2026: #464 took join-text-a950-2. join-game-d080 posted on #464 (Game_0044D080: 28 functions -> 2). Next: the Gfx pieces.
 
 - Thu Nov 26 19:35 PST 2026: #461 took join-inv-2. join-text-a950-2 posted on #461 (Text pieces 5 -> 4). Next: the Gfx and Game pieces.
@@ -115,6 +117,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
      - gtPongData is one D2PongDataStrc, the piece's critical section is gtQServerLock, and GAME_UpdateGamesProgress returns int as D2Game's definition does.
      - The noinline is on GAME_RegisterWindowHandlers 0x451F20; GAME_ShutdownClient calls it out of line at 0x44D569.
      - The piece keeps the two end-screen handlers, with the reason in a comment (Left in place).
+- lane4/join-gfx-drawunit 8c38d1f2d (on #465; full build on #464 identical, borrowed code 4,232 B in 1 function and borrowed data 261 B, both as main. #465 touched none of its files, so it was rebased without a rebuild. Audit guard clean, no noinline). Files in pieces, Gfx 7 -> 5. Gfx.cpp takes GFX_DrawGfxUnit (0x470EC0) and GFX_DrawUnit (0x471EC0) from Gfx_00470EC0.cpp and Gfx_00471EC0.cpp. Each piece held a copy of the other's function, so they join together. Gfx.cpp's unit takes /GS-, as both pieces had, and every Gfx unit builds equal with it. The pieces' private layer-header and list-node records give way to D2ClientGfx.h's. The moved call casts ITEMS_GetColor's result to unsigned char*: D2Client.h declares it int (D2Common's definition returns unsigned char*), and GfxUtil.cpp and Gfx.cpp use the int.
 
 
 ## Claimed
