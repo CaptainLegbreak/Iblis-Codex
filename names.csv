@@ -9031,7 +9031,7 @@ address,name,source,alias
 0x0057B6A0,SUNITDMG_AddMonTypeDamagePercent,inferred,
 0x0057B7A0,SUNITDMG_ApplyDamageTargetAc,inferred,
 0x0057B7D0,SUNITDMG_FillDamageValues,d2moo,
-0x0057BDD0,SUNITDMG_ReduceByStat,inferred,
+0x0057BDD0,SUNITDMG_ApplyPierce,inferred,
 0x0057BE00,SUNITDMG_GetEffectiveResistance,inferred,
 0x0057BF10,SUNITDMG_AbsorbDamage,inferred,
 0x0057BF80,SUNITDMG_ApplyResistancesAndAbsorb,d2moo,

@@ -69,10 +69,6 @@ struct D2MonStatsTxt;
 
 struct D2MonsterDataStrc;
 
-struct D2StatReduceCtx;
-
-struct D2StatReduceRec;
-
 struct Context;
 
 struct Record;
@@ -130,27 +126,9 @@ int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 
-struct D2StatReduceCtx
-{
-    int unk0x00;
-    int unk0x04;
-    D2UnitStrc* pUnit;
-    int unk0x0C;
-    int unk0x10;
-    int bCapped;
-};
-
-struct D2StatReduceRec
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-    int nStatId;
-};
-
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-static int SUNITDMG_ReduceByStat(D2StatReduceCtx* pCtx, D2StatReduceRec* pRec, int nValue);
+static int SUNITDMG_ApplyPierce(Context* c, Record* r, int nResistance);
 
 struct Unit
 {
@@ -1366,26 +1344,26 @@ elemental:
 }
 
 // 0x0057BDD0
-static int SUNITDMG_ReduceByStat(D2StatReduceCtx* pCtx, D2StatReduceRec* pRec, int nValue)
+static int SUNITDMG_ApplyPierce(Context* c, Record* r, int nResistance)
 {
-    int nStatId = pRec->nStatId;
-    if (nStatId == -1)
+    const int nPierceStat = r->pierceStat;
+    if (nPierceStat == -1)
     {
-        return nValue;
+        return nResistance;
     }
 
-    if (nValue >= 100 && pCtx->bCapped)
+    if (nResistance >= 100 && c->defenderFlag)
     {
-        return nValue;
+        return nResistance;
     }
 
-    int nStat = STATLIST_UnitGetStatValue(pCtx->pUnit, nStatId, 0);
-    if (!nStat)
+    const int nPierce = STATLIST_UnitGetStatValue((D2UnitStrc*)c->attacker, nPierceStat, 0);
+    if (!nPierce)
     {
-        return nValue;
+        return nResistance;
     }
 
-    return nValue - nStat;
+    return nResistance - nPierce;
 }
 
 // 0x0057BE00
@@ -1394,11 +1372,7 @@ static int __cdecl SUNITDMG_GetEffectiveResistance(Context* c,Record* r)
     int resistance=0;
     if(r->resistanceStat!=-1)
         resistance=sub_00625480_Stat(c->defender,r->resistanceStat,0);
-    if(r->pierceStat!=-1 && (resistance<100 || !c->defenderFlag))
-    {
-        int pierce=sub_00625480_Stat(c->attacker,r->pierceStat,0);
-        if(pierce) resistance-=pierce;
-    }
+    resistance=SUNITDMG_ApplyPierce(c,r,resistance);
     if(!c->defenderFlag && r->resistanceStat!=36 && r->resistanceStat!=37)
     {
         if(FIELD(c->game,112)) resistance+=FIELD(c->difficulty,0);
@@ -1473,12 +1447,6 @@ static int __cdecl SUNITDMG_AbsorbDamage(D2DamageContextStrc* pContext, D2Resist
     }
 
     return nValue;
-}
-
-int __fastcall sub_Emit_0057BDD0(D2StatReduceCtx* pCtx, D2StatReduceRec* pRec, int nValue)
-{
-    int n = SUNITDMG_ReduceByStat(pCtx, pRec, nValue);
-    return n + SUNITDMG_ReduceByStat(pCtx, pRec + 1, n);
 }
 
 static int __cdecl sub_0057BF10_Absorb(Record* r,Context* c,int amount)
