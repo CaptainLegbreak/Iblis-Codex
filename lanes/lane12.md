@@ -10,7 +10,7 @@ it is on main; from #473, based on main.
 ## Ready
 - Fri Nov 27 7:51 PST 2026: **lane12/api-storm-2** (2ed43b7e1, on #479 7a4cfcc42): two commits, Fog then Storm, rebased onto #479
   without conflicts (api-fog-2 and api-storm before; -8 is merged, and api-fog's Fog commit is the one thing it
-  lacks). VERIFIED tree 6fc474e78f0fb3dcfb378163161aca39846fcb29. linkdebt vs #479: being measured, posted next.
+  lacks). VERIFIED tree 6fc474e78f0fb3dcfb378163161aca39846fcb29. linkdebt vs #479: 26,927 -> 26,624 (type_disagreement 6,668 -> 6,365; D2Common -108, D2BNClient -72, D2Client -63, D2Lang -11, D2Game -11, D2Win -10, SRP -5, D2Launch -5, others down; no module rises).
   - "Fog: declarations of its exports agree with their definitions" (genheaders --module Fog --header FogApi2.h):
     19 new exports in FogApi2.h; FogApi.h's and other modules' header lines for Fog addresses take the
     definitions' types (forward declarations added above them where needed); 24 private copies give way. Left out:
