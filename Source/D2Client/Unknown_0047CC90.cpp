@@ -266,7 +266,7 @@ void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, i
 
 void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCellFile, int nX, int nY, int nFrame, int nColor, int nArg6); // 0x00502680
 
-int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nColor, int nArg6); // 0x004F6480
+int __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pContext, int nX, int nY, int nArg4, int nColor, int nArg6); // 0x004F6480
 
 extern void* gpSlotCells; // 0x007BC964
 
@@ -637,7 +637,7 @@ struct D2OptionEntryStrc;
 
 struct D2EscMenuUIStateStrc;
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 
 
@@ -729,7 +729,7 @@ D2CelFileStrc* __cdecl UI_GetPentspinCel(); // 0x00453AA0
 
 int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
 
-D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
+D2CelStrc* __stdcall CelGetHandle(D2GfxDataStrc* pContext); // 0x00601840
 
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
@@ -1272,7 +1272,7 @@ void __fastcall sub_0047DBB0_LoadOptionCels(D2OptionHeaderStrc* pHeader, D2Optio
 // 0x0047DD70
 void __cdecl sub_0047DD70_LoadOptionMenus()
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     sub_0047DBB0_LoadOptionCels(&gtMainOptionHeader, gaMainOptionEntries);
     sub_0047DBB0_LoadOptionCels(&gtOptionsHeader, gaOptionsEntries);
     sub_0047DBB0_LoadOptionCels(&gtSoundOptionHeader, gaSoundOptionEntries);
@@ -1298,8 +1298,8 @@ void __cdecl sub_0047DD70_LoadOptionMenus()
     sprintf(szPath, "%s\\UI\\Widgets\\OptSkull", gszDataGlobal);
     gpSliderKnobCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = UI_GetPentspinCel();
-    const unsigned int nFrames = CelFileGetCelsPerDirection((D2CelFileStrc*)tContext.pCellFile);
+    tContext.pCelFile = UI_GetPentspinCel();
+    const unsigned int nFrames = CelFileGetCelsPerDirection((D2CelFileStrc*)tContext.pCelFile);
     int nMax = 0;
     for (tContext.nFrame = 0; tContext.nFrame < nFrames; ++tContext.nFrame)
         nMax = D2_MAX(nMax, CelGetWidth(CelGetHandle(&tContext)));
@@ -1483,9 +1483,9 @@ void __stdcall sub_0047E260_DrawOptionSlider(D2OptionEntryStrc* pEntry, int nY, 
 
     D2Win_10134_DrawCellFile(*pbEnabled ? gpSliderEnabledCell_007BC954 : gpSliderDisabledCell_007BC950, nCellX, nScreenY, nFrame, nColor, -1);
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpSliderKnob_007BC958;
+    tContext.pCelFile = gpSliderKnob_007BC958;
     TEXTURE_CelDraw(&tContext, nKnobX, nKnobY, -1, nColor, 0);
 }
 
@@ -1564,9 +1564,9 @@ void __cdecl sub_0047E3D0_DrawOptions()
         ++nRow;
     }
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = UI_GetPentspinCel();
+    tContext.pCelFile = UI_GetPentspinCel();
     if (gnOptionArrowFrame)
     {
         tContext.nFrame = 8 - gnOptionArrowFrame;
@@ -1606,9 +1606,9 @@ static void sub_0047E770_DrawModeCel(int nMode)
 {
     if (!nMode)
         return;
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpMiniPanelCel;
+    tContext.pCelFile = gpMiniPanelCel;
     switch (nMode)
     {
     case 1:
@@ -1712,8 +1712,8 @@ void __stdcall sub_0047E9A0_DrawSlots(int bDraw)
         {
             if (gaSlotState[i] == 1)
             {
-                D2CelContextStrc tContext = {};
-                tContext.pCellFile = gpSlotCells;
+                D2GfxDataStrc tContext = {};
+                tContext.pCelFile = gpSlotCells;
                 tContext.nFrame = gaSlotFrame[i] + 1;
                 TEXTURE_CelDraw(&tContext, gaSlotX[i], gaSlotY[i], -1, 5, 0);
                 if (++i >= nSlots)
@@ -1721,8 +1721,8 @@ void __stdcall sub_0047E9A0_DrawSlots(int bDraw)
             }
             else
             {
-                D2CelContextStrc tContext = {};
-                tContext.pCellFile = gpSlotCells;
+                D2GfxDataStrc tContext = {};
+                tContext.pCelFile = gpSlotCells;
                 tContext.nFrame = gaSlotFrame[i];
                 TEXTURE_CelDraw(&tContext, gaSlotX[i], gaSlotY[i], -1, 5, 0);
                 if (++i >= nSlots)
@@ -2298,11 +2298,11 @@ void __cdecl sub_0047F710_UpdateSlotBar()
 {
     const int bAnyPanel = sub_0047EA60_IsAnyPanelOpen();
     const int bLeftPanel = sub_0047EB50_IsAnyLeftPanelOpen();
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     if (bAnyPanel && !bLeftPanel)
     {
         memset(&tContext, 0, sizeof(tContext));
-        tContext.pCellFile = gpMiniPanelCel;
+        tContext.pCelFile = gpMiniPanelCel;
         int nX = gnScreenWidth / 2;
         if (gbSmallPanel)
         {
@@ -2323,7 +2323,7 @@ void __cdecl sub_0047F710_UpdateSlotBar()
     if (!bAnyPanel && !bLeftPanel)
     {
         memset(&tContext, 0, sizeof(tContext));
-        tContext.pCellFile = gpMiniPanelCel;
+        tContext.pCelFile = gpMiniPanelCel;
         int nX = gnScreenWidth / 2;
         if (gbSmallPanel)
         {
@@ -2344,7 +2344,7 @@ void __cdecl sub_0047F710_UpdateSlotBar()
     if (!bAnyPanel && bLeftPanel)
     {
         memset(&tContext, 0, sizeof(tContext));
-        tContext.pCellFile = gpMiniPanelCel;
+        tContext.pCelFile = gpMiniPanelCel;
         sub_004F6480(&tContext, gnScreenWidth / 2 - 0xCD, gnScreenHeight - 0x2F, -1, 5, 0);
         sub_0047E8B0_LayoutSlots(1);
         sub_0047E9A0_DrawSlots(1);

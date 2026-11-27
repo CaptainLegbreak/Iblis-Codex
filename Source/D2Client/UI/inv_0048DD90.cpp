@@ -305,9 +305,9 @@ int __cdecl MONSTER_GetSecondaryTradeGold();                                    
 
 int __cdecl MONSTER_GetPrimaryTradeGold();                                                                                 // 0x004B9100
 
-void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
-void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nPaletteShift); // 0x004F64B0
+void __stdcall TEXTURE_CelDrawColor(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nPaletteShift); // 0x004F64B0
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
@@ -1533,7 +1533,7 @@ void __cdecl INV_DrawInventoryPanel()
         INV_DrawGold(2);
     }
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.nDirection = 0;
 
@@ -1544,7 +1544,7 @@ void __cdecl INV_DrawInventoryPanel()
         {
             if (gpSuperTransmogrifierCel)
             {
-                tContext.pCellFile = gpSuperTransmogrifierCel;
+                tContext.pCelFile = gpSuperTransmogrifierCel;
                 tContext.nFrame = 0;
                 TEXTURE_CelDraw(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0xE0, -1, 5, 0);
                 tContext.nFrame = 1;
@@ -1563,11 +1563,11 @@ void __cdecl INV_DrawInventoryPanel()
                 gnSelectedTab = nOldTab;
             }
 
-            tContext.pCellFile = GAME_GetBuySellButtonCells();
+            tContext.pCelFile = GAME_GetBuySellButtonCells();
             tContext.nFrame = gbCubeButtonDown + 10;
             TEXTURE_CelDraw(&tContext, gnPanelOffsetX + 0x113, gnScreenHeight + gnPanelOffsetY - 0x41, -1, 5, 0);
 
-            tContext.pCellFile = gpMiniConvertCel;
+            tContext.pCelFile = gpMiniConvertCel;
             tContext.nFrame = gbCubeCloseButtonDown;
             TEXTURE_CelDraw(&tContext, gnPanelOffsetX + 0x90, gnScreenHeight + gnPanelOffsetY - 0xBC, -1, 5, 0);
 
@@ -1588,7 +1588,7 @@ void __cdecl INV_DrawInventoryPanel()
                         goto timer_done;
                     }
                 }
-                tContext.pCellFile = gpHoradricCel;
+                tContext.pCelFile = gpHoradricCel;
                 tContext.nFrame = gnQuestTimerValue;
                 TEXTURE_CelDraw(&tContext, gnScreenWidth / 2, gnScreenHeight / 2 - 1, -1, 3, 0);
             }
@@ -1621,11 +1621,11 @@ timer_done:
         {
             if (GAME_IsExpansion())
             {
-                tContext.pCellFile = gpTradeStashCel;
+                tContext.pCelFile = gpTradeStashCel;
             }
             else
             {
-                tContext.pCellFile = gpBankCel;
+                tContext.pCelFile = gpBankCel;
             }
             tContext.nFrame = 0;
             TEXTURE_CelDraw(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0xE0, -1, 5, 0);
@@ -1654,7 +1654,7 @@ timer_done:
         INV_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
         gnSelectedTab = nOldTab;
 
-        tContext.pCellFile = GAME_GetBuySellButtonCells();
+        tContext.pCelFile = GAME_GetBuySellButtonCells();
         tContext.nFrame = gbStashButtonDown + 10;
         const int nButtonX = !GAME_IsExpansion() ? gnPanelOffsetX + 0x113 : gnPanelOffsetX + 0x110;
         TEXTURE_CelDraw(&tContext, nButtonX, INV_GetPanelY(), -1, 5, 0);
@@ -1673,7 +1673,7 @@ timer_done:
     }
     }
 
-    tContext.pCellFile = gpInvCharCel;
+    tContext.pCelFile = gpInvCharCel;
     tContext.nFrame = 4;
     TEXTURE_CelDraw(&tContext, gnScreenWidth - gnPanelOffsetX - 0x140, gnScreenHeight + gnPanelOffsetY - 0xE0, -1, 5, 0);
     tContext.nFrame = 5;
@@ -1687,10 +1687,10 @@ timer_done:
 
     if (gbWeaponSwitch && FOG_IsExpansion() && GAME_IsExpansion())
     {
-        tContext.pCellFile = gpCelInvChar6Tab;
+        tContext.pCelFile = gpCelInvChar6Tab;
         tContext.nFrame = 0;
         TEXTURE_CelDraw(&tContext, gnGlobal_007BCCBC + gtOffsetLArmTab.nX, gnGlobal_007BCCC8 + gtOffsetLArmTab.nY, -1, 5, 0);
-        tContext.pCellFile = gpCelInvChar6Tab;
+        tContext.pCelFile = gpCelInvChar6Tab;
         tContext.nFrame = 1;
         TEXTURE_CelDraw(&tContext, gnGlobal_007BCCA8 + gtOffsetRArmTab.nX, gnGlobal_007BCCB4 + gtOffsetRArmTab.nY, -1, 5, 0);
     }
@@ -1700,49 +1700,49 @@ timer_done:
 
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 3))
     {
-        tContext.pCellFile = gpCelInvArmor;
+        tContext.pCelFile = gpCelInvArmor;
         tContext.nFrame = 0;
         TEXTURE_CelDraw(&tContext, gnGlobal_007BCC94 + gtOffsetTorso.nX, gnGlobal_007BCCA0 + gtOffsetTorso.nY, -1, 5, 0);
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 8))
     {
-        tContext.pCellFile = gpCelInvBelt;
+        tContext.pCelFile = gpCelInvBelt;
         tContext.nFrame = 0;
         TEXTURE_CelDraw(&tContext, gnGlobal_007BCCF8 + gtOffsetBelt.nX, gnGlobal_007BCD04 + gtOffsetBelt.nY, -1, 5, 0);
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 9))
     {
-        tContext.pCellFile = gpCelInvBoots;
+        tContext.pCelFile = gpCelInvBoots;
         tContext.nFrame = 0;
         TEXTURE_CelDraw(&tContext, gnGlobal_007BCD0C + gtOffsetFeet.nX, gnGlobal_007BCD18 + gtOffsetFeet.nY, -1, 5, 0);
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 1))
     {
-        tContext.pCellFile = gpCelInvHelmGlove;
+        tContext.pCelFile = gpCelInvHelmGlove;
         tContext.nFrame = 1;
         TEXTURE_CelDraw(&tContext, gnGlobal_007BCC6C + gtOffsetHead.nX, gnGlobal_007BCC78 + gtOffsetHead.nY, -1, 5, 0);
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 10))
     {
-        tContext.pCellFile = gpCelInvHelmGlove;
+        tContext.pCelFile = gpCelInvHelmGlove;
         tContext.nFrame = 0;
         TEXTURE_CelDraw(&tContext, gnGlobal_007BCD20 + gtOffsetGloves.nX, gnGlobal_007BCD2C + gtOffsetGloves.nY, -1, 5, 0);
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 2))
     {
-        tContext.pCellFile = gpCelInvRingAmulet;
+        tContext.pCelFile = gpCelInvRingAmulet;
         tContext.nFrame = 0;
         TEXTURE_CelDraw(&tContext, gnGlobal_007BCC80 + gtOffsetNeck.nX, gnGlobal_007BCC8C + gtOffsetNeck.nY, -1, 5, 0);
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 6))
     {
-        tContext.pCellFile = gpCelInvRingAmulet;
+        tContext.pCelFile = gpCelInvRingAmulet;
         tContext.nFrame = 1;
         TEXTURE_CelDraw(&tContext, gnGlobal_007BCCD0 + gtOffsetRRing.nX, gnGlobal_007BCCDC + gtOffsetRRing.nY, -1, 5, 0);
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 7))
     {
-        tContext.pCellFile = gpCelInvRingAmulet;
+        tContext.pCelFile = gpCelInvRingAmulet;
         tContext.nFrame = 1;
         TEXTURE_CelDraw(&tContext, gnGlobal_007BCCE4 + gtOffsetLRing.nX, gnGlobal_007BCCF0 + gtOffsetLRing.nY, -1, 5, 0);
     }
@@ -1760,7 +1760,7 @@ timer_done:
 
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 5))
     {
-        tContext.pCellFile = gpCelInvWeapons;
+        tContext.pCelFile = gpCelInvWeapons;
         tContext.nFrame = 0;
         if (bRightHand)
         {
@@ -1776,7 +1776,7 @@ timer_done:
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 4))
     {
-        tContext.pCellFile = gpCelInvWeapons;
+        tContext.pCelFile = gpCelInvWeapons;
         tContext.nFrame = 0;
         if (bLeftHand)
         {
@@ -1791,7 +1791,7 @@ timer_done:
         }
     }
 
-    tContext.pCellFile = gpCelInvWeapons;
+    tContext.pCelFile = gpCelInvWeapons;
     tContext.nFrame = 0;
     if (bRightHand && bLeftHand)
     {
@@ -1824,7 +1824,7 @@ timer_done:
 
     if (gnInvPanelMode == 11 && gpTradePanelCel)
     {
-        tContext.pCellFile = gpTradePanelCel;
+        tContext.pCelFile = gpTradePanelCel;
         tContext.nFrame = 0;
         TEXTURE_CelDraw(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0xE0, -1, 5, 0);
         tContext.nFrame = 1;
@@ -1834,7 +1834,7 @@ timer_done:
         tContext.nFrame = 3;
         TEXTURE_CelDraw(&tContext, gnPanelOffsetX + 0x100, gnScreenHeight + gnPanelOffsetY - 0x30, -1, 5, 0);
 
-        tContext.pCellFile = GAME_GetBuySellButtonCells();
+        tContext.pCelFile = GAME_GetBuySellButtonCells();
         if (gbTradeAcceptedOther)
         {
             tContext.nFrame = 17;
@@ -1936,7 +1936,7 @@ timer_done:
     }
     INV_DrawGold(1);
 
-    tContext.pCellFile = GAME_GetBuySellButtonCells();
+    tContext.pCelFile = GAME_GetBuySellButtonCells();
     tContext.nFrame = (gbPanelButtonDown != 0) + 10;
     TEXTURE_CelDraw(&tContext, gnScreenWidth - gnPanelOffsetX - 0x12E, gnScreenHeight + gnPanelOffsetY - 0x40, -1, 5, 0);
 
@@ -2470,9 +2470,9 @@ void __cdecl INV_DrawMercPanel()
 
     INV_LoadUiRecords();
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpCelNpcInv;
+    tContext.pCelFile = gpCelNpcInv;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     TEXTURE_CelDraw(&tContext, gnPanelX_007A2858, gnScreenHeight + gnPanelY_007A285C - 0xE0, -1, 5, 0);
@@ -2483,7 +2483,7 @@ void __cdecl INV_DrawMercPanel()
     tContext.nFrame = 3;
     TEXTURE_CelDraw(&tContext, gnPanelX_007A2858 + 0x100, gnScreenHeight + gnPanelY_007A285C - 0x30, -1, 5, 0);
 
-    tContext.pCellFile = GAME_GetBuySellButtonCells();
+    tContext.pCelFile = GAME_GetBuySellButtonCells();
     tContext.nFrame = (gbBuySellPressed != 0) + 10;
     TEXTURE_CelDraw(&tContext, gnPanelX_007A2858 + 0x110, gnScreenHeight + gnPanelY_007A285C - 0x3F, -1, 5, 0);
 

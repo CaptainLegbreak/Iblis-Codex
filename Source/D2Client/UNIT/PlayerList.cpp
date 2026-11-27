@@ -19,7 +19,7 @@ struct D2RosterInfoStrc
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-D2GfxDataStrc* __cdecl GFX_AllocGfxData(); // 0x0046EBB0
+D2UnitGfxDataStrc* __cdecl GFX_AllocGfxData(); // 0x0046EBB0
 
 // 0x004DC270
 D2RosterInfoStrc** __cdecl PLAYERLIST_AllocRosterInfoList()
