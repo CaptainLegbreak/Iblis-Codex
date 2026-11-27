@@ -12,6 +12,7 @@ scaffolding, names.
   (Composit_0064F060), `Units/Missile` (Missile_0064B860). Lane 2 hadn't claimed any of them.
 
 ## Status
+- Thu Nov 26 16:40 PT: **withdrawn: `lane8/d2common-api-decls` and `lane8/d2common-api-decls-2`** (don't merge them). Lane 2's `use-shared-headers-2b` (committed 15:59, before my note) makes the same change in 9 of their 11 units and in Items.cpp, more thoroughly. Only MonsterTbls.cpp and Unknown_006634F0.cpp aren't in it; they come back as a small `d2common-api-decls-3` once its full build is done. `drlg-api-decls` has no file in common with lane 2's branch and stays Ready.
 - Thu Nov 26 16:30 PT: check-in on #447. Three header branches Ready (api-decls, api-decls-2 for Items.cpp, drlg-api-decls); Inventory, Skills and Units wait on D2CommonApi.h's duplicate SKILLS_GetFirstSkillFromSkillList (note to lane 2). Next: more D2Common scaffolding.
 - Thu Nov 26 15:58 PT: check-in on #444. api-decls Ready (13 units take D2CommonApi.h); names-3 Ready. Next: the remaining D2Common scaffolding (private copies that D2Common.h could hold, unit by unit with the full build deciding).
 - Thu Nov 26 15:58 PT: names-3 Ready. D2Common's a1/v12 names left are in ItemTbls.cpp and MissileTbls.cpp (declaration-sensitive; I leave them) and a few parameters whose meaning the code doesn't show (D2Common_10434's and 10236's flags, Path's unk0x67 setter). Next: D2Common scaffolding again.
@@ -34,8 +35,6 @@ scaffolding, names.
 
 ## Ready
 - lane8/drlg-api-decls 9785823ee (on #447): Drlg.cpp's inline copy of the player-data getter is renamed UNITS_GetPlayerData_Inl (Units.cpp's name for its own), so it no longer redefines the exported UNITS_GetPlayerData; Drlg.cpp then includes D2CommonApi.h and drops four prototypes it repeats. Full build: Game.exe identical, tree 7f47234122a74d8d2d9e5024c731597a8fa0231e, borrowed code / data 7,923 / 261.
-- lane8/d2common-api-decls-2 c858c4ef4 (on #445): Items.cpp includes D2CommonApi.h and drops 25 private prototypes it repeats with the same types. To get there, ITEMS_GetDimensions, ITEMS_SetOwnerId and STATLIST_ExpireUnitStatlist lose the `extern "C"` that Items.cpp's and Inventory.cpp's declarations gave them (it put Items.cpp's own definitions in C linkage); they now have the C++ linkage the header and every other caller use. Independent of d2common-api-decls (no file in common). Full build: Game.exe identical, tree ce26bb1fe97a01aaffb2ec4f7d9ddc585473b9fc, borrowed code / data 7,923 / 261.
-- lane8/d2common-api-decls 8400caacc (on #444): 11 D2Common units (Collisn, AnimTbls, MonsterTbls, OutRoom, Outdoors, Env, ItemMods, Path, UnitRoom, Unknown_006634F0, Unknown_006647C0) include D2CommonApi.h and drop 20 private prototypes it already declares with the same types. Units, Skills, Items, Inventory and Drlg keep theirs (the header's other declarations clash with their private ones or change a function there); ProfCore and Unknown_0064FAD0 are left to lane 2's use-shared-headers, which makes the same change there. Full build: Game.exe identical, tree ac42a2db7cd88d20939ab2224073ac74dd7f6dd5, borrowed code / data 7,923 / 261.
 
 ## Questions
 
