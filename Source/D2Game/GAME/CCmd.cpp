@@ -111,14 +111,14 @@ void __fastcall CCMD_ProcessClientSystemMessage(void* pData, int nSize)
         D2GSPacketClt66* p66 = (D2GSPacketClt66*)pData;
         if (SrvVerifyCreateNewGame(nClientId, p66))
         {
-            sSrvSendGameInit(nClientId, p66->szGameName, p66->nGameType, p66->nPlayerClass, p66->szClientName, p66->wArena, p66->nGameFlags, p66->nTemplate, p66->unk0x2B, p66->unk0x2C, p66->nDifficulty, p66->nLocale, 0, 0);
+            sSrvSendGameInit(nClientId, p66->szGameName, p66->nGameType, p66->nPlayerClass, p66->szClientName, p66->wArena, p66->nGameFlags, p66->nTemplate, p66->unused0x2B, p66->unused0x2C, p66->nDifficulty, p66->nLocale, 0, 0);
         }
         break;
     }
     case 0x6D:
     {
         D2GSPacketClt6D* p6D = (D2GSPacketClt6D*)pData;
-        GAME_UpdatePing(nClientId, p6D->unk0x01, p6D->unk0x05, 0);
+        GAME_UpdatePing(nClientId, p6D->nTick, p6D->nDelay, 0);
         break;
     }
     case 0x68:
