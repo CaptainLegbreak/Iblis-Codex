@@ -1168,7 +1168,7 @@ int __fastcall PLRMSG_InteractWithUnit(D2UnitStrc* pPlayer, int nUnitType, int n
             return 3;
         }
 
-        if (sub_00641530(pPlayer, pUnit) > 50)
+        if (D2Common_10399(pPlayer, pUnit) > 50)
         {
             return 1;
         }
@@ -1196,7 +1196,7 @@ int __fastcall PLRMSG_InteractWithUnit(D2UnitStrc* pPlayer, int nUnitType, int n
             return 1;
         }
 
-        const int nDistance = sub_00641530(pPlayer, pUnit);
+        const int nDistance = D2Common_10399(pPlayer, pUnit);
         if (nDistance > 50)
         {
             return 1;
@@ -1226,7 +1226,7 @@ int __fastcall PLRMSG_InteractWithUnit(D2UnitStrc* pPlayer, int nUnitType, int n
             return 1;
         }
 
-        const int nDistance = sub_00641530(pPlayer, pUnit);
+        const int nDistance = D2Common_10399(pPlayer, pUnit);
         if (nDistance > 50)
         {
             return 1;
@@ -1264,7 +1264,7 @@ int __fastcall PLRMSG_InteractWithUnit(D2UnitStrc* pPlayer, int nUnitType, int n
             return 1;
         }
 
-        const int nDistance = sub_00641530(pPlayer, pUnit);
+        const int nDistance = D2Common_10399(pPlayer, pUnit);
         if (nDistance > 50)
         {
             return 1;
@@ -1305,7 +1305,7 @@ int __fastcall PLRMSG_InteractWithUnit(D2UnitStrc* pPlayer, int nUnitType, int n
             return 1;
         }
 
-        const unsigned int nDistance = sub_00641530(pPlayer, pUnit);
+        const unsigned int nDistance = D2Common_10399(pPlayer, pUnit);
         if (nDistance > 50)
         {
             return 1;
@@ -4374,7 +4374,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x59_MakeEntityMove(D2GameStrc* pGame, D
     }
 
     D2UnitStrc* pNpc = SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
-    if (pNpc && sub_00641530(pUnit, pNpc) <= 50)
+    if (pNpc && D2Common_10399(pUnit, pNpc) <= 50)
     {
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pNpc->dwClassId);
         if (pMonStatsTxtRecord && pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_INTERACT >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_INTERACT & 7] && pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_NPC >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_NPC & 7])

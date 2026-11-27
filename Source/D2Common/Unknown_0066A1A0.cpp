@@ -44,7 +44,7 @@ void __fastcall sub_0066A260_PlayerDataFreeHook(D2UnitStrc* pUnit)
 }
 
 // 0x0066A270
-void __fastcall sub_0066A270(void* hArchive)
+void __fastcall sub_0066A270_Nop(void* hArchive)
 {
 }
 

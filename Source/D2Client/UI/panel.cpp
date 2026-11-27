@@ -169,6 +169,8 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 
 
 
+void __stdcall DATATBLS_GetInventoryGridInfo(int nId, int nGroup, D2Block1* pBlock); // 0x0065C1F0
+
 
 void __fastcall sub_0049FF90_Close(D2UnitStrc* pItem, D2ItemsTxt* pState); // 0x0049FF90
 
@@ -1601,7 +1603,7 @@ static void __stdcall PANEL_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2Invent
 
     D2Block1 tBlock1;
     const int nClass = UNITS_GetInventoryRecordId(pPlayer, 0, GAME_IsExpansion());
-    sub_0065C1F0(nClass, gnBeltUiRecordRow, &tBlock1);
+    DATATBLS_GetInventoryGridInfo(nClass, gnBeltUiRecordRow, &tBlock1);
     D2UnitStrc* pItem = INVENTORY_GetItemFromBeltSlot(pInventory, nSlot);
     if (!pItem)
     {

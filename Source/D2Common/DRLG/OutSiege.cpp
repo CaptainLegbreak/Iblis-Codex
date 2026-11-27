@@ -763,7 +763,7 @@ static void sub_0067E840(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0067E890
-void __fastcall sub_0067E890(D2DrlgLevelStrc* pLevel)
+void __fastcall DRLGOUTDOORS_InitAct4OutdoorLevel(D2DrlgLevelStrc* pLevel)
 {
     if (pLevel->eLevelId == LEVEL_CHAOSSANCTUM)
     {

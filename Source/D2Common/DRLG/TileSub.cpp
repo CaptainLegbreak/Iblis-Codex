@@ -149,9 +149,9 @@ static int __stdcall DRLGTILESUB_TestReplaceSubPreset(int nX, int nY, D2DrlgSubs
 
 extern int __fastcall sub_0045C3E0_RollLimited(D2SeedStrc* pSeed, int nLimit); // 0x0045C3E0
 
-static int __stdcall sub_0066F350(D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY);
+static int __stdcall sub_0066F350_GetFloorGridEntry(D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY);
 
-static int __stdcall sub_0066F380(D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY);
+static int __stdcall sub_0066F380_GetWallGridEntry(D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY);
 
 static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, D2DrlgTileDataStrc* pTileData, int nTileType, unsigned int nPackedTileInformation, int nX, int nY);
 
@@ -200,7 +200,7 @@ static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed,
 }
 
 // 0x0066F350
-static int __stdcall sub_0066F350(D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY)
+static int __stdcall sub_0066F350_GetFloorGridEntry(D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY)
 {
     if (pLvlSubTxtRecord->pDrlgFile->nFloorLayers)
     {
@@ -211,7 +211,7 @@ static int __stdcall sub_0066F350(D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY)
 }
 
 // 0x0066F380
-static int __stdcall sub_0066F380(D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY)
+static int __stdcall sub_0066F380_GetWallGridEntry(D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY)
 {
     if (pLvlSubTxtRecord->pDrlgFile->nWallLayers)
     {
@@ -231,8 +231,8 @@ static int __stdcall DRLGTILESUB_TestReplaceSubPreset(int nX, int nY, D2DrlgSubs
     {
         for (int i = 0; i < pSubstGroup->tBox.nWidth; ++i)
         {
-            const int nFloorFlags = sub_0066F350(pLvlSubTxtRecord, i + pSubstGroup->tBox.nPosX, j + pSubstGroup->tBox.nPosY);
-            const int nWallFlags = sub_0066F380(pLvlSubTxtRecord, i + pSubstGroup->tBox.nPosX, j + pSubstGroup->tBox.nPosY);
+            const int nFloorFlags = sub_0066F350_GetFloorGridEntry(pLvlSubTxtRecord, i + pSubstGroup->tBox.nPosX, j + pSubstGroup->tBox.nPosY);
+            const int nWallFlags = sub_0066F380_GetWallGridEntry(pLvlSubTxtRecord, i + pSubstGroup->tBox.nPosX, j + pSubstGroup->tBox.nPosY);
             const int nPosX = nX + i * pLvlSubTxtRecord->dwGridSize;
             const int nPosY = nY + j * pLvlSubTxtRecord->dwGridSize;
 
@@ -284,8 +284,8 @@ void __stdcall DRLGTILESUB_ReplaceSubPreset(int nX, int nY, D2UnkOutdoorStrc* pO
     {
         for (int i = 0; i < pSubstGroup->tBox.nWidth; ++i)
         {
-            const int nWallFlags = sub_0066F380(pLvlSubTxtRecord, nBaseX + i, nBaseY + j);
-            const int nFloorFlags = sub_0066F350(pLvlSubTxtRecord, nBaseX + i, nBaseY + j);
+            const int nWallFlags = sub_0066F380_GetWallGridEntry(pLvlSubTxtRecord, nBaseX + i, nBaseY + j);
+            const int nFloorFlags = sub_0066F350_GetFloorGridEntry(pLvlSubTxtRecord, nBaseX + i, nBaseY + j);
             const int nPosX = nX + i * pLvlSubTxtRecord->dwGridSize;
             const int nPosY = nY + j * pLvlSubTxtRecord->dwGridSize;
             if (nWallFlags & 1)
@@ -488,7 +488,7 @@ void __stdcall sub_0066FAD0(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* p
     {
         for (i = 0; i < pSubstGroup->tBox.nWidth; ++i)
         {
-            nFlags = sub_0066F350(pLvlSubTxtRecord, nBaseX + i, nBaseY + j);
+            nFlags = sub_0066F350_GetFloorGridEntry(pLvlSubTxtRecord, nBaseX + i, nBaseY + j);
             if (nFlags & 2)
             {
                 DRLGGRID_AlterGridFlag(pOutdoor->pFloorGrid, nX + i, nY + j, nFlags | 0x80, 3);
@@ -565,7 +565,7 @@ static int __stdcall DRLGTILESUB_TestSubstGroupTiles(int nX, int nY, D2UnkOutdoo
                 return 0;
             }
 
-            const int nFloorFlags1 = sub_0066F350(pLvlSubTxtRecord, i + pSubstGroup->tBox.nPosX, j + pSubstGroup->tBox.nPosY);
+            const int nFloorFlags1 = sub_0066F350_GetFloorGridEntry(pLvlSubTxtRecord, i + pSubstGroup->tBox.nPosX, j + pSubstGroup->tBox.nPosY);
             if (nFloorFlags1 & 2)
             {
                 const int nFloorFlags2 = DRLGGRID_GetGridEntry(pOutdoor->pFloorGrid, i + nX, j + nY);
@@ -580,7 +580,7 @@ static int __stdcall DRLGTILESUB_TestSubstGroupTiles(int nX, int nY, D2UnkOutdoo
                 }
             }
 
-            const int nWallFlags1 = sub_0066F380(pLvlSubTxtRecord, i + pSubstGroup->tBox.nPosX, j + pSubstGroup->tBox.nPosY);
+            const int nWallFlags1 = sub_0066F380_GetWallGridEntry(pLvlSubTxtRecord, i + pSubstGroup->tBox.nPosX, j + pSubstGroup->tBox.nPosY);
             if (nWallFlags1 & 1)
             {
                 const int nWallFlags2 = DRLGGRID_GetGridEntry(pOutdoor->pWallsGrids[0], i + nX, j + nY);

@@ -275,6 +275,7 @@ D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, i
 
 void __fastcall SKILLS_SetMissileDirection(D2UnitStrc* pMissile, int nDirection); // 0x004C7470
 
+
 void __fastcall SKILLS_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
 
 int __fastcall SKILLS_ScanCountCallback(D2AreaScanStrc* pScan, D2UnitStrc* pUnit); // 0x004C5E20
@@ -2333,7 +2334,7 @@ int __fastcall SKILLS_ScatterRequestsAroundTarget(D2UnitStrc* pMissile, int nMis
     {
         const int nX = SEED_RollLimitedRandomNumberInline(pSeed, 2 * nRange) - nRange + nTargetX;
         const int nY = SEED_RollLimitedRandomNumberInline(pSeed, 2 * nRange) - nRange + nTargetY;
-        if (sub_006492A0(CLIENTS_GetUnitXInline(pMissile), CLIENTS_GetUnitYInline(pMissile), nX, nY) >= 4)
+        if (PATH_ComputeSquaredDistance(CLIENTS_GetUnitXInline(pMissile), CLIENTS_GetUnitYInline(pMissile), nX, nY) >= 4)
         {
             MISSILE_SubmitOffsetRequest(pMissile, nMissile, 0, 0, nX, nY, nSkill, nSkillLevel, 0);
         }

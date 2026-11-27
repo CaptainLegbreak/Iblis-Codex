@@ -326,7 +326,7 @@ int __stdcall MONSTERS_GetSpawnMode_XY(D2UnitStrc* pMonster, int bFromMonster, i
 }
 
 // 0x0063EBC0
-void __stdcall sub_0063EBC0(int nUnused1, int nUnused2)
+void __stdcall D2COMMON_11062_Return(int nUnused1, int nUnused2)
 {
 }
 

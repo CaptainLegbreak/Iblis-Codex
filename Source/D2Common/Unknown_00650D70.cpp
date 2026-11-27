@@ -102,12 +102,12 @@ unsigned int __fastcall SEED_GetLowSeed(D2SeedStrc* pSeed)
     return pSeed->nLowSeed;
 }
 // 0x00650E60
-extern "C" __declspec(dllexport) void __fastcall sub_00650E60(Pair00650E60* pPair, unsigned int dwFirst, unsigned int dwSecond) {
+extern "C" __declspec(dllexport) void __fastcall SEED_SetSeeds(Pair00650E60* pPair, unsigned int dwFirst, unsigned int dwSecond) {
     pPair->dwFirst = dwFirst;
     pPair->dwSecond = dwSecond;
 }
 // 0x00650E70
-extern "C" __declspec(dllexport) void __fastcall sub_00650E70(Pair00650E70* pPair, unsigned int* pFirst, unsigned int* pSecond) {
+extern "C" __declspec(dllexport) void __fastcall SEED_GetSeeds(Pair00650E70* pPair, unsigned int* pFirst, unsigned int* pSecond) {
     *pFirst = pPair->dwFirst;
     *pSecond = pPair->dwSecond;
 }

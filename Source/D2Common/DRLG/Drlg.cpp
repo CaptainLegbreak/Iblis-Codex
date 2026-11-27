@@ -483,7 +483,7 @@ void __fastcall DATATBLS_UnloadShrinesTxt()
 }
 
 // 0x00641530
-int __stdcall sub_00641530(D2UnitStrc* a,D2UnitStrc* b)
+int __stdcall D2Common_10399(D2UnitStrc* a,D2UnitStrc* b)
 {
  const int rawX=CLIENTS_GetUnitXInline(b)-CLIENTS_GetUnitXInline(a);
  int dx=rawX>=0 ? rawX : -rawX;
@@ -1193,7 +1193,7 @@ inline D2DrlgLevelStrc* DRLG_InlineGetLevel(D2DrlgStrc* pDrlg, int nLevelId)
 }
 
 // 0x00642740
-int __cdecl sub_00642740()
+int __cdecl D2COMMON_10018_Return0()
 {
     return 0;
 }

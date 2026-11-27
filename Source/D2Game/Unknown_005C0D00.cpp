@@ -343,6 +343,9 @@ void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc*); // 0x004DC0B0
 
 
 
+
+
+
 int __fastcall ITEMS_ApplyLegacyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C2AF0
 
 int __fastcall ITEMS_ApplyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C2D40
@@ -1342,7 +1345,7 @@ int __fastcall ITEMS_RollCraftedItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDro
     }
 
     ITEMS_AssignRarePrefix(pItem, nRarePrefix);
-    sub_00628070(pItem, nRareSuffix);
+    ITEMS_AssignRareSuffix(pItem, nRareSuffix);
 
     int nPrefixes = 0;
     int nSuffixes = 0;
@@ -1391,13 +1394,13 @@ int __fastcall ITEMS_RollCraftedItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDro
                 {
                     if (nAttempt++ > 250)
                     {
-                        sub_00627EF0(pItem, 0, nPrefixes);
+                        ITEMS_AssignPrefix(pItem, 0, nPrefixes);
                         break;
                     }
                 }
                 else
                 {
-                    sub_00627EF0(pItem, nPrefix, nPrefixes);
+                    ITEMS_AssignPrefix(pItem, nPrefix, nPrefixes);
                     ++nPrefixes;
                     break;
                 }
@@ -1413,13 +1416,13 @@ int __fastcall ITEMS_RollCraftedItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDro
                 {
                     if (nAttempt++ > 250)
                     {
-                        sub_00627FB0(pItem, 0, nSuffixes);
+                        ITEMS_AssignSuffix(pItem, 0, nSuffixes);
                         break;
                     }
                 }
                 else
                 {
-                    sub_00627FB0(pItem, nSuffix, nSuffixes);
+                    ITEMS_AssignSuffix(pItem, nSuffix, nSuffixes);
                     ++nSuffixes;
                     break;
                 }

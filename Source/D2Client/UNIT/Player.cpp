@@ -305,7 +305,7 @@ void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetU
 
 void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory);                                        // 0x0063AC40
 
-int __stdcall sub_00641530(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);                                      // 0x00641530
+int __stdcall D2Common_10399(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);                                      // 0x00641530
 
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);                   // 0x006439B0
 
@@ -1265,7 +1265,7 @@ static void __stdcall PLAYER_OperateObject(int nObjectIdArg, D2PlayerCmdStrc* pC
 // 0x004619E0
 static void PLAYER_InteractWithTarget(D2PlayerCmdStrc* pCmd, int nTargetId)
 {
-    switch (sub_00641530(pCmd->pTarget, pCmd->pPlayer))
+    switch (D2Common_10399(pCmd->pTarget, pCmd->pPlayer))
     {
     case 0:
     case 1:
@@ -1503,7 +1503,7 @@ static void __stdcall PLAYER_InteractWithUnit(int nUnitType, int nUnitId, D2Play
         {
             if (pCmd->dwFlags & 8)
                 return;
-            if (sub_00641530(pTarget, pCmd->pPlayer) > 4 || UNITS_TestCollisionBetweenInteractingUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
+            if (D2Common_10399(pTarget, pCmd->pPlayer) > 4 || UNITS_TestCollisionBetweenInteractingUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {
                 if (PLAYER_IsPendingMode(nUnitType, nUnitId))
                     return;
@@ -1518,7 +1518,7 @@ static void __stdcall PLAYER_InteractWithUnit(int nUnitType, int nUnitId, D2Play
         }
         case UNIT_PLAYER:
         {
-            if (sub_00641530(pTarget, pCmd->pPlayer) <= 4 && !UNITS_TestCollisionBetweenInteractingUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
+            if (D2Common_10399(pTarget, pCmd->pPlayer) <= 4 && !UNITS_TestCollisionBetweenInteractingUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {
                 UNITMODE_DoUnitAction(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
                 return;
@@ -1531,7 +1531,7 @@ static void __stdcall PLAYER_InteractWithUnit(int nUnitType, int nUnitId, D2Play
         {
             if (GAME_GetCurrentTime() < GAME_GetInteractDeadline())
                 return;
-            if (sub_00641530(pCmd->pTarget, pCmd->pPlayer) > 4)
+            if (D2Common_10399(pCmd->pTarget, pCmd->pPlayer) > 4)
             {
                 UNITMODE_DoUnitAction(pCmd->nMode, pCmd->pPlayer, nUnitType, nUnitId, 0);
                 PLAYER_SetPlayerMode(0x13, pCmd->pPlayer, nUnitType, nUnitId);
@@ -1580,7 +1580,7 @@ check_range:
         }
     }
 
-    if (sub_00641530(pCmd->pTarget, pCmd->pPlayer) > nRange)
+    if (D2Common_10399(pCmd->pTarget, pCmd->pPlayer) > nRange)
     {
         UNITMODE_DoUnitAction(pCmd->nMode, pCmd->pPlayer, nUnitType, nUnitId, 0);
         D2UnitStrc* pPlayer = pCmd->pPlayer;

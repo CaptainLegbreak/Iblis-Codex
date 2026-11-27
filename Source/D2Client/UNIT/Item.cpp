@@ -336,7 +336,7 @@ extern "C" int gnTable_00727A28[5]; // 0x00727A28
 
 extern "C" unsigned int gnTableCount; // 0x00727A3C
 
-extern "C" unsigned int __stdcall sub_006280A0(D2UnitStrc* pUnit, unsigned int dwMask, unsigned int dwUnused3, unsigned int dwUnused4); // 0x006280A0
+extern "C" unsigned int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pUnit, unsigned int dwMask, unsigned int dwUnused3, unsigned int dwUnused4); // 0x006280A0
 
 void __stdcall sub_0063BE30_Return(int nUnused1, int nUnused2);
 
@@ -691,7 +691,7 @@ void __fastcall ITEM_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bF
 
     if (bClamp)
     {
-        sub_006275B0(pUnit);
+        STATLIST_ClampStaminaManaHP(pUnit);
     }
 }
 
@@ -1479,10 +1479,10 @@ void __fastcall ITEM_UpdateItemStat(unsigned int nA, unsigned char nB, unsigned 
     if ((int)nD <= 0)
         return;
 
-    if (sub_006280A0(pItem, 4, 0xA38, (unsigned int)".\\UNIT\\Item.cpp"))
+    if (ITEMS_CheckItemFlag(pItem, 4, 0xA38, (unsigned int)".\\UNIT\\Item.cpp"))
         ITEMS_SetItemFlag(pItem, 4, 0);
 
-    if (sub_006280A0(pItem, 0x4000, 0xA3C, (unsigned int)".\\UNIT\\Item.cpp"))
+    if (ITEMS_CheckItemFlag(pItem, 0x4000, 0xA3C, (unsigned int)".\\UNIT\\Item.cpp"))
         ITEMS_SetItemFlag(pItem, 0x4000, 0);
 }
 
@@ -1678,7 +1678,7 @@ void __fastcall ITEM_RemoveEquippedItems(D2UnitStrc* pUnit)
             if (pUnit->dwUnitType == UNIT_PLAYER)
                 INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
 
-            if (!sub_006280A0(pRemoved, 0x100, 0x96, (unsigned int)".\\UNIT\\Item.cpp"))
+            if (!ITEMS_CheckItemFlag(pRemoved, 0x100, 0x96, (unsigned int)".\\UNIT\\Item.cpp"))
                 STATLIST_ExpireUnitStatlist(pUnit, pRemoved);
 
             ITEM_RefreshEquippedItems(pUnit);
