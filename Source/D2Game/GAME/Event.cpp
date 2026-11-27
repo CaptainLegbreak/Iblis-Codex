@@ -348,11 +348,11 @@ void __fastcall D2GAME_DeleteTimersOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
     SUNIT_SetTimerOnUnit(pUnit, 0);
 }
 
-static __forceinline void EVENT_ExecuteEventsImpl5(EventTimerCallback pDefaultCallback, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer, int a4)
+static __forceinline void EVENT_ExecuteEventsImpl5(EventTimerCallback pDefaultCallback, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer, int bTimedEvents)
 {
     pTimerQueue->pCurrent = 0;
     D2EventTimerStrc* pTimer = pEventTimer;
-    if (a4)
+    if (bTimedEvents)
     {
         while (pTimer)
         {
@@ -398,11 +398,11 @@ static __forceinline void EVENT_ExecuteEventsImpl5(EventTimerCallback pDefaultCa
     }
 }
 
-static __forceinline void EVENT_ExecuteEventsImpl3(EventDefault3 pDefaultCallback, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer, int a4)
+static __forceinline void EVENT_ExecuteEventsImpl3(EventDefault3 pDefaultCallback, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer, int bTimedEvents)
 {
     pTimerQueue->pCurrent = 0;
     D2EventTimerStrc* pTimer = pEventTimer;
-    if (a4)
+    if (bTimedEvents)
     {
         while (pTimer)
         {
@@ -449,33 +449,33 @@ static __forceinline void EVENT_ExecuteEventsImpl3(EventDefault3 pDefaultCallbac
 }
 
 // 0x00540F60
-static void __stdcall EVENT_ExecutePlayerEvents(int a4, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
+static void __stdcall EVENT_ExecutePlayerEvents(int bTimedEvents, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
 {
-    EVENT_ExecuteEventsImpl5(D2GAME_EVENTS_Callback, pGame, pTimerQueue, pEventTimer, a4);
+    EVENT_ExecuteEventsImpl5(D2GAME_EVENTS_Callback, pGame, pTimerQueue, pEventTimer, bTimedEvents);
 }
 
 // 0x00541060
-static void __stdcall EVENT_ExecuteMonsterEvents(int a4, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
+static void __stdcall EVENT_ExecuteMonsterEvents(int bTimedEvents, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
 {
-    EVENT_ExecuteEventsImpl5(MONSTERMODE_EventHandler, pGame, pTimerQueue, pEventTimer, a4);
+    EVENT_ExecuteEventsImpl5(MONSTERMODE_EventHandler, pGame, pTimerQueue, pEventTimer, bTimedEvents);
 }
 
 // 0x00541160
-static void __stdcall EVENT_ExecuteObjectEvents(int a4, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
+static void __stdcall EVENT_ExecuteObjectEvents(int bTimedEvents, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
 {
-    EVENT_ExecuteEventsImpl3(D2GAME_OBJMODE_InvokeEventFunction, pGame, pTimerQueue, pEventTimer, a4);
+    EVENT_ExecuteEventsImpl3(D2GAME_OBJMODE_InvokeEventFunction, pGame, pTimerQueue, pEventTimer, bTimedEvents);
 }
 
 // 0x00541240
-static void __stdcall EVENT_ExecuteMissileEvents(int a4, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
+static void __stdcall EVENT_ExecuteMissileEvents(int bTimedEvents, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
 {
-    EVENT_ExecuteEventsImpl3(MISSMODE_SrvDoEventCallback, pGame, pTimerQueue, pEventTimer, a4);
+    EVENT_ExecuteEventsImpl3(MISSMODE_SrvDoEventCallback, pGame, pTimerQueue, pEventTimer, bTimedEvents);
 }
 
 // 0x00541320
-static void __stdcall EVENT_ExecuteItemEvents(int a4, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
+static void __stdcall EVENT_ExecuteItemEvents(int bTimedEvents, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
 {
-    EVENT_ExecuteEventsImpl3(D2GAME_Items_EventsHandler, pGame, pTimerQueue, pEventTimer, a4);
+    EVENT_ExecuteEventsImpl3(D2GAME_Items_EventsHandler, pGame, pTimerQueue, pEventTimer, bTimedEvents);
 }
 
 // 0x00541400

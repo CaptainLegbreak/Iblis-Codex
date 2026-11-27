@@ -54,10 +54,10 @@ static int CCMD_IsStringZeroTerminated(const char* pData, int nDataSize)
 }
 
 // 0x0053EFF0
-static unsigned int __stdcall CCMD_CanClientJoinGame(int a1, int a2, const char* szClientName)
+static unsigned int __stdcall CCMD_CanClientJoinGame(int nGameId, int nVersion, const char* szClientName)
 {
     unsigned int nResult = 0;
-    if (a1 != 1)
+    if (nGameId != 1)
     {
         return 6;
     }
@@ -71,7 +71,7 @@ static unsigned int __stdcall CCMD_CanClientJoinGame(int a1, int a2, const char*
     {
         return 6;
     }
-    if (a2 != 0xE)
+    if (nVersion != 0xE)
     {
         nResult = 0x10;
     }
