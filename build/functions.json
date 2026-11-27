@@ -13630,7 +13630,7 @@
   ["0x0064A710", 32, "verified", "MISSILE_SetTargetX"],
   ["0x0064A730", 35, "verified", "?MISSILE_GetTargetX@@YGHPAUD2UnitStrc@@@Z"],
   ["0x0064A760", 32, "verified", "MISSILE_SetTargetY"],
-  ["0x0064A780", 35, "verified", "_MISSILE_targetValue@4"],
+  ["0x0064A780", 35, "verified", "?MISSILE_GetTargetY@@YGHPAUD2UnitStrc@@@Z"],
   ["0x0064A7B0", 62, "verified", "MISSILE_SetHomeType"],
   ["0x0064A7F0", 86, "verified", "MISSILE_GetHomeType"],
   ["0x0064A850", 224, "verified", "?MISSILE_CheckCritical@@YGHPAUUnit@@0@Z"],

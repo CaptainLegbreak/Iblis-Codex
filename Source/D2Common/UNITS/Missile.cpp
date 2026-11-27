@@ -236,16 +236,6 @@ struct D2MissileStreamStrc;
 
 struct D2MissilesTxt;
 
-struct TargetData;
-
-struct UnitView;
-
-struct SlotPair;
-
-struct Node32;
-
-struct Node24;
-
 struct MissileRecord;
 
 struct DataTables;
@@ -261,74 +251,6 @@ struct D2MissileDamageDataStrc;
 #pragma pack(pop)
 
 typedef char check_pointer_width[sizeof(void*)==4?1:-1];
-
-struct TargetData
-{
-    char gap0[0x2C];
-    int value;
-};
-
-typedef char check_TargetData_value[OFFSET(TargetData,value)==0x2C?1:-1];
-
-typedef char check_TargetData_size[sizeof(TargetData)==0x30?1:-1];
-
-struct UnitView
-{
-    unsigned int kind;
-    char gap4[0x10];
-    TargetData* data;
-};
-
-typedef char check_UnitView_kind[OFFSET(UnitView,kind)==0x0?1:-1];
-
-typedef char check_UnitView_data[OFFSET(UnitView,data)==0x14?1:-1];
-
-typedef char check_UnitView_size[sizeof(UnitView)==0x18?1:-1];
-
-struct SlotPair
-{
-    unsigned int first;
-    unsigned int second;
-};
-
-typedef char check_SlotPair_first[OFFSET(SlotPair,first)==0x0?1:-1];
-
-typedef char check_SlotPair_second[OFFSET(SlotPair,second)==0x4?1:-1];
-
-typedef char check_SlotPair_size[sizeof(SlotPair)==0x8?1:-1];
-
-struct Node32
-{
-    char gap0[0x4];
-    SlotPair* slots;
-    unsigned int slotIndex;
-    char gapC[0xC];
-    Node32* next;
-    Node32* previous;
-};
-
-typedef char check_Node32_slots[OFFSET(Node32,slots)==0x4?1:-1];
-
-typedef char check_Node32_slotIndex[OFFSET(Node32,slotIndex)==0x8?1:-1];
-
-typedef char check_Node32_next[OFFSET(Node32,next)==0x18?1:-1];
-
-typedef char check_Node32_previous[OFFSET(Node32,previous)==0x1C?1:-1];
-
-typedef char check_Node32_size[sizeof(Node32)==0x20?1:-1];
-
-struct Node24
-{
-    char gap0[0x10];
-    Node24* next;
-    Node24* previous;
-};
-
-typedef char check_Node24_next[OFFSET(Node24,next)==0x10?1:-1];
-
-typedef char check_Node24_previous[OFFSET(Node24,previous)==0x14?1:-1];
-
-typedef char check_Node24_size[sizeof(Node24)==0x18?1:-1];
 
 struct D2MissileDamageDataStrc
 {
@@ -757,14 +679,13 @@ void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY)
 }
 
 // 0x0064A780
-extern "C" int __stdcall MISSILE_targetValue(UnitView* unit)
+int __stdcall MISSILE_GetTargetY(D2UnitStrc* pMissile)
 {
-    if (unit && unit->kind == 3)
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
     {
-        TargetData* data = unit->data;
-        if (data)
-            return data->value;
+        return pMissile->pMissileData->nTargetY;
     }
+
     return 0;
 }
 

@@ -13312,7 +13312,7 @@ address,name,source,alias
 0x0064A710,MISSILE_SetTargetX,d2moo,
 0x0064A730,MISSILE_GetTargetX,d2moo,
 0x0064A760,MISSILE_SetTargetY,d2moo,
-0x0064A780,MISSILE_targetValue,inferred,
+0x0064A780,MISSILE_GetTargetY,d2moo,
 0x0064A7B0,MISSILE_SetHomeType,d2moo,
 0x0064A7F0,MISSILE_GetHomeType,d2moo,
 0x0064A850,MISSILE_CheckCritical,inferred,

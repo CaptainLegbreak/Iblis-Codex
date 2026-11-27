@@ -70162,7 +70162,7 @@
     {
      "va": "0x0064A780",
      "length": 35,
-     "name": "_MISSILE_targetValue@4"
+     "name": "?MISSILE_GetTargetY@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0064A7B0",

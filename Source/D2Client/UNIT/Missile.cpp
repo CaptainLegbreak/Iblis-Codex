@@ -313,7 +313,6 @@ extern "C" int __stdcall sub_0064A280(D2UnitStrc* pUnit); // 0x0064A280
 
 extern "C" int __stdcall sub_0064A380(D2UnitStrc* pUnit); // 0x0064A380
 
-extern "C" int __stdcall MISSILE_targetValue(D2UnitStrc* pMissile); // 0x0064A780
 
 struct D2ScatterRateStrc
 {
@@ -3933,7 +3932,7 @@ int __fastcall MISSILE_CltHitScanArea(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
         return 1;
     }
 
-    if (!CUNIT_FindClientUnit(MISSILE_targetValue(pMissile), MISSILE_GetTargetX(pMissile)))
+    if (!CUNIT_FindClientUnit(MISSILE_GetTargetY(pMissile), MISSILE_GetTargetX(pMissile)))
     {
         return 0;
     }
@@ -4278,7 +4277,7 @@ void __fastcall MISSILE_CltDoClearFrameWithOwner(D2UnitStrc* pMissile)
 void __fastcall MISSILE_CltDoLinked(D2UnitStrc* pMissile)
 {
     D2SeedStrc* pSeed = &pMissile->pSeed;
-    int nPrevState = MISSILE_targetValue(pMissile);
+    int nPrevState = MISSILE_GetTargetY(pMissile);
     D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
     if (!pPath)
     {
@@ -4369,7 +4368,7 @@ int __fastcall MISSILE_CltHitScatterNoUnit(D2UnitStrc* pMissile, D2UnitStrc* pUn
     }
 
     D2SeedStrc* pSeed = &pMissile->pSeed;
-    SEED_InitLowSeed(pSeed, MISSILE_targetValue(pMissile));
+    SEED_InitLowSeed(pSeed, MISSILE_GetTargetY(pMissile));
     const int nCount = MISSILE_GetTargetX(pMissile);
     const int nX = UNITS_GetUnitXPosition(pMissile);
     const int nY = UNITS_GetUnitYPosition(pMissile);
@@ -5237,7 +5236,7 @@ void __fastcall MISSILE_CltDoRateJitterSpawn(D2UnitStrc* pMissile)
 
     if (nRemaining <= 1)
     {
-        D2UnitStrc* pTarget = CUNIT_FindClientUnit(MISSILE_targetValue(pMissile), 2);
+        D2UnitStrc* pTarget = CUNIT_FindClientUnit(MISSILE_GetTargetY(pMissile), 2);
         if (pTarget)
         {
             GFX_AddUnitOverlay(pTarget, 0xB6, 3, 0, 0, 0, 0, 0);
@@ -7384,7 +7383,7 @@ void __fastcall MISSILE_CltDoZigZag(D2UnitStrc* pMissile)
 
     SEED_InitLowSeed(pSeed, MISSILE_GetTargetX(pMissile));
 
-    const unsigned int nPackedOffset = MISSILE_targetValue(pMissile);
+    const unsigned int nPackedOffset = MISSILE_GetTargetY(pMissile);
     const int nPreviousOffsetX = (short)nPackedOffset;
     const int nPreviousOffsetY = (short)(nPackedOffset >> 16);
 
@@ -7698,7 +7697,7 @@ void __fastcall MISSILE_CltDoRotateTargetPoint(D2UnitStrc* pMissile)
         int nX = UNITS_GetUnitXPosition(pMissile);
         int nY = UNITS_GetUnitYPosition(pMissile);
         int nDX = nX - MISSILE_GetTargetX(pMissile);
-        int nDY = nY - MISSILE_targetValue(pMissile);
+        int nDY = nY - MISSILE_GetTargetY(pMissile);
         PATH_SetTargetPos(pPath, nX + nDY, nY - nDX);
         D2Common_10142(pPath, pMissile, 0);
     }

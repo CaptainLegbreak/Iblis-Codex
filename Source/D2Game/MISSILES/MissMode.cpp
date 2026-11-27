@@ -532,7 +532,6 @@ int __fastcall MISSMODE_SrvDo25_EruptionCenter(D2GameStrc* pGame, D2UnitStrc* pM
 
 
 
-extern "C" int __stdcall MISSILE_targetValue(D2UnitStrc* pMissile); // 0x0064A780
 
 
 #define MONTYPEFLAG_LIGHTNINGUNIQUE 0x100
@@ -5587,7 +5586,7 @@ int __fastcall MISSMODE_SrvDo31_WakeOfDestructionMaker_BaalColdMaker(D2GameStrc*
     if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
         const int nTargetX = MISSILE_GetTargetX(pMissile);
-        const int nTargetY = MISSILE_targetValue(pMissile);
+        const int nTargetY = MISSILE_GetTargetY(pMissile);
 
         D2MissileStrc missileParams;
         memset(&missileParams, 0, sizeof(missileParams));

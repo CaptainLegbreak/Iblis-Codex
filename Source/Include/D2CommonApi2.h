@@ -395,7 +395,7 @@ int __stdcall MISSILE_GetStreamRange(D2UnitStrc* pMissile); // 0x0064A570
 int __stdcall MISSILE_GetHitClass(D2UnitStrc* pMissile); // 0x0064A5A0
 int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile); // 0x0064A730
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
-extern "C" int __stdcall MISSILE_targetValue(UnitView* unit); // 0x0064A780
+int __stdcall MISSILE_GetTargetY(D2UnitStrc* pMissile); // 0x0064A780
 int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc* pMissile, D2UnitStrc* pOwner, unsigned int nCalc, int nMissileId, int nLevel); // 0x0064B7C0
 int __stdcall UNITROOM_AddUnitToRoomEx(D2UnitStrc* pUnit, D2ActiveRoomStrc* hRoom, int nUnused); // 0x0064C2C0
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* hUnit); // 0x0064C370
