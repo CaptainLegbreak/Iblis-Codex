@@ -2,11 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 17:15 PT): cache-join posted (CACHE.CPP takes its helpers; one shim and four emit helpers go), full build running.
+Status (Thu Nov 26 2026, 17:15 PT): cache-join identical; grid-join building. Both remove a calling-convention shim.
 
 ## Ready
 
-- `lane6/cache-join` @ 749af3f2b (on #450): CACHE.CPP places its six cache helpers at their addresses (0x518DE0 Crc32, 0x518E60/0x518EC0 the block cipher, 0x518F30 the cache file time, 0x518FA0 HashString, 0x5191D0 DeleteHashEntries) with the three time globals: in the image only CACHE.CPP's functions call them. Unknown_00518C00.cpp's copies and their four emit helpers go, and so does BnDownload.cpp's copy of the encrypt routine with its calling-convention shim (shims -1). Emit helpers 328 -> 324; all three units equal; auditguard: no count rose; full build running.
+- `lane6/cache-join` @ 749af3f2b (on #450): CACHE.CPP places its six cache helpers at their addresses (0x518DE0 Crc32, 0x518E60/0x518EC0 the block cipher, 0x518F30 the cache file time, 0x518FA0 HashString, 0x5191D0 DeleteHashEntries) with the three time globals: in the image only CACHE.CPP's functions call them. Unknown_00518C00.cpp's copies and their four emit helpers go, and so does BnDownload.cpp's copy of the encrypt routine with its calling-convention shim (shims -1). Emit helpers 328 -> 324; all three units equal; auditguard: no count rose; full build identical.
 
 - `lane6/grid-join` @ caf064088 (on #450): grid.cpp's copy of sub_005232B0_DecodeAndValidate takes 0x5232B0 (in the image only grid.cpp's functions call it), and Unknown_00520DC0.cpp's copy with its calling-convention shim goes (shims -1). Both units equal; auditguard: no count rose; full build queued.
 
