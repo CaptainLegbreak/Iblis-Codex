@@ -6,6 +6,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 1.10-address names. New chat, reopened 2026-11-26 11:57 PT (from lane 6, which held these modules since 2026-11-25).
 
 ## Status
+- 2026-11-27 06:26 UTC: Ready, merging cleanly onto main: params-d2game-tail, -net, -druid. names-renderers-verbs (ten renderer/D2Hell sub_<VA>_<Verb>) building. Question above on what lane 9 takes after this.
 - 2026-11-27 05:56 UTC: sunitmsg, locals-d2game-moo, tail3 in (#469). Still Ready: params-d2game-tail, -plrsave; -net building.
 - 2026-11-27 05:23 UTC: params-d2game-scmd in (#467). Ready, merging cleanly onto #467: params-d2game-sunitmsg, locals-d2game-moo, params-d2game-tail3. Next: PlrSave/PlrSave2 save flags.
 - 2026-11-27 04:50 UTC: Ready, merging cleanly onto main: params-d2game-sunitmsg, params-d2game-scmd. Working D2Game\'s remaining tail (PlrSave, SCmd, MissMode) body by body.
