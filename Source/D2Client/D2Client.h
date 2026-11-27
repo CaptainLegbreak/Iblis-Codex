@@ -1367,8 +1367,8 @@ struct D2ClientTimedBoxStrc
 struct D2CltUnitEventStrc
 {
     int nType;
-    int f_4;
-    int f_8;
+    int nParam4;
+    int nParam5;
     int nParam1;
     int nParam2;
     int nParam3;
@@ -1832,7 +1832,7 @@ struct D2NpcQuestHandlerStrc
 
 struct D2NpcSoundStrc
 {
-    int f_0;
+    int nDefaultSound;
     int nDaySound;
     int nNightSound;
     int nGreetSound;

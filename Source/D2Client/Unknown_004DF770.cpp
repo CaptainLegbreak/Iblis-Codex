@@ -79,7 +79,7 @@ void __fastcall D2SOUNDSMP_FadeOutMasterVolume(int nTime); // 0x00515F50
 
 struct D2StringSoundStrc
 {
-    int f_0;
+    int nSoundId;
     unsigned short nStringId;
     char unk0x06[0x02];
 };
@@ -748,7 +748,7 @@ int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType)
 
     for (unsigned int i = 0; i < 20; ++i)
     {
-        nSound = pSound->f_0;
+        nSound = pSound->nDefaultSound;
         if (!nType && pSound->nDaySound && !sub_004E40A0_RollPlayerSeed(2))
         {
             nSound = pSound->nDaySound;
@@ -798,14 +798,14 @@ int __fastcall sub_004E0650_GetStringSound(unsigned short nStringId)
     {
         for (D2StringSoundStrc* pEntry = gaStringSounds; pEntry; ++pEntry)
         {
-            if (!pEntry->f_0)
+            if (!pEntry->nSoundId)
             {
                 break;
             }
 
             if (pEntry->nStringId == nStringId)
             {
-                return pEntry->f_0;
+                return pEntry->nSoundId;
             }
         }
     }

@@ -40,8 +40,8 @@ D2CltUnitEventStrc* __fastcall CUNITEVENT_AddCltUnitEvent(D2UnitStrc* pUnit, int
     pEvent->nParam3 = nParam3;
     pEvent->nType = nType;
     pEvent->pNext = pUnit->pCltTimerList;
-    pEvent->f_4 = nParam4;
-    pEvent->f_8 = nParam5;
+    pEvent->nParam4 = nParam4;
+    pEvent->nParam5 = nParam5;
     if (pUnit->pCltTimerList)
     {
         pUnit->pCltTimerList->pPrevious = pEvent;
@@ -63,7 +63,7 @@ void __fastcall CUNITEVENT_RemoveCltUnitEvents(D2UnitStrc* pUnit, int nParam4, i
     while (pEvent)
     {
         D2CltUnitEventStrc* pNext = pEvent->pNext;
-        if (pEvent->f_4 == nParam4 && pEvent->f_8 == nParam5)
+        if (pEvent->nParam4 == nParam4 && pEvent->nParam5 == nParam5)
         {
             if (pEvent->pPrevious)
             {
