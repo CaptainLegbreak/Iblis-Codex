@@ -29,7 +29,8 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - data clusters: 38 -> 2; 15,090 -> 6,724 B.
     - data_cluster: 2,436 / 324 -> 1,391 / 233.
     - linkdebt total: 23,079 -> 21,972. D2Client 8,389 -> 7,681, D2Game 4,320 -> 4,303, D2Common 3,616 -> 3,603, D2Launch 1,145 -> 1,117, D2Direct3D 799 -> 708, D2Win 795 -> 773, Fog 529 -> 513, D2CMP 411 -> 373, D2Glide 341 -> 198, D2DDraw 137 -> 119, D2Hell 74 -> 61; no module rose.
-    - shortdata: 358 -> 363. The five new candidates are padding no code references (listed in the split-objects-3 entry, now replaced).
+    - shortdata: 358 -> 363. The five new candidates are padding that no code references: 4 B after gaStateStack[4], 20 B after gaDrlgRoomTilePresetUnits[34], 4 B after gtLoadingTimer, 4 B after Items.cpp's static guard, and the bytes after gnTextColorA. No linkdebt reference lands in any candidate's room.
+  - **gapChatDlgControls (your #480 note):** it can't be typed without the cast. CONTROL_Create fills it as D2WinControlStrc*, ChatDlg.cpp walks it in three loops, and SMACK_Decode and SMACK_DeleteFile take D2WinSmackStrc*, so the two casts stay.
 ## Claimed
 - Fri Nov 27 13:07 PST 2026: check-in. split-objects-6 Ready (on #486). Waiting on the D3D smack-slot type question; the data-tables span is with lane 1 and Fable. Next: the rest of the raw-offset lines in my files.
 - Fri Nov 27 12:53 PST 2026: check-in. split-objects-4 (on #485) came back NOT VERIFIED: inv.cpp 0x00488B00 swaps the base and index of one lea, the declaration-count effect against #485's D2Client.h. Fixed by keeping two retired externs in inv.cpp (gaNpcTabStates and gabColors_007BCAD8), unused, as the board says to. #486 landed meanwhile, so **lane13/split-objects-6** (on #486) is doing its full build now, with all of it rebased. Ignore split-objects-4 and -5. Ready within 20 minutes.
