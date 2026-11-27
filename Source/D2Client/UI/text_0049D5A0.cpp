@@ -3,6 +3,7 @@
 #include "D2ClientFuncs.h"
 #include "D2WinSplitText.h"
 #include "FogApi.h"
+#include "D2SoundApi.h"
 struct D2SelectionRectStrc;
 #pragma pack(push, 2)
 struct D2TextScrollStrc
@@ -227,7 +228,6 @@ extern D2TextCallback gpfnTextCallback; // 0x007BF258
 extern int gbTextHandlersRegistered; // 0x007BF27C
 extern char gaTextMsgHandlers[]; // 0x00722600
 
-int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
 void __stdcall TEXT_FreeTextBox(D2TextScrollStrc* pTextBox); // 0x0049D410
 void __fastcall SELECT_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
 void __fastcall NPCMENU_CancelNpcAndFlag(void* pHint); // 0x004B3D10

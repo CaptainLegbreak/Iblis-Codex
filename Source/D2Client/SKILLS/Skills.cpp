@@ -22,6 +22,7 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
+#include "D2CMPApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -102,10 +103,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
 void __fastcall SOUNDHDR_SetCacheMax(unsigned int nSize); // 0x00481840
-
-void __stdcall D2CMPTileCacheInit(void* pMemPool, int nArg); // 0x005FE120
-
-void __stdcall D2CMPSpriteCacheInit(void* pMemPool, unsigned int nMaxSize, int nArg, unsigned int nCacheSize); // 0x005FFD40
 
 void __fastcall GFX_InitGfxTables(int nSize); // 0x00470200
 

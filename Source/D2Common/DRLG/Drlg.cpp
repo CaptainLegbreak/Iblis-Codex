@@ -23,6 +23,7 @@
 #include "D2DrlgWarp.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2GfxApi.h"
 
 unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed);
 
@@ -289,8 +290,6 @@ void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
 void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
 
 int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
-
-int __cdecl D2GFX_IsHardwareRenderMode(); // 0x004F51C0
 
 
 

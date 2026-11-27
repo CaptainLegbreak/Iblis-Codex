@@ -6,6 +6,7 @@
 #include "StormApi.h"
 #include "FogApi.h"
 #include "gen/data/Source/D2Client/GAME/Msg.inc"
+#include "D2CMPApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -55,8 +56,6 @@ extern int gnSentBytes; // 0x007A6AF8
 extern int gnSentPackets; // 0x007A6B00
 
 int gnProgress; // 0x007BB3B4
-
-int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile); // 0x00601A50
 
 extern D2RosterPetNodeStrc* gpRosterPets; // 0x007BB5BC
 

@@ -32,6 +32,8 @@
 #include "D2WinListData.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -81,8 +83,6 @@ struct D2WinControl004FD110Strc
     int nFrame;
 };
 
-int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCellFile); // 0x006019F0
-
 enum D2ControlTypes
 {
     D2WIN_EDITBOX = 1,
@@ -114,10 +114,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
 
 
-void __stdcall D2GFX_UtilRect(tagRECT* pRect, unsigned char nPaletteIndex); // 0x004F62A0
-
-void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, int eDrawMode); // 0x004F6300
-
 int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
@@ -141,8 +137,6 @@ enum DrawMode
 {
     DRAWMODE_NORMAL = 5,
 };
-
-void __stdcall TEXTURE_CelDrawClipped(D2GfxDataStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
 
 int __fastcall D2Win_10058_0(D2WinControlStrc* pControl, const Unicode* pText, int nLineNum, int nColumn);         // 0x004FB790
 

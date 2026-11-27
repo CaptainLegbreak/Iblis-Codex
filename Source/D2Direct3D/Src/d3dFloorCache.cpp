@@ -4,6 +4,7 @@
 #include "D2D3DTypes.h"
 #include "D2GlideTypes.h"
 #include "FogApi.h"
+#include "D2CMPApi.h"
 
 struct D2SurfaceStrc;
 
@@ -541,8 +542,6 @@ static void D3DFLOORCACHE_DecodeTileBlock(const unsigned char* source, unsigned 
         }
     } while (rows);
 }
-
-int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc*, int, int); // 0x005FDEA0
 
 // 0x006BB720
 void __stdcall D3DFLOORCACHE_RenderTile(D2TileStrc* tile,unsigned short* output,int stride)

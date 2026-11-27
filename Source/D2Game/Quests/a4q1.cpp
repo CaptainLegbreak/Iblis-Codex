@@ -72,6 +72,7 @@ struct D2UnkMonCreateStrc2
 
 
 #include "D2GameFuncs.h"
+#include "D2CMPApi.h"
 
 
 void __fastcall AIGENERAL_AllocMinionList(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMinion); // 0x0058F100
@@ -178,8 +179,6 @@ struct D2TileLibraryEntryStrc;
 
 extern D2CoordStrc g_006E2D50_offsets[4];  // 0x006E2D50
 
-
-int __stdcall TileGetFlags(D2TileLibraryEntryStrc*); // 0x00604BC0
 
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc*,int,int,unsigned short); // 0x0064CB30
 

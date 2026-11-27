@@ -15,6 +15,7 @@
 #include "D2LangApi.h"
 #include "StormApi.h"
 #include "D2CommonApi2.h"
+#include "D2GfxApi.h"
 struct D2SkillStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                              // 0x00681EF0
@@ -39,7 +40,6 @@ void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unico
 void* __fastcall SPELLSEL_GetSkillIconCel(D2SkillsTxt* pSkillsTxt);                                       // 0x004A8C80
 int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId);                                                 // 0x004AA8B0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                   // 0x004B9A00
-void __stdcall TEXTURE_CelDrawColor(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);         // 0x00502320
 

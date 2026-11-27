@@ -15,6 +15,7 @@
 #include "D2DrlgOutdoor.h"
 #include "FogApi.h"
 #include "FogApi2.h"
+#include "D2CMPApi.h"
 
 #pragma function(memset)
 
@@ -53,8 +54,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 int __stdcall TileLibraryGetTiles(D2TileLibraryHeaderStrc** ppTiles, int nTileType, int nStyle, int nSequence, D2TileLibraryEntryStrc** ppTileEntries, int nMaxEntries); // 0x00604AE0
-
-int __stdcall TileGetRarity(D2TileLibraryEntryStrc* pTile); // 0x00604C20
 
 
 

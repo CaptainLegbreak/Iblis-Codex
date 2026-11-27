@@ -4,6 +4,7 @@
 #include "D2DrlgMaps.h"
 #include "D2CoordPair.h"
 #include "D2TileLight.h"
+#include "D2CMPApi.h"
 
 struct D2CoordPairStrc;
 struct D2TileLightStrc;
@@ -11,7 +12,6 @@ struct D2TileLightStrc;
 extern unsigned char* gpSurfaceBits_007C9154; // 0x007C9154
 
 
-int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int bAsync, int nFlags); // 0x005FDEA0
 extern int gnRenderHeight; // 0x007C913C
 
 // 0x006C8DA0

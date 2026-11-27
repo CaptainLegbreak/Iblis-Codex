@@ -11,6 +11,7 @@
 #include "StormApi.h"
 #include "D2LangApi.h"
 #include "FogApi.h"
+#include "D2WinApi.h"
 
 struct D2SelectionRectStrc;
 
@@ -128,8 +129,6 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820
 void __fastcall D2Win_10117_DrawText(const Unicode*,int,int,int,int); // 0x00502320
 
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode*,int*,int); // 0x00502970
-
-int __fastcall D2Win_10127_SetFont(int); // 0x00502EF0
 
 void* gpUpgradeCel; // 0x007C5494
 

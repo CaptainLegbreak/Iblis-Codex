@@ -11,6 +11,7 @@
 #include "StormApi.h"
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
+#include "D2HellApi.h"
 
 #define UNIT_PLAYER 0
 
@@ -60,8 +61,6 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* 
 
 
 
-
-void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
 D2UnitGfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 

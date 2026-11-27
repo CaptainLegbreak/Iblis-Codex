@@ -18,6 +18,8 @@
 #include "D2CommonInternal.h"
 #include "D2StormLink.h"
 #include "FogApi.h"
+#include "D2CMPApi.h"
+#include "D2HellApi.h"
 
 struct D2MonPresetTxt
 {
@@ -34,8 +36,6 @@ extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned in
 extern "C" int __cdecl tolower(int nChar);                                                                  // 0x0068523E
 
 unsigned int __fastcall sub_006C9A38(const char* szString);                                                    // 0x006C9A38
-
-void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
 
@@ -140,8 +140,6 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 
 void __fastcall DRLGPRESET_ParseDS1File(D2DrlgFileStrc* pDrlgFile, void* hArchive, const char* szFile);                  // 0x00665950
-
-int __stdcall TileGetStyle(void* pTile);                                                                  // 0x00604B90
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void);                                // 0x006CC260
 

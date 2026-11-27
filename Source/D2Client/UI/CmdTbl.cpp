@@ -14,6 +14,8 @@
 #include "D2LangApi.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
+#include "D2HellApi.h"
 
 #pragma intrinsic(memcpy)
 
@@ -1250,8 +1252,6 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x
 
 extern "C" int __cdecl isalpha(int c); // 0x00686DA5
 
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
-
 void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
@@ -1321,7 +1321,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2); // 0x00469DE0
 
-void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
 
