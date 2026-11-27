@@ -2,11 +2,9 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 19:10 PT): ph-joins and ph-joins-3 merged. moves-1 Ready, full build identical.
+Status (Thu Nov 26 2026, 19:40 PT): moves-1 merged. Next: more single-function moves from my placeholder files.
 
 ## Ready
-
-- `lane6/moves-1` @ e09e297bb (on #455): three functions move from placeholder files to the file that calls them in the image, next to whose functions each sits: GameStart (0x405C30, Unknown_004059D0.cpp -> Main.cpp), sub_0051C470_CloseBNetConnection (Unknown_00518C00.cpp -> BnSend.cpp), sub_00523020_GetAlignedData (Unknown_00520DC0.cpp -> BnDownload.cpp). **noinline +3** (GameStart, called out of line by GameInit 0x4064C0; BNSEND_FreeChannelList and BNSEND_FreeGamesList, called out of line by CloseBNetConnection). All six units equal; full build identical.
 
 ## Questions
 
