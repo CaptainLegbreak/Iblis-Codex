@@ -686,10 +686,8 @@ extern D2PanelButtonStrc gaPanelButtons_007BC9E0[]; // 0x007BC9E0
 extern int gnButtonCount; // 0x00722160
 extern int gnButtonRow; // 0x0072215C
 extern int gaNpcButtonX[][4]; // 0x00722168
-extern int gnTabEnabled0; // 0x0072211E
-extern int gnTabEnabled1; // 0x00722130
-extern int gnTabEnabled2; // 0x00722142
-extern int gnTabEnabled3; // 0x00722154
+#include "D2PanelTab.h"
+extern D2PanelTabStrc gaNpcTabs[]; // 0x00722110
 extern int gdwNpcPanelDelayTick; // 0x007BCC08
 extern int gnInvMouseX; // 0x007BCA4C
 extern int gnInvMouseY; // 0x007BCBD8
@@ -742,19 +740,19 @@ void __stdcall INV_HandleNpcClick(SMSGHANDLER_PARAMS* msg)
     msg->bReturn=0;
     if(x>=gnPanelOffsetX && x<=gnScreenWidth/2-1 && y>=gnScreenHeight + gnPanelOffsetY-0x1DF && y<=gnPanelOffsetY+gnScreenHeight-0x1C1) {
         if(x>=GetNpcTabLeft(0) && x<=GetNpcTabRight(0)) {
-            if(gnTabEnabled0 && gnSelectedTab!=0) {
+            if(gaNpcTabs[0].bEnabled && gnSelectedTab!=0) {
                 sub_004B9A00(6,0,0,0,0);gdwNpcPanelDelayTick=0;INV_SelectItemPageTab(0);
             }
         } else if(x>=GetNpcTabLeft(1) && x<=GetNpcTabRight(1)) {
-            if(gnTabEnabled1 && gnSelectedTab!=1) {
+            if(gaNpcTabs[1].bEnabled && gnSelectedTab!=1) {
                 sub_004B9A00(6,0,0,0,0);gdwNpcPanelDelayTick=0;INV_SelectItemPageTab(1);
             }
         } else if(x>=GetNpcTabLeft(2) && x<=GetNpcTabRight(2)) {
-            if(gnTabEnabled2 && gnSelectedTab!=2) {
+            if(gaNpcTabs[2].bEnabled && gnSelectedTab!=2) {
                 sub_004B9A00(6,0,0,0,0);gdwNpcPanelDelayTick=0;INV_SelectItemPageTab(2);
             }
         } else if(x>GetNpcTabLeft(3) && x<GetNpcTabRight(3)) {
-            if(gnTabEnabled3 && gnSelectedTab!=3) {
+            if(gaNpcTabs[3].bEnabled && gnSelectedTab!=3) {
                 sub_004B9A00(6,0,0,0,0);gdwNpcPanelDelayTick=0;INV_SelectItemPageTab(3);
             }
         } else {

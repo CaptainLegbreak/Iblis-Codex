@@ -688,7 +688,6 @@ int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, 
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit);                       // 0x00648B90
 
 
-extern D2ClientTabStrc gaNpcTabStates[];                                                                   // 0x0072211A
 
 extern D2ClientCacheEntryStrc* sgptSoundHeaderTable;                                                     // 0x007BC9A0
 
@@ -1486,16 +1485,7 @@ struct D2SendPacket6BStrc
 };
 
 typedef unsigned int size_t;
-#pragma pack(push, 1)
-struct D2PanelTabStrc
-{
-    int nX;
-    int nY;
-    unsigned short nString;
-    int bSelected;
-    int bEnabled;
-};
-#pragma pack(pop)
+#include "D2PanelTab.h"
 D2CelFileStrc* __cdecl GAME_GetBuySellButtonCells(); // 0x00454600
 
 extern D2PanelButtonStrc gaPanelButtons_007BC9E0[];                                                         // 0x007BC9E0
@@ -4275,8 +4265,8 @@ void __stdcall INV_SelectItemPageTab(unsigned char nTab)
 // build: symbol ?gnNpcTabCount@* 0x00722158
     for (int i = 0; i < gnNpcTabCount; ++i)
     {
-        *(int*)gaNpcTabStates[i].bSelected = 0;
-        *(int*)gaNpcTabStates[i].bEnabled = anCounts[i] != 0;
+        gaNpcTabs[i].bSelected = 0;
+        gaNpcTabs[i].bEnabled = anCounts[i] != 0;
     }
 
     if (!anCounts[nTab])
@@ -4296,7 +4286,7 @@ void __stdcall INV_SelectItemPageTab(unsigned char nTab)
         }
         while (nTries < 4);
     }
-    *(int*)gaNpcTabStates[gnSelectedTab].bSelected = 1;
+    gaNpcTabs[gnSelectedTab].bSelected = 1;
 }
 
 // 0x00487B30
