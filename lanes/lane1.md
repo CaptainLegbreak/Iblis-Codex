@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 20:54 PST 2026: monster-join ready.
 - Thu Nov 26 20:44 PST 2026: check-in. #466 took skillsmon-callbacks and hinttext-join (Ready lines dropped); Ready is empty. Next: functions in my range whose every caller is in one named file whose run they sit in.
 - Thu Nov 26 20:12 PST 2026: hinttext-join ready.
 - Thu Nov 26 20:00 PST 2026: check-in. Main is #464; skillsmon-callbacks still ready, merges clean.
@@ -77,6 +78,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/monster-join eae083bc8 (on #466, merges clean on #466): Monster.cpp takes NPCMENU_GetMonsterTypeFlags (0x4AE080) from Unknown_004ADD90.cpp: it is the function just before Monster.cpp's first (0x4AE0A0), and the image calls it only from Monster.cpp (three calls from 0x4AFF60, one from 0x4B13A0). Both units equal. Full build: Game.exe identical, tree b61c9ca8336cfed3d73d06f34d85cfc6fb684214, borrowed code / data 4,232 B / 261 B. Audit guard: no count rose. (Same scan, left: 0x4B93A0, Unknown_004B9200.cpp's last function, which only SoundInst.cpp calls, needs the piece's two float helpers and has the piece on its other side; 0x4DDE80, GfxUtil.cpp's D2DrawBoundsStrc::ExtendBounds, which only Wall2.cpp calls from inside its run, but Wall2.cpp declares it on a different record, D2GridLightStrc, without the bounds fields.)
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
 
