@@ -6,6 +6,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 1.10-address names. New chat, reopened 2026-11-26 11:57 PT (from lane 6, which held these modules since 2026-11-25).
 
 ## Status
+- 2026-11-27 01:03 UTC: a2, c2 in (#449). b3 conflicts with #450 (a2q7.cpp, a2q8.cpp): reposting as -b4 (unit builds equal, a1/v12 531 -> 437 alone), full build running. e2 still merges cleanly.
 - 2026-11-27 00:32 UTC: params-d2game-d (#447) and glide-spans-2 (#448) are in. params-d2game-b2 now conflicts with #448 in MonsterUnique.cpp: reposting as -b3; a2 and c2 still merge cleanly. params-d2game-e (top-level units) is building.
 - 2026-11-27 00:00 UTC: glide-spans-2 and params-d2game-d Ready; both, and a2/b2/c2, merge cleanly onto #445. a2/b2/c2 full builds running.
 - 2026-11-26 23:35 UTC: rebuilding glide-spans and the D2Game naming branches on #443. Next: D2Game.h (38 placeholder parameters, 91 sub_<VA> declarations with names.csv names) after these merge; lane 5, tell me if you have that header in flight.
@@ -50,13 +51,12 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
-- lane9/params-d2game-b3 06f2fac6 (on #448): D2Game Ai, MONSTER, OBJECTS, Quests: placeholder parameters and names.csv
+- WITHDRAWN (a2q7.cpp, a2q8.cpp conflict with #450; replaced by -b4) lane9/params-d2game-b3 06f2fac6 (on #448): D2Game Ai, MONSTER, OBJECTS, Quests: placeholder parameters and names.csv
   callee names (b2 regenerated on #448). a1/v12 628 -> 534 alone; auditguard no count rose. Full build: Game.exe
   identical, tree 3c000ce89efee35e94f1a253160f48cf658e78fd, borrowed code / data 7,923 / 261 B.
 - lane9/params-d2game-e2 83cb7652 (on #448): D2Game's 13 top-level Unknown_*.cpp units: the same naming. a1/v12
   628 -> 578 alone; auditguard no count rose. Full build: Game.exe identical, tree
   c6d7bfe007ef3ac458697b826f276e33620b37e7, borrowed code / data 7,923 / 261 B.
-- a2 and c2 below still merge cleanly onto #448; b3, e2, a2, c2 share no file.
 - MERGED (#448) lane9/glide-spans-2 bb945f89 (on #443): glide-spans rebased (glCore.cpp and four others: prototypes main's
   D2Glide.h now holds are dropped from the moved code). auditguard no count rose. Full build: Game.exe identical,
   tree 504165c957670f8cd2aad791ce7cda32a325d5df, borrowed code / data 7,923 / 261 B.
@@ -65,13 +65,13 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
   for sub_<VA> callees the unit declares; Clients.cpp's SKILLS_ExecuteSkill declaration gets its address marker.
   a1/v12 892 -> 779 alone; auditguard no count rose. Full build: Game.exe identical, tree
   c9bd8942f00b4b8627ddcfb632139d7e5645508c, borrowed code / data 7,923 / 261 B.
-- lane9/params-d2game-a2 77b84dae (on #443): D2Game MISSILES, INVENTORY, DEBUG, ITEMS: prototype parameter names from
+- MERGED (#449) lane9/params-d2game-a2 77b84dae (on #443): D2Game MISSILES, INVENTORY, DEBUG, ITEMS: prototype parameter names from
   the definitions and D2MOO. a1/v12 892 -> 869 alone; auditguard no count rose. Full build: Game.exe identical, tree
   a062956e36bc3547455acc767abbcb2ffaaec5b9, borrowed code / data 7,923 / 261 B.
 - WITHDRAWN (MonsterUnique.cpp conflict with #448; replaced by -b3) lane9/params-d2game-b2 23aa5a93 (on #443): D2Game Ai, MONSTER, OBJECTS, Quests: the same naming plus names.csv names
   for sub_<VA> callees the unit declares. a1/v12 892 -> 798 alone; auditguard no count rose. Full build: Game.exe
   identical, tree 3588394561ab58b3743a6f8bbc4834c0597398e6, borrowed code / data 7,923 / 261 B.
-- lane9/params-d2game-c2 4ed51fe3 (on #443): D2Game UNIT, PLAYER: the same; PlrMsg, PlrSave and PlrTrade keep three
+- MERGED (#449) lane9/params-d2game-c2 4ed51fe3 (on #443): D2Game UNIT, PLAYER: the same; PlrMsg, PlrSave and PlrTrade keep three
   callee spellings D2Game.h declares or that clash on return type. a1/v12 892 -> 818 alone; auditguard no count rose.
   Full build: Game.exe identical, tree 94657e88995b1387c587db252f419ce6db099c43, borrowed code / data 7,923 / 261 B.
 - The five lane9 D2Game/D2Glide branches touch disjoint files and each merges cleanly onto #445.
