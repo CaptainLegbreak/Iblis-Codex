@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 22:19 PST 2026: #468 took join-gfx-dcc0. Ready: join-gfx-e300-c30-2 and emit-inv-2 (stacked). In my range the duplicate-prototype and duplicate-extern scans find almost nothing left (5 lines, 3 of them in lane 1's npcmenu.cpp). My two forcing rows sit with lane 7 since 13:40. Next: the remaining emit helpers outside inv.cpp all stayed (32 kept, each needed).
+
 - Thu Nov 26 21:30 PST 2026: Ready unchanged (join-gfx-dcc0, join-gfx-e300-c30). Noted the overlap with lane2/gfxdata-record (Notes); I'll rebase after it lands if it goes first.
 
 - Thu Nov 26 21:27 PST 2026: join-gfx-e300-c30 posted, stacked on join-gfx-dcc0 (Gfx pieces 5 -> 2). Left: Gfx_0046DB90 + Gfx_0046F870, which wait on the COF header (Notes).
@@ -120,15 +122,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/join-gfx-dcc0 74bdca89a (on #467; full build on #465 + join-gfx-drawunit identical, borrowed code 4,232 B in 1 function and borrowed data 261 B, both as main. After the rebase onto #467 the Gfx files, the headers Gfx.cpp includes and its bookkeeping are byte-for-byte what I built (#467 changed only D2GameFuncs.h among headers, and Gfx.cpp doesn't include it), so no rebuild. Audit guard clean with AUDIT_ALLOW=noinline: one noinline, 115 -> 116). Files in pieces, Gfx 5 -> 4.
-  - Gfx.cpp takes the three functions of Gfx_0046DCC0.cpp: GFX_LoadHashedEntry 0x46DCC0, GFX_RemoveStateOverlay 0x46E040 and GFX_DrawUnitShadow 0x471620.
-  - GFX_RemoveStateOverlay and GFX_RecalcStateOverlays read the overlay list through Gfx.cpp's D2GfxDataStrc/D2UnitOverlayStrc instead of D2ClientGfxState.h's owner/node views of the same memory. The overlay's +0x08 field is now nCurrent.
-  - IsShapeShifted is static inline, as the piece had it; non-static, GFX_DrawUnitShadow calls it out of line.
-  - The noinline is on GFX_DrawSimpleUnitShadow 0x471450, which the image calls from 0x471662. The piece's calling-convention shim goes.
-- lane4/join-gfx-e300-c30 fd2c4995d (stacked on join-gfx-dcc0, on #467; full build of the three commits identical, borrowed code 4,232 B in 1 function and borrowed data 261 B, both as main; audit guard clean, noinline 115 -> 116, which is join-gfx-dcc0's one). Files in pieces, Gfx 4 -> 2.
+- lane4/join-gfx-e300-c30-2 2029d9e53 (on #470). Replaces lane4/join-gfx-e300-c30, which was stacked on join-gfx-dcc0; #468 took that one. Full build on #469 identical: borrowed code 0 B and borrowed data 261 B, both as main. Audit guard clean, no noinline. #470 only renamed sub_004B85E0 in D2ClientFuncs.h, which no Gfx or inv unit uses. namesync found nothing to rename, and every Gfx unit compiles equal on #470. Files in pieces, Gfx 4 -> 2.
   - Gfx_0046E300.cpp (GFX_DrawUnitOverlays): the piece's overlay record goes. Gfx.cpp's D2UnitOverlayStrc takes its names for +0x18 nFrame, +0x20/+0x24 nXOffset/nYOffset and +0x34 bFront. Gfx.cpp's overlay-txt record names +0x7C nTrans and +0x81 nLocalBlood.
-  - Gfx_00470C30.cpp (GFX_UpdateStateOverlays): it reads the overlay list through D2GfxDataStrc/D2UnitOverlayStrc, whose fields take D2ClientGfxState.h's node names (nNextOverlay, nNextState, nSpeed, nFrames, and the unsigned dwDelay/dwStamp/dwDelayStart). Its static copy of GFX_RecalcStateOverlays goes. Both pieces build equal in Gfx.cpp under /GS-.
-  - Gfx.cpp no longer uses D2ClientGfxState.h's views. Gfx.cpp keeps its private D2OverlayTxt: D2TxtTables.h's has +0x42 as unsigned short wVersion, but 0x470390 `pTxt->wPreDraw >= 0x64` matches only as a signed short (Notes, lane 2).
+  - Gfx_00470C30.cpp (GFX_UpdateStateOverlays): it reads the overlay list through D2GfxDataStrc/D2UnitOverlayStrc, whose fields take D2ClientGfxState.h's node names (nNextOverlay, nNextState, nSpeed, nFrames, and the unsigned dwDelay/dwStamp/dwDelayStart). Its static copy of GFX_RecalcStateOverlays goes. Both build equal in Gfx.cpp under /GS-.
+  - Gfx.cpp keeps its private D2OverlayTxt: D2TxtTables.h has +0x42 as unsigned short, but 0x470390's `pTxt->wPreDraw >= 0x64` matches only as a signed short (Notes, lane 2).
+- lane4/emit-inv-2 b4c8d1bb1 (stacked on join-gfx-e300-c30-2, built with it): inv.cpp drops 13 emit helpers whose statics now have callers in the file after today's joins. All four inv units are equal on #470. The audit's emit-helper count goes 303 -> 287.
 
 
 ## Claimed
