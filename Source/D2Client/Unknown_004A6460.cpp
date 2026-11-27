@@ -2123,27 +2123,27 @@ void __cdecl TEXT_SetGoldDialogFlag()
     gnFlag_007C02EC = 1;
 }
 
-struct D2TextEntryStrc;
-
+// One line of the character panel's fixed text: its box, the string and
+// the string's length, which sub_004A7AA0_InitTextEntryLengths fills in.
 #pragma pack(push, 2)
-struct D2TextEntryStrc
+struct D2CharTextStrc
 {
-    unsigned short wStringId;
-    int nLength;
     int nX;
     int nY;
-    int nWidth;
+    int nX2;
+    unsigned short wStringId;
+    int nLength;
 };
 #pragma pack(pop)
 
-extern D2TextEntryStrc gaTextEntries[15]; // 0x00724824
+extern D2CharTextStrc gaCharTexts[15]; // 0x00724818
 
 // 0x004A7AA0
 void __cdecl sub_004A7AA0_InitTextEntryLengths()
 {
-    for (unsigned int i = 0; i < sizeof(gaTextEntries) / sizeof(gaTextEntries[0]); ++i)
+    for (unsigned int i = 0; i < sizeof(gaCharTexts) / sizeof(gaCharTexts[0]); ++i)
     {
-        gaTextEntries[i].nLength = UNICODE_StrLen(D2LANG_GetStringFromTblIndex(gaTextEntries[i].wStringId));
+        gaCharTexts[i].nLength = UNICODE_StrLen(D2LANG_GetStringFromTblIndex(gaCharTexts[i].wStringId));
     }
 }
 
@@ -2185,17 +2185,6 @@ struct D2ZeroDwordStrc;
 
 struct D2PointsTextStrc;
 
-#pragma pack(push, 2)
-struct D2CharTextStrc
-{
-    int nX;
-    int nY;
-    int nX2;
-    unsigned short wStringId;
-    int nLength;
-};
-#pragma pack(pop)
-
 struct D2CharFieldStrc
 {
     int nX;
@@ -2219,8 +2208,6 @@ struct D2PointsTextStrc
 
 
 extern void* gpSkillPointsCel; // 0x007BEF20
-
-extern D2CharTextStrc gaCharTexts[15]; // 0x00724818
 
 extern D2CharFieldStrc gaCharFields[18]; // 0x00724928
 
