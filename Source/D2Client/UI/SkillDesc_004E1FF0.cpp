@@ -209,9 +209,7 @@ extern int gnTextOffset2; // 0x0072D8D0
 
 
 
-extern int gnGlobal_0072D844; // 0x0072D844
 
-extern int gnGlobal_0072D88C; // 0x0072D88C
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 

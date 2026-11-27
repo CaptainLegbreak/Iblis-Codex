@@ -96,8 +96,6 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 extern int gnTextOffset1; // 0x0072D8D4
 extern int gnTextOffset2; // 0x0072D8D0
-extern int gnGlobal_0072D844; // 0x0072D844
-extern int gnGlobal_0072D88C; // 0x0072D88C
 extern char gbTextOffsetInit; // 0x007C8C9C
 extern char gbSkillRefreshInit; // 0x007C8CA4
 extern D2CombinedStatIdStrc gaCombinedStatIds[]; // 0x0072CDD0
@@ -4244,8 +4242,8 @@ void __fastcall SKILLDESC_RefreshSkills(D2UnitStrc* pUnit)
     {
         if (STRTABLE_GetLanguage() >= 6 && STRTABLE_GetLanguage() <= 9)
         {
-            gnGlobal_0072D844 -= 1;
-            gnGlobal_0072D88C -= 1;
+            gaSkillTextPositions[0].nY -= 1;
+            gaSkillTextPositions[6].nY -= 1;
         }
 
         gbSkillRefreshInit = 1;
