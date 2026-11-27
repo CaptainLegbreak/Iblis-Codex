@@ -8,7 +8,6 @@
 struct D2Act1Quest5Strc;
 struct D2PlayerDataStrc;
 
-D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc*, int); // 0x00543640
 
 // 0x005947E0
 static int __stdcall sub_005947E0_IsUnitGUIDInList(D2Act1Quest5Strc* pQuestDataEx, int nUnitGUID, int bSecondList)

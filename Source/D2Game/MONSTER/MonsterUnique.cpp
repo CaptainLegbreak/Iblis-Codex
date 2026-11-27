@@ -113,17 +113,14 @@ typedef void(__fastcall* PartyCommandFunc)(D2GameStrc* pGame, D2UnitStrc* pPlaye
 
 typedef int(__stdcall* FARPROC)();
 
-extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern PartyCommandFunc gpfnPartyCommands[10]; // 0x006E2218
 
 
-D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
 
-void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, int nFlags); // 0x0057DBF0
 
 
 
@@ -183,7 +180,6 @@ D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* 
 
 
 
-extern "C" __int64 __stdcall _alldiv(__int64 a, __int64 b); // 0x00684240
 
 
 static void MONSTERUNIQUE_AddLifePercent(D2UnitStrc* pUnit, int nPercent); // 0x005A0D20
@@ -218,7 +214,6 @@ enum D2C_H16ElemConstants
 #define MONTYPEFLAG_LIGHTNINGUNIQUE 0x100
 
 
-void __fastcall MISSMODE_FillDamageParams(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005A89A0
 
 inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
@@ -470,7 +465,7 @@ static inline D2MonStatsTxt* MonStatsTxtRecordOrNull(int nMonsterId)
     return &sgptDataTables->pMonStatsTxt[nMonsterId];
 }
 
-static inline unsigned int TestMonStatsFlag(int nMonsterId, int nFlag)
+static __forceinline unsigned int TestMonStatsFlag(int nMonsterId, int nFlag)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MonStatsTxtRecordOrNull(nMonsterId);
     if (!pMonStatsTxtRecord)
@@ -519,7 +514,6 @@ struct D2MonsterRegionStrc;
 
 struct D2SuperUniquesTxt;
 
-int __stdcall sub_O05_EmitArg_AddUMod(D2UnitStrc* pUnit, int nValue);
 
 static inline D2MonUModTxt* sub_M433_GetMonUModTxtRecord(int nUMod)
 {
@@ -957,7 +951,6 @@ void __fastcall MONSTERUNIQUE_UMod38_Possessed(D2UnitStrc* pUnit, int nUMod, int
     MONSTERUNIQUE_ApplyMonsterPenalty(pUnit, nUMod, bUnique);
 }
 
-int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit);                                                             // 0x00463860
 
 
 // 0x005A1280
@@ -1845,6 +1838,68 @@ void __fastcall MONSTERUNIQUE_CastNova(D2GameStrc* pGame, D2UnitStrc* pUnit, int
     }
 
     SKILLS_CreateMissileRing(pGame, pUnit, pUnit, MISSILE_NOVA, 0, nSkillLevel, DATATBLS_GetMissileVelocityFromMissilesTxt(MISSILE_NOVA, 0));
+}
+
+static inline unsigned int MONSTERUNIQUE_RollSeed_005A3D20(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static inline unsigned int MONSTERUNIQUE_RollLimited_005A3D20(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+
+    if ((nMax - 1) & nMax)
+    {
+        return MONSTERUNIQUE_RollSeed_005A3D20(pSeed) % nMax;
+    }
+
+    return MONSTERUNIQUE_RollSeed_005A3D20(pSeed) & (nMax - 1);
+}
+
+static inline D2MonStatsTxt* MONSTERUNIQUE_GetMonStatsTxtRecord_005A3D20(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwClassId >= 0 && pUnit->dwClassId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[pUnit->dwClassId];
+    }
+    return 0;
+}
+
+static inline int MONSTERUNIQUE_GetUnitX_005A3D20(D2UnitStrc* pUnit)
+{
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
+        return pUnit->pStaticPath->tGameCoords.nX;
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static inline int MONSTERUNIQUE_GetUnitY_005A3D20(D2UnitStrc* pUnit)
+{
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
+        return pUnit->pStaticPath->tGameCoords.nY;
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x005A3D20
+void __fastcall MONSTERUNIQUE_ApplyCorpseFireDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = MONSTERUNIQUE_GetMonStatsTxtRecord_005A3D20(pUnit);
+    const int nFireDamage = (MONSTERUNIQUE_RollLimited_005A3D20(&pUnit->pSeed, pMonStatsTxtRecord->nElMaxD[0][0] - pMonStatsTxtRecord->nElMinD[0][0]) + pMonStatsTxtRecord->nElMinD[0][0]) << 8;
+    const int nSize = pMonStatsTxtRecord->wAiParam[2][pGame->nDifficulty] * STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
+
+    D2DamageStrc damage;
+    memset(&damage, 0, sizeof(damage));
+    damage.dwFireDamage = nFireDamage;
+
+    const int nX = MONSTERUNIQUE_GetUnitX_005A3D20(pUnit);
+    const int nY = MONSTERUNIQUE_GetUnitY_005A3D20(pUnit);
+    SUNITDMG_SetMissileDamageFlagsForNearbyUnits(pGame, pUnit, nX, nY, nSize, &damage, 0, 0, 0, 0);
 }
 
 // 0x005A3E70

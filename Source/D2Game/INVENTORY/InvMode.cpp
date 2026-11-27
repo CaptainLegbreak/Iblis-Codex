@@ -94,12 +94,9 @@ extern unsigned int gnItemCmdFlagCount; // 0x00738CC4
 struct D2StaticPathStrc;
 
 
-unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit); // 0x005A0120
 
 
-int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
 
-unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit); // 0x005A5650
 
 
 inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)

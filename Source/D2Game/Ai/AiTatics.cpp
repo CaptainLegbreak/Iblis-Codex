@@ -137,7 +137,6 @@ enum D2C_Y10UseSkillConstants
     UNITFLAG_SKSRVDOFUNC = 0x40,
 };
 
-int SUNITNPC_GetItemStorePage(D2UnitStrc* pItem); // 0x00576320
 
 inline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {

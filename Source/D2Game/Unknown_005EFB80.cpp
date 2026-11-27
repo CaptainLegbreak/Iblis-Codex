@@ -37,7 +37,6 @@ struct D2LevelsTxt;
 
 typedef D2UnitStrc* (__fastcall* AITARGETCALLBACK)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, void*);
 
-int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 
 D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg, AITARGETCALLBACK pfnCallback, int nCallbackId); // 0x005DD0B0
@@ -221,12 +220,10 @@ enum D2C_M81OverseerAi
     OVERSEER_AI_PARAM_ATTACK_2_OR_1_CHANCE_PCT = 6,
 };
 
-int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nNewDistance, int bDeleteAiEventCallback); // 0x005DF7D0
 
 
 inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed);
 
-D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pDistance, int* pInMeleeRange); // 0x005DDC30
 
 #define MINIMUM(a,b) ((a) < (b) ? (a) : (b))
 

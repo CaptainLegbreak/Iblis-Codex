@@ -46,8 +46,6 @@ unsigned int gnNumberOfTasksCreated; // 0x0088C798
 
 static unsigned int gnGamesCount;        // 0x0088C79C
 
-extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
-extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
 
 // Fog's critical-section object; its constructor and destructor are out of line (0x0040EB50/0x0040EB60),
 // so the array below is built and torn down by the CRT's vector constructor and destructor iterators.

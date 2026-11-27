@@ -128,7 +128,6 @@ enum D2C_G4Constants
 };
 
 
-int __fastcall SKILLS_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bSkipMana);   // 0x0056F640
 
 struct D2ModeChangeStrc;
 

@@ -173,7 +173,6 @@ D2GameStrc* gpGame; // 0x00882D34
 int gnGamesGUIDs[1024];                                                                            // 0x00882D38
 
 
-int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc*); // 0x0063D630
 
 
 typedef int (__stdcall* FARPROC)();
@@ -739,7 +738,6 @@ int __stdcall CLIENT_ObjectCall_6BED90(int,int,int); // 0x0052B490
 
 int __stdcall sub_0052B330(unsigned char,int,void*,int);  // 0x0052B330
 
-void __stdcall D2NET_10016(int);  // 0x0052B570
 
 extern "C" int __cdecl strncmp(const char*,const char*,unsigned int);
 
@@ -780,7 +778,6 @@ struct D2PoolSystemStrc;
 #include "gen/data/Source/D2Game/GAME/Game_0052D720.static/gnFrameRate.inc"
 
 
-int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem);                                     // 0x0040A040
 
 
 static void GAME_UpdatePendingRooms(D2GameStrc* pGame);
@@ -845,17 +842,12 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern D2UnkPlrMsgStrc gaUnitModeMessages[20]; // 0x007319E8
 
-void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
-
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
-
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 
-D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 
 
-int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
+
+
 
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
@@ -865,7 +857,6 @@ extern int gnVirtualPlayerCount; // 0x00883D70
 void __fastcall D2GAME_SetSkills(int pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
 
-void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
 
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
@@ -898,7 +889,6 @@ int __cdecl sub_0052B910_GetLastError();                                        
 D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetHead(D2ClientStrc* pClient);                         // 0x005392E0
 
 
-void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0
 
 
 extern "C" const char gszSGameDataTypeName[];                                                               // 0x0070F56C
@@ -1071,7 +1061,6 @@ const void* __cdecl sub_0052BFA0_GetData6E0568()
     return gData_006E0568;
 }
 
-extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
 
 void __fastcall CLIENTS_Release();                                                                          // 0x00537730
 
@@ -2154,18 +2143,13 @@ void __fastcall D2GAME_SetStatOrResetGold(D2UnitStrc* pUnit, int nStat, int nVal
     STATLIST_SetUnitStat(pUnit, nStat, nValue, 0);
 }
 
-void __fastcall PLRSAVE_ByteToHex(char* szOut, unsigned char nByte); // 0x00531D60
 
 // build: symbol ?NET_IsSimulatedLagConnection@* 0x0052B800
 int __fastcall NET_IsSimulatedLagConnection();
 
-int __fastcall NET_DequeueFirstPacketFromList(D2CriticalSectionStrc* pCriticalSection, D2NetPacketRecStrc** ppPacketList, unsigned char* pBuffer, unsigned int nBufferSize);
 
-void __cdecl sub_0052B8F0_Nop();
 
-void __cdecl sub_0052B900_Nop();
 
-bool __stdcall sub_0052BDD0_AlwaysTrue(int nUnused);
 
 // build: symbol ?NET_GetBits12@* 0x0052BE00
 unsigned int __fastcall NET_GetBits12(unsigned int nValue);
@@ -2266,9 +2250,7 @@ int __stdcall SrvRecvDatabaseCharacter(int nClientId, const unsigned char* pSave
     return nTotalSize;
 }
 
-void __fastcall PLAYER_CountPlayersInLevelCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005356F0
 
-void __fastcall PLAYER_CountLivingPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingPlayers); // 0x00535760
 static inline D2MonStatsTxt* DESC_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -2276,31 +2258,21 @@ static inline D2MonStatsTxt* DESC_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-void __fastcall PLAYER_CheckHostileToUnitCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs); // 0x00535B50
 
 
-void __stdcall sub_00646010_Empty(int nUnused1, int nUnused2, int nUnused3);
 
-void __stdcall sub_006460C0_Empty(int nUnused);
 
-void __stdcall sub_006460D0_Empty(int nUnused1, int nUnused2, int nUnused3);
 
-void __stdcall sub_006460E0_Empty(int nUnused);
 
-unsigned short __stdcall SFileGetLocale();
 
-void __stdcall sub_00416750_Nop();
 
-void __stdcall sub_00416760_Nop();
 
-char* __fastcall sub_004167A0_LinkNext(D2StormLinkStrc* pLink);
 
 D2Storm4167B0Strc::~D2Storm4167B0Strc()
 {
     f_0.Unlink();
 }
 
-char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink);
 
 
 // 0x00530190
@@ -2747,36 +2719,23 @@ int __stdcall GAME_UpdateClients(int bForceUpdate1, int bForceUpdate2)
     return aCounter[0].LowPart;
 }
 
-char* __fastcall sub_00416820_LinkNext(D2StormLinkStrc* pLink);
 
-char* __fastcall sub_00416830_LinkNext(D2StormLinkStrc* pLink);
 
-char* __fastcall sub_00416840_LinkRawNext(D2StormLinkStrc* pLink);
 
-char* __fastcall sub_00416850_LinkNext(D2StormLinkStrc* pLink);
 
-char* __fastcall sub_00416860_LinkPrev(D2StormLinkStrc* pLink);
 
-char* __fastcall sub_00416880_LinkRawNext(D2StormLinkStrc* pLink);
 
 D2Storm4168F0Strc::~D2Storm4168F0Strc()
 {
     f_0.Unlink();
 }
 
-void __fastcall sub_004169F0_InitTerminator(D2StormListStrc* pList);
 
-void __fastcall sub_00416A00_InitTerminator(D2StormListStrc* pList);
 
-void __fastcall sub_00416A10_InitTerminator(D2StormListStrc* pList);
 
-void __fastcall sub_00416A20_InitTerminator(D2StormListStrc* pList);
 
-void __fastcall sub_00416A30_InitTerminator(D2StormListStrc* pList);
 
-int __fastcall sub_00416A90_TestField150(D2Storm416A90Strc* pRecord);
 
-int __fastcall sub_00416AB0_TestField14C(D2Storm416A90Strc* pRecord);
 
 // 0x00530820
 D2GameStrc* D2GameDataTableStrc::sub_00530820_New(unsigned int nHashVal, HASHKEY_NONE* pKey, int nExtraBytes, int nFlags)
