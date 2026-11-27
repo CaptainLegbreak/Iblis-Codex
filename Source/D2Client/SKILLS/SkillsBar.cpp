@@ -130,7 +130,7 @@ inline int UNITS_GetYInline(D2UnitStrc* pUnit)
     }
 }
 
-void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
+void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
 
 extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 
@@ -757,7 +757,7 @@ void __fastcall SKILLSBAR_RotateUnitDirection(D2UnitStrc* pUnit, int nArg, int b
     }
 
     const int nDirection = PATH_GetDirection(pPath);
-    sub_006488A0_SetDirection(pPath, (bForward ? nDirection + 0x15 : nDirection + 0x2A) % 64);
+    PATH_SetDirection(pPath, (bForward ? nDirection + 0x15 : nDirection + 0x2A) % 64);
 
     int nX;
     int nY;
@@ -775,7 +775,7 @@ void __fastcall SKILLSBAR_RotateUnitDirection(D2UnitStrc* pUnit, int nArg, int b
 
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     GFX_DrawUnit(pUnit, nArg, nX, nY, nUnitType == 0, 0);
-    sub_006488A0_SetDirection(pPath, nDirection);
+    PATH_SetDirection(pPath, nDirection);
 }
 
 

@@ -160,7 +160,7 @@ void __fastcall MONSTERMSG_SendMonsterModeUpdate(D2GameStrc* pGame,D2UnitStrc* p
   nDirection=MONSTERMODE_GetHpPercent128(pUnit);
   int nGUID=pUnit->dwUnitId;
   D2GAME_PACKETS_SendPacket0x6D(hClient,nGUID,CLIENTS_GetUnitX(pUnit),CLIENTS_GetUnitY(pUnit),nDirection);
-  STATLIST_SetUnitStat(pUnit,STAT_PIERCE_IDX,sub_006253B0_GetBaseStat(pUnit,0x148,0)+1,0);
+  STATLIST_SetUnitStat(pUnit,STAT_PIERCE_IDX,STATLIST_GetUnitBaseStat(pUnit,0x148,0)+1,0);
   return;
  }
  if(nMode==13) {

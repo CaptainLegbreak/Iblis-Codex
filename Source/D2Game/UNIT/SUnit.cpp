@@ -440,7 +440,7 @@ void __fastcall EVENT_SetEventWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 int __fastcall SUNIT_EventClearTeleportCoordinates(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nEventType, int nUnusedParam1, int nUnusedParam2); // 0x00554570
 
-int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
+int __stdcall D2Common_10229(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
 
 enum D2C_M108SUnitConstants
 {
@@ -1180,7 +1180,7 @@ D2UnitStrc* __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* ptGame, int nType, v
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
-void __fastcall sub_00538410_RemoveUnitIfNotAdjacent2(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x00538410
+void __fastcall CLIENTS_SendUnitIfOutsideAdjacentRooms(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x00538410
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
@@ -2620,7 +2620,7 @@ void __fastcall SUNIT_UpdateClientIfRoomInvalid(D2UnitStrc* pUnit, D2ClientStrc*
 
         if (!bFlag)
         {
-            sub_00538410_RemoveUnitIfNotAdjacent2(pClient, pUnit);
+            CLIENTS_SendUnitIfOutsideAdjacentRooms(pClient, pUnit);
         }
     }
 }
@@ -2756,7 +2756,7 @@ int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* hUnit, D2Active
         return 0;
     }
 
-    if (!sub_00650BE0_PlaceUnit(hPath, hUnit, pRoom, tCoords.nX, tCoords.nY))
+    if (!D2Common_10229(hPath, hUnit, pRoom, tCoords.nX, tCoords.nY))
     {
         return 0;
     }

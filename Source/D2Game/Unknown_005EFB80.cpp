@@ -310,7 +310,7 @@ enum D2C_SummonerAIParams
 
 void __fastcall ACT2Q5_OnSummonerActivated(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0059C330
 
-int __fastcall sub_005DEFE0_AiEscape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback);
+int __fastcall AITACTICS_WalkAwayFromTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback);
 
 enum D2C_AiThink005F12A0
 {
@@ -722,11 +722,11 @@ enum D2C_M84QuillMotherAi
     QUILLMOTHER_AI_PARAM_IDLE_STALL_DURATION = 3,
 };
 
-int __fastcall sub_005DE4E0_MoveAwayFromTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int nMaxStepDistance, int nDesiredDistance); // 0x005DE4E0
+int __fastcall AITACTICS_MoveInRadiusToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int nMaxStepDistance, int nDesiredDistance); // 0x005DE4E0
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Vulture(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005F30F0
 
-int __fastcall sub_005DF7D0_Maneuver(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int,int); // 0x005DF7D0
+int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int,int); // 0x005DF7D0
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_SandRaider(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,void*); // 0x005F06B0
 
@@ -734,7 +734,7 @@ void __fastcall ACT2Q1_OnRadamentActivated(D2GameStrc*,D2UnitStrc*); // 0x005994
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_GreaterMummy(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,void*); // 0x005F2A00
 
-void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc*, int); // 0x006488A0
+void __stdcall PATH_SetDirection(D2DynamicPathStrc*, int); // 0x006488A0
 
 
 struct D2CoordListStrc;
@@ -1637,7 +1637,7 @@ void __fastcall AITHINK_Fn008_SandRaider(D2GameStrc* pGame,D2UnitStrc* pUnit,D2A
     }
     if (nDistance > 4 && !pAiControl->dwAiParam[1] && (int)(AI_RollSeed(pSeed)%100) < AI_PARAM(pGame, pMonStatsTxt, 1))
     {
-        sub_005DF7D0_Maneuver(pGame,pUnit,pTarget,0,0);
+        AITACTICS_WalkToTargetWithRandomPathType(pGame,pUnit,pTarget,0,0);
         return;
     }
     if(bCombat)
@@ -3308,7 +3308,7 @@ void __fastcall AITHINK_Fn053_Summoner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
 
     if (nTargetDistance < 5 && AI_RollPercentage_005F02C0(pUnit) < AI_GetParam(pGame, pMonStatsTxt, SUMMONER_AI_PARAM_WALK_AWAY_CHANCE_PCT))
     {
-        sub_005DEFE0_AiEscape(pGame, pUnit, pTarget, 6, 0);
+        AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 6, 0);
     }
 
     int bUseColdSkill = STATLIST_UnitGetStatValue(pTarget, 39, 0) >= STATLIST_UnitGetStatValue(pTarget, 43, 0);
@@ -5244,7 +5244,7 @@ void __fastcall AITHINK_Fn022_GreaterMummy(D2GameStrc* pGame,D2UnitStrc* pUnit,D
   AITACTICS_WalkToTargetUnitWithSteps(pGame,pUnit,pTarget,3); return;
  }
  if((int)((unsigned int)RollSeed_005EFE20(pUnit)%100)<50)
-  sub_005DF7D0_Maneuver(pGame,pUnit,pTarget,3,0);
+  AITACTICS_WalkToTargetWithRandomPathType(pGame,pUnit,pTarget,3,0);
  else
   AITACTICS_IdleInNeutralMode(pGame,pUnit,6);
 }
@@ -5410,7 +5410,7 @@ void __fastcall AITHINK_Fn023_Vulture(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     if (!pTarget) {
         if (nState < 1) { AITACTICS_Idle(pGame, pUnit, 12); return; }
         if (AITHINK_TryRestoreGroundCollision(pGame, pUnit)) {
-            sub_005DE4E0_MoveAwayFromTarget(pGame, pUnit, pUnit, 9, 2, 3);
+            AITACTICS_MoveInRadiusToTarget(pGame, pUnit, pUnit, 9, 2, 3);
             AITACTICS_Idle(pGame, pUnit, 12);
             pAiControl->dwAiParam[0] = -1;
             return;
@@ -5421,7 +5421,7 @@ void __fastcall AITHINK_Fn023_Vulture(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
         if (UNITS_GetRoom(pTarget) != UNITS_GetRoom(pUnit) && bFar) {
             if (nState >= 1) {
                 if (AITHINK_TryRestoreGroundCollision(pGame, pUnit)) {
-                    sub_005DE4E0_MoveAwayFromTarget(pGame, pUnit, pUnit, 9, 2, 3);
+                    AITACTICS_MoveInRadiusToTarget(pGame, pUnit, pUnit, 9, 2, 3);
                     AITACTICS_Idle(pGame, pUnit, 12);
                     pAiControl->dwAiParam[0] = -1;
                     return;
@@ -5433,7 +5433,7 @@ void __fastcall AITHINK_Fn023_Vulture(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     if (!nState && !AIGENERAL_GetMinionOwner(pUnit) && pTarget && bFar && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < 60) {
         AITHINK_RemoveGroundCollision(pGame, pUnit);
         pAiControl->dwAiParam[0] = sub_00472210_SeedRollMasked(pSeed, 8) + 24;
-        sub_005DE4E0_MoveAwayFromTarget(pGame, pUnit, pTarget, 8, 8, 8);
+        AITACTICS_MoveInRadiusToTarget(pGame, pUnit, pTarget, 8, 8, 8);
         AITACTICS_Idle(pGame, pUnit, 12);
         return;
     }
@@ -5493,7 +5493,7 @@ SUCCESS:
     else if (nState >= 1) {
 RESTORE_TARGET:
         if (AITHINK_TryRestoreGroundCollision(pGame, pUnit)) {
-            sub_005DE4E0_MoveAwayFromTarget(pGame, pUnit, pTarget, 9, 2, 3);
+            AITACTICS_MoveInRadiusToTarget(pGame, pUnit, pTarget, 9, 2, 3);
             AITACTICS_Idle(pGame, pUnit, 12);
             pAiControl->dwAiParam[0] = -1;
             return;
@@ -6529,7 +6529,7 @@ void __fastcall AITHINK_Fn063_GargoyleTrap(D2GameStrc* pGame, D2UnitStrc* pUnit,
         nY = nUnitY;
     }
     const unsigned char nDirection = UNITS_GetDirectionToCoords(pUnit, nX, nY);
-    sub_006488A0_SetDirection(pUnit->pDynamicPath, gnGargoyleTrapDirectionAxis[gnGargoyleTrapDirectionMap[nDirection]]);
+    PATH_SetDirection(pUnit->pDynamicPath, gnGargoyleTrapDirectionAxis[gnGargoyleTrapDirectionMap[nDirection]]);
     if ((ABS_VALUE(nTargetX - nUnitX) < 6 || ABS_VALUE(nTargetY - nUnitY) < 6)
         && pMonStatsTxt->nSkill[0] >= 0 && nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, 0) && AI_RollPercentage_005F9490(pUnit) < AI_PARAM(pGame, pMonStatsTxt, 1))
     {

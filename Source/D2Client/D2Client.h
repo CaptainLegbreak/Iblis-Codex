@@ -680,7 +680,7 @@ int __stdcall STATES_CheckStateMaskAuraOnUnit(D2UnitStrc* pUnit); // 0x0063A250
 int __stdcall STATES_CheckStateMaskActiveOnUnit(D2UnitStrc* pUnit); // 0x0063A340
 int __stdcall sub_0063B9D0_PlaceItemAt(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nX, int nY, int nInventoryRecordId, int* pX, int* pY, unsigned char nPage); // 0x0063B9D0
 int __stdcall INVENTORY_PlaceItemAtInventoryPage(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nX, int nY, int nInventoryRecordId, int bClient, unsigned char nPage); // 0x0063BCC0
-int __stdcall sub_0063BDB0(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc); // 0x0063BDB0
+int __stdcall INVENTORY_PlaceItemInBodyLoc(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc); // 0x0063BDB0
 int __stdcall INVENTORY_GetUseableItemFromBeltSlot(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nSlot, int* pResult); // 0x0063C830
 int __stdcall MONSTERS_IsSandLeaper(D2UnitStrc* pUnit, int nMode); // 0x0063E8D0
 int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
@@ -688,13 +688,13 @@ int __stdcall SKILLS_IsPlayerClassSkill(int nSkillId, int* pCharClass); // 0x006
 int __stdcall D2COMMON_11021(D2UnitStrc* pUnit); // 0x00645680
 int __stdcall sub_00645950_CheckTargetPos(int nX, int nY, D2UnitStrc* pUnit, int nCollisionMask); // 0x00645950
 int __stdcall PATH_GetType(D2DynamicPathStrc* pPath); // 0x00648E30
-int __stdcall sub_0064A380_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A380
+int __stdcall MISSILE_GetCurrentFrame(D2UnitStrc* pMissile); // 0x0064A380
 int __stdcall MISSILE_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A3B0
 int __stdcall MISSILE_GetElementalLength(D2UnitStrc*,D2UnitStrc*,int,int); // 0x0064B2A0
 int __stdcall COMPOSIT_IsArmorComponent(int nBodyLoc); // 0x0064F420
 int __stdcall COMPOSIT_GetArmorTypeFromComponent(int nBodyLoc, unsigned char* pComponents); // 0x0064F500
 int __stdcall PATH_HasEnteredNewSubtile(D2DynamicPathStrc* pPath); // 0x006505C0
-int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
+int __stdcall D2Common_10229(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
 int __stdcall D2QSSOCKET_SendPacket(void* pConnection, const unsigned char* pBuffer, int nSize); // 0x006BC8A0
 int* __fastcall sub_004AE110_GetAiTimer(D2UnitStrc* pUnit); // 0x004AE110
 short __stdcall TEXT_GetStringIdOfMenuType2Node(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x006613C0

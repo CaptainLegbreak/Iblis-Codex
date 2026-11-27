@@ -517,7 +517,6 @@ void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, in
 extern "C" void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pPath, unsigned char nDistance); // 0x00648E70
 
 
-void __fastcall sub_0054CC30_StatRemoveCallback_ToggleStateOff(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
 struct D2PacketTableStrc;
 
@@ -4493,7 +4492,7 @@ static int __stdcall PLRMSG_WarpToCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, i
 
     D2StatListStrc* pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nEndFrame, !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
     STATLIST_SetState(pStatList, STATE_SYNC_WARPED);
-    STATLIST_SetStatRemoveCallback(pStatList, (unsigned int)sub_0054CC30_StatRemoveCallback_ToggleStateOff);
+    STATLIST_SetStatRemoveCallback(pStatList, (unsigned int)PLRMSG_ToggleStateOffCallback);
     D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
     EVENT_SetEvent(pGame, pUnit, 12, nEndFrame, 0, 0);
     return 1;
@@ -4632,7 +4631,7 @@ static int __stdcall D2GAME_MERCS_EquipItem(D2UnitStrc* pPlayer, D2UnitStrc* pIt
 
         if (!ITEMS_CheckRequirements(pItem, pMerc, 0, 0, 0, 0))
         {
-            sub_0063BDB0(pMercInventory, pExchangeItem, nTargetBodyLoc);
+            INVENTORY_PlaceItemInBodyLoc(pMercInventory, pExchangeItem, nTargetBodyLoc);
             INVENTORY_PlaceItemInSocket(pMercInventory, pExchangeItem, 3);
             ITEMS_SetBodyLocation(pExchangeItem, nTargetBodyLoc);
             UNITS_ChangeAnimMode(pExchangeItem, 1);

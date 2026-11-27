@@ -387,7 +387,7 @@ int __fastcall BNSEND_SendAccountChange(const char* szAccountName, const char* s
 
 void __fastcall CLIENT_ReadPacketFromBuffer(D2PacketBufferStrc* pBuffer, int nBufferSize); // 0x0052AEB0
 
-int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
+int __stdcall SERVER_SendPacketToClient(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
 
 int __fastcall SERVER_GetClientPacketSize(D2PacketBufferStrc* pBuffer, unsigned int nBufferSize, int* pSize); // 0x0052BC20
 

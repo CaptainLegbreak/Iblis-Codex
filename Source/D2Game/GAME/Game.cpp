@@ -736,7 +736,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volati
 
 int __stdcall CLIENT_ObjectCall_6BED90(int,int,int); // 0x0052B490
 
-int __stdcall sub_0052B330(unsigned char,int,void*,int);  // 0x0052B330
+int __stdcall SERVER_SendPacketToClient(unsigned char,int,void*,int);  // 0x0052B330
 
 
 extern "C" int __cdecl strncmp(const char*,const char*,unsigned int);
@@ -901,7 +901,6 @@ void __fastcall SEED_InitSeed(D2SeedStrc* pSeed);                               
 void __cdecl FOG_CreateNewPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize); // 0x00409DD0
 
 
-unsigned short __cdecl sub_0052C170_AllocGameId();
 
 
 int __fastcall OBJRGN_AllocObjectControl(D2GameStrc* pGame); // 0x00546C60
@@ -1578,19 +1577,19 @@ void __fastcall GAME_ProcessAdminMessage(void* pData,int nSize) {
   CLIENT_ObjectCall_6BED90(client,(int)received,16);
   InterlockedIncrement(&gnAdminConnectionCount);
   response.command=REPLY_FA;
-  sub_0052B330(2,client,&response,16);
+  SERVER_SendPacketToClient(2,client,&response,16);
   break;
  case 0xFB:
   CLIENT_ObjectCall_6BED90(client,(int)received,16);
   response.command=REPLY_FB;
-  sub_0052B330(2,client,&response,16);
+  SERVER_SendPacketToClient(2,client,&response,16);
   D2NET_10016(client);
   InterlockedDecrement(&gnAdminConnectionCount);
   break;
  case 0xFC:
   CLIENT_ObjectCall_6BED90(client,(int)received,16);
   response.command=REPLY_FC;
-  sub_0052B330(2,client,&response,16);
+  SERVER_SendPacketToClient(2,client,&response,16);
   break;
  case 1:
  case 0xFD:
@@ -1623,7 +1622,7 @@ void __fastcall GAME_ProcessAdminMessage(void* pData,int nSize) {
    case 1: packetSize=0x165; break;
    default: packetSize=0xBD; break;
    }
-   sub_0052B330(2,client,&reply,packetSize);
+   SERVER_SendPacketToClient(2,client,&reply,packetSize);
   }
   break;
  }
@@ -2566,7 +2565,7 @@ static void __stdcall GAME_SendSaveFilePart(D2GameStrc* pGame, D2ClientStrc* pCl
         *pPacketData++ = *pData++;
     }
 
-    if (sub_0052B330(0, pClient->dwClientId, pPacket, nDataSize + 0x7))
+    if (SERVER_SendPacketToClient(0, pClient->dwClientId, pPacket, nDataSize + 0x7))
     {
         pClient->nSaveHeaderDataSentBytes += nDataSize;
 
@@ -2622,7 +2621,7 @@ static void __stdcall GAME_SendClientPackets(D2GameStrc* ptGame, int bSyncPlayer
             break;
         }
 
-        if ((unsigned int)sub_0052B330(1, ptClient->dwClientId, pPacketData->packetData, pPacketData->nPacketSize) > 0)
+        if ((unsigned int)SERVER_SendPacketToClient(1, ptClient->dwClientId, pPacketData->packetData, pPacketData->nPacketSize) > 0)
         {
             ++nCounter;
             pPacketData->nPacketSize = 0;
@@ -3507,7 +3506,7 @@ int __stdcall SrvCreateNewEmptyGame(char* szGameName, const char* szPassword, co
         return 0;
     }
 
-    const unsigned short nGameId = sub_0052C170_AllocGameId();
+    const unsigned short nGameId = GAME_ReserveGameId();
     if (!nGameId)
     {
         return 0;
@@ -3631,7 +3630,7 @@ void __fastcall sSrvSendGameInit(int nClientId, char* szGameName, unsigned char 
 
     pGame->unk0x24 = 1;
 
-    pGame->nGameId = sub_0052C170_AllocGameId();
+    pGame->nGameId = GAME_ReserveGameId();
     GAME_ResolveGameNameConflict(pGame, szGameName, nClientId);
     pGame->nGameType = nGameType;
     pGame->dwLastUsedUnitGUID[0] = 0;

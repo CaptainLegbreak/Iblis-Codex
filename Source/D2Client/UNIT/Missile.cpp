@@ -400,7 +400,7 @@ D2UnitStrc* __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
-int __stdcall sub_00648900_PathGetY(D2DynamicPathStrc* pPath); // 0x00648900
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 
 struct D2MissileScanArgStrc
@@ -1047,7 +1047,7 @@ int __fastcall MISSILE_UpdateGuidedMissile(D2UnitStrc* pUnit, D2UnitStrc* pTarge
     }
     else if (nFlags & 2)
     {
-        if (sub_0064A380_GetRemainingFrames(pUnit) <= 0)
+        if (MISSILE_GetCurrentFrame(pUnit) <= 0)
             return MISSILE_SeekTarget(pUnit) != 0;
         return ((unsigned char)nFlags >> 2) & 1;
     }
@@ -3203,7 +3203,7 @@ void __fastcall MISSILE_CltDoHomingSubMissile(D2UnitStrc* pMissile)
         nRate = 5;
     }
 
-    if (pTarget && !(sub_0064A380_GetRemainingFrames(pMissile) % nRate) && nTargetX > 0
+    if (pTarget && !(MISSILE_GetCurrentFrame(pMissile) % nRate) && nTargetX > 0
         && DRLG_UnitEdgeDistance(pMissile, pTarget) < pMissilesTxtRecord->dwCltParam[3])
     {
         int nX = CLIENTS_GetUnitX(pMissile);
@@ -3239,7 +3239,7 @@ void __fastcall MISSILE_CltDoHomingSubMissile(D2UnitStrc* pMissile)
     if (pMissilesTxtRecord->wCltSubMissile[0] > 0)
     {
         int nPeriod = pMissilesTxtRecord->dwCltParam[0] > 1 ? pMissilesTxtRecord->dwCltParam[0] : 1;
-        if (!(sub_0064A380_GetRemainingFrames(pMissile) % nPeriod) && nTargetX > 0)
+        if (!(MISSILE_GetCurrentFrame(pMissile) % nPeriod) && nTargetX > 0)
         {
             D2MissileStrc missileParams;
             memset(&missileParams, 0, sizeof(missileParams));
@@ -3410,7 +3410,7 @@ void __fastcall MISSILE_CltDoRing(D2UnitStrc* pMissile)
 // 0x004D4B80
 void __fastcall MISSILE_CltDoFrameFloor(D2UnitStrc* pMissile)
 {
-    if (sub_0064A380_GetRemainingFrames(pMissile) < 100)
+    if (MISSILE_GetCurrentFrame(pMissile) < 100)
     {
         MISSILE_SetCurrentFrame(pMissile, 500);
     }
@@ -3428,7 +3428,7 @@ void __fastcall MISSILE_CltDoObjectSpawn(D2UnitStrc* pMissile)
         return;
     }
 
-    int nFrames = sub_0064A380_GetRemainingFrames(pMissile);
+    int nFrames = MISSILE_GetCurrentFrame(pMissile);
     D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
     const int nParam = pMissilesTxtRecord->dwCltParam[0];
     const int nEnd = nParam + 0x7D;
@@ -3691,7 +3691,7 @@ void __fastcall MISSILE_CltDoPeriodicSub(D2UnitStrc* pMissile)
 // 0x004D6540
 void __fastcall MISSILE_CltDoTimedSound(D2UnitStrc* pMissile)
 {
-    const int nFrames = sub_0064A380_GetRemainingFrames(pMissile);
+    const int nFrames = MISSILE_GetCurrentFrame(pMissile);
     if (nFrames == CLTDO_TIMING_FRAME)
     {
         sub_00476A80_StartTiming(CLTDO_TIMING_ARG, 0, CLTDO_TIMING_LENGTH, 0);
@@ -4468,7 +4468,7 @@ void __fastcall MISSILE_ClientMissileDo(D2UnitStrc* pMissile)
 // 0x004D72C0
 void __fastcall MISSILE_CltDoPeriodicSpawn(D2UnitStrc* pMissile)
 {
-    if (!(sub_0064A380_GetRemainingFrames(pMissile) % 4))
+    if (!(MISSILE_GetCurrentFrame(pMissile) % 4))
     {
         D2MissileStrc tParams;
         memset(&tParams, 0, sizeof(tParams));
@@ -5133,7 +5133,7 @@ void __fastcall MISSILE_CltDoObjectRing(D2UnitStrc* pMissile)
 // 0x004D6C00
 void __fastcall MISSILE_CltDoRateTable(D2UnitStrc* pMissile)
 {
-    int nRemaining = sub_0064A380_GetRemainingFrames(pMissile);
+    int nRemaining = MISSILE_GetCurrentFrame(pMissile);
     D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
 
     int i = 0;
@@ -5267,7 +5267,7 @@ static inline unsigned int SEED_RollLowInline(D2SeedStrc* pSeed)
 // 0x004D7400
 void __fastcall MISSILE_CltDoScatterRate(D2UnitStrc* pMissile)
 {
-    const int nFrames = sub_0064A380_GetRemainingFrames(pMissile);
+    const int nFrames = MISSILE_GetCurrentFrame(pMissile);
     if (nFrames == 325)
     {
         sub_00476A80_StartTiming(0x14, 0, 6000, 0);
@@ -5413,7 +5413,7 @@ int __fastcall MISSILE_CltHitLinkMissile(D2UnitStrc* pMissile, D2UnitStrc* pHitU
         tMissileParams.nMissile = MISSILE_TAINTEDSUNBALL;
         tMissileParams.nSkill = MISSILE_GetSkill(pMissile);
         tMissileParams.nSkillLevel = MISSILE_GetLevel(pMissile);
-        tMissileParams.nRange = sub_0064A380_GetRemainingFrames(pTarget);
+        tMissileParams.nRange = MISSILE_GetCurrentFrame(pTarget);
         tMissileParams.nX = UNITS_GetUnitXPosition(pMissile);
         tMissileParams.nY = UNITS_GetUnitYPosition(pMissile);
         tMissileParams.nTargetX = UNITS_GetUnitXPosition(pTarget);
@@ -5638,7 +5638,7 @@ void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile)
     D2CltMissileFindArgStrc tFindArg;
     for (;;)
     {
-        const int bActive = sub_0064A380_GetRemainingFrames(pMissile) <= MISSILE_GetActivateFrame(pMissile);
+        const int bActive = MISSILE_GetCurrentFrame(pMissile) <= MISSILE_GetActivateFrame(pMissile);
         if (bActive && MISSILE_GetRemainingFrames(pMissile) > pMissilesTxtRecord->nCanDestroy)
             pMissile->dwFlagEx &= ~0x40000;
         if (!GFXUTIL_TestMotionFlags(pMissile))
@@ -5658,7 +5658,7 @@ void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile)
                 if (pMissilesTxtRecord->nSubLoop)
                 {
                     const int nSubStop = pMissilesTxtRecord->nSubStop;
-                    if (sub_0064A380_GetRemainingFrames(pMissile) <= pMissilesTxtRecord->nAnimLen - nSubStop + 1)
+                    if (MISSILE_GetCurrentFrame(pMissile) <= pMissilesTxtRecord->nAnimLen - nSubStop + 1)
                         UNITS_UpdateFrame(pMissile);
                     else
                         D2COMMON_10375_UNITS_SetFrameNonRate(pMissile, pMissilesTxtRecord->nSubStart, nSubStop);
@@ -5672,8 +5672,8 @@ void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile)
         D2DynamicPathStrc* pDynamicPath = pMissile->pDynamicPath;
         if (PATH_GetVelocity(pDynamicPath))
             sub_00650840(pMissile, GAME_GetPathFrame());
-        MISSILE_SetCurrentFrame(pMissile, sub_0064A380_GetRemainingFrames(pMissile) - 1);
-        if (sub_0064A380_GetRemainingFrames(pMissile) <= 0)
+        MISSILE_SetCurrentFrame(pMissile, MISSILE_GetCurrentFrame(pMissile) - 1);
+        if (MISSILE_GetCurrentFrame(pMissile) <= 0)
         {
             MISSILE_CltMissileHit(pMissile, 0, 0);
             return;
@@ -5687,7 +5687,7 @@ void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile)
             if (!pOwner || ((pOwnerRoom = UNITS_GetRoom(pOwner)) != 0 && DUNGEON_IsRoomInTown(pOwnerRoom)))
             {
                 const int nFrame = pMissilesTxtRecord->nCltSrcTown;
-                if (sub_0064A380_GetRemainingFrames(pMissile) >= nFrame)
+                if (MISSILE_GetCurrentFrame(pMissile) >= nFrame)
                 {
                     MISSILE_SetCurrentFrame(pMissile, nFrame);
                     if (!pMissilesTxtRecord->nLoopAnim)
@@ -6697,7 +6697,7 @@ void __fastcall MISSILE_SpawnRingAround(D2UnitStrc* pMissile, int nChance, int n
         return;
     }
 
-    if (sub_0064A380_GetRemainingFrames(pMissile) && ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, nChance) > 0)
+    if (MISSILE_GetCurrentFrame(pMissile) && ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, nChance) > 0)
     {
         return;
     }
@@ -7439,7 +7439,7 @@ void __fastcall MISSILE_CltDoSpreadSpawn(D2UnitStrc* pMissile)
     int nY;
     int nX;
 
-    const int nRemaining = sub_0064A380_GetRemainingFrames(pMissile);
+    const int nRemaining = MISSILE_GetCurrentFrame(pMissile);
     D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
 
     if (nRemaining == 0x96)

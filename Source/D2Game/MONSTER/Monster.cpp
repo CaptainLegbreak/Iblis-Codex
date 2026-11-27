@@ -797,7 +797,7 @@ static void __stdcall MONSTER_InitializeStats(D2GameStrc* pGame, D2ActiveRoomStr
     MONSTER_GetPlayerCountBonus(pGame, &tBonus, pRoom, pMonster);
 
     int nDifficulty = D2_MIN(D2_MAX(pGame->nDifficulty, 0), 2);
-    if (sub_0063EE90_IsHireling(pMonster))
+    if (MONSTERS_GetHirelingTypeId(pMonster))
     {
         nDifficulty = 0;
     }

@@ -794,7 +794,7 @@ int __stdcall ITEMS_RollUniqueItem(D2GameStrc* pGame,D2UnitStrc* pItem,D2ItemDro
  if(ITEMS_HasDurability(pItem) && !nFormat)
  {
   int nDur=STATLIST_UnitGetStatValue(pItem,STAT_DURABILITY,0);
-  int nMaxDur=sub_006253B0_GetBaseStat(pItem,73,0);
+  int nMaxDur=STATLIST_GetUnitBaseStat(pItem,73,0);
   STATLIST_SetUnitStat(pItem,STAT_DURABILITY,D2_MIN(5*nDur,255),0);
   STATLIST_SetUnitStat(pItem,STAT_MAXDURABILITY,D2_MIN(5*nMaxDur,255),0);
  }
@@ -1236,7 +1236,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
         ITEMS_SetItemQuality(*ppItem, 4);
     }
 
-    if (sub_00628C70(*ppItem))
+    if (ITEMS_GetUniqueColumnFromItemsTxt(*ppItem))
     {
         ITEMS_SetItemQuality(*ppItem, 7);
     }
@@ -1252,7 +1252,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
     case ITEMQUAL_INFERIOR:
     {
         const unsigned int nLowSeed = SEED_GetLowSeed(ITEMS_GetItemSeed(*ppItem));
-        if (!sub_005C2FB0_ApplyLowQuality(*ppItem, pItemDrop))
+        if (!ITEMS_ApplyLowQualityForFormat(*ppItem, pItemDrop))
         {
             ITEMS_ResetToNormalQuality(pGame, pItemDrop, ppItem, nLowSeed);
         }

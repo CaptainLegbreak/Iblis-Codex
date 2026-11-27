@@ -878,7 +878,7 @@ int __fastcall SKILLS_RollFrenzyDamage(Game* game,Unit* unit,Unit* target,int id
     if(!source) source=DEFAULT_SRC;
     SUNITDMG_AllocCombat(game,unit,target,&damage,source);
     SUNITDMG_DrainItemDurability(game,unit,target,0);
-    Skill* skill=sub_00620250(unit);
+    Skill* skill=UNITS_GetUsedSkill(unit);
     if(skill) {
         if(damage.wResultFlags&1) SKILLS_SetParam1(skill,1);
         else SKILLS_SetParam1(skill,0); // 0x00644560
@@ -1501,7 +1501,7 @@ static int __stdcall SKILLS_FindLeapTargetPosition(D2UnitStrc* pUnit, int nSkill
         pRoom = COLLISION_GetFreeCoordinates(pRoom, &coords, UNITS_GetUnitSizeX(pUnit), 0x1C09, 1);
         nX = coords.nX;
         nY = coords.nY;
-        if (pRoom && !COLLISION_CheckAnyCollisionWithPattern(pRoom, nX, nY, PATH_GetUnitCollisionPattern(pUnit), 0x1C09) && sub_00645910_TestLine(nUnitX, nUnitY, nX, nY, pRoom, 0x804) && DRLG_GetDistanceToXY(pUnit, nX, nY) <= nAuraRange)
+        if (pRoom && !COLLISION_CheckAnyCollisionWithPattern(pRoom, nX, nY, PATH_GetUnitCollisionPattern(pUnit), 0x1C09) && D2Common_11025(nUnitX, nUnitY, nX, nY, pRoom, 0x804) && DRLG_GetDistanceToXY(pUnit, nX, nY) <= nAuraRange)
         {
             *pX = nX;
             *pY = nY;
