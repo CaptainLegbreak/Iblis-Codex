@@ -13,6 +13,7 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "StormApi.h"
+#include "D2WinApi.h"
 
 struct D2PlayerDataStrc;
 
@@ -37,8 +38,6 @@ void __cdecl TEXT_ResetTextBox();                                               
 
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
-
-unsigned char __stdcall PALETTE_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);  // 0x004FB180
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 

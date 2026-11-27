@@ -17,6 +17,7 @@
 #include "FogApi.h"
 #include "FogApi.h"
 #include "StormApi2.h"
+#include "D2CMPApi.h"
 
 static int BNDOWNLOAD_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize); // 0x00520A80
 
@@ -388,8 +389,6 @@ unsigned int gnReplyResult; // 0x00882420
 // build: symbol ??__EgtBnLogLock@@YAXXZ 0x006CAE80
 // build: symbol ??__FgtBnLogLock@@YAXXZ 0x006CB420
 CCritSect gtBnLogLock;                                                                  // 0x00881860
-
-extern "C" void __cdecl D2CMPResetTileCacheHits(); // 0x005FE060
 
 extern unsigned int gnVersion; // 0x0088252C
 

@@ -11,6 +11,7 @@
 #include "D2WinTypes.h"
 #include "FogApi.h"
 #include "D2LangApi.h"
+#include "D2CMPApi.h"
 
 #pragma function(memset)
 
@@ -173,8 +174,6 @@ int __fastcall EDITBOX_DrawMultiLine(D2WinEditBoxStrc* pEditBox);               
 int __fastcall EDITBOX_DrawSingleLine(D2WinEditBoxStrc* pEditBox);                                        // 0x004FFE50
 
 D2CelStrc* __stdcall CelGetHandle(D2GfxDataStrc* pContext);                                        // 0x00601840
-
-int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 
 int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
 

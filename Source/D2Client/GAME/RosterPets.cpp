@@ -17,6 +17,7 @@
 #include "D2LangApi.h"
 #include "StormApi.h"
 #include "D2CommonApi2.h"
+#include "D2GfxApi.h"
 
 struct Unicode;
 
@@ -58,8 +59,6 @@ void __fastcall ROSTERPETS_RemoveHirelingEntries(int nUnused, int nKey);        
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);  // 0x004A7080
 
-
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 

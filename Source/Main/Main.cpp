@@ -6,6 +6,10 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);
 #include "StormApi.h"
 #include "FogApi.h"
 #include "FogApi2.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
+#include "D2SoundApi.h"
+#include "D2MCPClientApi.h"
 
 struct D2ConfigStrc;
 
@@ -76,24 +80,7 @@ void __fastcall FOG_AsyncDataInitialize(int bEnable, int nUnused); // 0x0040A390
 void __cdecl FOG_AsyncDataDestroy(); // 0x0040A440
 void __cdecl FOG_10218(); // 0x0040B0C0
 void __cdecl FOG_10082_Noop(); // 0x0040B320
-void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
-int __stdcall D2GFX_Release(); // 0x004F5050
-void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
-int __stdcall D2GFX_SetGamma(int nGamma); // 0x004F5230
-void __cdecl D2GFX_EnableVSync(); // 0x004F5270
-void __cdecl D2GFX_DisableFixedAspectRatio(); // 0x004F5280
-int __stdcall D2GFX_ToggleLowQuality(); // 0x004F54F0
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
-int __stdcall D2Win_InitializeSpriteCache(int bWindowed, int nResolution); // 0x004F8F10
-int __stdcall D2Win_CloseSpriteCache(); // 0x004F9030
-int __stdcall D2Win_CreateWindow(void* hInstance, int nRenderMode, int bWindowed, int bCompress); // 0x004FA520
-int __cdecl ARCHIVE_ShowInsertExpansionDiscMessage(); // 0x004FAB00
-int __cdecl ARCHIVE_ShowInsertPlayDiscMessage(); // 0x004FAB30
-int __cdecl ARCHIVE_LoadArchives(); // 0x004FAB90
-void __cdecl ARCHIVE_FreeArchives(); // 0x004FAE00
 int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
-void __cdecl D2SOUND_CloseSoundSystem(); // 0x00514060
-void __fastcall sub_00514530_InitSound(int bExpansion, int bSoundBackground); // 0x00514530
 void __cdecl IGNORELIST_FreeIgnoreList(); // 0x0060DDB0
 int gnMode; // 0x0074C704
 int gbUseKeyhook; // 0x0074C708

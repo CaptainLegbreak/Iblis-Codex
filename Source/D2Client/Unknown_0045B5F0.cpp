@@ -12,6 +12,8 @@
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
 #include "StormApi2.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2TileLibraryEntryStrc;
@@ -23,13 +25,10 @@ struct D2StaticPathStrc;
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-int __stdcall TileGetFlags(D2TileLibraryEntryStrc* pTile); // 0x00604BC0
-void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 void __fastcall CUNIT_DrawAutomapDiamond(int nX, int nY, unsigned char nColor); // 0x0045B1A0
 extern int gnAutomapOriginY; // 0x007A5208
 extern int gnAutomapOriginX; // 0x007A520C
 
-int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 void __stdcall AUTOMAP_DrawRoomCollision(D2ActiveRoomStrc* pRoom); // 0x0045B4F0
 void __stdcall sub_0045B5F0_DrawRoomTileDebug(D2ActiveRoomStrc* pRoom); // 0x0045B5F0
 

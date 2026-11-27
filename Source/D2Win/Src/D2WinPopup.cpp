@@ -21,6 +21,7 @@
 #include "D2Win32Types.h"
 #include "D2WinPopupLine.h"
 #include "FogApi.h"
+#include "D2GfxApi.h"
 
 enum D2C_WinControlTypes
 {
@@ -149,8 +150,6 @@ int __stdcall POPUP_HandleMouseButtonInput(SMSGHANDLER_PARAMS* pMsg)
     pfHandleMouseInput();
     return 1;
 }
-
-void __stdcall D2GFX_UtilRect(tagRECT* pRect, unsigned char nPaletteIndex); // 0x004F62A0
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, int eDrawMode); // 0x004F6300
 

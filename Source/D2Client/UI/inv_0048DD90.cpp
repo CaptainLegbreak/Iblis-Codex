@@ -20,6 +20,7 @@
 #include "D2ClientUiRecords.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2GfxApi.h"
 
 struct D2SkillStrc;
 
@@ -304,10 +305,6 @@ const Unicode* __cdecl MONSTER_GetTradePartnerName();                           
 int __cdecl MONSTER_GetSecondaryTradeGold();                                                                                 // 0x004B90F0
 
 int __cdecl MONSTER_GetPrimaryTradeGold();                                                                                 // 0x004B9100
-
-void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
-
-void __stdcall TEXTURE_CelDrawColor(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nPaletteShift); // 0x004F64B0
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 

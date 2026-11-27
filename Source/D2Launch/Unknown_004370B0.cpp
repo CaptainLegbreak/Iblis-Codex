@@ -8,6 +8,7 @@
 
 #include "D2MultiTypes.h"
 #include "D2LangApi.h"
+#include "D2WinApi.h"
 
 struct D2ComInterfaceStrc;
 
@@ -17,8 +18,6 @@ void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
 extern int gnStatusDots; // 0x007799B4
 
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
-
-int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 
 void __cdecl MAINMENUS_CreateLoginScreen(); // 0x00432100
 

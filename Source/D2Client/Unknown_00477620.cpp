@@ -4,6 +4,8 @@
 #include "D2Structs.h"
 #include "D2Win32System.h"
 #include "D2CommonApi.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
 
 
 
@@ -47,23 +49,17 @@ int __cdecl DLIGHTMAP_GetLocalBloodPalette()
     return gpBloodRemap;
 }
 
-int __stdcall D2GFX_TogglePerspective();                                                                    // 0x004F54B0
-
 // 0x00477690
 int __cdecl sub_00477690_TogglePerspective()
 {
     return D2GFX_TogglePerspective();
 }
 
-int __stdcall D2GFX_ToggleBlendedShadows();                                                                 // 0x004F54D0
-
 // 0x004776A0
 int __cdecl sub_004776A0_ToggleBlendedShadows()
 {
     return D2GFX_ToggleBlendedShadows();
 }
-
-int __stdcall D2GFX_ToggleLowQuality();                                                                     // 0x004F54F0
 
 // 0x004776B0
 int __cdecl sub_004776B0_ToggleLowQuality()
@@ -227,8 +223,6 @@ void __cdecl sub_00477970_Empty()
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-
-extern "C" void __cdecl D2CMPResetTileCacheHits(); // 0x005FE060
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
@@ -440,18 +434,8 @@ int __stdcall GAME_GetPing(); // 0x0044CE60
 
 
 
-int __cdecl D2CMPSpriteCacheGetMaxMemory(); // 0x005FEE40
-
-int __cdecl D2CMPCelDataCacheGetUsedMemory(); // 0x005FEE60
-
-int __cdecl D2CMPCelDataCacheGetMaxMemory(); // 0x005FEE70
-
 int __stdcall sub_0040ABE0(); // 0x0040ABE0
 
-
-unsigned int __cdecl D2CMPSpriteCacheGetUsedMemory(); // 0x005FEE10
-
-int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 
 extern "C" const char gszUnknownText[]; // 0x006CC780
 
