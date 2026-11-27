@@ -5,7 +5,22 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
+- Fri Nov 27 08:58 PST 2026: **lane13/data-round-4** (9cd9f6df2, on main 1e8be2463 = #480). VERIFIED tree 2157182e641a485cfae04ae67e271efc58f0ab35; Game.exe identical. Audit guard: no count rose. What #480 didn't take, rebased:
+  1. **gtQuestLog** (the questlog branch). QuestLog.cpp is re-derived on #480's file, and its conflicts with #479's headers are taken from main.
+  2. **Four objects merged with the globals that alias their fields:**
+     - `gtPongData`: its last three words were inv.cpp's gdwEncodedName0/1 and gdwEncodedOffset. The struct is now in D2PongData.h with those field names.
+     - `gaUIVarStates[0x26]`: gnPanelState and gbMiniPanel were entries 0x0A and 0x15. They now read `gaUIVarStates[UIVAR_PANEL / UIVAR_MINIPANEL]`.
+     - D2Glide's `gaGlideTexCaches`: the three texture caches start at 0x0087F068. The old base, 0x0087F048, made entry 0 an unused fourth entry lying over the end of gatGlideSpriteVertices. It is now [3], indexed by cache id - 1.
+     - D2Hell's fault-handler lock: gtErrorHandlerLock, gbFaultHandlerListInitialized and gMessageLock_00881818 are one struct, `gtFaultHandlerLock { tLock, bInitialized }`.
+  3. inv.cpp includes D2PongData.h where its old globals stood. At the top of the file the include changes 0x00488100's code (the declaration-count effect).
+  4. **gszA1Q2SourceFile's whole string.** This was ancient-equipment's second commit, which missed #477. It removes gaAncientBarbItems, the 0x006E1BB0 read-back item you list as open.
+  - **Counts on #480, before -> after:**
+    - data clusters: 38 -> 33; 15,090 -> 10,610 B; 314 -> 287 globals.
+    - data_cluster: 2,436 / 324 -> 1,898 / 293.
+    - linkdebt total: 25,985 -> 25,368. D2Client 9,102 -> 8,629, D2Glide 358 -> 227, D2Hell 74 -> 61; no module rose.
+    - shortdata: 359 -> 359.
 ## Claimed
+- Fri Nov 27 08:58 PST 2026: check-in. data-round-4 Ready. The D2Common data-tables reading under Questions has no answer yet, so I'm leaving that cluster alone. Next: the small clusters left on #480 (33 with data-round-4).
 - Fri Nov 27 08:22 PST 2026: check-in. #480 merged chat-controls, client-tables, glide-tile-vertices and bss-defs, so data-round-2 is superseded. I'm rebasing what's left onto #480 as lane13/data-round-4: the gtQuestLog commit (QuestLog.cpp redone on #480's file), a new commit merging four objects with their alias globals (gtPongData, gaUIVarStates, gaGlideTexCaches, the D2Hell fault-handler lock), and the gszA1Q2SourceFile fix (it closes gaAncientBarbItems; it was ancient-equipment's second commit, which missed #477). Building now.
 - Fri Nov 27 08:01 PST 2026: check-in. data-round-2 Ready: it replaces questlog, client-tables, glide-tile-vertices, bss-defs and chat-controls, all rebased onto #479 as you asked. The D2Common data-tables reading is posted under Questions and waiting for an answer. Next: the remaining small clusters on #479 (37 left).
 - Fri Nov 27 07:01 PST 2026: check-in. client-tables and glide-tile-vertices Ready. Next: D2Game 0x008842A8 (1 global, 1,048 B), D2Common 0x006EF188, D2Direct3D 0x00971450, then the small ones; the D2CMP/D2Common reading after those.
