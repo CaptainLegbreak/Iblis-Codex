@@ -250,11 +250,7 @@ struct SlotPair;
 
 struct Node32;
 
-struct Queue32;
-
 struct Node24;
-
-struct Queue24;
 
 struct MissileRecord;
 
@@ -381,31 +377,6 @@ typedef char check_Node32_previous[OFFSET(Node32,previous)==0x1C?1:-1];
 
 typedef char check_Node32_size[sizeof(Node32)==0x20?1:-1];
 
-struct Queue32
-{
-    char gap0[0x4];
-    unsigned int count;
-    Node32* head;
-    Node32* tail;
-    Node32* freeHead;
-    Node32* freeTail;
-    Node32* array;
-};
-
-typedef char check_Queue32_count[OFFSET(Queue32,count)==0x4?1:-1];
-
-typedef char check_Queue32_head[OFFSET(Queue32,head)==0x8?1:-1];
-
-typedef char check_Queue32_tail[OFFSET(Queue32,tail)==0xC?1:-1];
-
-typedef char check_Queue32_freeHead[OFFSET(Queue32,freeHead)==0x10?1:-1];
-
-typedef char check_Queue32_freeTail[OFFSET(Queue32,freeTail)==0x14?1:-1];
-
-typedef char check_Queue32_array[OFFSET(Queue32,array)==0x18?1:-1];
-
-typedef char check_Queue32_size[sizeof(Queue32)==0x1C?1:-1];
-
 struct Node24
 {
     char gap0[0x10];
@@ -418,23 +389,6 @@ typedef char check_Node24_next[OFFSET(Node24,next)==0x10?1:-1];
 typedef char check_Node24_previous[OFFSET(Node24,previous)==0x14?1:-1];
 
 typedef char check_Node24_size[sizeof(Node24)==0x18?1:-1];
-
-struct Queue24
-{
-    char gap0[0x8];
-    Node24* head;
-    Node24* tail;
-    char gap10[0x8];
-    Node24* array;
-};
-
-typedef char check_Queue24_head[OFFSET(Queue24,head)==0x8?1:-1];
-
-typedef char check_Queue24_tail[OFFSET(Queue24,tail)==0xC?1:-1];
-
-typedef char check_Queue24_array[OFFSET(Queue24,array)==0x18?1:-1];
-
-typedef char check_Queue24_size[sizeof(Queue24)==0x1C?1:-1];
 
 struct D2MissileDamageDataStrc
 {

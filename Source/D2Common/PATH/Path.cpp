@@ -71,11 +71,7 @@ struct PATH_SetVelocity;
 
 struct PATH_GetPathPoints;
 
-struct Entry00648A40;
-
 struct PATH_GetLastPointX;
-
-struct Entry00648A60;
 
 struct PATH_GetLastPointY;
 
@@ -84,12 +80,6 @@ struct RoomFlags;
 struct PathFlags;
 
 struct CodeRow;
-
-struct CodeOutput;
-
-struct CodeLink;
-
-struct Vector;
 
 struct DirectionRecord;
 
@@ -155,16 +145,6 @@ typedef char check_pointer_width[sizeof(void*)==4?1:-1];
 
 typedef char check_word_width[sizeof(unsigned short)==2?1:-1];
 
-struct Entry00648A40 {
-    unsigned short wFirst;
-    unsigned short wSecond;
-};
-
-struct Entry00648A60 {
-    unsigned short wFirst;
-    unsigned short wSecond;
-};
-
 typedef signed char S8;
 
 struct RoomFlags
@@ -207,48 +187,6 @@ typedef char check_CodeRow_c2[OFFSET(CodeRow,c2)==2?1:-1];
 typedef char check_CodeRow_c3[OFFSET(CodeRow,c3)==3?1:-1];
 
 typedef char check_CodeRow_size[sizeof(CodeRow)==8?1:-1];
-
-struct CodeOutput
-{
-    S8 c0;
-    S8 c1;
-    S8 c2;
-    S8 c3;
-    S8 terminal;
-};
-
-typedef char check_CodeOutput_terminal[OFFSET(CodeOutput,terminal)==4?1:-1];
-
-typedef char check_CodeOutput_c0[OFFSET(CodeOutput,c0)==0?1:-1];
-
-typedef char check_CodeOutput_c1[OFFSET(CodeOutput,c1)==1?1:-1];
-
-typedef char check_CodeOutput_c2[OFFSET(CodeOutput,c2)==2?1:-1];
-
-typedef char check_CodeOutput_c3[OFFSET(CodeOutput,c3)==3?1:-1];
-
-typedef char check_CodeOutput_size[sizeof(CodeOutput)==5?1:-1];
-
-struct CodeLink
-{
-    int count;
-    char pad4[0x4];
-    CodeRow* entries;
-};
-
-typedef char check_CodeLink_entries[OFFSET(CodeLink,entries)==0x8?1:-1];
-
-typedef char check_CodeLink_size[sizeof(CodeLink)==0xC?1:-1];
-
-struct Vector
-{
-    int x;
-    int y;
-};
-
-typedef char check_Vector_y[OFFSET(Vector,y)==4?1:-1];
-
-typedef char check_Vector_size[sizeof(Vector)==8?1:-1];
 
 struct DirectionRecord
 {
@@ -619,8 +557,6 @@ static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
 #define MONSTATS2FLAGINDEX_ISATT 9
 
 #define MONSTATS2FLAGINDEX_SMALL 10
-
-struct D2SkillFormulaCtxStrc { D2UnitStrc* pUnit; int nSkillId; int nSkillLevel; };
 
 inline D2MonStats2Txt* UNITS_GetMonStats2TxtRecordFromMonsterId_Inl(int nMonsterId)
 {

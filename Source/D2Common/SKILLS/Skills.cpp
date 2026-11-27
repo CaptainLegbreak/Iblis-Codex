@@ -104,10 +104,6 @@ struct D2MonStatsTxt;
 
 struct D2MonStats2Txt;
 
-struct R0052E0F0;
-
-struct R00601DC0;
-
 struct D2SkillsTxt00643D00Strc;
 
 struct D2Skill00643D00Strc;
@@ -200,20 +196,6 @@ void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc* pUnit); // 0x004DC0B0
 
 int __fastcall SKILLS_CalcSpecialParamCallback(int nParamId, void* pUserData); // 0x00646BE0
 
-
-struct R0052E0F0
-{
-    void* pUnk0x00;
-    void* m_pFile;
-    bool sub_0052E0F0_IsOpen();
-};
-
-struct R00601DC0
-{
-    void* pUnk0x00;
-    void* m_pFile;
-    bool sub_00601DC0_IsOpen();
-};
 
 
 extern const int gnShapeShiftedModeTable[]; // 0x006EB348
@@ -431,16 +413,6 @@ void __fastcall SKILLS_ScaleUpDirection(int* pX, int* pY)
         *pX <<= 1;
         *pY <<= 1;
     }
-}
-
-bool R0052E0F0::sub_0052E0F0_IsOpen()
-{
-    return m_pFile != 0;
-}
-
-bool R00601DC0::sub_00601DC0_IsOpen()
-{
-    return m_pFile != 0;
 }
 
 // 0x00643340
