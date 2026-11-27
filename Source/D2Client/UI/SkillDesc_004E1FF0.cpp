@@ -18,6 +18,7 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "D2CommonApi2.h"
+#include "D2CommonApi3.h"
 
 #define UNIT_ITEM 4
 
@@ -88,22 +89,11 @@ enum
 
 
 
-void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
-
-
-
-
-
-
-
-
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
-
-void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 
 void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatListRemoveCallback pfStatRemove); // 0x00625CE0
 
@@ -178,10 +168,6 @@ struct D2MonTypeTxt
 };
 
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
-
-
 extern const int gaSetMaskToBonusMappingTable[0x40]; // 0x006DBD90
 
 
@@ -189,8 +175,6 @@ void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, 
 
 int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
-
-void __stdcall ITEMMODS_AssignProperty(int nPass, int nArg1, D2UnitStrc* pItem, int nArg, int nArg2, int nArg5); // 0x0065FEC0
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 
@@ -200,8 +184,6 @@ typedef char chkSkillsTxt_M125[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 typedef char chkSkillDescTxt_M125[sizeof(D2SkillDescTxt) == 0x120 ? 1 : -1];
 
 
-
-int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 
 extern int gnTextOffset1; // 0x0072D8D4
 

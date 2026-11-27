@@ -82,6 +82,7 @@ typedef void(__fastcall* MissileInitFunc)(D2UnitStrc*, int);
 
 #include "D2GameFuncs.h"
 #include "D2CommonApi2.h"
+#include "D2CommonApi3.h"
 
 
 D2UnitStrc* __fastcall SKILLS_CreateMissileAtOffset(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int bCheckItemQuantity); // 0x0056ECB0
@@ -132,8 +133,6 @@ extern const unsigned int gdwBitMasks[]; // 0x006CE268
 
 int __fastcall sub_005A0180_CheckMonsterFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
 
-
-void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 

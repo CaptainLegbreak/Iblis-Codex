@@ -70,6 +70,7 @@ struct D2ItemStatCostTxt;
 
 #include "D2GameFuncs.h"
 #include "D2CommonApi2.h"
+#include "D2CommonApi3.h"
 
 
 
@@ -100,23 +101,12 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListSt
 
 
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
-
-
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 
 
 
 
 
-
-
-
-
-int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 
 
 
@@ -154,8 +144,6 @@ int __fastcall GAME_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
-
-void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150
 
 #define UNIT_PLAYER 0
 
@@ -238,12 +226,6 @@ static short __stdcall ITEMS_RollMagicAffixesNew(D2UnitStrc* pItem, int bRequire
 
 
 
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
-
-
-
-
-
 struct D2ModeChangeStrc;
 
 
@@ -267,9 +249,6 @@ struct D2AffixIndexAndPtrStrc
     int nIndex;
     D2MagicAffixTxt* pAffix;
 };
-
-
-D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
 
 
 int __fastcall sub_00472280_RollInRange(D2SeedStrc*, int, int); // 0x00472280
@@ -981,11 +960,6 @@ unsigned short __fastcall ITEMS_RollTemperedItemAffix(D2UnitStrc* pItem, int bPr
 
     return SKILLITEM_RollRareAffixLegacy(pItem, bPrefix);
 }
-
-void __stdcall ITEMS_AssignPrefix(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo); // 0x00627EF0
-
-void __stdcall ITEMS_AssignRareSuffix(D2UnitStrc* pItem, unsigned short nSuffix); // 0x00628070
-
 
 static inline unsigned short D2GAME_RollRareAffixInline(D2UnitStrc* pItem, int bPrefix)
 {

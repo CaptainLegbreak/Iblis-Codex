@@ -67,6 +67,7 @@ struct D2DataTablesStrc;
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
 #include "D2GameFuncs.h"
+#include "D2CommonApi2.h"
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -76,8 +77,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 D2UnitStrc* __fastcall ITEMS_CreateItemFromBitstream(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char* pBitstream, unsigned int nBufferSize, int bCheckForHeader, D2ItemSaveStrc* pItemSave, unsigned int* pSize, unsigned int dwVersion); // 0x00558CB0
 
-D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner); // 0x0063ABD0
-
 int __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nPage); // 0x0063B210
 
 void __fastcall D2GAME_ITEMS_UpdateStatList(D2GameStrc* pGame, D2UnitStrc* pSocketable, D2UnitStrc* pItem); // 0x0055FE60
@@ -86,9 +85,6 @@ void __fastcall D2GAME_ITEMS_UpdateStatList(D2GameStrc* pGame, D2UnitStrc* pSock
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
-
-int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem); // 0x00629900
-
 
 static D2InactiveUnitListStrc* __stdcall SUNITINACTIVE_GetListNodeFromRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int bAllocNewNode);
 
@@ -101,9 +97,6 @@ extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 extern "C" const char gszSUnitInactiveSourceFile[]; // 0x006E0BC8
 
 
-void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList); // 0x00626CD0
-
-
 int __fastcall AITHINK_GetSpecialStateFromAiControl(D2AiControlStrc* pAiControl); // 0x005B0D60
 
 
@@ -111,9 +104,6 @@ int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 
 
 
 void __fastcall QUESTS_SetGoldenBirdSpawn(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00544F20
-
-
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
 
 unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit); // 0x005A0120
@@ -130,8 +120,6 @@ int __fastcall PLAYERPETS_HandlePetDeactivation(D2GameStrc* pGame, D2UnitStrc* p
 
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
-
-D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
 
 static int SUNITINACTIVE_IsItemNodeAlive(D2InactiveItemNodeStrc* pNode, D2GameStrc* pGame);
 
@@ -200,9 +188,6 @@ void __fastcall D2GAME_BOSSES_AssignUMod(D2GameStrc*,D2UnitStrc*,int,int); // 0x
 
 void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(D2MonsterRegionStrc**,int,int,int,int,int,D2UnitStrc*); // 0x00547ED0
 
-
-
-void __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690
 
 
 static void __stdcall SUNITINACTIVE_RestoreInactiveMonsters(D2GameStrc*,D2ActiveRoomStrc*);

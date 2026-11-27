@@ -17,6 +17,7 @@
 #include "D2Txt.h"
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
+#include "D2CommonApi3.h"
 
 struct D2GridCellStrc
 {
@@ -81,10 +82,6 @@ extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, unsig
 
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
-
-
-
-int __stdcall PATH_GetNumberOfPathPoints(D2DynamicPathStrc* pDynamicPath); // 0x00648780
 
 
 

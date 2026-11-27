@@ -29,6 +29,7 @@
 #include "D2Packets.h"
 #include "D2CommonApi2.h"
 #include "D2GfxApi.h"
+#include "D2CommonApi3.h"
 
 struct D2ActiveRoomStrc;
 
@@ -440,10 +441,6 @@ int __fastcall PLRSKILLS_SetStateStat(D2UnitStrc* pUnit, int nPrev, int nState, 
 
 
 
-void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, unsigned char nDirection); // 0x006488A0
-
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
-
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
 
@@ -555,8 +552,6 @@ struct D2UnitStatPacket2Strc
 
 
 
-
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
 #pragma pack(push, 1)
 struct D2SkillPacketStrc
@@ -1037,17 +1032,7 @@ void __fastcall SKILLS_ClearUnitActionState(D2PacketRecord6Strc* pPacket); // 0x
 
 
 
-void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619EE0
-
-
-
-
-
 D2UnitGfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
-
-void __stdcall ENVIRONMENT_GetLightColorFromAct(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
-
-int __stdcall ENVIRONMENT_GetIntensityFromAct(void* pAct); // 0x0061C0E0
 
 extern int gbPopupMouseDown; // 0x007A5248
 
@@ -1107,8 +1092,6 @@ struct D2SkillEndPacketStrc
 
 
 
-
-void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int nEnable); // 0x00639DB0
 
 struct D2ChatMessageStrc
 {
@@ -1179,9 +1162,6 @@ struct D2UnitSpawnStrc { unsigned int nUnitId; int nClassId, nX, nY; D2UnitSpawn
 D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc*, unsigned char*, unsigned char*, unsigned short, int, int); // 0x00466360
 
 void __fastcall PALSHIFT_LoadPalShift(int); // 0x00477170
-
-
-void __stdcall STATLIST_SetState(D2StatListStrc*, int); // 0x006252D0
 
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc*, D2StatListStrc*, int); // 0x00626E10

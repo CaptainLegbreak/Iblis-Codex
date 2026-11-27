@@ -12,6 +12,7 @@
 #include "D2LangApi.h"
 #include "D2CommonApi.h"
 #include "StormApi2.h"
+#include "D2CommonApi3.h"
 
 struct D2ClientItemSlotStrc
 {
@@ -77,7 +78,6 @@ public:
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char* szFormat, ...);          // 0x006CC468
 
 D2UnitStrc* __fastcall sub_00463DD0();                                                             // 0x00463DD0
-const Unicode* __fastcall MONSTERS_GetHirelingDescString(int nId); // 0x00663720
 void __cdecl INV_FormatArgs(Unicode* pDest, const Unicode* pFormat, ...);                          // 0x0048BE80
 void __fastcall DIALOG_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int nArg8, int nArgC);   // 0x004B7C00
 // build: symbol ?DIALOG_CreateDialog@* 0x004B7EB0

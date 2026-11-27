@@ -35,6 +35,7 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "D2CommonApi2.h"
+#include "D2CommonApi3.h"
 // build: symbol _gaszLanguageNames 0x0073192C
 
 union D2SeedStrc;
@@ -45,9 +46,6 @@ extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
-
-
 #include "D2GameFuncs.h"
 #include "FogApi2.h"
 #include "D2NetApi.h"

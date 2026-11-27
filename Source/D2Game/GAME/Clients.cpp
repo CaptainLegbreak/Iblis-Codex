@@ -113,6 +113,7 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2A
 int __stdcall sub_0063E510_InventoryGridQuery(D2UnitStrc* pUnit, unsigned char* pFirst, unsigned char* pSecond); // 0x0063E510
 #include "D2GameFuncs.h"
 #include "FogApi2.h"
+#include "D2CommonApi2.h"
 
 struct D2ClientUnitUpdateSortStrc
 {
@@ -133,11 +134,6 @@ void __fastcall D2GAME_PACKETS_SendPacket0x07(D2ClientStrc* pClient, int nAreaId
 void __fastcall D2GAME_PACKETS_SendPacket0x7E(D2ClientStrc* pClient, int nUnused); // 0x0053DB70
 void __fastcall SUNITNPC_UpdateHirelingPosition(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005773D0
 int __fastcall SKILLS_ExecuteSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyCosts, int bSkipSkillCheck, int bItemEffect); // 0x0056F7F0
-int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char nAct); // 0x0061AB70
-int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
-extern "C" unsigned short __stdcall INVENTORY_GetCorpseMercNameId(D2CorpseStrc* pCorpse); // 0x0063D650
-extern "C" unsigned int __stdcall INVENTORY_IsPlayerCorpse(D2CorpseStrc* pCorpse); // 0x0063D670
-
 #pragma pack(push, 1)
 struct D2CharacterPreviewRecordStrc
 {
@@ -672,9 +668,6 @@ struct D2MonsterDataStrc;
 
 
 void __fastcall sub_0055F4F0_Nop(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused); // 0x0055F4F0
-
-
-void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
 
 
 typedef int (__fastcall* D2UnitEventCallbackFunction)(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc* pUnit, D2UnitStrc* pEventSourceUnit, D2DamageStrc* pDamage, int nGUID1, int nGUID2);
@@ -1508,21 +1501,6 @@ struct D2ItemSaveStrc;
 struct D2HirelingTxt;
 
 struct D2CharStatsTxt;
-
-
-
-
-
-
-
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
-
-
-
-
-
-
-
 
 
 
