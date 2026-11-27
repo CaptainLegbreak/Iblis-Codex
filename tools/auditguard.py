@@ -2,7 +2,7 @@
 """auditguard.py [BASE] : compare the working tree's Source/ with BASE (default origin/main) and fail if any audit
 count rises: forcing constructs (volatile, #pragma optimize, bare __assume), identical if/else arms,
 __declspec(noinline), emit helpers, names carrying a 1.10 DLL address, decompiler types and labels, Hex-Rays
-parameter names, address-named T<VA> structs. Counts are whole-tree totals, so code moved between files nets out.
+parameter names, address-named T<VA> structs, raw offset access (`*(T*)((char*)p + N)`), byte pointer math (`(char*)p + N`) and C-style pointer casts. Counts are whole-tree totals, so code moved between files nets out.
 Prints each category's before -> after and, for a rise, the files whose count rose (git log those to find the
 branch). Exit 1 on any rise. AUDIT_ALLOW=cat1,cat2 lets named categories rise (a board ruling)."""
 import os, re, sys, subprocess, collections
@@ -21,6 +21,9 @@ CATS = {
  'a1/v12 names': r'\b(?:v\d{1,3}|a\d{1,2})\b',
  'T<VA> structs': r'\bT[0-9A-Fa-f]{8}\b',
  'nullptr': r'\bnullptr\b',
+ 'raw offset access': r'\*\s*\(\s*[\w\s]+\*+\s*\)\s*\(\s*\(\s*(?:const\s+)?(?:unsigned\s+)?char\s*\*\s*\)',
+ 'byte pointer math': r'\(\s*(?:const\s+)?(?:unsigned\s+)?char\s*\*\s*\)\s*\w+(?:->\w+)*\s*\+\s*(?:0x[0-9A-Fa-f]+|\d+)',
+ 'pointer casts': r'\(\s*(?:const\s+)?(?:unsigned\s+)?\w+\s*\*+\s*\)',
 }
 def _block_end(t, i):
     d = 0
