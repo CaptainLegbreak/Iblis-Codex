@@ -77,18 +77,6 @@ struct PATH_GetLastPointY;
 
 struct DirectionRecord;
 
-struct B25TargetUnit;
-
-struct B25Path;
-
-struct B25DistancePath;
-
-struct B25MissileData;
-
-struct B25MissileUnit;
-
-struct D2Record00648E40Strc;
-
 struct PATH_SetStepNum;
 
 struct D2PathPointStrc;
@@ -154,63 +142,6 @@ typedef char check_DirectionRecord_size[sizeof(DirectionRecord)==12?1:-1];
 
 // build: symbol ?gaTanToDirectionTable@* 0x006EB7E0
 extern DirectionRecord gaTanToDirectionTable[128];
-
-struct B25TargetUnit
-{
-    unsigned int type;
-    unsigned char pad4[0x8];
-    unsigned int id;
-};
-
-struct B25Path
-{
-    unsigned char pad0[0x58];
-    B25TargetUnit* target;
-    unsigned int targetType;
-    unsigned int targetId;
-};
-
-struct B25DistancePath
-{
-    unsigned char pad0[0x90];
-    unsigned char distance;
-    unsigned char newDistance;
-};
-
-struct B25MissileData
-{
-    unsigned char pad0[0x28];
-    int targetStatus;
-};
-
-struct B25MissileUnit
-{
-    unsigned int type;
-    unsigned char pad4[0x10];
-    B25MissileData* data;
-};
-
-typedef char CheckTargetUnitid[(OFFSET(B25TargetUnit,id)==0xC)?1:-1];
-
-typedef char CheckPathtarget[(OFFSET(B25Path,target)==0x58)?1:-1];
-
-typedef char CheckPathtargetType[(OFFSET(B25Path,targetType)==0x5C)?1:-1];
-
-typedef char CheckPathtargetId[(OFFSET(B25Path,targetId)==0x60)?1:-1];
-
-typedef char CheckDistancePathdistance[(OFFSET(B25DistancePath,distance)==0x90)?1:-1];
-
-typedef char CheckDistancePathnewDistance[(OFFSET(B25DistancePath,newDistance)==0x91)?1:-1];
-
-typedef char CheckMissileDatatargetStatus[(OFFSET(B25MissileData,targetStatus)==0x28)?1:-1];
-
-typedef char CheckMissileUnitdata[(OFFSET(B25MissileUnit,data)==0x14)?1:-1];
-
-struct D2Record00648E40Strc
-{
-    unsigned char unk_00[0x90];
-    unsigned char nValue90;
-};
 
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648C30
 
@@ -1374,13 +1305,13 @@ int __stdcall PATH_GetUnusedFlag_0x00004(D2DynamicPathStrc* pDynamicPath)
 }
 
 // 0x00648B90
-extern "C" void __stdcall PATH_SetPathTarget(B25Path* path, B25TargetUnit* target)
+extern "C" void __stdcall PATH_SetPathTarget(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit)
 {
-    path->target = target;
-    if (target)
+    pDynamicPath->hTarget = pUnit;
+    if (pUnit)
     {
-        path->targetType = target->type;
-        path->targetId = target->id;
+        pDynamicPath->dwTargetType = pUnit->dwUnitType;
+        pDynamicPath->dwTargetId = pUnit->dwUnitId;
     }
 }
 
@@ -1487,9 +1418,9 @@ int __stdcall PATH_GetType(D2DynamicPathStrc* pDynamicPath)
 }
 
 // 0x00648E40
-void __stdcall PATH_SetDist(D2Record00648E40Strc* pRecord, unsigned char nValue)
+void __stdcall PATH_SetDist(D2DynamicPathStrc* pDynamicPath, unsigned char nDist)
 {
-    pRecord->nValue90 = nValue;
+    pDynamicPath->nDist = nDist;
 }
 
 // 0x00648E60
@@ -1499,14 +1430,17 @@ unsigned char __stdcall D2COMMON_10191_PATH_GetDistance(D2DynamicPathStrc* pDyna
 }
 
 // 0x00648E70
-extern "C" void __stdcall PATH_SetNewDistance(B25DistancePath* path, unsigned char distance)
+extern "C" void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance)
 {
-    if (path)
+    if (pDynamicPath)
     {
-        if (distance >= 0x4D)
-            distance = 0x4D;
-        path->newDistance = distance;
-        path->distance = distance;
+        if (nNewDistance >= 0x4D)
+        {
+            nNewDistance = 0x4D;
+        }
+
+        pDynamicPath->bDistMax = nNewDistance;
+        pDynamicPath->nDist = nNewDistance;
     }
 }
 

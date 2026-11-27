@@ -69820,7 +69820,7 @@
     {
      "va": "0x00648E40",
      "length": 19,
-     "name": "?PATH_SetDist@@YGXPAUD2Record00648E40Strc@@E@Z"
+     "name": "?PATH_SetDist@@YGXPAUD2DynamicPathStrc@@E@Z"
     },
     {
      "va": "0x00648E60",
