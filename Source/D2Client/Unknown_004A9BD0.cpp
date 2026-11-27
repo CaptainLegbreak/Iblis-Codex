@@ -47,9 +47,6 @@ extern D2WeatherLayerStateStrc gtSplashCels; // 0x007A89B0
 extern D2WeatherLayerStateStrc gtBubbleCels; // 0x007A893C
 extern D2NpcEntryStrc gaNpcEntries[]; // 0x00726850
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
-extern int gnAutomapWidth; // 0x007A5220
-extern int gnPanelOffsetX; // 0x007A2858
-extern int gnPanelOffsetY; // 0x007A285C
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 

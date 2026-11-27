@@ -66,9 +66,7 @@ int gaStateStack[1]; // 0x007A0424
 
 int gnStateStackCount; // 0x007A044C
 
-extern int gbPositionalSound; // 0x007A061C
 
-extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 extern int gbLeftButtonDown; // 0x007A0650
 
@@ -82,9 +80,7 @@ extern int gbCinematicExit; // 0x007A0674
 
 extern int gnBeltUiRecordRow; // 0x007A5218
 
-extern int gnAutomapHeight_007A521C; // 0x007A521C
 
-extern int gnAutomapWidth; // 0x007A5220
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 

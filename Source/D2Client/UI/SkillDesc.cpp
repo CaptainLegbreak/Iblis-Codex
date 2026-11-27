@@ -40,7 +40,6 @@ struct D2CombinedStatIdStrc;
 
 struct D2FileIndexTextStrc;
 
-extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 
 
@@ -154,10 +153,8 @@ extern "C" const char gszFmtRange[];                                            
 
 // build: symbol ?gnScreenHeight@* 0x00711470
 // build: symbol ?gnPanelOffsetX@* 0x007A2858
-extern int gnPanelOffsetX; // 0x007A2858
 
 // build: symbol ?gnPanelOffsetY@* 0x007A285C
-extern int gnPanelOffsetY; // 0x007A285C
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 

@@ -194,7 +194,6 @@ void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x0064326
 
 D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
 
-extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 
 void __fastcall AUTOMAP_UpdatePathAndMove(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463180

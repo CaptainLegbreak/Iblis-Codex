@@ -113,9 +113,7 @@ int __stdcall DUNGEON_IsTownLevelId(int nLevelId); // 0x0061AAF0
 
 void __fastcall DIALOG_DrawDialog(D2ClientDialogStrc* pDialog); // 0x004B8100
 
-extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnPanelOffsetY; // 0x007A285C
 
 // 0x004B8720
 void __cdecl sub_004B8720_ResetTradeState()

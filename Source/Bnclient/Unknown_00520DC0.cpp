@@ -47,7 +47,6 @@ void __fastcall BNDOWNLOAD_FillRandomBytes(unsigned char* pBuffer, int nSize); /
 
 unsigned int __fastcall BNDOWNLOAD_DecryptData(unsigned char* pBuffer, unsigned int nSize, unsigned char* pKey); // 0x00522E10
 
-static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize);
 
 #define IDEA_MUL(x, y) (x = IdeaMul((x) & 0xFFFF, y))
 
@@ -337,34 +336,3 @@ static inline unsigned int sub_GetTerminatedLength(const unsigned char* pString,
     return 0;
 }
 
-// 0x005232B0
-static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize)
-{
-    unsigned char aKey[20];
-    BNDOWNLOAD_FillRandomBytes(aKey, sizeof(aKey));
-    unsigned int nLength = BNDOWNLOAD_DecryptData(pBuffer, nSize, aKey);
-    if (!nLength)
-    {
-        return 0;
-    }
-
-    if (nLength >= nSize)
-    {
-        return 0;
-    }
-
-    pBuffer[nLength] = 0;
-    ++nLength;
-    if (!sub_GetTerminatedLength(pBuffer, nLength))
-    {
-        return 0;
-    }
-
-    return 1;
-}
-
-// calling-convention shim (not game code)
-int __fastcall sub_005232B0_Shim(unsigned char* pBuffer, unsigned int nSize)
-{
-    return sub_005232B0_DecodeAndValidate(pBuffer, nSize);
-}

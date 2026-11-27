@@ -165,9 +165,7 @@ extern D2ViewStrc* gpClientView; // 0x007A0640
 
 extern int gnScreenWidth; // 0x0071146C
 
-extern int gnAutomapHeight_007A521C; // 0x007A521C
 
-extern int gnAutomapWidth; // 0x007A5220
 
 int gnPanelSlideOffsetX; // 0x007A5214
 

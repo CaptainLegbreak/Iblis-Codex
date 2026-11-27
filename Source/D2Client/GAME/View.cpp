@@ -148,9 +148,7 @@ extern void* gpMcpConnection; // 0x00798FB4
 
 extern void* gpOkCancelButtonCel; // 0x007A5240
 
-extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnPanelOffsetY; // 0x007A285C
 
 extern D2ClientTimedBoxStrc gtTimedBox; // 0x007A742C
 
@@ -160,9 +158,7 @@ extern void* gpHelpBorderCel; // 0x007BEEEC
 
 extern int gbRunButtonDown; // 0x007BEFD8
 
-extern void* gpLevelCel; // 0x007C02DC
 
-extern void* gpLevelSocketCel; // 0x007C02E0
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -297,7 +293,6 @@ extern int gbHoverInGrid; // 0x007BCBE4
 
 extern int gbHoverInBodyLoc; // 0x007BCBE8
 
-extern int gnInvPanelMode; // 0x007BCBF0
 
 extern D2UnitStrc* gpHoverItem; // 0x007BCBF4
 
@@ -330,7 +325,6 @@ extern D2SeedStrc* gpClientSeed; // 0x00712C4C
 
 extern int gnStarFieldHeight_007A521C; // 0x007A521C
 
-extern int gnAutomapWidth; // 0x007A5220
 
 unsigned char gaStarShades[8]; // 0x007B8D24
 

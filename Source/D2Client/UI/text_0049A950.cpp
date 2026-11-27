@@ -84,23 +84,15 @@ extern D2MsgHandlerEntryStrc gaKeyCaptureXButtonHandlers[]; // 0x00724780
 
 extern D2MsgHandlerEntryStrc gaKeyCaptureWheelHandlers[]; // 0x0072478C
 
-extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnPanelOffsetY; // 0x007A285C
 
-extern int gbRosterButtonDown; // 0x007BF030
 
-extern char gbSent; // 0x007BF085
 
 extern char gData_007BF1B0[]; // 0x007BF1B0
 
-extern unsigned long gnStartTick; // 0x007BF22C
 
-extern int gnTextLeft; // 0x007BF278
 
-extern int gtQuestLog; // 0x007BF298
 
-extern int gbKeyCaptureActive; // 0x007C02B8
 
 class ListBoxWrapper
 {
@@ -109,7 +101,6 @@ public:
 };
 
 
-extern D2ClientDialogStrc* gpListDialog; // 0x007BF1B0
 
 char gbQuestButtonDown; // 0x007BF2B0
 
@@ -292,9 +283,7 @@ extern D2QuestSlotRectStrc gaQuestSlots[]; // 0x00723EB0
 
 int gnQuestCount; // 0x007BF2A0
 
-extern char gbQuestCloseButtonDown; // 0x007BF2B2
 
-extern char gbQuestDescButtonDown; // 0x007BF2B4
 
 extern D2QuestPanelEntryStrc gaQuestEntries[]; // 0x007BF3AA
 
@@ -311,9 +300,7 @@ void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 
 
-extern int gnQuestAct; // 0x007BF2A4
 
-extern int gnQuestParam; // 0x007BF2AC
 
 extern int gnIndex_007BF2BD; // 0x007BF2BD
 
@@ -340,9 +327,7 @@ int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
 extern D2ButtonLayoutStrc gaButtonLayouts[]; // 0x007241C0
 
-extern void* gpLevelCel; // 0x007C02DC
 
-extern void* gpLevelSocketCel; // 0x007C02E0
 
 
 extern D2QuestTableStrc gaQuestTable[]; // 0x00723F30
@@ -473,7 +458,6 @@ void __stdcall sub_004A1770(SMSGHANDLER_PARAMS* pMsg); // 0x004A1770
 
 extern int gdwGlobal_007BF23F; // 0x007BF23F
 
-extern unsigned char gbTextHoverSet; // 0x007BF23A
 
 // 0x004A01A0
 void __cdecl TEXT_CloseMessageLogDialog()

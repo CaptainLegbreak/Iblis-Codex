@@ -89,6 +89,7 @@ static inline unsigned int sub_GetTerminatedLength(const unsigned char* pString,
     return 0;
 }
 
+// 0x005232B0
 static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize)
 {
     char aKey[20];

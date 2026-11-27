@@ -104,15 +104,11 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 
 extern D2ClientTabStrc gaNpcTabStates[]; // 0x0072211A
 
-extern int gnGlobal_007BCAF0; // 0x007BCAF0
 
 extern int gbNpcTradeClicked; // 0x007BCBEC
 
-extern int gnInvPanelMode; // 0x007BCBF0
 
-extern int gdwNpcPanelDelayTick; // 0x007BCC08
 
-extern int gnSelectedShopButton; // 0x007BCC40
 
 extern int gbInvGoldButtonDown; // 0x007BCE30
 
@@ -254,14 +250,10 @@ public:
     ListBoxImplementation* pImpl;
 };
 
-extern ListBoxWrapper* gpListBox; // 0x007BF1B4
-
-extern int gbTextBoxShown; // 0x007BF1C8
 
 
-extern unsigned short gwTextStringId; // 0x007BF212
 
-extern int gnHintId; // 0x007BF260
+
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
@@ -273,9 +265,7 @@ void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 void __stdcall TEXT_OpenTextPanel(int bFlag); // 0x0049FBA0
 
-extern D2ClientTextDataStrc* gpTextData; // 0x007BF228
 
-extern int gbTextDataOpen; // 0x007BF254
 
 struct ByteRecord
 {
@@ -647,25 +637,17 @@ void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext)
 
 extern D2QuestSlotRectStrc gaQuestSlots[]; // 0x00723EB0
 
-extern int gnQuestCount; // 0x007BF2A0
 
-extern char gbQuestButtonDown; // 0x007BF2B0
 
-extern char gbQuestDescriptionOpen; // 0x007BF2B3
 
 extern D2QuestPanelEntryStrc gaQuestEntries[]; // 0x007BF3AA
 
-extern char gbDurielCofsLoaded; // 0x007C025D
-
-extern char gbAncientsCofsLoaded; // 0x007C025E
-
-extern char gbHasQuestPacketValue; // 0x007C025F
-
-extern char gbQuestUnitsSpawned; // 0x007C0260
 
 
 
-extern int gnKeyConfigThumbScale; // 0x007C0278
+
+
+
 
 
 extern int gnAutomapHeight; // 0x007A521C
@@ -782,13 +764,10 @@ void* gpLevelSocketCel; // 0x007C02E0
 
 int gbStatButtonPressed; // 0x007C02E4
 
-extern int gbSkillButtonPressed; // 0x007C02E8
 
 void __fastcall TEXT_MoveKeyConfigSelection(int nStep);
 
-extern char gbQuestCloseButtonDown; // 0x007BF2B2
 
-extern char gbQuestDescButtonDown; // 0x007BF2B4
 
 
 static int TEXT_GetKeyConfigLineAt(int nY);
@@ -823,15 +802,12 @@ extern D2WaypointMenuEntryStrc gaWaypointEntries[9];                            
 
 
 
-extern int gnPanelOffsetX;                                                                               // 0x007A2858
 
-extern int gnPanelOffsetY;                                                                               // 0x007A285C
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
 typedef void (__fastcall* UNITFN)(D2UnitStrc* pUnit);
 
-extern int gnQuestAct; // 0x007BF2A4
 
 
 extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
@@ -884,13 +860,9 @@ extern void* gpWaypointIconCel; // 0x007BF079
 
 extern void* gpGlobal_007C0D43; // 0x007C0D43
 
-extern int gbWaitSoundPlayed; // 0x007C0DBC
 
-extern int gbWaitSoundScheduled; // 0x007C0DC0
 
-extern void* gpBuySellCel; // 0x007C0DC8
 
-extern void* gpGoldBtnCel; // 0x007C0DCC
 
 
 
@@ -1012,9 +984,7 @@ extern D2RectStrc gtTextRect_007BF1D0; // 0x007BF1D0
 
 extern D2TextCallback gpfnTextCallback; // 0x007BF258
 
-extern void* gpTextCallbackContext; // 0x007BF25C
 
-extern int gnTextLeft; // 0x007BF278
 
 static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextBoxStrc* pTextBox); // 0x004A0770
 
@@ -1024,7 +994,6 @@ inline void* operator new(unsigned int, void* pWhere) { return pWhere; }
 // build: symbol ??0D2QuestTextBufferStrc@@QAE@XZ 0x004A4260
 
 
-extern int gbTextBoxDone; // 0x007BF1BC
 
 
 #define gbUpPressed_007C028C (gaPressed[1])

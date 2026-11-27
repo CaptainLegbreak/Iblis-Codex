@@ -78,7 +78,7 @@ enum D2C_Y09SkillConstants
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-int __fastcall sub_0056F7F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5, int a6, int a7); // 0x0056F7F0
+int __fastcall SKILLS_ExecuteSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyCosts, int bSkipSkillCheck, int bItemEffect); // 0x0056F7F0
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -127,7 +127,7 @@ enum D2C_G4Constants
 };
 
 
-int __fastcall SKILLS_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5);   // 0x0056F640
+int __fastcall SKILLS_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bSkipMana);   // 0x0056F640
 
 struct D2ModeChangeStrc;
 
@@ -319,7 +319,7 @@ int __fastcall SKILLITEM_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pU
         break;
     }
     if ((pSkillsTxtRecord->nFlags[4] & gdwBitMasks[1]) && !SKILLS_StartSkill(pGame, pUnit, nSkillId, nSkillLevel, 1)) goto restore;
-    nResult = sub_0056F7F0(pGame, pUnit, nSkillId, nSkillLevel, 0, 1, nItemEffectParam);
+    nResult = SKILLS_ExecuteSkill(pGame, pUnit, nSkillId, nSkillLevel, 0, 1, nItemEffectParam);
 restore:
     if (pOldTarget) UNITS_SetTargetUnitForDynamicUnit(pUnit, pOldTarget);
     else D2COMMON_10170_PathSetTargetPos(pUnit->pDynamicPath, nOldX, nOldY);
@@ -373,7 +373,7 @@ int __fastcall SKILLITEM_CastSkillOnTarget(D2UnitStrc* pUnit, int nSkillId, int 
     return 1;
 }
 
-void __fastcall SUNITMSG_QueueItemSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, short nX, short nY, unsigned char a6); // 0x00571840
+void __fastcall SUNITMSG_QueueItemSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, short nX, short nY, unsigned char nSkillParam); // 0x00571840
 
 // 0x005FDD60
 int __fastcall SKILLITEM_CastSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nItemEffectParam)

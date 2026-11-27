@@ -140,7 +140,6 @@ void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x0064326
 
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 
-extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 typedef char check_scalar_width[(sizeof(unsigned int) == 4 && sizeof(int) == 4) ? 1 : -1];
 
@@ -220,9 +219,7 @@ extern int gnTextOffset1; // 0x0072D8D4
 
 extern int gnTextOffset2; // 0x0072D8D0
 
-extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnPanelOffsetY; // 0x007A285C
 
 extern int gnGlobal_0072D844; // 0x0072D844
 

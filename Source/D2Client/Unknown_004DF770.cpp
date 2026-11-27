@@ -90,7 +90,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern D2NpcSoundStrc gaNpcSounds[];                                                               // 0x0072AE28
 
-extern D2DrlgActStrc* gpAct;                                                                       // 0x007A0634
 
 int __fastcall sub_004E40A0_RollPlayerSeed(int nRange);                                                                    // 0x004E40A0
 

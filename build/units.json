@@ -36599,10 +36599,6 @@
      "name": "BNDOWNLOAD_LogPrintf"
     },
     {
-     "va": "0x00518EC0",
-     "length": 108
-    },
-    {
      "va": "0x00519000",
      "length": 268
     },
@@ -37107,31 +37103,6 @@
      "name": "?sub_00518C00_GetInterface@@YAPAUBnClientInterface@@XZ"
     },
     {
-     "va": "0x00518DE0",
-     "length": 115,
-     "name": "?sub_00518DE0_Crc32@@YAIPBXI@Z"
-    },
-    {
-     "va": "0x00518E60",
-     "length": 87,
-     "name": "?sub_00518E60_DecryptBlock@@YAXPAIII@Z"
-    },
-    {
-     "va": "0x00518F30",
-     "length": 100,
-     "name": "?sub_00518F30_GetCacheFileTime@@YAPA_KI@Z"
-    },
-    {
-     "va": "0x00518FA0",
-     "length": 91,
-     "name": "?sub_00518FA0_HashString@@YGIIPBD@Z"
-    },
-    {
-     "va": "0x005191D0",
-     "length": 80,
-     "name": "?sub_005191D0_DeleteHashEntries@@YAXPBD@Z"
-    },
-    {
      "va": "0x0051A480",
      "length": 1,
      "name": "?sub_0051A480_DebugLog@@YAXPBDZZ"
@@ -37178,8 +37149,37 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00518DE0",
+     "length": 115,
+     "name": "?sub_00518DE0_Crc32@@YAIPBXI@Z"
+    },
+    {
+     "va": "0x00518E60",
+     "length": 87,
+     "name": "?sub_00518E60_DecryptBlock@@YAXPAIII@Z"
+    },
+    {
+     "va": "0x00518EC0",
+     "length": 108
+    },
+    {
+     "va": "0x00518F30",
+     "length": 100,
+     "name": "?sub_00518F30_GetCacheFileTime@@YAPA_KI@Z"
+    },
+    {
+     "va": "0x00518FA0",
+     "length": 91,
+     "name": "?sub_00518FA0_HashString@@YGIIPBD@Z"
+    },
+    {
      "va": "0x00519110",
      "length": 180
+    },
+    {
+     "va": "0x005191D0",
+     "length": 80,
+     "name": "?sub_005191D0_DeleteHashEntries@@YAXPBD@Z"
     },
     {
      "va": "0x00519220",
@@ -38823,10 +38823,6 @@
      "name": "?sub_00523020_GetAlignedData@@YIPADPAD@Z"
     },
     {
-     "va": "0x005232B0",
-     "length": 156
-    },
-    {
      "va": "0x005241A0",
      "length": 21,
      "name": "?sub_005241A0_ClearHashContexts@@YAXXZ"
@@ -38892,6 +38888,10 @@
    "file": "Source/D2BNClient/grid.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005232B0",
+     "length": 156
+    },
     {
      "va": "0x00523350",
      "length": 199

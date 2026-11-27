@@ -100,7 +100,6 @@ extern int gnSfxVolume; // 0x00727564
 
 extern int gnEnvVolume; // 0x00727568
 
-extern int gbPositionalSound; // 0x007A061C
 
 static D2SoundNodeStrc* gpSoundList_007C5458; // 0x007C5458
 

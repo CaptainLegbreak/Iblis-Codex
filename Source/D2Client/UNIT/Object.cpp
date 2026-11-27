@@ -89,7 +89,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                               // 0x00681EF0
 
-extern D2DrlgActStrc* gpAct;                                                                       // 0x007A0634
 
 extern D2ShrineHandlerStrc gaShrineHandlers[];                                                      // 0x006DA8C0
 
