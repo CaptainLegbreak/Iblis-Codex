@@ -8,6 +8,11 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Fri Nov 27 6:11 PST 2026: **lane12/module-api-headers-8** (0b2367fda, on #477 ac1dc8375): module-api-headers rebased onto j230, for
+  the coordinator's hold. With #477's control-templates, CharSel.cpp's 0x439210 changed when the unit dropped its
+  copies (a declaration-count unit), so **D2Launch CharSel.cpp keeps all of its private copies** and includes none
+  of the new headers (the commit message says so); its precheck-equivalent: CharSel.cpp EQUAL; full VERIFIED tree
+  a285f9c2732275e0a50901060e07c9553471bc35. Take this one instead of -6/-7. api-fog follows on it (verifying).
 - Fri Nov 27 05:23 PST 2026: **lane12/genheaders-2** (0d0127af9, on #476 9a4b7d477): lane12/genheaders rebased,
   plus a third commit: a unit includes the export header after the last #include above its first removed copy (or
   at the copy), so the declaration precedes every use; a corrected line in another module's header gets forward
@@ -29,7 +34,7 @@ it is on main; from #473, based on main.
   linkdebt vs module-api-headers-7: 29,942 -> 29,868 (type_disagreement 6,689 -> 6,615; D2Common 4,797 -> 4,744,
   D2Game 6,540 -> 6,530, D2Client, D2Multi, D2Win, D2MCPClient down; no module rises). auditguard: no count rose;
   raw offset 120, byte pointer math 153, pointer casts 4,915, all unchanged.
-- Fri Nov 27 05:12 PST 2026: **lane12/module-api-headers-7** (6a00e8706): module-api-headers-6 rebased onto #476
+- Fri Nov 27 05:12 PST 2026: **lane12/module-api-headers-7** (superseded by -8; 6a00e8706): module-api-headers-6 rebased onto #476
   9a4b7d477 without conflicts; take this one instead of -6. VERIFIED tree 6472a693a8fb28e701b75cc3995add9ee5379506;
   link debt on it 29,942. (-6's linkdebt and audit numbers below hold.)
 - Fri Nov 27 03:52 PST 2026: **lane12/genheaders** (superseded by genheaders-2; 6b036b9b0, on #474 0950bf8ba; second commit: it runs on the checkout it is started in): `tools/genheaders.py` (standard
