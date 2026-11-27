@@ -34,7 +34,7 @@ scaffolding, names.
 - Thu Nov 26 12:20 PT: setting up (repo, board, wine done; waiting for Game.exe, then setup and the baseline build).
 
 ## Ready
-- lane8/d2common-api-decls-3 8ff8ce3a9 (on #448): MonsterTbls.cpp and Unknown_006634F0.cpp include D2CommonApi.h and drop the prototypes they repeat with the same types (the two units of the withdrawn api-decls that lane 2's use-shared-headers-2b doesn't touch). Full build: Game.exe identical, tree 49d2cccd2e200b898750ccda7aa5be6fa171ff4e, borrowed code / data 7,923 / 261.
+- lane8/d2common-api-decls-3 (being re-pushed: the first push undid names-3 in Unknown_006634F0.cpp; wait for the next line) (on #448): MonsterTbls.cpp and Unknown_006634F0.cpp include D2CommonApi.h and drop the prototypes they repeat with the same types (the two units of the withdrawn api-decls that lane 2's use-shared-headers-2b doesn't touch). Full build: Game.exe identical, tree 49d2cccd2e200b898750ccda7aa5be6fa171ff4e, borrowed code / data 7,923 / 261.
 - lane8/drlg-api-decls 9785823ee (on #447): Drlg.cpp's inline copy of the player-data getter is renamed UNITS_GetPlayerData_Inl (Units.cpp's name for its own), so it no longer redefines the exported UNITS_GetPlayerData; Drlg.cpp then includes D2CommonApi.h and drops four prototypes it repeats. Full build: Game.exe identical, tree 7f47234122a74d8d2d9e5024c731597a8fa0231e, borrowed code / data 7,923 / 261.
 
 ## Questions
