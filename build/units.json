@@ -30483,11 +30483,6 @@
      "name": "?SKILLDESC_GetMonTypeTxtRecord@@YIPAUD2MonTypeTxt@@H@Z"
     },
     {
-     "va": "0x004EFCF0",
-     "length": 256,
-     "name": "?SKILLDESC_CltDoTurnedMissile@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
      "va": "0x004F0160",
      "length": 132,
      "name": "?SKILLDESC_CltDoSoundMissile@@YIHPAUD2UnitStrc@@HH@Z"
@@ -30536,11 +30531,6 @@
      "va": "0x004F2720",
      "length": 109,
      "name": "?SKILLDESC_CltDoTargetMissile@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F29F0",
-     "length": 202,
-     "name": "?SKILLDESC_CltDoMissileScatterAtTarget@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F2E90",
@@ -31378,6 +31368,11 @@
      "name": "?SKILLDESC_GetSummonLevel@@YIHHH@Z"
     },
     {
+     "va": "0x004EFCF0",
+     "length": 256,
+     "name": "?SKILLDESC_CltDoTurnedMissile@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004EFDF0",
      "length": 607
     },
@@ -31426,6 +31421,11 @@
     {
      "va": "0x004F28A0",
      "length": 321
+    },
+    {
+     "va": "0x004F29F0",
+     "length": 202,
+     "name": "?SKILLDESC_CltDoMissileScatterAtTarget@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F2AC0",
