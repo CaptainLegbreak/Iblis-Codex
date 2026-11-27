@@ -13,6 +13,7 @@
 #include "FogApi.h"
 #include "FogApi.h"
 #include "StormApi2.h"
+#include "D2GfxApi2.h"
 
 extern int gbGlideDrawing; // 0x0087EFE4
 
@@ -25,8 +26,6 @@ extern int gnGlideTexFilterMode; // 0x0087EFE0
 struct D2GlideHwQueryStrc;
 
 extern int gnDisplayType; // 0x007C8CB0
-
-extern int gbIsWindowed; // 0x007C8CB4
 
 extern int gfFixedAspectRatio; // 0x0072DA7C
 

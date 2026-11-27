@@ -22,6 +22,7 @@
 #include "FogApi.h"
 #include "D2CommonApi2.h"
 #include "D2ClientApi.h"
+#include "D2GfxApi.h"
 
 static long BNDOWNLOAD_GetTime(long* pTime);
 
@@ -129,15 +130,6 @@ extern "C" int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, 
 void __cdecl CHATDLG_FillGameList(); // 0x00444E70
 
 void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
-
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
-
-
-
-
-
-
-
 
 void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BE30
 

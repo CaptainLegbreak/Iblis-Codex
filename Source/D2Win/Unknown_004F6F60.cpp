@@ -5,6 +5,7 @@
 #include "StormApi2.h"
 #include "D2GfxApi.h"
 #include "D2ClientApi.h"
+#include "D2GfxApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -27,27 +28,7 @@ struct D2PaletteStrc
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-extern int gnClipBottom; // 0x007C978C
-
-extern int gnClipLeft; // 0x007C9794
-
-extern int gnInnerRight; // 0x007C9784
-
-extern int gnInnerBottom; // 0x007C9790
-
-extern int gnInnerTop; // 0x007CA31C
-
-extern int gnClipRight; // 0x007D2324
-
-extern int gnInnerLeft; // 0x007D2328
-
-extern int gnClipTop; // 0x007D232C
-
 extern D2PaletteStrc gatLightPalettes[]; // 0x007D2348
-
-extern unsigned char* gpScreenBuffer; // 0x007D5448
-
-extern int gnScreenPitch; // 0x007D544C
 
 extern "C" int gfSStrInitialized;
 
@@ -70,8 +51,6 @@ extern int gnViewMatrixAdjustDefault; // 0x0072DBFC
 extern int gnDisplayType; // 0x007C8CB0
 
 extern D2GfxSettingsStrc gGfxSettings; // 0x0072DA48
-
-extern unsigned char* gpScreenBuffer; // 0x007D5448
 
 int gnLightingOff; // 0x007D2340
 
