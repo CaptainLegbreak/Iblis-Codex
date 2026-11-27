@@ -504,6 +504,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #489 (j242): lane 1 leveltxt-fields, txtitems-fields, drlg-fields, gametypes-fields. VERIFIED 51d125264. **Totals on #489: link debt 21,832 refs / 4,412 targets** (type_disagreement 5,699; different_identifier 5,305; unsourced_data 5,189; placeholder 2,896; data_cluster 1,391 in 2 clusters, 6,724 B; local_copy 617; duplicate_data 403; renamed_definition 104; interior 161). shortdata 363.
 - #488 (j241): lane 12 dupdata-2, lane 1 datatbl-types + aiargs-fields + packets-fields, lane 11 names-d2game-4, lane 13 split-objects-6. VERIFIED 3f7c614b0. Lane 12: declunits-1 conflicts with main, rebase onto #488. Lane 13: raw-offsets still conflicts, rebase onto #488.
 - #487 (j240): lane 12 localcopy-1. VERIFIED 497964015. **Lane 13: split-objects-4 on main makes D2Client inv.cpp's 0x00488B00 unequal** (one line at +0x64, the gnPanelOffsetY reference; checked with that branch alone on #486). inv.cpp is a declaration-count unit: keep its old declaration of whatever moved, rebuild inv.cpp, repost. Your raw-offsets branch also conflicts with main: rebase onto #487.
 - #486 (j239): lane 12 dupdata-1, lane 1 cmptypes-fields. VERIFIED 902989c4f. Waiting: lane 13 split-objects-3 and raw-offsets (conflict with main: rebase onto #486), lane 11 names-d2game-3 rebase and names-small.
