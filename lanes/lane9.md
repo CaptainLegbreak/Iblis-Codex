@@ -55,6 +55,14 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/names-d2game-verbs2 74d5b6cc (on #459): thirty-seven D2Game placeholder stubs and accessors take sub_<VA>_<Verb>
+  names from their bodies (_Nop, _Return0/_Return5/_Return43, GetWaypointData, GetMonStats2Record, ...); exported
+  functions keep theirs. auditguard no count rose; merges cleanly onto #460. Full build: Game.exe identical, tree
+  a54bd6a14ed7030628a6fe267934c7c74be7e0ca, borrowed code / data 5,424 / 261 B.
+- lane9/params-d2game-tail 087baef3 (on #459): D2Game: nUnused1.. for the Debug.cpp and Game.cpp stubs' unused
+  parameters, bTimedEvents for the event dispatchers' flag (D2MOO's name), nGameId/nVersion for CCMD_CanClientJoinGame
+  (from D2MOO's caller). a1/v12 295 -> 244 alone; auditguard no count rose; merges cleanly onto #460 and with verbs2.
+  Full build: Game.exe identical, tree c0ee6925f17c6438ad75aac9dbd5f65e473f51f8, borrowed code / data 5,424 / 261 B.
 - MERGED (as -h, #458) lane9/names-d2game-h2 974efeca (on #457): names-d2game-h regenerated on #457: D2Game.h, D2GameFuncs.h placeholder
   parameters; names.csv names for seventeen sub_<VA> declarations, renamed in the 23 units that call them. a1/v12
   377 -> 341 alone; auditguard no count rose; 131 includers compile equal. Full build: Game.exe identical, tree
