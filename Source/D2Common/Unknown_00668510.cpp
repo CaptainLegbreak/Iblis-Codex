@@ -17,25 +17,9 @@ extern "C" char* __cdecl strchr(const char* szString, int nChar);
 
 struct D2ItemsTxt;
 
-struct D2CubeInputItemStrc;
-
 struct D2UniqueItemsTxt;
 
 struct D2SetItemsTxt;
-
-struct D2CubeInputItemStrc
-{
-    unsigned short wFlags;
-    unsigned short wItem;
-    unsigned short wItemId;
-    unsigned char nQuality;
-    unsigned char nQuantity;
-    unsigned char nType;
-    unsigned char unk0x09[2];
-    unsigned char nLevel;
-    unsigned short wPrefix[3];
-    unsigned short wSuffix[3];
-};
 
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 
@@ -61,7 +45,7 @@ extern D2SetItemsTxt* gpSetItemsTxt_0096C848; // 0x0096C848
 
 extern D2UniqueItemsTxt* gpUniqueItemsTxt_0096C854; // 0x0096C854
 
-static int __stdcall sub_00668A90_ParseCubeInput(D2CubeInputItemStrc* pInput, char* szInput);
+static int __stdcall sub_00668A90_ParseCubeInput(D2CubeOutputItem* pInput, char* szInput);
 
 static void sub_00668510_MakeCode(const char* szText, char* szCode);
 
@@ -180,13 +164,13 @@ static inline int DATATBLS_StringToCode(const char* szText)
     return nCode;
 }
 
-static __forceinline int sub_00668A90_LookupItem(D2CubeInputItemStrc* pInput, char* szText)
+static __forceinline int sub_00668A90_LookupItem(D2CubeOutputItem* pInput, char* szText)
 {
     int nLinkId;
     if (strlen(szText) <= 4 && (nLinkId = FOG_GetLinkIndex(gpItemTypesLinker_0096C824, DATATBLS_StringToCode(szText), 0)) >= 0)
     {
         pInput->nType = 0xFD;
-        pInput->wItem = nLinkId;
+        pInput->wBaseItemId = nLinkId;
     }
     else
     {
@@ -199,12 +183,12 @@ static __forceinline int sub_00668A90_LookupItem(D2CubeInputItemStrc* pInput, ch
         {
             int nItemId;
             DATATBLS_GetItemRecordFromItemCode(gpUniqueItemsTxt_0096C854[nLinkId].dwCode, &nItemId);
-            pInput->wFlags |= 8;
+            pInput->wItemFlags |= 8;
             pInput->nType = 0xFC;
             pInput->nQuality = 7;
-            pInput->wItemId = nLinkId + 1;
-            pInput->wItem = nItemId;
-            pInput->nLevel = gpUniqueItemsTxt_0096C854[nLinkId].nLevel;
+            pInput->wItemID = nLinkId + 1;
+            pInput->wBaseItemId = nItemId;
+            pInput->nILvl = gpUniqueItemsTxt_0096C854[nLinkId].nLevel;
         }
         else
         {
@@ -217,12 +201,12 @@ static __forceinline int sub_00668A90_LookupItem(D2CubeInputItemStrc* pInput, ch
             {
                 int nItemId;
                 DATATBLS_GetItemRecordFromItemCode(gpSetItemsTxt_0096C848[nLinkId].dwItemCode, &nItemId);
-                pInput->wFlags |= 8;
+                pInput->wItemFlags |= 8;
                 pInput->nType = 0xFC;
                 pInput->nQuality = 5;
-                pInput->wItemId = nLinkId + 1;
-                pInput->wItem = nItemId;
-                pInput->nLevel = (unsigned char)gpSetItemsTxt_0096C848[nLinkId].wLvl;
+                pInput->wItemID = nLinkId + 1;
+                pInput->wBaseItemId = nItemId;
+                pInput->nILvl = (unsigned char)gpSetItemsTxt_0096C848[nLinkId].wLvl;
             }
             return 0;
         }
@@ -230,19 +214,19 @@ static __forceinline int sub_00668A90_LookupItem(D2CubeInputItemStrc* pInput, ch
     return 1;
 }
 
-static inline int sub_00668A90_TryItemCode(D2CubeInputItemStrc* pInput, char* szText)
+static inline int sub_00668A90_TryItemCode(D2CubeOutputItem* pInput, char* szText)
 {
     int nCode;
     if (strlen(szText) <= 4 && DATATBLS_GetItemRecordFromItemCode(DATATBLS_StringToCode(szText), &nCode))
     {
         pInput->nType = 0xFC;
-        pInput->wItem = nCode;
+        pInput->wBaseItemId = nCode;
         return 1;
     }
     return 0;
 }
 
-static __forceinline int sub_00668A90_ParseItemName(D2CubeInputItemStrc* pInput, char* szText)
+static __forceinline int sub_00668A90_ParseItemName(D2CubeOutputItem* pInput, char* szText)
 {
     if (!_stricmp(szText, gszCowPortal))
     {
@@ -508,7 +492,7 @@ static int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItem* pCubeInpu
 }
 
 // 0x00668A90
-static int __stdcall sub_00668A90_ParseCubeInput(D2CubeInputItemStrc* pInput, char* szInput)
+static int __stdcall sub_00668A90_ParseCubeInput(D2CubeOutputItem* pInput, char* szInput)
 {
     char* szText = szInput;
     if (*szText == '"')
@@ -543,8 +527,8 @@ static int __stdcall sub_00668A90_ParseCubeInput(D2CubeInputItemStrc* pInput, ch
     if (szNext)
     {
 
-        unsigned short* pSuffix = pInput->wSuffix;
-        unsigned short* pPrefix = pInput->wPrefix;
+        unsigned short* pSuffix = pInput->wSuffixId;
+        unsigned short* pPrefix = pInput->wPrefixId;
         do
         {
             char* szToken = sub_00668590_NextSetToken(&szNext, gszEqualComma);
@@ -605,45 +589,45 @@ static int __stdcall sub_00668A90_ParseCubeInput(D2CubeInputItemStrc* pInput, ch
             }
             else if (!strcmp(szToken, "eth"))
             {
-                pInput->wFlags |= 4;
+                pInput->wItemFlags |= 4;
             }
             else if (!strcmp(szToken, "sock"))
             {
-                pInput->wFlags |= 2;
+                pInput->wItemFlags |= 2;
                 pInput->nQuantity = sub_006685C0_NextSetTokenInt(&szNext, gszComma);
             }
             else if (!strcmp(szToken, "mod"))
             {
-                pInput->wFlags |= 1;
+                pInput->wItemFlags |= 1;
             }
             else if (!strcmp(szToken, "uns"))
             {
-                pInput->wFlags |= 0x10;
+                pInput->wItemFlags |= 0x10;
             }
             else if (!strcmp(szToken, "rem"))
             {
-                pInput->wFlags |= 0x20;
+                pInput->wItemFlags |= 0x20;
             }
             else if (!strcmp(szToken, "reg"))
             {
-                pInput->wFlags |= 0x40;
+                pInput->wItemFlags |= 0x40;
                 pInput->nType = 0xFF;
             }
             else if (!strcmp(szToken, "exc"))
             {
-                pInput->wFlags |= 0x80;
+                pInput->wItemFlags |= 0x80;
             }
             else if (!strcmp(szToken, "eli"))
             {
-                pInput->wFlags |= 0x100;
+                pInput->wItemFlags |= 0x100;
             }
             else if (!strcmp(szToken, "rep"))
             {
-                pInput->wFlags |= 0x200;
+                pInput->wItemFlags |= 0x200;
             }
             else if (!strcmp(szToken, "rch"))
             {
-                pInput->wFlags |= 0x400;
+                pInput->wItemFlags |= 0x400;
             }
             else
             {
@@ -660,14 +644,14 @@ static int __stdcall sub_00668A90_ParseCubeInput(D2CubeInputItemStrc* pInput, ch
 void __fastcall sub_00669080_CubeInputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
 {
     if (pRecord && pSrc && *pSrc)
-        sub_00668600_CubeMainInputParser((D2CubeInputItem*)((char*)pRecord + 0x14 + 8 * nOffset), pSrc);
+        sub_00668600_CubeMainInputParser(&((D2CubeMainTxt*)pRecord)->pInputItem[nOffset], pSrc);
 }
 
 // 0x006690B0
 void __fastcall DATATBLS_CubeMainOutputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
 {
     if (pRecord && pSrc && *pSrc)
-        sub_00668A90_ParseCubeInput((D2CubeInputItemStrc*)((char*)pRecord + 0x4C + nOffset * 0x54), pSrc);
+        sub_00668A90_ParseCubeInput(&((D2CubeMainTxt*)pRecord)->pOutputItem[nOffset], pSrc);
 }
 
 // 0x006690E0
