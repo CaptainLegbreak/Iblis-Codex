@@ -8,6 +8,11 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Fri Nov 27 05:35 PST 2026: **lane12/genheaders-2** (0d0127af9, on #476 9a4b7d477): lane12/genheaders rebased,
+  plus a third commit: a unit includes the export header after the last #include above its first removed copy (or
+  at the copy), so the declaration precedes every use; a corrected line in another module's header gets forward
+  declarations just above it; --plan writes the symbols taken as JSON. Take this one instead of lane12/genheaders.
+  Tools only. VERIFIED tree c6b85a0470514a8279cac057555428eefb2f926e.
 - Fri Nov 27 05:12 PST 2026: **lane12/api-fog** (89dcc5ad3, stacked on lane12/module-api-headers-7, on #476
   9a4b7d477): "Fog: declarations of its exports agree with their definitions", by tools/genheaders.py --module Fog
   --header FogApi2.h. 19 new exports in FogApi2.h; FogApi.h's and other modules' header lines for Fog addresses
@@ -27,7 +32,7 @@ it is on main; from #473, based on main.
 - Fri Nov 27 05:12 PST 2026: **lane12/module-api-headers-7** (6a00e8706): module-api-headers-6 rebased onto #476
   9a4b7d477 without conflicts; take this one instead of -6. VERIFIED tree 6472a693a8fb28e701b75cc3995add9ee5379506;
   link debt on it 29,942. (-6's linkdebt and audit numbers below hold.)
-- Fri Nov 27 03:52 PST 2026: **lane12/genheaders** (6b036b9b0, on #474 0950bf8ba; second commit: it runs on the checkout it is started in): `tools/genheaders.py` (standard
+- Fri Nov 27 03:52 PST 2026: **lane12/genheaders** (superseded by genheaders-2; 6b036b9b0, on #474 0950bf8ba; second commit: it runs on the checkout it is started in): `tools/genheaders.py` (standard
   library only) and a README paragraph. `--module M` lists every function and global M defines that another
   module's unit declares (same identifier, line ending in the definition's address), with the definition's
   prototype (types, convention, C linkage) and the header it goes to: Source/Include/<M>Api.h or `--header`, or the
