@@ -3740,7 +3740,7 @@ void __fastcall AITHINK_HirelingCombat(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 }
 
 // 0x005E5270
-int __stdcall sub_005E5270(int nUnused1, int nUnused2)
+int __stdcall sub_005E5270_Return0(int nUnused1, int nUnused2)
 {
     return 0;
 }
@@ -8693,7 +8693,7 @@ void __fastcall AITHINK_SetSecondaryAiParams(D2GameStrc* pGame, D2AiControlStrc*
 }
 
 // 0x005EDC40
-void __stdcall sub_005EDC40(int nUnused1)
+void __stdcall sub_005EDC40_Nop(int nUnused1)
 {
 }
 
@@ -8952,7 +8952,7 @@ void __fastcall AITHINK_Fn131_Wussie(D2GameStrc* pGame,D2UnitStrc* pUnit,D2AiTic
 }
 
 // 0x005EE5C0
-void __stdcall sub_005EE5C0(int nUnused1)
+void __stdcall sub_005EE5C0_Nop(int nUnused1)
 {
 }
 
@@ -9585,7 +9585,7 @@ void __fastcall AITHINK_BaalThroneSpawnMinions(D2UnitStrc* pUnit, int nSuperUniq
 }
 
 // 0x005EF310
-void __stdcall sub_005EF310(int nUnused1)
+void __stdcall sub_005EF310_Nop(int nUnused1)
 {
 }
 
