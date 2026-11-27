@@ -15,6 +15,7 @@
 #include "D2Win32System.h"
 
 #include "D2MultiTypes.h"
+#include "D2ChatControls.h"
 
 #include "D2Unicode.h"
 
@@ -162,14 +163,6 @@ extern D2WinControlInitStrc gtSubmitButtonInit; // 0x0070E950
 
 extern D2WinControlInitStrc gtSelectButtonInit; // 0x0070E980
 
-extern D2WinControlStrc* gpCreateScreenButton; // 0x0077B070
-
-D2WinControlStrc* gpChatControl_0077B074;                                                                   // 0x0077B074
-
-extern D2WinControlStrc* gpJoinScreenButton; // 0x0077B078
-
-D2WinControlStrc* gpControlC;                                                                      // 0x0077B07C
-
 extern D2ConfigStrc* gpCharInfo; // 0x0077BBD8
 
 extern D2WinControlStrc* gpProfileViewBckg; // 0x00798C64
@@ -290,8 +283,6 @@ D2WinControlStrc* gpSelectButton; // 0x00798CA4
 
 static unsigned long gdwLastCommandTick; // 0x00798F50
 
-D2WinSmackStrc* gpSmack; // 0x0077B098
-
 extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
@@ -328,8 +319,6 @@ struct D2LaunchMsgStrc;
 
 typedef int (__fastcall* D2LaunchMsgHandler)(int nArg, char* pArg, const char* szText, const char* szNext);
 
-extern D2WinSmackStrc* gpSmack; // 0x0077B098
-
 extern int gnVideoId_0077B0A4; // 0x0077B0A4
 
 char gszText_00798CF8[56]; // 0x00798CF8
@@ -347,11 +336,6 @@ static void __stdcall COMCALLBACK_UpdateUser(D2MultiChannelUserStrc* pUser, cons
 struct D2ChannelEntryStrc;
 
 D2MultiChannelUserStrc* __stdcall COMCALLBACK_AddChannelUser(const char* szName, const unsigned char* pStat, unsigned int nFlags); // 0x00449050
-extern D2WinControlStrc* gpChatUpButtonA; // 0x0077B084
-extern D2WinControlStrc* gpChatDownButtonA; // 0x0077B088
-extern D2WinControlStrc* gpChatUpButtonB; // 0x0077B08C
-extern D2WinControlStrc* gpChatDownButtonB; // 0x0077B090
-
 int __stdcall sub_005041B0_Destroy(D2CompositeStrc* pComposite, int nFlag); // 0x005041B0
 
 extern D2WinControlStrc* gapChatButtons[]; // 0x0077AD78
@@ -530,16 +514,6 @@ extern unsigned int gdwSelectionTick; // 0x00798F4C
 void __fastcall CHATDLG_ShowProfileDialog(const char*,int,int); // 0x00445A80
 
 void __fastcall CHATDLG_ShowUserInfoDialog(const char*,const char*,int,int); // 0x00445C70
-
-D2WinControlStrc* gapChatDlgControls; // 0x0077B058
-
-D2WinControlStrc* gpChatControl_0077B05C; // 0x0077B05C
-
-D2WinControlStrc* gpChatControl_0077B064; // 0x0077B064
-
-D2WinControlStrc* gpChatControl_0077B068; // 0x0077B068
-
-D2WinControlStrc* gpChatControl_0077B06C; // 0x0077B06C
 
 void __fastcall CHATDLG_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x0043FB50
 
@@ -930,9 +904,9 @@ int __stdcall COMCALLBACK_OpenJoinScreen(int nArg)
     CHATDLG_ResetLaunchState();
     gnChatLaunchMode = 3;
     CHATDLG_CreateJoinScreen();
-    BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
-    BUTTON_SetIsPressed(gpCreateScreenButton, 0);
-    BUTTON_SetIsPressed(gpControlC, 0);
+    BUTTON_SetIsPressed(gapChatDlgControls[CHATINIT_CONTROL_7], 0);
+    BUTTON_SetIsPressed(gapChatDlgControls[CHATINIT_CREATESCREENBUTTON], 0);
+    BUTTON_SetIsPressed(gapChatDlgControls[CHATINIT_CONTROL_C], 0);
     return 1;
 }
 
@@ -941,9 +915,9 @@ int __stdcall COMCALLBACK_OpenCreateScreen(int nArg)
 {
     CHATDLG_ResetLaunchState();
     COMCALLBACK_BuildCreateScreen();
-    BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
-    BUTTON_SetIsPressed(gpJoinScreenButton, 0);
-    BUTTON_SetIsPressed(gpControlC, 0);
+    BUTTON_SetIsPressed(gapChatDlgControls[CHATINIT_CONTROL_7], 0);
+    BUTTON_SetIsPressed(gapChatDlgControls[CHATINIT_JOINSCREENBUTTON], 0);
+    BUTTON_SetIsPressed(gapChatDlgControls[CHATINIT_CONTROL_C], 0);
     return 1;
 }
 
@@ -1087,7 +1061,7 @@ static int COMCALLBACK_PlayAd(ComAdStrc* pAd)
     char szTempPath[260];
     unsigned long nWritten;
 
-    SMACK_DeleteFile(gpSmack);
+    SMACK_DeleteFile((D2WinSmackStrc*)gapChatDlgControls[CHATINIT_ADSMACK]);
     if (!GetTempPathA(260, szTempPath))
     {
         *(unsigned short*)szTempPath = '.';
@@ -1106,7 +1080,7 @@ static int COMCALLBACK_PlayAd(ComAdStrc* pAd)
         pExt++;
         int ch = *pExt;
         int n = tolower(ch);
-        SMACK_Decode(gpSmack, szTempFile, n);
+        SMACK_Decode((D2WinSmackStrc*)gapChatDlgControls[CHATINIT_ADSMACK], szTempFile, n);
         int i = 0;
         char c;
         do
@@ -1128,7 +1102,7 @@ int __cdecl COMCALLBACK_PlayTempSmack()
     if (gszTempFile[0] && GetFileAttributesA(gszTempFile) != (unsigned long)-1)
     {
         const char* pExt = strrchr(gszTempFile, '.') + 1;
-        SMACK_Decode((D2WinSmackStrc*)gpSmack, gszTempFile, tolower(*pExt));
+        SMACK_Decode((D2WinSmackStrc*)gapChatDlgControls[CHATINIT_ADSMACK], gszTempFile, tolower(*pExt));
         return 1;
     }
     return 0;
@@ -1671,9 +1645,9 @@ void __cdecl COMCALLBACK_RefreshChatButtons()
         bHasText = 1;
 
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
-    CONTROL_SetEnabled(gpChatControl_0077B06C, bHasText);
-    CONTROL_SetEnabled(gapChatDlgControls, bHasText);
-    CONTROL_SetEnabled(gpChatControl_0077B05C, gpSelectedChannelUser && bHasText);
+    CONTROL_SetEnabled(gapChatDlgControls[5], bHasText);
+    CONTROL_SetEnabled(gapChatDlgControls[0], bHasText);
+    CONTROL_SetEnabled(gapChatDlgControls[1], gpSelectedChannelUser && bHasText);
 
     unsigned int nFlags = 0;
     if (gpSelectedChannelUser && gpSelectedChannelUser->pComposite)
@@ -1682,8 +1656,8 @@ void __cdecl COMCALLBACK_RefreshChatButtons()
         nFlags = gdwBitMasks[9] & nComposite;
     }
 
-    CONTROL_SetEnabled(gpChatControl_0077B064, gpSelectedChannelUser && !nFlags);
-    CONTROL_SetEnabled(gpChatControl_0077B068, gpSelectedChannelUser && nFlags);
+    CONTROL_SetEnabled(gapChatDlgControls[3], gpSelectedChannelUser && !nFlags);
+    CONTROL_SetEnabled(gapChatDlgControls[4], gpSelectedChannelUser && nFlags);
 }
 
 // 0x00447870
@@ -2308,10 +2282,10 @@ void __fastcall CHATDLG_UpdateScroll(int nDelta)
     if (gnChannelScroll != nOld)
 // build: symbol ?COMCALLBACK_RefreshChannelList@* 0x00447BB0
         COMCALLBACK_RefreshChannelList();
-    CONTROL_SetEnabled(gpChatUpButtonA, bUp);
-    CONTROL_SetEnabled(gpChatDownButtonA, bDown);
-    CONTROL_SetEnabled(gpChatUpButtonB, bUp);
-    CONTROL_SetEnabled(gpChatDownButtonB, bDown);
+    CONTROL_SetEnabled(gapChatDlgControls[CHATINIT_UPBUTTON_A], bUp);
+    CONTROL_SetEnabled(gapChatDlgControls[CHATINIT_DOWNBUTTON_A], bDown);
+    CONTROL_SetEnabled(gapChatDlgControls[CHATINIT_UPBUTTON_B], bUp);
+    CONTROL_SetEnabled(gapChatDlgControls[CHATINIT_DOWNBUTTON_B], bDown);
 }
 
 // 0x00448C70
