@@ -1018,13 +1018,13 @@ int __fastcall SUNIT_UpdateUnitPath(D2GameStrc* ptGame, D2UnitStrc* pMissile)
     D2_ASSERT(ptGame, 1838);
 
     SUNIT_ValidateTargetUnit(ptGame, pMissile);
-    const int v4 = D2Common_10226(pMissile, 1024) ? 1 : 2;
+    const int nResult = D2Common_10226(pMissile, 1024) ? 1 : 2;
     if (UNITS_IsCurrentRoomInvalid(pMissile))
     {
         SUNIT_SynchronizeRoomClients(ptGame, pMissile, 0);
     }
 
-    return v4;
+    return nResult;
 }
 
 inline int CLIENTS_GetUnitX_Inline(D2UnitStrc* pUnit)

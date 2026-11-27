@@ -30,7 +30,7 @@ static inline unsigned int ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int 
 }
 
 // 0x005C2740
-int __stdcall sub_005C2740_RollLegacySetItem(D2UnitStrc* pItem)
+int __stdcall ITEMS_RollLegacySetItem(D2UnitStrc* pItem)
 {
     D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
     if (!pItemsTxt) return 0;

@@ -78,7 +78,7 @@ static void __stdcall LEVEL_UpdateUnitForClient(D2GameStrc* pGame, D2UnitStrc* p
 {
     D2_ASSERT(pUnit, 21);
     const int nUnitType = pUnit->dwUnitType;
-    int v10 = 0;
+    int bSkipInventory = 0;
     const int bInitSeedSet = (pUnit->dwFlags >> 4) & 1;
     if (bInitSeedSet)
     {
@@ -89,16 +89,16 @@ static void __stdcall LEVEL_UpdateUnitForClient(D2GameStrc* pGame, D2UnitStrc* p
                 return;
             }
             SUNITMSG_SendUnitToClient(pGame, pUnit, pClient);
-            v10 = 1;
+            bSkipInventory = 1;
         }
     }
     switch (pUnit->dwUnitType)
     {
     case UNIT_PLAYER:
-        PLRMODE_SendPlayerUpdates(pGame, pUnit, pClient, v10);
+        PLRMODE_SendPlayerUpdates(pGame, pUnit, pClient, bSkipInventory);
         break;
     case UNIT_MONSTER:
-        MONSTERMSG_SendMonsterUpdates(pGame, pUnit, pClient, v10);
+        MONSTERMSG_SendMonsterUpdates(pGame, pUnit, pClient, bSkipInventory);
         break;
     case UNIT_OBJECT:
         OBJMODE_SendObjectUpdates(pGame, pUnit, pClient);

@@ -413,6 +413,36 @@ unsigned char gabNewVerifier[0x40];                                             
 
 D2BigLoginRecordStrc gtLoginRecord;                                                                // 0x00882680
 
+struct D2CDKeyInfoStrc
+{
+    unsigned int nKeyLength;
+    int nProduct;
+    int nValue1;
+    int f_C;
+    unsigned char abDigest[20];
+};
+struct D2AuthCheckPacketStrc;
+struct D2AuthCheckPacketStrc
+{
+    unsigned int dwClientToken;
+    unsigned int nVersion;
+    unsigned int nChecksum;
+    unsigned int nKeys;
+    unsigned int bSpawn;
+    D2CDKeyInfoStrc pKeys[2];
+    char szData[0x200];
+};
+int __fastcall BNDOWNLOAD_RunCheckRevision(unsigned int* pExeVersion, unsigned int* pExeHash, char* szText); // 0x0051E6D0
+int __cdecl GAME_GetAbortFlag(); // 0x00520AE0
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
+unsigned int __fastcall sub_00523020_GetAlignedData(unsigned int nSize); // 0x00523020
+void __fastcall sub_005241C0_GetDigest(int nIndex, unsigned int* pDigest); // 0x005241C0
+void __fastcall sub_00524200_HashBlock(int nIndex, const void* pBlock, unsigned int* pDigest); // 0x00524200
+void __fastcall sub_00524760_CipherBlock(int nIndex, const unsigned short* pIn, unsigned short* pOut); // 0x00524760
+void __cdecl sub_00524740_ClearKeySchedules(); // 0x00524740
+void __cdecl sub_005241A0_ClearHashContexts(); // 0x005241A0
+unsigned int gdwBnClientToken; // 0x00882530
+
 // build: symbol ??__EgtBigPair@@YAXXZ 0x006CAEF0
 // build: symbol ??__FgtBigPair@@YAXXZ 0x006CB480
 D2BigPairStrc gtBigPair;                                                                           // 0x0088273C
@@ -2134,14 +2164,6 @@ extern const char gacCDKeyMap[]; // 0x006DF238
 
 extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int nRadix); // 0x006867B2
 
-struct D2CDKeyInfoStrc
-{
-    unsigned int nKeyLength;
-    int nProduct;
-    int nValue1;
-    int f_C;
-    unsigned char abDigest[20];
-};
 
 struct D2CDKeyHash16Strc
 {
@@ -2502,8 +2524,9 @@ int __stdcall BNSEND_CheckCDKeys()
     return bResult;
 }
 
+// Kept noinline: sub_00521DC0_SendAuthCheck (0x521DC0) calls this out of line in the image; without it the compiler inlines it there.
 // 0x0051E340
-int __fastcall sub_0051E340_BuildCDKeyInfoForSlot(D2CDKeyInfoStrc* pInfo, unsigned int dwClientToken, int nSlot)
+__declspec(noinline) int __fastcall sub_0051E340_BuildCDKeyInfoForSlot(D2CDKeyInfoStrc* pInfo, unsigned int dwClientToken, int nSlot)
 {
     return BNSEND_BuildCDKeyInfo(pInfo, GRID_GetCDKey(nSlot), dwClientToken, BNCLIENT_GetServerToken());
 }
@@ -2599,6 +2622,64 @@ int __stdcall BNSEND_SendAuthInfo()
     tPacket.nCountryAbbrev = *(unsigned int*)szAbbrev;
     GetLocaleInfoA(0x400, 0x1002, tPacket.szCountry, sizeof(tPacket.szCountry));
     BNSEND_SendPacket(0x50, &tPacket, SStrLen(tPacket.szCountry) + 0x29);
+    return 1;
+}
+
+// 0x00521DC0
+int __cdecl sub_00521DC0_SendAuthCheck()
+{
+    D2AuthCheckPacketStrc tPacket;
+    memset(&tPacket, 0, sizeof(tPacket));
+
+    const long nTime = _time32(0);
+    gdwBnClientToken += GetTickCount() + nTime;
+    tPacket.dwClientToken = gdwBnClientToken;
+
+    if (!BNDOWNLOAD_HasArchiveName())
+    {
+        do
+        {
+            if (GAME_GetAbortFlag())
+            {
+                return 0;
+            }
+
+            Sleep(10);
+        }
+        while (!BNDOWNLOAD_HasArchiveName());
+    }
+
+    char szText[0x100];
+    if (!BNDOWNLOAD_RunCheckRevision(&tPacket.nVersion, &tPacket.nChecksum, szText))
+    {
+        BNMESSQUEUE_SetError(1);
+        return 0;
+    }
+
+    tPacket.bSpawn = 0;
+    GRID_LockCDKeys();
+
+    char* pString;
+    if (sub_0051BEC0_IsExpansion())
+    {
+        pString = &tPacket.szData[SStrCopy(tPacket.szData, szText, 0x200) + 1];
+        tPacket.nKeys = 2;
+        sub_0051E340_BuildCDKeyInfoForSlot(&tPacket.pKeys[0], gdwBnClientToken, 0);
+        sub_0051E340_BuildCDKeyInfoForSlot(&tPacket.pKeys[1], gdwBnClientToken, 1);
+        SStrCopy(pString, GAME_GetExeInfo(), &tPacket.szData[0x200] - pString);
+    }
+    else
+    {
+        char* pData = (char*)&tPacket.pKeys[1];
+        pString = &pData[SStrCopy(pData, szText, 0x200) + 1];
+        tPacket.nKeys = 1;
+        sub_0051E340_BuildCDKeyInfoForSlot(&tPacket.pKeys[0], gdwBnClientToken, 0);
+        SStrCopy(pString, GAME_GetExeInfo(), &pData[0x200] - pString);
+    }
+
+    GRID_UnlockCDKeys();
+// build: symbol ?BNSEND_SendPacket@* 0x0051C5C0
+    BNSEND_SendPacket(0x51, &tPacket, (pString - (char*)&tPacket) + SStrLen(pString) + 1);
     return 1;
 }
 

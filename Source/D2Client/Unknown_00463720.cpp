@@ -87,7 +87,7 @@ extern D2UnitStrc* gapClientUnitTable[6 * 0x80]; // 0x007A5E70
 extern D2UnitStrc* gapServerUnitTable[6 * 0x80]; // 0x007A5270
 
 // 0x00463720
-int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask)
+int __fastcall ITEMS_CheckUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask)
 {
     if (!pUnit)
     {

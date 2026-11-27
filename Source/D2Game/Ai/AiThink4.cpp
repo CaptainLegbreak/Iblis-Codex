@@ -1448,8 +1448,8 @@ void __fastcall AITHINK_Fn094_DesertTurret(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
 
-    if (pMonStatsTxt->nSkill[0] >= 0 && sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, nX, nY)
-        && sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget)))
+    if (pMonStatsTxt->nSkill[0] >= 0 && MONSTERSPAWN_CheckSkillPlacement(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, nX, nY)
+        && MONSTERSPAWN_CheckSkillPlacement(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget)))
     {
         AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], 0, nX, nY);
         PATH_SetTargetPos((Obj00648AD0*)pUnit->pDynamicPath, nX, nY);
@@ -3746,7 +3746,7 @@ int __stdcall sub_005E5270(int nUnused1, int nUnused2)
 }
 
 // 0x005E5280
-void __fastcall sub_005E5280_AiSpecialState04(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+void __fastcall AITHINK_ClearInfernoAndResetAi(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
     if (STATES_CheckState(pUnit, STATE_INFERNO))
@@ -4840,7 +4840,7 @@ void __fastcall AITHINK_Fn032_Npc(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTick
 {
     D2CoordStrc coord;
     int a3;
-    int a4;
+    int bIdle;
 
     if (AITHINK_InitHomeCommand(pGame, pUnit, pAiTickParam))
     {
@@ -4875,8 +4875,8 @@ void __fastcall AITHINK_Fn032_Npc(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTick
             return;
         }
 
-        ACT2Q4_GetAndUpdatePalaceNpcState(pGame, pUnit, &a3, &a4);
-        if (a4)
+        ACT2Q4_GetAndUpdatePalaceNpcState(pGame, pUnit, &a3, &bIdle);
+        if (bIdle)
         {
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
         }
@@ -6092,8 +6092,8 @@ int __fastcall AITHINK_RollDiabloAction(D2AiControlStrc* pAi,D2UnitStrc* pUnit,D
         if(bVeryFar){nWeights[9]=20;nWeights[14]=60;}
         if(bPortal)nWeights[15]=15;
     }
-    if(sub_005FD470(pGame,pUnit,SKILL_DIABPRISON,pTarget,0,0))nWeights[9]=0;
-    if(nWeights[15] && pPortal && !sub_005FD470(pGame,pUnit,SKILL_DIABPRISON,pPortal,0,0))nWeights[15]=0;
+    if(MONSTERSPAWN_CheckSkillPlacement(pGame,pUnit,SKILL_DIABPRISON,pTarget,0,0))nWeights[9]=0;
+    if(nWeights[15] && pPortal && !MONSTERSPAWN_CheckSkillPlacement(pGame,pUnit,SKILL_DIABPRISON,pPortal,0,0))nWeights[15]=0;
     int* pWeight=nWeights;
     int nTotal=0;
     for(int n=17;n;--n)nTotal+=*pWeight++;
@@ -6224,8 +6224,8 @@ int __fastcall AITHINK_RollUberDiabloAction(D2AiControlStrc* pAi,D2UnitStrc* pUn
         if(bVeryFar){nWeights[9]=20;nWeights[1]=60;}
         if(bPortal)nWeights[15]=15;
     }
-    if(sub_005FD470(pGame,pUnit,SKILL_DIABPRISON,pTarget,0,0))nWeights[9]=0;
-    if(nWeights[15] && pPortal && !sub_005FD470(pGame,pUnit,SKILL_DIABPRISON,pPortal,0,0))nWeights[15]=0;
+    if(MONSTERSPAWN_CheckSkillPlacement(pGame,pUnit,SKILL_DIABPRISON,pTarget,0,0))nWeights[9]=0;
+    if(nWeights[15] && pPortal && !MONSTERSPAWN_CheckSkillPlacement(pGame,pUnit,SKILL_DIABPRISON,pPortal,0,0))nWeights[15]=0;
     int* pWeight=nWeights;
     int nTotal=0;
     for(int n=17;n;--n)nTotal+=*pWeight++;
@@ -7476,7 +7476,9 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
         const int nArg20 = arg.nSentryCount;
         const int nArg1C = arg.nTargetCount;
 
-        const int nArg0C = *(volatile int*)&arg.nCloseTargetCount; // volatile only fixes where the original loads this field (before 0x08 and 0x18)
+        const int nArg0C = *(volatile int*)&arg.nCloseTargetCount; // volatile only fixes where the original loads this field (before 0x08 and 0x18);
+        // plain form 3376/3364: the field keeps a web of its own (copy and > 3 test) coloured eax in round 8 and copied to ebx;
+        // that web in ebx (c2force --reg 8:71:ebx) is equal, and the 2-byte copy is what moves a loop top past its alignment
         const int nArg08 = arg.nClosestDistanceSquared;
         const int nArg18 = arg.nTargetsNearOwner;
 
@@ -8716,7 +8718,7 @@ static inline unsigned int SEED_RollAgain_005EDC50(D2SeedStrc* pSeed, unsigned i
 }
 
 // 0x005EDC50
-void __fastcall sub_005EDC50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+void __fastcall AITHINK_Fn127_NpcBarb(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     int nStep = -30;
     int bCombat = pAiTickParam->bCombat;

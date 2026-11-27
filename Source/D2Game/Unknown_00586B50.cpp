@@ -57,7 +57,7 @@ void __fastcall ACT5Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2
 }
 
 // 0x00586C40
-bool __fastcall sub_00586C40_StatusFilterCallback(D2QuestDataStrc* quest, D2UnitStrc* player, D2BitBufferStrc* globalFlags, D2BitBufferStrc* flags, unsigned char* status)
+bool __fastcall ACT5Intro_StatusFilterCallback(D2QuestDataStrc* quest, D2UnitStrc* player, D2BitBufferStrc* globalFlags, D2BitBufferStrc* flags, unsigned char* status)
 {
     *status = 0;
     return false;
@@ -178,7 +178,7 @@ struct D2QuestData0058EA50Strc
 extern unsigned char gaAct5IntroNpcMessages[]; // 0x00732FF8
 
 // 0x0058EA50
-void __fastcall sub_0058EA50_InitQuestCallbacks(D2QuestData0058EA50Strc* pQuestData)
+void __fastcall ACT5Intro_InitQuestData(D2QuestData0058EA50Strc* pQuestData)
 {
     memset(&pQuestData->tCallbacks, 0, sizeof(pQuestData->tCallbacks));
     pQuestData->tCallbacks.pfCallbackA0 = (void*)ACT5Intro_Callback00_NpcActivate;
@@ -189,7 +189,7 @@ void __fastcall sub_0058EA50_InitQuestCallbacks(D2QuestData0058EA50Strc* pQuestD
     pQuestData->nB = 0;
     pQuestData->n18 = 0;
     pQuestData->nE0 = 0x2A;
-    pQuestData->pfStatusFilterE8 = (void*)sub_00586C40_StatusFilterCallback;
+    pQuestData->pfStatusFilterE8 = (void*)ACT5Intro_StatusFilterCallback;
     pQuestData->pfActiveFilterEC = (void*)ACT5Intro_ActiveFilterCallback;
 }
 

@@ -742,8 +742,8 @@ static void __stdcall QUESTS_DeleteItemEx(D2InventoryStrc* pInventory, D2GameStr
     case 1:
     {
         const int nBodyLoc = INVENTORY_GetItemsXPosition(pInventory, pItem);
-        int a5;
-        ITEMMODE_UnequipBodyItem(pGame, pPlayer, nBodyLoc, 1, &a5);
+        int nItemStatus;
+        ITEMMODE_UnequipBodyItem(pGame, pPlayer, nBodyLoc, 1, &nItemStatus);
         break;
     }
     case 4:

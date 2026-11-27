@@ -81,7 +81,7 @@ void __fastcall ACT1Q7_Callback00_NpcActivate(); // 0x00596A90
 void __fastcall ACT1Q6_EmptyCallback(); // 0x00596BA0
 
 // 0x00596C40
-void __fastcall sub_00596C40_InitQuestCallbacks(D2QuestData00596C40Strc* pQuestData)
+void __fastcall ACT1Q7_InitQuestData(D2QuestData00596C40Strc* pQuestData)
 {
     memset(&pQuestData->tCallbacks, 0, sizeof(pQuestData->tCallbacks));
     pQuestData->tCallbacks.pfCallbackA0 = (void*)ACT1Q7_Callback00_NpcActivate;

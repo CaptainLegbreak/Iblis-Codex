@@ -330,7 +330,7 @@ void __fastcall D2GAME_UpdateAttribute(D2UnitStrc* pUnit, unsigned short nStat, 
 void __stdcall D2Common_10513(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, void(__fastcall* pfCallback)(D2UnitStrc*, unsigned short, unsigned int, D2UnitStrc*)); // 0x006258D0
 
 // 0x00463720
-inline int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask)
+inline int __fastcall ITEMS_CheckUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask)
 {
     if (!pUnit)
     {
@@ -2554,7 +2554,7 @@ int __fastcall ClientAddPlayerToGame(D2ClientStrc* ptClient, D2GameStrc* ptGame,
     CLIENTS_SendPlayerAssign(ptClient, pPlayer);
     D2GAME_SendPacketSize05(ptClient, 0x5F, UNITS_GetPlayerPortalFlags(pPlayer));
     D2Common_10513(pPlayer, pPlayer, D2GAME_UpdateAttribute);
-    if (sub_00463720_TestUnitFlagEx(pPlayer, 1))
+    if (ITEMS_CheckUnitFlagEx(pPlayer, 1))
     {
         D2GAME_INVMODE_First(ptGame, pPlayer, ptClient, 0);
         if (pPlayer)

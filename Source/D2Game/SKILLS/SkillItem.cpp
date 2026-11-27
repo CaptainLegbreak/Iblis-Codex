@@ -1327,7 +1327,9 @@ int __fastcall SKILLITEM_EventFunc31_Reanimate(D2GameStrc* pGame, int nEvent, D2
         if (sub_0044BE50(pAttacker) == UNIT_PLAYER)
         {
             const int nOwnerId = pAttacker->dwUnitId;
-            // volatile only makes these reloads come from the stack copies of the register parameters, as the original does
+            // volatile only makes these reloads come from the stack copies of the register parameters, as the original does.
+            // Reading (c2force, plain form 167/167, 12 bytes off): the low word of nSkillId takes ecx by rotation where the game
+            // has eax; one rotation step earlier (--rot T75:eax) is equal. The game had pGame and pUnit in ecx/edx before the pushes.
             D2UnitStrc* pEventUnit = static_cast<D2UnitStrc* const volatile&>(pUnit);
             D2GameStrc* pOwnerGame = static_cast<D2GameStrc* const volatile&>(pGame);
             SUNITEVENT_Register(pOwnerGame, pEventUnit, UNITEVENT_13, static_cast<unsigned short>(nSkillId), nOwnerId, SKILLITEM_TimerCallback_ReanimateMonster, 0, nOwnerId);

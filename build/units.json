@@ -6854,9 +6854,14 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00421110.cpp",
+   "file": "Source/Storm/SOURCE/SBig.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00420F80",
+     "length": 67,
+     "name": "?sub_00420F80_DecodeLength@@YAXPBEIPAI1@Z"
+    },
     {
      "va": "0x00420FD0",
      "length": 16,
@@ -6977,6 +6982,50 @@
      "name": "?WARDENCLIENT_SwapBytes@@YIXPAE0@Z"
     },
     {
+     "va": "0x004212D0",
+     "length": 32,
+     "name": "?sub_004212D0_Get@BigBuffer@@QAEII@Z"
+    },
+    {
+     "va": "0x004212F0",
+     "length": 183,
+     "name": "?sub_004212F0_Compare@@YGHPBUBigBuffer@@0@Z"
+    },
+    {
+     "va": "0x004213B0",
+     "length": 142,
+     "name": "?BigHighBitIndex@@YGIPAUBigBuffer@@@Z"
+    },
+    {
+     "va": "0x00421440",
+     "length": 41,
+     "name": "?BigIsEven@@YAHABUBigBuffer@@@Z"
+    },
+    {
+     "va": "0x00421470",
+     "length": 145
+    },
+    {
+     "va": "0x00421510",
+     "length": 28,
+     "name": "?BigToUnsigned@@YAXPAIPAUBigBuffer@@@Z"
+    },
+    {
+     "va": "0x00421530",
+     "length": 9,
+     "name": "?SBigCompare@@YGHPAX0@Z"
+    },
+    {
+     "va": "0x00421540",
+     "length": 15,
+     "name": "?SBigIsEven@@YGHPAUD2StormBigStrc@@@Z"
+    },
+    {
+     "va": "0x00421550",
+     "length": 18,
+     "name": "?SBigToUnsigned@@YGXPAXPAI@Z"
+    },
+    {
      "va": "0x00421570",
      "length": 23,
      "name": "??1?$TSFixedArray@IU?$TSCD@I@@@@QAE@XZ"
@@ -7025,6 +7074,16 @@
      "va": "0x004217F0",
      "length": 23,
      "name": "??1?$TSGrowableArray@IU?$TSCD@I@@@@QAE@XZ"
+    },
+    {
+     "va": "0x00421810",
+     "length": 23,
+     "name": "??1BigBuffer@@QAE@XZ"
+    },
+    {
+     "va": "0x00421830",
+     "length": 16,
+     "name": "??1BigStack@@QAE@XZ"
     },
     {
      "va": "0x00421840",
@@ -7087,86 +7146,6 @@
      "name": "?Reserve@?$TSGrowableArray@DU?$TSCD@D@@@@QAEXIH@Z"
     },
     {
-     "va": "0x00421BA0",
-     "length": 43,
-     "name": "??4?$TSGrowableArray@IU?$TSCD@I@@@@QAEAAU0@ABU0@@Z"
-    },
-    {
-     "va": "0x00421F10",
-     "length": 73,
-     "name": "?SetCount@?$TSGrowableArray@IU?$TSCD@I@@@@QAEXI@Z"
-    },
-    {
-     "va": "0x00421F60",
-     "length": 119,
-     "name": "?Add@?$TSGrowableArray@DU?$TSCD@D@@@@QAEIIPBD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SBig.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00420F80",
-     "length": 67,
-     "name": "?sub_00420F80_DecodeLength@@YAXPBEIPAI1@Z"
-    },
-    {
-     "va": "0x004212D0",
-     "length": 32,
-     "name": "?sub_004212D0_Get@BigBuffer@@QAEII@Z"
-    },
-    {
-     "va": "0x004212F0",
-     "length": 183,
-     "name": "?sub_004212F0_Compare@@YGHPBUBigBuffer@@0@Z"
-    },
-    {
-     "va": "0x004213B0",
-     "length": 142,
-     "name": "?BigHighBitIndex@@YGIPAUBigBuffer@@@Z"
-    },
-    {
-     "va": "0x00421440",
-     "length": 41,
-     "name": "?BigIsEven@@YAHABUBigBuffer@@@Z"
-    },
-    {
-     "va": "0x00421470",
-     "length": 145
-    },
-    {
-     "va": "0x00421510",
-     "length": 28,
-     "name": "?BigToUnsigned@@YAXPAIPAUBigBuffer@@@Z"
-    },
-    {
-     "va": "0x00421530",
-     "length": 9,
-     "name": "?SBigCompare@@YGHPAX0@Z"
-    },
-    {
-     "va": "0x00421540",
-     "length": 15,
-     "name": "?SBigIsEven@@YGHPAUD2StormBigStrc@@@Z"
-    },
-    {
-     "va": "0x00421550",
-     "length": 18,
-     "name": "?SBigToUnsigned@@YGXPAXPAI@Z"
-    },
-    {
-     "va": "0x00421810",
-     "length": 23,
-     "name": "??1BigBuffer@@QAE@XZ"
-    },
-    {
-     "va": "0x00421830",
-     "length": 16,
-     "name": "??1BigStack@@QAE@XZ"
-    },
-    {
      "va": "0x00421B50",
      "length": 19,
      "name": "??0BigBuffer@@QAE@XZ"
@@ -7175,6 +7154,11 @@
      "va": "0x00421B70",
      "length": 37,
      "name": "??0BigStack@@QAE@XZ"
+    },
+    {
+     "va": "0x00421BA0",
+     "length": 43,
+     "name": "??4?$TSGrowableArray@IU?$TSCD@I@@@@QAEAAU0@ABU0@@Z"
     },
     {
      "va": "0x00421BD0",
@@ -7198,6 +7182,16 @@
      "va": "0x00421EA0",
      "length": 110,
      "name": "?GrowToFit@D2StormArrayAStrc@@QAEXIH@Z"
+    },
+    {
+     "va": "0x00421F10",
+     "length": 73,
+     "name": "?SetCount@?$TSGrowableArray@IU?$TSCD@I@@@@QAEXI@Z"
+    },
+    {
+     "va": "0x00421F60",
+     "length": 119,
+     "name": "?Add@?$TSGrowableArray@DU?$TSCD@D@@@@QAEIIPBD@Z"
     },
     {
      "va": "0x00421FE0",
@@ -17259,7 +17253,7 @@
     {
      "va": "0x00463720",
      "length": 22,
-     "name": "?sub_00463720_TestUnitFlagEx@@YIHPAUD2UnitStrc@@I@Z"
+     "name": "?ITEMS_CheckUnitFlagEx@@YIHPAUD2UnitStrc@@I@Z"
     },
     {
      "va": "0x00463740",
@@ -37671,6 +37665,10 @@
      "name": "?NET_SID_CLIENT_Send_0x50_AuthInfo@@YGHXZ"
     },
     {
+     "va": "0x00521DC0",
+     "length": 404
+    },
+    {
      "va": "0x00521F60",
      "length": 230,
      "name": "?BNSEND_SendAccountLogon@@YIHPBD0@Z"
@@ -38865,16 +38863,11 @@
      "va": "0x00524740",
      "length": 21,
      "name": "?sub_00524740_ClearKeySchedules@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Bnclient/Unknown_00521DC0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
-     "va": "0x00521DC0",
-     "length": 404
+     "va": "0x00524760",
+     "length": 29,
+     "name": "sub_00524760_CipherBlock"
     }
    ]
   },
@@ -38963,17 +38956,6 @@
     {
      "va": "0x00524140",
      "length": 85
-    }
-   ]
-  },
-  {
-   "file": "Source/Bnclient/Unknown_00524760.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00524760",
-     "length": 29,
-     "name": "sub_00524760_CipherBlock"
     }
    ]
   },
@@ -45326,7 +45308,7 @@
     {
      "va": "0x0054DF80",
      "length": 269,
-     "name": "?sub_0054DF80_SpawnGroupInCoordList@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@EEH@Z"
+     "name": "?MONSTERREGION_SpawnMonsterGroup@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@EEH@Z"
     },
     {
      "va": "0x0054E090",
@@ -50014,7 +49996,7 @@
     {
      "va": "0x0058EA50",
      "length": 101,
-     "name": "?sub_0058EA50_InitQuestCallbacks@@YIXPAUD2QuestData0058EA50Strc@@@Z"
+     "name": "?ACT5Intro_InitQuestData@@YIXPAUD2QuestData0058EA50Strc@@@Z"
     }
    ]
   },
@@ -51212,7 +51194,7 @@
     {
      "va": "0x0058F870",
      "length": 124,
-     "name": "?sub_0058F870_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+     "name": "?ACT1Intro_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x0058F8F0",
@@ -52368,7 +52350,7 @@
     {
      "va": "0x00596C40",
      "length": 94,
-     "name": "?sub_00596C40_InitQuestCallbacks@@YIXPAUD2QuestData00596C40Strc@@@Z"
+     "name": "?ACT1Q7_InitQuestData@@YIXPAUD2QuestData00596C40Strc@@@Z"
     }
    ]
   },
@@ -55652,7 +55634,7 @@
     {
      "va": "0x005EDC50",
      "length": 791,
-     "name": "sub_005EDC50"
+     "name": "AITHINK_Fn127_NpcBarb"
     },
     {
      "va": "0x005EDF70",
@@ -56233,7 +56215,7 @@
     {
      "va": "0x005B0CC0",
      "length": 3,
-     "name": "sub_005B0CC0"
+     "name": "AITHINK_Fn000"
     },
     {
      "va": "0x005B0CD0",
@@ -58892,12 +58874,12 @@
     {
      "va": "0x005CDF10",
      "length": 160,
-     "name": "?sub_005CDF10@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvDo109_MonFrenzy@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CDFB0",
      "length": 249,
-     "name": "?sub_005CDFB0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvDo148_DoomKnightMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CE0B0",
