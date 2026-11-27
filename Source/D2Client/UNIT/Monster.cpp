@@ -119,7 +119,6 @@ void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 
 
-extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 
 
@@ -241,7 +240,6 @@ int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nS
 
 
 
-extern int gbGambleShop; // 0x007C0DB0
 
 extern int gdwGlobal_007C0E54; // 0x007C0E54
 
@@ -260,7 +258,6 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 
 extern D2ClientStringListStrc gtStringList; // 0x007C0D9A
 
-extern D2UnitStrc* gpNpcPlayerUnit; // 0x007C0DD4
 
 extern unsigned short gwGlobal_007C0DD8; // 0x007C0DD8
 

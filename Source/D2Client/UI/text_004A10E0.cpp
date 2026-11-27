@@ -27,17 +27,11 @@ extern unsigned char gaHandlers_00722600[]; // 0x00722600
 extern D2TextBlockStrc* gpTextBox; // 0x007BF0A4
 extern D2TextBlockStrc* gpMainTextBox; // 0x007BF1A8
 extern int gnTextState_007BF1BC; // 0x007BF1BC
-extern int gnTextActive; // 0x007BF1C0
 extern int gnPreviousTextActive_007BF1C4; // 0x007BF1C4
 extern unsigned int gnNpcId_007BF202; // 0x007BF202
 extern int gnHasNpc_007BF20A; // 0x007BF20A
-extern unsigned short gwTextStringId; // 0x007BF212
-extern unsigned long gnStartTick; // 0x007BF22C
-extern int gbTextSound; // 0x007BF230
 extern int gbTextSide; // 0x007BF236
 extern int gnSoundPlaying_007BF24B; // 0x007BF24B
-extern int gnHintId; // 0x007BF260
-extern int gnTextLeft; // 0x007BF278
 static int gnHandlersSet_007BF27C; // 0x007BF27C
 
 // 0x0049D370

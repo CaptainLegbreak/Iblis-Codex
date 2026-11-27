@@ -95,17 +95,13 @@ extern int gnTextIdCount; // 0x00722EB4
 
 extern D2ClientTextBoxStrc* gpMainTextBox; // 0x007BF1A8
 
-extern ListBoxWrapper* gpListBox; // 0x007BF1B4
 
-extern int gbTextBoxDone; // 0x007BF1BC
 
-extern int gnTextActive; // 0x007BF1C0
 
 extern D2TextListStrc gtMessageTextList; // 0x007BF1E4
 
 D2TextListStrc gtTextHistory; // 0x007BF1F0
 
-extern unsigned char gbTextHoverSet; // 0x007BF23A
 
 extern int gbTextHandlersRegistered; // 0x007BF27C
 
@@ -128,7 +124,6 @@ struct D2TextBoxStrc;
 
 extern D2TextBoxStrc* gpTextBox;                                                                   // 0x007BF0A4
 
-extern D2ClientDialogStrc* gpListDialog;                                                           // 0x007BF1B0
 
 
 struct D2UnitStrc;

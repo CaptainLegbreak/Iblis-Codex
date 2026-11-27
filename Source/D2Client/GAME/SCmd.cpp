@@ -287,7 +287,6 @@ void __cdecl UI_InitUI(); // 0x00456970
 
 void __fastcall GAME_LoadAct(unsigned char nAct, unsigned int dwGameSeed, unsigned int dwObjectSeed, int nTownLevelId); // 0x0044E100
 
-extern int gbPositionalSound; // 0x007A061C
 
 extern int gbActUnloaded; // 0x007A0624
 
@@ -787,11 +786,9 @@ void __fastcall sub_004802E0(unsigned char* pData, int nLength); // 0x004802E0
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
-extern int gnPanelOffsetX; // 0x007A2858
 
 extern int gnScreenWidth; // 0x0071146C
 
-extern int gnPanelOffsetY; // 0x007A285C
 
 extern int gbPopupDismissed; // 0x007A5254
 

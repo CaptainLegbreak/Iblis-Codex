@@ -68,9 +68,7 @@ extern int gnScreenWidth;                                                       
 
 extern D2PanelAnimEntryStrc gaPanelAnim[];                                                         // 0x00712020
 
-extern int gnPanelOffsetX;                                                                               // 0x007A2858
 
-extern int gnPanelOffsetY;                                                                               // 0x007A285C
 
 extern int gbPopupOkPressed;                                                                               // 0x007A524C
 

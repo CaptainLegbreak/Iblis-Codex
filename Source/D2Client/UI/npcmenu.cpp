@@ -576,9 +576,7 @@ extern int gbTradeItemOnCursor; // 0x007C0D3F
 
 extern int gnTradeItemDropSound; // 0x007C0D5B
 
-extern int gbGambleShop; // 0x007C0DB0
 
-extern D2UnitStrc* gpNpcPlayerUnit; // 0x007C0DD4
 
 extern unsigned long gdwGlobal_007C0DE9; // 0x007C0DE9
 

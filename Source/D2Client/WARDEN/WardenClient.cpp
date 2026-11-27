@@ -249,11 +249,8 @@ extern D2RosterPetStrc* gpRosterPets; // 0x007BB5BC
 extern D2InvRectStrc gtPlayerInvRect; // 0x007BCAA0
 
 
-extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnPanelOffsetY; // 0x007A285C
 
-extern char gbSent; // 0x007BF085
 
 extern int gnWaypointCount; // 0x007BF08A
 
@@ -261,13 +258,9 @@ extern int gnWaypointEnabledCount; // 0x007BF08E
 
 extern D2TextBoxStrc* gpTextBox; // 0x007BF0A4
 
-extern int gbTextBoxDone; // 0x007BF1BC
 
-extern int gnTextActive; // 0x007BF1C0
 
-extern unsigned long gnStartTick; // 0x007BF22C
 
-extern int gbTextSound; // 0x007BF230
 
 extern int gbTextSide; // 0x007BF236
 

@@ -19,7 +19,6 @@ extern D2MsgHandlerEntryStrc gaKeyCaptureHandlers[];                            
 extern D2MsgHandlerEntryStrc gaKeyCaptureXButtonHandlers[];                                                      // 0x00724780
 extern D2MsgHandlerEntryStrc gaKeyCaptureWheelHandlers[];                                                      // 0x0072478C
 extern int gnKeyConfigSelected;                                                                               // 0x007C02B0
-extern int gbKeyCaptureActive;                                                                               // 0x007C02B8
 extern unsigned long gdwMessageTick;                                                                     // 0x007C02C8
 
 

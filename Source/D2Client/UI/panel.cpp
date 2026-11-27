@@ -112,9 +112,7 @@ extern int gnTabSelection; // 0x00724CE0
 extern int gnSkillPage; // 0x00724BEC
 
 
-extern int gnPanelOffsetX; // 0x007A2858
 
-extern int gnPanelOffsetY; // 0x007A285C
 
 void* gpPanelQuadCel; // 0x007BF018
 
@@ -186,7 +184,6 @@ void __fastcall sub_0049FF90_Close(D2UnitStrc* pItem, D2ItemsTxt* pState); // 0x
 
 extern int gnBeltUiRecordRow; // 0x007A5218
 
-extern int gbPositionalSound; // 0x007A061C
 
 static int gnBeltHover; // 0x007BEF94
 

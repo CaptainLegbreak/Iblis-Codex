@@ -647,9 +647,7 @@ void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, un
 
 static int gbHelpCloseButtonDown; // 0x007BEEFC
 
-extern void* gpLevelCel; // 0x007C02DC
 
-extern void* gpLevelSocketCel; // 0x007C02E0
 
 int gnGlobal_007BEF04; // 0x007BEF04
 

@@ -149,7 +149,6 @@ struct D2UnitSpawnStrc
     int nMode;
 };
 
-extern D2DrlgActStrc* gpAct;                                                                       // 0x007A0634
 
 void __fastcall DLIGHTMAP_ReleaseLight(D2GfxLightStrc* pLight);                                   // 0x004743D0
 
@@ -389,7 +388,6 @@ typedef int (__stdcall* D2FarProcFn)();
 
 extern unsigned char gabColors_007BCAD8[5]; // 0x007BCAD8
 
-extern int gnInvPanelMode; // 0x007BCBF0
 
 extern int gnDialogState; // 0x00721E34
 

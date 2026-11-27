@@ -173,7 +173,6 @@ extern unsigned int gdwFpsWindowStart; // 0x007A04B8
 
 extern unsigned int gdwDelayEnd; // 0x007A04BC
 
-extern int gbPositionalSound; // 0x007A061C
 
 int gbLeavingGame; // 0x007A0620
 
@@ -332,7 +331,6 @@ extern unsigned short gawLoadingStrings[]; // 0x0070F384
 int gnLoadingIndex; // 0x007A05D4
 
 
-extern int gnAutomapWidth; // 0x007A5220
 
 
 struct D2PongDataStrc
