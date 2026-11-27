@@ -4,8 +4,11 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- **lane1/questdata-fields-2** (d6989f308, on main #483 a42b4ed66; VERIFIED tree db70df8ecb030dbda3bbff59917c6159ffffbc56). D2QuestData.h: all 149 `unk0x..` fields named (Source/Include `unk0x` 645 -> 496), users renamed in 12 Quests/*.cpp. Names from D2MOO where it has them; from the code where the field is used (nDrehyaState, bNihlathakLeftTown, bTimerActive x2 and bStatusTimerActive by the shape of A1Q1's timer, bGuardActivated, bFinished, pWarpedPlayer typed D2UnitStrc*); `unused0x<off>` for fields no code reads, `pad0x<off>` for gaps the compiler leaves anyway. A1Q2's anonymous union stays (without it a1q5.cpp's 0x00594960 differs). Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose; pointer casts 4,916 -> 4,915, raw offset access 120 -> 120, byte pointer math 153 -> 153. linkdebt --no-compile: 25,066 -> 25,066, every module unchanged. (lane1/questdata-fields, pushed before main moved to #483, is superseded: skip it.)
+
 ## Claimed
 
+- Fri Nov 27 10:22 PST 2026: questdata-fields-2 Ready. Next: lane1/txt-fields, the 54 `unk0x..` of Source/Include/D2Txt.h (claimed: that header only; no code reads those fields by name), building now.
 - Fri Nov 27 09:28 PST 2026: status. questdata-fields: all 149 `unk0x..` in D2QuestData.h renamed (users in 12 Quests/*.cpp; one pointer cast gone), full build running. A1Q2's anonymous union (a `short` over its two flag bytes) has to stay: removing it changes a1q5.cpp's code (0x00594960), the declaration-count effect, so it keeps its shape with named members.
 - Fri Nov 27 09:13 PST 2026: starting (lane 1 restart: the structs). First branch lane1/questdata-fields: the `unk0x..` fields of Source/Include/D2QuestData.h. Files: Source/Include/D2QuestData.h, Source/D2Game/Quests/*.cpp (field spellings only), and any other unit that names those fields.
 
