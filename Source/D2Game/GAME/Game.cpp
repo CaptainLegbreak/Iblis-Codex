@@ -3860,7 +3860,7 @@ void __stdcall GAME_CloseAllGames()
                 D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
                 D2GAME_SAVE_WriteFile(ptGame, pPlayer, CLIENTS_GetName(pClient), 1);
                 GAME_SendRemainingSaveParts(ptGame, pClient);
-                sub_0053B240_SendHeaderOnly0x06(pClient->dwClientId);
+                D2GAME_PACKETS_SendGameExit(pClient->dwClientId);
                 ClientRemoveFromGame(ptGame, pClient->dwClientId, 0);
 
                 pClient = pNextClient;

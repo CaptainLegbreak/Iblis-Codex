@@ -164,7 +164,7 @@ IoTimeout:
             {
                 pNextClient = pCurrentClient->pNext;
                 D2GAME_PACKETS_SendGameLeft(pCurrentClient->dwClientId);
-                sub_0053B240_SendHeaderOnly0x06(pCurrentClient->dwClientId);
+                D2GAME_PACKETS_SendGameExit(pCurrentClient->dwClientId);
                 ClientRemoveFromGame(pGame, pCurrentClient->dwClientId, 0);
             }
         }
