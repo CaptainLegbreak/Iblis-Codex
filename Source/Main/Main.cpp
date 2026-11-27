@@ -10,6 +10,7 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);
 #include "D2WinApi.h"
 #include "D2SoundApi.h"
 #include "D2MCPClientApi.h"
+#include "D2LangApi.h"
 
 struct D2ConfigStrc;
 
@@ -27,7 +28,6 @@ void __fastcall ParseCmdLine(D2ConfigStrc* pCfg, const char* argv); // 0x004059A
 int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType); // 0x00405C30
 int __stdcall ERRORMANAGER_RunModeInterface(D2ConfigStrc* pCfg); // 0x004059D0
 void __stdcall sub_00405A70_WriteSurveyLocale(); // 0x00405A70
-int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 int __cdecl sub_00405EF0_AllowExpansion(); // 0x00405EF0
 extern "C" __declspec(dllimport) void* __stdcall OpenEventA(unsigned long dwDesiredAccess, int bInheritHandle, const char* szName); // 0x006CC12C
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent); // 0x006CC130

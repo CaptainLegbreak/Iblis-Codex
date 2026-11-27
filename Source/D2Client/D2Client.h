@@ -426,7 +426,7 @@ extern unsigned long gdwShowHpText_007BEFDC; // 0x007BEFDC
 extern unsigned long gdwShowMpText_007BEFE0; // 0x007BEFE0
 extern unsigned long gnTextDisplaySetting; // 0x007BF1F6
 extern unsigned long gdwQuestLogToggleTick; // 0x007C0259
-extern unsigned short gaCaseTable[]; // 0x00730778
+extern unsigned short gaCaseTable[0x100]; // 0x00730778
 extern unsigned short gawRosterHostileMale[2][2]; // 0x00722450
 extern unsigned short gawRosterHostileFemale[2][2]; // 0x00722458
 extern unsigned short gawRosterLootMale[2][2]; // 0x00722460
