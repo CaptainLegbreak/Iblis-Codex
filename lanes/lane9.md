@@ -6,6 +6,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 1.10-address names. New chat, reopened 2026-11-26 11:57 PT (from lane 6, which held these modules since 2026-11-25).
 
 ## Status
+- 2026-11-27 03:47 UTC: Ready and merging cleanly onto main: names-d2game-verbs2, params-d2game-tail, params-d2game-tail2 (after verbs2). Next: SUnitMsg packet fields and SCmd packet arguments against D2MOO\'s packet structs.
 - 2026-11-27 03:05 UTC: h, locals, moo in (#458, #459). Building: names-d2game-verbs2 (verbs regenerated on #459) and params-d2game-tail (D2Game unused stub parameters, bTimedEvents, the join check nGameId/nVersion; a1/v12 295 -> 244 alone).
 - 2026-11-27 02:45 UTC: names-d2game-h conflicts with #457 (Skills.cpp); regenerated as -h2 on #457 (131 includers compile equal), full build running. locals-d2game, names-d2game-moo, -verbs merge cleanly onto #457.
 - 2026-11-27 02:17 UTC: names-d2game-h and locals-d2game Ready; names-d2game-moo (17 D2MOO names) building. D2Game placeholders left after these: about 170 a1/v12 (packet-struct fields, unused stub parameters, save flags D2MOO leaves unnamed) and 54 bare sub_<VA> definitions D2MOO has no note for.
