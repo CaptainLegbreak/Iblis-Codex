@@ -260,7 +260,7 @@ void __fastcall BUTTON_SetStringId(D2WinButtonStrc* pButton, int nStringId);    
 
 D2WinControlStrc* gpControl_007799F8;                                                                       // 0x007799F8
 
-D2WinControlStrc* gapRowControls[1]; // 0x00779A20
+D2WinControlStrc* gapRowControls[8]; // 0x00779A20
 
 char gszPreferredRealm[256]; // 0x00779A40
 

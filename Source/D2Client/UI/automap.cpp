@@ -1316,7 +1316,7 @@ void __stdcall AUTOMAP_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevea
 
 int gdwAutoMapFadeSaved; // 0x007A51AC
 
-unsigned char gabAutomapColors[1]; // 0x007A51B0
+unsigned char gabAutomapColors[12]; // 0x007A51B0
 
 int gnMiniMapSavedX; // 0x007A51C0
 
