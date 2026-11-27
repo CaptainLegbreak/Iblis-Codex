@@ -1983,14 +1983,6 @@ D2StormArray408Strc* D2StormArray408Strc::sub_0051D2C0_InitBase()
     return this;
 }
 
-void __cdecl sub_0051D2D0_Nop()
-{
-}
-
-void __cdecl sub_0051D2E0_Nop()
-{
-}
-
 // build: symbol ?BNNEWS_CopyNewsItem@* 0x0051D350
 void __fastcall BNNEWS_CopyNewsItem(D2Storm408ElemStrc* pDst, const D2Storm408ElemStrc* pSrc)
 {

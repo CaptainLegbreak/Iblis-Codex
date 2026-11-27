@@ -1455,60 +1455,6 @@ inline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecord_Inl(int nCharId)
     return 0;
 }
 
-static inline int UNITS_IsAnimModeBlocking_Inl(int nUnitType, int nAnimMode)
-{
-    int nMode;
-    switch (nUnitType)
-    {
-    case 0:
-        nMode = 9;
-        break;
-    case 1:
-        nMode = 6;
-        break;
-    default:
-        return 0;
-    }
-
-    return nAnimMode == nMode;
-}
-
-static inline int UNITS_IsAnimModeGetHit_Inl(int nUnitType, int nAnimMode)
-{
-    int nMode;
-    switch (nUnitType)
-    {
-    case 0:
-        nMode = 4;
-        break;
-    case 1:
-        nMode = 3;
-        break;
-    default:
-        return 0;
-    }
-
-    return nAnimMode == nMode;
-}
-
-static inline int UNITS_IsAnimModeKnockBack_Inl(int nUnitType, int nAnimMode)
-{
-    int nMode;
-    switch (nUnitType)
-    {
-    case 0:
-        nMode = 0x13;
-        break;
-    case 1:
-        nMode = 0xD;
-        break;
-    default:
-        return 0;
-    }
-
-    return nAnimMode == nMode;
-}
-
 static __forceinline void UNITS_SetAnimationSpeed_Inl(D2UnitStrc* pUnit, int nSpeed)
 {
     int nAnimSpeed = nSpeed > 0 ? nSpeed : 0;

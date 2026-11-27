@@ -130,11 +130,6 @@ static void __stdcall DRLGLOGIC_MergeCoordListsAtPoint(D2DrlgRoomStrc* pDrlgRoom
 static void DRLGLOGIC_MergeCoordListsWithNearRooms(D2DrlgRoomStrc* pDrlgRoom);
 
 
-inline int HasMapTileLayer(unsigned int dwFlags)
-{
-    return (dwFlags & 0x1C000) != 0;
-}
-
 // 0x0066C3D0
 void __fastcall DRLGLOGIC_SetTileGridFlags(D2UnkDrlgLogicStrc* pLogic, int nX, int nY, int nFromDirection)
 {

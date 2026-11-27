@@ -123,7 +123,6 @@ int __fastcall ACT3Q3_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
 
 void __fastcall ACT3Q3_UnitIterate_SetGidbinnBroughtBackQuestState(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005B91B0
 
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 bool __fastcall ACT3Q3_SpawnGidbinnBoss(D2GameStrc*, D2QuestDataStrc*); // 0x005B9A30
 
@@ -836,7 +835,7 @@ bool __fastcall ACT3Q3_SpawnGidbinnBoss(D2GameStrc* pGame, D2QuestDataStrc* pQue
             if (pRoom)
             {
                 D2ActiveRoomStrc** ppRoomList;
-                unsigned int nNumRooms;
+                int nNumRooms;
                 DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
                 for (unsigned int i = 0; i < nNumRooms; ++i)
                 {

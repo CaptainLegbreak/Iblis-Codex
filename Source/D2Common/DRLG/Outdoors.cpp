@@ -441,14 +441,6 @@ int __fastcall DRLGOUTDOORS_TestGridCellSpawnValid(D2DrlgLevelStrc* pLevel, int 
     return !(DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], nX, nY) & 0x1B81);
 }
 
-static inline unsigned int SEED_RollRandomNumberHighFirst(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return (unsigned int)lSeed;
-}
-
 // 0x00674E40
 void __fastcall DRLGOUTDOORS_SpawnAct12Shrines(D2DrlgLevelStrc* pLevel, int nShrines)
 {
@@ -605,31 +597,6 @@ static void DRLGOUTDOORS_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel)
 int __fastcall DRLGOUTDOORS_GetRoadEntry(D2DrlgLevelStrc* pLevel, int nIndex)
 {
     return (int)pLevel->pOutdoors->pRoads[nIndex];
-}
-
-static inline int sub_006750F0_GetLevelRoomFlags(int nLevelType)
-{
-    int nFlags = 0;
-    switch (nLevelType)
-    {
-    case 2:
-        nFlags = 0x44103;
-        break;
-    case 16:
-    case 22:
-    case 27:
-    case 28:
-        nFlags = 1;
-        break;
-    case 21:
-        nFlags = 4;
-        break;
-    case 30:
-    case 31:
-        nFlags = 0x11;
-        break;
-    }
-    return nFlags;
 }
 
 void __fastcall DRLGTILESUB_ApplySubstitutionBorder(D2UnkOutdoorStrc* pOutdoor); // 0x00670750

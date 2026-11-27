@@ -1425,7 +1425,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x7A(D2ClientStrc* pClient, char bAdd, 
 }
 
 // 0x0053CB80
-void __fastcall D2GAME_PACKETS_SendPacket0x81(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass, int nSeed, int nName)
+void __fastcall D2GAME_PACKETS_SendPacket0x81(D2ClientStrc* pClient, char nUnused, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass, int nSeed, int nName)
 {
     D2GSPacketSrv81 packet81 = {};
 
@@ -2153,7 +2153,7 @@ void __fastcall D2GAME_SendPacket0x28(D2ClientStrc* pClient, unsigned char nHead
 }
 
 // 0x0053D6D0
-void __fastcall SCMD_SendInteractionTarget(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitId, int a5)
+void __fastcall SCMD_SendInteractionTarget(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitId, int nUnused)
 {
     D2PacketInteractStrc tPacket;
     tPacket.nHeader = nHeader;
