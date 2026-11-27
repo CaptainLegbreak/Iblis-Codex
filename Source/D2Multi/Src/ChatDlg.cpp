@@ -272,7 +272,7 @@ unsigned char gab_0077BD74[16]; // 0x0077BD74
 
 D2WinControlStrc* gpChatTextBox; // 0x0077BD8C
 
-extern char gszLastWhisperer[]; // 0x0077B0D0
+extern char gszLastWhisperer[256]; // 0x0077B0D0
 
 extern D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
 
@@ -325,13 +325,13 @@ int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 
 int __fastcall WINMAIN_SendMcpCharRank(const char* szName, int nB, int nC); // 0x0044AAE0
 
-int __fastcall WINMAIN_SendMcpCharCreate(int nA, int nB, int nC); // 0x0044A2E0
+int __fastcall WINMAIN_SendMcpCharCreate(const char* szText, int nValue, unsigned short wValue); // 0x0044A2E0
 
-int __fastcall WINMAIN_SendMcpCharLogon(int nA); // 0x0044A380
+int __fastcall WINMAIN_SendMcpCharLogon(const char* szText); // 0x0044A380
 
 int __fastcall CHATDLG_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone); // 0x0043FB50
 
-void* __stdcall COMCALLBACK_AddChannelUser(const char* szText, int nLength, int nA); // 0x00449050
+D2MultiChannelUserStrc* __stdcall COMCALLBACK_AddChannelUser(const char* szName, const unsigned char* pStat, unsigned int nFlags); // 0x00449050
 
 extern char gKey_0070CD54; // 0x0070CD54
 
@@ -758,7 +758,7 @@ struct D2CelFileStrc;
 
 extern D2ModuleInterfaceStrc gtInterface; // 0x0070CD14
 
-void* __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
+int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
 
 struct D2WinMsgStrc
 {
@@ -1030,7 +1030,7 @@ extern unsigned short gwMcpReplyRequestId;                                      
 
 extern void* gpMcpConnection;                                                                         // 0x00798FB4
 
-extern char gabMcpReply[];                                                                               // 0x00799108
+extern char gabMcpReply[4]; // 0x00799108
 
 extern void* ghConnectEvent;                                                                       // 0x007992EC
 
@@ -3557,7 +3557,6 @@ int __stdcall CHATDLG_ShowExpansionHardcoreLadder(int nArg)
 }
 
 
-extern int gbFlag_0077ADA4; // 0x0077ADA4
 
 extern D2LaunchRecord3Strc gtRecord_0077B0A8; // 0x0077B0A8
 
@@ -4765,9 +4764,7 @@ int __fastcall D2Win_10057(D2WinControlStrc* pControl, const char* szText, int n
 extern D2LaunchGameRecStrc gaGames[]; // 0x0078A440
 
 
-extern D2WinControlStrc* gpGameList; // 0x00798BC0
 
-extern int gnLastGameCount; // 0x00798CC8
 
 
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
@@ -5272,7 +5269,6 @@ void __cdecl CHATDLG_UpdateCreateButton()
         CONTROL_SetEnabled(gpCreateButton, 0);
 }
 
-extern D2WinControlStrc* gpJoinButton; // 0x00798BCC
 
 // 0x004437E0
 void __cdecl CHATDLG_UpdateJoinButtonState()
@@ -6074,11 +6070,8 @@ extern D2WinControlInitStrc gtResetBuildPanelTimerInit; // 0x0070EB60
 
 extern D2WinControlStrc* gpPanelBackground; // 0x00798BEC
 
-extern D2WinControlStrc* gpPanelTitle; // 0x00798BF0
 
-extern D2WinControlStrc* gpPanelText; // 0x00798BF4
 
-extern D2WinControlStrc* gpPanelCancelButton; // 0x00798C48
 
 // 0x004453B0
 void __cdecl COMCALLBACK_BuildCreateGamePanel()
@@ -6381,16 +6374,16 @@ void __fastcall CHATDLG_MixChar(char* pChar, int nBits, unsigned int* pPool)
 
 int __stdcall CHATDLG_RequestCharLogon(int nA); // 0x00449E10
 
-extern "C" void __cdecl CHARSEL_SendChatLine(); // 0x00446890
-extern "C" void __cdecl COMCALLBACK_SendChatLine(); // 0x004468F0
-extern "C" void __cdecl COMCALLBACK_OnChatPanelClick(); // 0x00446950
-extern "C" void __cdecl COMCALLBACK_SendEmoteLine(); // 0x00446970
-extern "C" void __cdecl COMCALLBACK_SquelchSelectedUser(); // 0x00448E30
-extern "C" void __cdecl COMCALLBACK_UnsquelchSelectedUser(); // 0x00448F60
+int __stdcall CHARSEL_SendChatLine(int nArg); // 0x00446890
+int __stdcall COMCALLBACK_SendChatLine(int nUnused); // 0x004468F0
+int __stdcall COMCALLBACK_OnChatPanelClick(int nArg); // 0x00446950
+int __stdcall COMCALLBACK_SendEmoteLine(int nUnused); // 0x00446970
+int __stdcall COMCALLBACK_SquelchSelectedUser(int nUnused); // 0x00448E30
+int __stdcall COMCALLBACK_UnsquelchSelectedUser(int nUnused); // 0x00448F60
 extern "C" void __cdecl sub_00441320(); // 0x00441320
-extern "C" void __cdecl COMCALLBACK_OpenJoinScreen(); // 0x00446780
-extern "C" void __cdecl COMCALLBACK_OpenCreateScreen(); // 0x004467D0
-extern "C" void __cdecl COMCALLBACK_OnActivate(); // 0x00447A90
+int __stdcall COMCALLBACK_OpenJoinScreen(int nArg); // 0x00446780
+int __stdcall COMCALLBACK_OpenCreateScreen(int nArg); // 0x004467D0
+int __stdcall COMCALLBACK_OnActivate(SMSGHANDLER_PARAMS* pMsg); // 0x00447A90
 extern "C" char gData_0077BD84[]; // 0x0077BD84
 extern "C" void __cdecl sub_004456D0(); // 0x004456D0
 
