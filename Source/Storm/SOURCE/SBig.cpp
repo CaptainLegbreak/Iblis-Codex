@@ -122,7 +122,7 @@ extern const unsigned int gaSBigFermatBases[1];                                 
 extern const unsigned int gaSBigSmallPrimes[171];                                                        // 0x006CFF78
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);                            // 0x0041D2A0
 static void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, const BigBuffer* pIn);                         // 0x00421CB0
-int __stdcall Rand(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack); // 0x00424700
+static void __stdcall Rand(BigBuffer* pResult, BigBuffer* pModulus, BigBuffer* pSeed, BigStack* pStack); // 0x00424700
 int __stdcall sub_00424B00_Square(BigBuffer* pResult, BigBuffer* pA, BigStack* pStack); // 0x00424B00
 
 inline unsigned __int64 MakeLarge(const unsigned int& nLow, const unsigned int& nHigh)
@@ -145,6 +145,9 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
         nValue |= 0xFFFFFFFF00000000ui64;
     return nLow;
 }
+
+extern const unsigned char gabSBigRandMul[8] = { 0x50, 0x46, 0x00, 0x00, 0x69, 0x90, 0x00, 0x00 }; // 0x006CFF60
+extern const unsigned char gabSBigRandSeed[8]; // 0x006CFF68
 
 // 0x00421510
 static void __cdecl BigToUnsigned(unsigned int* pnResult, const BigBuffer& tBuffer)
@@ -247,9 +250,9 @@ int __stdcall SBigMul(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStr
 }
 
 // 0x00424F70
-int __stdcall SBigRand(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
+void __stdcall SBigRand(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
-    return Rand(&pResult->tPrimary, &pA->tPrimary, &pB->tPrimary, &pResult->tStack);
+    Rand(&pResult->tPrimary, &pA->tPrimary, &pB->tPrimary, &pResult->tStack);
 }
 
 // 0x00424F90
@@ -843,6 +846,69 @@ static void __stdcall Pow(BigBuffer* pResult, BigBuffer* pBase, unsigned int nEx
         *pResult = *pWork;
         pStack->nUsed--;
     }
+}
+
+// 0x00424700
+static void __stdcall Rand(BigBuffer* pResult, BigBuffer* pModulus, BigBuffer* pSeed, BigStack* pStack)
+{
+    BigBuffer& tMul = pStack->pRecords[pStack->nUsed++];
+    BigBuffer& tTemp = pStack->pRecords[pStack->nUsed++];
+    BigBuffer* pR; if (pResult) pR = pResult; else pR = pResult;
+    BigBuffer* pS = pSeed;
+    if (pR == pModulus || pR == pS)
+        pR = &pStack->pRecords[pStack->nUsed++];
+    if (pS == pModulus)
+        pS = &pStack->pRecords[pStack->nUsed++];
+    BigBuffer& r = *pR;
+    BigBuffer& s = *pS;
+
+    s.sub_00422140_Trim();
+    int bReseed = s.Count() < 2;
+    s.SetCount(2);
+    if (bReseed)
+    {
+        for (unsigned int i = 0; i < 8; i++)
+            ((unsigned char*)&s.Ref(0))[i] = gabSBigRandSeed[i];
+    }
+
+    tMul.SetCount(2);
+    for (unsigned int i = 0; i < 8; i++)
+        ((unsigned char*)&tMul.At(0))[i] = gabSBigRandMul[i];
+
+    if (pSeed) pModulus->sub_00422140_Trim(); else pModulus->sub_00422140_Trim();
+    r.SetCountInline(0);
+    unsigned int nBits; if (pStack) nBits = pModulus->Count() * 32; else nBits = pModulus->Count() * 32;
+    for (unsigned int k = 0; k < (nBits + 31) / 32; k++, nBits = pStack ? pModulus->Count() * 32 : pModulus->Count() * 32)
+    {
+        sub_004242C0_BigOp(&s, &s, &tMul, pStack);
+        Shr(tTemp, s, 16);
+        BigAdd(s, tTemp, s);
+        s.SetCountInline(2);
+        Shl(r, r, 32);
+        BigAdd(r, r, s);
+        Shr(tTemp, s, 32);
+        BigAdd(r, r, tTemp);
+    }
+    Div(tTemp, r, r, *pModulus, *pStack);
+
+    if (pSeed != &s)
+    {
+        pSeed->m_array.sub_004215C0_Set(s.m_array.m_count, s.m_array.m_data);
+        pSeed->m_array.m_chunk = s.m_array.m_chunk;
+        pSeed->m_start = s.m_start;
+        pStack->nUsed--;
+    }
+    if (pResult != &r)
+    {
+        D2StormArrayViewStrc tView;
+        tView.pData = r.m_array.m_data;
+        tView.nCount = r.m_array.m_count;
+        pResult->m_array.sub_004215C0_Set(tView.nCount, tView.pData);
+        pResult->m_array.m_chunk = r.m_array.m_chunk;
+        pResult->m_start = r.m_start;
+        pStack->nUsed--;
+    }
+    pStack->nUsed -= 2;
 }
 
 // 0x00424F50

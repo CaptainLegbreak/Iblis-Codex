@@ -46,6 +46,10 @@ struct BigBuffer
     {
         m_array.SetCount(m_start + nCount);
     }
+    void SetCountInline(unsigned int nCount)
+    {
+        m_array.SetCountInline(m_start + nCount);
+    }
     BigBuffer& operator=(const BigBuffer& tSource)
     {
         if (this != &tSource)
