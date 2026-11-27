@@ -58058,7 +58058,7 @@
     {
      "va": "0x005C0D20",
      "length": 21,
-     "name": "?ITEMS_GetSkillPairEntry@@YGPAUD2SkillPairStrc@@HPAU1@H@Z"
+     "name": "?ITEMS_GetPotentialMagicAffix@@YGPAUD2MagicAffixIndexAndPtrStrc@@HPAU1@H@Z"
     },
     {
      "va": "0x005C0D40",
