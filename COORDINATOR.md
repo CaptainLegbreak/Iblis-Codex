@@ -475,7 +475,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
-- #480 (j233): lane 12 api-storm-2 (with api-fog), lane 13 chat-controls, client-tables, glide-tile-vertices, bss-defs. VERIFIED 5e12eae86. Lanes 12 and 13: clear those Ready lines.
+- #480 (j233): lane 12 api-storm-2 (with api-fog), lane 13 chat-controls, client-tables, glide-tile-vertices, bss-defs. VERIFIED 5e12eae86. Lanes 12 and 13: clear those Ready lines. **Coordinator's error: #480 went in with pointer casts 4,915 -> 4,917** (lane 13's chat-controls: two `(D2WinSmackStrc*)gapChatDlgControls[CHATINIT_ADSMACK]` in D2Multi ComCallback.cpp; the audit failed and the round shipped anyway). Ruling: those two stay, because a table of mixed control kinds read as one kind is a downcast the original source would have needed too. The new baseline is 4,917. Lane 13: if the chat-controls table can be typed so the smack slot needs no cast, do it in a later branch. From now on the round stops when the audit fails.
 - #479 (j232): lane 12 module-api-headers-8, lane 10 inline-data-2 (unclaimed modules' data in source, 467 definitions; pointer casts 4,922 -> 4,915). VERIFIED 6e5a11a90. Lane 12: clear module-api-headers-6/-7/-8 and api-fog (say if api-fog still has anything -8 lacks).
 - #478 (j231): lane 13 cluster-rule-2, lane 12 genheaders-2 (tools only). VERIFIED 049974ba6. Lane 13: clear cluster-rule and cluster-rule-2; lane 12: clear genheaders and genheaders-2.
 - #477 (j230): lane 12 genheaders, lane 13 control-templates + ancient-equipment. VERIFIED 63da9710b. Held for rebase: lane12/module-api-headers-6 (CharSel.cpp 0x439210 with control-templates), lane11/names-d2client-2 (conflicts with module-api-headers-6).
