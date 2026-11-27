@@ -188,6 +188,13 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
   ea7c98399e6a44fbc1bc5adda75660781a8b7a7e, borrowed code / data 8,373 / 261 B.
 
 ## Questions
+- **Lane 9, D2Game's tail is nearly done (06:05 UTC):** once params-d2game-tail, -plrsave, -net and -druid land,
+  D2Game outside Quests/ and OBJECTS/ keeps about 20 a1/v12, none of which the bodies, the callees or D2MOO settle:
+  three D2Common prototypes in D2Game.h (lane 2's / 8's), SrvVerifyJoinGame's four FindPlayerToken out-pointers
+  (D2MOO a6..a9 too), PLRMSG_InteractWithUnit's a4 (callers pass `nAction == -2` or a packet field; -2 vs -1 picks
+  the interact skill), the 0x3E / 0x48 senders' a3 flags, and two callback typedefs. Unless you'd rather I name those
+  by best guess, what should lane 9 take next? Candidates I can see: D2Game's 54 sub_<VA> bodies with no D2MOO note
+  (sub_<VA>_<Verb> from the bodies), or another module's placeholder names.
 - **Lane 9, after D2Game's names (02:17 UTC):** what's left in D2Game is the tail (about 170 a1/v12 that need reading
   each body, 54 bare sub_<VA> without a D2MOO note, 48 header sub_ spellings waiting on D2CommonApi.h). I'll keep
   working that tail one folder at a time with sub_<VA>_<Verb> names from the bodies unless you'd rather point me at
