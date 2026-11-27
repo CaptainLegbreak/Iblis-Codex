@@ -52,6 +52,10 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/names-d2game-h 97603fd4 (on #453): D2Game.h, D2GameFuncs.h: placeholder parameters from the definitions and
+  D2MOO; names.csv names for seventeen sub_<VA> declarations, renamed in the 23 units that call them (the 48 left are in
+  Notes). a1/v12 387 -> 351 alone; auditguard no count rose; merges cleanly onto #455. Full build: Game.exe identical,
+  tree 7c933685309edf6baa94c1ed5f270cdd9f85d543, borrowed code / data 7,677 / 261 B.
 - MERGED (as b3, #451) lane9/params-d2game-b4 8546d082 (on #450): D2Game Ai, MONSTER, OBJECTS, Quests: placeholder parameters and names.csv
   callee names (regenerated on #450). a1/v12 531 -> 437 alone; auditguard no count rose. Full build: Game.exe
   identical, tree 69e218c9d3ea14d90378f750c49b6850a1bdc006, borrowed code / data 7,923 / 261 B. Shares no file with e2.
