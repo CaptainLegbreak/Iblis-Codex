@@ -2,14 +2,9 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 16:40 PT): decls-3 and emit-trim-3 merged. names-sub-3 (rebased on #446), fields-bnftp and noinline-callers Ready, all full builds identical.
+Status (Thu Nov 26 2026, 16:55 PT): everything posted is merged (#447, #448). Next: the emit helpers my files still need (finding their functions' callers in the image).
 
 ## Ready
-
-- `lane6/names-sub-3` @ de5f7d180 (rebased on #446; Unknown_004E2320.cpp taken from main and renamed again): nine more placeholder functions named from their bodies (sub_0043BF60_ConnectToBattleNet, sub_005269D0_FormatText (the Unicode format routine; its callers in D2Client, D2Game and D2LangApi.h follow), sub_00520650_GetInfoText, sub_0052B910_GetLastError, two value getters, three constant callbacks). Every touched unit equal (38); auditguard: no count rose; full build identical. Left: CelCmp.cpp's cel-list template members (several folded with other modules' copies) and 0x503F70 (an emit helper's static).
-- `lane6/fields-bnftp` @ 244733bbb: BnDownload.cpp's BNFTP request header names its protocol version bytes. Unit equal; full build identical.
-
-- `lane6/noinline-callers` @ e0dedd23f: the eighteen noinline comments in my modules that said only "its callers in this file" now name the caller (and its address) that calls the kept function out of line in the image, per the 13:15 PT ruling. Comments only; every touched unit equal. Full build identical.
 
 ## Questions
 
