@@ -173,7 +173,7 @@ extern D2NpcButtonStrc gaNpcButtons[4]; // 0x007BC9E0
 
 extern D2InventoryGridInfoStrc gtTradePage2Grid; // 0x007BCA30
 
-extern unsigned char gabColors_007BCAD8[5]; // 0x007BCAD8
+extern unsigned char gabInvHighlightColors[5]; // 0x007BCAD8
 
 extern D2InventoryGridInfoStrc gtBigBankGrid; // 0x007BCA78
 
@@ -525,7 +525,7 @@ static void __stdcall INV_DrawGridCells(D2InventoryGridInfoStrc* pGrid, int nX, 
             const int nPixelY = nBoxHeight * y + pGrid->nGridTop;
             if (nPixelX >= 0 && nPixelX < gnAutomapWidth && nPixelY >= 0 && nPixelY < gnAutomapHeight_007A521C)
             {
-                AUTOMAP_DrawFramedBox(nPixelX, nPixelY, nBoxWidth, nBoxHeight, gabColors_007BCAD8[nColor], 0);
+                AUTOMAP_DrawFramedBox(nPixelX, nPixelY, nBoxWidth, nBoxHeight, gabInvHighlightColors[nColor], 0);
             }
         }
     }
@@ -541,7 +541,7 @@ static void INV_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor)
     const int nTop = pCompGrid->rect.nTop;
     if (nLeft >= 0 && nLeft < gnAutomapWidth && nTop >= 0 && nTop < gnAutomapHeight_007A521C)
     {
-        AUTOMAP_DrawFramedBox(nLeft, nTop, pCompGrid->nWidth, pCompGrid->nHeight, gabColors_007BCAD8[nColor], 0);
+        AUTOMAP_DrawFramedBox(nLeft, nTop, pCompGrid->nWidth, pCompGrid->nHeight, gabInvHighlightColors[nColor], 0);
     }
 }
 
