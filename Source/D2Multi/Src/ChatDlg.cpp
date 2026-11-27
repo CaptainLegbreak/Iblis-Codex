@@ -1787,7 +1787,7 @@ void __cdecl CHATDLG_DestroyDialogControls()
 }
 
 // 0x0043DB90
-int __stdcall sub_0043DB90(int nArg)
+int __stdcall CHATDLG_OnChatEditEnter(int nArg)
 {
     COMCALLBACK_RefreshChatButtons();
     return 1;
@@ -3130,7 +3130,7 @@ void __cdecl CHATDLG_CreateChatScreen()
 
     gpChatEdit = CONTROL_Create(&gatControlTemplates[0x172]);
     sub_004FDAD0_SetKeyCallback(gpChatEdit, sub_0043F9B0_EditKey);
-    sub_004FDB00_SetEnterCallback(gpChatEdit, sub_0043DB90);
+    sub_004FDB00_SetEnterCallback(gpChatEdit, CHATDLG_OnChatEditEnter);
     CONTROL_SetFocusedEditBox(gpChatEdit);
     sub_004FDD50_SetMaxLength(gpChatEdit, 0xC8);
     COMCALLBACK_RefreshChatButtons();
@@ -4317,7 +4317,7 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
     {
         gpChatEdit = CONTROL_Create(&gtChatEditInit);
         sub_004FDAD0_SetKeyCallback(gpChatEdit, sub_0043F9B0_EditKey);
-        sub_004FDB00_SetEnterCallback(gpChatEdit, sub_0043DB90);
+        sub_004FDB00_SetEnterCallback(gpChatEdit, CHATDLG_OnChatEditEnter);
         CONTROL_SetFocusedEditBox(gpChatEdit);
         sub_004FDD50_SetMaxLength(gpChatEdit, 200);
         COMCALLBACK_RefreshChatButtons();

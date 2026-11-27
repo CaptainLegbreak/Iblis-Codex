@@ -81,17 +81,17 @@ struct D2UnitOverlayStrc
     int nType;
     int nOverlay;
     int nCurrent;
-    int n0C;
-    int n10;
-    int n14;
-    int n18;
-    int n1C;
-    int n20;
-    int n24;
-    int n28;
-    int unk0x2C;
-    int unk0x30;
-    int n34;
+    int nNextOverlay;
+    int nNextState;
+    int nSpeed;
+    int nFrame;
+    int nFrames;
+    int nXOffset;
+    int nYOffset;
+    unsigned int dwDelay;
+    unsigned int dwStamp;
+    unsigned int dwDelayStart;
+    int bFront;
     int nState;
     int nActive;
     union
@@ -120,11 +120,13 @@ struct D2OverlayTxt
     int n70;
     int n74;
     int n78;
-    unsigned char unk0x7C;
+    unsigned char nTrans;
     unsigned char nRed;
     unsigned char nGreen;
     unsigned char nBlue;
-    char unk0x80[4];
+    unsigned char nNumDirections;
+    unsigned char nLocalBlood;
+    unsigned short pad0x82;
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -2010,11 +2012,11 @@ void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay
         for (; pOverlay; pOverlay = pOverlay->pNext)
         {
             int bDraw = 1;
-            if (pOverlay->n34 && !nPass)
+            if (pOverlay->bFront && !nPass)
             {
                 bDraw = 0;
             }
-            if (!pOverlay->n34 && nPass)
+            if (!pOverlay->bFront && nPass)
             {
                 bDraw = 0;
             }
@@ -2028,7 +2030,7 @@ void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay
             }
             if (pOverlay->nOverlay == nOverlay && bDraw)
             {
-                int nFrame = pOverlay->n18 >> 8;
+                int nFrame = pOverlay->nFrame >> 8;
                 int nId = pOverlay->nOverlay;
                 if (nId < 0 || nId >= sgptDataTables->nOverlayTxtRecordCount)
                 {
@@ -2047,13 +2049,116 @@ void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay
                 {
                     return;
                 }
-                if (nFrame < pOverlay->n1C >> 8)
+                if (nFrame < pOverlay->nFrames >> 8)
                 {
-                    sub_004F6480(&tContext, pOverlay->n20 + nX, pOverlay->n24 + nY, -0x80, pOverlayTxt->unk0x7C, 0);
+                    sub_004F6480(&tContext, pOverlay->nXOffset + nX, pOverlay->nYOffset + nY, -0x80, pOverlayTxt->nTrans, 0);
                 }
             }
         }
     }
+}
+
+// 0x0046E300
+void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int bFront, int nX, int nY, int bLift)
+{
+    D2GfxDataStrc* pGfx = CUNIT_GetGfxData(pUnit);
+    D2_ASSERT(pGfx, 625);
+
+    const int bPerspective = D2GFX_CheckPerspective();
+    D2UnitOverlayStrc* pOverlay = pGfx->pOverlays;
+    if (!pOverlay)
+    {
+        return;
+    }
+
+    int nDrawX;
+    int nDrawY;
+    if (bPerspective && (!pUnit || pUnit->dwUnitType != UNIT_ITEM || UNITS_GetAnimOrSeqMode(pUnit) == 3))
+    {
+        SCALE_AdjustPerspectivePosition(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), 0, &nX, &nY);
+        switch (sub_0045AE90_GetPanelSlideMode())
+        {
+        case 1:
+            nX -= gnScreenWidth / 4;
+            break;
+        case 2:
+            nX += gnScreenWidth / 4;
+            break;
+        }
+        nDrawX = nX;
+        nDrawY = nY + 16;
+    }
+    else
+    {
+        nDrawX = UNITS_GetClientCoordX(pUnit) - PLAYER_GetScreenOffsetX();
+        nDrawY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY();
+        if (pUnit && pUnit->dwUnitType == UNIT_ITEM && nX != -1 && nY != -1)
+        {
+            nDrawX = nX;
+            nDrawY = nY;
+        }
+    }
+
+    nDrawX += PARTICLE_GetGfxOffsetX(pUnit);
+    nDrawY += PARTICLE_GetGfxClientY(pUnit);
+    nDrawY += PARTICLE_GetGfxClientZ(pUnit);
+    if (bLift)
+    {
+        nDrawY -= 8;
+    }
+
+    do
+    {
+        int bDraw = 1;
+        if (pOverlay->bFront && !bFront)
+        {
+            bDraw = 0;
+        }
+        if (!pOverlay->bFront && bFront)
+        {
+            bDraw = 0;
+        }
+        if (pOverlay->nType == 6 && !pOverlay->nCurrent)
+        {
+            bDraw = 0;
+        }
+        if (pOverlay->nType == 8 && !pOverlay->nActive)
+        {
+            bDraw = 0;
+        }
+
+        if (bDraw)
+        {
+            const int nFrame = pOverlay->nFrame >> 8;
+            const int nOverlayId = pOverlay->nOverlay;
+            D2OverlayTxt* pOverlayTxtRecord = 0;
+            if (nOverlayId >= 0 && nOverlayId < sgptDataTables->nOverlayTxtRecordCount)
+            {
+                pOverlayTxtRecord = &sgptDataTables->pOverlayTxt[nOverlayId];
+            }
+            D2_ASSERT(pOverlayTxtRecord, 721);
+
+            D2CelContextStrc tCel;
+            memset(&tCel, 0, sizeof(tCel));
+            tCel.nOverlay = nOverlayId;
+            if (!GFXUTIL_InitUnitCelContext(&tCel, 0, 0, UNITS_GetDirection(pUnit), nFrame, &nX, 1, -1))
+            {
+                return;
+            }
+
+            if (nFrame < pOverlay->nFrames >> 8)
+            {
+                if (pOverlayTxtRecord->nLocalBlood && GAME_GetColorFlag())
+                {
+                    DLIGHTMAP_GetLocalBloodPalette();
+                }
+                TEXTURE_CelDraw(&tCel, pOverlay->nXOffset + nDrawX, pOverlay->nYOffset + nDrawY, nColor, pOverlayTxtRecord->nTrans, 0);
+            }
+        }
+
+        pOverlay = pOverlay->pNext;
+    }
+    while (pOverlay);
 }
 
 // 0x0046E570
@@ -2578,40 +2683,40 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nType, i
     memset(pNew, 0, sizeof(D2UnitOverlayStrc));
     pNew->nType = nType;
     pNew->nOverlay = nOverlay;
-    pNew->n1C = GFXUTIL_GetOverlayFrameCount(pUnit, pNew);
+    pNew->nFrames = GFXUTIL_GetOverlayFrameCount(pUnit, pNew);
     switch (nType)
     {
     case 2:
         pNew->nCurrent = 1;
         break;
     case 6:
-        pNew->n18 = ITEMS_RollLimitedRandomNumber(&pPlayer->pSeed, pNew->n1C);
+        pNew->nFrame = ITEMS_RollLimitedRandomNumber(&pPlayer->pSeed, pNew->nFrames);
         break;
     default:
         pNew->nCurrent = nArg5;
-        pNew->n0C = nArg6;
-        pNew->n10 = nArg7;
+        pNew->nNextOverlay = nArg6;
+        pNew->nNextState = nArg7;
         break;
     }
 
-    pNew->n20 = pTxt->n54;
-    pNew->n24 = pTxt->n58;
+    pNew->nXOffset = pTxt->n54;
+    pNew->nYOffset = pTxt->n58;
     switch (UNITS_GetOverlayHeight(pUnit))
     {
     case -1:
-        pNew->n24 += 0x4B;
+        pNew->nYOffset += 0x4B;
         break;
     case 0:
-        pNew->n24 += pTxt->n5C;
+        pNew->nYOffset += pTxt->n5C;
         break;
     case 1:
-        pNew->n24 += pTxt->n60;
+        pNew->nYOffset += pTxt->n60;
         break;
     case 2:
-        pNew->n24 += pTxt->n64;
+        pNew->nYOffset += pTxt->n64;
         break;
     case 3:
-        pNew->n24 += pTxt->n68;
+        pNew->nYOffset += pTxt->n68;
         break;
     }
 
@@ -2624,7 +2729,7 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nType, i
 
     D2GfxDataStrc* pGfx = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfx, 0xC7A);
-    pNew->n34 = pTxt->nByte48;
+    pNew->bFront = pTxt->nByte48;
     pNew->pNext = pGfx->pOverlays;
     pGfx->pOverlays = pNew;
     if (pNew->nType == 8)
@@ -2634,13 +2739,13 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nType, i
     }
 
     if (nArg4)
-        pNew->n18 = ITEMS_RollLimitedRandomNumber(&pPlayer->pSeed, nArg4 << 8);
+        pNew->nFrame = ITEMS_RollLimitedRandomNumber(&pPlayer->pSeed, nArg4 << 8);
 
-    pNew->n14 = pTxt->n6C << 4;
+    pNew->nSpeed = pTxt->n6C << 4;
     if (nArg8)
-        pNew->n14 += ITEMS_RollLimitedRandomNumber(&pPlayer->pSeed, nArg8 << 4);
+        pNew->nSpeed += ITEMS_RollLimitedRandomNumber(&pPlayer->pSeed, nArg8 << 4);
 
-    pNew->n28 = pTxt->n78;
+    pNew->dwDelay = pTxt->n78;
 }
 
 // 0x004706E0
@@ -2758,6 +2863,164 @@ int __fastcall GFX_HitTestUnitGfx(D2UnitStrc* pUnit, int nOriginX, int nOriginY,
     }
 
     return 1;
+}
+
+// 0x00470C30
+void __fastcall GFX_UpdateStateOverlays(D2UnitStrc* pUnit)
+{
+    D2UnitOverlayStrc* pNode;
+    int nNextOverlay;
+    D2GfxDataStrc* pOwner = CUNIT_GetGfxData(pUnit);
+    D2_ASSERT(pOwner, 0x2FE);
+
+    const unsigned int dwTick = GetTickCount();
+    int nOverlay;
+    int nState;
+    for (;;)
+    {
+        for (pNode = pOwner->pOverlays; pNode; pNode = pNode->pNext)
+        {
+            if (pNode->dwStamp != dwTick)
+            {
+                break;
+            }
+        }
+        if (!pNode)
+        {
+            return;
+        }
+
+        pNode->dwStamp = dwTick;
+        int bRemove = 0;
+        switch (pNode->nType)
+        {
+        case 0:
+            if (sub_0046DA60_GetUnitMode(pUnit) != pNode->nCurrent)
+            {
+                bRemove = 1;
+            }
+            break;
+
+        case 2:
+            if (!pNode->nCurrent)
+            {
+                bRemove = 1;
+            }
+            break;
+
+        case 1:
+            if (!pNode->nCurrent)
+            {
+                bRemove = 1;
+            }
+            --pNode->nCurrent;
+            break;
+
+        case 6:
+            if (!pNode->nCurrent)
+            {
+                if (GetTickCount() - pNode->dwDelayStart < pNode->dwDelay)
+                {
+                    continue;
+                }
+                pNode->nCurrent = 1;
+            }
+            break;
+
+        case 8:
+            if (!STATES_CheckState(pUnit, pNode->nState))
+            {
+                bRemove = 1;
+            }
+            else if (pNode->nActive)
+            {
+                if (pNode->nCurrent >= 50)
+                {
+                    GFX_RecalcStateOverlays(pOwner, pUnit, pNode);
+                }
+                else
+                {
+                    ++pNode->nCurrent;
+                }
+            }
+            break;
+        }
+
+        if (bRemove)
+        {
+            GFX_RemoveStateOverlay(pUnit, pNode);
+            continue;
+        }
+
+        pNode->nFrame += pNode->nSpeed;
+        if (pNode->nFrame < pNode->nFrames)
+        {
+            continue;
+        }
+
+        switch (pNode->nType)
+        {
+        case 5:
+            pNode->nSpeed = 0;
+            pNode->nFrame = pNode->nFrames - 1;
+            pNode->nCurrent = 1;
+            break;
+
+        case 2:
+            pNode->nCurrent = 0;
+            break;
+
+        case 4:
+            nOverlay = pNode->nCurrent;
+            nNextOverlay = pNode->nNextOverlay;
+            GFX_RemoveStateOverlay(pUnit, pNode);
+            if (nOverlay != -1)
+            {
+                GFX_AddUnitOverlay(pUnit, nOverlay, 3, 0, 0, 0, 0, 0);
+            }
+            if (nNextOverlay != -1)
+            {
+                GFX_AddUnitOverlay(pUnit, nNextOverlay, 3, 0, 0, 0, 0, 0);
+            }
+            break;
+
+        case 9:
+            nOverlay = pNode->nCurrent;
+            nNextOverlay = pNode->nNextOverlay;
+            nState = pNode->nNextState;
+            GFX_RemoveStateOverlay(pUnit, pNode);
+            if (!STATES_CheckState(pUnit, nState))
+            {
+                break;
+            }
+            if (nOverlay != -1)
+            {
+                GFX_AddUnitOverlay(pUnit, nOverlay, 8, 0, nState, 0, 0, 0);
+            }
+            if (nNextOverlay != -1)
+            {
+                GFX_AddUnitOverlay(pUnit, nNextOverlay, 8, 0, nState, 0, 0, 0);
+            }
+            break;
+
+        case 1:
+        case 3:
+        case 8:
+            pNode->nFrame -= pNode->nFrames;
+            break;
+
+        case 6:
+            pNode->nFrame -= pNode->nFrames;
+            pNode->nCurrent = 0;
+            pNode->dwDelayStart = GetTickCount();
+            break;
+
+        case 7:
+            GFX_RemoveStateOverlay(pUnit, pNode);
+            GFX_AddUnitOverlay(pUnit, 0x8C, 4, 0, 0x8D, 0x8E, 0, 0);
+            break;
+        }
+    }
 }
 
 // 0x00470EC0

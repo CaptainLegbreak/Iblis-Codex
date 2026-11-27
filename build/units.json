@@ -16753,6 +16753,11 @@
      "name": "GFX_DrawProgressiveStateOverlays"
     },
     {
+     "va": "0x0046E300",
+     "length": 616,
+     "name": "?GFX_DrawUnitOverlays@@YGXPAUD2UnitStrc@@IHHHH@Z"
+    },
+    {
      "va": "0x0046E570",
      "length": 42,
      "name": "?GFX_GetNodeValue@@YIHPAUD2UnitStrc@@H@Z"
@@ -16935,6 +16940,10 @@
      "va": "0x00470860",
      "length": 315,
      "name": "?GFX_HitTestUnitGfx@@YIHPAUD2UnitStrc@@HHHH@Z"
+    },
+    {
+     "va": "0x00470C30",
+     "length": 656
     },
     {
      "va": "0x00470EC0",
@@ -19441,17 +19450,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/ENGINE/Gfx_0046E300.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0046E300",
-     "length": 616,
-     "name": "?GFX_DrawUnitOverlays@@YGXPAUD2UnitStrc@@IHHHH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/ENGINE/Gfx_0046F870.cpp",
    "rank": 1,
    "functions": [
@@ -19477,16 +19475,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/Gfx_00470C30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00470C30",
-     "length": 656
-    }
    ]
   },
   {

@@ -22,7 +22,7 @@ Structs and most game-logic names come from D2MOO by ThePhrozenKeep (https://git
 
 | Path | Contents |
 |---|---|
-| `Source/<Module>/` | 540 compilation units, laid out like Blizzard's own source tree, defining 14,927 functions |
+| `Source/<Module>/` | 538 compilation units, laid out like Blizzard's own source tree, defining 14,927 functions |
 | `Source/<Module>/<Module>.h` | the declarations several files of a module share |
 | `CMakeLists.txt` | the sources as an ordinary CMake project (compiles the objects; see Building) |
 | `build/` | the data the build needs: the unit list with per-unit compiler options (`units.json`), every address record (`functions.json`), the layout of initialised data (`data_plan.json`), import thunk runs, file-layout plans, toolchain pins |

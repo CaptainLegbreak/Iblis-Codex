@@ -107,7 +107,7 @@ int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsi
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 int __stdcall sub_0043DAF0_OnConnect(int nArg); // 0x0043DAF0
-int __stdcall sub_0043DB90(int nArg); // 0x0043DB90
+int __stdcall CHATDLG_OnChatEditEnter(int nArg); // 0x0043DB90
 int __stdcall sub_0043E6C0_OnError(int nArg); // 0x0043E6C0
 int __stdcall sub_0043F9B0_EditKey(D2WinControlStrc* pControl, int nPos, const char* pKey); // 0x0043F9B0
 int __stdcall sub_004F95C0_ControlDestroy(D2WinControlStrc** ppControl); // 0x004F95C0
