@@ -35,6 +35,7 @@
 #include "StormApi.h"
 #include "D2GfxApi.h"
 #include "D2WinApi.h"
+#include "FogApi2.h"
 
 struct D2ClientInterfaceStrc;
 
@@ -93,8 +94,6 @@ struct D2ItemsTxt;
 struct D2AuxLevelEntryStrc;
 
 struct D2UnitGfxDataStrc;
-
-extern void* ghDbgHelp; // 0x0098A680
 
 extern int gbRightClickConsumed; // 0x007A0670
 

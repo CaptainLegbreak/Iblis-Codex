@@ -9,6 +9,7 @@
 #include "D2CmpTiles.h"
 #include "FogApi.h"
 #include "FogApi.h"
+#include "FogApi2.h"
 
 static int DccTestBit(const unsigned int* pBits, int nBit);
 
@@ -71,10 +72,6 @@ struct D2CmpTileHeaderTargetStrc
     int nDword3;
     unsigned int adwData[33];
 };
-
-
-int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
-
 
 
 static int CodecDccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt); // 0x0060B2B0

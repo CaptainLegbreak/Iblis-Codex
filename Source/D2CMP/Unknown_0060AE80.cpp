@@ -4,6 +4,7 @@
 
 #include "D2CmpCache.h"
 #include "FogApi.h"
+#include "FogApi2.h"
 
 struct D2CmpBitCursorStrc;
 
@@ -39,10 +40,6 @@ struct D2SpriteCelStrc { int unknown00[7]; unsigned int dataSize; };
 
 
 void* __cdecl sub_006829C0_Copy(void* dest,const void* source,unsigned int size); // 0x006829C0
-
-
-int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
-
 
 
 // 0x0060AE80

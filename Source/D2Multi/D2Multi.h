@@ -112,7 +112,7 @@ int __stdcall sub_0043E6C0_OnError(int nArg); // 0x0043E6C0
 int __stdcall sub_0043F9B0_EditKey(D2WinControlStrc* pControl, int nPos, const char* pKey); // 0x0043F9B0
 int __stdcall sub_004F95C0_ControlDestroy(D2WinControlStrc** ppControl); // 0x004F95C0
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-unsigned short __stdcall FOG_Decode14BitsFromString(const unsigned char* pData); // 0x006BBF20
+int __stdcall FOG_Decode14BitsFromString(const unsigned char* pBuffer); // 0x006BBF20
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 void __cdecl sub_0043D990(); // 0x0043D990
 int __cdecl CHATDLG_PostClearMessage(); // 0x0043E570

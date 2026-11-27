@@ -297,8 +297,6 @@ struct D2PaletteRecordStrc
 };
 
 
-void __stdcall FOG_FreeLinker(D2TxtLinkStrc* pLinker); // 0x006BD0B0
-
 extern D2TxtLinkStrc* gpCompItemsLinker; // 0x0087D824
 
 extern "C" const char gszItemTypesFieldEquiv1[]; // 0x006DCD14

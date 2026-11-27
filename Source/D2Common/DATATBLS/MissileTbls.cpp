@@ -664,8 +664,7 @@ void __fastcall DATATBLS_LoadMissilesTxt(void* hArchive)
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);             // 0x0040B480
 void __stdcall DATATBLS_UnloadBin(void* pBinFile);                                                               // 0x006125C0
-void __stdcall FOG_FreeLinker(D2TxtLinkStrc* pLinker);                                                      // 0x006BD0B0
-
+#include "FogApi2.h"
 // 0x00663210
 void __fastcall DATATBLS_UnloadMissilesTxt()
 {

@@ -505,7 +505,7 @@ int __fastcall MONSTERS_GetActFromHirelingTxt(int bExpansion, int nClassId, unsi
 int __fastcall MONSTERS_HirelingInit(int bExpansion, D2UnitStrc* pMonster, int nLowSeed, int nAct, int nDifficulty, D2HirelingInitStrc* pHirelingInit); // 0x006637F0
 int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
 int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
-int __fastcall FOG_AsyncDataTestLoaded(AsyncData* pAsyncData); // 0x0040A7F0
+int __fastcall FOG_AsyncDataTestLoaded(AsyncData* ptAsyncData); // 0x0040A7F0
 int __fastcall MAINMENUS_ConnectToRealm(const char* szName, int bFlag); // 0x00432480
 int __fastcall sub_00451F70_GetUnitMode(D2UnitStrc* pUnit); // 0x00451F70
 int __fastcall UI_GetMonsterLifeFraction(D2UnitStrc* pUnit); // 0x004525F0
@@ -713,7 +713,7 @@ unsigned char __stdcall PATH_GetMaxDistance(D2DynamicPathStrc* pPath); // 0x0064
 unsigned char* __fastcall GFXUTIL_GetLayerOrder(void* pGfx, int nA, int nFrame); // 0x004DB110
 unsigned int __cdecl sub_0044CE60_GetPing(); // 0x0044CE60
 unsigned int __cdecl D2CMPSpriteNumAsyncLoads(); // 0x005FF2A0
-unsigned int __fastcall FOG_AsyncDataGetBufferSize(AsyncData* pAsync); // 0x0040AA40
+unsigned int __fastcall FOG_AsyncDataGetBufferSize(AsyncData* pAsyncData); // 0x0040AA40
 unsigned int __fastcall D2SOUNDSMP_GetStreamPosition(D2SoundStrc* pSound); // 0x005159B0
 unsigned int __stdcall D2Common_11069(D2UnitStrc* pMonster, unsigned int nIndex, unsigned int nComponent); // 0x00664860
 unsigned int __stdcall INVENTORY_GetItemGUID(D2UnitStrc* pItem); // 0x0063E000
@@ -725,7 +725,8 @@ unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc* pRoom, in
 unsigned short __stdcall TEXT_GetStringIdOfMenuType0Node(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x00661400
 void __cdecl D2GFX_OutputString(int nXPos, int nYPos, const char* szFormat, ...); // 0x004F6890
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
-void __cdecl ERRORMANAGER_FreeUnusedPoolBlocks(int nArg); // 0x00409B80
+struct D2PoolSystemStrc;
+void __cdecl ERRORMANAGER_FreeUnusedPoolBlocks(D2PoolSystemStrc* pArg); // 0x00409B80
 void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void __cdecl MAINMENUS_Reset(); // 0x0042F480
 void __cdecl MAINMENUS_ShowConnectingPopup(); // 0x0042F6E0
@@ -781,8 +782,8 @@ void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuf
 void __fastcall D2SOUND_10034(int nArg); // 0x005148F0
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 void __fastcall FOG_GetInstallPath(char* szPath, int nBufferSize); // 0x00406BA0
-void __fastcall FOG_FCloseFile(void* hFile); // 0x004068F0
-void __fastcall FOG_AsyncDataFree(AsyncData* pAsync); // 0x0040AB00
+int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
+void __fastcall FOG_AsyncDataFree(AsyncData* ptAsyncData); // 0x0040AB00
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 void __fastcall CHARSEL_SetFlagBit2(int bSet); // 0x0043C6A0
 void __fastcall UI_BuildItemHoverName(D2UnitStrc* pUnit, int nA, int nB); // 0x004527D0
@@ -982,7 +983,7 @@ void __stdcall MISSILE_SetAnimSpeed(D2UnitStrc* pMissile, int nSpeed); // 0x0064
 void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pPath); // 0x00650590
 void* __cdecl sub_00454600(); // 0x00454600
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-void* __fastcall FOG_AsyncDataGetBuffer(AsyncData* pAsync); // 0x0040A9E0
+void* __fastcall FOG_AsyncDataGetBuffer(AsyncData* pAsyncData); // 0x0040A9E0
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc* pUnit); // 0x004DC0B0
 void* __fastcall sub_00517993_VirtualAlloc(unsigned int nSize); // 0x00517993

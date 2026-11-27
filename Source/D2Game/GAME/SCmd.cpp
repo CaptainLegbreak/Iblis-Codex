@@ -27,6 +27,7 @@ struct D2MonsterDataStrc;
 
 #include "D2GameFuncs.h"
 #include "D2CommonApi.h"
+#include "FogApi2.h"
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -161,9 +162,6 @@ struct D2GSPacketSrv27
     unsigned char pad0x07;
     D2MessageStrc pMessages[8];
 };
-
-
-int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
 
 
 unsigned short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540710
