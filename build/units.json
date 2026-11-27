@@ -70870,12 +70870,12 @@
     {
      "va": "0x00650E60",
      "length": 15,
-     "name": "@SEED_SetSeeds@12"
+     "name": "?SEED_SetSeeds@@YIXPATD2SeedStrc@@II@Z"
     },
     {
      "va": "0x00650E70",
      "length": 19,
-     "name": "@SEED_GetSeeds@12"
+     "name": "?SEED_GetSeeds@@YIXPATD2SeedStrc@@PAI1@Z"
     },
     {
      "va": "0x00650E90",
