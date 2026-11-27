@@ -104,51 +104,29 @@ struct D2RunesTxt;
 
 struct D2RuneDataTbl;
 
-struct Data00627DF0;
 
-struct Unit00627DF0;
 
-struct Data00627EA0;
 
-struct Unit00627EA0;
 
-struct Data00627EF0;
 
-struct Unit00627EF0;
 
-struct Data00627F50;
 
-struct Unit00627F50;
 
-struct Data00627FB0;
 
-struct Unit00627FB0;
 
-struct Data00627FE0;
 
-struct Unit00627FE0;
 
-struct Data00628040;
 
-struct Unit00628040;
 
-struct Data00628070;
 
-struct Unit00628070;
 
-struct Data00628140;
 
-struct Unit00628140;
 
-struct Data00628250;
 
-struct Unit00628250;
 
 struct D2ItemSaveStrc;
 
-struct Data00629EA0;
 
-struct Unit00629EA0;
 
 struct D2StatesTxt;
 
@@ -208,183 +186,29 @@ int __fastcall ITEMS_SerializeItem(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, 
 
 int __stdcall STATLIST_CheckState(D2UnitStrc* pUnit, int nState); // 0x00625B70
 
-struct Data00627DF0
-{
-    unsigned char bUnknown00[0x10];
-    unsigned int dwValue10;
-};
 
-struct Unit00627DF0
-{
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwUnknown10;
-    Data00627DF0* pData;
-};
 
-struct Data00627EA0
-{
-    unsigned int dwValue00;
-};
 
-struct Unit00627EA0
-{
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwUnknown10;
-    Data00627EA0* pData;
-};
 
-struct Data00627EF0
-{
-    unsigned char bUnknown00[0x38];
-    unsigned short wValues38[1];
-};
 
-struct Unit00627EF0
-{
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwUnknown10;
-    Data00627EF0* pData;
-};
 
-struct Data00627F50
-{
-    unsigned char bUnknown00[0x36];
-    unsigned short wValue36;
-};
 
-struct Unit00627F50
-{
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwUnknown10;
-    Data00627F50* pData;
-};
 
-struct Data00627FB0
-{
-    unsigned char bUnknown00[0x3E];
-    unsigned short wValues3E[1];
-};
 
-struct Unit00627FB0
-{
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwUnknown10;
-    Data00627FB0* pData;
-};
 
-struct Data00627FE0
-{
-    unsigned char bUnknown00[0x32];
-    unsigned short wValue32;
-};
 
-struct Unit00627FE0
-{
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwUnknown10;
-    Data00627FE0* pData;
-};
 
-struct Data00628040
-{
-    unsigned char bUnknown00[0x34];
-    unsigned short wValue34;
-};
 
-struct Unit00628040
-{
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwUnknown10;
-    Data00628040* pData;
-};
 
-struct Data00628070
-{
-    unsigned char bUnknown00[0x34];
-    unsigned short wValue34;
-};
 
-struct Unit00628070
-{
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwUnknown10;
-    Data00628070* pData;
-};
 
-struct Data00628140
-{
-    unsigned char bUnknown00[0x14];
-    unsigned int dwFlags14;
-};
 
-struct Unit00628140
-{
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwUnknown10;
-    Data00628140* pData;
-};
 
-struct Data00628250
-{
-    unsigned char bUnknown00[0x45];
-    char cValue45;
-};
 
-struct Unit00628250
-{
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwUnknown10;
-    Data00628250* pData;
-};
 
 int __stdcall DATATBLS_GetItemIdFromItemCode(unsigned int dwCode); // 0x00633680
 
-struct Data00629EA0
-{
-    unsigned char bUnknown00[0x1C];
-    unsigned int dwValue1C;
-    unsigned int dwValue20;
-};
 
-struct Unit00629EA0
-{
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwUnknown10;
-    Data00629EA0* pData;
-};
 
 
 int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
@@ -895,10 +719,13 @@ void __stdcall ITEMS_InitItemSeed(D2UnitStrc* pItem)
 }
 
 // 0x00627DF0
-extern "C" __declspec(dllexport) unsigned int __stdcall ITEMS_GetItemStartSeed(Unit00627DF0* pUnit) {
-    if (pUnit && pUnit->nType == 4 && pUnit->pData) {
-        return pUnit->pData->dwValue10;
+unsigned int __stdcall ITEMS_GetItemStartSeed(D2UnitStrc* pItem)
+{
+    if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
+    {
+        return pItemData->dwInitSeed;
     }
+
     return 0;
 }
 
@@ -923,9 +750,11 @@ int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem)
 }
 
 // 0x00627EA0
-extern "C" __declspec(dllexport) void __stdcall ITEMS_SetItemQuality(Unit00627EA0* pUnit, unsigned int dwValue) {
-    if (pUnit && pUnit->nType == 4 && pUnit->pData) {
-        pUnit->pData->dwValue00 = dwValue;
+void __stdcall ITEMS_SetItemQuality(D2UnitStrc* pItem, unsigned int dwQuality)
+{
+    if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
+    {
+        pItemData->dwQualityNo = dwQuality;
     }
 }
 
@@ -941,9 +770,11 @@ unsigned short __stdcall ITEMS_GetPrefixId(D2UnitStrc* pItem, int nPrefixNo)
 }
 
 // 0x00627EF0
-extern "C" __declspec(dllexport) void __stdcall sub_00627EF0(Unit00627EF0* pUnit, unsigned short wValue, int nIndex) {
-    if (pUnit && pUnit->nType == 4 && pUnit->pData) {
-        pUnit->pData->wValues38[nIndex] = wValue;
+void __stdcall sub_00627EF0(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo)
+{
+    if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
+    {
+        pItemData->wMagicPrefix[nPrefixNo] = nPrefix;
     }
 }
 
@@ -959,9 +790,11 @@ unsigned short __stdcall ITEMS_GetAutoAffix(D2UnitStrc* pItem)
 }
 
 // 0x00627F50
-extern "C" __declspec(dllexport) void __stdcall ITEMS_SetAutoAffix(Unit00627F50* pUnit, unsigned short wValue) {
-    if (pUnit && pUnit->nType == 4 && pUnit->pData) {
-        pUnit->pData->wValue36 = wValue;
+void __stdcall ITEMS_SetAutoAffix(D2UnitStrc* pItem, unsigned short wAffix)
+{
+    if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
+    {
+        pItemData->wAutoAffix = wAffix;
     }
 }
 
@@ -977,17 +810,22 @@ unsigned short __stdcall ITEMS_GetSuffixId(D2UnitStrc* pItem, int nSuffixNo)
 }
 
 // 0x00627FB0
-extern "C" __declspec(dllexport) void __stdcall sub_00627FB0(Unit00627FB0* pUnit, unsigned short wValue, int nIndex) {
-    if (pUnit && pUnit->nType == 4 && pUnit->pData) {
-        pUnit->pData->wValues3E[nIndex] = wValue;
+void __stdcall sub_00627FB0(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo)
+{
+    if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
+    {
+        pItemData->wMagicSuffix[nSuffixNo] = nSuffix;
     }
 }
 
 // 0x00627FE0
-extern "C" __declspec(dllexport) unsigned short __stdcall ITEMS_GetRarePrefixIndex(Unit00627FE0* pUnit) {
-    if (pUnit && pUnit->nType == 4 && pUnit->pData) {
-        return pUnit->pData->wValue32;
+unsigned short __stdcall ITEMS_GetRarePrefixIndex(D2UnitStrc* pItem)
+{
+    if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
+    {
+        return pItemData->wRarePrefix;
     }
+
     return 0;
 }
 
@@ -1001,17 +839,22 @@ void __stdcall ITEMS_AssignRarePrefix(D2UnitStrc* pItem, unsigned short nPrefix)
 }
 
 // 0x00628040
-extern "C" __declspec(dllexport) unsigned short __stdcall ITEMS_GetRareSuffixIndex(Unit00628040* pUnit) {
-    if (pUnit && pUnit->nType == 4 && pUnit->pData) {
-        return pUnit->pData->wValue34;
+unsigned short __stdcall ITEMS_GetRareSuffixIndex(D2UnitStrc* pItem)
+{
+    if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
+    {
+        return pItemData->wRareSuffix;
     }
+
     return 0;
 }
 
 // 0x00628070
-extern "C" __declspec(dllexport) void __stdcall sub_00628070(Unit00628070* pUnit, unsigned short wValue) {
-    if (pUnit && pUnit->nType == 4 && pUnit->pData) {
-        pUnit->pData->wValue34 = wValue;
+void __stdcall sub_00628070(D2UnitStrc* pItem, unsigned short nSuffix)
+{
+    if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
+    {
+        pItemData->wRareSuffix = nSuffix;
     }
 }
 
@@ -1051,10 +894,13 @@ unsigned int __stdcall ITEMS_GetItemFlags(D2UnitStrc* pItem)
 }
 
 // 0x00628140
-extern "C" __declspec(dllexport) unsigned int __stdcall ITEMS_CheckItemCMDFlag(Unit00628140* pUnit, unsigned int dwMask) {
-    if (pUnit && pUnit->nType == 4 && pUnit->pData) {
-        return pUnit->pData->dwFlags14 & dwMask;
+unsigned int __stdcall ITEMS_CheckItemCMDFlag(D2UnitStrc* pItem, unsigned int dwMask)
+{
+    if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
+    {
+        return pItemData->dwCommandFlags & dwMask;
     }
+
     return 0;
 }
 
@@ -1126,10 +972,13 @@ void __stdcall ITEMS_SetItemLevel(D2UnitStrc* pItem, int nItemLevel)
 }
 
 // 0x00628250
-extern "C" __declspec(dllexport) char __stdcall ITEMS_GetInventoryPage(Unit00628250* pUnit) {
-    if (pUnit && pUnit->nType == 4 && pUnit->pData) {
-        return pUnit->pData->cValue45;
+char __stdcall ITEMS_GetInventoryPage(D2UnitStrc* pItem)
+{
+    if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
+    {
+        return pItemData->nInvPage;
     }
+
     return -1;
 }
 
@@ -1448,8 +1297,9 @@ unsigned char __stdcall ITEMS_GetItemQlvl(const D2UnitStrc* hItem)
 }
 
 // 0x006287A0
-extern "C" __declspec(dllexport) unsigned int __stdcall ITEMS_CheckIfFlagIsSet(unsigned int dwA, unsigned int dwB) {
-    return dwA & dwB;
+unsigned int __stdcall ITEMS_CheckIfFlagIsSet(unsigned int dwFlags, unsigned int dwFlag)
+{
+    return dwFlags & dwFlag;
 }
 
 // 0x006287B0
@@ -2464,13 +2314,12 @@ void __stdcall ITEMS_GetRealmData(D2UnitStrc* pItem, int* pRealmData0, int* pRea
 }
 
 // 0x00629EA0
-extern "C" __declspec(dllexport) void __stdcall ITEMS_SetRealmData(Unit00629EA0* pUnit, unsigned int dwFirst, unsigned int dwSecond) {
-    if (pUnit && pUnit->nType == 4) {
-        Data00629EA0* pData = pUnit->pData;
-        if (pData) {
-            pData->dwValue1C = dwFirst;
-            pData->dwValue20 = dwSecond;
-        }
+void __stdcall ITEMS_SetRealmData(D2UnitStrc* pItem, int nRealmData0, int nRealmData1)
+{
+    if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
+    {
+        pItemData->dwRealmData[0] = nRealmData0;
+        pItemData->dwRealmData[1] = nRealmData1;
     }
 }
 
