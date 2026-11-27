@@ -237,13 +237,12 @@ D2DDrawSurfaceClass* gpDDrawBackSurface;                                        
 
 D2DDrawSurfaceClass* gpDDrawOffscreenSurface;                                                              // 0x00881280
 
-extern tagPALETTEENTRY gatGamePalette[256];                                                     // 0x007C8CC8
+tagPALETTEENTRY gatGamePalette[256];                                                            // 0x007C8CC8
 
 static int gnScreenWidth2;                                                                         // 0x00881258
 
 static int gnScreenHeight2;                                                                        // 0x00881254
 
-unsigned char gabPaletteEntries[1];                                                                  // 0x007C8CCC
 
 static int gbPaletteDirty;                                                                         // 0x00881298
 
@@ -667,7 +666,7 @@ int __fastcall DDCORE_Blit()
     if (gbPaletteDirty && gpDDrawPalette)
     {
         gbPaletteDirty = 0;
-        const long hResult = gpDDrawPalette->SetEntries(0, 1, 0xFF, gabPaletteEntries);
+        const long hResult = gpDDrawPalette->SetEntries(0, 1, 0xFF, &gatGamePalette[1]);
         if (hResult)
         {
             DDCORE_DDrawLogError("SetEntries failed!", hResult);
