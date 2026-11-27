@@ -1590,7 +1590,7 @@ void __fastcall D2GFX_DrawLitSubtileRows(unsigned char* pSrc, unsigned char* pDs
     for (int i = 0; i < 15; ++i)
     {
         const int nOff = ganSubtileRowXOffset[i];
-        unsigned char* v = (unsigned char*)gabLightCube + 32 * ((nLightY >> 7) + 32 * (nLightX >> 7)) + nOff;
+        unsigned char* v = &gabLightCube[nLightX >> 7][nLightY >> 7][nOff];
         unsigned char* s = &pSrc[ganSubtileRowSrcOffset[i]];
         switch (ganSubtileRowWidth[i])
         {
@@ -2502,7 +2502,7 @@ void __fastcall CMNSUBTILE_DrawLitBlockClipped(D2TileLibraryBlockStrc* pBlock, i
     for (int i = nStartRow; i < nEndRow; ++i)
     {
         const int nNegX = -(nX + ganSubtileRowXOffset[i]);
-        unsigned char* pLevels = (unsigned char*)gabLightCube + 32 * ((nLightY >> 7) + 32 * (nLightX >> 7)) + ganSubtileRowXOffset[i];
+        unsigned char* pLevels = &gabLightCube[nLightX >> 7][nLightY >> 7][ganSubtileRowXOffset[i]];
         unsigned char* d = pRow + ganSubtileRowXOffset[i];
         unsigned char* s = pBlock->pData + ganSubtileRowSrcOffset[i];
         int nSkip;
