@@ -37035,34 +37035,14 @@
      "name": "?sub_0051A480_DebugLog@@YAXPBDZZ"
     },
     {
-     "va": "0x0051A540",
-     "length": 7,
-     "name": "?sub_0051A540_SetValue@@YIXH@Z"
-    },
-    {
      "va": "0x0051A550",
      "length": 6,
      "name": "BNCLIENT_GetServerToken"
     },
     {
-     "va": "0x0051A560",
-     "length": 7,
-     "name": "?sub_0051A560_SetValue@@YIXH@Z"
-    },
-    {
      "va": "0x0051BEC0",
      "length": 5,
      "name": "?sub_0051BEC0_IsExpansion@@YAHXZ"
-    },
-    {
-     "va": "0x0051C9B0",
-     "length": 43,
-     "name": "?sub_0051C9B0_GetPeerName@@YIHPAXPAH@Z"
-    },
-    {
-     "va": "0x0051C9E0",
-     "length": 43,
-     "name": "?sub_0051C9E0_GetSockName@@YIHPAXPAH@Z"
     }
    ]
   },
@@ -37170,6 +37150,16 @@
      "va": "0x0051A490",
      "length": 173,
      "name": "BNSEND_SendClientId"
+    },
+    {
+     "va": "0x0051A540",
+     "length": 7,
+     "name": "?sub_0051A540_SetValue@@YIXH@Z"
+    },
+    {
+     "va": "0x0051A560",
+     "length": 7,
+     "name": "?sub_0051A560_SetValue@@YIXH@Z"
     },
     {
      "va": "0x0051A580",
@@ -37483,6 +37473,16 @@
      "va": "0x0051C7E0",
      "length": 451,
      "name": "BNSEND_ReceiveThread"
+    },
+    {
+     "va": "0x0051C9B0",
+     "length": 43,
+     "name": "?sub_0051C9B0_GetPeerName@@YIHPAXPAH@Z"
+    },
+    {
+     "va": "0x0051C9E0",
+     "length": 43,
+     "name": "?sub_0051C9E0_GetSockName@@YIHPAXPAH@Z"
     },
     {
      "va": "0x0051CA20",
