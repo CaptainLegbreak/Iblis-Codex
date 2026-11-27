@@ -42,8 +42,6 @@ struct D2StringMapStrc;
 
 struct D2ClientStringListStrc;
 
-struct D2PartyRecordStrc;
-
 struct D2ClientObjectStrc;
 
 struct D2NpcQuestHandlerStrc;
@@ -130,13 +128,6 @@ struct D2ClientStringListStrc
     unsigned short wCount;
 };
 
-struct D2PartyRecordStrc
-{
-    unsigned char nFlag0;
-    unsigned char nFlag1;
-    char unk0x02[0x14];
-};
-
 typedef void (__fastcall* UNITFN)(D2UnitStrc* pUnit);
 
 extern int gnStringMapCount; // 0x00725C04
@@ -144,7 +135,6 @@ extern int gnStringMapCount; // 0x00725C04
 extern D2StringMapStrc gaStringMap[]; // 0x0072739C
 
 
-extern D2PartyRecordStrc gaNpcEntryFlags[]; // 0x00726861
 
 unsigned char gbNpcEntriesProcessed; // 0x007C0C6A
 
@@ -1993,8 +1983,8 @@ void __cdecl NPCMENU_ResetNpcMenu()
     gbNpcEntriesProcessed = 0;
     for (int i = 0; i < gnNpcEntryCount; ++i)
     {
-        gaNpcEntryFlags[i].nFlag0 = 0;
-        gaNpcEntryFlags[i].nFlag1 = 0;
+        gaNpcEntries[i].bSelected = 0;
+        gaNpcEntries[i].bFlag = 0;
     }
 }
 
