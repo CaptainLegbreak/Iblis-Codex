@@ -73,13 +73,6 @@ typedef void (__stdcall* PFNGLIDEDRAWVERTEXARRAY)(int nMode, int nCount, void* p
 
 typedef void (__stdcall* PFNGLIDEALPHAFUNCTION)(int nFunction);
 
-struct D2GlideAspectScaleStrc
-{
-	int nScaleS;
-	int nScaleT;
-};
-
-extern D2GlideAspectScaleStrc gatGlideAspectScale[];                                                 // 0x0072F290
 
 extern void (__stdcall* gpfnGrDrawVertexArrayContiguous)(int nMode, int nCount, void* pVertices, int nStride); // 0x0087EAC4
 
@@ -625,8 +618,8 @@ int __fastcall GLSPRITE_CelFlatSpriteDraw(D2GfxDataStrc* pData, int nX, int nY, 
 
 	GLSPRITE_SetupTexInfoSize(&tInfo);
 
-	const int nScaleS = gatGlideAspectScale[tInfo.nAspect].nScaleS;
-	const int nScaleT = gatGlideAspectScale[tInfo.nAspect].nScaleT;
+	const int nScaleS = gaGlideAspectTexDims[tInfo.nAspect + 3].nWidth;
+	const int nScaleT = gaGlideAspectTexDims[tInfo.nAspect + 3].nHeight;
 	const float fS0 = nScaleS * tInfo.fS0;
 	const float fS1 = nScaleS * tInfo.fS1;
 	const float fT0 = nScaleT * tInfo.fT0;
