@@ -213,9 +213,9 @@ void __fastcall MONSTER_SetLevelId(D2UnitStrc* pUnit, int nLevelId); // 0x005735
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-void __fastcall sub_0059B6C0_JerhynSpawnHook(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x0059B6C0
+void __fastcall ACT2Q4_OnJerhynSpawned(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x0059B6C0
 
-void __fastcall sub_0059B6D0_Act2Guard2SpawnHook(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x0059B6D0
+void __fastcall ACT2Q4_OnPalaceGuardSpawned(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x0059B6D0
 
 
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
@@ -1291,10 +1291,10 @@ void __fastcall QUESTS_WarrivSpawn(D2GameStrc* pGame, D2UnitStrc* pWarriv, int n
         switch (nWarrivID)
         {
         case MONSTER_JERHYN:
-            sub_0059B6C0_JerhynSpawnHook(pGame, pWarriv, nXpos, nYpos);
+            ACT2Q4_OnJerhynSpawned(pGame, pWarriv, nXpos, nYpos);
             break;
         case MONSTER_ACT2GUARD2:
-            sub_0059B6D0_Act2Guard2SpawnHook(pGame, pWarriv, nXpos, nYpos);
+            ACT2Q4_OnPalaceGuardSpawned(pGame, pWarriv, nXpos, nYpos);
             break;
         }
     }

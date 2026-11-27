@@ -82538,15 +82538,15 @@
    "va": "0x007310CC"
   },
   {
-   "alias": true,
-   "cname": "gData_00731AD8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnBaseStatIdsToSend@@3PAHA",
+   "decorated": null,
    "file": "Source/D2Game/PLAYER/PlrMsg.cpp",
    "fill": 6,
    "form": "declared",
-   "fwd": "extern \"C\" int gData_00731AD8[6]; // 0x00731AD8",
-   "head": "extern \"C\" int gData_00731AD8[6] = ",
+   "fwd": null,
+   "head": "extern int gnBaseStatIdsToSend[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -82564,7 +82564,7 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00731AD8\n#pragma comment(linker, \"/alternatename:?gnBaseStatIdsToSend@@3PAHA=_gData_00731AD8\")",
+   "tail": "; // 0x00731AD8",
    "type": "int",
    "va": "0x00731AD8"
   },
@@ -82600,15 +82600,15 @@
    "va": "0x006E09C4"
   },
   {
-   "alias": true,
-   "cname": "gData_006E21F4",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnDifficultyBonus@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/UNIT/sunitproxy.cpp",
    "fill": 9,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E21F4[9]; // 0x006E21F4",
-   "head": "extern \"C\" const int gData_006E21F4[9] = ",
+   "fwd": null,
+   "head": "extern const int gnDifficultyBonus[9] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -82626,7 +82626,7 @@
    "size": 36,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E21F4\n#pragma comment(linker, \"/alternatename:?gnDifficultyBonus@@3QBHB=_gData_006E21F4\")",
+   "tail": "; // 0x006E21F4",
    "type": "int",
    "va": "0x006E21F4"
   },
@@ -83677,14 +83677,14 @@
    "va": "0x00731888"
   },
   {
-   "alias": true,
-   "cname": "gData_006E1064",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaWarpDelays@@3QBUD2WarpDelayStrc@@B",
+   "decorated": null,
    "file": "Source/D2Game/PLAYER/PlrMsg.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2WarpDelayStrc gData_006E1064[3]; // 0x006E1064",
-   "head": "extern \"C\" const D2WarpDelayStrc gData_006E1064[3] = ",
+   "fwd": null,
+   "head": "extern const D2WarpDelayStrc gaWarpDelays[3] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -83723,7 +83723,7 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E1064\n#pragma comment(linker, \"/alternatename:?gaWarpDelays@@3QBUD2WarpDelayStrc@@B=_gData_006E1064\")",
+   "tail": "; // 0x006E1064",
    "type": "D2WarpDelayStrc",
    "va": "0x006E1064",
    "zero_tail": 4
@@ -86006,14 +86006,14 @@
    "va": "0x00731D00"
   },
   {
-   "alias": true,
-   "cname": "gData_006E10E0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnUnitListOffsets@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/UNIT/SUnit.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E10E0[6]; // 0x006E10E0",
-   "head": "extern \"C\" const int gData_006E10E0[6] = ",
+   "fwd": null,
+   "head": "extern const int gnUnitListOffsets[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -86031,7 +86031,7 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E10E0\n#pragma comment(linker, \"/alternatename:?gnUnitListOffsets@@3QBHB=_gData_006E10E0\")",
+   "tail": "; // 0x006E10E0",
    "type": "int",
    "va": "0x006E10E0"
   },
@@ -86380,15 +86380,15 @@
    "tail": "; // 0x00732100"
   },
   {
-   "alias": true,
-   "cname": "gData_006E11C8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gpfnCubeOutputFunctions@@3QBQ6IHPAUD2GameStrc@@PAUD2UnitStrc@@@ZB",
+   "decorated": null,
    "file": "Source/D2Game/PLAYER/PlrTrade.cpp",
    "fill": 4,
    "form": "declared",
-   "fwd": "extern \"C\" const CubeOutputFunc gData_006E11C8[4]; // 0x006E11C8",
-   "head": "extern \"C\" const CubeOutputFunc gData_006E11C8[4] = ",
+   "fwd": null,
+   "head": "extern const CubeOutputFunc gpfnCubeOutputFunctions[4] = ",
    "model": {
     "elem": {
      "fn": true,
@@ -86431,7 +86431,7 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E11C8\n#pragma comment(linker, \"/alternatename:?gpfnCubeOutputFunctions@@3QBQ6IHPAUD2GameStrc@@PAUD2UnitStrc@@@ZB=_gData_006E11C8\")",
+   "tail": "; // 0x006E11C8",
    "type": "CubeOutputFunc",
    "va": "0x006E11C8"
   },
@@ -86453,14 +86453,14 @@
    "va": "0x006E1208"
   },
   {
-   "alias": true,
-   "cname": "gData_006E1488",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnMissilePatternYOffsets@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/SKILLS/Skills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E1488[8]; // 0x006E1488",
-   "head": "extern \"C\" const int gData_006E1488[8] = ",
+   "fwd": null,
+   "head": "extern const int gnMissilePatternYOffsets[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -86478,19 +86478,19 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E1488\n#pragma comment(linker, \"/alternatename:?gnMissilePatternYOffsets@@3QBHB=_gData_006E1488\")",
+   "tail": "; // 0x006E1488",
    "type": "int",
    "va": "0x006E1488"
   },
   {
-   "alias": true,
-   "cname": "gData_006E14A8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnMissilePatternXOffsets@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/SKILLS/Skills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E14A8[8]; // 0x006E14A8",
-   "head": "extern \"C\" const int gData_006E14A8[8] = ",
+   "fwd": null,
+   "head": "extern const int gnMissilePatternXOffsets[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -86508,19 +86508,19 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E14A8\n#pragma comment(linker, \"/alternatename:?gnMissilePatternXOffsets@@3QBHB=_gData_006E14A8\")",
+   "tail": "; // 0x006E14A8",
    "type": "int",
    "va": "0x006E14A8"
   },
   {
-   "alias": true,
-   "cname": "gData_006E14C8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnMissilePatternOffsets2@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/SKILLS/Skills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E14C8[7]; // 0x006E14C8",
-   "head": "extern \"C\" const int gData_006E14C8[7] = ",
+   "fwd": null,
+   "head": "extern const int gnMissilePatternOffsets2[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -86538,19 +86538,19 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E14C8\n#pragma comment(linker, \"/alternatename:?gnMissilePatternOffsets2@@3QBHB=_gData_006E14C8\")",
+   "tail": "; // 0x006E14C8",
    "type": "int",
    "va": "0x006E14C8"
   },
   {
-   "alias": true,
-   "cname": "gData_006E14E4",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnMissilePatternSignY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/SKILLS/Skills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E14E4[4]; // 0x006E14E4",
-   "head": "extern \"C\" const int gData_006E14E4[4] = ",
+   "fwd": null,
+   "head": "extern const int gnMissilePatternSignY[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -86568,19 +86568,19 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E14E4\n#pragma comment(linker, \"/alternatename:?gnMissilePatternSignY@@3QBHB=_gData_006E14E4\")",
+   "tail": "; // 0x006E14E4",
    "type": "int",
    "va": "0x006E14E4"
   },
   {
-   "alias": true,
-   "cname": "gData_006E14F4",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnMissilePatternOffsets1@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/SKILLS/Skills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E14F4[7]; // 0x006E14F4",
-   "head": "extern \"C\" const int gData_006E14F4[7] = ",
+   "fwd": null,
+   "head": "extern const int gnMissilePatternOffsets1[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -86598,19 +86598,19 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E14F4\n#pragma comment(linker, \"/alternatename:?gnMissilePatternOffsets1@@3QBHB=_gData_006E14F4\")",
+   "tail": "; // 0x006E14F4",
    "type": "int",
    "va": "0x006E14F4"
   },
   {
-   "alias": true,
-   "cname": "gData_006E1510",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnMissilePatternSignX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/SKILLS/Skills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E1510[4]; // 0x006E1510",
-   "head": "extern \"C\" const int gData_006E1510[4] = ",
+   "fwd": null,
+   "head": "extern const int gnMissilePatternSignX[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -86628,7 +86628,7 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E1510\n#pragma comment(linker, \"/alternatename:?gnMissilePatternSignX@@3QBHB=_gData_006E1510\")",
+   "tail": "; // 0x006E1510",
    "type": "int",
    "va": "0x006E1510"
   },
@@ -86899,14 +86899,14 @@
    "va": "0x007325B0"
   },
   {
-   "alias": true,
-   "cname": "gData_006E1278",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnRandomElemTypes@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/SKILLS/Skills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E1278[4]; // 0x006E1278",
-   "head": "extern \"C\" const int gData_006E1278[4] = ",
+   "fwd": null,
+   "head": "extern const int gnRandomElemTypes[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -86924,7 +86924,7 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E1278\n#pragma comment(linker, \"/alternatename:?gnRandomElemTypes@@3QBHB=_gData_006E1278\")",
+   "tail": "; // 0x006E1278",
    "type": "int",
    "va": "0x006E1278"
   },
@@ -87473,14 +87473,14 @@
    "va": "0x00732140"
   },
   {
-   "alias": true,
-   "cname": "gData_006E1520",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnStartingActTargetLevels@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/Unknown_00570420.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E1520[5]; // 0x006E1520",
-   "head": "extern \"C\" const int gData_006E1520[5] = ",
+   "fwd": null,
+   "head": "extern const int gnStartingActTargetLevels[5] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -87498,7 +87498,7 @@
    "size": 20,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E1520\n#pragma comment(linker, \"/alternatename:?gnStartingActTargetLevels@@3QBHB=_gData_006E1520\")",
+   "tail": "; // 0x006E1520",
    "type": "int",
    "va": "0x006E1520"
   },
@@ -87743,14 +87743,14 @@
    "tail": "; // 0x00732940"
   },
   {
-   "alias": true,
-   "cname": "gData_006E1590",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnHpBonusTable@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/MONSTER/Monster.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E1590[9]; // 0x006E1590",
-   "head": "extern \"C\" const int gData_006E1590[9] = ",
+   "fwd": null,
+   "head": "extern const int gnHpBonusTable[9] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -87768,19 +87768,19 @@
    "size": 36,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E1590\n#pragma comment(linker, \"/alternatename:?gnHpBonusTable@@3QBHB=_gData_006E1590\")",
+   "tail": "; // 0x006E1590",
    "type": "int",
    "va": "0x006E1590"
   },
   {
-   "alias": true,
-   "cname": "gData_006E15B4",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnExperienceBonusTable@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/MONSTER/Monster.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E15B4[9]; // 0x006E15B4",
-   "head": "extern \"C\" const int gData_006E15B4[9] = ",
+   "fwd": null,
+   "head": "extern const int gnExperienceBonusTable[9] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -87798,7 +87798,7 @@
    "size": 36,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E15B4\n#pragma comment(linker, \"/alternatename:?gnExperienceBonusTable@@3QBHB=_gData_006E15B4\")",
+   "tail": "; // 0x006E15B4",
    "type": "int",
    "va": "0x006E15B4"
   },
@@ -88056,14 +88056,14 @@
    "va": "0x00732980"
   },
   {
-   "alias": true,
-   "cname": "gData_006E16D8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gaDamageHitClassMapping",
+   "decorated": null,
    "file": "Source/D2Game/UNIT/SUnitDmg.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2DamageHitClassMappingStrc gData_006E16D8[8]; // 0x006E16D8",
-   "head": "extern \"C\" const D2DamageHitClassMappingStrc gData_006E16D8[8] = ",
+   "fwd": null,
+   "head": "extern \"C\" const D2DamageHitClassMappingStrc gaDamageHitClassMapping[8] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -88102,7 +88102,7 @@
    "size": 64,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E16D8\n#pragma comment(linker, \"/alternatename:_gaDamageHitClassMapping=_gData_006E16D8\")",
+   "tail": "; // 0x006E16D8",
    "type": "D2DamageHitClassMappingStrc",
    "va": "0x006E16D8"
   },
@@ -88201,14 +88201,14 @@
    "va": "0x00732BCC"
   },
   {
-   "alias": true,
-   "cname": "gData_006E1668",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnExpFactorLowerLevel@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/UNIT/SUnitDmg.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E1668[11]; // 0x006E1668",
-   "head": "extern \"C\" const int gData_006E1668[11] = ",
+   "fwd": null,
+   "head": "extern const int gnExpFactorLowerLevel[11] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -88226,19 +88226,19 @@
    "size": 44,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E1668\n#pragma comment(linker, \"/alternatename:?gnExpFactorLowerLevel@@3QBHB=_gData_006E1668\")",
+   "tail": "; // 0x006E1668",
    "type": "int",
    "va": "0x006E1668"
   },
   {
-   "alias": true,
-   "cname": "gData_006E1694",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnExpFactorHigherLevel@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/UNIT/SUnitDmg.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E1694[11]; // 0x006E1694",
-   "head": "extern \"C\" const int gData_006E1694[11] = ",
+   "fwd": null,
+   "head": "extern const int gnExpFactorHigherLevel[11] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -88256,19 +88256,19 @@
    "size": 44,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E1694\n#pragma comment(linker, \"/alternatename:?gnExpFactorHigherLevel@@3QBHB=_gData_006E1694\")",
+   "tail": "; // 0x006E1694",
    "type": "int",
    "va": "0x006E1694"
   },
   {
-   "alias": true,
-   "cname": "gData_006E1810",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gpfnPlayerEventCallbacks@@3QBQ6IXPAUD2GameStrc@@PAUD2UnitStrc@@HH@ZB",
+   "decorated": null,
    "file": "Source/D2Game/PLAYER/PlrModes.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const EventCallbackFunction gData_006E1810[15]; // 0x006E1810",
-   "head": "extern \"C\" const EventCallbackFunction gData_006E1810[15] = ",
+   "fwd": null,
+   "head": "extern const EventCallbackFunction gpfnPlayerEventCallbacks[15] = ",
    "model": {
     "elem": {
      "fn": true,
@@ -88367,7 +88367,7 @@
    "size": 60,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E1810\n#pragma comment(linker, \"/alternatename:?gpfnPlayerEventCallbacks@@3QBQ6IXPAUD2GameStrc@@PAUD2UnitStrc@@HH@ZB=_gData_006E1810\")",
+   "tail": "; // 0x006E1810",
    "type": "EventCallbackFunction",
    "va": "0x006E1810",
    "zero_tail": 4
@@ -89662,14 +89662,14 @@
    "va": "0x00732FAC"
   },
   {
-   "alias": true,
-   "cname": "gData_006E1988",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnChestActLevelIds@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/OBJECTS/ObjMode.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E1988[10]; // 0x006E1988",
-   "head": "extern \"C\" const int gData_006E1988[10] = ",
+   "fwd": null,
+   "head": "extern const int gnChestActLevelIds[10] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -89687,7 +89687,7 @@
    "size": 40,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E1988\n#pragma comment(linker, \"/alternatename:?gnChestActLevelIds@@3QBHB=_gData_006E1988\")",
+   "tail": "; // 0x006E1988",
    "type": "int",
    "va": "0x006E1988"
   },
@@ -90392,14 +90392,14 @@
    "va": "0x00733308"
   },
   {
-   "alias": true,
-   "cname": "gData_00732FEC",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gdwAct5Q2RuneCodes@@3PAIA",
+   "decorated": null,
    "file": "Source/D2Game/Unknown_00586B50.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" unsigned int gData_00732FEC[3]; // 0x00732FEC",
-   "head": "extern \"C\" unsigned int gData_00732FEC[3] = ",
+   "fwd": null,
+   "head": "extern unsigned int gdwAct5Q2RuneCodes[3] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -90417,20 +90417,20 @@
    "size": 12,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00732FEC\n#pragma comment(linker, \"/alternatename:?gdwAct5Q2RuneCodes@@3PAIA=_gData_00732FEC\")",
+   "tail": "; // 0x00732FEC",
    "type": "unsigned int",
    "va": "0x00732FEC"
   },
   {
-   "alias": true,
-   "cname": "gData_00734270",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gnA5Q2NpcActivateIndices",
+   "decorated": null,
    "file": "Source/D2Game/Unknown_00586B50.cpp",
    "fill": 37,
    "form": "declared",
-   "fwd": "extern \"C\" unsigned int gData_00734270[37]; // 0x00734270",
-   "head": "extern \"C\" unsigned int gData_00734270[37] = ",
+   "fwd": null,
+   "head": "extern \"C\" unsigned int gnA5Q2NpcActivateIndices[37] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -90448,7 +90448,7 @@
    "size": 148,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00734270\n#pragma comment(linker, \"/alternatename:_gnA5Q2NpcActivateIndices=_gData_00734270\")",
+   "tail": "; // 0x00734270",
    "type": "unsigned int",
    "va": "0x00734270"
   },
@@ -90484,15 +90484,15 @@
    "va": "0x00733940"
   },
   {
-   "alias": true,
-   "cname": "gData_00734304",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnAct5Q3MessageIndices@@3PAIA",
+   "decorated": null,
    "file": "Source/D2Game/Unknown_00586B50.cpp",
    "fill": 7,
    "form": "declared",
-   "fwd": "extern \"C\" unsigned int gData_00734304[7]; // 0x00734304",
-   "head": "extern \"C\" unsigned int gData_00734304[7] = ",
+   "fwd": null,
+   "head": "extern unsigned int gnAct5Q3MessageIndices[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -90510,7 +90510,7 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00734304\n#pragma comment(linker, \"/alternatename:?gnAct5Q3MessageIndices@@3PAIA=_gData_00734304\")",
+   "tail": "; // 0x00734304",
    "type": "unsigned int",
    "va": "0x00734304"
   },
@@ -91244,15 +91244,15 @@
    "va": "0x00734AC8"
   },
   {
-   "alias": true,
-   "cname": "gData_006E1B98",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gszA1Q2SourceFile",
+   "decorated": null,
    "file": "Source/D2Game/Quests/a1q2.cpp",
    "fill": 48,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_006E1B98[48]; // 0x006E1B98",
-   "head": "extern \"C\" const char gData_006E1B98[48] = ",
+   "fwd": null,
+   "head": "extern \"C\" const char gszA1Q2SourceFile[48] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -91270,20 +91270,20 @@
    "size": 48,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E1B98\n#pragma comment(linker, \"/alternatename:_gszA1Q2SourceFile=_gData_006E1B98\")",
+   "tail": "; // 0x006E1B98",
    "type": "char",
    "va": "0x006E1B98"
   },
   {
-   "alias": true,
-   "cname": "gData_00737180",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gnAct1Quest2NpcIndices",
+   "decorated": null,
    "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 6,
    "form": "declared",
-   "fwd": "extern \"C\" unsigned int gData_00737180[6]; // 0x00737180",
-   "head": "extern \"C\" unsigned int gData_00737180[6] = ",
+   "fwd": null,
+   "head": "extern \"C\" unsigned int gnAct1Quest2NpcIndices[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -91301,7 +91301,7 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00737180\n#pragma comment(linker, \"/alternatename:_gnAct1Quest2NpcIndices=_gData_00737180\")",
+   "tail": "; // 0x00737180",
    "type": "unsigned int",
    "va": "0x00737180"
   },
@@ -91337,15 +91337,15 @@
    "va": "0x00735100"
   },
   {
-   "alias": true,
-   "cname": "gData_007357E4",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnA5Q5NpcActivateIndices@@3PAIA",
+   "decorated": null,
    "file": "Source/D2Game/Unknown_00586B50.cpp",
    "fill": 7,
    "form": "declared",
-   "fwd": "extern \"C\" unsigned int gData_007357E4[7]; // 0x007357E4",
-   "head": "extern \"C\" unsigned int gData_007357E4[7] = ",
+   "fwd": null,
+   "head": "extern unsigned int gnA5Q5NpcActivateIndices[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -91363,7 +91363,7 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x007357E4\n#pragma comment(linker, \"/alternatename:?gnA5Q5NpcActivateIndices@@3PAIA=_gData_007357E4\")",
+   "tail": "; // 0x007357E4",
    "type": "unsigned int",
    "va": "0x007357E4"
   },
@@ -91539,15 +91539,15 @@
    "va": "0x00736460"
   },
   {
-   "alias": true,
-   "cname": "gData_00736CD0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gnAct1Quest1NpcIndices",
+   "decorated": null,
    "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 6,
    "form": "declared",
-   "fwd": "extern \"C\" unsigned int gData_00736CD0[6]; // 0x00736CD0",
-   "head": "extern \"C\" unsigned int gData_00736CD0[6] = ",
+   "fwd": null,
+   "head": "extern \"C\" unsigned int gnAct1Quest1NpcIndices[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -91565,7 +91565,7 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00736CD0\n#pragma comment(linker, \"/alternatename:_gnAct1Quest1NpcIndices=_gData_00736CD0\")",
+   "tail": "; // 0x00736CD0",
    "type": "unsigned int",
    "va": "0x00736CD0"
   },
@@ -91649,15 +91649,15 @@
    "va": "0x00737198"
   },
   {
-   "alias": true,
-   "cname": "gData_00737630",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gnAct1Quest3NpcIndices",
+   "decorated": null,
    "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 6,
    "form": "declared",
-   "fwd": "extern \"C\" unsigned int gData_00737630[6]; // 0x00737630",
-   "head": "extern \"C\" unsigned int gData_00737630[6] = ",
+   "fwd": null,
+   "head": "extern \"C\" unsigned int gnAct1Quest3NpcIndices[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -91675,20 +91675,20 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00737630\n#pragma comment(linker, \"/alternatename:_gnAct1Quest3NpcIndices=_gData_00737630\")",
+   "tail": "; // 0x00737630",
    "type": "unsigned int",
    "va": "0x00737630"
   },
   {
-   "alias": true,
-   "cname": "gData_00737648",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnA1Q4MessageIndices@@3PAHA",
+   "decorated": null,
    "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 8,
    "form": "declared",
-   "fwd": "extern \"C\" int gData_00737648[8]; // 0x00737648",
-   "head": "extern \"C\" int gData_00737648[8] = ",
+   "fwd": null,
+   "head": "extern int gnA1Q4MessageIndices[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -91706,7 +91706,7 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00737648\n#pragma comment(linker, \"/alternatename:?gnA1Q4MessageIndices@@3PAHA=_gData_00737648\")",
+   "tail": "; // 0x00737648",
    "type": "int",
    "va": "0x00737648"
   },
@@ -91835,14 +91835,14 @@
    "va": "0x007382E0"
   },
   {
-   "alias": true,
-   "cname": "gData_007361DC",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gdwA1Q6ChippedGemCodes",
+   "decorated": null,
    "file": "Source/D2Game/Unknown_0058F870.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" unsigned int gData_007361DC[7]; // 0x007361DC",
-   "head": "extern \"C\" unsigned int gData_007361DC[7] = ",
+   "fwd": null,
+   "head": "extern \"C\" unsigned int gdwA1Q6ChippedGemCodes[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -91860,19 +91860,19 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x007361DC\n#pragma comment(linker, \"/alternatename:_gdwA1Q6ChippedGemCodes=_gData_007361DC\")",
+   "tail": "; // 0x007361DC",
    "type": "unsigned int",
    "va": "0x007361DC"
   },
   {
-   "alias": true,
-   "cname": "gData_00736444",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gdwA1Q6NormalGemCodes",
+   "decorated": null,
    "file": "Source/D2Game/Unknown_0058F870.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" unsigned int gData_00736444[7]; // 0x00736444",
-   "head": "extern \"C\" unsigned int gData_00736444[7] = ",
+   "fwd": null,
+   "head": "extern \"C\" unsigned int gdwA1Q6NormalGemCodes[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -91890,7 +91890,7 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00736444\n#pragma comment(linker, \"/alternatename:_gdwA1Q6NormalGemCodes=_gData_00736444\")",
+   "tail": "; // 0x00736444",
    "type": "unsigned int",
    "va": "0x00736444"
   },
@@ -92241,15 +92241,15 @@
    "va": "0x00739918"
   },
   {
-   "alias": true,
-   "cname": "gData_00738D44",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gnAct2Quest4NpcIndices",
+   "decorated": null,
    "file": "Source/D2Game/Quests/a2q0.cpp",
    "fill": 7,
    "form": "declared",
-   "fwd": "extern \"C\" int gData_00738D44[7]; // 0x00738D44",
-   "head": "extern \"C\" int gData_00738D44[7] = ",
+   "fwd": null,
+   "head": "extern \"C\" int gnAct2Quest4NpcIndices[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -92267,7 +92267,7 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00738D44\n#pragma comment(linker, \"/alternatename:_gnAct2Quest4NpcIndices=_gData_00738D44\")",
+   "tail": "; // 0x00738D44",
    "type": "int",
    "va": "0x00738D44"
   },
@@ -92481,14 +92481,14 @@
    "tail": "; // 0x0073BF5C"
   },
   {
-   "alias": true,
-   "cname": "gData_006E2A38",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnSrvHit52_YOffsets@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/MISSILES/MissMode.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E2A38[8]; // 0x006E2A38",
-   "head": "extern \"C\" const int gData_006E2A38[8] = ",
+   "fwd": null,
+   "head": "extern const int gnSrvHit52_YOffsets[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -92506,19 +92506,19 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E2A38\n#pragma comment(linker, \"/alternatename:?gnSrvHit52_YOffsets@@3QBHB=_gData_006E2A38\")",
+   "tail": "; // 0x006E2A38",
    "type": "int",
    "va": "0x006E2A38"
   },
   {
-   "alias": true,
-   "cname": "gData_006E2A58",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnSrvHit52_XOffsets@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/MISSILES/MissMode.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E2A58[8]; // 0x006E2A58",
-   "head": "extern \"C\" const int gData_006E2A58[8] = ",
+   "fwd": null,
+   "head": "extern const int gnSrvHit52_XOffsets[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -92536,7 +92536,7 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E2A58\n#pragma comment(linker, \"/alternatename:?gnSrvHit52_XOffsets@@3QBHB=_gData_006E2A58\")",
+   "tail": "; // 0x006E2A58",
    "type": "int",
    "va": "0x006E2A58"
   },
@@ -92886,15 +92886,15 @@
    "va": "0x0073C768"
   },
   {
-   "alias": true,
-   "cname": "gData_006E2198",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnBugLightningYOffsets@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
    "fill": 4,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E2198[4]; // 0x006E2198",
-   "head": "extern \"C\" const int gData_006E2198[4] = ",
+   "fwd": null,
+   "head": "extern const int gnBugLightningYOffsets[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -92912,20 +92912,20 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E2198\n#pragma comment(linker, \"/alternatename:?gnBugLightningYOffsets@@3QBHB=_gData_006E2198\")",
+   "tail": "; // 0x006E2198",
    "type": "int",
    "va": "0x006E2198"
   },
   {
-   "alias": true,
-   "cname": "gData_006E21A8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnBugLightningXOffsets@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
    "fill": 4,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E21A8[4]; // 0x006E21A8",
-   "head": "extern \"C\" const int gData_006E21A8[4] = ",
+   "fwd": null,
+   "head": "extern const int gnBugLightningXOffsets[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -92943,7 +92943,7 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E21A8\n#pragma comment(linker, \"/alternatename:?gnBugLightningXOffsets@@3QBHB=_gData_006E21A8\")",
+   "tail": "; // 0x006E21A8",
    "type": "int",
    "va": "0x006E21A8"
   },
@@ -93043,15 +93043,15 @@
    "va": "0x006E2218"
   },
   {
-   "alias": true,
-   "cname": "gData_006E2150",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gszMissilesSourceFile",
+   "decorated": null,
    "file": "Source/D2Game/MISSILES/Missiles.cpp",
    "fill": 24,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_006E2150[24]; // 0x006E2150",
-   "head": "extern \"C\" const char gData_006E2150[24] = ",
+   "fwd": null,
+   "head": "extern \"C\" const char gszMissilesSourceFile[24] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -93069,19 +93069,19 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E2150\n#pragma comment(linker, \"/alternatename:_gszMissilesSourceFile=_gData_006E2150\")",
+   "tail": "; // 0x006E2150",
    "type": "char",
    "va": "0x006E2150"
   },
   {
-   "alias": true,
-   "cname": "gData_006E2168",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnBaseUMods@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E2168[4]; // 0x006E2168",
-   "head": "extern \"C\" const int gData_006E2168[4] = ",
+   "fwd": null,
+   "head": "extern const int gnBaseUMods[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -93099,7 +93099,7 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E2168\n#pragma comment(linker, \"/alternatename:?gnBaseUMods@@3QBHB=_gData_006E2168\")",
+   "tail": "; // 0x006E2168",
    "type": "int",
    "va": "0x006E2168"
   },
@@ -93509,14 +93509,14 @@
    "va": "0x0073BF68"
   },
   {
-   "alias": true,
-   "cname": "gData_006E21B8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnUniqueElementalStats@@3QAY02$$CBHA",
+   "decorated": null,
    "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E21B8[5][3]; // 0x006E21B8",
-   "head": "extern \"C\" const int gData_006E21B8[5][3] = ",
+   "fwd": null,
+   "head": "extern const int gnUniqueElementalStats[5][3] = ",
    "model": {
     "elem": {
      "elem": {
@@ -93539,7 +93539,7 @@
    "size": 60,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E21B8\n#pragma comment(linker, \"/alternatename:?gnUniqueElementalStats@@3QAY02$$CBHA=_gData_006E21B8\")",
+   "tail": "; // 0x006E21B8",
    "type": "int",
    "va": "0x006E21B8"
   },
@@ -94943,14 +94943,14 @@
    "va": "0x0073C6D0"
   },
   {
-   "alias": true,
-   "cname": "gData_006E2550",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnMeteorSubmissileOffsetsX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/MISSILES/MissMode.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E2550[18]; // 0x006E2550",
-   "head": "extern \"C\" const int gData_006E2550[18] = ",
+   "fwd": null,
+   "head": "extern const int gnMeteorSubmissileOffsetsX[18] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -94968,19 +94968,19 @@
    "size": 72,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E2550\n#pragma comment(linker, \"/alternatename:?gnMeteorSubmissileOffsetsX@@3QBHB=_gData_006E2550\")",
+   "tail": "; // 0x006E2550",
    "type": "int",
    "va": "0x006E2550"
   },
   {
-   "alias": true,
-   "cname": "gData_006E2598",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnMeteorSubmissileOffsetsY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/MISSILES/MissMode.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E2598[18]; // 0x006E2598",
-   "head": "extern \"C\" const int gData_006E2598[18] = ",
+   "fwd": null,
+   "head": "extern const int gnMeteorSubmissileOffsetsY[18] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -94998,7 +94998,7 @@
    "size": 72,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E2598\n#pragma comment(linker, \"/alternatename:?gnMeteorSubmissileOffsetsY@@3QBHB=_gData_006E2598\")",
+   "tail": "; // 0x006E2598",
    "type": "int",
    "va": "0x006E2598"
   },
@@ -95891,14 +95891,14 @@
    "va": "0x0073C720"
   },
   {
-   "alias": true,
-   "cname": "gData_006E2A78",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnSrvDo15_YPositions@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/MISSILES/MissMode.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E2A78[64]; // 0x006E2A78",
-   "head": "extern \"C\" const int gData_006E2A78[64] = ",
+   "fwd": null,
+   "head": "extern const int gnSrvDo15_YPositions[64] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -95916,19 +95916,19 @@
    "size": 256,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E2A78\n#pragma comment(linker, \"/alternatename:?gnSrvDo15_YPositions@@3QBHB=_gData_006E2A78\")",
+   "tail": "; // 0x006E2A78",
    "type": "int",
    "va": "0x006E2A78"
   },
   {
-   "alias": true,
-   "cname": "gData_006E2B78",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnSrvDo15_XPositions@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/MISSILES/MissMode.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E2B78[64]; // 0x006E2B78",
-   "head": "extern \"C\" const int gData_006E2B78[64] = ",
+   "fwd": null,
+   "head": "extern const int gnSrvDo15_XPositions[64] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -95946,7 +95946,7 @@
    "size": 256,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E2B78\n#pragma comment(linker, \"/alternatename:?gnSrvDo15_XPositions@@3QBHB=_gData_006E2B78\")",
+   "tail": "; // 0x006E2B78",
    "type": "int",
    "va": "0x006E2B78"
   },
@@ -96090,14 +96090,14 @@
    "sourced": true
   },
   {
-   "alias": true,
-   "cname": "gData_006E3514",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnCatapultSkills@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/Ai/AiThink4.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E3514[5]; // 0x006E3514",
-   "head": "extern \"C\" const int gData_006E3514[5] = ",
+   "fwd": null,
+   "head": "extern const int gnCatapultSkills[5] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -96115,19 +96115,19 @@
    "size": 20,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E3514\n#pragma comment(linker, \"/alternatename:?gnCatapultSkills@@3QBHB=_gData_006E3514\")",
+   "tail": "; // 0x006E3514",
    "type": "int",
    "va": "0x006E3514"
   },
   {
-   "alias": true,
-   "cname": "gData_0073CA18",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaAiTable@@3PAUD2AiTableStrc@@A",
+   "decorated": null,
    "file": "Source/D2Game/Ai/AiThink.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" D2AiTableStrc gData_0073CA18[148]; // 0x0073CA18",
-   "head": "extern \"C\" D2AiTableStrc gData_0073CA18[148] = ",
+   "fwd": null,
+   "head": "extern D2AiTableStrc gaAiTable[148] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -97611,20 +97611,20 @@
    "size": 2368,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x0073CA18\n#pragma comment(linker, \"/alternatename:?gaAiTable@@3PAUD2AiTableStrc@@A=_gData_0073CA18\")",
+   "tail": "; // 0x0073CA18",
    "type": "D2AiTableStrc",
    "va": "0x0073CA18"
   },
   {
-   "alias": true,
-   "cname": "gData_006E2C78",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gszTargetsSourceFile",
+   "decorated": null,
    "file": "Source/D2Game/GAME/Targets.cpp",
    "fill": 20,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_006E2C78[20]; // 0x006E2C78",
-   "head": "extern \"C\" const char gData_006E2C78[20] = ",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTargetsSourceFile[20] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -97642,7 +97642,7 @@
    "size": 20,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E2C78\n#pragma comment(linker, \"/alternatename:_gszTargetsSourceFile=_gData_006E2C78\")",
+   "tail": "; // 0x006E2C78",
    "type": "char",
    "va": "0x006E2C78"
   },
@@ -99167,14 +99167,14 @@
    "va": "0x00741940"
   },
   {
-   "alias": true,
-   "cname": "gData_006E304C",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnBonePrisonOffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/SKILLS/SkillNec.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E304C[12]; // 0x006E304C",
-   "head": "extern \"C\" const int gData_006E304C[12] = ",
+   "fwd": null,
+   "head": "extern const int gnBonePrisonOffsetX[12] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -99192,19 +99192,19 @@
    "size": 48,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E304C\n#pragma comment(linker, \"/alternatename:?gnBonePrisonOffsetX@@3QBHB=_gData_006E304C\")",
+   "tail": "; // 0x006E304C",
    "type": "int",
    "va": "0x006E304C"
   },
   {
-   "alias": true,
-   "cname": "gData_006E307C",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnBonePrisonOffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/SKILLS/SkillNec.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E307C[12]; // 0x006E307C",
-   "head": "extern \"C\" const int gData_006E307C[12] = ",
+   "fwd": null,
+   "head": "extern const int gnBonePrisonOffsetY[12] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -99222,7 +99222,7 @@
    "size": 48,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E307C\n#pragma comment(linker, \"/alternatename:?gnBonePrisonOffsetY@@3QBHB=_gData_006E307C\")",
+   "tail": "; // 0x006E307C",
    "type": "int",
    "va": "0x006E307C"
   },
@@ -99317,15 +99317,15 @@
    "va": "0x006E3188"
   },
   {
-   "alias": true,
-   "cname": "gData_006E3120",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnHydraOffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/SKILLS/SkillSor.cpp",
    "fill": 3,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E3120[3]; // 0x006E3120",
-   "head": "extern \"C\" const int gData_006E3120[3] = ",
+   "fwd": null,
+   "head": "extern const int gnHydraOffsetY[3] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -99343,20 +99343,20 @@
    "size": 12,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E3120\n#pragma comment(linker, \"/alternatename:?gnHydraOffsetY@@3QBHB=_gData_006E3120\")",
+   "tail": "; // 0x006E3120",
    "type": "int",
    "va": "0x006E3120"
   },
   {
-   "alias": true,
-   "cname": "gData_006E312C",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnHydraOffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/SKILLS/SkillSor.cpp",
    "fill": 3,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E312C[3]; // 0x006E312C",
-   "head": "extern \"C\" const int gData_006E312C[3] = ",
+   "fwd": null,
+   "head": "extern const int gnHydraOffsetX[3] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -99374,19 +99374,19 @@
    "size": 12,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E312C\n#pragma comment(linker, \"/alternatename:?gnHydraOffsetX@@3QBHB=_gData_006E312C\")",
+   "tail": "; // 0x006E312C",
    "type": "int",
    "va": "0x006E312C"
   },
   {
-   "alias": true,
-   "cname": "gData_006E30E0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaEnergyShieldData@@3QBUD2EnergyShieldDataStrc@@B",
+   "decorated": null,
    "file": "Source/D2Game/SKILLS/SkillSor.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2EnergyShieldDataStrc gData_006E30E0[8]; // 0x006E30E0",
-   "head": "extern \"C\" const D2EnergyShieldDataStrc gData_006E30E0[8] = ",
+   "fwd": null,
+   "head": "extern const D2EnergyShieldDataStrc gaEnergyShieldData[8] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -99425,7 +99425,7 @@
    "size": 64,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E30E0\n#pragma comment(linker, \"/alternatename:?gaEnergyShieldData@@3QBUD2EnergyShieldDataStrc@@B=_gData_006E30E0\")",
+   "tail": "; // 0x006E30E0",
    "type": "D2EnergyShieldDataStrc",
    "va": "0x006E30E0"
   },
@@ -99460,14 +99460,14 @@
    "va": "0x006E3228"
   },
   {
-   "alias": true,
-   "cname": "gData_006E3254",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnVolleyOffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/Unknown_005D1080.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E3254[4]; // 0x006E3254",
-   "head": "extern \"C\" const int gData_006E3254[4] = ",
+   "fwd": null,
+   "head": "extern const int gnVolleyOffsetX[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -99485,19 +99485,19 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E3254\n#pragma comment(linker, \"/alternatename:?gnVolleyOffsetX@@3QBHB=_gData_006E3254\")",
+   "tail": "; // 0x006E3254",
    "type": "int",
    "va": "0x006E3254"
   },
   {
-   "alias": true,
-   "cname": "gData_006E3264",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnVolleyOffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/Unknown_005D1080.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E3264[4]; // 0x006E3264",
-   "head": "extern \"C\" const int gData_006E3264[4] = ",
+   "fwd": null,
+   "head": "extern const int gnVolleyOffsetY[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -99515,7 +99515,7 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E3264\n#pragma comment(linker, \"/alternatename:?gnVolleyOffsetY@@3QBHB=_gData_006E3264\")",
+   "tail": "; // 0x006E3264",
    "type": "int",
    "va": "0x006E3264"
   },
@@ -101013,15 +101013,15 @@
    "va": "0x00741B58"
   },
   {
-   "alias": true,
-   "cname": "gData_006E3300",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaAiTargetSearchTable@@3QBUD2UnkAiTableStrc@@B",
+   "decorated": null,
    "file": "Source/D2Game/Ai/AiUtil.cpp",
    "fill": 13,
    "form": "declared",
-   "fwd": "extern \"C\" const D2UnkAiTableStrc gData_006E3300[13]; // 0x006E3300",
-   "head": "extern \"C\" const D2UnkAiTableStrc gData_006E3300[13] = ",
+   "fwd": null,
+   "head": "extern const D2UnkAiTableStrc gaAiTargetSearchTable[13] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -101133,20 +101133,20 @@
    "size": 104,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E3300\n#pragma comment(linker, \"/alternatename:?gaAiTargetSearchTable@@3QBUD2UnkAiTableStrc@@B=_gData_006E3300\")",
+   "tail": "; // 0x006E3300",
    "type": "D2UnkAiTableStrc",
    "va": "0x006E3300"
   },
   {
-   "alias": true,
-   "cname": "gData_006E34F0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnPetMoveDirections@@3QBEB",
+   "decorated": null,
    "file": "Source/D2Game/Ai/AiThink4.cpp",
    "fill": 8,
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned char gData_006E34F0[8]; // 0x006E34F0",
-   "head": "extern \"C\" const unsigned char gData_006E34F0[8] = ",
+   "fwd": null,
+   "head": "extern const unsigned char gnPetMoveDirections[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -101164,19 +101164,19 @@
    "size": 8,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E34F0\n#pragma comment(linker, \"/alternatename:?gnPetMoveDirections@@3QBEB=_gData_006E34F0\")",
+   "tail": "; // 0x006E34F0",
    "type": "unsigned char",
    "va": "0x006E34F0"
   },
   {
-   "alias": true,
-   "cname": "gData_006E33A0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gaDesertTurretOffsets",
+   "decorated": null,
    "file": "Source/D2Game/Ai/AiThink4.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2CoordStrc gData_006E33A0[8]; // 0x006E33A0",
-   "head": "extern \"C\" const D2CoordStrc gData_006E33A0[8] = ",
+   "fwd": null,
+   "head": "extern \"C\" const D2CoordStrc gaDesertTurretOffsets[8] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -101215,19 +101215,19 @@
    "size": 64,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E33A0\n#pragma comment(linker, \"/alternatename:_gaDesertTurretOffsets=_gData_006E33A0\")",
+   "tail": "; // 0x006E33A0",
    "type": "D2CoordStrc",
    "va": "0x006E33A0"
   },
   {
-   "alias": true,
-   "cname": "gData_006E33E0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gnDesertTurretIndices",
+   "decorated": null,
    "file": "Source/D2Game/Ai/AiThink4.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E33E0[64]; // 0x006E33E0",
-   "head": "extern \"C\" const int gData_006E33E0[64] = ",
+   "fwd": null,
+   "head": "extern \"C\" const int gnDesertTurretIndices[64] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -101245,7 +101245,7 @@
    "size": 256,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E33E0\n#pragma comment(linker, \"/alternatename:_gnDesertTurretIndices=_gData_006E33E0\")",
+   "tail": "; // 0x006E33E0",
    "type": "int",
    "va": "0x006E33E0"
   },
@@ -101303,14 +101303,14 @@
    "zero_tail": 4
   },
   {
-   "alias": true,
-   "cname": "gData_006E34E0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?skill_choices@@3QAY01$$CBHA",
+   "decorated": null,
    "file": "Source/D2Game/Ai/AiThink4.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E34E0[2][2]; // 0x006E34E0",
-   "head": "extern \"C\" const int gData_006E34E0[2][2] = ",
+   "fwd": null,
+   "head": "extern const int skill_choices[2][2] = ",
    "model": {
     "elem": {
      "elem": {
@@ -101333,19 +101333,19 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E34E0\n#pragma comment(linker, \"/alternatename:?skill_choices@@3QAY01$$CBHA=_gData_006E34E0\")",
+   "tail": "; // 0x006E34E0",
    "type": "int",
    "va": "0x006E34E0"
   },
   {
-   "alias": true,
-   "cname": "gData_006E34F8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnPetDirections@@3QBEB",
+   "decorated": null,
    "file": "Source/D2Game/Ai/AiThink4.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned char gData_006E34F8[8]; // 0x006E34F8",
-   "head": "extern \"C\" const unsigned char gData_006E34F8[8] = ",
+   "fwd": null,
+   "head": "extern const unsigned char gnPetDirections[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -101363,7 +101363,7 @@
    "size": 8,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E34F8\n#pragma comment(linker, \"/alternatename:?gnPetDirections@@3QBEB=_gData_006E34F8\")",
+   "tail": "; // 0x006E34F8",
    "type": "unsigned char",
    "va": "0x006E34F8"
   },
@@ -102129,14 +102129,14 @@
    "tail": "; // 0x00741EBC"
   },
   {
-   "alias": true,
-   "cname": "gData_0073D358",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaSpecialAiStateTable@@3PAUD2AiTableStrc@@A",
+   "decorated": null,
    "file": "Source/D2Game/Ai/AiThink.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" D2AiTableStrc gData_0073D358[18]; // 0x0073D358",
-   "head": "extern \"C\" D2AiTableStrc gData_0073D358[18] = ",
+   "fwd": null,
+   "head": "extern D2AiTableStrc gaSpecialAiStateTable[18] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -102364,7 +102364,7 @@
    "size": 288,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x0073D358\n#pragma comment(linker, \"/alternatename:?gaSpecialAiStateTable@@3PAUD2AiTableStrc@@A=_gData_0073D358\")",
+   "tail": "; // 0x0073D358",
    "type": "D2AiTableStrc",
    "va": "0x0073D358"
   },
@@ -102520,15 +102520,15 @@
    "va": "0x0073D478"
   },
   {
-   "alias": true,
-   "cname": "gData_006E3528",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnBaalThroneSuperUniqueIds@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Game/Ai/AiThink4.cpp",
    "fill": 5,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E3528[5]; // 0x006E3528",
-   "head": "extern \"C\" const int gData_006E3528[5] = ",
+   "fwd": null,
+   "head": "extern const int gnBaalThroneSuperUniqueIds[5] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -102546,20 +102546,20 @@
    "size": 20,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E3528\n#pragma comment(linker, \"/alternatename:?gnBaalThroneSuperUniqueIds@@3QBHB=_gData_006E3528\")",
+   "tail": "; // 0x006E3528",
    "type": "int",
    "va": "0x006E3528"
   },
   {
-   "alias": true,
-   "cname": "gData_006E353C",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnGargoyleTrapDirectionAxis@@3QBEB",
+   "decorated": null,
    "file": "Source/D2Game/Ai/AiThink4.cpp",
    "fill": 4,
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned char gData_006E353C[4]; // 0x006E353C",
-   "head": "extern \"C\" const unsigned char gData_006E353C[4] = ",
+   "fwd": null,
+   "head": "extern const unsigned char gnGargoyleTrapDirectionAxis[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -102577,20 +102577,20 @@
    "size": 4,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E353C\n#pragma comment(linker, \"/alternatename:?gnGargoyleTrapDirectionAxis@@3QBEB=_gData_006E353C\")",
+   "tail": "; // 0x006E353C",
    "type": "unsigned char",
    "va": "0x006E353C"
   },
   {
-   "alias": true,
-   "cname": "gData_006E3540",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnGargoyleTrapDirectionMap@@3QBEB",
+   "decorated": null,
    "file": "Source/D2Game/Ai/AiThink4.cpp",
    "fill": 64,
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned char gData_006E3540[64]; // 0x006E3540",
-   "head": "extern \"C\" const unsigned char gData_006E3540[64] = ",
+   "fwd": null,
+   "head": "extern const unsigned char gnGargoyleTrapDirectionMap[64] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -102608,7 +102608,7 @@
    "size": 64,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E3540\n#pragma comment(linker, \"/alternatename:?gnGargoyleTrapDirectionMap@@3QBEB=_gData_006E3540\")",
+   "tail": "; // 0x006E3540",
    "type": "unsigned char",
    "va": "0x006E3540"
   },
@@ -150353,15 +150353,15 @@
    "sourced": true
   },
   {
-   "alias": true,
-   "cname": "gData_007382AC",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnAct1Q5NpcMessageIndices@@3PAIA",
+   "decorated": null,
    "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 6,
    "form": "declared",
-   "fwd": "extern \"C\" unsigned int gData_007382AC[6]; // 0x007382AC",
-   "head": "extern \"C\" unsigned int gData_007382AC[6] = ",
+   "fwd": null,
+   "head": "extern unsigned int gnAct1Q5NpcMessageIndices[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -150379,20 +150379,20 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x007382AC\n#pragma comment(linker, \"/alternatename:?gnAct1Q5NpcMessageIndices@@3PAIA=_gData_007382AC\")",
+   "tail": "; // 0x007382AC",
    "type": "unsigned int",
    "va": "0x007382AC"
   },
   {
-   "alias": true,
-   "cname": "gData_007382C4",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnAct1Q6NpcMessageIndices@@3PAIA",
+   "decorated": null,
    "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 7,
    "form": "declared",
-   "fwd": "extern \"C\" unsigned int gData_007382C4[7]; // 0x007382C4",
-   "head": "extern \"C\" unsigned int gData_007382C4[7] = ",
+   "fwd": null,
+   "head": "extern unsigned int gnAct1Q6NpcMessageIndices[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -150410,19 +150410,19 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x007382C4\n#pragma comment(linker, \"/alternatename:?gnAct1Q6NpcMessageIndices@@3PAIA=_gData_007382C4\")",
+   "tail": "; // 0x007382C4",
    "type": "unsigned int",
    "va": "0x007382C4"
   },
   {
-   "alias": true,
-   "cname": "gData_00738FAC",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnArcaneThingObjectIds@@3PAHA",
+   "decorated": null,
    "file": "Source/D2Game/Quests/a2q0.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" int gData_00738FAC[7]; // 0x00738FAC",
-   "head": "extern \"C\" int gData_00738FAC[7] = ",
+   "fwd": null,
+   "head": "extern int gnArcaneThingObjectIds[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -150440,20 +150440,20 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00738FAC\n#pragma comment(linker, \"/alternatename:?gnArcaneThingObjectIds@@3PAHA=_gData_00738FAC\")",
+   "tail": "; // 0x00738FAC",
    "type": "int",
    "va": "0x00738FAC",
    "fill": 7
   },
   {
-   "alias": true,
-   "cname": "gData_007398FC",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnAct2Q1NpcMessageIndices@@3PAHA",
+   "decorated": null,
    "file": "Source/D2Game/Quests/a2q0.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" int gData_007398FC[7]; // 0x007398FC",
-   "head": "extern \"C\" int gData_007398FC[7] = ",
+   "fwd": null,
+   "head": "extern int gnAct2Q1NpcMessageIndices[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -150471,20 +150471,20 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x007398FC\n#pragma comment(linker, \"/alternatename:?gnAct2Q1NpcMessageIndices@@3PAHA=_gData_007398FC\")",
+   "tail": "; // 0x007398FC",
    "type": "int",
    "va": "0x007398FC",
    "fill": 7
   },
   {
-   "alias": true,
-   "cname": "gData_0073A620",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnAct2Q3NpcMessageIndices@@3PAHA",
+   "decorated": null,
    "file": "Source/D2Game/Quests/a2q0.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" int gData_0073A620[6]; // 0x0073A620",
-   "head": "extern \"C\" int gData_0073A620[6] = ",
+   "fwd": null,
+   "head": "extern int gnAct2Q3NpcMessageIndices[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -150502,21 +150502,21 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x0073A620\n#pragma comment(linker, \"/alternatename:?gnAct2Q3NpcMessageIndices@@3PAHA=_gData_0073A620\")",
+   "tail": "; // 0x0073A620",
    "type": "int",
    "va": "0x0073A620",
    "fill": 6
   },
   {
-   "alias": true,
-   "cname": "gData_0073F188",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnAct3Q1NpcMessageIndices@@3PAHA",
+   "decorated": null,
    "file": "Source/D2Game/Quests/a3q0.cpp",
    "fill": 6,
    "form": "declared",
-   "fwd": "extern \"C\" int gData_0073F188[6]; // 0x0073F188",
-   "head": "extern \"C\" int gData_0073F188[6] = ",
+   "fwd": null,
+   "head": "extern int gnAct3Q1NpcMessageIndices[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -150534,20 +150534,20 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x0073F188\n#pragma comment(linker, \"/alternatename:?gnAct3Q1NpcMessageIndices@@3PAHA=_gData_0073F188\")",
+   "tail": "; // 0x0073F188",
    "type": "int",
    "va": "0x0073F188"
   },
   {
-   "alias": true,
-   "cname": "gData_007401B8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnAct3Q3NpcMessageIndices@@3PAHA",
+   "decorated": null,
    "file": "Source/D2Game/Quests/a3q0.cpp",
    "fill": 6,
    "form": "declared",
-   "fwd": "extern \"C\" int gData_007401B8[6]; // 0x007401B8",
-   "head": "extern \"C\" int gData_007401B8[6] = ",
+   "fwd": null,
+   "head": "extern int gnAct3Q3NpcMessageIndices[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -150565,20 +150565,20 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x007401B8\n#pragma comment(linker, \"/alternatename:?gnAct3Q3NpcMessageIndices@@3PAHA=_gData_007401B8\")",
+   "tail": "; // 0x007401B8",
    "type": "int",
    "va": "0x007401B8"
   },
   {
-   "alias": true,
-   "cname": "gData_0073DBA0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gnAct4Q1NpcMessageIndices@@3PAHA",
+   "decorated": null,
    "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 6,
    "form": "declared",
-   "fwd": "extern \"C\" int gData_0073DBA0[6]; // 0x0073DBA0",
-   "head": "extern \"C\" int gData_0073DBA0[6] = ",
+   "fwd": null,
+   "head": "extern int gnAct4Q1NpcMessageIndices[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -150596,7 +150596,7 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x0073DBA0\n#pragma comment(linker, \"/alternatename:?gnAct4Q1NpcMessageIndices@@3PAHA=_gData_0073DBA0\")",
+   "tail": "; // 0x0073DBA0",
    "type": "int",
    "va": "0x0073DBA0"
   },

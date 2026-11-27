@@ -43,7 +43,6 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId); // 0x0046ACE0
-int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);
 
 #include "gen/data/Source/D2Game/Unknown_0056B180.inc"
 struct D2SkillStrc;
@@ -209,7 +208,7 @@ int __fastcall SKILLS_CheckAuraTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget, un
             pAttacker = pOwner;
         }
 
-        if (!sub_00554200(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pTarget))
+        if (!SUNIT_AreUnitsHostile(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pTarget))
         {
             return 0;
         }
