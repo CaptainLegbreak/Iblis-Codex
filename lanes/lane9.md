@@ -54,6 +54,10 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/names-d2game-h2 974efeca (on #457): names-d2game-h regenerated on #457: D2Game.h, D2GameFuncs.h placeholder
+  parameters; names.csv names for seventeen sub_<VA> declarations, renamed in the 23 units that call them. a1/v12
+  377 -> 341 alone; auditguard no count rose; 131 includers compile equal. Full build: Game.exe identical, tree
+  516404c0f4df65c96a2715fab5146f130b12e405, borrowed code / data 5,424 / 261 B.
 - lane9/names-d2game-verbs c798910a (on names-d2game-moo, so merge it after that one): thirty-seven D2Game placeholder
   stubs and accessors take sub_<VA>_<Verb> names from their bodies (_Nop for the empty ones, _Return0/_Return5/_Return43,
   GetWaypointData, GetMonStats2Record, ...); exported functions keep their names. auditguard against its base: no count
