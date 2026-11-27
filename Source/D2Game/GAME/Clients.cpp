@@ -690,7 +690,7 @@ struct D2HotkeySkillStrc;
 struct D2MonsterDataStrc;
 
 
-void __fastcall sub_0055F4F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x0055F4F0
+void __fastcall sub_0055F4F0_Nop(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x0055F4F0
 
 
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
@@ -1020,7 +1020,7 @@ void __fastcall CLIENTS_SynchronizePlayer(D2GameStrc* pGame, D2ClientStrc* pClie
     if (UNITS_HasFlagEx(pPlayer, 0x200000))
     {
         D2GAME_ITEMS_UpdateInventoryItems(pGame, pPlayer, 1, 1);
-        sub_0055F4F0(pGame, pPlayer, 1);
+        sub_0055F4F0_Nop(pGame, pPlayer, 1);
     }
     ++pClient->nPlayerSyncCount;
     if (pClientRoom != pRoom)
@@ -1151,14 +1151,14 @@ void __fastcall D2GAME_SetSaveFileChecksum(D2ClientStrc* ptClient, unsigned int 
 }
 
 // 0x005383B0
-unsigned char __fastcall sub_005383B0(D2ClientStrc* pClient)
+unsigned char __fastcall sub_005383B0_GetClientByte1AD(D2ClientStrc* pClient)
 {
     D2_ASSERT(pClient, 0x816);
     return pClient->nByte1AD;
 }
 
 // 0x005383E0
-void __fastcall sub_005383E0(D2ClientStrc* pClient, unsigned char nValue)
+void __fastcall sub_005383E0_SetClientByte1AD(D2ClientStrc* pClient, unsigned char nValue)
 {
     D2_ASSERT(pClient, 0x822);
     pClient->nByte1AD = nValue;
@@ -1236,12 +1236,12 @@ int __fastcall CLIENTS_GetPlayTime()
 }
 
 // 0x005385D0
-void __stdcall sub_005385D0(int nUnused)
+void __stdcall sub_005385D0_Nop(int nUnused)
 {
 }
 
 // 0x005385E0
-void __cdecl sub_005385E0()
+void __cdecl sub_005385E0_Nop()
 {
 }
 

@@ -3253,7 +3253,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
 
         if (WAYPOINTS_GetWaypointNoFromLevelId(LEVEL_LUTGHOLEIN, &nWpNo))
         {
-            WAYPOINTS_ActivateWaypoint(sub_00547F50(pGame, pPlayer), nWpNo);
+            WAYPOINTS_ActivateWaypoint(sub_00547F50_GetWaypointData(pGame, pPlayer), nWpNo);
         }
         return 0;
     }
@@ -3274,7 +3274,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
 
         if (WAYPOINTS_GetWaypointNoFromLevelId(LEVEL_KURASTDOCKTOWN, &nWpNo))
         {
-            WAYPOINTS_ActivateWaypoint(sub_00547F50(pGame, pPlayer), nWpNo);
+            WAYPOINTS_ActivateWaypoint(sub_00547F50_GetWaypointData(pGame, pPlayer), nWpNo);
         }
         return 0;
     }
@@ -3298,7 +3298,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
 
         if (WAYPOINTS_GetWaypointNoFromLevelId(LEVEL_HARROGATH, &nWpNo))
         {
-            WAYPOINTS_ActivateWaypoint(sub_00547F50(pGame, pPlayer), nWpNo);
+            WAYPOINTS_ActivateWaypoint(sub_00547F50_GetWaypointData(pGame, pPlayer), nWpNo);
         }
         return 0;
     }
