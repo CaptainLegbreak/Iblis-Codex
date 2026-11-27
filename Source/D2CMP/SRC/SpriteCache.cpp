@@ -119,7 +119,7 @@ struct D2CmpValueObjStrc
     int nValue;
 };
 
-extern D2CmpBlockTableAStrc gCmpBlockTableA; // 0x0088CB20
+D2CmpBlockTableAStrc gCmpBlockTableA; // 0x0088CB20
 
 D2CmpBlockTableBStrc gCmpBlockTableB; // 0x0088DB58
 
