@@ -1839,4 +1839,21 @@ void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc* server, D2QClientStrc
     }
 }
 
-#include "gen/data/Source/Fog/Src/QServer/QServer.inc"
+extern "C" const char gData_006FC548[44] = "[QSInit]       Allocated TQSERVER = 0x%08X"; // 0x006FC548
+#pragma comment(linker, "/alternatename:_gszQServerAllocated=_gData_006FC548")
+
+extern int gnLockCount = 16; // 0x0074C3E0
+
+extern int gnQServerClientCapacity = 15; // 0x0074C3E4
+
+extern int gnQServerSlotCount = 17; // 0x0074C3E8
+
+extern int gnQServerBucketCount = 1; // 0x0074C3EC
+
+unsigned int gaMaskTable[33] = { // 0x0074C3F0
+    0x00000000, 0x00000080, 0x000000C0, 0x000000E0, 0x000000F0, 0x000000F8, 0x000000FC, 0x000000FE,
+    0x000000FF, 0x000080FF, 0x0000C0FF, 0x0000E0FF, 0x0000F0FF, 0x0000F8FF, 0x0000FCFF, 0x0000FEFF,
+    0x0000FFFF, 0x0080FFFF, 0x00C0FFFF, 0x00E0FFFF, 0x00F0FFFF, 0x00F8FFFF, 0x00FCFFFF, 0x00FEFFFF,
+    0x00FFFFFF, 0x80FFFFFF, 0xC0FFFFFF, 0xE0FFFFFF, 0xF0FFFFFF, 0xF8FFFFFF, 0xFCFFFFFF, 0xFEFFFFFF,
+    0xFFFFFFFF
+};

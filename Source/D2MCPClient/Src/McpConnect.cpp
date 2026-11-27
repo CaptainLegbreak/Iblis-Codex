@@ -523,4 +523,20 @@ void __stdcall CHATDLG_StartThread(D2LaunchThreadRecordStrc* pRecord)
     }
 }
 
-#include "gen/data/Source/D2MCPClient/Src/McpConnect.inc"
+extern "C" const char* gData_0070EC80[15] = { // 0x0070EC80
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
