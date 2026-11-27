@@ -2,13 +2,15 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 18:45 PT): ph-joins and ph-joins-3 Ready (one placeholder file each), full builds identical.
+Status (Thu Nov 26 2026, 19:10 PT): ph-joins, ph-joins-3 and moves-1 Ready, full builds identical.
 
 ## Ready
 
 - `lane6/ph-joins` @ 1661f9013 (on #455): Unknown_00524760.cpp's one function (sub_00524760_CipherBlock) joins Unknown_00520DC0.cpp at its address: it follows that file's 0x524740 and calls into it (placeholder files -1). The neighbours 0x524140 and 0x524780 were tried the same way and change (0x524780's locals take other stack slots), so they stay. Unit equal; auditguard: no count rose; full build identical.
 
 - `lane6/ph-joins-3` @ 13026ae74 (on #455): Bnclient's Unknown_00521DC0.cpp (sub_00521DC0_SendAuthCheck) joins BnSend.cpp at its address with its packet record and gdwBnClientToken; D2CDKeyInfoStrc moves ahead of the record that holds it (the #401 blocker). **noinline +1** (sub_0051E340_BuildCDKeyInfoForSlot, which SendAuthCheck calls out of line in the image). Placeholder files -1. BnSend.cpp all equal; full build identical.
+
+- `lane6/moves-1` @ e09e297bb (on #455): three functions move from placeholder files to the file that calls them in the image, next to whose functions each sits: GameStart (0x405C30, Unknown_004059D0.cpp -> Main.cpp), sub_0051C470_CloseBNetConnection (Unknown_00518C00.cpp -> BnSend.cpp), sub_00523020_GetAlignedData (Unknown_00520DC0.cpp -> BnDownload.cpp). **noinline +3** (GameStart, called out of line by GameInit 0x4064C0; BNSEND_FreeChannelList and BNSEND_FreeGamesList, called out of line by CloseBNetConnection). All six units equal; full build identical.
 
 ## Questions
 
