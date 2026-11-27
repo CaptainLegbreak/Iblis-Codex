@@ -2285,7 +2285,7 @@ void __fastcall OBJECTS_PopulationHandler(D2GameStrc* pGame, D2ActiveRoomStrc* p
 // 0x00552400
 static int __stdcall OBJECTS_PopulateRoomTheme(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned int nThemes, D2ObjectRegionStrc* pObjectRegion)
 {
-    if (pObjectRegion->nPopulatedRooms >= 10 * pObjectRegion->unk0x0C)
+    if (pObjectRegion->nPopulatedRooms >= 10 * pObjectRegion->nThemedRooms)
     {
         D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, pRoom);
         const int nRoll = OBJPOP_RollSeed_Inline(&pObjectControl->pSeed) % 100;
