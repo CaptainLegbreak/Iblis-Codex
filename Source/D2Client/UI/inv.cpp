@@ -2057,25 +2057,9 @@ int __cdecl sub_E04_Emit_00483AE0(int nX, int nY)
     return INV_IsInTradeOtherGrid(nX, nY);
 }
 
-int __cdecl sub_E04_Emit_00483B10(int nX, int nY)
-{
-    return INV_IsInTradeGrid(nX, nY);
-}
 
-int __cdecl sub_E04_Emit_00483B40(int nX, int nY)
-{
-    return sub_00483B40_IsInRect(nX, nY);
-}
 
-int __cdecl sub_E04_Emit_00483BA0(int nX, int nY)
-{
-    return sub_00483BA0_IsInRect(nX, nY);
-}
 
-int __cdecl sub_E04_Emit_00483BF0(int nX, int nY)
-{
-    return sub_00483BF0_IsInRect(nX, nY);
-}
 
 // 0x00483C20
 static int INV_IsInSidePanelRect(int nX, int nY)
@@ -2809,10 +2793,6 @@ static void __stdcall INV_AppendReqDex(D2ItemsTxt* pItemsTxt, int nBonus, Unicod
     sub_00526700(pText, pColorEnd);
 }
 
-const Unicode* __fastcall sub_A15_Emit_00484A70(const unsigned char* pClass)
-{
-    return INV_GetClassNameText(*pClass);
-}
 
 // 0x00485240
 static void __stdcall INV_GetItemDamageRange(D2UnitStrc* pItem, D2UnitStrc* pUnit, int nStatMin, int nStatMax, int* pnMin, int* pnMax, int* pbModified)
@@ -3290,15 +3270,7 @@ static void __stdcall INV_AppendAttackSpeed(Unicode* pText, D2UnitStrc* pItem)
     sub_00526700(pText, pColorEnd);
 }
 
-int __fastcall sub_A15_Emit_00484C90(Unicode* pText, D2UnitStrc* pItem)
-{
-    return INV_FormatEarName(pItem, pText);
-}
 
-int __fastcall sub_A15_Emit_00484D30(Unicode* pOut, const Unicode* pFormat, D2UnitStrc* pItem)
-{
-    return INV_FormatEarNameTo(pItem, pOut, pFormat);
-}
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x00486370
@@ -3386,12 +3358,6 @@ static void INV_AppendBookCharges(Unicode* pText)
     sub_00526700(pText, pColorEnd);
 }
 
-void __stdcall sub_Z12_EmitDamageRange(D2UnitStrc* pItem, D2UnitStrc* pUnit)
-{
-    int nMin, nMax, bModified;
-    INV_GetItemDamageRange(pItem, pUnit, 0x1F, 0x20, &nMin, &nMax, &bModified);
-    sub_Z12_EmitUse(nMin, nMax, bModified);
-}
 
 // 0x00486640
 static inline void INV_AppendStringLine(Unicode* pText)
@@ -4378,10 +4344,6 @@ void __cdecl INV_SetNpcStateTrade()
     gnInvPanelMode = 0x13;
 }
 
-int __stdcall sub_H19_Emit_00487740(D2UnitStrc* pPlayer, int nX, int nY)
-{
-    return INV_ClickGridItem(pPlayer, pPlayer->pInventory, nX, nY, 4);
-}
 
 // 0x00487BA0
 static void __stdcall INV_ForwardTradeClick(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7)
@@ -4470,11 +4432,6 @@ void __cdecl INV_ResetButtonsFromMenuReturn()
     CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
 }
 
-void __cdecl sub_K04_EmitForward(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7)
-{
-    INV_ForwardTradeClick(nArg1, nArg2, nArg3, nArg4, nArg5, nArg6, nArg7);
-    sub_K04_EmitUse(nArg7);
-}
 
 // 0x00487DA0
 static void INV_SetRepairAllButton(int nButton)
@@ -5828,12 +5785,6 @@ static int INV_IsOverButtonC(int nX, int nY)
     return 0;
 }
 
-int __fastcall sub_E19_Emit_00487000(D2UnitStrc* pPlayer, D2UnitStrc* pCursorItem, unsigned int nX, unsigned int nY, int nPage, D2InventoryGridInfoStrc* pGrid)
-{
-    INV_UpdateGridHover(pPlayer, pPlayer->pInventory, pCursorItem, nX, nY, nPage, pGrid);
-    return gnHoverTopX + gnHoverTopY + gnHoverBottomX + gnHoverBottomY + gnHoverCellX + gnHoverCellY
-        + gbHoverInGrid + (gpHoverItem == gpLastHoverItem);
-}
 
 // 0x0048A000
 static int INV_IsOverCubeButton(int nX, int nY)
@@ -7059,12 +7010,6 @@ void __fastcall INV_CutBracketToken(Unicode* pString, const Unicode* pToken)
     }
 }
 
-void __fastcall sub_Z12_EmitCanHirelingEquipItem(D2UnitStrc* pUnit, D2UnitStrc* pItem)
-{
-    int bMatch;
-    const int bCan = INV_CanMercEquipItem(pUnit, pItem, &bMatch);
-    sub_Z12_EmitUse2(bCan, bMatch);
-}
 
 struct D2InventoryStrc;
 
@@ -8238,10 +8183,6 @@ LBL_DONE:
     return nResult;
 }
 
-int __stdcall sub_19F4_Emit_0048FFE0(D2UnitStrc* pUnit, unsigned int nX, unsigned int nY, int nFlags)
-{
-    return INV_ClickInvGrid(pUnit, pUnit->pInventory, nX, nY, nFlags, &gtPlayerInvGrid, gnSelectedTab);
-}
 
 // 0x00483AB0
 int __fastcall INV_IsInPlayerInvRect(int nX, int nY)
