@@ -60,6 +60,10 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/params-d2game-net b3ece68d (on #467): Game.cpp's prototypes of the five NET_Default* callbacks (empty bodies in
+  D2Net.cpp) name their parameters nUnused1..; SrvJoinGame's a5, a11..a13 (never read) become nUnused3..6 in Game.cpp
+  and CCmd.cpp. a1/v12 221 -> 176 alone; auditguard no count rose; merges cleanly onto #469 and with -tail, -plrsave.
+  Full build: Game.exe identical, tree 8c826700cf9ecb8b838346c26c687e8d81606850, borrowed code / data 4,232 / 261 B.
 - lane9/params-d2game-plrsave 59ce33b9 (on #467): PlrSave, PlrSave2: the three flags PLRSAVE2_CreateSaveFile names
   (bUseTradeInventory, nUnused, bSizing) carried down the item-save chain: PLRSAVE_WriteItems, both
   D2GAME_SAVE_SerializeItem spellings, the WRITE_ITEM macro, the corpse and iron-golem sections and their prototypes.
