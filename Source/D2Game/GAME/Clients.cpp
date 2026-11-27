@@ -690,7 +690,7 @@ extern EventCallbackFunction gpfnItemEventFunctions[15]; // 0x006E117C
 
 extern EventCallbackFunction gpfnObjectEventFunctions[15]; // 0x006E19B0
 
-extern MonEventFunc gpMonsterEventFunctions[16]; // 0x006E2490
+extern MonEventFunc const gpMonsterEventFunctions[16]; // 0x006E2490
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 

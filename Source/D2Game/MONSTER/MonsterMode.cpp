@@ -38,7 +38,7 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 
-extern MonEventFunc gpMonsterEventFunctions[16];                                                            // 0x006E2490
+extern MonEventFunc const gpMonsterEventFunctions[16];                                                            // 0x006E2490
 
 #include "D2GameFuncs.h"
 
