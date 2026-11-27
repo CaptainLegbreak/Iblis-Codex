@@ -3,6 +3,7 @@
 Written by lane 5 only. Newest entries at the top of each section; delete what is done.
 
 ## Ready
+- lane5/data-decls-d2game bd80976c5 (on main 500cbca14): D2GameFuncs.h also declares 29 D2Game-defined data objects of plain or pointer type (quest NPC message tables, frame-rate and seed globals, offset tables), and 29 units drop 78 private extern copies. Every D2Game unit equal; full build identical yes, borrowed code 7,923 B in 4 functions, borrowed data 261 B; auditguard: no count rose. Noinline +0. Independent of noinline-d2game (no shared lines).
 - lane5/noinline-d2game b204e5568 (on main 9e51c1f37, merges cleanly onto #445): the six D2Game noinlines that had no comment now name their in-file caller that the image calls them from out of line (Unknown_0054EC90, PlrSave2, AiGeneral, QUESTS.CPP, Monster x2); MISSMODE_SrvDmgHitHandler's noinline goes (MissMode.cpp equal without it), noinline -1. Also one more emit helper: MonsterUnique's 0x5A29A0 uses the field getter/setter at 0x5A0220/0x5A0240, helper gone. Every changed unit equal; full build identical yes, borrowed code 7,923 B in 4 functions, borrowed data 261 B; auditguard: no count rose.
 - The three together: full build identical yes, borrowed code 8,373 B in 5 functions, borrowed data 261 B.
 
