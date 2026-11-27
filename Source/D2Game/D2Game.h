@@ -1011,10 +1011,7 @@ struct D2PutridDefilerAiCallbackArgStrc
     int unk0x08[8];
 };
 
-struct D2QualityItemDataTbl
-{
-    int nQualityItemsTxtRecordCount;
-};
+#include "D2QualityItemDataTbl.h"
 
 struct D2QuestInitTableStrc
 {
@@ -1040,13 +1037,7 @@ struct D2RareAffixTxt
     char unk0x00[0x48];
 };
 
-struct D2RareAffixDataTbl
-{
-    int nRareAffixTxtRecordCount;
-    D2RareAffixTxt* pRareAffixTxt;
-    D2RareAffixTxt* pRareSuffix;
-    D2RareAffixTxt* pRarePrefix;
-};
+#include "D2RareAffixDataTbl.h"
 
 struct D2RareAffixIndexAndPtrStrc
 {

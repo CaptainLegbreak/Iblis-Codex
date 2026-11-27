@@ -190,17 +190,9 @@ s32 __stdcall COMPOSIT_GetArmorTypeFromComponent(s32, AppearanceSix*); // 0x0064
 
 AppearanceRecord* __stdcall DATATBLS_GetArmTypeTxtRecord(s32); // 0x0065B620
 
-struct D2ItemDataTbl
-{
-    int nItemsTxtRecordCount;
-    D2ItemsTxt* pItemsTxt;
-};
+#include "D2ItemDataTbl.h"
 
-struct D2InventoryComponentItemTypeStrc
-{
-    int dwCode;
-    int nItemType;
-};
+#include "D2InventoryComponentItemTypeStrc.h"
 
 D2ItemDataTbl* __stdcall DATATBLS_GetItemDataTables(); // 0x00633590
 
