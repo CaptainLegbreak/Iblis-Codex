@@ -2953,7 +2953,7 @@ int __fastcall PLRTRADE_IsTradeInventoryEmpty(D2GameStrc* pGame, D2UnitStrc* pUn
 }
 
 // 0x005678A0
-int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3)
+int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused)
 {
     int nUnitType;
     int nUnitGUID;

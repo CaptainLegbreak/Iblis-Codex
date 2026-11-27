@@ -287,7 +287,7 @@ int __stdcall SKILLS_CheckRequiredAttributes(D2UnitStrc* pUnit, int nSkillId); /
 int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 
 
-void __fastcall sub_0055F4F0_Nop(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x0055F4F0
+void __fastcall sub_0055F4F0_Nop(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused); // 0x0055F4F0
 
 struct D2GSPacketSrv26Args
 {

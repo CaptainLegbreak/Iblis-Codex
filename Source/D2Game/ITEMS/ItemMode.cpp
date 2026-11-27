@@ -4138,7 +4138,7 @@ int __fastcall ITEMMODE_UnequipBodyItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, u
 static inline int UNIT_GetMode(D2UnitStrc* pUnit) { return !pUnit ? 0 : pUnit->dwAnimMode; }
 
 // 0x00562660
-int __fastcall D2GAME_ITEMSOCKET_PlaceItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSocketFillerGUID, int nItemGUID, int* bPlaced, int bRefresh, int bResetCursorItem, int bCheckMode, int a9)
+int __fastcall D2GAME_ITEMSOCKET_PlaceItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSocketFillerGUID, int nItemGUID, int* bPlaced, int bRefresh, int bResetCursorItem, int bCheckMode, int bRecharge)
 {
     D2_ASSERT(pGame, 0x13A9);
     *bPlaced = 0;
@@ -4188,7 +4188,7 @@ int __fastcall D2GAME_ITEMSOCKET_PlaceItem(D2GameStrc* pGame, D2UnitStrc* pUnit,
         ITEMMODS_UpdateRuneword(pItem, pFiller, 0);
         ITEMS_ScheduleDurabilityReplenishment(pGame, pItem);
         ITEMS_ScheduleQuantityReplenishment(pGame, pItem);
-        if (a9) D2GAME_RechargeItem(pGame, pUnit, pItem);
+        if (bRecharge) D2GAME_RechargeItem(pGame, pUnit, pItem);
         bRefresh = 1;
     }
     if (bRefresh)

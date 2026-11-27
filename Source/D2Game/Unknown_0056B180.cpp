@@ -23,7 +23,7 @@ extern const int gnPlrSave2ErrorRemap[PLRSAVE2ERROR_COUNT]; // 0x006E1208
 #include "D2GameFuncs.h"
 #include "D2CommonApi2.h"
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
-void __fastcall sub_005385D0_Nop(D2ClientStrc* pClient, int a2, int a3); // 0x005385D0
+void __fastcall sub_005385D0_Nop(D2ClientStrc* pClient, int nUnused1, int nUnused2); // 0x005385D0
 void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2GameStrc* pGame, unsigned char nAct); // 0x00534F10
 
 
