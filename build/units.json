@@ -7200,14 +7200,34 @@
      "name": "??0D2StormBigStrc@@QAE@XZ"
     },
     {
+     "va": "0x00421EA0",
+     "length": 110,
+     "name": "?GrowToFit@D2StormArrayAStrc@@QAEXIH@Z"
+    },
+    {
      "va": "0x00421FE0",
      "length": 104,
      "name": "?GrowToFit@BigBuffer@@QAEXH@Z"
     },
     {
+     "va": "0x00422050",
+     "length": 33,
+     "name": "?Ref@BigBuffer@@QAEAAIH@Z"
+    },
+    {
+     "va": "0x00422120",
+     "length": 24,
+     "name": "?SetStart@BigBuffer@@QAEXI@Z"
+    },
+    {
      "va": "0x00422140",
      "length": 99,
      "name": "?sub_00422140_Trim@BigBuffer@@QAEXXZ"
+    },
+    {
+     "va": "0x004221B0",
+     "length": 49,
+     "name": "??4BigBuffer@@QAEAAU0@ABU0@@Z"
     },
     {
      "va": "0x004221F0",
@@ -7605,29 +7625,9 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00421EA0",
-     "length": 110,
-     "name": "sub_00421EA0_GrowToFit"
-    },
-    {
-     "va": "0x00422050",
-     "length": 33,
-     "name": "sub_00422050_At"
-    },
-    {
      "va": "0x00422080",
      "length": 67,
      "name": "?sub_00422080_TrimToStart@BigBuffer@@QAEXXZ"
-    },
-    {
-     "va": "0x00422120",
-     "length": 24,
-     "name": "sub_00422120_SetStart"
-    },
-    {
-     "va": "0x004221B0",
-     "length": 49,
-     "name": "?4BigBuffer"
     },
     {
      "va": "0x00423820",
