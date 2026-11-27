@@ -34,7 +34,7 @@ it is on main; from #473, based on main.
   4,915.
 
 ## Claimed
-- Fri Nov 27 04:20 PST 2026: the other three held branches, checked on #474: **lane2/gfxdata-record-3 dropped**: its one
+- Fri Nov 27 03:54 PST 2026: the other three held branches, checked on #474: **lane2/gfxdata-record-3 dropped**: its one
   commit is module-api-headers-6's first commit, carried there. **lane9/decls-renderers-2 dropped**: already on main
   (git cherry marks its commit equivalent; D2Glide.h has the 41 declarations). **lane5/decls-d2game-8 dropped**:
   12 of its 14 commits are already on main (each cherry-picks empty); the other two, Task.cpp taking in
