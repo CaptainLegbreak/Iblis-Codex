@@ -1795,7 +1795,6 @@
     "extern \"C\" void __cdecl ACT1Intro_InitQuestData(); // 0x0058FA20",
     "extern \"C\" void __cdecl ACT2Intro_InitQuestData(); // 0x005985D0",
     "extern \"C\" void __cdecl ACT3Intro_InitQuestData(); // 0x005B6E60",
-    "extern \"C\" void __cdecl ACT5Intro_InitQuestData(); // 0x0058EA50",
     "extern \"C\" void __cdecl ACT1Q0_InitQuestData(); // 0x0058FB80",
     "extern \"C\" void __cdecl ACT1Q1_InitQuestData(); // 0x00590720",
     "extern \"C\" void __cdecl ACT1Q2_InitQuestData(); // 0x00591210",
@@ -1830,8 +1829,9 @@
     "extern \"C\" void __cdecl ACT5Q4_InitQuestData(); // 0x0058BB20",
     "extern \"C\" void __cdecl ACT5Q5_InitQuestData(); // 0x0058CE30",
     "extern \"C\" void __cdecl ACT5Q6_InitQuestData(); // 0x0058E500",
-    "extern \"C\" void __cdecl ACT1Q7_InitQuestData(); // 0x00596C40",
-    "extern \"C\" void __cdecl ACT2Q6_InitQuestData(); // 0x0059D5B0"
+    "extern \"C\" void __cdecl ACT2Q6_InitQuestData(); // 0x0059D5B0",
+    "extern \"C\" void __cdecl ACT5Intro_InitQuestData(); // 0x0058EA50",
+    "extern \"C\" void __cdecl ACT1Q7_InitQuestData(); // 0x00596C40"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/QUESTS.inc",
@@ -2169,8 +2169,6 @@
     "extern \"C\" void __cdecl SKILLS_SrvDo009_Frenzy(); // 0x005D8E00",
     "extern \"C\" void __cdecl sub_005DBC60(); // 0x005DBC60",
     "extern \"C\" void __cdecl SKILLS_SrvDo099_PrimePoisonNova(); // 0x005CCD10",
-    "extern \"C\" void __cdecl SKILLS_SrvDo109_MonFrenzy(); // 0x005CDF10",
-    "extern \"C\" void __cdecl SKILLS_SrvDo148_DoomKnightMissile(); // 0x005CDFB0",
     "extern \"C\" void __cdecl SKILLS_SrvDo014_LightningStrike(); // 0x005DBE50",
     "extern \"C\" void __cdecl SKILLS_SrvDo006_InnerSight_SlowMissiles(); // 0x005DB1C0",
     "extern \"C\" void __cdecl SKILLS_SrvDo010_GuidedArrow_BoneSpirit(); // 0x005DB6D0",
@@ -2203,7 +2201,9 @@
     "extern \"C\" void __cdecl SKILLS_SrvDo008_MultipleShot_Teeth_ShockWave(); // 0x005DB410",
     "extern \"C\" void __cdecl SKILLS_SrvDo012_Strafe(); // 0x005DBA40",
     "extern \"C\" void __cdecl SKILLS_SrvDo015_Dopplezon(); // 0x005DC000",
-    "extern \"C\" void __cdecl SKILLS_HasTarget(); // 0x005CDF00"
+    "extern \"C\" void __cdecl SKILLS_HasTarget(); // 0x005CDF00",
+    "extern \"C\" void __cdecl SKILLS_SrvDo109_MonFrenzy(); // 0x005CDF10",
+    "extern \"C\" void __cdecl SKILLS_SrvDo148_DoomKnightMissile(); // 0x005CDFB0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/Skills.inc",
@@ -2465,7 +2465,6 @@
     "extern \"C\" void __cdecl AITHINK_Fn146_UberMephisto(); // 0x005F81C0",
     "extern \"C\" void __cdecl AITHINK_Fn147_UberDiablo(); // 0x005E9DF0",
     "extern \"C\" void __cdecl AITHINK_InitializeRaven(); // 0x005ECB70",
-    "extern \"C\" void __cdecl AITHINK_Fn000(); // 0x005B0CC0",
     "extern \"C\" void __cdecl sub_005B0CD0(); // 0x005B0CD0",
     "extern \"C\" void __cdecl sub_005E0160(); // 0x005E0160",
     "extern \"C\" void __cdecl AITHINK_Fn083_MosquitoNest(); // 0x005E0260",
@@ -2498,7 +2497,6 @@
     "extern \"C\" void __cdecl AITHINK_InitializeVineState(); // 0x005EC6A0",
     "extern \"C\" void __cdecl AITHINK_Fn111_CycleOfLife(); // 0x005EC8C0",
     "extern \"C\" void __cdecl sub_005EDC40(); // 0x005EDC40",
-    "extern \"C\" void __cdecl AITHINK_Fn127_NpcBarb(); // 0x005EDC50",
     "extern \"C\" void __cdecl sub_005EE040(); // 0x005EE040",
     "extern \"C\" void __cdecl sub_005EE3C0(); // 0x005EE3C0",
     "extern \"C\" void __cdecl sub_005EE5C0(); // 0x005EE5C0",
@@ -2598,7 +2596,9 @@
     "extern \"C\" void __cdecl MISSMODE_SrvHit43_HealingVortex(); // 0x005AC350",
     "extern \"C\" void __cdecl MISSMODE_SrvHit48_MoltenBoulderEmerge(); // 0x005AC6D0",
     "extern \"C\" void __cdecl sub_005AD0F0(); // 0x005AD0F0",
-    "extern \"C\" void __cdecl MISSMODE_SrvHit22_FistOfTheHeavensDelay(); // 0x005ADD20"
+    "extern \"C\" void __cdecl MISSMODE_SrvHit22_FistOfTheHeavensDelay(); // 0x005ADD20",
+    "extern \"C\" void __cdecl AITHINK_Fn000(); // 0x005B0CC0",
+    "extern \"C\" void __cdecl AITHINK_Fn127_NpcBarb(); // 0x005EDC50"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MISSILES/MissMode.inc",
@@ -2815,7 +2815,6 @@
     "extern \"C\" void __cdecl sub_005E3530(); // 0x005E3530",
     "extern \"C\" void __cdecl AITHINK_Fn125_BloodLord(); // 0x005E36F0",
     "extern \"C\" void __cdecl sub_005EDC40(); // 0x005EDC40",
-    "extern \"C\" void __cdecl AITHINK_Fn127_NpcBarb(); // 0x005EDC50",
     "extern \"C\" void __cdecl sub_005EE5C0(); // 0x005EE5C0",
     "extern \"C\" void __cdecl sub_005EE5D0(); // 0x005EE5D0",
     "extern \"C\" void __cdecl AITHINK_InitializeGenericSpawner(); // 0x005E6190",
@@ -2850,7 +2849,8 @@
     "extern \"C\" void __cdecl AITHINK_SpecialState14_AttackOrApproach(); // 0x005E2610",
     "extern \"C\" void __cdecl AITHINK_InitializeMountedImpSkills(); // 0x005E2CD0",
     "extern \"C\" void __cdecl sub_005E2D80(); // 0x005E2D80",
-    "extern \"C\" void __cdecl AITHINK_Fn130_DeathMauler(); // 0x005EE260"
+    "extern \"C\" void __cdecl AITHINK_Fn130_DeathMauler(); // 0x005EE260",
+    "extern \"C\" void __cdecl AITHINK_Fn127_NpcBarb(); // 0x005EDC50"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Ai/AiThink.inc",
