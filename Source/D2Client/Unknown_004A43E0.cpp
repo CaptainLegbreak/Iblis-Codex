@@ -30,6 +30,7 @@
 #include "D2LangApi.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi2.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -160,8 +161,6 @@ void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor); // 0x00
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
 
 
-char* __stdcall UNITS_GetPlayerName(D2UnitStrc* pUnit); // 0x00622150
-
 
 extern int gnGameFrame; // 0x007BF20E
 
@@ -190,8 +189,6 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 
 int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
-
-D2TextBoxStrc* __stdcall CHAT_GetUsedFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x00661200
 
 
 
@@ -745,8 +742,6 @@ void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int
 
 
 
-int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
-
 
 #define STAT_STATPTS 4
 
@@ -927,8 +922,6 @@ void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, 
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526700
 
 
-void __stdcall ITEMMODS_AssignProperty(int nPass, int nArg1, D2UnitStrc* pItem, int nArg, int nArg2, int nArg5); // 0x0065FEC0
-
 extern Unicode gwszTradePartnerName[]; // 0x007C0E84
 
 #pragma pack(push, 1)
@@ -960,8 +953,6 @@ extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pE
 
 void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor); // 0x0049E5C0
 
-
-D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId); // 0x006556E0
 
 extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 
@@ -1068,8 +1059,6 @@ struct D2QuestPosStrc;
 struct D2QuestLogStateStrc;
 
 
-
-void __stdcall TEXT_CreateTextHeaderFromMessageList(D2TextHeaderStrc* pTextHeader, D2MessageListStrc* pMessageList); // 0x00661510
 
 
 

@@ -16,6 +16,7 @@
 #include "D2ItemDataTbl.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -90,8 +91,6 @@ struct D2NpcControlStrc
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 
-D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner); // 0x0063ABD0
-
 #include "D2GameFuncs.h"
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
@@ -99,12 +98,8 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int
 
 D2MonsterInteractStrc* __fastcall sub_00535E80_GetMonInteract(D2UnitStrc* pUnit); // 0x00535E80
 
-int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
-
 
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc*); // 0x00628250
-
-void __stdcall ITEMS_SetInvPage(D2UnitStrc*,unsigned char); // 0x00628280
 
 void __fastcall SUNITNPC_SetItemTradeFlags(D2UnitStrc*,D2UnitStrc*,D2GameStrc*,int,int); // 0x005762C0
 
@@ -187,8 +182,6 @@ enum
     MONSTATS2FLAGINDEX_SOFT = 12,
 };
 
-int __stdcall MONSTERS_IsDead(D2UnitStrc* pUnit); // 0x0063EA40
-
 
 #define MAX_NPC_INVENTORY 17
 
@@ -211,8 +204,6 @@ extern int gnCrossbowQuiverItemId; // 0x00883E9C
 extern int gnArrowQuiverItemId; // 0x00883EA0
 
 void __fastcall SEED_InitSeed(D2SeedStrc*); // 0x00650E30
-
-D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
 #define UNIT_MONSTER 1
 

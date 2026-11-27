@@ -11,6 +11,8 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "gen/data/Source/D2Client/Unknown_0044BA20.inc"
+#include "FogApi2.h"
+#include "StormApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -80,11 +82,7 @@ extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
 
 
-int __stdcall SCmdRegisterArgList(const D2CmdArgStrc* pArgList, unsigned int nCount); // 0x006C4E50
-
 int __stdcall SCmdProcess(const char* szCmdLine, int bSkipProgName, int (__stdcall* pfnExtra)(const char*), int (__stdcall* pfnError)(const char*)); // 0x006C4FB0
-
-unsigned short __stdcall FOG_ConnectionReceive(void* pConnection, char* pBuffer, int nSize); // 0x006BC120
 
 
 

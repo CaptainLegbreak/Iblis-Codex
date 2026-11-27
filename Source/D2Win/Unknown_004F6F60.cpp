@@ -2,6 +2,7 @@
 
 #include "D2GfxTypes.h"
 #include "FogApi.h"
+#include "StormApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -72,8 +73,6 @@ extern "C" int gnSoundSerial;
 // build: symbol _gnSubsystemActive 0x007A0458
 extern "C" int gnSubsystemActive;
 
-void __cdecl InitPowTable(); // 0x004142A0
-
 extern "C" void __cdecl CMNSUBTILE_BuildGouraudCache(); // 0x004F7CC0
 
 extern "C" void __cdecl sub_004E4280_ResetEnvironSounds(); // 0x004E4280
@@ -99,8 +98,6 @@ void __cdecl CMNSUBTILE_BuildLineOffsets(); // 0x004F7E70
 unsigned char* gpScreenBuffer; // 0x007D5448
 
 int gnLightingOff; // 0x007D2340
-
-extern "C" void __cdecl SStrInitialize(); // 0x00414360
 
 // 0x004F8DC0
 extern "C" void __cdecl sub_004F8DC0_InitLookupTable()

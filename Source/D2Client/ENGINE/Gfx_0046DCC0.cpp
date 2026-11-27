@@ -9,6 +9,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 struct D2GfxListNodeStrc;
 struct D2UnitStrc;
 
@@ -44,14 +45,6 @@ D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void* pGfx); // 0x0
 void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 void __stdcall TEXTURE_CelDrawShadow(D2CelContextStrc* pContext, int nX, int nY); // 0x004F6540
-int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
-int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
-int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
-int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
-int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
-int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
-void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
-int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 
 // build: symbol ?GFX_HashName@* 0x0046DB90
 static unsigned int GFX_HashName(const char* szName)

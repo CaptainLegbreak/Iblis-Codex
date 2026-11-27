@@ -2,6 +2,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "StormApi.h"
+#include "StormApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -74,8 +75,6 @@ extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
-
-int __stdcall SRegDeleteValue(const char* szKeyName, const char* szValueName, unsigned int nFlags); // 0x00414D90
 
 
 extern "C" const char gszGatewayIsClosest[]; // 0x006DED44

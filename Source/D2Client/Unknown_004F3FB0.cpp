@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 struct D2UnitStrc;
 
 struct D2SkillsTxt;
@@ -21,9 +22,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
-int __fastcall UNITS_GetWeaponClass(D2UnitStrc* pUnit); // 0x00623C60
-void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
-void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int bSetBothDirections); // 0x00649EF0
 
 
 // 0x004F4140

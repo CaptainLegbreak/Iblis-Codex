@@ -51,6 +51,7 @@ struct D2Act2Quest4Strc;
 struct D2Act1Quest1Strc;
 
 #include "D2GameFuncs.h"
+#include "D2CommonApi2.h"
 
 typedef void(__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
@@ -91,8 +92,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
 extern "C" unsigned int gnAct1Quest1NpcIndices[]; // 0x00736CD0
-
-void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C3A0
 
 
 int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int dwGUID); // 0x005452C0

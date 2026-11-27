@@ -14,6 +14,7 @@
 #include "D2DrlgTileFlags.h"
 #include "D2DrlgOutdoor.h"
 #include "FogApi.h"
+#include "FogApi2.h"
 
 #pragma function(memset)
 
@@ -59,8 +60,6 @@ int __stdcall TileGetRarity(D2TileLibraryEntryStrc* pTile); // 0x00604C20
 
 
 void __fastcall sub_0040B480(void*,void*,const char*,int,int); // 0x0040B480
-
-void* __fastcall FOG_ReallocPool(void*,void*,int,const char*,int,int); // 0x0040B4B0
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 

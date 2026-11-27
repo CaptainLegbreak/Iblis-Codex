@@ -22,6 +22,7 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "StormApi.h"
+#include "D2CommonApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -136,22 +137,8 @@ int __fastcall GFXUTIL_GetCofLayerValue(void* pEntry, int nArg); // 0x004DB0D0
 
 int __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pItem, int nArg1, int nArg2, int nArg3, int nProp, int nArg5, int nArg6, int nArg7); // 0x004E60A0
 
-int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
-
-int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
-
-int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
-
-int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
-
-int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 
 
-
-
-int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nState); // 0x0063A7B0
-
-int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 
 
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
@@ -189,8 +176,6 @@ void __fastcall SPELLSEL_DrawSkillInfoBase(int nValue, D2SkillsTxt* pSkillsTxt, 
 
 
 
-
-D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650

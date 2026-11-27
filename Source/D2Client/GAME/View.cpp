@@ -24,6 +24,8 @@
 #include "D2QuestLookupEntry.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
+#include "FogApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -200,23 +202,7 @@ void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsig
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
 
-int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 
-int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
-
-
-void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
-
-void __stdcall DUNGEON_ClientSubileDrawPositionToGameCoords(int nX, int nY, int* pX, int* pY); // 0x00643400
-
-unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
-
-void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x00648820
-
-
-void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
-
-int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 
 struct D2ViewStrc
 {
@@ -348,8 +334,6 @@ struct D2QuestLookupEntryStrc;
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
 
-int __fastcall SEED_GetRandomValue(int nValue); // 0x00650DE0
-
 void __stdcall VIEW_ResetStar(int nStar, int bRespawn); // 0x00476190
 
 extern D2QuestLookupEntryStrc gaQuestLookup_00723F38[0x29]; // 0x00723F38
@@ -421,10 +405,6 @@ struct D2CellGridViewStrc
 };
 
 int __stdcall D2GFX_CheckPerspective();                                                                      // 0x004F51D0
-
-int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                                                        // 0x006203B0
-
-int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                                                        // 0x00620410
 
 
 
@@ -1233,8 +1213,6 @@ int __cdecl D2CMPSpriteCacheGetMaxMemory(); // 0x005FEE40
 int __cdecl D2CMPCelDataCacheGetUsedMemory(); // 0x005FEE60
 
 int __cdecl D2CMPCelDataCacheGetMaxMemory(); // 0x005FEE70
-
-int __stdcall sub_0040ABE0(); // 0x0040ABE0
 
 
 unsigned int __cdecl D2CMPSpriteCacheGetUsedMemory(); // 0x005FEE10

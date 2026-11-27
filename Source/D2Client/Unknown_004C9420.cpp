@@ -16,6 +16,7 @@
 #include "D2Records.h"
 #include "D2AnimData.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -42,14 +43,10 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 
 
-void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
-
 
 void __fastcall sub_004BA840_StopSound(void* pUnitSfx); // 0x004BA840
 
 
-
-void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 
 #define SKILLSFLAGINDEX_LOB 1
 

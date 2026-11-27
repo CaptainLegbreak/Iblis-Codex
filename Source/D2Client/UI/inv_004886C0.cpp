@@ -14,6 +14,7 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2CommonApi2.h"
 
 struct D2CelFileStrc;
 
@@ -154,10 +155,6 @@ int __fastcall ITEM_GetItemUseSound(D2UnitStrc* pItem);                         
 void __fastcall ITEM_SetUninterruptableState(D2UnitStrc* pItem);                                                           // 0x004C21F0
 
 int __fastcall ITEM_IsItemActionBlocked(D2UnitStrc* pItem);                                                            // 0x004C2240
-
-int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* hUnit, int nInvPage, int bLoD); // 0x00621050
-
-unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
 
 
 
@@ -346,8 +343,6 @@ void __fastcall sub_004DBEA0(D2UnitStrc* pUnit, int nArg2, int nArg3, unsigned i
 
 
 
-int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInventory); // 0x0063D340
-
 void __stdcall INV_DrawItemSockets(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, int nX, int nY); // 0x00483E40
 
 int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
@@ -358,21 +353,9 @@ void __fastcall sub_004E6850_BuildSocketFillerText(D2UnitStrc* pItem, Unicode* p
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
-int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
-
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
-
-int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem); // 0x00629900
-
-unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
-
-int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
-
-int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
-
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
 
 
 
@@ -380,8 +363,6 @@ unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
 
 int __stdcall sub_0063B9D0(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nX, int nY, int nRecord, int* pOutX, int* pOutY, unsigned char nPage); // 0x0063B9D0
 
-
-int __stdcall INVENTORY_GetItemCount(D2InventoryStrc* pInventory); // 0x0063CD60
 
 
 

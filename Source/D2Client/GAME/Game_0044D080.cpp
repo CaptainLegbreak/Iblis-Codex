@@ -14,6 +14,7 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "StormApi.h"
+#include "D2CommonApi2.h"
 
 
 
@@ -283,10 +284,6 @@ extern void* gpGlobal_007A0634; // 0x007A0634
 
 
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
-
-int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
-
-int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 
 void __fastcall VIEW_AdjustViewPos(int* pX, int* pY); // 0x00476D40
 

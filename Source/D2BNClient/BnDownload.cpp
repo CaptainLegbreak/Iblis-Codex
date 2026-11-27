@@ -16,6 +16,7 @@
 #include "D2BnMessages.h"
 #include "FogApi.h"
 #include "FogApi.h"
+#include "StormApi2.h"
 
 static int BNDOWNLOAD_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize); // 0x00520A80
 
@@ -162,17 +163,9 @@ void __cdecl sub_0051A480_DebugLog(const char* szFormat, ...); // 0x0051A480
 
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
-int __stdcall SFileGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00416370
-
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-
-int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped); // 0x0041B050
-
-int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
-
-int __stdcall SFileOpenFile(const char* szFileName, void** phFile); // 0x00419980
 
 
 
