@@ -123,7 +123,7 @@ int __fastcall D3DTEXTURECACHE_AllocOrEvict(D2TexturePoolStrc* pPool); // 0x006B
 
 extern unsigned int gnRenderFlags_0096F3A8; // 0x0096F3A8
 
-extern const unsigned int gnRenderFlag; // 0x006CE290
+extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern D2TexturePoolStrc gaTexturePools[]; // 0x00970EAC
 
@@ -449,7 +449,7 @@ static int __stdcall D3DSPRITE_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode
         D3DCORE_LogDDrawError(gszFailedToUnlockMemorySurface, hResult);
     }
 
-    if (gnRenderFlags_0096F3A8 & gnRenderFlag)
+    if (gnRenderFlags_0096F3A8 & gdwBitMasks[10])
     {
         D3DCORE_CopySurface(pEntry->pTarget, pSurface, ptInfo->nTexHeight);
     }

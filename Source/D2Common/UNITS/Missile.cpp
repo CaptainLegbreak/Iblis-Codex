@@ -1403,7 +1403,7 @@ void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOw
 
     int sourceDamage, originDamage, element;
     int physicalMin, physicalMax, elementMin, elementMax, elementLength;
-    if (pMissilesTxtRecord->skill <= 0 && !(pMissilesTxtRecord->flags & gdwBitMask7))
+    if (pMissilesTxtRecord->skill <= 0 && !(pMissilesTxtRecord->flags & gdwBitMasks[7]))
     {
         sourceDamage = pMissilesTxtRecord->sourceDamage;
         originDamage = pMissilesTxtRecord->originDamage;
@@ -1413,7 +1413,7 @@ void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOw
         elementMin = sub_0064B100_GetMissileElementMin(pMissile, pOwner, missileId, nLevel);
         elementMax = sub_0064B1D0_GetMissileElementMax(pMissile, pOwner, missileId, nLevel);
         elementLength = MISSILE_GetElementalLength(pMissile, pOwner, missileId, nLevel);
-        if (pMissilesTxtRecord->flags & gVar_006CE268)
+        if (pMissilesTxtRecord->flags & gdwBitMasks[0])
         {
             elementMin += sub_0064ABA0_ElementBonus(pOwner, element, elementMin);
             elementMax += sub_0064ABA0_ElementBonus(pOwner, element, elementMax);
@@ -1422,7 +1422,7 @@ void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOw
     else
     {
         int skill = pMissilesTxtRecord->skill;
-        if (pMissilesTxtRecord->flags & gdwBitMask7)
+        if (pMissilesTxtRecord->flags & gdwBitMasks[7])
         {
             skill = MISSILE_GetSkill((D2UnitStrc*)pMissile);
             if (skill <= 0) skill = pMissilesTxtRecord->skill;
@@ -1459,7 +1459,7 @@ void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOw
         int bonus = 0;
         if (item && item->type == 4)
         {
-            if ((pMissilesTxtRecord->flags & gdwBitMask6) && sub_006289C0_IsWeapon(item))
+            if ((pMissilesTxtRecord->flags & gdwBitMasks[6]) && sub_006289C0_IsWeapon(item))
                 sourceDamage /= 2;
             bonus = sub_00645830_GetItemBonus(pOwner, item, 0, 1);
             int strengthFactor = ITEMS_GetStrengthBonus(item);

@@ -63,7 +63,7 @@ struct D2UnitFindArgStrc
     UnitFilter pfnUnitTest; // 0x24
 };
 
-extern const unsigned char gMissileMask_006CE26C; // 0x006CE26C
+extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 
 
@@ -371,7 +371,7 @@ int __stdcall UNITFINDS_TestUnit(D2UnitStrc* unit,D2UnitFindArgStrc* args)
   case UNIT_MISSILE: {
    if(!(args->nFlags&8))return 0;
    D2MissilesTxt* record=sub_0046ACE0_GetMissilesTxtRecord(unit->dwClassId);
-   if(!record || (record->nMissileFlags[0]&gMissileMask_006CE26C))return 0;
+   if(!record || (record->nMissileFlags[0]&gdwBitMasks[1]))return 0;
    break;
   }
   case UNIT_ITEM:if(!(args->nFlags&32))return 0;break;
