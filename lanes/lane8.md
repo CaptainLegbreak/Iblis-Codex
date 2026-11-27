@@ -12,6 +12,7 @@ scaffolding, names.
   (Composit_0064F060), `Units/Missile` (Missile_0064B860). Lane 2 hadn't claimed any of them.
 
 ## Status
+- Thu Nov 26 18:20 PT: check-in on #456; nothing new merged since #454, four branches still Ready. Continuing with the second pass of unreferenced bodies (stacked on d2common-dead-bodies).
 - Thu Nov 26 18:17 PT: four branches Ready (missile-dead-views, path-views-2, path-dead-copies stacked on it, d2common-dead-bodies). Next: Missile.cpp's private Unit / Damage / MissileRecord views once missile-dead-views is in, then the rest of the unreferenced bodies (Preset.cpp's remaining Storm-link stand-ins).
 - Thu Nov 26 17:47 PT: four branches Ready (statsex-accessor-views, path-accessor-views, path-views-2 stacked on it, missile-dead-views). D2Common's per-address views are nearly gone; what's left is DUNGEON_SaveKilledUnitGUID's (needs the header byte, note to lane 2), Unknown_00650D70's two `Pair<VA>` helpers, and Path.cpp's context copies (DrlgView/RoomStatusNode for DRLGACTIVATE_GetARoomInClientSight, LinkView for Fog's FOG_GetLinkIndexByCode).
 - Thu Nov 26 17:15 PT: check-in on #452; drlg-api-decls, items-accessor-views and api-decls-3 are in, Ready lines gone. Building the next accessor-view branch (StatsEx, Inventory, Dungeon, Skills, Units); Path.cpp's 22 after it.
