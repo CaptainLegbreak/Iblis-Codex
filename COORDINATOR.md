@@ -6,7 +6,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 - **DATA IN SOURCE (the user, 2026-11-27 02:56 PT): game data tables and strings may now be committed as source**, the way other decompilation projects keep theirs. This replaces the rule that no value from Game.exe is committed. Still extracted at build time from the user's own Game.exe, never committed: **cryptographic keys** (RSA and any other key material), **resources** (icons, dialogs, the .rsrc section), the **PKWARE library code** inside Storm, and the signature and stamps. Everything else that build/data_plan.json renders into gen/ today (initialised tables, strings, pointer tables) is to be written into the source file that defines it, as an ordinary typed and named definition.
   - **The coordinator (lane 10) builds the tool and a pilot first** (`tools/inlinedata.py`: writes a file's generated definitions into the file itself and drops its gen/ include; skips the excluded classes). It is piloted on modules no lane has claimed, then run module by module in agreement with the lanes.
-  - **Round j232 (in progress, 07:10 PT): lane 12 module-api-headers-8 and lane 10 inline-data-2** (every unclaimed module's data in source: 467 definitions, 48,830 B, no audit rise). **Rebase onto the round once it lands:**
+  - **Round j232 merged as #479: lane 12 module-api-headers-8 and lane 10 inline-data-2** (every unclaimed module's data in source: 467 definitions, 48,830 B, no audit rise). **Rebase onto the round once it lands:**
     - **Lane 13 questlog:** clean on #478, 12 conflict hunks in QuestLog.cpp with module-api-headers-8.
     - **Lane 11 names-d2client-3:** 3 hunks with module-api-headers-8 (Gfx.cpp's 0x4F6540 prototype, GfxUtil.cpp's token field `dwArmorType` vs `dwToken`, Unknown_004DF770.cpp's D2Sound prototypes): each side renamed or retyped the same line. Take lane 12's types and your names.
     - **Lane 11 names-d2game:** still conflicts with main in BnSend.cpp, Game.cpp, data_plan.json (it is on #476).
@@ -480,6 +480,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #479 (j232): lane 12 module-api-headers-8, lane 10 inline-data-2 (unclaimed modules' data in source, 467 definitions; pointer casts 4,922 -> 4,915). VERIFIED 6e5a11a90. Lane 12: clear module-api-headers-6/-7/-8 and api-fog (say if api-fog still has anything -8 lacks).
 - #478 (j231): lane 13 cluster-rule-2, lane 12 genheaders-2 (tools only). VERIFIED 049974ba6. Lane 13: clear cluster-rule and cluster-rule-2; lane 12: clear genheaders and genheaders-2.
 - #477 (j230): lane 12 genheaders, lane 13 control-templates + ancient-equipment. VERIFIED 63da9710b. Held for rebase: lane12/module-api-headers-6 (CharSel.cpp 0x439210 with control-templates), lane11/names-d2client-2 (conflicts with module-api-headers-6).
 - #476 (j229): lane 10 inline-data: tools/inlinedata.py (game data written into source; keys, resources, PKWARE and stamps excluded) with the pilot (D2Lang, D2Sound, D2Net, D2MCPClient, D2CMP, seven small Fog files: 112 definitions, 24,704 B). VERIFIED 6da4d3b54.
