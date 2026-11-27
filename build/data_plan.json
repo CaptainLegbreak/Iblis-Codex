@@ -1257,7 +1257,7 @@
    "definitions": 0,
    "lang": "cpp",
    "state": "sourced",
-   "sourced": 2
+   "sourced": 1
   },
   "Source/D2DDraw/Src/ddSmack.cpp": {
    "bytes": 0,
@@ -4401,7 +4401,7 @@
    "definitions": 0,
    "lang": "cpp",
    "state": "sourced",
-   "sourced": 2
+   "sourced": 1
   },
   "Source/D2MCPClient/Src/McpConnect.cpp": {
    "bytes": 0,
@@ -76252,38 +76252,40 @@
        "name": "int",
        "size": 4
       }
+     ],
+     [
+      "nFormat",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "pData",
+      16,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void*"
+      }
      ]
     ],
     "name": "D2GrTexInfoStrc",
-    "size": 12
+    "size": 20
    },
    "name": "gtGlideFloorTexInfo",
    "pointers": [],
    "region": "data",
-   "size": 12,
+   "size": 20,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x0072F6BC",
    "type": "D2GrTexInfoStrc",
    "va": "0x0072F6BC",
-   "sourced": true
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072F6C8",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Glide/Src/glTextureCache.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072F6C8_t gData_0072F6C8; // 0x0072F6C8",
-   "head": "extern \"C\" struct d2data_0072F6C8_t gData_0072F6C8 = ",
-   "name": "gData_0072F6C8",
-   "pointers": [],
-   "region": "data",
-   "size": 8,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072F6C8_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072F6C8",
-   "va": "0x0072F6C8",
    "sourced": true
   },
   {
@@ -76327,38 +76329,40 @@
        "name": "int",
        "size": 4
       }
+     ],
+     [
+      "nFormat",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "pData",
+      16,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void*"
+      }
      ]
     ],
     "name": "D2GrTexInfoStrc",
-    "size": 12
+    "size": 20
    },
    "name": "gtGlideTileTexInfo",
    "pointers": [],
    "region": "data",
-   "size": 12,
+   "size": 20,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x0072F6A8",
    "type": "D2GrTexInfoStrc",
    "va": "0x0072F6A8",
-   "sourced": true
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072F6B4",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Glide/Unknown_0050F910.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072F6B4_t gData_0072F6B4; // 0x0072F6B4",
-   "head": "extern \"C\" struct d2data_0072F6B4_t gData_0072F6B4 = ",
-   "name": "gData_0072F6B4",
-   "pointers": [],
-   "region": "data",
-   "size": 8,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072F6B4_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072F6B4",
-   "va": "0x0072F6B4",
    "sourced": true
   },
   {
