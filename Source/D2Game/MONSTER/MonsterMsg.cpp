@@ -21,9 +21,6 @@ struct D2MonsterModeInfo { int bTarget,bTargetCoords,bSimple,bIncludeCoords,nCoo
 extern D2MonsterModeInfo gMonsterModeInfo[]; // 0x006E1D90
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-int __stdcall PATH_GetLastPointX(D2DynamicPathStrc*); // 0x00648A40
-int __stdcall PATH_GetLastPointY(D2DynamicPathStrc*); // 0x00648A60
-unsigned char __stdcall PATH_GetStepNum(D2DynamicPathStrc*); // 0x006490A0
 unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc*); // 0x005A5650
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc*,int); // 0x005A0180
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0

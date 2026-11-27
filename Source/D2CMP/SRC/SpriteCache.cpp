@@ -1957,68 +1957,9 @@ int __stdcall CelGameDirToNormalDir(unsigned int nIndex, unsigned int nDirection
     return gaDirectionIndex64B[sub_00517ABB_FindLowestSetBit(nDirections)][nIndex];
 }
 
-void __stdcall CelDrawShadow(D2CmpCelContextStrc* pContext, int nX, int nY, int nClipLeft, int nClipRight, unsigned char* pBuffer, int nHeightLimit, int nPitch, int nTable, int nColor)
-{
-    D2CelFileStrc* pCelFile = pContext->pCelFile;
-    if (pCelFile)
-    {
-        D2_ASSERT(pCelFile->dwVersion == 6, 0x50D);
-        D2_ASSERT(!(pCelFile->dwFlags & 4), 0x50E);
-    }
 
-    D2_ASSERT(pBuffer, 0x511);
-    D2CelStrc* pCel = pContext->pCel;
-    D2_ASSERT(pCel, 0x514);
 
-    nX += pCel->nXOffset + pCel->nYOffset / 2;
-    nY += pCel->nYOffset / 2;
-    int nLines = (unsigned int)pCel->nHeight / 2;
-    int nSkip = 0;
-    if (nY - pCel->nHeight / 2 < 0)
-    {
-        nLines = nY + 1;
-    }
 
-    if (nLines <= 0)
-    {
-        return;
-    }
-
-    if (nY >= nHeightLimit)
-    {
-        nSkip = nY - nHeightLimit + 1;
-        nLines -= nSkip;
-        if (nLines <= 0)
-        {
-            return;
-        }
-        nY = nHeightLimit - 1;
-    }
-
-    const int nStart = nX - nSkip;
-    CelDrawRleShadow(pCel, pBuffer + nY * nPitch + nStart, nStart, nClipLeft, nClipRight, nPitch, nSkip, nLines, nTable, nColor);
-}
-
-int __stdcall CelGetHeight(D2CelStrc* pCel)
-{
-    D2_ASSERT(pCel, 0x589);
-
-    return pCel->nHeight;
-}
-
-int __stdcall CelGetOffsetX(D2CelStrc* pCel)
-{
-    D2_ASSERT(pCel, 0x597);
-
-    return pCel->nXOffset;
-}
-
-int __stdcall CelGetOffsetY(D2CelStrc* pCel)
-{
-    D2_ASSERT(pCel, 0x5A5);
-
-    return pCel->nYOffset;
-}
 
 const char* __fastcall CelSkipRleLines(const char* pData, int nLines)
 {

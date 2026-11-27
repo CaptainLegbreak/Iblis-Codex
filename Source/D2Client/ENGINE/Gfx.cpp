@@ -27,6 +27,7 @@
 #include "D2WinApi.h"
 #include "D2CMPApi.h"
 #include "StormApi2.h"
+#include "D2CommonApi3.h"
 
 struct D2UnitStrc;
 
@@ -444,8 +445,6 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
 
 
 
-
-void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
 
 static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
@@ -912,9 +911,6 @@ int* __fastcall MONSTER_GetAiValuePtr(D2UnitStrc* pUnit);                       
 void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pTarget);    // 0x004AFF60
 D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB);// 0x004CDB40
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
-void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance);            // 0x00648E70
-
-
 static D2UnitStrc* __stdcall GFX_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance); // 0x0046C720
 
 

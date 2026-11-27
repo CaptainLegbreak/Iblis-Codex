@@ -32,7 +32,7 @@ struct D2GSPacketSrvAA;
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
 #include "D2GameFuncs.h"
-void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
+#include "D2CommonApi3.h"
 void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatListRemoveCallback pfStatRemove); // 0x00625CE0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
@@ -47,9 +47,6 @@ typedef void (__fastcall* LevelCallback)(unsigned int, int);
 struct D2ServerCallbacks { char unk_00[44]; LevelCallback levelUp; };
 
 extern D2ServerCallbacks* gpServerCallbacks; // 0x00883D50
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*, int, int); // 0x006253B0
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, int); // 0x00627260
 void __fastcall sub_00536850_UpdateLevel(D2GameStrc*,D2UnitStrc*,int); // 0x00536850
 void __fastcall SUNIT_AttachSound(D2UnitStrc*,int,D2UnitStrc*); // 0x00553380
 int __stdcall UNITS_GetPlayerName(D2UnitStrc*,int,int); // 0x00622150

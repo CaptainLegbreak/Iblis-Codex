@@ -1420,8 +1420,6 @@ int __stdcall SCMD_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wP
 
 void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
 
-void __stdcall DATATBLS_LoadAllTxts(void* pArg, int bArg); // 0x00619300
-
 extern "C" int __cdecl GAME_ShutdownIfActive(); // 0x0044BB80
 
 extern int (__cdecl* gpfnLaunchStates[])(); // 0x0070EE54

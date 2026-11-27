@@ -36,6 +36,7 @@
 #include "StormApi2.h"
 #include "D2GfxApi.h"
 #include "D2SoundApi.h"
+#include "D2LangApi2.h"
 
 static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
@@ -609,8 +610,6 @@ extern "C" __declspec(dllimport) int __stdcall CreateProcessA(const char* szAppl
 void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
 
 int __fastcall STRTABLE_LoadStringTables(void* pArg, int nArg); // 0x005259C0
-
-void __cdecl STRTABLE_UnloadStringTables(); // 0x00524E40
 
 void __cdecl CHATDLG_LoadFrontEndCels(); // 0x0043CC30
 
@@ -4331,7 +4330,7 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
         InitializeCriticalSection(&gtChatLock);
         if (!gpCharInfo->szRealm0x361[0])
 // build: symbol ?CHATDLG_PostClearMessage@* 0x0043E570
-            gpLaunchFuncs->pfn0xA8(CHATDLG_OnChatTime, (void (__cdecl*)())CHATDLG_PostClearMessage);
+            gpLaunchFuncs->pfnLoadBNetNews(CHATDLG_OnChatTime, (void (__cdecl*)())CHATDLG_PostClearMessage);
         sub_004FA590_RunLoop(CHATDLG_OnTick);
 // build: symbol ?GAME_IsMcpCreateQueued@* 0x00449E40
         if (GAME_IsMcpCreateQueued())

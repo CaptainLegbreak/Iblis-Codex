@@ -18,6 +18,7 @@
 #include "D2ClientGame.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2CommonApi3.h"
 
 extern unsigned short gwUniqueModNameIds[];                                                       // 0x00725188
 
@@ -150,9 +151,6 @@ __forceinline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
 extern "C" int __fastcall sub_004AC7E0(D2UnitStrc* pUnit, unsigned short wMask); // 0x004AC7E0
 
 
-
-
-void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
 
 extern "C" int __stdcall sub_0064A280(D2UnitStrc* pMissile); // 0x0064A280

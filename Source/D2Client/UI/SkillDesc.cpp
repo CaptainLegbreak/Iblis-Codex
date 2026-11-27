@@ -297,11 +297,6 @@ extern const int gaCurvingPathOffsetY[]; // 0x006DC1E8
 
 extern const int gaCurvingPathOffsetX[]; // 0x006DC208
 
-void __stdcall PATH_SetNumberOfPathPoints(D2DynamicPathStrc* pPath, int nPoints); // 0x00648790
-
-
-
-
 int __stdcall SKILLDESC_AddMissileElemDamage(D2UnitStrc* pUnit, Unicode* wszText, unsigned short nString, int nMissileId, int nSkillLevel); // 0x004EC280
 
 static int __stdcall SKILLDESC_EvaluateForEachWeapon(int* pValue1, int* pValue2, int* pColor1, int* pValue3, int* pValue4, int* pColor2, D2SkillStrc* pSkill, SKILLWEAPONFN pfnEvaluate, int nBonus, D2UnitStrc* pUnit, int nAdd);
@@ -591,16 +586,6 @@ extern "C" void __cdecl sub_004E4280_ResetEnvironSounds()
 
     gnWeatherSoundId = 0;
 }
-
-D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
-
-D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
-
-
-
-
-
-
 
 // 0x004EDA80
 int __fastcall SKILLDESC_CallSkillDescFunc(D2UnitStrc* pUnit, int bLeft)

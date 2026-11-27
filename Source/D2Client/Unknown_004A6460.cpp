@@ -34,6 +34,7 @@
 #include "D2GfxApi.h"
 #include "D2SoundApi.h"
 #include "StormApi2.h"
+#include "D2LangApi2.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -2252,9 +2253,6 @@ void* __cdecl GAME_GetBuySellButtonCells(); // 0x00454600
 
 
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
-
-void __stdcall STR_GroupUintDigits(Unicode* pOut, unsigned int nValue, int nSize); // 0x00525350
-
 
 Unicode* __fastcall win2Unicode(Unicode* pDest, const char* szSource, int nCount); // 0x00526F20
 
