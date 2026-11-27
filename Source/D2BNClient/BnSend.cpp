@@ -34,6 +34,7 @@
 #include "D2CommonApi3.h"
 #include "D2ClientApi.h"
 #include "D2NetApi2.h"
+#include "BnclientApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -356,8 +357,6 @@ int __fastcall BNDOWNLOAD_ApplyPatches(int* pResult); // 0x0051ED00
 
 int __cdecl BNDOWNLOAD_ResetReplies(); // 0x00520B30
 
-void __cdecl sub_00521B50_ReseedLogin(); // 0x00521B50
-
 int __fastcall BNSEND_SendAccountChange(const char* szAccountName, const char* szOldPassword, const char* szNewPassword); // 0x005221F0
 
 
@@ -400,11 +399,6 @@ struct D2AuthCheckPacketStrc
 };
 int __fastcall BNDOWNLOAD_RunCheckRevision(unsigned int* pExeVersion, unsigned int* pExeHash, char* szText); // 0x0051E6D0
 unsigned int __fastcall sub_00523020_GetAlignedData(unsigned int nSize); // 0x00523020
-void __fastcall sub_005241C0_GetDigest(int nIndex, unsigned int* pDigest); // 0x005241C0
-void __fastcall sub_00524200_HashBlock(int nIndex, const void* pBlock, unsigned int* pDigest); // 0x00524200
-void __fastcall sub_00524760_CipherBlock(int nIndex, const unsigned short* pIn, unsigned short* pOut); // 0x00524760
-void __cdecl sub_00524740_ClearKeySchedules(); // 0x00524740
-void __cdecl sub_005241A0_ClearHashContexts(); // 0x005241A0
 extern unsigned int gdwBnClientToken; // 0x00882530
 
 // build: symbol ??__EgtBigPair@@YAXXZ 0x006CAEF0
@@ -1718,8 +1712,6 @@ void __cdecl BNDOWNLOAD_StopDownloads(); // 0x0051E5D0
 extern "C" int __cdecl BNDOWNLOAD_HasPendingDownloads(); // 0x0051E5E0
 int __cdecl BNMESSQUEUE_FreeAllMessages(); // 0x00520440
 extern "C" int __cdecl BNDOWNLOAD_SetDisconnected(); // 0x00520AD0
-void __cdecl sub_00521B90_ClearSrpState(); // 0x00521B90
-
 // 0x0051C470
 int __cdecl sub_0051C470_CloseBNetConnection()
 {

@@ -1,6 +1,7 @@
 #include "D2BNClient.h"
 #include "FogApi.h"
 #include "FogApi2.h"
+#include "BnclientApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -29,8 +30,6 @@ void __cdecl BNMESSQUEUE_InitMessageQueue(); // 0x005201E0
 int __cdecl BNMESSQUEUE_FreeAllMessages(); // 0x00520440
 
 extern "C" int __cdecl BNDOWNLOAD_SetDisconnected(); // 0x00520AD0
-
-void __cdecl sub_00521B90_ClearSrpState(); // 0x00521B90
 
 extern BnClientInterface gtBnClientInterface; // 0x0072FAA0
 
