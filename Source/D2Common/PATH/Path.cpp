@@ -75,12 +75,6 @@ struct PATH_GetLastPointX;
 
 struct PATH_GetLastPointY;
 
-struct RoomFlags;
-
-struct PathFlags;
-
-struct CodeRow;
-
 struct DirectionRecord;
 
 struct B25TargetUnit;
@@ -144,49 +138,6 @@ static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo);
 typedef char check_pointer_width[sizeof(void*)==4?1:-1];
 
 typedef char check_word_width[sizeof(unsigned short)==2?1:-1];
-
-typedef signed char S8;
-
-struct RoomFlags
-{
-    char pad0[0x28];
-    unsigned int flags;
-};
-
-typedef char check_RoomFlags_flags[OFFSET(RoomFlags,flags)==0x28?1:-1];
-
-typedef char check_RoomFlags_size[sizeof(RoomFlags)==0x2C?1:-1];
-
-struct PathFlags
-{
-    char pad0[0x34];
-    unsigned int flags;
-};
-
-typedef char check_PathFlags_flags[OFFSET(PathFlags,flags)==0x34?1:-1];
-
-typedef char check_PathFlags_size[sizeof(PathFlags)==0x38?1:-1];
-
-struct CodeRow
-{
-    S8 c0;
-    S8 c1;
-    S8 c2;
-    S8 c3;
-    int row;
-};
-
-typedef char check_CodeRow_row[OFFSET(CodeRow,row)==4?1:-1];
-
-typedef char check_CodeRow_c0[OFFSET(CodeRow,c0)==0?1:-1];
-
-typedef char check_CodeRow_c1[OFFSET(CodeRow,c1)==1?1:-1];
-
-typedef char check_CodeRow_c2[OFFSET(CodeRow,c2)==2?1:-1];
-
-typedef char check_CodeRow_c3[OFFSET(CodeRow,c3)==3?1:-1];
-
-typedef char check_CodeRow_size[sizeof(CodeRow)==8?1:-1];
 
 struct DirectionRecord
 {
@@ -1143,15 +1094,6 @@ void __stdcall PATH_SetRoom(D2DynamicPathStrc* pDynamicPath, D2ActiveRoomStrc* p
     pDynamicPath->pRoom = pRoom;
 }
 
-// build: symbol @DRLGACTIVATE_ToggleHasPortalFlag@* 0x0061BAC0
-extern "C" void __fastcall DRLGACTIVATE_ToggleHasPortalFlag(RoomFlags* room, int reset)
-{
-    if (reset)
-        room->flags &= ~0x400000U;
-    else
-        room->flags |= 0x400000U;
-}
-
 // 0x006497D0
 static unsigned char PATH_AdvanceToDoor(D2PathInfoStrc* pPathInfo)
 {
@@ -1400,12 +1342,16 @@ int __stdcall PATH_IsCurrentRoomInvalid(D2DynamicPathStrc* pDynamicPath)
 }
 
 // 0x00648B40
-extern "C" void __stdcall PATH_SetCurrentRoomInvalid(PathFlags* path, int invalid)
+extern "C" void __stdcall PATH_SetCurrentRoomInvalid(D2DynamicPathStrc* pDynamicPath, int bInvalid)
 {
-    if (invalid != 0)
-        path->flags |= 2U;
+    if (bInvalid)
+    {
+        pDynamicPath->dwFlags |= PATH_CURRENT_ROOM_INVALID;
+    }
     else
-        path->flags &= ~2U;
+    {
+        pDynamicPath->dwFlags &= ~PATH_CURRENT_ROOM_INVALID;
+    }
 }
 
 // 0x00648B60
