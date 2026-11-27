@@ -56,12 +56,17 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
-- lane9/params-d2game-tail2 509dbbad (on names-d2game-verbs2; merge after it): ACT2Q4_GetAndUpdatePalaceNpcState's
+- lane9/params-d2game-sunitmsg 2d981915 (on #463): SUnitMsg.cpp: the queued A3/A4/A5 messages' fields take the names of
+  the send-function parameters they're passed to (nSeed, nSkillId, nSkillLevel, nUnitType, nUnitGUID, nTargetType,
+  nTargetGUID, nX, nY; nMonStatsId; nUnitType, nUnitGUID, nSkillId). a1/v12 295 -> 269 alone; auditguard no count rose;
+  merges cleanly onto #464 and with params-d2game-tail. Full build: Game.exe identical, tree
+  0b44156865b3c3b892a10fb7d1b6611547a87d57, borrowed code / data 5,424 / 261 B.
+- MERGED (#464) lane9/params-d2game-tail2 509dbbad (on names-d2game-verbs2; merge after it): ACT2Q4_GetAndUpdatePalaceNpcState's
   out-parameter pContinueAi (1 when the quest leaves Jerhyn to the normal AI; its caller's bContinueAi), and
   pFreeStackCount (D2MOO's name) in SUNITNPC.CPP's second copy of the store stack search. Merges cleanly onto #461 and
   with params-d2game-tail. auditguard against its base no count rose. Full build: Game.exe identical, tree
   f59334d3687562df58c4de973b8b567ad4b024cd, borrowed code / data 5,424 / 261 B.
-- lane9/names-d2game-verbs2 74d5b6cc (on #459): thirty-seven D2Game placeholder stubs and accessors take sub_<VA>_<Verb>
+- MERGED (#464) lane9/names-d2game-verbs2 74d5b6cc (on #459): thirty-seven D2Game placeholder stubs and accessors take sub_<VA>_<Verb>
   names from their bodies (_Nop, _Return0/_Return5/_Return43, GetWaypointData, GetMonStats2Record, ...); exported
   functions keep theirs. auditguard no count rose; merges cleanly onto #460. Full build: Game.exe identical, tree
   a54bd6a14ed7030628a6fe267934c7c74be7e0ca, borrowed code / data 5,424 / 261 B.
