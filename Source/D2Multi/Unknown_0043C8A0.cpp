@@ -51,27 +51,6 @@ unsigned int gdwHeaderHash_0077AD64 = SStrHash("Header", 0, 0);
 extern unsigned int gdwGameTimeHash_0077AD60; // 0x0077AD60
 unsigned int gdwGameTimeHash_0077AD60 = SStrHash("Game Time", 0, 0);
 
-// 0x0043C6B0
-int __fastcall CHATDLG_WriteSaveHeader(const char* szName)
-{
-    char szDir[0x400];
-    char szPath[0x1F4];
-    unsigned long dwWritten;
-
-    FOG_GetSavePath(szDir, 0x400);
-    sprintf(szPath, gszSaveFormat_006D4230, szDir, szName);
-
-    void* hFile = FOG_CreateFileA(szPath, 0x40000000, 0, 0, 2, 0x8000000, 0);
-    if (!hFile)
-        return 0;
-
-    gtCharSaveHeader.dwChecksum = FOG_ComputeChecksum((const unsigned char*)&gtCharSaveHeader, 0x14F);
-    FOG_WriteFile(hFile, &gtCharSaveHeader, 0x14F, &dwWritten, 0);
-// build: symbol ?FOG_CloseFile@* 0x004069A0
-    FOG_CloseFile(hFile);
-    return 1;
-}
-
 // 0x0043C8A0
 int __fastcall sub_0043C8A0_ReadSaveSummary(const char* szName, unsigned char* pOut)
 {

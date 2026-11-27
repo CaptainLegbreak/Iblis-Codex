@@ -4297,14 +4297,4 @@ void __stdcall TEXT_KeyDownMsg(SMSGHANDLER_PARAMS* pMsg)
     }
 }
 
-// 0x004ED3F0
-void __stdcall TEXT_DrawHintText(int nArg1, int nStringIndex)
-{
-    Unicode wszText[100];
-    sub_005269D0_FormatText(100, wszText, D2LANG_GetStringFromTblIndex(0x1058), nArg1);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));
-    D2Win_10129_DrawFramedText(wszText, gnScreenWidth - 0x80, gnScreenHeight - 0x34, 0, 1);
-}
-
 #include "gen/data/Source/D2Client/UI/text.inc"

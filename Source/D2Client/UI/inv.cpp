@@ -1796,12 +1796,12 @@ struct D2ClientInterfaceStrc
 };
 
 // 0x00477F70
-void __fastcall INV_SendGameLogon(int nServerToken, int nServerHash)
+void __fastcall INV_SendGameLogon(unsigned short wJoinId, int nServerHash)
 {
     D2GameLogonPacketStrc tPacket;
     tPacket.nHeader = 0x68;
     *(int*)tPacket.nServerHash = nServerHash;
-    *(short*)tPacket.nServerToken = (short)nServerToken;
+    *(unsigned short*)tPacket.nServerToken = wJoinId;
     *(int*)tPacket.nVersion = sub_0044D540_GetClientInterface()->pfnGetVersion();
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     *(unsigned int*)tPacket.nKey1 = FOG_IsExpansion() ? 0xED5DCC50 : 0x2185EDD6;
