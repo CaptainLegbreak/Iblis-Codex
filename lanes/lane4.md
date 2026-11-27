@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 16:05 PST 2026: game-b7b0-note (#445) and join-game-e5a0 (#446) merged; nothing in Ready. Next: the inv and text pieces in my range.
+
 - Thu Nov 26 15:25 PST 2026: join-game-e5a0 posted on #443 (Game.cpp pieces 3 -> 2: B7B0 stays apart with its note, D080 waits on stpl.h).
 
 - Thu Nov 26 14:58 PST 2026: joins tried and left with readings: Game_0044D080 (Storm-list template copies; needs stpl.h), text_0049C9C0 (one lea tie, like inv_0048BC10). Ready: game-b7b0-note.
@@ -94,8 +96,6 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/join-game-e5a0 ef6b31579 (on #443; full build on #442 identical, borrowed code 7,923 B in 4 functions and borrowed data 261 B, both as main; #443 changed only status.py and docs; audit guard clean with AUDIT_ALLOW=noinline): files in pieces. Game.cpp takes the fourteen functions of Game_0044E5A0.cpp, which goes. **One evidenced noinline (noinline 109 -> 110):** the image calls GAME_PushRegisterState (0x451F10) out of line from GAME_RunGameSession (0x44F360, the call at 0x44F3E6); the comment says so. The piece's views of shared state become Game.cpp's. gtLoadingTimer is a D2LoadingTimerStrc, not an int (its inline zeroing constructor adds no initializer; the guard at 0x7A314C belongs to a local static in the loading-screen code, which keeps the type's constructor real). gpComInterface is a D2ComInterfaceStrc pointer. The window-handler tables go through SCMD_RegisterMsgHandlers and AUTOMAP_UnregisterHandlerTable (names.csv's name for 0x451E10, which the piece called sub_00451E10_UnregisterMsgHandlers), with the window handle as `void*` as their definitions take it. The piece's own D2StormLink.h include is dropped; Game.cpp keeps its own D2StormLinkStrc (the Storm template question, lane 3's).
-- lane4/game-b7b0-note 654e25324 (on #443, comment only; the unit builds equal): files in pieces. Game_0044B7B0.cpp says why its six functions stay out of Game.cpp. Its object's data starts with its own copy of the language-name table (0x0070F728), past the end of Game.cpp's data (0x0070F564), so they are two objects. I joined it first: 23/23 equal with one noinline (GAME_LoadAct would expand GAME_InitColors), but the full build showed borrowed data 261 -> 328 B, because the copy went and its bytes then had no source. **All lanes doing joins:** a piece with its own `build: symbol _gaszLanguageNames` marker is its own object; check for one before joining, and compare borrowed data, not only borrowed code, against main.
 
 
 ## Claimed
