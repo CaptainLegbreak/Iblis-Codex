@@ -60,7 +60,6 @@ static int GFX_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex); // 0x0046EA50
 
 struct D2GfxHeaderStrc { int unknown00[2],left,right,top,bottom; };
 
-extern int gnScreenWidth; // 0x0071146C
 D2GfxHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void*); // 0x004DB040
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*,D2InventoryStrc*,int*,int,int); // 0x0064F380
 

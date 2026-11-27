@@ -148,7 +148,6 @@ void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 
-extern int gnScreenWidth; // 0x0071146C
 
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
 

@@ -27,9 +27,6 @@ void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 extern D2HotkeySlotTableStrc gtHotkeySlots_007C0300; // 0x007C0300
 extern int gbSkillSelectRight; // 0x007C07FC
-extern int gaHotkeySkills[16]; // 0x007C06C8
-extern int gaHotkeyOwners[16]; // 0x007C0768
-extern int gaHotkeyLeft[16]; // 0x007C07B8
 
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 extern unsigned int gdwBitMasks[]; // 0x006CE268

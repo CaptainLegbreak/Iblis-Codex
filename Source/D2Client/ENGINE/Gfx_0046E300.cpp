@@ -31,7 +31,6 @@ struct D2UnitOverlayStrc
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
-extern int gnScreenWidth;                                                                               // 0x0071146C
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09

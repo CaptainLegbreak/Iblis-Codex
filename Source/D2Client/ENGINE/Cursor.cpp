@@ -41,7 +41,6 @@ extern D2MsgHandlerEntryStrc gaCursorMsgHandlers[]; // 0x00711FEC
 
 extern D2PanelAnimEntryStrc gaPanelAnim[]; // 0x00712020
 
-extern int gnScreenWidth; // 0x0071146C
 
 int gbCursorVisible;                                                                                      // 0x007A6B08
 

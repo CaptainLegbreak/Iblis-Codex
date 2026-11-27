@@ -168,7 +168,6 @@ extern int gnGlobal_007B957C; // 0x007B957C
 
 extern void* gpHelpWhiteBulletCel; // 0x007BEEF0
 
-extern int gnScreenWidth; // 0x0071146C
 
 enum D2C_W10Constants
 {
