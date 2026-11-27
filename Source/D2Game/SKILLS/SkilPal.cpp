@@ -188,7 +188,6 @@ void __fastcall SKILLS_CurseStateCallback_HolyFreeze(D2UnitStrc* pUnit, int nSta
 
 int __fastcall SKILLS_AuraCallback_HolyFreeze(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);        // 0x005D07C0
 
-int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 
 int __fastcall SKILLS_GetSequenceEventFrame(D2UnitStrc* pUnit); // 0x005CF8C0
@@ -241,7 +240,6 @@ extern int __stdcall SKILLS_GetToHitFactor(D2UnitStrc*,int,int); // 0x006449F0
 
 extern int __stdcall sub_00646CA0_EvaluateFormula(D2UnitStrc*,unsigned int,int,int); // 0x00646CA0
 
-extern int __fastcall DATATBLS_ApplyRatio(int,int,int); // 0x00483360
 
 extern void __stdcall SKILLS_SetParam1(D2SkillStrc*,int); // 0x00644560
 

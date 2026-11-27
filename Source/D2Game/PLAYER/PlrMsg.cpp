@@ -235,7 +235,6 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLaye
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
 
-int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 
@@ -325,7 +324,6 @@ void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x006
 void __fastcall D2GAME_ITEMS_UpdateTransferredProperties(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pTarget, int bUpdateStatList, int bUpdateVitals); // 0x0055C730
 
 
-void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 
 
 static int __stdcall PLRMSG_CheckSameAct(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00548A80

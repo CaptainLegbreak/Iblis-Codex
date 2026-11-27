@@ -153,7 +153,6 @@ struct D2CharStatsTxtRun;
 
 D2MonStatsTxtRun* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
-int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 D2CharStatsTxtRun* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClassId); // 0x004833E0
 

@@ -137,7 +137,6 @@ void __fastcall SUNITNPC_UpdateHirelingPosition(D2GameStrc* pGame, D2UnitStrc* p
 int __fastcall SKILLS_ExecuteSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyCosts, int bSkipSkillCheck, int bItemEffect); // 0x0056F7F0
 int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char nAct); // 0x0061AB70
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
-int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc* pCorpse); // 0x0063D630
 extern "C" unsigned short __stdcall INVENTORY_GetCorpseMercNameId(D2CorpseStrc* pCorpse); // 0x0063D650
 extern "C" unsigned int __stdcall INVENTORY_IsPlayerCorpse(D2CorpseStrc* pCorpse); // 0x0063D670
 
@@ -1651,7 +1650,6 @@ struct D2SavedItemStrc
 };
 
 
-void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 
 int __stdcall INVENTORY_PlaceItemInBodyLoc(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc); // 0x0063BDB0
 
@@ -2112,7 +2110,6 @@ static unsigned int gnPreviousMemUsageTick; // 0x00883D68
 struct D2PoolSystemStrc;
 
 
-int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem);                                     // 0x0040A040
 
 
 static void GAME_UpdatePendingRooms(D2GameStrc* pGame);

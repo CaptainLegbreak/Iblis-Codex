@@ -21,6 +21,7 @@
 #include "D2Path.h"
 #include "D2ItemModes.h"
 #include "D2Records.h"
+#include "D2SetsTxt.h"
 #include "D2GameAux.h"
 #include "D2BookDataTbl.h"
 #include "D2LanguageNames.h"
@@ -150,7 +151,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
-int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 
 extern "C" int __fastcall sub_005A0180(D2UnitStrc* pUnit, unsigned short wMask); // 0x005A0180
@@ -253,7 +253,6 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoo
 int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int bSkipCollisionSearch, int bSyncOtherPlayersOnly); // 0x00554EA0
 
 
-int __fastcall SKILLS_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bSkipMana);   // 0x0056F640
 
 void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0057C9F0
 
@@ -273,7 +272,6 @@ void __fastcall D2GAME_SetSummonPassiveStats(D2GameStrc* pGame, D2UnitStrc* pUni
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
 
 
-void __stdcall SKILLS_SetSkillMode(D2SkillStrc* pSkill, int nMode);                                         // 0x00644340
 
 
 
@@ -350,6 +348,12 @@ int __fastcall ITEMS_ApplyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDro
 static int ITEMMODS_HasAffixWithGroup(D2UnitStrc* pItem, int nGroup);
 
 // noinline: ITEMS_RollMagicAffixesNew (0x005C1560) calls ITEMS_AddPotentialMagicAffix (0x005C0D00); the image calls it out of line there.
+struct D2LowQualityItemDataTbl
+{
+    int nLowQualityItemsTxtRecordCount;
+    D2LowQualityItemsTxt* pLowQualityItemsTxt;
+};
+
 // 0x005C0D00
 static __declspec(noinline) int __stdcall ITEMS_AddPotentialMagicAffix(int nAffixId, D2MagicAffixTxt* pRecord, D2MagicAffixIndexAndPtrStrc* pAffixes, int nCount)
 {
@@ -373,8 +377,9 @@ static D2MagicAffixIndexAndPtrStrc* __stdcall ITEMS_GetPotentialMagicAffix(int n
     return &pAffixes[nIndex];
 }
 
+// Out of line as in the original: ITEMS_ApplyLegacyLowQuality (0x5C2AF0) and ITEMS_ApplyLowQuality (0x5C2D40) call it (0x5C2CAF, 0x5C2CD6, 0x5C2F11, 0x5C2F38).
 // 0x005C0D40
-static int __stdcall SKILLITEM_PercentWithMinimum(int nPercent, int nValue, int nMin)
+static __declspec(noinline) int __stdcall SKILLITEM_PercentWithMinimum(int nValue, int nPercent, int nMin)
 {
     const int nResult = nValue * nPercent / 100;
     if (nResult < nMin)
@@ -382,11 +387,6 @@ static int __stdcall SKILLITEM_PercentWithMinimum(int nPercent, int nValue, int 
         return nMin;
     }
     return nResult;
-}
-
-int __stdcall sub_K13_Emit_005C0D40(int nValue, int nPercent)
-{
-    return SKILLITEM_PercentWithMinimum(nPercent, nValue, 2);
 }
 
 static inline unsigned int RollSeed(D2SeedStrc* pSeed)
@@ -1481,6 +1481,7 @@ int __fastcall ITEMS_FindBookRecordIndex(D2UnitStrc* pItem, int bScroll)
     return nIndex;
 }
 
+// 0x005C25C0
 static int __stdcall sub_005C25C0_RollSetItemRecord(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem)
 {
     int nLegibleSets = 0;
@@ -1492,19 +1493,26 @@ static int __stdcall sub_005C25C0_RollSetItemRecord(D2ItemDropStrc* pItemDrop, D
         return 0;
     }
 
-    const int nItemFormat = ITEMS_GetItemFormat(pItem);
+    const unsigned short nItemFormat = ITEMS_GetItemFormat(pItem);
     const unsigned int dwCode = pItemsTxtRecord->dwCode;
     const int nItemLevel = ITEMS_GetItemLevel(pItem);
     int rarityData[512];
 
-    for (int i = 0; i < sgptDataTables->nSetItemsTxtRecordCount; ++i)
+    D2SetItemsTxt* pSetItemsTxtRecord = sgptDataTables->pSetItemsTxt;
+    const int nCount = sgptDataTables->nSetItemsTxtRecordCount;
+    int i = 0;
+    if (nCount <= 0)
     {
-        D2SetItemsTxt* pSetItemsTxtRecord = &sgptDataTables->pSetItemsTxt[i];
+        return 0;
+    }
+
+    do
+    {
         if ((pSetItemsTxtRecord->wVersion < 100 || nItemFormat >= 100) && pSetItemsTxtRecord->wLvl <= nItemLevel
             && dwCode == pSetItemsTxtRecord->dwItemCode
             && (pSetItemsTxtRecord->nSetId != 29 || pItemDrop->dwFlags2 & 1))
         {
-            if (pItemDrop->nItemIndex && pItemDrop->nItemIndex - 1 == i)
+            if ((unsigned int)pItemDrop->nItemIndex > 0 && pItemDrop->nItemIndex - 1 == i)
             {
                 nIndex = i;
             }
@@ -1519,7 +1527,10 @@ static int __stdcall sub_005C25C0_RollSetItemRecord(D2ItemDropStrc* pItemDrop, D
             nAccumulatedRarity += rarityData[2 * nLegibleSets + 1];
             ++nLegibleSets;
         }
+        ++i;
+        ++pSetItemsTxtRecord;
     }
+    while (i < nCount);
 
     int nFileIndex = nIndex;
     if (nIndex < 0)
@@ -1535,25 +1546,92 @@ static int __stdcall sub_005C25C0_RollSetItemRecord(D2ItemDropStrc* pItemDrop, D
         {
             if (nChance < rarityData[2 * nCounter + 1])
             {
-                break;
+                if (nCounter < 0)
+                {
+                    return 0;
+                }
+
+                nFileIndex = rarityData[2 * nCounter];
+                goto LBL_SET;
             }
 
             nChance -= rarityData[2 * nCounter + 1];
             ++nCounter;
         }
 
-        if (nCounter < 0 || nCounter >= nLegibleSets)
-        {
-            return 0;
-        }
-
-        nFileIndex = rarityData[2 * nCounter];
+        return 0;
     }
 
+LBL_SET:
     ITEMS_SetFileIndex(pItem, nFileIndex);
     ITEMS_SetItemFlag(pItem, 0x10, 0);
     ITEMMODS_AssignProperty(4, 0, pItem, 0, 0, 0);
     return 1;
+}
+
+static inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return lSeed;
+}
+
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0) return 0;
+    if (nMax & (nMax - 1)) return (unsigned int)SEED_RollRandomNumberInline(pSeed) % nMax;
+    return (nMax - 1) & (unsigned int)SEED_RollRandomNumberInline(pSeed);
+}
+
+// 0x005C2740
+int __stdcall ITEMS_RollLegacySetItem(D2UnitStrc* pItem)
+{
+    D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
+    if (!pItemsTxt) return 0;
+    const unsigned int nSavedSeed = SEED_GetLowSeed(ITEMS_GetItemSeed(pItem));
+    const unsigned short nFormat = ITEMS_GetItemFormat(pItem);
+    const int nDurability = STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0);
+    const int nMaxDurability = STATLIST_GetUnitBaseStat(pItem, STAT_MAXDURABILITY, 0);
+    int nNew = 2 * nDurability;
+    if (nNew >= 255) nNew = 255;
+    STATLIST_SetUnitStat(pItem, STAT_DURABILITY, nNew, 0);
+    nNew = 2 * nMaxDurability;
+    if (nNew >= 255) nNew = 255;
+    STATLIST_SetUnitStat(pItem, STAT_MAXDURABILITY, nNew, 0);
+    D2SetsTxt* pSets = sgptDataTables->pSetsTxt;
+    int i = 0;
+    for (; i < sgptDataTables->nSetsTxtRecordCount; ++i)
+    {
+        if (pSets[i].wVersion >= 100) break;
+    }
+    const int nCount = i;
+    const unsigned int nStart = SEED_RollLimitedRandomNumberInline(ITEMS_GetItemSeed(pItem), nCount);
+    int nFileIndex = -1;
+    for (i = 0; i < nCount; ++i)
+    {
+        D2SetsTxt* pSet = &pSets[(i + nStart) % nCount];
+        if (pSet->wVersion < 100 || nFormat >= 100)
+        {
+            for (int j = 0; j < pSet->nSetItems; ++j)
+            {
+                if (pItemsTxt->dwCode == pSet->pSetItem[j]->dwItemCode)
+                {
+                    nFileIndex = pSet->pSetItem[j]->wSetItemId;
+                    break;
+                }
+            }
+        }
+    }
+    if (nFileIndex != -1)
+    {
+        ITEMS_SetFileIndex(pItem, nFileIndex);
+        ITEMS_SetItemFlag(pItem, 0x10, 0);
+        ITEMMODS_AssignProperty(4, 0, pItem, 0, 0, 0);
+        return 1;
+    }
+    SEED_InitLowSeed(ITEMS_GetItemSeed(pItem), nSavedSeed);
+    return 0;
 }
 
 // 0x005C2940
@@ -1658,6 +1736,195 @@ int __fastcall ITEMS_RollSuperiorItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDr
 {
     ITEMS_GetItemFormat(pItem);
     return ITEMS_RollSuperiorItemRecord(pItem, pItemDrop);
+}
+
+// 0x005C2AF0
+int __fastcall ITEMS_ApplyLegacyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
+{
+    D2LowQualityItemDataTbl* pLowQualityItemDataTbl = DATATBLS_GetLowQualityItemDataTables();
+    D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
+    if (!pLowQualityItemDataTbl)
+    {
+        return 0;
+    }
+
+    if (!pItemsTxtRecord)
+    {
+        return 0;
+    }
+
+    ITEMS_SetFileIndex(pItem, SEED_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), pLowQualityItemDataTbl->nLowQualityItemsTxtRecordCount));
+
+    int nResult = 0;
+    if (ITEMS_HasDurability(pItem))
+    {
+        if (D2ItemsTxt* pTxt = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId))
+        {
+            unsigned int nMaxDurability = pTxt->nDurability / 3;
+            if (!nMaxDurability)
+            {
+                nMaxDurability = 1;
+            }
+
+            const unsigned int nHalf = nMaxDurability / 2;
+            unsigned int nDurability = ITEMS_RollLimitedRandomNumber(&pItem->pSeed, nHalf) + nHalf;
+            if (!nDurability)
+            {
+                nDurability = 1;
+            }
+
+            STATLIST_SetUnitStat(pItem, STAT_DURABILITY, nDurability, 0);
+            STATLIST_SetUnitStat(pItem, STAT_MAXDURABILITY, nMaxDurability, 0);
+        }
+    }
+
+    if (ITEMSIsA(pItem, 0x2D))
+    {
+        int nMaxDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_MAXDAMAGE, 0) / 100;
+        if (nMaxDamage < 2)
+        {
+            nMaxDamage = 2;
+        }
+        STATLIST_SetUnitStat(pItem, STAT_MAXDAMAGE, nMaxDamage, 0);
+
+        int nMinDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_MINDAMAGE, 0) / 100;
+        if (nMinDamage < 1)
+        {
+            nMinDamage = 1;
+        }
+        STATLIST_SetUnitStat(pItem, STAT_MINDAMAGE, nMinDamage, 0);
+
+        int nMaxSecondaryDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_SECONDARY_MAXDAMAGE, 0) / 100;
+        if (nMaxSecondaryDamage < 2)
+        {
+            nMaxSecondaryDamage = 2;
+        }
+        STATLIST_SetUnitStat(pItem, STAT_SECONDARY_MAXDAMAGE, nMaxSecondaryDamage, 0);
+
+        int nMinSecondaryDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_SECONDARY_MINDAMAGE, 0) / 100;
+        if (nMinSecondaryDamage < 1)
+        {
+            nMinSecondaryDamage = 1;
+        }
+        STATLIST_SetUnitStat(pItem, STAT_SECONDARY_MINDAMAGE, nMinSecondaryDamage, 0);
+
+        if (ITEMS_CheckIfThrowable(pItem))
+        {
+            const int nMinThrowDamage = SKILLITEM_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MINDAMAGE, 0), 75, 2);
+            STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MINDAMAGE, nMinThrowDamage, 0);
+
+            const int nMaxThrowDamage = SKILLITEM_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MAXDAMAGE, 0), 75, 1);
+            STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MAXDAMAGE, nMaxThrowDamage, 0);
+        }
+        nResult = 1;
+    }
+    else if (ITEMSIsA(pItem, 0x32))
+    {
+        int nArmorClass = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_ARMORCLASS, 0) / 100;
+        if (nArmorClass <= 0)
+        {
+            nArmorClass = 1;
+        }
+        STATLIST_SetUnitStat(pItem, STAT_ARMORCLASS, nArmorClass, 0);
+        nResult = 1;
+    }
+
+    return nResult;
+}
+
+// 0x005C2D40
+int __fastcall ITEMS_ApplyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
+{
+    D2LowQualityItemDataTbl* pLowQualityItemDataTbl = DATATBLS_GetLowQualityItemDataTables();
+    D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
+    if (!pLowQualityItemDataTbl)
+    {
+        return 0;
+    }
+
+    if (!pItemsTxtRecord)
+    {
+        return 0;
+    }
+
+    ITEMS_SetFileIndex(pItem, SEED_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), pLowQualityItemDataTbl->nLowQualityItemsTxtRecordCount));
+
+    int nResult = 0;
+    if (ITEMS_HasDurability(pItem))
+    {
+        if (D2ItemsTxt* pTxt = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId))
+        {
+            int nMaxDurability = 33 * pTxt->nDurability / 100;
+            if (nMaxDurability < 1)
+            {
+                nMaxDurability = 1;
+            }
+
+            const unsigned int nHalf = (unsigned int)nMaxDurability / 2;
+            unsigned int nDurability = ITEMS_RollLimitedRandomNumber(&pItem->pSeed, nHalf) + nHalf;
+            if (!nDurability)
+            {
+                nDurability = 1;
+            }
+
+            STATLIST_SetUnitStat(pItem, STAT_DURABILITY, nDurability, 0);
+            STATLIST_SetUnitStat(pItem, STAT_MAXDURABILITY, nMaxDurability, 0);
+        }
+    }
+
+    if (ITEMSIsA(pItem, 0x2D))
+    {
+        int nMaxDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_MAXDAMAGE, 0) / 100;
+        if (nMaxDamage < 2)
+        {
+            nMaxDamage = 2;
+        }
+        STATLIST_SetUnitStat(pItem, STAT_MAXDAMAGE, nMaxDamage, 0);
+
+        int nMinDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_MINDAMAGE, 0) / 100;
+        if (nMinDamage < 1)
+        {
+            nMinDamage = 1;
+        }
+        STATLIST_SetUnitStat(pItem, STAT_MINDAMAGE, nMinDamage, 0);
+
+        int nMaxSecondaryDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_SECONDARY_MAXDAMAGE, 0) / 100;
+        if (nMaxSecondaryDamage < 2)
+        {
+            nMaxSecondaryDamage = 2;
+        }
+        STATLIST_SetUnitStat(pItem, STAT_SECONDARY_MAXDAMAGE, nMaxSecondaryDamage, 0);
+
+        int nMinSecondaryDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_SECONDARY_MINDAMAGE, 0) / 100;
+        if (nMinSecondaryDamage < 1)
+        {
+            nMinSecondaryDamage = 1;
+        }
+        STATLIST_SetUnitStat(pItem, STAT_SECONDARY_MINDAMAGE, nMinSecondaryDamage, 0);
+
+        if (ITEMS_CheckIfThrowable(pItem))
+        {
+            const int nMinThrowDamage = SKILLITEM_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MINDAMAGE, 0), 75, 2);
+            STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MINDAMAGE, nMinThrowDamage, 0);
+
+            const int nMaxThrowDamage = SKILLITEM_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MAXDAMAGE, 0), 75, 1);
+            STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MAXDAMAGE, nMaxThrowDamage, 0);
+        }
+        nResult = 1;
+    }
+    else if (ITEMSIsA(pItem, 0x32))
+    {
+        int nArmorClass = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_ARMORCLASS, 0) / 100;
+        if (nArmorClass <= 0)
+        {
+            nArmorClass = 1;
+        }
+        STATLIST_SetUnitStat(pItem, STAT_ARMORCLASS, nArmorClass, 0);
+        nResult = 1;
+    }
+
+    ITEMS_AssignStaffModsForFormat(pItem, pItemDrop);
+    return nResult;
 }
 
 // 0x005C2FB0

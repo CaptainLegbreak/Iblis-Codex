@@ -98,7 +98,6 @@ D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);
 void __fastcall SUNIT_SetAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int bUpdate); // 0x005543B0
 
 
-D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
 int __fastcall SKILLS_IsValidAttractTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005C31F0
 
@@ -317,7 +316,6 @@ enum D2SkillNecConstants
     AISPECIALSTATE_TAUNT = 12,
 };
 
-int __fastcall SKILLS_CanApplyCurseToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005C3420
 
 void __fastcall SKILLS_CurseStateCallback_ResetAi(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x005C3370
 
@@ -354,9 +352,7 @@ void __fastcall AIGENERAL_AllocMinionList(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
 void __stdcall sub_006488A0_SetDirection(D2PathRecordStrc* pPath, int nDirection); // 0x006488A0
 
-int __stdcall STATLIST_GetOwnerGUID(D2StatListStrc* pStatList); // 0x006252B0
 
-int __stdcall STATLIST_GetOwnerType(D2StatListStrc* pStatList); // 0x00625250
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 

@@ -230,7 +230,6 @@ void __fastcall D2GAME_DropItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
-void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 
 void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage); // 0x00628280
 

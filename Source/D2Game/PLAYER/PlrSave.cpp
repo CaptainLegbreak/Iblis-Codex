@@ -249,7 +249,6 @@ struct D2CorpseSaveStrc
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
 
-int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc* pCorpse); // 0x0063D630
 
 __declspec(noalias) int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int* pSize, unsigned int nMaxSize, int bUseTradeInventory, int nUnused); // 0x00569AD0
 
@@ -412,7 +411,6 @@ struct D2ItemKeyStrc
 void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage); // 0x00628280
 
 
-void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 
 int __stdcall INVENTORY_PlaceItemInBodyLoc(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc); // 0x0063BDB0
 
@@ -713,9 +711,7 @@ struct _iobuf;
 
 extern "C" const char gszFileModeRb[];                                                                 // 0x006CDC90
 
-extern "C" unsigned int __cdecl fread(void* pBuffer, unsigned int nSize, unsigned int nCount, _iobuf* pFile); // 0x00684782
 
-extern "C" void __fastcall CLIENTS_SetPlayerUnitAlive(D2ClientStrc* pClient); // 0x00537970
 
 
 #pragma pack(push, 1)

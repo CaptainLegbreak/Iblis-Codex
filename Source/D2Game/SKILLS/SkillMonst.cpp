@@ -337,7 +337,6 @@ enum D2C_Z09SkillConstants
 
 void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0057C9F0
 
-int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit);                                                             // 0x00463860
 
 
 void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner);                                     // 0x00621CE0
@@ -454,7 +453,6 @@ __forceinline int UNITS_GetUnitYPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-int __fastcall SKILLS_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bSkipMana);   // 0x0056F640
 
 // 0x005CAE40
 int __fastcall SKILLS_SrvSt42_FireHit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)

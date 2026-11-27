@@ -780,7 +780,6 @@ struct D2PoolSystemStrc;
 #include "gen/data/Source/D2Game/GAME/Game_0052D720.static/gnFrameRate.inc"
 
 
-int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem);                                     // 0x0040A040
 
 
 static void GAME_UpdatePendingRooms(D2GameStrc* pGame);
@@ -1071,7 +1070,6 @@ const void* __cdecl sub_0052BFA0_GetData6E0568()
     return gData_006E0568;
 }
 
-extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
 
 void __fastcall CLIENTS_Release();                                                                          // 0x00537730
 

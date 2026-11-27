@@ -359,7 +359,6 @@ unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit)
 
 void __fastcall SKILLS_FillMinionSkillDamage(D2UnitStrc* pUnit, int nUnused, D2MonSkillInfoStrc* pMonSkillInfo); // 0x0056E050
 int __fastcall SUNITPROXY_GetDifficultyScaledBonus(D2GameStrc* pGame, int nCount); // 0x005A4F20
-int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 
 static inline int MONSTEREVAL_GetUnitType(D2UnitStrc* pUnit)
 {

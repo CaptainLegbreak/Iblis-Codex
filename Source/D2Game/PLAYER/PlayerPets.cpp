@@ -130,7 +130,6 @@ extern "C" D2PetTypeTxt* __fastcall sub_00478A20_GetPetTypeTxtRecord(int nPetTyp
 
 struct D2ClientStrc;
 
-D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
 int __fastcall GAME_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 

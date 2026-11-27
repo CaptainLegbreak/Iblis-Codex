@@ -486,7 +486,6 @@ unsigned int __stdcall sub_006417F0(D2UnitStrc* pUnit, int nX, int nY); // 0x006
 int __fastcall SKILLS_DrainTargetDurability(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillLevel); // 0x0056C2D0
 
 
-void __fastcall SKILLS_ReleaseProgressiveCharges(D2GameStrc* pGame, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005D5220
 
 unsigned int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 
