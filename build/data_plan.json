@@ -3063,7 +3063,7 @@
   },
   "Source/D2Common/DRLG/RoomTile.cpp": {
    "bytes": 1744,
-   "definitions": 7,
+   "definitions": 8,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/RoomTile_0066D960.inc",
@@ -128906,12 +128906,48 @@
    "name": "gData_006EF574",
    "pointers": [],
    "region": "rdata",
-   "size": 172,
+   "size": 4,
    "va": "0x006EF574",
    "fwd": "extern \"C\" const struct d2data_006EF574_t gData_006EF574; // 0x006EF574",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006EF574_t\n{\n    unsigned char b0[172];\n};\n#pragma pack(pop)",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006EF574_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
    "head": "extern \"C\" const struct d2data_006EF574_t gData_006EF574 = ",
    "tail": "; // 0x006EF574"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DRLG/RoomTile.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const int gnWallTileTypeRemap[6][7] = ",
+   "model": {
+    "elem": {
+     "elem": {
+      "k": "prim",
+      "kind": "s",
+      "name": "int",
+      "size": 4
+     },
+     "k": "arr",
+     "n": 7,
+     "size": 28
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 168
+   },
+   "name": "gnWallTileTypeRemap",
+   "pointers": [],
+   "region": "rdata",
+   "size": 168,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006EF578",
+   "type": "int",
+   "va": "0x006EF578"
   },
   {
    "alias": false,
