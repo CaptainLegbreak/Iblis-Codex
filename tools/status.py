@@ -283,8 +283,16 @@ L.append('| `__declspec(noinline)` / `__forceinline` | %d / %d |' % (count(r'__d
 L.append('| Function names: blizzard / library / d2moo / inferred / placeholder | %d / %d / %d / %d / %d |' % (name_src['blizzard'], name_src['library'], name_src['d2moo'], name_src['inferred'], name_src['placeholder']))
 L.append('\n`docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.')
 
-um = re.search(r'## Unmatched functions.*?(?=\n## )', old, re.S)
-L.append('\n' + (um.group(0).rstrip() if um else ''))
+unmatched = sorted((f for f in GAME if f[2] == 'unmatched'), key=lambda f: int(f[0], 16))
+L.append('\n## Unmatched functions\n')
+if unmatched:
+    L.append('These have no verified source yet. The byte-exact build takes their bytes from your Game.exe; the ordinary build uses the functional replacement in `Source/StandIns/`.\n')
+    L.append('| Address | Size | Name |\n|---|---:|---|')
+    for f in unmatched:
+        a = int(f[0], 16)
+        L.append('| 0x%08X | %d | %s |' % (a, f[1], NAMES.get(a, ('sub_%08X' % a, ''))[0]))
+else:
+    L.append('None: every function of Game.exe builds from source.')
 
 L.append('\n## Non-original constructs\n\nFunctions whose source needs something the original source very likely did not have: a per-file compiler option other than its module\'s default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`, an `if`/`else` whose two arms are identical). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original\'s release-build asserts and unreachable switch defaults) are listed for completeness.\n')
 gs = sum(len(u['functions']) for u in UNITS if '/GS-' in (u.get('flags') or []))
