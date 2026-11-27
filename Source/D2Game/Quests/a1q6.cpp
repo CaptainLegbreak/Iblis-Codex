@@ -871,7 +871,7 @@ void __fastcall ACT1Q6_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfActiveFilter = (QUESTACTIVEFILTER)ACT1Q6_ActiveFilterCallback;
 
     pQuestDataEx->nAndarielGUID = 0;
-    pQuestDataEx->unk0x190 = 0;
+    pQuestDataEx->unused0x190 = 0;
     pQuestDataEx->nTimerInvocations = 0;
     pQuestDataEx->bAndarielKilled = 0;
     pQuestDataEx->bCainActivated = 0;

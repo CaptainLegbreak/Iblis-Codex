@@ -123,8 +123,8 @@ void __fastcall ACT2Q8_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->fLastState = 0;
     D2Act2Quest8Strc* pQuestDataEx = (D2Act2Quest8Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest8Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q8.cpp", 150, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
-    pQuestDataEx->unk0x00 = 0;
-    pQuestDataEx->unk0x01 = 0;
+    pQuestDataEx->unused0x00 = 0;
+    pQuestDataEx->unused0x01 = 0;
     pQuestData->eFilter = QUESTSTATEFLAG_A2Q8;
     pQuestData->pfStatusFilter = ACT2Q8_StatusFilterCallback;
     pQuestData->pfActiveFilter = ACT2Q8_ActiveFilterCallback;

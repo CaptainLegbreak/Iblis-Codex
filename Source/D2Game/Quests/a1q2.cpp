@@ -175,8 +175,8 @@ void __fastcall ACT1Q2_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->nSeqId = A1Q2_SEQID;
     pQuestData->pfActiveFilter = ACT1Q2_ActiveFilterCallback;
 
-    pQuestDataEx->bUnk0x01 = 0;
-    pQuestDataEx->bUnk0x00 = 0;
+    pQuestDataEx->unused0x01 = 0;
+    pQuestDataEx->bFinished = 0;
     pQuestDataEx->bKashyaActivated = 0;
     pQuestDataEx->bBloodravenKilled = 0;
     pQuestDataEx->nBloodravenGUID = 0;
@@ -531,7 +531,7 @@ void __fastcall ACT1Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         QUESTS_DebugOutput(pQuestData->pGame, "killed boss for quest", gszA1Q2SourceFile, DIAG_LINE_NUMBER);
         QUESTS_StateDebug(pQuestData, QUEST_STATE, gszA1Q2SourceFile, STATE_LINE);
         D2Act1Quest2Strc* pQuestDataEx = (D2Act1Quest2Strc*)pQuestData->pQuestDataEx;
-        pQuestDataEx->bUnk0x01 = 1;
+        pQuestDataEx->unused0x01 = 1;
         pQuestDataEx->bBloodravenKilled = 1;
         pQuestDataEx->nBloodravenGUID = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwUnitId;
         SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT1Q2_UnitIterate_SetRewardPending);
@@ -540,8 +540,8 @@ void __fastcall ACT1Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT1Q2_UnitIterate_AttachCompletionSound);
         QUESTS_CreateTimer(pQuestData, ACT1Q2_Timer_StatusCycler, TIMER_TICKS);
         pQuestData->pCallback[2] = 0;
-        pQuestDataEx->bUnk0x00 = 1;
-        pQuestDataEx->unk0x04 = 1;
+        pQuestDataEx->bFinished = 1;
+        pQuestDataEx->unused0x04 = 1;
         QUESTS_SetGlobalState(pQuestArg->pGame, pQuestData->eFilter, GLOBAL_STATE);
     }
 }
