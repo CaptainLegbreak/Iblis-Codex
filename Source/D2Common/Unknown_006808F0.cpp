@@ -136,7 +136,7 @@ static void __stdcall sub_00680B10(D2DrlgRoomStrc* pRoom)
 }
 
 // 0x00680C80
-void __fastcall sub_00680C80(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom)
+void __fastcall DRLG_OUTDOORS_GenerateDirtPath(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom)
 {
     DRLGGRID_InitializeGridCells(pLevel->pDrlg->pMempool, &pRoom->pOutdoor->tGrid3C, pRoom->pDrlgCoord.nWidth + 3, pRoom->pDrlgCoord.nHeight + 3);
     sub_00680A70(pLevel, pRoom);

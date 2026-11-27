@@ -1601,7 +1601,7 @@ static void __stdcall PANEL_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2Invent
 
     D2Block1 tBlock1;
     const int nClass = UNITS_GetInventoryRecordId(pPlayer, 0, GAME_IsExpansion());
-    sub_0065C1F0(nClass, gnBeltUiRecordRow, &tBlock1);
+    DATATBLS_GetInventoryGridInfo(nClass, gnBeltUiRecordRow, &tBlock1);
     D2UnitStrc* pItem = INVENTORY_GetItemFromBeltSlot(pInventory, nSlot);
     if (!pItem)
     {

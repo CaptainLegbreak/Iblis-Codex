@@ -535,7 +535,7 @@ void __fastcall DATATBLS_UnloadObjGroupTxt(); // 0x00640F00
 
 void __fastcall DATATBLS_UnloadShrinesTxt(); // 0x00641510
 
-void __fastcall sub_0065C130(); // 0x0065C130
+void __fastcall DATATBLS_UnloadInventoryTxt(); // 0x0065C130
 
 void __fastcall DATATBLS_UnloadRunesTxt(); // 0x00639C90
 
@@ -1886,7 +1886,7 @@ void __stdcall DATATBLS_UnloadAllBins()
     DATATBLS_UnloadObjectsTxt();
     DATATBLS_UnloadObjGroupTxt();
     DATATBLS_UnloadShrinesTxt();
-    sub_0065C130();
+    DATATBLS_UnloadInventoryTxt();
     DATATBLS_UnloadRunesTxt();
     DATATBLS_FreeCollisionFieldTable();
     DATATBLS_UnloadBeltsTxt();

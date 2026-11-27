@@ -469,12 +469,12 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListSt
 
 int __fastcall STATLIST_HasSkillDesc(int nSkillId);                                                     // 0x00627AF0
 
-void __stdcall sub_00627EF0(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo);                    // 0x00627EF0
+void __stdcall ITEMS_AssignPrefix(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo);                    // 0x00627EF0
 
-void __stdcall sub_00627FB0(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo);                    // 0x00627FB0
+void __stdcall ITEMS_AssignSuffix(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo);                    // 0x00627FB0
 
 
-void __stdcall sub_00628070(D2UnitStrc* pItem, unsigned short nSuffix);                                   // 0x00628070
+void __stdcall ITEMS_AssignRareSuffix(D2UnitStrc* pItem, unsigned short nSuffix);                                   // 0x00628070
 
 
 void __stdcall ITEMS_SetRealmData(D2UnitStrc* pItem, int nRealmData0, int nRealmData1);                         // 0x00629EA0
@@ -768,7 +768,7 @@ unsigned short __stdcall ITEMS_GetPrefixId(D2UnitStrc* pItem, int nPrefixNo)
 }
 
 // 0x00627EF0
-void __stdcall sub_00627EF0(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo)
+void __stdcall ITEMS_AssignPrefix(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo)
 {
     if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
     {
@@ -808,7 +808,7 @@ unsigned short __stdcall ITEMS_GetSuffixId(D2UnitStrc* pItem, int nSuffixNo)
 }
 
 // 0x00627FB0
-void __stdcall sub_00627FB0(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo)
+void __stdcall ITEMS_AssignSuffix(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo)
 {
     if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
     {
@@ -848,7 +848,7 @@ unsigned short __stdcall ITEMS_GetRareSuffixIndex(D2UnitStrc* pItem)
 }
 
 // 0x00628070
-void __stdcall sub_00628070(D2UnitStrc* pItem, unsigned short nSuffix)
+void __stdcall ITEMS_AssignRareSuffix(D2UnitStrc* pItem, unsigned short nSuffix)
 {
     if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
     {
@@ -4631,11 +4631,11 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                     {
                         nPrefix += nMagicPrefixOffset;
                     }
-                    sub_00627EF0(pItem, nPrefix, 0);
+                    ITEMS_AssignPrefix(pItem, nPrefix, 0);
                 }
                 else
                 {
-                    sub_00627FB0(pItem, BITMANIP_ReadInl(pBuffer, 11), 0);
+                    ITEMS_AssignSuffix(pItem, BITMANIP_ReadInl(pBuffer, 11), 0);
                 }
             }
         }
@@ -4647,7 +4647,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
 
         if (ITEMSIsA(pItem, 22) || ITEMSIsA(pItem, 18))
         {
-            sub_00627FB0(pItem, BITMANIP_ReadInl(pBuffer, 5), 0);
+            ITEMS_AssignSuffix(pItem, BITMANIP_ReadInl(pBuffer, 5), 0);
         }
         break;
 
@@ -4656,7 +4656,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
         if (bCheckForHeader || ITEMS_GetItemFlags(pItem) & IFLAG_IDENTIFIED)
         {
             ITEMS_AssignRarePrefix(pItem, BITMANIP_ReadInl(pBuffer, 8));
-            sub_00628070(pItem, BITMANIP_ReadInl(pBuffer, 8));
+            ITEMS_AssignRareSuffix(pItem, BITMANIP_ReadInl(pBuffer, 8));
         }
 
         for (int i = 0; i < 3; ++i)
@@ -4700,7 +4700,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
         if (bCheckForHeader || ITEMS_GetItemFlags(pItem) & IFLAG_IDENTIFIED)
         {
             ITEMS_AssignRarePrefix(pItem, BITMANIP_ReadInl(pBuffer, 8));
-            sub_00628070(pItem, BITMANIP_ReadInl(pBuffer, 8));
+            ITEMS_AssignRareSuffix(pItem, BITMANIP_ReadInl(pBuffer, 8));
         }
         break;
 
@@ -4712,10 +4712,10 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
             {
                 nPrefix += nMagicPrefixOffset;
             }
-            sub_00627EF0(pItem, nPrefix, 0);
+            ITEMS_AssignPrefix(pItem, nPrefix, 0);
 
             unsigned short nSuffix = BITMANIP_ReadInl(pBuffer, 11);
-            sub_00627FB0(pItem, nSuffix, 0);
+            ITEMS_AssignSuffix(pItem, nSuffix, 0);
         }
         break;
 
