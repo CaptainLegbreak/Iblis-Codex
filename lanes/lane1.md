@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 20:44 PST 2026: check-in. #466 took skillsmon-callbacks and hinttext-join (Ready lines dropped); Ready is empty. Next: functions in my range whose every caller is in one named file whose run they sit in.
 - Thu Nov 26 20:12 PST 2026: hinttext-join ready.
 - Thu Nov 26 20:00 PST 2026: check-in. Main is #464; skillsmon-callbacks still ready, merges clean.
 - Thu Nov 26 19:55 PST 2026: skillsmon-callbacks rebased on #463 (it conflicted with #463's declaration cleanup in Unknown_004E2320.cpp, which the branch deletes), identical, repushed.
@@ -76,8 +77,6 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/hinttext-join b7337813d (on #464, merges clean on #464): SkillDesc.cpp takes TEXT_DrawHintText (0x4ED3F0) from text.cpp: it sits between two SkillDesc.cpp functions and the image calls it only from SkillDesc.cpp's 0x4EDEA0 (four calls, +0xA82 to +0xAE2). Both units equal. Full build: Game.exe identical, tree 2ec1c280373a61147152e9e339331e4b7524e6b0, borrowed code / data 4,232 B / 261 B. Audit guard: no count rose. (Three other functions sit between two functions of another named file: GFXUTIL_CltDoMissileA 0x4E24D0 in SkillsMon.cpp's run, SKILLSMON_DescIfRecord 0x4EC040 in SkillDesc.cpp's, SKILLSNEC_CheckNecromancerSkill 0x4F3F50 in SkillsMon.cpp's. Nothing calls them directly, so only their place speaks for a move, against their current files; left.)
-- lane1/skillsmon-callbacks 691250e39 (on #463): SkillsMon.cpp takes three client skill callbacks that each sit between two SkillsMon.cpp functions and that the image reaches only through the client skill tables (0x727B38, 0x727C98, 0x727CA8): 0x4E1FF0 and 0x4E2630 from SkillDesc_004E1FF0.cpp, and 0x4E2320 from Unknown_004E2320.cpp, its last function, so that placeholder goes (placeholder files -1). They bring their frame constants and three declarations (SkillsMon.cpp's second SKILLS_SetParam3 copy goes). Both units equal. Full build: Game.exe identical, tree 926d0e8e824904a8378a72cec2a898124cc0014d, borrowed code / data 5,424 B / 261 B. Audit guard: no count rose.
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
 
