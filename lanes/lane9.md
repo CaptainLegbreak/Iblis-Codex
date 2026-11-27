@@ -93,7 +93,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
   names from their bodies (_Nop, _Return0/_Return5/_Return43, GetWaypointData, GetMonStats2Record, ...); exported
   functions keep theirs. auditguard no count rose; merges cleanly onto #460. Full build: Game.exe identical, tree
   a54bd6a14ed7030628a6fe267934c7c74be7e0ca, borrowed code / data 5,424 / 261 B.
-- MERGED (#464) lane9/params-d2game-tail 087baef3 (on #459): D2Game: nUnused1.. for the Debug.cpp and Game.cpp stubs' unused
+- lane9/params-d2game-tail 087baef3 (still Ready: not on main yet, I had marked it merged by mistake) (on #459): D2Game: nUnused1.. for the Debug.cpp and Game.cpp stubs' unused
   parameters, bTimedEvents for the event dispatchers' flag (D2MOO's name), nGameId/nVersion for CCMD_CanClientJoinGame
   (from D2MOO's caller). a1/v12 295 -> 244 alone; auditguard no count rose; merges cleanly onto #460 and with verbs2.
   Full build: Game.exe identical, tree c0ee6925f17c6438ad75aac9dbd5f65e473f51f8, borrowed code / data 5,424 / 261 B.
