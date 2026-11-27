@@ -10,7 +10,7 @@ it is on main; from #473, based on main.
 ## Ready
 - Fri Nov 27 15:58 PST 2026: **lane12/api-modules-1** (b700e20d6, on #490 9eff52f20; replaces api-d2client-2, which conflicted with main):
   15 commits, queue items 1 and 2. declunits-1 (CharSel/MainMenus/ChatDlg/ComCallback reconciled one name at a
-  time: 54 retyped, 11 dropped, 63 kept and listed in the old entry's text below), then genheaders per module,
+  time: 54 retyped, 11 dropped, 63 kept: see Notes for other lanes), then genheaders per module,
   regenerated on #490 from each module's exclusion list: D2Client 370 private copies in 79 units (D2ClientApi.h,
   header lines corrected), D2Game 11 (D2GameApi.h), and the second pass, with new exports in <M>Api2.h and
   existing header lines left alone (--no-fix-headers, because correcting them flipped declaration-count units):
@@ -150,3 +150,30 @@ it is on main; from #473, based on main.
 ## Questions (owner's ruling: void definitions whose callers use a result)
 
 ## Notes for other lanes
+- For lane 11 (the D2Multi/D2Launch renames): in CharSel.cpp, MainMenus.cpp, ChatDlg.cpp and ComCallback.cpp these
+  private declarations keep a type other than their definition's, because the unit's code changes with the
+  definition's type (type_disagreement items; leave them as they are when renaming):
+    CharSel.cpp: MAINMENUS_JoinGame (0x00434a00), MAINMENUS_DeleteCharFiles (0x0043c750), 
+      CONTROL_SetFocusedEditBox (0x004f91c0), D2Win_10051 (0x004fc9b0), IMAGE_SetCoordinates (0x004fd0b0), 
+      EDITBOX_SetText (0x004ff5a0), ANIMIMAGE_SetIsRunning (0x00500810)
+    ChatDlg.cpp: CHATDLG_RequestCharLogon (0x00449e10), WINMAIN_SendMcpCreateGame (0x0044a400), 
+      CONTROL_SetFocusedEditBox (0x004f91c0), D2Win_10052_TEXTBOX_GetNumLines (0x004fb910), D2Win_10196 (0x004fbb90), 
+      D2Win_10188 (0x004fbde0), EDITBOX_SetText (0x004ff5a0), D2Win_10076 (0x004ffe10), BUTTON_SetIsPressed 
+      (0x005009a0), STR_GroupUint64DigitsWithSuffix (0x005255c0), STRTABLE_LoadStringTables (0x005259c0), 
+      gpLevelDiffCheck (0x00798c40)
+    ComCallback.cpp: SStrChr (0x00413490), CHATDLG_IsPrintableChar (0x00443600), CONTROL_SetFocusedEditBox 
+      (0x004f91c0), IMAGE_GetFrameCount (0x004fd1b0), D2Win_10078_IsNumber (0x004fe770), BUTTON_SetIsPressed 
+      (0x005009a0), gData_0070CD84 (0x0070cd84), gData_0070CD94 (0x0070cd94), gpBnetJoinGameScrollBarsCelFile 
+      (0x0077bc20), gpJoinGameBckgCelFile (0x0077bc50), gpGameButtonBlankCelFile (0x0077bc5c), 
+      gpJoinGameClickBoxCelFile (0x0077bc60), gpGreyLevelBoxCelFile (0x0077bc64), gpRadioButtonCelFile (0x0077bc68), 
+      gpNumberArrowsCelFileA (0x0077bcc0), gpNumberArrowsCelFileB (0x0077bcc4), gpNumberArrowsCelFileC (0x0077bcc8), 
+      gpNumberArrowsCelFileD (0x0077bccc), gpNumberGreyArrowsCelFile (0x0077bcd0), gpCreateGameBckgCelFile 
+      (0x0077bd0c), gpBnetWideButtonBlankCelFile (0x0077bd18), gpBnetCancelButtonBlankCelFileB (0x0077bd2c), 
+      gpLadderChoiceExpCelFile (0x0077bd34), gpPlayerProfileBckgCelFileA (0x0077bd3c), gpPlayerProfileBckgCelFileB 
+      (0x0077bd40)
+    MainMenus.cpp: FOG_ComputeChecksum (0x00411130), GAME_GetPreferredRealm (0x00437d00), 
+      CHATDLG_RequestCharCreate (0x00449df0), CHATDLG_RequestCharLogon (0x00449e10), CONTROL_SetFocusedEditBox 
+      (0x004f91c0), CONTROL_Create (0x004f93c0), D2Win_10053 (0x004fba30), D2Win_10055 (0x004fbab0), D2Win_10051 
+      (0x004fc9b0), IMAGE_SetFrame (0x004fd110), IMAGE_ForceNormalDrawMode (0x004fd170), IMAGE_GetFrameCount 
+      (0x004fd1b0), D2Win_10082 (0x004fdd00), D2Win_10077_EDITBOX_GetText (0x004fdd90), D2Win_10106 (0x00500310), 
+      D2Win_10104 (0x00500340), BUTTON_SetIsPressed (0x005009a0), BUTTON_SetText (0x005009d0)
