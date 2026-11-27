@@ -5,6 +5,18 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
+- Fri Nov 27 15:56 PST 2026: **lane13/interior-1** (466f63d0c, on main 262f4aec8 = #489; merges cleanly onto #491; independent of queue-1-2). Lane 13 queue item 3, first part. VERIFIED tree bc6035e5340665521deaca80074e0457dbd68f44; Game.exe identical. Audit guard: no count rose. Pointer casts in the diff: 0 removed, 0 added.
+  - **Commits:**
+    - gdwBitMasks indexed in 18 units, instead of about 40 scalar names (some typed as bytes; every unit is still equal).
+    - gtPlayerInvRect and gtNpcInvRect read by field.
+    - npcmenu.cpp's g007C0D8E and g007C0D96 become gtPacket2A.nUnitId and gbNpcActionPending.
+    - gCmpBlockTableA[0x1000] is defined at 0x0088CB20.
+    - D2WinPalette.cpp's light and gamma tables become rows 32-48 of gatShadowsLightGammaPalette.
+  - **Counts, main #489 -> this:**
+    - interior: 161 / 56 -> 93 / 41.
+    - linkdebt total: 21,832 -> 21,813. D2Client 7,677 -> 7,663, D2Win 773 -> 771, D2CMP 373 -> 370; no module rose.
+    - data_cluster unchanged.
+    - shortdata: 363 -> 362.
 - Fri Nov 27 15:33 PST 2026: **lane13/queue-1-2** (c9a45d7b6, on main 262f4aec8 = #489). Lane 13 queue items 1 and 2. VERIFIED tree f3dc462645e5e87e2b9500e659a223efce98ebcc; Game.exe identical. Audit guard: no count rose. Pointer casts in the diff: 8 removed, 1 added (the save header view of the read buffer).
   - **D2Direct3D smack slots:** four 2-entry arrays, one name each. The three D3DCORE helpers are declared typed, so no call needs a cast.
     - gapSmackSurfaces[2] (memory surfaces).
@@ -21,6 +33,7 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - linkdebt total: 21,832 -> 21,814. D2Direct3D 708 -> 690; no module rose.
     - shortdata: 363 -> 364. The new candidate is 4 unreferenced bytes after gapSmackTextures.
 ## Claimed
+- Fri Nov 27 15:56 PST 2026: interior-1 Ready, alongside queue-1-2; both merge onto #491. Next: the rest of item 3. I'm leaving out the gtTextHistory struct (a branch of its own) and the Glide pointer tables (noted above).
 - Fri Nov 27 15:43 PST 2026: **lane13/interior-1** (item 3, first part, on #489) is doing its full build. Its five commits:
   - **gdwBitMasks:** 18 units read it through about 40 scalar names; they now index it. CharSel.cpp and ComCallback.cpp are left for lane 12, and d3dSmack.cpp until queue-1-2 lands.
   - **gtPlayerInvRect/gtNpcInvRect:** the four-field aliases are gone.
