@@ -2683,22 +2683,6 @@ void __stdcall INVENTORY_AddItemToTradeInventory(D2InventoryStrc* pInventory, D2
     pInventory->pLastNode = ptNode;
 }
 
-void __stdcall sub_00646010_Empty(int nUnused1, int nUnused2, int nUnused3)
-{
-}
-
-void __stdcall sub_006460C0_Empty(int nUnused)
-{
-}
-
-void __stdcall sub_006460D0_Empty(int nUnused1, int nUnused2, int nUnused3)
-{
-}
-
-void __stdcall sub_006460E0_Empty(int nUnused)
-{
-}
-
 // 0x0063CD20
 D2InventoryNodeStrc* __stdcall INVENTORY_GetNextNode(D2InventoryNodeStrc* pNode)
 {
@@ -3348,35 +3332,12 @@ D2CorpseStrc* __stdcall INVENTORY_GetNextCorpse(D2CorpseStrc* pCorpse)
     return pCorpse->pNextCorpse;
 }
 
-D2SkillStrc* __stdcall SKILLS_GetNextSkill(D2SkillStrc* pSkill)
-{
-    if (!pSkill)
-        return 0;
-    return pSkill->pNextSkill;
-}
-
 // 0x0063D630
 D2SkillStrc* __stdcall SKILLS_GetFirstSkillFromSkillList(D2SkillListStrc* pSkillList)
 {
     if (!pSkillList)
         return 0;
     return pSkillList->pFirstSkill;
-}
-
-D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
-{
-    if (!pUnit->pSkills)
-        return 0;
-    D2SkillStrc* pSkill = pUnit->pSkills->pFirstSkill;
-    if (!pSkill)
-        return 0;
-    while (pSkill)
-    {
-        if (pSkill->pSkillsTxt->nSkillId == nSkillId && pSkill->nOwnerGUID == nOwnerGUID)
-            break;
-        pSkill = pSkill->pNextSkill;
-    }
-    return pSkill;
 }
 
 // 0x0063D650

@@ -1457,23 +1457,6 @@ void __stdcall DUNGEON_SetActCallbackFunc(D2DrlgActStrc* pAct, ACTCALLBACKFN pAc
     pAct->pfnActCallBack = pActCallbackFunction;
 }
 
-static inline int sub_F45_IsFirstAtLevel(D2CommonLevelNodeStrc* pNode, int nLevel)
-{
-    for (int i = 0; i <= nLevel; ++i)
-    {
-        if (pNode->wLevelCounts[i])
-            return 0;
-    }
-    return 1;
-}
-
-static inline void sub_F45_VisitChild(D2CommonLevelNodeStrc* pChild, int nLevel)
-{
-    if (pChild->nMaxLevel >= nLevel && sub_F45_IsFirstAtLevel(pChild, nLevel))
-        gpfnRoomExSetStatus[nLevel](pChild);
-    ++pChild->wLevelCounts[nLevel];
-}
-
 // 0x00653ED0
 const Unicode* __fastcall DATATBLS_RollRandomUniquePrefixString(D2UnitStrc* pUnit)
 {

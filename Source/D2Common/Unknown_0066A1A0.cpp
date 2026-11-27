@@ -30,14 +30,6 @@ int __fastcall DATATBLS_GetCubemainTxtRecordCount()
     return sgtDataTables.nCubeMainTxtRecordCount;
 }
 
-void __stdcall DATATBLS_EmptyStub_0066A220(int nUnused1, int nUnused2)
-{
-}
-
-void __stdcall DATATBLS_EmptyStub_0066A250(int nUnused)
-{
-}
-
 // 0x0066A260
 void __fastcall sub_0066A260_PlayerDataFreeHook(D2UnitStrc* pUnit)
 {

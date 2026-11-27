@@ -413,33 +413,6 @@ D2ShrinesTxt* __stdcall DATATBLS_GetShrinesTxtRecord(int nShrineId)
     return &gpShrinesTxt[nShrineId];
 }
 
-inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-    return 0;
-}
-
-inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
-{
-    if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return &sgptDataTables->pMissilesTxt[nMissileId];
-    }
-    return 0;
-}
-
-inline D2StatesTxt* DATATBLS_GetStatesTxtRecordInline(int nStateId)
-{
-    if (nStateId >= 0 && nStateId < sgptDataTables->nStatesTxtRecordCount)
-    {
-        return &sgptDataTables->pStatesTxt[nStateId];
-    }
-    return 0;
-}
-
 inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -599,10 +572,6 @@ int __stdcall UNITS_IsInRange(D2UnitStrc* pUnit, D2CoordStrc* pCoord, int nDista
     }
 
     return nDistanceX * nDistanceX + nDistanceY * nDistanceY <= nDistance * nDistance;
-}
-
-static inline int IsNearRoomY(const D2DrlgCoordsStrc* pCoords,int nY,int nRadius) {
- return nY+nRadius>=pCoords->nSubtileY || nY-nRadius<=pCoords->nSubtileHeight+pCoords->nSubtileY;
 }
 
 inline int GetX(D2UnitStrc* pUnit) {

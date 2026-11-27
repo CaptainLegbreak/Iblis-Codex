@@ -2589,11 +2589,6 @@ void __stdcall STATLIST_DeactivateTemporaryStates(D2UnitStrc* pUnit)
     pStatListEx->dwFlags &= ~2;
 }
 
-static inline const D2StatStrc* STATLIST_GetFirstStat_Inline(const D2StatsArrayStrc* pStats)
-{
-    return pStats->pStat;
-}
-
 // 0x00627340
 void __stdcall STATLIST_RemoveAllStats(D2StatListStrc* pStatList)
 {

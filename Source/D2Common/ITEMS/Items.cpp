@@ -1113,26 +1113,6 @@ extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId)
     return 0;
 }
 
-extern "C" D2PetTypeTxt* __fastcall sub_00478A20_GetPetTypeTxtRecord(int nPetType)
-{
-    if (nPetType >= 0 && nPetType < sgptDataTables->nPetTypeTxtRecordCount)
-    {
-        return &sgptDataTables->pPetTypeTxt[nPetType];
-    }
-
-    return 0;
-}
-
-extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClass)
-{
-    if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pCharStatsTxt[nClass];
-    }
-
-    return 0;
-}
-
 // build: symbol @MISSILES_GetMonLvlTxtRecord@* 0x005A0000
 extern "C" D2MonLvlTxt* __fastcall MISSILES_GetMonLvlTxtRecord(int nLevel)
 {
@@ -2330,19 +2310,6 @@ void __stdcall ITEMS_SetOwnerId(D2UnitStrc* pItem, int nOwnerGUID)
     pItem->pItemData->dwOwnerGUID = nOwnerGUID;
 }
 
-inline int ITEMS_CheckIfSocketable_Inl(D2UnitStrc* pItem)
-{
-    if (pItem && pItem->dwUnitType == UNIT_ITEM)
-    {
-        if (D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(pItem->dwClassId))
-        {
-            return pItemsTxtRecord->nHasInv;
-        }
-    }
-
-    return 0;
-}
-
 inline unsigned int ITEMS_CheckItemFlag_Inl(D2UnitStrc* pItem, unsigned int dwFlag)
 {
     if (pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
@@ -2860,25 +2827,6 @@ inline void ITEMS_SetItemFlag_Inline(D2UnitStrc* pItem, unsigned int dwFlag, int
                 pItemData->dwItemFlags |= dwFlag;
             else
                 pItemData->dwItemFlags &= ~dwFlag;
-        }
-    }
-}
-
-inline int sub_0044BE50(D2UnitStrc* pUnit)
-{
-    return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-}
-
-inline void ITEMS_SetItemFlags(D2UnitStrc* pItem, unsigned int dwFlags)
-{
-    if (pItem)
-    {
-        switch (pItem->dwUnitType)
-        {
-        case UNIT_ITEM:
-            if (pItem->pItemData)
-                pItem->pItemData->dwItemFlags = dwFlags;
-            break;
         }
     }
 }

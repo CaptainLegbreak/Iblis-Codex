@@ -85,120 +85,6 @@ int __fastcall PATH_SimplifyToLines(D2PathPointStrc tStartCoord, D2PathPointStrc
 
 static int __stdcall PATH_BresenhamLine(D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint, int nDistMax, int* nMajorDirection, D2PathPointStrc* pOutPoints);
 
-inline const int& PATH_MaxRef(const int& a, const int& b)
-{
-    return a > b ? a : b;
-}
-
-inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    }
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
-inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    }
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
-
-static inline int PATH_TestCollision(const D2CollisionTestStrc* pTest, int nX, int nY)
-{
-    return COLLISION_CheckAnyCollisionWithPattern(pTest->pRoom, nX, nY, pTest->nCollisionPattern, pTest->nCollisionMask);
-}
-
-static inline int PATH_ScaleDelta(int nScale, int nDelta, int nMax)
-{
-    int nResult = nScale;
-    nResult *= nDelta;
-    return nResult / nMax;
-}
-
-static inline unsigned short PATH_AStar_HeuristicInline(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
-{
-    int nDiffX = tPoint1.X - tPoint2.X;
-    if (nDiffX < 0)
-    {
-        nDiffX = -nDiffX;
-    }
-
-    int nDiffY = tPoint1.Y - tPoint2.Y;
-    if (nDiffY < 0)
-    {
-        nDiffY = -nDiffY;
-    }
-
-    if (nDiffX >= nDiffY)
-    {
-        return nDiffY + 2 * nDiffX;
-    }
-    return nDiffX + 2 * nDiffY;
-}
-
-static inline D2PathFoWallNodeStrc* PATH_AStar_RemoveFromPendingCache(D2PathFoWallContextStrc* pContext, D2PathFoWallNodeStrc* pToRemove)
-{
-    D2PathFoWallNodeStrc* pPrev = 0;
-    const int nHash = (gaIdaStar_PointCacheHashMaskY[pToRemove->tPoint.Y & 0x7F] + gaIdaStar_PointCacheHashMaskX[pToRemove->tPoint.X & 0x7F]) & 0x7F;
-    for (D2PathFoWallNodeStrc* pCur = pContext->aPendingCache[nHash]; pCur != pToRemove; pCur = pCur->pNextCachePoint)
-    {
-        pPrev = pCur;
-    }
-
-    if (pPrev)
-    {
-        pPrev->pNextCachePoint = pToRemove->pNextCachePoint;
-    }
-    else
-    {
-        pContext->aPendingCache[nHash] = pToRemove->pNextCachePoint;
-    }
-    pToRemove->pNextCachePoint = 0;
-    return pPrev;
-}
-
-static inline void PATH_AStar_AddChildToNode(D2PathFoWallNodeStrc* pNode, D2PathFoWallNodeStrc* pChild)
-{
-    if (!pNode->pChildren[0])
-        pNode->pChildren[0] = pChild;
-    else if (!pNode->pChildren[1])
-        pNode->pChildren[1] = pChild;
-    else if (!pNode->pChildren[2])
-        pNode->pChildren[2] = pChild;
-    else if (!pNode->pChildren[3])
-        pNode->pChildren[3] = pChild;
-    else if (!pNode->pChildren[4])
-        pNode->pChildren[4] = pChild;
-    else if (!pNode->pChildren[5])
-        pNode->pChildren[5] = pChild;
-    else if (!pNode->pChildren[6])
-        pNode->pChildren[6] = pChild;
-    else if (!pNode->pChildren[7])
-        pNode->pChildren[7] = pChild;
-}
-
-static inline D2PathFoWallNodeStrc* PATH_AStar_GetNewNode(D2PathFoWallContextStrc* pContext)
-{
-    D2PathFoWallNodeStrc* pNewNode = 0;
-    if (pContext->nNodesCount != 200)
-    {
-        pNewNode = &pContext->aNodesStorage[pContext->nNodesCount++];
-        memset(pNewNode, 0, sizeof(*pNewNode));
-    }
-    return pNewNode;
-}
-
 // 0x0067B9C0
 int __stdcall PATH_GetSquaredDistanceBetweenPoints(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
@@ -608,13 +494,6 @@ int __fastcall PATH_SimplifyToLines(D2PathPointStrc* pOutPathPoints, D2PathPoint
     }
 
     return nbOutPoints;
-}
-
-static inline int PATH_TestNewTargetPointWF(D2PathMovStrc* pMov, D2ActiveRoomStrc* pRoom, int nCollisionPattern, int nCollisionMask)
-{
-    pMov->tTargetCoord.X = (unsigned short)(gnDirectionsToAdjacentCellOffsets[pMov->nDirectionIndex].nX + pMov->tCurrentCoord.X);
-    pMov->tTargetCoord.Y = (unsigned short)(gnDirectionsToAdjacentCellOffsets[pMov->nDirectionIndex].nY + pMov->tCurrentCoord.Y);
-    return COLLISION_CheckAnyCollisionWithPattern(pRoom, pMov->tTargetCoord.X, pMov->tTargetCoord.Y, nCollisionPattern, nCollisionMask);
 }
 
 // 0x0067C2D0

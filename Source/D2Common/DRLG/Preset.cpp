@@ -738,41 +738,6 @@ int __fastcall SKILLDESC_ValidateMonsterId(int nMonsterId)
     return nMonsterId / sgptDataTables->nMonStatsTxtRecordCount;
 }
 
-static void __fastcall DRLGPRESET_AddTombStoneTiles(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom)
-{
-    D2DrlgPresetRoomStrc* pMaze = pDrlgRoom->pMaze;
-    int nTombStoneTiles = 0;
-
-    if (pMaze->pTombStoneTiles)
-    {
-        return;
-    }
-
-    pMaze->pTombStoneTiles = (D2CoordStrc*)sub_0040B430(pMemPool, 6 * sizeof(D2CoordStrc), &gszDrlgPresetSourceFile, 1964, 0);
-
-    for (int nY = 0; nY < pDrlgRoom->pDrlgCoord.nHeight; ++nY)
-    {
-        for (int nX = 0; nX < pDrlgRoom->pDrlgCoord.nWidth; ++nX)
-        {
-            const unsigned int nTileInfo = DRLGGRID_GetGridEntry(pMaze->pWallGrid, nX, nY);
-            if (((unsigned char)(nTileInfo >> 20) & 0x3F) == 10 && (unsigned char)(nTileInfo >> 8) >= 23 && (unsigned char)(nTileInfo >> 8) <= 27)
-            {
-                if (nTombStoneTiles < 6)
-                {
-                    int nTileX = nX + pDrlgRoom->pDrlgCoord.nPosX;
-                    int nTileY = nY + pDrlgRoom->pDrlgCoord.nPosY;
-                    SKILLS_GameTileToSubtileCoords(&nTileX, &nTileY);
-                    pMaze->pTombStoneTiles[nTombStoneTiles].nX = nTileX + 2;
-                    pMaze->pTombStoneTiles[nTombStoneTiles].nY = nTileY + 2;
-                    ++nTombStoneTiles;
-                }
-            }
-        }
-    }
-
-    pMaze->nTombStoneTiles = nTombStoneTiles;
-}
-
 static int DRLGPRESET_IsTileInsideCoord(D2DrlgCoordStrc* pDrlgCoord, D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData)
 {
     const int nX = pDrlgRoom->pDrlgCoord.nPosX + pTileData->nPosX;
@@ -1372,32 +1337,9 @@ static void __stdcall DRLGPRESET_InitPopsLocations(D2DrlgMapStrc* pDrlgMap, int 
     }
 }
 
-unsigned short __stdcall SFileGetLocale()
-{
-    return gwValue_0077905C;
-}
-
-void __stdcall sub_00416750_Nop()
-{
-}
-
-void __stdcall sub_00416760_Nop()
-{
-}
-
-char* __fastcall sub_004167A0_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
 D2Storm4167B0Strc::~D2Storm4167B0Strc()
 {
     tLink.Unlink();
-}
-
-char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
 }
 
 // 0x00666EB0
@@ -1412,84 +1354,9 @@ int __fastcall DRLGPRESET_SetPickedFileInDrlgMap(D2DrlgMapStrc* pDrlgMap, int nP
     return pDrlgMap->nPickedFile = nPickedFile;
 }
 
-char* __fastcall sub_00416820_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-char* __fastcall sub_00416830_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-char* __fastcall sub_00416840_LinkRawNext(D2StormLinkStrc* pLink)
-{
-    return pLink->m_next;
-}
-
-char* __fastcall sub_00416850_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-char* __fastcall sub_00416860_LinkPrev(D2StormLinkStrc* pLink)
-{
-    D2StormLinkStrc* pPrev = pLink->m_prevlink->m_prevlink;
-    return (int)pPrev->m_next > 0 ? pPrev->m_next : 0;
-}
-
-char* __fastcall sub_00416880_LinkRawNext(D2StormLinkStrc* pLink)
-{
-    return pLink->m_next;
-}
-
 D2Storm4168F0Strc::~D2Storm4168F0Strc()
 {
     tLink.Unlink();
-}
-
-void __fastcall sub_004169F0_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-void __fastcall sub_00416A00_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-void __fastcall sub_00416A10_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-void __fastcall sub_00416A20_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-void __fastcall sub_00416A30_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-int __fastcall sub_00416A90_TestField150(D2Storm416A90Strc* pRecord)
-{
-    if (pRecord && pRecord->n150)
-        return 1;
-    return 0;
-}
-
-int __fastcall sub_00416AB0_TestField14C(D2Storm416A90Strc* pRecord)
-{
-    if (pRecord && pRecord->n14C)
-        return 1;
-    return 0;
 }
 
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)

@@ -122,7 +122,6 @@ void __fastcall ACT3Q5_UnitIterate_DeleteKhalimItems(D2GameStrc* pGame, D2UnitSt
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 
 
@@ -1371,7 +1370,7 @@ int __fastcall OBJECTS_OperateFunction09_Monolith(D2ObjOperateFnStrc* pOp,int nO
  }
  if(!coords.nX) {
   D2ActiveRoomStrc** ppRooms;
-  unsigned int nRooms;
+  int nRooms;
   DUNGEON_GetAdjacentRoomsListFromRoom(UNITS_GetRoom(pOp->hObject),&ppRooms,&nRooms);
   for(unsigned int i=0;i<nRooms;++i) {
    D2UnitStrc* pUnit=ppRooms[i]->pUnitFirst;
