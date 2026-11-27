@@ -257,7 +257,6 @@ public:
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
-extern int gnScreenWidth; // 0x0071146C
 
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
@@ -527,7 +526,6 @@ extern int gaHoverDirs[]; // 0x00722654
 
 extern int gnHoverDirCount; // 0x00722674
 
-extern D2RectStrc gaHoverRects[16]; // 0x007BF0A8
 
 
 
@@ -626,7 +624,6 @@ extern D2Record42Strc gtQuestRecord; // 0x007BF355
 
 extern D2SliderButtonStrc gaKeyConfigButtons[3]; // 0x007246D8
 
-extern int gaPressed[7]; // 0x007C0288
 
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
@@ -816,7 +813,6 @@ static int TEXT_IsOnPressedButton(int nX, int nY);
 
 extern D2WaypointRowRectStrc gaWaypointRowRects[9];                                                // 0x007224F8
 
-extern D2WaypointMenuEntryStrc gaWaypointEntries[9];                                               // 0x007BF03C
 
 
 

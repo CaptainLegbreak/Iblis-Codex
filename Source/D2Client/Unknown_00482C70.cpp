@@ -201,7 +201,6 @@ Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x0
 
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 
-extern int gnScreenWidth; // 0x0071146C
 
 extern int gnHoverTopX; // 0x00721E3C
 
@@ -239,11 +238,8 @@ extern int gnRecipeScrollColor; // 0x007BCEA4
 
 extern int gdwGlobal_007BF23F; // 0x007BF23F
 
-extern int gaHotkeySkills[16]; // 0x007C06C8
 
-extern int gaHotkeyOwners[16]; // 0x007C0768
 
-extern int gaHotkeyLeft[16]; // 0x007C07B8
 
 extern unsigned char gaTable_007C0EA4[]; // 0x007C0EA4
 

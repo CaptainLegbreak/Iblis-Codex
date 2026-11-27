@@ -745,7 +745,6 @@ void __cdecl SPELLSEL_BuildRightRows()
     }
 }
 
-extern int gnScreenWidth; // 0x0071146C
 
 // 0x004AA6B0
 void __fastcall SPELLSEL_BuildLeftRows(int bNoDraw)

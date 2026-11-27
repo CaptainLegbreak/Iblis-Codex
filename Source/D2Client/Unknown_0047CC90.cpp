@@ -295,7 +295,6 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                
 
 
 
-extern int gnScreenWidth;                                                                               // 0x0071146C
 
 
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth);       // 0x00502970

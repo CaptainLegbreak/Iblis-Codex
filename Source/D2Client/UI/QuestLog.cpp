@@ -39,7 +39,6 @@ extern D2QuestTextsStrc gtQuestTextsFallenAngel;                                
 extern D2QuestTextsStrc gtQuestTextsSiege;                                                              // 0x00723D24
 extern D2QuestPageRangeStrc gaQuestPageRanges[];                                                   // 0x00723F08
 extern D2QuestTableStrc gaQuestTable[];                                                            // 0x00723F30
-extern int gaQuestPageDefault[5];                                                                    // 0x007BF280
 extern void* gapQuestIconCels[27];                                                                        // 0x007BF2E1
 extern unsigned char gabQuestFlagsA[];                                                             // 0x007BF356
 extern unsigned char gabQuestFlagsB[];                                                             // 0x007BF380
@@ -957,7 +956,6 @@ void __cdecl QUESTLOG_ResetQuestButton()
     sub_004A2550();
 }
 
-extern int gnScreenWidth; // 0x0071146C
 
 
 struct D2ButtonLayoutStrc;

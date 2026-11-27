@@ -505,7 +505,6 @@ void __fastcall sub_0046BFF0_UnitEventMissile271(D2UnitStrc* pUnit)
     sub_0046BF30_CheckThroneLevel(CUNIT_GetPlayerRoom());
 }
 
-extern int gnScreenWidth; // 0x0071146C
 
 
 

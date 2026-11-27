@@ -1013,7 +1013,6 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                
 
 
 
-extern int gnScreenWidth;                                                                               // 0x0071146C
 
 // 0x0047B4F0
 void __stdcall CHAT_DrawImeText(int nX, int nY)

@@ -208,7 +208,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern int gaSetPartialCounts_006DBD90[]; // 0x006DBD90
 
-extern int gnScreenWidth; // 0x0071146C
 
 extern D2OptionHeaderStrc gtMainOptionHeader; // 0x00713044
 

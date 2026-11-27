@@ -95,7 +95,6 @@ extern void* gpGlobal_007A0634; // 0x007A0634
 
 extern D2ViewStrc* gpClientView; // 0x007A0640
 
-extern int gnScreenWidth; // 0x0071146C
 
 extern int gnAutomapTextY; // 0x007A51BC
 

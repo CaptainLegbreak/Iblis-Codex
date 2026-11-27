@@ -261,7 +261,6 @@ D2TextListStrc gtMessageTextList; // 0x007BF1E4
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
-extern int gnScreenWidth; // 0x0071146C
 
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
@@ -825,7 +824,6 @@ static int TEXT_IsOnPressedButton(int nX, int nY);
 
 extern D2WaypointRowRectStrc gaWaypointRowRects[9];                                                // 0x007224F8
 
-extern D2WaypointMenuEntryStrc gaWaypointEntries[9];                                               // 0x007BF03C
 
 static bool gbWaypointClosePressed;                                                                        // 0x007BF06C
 
