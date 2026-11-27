@@ -242,7 +242,7 @@ __declspec(noinline) int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCf
     D2ComInterfaceStrc* pComInterface = pCfg->pComInterface;
     if (pComInterface)
     {
-        pComInterface->pfnSlot10();
+        pComInterface->pfnCloseBNetConnection();
     }
 
     IGNORELIST_FreeIgnoreList();

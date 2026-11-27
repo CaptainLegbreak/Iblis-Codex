@@ -1758,7 +1758,7 @@ void __cdecl MAINMENUS_ShowProgressScreen()
     gpProgressBar = MAINMENUS_CreateControl(0x117);
     IMAGE_ForceNormalDrawMode(gpProgressBar, 3);
     gpProgressText = MAINMENUS_CreateControl(0x113);
-    int nPercent = gpFuncTable->pfnSlot4C();
+    int nPercent = gpFuncTable->pfnGetPatchState();
     if (nPercent > 100)
         nPercent = 100;
     D2WinControlStrc* pControl = MAINMENUS_CreateControl(0x114);
@@ -1776,7 +1776,7 @@ void __cdecl MAINMENUS_UpdateProgress()
 {
     char szText[100];
     sub_004FB6A0_ClearText(gpProgressText);
-    int nPercent = gpFuncTable->pfnSlot4C();
+    int nPercent = gpFuncTable->pfnGetPatchState();
     if (nPercent > 100)
         nPercent = 100;
     IMAGE_SetFrame(gpProgressBar, ProgressBarValue(nPercent));
@@ -2147,7 +2147,7 @@ bool __stdcall MAINMENUS_IsLineBreak(Unicode wc)
 // 0x00430400
 int __stdcall MAINMENUS_PollDownloadDone(int nArg)
 {
-    if (gpFuncTable->pfnSlot4C() == 0x65 || gbStopMainLoop)
+    if (gpFuncTable->pfnGetPatchState() == 0x65 || gbStopMainLoop)
         D2Win_StopMessageLoop();
     return 1;
 }
@@ -3122,7 +3122,7 @@ int __fastcall MAINMENUS_IsDoubleClick(SMSGHANDLER_PARAMS* pMsg)
 // 0x00431AF0
 void __cdecl MAINMENUS_ShowCurrentGateway()
 {
-    D2FuncRecordStrc* pRecord = gpFuncTable->pfnGetRecord();
+    D2FuncRecordStrc* pRecord = gpFuncTable->pfnGetBnGatewayAccess();
     char szText[0x100];
     const int nIndex = pRecord->nIndex;
     SStrCopy(szText, Name(pRecord, nIndex), 0x100);
@@ -3524,7 +3524,7 @@ int __fastcall MAINMENUS_ConnectToRealm(const char* szName, int bFlag)
     D2LaunchPayloadStrc* pPayload;
     if (!gpFuncTable)
         goto fail;
-    pPayload = gpFuncTable->pfn0x44(szName, "password");
+    pPayload = gpFuncTable->pfnLogonRealm(szName, "password");
     if (!pPayload)
         goto fail;
     if (pPayload->nSize == 8)
@@ -4065,10 +4065,10 @@ int __cdecl MAINMENUS_ShowTerms()
     SStrCopy(szFileName, gszTosPrefix, 128);
     SStrPack(szFileName, szLanguage, 128);
     SStrPack(szFileName, gszTextExt, 128);
-    gpFuncTable->pfnRequest(szFileName, strlen(szFileName));
+    gpFuncTable->pfn0x50(szFileName, strlen(szFileName));
     sub_004FA590_RunLoop(MAINMENUS_PollDownloadDone);
     if (gbStopMainLoop) { MAINMENUS_DestroyControls(); return 0; }
-    if (!gpFuncTable->pfnSlot68())
+    if (!gpFuncTable->pfnIsSocketConnected())
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x14E3);
         MAINMENUS_ShowMessage(pMessage, MAINMENUS_ShowMainMenu, 1);
@@ -4334,7 +4334,7 @@ void __cdecl MAINMENUS_BuildRealmList()
     MAINMENUS_ShowConnectingPopup();
     sub_004FA590_RunLoop(MAINMENUS_StopLoop);
     if (gpFuncTable)
-        gpMenuList = gpFuncTable->pfnGetMenuList(0);
+        gpMenuList = gpFuncTable->pfnSendRealmList(0);
     MAINMENUS_DestroyControls();
     D2MenuListStrc* pList = gpMenuList;
     if (!pList)
@@ -4529,7 +4529,7 @@ int __stdcall MAINMENUS_CreateGatewayScreen(int nUnused)
     gpGatewayList = MAINMENUS_CreateControl(0x4A);
     MAINMENUS_CreateControl(0x4B);
     MAINMENUS_CreateControl(0x4C);
-    BNGatewayAccess* pGateways = (BNGatewayAccess*)gpFuncTable->pfnGetRecord();
+    BNGatewayAccess* pGateways = (BNGatewayAccess*)gpFuncTable->pfnGetBnGatewayAccess();
     int nCur = pGateways->m_nCurGateway;
     for (int i = 1; i <= pGateways->m_nNumGateways; ++i)
     {
@@ -4558,7 +4558,7 @@ struct D2ComInterfaceStrc;
 // 0x00434700
 int __stdcall MAINMENUS_OnRealmSelected(SMSGHANDLER_PARAMS* pMsg)
 {
-    D2FuncRecordStrc* pRecord = gpFuncTable->pfnGetRecord();
+    D2FuncRecordStrc* pRecord = gpFuncTable->pfnGetBnGatewayAccess();
     int nSelection = sub_004FB990_GetSelection(gpGatewayList);
     if (nSelection != -1)
     {
@@ -4765,7 +4765,7 @@ int __fastcall MAINMENUS_JoinGame(const char* szGameName, unsigned short wFlags,
 
     if (gnLaunchMode == 1 || gnLaunchMode == 3)
     {
-        if (!gpFuncTable->pfnSlot68())
+        if (!gpFuncTable->pfnIsSocketConnected())
         {
             CHARSEL_CreateBaseScreen();
             if (!sub_0043BF60_ConnectToBattleNet())
@@ -5052,7 +5052,7 @@ void __fastcall MAINMENUS_ShowExpansionMessage(const Unicode* pText, D2LaunchDon
 // 0x00435200
 int __stdcall MAINMENUS_CancelDownload(int nArg)
 {
-    gpFuncTable->pfnSlot70();
+    gpFuncTable->pfn0x70();
     gbStopMainLoop = 1;
     MAINMENUS_ShowMainMenu();
     return 1;
@@ -5106,7 +5106,7 @@ void __cdecl MAINMENUS_ShowLoginScreen()
 {
     char szAccount[0x400];
     s_bGatewayFlag_00779954 = 1;
-    int bConnected = gpFuncTable->pfnSlot68();
+    int bConnected = gpFuncTable->pfnIsSocketConnected();
     if (bConnected && !CHARSEL_IsBattleNetConnected())
         goto create;
     if (bConnected)
@@ -5330,7 +5330,7 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
     const char nStartMode = gpLaunchRecord->nStartMode;
     if (nStartMode == 2)
     {
-        if (gpFuncTable->pfnSlot68())
+        if (gpFuncTable->pfnIsSocketConnected())
         {
             gnLaunchMode = 1;
             sub_004F90A0(1);
@@ -5345,7 +5345,7 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
     }
     else if (nStartMode == 4)
     {
-        if (gpFuncTable->pfnSlot68())
+        if (gpFuncTable->pfnIsSocketConnected())
         {
             gnLaunchMode = 3;
             sub_004F90A0(1);
