@@ -15,6 +15,12 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Claimed
 
+- Fri Nov 27 12:07 PST 2026: **status for the coordinator.**
+  - Merged: names-d2common (#482). names-d2client-4 (#483 or later, per the board).
+  - **names-d2game-3: rebase onto #483 noted, doing it next** (same lists, redone on main; D2Game.h, MissMode.cpp, Missiles.cpp). From now on each rename branch leaves out files another lane has claimed (QuestLog.cpp and the rest in the Claimed lines) and picks them up once the claim clears.
+  - In progress, not yet Ready: **lane11/names-small** (D2Win, D2Direct3D, Storm, D2BNClient, Fog, D2Glide, D2CMP, D2Sound and the rest): 45 placeholder spellings and 200 data plan names build equal unit by unit, but the full image differs (3 linker_output bytes, borrowed data 15,689 B) with Storm's data plan names; every other module's set gives an identical image. Bisecting the 31 Storm entries now; the branch posts without whichever entry does it.
+  - Parked: D2Multi and D2Launch. Almost all their debt is in CharSel.cpp, MainMenus.cpp, ChatDlg.cpp and ComCallback.cpp (the declaration-count units); any of their 107 renames makes those build unequal, and leaving those files out breaks them (they use the renamed header spellings). They need the private declarations reconciled first.
+  - What's left in the renamed modules is mostly type mismatches: the private placeholder declaration gives another return or parameter type than the real one (FOG_FreePool void vs int, BNMESSQUEUE_QueueMessage), so a rename alone collides. Those need callers reconciled one by one.
 - Fri Nov 27 11:41 PST 2026: check-in. Small modules: 45 placeholder spellings and about 200 data plan names build; one Storm data plan entry makes the image differ (linker_output), finding which before posting.
 - Fri Nov 27 09:44 PST 2026: check-in. D2Multi and D2Launch parked: nearly all their debt is in CharSel.cpp, MainMenus.cpp, ChatDlg.cpp and ComCallback.cpp, the declaration-count units, which build unequal (or fail to compile when left out) with any of the 107 renames. Working the small modules together now (155 spellings over D2Win, D2Direct3D, Storm, D2BNClient, Fog and the rest).
 - Fri Nov 27 09:03 PST 2026: check-in. names-d2common merged (#482). names-d2game-3 posted. Next: D2Multi and D2Launch.
