@@ -3258,7 +3258,7 @@ static void __stdcall INV_AppendItemFormulaText(D2UnitStrc* pItem, D2ItemFormula
     {
         int nValue = ITEMMODS_EvaluateItemFormula(pPlayer, pItem, pRecord->nCalc);
         Unicode wszText[0x200];
-        sub_005269D0(0x200, wszText, D2LANG_GetStringFromTblIndex(pRecord->wStringId), nValue);
+        sub_005269D0_FormatText(0x200, wszText, D2LANG_GetStringFromTblIndex(pRecord->wStringId), nValue);
         sub_00526700(pBuffer, wszText);
         sub_00526700(pBuffer, pLineEnd);
         break;

@@ -91,7 +91,7 @@ int __cdecl D2SOUND_IsEaxEnabled()
 }
 
 // 0x00513B80
-int __cdecl sub_00513B80()
+int __cdecl sub_00513B80_AlwaysZero()
 {
     return 0;
 }
@@ -109,7 +109,7 @@ int __cdecl D2SOUND_IsEaxRoomOff()
 }
 
 // 0x00513BB0
-int __cdecl sub_00513BB0()
+int __cdecl sub_00513BB0_GetValue()
 {
     return gdwGlobal_0072F830;
 }

@@ -1627,7 +1627,7 @@ static int __stdcall SKILLDESC_AppendFormattedValue(Unicode* wszOut, int nValue,
         return 1;
     }
 
-    sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(wStr), nValue);
+    sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(wStr), nValue);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
     sub_00526700(wszOut, wszText);
     return 1;
@@ -4210,9 +4210,9 @@ void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
     {
         D2Win_10127_SetFont(6);
         if (nSkillId)
-            sub_005269D0(200, wszDescription, D2LANG_GetStringFromTblIndex(0xFDF), wszName);
+            sub_005269D0_FormatText(200, wszDescription, D2LANG_GetStringFromTblIndex(0xFDF), wszName);
         else
-            sub_005269D0(200, wszDescription, D2LANG_GetStringFromTblIndex(0xFE1), wszName);
+            sub_005269D0_FormatText(200, wszDescription, D2LANG_GetStringFromTblIndex(0xFE1), wszName);
         wszDescription[199].wChar = 0;
         Unicode* pNext;
         if (TEXT_SplitAtNewline(wszDescription, &pNext))
@@ -5323,7 +5323,7 @@ static int __stdcall SKILLDESC_AddFormattedText(Unicode* wszText, int nValue, un
     }
 
     Unicode wszLine[0x100];
-    sub_005269D0(0x100, wszLine, D2LANG_GetStringFromTblIndex(nString), nValue);
+    sub_005269D0_FormatText(0x100, wszLine, D2LANG_GetStringFromTblIndex(nString), nValue);
     sub_00526700(wszText, wszLine);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
     return 1;
@@ -6171,7 +6171,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
             return 0;
         }
         sub_00403040_VectorConstructor(wszLine, 2, 0x100, NPCMENU_ClearUnicode);
-        sub_005269D0(0x100, wszLine, D2LANG_GetStringFromTblIndex(nStringA), D2LANG_GetStringFromTblIndex(nStringB));
+        sub_005269D0_FormatText(0x100, wszLine, D2LANG_GetStringFromTblIndex(nStringA), D2LANG_GetStringFromTblIndex(nStringB));
         if (nCalcA > 0)
         {
             INV_PrefixColorCode(wszLine, nCalcA);
@@ -6212,7 +6212,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
             return 0;
         }
         sub_00403040_VectorConstructor(wszLine, 2, 0x100, NPCMENU_ClearUnicode);
-        sub_005269D0(0x100, wszLine, D2LANG_GetStringFromTblIndex(nStringA), D2LANG_GetStringFromTblIndex(nStringB));
+        sub_005269D0_FormatText(0x100, wszLine, D2LANG_GetStringFromTblIndex(nStringA), D2LANG_GetStringFromTblIndex(nStringB));
         if (nCalcA > 0)
         {
             INV_PrefixColorCode(wszLine, nCalcA);
@@ -6343,7 +6343,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
             return 0;
         }
         sub_00403040_VectorConstructor(wszMessage, 2, 0x64, NPCMENU_ClearUnicode);
-        sub_005269D0(0x64, wszMessage, D2LANG_GetStringFromTblIndex(nStringB), nCalcA);
+        sub_005269D0_FormatText(0x64, wszMessage, D2LANG_GetStringFromTblIndex(nStringB), nCalcA);
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringA));
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
@@ -6400,7 +6400,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
             return 0;
         }
         sub_00403040_VectorConstructor(wszMessage, 2, 0x64, NPCMENU_ClearUnicode);
-        sub_005269D0(0x64, wszMessage, D2LANG_GetStringFromTblIndex(nStringA), nCalcA);
+        sub_005269D0_FormatText(0x64, wszMessage, D2LANG_GetStringFromTblIndex(nStringA), nCalcA);
         sub_00526700(wszText, wszMessage);
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
         break;
@@ -6411,7 +6411,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
             return 0;
         }
         sub_00403040_VectorConstructor(wszMessage, 2, 0x64, NPCMENU_ClearUnicode);
-        sub_005269D0(0x64, wszMessage, D2LANG_GetStringFromTblIndex(nStringA), nCalcA, nCalcB);
+        sub_005269D0_FormatText(0x64, wszMessage, D2LANG_GetStringFromTblIndex(nStringA), nCalcA, nCalcB);
         sub_00526700(wszText, wszMessage);
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
         break;

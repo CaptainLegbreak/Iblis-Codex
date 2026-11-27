@@ -936,13 +936,13 @@ void __cdecl HIREABLES_DrawKeyHelp()
     if (CUNIT_GetHotkeyBinding(6, 1) != 0xFFFF)
     {
         memset(wszKey, 0, sizeof(wszKey));
-        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(6, 1));
+        sub_005269D0_FormatText(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(6, 1));
         sub_00526700(wszText, wszKey);
     }
     if (CUNIT_GetHotkeyBinding(6, 0) != 0xFFFF)
     {
         memset(wszKey, 0, sizeof(wszKey));
-        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(6, 0));
+        sub_005269D0_FormatText(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(6, 0));
         sub_00526700(wszText, wszKey);
     }
     const int nWidth = D2Win_10121_GetTextWidth(wszText);
@@ -1108,28 +1108,28 @@ void __cdecl sub_00495410_DrawHelpText()
     {
         wszLine1[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine1Buf) / sizeof(wszLine1[0]), wszLine1, D2LANG_GetStringFromTblIndex(0x1067), CMDTBL_GetKeyText(0x22, 1));
+    sub_005269D0_FormatText(sizeof(wszLine1Buf) / sizeof(wszLine1[0]), wszLine1, D2LANG_GetStringFromTblIndex(0x1067), CMDTBL_GetKeyText(0x22, 1));
     D2Win_10117_DrawText(wszLine1, 0x75, 0x4E, 0, 0);
 
     for (int i = 0; i < 100; ++i)
     {
         wszLine2[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine2Buf) / sizeof(wszLine2[0]), wszLine2, D2LANG_GetStringFromTblIndex(0x1068), CMDTBL_GetKeyText(0x25, 1));
+    sub_005269D0_FormatText(sizeof(wszLine2Buf) / sizeof(wszLine2[0]), wszLine2, D2LANG_GetStringFromTblIndex(0x1068), CMDTBL_GetKeyText(0x25, 1));
     D2Win_10117_DrawText(wszLine2, 0x75, 0x62, 0, 0);
 
     for (int i = 0; i < 100; ++i)
     {
         wszLine3[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine3Buf) / sizeof(wszLine3[0]), wszLine3, D2LANG_GetStringFromTblIndex(0x1069), CMDTBL_GetKeyText(0x24, 1));
+    sub_005269D0_FormatText(sizeof(wszLine3Buf) / sizeof(wszLine3[0]), wszLine3, D2LANG_GetStringFromTblIndex(0x1069), CMDTBL_GetKeyText(0x24, 1));
     D2Win_10117_DrawText(wszLine3, 0x75, 0x76, 0, 0);
 
     for (int i = 0; i < 100; ++i)
     {
         wszLine4[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine4Buf) / sizeof(wszLine4[0]), wszLine4, D2LANG_GetStringFromTblIndex(0x106A), CMDTBL_GetKeyText(0x7, 1));
+    sub_005269D0_FormatText(sizeof(wszLine4Buf) / sizeof(wszLine4[0]), wszLine4, D2LANG_GetStringFromTblIndex(0x106A), CMDTBL_GetKeyText(0x7, 1));
     D2Win_10117_DrawText(wszLine4, 0x75, 0x8A, 0, 0);
 
     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106B), 0x75, 0x9E, 0, 0);
@@ -1142,7 +1142,7 @@ void __cdecl sub_00495410_DrawHelpText()
     {
         wszLine5[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine5Buf) / sizeof(wszLine5[0]), wszLine5, D2LANG_GetStringFromTblIndex(0x106E), CMDTBL_GetKeyText(0x6, 1));
+    sub_005269D0_FormatText(sizeof(wszLine5Buf) / sizeof(wszLine5[0]), wszLine5, D2LANG_GetStringFromTblIndex(0x106E), CMDTBL_GetKeyText(0x6, 1));
     D2Win_10117_DrawText(wszLine5, 0x75, 0xDA, 0, 0);
 
     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106F), GetCenteredX_Inl(0x106F, 0x3B), 0x1E1, 0, 0);
@@ -1212,28 +1212,28 @@ void __cdecl sub_00495DC0_DrawHelpText()
     {
         wszLine1[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine1Buf) / sizeof(wszLine1[0]), wszLine1, D2LANG_GetStringFromTblIndex(0x1067), CMDTBL_GetKeyText(0x22, 1));
+    sub_005269D0_FormatText(sizeof(wszLine1Buf) / sizeof(wszLine1[0]), wszLine1, D2LANG_GetStringFromTblIndex(0x1067), CMDTBL_GetKeyText(0x22, 1));
     D2Win_10117_DrawText(wszLine1, 0x75, 0x4E, 0, 0);
 
     for (int i = 0; i < 100; ++i)
     {
         wszLine2[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine2Buf) / sizeof(wszLine2[0]), wszLine2, D2LANG_GetStringFromTblIndex(0x1068), CMDTBL_GetKeyText(0x25, 1));
+    sub_005269D0_FormatText(sizeof(wszLine2Buf) / sizeof(wszLine2[0]), wszLine2, D2LANG_GetStringFromTblIndex(0x1068), CMDTBL_GetKeyText(0x25, 1));
     D2Win_10117_DrawText(wszLine2, 0x75, 0x62, 0, 0);
 
     for (int i = 0; i < 100; ++i)
     {
         wszLine3[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine3Buf) / sizeof(wszLine3[0]), wszLine3, D2LANG_GetStringFromTblIndex(0x1069), CMDTBL_GetKeyText(0x24, 1));
+    sub_005269D0_FormatText(sizeof(wszLine3Buf) / sizeof(wszLine3[0]), wszLine3, D2LANG_GetStringFromTblIndex(0x1069), CMDTBL_GetKeyText(0x24, 1));
     D2Win_10117_DrawText(wszLine3, 0x75, 0x76, 0, 0);
 
     for (int i = 0; i < 100; ++i)
     {
         wszLine4[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine4Buf) / sizeof(wszLine4[0]), wszLine4, D2LANG_GetStringFromTblIndex(0x106A), CMDTBL_GetKeyText(0x7, 1));
+    sub_005269D0_FormatText(sizeof(wszLine4Buf) / sizeof(wszLine4[0]), wszLine4, D2LANG_GetStringFromTblIndex(0x106A), CMDTBL_GetKeyText(0x7, 1));
     D2Win_10117_DrawText(wszLine4, 0x75, 0x8A, 0, 0);
 
     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106B), 0x75, 0x9E, 0, 0);
@@ -1246,7 +1246,7 @@ void __cdecl sub_00495DC0_DrawHelpText()
     {
         wszLine5[i].wChar = 0;
     }
-    sub_005269D0(sizeof(wszLine5Buf) / sizeof(wszLine5[0]), wszLine5, D2LANG_GetStringFromTblIndex(0x106E), CMDTBL_GetKeyText(0x6, 1));
+    sub_005269D0_FormatText(sizeof(wszLine5Buf) / sizeof(wszLine5[0]), wszLine5, D2LANG_GetStringFromTblIndex(0x106E), CMDTBL_GetKeyText(0x6, 1));
     D2Win_10117_DrawText(wszLine5, 0x75, 0xDA, 0, 0);
 
     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x106F), GetCenteredXInline(0x106F, 0x37), 0x168, 0, 0);
@@ -2020,7 +2020,7 @@ void __cdecl sub_00494020_DrawPetIcons()
             const Unicode* wszSuffix = D2LANG_GetStringFromTblIndex(0x58A2);
             const Unicode* wszFormat = D2LANG_GetStringFromTblIndex(0x58A3);
             const Unicode* wszMiddle = D2LANG_GetStringFromTblIndex(0xF9E);
-            sub_005269D0(0x100, wszText, wszFormat, CMDTBL_GetKeyName(0x36, 1));
+            sub_005269D0_FormatText(0x100, wszText, wszFormat, CMDTBL_GetKeyName(0x36, 1));
             sub_00526700(wszText, wszMiddle);
             sub_00526700(wszText, wszSuffix);
             D2Win_10129_DrawFramedText(wszText, gnPopupX, gnPopupY + 0x24, 0, 0);

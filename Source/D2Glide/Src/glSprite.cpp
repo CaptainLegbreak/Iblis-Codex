@@ -97,6 +97,7 @@ static int __stdcall GLSPRITE_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, cons
 typedef void (__fastcall* PixelDataFreeCallback)(void* pData);
 
 
+void __fastcall GLSPRITE_ReleaseTexSlots(void* pData);                                                 // 0x0050A110
 
 void __stdcall CelSetHardwareFreeCallback(PixelDataFreeCallback pfnCallback); // 0x00601A30
 
@@ -130,6 +131,23 @@ void __cdecl GLSPRITE_FreeSpriteBuffers()
     {
         FOG_Free(gpGlideSpriteBufferB, ".\\Src\\glSprite.cpp", 0x7A, 0);
         gpGlideSpriteBufferB = 0;
+    }
+}
+
+// 0x0050A110
+void __fastcall GLSPRITE_ReleaseTexSlots(D2GlideTexSlotStrc* pSlots)
+{
+    for (int i = 0; i < 5; ++i)
+    {
+        const int nCache = pSlots[i].nCache - 1;
+        if (nCache >= 0)
+        {
+            const int nId = pSlots[i].nId - 1;
+            if (nId >= 0)
+            {
+                gaGlideTexCaches[nCache + 1].pEntries[nId].pOwner = 0;
+            }
+        }
     }
 }
 
@@ -1035,36 +1053,13 @@ void __cdecl GLSPRITE_InitSprites()
     D2_ASSERT(!gpGlideSpriteBufferB_0087F0CC, 0x4B);
     gpGlideSpriteBufferA = (unsigned char*)FOG_Alloc(0x10000, ".\\Src\\glSprite.cpp", 0x4C, 0);
     gpGlideSpriteBufferB_0087F0CC = (unsigned char*)FOG_Alloc(0x10000, ".\\Src\\glSprite.cpp", 0x4D, 0);
-    CelSetHardwareFreeCallback(GLCORE_ReleaseTexSlots);
+    CelSetHardwareFreeCallback(GLSPRITE_ReleaseTexSlots);
     gbGlideSpriteFlag = 0;
     gbGlideMultiTmu = gnGlideTmuCount > 1;
     if (gnGlideTmuCount > 1 && !GLCORE_GetFloorTilesFlag())
         gbGlideSpriteFlag = 1;
 }
 
-
-// 0x0050DFE0
-int __fastcall GLSPRITE_SetSmackTexAddresses(int nBase, int nAlign)
-{
-    int nSize = 0x8000;
-    const int nMask = nAlign - 1;
-    if (nSize & nMask)
-        nSize = (nSize | nMask) + 1;
-    if (nBase & nMask)
-        nBase = (nBase | nMask) + 1;
-    gnGlideSmackTexAddrB = nBase + nSize;
-    gnGlideSmackTexAddrA = nBase;
-    gtGlideSmackTexInfoA.pData = gpGlideSmackBufferB;
-    gtGlideSmackTexInfoB.pData = gpGlideSmackBufferC;
-    return nSize * 2;
-}
-
-// 0x0050E330
-void __cdecl GLSPRITE_UploadSmackTextures()
-{
-    gpfnGrTexDownloadMipMap(gnGlideSmackTmu, gnGlideSmackTexAddrA, 3, &gtGlideSmackTexInfoA);
-    gpfnGrTexDownloadMipMap(gnGlideSmackTmu, gnGlideSmackTexAddrB, 3, &gtGlideSmackTexInfoB);
-}
 
 int __fastcall sub_M120_Emit_0050A1E0(D2GlideRectViewStrc* pRect, int nA, int nB)
 {

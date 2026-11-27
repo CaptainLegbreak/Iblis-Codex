@@ -628,7 +628,7 @@ D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nTy
 
 void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC);  // 0x00502680
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pDst, const Unicode* pFormat, ...);                  // 0x005269D0
+void __cdecl sub_005269D0_FormatText(int nBufferSize, Unicode* pDst, const Unicode* pFormat, ...);                  // 0x005269D0
 
 int gbDeathScreenShown;                                                                            // 0x007A2890
 
@@ -1251,7 +1251,7 @@ void __cdecl UI_DrawDeathScreen()
         {
             if (!STATLIST_UnitGetStatValue(pPlayer, STAT_GOLDLOST, 0))
                 goto second_text;
-            sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x13E6), STATLIST_UnitGetStatValue(pPlayer, STAT_GOLDLOST, 0));
+            sub_005269D0_FormatText(0x100, wszText, D2LANG_GetStringFromTblIndex(0x13E6), STATLIST_UnitGetStatValue(pPlayer, STAT_GOLDLOST, 0));
         }
         nY += 0x30;
         D2Win_10127_SetFont(2);
@@ -1949,7 +1949,7 @@ void __fastcall UI_OpenGoldPanel(int nMode)
     memset(wszText, 0, sizeof(wszText));
     if (nMode == 5)
     {
-        sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(nStringId), STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLDBANK, 0) + STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0));
+        sub_005269D0_FormatText(0x100, wszText, D2LANG_GetStringFromTblIndex(nStringId), STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLDBANK, 0) + STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0));
     }
     else
     {

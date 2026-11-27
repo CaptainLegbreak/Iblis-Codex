@@ -3391,7 +3391,7 @@ void __fastcall CHATDLG_FillLadderList(int nStart, int nCount, int nNameLength, 
             CHATDLG_CopyName(szName);
             sub_00526F20_ToUnicode(wszFormat, "Player '%s' is not on the ladder.", 0x100);
             sub_00526F20_ToUnicode(wszName, szName, 0x100);
-            sub_005269D0(0x100, wszText, wszFormat, wszName);
+            sub_005269D0_FormatText(0x100, wszText, wszFormat, wszName);
         }
 
         CHATDLG_ShowWait(wszText, 0);
@@ -4595,9 +4595,9 @@ void __fastcall CHATDLG_RunCommand(char* szText)
 
         sub_00526320_ToUnicode(wszName, szName, 0x22);
         if (sub_00611560_GetSquelchList()->Squelch(szName))
-            sub_005269D0(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA3), wszName);
+            sub_005269D0_FormatText(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA3), wszName);
         else
-            sub_005269D0(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA4), wszName);
+            sub_005269D0_FormatText(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA4), wszName);
         sub_00526700(wszMessage, wszFormat);
         CHATDLG_PrintMessage(wszMessage, 3);
         return;
@@ -4613,9 +4613,9 @@ void __fastcall CHATDLG_RunCommand(char* szText)
         CHATDLG_GetArgument(0x11, szText, szName);
         sub_00526320_ToUnicode(wszName, szName, 0x22);
         if (sub_00611560_GetSquelchList()->Unsquelch(szName))
-            sub_005269D0(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA5), wszName);
+            sub_005269D0_FormatText(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA5), wszName);
         else
-            sub_005269D0(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA6), wszName);
+            sub_005269D0_FormatText(0x208, wszFormat, D2LANG_GetStringFromTblIndex(0x2BA6), wszName);
         sub_00526700(wszMessage, wszFormat);
         CHATDLG_PrintMessage(wszMessage, 3);
         return;

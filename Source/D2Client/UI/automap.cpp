@@ -3612,7 +3612,7 @@ void __cdecl AUTOMAP_DrawDifficultyLine()
     for (int i = 0; i < 300; ++i)
         wszText[i].wChar = 0;
     D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(nString)) + UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0x1057)) + 3 < 300, 0xB2A);
-    sub_005269D0(300, wszText, D2LANG_GetStringFromTblIndex(0x1057), D2LANG_GetStringFromTblIndex(nString));
+    sub_005269D0_FormatText(300, wszText, D2LANG_GetStringFromTblIndex(0x1057), D2LANG_GetStringFromTblIndex(nString));
     D2Win_10117_DrawText(wszText, gnAutomapWidth - D2Win_10121_GetTextWidth(wszText) - 0x10, gnAutomapTextY, 4, 0);
     gnAutomapTextY += 0x10;
 }

@@ -127,7 +127,7 @@ int __cdecl NPCMENU_ShowMainMenu()
     ROSTER_SetCtrlState(gpNpcHireDialog, 1);
 
     Unicode wszGold[300];
-    sub_005269D0(300, wszGold, D2LANG_GetStringFromTblIndex(0xD24),
+    sub_005269D0_FormatText(300, wszGold, D2LANG_GetStringFromTblIndex(0xD24),
         STATLIST_UnitGetStatValue(sub_00463DD0(), STAT_GOLDBANK, 0) + STATLIST_UnitGetStatValue(sub_00463DD0(), STAT_GOLD, 0));
     DIALOG_AddTextLine(gpNpcHireDialog, wszGold, 0x15, 0, 4, 1, 0, 0);
     DIALOG_AddTextLine(gpNpcHireDialog, D2LANG_GetStringFromTblIndex(0xD48), 0x13B, 0, 0, 1, NPCMENU_CloseHireDialog, 1);
