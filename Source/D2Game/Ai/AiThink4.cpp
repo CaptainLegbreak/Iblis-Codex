@@ -9406,6 +9406,100 @@ void __fastcall AITHINK_AncientBarb1SkillHandler(D2GameStrc* pGame, D2UnitStrc* 
     D2GAME_ModeChange(pGame, &modeChange, 0);
 }
 
+enum D2C_AncientBarb2AIParams
+{
+    ANCIENTBARB2_AI_PARAM_ATTACK_DISTANCE = 0,
+    ANCIENTBARB2_AI_PARAM_ATTACK_CHANCE_PCT = 1,
+    ANCIENTBARB2_AI_PARAM_SHOUT_CHANCE_PCT = 2,
+    ANCIENTBARB2_AI_PARAM_WALK_AWAY_CHANCE_PCT = 3,
+    ANCIENTBARB2_AI_PARAM_WALK_AWAY_MAX_DISTANCE = 4,
+};
+
+static __forceinline int AI_RollPercentage_005EEDA0(D2UnitStrc* pUnit)
+{
+    const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+    *(unsigned __int64*)&pUnit->pSeed = lSeed;
+    return (unsigned int)lSeed % 100;
+}
+
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_005EEDA0(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+    return 0;
+}
+
+// 0x005EEDA0
+void __fastcall AITHINK_AncientBarb2SkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+
+    if (ACT5Q5_IsNotActivatable(pGame))
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 25);
+        return;
+    }
+
+    int nDistance;
+    int nSkillId;
+    D2UnitStrc* pTarget = AIBAAL_GetTarget(pGame, pUnit, &nDistance, &nSkillId, 0, AITHINK_AreUnitsInSameLevel);
+    if (!pTarget)
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 25);
+        return;
+    }
+
+    const int bInMeleeRange = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
+    nDistance = DRLG_UnitEdgeDistance(pUnit, pTarget);
+    if (bInMeleeRange && AI_RollPercentage_005EEDA0(pUnit) < pMonStatsTxt->wAiParam[ANCIENTBARB2_AI_PARAM_WALK_AWAY_CHANCE_PCT][pGame->nDifficulty])
+    {
+        if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, (unsigned char)pMonStatsTxt->wAiParam[ANCIENTBARB2_AI_PARAM_WALK_AWAY_MAX_DISTANCE][pGame->nDifficulty], 1))
+        {
+            AITACTICS_Idle(pGame, pUnit, 25);
+            return;
+        }
+    }
+
+    nSkillId = pMonStatsTxt->nSkill[0];
+    if (nSkillId > 0)
+    {
+        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord_005EEDA0(nSkillId);
+        if (pSkillsTxtRecord)
+        {
+            if (pSkillsTxtRecord->nAuraState <= 0 || pSkillsTxtRecord->nAuraState > sgptDataTables->nStatesTxtRecordCount || !STATES_CheckState(pUnit, pSkillsTxtRecord->nAuraState))
+            {
+                if (pSkillsTxtRecord->wAuraTargetState <= 0 || pSkillsTxtRecord->wAuraTargetState > sgptDataTables->nStatesTxtRecordCount || !STATES_CheckState(pTarget, pSkillsTxtRecord->wAuraTargetState))
+                {
+                    if (AI_RollPercentage_005EEDA0(pUnit) < pMonStatsTxt->wAiParam[ANCIENTBARB2_AI_PARAM_SHOUT_CHANCE_PCT][pGame->nDifficulty]
+                        && AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], nSkillId, 0, 0, 0))
+                    {
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    if (nDistance < pMonStatsTxt->wAiParam[ANCIENTBARB2_AI_PARAM_ATTACK_DISTANCE][pGame->nDifficulty])
+    {
+        if (AI_RollPercentage_005EEDA0(pUnit) < pMonStatsTxt->wAiParam[ANCIENTBARB2_AI_PARAM_ATTACK_CHANCE_PCT][pGame->nDifficulty]
+            && AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget))
+        {
+            return;
+        }
+    }
+
+    const short* pAttackDistance = &pMonStatsTxt->wAiParam[ANCIENTBARB2_AI_PARAM_ATTACK_DISTANCE][pGame->nDifficulty];
+    if (nDistance >= *pAttackDistance && AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pTarget, (unsigned char)(nDistance - *pAttackDistance)))
+    {
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+}
+
 // 0x005EF010
 void __fastcall AITHINK_AncientBarb3SkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {

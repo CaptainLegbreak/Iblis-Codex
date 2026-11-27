@@ -55626,6 +55626,10 @@
      "length": 550
     },
     {
+     "va": "0x005EEDA0",
+     "length": 614
+    },
+    {
      "va": "0x005EF010",
      "length": 388
     },
@@ -59921,16 +59925,6 @@
      "va": "0x005E0070",
      "length": 225,
      "name": "?QUESTSFX_UberPrimeEvil@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005EEDA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005EEDA0",
-     "length": 614
     }
    ]
   },
