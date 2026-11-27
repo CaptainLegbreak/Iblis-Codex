@@ -7551,7 +7551,9 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
         const int nArg20 = arg.nSentryCount;
         const int nArg1C = arg.nTargetCount;
 
-        const int nArg0C = *(volatile int*)&arg.nCloseTargetCount; // volatile only fixes where the original loads this field (before 0x08 and 0x18)
+        const int nArg0C = *(volatile int*)&arg.nCloseTargetCount; // volatile only fixes where the original loads this field (before 0x08 and 0x18);
+        // plain form 3376/3364: the field keeps a web of its own (copy and > 3 test) coloured eax in round 8 and copied to ebx;
+        // that web in ebx (c2force --reg 8:71:ebx) is equal, and the 2-byte copy is what moves a loop top past its alignment
         const int nArg08 = arg.nClosestDistanceSquared;
         const int nArg18 = arg.nTargetsNearOwner;
 
