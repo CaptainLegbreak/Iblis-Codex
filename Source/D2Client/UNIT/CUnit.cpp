@@ -464,7 +464,7 @@ int __fastcall GFX_HitTestUnitGfx(D2UnitStrc*,int,int,int,int); // 0x00470860
 
 
 
-D2UnitStrc* gapAiTargets[1]; // 0x007A7470
+D2UnitStrc* gapAiTargets[8]; // 0x007A7470
 
 int gbGoldButtonDisabled; // 0x007BCE2C
 
