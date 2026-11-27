@@ -3353,12 +3353,6 @@ void __fastcall DATATBLS_UnloadSoundsTxt()
     }
 }
 
-static inline D2MonStatsTxt* GetMonStatsRecord(int monster)
-{
- if(monster>=0 && monster<sgptDataTables->nMonStatsTxtRecordCount)return &gpMonstatsTxt[monster];
- return 0;
-}
-
 // 0x00659C60
 void __fastcall DATATBLS_LoadMonSeqTxt(void* hArchive)
 {

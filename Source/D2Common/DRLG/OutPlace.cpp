@@ -1232,14 +1232,6 @@ extern D2DrlgLinkStrc gAct4ChaosSanctumDrlgLink[15];                            
 extern D2DrlgLinkStrc gAct5OutdoorDrlgLink[15];                                                             // 0x006F0DE0
 extern D2DrlgLinkStrc gAct5TundraDrlgLink[15];                                                              // 0x006F0ED0
 
-static inline unsigned int SEED_RollRandomNumber_Links(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    return (unsigned int)lSeed;
-}
-
 void __stdcall DRLGOUTPLACE_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LINKFN pfLink, FLAGFN pfFlag, D2DrlgStrc* pDrlg); // 0x006772C0
 
 static void __stdcall DRLGOUTPLACE_SetOverlapWarps(int nStartId, int nEndId, D2DrlgStrc* pDrlg); // 0x006775C0

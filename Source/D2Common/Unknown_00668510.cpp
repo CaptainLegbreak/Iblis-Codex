@@ -139,16 +139,6 @@ char* __stdcall sub_M116_Emit_006543C0(char* szText, char** ppOut)
     return szText;
 }
 
-void __fastcall DATATBLS_UnloadTreasureClassExTxt()
-{
-    DATATBLS_FreeTreasureClassEx();
-}
-
-void __cdecl DATATBLS_ShouldNeverCallInExpansion()
-{
-    D2_ASSERT(0, 0x6AE);
-}
-
 // 0x00668590
 static char* sub_00668590_NextSetToken(char** ppString, const char* szSet)
 {

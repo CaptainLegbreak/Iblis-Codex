@@ -184,21 +184,6 @@ static inline unsigned int SEED_RollRandomNumberHighFirst(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
-{
-    if (nMax <= 0)
-    {
-        return 0;
-    }
-
-    if ((nMax - 1) & nMax)
-    {
-        return SEED_RollRandomNumberHighFirst(pSeed) % nMax;
-    }
-
-    return SEED_RollRandomNumberHighFirst(pSeed) & (nMax - 1);
-}
-
 // 0x0066F350
 static int __stdcall sub_0066F350(D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY)
 {

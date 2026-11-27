@@ -415,11 +415,6 @@ static D2SkillStrc* SKILLS_GetHighestLevelSkillFromSkillId(D2UnitStrc* pUnit, in
 
 static int __stdcall SKILLS_GetKickDamage(D2UnitStrc* pUnit, int bMin);
 
-int __stdcall sub_00436E90_AlwaysOne(int nArg)
-{
-    return 1;
-}
-
 // build: symbol ?SKILLS_ScaleUpDirection@* 0x004C5390
 void __fastcall SKILLS_ScaleUpDirection(int* pX, int* pY)
 {
@@ -438,33 +433,14 @@ void __fastcall SKILLS_ScaleUpDirection(int* pX, int* pY)
     }
 }
 
-int __stdcall sub_004C6020_AlwaysOne(int nArg)
-{
-    return 1;
-}
-
 bool R0052E0F0::sub_0052E0F0_IsOpen()
 {
     return m_pFile != 0;
 }
 
-int __stdcall OBJECTS_SpawnNothing(int nArg)
-{
-    return 1;
-}
-
 bool R00601DC0::sub_00601DC0_IsOpen()
 {
     return m_pFile != 0;
-}
-
-inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
-{
-    if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return &sgptDataTables->pMissilesTxt[nMissileId];
-    }
-    return 0;
 }
 
 // 0x00643340
@@ -2039,17 +2015,6 @@ static int __fastcall SKILLS_CalculateMasteryBonus(D2UnitStrc* pUnit, int nElemT
     }
 
     return 0;
-}
-
-inline int SKILLS_ApplyMasteryInl(D2UnitStrc* pUnit, int nStatId, int nSrcDamage)
-{
-    int nPercentage = STATLIST_UnitGetStatValue(pUnit, nStatId, 0);
-    if (!nPercentage)
-    {
-        return 0;
-    }
-
-    return DATATBLS_ApplyRatio(nSrcDamage, nPercentage, 100);
 }
 
 // 0x00644D50

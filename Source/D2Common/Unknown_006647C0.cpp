@@ -25,28 +25,6 @@ extern const unsigned int* gpArcherComponentCodes[16];                          
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId);                        // 0x00451FE0
 
-inline int UNITS_GetAnimModeInline(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-    return pUnit->dwAnimMode;
-}
-
-inline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecordFromUnit(D2UnitStrc* pUnit)
-{
-    if (pUnit)
-    {
-        const int nClassId = pUnit->dwClassId;
-        if (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount)
-        {
-            return &sgptDataTables->pMonStatsTxt[nClassId];
-        }
-    }
-    return 0;
-}
-
 static D2MonStats2Txt* MONSTERS_GetMonStats2TxtRecordInline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)

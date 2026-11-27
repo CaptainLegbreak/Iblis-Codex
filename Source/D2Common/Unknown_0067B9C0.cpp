@@ -85,47 +85,6 @@ int __fastcall PATH_SimplifyToLines(D2PathPointStrc tStartCoord, D2PathPointStrc
 
 static int __stdcall PATH_BresenhamLine(D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint, int nDistMax, int* nMajorDirection, D2PathPointStrc* pOutPoints);
 
-inline const int& PATH_MaxRef(const int& a, const int& b)
-{
-    return a > b ? a : b;
-}
-
-inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    }
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
-inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    }
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
-
-static inline int PATH_TestCollision(const D2CollisionTestStrc* pTest, int nX, int nY)
-{
-    return COLLISION_CheckAnyCollisionWithPattern(pTest->pRoom, nX, nY, pTest->nCollisionPattern, pTest->nCollisionMask);
-}
-
-static inline int PATH_ScaleDelta(int nScale, int nDelta, int nMax)
-{
-    int nResult = nScale;
-    nResult *= nDelta;
-    return nResult / nMax;
-}
-
 static inline unsigned short PATH_AStar_HeuristicInline(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
     int nDiffX = tPoint1.X - tPoint2.X;
