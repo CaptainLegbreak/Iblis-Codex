@@ -226,7 +226,7 @@ extern D2UnitStrc* __fastcall PLAYER_GetWeaponForSkill(D2UnitStrc*); // 0x00535B
 
 extern int __stdcall INVENTORY_GetWieldType(D2UnitStrc*,D2InventoryStrc*); // 0x0063D340
 
-extern int __stdcall sub_00625480_GetStat(D2UnitStrc*,int,int); // 0x00625480
+extern int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*,int,int); // 0x00625480
 
 extern int __stdcall SKILLS_GetToHitFactor(D2UnitStrc*,int,int); // 0x006449F0
 
@@ -1119,20 +1119,20 @@ static int __cdecl SKILLS_RollWeaponPhysicalDamage(D2UnitStrc* pUnit)
     {
         if (INVENTORY_GetWieldType(pUnit,pUnit->pInventory)==2)
         {
-            nMinimum=sub_00625480_GetStat(pUnit,23,0);
-            nMaximum=sub_00625480_GetStat(pUnit,24,0);
+            nMinimum=STATLIST_UnitGetStatValue(pUnit,23,0);
+            nMaximum=STATLIST_UnitGetStatValue(pUnit,24,0);
         }
         else
         {
-            nMinimum=sub_00625480_GetStat(pUnit,21,0);
-            nMaximum=sub_00625480_GetStat(pUnit,22,0);
+            nMinimum=STATLIST_UnitGetStatValue(pUnit,21,0);
+            nMaximum=STATLIST_UnitGetStatValue(pUnit,22,0);
         }
     }
     else
     {
-        nMinimum=sub_00625480_GetStat(pUnit,21,0);
+        nMinimum=STATLIST_UnitGetStatValue(pUnit,21,0);
         if (nMinimum<=0) nMinimum=1;
-        nMaximum=sub_00625480_GetStat(pUnit,22,0);
+        nMaximum=STATLIST_UnitGetStatValue(pUnit,22,0);
         if (nMaximum<=1) nMaximum=2;
     }
     nMinimum<<=8;
@@ -1168,21 +1168,21 @@ int __fastcall SKILLS_SrvSt35_Vengeance(D2GameStrc* pGame,D2UnitStrc* pUnit,int 
         int nPercent=sub_00646CA0_EvaluateFormula(pUnit,pRecord->dwCalc[0],nSkillId,nSkillLevel);
         if (nPercent)
         {
-            const int nMastery=sub_00625480_GetStat(pUnit,329,0);
+            const int nMastery=STATLIST_UnitGetStatValue(pUnit,329,0);
             if (nMastery) nPercent+=DATATBLS_ApplyRatio(nPercent,nMastery,100);
         }
         damage.dwFireDamage+=DATATBLS_ApplyRatio(nDamage,nPercent,100);
         nPercent=sub_00646CA0_EvaluateFormula(pUnit,pRecord->dwCalc[1],nSkillId,nSkillLevel);
         if (nPercent)
         {
-            const int nMastery=sub_00625480_GetStat(pUnit,331,0);
+            const int nMastery=STATLIST_UnitGetStatValue(pUnit,331,0);
             if (nMastery) nPercent+=DATATBLS_ApplyRatio(nPercent,nMastery,100);
         }
         damage.dwColdDamage+=DATATBLS_ApplyRatio(nDamage,nPercent,100);
         nPercent=sub_00646CA0_EvaluateFormula(pUnit,pRecord->dwCalc[2],nSkillId,nSkillLevel);
         if (nPercent)
         {
-            const int nMastery=sub_00625480_GetStat(pUnit,330,0);
+            const int nMastery=STATLIST_UnitGetStatValue(pUnit,330,0);
             if (nMastery) nPercent+=DATATBLS_ApplyRatio(nPercent,nMastery,100);
         }
         damage.dwLtngDamage+=DATATBLS_ApplyRatio(nDamage,nPercent,100);

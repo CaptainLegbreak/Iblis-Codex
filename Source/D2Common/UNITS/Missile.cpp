@@ -219,13 +219,13 @@ struct Damage
     int percent;
 };
 
-extern "C" int __stdcall sub_00625480_GetStat(Unit*, int, unsigned short); // 0x00625480
+extern "C" int __stdcall STATLIST_UnitGetStatValue(Unit*, int, unsigned short); // 0x00625480
 
-extern "C" int __stdcall sub_00625500_GetBaseStat(Unit*, int, unsigned short); // 0x00625500
+extern "C" int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(Unit*, int, unsigned short); // 0x00625500
 
-extern "C" short __stdcall sub_00629860_GetStrengthFactor(Unit*); // 0x00629860
+extern "C" short __stdcall ITEMS_GetStrengthBonus(Unit*); // 0x00629860
 
-extern "C" short __stdcall sub_006298A0_GetDexterityFactor(Unit*); // 0x006298A0
+extern "C" short __stdcall ITEMS_GetDexBonus(Unit*); // 0x006298A0
 
 extern "C" int __stdcall MISSILE_GetElementalLength(Unit*, Unit*, int, int); // 0x0064B2A0
 
@@ -723,10 +723,10 @@ static __forceinline unsigned int RollPercent(Unit* unit)
 // 0x0064A850
 static int __stdcall MISSILE_CheckCritical(Unit* unit, Unit* item)
 {
-    int chance = sub_00625480_GetStat(unit, 337, 0);
+    int chance = STATLIST_UnitGetStatValue(unit, 337, 0);
     if ((int)RollPercent(unit) < chance)
         return 1;
-    chance = sub_00625500_GetBaseStat(unit, 141, 0);
+    chance = STATLIST_UnitGetItemStatOrSkillStatValue(unit, 141, 0);
     if (chance)
     {
         if ((int)RollPercent(unit) < chance)
@@ -747,30 +747,30 @@ static int __stdcall MISSILE_CheckCritical(Unit* unit, Unit* item)
 // 0x0064A930
 static void MISSILE_AddElements(Damage* damage, Unit* unit, int shift)
 {
-    damage->fireMin += sub_00625480_GetStat(unit, 48, 0) << shift;
-    damage->fireMax += sub_00625480_GetStat(unit, 49, 0) << shift;
-    damage->lightMin += sub_00625480_GetStat(unit, 50, 0) << shift;
-    damage->lightMax += sub_00625480_GetStat(unit, 51, 0) << shift;
-    damage->magicMin += sub_00625480_GetStat(unit, 52, 0) << shift;
-    damage->magicMax += sub_00625480_GetStat(unit, 53, 0) << shift;
-    damage->coldMin += sub_00625480_GetStat(unit, 54, 0) << shift;
-    damage->coldMax += sub_00625480_GetStat(unit, 55, 0) << shift;
-    damage->coldLength += sub_00625480_GetStat(unit, 56, 0);
-    damage->poisonMin += sub_00625480_GetStat(unit, 57, 0);
-    damage->poisonMax += sub_00625480_GetStat(unit, 58, 0);
-    int length = sub_00625480_GetStat(unit, 101, 0);
+    damage->fireMin += STATLIST_UnitGetStatValue(unit, 48, 0) << shift;
+    damage->fireMax += STATLIST_UnitGetStatValue(unit, 49, 0) << shift;
+    damage->lightMin += STATLIST_UnitGetStatValue(unit, 50, 0) << shift;
+    damage->lightMax += STATLIST_UnitGetStatValue(unit, 51, 0) << shift;
+    damage->magicMin += STATLIST_UnitGetStatValue(unit, 52, 0) << shift;
+    damage->magicMax += STATLIST_UnitGetStatValue(unit, 53, 0) << shift;
+    damage->coldMin += STATLIST_UnitGetStatValue(unit, 54, 0) << shift;
+    damage->coldMax += STATLIST_UnitGetStatValue(unit, 55, 0) << shift;
+    damage->coldLength += STATLIST_UnitGetStatValue(unit, 56, 0);
+    damage->poisonMin += STATLIST_UnitGetStatValue(unit, 57, 0);
+    damage->poisonMax += STATLIST_UnitGetStatValue(unit, 58, 0);
+    int length = STATLIST_UnitGetStatValue(unit, 101, 0);
     if (length > 0)
         damage->poisonLength += length;
     else
     {
-        damage->poisonLength += sub_00625480_GetStat(unit, 59, 0);
-        damage->poisonCount += sub_00625480_GetStat(unit, 326, 0);
+        damage->poisonLength += STATLIST_UnitGetStatValue(unit, 59, 0);
+        damage->poisonCount += STATLIST_UnitGetStatValue(unit, 326, 0);
     }
-    damage->lifeMin += sub_00625480_GetStat(unit, 60, 0);
-    damage->manaMin += sub_00625480_GetStat(unit, 62, 0);
-    damage->burnMin += sub_00625480_GetStat(unit, 316, 0);
-    damage->burnMax += sub_00625480_GetStat(unit, 317, 0);
-    damage->burnLength += sub_00625480_GetStat(unit, 315, 0);
+    damage->lifeMin += STATLIST_UnitGetStatValue(unit, 60, 0);
+    damage->manaMin += STATLIST_UnitGetStatValue(unit, 62, 0);
+    damage->burnMin += STATLIST_UnitGetStatValue(unit, 316, 0);
+    damage->burnMax += STATLIST_UnitGetStatValue(unit, 317, 0);
+    damage->burnLength += STATLIST_UnitGetStatValue(unit, 315, 0);
 }
 
 // 0x0064AA60
@@ -805,20 +805,20 @@ static int sub_0064ABA0_ElementBonus(Unit* unit, int kind, int amount)
     switch (kind)
     {
     case 1:
-        bonus = sub_00625480_GetStat(unit, 329, 0);
+        bonus = STATLIST_UnitGetStatValue(unit, 329, 0);
         if (bonus) return DATATBLS_ApplyRatio(amount, bonus, 100);
         break;
     case 2:
-        bonus = sub_00625480_GetStat(unit, 330, 0);
+        bonus = STATLIST_UnitGetStatValue(unit, 330, 0);
         if (bonus) return DATATBLS_ApplyRatio(amount, bonus, 100);
         break;
     case 4:
     case 12:
-        bonus = sub_00625480_GetStat(unit, 331, 0);
+        bonus = STATLIST_UnitGetStatValue(unit, 331, 0);
         if (bonus) return DATATBLS_ApplyRatio(amount, bonus, 100);
         break;
     case 5:
-        bonus = sub_00625480_GetStat(unit, 332, 0);
+        bonus = STATLIST_UnitGetStatValue(unit, 332, 0);
         if (bonus) return DATATBLS_ApplyRatio(amount, bonus, 100);
         break;
     }
@@ -1462,67 +1462,67 @@ void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOw
             if ((pMissilesTxtRecord->flags & gdwBitMask6) && sub_006289C0_IsWeapon(item))
                 sourceDamage /= 2;
             bonus = sub_00645830_GetItemBonus(pOwner, item, 0, 1);
-            int strengthFactor = sub_00629860_GetStrengthFactor(item);
+            int strengthFactor = ITEMS_GetStrengthBonus(item);
             if (strengthFactor)
-                bonus += sub_00625480_GetStat(pOwner, 0, 0) * strengthFactor / 100;
-            int dexterityFactor = sub_006298A0_GetDexterityFactor(item);
+                bonus += STATLIST_UnitGetStatValue(pOwner, 0, 0) * strengthFactor / 100;
+            int dexterityFactor = ITEMS_GetDexBonus(item);
             if (dexterityFactor)
-                bonus += sub_00625480_GetStat(pOwner, 2, 0) * dexterityFactor / 100;
+                bonus += STATLIST_UnitGetStatValue(pOwner, 2, 0) * dexterityFactor / 100;
             if (sub_0062BA80_UsesThrowDamage(item))
             {
-                sourceMin = sub_00625480_GetStat(pOwner, 159, 0) << 8;
-                sourceMax = sub_00625480_GetStat(pOwner, 160, 0) << 8;
+                sourceMin = STATLIST_UnitGetStatValue(pOwner, 159, 0) << 8;
+                sourceMax = STATLIST_UnitGetStatValue(pOwner, 160, 0) << 8;
             }
             else if (pOwner->inventory && sub_0063D340_GetWeaponMode(pOwner, pOwner->inventory) == 2)
             {
-                sourceMin = sub_00625480_GetStat(pOwner, 23, 0) << 8;
-                sourceMax = sub_00625480_GetStat(pOwner, 24, 0) << 8;
+                sourceMin = STATLIST_UnitGetStatValue(pOwner, 23, 0) << 8;
+                sourceMax = STATLIST_UnitGetStatValue(pOwner, 24, 0) << 8;
             }
             else
             {
-                sourceMin = sub_00625480_GetStat(pOwner, 21, 0) << 8;
-                sourceMax = sub_00625480_GetStat(pOwner, 22, 0) << 8;
+                sourceMin = STATLIST_UnitGetStatValue(pOwner, 21, 0) << 8;
+                sourceMax = STATLIST_UnitGetStatValue(pOwner, 22, 0) << 8;
             }
             if (sub_00629BB0_IsItemType(item, 57)) pMissileDamageData->undeadBonus += 50;
         }
         else
         {
             if (pOwner->type == 1 && sub_0063EE90_UsesDexterity(pOwner))
-                percent = sub_00625480_GetStat(pOwner, 2, 0);
-            sourceMin = sub_00625480_GetStat(pOwner, 21, 0) << 8;
-            sourceMax = sub_00625480_GetStat(pOwner, 22, 0) << 8;
+                percent = STATLIST_UnitGetStatValue(pOwner, 2, 0);
+            sourceMin = STATLIST_UnitGetStatValue(pOwner, 21, 0) << 8;
+            sourceMax = STATLIST_UnitGetStatValue(pOwner, 22, 0) << 8;
         }
         sourceMin = sourceMin * sourceDamage / 128;
         sourceMax = sourceMax * sourceDamage / 128;
-        percent += sub_00625480_GetStat(pOwner, 25, 0) + bonus;
-        itemBonus = sub_00625480_GetStat(pOwner, 18, 0);
-        maximumPercent = sub_00625480_GetStat(pOwner, 17, 0);
-        const int nDemonBonus = sub_00625480_GetStat(pOwner, 121, 0);
+        percent += STATLIST_UnitGetStatValue(pOwner, 25, 0) + bonus;
+        itemBonus = STATLIST_UnitGetStatValue(pOwner, 18, 0);
+        maximumPercent = STATLIST_UnitGetStatValue(pOwner, 17, 0);
+        const int nDemonBonus = STATLIST_UnitGetStatValue(pOwner, 121, 0);
         pMissileDamageData->demonBonus += nDemonBonus;
-        const int nUndeadBonus = sub_00625480_GetStat(pOwner, 122, 0);
+        const int nUndeadBonus = STATLIST_UnitGetStatValue(pOwner, 122, 0);
         pMissileDamageData->undeadBonus += nUndeadBonus;
-        const int nArmorReduction = sub_00625480_GetStat(pOwner, 120, 0);
+        const int nArmorReduction = STATLIST_UnitGetStatValue(pOwner, 120, 0);
         pMissileDamageData->armorReduction += nArmorReduction;
-        if (sub_00625480_GetStat(pOwner, 103, 0)) pMissileDamageData->flags |= 0x100;
-        if (sub_00625480_GetStat(pOwner, 104, 0)) pMissileDamageData->flags |= 0x200;
-        if (sub_00625480_GetStat(pOwner, 106, 0)) pMissileDamageData->flags |= 0x400;
+        if (STATLIST_UnitGetStatValue(pOwner, 103, 0)) pMissileDamageData->flags |= 0x100;
+        if (STATLIST_UnitGetStatValue(pOwner, 104, 0)) pMissileDamageData->flags |= 0x200;
+        if (STATLIST_UnitGetStatValue(pOwner, 106, 0)) pMissileDamageData->flags |= 0x400;
     }
     else if (originDamage && pOrigin)
     {
         if (MISSILE_CheckCritical(pOrigin, 0)) pMissileDamageData->flags |= 2;
-        sourceMin = sub_00625480_GetStat(pOrigin, 21, 0) * originDamage / 128;
-        sourceMax = sub_00625480_GetStat(pOrigin, 22, 0) * originDamage / 128;
-        percent = sub_00625480_GetStat(pOrigin, 25, 0);
-        itemBonus = sub_00625480_GetStat(pOrigin, 18, 0);
-        maximumPercent = sub_00625480_GetStat(pOrigin, 17, 0);
-        const int nDemonBonus = sub_00625480_GetStat(pOrigin, 121, 0);
+        sourceMin = STATLIST_UnitGetStatValue(pOrigin, 21, 0) * originDamage / 128;
+        sourceMax = STATLIST_UnitGetStatValue(pOrigin, 22, 0) * originDamage / 128;
+        percent = STATLIST_UnitGetStatValue(pOrigin, 25, 0);
+        itemBonus = STATLIST_UnitGetStatValue(pOrigin, 18, 0);
+        maximumPercent = STATLIST_UnitGetStatValue(pOrigin, 17, 0);
+        const int nDemonBonus = STATLIST_UnitGetStatValue(pOrigin, 121, 0);
         pMissileDamageData->demonBonus += nDemonBonus;
-        const int nUndeadBonus = sub_00625480_GetStat(pOrigin, 122, 0);
+        const int nUndeadBonus = STATLIST_UnitGetStatValue(pOrigin, 122, 0);
         pMissileDamageData->undeadBonus += nUndeadBonus;
-        const int nArmorReduction = sub_00625480_GetStat(pOrigin, 120, 0);
+        const int nArmorReduction = STATLIST_UnitGetStatValue(pOrigin, 120, 0);
         pMissileDamageData->armorReduction += nArmorReduction;
     }
-    percent += sub_00625480_GetStat(pMissile, 25, 0);
+    percent += STATLIST_UnitGetStatValue(pMissile, 25, 0);
     if (itemBonus > maximumPercent) percent += itemBonus;
     else percent += maximumPercent;
     if (percent <= -90) percent = -90;
