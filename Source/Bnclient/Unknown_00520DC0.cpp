@@ -108,16 +108,6 @@ long __stdcall sub_M106_Emit_0051DC70(long* pTime)
     return BNDOWNLOAD_GetTime(pTime);
 }
 
-// 0x00523020
-char* __fastcall sub_00523020_GetAlignedData(char* pBuffer)
-{
-    D2_ASSERT(pBuffer, 0xF2);
-    const unsigned int nMisalign = (unsigned int)pBuffer & 0x3F;
-    if (nMisalign)
-        pBuffer += 0x40 - nMisalign;
-    return pBuffer + 8;
-}
-
 // 0x005241A0
 void __cdecl sub_005241A0_ClearHashContexts()
 {

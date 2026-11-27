@@ -793,6 +793,11 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00405C30",
+     "length": 698,
+     "name": "?GameStart@@YIHPAXPAUD2ConfigStrc@@H@Z"
+    },
+    {
      "va": "0x00405EF0",
      "length": 6,
      "name": "sub_00405EF0_AllowExpansion"
@@ -938,11 +943,6 @@
      "va": "0x00405A70",
      "length": 437,
      "name": "?sub_00405A70_WriteSurveyLocale@@YGXXZ"
-    },
-    {
-     "va": "0x00405C30",
-     "length": 698,
-     "name": "?GameStart@@YIHPAXPAUD2ConfigStrc@@H@Z"
     }
    ]
   },
@@ -37011,6 +37011,11 @@
      "length": 520
     },
     {
+     "va": "0x00523020",
+     "length": 55,
+     "name": "?sub_00523020_GetAlignedData@@YIPADPAD@Z"
+    },
+    {
      "va": "0x00523060",
      "length": 537
     },
@@ -37074,11 +37079,6 @@
      "va": "0x0051BEC0",
      "length": 5,
      "name": "?sub_0051BEC0_IsExpansion@@YAHXZ"
-    },
-    {
-     "va": "0x0051C470",
-     "length": 254,
-     "name": "?sub_0051C470_CloseBNetConnection@@YAHXZ"
     },
     {
      "va": "0x0051C9B0",
@@ -37476,6 +37476,11 @@
      "va": "0x0051C460",
      "length": 11,
      "name": "?BNSEND_LeaveChat@@YAHXZ"
+    },
+    {
+     "va": "0x0051C470",
+     "length": 254,
+     "name": "?sub_0051C470_CloseBNetConnection@@YAHXZ"
     },
     {
      "va": "0x0051C570",
@@ -38768,11 +38773,6 @@
      "va": "0x00522BB0",
      "length": 10,
      "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
-    },
-    {
-     "va": "0x00523020",
-     "length": 55,
-     "name": "?sub_00523020_GetAlignedData@@YIPADPAD@Z"
     },
     {
      "va": "0x005241A0",

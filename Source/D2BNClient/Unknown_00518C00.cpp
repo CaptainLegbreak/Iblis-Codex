@@ -117,44 +117,6 @@ int __cdecl sub_0051BEC0_IsExpansion()
     return FOG_IsExpansion();
 }
 
-// 0x0051C470
-int __cdecl sub_0051C470_CloseBNetConnection()
-{
-    BNSEND_FreeChannelList();
-    BNSEND_FreeGamesList();
-    CACHE_FreeCache();
-    BNMESSQUEUE_FreeAllMessages();
-    sub_00521B90_ClearSrpState();
-    InterlockedExchange(&gnDnsDone, 1);
-    while (InterlockedCompareExchange(&gnReceiveThreads, 0, 0))
-        Sleep(10);
-    const long hSocket = InterlockedCompareExchange(&gnConnected, 0, 0);
-    if (hSocket)
-    {
-        BNDOWNLOAD_SetDisconnected();
-        while (InterlockedCompareExchange(&gnSendBusy, 0, 0))
-            Sleep(10);
-        if (InterlockedCompareExchange(&gnConnected, 0, hSocket) == hSocket)
-            FOG_SOCKET_Destroy((FSafeSock*)hSocket);
-    }
-    BNDOWNLOAD_StopDownloads();
-    while (BNDOWNLOAD_HasPendingDownloads())
-        Sleep(10);
-    if (InterlockedCompareExchange(&gnSendBusy, 0, 0))
-    {
-        int nWaited = 0;
-        do
-        {
-            nWaited += 100;
-            Sleep(10);
-            if (nWaited > 60)
-                return 0;
-        }
-        while (InterlockedCompareExchange(&gnSendBusy, 0, 0));
-    }
-    return 1;
-}
-
 // 0x0051C9B0
 int __fastcall sub_0051C9B0_GetPeerName(void* pAddress, int* pnLength)
 {
