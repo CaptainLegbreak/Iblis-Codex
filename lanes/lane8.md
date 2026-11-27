@@ -35,6 +35,7 @@ scaffolding, names.
 - Thu Nov 26 12:20 PT: setting up (repo, board, wine done; waiting for Game.exe, then setup and the baseline build).
 
 ## Ready
+- lane8/path-accessor-views 6c0979a7c (on #452): Path.cpp's 24 path accessors (pathing flag, velocities, acceleration, path points, directions, client coordinates, final target and last point, rooms, target position, collision masks, step count, distance) were written against private `Obj<VA>` / `View_<VA>` views, most with `extern "C" __declspec(dllexport)`; they take D2DynamicPathStrc now. The 25 views, their offset checks, five padding structs named after functions and an unmarked second copy of PATH_GetClientCoordX go (Path.cpp -590 / +108 lines). Full build: Game.exe identical, tree 2ee61cb84d36f16885c713071bbc4ad9c1a7895a, borrowed code / data 7,923 / 261.
 - lane8/statsex-accessor-views 314e77df7 (on #450): accessors written against private `Obj<VA>` views with `extern "C" __declspec(dllexport)` now take the shared records: StatsEx.cpp (owner type and GUID, state, expire frames, remove callback; D2StatListStrc), Inventory.cpp (node and corpse fields; D2InventoryNodeStrc, D2CorpseStrc), Dungeon.cpp (act tile data, room allies; D2DrlgActStrc, D2ActiveRoomStrc), Skills.cpp (skill mode; D2SkillStrc) and Units.cpp (stash gold limit, qualifiers only). 16 views go. DUNGEON_SaveKilledUnitGUID keeps its view (note to lane 2 below). Full build: Game.exe identical, tree bcf2eb118fc9544f5df63840f3497d6fc6e4da39, borrowed code / data 7,923 / 261.
 
 ## Questions
