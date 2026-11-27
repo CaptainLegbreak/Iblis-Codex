@@ -9,14 +9,13 @@
 #include "D2CelContext.h"
 #include "D2Win32RgbQuad.h"
 #include "FogApi.h"
+#include "D2GlideApi.h"
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 
 extern void* gpArg1_007C9148; // 0x007C9148
 
 extern void* gpArg2_007C914C; // 0x007C914C
-
-extern D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 
@@ -188,8 +187,6 @@ void* __cdecl sub_006C8020_GetBufferBitmap(); // 0x006C8020
 extern unsigned long gdwGdiDebugTextColor; // 0x0074C5C0
 extern void* ghGdiDebugFont; // 0x0098A170
 
-extern D2GfxSettingsStrc* gpGfxSettings; // 0x007C9148
-
 int __fastcall GDICORE_Init(void* pArg1, void* pArg2); // 0x006C7A70
 int __cdecl GDICORE_Close(); // 0x006C7AB0
 int __fastcall GDICORE_CreateSurface(int nValue, int nArg); // 0x006C7C10
@@ -297,7 +294,6 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
 extern int gnValue_007C9144; // 0x007C9144
 
 

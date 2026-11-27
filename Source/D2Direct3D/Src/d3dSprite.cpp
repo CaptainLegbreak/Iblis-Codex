@@ -75,6 +75,7 @@ void* gpSpriteOutlineBuffer; // 0x00970F38
 #include "D2ClientTypes.h"
 #include "FogApi.h"
 #include "FogApi.h"
+#include "D2GlideApi.h"
 
 struct D2CelStrc;
 
@@ -186,8 +187,6 @@ static void __stdcall D3DSPRITE_DrawTexturedQuad(int nOffsetX, int nOffsetY, uns
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
 void __fastcall sub_006B9860_Project(int nX, int nY, int nZ, int* pScreenX, int* pScreenY);                  // 0x006B9860
-
-extern int gnRenderWidth; // 0x007C9138
 
 extern int gnRenderHeight; // 0x007C913C
 
