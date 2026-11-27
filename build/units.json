@@ -68454,12 +68454,12 @@
     {
      "va": "0x00642010",
      "length": 379,
-     "name": "?DRLG_FreeLevel@@YGXPAXHPAULevel@@@Z"
+     "name": "?DRLG_FreeLevel@@YGXPAXHPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x00642190",
      "length": 150,
-     "name": "?DRLG_FreeDrlg@@YIXPAUDungeon@@@Z"
+     "name": "?DRLG_FreeDrlg@@YIXPAUD2DrlgStrc@@@Z"
     },
     {
      "va": "0x00642230",
@@ -68630,7 +68630,7 @@
     {
      "va": "0x00643200",
      "length": 94,
-     "name": "?DRLG_UpdateAndFreeInactiveRooms@@YIXPAUDungeon@@@Z"
+     "name": "?DRLG_UpdateAndFreeInactiveRooms@@YIXPAUD2DrlgStrc@@@Z"
     },
     {
      "va": "0x00643260",
