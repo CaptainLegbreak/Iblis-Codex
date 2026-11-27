@@ -778,7 +778,6 @@ static int TEXT_IsOnPressedButton(int nX, int nY);
 
 
 
-extern D2WaypointRowRectStrc gaWaypointRowRects[9];                                                // 0x007224F8
 
 
 
