@@ -136,10 +136,6 @@ extern void* ghD2ServerServiceStatus; // 0x0074C714
 
 extern int gnLaunchDirectFlags; // 0x0074C82C
 
-extern void* gpStormOwnerB_007790C4; // 0x007790C4
-
-extern unsigned long gdwStormOwnerThread_007790C8; // 0x007790C8
-
 int gnFlag_007798D0; // 0x007798D0
 
 struct D2SlotEntryStrc

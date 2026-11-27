@@ -10,10 +10,9 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" char* __cdecl strrchr(const char* szString, int nChar); // 0x00682990
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
-int __stdcall SFileOpenArchive(const char*,int,unsigned int,void**); // 0x0041BA60
-unsigned int __stdcall SStrCopy(char*,const char*,unsigned int); // 0x004135D0
-unsigned int __stdcall SStrPack(char*,const char*,unsigned int); // 0x00413800
-
+int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq); // 0x0041BA60
+unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
+unsigned int __stdcall SStrPack(char* dest, const char* source, unsigned int limit); // 0x00413800
 typedef int (__stdcall* ARCHIVE_ShowMessageFunctionPtr)();
 
 struct D2ArchiveHandleStrc

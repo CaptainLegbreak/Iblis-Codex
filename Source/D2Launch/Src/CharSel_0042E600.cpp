@@ -14,6 +14,7 @@
 #include "D2GfxApi.h"
 #include "D2WinApi.h"
 #include "D2MCPClientApi.h"
+#include "StormApi2.h"
 #pragma intrinsic(strlen)
 struct D2UnitStrc;
 struct D2ActiveRoomStrc;
@@ -65,8 +66,6 @@ struct D2GridCellStrc
 typedef void (__stdcall* D2RecordHandlerFn)(int nArg1, int nArg2, int nArg3);
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long nMilliseconds); // 0x006CC258
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 void __cdecl CHATDLG_FillGameList(); // 0x00444E70
 void __cdecl RECORD_WriteRecordFile(); // 0x00451620
 extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId); // 0x00452040

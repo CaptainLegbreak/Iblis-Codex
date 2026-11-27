@@ -1,8 +1,7 @@
 #include "SRP.h"
 #include "D2BnCryptTypes.h"
 #include "StormApi.h"
-
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);         // 0x00413020
+#include "StormApi2.h"
 
 #define rol(value, bits) _rotl(value, bits)
 
@@ -28,8 +27,6 @@ struct D2BigServerRecordStrc;
 
 struct D2BigServerHandlesStrc;
 
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
 struct D2BigServerRecordStrc
 {

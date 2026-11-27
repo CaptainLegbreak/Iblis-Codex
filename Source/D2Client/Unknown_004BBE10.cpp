@@ -10,6 +10,7 @@
 #include "FogApi.h"
 #include "D2LangApi.h"
 #include "StormApi.h"
+#include "StormApi2.h"
 
 struct Unicode;
 struct D2ButtonStringStrc;
@@ -21,10 +22,6 @@ class EditBoxImplementation;
 class ButtonWrapper;
 class EditBoxWrapper;
 class SpinnerImplementation;
-
-void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 
 // build: symbol ??1ButtonWrapper@@UAE@XZ 0x004BADD0
 // build: symbol ??1EditBoxImplementation@@UAE@XZ 0x004BB170

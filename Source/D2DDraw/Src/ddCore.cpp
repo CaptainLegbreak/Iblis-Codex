@@ -12,6 +12,7 @@
 #include "FogApi.h"
 #include "D2CMPApi.h"
 #include "D2SoundApi.h"
+#include "StormApi2.h"
 
 struct D2CriticalSectionStrc;
 
@@ -1040,8 +1041,6 @@ extern "C" __declspec(dllimport) unsigned int __stdcall BinkDDSurfaceType(D2DDra
 extern "C" __declspec(dllimport) int __stdcall BinkSetSoundSystem(void* pfOpen, unsigned long nParam); // 0x006CC5D4
 
 extern "C" __declspec(dllimport) void* __stdcall BinkOpenDirectSound(unsigned long nParam); // 0x006CC5D8
-
-int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
 
 void __cdecl GLIDE_DrawVideoFrame(); // 0x0050FD10
 

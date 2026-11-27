@@ -1,6 +1,6 @@
 #include "D2BNClient.h"
+#include "StormApi2.h"
 
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650
 void __cdecl BNMESSQUEUE_DeleteQueueLock();                                                                // 0x00520200
 void* gpField00Arg;                                                                                // 0x0088185C
 

@@ -73,10 +73,6 @@ extern "C" long __cdecl strtol(const char* szString, char** ppEnd, int nRadix); 
 
 extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int nRadix); // 0x006867B2
 
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-
-
-
 extern "C" const char gszGatewayIsClosest[]; // 0x006DED44
 
 extern "C" const char gszFindClosestGateway[]; // 0x006DED78
@@ -86,9 +82,6 @@ extern "C" const char gszAutoPickGateway[]; // 0x006DED9C
 extern "C" const char gszObsoleteGatewayList[]; // 0x006DEDC0
 
 int __cdecl BNDOWNLOAD_ConfigureLog(int nChannel, int nIndent); // 0x00518C70
-
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);         // 0x00413020
-
 
 extern "C" const char gszBNetGWFile[];                                                              // 0x006DEC6C
 

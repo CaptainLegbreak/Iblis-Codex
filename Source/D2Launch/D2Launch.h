@@ -153,11 +153,11 @@ int __fastcall sub_004F9710_TestFlags(D2WinControlStrc* pControl); // 0x004F9710
 int __fastcall sub_004FB950_GetFirstVisible(D2WinControlStrc* pControl); // 0x004FB950
 int __fastcall sub_004FC620_GetValue(D2WinControlStrc* pControl); // 0x004FC620
 int __stdcall D2Win_10033(D2WinControlStrc* pControl, int nArg); // 0x004FA470
-int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
+int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
+int __stdcall SFileCloseFile(void* hFile); // 0x004198D0
 int __stdcall sub_0042FF00_FilterChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FF00
 void __cdecl CHARSEL_CreateTcpIpScreen(); // 0x0042FFE0
 int __stdcall MAINMENUS_PollSystemPacket(int nArg); // 0x00431C90

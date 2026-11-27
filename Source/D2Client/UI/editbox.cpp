@@ -12,6 +12,7 @@
 #include "StormApi.h"
 #include "D2WinApi.h"
 #include "D2CMPApi.h"
+#include "StormApi2.h"
 
 struct Unicode;
 struct D2ButtonStringStrc;
@@ -27,10 +28,6 @@ class SpinnerImplementation;
 
 typedef int (__fastcall* EDITBOX_FILTER)(EditBoxImplementation* pEditBox, SMSGHANDLER_PARAMS* pMsg);
 typedef void (*EDITBOX_CALLBACK)();
-
-void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 
 // build: symbol ??1ButtonWrapper@@UAE@XZ 0x004BADD0
 // build: symbol ??1EditBoxImplementation@@UAE@XZ 0x004BB170

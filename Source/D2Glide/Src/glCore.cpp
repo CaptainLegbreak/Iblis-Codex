@@ -12,6 +12,7 @@
 #include "D2GameTypes.h"
 #include "FogApi.h"
 #include "FogApi.h"
+#include "StormApi2.h"
 
 extern int gbGlideDrawing; // 0x0087EFE4
 
@@ -197,11 +198,6 @@ struct D2TileLibraryEntryStrc;
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
-
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);         // 0x00413020
-
-
-
 
 int __fastcall GLCORE_CreateSurface(void* hWnd, int nResolution); // 0x00509E90
 

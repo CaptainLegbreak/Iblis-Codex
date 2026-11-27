@@ -1,6 +1,7 @@
 #include "D2BNClient.h"
 #include "D2Primitives.h"
 #include "FogApi.h"
+#include "StormApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -21,8 +22,6 @@ struct D2Storm408ElemStrc
     unsigned int nStamp;
     char szText[0x400];
 };
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
 extern "C" const char gszNewsItemTypeName_0072FF8C[]; // 0x0072FF8C
 
@@ -64,10 +63,6 @@ int (__cdecl* gpfnNewsRefresh)(); // 0x00881C2C
 D2StormArray408Strc gtNewsItems;        // 0x00881C30
 
 unsigned int gnNewsFirstIndex;        // 0x00881C40
-
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
-
-void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
 
 int (__fastcall* gpfnNewsMessage)(unsigned int nStamp, const char* szText); // 0x00881C28
 
