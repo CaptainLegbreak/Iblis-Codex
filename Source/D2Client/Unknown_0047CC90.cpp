@@ -2242,13 +2242,13 @@ static void __stdcall sub_0047F490_ShowSlotTooltip(int nX, int nY, int nKind)
         if (CUNIT_GetHotkeyBinding(nHotKey, 1) != 0xFFFF)
         {
             memset(wszKey, 0, sizeof(wszKey));
-            sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyText(nHotKey, 1));
+            sub_005269D0_FormatText(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyText(nHotKey, 1));
             sub_00526700(wszText, wszKey);
         }
         if (CUNIT_GetHotkeyBinding(nHotKey, 0) != 0xFFFF)
         {
             memset(wszKey, 0, sizeof(wszKey));
-            sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyText(nHotKey, 0));
+            sub_005269D0_FormatText(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyText(nHotKey, 0));
             sub_00526700(wszText, wszKey);
         }
     }

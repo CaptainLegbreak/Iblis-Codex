@@ -31,7 +31,7 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);       
 
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);                                 // 0x005267E0
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
+void __cdecl sub_005269D0_FormatText(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
 void __fastcall NPCMENU_ClearUnicode(Unicode* pChar);                                                  // 0x0042F530
 
@@ -362,7 +362,7 @@ static int __stdcall SKILLDESC_AppendFormattedValue(Unicode* wszOut, int nValue,
         return 1;
     }
 
-    sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(wStr), nValue);
+    sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(wStr), nValue);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
     sub_00526700(wszOut, wszText);
     return 1;
@@ -1050,7 +1050,7 @@ static int __stdcall SKILLDESC_AddFormattedText(Unicode* wszText, int nValue, un
     int wszLine_[128]; Unicode* const wszLine = (Unicode*)wszLine_;
     for (int i = 0; i < 128; ++i)
         wszLine_[i] = 0;
-    sub_005269D0(0x100, wszLine, D2LANG_GetStringFromTblIndex(nString), nValue);
+    sub_005269D0_FormatText(0x100, wszLine, D2LANG_GetStringFromTblIndex(nString), nValue);
     sub_00526700(wszText, wszLine);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
     return 1;

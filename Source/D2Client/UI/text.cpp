@@ -2380,10 +2380,10 @@ static int TEXT_FormatPartyEvent(Unicode* pOut, D2GSPacketSrv5A* pPacket)
     switch (pPacket->nParam)
     {
     case 1:
-        sub_005269D0(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277A), wszName);
+        sub_005269D0_FormatText(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277A), wszName);
         break;
     case 2:
-        sub_005269D0(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277B), wszName);
+        sub_005269D0_FormatText(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277B), wszName);
         break;
     case 3:
         sub_005267E0(pOut, wszName);
@@ -2415,10 +2415,10 @@ static int TEXT_FormatPartyEvent(Unicode* pOut, D2GSPacketSrv5A* pPacket)
         sub_00526700(pOut, D2LANG_GetStringFromTblIndex(0xFC0));
         break;
     case 10:
-        sub_005269D0(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277C), wszName);
+        sub_005269D0_FormatText(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277C), wszName);
         break;
     case 11:
-        sub_005269D0(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277D), wszName);
+        sub_005269D0_FormatText(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277D), wszName);
         break;
     }
     if (pPlayer)
@@ -2484,10 +2484,10 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
         {
             Unicode wszAccount[16];
             sub_00526F20_ToUnicode(wszAccount, pPacket->szTextData[1], 16);
-            sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3B), wszName, wszAccount);
+            sub_005269D0_FormatText(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3B), wszName, wszAccount);
             break;
         }
-        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE39), wszName);
+        sub_005269D0_FormatText(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE39), wszName);
         break;
     case 3:
         D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE3A)) < 0x104, 0x116A);
@@ -2496,10 +2496,10 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
         {
             Unicode wszAccount[16];
             sub_00526F20_ToUnicode(wszAccount, pPacket->szTextData[1], 16);
-            sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3C), wszName, wszAccount);
+            sub_005269D0_FormatText(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3C), wszName, wszAccount);
             break;
         }
-        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3A), wszName);
+        sub_005269D0_FormatText(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3A), wszName);
         break;
     case 4:
         D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE3D)) < 0x104, 0x1178);
@@ -2593,16 +2593,16 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
         return;
     case 11:
         sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
-        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x69B), wszName);
+        sub_005269D0_FormatText(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x69B), wszName);
         break;
     case 15:
-        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE43), pPacket->dwParam);
+        sub_005269D0_FormatText(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE43), pPacket->dwParam);
         break;
     case 17:
-        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x2AFC), pPacket->dwParam);
+        sub_005269D0_FormatText(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x2AFC), pPacket->dwParam);
         break;
     case 18:
-        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x2AFD));
+        sub_005269D0_FormatText(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x2AFD));
         if (gpGlobal_007A0634)
             ENVIRONMENT_InitializeEnvironment(gpGlobal_007A0634, CUNIT_GetPlayerRoom(), 5, 0, 1);
         sub_00476A80_StartTiming(6, 0xFA0, 0x2710, 0xFA0);
@@ -2686,7 +2686,7 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
     {
         Unicode::win2Unicode(wszB, pPacket->szMessage, 0x100);
         Unicode::win2Unicode(wszC, pPacket->szName, 0x10);
-        sub_005269D0(0x264, wszA, D2LANG_GetStringFromTblIndex(0xE4A), wszC, wszB);
+        sub_005269D0_FormatText(0x264, wszA, D2LANG_GetStringFromTblIndex(0xE4A), wszC, wszB);
         SCMD_StripColorCodes(wszA);
         TEXT_PrintChatLine(wszA, 2);
     }
@@ -3809,7 +3809,7 @@ extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey);
 void __stdcall TEXT_DrawHintText(int nArg1, int nStringIndex)
 {
     Unicode wszText[100];
-    sub_005269D0(100, wszText, D2LANG_GetStringFromTblIndex(0x1058), nArg1);
+    sub_005269D0_FormatText(100, wszText, D2LANG_GetStringFromTblIndex(0x1058), nArg1);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));
     D2Win_10129_DrawFramedText(wszText, gnScreenWidth - 0x80, gnScreenHeight - 0x34, 0, 1);

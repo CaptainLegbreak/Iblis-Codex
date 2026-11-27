@@ -2190,7 +2190,7 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMillisecon
 
 unsigned long gdwLastClientsUpdateTick;                                                                               // 0x00883D5C
 
-int __cdecl sub_0052B910();                                                                                 // 0x0052B910
+int __cdecl sub_0052B910_GetLastError();                                                                                 // 0x0052B910
 
 
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0

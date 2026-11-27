@@ -723,13 +723,13 @@ void __cdecl INV_DrawKeyBindingPopup()
     if (CUNIT_GetHotkeyBinding(0x23, 1) != 0xFFFF)
     {
         memset(wszKey, 0, sizeof(wszKeyBuf));
-        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(0x23, 1));
+        sub_005269D0_FormatText(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(0x23, 1));
         sub_00526700(wszText, wszKey);
     }
     if (CUNIT_GetHotkeyBinding(0x23, 0) != 0xFFFF)
     {
         memset(wszKey, 0, sizeof(wszKeyBuf));
-        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(0x23, 0));
+        sub_005269D0_FormatText(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(0x23, 0));
         sub_00526700(wszText, wszKey);
     }
     D2Win_10129_DrawFramedText(wszText, gnScreenWidth / 2 - 0x91, gnScreenHeight - 0x17, 0, 1);
@@ -829,7 +829,7 @@ void __cdecl PANEL_DrawStaminaBar()
     if (nMouseX >= gnScreenWidth / 2 - 0x7F && nMouseX <= gnScreenWidth / 2 - 0x19
         && nMouseY >= gnScreenHeight - 0x1B && nMouseY <= gnScreenHeight - 9)
     {
-        sub_005269D0(100, wszText, D2LANG_GetStringFromTblIndex(0x1044), nCur, nMax);
+        sub_005269D0_FormatText(100, wszText, D2LANG_GetStringFromTblIndex(0x1044), nCur, nMax);
         D2Win_10129_DrawFramedText(wszText, gnScreenWidth / 2 - 0x4C, gnScreenHeight - 0x34, nTextColor, 1);
     }
 }
@@ -1314,7 +1314,7 @@ void __cdecl PANEL_DrawLifeManaText()
         if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode != 0x11 && nLife >= 0 && nLife <= 1)
             nLife = 1;
 
-        sub_005269D0(100, wszLifeText, D2LANG_GetStringFromTblIndex(0x1045), nLife, nMaxLife);
+        sub_005269D0_FormatText(100, wszLifeText, D2LANG_GetStringFromTblIndex(0x1045), nLife, nMaxLife);
         sub_00526700(wszLife, wszLifeText);
         const int nHalfWidth = D2Win_10121_GetTextWidth(wszLife) / 2;
         D2Win_10117_DrawText(wszLife, 0x41 - nHalfWidth, gnScreenHeight - 0x5F, 0, 0);
@@ -1324,7 +1324,7 @@ void __cdecl PANEL_DrawLifeManaText()
         && nMouseY >= gnScreenHeight - 0x4B && nMouseY <= gnScreenHeight - 0xF))
     {
         const int nMana = PANEL_GetSmoothedOrbValue(8) >> 8;
-        sub_005269D0(100, wszManaText, D2LANG_GetStringFromTblIndex(0x1046), nMana, STATLIST_GetMaxManaFromUnit(pPlayer) >> 8);
+        sub_005269D0_FormatText(100, wszManaText, D2LANG_GetStringFromTblIndex(0x1046), nMana, STATLIST_GetMaxManaFromUnit(pPlayer) >> 8);
         sub_00526700(wszMana, wszManaText);
         const int nHalfWidth = D2Win_10121_GetTextWidth(wszMana) / 2;
         D2Win_10117_DrawText(wszMana, gnScreenWidth - nHalfWidth - 0x50, gnScreenHeight - 0x5F, 0, 0);
@@ -1794,7 +1794,7 @@ void __cdecl PANEL_DrawExperienceBar()
 
     if (nMouseX >= gnScreenWidth / 2 - 0x92 && nMouseX <= gnScreenWidth / 2 - 0x17 && nMouseY >= gnScreenHeight - 0x2B && nMouseY <= gnScreenHeight - 0x22)
     {
-        sub_005269D0(100, wszText, D2LANG_GetStringFromTblIndex(0x1043), nExperience, nNextExperience);
+        sub_005269D0_FormatText(100, wszText, D2LANG_GetStringFromTblIndex(0x1043), nExperience, nNextExperience);
         D2Win_10129_DrawFramedText(wszText, gnScreenWidth / 2 - 0x92, gnScreenHeight - 0x33, 0, 1);
     }
 

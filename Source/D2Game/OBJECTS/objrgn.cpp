@@ -677,7 +677,7 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMillisecon
 
 unsigned long gdwLastClientsUpdateTick;                                                                               // 0x00883D5C
 
-int __cdecl sub_0052B910();                                                                                 // 0x0052B910
+int __cdecl sub_0052B910_GetLastError();                                                                                 // 0x0052B910
 
 
 D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetHead(D2ClientStrc* pClient);                         // 0x005392E0

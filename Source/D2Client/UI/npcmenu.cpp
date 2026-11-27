@@ -3062,7 +3062,7 @@ void __cdecl NPCMENU_BuildNpcMenu()
         {
             const Unicode* wszHireling=D2LANG_GetStringFromTblIndex(0x2B0D);
             if((unsigned short)gnHirelingName_00725494!=0x421)wszHireling=D2LANG_GetStringFromTblIndex((unsigned short)gnHirelingName_00725494);
-            sub_005269D0(512,wszLine,D2LANG_GetStringFromTblIndex(0x58A8),wszHireling,gnNpcMenuValue);
+            sub_005269D0_FormatText(512,wszLine,D2LANG_GetStringFromTblIndex(0x58A8),wszHireling,gnNpcMenuValue);
         }
         else if(nStringId==0xD09)
         {

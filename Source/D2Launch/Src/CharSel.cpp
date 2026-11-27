@@ -748,7 +748,7 @@ char* __fastcall FOG_inet_ntoa(int nAddress); // 0x0040E080
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
+void __cdecl sub_005269D0_FormatText(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
 int __fastcall sub_004FBD20_GetLastRow(D2WinControlStrc* pControl); // 0x004FBD20
 
@@ -1464,7 +1464,7 @@ void __cdecl CHARSEL_UpdateCharList()
                             nColor = 0;
                         }
                     }
-                    sub_005269D0(100, wszText, D2LANG_GetStringFromTblIndex(nString), nDays);
+                    sub_005269D0_FormatText(100, wszText, D2LANG_GetStringFromTblIndex(nString), nDays);
                     D2Win_10051(gapRowControls[nRow], wszText, nColor, 0, 0);
                 }
             }
@@ -1582,7 +1582,7 @@ void __cdecl CHARSEL_RefreshCharList()
                 if(days==0) str=0x2B7E;
                 else if(days<2) str=0x2B7C;
                 else {str=0x2B7D;if(days>=15) color=0;}
-                sub_005269D0(100,description,D2LANG_GetStringFromTblIndex(str),days);
+                sub_005269D0_FormatText(100,description,D2LANG_GetStringFromTblIndex(str),days);
                 sub_004FC9B0_SetText(gapRowControls[row],description,color,0,0);
             }
 VISIBLE_END:
@@ -3066,7 +3066,7 @@ int __stdcall CHARSEL_OnCharSelect(int nArg)
                         Unicode wszText[0x100];
                         Unicode wszArg[0x100];
                         sub_00526F20_ToUnicode(wszArg, pEntry->szName, 0x100);
-                        sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x2B89), wszArg);
+                        sub_005269D0_FormatText(0x100, wszText, D2LANG_GetStringFromTblIndex(0x2B89), wszArg);
                         MAINMENUS_ShowText(wszText, CHARSEL_InitCharSelectScreen);
                     }
                     gbCharSelBusy = 0;

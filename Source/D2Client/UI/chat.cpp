@@ -1397,9 +1397,9 @@ int __cdecl CHAT_HandleBnetChatMessage()
             wszLine[0x153].wChar = 0;
             wszText[0x153].wChar = 0;
             if (nType == 10)
-                sub_005269D0(0x153, wszOut, D2LANG_GetStringFromTblIndex(0x14D5), wszLine, wszText);
+                sub_005269D0_FormatText(0x153, wszOut, D2LANG_GetStringFromTblIndex(0x14D5), wszLine, wszText);
             else
-                sub_005269D0(0x153, wszOut, D2LANG_GetStringFromTblIndex(0x14D4), wszLine, wszText);
+                sub_005269D0_FormatText(0x153, wszOut, D2LANG_GetStringFromTblIndex(0x14D4), wszLine, wszText);
             wszOut[0x153].wChar = 0;
             TEXT_PrintChatLine(wszOut, 2);
             break;
@@ -1873,9 +1873,9 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
                 sub_00526320_ToUnicode(wszLine, gszBattleNetPrefix, 0x208);
                 sub_00526320_ToUnicode(wszName, szName, 0x22);
                 if (sub_00611560_GetSquelchList()->Squelch(szName))
-                    sub_005269D0(0x208, wszText, D2LANG_GetStringFromTblIndex(0x2BA3), wszName);
+                    sub_005269D0_FormatText(0x208, wszText, D2LANG_GetStringFromTblIndex(0x2BA3), wszName);
                 else
-                    sub_005269D0(0x208, wszText, D2LANG_GetStringFromTblIndex(0x2BA4), wszName);
+                    sub_005269D0_FormatText(0x208, wszText, D2LANG_GetStringFromTblIndex(0x2BA4), wszName);
                 sub_00526700(wszLine, wszText);
             }
             TEXT_PrintChatLine(wszLine, 3);
@@ -1891,9 +1891,9 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
             sub_00526320_ToUnicode(wszLine, gszBattleNetPrefix, 0x208);
             sub_00526320_ToUnicode(wszName, szName, 0x22);
             if (sub_00611560_GetSquelchList()->Unsquelch(szName))
-                sub_005269D0(0x208, wszText, D2LANG_GetStringFromTblIndex(0x2BA5), wszName);
+                sub_005269D0_FormatText(0x208, wszText, D2LANG_GetStringFromTblIndex(0x2BA5), wszName);
             else
-                sub_005269D0(0x208, wszText, D2LANG_GetStringFromTblIndex(0x2BA6), wszName);
+                sub_005269D0_FormatText(0x208, wszText, D2LANG_GetStringFromTblIndex(0x2BA6), wszName);
             sub_00526700(wszLine, wszText);
             TEXT_PrintChatLine(wszLine, 3);
         }

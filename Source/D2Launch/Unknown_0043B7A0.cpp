@@ -483,7 +483,7 @@ static __declspec(noinline) void CHARSEL_ReportStatus(int nCode, int nArg)
 }
 
 // 0x0043BF60
-int __cdecl sub_0043BF60()
+int __cdecl sub_0043BF60_ConnectToBattleNet()
 {
     if (!gpFuncTable)
     {

@@ -529,7 +529,7 @@ void __cdecl CUNIT_DrawCountdown()
         return;
     for (int i = 0; i < 256; ++i)
         wszText[i].wChar = 0;
-    sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x13E9), gnTimerEnd - nNow);
+    sub_005269D0_FormatText(0x100, wszText, D2LANG_GetStringFromTblIndex(0x13E9), gnTimerEnd - nNow);
     const int nOldFont = D2Win_10127_SetFont(13);
     const int nWidth = D2Win_10121_GetTextWidth(wszText);
     D2Win_10117_DrawText(wszText, gnScreenWidth / 2 - nWidth / 2, 0x177, 9, 1);

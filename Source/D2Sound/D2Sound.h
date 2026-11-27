@@ -20,7 +20,7 @@ int __cdecl D2SOUND_IsExpansion(); // 0x00513AE0
 int __cdecl D2SOUND_IsPositionalSoundEnabled(); // 0x00513B60
 int __cdecl D2SOUND_IsEaxEnabled(); // 0x00513B70
 int __cdecl D2SOUND_GetEaxVersion(); // 0x00513B90
-int __cdecl sub_00513BB0(); // 0x00513BB0
+int __cdecl sub_00513BB0_GetValue(); // 0x00513BB0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __stdcall sub_00418140(void* hSample, unsigned int* pValueA, unsigned int* pValueB); // 0x00418140
 int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
