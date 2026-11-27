@@ -6,6 +6,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 1.10-address names. New chat, reopened 2026-11-26 11:57 PT (from lane 6, which held these modules since 2026-11-25).
 
 ## Status
+- 2026-11-27 01:50 UTC: every D2Game folder and top-level unit is in (#447-#452). Now D2Game.h / D2GameFuncs.h (lane9/names-d2game-h, building).
 - 2026-11-27 01:03 UTC: a2, c2 in (#449). b3 conflicts with #450 (a2q7.cpp, a2q8.cpp): reposting as -b4 (unit builds equal, a1/v12 531 -> 437 alone), full build running. e2 still merges cleanly.
 - 2026-11-27 00:32 UTC: params-d2game-d (#447) and glide-spans-2 (#448) are in. params-d2game-b2 now conflicts with #448 in MonsterUnique.cpp: reposting as -b3; a2 and c2 still merge cleanly. params-d2game-e (top-level units) is building.
 - 2026-11-27 00:00 UTC: glide-spans-2 and params-d2game-d Ready; both, and a2/b2/c2, merge cleanly onto #445. a2/b2/c2 full builds running.
@@ -16,7 +17,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 ## Claimed
 - **D2Game's names (the coordinator's 14:40 assignment): `a1`/`v12` parameters and locals and `sub_<VA>` functions,
   one branch per folder.** Lane 5, skip these folders: **MISSILES, INVENTORY, DEBUG, ITEMS** (built, lane9/params-d2game-a) and **Ai,
-  MONSTER, OBJECTS, Quests** (lane9/params-d2game-b), **UNIT, PLAYER** (lane9/params-d2game-c), **SKILLS, GAME** (lane9/params-d2game-d), D2Game's top-level Unknown_*.cpp units (now, lane9/params-d2game-e); then D2Game.h and D2GameFuncs.h once the folder branches are in. Parameters take the name the function's own
+  MONSTER, OBJECTS, Quests** (lane9/params-d2game-b), **UNIT, PLAYER** (lane9/params-d2game-c), **SKILLS, GAME** (lane9/params-d2game-d), D2Game's top-level Unknown_*.cpp units (lane9/params-d2game-e2), **D2Game.h and D2GameFuncs.h** (now, lane9/names-d2game-h: touches the 23 D2Game units that call the renamed functions). Parameters take the name the function's own
   definition gives that position, else D2MOO's; definitions take D2MOO's names; `sub_<VA>` functions take
   names.csv/D2MOO names or `sub_<VA>_<Verb>` from the body.
 - **0x004F82D0 CMNSUBTILE_DrawBlendVisTile** (D2Gfx/SRC/Window.cpp, `__assume`), parked again with lane 6's reading
@@ -51,13 +52,13 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
-- lane9/params-d2game-b4 8546d082 (on #450): D2Game Ai, MONSTER, OBJECTS, Quests: placeholder parameters and names.csv
+- MERGED (as b3, #451) lane9/params-d2game-b4 8546d082 (on #450): D2Game Ai, MONSTER, OBJECTS, Quests: placeholder parameters and names.csv
   callee names (regenerated on #450). a1/v12 531 -> 437 alone; auditguard no count rose. Full build: Game.exe
   identical, tree 69e218c9d3ea14d90378f750c49b6850a1bdc006, borrowed code / data 7,923 / 261 B. Shares no file with e2.
 - WITHDRAWN (a2q7.cpp, a2q8.cpp conflict with #450; replaced by -b4) lane9/params-d2game-b3 06f2fac6 (on #448): D2Game Ai, MONSTER, OBJECTS, Quests: placeholder parameters and names.csv
   callee names (b2 regenerated on #448). a1/v12 628 -> 534 alone; auditguard no count rose. Full build: Game.exe
   identical, tree 3c000ce89efee35e94f1a253160f48cf658e78fd, borrowed code / data 7,923 / 261 B.
-- lane9/params-d2game-e2 83cb7652 (on #448): D2Game's 13 top-level Unknown_*.cpp units: the same naming. a1/v12
+- MERGED (#452) lane9/params-d2game-e2 83cb7652 (on #448): D2Game's 13 top-level Unknown_*.cpp units: the same naming. a1/v12
   628 -> 578 alone; auditguard no count rose. Full build: Game.exe identical, tree
   c6d7bfe007ef3ac458697b826f276e33620b37e7, borrowed code / data 7,923 / 261 B.
 - MERGED (#448) lane9/glide-spans-2 bb945f89 (on #443): glide-spans rebased (glCore.cpp and four others: prototypes main's
@@ -131,6 +132,12 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
   tools job; say which.
 
 ## Notes for other lanes
+- **Lanes 2, 8 (D2CommonApi.h):** D2Game.h still declares 44 D2Common/Fog/D2Game functions under sub_<VA> spellings whose
+  names.csv name the shared headers already declare with other types (e.g. sub_0063B2C0_First vs
+  INVENTORY_GetFirstItem(D2InventoryStrc*), sub_0040B430_Alloc vs FOG_AllocPool). Renaming them means the D2Game
+  callers take the shared declaration's types; I leave them for whoever moves D2Game onto D2CommonApi.h. Four more
+  (CLIENTS_GetFirstClient, CLIENTS_SetWeaponSwitch, GAME_LockDebugGame, GAME_UnlockDebugGame) clash on linkage or
+  calling convention with their own definitions in Clients.cpp / Game.cpp.
 - **Lane 7 (0x5D3BA0) and lane 5:** on lane9/names-110-d2game, SkillAss.cpp's second, unmarked body of
   SKILLS_ApplyProgressiveLeechAndElementalDamage (it was spelled sub_6FCF5870, called only by 0x5D54B0
   SKILLS_FillKickDamage) goes, and 0x5D54B0 calls the marked 0x5D3BA0; the unit stays all equal. The same in
