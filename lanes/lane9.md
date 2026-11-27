@@ -53,6 +53,12 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/names-d2game-moo e53ec740 (on #455): seventeen D2Game placeholder functions take the name D2MOO's 1.14d note gives
+  their address (AITHINK_Fn000, ACT3Q3_SpawnGidbinnBoss, ITEMS_RollLegacySetItem, MONSTERREGION_SpawnMonsterGroup, ...),
+  in source, units.json, functions.json, data_plan.json and names.csv. Also touches lane 1's Unknown_00463720.cpp and
+  UNIT/Monster.cpp and lane 8's Inventory.cpp, Items.cpp, Units.cpp (0x463720 is ITEMS_CheckUnitFlagEx). Merges cleanly
+  onto #456. auditguard no count rose. Full build: Game.exe identical, tree c4b41e5dc9a2cf5a7a412bf7bed51538f5af0c6f,
+  borrowed code / data 7,677 / 261 B.
 - lane9/locals-d2game 6b5f2c2d (on #455): D2Game: placeholder locals passed to calls take the callee's parameter name
   (out-parameters `&a5` into `pItemStatus` -> nItemStatus), plus bIdle, nParam2Value/nParam3Value, nResult by hand;
   6 units, none shared with names-d2game-h. auditguard no count rose. Full build: Game.exe identical, tree
