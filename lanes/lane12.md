@@ -8,6 +8,18 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Fri Nov 27 7:20 PST 2026: **lane12/api-storm** (eda3a960c, on api-fog-2): "Storm: declarations of its exports agree with their
+  definitions", by genheaders --module Storm --header StormApi2.h. 19 new exports in StormApi2.h; StormApi.h's,
+  D2StormArrayA.h's and other modules' header lines for Storm addresses take the definitions' types; 68 private
+  copies give way. Left out (26): SStrChr, SStrCmpI, SRegLoadData, SMemCmp, SBigFromBinary/New/Sub/ToBinaryBuffer/
+  Del/PowMod/IsPrime, uncompress (callers' types, or a header declares them differently; SBigSub/PowMod/IsPrime
+  are defined twice in Storm), the eight SMsg(Un)Register* (SMSGHANDLER is only in .cpp files), SStrVPrintf,
+  SCmdRegisterArgument (typedefs), ReportHeapError, FreeBlock (static), two Storm globals; and per unit the copies
+  whose removal changes the unit (BnDownload.cpp 6, ComCallback.cpp 5, Bnclient Unknown_0052A240.cpp, D2Game
+  Game.cpp, D2Hell Archive.cpp 1 each). 325 units EQUAL. VERIFIED tree db9017e2d9eafd984aa0973ff3d2f1ccfbf2f82a.
+  linkdebt vs api-fog-2: 29,594 -> 29,365 (type_disagreement 6,616 -> 6,387; D2BNClient -72, D2Client -60,
+  D2Common -55, D2Lang -11, D2Win -6, SRP -5, D2Launch -5, others down; no module rises). auditguard: no count
+  rose (raw offset 120, byte pointer math 153, pointer casts 4,915).
 - Fri Nov 27 6:47 PST 2026: **lane12/api-fog-2** (1b414eda3, on module-api-headers-8, #477): api-fog rebased onto -8, unchanged.
   VERIFIED tree 7b4a50f16d657f90f1749455e184cc5b027c771c. linkdebt vs module-api-headers-8: 29,668 -> 29,594
   (type_disagreement 6,690 -> 6,616; D2Common -53, D2Game -10, D2Win -4, D2Client -3, D2Multi -3, D2MCPClient -1;
@@ -73,6 +85,8 @@ it is on main; from #473, based on main.
   4,915.
 
 ## Claimed
+- Fri Nov 27 7:20 PST 2026: status. Ready: module-api-headers-8, genheaders-3, api-fog-2, api-storm (a stack, in that order on #477).
+  Next: D2Lang, then D2Common (new exports to a new narrowly included D2CommonApi3.h), on api-storm.
 - Fri Nov 27 05:12 PST 2026: status. Held branches done (module-api-headers-7 Ready; the other three dropped, see
   below). genheaders: a third commit (includes placed where the copy stood, forward declarations for corrected
   header lines, --plan) is verifying on #476 as lane12/genheaders-2. Next: Storm, D2Lang, then D2Common through
