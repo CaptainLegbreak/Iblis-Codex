@@ -23,7 +23,7 @@ extern const int gnPlrSave2ErrorRemap[PLRSAVE2ERROR_COUNT]; // 0x006E1208
 #include "D2GameFuncs.h"
 #include "D2CommonApi2.h"
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
-void __fastcall sub_005385D0(D2ClientStrc* pClient, int a2, int a3); // 0x005385D0
+void __fastcall sub_005385D0_Nop(D2ClientStrc* pClient, int a2, int a3); // 0x005385D0
 void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2GameStrc* pGame, unsigned char nAct); // 0x00534F10
 
 
@@ -64,7 +64,7 @@ static int __stdcall PLRSAVE2_CreateNewbiePlayer(D2GameStrc* pGame, D2ClientStrc
     const int nClassId = CLIENTS_GetClassId(pClient);
     D2UnitStrc* pPlayer = SUNIT_AllocUnitData(UNIT_PLAYER, nClassId, 0, 0, pGame, 0, 0, 0, 0);
     PLRSAVE2_InitPlayerFromClient(pGame, pPlayer, pClient);
-    sub_005385D0(pClient, 0, 1);
+    sub_005385D0_Nop(pClient, 0, 1);
     SUNITMSG_SendUnitToClient(pGame, pPlayer, pClient);
 
     const unsigned char nAct = CLIENTS_GetActNo(pClient);
