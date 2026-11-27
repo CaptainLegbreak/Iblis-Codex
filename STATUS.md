@@ -42,16 +42,16 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 548 |
+| Compilation units | 540 |
 | … in a file with its original name, whole | 308 |
 | … pieces of an original file still split (in 18 files) | 50 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 190 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 1692 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 182 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 1687 |
 | Unnamed fields (`unk0x..`) in the shared headers | 645 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms, self-assignments) | 34 |
 | Calling-convention shims | 34 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
-| `__declspec(noinline)` / `__forceinline` | 110 / 163 |
+| `__declspec(noinline)` / `__forceinline` | 110 / 161 |
 | Function names: blizzard / library / d2moo / inferred / placeholder | 478 / 87 / 5357 / 6547 / 2458 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
