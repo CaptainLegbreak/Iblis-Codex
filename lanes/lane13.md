@@ -5,19 +5,32 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
-- Fri Nov 27 09:32 PST 2026: **lane13/short-arrays-3** (5def82584, on main 84bca3bea = #482). It replaces data-round-4 and short-arrays-2, rebased together. VERIFIED tree bdfb7b4e4861f1e38bb3f35ce249bcb7919ee71a; Game.exe identical. Audit guard: no count rose. Five commits:
-  - **gtQuestLog** is one D2QuestLogStateStrc (pack(1), 0xFDC).
-  - **Four objects merged** with the globals that alias their fields: gtPongData, gaUIVarStates, gaGlideTexCaches[3] and the D2Hell fault-handler lock.
-  - **inv.cpp** includes D2PongData.h where its old globals stood.
-  - **Eight arrays get their real lengths:** gapRowControls[8], gaStateStack[4], gszClientCharName[16], gapAiTargets[8], gaWeatherPhaseOffset/Range[4], gabAutomapColors[12], gabBeltHotkey[4].
-  - **D2Glide's two textures:** gtGlideTileTexInfo and gtGlideFloorTexInfo are whole 20-byte GrTexInfo structs.
-  - The gszA1Q2SourceFile commit is dropped; #481 already made the same fix.
-  - **Counts, main -> this:**
-    - data clusters: 38 -> 24; 15,090 -> 10,423 B.
-    - data_cluster: 2,436 / 324 -> 1,754 / 282.
-    - linkdebt total: 25,448 -> 24,708. D2Client 9,102 -> 8,548, D2Launch 1,221 -> 1,185, D2Glide 358 -> 221; no module rose.
-    - shortdata: 358 -> 359. The new candidate is gaStateStack[4], with 4 unreferenced bytes after it.
+- Fri Nov 27 10:52 PST 2026: **lane13/split-objects-2** (4dedc24a6, on main a42b4ed66 = #483). It replaces short-arrays-3: those five commits are rebased in, with the QuestLog.cpp conflict against lane 11's #483 names redone. VERIFIED tree e045fc0f34924403faed79fefab1779512a9d1e6; Game.exe identical. Audit guard: no count rose.
+  - **Eleven new commits.** Each table here was declared too short, or read through a second name at a field or element offset; each now has its real object:
+    - `gaNpcTabs` (gaNpcTabStates and gnTabEnabled0-3 were its fields), with D2PanelTabStrc in a new Source/Include/D2PanelTab.h.
+    - `gaNpcEntries` (gaNpcEntryFlags was its bSelected and bFlag).
+    - `gaSkillTextPositions[12]` (4 B, a 68 B run, two ints and a 64 B run before).
+    - `gaCharTexts[15]` (gaTextEntries was it seen from wStringId).
+    - `gaLayouts[9]` (gaWaypointRowRects was +0x10), with D2WaypointLayoutStrc in a new Source/Include/D2WaypointLayout.h.
+    - D2Game `gpMonsterEventFunctions[16]` (gpfnMonsterEventCallbacks was slot 2). It's now a const table under its own name: as an alias its references counted as placeholder.
+    - D2Glide `gaGlideAspectTexDims` indexed at nAspect + 3 (gatGlideAspectScale was +3 entries).
+    - D2Common `gRoomExUnsetStatus[4]` (split 4 + 16 before; its 4 bytes of padding stay a run).
+    - `gnWallTileTypeRemap[6][7]`, defined at 0x006EF578 (it sat in a run that started 4 bytes early).
+    - `gaDrlgRoomTilePresetUnits[34]` (12 B + a 940 B run before).
+  - **Counts, main #483 -> this:**
+    - data clusters: 38 -> 14; 15,090 -> 7,511 B.
+    - data_cluster: 2,436 / 324 -> 1,671 / 265.
+    - linkdebt total: 25,066 -> 24,239. D2Client 8,729 -> 8,118, D2Game 5,303 -> 5,292, D2Common 3,723 -> 3,710, D2Launch 1,221 -> 1,185, D2Glide 358 -> 215, D2Hell 74 -> 61; no module rose.
+    - shortdata: 358 -> 360. Two new candidates:
+      - gaStateStack[4], with 4 unreferenced bytes after it;
+      - gaDrlgRoomTilePresetUnits[34], with 20 unreferenced bytes after it, before gaWarpTileOffsets (no 35th record fits there).
 ## Claimed
+- Fri Nov 27 10:52 PST 2026: check-in. split-objects-2 Ready; it replaces short-arrays-3. 14 clusters left. Next: **the D2DataTablesStrc cluster** (your 10:xx go-ahead). Claimed: Source/Include/D2DataTbls.h, Source/D2Common/DATATBLS/*.cpp, and every file that declares a global in 0x0096BC30-0x0096D66C (35 files: D2Common DATATBLS, DRLG, DUNGEON, ENVIRONMENT, INVENTORY, Logging, SKILLS, Chat/Ignorelist.cpp, two Unknown_ files; D2CMP CelCmp.cpp).
+  - **One finding before I build it.** Three objects in the 0x1A3C span have their own TU's symbols in the original:
+    - gLevelFilesCriticalSection (0x0096D610, +0x19E0) is a CCritSect with its own dynamic initializer and atexit destructor (0x006CB010, 0x006CB4E0), in the initializer table between D2CMP's gCelListTable and gOptionList.
+    - gLogLock (+0xE00) is Logging.cpp's critical section.
+    - Inventory.cpp's static component table (+0x1038) is a static.
+  - Yet code reads sgptDataTables-> fields past all three (pCubeMainTxt +0x19F8, pFieldData +0x1A24, pCollisionField +0x1A28). So I'll first make the CCritSect a struct member, which moves its initializer to gDataTables'. If the initializer table then doesn't come back equal, I'll post that and stop there.
 - Fri Nov 27 10:07 PST 2026: check-in. short-arrays-3 still Ready. Next branch, **lane13/split-objects** (stacked on it), is doing its full build now. It closes ten more clusters, each a table that the sources read through a second name at a field or element offset: NPC tabs, NPC entries, skill text positions, character panel text, waypoint rows, monster event table, Glide aspect dims, room-ex unset status, wall-tile remap, room-tile preset units. Claimed: Source/Include/D2PanelTab.h, Source/Include/D2WaypointLayout.h (new), plus those tables' files. Lane 13 still owes a later branch typing gapChatDlgControls so the smack slot needs no cast (coordinator's #480 note).
 - Fri Nov 27 09:32 PST 2026: check-in. Cleared data-round-4 and short-arrays-2. Both are now in short-arrays-3, rebased onto #482. Next: the remaining small clusters, one at a time.
 - Fri Nov 27 09:15 PST 2026: check-in. short-arrays-2 Ready, stacked on data-round-4. Still no answer on the D2Common data-tables reading. 24 clusters left with both. The rest are aliases of one object under different types (D3D vertices, gatGamePalette, gapAutomapCels, gtLoadingTimer, gtPacket2A) or need the packet's real layout. Taking them one at a time next.
