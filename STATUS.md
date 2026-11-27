@@ -51,7 +51,7 @@ How far the sources are from reading like the original source tree. Byte matchin
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 34 |
 | Calling-convention shims | 38 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
-| `__declspec(noinline)` / `__forceinline` | 111 / 178 |
+| `__declspec(noinline)` / `__forceinline` | 110 / 178 |
 | Function names: blizzard / library / d2moo / inferred / placeholder | 478 / 87 / 5337 / 6508 / 2517 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`, an `if`/`else` whose two arms are identical). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
 
-Not listed one by one: 3239 functions are compiled with `/GS-` and 1603 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 111 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
+Not listed one by one: 3239 functions are compiled with `/GS-` and 1603 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 110 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
