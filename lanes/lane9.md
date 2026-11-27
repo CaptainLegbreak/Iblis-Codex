@@ -6,6 +6,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 1.10-address names. New chat, reopened 2026-11-26 11:57 PT (from lane 6, which held these modules since 2026-11-25).
 
 ## Status
+- 2026-11-27 05:23 UTC: params-d2game-scmd in (#467). Ready, merging cleanly onto #467: params-d2game-sunitmsg, locals-d2game-moo, params-d2game-tail3. Next: PlrSave/PlrSave2 save flags.
 - 2026-11-27 04:50 UTC: Ready, merging cleanly onto main: params-d2game-sunitmsg, params-d2game-scmd. Working D2Game\'s remaining tail (PlrSave, SCmd, MissMode) body by body.
 - 2026-11-27 04:19 UTC: verbs2 and tail2 in (#464). Ready, merging cleanly: params-d2game-tail, params-d2game-sunitmsg. Next: SCmd packet arguments.
 - 2026-11-27 03:47 UTC: Ready and merging cleanly onto main: names-d2game-verbs2, params-d2game-tail, params-d2game-tail2 (after verbs2). Next: SUnitMsg packet fields and SCmd packet arguments against D2MOO\'s packet structs.
@@ -68,7 +69,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 - lane9/locals-d2game-moo cc5e7d12 (on #466): MissMode.cpp: MISSMODE_SrvHit10_GuidedArrow_BoneSpirit's v8/v9 take D2MOO's
   nTargetFlags / nPathFlags. a1/v12 252 -> 245 alone; auditguard no count rose; merges cleanly with -sunitmsg, -scmd.
   Full build: Game.exe identical, tree 159e290613742758914a8ad634545710b62343bf, borrowed code / data 4,232 / 261 B.
-- lane9/params-d2game-scmd 36c8d836 (on #465): SCmd.cpp: D2GAME_PACKETS_SendPacket0x81 and SCMD_SendInteractionTarget
+- MERGED (#467) lane9/params-d2game-scmd 36c8d836 (on #465): SCmd.cpp: D2GAME_PACKETS_SendPacket0x81 and SCMD_SendInteractionTarget
   name the parameter they never read nUnused (D2MOO leaves it a2/a5), with their prototypes in D2GameFuncs.h and
   PlayerPets.cpp. a1/v12 278 -> 273; auditguard no count rose; merges cleanly with params-d2game-sunitmsg. Full build:
   Game.exe identical, tree 3362f53860a6b69a81e35daa5e213b4a538d3eaa, borrowed code / data 4,232 / 261 B.
