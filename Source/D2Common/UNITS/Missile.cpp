@@ -236,12 +236,6 @@ struct D2MissileStreamStrc;
 
 struct D2MissilesTxt;
 
-struct B24Roster;
-
-struct B24MissileData;
-
-struct B24Unit;
-
 struct TargetData;
 
 struct UnitView;
@@ -261,60 +255,6 @@ struct Damage;
 struct D2StatStrc;
 
 struct D2MissileDamageDataStrc;
-
-struct B24Roster
-{
-    unsigned char pad0[0x4];
-    int value;
-    unsigned int key;
-    unsigned char padAfterKey[0x24];
-    B24Roster* next;
-};
-
-typedef char B24RosterValue[(OFFSET(B24Roster,value)==0x4)?1:-1];
-
-typedef char B24RosterKey[(OFFSET(B24Roster,key)==0x8)?1:-1];
-
-typedef char B24RosterNext[(OFFSET(B24Roster,next)==0x30)?1:-1];
-
-struct B24MissileData
-{
-    unsigned char pad0[0xC];
-    short nLevel;
-};
-
-struct B24Unit
-{
-    unsigned int type;
-    unsigned char pad4[0x10];
-    B24MissileData* missileData;
-};
-
-typedef char B24MissileLevel[(OFFSET(B24MissileData,nLevel)==0xC)?1:-1];
-
-typedef char B24UnitData[(OFFSET(B24Unit,missileData)==0x14)?1:-1];
-
-extern "C" unsigned char gB24Selection;
-
-extern "C" unsigned char* gB24PackedState;
-
-extern "C" int gB24Dirty;
-
-extern "C" B24Roster* gB24Roster;
-
-extern "C" int gB24MinX;
-
-extern "C" int gB24MaxX;
-
-extern "C" int gB24MinY;
-
-extern "C" int gB24MaxY;
-
-extern "C" int gB24RowCount;
-
-extern "C" unsigned int gB24SelectedKey;
-
-extern "C" unsigned char gB24Rows[];
 
 #pragma pack(push, 1)
 
@@ -504,24 +444,13 @@ void __stdcall MISSILE_SetFlags(D2UnitStrc* pMissile, unsigned int dwFlags)
     }
 }
 
-// build: symbol @ROSTER_GetPetType@* 0x00479180
-extern "C" int __fastcall ROSTER_GetPetType(unsigned int key)
-{
-    B24Roster* node = gB24Roster;
-    while (node)
-    {
-        if (node->key == key)
-            return node->value;
-        node = node->next;
-    }
-    return 0;
-}
-
 // 0x0064A1E0
-extern "C" void __stdcall MISSILE_SetMissileLevel(B24Unit* unit, int level)
+void __stdcall MISSILE_SetLevel(D2UnitStrc* pMissile, int nLevel)
 {
-    if (unit && unit->type == 3 && unit->missileData)
-        unit->missileData->nLevel = (short)level;
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        pMissile->pMissileData->nLevel = (short)nLevel;
+    }
 }
 
 // 0x0064A210
@@ -783,24 +712,14 @@ void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX)
     }
 }
 
-struct B25MissileData
-{
-    unsigned char pad0[0x28];
-    int targetStatus;
-};
-
-struct B25MissileUnit
-{
-    unsigned int type;
-    unsigned char pad4[0x10];
-    B25MissileData* data;
-};
-
 // 0x0064A730
-extern "C" int __stdcall MISSILE_GetMissileTargetStatus(B25MissileUnit* unit)
+int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile)
 {
-    if (unit && unit->type == 3 && unit->data)
-        return unit->data->targetStatus;
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        return pMissile->pMissileData->nTargetX;
+    }
+
     return 0;
 }
 

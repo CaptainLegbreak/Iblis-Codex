@@ -70038,7 +70038,7 @@
     {
      "va": "0x0064A1E0",
      "length": 34,
-     "name": "_MISSILE_SetMissileLevel@8"
+     "name": "?MISSILE_SetLevel@@YGXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0064A210",
@@ -70152,7 +70152,7 @@
     {
      "va": "0x0064A730",
      "length": 35,
-     "name": "_MISSILE_GetMissileTargetStatus@4"
+     "name": "?MISSILE_GetTargetX@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0064A760",

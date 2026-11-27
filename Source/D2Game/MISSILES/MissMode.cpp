@@ -531,7 +531,6 @@ int __fastcall MISSMODE_SrvDo10_BlizzardCenter(D2GameStrc* pGame, D2UnitStrc* pM
 int __fastcall MISSMODE_SrvDo25_EruptionCenter(D2GameStrc* pGame, D2UnitStrc* pMissile);
 
 
-extern "C" int __stdcall MISSILE_GetMissileTargetStatus(D2UnitStrc* pMissile); // 0x0064A730
 
 extern "C" int __stdcall MISSILE_targetValue(D2UnitStrc* pMissile); // 0x0064A780
 
@@ -5587,7 +5586,7 @@ int __fastcall MISSMODE_SrvDo31_WakeOfDestructionMaker_BaalColdMaker(D2GameStrc*
 
     if (PATH_HasEnteredNewSubtile(pMissile->pDynamicPath))
     {
-        const int nTargetX = MISSILE_GetMissileTargetStatus(pMissile);
+        const int nTargetX = MISSILE_GetTargetX(pMissile);
         const int nTargetY = MISSILE_targetValue(pMissile);
 
         D2MissileStrc missileParams;
