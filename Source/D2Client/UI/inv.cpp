@@ -688,6 +688,7 @@ int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, 
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit);                       // 0x00648B90
 
 
+extern D2ClientTabStrc gaNpcTabStates[];                                                                   // 0x0072211A
 
 extern D2ClientCacheEntryStrc* sgptSoundHeaderTable;                                                     // 0x007BC9A0
 
@@ -830,6 +831,7 @@ extern "C" const char gszInvCpp[]; // 0x006D9BC0
 
 extern int gnDialogState; // 0x00721E34
 
+extern unsigned char gabColors_007BCAD8[5]; // 0x007BCAD8
 
 D2InventoryGridInfoStrc gtNpcInvGrid; // 0x007BCB58
 
