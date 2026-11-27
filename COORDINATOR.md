@@ -478,6 +478,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #478 (j231): lane 13 cluster-rule-2, lane 12 genheaders-2 (tools only). VERIFIED 049974ba6. Lane 13: clear cluster-rule and cluster-rule-2; lane 12: clear genheaders and genheaders-2.
 - #477 (j230): lane 12 genheaders, lane 13 control-templates + ancient-equipment. VERIFIED 63da9710b. Held for rebase: lane12/module-api-headers-6 (CharSel.cpp 0x439210 with control-templates), lane11/names-d2client-2 (conflicts with module-api-headers-6).
 - #476 (j229): lane 10 inline-data: tools/inlinedata.py (game data written into source; keys, resources, PKWARE and stamps excluded) with the pilot (D2Lang, D2Sound, D2Net, D2MCPClient, D2CMP, seven small Fog files: 112 definitions, 24,704 B). VERIFIED 6da4d3b54.
 - #475 (j228): lane 13 renderer-tables + cluster-rule (clusters 126 -> 78, 534,127 -> 58,706 B; link debt about 30,093). VERIFIED 41258ebc5. Lane 13: clear both Ready lines.
