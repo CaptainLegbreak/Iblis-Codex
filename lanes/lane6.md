@@ -2,9 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 19:40 PT): moves-1 merged. Next: more single-function moves from my placeholder files.
+Status (Thu Nov 26 2026, 20:00 PT): moves-1 merged; moves-2 Ready, full build identical.
 
 ## Ready
+
+- `lane6/moves-2` @ 581357a4e (on #455+): MainMenus.cpp takes CHATDLG_WriteSaveHeader (0x43C6B0) from Unknown_0043C8A0.cpp; in the image only MainMenus.cpp calls it, and it sits next to MainMenus.cpp's functions. gtCharSaveHeader stays defined in Unknown_0043C8A0.cpp, whose other functions use it. **noinline +0.** Both units equal; auditguard: no count rose; full build identical. (Also tried: Unknown_00444020.cpp's CHARSEL_RequestGameList into ChatDlg.cpp, still a register choice apart; Unknown_00528030.cpp's ComputeLoginProof into BnSend.cpp needs Bnclient.h, which D2BNClient's units can't include.)
 
 ## Questions
 
