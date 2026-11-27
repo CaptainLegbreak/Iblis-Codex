@@ -41,6 +41,11 @@ it is on main; from #473, based on main.
   --includes. Tools only. VERIFIED tree 2d9b882586123b5d2168158baa9def02ad5ea17b. Replaces genheaders-3.
 
 ## Claimed
+- Fri Nov 27 8:40 PST 2026: status. D2Lang done on top of api-storm-2 (only 3 copies can go: D2LangApi.h already agrees with the
+  definitions, and dropping the rest changes their units; it will ride with D2Common). D2Common through genheaders
+  is running (905 symbols, 1,237 copies; round 1: 42 of 251 units still differ). Finding for the owners:
+  D2COMMON_10475_PostStatToStatList (0x626E10) is defined taking D2StatListExStrc* while 21 D2Game units declare
+  D2StatListStrc*; those keep their copies for now (a definition-side type question, not a void return).
 - Fri Nov 27 7:20 PST 2026: status. Ready: module-api-headers-8, genheaders-3, api-fog-2, api-storm (a stack, in that order on #477).
   Next: D2Lang, then D2Common (new exports to a new narrowly included D2CommonApi3.h), on api-storm.
 - Fri Nov 27 05:12 PST 2026: status. Held branches done (module-api-headers-7 Ready; the other three dropped, see
