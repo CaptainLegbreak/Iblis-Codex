@@ -57,25 +57,32 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
   for sub_<VA> callees the unit declares; Clients.cpp's SKILLS_ExecuteSkill declaration gets its address marker.
   a1/v12 892 -> 779 alone; auditguard no count rose. Full build: Game.exe identical, tree
   c9bd8942f00b4b8627ddcfb632139d7e5645508c, borrowed code / data 7,923 / 261 B.
-- Building now, posted when verified: lane9/params-d2game-a2,
-  -b2, -c2 (the same folders regenerated on #443 after #441's shared D2Game declarations) and lane9/params-d2game-d
-  (posted above). Not merge-ready until their own Ready lines appear.
-- WITHDRAWN (conflicts with #441; replaced by the -2 / d branches below) lane9/params-d2game-c 1ccf64af (on #439): D2Game UNIT, PLAYER: the same naming (definitions'/D2MOO's parameter
+- lane9/params-d2game-a2 77b84dae (on #443): D2Game MISSILES, INVENTORY, DEBUG, ITEMS: prototype parameter names from
+  the definitions and D2MOO. a1/v12 892 -> 869 alone; auditguard no count rose. Full build: Game.exe identical, tree
+  a062956e36bc3547455acc767abbcb2ffaaec5b9, borrowed code / data 7,923 / 261 B.
+- lane9/params-d2game-b2 23aa5a93 (on #443): D2Game Ai, MONSTER, OBJECTS, Quests: the same naming plus names.csv names
+  for sub_<VA> callees the unit declares. a1/v12 892 -> 798 alone; auditguard no count rose. Full build: Game.exe
+  identical, tree 3588394561ab58b3743a6f8bbc4834c0597398e6, borrowed code / data 7,923 / 261 B.
+- lane9/params-d2game-c2 4ed51fe3 (on #443): D2Game UNIT, PLAYER: the same; PlrMsg, PlrSave and PlrTrade keep three
+  callee spellings D2Game.h declares or that clash on return type. a1/v12 892 -> 818 alone; auditguard no count rose.
+  Full build: Game.exe identical, tree 94657e88995b1387c587db252f419ce6db099c43, borrowed code / data 7,923 / 261 B.
+- The five lane9 D2Game/D2Glide branches touch disjoint files and each merges cleanly onto #445.
+- WITHDRAWN (conflicts with #441; replaced by the -2 / d branches above) lane9/params-d2game-c 1ccf64af (on #439): D2Game UNIT, PLAYER: the same naming (definitions'/D2MOO's parameter
   names; parameters passed on unchanged take the callee's name; names.csv names for sub_<VA> callees the unit itself
   declares). auditguard no count rose. Full build: Game.exe identical, tree 60312fd861ed667fb18d90861620112566073147,
   borrowed code / data 8,373 / 261 B.
-- WITHDRAWN (conflicts with #441; replaced by the -2 / d branches below) lane9/params-d2game-b 492ae490 (on #439): D2Game Ai, MONSTER, OBJECTS, Quests: the same naming as params-d2game-a
+- WITHDRAWN (conflicts with #441; replaced by the -2 / d branches above) lane9/params-d2game-b 492ae490 (on #439): D2Game Ai, MONSTER, OBJECTS, Quests: the same naming as params-d2game-a
   (definitions' or D2MOO's parameter names, the Raven walk's two by the arguments they become, names.csv names for
   sub_<VA> callees; ObjMode.cpp keeps its second spelling of 0x620510). a1/v12 1,747 -> 1,482 alone; auditguard no
   count rose. Full build: Game.exe identical, tree 37b84929ceee44e2b1310ccc37fb9c941837b3c8, borrowed code / data
   8,373 / 261 B.
-- WITHDRAWN (conflicts with #441; replaced by the -2 / d branches below) lane9/params-d2game-a a64d4e0a (on #439): D2Game MISSILES, INVENTORY, DEBUG, ITEMS: Hex-Rays parameters take the
+- WITHDRAWN (conflicts with #441; replaced by the -2 / d branches above) lane9/params-d2game-a a64d4e0a (on #439): D2Game MISSILES, INVENTORY, DEBUG, ITEMS: Hex-Rays parameters take the
   name the function's own definition gives that position, else D2MOO's (by name or its 1.14d notes); a few named by
   use (nTargetFlags/nPathFlags, bRecharge; the empty debug stubs' nArg1..); callees spelled sub_<VA> take names.csv's
   name; 0x55E9A0's definition takes names.csv's sub_0055E9A0_Return0, and names.csv's 0x564CA0 row returns to its
   exported definition's spelling. a1/v12 1,747 -> 1,661; auditguard no count rose. Full build: Game.exe identical,
   tree 37a90c100edbb65c652c089f8b3bb337e355812f, borrowed code / data 8,373 / 261 B.
-- WITHDRAWN (conflicts with #441; replaced by the -2 / d branches below) lane9/glide-spans b53e11bb (on #435): eight D2Glide functions move to the file whose `.\Src\gl*.cpp` span they sit in
+- WITHDRAWN (conflicts with #441; replaced by the -2 / d branches above) lane9/glide-spans b53e11bb (on #435): eight D2Glide functions move to the file whose `.\Src\gl*.cpp` span they sit in
   (lane 6's scan): 0x50A110 -> glSprite.cpp; 0x50DFE0, 0x50E330 -> glSmack.cpp; 0x50EAE0, 0x50EC40 ->
   glTextureCache.cpp (its unmarked copy of the evict goes); 0x50F570, 0x50F6D0, 0x50F750 -> glFloorCache.cpp, beside
   their callers; inferred names take the new file's prefix. All 12 D2Glide units equal; auditguard no count rose.
