@@ -375,10 +375,6 @@ void __fastcall SKILLS_ApplyAreaEffect(D2GameStrc* pGame, D2Unk0056DCC0Strc* pRe
 
 
 
-void __stdcall D2COMMON_10267_Return(D2InventoryStrc* pInventory, int nX); // 0x0063C550
-
-
-int __stdcall MONSTERS_GetSpawnMode_XY(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7); // 0x0063EA70
 
 
 #define EVENTTYPE_PERIODICSTATS 9
@@ -415,12 +411,6 @@ extern int gnBasketClusterIdCount; // 0x00731D98
 
 struct D2ItemDropStrc;
 
-
-extern int gnArmorStandOrRackIds[];                                                                // 0x00731EA0
-
-extern int gnArmorStandOrRackCount;                                                                // 0x00731EB0
-
-extern int gnCoordInitCount;                                                                       // 0x00731E64
 
 extern int gaDirectionX_00731B7C[]; // 0x00731B7C
 
