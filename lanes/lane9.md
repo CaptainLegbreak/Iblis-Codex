@@ -58,6 +58,13 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/params-d2game-tail3 ae8026be (on #466): D2Game: bSetFlag2 (MONSTERSPAWN_SpawnWithOwnerData's pass-through to
+  AIGENERAL_SetOwnerData), bIncludeDead (PLAYERPETS_GetFirstPetByType's prototype, from its definition), bRecharge
+  (D2GAME_ITEMSOCKET_PlaceItem's flag that calls D2GAME_RechargeItem), nUnused for parameters never read (the trade
+  check, the 0x55F4F0 / 0x5385D0 stub prototypes), and PLAYER_PlaceItemInInventory's prototype following its definition.
+  12 files; a1/v12 252 -> 233 alone; auditguard no count rose; merges cleanly onto #467 and with -sunitmsg, -scmd,
+  locals-d2game-moo. Full build: Game.exe identical, tree f603aaba5fa1b5e6b462f2477db960b3ca799b2b, borrowed code /
+  data 4,232 / 261 B.
 - lane9/locals-d2game-moo cc5e7d12 (on #466): MissMode.cpp: MISSMODE_SrvHit10_GuidedArrow_BoneSpirit's v8/v9 take D2MOO's
   nTargetFlags / nPathFlags. a1/v12 252 -> 245 alone; auditguard no count rose; merges cleanly with -sunitmsg, -scmd.
   Full build: Game.exe identical, tree 159e290613742758914a8ad634545710b62343bf, borrowed code / data 4,232 / 261 B.
