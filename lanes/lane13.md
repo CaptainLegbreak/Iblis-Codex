@@ -33,6 +33,26 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - linkdebt total: 21,832 -> 21,814. D2Direct3D 708 -> 690; no module rose.
     - shortdata: 363 -> 364. The new candidate is 4 unreferenced bytes after gapSmackTextures.
 ## Claimed
+- Fri Nov 27 15:59 PST 2026: **Item 4 (shortdata), classified.** 362 candidates outside the D2DataTablesStrc span, sorted by what fills the room after each declaration. I read every room's bytes from Game.exe, and no linkdebt reference lands in any of them:
+  - **zeros: 157.** Alignment padding, or zero data no code reads.
+  - **strings: 137.** The literal pool after a declared global (compiler-emitted, with no source object).
+  - **Language-name pointer copies: 38.** The per-unit copies of the 15 language strings (0x006CC81C...), which are lane 12's local-copy work.
+  - **vtable/RTTI tails: 14.** The next class's complete-object-locator pointer.
+  - **fp constants: 3.**
+  - **Other: 13.**
+    - 0x00749DA4: the next object is the CRT's __security_cookie.
+    - 0x006F2854: CRT import names.
+    - SMEM.CPP, glCore.cpp and Dungeon.cpp: a double or zeros, then strings.
+    - gaPeriodLights: doubles.
+    - Tilecmp.cpp and D2Hell: RTTI type descriptors.
+    - gszBangLineFormat, cbNeverDelete: RTTI.
+    - Fog ErrorManager.cpp: three unreferenced initialised words after gtLock_0074D848, gdwTotalPhys and gdwRegValue.
+
+  So there is no array too short and no struct cut short left: every short global code reads past its end was fixed in the earlier branches. The only undeclared data are those three ErrorManager words, and nothing names them, so I'm leaving them.
+- **Item 3, continuing:** lane13/interior-2 (on #491) has three more aliases resolved: gnMouseY, gtUnitSndObject = gaUnitSndObjects[106], and gbPanelFlag = gaEscMenuUIState[21].nSaved.
+  - Still left: two packed pack(1) state blocks, the text panel at 0x007BF1E0 and NPC trade at 0x007C0DE0. Unaligned ints follow a byte in each, so they're one struct each, like gtQuestLog. I'll do them as their own branch next.
+  - ChatDlg's +0x225 (queue item 2) is covered by lane 1's BnClient interface merge, so I'm dropping it from mine.
+- **Item 5 (inlinedata D2Win):** no lane's Claimed line names D2Win's .cpp files (lane 1's wintypes is the header only). Starting after interior-2.
 - Fri Nov 27 15:56 PST 2026: interior-1 Ready, alongside queue-1-2; both merge onto #491. Next: the rest of item 3. I'm leaving out the gtTextHistory struct (a branch of its own) and the Glide pointer tables (noted above).
 - Fri Nov 27 15:43 PST 2026: **lane13/interior-1** (item 3, first part, on #489) is doing its full build. Its five commits:
   - **gdwBitMasks:** 18 units read it through about 40 scalar names; they now index it. CharSel.cpp and ComCallback.cpp are left for lane 12, and d3dSmack.cpp until queue-1-2 lands.
