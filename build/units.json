@@ -6930,7 +6930,7 @@
     {
      "va": "0x004210E0",
      "length": 31,
-     "name": "?RoundUp@?$TSGrowableArray@IU?$TSCD@I@@@@SGIII@Z"
+     "name": "?RoundUp@?$TSGrowableArray@IU?$TSCD@I@@@@QAEIII@Z"
     },
     {
      "va": "0x00421100",
@@ -6954,7 +6954,7 @@
     {
      "va": "0x004211A0",
      "length": 31,
-     "name": "?RoundUp@?$TSGrowableArray@EU?$TSCD@E@@@@SGIII@Z"
+     "name": "?RoundUp@?$TSGrowableArray@EU?$TSCD@E@@@@QAEIII@Z"
     },
     {
      "va": "0x004211C0",
@@ -6969,7 +6969,7 @@
     {
      "va": "0x00421280",
      "length": 31,
-     "name": "?RoundUp@?$TSGrowableArray@DU?$TSCD@D@@@@SGIII@Z"
+     "name": "?RoundUp@?$TSGrowableArray@DU?$TSCD@D@@@@QAEIII@Z"
     },
     {
      "va": "0x004212A0",
@@ -10399,7 +10399,7 @@
     {
      "va": "0x00450850",
      "length": 31,
-     "name": "?RoundUp@?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@SGIII@Z"
+     "name": "?RoundUp@?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAEIII@Z"
     },
     {
      "va": "0x00450870",
@@ -60403,7 +60403,7 @@
     {
      "va": "0x00601E60",
      "length": 31,
-     "name": "?RoundUp@?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@SGIII@Z"
+     "name": "?RoundUp@?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAEIII@Z"
     },
     {
      "va": "0x00601E80",
@@ -60933,7 +60933,7 @@
     {
      "va": "0x00603F20",
      "length": 31,
-     "name": "?RoundUp@?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@SGIII@Z"
+     "name": "?RoundUp@?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAEIII@Z"
     },
     {
      "va": "0x00603F40",

@@ -47,11 +47,11 @@ inline void operator delete(void* pMemory)
 // build: symbol ?Construct@?$TSCD@D@@SIXPAD@Z 0x00421080
 // build: symbol ?CopyConstruct@?$TSCD@D@@SIXPADABD@Z 0x00421090
 // build: symbol ?CalcChunkSize@?$TSGrowableArray@IU?$TSCD@I@@@@QAEII@Z 0x004210A0
-// build: symbol ?RoundUp@?$TSGrowableArray@IU?$TSCD@I@@@@SGIII@Z 0x004210E0
+// build: symbol ?RoundUp@?$TSGrowableArray@IU?$TSCD@I@@@@QAEIII@Z 0x004210E0
 // build: symbol ?Ptr@?$TSBaseArray@I@@QAEPAIXZ 0x00421150
-// build: symbol ?RoundUp@?$TSGrowableArray@EU?$TSCD@E@@@@SGIII@Z 0x004211A0
+// build: symbol ?RoundUp@?$TSGrowableArray@EU?$TSCD@E@@@@QAEIII@Z 0x004211A0
 // build: symbol ?CalcChunkSize@?$TSGrowableArray@DU?$TSCD@D@@@@QAEII@Z 0x00421240
-// build: symbol ?RoundUp@?$TSGrowableArray@DU?$TSCD@D@@@@SGIII@Z 0x00421280
+// build: symbol ?RoundUp@?$TSGrowableArray@DU?$TSCD@D@@@@QAEIII@Z 0x00421280
 // build: symbol ?CopyConstruct@?$TSCD@I@@SIXPAIABI@Z 0x004212A0
 // build: symbol ?Destruct@?$TSCD@I@@SIXPAI@Z 0x004212B0
 // build: symbol ??1?$TSFixedArray@IU?$TSCD@I@@@@QAE@XZ 0x00421570
@@ -84,77 +84,10 @@ inline void operator delete(void* pMemory)
 // build: symbol ?SetStart@BigBuffer@@QAEXI@Z 0x00422120
 // build: symbol ??4BigBuffer@@QAEAAU0@ABU0@@Z 0x004221B0
 
-struct D2StormArrayBStrc
+// Storm's byte array, with the one-element Add whose Storm name isn't known.
+struct D2StormArrayBStrc : TSGrowableArray<unsigned char>
 {
-    unsigned int m_alloc;
-    unsigned int m_count;
-    unsigned char* m_data;
-    unsigned int m_chunk;
-
-    D2StormArrayBStrc() : m_alloc(0), m_count(0), m_data(0), m_chunk(0)
-    {
-    }
-    ~D2StormArrayBStrc()
-    {
-        if (m_data)
-            SMemFree(m_data, gszTypeNameUChar, -2, 0);
-    }
-    unsigned int RoundUp(unsigned int nValue, unsigned int nAlign)
-    {
-        unsigned int nRemainder = nValue % nAlign;
-        if (nRemainder)
-            nValue += nAlign - nRemainder;
-        return nValue;
-    }
-    unsigned int CalcChunkSize(unsigned int nCount) // 0x00421160
-    {
-        if (nCount < 0x100)
-        {
-            while (nCount & (nCount - 1))
-                nCount &= nCount - 1;
-            return nCount < 1 ? 1 : nCount;
-        }
-        m_chunk = 0x100;
-        return 0x100;
-    }
-    void Reserve(unsigned int nCount, int bRound)
-    {
-        nCount += m_count;
-        if (nCount > m_alloc)
-        {
-            if (bRound)
-            {
-                unsigned int nChunk = m_chunk;
-                if (!nChunk)
-                    nChunk = CalcChunkSize(nCount);
-                nCount = RoundUp(nCount, nChunk);
-            }
-            sub_004211C0_ReallocData(nCount);
-        }
-    }
-    void Add(unsigned int nCount, const unsigned char* pData)
-    {
-        Reserve(nCount, 1);
-        for (unsigned int i = 0; i < nCount; i++, pData++)
-            new (&m_data[m_count + i]) unsigned char(*pData);
-        m_count += nCount;
-    }
-
-    unsigned char* New()
-    {
-        Reserve(1, 1);
-        return &m_data[m_count++];
-    }
-    void Push(unsigned char nByte)
-    {
-        Reserve(1, 1);
-        m_data[m_count] = nByte;
-        m_count += 1;
-    }
-    void sub_004211C0_ReallocData(unsigned int nAlloc);                                                     // 0x004211C0
-    unsigned int sub_004218B0_Add(unsigned int nCount, const unsigned char* pData);                         // 0x004218B0
     unsigned int sub_004219D0_AddOne(const unsigned char* pData);
-    void sub_004219F0_Set(unsigned int nCount, const unsigned char* pData);                                 // 0x004219F0
 };
 
 
@@ -228,11 +161,11 @@ template void __fastcall TSCD<char>::Destruct(char*);
 template void __fastcall TSCD<unsigned int>::CopyConstruct(unsigned int*, const unsigned int&);
 template void __fastcall TSCD<unsigned int>::Destruct(unsigned int*);
 template unsigned int TSGrowableArray<unsigned int>::CalcChunkSize(unsigned int);
-template unsigned int __stdcall TSGrowableArray<unsigned int>::RoundUp(unsigned int, unsigned int);
+template unsigned int TSGrowableArray<unsigned int>::RoundUp(unsigned int, unsigned int);
 template unsigned int TSGrowableArray<unsigned char>::CalcChunkSize(unsigned int);
-template unsigned int __stdcall TSGrowableArray<unsigned char>::RoundUp(unsigned int, unsigned int);
+template unsigned int TSGrowableArray<unsigned char>::RoundUp(unsigned int, unsigned int);
 template unsigned int TSGrowableArray<char>::CalcChunkSize(unsigned int);
-template unsigned int __stdcall TSGrowableArray<char>::RoundUp(unsigned int, unsigned int);
+template unsigned int TSGrowableArray<char>::RoundUp(unsigned int, unsigned int);
 template TSFixedArray<unsigned int>::~TSFixedArray();
 template TSFixedArray<unsigned char>::~TSFixedArray();
 template void TSFixedArray<unsigned int>::Set(unsigned int, const unsigned int*);
@@ -310,7 +243,7 @@ void __stdcall SBigToUnsigned(D2StormBigStrc* pBig, unsigned int* pnResult)
 // 0x004219D0
 unsigned int D2StormArrayBStrc::sub_004219D0_AddOne(const unsigned char* pData)
 {
-    return sub_004218B0_Add(1, pData);
+    return Add(1, pData);
 }
 
 // 0x00421BD0
@@ -1391,9 +1324,9 @@ void __stdcall SBigToBinaryArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray
 {
     ToBinary(&pBig->tOutput, &pBig->tPrimary);
     if (bAppend)
-        pArray->sub_004218B0_Add(pBig->tOutput.m_count, pBig->tOutput.m_data);
+        pArray->Add(pBig->tOutput.m_count, pBig->tOutput.m_data);
     else
-        pArray->sub_004219F0_Set(pBig->tOutput.m_count, pBig->tOutput.m_data);
+        pArray->Set(pBig->tOutput.m_count, pBig->tOutput.m_data);
 }
 
 // 0x00423B30
@@ -1420,9 +1353,9 @@ void __stdcall SBigToStreamArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray
 {
     ToStream(&pBig->tOutput, &pBig->tPrimary);
     if (bAppend)
-        pArray->sub_004218B0_Add(pBig->tOutput.m_count, pBig->tOutput.m_data);
+        pArray->Add(pBig->tOutput.m_count, pBig->tOutput.m_data);
     else
-        pArray->sub_004219F0_Set(pBig->tOutput.m_count, pBig->tOutput.m_data);
+        pArray->Set(pBig->tOutput.m_count, pBig->tOutput.m_data);
 }
 
 // 0x00423CE0
