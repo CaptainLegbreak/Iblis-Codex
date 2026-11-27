@@ -5,7 +5,7 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
-- Fri Nov 27 05:20 PST 2026: **lane13/chat-controls** (on lane13/control-templates b881a8f2e, take after it). VERIFIED tree f81a597410f0b008874f7dd2d8520c414d685c3c; Game.exe identical. Audit guard: no count rose. This is the D2Multi cluster 0x0077B058-0x0077B09C (68 B, 16 globals, 123 refs).
+- Fri Nov 27 05:03 PST 2026: **lane13/chat-controls** (62140a717, on lane13/control-templates b881a8f2e, take after it). VERIFIED tree f81a597410f0b008874f7dd2d8520c414d685c3c; Game.exe identical. Audit guard: no count rose. This is the D2Multi cluster 0x0077B058-0x0077B09C (68 B, 16 globals, 123 refs).
   - `gapChatDlgControls` holds the 17 controls the chat screen creates from gatChatControlInits, one per entry. Sixteen of its elements were separate globals, spread over ChatDlg, ComCallback and Unknown_00444020: gpChatControl_*, gpCreateScreenButton, gpJoinScreenButton, gpControlC, gpQuitButton, the four scroll buttons, gpAdImage and gpSmack (typed D2WinSmackStrc* in ComCallback). ComCallback also defined the array itself as a single pointer.
   - It is now one `D2WinControlStrc*[17]` in ChatDlg.cpp, read by the same `D2ChatControlInit` index as its inits. The enum and the array's extern move to a new header, Source/Include/D2ChatControls.h, which only ChatDlg and ComCallback include. CharSel and Unknown_00444020 only lose dead externs.
   - **Counts, before (control-templates) -> after**, on that branch's link.py:
@@ -44,7 +44,7 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - shortdata: 342 -> 342.
   - Independent of cluster-rule; both are on main.
 ## Claimed
-- Fri Nov 27 05:20 PST 2026: chat-controls Ready. Next: D2Client QuestLog 0x007BF298 (packed struct, about 4 KB). Claimed: Source/D2Client/UI/QuestLog.cpp, Source/Include/D2ClientQuestText.h, Source/Include/D2ClientQuestLog.h.
+- Fri Nov 27 05:03 PST 2026: chat-controls Ready. Next: D2Client QuestLog 0x007BF298 (packed struct, about 4 KB). Claimed: Source/D2Client/UI/QuestLog.cpp, Source/Include/D2ClientQuestText.h, Source/Include/D2ClientQuestLog.h.
 - Fri Nov 27 04:48 PST 2026: cluster-rule-2 Ready; ancient-equipment updated (second commit). Next: D2Client QuestLog 0x007BF298-0x007C0274 (one packed struct of about 4 KB, which the sources split into about 20 globals at odd addresses, several of them aliases of 0x007BF298). Claimed: Source/D2Client/UI/QuestLog.cpp.
 - Fri Nov 27 04:05 PST 2026: ancient-equipment Ready. Next: D2Game 0x00882D38 (gnGamesGUIDs, 3 globals) and D2Client 0x007BF298 (16 globals). Files claimed as I start each.
 - Fri Nov 27 03:49 PST 2026: control-templates Ready. Next cluster: D2Game 0x006E1BB0-0x006E2CF0 (4,416 B, 35 globals), then 0x00882D38 (gnGamesGUIDs) and D2Client 0x007BF298. Files claimed as I start each.
