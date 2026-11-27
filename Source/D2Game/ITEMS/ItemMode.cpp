@@ -2122,7 +2122,7 @@ void __stdcall sub_0055D920_Nop()
 }
 
 // 0x0055D930
-void __stdcall sub_0055D930(int nUnused1)
+void __stdcall sub_0055D930_Nop(int nUnused1)
 {
 }
 
@@ -3281,7 +3281,7 @@ static void __stdcall ITEMMODE_InitItemDropFromItem(int nId, D2GameStrc* pGame, 
 }
 
 // 0x0055E9A0
-int __stdcall sub_0055E9A0(int nUnused1, int nUnused2)
+int __stdcall sub_0055E9A0_Return0(int nUnused1, int nUnused2)
 {
     return 0;
 }
@@ -3887,7 +3887,7 @@ int __fastcall ITEMMODE_ResolveBodySlotPair(D2UnitStrc* pUnit, D2UnitStrc* pItem
 }
 
 // 0x0055F4F0
-void __stdcall sub_0055F4F0(int nUnused1)
+void __stdcall sub_0055F4F0_Nop(int nUnused1)
 {
 }
 

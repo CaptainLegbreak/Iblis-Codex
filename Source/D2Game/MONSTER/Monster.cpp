@@ -638,7 +638,7 @@ struct D2MonPropTxt
 
 void __fastcall MONSTER_SetComponents(D2MonRegDataStrc* pMonRegData, D2UnitStrc* pUnit);                   // 0x005739D0
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
-D2MonStats2Txt* __fastcall sub_00573470(int nMonsterId);                                                    // 0x00573470
+D2MonStats2Txt* __fastcall sub_00573470_GetMonStats2Record(int nMonsterId);                                                    // 0x00573470
 D2InventoryStrc* __fastcall SUNITPROXY_GetNpcInventory(D2GameStrc* pGame, int nNpc);                        // 0x00536B20
 void __fastcall D2GAME_ITEMMODE_ServerStatlistCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOther, int nLayerStatId, int nPreviousValue, int nNewValue); // 0x0055B800
 void __fastcall D2GAME_SetSkills(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove);            // 0x0056DEB0
@@ -852,7 +852,7 @@ static void __stdcall MONSTER_InitializeStats(D2GameStrc* pGame, D2ActiveRoomStr
         pMonster->dwFlags |= 0x40000000;
     }
 
-    D2MonPropTxt* pMonPropTxt = (D2MonPropTxt*)sub_00573470(pMonster->dwClassId);
+    D2MonPropTxt* pMonPropTxt = (D2MonPropTxt*)sub_00573470_GetMonStats2Record(pMonster->dwClassId);
     if (pMonPropTxt)
     {
         for (int i = 0; i < 6; ++i)

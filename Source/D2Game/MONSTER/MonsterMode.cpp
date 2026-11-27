@@ -1202,7 +1202,7 @@ void __fastcall D2GAME_MONSTERMODE_ResetVelocityParams(D2UnitStrc* pUnit)
 
 
 // 0x005A6220
-int __fastcall sub_005A6220(FieldStrc_005A6220* pObject)
+int __fastcall sub_005A6220_GetField10(FieldStrc_005A6220* pObject)
 {
     return pObject->unk0x10;
 }

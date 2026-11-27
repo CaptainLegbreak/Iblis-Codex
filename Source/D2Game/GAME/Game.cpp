@@ -1002,7 +1002,7 @@ void __stdcall GAME_DefaultUnlockDatabaseCharacter(int nUnused1)
 }
 
 // 0x0052BEC0
-void __stdcall sub_0052BEC0(int nUnused1, int nUnused2)
+void __stdcall sub_0052BEC0_Nop(int nUnused1, int nUnused2)
 {
 }
 
@@ -1029,24 +1029,24 @@ const char* __cdecl GAME_DefaultLoadComplete()
 }
 
 // 0x0052BF30
-void __stdcall sub_0052BF30(int nUnused1, int nUnused2)
+void __stdcall sub_0052BF30_Nop(int nUnused1, int nUnused2)
 {
 }
 
 // 0x0052BF50
-int __cdecl sub_0052BF50()
+int __cdecl sub_0052BF50_Return0()
 {
     return 0;
 }
 
 // 0x0052BF60
-int __cdecl sub_0052BF60()
+int __cdecl sub_0052BF60_Return0()
 {
     return 0;
 }
 
 // 0x0052BF70
-int __cdecl sub_0052BF70()
+int __cdecl sub_0052BF70_Return0()
 {
     return 0;
 }
@@ -1060,13 +1060,13 @@ void __fastcall GAME_ZeroBlock8(void* pData)
 }
 
 // 0x0052BF90
-const void* __cdecl sub_0052BF90()
+const void* __cdecl sub_0052BF90_GetData6E0550()
 {
     return gData_006E0550;
 }
 
 // 0x0052BFA0
-const void* __cdecl sub_0052BFA0()
+const void* __cdecl sub_0052BFA0_GetData6E0568()
 {
     return gData_006E0568;
 }
@@ -3405,7 +3405,7 @@ int __stdcall GAME_ReturnArgument(int nValue)
 }
 
 // 0x0052DC10
-int __cdecl sub_0052DC10()
+int __cdecl sub_0052DC10_GetGlobal731008()
 {
     return gdwGlobal_00731008;
 }
@@ -4401,13 +4401,13 @@ unsigned int __fastcall GAME_GetFirstGameInitSeed()
 }
 
 // 0x0052E070
-int __cdecl sub_0052E070()
+int __cdecl sub_0052E070_Return0()
 {
     return 0;
 }
 
 // 0x0052E080
-int __cdecl sub_0052E080()
+int __cdecl sub_0052E080_Return0()
 {
     return 0;
 }

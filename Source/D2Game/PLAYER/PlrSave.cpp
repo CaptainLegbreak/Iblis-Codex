@@ -736,7 +736,7 @@ struct D2LegacyMercSaveStrc
 unsigned int __fastcall PLRSAVE_ConvertLegacyHirelingExperience(D2GameStrc*, unsigned short, unsigned int); // 0x00533BF0
 
 
-void __fastcall sub_0055F4F0(D2GameStrc*, D2UnitStrc*, int); // 0x0055F4F0
+void __fastcall sub_0055F4F0_Nop(D2GameStrc*, D2UnitStrc*, int); // 0x0055F4F0
 
 
 int __fastcall PLRSAVE_ReadLegacyQuests(D2UnitStrc*, unsigned char*, int, int*); // 0x00532BE0
@@ -751,7 +751,7 @@ int __fastcall PLRSAVE_ReadLegacySkills(D2GameStrc*, D2ClientStrc*, D2UnitStrc*,
 
 int __stdcall UNITS_GetStashGoldLimit(D2UnitStrc*); // 0x00623460
 
-void __fastcall sub_00568DB0(D2GameStrc*, D2UnitStrc*); // 0x00568DB0
+void __fastcall sub_00568DB0_Return0(D2GameStrc*, D2UnitStrc*); // 0x00568DB0
 
 int __fastcall PLRSAVE_ReadCorpseSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pSection, unsigned int dwVersion, int nRemainingSize, int* pSize); // 0x005339A0
 
@@ -2449,7 +2449,7 @@ static int __stdcall PLRSAVE_ReadLegacyMerc(D2GameStrc* pGame, D2UnitStrc* pPlay
             if (nResult)
                 return nResult;
             D2GAME_ITEMS_UpdateInventoryItems(pGame, pMerc, 0, 0);
-            sub_0055F4F0(pGame, pMerc, 0);
+            sub_0055F4F0_Nop(pGame, pMerc, 0);
             STATLIST_SetUnitStat(pMerc, STAT_HITPOINTS, STATLIST_GetMaxLifeFromUnit(pMerc), 0);
             MONSTERAI_SendMercStats(pGame, pPlayer, 1);
             nRead = pItems + nItemsRead - pStart;
@@ -2569,7 +2569,7 @@ int __fastcall D2GAME_SAVE_ProcessSaveFile(D2GameStrc* pGame, D2ClientStrc* pCli
     nResult = PLRSAVE_ReadLegacySkills(pGame, pClient, pPlayer, pSection, nSkillCount, nVersion, &nRead);
     if (nResult)
         return nResult;
-    sub_00568DB0(pGame, pPlayer);
+    sub_00568DB0_Return0(pGame, pPlayer);
     if (nLeftSkillId)
         D2GAME_AssignSkill(pPlayer, 1, nLeftSkillId, -1);
     if (nRightSkillId)

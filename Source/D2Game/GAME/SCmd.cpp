@@ -874,27 +874,27 @@ void __fastcall D2GAME_PACKETS_SendPacket0x6D(D2ClientStrc* pClient, unsigned in
 }
 
 // 0x0053BBC0
-void __stdcall sub_0053BBC0(int nUnused1, int nUnused2)
+void __stdcall sub_0053BBC0_Nop(int nUnused1, int nUnused2)
 {
 }
 
 // 0x0053BBD0
-void __stdcall sub_0053BBD0(int nUnused1, int nUnused2)
+void __stdcall sub_0053BBD0_Nop(int nUnused1, int nUnused2)
 {
 }
 
 // 0x0053BBE0
-void __stdcall sub_0053BBE0(int nUnused1, int nUnused2)
+void __stdcall sub_0053BBE0_Nop(int nUnused1, int nUnused2)
 {
 }
 
 // 0x0053BBF0
-void __stdcall sub_0053BBF0(int nUnused1, int nUnused2)
+void __stdcall sub_0053BBF0_Nop(int nUnused1, int nUnused2)
 {
 }
 
 // 0x0053BC00
-void __stdcall sub_0053BC00(int nUnused1, int nUnused2)
+void __stdcall sub_0053BC00_Nop(int nUnused1, int nUnused2)
 {
 }
 
@@ -1338,10 +1338,10 @@ void __fastcall SCMD_SendSkillTabBonus(D2ClientStrc* pClient, int nUnitGUID, uns
 }
 
 // 0x0053C730
-extern "C" void __stdcall sub_0053C730(unsigned arg0,unsigned arg1,unsigned arg2) {}
+extern "C" void __stdcall sub_0053C730_Nop(unsigned arg0,unsigned arg1,unsigned arg2) {}
 
 // 0x0053C740
-void __stdcall sub_0053C740(int nUnused1)
+void __stdcall sub_0053C740_Nop(int nUnused1)
 {
 }
 
@@ -2172,19 +2172,19 @@ void __fastcall D2GAME_SendP0x9C_ItemAction_AddOrRemoveFromShop(D2ClientStrc* pC
 }
 
 // 0x00568DB0
-int __cdecl sub_00568DB0()
+int __cdecl sub_00568DB0_Return0()
 {
     return 0;
 }
 
 // 0x00570680
-int __cdecl sub_00570680()
+int __cdecl sub_00570680_Return5()
 {
     return 5;
 }
 
 // 0x00570690
-void __stdcall sub_00570690(int nUnused1)
+void __stdcall sub_00570690_Nop(int nUnused1)
 {
 }
 

@@ -198,7 +198,7 @@ void __fastcall ACT3Q1_ChangeHratliMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 }
 
 // 0x005B72A0
-void __stdcall sub_005B72A0(int nUnused1)
+void __stdcall sub_005B72A0_Nop(int nUnused1)
 {
 }
 

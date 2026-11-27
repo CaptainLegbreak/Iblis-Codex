@@ -136,7 +136,7 @@ void __fastcall D2GAME_ITEMS_UpdateTransferredProperties(D2GameStrc* pGame, D2Un
 void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 
 
-void __fastcall sub_0055D930(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nUnused); // 0x0055D930
+void __fastcall sub_0055D930_Nop(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nUnused); // 0x0055D930
 
 
 D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, unsigned char bAllowNeighborRooms); // 0x00555DA0
@@ -837,7 +837,7 @@ static void __stdcall PLRMODE_RemoveEquippedItemForCorpse(D2GameStrc* pGame, int
 
     if (bUpdateSets)
     {
-        sub_0055D930(pUnit, hItem, 0);
+        sub_0055D930_Nop(pUnit, hItem, 0);
     }
 
     ITEMS_UpdateSets(pUnit, hItem, 1, 1);

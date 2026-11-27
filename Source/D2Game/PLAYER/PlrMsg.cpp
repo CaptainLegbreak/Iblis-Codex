@@ -287,7 +287,7 @@ int __stdcall SKILLS_CheckRequiredAttributes(D2UnitStrc* pUnit, int nSkillId); /
 int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 
 
-void __fastcall sub_0055F4F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x0055F4F0
+void __fastcall sub_0055F4F0_Nop(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x0055F4F0
 
 struct D2GSPacketSrv26Args
 {
@@ -348,7 +348,7 @@ int __stdcall STATLIST_GetListExpireFrame(D2StatListStrc* pStatList); // 0x00626
 
 static unsigned char PLRMSG_GetPotionLifePercent(D2UnitStrc* pUnit);
 
-int __stdcall sub_0055E9A0(int nUnused1, int nUnused2); // 0x0055E9A0
+int __stdcall sub_0055E9A0_Return0(int nUnused1, int nUnused2); // 0x0055E9A0
 
 int __fastcall OBJMODE_OperateObjectInRange(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned short nObjectType, int nObjectGUID); // 0x00584540
 
@@ -620,7 +620,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x61_DropPickupMercItem(D2GameStrc* pGam
 
 
 // 0x00547F50
-D2WaypointDataStrc* __fastcall sub_00547F50(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+D2WaypointDataStrc* __fastcall sub_00547F50_GetWaypointData(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pWaypointData[pGame->nDifficulty];
 }
@@ -1774,7 +1774,7 @@ static int __stdcall PLRMSG_CheckWaypointObject(D2GameStrc* pGame, unsigned shor
 
     if (WAYPOINTS_GetWaypointNoFromLevelId(nLevelId, &tLocal.nWaypointNo))
     {
-        return WAYPOINTS_IsActivated(sub_00547F50(pGame, pUnit), tLocal.nWaypointNo) ? 0 : 2;
+        return WAYPOINTS_IsActivated(sub_00547F50_GetWaypointData(pGame, pUnit), tLocal.nWaypointNo) ? 0 : 2;
     }
 
     return 3;
@@ -3709,7 +3709,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x3B_AddSkillPoint(D2GameStrc* pGame, D2
     {
         return 2;
     }
-    sub_0055F4F0(pGame, pUnit, 1);
+    sub_0055F4F0_Nop(pGame, pUnit, 1);
     SKILLS_RefreshPassivesAndPetLimits(pUnit);
     return 0;
 }
@@ -4642,7 +4642,7 @@ static int __stdcall D2GAME_MERCS_EquipItem(D2UnitStrc* pPlayer, D2UnitStrc* pIt
             UNITS_ChangeAnimMode(pExchangeItem, 1);
             ITEMS_SetInvPage(pExchangeItem, 0xFF);
             ITEMMODE_UpdateItemStatlist(pGame, pExchangeItem, pMerc, 0);
-            sub_0055F4F0(pGame, pMerc, 0);
+            sub_0055F4F0_Nop(pGame, pMerc, 0);
             return 0;
         }
 
@@ -4673,7 +4673,7 @@ static int __stdcall D2GAME_MERCS_EquipItem(D2UnitStrc* pPlayer, D2UnitStrc* pIt
     }
 
     D2GAME_ITEMS_UpdateInventoryItems(pGame, pMerc, 0, 0);
-    sub_0055F4F0(pGame, pMerc, 0);
+    sub_0055F4F0_Nop(pGame, pMerc, 0);
     D2GAME_EVENTS_Delete(pGame, pMerc, 3, 0);
     EVENT_SetEvent(pGame, pMerc, 3, pGame->dwGameFrame + 1, 0, 0);
     return 1;
@@ -4716,7 +4716,7 @@ static int __stdcall PLRMSG_TakeMercItemToCursor(D2GameStrc* pGame, D2UnitStrc* 
     ITEMS_SetItemFlag(pItem, 0x20, 1);
     D2GAME_ITEMS_UpdateInventoryItems(pGame, pMerc, 0, 0);
     D2GAME_UpdatePlayerVitals(pGame, pMerc);
-    sub_0055F4F0(pGame, pMerc, 0);
+    sub_0055F4F0_Nop(pGame, pMerc, 0);
     return 0;
 }
 

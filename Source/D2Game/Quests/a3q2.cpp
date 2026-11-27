@@ -646,7 +646,7 @@ void __fastcall ACT3Q2_UpdateKhalimItemCounts(D2GameStrc* pGame, D2UnitStrc* pUn
 }
 
 // 0x005B8740
-void __stdcall sub_005B8740(int nUnused1)
+void __stdcall sub_005B8740_Nop(int nUnused1)
 {
 }
 
