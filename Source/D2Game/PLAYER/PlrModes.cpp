@@ -1272,8 +1272,8 @@ static void __stdcall sRestoreWeapon(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2U
         const int bReEquip = ITEMS_GetReEquip(pWeapon);
         UNITS_ChangeAnimMode(pPlayer, 1);
 
-        int a5;
-        ITEMMODE_UnequipBodyItem(pGame, pPlayer, nBodyLoc, 1, &a5);
+        int nItemStatus;
+        ITEMMODE_UnequipBodyItem(pGame, pPlayer, nBodyLoc, 1, &nItemStatus);
         ITEMS_SetItemCMDFlag(pWeapon, 1, 1);
 
         if (bReload)

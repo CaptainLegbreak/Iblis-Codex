@@ -4915,7 +4915,7 @@ void __fastcall AITHINK_Fn032_Npc(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTick
 {
     D2CoordStrc coord;
     int a3;
-    int a4;
+    int bIdle;
 
     if (AITHINK_InitHomeCommand(pGame, pUnit, pAiTickParam))
     {
@@ -4950,8 +4950,8 @@ void __fastcall AITHINK_Fn032_Npc(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTick
             return;
         }
 
-        ACT2Q4_GetAndUpdatePalaceNpcState(pGame, pUnit, &a3, &a4);
-        if (a4)
+        ACT2Q4_GetAndUpdatePalaceNpcState(pGame, pUnit, &a3, &bIdle);
+        if (bIdle)
         {
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
         }
