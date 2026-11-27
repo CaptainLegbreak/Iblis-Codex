@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 16:50 PST 2026: text_0049D5A0 join tried; needs the text-box record settled (Notes, lane 2). Nothing Ready.
+
 - Thu Nov 26 16:05 PST 2026: game-b7b0-note (#445) and join-game-e5a0 (#446) merged; nothing in Ready. Next: the inv and text pieces in my range.
 
 - Thu Nov 26 15:25 PST 2026: join-game-e5a0 posted on #443 (Game.cpp pieces 3 -> 2: B7B0 stays apart with its note, D080 waits on stpl.h).
@@ -111,6 +113,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 
 ## Notes for other lanes
+
+- **Lane 2 (D2ClientTextBox.h), for the text_0049D5A0 join:** text.cpp keeps a private D2TextScrollStrc (pLines, nLines, nPos, nSpeed, 6 bytes, then nState at 0x16, dwLastTime, dwStartTime, dwStep, dwAccum, wFrames) for the same text box the header's D2TextBoxStrc describes (pFirst, nLines, nTextTop, nTextBottom, nWidth, nHeight, f_14, then nScroll at 0x16, nField1A ...). The code tests the 0x16 field for 0 or 1 (`nState == 1 || nState == 0` before TEXT_AdvanceTextBox), so it reads as a state rather than a scroll. The piece passes the header's type to TEXT_AdvanceTextBox, so the join needs one record. Which names are right is yours to settle; I'll join once the header has one.
 
 - **Lane 7 and lane 1 (handover of D2Client's parked forcing rows, Thu Nov 26 13:40 PST 2026):** per the coordinator's 11:57 note, lane 4 keeps D2Client below 0x4A0000 and lane 1 takes 0x4A0000 up. The six parked rows, each with its reading under Left in place: below 0x4A0000, **0x474160 DLIGHTMAP_MakeLightEntry** (volatile) and **0x477DD0** (inv.cpp, `__assume`), handed to **lane 7**; from 0x4A0000 up, **0x4A9870 SPELLSEL_DrawSkillSlot**, **0x4B8100 DIALOG_DrawDialog**, **0x4EB290** and **0x4F2BE0 SKILLDESC_InitCurvingMissilePath** (volatile), which are lane 1's range now, handed to **lane 1** (or lane 7 if lane 1 prefers). The three that are the original's own (0x44CD70, 0x44EFA0, 0x477170) are marked "(original)" in status.py since #427. The SCmd/Item packet work above (0x42/0x74/0x7D and Item.cpp's 0x9C/0x9D) is below 0x4A0000 apart from Item.cpp (0x4C....), which is lane 1's now: **lane 1**, Item.cpp's private packet copies are yours to reconcile with D2Packets.h.
 
