@@ -9,6 +9,8 @@
 #include "D2Path.h"
 #include "D2CommonApi.h"
 #include "StormApi.h"
+#include "D2LangApi.h"
+#include "FogApi.h"
 
 struct D2SelectionRectStrc;
 
@@ -113,8 +115,6 @@ extern const char gszUseItemCpp[]; // 0x006DAB50
 
 extern "C" void* __cdecl memset(void*,int,unsigned int);
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-
 D2CelFileStrc* __cdecl GAME_GetBuySellButtonCells(); // 0x00454600
 
 void __fastcall AUTOMAP_DrawFramedBox(int,int,int,int,int,int); // 0x0046EFD0
@@ -130,8 +130,6 @@ void __fastcall D2Win_10117_DrawText(const Unicode*,int,int,int,int); // 0x00502
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode*,int*,int); // 0x00502970
 
 int __fastcall D2Win_10127_SetFont(int); // 0x00502EF0
-
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short); // 0x00524A30
 
 void* gpUpgradeCel; // 0x007C5494
 
@@ -315,10 +313,6 @@ struct D2PanelGfxStrc;
 struct D2CellNodeStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

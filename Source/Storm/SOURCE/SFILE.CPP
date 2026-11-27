@@ -6,6 +6,7 @@
 #include "D2StormSha1.h"
 #include "D2StormBitOutput.h"
 #include "D2Win32SystemInfo.h"
+#include "StormApi.h"
 
 struct D2FileStrc;
 
@@ -139,10 +140,6 @@ unsigned short gwValue_0077905C; // 0x0077905C
 
 void __cdecl InitBasePath(); // 0x004158E0
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-
-void __stdcall SMemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
-
 struct Link {
     Link* previous;
     char* next;
@@ -200,8 +197,6 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
 
-const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
-
 void __fastcall CrcBuffer(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags); // 0x0041D810
 
 int __cdecl GetDefaultOpenFlags(); // 0x00418B50
@@ -213,8 +208,6 @@ void __cdecl StartCdThread(); // 0x0041A880
 void __cdecl PumpStreams(); // 0x00419C00
 
 int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
-
-int __stdcall SFileCloseArchive(void* hMpq); // 0x00419A80
 
 static int __stdcall ReadAdditionalAttributes(ARCHIVEREC* pArchive, D2StormBlockStrc* pBlockTable, unsigned int nCount);
 
@@ -320,10 +313,6 @@ template AUDIOSTREAM* TSList<AUDIOSTREAM>::DeleteNode(AUDIOSTREAM*);
 extern TSList<AUDIOSTREAM> gDdaList_00708384; // 0x00708384
 
 extern "C" __declspec(dllimport) int __stdcall GetFileTime(void* hFile, D2FileTimeStrc* pCreation, D2FileTimeStrc* pAccess, D2FileTimeStrc* pWrite);
-
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-
-unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 
 struct PairStrc_00416810
 {
@@ -2535,7 +2524,6 @@ inline HANDLER::~HANDLER()
 
 void __stdcall SErrReportResourceLeak(const char* szName); // 0x0041D1E0
 void __stdcall SErrReportNamedResourceLeak(const char* szName, const char* szDetail); // 0x0041D010
-int __cdecl SFileDdaDestroy(); // 0x00419F30
 
 // 0x0041A110
 int __cdecl SFileDestroy()

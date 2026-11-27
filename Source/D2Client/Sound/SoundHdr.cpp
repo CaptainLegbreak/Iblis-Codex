@@ -4,6 +4,7 @@
 #include "D2ClientSound.h"
 #include "D2SoundEnvironTxt.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -103,8 +104,6 @@ void* __fastcall Allocate(unsigned int bytes, const char* file, int line, unsign
 
 
 void* __cdecl sub_004646A0();
-
-int __stdcall DUNGEON_GetLevelIdFromRoom(void* room);
 
 const unsigned short* __fastcall UI_GetLevelName(int levelId); // 0x00453E70
 

@@ -146,6 +146,7 @@ struct CBitInput
 };
 
 #include "D2StormBitOutput.h"
+#include "StormApi.h"
 
 // The adaptive Huffman tree. tItemList keeps the nodes sorted by weight; nMinValidValue is bumped whenever
 // the tree changes shape, which invalidates the decoder's prefix cache.
@@ -306,8 +307,6 @@ struct SCompBufferState
 
 SCompBufferState gSCompBuffer_0077920C;         // 0x0077920C
 
-
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 
 // 0x0041DEC0
 unsigned int __cdecl PkwareBufferRead(char* pBuffer, unsigned int* pSize, D2StormMemSourceStrc* pSource)

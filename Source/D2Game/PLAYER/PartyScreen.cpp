@@ -16,6 +16,7 @@ struct D2ClientStrc
 };
 
 #include "D2GameFuncs.h"
+#include "D2CommonApi.h"
 
 struct D2PartyScreenCallbackStrc
 {
@@ -48,7 +49,6 @@ extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 #pragma pack(push, 1)
 
 
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 #define PARTYSCREENTYPE_HOSTILE 3
 enum D2C_M187TrapConstants
 {

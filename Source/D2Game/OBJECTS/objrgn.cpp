@@ -225,8 +225,6 @@ D2GameStrc* gpGame; // 0x00882D34
 int gnGamesGUIDs[1024];                                                                            // 0x00882D38
 
 
-int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc*); // 0x0063D630
-
 
 typedef int (__stdcall* FARPROC)();
 
@@ -380,8 +378,6 @@ extern "C" void _ReadWriteBarrier(void);
 
 void __fastcall CLIENTS_GetGuildEmblem(D2ClientStrc*, unsigned char*, unsigned char*, unsigned char*); // 0x00539190
 
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*, int, int); // 0x006253B0
-
 
 int gdwGlobal_00882D14; // 0x00882D14
 
@@ -446,8 +442,6 @@ void __fastcall GAME_ProcessAdminMessage(void* pData, int nSize);               
 
 
 int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit);                                               // 0x00622E70
-
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x00627260
 
 
 #define INPUT_PREFIX 0
@@ -523,8 +517,6 @@ struct D2GameHashLinkStrc;
 
 struct D2GameHashListStrc;
 
-
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
@@ -644,8 +636,6 @@ void __fastcall D2GAME_SetSkills(int pUnit, int nSkillId, int nSkillLevel, int b
 
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
 
-
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 
 #define CLIENTS_MAX_UPDATES 55u
@@ -885,8 +875,6 @@ void __fastcall sub_0059B6D0_Act2Guard2SpawnHook(D2GameStrc* pGame, D2UnitStrc* 
 
 
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
-
-void __stdcall ITEMS_SetItemCell(D2UnitStrc* pItem, unsigned char nItemCell); // 0x00628320
 
 
 extern "C" const char gszObjRgnSourceFile[]; // 0x006E0C40
