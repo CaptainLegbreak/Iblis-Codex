@@ -113,6 +113,11 @@ What it does beyond an ordinary link, and why:
 and initialised global read back from the image equal to the original's once addresses are mapped.
 `out/ordinary/LINK_REPORT.json` has the details, including the size of everything taken from your `Game.exe`.
 
+`python tools/linkdebt.py` counts what the ordinary build binds by address instead of by name, by kind, module and
+file (`out/ordinary/LINK_DEBT.json`); `--module <M>` lists one module's references with the declaration and the
+definition each one needs to agree with, and `--module <M> --max <N>` fails when the module has more than N.
+`link.py --strict[=<M>,...]` refuses to link while any reference (of those modules) is bound by address.
+
 ### CMake
 
 `CMakeLists.txt` describes the same sources as an ordinary project. From a Visual C++ 2005 SP1 command prompt, after
