@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 20:08 PST 2026: #464 took join-text-a950-2. join-game-d080 posted on #464 (Game_0044D080: 28 functions -> 2). Next: the Gfx pieces.
+
 - Thu Nov 26 19:35 PST 2026: #461 took join-inv-2. join-text-a950-2 posted on #461 (Text pieces 5 -> 4). Next: the Gfx and Game pieces.
 
 - Thu Nov 26 19:06 PST 2026: #456 took join-text-da50. join-inv-2 posted (Inv pieces 6 -> 4). join-text-a950 is rebuilding on #460. inv_0048DD90 and inv_00491D20 stay, with readings.
@@ -106,7 +108,13 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/join-text-a950-2 a98397a45 (on #461; full build identical, borrowed code 5,424 B in 2 functions and borrowed data 261 B, both as main; audit guard clean, no noinline): files in pieces, Text 5 -> 4. text.cpp takes the six functions of text_0049A950.cpp, which goes. text.cpp's UnitView gains the piece's payload pointer at 0x14, and the piece's dtor-only ListBoxWrapper copy goes. Three placeholders leave text.cpp's data plan: TEXT_KeyUpMsg, TEXT_HotkeyMsg and TEXT_KeyDownMsg, which the moved functions now define and the 0x722600 table names. D2CLIENT_CloseNPCTalk stays, since the source defines sub_004A17D0_FilterNpcClick. This replaces lane4/join-text-a950, which was stacked on the old da50 branch.
+- lane4/join-game-d080 2457ba6ca (on #464; full build on #462 identical, borrowed code 5,424 B in 2 functions and borrowed data 261 B, both as main. #463/#464 touched none of its files or headers, and namesync renamed nothing, so it was rebased without a rebuild. Audit guard clean with AUDIT_ALLOW=noinline: one noinline, 112 -> 113). Two commits.
+  1. INV_SendGameLogon (inv.cpp, 0x477F70) takes the join id as unsigned short. The image stores it as a word at 0x477F7D, and Game.cpp's call loads the dword at 0x7A0520 as MSVC does for a short register argument. That fixes GAME_RunGameSession 0x44F360 in the joined file.
+  2. Game.cpp takes 26 of Game_0044D080.cpp's 28 functions (15 data definitions, 670 B).
+     - The second copies of three Storm-list members (0x44DEF0, 0x44ED10, 0x44EE70) take the second list's names (sub_0060E360_AddLinkOffset, D2ChatStormListBStrc::GetMappingListHead/ResetMappingList), as Ignorelist.cpp names its two instantiations.
+     - gtPongData is one D2PongDataStrc, the piece's critical section is gtQServerLock, and GAME_UpdateGamesProgress returns int as D2Game's definition does.
+     - The noinline is on GAME_RegisterWindowHandlers 0x451F20; GAME_ShutdownClient calls it out of line at 0x44D569.
+     - The piece keeps the two end-screen handlers, with the reason in a comment (Left in place).
 
 
 ## Claimed
@@ -166,7 +174,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 - inv_0048DD90.cpp (five functions). Joined into inv.cpp, 0x4922A0 and 0x4929F0 match, but only with gnInvMouseX/Y made static as the pieces have them. Three don't match. INV_DrawItemTooltip 0x48DD90 flips four gnScreenHeight + gnPanelOffsetY lea operands, and INV_DrawInventoryPanel 0x48EDF0 moves one push. The source is identical in both files, so it's a tie that the surrounding file decides. INV_OnStashButtonUp 0x492310: the image calls INV_IsInTradeGrid 0x483B10 out of line here and from 0x483FF0 and 0x4873A0, but has it inline in 0x483BF0 and 0x489580. Other fixes a retry needs: D2ItemsTxt for inv.cpp's formula-record view, the class check written inline (inv.cpp's UNITS_GetWeaponClass copy has the if form, the piece has the ternary), and `>= sizeof(wszTooltip) / sizeof(Unicode) - 1` for the unsigned length compare.
 - inv_00491D20.cpp (INV_HandleNpcClick). The image calls INV_IsInNpcPanelRect 0x486E10 out of line from 0x491D67 but has it inline in 0x486EF0, so a noinline can't keep both.
-- **Game_0044D080.cpp (28 functions) and Game.cpp: blocked on Storm's list templates.** Joined, it compiles once three things are reconciled: gtLoadingTimer is one D2LoadingTimerStrc (its inline zeroing constructor adds no initializer, which I checked by building), gtPongData takes the piece's D2PongDataStrc, and the piece's gCriticalSection_007A0468 is Game.cpp's gtQServerLock. The blocker: the image has three Storm-list members twice, at two addresses, with the same code (0x44DED0/0x44DEF0 sub_0060E280_AddLinkOffset, 0x44ED00/0x44ED10 GetStringListHead, 0x44EE50/0x44EE70 ResetStringList). Those are two template instantiations, and our source gives both one class name (D2ChatStormListAStrc), so one unit can hold only one. That needs lane 3's one stpl.h definition first. Also left: GAME_ShutdownClient (0x44D550) and the end-screen button handlers (0x44E460, 0x44E4F0) mismatch, not yet read. (Also on main: Game.cpp and Game_0044B7B0.cpp both define `int gtLoadingTimer` and `gdwGlobal_007A0688`, its second half; which object owns 0x7A0684 isn't settled.)
+- **Game_0044D080.cpp keeps the end-screen button handlers (0x44E460, 0x44E4F0).** GAME_HandleEndScreenButtonUp's push lands before its four button-state stores only when gbRightButtonDown and gbRightClickConsumed are static. SCmd.cpp, inv.cpp, Unknown_00482C70.cpp and Fog's Unknown_00402820.cpp read them, so Game.cpp must define them. GAME_HandleEndScreenButtonDown matches in Game.cpp only while the other handler sits beside it. The rest joined (join-game-d080); the Storm-list duplicates take the second list's names.
 - **text_0049C9C0.cpp (TEXT_DrawWaypointPanel) and text.cpp: one compiler tie.** Joined (once the piece's private D2CelContextStrc, Unicode and waypoint-entry copies give way to the headers'), 1276/1276 with two `lea` operands swapped (gnScreenHeight + gnPanelOffsetY). That's the inv_0048BC10 tie again, and rewriting the sum the other way round doesn't change it.
 - (Tool note for anyone merging pieces by script: never deduplicate `#pragma pack` lines, or a dropped `pop` packs the rest of the file.)
 
