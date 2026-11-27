@@ -48116,19 +48116,93 @@
   },
   {
    "alias": false,
-   "cname": "gData_007224E8",
+   "cname": null,
    "declared": true,
-   "decorated": "?gaLayouts@@3PAUD2WaypointLayoutStrc@@A",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_0049BB40.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007224E8_t gData_007224E8; // 0x007224E8",
-   "head": "extern \"C\" struct d2data_007224E8_t gData_007224E8 = ",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2WaypointLayoutStrc gaLayouts[9] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "nCellX",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nCellY",
+       4,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nTextX",
+       8,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nTextY",
+       12,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nRowX",
+       16,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nRowY",
+       20,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ]
+     ],
+     "name": "D2WaypointLayoutStrc",
+     "size": 24
+    },
+    "k": "arr",
+    "n": 9,
+    "size": 216
+   },
    "name": "gaLayouts",
    "pointers": [],
    "region": "data",
    "size": 216,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007224E8_t\n{\n    unsigned char b0[216];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007224E8\n#pragma comment(linker, \"/alternatename:?gaLayouts@@3PAUD2WaypointLayoutStrc@@A=_gData_007224E8\")",
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007224E8",
+   "type": "D2WaypointLayoutStrc",
    "va": "0x007224E8"
   },
   {
