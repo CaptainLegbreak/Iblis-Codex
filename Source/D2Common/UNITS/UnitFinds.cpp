@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Drlg.h"
 #include "D2ItemsWorld.h"
+#include "D2Txt.h"
 #include "FogApi.h"
 
 #define UF_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -48,9 +49,19 @@ int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int
 
 typedef int (__fastcall* UnitFilter)(D2UnitStrc*,D2UnitFindArgStrc*);
 
-struct D2UnitFindArgStrc { unsigned int flags; int unk_04; D2UnitStrc* ignored; int x; int y; int radius; int maximum; int count; D2FieldStrc* field; UnitFilter filter; };
-
-struct D2MissilesTxt { char unk_00[4]; unsigned char flags; };
+struct D2UnitFindArgStrc
+{
+    unsigned int nFlags; // 0x00
+    int unk0x04; // 0x04
+    D2UnitStrc* pUnit; // 0x08
+    int nX; // 0x0C
+    int nY; // 0x10
+    int nSize; // 0x14
+    int nMaxArrayEntries; // 0x18
+    int nIndex; // 0x1C
+    D2FieldStrc* pField; // 0x20
+    UnitFilter pfnUnitTest; // 0x24
+};
 
 extern const unsigned char gMissileMask_006CE26C; // 0x006CE26C
 
@@ -339,47 +350,47 @@ static inline int GetY(D2UnitStrc* unit) {
 int __stdcall UNITFINDS_TestUnit(D2UnitStrc* unit,D2UnitFindArgStrc* args)
 {
  if(!args) return 0;
- if((args->flags&64) && args->count>=args->maximum) return 0;
+ if((args->nFlags&64) && args->nIndex>=args->nMaxArrayEntries) return 0;
  int x=GetX(unit);int y=GetY(unit);
- int dx=x-args->x;int dy=y-args->y;
- if(dx*dx+dy*dy>args->radius*args->radius) return 0;
+ int dx=x-args->nX;int dy=y-args->nY;
+ if(dx*dx+dy*dy>args->nSize*args->nSize) return 0;
  switch(unit->dwUnitType) {
   case UNIT_PLAYER: {
-   if(!(args->flags&1))return 0;
+   if(!(args->nFlags&1))return 0;
    int mode=unit->dwAnimMode;
-   if(args->flags&4096) {if(mode!=17)return 0;} else if(mode==17 || mode==0)return 0;
-   if(unit==args->ignored)return 0;
+   if(args->nFlags&4096) {if(mode!=17)return 0;} else if(mode==17 || mode==0)return 0;
+   if(unit==args->pUnit)return 0;
    } break;
   case UNIT_MONSTER: {
-   if(!(args->flags&2))return 0;
+   if(!(args->nFlags&2))return 0;
    int mode=unit->dwAnimMode;
-   if(args->flags&4096) {if(mode!=12)return 0;} else if(mode==12 || mode==0)return 0;
-   if((args->flags&4) && !MONSTERS_IsUndead(unit))return 0;
+   if(args->nFlags&4096) {if(mode!=12)return 0;} else if(mode==12 || mode==0)return 0;
+   if((args->nFlags&4) && !MONSTERS_IsUndead(unit))return 0;
    } break;
-  case UNIT_OBJECT:if(!(args->flags&16))return 0;break;
+  case UNIT_OBJECT:if(!(args->nFlags&16))return 0;break;
   case UNIT_MISSILE: {
-   if(!(args->flags&8))return 0;
+   if(!(args->nFlags&8))return 0;
    D2MissilesTxt* record=sub_0046ACE0_GetMissilesTxtRecord(unit->dwClassId);
-   if(!record || (record->flags&gMissileMask_006CE26C))return 0;
+   if(!record || (record->nMissileFlags[0]&gMissileMask_006CE26C))return 0;
    break;
   }
-  case UNIT_ITEM:if(!(args->flags&32))return 0;break;
+  case UNIT_ITEM:if(!(args->nFlags&32))return 0;break;
   default:return 0;
  }
- unsigned int flags=args->flags;
+ unsigned int flags=args->nFlags;
  if((flags&128) && !sub_00451F30_TestUnitFlag(unit,4))return 0;
  if((flags&1024) && !sub_00451F30_TestUnitFlag(unit,8))return 0;
  if((flags&256) && DUNGEON_IsRoomInTown(UNITS_GetRoom(unit)))return 0;
- if(args->flags&512) {
+ if(args->nFlags&512) {
   D2ActiveRoomStrc* room=UNITS_GetRoom(unit);
   if(room) {
-   while(D2Common_11098(args->field,&x,&y)) {
+   while(D2Common_11098(args->pField,&x,&y)) {
     if(COLLISION_CheckMask(room,x,y,4)==4)return 0;
    }
   }
  }
- if((args->flags&2048) && args->filter(unit,args))return 0;
- ++args->count;
+ if((args->nFlags&2048) && args->pfnUnitTest(unit,args))return 0;
+ ++args->nIndex;
  return 1;
 }
 
