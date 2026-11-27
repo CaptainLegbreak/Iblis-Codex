@@ -57232,6 +57232,10 @@
      "name": "ACT3Q3_Callback08_MonsterKilled"
     },
     {
+     "va": "0x005B9A30",
+     "length": 173
+    },
+    {
      "va": "0x005B9AE0",
      "length": 96,
      "name": "?OBJECTS_InitFunction25_Gidbinn@@YIXPAUD2ObjInitFnStrc@@@Z"
@@ -57264,16 +57268,6 @@
      "va": "0x005B9D40",
      "length": 67,
      "name": "?OBJECTS_InitFunction39_GidbinnAltar@@YIXPAUD2ObjInitFnStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005B9A30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B9A30",
-     "length": 173
     }
    ]
   },
