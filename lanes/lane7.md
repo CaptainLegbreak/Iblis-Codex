@@ -81,7 +81,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- `lane7/decls-quests-objects` fff7ffd14 (on #461): 44 private prototypes removed from 17 Quests/ and OBJECTS/ units, each one D2Game.h, D2GameFuncs.h or Source/Include already declares with the same address and signature (no include added). 1,050-odd private copies in these folders have no shared declaration yet or differ in parameter types (e.g. `unsigned int*` against `int*`), so they stay. Full build: Game.exe identical, 14,925 / 14,925 placed, 0 not all equal; audit guard: no count rose.
+- `lane7/decls-quests-objects` fff7ffd14 (on #456): 44 private prototypes removed from 17 Quests/ and OBJECTS/ units, each one D2Game.h, D2GameFuncs.h or Source/Include already declares with the same address and signature (no include added). 1,050-odd private copies in these folders have no shared declaration yet or differ in parameter types (e.g. `unsigned int*` against `int*`), so they stay. Full build: Game.exe identical, 14,925 / 14,925 placed, 0 not all equal; audit guard: no count rose.
 - `lane7/forcing-readings` daab9254d (on #450): comments only, in AiThink.cpp, AiThink4.cpp, SkillAss.cpp and SkillItem.cpp: the allocator reading for each of the five one-decision forcing rows (0x5C09E0, 0x5D3BA0, 0x5D3AC0, 0x5EB970, 0x5B0FF0) beside its volatile, as you asked at 17:21. Full build: Game.exe identical, 14,923 / 14,923 placed, 0 not all equal, borrowed code 7,923 B in 4 functions; audit guard: no count rose.
 
 
