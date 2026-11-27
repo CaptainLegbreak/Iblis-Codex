@@ -308,7 +308,7 @@ typedef char check_PartialLookupHeader_records[offsetof(PartialLookupHeader, rec
 
 
 
-extern "C" unsigned int __stdcall sub_006280A0(D2UnitStrc* pUnit, unsigned int dwMask, unsigned int dwUnused3, unsigned int dwUnused4); // 0x006280A0
+extern "C" unsigned int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pUnit, unsigned int dwMask, unsigned int dwUnused3, unsigned int dwUnused4); // 0x006280A0
 
 
 
@@ -1877,7 +1877,7 @@ int __fastcall GFXUTIL_GetCompTransparency(D2UnitStrc* pUnit, int nComponent, in
             for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory); pItem; pItem = INVENTORY_GetNextItem(pItem))
             {
                 D2UnitStrc* pChecked = INVENTORY_UnitIsItem(pItem);
-                if (pChecked && sub_006280A0(pChecked, 0x400000, 0x5E6, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
+                if (pChecked && ITEMS_CheckItemFlag(pChecked, 0x400000, 0x5E6, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
                 {
                     *pOut = 1;
                     return 1;
@@ -1929,7 +1929,7 @@ int __fastcall GFXUTIL_GetCompTransparency(D2UnitStrc* pUnit, int nComponent, in
     case 7:
     {
         D2UnitStrc* pItem = INVENTORY_GetCompositItem(pInventory, 7);
-        if (pItem && sub_006280A0(pItem, 0x400000, 0x627, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
+        if (pItem && ITEMS_CheckItemFlag(pItem, 0x400000, 0x627, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
         {
             *pOut = 2;
             return 1;
@@ -1939,7 +1939,7 @@ int __fastcall GFXUTIL_GetCompTransparency(D2UnitStrc* pUnit, int nComponent, in
     case 6:
     {
         D2UnitStrc* pItem = INVENTORY_GetCompositItem(pInventory, 6);
-        if (pItem && sub_006280A0(pItem, 0x400000, 0x61C, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
+        if (pItem && ITEMS_CheckItemFlag(pItem, 0x400000, 0x61C, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
         {
             *pOut = 1;
             return 1;
@@ -1949,7 +1949,7 @@ int __fastcall GFXUTIL_GetCompTransparency(D2UnitStrc* pUnit, int nComponent, in
     case 5:
     {
         D2UnitStrc* pItem = INVENTORY_GetCompositItem(pInventory, 5);
-        if (pItem && sub_006280A0(pItem, 0x400000, 0x611, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
+        if (pItem && ITEMS_CheckItemFlag(pItem, 0x400000, 0x611, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
         {
             *pOut = 1;
             return 1;

@@ -65743,7 +65743,7 @@
     {
      "va": "0x006275B0",
      "length": 264,
-     "name": "?sub_006275B0@@YGXPAUD2UnitStrc@@@Z"
+     "name": "?STATLIST_ClampStaminaManaHP@@YGXPAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -66939,7 +66939,7 @@
     {
      "va": "0x00631490",
      "length": 6,
-     "name": "sub_00631490"
+     "name": "DATATBLS_Return2"
     },
     {
      "va": "0x006314A0",
@@ -67908,7 +67908,7 @@
     {
      "va": "0x0063EBC0",
      "length": 3,
-     "name": "sub_0063EBC0"
+     "name": "D2COMMON_11062_Return"
     },
     {
      "va": "0x0063EBD0",
@@ -68409,7 +68409,7 @@
     {
      "va": "0x00641530",
      "length": 416,
-     "name": "?sub_00641530@@YGHPAUD2UnitStrc@@0@Z"
+     "name": "?D2Common_10399@@YGHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x006416D0",
@@ -68517,7 +68517,7 @@
     {
      "va": "0x00642740",
      "length": 3,
-     "name": "sub_00642740"
+     "name": "D2COMMON_10018_Return0"
     },
     {
      "va": "0x00642750",
@@ -70870,12 +70870,12 @@
     {
      "va": "0x00650E60",
      "length": 15,
-     "name": "@sub_00650E60@12"
+     "name": "@SEED_SetSeeds@12"
     },
     {
      "va": "0x00650E70",
      "length": 19,
-     "name": "@sub_00650E70@12"
+     "name": "@SEED_GetSeeds@12"
     },
     {
      "va": "0x00650E90",
@@ -71048,7 +71048,7 @@
     {
      "va": "0x0065C130",
      "length": 12,
-     "name": "?sub_0065C130@@YIXXZ"
+     "name": "?DATATBLS_UnloadInventoryTxt@@YIXXZ"
     },
     {
      "va": "0x0065C140",
@@ -71058,17 +71058,17 @@
     {
      "va": "0x0065C180",
      "length": 104,
-     "name": "?sub_0065C180@@YGXHHPAUD2Block0@@@Z"
+     "name": "?DATATBLS_GetInventoryRect@@YGXHHPAUD2Block0@@@Z"
     },
     {
      "va": "0x0065C1F0",
      "length": 117,
-     "name": "?sub_0065C1F0@@YGXHHPAUD2Block1@@@Z"
+     "name": "?DATATBLS_GetInventoryGridInfo@@YGXHHPAUD2Block1@@@Z"
     },
     {
      "va": "0x0065C270",
      "length": 131,
-     "name": "?sub_0065C270@@YGXHHPAUD2Block2@@H@Z"
+     "name": "?DATATBLS_GetInventoryComponentGrid@@YGXHHPAUD2Block2@@H@Z"
     },
     {
      "va": "0x0065C300",
@@ -74603,7 +74603,7 @@
     {
      "va": "0x0067E890",
      "length": 126,
-     "name": "sub_0067E890"
+     "name": "DRLGOUTDOORS_InitAct4OutdoorLevel"
     }
    ]
   },
@@ -74853,7 +74853,7 @@
     {
      "va": "0x00680C80",
      "length": 61,
-     "name": "sub_00680C80"
+     "name": "DRLG_OUTDOORS_GenerateDirtPath"
     },
     {
      "va": "0x00680CC0",

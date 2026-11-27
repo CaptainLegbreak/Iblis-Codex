@@ -1071,7 +1071,7 @@ void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPat
 }
 
 // 0x006488A0
-void __stdcall sub_006488A0(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection)
+void __stdcall PATH_SetDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection)
 {
     if (pDynamicPath)
     {
@@ -2194,7 +2194,7 @@ void __stdcall PATH_SetUnitAliveCollision(D2UnitStrc* pUnit, int bSkip)
 }
 
 // 0x006492A0
-extern "C" __declspec(dllexport) int __stdcall sub_006492A0(int nX1, int nY1, int nX2, int nY2) {
+extern "C" __declspec(dllexport) int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2) {
     int nDX = nX2 - nX1;
     int nDY = nY2 - nY1;
     return nDX * nDX + nDY * nDY;

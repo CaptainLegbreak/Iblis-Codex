@@ -198,7 +198,7 @@ D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequ
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
-int __stdcall sub_00641530(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x00641530
+int __stdcall D2Common_10399(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x00641530
 
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 
@@ -343,7 +343,7 @@ void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc*, int); // 0x006
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int); // 0x00611D30
 
 
-void __stdcall sub_0063EBC0(D2UnitStrc*, int); // 0x0063EBC0
+void __stdcall D2COMMON_11062_Return(D2UnitStrc*, int); // 0x0063EBC0
 
 
 int __fastcall MONSTER_CheckMonsterFacing(D2UnitStrc*, D2UnitStrc*, int, int); // 0x004AE7B0
@@ -1027,7 +1027,7 @@ void __fastcall MONSTER_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, int nX
             SKILLS_SetSkillMode(SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit,pMonStats->nSkill[i]),(char)pMonStats->nSkillMode[i]);
         }
     }
-    sub_0063EBC0(pUnit,nSkillBonus);
+    D2COMMON_11062_Return(pUnit,nSkillBonus);
     if(MONSTERS_GetFlagInline(pUnit,8)) return;
     D2DirectionArgStrc tDirection; tDirection.nDirection=0;
     int nBaseId=MONSTERS_GetUnitBaseIdInline(pUnit);
@@ -2987,7 +2987,7 @@ void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* pUnit)
         && nClassId != 0x219 && nClassId != 0x21A && nClassId != 0x21B)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (pPlayer && (unsigned int)sub_00641530(pUnit, pPlayer) < 7)
+        if (pPlayer && (unsigned int)D2Common_10399(pUnit, pPlayer) < 7)
         {
             D2SeedStrc* pSeed = &pUnit->pSeed;
             if (pSeed && (int)SEED_RollLimitedRandomNumber(pSeed, 0x64) < 0xA)

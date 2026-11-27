@@ -102,7 +102,6 @@ int __fastcall ACT3Q6_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2Uni
 
 void __fastcall ACT3Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005BC370
 
-unsigned int __stdcall D2Common_10399(D2UnitStrc*, D2UnitStrc*); // 0x00641530
 
 #define UNIT_MONSTER 1
 
@@ -666,7 +665,7 @@ void __fastcall ACT3Q6_UpdateHellGatePortal(D2QuestDataStrc* pQuest, D2UnitStrc*
         if (nMode == 2) return;
         for (D2UnitStrc* pUnit = UNITS_GetRoom(pObject)->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         {
-            if (UNITS_GetUnitTypeInline(pUnit) == 0 && D2Common_10399(pUnit, pObject) < 18)
+            if (UNITS_GetUnitTypeInline(pUnit) == 0 && (unsigned int)D2Common_10399(pUnit, pObject) < 18)
             {
                 if (nMode == 0)
                 {

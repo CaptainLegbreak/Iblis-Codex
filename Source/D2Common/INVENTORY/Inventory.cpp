@@ -222,7 +222,7 @@ void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, uns
 
 BOOL __stdcall INVENTORY_GetFreePosition(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nInventoryRecordId, int* pFreeX, int* pFreeY, unsigned char nPage); // 0x0063B850
 
-void __stdcall sub_0065C1F0(int nInventoryRecordId, int nUnused, D2InventoryGridInfoStrc* pInventoryGridInfo); // 0x0065C1F0
+void __stdcall DATATBLS_GetInventoryGridInfo(int nInventoryRecordId, int nUnused, D2InventoryGridInfoStrc* pInventoryGridInfo); // 0x0065C1F0
 
 extern unsigned char gabDirection64To16[64]; // 0x007455C0
 extern unsigned char gabDirection64To8[256]; // 0x00745600
@@ -1651,7 +1651,7 @@ int __stdcall INVENTORY_CanItemsBeExchanged(D2InventoryStrc* pInventory, D2UnitS
         return 0;
 
     D2InventoryGridInfoStrc tGridInfo;
-    sub_0065C1F0(nInventoryRecordId, 0, &tGridInfo);
+    DATATBLS_GetInventoryGridInfo(nInventoryRecordId, 0, &tGridInfo);
     D2InventoryGridStrc* pGrid = INVENTORY_GetGrid(pInventory, nPage + 2, &tGridInfo);
     if (!pGrid)
         return 0;
@@ -2100,7 +2100,7 @@ D2UnitStrc* __stdcall INVENTORY_FindBackPackItemForStack(D2InventoryStrc* pInven
     if (pInventory->pOwner && pInventory->pOwner->dwUnitType == UNIT_PLAYER)
     {
         const int nInventoryRecordId = UNITS_GetInventoryRecordId(pInventory->pOwner, 0, 1);
-        sub_0065C1F0(nInventoryRecordId, 0, &tInventoryGridInfo);
+        DATATBLS_GetInventoryGridInfo(nInventoryRecordId, 0, &tInventoryGridInfo);
         pInventoryGridInfo = &tInventoryGridInfo;
     }
 
@@ -2201,7 +2201,7 @@ D2UnitStrc* __stdcall INVENTORY_FindFillableBook(D2InventoryStrc* pInventory, D2
     if (pInventory->pOwner && pInventory->pOwner->dwUnitType == UNIT_PLAYER)
     {
         const int nInventoryRecordId = UNITS_GetInventoryRecordId(pInventory->pOwner, 0, 1);
-        sub_0065C1F0(nInventoryRecordId, 0, &tInventoryGridInfo);
+        DATATBLS_GetInventoryGridInfo(nInventoryRecordId, 0, &tInventoryGridInfo);
         pInventoryGridInfo = &tInventoryGridInfo;
     }
 
@@ -4155,7 +4155,7 @@ static BOOL __stdcall INVENTORY_CanItemBePlacedInInventory(D2UnitStrc* pPlayer, 
 
     const int nInventoryRecordId = UNITS_GetInventoryRecordId(pPlayer, 0, TRUE);
     D2InventoryGridInfoStrc tInventoryGridInfo;
-    sub_0065C1F0(nInventoryRecordId, 0, &tInventoryGridInfo);
+    DATATBLS_GetInventoryGridInfo(nInventoryRecordId, 0, &tInventoryGridInfo);
 
     D2InventoryGridStrc* pInventoryGrid = INVENTORY_GetGrid(pInventory, 2, &tInventoryGridInfo);
     return INVENTORY_TryPlaceInFreePosition(pInventory, pInventoryGrid, pItem, nInventoryRecordId, &nHeight);
