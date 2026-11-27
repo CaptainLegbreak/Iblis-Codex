@@ -25,7 +25,7 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
       - gaStateStack[4], with 4 unreferenced bytes after it;
       - gaDrlgRoomTilePresetUnits[34], with 20 unreferenced bytes after it, before gaWarpTileOffsets (no 35th record fits there).
 ## Claimed
-- Fri Nov 27 10:52 PST 2026: check-in. split-objects-2 Ready; it replaces short-arrays-3. 14 clusters left. Next: **the D2DataTablesStrc cluster** (your 10:xx go-ahead). Claimed: Source/Include/D2DataTbls.h, Source/D2Common/DATATBLS/*.cpp, and every file that declares a global in 0x0096BC30-0x0096D66C (35 files: D2Common DATATBLS, DRLG, DUNGEON, ENVIRONMENT, INVENTORY, Logging, SKILLS, Chat/Ignorelist.cpp, two Unknown_ files; D2CMP CelCmp.cpp).
+- Fri Nov 27 10:52 PST 2026: check-in. split-objects-2 Ready; it replaces short-arrays-3. 14 clusters left. Next: **the D2DataTablesStrc cluster** (the go-ahead under Current state). Claimed: Source/Include/D2DataTbls.h, Source/D2Common/DATATBLS/*.cpp, and every file that declares a global in 0x0096BC30-0x0096D66C (35 files: D2Common DATATBLS, DRLG, DUNGEON, ENVIRONMENT, INVENTORY, Logging, SKILLS, Chat/Ignorelist.cpp, two Unknown_ files; D2CMP CelCmp.cpp).
   - **One finding before I build it.** Three objects in the 0x1A3C span have their own TU's symbols in the original:
     - gLevelFilesCriticalSection (0x0096D610, +0x19E0) is a CCritSect with its own dynamic initializer and atexit destructor (0x006CB010, 0x006CB4E0), in the initializer table between D2CMP's gCelListTable and gOptionList.
     - gLogLock (+0xE00) is Logging.cpp's critical section.
