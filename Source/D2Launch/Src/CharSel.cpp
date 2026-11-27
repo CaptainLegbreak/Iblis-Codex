@@ -23,6 +23,7 @@
 #include "D2CommonApi2.h"
 #include "D2ClientApi.h"
 #include "D2GfxApi.h"
+#include "D2MCPClientApi.h"
 
 static long BNDOWNLOAD_GetTime(long* pTime);
 
@@ -128,8 +129,6 @@ extern "C" void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int
 extern "C" int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags); // 0x00412650
 
 void __cdecl CHATDLG_FillGameList(); // 0x00444E70
-
-void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
 
 void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BE30
 
@@ -361,14 +360,6 @@ int __stdcall MAINMENUS_PollCharUpgrade(int nArg);                              
 void __fastcall MAINMENUS_ShowMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg);           // 0x00433380
 
 void __cdecl CHARSEL_UpdateButtons();                                                                                // 0x0043A730
-
-void __stdcall sub_00449E50_SetValue(int nValue);                                                                    // 0x00449E50
-
-void __fastcall WINMAIN_SendMcpCharDelete(const char* szName, unsigned short nArg);                                      // 0x0044A7A0
-
-void __fastcall WINMAIN_SendMcpCharUpgrade(const char* szName);                                                           // 0x0044A810
-
-void __cdecl VIEW_SendMcpCancelGameCreate();                                                                                // 0x0044AA80
 
 int __stdcall CONTROL_SetFocusedEditBox(void* pEditBox);                                                                  // 0x004F91C0
 

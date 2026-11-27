@@ -38,6 +38,7 @@
 #include "D2GfxApi.h"
 #include "D2SoundApi.h"
 #include "D2NetApi.h"
+#include "D2MCPClientApi.h"
 
 int __stdcall MAINMENUS_AskEmailRegistration(int nArg); // 0x00436C90
 
@@ -255,16 +256,6 @@ extern D2WinControlStrc* gpButton; // 0x007799E4
 
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 
-int __cdecl GAME_GetWaitHandle(); // 0x00449AC0
-
-int __cdecl GAME_IsMcpCharDeleteReceived(); // 0x00449C50
-
-int __cdecl GAME_IsMcpCharUpgradeReceived(); // 0x00449C70
-
-void __stdcall CHATDLG_SetCharDeleteReceived(int nValue); // 0x00449C60
-
-void __stdcall CHATDLG_SetCharUpgradeReceived(int nValue); // 0x00449C80
-
 void __cdecl MAINMENUS_UpdateNameOk(); // 0x00430620
 
 void __cdecl MAINMENUS_UpdateLoginOk(); // 0x004306C0
@@ -295,8 +286,6 @@ struct D2LaunchPayloadStrc
 
 
 int __stdcall MAINMENUS_OnWait(int nArg); // 0x00432450
-
-void __stdcall CHATDLG_StartThread(D2LaunchThreadRecordStrc* pRecord); // 0x0044A130
 
 struct D2LaunchControlTemplateStrc;
 
@@ -335,14 +324,6 @@ extern char gKey_0070CD54; // 0x0070CD54
 
 
 void (__cdecl* gpfnGatewayDone)(); // 0x007795BC
-
-int __cdecl GAME_IsMcpCharCreateReceived(); // 0x00449C10
-
-void __stdcall CHATDLG_SetCharCreateReceived(int nValue); // 0x00449C20
-
-int __cdecl GAME_IsMcpCharLogonReceived(); // 0x00449C30
-
-void __stdcall CHATDLG_SetCharLogonReceived(int nValue); // 0x00449C40
 
 D2WinControlStrc* gpTextControl1; // 0x007795D8
 
@@ -4707,10 +4688,6 @@ struct D2LaunchCharEntryStrc
     };
     D2LaunchCharEntryStrc* pNext;                           // 0x34C
 };
-
-void __fastcall WINMAIN_SendMcpCharDelete(const char* szName, unsigned short nArg);                                      // 0x0044A7A0
-
-void __fastcall WINMAIN_SendMcpCharUpgrade(const char* szName);                                                           // 0x0044A810
 
 int __fastcall MAINMENUS_DeleteCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x00434960
 

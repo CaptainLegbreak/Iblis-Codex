@@ -32,6 +32,7 @@
 #include "D2SoundApi.h"
 #include "D2NetApi.h"
 #include "D2HellApi.h"
+#include "D2MCPClientApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -284,8 +285,6 @@ extern int gdwGlobal_0077BBF8; // 0x0077BBF8
 
 extern char gszChannelName[]; // 0x00798D30
 
-extern int ghThread; // 0x007992A4
-
 extern char gszMcpGameServerIP[]; // 0x007992CC
 
 extern int gnMcpGameToken; // 0x00798FB0
@@ -293,8 +292,6 @@ extern int gnMcpGameToken; // 0x00798FB0
 extern int gdwGlobal_0079929C; // 0x0079929C
 
 extern int gdwMcpGameHash; // 0x00798F88
-
-extern int gpMcpPacket; // 0x007992F4
 
 extern int gbConnectFailed; // 0x007A0460
 
