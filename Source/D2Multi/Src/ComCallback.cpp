@@ -29,6 +29,7 @@
 #include "FogApi.h"
 #include "D2WinApi.h"
 #include "D2MCPClientApi.h"
+#include "D2ClientApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -443,14 +444,6 @@ void __cdecl CHATDLG_UpdateLevelControls(); // 0x004451C0
 void __stdcall COMCALLBACK_RemoveChannelUser(const char* szName); // 0x004493E0
 
 int __stdcall SErrGetErrorStr(unsigned long error, char* buffer, unsigned long size); // 0x0041C430
-
-void __cdecl RECORD_AddRecordChunk(); // 0x00451400
-
-int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
-
-int __cdecl RECORD_IsReplayActive(); // 0x00451990
-
-void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x004514B0
 
 void __fastcall SCMD_RegisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451C70
 

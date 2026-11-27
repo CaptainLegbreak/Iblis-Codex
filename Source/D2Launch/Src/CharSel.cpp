@@ -21,6 +21,7 @@
 #include "D2LangApi.h"
 #include "FogApi.h"
 #include "D2CommonApi2.h"
+#include "D2ClientApi.h"
 
 static long BNDOWNLOAD_GetTime(long* pTime);
 
@@ -82,8 +83,6 @@ void __fastcall sub_004FC660_SetValue(D2WinControlStrc* pControl, int nValue); /
 
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 
-int __cdecl sub_0042F6D0_GetMenusDone(); // 0x0042F6D0
-
 D2WinControlStrc* gpControl_007795E0;                                                                       // 0x007795E0
 
 D2WinControlStrc* gpControl_007795E4;                                                                       // 0x007795E4
@@ -131,46 +130,6 @@ void __cdecl CHATDLG_FillGameList(); // 0x00444E70
 
 void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
 
-void __cdecl RECORD_WriteRecordFile(); // 0x00451620
-
-extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId); // 0x00452040
-
-void __cdecl AUTOMAP_SaveAutomapLayer(); // 0x004584C0
-
-void __cdecl AUTOMAP_ResetAutomapCells(); // 0x00458680
-
-void __cdecl AUTOMAP_LoadAutomapLayer(); // 0x00458750
-
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
-
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-
-void __fastcall UI_DrawLoadingScreen(int nArg); // 0x004565E0
-
-unsigned char __stdcall AUTOMAP_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00462EE0
-
-D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
-
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
-
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-
-D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
-
-int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
-
-void __fastcall CUNIT_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
-
-void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY); // 0x0046E1B0
-
-void __fastcall GFX_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent); // 0x0046F280
-
-void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
-
-void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
-
-void __fastcall ITEM_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp); // 0x004C0EC0
-
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 
@@ -213,8 +172,6 @@ extern void* gpGlobal_007A0634; // 0x007A0634
 extern void* gpAutomapContext; // 0x007A5164
 
 extern D2GridCellStrc gtGridCells_007B0E68[]; // 0x007B0E68
-
-extern int gnProgress; // 0x007BB3B4
 
 void __stdcall CHARSEL_AddToScrollValue(int nDelta); // 0x00439E60
 
@@ -289,8 +246,6 @@ int gnOverlayStep; // 0x007A3138
 int gnCellOriginX; // 0x007B0A54
 
 int gnCellOriginY; // 0x007B0A58
-
-void __fastcall SCMD_DropUnitItems(D2UnitDropItemsPacketStrc* pPacket); // 0x00462F60
 
 struct D2ListMsgStrc
 {
@@ -672,8 +627,6 @@ void __fastcall BUTTON_SetCoordinates(D2WinButtonStrc* pButton, int nX, int nY, 
 extern D2CelFileStrc* gpCharSelectBckgCelFile; // 0x00779768
 
 D2WinControlStrc* gpControl_00779D8C; // 0x00779D8C
-
-int __cdecl GAME_GetStopMainLoop(); // 0x0042FA30
 
 void __cdecl MAINMENUS_UpdateProgress(); // 0x0042F990
 

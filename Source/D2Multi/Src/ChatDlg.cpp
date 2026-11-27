@@ -37,6 +37,7 @@
 #include "D2GfxApi.h"
 #include "D2SoundApi.h"
 #include "D2LangApi2.h"
+#include "D2ClientApi.h"
 
 static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
@@ -349,29 +350,7 @@ extern int gbSelectActive_0077BD00; // 0x0077BD00
 
 static int gbDone;                                                                                 // 0x0077BDA0
 
-extern int gbMcpPacket0FReceived; // 0x00798F5C
-
-extern int gbMcpCreateQueued; // 0x00798F7C
-
-extern int gbMcpServerAddressReceived; // 0x00798F84
-
-extern int gbMcpPacket0BReceived; // 0x00799100
-
-extern int gnMcpCreateQueuePosition; // 0x00799104
-
-extern int gbMcpCharDeleteReceived; // 0x00799298
-
 extern int gnConnectError; // 0x0079929C
-
-extern int gbMcpPacket0CReceived; // 0x007992A0
-
-extern int gbMcpPacket0DReceived; // 0x007992A8
-
-extern int gbMcpCharLogonReceived; // 0x007992E0
-
-extern int gbMcpCharCreateReceived; // 0x007992E8
-
-extern int gbMcpCharUpgradeReceived; // 0x007992F0
 
 D2WinControlStrc* gpControl_0077BD98; // 0x0077BD98
 
@@ -758,8 +737,6 @@ struct D2CelFileStrc;
 
 extern D2ModuleInterfaceStrc gtInterface; // 0x0070CD14
 
-int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
-
 struct D2WinMsgStrc
 {
     void* hWnd;
@@ -1025,12 +1002,6 @@ extern int gfGameListControlsCreated;                                           
 extern int gnChannelUserCount;                                                                         // 0x00798F40
 
 int gnChannelScroll;                                                                               // 0x00798F44
-
-extern unsigned short gwMcpReplyRequestId;                                                                 // 0x00798F80
-
-extern void* gpMcpConnection;                                                                         // 0x00798FB4
-
-extern char gabMcpReply[4]; // 0x00799108
 
 extern void* ghConnectEvent;                                                                       // 0x007992EC
 
@@ -2279,8 +2250,6 @@ static int CHATDLG_NotifyCommand(const char* szText, const char* szCommand)
     }
     return 0;
 }
-
-int __fastcall WINMAIN_DecodeCdKey(const char* szCdKey, unsigned int* pProduct, unsigned int* pValue); // 0x00449920
 
 // 0x0043E860
 static int __stdcall CHATDLG_FindHashedWord(char* szText, unsigned int nHash, int nLength)

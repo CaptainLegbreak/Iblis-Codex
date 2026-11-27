@@ -6,6 +6,7 @@
 #include "D2LanguageNames.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2ClientApi.h"
 // build: symbol _gaszLanguageNames 0x00741CC0
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -26,7 +27,6 @@ enum D2C_M96ObjEvalConstants
 };
 
 
-unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                         // 0x0045C3E0
 #include "D2GameFuncs.h"
 
 static inline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
