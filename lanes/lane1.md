@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 16:50 PST 2026: check-in. Main is #450; extern-dups still ready and merges clean. Next: the same hoist for arrays and records D2Client.h defines.
 - Thu Nov 26 16:34 PST 2026: extern-dups ready.
 - Thu Nov 26 16:18 PST 2026: check-in. #446/#447 took api-dups, names-fields-2 and the SkillDesc stack (e6e30-join, e2320-strays, dead-copies): Ready lines dropped, Ready is empty. Next: more scaffolding in my range (private externs a shared header already has).
 - Thu Nov 26 16:02 PST 2026: check-in. #444 took none of mine. The SkillDesc stack conflicted again in SkillDesc_004E1FF0.cpp (#444's declaration cleanup, context only): rebased on #444, the top builds identical, repushed. names-fields-2 and api-dups merge clean on #444.
