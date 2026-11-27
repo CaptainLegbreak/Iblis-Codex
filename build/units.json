@@ -47714,6 +47714,10 @@
      "name": "?MONSTER_GetPlayerCountBonus@@YIXPAUD2GameStrc@@PAUD2PlayerCountBonusStrc@@PAUD2ActiveRoomStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005739D0",
+     "length": 260
+    },
+    {
      "va": "0x00573AE0",
      "length": 57
     },
@@ -47739,16 +47743,6 @@
      "va": "0x00574370",
      "length": 160,
      "name": "MONSTER_Reinitialize"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00573780.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005739D0",
-     "length": 260
     }
    ]
   },
