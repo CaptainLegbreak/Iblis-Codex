@@ -34,11 +34,18 @@ it is on main; from #473, based on main.
   4,915.
 
 ## Claimed
-- Fri Nov 27 03:52 PST 2026: module-api-headers-6 and genheaders Ready (above). Next: lane2/gfxdata-record-3 on
-  #474 (files: the 65 files of that branch, Gfx_0046E300.cpp's part to Gfx.cpp), then lane5/decls-d2game-8
-  (Items_00558110.cpp and its 66 files), lane9/decls-renderers-2 (the D2Glide/D2Direct3D files), then genheaders
-  module by module (D2Common's new exports to a narrowly included D2CommonApi3.h, since appending to the widely
-  included D2CommonApi.h changes units that count declarations). Files claimed: those of the three held branches.
+- Fri Nov 27 04:20 PST 2026: the other three held branches, checked on #474: **lane2/gfxdata-record-3 dropped**: its one
+  commit is module-api-headers-6's first commit, carried there. **lane9/decls-renderers-2 dropped**: already on main
+  (git cherry marks its commit equivalent; D2Glide.h has the 41 declarations). **lane5/decls-d2game-8 dropped**:
+  12 of its 14 commits are already on main (each cherry-picks empty); the other two, Task.cpp taking in
+  TASK_TASK_ProcessGame (0x5645E0) and Items.cpp taking in D2GAME_CreateItemUnit (0x559CE0), add two noinline
+  (auditguard: noinline 109 -> 111) and a __forceinline, which the current rules forbid, so I don't carry them; they
+  are function placement, not declarations, if lane 5's owner wants them ruled on.
+  Next: genheaders module by module, Fog, Storm and D2Lang first, then D2Common (new exports to a narrowly included
+  D2CommonApi3.h: appending to the widely included D2CommonApi.h changes units that count declarations), then the
+  rest. These branches stack on lane12/module-api-headers-6 (its 130 units are the same ones), and say so.
+  Files claimed: Source/Include/FogApi*.h, StormApi*.h, D2LangApi*.h, D2CommonApi*.h and the private copies of
+  those modules' functions in other modules' units.
 
 ## Questions (owner's ruling: void definitions whose callers use a result)
 
