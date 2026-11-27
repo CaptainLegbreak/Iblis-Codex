@@ -1512,7 +1512,7 @@ extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pE
 
 int __fastcall ROSTER_GetKillCount(D2StoredUnitRecordStrc* pEntry); // 0x00479B80
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 void __cdecl GAME_DrawEndGameTitle(); // 0x0044D3E0
 
@@ -1678,7 +1678,7 @@ extern D2BetaScreenStrc gaBetaScreens[]; // 0x0070F238
 extern int gnBetaScreenCount; // 0x0070F024
 extern char gszServerIP[]; // 0x0070EF20
 extern char gszMcpIP[]; // 0x0070F130
-void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 int __fastcall D2Win_10177(unsigned char nAct); // 0x004FB480
 void __cdecl RECORD_FreeMsgRecordChunks(); // 0x00451850
 void __cdecl ROSTER_FreeRosterLists(); // 0x004794B0
@@ -3226,7 +3226,7 @@ int __fastcall sub_M118_Emit_0044C100(int nX, int nY)
 int __stdcall GAME_ShowBetaScreens(int nArg)
 {
     char szPath[0x104];
-    D2CelContextStrc tData;
+    D2GfxDataStrc tData;
     if (!WINDOW_GetState())
     {
         if (!D2GFX_StartDraw(1, 0, 0, 0))
@@ -3242,7 +3242,7 @@ int __stdcall GAME_ShowBetaScreens(int nArg)
                 D2Win_10177(gaBetaScreens[gnBetaScreenIndex].nAct);
             }
             memset(&tData, 0, sizeof(tData));
-            tData.pCellFile = gaBetaScreens[gnBetaScreenIndex].pCelFile;
+            tData.pCelFile = gaBetaScreens[gnBetaScreenIndex].pCelFile;
             tData.nDirection = 0;
             tData.nFrame = 0;
             TEXTURE_CelDraw(&tData, 0, 0x100, -1, 5, 0);
@@ -4269,7 +4269,7 @@ void __cdecl GAME_DrawEndGameCharInfo() {
 // 0x0044E770
 int __stdcall GAME_DrawEndGameScreen(int nUnused)
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     char szName[0x104];
     char szPalette[0x104];
     char szPath[0x104];
@@ -4303,7 +4303,7 @@ int __stdcall GAME_DrawEndGameScreen(int nUnused)
             }
 
             memset(&tContext, 0, sizeof(tContext));
-            tContext.pCellFile = s_pEndGameCell;
+            tContext.pCelFile = s_pEndGameCell;
             tContext.nDirection = 0;
 // build: symbol ?D2Win_10179_UpdatePaletteFlash@* 0x004FB0D0
             D2Win_10179_UpdatePaletteFlash();
@@ -4359,7 +4359,7 @@ int __stdcall GAME_DrawEndGameScreen(int nUnused)
             GAME_DrawEndGameCharInfo();
             D2Win_10127_SetFont(1);
             memset(&tContext, 0, sizeof(tContext));
-            tContext.pCellFile = s_pEndGameOkCell;
+            tContext.pCelFile = s_pEndGameOkCell;
             tContext.nDirection = 0;
             tContext.nFrame = gbEndScreenButtonPressed != 0;
             sub_004F6480(&tContext, gnScreenWidth / 2 - 0x30, gnScreenHeight - 0x50, -1, 5, 0);

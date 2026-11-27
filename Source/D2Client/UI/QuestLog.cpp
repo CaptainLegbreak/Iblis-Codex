@@ -52,7 +52,7 @@ static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg);                      
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                   // 0x004B9A00
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                      // 0x00501820
 void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);   // 0x00502320
@@ -1029,7 +1029,7 @@ void __stdcall TEXT_QuestButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 
-D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
+D2CelStrc* __stdcall CelGetHandle(D2GfxDataStrc* pContext); // 0x00601840
 
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
@@ -1055,10 +1055,10 @@ void __cdecl QUESTLOG_DrawQuestButton()
     if (GAME_GetUIVarState(0x0F))
         return;
 
-    D2CelContextStrc tCel;
+    D2GfxDataStrc tCel;
     memset(&tCel, 0, sizeof(tCel));
     tCel.nDirection = 0;
-    tCel.pCellFile = gpLevelSocketCel;
+    tCel.pCelFile = gpLevelSocketCel;
     tCel.nFrame = 0;
     const int nIndex = sub_E10_GetButtonLayoutCopy(nMode);
     const int nCelWidth = CelGetWidth(CelGetHandle(&tCel));
@@ -1075,7 +1075,7 @@ void __cdecl QUESTLOG_DrawQuestButton()
         nCelX += (gnScreenWidth - 0x280) / 2;
     sub_004F6480(&tCel, nCelX, nCelY, -1, 5, 0);
 
-    tCel.pCellFile = gpLevelCel;
+    tCel.pCelFile = gpLevelCel;
     tCel.nFrame = gbQuestButtonDown && (unsigned char)QUESTLOG_IsMouseOnQuestButton(sub_00468730(), sub_00468740());
     sub_004F6480(&tCel, nCelX + 3, nCelY - 4, -1, 5, 0);
 }
@@ -1591,7 +1591,7 @@ void __cdecl TEXT_ResetQuestPanel()
 void __cdecl QUESTLOG_DrawQuestPage()
 {
     int i = 0;
-    D2CelContextStrc tDraw;
+    D2GfxDataStrc tDraw;
     memset(&tDraw, 0, sizeof(tDraw));
     tDraw.nDirection = 0;
 
@@ -1628,7 +1628,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
 
     if (gtQuestLog_007BF298.pCelD5)
     {
-        tDraw.pCellFile = gtQuestLog_007BF298.pCelD5;
+        tDraw.pCelFile = gtQuestLog_007BF298.pCelD5;
         tDraw.nFrame = 0;
         sub_004F6480(&tDraw, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0xE0, -1, 5, 0);
         tDraw.nFrame = 1;
@@ -1641,7 +1641,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
 
     if (gtQuestLog_007BF298.pCelD9)
     {
-        tDraw.pCellFile = gtQuestLog_007BF298.pCelD9;
+        tDraw.pCelFile = gtQuestLog_007BF298.pCelD9;
         for (; i < 5; ++i)
         {
             int bExpansion = 0;
@@ -1730,7 +1730,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
                         QUESTRECORD_SetQuestState(pQuestInfo, pEntry->nQuestId, 0xC);
                         MSG_SendWord(0x58, (unsigned short)pEntry->nQuestId);
                     }
-                    tDraw.pCellFile = gtQuestLog_007BF298.apCel[pEntry->nCelId];
+                    tDraw.pCelFile = gtQuestLog_007BF298.apCel[pEntry->nCelId];
                     tDraw.nFrame = nFrame;
                     sub_004F6480(&tDraw, gaQuestPos[pEntry->nCelId2].nX + gnPanelOffsetX, gaQuestPos[pEntry->nCelId2].nY - gnPanelOffsetY, -1, 5, 0);
                     {
@@ -1752,7 +1752,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
                     gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.nMsgCount].bShown = 1;
                     if (gtQuestLog_007BF298.nIndexB5 == pEntry->nCelId2)
                     {
-                        tDraw.pCellFile = gtQuestLog_007BF298.pCelDD;
+                        tDraw.pCelFile = gtQuestLog_007BF298.pCelDD;
                         tDraw.nFrame = pEntry->nCelId;
 // build: symbol ?gnQuestAnimOffsetY@* 0x00724220
                         sub_004F6480(&tDraw, gaQuestPos[pEntry->nCelId2].nX + gtQuestLog_007BF298.n270 + gnPanelOffsetX, gaQuestPos[pEntry->nCelId2].nY - gnPanelOffsetY + gnQuestAnimOffsetY, -1, 5, 0);
@@ -1760,7 +1760,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
                     else
                     {
                         tDraw.nFrame = 0x18;
-                        tDraw.pCellFile = gtQuestLog_007BF298.apCel[pEntry->nCelId];
+                        tDraw.pCelFile = gtQuestLog_007BF298.apCel[pEntry->nCelId];
                         sub_004F6480(&tDraw, gaQuestPos[pEntry->nCelId2].nX + gnPanelOffsetX, gaQuestPos[pEntry->nCelId2].nY - gnPanelOffsetY, -1, 5, 0);
                     }
                     nSlot = pEntry->nCelId2;
@@ -1769,7 +1769,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
                 case 2:
                     gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.nMsgCount].bShown = 1;
                     tDraw.nFrame = 0x1A;
-                    tDraw.pCellFile = gtQuestLog_007BF298.apCel[pEntry->nCelId];
+                    tDraw.pCelFile = gtQuestLog_007BF298.apCel[pEntry->nCelId];
                     sub_004F6480(&tDraw, gaQuestPos[pEntry->nCelId2].nX + gnPanelOffsetX, gaQuestPos[pEntry->nCelId2].nY - gnPanelOffsetY, -1, 5, 0);
                     nSlot = pEntry->nCelId2;
                     gtQuestLog_007BF298.nMsgCount += 1;
@@ -1778,7 +1778,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
                     if (gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.nMsgCount].wTitle == 0x3A0 && gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.nMsgCount].nStep == 7)
                         bSpecial = 1;
                     gtQuestLog_007BF298.aMsgs[gtQuestLog_007BF298.nMsgCount].bShown = 1;
-                    tDraw.pCellFile = gtQuestLog_007BF298.apCel[pEntry->nCelId];
+                    tDraw.pCelFile = gtQuestLog_007BF298.apCel[pEntry->nCelId];
                     tDraw.nFrame = (gtQuestLog_007BF298.nIndexB5 == pEntry->nCelId2) ? 0x19 : 0;
                     sub_004F6480(&tDraw, gaQuestPos[pEntry->nCelId2].nX + gnPanelOffsetX, gaQuestPos[pEntry->nCelId2].nY - gnPanelOffsetY, -1, 5, 0);
                     nSlot = pEntry->nCelId2;
@@ -1786,7 +1786,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
                     break;
                 }
 
-                tDraw.pCellFile = gtQuestLog_007BF298.pCelD1;
+                tDraw.pCelFile = gtQuestLog_007BF298.pCelD1;
                 if (nSlot == gtQuestLog_007BF298.nIndexB9)
                 {
                     tDraw.nFrame = 1;
@@ -1809,7 +1809,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
 
         if (bSpecial && gtQuestLog_007BF298.nIndexB9 == 5)
         {
-            tDraw.pCellFile = gtQuestLog_007BF298.pCel351;
+            tDraw.pCelFile = gtQuestLog_007BF298.pCel351;
             tDraw.nFrame = gtQuestLog_007BF298.nA8;
             if (tDraw.nFrame < 0 || tDraw.nFrame > 6)
                 tDraw.nFrame = 0;
@@ -1864,7 +1864,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
         }
     }
 
-    tDraw.pCellFile = sub_00454600();
+    tDraw.pCelFile = sub_00454600();
     tDraw.nFrame = (gtQuestLog_007BF298.bB2 != 0) + 0xA;
     sub_004F6480(&tDraw, gnPanelOffsetX + 0x116, gnScreenHeight + gnPanelOffsetY - 0x3A, -1, 5, 0);
 
@@ -1879,7 +1879,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
         sub_00502280_SetPopUpText(pHelp, gnPanelOffsetX + 0x128, gnScreenHeight + gnPanelOffsetY - 0x5F, 0, 1);
     }
 
-    tDraw.pCellFile = gtQuestLog_007BF298.pCel34D;
+    tDraw.pCelFile = gtQuestLog_007BF298.pCel34D;
     tDraw.nFrame = gtQuestLog_007BF298.bB4 != 0;
     sub_004F6480(&tDraw, gnPanelOffsetX + 0xE2, gnPanelOffsetY + gnScreenHeight - 0x3A, -1, 5, 0);
     if (nMouseX >= 0xE6 && nMouseX <= 0x103 && nMouseY >= 0x187 && nMouseY <= 0x1A7)

@@ -44,7 +44,7 @@ int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit); // 0x004DA0B0
 D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void* pGfx); // 0x004DB040
 void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
-void __stdcall TEXTURE_CelDrawShadow(D2CelContextStrc* pContext, int nX, int nY); // 0x004F6540
+void __stdcall TEXTURE_CelDrawShadow(D2GfxDataStrc* pContext, int nX, int nY); // 0x004F6540
 
 // build: symbol ?GFX_HashName@* 0x0046DB90
 static unsigned int GFX_HashName(const char* szName)
@@ -405,7 +405,7 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
         D2_ASSERT(nLayer < 16, 0x960);
         if (GFXUTIL_GetCofLayerShadow(pGfx, nLayer))
         {
-            D2CelContextStrc tContext;
+            D2GfxDataStrc tContext;
             int nOut;
             memset(&tContext, 0, sizeof(tContext));
             if (GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, nDirection, nFrame, &nOut, nLayer, -1))
