@@ -91,22 +91,10 @@ void __cdecl sub_0051A480_DebugLog(const char* szFormat, ...)
 {
 }
 
-// 0x0051A540
-void __fastcall sub_0051A540_SetValue(int nValue)
-{
-    gdwServerToken = nValue;
-}
-
 // 0x0051A550
 int __cdecl BNCLIENT_GetServerToken()
 {
     return gdwServerToken;
-}
-
-// 0x0051A560
-void __fastcall sub_0051A560_SetValue(int nValue)
-{
-    gnLogonType = nValue;
 }
 
 // 0x0051BEC0
@@ -114,24 +102,6 @@ int __cdecl sub_0051BEC0_IsExpansion()
 {
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     return FOG_IsExpansion();
-}
-
-// 0x0051C9B0
-int __fastcall sub_0051C9B0_GetPeerName(void* pAddress, int* pnLength)
-{
-    FSafeSock* pSocket = (FSafeSock*)InterlockedCompareExchange(&gnConnected, 0, 0);
-    if (pSocket)
-        return FOG_SOCKET_GetPeerName(pSocket, pAddress, pnLength);
-    return 0;
-}
-
-// 0x0051C9E0
-int __fastcall sub_0051C9E0_GetSockName(void* pAddress, int* pnLength)
-{
-    FSafeSock* pSocket = (FSafeSock*)InterlockedCompareExchange(&gnConnected, 0, 0);
-    if (pSocket)
-        return FOG_SOCKET_GetSockName(pSocket, pAddress, pnLength);
-    return 0;
 }
 
 #include "gen/data/Source/D2BNClient/Unknown_00518C00.inc"
