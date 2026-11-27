@@ -1286,7 +1286,7 @@ void __fastcall MISSILE_CreateBurstAt(D2UnitStrc* pMissile, int nX, int nY, int 
 
 
 
-D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
+D2UnitGfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
 
 

@@ -25,7 +25,7 @@ struct D2WinControlStrc;
 
 struct D2WinTextBoxStrc;
 
-struct D2CelContextStrc;
+struct D2GfxDataStrc;
 
 struct SMSGHANDLER_PARAMS;
 
@@ -53,7 +53,7 @@ extern "C" void* __cdecl memset(void* destination, int value, unsigned int size)
 
 int __stdcall SCROLLBAR_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x00508120
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 enum D2C_WinControlTypes
 {
@@ -184,9 +184,9 @@ int __fastcall SCROLLBAR_Draw(D2WinControlStrc* pControl)
             SCROLLBAR_HandleMouseDown(&msg);
         }
 
-        D2CelContextStrc context;
+        D2GfxDataStrc context;
         memset(&context, 0, sizeof(context));
-        context.pCellFile = pCellFile;
+        context.pCelFile = pCellFile;
         context.nDirection = 0;
         context.nFrame = pScrollBar->bIsLowerArrowPressed ? 3 : 1;
         sub_004F6480(&context, nX, nY, -1, 5, 0);

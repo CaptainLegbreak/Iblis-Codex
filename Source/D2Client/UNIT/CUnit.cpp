@@ -113,7 +113,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 
 
-int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
+int __stdcall sub_006001F0(D2GfxDataStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
 
 int __stdcall CelGetWidth(D2CelStrc* pCel);                                                                 // 0x006018C0
 
@@ -329,9 +329,9 @@ void __fastcall UNITMODE_UpdateUnit(D2UnitStrc* pUnit); // 0x00480810
 void __fastcall sub_0046D780_RunClientAi(D2UnitStrc* pUnit); // 0x0046D780
 
 
-int __fastcall GFX_GetGfxBasePalShift(D2GfxDataStrc* pGfxData); // 0x0046F1F0
+int __fastcall GFX_GetGfxBasePalShift(D2UnitGfxDataStrc* pGfxData); // 0x0046F1F0
 
-int __fastcall GFX_GetGfxPalShift(D2GfxDataStrc* pGfxData); // 0x0046F250
+int __fastcall GFX_GetGfxPalShift(D2UnitGfxDataStrc* pGfxData); // 0x0046F250
 
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 
@@ -1017,7 +1017,7 @@ int __cdecl CUNIT_IsPlayerDeadOrMissing()
 }
 
 // 0x00463E10
-D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit)
+D2UnitGfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return 0;
@@ -1140,7 +1140,7 @@ static int __stdcall CUNIT_GetUnitSelectRect(D2UnitStrc* pUnit, int nMode, D2Rec
 {
     if (GFXUTIL_UnitSupportsMode(pUnit, nMode))
     {
-        D2CelContextStrc tContext;
+        D2GfxDataStrc tContext;
         memset(&tContext, 0, sizeof(tContext));
 
         int nOut;

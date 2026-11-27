@@ -75,7 +75,7 @@ struct D2GfxLightStrc;
 
 struct D2UnitStrc;
 
-struct D2GfxDataStrc;
+struct D2UnitGfxDataStrc;
 
 struct D2DataTablesStrc;
 
@@ -1100,7 +1100,7 @@ void __cdecl AUTOMAP_ReloadAutomapCels(); // 0x0045A2B0
 int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00461250
 
 
-D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
+D2UnitGfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
 void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 0x0046E040
 
@@ -1557,7 +1557,7 @@ struct D2CropRectStrc
 };
 
 
-void __stdcall TEXTURE_CelDrawClipped(D2CelContextStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
+void __stdcall TEXTURE_CelDrawClipped(D2GfxDataStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
 
 
 static void AUTOMAP_WriteAutomapLayer(D2AutomapSaveStrc* pSave); // 0x00458200
@@ -3089,10 +3089,10 @@ void __fastcall AUTOMAP_DrawAutomapCells(D2AutomapCellStrc* pCell, D2AutomapDraw
     if (nY >= pInfo->nTop && nY <= pInfo->nBottom && nX >= pInfo->nLeft && nX <= pInfo->nRight)
     {
         int nDrawMode = 5;
-        D2CelContextStrc tData;
+        D2GfxDataStrc tData;
         memset(&tData, 0, sizeof(tData));
         tData.nFrame = pCell->nCellNo;
-        tData.pCellFile = pInfo->pCelFile;
+        tData.pCelFile = pInfo->pCelFile;
         tData.nDirection = 0;
 
         switch (AUTOMAP_GetAutomapFade())
@@ -4168,7 +4168,7 @@ void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValu
     {
         return;
     }
-    D2GfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
+    D2UnitGfxDataStrc* pGfxData = CUNIT_GetGfxData(pUnit);
     if (!pGfxData)
     {
         return;

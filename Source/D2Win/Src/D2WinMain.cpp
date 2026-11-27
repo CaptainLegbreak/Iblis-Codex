@@ -37,7 +37,7 @@ struct D2WinControlStrc;
 
 struct D2WinButtonStrc;
 
-struct D2CelContextStrc;
+struct D2GfxDataStrc;
 
 struct Point;
 
@@ -65,7 +65,7 @@ void __stdcall D2GFX_DrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd
 
 void __stdcall D2GFX_ClearScreen(int bPartial); // 0x004F63B0
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 int __fastcall CONTROL_AppendToDeadList(D2WinControlStrc* pControl); // 0x004F9250
 
@@ -1181,10 +1181,10 @@ void __cdecl CURSOR_Draw()
         gnCursorDrawX = nX;
         gnCursorDrawY = nY;
 
-        D2CelContextStrc tContext;
+        D2GfxDataStrc tContext;
         memset(&tContext, 0, sizeof(tContext));
         tContext.nFrame = gnCursorFrame;
-        tContext.pCellFile = gpCursorCellFile;
+        tContext.pCelFile = gpCursorCellFile;
         tContext.nDirection = 0;
         sub_004F6480(&tContext, nX <= 0 ? 0 : nX, (nY <= 0 ? 0 : nY) - 1, -1, 5, 0);
     }
@@ -1241,9 +1241,9 @@ void __stdcall D2Win_UpdateAndDraw()
 
         if (gpBackgroundCellFile)
         {
-            D2CelContextStrc tContext;
+            D2GfxDataStrc tContext;
             memset(&tContext, 0, sizeof(tContext));
-            tContext.pCellFile = gpBackgroundCellFile;
+            tContext.pCelFile = gpBackgroundCellFile;
             tContext.nDirection = 0;
             tContext.nFrame = 0;
 
