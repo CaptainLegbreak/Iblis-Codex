@@ -22,9 +22,8 @@ Structs and most game-logic names come from D2MOO by ThePhrozenKeep (https://git
 
 | Path | Contents |
 |---|---|
-| `Source/<Module>/` | 548 compilation units, laid out like Blizzard's own source tree, defining 14,926 functions |
+| `Source/<Module>/` | 548 compilation units, laid out like Blizzard's own source tree, defining 14,927 functions |
 | `Source/<Module>/<Module>.h` | the declarations several files of a module share |
-| `Source/StandIns/` | functional replacements for the 1 functions that are not reconstructed yet, used only by the ordinary build (see Building) |
 | `CMakeLists.txt` | the sources as an ordinary CMake project (compiles the objects; see Building) |
 | `build/` | the data the build needs: the unit list with per-unit compiler options (`units.json`), every address record (`functions.json`), the layout of initialised data (`data_plan.json`), import thunk runs, file-layout plans, toolchain pins |
 | `docs/` | the function grid (`grid.svg`), the source shape grid (`shape.svg`) and the interactive viewer (`index.html`) |
@@ -45,7 +44,7 @@ compiler-generated function). The build uses all of these, so keep them when you
 
 The repository contains no part of the game. The layouts of the game's initialised data tables come from the same
 D2MOO structs as the code (`build/data_plan.json` holds only their addresses, sizes, types and names); their values, the
-code of the 1 functions that are not reconstructed yet, the resources and the file's signature are read from
+resources and the file's signature are read from
 your own copy of `Game.exe` at build time and written to the git-ignored `gen/` and `out/` folders.
 
 ## Requirements
@@ -82,8 +81,8 @@ python tools/build.py
 compiles every unit (in parallel, `-j N`), checks each function's bytes against the original, links all of them at
 their original addresses and writes `out/Game.exe`, whose SHA-256 must equal the original's. This proves that the
 sources are the game's code: every verified function compiles to exactly the bytes the game shipped with. A full
-build takes about a quarter of an hour on two cores; later builds reuse the objects of unchanged units. The 1
-functions that are not reconstructed yet are taken from your `Game.exe` here.
+build takes about a quarter of an hour on two cores; later builds reuse the objects of unchanged units. Every
+function of the game is compiled from `Source/`; none is taken from your `Game.exe`.
 
 ### The ordinary build
 
@@ -100,8 +99,6 @@ or duplicate symbols.
 
 What it does beyond an ordinary link, and why:
 
-- The 1 functions that are not reconstructed yet come from `Source/StandIns/`, one file each, written to do what
-  the original function does; they are not the original code, and `build.py` never uses them.
 - Some files declare a callee or global under a different name than the file that defines it, and some files
   carry a copy of a function for its calling convention or a call site. `link.py` keeps one definition per
   function and global and binds every reference to the definition at the address it means: in verified code the
