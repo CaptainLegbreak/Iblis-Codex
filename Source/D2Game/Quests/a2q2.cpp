@@ -29,7 +29,7 @@ enum
     QUEST_A2Q6_DURIEL = 13,
 };
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId);                                // 0x00543640
 
@@ -419,7 +419,7 @@ void __fastcall ACT2Q2_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pNPCMessages = gpAct2Q2NpcMessages;
     pQuestData->bActive = 1;
 
-    D2Act2Quest2Strc* pQuestDataEx = (D2Act2Quest2Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest2Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q2.cpp", 1005, 0);
+    D2Act2Quest2Strc* pQuestDataEx = (D2Act2Quest2Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest2Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q2.cpp", 1005, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
     pQuestData->eFilter = QUESTSTATEFLAG_A2Q2;
     pQuestData->pfStatusFilter = ACT2Q2_StatusFilterCallback;

@@ -159,7 +159,7 @@ D2AiControlStrc* __fastcall AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit); /
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
 
 
-int __fastcall AITHINK_IsTargetKillableByShadowMaster(D2UnitStrc* a1, D2UnitStrc* a2); // 0x005EB650
+int __fastcall AITHINK_IsTargetKillableByShadowMaster(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005EB650
 
 
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
@@ -176,7 +176,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2AiCmdStrc* __fastcall AIGENERAL_GetCurrentAiCommandFromUnit(D2UnitStrc* pUnit); // 0x0058EE80
 
 
-void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int a2, int nVel, unsigned char a4); // 0x005DE190
+void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int nParam, int nVel, unsigned char nArg); // 0x005DE190
 
 int __fastcall AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nX, unsigned int nY); // 0x005DEE50
 
@@ -220,13 +220,13 @@ bool __fastcall AITHINK_ExecuteNpcAiCommands(D2GameStrc* pGame, D2UnitStrc* pUni
 bool __fastcall AITHINK_ExecuteMapAiAction(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005E7080
 
 
-void __fastcall AIGENERAL_ExecuteCallbackOnMinions(D2UnitStrc* pUnit, void* a2, void* a3, void(__fastcall* pfnParty)(D2UnitStrc*, void*, void*)); // 0x0058F380
+void __fastcall AIGENERAL_ExecuteCallbackOnMinions(D2UnitStrc* pUnit, void* pCallbackArg1, void* pCallbackArg2, void(__fastcall* pfnParty)(D2UnitStrc*, void*, void*)); // 0x0058F380
 
 
-void __fastcall AITHINK_MinionCallback_CheckDead(D2UnitStrc* pUnit, void* a2, void* a3);                                        // 0x005E5710
+void __fastcall AITHINK_MinionCallback_CheckDead(D2UnitStrc* pUnit, void* pDeadMinionFound, void* pUnused);                                        // 0x005E5710
 
 
-int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int bSkipCollisionSearch, int bSyncOtherPlayersOnly); // 0x00554EA0
 
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords);              // 0x00619730
@@ -380,7 +380,7 @@ int __fastcall AIUTIL_CheckIfMonsterUsesSkill(D2UnitStrc* pUnit, int nSkillId); 
 
 D2UnitStrc* __fastcall AITACTICS_GetTargetMinion(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005DE830
 
-int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback); // 0x005DF7D0
+int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nNewDistance, int bDeleteAiEventCallback); // 0x005DF7D0
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Overseer_Nihlathak(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005E26D0
 
@@ -432,7 +432,7 @@ void __fastcall ACT5Q2_OnWussieActivated(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); /
 extern const char gszAiThink4[]; // 0x006E3500
 
 
-void __fastcall sub_0053DFF0(D2ClientStrc*,D2Packet8A*); // 0x0053DFF0
+void __fastcall D2GAME_SendPacket0x8A(D2ClientStrc*,D2Packet8A*); // 0x0053DFF0
 
 struct Obj00648AD0;
 
@@ -516,7 +516,7 @@ int __fastcall SKILLDESC_GetSummonLevel(int nSkillId, int nSkillLevel); // 0x004
 
 int __fastcall AITACTICS_WalkAroundTargetWithScaledDistance(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nScale); // 0x005DE6F0
 
-int __fastcall AITHINK_RavenWalkToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char a4, int a2); // 0x005ECBC0
+int __fastcall AITHINK_RavenWalkToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nArg, int nParam); // 0x005ECBC0
 
 void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005ECEE0
 
@@ -631,7 +631,7 @@ void __fastcall ACT5Q3_OnDrehyaRescued(D2GameStrc* pGame, D2UnitStrc* pUnit); //
 int gnNpcWalkSequenceCounter; // 0x0088CADC
 
 
-int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned int nSteps, int a5); // 0x005DF7D0
+int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned int nSteps, int bDeleteAiEventCallback); // 0x005DF7D0
 
 enum D2C_ScarabAIParams
 {
@@ -8151,9 +8151,9 @@ void __fastcall AITHINK_InitializeRaven(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
 }
 
 // 0x005ECBC0
-int __fastcall AITHINK_RavenWalkToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char a4, int a2)
+int __fastcall AITHINK_RavenWalkToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nArg, int nParam)
 {
-    AITACTICS_SetVelocity(pUnit, a2, 0, a4);
+    AITACTICS_SetVelocity(pUnit, nParam, 0, nArg);
     D2ModeChangeStrc modeChange;
     MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_WALK, &modeChange);
     PATH_SetStepNum(pUnit->pDynamicPath, 1);
@@ -9018,7 +9018,7 @@ void __fastcall AITHINK_Fn131_Wussie(D2GameStrc* pGame,D2UnitStrc* pUnit,D2AiTic
                     packet.type = 1;
                     const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
                     packet.guid = nUnitGUID;
-                    sub_0053DFF0(UnitGetClient(pPlayer,gszAiThink4,0x14FF),&packet);
+                    D2GAME_SendPacket0x8A(UnitGetClient(pPlayer,gszAiThink4,0x14FF),&packet);
                 }
             }
         }
@@ -9679,7 +9679,7 @@ D2UnitStrc* __fastcall sub_005DD0B0_FindTarget(D2GameStrc* pGame, D2UnitStrc* pU
 
 void __stdcall STATLIST_SetState(D2StatListStrc* pList, int nState); // 0x006252D0
 
-void __stdcall sub_00626E10(D2UnitStrc* pUnit, D2StatListStrc* pList, int bReset); // 0x00626E10
+void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pList, int bReset); // 0x00626E10
 
 void __stdcall STATLIST_SetStat(D2StatListStrc* pList, int nStat, int nValue, int nLayer); // 0x00627150
 
@@ -9747,7 +9747,7 @@ void __fastcall AITHINK_Fn134_BaalThrone(D2GameStrc* pGame, D2UnitStrc* pUnit, D
                 !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
             if (pList)
             {
-                sub_00626E10(pUnit, pList, 1);
+                D2COMMON_10475_PostStatToStatList(pUnit, pList, 1);
                 STATLIST_SetState(pList, STATE_CHANGECLASS);
                 STATLIST_SetStat(pList, STAT_SHORTPARAM1, 559, 0);
             }

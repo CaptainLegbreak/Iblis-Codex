@@ -202,7 +202,7 @@ extern int gdwGlobal_00730190; // 0x00730190
 
 extern int gdwGlobal_00882750; // 0x00882750
 
-int __stdcall sub_00424E40(void* pArg); // 0x00424E40
+int __stdcall SBigDel(void* pArg); // 0x00424E40
 
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
@@ -423,7 +423,7 @@ static inline D2GameStrc* GAMELINK_Next(D2GameLinkStrc* pLink)
 
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* lpThreadAttributes, unsigned long dwStackSize, unsigned long (__stdcall* lpStartAddress)(D2MessageThreadArgsStrc*), D2MessageThreadArgsStrc* lpParameter, unsigned long dwCreationFlags, unsigned long* lpThreadId); // 0x006CC250
 
-int __stdcall SERVER_HackListClient(int nClientId, int a2, int a3);                                                  // 0x0052B4F0
+int __stdcall SERVER_HackListClient(int nClientId, int nArg2, int nArg3);                                                  // 0x0052B4F0
 
 
 int gnGlobal_00883D3C;                                                                                         // 0x00883D3C
@@ -507,7 +507,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volati
 
 int __stdcall CLIENT_ObjectCall_6BED90(int,int,int); // 0x0052B490
 
-int __stdcall sub_0052B330(unsigned char,int,void*,int);  // 0x0052B330
+int __stdcall SERVER_SendPacketToClient(unsigned char,int,void*,int);  // 0x0052B330
 
 void __stdcall D2NET_10016(int);  // 0x0052B570
 
@@ -639,7 +639,7 @@ typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 extern int gnVirtualPlayerCount; // 0x00883D70
 
-void __fastcall D2GAME_SetSkills(int a1, int a2, int a3, int a4); // 0x0056DEB0
+void __fastcall D2GAME_SetSkills(int pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
 
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
@@ -675,7 +675,7 @@ void __cdecl FOG_CreateNewPoolSystem(void* pReserved, const char* szName, int nS
 unsigned short __cdecl sub_0052C170_AllocGameId();
 
 
-void __fastcall TASK_QueueGame(void* pTask, int a2, unsigned int hGame); // 0x00564A00
+void __fastcall TASK_QueueGame(void* pTask, int nArg, unsigned int hGame); // 0x00564A00
 
 
 static inline D2GameLinkStrc* GAMELINK_NextLink(D2GameLinkStrc* pLink, int nLinkOffset)
