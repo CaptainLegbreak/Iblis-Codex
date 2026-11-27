@@ -50,6 +50,7 @@ void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
 #include "D2GameFuncs.h"
 #include "FogApi2.h"
+#include "D2NetApi.h"
 extern "C" char* __cdecl strcpy(char* pDestination, const char* pSource);
 
 typedef void (__fastcall* GAME_ForEachIngameClientCallbackPtr)(D2ClientStrc*, void*);
@@ -417,8 +418,6 @@ static inline D2GameStrc* GAMELINK_Next(D2GameLinkStrc* pLink)
 
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* lpThreadAttributes, unsigned long dwStackSize, unsigned long (__stdcall* lpStartAddress)(D2MessageThreadArgsStrc*), D2MessageThreadArgsStrc* lpParameter, unsigned long dwCreationFlags, unsigned long* lpThreadId); // 0x006CC250
 
-int __stdcall SERVER_HackListClient(int nClientId, int nArg2, int nArg3);                                                  // 0x0052B4F0
-
 
 int gnGlobal_00883D3C;                                                                                         // 0x00883D3C
 
@@ -429,12 +428,6 @@ int gnAct;                                                                      
 
 struct D2ClientInfoStrc;
 
-
-int __stdcall SERVER_ReadGamePacket(unsigned char* pBuffer, int nSize);                              // 0x0052B2D0
-
-int __stdcall SERVER_ReadSystemPacket(unsigned char* pBuffer, int nSize);                              // 0x0052B2F0
-
-int __stdcall SERVER_ReadAdminPacket(unsigned char* pBuffer, int nSize);                              // 0x0052B310
 
 void __fastcall GAME_ProcessAdminMessage(void* pData, int nSize);                                                       // 0x0052CC20
 
@@ -495,10 +488,6 @@ long gnAdminConnectionCount;         // 0x00883D64
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile*);  // 0x006CC208
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile*);  // 0x006CC204
-
-int __stdcall CLIENT_ObjectCall_6BED90(int,int,int); // 0x0052B490
-
-int __stdcall SERVER_SendPacketToClient(unsigned char,int,void*,int);  // 0x0052B330
 
 extern "C" int __cdecl strncmp(const char*,const char*,unsigned int);
 
@@ -636,8 +625,6 @@ typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);                       // 0x006CC258
 
 unsigned long gdwLastClientsUpdateTick;                                                                               // 0x00883D5C
-
-int __cdecl sub_0052B910_GetLastError();                                                                                 // 0x0052B910
 
 
 D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetHead(D2ClientStrc* pClient);                         // 0x005392E0

@@ -13,6 +13,7 @@
 #include "D2GameTypes.h"
 #include "D2Txt.h"
 #include "FogApi.h"
+#include "D2SoundApi.h"
 
 int gnSoundRestartArg; // 0x007C8A70
 
@@ -29,10 +30,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-void __fastcall D2SOUND_SetSoundMixerOption(int nMode); // 0x00514CA0
-
-D2SoundStrc* __fastcall D2SOUNDSMP_CreateSound(int nType, int nArg); // 0x00515530
 
 void __cdecl sub_004DFA60_ShutdownSound(); // 0x004DFA60
 
@@ -61,21 +58,11 @@ struct D2SlotObjectStrc
 
 #pragma pack(pop)
 
-int __fastcall D2SOUNDSMP_GetSoundPlayingFlag(D2SoundStrc* pSound); // 0x00515710
-
-int __fastcall D2SOUNDSMP_IsSoundBufferPlaying(D2SoundStrc* pSound); // 0x00515740
-
-int __fastcall D2SOUNDSMP_IsSoundStreaming(D2SoundStrc* pSound); // 0x00515C30
-
-void __fastcall D2SOUNDSMP_DestroySound(D2SoundStrc* pSound); // 0x005160D0
-
 struct S { int pad; int type; };
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile* pAddend); // 0x006CC208
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
-
-void __fastcall D2SOUNDSMP_FadeOutMasterVolume(int nTime); // 0x00515F50
 
 struct D2StringSoundStrc
 {
@@ -98,38 +85,12 @@ int __fastcall SOUNDINST_CompareSounds(D2SlotObjectStrc* pA, D2SlotObjectStrc* p
 
 void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot); // 0x004DFC20
 
-int __fastcall D2SOUNDSMP_SetSoundData(D2SoundStrc* pSound, const void* pFile, unsigned int nSize); // 0x005155D0
-
-int __fastcall D2SOUNDSMP_PlaySound(D2SoundStrc* pSound); // 0x005156A0
-
 void __fastcall sub_00515A30(D2SoundStrc* pSound, int nValue); // 0x00515A30
 
 void __fastcall sub_00515A60(D2SoundStrc* pSound, int nValue); // 0x00515A60
 
-void __fastcall D2SOUNDSMP_SetSoundReverbMix(D2SoundStrc* pSound, float fValue); // 0x00515B40
-
-int __fastcall D2SOUNDSMP_StartSoundStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop); // 0x00515D70
-
-void __fastcall D2SOUNDSMP_ResetSound(D2SoundStrc* pSound); // 0x00516140
-
 extern "C" int __cdecl memcmp(const void* pA, const void* pB, unsigned int nSize);
 
-
-int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
-
-int __cdecl D2SOUND_GetMusicVolumeOption(); // 0x00514CF0
-
-int __cdecl D2SOUND_GetPositionalBiasOption(); // 0x00514D20
-
-void __fastcall D2SOUNDSMP_SetSoundVolume(D2SoundStrc* pSound, int nVolume); // 0x005157B0
-
-void __fastcall D2SOUNDSMP_SetSoundPan(D2SoundStrc* pSound, int nPan); // 0x00515890
-
-void __fastcall D2SOUNDSMP_SetSoundPosition(D2SoundStrc* pSound, float x, float y, float z); // 0x00515950
-
-void __fastcall D2SOUNDSMP_SetSoundAttenuation(D2SoundStrc* pSound, float fAttenuation); // 0x00515A90
-
-void __fastcall D2SOUNDSMP_GetPositionalVolumePan(int* pVolume, int* pPan, float x, float y, float z); // 0x00516830
 
 extern int gnSfxVolume; // 0x00727564
 

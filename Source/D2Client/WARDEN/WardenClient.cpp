@@ -23,6 +23,8 @@
 #include "D2LangApi.h"
 #include "StormApi.h"
 #include "D2CommonApi2.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -153,8 +155,6 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg
 
 void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 
-
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 
 
@@ -472,8 +472,6 @@ int __fastcall UNICODE_StrLen(const Unicode* pString);                          
 
 void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor);                              // 0x0049E3A0
 
-
-unsigned int __fastcall D2Win_10128(unsigned char nChar);                                                   // 0x00502550
 
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
 

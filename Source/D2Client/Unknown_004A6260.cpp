@@ -3,6 +3,7 @@
 #include "D2ClientTypes.h"
 #include "D2StormTypes.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
 
 struct D2ClientListEntryStrc
 {
@@ -13,7 +14,6 @@ struct D2ClientListEntryStrc
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10
 int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, int* pKey);                          // 0x00469C20
-int __cdecl WINDOW_GetWindow();                                                                                // 0x004F59A0
 extern D2MsgHandlerEntryStrc gaKeyCaptureMButtonHandlers[];                                                      // 0x0072472C
 extern D2MsgHandlerEntryStrc gaKeyCaptureHandlers[];                                                      // 0x00724738
 extern D2MsgHandlerEntryStrc gaKeyCaptureXButtonHandlers[];                                                      // 0x00724780

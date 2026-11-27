@@ -13,6 +13,7 @@
 #include "D2SoundEnvironTxt.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2SoundApi.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -82,10 +83,6 @@ void* __fastcall sub_004E01B0(D2ClientSoundStrc* pSound); // 0x004E01B0
 
 extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 
-
-int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
-
-int __cdecl D2SOUND_GetMusicVolumeOption(); // 0x00514CF0
 
 void __fastcall D2SOUNDUTIL_ListAddHead(void* ppList, void* pData); // 0x00516950
 

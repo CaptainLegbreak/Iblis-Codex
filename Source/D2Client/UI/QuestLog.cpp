@@ -17,6 +17,8 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -959,8 +961,6 @@ void __cdecl QUESTLOG_ResetQuestButton()
 
 struct D2ButtonLayoutStrc;
 
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
-
 
 
 // build: symbol ??__EgaButtonLayouts@@YAXXZ 0x006CAC30
@@ -1030,8 +1030,6 @@ void __stdcall TEXT_QuestButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 
 
 D2CelStrc* __stdcall CelGetHandle(D2GfxDataStrc* pContext); // 0x00601840
-
-int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
 
 
