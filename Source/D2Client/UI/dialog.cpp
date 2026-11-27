@@ -1105,7 +1105,7 @@ void __fastcall DIALOG_GetRect(D2ClientDialogStrc* pDialog, D2RectStrc* pRect)
 }
 
 // 0x004B85E0
-int __cdecl sub_004B85E0()
+int __cdecl sub_004B85E0_GetDialogCount()
 {
     return gdwGlobal_007C0E5C;
 }
@@ -1151,7 +1151,7 @@ void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* w
 }
 
 // 0x004B70F0
-int __cdecl sub_004B70F0()
+int __cdecl sub_004B70F0_GetDialogList()
 {
     return gdwGlobal_007C0E54;
 }

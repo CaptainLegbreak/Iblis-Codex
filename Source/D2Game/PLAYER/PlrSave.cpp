@@ -524,7 +524,7 @@ static int __stdcall PLRSAVE_PlaceCorpseItem(D2GameStrc* pGame, D2UnitStrc* pPla
     return 0;
 }
 
-#define WRITE_ITEM(pItem) { const int nSize = D2GAME_SAVE_SerializeItem(pGame, pUnit, pItem, pData, nBufferSize - (pData - pBuffer), a4, a5, a6); if (nSize < 0) return -1; pData += nSize; if (!nSize && nItems > 0) --nItems; }
+#define WRITE_ITEM(pItem) { const int nSize = D2GAME_SAVE_SerializeItem(pGame, pUnit, pItem, pData, nBufferSize - (pData - pBuffer), bUseTradeInventory, nUnused, bSizing); if (nSize < 0) return -1; pData += nSize; if (!nSize && nItems > 0) --nItems; }
 
 #define PREPARE_ITEM(pItem) (ITEMS_SerializeItemToBitstream(pItem, tempBuffer, sizeof(tempBuffer), 1, 1, 0))
 
@@ -565,7 +565,7 @@ struct D2DrlgDeleteStrc;
 static unsigned short PLRSAVE_CountInventoryItems(D2InventoryStrc* pInventory); // 0x00531750
 
 
-int __fastcall D2GAME_SAVE_SerializeItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned char* pBitstream, unsigned int nSize, int a4, int a5, int a6); // 0x005316D0
+int __fastcall D2GAME_SAVE_SerializeItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned char* pBitstream, unsigned int nSize, int bUseTradeInventory, int nUnused, int bSizing); // 0x005316D0
 
 static void __stdcall PLRSAVE_SaveToLocalFile(int bInteractsWithPlayer, unsigned int dwArg, D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName);
 
@@ -1060,12 +1060,12 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 }
 
 // 0x005316D0
-int __stdcall D2GAME_SAVE_SerializeItem(D2UnitStrc* pItem, unsigned char* pBitstream, unsigned int nBitstreamSize, int a4, int a5, int a6)
+int __stdcall D2GAME_SAVE_SerializeItem(D2UnitStrc* pItem, unsigned char* pBitstream, unsigned int nBitstreamSize, int bUseTradeInventory, int nUnused, int bSizing)
 {
     if (pItem)
     {
         const int bFlag = (pItem->dwFlagEx >> 15) & 1;
-        if (!bFlag && (a4 != bFlag || a5 == bFlag || a6 != bFlag || sub_00564CA0_Return1(pItem)))
+        if (!bFlag && (bUseTradeInventory != bFlag || nUnused == bFlag || bSizing != bFlag || sub_00564CA0_Return1(pItem)))
         {
             const int nBits = ITEMS_SerializeItemToBitstream(pItem, pBitstream, nBitstreamSize, 1, 1, 0);
             D2_ASSERT(nBits, 1884);
@@ -1099,7 +1099,7 @@ static unsigned short PLRSAVE_CountInventoryItems(D2InventoryStrc* pInventory)
 }
 
 // 0x005317B0
-int __fastcall PLRSAVE_WriteItems(D2GameStrc* pGame, D2UnitStrc* pUnit, D2InventoryStrc* pInventory, unsigned char* pData, int nBufferSize, int a4, int a5, int a6)
+int __fastcall PLRSAVE_WriteItems(D2GameStrc* pGame, D2UnitStrc* pUnit, D2InventoryStrc* pInventory, unsigned char* pData, int nBufferSize, int bUseTradeInventory, int nUnused, int bSizing)
 {
     unsigned char tempBuffer[8192];
     unsigned char* pBuffer = pData;
@@ -1212,7 +1212,7 @@ static inline int sub_00531C10_GetUnitY(D2UnitStrc* pUnit)
 }
 
 // 0x00531C10
-int __fastcall PLRSAVE_WriteCorpseSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int nSize, int a5)
+int __fastcall PLRSAVE_WriteCorpseSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int nSize, int nUnused)
 {
     D2InventoryStrc* pInventory = pPlayer->pInventory;
     D2UnitStrc* pCorpse = 0;
@@ -1250,7 +1250,7 @@ int __fastcall PLRSAVE_WriteCorpseSection(D2GameStrc* pGame, D2UnitStrc* pPlayer
     nSize -= sizeof(tCorpse);
 
     D2InventoryStrc* const tArg3 = pCorpse->pInventory;
-    const int nWritten = PLRSAVE_WriteItems(pGame, pCorpse, tArg3, pData, nSize, 0, a5, 0);
+    const int nWritten = PLRSAVE_WriteItems(pGame, pCorpse, tArg3, pData, nSize, 0, nUnused, 0);
     D2_ASSERT(nWritten > 0, 0x984);
     return nWritten + 16;
 }
