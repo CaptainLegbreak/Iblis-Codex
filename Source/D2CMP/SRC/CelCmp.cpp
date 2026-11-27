@@ -23,6 +23,7 @@
 #include "FogApi.h"
 #include "D2CommonApi2.h"
 #include "D2HellApi.h"
+#include "StormApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -811,8 +812,6 @@ struct D2CommonStormSlotArrayAStrc {
  D2CommonStormSlotListAStrc* sub_00601CC0_At(unsigned int index);
 };
 
-extern "C" int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
 struct R0052E0F0
@@ -991,8 +990,6 @@ inline void __cdecl operator delete(void* pMemory)
         SMemFree(pMemory, "delete", -1, 0);
 }
 
-extern "C" void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
-
 extern "C" const char szWardenClientFile[];
 
 class WardenModule
@@ -1027,8 +1024,6 @@ int gbCmpPoolInitialized; // 0x0088CB14
 int gnCmpPoolArg; // 0x0088CB18
 
 extern const char gszCelCmp[]; // 0x006E5DD0
-
-extern "C" void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* szLogFileName, int nLogLine, unsigned int nFlags); // 0x004133D0
 
 struct D2CelStrc;
 

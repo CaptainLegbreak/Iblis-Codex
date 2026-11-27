@@ -25,6 +25,7 @@
 #include "D2CommonApi2.h"
 #include "D2GfxApi.h"
 #include "D2WinApi.h"
+#include "StormApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -178,12 +179,6 @@ void __fastcall SPELLSEL_DrawSkillInfoBase(int nValue, D2SkillsTxt* pSkillsTxt, 
 
 
 
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
-
-
-
-
-
 void __cdecl CHAT_RecallChatLine(); // 0x0047B9C0
 
 
@@ -249,8 +244,6 @@ extern D2TextBoxStrc* gpTextBox; // 0x007BF0A4
 extern int gbTextSide; // 0x007BF236
 
 extern int gnGlobal_007BEEE8; // 0x007BEEE8
-
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);         // 0x00413020
 
 int __fastcall MSG_SendWardenPacket(const void* pData, int nSize); // 0x00478830
 

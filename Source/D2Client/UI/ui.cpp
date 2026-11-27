@@ -23,6 +23,7 @@
 #include "D2CommonApi2.h"
 #include "D2WinApi.h"
 #include "D2CMPApi.h"
+#include "StormApi2.h"
 
 struct D2CelFileStrc;
 
@@ -739,8 +740,6 @@ unsigned long gdwUILastTick; // 0x007A313C
 #pragma function(memset)
 
 struct D2InventoryStrc;
-
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 
 extern "C" const char gszNew[];                                                                    // 0x006CC82C
 

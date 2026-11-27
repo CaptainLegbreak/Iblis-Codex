@@ -2,8 +2,7 @@
 // Storm growable array of 32-bit limbs (the big-number buffer's storage): TSGrowableArray<unsigned int> with the
 // big-number code's own count and grow helpers, whose inline forms its callers need.
 
-void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
-
+void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 #include "stpl.h"
 
 struct D2StormArrayAStrc : TSGrowableArray<unsigned int>

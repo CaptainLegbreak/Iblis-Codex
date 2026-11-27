@@ -164,13 +164,6 @@ void __cdecl sub_0051A480_DebugLog(const char* szFormat, ...); // 0x0051A480
 
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-
-
-
-
 void __fastcall BNDOWNLOAD_SetStatus(int nStatus); // 0x0051EA40
 
 int __fastcall BNSEND_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0

@@ -198,10 +198,6 @@ extern long volatile gnDnsDone; // 0x00881BFC
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
-
 int __stdcall SUniConvertWinToUTF16(unsigned short* pDst, const char* szSrc, unsigned int nCount); // 0x006C7960
 
 void* gpChannelList;                                                                               // 0x008818C8
@@ -386,8 +382,6 @@ void __cdecl sub_00521B50_ReseedLogin(); // 0x00521B50
 int __fastcall BNSEND_SendAccountChange(const char* szAccountName, const char* szOldPassword, const char* szNewPassword); // 0x005221F0
 
 int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
-
-int __fastcall QSERVER_CheckClientMask(void* pServer, int nClientId); // 0x006BF6C0
 
 extern "C" const char gszNewsItemTypeName_0072FF8C[]; // 0x0072FF8C
 

@@ -6,7 +6,7 @@
 #include "StormApi.h"
 #include "D2LangApi.h"
 #include "D2WinApi.h"
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                  // 0x00412650
+#include "StormApi2.h"
 int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 void __cdecl MAINMENUS_ShowLocalAddress();                                                                                // 0x0042FF20
 int __cdecl MAINMENUS_FreeSlots();                                                                       // 0x00430A20

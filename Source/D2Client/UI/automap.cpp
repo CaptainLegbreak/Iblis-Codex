@@ -30,6 +30,7 @@
 #include "StormApi.h"
 #include "D2GfxApi.h"
 #include "D2CMPApi.h"
+#include "StormApi2.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 
@@ -1069,8 +1070,6 @@ struct D2ClientSlotObjStrc
     virtual void Slot1();
     virtual void Slot2(int nArg1, int nArg2, int* pOut);
 };
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 
 class WardenModule
 {
