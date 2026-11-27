@@ -6,6 +6,7 @@
 #include "D2ClientTypes.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
+#include "D2PongData.h"
 #include "D2Primitives.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -1473,11 +1474,8 @@ extern unsigned char gnCharClass; // 0x007A0522
 extern "C" __declspec(dllimport) int __stdcall ReadProcessMemory(void* hProcess, const void* pBaseAddress, void* pBuffer, unsigned long nSize, unsigned long* pBytesRead); // 0x006CC350
 unsigned int __cdecl sub_0044CE70_GetPingAverage(); // 0x0044CE70
 
-unsigned int gdwEncodedName0; // 0x007A04E8
 
-unsigned int gdwEncodedName1; // 0x007A04EC
 
-unsigned int gdwEncodedOffset; // 0x007A04F0
 
 unsigned long gdwLastCheckTick; // 0x007BB3B0
 
@@ -1698,9 +1696,9 @@ void __cdecl sub_00477DD0()
     unsigned short wLow;
     unsigned short wHigh;
 
-    aName[0] = gdwEncodedName0 * 0x470E31C1;
-    aName[1] = gdwEncodedName1 * 0x470E31C1;
-    const unsigned int nOffset = gdwEncodedOffset * 0x470E31C1;
+    aName[0] = gtPongData.dwEncodedName0 * 0x470E31C1;
+    aName[1] = gtPongData.dwEncodedName1 * 0x470E31C1;
+    const unsigned int nOffset = gtPongData.dwEncodedOffset * 0x470E31C1;
     ((char*)aName)[8] = 0;
 
     unsigned int nValue;
