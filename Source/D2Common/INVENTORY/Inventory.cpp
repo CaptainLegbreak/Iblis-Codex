@@ -3340,22 +3340,6 @@ D2SkillStrc* __stdcall SKILLS_GetFirstSkillFromSkillList(D2SkillListStrc* pSkill
     return pSkillList->pFirstSkill;
 }
 
-D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
-{
-    if (!pUnit->pSkills)
-        return 0;
-    D2SkillStrc* pSkill = pUnit->pSkills->pFirstSkill;
-    if (!pSkill)
-        return 0;
-    while (pSkill)
-    {
-        if (pSkill->pSkillsTxt->nSkillId == nSkillId && pSkill->nOwnerGUID == nOwnerGUID)
-            break;
-        pSkill = pSkill->pNextSkill;
-    }
-    return pSkill;
-}
-
 // 0x0063D650
 unsigned int __stdcall INVENTORY_GetCorpseMercNameId(D2CorpseStrc* pCorpse)
 {
