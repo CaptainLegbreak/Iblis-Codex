@@ -943,7 +943,7 @@
   },
   "Source/D2Client/UI/npcmenu.cpp": {
    "bytes": 8198,
-   "definitions": 108,
+   "definitions": 44,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/npcmenu.inc",
@@ -39951,13 +39951,126 @@
   },
   {
    "alias": false,
-   "cname": "gData_00726850",
+   "cname": null,
    "declared": true,
-   "decorated": "?gaNpcEntries@@3PAUD2NpcEntryStrc@@A",
+   "decorated": null,
    "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726850_t gData_00726850; // 0x00726850",
-   "head": "extern \"C\" struct d2data_00726850_t gData_00726850 = ",
+   "fill": 46,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2NpcEntryStrc gaNpcEntries[46] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "nId",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "unk0x04",
+       4,
+       {
+        "k": "prim",
+        "kind": "c",
+        "name": "char",
+        "size": 1
+       }
+      ],
+      [
+       "pChoices",
+       5,
+       {
+        "fn": false,
+        "k": "ptr",
+        "size": 4,
+        "spell": "D2NpcChoiceStrc*"
+       }
+      ],
+      [
+       "nChoices",
+       9,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nSelected",
+       13,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "bSelected",
+       17,
+       {
+        "k": "prim",
+        "kind": "c",
+        "name": "char",
+        "size": 1
+       }
+      ],
+      [
+       "bFlag",
+       18,
+       {
+        "k": "prim",
+        "kind": "c",
+        "name": "char",
+        "size": 1
+       }
+      ],
+      [
+       "unk0x13",
+       19,
+       {
+        "k": "prim",
+        "kind": "c",
+        "name": "char",
+        "size": 1
+       }
+      ],
+      [
+       "bFlag14",
+       20,
+       {
+        "k": "prim",
+        "kind": "c",
+        "name": "char",
+        "size": 1
+       }
+      ],
+      [
+       "bRefreshed",
+       21,
+       {
+        "k": "prim",
+        "kind": "c",
+        "name": "char",
+        "size": 1
+       }
+      ]
+     ],
+     "name": "D2NpcEntryStrc",
+     "size": 22
+    },
+    "k": "arr",
+    "n": 46,
+    "size": 1012
+   },
    "name": "gaNpcEntries",
    "pointers": [
     [
@@ -39967,12 +40080,374 @@
      "gData_00725860",
      0,
      "data"
+    ],
+    [
+     27,
+     "0x007257D8",
+     "generated_same_file",
+     "gData_007257D8",
+     0,
+     "data"
+    ],
+    [
+     49,
+     "0x00725680",
+     "generated_same_file",
+     "gData_00725680",
+     0,
+     "data"
+    ],
+    [
+     71,
+     "0x007255F8",
+     "generated_same_file",
+     "gData_007255F8",
+     0,
+     "data"
+    ],
+    [
+     93,
+     "0x00725498",
+     "generated_same_file",
+     "gData_00725498",
+     0,
+     "data"
+    ],
+    [
+     115,
+     "0x00725550",
+     "generated_same_file",
+     "gData_00725550",
+     0,
+     "data"
+    ],
+    [
+     137,
+     "0x00725550",
+     "generated_same_file",
+     "gData_00725550",
+     0,
+     "data"
+    ],
+    [
+     159,
+     "0x00725550",
+     "generated_same_file",
+     "gData_00725550",
+     0,
+     "data"
+    ],
+    [
+     181,
+     "0x00725550",
+     "generated_same_file",
+     "gData_00725550",
+     0,
+     "data"
+    ],
+    [
+     203,
+     "0x00725F60",
+     "generated_same_file",
+     "gData_00725F60",
+     0,
+     "data"
+    ],
+    [
+     225,
+     "0x00725928",
+     "generated_same_file",
+     "gData_00725928",
+     0,
+     "data"
+    ],
+    [
+     247,
+     "0x007259C0",
+     "generated_same_file",
+     "gData_007259C0",
+     0,
+     "data"
+    ],
+    [
+     269,
+     "0x00725B50",
+     "generated_same_file",
+     "gData_00725B50",
+     0,
+     "data"
+    ],
+    [
+     291,
+     "0x00725C08",
+     "generated_same_file",
+     "gData_00725C08",
+     0,
+     "data"
+    ],
+    [
+     313,
+     "0x00725A78",
+     "generated_same_file",
+     "gData_00725A78",
+     0,
+     "data"
+    ],
+    [
+     335,
+     "0x00725CB0",
+     "generated_same_file",
+     "gData_00725CB0",
+     0,
+     "data"
+    ],
+    [
+     357,
+     "0x00725D48",
+     "generated_same_file",
+     "gData_00725D48",
+     0,
+     "data"
+    ],
+    [
+     379,
+     "0x00725E00",
+     "generated_same_file",
+     "gData_00725E00",
+     0,
+     "data"
+    ],
+    [
+     401,
+     "0x00725EA8",
+     "generated_same_file",
+     "gData_00725EA8",
+     0,
+     "data"
+    ],
+    [
+     423,
+     "0x00725680",
+     "generated_same_file",
+     "gData_00725680",
+     0,
+     "data"
+    ],
+    [
+     445,
+     "0x007256F0",
+     "generated_same_file",
+     "gData_007256F0",
+     0,
+     "data"
+    ],
+    [
+     467,
+     "0x00725760",
+     "generated_same_file",
+     "gData_00725760",
+     0,
+     "data"
+    ],
+    [
+     489,
+     "0x00726344",
+     "generated_same_file",
+     "gData_00726344",
+     0,
+     "data"
+    ],
+    [
+     511,
+     "0x00726314",
+     "generated_same_file",
+     "gData_00726314",
+     0,
+     "data"
+    ],
+    [
+     533,
+     "0x00726130",
+     "generated_same_file",
+     "gData_00726130",
+     0,
+     "data"
+    ],
+    [
+     555,
+     "0x00726078",
+     "generated_same_file",
+     "gData_00726078",
+     0,
+     "data"
+    ],
+    [
+     577,
+     "0x007261B8",
+     "generated_same_file",
+     "gData_007261B8",
+     0,
+     "data"
+    ],
+    [
+     599,
+     "0x00726260",
+     "generated_same_file",
+     "gData_00726260",
+     0,
+     "data"
+    ],
+    [
+     621,
+     "0x00725E00",
+     "generated_same_file",
+     "gData_00725E00",
+     0,
+     "data"
+    ],
+    [
+     643,
+     "0x00725E00",
+     "generated_same_file",
+     "gData_00725E00",
+     0,
+     "data"
+    ],
+    [
+     665,
+     "0x00725FD0",
+     "generated_same_file",
+     "gData_00725FD0",
+     0,
+     "data"
+    ],
+    [
+     687,
+     "0x00726378",
+     "generated_same_file",
+     "gData_00726378",
+     0,
+     "data"
+    ],
+    [
+     709,
+     "0x00726314",
+     "generated_same_file",
+     "gData_00726314",
+     0,
+     "data"
+    ],
+    [
+     731,
+     "0x00726314",
+     "generated_same_file",
+     "gData_00726314",
+     0,
+     "data"
+    ],
+    [
+     753,
+     "0x00726314",
+     "generated_same_file",
+     "gData_00726314",
+     0,
+     "data"
+    ],
+    [
+     775,
+     "0x00726548",
+     "generated_same_file",
+     "gData_00726548",
+     0,
+     "data"
+    ],
+    [
+     797,
+     "0x00726490",
+     "generated_same_file",
+     "gData_00726490",
+     0,
+     "data"
+    ],
+    [
+     819,
+     "0x00726600",
+     "generated_same_file",
+     "gData_00726600",
+     0,
+     "data"
+    ],
+    [
+     841,
+     "0x007266F0",
+     "generated_same_file",
+     "gData_007266F0",
+     0,
+     "data"
+    ],
+    [
+     863,
+     "0x007267A8",
+     "generated_same_file",
+     "gData_007267A8",
+     0,
+     "data"
+    ],
+    [
+     885,
+     "0x00726314",
+     "generated_same_file",
+     "gData_00726314",
+     0,
+     "data"
+    ],
+    [
+     907,
+     "0x007263D8",
+     "generated_same_file",
+     "gData_007263D8",
+     0,
+     "data"
+    ],
+    [
+     929,
+     "0x00726490",
+     "generated_same_file",
+     "gData_00726490",
+     0,
+     "data"
+    ],
+    [
+     951,
+     "0x00726490",
+     "generated_same_file",
+     "gData_00726490",
+     0,
+     "data"
+    ],
+    [
+     973,
+     "0x00726490",
+     "generated_same_file",
+     "gData_00726490",
+     0,
+     "data"
+    ],
+    [
+     995,
+     "0x00726490",
+     "generated_same_file",
+     "gData_00726490",
+     0,
+     "data"
     ]
    ],
    "region": "data",
-   "size": 21,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726850_t\n{\n    unsigned char b0[5];\n    const void* p1;\n    unsigned char b2[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726850\n#pragma comment(linker, \"/alternatename:?gaNpcEntries@@3PAUD2NpcEntryStrc@@A=_gData_00726850\")",
+   "size": 1012,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00726850",
+   "type": "D2NpcEntryStrc",
    "va": "0x00726850"
   },
   {
@@ -50378,93 +50853,106 @@
   },
   {
    "alias": false,
-   "cname": "gData_00726C48",
-   "declared": true,
-   "decorated": "?gaNpcIndex@@3PAUD2NpcIndexStrc@@A",
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726C48_t gData_00726C48; // 0x00726C48",
-   "head": "extern \"C\" struct d2data_00726C48_t gData_00726C48 = ",
-   "name": "gaNpcIndex",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726C48_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726C48\n#pragma comment(linker, \"/alternatename:?gaNpcIndex@@3PAUD2NpcIndexStrc@@A=_gData_00726C48\")",
-   "va": "0x00726C48"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726C4C",
-   "declared": true,
-   "decorated": "?gaNpcMenuEntries@@3PAUD2NpcMenuEntryStrc@@A",
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726C4C_t gData_00726C4C; // 0x00726C4C",
-   "head": "extern \"C\" struct d2data_00726C4C_t gData_00726C4C = ",
-   "name": "gaNpcMenuEntries",
-   "pointers": [],
-   "region": "data",
-   "size": 10,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726C4C_t\n{\n    unsigned char b0[10];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726C4C\n#pragma comment(linker, \"/alternatename:?gaNpcMenuEntries@@3PAUD2NpcMenuEntryStrc@@A=_gData_00726C4C\")",
-   "va": "0x00726C4C"
-  },
-  {
-   "alias": false,
    "cname": null,
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/UI/npcmenu.cpp",
+   "fill": 48,
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnGlobal_00726CC1 = ",
+   "head": "extern D2NpcIndexStrc gaNpcIndex[48] = ",
    "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "nId",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nCount",
+       4,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "awIds",
+       8,
+       {
+        "elem": {
+         "k": "prim",
+         "kind": "u",
+         "name": "unsigned short",
+         "size": 2
+        },
+        "k": "arr",
+        "n": 5,
+        "size": 10
+       }
+      ],
+      [
+       "apfHandlers",
+       18,
+       {
+        "elem": {
+         "fn": true,
+         "k": "ptr",
+         "size": 4,
+         "spell": "int (__cdecl*)()"
+        },
+        "k": "arr",
+        "n": 5,
+        "size": 20
+       }
+      ],
+      [
+       "bEnabled",
+       38,
+       {
+        "k": "prim",
+        "kind": "c",
+        "name": "char",
+        "size": 1
+       }
+      ]
+     ],
+     "name": "D2NpcIndexStrc",
+     "size": 39
+    },
+    "k": "arr",
+    "n": 48,
+    "size": 1872
    },
-   "name": "gnGlobal_00726CC1",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00726CC1",
-   "type": "int",
-   "va": "0x00726CC1"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726CC5",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726CC5_t gData_00726CC5; // 0x00726CC5",
-   "head": "extern \"C\" struct d2data_00726CC5_t gData_00726CC5 = ",
-   "name": "gData_00726CC5",
-   "pointers": [],
-   "region": "data",
-   "size": 8,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726CC5_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726CC5",
-   "va": "0x00726CC5"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726CCD",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726CCD_t gData_00726CCD; // 0x00726CCD",
-   "head": "extern \"C\" struct d2data_00726CCD_t gData_00726CCD = ",
-   "name": "gData_00726CCD",
+   "name": "gaNpcIndex",
    "pointers": [
     [
-     2,
+     18,
+     "0x004B6C70",
+     "owner",
+     "sub_004B6C70_OpenNpcMenu",
+     0,
+     "func"
+    ],
+    [
+     22,
+     "0x004B42B0",
+     "owner",
+     "NPCMENU_OpenTradeShop",
+     0,
+     "func"
+    ],
+    [
+     57,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -50472,33 +50960,7 @@
      "func"
     ],
     [
-     6,
-     "0x004B42B0",
-     "names.json",
-     "NPCMENU_OpenTradeShop",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 18,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726CCD_t\n{\n    unsigned char b0[2];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726CCD",
-   "va": "0x00726CCD"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726CDF",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726CDF_t gData_00726CDF; // 0x00726CDF",
-   "head": "extern \"C\" struct d2data_00726CDF_t gData_00726CDF = ",
-   "name": "gData_00726CDF",
-   "pointers": [
-    [
-     23,
+     96,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -50506,15 +50968,7 @@
      "func"
     ],
     [
-     27,
-     "0x004B42B0",
-     "names.json",
-     "NPCMENU_OpenTradeShop",
-     0,
-     "func"
-    ],
-    [
-     62,
+     135,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -50522,7 +50976,7 @@
      "func"
     ],
     [
-     66,
+     139,
      "0x004B42B0",
      "names.json",
      "NPCMENU_OpenTradeShop",
@@ -50530,7 +50984,39 @@
      "func"
     ],
     [
-     70,
+     174,
+     "0x004B6C70",
+     "names.json",
+     "sub_004B6C70_OpenNpcMenu",
+     0,
+     "func"
+    ],
+    [
+     178,
+     "0x004B42B0",
+     "names.json",
+     "NPCMENU_OpenTradeShop",
+     0,
+     "func"
+    ],
+    [
+     213,
+     "0x004B6C70",
+     "names.json",
+     "sub_004B6C70_OpenNpcMenu",
+     0,
+     "func"
+    ],
+    [
+     217,
+     "0x004B42B0",
+     "names.json",
+     "NPCMENU_OpenTradeShop",
+     0,
+     "func"
+    ],
+    [
+     221,
      "0x004B3D40",
      "names.json",
      "NPCMENU_OpenGambleShop",
@@ -50538,7 +51024,7 @@
      "func"
     ],
     [
-     101,
+     252,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -50546,7 +51032,7 @@
      "func"
     ],
     [
-     140,
+     291,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -50554,7 +51040,7 @@
      "func"
     ],
     [
-     144,
+     295,
      "0x004B42B0",
      "names.json",
      "NPCMENU_OpenTradeShop",
@@ -50562,7 +51048,7 @@
      "func"
     ],
     [
-     148,
+     299,
      "0x004B3D40",
      "names.json",
      "NPCMENU_OpenGambleShop",
@@ -50570,7 +51056,7 @@
      "func"
     ],
     [
-     179,
+     330,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -50578,7 +51064,7 @@
      "func"
     ],
     [
-     183,
+     334,
      "0x004B5C60",
      "source",
      "NPCMENU_ShowMainMenu",
@@ -50586,7 +51072,7 @@
      "func"
     ],
     [
-     218,
+     369,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -50594,7 +51080,7 @@
      "func"
     ],
     [
-     257,
+     408,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -50602,101 +51088,15 @@
      "func"
     ],
     [
-     261,
+     412,
      "0x004B42B0",
      "names.json",
      "NPCMENU_OpenTradeShop",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 282,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726CDF_t\n{\n    unsigned char b0[23];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[31];\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    unsigned char b7[27];\n    const void* p8;\n    unsigned char b9[35];\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    unsigned char b13[27];\n    const void* p14;\n    const void* p15;\n    unsigned char b16[31];\n    const void* p17;\n    unsigned char b18[35];\n    const void* p19;\n    const void* p20;\n    unsigned char b21[17];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726CDF",
-   "va": "0x00726CDF"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnGlobal_00726DF9 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_00726DF9",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00726DF9",
-   "type": "int",
-   "va": "0x00726DF9"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726DFD",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726DFD_t gData_00726DFD; // 0x00726DFD",
-   "head": "extern \"C\" struct d2data_00726DFD_t gData_00726DFD = ",
-   "name": "gData_00726DFD",
-   "pointers": [],
-   "region": "data",
-   "size": 6,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726DFD_t\n{\n    unsigned char b0[6];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726DFD",
-   "va": "0x00726DFD"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726E03",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726E03_t gData_00726E03; // 0x00726E03",
-   "head": "extern \"C\" struct d2data_00726E03_t gData_00726E03 = ",
-   "name": "gData_00726E03",
-   "pointers": [
+    ],
     [
-     4,
-     "0x004B6C70",
-     "names.json",
-     "sub_004B6C70_OpenNpcMenu",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 16,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726E03_t\n{\n    unsigned char b0[4];\n    const void* p1;\n    unsigned char b2[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726E03",
-   "va": "0x00726E03"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726E13",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726E13_t gData_00726E13; // 0x00726E13",
-   "head": "extern \"C\" struct d2data_00726E13_t gData_00726E13 = ",
-   "name": "gData_00726E13",
-   "pointers": [
-    [
-     27,
+     447,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -50704,101 +51104,23 @@
      "func"
     ],
     [
-     31,
+     486,
+     "0x004B6C70",
+     "names.json",
+     "sub_004B6C70_OpenNpcMenu",
+     0,
+     "func"
+    ],
+    [
+     490,
      "0x004B42B0",
      "names.json",
      "NPCMENU_OpenTradeShop",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 52,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726E13_t\n{\n    unsigned char b0[27];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[17];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726E13",
-   "va": "0x00726E13"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnGlobal_00726E47 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_00726E47",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00726E47",
-   "type": "int",
-   "va": "0x00726E47"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726E4B",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726E4B_t gData_00726E4B; // 0x00726E4B",
-   "head": "extern \"C\" struct d2data_00726E4B_t gData_00726E4B = ",
-   "name": "gData_00726E4B",
-   "pointers": [],
-   "region": "data",
-   "size": 6,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726E4B_t\n{\n    unsigned char b0[6];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726E4B",
-   "va": "0x00726E4B"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726E51",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726E51_t gData_00726E51; // 0x00726E51",
-   "head": "extern \"C\" struct d2data_00726E51_t gData_00726E51 = ",
-   "name": "gData_00726E51",
-   "pointers": [
+    ],
     [
-     4,
-     "0x004B6C70",
-     "names.json",
-     "sub_004B6C70_OpenNpcMenu",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 16,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726E51_t\n{\n    unsigned char b0[4];\n    const void* p1;\n    unsigned char b2[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726E51",
-   "va": "0x00726E51"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726E61",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726E61_t gData_00726E61; // 0x00726E61",
-   "head": "extern \"C\" struct d2data_00726E61_t gData_00726E61 = ",
-   "name": "gData_00726E61",
-   "pointers": [
-    [
-     27,
+     525,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -50806,771 +51128,111 @@
      "func"
     ],
     [
-     31,
+     564,
+     "0x004B6C70",
+     "names.json",
+     "sub_004B6C70_OpenNpcMenu",
+     0,
+     "func"
+    ],
+    [
+     568,
      "0x004B52C0",
      "names.json",
      "NPCMENU_TravelToRogueEncampment",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 52,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726E61_t\n{\n    unsigned char b0[27];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[17];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726E61",
-   "va": "0x00726E61"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnGlobal_00726E95 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_00726E95",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00726E95",
-   "type": "int",
-   "va": "0x00726E95"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726E99",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726E99_t gData_00726E99; // 0x00726E99",
-   "head": "extern \"C\" struct d2data_00726E99_t gData_00726E99 = ",
-   "name": "gData_00726E99",
-   "pointers": [],
-   "region": "data",
-   "size": 6,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726E99_t\n{\n    unsigned char b0[6];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726E99",
-   "va": "0x00726E99"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726E9F",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726E9F_t gData_00726E9F; // 0x00726E9F",
-   "head": "extern \"C\" struct d2data_00726E9F_t gData_00726E9F = ",
-   "name": "gData_00726E9F",
-   "pointers": [
+    ],
     [
-     4,
+     603,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 16,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726E9F_t\n{\n    unsigned char b0[4];\n    const void* p1;\n    unsigned char b2[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726E9F",
-   "va": "0x00726E9F"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726EAF",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726EAF_t gData_00726EAF; // 0x00726EAF",
-   "head": "extern \"C\" struct d2data_00726EAF_t gData_00726EAF = ",
-   "name": "gData_00726EAF",
-   "pointers": [],
-   "region": "data",
-   "size": 13,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726EAF_t\n{\n    unsigned char b0[13];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726EAF",
-   "va": "0x00726EAF"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnGlobal_00726EBC = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_00726EBC",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00726EBC",
-   "type": "int",
-   "va": "0x00726EBC"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726EC0",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726EC0_t gData_00726EC0; // 0x00726EC0",
-   "head": "extern \"C\" struct d2data_00726EC0_t gData_00726EC0 = ",
-   "name": "gData_00726EC0",
-   "pointers": [],
-   "region": "data",
-   "size": 2,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726EC0_t\n{\n    unsigned char b0[2];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726EC0",
-   "va": "0x00726EC0"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern short gwGlobal_00726EC2 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "short",
-    "size": 2
-   },
-   "name": "gwGlobal_00726EC2",
-   "pointers": [],
-   "region": "data",
-   "size": 2,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00726EC2",
-   "type": "short",
-   "va": "0x00726EC2"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726EC4",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726EC4_t gData_00726EC4; // 0x00726EC4",
-   "head": "extern \"C\" struct d2data_00726EC4_t gData_00726EC4 = ",
-   "name": "gData_00726EC4",
-   "pointers": [
+    ],
     [
-     6,
+     642,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 10,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726EC4_t\n{\n    unsigned char b0[6];\n    const void* p1;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726EC4",
-   "va": "0x00726EC4"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int (__cdecl* gpfnGlobal_00726ECE)() = ",
-   "model": {
-    "fn": true,
-    "k": "ptr",
-    "size": 4,
-    "spell": "int (__cdecl* )()"
-   },
-   "name": "gpfnGlobal_00726ECE",
-   "pointers": [
+    ],
     [
-     0,
+     646,
      "0x004B2020",
      "owner",
      "NPCMENU_IdentifyItemsWait",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 1,
-   "struct": null,
-   "tail": "; // 0x00726ECE",
-   "type": "function pointer",
-   "va": "0x00726ECE"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726ED2",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726ED2_t gData_00726ED2; // 0x00726ED2",
-   "head": "extern \"C\" struct d2data_00726ED2_t gData_00726ED2 = ",
-   "name": "gData_00726ED2",
-   "pointers": [],
-   "region": "data",
-   "size": 17,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726ED2_t\n{\n    unsigned char b0[17];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726ED2",
-   "va": "0x00726ED2"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnGlobal_00726EE3 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_00726EE3",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00726EE3",
-   "type": "int",
-   "va": "0x00726EE3"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726EE7",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726EE7_t gData_00726EE7; // 0x00726EE7",
-   "head": "extern \"C\" struct d2data_00726EE7_t gData_00726EE7 = ",
-   "name": "gData_00726EE7",
-   "pointers": [],
-   "region": "data",
-   "size": 2,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726EE7_t\n{\n    unsigned char b0[2];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726EE7",
-   "va": "0x00726EE7"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern short gwGlobal_00726EE9 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "short",
-    "size": 2
-   },
-   "name": "gwGlobal_00726EE9",
-   "pointers": [],
-   "region": "data",
-   "size": 2,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00726EE9",
-   "type": "short",
-   "va": "0x00726EE9"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726EEB",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726EEB_t gData_00726EEB; // 0x00726EEB",
-   "head": "extern \"C\" struct d2data_00726EEB_t gData_00726EEB = ",
-   "name": "gData_00726EEB",
-   "pointers": [
+    ],
     [
-     6,
+     681,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 10,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726EEB_t\n{\n    unsigned char b0[6];\n    const void* p1;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726EEB",
-   "va": "0x00726EEB"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int (__cdecl* gpfnGlobal_00726EF5)() = ",
-   "model": {
-    "fn": true,
-    "k": "ptr",
-    "size": 4,
-    "spell": "int (__cdecl* )()"
-   },
-   "name": "gpfnGlobal_00726EF5",
-   "pointers": [
+    ],
     [
-     0,
+     685,
      "0x004B2020",
      "owner",
      "NPCMENU_IdentifyItemsWait",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 1,
-   "struct": null,
-   "tail": "; // 0x00726EF5",
-   "type": "function pointer",
-   "va": "0x00726EF5"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726EF9",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726EF9_t gData_00726EF9; // 0x00726EF9",
-   "head": "extern \"C\" struct d2data_00726EF9_t gData_00726EF9 = ",
-   "name": "gData_00726EF9",
-   "pointers": [],
-   "region": "data",
-   "size": 17,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726EF9_t\n{\n    unsigned char b0[17];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726EF9",
-   "va": "0x00726EF9"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnGlobal_00726F0A = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_00726F0A",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00726F0A",
-   "type": "int",
-   "va": "0x00726F0A"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726F0E",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726F0E_t gData_00726F0E; // 0x00726F0E",
-   "head": "extern \"C\" struct d2data_00726F0E_t gData_00726F0E = ",
-   "name": "gData_00726F0E",
-   "pointers": [],
-   "region": "data",
-   "size": 2,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726F0E_t\n{\n    unsigned char b0[2];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726F0E",
-   "va": "0x00726F0E"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern short gwGlobal_00726F10 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "short",
-    "size": 2
-   },
-   "name": "gwGlobal_00726F10",
-   "pointers": [],
-   "region": "data",
-   "size": 2,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00726F10",
-   "type": "short",
-   "va": "0x00726F10"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726F12",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726F12_t gData_00726F12; // 0x00726F12",
-   "head": "extern \"C\" struct d2data_00726F12_t gData_00726F12 = ",
-   "name": "gData_00726F12",
-   "pointers": [
+    ],
     [
-     6,
+     720,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 10,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726F12_t\n{\n    unsigned char b0[6];\n    const void* p1;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726F12",
-   "va": "0x00726F12"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int (__cdecl* gpfnGlobal_00726F1C)() = ",
-   "model": {
-    "fn": true,
-    "k": "ptr",
-    "size": 4,
-    "spell": "int (__cdecl* )()"
-   },
-   "name": "gpfnGlobal_00726F1C",
-   "pointers": [
+    ],
     [
-     0,
+     724,
      "0x004B2020",
      "owner",
      "NPCMENU_IdentifyItemsWait",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 1,
-   "struct": null,
-   "tail": "; // 0x00726F1C",
-   "type": "function pointer",
-   "va": "0x00726F1C"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726F20",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726F20_t gData_00726F20; // 0x00726F20",
-   "head": "extern \"C\" struct d2data_00726F20_t gData_00726F20 = ",
-   "name": "gData_00726F20",
-   "pointers": [],
-   "region": "data",
-   "size": 17,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726F20_t\n{\n    unsigned char b0[17];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726F20",
-   "va": "0x00726F20"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnGlobal_00726F31 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_00726F31",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00726F31",
-   "type": "int",
-   "va": "0x00726F31"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726F35",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726F35_t gData_00726F35; // 0x00726F35",
-   "head": "extern \"C\" struct d2data_00726F35_t gData_00726F35 = ",
-   "name": "gData_00726F35",
-   "pointers": [],
-   "region": "data",
-   "size": 2,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726F35_t\n{\n    unsigned char b0[2];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726F35",
-   "va": "0x00726F35"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern short gwGlobal_00726F37 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "short",
-    "size": 2
-   },
-   "name": "gwGlobal_00726F37",
-   "pointers": [],
-   "region": "data",
-   "size": 2,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00726F37",
-   "type": "short",
-   "va": "0x00726F37"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726F39",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726F39_t gData_00726F39; // 0x00726F39",
-   "head": "extern \"C\" struct d2data_00726F39_t gData_00726F39 = ",
-   "name": "gData_00726F39",
-   "pointers": [
+    ],
     [
-     6,
+     759,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 10,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726F39_t\n{\n    unsigned char b0[6];\n    const void* p1;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726F39",
-   "va": "0x00726F39"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int (__cdecl* gpfnGlobal_00726F43)() = ",
-   "model": {
-    "fn": true,
-    "k": "ptr",
-    "size": 4,
-    "spell": "int (__cdecl* )()"
-   },
-   "name": "gpfnGlobal_00726F43",
-   "pointers": [
+    ],
     [
-     0,
+     763,
      "0x004B2020",
      "owner",
      "NPCMENU_IdentifyItemsWait",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 1,
-   "struct": null,
-   "tail": "; // 0x00726F43",
-   "type": "function pointer",
-   "va": "0x00726F43"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726F47",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726F47_t gData_00726F47; // 0x00726F47",
-   "head": "extern \"C\" struct d2data_00726F47_t gData_00726F47 = ",
-   "name": "gData_00726F47",
-   "pointers": [
+    ],
     [
-     31,
+     798,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 56,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726F47_t\n{\n    unsigned char b0[31];\n    const void* p1;\n    unsigned char b2[21];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726F47",
-   "va": "0x00726F47"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnGlobal_00726F7F = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_00726F7F",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00726F7F",
-   "type": "int",
-   "va": "0x00726F7F"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726F83",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726F83_t gData_00726F83; // 0x00726F83",
-   "head": "extern \"C\" struct d2data_00726F83_t gData_00726F83 = ",
-   "name": "gData_00726F83",
-   "pointers": [],
-   "region": "data",
-   "size": 6,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726F83_t\n{\n    unsigned char b0[6];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726F83",
-   "va": "0x00726F83"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726F89",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726F89_t gData_00726F89; // 0x00726F89",
-   "head": "extern \"C\" struct d2data_00726F89_t gData_00726F89 = ",
-   "name": "gData_00726F89",
-   "pointers": [
+    ],
     [
-     4,
+     837,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 16,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726F89_t\n{\n    unsigned char b0[4];\n    const void* p1;\n    unsigned char b2[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726F89",
-   "va": "0x00726F89"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726F99",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726F99_t gData_00726F99; // 0x00726F99",
-   "head": "extern \"C\" struct d2data_00726F99_t gData_00726F99 = ",
-   "name": "gData_00726F99",
-   "pointers": [
+    ],
     [
-     27,
+     876,
      "0x004B42B0",
      "names.json",
      "NPCMENU_OpenTradeShop",
@@ -51578,7 +51240,7 @@
      "func"
     ],
     [
-     66,
+     915,
      "0x004B42B0",
      "names.json",
      "NPCMENU_OpenTradeShop",
@@ -51586,7 +51248,7 @@
      "func"
     ],
     [
-     70,
+     919,
      "0x004B3D40",
      "names.json",
      "NPCMENU_OpenGambleShop",
@@ -51594,7 +51256,7 @@
      "func"
     ],
     [
-     105,
+     954,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -51602,7 +51264,7 @@
      "func"
     ],
     [
-     109,
+     958,
      "0x004B5C60",
      "source",
      "NPCMENU_ShowMainMenu",
@@ -51610,7 +51272,7 @@
      "func"
     ],
     [
-     113,
+     962,
      "0x004B42B0",
      "names.json",
      "NPCMENU_OpenTradeShop",
@@ -51618,7 +51280,7 @@
      "func"
     ],
     [
-     144,
+     993,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -51626,7 +51288,7 @@
      "func"
     ],
     [
-     148,
+     997,
      "0x004B42B0",
      "names.json",
      "NPCMENU_OpenTradeShop",
@@ -51634,7 +51296,7 @@
      "func"
     ],
     [
-     183,
+     1032,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -51642,7 +51304,7 @@
      "func"
     ],
     [
-     187,
+     1036,
      "0x004B42B0",
      "names.json",
      "NPCMENU_OpenTradeShop",
@@ -51650,7 +51312,7 @@
      "func"
     ],
     [
-     191,
+     1040,
      "0x004B3D40",
      "names.json",
      "NPCMENU_OpenGambleShop",
@@ -51658,7 +51320,7 @@
      "func"
     ],
     [
-     222,
+     1071,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -51666,7 +51328,7 @@
      "func"
     ],
     [
-     226,
+     1075,
      "0x004B42B0",
      "names.json",
      "NPCMENU_OpenTradeShop",
@@ -51674,7 +51336,7 @@
      "func"
     ],
     [
-     261,
+     1110,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -51682,7 +51344,7 @@
      "func"
     ],
     [
-     300,
+     1149,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -51690,7 +51352,7 @@
      "func"
     ],
     [
-     339,
+     1188,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -51698,7 +51360,7 @@
      "func"
     ],
     [
-     343,
+     1192,
      "0x004B5260",
      "names.json",
      "NPCMENU_NpcMenuAction28b",
@@ -51706,7 +51368,7 @@
      "func"
     ],
     [
-     378,
+     1227,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -51714,7 +51376,7 @@
      "func"
     ],
     [
-     417,
+     1266,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -51722,7 +51384,7 @@
      "func"
     ],
     [
-     456,
+     1305,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -51730,7 +51392,7 @@
      "func"
     ],
     [
-     495,
+     1344,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -51738,7 +51400,7 @@
      "func"
     ],
     [
-     534,
+     1383,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -51746,7 +51408,7 @@
      "func"
     ],
     [
-     573,
+     1422,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -51754,219 +51416,31 @@
      "func"
     ],
     [
-     612,
+     1461,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 637,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726F99_t\n{\n    unsigned char b0[27];\n    const void* p1;\n    unsigned char b2[35];\n    const void* p3;\n    const void* p4;\n    unsigned char b5[31];\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    unsigned char b9[27];\n    const void* p10;\n    const void* p11;\n    unsigned char b12[31];\n    const void* p13;\n    const void* p14;\n    const void* p15;\n    unsigned char b16[27];\n    const void* p17;\n    const void* p18;\n    unsigned char b19[31];\n    const void* p20;\n    unsigned char b21[35];\n    const void* p22;\n    unsigned char b23[35];\n    const void* p24;\n    const void* p25;\n    unsigned char b26[31];\n    const void* p27;\n    unsigned char b28[35];\n    const void* p29;\n    unsigned char b30[35];\n    const void* p31;\n    unsigned char b32[35];\n    const void* p33;\n    unsigned char b34[35];\n    const void* p35;\n    unsigned char b36[35];\n    const void* p37;\n    unsigned char b38[35];\n    const void* p39;\n    unsigned char b40[21];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726F99",
-   "va": "0x00726F99"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnGlobal_00727216 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_00727216",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00727216",
-   "type": "int",
-   "va": "0x00727216"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072721A",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072721A_t gData_0072721A; // 0x0072721A",
-   "head": "extern \"C\" struct d2data_0072721A_t gData_0072721A = ",
-   "name": "gData_0072721A",
-   "pointers": [],
-   "region": "data",
-   "size": 2,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072721A_t\n{\n    unsigned char b0[2];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072721A",
-   "va": "0x0072721A"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern short gwGlobal_0072721C = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "short",
-    "size": 2
-   },
-   "name": "gwGlobal_0072721C",
-   "pointers": [],
-   "region": "data",
-   "size": 2,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072721C",
-   "type": "short",
-   "va": "0x0072721C"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072721E",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072721E_t gData_0072721E; // 0x0072721E",
-   "head": "extern \"C\" struct d2data_0072721E_t gData_0072721E = ",
-   "name": "gData_0072721E",
-   "pointers": [
+    ],
     [
-     6,
+     1500,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 10,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072721E_t\n{\n    unsigned char b0[6];\n    const void* p1;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072721E",
-   "va": "0x0072721E"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int (__cdecl* gpfnGlobal_00727228)() = ",
-   "model": {
-    "fn": true,
-    "k": "ptr",
-    "size": 4,
-    "spell": "int (__cdecl* )()"
-   },
-   "name": "gpfnGlobal_00727228",
-   "pointers": [
+    ],
     [
-     0,
+     1504,
      "0x004B2020",
      "owner",
      "NPCMENU_IdentifyItemsWait",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 1,
-   "struct": null,
-   "tail": "; // 0x00727228",
-   "type": "function pointer",
-   "va": "0x00727228"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072722C",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072722C_t gData_0072722C; // 0x0072722C",
-   "head": "extern \"C\" struct d2data_0072722C_t gData_0072722C = ",
-   "name": "gData_0072722C",
-   "pointers": [],
-   "region": "data",
-   "size": 17,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072722C_t\n{\n    unsigned char b0[17];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072722C",
-   "va": "0x0072722C"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnGlobal_0072723D = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_0072723D",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072723D",
-   "type": "int",
-   "va": "0x0072723D"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00727241",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00727241_t gData_00727241; // 0x00727241",
-   "head": "extern \"C\" struct d2data_00727241_t gData_00727241 = ",
-   "name": "gData_00727241",
-   "pointers": [],
-   "region": "data",
-   "size": 8,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00727241_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00727241",
-   "va": "0x00727241"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00727249",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00727249_t gData_00727249; // 0x00727249",
-   "head": "extern \"C\" struct d2data_00727249_t gData_00727249 = ",
-   "name": "gData_00727249",
-   "pointers": [
+    ],
     [
-     2,
+     1539,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -51974,33 +51448,15 @@
      "func"
     ],
     [
-     6,
+     1543,
      "0x004B42B0",
      "names.json",
      "NPCMENU_OpenTradeShop",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 18,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00727249_t\n{\n    unsigned char b0[2];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00727249",
-   "va": "0x00727249"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072725B",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072725B_t gData_0072725B; // 0x0072725B",
-   "head": "extern \"C\" struct d2data_0072725B_t gData_0072725B = ",
-   "name": "gData_0072725B",
-   "pointers": [
+    ],
     [
-     23,
+     1578,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -52008,75 +51464,15 @@
      "func"
     ],
     [
-     27,
+     1582,
      "0x004B42B0",
      "names.json",
      "NPCMENU_OpenTradeShop",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 48,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072725B_t\n{\n    unsigned char b0[23];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[17];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072725B",
-   "va": "0x0072725B"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnGlobal_0072728B = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_0072728B",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072728B",
-   "type": "int",
-   "va": "0x0072728B"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072728F",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072728F_t gData_0072728F; // 0x0072728F",
-   "head": "extern \"C\" struct d2data_0072728F_t gData_0072728F = ",
-   "name": "gData_0072728F",
-   "pointers": [],
-   "region": "data",
-   "size": 10,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072728F_t\n{\n    unsigned char b0[10];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072728F",
-   "va": "0x0072728F"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00727299",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00727299_t gData_00727299; // 0x00727299",
-   "head": "extern \"C\" struct d2data_00727299_t gData_00727299 = ",
-   "name": "gData_00727299",
-   "pointers": [
+    ],
     [
-     0,
+     1617,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -52084,7 +51480,7 @@
      "func"
     ],
     [
-     4,
+     1621,
      "0x004B42B0",
      "names.json",
      "NPCMENU_OpenTradeShop",
@@ -52092,33 +51488,15 @@
      "func"
     ],
     [
-     8,
+     1625,
      "0x004B3D40",
      "names.json",
      "NPCMENU_OpenGambleShop",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 20,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00727299_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    unsigned char b3[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00727299",
-   "va": "0x00727299"
-  },
-  {
-   "alias": false,
-   "cname": "gData_007272AD",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007272AD_t gData_007272AD; // 0x007272AD",
-   "head": "extern \"C\" struct d2data_007272AD_t gData_007272AD = ",
-   "name": "gData_007272AD",
-   "pointers": [
+    ],
     [
-     19,
+     1656,
      "0x004B6C70",
      "names.json",
      "sub_004B6C70_OpenNpcMenu",
@@ -52126,137 +51504,78 @@
      "func"
     ],
     [
-     23,
+     1660,
      "0x004B3D40",
      "names.json",
      "NPCMENU_OpenGambleShop",
      0,
      "func"
+    ],
+    [
+     1695,
+     "0x004B6C70",
+     "names.json",
+     "sub_004B6C70_OpenNpcMenu",
+     0,
+     "func"
+    ],
+    [
+     1734,
+     "0x004B6C70",
+     "names.json",
+     "sub_004B6C70_OpenNpcMenu",
+     0,
+     "func"
+    ],
+    [
+     1773,
+     "0x004B6C70",
+     "names.json",
+     "sub_004B6C70_OpenNpcMenu",
+     0,
+     "func"
+    ],
+    [
+     1812,
+     "0x004B6C70",
+     "names.json",
+     "sub_004B6C70_OpenNpcMenu",
+     0,
+     "func"
+    ],
+    [
+     1851,
+     "0x004B6C70",
+     "names.json",
+     "sub_004B6C70_OpenNpcMenu",
+     0,
+     "func"
     ]
    ],
    "region": "data",
-   "size": 44,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007272AD_t\n{\n    unsigned char b0[19];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[17];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007272AD",
-   "va": "0x007272AD"
+   "size": 1872,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00726C48",
+   "type": "D2NpcIndexStrc",
+   "va": "0x00726C48"
   },
   {
    "alias": false,
-   "cname": null,
-   "declared": true,
+   "cname": "gData_00727398",
+   "declared": false,
    "decorated": null,
    "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnGlobal_007272D9 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_007272D9",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00727398_t gData_00727398; // 0x00727398",
+   "head": "extern \"C\" struct d2data_00727398_t gData_00727398 = ",
+   "name": "gData_00727398",
    "pointers": [],
    "region": "data",
    "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x007272D9",
-   "type": "int",
-   "va": "0x007272D9"
-  },
-  {
-   "alias": false,
-   "cname": "gData_007272DD",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007272DD_t gData_007272DD; // 0x007272DD",
-   "head": "extern \"C\" struct d2data_007272DD_t gData_007272DD = ",
-   "name": "gData_007272DD",
-   "pointers": [],
-   "region": "data",
-   "size": 6,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007272DD_t\n{\n    unsigned char b0[6];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007272DD",
-   "va": "0x007272DD"
-  },
-  {
-   "alias": false,
-   "cname": "gData_007272E3",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007272E3_t gData_007272E3; // 0x007272E3",
-   "head": "extern \"C\" struct d2data_007272E3_t gData_007272E3 = ",
-   "name": "gData_007272E3",
-   "pointers": [
-    [
-     4,
-     "0x004B6C70",
-     "names.json",
-     "sub_004B6C70_OpenNpcMenu",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 16,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007272E3_t\n{\n    unsigned char b0[4];\n    const void* p1;\n    unsigned char b2[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007272E3",
-   "va": "0x007272E3"
-  },
-  {
-   "alias": false,
-   "cname": "gData_007272F3",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007272F3_t gData_007272F3; // 0x007272F3",
-   "head": "extern \"C\" struct d2data_007272F3_t gData_007272F3 = ",
-   "name": "gData_007272F3",
-   "pointers": [
-    [
-     27,
-     "0x004B6C70",
-     "names.json",
-     "sub_004B6C70_OpenNpcMenu",
-     0,
-     "func"
-    ],
-    [
-     66,
-     "0x004B6C70",
-     "names.json",
-     "sub_004B6C70_OpenNpcMenu",
-     0,
-     "func"
-    ],
-    [
-     105,
-     "0x004B6C70",
-     "names.json",
-     "sub_004B6C70_OpenNpcMenu",
-     0,
-     "func"
-    ],
-    [
-     144,
-     "0x004B6C70",
-     "names.json",
-     "sub_004B6C70_OpenNpcMenu",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 169,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007272F3_t\n{\n    unsigned char b0[27];\n    const void* p1;\n    unsigned char b2[35];\n    const void* p3;\n    unsigned char b4[35];\n    const void* p5;\n    unsigned char b6[35];\n    const void* p7;\n    unsigned char b8[21];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007272F3",
-   "va": "0x007272F3"
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00727398_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00727398",
+   "va": "0x00727398"
   },
   {
    "alias": false,
@@ -53469,415 +52788,20 @@
   },
   {
    "alias": false,
-   "cname": "gData_00726865",
+   "cname": "gData_00726C44",
    "declared": false,
    "decorated": null,
    "file": "Source/D2Client/UI/npcmenu.cpp",
    "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726865_t gData_00726865; // 0x00726865",
-   "head": "extern \"C\" struct d2data_00726865_t gData_00726865 = ",
-   "name": "gData_00726865",
-   "pointers": [
-    [
-     6,
-     "0x007257D8",
-     "generated_same_file",
-     "gData_007257D8",
-     0,
-     "data"
-    ],
-    [
-     28,
-     "0x00725680",
-     "generated_same_file",
-     "gData_00725680",
-     0,
-     "data"
-    ],
-    [
-     50,
-     "0x007255F8",
-     "generated_same_file",
-     "gData_007255F8",
-     0,
-     "data"
-    ],
-    [
-     72,
-     "0x00725498",
-     "generated_same_file",
-     "gData_00725498",
-     0,
-     "data"
-    ],
-    [
-     94,
-     "0x00725550",
-     "generated_same_file",
-     "gData_00725550",
-     0,
-     "data"
-    ],
-    [
-     116,
-     "0x00725550",
-     "generated_same_file",
-     "gData_00725550",
-     0,
-     "data"
-    ],
-    [
-     138,
-     "0x00725550",
-     "generated_same_file",
-     "gData_00725550",
-     0,
-     "data"
-    ],
-    [
-     160,
-     "0x00725550",
-     "generated_same_file",
-     "gData_00725550",
-     0,
-     "data"
-    ],
-    [
-     182,
-     "0x00725F60",
-     "generated_same_file",
-     "gData_00725F60",
-     0,
-     "data"
-    ],
-    [
-     204,
-     "0x00725928",
-     "generated_same_file",
-     "gData_00725928",
-     0,
-     "data"
-    ],
-    [
-     226,
-     "0x007259C0",
-     "generated_same_file",
-     "gData_007259C0",
-     0,
-     "data"
-    ],
-    [
-     248,
-     "0x00725B50",
-     "generated_same_file",
-     "gData_00725B50",
-     0,
-     "data"
-    ],
-    [
-     270,
-     "0x00725C08",
-     "generated_same_file",
-     "gData_00725C08",
-     0,
-     "data"
-    ],
-    [
-     292,
-     "0x00725A78",
-     "generated_same_file",
-     "gData_00725A78",
-     0,
-     "data"
-    ],
-    [
-     314,
-     "0x00725CB0",
-     "generated_same_file",
-     "gData_00725CB0",
-     0,
-     "data"
-    ],
-    [
-     336,
-     "0x00725D48",
-     "generated_same_file",
-     "gData_00725D48",
-     0,
-     "data"
-    ],
-    [
-     358,
-     "0x00725E00",
-     "generated_same_file",
-     "gData_00725E00",
-     0,
-     "data"
-    ],
-    [
-     380,
-     "0x00725EA8",
-     "generated_same_file",
-     "gData_00725EA8",
-     0,
-     "data"
-    ],
-    [
-     402,
-     "0x00725680",
-     "generated_same_file",
-     "gData_00725680",
-     0,
-     "data"
-    ],
-    [
-     424,
-     "0x007256F0",
-     "generated_same_file",
-     "gData_007256F0",
-     0,
-     "data"
-    ],
-    [
-     446,
-     "0x00725760",
-     "generated_same_file",
-     "gData_00725760",
-     0,
-     "data"
-    ],
-    [
-     468,
-     "0x00726344",
-     "generated_same_file",
-     "gData_00726344",
-     0,
-     "data"
-    ],
-    [
-     490,
-     "0x00726314",
-     "generated_same_file",
-     "gData_00726314",
-     0,
-     "data"
-    ],
-    [
-     512,
-     "0x00726130",
-     "generated_same_file",
-     "gData_00726130",
-     0,
-     "data"
-    ],
-    [
-     534,
-     "0x00726078",
-     "generated_same_file",
-     "gData_00726078",
-     0,
-     "data"
-    ],
-    [
-     556,
-     "0x007261B8",
-     "generated_same_file",
-     "gData_007261B8",
-     0,
-     "data"
-    ],
-    [
-     578,
-     "0x00726260",
-     "generated_same_file",
-     "gData_00726260",
-     0,
-     "data"
-    ],
-    [
-     600,
-     "0x00725E00",
-     "generated_same_file",
-     "gData_00725E00",
-     0,
-     "data"
-    ],
-    [
-     622,
-     "0x00725E00",
-     "generated_same_file",
-     "gData_00725E00",
-     0,
-     "data"
-    ],
-    [
-     644,
-     "0x00725FD0",
-     "generated_same_file",
-     "gData_00725FD0",
-     0,
-     "data"
-    ],
-    [
-     666,
-     "0x00726378",
-     "generated_same_file",
-     "gData_00726378",
-     0,
-     "data"
-    ],
-    [
-     688,
-     "0x00726314",
-     "generated_same_file",
-     "gData_00726314",
-     0,
-     "data"
-    ],
-    [
-     710,
-     "0x00726314",
-     "generated_same_file",
-     "gData_00726314",
-     0,
-     "data"
-    ],
-    [
-     732,
-     "0x00726314",
-     "generated_same_file",
-     "gData_00726314",
-     0,
-     "data"
-    ],
-    [
-     754,
-     "0x00726548",
-     "generated_same_file",
-     "gData_00726548",
-     0,
-     "data"
-    ],
-    [
-     776,
-     "0x00726490",
-     "generated_same_file",
-     "gData_00726490",
-     0,
-     "data"
-    ],
-    [
-     798,
-     "0x00726600",
-     "generated_same_file",
-     "gData_00726600",
-     0,
-     "data"
-    ],
-    [
-     820,
-     "0x007266F0",
-     "generated_same_file",
-     "gData_007266F0",
-     0,
-     "data"
-    ],
-    [
-     842,
-     "0x007267A8",
-     "generated_same_file",
-     "gData_007267A8",
-     0,
-     "data"
-    ],
-    [
-     864,
-     "0x00726314",
-     "generated_same_file",
-     "gData_00726314",
-     0,
-     "data"
-    ],
-    [
-     886,
-     "0x007263D8",
-     "generated_same_file",
-     "gData_007263D8",
-     0,
-     "data"
-    ],
-    [
-     908,
-     "0x00726490",
-     "generated_same_file",
-     "gData_00726490",
-     0,
-     "data"
-    ],
-    [
-     930,
-     "0x00726490",
-     "generated_same_file",
-     "gData_00726490",
-     0,
-     "data"
-    ],
-    [
-     952,
-     "0x00726490",
-     "generated_same_file",
-     "gData_00726490",
-     0,
-     "data"
-    ],
-    [
-     974,
-     "0x00726490",
-     "generated_same_file",
-     "gData_00726490",
-     0,
-     "data"
-    ]
-   ],
+   "fwd": "extern \"C\" struct d2data_00726C44_t gData_00726C44; // 0x00726C44",
+   "head": "extern \"C\" struct d2data_00726C44_t gData_00726C44 = ",
+   "name": "gData_00726C44",
+   "pointers": [],
    "region": "data",
-   "size": 995,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726865_t\n{\n    unsigned char b0[6];\n    const void* p1;\n    unsigned char b2[18];\n    const void* p3;\n    unsigned char b4[18];\n    const void* p5;\n    unsigned char b6[18];\n    const void* p7;\n    unsigned char b8[18];\n    const void* p9;\n    unsigned char b10[18];\n    const void* p11;\n    unsigned char b12[18];\n    const void* p13;\n    unsigned char b14[18];\n    const void* p15;\n    unsigned char b16[18];\n    const void* p17;\n    unsigned char b18[18];\n    const void* p19;\n    unsigned char b20[18];\n    const void* p21;\n    unsigned char b22[18];\n    const void* p23;\n    unsigned char b24[18];\n    const void* p25;\n    unsigned char b26[18];\n    const void* p27;\n    unsigned char b28[18];\n    const void* p29;\n    unsigned char b30[18];\n    const void* p31;\n    unsigned char b32[18];\n    const void* p33;\n    unsigned char b34[18];\n    const void* p35;\n    unsigned char b36[18];\n    const void* p37;\n    unsigned char b38[18];\n    const void* p39;\n    unsigned char b40[18];\n    const void* p41;\n    unsigned char b42[18];\n    const void* p43;\n    unsigned char b44[18];\n    const void* p45;\n    unsigned char b46[18];\n    const void* p47;\n    unsigned char b48[18];\n    const void* p49;\n    unsigned char b50[18];\n    const void* p51;\n    unsigned char b52[18];\n    const void* p53;\n    unsigned char b54[18];\n    const void* p55;\n    unsigned char b56[18];\n    const void* p57;\n    unsigned char b58[18];\n    const void* p59;\n    unsigned char b60[18];\n    const void* p61;\n    unsigned char b62[18];\n    const void* p63;\n    unsigned char b64[18];\n    const void* p65;\n    unsigned char b66[18];\n    const void* p67;\n    unsigned char b68[18];\n    const void* p69;\n    unsigned char b70[18];\n    const void* p71;\n    unsigned char b72[18];\n    const void* p73;\n    unsigned char b74[18];\n    const void* p75;\n    unsigned char b76[18];\n    const void* p77;\n    unsigned char b78[18];\n    const void* p79;\n    unsigned char b80[18];\n    const void* p81;\n    unsigned char b82[18];\n    const void* p83;\n    unsigned char b84[18];\n    const void* p85;\n    unsigned char b86[18];\n    const void* p87;\n    unsigned char b88[18];\n    const void* p89;\n    unsigned char b90[17];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726865",
-   "va": "0x00726865"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726C56",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726C56_t gData_00726C56; // 0x00726C56",
-   "head": "extern \"C\" struct d2data_00726C56_t gData_00726C56 = ",
-   "name": "gData_00726C56",
-   "pointers": [
-    [
-     4,
-     "0x004B6C70",
-     "owner",
-     "sub_004B6C70_OpenNpcMenu",
-     0,
-     "func"
-    ],
-    [
-     8,
-     "0x004B42B0",
-     "owner",
-     "NPCMENU_OpenTradeShop",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 24,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726C56_t\n{\n    unsigned char b0[4];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726C56",
-   "va": "0x00726C56"
+   "size": 4,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00726C44_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00726C44",
+   "va": "0x00726C44"
   },
   {
    "alias": false,
@@ -54088,40 +53012,6 @@
    "tail": ";                                                                  // 0x007253DC",
    "type": "int",
    "va": "0x007253DC"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00726C6E",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00726C6E_t gData_00726C6E; // 0x00726C6E",
-   "head": "extern \"C\" struct d2data_00726C6E_t gData_00726C6E = ",
-   "name": "gData_00726C6E",
-   "pointers": [
-    [
-     19,
-     "0x004B6C70",
-     "names.json",
-     "sub_004B6C70_OpenNpcMenu",
-     0,
-     "func"
-    ],
-    [
-     58,
-     "0x004B6C70",
-     "names.json",
-     "sub_004B6C70_OpenNpcMenu",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 83,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00726C6E_t\n{\n    unsigned char b0[19];\n    const void* p1;\n    unsigned char b2[35];\n    const void* p3;\n    unsigned char b4[21];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00726C6E",
-   "va": "0x00726C6E"
   },
   {
    "alias": false,
