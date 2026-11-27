@@ -117,6 +117,9 @@ and initialised global read back from the image equal to the original's once add
 file (`out/ordinary/LINK_DEBT.json`); `--module <M>` lists one module's references with the declaration and the
 definition each one needs to agree with, and `--module <M> --max <N>` fails when the module has more than N.
 `link.py --strict[=<M>,...]` refuses to link while any reference (of those modules) is bound by address.
+`python tools/genheaders.py --module <M>` lists every function and global of module M that another module's
+unit declares, with the definition's prototype and the export header in `Source/Include` it goes to; `--apply`
+writes the header and replaces those units' private copies with an include (rebuild the units it lists).
 
 ### CMake
 
