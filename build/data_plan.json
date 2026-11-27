@@ -1027,8 +1027,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/SkillDesc_004E1FF0.cpp": {
-   "bytes": 520,
-   "definitions": 8,
+   "bytes": 448,
+   "definitions": 5,
    "externs": [
     "extern \"C\" char gD2DataTables[]; // 0x0096BC30"
    ],
@@ -1038,8 +1038,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/SkillDesc.cpp": {
-   "bytes": 475,
-   "definitions": 15,
+   "bytes": 547,
+   "definitions": 14,
    "externs": [
     "extern \"C\" void __cdecl SKILLDESC_DrawThrowAndElemDamage(); // 0x004EAAA0",
     "extern \"C\" void __cdecl SKILLSMON_DescIfRecord(); // 0x004EC040"
@@ -66427,73 +66427,6 @@
    "file": "Source/D2Client/UI/SkillDesc_004E1FF0.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnGlobal_0072D844 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_0072D844",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072D844",
-   "type": "int",
-   "va": "0x0072D844"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/SkillDesc_004E1FF0.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnGlobal_0072D88C = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_0072D88C",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072D88C",
-   "type": "int",
-   "va": "0x0072D88C"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072D890",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/SkillDesc_004E1FF0.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072D890_t gData_0072D890; // 0x0072D890",
-   "head": "extern \"C\" struct d2data_0072D890_t gData_0072D890 = ",
-   "name": "gData_0072D890",
-   "pointers": [],
-   "region": "data",
-   "size": 64,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072D890_t\n{\n    unsigned char b0[64];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072D890",
-   "va": "0x0072D890"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/SkillDesc_004E1FF0.cpp",
-   "form": "declared",
-   "fwd": null,
    "head": "extern int gnTextOffset2 = ",
    "model": {
     "k": "prim",
@@ -67620,37 +67553,64 @@
   },
   {
    "alias": false,
-   "cname": "gData_0072D840",
+   "cname": null,
    "declared": true,
-   "decorated": "?gaSkillTextPositions@@3PAUD2SkillTextPositionStrc@@A",
+   "decorated": null,
    "file": "Source/D2Client/UI/SkillDesc.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072D840_t gData_0072D840; // 0x0072D840",
-   "head": "extern \"C\" struct d2data_0072D840_t gData_0072D840 = ",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2SkillTextPositionStrc gaSkillTextPositions[12] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "nLeft",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nY",
+       4,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nRight",
+       8,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ]
+     ],
+     "name": "D2SkillTextPositionStrc",
+     "size": 12
+    },
+    "k": "arr",
+    "n": 12,
+    "size": 144
+   },
    "name": "gaSkillTextPositions",
    "pointers": [],
    "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072D840_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072D840\n#pragma comment(linker, \"/alternatename:?gaSkillTextPositions@@3PAUD2SkillTextPositionStrc@@A=_gData_0072D840\")",
+   "size": 144,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0072D840",
+   "type": "D2SkillTextPositionStrc",
    "va": "0x0072D840"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072D848",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/SkillDesc.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072D848_t gData_0072D848; // 0x0072D848",
-   "head": "extern \"C\" struct d2data_0072D848_t gData_0072D848 = ",
-   "name": "gData_0072D848",
-   "pointers": [],
-   "region": "data",
-   "size": 68,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072D848_t\n{\n    unsigned char b0[68];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072D848",
-   "va": "0x0072D848"
   },
   {
    "alias": false,
