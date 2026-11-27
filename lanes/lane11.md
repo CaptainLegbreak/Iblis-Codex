@@ -11,6 +11,7 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Claimed
 
+- Fri Nov 27 14:48 PST 2026: check-in. names-small-2: the Storm entry that moved the image is 0x006FCC24 (gszErrorDefaults_006FCC24, SCMD.CPP; the source says const char*[], the plan const char* const). Without it the image is identical, but borrowed data rises 253 -> 11,489 B, so I'm bisecting the 161 data plan names for the ones that do that before posting.
 - Fri Nov 27 13:29 PST 2026: check-in. names-small-2 on #487: 43 renames build; finding the Storm data plan entry that moves the image (bisecting), then posting without it as the board asked.
 - Fri Nov 27 12:55 PST 2026: check-in. names-d2game-4 posted on #485 (the board's #483 rebase), claimed files left out. Next: names-small (the Storm data entry), then the claimed files' renames once their claims clear.
 - Fri Nov 27 12:07 PST 2026: **status for the coordinator.**
