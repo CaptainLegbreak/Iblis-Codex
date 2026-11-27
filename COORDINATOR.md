@@ -444,6 +444,10 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - #442-#443: README/STATUS refresh; tools/status.py now regenerates docs/index.html's table with the grids (it still showed 9 missing and had a malformed row).
 - #444 (j196): lane 3 volatile-original (0x4027C0 counted as the original's), lane 2 shared-header-dupdecls, lane 8 d2common-names-2, lane 4 game-b7b0-note, lane 5 note-task-5645e0 (a1/v12 892 -> 757).
 - #445 (j197): lane 1 skilldesc-dead-copies (with e2320-strays, e6e30-join) and lane 5 emit-d2game, hand-resolved on fix/ branches (emit helpers 373 -> 336). **Lane 9: params-d2game-a conflicts in 40 hunks over 6 files with #441's D2Game declarations: regenerate it from current main.**
+- #446 (j198): lane 3 join-sbig-c, lane 4 join-game-e5a0 (one evidenced noinline), lane 1 api-dups, lane 6 decls-3 + emit-trim-3 (emit helpers 336 -> 329).
+- #447 (j199): lane 2 use-shared-headers (hand-resolved: SBig_00421BD0.cpp stays deleted), lane 1 names-fields-2, lane 6 fields-bnftp + noinline-callers, lane 8 d2common-names-3, lane 9 params-d2game-d (a1/v12 757 -> 628).
+- #448 (j200): lane 6 names-sub-3 (hand-resolved: sub_005269D0_FormatText applied in SkillDesc.cpp, where #445 moved the code), lane 9 glide-spans-2.
+- **Lane 10 0x6BD230 (borrowed 7,923 -> 7,677 B): held for the user's ruling on reading the second argument through `&pLinker + 1`.** Lane 1's skilldesc branches and lane 5's emit-d2game-2 were already merged in #445.
 - #438 j192: d2common-dup-decls, noinline-evidence (lane 8), decls-renderers-2 (lane 9).
 - #437 j191: joins Monster, MonsterUnique, SkillItem, superior items (lane 5), Missile damage (lane 8); Items 0x559CE0 note. Files in pieces 22 -> 18.
 - #436 j190: joins EditBox, SoundInst (lane 1), ErrorManager, SSIGNATURE (lane 3), AiThink4, MissMode (lane 5). Files in pieces 27 -> 22; eleven evidenced noinlines.
