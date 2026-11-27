@@ -44,6 +44,7 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2CommonApi2.h"
 
 
 
@@ -71,8 +72,6 @@ extern D2CombinedStatIdStrc gaCombinedStatIds[]; // 0x0072CDD0
 
 extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClass); // 0x004833E0
 
-int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
-
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
@@ -83,8 +82,6 @@ struct D2MonTypeTxt;
 
 
 extern const int gaSetMaskToBonusMappingTable[0x40]; // 0x006DBD90
-
-int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -103,8 +100,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
 int __fastcall UNICODE_StrLen(const Unicode* wszText); // 0x00526800
-
-int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 
 
 

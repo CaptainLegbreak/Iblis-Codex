@@ -15,6 +15,7 @@
 #include "D2PlayerModes.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GfxLightStrc;
@@ -59,29 +60,12 @@ void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 void __fastcall UNITMODE_DoUnitAction(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00481030
 void __fastcall SKILLS_DoUsedSkill(D2UnitStrc* pUnit); // 0x004C68F0
 int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
-int __stdcall DUNGEON_GetPortalFlagFromLevelId(int nLevelId);
-D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit);
-D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit);
-int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit);
-int __stdcall UNITS_IsCurrentRoomInvalid(D2UnitStrc* pUnit);
-void __stdcall UNITS_FreePlayerData(void* pMemPool, D2UnitStrc* pPlayer);
-int __stdcall UNITS_GetPlayerPortalFlags(D2UnitStrc* pUnit);
 void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath);
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit);
 int __stdcall D2Common_10399(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);
-void* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* pValue);
 D2SkillStrc* __fastcall SKILLS_GetSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);
-D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);
-void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue);
-int __stdcall PATH_GetLastPointX(D2DynamicPathStrc* pPath); // 0x00648A40
-int __stdcall PATH_GetLastPointY(D2DynamicPathStrc* pPath); // 0x00648A60
-D2ActiveRoomStrc* __stdcall PATH_GetNextRoom(D2DynamicPathStrc* pDynamicPath);
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY);
-int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit);
 void __stdcall PATH_SetUnitDeadCollision(D2UnitStrc* pUnit, int nArg); // 0x00649F70
-void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);
-unsigned short __stdcall COLLISION_CheckMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask);
-D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms);
 void __cdecl PLAYER_RefreshAdjacentPlayers(); // 0x004608C0
 extern D2UnitStrc* gapClientUnitTable[6 * 0x80]; // 0x007A5E70
 extern D2UnitStrc* gapServerUnitTable[6 * 0x80]; // 0x007A5270

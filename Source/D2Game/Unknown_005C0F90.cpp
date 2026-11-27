@@ -6,6 +6,7 @@
 #include "D2TxtTables.h"
 #include "D2BookDataTbl.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 struct D2UnitStrc;
 
 union D2SeedStrc;
@@ -22,7 +23,6 @@ void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc*); // 0x004DC0B0
 struct D2SkillsTxt { char pad0[0x18]; short nItemType; char pad1[0x23C-0x1A]; };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
 
 struct D2ItemsTxt
 {
@@ -41,7 +41,6 @@ struct D2ItemDropStrc
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 #include "D2GameFuncs.h"
-void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* pTargetUnit, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 static int __stdcall sub_005C25C0_RollSetItemRecord(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem);
 
 static inline unsigned int RollSeed(D2SeedStrc* pSeed)

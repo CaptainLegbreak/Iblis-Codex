@@ -6,6 +6,7 @@
 #include "D2ClientTypes.h"
 #include "D2CelContext.h"
 #include "FogApi.h"
+#include "D2CommonApi2.h"
 
 struct D2UnitOverlayStrc;
 
@@ -44,11 +45,6 @@ int __cdecl DLIGHTMAP_GetLocalBloodPalette();                                   
 extern "C" int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit);                                     // 0x004DA0B0
 int __stdcall D2GFX_CheckPerspective();                                                                     // 0x004F51D0
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nX, int nY, unsigned int nColor, int nDrawMode, unsigned char* pPalette); // 0x004F6480
-int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                                                       // 0x006203B0
-int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                                                       // 0x00620410
-int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                                                     // 0x00620650
-int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit);                                                     // 0x006206B0
-int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit);                                                    // 0x00621190
 
 // 0x0046E300
 void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int bFront, int nX, int nY, int bLift)

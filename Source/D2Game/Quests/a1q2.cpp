@@ -28,6 +28,7 @@ typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
 
 #include "D2GameFuncs.h"
+#include "D2CommonApi2.h"
 
 
 extern "C" const char gszA1Q2SourceFile[];                                                                  // 0x006E1B98
@@ -149,8 +150,6 @@ enum D2C_F33QuestConstants
 
 #define QFLAG_PRIMARYGOALDONE 13
 
-
-void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C3A0
 
 
 // 0x00591210

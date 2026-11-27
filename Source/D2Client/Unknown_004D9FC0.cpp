@@ -13,6 +13,7 @@
 
 #include "D2MonModes.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 
 struct D2StatesTxt;
 
@@ -33,8 +34,6 @@ extern CLIENTSTATEFN gpfnClientStateRemFuncs[]; // 0x0072A710
 typedef char check_pointer_width[sizeof(void*)==4?1:-1];
 
 typedef char check_scalar_width[sizeof(unsigned int)==4?1:-1];
-
-extern "C" int __stdcall SKILLS_GetUseState(D2UnitStrc* unit,D2SkillStrc* skill); // 0x00647960
 
 
 int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
