@@ -76323,6 +76323,10 @@
      "name": "?FOG_GetStringFromLinkIndex@@YGHPAUD2TxtLinkStrc@@HPAD@Z"
     },
     {
+     "va": "0x006BD230",
+     "length": 246
+    },
+    {
      "va": "0x006BD330",
      "length": 75
     },

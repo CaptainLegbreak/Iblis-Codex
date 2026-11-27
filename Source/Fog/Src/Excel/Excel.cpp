@@ -20,6 +20,8 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
+extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize);
+
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 struct D2TxtLinkEntryStrc { union { char code[4]; unsigned int nCode; }; int index; };
@@ -93,6 +95,8 @@ struct D2BinFieldStrc { const char* name; unsigned type; int length,offset; void
 static int __stdcall EXCEL_MapColumns(unsigned short* pOut, D2BinFileStrc* pList, D2BinFieldStrc* pEntries); // 0x006BCE20
 
 int __stdcall sub_006BD230_AddCode(void*,unsigned); // 0x006BD230
+
+void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 
 int __stdcall FOG_10216_AddRecordToLinkingTable(D2TxtLinkStrc* pLinker, const char* szCode); // 0x006BD500
 
@@ -482,6 +486,55 @@ int __stdcall FOG_GetStringFromLinkIndex(D2TxtLinkStrc* linker, int index, char*
         }
     }
     return 0;
+}
+
+// 0x006BD230
+int __stdcall sub_006BD230_AddCode(void* pLinker, unsigned nCode)
+{
+    D2TxtLinkStrc* pLink = (D2TxtLinkStrc*)pLinker;
+    // The code is read and advanced in the argument area itself, addressed from the handle argument.
+    unsigned int& nKey = *(unsigned int*)(&pLinker + 1);
+    D2_ASSERT(pLink, 0x3D1);
+    D2_ASSERT(!pLink->pFirstNode, 0x3D8);
+
+    if (pLink->unk_04 <= pLink->count)
+    {
+        const int nNewCapacity = pLink->unk_04 + 64;
+        pLink->entries = (D2TxtLinkEntryStrc*)FOG_ReallocPool(0, pLink->entries, nNewCapacity * sizeof(D2TxtLinkEntryStrc), ".\\Src\\Excel\\Excel.cpp", 0x3DF, 0);
+        memset(&pLink->entries[pLink->unk_04], 0, 64 * sizeof(D2TxtLinkEntryStrc));
+        pLink->unk_04 = nNewCapacity;
+    }
+
+    int nLow;
+    for (;;)
+    {
+        D2TxtLinkEntryStrc* pEntries = pLink->entries;
+        nLow = 0;
+        int nHigh = pLink->count;
+        while (nLow < nHigh)
+        {
+            int nMid = nLow + (nHigh - nLow) / 2;
+            unsigned int nMidCode = pEntries[nMid].nCode;
+            if (nKey > nMidCode)
+                nLow = nMid + 1;
+            else if (nKey < nMidCode)
+                nHigh = nMid;
+            else
+                goto found;
+        }
+        break;
+    found:
+        ++nKey;
+    }
+
+    if (nLow < pLink->count)
+        memmove(&pLink->entries[nLow + 1], &pLink->entries[nLow], (pLink->count - nLow) * sizeof(D2TxtLinkEntryStrc));
+
+    pLink->entries[nLow].nCode = nKey;
+    pLink->entries[nLow].index = pLink->count;
+    const int nIndex = pLink->entries[nLow].index;
+    ++pLink->count;
+    return nIndex;
 }
 
 // 0x006BD330
