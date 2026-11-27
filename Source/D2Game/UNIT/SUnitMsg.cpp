@@ -259,28 +259,28 @@ struct D2UnitPacketListStrc
         } pStat;
         struct
         {
-            unsigned char a2;
+            unsigned char nSeed;
             unsigned char unk0x09;
-            unsigned short a3;
-            unsigned short a4;
+            unsigned short nSkillId;
+            unsigned short nSkillLevel;
             unsigned short unk0x0E;
-            unsigned int a5;
-            unsigned int a6;
-            unsigned int a7;
-            unsigned int a8;
-            unsigned int a9;
-            unsigned int a10;
+            unsigned int nUnitType;
+            unsigned int nUnitGUID;
+            unsigned int nTargetType;
+            unsigned int nTargetGUID;
+            unsigned int nX;
+            unsigned int nY;
         } pA3;
         struct
         {
-            short a2;
+            short nMonStatsId;
         } pA4;
         struct
         {
-            unsigned char a2;
+            unsigned char nUnitType;
             unsigned char unk0x09[3];
-            unsigned int a3;
-            unsigned short a4;
+            unsigned int nUnitGUID;
+            unsigned short nSkillId;
         } pA5;
         struct
         {
@@ -1008,11 +1008,11 @@ void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pCl
             break;
 
         case 0xA4:
-            D2GAME_PACKETS_SendPacket0xA4(pClient, pMsg->pA4.a2);
+            D2GAME_PACKETS_SendPacket0xA4(pClient, pMsg->pA4.nMonStatsId);
             break;
 
         case 0xA3:
-            D2GAME_PACKETS_SendPacket0xA3(pClient, pMsg->pA3.a2, pMsg->pA3.a3, pMsg->pA3.a4, pMsg->pA3.a5, pMsg->pA3.a6, pMsg->pA3.a7, pMsg->pA3.a8, pMsg->pA3.a9, pMsg->pA3.a10);
+            D2GAME_PACKETS_SendPacket0xA3(pClient, pMsg->pA3.nSeed, pMsg->pA3.nSkillId, pMsg->pA3.nSkillLevel, pMsg->pA3.nUnitType, pMsg->pA3.nUnitGUID, pMsg->pA3.nTargetType, pMsg->pA3.nTargetGUID, pMsg->pA3.nX, pMsg->pA3.nY);
             break;
 
         case 0xAB:
@@ -1027,7 +1027,7 @@ void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pCl
             break;
 
         case 0xA5:
-            D2GAME_PACKETS_SendPacket0xA5(pClient, pMsg->pA5.a2, pMsg->pA5.a3, pMsg->pA5.a4);
+            D2GAME_PACKETS_SendPacket0xA5(pClient, pMsg->pA5.nUnitType, pMsg->pA5.nUnitGUID, pMsg->pA5.nSkillId);
             break;
 
         case 0x23:

@@ -790,6 +790,20 @@ int __cdecl BNSEND_SendClientId()
     return 1;
 }
 
+// 0x0051A540
+void __fastcall sub_0051A540_SetValue(int nValue)
+{
+    gdwServerToken = nValue;
+}
+
+int gnLogonType; // 0x008818C0
+
+// 0x0051A560
+void __fastcall sub_0051A560_SetValue(int nValue)
+{
+    gnLogonType = nValue;
+}
+
 // 0x0051A580
 int __fastcall BNSEND_SendLogonResponse(const char* szName, const char* szPassword)
 {
@@ -1904,6 +1918,25 @@ unsigned long __stdcall BNSEND_ReceiveThread(void* pParameter)
     }
     InterlockedDecrement(&gnReceiveThreads);
     return nResult;
+}
+
+// 0x0051C9B0
+int __fastcall sub_0051C9B0_GetPeerName(void* pAddress, int* pnLength)
+{
+    FSafeSock* pSocket = (FSafeSock*)InterlockedCompareExchange(&gnConnected, 0, 0);
+    if (pSocket)
+        return FOG_SOCKET_GetPeerName(pSocket, pAddress, pnLength);
+    return 0;
+}
+
+// Kept noinline: BNSEND_SendAuthInfo (0x521BF0) calls this out of line in the image; without it the compiler inlines it there.
+// 0x0051C9E0
+__declspec(noinline) int __fastcall sub_0051C9E0_GetSockName(void* pAddress, int* pnLength)
+{
+    FSafeSock* pSocket = (FSafeSock*)InterlockedCompareExchange(&gnConnected, 0, 0);
+    if (pSocket)
+        return FOG_SOCKET_GetSockName(pSocket, pAddress, pnLength);
+    return 0;
 }
 
 // 0x0051CA20
