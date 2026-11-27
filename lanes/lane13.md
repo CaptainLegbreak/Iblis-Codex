@@ -5,6 +5,32 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
+- Fri Nov 27 07:01 PST 2026: **lane13/client-tables** (25c167bce, on main ac1dc8375). VERIFIED tree 4ce3bc0a6dcb65b469b656c272c7817e76ec11f3; Game.exe identical. Audit guard: no count rose. Two D2Client commits:
+  - **gaQuestTable[41]** (QuestLog, 0x00723F30, 16 B each).
+    - The plan had no record for it. Its first 8 bytes were unowned and the rest was the 648 B blob `gaQuestLookup_00723F38`.
+    - Two more views read it 8 bytes in: `gaQuestLookup` (D2UiEntry10Strc: nKey, nId) and the lookup view (D2QuestLookupEntryStrc: nKey, nValue). Those fields are the table's nCondition and nQuestId.
+    - It is now declared once, and QuestLog/text read `gaQuestTable[i].nCondition / .nQuestId`.
+  - **The NPC tables (npcmenu):**
+    - `gaNpcEntries[46]` (0x00726850, D2NpcEntryStrc of 22 B, then 4 zero bytes). It was a 21 B record plus a 995 B run.
+    - `gaNpcIndex[48]` (0x00726C48, D2NpcIndexStrc of 39 B: id, line count, 5 string ids, 5 handlers, enabled). It was 67 records. About 40 of its fields were separate globals (gnGlobal_*, gwGlobal_*, gpfn*MenuHandler, gw*MenuStringId), plus a second view 4 bytes in (gaNpcMenuEntries). They now read `gaNpcIndex[i].nCount / .awIds[k] / .apfHandlers[k]`.
+    - `NPCMENU_NpcMenuAction28` (0x004B5140) is now set by its own name instead of through a `void sub_004B5140` declaration.
+  - **What I left alone:** D2Client.h keeps its 16 externs of the old field names, unused, because removing them changes other units' code. The local D2NpcMenuEntryStrc is gone. D2UiEntry10Strc and D2QuestLookupEntryStrc stay in their headers, now unused.
+  - **Counts on main, before -> after:**
+    - data clusters: 77 -> 76; 36,258 -> 36,133 B; 466 -> 461 globals.
+    - data_cluster: 5,956 / 475 -> 5,902 / 472.
+    - interior: 115 -> 80.
+    - linkdebt total: 29,819 -> 29,727. D2Client 10,591 -> 10,499; no module rose.
+    - shortdata: 355 -> 355.
+  - The NPC cluster (0x00726850-0x00726CC1) is gone. The quest table's cluster stays only for its loop bound (`cmp reg, gaQuestTable + 41*16 + 8`), which cluster-rule-2 handles.
+- Fri Nov 27 07:01 PST 2026: **lane13/glide-tile-vertices** (07b7da21f, on main ac1dc8375). VERIFIED tree 92dc7923348f447a90bb85e3b73bd80320cda1b4; Game.exe identical. Audit guard: no count rose. This is the D2Glide cluster 0x00880678-0x00880B5C (1,252 B).
+  - The Glide floor-tile mesh (`gatGlideTileVertices[36]`, 28 B each) and its strip pointers (`gapGlideTileStrips[5][12]`) had no definition. They were only externs, each under two names and two vertex types (a local D2GlideVtxStrc and D2GlideSpriteVertexStrc).
+  - Both are now defined once in Unknown_0050BD30.cpp. sub_0050D540_GlideInitD fills the strips by row and column.
+  - **Counts on main, before -> after:**
+    - data clusters: 77 -> 76; 36,258 -> 35,006 B; 466 -> 463 globals.
+    - data_cluster: 5,956 / 475 -> 5,930 / 470.
+    - linkdebt total: 29,819 -> 29,793. D2Glide 486 -> 460; no module rose.
+    - shortdata: 355 -> 355.
+  - Independent of client-tables.
 - Fri Nov 27 06:11 PST 2026: **lane13/questlog** (487005a03, on main ac1dc8375). VERIFIED tree 76b1134473a04facca3ca4e5fdfb158bf3d1b183; Game.exe identical. Audit guard: no count rose. This is the D2Client cluster 0x007BF298-0x007C0274 (4,060 B, 16 globals, 220 refs).
   - **What it is.** The quest log panel's state is one pack(1) struct, `D2QuestLogStateStrc`, 0xFDC bytes. It holds:
     - the panel state and quest count;
@@ -36,6 +62,7 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - linkdebt total: 30,698 -> 30,093 -> 27,386. No module rose.
     - As in cluster-rule, globals freed from blocks bring their own debts back into view (placeholder 3,544, different_identifier 5,744, duplicate_data 1,075, interior 134).
 ## Claimed
+- Fri Nov 27 07:01 PST 2026: check-in. client-tables and glide-tile-vertices Ready. Next: D2Game 0x008842A8 (1 global, 1,048 B), D2Common 0x006EF188, D2Direct3D 0x00971450, then the small ones; the D2CMP/D2Common reading after those.
 - Fri Nov 27 06:11 PST 2026: questlog Ready. The QuestLog file claims are done. Next: the remaining small D2Client/D2Glide/D2Game clusters (0x00880678 D2Glide, 0x008842A8 D2Game, 0x00726850 and 0x00723F30 D2Client), then the D2CMP/D2Common reading.
 - Fri Nov 27 05:28 PST 2026: **claim for the QuestLog struct** (0x007BF298-0x007C0269, one pack(1) struct of 0xFD1 bytes: state, flags, cels, two 42-byte quest-state arrays and 6 entries of 0x26A, the first byte of each entry being a flag). About 40 alias globals at those addresses become `gtQuestLog.<field>`. Files: Source/D2Client/UI/QuestLog.cpp, UI/text.cpp, UI/text_0049D5A0.cpp, UI/text_004A10E0.cpp, Unknown_004A43E0.cpp, Unknown_004A6460.cpp, D2Client.h, D2ClientFuncs.h, Source/Include/D2ClientQuestLog.h, D2ClientQuestText.h. Lane 11: if names-d2client touches these, I'll rebase onto it, not the other way round.
 - Fri Nov 27 05:20 PST 2026: check-in. Cleared control-templates and ancient-equipment (#477). Ready: cluster-rule-2, chat-controls (on control-templates, now in #477). Working on the QuestLog struct 0x007BF298 (files claimed below).
