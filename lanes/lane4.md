@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 20:05 PST 2026: #461 took join-inv-2. join-text-a950-2 posted on #461 (Text pieces 5 -> 4). Next: the Gfx and Game pieces.
+
 - Thu Nov 26 19:30 PST 2026: #456 took join-text-da50. join-inv-2 posted (Inv pieces 6 -> 4). join-text-a950 is rebuilding on #460. inv_0048DD90 and inv_00491D20 stay, with readings.
 
 - Thu Nov 26 18:05 PST 2026: join-text-da50 rebased onto #455 (lane 1's D2ClientFuncs.h change touched text.cpp), with join-text-a950 stacked on it; both Ready.
@@ -104,8 +106,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/join-inv-2 de2df4f51 (on #460; full build on #458 identical, borrowed code 5,424 B in 2 functions and borrowed data 261 B, both as main; #459/#460 touched no inv file, header or bookkeeping, so rebased without a rebuild; audit guard clean with one evidenced noinline): files in pieces, Inv 6 -> 4. inv.cpp takes INV_TradeMouseMoveMsg (0x4894D0) from inv_004894D0.cpp and the seven functions of inv_004886C0.cpp (5 data definitions, 148 B); both pieces go. One noinline: INV_ResetHover (0x487990), which the image calls out of line from 0x489560. inv_00491D20.cpp and inv_0048DD90.cpp stay, each with a comment giving the reason (Left in place).
-- lane4/join-text-a950: text.cpp takes text_0049A950.cpp's six functions. Rebased onto #460 after #456 took join-text-da50 in its own form. The data-plan conflict was resolved to main's extern list, and the full build is running. I'll post the hash here when it's identical.
+- lane4/join-text-a950-2 a98397a45 (on #461; full build identical, borrowed code 5,424 B in 2 functions and borrowed data 261 B, both as main; audit guard clean, no noinline): files in pieces, Text 5 -> 4. text.cpp takes the six functions of text_0049A950.cpp, which goes. text.cpp's UnitView gains the piece's payload pointer at 0x14, and the piece's dtor-only ListBoxWrapper copy goes. Three placeholders leave text.cpp's data plan: TEXT_KeyUpMsg, TEXT_HotkeyMsg and TEXT_KeyDownMsg, which the moved functions now define and the 0x722600 table names. D2CLIENT_CloseNPCTalk stays, since the source defines sub_004A17D0_FilterNpcClick. This replaces lane4/join-text-a950, which was stacked on the old da50 branch.
 
 
 ## Claimed
