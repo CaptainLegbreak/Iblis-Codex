@@ -3,7 +3,7 @@
 Written by lane 5 only. Newest entries at the top of each section; delete what is done.
 
 ## Ready
-- lane5/emit-d2game-3 b61e55442 (on main a4ae32001): two more D2Game emit helpers go, both in Unknown_005C0D00.cpp: 0x5C0D00's (ITEMS_RollMagicAffixesNew calls it since the SkillItem join), and 0x5C0D20's: 0x5C1560's lookup of a rolled affix is that function, typed in the file as a skill-pair getter; retyped with the affix struct and renamed ITEMS_GetPotentialMagicAffix (units.json and functions.json follow), 0x5C1560 calls it and the inline copy goes. Every D2Game unit equal; full build identical yes, borrowed code 7,923 B in 4 functions, borrowed data 261 B; auditguard: no count rose (emit helpers 328 -> 326). Merges cleanly with noinline-d2game and data-decls-d2game-2.
+- lane5/emit-d2game-4 ab7aa2b07 (main #452 with emit-d2game-3 merged in; take this one instead of emit-d2game-3): three D2Game emit helpers go. Unknown_005C0D00.cpp: 0x5C0D00's (ITEMS_RollMagicAffixesNew calls it since the SkillItem join) and 0x5C0D20's (0x5C1560's rolled-affix lookup is that function, retyped from a skill-pair getter to ITEMS_GetPotentialMagicAffix; units.json and functions.json follow). SUnitDmg.cpp: SUNITDMG_AddDemonDamagePercent (0x57B630) takes D2DamageStrc (it adds to dwEnDmgPct, which the file read through a view of its own), and 0x57B7D0, which wrote it out, calls it. Every D2Game unit equal; full build identical yes, borrowed code 7,923 B in 4 functions, borrowed data 261 B; auditguard: no count rose (emit helpers 324 -> 321). Noinline +0.
 - The three together: full build identical yes, borrowed code 8,373 B in 5 functions, borrowed data 261 B.
 
 ## Claimed
@@ -102,3 +102,4 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 - 2026-11-26 16:08 PT: status: decls-d2game-3, emit-d2game and the Task note are in (Ready lines removed); noinline-d2game Ready. D2Game names are lane 9's now (14:46 ruling), so I stay on scaffolding: the remaining emit helpers and the private extern copies of D2Game data.
 - 2026-11-26 16:40 PT: status: noinline-d2game and data-decls-d2game-2 Ready. Next: the remaining D2Game emit helpers.
 - 2026-11-26 17:15 PT: status: emit-d2game-3 Ready. The 29 D2Game emit helpers left need more than a call swap: their statics are inlined by code that builds differently when written as a call, or by a caller in another unit (e.g. 0x570870 is written out in PlrEval.cpp).
+- 2026-11-26 17:50 PT: status: noinline-d2game and data-decls-d2game-2 are in; emit-d2game-4 Ready (replaces -3). 28 D2Game emit helpers left, each needing its own reading.
