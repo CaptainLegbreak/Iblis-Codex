@@ -1448,12 +1448,12 @@ struct D2RequestStrc
     int nType;
     D2UnitStrc* pUnit;
     int unk0x08[2];
-    int nArg0;
-    int nArg1;
-    int nArg2;
+    int nMissile;
+    int nX;
+    int nY;
     int unk0x1C[4];
-    int nArg3;
-    int nArg4;
+    int nSkill;
+    int nSkillLevel;
     int unk0x34[10];
 };
 
@@ -1519,18 +1519,18 @@ int __fastcall SKILLSMON_CreateSkillMissiles(D2UnitStrc* pUnit, int nSkillId, in
     memset(&tRequest, 0, sizeof(tRequest));
     tRequest.nType = 0x2001;
     tRequest.pUnit = pUnit;
-    tRequest.nArg1 = nX;
-    tRequest.nArg2 = nY;
-    tRequest.nArg3 = nSkillId;
-    tRequest.nArg4 = nArg4;
-    tRequest.nArg0 = nMissile;
+    tRequest.nX = nX;
+    tRequest.nY = nY;
+    tRequest.nSkill = nSkillId;
+    tRequest.nSkillLevel = nArg4;
+    tRequest.nMissile = nMissile;
     D2UnitStrc* pMissile = sub_004CD540_HandleRequest(&tRequest);
 
     const int nMissileC = pSkillsTxt->wCltMissileC;
     if (nMissileC > 0 && nMissileC < sgptDataTables->nMissilesTxtRecordCount)
     {
-        tRequest.nArg4 = 2;
-        tRequest.nArg0 = nMissileC;
+        tRequest.nSkillLevel = 2;
+        tRequest.nMissile = nMissileC;
         sub_004CD540_HandleRequest(&tRequest);
     }
 

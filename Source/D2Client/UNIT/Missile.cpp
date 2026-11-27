@@ -382,15 +382,15 @@ struct D2RequestStrc
     D2UnitStrc* pUnit;
     D2UnitStrc* pOtherUnit;
     int unk0x0C;
-    int nArg0;
-    int nArg1;
-    int nArg2;
-    int nArg5;
-    int nArg6;
-    int nArg7;
-    int unk0x28;
-    int nArg3;
-    int nArg4;
+    int nMissile;
+    int nX;
+    int nY;
+    int nTargetX;
+    int nTargetY;
+    int nGfxArg;
+    int nVelocity;
+    int nSkill;
+    int nSkillLevel;
     int unk0x34[8];
     void* pfCallback;
     int nIndex;
@@ -2428,11 +2428,11 @@ D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, 
     tRequest.nType = 0x20;
     tRequest.pUnit = pOwner;
     tRequest.pOtherUnit = pUnit;
-    tRequest.nArg5 = nArg5;
-    tRequest.nArg6 = nArg6;
-    tRequest.nArg3 = nArg3;
-    tRequest.nArg4 = nArg4;
-    tRequest.nArg0 = nArg0;
+    tRequest.nTargetX = nArg5;
+    tRequest.nTargetY = nArg6;
+    tRequest.nSkill = nArg3;
+    tRequest.nSkillLevel = nArg4;
+    tRequest.nMissile = nArg0;
     return sub_004CD540_HandleRequest(&tRequest);
 }
 
@@ -2872,14 +2872,14 @@ D2UnitStrc* __fastcall MISSILE_SubmitOffsetRequest(D2UnitStrc* pUnit, int nArg0,
     memset(&tRequest, 0, sizeof(tRequest));
     tRequest.nType = 0x521;
     tRequest.pUnit = pOwner;
-    tRequest.nArg1 = CLIENTS_GetUnitX(pUnit) + nOffsetX;
-    tRequest.nArg2 = CLIENTS_GetUnitY(pUnit) + nOffsetY;
-    tRequest.nArg5 = nTargetX;
-    tRequest.nArg6 = nTargetY;
-    tRequest.nArg7 = nRange;
-    tRequest.nArg3 = nArg3;
-    tRequest.nArg4 = nArg4;
-    tRequest.nArg0 = nArg0;
+    tRequest.nX = CLIENTS_GetUnitX(pUnit) + nOffsetX;
+    tRequest.nY = CLIENTS_GetUnitY(pUnit) + nOffsetY;
+    tRequest.nTargetX = nTargetX;
+    tRequest.nTargetY = nTargetY;
+    tRequest.nGfxArg = nRange;
+    tRequest.nSkill = nArg3;
+    tRequest.nSkillLevel = nArg4;
+    tRequest.nMissile = nArg0;
     return sub_004CD540_HandleRequest(&tRequest);
 }
 
@@ -5768,11 +5768,11 @@ D2UnitStrc* __fastcall MISSILE_SubmitTargetRequest(D2UnitStrc* pUnit, int nArg0,
     tRequest.nType = 0x420;
     tRequest.pUnit = pOwner;
     tRequest.pOtherUnit = pUnit;
-    tRequest.nArg5 = nTargetX;
-    tRequest.nArg6 = nTargetY;
-    tRequest.nArg3 = nArg3;
-    tRequest.nArg4 = nArg4;
-    tRequest.nArg0 = nArg0;
+    tRequest.nTargetX = nTargetX;
+    tRequest.nTargetY = nTargetY;
+    tRequest.nSkill = nArg3;
+    tRequest.nSkillLevel = nArg4;
+    tRequest.nMissile = nArg0;
     return sub_004CD540_HandleRequest(&tRequest);
 }
 
@@ -6680,11 +6680,11 @@ D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequ
     memset(&tRequest, 0, sizeof(tRequest));
     tRequest.nType = 1;
     tRequest.pUnit = pUnit;
-    tRequest.nArg1 = nX;
-    tRequest.nArg2 = nY;
-    tRequest.nArg3 = nA;
-    tRequest.nArg4 = nB;
-    tRequest.nArg0 = nRequest;
+    tRequest.nX = nX;
+    tRequest.nY = nY;
+    tRequest.nSkill = nA;
+    tRequest.nSkillLevel = nB;
+    tRequest.nMissile = nRequest;
     return sub_004CD540_HandleRequest(&tRequest);
 }
 

@@ -132,12 +132,12 @@ struct D2RequestStrc
     int nType;
     D2UnitStrc* pUnit;
     int unk0x08[2];
-    int nArg0;
-    int nArg1;
-    int nArg2;
+    int nMissile;
+    int nX;
+    int nY;
     int unk0x1C[4];
-    int nArg3;
-    int nArg4;
+    int nSkill;
+    int nSkillLevel;
     int unk0x34[10];
 };
 

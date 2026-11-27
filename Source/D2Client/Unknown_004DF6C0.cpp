@@ -8,15 +8,15 @@
 struct D2SoundEnvironStrc
 {
     int nEnviron;
-    float f_4;
+    float fEnvSize;
     float fEnvDiff;
     int nRoomVol;
-    int f_10;
-    float f_14;
+    int nRoomHF;
+    float fDecayTime;
     float fDecayHF;
     int nReflect;
     float fReflectDelay;
-    int f_24;
+    int nReverb;
     float fRevDelay;
     float fRoomRoll;
     float fAirAbsorb;
@@ -41,15 +41,15 @@ void __fastcall GFXUTIL_ApplySoundEnviron(int nEnvironId)
     {
         D2SoundEnvironStrc tEnviron;
         tEnviron.nEnviron = pTxt->nEAXEnviron;
-        tEnviron.f_4 = pTxt->nEAXEnvSize / 1000.0;
+        tEnviron.fEnvSize = pTxt->nEAXEnvSize / 1000.0;
         tEnviron.fEnvDiff = pTxt->nEAXEnvDiff / 1000.0;
         tEnviron.nRoomVol = pTxt->nEAXRoomVol;
-        tEnviron.f_10 = pTxt->nEAXRoomHF;
-        tEnviron.f_14 = pTxt->nEAXDecayTime / 1000.0;
+        tEnviron.nRoomHF = pTxt->nEAXRoomHF;
+        tEnviron.fDecayTime = pTxt->nEAXDecayTime / 1000.0;
         tEnviron.fDecayHF = pTxt->nEAXDecayHF / 1000.0;
         tEnviron.nReflect = pTxt->nEAXReflect;
         tEnviron.fReflectDelay = pTxt->nEAXReflectDelay / 1000.0;
-        tEnviron.f_24 = pTxt->nEAXReverb;
+        tEnviron.nReverb = pTxt->nEAXReverb;
         tEnviron.fRevDelay = pTxt->nEAXRevDelay / 1000.0;
         tEnviron.fRoomRoll = pTxt->nEAXRoomRoll / 1000.0;
         tEnviron.fAirAbsorb = pTxt->nEAXAirAbsorb / 1000.0;
