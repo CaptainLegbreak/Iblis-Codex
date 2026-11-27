@@ -59,6 +59,12 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/params-d2game-plrsave 59ce33b9 (on #467): PlrSave, PlrSave2: the three flags PLRSAVE2_CreateSaveFile names
+  (bUseTradeInventory, nUnused, bSizing) carried down the item-save chain: PLRSAVE_WriteItems, both
+  D2GAME_SAVE_SerializeItem spellings, the WRITE_ITEM macro, the corpse and iron-golem sections and their prototypes.
+  a1/v12 247 -> 216 alone; auditguard no count rose; merges cleanly onto #467 and with -sunitmsg, locals-d2game-moo,
+  -tail3. Full build: Game.exe identical, tree d5def2f64d4423b556497099b2f253a7727fb7c8, borrowed code / data
+  4,232 / 261 B.
 - lane9/params-d2game-tail3 ae8026be (on #466): D2Game: bSetFlag2 (MONSTERSPAWN_SpawnWithOwnerData's pass-through to
   AIGENERAL_SetOwnerData), bIncludeDead (PLAYERPETS_GetFirstPetByType's prototype, from its definition), bRecharge
   (D2GAME_ITEMSOCKET_PlaceItem's flag that calls D2GAME_RechargeItem), nUnused for parameters never read (the trade
