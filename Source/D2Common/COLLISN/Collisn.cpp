@@ -148,7 +148,7 @@ static void __fastcall COLLISION_ResetCollisionMaskForBigPattern(D2ActiveRoomStr
 
 static void __fastcall COLLISION_SetCollisionMaskCross(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064DC80
 
-static void __fastcall sub_0064DDB0(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask);
+static void __fastcall sub_0064DDB0_SetCollisionMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask);
 
 static void __fastcall COLLISION_SetCollisionMaskForSquare(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064DDF0
 
@@ -1143,15 +1143,15 @@ void __stdcall COLLISION_ResetMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, in
 // 0x0064DC80
 static void __fastcall COLLISION_SetCollisionMaskCross(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
 {
-    sub_0064DDB0(pRoom, nX - 1, nY, nMask);
-    sub_0064DDB0(pRoom, nX, nY, nMask);
-    sub_0064DDB0(pRoom, nX + 1, nY, nMask);
-    sub_0064DDB0(pRoom, nX, nY - 1, nMask);
-    sub_0064DDB0(pRoom, nX, nY + 1, nMask);
+    sub_0064DDB0_SetCollisionMask(pRoom, nX - 1, nY, nMask);
+    sub_0064DDB0_SetCollisionMask(pRoom, nX, nY, nMask);
+    sub_0064DDB0_SetCollisionMask(pRoom, nX + 1, nY, nMask);
+    sub_0064DDB0_SetCollisionMask(pRoom, nX, nY - 1, nMask);
+    sub_0064DDB0_SetCollisionMask(pRoom, nX, nY + 1, nMask);
 }
 
 // 0x0064DDB0
-static void __fastcall sub_0064DDB0(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
+static void __fastcall sub_0064DDB0_SetCollisionMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
 {
     pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (pRoom)
@@ -1642,7 +1642,7 @@ void __stdcall COLLISION_SetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY
     switch (nUnitSize)
     {
     case 1:
-        sub_0064DDB0(pRoom, nX, nY, nMask);
+        sub_0064DDB0_SetCollisionMask(pRoom, nX, nY, nMask);
         break;
 
     case 2:
@@ -1667,7 +1667,7 @@ void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int
         COLLISION_SetCollisionMaskCross(pRoom, nX, nY, nMask);
         if (nMask)
         {
-            sub_0064DDB0(pRoom, nX, nY, MASK_NO_PATH);
+            sub_0064DDB0_SetCollisionMask(pRoom, nX, nY, MASK_NO_PATH);
         }
         break;
 
@@ -1683,7 +1683,7 @@ void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int
         COLLISION_SetCollisionMaskCross(pRoom, nX, nY, nMask);
         if (nMask)
         {
-            sub_0064DDB0(pRoom, nX, nY, MASK_PET);
+            sub_0064DDB0_SetCollisionMask(pRoom, nX, nY, MASK_PET);
         }
         break;
 

@@ -68,12 +68,10 @@ void __fastcall LOGGING_SetLogValue(int nValue)
     gnLogValue = nValue;
 }
 
-extern int gdwGlobal_0096CA48; // 0x0096CA48
-
 // 0x00624710
-int __cdecl sub_00624710()
+_iobuf* __cdecl sub_00624710_GetLogFile()
 {
-    return gdwGlobal_0096CA48;
+    return gpLogFile;
 }
 
 // 0x00624720

@@ -266,19 +266,6 @@ static inline D2ActiveRoomStrc* DRLGWARP_GetActiveRoomFromRoomEx(D2DrlgRoomStrc*
     return pDrlgRoom->pRoom;
 }
 
-static inline int* sub_0066AEC0(D2DrlgStrc* pDrlg, int nLevelId)
-{
-    for (D2DrlgWarpStrc* pDrlgWarp = pDrlg->pWarp; pDrlgWarp; pDrlgWarp = pDrlgWarp->pNext)
-    {
-        D2_ASSERT(pDrlgWarp->nLevel, 418);
-        if (nLevelId == pDrlgWarp->nLevel)
-        {
-            return pDrlgWarp->nWarp;
-        }
-    }
-    return DATATBLS_GetLevelDefRecord(nLevelId)->dwWarp;
-}
-
 extern D2TileGroupStrc gaTileGroups[];                                                             // 0x006EED88
 
 static inline int TileMatches(int nTileIndex, int nOther)
@@ -585,7 +572,7 @@ static D2DrlgRoomStrc* DRLGWARP_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel)
             unsigned char nCounter = 0;
             do
             {
-                if ((nFlags & pDrlgRoom->dwFlags) && sub_0066AEC0(pLevel->pDrlg, pLevel->eLevelId)[nCounter] != -1)
+                if ((nFlags & pDrlgRoom->dwFlags) && DRLGWARP_GetWarpIdArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId)[nCounter] != -1)
                 {
                     return pDrlgRoom;
                 }

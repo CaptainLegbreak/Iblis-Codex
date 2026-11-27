@@ -226,7 +226,7 @@ D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex); // 0x
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer); // 0x00627260
 
 
-int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x0062B5B0
+int __fastcall ITEMS_GetRequiredLevel(D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x0062B5B0
 
 unsigned int __stdcall ITEMS_GetWeaponClassCode(D2UnitStrc* pItem); // 0x00628500
 
@@ -1302,7 +1302,7 @@ int __stdcall D2COMMON_11079_Return0(int nUnused1, int nUnused2)
 // 0x0062BA60
 int __stdcall ITEMS_GetLevelRequirement(D2UnitStrc* pItem, D2UnitStrc* pUnit)
 {
-    return sub_0062B5B0(pItem, pUnit);
+    return ITEMS_GetRequiredLevel(pItem, pUnit);
 }
 
 // 0x0062BA80
@@ -6391,7 +6391,7 @@ int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int 
         }
     }
 
-    const int nLevelReq = sub_0062B5B0(pItem, pUnit);
+    const int nLevelReq = ITEMS_GetRequiredLevel(pItem, pUnit);
     if (nLevelReq != -1 && STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0) < nLevelReq)
     {
         bLevelReqMet = 0;
@@ -8114,7 +8114,7 @@ inline int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit)
 }
 
 // 0x0062B5B0
-int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
+int __fastcall ITEMS_GetRequiredLevel(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
 {
     D2StatStrc pStat[64];
     const int nQuality = ITEMS_GetItemQuality_Inl(pItem);
@@ -8226,7 +8226,7 @@ int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
             {
                 break;
             }
-            const int nLevel = sub_0062B5B0(pSocketable, pPlayer);
+            const int nLevel = ITEMS_GetRequiredLevel(pSocketable, pPlayer);
             if (nRequiredLevel <= nLevel)
             {
                 nRequiredLevel = nLevel;

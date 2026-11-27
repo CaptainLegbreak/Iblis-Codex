@@ -1349,7 +1349,7 @@ int __stdcall MISSILE_GetElementalLength(D2UnitStrc* pMissile, D2UnitStrc* pOwne
     return pRecord->nElementLength + nBonus;
 }
 
-static int sub_0044BE50(D2UnitStrc* pUnit)
+static int GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit)
 {
     int nType = 6;
     if (pUnit)
@@ -1361,7 +1361,7 @@ static int sub_0044BE50(D2UnitStrc* pUnit)
 
 static unsigned int MISSILE_GetLevelInline(D2UnitStrc* pMissile)
 {
-    D2MissileDataStrc* pMissileData = sub_0044BE50(pMissile) == 3 ? pMissile->pMissileData : 0;
+    D2MissileDataStrc* pMissileData = GAME_GetUnitTypeOrInvalid(pMissile) == 3 ? pMissile->pMissileData : 0;
     if (!pMissileData)
     {
         return 0;
@@ -1561,7 +1561,7 @@ int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc* pMissile, D2UnitStrc* p
     D2MissileCalcStrc pMissileCalc;
     if (pMissile)
     {
-        const int nType = sub_0044BE50(pMissile);
+        const int nType = GAME_GetUnitTypeOrInvalid(pMissile);
         if (nType != 3)
         {
             return 0;

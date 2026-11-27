@@ -157,15 +157,15 @@ static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgR
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
 
-int __stdcall sub_0066FCF0(int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord);
+int __stdcall sub_0066FCF0_CanPlaceSubstGroup(int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord);
 
-void __fastcall sub_006707A0(D2UnkOutdoorStrc2* pOutdoor);
+void __fastcall sub_006707A0_SubstWaypointShrine(D2UnkOutdoorStrc2* pOutdoor);
 
 
 
-static void __stdcall sub_0066FA10(int nX, int nY, D2DrlgSubstGroupStrc* pSubstGroup, D2UnkOutdoorStrc2* pOutdoor, void* pMemPool, D2LvlSubTxt* pLvlSubTxtRecord);
+static void __stdcall sub_0066FA10_AddPresetUnits(int nX, int nY, D2DrlgSubstGroupStrc* pSubstGroup, D2UnkOutdoorStrc2* pOutdoor, void* pMemPool, D2LvlSubTxt* pLvlSubTxtRecord);
 
-void __stdcall sub_0066FAD0(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, int nPick); // 0x0066FAD0
+void __stdcall sub_0066FAD0_PlaceSubstGroup(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, int nPick); // 0x0066FAD0
 
 
 
@@ -174,7 +174,7 @@ static int __stdcall DRLGTILESUB_TestSubstGroupTiles(int nX, int nY, D2UnkOutdoo
 static void __stdcall DRLGTILESUB_DoSubstitutions(D2UnkOutdoorStrc2* pOutdoor, D2LvlSubTxt* pRecord);
 
 
-void __stdcall sub_0066FAD0(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, int nOffset);
+void __stdcall sub_0066FAD0_PlaceSubstGroup(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, int nOffset);
 
 static inline unsigned int SEED_RollRandomNumberHighFirst(D2SeedStrc* pSeed)
 {
@@ -406,7 +406,7 @@ static void __stdcall DRLGTILESUB_ApplySecondaryGroups(D2UnkOutdoorStrc* pOutdoo
 }
 
 // 0x0066FA10
-static void __stdcall sub_0066FA10(int nX, int nY, D2DrlgSubstGroupStrc* pSubstGroup, D2UnkOutdoorStrc2* pOutdoor, void* pMemPool, D2LvlSubTxt* pLvlSubTxtRecord)
+static void __stdcall sub_0066FA10_AddPresetUnits(int nX, int nY, D2DrlgSubstGroupStrc* pSubstGroup, D2UnkOutdoorStrc2* pOutdoor, void* pMemPool, D2LvlSubTxt* pLvlSubTxtRecord)
 {
     int nSubX = nX;
     int nSubY = nY;
@@ -439,7 +439,7 @@ static int __stdcall DRLGTILESUB_GetTileTypeEntry(D2LvlSubTxt* pLvlSubTxtRecord,
 }
 
 // 0x0066FAD0
-void __stdcall sub_0066FAD0(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, int nOffset)
+void __stdcall sub_0066FAD0_PlaceSubstGroup(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, int nOffset)
 {
     const int nBaseX = pSubstGroup->tBox.nPosX + nOffset;
     const int nWallLayers = pLvlSubTxtRecord->pDrlgFile->nWallLayers;
@@ -502,11 +502,11 @@ void __stdcall sub_0066FAD0(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* p
         }
     }
 
-    sub_0066FA10(nX, nY, pSubstGroup, pOutdoor, pMemPool, pLvlSubTxtRecord);
+    sub_0066FA10_AddPresetUnits(nX, nY, pSubstGroup, pOutdoor, pMemPool, pLvlSubTxtRecord);
 }
 
 // 0x0066FCF0
-int __stdcall sub_0066FCF0(int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord)
+int __stdcall sub_0066FCF0_CanPlaceSubstGroup(int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord)
 {
     const int nLayers = pOutdoor->nLayers;
 
@@ -595,7 +595,7 @@ static inline int SEED_RollLimitedRandomNumberU(D2SeedStrc* pSeed, unsigned int 
 }
 
 // 0x0066FF50
-void __stdcall sub_0066FF50(D2UnkOutdoorStrc2* pOutdoor, D2LvlSubTxt* pLvlSubTxtRecord)
+void __stdcall sub_0066FF50_SubstituteAll(D2UnkOutdoorStrc2* pOutdoor, D2LvlSubTxt* pLvlSubTxtRecord)
 {
     D2DrlgRoomStrc* pDrlgRoom = pOutdoor->pDrlgRoom;
     void* pMemPool = pDrlgRoom->ptDrlgLevel->pDrlg->pMempool;
@@ -615,9 +615,9 @@ void __stdcall sub_0066FF50(D2UnkOutdoorStrc2* pOutdoor, D2LvlSubTxt* pLvlSubTxt
                 {
                     for (int nX = 1; nX < nWidth; ++nX)
                     {
-                        if (sub_0066FCF0(nX, nY, pOutdoor, pSubstGroup, pLvlSubTxtRecord))
+                        if (sub_0066FCF0_CanPlaceSubstGroup(nX, nY, pOutdoor, pSubstGroup, pLvlSubTxtRecord))
                         {
-                            sub_0066FAD0(pMemPool, nX, nY, pOutdoor, pSubstGroup, pLvlSubTxtRecord, 0);
+                            sub_0066FAD0_PlaceSubstGroup(pMemPool, nX, nY, pOutdoor, pSubstGroup, pLvlSubTxtRecord, 0);
                         }
                     }
                 }
@@ -634,7 +634,7 @@ void __stdcall sub_0066FF50(D2UnkOutdoorStrc2* pOutdoor, D2LvlSubTxt* pLvlSubTxt
                             if (pLvlSubTxtRecord->nProb[pOutdoor->nSubTheme] < nRoll)
                             {
                                 const int nPick = SEED_RollLimitedRandomNumberU(&pDrlgRoom->pSeed, pSubstGroup->nSubstGroup);
-                                sub_0066FAD0(pMemPool, nX, nY, pOutdoor, pSubstGroup, pLvlSubTxtRecord, (pSubstGroup->tBox.nWidth + 1) * (nPick + 1));
+                                sub_0066FAD0_PlaceSubstGroup(pMemPool, nX, nY, pOutdoor, pSubstGroup, pLvlSubTxtRecord, (pSubstGroup->tBox.nWidth + 1) * (nPick + 1));
                             }
                         }
                     }
@@ -684,9 +684,9 @@ static void __stdcall DRLGTILESUB_DoSubstitutions(D2UnkOutdoorStrc2* pOutdoor, D
                 {
                     int nX = tCoords[i].nX + 1;
                     int nY = tCoords[i].nY + 1;
-                    if (sub_0066FCF0(nX,nY,pOutdoor,pGroup,pRecord))
+                    if (sub_0066FCF0_CanPlaceSubstGroup(nX,nY,pOutdoor,pGroup,pRecord))
                     {
-                        sub_0066FAD0(pMemPool,nX,nY,pOutdoor,pGroup,pRecord,0);
+                        sub_0066FAD0_PlaceSubstGroup(pMemPool,nX,nY,pOutdoor,pGroup,pRecord,0);
                         break;
                     }
                 }
@@ -697,9 +697,9 @@ static void __stdcall DRLGTILESUB_DoSubstitutions(D2UnkOutdoorStrc2* pOutdoor, D
                 {
                     int nX = SEED_RollLimitedRandomNumberU(&pRoom->pSeed,nWidth-1)+1;
                     int nY = SEED_RollLimitedRandomNumberU(&pRoom->pSeed,nHeight-1)+1;
-                    if (sub_0066FCF0(nX,nY,pOutdoor,pGroup,pRecord))
+                    if (sub_0066FCF0_CanPlaceSubstGroup(nX,nY,pOutdoor,pGroup,pRecord))
                     {
-                        sub_0066FAD0(pMemPool,nX,nY,pOutdoor,pGroup,pRecord,0);
+                        sub_0066FAD0_PlaceSubstGroup(pMemPool,nX,nY,pOutdoor,pGroup,pRecord,0);
                         break;
                     }
                 }
@@ -813,7 +813,7 @@ void __fastcall DRLGTILESUB_ApplySubstitutionBorder(D2UnkOutdoorStrc* pOutdoor)
 }
 
 // 0x006707A0
-void __fastcall sub_006707A0(D2UnkOutdoorStrc2* pOutdoor)
+void __fastcall sub_006707A0_SubstWaypointShrine(D2UnkOutdoorStrc2* pOutdoor)
 {
     if (pOutdoor->nSubWaypoint_Shrine != -1)
     {
@@ -828,7 +828,7 @@ void __fastcall sub_006707A0(D2UnkOutdoorStrc2* pOutdoor)
 
                 if (pLvlSubTxtRecord->dwCheckAll)
                 {
-                    sub_0066FF50(pOutdoor, pLvlSubTxtRecord);
+                    sub_0066FF50_SubstituteAll(pOutdoor, pLvlSubTxtRecord);
                 }
                 else
                 {
