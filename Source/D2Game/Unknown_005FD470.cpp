@@ -41,7 +41,7 @@ static inline int UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 }
 
 // 0x005FD470
-int __fastcall sub_005FD470(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, D2UnitStrc* pTarget, int nX, int nY)
+int __fastcall MONSTERSPAWN_CheckSkillPlacement(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, D2UnitStrc* pTarget, int nX, int nY)
 {
     D2SkillsTxt* pSkillsTxt = GetSkillsRecord(nSkillId);
     if (!pSkillsTxt) return 0;

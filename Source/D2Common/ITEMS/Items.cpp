@@ -506,7 +506,7 @@ struct D2SkillsTxt;
 unsigned short __stdcall ITEMS_GetAutoAffix(D2UnitStrc*); // 0x00627F20
 
 
-int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc*, unsigned int); // 0x00463720
+int __fastcall ITEMS_CheckUnitFlagEx(D2UnitStrc*, unsigned int); // 0x00463720
 
 int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
 

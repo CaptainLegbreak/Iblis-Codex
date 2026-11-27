@@ -2348,7 +2348,7 @@ int __fastcall SKILLS_SrvDo001_Attack_LeftHandSwing(D2GameStrc* pGame, D2UnitStr
     D2DamageStrc damage = {};
     damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, STATLIST_UnitGetStatValue(pUnit, STAT_PROGRESSIVE_TOHIT, 0), 0);
     damage.dwHitFlags |= 2;
-    sub_005D3AC0(pUnit, &damage);
+    SKILLS_ApplyProgressivePhysicalDamageBonus(pUnit, &damage);
     SUNITDMG_FillDamageValues(pGame, pUnit, pTarget, &damage, 0, 128);
     SKILLS_ApplyProgressiveLeechAndElementalDamage(pUnit, &damage);
     SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, 128);

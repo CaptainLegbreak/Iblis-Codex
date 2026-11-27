@@ -52,7 +52,7 @@ D2MagicAffixTxt* __stdcall DATATBLS_GetMagicAffixTxtRecord(int nAffix); // 0x006
 int __stdcall DATATBLS_GetMaxLevel(int nClass); // 0x00611830
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex); // 0x00483470
-int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwFlag); // 0x00463720
+int __fastcall ITEMS_CheckUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwFlag); // 0x00463720
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem); // 0x0062A670
 D2SetItemsTxt* __fastcall DATATBLS_GetSetItemsTxtRecord(int nIndex); // 0x00483440
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
@@ -217,7 +217,7 @@ int __fastcall ITEMS_GetRequiredLevel(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
             D2UniqueItemsTxt* pUniqueItemsTxtRecord = DATATBLS_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
             if (pUniqueItemsTxtRecord)
             {
-                if (!pPlayer || sub_00463720_TestUnitFlagEx(pPlayer, UNITFLAGEX_ISEXPANSION) || ITEMS_GetItemFormat(pItem) >= 1)
+                if (!pPlayer || ITEMS_CheckUnitFlagEx(pPlayer, UNITFLAGEX_ISEXPANSION) || ITEMS_GetItemFormat(pItem) >= 1)
                 {
                     const int nLevelReq = pUniqueItemsTxtRecord->wLvlReq;
                     if (nLevelReq >= 0)

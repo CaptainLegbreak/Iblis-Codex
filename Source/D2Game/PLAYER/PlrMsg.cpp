@@ -2794,7 +2794,7 @@ int __fastcall sRemoveItemGrid(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPack
     }
 
     const int nItemGUID = *(int*)((char*)pPacket + 1);
-    int a6;
+    int nItemStatus;
     const int nResult = ((D2GameItemChecks*)pGame)->PLRMSG_CheckStoredItem(pUnit, nItemGUID);
     if (nResult)
     {
@@ -2820,8 +2820,8 @@ int __fastcall sRemoveItemGrid(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPack
 
     if (PLAYER_CanModifyInventory(pGame, pUnit, pItem))
     {
-        a6 = 0;
-        if (!ITEMMODE_RemoveStoredItem(pGame, pUnit, nItemGUID, &a6, 1, 0, 0, 0) && a6)
+        nItemStatus = 0;
+        if (!ITEMMODE_RemoveStoredItem(pGame, pUnit, nItemGUID, &nItemStatus, 1, 0, 0, 0) && nItemStatus)
         {
             return 3;
         }
@@ -2851,8 +2851,8 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x1A_EquipItem(D2GameStrc* pGame, D2Unit
         return 2;
     }
 
-    int a6 = 0;
-    if (ITEMMODE_EquipCursorItem(pGame, pUnit, nItemGUID, nBodyLoc, 0, &a6) || !a6)
+    int nItemStatus = 0;
+    if (ITEMMODE_EquipCursorItem(pGame, pUnit, nItemGUID, nBodyLoc, 0, &nItemStatus) || !nItemStatus)
     {
         return 0;
     }
@@ -2884,8 +2884,8 @@ int __fastcall sInsertItemBodyRmvOpp(D2GameStrc* pGame, D2UnitStrc* pUnit, void*
         return 2;
     }
 
-    int a6 = 0;
-    if (ITEMMODE_ReplaceOppositeHandItem(pGame, pUnit, nItemGUID, nBodyLoc, 0, &a6) || !a6)
+    int nItemStatus = 0;
+    if (ITEMMODE_ReplaceOppositeHandItem(pGame, pUnit, nItemGUID, nBodyLoc, 0, &nItemStatus) || !nItemStatus)
     {
         return 0;
     }
@@ -2910,8 +2910,8 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x1C_RemoveBodyItem(D2GameStrc* pGame, D
     D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pUnit->pInventory, nBodyLoc);
     if (PLAYER_CanModifyInventory(pGame, pUnit, pItem) && (nBodyLoc != BODYLOC_BELT || PLRTRADE_IsTradeInventoryEmpty(pGame, pUnit)))
     {
-        int a5 = 0;
-        if (!ITEMMODE_UnequipBodyItem(pGame, pUnit, nBodyLoc, 0, &a5) && a5)
+        int nItemStatus = 0;
+        if (!ITEMMODE_UnequipBodyItem(pGame, pUnit, nBodyLoc, 0, &nItemStatus) && nItemStatus)
         {
             return 3;
         }
@@ -2956,8 +2956,8 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x1D_SwapCursorItemWithBody(D2GameStrc* 
         return 0;
     }
 
-    int a5 = 0;
-    if (ITEMMODE_SwapCursorAndBodyItem(pGame, pUnit, nItemGUID, nBodyLoc, 0, &a5) || !a5)
+    int nFailed = 0;
+    if (ITEMMODE_SwapCursorAndBodyItem(pGame, pUnit, nItemGUID, nBodyLoc, 0, &nFailed) || !nFailed)
     {
         return 0;
     }
@@ -3094,8 +3094,8 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x20_UseGridItem(D2GameStrc* pGame, D2Un
         return nResult;
     }
 
-    int a5 = 0;
-    if (ITEMMODE_UseStoredItemAtCoordinates(pGame, pUnit, nItemGUID, nX, nY, &a5) || !a5)
+    int nStatus = 0;
+    if (ITEMMODE_UseStoredItemAtCoordinates(pGame, pUnit, nItemGUID, nX, nY, &nStatus) || !nStatus)
     {
         return 0;
     }
@@ -3213,8 +3213,8 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x23_ItemToBelt(D2GameStrc* pGame, D2Uni
         return nResult;
     }
 
-    int a6 = 0;
-    if (ITEMMODE_PlaceCursorItemInBelt(pGame, pUnit, nItemGUID, nBeltSlot, 0, &a6) || !a6)
+    int nItemStatus = 0;
+    if (ITEMMODE_PlaceCursorItemInBelt(pGame, pUnit, nItemGUID, nBeltSlot, 0, &nItemStatus) || !nItemStatus)
     {
         return 0;
     }
@@ -3247,8 +3247,8 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x24_ItemFromBelt(D2GameStrc* pGame, D2U
         return 2;
     }
 
-    int a5 = 0;
-    if (ITEMMODE_RemoveBeltItemToCursor(pGame, pUnit, nItemGUID, &a5) || !a5)
+    int nItemStatus = 0;
+    if (ITEMMODE_RemoveBeltItemToCursor(pGame, pUnit, nItemGUID, &nItemStatus) || !nItemStatus)
     {
         return 0;
     }
@@ -3278,8 +3278,8 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x25_SwitchBeltItem(D2GameStrc* pGame, D
         return nResult;
     }
 
-    int a5 = 0;
-    if (ITEMMODE_SwapCursorAndBeltItem(pGame, pUnit, nCursorItemGUID, nBeltItemGUID, &a5) || !a5)
+    int nItemStatus = 0;
+    if (ITEMMODE_SwapCursorAndBeltItem(pGame, pUnit, nCursorItemGUID, nBeltItemGUID, &nItemStatus) || !nItemStatus)
     {
         return 0;
     }
@@ -4366,8 +4366,8 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x59_MakeEntityMove(D2GameStrc* pGame, D
 
     const unsigned int nUnitType = *(unsigned int*)((char*)pPacket + 1);
     const int nUnitGUID = *(int*)((char*)pPacket + 5);
-    const int v8 = *(int*)((char*)pPacket + 9);
-    const int a3 = *(int*)((char*)pPacket + 13);
+    const int nParam2Value = *(int*)((char*)pPacket + 9);
+    const int nParam3Value = *(int*)((char*)pPacket + 13);
     if (nUnitType >= 6)
     {
         return 2;
@@ -4387,8 +4387,8 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x59_MakeEntityMove(D2GameStrc* pGame, D
             D2GAME_EVENTS_Delete(pGame, pNpc, EVENTTYPE_AITHINK, 0);
             EVENT_SetEvent(pGame, pNpc, EVENTTYPE_AITHINK, pGame->dwGameFrame + 1, 0, 0);
             AIGENERAL_SetAiControlParam(pNpc, 1, 40);
-            AIGENERAL_SetAiControlParam(pNpc, 2, v8);
-            AIGENERAL_SetAiControlParam(pNpc, 3, a3);
+            AIGENERAL_SetAiControlParam(pNpc, 2, nParam2Value);
+            AIGENERAL_SetAiControlParam(pNpc, 3, nParam3Value);
             return 0;
         }
     }
@@ -4564,8 +4564,8 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x60_SwapWeapons(D2GameStrc* pGame, D2Un
         return 0;
     }
 
-    int a3 = 0;
-    if (ITEMMODE_SwapWeaponSets(pGame, pUnit, &a3) || !a3)
+    int nStatus = 0;
+    if (ITEMMODE_SwapWeaponSets(pGame, pUnit, &nStatus) || !nStatus)
     {
         return 0;
     }

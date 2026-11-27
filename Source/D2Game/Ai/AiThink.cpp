@@ -164,7 +164,7 @@ int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2
 }
 
 // 0x005B0CC0
-void __stdcall sub_005B0CC0(int nUnused1)
+void __stdcall AITHINK_Fn000(int nUnused1)
 {
 }
 
@@ -381,7 +381,9 @@ int __fastcall D2GAME_AICORE_MinionLeash(D2GameStrc* pGame, D2UnitStrc* pMonster
 {
     int nOwnerGUID = 0;
     D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
-    // volatile below only makes pAiControl live in memory (the original spills it, keeping pGame in a register)
+    // volatile below only makes pAiControl live in memory (the original spills it, keeping pGame in a register).
+    // Reading (c2force, plain form 198/237): pAiControl takes edi in round 1 (priority 43, pGame 22); below pGame
+    // (--prio 1:pAiControl:-22) it is 232/237, with the held -1 constant left (the game compares with an immediate).
     nOwnerGUID = *(volatile int*)&pAiControl->dwOwnerGUID;
     if (nOwnerGUID == -1)
         return 0;

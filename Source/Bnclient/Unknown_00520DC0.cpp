@@ -76,6 +76,8 @@ static inline D2IdeaUInt16 IdeaMul(D2IdeaUInt16 a, D2IdeaUInt16 b)
     return 1 - b;
 }
 
+void __fastcall sub_00524780_SetKey(int nIndex, int bEncrypt, const D2IdeaUserKeyStrc* pUserKey); // 0x00524780
+
 // 0x00521B50
 void __cdecl sub_00521B50_ReseedLogin()
 {
@@ -306,6 +308,13 @@ void __fastcall sub_00524540_Cipher(const D2IdeaWord16* pIn, D2IdeaWord16* pOut,
 void __cdecl sub_00524740_ClearKeySchedules()
 {
     memset(gaIdeaKeySchedules, 0, sizeof(D2IdeaKeyScheduleStrc) * 3);
+}
+
+
+// 0x00524760
+void __fastcall sub_00524760_CipherBlock(int nIndex, const unsigned short* pIn, unsigned short* pOut)
+{
+    sub_00524540_Cipher(pIn, pOut, gaIdeaKeySchedules[nIndex].aKey);
 }
 
 static inline unsigned int sub_GetTerminatedLength(const unsigned char* pString, unsigned int nSize)
