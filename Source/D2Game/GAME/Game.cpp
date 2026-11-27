@@ -173,7 +173,6 @@ D2GameStrc* gpGame; // 0x00882D34
 int gnGamesGUIDs[1024];                                                                            // 0x00882D38
 
 
-int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc*); // 0x0063D630
 
 
 typedef int (__stdcall* FARPROC)();
@@ -739,7 +738,6 @@ int __stdcall CLIENT_ObjectCall_6BED90(int,int,int); // 0x0052B490
 
 int __stdcall sub_0052B330(unsigned char,int,void*,int);  // 0x0052B330
 
-void __stdcall D2NET_10016(int);  // 0x0052B570
 
 extern "C" int __cdecl strncmp(const char*,const char*,unsigned int);
 

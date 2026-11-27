@@ -200,7 +200,6 @@ void __fastcall D2GAME_BOSSES_AssignUMod(D2GameStrc*,D2UnitStrc*,int,int); // 0x
 
 void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(D2MonsterRegionStrc**,int,int,int,int,int,D2UnitStrc*); // 0x00547ED0
 
-void __fastcall DRLGPRESET_FreeMapAI(void*,D2MapAIStrc*); // 0x00666130
 
 
 void __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690

@@ -246,7 +246,6 @@ int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange
 
 void __fastcall SKILLS_ClearMonsterMinionOwnership(D2UnitStrc* pUnit); // 0x0056E580
 
-void __fastcall D2GAME_EVENTS_Delete(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 
 int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int bSkipCollisionSearch, int bSyncOtherPlayersOnly); // 0x00554EA0
 

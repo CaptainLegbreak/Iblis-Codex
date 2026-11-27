@@ -1346,7 +1346,6 @@ char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient)
     return pClient->szName;
 }
 
-D2GameStrc* __fastcall GAME_GetGameByClientId(int nId); // 0x0052FEE0
 void __fastcall D2GAME_PACKETS_SendPacket0x8F(D2ClientStrc* pClient,int tick); // 0x0053E020
 
 // 0x005389A0
@@ -2085,7 +2084,6 @@ int __stdcall CLIENT_ObjectCall_6BED90(int,int,int); // 0x0052B490
 
 int __stdcall SERVER_SendPacketToClient(unsigned char,int,void*,int);  // 0x0052B330
 
-void __stdcall D2NET_10016(int);  // 0x0052B570
 
 extern "C" int __cdecl strncmp(const char*,const char*,unsigned int);
 

@@ -138,7 +138,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x0068
 
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 
-void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0
 
 
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190

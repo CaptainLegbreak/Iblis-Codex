@@ -745,7 +745,6 @@ int __fastcall PLRSAVE_ReadLegacyStats(D2GameStrc*, D2UnitStrc*, unsigned char*,
 
 int __fastcall PLRSAVE_ReadLegacySkills(D2GameStrc*, D2ClientStrc*, D2UnitStrc*, unsigned char*, int, int, int*); // 0x00532E90
 
-int __stdcall UNITS_GetStashGoldLimit(D2UnitStrc*); // 0x00623460
 
 void __fastcall sub_00568DB0_Return0(D2GameStrc*, D2UnitStrc*); // 0x00568DB0
 

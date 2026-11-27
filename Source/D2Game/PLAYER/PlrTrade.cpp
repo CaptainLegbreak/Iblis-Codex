@@ -262,11 +262,9 @@ void __fastcall ACT2Q2_UpdateHoradricItemCounts(D2GameStrc*,D2UnitStrc*); // 0x0
 void __fastcall ACT3Q2_UpdateKhalimItemCounts(D2GameStrc*,D2UnitStrc*); // 0x005B86E0
 
 
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc*,int,int,unsigned short); // 0x00627260
 
 void __stdcall ITEMS_SetItemQuality(D2UnitStrc*,int); // 0x00627EA0
 
-void __stdcall ITEMS_AssignRarePrefix(D2UnitStrc*,unsigned short); // 0x00628010
 
 void __stdcall ITEMS_AssignRareSuffix(D2UnitStrc*,unsigned short); // 0x00628070
 
