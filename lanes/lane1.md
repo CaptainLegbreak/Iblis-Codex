@@ -4,6 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- **lane1/itemsworld-fields** (58a0357d8, on main #488 e92a08ebf; VERIFIED tree 77ac241d546dfcfe066b901b0c60f14b84239ef0; merges clean on #489). D2ItemsWorld.h: 11 `unk0x..` -> 0. D2MonRegDataStrc 0x04 is D2MOO's nComponentVariants[3][16] (MONSTER_SetComponents picks one set; its reader in Monster.cpp renamed, the existing cast unchanged). The rest no code names: `pad0x<off>` (9), `unused0x10` (item drop record). Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 21,832 -> 21,832 (main #488), every module unchanged.
+
 - **lane1/wintypes-fields** (452eff86b, on main #488 e92a08ebf; VERIFIED tree af226b4642a922ab00ec5f6895b5e9c78d2058e0; merges clean on #489). D2WinTypes.h: 11 `unk0x..` -> 0, none named by any code (every including unit compiles equal with them renamed): `unused0x<off>` (7: the font table header's two words, the unread bytes of each character entry), `pad0x<off>` (4). Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 21,832 -> 21,832 (main #488), every module unchanged.
 
 - **lane1/clientui-fields** (0af5c26ad, on main #488 e92a08ebf; VERIFIED tree 36cc1827dc3ef626d1a6caf7d3a705d64f3599ee; independent). D2ClientUi.h: 12 `unk0x..` -> 0, none named by any code (its 37 units compile equal with them renamed): `unused0x<off>` (9) and `pad0x<off>` (3). Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 21,832 -> 21,832 (main #488), every module unchanged.
@@ -17,6 +19,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Fri Nov 27 15:29 PST 2026: itemsworld-fields Ready. cominterface-names building (base #489), then gamerecords-fields (D2GameRecords.h, 10; claimed: that header and sunitproxy.cpp's one field spelling; D2NpcRecordStrc 0x26 is D2MOO's bForceVendor, written there).
 - Fri Nov 27 15:14 PST 2026: check-in. #489 took leveltxt, txtitems, drlg and gametypes (Ready lines dropped). wintypes-fields Ready. Building: itemsworld-fields; cominterface-names (first step of the BnClient interface: every D2ComInterfaceStrc slot takes D2MOO's name, its 12 `unk0x..` become typed slots; callers in D2Launch, D2Client Game.cpp, Main.cpp renamed) compiling its units.
 - Fri Nov 27 14:56 PST 2026: clientui-fields Ready. wintypes-fields building, then itemsworld-fields (D2ItemsWorld.h, 11; claimed). Next after those: **one definition for the BnClient interface**: D2MultiTypes.h's D2LaunchFuncsStrc, D2ComInterface.h's D2ComInterfaceStrc and D2ClientUi.h's D2ClientNotifyStrc are the same table (D2MOO's BnClientInterface; same slots at 0x14, 0x24, 0x34, 0x90 ...). Plan: D2ComInterfaceStrc keeps it, every slot gets D2MOO's name (our typed signatures kept), the other two become uses of it. Claimed for that: those three headers and their users (D2Launch, D2Multi, D2Client, Main/Main.cpp, Storm's shutdown call).
 - Fri Nov 27 14:49 PST 2026: gameclient-fields Ready. Building: clientui-fields (D2ClientUi.h, 12), then wintypes-fields (D2WinTypes.h, 11); claimed: those two headers. Both already compile equal in every including unit with all fields renamed.
