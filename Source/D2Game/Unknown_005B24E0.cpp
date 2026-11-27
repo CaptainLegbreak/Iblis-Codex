@@ -218,6 +218,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                             
 void __fastcall QUESTS_WarrivSpawn(D2GameStrc* pGame, void* pRoom, int nXpos, int nYpos, int nWarrivId);    // 0x005447A0
 
 
+// The Ancients' equipment: MONSTERSPAWN_EquipAncientBarbarians reads four entries from index (class id - 540).
 extern const D2MonsterEquipmentStrc gtAncientEquipment[12]; // 0x006E2C90
 
 

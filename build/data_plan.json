@@ -2783,7 +2783,7 @@
    "state": "included"
   },
   "Source/D2Game/GAME/Targets.cpp": {
-   "bytes": 120,
+   "bytes": 20,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
@@ -3523,8 +3523,8 @@
    "state": "included"
   },
   "Source/D2Game/Unknown_005B24E0.cpp": {
-   "bytes": 216,
-   "definitions": 4,
+   "bytes": 312,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005B24E0.inc",
@@ -98541,10 +98541,10 @@
    "declared": true,
    "decorated": "_gszTargetsSourceFile",
    "file": "Source/D2Game/GAME/Targets.cpp",
-   "fill": 120,
+   "fill": 20,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_006E2C78[120]; // 0x006E2C78",
-   "head": "extern \"C\" const char gData_006E2C78[120] = ",
+   "fwd": "extern \"C\" const char gData_006E2C78[20]; // 0x006E2C78",
+   "head": "extern \"C\" const char gData_006E2C78[20] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -98553,13 +98553,13 @@
      "size": 1
     },
     "k": "arr",
-    "n": 120,
-    "size": 120
+    "n": 20,
+    "size": 20
    },
    "name": "gszTargetsSourceFile",
    "pointers": [],
    "region": "rdata",
-   "size": 120,
+   "size": 20,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x006E2C78\n#pragma comment(linker, \"/alternatename:_gszTargetsSourceFile=_gData_006E2C78\")",
@@ -98730,6 +98730,88 @@
    "tail": "; // 0x0073D580",
    "type": "char",
    "va": "0x0073D580"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/Unknown_005B24E0.cpp",
+   "fill": 12,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const D2MonsterEquipmentStrc gtAncientEquipment[12] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "nItemCode",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nBodyLoc",
+       4,
+       {
+        "k": "prim",
+        "kind": "u",
+        "name": "unsigned char",
+        "size": 1
+       }
+      ],
+      [
+       "unk0x05",
+       5,
+       {
+        "k": "prim",
+        "kind": "u",
+        "name": "unsigned char",
+        "size": 1
+       }
+      ],
+      [
+       "unk0x06",
+       6,
+       {
+        "k": "prim",
+        "kind": "u",
+        "name": "unsigned char",
+        "size": 1
+       }
+      ],
+      [
+       "unk0x07",
+       7,
+       {
+        "k": "prim",
+        "kind": "u",
+        "name": "unsigned char",
+        "size": 1
+       }
+      ]
+     ],
+     "name": "D2MonsterEquipmentStrc",
+     "size": 8
+    },
+    "k": "arr",
+    "n": 12,
+    "size": 96
+   },
+   "name": "gtAncientEquipment",
+   "pointers": [],
+   "region": "rdata",
+   "size": 96,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E2C90",
+   "type": "D2MonsterEquipmentStrc",
+   "va": "0x006E2C90"
   },
   {
    "alias": false,
