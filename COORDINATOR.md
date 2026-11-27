@@ -473,6 +473,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #474 (j227): lane 13 short-tables-1 (CharSel rows [8], monster moving-anim records [16], path snap offsets [9][9]; shortdata 342 -> 341). VERIFIED 7fbb03eea. Lane 13: clear your Ready line. The ordinary build of #474 goes to the user for the Shift test.
 - #473 (j226): lane 10 step1-freeze (link-debt + D2Net, lane 8 views stack, lane 1 names-fields-4, lane 3 storm-arrays-tpl + flag-trim, lane 7 quests-cpp-decls, lane 9 names-renderers-verbs + params-d2game-tail) and short-data; status.py builds the unmatched table from functions.json. VERIFIED 9fa66695f, a1/v12 143 -> 92.
 - #439 j193: names-sub-d2client-hi (lane 1; its SoundInst.cpp conflict with #436 resolved by the coordinator: the joined file keeps lane 1's names), sound-gs (lane 6).
 - #440 (j194): lane 8 forcing-621f90 (UNITS_AllocPlayerData plain stores; volatile 74 -> 73), lane 3 join-sbig, lane 6 join-charsel + join-charsel-3. Held: lane 4 join-editbox / join-soundinst (SoundInst.cpp conflicts with #439: rebase onto #441), lane 9 glide-spans (glCore.cpp conflict: rebase onto #441).
