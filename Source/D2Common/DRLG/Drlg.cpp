@@ -63,10 +63,6 @@ D2DrlgLevelStrc* __fastcall DRLG_AllocLevel(D2DrlgStrc* pDrlg, int nLevelId);   
 
 #define DRLGROOMFLAG_0x40000 0x40000
 
-struct Level;
-
-struct Room;
-
 struct D2DrlgOutdoorInfoStrc;
 
 struct D2DrlgActStrc;
@@ -74,12 +70,6 @@ struct D2DrlgActStrc;
 struct D2DrlgCoordStrc;
 
 struct D2DrlgStrc;
-
-struct Node;
-
-struct DrlgAuxNode;
-
-struct Dungeon;
 
 struct D2DrlgWarpStrc;
 
@@ -100,73 +90,21 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDst, const char* 
 
 int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordStrc* pCoord, int nX, int nY); // 0x0066B980
 
-struct Room
-{
-    char pad_0[36];
-    Room* next;
-    char pad_28[56];
-    unsigned flags;
-};
-
-struct Node
-{
-    char pad_0[12];
-    Node* next;
-};
-
-struct DrlgAuxNode
-{
-    char pad_0[68];
-    DrlgAuxNode* next;
-};
-
-struct Level
-{
-    int kind;
-    char pad_4[4];
-    int nSavedFlagCount;
-    int activeCount;
-    Room* rooms;
-    char pad_14[24];
-    char regionA[384];
-    Level* next;
-    void* mapData;
-    char pad_1B4[8];
-    void* allocation;
-    char pad_1C0[12];
-    Node* nodes;
-    char pad_1D0[4];
-    int inactiveTicks;
-    int state;
-    char pad_1DC[4];
-    char regionB[76];
-    unsigned* savedFlags;
-};
-
-struct Dungeon
-{
-    char pad_0[144];
-    DrlgAuxNode* aux;
-    char pad_94[996];
-    void* pool;
-    Level* levels;
-};
-
 extern "C" void* __fastcall sub_0040B430_Allocate(void*, unsigned, const char*, int, int); // 0x0040B430
 
 extern "C" int __fastcall sub_0040B480_Free(void*, void*, const char*, int, int); // 0x0040B480
 
-extern "C" void __fastcall DRLGROOM_FreeRoomEx(Room*); // 0x0066C100
+extern "C" void __fastcall DRLGROOM_FreeRoomEx(D2DrlgRoomStrc*); // 0x0066C100
 
-extern "C" void __fastcall DRLGPRESET_FreeDrlgMap(void*, void*); // 0x006683D0
+extern "C" void __fastcall DRLGPRESET_FreeDrlgMap(void*, D2DrlgMapStrc*); // 0x006683D0
 
-extern "C" void __fastcall DRLGOUTDOORS_FreeOutdoorInfo(Level*, int); // 0x006754C0
+extern "C" void __fastcall DRLGOUTDOORS_FreeOutdoorInfo(D2DrlgLevelStrc*, int); // 0x006754C0
 
-extern "C" void __fastcall DRLGPRESET_ResetDrlgMap(Level*, int); // 0x006674D0
+extern "C" void __fastcall DRLGPRESET_ResetDrlgMap(D2DrlgLevelStrc*, int); // 0x006674D0
 
-extern "C" void __fastcall DRLGMAZE_ResetMazeRecord(Level*, int); // 0x00673FE0
+extern "C" void __fastcall DRLGMAZE_ResetMazeRecord(D2DrlgLevelStrc*, int); // 0x00673FE0
 
-extern "C" int __stdcall DRLG_FreeInactiveVisRoomTiles(Level*); // 0x00643060
+extern "C" int __stdcall DRLG_FreeInactiveVisRoomTiles(D2DrlgLevelStrc*); // 0x00643060
 
 typedef unsigned int size_t;
 
@@ -787,98 +725,98 @@ void __fastcall DRLG_LoadTownTiles(D2DrlgStrc* pDrlg)
 }
 
 // 0x00642010
-static void __stdcall DRLG_FreeLevel(void* pool, int keep, Level* level)
+static void __stdcall DRLG_FreeLevel(void* pMemPool, int bAlloc, D2DrlgLevelStrc* pLevel)
 {
-    if (keep)
+    if (bAlloc)
     {
-        if (!level->savedFlags)
+        if (!pLevel->pPresetMaps)
         {
-            if (level->nSavedFlagCount)
-                level->savedFlags = (unsigned*)sub_0040B430_Allocate(pool, 4 * level->nSavedFlagCount, ".\\DRLG\\Drlg.cpp", 124, 0);
+            if (pLevel->nRooms)
+                pLevel->pPresetMaps = (int*)sub_0040B430_Allocate(pMemPool, 4 * pLevel->nRooms, ".\\DRLG\\Drlg.cpp", 124, 0);
             else
-                level->nSavedFlagCount = 0;
-            memset(level->savedFlags, 0, 4 * level->nSavedFlagCount);
+                pLevel->nRooms = 0;
+            memset(pLevel->pPresetMaps, 0, 4 * pLevel->nRooms);
         }
     }
-    else if (level->savedFlags)
+    else if (pLevel->pPresetMaps)
     {
-        sub_0040B480_Free(pool, level->savedFlags, ".\\DRLG\\Drlg.cpp", 132, 0);
-        level->savedFlags = 0;
+        sub_0040B480_Free(pMemPool, pLevel->pPresetMaps, ".\\DRLG\\Drlg.cpp", 132, 0);
+        pLevel->pPresetMaps = 0;
     }
-    Room* room = level->rooms;
-    if (room)
+    D2DrlgRoomStrc* pNextRoomEx = pLevel->ptRoomFirst;
+    if (pNextRoomEx)
     {
-        int index = 0;
+        int nCounter = 0;
         do
         {
-            Room* current = room;
-            room = room->next;
-            if (level->savedFlags)
-                level->savedFlags[index++] = current->flags & 1;
-            DRLGROOM_FreeRoomEx(current);
-        } while (room);
-        level->rooms = 0;
-        level->nSavedFlagCount = 0;
+            D2DrlgRoomStrc* pDrlgRoom = pNextRoomEx;
+            pNextRoomEx = pNextRoomEx->pDrlgRoomNext;
+            if (pLevel->pPresetMaps)
+                pLevel->pPresetMaps[nCounter++] = pDrlgRoom->dwOtherFlags & 1;
+            DRLGROOM_FreeRoomEx(pDrlgRoom);
+        } while (pNextRoomEx);
+        pLevel->ptRoomFirst = 0;
+        pLevel->nRooms = 0;
     }
-    if (level->mapData)
+    if (pLevel->pCurrentMap)
     {
-        DRLGPRESET_FreeDrlgMap(pool, level->mapData);
-        level->mapData = 0;
+        DRLGPRESET_FreeDrlgMap(pMemPool, pLevel->pCurrentMap);
+        pLevel->pCurrentMap = 0;
     }
-    switch (level->kind)
+    switch (pLevel->nDrlgType)
     {
-    case 1: DRLGMAZE_ResetMazeRecord(level, keep); break; // 0x00673FE0
-    case 2: DRLGPRESET_ResetDrlgMap(level, keep); break; // 0x006674D0
-    case 3: DRLGOUTDOORS_FreeOutdoorInfo(level, keep); break; // 0x006754C0
+    case 1: DRLGMAZE_ResetMazeRecord(pLevel, bAlloc); break; // 0x00673FE0
+    case 2: DRLGPRESET_ResetDrlgMap(pLevel, bAlloc); break; // 0x006674D0
+    case 3: DRLGOUTDOORS_FreeOutdoorInfo(pLevel, bAlloc); break; // 0x006754C0
     }
-    memset(level->regionA, 0, 384);
-    level->state = 0;
-    memset(level->regionB, 0, 76);
-    if (!keep && level->allocation)
+    memset(pLevel->pTileInfo, 0, sizeof(pLevel->pTileInfo));
+    pLevel->nTileInfo = 0;
+    memset(pLevel->nRoom_Center_Warp_X, 0, sizeof(pLevel->nRoom_Center_Warp_X) + sizeof(pLevel->nRoom_Center_Warp_Y) + sizeof(pLevel->nRoomCoords));
+    if (!bAlloc && pLevel->pnJungleDefs)
     {
-        sub_0040B480_Free(pool, level->allocation, ".\\DRLG\\Drlg.cpp", 183, 0);
-        level->allocation = 0;
+        sub_0040B480_Free(pMemPool, pLevel->pnJungleDefs, ".\\DRLG\\Drlg.cpp", 183, 0);
+        pLevel->pnJungleDefs = 0;
     }
-    Node* node = level->nodes;
-    if (node)
+    D2DrlgBuildStrc* pNextDrlgBuild = pLevel->pBuild;
+    if (pNextDrlgBuild)
     {
         do
         {
-            Node* current = node;
-            node = node->next;
-            sub_0040B480_Free(pool, current, ".\\DRLG\\Drlg.cpp", 197, 0);
-        } while (node);
-        level->nodes = 0;
+            D2DrlgBuildStrc* pDrlgBuild = pNextDrlgBuild;
+            pNextDrlgBuild = pNextDrlgBuild->pNext;
+            sub_0040B480_Free(pMemPool, pDrlgBuild, ".\\DRLG\\Drlg.cpp", 197, 0);
+        } while (pNextDrlgBuild);
+        pLevel->pBuild = 0;
     }
 }
 
 // 0x00642190
-void __fastcall DRLG_FreeDrlg(Dungeon* dungeon)
+void __fastcall DRLG_FreeDrlg(D2DrlgStrc* pDrlg)
 {
-    Level* level = dungeon->levels;
-    if (level)
+    D2DrlgLevelStrc* pNextLevel = pDrlg->pLevel;
+    if (pNextLevel)
     {
         do
         {
-            Level* current = level;
-            level = level->next;
-            DRLG_FreeLevel(dungeon->pool, 0, current);
-            sub_0040B480_Free(dungeon->pool, current, ".\\DRLG\\Drlg.cpp", 221, 0);
-        } while (level);
-        dungeon->levels = 0;
+            D2DrlgLevelStrc* pLevel = pNextLevel;
+            pNextLevel = pNextLevel->pNextLevel;
+            DRLG_FreeLevel(pDrlg->pMempool, 0, pLevel);
+            sub_0040B480_Free(pDrlg->pMempool, pLevel, ".\\DRLG\\Drlg.cpp", 221, 0);
+        } while (pNextLevel);
+        pDrlg->pLevel = 0;
     }
-    DrlgAuxNode* aux = dungeon->aux;
-    if (aux)
+    D2DrlgWarpStrc* pNextDrlgWarp = pDrlg->pWarp;
+    if (pNextDrlgWarp)
     {
         do
         {
-            DrlgAuxNode* current = aux;
-            aux = aux->next;
-            sub_0040B480_Free(dungeon->pool, current, ".\\DRLG\\Drlg.cpp", 236, 0);
-        } while (aux);
-        dungeon->aux = 0;
+            D2DrlgWarpStrc* pDrlgWarp = pNextDrlgWarp;
+            pNextDrlgWarp = pNextDrlgWarp->pNext;
+            sub_0040B480_Free(pDrlg->pMempool, pDrlgWarp, ".\\DRLG\\Drlg.cpp", 236, 0);
+        } while (pNextDrlgWarp);
+        pDrlg->pWarp = 0;
     }
-    sub_0040B480_Free(dungeon->pool, dungeon, ".\\DRLG\\Drlg.cpp", 242, 0);
+    sub_0040B480_Free(pDrlg->pMempool, pDrlg, ".\\DRLG\\Drlg.cpp", 242, 0);
 }
 
 // 0x00642230
@@ -1632,22 +1570,22 @@ int __stdcall DRLG_FreeInactiveVisRoomTiles(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x00643200
-void __fastcall DRLG_UpdateAndFreeInactiveRooms(Dungeon* dungeon)
+void __fastcall DRLG_UpdateAndFreeInactiveRooms(D2DrlgStrc* pDrlg)
 {
-    Level* level = dungeon->levels;
-    void* pool = dungeon->pool;
-    while (level)
+    D2DrlgLevelStrc* pLevel = pDrlg->pLevel;
+    void* pMemPool = pDrlg->pMempool;
+    while (pLevel)
     {
-        if (!level->activeCount && level->rooms)
+        if (!pLevel->bActive && pLevel->ptRoomFirst)
         {
-            if (level->inactiveTicks)
-                --level->inactiveTicks;
-            else if (DRLG_FreeInactiveVisRoomTiles(level))
-                DRLG_FreeLevel(pool, 1, level);
+            if (pLevel->dwInactiveFrames)
+                --pLevel->dwInactiveFrames;
+            else if (DRLG_FreeInactiveVisRoomTiles(pLevel))
+                DRLG_FreeLevel(pMemPool, 1, pLevel);
             else
-                level->inactiveTicks = 10;
+                pLevel->dwInactiveFrames = 10;
         }
-        level = level->next;
+        pLevel = pLevel->pNextLevel;
     }
 }
 

@@ -104,16 +104,6 @@ struct D2MonStatsTxt;
 
 struct D2MonStats2Txt;
 
-struct R0052E0F0;
-
-struct R00601DC0;
-
-struct D2SkillsTxt00643D00Strc;
-
-struct D2Skill00643D00Strc;
-
-struct D2Owner00643D00Strc;
-
 
 
 struct D2StatesTxt;
@@ -201,20 +191,6 @@ void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc* pUnit); // 0x004DC0B0
 int __fastcall SKILLS_CalcSpecialParamCallback(int nParamId, void* pUserData); // 0x00646BE0
 
 
-struct R0052E0F0
-{
-    void* pUnk0x00;
-    void* m_pFile;
-    bool sub_0052E0F0_IsOpen();
-};
-
-struct R00601DC0
-{
-    void* pUnk0x00;
-    void* m_pFile;
-    bool sub_00601DC0_IsOpen();
-};
-
 
 extern const int gnShapeShiftedModeTable[]; // 0x006EB348
 
@@ -222,24 +198,6 @@ D2SkillStrc* __stdcall UNITS_GetStartSkill(D2UnitStrc* pUnit); // 0x00620150
 
 
 int __stdcall SKILLS_GetRequiredLevelBasedOnCurrent(D2UnitStrc* pUnit, int nSkillId); // 0x00644750
-
-struct D2SkillsTxt00643D00Strc
-{
-    short nSkillId;
-    unsigned char unk_02[0x11];
-    unsigned char nValue13;
-};
-
-struct D2Skill00643D00Strc
-{
-    D2SkillsTxt00643D00Strc* pSkillsTxt;
-};
-
-struct D2Owner00643D00Strc
-{
-    int bMonster;
-    int nMonsterId;
-};
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
@@ -431,16 +389,6 @@ void __fastcall SKILLS_ScaleUpDirection(int* pX, int* pY)
         *pX <<= 1;
         *pY <<= 1;
     }
-}
-
-bool R0052E0F0::sub_0052E0F0_IsOpen()
-{
-    return m_pFile != 0;
-}
-
-bool R00601DC0::sub_00601DC0_IsOpen()
-{
-    return m_pFile != 0;
 }
 
 // 0x00643340
@@ -1115,24 +1063,24 @@ int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile
 }
 
 // 0x00643D00
-int __fastcall SKILLS_GetSeqNumFromSkill(D2Owner00643D00Strc* pOwner, D2Skill00643D00Strc* pSkill)
+int __fastcall SKILLS_GetSeqNumFromSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
-    if (!pOwner || !pSkill)
+    if (!pUnit || !pSkill)
     {
         return 0;
     }
-    const int bMonster = pOwner ? pOwner->bMonster : 6;
-    const int nMonsterId = pOwner->nMonsterId;
-    if (!bMonster)
+    const int nUnitType = GAME_GetUnitTypeOrInvalid(pUnit);
+    const int nClassId = pUnit->dwClassId;
+    if (!nUnitType)
     {
-        return pSkill->pSkillsTxt->nValue13;
+        return pSkill->pSkillsTxt->nSeqNum;
     }
     const int nSkillId = pSkill->pSkillsTxt->nSkillId;
     if (nSkillId == SKILL_DIABPRISON)
     {
         return 0;
     }
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nMonsterId);
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nClassId);
     for (int i = 0; i < 8; ++i)
     {
         if (pMonStatsTxtRecord->nSkill[i] == nSkillId)

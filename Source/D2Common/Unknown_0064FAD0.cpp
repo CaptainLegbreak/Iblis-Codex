@@ -167,8 +167,6 @@ extern int gnPathResetPrecisionX; // 0x006EB7C8
 
 extern int gnPathResetPrecisionY; // 0x006EB7CC
 
-struct D2SkillFormulaCtxStrc { D2UnitStrc* pUnit; int nSkillId; int nSkillLevel; };
-
 // 0x0064FC20
 void __stdcall PATH_ResetDynamicPathRoom(D2DynamicPathStrc* pDynamicPath)
 {

@@ -63124,7 +63124,7 @@
     {
      "va": "0x00612050",
      "length": 200,
-     "name": "?DATATBLS_GetUnitDebugName@@YGPADPAUUnitHeader@@PADH@Z"
+     "name": "?DATATBLS_GetUnitDebugName@@YGPADPAUD2UnitStrc@@PADH@Z"
     },
     {
      "va": "0x00612120",
@@ -63374,7 +63374,7 @@
     {
      "va": "0x00619DA0",
      "length": 76,
-     "name": "?DUNGEON_FindRoomBySubtileCoordinates@@YGPAUD2ActRoom00619DA0Strc@@PAUD2Act00619DA0Strc@@HH@Z"
+     "name": "?DUNGEON_FindRoomBySubtileCoordinates@@YGPAUD2ActiveRoomStrc@@PAUD2DrlgActStrc@@HH@Z"
     },
     {
      "va": "0x00619DF0",
@@ -63894,7 +63894,7 @@
     {
      "va": "0x0061B7E0",
      "length": 42,
-     "name": "?DRLGACTIVATE_InitializeRoomExStatusLists@@YIXPAUD2Owner0061B7E0Strc@@@Z"
+     "name": "?DRLGACTIVATE_InitializeRoomExStatusLists@@YIXPAUD2DrlgStrc@@@Z"
     },
     {
      "va": "0x0061B810",
@@ -68394,12 +68394,12 @@
     {
      "va": "0x00642010",
      "length": 379,
-     "name": "?DRLG_FreeLevel@@YGXPAXHPAULevel@@@Z"
+     "name": "?DRLG_FreeLevel@@YGXPAXHPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x00642190",
      "length": 150,
-     "name": "?DRLG_FreeDrlg@@YIXPAUDungeon@@@Z"
+     "name": "?DRLG_FreeDrlg@@YIXPAUD2DrlgStrc@@@Z"
     },
     {
      "va": "0x00642230",
@@ -68570,7 +68570,7 @@
     {
      "va": "0x00643200",
      "length": 94,
-     "name": "?DRLG_UpdateAndFreeInactiveRooms@@YIXPAUDungeon@@@Z"
+     "name": "?DRLG_UpdateAndFreeInactiveRooms@@YIXPAUD2DrlgStrc@@@Z"
     },
     {
      "va": "0x00643260",
@@ -69760,7 +69760,7 @@
     {
      "va": "0x00648E40",
      "length": 19,
-     "name": "?PATH_SetDist@@YGXPAUD2Record00648E40Strc@@E@Z"
+     "name": "?PATH_SetDist@@YGXPAUD2DynamicPathStrc@@E@Z"
     },
     {
      "va": "0x00648E60",
@@ -69978,7 +69978,7 @@
     {
      "va": "0x0064A1E0",
      "length": 34,
-     "name": "_MISSILE_SetMissileLevel@8"
+     "name": "?MISSILE_SetLevel@@YGXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0064A210",
@@ -70092,7 +70092,7 @@
     {
      "va": "0x0064A730",
      "length": 35,
-     "name": "_MISSILE_GetMissileTargetStatus@4"
+     "name": "?MISSILE_GetTargetX@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0064A760",
@@ -70102,7 +70102,7 @@
     {
      "va": "0x0064A780",
      "length": 35,
-     "name": "_MISSILE_targetValue@4"
+     "name": "?MISSILE_GetTargetY@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0064A7B0",
@@ -70810,12 +70810,12 @@
     {
      "va": "0x00650E60",
      "length": 15,
-     "name": "@SEED_SetSeeds@12"
+     "name": "?SEED_SetSeeds@@YIXPATD2SeedStrc@@II@Z"
     },
     {
      "va": "0x00650E70",
      "length": 19,
-     "name": "@SEED_GetSeeds@12"
+     "name": "?SEED_GetSeeds@@YIXPATD2SeedStrc@@PAI1@Z"
     },
     {
      "va": "0x00650E90",

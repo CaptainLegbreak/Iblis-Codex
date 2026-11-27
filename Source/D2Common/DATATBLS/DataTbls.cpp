@@ -47,18 +47,6 @@ struct D2RunesTxt;
 
 struct D2RuneDataTbl;
 
-struct PlayerRecord;
-
-struct MonsterRecord;
-
-struct ItemRecord;
-
-struct ObjectRecord;
-
-struct DataTables;
-
-struct UnitHeader;
-
 struct D2StatesTxt
 {
     unsigned short wState;
@@ -188,49 +176,6 @@ int gnPassiveSkills; // 0x0096C7E0
 
 short* gpPassiveSkills; // 0x0096C7E4
 
-struct PlayerRecord
-{
-    char pad0[32];
-    char name[164];
-};
-
-struct MonsterRecord
-{
-    char pad0[6];
-    unsigned short nameIndex;
-    char padTail[416];
-};
-
-struct ItemRecord
-{
-    char pad0[244];
-    unsigned short nameIndex;
-};
-
-struct ObjectRecord
-{
-    char name[1];
-};
-
-struct DataTables
-{
-    char pad0[2680];
-    MonsterRecord* monsters;
-    char padMonsterCount[4];
-    int monsterCount;
-    char padPlayers[320];
-    PlayerRecord* players;
-    int playerCount;
-};
-
-struct UnitHeader
-{
-    unsigned int type;
-    int classId;
-};
-
-extern DataTables* gVar_00744304; // 0x00744304
-
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int); // 0x00687330
 
 extern "C" int __cdecl _snprintf(char*, unsigned int, const char*, ...); // 0x006831DB
@@ -241,9 +186,7 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 
 char* __fastcall UNICODE_ToAscii(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
-ObjectRecord* __stdcall sub_00640E90_Object(int); // 0x00640E90
-
-ItemRecord* __stdcall sub_006335F0_Item(int); // 0x006335F0
+D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
@@ -991,12 +934,12 @@ void __fastcall DATATBLS_BuildStateListByField(short** ppList, short* pnCount, i
 static void DATATBLS_GetPlayerClassDebugName(char* buffer, int length, int id)
 {
     if (length <= 0) return;
-    if (id >= 0 && id < gVar_00744304->playerCount)
+    if (id >= 0 && id < sgptDataTables->nCharStatsTxtRecordCount)
     {
-        PlayerRecord* record = &gVar_00744304->players[id];
-        if (record && record->name[0])
+        D2CharStatsTxt* record = &sgptDataTables->pCharStatsTxt[id];
+        if (record && record->szClassName[0])
         {
-            strncpy(buffer, record->name, length);
+            strncpy(buffer, record->szClassName, length);
             buffer[length - 1] = 0;
             return;
         }
@@ -1009,12 +952,12 @@ static void DATATBLS_GetPlayerClassDebugName(char* buffer, int length, int id)
 static void DATATBLS_GetMonsterDebugName(char* buffer, int length, int id)
 {
     if (length <= 0) return;
-    if (id >= 0 && id < gVar_00744304->monsterCount)
+    if (id >= 0 && id < sgptDataTables->nMonStatsTxtRecordCount)
     {
-        MonsterRecord* record = &gVar_00744304->monsters[id];
-        if (record && record->nameIndex != 0x1506)
+        D2MonStatsTxt* record = &sgptDataTables->pMonStatsTxt[id];
+        if (record && record->wNameStr != 0x1506)
         {
-            const Unicode* name = D2LANG_GetStringFromTblIndex(record->nameIndex);
+            const Unicode* name = D2LANG_GetStringFromTblIndex(record->wNameStr);
             UNICODE_ToAscii(buffer, name, length);
             return;
         }
@@ -1027,10 +970,10 @@ static void DATATBLS_GetMonsterDebugName(char* buffer, int length, int id)
 static void DATATBLS_GetObjectDebugName(char* buffer, int length, int id)
 {
     if (length <= 0) return;
-    ObjectRecord* record = sub_00640E90_Object(id);
-    if (record && record->name[0])
+    D2ObjectsTxt* record = DATATBLS_GetObjectsTxtRecord(id);
+    if (record && record->szName[0])
     {
-        strncpy(buffer, record->name, length);
+        strncpy(buffer, record->szName, length);
         buffer[length - 1] = 0;
         return;
     }
@@ -1041,10 +984,10 @@ static void DATATBLS_GetObjectDebugName(char* buffer, int length, int id)
 // 0x00611FE0
 static void DATATBLS_GetItemDebugName(char* buffer, int length, int id)
 {
-    ItemRecord* record = sub_006335F0_Item(id);
-    if (record && record->nameIndex != 0x1506)
+    D2ItemsTxt* record = DATATBLS_GetItemsTxtRecord(id);
+    if (record && record->wNameStr != 0x1506)
     {
-        const Unicode* name = D2LANG_GetStringFromTblIndex(record->nameIndex);
+        const Unicode* name = D2LANG_GetStringFromTblIndex(record->wNameStr);
             UNICODE_ToAscii(buffer, name, length);
         return;
     }
@@ -1067,7 +1010,7 @@ static __declspec(noinline) void DATATBLS_GetMissileDebugName(char* buffer, int 
 }
 
 // 0x00612050
-char* __stdcall DATATBLS_GetUnitDebugName(UnitHeader* unit, char* buffer, int length)
+char* __stdcall DATATBLS_GetUnitDebugName(D2UnitStrc* unit, char* buffer, int length)
 {
     buffer[0] = 0;
     if (!unit)
@@ -1075,13 +1018,13 @@ char* __stdcall DATATBLS_GetUnitDebugName(UnitHeader* unit, char* buffer, int le
         sub_006883F8_Copy(buffer, "NULL Unit");
         return buffer;
     }
-    switch (unit->type)
+    switch (unit->dwUnitType)
     {
-    case 0: DATATBLS_GetPlayerClassDebugName(buffer, length, unit->classId); break;
-    case 1: DATATBLS_GetMonsterDebugName(buffer, length, unit->classId); break;
-    case 2: DATATBLS_GetObjectDebugName(buffer, length, unit->classId); break;
-    case 3: DATATBLS_GetMissileDebugName(buffer, length, unit->classId); break;
-    case 4: DATATBLS_GetItemDebugName(buffer, length, unit->classId); break;
+    case 0: DATATBLS_GetPlayerClassDebugName(buffer, length, unit->dwClassId); break;
+    case 1: DATATBLS_GetMonsterDebugName(buffer, length, unit->dwClassId); break;
+    case 2: DATATBLS_GetObjectDebugName(buffer, length, unit->dwClassId); break;
+    case 3: DATATBLS_GetMissileDebugName(buffer, length, unit->dwClassId); break;
+    case 4: DATATBLS_GetItemDebugName(buffer, length, unit->dwClassId); break;
     default: sub_006883F8_Copy(buffer, "Invalid Unit"); break;
     }
     return buffer;
