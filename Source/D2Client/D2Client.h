@@ -994,15 +994,15 @@ void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* s
 #define D2_HIWORD(l) ((unsigned short)(((unsigned int)(l) >> 16) & 0xFFFF))
 #define D2_LOWORD(l) ((unsigned short)((unsigned int)(l) & 0xFFFF))
 #define D2_RESET_QUEST_SELECTION() \
-    gbQuestSlotDown = 0; \
-    gbQuestCloseButtonDown = 0; \
-    gbQuestButtonDown = 0; \
-    gnQuestPressedSlot = -1; \
-    gbQuestDescButtonDown = 0; \
-    gbDurielCofsLoaded = 0; \
-    gbAncientsCofsLoaded = 0; \
-    gbHasQuestPacketValue = 0; \
-    gbQuestUnitsSpawned = 0
+    gtQuestLog.bQuestSlotDown = 0; \
+    gtQuestLog.bCloseButtonDown = 0; \
+    gtQuestLog.bQuestButtonDown = 0; \
+    gtQuestLog.nPressedSlot = -1; \
+    gtQuestLog.bDescButtonDown = 0; \
+    gtQuestLog.bDurielCofsLoaded = 0; \
+    gtQuestLog.bAncientsCofsLoaded = 0; \
+    gtQuestLog.bHasQuestPacketValue = 0; \
+    gtQuestLog.bQuestUnitsSpawned = 0
 #define E06_ABS(x) ((x) < 0 ? -(x) : (x))
 #define GENERIC_WRITE 0x40000000
 #define GFX_ENTRY_COUNT 20
