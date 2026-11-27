@@ -509,7 +509,7 @@ int __fastcall ACT4Q2_UnitIterate_WarpToTownEndGame(D2GameStrc* pGame, D2UnitStr
     UNITS_GetPlayerData(pUnit)->bBusy = 1;
 
     D2Act4Quest2Strc* pQuestDataEx = (D2Act4Quest2Strc*)QUESTS_GetQuestData(pGame, 23)->pQuestDataEx;
-    pQuestDataEx->unk0x20 = (int)pUnit;
+    pQuestDataEx->pWarpedPlayer = pUnit;
 
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
     if (QUESTRECORD_GetQuestState(pQuestFlags, 26, 13))

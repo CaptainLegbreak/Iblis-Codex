@@ -839,7 +839,7 @@ bool __fastcall ACT1Q5_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQ
         pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 13, 0, ACT1Q5_UnitIterate_StatusCyclerEx, 1);
     }
-    pQuestDataEx->unk0x11C = 0;
+    pQuestDataEx->bTimerActive = 0;
     return true;
 }
 

@@ -388,7 +388,7 @@ static bool ACT1Q3_ResetMalus(D2QuestDataStrc* pQuestData)
     QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q3.cpp", 0x1C8);
     pQuestData->nStatusFlags = 1;
     QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q3_UnitIterate_StatusCyclerEx, true);
-    pQuestDataEx->unk0x08 = 0;
+    pQuestDataEx->unused0x08 = 0;
     if (pQuestDataEx->bMalusInitialized == 1)
     {
         D2UnitStrc* pMalus = SUNIT_GetServerUnit(pQuestData->pGame, 2, pQuestDataEx->nMalusGUID);
@@ -689,12 +689,12 @@ void __fastcall ACT1Q3_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->nSeqId = A1Q3_SEQID;
 
     memset(pQuestDataEx, 0x00, sizeof(D2Act1Quest3Strc));
-    pQuestDataEx->unk0x00 = 0;
+    pQuestDataEx->unused0x00 = 0;
     pQuestDataEx->nMalusGUID = 0;
-    pQuestDataEx->unk0x10 = 0;
-    pQuestDataEx->unk0x12 = 0;
+    pQuestDataEx->unused0x10 = 0;
+    pQuestDataEx->unused0x12 = 0;
     pQuestDataEx->bMalusInitialized = 0;
-    pQuestDataEx->unk0x08 = 0;
+    pQuestDataEx->unused0x08 = 0;
     pQuestDataEx->bCharsiIntroActivated = 0;
     pQuestDataEx->bCharsiEndActivated = 0;
     pQuestDataEx->nMalusObjectMode = 0;

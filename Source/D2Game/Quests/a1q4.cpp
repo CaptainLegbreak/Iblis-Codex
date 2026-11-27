@@ -452,7 +452,7 @@ void __fastcall ACT1Q4_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestDataEx->nStoneCount = 0;
     pQuestDataEx->bMonolithStonesOrdered = 0;
     pQuestDataEx->bDecipheredScrollAcquired = 0;
-    pQuestDataEx->unk0x4B = 0;
+    pQuestDataEx->unused0x4B = 0;
     pQuestDataEx->nCairnStoneInteractions = 0;
     pQuestDataEx->nInvisibleObjectGUID = 0;
     pQuestDataEx->bInvisbleObjectInitialized = 0;
@@ -512,7 +512,7 @@ void __fastcall ACT1Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                 if (pDecipheredScroll)
                 {
                     pQuestDataEx->bAkaraActivatedForScroll = 1;
-                    pQuestDataEx->unk0x4B = 1;
+                    pQuestDataEx->unused0x4B = 1;
                     pQuestDataEx->bDecipheredScrollAcquired = 1;
                     pQuestDataEx->nDecipheredScrollGUID = !pDecipheredScroll ? -1 : pDecipheredScroll->dwUnitId;
                     QUESTS_DebugOutput(pQuestData->pGame, "deciphered scroll", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q4.cpp", 351);
@@ -1457,7 +1457,7 @@ int __fastcall OBJECTS_OperateFunction12_InifussTree(D2ObjOperateFnStrc* pOp, in
         pQuestInfo->pCallback[9] = ACT1Q4_Callback09_PlayerDroppedWithQuestItem;
         pQuestInfo->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestInfo, 2, pOp->hPlayer, ACT1Q4_UnitIterate_StatusCyclerEx, 1);
-        pQuestDataEx->unk0x4B = 1;
+        pQuestDataEx->unused0x4B = 1;
         const int nScrollGUID = (pItem ? pItem->dwUnitId : -1);
         pQuestDataEx->nDecipheredScrollGUID = nScrollGUID;
         pQuestDataEx->nInifussTreeObjectMode = 1;
@@ -2094,7 +2094,7 @@ void __fastcall ACT1Q4_SetA1Q4Unk0xB0(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q4_CAIN);
     if (pQuestData)
     {
-        ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->unk0xB0 = nValue;
+        ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->unused0xB0 = nValue;
     }
 }
 
