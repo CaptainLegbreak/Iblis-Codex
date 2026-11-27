@@ -107,7 +107,6 @@ void __cdecl INV_SetupPanelButtons(); // 0x00487ED0
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 
-extern D2ClientTabStrc gaNpcTabStates[]; // 0x0072211A
 
 
 extern int gbNpcTradeClicked; // 0x007BCBEC
