@@ -57,6 +57,10 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/params-d2game-scmd 36c8d836 (on #465): SCmd.cpp: D2GAME_PACKETS_SendPacket0x81 and SCMD_SendInteractionTarget
+  name the parameter they never read nUnused (D2MOO leaves it a2/a5), with their prototypes in D2GameFuncs.h and
+  PlayerPets.cpp. a1/v12 278 -> 273; auditguard no count rose; merges cleanly with params-d2game-sunitmsg. Full build:
+  Game.exe identical, tree 3362f53860a6b69a81e35daa5e213b4a538d3eaa, borrowed code / data 4,232 / 261 B.
 - lane9/params-d2game-sunitmsg 2d981915 (on #463): SUnitMsg.cpp: the queued A3/A4/A5 messages' fields take the names of
   the send-function parameters they're passed to (nSeed, nSkillId, nSkillLevel, nUnitType, nUnitGUID, nTargetType,
   nTargetGUID, nX, nY; nMonStatsId; nUnitType, nUnitGUID, nSkillId). a1/v12 295 -> 269 alone; auditguard no count rose;
@@ -71,7 +75,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
   names from their bodies (_Nop, _Return0/_Return5/_Return43, GetWaypointData, GetMonStats2Record, ...); exported
   functions keep theirs. auditguard no count rose; merges cleanly onto #460. Full build: Game.exe identical, tree
   a54bd6a14ed7030628a6fe267934c7c74be7e0ca, borrowed code / data 5,424 / 261 B.
-- lane9/params-d2game-tail 087baef3 (on #459): D2Game: nUnused1.. for the Debug.cpp and Game.cpp stubs' unused
+- MERGED (#464) lane9/params-d2game-tail 087baef3 (on #459): D2Game: nUnused1.. for the Debug.cpp and Game.cpp stubs' unused
   parameters, bTimedEvents for the event dispatchers' flag (D2MOO's name), nGameId/nVersion for CCMD_CanClientJoinGame
   (from D2MOO's caller). a1/v12 295 -> 244 alone; auditguard no count rose; merges cleanly onto #460 and with verbs2.
   Full build: Game.exe identical, tree c0ee6925f17c6438ad75aac9dbd5f65e473f51f8, borrowed code / data 5,424 / 261 B.
