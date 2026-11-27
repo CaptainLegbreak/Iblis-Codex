@@ -84,7 +84,7 @@ extern "C" void* __cdecl memmove(void* pDest, const void* pSource, size_t nSize)
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 
-void __fastcall FOG_10219(unsigned char* pData); // 0x0040ADB0
+int __fastcall FOG_10219(unsigned char* pData); // 0x0040ADB0
 
 int __fastcall SERVER_GetServerPacketSize(D2PacketBufferStrc* pBuffer, int nBufferSize, int* pSize); // 0x0052B920
 
@@ -152,7 +152,7 @@ D2WSADataStrc gWSAData; // 0x00882B48
 
 D2SockAddrInStrc gHostSockAddr; // 0x00882B38
 
-QServer* gpServer; // 0x00882D08
+D2QueueServerStrc* gpServer; // 0x00882D08
 
 // 0x0052A680
 unsigned long __stdcall CLIENT_ConnectToHost(void* szIpAddress)
