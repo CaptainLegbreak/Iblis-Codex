@@ -57,7 +57,7 @@ static inline bool CanSpawnMonster(const D2QuestExStrc* pQuestDataEx)
 }
 
 // 0x005B9A30
-bool __fastcall sub_005B9A30_QuestSeqCallback(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
+bool __fastcall ACT3Q3_SpawnGidbinnBoss(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
 {
     D2QuestExStrc* pQuestDataEx = pQuestData->pQuestDataEx;
     pQuestDataEx->unk0x05 = 0;

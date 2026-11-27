@@ -17259,7 +17259,7 @@
     {
      "va": "0x00463720",
      "length": 22,
-     "name": "?sub_00463720_TestUnitFlagEx@@YIHPAUD2UnitStrc@@I@Z"
+     "name": "?ITEMS_CheckUnitFlagEx@@YIHPAUD2UnitStrc@@I@Z"
     },
     {
      "va": "0x00463740",
@@ -45320,7 +45320,7 @@
     {
      "va": "0x0054DF80",
      "length": 269,
-     "name": "?sub_0054DF80_SpawnGroupInCoordList@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@EEH@Z"
+     "name": "?MONSTERREGION_SpawnMonsterGroup@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@EEH@Z"
     },
     {
      "va": "0x0054E090",
@@ -50020,7 +50020,7 @@
     {
      "va": "0x0058EA50",
      "length": 101,
-     "name": "?sub_0058EA50_InitQuestCallbacks@@YIXPAUD2QuestData0058EA50Strc@@@Z"
+     "name": "?ACT5Intro_InitQuestData@@YIXPAUD2QuestData0058EA50Strc@@@Z"
     }
    ]
   },
@@ -51218,7 +51218,7 @@
     {
      "va": "0x0058F870",
      "length": 124,
-     "name": "?sub_0058F870_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+     "name": "?ACT1Intro_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x0058F8F0",
@@ -52374,7 +52374,7 @@
     {
      "va": "0x00596C40",
      "length": 94,
-     "name": "?sub_00596C40_InitQuestCallbacks@@YIXPAUD2QuestData00596C40Strc@@@Z"
+     "name": "?ACT1Q7_InitQuestData@@YIXPAUD2QuestData00596C40Strc@@@Z"
     }
    ]
   },
@@ -55658,7 +55658,7 @@
     {
      "va": "0x005EDC50",
      "length": 791,
-     "name": "sub_005EDC50"
+     "name": "AITHINK_Fn127_NpcBarb"
     },
     {
      "va": "0x005EDF70",
@@ -56239,7 +56239,7 @@
     {
      "va": "0x005B0CC0",
      "length": 3,
-     "name": "sub_005B0CC0"
+     "name": "AITHINK_Fn000"
     },
     {
      "va": "0x005B0CD0",
@@ -58898,12 +58898,12 @@
     {
      "va": "0x005CDF10",
      "length": 160,
-     "name": "?sub_005CDF10@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvDo109_MonFrenzy@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CDFB0",
      "length": 249,
-     "name": "?sub_005CDFB0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvDo148_DoomKnightMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CE0B0",

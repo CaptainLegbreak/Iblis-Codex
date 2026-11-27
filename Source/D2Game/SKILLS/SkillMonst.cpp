@@ -2662,7 +2662,7 @@ int __fastcall SKILLS_HasTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkill
 }
 
 // 0x005CDF10
-int __fastcall sub_005CDF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLS_SrvDo109_MonFrenzy(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill)
@@ -2699,7 +2699,7 @@ int __fastcall sub_005CDF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
 }
 
 // 0x005CDFB0
-int __fastcall sub_005CDFB0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLS_SrvDo148_DoomKnightMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
