@@ -3356,7 +3356,7 @@
    "static_definitions": 1
   },
   "Source/D2Game/Quests/a1q2.cpp": {
-   "bytes": 24,
+   "bytes": 49,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
@@ -3365,8 +3365,8 @@
    "state": "included"
   },
   "Source/D2Game/Unknown_005B24E0.cpp": {
-   "bytes": 312,
-   "definitions": 5,
+   "bytes": 284,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005B24E0.inc",
@@ -91249,10 +91249,10 @@
    "declared": true,
    "decorated": "_gszA1Q2SourceFile",
    "file": "Source/D2Game/Quests/a1q2.cpp",
-   "fill": 24,
+   "fill": 49,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_006E1B98[24]; // 0x006E1B98",
-   "head": "extern \"C\" const char gData_006E1B98[24] = ",
+   "fwd": "extern \"C\" const char gData_006E1B98[49]; // 0x006E1B98",
+   "head": "extern \"C\" const char gData_006E1B98[49] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -91261,13 +91261,13 @@
      "size": 1
     },
     "k": "arr",
-    "n": 24,
-    "size": 24
+    "n": 49,
+    "size": 49
    },
    "name": "gszA1Q2SourceFile",
    "pointers": [],
    "region": "rdata",
-   "size": 24,
+   "size": 49,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x006E1B98\n#pragma comment(linker, \"/alternatename:_gszA1Q2SourceFile=_gData_006E1B98\")",
@@ -97645,23 +97645,6 @@
    "tail": "; // 0x006E2C78\n#pragma comment(linker, \"/alternatename:_gszTargetsSourceFile=_gData_006E2C78\")",
    "type": "char",
    "va": "0x006E2C78"
-  },
-  {
-   "alias": false,
-   "cname": "gData_006E1BB0",
-   "declared": true,
-   "decorated": "?gaAncientBarbItems@@3PAY02UD2MonsterItemCodeStrc@@A",
-   "file": "Source/D2Game/Unknown_005B24E0.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" const struct d2data_006E1BB0_t gData_006E1BB0; // 0x006E1BB0",
-   "head": "extern \"C\" const struct d2data_006E1BB0_t gData_006E1BB0 = ",
-   "name": "gaAncientBarbItems",
-   "pointers": [],
-   "region": "rdata",
-   "size": 28,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006E1BB0_t\n{\n    unsigned char b0[28];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006E1BB0\n#pragma comment(linker, \"/alternatename:?gaAncientBarbItems@@3PAY02UD2MonsterItemCodeStrc@@A=_gData_006E1BB0\")",
-   "va": "0x006E1BB0"
   },
   {
    "alias": false,
