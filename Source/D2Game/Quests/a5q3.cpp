@@ -460,8 +460,8 @@ void __fastcall ACT5Q3_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->nSeqId = 34;
     memset(pQuestDataEx, 0x00, sizeof(D2Act5Quest3Strc));
     QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
-    pQuestDataEx->unk0x84[0] = 0;
-    pQuestDataEx->unk0x84[1] = 0;
+    pQuestDataEx->nDrehyaState = 0;
+    pQuestDataEx->bNihlathakLeftTown = 0;
 }
 
 static inline D2BitBufferStrc* QUESTS_GetPlayerFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
@@ -482,8 +482,8 @@ void __fastcall ACT5Q3_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
     if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 15))
     {
-        pQuestDataEx->unk0x84[0] = 2;
-        pQuestDataEx->unk0x84[1] = 1;
+        pQuestDataEx->nDrehyaState = 2;
+        pQuestDataEx->bNihlathakLeftTown = 1;
         return;
     }
     if (!pQuestData->bNotIntro)
@@ -580,7 +580,7 @@ int __fastcall OBJECTS_OperateFunction67_FrozenAnya(D2ObjOperateFnStrc* pOp, int
         QUESTS_DeleteItem(pOp->pGame, pOp->hPlayer, ITEMCODE_DEFROST_POTION);
         QUESTS_StateDebug(pQuestData, 5, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 2001);
 
-        pQuestDataEx->unk0x84[0] = 1;
+        pQuestDataEx->nDrehyaState = 1;
         QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q3, QFLAG_PRIMARYGOALDONE);
         QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q3, QFLAG_REWARDPENDING);
 
@@ -670,7 +670,7 @@ void __fastcall OBJECTS_InitFunction66_DrehyaStartInTown(D2ObjInitFnStrc* pOp)
         pQuestDataEx->bDrehyaInTownInitialized = 1;
         pQuestDataEx->pDrehyaObjectInTownCoords.nX = pOp->nX;
         pQuestDataEx->pDrehyaObjectInTownCoords.nY = pOp->nY;
-        switch (pQuestDataEx->unk0x84[0])
+        switch (pQuestDataEx->nDrehyaState)
         {
         case 2:
             ACT5Q3_SeqCallback(pQuestData);
@@ -760,7 +760,7 @@ void __fastcall OBJECTS_InitFunction68_NihlathakStartInTown(D2ObjInitFnStrc* pOp
     D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
     pQuestDataEx->nNihlathakObjectInTownGUID = !pOp->pObject ? -1 : pOp->pObject->dwUnitId;
 
-    if (pQuestDataEx->unk0x84[1] || pQuestDataEx->bNihlathakMonsterInTownSpawned)
+    if (pQuestDataEx->bNihlathakLeftTown || pQuestDataEx->bNihlathakMonsterInTownSpawned)
     {
         return;
     }
@@ -795,7 +795,7 @@ int __fastcall ACT5Q3_SpawnDrehyaPortalOutsideTown(D2GameStrc* pGame, D2UnitStrc
     {
         return 1;
     }
-    if (!pQuestDataEx->unk0x84[0])
+    if (!pQuestDataEx->nDrehyaState)
     {
         return 0;
     }
@@ -826,7 +826,7 @@ int __fastcall ACT5Q3_GetDrehyaPortalCoordinates(D2GameStrc* pGame, D2UnitStrc* 
     }
 
     D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
-    if (!pQuestDataEx->unk0x84[0])
+    if (!pQuestDataEx->nDrehyaState)
     {
         return 0;
     }
@@ -867,7 +867,7 @@ void __fastcall ACT5Q3_OnDrehyaRescued(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
     D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
     pQuestDataEx->bChangeToSpecialObjectModeOutsideTown = 1;
-    pQuestDataEx->unk0x84[0] = 2;
+    pQuestDataEx->nDrehyaState = 2;
     ACT5Q3_SpawnDrehyaInTown(pQuestData, pQuestDataEx);
 }
 
@@ -889,7 +889,7 @@ int __fastcall ACT5Q3_GetQuestFlagAF(D2GameStrc* pGame)
     {
         return 0;
     }
-    return ((D2Act5Quest3Strc*)pQuestData->pQuestDataEx)->unk0xAF != 0;
+    return ((D2Act5Quest3Strc*)pQuestData->pQuestDataEx)->unused0xAF != 0;
 }
 
 // 0x0058A9F0
@@ -901,7 +901,7 @@ int __fastcall ACT5Q3_IsDrehyaNotRescued(D2GameStrc* pGame)
         return 0;
     }
 
-    return ((D2Act5Quest3Strc*)pQuestData->pQuestDataEx)->unk0x84[0] == 0;
+    return ((D2Act5Quest3Strc*)pQuestData->pQuestDataEx)->nDrehyaState == 0;
 }
 
 int __fastcall OBJMODE_GetSuperUniqueId(unsigned int nIndex)
@@ -924,7 +924,7 @@ void __fastcall OBJECTS_InitFunction69_NihlathakStartOutsideTown(D2ObjInitFnStrc
     }
 
     D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->unk0x84[1] != 1 || pQuestDataEx->bNilathakOutsideTownSpawned)
+    if (pQuestDataEx->bNihlathakLeftTown != 1 || pQuestDataEx->bNilathakOutsideTownSpawned)
     {
         return;
     }
@@ -1232,7 +1232,7 @@ static void ACT5Q3_KillNihlathakInTown(D2QuestDataStrc* pQuestData, D2UnitStrc* 
 static void ACT5Q3_RemoveTownNpcs(D2QuestDataStrc* pQuestData)
 {
     D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->bDrehyaMonsterInTownSpawned && pQuestDataEx->unk0x84[0] != 2)
+    if (pQuestDataEx->bDrehyaMonsterInTownSpawned && pQuestDataEx->nDrehyaState != 2)
     {
         D2UnitStrc* pDrehya = SUNIT_GetServerUnit(pQuestData->pGame, 1, pQuestDataEx->nDrehyaMonsterInTownGUID);
         if (pDrehya)
@@ -1283,9 +1283,9 @@ static void ACT5Q3_RemoveTownNpcs(D2QuestDataStrc* pQuestData)
         pQuestDataEx->bNihlathakMonsterInTownSpawned = 0;
     }
 
-    if (!pQuestDataEx->unk0x84[1])
+    if (!pQuestDataEx->bNihlathakLeftTown)
     {
-        pQuestDataEx->unk0x84[1] = 1;
+        pQuestDataEx->bNihlathakLeftTown = 1;
     }
 }
 
@@ -1365,14 +1365,14 @@ void __fastcall ACT5Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                     pQuestData->nStatusFlags = 0;
                     QUESTS_UnitIterate(pQuestData, 6, 0, ACT5Q3_UnitIterate_StatusCyclerEx, 1);
                 }
-                if (pQuestDataEx->unk0x84[0] == 1)
+                if (pQuestDataEx->nDrehyaState == 1)
                 {
                     pQuestDataEx->bDrehyaIcedRemoved = 0;
                     SUNIT_IterateUnitsOfType(pQuestData->pGame, 1, 0, ACT5Q3_RemoveDrehyaIced);
                     if (!pQuestDataEx->bDrehyaIcedRemoved)
                         SUNITINACTIVE_DeleteSingleListNode(pQuestData->pGame, 1, 527, 4);
                     pQuestDataEx->bChangeToSpecialObjectModeOutsideTown = 1;
-                    pQuestDataEx->unk0x84[0] = 2;
+                    pQuestDataEx->nDrehyaState = 2;
                     ACT5Q3_SpawnDrehyaInTown(pQuestData, pQuestDataEx);
                 }
                 QUESTS_UpdatePlayerFlags(pQuestArg->pGame, pQuestArg->pPlayer);
@@ -1617,10 +1617,10 @@ void __fastcall ACT5Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     pQuestData->fState = 6;
 
     D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
-    pQuestDataEx->unk0x84[0] = 2;
-    if (!pQuestDataEx->unk0x84[1])
+    pQuestDataEx->nDrehyaState = 2;
+    if (!pQuestDataEx->bNihlathakLeftTown)
     {
-        pQuestDataEx->unk0x84[1] = 1;
+        pQuestDataEx->bNihlathakLeftTown = 1;
     }
 }
 

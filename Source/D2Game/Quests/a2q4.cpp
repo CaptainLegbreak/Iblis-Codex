@@ -405,10 +405,10 @@ void __fastcall ACT2Q4_InitQuestData(D2QuestDataStrc* pQuestData)
 
     D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
     memset(pQuestDataEx, 0x00, sizeof(D2Act2Quest4Strc));
-    pQuestDataEx->unk0x00 = 0;
-    pQuestDataEx->unk0x01 = 0;
-    pQuestDataEx->unk0x02 = 0;
-    pQuestDataEx->unk0x03 = 0;
+    pQuestDataEx->unused0x00 = 0;
+    pQuestDataEx->unused0x01 = 0;
+    pQuestDataEx->unused0x02 = 0;
+    pQuestDataEx->unused0x03 = 0;
     pQuestDataEx->bDrognanActivated = 0;
 }
 

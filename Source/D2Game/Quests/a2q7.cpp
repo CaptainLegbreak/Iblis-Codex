@@ -54,9 +54,9 @@ void __fastcall ACT2Q7_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     }
 
     D2Act2Quest7Strc* pQuestDataEx = (D2Act2Quest7Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->unk0x00 == 1)
+    if (pQuestDataEx->bGuardActivated == 1)
     {
-        pQuestDataEx->unk0x00 = 0;
+        pQuestDataEx->bGuardActivated = 0;
         pQuestData->pCallback[2] = 0;
     }
 }
@@ -224,7 +224,7 @@ void __fastcall ACT2Q7_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->fLastState = 0;
     D2Act2Quest7Strc* pQuestDataEx = (D2Act2Quest7Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest7Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q7.cpp", 194, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
-    pQuestDataEx->unk0x00 = 0;
+    pQuestDataEx->bGuardActivated = 0;
     pQuestData->eFilter = QUESTSTATEFLAG_A2Q7;
     pQuestData->pfStatusFilter = ACT3Q7_StatusFilterCallback;
     pQuestData->pfActiveFilter = ACT2Q7_ActiveFilterCallback;

@@ -785,7 +785,7 @@ bool __fastcall ACT2Q3_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQ
         pQuestData->nStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, A2Q3_ITERATE_TIMER, 0, ACT2Q3_UnitIterate_StatusCyclerEx, 1);
     }
-    *(unsigned char*)&pQuestDataEx->unk0x06 = 0;
+    pQuestDataEx->bTimerActive = 0;
 
     return 1;
 }

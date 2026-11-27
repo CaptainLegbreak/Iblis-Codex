@@ -414,10 +414,10 @@ void __fastcall ACT2Q6_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfSeqFilter = ACT2Q6_SeqCallback;
     memset(pQuestDataEx, 0x00, 0x68);
     pQuestDataEx->bDurielKilled = 0;
-    pQuestDataEx->unk0x02 = 0;
+    pQuestDataEx->unused0x02 = 0;
     pQuestDataEx->bTimerActive = 0;
     pQuestDataEx->nTyraelsDoorObjectMode = 0;
-    pQuestDataEx->unk0x1C = 0;
+    pQuestDataEx->unused0x1C = 0;
     pQuestDataEx->nStaffTombLevelId = 0;
 }
 
@@ -838,7 +838,7 @@ bool __fastcall ACT2Q6_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQ
         QUESTS_UnitIterate(pQuestData, 3, 0, ACT2Q6_UnitIterate_StatusCyclerEx, 1);
     }
 
-    pQuestDataEx->unk0x00 = 0;
+    pQuestDataEx->bStatusTimerActive = 0;
     return true;
 }
 
