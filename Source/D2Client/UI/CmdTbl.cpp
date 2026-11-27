@@ -1266,15 +1266,15 @@ extern HOTKEYCOMMANDFN gpfnBoundCommand_007A7404; // 0x007A7404
 
 extern HOTKEYCOMMANDFN gpfnBoundCommand_007A7408; // 0x007A7408
 
-extern HOTKEYCOMMANDFN gpfnBoundCommand_007A6B10; // 0x007A6B10
+extern HOTKEYCOMMANDFN gpfnMButtonDownCommand; // 0x007A6B10
 
 extern HOTKEYCOMMANDFN gpfnBoundCommand_007A740C; // 0x007A740C
 
-extern HOTKEYCOMMANDFN gpfnBoundCommand_007A7414; // 0x007A7414
+extern HOTKEYCOMMANDFN gpfnXButton1DownCommand; // 0x007A7414
 
-extern HOTKEYCOMMANDFN gpfnBoundCommand_007A6B14; // 0x007A6B14
+extern HOTKEYCOMMANDFN gpfnXButton1UpCommand; // 0x007A6B14
 
-extern HOTKEYCOMMANDFN gpfnBoundCommand_007A7410; // 0x007A7410
+extern HOTKEYCOMMANDFN gpfnXButton2DownCommand; // 0x007A7410
 
 extern D2MsgHandlerEntryStrc gaHotkeyHandlers[4]; // 0x00712944
 
@@ -1308,7 +1308,7 @@ struct D2KeyBindingStrc { int nAction; unsigned short nKey; char unk_06[4]; };
 
 #pragma pack(pop)
 
-extern int gnMode_007A7418; // 0x007A7418
+extern int gnHotkeyMode; // 0x007A7418
 
 
 struct Unicode;
@@ -2084,11 +2084,11 @@ void __cdecl CMDTBL_BindMouseHotkeys()
 {
     gpfnBoundCommand_007A7404 = 0;
     gpfnBoundCommand_007A7408 = 0;
-    gpfnBoundCommand_007A6B10 = 0;
+    gpfnMButtonDownCommand = 0;
     gpfnBoundCommand_007A740C = 0;
-    gpfnBoundCommand_007A7414 = 0;
-    gpfnBoundCommand_007A6B14 = 0;
-    gpfnBoundCommand_007A7410 = 0;
+    gpfnXButton1DownCommand = 0;
+    gpfnXButton1UpCommand = 0;
+    gpfnXButton2DownCommand = 0;
     gpfnXButton2UpCommand = 0;
     for (int i = 0; i < NUM_HOTKEYS; ++i)
     {
@@ -2099,7 +2099,7 @@ void __cdecl CMDTBL_BindMouseHotkeys()
             case 0x100:
                 if (HOTKEY_CheckWheelKey(gtHotkeys_007A6F90[i].nCommand, gtHotkeys_007A6F90[i].nKey))
                 {
-                    gpfnBoundCommand_007A6B10 = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
+                    gpfnMButtonDownCommand = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
                     gpfnBoundCommand_007A740C = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnUnk0x04;
                     break;
                 }
@@ -2108,8 +2108,8 @@ void __cdecl CMDTBL_BindMouseHotkeys()
             case 0x101:
                 if (HOTKEY_CheckWheelKey(gtHotkeys_007A6F90[i].nCommand, gtHotkeys_007A6F90[i].nKey))
                 {
-                    gpfnBoundCommand_007A7414 = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
-                    gpfnBoundCommand_007A6B14 = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnUnk0x04;
+                    gpfnXButton1DownCommand = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
+                    gpfnXButton1UpCommand = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnUnk0x04;
                     break;
                 }
                 gtHotkeys_007A6F90[i].nKey = 0xFFFF;
@@ -2117,7 +2117,7 @@ void __cdecl CMDTBL_BindMouseHotkeys()
             case 0x102:
                 if (HOTKEY_CheckWheelKey(gtHotkeys_007A6F90[i].nCommand, gtHotkeys_007A6F90[i].nKey))
                 {
-                    gpfnBoundCommand_007A7410 = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
+                    gpfnXButton2DownCommand = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand;
                     gpfnXButton2UpCommand = gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnUnk0x04;
                     break;
                 }
@@ -3019,7 +3019,7 @@ void __stdcall CMDTBL_DispatchHotkey(SMSGHANDLER_PARAMS* pMsg)
         int nAction = gaHotkeys[i].nAction;
         if (nAction != 0xFFFF && nAction < 0x39 && nAction <= 0xDF && gaHotkeyCommands[nAction].pfnUnk0x04)
         {
-            if (gnMode_007A7418 == 2 && !gaHotkeyCommands[gaHotkeys[i].nAction].nModeFlag)
+            if (gnHotkeyMode == 2 && !gaHotkeyCommands[gaHotkeys[i].nAction].nModeFlag)
                 return;
             D2_ASSERT(!IsBadCodePtr((FARPROC)gaHotkeyCommands[gaHotkeys[i].nAction].pfnUnk0x04), 0x81C);
             gaHotkeyCommands[gaHotkeys[i].nAction].pfnUnk0x04();

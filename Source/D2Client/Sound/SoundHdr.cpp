@@ -147,7 +147,7 @@ extern int gdwGlobal_007BC99C; // 0x007BC99C
 // 0x004817D0
 int __cdecl sub_004817D0()
 {
-    return gdwGlobal_007BC9A4;
+    return gnClientSoundsTxtRecordCount;
 }
 
 // 0x004817E0
@@ -471,7 +471,7 @@ void __cdecl SOUNDHDR_ShutdownSound()
     if (!D2SOUND_GetDirectSound())
         return;
     sub_004DF800_StopAllSlots();
-    sub_004BAAB0();
+    SOUNDINST_RefreshGroupTimers();
     SOUNDINST_FreeAllSounds();
     sub_004E00C0_CloseSoundChannels();
     SOUNDHDR_ReleaseSoundTables();

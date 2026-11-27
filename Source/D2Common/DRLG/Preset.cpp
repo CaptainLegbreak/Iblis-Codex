@@ -262,7 +262,7 @@ static void __stdcall DRLGPRESET_InitPopsLocations(D2DrlgMapStrc* pDrlgMap, int 
 
 extern const char gszPresetFile[]; // 0x006EE7C4
 
-int __fastcall sub_0045C3E0(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
+int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
 
 void __fastcall DRLGPRESET_FreeMapAI(void* pMemPool, D2MapAIStrc* pMapAI);
@@ -2208,7 +2208,7 @@ void __fastcall DRLGPRESET_InitLevelData(D2DrlgLevelStrc* pLevel)
 	const int nFiles = DRLGPRESET_GetFileCount(pLvlPrestTxtRecord);
 	if (nFiles)
 	{
-		pPreset->nDirection = sub_0045C3E0(&pLevel->pSeed, nFiles);
+		pPreset->nDirection = ITEMS_RollLimitedRandomNumber(&pLevel->pSeed, nFiles);
 	}
 	else
 	{

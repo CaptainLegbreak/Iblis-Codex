@@ -91,7 +91,7 @@ Unicode gwszNameSeparator[2]; // 0x007C0C58
 
 extern const D2HoverModeStrc gaHoverModes[];                                                       // 0x006DA488
 
-int __fastcall sub_0045C390_RollRandom(D2SeedStrc* pSeed, int nMax);                                        // 0x0045C390
+int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                        // 0x0045C390
 
 int __cdecl INV_FormatArgs(wchar_t* wszDest, const wchar_t* wszFormat, ...);                          // 0x0048BE80
 
@@ -358,7 +358,7 @@ void __fastcall MONUNIQUE_SetMonsterHoverName(D2UnitStrc* pUnit, int nMode, int 
 
     default:
         INV_FormatArgs(wszName, D2LANG_GetStringFromTblIndex(0x6B9), DATATBLS_RollRandomUniquePrefixString(pUnit), DATATBLS_RollRandomUniqueSuffixString(pUnit), 0);
-        if (sub_0045C390_RollRandom(pSeed, 100) < 50)
+        if (SEED_RollLimitedRandomNumber(pSeed, 100) < 50)
         {
             INV_FormatArgs(wszName, D2LANG_GetStringFromTblIndex(0x6BA), DATATBLS_RollRandomUniquePrefixString(pUnit), DATATBLS_RollRandomUniqueSuffixString(pUnit), DATATBLS_RollRandomUniqueAppellationString(pUnit), 0);
         }

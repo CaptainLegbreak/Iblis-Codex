@@ -586,7 +586,7 @@ struct D2MonStatsTxt;
 
 
 
-void __stdcall sub_004A3220(int nPage, int nArg);
+void __stdcall TEXT_LoadQuestPage(int nPage, int nArg);
 
 
 #pragma pack(push, 2)

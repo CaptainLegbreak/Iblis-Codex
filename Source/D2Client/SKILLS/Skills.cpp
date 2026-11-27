@@ -284,7 +284,7 @@ struct D2PetTypeTxt;
 
 struct D2SkillDescTxt;
 
-int __fastcall sub_00479150_GetOwnerId(int nUnitId); // 0x00479150
+int __fastcall ROSTERPETS_FindRosterIndex(int nUnitId); // 0x00479150
 
 
 
@@ -464,7 +464,7 @@ int __fastcall SKILLS_CanThrow(D2UnitStrc* pUnit)
     {
         return 1;
     }
-    D2UnitStrc* pWeapon = sub_00623990_GetWeapon(pUnit, 0);
+    D2UnitStrc* pWeapon = D2Common_10434(pUnit, 0);
     int bNoAmmo = 1;
     if (!pWeapon)
     {
@@ -750,7 +750,7 @@ int __fastcall SKILLS_IsAlliedUnit(D2UnitStrc* pUnitA, D2UnitStrc* pUnitB)
                 return 0;
         }
     }
-    return sub_0047A520(!pUnitA ? -1 : pUnitA->dwUnitId, nUnitIdB) != 0;
+    return ROSTER_IsSameParty(!pUnitA ? -1 : pUnitA->dwUnitId, nUnitIdB) != 0;
 }
 
 struct D2ActiveRoomStrc;
@@ -1158,7 +1158,7 @@ int __fastcall SKILLS_CheckWeaponStart(D2UnitStrc* pUnit, int nSkillId, int nSki
     }
     else
     {
-        D2UnitStrc* pWeapon = sub_00623990_GetWeapon(pUnit, 0);
+        D2UnitStrc* pWeapon = D2Common_10434(pUnit, 0);
         if (pWeapon && ITEMSIsA(pWeapon, 0x26))
         {
             return 0;
@@ -1174,7 +1174,7 @@ int __fastcall SKILLS_CheckThrowStart(D2UnitStrc* pUnit, int nSkillId, int nSkil
     {
         return 0;
     }
-    return sub_00623990_GetWeapon(pUnit, 0) != 0;
+    return D2Common_10434(pUnit, 0) != 0;
 }
 
 static inline D2PetTypeTxt* DATATBLS_GetPetTypeTxtRecord(int nPetType)
@@ -1200,7 +1200,7 @@ int __fastcall SKILLS_CheckPetTarget(D2UnitStrc* pUnit, int nSkillId, int nSkill
         return 0;
     }
 
-    const int nOwnerId = sub_00479150_GetOwnerId(!pTarget ? -1 : pTarget->dwUnitId);
+    const int nOwnerId = ROSTERPETS_FindRosterIndex(!pTarget ? -1 : pTarget->dwUnitId);
     if (nOwnerId != (!pUnit ? -1 : pUnit->dwUnitId))
     {
         return 0;
@@ -1261,7 +1261,7 @@ int __fastcall SKILLS_ThrowWeapon(D2UnitStrc* pUnit, int nSkillId, int nArg)
         pUnit->dwFlags |= 0x40;
     }
 
-    pItem = sub_00623990_GetWeapon(pUnit, 0);
+    pItem = D2Common_10434(pUnit, 0);
     if (!pItem)
     {
         return 0;
@@ -1275,7 +1275,7 @@ int __fastcall SKILLS_ThrowWeapon(D2UnitStrc* pUnit, int nSkillId, int nArg)
         return 1;
     }
 
-    sub_004C5420_CreateFirstMissile(pUnit, nMissile, nSkillId, 1);
+    AUTOMAP_RequestAtTarget(pUnit, nMissile, nSkillId, 1);
     return 1;
 }
 
@@ -1316,7 +1316,7 @@ static int __stdcall SKILLS_StartClientSkill(int nOwnerGUID, int nSkillLevel, D2
             return 0;
         }
 
-        if (!sub_00645950_CheckTargetPos(nX, nY, pUnit, nCollisionMask))
+        if (!D2Common_11026(nX, nY, pUnit, nCollisionMask))
         {
             return 0;
         }
@@ -1345,7 +1345,7 @@ static int __stdcall SKILLS_StartClientSkill(int nOwnerGUID, int nSkillLevel, D2
             if (nSkillLevel > nMaxLevel)
             {
                 SKILLS_AssignSkill(pUnit, nSkillId, nMaxLevel, 0, ".\\SKILLS\\Skills.cpp", 0x513);
-                sub_00647AA0_SetSkillBonusLevel(pUnit, nSkillId, nSkillLevel - nMaxLevel);
+                D2Common_11030(pUnit, nSkillId, nSkillLevel - nMaxLevel);
             }
             else
             {
@@ -1378,7 +1378,7 @@ static int __stdcall SKILLS_StartClientSkill(int nOwnerGUID, int nSkillLevel, D2
         if (nSkillLevel > nMaxLevel)
         {
             SKILLS_AssignSkill(pUnit, nSkillId, nMaxLevel, 0, ".\\SKILLS\\Skills.cpp", 0x53A);
-            sub_00647AA0_SetSkillBonusLevel(pUnit, nSkillId, nSkillLevel - nMaxLevel);
+            D2Common_11030(pUnit, nSkillId, nSkillLevel - nMaxLevel);
         }
         else
         {
@@ -1510,7 +1510,7 @@ static int __stdcall SKILLS_StartClientSkill(int nOwnerGUID, int nSkillLevel, D2
 Done:
     if (nResult && pSkillsTxtRecord->wAuraFunc > 0)
     {
-        sub_004C5680_StartAura(pUnit, pSkillsTxtRecord->wAuraFunc);
+        SKILLS_AttachMissileLight(pUnit, pSkillsTxtRecord->wAuraFunc);
     }
 
     return nResult;
@@ -1969,12 +1969,12 @@ int __fastcall SKILLS_StartSkillOnUnit(D2UnitStrc* pUnit, D2ClientSkillArgsStrc*
     if (pTarget)
     {
         UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
-        sub_00465BF0(pUnit, 0);
+        CUNIT_SetPathTargetToTargetUnit(pUnit, 0);
         return SKILLS_StartClientSkill(pArgs->nOwnerGUID, pArgs->nSkillLevel, pUnit, pArgs->nSkillId);
     }
 
     sub_00480C10_UnitEvent(7, pUnit, NULL, 0);
-    sub_006248E0_Log(1, 2, 4, 0x40, ".\\SKILLS\\Skills.cpp", 0x7C2, "StartsStartSkillID - Invalid Target");
+    LOG_11100(1, 2, 4, 0x40, ".\\SKILLS\\Skills.cpp", 0x7C2, "StartsStartSkillID - Invalid Target");
     return 0;
 }
 
@@ -2536,7 +2536,7 @@ int __fastcall SKILLS_BurstTargetCorpse(D2UnitStrc* pUnit, int nSkillId, int nSk
         pUnit->dwFlags |= 0x40;
     }
 
-    sub_004AF890(pTarget, 5, 0);
+    MONSTER_SpawnBloodMissiles(pTarget, 5, 0);
     return 1;
 }
 
@@ -2594,7 +2594,7 @@ int __fastcall SKILLS_LeapToTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLe
 // 0x004C7E10
 int __fastcall SKILLS_FireWeaponMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
-    D2UnitStrc* pItem = sub_00623990_GetWeapon(pUnit, 1);
+    D2UnitStrc* pItem = D2Common_10434(pUnit, 1);
     if (!pItem)
     {
         return 0;
@@ -2631,7 +2631,7 @@ int __fastcall SKILLS_FireWeaponMissile(D2UnitStrc* pUnit, int nSkillId, int nSk
     }
     else
     {
-        sub_004C5420_CreateFirstMissile(pUnit, nMissile, nSkillId, nSkillLevel);
+        AUTOMAP_RequestAtTarget(pUnit, nMissile, nSkillId, nSkillLevel);
     }
     return 1;
 }
@@ -2667,7 +2667,7 @@ int __fastcall SKILLS_BurstSoftTargetCorpse(D2UnitStrc* pUnit, int nSkillId, int
         pUnit->dwFlags |= 0x40;
     }
 
-    sub_004AF890(pTarget, 5, 0);
+    MONSTER_SpawnBloodMissiles(pTarget, 5, 0);
     return 1;
 }
 
@@ -2815,10 +2815,10 @@ void __fastcall SKILLS_SpawnOffsetMissile(int nUnitId, int nUnused, D2UnitStrc* 
     D2UnitStrc* pNewMissile = MISSILE_CreateClientMissile(&tMissileParams);
     if (pNewMissile)
     {
-        sub_004DA000(pNewMissile);
+        PARTICLE_ResetGfxMotion(pNewMissile);
         GFXUTIL_SetMotionVectorA(pNewMissile, 0, 0, 0);
         GFXUTIL_SetMotionVectorB(pNewMissile, 0, 0, 2, 1);
-        sub_004DA250(pNewMissile, 0, 0, 0, 1);
+        GFXUTIL_SetMotionVectorD(pNewMissile, 0, 0, 0, 1);
         MISSILE_SetTargetX(pNewMissile, nOffsetX);
         MISSILE_SetTargetY(pNewMissile, nOffsetY);
     }

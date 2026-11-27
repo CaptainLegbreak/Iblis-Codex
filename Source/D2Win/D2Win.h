@@ -81,7 +81,7 @@ int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
 void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 void __fastcall D2Win_10176_StartPaletteFlash(int bActive); // 0x004FB130
 void __stdcall D2GFX_SetPaletteTables(D2PaletteTableStrc* pPaletteTables); // 0x004F6410
-void __stdcall sub_004F6540(D2GfxDataStrc* pContext, int nX, int nY); // 0x004F6540
+void __stdcall TEXTURE_CelDrawShadow(D2GfxDataStrc* pContext, int nX, int nY); // 0x004F6540
 void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 extern "C" void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int dwFlags); // 0x00413020
 void* __stdcall sub_004FAC80(); // 0x004FAC80
