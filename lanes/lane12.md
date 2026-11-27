@@ -8,6 +8,17 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Fri Nov 27 11:48 PST 2026: **lane12/dupdata-1** (272e8088a, stacked on renamed-1): "One definition per global: second definitions become
+  extern declarations". 167 globals a unit defined although another file defines them at the same address (the
+  definition the link keeps) become extern declarations there, with the kept definition's type and linkage
+  (gbStandStillHeld: Game_0044B7B0.cpp now declares, D2Client Game.cpp defines). Every changed unit EQUAL; two
+  whose code changes keep their definitions. Left: definitions with an initializer or over several lines (55),
+  kept definitions that are generated data (~37). VERIFIED tree 1959d9012d3a1790126fd2c568c30f579595009c.
+  linkdebt vs renamed-1: 23,708 -> 23,079 (duplicate_data 1,100 -> 395, 241 -> 83 targets; D2Multi -146, D2Client
+  -122, D2Launch -76, D2Sound -71, Fog -62, D2BNClient -39, D2MCPClient -36, D2Win -36, others down; no module
+  rises; placeholder +46 and different_identifier +27 are references that now reach the kept definition and show
+  its other name, lane 11's categories). auditguard: no count rose (raw offset 120, byte pointer math 153,
+  pointer casts 4,895).
 - Fri Nov 27 11:17 PST 2026: **lane12/renamed-1** (6a3bbae45, stacked on api-d2common-3): "One definition per name: unmarked second
   copies go or become static". Eight files had their own non-static, unmarked copy of a function another file
   defines at its address, so the ordinary link renamed one: the copy goes where nothing in its file calls it (D2CMP
