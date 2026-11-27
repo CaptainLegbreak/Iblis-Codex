@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Thu Nov 26 21:45 PST 2026: #467 took join-gfx-drawunit. join-gfx-dcc0 posted on #467 (Gfx pieces 5 -> 4). Left: DB90+F870 (wait on the COF header, Notes), E300 and 470C30 (built without /GS-).
+- Thu Nov 26 21:11 PST 2026: #467 took join-gfx-drawunit. join-gfx-dcc0 posted on #467 (Gfx pieces 5 -> 4). Left: DB90+F870 (wait on the COF header, Notes), E300 and 470C30 (built without /GS-).
 
 - Thu Nov 26 20:55 PST 2026: Gfx_0046DB90 + Gfx_0046F870 retried together on #466: 4 mismatches including the 0x46E740 tie, and the COF-header record needs lane 2 (Notes). Reverted; reading in Left in place.
 
