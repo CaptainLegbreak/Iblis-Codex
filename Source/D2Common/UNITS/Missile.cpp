@@ -17,7 +17,6 @@
 #include "D2Skills.h"
 #include "D2MissileData.h"
 
-
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
@@ -25,11 +24,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);    // 0x0040B430
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
-
-
-
-
-
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
@@ -237,10 +231,6 @@ extern "C" int __stdcall MISSILE_GetElementalLength(Unit*, Unit*, int, int); // 
 
 extern "C" DataTables* gVar_00744304; // 0x00744304
 
-struct Data0064A190;
-
-struct Unit0064A190;
-
 struct D2MissileDataStrc;
 struct D2MissileStreamStrc;
 
@@ -251,56 +241,6 @@ struct B24Roster;
 struct B24MissileData;
 
 struct B24Unit;
-
-struct Data0064A210;
-
-struct Unit0064A210;
-
-struct Data0064A280;
-
-struct Unit0064A280;
-
-struct Data0064A300;
-
-struct Unit0064A300;
-
-struct Data0064A380;
-
-struct Unit0064A380;
-
-struct Data0064A3B0;
-
-struct Unit0064A3B0;
-
-struct Unit0064A3E0;
-
-struct Data0064A4E0;
-
-struct Unit0064A4E0;
-
-struct Data0064A510;
-
-struct Unit0064A510;
-
-struct Data0064A540;
-
-struct Unit0064A540;
-
-struct Data0064A570;
-
-struct Unit0064A570;
-
-struct Data0064A640;
-
-struct Unit0064A640;
-
-struct Data0064A6D0;
-
-struct Unit0064A6D0;
-
-struct Data0064A6F0;
-
-struct Unit0064A6F0;
 
 struct TargetData;
 
@@ -325,27 +265,6 @@ struct Damage;
 struct D2StatStrc;
 
 struct D2MissileDamageDataStrc;
-
-struct Data0064A190 {
-    unsigned int dwUnknown00;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int f_10;
-    unsigned int dwValue14;
-};
-
-struct Unit0064A190 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwMissileMode;
-    Data0064A190* pData;
-};
-
-
-
 
 struct B24Roster
 {
@@ -401,208 +320,9 @@ extern "C" unsigned int gB24SelectedKey;
 
 extern "C" unsigned char gB24Rows[];
 
-struct Data0064A210 {
-    unsigned int dwUnknown00;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    short sValue0C;
-};
-
-struct Unit0064A210 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwMissileMode;
-    Data0064A210* pData;
-};
-
-struct Data0064A280 {
-    unsigned int dwUnknown00;
-    unsigned int dwUnknown04;
-    unsigned short wUnknown08;
-    short sValue0A;
-};
-
-struct Unit0064A280 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwMissileMode;
-    Data0064A280* pData;
-};
-
-struct Data0064A300 {
-    unsigned int dwUnknown00;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned short wUnknown0C;
-    short sValue0E;
-};
-
-struct Unit0064A300 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwMissileMode;
-    Data0064A300* pData;
-};
-
-struct Data0064A380 {
-    unsigned int dwUnknown00;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    short sValue10;
-};
-
-struct Unit0064A380 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwMissileMode;
-    Data0064A380* pData;
-};
-
-struct Data0064A3B0 {
-    unsigned int dwUnknown00;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned short wUnknown0C;
-    short sValue0E;
-    short sValue10;
-};
-
-struct Unit0064A3B0 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwMissileMode;
-    Data0064A3B0* pData;
-};
-
-struct Unit0064A3E0 {
-    int nType;
-    unsigned int dwValue04;
-};
-
-struct Data0064A4E0 {
-    unsigned int dwUnknown00;
-    unsigned short wValue04;
-};
-
-struct Unit0064A4E0 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwMissileMode;
-    Data0064A4E0* pData;
-};
-
-struct Data0064A510 {
-    unsigned int dwUnknown00;
-    short sValue04;
-};
-
-struct Unit0064A510 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwMissileMode;
-    Data0064A510* pData;
-};
-
-struct Data0064A540 {
-    unsigned int dwUnknown00;
-    unsigned short wUnknown04;
-    unsigned short wValue06;
-};
-
-struct Unit0064A540 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwMissileMode;
-    Data0064A540* pData;
-};
-
-struct Data0064A570 {
-    unsigned int dwUnknown00;
-    unsigned short wUnknown04;
-    short sValue06;
-};
-
-struct Unit0064A570 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwMissileMode;
-    Data0064A570* pData;
-};
-
-struct Data0064A640 {
-    unsigned int dwUnknown00;
-    unsigned int dwUnknown04;
-    short sValue08;
-};
-
-struct Unit0064A640 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwMissileMode;
-    Data0064A640* pData;
-};
-
 #pragma pack(push, 1)
 
-struct Data0064A6D0 { unsigned char bUnknown00[0x30]; unsigned int dwValue30; };
-
 #pragma pack(pop)
-
-struct Unit0064A6D0 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwMissileMode;
-    Data0064A6D0* pData;
-};
-
-struct Data0064A6F0 {
-    unsigned int dwUnknown00;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int f_10;
-    unsigned int dwUnknown14;
-    unsigned int dwUnknown18;
-    unsigned int dwUnknown1C;
-    unsigned int dwUnknown20;
-    unsigned int dwUnknown24;
-    unsigned int dwUnknown28;
-    unsigned int dwUnknown2C;
-    unsigned int dwValue30;
-};
-
-struct Unit0064A6F0 {
-    int nType;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int dwMissileMode;
-    Data0064A6F0* pData;
-};
-
 
 typedef char check_pointer_width[sizeof(void*)==4?1:-1];
 
@@ -716,9 +436,6 @@ typedef char check_Queue24_array[OFFSET(Queue24,array)==0x18?1:-1];
 
 typedef char check_Queue24_size[sizeof(Queue24)==0x1C?1:-1];
 
-
-
-
 struct D2MissileDamageDataStrc
 {
     int nFlags;
@@ -754,7 +471,6 @@ struct D2MissileDamageDataStrc
     int nDamagePercent;
 };
 
-
 void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
 
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
@@ -765,16 +481,11 @@ void __stdcall MISSILE_SetAnimSpeed(D2UnitStrc* pMissile, int nAnimSpeed); // 0x
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
-
 extern D2DataTablesStrc* gpDataTables_00744304; // 0x00744304
-
 
 extern void* gpfnMissileCalcFunctions[]; // 0x00745828
 
 extern int gnMissileCalcFunctionCount; // 0x00745848
-
-
-
 
 // __forceinline: 0x64A470 inlines this lookup; with plain inline it stays a call there
 __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
@@ -829,7 +540,6 @@ unsigned int __stdcall MISSILE_GetFlags(D2UnitStrc* pMissile)
     }
     return 0;
 }
-
 
 // 0x0064A1C0
 void __stdcall MISSILE_SetFlags(D2UnitStrc* pMissile, unsigned int dwFlags)

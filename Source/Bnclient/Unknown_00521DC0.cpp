@@ -1,6 +1,7 @@
 #include "Bnclient.h"
 #include "D2BnCryptTypes.h"
 #include "StormApi.h"
+#include "FogApi.h"
 
 struct D2CDKeyInfoStrc;
 
@@ -50,10 +51,6 @@ void __cdecl GRID_LockCDKeys(); // 0x005234D0
 void __cdecl GRID_UnlockCDKeys(); // 0x005239C0
 
 const char* __cdecl GAME_GetExeInfo(); // 0x00523AA0
-
-extern "C" const char* __fastcall sub_00408090(); // 0x00408090
-
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

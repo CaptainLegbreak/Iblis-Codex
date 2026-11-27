@@ -8,6 +8,8 @@
 #include "D2CmdArg.h"
 #include "D2FogSystemInfo.h"
 #include "D2Win32SystemInfo.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 typedef unsigned int size_t;
 
@@ -132,8 +134,6 @@ typedef void* HKEY;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
-
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 0x006829C0
@@ -166,11 +166,7 @@ extern "C" int __stdcall Process32First(void* hSnapshot, D2ProcessEntryStrc* pEn
 
 extern "C" int __stdcall Process32Next(void* hSnapshot, D2ProcessEntryStrc* pEntry); // 0x006B143A
 
-const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
-
 bool __fastcall ERRORMANAGER_CreateDirectoryWide(wchar_t* wszPath); // 0x00404560
-
-int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406BA0
 
 extern "C" const char gszInternalCheckHost[]; // 0x006FF994
 
@@ -187,8 +183,6 @@ struct D2FindDataStrc;
 struct D2Storm408ElemStrc;
 
 struct D2StormArray408Strc;
-
-int __stdcall SFileSetBasePath(const char* szPath); // 0x004164B0
 
 int __stdcall SFileOpenFile(const char* szFileName, void** phFile); // 0x00419980
 
@@ -224,25 +218,13 @@ extern "C" __declspec(dllimport) int __stdcall RemoveDirectoryA(const char* szPa
 
 extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileName); // 0x006CC1A0
 
-extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
-
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-
-unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
-
 int __fastcall ERRORMANAGER_GetJulianDay(int nYear, int nMonth, int nDay); // 0x00407370
 
 void __fastcall ERRORMANAGER_JulianDayToDate(long nJulian, int* pYear, int* pMonth, int* pDay); // 0x00407440
 
 int __fastcall EXCEPTIONS_GetAppPath(char* szPath, unsigned int nSize); // 0x0040C220
 
-const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
-
 void __stdcall ERRORMANAGER_WriteProcessorReport(); // 0x0040EA00
-
-void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 extern int gnOsKind; // 0x0074D890
 
@@ -342,15 +324,11 @@ extern "C" const char gszUnknownUpper[];                                        
 
 extern "C" const char gszUnknownTitle[];// 0x006CCBE8
 
-extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
-
 bool __stdcall ERRORMANAGER_GetKnownFolderPathA(char* szPath, int nSize);                                   // 0x004067D0
 
 int __fastcall ERRORMANAGER_AppendBackslash(char* szPath, size_t nSize);                                // 0x00406B20
 
 int __fastcall ERRORMANAGER_MoveDirectoryTree(const char* szPathA, const char* szPathB);                         // 0x00406DE0
-
-int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 
 struct D2ThreadContextStrc;
 
@@ -437,8 +415,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesW(cons
 
 extern "C" wchar_t* __cdecl wcsrchr(const wchar_t* szString, wchar_t nChar); // 0x00685DF7
 
-const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
-
 long __stdcall sub_00403E90_UnhandledExceptionFilter(void* pExceptionPointers); // 0x00403E90
 
 void __fastcall LOGMANAGER_SetLogPrefix(const char* szName); // 0x0040F5A0
@@ -483,13 +459,7 @@ struct AsyncDataEventSlot
     AsyncData* pAsyncOp;
 };
 
-int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
-
 int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
-
-int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
-
-int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 
 int __fastcall FOG_FSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
 
@@ -602,8 +572,6 @@ void __cdecl ERRORMANAGER_StartDbgHelpThread(); // 0x004016A0
 void __fastcall ERRORMANAGER_SetReportText(const char* szText); // 0x00401740
 
 void __fastcall ERRORMANAGER_SetCrashHandler(void* pfnHandler, void* pContext, int nUnused); // 0x00403F60
-
-int __fastcall ERRORMANAGER_GetModuleDirectory(char* szPath, unsigned int nSize); // 0x00406B60
 
 void __cdecl ERRORMANAGER_LogSystemInfo(); // 0x004076B0
 

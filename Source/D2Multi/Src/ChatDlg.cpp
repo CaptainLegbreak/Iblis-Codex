@@ -30,6 +30,7 @@
 #include "FogApi.h"
 #include "D2LangApi.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
@@ -57,8 +58,6 @@ struct SMSGHANDLER_PARAMS;
 
 
 
-
-unsigned int __stdcall FOG_ComputeChecksum(const unsigned char* pData, unsigned int nSize); // 0x00411130
 
 D2CelFileStrc* __fastcall sub_004FA9B0_LoadCellFile(const char* szFile, int nType); // 0x004FA9B0
 
@@ -237,8 +236,6 @@ extern "C" __declspec(dllimport) int __stdcall FileTimeToSystemTime(const _FILET
 
 extern "C" __declspec(dllimport) int __stdcall FileTimeToLocalFileTime(const _FILETIME* pFileTime, _FILETIME* pLocalFileTime); // 0x006CC338
 
-unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
-
 
 class D2SquelchListStrc
 {
@@ -258,8 +255,6 @@ public:
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 extern "C" size_t __cdecl strlen(const char* szString);
-
-const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 
 
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
@@ -452,8 +447,6 @@ char gszMcpText2[28]; // 0x00798F60
 
 char gszMcpText1[4]; // 0x00799294
 
-
-unsigned int __stdcall SStrHashHT(const char* szPath);                                           // 0x00414150
 
 extern "C" int __cdecl isalnum(int c);                                                                      // 0x006870FB
 
@@ -800,10 +793,6 @@ struct D2ModuleInterfaceStrc;
 struct D2CelFileStrc;
 
 extern D2ModuleInterfaceStrc gtInterface; // 0x0070CD14
-
-const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
-
-int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam, int* pbUseResult, int* plResult); // 0x00420B00
 
 void* __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
 
@@ -5100,8 +5089,6 @@ void __cdecl CHATDLG_DestroyJoinControls()
 }
 
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long nValue); // 0x004150E0
-
 // 0x004431B0
 void __cdecl MAINMENUS_LoadMaxPlayers()
 {
@@ -6111,8 +6098,6 @@ void __cdecl CHATDLG_UpdateLevelControls()
     }
     CHATDLG_UpdateCreateButton();
 }
-
-extern "C" int __cdecl SStrPrintf(char* szBuffer, unsigned int nSize, const char* szFormat, ...); // 0x00413A40
 
 int __fastcall D2Win_10076(D2WinEditBoxStrc* pEditBox, const char* szText); // 0x004FFE10
 

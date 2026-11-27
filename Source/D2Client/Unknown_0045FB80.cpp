@@ -9,6 +9,7 @@
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);
@@ -53,9 +54,6 @@ void __fastcall SKILLDESC_ShowSkillPopupB(D2UnitStrc* pUnit, int nSkillId, int n
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift);
 void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);
 int __stdcall SKILLS_GetBonusSkillLevelFromSkillId(D2UnitStrc* pUnit, int nSkillId);
 
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])

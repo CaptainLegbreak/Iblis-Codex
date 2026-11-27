@@ -194,8 +194,6 @@ int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 D2TextBoxStrc* __stdcall CHAT_GetUsedFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x00661200
 
 
-void __stdcall TEXT_FreeTextHeader(int nHandle); // 0x006612A0
-
 
 
 void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
@@ -694,8 +692,6 @@ extern D2MsgHandlerEntryStrc gaKeyCaptureWheelHandlers[]; // 0x0072478C
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
 
 
 int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
@@ -741,8 +737,6 @@ enum { REPEAT_MASK = 0x40000000, UI_VARIABLE = 11 };
 
 
 
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
-
 extern "C" int gnFlag_007C02EC; // 0x007C02EC
 
 void __stdcall CURSOR_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
@@ -762,7 +756,6 @@ void* gpLevelSocketCel; // 0x007C02E0
 int gbStatButtonPressed; // 0x007C02E4
 
 
-void __fastcall TEXT_MoveKeyConfigSelection(int nStep);
 
 
 
@@ -810,7 +803,6 @@ extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
 
 
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 
 
@@ -2262,7 +2254,6 @@ struct D2PointsTextStrc
     Unicode w0, w1, w2, w3, w4, w5, w6, w7, w8, w9;
 };
 
-extern "C" const char gszFormatLd[]; // 0x006D9BE8
 
 
 extern void* gpSkillPointsCel; // 0x007BEF20

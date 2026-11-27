@@ -120,8 +120,6 @@ void __stdcall UNITS_StoreOwner(D2UnitStrc*,D2UnitStrc*); // 0x00621CE0
 
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc*); // 0x00625D60
 
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc*,int,int,int); // 0x00627260
-
 void __stdcall SKILLS_AssignSkill(D2UnitStrc*,int,int,int,const char*,int); // 0x00647280
 
 

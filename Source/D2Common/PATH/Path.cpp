@@ -57,8 +57,6 @@
 
 #define PATH_CORPSE_SIZE 3
 
-struct ActiveRoom;
-
 struct D2CoordStrc;
 
 union D2FP32_16;
@@ -71,19 +69,7 @@ struct D2PathInfoStrc;
 
 struct PATH_SetVelocity;
 
-struct RoomStatusNode;
-
-struct DrlgView;
-
-struct PathView;
-
-struct UnitView;
-
 struct PATH_GetPathPoints;
-
-struct PathPrecisionView;
-
-struct PathPreviousView;
 
 struct Entry00648A40;
 
@@ -97,13 +83,9 @@ struct RoomFlags;
 
 struct PathFlags;
 
-struct KeyValue;
-
 struct CodeRow;
 
 struct CodeOutput;
-
-struct LinkView;
 
 struct CodeLink;
 
@@ -122,8 +104,6 @@ struct B25MissileData;
 struct B25MissileUnit;
 
 struct D2Record00648E40Strc;
-
-struct PathCollisionView;
 
 struct PATH_SetStepNum;
 
@@ -171,84 +151,9 @@ static void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPath
 
 static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo);
 
-struct RoomStatusNode
-{
-    char retainedPrefix[0x1c];
-    RoomStatusNode* statusNext;
-    char retainedMiddle[0x10];
-    ActiveRoom* activeRoom;
-    char retainedBeforeStatus[0x10];
-    unsigned char status;
-    char retainedTail[0xA7];
-};
-
-struct DrlgView
-{
-    char retainedPrefix[0xa0];
-    RoomStatusNode statusRooms[4];
-};
-
-struct PathView
-{
-    char retainedPrefix[0x28];
-    int pointCount;
-    char retainedGap[8];
-    unsigned int flags;
-    char retainedBeforePattern[0x10];
-    int collisionPattern;
-};
-
-struct UnitView
-{
-    char retainedPrefix[0x2c];
-    PathView* path;
-};
-
 typedef char check_pointer_width[sizeof(void*)==4?1:-1];
 
-typedef char check_room_next[OFFSET(RoomStatusNode,statusNext)==0x1c?1:-1];
-
-typedef char check_room_active[OFFSET(RoomStatusNode,activeRoom)==0x30?1:-1];
-
-typedef char check_room_status[OFFSET(RoomStatusNode,status)==0x44?1:-1];
-
-typedef char check_room_stride[sizeof(RoomStatusNode)==0xec?1:-1];
-
-typedef char check_room_array[OFFSET(DrlgView,statusRooms)==0xa0?1:-1];
-
-typedef char check_first_head[OFFSET(DrlgView,statusRooms)+OFFSET(RoomStatusNode,statusNext)==0xbc?1:-1];
-
-typedef char check_second_sentinel[OFFSET(DrlgView,statusRooms)+sizeof(RoomStatusNode)==0x18c?1:-1];
-
-typedef char check_second_head[OFFSET(DrlgView,statusRooms)+sizeof(RoomStatusNode)+OFFSET(RoomStatusNode,statusNext)==0x1a8?1:-1];
-
-typedef char check_path_count[OFFSET(PathView,pointCount)==0x28?1:-1];
-
-typedef char check_path_flags[OFFSET(PathView,flags)==0x34?1:-1];
-
-typedef char check_path_pattern[OFFSET(PathView,collisionPattern)==0x48?1:-1];
-
-typedef char check_unit_path[OFFSET(UnitView,path)==0x2c?1:-1];
-
 typedef char check_word_width[sizeof(unsigned short)==2?1:-1];
-
-struct PathPrecisionView
-{
-    unsigned int precisionX;
-};
-
-typedef char check_precision_x[OFFSET(PathPrecisionView,precisionX)==0?1:-1];
-
-struct PathPreviousView
-{
-    char retainedPrefix[0x14];
-    unsigned short previousTargetX;
-    unsigned short previousTargetY;
-};
-
-typedef char check_previous_x[OFFSET(PathPreviousView,previousTargetX)==0x14?1:-1];
-
-typedef char check_previous_y[OFFSET(PathPreviousView,previousTargetY)==0x16?1:-1];
 
 struct Entry00648A40 {
     unsigned short wFirst;
@@ -281,16 +186,6 @@ struct PathFlags
 typedef char check_PathFlags_flags[OFFSET(PathFlags,flags)==0x34?1:-1];
 
 typedef char check_PathFlags_size[sizeof(PathFlags)==0x38?1:-1];
-
-struct KeyValue
-{
-    unsigned int key;
-    int value;
-};
-
-typedef char check_KeyValue_value[OFFSET(KeyValue,value)==4?1:-1];
-
-typedef char check_KeyValue_size[sizeof(KeyValue)==8?1:-1];
 
 struct CodeRow
 {
@@ -333,17 +228,6 @@ typedef char check_CodeOutput_c2[OFFSET(CodeOutput,c2)==2?1:-1];
 typedef char check_CodeOutput_c3[OFFSET(CodeOutput,c3)==3?1:-1];
 
 typedef char check_CodeOutput_size[sizeof(CodeOutput)==5?1:-1];
-
-struct LinkView
-{
-    int count;
-    char pad4[0x4];
-    KeyValue* entries;
-};
-
-typedef char check_LinkView_entries[OFFSET(LinkView,entries)==0x8?1:-1];
-
-typedef char check_LinkView_size[sizeof(LinkView)==0xC?1:-1];
 
 struct CodeLink
 {
@@ -439,36 +323,6 @@ struct D2Record00648E40Strc
     unsigned char nValue90;
 };
 
-extern "C" unsigned short __stdcall COLLISION_CheckMaskWithSize(ActiveRoom* room,int x,int y,int unitSize,unsigned short mask); // 0x0064D9B0
-
-struct PathCollisionView
-{
-    char retainedGap0[0x2];
-    unsigned short positionX;
-    char retainedGap1[0x2];
-    unsigned short positionY;
-    char retainedGap2[0x14];
-    ActiveRoom* room;
-    char retainedGap3[0x24];
-    int dwUnitSize;
-    char retainedGap4[0xC];
-    unsigned short collidedMask;
-    char retainedGap5[0x26];
-    int velocity;
-};
-
-typedef char check_positionX[OFFSET(PathCollisionView,positionX)==0x2?1:-1];
-
-typedef char check_positionY[OFFSET(PathCollisionView,positionY)==0x6?1:-1];
-
-typedef char check_room[OFFSET(PathCollisionView,room)==0x1C?1:-1];
-
-typedef char check_unitSize[OFFSET(PathCollisionView,dwUnitSize)==0x44?1:-1];
-
-typedef char check_collidedMask[OFFSET(PathCollisionView,collidedMask)==0x54?1:-1];
-
-typedef char check_velocity[OFFSET(PathCollisionView,velocity)==0x7C?1:-1];
-
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648C30
 
 static unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* pPathInfo);
@@ -478,8 +332,6 @@ static int PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath);
 static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit);
 
 static BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc* pPathInfo, D2UnitStrc* pUnit);
-
-int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown);
 
 static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo);
 
@@ -544,10 +396,6 @@ static int PATH_GetMonsterMoveTestMask(D2UnitStrc* pUnit);
 int __stdcall PATH_ComputeDirectionFromPreciseCoords(D2FP32_16 tStart, D2FP32_16 tTarget); // 0x0064FE10
 
 static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit);
-
-void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitStrc* pUnit, int bSetFlag);
-
-void __stdcall D2Common_10228(D2UnitStrc* pUnit);
 
 void __cdecl sub_00403F50_Nop()
 {
@@ -1043,9 +891,9 @@ int __stdcall D2Common_11281_CollisionPatternFromSize(D2UnitStrc* pUnit, int nSi
 }
 
 // 0x00649190
-extern "C" void __stdcall PATH_SetUnitCollisionPattern(UnitView* unit,int collisionPattern)
+void __stdcall PATH_SetUnitCollisionPattern(D2UnitStrc* pUnit, int nCollisionPattern)
 {
-    unit->path->collisionPattern = collisionPattern;
+    pUnit->pDynamicPath->dwCollisionPattern = nCollisionPattern;
 }
 
 // 0x006485F0
@@ -1100,18 +948,6 @@ void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, 
     }
 }
 
-extern "C" ActiveRoom* __fastcall DRLGACTIVATE_GetARoomInClientSight(DrlgView* drlg)
-{
-    RoomStatusNode* room = drlg->statusRooms[0].statusNext;
-    if (room == &drlg->statusRooms[0] || !room)
-    {
-        room = drlg->statusRooms[1].statusNext;
-        if (room == &drlg->statusRooms[1] || !room)
-            return 0;
-    }
-    return room->activeRoom;
-}
-
 // 0x00649F50
 void __stdcall D2Common_10228(D2UnitStrc* pUnit)
 {
@@ -1149,10 +985,10 @@ void __stdcall PATH_SetAcceleration(D2DynamicPathStrc* pDynamicPath, int nAccele
 }
 
 // 0x00648730
-extern "C" void __stdcall PATH_ClearPathingFlagAndPoints(PathView* path)
+void __stdcall PATH_ClearPathingFlagAndPoints(D2DynamicPathStrc* pDynamicPath)
 {
-    path->flags &= 0xffffffdf;
-    path->pointCount = 0x0;
+    pDynamicPath->dwFlags &= 0xFFFFFFDF;
+    pDynamicPath->dwPathPoints = 0;
 }
 
 // 0x00648780
@@ -1278,9 +1114,9 @@ int __stdcall PATH_GetPrecisionY(D2DynamicPathStrc* hPath)
 }
 
 // 0x006489A0
-extern "C" void __stdcall PATH_SetPrecisionX(PathPrecisionView* path,unsigned int precisionX)
+void __stdcall PATH_SetPrecisionX(D2DynamicPathStrc* pDynamicPath, unsigned int dwPrecisionX)
 {
-    path->precisionX = precisionX;
+    pDynamicPath->dwPrecisionX = dwPrecisionX;
 }
 
 // 0x006489B0
@@ -1799,11 +1635,13 @@ unsigned char __stdcall PATH_GetMaxDistance(D2DynamicPathStrc* pDynamicPath)
 }
 
 // 0x00648EB0
-extern "C" unsigned short __stdcall PATH_GetCollidedWithMask(PathCollisionView* path)
+unsigned short __stdcall PATH_GetCollidedWithMask(D2DynamicPathStrc* pDynamicPath)
 {
-    if (path->velocity == 0)
-        path->collidedMask = COLLISION_CheckMaskWithSize(path->room,path->positionX,path->positionY,path->dwUnitSize,0x7FFF);
-    return path->collidedMask;
+    if (pDynamicPath->dwVelocity == 0)
+    {
+        pDynamicPath->nCollidedWithMask = COLLISION_CheckMaskWithSize(pDynamicPath->pRoom, pDynamicPath->wPosX, pDynamicPath->wPosY, pDynamicPath->dwUnitSize, 0x7FFF);
+    }
+    return pDynamicPath->nCollidedWithMask;
 }
 
 // 0x00648EF0
@@ -1872,10 +1710,10 @@ void __stdcall D2COMMON_10203_PATH_SetRotateFlag(D2DynamicPathStrc* pDynamicPath
 }
 
 // 0x00649050
-extern "C" void __stdcall PATH_ClearPreviousTargetPoint(PathPreviousView* path)
+void __stdcall PATH_ClearPreviousTargetPoint(D2DynamicPathStrc* pDynamicPath)
 {
-    path->previousTargetX = 0;
-    path->previousTargetY = 0;
+    pDynamicPath->tPrevTargetCoord.X = 0;
+    pDynamicPath->tPrevTargetCoord.Y = 0;
 }
 
 // 0x00649070
@@ -2377,26 +2215,6 @@ int __stdcall D2Common_10237(D2UnitStrc* pUnit)
     }
 
     return pDynamicPath->dwCurrentPointIdx < pDynamicPath->dwPathPoints;
-}
-
-// build: symbol _FOG_GetLinkIndexByCode@* 0x006BD130
-extern "C" int __stdcall FOG_GetLinkIndexByCode(LinkView* link, unsigned int key, int unusedLogError)
-{
-    int upper = link->count;
-    int lower = 0;
-    KeyValue* entries = link->entries;
-    while (lower < upper)
-    {
-        int middle = lower + (upper - lower) / 2;
-        unsigned int current = entries[middle].key;
-        if (key > current)
-            lower = middle + 1;
-        else if (key < current)
-            upper = middle;
-        else
-            return entries[middle].value;
-    }
-    return -1;
 }
 
 // 0x006492F0

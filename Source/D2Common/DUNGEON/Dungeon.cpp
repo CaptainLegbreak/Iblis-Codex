@@ -74,7 +74,6 @@ struct Coord;
 struct D2DrlgCoordsStrc;
 
 
-struct sub_Z16_EmitRoomHolder;
 
 union D2SeedStrc;
 
@@ -179,11 +178,6 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 int __fastcall DRLGROOM_ReorderNearRoomList(D2DrlgRoomStrc* pDrlgRoom, D2ActiveRoomStrc** ppRoomList); // 0x0066BD00
 
-struct sub_Z16_EmitRoomHolder
-{
-    char unk0x00[0x5C];
-    void* pMemory;
-};
 
 typedef char sub_G03_AssertRoomSize[sizeof(D2ActiveRoomStrc) == 0x80 ? 1 : -1];
 
