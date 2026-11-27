@@ -138,7 +138,6 @@ int gnSymInitCount; // 0x0075CFD4
 static void __stdcall EXCEPTIONS_GetLogicalAddress(char* szModule, unsigned long* pnSection, unsigned long* pnOffset, void* pAddress, unsigned int nSize); // 0x0040C520
 
 
-int gnLogQueueCount; // 0x0075E870
 
 struct D2ToolhelpModuleEntryStrc;
 

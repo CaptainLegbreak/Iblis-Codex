@@ -82,7 +82,6 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMillisecon
 
 int gbLogInitialized; // 0x0075D2EC
 
-extern int gnLogQueueCount; // 0x0075E870
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
@@ -441,9 +440,9 @@ void __cdecl LOGMANAGER_CloseLogFilesNow()
     while (GetTickCount() - dwStart < 1000)
     {
         EnterCriticalSection(&gtLogQueueLock);
-        const int nQueued = gnLogQueueCount > 0 ? gnLogQueueCount : 0;
+        LogManager::Message* pQueued = gtLogMsgQueue_0075E868.Head();
         LeaveCriticalSection(&gtLogQueueLock);
-        if (!nQueued)
+        if (!pQueued)
         {
             break;
         }
