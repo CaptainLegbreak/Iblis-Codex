@@ -8,7 +8,7 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
-- Fri Nov 27 05:40 PST 2026: **lane12/api-fog** (89dcc5ad3, stacked on lane12/module-api-headers-7, on #476
+- Fri Nov 27 05:12 PST 2026: **lane12/api-fog** (89dcc5ad3, stacked on lane12/module-api-headers-7, on #476
   9a4b7d477): "Fog: declarations of its exports agree with their definitions", by tools/genheaders.py --module Fog
   --header FogApi2.h. 19 new exports in FogApi2.h; FogApi.h's and other modules' header lines for Fog addresses
   take the definitions' types (forward declarations added above them where a header had none); 24 private copies
@@ -24,7 +24,7 @@ it is on main; from #473, based on main.
   linkdebt vs module-api-headers-7: 29,942 -> 29,868 (type_disagreement 6,689 -> 6,615; D2Common 4,797 -> 4,744,
   D2Game 6,540 -> 6,530, D2Client, D2Multi, D2Win, D2MCPClient down; no module rises). auditguard: no count rose;
   raw offset 120, byte pointer math 153, pointer casts 4,915, all unchanged.
-- Fri Nov 27 05:40 PST 2026: **lane12/module-api-headers-7** (6a00e8706): module-api-headers-6 rebased onto #476
+- Fri Nov 27 05:12 PST 2026: **lane12/module-api-headers-7** (6a00e8706): module-api-headers-6 rebased onto #476
   9a4b7d477 without conflicts; take this one instead of -6. VERIFIED tree 6472a693a8fb28e701b75cc3995add9ee5379506;
   link debt on it 29,942. (-6's linkdebt and audit numbers below hold.)
 - Fri Nov 27 03:52 PST 2026: **lane12/genheaders** (6b036b9b0, on #474 0950bf8ba; second commit: it runs on the checkout it is started in): `tools/genheaders.py` (standard
@@ -53,7 +53,7 @@ it is on main; from #473, based on main.
   4,915.
 
 ## Claimed
-- Fri Nov 27 05:40 PST 2026: status. Held branches done (module-api-headers-7 Ready; the other three dropped, see
+- Fri Nov 27 05:12 PST 2026: status. Held branches done (module-api-headers-7 Ready; the other three dropped, see
   below). genheaders: a third commit (includes placed where the copy stood, forward declarations for corrected
   header lines, --plan) is verifying on #476 as lane12/genheaders-2. Next: Storm, D2Lang, then D2Common through
   genheaders, each stacked on api-fog. Files claimed: Source/Include/StormApi*.h, D2LangApi*.h, D2CommonApi*.h and
