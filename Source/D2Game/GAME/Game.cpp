@@ -2174,22 +2174,22 @@ unsigned int __fastcall NET_GetBits12(unsigned int nValue);
 char* __fastcall NET_GetField0D0(D2Net52BE10Strc* pRecord);
 
 // build: symbol ?NET_DefaultLeaveGame@* 0x0052BE40
-void __stdcall NET_DefaultLeaveGame(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12, int a13, int a14, int a15, int a16, int a17, int a18);
+void __stdcall NET_DefaultLeaveGame(int nUnused1, int nUnused2, int nUnused3, int nUnused4, int nUnused5, int nUnused6, int nUnused7, int nUnused8, int nUnused9, int nUnused10, int nUnused11, int nUnused12, int nUnused13, int nUnused14, int nUnused15, int nUnused16, int nUnused17, int nUnused18);
 
 // build: symbol ?NET_DefaultSaveDatabaseCharacter@* 0x0052BE60
-void __stdcall NET_DefaultSaveDatabaseCharacter(int a1, int a2, int a3, int a4);
+void __stdcall NET_DefaultSaveDatabaseCharacter(int nUnused1, int nUnused2, int nUnused3, int nUnused4);
 
 // build: symbol ?NET_DefaultServerLogMessage@* 0x0052BE70
 void __cdecl NET_DefaultServerLogMessage();
 
 // build: symbol ?NET_DefaultEnterGame@* 0x0052BE80
-void __stdcall NET_DefaultEnterGame(int a1, int a2, int a3);
+void __stdcall NET_DefaultEnterGame(int nUnused1, int nUnused2, int nUnused3);
 
 // build: symbol ?NET_DefaultFindPlayerToken@* 0x0052BE90
-int __stdcall NET_DefaultFindPlayerToken(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
+int __stdcall NET_DefaultFindPlayerToken(int nUnused1, int nUnused2, int nUnused3, int nUnused4, int nUnused5, int nUnused6, int nUnused7);
 
 // build: symbol ?NET_DefaultUpdateCharacterLadder@* 0x0052BED0
-void __stdcall NET_DefaultUpdateCharacterLadder(int a1, int a2, int a3, int a4, int a5);
+void __stdcall NET_DefaultUpdateCharacterLadder(int nUnused1, int nUnused2, int nUnused3, int nUnused4, int nUnused5);
 
 // 0x0052BEF0
 void __cdecl GAME_DefaultGetGameServerInfo()
@@ -2366,7 +2366,7 @@ D2GameStrc* D2GameListStrc::Next(D2GameStrc* pGame)
 }
 
 // 0x0052FA50
-void __fastcall SrvJoinGame(int dwClientId, unsigned short nGameId, int nClass, const char* szClientName, int a5, const char* szAccountName, int nCharSaveTransactionToken, int nLocale, int nUnused1, int nUnused2, int a11, int a12, int a13)
+void __fastcall SrvJoinGame(int dwClientId, unsigned short nGameId, int nClass, const char* szClientName, int nUnused3, const char* szAccountName, int nCharSaveTransactionToken, int nLocale, int nUnused1, int nUnused2, int nUnused4, int nUnused5, int nUnused6)
 {
     if (!gpGameDataTbl)
     {
