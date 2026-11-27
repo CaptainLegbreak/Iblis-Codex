@@ -124,9 +124,7 @@ extern D2MsgHandlerEntryStrc gaDialogHandlers[]; // 0x007273F0
 
 static inline void DIALOG_InitDialog(D2ClientDialogStrc* pDialog);
 
-extern "C" int __stdcall sub_00420290_QueueMessage(Message*); // 0x00420290
 
-extern "C" int __fastcall sub_004B9A00_Notify(int, void*, int, int, int); // 0x004B9A00
 
 
 

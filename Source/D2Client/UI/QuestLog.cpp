@@ -25,7 +25,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
-int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags();                                                           // 0x004B32D0
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc);                   // 0x00526700

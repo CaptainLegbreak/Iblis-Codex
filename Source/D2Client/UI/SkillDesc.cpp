@@ -345,9 +345,7 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
 
 static int SKILLDESC_AppendSkillDescStrLong(Unicode* wszOut, int nSkillId);
 
-extern "C" const char gszFmtPlusDecimal[]; // 0x006DBE9C
 
-extern "C" const char gszFmtDecimal[]; // 0x006DBE94
 
 // noinline: the original calls this; without it the compiler expands it into 0x004E7A90.
 __declspec(noinline) static int __stdcall SKILLDESC_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue);
@@ -418,7 +416,6 @@ extern const char gszFmtOne_006D57BC[]; // 0x006D57BC
 int __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc* pInventory, D2UnitStrc** ppItem); // 0x0063C8F0
 
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 D2UnitStrc* sub_004E9300_MergeWeaponPair(D2UnitStrc* pUnit); // 0x004E9300
 

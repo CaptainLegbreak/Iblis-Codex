@@ -273,7 +273,6 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 
 void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
