@@ -2421,7 +2421,7 @@
   },
   "Source/D2Game/MONSTER/MonsterMode.cpp": {
    "bytes": 952,
-   "definitions": 11,
+   "definitions": 10,
    "externs": [
     "extern \"C\" void __cdecl SKILLS_EventCallback_ActiveState(); // 0x0056D790",
     "extern \"C\" void __cdecl SKILLS_EventCallback_PeriodicSkillAura(); // 0x0056FCB0",
@@ -93414,27 +93414,9 @@
      "MONSTERMODE_EventEndAnimation",
      0,
      "func"
-    ]
-   ],
-   "region": "rdata",
-   "size": 8,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006E2490_t\n{\n    const void* p0;\n    const void* p1;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006E2490\n#pragma comment(linker, \"/alternatename:?gpMonsterEventFunctions@@3PAP6IXPAUD2GameStrc@@PAUD2UnitStrc@@HH@ZA=_gData_006E2490\")",
-   "va": "0x006E2490"
-  },
-  {
-   "alias": false,
-   "cname": "gData_006E2498",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/MONSTER/MonsterMode.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" const struct d2data_006E2498_t gData_006E2498; // 0x006E2498",
-   "head": "extern \"C\" const struct d2data_006E2498_t gData_006E2498 = ",
-   "name": "gData_006E2498",
-   "pointers": [
+    ],
     [
-     0,
+     8,
      "0x005B1740",
      "queue_function",
      "AITHINK_ExecuteMonsterAiTick",
@@ -93442,7 +93424,7 @@
      "func"
     ],
     [
-     4,
+     12,
      "0x005A6920",
      "source",
      "MONSTERMODE_ApplyStatRegen",
@@ -93450,7 +93432,7 @@
      "func"
     ],
     [
-     12,
+     20,
      "0x0056D790",
      "source",
      "SKILLS_EventCallback_ActiveState",
@@ -93458,7 +93440,7 @@
      "func"
     ],
     [
-     16,
+     24,
      "0x005A7F00",
      "names.json",
      "MONSTERMODE_EventFreeHoverText",
@@ -93466,7 +93448,7 @@
      "func"
     ],
     [
-     20,
+     28,
      "0x005A4370",
      "queue_function",
      "MONSTERUNIQUE_EventExecuteUModCallbacks",
@@ -93474,7 +93456,7 @@
      "func"
     ],
     [
-     24,
+     32,
      "0x0056FCB0",
      "queue_function",
      "SKILLS_EventCallback_PeriodicSkillAura",
@@ -93482,7 +93464,7 @@
      "func"
     ],
     [
-     28,
+     36,
      "0x0056FE40",
      "queue_function",
      "SKILLS_EventCallback_ItemAura",
@@ -93490,7 +93472,7 @@
      "func"
     ],
     [
-     32,
+     40,
      "0x005A7F70",
      "queue_function",
      "MONSTERMODE_EventClearTargetOverride",
@@ -93498,7 +93480,7 @@
      "func"
     ],
     [
-     40,
+     48,
      "0x005A7EF0",
      "queue_function",
      "sub_005A7EF0",
@@ -93507,10 +93489,10 @@
     ]
    ],
    "region": "rdata",
-   "size": 56,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006E2498_t\n{\n    const void* p0;\n    const void* p1;\n    unsigned char b2[4];\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    unsigned char b9[4];\n    const void* p10;\n    unsigned char b11[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006E2498",
-   "va": "0x006E2498"
+   "size": 64,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006E2490_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    unsigned char b4[4];\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    unsigned char b11[4];\n    const void* p12;\n    unsigned char b13[12];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x006E2490\n#pragma comment(linker, \"/alternatename:?gpMonsterEventFunctions@@3PAP6IXPAUD2GameStrc@@PAUD2UnitStrc@@HH@ZA=_gData_006E2490\")",
+   "va": "0x006E2490"
   },
   {
    "alias": false,
