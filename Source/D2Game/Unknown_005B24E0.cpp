@@ -702,7 +702,7 @@ static inline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
 }
 
 // 0x005B3130
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnWithOwnerData(D2GameStrc* pGame, void* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, int a6, unsigned short nFlags)
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnWithOwnerData(D2GameStrc* pGame, void* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, int bSetFlag2, unsigned short nFlags)
 {
     D2UnkMonCreateStrc tRequest;
     tRequest.nUnitGUID = 0;
@@ -718,7 +718,7 @@ D2UnitStrc* __fastcall MONSTERSPAWN_SpawnWithOwnerData(D2GameStrc* pGame, void* 
     D2UnitStrc* pUnit = D2GAME_SpawnNormalMonster(&tRequest);
     if (pUnit)
     {
-        AIGENERAL_SetOwnerData(pGame, pUnit, !pUnit ? -1 : pUnit->dwUnitId, 1, 1, a6);
+        AIGENERAL_SetOwnerData(pGame, pUnit, !pUnit ? -1 : pUnit->dwUnitId, 1, 1, bSetFlag2);
     }
     return pUnit;
 }

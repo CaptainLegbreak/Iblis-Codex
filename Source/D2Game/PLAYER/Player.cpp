@@ -111,7 +111,7 @@ int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 struct D2DifficultyLevelsTxt;
 
 
-static int __stdcall PLAYER_PlaceItemInInventory(D2GameStrc* pGame, int a8, D2UnitStrc* pItem, D2UnitStrc* pPlayer);
+static int __stdcall PLAYER_PlaceItemInInventory(D2GameStrc* pGame, int pPlayer, D2UnitStrc* hItem, D2UnitStrc* hPlayer);
 
 static int __stdcall PLAYER_EquipStartItem(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer);
 
