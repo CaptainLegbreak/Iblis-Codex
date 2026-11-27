@@ -52,15 +52,6 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - data_cluster: 5,956 / 475 -> 5,736 / 455.
     - linkdebt total: 29,819 -> 29,520. D2Client 10,591 -> 10,292; every other module unchanged.
     - shortdata: 355 -> 355 (same list).
-- Fri Nov 27 04:48 PST 2026: **lane13/cluster-rule-2** (0bdda1c5e, on lane13/cluster-rule 5434a8696; **supersedes cluster-rule**, take this one). VERIFIED tree f66d34ecd95d455e1568ff41657af8abc4c241a1; Game.exe identical. Audit guard: no count rose. Only tools/link.py changes.
-  - **The extension.** A `cmp` with an immediate (3D, 81 /7) reads no memory at that address, so any such operand outside its array is now plain: a loop bound, including an unrolled loop's `a + size + 4`. D2Game's gnGamesGUIDs[1024] is walked four entries a step and compared with `gnGamesGUIDs + 1025`. That is your condition (a), the loop bound, read as "any compare" rather than "exactly one past the end". Other immediates (push, mov) still have to be exactly one past the end, and (2) is unchanged: a constant read past the end with no register still makes a cluster.
-  - The read-back check now skips a global that lies in its section's uninitialised tail (nothing to compare). The newly freed globals exposed one: D2Win gData_0072E1BA.
-  - **Read back:** 14,927 / 14,927 verified functions and 2,408 / 2,408 initialised globals equal; image valid, same imports.
-  - **Counts on main, before -> cluster-rule -> cluster-rule-2:**
-    - data clusters: 126 -> 78 -> 51; 534,127 -> 58,706 -> 41,485 B; 701 -> 600 -> 484 globals.
-    - data_cluster: 7,072 / 666 -> 6,357 / 575 -> 3,436 / 473.
-    - linkdebt total: 30,698 -> 30,093 -> 27,386. No module rose.
-    - As in cluster-rule, globals freed from blocks bring their own debts back into view (placeholder 3,544, different_identifier 5,744, duplicate_data 1,075, interior 134).
 ## Claimed
 - Fri Nov 27 07:01 PST 2026: check-in. client-tables and glide-tile-vertices Ready. Next: D2Game 0x008842A8 (1 global, 1,048 B), D2Common 0x006EF188, D2Direct3D 0x00971450, then the small ones; the D2CMP/D2Common reading after those.
 - Fri Nov 27 06:11 PST 2026: questlog Ready. The QuestLog file claims are done. Next: the remaining small D2Client/D2Glide/D2Game clusters (0x00880678 D2Glide, 0x008842A8 D2Game, 0x00726850 and 0x00723F30 D2Client), then the D2CMP/D2Common reading.
