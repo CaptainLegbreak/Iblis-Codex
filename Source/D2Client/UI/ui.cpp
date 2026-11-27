@@ -216,7 +216,6 @@ extern const D2PanelHotkeysStrc gtCubeHotkeys; // 0x006D627C
 
 extern const D2PanelHotkeysStrc gtBeltRowsHotkeys; // 0x006D62A0
 
-int gnPanelState;                                                                                  // 0x007A27E8
 
 
 
@@ -421,6 +420,9 @@ void __fastcall sub_005272B0_FormatText(Unicode* pDst, const Unicode* pText, con
 
 extern D2ViewStrc* gpClientView;                                                                         // 0x007A0640
 
+// The state of each UI variable, by UIVAR index.
+#define UIVAR_PANEL 0x0A
+#define UIVAR_MINIPANEL 0x15
 int gaUIVarStates[0x26]; // 0x007A27C0
 
 extern Unicode gwszPopUpText[80];                                                                       // 0x007A2C80
@@ -592,7 +594,6 @@ unsigned char gnLoadingBarColor; // 0x007A2A70
 
 unsigned char gnLoadingBoxColor; // 0x007A2A71
 
-int gbMiniPanel; // 0x007A2814
 
 int gnPanelFlag; // 0x007A2864
 
@@ -1995,14 +1996,14 @@ void __fastcall UI_TogglePanelHandlers(int bRegister)
 {
     if (bRegister)
     {
-        if (gnPanelState)
+        if (gaUIVarStates[UIVAR_PANEL])
         {
             SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaAutomapHandlers, 5);
         }
     }
     else
     {
-        if (gnPanelState)
+        if (gaUIVarStates[UIVAR_PANEL])
         {
             sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaAutomapHandlers, 5);
         }
@@ -2486,7 +2487,7 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
     case 0x5:
         CHAT_InitChatIme();
         CMDTBL_SetHotkeyHandlers(0, 0x1);
-        if (gnPanelState)
+        if (gaUIVarStates[UIVAR_PANEL])
             sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaAutomapHandlers, 0x5);
         sub_0047B4D0_Nop();
         return;
@@ -3002,11 +3003,11 @@ void __cdecl UI_ToggleMiniPanel()
     unsigned long dwValue;
     if (SRegLoadValue("Diablo II", "Mini Panel", 1, &dwValue) && dwValue)
         return;
-    const int bWasOn = gbMiniPanel;
+    const int bWasOn = gaUIVarStates[UIVAR_MINIPANEL];
     if (FOG_IsExpansion())
         GAME_IsExpansion();
     D2_ASSERT(gnUIVarCount == 0x26, 0x1397);
-    if (!gbMiniPanel)
+    if (!gaUIVarStates[UIVAR_MINIPANEL])
     {
         if (TEXT_IsTextBoxOpen())
             return;
@@ -3043,15 +3044,15 @@ void __cdecl UI_ToggleMiniPanel()
     }
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer)))
-        gbMiniPanel = gbMiniPanel == 0;
+        gaUIVarStates[UIVAR_MINIPANEL] = gaUIVarStates[UIVAR_MINIPANEL] == 0;
     if (!bWasOn)
     {
-        if (gbMiniPanel)
+        if (gaUIVarStates[UIVAR_MINIPANEL])
             SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaMiniPanelHandlers, 2);
     }
     else
     {
-        if (!gbMiniPanel)
+        if (!gaUIVarStates[UIVAR_MINIPANEL])
             sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMiniPanelHandlers, 2);
     }
     sub_00468730();
