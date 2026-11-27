@@ -16928,6 +16928,10 @@
      "name": "?GFX_HitTestUnitGfx@@YIHPAUD2UnitStrc@@HHHH@Z"
     },
     {
+     "va": "0x00470EC0",
+     "length": 1412
+    },
+    {
      "va": "0x00471450",
      "length": 464
     },
@@ -16940,6 +16944,10 @@
      "va": "0x00471BD0",
      "length": 740,
      "name": "?GFX_DrawUnitHealthBar@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00471EC0",
+     "length": 847
     },
     {
      "va": "0x00472530",
@@ -16961,6 +16969,20 @@
      "length": 112,
      "name": "GFX_RefreshPathTarget"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -19485,54 +19507,6 @@
      "va": "0x00470C30",
      "length": 656
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/Gfx_00470EC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00470EC0",
-     "length": 1412
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/Gfx_00471EC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00471EC0",
-     "length": 847
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
