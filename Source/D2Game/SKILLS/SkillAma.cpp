@@ -11,6 +11,7 @@
 #include "D2GameAux.h"
 #include "D2LanguageNames.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 // build: symbol _gaszLanguageNames 0x00741C0C
 
 union D2SeedStrc;
@@ -23,8 +24,6 @@ struct D2DamageStrc;
 
 struct D2DataTablesStrc;
 
-
-unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 
 
 #include "D2GameFuncs.h"
@@ -42,8 +41,6 @@ int __fastcall D2GAME_RollElementalDamage(D2UnitStrc* pUnit, D2DamageStrc* pDama
 
 void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, unsigned char nSrcDam); // 0x0057DBF0
 
-
-int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x006449F0
 
 
 static void __stdcall SKILLS_DamageImpaleWeapon(D2GameStrc* pGame, int nChance, int nAmount, D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x005DAA40
@@ -83,13 +80,7 @@ enum { MISSILE_FLAGS = 0x20 };
 int __fastcall SKILLS_CountAuraTargets(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter); // 0x0056BC80
 
 
-void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 
-
-int __fastcall UNITS_GetWeaponClass(D2UnitStrc*); // 0x00623C60
-
-
-int __stdcall SKILLS_GetParam1(D2SkillStrc*); // 0x006444A0
 
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60
@@ -116,8 +107,6 @@ int __fastcall D2GAME_GetSummonIdFromSkill(D2UnitStrc* pUnit, int bFromMonster, 
 
 void __fastcall D2GAME_SetSummonPassiveStats(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel, int nItemLevel); // 0x005C4470
 
-
-void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner);                                     // 0x00621CE0
 
 
 enum
@@ -769,8 +758,6 @@ void __fastcall SKILLS_AddDamagePercentBonus(D2UnitStrc* pUnit, int nBonus)
     }
 }
 
-void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
-
 // 0x005DB6D0
 int __fastcall SKILLS_SrvDo010_GuidedArrow_BoneSpirit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -1112,8 +1099,6 @@ int __fastcall SKILLS_SrvDo014_LightningStrike(D2GameStrc* game,D2UnitStrc* unit
 
 
 void __fastcall D2GAME_BOSSES_AssignUMod(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4850
-
-void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int nUnused);                              // 0x00621E40
 
 // 0x005DC000
 int __fastcall SKILLS_SrvDo015_Dopplezon(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)

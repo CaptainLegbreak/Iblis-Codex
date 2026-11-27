@@ -8,6 +8,7 @@
 #include "D2ClientTypes.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 struct D2UnitStrc;
 struct D2InventoryStrc;
 
@@ -42,10 +43,7 @@ int __stdcall D2GFX_CheckPerspective();                                         
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 unsigned char* __fastcall D2Win_10175_GetPL2Shift(int nIndex);                                              // 0x004FB0C0
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
-int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit);                                                    // 0x00621190
-int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                                                         // 0x0062B400
 unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned char* pShift, int nArg); // 0x0062C100
-void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
 static int __stdcall GFX_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverlay, D2UnitStrc* pUnit, int nX, int nY); // 0x00470EC0
@@ -250,10 +248,6 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
 int __cdecl D2GFX_CheckUnitPerspective(); // 0x004F5170
 void __stdcall D2GFX_SetTownMode(int); // 0x004F5190
 void __stdcall TEXTURE_CelFlatSpriteDraw(D2CelContextStrc*, int, int, unsigned int, int, int, unsigned char*); // 0x004F6450
-int __stdcall UNITS_GetPrecisionX(D2UnitStrc*); // 0x006203B0
-int __stdcall UNITS_GetPrecisionY(D2UnitStrc*); // 0x00620410
-int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc*, int); // 0x0063A7B0
-int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*, D2InventoryStrc*, int*, int, int); // 0x0064F380
 
 inline int IsShapeShifted(D2UnitStrc* pUnit)
 {

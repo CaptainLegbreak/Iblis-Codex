@@ -15,6 +15,7 @@
 #include "D2LanguageNames.h"
 #include "D2CommonApi.h"
 #include "FogApi.h"
+#include "D2CommonApi2.h"
 #define MONTYPEFLAG_UNIQUE 8
 #define EVENTTYPE_REMOVESTATE 0x0C
 
@@ -31,7 +32,6 @@ struct D2GSPacketSrvAA;
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
-int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMonster); // 0x0063E9F0
 void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame); // 0x006260B0
 #include "D2GameFuncs.h"
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
@@ -52,8 +52,6 @@ extern D2ServerCallbacks* gpServerCallbacks; // 0x00883D50
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*, int, int); // 0x006253B0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, int); // 0x00627260
-int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc*); // 0x00625D60
-int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc*); // 0x00625DB0
 void __fastcall sub_00536850_UpdateLevel(D2GameStrc*,D2UnitStrc*,int); // 0x00536850
 void __fastcall SUNIT_AttachSound(D2UnitStrc*,int,D2UnitStrc*); // 0x00553380
 int __stdcall UNITS_GetPlayerName(D2UnitStrc*,int,int); // 0x00622150

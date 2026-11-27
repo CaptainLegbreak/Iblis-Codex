@@ -18,6 +18,7 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "StormApi.h"
+#include "D2CommonApi2.h"
 
 struct D2ActiveRoomStrc;
 
@@ -126,8 +127,6 @@ extern int gbSkillTabPressed; // 0x007C0C38
 
 
 
-unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
-
 
 
 
@@ -169,8 +168,6 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 
 
 
-
-void __stdcall sub_0065C1F0(int nId, int nGroup, D2Block1* pBlock); // 0x0065C1F0
 
 
 void __fastcall sub_0049FF90_Close(D2UnitStrc* pItem, D2ItemsTxt* pState); // 0x0049FF90
@@ -225,8 +222,6 @@ extern void* gpPartyBoxesCel; // 0x007BF020
 
 extern unsigned char gnBoxColor; // 0x007BF034
 
-int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
-
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
 
@@ -235,8 +230,6 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x0
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
-
-int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nArg, int nMode); // 0x00621050
 
 
 unsigned char gabBeltHotkey[1]; // 0x007BEFB0
@@ -256,10 +249,6 @@ unsigned char gnTextColorB; // 0x007BEFE4
 
 
 
-
-D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
-
-D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
 
 
@@ -329,8 +318,6 @@ int __fastcall sub_004B2AD0(D2UnitStrc* pItem, int nArg, int* pOut, Unicode* pNa
 
 void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nUnused, int bFlag, const Unicode* wszExtra); // 0x004E6410
 
-int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
-
 struct D2QtyWarnStrc
 {
     int nWarnType;
@@ -355,10 +342,6 @@ int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 void __stdcall INV_DrawWarningIcon(int nFrame); // 0x00497C50
 
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
-
-unsigned char __stdcall ITEMS_GetQtyWarnCount(D2UnitStrc* pItem); // 0x00629800
-
-int __stdcall ITEMS_IsMagSetRarUniCrfOrTmp(D2UnitStrc* pItem); // 0x0062A0F0
 
 
 

@@ -5,6 +5,7 @@
 #include "D2DrlgPresets.h"
 #include "D2DrlgTiles.h"
 #include "FogApi.h"
+#include "FogApi2.h"
 extern const int gnTileTypeMappingTable[]; // 0x006EEF20
 
 struct D2TileLibraryEntryStrc;
@@ -30,8 +31,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
 #define D2_ASSERTM(expr, msg, line) D2_ASSERT(expr, line)
-
-char* __cdecl ERRORMANAGER_Sprintf(char* szDest, const char* szFormat, ...);                                // 0x00407310
 
 extern "C" const char gszDrlgAnimSourceFile[];                                                              // 0x006EEF08
 

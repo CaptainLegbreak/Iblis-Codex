@@ -7,6 +7,7 @@
 #include "D2ClientUiRecords.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi2.h"
 
 #define gpMsgRecordChunkHead_007A2760 (gtMsgRecordChunkFirst.pNext)
 #define FILE_ATTRIBUTE_NORMAL 0x00000080
@@ -36,7 +37,6 @@ struct D2RecordFileHeaderStrc
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC19C
 int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
-int __stdcall DUNGEON_GetInitSeedFromAct(D2DrlgActStrc* pAct); // 0x0061AAC0
 extern D2DrlgActStrc* gpAct; // 0x007A0634
 void __stdcall RECORD_RecordMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451450
 int gbRecordHandlerInstalled; // 0x007A2780

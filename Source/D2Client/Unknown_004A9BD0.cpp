@@ -10,6 +10,7 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "StormApi.h"
+#include "D2CommonApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
@@ -28,7 +29,6 @@ void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 extern D2HotkeySlotTableStrc gtHotkeySlots_007C0300; // 0x007C0300
 extern int gbSkillSelectRight; // 0x007C07FC
 
-D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern D2SkillIconStateStrc gtHotkeySlots; // 0x007C0300

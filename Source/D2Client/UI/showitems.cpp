@@ -7,6 +7,7 @@
 #include "D2ItemsWorld.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -46,16 +47,8 @@ D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*,D2ActiveRoomStrc***,unsigned int*); // 0x00619790
 
-int __stdcall UNITS_GetPrecisionX(D2UnitStrc*); // 0x006203B0
-
-int __stdcall UNITS_GetPrecisionY(D2UnitStrc*); // 0x00620410
 
 
-
-
-int __stdcall UNITS_GetClientCoordX(D2UnitStrc*); // 0x00620650
-
-int __stdcall UNITS_GetClientCoordY(D2UnitStrc*); // 0x006206B0
 
 extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 
@@ -69,13 +62,7 @@ void __fastcall D2Win_10131_GetTextDimensions(const Unicode*,int*,int*); // 0x00
 void __fastcall D2Win_10129_DrawFramedText(const Unicode*,int,int,int,int); // 0x00502280
 
 
-int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
-
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*,unsigned int,int,const char*); // 0x006280A0
-
-int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc*); // 0x00629900
-
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc*); // 0x0062BC20
 
 
 void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int dwColor, int eDrawMode, int nColor); // 0x005023B0
