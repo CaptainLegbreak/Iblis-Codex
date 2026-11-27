@@ -26,7 +26,7 @@ void __fastcall sSrvSendGameInit(int nClientId, char* szGameName, unsigned char 
 void __fastcall GAME_UpdatePing(int nClientId, int nTick, int nDelay, int nUnused); // 0x0052C400
 int __stdcall SERVER_HackListClient(int nClientId, const char* szFile, int nLine); // 0x0052B4F0
 int __fastcall SrvVerifyJoinGame(int nClientId, unsigned short nGameId, unsigned char nPlayerClass, const char* szClientName, int nTokenId, char* szAccountName, int* pOutCharSaveTransactionToken, unsigned char nLocale, int* a9, int* a10, int* a11, int* a12, int a13); // 0x0052C690
-void __fastcall SrvJoinGame(int dwClientId, unsigned short nGameId, int nClass, const char* szClientName, int a5, const char* szAccountName, int nCharSaveTransactionToken, int nLocale, int nUnused1, int nUnused2, int a11, int a12, int a13); // 0x0052FA50
+void __fastcall SrvJoinGame(int dwClientId, unsigned short nGameId, int nClass, const char* szClientName, int nUnused3, const char* szAccountName, int nCharSaveTransactionToken, int nLocale, int nUnused1, int nUnused2, int nUnused4, int nUnused5, int nUnused6); // 0x0052FA50
 int __fastcall GAME_VerifyEndGame(int nClientId); // 0x0052C8E0
 int __fastcall sub_0052DAF0_Return1(int nClientId); // 0x0052DAF0
 void __fastcall GAME_HandleGameListRequest(int nClientId); // 0x0052E9B0
