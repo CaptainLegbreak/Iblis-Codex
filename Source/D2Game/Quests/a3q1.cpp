@@ -22,7 +22,6 @@ struct D2UnitStrc;
 struct D2MapAIStrc;
 struct D2QuestArgStrc;
 struct D2QuestDataStrc;
-struct Quest;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -81,14 +80,6 @@ void __fastcall ACT3Q1_Callback05_ItemDropped(D2QuestDataStrc* pQuestData, D2Que
 void __fastcall ACT3Q1_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 void __fastcall ACT3Q1_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 void __fastcall ACT3Q1_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
-
-typedef bool (__fastcall *Sequence)(Quest*);
-
-typedef int (__stdcall *CodePointer)();
-
-struct Quest { int number; Game* game; unsigned char act,notIntro,active,lastState,state; char padD[3]; int sequenceId; char pad14[0xDC]; Sequence sequence; };
-
-Quest* __fastcall QUESTS_GetQuestData(Game*,int); // 0x00543640
 
 enum { FINAL_STATE = 5 };
 
@@ -672,17 +663,20 @@ void __fastcall ACT3Q1_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 }
 
 // 0x005B7CD0
-bool __fastcall ACT3Q1_SeqCallback(Quest* quest)
+bool __fastcall ACT3Q1_SeqCallback(D2QuestDataStrc* pQuestData)
 {
-    if (quest->state != FINAL_STATE && quest->notIntro) return true;
-    Quest* next = QUESTS_GetQuestData(quest->game,quest->sequenceId);
-    if (next) {
-        if (IsBadCodePtr((CodePointer)quest->sequence)) {
-            FOG_DisplayHalt(&empty_assert,sub_00408090(),808);
-            exit(-1);
-        }
-        return next->sequence(next);
+    if (pQuestData->fState != FINAL_STATE && pQuestData->bNotIntro)
+    {
+        return true;
     }
+
+    D2QuestDataStrc* pNextQuestData = QUESTS_GetQuestData(pQuestData->pGame, pQuestData->nSeqId);
+    if (pNextQuestData)
+    {
+        D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 808);
+        return pNextQuestData->pfSeqFilter(pNextQuestData);
+    }
+
     return false;
 }
 
