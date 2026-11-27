@@ -8,7 +8,23 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
-- Fri Nov 27 7:20 PST 2026: **lane12/api-storm** (eda3a960c, on api-fog-2): "Storm: declarations of its exports agree with their
+- Fri Nov 27 7:51 PST 2026: **lane12/api-storm-2** (2ed43b7e1, on #479 7a4cfcc42): two commits, Fog then Storm, rebased onto #479
+  without conflicts (api-fog-2 and api-storm before; -8 is merged, and api-fog's Fog commit is the one thing it
+  lacks). VERIFIED tree 6fc474e78f0fb3dcfb378163161aca39846fcb29. linkdebt vs #479: being measured, posted next.
+  - "Fog: declarations of its exports agree with their definitions" (genheaders --module Fog --header FogApi2.h):
+    19 new exports in FogApi2.h; FogApi.h's and other modules' header lines for Fog addresses take the
+    definitions' types (forward declarations added above them where needed); 24 private copies give way. Left out:
+    pool/async/data-array/queue-socket calls whose callers pass void* or their own record types (FOG_AllocPool,
+    FOG_FreePool, FOG_ReallocPool, FOG_CreateNewPoolSystem, FOG_AsyncDataLoadFileEx, FOG_CreateBinFile,
+    FOG_ComputeChecksum, BITMANIP_Write, DATAARRAYS_Reset/FreeEntry, D2QSSOCKET_DestroyRecord/SendPacket: these
+    need the callers' fields typed, a later branch), typedefs only a .cpp defines (FOG_10219, LOGMANAGER_WriteLogV,
+    D2QSSOCKET_SetPacketHandler, FOG_10170, QSInit, gapLogFiles), the duplicated ghD2ServerServiceStatus,
+    FOG_GetInstallPath and sub_0040EB10 (a header change flips inv_0048BC10.cpp / ItemTbls.cpp), and per unit the
+    copies whose removal changes the unit or no longer compiles (sub_00408090 in 5 units, FOG_IsExpansion in 4, 28
+    other pairs). Measured on #477: linkdebt -74 (type_disagreement), no module rising.
+  - "Storm: declarations ...": as the api-storm entry below says. Measured on #477: linkdebt -229, no module rising.
+  auditguard on the tip: no count rose (raw offset 120, byte pointer math 153, pointer casts unchanged).
+- Fri Nov 27 7:20 PST 2026: (second commit of api-storm-2; first posted as lane12/api-storm, eda3a960c, on api-fog-2): "Storm: declarations of its exports agree with their
   definitions", by genheaders --module Storm --header StormApi2.h. 19 new exports in StormApi2.h; StormApi.h's,
   D2StormArrayA.h's and other modules' header lines for Storm addresses take the definitions' types; 68 private
   copies give way. Left out (26): SStrChr, SStrCmpI, SRegLoadData, SMemCmp, SBigFromBinary/New/Sub/ToBinaryBuffer/
@@ -20,69 +36,9 @@ it is on main; from #473, based on main.
   linkdebt vs api-fog-2: 29,594 -> 29,365 (type_disagreement 6,616 -> 6,387; D2BNClient -72, D2Client -60,
   D2Common -55, D2Lang -11, D2Win -6, SRP -5, D2Launch -5, others down; no module rises). auditguard: no count
   rose (raw offset 120, byte pointer math 153, pointer casts 4,915).
-- Fri Nov 27 6:47 PST 2026: **lane12/api-fog-2** (1b414eda3, on module-api-headers-8, #477): api-fog rebased onto -8, unchanged.
-  VERIFIED tree 7b4a50f16d657f90f1749455e184cc5b027c771c. linkdebt vs module-api-headers-8: 29,668 -> 29,594
-  (type_disagreement 6,690 -> 6,616; D2Common -53, D2Game -10, D2Win -4, D2Client -3, D2Multi -3, D2MCPClient -1;
-  no module rises). Take this one instead of api-fog; api-fog's description below holds.
-- Fri Nov 27 6:21 PST 2026: **lane12/genheaders-3** (40a74e013, on #477 ac1dc8375): the genheaders follow-ups now that #477 has the
-  tool: (1) a unit includes the export header after the last #include above its first removed copy, or at it, so
-  the declaration precedes every use; a corrected line in another module's header gets forward declarations just
-  above it; --plan writes the symbols taken as JSON; (2) a declaration that needs another shared header's typedef
-  is left out unless --includes (an export header including D2SysTypes.h or stpl.h redefines records in units that
-  keep private copies). Tools only. VERIFIED tree abb18019ee478444e86fa8366977dcf53db58213. Replaces genheaders-2.
-- Fri Nov 27 6:11 PST 2026: **lane12/module-api-headers-8** (0b2367fda, on #477 ac1dc8375): module-api-headers rebased onto j230, for
-  the coordinator's hold. With #477's control-templates, CharSel.cpp's 0x439210 changed when the unit dropped its
-  copies (a declaration-count unit), so **D2Launch CharSel.cpp keeps all of its private copies** and includes none
-  of the new headers (the commit message says so); its precheck-equivalent: CharSel.cpp EQUAL; full VERIFIED tree
-  a285f9c2732275e0a50901060e07c9553471bc35. Take this one instead of -6/-7. api-fog follows on it (verifying).
-- Fri Nov 27 05:23 PST 2026: **lane12/genheaders-2** (superseded by -3; 0d0127af9, on #476 9a4b7d477): lane12/genheaders rebased,
-  plus a third commit: a unit includes the export header after the last #include above its first removed copy (or
-  at the copy), so the declaration precedes every use; a corrected line in another module's header gets forward
-  declarations just above it; --plan writes the symbols taken as JSON. Take this one instead of lane12/genheaders.
-  Tools only. VERIFIED tree c6b85a0470514a8279cac057555428eefb2f926e.
-- Fri Nov 27 05:12 PST 2026: **lane12/api-fog** (superseded by api-fog-2; 89dcc5ad3, stacked on lane12/module-api-headers-7, on #476
-  9a4b7d477): "Fog: declarations of its exports agree with their definitions", by tools/genheaders.py --module Fog
-  --header FogApi2.h. 19 new exports in FogApi2.h; FogApi.h's and other modules' header lines for Fog addresses
-  take the definitions' types (forward declarations added above them where a header had none); 24 private copies
-  give way to the header. Left out: the pool/async/data-array/queue-socket calls whose callers pass void* or their
-  own record types (FOG_AllocPool, FOG_FreePool, FOG_ReallocPool, FOG_CreateNewPoolSystem, FOG_AsyncDataLoadFileEx,
-  FOG_CreateBinFile, FOG_ComputeChecksum, BITMANIP_Write, DATAARRAYS_Reset, DATAARRAYS_FreeEntry, D2QSSOCKET_
-  DestroyRecord/SendPacket; these need the callers' fields typed: a later branch), typedefs only a .cpp defines
-  (FOG_10219, LOGMANAGER_WriteLogV, D2QSSOCKET_SetPacketHandler, FOG_10170, QSInit, gapLogFiles), the duplicated
-  ghD2ServerServiceStatus, FOG_GetInstallPath and sub_0040EB10 (a header change flips inv_0048BC10.cpp /
-  ItemTbls.cpp), and per unit the copies whose removal changes the unit's bytes or no longer compiles (sub_00408090
-  in 5 units, FOG_IsExpansion in 4, and 28 other unit/symbol pairs; list in the branch's exclusion file, available
-  on request). Every unit genheaders lists (253) EQUAL. VERIFIED tree 6fbf5fd339c799e995b148da5aaaee61018a3958.
-  linkdebt vs module-api-headers-7: 29,942 -> 29,868 (type_disagreement 6,689 -> 6,615; D2Common 4,797 -> 4,744,
-  D2Game 6,540 -> 6,530, D2Client, D2Multi, D2Win, D2MCPClient down; no module rises). auditguard: no count rose;
-  raw offset 120, byte pointer math 153, pointer casts 4,915, all unchanged.
-- Fri Nov 27 05:12 PST 2026: **lane12/module-api-headers-7** (superseded by -8; 6a00e8706): module-api-headers-6 rebased onto #476
-  9a4b7d477 without conflicts; take this one instead of -6. VERIFIED tree 6472a693a8fb28e701b75cc3995add9ee5379506;
-  link debt on it 29,942. (-6's linkdebt and audit numbers below hold.)
-- Fri Nov 27 03:52 PST 2026: **lane12/genheaders** (superseded by genheaders-2; 6b036b9b0, on #474 0950bf8ba; second commit: it runs on the checkout it is started in): `tools/genheaders.py` (standard
-  library only) and a README paragraph. `--module M` lists every function and global M defines that another
-  module's unit declares (same identifier, line ending in the definition's address), with the definition's
-  prototype (types, convention, C linkage) and the header it goes to: Source/Include/<M>Api.h or `--header`, or the
-  Source/Include header that already declares it (corrected there). `--apply` writes the header, corrects other
-  headers' lines for those addresses, replaces each unit's private copy with an include, and `--units-out` lists
-  the units to rebuild; `--exclude` takes units, addresses or unit+address pairs whose bytes change. It lists what
-  it leaves out and why (static/inline, members, function-pointer globals, types no shared header defines, const
-  without extern, addresses defined in more than one file). Exports go to Source/Include because a unit's include
-  path is the repo root, its module directory and Source/Include only. Dry run on #474: D2Common 905 symbols
-  (1,260 copies), D2Client 191 (565), D2Win 119 (307), D2Gfx 100 (237), Fog 152 (202), Storm 117 (121), ~3,400
-  copies in all. Source unchanged. VERIFIED tree 034fd1b237015a3252d712bd6a27a82c6a0a725a; linkdebt and
-  auditguard unchanged (no source change).
-- Fri Nov 27 03:52 PST 2026: **lane12/module-api-headers-6** (c195e2acb, on #474 0950bf8ba; superseded by -7): lane 2's held branch,
-  its two commits rebuilt on main ("One name for the cel context: D2GfxDataStrc"; "Export headers for D2Gfx, D2Win,
-  D2CMP, D2Sound, D2Net, D2Hell and D2MCPClient"). Gfx_0046E300.cpp is gone on main, so its edits went to Gfx.cpp,
-  where GFX_DrawUnitOverlays now lives (CUNIT_GetGfxData's result is D2UnitGfxDataStrc*, the overlay cel context
-  D2GfxDataStrc); in Clients/Game/Level/SkillMonst.cpp main had already dropped the copies, so main's side stays.
-  precheck 455 units (every changed unit and every user of the 16 changed headers) 0 not all equal. VERIFIED tree
-  81f4f4ca6a78d0b891e5d23bd17730a31e2f6772. linkdebt 30,700 -> 30,549 (type_disagreement 6,823 -> 6,671; D2Client
-  10,777 -> 10,641, D2Win 918 -> 904, D2Multi 1,664 -> 1,663; no module rises; one D2Client reference moves from
-  type_disagreement to renamed_definition, 150 -> 151, its declaration now agreeing with a static definition).
-  auditguard: no count rose; raw offset access 120 -> 120, byte pointer math 153 -> 153, pointer casts 4,922 ->
-  4,915.
+- Fri Nov 27 7:51 PST 2026: **lane12/genheaders-4** (827b3733e, on #479): genheaders-3 rebased; its first commit is already on main
+  (#478's genheaders-2), the second stays: a declaration needing another shared header's typedef is left out unless
+  --includes. Tools only. VERIFIED tree 2d9b882586123b5d2168158baa9def02ad5ea17b. Replaces genheaders-3.
 
 ## Claimed
 - Fri Nov 27 7:20 PST 2026: status. Ready: module-api-headers-8, genheaders-3, api-fog-2, api-storm (a stack, in that order on #477).
