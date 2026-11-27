@@ -39,7 +39,7 @@ extern D2QuestTextsStrc gtQuestTextsSevenTombs;                                 
 extern D2QuestTextsStrc gtQuestTextsFallenAngel;                                                              // 0x00723C64
 extern D2QuestTextsStrc gtQuestTextsSiege;                                                              // 0x00723D24
 extern D2QuestPageRangeStrc gaQuestPageRanges[];                                                   // 0x00723F08
-extern D2QuestTableStrc gaQuestTable[];                                                            // 0x00723F30
+extern D2QuestTableStrc gaQuestTable[41];                                                            // 0x00723F30
 extern void* gapQuestIconCels[27];                                                                        // 0x007BF2E1
 extern unsigned char gabQuestFlagsA[];                                                             // 0x007BF356
 extern unsigned char gabQuestFlagsB[];                                                             // 0x007BF380
@@ -64,7 +64,6 @@ extern D2QuestPosStrc gaQuestPos[];                                             
 
 extern D2QuestLogStateStrc gtQuestLog_007BF298;                                                             // 0x007BF298
 
-extern D2UiEntry10Strc gaQuestLookup[41]; // 0x00723F38
 
 static inline int sub_004A1950_GetActNumber(const D2QuestTextsStrc* pTexts)
 {
@@ -174,7 +173,7 @@ static inline int TEXT_FindQuestIndex(int nKey)
 {
     for (int i = 0; i < 41; i++)
     {
-        if (gaQuestLookup[i].nKey == nKey)
+        if (gaQuestTable[i].nCondition == nKey)
             return i;
     }
     return -1;
@@ -185,7 +184,7 @@ static inline int TEXT_FindEntryIndex(int nId)
 {
     for (int i = 0; i < 41; i++)
     {
-        if (gaQuestLookup[i].nId == nId)
+        if (gaQuestTable[i].nQuestId == nId)
             return i;
     }
     return -1;
@@ -1320,16 +1319,15 @@ struct D2QuestPanelValuesStrc
 };
 #pragma pack(pop)
 
-extern D2QuestLookupEntryStrc gaQuestLookup_00723F38[0x29]; // 0x00723F38
 
 // 0x004A3070
 int __fastcall QUESTLOG_LookupQuestValue(int nUnused, int nKey)
 {
     for (unsigned int i = 0; i < 0x29; ++i)
     {
-        if (gaQuestLookup_00723F38[i].nKey == nKey)
+        if (gaQuestTable[i].nCondition == nKey)
         {
-            return gaQuestLookup_00723F38[i].nValue;
+            return gaQuestTable[i].nQuestId;
         }
     }
     return 0x2A;

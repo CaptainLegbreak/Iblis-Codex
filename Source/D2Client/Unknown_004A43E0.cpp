@@ -1097,9 +1097,8 @@ struct D2UiEntry10Strc;
 
 
 
-extern D2QuestTableStrc gaQuestTable[]; // 0x00723F30
+extern D2QuestTableStrc gaQuestTable[41]; // 0x00723F30
 
-extern D2UiEntry10Strc gaQuestLookup[41]; // 0x00723F38
 
 extern D2QuestUiFlagsStrc gtQuestUiFlags_007BF2B3; // 0x007BF2B3
 

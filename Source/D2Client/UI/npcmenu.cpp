@@ -54,7 +54,6 @@ struct Unicode;
 
 struct D2NpcMenuSlotStrc;
 
-struct D2NpcMenuEntryStrc;
 
 struct D2NpcPacketStrc;
 
@@ -263,18 +262,6 @@ void __stdcall sub_Z12_EmitUseItem(D2UnitStrc* pItem);
 
 #pragma pack(push, 1)
 
-struct D2NpcMenuEntryStrc
-{
-    int nType;
-    char unk0x04[2];
-    short wStringId;
-    short wSlot[3];
-    char unk0x0E[4];
-    int (__cdecl* pfnHandler)();
-    int nSlot[3];
-    char unk0x22[5];
-};
-
 struct D2NpcPacketStrc
 {
     unsigned char nHeader;
@@ -288,7 +275,6 @@ void __cdecl INV_SelectFirstButton(); // 0x00487CC0
 
 int __cdecl NPCMENU_IdentifyItemsWait(); // 0x004B2020
 
-extern D2NpcMenuEntryStrc gaNpcMenuEntries[]; // 0x00726C4C
 
 extern int gbNpcSubIdReceived; // 0x007C0D39
 
@@ -299,57 +285,31 @@ unsigned char g007C0D89; // 0x007C0D89
 int __cdecl NPCMENU_ResurrectMercWait(); // 0x004B1DD0
 
 
-extern short gwGlobal_00726E01; // 0x00726E01
 
-extern int gnGlobal_00726E0F; // 0x00726E0F
 
-extern short gwGlobal_00726E4F; // 0x00726E4F
 
-extern int gnGlobal_00726E5D; // 0x00726E5D
 
-extern short gwGlobal_00726E9D; // 0x00726E9D
 
-extern int gnGlobal_00726EAB; // 0x00726EAB
 
-extern short gwGlobal_00726CCB; // 0x00726CCB
 
-extern int gnGlobal_00726CDB; // 0x00726CDB
 
-extern short gwGlobal_007272E1; // 0x007272E1
 
-extern int gnGlobal_007272EF; // 0x007272EF
 
-extern short gwGlobal_00727247; // 0x00727247
 
-extern int gnGlobal_00727257; // 0x00727257
 
-extern short gwGlobal_00727297; // 0x00727297
 
-extern int gnGlobal_007272A9; // 0x007272A9
 
-extern short gwGlobal_00726F87; // 0x00726F87
 
-extern int gnGlobal_00726F95; // 0x00726F95
 
-extern short gwGlobal_00726EC2; // 0x00726EC2
 
-extern int (__cdecl* gpfnGlobal_00726ECE)(); // 0x00726ECE
 
-extern short gwGlobal_00726EE9; // 0x00726EE9
 
-extern int (__cdecl* gpfnGlobal_00726EF5)(); // 0x00726EF5
 
-extern short gwGlobal_00726F10; // 0x00726F10
 
-extern int (__cdecl* gpfnGlobal_00726F1C)(); // 0x00726F1C
 
-extern short gwGlobal_00726F37; // 0x00726F37
 
-extern int (__cdecl* gpfnGlobal_00726F43)(); // 0x00726F43
 
-extern short gwGlobal_0072721C; // 0x0072721C
 
-extern int (__cdecl* gpfnGlobal_00727228)(); // 0x00727228
 
 #pragma pack(push, 1)
 
@@ -480,9 +440,7 @@ void __cdecl TEXT_ClearTextPanel();                                             
 
 extern D2ClientDialogStrc* gpNpcSubMenuDialog;                                                               // 0x007C0D63
 
-extern int (__cdecl* gpfnHireMenuHandler)();                                                                // 0x00726E0B
 
-extern short gwHireMenuStringId;                                                                             // 0x00726DFF
 
 typedef char check_size_npcindex[(sizeof(D2NpcIndexStrc) == 0x27) ? 1 : -1];
 
@@ -631,20 +589,15 @@ unsigned char g007C0DE0; // 0x007C0DE0
 
 void __cdecl NPCMENU_BuildNpcMenu(); // 0x004B4830
 
-void __cdecl sub_004B5140(); // 0x004B5140
 
-extern void (__cdecl* gpfnCallback)(); // 0x00726E59
 
-extern unsigned short gwTravelLutGholeinStringId; // 0x00726E4D
 
 
 int __cdecl NPCMENU_TravelToKurastDocks();                                                                                 // 0x004B51A0
 
 int __cdecl NPCMENU_TravelToHarrogath();                                                                                 // 0x004B5200
 
-extern short gwTravelKurastDocksStringId;                                                                             // 0x00726E9B
 
-extern int (__cdecl* gpfnTravelKurastDocksHandler)();                                                                // 0x00726EA7
 
 static void NPCMENU_SetNpcInteract(D2UnitStrc* pRecord);
 
@@ -753,17 +706,11 @@ void __cdecl INV_ResetNpcButtonsFromPending(); // 0x00487C20
 
 void __cdecl NPCMENU_CloseTradeDialog(); // 0x004B3610
 
-extern int (__cdecl* gpfnImbueMenuHandler)(); // 0x00726CD7
 
-extern short gwImbueMenuStringId; // 0x00726CC9
 
-extern int (__cdecl* gpfnSocketMenuHandler)(); // 0x00727253
 
-extern short gwSocketMenuStringId; // 0x00727245
 
-extern int (__cdecl* gpfnPersonalizeMenuHandler)(); // 0x007272A5
 
-extern short gwPersonalizeMenuStringId; // 0x00727295
 
 extern unsigned char gnPendingNpcActionType; // 0x007C0D89
 
@@ -814,11 +761,8 @@ static D2MonStatsTxt* GetMonStatsTxtRecord(int nMonsterId)
 
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 
-extern int gnGlobal_00726C4C;                                                                               // 0x00726C4C
 
-extern int (__cdecl* gpfnConfirmMenuHandler)();                                                                // 0x00726C62
 
-extern short gwConfirmMenuStringId;                                                                             // 0x00726C54
 
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
@@ -1310,58 +1254,58 @@ void __cdecl NPCMENU_FreeDialogs()
 // 0x004B21C0
 static inline void NPCMENU_SetEntryType2(int nIndex)
 {
-    gaNpcMenuEntries[nIndex].nType = 2;
-    gaNpcMenuEntries[nIndex].wSlot[0] = 0;
-    gaNpcMenuEntries[nIndex].nSlot[0] = 0;
+    gaNpcIndex[nIndex].nCount = 2;
+    gaNpcIndex[nIndex].awIds[2] = 0;
+    gaNpcIndex[nIndex].apfHandlers[2] = 0;
 }
 
 // 0x004B21E0
 static inline void NPCMENU_SetEntryType3(int nIndex)
 {
-    gaNpcMenuEntries[nIndex].nType = 3;
-    gaNpcMenuEntries[nIndex].wSlot[1] = 0;
-    gaNpcMenuEntries[nIndex].nSlot[1] = 0;
+    gaNpcIndex[nIndex].nCount = 3;
+    gaNpcIndex[nIndex].awIds[3] = 0;
+    gaNpcIndex[nIndex].apfHandlers[3] = 0;
 }
 
 // 0x004B2200
 static inline void NPCMENU_SetEntryType4(int nIndex)
 {
-    gaNpcMenuEntries[nIndex].nType = 4;
-    gaNpcMenuEntries[nIndex].wSlot[2] = 0;
-    gaNpcMenuEntries[nIndex].nSlot[2] = 0;
+    gaNpcIndex[nIndex].nCount = 4;
+    gaNpcIndex[nIndex].awIds[4] = 0;
+    gaNpcIndex[nIndex].apfHandlers[4] = 0;
 }
 
 // 0x004B2220
 static inline void NPCMENU_SetIdentifyEntry(int nIndex)
 {
-    gaNpcMenuEntries[nIndex].wStringId = 0xFB4;
-    gaNpcMenuEntries[nIndex].pfnHandler = NPCMENU_IdentifyItemsWait;
-    gaNpcMenuEntries[nIndex].nType = 3;
+    gaNpcIndex[nIndex].awIds[1] = 0xFB4;
+    gaNpcIndex[nIndex].apfHandlers[1] = NPCMENU_IdentifyItemsWait;
+    gaNpcIndex[nIndex].nCount = 3;
 }
 
 // 0x004B2250
 void __cdecl NPCMENU_ResetHandlers()
 {
-    gnGlobal_00726DF9 = 2; gwGlobal_00726E01 = 0; gnGlobal_00726E0F = 0;
-    gnGlobal_00726E47 = 2; gwGlobal_00726E4F = 0; gnGlobal_00726E5D = 0;
-    gnGlobal_00726E95 = 2; gwGlobal_00726E9D = 0; gnGlobal_00726EAB = 0;
-    gnGlobal_00726CC1 = 3; gwGlobal_00726CCB = 0; gnGlobal_00726CDB = 0;
-    gnGlobal_007272D9 = 2; gwGlobal_007272E1 = 0; gnGlobal_007272EF = 0;
-    if (gpfnGlobal_007272EB == NPCMENU_ResurrectMercWait)
+    gaNpcIndex[11].nCount = 2; gaNpcIndex[11].awIds[2] = 0; gaNpcIndex[11].apfHandlers[2] = 0;
+    gaNpcIndex[13].nCount = 2; gaNpcIndex[13].awIds[2] = 0; gaNpcIndex[13].apfHandlers[2] = 0;
+    gaNpcIndex[15].nCount = 2; gaNpcIndex[15].awIds[2] = 0; gaNpcIndex[15].apfHandlers[2] = 0;
+    gaNpcIndex[3].nCount = 3; gaNpcIndex[3].awIds[3] = 0; gaNpcIndex[3].apfHandlers[3] = 0;
+    gaNpcIndex[43].nCount = 2; gaNpcIndex[43].awIds[2] = 0; gaNpcIndex[43].apfHandlers[2] = 0;
+    if (gaNpcIndex[43].apfHandlers[1] == NPCMENU_ResurrectMercWait)
     {
-        gnGlobal_007272D9 = 3;
+        gaNpcIndex[43].nCount = 3;
     }
-    gwGlobal_00727247 = 0; gnGlobal_00727257 = 0;
-    gwGlobal_00727297 = 0; gnGlobal_007272A9 = 0;
-    gnGlobal_00726F7F = 2; gwGlobal_00726F87 = 0; gnGlobal_00726F95 = 0;
-    gwGlobal_00726F85 = 0; gpfnGlobal_00726F91 = 0;
-    gnGlobal_0072723D = 3;
-    gnGlobal_0072728B = 4;
-    gwGlobal_00726EC2 = 0xFB4; gpfnGlobal_00726ECE = NPCMENU_IdentifyItemsWait; gnGlobal_00726EBC = 3;
-    gwGlobal_00726EE9 = 0xFB4; gpfnGlobal_00726EF5 = NPCMENU_IdentifyItemsWait; gnGlobal_00726EE3 = 3;
-    gwGlobal_00726F10 = 0xFB4; gpfnGlobal_00726F1C = NPCMENU_IdentifyItemsWait; gnGlobal_00726F0A = 3;
-    gwGlobal_00726F37 = 0xFB4; gpfnGlobal_00726F43 = NPCMENU_IdentifyItemsWait; gnGlobal_00726F31 = 3;
-    gwGlobal_0072721C = 0xFB4; gpfnGlobal_00727228 = NPCMENU_IdentifyItemsWait; gnGlobal_00727216 = 3;
+    gaNpcIndex[39].awIds[3] = 0; gaNpcIndex[39].apfHandlers[3] = 0;
+    gaNpcIndex[41].awIds[4] = 0; gaNpcIndex[41].apfHandlers[4] = 0;
+    gaNpcIndex[21].nCount = 2; gaNpcIndex[21].awIds[2] = 0; gaNpcIndex[21].apfHandlers[2] = 0;
+    gaNpcIndex[21].awIds[1] = 0; gaNpcIndex[21].apfHandlers[1] = 0;
+    gaNpcIndex[39].nCount = 3;
+    gaNpcIndex[41].nCount = 4;
+    gaNpcIndex[16].awIds[1] = 0xFB4; gaNpcIndex[16].apfHandlers[1] = NPCMENU_IdentifyItemsWait; gaNpcIndex[16].nCount = 3;
+    gaNpcIndex[17].awIds[1] = 0xFB4; gaNpcIndex[17].apfHandlers[1] = NPCMENU_IdentifyItemsWait; gaNpcIndex[17].nCount = 3;
+    gaNpcIndex[18].awIds[1] = 0xFB4; gaNpcIndex[18].apfHandlers[1] = NPCMENU_IdentifyItemsWait; gaNpcIndex[18].nCount = 3;
+    gaNpcIndex[19].awIds[1] = 0xFB4; gaNpcIndex[19].apfHandlers[1] = NPCMENU_IdentifyItemsWait; gaNpcIndex[19].nCount = 3;
+    gaNpcIndex[38].awIds[1] = 0xFB4; gaNpcIndex[38].apfHandlers[1] = NPCMENU_IdentifyItemsWait; gaNpcIndex[38].nCount = 3;
 }
 
 // 0x004B2370
@@ -2245,27 +2189,27 @@ int __cdecl NPCMENU_HireMercHandler()
 // 0x004B3700
 int __cdecl NPCMENU_InitImbueHandler()
 {
-    gnGlobal_00726CC1 = 4;
-    gpfnImbueMenuHandler = NPCMENU_OpenItemServicePanel;
-    gwImbueMenuStringId = 0xFB1;
+    gaNpcIndex[3].nCount = 4;
+    gaNpcIndex[3].apfHandlers[2] = NPCMENU_OpenItemServicePanel;
+    gaNpcIndex[3].awIds[2] = 0xFB1;
     return 1;
 }
 
 // 0x004B3730
 int __cdecl NPCMENU_InitSocketHandler()
 {
-    gnGlobal_0072723D = 4;
-    gpfnSocketMenuHandler = NPCMENU_OpenItemServicePanel;
-    gwSocketMenuStringId = 0x58DC;
+    gaNpcIndex[39].nCount = 4;
+    gaNpcIndex[39].apfHandlers[2] = NPCMENU_OpenItemServicePanel;
+    gaNpcIndex[39].awIds[2] = 0x58DC;
     return 1;
 }
 
 // 0x004B3760
 int __cdecl NPCMENU_InitPersonalizeHandler()
 {
-    gnGlobal_0072728B = 5;
-    gpfnPersonalizeMenuHandler = NPCMENU_OpenItemServicePanel;
-    gwPersonalizeMenuStringId = 0x58DD;
+    gaNpcIndex[41].nCount = 5;
+    gaNpcIndex[41].apfHandlers[3] = NPCMENU_OpenItemServicePanel;
+    gaNpcIndex[41].awIds[3] = 0x58DD;
     return 1;
 }
 
@@ -3435,11 +3379,11 @@ static __forceinline void sub_004B5640_RefreshNpcMenu()
             case 0xF6:
             case 0x109:
             case 0x208:
-                gnGlobal_00726EBC = 2;
-                gnGlobal_00726EE3 = 2;
-                gnGlobal_00726F0A = 2;
-                gnGlobal_00726F31 = 2;
-                gnGlobal_00727216 = 2;
+                gaNpcIndex[16].nCount = 2;
+                gaNpcIndex[17].nCount = 2;
+                gaNpcIndex[18].nCount = 2;
+                gaNpcIndex[19].nCount = 2;
+                gaNpcIndex[38].nCount = 2;
                 break;
             }
         }
@@ -3717,9 +3661,9 @@ void __fastcall NPCMENU_HandleNpcTransaction(D2GSPacketSrv2A* pPacket)
 // 0x004B6410
 int __cdecl NPCMENU_InitHireHandler()
 {
-    gnGlobal_00726DF9 = 3;
-    gpfnHireMenuHandler = NPCMENU_ShowMainMenu;
-    gwHireMenuStringId = 0xD45;
+    gaNpcIndex[11].nCount = 3;
+    gaNpcIndex[11].apfHandlers[1] = NPCMENU_ShowMainMenu;
+    gaNpcIndex[11].awIds[1] = 0xD45;
     return 1;
 }
 
@@ -3791,29 +3735,28 @@ static int __stdcall NPCMENU_ToggleNpcHandler(int bAdd, int nIndex)
 // 0x004B65F0
 int __cdecl NPCMENU_InitTravelLutGholeinHandler()
 {
-    gnGlobal_00726E47 = 3;
-    gpfnCallback = sub_004B5140;
-    gwTravelLutGholeinStringId = 0xD36;
+    gaNpcIndex[13].nCount = 3;
+    gaNpcIndex[13].apfHandlers[1] = NPCMENU_NpcMenuAction28;
+    gaNpcIndex[13].awIds[1] = 0xD36;
     return 1;
 }
 
 // 0x004B6620
 int __cdecl NPCMENU_InitTravelKurastDocksHandler()
 {
-    gnGlobal_00726E95 = 3;
-    gpfnTravelKurastDocksHandler = NPCMENU_TravelToKurastDocks;
-    gwTravelKurastDocksStringId = 0xD38;
+    gaNpcIndex[15].nCount = 3;
+    gaNpcIndex[15].apfHandlers[1] = NPCMENU_TravelToKurastDocks;
+    gaNpcIndex[15].awIds[1] = 0xD38;
     return 1;
 }
 
-extern short gwGlobal_007272DF;                                                                             // 0x007272DF
 
 // 0x004B6650
 int __cdecl sub_004B6650_InitHandler()
 {
-    gnGlobal_007272D9 = 3;
-    gpfnGlobal_007272EB = NPCMENU_ShowMainMenu;
-    gwGlobal_007272DF = 0xD45;
+    gaNpcIndex[43].nCount = 3;
+    gaNpcIndex[43].apfHandlers[1] = NPCMENU_ShowMainMenu;
+    gaNpcIndex[43].awIds[1] = 0xD45;
     return 1;
 }
 
@@ -3822,9 +3765,9 @@ int __cdecl NPCMENU_InitTravelHarrogathHandler()
 {
     if (GAME_IsExpansion())
     {
-        gnGlobal_00726F7F = 3;
-        gpfnGlobal_00726F91 = NPCMENU_TravelToHarrogath;
-        gwGlobal_00726F85 = 0x58D2;
+        gaNpcIndex[21].nCount = 3;
+        gaNpcIndex[21].apfHandlers[1] = NPCMENU_TravelToHarrogath;
+        gaNpcIndex[21].awIds[1] = 0x58D2;
     }
     return 1;
 }
@@ -4112,9 +4055,9 @@ int __cdecl NPCMENU_OpenConfirm()
 // 0x004B6DA0
 int __cdecl sub_004B6DA0_InitHandler()
 {
-    gnGlobal_00726C4C = 4;
-    gpfnConfirmMenuHandler = NPCMENU_OpenConfirm;
-    gwConfirmMenuStringId = 0x2BA0;
+    gaNpcIndex[0].nCount = 4;
+    gaNpcIndex[0].apfHandlers[2] = NPCMENU_OpenConfirm;
+    gaNpcIndex[0].awIds[2] = 0x2BA0;
     return 1;
 }
 
