@@ -4,6 +4,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- 2026-11-26 21:11 PT: objects-shrine Ready (the four shrine functions on the real records; the coordinator's 20:34 yes). The rest of D2Game.h's shorthand (Game, Unit, Room, Path, Point, ObjectRecord, the N-constants) is used by about 20 units outside my folders, so it stays.
 - 2026-11-26 20:34 PT: Objects.cpp's remaining private types come from D2Game.h's shorthand layer (Game/Unit/Room/Seed, N-constants), which is shared with about 15 units; asked lane 5 under Questions before touching D2Game.h. decls-quests-objects-2 still Ready.
 - 2026-11-26 20:33 PT: decls-quests-objects is in (#465); decls-quests-objects-2 Ready. What's left in Quests/OBJECTS: QUESTS.CPP's 81 copies (its generated data clashes with D2GameFuncs.h, see 19:55), DRLGPRESET_ChangeMapAI's second parameter (pointer vs pointer-to-pointer, four quest units), D2COMMON_10475 (StatList vs StatListEx), ITEMS_SetItemCell (char vs int changes 0x582AC0), and Objects.cpp's private Game/Unit/Room types. Next: Objects.cpp's private types.
 - 2026-11-26 19:53 PT: QUESTS.CPP's 81 copies all have the same signature as D2GameFuncs.h; they fail only because QUESTS.CPP does not include it, and including it clashes with two things: its generated data declares ACT4Q3_InitQuestData and ACT4Q4_InitQuestData as `extern "C" void __cdecl ...()` (the data plan writes those for symbols the unit doesn't declare), and the unit's own `static inline` MONSTERREGION_GetMonsterRegionFromLevelId duplicates the header's __fastcall one. So QUESTS.CPP keeps its copies until the data plan's declarations follow the header (setup/data-plan side, not mine to change). Checking the other files' refused removals next.
@@ -80,10 +81,12 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- D2Game/OBJECTS/Objects.cpp (shrine code, coordinator 20:34 PT; lane 5 and lane 9 please leave it until objects-shrine lands).
 - D2Game/Quests/ and D2Game/OBJECTS/: private prototype and data copies that D2Game.h, D2GameFuncs.h or a shared header already has (the coordinator, 18:25 PT). Lane 9: I will rebase onto your names branches in these folders when they land.
 
 ## Ready
 
+- `lane7/objects-shrine` c5e665506 (on #466): OBJECTS_GetShrineId (0x54F770), OBJECTS_InitFunction01_Shrine (0x54F9D0), OBJECTS_PopulateFn2_WaypointShrine (0x552B50) and its subclass helper rewritten against D2GameStrc/D2UnitStrc/D2ActiveRoomStrc/D2ObjInitFnStrc/D2ObjectsTxt/D2ShrinesTxt with the real callee names and plain constants; OBJRGN_GetShrineDataFromGame returns D2MOO's D2ShrineDataStrc (new in D2Game.h), OBJRGN_IncreaseHealingShrineCount takes the game; the shorthand only these used (ShrineLists, ShrineRecord, RoomBounds, InitContext, Seed/Unit/Room, GAMEV and seven sub_ aliases) is removed from D2Game.h and Objects.cpp. Touches D2Game.h (declarations of these OBJRGN functions only). Full build: Game.exe identical, 14,926 / 14,926 placed, 0 not all equal; audit guard: no count rose.
 - `lane7/decls-quests-objects-2` bae73242b (on #465): (1) DUNGEON_GetAdjacentRoomsListFromRoom's count is int, as D2Common's definition and D2CommonApi.h have it: eleven Quests/OBJECTS units drop their private `unsigned int*` prototype and their count local becomes int (the loops keep their unsigned index, so the compares are unchanged); (2) a2q1's ACT2Q1_ActiveFilterCallback takes D2QuestDataStrc/D2BitBufferStrc and reads bNotIntro, fState, eFilter, dropping its private Quest/Flags records and prototype. Full build: Game.exe identical, 14,926 / 14,926 placed, 0 not all equal; audit guard: no count rose.
 - `lane7/forcing-readings` daab9254d (on #450): comments only, in AiThink.cpp, AiThink4.cpp, SkillAss.cpp and SkillItem.cpp: the allocator reading for each of the five one-decision forcing rows (0x5C09E0, 0x5D3BA0, 0x5D3AC0, 0x5EB970, 0x5B0FF0) beside its volatile, as you asked at 17:21. Full build: Game.exe identical, 14,923 / 14,923 placed, 0 not all equal, borrowed code 7,923 B in 4 functions; audit guard: no count rose.
 
