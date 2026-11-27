@@ -904,12 +904,12 @@
    "definitions": 20,
    "externs": [
     "extern \"C\" void __cdecl D2CLIENT_CloseNPCTalk(); // 0x004A17D0",
-    "extern \"C\" void __cdecl TEXT_ButtonCaptureMsg(); // 0x004A6350",
+    "extern \"C\" void __cdecl TEXT_KeyUpMsg(); // 0x004A1770",
     "extern \"C\" void __cdecl TEXT_HotkeyMsg(); // 0x004A1870",
     "extern \"C\" void __cdecl TEXT_KeyDownMsg(); // 0x004A18C0",
-    "extern \"C\" void __cdecl TEXT_KeyUpMsg(); // 0x004A1770",
-    "extern \"C\" void __cdecl TEXT_WheelCaptureMsg(); // 0x004A6310",
     "extern \"C\" void __cdecl sub_004A6000_RegisterPressMsgHandler(); // 0x004A6000",
+    "extern \"C\" void __cdecl TEXT_WheelCaptureMsg(); // 0x004A6310",
+    "extern \"C\" void __cdecl TEXT_ButtonCaptureMsg(); // 0x004A6350",
     "extern \"C\" void __cdecl sub_004A63B0_WheelMsgHandler(); // 0x004A63B0"
    ],
    "fn_types": {},
