@@ -35,6 +35,7 @@
 #include "D2ClientApi.h"
 #include "D2NetApi2.h"
 #include "BnclientApi.h"
+#include "D2DDrawApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -273,8 +274,6 @@ extern int gbHoverInBodyLoc; // 0x007BCBE8
 extern int gpLastHoverItem; // 0x007BCBF8
 
 extern int gbTextPanelOpen; // 0x007BF1FA
-
-extern unsigned char* gpDDrawDebugFontGlyphs; // 0x008815AC
 
 void* gpReply;                                                                                     // 0x008818D0
 

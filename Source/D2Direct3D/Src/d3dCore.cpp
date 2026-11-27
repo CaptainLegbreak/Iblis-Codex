@@ -11,6 +11,7 @@
 #include "FogApi.h"
 #include "D2HellApi.h"
 #include "D2GlideApi.h"
+#include "D2DDrawApi.h"
 
 extern "C" __declspec(dllimport) long __stdcall RegCloseKey(void* hKey);
 extern "C" __declspec(dllimport) long __stdcall RegCreateKeyExA(void* hKey, const char* lpSubKey, unsigned long Reserved, char* lpClass, unsigned long dwOptions, unsigned long samDesired, void* lpSecurityAttributes, void** phkResult, unsigned long* lpdwDisposition);
@@ -575,8 +576,6 @@ extern int gnVideoState; // 0x00970E44
 extern D2ComObjectStrc* gpPrimarySurface; // 0x00970E68
 
 typedef long (__stdcall* D2DDFlipFn)(D2ComObjectStrc* pThis, D2ComObjectStrc* pTarget, unsigned long dwFlags);
-
-extern D2PaletteTableStrc* gpGfxPaletteView; // 0x007C9150
 
 D2PaletteTableStrc gPaletteView; // 0x0096F280
 

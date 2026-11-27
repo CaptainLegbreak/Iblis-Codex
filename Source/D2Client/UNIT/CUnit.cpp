@@ -32,6 +32,7 @@
 #include "D2CommonApi3.h"
 #include "D2WinApi2.h"
 #include "D2BNClientApi.h"
+#include "D2DDrawApi.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -410,8 +411,6 @@ extern int gpLastHoverItem; // 0x007BCBF8
 extern D2TextHeaderStrc* gpTextHeader; // 0x007BF250
 
 extern int gnTradeState; // 0x007C0E7C
-
-extern unsigned char* gpDDrawDebugFontGlyphs; // 0x008815AC
 
 extern "C" void* gpGidFileData; // 0x00882744
 
