@@ -862,7 +862,7 @@ extern const int gnFlagClear0;                                                  
 extern const int gnFlagClear1;                                                                     // 0x006CE2FC
 
 
-int gnListTop_007799FC;                                                                                     // 0x007799FC
+int ganRowValues_007799FC[8];                                                                                   // 0x007799FC
 
 static Unicode* CHARSEL_GetClassName(Unicode* pBuffer, int nClass); // 0x00437F60
 
@@ -1285,7 +1285,7 @@ __declspec(noinline) static unsigned int CHARSEL_GetDaysLeft(unsigned int nExpir
 void __cdecl CHARSEL_UpdateCharList()
 {
     D2LaunchCharEntryStrc* pEntry = gpCharList;
-    int nY = gnListTop_007799FC - 13;
+    int nY = ganRowValues_007799FC[0] - 13;
     int nX = 0x25;
     int nIndex = 0;
 
