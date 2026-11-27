@@ -122,11 +122,11 @@ extern "C" int __fastcall sub_0045ADF0_GetX(D2UnitStrc* pItem); // 0x0045ADF0
 
 extern "C" int __fastcall sub_0045AE20_GetY(D2UnitStrc* pItem); // 0x0045AE20
 
-extern "C" void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szSource, int nLine); // 0x006286C0
+void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szSource, int nLine); // 0x006286C0
 
-extern "C" void __stdcall ITEMS_SetOwnerId(D2UnitStrc* pItem, int nCell); // 0x00629ED0
+void __stdcall ITEMS_SetOwnerId(D2UnitStrc* pItem, int nCell); // 0x00629ED0
 
-extern "C" void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc* pOwner, D2UnitStrc* pItem); // 0x006277F0
+void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc* pOwner, D2UnitStrc* pItem); // 0x006277F0
 
 extern "C" const char gszInventorySource_006EA918; // 0x006EA918
 
