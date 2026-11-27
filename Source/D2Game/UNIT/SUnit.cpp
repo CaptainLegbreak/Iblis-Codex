@@ -322,7 +322,6 @@ void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x006
 
 struct D2GameStrc;
 
-extern const int gnUnitListOffsets[6]; // 0x006E10E0
 
 #define UNIT_TILE 5
 

@@ -709,7 +709,6 @@ struct _iobuf;
 
 #define SYSERROR_UNK_14 14
 
-extern "C" const char gszFileModeRb[];                                                                 // 0x006CDC90
 
 
 

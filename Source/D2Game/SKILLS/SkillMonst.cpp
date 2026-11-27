@@ -275,9 +275,7 @@ int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2);  
 int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile);                                                     // 0x0064A730
 
 
-extern const int gnPrimePoisonNovaY[16]; // 0x006E31A8
 
-extern const int gnPrimePoisonNovaX[16]; // 0x006E31E8
 
 typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 

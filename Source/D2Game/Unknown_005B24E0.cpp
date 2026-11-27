@@ -255,7 +255,6 @@ extern char gpAct4Q3NpcMessages[];
 
 extern char gpAct4Q4NpcMessages[];
 
-extern char gpAct3IntroNpcMessages[];
 
 
 
