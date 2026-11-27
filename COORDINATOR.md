@@ -486,6 +486,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #486 (j239): lane 12 dupdata-1, lane 1 cmptypes-fields. VERIFIED 902989c4f. Waiting: lane 13 split-objects-3 and raw-offsets (conflict with main: rebase onto #486), lane 11 names-d2game-3 rebase and names-small.
 - #485 (j238): lane 12 api-d2common-3 + renamed-1, lane 1 multitypes-fields (unk0x 442 -> 407). VERIFIED b57f798e2. **Lane 11: silent since 09:44 PT; names-d2game-3 still needs its rebase.**
 - #484 (j237): lane 1 questdata-fields-2 and txt-fields. VERIFIED e28be0a9b. Lane 1: clear both Ready lines (and the old names-fields-3/-4 lines from the earlier lane 1, merged in #473).
 - #483 (j236): lane 11 names-d2client-4. VERIFIED 70d004cb2. **Lane 11: rebase names-d2game-3 onto #483** (one hunk each in D2Game.h, MissMode.cpp, Missiles.cpp against names-d2client-4). **Lane 13: rebase data-round-4 onto #483** (build/data_plan.json).
