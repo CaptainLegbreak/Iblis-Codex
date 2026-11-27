@@ -1212,4 +1212,54 @@ void __fastcall D2SOUNDSMP_GetPositionalVolumePan(int* pVolume, int* pPan, float
     *pPan = nPan;
 }
 
-#include "gen/data/Source/D2Sound/Src/D2SoundSmp.inc"
+extern "C" const D2GuidStrc gData_006DE460 = { // 0x006DE460
+    0x306A6A8,
+    0xB224,
+    0x11D2,
+    { 0x99, 0xE5, 0x00, 0x00, 0xE8, 0xD8, 0xC7, 0x22 }
+};
+#pragma comment(linker, "/alternatename:?gtEaxListener20PropertySet@@3UD2GuidStrc@@B=_gData_006DE460")
+
+extern "C" const D2GuidStrc gData_006DE470 = { // 0x006DE470
+    0x306A6A7,
+    0xB224,
+    0x11D2,
+    { 0x99, 0xE5, 0x00, 0x00, 0xE8, 0xD8, 0xC7, 0x22 }
+};
+#pragma comment(linker, "/alternatename:?gtEaxBuffer20PropertySet@@3UD2GuidStrc@@B=_gData_006DE470")
+
+extern "C" const D2GuidStrc gData_006DE480 = { // 0x006DE480
+    0x4A4E6FC1,
+    0xC341,
+    0x11D1,
+    { 0xB7, 0x3A, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00 }
+};
+#pragma comment(linker, "/alternatename:?gtEaxListener10PropertySet@@3UD2GuidStrc@@B=_gData_006DE480")
+
+extern "C" const D2GuidStrc gData_006DE490 = { // 0x006DE490
+    0x4A4E6FC0,
+    0xC341,
+    0x11D1,
+    { 0xB7, 0x3A, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00 }
+};
+#pragma comment(linker, "/alternatename:?gtEaxBuffer10PropertySet@@3UD2GuidStrc@@B=_gData_006DE490")
+
+extern "C" const char* gData_0072F974[15] = { // 0x0072F974
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
+int gnSoundMasterVolume = 255; // 0x0072F9B0

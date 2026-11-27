@@ -185,4 +185,50 @@ int __fastcall sub_00526430_UnicodeUtf8Length(const Unicode* pSource, int nCount
     return nLength;
 }
 
-#include "gen/data/Source/D2Lang/Unknown_00526100.inc"
+extern "C" const char* gData_00730978[15] = { // 0x00730978
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
+extern "C" unsigned char gData_007309B4[4] = { 0 }; // 0x007309B4
+
+D2UtfConvertSpecStrc gaUtf8ConvertTable[7] = { // 0x007309B8
+    { 0x80, 0, 0, 0, 127, 0 },
+    { 0xE0, 192, 0x6, 0, 2047, 128 },
+    { 0xF0, 224, 0xC, 0, 65535, 2048 },
+    { 0xF8, 240, 0x12, 0, 2097151, 65536 },
+    { 0xFC, 248, 0x18, 0, 0x3FFFFFF, 2097152 },
+    { 0xFE, 252, 0x1E, 0, 0x7FFFFFFF, 0x4000000 },
+    { 0 }
+};
+
+extern "C" const char* gData_00730AA0[15] = { // 0x00730AA0
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

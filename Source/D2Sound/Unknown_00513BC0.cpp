@@ -233,15 +233,78 @@ int gnEaxVersion; // 0x00881774
 
 int gbSoundLockInit; // 0x0088177C
 
-#include "gen/data/Source/D2Sound/Unknown_00513BC0.inc"
+extern "C" const D2DSGuid gData_006DE3D0 = { // 0x006DE3D0
+    0x279AFA86,
+    0x4981,
+    0x11CE,
+    { 0xA5, 0x21, 0x00, 0x20, 0xAF, 0x0B, 0xE5, 0x60 }
+};
+#pragma comment(linker, "/alternatename:?gtIidDirectSound3DBuffer@@3UD2DSGuid@@B=_gData_006DE3D0")
 
-#include "gen/data/Source/D2Sound/Unknown_00513BC0/gnChannelCountA.inc"
+extern "C" const unsigned char gData_006DE3E0[48] = { // 0x006DE3E0
+    0x81, 0x07, 0x21, 0xB0, 0xCD, 0x89, 0xD0, 0x11, 0xAF, 0x08, 0x00, 0xA0, 0xC9, 0x25, 0xCD, 0x16,
+    0x82, 0x07, 0x21, 0xB0, 0xCD, 0x89, 0xD0, 0x11, 0xAF, 0x08, 0x00, 0xA0, 0xC9, 0x25, 0xCD, 0x16,
+    0x83, 0x07, 0x21, 0xB0, 0xCD, 0x89, 0xD0, 0x11, 0xAF, 0x08, 0x00, 0xA0, 0xC9, 0x25, 0xCD, 0x16
+};
 
-#include "gen/data/Source/D2Sound/Unknown_00513BC0/gaChannelTableA.inc"
+extern "C" const D2DSGuid gData_006DE410 = { // 0x006DE410
+    0x31EFAC30,
+    0x515C,
+    0x11D0,
+    { 0xA9, 0xAA, 0x00, 0xAA, 0x00, 0x61, 0xBE, 0x93 }
+};
+#pragma comment(linker, "/alternatename:?gtIidKsPropertySet@@3UD2DSGuid@@B=_gData_006DE410")
 
-#include "gen/data/Source/D2Sound/Unknown_00513BC0/gaChannelTableB.inc"
+extern "C" const unsigned char gData_006DE420[64] = { // 0x006DE420
+    0x3F, 0x33, 0x41, 0xC2, 0x1B, 0x1C, 0xD2, 0x11, 0x94, 0xF5, 0x00, 0xC0, 0x4F, 0xC2, 0x8A, 0xCA,
+    0x40, 0x33, 0x41, 0xC2, 0x1B, 0x1C, 0xD2, 0x11, 0x94, 0xF5, 0x00, 0xC0, 0x4F, 0xC2, 0x8A, 0xCA,
+    0x42, 0x33, 0x41, 0xC2, 0x1B, 0x1C, 0xD2, 0x11, 0x94, 0xF5, 0x00, 0xC0, 0x4F, 0xC2, 0x8A, 0xCA,
+    0x81, 0x3B, 0xF5, 0x4F, 0xE0, 0x1C, 0xD3, 0x11, 0xAA, 0xB8, 0x00, 0xA0, 0xC9, 0x59, 0x49, 0xD5
+};
 
-#include "gen/data/Source/D2Sound/Unknown_00513BC0/gnChannelCountB.inc"
+extern "C" const char* gData_0072F838[15] = { // 0x0072F838
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
+static int gnChannelCountA = 8; // 0x0072F874
+
+static D2SoundChannelEntryStrc gaChannelTableA[8] = { // 0x0072F878
+    { "data\\global\\music\\common\\options.wav", 0 },
+    { "data\\global\\music\\act1\\caves.wav", 0 },
+    { "data\\global\\music\\act1\\monastery.wav", 0 },
+    { "data\\global\\music\\act1\\crypt.wav", 0 },
+    { "data\\global\\music\\act2\\harem.wav", 0 },
+    { "data\\global\\music\\act2\\tombs.wav", 0 },
+    { "data\\global\\music\\act3\\spider.wav", 0 },
+    { "data\\global\\music\\act3\\kurastsewer.wav", 0 }
+};
+
+static D2SoundChannelEntryStrc gaChannelTableB[8] = { // 0x0072F8B8
+    { "data\\global\\music\\introedit.wav", 0 },
+    { "data\\global\\music\\act5\\icecaves.wav", 0 },
+    { "data\\global\\music\\act5\\xtemple.wav", 0 },
+    { "data\\global\\music\\act2\\desert.wav", 0 },
+    { "data\\global\\music\\act2\\sewer.wav", 0 },
+    { "data\\global\\music\\act3\\kurast.wav", 0 },
+    { "data\\global\\music\\act3\\kurastsewer.wav", 0 },
+    { "data\\global\\music\\act4\\diablo.wav", 0 }
+};
+
+static int gnChannelCountB = 8; // 0x0072F8F8
 
 extern "C" void __fastcall D2SOUND_CreateStreamChannel(int nArg); // 0x00514780
 

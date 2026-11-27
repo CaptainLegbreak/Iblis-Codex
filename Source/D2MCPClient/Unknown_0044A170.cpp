@@ -1095,4 +1095,53 @@ int __fastcall WINMAIN_HandleMcpMotd(const unsigned char* pPacket, unsigned int 
 }
 void __cdecl RECORD_StartPlayback(); // 0x004518E0
 
-#include "gen/data/Source/D2MCPClient/Unknown_0044A170.inc"
+extern "C" void __cdecl sub_0044AFC0(); // 0x0044AFC0
+
+extern "C" const char* gData_0070ECC0[15] = { // 0x0070ECC0
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
+D2McpPacketHandler gpfnMcpPacketHandlers[26] = { // 0x0070ED00
+    (D2McpPacketHandler)&sub_0044AB70_McpIncomingIgnore,
+    0,
+    (D2McpPacketHandler)&sub_0044ABA0_McpIncoming02,
+    (D2McpPacketHandler)&sub_0044ABE0_McpIncoming03,
+    (D2McpPacketHandler)&sub_0044AC20_McpIncoming04,
+    (D2McpPacketHandler)&WINMAIN_HandleMcpGameList,
+    (D2McpPacketHandler)&GAME_HandleMcpGameInfo,
+    (D2McpPacketHandler)&sub_0044ABC0_McpIncoming07,
+    (D2McpPacketHandler)&sub_0044ADF0_McpIncoming08,
+    (D2McpPacketHandler)&sub_0044AE10_McpIncoming09,
+    (D2McpPacketHandler)&sub_0044AE30_McpIncoming0A,
+    (D2McpPacketHandler)&sub_0044AE80_McpIncoming0B,
+    (D2McpPacketHandler)&sub_0044AEA0_McpIncoming0C,
+    (D2McpPacketHandler)&sub_0044AEF0_McpIncoming0D,
+    (D2McpPacketHandler)&sub_0044AEC0_McpIncoming0E,
+    (D2McpPacketHandler)&sub_0044AF10_McpIncoming0F,
+    (D2McpPacketHandler)&WINMAIN_HandleMcpServerAddress,
+    (D2McpPacketHandler)&sub_0044AFC0,
+    (D2McpPacketHandler)&WINMAIN_HandleMcpMotd,
+    0,
+    (D2McpPacketHandler)&WINMAIN_HandleMcpCreateQueue,
+    0,
+    0,
+    (D2McpPacketHandler)&WINMAIN_HandleMcpCharList,
+    (D2McpPacketHandler)&sub_0044AE60_McpIncoming18,
+    (D2McpPacketHandler)&WINMAIN_HandleMcpCharListExpanded
+};
+
+D2McpPacketHandler gpfnConnectPacketHandlers[26] = { 0, (D2McpPacketHandler)&sub_0044AB80_McpIncoming1B }; // 0x0070ED68

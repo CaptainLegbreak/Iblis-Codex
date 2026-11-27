@@ -293,4 +293,20 @@ int __fastcall D2SOUNDUTIL_GetVxdFileVersion(const char* szPath, unsigned int* p
     return 1;
 }
 
-#include "gen/data/Source/D2Sound/Src/D2SoundUtil.inc"
+extern "C" const char* gData_0072F9B4[15] = { // 0x0072F9B4
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

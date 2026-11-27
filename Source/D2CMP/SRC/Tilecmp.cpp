@@ -933,4 +933,60 @@ void __stdcall TileLibraryCopyHeaders(D2TileLibraryHeaderStrc* pSource, D2TileLi
     *pnSize = nSize;
 }
 
-#include "gen/data/Source/D2CMP/SRC/Tilecmp.inc"
+extern "C" const unsigned char gData_006E5DA0[8] = { 1, 1, 3, 3, 5, 5, 7, 7 }; // 0x006E5DA0
+#pragma comment(linker, "/alternatename:?gaDirection8To4@@3QBEB=_gData_006E5DA0")
+
+extern "C" const unsigned char gData_006E5DA8[16] = { 0, 0, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12, 12, 14, 14 }; // 0x006E5DA8
+#pragma comment(linker, "/alternatename:?gaDirection16To8@@3QBEB=_gData_006E5DA8")
+
+extern "C" const unsigned char gData_006E5DB8[8] = { 3, 3, 5, 5, 7, 7, 1, 1 }; // 0x006E5DB8
+#pragma comment(linker, "/alternatename:?gaDirection8To4Alt@@3QBEB=_gData_006E5DB8")
+
+extern "C" const unsigned char gData_006E5DC0[16] = { 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12, 12, 14, 14, 0, 0 }; // 0x006E5DC0
+#pragma comment(linker, "/alternatename:?gaDirection16To8Alt@@3QBEB=_gData_006E5DC0")
+
+D2CmpSubTilePosStrc gatSubTilePositions[25] = { // 0x00743500
+    { 64, 0 },
+    { 80, 8 },
+    { 96, 16 },
+    { 112, 24 },
+    { 128, 32 },
+    { 48, 8 },
+    { 64, 16 },
+    { 80, 24 },
+    { 96, 32 },
+    { 112, 40 },
+    { 32, 16 },
+    { 48, 24 },
+    { 64, 32 },
+    { 80, 40 },
+    { 96, 48 },
+    { 16, 24 },
+    { 32, 32 },
+    { 48, 40 },
+    { 64, 48 },
+    { 80, 56 },
+    { 0, 32 },
+    { 16, 40 },
+    { 32, 48 },
+    { 48, 56 },
+    { 64, 64 }
+};
+
+extern "C" const char* gData_007435C8[15] = { // 0x007435C8
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

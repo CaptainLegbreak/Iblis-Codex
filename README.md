@@ -42,10 +42,10 @@ Above every function definition, a line `// 0x<address>` gives the address of th
 with `// build:` are instructions to the build tools (for example `// build: symbol <name> 0x<address>` for a
 compiler-generated function). The build uses all of these, so keep them when you edit a file.
 
-The repository contains no part of the game. The layouts of the game's initialised data tables come from the same
-D2MOO structs as the code (`build/data_plan.json` holds only their addresses, sizes, types and names); their values, the
-resources and the file's signature are read from
-your own copy of `Game.exe` at build time and written to the git-ignored `gen/` and `out/` folders.
+The repository contains the game's code and data as source. The cryptographic keys, the resources, the PKWARE library
+code, the file's signature and link stamps, and the data tables not yet written into source (`build/data_plan.json` holds
+their addresses, sizes, types and names; `tools/inlinedata.py` moves them into their files) are read from your own copy
+of `Game.exe` at build time and written to the git-ignored `gen/` and `out/` folders.
 
 ## Requirements
 

@@ -2,7 +2,23 @@
 #include "D2LangTypes.h"
 #include "D2Unicode.h"
 
-#include "gen/data/Source/D2Lang/Unknown_00527090.inc"
+extern "C" const char* gData_00730A64[15] = { // 0x00730A64
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
 
 struct UnicodeZ;
 struct UnicodeChar;

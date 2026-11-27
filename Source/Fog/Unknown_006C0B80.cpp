@@ -540,7 +540,11 @@ static FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushCallbackConstant(
     return pExpressionBufferPos;
 }
 
-#include "gen/data/Source/Fog/Unknown_006C0B80.inc"
+extern "C" const unsigned char gData_006FC874[24] = { // 0x006FC874
+    23, 1, 2, 3, 9, 9, 9, 9, 9, 9, 15, 15, 15, 15, 15, 15,
+    17, 17, 19, 19, 20, 21, 22, 0
+};
+#pragma comment(linker, "/alternatename:_gaASTOperatorPrecedence=_gData_006FC874")
 
 // 0x006C18A0
 static FOGASTNodeStrc* __stdcall DATATBLS_Evaluate_HandleNewOp(FOGASTNodeStrc* pASTBufferPos, FOGASTNodeStrc* pASTBufferStart, int nASTBufferSize, FOGExpressionParserContextStrc* pContext, unsigned char nNewASTType, CalcGetFunctionParameterCount_t pfnGetFunctionParametersCount, int nTokenAssociatedValue)

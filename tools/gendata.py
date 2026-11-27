@@ -466,7 +466,10 @@ def check_record(r, img):
 
 
 def render_parts(f, ent, recs, img):
+    """The include text of one file and its static includes. Records marked "sourced" are defined in the file itself
+    (tools/inlinedata.py wrote them there) and are not rendered."""
     types = []; decls = []; blocks = []; statics = {}
+    recs = [r for r in recs if not r.get("sourced")]
     ec = "extern " if ent.get("lang") == "c" else 'extern "C" '
     for r in recs:
         fn_types = (r.get("fn_types") if is_static(r) else ent.get("fn_types")) or {}
@@ -558,7 +561,7 @@ def apply_plan(plan, img, out, states=GEN_STATES, files=None, plan_sha=None, too
             os.remove(p)
     stamp = dict(note="gen/: generated at build time from your own Game.exe; git-ignored, never commit", schema=PLAN_SCHEMA,
                  plan_sha256=plan_sha, image_sha256=image_sha or plan.get("image_sha256"), tool_sha256=tool_sha,
-                 states=list(states), files=written, definitions=sum(len(by.get(f, [])) for f in todo))
+                 states=list(states), files=written, definitions=sum(1 for f in todo for r in by.get(f, []) if not r.get("sourced")))
     if swritten:
         stamp["static_includes"] = swritten
     json.dump(stamp, open(os.path.join(out, GEN_STAMP), "w"), indent=1, sort_keys=True)

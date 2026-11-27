@@ -142,4 +142,20 @@ int __fastcall D2SOUND_SetOptionsMusicOption(int nValue)
     return nValue;
 }
 
-#include "gen/data/Source/D2Sound/Unknown_00514B60.inc"
+extern "C" const char* gData_0072F8FC[15] = { // 0x0072F8FC
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

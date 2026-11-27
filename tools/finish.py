@@ -204,7 +204,7 @@ def address_records():
 def plan_definitions():
     plan = load_json("data_plan.json"); files = plan.get("files", {})
     return [(int(x["va"], 16), int(x["size"])) for x in plan.get("definitions", ())
-            if (files.get(x.get("file")) or {}).get("state") == "included"]
+            if (files.get(x.get("file")) or {}).get("state") == "included" and not x.get("sourced")]
 
 
 def import_ranges(orig):
