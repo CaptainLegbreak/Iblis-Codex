@@ -1,3 +1,6 @@
+// INV_HandleNpcClick (0x00491D20) stays out of inv.cpp. The image calls INV_IsInNpcPanelRect (0x00486E10) out of
+// line from here (0x00491D67) but has it inline in INV_NpcPanelMouseMove (0x00486EF0). In one file with inv.cpp
+// the compiler expands it here too, and a noinline that keeps this call would also take it out of 0x00486EF0.
 #include "D2Structs.h"
 #include "D2Unicode.h"
 #include "D2ClientUi.h"
