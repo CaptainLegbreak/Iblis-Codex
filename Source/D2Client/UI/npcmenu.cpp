@@ -157,7 +157,7 @@ extern void* gpRes_007C0D73; // 0x007C0D73
 
 extern void* gpRes_007C0D7B; // 0x007C0D7B
 
-extern D2ClientStringListStrc gtStringList; // 0x007C0D9A
+D2ClientStringListStrc gtStringList; // 0x007C0D9A
 
 
 void __fastcall CUNIT_ForEachObject(UNITFN pfnCallback); // 0x004649D0
@@ -3691,7 +3691,7 @@ struct D2GSPacketSrv2A
 };
 #pragma pack(pop)
 
-extern D2GSPacketSrv2A gtPacket2A;                                                                  // 0x007C0D87
+D2GSPacketSrv2A gtPacket2A; // 0x007C0D87
 
 // 0x004B6390
 void __fastcall NPCMENU_HandleNpcTransaction(D2GSPacketSrv2A* pPacket)

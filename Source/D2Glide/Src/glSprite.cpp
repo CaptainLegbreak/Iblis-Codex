@@ -34,7 +34,7 @@ int gbGlideSpriteFlag;                                                          
 
 int gbGlideMultiTmu;                                                                               // 0x0087EFF4
 
-extern D2GlideSpriteVertexStrc gatGlideSpriteVertices[4]; // 0x0087EFF8
+D2GlideSpriteVertexStrc gatGlideSpriteVertices[4]; // 0x0087EFF8
 
 extern D2GlideTexCacheStrc gaGlideTexCaches[4]; // 0x0087F048
 
@@ -86,7 +86,6 @@ extern void (__stdcall* gpfnGrDrawVertexArrayContiguous)(int nMode, int nCount, 
 
 extern void (__stdcall* gpfnGrGlideState)(int nState);                                             // 0x0087EAB4
 
-extern D2GlideSpriteVertexStrc gatGlideSpriteVertices[4];                                                        // 0x0087EFF8
 
 static int GLSPRITE_InitTexInfo(D2CelContextStrc* pData, D2GlideTexInfoStrc* pInfo); // 0x0050A260
 
