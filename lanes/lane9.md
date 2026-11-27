@@ -50,10 +50,17 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
-- lane9/glide-spans-2 bb945f89 (on #443): glide-spans rebased (glCore.cpp and four others: prototypes main's
+- lane9/params-d2game-b3 06f2fac6 (on #448): D2Game Ai, MONSTER, OBJECTS, Quests: placeholder parameters and names.csv
+  callee names (b2 regenerated on #448). a1/v12 628 -> 534 alone; auditguard no count rose. Full build: Game.exe
+  identical, tree 3c000ce89efee35e94f1a253160f48cf658e78fd, borrowed code / data 7,923 / 261 B.
+- lane9/params-d2game-e2 83cb7652 (on #448): D2Game's 13 top-level Unknown_*.cpp units: the same naming. a1/v12
+  628 -> 578 alone; auditguard no count rose. Full build: Game.exe identical, tree
+  c6d7bfe007ef3ac458697b826f276e33620b37e7, borrowed code / data 7,923 / 261 B.
+- a2 and c2 below still merge cleanly onto #448; b3, e2, a2, c2 share no file.
+- MERGED (#448) lane9/glide-spans-2 bb945f89 (on #443): glide-spans rebased (glCore.cpp and four others: prototypes main's
   D2Glide.h now holds are dropped from the moved code). auditguard no count rose. Full build: Game.exe identical,
   tree 504165c957670f8cd2aad791ce7cda32a325d5df, borrowed code / data 7,923 / 261 B.
-- lane9/params-d2game-d 36bcb08b (on #443): D2Game SKILLS, GAME: placeholder parameters in prototypes and
+- MERGED (#447) lane9/params-d2game-d 36bcb08b (on #443): D2Game SKILLS, GAME: placeholder parameters in prototypes and
   definitions from the definitions and D2MOO, parameters passed on unchanged take the callee's name, names.csv names
   for sub_<VA> callees the unit declares; Clients.cpp's SKILLS_ExecuteSkill declaration gets its address marker.
   a1/v12 892 -> 779 alone; auditguard no count rose. Full build: Game.exe identical, tree
@@ -61,7 +68,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 - lane9/params-d2game-a2 77b84dae (on #443): D2Game MISSILES, INVENTORY, DEBUG, ITEMS: prototype parameter names from
   the definitions and D2MOO. a1/v12 892 -> 869 alone; auditguard no count rose. Full build: Game.exe identical, tree
   a062956e36bc3547455acc767abbcb2ffaaec5b9, borrowed code / data 7,923 / 261 B.
-- lane9/params-d2game-b2 23aa5a93 (on #443): D2Game Ai, MONSTER, OBJECTS, Quests: the same naming plus names.csv names
+- WITHDRAWN (MonsterUnique.cpp conflict with #448; replaced by -b3) lane9/params-d2game-b2 23aa5a93 (on #443): D2Game Ai, MONSTER, OBJECTS, Quests: the same naming plus names.csv names
   for sub_<VA> callees the unit declares. a1/v12 892 -> 798 alone; auditguard no count rose. Full build: Game.exe
   identical, tree 3588394561ab58b3743a6f8bbc4834c0597398e6, borrowed code / data 7,923 / 261 B.
 - lane9/params-d2game-c2 4ed51fe3 (on #443): D2Game UNIT, PLAYER: the same; PlrMsg, PlrSave and PlrTrade keep three
