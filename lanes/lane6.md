@@ -2,11 +2,13 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 20:00 PT): moves-1 merged; moves-2 Ready, full build identical.
+Status (Thu Nov 26 2026, 20:20 PT): moves-3 Ready (and moves-2 if not yet merged), full builds identical.
 
 ## Ready
 
 - `lane6/moves-2` @ 581357a4e (on #455+): MainMenus.cpp takes CHATDLG_WriteSaveHeader (0x43C6B0) from Unknown_0043C8A0.cpp; in the image only MainMenus.cpp calls it, and it sits next to MainMenus.cpp's functions. gtCharSaveHeader stays defined in Unknown_0043C8A0.cpp, whose other functions use it. **noinline +0.** Both units equal; auditguard: no count rose; full build identical. (Also tried: Unknown_00444020.cpp's CHARSEL_RequestGameList into ChatDlg.cpp, still a register choice apart; Unknown_00528030.cpp's ComputeLoginProof into BnSend.cpp needs Bnclient.h, which D2BNClient's units can't include.)
+
+- `lane6/moves-3` @ 85920a93b (on #455+): BnSend.cpp takes four helpers from Unknown_00518C00.cpp that sit inside its run in the image: sub_0051A540_SetValue, sub_0051A560_SetValue, sub_0051C9B0_GetPeerName, sub_0051C9E0_GetSockName. **noinline +1** (GetSockName, which BNSEND_SendAuthInfo 0x521BF0 calls out of line). BNCLIENT_GetServerToken (0x51A550) stays: inside BnSend.cpp, BNSEND_SendAuthCheck's registers change around its call even with a noinline. Both units equal; full build identical.
 
 ## Questions
 
