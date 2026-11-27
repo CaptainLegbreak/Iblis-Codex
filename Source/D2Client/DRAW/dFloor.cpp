@@ -7,10 +7,10 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 struct D2GridCellStrc
 {
-    unsigned char nB0;
-    unsigned char nB1;
-    unsigned char nB2;
-    unsigned char nB3;
+    unsigned char nIntensity;
+    unsigned char nRed;
+    unsigned char nGreen;
+    unsigned char nBlue;
     int nX;
     int nY;
 };
@@ -101,10 +101,10 @@ static void __stdcall WALL2_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCell
         {
             for (int i = 0; i < 8; ++i)
             {
-                pCells->nB1 = nB1;
-                pCells->nB0 = nB0;
-                pCells->nB3 = nB3;
-                pCells->nB2 = nB2;
+                pCells->nRed = nB1;
+                pCells->nIntensity = nB0;
+                pCells->nBlue = nB3;
+                pCells->nGreen = nB2;
                 ++pCells;
             }
         }
@@ -115,7 +115,7 @@ static void __stdcall WALL2_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCell
     {
         for (int i = 0; i < 8; ++i)
         {
-            SCMD_ReadGridCell(8 * (nX + i - 1), 8 * (nY + j - 1), &pCells->nB0, &pCells->nB1, &pCells->nB2, &pCells->nB3);
+            SCMD_ReadGridCell(8 * (nX + i - 1), 8 * (nY + j - 1), &pCells->nIntensity, &pCells->nRed, &pCells->nGreen, &pCells->nBlue);
             ++pCells;
         }
     }

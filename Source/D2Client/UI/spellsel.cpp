@@ -37,7 +37,7 @@ struct D2SpellSelSlotsStrc
     int nX[60];
     int nY[60];
     int nSkill[60];
-    int f_2D0[60];
+    int nOwnerGuid[60];
     unsigned char nCount;
     int nState;
 };
@@ -244,7 +244,7 @@ static int __stdcall SPELLSEL_AddSkillSlot(int nX, int bLeft, int nY, D2SkillStr
     gtHotkeySlots_007C0300.nX[gtHotkeySlots_007C0300.nCount] = nX;
     gtHotkeySlots_007C0300.nY[gtHotkeySlots_007C0300.nCount] = nY;
     gtHotkeySlots_007C0300.nSkill[gtHotkeySlots_007C0300.nCount] = SKILLS_GetSkillIdFromSkill(pSkill, ".\\UI\\spellsel.cpp", 0x23D);
-    SKILLS_GetSkillInfo(pSkill, &gtHotkeySlots_007C0300.f_2D0[gtHotkeySlots_007C0300.nCount], 0, 0, 0);
+    SKILLS_GetSkillInfo(pSkill, &gtHotkeySlots_007C0300.nOwnerGuid[gtHotkeySlots_007C0300.nCount], 0, 0, 0);
     gtHotkeySlots_007C0300.nState = nState;
     ++gtHotkeySlots_007C0300.nCount;
     if (!bLeft)
@@ -341,7 +341,7 @@ void __stdcall SPELLSEL_SkillSelectClickMsg(SMSGHANDLER_PARAMS* pMsg)
         const int nMouseY = sub_00468740();
         if (nMouseX >= nX && nMouseX <= nX + 48 && nMouseY >= nY - 48 && nMouseY <= nY)
         {
-            D2SkillStrc* pSkill = SKILLS_GetSkillById(sub_00463DD0_GetPlayerUnit(), gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.f_2D0[i]);
+            D2SkillStrc* pSkill = SKILLS_GetSkillById(sub_00463DD0_GetPlayerUnit(), gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.nOwnerGuid[i]);
             if (pSkill)
             {
                 int nCharges;
@@ -358,7 +358,7 @@ void __stdcall SPELLSEL_SkillSelectClickMsg(SMSGHANDLER_PARAMS* pMsg)
                     return;
                 }
 
-                MSG_SendTwoDwords(0x3C, (gbSkillSelectRight ? 0x80000000 : 0) + gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.f_2D0[i]);
+                MSG_SendTwoDwords(0x3C, (gbSkillSelectRight ? 0x80000000 : 0) + gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.nOwnerGuid[i]);
                 UI_SetUIVar(3, 1, 0);
                 gbSkillSelectRight = 0;
                 bHandled = 1;
@@ -460,7 +460,7 @@ void __fastcall SPELLSEL_AssignHotkey(int nHotkey)
             {
                 gaHotkeyLeft[nHotkey] = 1;
             }
-            gaHotkeyOwners[nHotkey] = gtHotkeySlots_007C0300.f_2D0[i];
+            gaHotkeyOwners[nHotkey] = gtHotkeySlots_007C0300.nOwnerGuid[i];
             MSG_SendTwoDwords(0x51, (nHotkey << 16) + (gaHotkeyLeft[nHotkey] ? 0x8000 : 0) + gaHotkeySkills[nHotkey], gaHotkeyOwners[nHotkey]);
 
             for (int j = 0; j < 16; ++j)
@@ -559,7 +559,7 @@ static void SPELLSEL_AssignFreeHotkey(int nSlot, int nIndex)
         gaHotkeyLeft[nSlot] = 0;
     else
         gaHotkeyLeft[nSlot] = 1;
-    gaHotkeyOwners[nSlot] = gtHotkeySlots_007C0300.f_2D0[nIndex];
+    gaHotkeyOwners[nSlot] = gtHotkeySlots_007C0300.nOwnerGuid[nIndex];
     MSG_SendTwoDwords(0x51, (nSlot << 16) + (gaHotkeyLeft[nSlot] ? 0x8000 : 0) + gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
 }
 
