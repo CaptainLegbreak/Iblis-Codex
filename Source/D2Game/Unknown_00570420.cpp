@@ -78,6 +78,16 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
+static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
+{
+    if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pCharStatsTxt[nClass];
+    }
+
+    return 0;
+}
+
 // 0x00570590
 D2StatListStrc* __fastcall SKILLS_ApplyTimedState(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nState, int nSkillId, int nSkillLevel)
 {
@@ -120,9 +130,50 @@ static void __stdcall sub_005706A0_UseActEntry(D2GameStrc* pGame, D2UnitStrc* pU
     SUNITDMG_SetExperienceForTargetLevel(pGame, pUnit, gnStartingActTargetLevels[nAct]);
 }
 
-void __fastcall sub_K11_Emit005706A0(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nAct)
+// 0x005706D0
+void __fastcall PLAYERSTATS_SetStatsForStartingAct(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char nAct)
 {
-    sub_005706A0_UseActEntry(pGame, pUnit, nAct);
+    if (nAct >= 5)
+    {
+        nAct = 4;
+    }
+
+    if (!pPlayer)
+    {
+        return;
+    }
+
+    D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pPlayer->dwClassId);
+    if (!pCharStatsTxtRecord)
+    {
+        return;
+    }
+
+    STATLIST_SetUnitStat(pPlayer, STAT_STRENGTH, pCharStatsTxtRecord->nStr, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_ENERGY, pCharStatsTxtRecord->nInt, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_DEXTERITY, pCharStatsTxtRecord->nDex, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_VITALITY, pCharStatsTxtRecord->nVit, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_TOHIT, 0, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_TOBLOCK, 0, 0);
+    const int nLife = (pCharStatsTxtRecord->nVit + pCharStatsTxtRecord->nLifeAdd) << 8;
+    STATLIST_SetUnitStat(pPlayer, STAT_HITPOINTS, nLife, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_MAXHP, nLife, 0);
+    const int nMana = pCharStatsTxtRecord->nInt << 8;
+    STATLIST_SetUnitStat(pPlayer, STAT_MANA, nMana, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_MAXMANA, nMana, 0);
+    const int nStamina = pCharStatsTxtRecord->nStamina << 8;
+    STATLIST_SetUnitStat(pPlayer, STAT_STAMINA, nStamina, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_MAXSTAMINA, nStamina, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_LEVEL, 1, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_NEXTEXP, DATATBLS_GetLevelThreshold(!pPlayer ? -1 : pPlayer->dwClassId, 1), 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_ATTACKRATE, 100, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_VELOCITYPERCENT, 100, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_OTHER_ANIMRATE, 100, 0);
+
+    if (nAct > 0)
+    {
+        sub_005706A0_UseActEntry(pGame, pPlayer, nAct);
+    }
 }
 
 #include "gen/data/Source/D2Game/Unknown_00570420.inc"
@@ -134,10 +185,39 @@ static inline void sub_00570870_ForwardToLivingPlayers(D2GameStrc* pGame, D2Unit
     SUNIT_IterateLivingPlayers(pGame, (SUNIT_IterateFn)PLAYERSTATS_OnPlayerLeveledUp, pUnit);
 }
 
-void __stdcall sub_M113_Emit_00570870(D2GameStrc* pGame, D2UnitStrc* pFirst, D2UnitStrc* pSecond)
+// 0x00570880
+void __fastcall PLAYERSTATS_LevelUp(D2GameStrc* game,D2UnitStrc* unit)
 {
-    sub_00570870_ForwardToLivingPlayers(pGame, pFirst);
-    sub_00570870_ForwardToLivingPlayers(pGame, pSecond);
+ int classId;
+ if(!unit) classId=-1; else classId=unit->dwClassId;
+ int previousLevel=STATLIST_GetUnitBaseStat(unit,STAT_LEVEL,0);
+ int level=DATATBLS_GetCurrentLevelFromExp(classId,STATLIST_UnitGetStatValue(unit,STAT_EXPERIENCE,0));
+ STATLIST_SetUnitStat(unit,STAT_LEVEL,level,0);
+ STATLIST_SetUnitStat(unit,STAT_NEXTEXP,DATATBLS_GetLevelThreshold(classId,level),0);
+ int gained=level-previousLevel;
+ if(gained>0) {
+  D2CharStatsTxt* record=(classId>=0 && classId<sgptDataTables->nCharStatsTxtRecordCount)?&sgptDataTables->pCharStatsTxt[classId]:0;
+  int life=STATLIST_GetUnitBaseStat(unit,STAT_MAXHP,0)+((record->lifePerLevel*gained)<<6);
+  STATLIST_SetUnitStat(unit,STAT_MAXHP,life,0);
+  int maxLife=STATLIST_GetMaxLifeFromUnit(unit);
+  if(STATLIST_UnitGetStatValue(unit,STAT_HITPOINTS,0)>0) STATLIST_SetUnitStat(unit,STAT_HITPOINTS,maxLife,0);
+  int mana=STATLIST_GetUnitBaseStat(unit,STAT_MAXMANA,0)+((record->manaPerLevel*gained)<<6);
+  STATLIST_SetUnitStat(unit,STAT_MAXMANA,mana,0);
+  int maxMana=STATLIST_GetMaxManaFromUnit(unit);
+  STATLIST_SetUnitStat(unit,STAT_MANA,maxMana,0);
+  int stamina=STATLIST_GetUnitBaseStat(unit,STAT_MAXSTAMINA,0)+((record->staminaPerLevel*gained)<<6);
+  STATLIST_SetUnitStat(unit,STAT_MAXSTAMINA,stamina,0);
+  int maxStamina=STATLIST_GetMaxStaminaFromUnit(unit);
+  STATLIST_SetUnitStat(unit,STAT_STAMINA,maxStamina,0);
+  STATLIST_AddUnitStat(unit,STAT_STATPTS,record->statPerLevel*gained,0);
+  STATLIST_AddUnitStat(unit,STAT_SKILLPTS,gained,0);
+  sub_00536850_UpdateLevel(game,unit,level);
+  SUNIT_AttachSound(unit,2,unit);
+   sub_00570870_ForwardToLivingPlayers(game,unit);
+  D2GAME_UpdatePlayerVitals(game,unit);
+  D2GAME_UpdatePlayerItems(game,unit,1);
+  if(gpServerCallbacks && gpServerCallbacks->levelUp) gpServerCallbacks->levelUp(game->nGameId,UNITS_GetPlayerName(unit,classId,level));
+ }
 }
 
 // 0x00570E10
@@ -157,15 +237,6 @@ static void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue
     }
 }
 
-static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
-{
-    if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pCharStatsTxt[nClass];
-    }
-
-    return 0;
-}
 
 // 0x00570A80
 static void sub_00570A80_AddEnergyPoints(D2UnitStrc* pUnit, int nPoints)

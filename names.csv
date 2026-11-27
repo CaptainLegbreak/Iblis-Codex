@@ -8048,7 +8048,7 @@ address,name,source,alias
 0x00545C30,QUESTS_SpawnMonster,d2moo,
 0x00545C90,QUESTS_MapPresetSpawn,d2moo,
 0x00545CD0,QUESTS_AttachLevelChainRecord,d2moo,
-0x00545D40,QUESTS_InitRecord,inferred,
+0x00545D40,QUESTS_InitQuestData,inferred,
 0x00545D80,QUESTS_QuestInit,d2moo,
 0x00545FA0,QUESTS_RemoveTimer,inferred,
 0x00546040,QUESTS_StatusCallback,d2moo,

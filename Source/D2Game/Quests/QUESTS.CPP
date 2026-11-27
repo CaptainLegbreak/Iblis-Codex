@@ -118,8 +118,6 @@ struct D2DrlgCoordsStrc;
 
 struct D2ObjOperateFnStrc;
 
-struct D2Unk00545D40Rec;
-
 struct D2QuestChainStrc
 {
     D2QuestDataStrc* pQuestData;
@@ -394,19 +392,6 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc
 
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
-
-struct D2Unk00545D40Rec
-{
-    int nFirst;
-    int nSecond;
-    unsigned char nKind;
-    unsigned char bActive;
-    unsigned char b0A;
-    unsigned char b0B;
-    char unk0x0C[0x90];
-    unsigned short w9C;
-    char unk0x9E[0x5A];
-};
 
 void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005455B0
 
@@ -1849,12 +1834,6 @@ static void __stdcall QUESTS_SetIntroFlags(D2GameStrc* pGame, D2UnitStrc* pPlaye
     }
 }
 
-void __fastcall sub_K10_EmitSetIntroFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    static const int aNpcs[2] = { 1, 2 };
-    QUESTS_SetIntroFlags(pGame, pPlayer, aNpcs, 2);
-}
-
 // 0x00544FA0
 static void QUESTS_SetActNpcIntroFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char nAct)
 {
@@ -1862,34 +1841,26 @@ static void QUESTS_SetActNpcIntroFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, u
     {
     case 0:
     {
-        D2PlrIntroStrc* pIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
-        for (int i = 0; i < 6; ++i)
 // build: symbol ?gnAct1NpcIds@* 0x007318B0
-            PLRINTRO_SetNpcIntroFlag(pIntro, gnAct1NpcIds[i]);
+        QUESTS_SetIntroFlags(pGame, pPlayer, gnAct1NpcIds, 6);
         break;
     }
     case 1:
     {
-        D2PlrIntroStrc* pIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
-        for (int i = 0; i < 11; ++i)
 // build: symbol ?gnAct2NpcIds@* 0x007318C8
-            PLRINTRO_SetNpcIntroFlag(pIntro, gnAct2NpcIds[i]);
+        QUESTS_SetIntroFlags(pGame, pPlayer, gnAct2NpcIds, 11);
         break;
     }
     case 2:
     {
-        D2PlrIntroStrc* pIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
-        for (int i = 0; i < 7; ++i)
 // build: symbol ?gnAct3NpcIds@* 0x007318F4
-            PLRINTRO_SetNpcIntroFlag(pIntro, gnAct3NpcIds[i]);
+        QUESTS_SetIntroFlags(pGame, pPlayer, gnAct3NpcIds, 7);
         break;
     }
     case 4:
     {
-        D2PlrIntroStrc* pIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
-        for (int i = 0; i < 7; ++i)
 // build: symbol ?gnAct5NpcIds@* 0x00731910
-            PLRINTRO_SetNpcIntroFlag(pIntro, gnAct5NpcIds[i]);
+        QUESTS_SetIntroFlags(pGame, pPlayer, gnAct5NpcIds, 7);
         break;
     }
     }
@@ -1947,19 +1918,6 @@ void __fastcall QUESTS_AttachLevelChainRecord(D2GameStrc* pGame, D2UnitStrc* pUn
     {
         PLRMSG_BroadcastChatMessage(pGame, "Error attaching to unit", STRCOLOR_DARK_GOLD);
     }
-}
-
-// 0x00545D40
-static void __stdcall QUESTS_InitRecord(D2Unk00545D40Rec* pRec, int nSecond, int nFirst, unsigned char nKind)
-{
-    memset(pRec, 0, sizeof(D2Unk00545D40Rec));
-    pRec->nFirst = nFirst;
-    pRec->nSecond = nSecond;
-    pRec->b0A = 0;
-    pRec->b0B = 0;
-    pRec->bActive = 1;
-    pRec->nKind = nKind;
-    pRec->w9C = 0;
 }
 
 // 0x00545100
@@ -2543,14 +2501,10 @@ void __fastcall QUESTS_MapPresetSpawn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ma
     }
 }
 
-void __fastcall sub_K10_EmitInitRecord(D2Unk00545D40Rec* pRec, int n)
-{
-    QUESTS_InitRecord(pRec, n, n + 1, 2);
-}
-
 #pragma function(memset)
 
-static inline void QUESTS_InitQuestData(D2QuestDataStrc* pQuestData, D2GameStrc* pGame, int nChainNo, unsigned char nAct)
+// 0x00545D40
+static void __stdcall QUESTS_InitQuestData(D2QuestDataStrc* pQuestData, D2GameStrc* pGame, int nChainNo, unsigned char nAct)
 {
     memset(pQuestData, 0, sizeof(D2QuestDataStrc));
     pQuestData->nQuestNo = nChainNo;
