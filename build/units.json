@@ -16753,6 +16753,11 @@
      "name": "GFX_DrawProgressiveStateOverlays"
     },
     {
+     "va": "0x0046E300",
+     "length": 616,
+     "name": "?GFX_DrawUnitOverlays@@YGXPAUD2UnitStrc@@IHHHH@Z"
+    },
+    {
      "va": "0x0046E570",
      "length": 42,
      "name": "?GFX_GetNodeValue@@YIHPAUD2UnitStrc@@H@Z"
@@ -19438,17 +19443,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/Gfx_0046E300.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0046E300",
-     "length": 616,
-     "name": "?GFX_DrawUnitOverlays@@YGXPAUD2UnitStrc@@IHHHH@Z"
-    }
    ]
   },
   {
