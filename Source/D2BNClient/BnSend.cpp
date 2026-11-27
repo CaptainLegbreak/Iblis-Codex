@@ -33,6 +33,7 @@
 #include "D2NetApi.h"
 #include "D2CommonApi3.h"
 #include "D2ClientApi.h"
+#include "D2NetApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -409,8 +410,6 @@ extern unsigned int gdwBnClientToken; // 0x00882530
 // build: symbol ??__EgtBigPair@@YAXXZ 0x006CAEF0
 // build: symbol ??__FgtBigPair@@YAXXZ 0x006CB480
 D2BigPairStrc gtBigPair;                                                                           // 0x0088273C
-
-extern void* gpServer; // 0x00882D08
 
 struct D2BnKeyValuePacketStrc
 {
