@@ -1303,7 +1303,6 @@ extern const int gaRingOffsetY[64]; // 0x006DB340
 extern const int gaRingOffsetX[64]; // 0x006DB440
 
 
-extern "C" void __stdcall sub_006488A0(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x006488A0
 
 #define TEST_OFFSET 0
 
@@ -1711,7 +1710,7 @@ int __fastcall MISSILE_CltHitSubMissileOwner(D2UnitStrc* pMissile, D2UnitStrc* p
         if (pSubMissile)
         {
             D2DynamicPathStrc* pPath = pSubMissile->pDynamicPath;
-            sub_006488A0(pPath, PATH_GetDirection(pMissile->pDynamicPath));
+            PATH_SetDirection(pPath, PATH_GetDirection(pMissile->pDynamicPath));
             D2COMMON_10203_PATH_SetRotateFlag(pPath, 0);
             MISSILE_SetTargetX(pSubMissile, MISSILE_GetMissileTargetStatus(pMissile));
         }

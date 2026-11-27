@@ -251,9 +251,9 @@ D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int); // 0x0045C4B0
 
 void __stdcall STATES_UpdatePgsvFlags(D2UnitStrc*); // 0x0063A2D0
 
-void __fastcall sub_00650E60(D2SeedStrc*, unsigned int, unsigned int); // 0x00650E60
+void __fastcall SEED_SetSeeds(D2SeedStrc*, unsigned int, unsigned int); // 0x00650E60
 
-void __fastcall sub_00650E70(D2SeedStrc*, unsigned int*, unsigned int*); // 0x00650E70
+void __fastcall SEED_GetSeeds(D2SeedStrc*, unsigned int*, unsigned int*); // 0x00650E70
 
 #define BURST_CENTER 20
 
@@ -2278,9 +2278,9 @@ void __fastcall SKILLS_ReleaseProgressiveCharges(D2GameStrc* pGame, D2UnitStrc* 
                 int nCharges = STATLIST_GetStatValue(pStatList, pSkills->wAuraStat[0], 0);
                 nCharges = D2_MIN(D2_MAX(nCharges,1),3);
                 unsigned int nLowSeed, nHighSeed;
-                sub_00650E70(&pUnit->pSeed, &nLowSeed, &nHighSeed);
+                SEED_GetSeeds(&pUnit->pSeed, &nLowSeed, &nHighSeed);
                 int nSeed = (int)SEED_RollRandomNumber(&pUnit->pSeed);
-                sub_00650E60(&pUnit->pSeed, nLowSeed, nHighSeed);
+                SEED_SetSeeds(&pUnit->pSeed, nLowSeed, nHighSeed);
                 --nCharges;
                 if (pSkills->nFlags[0] & (unsigned char)gdwBitMasks[7])
                 {

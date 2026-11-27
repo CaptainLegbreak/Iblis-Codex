@@ -47,9 +47,9 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 
 
-void __fastcall sub_00680C80(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom);                                // 0x00680C80
+void __fastcall DRLG_OUTDOORS_GenerateDirtPath(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom);                                // 0x00680C80
 
-void __fastcall sub_006707A0(D2DrlgOutdoorTileCtxStrc* pCtx);                                                // 0x006707A0
+void __fastcall sub_006707A0_SubstWaypointShrine(D2DrlgOutdoorTileCtxStrc* pCtx);                                                // 0x006707A0
 
 
 
@@ -84,7 +84,7 @@ void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
 
     if (!bSkip)
     {
-        sub_00680C80(pLevel, pRoom);
+        DRLG_OUTDOORS_GenerateDirtPath(pLevel, pRoom);
     }
 
     DRLGROOMTILE_AllocTileGrid(pRoom);
@@ -103,7 +103,7 @@ void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
         tCtx.n30 = pLevelDef->dwSubWaypoint;
         tCtx.n34 = 0;
         tCtx.n38 = nSubType1;
-        sub_006707A0(&tCtx);
+        sub_006707A0_SubstWaypointShrine(&tCtx);
     }
 
     if (nSubType2)
@@ -111,13 +111,13 @@ void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
         tCtx.n30 = pLevelDef->dwSubShrine;
         tCtx.n34 = 0;
         tCtx.n38 = nSubType2;
-        sub_006707A0(&tCtx);
+        sub_006707A0_SubstWaypointShrine(&tCtx);
     }
 
     tCtx.n30 = pOutdoor->nTileInfo64;
     tCtx.n34 = pOutdoor->nTileInfo68;
     tCtx.n38 = pOutdoor->nTileInfo6C;
-    sub_006707A0(&tCtx);
+    sub_006707A0_SubstWaypointShrine(&tCtx);
 
     switch (pLevel->nLevelType)
     {
@@ -279,7 +279,7 @@ unsigned int __fastcall DRLGOUTROOM_CheckOutdoorRoomFlag(D2DrlgRoomStrc* pRoom)
 }
 
 // 0x0067D7B0
-static inline void sub_0067D7B0(D2DrlgCoordStrc* pCoords, int nType)
+static inline void sub_0067D7B0_SetCoordSize(D2DrlgCoordStrc* pCoords, int nType)
 {
     switch (nType)
     {
@@ -356,7 +356,7 @@ int __fastcall DRLGOUTROOM_LinkLevelsByLevelCoords(D2DrlgLevelLinkDataStrc* pLev
     pLevelLinkData->nRand[1][pLevelLinkData->nIteration] = nRand;
 
     D2DrlgCoordStrc* pCoord = &pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration];
-    sub_0067D7B0(pCoord, nRand);
+    sub_0067D7B0_SetCoordSize(pCoord, nRand);
 
     const int nIteration = pLevelLinkData->nIteration;
     D2DrlgCoordStrc* pLinkCoord = &pLevelLinkData->pLevelCoord[pLinks[nIteration].nLevelLink];
@@ -368,7 +368,7 @@ int __fastcall DRLGOUTROOM_LinkLevelsByLevelCoords(D2DrlgLevelLinkDataStrc* pLev
 
 static __forceinline void __fastcall DRLGOUTROOM_GetOrthCoords(D2DrlgCoordStrc* pCoords, int nRand, D2DrlgCoordStrc* pLinkCoords, int nLinkRand)
 {
-    sub_0067D7B0(pCoords, nRand);
+    sub_0067D7B0_SetCoordSize(pCoords, nRand);
 
     const int nIndex = nRand + 2 * nLinkRand;
     pCoords->nPosX = gOutdoorOrthOffsets[nIndex].nX + pLinkCoords->nPosX;

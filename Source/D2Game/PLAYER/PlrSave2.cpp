@@ -200,7 +200,7 @@ struct D2PlrIntroSaveStrc
 };
 
 
-void __fastcall sub_0055F4F0_Nop(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x0055F4F0
+void __fastcall sub_0055F4F0_Nop(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused); // 0x0055F4F0
 
 
 
@@ -320,7 +320,7 @@ struct D2CharStatsTxt;
 
 extern const int gnPlrSave2ErrorRemap[PLRSAVE2ERROR_COUNT]; // 0x006E1208
 
-void __fastcall sub_005385D0_Nop(D2ClientStrc* pClient, int a2, int a3); // 0x005385D0
+void __fastcall sub_005385D0_Nop(D2ClientStrc* pClient, int nUnused1, int nUnused2); // 0x005385D0
 
 
 void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2GameStrc* pGame, unsigned char nAct); // 0x00534F10

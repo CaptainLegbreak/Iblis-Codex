@@ -226,7 +226,7 @@ D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex); // 0x
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer); // 0x00627260
 
 
-int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x0062B5B0
+int __fastcall ITEMS_GetRequiredLevel(D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x0062B5B0
 
 unsigned int __stdcall ITEMS_GetWeaponClassCode(D2UnitStrc* pItem); // 0x00628500
 
@@ -469,12 +469,12 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListSt
 
 int __fastcall STATLIST_HasSkillDesc(int nSkillId);                                                     // 0x00627AF0
 
-void __stdcall sub_00627EF0(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo);                    // 0x00627EF0
+void __stdcall ITEMS_AssignPrefix(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo);                    // 0x00627EF0
 
-void __stdcall sub_00627FB0(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo);                    // 0x00627FB0
+void __stdcall ITEMS_AssignSuffix(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo);                    // 0x00627FB0
 
 
-void __stdcall sub_00628070(D2UnitStrc* pItem, unsigned short nSuffix);                                   // 0x00628070
+void __stdcall ITEMS_AssignRareSuffix(D2UnitStrc* pItem, unsigned short nSuffix);                                   // 0x00628070
 
 
 void __stdcall ITEMS_SetRealmData(D2UnitStrc* pItem, int nRealmData0, int nRealmData1);                         // 0x00629EA0
@@ -768,7 +768,7 @@ unsigned short __stdcall ITEMS_GetPrefixId(D2UnitStrc* pItem, int nPrefixNo)
 }
 
 // 0x00627EF0
-void __stdcall sub_00627EF0(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo)
+void __stdcall ITEMS_AssignPrefix(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo)
 {
     if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
     {
@@ -808,7 +808,7 @@ unsigned short __stdcall ITEMS_GetSuffixId(D2UnitStrc* pItem, int nSuffixNo)
 }
 
 // 0x00627FB0
-void __stdcall sub_00627FB0(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo)
+void __stdcall ITEMS_AssignSuffix(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo)
 {
     if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
     {
@@ -848,7 +848,7 @@ unsigned short __stdcall ITEMS_GetRareSuffixIndex(D2UnitStrc* pItem)
 }
 
 // 0x00628070
-void __stdcall sub_00628070(D2UnitStrc* pItem, unsigned short nSuffix)
+void __stdcall ITEMS_AssignRareSuffix(D2UnitStrc* pItem, unsigned short nSuffix)
 {
     if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
     {
@@ -1302,7 +1302,7 @@ int __stdcall D2COMMON_11079_Return0(int nUnused1, int nUnused2)
 // 0x0062BA60
 int __stdcall ITEMS_GetLevelRequirement(D2UnitStrc* pItem, D2UnitStrc* pUnit)
 {
-    return sub_0062B5B0(pItem, pUnit);
+    return ITEMS_GetRequiredLevel(pItem, pUnit);
 }
 
 // 0x0062BA80
@@ -4631,11 +4631,11 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                     {
                         nPrefix += nMagicPrefixOffset;
                     }
-                    sub_00627EF0(pItem, nPrefix, 0);
+                    ITEMS_AssignPrefix(pItem, nPrefix, 0);
                 }
                 else
                 {
-                    sub_00627FB0(pItem, BITMANIP_ReadInl(pBuffer, 11), 0);
+                    ITEMS_AssignSuffix(pItem, BITMANIP_ReadInl(pBuffer, 11), 0);
                 }
             }
         }
@@ -4647,7 +4647,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
 
         if (ITEMSIsA(pItem, 22) || ITEMSIsA(pItem, 18))
         {
-            sub_00627FB0(pItem, BITMANIP_ReadInl(pBuffer, 5), 0);
+            ITEMS_AssignSuffix(pItem, BITMANIP_ReadInl(pBuffer, 5), 0);
         }
         break;
 
@@ -4656,7 +4656,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
         if (bCheckForHeader || ITEMS_GetItemFlags(pItem) & IFLAG_IDENTIFIED)
         {
             ITEMS_AssignRarePrefix(pItem, BITMANIP_ReadInl(pBuffer, 8));
-            sub_00628070(pItem, BITMANIP_ReadInl(pBuffer, 8));
+            ITEMS_AssignRareSuffix(pItem, BITMANIP_ReadInl(pBuffer, 8));
         }
 
         for (int i = 0; i < 3; ++i)
@@ -4700,7 +4700,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
         if (bCheckForHeader || ITEMS_GetItemFlags(pItem) & IFLAG_IDENTIFIED)
         {
             ITEMS_AssignRarePrefix(pItem, BITMANIP_ReadInl(pBuffer, 8));
-            sub_00628070(pItem, BITMANIP_ReadInl(pBuffer, 8));
+            ITEMS_AssignRareSuffix(pItem, BITMANIP_ReadInl(pBuffer, 8));
         }
         break;
 
@@ -4712,10 +4712,10 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
             {
                 nPrefix += nMagicPrefixOffset;
             }
-            sub_00627EF0(pItem, nPrefix, 0);
+            ITEMS_AssignPrefix(pItem, nPrefix, 0);
 
             unsigned short nSuffix = BITMANIP_ReadInl(pBuffer, 11);
-            sub_00627FB0(pItem, nSuffix, 0);
+            ITEMS_AssignSuffix(pItem, nSuffix, 0);
         }
         break;
 
@@ -6391,7 +6391,7 @@ int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int 
         }
     }
 
-    const int nLevelReq = sub_0062B5B0(pItem, pUnit);
+    const int nLevelReq = ITEMS_GetRequiredLevel(pItem, pUnit);
     if (nLevelReq != -1 && STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0) < nLevelReq)
     {
         bLevelReqMet = 0;
@@ -8114,7 +8114,7 @@ inline int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit)
 }
 
 // 0x0062B5B0
-int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
+int __fastcall ITEMS_GetRequiredLevel(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
 {
     D2StatStrc pStat[64];
     const int nQuality = ITEMS_GetItemQuality_Inl(pItem);
@@ -8226,7 +8226,7 @@ int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
             {
                 break;
             }
-            const int nLevel = sub_0062B5B0(pSocketable, pPlayer);
+            const int nLevel = ITEMS_GetRequiredLevel(pSocketable, pPlayer);
             if (nRequiredLevel <= nLevel)
             {
                 nRequiredLevel = nLevel;

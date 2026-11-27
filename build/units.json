@@ -16724,6 +16724,11 @@
      "length": 89
     },
     {
+     "va": "0x0046DCC0",
+     "length": 303,
+     "name": "?GFX_LoadHashedEntry@@YGPAUD2HashedFileEntryStrc@@PAUD2HashedFileStrc@@PBD@Z"
+    },
+    {
      "va": "0x0046DEF0",
      "length": 79,
      "name": "?GFX_SyncStateOverlay@@YAXPAUD2OverlayStrc@@PAUD2GfxDataStrc@@@Z"
@@ -16732,6 +16737,10 @@
      "va": "0x0046DF40",
      "length": 243,
      "name": "?GFX_RecalcStateOverlays@@YGXPAUD2StateOwnerStrc@@PAUD2UnitStrc@@PAUD2StateNodeStrc@@@Z"
+    },
+    {
+     "va": "0x0046E040",
+     "length": 180
     },
     {
      "va": "0x0046E100",
@@ -16934,6 +16943,10 @@
     {
      "va": "0x00471450",
      "length": 464
+    },
+    {
+     "va": "0x00471620",
+     "length": 1030
     },
     {
      "va": "0x00471A30",
@@ -19410,39 +19423,6 @@
     {
      "va": "0x00470B70",
      "length": 192
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/Gfx_0046DCC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0046DCC0",
-     "length": 303,
-     "name": "?GFX_LoadHashedEntry@@YGPAUD2HashedFileEntryStrc@@PAUD2HashedFileStrc@@PBD@Z"
-    },
-    {
-     "va": "0x0046E040",
-     "length": 180
-    },
-    {
-     "va": "0x00471620",
-     "length": 1030
     }
    ],
    "flags": [
@@ -24184,6 +24164,11 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004AE080",
+     "length": 29,
+     "name": "@NPCMENU_GetMonsterTypeFlags@8"
+    },
+    {
      "va": "0x004AE0A0",
      "length": 64,
      "name": "?MONSTER_SetClientFlags@@YIXPAUD2UnitStrc@@G@Z"
@@ -24550,11 +24535,6 @@
      "va": "0x004ADEA0",
      "length": 480,
      "name": "?MONSTER_GetMonsterName@@YIXPAUD2UnitStrc@@PAUUnicode@@HG@Z"
-    },
-    {
-     "va": "0x004AE080",
-     "length": 29,
-     "name": "@NPCMENU_GetMonsterTypeFlags@8"
     }
    ]
   },
@@ -62943,7 +62923,7 @@
     {
      "va": "0x00610D30",
      "length": 43,
-     "name": "?sub_00610D30@D2Object00610D30Strc@@QAEPAXI@Z"
+     "name": "?sub_00610D30_Delete@D2Object00610D30Strc@@QAEPAXI@Z"
     },
     {
      "va": "0x00610D60",
@@ -65051,7 +65031,7 @@
     {
      "va": "0x00624710",
      "length": 6,
-     "name": "sub_00624710"
+     "name": "sub_00624710_GetLogFile"
     },
     {
      "va": "0x00624720",
@@ -65709,7 +65689,7 @@
     {
      "va": "0x006275B0",
      "length": 264,
-     "name": "?sub_006275B0@@YGXPAUD2UnitStrc@@@Z"
+     "name": "?STATLIST_ClampStaminaManaHP@@YGXPAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -66905,7 +66885,7 @@
     {
      "va": "0x00631490",
      "length": 6,
-     "name": "sub_00631490"
+     "name": "DATATBLS_Return2"
     },
     {
      "va": "0x006314A0",
@@ -67686,7 +67666,7 @@
     {
      "va": "0x0063DB80",
      "length": 3,
-     "name": "sub_0063DB80"
+     "name": "sub_0063DB80_Nop"
     },
     {
      "va": "0x0063DB90",
@@ -67729,7 +67709,7 @@
     {
      "va": "0x0063E050",
      "length": 3,
-     "name": "sub_0063E050"
+     "name": "sub_0063E050_Nop"
     },
     {
      "va": "0x0063E060",
@@ -67874,7 +67854,7 @@
     {
      "va": "0x0063EBC0",
      "length": 3,
-     "name": "sub_0063EBC0"
+     "name": "D2COMMON_11062_Return"
     },
     {
      "va": "0x0063EBD0",
@@ -68068,7 +68048,7 @@
     {
      "va": "0x00654E70",
      "length": 5,
-     "name": "sub_00654E70"
+     "name": "sub_00654E70_Return0"
     },
     {
      "va": "0x00654E80",
@@ -68375,7 +68355,7 @@
     {
      "va": "0x00641530",
      "length": 416,
-     "name": "?sub_00641530@@YGHPAUD2UnitStrc@@0@Z"
+     "name": "?D2Common_10399@@YGHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x006416D0",
@@ -68483,7 +68463,7 @@
     {
      "va": "0x00642740",
      "length": 3,
-     "name": "sub_00642740"
+     "name": "D2COMMON_10018_Return0"
     },
     {
      "va": "0x00642750",
@@ -70520,7 +70500,7 @@
     {
      "va": "0x0064DDB0",
      "length": 62,
-     "name": "sub_0064DDB0"
+     "name": "sub_0064DDB0_SetCollisionMask"
     },
     {
      "va": "0x0064DDF0",
@@ -70836,12 +70816,12 @@
     {
      "va": "0x00650E60",
      "length": 15,
-     "name": "@sub_00650E60@12"
+     "name": "@SEED_SetSeeds@12"
     },
     {
      "va": "0x00650E70",
      "length": 19,
-     "name": "@sub_00650E70@12"
+     "name": "@SEED_GetSeeds@12"
     },
     {
      "va": "0x00650E90",
@@ -71014,27 +70994,27 @@
     {
      "va": "0x0065C130",
      "length": 12,
-     "name": "?sub_0065C130@@YIXXZ"
+     "name": "?DATATBLS_UnloadInventoryTxt@@YIXXZ"
     },
     {
      "va": "0x0065C140",
      "length": 58,
-     "name": "sub_0065C140"
+     "name": "sub_0065C140_GetInventoryRecord"
     },
     {
      "va": "0x0065C180",
      "length": 104,
-     "name": "?sub_0065C180@@YGXHHPAUD2Block0@@@Z"
+     "name": "?DATATBLS_GetInventoryRect@@YGXHHPAUD2Block0@@@Z"
     },
     {
      "va": "0x0065C1F0",
      "length": 117,
-     "name": "?sub_0065C1F0@@YGXHHPAUD2Block1@@@Z"
+     "name": "?DATATBLS_GetInventoryGridInfo@@YGXHHPAUD2Block1@@@Z"
     },
     {
      "va": "0x0065C270",
      "length": 131,
-     "name": "?sub_0065C270@@YGXHHPAUD2Block2@@H@Z"
+     "name": "?DATATBLS_GetInventoryComponentGrid@@YGXHHPAUD2Block2@@H@Z"
     },
     {
      "va": "0x0065C300",
@@ -71832,7 +71812,7 @@
     {
      "va": "0x00663740",
      "length": 3,
-     "name": "sub_00663740"
+     "name": "sub_00663740_Nop"
     },
     {
      "va": "0x00663750",
@@ -72370,7 +72350,7 @@
     {
      "va": "0x0066A270",
      "length": 1,
-     "name": "?sub_0066A270@@YIXPAX@Z"
+     "name": "?sub_0066A270_Nop@@YIXPAX@Z"
     }
    ]
   },
@@ -73580,12 +73560,12 @@
     {
      "va": "0x0066F350",
      "length": 37,
-     "name": "sub_0066F350"
+     "name": "sub_0066F350_GetFloorGridEntry"
     },
     {
      "va": "0x0066F380",
      "length": 37,
-     "name": "sub_0066F380"
+     "name": "sub_0066F380_GetWallGridEntry"
     },
     {
      "va": "0x0066F3B0",
@@ -73610,7 +73590,7 @@
     {
      "va": "0x0066FA10",
      "length": 186,
-     "name": "sub_0066FA10"
+     "name": "sub_0066FA10_AddPresetUnits"
     },
     {
      "va": "0x0066FAD0",
@@ -73619,7 +73599,7 @@
     {
      "va": "0x0066FCF0",
      "length": 262,
-     "name": "sub_0066FCF0"
+     "name": "sub_0066FCF0_CanPlaceSubstGroup"
     },
     {
      "va": "0x0066FE00",
@@ -73657,7 +73637,7 @@
     {
      "va": "0x006707A0",
      "length": 105,
-     "name": "sub_006707A0"
+     "name": "sub_006707A0_SubstWaypointShrine"
     }
    ]
   },
@@ -73798,6 +73778,10 @@
     {
      "va": "0x00677870",
      "length": 12
+    },
+    {
+     "va": "0x00677880",
+     "length": 4232
     },
     {
      "va": "0x00678910",
@@ -74449,7 +74433,7 @@
     {
      "va": "0x0067D7B0",
      "length": 40,
-     "name": "?sub_0067D7B0@@YAXPAUD2DrlgCoordsStrc@@H@Z"
+     "name": "?sub_0067D7B0_SetCoordSize@@YAXPAUD2DrlgCoordsStrc@@H@Z"
     },
     {
      "va": "0x0067D7E0",
@@ -74554,22 +74538,22 @@
     {
      "va": "0x0067E660",
      "length": 62,
-     "name": "sub_0067E660"
+     "name": "sub_0067E660_SpawnEdgePresets"
     },
     {
      "va": "0x0067E6A0",
      "length": 402,
-     "name": "sub_0067E6A0"
+     "name": "sub_0067E6A0_SpawnAct4Presets"
     },
     {
      "va": "0x0067E840",
      "length": 69,
-     "name": "sub_0067E840"
+     "name": "sub_0067E840_SpawnSanctumPresets"
     },
     {
      "va": "0x0067E890",
      "length": 126,
-     "name": "sub_0067E890"
+     "name": "DRLGOUTDOORS_InitAct4OutdoorLevel"
     }
    ]
   },
@@ -74794,32 +74778,32 @@
     {
      "va": "0x006808F0",
      "length": 94,
-     "name": "sub_006808F0"
+     "name": "sub_006808F0_GetPatternCode"
     },
     {
      "va": "0x00680950",
      "length": 106,
-     "name": "sub_00680950"
+     "name": "sub_00680950_ShiftNeighbours"
     },
     {
      "va": "0x006809C0",
      "length": 176,
-     "name": "sub_006809C0"
+     "name": "sub_006809C0_ReadNeighbours"
     },
     {
      "va": "0x00680A70",
      "length": 157,
-     "name": "sub_00680A70"
+     "name": "sub_00680A70_MarkRoads"
     },
     {
      "va": "0x00680B10",
      "length": 359,
-     "name": "sub_00680B10"
+     "name": "sub_00680B10_PlaceRoadTiles"
     },
     {
      "va": "0x00680C80",
      "length": 61,
-     "name": "sub_00680C80"
+     "name": "DRLG_OUTDOORS_GenerateDirtPath"
     },
     {
      "va": "0x00680CC0",
@@ -74829,7 +74813,7 @@
     {
      "va": "0x00680D70",
      "length": 645,
-     "name": "sub_00680D70"
+     "name": "sub_00680D70_CollectRoadStarts"
     }
    ]
   },
@@ -74872,22 +74856,22 @@
     {
      "va": "0x00681490",
      "length": 65,
-     "name": "sub_00681490"
+     "name": "sub_00681490_AllocPathNode"
     },
     {
      "va": "0x006814E0",
      "length": 37,
-     "name": "sub_006814E0"
+     "name": "sub_006814E0_EstimateCost"
     },
     {
      "va": "0x00681510",
      "length": 33,
-     "name": "sub_00681510"
+     "name": "sub_00681510_GetStepCost"
     },
     {
      "va": "0x00681540",
      "length": 20,
-     "name": "sub_00681540"
+     "name": "sub_00681540_GetTurnTable"
     },
     {
      "va": "0x00681560",

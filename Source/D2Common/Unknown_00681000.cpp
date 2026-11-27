@@ -22,11 +22,11 @@ extern const int gnOutdoorScanYOffsets[4]; // 0x006F2800
 
 struct D2DrlgGridStrc;
 
-void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel); // 0x00680D70
+void __stdcall sub_00680D70_CollectRoadStarts(D2DrlgLevelStrc* pLevel); // 0x00680D70
 
-void __stdcall sub_00681000(D2DrlgLevelStrc* pLevel); // 0x00681000
+void __stdcall sub_00681000_SetRoadEnds(D2DrlgLevelStrc* pLevel); // 0x00681000
 
-int __fastcall sub_006817D0(D2DrlgLevelStrc* pLevel, int nRoad); // 0x006817D0
+int __fastcall sub_006817D0_BuildRoad(D2DrlgLevelStrc* pLevel, int nRoad); // 0x006817D0
 
 extern const int gnAct1PathOffsetX[4]; // 0x006F2820
 
@@ -65,7 +65,7 @@ static void DRLGOUTDOORS_CalculatePathCoordinates(D2DrlgLevelStrc* pLevel, D2Drl
 }
 
 // 0x00681000
-void __stdcall sub_00681000(D2DrlgLevelStrc* pLevel)
+void __stdcall sub_00681000_SetRoadEnds(D2DrlgLevelStrc* pLevel)
 {
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
     int nX = -1;
@@ -169,7 +169,7 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 }
 
 // 0x00681240
-static void __stdcall sub_00681240(D2DrlgLevelStrc* pLevel, int nRoad)
+static void __stdcall sub_00681240_PlaceRoadVertices(D2DrlgLevelStrc* pLevel, int nRoad)
 {
     void* pMemPool = pLevel->pDrlg->pMempool;
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
@@ -220,15 +220,15 @@ static void __stdcall sub_00681240(D2DrlgLevelStrc* pLevel, int nRoad)
 void __fastcall DRLGOUTDOORS_SpawnAct1DirtPaths(D2DrlgLevelStrc* pLevel)
 {
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
-    sub_00680D70(pLevel);
-    sub_00681000(pLevel);
+    sub_00680D70_CollectRoadStarts(pLevel);
+    sub_00681000_SetRoadEnds(pLevel);
 
     for (int nPath = 0; nPath < pOutdoors->nVertices; ++nPath)
     {
-        if (sub_006817D0(pLevel, nPath))
+        if (sub_006817D0_BuildRoad(pLevel, nPath))
         {
             DRLGGRID_SetVertexGridFlags(&pOutdoors->pGrid[2], pOutdoors->pRoads[nPath], 0x80);
-            sub_00681240(pLevel, nPath);
+            sub_00681240_PlaceRoadVertices(pLevel, nPath);
         }
     }
 }

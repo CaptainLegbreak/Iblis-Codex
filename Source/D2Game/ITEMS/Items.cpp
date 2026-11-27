@@ -128,7 +128,7 @@ int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc*); // 0x0062BA80
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc*); // 0x00625E00
 
 
-int __stdcall sub_006280A0(D2UnitStrc*,int,int,const char*); // 0x006280A0
+int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*,int,int,const char*); // 0x006280A0
 
 
 #define ITEMDROPFLAG_SUPERIOR 0x40
@@ -3455,7 +3455,7 @@ void __fastcall ITEMS_UpdateDurability(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2U
   STATLIST_SetUnitStat(pItem,STAT_DURABILITY,durability,0);
   SEND(72,durability,0xc5a);
  } else {
-  if(!bStack && !sub_006280A0(pItem,0x100,0xc5f,".\\ITEMS\\Items.cpp")) {ITEMMODE_BreakItem(pGame,pPlayer,pItem);return;}
+  if(!bStack && !ITEMS_CheckItemFlag(pItem,0x100,0xc5f,".\\ITEMS\\Items.cpp")) {ITEMMODE_BreakItem(pGame,pPlayer,pItem);return;}
   if(ITEMS_GetItemFormat(pItem)>=1) {
    int quantity=STATLIST_UnitGetStatValue(pItem,STAT_QUANTITY,0);
    if(quantity>1) {

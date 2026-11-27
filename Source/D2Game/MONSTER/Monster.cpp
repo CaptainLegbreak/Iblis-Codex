@@ -882,7 +882,7 @@ static void __stdcall MONSTER_InitializeStats(D2GameStrc* pGame, D2ActiveRoomStr
         }
     }
 
-    sub_0063EBC0((int)pMonster, tBonus.nMonsterSkillBonus);
+    D2COMMON_11062_Return((int)pMonster, tBonus.nMonsterSkillBonus);
     if (pMonStats2Txt->nFlags[1] & (unsigned char)gdwBitMasks[1])
     {
         pMonster->dwFlags |= 4;

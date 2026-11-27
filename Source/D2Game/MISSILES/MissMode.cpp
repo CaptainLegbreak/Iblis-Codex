@@ -764,20 +764,20 @@ int __fastcall MISSMODE_SrvHit10_GuidedArrow_BoneSpirit(D2GameStrc* pGame, D2Uni
         return 1;
     }
 
-    const int v8 = MISSILE_GetTargetX(pMissile);
-    if (!pUnit && v8 & 4)
+    const int nTargetFlags = MISSILE_GetTargetX(pMissile);
+    if (!pUnit && nTargetFlags & 4)
     {
         return 1;
     }
 
     D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
-    const unsigned short v9 = D2Common_10201(pPath);
-    if (!pUnit && v9 & 4)
+    const unsigned short nPathFlags = D2Common_10201(pPath);
+    if (!pUnit && nPathFlags & 4)
     {
         return 1;
     }
 
-    if (v8 & 1)
+    if (nTargetFlags & 1)
     {
         if (pUnit && pUnit != SUNIT_GetTargetUnit(pGame, pMissile))
         {
@@ -787,14 +787,14 @@ int __fastcall MISSMODE_SrvHit10_GuidedArrow_BoneSpirit(D2GameStrc* pGame, D2Uni
         return 3;
     }
 
-    if (v8 & 2)
+    if (nTargetFlags & 2)
     {
         if (sub_0064A380_GetRemainingFrames(pMissile) <= 0)
         {
             return MISSMODE_FindGuidedMissileTarget(pGame, pMissile) ? 1 : 4;
         }
 
-        return (v8 & 4) ? 3 : 4;
+        return (nTargetFlags & 4) ? 3 : 4;
     }
 
     return 3;

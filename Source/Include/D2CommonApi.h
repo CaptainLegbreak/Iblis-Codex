@@ -196,7 +196,7 @@ int __stdcall SKILLS_GetSkillModeFromUnit(D2UnitStrc* pUnit, D2SkillStrc* pSkill
 void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitStrc* pUnit, int bSetFlag); // 0x00649D00
 void __stdcall MISSILE_AllocMissileData(D2UnitStrc* pMissile); // 0x0064A100
 D2SkillStrc* __stdcall SKILLS_GetFirstSkillFromSkillList(D2SkillListStrc* pSkillList); // 0x00643910
-int __stdcall sub_00641530(D2UnitStrc* a,D2UnitStrc* b); // 0x00641530
+int __stdcall D2Common_10399(D2UnitStrc* a,D2UnitStrc* b); // 0x00641530
 int __stdcall STATES_CheckStateMaskDamBlueOnUnit(D2UnitStrc* pUnit); // 0x0063A380
 int __stdcall STATES_CheckStateMaskDamRedOnUnit(D2UnitStrc* pUnit); // 0x0063A3A0
 int __stdcall SKILLS_GetConcentrationDamageBonus(D2UnitStrc* pUnit, int nSkillId); // 0x006461D0
@@ -350,7 +350,7 @@ int __stdcall ITEMS_GetNoOfUnidItems(D2UnitStrc* pUnit); // 0x0062A530
 int __stdcall SKILLS_GetClassIdFromSkillId(int nSkillId); // 0x00645040
 unsigned char __stdcall UNITS_GetObjectPortalFlags(D2UnitStrc* pUnit); // 0x006222C0
 int __stdcall ITEMS_DecodeItemFromBitstream(D2UnitStrc* pItem, unsigned char* pBitstream, int nSize, int bCheckForHeader, int* pSocketedItemCount, unsigned int dwVersion, int* pFail); // 0x0062E430
-void __stdcall sub_006275B0(D2UnitStrc* pUnit); // 0x006275B0
+void __stdcall STATLIST_ClampStaminaManaHP(D2UnitStrc* pUnit); // 0x006275B0
 unsigned char __stdcall UNITS_GetItemComponentId(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00623D60
 int __stdcall ITEMS_GetGemApplyType(D2UnitStrc* pItem); // 0x00629A40
 void __stdcall INVENTORY_UpdateWeaponGUIDOnInsert(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D1D0
@@ -365,7 +365,7 @@ int __stdcall MISSILE_CheckUnitIfOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit);
 void __stdcall MISSILE_FreeMissileData(D2UnitStrc* pMissile); // 0x0064A150
 int __stdcall MONSTERS_IsSandLeaper(D2UnitStrc* pMonster, int bAlwaysReturnFalse); // 0x0063E8D0
 void __stdcall MONSTERS_ApplyClassicScaling(D2UnitStrc* unit, int mode, unsigned char difficulty); // 0x0063EEF0
-void __stdcall sub_0063EBC0(int nUnused1, int nUnused2); // 0x0063EBC0
+void __stdcall D2COMMON_11062_Return(int nUnused1, int nUnused2); // 0x0063EBC0
 void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc* pDynamicPath); // 0x00648DC0
 D2ShrinesTxt* __stdcall DATATBLS_GetShrinesTxtRecord(int nShrineId); // 0x006414B0
 int __stdcall DUNGEON_CheckLOSDraw(D2ActiveRoomStrc* pRoom); // 0x0061AA40

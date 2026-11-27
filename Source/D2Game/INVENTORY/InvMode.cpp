@@ -71,7 +71,7 @@ void __fastcall D2GAME_SendP0x9C_ItemAction_AddOrRemoveFromShop(D2ClientStrc* pC
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
 
-void __fastcall sub_0055F4F0_Nop(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x0055F4F0
+void __fastcall sub_0055F4F0_Nop(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused); // 0x0055F4F0
 
 int __fastcall D2GAME_NPC_IsItemInNpcInventory(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2UnitStrc* pItem, int bRemoveFromShop); // 0x00579360
 

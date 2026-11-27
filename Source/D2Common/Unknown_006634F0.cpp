@@ -212,7 +212,7 @@ const Unicode* __fastcall MONSTERS_GetHirelingDescString(int nId)
 }
 
 // 0x00663740
-void __stdcall sub_00663740(int nUnused1)
+void __stdcall sub_00663740_Nop(int nUnused1)
 {
 }
 

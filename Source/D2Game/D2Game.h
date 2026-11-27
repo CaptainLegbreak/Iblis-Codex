@@ -72,10 +72,12 @@ struct Path;
 struct Point;
 struct Quest;
 struct Room;
-struct RoomBounds;
 struct Seed;
-struct ShrineLists;
-struct ShrineRecord;
+struct D2ShrineDataStrc
+{
+    int nShrineSubTypes[8]; // 0x00
+    int* pShrineSubTypeIds[8]; // 0x20
+};
 struct Skill;
 struct SkillRecord;
 struct StaticPath;
@@ -123,11 +125,8 @@ D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtCoordinates(D2GameStrc* pGame, D2Acti
 D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pDistance, int* pInMeleeRange); // 0x005DDC30
 D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2); // 0x00623990
 D2UnitStrc* __stdcall PATH_GetTargetUnit(D2DynamicPathStrc* pDynamicPath); // 0x00648BF0
-ObjectRecord* __stdcall sub_00640E90_ObjectRecord(int); // 0x00640E90
 Room* __stdcall sub_00620BB0(Unit*); // 0x00620BB0
-Seed* __fastcall sub_00546FA0_Control(Game*,Room*); // 0x00546FA0
-ShrineLists* __fastcall OBJRGN_GetShrineDataFromGame(Game*); // 0x00546FB0
-ShrineRecord* __stdcall sub_006414B0_ShrineRecord(int); // 0x006414B0
+extern "C" __declspec(dllexport) D2ShrineDataStrc* __fastcall OBJRGN_GetShrineDataFromGame(D2GameStrc* pGame); // 0x00546FB0
 Skill* __stdcall sub_00620250(Unit*); // 0x00620250
 bool __fastcall ACT1Q1_CanClientFXBeTriggered(D2QuestDataStrc* pQuestData); // 0x00590810
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
@@ -401,7 +400,6 @@ int __stdcall UNITS_IsCorpseUseable(D2UnitStrc* pUnit); // 0x00623600
 int __stdcall UNITS_IsCurrentRoomInvalid(D2UnitStrc* pUnit); // 0x00620F50
 int __stdcall UNITS_IsInRange(D2UnitStrc* pUnit, D2CoordStrc* pCoord, int nDistance); // 0x00641890
 int __stdcall UNITS_TestCollisionByCoordinates(D2UnitStrc* pUnit, int nX, int nY, int nCollisionMask); // 0x006229F0
-int __stdcall sub_0061A1F0_Region(Room*); // 0x0061A1F0
 int __stdcall sub_0061ABF0(int nActData, int nLevelId); // 0x0061ABF0
 int __stdcall sub_00621B00_IsShrine(D2UnitStrc* pUnit); // 0x00621B00
 int __stdcall sub_006253B0_GetBaseStat(D2UnitStrc*,int,int); // 0x006253B0
@@ -421,9 +419,9 @@ int __stdcall PATH_GetType(D2DynamicPathStrc* pPath); // 0x00648E30
 long __cdecl SYSTEM_GetSyncTime(); // 0x00410A80
 short __fastcall PLAYERLIST_GetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B3F0
 short __stdcall ITEMS_RollMagicAffixesNew(D2UnitStrc* pItem, int bRequireSpawnableAffix, int bForceAffixRoll, int bAssignProperties, int bPrefixes, int nPreferredAffixIndex, int nAutoMagicGroup); // 0x005C1560
-unsigned char __fastcall sub_00547330_Force(Game*,int); // 0x00547330
-unsigned char __fastcall OBJRGN_CanNotSpawnMoreShrines(Game*,int); // 0x00547360
-unsigned char __fastcall OBJRGN_CanSpawnShrine(Game*,int,int,int); // 0x00547430
+bool __fastcall OBJRGN_ShouldSpawnHealingShrineOrWell(D2GameStrc* pGame, int nLevelId); // 0x00547330
+bool __fastcall OBJRGN_CanNotSpawnMoreShrines(D2GameStrc* pGame, int nLevelId); // 0x00547360
+bool __fastcall OBJRGN_CanSpawnShrine(D2GameStrc* pGame, int nLevelId, int nX, int nY); // 0x00547430
 unsigned char __stdcall UNITS_GetObjectPortalFlags(D2UnitStrc* pUnit); // 0x006222C0
 unsigned int __stdcall ITEMS_GetItemStartSeed(D2UnitStrc* pItem); // 0x00627DF0
 unsigned int __stdcall ITEMS_GetItemTypeFromItemId(unsigned int dwItemId); // 0x00628700
@@ -466,8 +464,8 @@ void __fastcall GAME_RemoveUnit(D2UnitStrc*,D2GameStrc*); // 0x0052E050
 void __fastcall sub_00539230_SetWeaponSwitch(D2ClientStrc*, unsigned char); // 0x00539230
 void __fastcall D2GAME_PACKETS_SendGameExit(int nClientId); // 0x0053B240
 void __fastcall D2GAME_EVENTS_Delete(D2GameStrc*,D2UnitStrc*,int,int); // 0x00540E60
-void __fastcall OBJRGN_IncreaseHealingShrineCount(Game*,int); // 0x00547390
-void __fastcall OBJRGN_SetShrineCoordinates(Game*,int,int,int); // 0x00547490
+extern "C" __declspec(dllexport) void __fastcall OBJRGN_IncreaseHealingShrineCount(D2GameStrc* pGame, int nLevelId); // 0x00547390
+void __fastcall OBJRGN_SetShrineCoordinates(D2GameStrc* pGame, int nLevelId, int nX, int nY); // 0x00547490
 void __fastcall SUNIT_ClearUpdateData(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553220
 void __fastcall SUNITDMG_SetExperienceForTargetLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEntry); // 0x0057EB10
 void __fastcall ACT2Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00599A20
@@ -552,9 +550,7 @@ void __stdcall UNITS_SetYForStaticUnit(D2UnitStrc* pUnit, int nY); // 0x006204C0
 void __stdcall UNITS_StoreLastAttacker(D2UnitStrc* pUnit, D2UnitStrc* pAttacker); // 0x00621D50
 void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x00623F50
 void __stdcall WAYPOINTS_ValidateAndCopyWaypointData(D2WaypointDataStrc* pSource, D2WaypointDataStrc* pDestination); // 0x006610B0
-void __stdcall sub_00619730_Bounds(Room*,RoomBounds*); // 0x00619730
 void __stdcall UNITS_SetAnimationSpeed(D2UnitStrc* pMissile, int nArg); // 0x00621780
-void __stdcall sub_00621BB0_SetShrine(Unit*,ShrineRecord*); // 0x00621BB0
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nType, int nValue, int n0); // 0x006272B0
 void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 void __stdcall INVENTORY_UpdateWeaponGUIDOnInsert(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D1D0
@@ -1212,30 +1208,6 @@ struct Record
     const char* name;
     unsigned char flags;
     unsigned char tail[3];
-};
-
-struct RoomBounds
-{
-    int a;
-    int b;
-    int c;
-    int d;
-    int e;
-    int f;
-    int g;
-    int h;
-};
-
-struct ShrineLists
-{
-    int counts[N8];
-    int* lists[N8];
-};
-
-struct ShrineRecord
-{
-    char reserved0[N180];
-    unsigned int minimumLevel;
 };
 
 typedef unsigned int size_t;
