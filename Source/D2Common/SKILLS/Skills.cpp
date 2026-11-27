@@ -113,9 +113,7 @@ struct D2Skill00643D00Strc;
 
 struct D2Owner00643D00Strc;
 
-struct Obj00644340;
 
-struct Obj0063D650;
 
 struct D2StatesTxt;
 
@@ -250,13 +248,7 @@ struct D2Owner00643D00Strc
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
-struct Obj00644340 {
-    unsigned int dwUnknown00;
-    unsigned int dwUnknown04;
-    unsigned int dwValue08;
-};
 
-struct Obj0063D650 { unsigned int dwUnknown00; unsigned int dwUnknown04; unsigned int dwValue08; };
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 
@@ -1580,18 +1572,23 @@ int __stdcall SKILLS_GetBonusSkillLevelFromSkillId(D2UnitStrc* pUnit, int nSkill
 }
 
 // 0x00644340
-extern "C" __declspec(dllexport) void __stdcall SKILLS_SetSkillMode(Obj00644340* pObj, unsigned int dwValue) {
-    if (pObj && dwValue <= 0x20) {
-        pObj->dwValue08 = dwValue;
+void __stdcall SKILLS_SetSkillMode(D2SkillStrc* pSkill, unsigned int nSkillMode)
+{
+    if (pSkill && nSkillMode <= 0x20)
+    {
+        pSkill->dwSkillMode = nSkillMode;
     }
 }
 
 // 0x00644360
-extern "C" __declspec(dllexport) unsigned int __stdcall SKILLS_GetSkillMode(Obj0063D650* pObj) {
-    if (!pObj) {
+int __stdcall SKILLS_GetSkillMode(D2SkillStrc* pSkill)
+{
+    if (!pSkill)
+    {
         return 0;
     }
-    return pObj->dwValue08;
+
+    return pSkill->dwSkillMode;
 }
 
 // 0x00644380
