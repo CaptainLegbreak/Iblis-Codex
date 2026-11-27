@@ -2761,7 +2761,7 @@ void __fastcall SCMD_HandleEventMessage(const D2GSPacket5AStrc* pPacket)
 void __fastcall SCMD_HandlePlayerJoined(const D2GSPacketSrv5B* pPacket)
 {
     const char* szText = pPacket->szGuildTag;
-    ROSTER_AddRosterUnit(pPacket->nUnitGUID, pPacket->nClass, pPacket->szName, pPacket->nLevel, pPacket->nPartyId, pPacket->unk0x1C,
+    ROSTER_AddRosterUnit(pPacket->nUnitGUID, pPacket->nClass, pPacket->szName, pPacket->nLevel, pPacket->nPartyId, pPacket->unused0x1C,
                  pPacket->nPartyFlags, pPacket->nGuildFlags, szText, szText + strlen(szText) + 1);
 }
 
