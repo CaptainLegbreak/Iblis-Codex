@@ -87,7 +87,7 @@ int __fastcall MONSTERAI_HasInteractUnit(D2MonsterInteractStrc* pMonInteract); /
 
 void __fastcall MONSTERAI_CloseNpcInteractions(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fastcall* pCallback)(D2UnitStrc*), char bClientSide); // 0x00573180
 
-D2MapAIStrc* __stdcall AIGENERAL_GetMapAiFromUnit(D2UnitStrc* pUnit); // 0x0058F000
+D2MapAIStrc** __stdcall AIGENERAL_GetMapAiFromUnit(D2UnitStrc* pUnit); // 0x0058F000
 
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
@@ -95,8 +95,6 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoo
 
 void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath); // 0x00648730
 
-
-D2MapAIStrc* __fastcall DRLGPRESET_ChangeMapAI(D2MapAIStrc** ppMapAI1, D2MapAIStrc* pMapAI2); // 0x00666120
 
 bool __fastcall ACT5Q3_SeqCallback(D2QuestDataStrc* pQuestData); // 0x00589160
 
@@ -161,8 +159,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-
-extern "C" D2MapAIStrc* __stdcall sub_0058F000(D2UnitStrc* pUnit); // 0x0058F000
 
 
 #define QFLAG_REWARDGRANTED 0
@@ -685,10 +681,10 @@ void __fastcall OBJECTS_InitFunction66_DrehyaStartInTown(D2ObjInitFnStrc* pOp)
                 {
                     pQuestDataEx->nDrehyaMonsterInTownGUID = !pDrehya ? -1 : pDrehya->dwUnitId;
                     pQuestDataEx->bDrehyaMonsterInTownSpawned = 1;
-                    D2MapAIStrc* pMapAI = AIGENERAL_GetMapAiFromUnit(pDrehya);
+                    D2MapAIStrc** ppMapAI = AIGENERAL_GetMapAiFromUnit(pDrehya);
                     if (pQuestDataEx->pDrehyaMapAI && pQuestDataEx->pDrehyaMapAI->pPosition && !pQuestDataEx->bDrehyaMapAIChanged)
                     {
-                        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pDrehyaMapAI, pMapAI);
+                        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pDrehyaMapAI, ppMapAI);
                         pQuestDataEx->bDrehyaMapAIChanged = 1;
                     }
                 }
@@ -778,10 +774,10 @@ void __fastcall OBJECTS_InitFunction68_NihlathakStartInTown(D2ObjInitFnStrc* pOp
     pQuestDataEx->NihlathakMonsterInTownGUID = !pNihlathak ? -1 : pNihlathak->dwUnitId;
     pQuestDataEx->bNihlathakMonsterInTownSpawned = 1;
 
-    D2MapAIStrc* pMapAI = sub_0058F000(pNihlathak);
+    D2MapAIStrc** ppMapAI = AIGENERAL_GetMapAiFromUnit(pNihlathak);
     if (pQuestDataEx->pNilathakMapAI && pQuestDataEx->pNilathakMapAI->pPosition && !pQuestDataEx->bNilathakMapAIChanged)
     {
-        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pNilathakMapAI, pMapAI);
+        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pNilathakMapAI, ppMapAI);
         pQuestDataEx->bNilathakMapAIChanged = 1;
     }
 }
@@ -1065,10 +1061,10 @@ bool __fastcall ACT5Q3_SpawnDrehyaIcedMonsterOutsideTown(D2GameStrc* pGame, D2Qu
                     DUNGEON_AllocDrlgDelete(UNITS_GetRoom(pFrozenDrehya), nUnitType, nUnitGUID);
                     UNITROOM_RemoveUnitFromRoom(pFrozenDrehya);
 
-                    D2MapAIStrc* pMapAi = AIGENERAL_GetMapAiFromUnit(pDrehya);
+                    D2MapAIStrc** ppMapAi = AIGENERAL_GetMapAiFromUnit(pDrehya);
                     if (pQuestDataEx->pDrehyaMapAI && pQuestDataEx->pDrehyaMapAI->pPosition && !pQuestDataEx->bDrehyaMapAIChanged)
                     {
-                        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pDrehyaMapAI, pMapAi);
+                        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pDrehyaMapAI, ppMapAi);
                         pQuestDataEx->bDrehyaMapAIChanged = 1;
                     }
 
@@ -1186,11 +1182,11 @@ static void __stdcall ACT5Q3_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData, D2Ac
     pQuestDataEx->nDrehyaMonsterInTownGUID = !pDrehya ? -1 : pDrehya->dwUnitId;
     pQuestDataEx->bDrehyaMonsterInTownSpawned = 1;
 
-    D2MapAIStrc* pMapAI = AIGENERAL_GetMapAiFromUnit(pDrehya);
+    D2MapAIStrc** ppMapAI = AIGENERAL_GetMapAiFromUnit(pDrehya);
     if (pQuestDataEx->pDrehyaMapAI && pQuestDataEx->pDrehyaMapAI->pPosition && !pQuestDataEx->bDrehyaMapAIChanged)
     {
         pQuestDataEx->bDrehyaMapAIChanged = 1;
-        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pDrehyaMapAI, pMapAI);
+        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pDrehyaMapAI, ppMapAI);
     }
 
     D2CoordStrc pCoord;
