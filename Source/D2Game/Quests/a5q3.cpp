@@ -904,7 +904,7 @@ int __fastcall ACT5Q3_IsDrehyaNotRescued(D2GameStrc* pGame)
     return ((D2Act5Quest3Strc*)pQuestData->pQuestDataEx)->unk0x84[0] == 0;
 }
 
-int __fastcall OBJMODE_GetSuperUniqueId(unsigned int nIndex)
+static int __fastcall OBJMODE_GetSuperUniqueId(unsigned int nIndex)
 {
     if (nIndex <= 65)
     {

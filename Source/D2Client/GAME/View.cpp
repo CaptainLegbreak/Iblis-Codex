@@ -1319,10 +1319,5 @@ void __fastcall VIEW_DrawUnitClickCross(D2UnitStrc* pUnit)
     D2GFX_DrawBox(nBoxX, nBoxY, nBoxX + 4, nBoxY + 4, 0xFF, DRAW_MODE_5);
 }
 
-void __stdcall LIST_UnloadPentspinCellfile()
-{
-    ARCHIVE_FreeCellFile(sghPentagram);
-    sghPentagram = 0;
-}
 
 #include "gen/data/Source/D2Client/GAME/View.inc"
