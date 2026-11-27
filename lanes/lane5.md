@@ -110,4 +110,4 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 - 2026-11-26 19:48 PT: status: emit-d2game-8 merged in #463 (Ready line dropped). Next: the D2Game emit helpers left, on a new branch from #463.
 - 2026-11-26 20:15 PT: status: emit-d2game-9 Ready (six piece joins). The other 16 D2Game emit helpers keep a static that nothing in the game calls (no call, jump or address of it anywhere in the image), so no caller can take over from the helper; I am leaving those. Next: the two quest pieces inside a1q5.cpp and a3q3.cpp, after lane 7's Quests/ declarations land.
-- 2026-11-26 20:52 PT: status: emit-d2game-10 Ready (replaces -9: merged onto #465, plus 100 duplicate D2Game prototypes). Next: the a3q3.cpp quest piece (0x5B9A30); the a1q5.cpp piece (0x5947E0) is another static the game never calls, so it stays.
+- 2026-11-26 20:31 PT: status: emit-d2game-10 Ready (replaces -9: merged onto #465, plus 100 duplicate D2Game prototypes). Next: the a3q3.cpp quest piece (0x5B9A30); the a1q5.cpp piece (0x5947E0) is another static the game never calls, so it stays.
