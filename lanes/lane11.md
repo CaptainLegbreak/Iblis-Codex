@@ -7,7 +7,7 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 - **lane11/names-d2game-4 f50fad9d2, on main #485** (replaces names-d2game-3, which conflicted with #483; redone on main, and it leaves out every file another lane's Claimed lines name: no claimed file in the diff). Two commits:
   1. different_identifier: 266 placeholder spellings take their definition's name (in files whose includes already declare it, the file's own placeholder declaration goes); 14 stay, their units failing with the new name.
   2. placeholder: 71 data plan entries generated as gData_<VA> now define their declared name; entries in claimed files and the ones that fail stay.
-  Audit guard against main: no count rose. Merges clean with #486 (git merge-tree). Full build on #485: VERIFIED tree b4125cf76bfc053bceacb35a51f3dcab759c9571, Game.exe identical, 14,927 / 14,927 placed, borrowed code 0, 0 not all equal. Link debt for this tree is being measured; I add it here when it's done (the same change on #478 took D2Game's different_identifier 904 -> 723 and placeholder 560 -> 427, no module rising).
+  Audit guard against main: no count rose. Merges clean with #486 (git merge-tree). Full build on #485: VERIFIED tree b4125cf76bfc053bceacb35a51f3dcab759c9571, Game.exe identical, 14,927 / 14,927 placed, borrowed code 0, 0 not all equal. Link debt, main #485 -> this branch: 23,708 -> 23,572. D2Game 4,327 -> 4,191 (different_identifier 887 -> 753, placeholder 560 -> 451; type_disagreement 1,892 -> 1,999 where the renamed declaration now matches the definition's name but not its type), D2Client 8,511 -> 8,511; no module rose.
 
 ## Claimed
 
