@@ -6,7 +6,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 1.10-address names. New chat, reopened 2026-11-26 11:57 PT (from lane 6, which held these modules since 2026-11-25).
 
 ## Status
-- 2026-11-27 05:54 UTC: Ready, all merging cleanly onto main and with each other: params-d2game-tail, -sunitmsg, locals-d2game-moo, -tail3, -plrsave. params-d2game-net (unused callback parameters) building.
+- 2026-11-27 05:56 UTC: sunitmsg, locals-d2game-moo, tail3 in (#469). Still Ready: params-d2game-tail, -plrsave; -net building.
 - 2026-11-27 05:23 UTC: params-d2game-scmd in (#467). Ready, merging cleanly onto #467: params-d2game-sunitmsg, locals-d2game-moo, params-d2game-tail3. Next: PlrSave/PlrSave2 save flags.
 - 2026-11-27 04:50 UTC: Ready, merging cleanly onto main: params-d2game-sunitmsg, params-d2game-scmd. Working D2Game\'s remaining tail (PlrSave, SCmd, MissMode) body by body.
 - 2026-11-27 04:19 UTC: verbs2 and tail2 in (#464). Ready, merging cleanly: params-d2game-tail, params-d2game-sunitmsg. Next: SCmd packet arguments.
@@ -66,21 +66,21 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
   a1/v12 247 -> 216 alone; auditguard no count rose; merges cleanly onto #467 and with -sunitmsg, locals-d2game-moo,
   -tail3. Full build: Game.exe identical, tree d5def2f64d4423b556497099b2f253a7727fb7c8, borrowed code / data
   4,232 / 261 B.
-- lane9/params-d2game-tail3 ae8026be (on #466): D2Game: bSetFlag2 (MONSTERSPAWN_SpawnWithOwnerData's pass-through to
+- MERGED (#469) lane9/params-d2game-tail3 ae8026be (on #466): D2Game: bSetFlag2 (MONSTERSPAWN_SpawnWithOwnerData's pass-through to
   AIGENERAL_SetOwnerData), bIncludeDead (PLAYERPETS_GetFirstPetByType's prototype, from its definition), bRecharge
   (D2GAME_ITEMSOCKET_PlaceItem's flag that calls D2GAME_RechargeItem), nUnused for parameters never read (the trade
   check, the 0x55F4F0 / 0x5385D0 stub prototypes), and PLAYER_PlaceItemInInventory's prototype following its definition.
   12 files; a1/v12 252 -> 233 alone; auditguard no count rose; merges cleanly onto #467 and with -sunitmsg, -scmd,
   locals-d2game-moo. Full build: Game.exe identical, tree f603aaba5fa1b5e6b462f2477db960b3ca799b2b, borrowed code /
   data 4,232 / 261 B.
-- lane9/locals-d2game-moo cc5e7d12 (on #466): MissMode.cpp: MISSMODE_SrvHit10_GuidedArrow_BoneSpirit's v8/v9 take D2MOO's
+- MERGED (#469) lane9/locals-d2game-moo cc5e7d12 (on #466): MissMode.cpp: MISSMODE_SrvHit10_GuidedArrow_BoneSpirit's v8/v9 take D2MOO's
   nTargetFlags / nPathFlags. a1/v12 252 -> 245 alone; auditguard no count rose; merges cleanly with -sunitmsg, -scmd.
   Full build: Game.exe identical, tree 159e290613742758914a8ad634545710b62343bf, borrowed code / data 4,232 / 261 B.
 - MERGED (#467) lane9/params-d2game-scmd 36c8d836 (on #465): SCmd.cpp: D2GAME_PACKETS_SendPacket0x81 and SCMD_SendInteractionTarget
   name the parameter they never read nUnused (D2MOO leaves it a2/a5), with their prototypes in D2GameFuncs.h and
   PlayerPets.cpp. a1/v12 278 -> 273; auditguard no count rose; merges cleanly with params-d2game-sunitmsg. Full build:
   Game.exe identical, tree 3362f53860a6b69a81e35daa5e213b4a538d3eaa, borrowed code / data 4,232 / 261 B.
-- lane9/params-d2game-sunitmsg 2d981915 (on #463): SUnitMsg.cpp: the queued A3/A4/A5 messages' fields take the names of
+- MERGED (#469) lane9/params-d2game-sunitmsg 2d981915 (on #463): SUnitMsg.cpp: the queued A3/A4/A5 messages' fields take the names of
   the send-function parameters they're passed to (nSeed, nSkillId, nSkillLevel, nUnitType, nUnitGUID, nTargetType,
   nTargetGUID, nX, nY; nMonStatsId; nUnitType, nUnitGUID, nSkillId). a1/v12 295 -> 269 alone; auditguard no count rose;
   merges cleanly onto #464 and with params-d2game-tail. Full build: Game.exe identical, tree
