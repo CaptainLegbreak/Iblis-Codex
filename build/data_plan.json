@@ -924,7 +924,7 @@
   },
   "Source/D2Client/UNIT/Monster.cpp": {
    "bytes": 773,
-   "definitions": 11,
+   "definitions": 8,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/Monster.inc",
@@ -3090,7 +3090,7 @@
    "state": "included"
   },
   "Source/D2Common/SKILLS/Skills.cpp": {
-   "bytes": 2084,
+   "bytes": 1924,
    "definitions": 11,
    "externs": [
     "extern \"C\" void __cdecl sub_00646C00(); // 0x00646C00"
@@ -3101,8 +3101,8 @@
    "state": "included"
   },
   "Source/D2Common/PATH/Path.cpp": {
-   "bytes": 776,
-   "definitions": 10,
+   "bytes": 936,
+   "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl PATH_AStar_ComputePath(); // 0x0067B850",
     "extern \"C\" void __cdecl PATH_BackupTurn_Compute(); // 0x00679E60",
@@ -54261,10 +54261,10 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/UNIT/Monster.cpp",
-   "fill": 6,
+   "fill": 16,
    "form": "declared",
    "fwd": null,
-   "head": "extern D2MonAnimRecStrc gaMonAnimRecordsMoving[6] = ",
+   "head": "extern D2MonAnimRecStrc gaMonAnimRecordsMoving[16] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -54304,147 +54304,18 @@
      "size": 12
     },
     "k": "arr",
-    "n": 6,
-    "size": 72
+    "n": 16,
+    "size": 192
    },
    "name": "gaMonAnimRecordsMoving",
    "pointers": [],
    "region": "data",
-   "size": 72,
+   "size": 192,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x007252E0",
    "type": "D2MonAnimRecStrc",
    "va": "0x007252E0"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UNIT/Monster.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern D2MonAnimRecStrc gtDiabloAnimRecord = ",
-   "model": {
-    "k": "struct",
-    "members": [
-     [
-      "nType",
-      0,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "unk0x04",
-      4,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nAction",
-      8,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ]
-    ],
-    "name": "D2MonAnimRecStrc",
-    "size": 12
-   },
-   "name": "gtDiabloAnimRecord",
-   "pointers": [],
-   "region": "data",
-   "size": 12,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00725328",
-   "type": "D2MonAnimRecStrc",
-   "va": "0x00725328"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UNIT/Monster.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern D2MonAnimRecStrc gtBaalAnimRecord = ",
-   "model": {
-    "k": "struct",
-    "members": [
-     [
-      "nType",
-      0,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "unk0x04",
-      4,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nAction",
-      8,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ]
-    ],
-    "name": "D2MonAnimRecStrc",
-    "size": 12
-   },
-   "name": "gtBaalAnimRecord",
-   "pointers": [],
-   "region": "data",
-   "size": 12,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00725334",
-   "type": "D2MonAnimRecStrc",
-   "va": "0x00725334"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00725340",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UNIT/Monster.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00725340_t gData_00725340; // 0x00725340",
-   "head": "extern \"C\" struct d2data_00725340_t gData_00725340 = ",
-   "name": "gData_00725340",
-   "pointers": [],
-   "region": "data",
-   "size": 96,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00725340_t\n{\n    unsigned char b0[96];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00725340",
-   "va": "0x00725340"
   },
   {
    "alias": false,
@@ -113519,8 +113390,8 @@
    "name": "gData_006EB3EC",
    "pointers": [],
    "region": "rdata",
-   "size": 164,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006EB3EC_t\n{\n    unsigned char b0[164];\n};\n#pragma pack(pop)",
+   "size": 4,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006EB3EC_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006EB3EC",
    "va": "0x006EB3EC"
   },
@@ -113977,14 +113848,14 @@
   },
   {
    "alias": true,
-   "cname": "gData_006EB490",
+   "cname": "gData_006EB3F0",
    "declared": true,
-   "decorated": "?gnOrthogonalStepTable@@3QAY08$$CBHA",
+   "decorated": "?gaOffsetsForSnappingToCardinalDirection@@3QAY08$$CBHA",
    "file": "Source/D2Common/PATH/Path.cpp",
-   "fill": 4,
+   "fill": 9,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006EB490[4][9]; // 0x006EB490",
-   "head": "extern \"C\" const int gData_006EB490[4][9] = ",
+   "fwd": "extern \"C\" const int gData_006EB3F0[9][9]; // 0x006EB3F0",
+   "head": "extern \"C\" const int gData_006EB3F0[9][9] = ",
    "model": {
     "elem": {
      "elem": {
@@ -113998,35 +113869,18 @@
      "size": 36
     },
     "k": "arr",
-    "n": 4,
-    "size": 144
+    "n": 9,
+    "size": 324
    },
-   "name": "gnOrthogonalStepTable",
+   "name": "gaOffsetsForSnappingToCardinalDirection",
    "pointers": [],
    "region": "rdata",
-   "size": 144,
+   "size": 324,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006EB490\n#pragma comment(linker, \"/alternatename:?gnOrthogonalStepTable@@3QAY08$$CBHA=_gData_006EB490\")",
+   "tail": "; // 0x006EB3F0\n#pragma comment(linker, \"/alternatename:?gaOffsetsForSnappingToCardinalDirection@@3QAY08$$CBHA=_gData_006EB3F0\")",
    "type": "int",
-   "va": "0x006EB490"
-  },
-  {
-   "alias": false,
-   "cname": "gData_006EB520",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Common/PATH/Path.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" const struct d2data_006EB520_t gData_006EB520; // 0x006EB520",
-   "head": "extern \"C\" const struct d2data_006EB520_t gData_006EB520 = ",
-   "name": "gData_006EB520",
-   "pointers": [],
-   "region": "rdata",
-   "size": 20,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006EB520_t\n{\n    unsigned char b0[20];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006EB520",
-   "va": "0x006EB520"
+   "va": "0x006EB3F0"
   },
   {
    "alias": true,
