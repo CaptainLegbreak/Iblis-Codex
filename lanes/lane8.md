@@ -12,6 +12,7 @@ scaffolding, names.
   (Composit_0064F060), `Units/Missile` (Missile_0064B860). Lane 2 hadn't claimed any of them.
 
 ## Status
+- Thu Nov 26 17:55 PT: four branches Ready (statsex-accessor-views, path-accessor-views, path-views-2 stacked on it, missile-dead-views). D2Common's per-address views are nearly gone; what's left is DUNGEON_SaveKilledUnitGUID's (needs the header byte, note to lane 2), Unknown_00650D70's two `Pair<VA>` helpers, and Path.cpp's context copies (DrlgView/RoomStatusNode for DRLGACTIVATE_GetARoomInClientSight, LinkView for Fog's FOG_GetLinkIndexByCode).
 - Thu Nov 26 17:15 PT: check-in on #452; drlg-api-decls, items-accessor-views and api-decls-3 are in, Ready lines gone. Building the next accessor-view branch (StatsEx, Inventory, Dungeon, Skills, Units); Path.cpp's 22 after it.
 - Thu Nov 26 16:40 PT: **withdrawn: `lane8/d2common-api-decls` and `lane8/d2common-api-decls-2`** (don't merge them). Lane 2's `use-shared-headers-2b` (committed 15:59, before my note) makes the same change in 9 of their 11 units and in Items.cpp, more thoroughly. Only MonsterTbls.cpp and Unknown_006634F0.cpp aren't in it; they come back as a small `d2common-api-decls-3` once its full build is done. `drlg-api-decls` has no file in common with lane 2's branch and stays Ready.
 - Thu Nov 26 16:30 PT: check-in on #447. Three header branches Ready (api-decls, api-decls-2 for Items.cpp, drlg-api-decls); Inventory, Skills and Units wait on D2CommonApi.h's duplicate SKILLS_GetFirstSkillFromSkillList (note to lane 2). Next: more D2Common scaffolding.
