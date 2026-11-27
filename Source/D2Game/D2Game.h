@@ -106,19 +106,19 @@ D2QualityItemsTxt* __stdcall DATATBLS_GetQualityItemsTxtRecord(int nIndex); // 0
 D2RareAffixDataTbl* __fastcall DATATBLS_GetRareAffixDataTables(); // 0x00634250
 D2RoomCoordListStrc* __stdcall D2Common_10096(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x0061AD30
 D2ShrinesTxt* __stdcall UNITS_GetShrineTxtRecordFromObject(D2UnitStrc* pUnit); // 0x00621B70
-D2SkillStrc* __fastcall sub_006439B0_SkillFindByOwner(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
+D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
 D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromIdAndLevel(unsigned short wTCId, int nLvl); // 0x00654E00
 D2TimerArgStrc* __fastcall UNITS_GetTimerArg(D2UnitStrc* pUnit); // 0x006234F0
 D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nUniqueItemId); // 0x00483470
 D2UnitEventStrc* __fastcall SUNITEVENT_GetEvent(D2GameStrc*, D2UnitStrc*, int, int, int); // 0x005C0BE0
 D2UnitStrc* __fastcall ITEMS_DropRandomItemAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2ItemDropStrc* pItemDrop); // 0x00559130
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B23C0
 D2UnitStrc* __fastcall MONSTERSPAWN_SpawnLinkedMinionsAtOwner(D2GameStrc* pGame, D2UnitStrc* pOwner, int nMonsterId, int nAnimMode, int nMin, int nMax, short nFlags); // 0x005B24E0
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnWithUnitId(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nUnitGUID, int a8, short nFlags); // 0x005B30E0
+D2UnitStrc* __fastcall MONSTERSPAWN_SpawnWithUnitId(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nUnitGUID, int nMaxSearchRings, short nFlags); // 0x005B30E0
 D2UnitStrc* __fastcall PLRSAVE2_ReadMercData(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pData, unsigned int dwVersion); // 0x0056AA50
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
-D2UnitStrc* __fastcall D2GAME_CreateItemEx(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int a3); // 0x00558D90
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall D2GAME_CreateItemEx(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int bUseSeed); // 0x00558D90
 D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, short nFlags); // 0x005B3090
 D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pDistance, int* pInMeleeRange); // 0x005DDC30
 D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2); // 0x00623990
@@ -126,7 +126,7 @@ D2UnitStrc* __stdcall PATH_GetTargetUnit(D2DynamicPathStrc* pDynamicPath); // 0x
 ObjectRecord* __stdcall sub_00640E90_ObjectRecord(int); // 0x00640E90
 Room* __stdcall sub_00620BB0(Unit*); // 0x00620BB0
 Seed* __fastcall sub_00546FA0_Control(Game*,Room*); // 0x00546FA0
-ShrineLists* __fastcall sub_00546FB0_Lists(Game*); // 0x00546FB0
+ShrineLists* __fastcall OBJRGN_GetShrineDataFromGame(Game*); // 0x00546FB0
 ShrineRecord* __stdcall sub_006414B0_ShrineRecord(int); // 0x006414B0
 Skill* __stdcall sub_00620250(Unit*); // 0x00620250
 bool __fastcall ACT1Q1_CanClientFXBeTriggered(D2QuestDataStrc* pQuestData); // 0x00590810
@@ -296,28 +296,28 @@ int __fastcall SKILLDESC_GetSkillParamFour(int nSkillId); // 0x004EFC80
 int __fastcall D2GAME_PlaceItem(const char*,int,D2GameStrc*,D2UnitStrc*,int,int,int,int,int,D2InventoryStrc*); // 0x00560200
 int __fastcall PLRSAVE2_ReadPlrIntroSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion); // 0x0056A470
 int __fastcall sub_005A0070(D2UnitStrc* pUnit, int nMonType); // 0x005A0070
-int __fastcall sub_005B3270(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitStrc* pOwner, int nClassId, int nAnimMode, D2UnkMonCreateStrc2* a8, short nFlags); // 0x005B3270
+int __fastcall MONSTERSPAWN_SpawnFormation(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitStrc* pOwner, int nClassId, int nAnimMode, D2UnkMonCreateStrc2* pInfo, short nFlags); // 0x005B3270
 int __fastcall sub_005B5210(D2GameStrc* pGame); // 0x005B5210
 int __fastcall ACT3Q3_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, void* pArg); // 0x005B9980
 int __fastcall sub_005C2FB0_ApplyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C2FB0
 int __fastcall AIUTIL_HasClearMissilePath(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005DD290
-int __fastcall sub_005E3EA0(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int mode, int run, int velocity, int a7); // 0x005E3EA0
-int __fastcall sub_005E45D0_PetFollow(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2UnitStrc* pOwner, int bCombat, D2AiTickParamStrc* pTick, int a7, int a8); // 0x005E45D0
-int __fastcall sub_00623C20(D2UnitStrc* pUnit); // 0x00623C20
+int __fastcall sub_005E3EA0(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int mode, int run, int velocity, int nRange); // 0x005E3EA0
+int __fastcall sub_005E45D0_PetFollow(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2UnitStrc* pOwner, int bCombat, D2AiTickParamStrc* pTick, int bSkipIdle, int nRange); // 0x005E45D0
+int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit); // 0x00623C20
 int __fastcall ITEMMODE_EquipStoredItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nItemGUID, unsigned char nBodyLoc); // 0x00562A30
 int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton, int nGoldAmount); // 0x00568060
-int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback); // 0x005DF7D0
+int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nNewDistance, int bDeleteAiEventCallback); // 0x005DF7D0
 int __fastcall SKILLS_AllocTransformSkillCombat(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillLevel); // 0x005C8980
 int __fastcall SKILLS_CanImpregnateTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005D2140
 int __fastcall SKILLS_CanApplyCurseToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005C3420
 int __fastcall SKILLS_ApplyResistanceImmunityPenalty(D2UnitStrc* pUnit, int nStatId, int nResist); // 0x005C3540
 int __fastcall SKILLS_CheckAuraTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned int nAuraFilter); // 0x0056B3E0
-int __fastcall SKILLS_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5); // 0x0056F640
+int __fastcall SKILLS_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bSkipMana); // 0x0056F640
 int __fastcall SKILLS_GetMeleeSearchRange(D2UnitStrc* pUnit); // 0x0056E510
 int __stdcall COLLISION_RayTrace(D2ActiveRoomStrc* pRoom, D2CoordStrc* pBegin, D2CoordStrc* pEnd, int nCollisionMask); // 0x0064E260
 int __stdcall COMPOSIT_IsWeaponBowOrXBow(D2UnitStrc* pUnit); // 0x0064F460
 int __stdcall D2COMMON_10530_D2CheckStatlistFlagDMGRed(D2UnitStrc* pUnit); // 0x00625A20
-int __stdcall D2COMMON_11017_CheckUnitIfConsumeable(D2UnitStrc* pUnit, int a2); // 0x00645510
+int __stdcall D2COMMON_11017_CheckUnitIfConsumeable(D2UnitStrc* pUnit, int bAllowDying); // 0x00645510
 int __stdcall D2COMMON_11018(D2UnitStrc* pUnit); // 0x00645590
 int __stdcall D2COMMON_11019(D2UnitStrc* pUnit); // 0x006455E0
 int __stdcall D2COMMON_11039_CheckWeaponIsMissileBased(D2UnitStrc* pUnit, int* pValue); // 0x00645F00
@@ -413,24 +413,24 @@ int __stdcall sub_0063BDB0(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int n
 int __stdcall sub_0063EE90_IsHireling(D2UnitStrc*); // 0x0063EE90
 int __stdcall SKILLS_CanUnitCorpseBeSelected(D2UnitStrc* pUnit); // 0x006456D0
 int __stdcall sub_00645910_TestLine(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStrc* pRoom, int nMask); // 0x00645910
-int __stdcall sub_006488C0_PathGetX(D2PathRecordStrc* pPath); // 0x006488C0
+int __stdcall PATH_GetXPosition(D2PathRecordStrc* pPath); // 0x006488C0
 int __stdcall sub_006488C0_PathX(Path*); // 0x006488C0
 int __stdcall sub_00648900_PathGetY(D2PathRecordStrc* pPath); // 0x00648900
 int __stdcall sub_00648900_PathY(Path*); // 0x00648900
-int __stdcall sub_00648E30_GetPathValue(D2DynamicPathStrc* pPath); // 0x00648E30
+int __stdcall PATH_GetType(D2DynamicPathStrc* pPath); // 0x00648E30
 long __cdecl SYSTEM_GetSyncTime(); // 0x00410A80
 short __fastcall PLAYERLIST_GetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B3F0
 short __stdcall ITEMS_RollMagicAffixesNew(D2UnitStrc* pItem, int bRequireSpawnableAffix, int bForceAffixRoll, int bAssignProperties, int bPrefixes, int nPreferredAffixIndex, int nAutoMagicGroup); // 0x005C1560
 unsigned char __fastcall sub_00547330_Force(Game*,int); // 0x00547330
-unsigned char __fastcall sub_00547360_Limit(Game*,int); // 0x00547360
-unsigned char __fastcall sub_00547430_Permit(Game*,int,int,int); // 0x00547430
+unsigned char __fastcall OBJRGN_CanNotSpawnMoreShrines(Game*,int); // 0x00547360
+unsigned char __fastcall OBJRGN_CanSpawnShrine(Game*,int,int,int); // 0x00547430
 unsigned char __stdcall UNITS_GetObjectPortalFlags(D2UnitStrc* pUnit); // 0x006222C0
 unsigned int __stdcall ITEMS_GetItemStartSeed(D2UnitStrc* pItem); // 0x00627DF0
 unsigned int __stdcall ITEMS_GetItemTypeFromItemId(unsigned int dwItemId); // 0x00628700
 unsigned int __stdcall MISSILE_GetFlags(D2UnitStrc* pMissile); // 0x0064A190
-unsigned short __fastcall ITEMS_RollMagicAffixes(D2UnitStrc* pItem, int a2, int bForce, int a4, int bPrefix, int nAffix); // 0x005C18E0
+unsigned short __fastcall ITEMS_RollMagicAffixes(D2UnitStrc* pItem, int bRequireSpawnableAffix, int bForce, int bAssignProperties, int bPrefix, int nAffix); // 0x005C18E0
 unsigned short __fastcall SUNITDMG_GetResultFlags(Game*,Unit*,Unit*,int,int); // 0x0057EC10
-unsigned short __fastcall sub_005C1940_RollAutoAffix(D2UnitStrc* pItem, int a2, int a3, int a4, int a5, int a6, int nGroup); // 0x005C1940
+unsigned short __fastcall sub_005C1940_RollAutoAffix(D2UnitStrc* pItem, int bRequireSpawnableAffix, int bForceAffixRoll, int bAssignProperties, int bPrefixes, int nPreferredAffixIndex, int nGroup); // 0x005C1940
 unsigned short __stdcall COLLISION_CheckMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D870
 unsigned short __stdcall ITEMS_GetAutoAffix(D2UnitStrc* pItem); // 0x00627F20
 void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...); // 0x00410660
@@ -438,10 +438,10 @@ void __cdecl sub_0052DF40_UnlockFirstGame(); // 0x0052DF40
 void __fastcall ACT1Q4_SpawnCainPortalInTown(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005944F0
 void __fastcall ACT2Q2_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00599A10
 void __fastcall AIUTIL_ToggleAiControlFlag(D2AiControlStrc* pAiControl, unsigned short nFlag, int bSet); // 0x005DD230
-void __fastcall sub_0055A6D0_DropTC(D2GameStrc* pGame, D2UnitStrc* pMonster, D2UnitStrc* pPlayer, D2TCExShortStrc* pTCTxtRecord, int nQuality, int nLvl, int a7, D2UnitStrc** ppItems, int* pnItemsDropped, int nMaxItems); // 0x0055A6D0
-void __fastcall D2GAME_ITEMS_UpdateInventoryItems(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int bRefresh); // 0x0055DF00
+void __fastcall sub_0055A6D0_DropTC(D2GameStrc* pGame, D2UnitStrc* pMonster, D2UnitStrc* pPlayer, D2TCExShortStrc* pTCTxtRecord, int nQuality, int nLvl, int bIgnoreNoDrop, D2UnitStrc** ppItems, int* pnItemsDropped, int nMaxItems); // 0x0055A6D0
+void __fastcall D2GAME_ITEMS_UpdateInventoryItems(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused, int bRefresh); // 0x0055DF00
 void __fastcall D2GAME_NPC_AssignMercenary(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcId); // 0x00579180
-void __fastcall D2GAME_PACKETS_SendPacket0x3F(D2ClientStrc* pClient, D2UnitStrc* pUnit, unsigned char a3, int a4, int a5, unsigned short a6); // 0x0053D220
+void __fastcall D2GAME_PACKETS_SendPacket0x3F(D2ClientStrc* pClient, D2UnitStrc* pUnit, unsigned char nType, int bClear, int nUnused, unsigned short nValue); // 0x0053D220
 void __fastcall D2GAME_PACKETS_SendPacket0xA0_A1_A2(D2ClientStrc* pClient, D2UnitStrc* pUnit, unsigned short nStatId, unsigned int nBaseValue, unsigned int nFullValue); // 0x0053BFD0
 void __fastcall D2GAME_PopulateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x0054EC90
 void __fastcall D2GAME_RepairBrokenItem(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pItem); // 0x0055F900
@@ -464,11 +464,11 @@ void __fastcall SUNIT_SetTimerOnUnit(D2UnitStrc* pUnit, D2EventTimerStrc* pTimer
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 void __fastcall GAME_RemoveUnit(D2UnitStrc*,D2GameStrc*); // 0x0052E050
 void __fastcall sub_00539230_SetWeaponSwitch(D2ClientStrc*, unsigned char); // 0x00539230
-void __fastcall sub_0053B240_SendHeaderOnly0x06(int nClientId); // 0x0053B240
+void __fastcall D2GAME_PACKETS_SendGameExit(int nClientId); // 0x0053B240
 void __fastcall D2GAME_EVENTS_Delete(D2GameStrc*,D2UnitStrc*,int,int); // 0x00540E60
-void __fastcall sub_00547390_Increment(Game*,int); // 0x00547390
-void __fastcall sub_00547490_Add(Game*,int,int,int); // 0x00547490
-void __fastcall sub_00553220(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553220
+void __fastcall OBJRGN_IncreaseHealingShrineCount(Game*,int); // 0x00547390
+void __fastcall OBJRGN_SetShrineCoordinates(Game*,int,int,int); // 0x00547490
+void __fastcall SUNIT_ClearUpdateData(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553220
 void __fastcall SUNITDMG_SetExperienceForTargetLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEntry); // 0x0057EB10
 void __fastcall ACT2Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00599A20
 void __fastcall sub_005A9930_CreateAtMissile(D2GameStrc*, D2UnitStrc*, int); // 0x005A9930
@@ -476,27 +476,27 @@ void __fastcall TARGETS_RemoveUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit); //
 void __fastcall ITEMS_AssignStaffModsForFormat(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C1260
 void __fastcall SKILLS_DamagePaladinCaster(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005C2FF0
 extern "C" void __fastcall CLIENTS_SetPlayerUnitAlive(D2ClientStrc* pClient); // 0x00537970
-void __fastcall EVENT_SetRecurringEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int a4, int a5); // 0x00541650
+void __fastcall EVENT_SetRecurringEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nCustomId, int nCustomParam); // 0x00541650
 void __fastcall GAME_ActivateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x0052D0F0
-void __fastcall GAME_SendAllClientPackets(D2GameStrc* pGame, int a2); // 0x0052E440
+void __fastcall GAME_SendAllClientPackets(D2GameStrc* pGame, int nUnused); // 0x0052E440
 void __fastcall ITEMMODE_DropCursorItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID); // 0x00563C00
 void __fastcall ITEMMODE_RebuildBookScrollSkillQuantities(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0055FA40
 int __fastcall MONSTERAI_SetTargetOverride(D2UnitStrc* pUnit, int nState, int nValue); // 0x00573090
 void __fastcall MONSTERMODE_UpdateModeAttackStats(D2UnitStrc* pUnit, int nMode); // 0x005A4F50
-void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int a4); // 0x00598220
+void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int bUnitInitialized); // 0x00598220
 void __fastcall PARTYSCREEN_RefreshPartyRelationsAfterLeave(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A5FF0
 void __fastcall PLAYERPETS_AddSummonedPet(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pPet, int nPetType, int nPetMax); // 0x00575D90
-void __fastcall PLAYERPETS_UpdatePetsForOwnerMove(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3, int a4); // 0x005754B0
-void __fastcall PLRMSG_SendUnitPosition(D2UnitStrc* pPlayer, D2ClientStrc* pClient, int a3); // 0x00548010
+void __fastcall PLAYERPETS_UpdatePetsForOwnerMove(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nX, int nY); // 0x005754B0
+void __fastcall PLRMSG_SendUnitPosition(D2UnitStrc* pPlayer, D2ClientStrc* pClient, int bReassign); // 0x00548010
 void __fastcall PLRMSG_BroadcastEventMessage(D2GameStrc* pGame, D2GSPacketSrv5A* pPacket); // 0x0054AA40
-void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x005678F0
+void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused); // 0x005678F0
 void __fastcall PLAYERLIST_SendPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B440
 void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* pUnit); // 0x005533D0
 void __fastcall SUNIT_ScheduleAnimationEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005539B0
 void __fastcall SKILLS_ApplyProgressiveLeechAndElementalDamage(D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005D3BA0
 void __fastcall SKILLS_ReleaseProgressiveCharges(D2GameStrc* pGame, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005D5220
 void __fastcall SKILLS_FreeUnitSearch(D2GameStrc* pGame, D2UnitFindDataStrc* pUnitFindData); // 0x0056C2A0
-void __fastcall SKILLS_ApplyStateFromSkillParams(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nStatId, int nState, int a7); // 0x0056EBE0
+void __fastcall SKILLS_ApplyStateFromSkillParams(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nStatId, int nState, int pfRemoveStatCallback); // 0x0056EBE0
 void __fastcall SKILLS_CreateMissilePattern(D2GameStrc* pGame, int nMissiles, D2MissileStrc* pMissileParams); // 0x0056D4E0
 void __fastcall SKILLS_RefreshPassivesAndPetLimits(D2UnitStrc* pUnit); // 0x0056DE40
 void __fastcall SKILLS_ApplyAttackRateModifier(D2UnitStrc* pUnit, int nAttackRate); // 0x0056E520
@@ -511,7 +511,7 @@ void __stdcall DUNGEON_GameTileToSubtileCoords(long* pX, long* pY); // 0x0064356
 void __stdcall DUNGEON_RemoveClientFromRoom(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient); // 0x0061A700
 void __stdcall ENVIRONMENT_TaintedSunBegin(D2DrlgActStrc* pAct); // 0x0061C450
 void __stdcall ENVIRONMENT_TaintedSunEnd(D2DrlgActStrc* pAct); // 0x0061C4D0
-void __stdcall INVENTORY_CreateCorpseForPlayer(D2InventoryStrc* pInventory, int nUnitId, int a3, int a4); // 0x0063D470
+void __stdcall INVENTORY_CreateCorpseForPlayer(D2InventoryStrc* pInventory, int nUnitId, int a3, int bCounted); // 0x0063D470
 void __stdcall INVENTORY_Return(const char* szFile, int nLine, D2InventoryStrc* pInventory, int nX, int nY, int nInventoryRecordId, int bClient, unsigned char nPage); // 0x0063BCF0
 void __stdcall ITEMMODS_ApplyEthereality(D2UnitStrc* pItem); // 0x0065E4D0
 void __stdcall ITEMS_AssignSuffix(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo); // 0x00627FB0
@@ -526,7 +526,7 @@ void __stdcall MISSILE_SetDamageStats(D2UnitStrc* pOwner, D2UnitStrc* pMissile, 
 void __stdcall MISSILE_SetFlags(D2UnitStrc* pMissile, unsigned int dwFlags); // 0x0064A1C0
 void __stdcall MISSILE_SetLevel(D2UnitStrc* pMissile, int nSkillLevel); // 0x0064A1E0
 void __stdcall MISSILE_SetSkill(D2UnitStrc* pMissile, int nSkill); // 0x0064A240
-void __stdcall MONSTERS_GetMinionSpawnInfo(D2UnitStrc* pUnit, int* pMonsterId, int* pX, int* pY, int* pSpawnMode, int a6, int (__fastcall* pfnGetClassId)(D2UnitStrc*)); // 0x0063EFA0
+void __stdcall MONSTERS_GetMinionSpawnInfo(D2UnitStrc* pUnit, int* pMonsterId, int* pX, int* pY, int* pSpawnMode, int nChainSteps, int (__fastcall* pfnGetClassId)(D2UnitStrc*)); // 0x0063EFA0
 void __stdcall PATH_SetAcceleration(D2DynamicPathStrc* pDynamicPath, int nAcceleration); // 0x00648700
 void __stdcall PATH_SetMaxVelocity(D2DynamicPathStrc* pDynamicPath, int nMaxVelocity); // 0x006486D0
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit); // 0x00648B90
@@ -553,11 +553,11 @@ void __stdcall UNITS_StoreLastAttacker(D2UnitStrc* pUnit, D2UnitStrc* pAttacker)
 void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x00623F50
 void __stdcall WAYPOINTS_ValidateAndCopyWaypointData(D2WaypointDataStrc* pSource, D2WaypointDataStrc* pDestination); // 0x006610B0
 void __stdcall sub_00619730_Bounds(Room*,RoomBounds*); // 0x00619730
-void __stdcall sub_00621780_SetMissileArg(D2UnitStrc* pMissile, int nArg); // 0x00621780
+void __stdcall UNITS_SetAnimationSpeed(D2UnitStrc* pMissile, int nArg); // 0x00621780
 void __stdcall sub_00621BB0_SetShrine(Unit*,ShrineRecord*); // 0x00621BB0
-void __stdcall sub_006272B0_UnitStatListCall(D2UnitStrc* pUnit, int nType, int nValue, int n0); // 0x006272B0
-void __stdcall sub_00628170_SetItemCommandFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
-void __stdcall sub_0063D1D0_InventoryItemCall(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D1D0
+void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nType, int nValue, int n0); // 0x006272B0
+void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
+void __stdcall INVENTORY_UpdateWeaponGUIDOnInsert(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D1D0
 void __stdcall sub_00649190_SetPathMode(D2UnitStrc* pUnit, int nMode); // 0x00649190
 
 #define A1Q3_INITNO 5

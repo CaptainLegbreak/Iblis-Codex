@@ -50,7 +50,7 @@ int __fastcall PLAYER_FilterCommandMessage(D2PlayerCmdStrc* pCmd); // 0x00462930
 void __fastcall sub_00463D90(int nArg);
 D2UnitStrc* __cdecl sub_00463DD0();
 D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit();
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit);
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit);
 void __fastcall VIEW_SetPetEntryValue(D2UnitStrc* pOwner, D2UnitStrc* pRecord, int nValue); // 0x00467410
 
 struct D2ActiveRoomStrc { char unknown0[76]; int x, y, width, height; };

@@ -324,7 +324,7 @@ struct D2SkillStrc;
 struct D2StatListStrc;
 
 
-void __stdcall sub_006272B0_UnitStatListCall(D2UnitStrc* pUnit, int nType, int nValue, int n0);             // 0x006272B0
+
 
 static int __stdcall SKILLS_ConsumeItemSkillCharge(D2GameStrc*, D2SkillStrc*, int, D2UnitStrc*);
 
@@ -1092,7 +1092,7 @@ int __fastcall SKILLS_ConsumeSkillMana(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
     {
         return 0;
     }
-    sub_006272B0_UnitStatListCall(pPlayer, STAT_MANA, -nManaCost, 0);
+    STATLIST_AddUnitStat(pPlayer, STAT_MANA, -nManaCost, 0);
     return 1;
 }
 
@@ -3627,7 +3627,7 @@ void __fastcall D2GAME_AssignSkill(D2UnitStrc* pUnit, int bLeftSkill, int nSkill
         STATES_ToggleState(pUnit, STATE_NOMANAREGEN, 0);
     }
 
-    D2SkillStrc* pSkill = sub_006439B0_SkillFindByOwner(pUnit, nSkillId, nFlags);
+    D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, nSkillId, nFlags);
     if (!pSkill)
     {
         return;

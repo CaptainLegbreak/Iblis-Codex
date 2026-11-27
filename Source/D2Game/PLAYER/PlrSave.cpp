@@ -502,7 +502,7 @@ static int __stdcall PLRSAVE_PlaceCorpseItem(D2GameStrc* pGame, D2UnitStrc* pPla
                 pItem->dwFlags &= ~2u;
             UNITS_ChangeAnimMode(pItem, 1);
             ITEMS_SetInvPage(pItem, 255);
-            sub_00628170_SetItemCommandFlag(pItem, 8, 1);
+            ITEMS_SetItemCMDFlag(pItem, 8, 1);
             if (pItem)
                 pItem->dwFlags &= ~0x02000000u;
             INVENTORY_AddItemToTradeInventory(pInventory, pItem);
