@@ -5,6 +5,8 @@
 #include "D2StormTypes.h"
 #include "D2NetTypes.h"
 #include "D2FogTypes.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -12,8 +14,6 @@ struct D2CriticalSectionStrc;
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -46,8 +46,6 @@ struct D2BitCodeStrc
     int nBits;
 };
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-
 extern unsigned int gadwLowMasks[]; // 0x006CE368
 
 unsigned int __stdcall sub_00410F60_ReadBits(D2BitBufferStrc* pBuffer, int nBits); // 0x00410F60
@@ -70,8 +68,6 @@ int gnTimerTicksPerUs; // 0x0075E898
 unsigned int gnRecordCount; // 0x007768A4
 
 int gnTickAtReset; // 0x007768A0
-
-extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 

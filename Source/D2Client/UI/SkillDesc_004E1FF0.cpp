@@ -16,6 +16,7 @@
 #include "D2Path.h"
 #include "D2SoundEnvironTxt.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 #define UNIT_ITEM 4
 
@@ -240,8 +241,6 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* 
 extern "C" const char szFmtD_006D57BC[];                                                                    // 0x006D57BC
 
 extern "C" const char gszFmtRange[];                                                                // 0x006D9D70
-
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight);             // 0x00502520
 

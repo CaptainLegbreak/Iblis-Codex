@@ -26,6 +26,7 @@
 #include "D2Primitives.h"
 #include "FogApi.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #define MONSTATSFLAGINDEX_NOAURA 27
 
@@ -96,21 +97,9 @@ struct D2ItemDropStrc;
 
 union D2SeedStrc;
 
-void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
-
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
-
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
-
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
-
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); // 0x006492A0
 
@@ -128,17 +117,9 @@ int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nS
 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
-void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0
-
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 
-int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
-
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
-
-int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
-
-D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 
 int __stdcall D2Common_11024(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType, int* pHasThrowBonus); // 0x00645720
 
@@ -186,18 +167,8 @@ struct D2AuraNextTargetArgsStrc
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
-int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
-
-int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
-
 int __stdcall ITEMMODS_GetItemCharges(D2UnitStrc* pItem, int nSkillId, int nSkillLevel, int* pCharges, D2StatListStrc** ppStatList); // 0x0065C820
 
-int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
-
-void __stdcall STATLIST_SetBaseStat2(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer, D2UnitStrc* pItem); // 0x00627220
-
-
-D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
 int __fastcall D2GAME_SKILLS_BloodMana(D2UnitStrc* pUnit, int nManaCost); // 0x005D2B60
 
@@ -220,24 +191,12 @@ extern const int gnMissilePatternXOffsets[8]; // 0x006E14A8
 
 extern const int gnMissilePatternYOffsets[8]; // 0x006E1488
 
-void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pUnitFindData); // 0x0065AA00
-
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
-
-D2SkillStrc* __stdcall SKILLS_GetFirstSkillFromSkillList(D2SkillListStrc* pSkillList); // 0x00643910
-
-D2SkillStrc* __stdcall SKILLS_GetNextSkill(D2SkillStrc* pSkill); // 0x006438F0
-
-void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
-
-void __stdcall SKILLS_RefreshSkill(D2UnitStrc* pUnit, int nSkillId); // 0x00646D60
 
 void __fastcall SUNIT_RewindAnimationByPercentage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nArg); // 0x00553B10
 
 int __fastcall AIUTIL_CanUnitSwitchAi(D2UnitStrc* pUnit, int nArg); // 0x005DD480
-
-D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
@@ -254,11 +213,7 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x
 
 int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
 
-D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
-
 void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList); // 0x00626CD0
-
-void __stdcall D2Common_10474(D2UnitStrc* pUnused, D2StatListStrc* pStatList); // 0x006277E0
 
 void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataStrc* pUnitFindData, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize, void* pfnUnitTest, D2UnitFindArgStrc* pUnitFindArg); // 0x0065A950
 
@@ -270,8 +225,6 @@ int __stdcall SKILLS_GetParam1(D2SkillStrc* pSkill); // 0x006444A0
 
 
 extern "C" D2PetTypeTxt* __fastcall sub_00478A20_GetPetTypeTxtRecord(int petType); // 0x00478A20
-
-void __stdcall SKILLS_SetParam1(D2SkillStrc* skill, int value); // 0x00644560
 
 extern const unsigned char gnPetFlag_006CE274; // 0x006CE274
 
@@ -293,32 +246,18 @@ enum
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 
-void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x00620C10
-
 
 int __stdcall SKILLS_GetSkillInfo(D2SkillStrc* pSkill, int* pOwnerGUID, int* pSkillId, int* pSkillLevel, int* pCharges); // 0x00643B00
 
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); // 0x00620210
 
-int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
-
-
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
-
-D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* pAct, int nLevelId, int nTileIndex, int* pX, int* pY, int nUnitSize); // 0x0061B060
 
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
 
 
 int __fastcall QUESTS_PortalCheck(D2GameStrc* pGame, D2CoordStrc* pCoord, int nLevel, D2ActiveRoomStrc** ppRoom); // 0x00545830
 
-D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, int nUnitSize, unsigned int nMask, int nFieldSize); // 0x0064E7E0
-
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
-
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-
-void __stdcall UNITS_SetObjectPortalFlags(D2UnitStrc* pUnit, unsigned char nPortalFlag); // 0x00622300
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
@@ -330,10 +269,6 @@ D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
 int __fastcall SKILLS_SchedulePeriodicSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bUseRightSkill); // 0x0056CDA0
 
-D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
-
-
-unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem); // 0x006289C0
 
 
 typedef int (__fastcall *SkillCallback)(D2GameStrc*, D2UnitStrc*, int, int);
@@ -346,23 +281,13 @@ D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 
 void __stdcall SKILLS_RemoveSkill(D2UnitStrc* pUnit, int nSkillId, const char* szFile, int nLine); // 0x006470F0
 
-D2SkillStrc* __stdcall SKILLS_AddSkill(D2UnitStrc* pUnit, int nSkillId); // 0x00647110
-
 
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
-
-unsigned short __stdcall COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask); // 0x0064D800
 
 
 int __stdcall SKILLS_GetHighestSkillLevelById(D2UnitStrc* pUnit, int nSkillId); // 0x00644AA0
 
-int __stdcall SKILLS_GetMinPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bAddWeaponDamage); // 0x00647BC0
-
-int __stdcall SKILLS_GetMaxPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bAddWeaponDamage); // 0x00647D00
-
 int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x006449F0
-
-int __stdcall D2COMMON_11021(D2UnitStrc* pUnit); // 0x00645680
 
 int __stdcall UNITFINDS_TestUnit(D2UnitStrc* pUnit, D2UnitFindArgStrc* pArg); // 0x0065AA40
 
@@ -385,8 +310,6 @@ void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAtt
 
 void __fastcall D2GAME_SetSkills(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
-D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
-
 int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bFlag); // 0x00644F20
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
@@ -401,8 +324,6 @@ struct D2SkillStrc;
 struct D2StatListStrc;
 
 
-int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill);                                            // 0x00643AD0
-
 void __stdcall sub_006272B0_UnitStatListCall(D2UnitStrc* pUnit, int nType, int nValue, int n0);             // 0x006272B0
 
 static int __stdcall SKILLS_ConsumeItemSkillCharge(D2GameStrc*, D2SkillStrc*, int, D2UnitStrc*);
@@ -412,8 +333,6 @@ static int __stdcall SKILLS_ConsumeItemSkillCharge(D2GameStrc*, D2SkillStrc*, in
 
 
 #define SKILLSFLAGINDEX_IMMEDIATE 15
-
-int __stdcall STATES_IsUnitShapeShifted(D2UnitStrc* pUnit); // 0x0063A400
 
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
@@ -434,15 +353,9 @@ struct D2MonStats2Txt;
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 
 
-void __stdcall STATLIST_SetExpireFrame(D2StatListStrc*, int); // 0x00625310
-
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc*, int); // 0x00625760
 
 D2SkillStrc* __stdcall STATLIST_GetSkillId(D2StatListStrc*); // 0x006260E0
-
-int __stdcall STATLIST_GetSkillLevel(D2StatListStrc*); // 0x00626100
-
-void __stdcall UNITROOM_RefreshUnit(D2UnitStrc*); // 0x0064C040
 
 extern "C" const char gszSkillsSourceFile; // 0x006DAB88
 
@@ -470,10 +383,6 @@ extern const int gnRandomElemTypes[4]; // 0x006E1278
 
 typedef void (__fastcall* CurseCallbackFunc)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int);
 
-int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
-
-int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
-
 typedef char SkillsRecordSize[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
 typedef int (__fastcall* SkillStartFunc)(D2GameStrc*, D2UnitStrc*, int, int);
@@ -481,8 +390,6 @@ typedef int (__fastcall* SkillStartFunc)(D2GameStrc*, D2UnitStrc*, int, int);
 extern SkillStartFunc gpfnSkillSrvStartFunctions[]; // 0x00732140
 
 int __fastcall SKILLS_HasManaOrChargesForUsedSkill(D2UnitStrc* pUnit); // 0x0056C160
-
-int __stdcall D2Common_11026(int nX, int nY, D2UnitStrc* pUnit, int nCollisionMask); // 0x00645950
 
 
 static int __stdcall SKILLS_CheckUsedSkillTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId);
@@ -542,10 +449,6 @@ void __fastcall D2GAME_STATES_SendUnitStateUpdates(D2UnitStrc* pUnit, D2ClientSt
 
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00
 
-int __stdcall ITEMS_GetAmmoType(D2UnitStrc* pItem); // 0x0062E6F0
-
-int __stdcall ITEMS_CanItemBeUsedForThrowSkill(D2UnitStrc* pItem); // 0x0062A310
-
 int __stdcall D2GAME_Transmogrify(D2UnitStrc* pItem); // 0x00563FE0
 
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
@@ -554,8 +457,6 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc
 D2UnitEventStrc* __fastcall SUNITEVENT_Register(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEvent, int nGUID1, int nGUID2, D2UnitEventCallbackFunction pCallback, unsigned int nQueueNo, int nEventKey); // 0x005C0AD0
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
-
-void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
 
 D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, unsigned char bAllowNeighborRooms); // 0x00555DA0
 
@@ -567,8 +468,6 @@ struct D2PortalFlagsStrc
 {
     unsigned char nFlags;
 };
-
-D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesWithField(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, D2CoordStrc* pFieldCoord, int nUnitSize, unsigned int nMask, unsigned int nFieldMask, int bAllowNeighboringRooms); // 0x0064E810
 
 unsigned int __fastcall SUNIT_GetTrackedSummonGUID(D2UnitStrc* hUnit); // 0x00554070
 
@@ -601,8 +500,6 @@ D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId);    
 
 void __stdcall STATLIST_SetListExpireFrame(D2StatListStrc* pStatList, int nExpireFrame);                                // 0x006260B0
 
-int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
-
 #define EVENTTYPE_REMOVESTATE 12
 
 #define SKILLSFLAGINDEX_DECQUANT 0
@@ -614,8 +511,6 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 #define SKILLS_CHECK_FLAG(pRecord, nIndex) ((pRecord)->nFlags[(nIndex) >> 3] & gdwBitMasks[(nIndex) & 7])
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-
-int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 
@@ -653,10 +548,6 @@ struct D2ServerCallbacks
 
 extern D2ServerCallbacks* gpServerCallbacks; // 0x00883D50
 
-unsigned int __stdcall DATATBLS_GetCurrentLevelFromExp(int nClass, unsigned int dwExperience); // 0x00611860
-
-unsigned int __stdcall DATATBLS_GetLevelThreshold(int nClass, unsigned int dwLevel); // 0x00611800
-
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc*); // 0x00625D60
 
 void __fastcall sub_00536850_UpdateLevel(D2GameStrc*,D2UnitStrc*,int); // 0x00536850
@@ -675,12 +566,6 @@ extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 
 int __stdcall BITMANIP_GetSize(D2BitBufferStrc*); // 0x00410E90
 
-
-int __stdcall sub_004111A0_GetLowestSetBit(unsigned int); // 0x004111A0
-
-unsigned int* __stdcall D2COMMON_10494_STATES_GetStatFlags(D2UnitStrc*); // 0x0063A100
-
-int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc*, D2StatStrc*, int); // 0x00625C90
 
 
 inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)

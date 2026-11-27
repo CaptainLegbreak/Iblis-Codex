@@ -479,8 +479,6 @@ static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit);
 
 static BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc* pPathInfo, D2UnitStrc* pUnit);
 
-int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown);
-
 static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo);
 
 #define COLLIDE_MISSILE_BARRIER 0x4
@@ -544,10 +542,6 @@ static int PATH_GetMonsterMoveTestMask(D2UnitStrc* pUnit);
 int __stdcall PATH_ComputeDirectionFromPreciseCoords(D2FP32_16 tStart, D2FP32_16 tTarget); // 0x0064FE10
 
 static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit);
-
-void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitStrc* pUnit, int bSetFlag);
-
-void __stdcall D2Common_10228(D2UnitStrc* pUnit);
 
 void __cdecl sub_00403F50_Nop()
 {

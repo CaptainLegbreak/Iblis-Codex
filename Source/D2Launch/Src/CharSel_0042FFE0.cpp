@@ -70,7 +70,6 @@ public:
     int m_nCurGateway;
 };
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars);
 void __cdecl CHARSEL_InitCharList(); // 0x0043AE30
 void __fastcall CHARSEL_UseName(char* szName); // 0x0043ADB0
 int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140

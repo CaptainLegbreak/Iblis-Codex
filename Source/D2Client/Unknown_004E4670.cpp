@@ -64,8 +64,6 @@ static inline D2CharStatsTxt* sub_GetCharStatsTxtRecord(int nClass)
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
 extern D2CombinedStatIdStrc gaCombinedStatIds[]; // 0x0072CDD0
 
 
@@ -102,8 +100,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
 
-
-int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 
 
 int __fastcall UNICODE_StrLen(const Unicode* wszText); // 0x00526800

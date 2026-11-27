@@ -491,8 +491,6 @@ void __cdecl GFX_UpdatePetFlags()
 
 
 
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
-
 
 
 // 0x00479010

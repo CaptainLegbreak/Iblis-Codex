@@ -11,6 +11,7 @@
 #include "D2LevelTxt.h"
 #include "D2LanguageNames.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 // build: symbol _gaszLanguageNames 0x007328C8
 
 #define PETTYPE_SINGLE 1
@@ -64,8 +65,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
-
 void __fastcall PLAYERPETS_RemovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int bKillPet); // 0x005750E0
 
 static int PLAYERPETS_GetFirstPetGUID(D2UnitStrc* pPlayer, int nPetType);
@@ -112,27 +111,13 @@ int __stdcall D2GAME_ModeChange(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange
 
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-
-void __stdcall UNITS_SetCurrentRoomInvalid(D2UnitStrc* pUnit, int bInvalid); // 0x00620FA0
-
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster); // 0x0063EA40
-
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
-
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
-
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648C30
 
 int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); // 0x006492A0
-
-void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
 int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
 
@@ -149,16 +134,6 @@ struct D2SkillListStrc;
 struct D2SkillsTxt;
 
 extern "C" D2PetTypeTxt* __fastcall sub_00478A20_GetPetTypeTxtRecord(int nPetType);
-
-D2SkillStrc* __stdcall SKILLS_GetNextSkill(D2SkillStrc* pSkill); // 0x006438F0
-
-D2SkillStrc* __stdcall SKILLS_GetFirstSkillFromSkillList(D2SkillListStrc* pSkillList); // 0x00643910
-
-int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
-
-int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
-
-int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
 struct D2ClientStrc;
 

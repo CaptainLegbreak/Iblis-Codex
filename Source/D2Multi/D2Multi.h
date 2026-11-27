@@ -102,10 +102,10 @@ int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
 int __stdcall D2Win_10169(D2CompositeStrc* pCompositeUnit); // 0x00505230
 int __stdcall SMACK_Decode(D2WinSmackStrc* pSmack, const char* szFileName, int nVersion); // 0x00506910
 int __stdcall SMACK_DeleteFile(D2WinSmackStrc* pSmack); // 0x00506990
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned int nBufferSize); // 0x00414E50
+int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars); // 0x00413590
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 int __stdcall sub_0043DAF0_OnConnect(int nArg); // 0x0043DAF0
 int __stdcall sub_0043DB90(int nArg); // 0x0043DB90
 int __stdcall sub_0043E6C0_OnError(int nArg); // 0x0043E6C0

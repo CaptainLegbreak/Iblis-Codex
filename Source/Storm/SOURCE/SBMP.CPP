@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "StormApi.h"
 
 #define STORM_MIN(a, b) (((a) < (b)) ? (a) : (b))
 
@@ -50,8 +51,6 @@ struct D2TargaHeaderStrc
 
 #pragma pack(pop)
 
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
-
 struct D2PaletteColorStrc { unsigned char red, green, blue, alpha; };
 
 void __stdcall SMemZero(void* destination, unsigned int size); // 0x0041D300
@@ -94,8 +93,6 @@ struct D2BitOutputStrc
     int nBlockLength;
     unsigned char pBlock[256];
 };
-
-const char* __stdcall SStrChr(const char* szString, char c); // 0x00413490
 
 typedef unsigned char BYTE;
 
@@ -183,8 +180,6 @@ static void __stdcall UncompressPcxImage(unsigned char* pDst, unsigned int nLimi
 static int __stdcall DecodeBmpFile(unsigned char* pPalette, void* hFile, int* pWidth, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth);
 
 static void __stdcall AddOutputChar(unsigned char** ppOutput, int nChar, D2BitOutputStrc* pState); // 0x006C6370
-
-int __stdcall SBmpDecodeImage(int nType, const unsigned char* pData, unsigned int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth);
 
 static int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth);
 

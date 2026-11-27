@@ -4,6 +4,8 @@
 #include "D2FogTypes.h"
 #include "D2FogTypes.h"
 #include "D2ExceptionPointers.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -36,8 +38,6 @@ struct D2MemoryBasicInfoStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
-
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
@@ -52,8 +52,6 @@ extern "C" size_t __cdecl strlen(const char* szString);
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(); // 0x006CC1B4
 
@@ -62,8 +60,6 @@ extern "C" __declspec(dllimport) void* __stdcall GetCurrentProcess(); // 0x006CC
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
 void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...); // 0x00410660
-
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 int __fastcall EXCEPTIONS_GetAppPath(char* szPath, unsigned int nSize); // 0x0040C220
 
@@ -101,11 +97,7 @@ extern "C" const char gszSpace[]; // 0x006FFC44
 
 const char* __fastcall ERRORMANAGER_StripSourcePath(const char* szPath); // 0x00408000
 
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-
 int __cdecl s_DoSymInitialize(); // 0x0040C620
-
-int __fastcall EXCEPTIONS_ReleaseSymbols(int all); // 0x0040C720
 
 int (__stdcall* gpfnSymGetLineFromAddr)(void* hProcess, unsigned long dwAddress, unsigned long* pdwDisplacement, D2ImageHlpLineStrc* pLine); // 0x0075CFE4
 
@@ -132,12 +124,8 @@ struct D2CrashDumpRecordStrc
 
 void __fastcall LOGMANAGER_GetLogDirectory(char* szDirectory, int nSize); // 0x0040F000
 
-void __stdcall SMemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
-
 
 extern "C" unsigned int __cdecl fread(void* pBuffer, unsigned int nSize, unsigned int nCount, _iobuf* pFile); // 0x00684782
-
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
 int __stdcall SMemCmp(void* pLocation1, void* pLocation2, unsigned int nSize); // 0x0041D200
 
@@ -170,15 +158,9 @@ extern "C" const char gszExceptionsCppFile[]; // 0x006CD628
 
 extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void* lp, unsigned int ucb); // 0x006CC238
 
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9
 
 #pragma intrinsic(strlen)
-
-extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
-
-unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 
 void __cdecl LOGMANAGER_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410740
 
@@ -238,8 +220,6 @@ extern "C" __declspec(dllimport) int __stdcall DuplicateHandle(void* hSourceProc
 typedef void (__cdecl* D2SETranslatorFn)(unsigned int, D2ExceptionPointersStrc*);
 
 extern "C" D2SETranslatorFn __cdecl _set_se_translator(D2SETranslatorFn pfnTranslator); // 0x00684AF3
-
-void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle, unsigned long dwAddress, unsigned int nSize, int nArg5, int nArg6, int nArg7); // 0x00410040
 
