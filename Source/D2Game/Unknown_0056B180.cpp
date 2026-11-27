@@ -21,7 +21,7 @@ struct D2SaveHeaderStrc;
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const int gnPlrSave2ErrorRemap[PLRSAVE2ERROR_COUNT]; // 0x006E1208
 #include "D2GameFuncs.h"
-D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
 void __fastcall sub_005385D0(D2ClientStrc* pClient, int a2, int a3); // 0x005385D0
 void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2GameStrc* pGame, unsigned char nAct); // 0x00534F10
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
