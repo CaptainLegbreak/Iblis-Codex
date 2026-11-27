@@ -6,6 +6,7 @@
 #include "FogApi.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi2.h"
 #define CMD_BOOLEAN 0
 #define CMD_INTEGER 1
 #define CMD_STRING 2
@@ -49,7 +50,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern D2CmdArgStrc gaCmdArguments[58]; // 0x00705040
 void __stdcall sub_00405450_LoadIniSettings(char* pSettings); // 0x00405450
-void __cdecl IGNORELIST_CreateIgnoreList(); // 0x006114E0
 int __fastcall sub_00405710_ParseCmdArgument(char* szCommandNameTestBuf, const char* pszCommand, char* szCommandValueBuf); // 0x00405710
 
 void __cdecl operator delete(void* pMemory);

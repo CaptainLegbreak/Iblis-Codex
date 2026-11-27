@@ -23,6 +23,7 @@
 #include "D2LevelTxt.h"
 #include "D2TxtItems.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 struct D2UnitStrc;
 
 
@@ -32,8 +33,6 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);              // 0x004B9A00
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
-void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue);                                           // 0x006445E0
-void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int bSetBothDirections);                            // 0x00649EF0
 
 static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {

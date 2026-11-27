@@ -22,6 +22,7 @@
 #include "D2AnimData.h"
 #include "D2LangApi.h"
 #include "D2CommonApi.h"
+#include "FogApi2.h"
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
@@ -230,8 +231,6 @@ typedef char check_D2TCExShortStrc_size[sizeof(D2TCExShortStrc) == 0x2C ? 1 : -1
 extern unsigned short gwTreasureClassItemTypes; // 0x0096D4B0
 
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
-
-int __stdcall FOG_GetStringFromLinkIndex(D2TxtLinkStrc* pLinker, int nIndex, char* szString); // 0x006BD180
 
 extern "C" D2ItemTypesTxt* __fastcall SUNIT_GetTableRow(int index); // 0x00555C90
 
@@ -639,10 +638,6 @@ extern D2TCExShortStrc* gpChestTreasureClasses[3][5][3]; // 0x0096C5F4
 extern "C" const char* const gaszChestNames[3]; // 0x00745A10
 
 extern "C" const char* const gaszDifficultySuffixes[3]; // 0x00745A1C
-
-void __stdcall FOG_10216_AddRecordToLinkingTable(D2TxtLinkStrc* pLinker, const char* szKey); // 0x006BD500
-
-void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 
 void __cdecl DATATBLS_CreateItemTypeTreasureClasses(); // 0x006541C0
 

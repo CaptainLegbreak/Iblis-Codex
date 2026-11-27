@@ -8,6 +8,7 @@
 #include "D2Structs.h"
 #include "D2GameTypes.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 
 struct D2UnitStrc;
 
@@ -62,8 +63,6 @@ int __stdcall SKILLDESC_AddSummonDamageBonus(D2UnitStrc* pUnit, Unicode* wszText
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
 
 
-
-int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bFlag);       // 0x00644F20
 
 
 

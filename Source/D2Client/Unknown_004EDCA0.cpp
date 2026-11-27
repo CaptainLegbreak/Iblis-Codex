@@ -7,6 +7,7 @@
 #include "D2Records.h"
 #include "D2LevelTxt.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 struct D2UnitStrc;
 
 struct Unit0064A300;
@@ -45,15 +46,11 @@ int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 int __stdcall SKILLDESC_AddMonsterDamage(Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nBonusMin, int nBonusMax); // 0x004ECF50
 int __stdcall SKILLDESC_AddSummonDamageBonus(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel); // 0x004ED150
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bFlag); // 0x00644F20
 // noinline: the original calls this; without it the compiler expands it into 0x004EDCA0.
 static __declspec(noinline) unsigned short SKILLDESC_GetETypeDamageStr(int nEType);
 static int __stdcall SKILLDESC_AddSkillElemRate(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel); // 0x004EC6F0
 D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nSkillId, int nSkillLevel); // 0x004CDB40
-void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x00648820
-void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
 extern "C" int __stdcall sub_0064A300(Unit0064A300* pUnit); // 0x0064A300
-void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
 
 static inline int ApplyPercent(int nValue, int nPercent)
 {

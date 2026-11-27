@@ -17,6 +17,7 @@
 #include "StormApi.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "StormApi2.h"
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags) throw(); // 0x00412650
 
@@ -982,8 +983,6 @@ extern "C" int __cdecl fclose(_iobuf* pFile);                                   
 
 
 extern "C" char* __cdecl strstr(const char* szString, const char* szSubString);
-
-extern "C" char* __stdcall SStrLower(char* szString); // 0x00414200
 
 __declspec(nothrow) void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 

@@ -16,6 +16,7 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "StormApi.h"
+#include "D2CommonApi2.h"
 
 struct Unicode;
 
@@ -131,8 +132,6 @@ struct D2HirelingInfoStrc
 
 
 
-
-int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
 struct D2ClientEntryStrc;
 

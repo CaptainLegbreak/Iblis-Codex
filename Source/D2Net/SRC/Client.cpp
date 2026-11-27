@@ -3,6 +3,7 @@
 #include "D2NetTypes.h"
 #include "StormApi.h"
 #include "FogApi.h"
+#include "FogApi2.h"
 
 
 struct D2NetPacketRecStrc;
@@ -51,23 +52,15 @@ extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2Crit
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-const char* __fastcall FOG_ResolveHostIPAddress(const char* szHostName); // 0x0040E0D0
-
 void __fastcall SERVER_SendConnectionInfo(); // 0x0052B780
 
 extern void* ghClientConnectToHostThreadHandle; // 0x00882CE0
 
 extern unsigned long gdwThreadId; // 0x00882B30
 
-int __stdcall FOG_WaitForSingleObject(void* pObject, int nArg1); // 0x006BE4E0
-
 int __stdcall sub_006BE390(void* pObject, int nArg1, int nArg2); // 0x006BE390
 
 int __fastcall sub_006BF610(void* pObject, int nArg1, int nArg2); // 0x006BF610
-
-void __stdcall FOG_SetMaxClientsPerGame(void* pObject, int nArg1); // 0x006BE4A0
-
-int __stdcall FOG_SetHackListEnabled(void* pObject, int nArg1); // 0x006BF4E0
 
 int __stdcall sub_006C0170(void* pObject, const unsigned char* pData, int nSize); // 0x006C0170
 
@@ -78,14 +71,6 @@ int __stdcall sub_006BED90(void* pObject, int nArg1, int nArg2, int nArg3); // 0
 int __stdcall sub_006BEE20(void* pObject, int nArg1); // 0x006BEE20
 
 int __stdcall sub_006BEF40(void* pObject, int nArg1); // 0x006BEF40
-
-int __stdcall QSERVER_HackListClient(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0530
-
-int __stdcall QSERVER_HackListIP(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0600
-
-int __stdcall QSERVER_HackUnlistIP(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006BEFB0
-
-int __stdcall QSERVER_DisconnectIP(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C06D0
 
 static inline void CLIENT_StartConnectThread(const char* szIpAddress); // 0x0052A730
 
@@ -110,8 +95,6 @@ extern "C" int __stdcall recv(unsigned int nSocket, char* pBuffer, int nLength, 
 extern "C" int __stdcall __WSAFDIsSet(unsigned int nSocket, D2FdSetStrc* pSet); // 0x006B0180
 
 extern "C" int __stdcall select(int nCount, D2FdSetStrc* pRead, D2FdSetStrc* pWrite, D2FdSetStrc* pExcept, const D2TimevalStrc* pTimeout); // 0x006B0186
-
-int __fastcall FOG_DecompressPacket(unsigned char* pOut, int nOutSize, const unsigned char* pIn, unsigned int nInSize); // 0x0040B260
 
 int __stdcall CLIENT_ParseReceiveBuffer(); // 0x0052A8D0
 

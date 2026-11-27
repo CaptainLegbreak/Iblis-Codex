@@ -7,6 +7,7 @@
 #include "D2DrlgMaps.h"
 #include "D2Win32Types.h"
 #include "FogApi.h"
+#include "D2CommonApi2.h"
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
@@ -1161,8 +1162,6 @@ void __thiscall D2GridLightStrc::ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg,
 }
 
 D2TileStrc* __stdcall DUNGEON_GetTileDataFromAct(void* pAct); // 0x00619720
-
-void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
 // 0x004DE630
 void __thiscall D2FloorTileViewStrc::DrawTileAt(int nX, int nY)

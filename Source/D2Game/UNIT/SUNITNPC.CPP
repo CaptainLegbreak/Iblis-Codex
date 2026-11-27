@@ -21,6 +21,7 @@
 #include "D2LanguageNames.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 // build: symbol _gaszLanguageNames 0x00732904
 
 struct D2ClientStrc;
@@ -79,17 +80,9 @@ struct D2NpcVendorChainStrc;
 
 extern "C" const char gszNpcSourceFile[]; // 0x006E15F0
 
-D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner); // 0x0063ABD0
-
-D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
-
 #include "D2GameFuncs.h"
 
 
-unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
-
-
-int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00
 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
@@ -104,14 +97,6 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex); // 0x00483470
 
 
-int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
-
-unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
-
-
-int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
-
-int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -120,8 +105,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(int bExpansion, int nVendorId, int nDifficulty, D2HirelingTxt* pOldRecord); // 0x006564D0
 
 void __fastcall D2GAME_NPC_RepairItem(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer); // 0x005761C0
 
@@ -132,13 +115,7 @@ bool __fastcall SUNITNPC_IsPermanentStoreItem(D2GameStrc* pGame, D2UnitStrc* pNp
 
 void __fastcall SUNITNPC_AddGambleItem(D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2UnitStrc* pItem, D2GameStrc* pGame, int bInit); // 0x00576650
 
-D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 
-
-void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
-
-
-void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList); // 0x00626CD0
 
 typedef void (__fastcall* PetIterateCallback)(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet, void* pArg);
 
@@ -164,20 +141,10 @@ void __fastcall SUNITNPC_PetIterate_Heal(D2GameStrc* pGame, D2UnitStrc* pPlayer,
 void __fastcall SUNITNPC_ResurrectHireling(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet); // 0x00579AA0
 
 
-int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
-
-
-unsigned int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
-
-int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
 
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 
 
-unsigned int __stdcall MONSTERS_GetHirelingResurrectionCost(D2UnitStrc* pHireling); // 0x006637B0
-
-
-void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 
 
 void __fastcall D2GAME_STORES_FillVendorCache(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, int bGamble); // 0x00578B30
@@ -188,8 +155,6 @@ void __fastcall D2GAME_NPC_FillStoreInventory(D2GameStrc* pGame, D2UnitStrc* pPl
 
 void __fastcall SUNITNPC_AddItemsToTrade(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory); // 0x00576C30
 
-
-D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc*); // 0x006201D0
 
 
 void __fastcall D2GAME_PACKETS_SendPacket0x22(D2ClientStrc*, unsigned char, int, int, int); // 0x0053C520
@@ -232,12 +197,6 @@ struct D2LowQualityItemsTxt
     char name[32];
 };
 
-D2LowQualityItemsTxt* __stdcall DATATBLS_GetLowQualityItemsTxtRecord(int nIndex); // 0x006375C0
-
-unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem); // 0x00628590
-
-
-void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage); // 0x00628280
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -257,16 +216,10 @@ D2BitBufferStrc* __fastcall sub_00543520(D2GameStrc*,D2UnitStrc*); // 0x00543520
 
 void __fastcall SUNITNPC_RemovePurchasedItemFromStore(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x00576F50
 
-int __fastcall UNITS_GetWeaponClass(D2UnitStrc*); // 0x00623C60
-
-
-D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc*); // 0x0063BEF0
 
 
 int __fastcall SUNITNPC_CapStoreItemLevel(D2GameStrc* pGame, D2UnitStrc* pNpc, int nArg); // 0x00576890
 
-
-void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* room,int type,int id); // 0x0061A270
 
 int __fastcall PLAYERPETS_MarkPetAlive(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet); // 0x00574AB0
 
@@ -323,8 +276,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 int __fastcall OBJECTS_RollRandomNumber(D2SeedStrc* pSeed, int nMin, int nMax); // 0x004BC500
 
-int __stdcall ITEMS_CheckBitField1Flag1(int nItemId); // 0x00629C80
-
 D2UnitStrc* __fastcall D2GAME_NPC_GenerateStoreItem(D2UnitStrc* pNpc, unsigned int dwCode, D2GameStrc* pGame, int bVendorItem, int nQuality, int nItemLevel, int nPlayerLevel); // 0x00576330
 
 int __fastcall SUNITNPC_RollStoreItemQuality(D2SeedStrc* pSeed, unsigned int dwCode, int nItemLevel);
@@ -369,17 +320,7 @@ void __fastcall ACT1Q3_SetRewardGranted(D2GameStrc* pGame, D2UnitStrc* pPlayer);
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
 
 
-int __stdcall ITEMS_CheckIfFlagIsSet(unsigned int dwFlags, unsigned int dwMask); // 0x006287A0
-
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
-
 void __stdcall ITEMS_AddSockets(D2UnitStrc* pItem, int nSockets); // 0x0062BCB0
-
-int __stdcall ITEMS_CanBeImbued(D2UnitStrc* pItem); // 0x0062C590
-
-int __stdcall ITEMS_IsPersonalizable(D2UnitStrc* pItem); // 0x0062C6A0
-
-int __stdcall ITEMS_IsSocketable(D2UnitStrc* pItem); // 0x0062C770
 
 int __stdcall WAYPOINTS_GetWaypointNoFromLevelId(int nLevelId, int* pWaypointNo); // 0x00660E00
 
@@ -391,8 +332,6 @@ int __stdcall WAYPOINTS_GetWaypointNoFromLevelId(int nLevelId, int* pWaypointNo)
 struct D2DifficultyLevelsTxt;
 
 void __fastcall FOG_FreeServerMemory(void*, void*, const char*, int, int); // 0x0040B480
-
-D2GambleDataTbl* __fastcall DATATBLS_GetGambleDataTables(); // 0x00638CC0
 
 struct D2DifficultyLevelsGambleStrc
 {
@@ -430,8 +369,6 @@ struct D2HirelingInitStrc
 
 int __fastcall MONSTERS_GetActFromHirelingTxt(int bExpansion, int nClassId, unsigned short nNameId); // 0x00663750
 
-int __fastcall MONSTERS_HirelingInit(int bExpansion, D2UnitStrc* pMonster, int nLowSeed, int nAct, int nDifficulty, D2HirelingInitStrc* pHirelingInit); // 0x006637F0
-
 int __fastcall MONSTERAI_HasInteractUnit(D2MonsterInteractStrc* pMonInteract); // 0x00572DC0
 
 
@@ -439,8 +376,6 @@ void __stdcall D2COMMON_10251_Return(D2InventoryStrc* pInventory); // 0x0063BD00
 
 
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
-
-D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromActAndDifficulty(int bExpansion, int nAct, int nDifficulty, D2HirelingTxt* pOldRecord); // 0x00656580
 
 void __fastcall SUNITNPC_FillGambleIfMissing(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pPlayer, D2NpcRecordStrc* pNpcRecord); // 0x00578AE0
 
@@ -452,10 +387,6 @@ void __fastcall SUNITNPC_RepairItemCallback(D2GameStrc* pGame, D2UnitStrc* pItem
 int __stdcall ITEMS_GetAllRepairCosts(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, D2BitBufferStrc* pQuestFlags, void (__fastcall* pfCallback)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*)); // 0x0062FE60
 
 
-int __stdcall ITEMS_IsRepairable(D2UnitStrc* pItem); // 0x0062E660
-
-int __stdcall ITEMS_HasUsedCharges(D2UnitStrc* pItem, int* pHasChargedSkills); // 0x0062A840
-
 #define SEND_0x2A(nResult, nLine, bSuccess) D2GAME_SendPacket0x2A(UnitGetClient(pUnit, gszNpcSourceFile, nLine), 0x2A, nResult, STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0), -1, bSuccess)
 
 
@@ -463,12 +394,8 @@ int __fastcall SUNITNPC_IsUniqueCarryOneItem(D2UnitStrc*); // 0x00575FA0
 
 void __fastcall SUNITNPC_DecreaseSkillQuantity(D2UnitStrc*,int,int); // 0x00576E40
 
-unsigned short __stdcall ITEMS_GetSuffixId(D2UnitStrc*,int); // 0x00627F80
-
 void __stdcall ITEMS_SetItemCell(D2UnitStrc*,unsigned char); // 0x00628320
 
-
-int __stdcall ITEMS_GetItemType(D2UnitStrc*); // 0x0062B400
 
 
 static inline int GetMode(D2UnitStrc* unit) { if (unit) return unit->dwAnimMode; return 0; }

@@ -17,6 +17,7 @@
 
 #include "D2Unicode.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 
 #define UNIT_MONSTER 1
 
@@ -49,8 +50,6 @@ void __fastcall VIEW_SpawnMissileNearObject(D2UnitStrc* pUnit);                 
 
 
 
-
-void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 
 typedef void (__fastcall* UMODCALLBACK)(D2UnitStrc* pUnit, int nUMod, int bUnique);
 
@@ -110,8 +109,6 @@ wchar_t* __fastcall DATATBLS_RollRandomUniquePrefixString(D2UnitStrc* pUnit);   
 wchar_t* __fastcall DATATBLS_RollRandomUniqueSuffixString(D2UnitStrc* pUnit);                                          // 0x00653F10
 
 wchar_t* __fastcall DATATBLS_RollRandomUniqueAppellationString(D2UnitStrc* pUnit);                                     // 0x00653F50
-
-D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId);                         // 0x006556E0
 
 static D2MonsterDataStrc* CLIENT_GetMonsterData(D2UnitStrc* pUnit)
 {

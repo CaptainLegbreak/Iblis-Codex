@@ -20,6 +20,7 @@
 #include "D2ClientBallistic.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -221,8 +222,6 @@ int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 
 
 
-void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
-
 
 
 extern int gbCharArchiveLoaded; // 0x007A8928
@@ -231,10 +230,6 @@ extern int gbCharArchiveLoaded; // 0x007A8928
 
 D2MonGfxCacheStrc* __fastcall GFX_GetMonGfxCache(int nMonsterId); // 0x0046F9D0
 
-
-int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
-
-void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
 
@@ -317,8 +312,6 @@ typedef char check_PartialLookupHeader_records[offsetof(PartialLookupHeader, rec
 extern "C" unsigned int __stdcall sub_006280A0(D2UnitStrc* pUnit, unsigned int dwMask, unsigned int dwUnused3, unsigned int dwUnused4); // 0x006280A0
 
 
-int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
-
 
 
 
@@ -359,8 +352,6 @@ unsigned int gaClassTokens[3];                                                  
 
 D2InventoryStrc* __fastcall GFX_GetCompInventory(D2UnitStrc* pUnit, int* pOut);                    // 0x0046DB30
 
-int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
-
 
 
 D2CompEntryStrc* __fastcall sub_0046E570_GetGfxEntry(D2UnitStrc* pUnit, int nMode);                         // 0x0046E570
@@ -372,15 +363,9 @@ unsigned char __fastcall GFXUTIL_GetMonComponentIndex(D2UnitStrc* pUnit, unsigne
 
 void __fastcall GFXUTIL_GetArmorComponents(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int bSkip, unsigned char* pComponents); // 0x004DAAB0
 
-int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem);                                                     // 0x0062A4E0
-
 void __fastcall GFXUTIL_ConvertItemMode(D2UnitStrc* pUnit, int* pMode);                                    // 0x004DAA70
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile);   // 0x006280A0
-
-int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem);                                                      // 0x00627E70
-
-int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem);                                                        // 0x00629DA0
 
 
 
@@ -392,8 +377,6 @@ int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);   
 extern "C" int __cdecl PLAYER_GetScreenOffsetY();                                                      // 0x0045AFD0
 
 extern "C" int __cdecl PLAYER_GetScreenOffsetX();                                                          // 0x0045AFC0
-
-int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit);                                                     // 0x006206B0
 
 int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2);            // 0x004709A0
 
@@ -480,11 +463,7 @@ struct D2GfxNodeStrc
 
 D2BallisticStrc* __fastcall sub_0046F060(D2UnitStrc* pUnit); // 0x0046F060
 
-D2TokRecord* __stdcall DATATBLS_GetCompositTxtRecord(int nComposit);                                        // 0x0065B5E0
-
 D2TokRecord* __stdcall DATATBLS_GetMonModeTxtRecord(unsigned int nIndex, int bGetMode);                     // 0x0065B500
-
-D2TokRecord* __stdcall DATATBLS_GetArmTypeTxtRecord(int nId);                                               // 0x0065B620
 
 
 
@@ -575,8 +554,6 @@ int __stdcall GFXUTIL_GetMotionAY(D2UnitStrc* pUnit)
 
 
 extern "C" int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit);                                     // 0x004DA0B0
-
-void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY);                                                // 0x00643290
 
 // 0x004DA340
 void __fastcall GFXUTIL_ClearMotionFlagTwo(D2UnitStrc* pMissile)
@@ -817,12 +794,6 @@ unsigned char __fastcall GFXUTIL_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex)
 struct Unicode;
 
 void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046E5A0
-
-int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
-
-int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
-
-int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 
 class D2SquelchListStrc
 {
@@ -1144,10 +1115,6 @@ struct D2CoordStrc;
 
 
 
-int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
-
-D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
-
 
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordStd(int nSkillId)
 {
@@ -1259,8 +1226,6 @@ extern const unsigned char gabBaseDirections[8]; // 0x006DBA50
 
 
 
-
-unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
