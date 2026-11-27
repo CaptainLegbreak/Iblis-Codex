@@ -93,22 +93,22 @@ char* __fastcall DEBUG_ClearText(int nUnused, char* szText)
 }
 
 // 0x005347B0
-void __fastcall sub_005347B0_Stub5(int a1, int a2, int a3, int a4, int a5)
+void __fastcall sub_005347B0_Stub5(int nUnused1, int nUnused2, int nUnused3, int nUnused4, int nUnused5)
 {
 }
 
 // 0x005347C0
-void __fastcall DEBUG_Stub6(int a1, int a2, int a3, int a4, int a5, int a6)
+void __fastcall DEBUG_Stub6(int nUnused1, int nUnused2, int nUnused3, int nUnused4, int nUnused5, int nUnused6)
 {
 }
 
 // 0x005347D0
-void __fastcall DEBUG_Stub9(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9)
+void __fastcall DEBUG_Stub9(int nUnused1, int nUnused2, int nUnused3, int nUnused4, int nUnused5, int nUnused6, int nUnused7, int nUnused8, int nUnused9)
 {
 }
 
 // 0x005347E0
-void __fastcall sub_005347E0_Stub5(int a1, int a2, int a3, int a4, int a5)
+void __fastcall sub_005347E0_Stub5(int nUnused1, int nUnused2, int nUnused3, int nUnused4, int nUnused5)
 {
 }
 
