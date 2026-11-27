@@ -36,6 +36,7 @@ scaffolding, names.
 - Thu Nov 26 12:20 PT: setting up (repo, board, wine done; waiting for Game.exe, then setup and the baseline build).
 
 ## Ready
+- lane8/path-dead-copies 31750b5e3 (on lane8/path-views-2 abed865a4, merge that first): Path.cpp's unmarked DRLGACTIVATE_GetARoomInClientSight and its `build: symbol` copy of Fog's FOG_GetLinkIndexByCode (0x006BD130) go: nothing in the unit calls either, and DrlgActivate.cpp and Excel.cpp define the real ones. Their DrlgView, RoomStatusNode, LinkView and KeyValue views and offset checks go too. Full build: Game.exe identical, tree 4441e66ed6a8d7b80f11a32e817d9ca70ef5f1f0, borrowed code / data 7,677 / 261.
 - lane8/missile-dead-views 3f06dda91 (on #453): private struct views that no code in their unit references go: Missile.cpp's 27 `Unit<VA>` / `Data<VA>` views (-290 lines), Dungeon.cpp's sub_Z16_EmitRoomHolder and PathUtil.cpp's PathOwner. Full build: Game.exe identical, tree 328ad50d21327609bda959274719e23c1339739a, borrowed code / data 7,677 / 261.
 - lane8/path-views-2 abed865a4 (on #454, rebased now that path-accessor-views is in): five more Path.cpp accessors (PATH_SetUnitCollisionPattern, PATH_ClearPathingFlagAndPoints, PATH_SetPrecisionX, PATH_GetCollidedWithMask, PATH_ClearPreviousTargetPoint) take D2UnitStrc / D2DynamicPathStrc in place of five private views, which go with their offset checks; the private `extern "C"` COLLISION_CheckMaskWithSize goes for D2Common.h's. Full build: Game.exe identical, tree 3cd62ac04ae061ce36a31d28a896f89d2d9995fd, borrowed code / data 7,677 / 261.
 
