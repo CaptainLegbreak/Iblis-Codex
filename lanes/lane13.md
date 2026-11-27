@@ -5,6 +5,19 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
+- Fri Nov 27 03:29 PST 2026: **lane13/cluster-rule** (5434a8696, on main f6f04a987). VERIFIED tree 5ceb1ee37a34c5178ab9c60a1d03e988403bdffb; Game.exe identical. Audit guard: no count rose. This is link.py's cluster rule, from your 01:43 answer; only tools/link.py changes.
+  - **What no longer makes a cluster:** a one-past-the-end address used as an immediate value (any imm32 field: `cmp`, `push`, `mov r32, imm32` and the like), and a memory access through a register with a negative constant folded into the displacement (`[reg + a - k]`).
+  - **How it decides:** a stdlib-only decoder (`x86_insn` / `x86_field`) reads the instruction holding the relocation, starting from its function's symbol in the object. I checked it against a disassembler on the original's 926,938 instructions: 139,637 of 139,637 disp32/imm32 fields placed right. A reference it can't decode keeps today's behaviour.
+  - **What still makes a cluster:** a constant read past the end with no register.
+  - **Binding:** these references stay bound to their own array, or to its generated block, without widening that block. The read-back check accepts them as that symbol plus the same offset (new verify counter `plain_array_references`: 78).
+  - **Read back:** 14,927 of 14,927 verified functions and 2,359 of 2,359 initialised globals equal (was 2,312 of 2,312, since 101 fewer globals are absorbed into blocks). Image valid, same imports.
+  - **Counts, before -> after:**
+    - data clusters: 126 -> 78; 534,127 -> 58,706 B; 701 -> 600 globals.
+    - data_cluster: 7,072 refs / 666 targets -> 6,357 / 575.
+    - linkdebt total: 30,698 -> 30,093 refs bound by address. Every module's total fell or stayed.
+    - Some other categories rose a little (placeholder 3,406 -> 3,483, type_disagreement 6,823 -> 6,841, duplicate_data 1,021 -> 1,031, interior 113 -> 115, different_identifier 5,641 -> 5,646). Those are globals that used to be inside a cluster block: now each is bound on its own, so the debts its references already had are counted.
+    - shortdata unchanged (342; tool-only change).
+  - Gone, among others: both D2Win clusters (0x00842710, 0x0081EA68), D2Direct3D 0x00971740, D2Gfx 0x007CA320, D2Client 0x007C0ED0 and 0x007ACA50.
 - Fri Nov 27 02:59 PST 2026: **lane13/renderer-tables** (b97e99507, on main f6f04a987). VERIFIED tree 9e15b0c6e0aae2e36dce31e91f8030a15c093343; Game.exe identical. Audit guard: no count rose. This is the coordinator's 02:23 item.
   - Each renderer now defines its table as a named `D2GraphicsInterfaceStrc`, rendered as that renderer's function pointers (D2MOO's field names, 54 entries):
     - `gtGdiGraphicsInterface` (gdiCore.cpp, 0x0074C4A8);
@@ -22,6 +35,7 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
   - Counts, before -> after: shortdata 342 -> 341 (gone: 0x007799FC and 0x006EB520; new: 0x006EB3F0 with 16 B room, which is the string literal at 0x006EB534 and not part of the table). The Monster table wasn't a candidate, because bytes records sat in its room. linkdebt data_cluster 7,072 refs / 666 targets / 126 clusters -> unchanged; none of the three were clusters.
 
 ## Claimed
+- Fri Nov 27 03:29 PST 2026: cluster-rule Ready. Next: the 78 remaining clusters (real split structs and short arrays, constant reads past the end), largest first, leaving 0x0096BC30 for last with a reading first. Files claimed as I start each one. Then the raw-offsets lines that fall in data work.
 - Fri Nov 27 02:59 PST 2026: renderer-tables Ready. Next: **link.py's cluster rule** (your 01:43 yes, with its four conditions). Files claimed: tools/link.py (and tools/linkdebt.py only if its report needs the new reason). After that: the raw-offsets lines that fall in my data work, then the rest of the short globals.
 - Fri Nov 27 02:40 PST 2026: checked the remaining indexed short globals in the unit/mode/animation/player-movement files. Every index is bounded within its declared size, and the room after each is a literal, float constants, a vtable's RTTI pointer, or bytes no code reads. Checked: Units.cpp's mode modulator and stat tables, PlrModes, SUnit/SUnitDmg, ObjMode, Path, Composit, D2Client Player/CUnit/PlrSkills/Select/Missile. I found no other short array there. The Shift-walk freeze isn't explained by a short global yet; the monster moving-anim table in short-tables-1 is the one real anim-path overread so far.
 - Fri Nov 27 02:28 PST 2026: short-tables-1 Ready. Next: the other unit/mode tables with an index-bounded run after them (D2Game MONSTER 0x0073C0B8 gpfnSrvUModCallbacks + 0x0073C578, D2Common Path 0x006EB398 + 0x006EB3D8), then the rest of the 341.
