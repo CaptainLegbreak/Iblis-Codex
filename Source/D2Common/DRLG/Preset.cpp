@@ -738,41 +738,6 @@ int __fastcall SKILLDESC_ValidateMonsterId(int nMonsterId)
     return nMonsterId / sgptDataTables->nMonStatsTxtRecordCount;
 }
 
-static void __fastcall DRLGPRESET_AddTombStoneTiles(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom)
-{
-    D2DrlgPresetRoomStrc* pMaze = pDrlgRoom->pMaze;
-    int nTombStoneTiles = 0;
-
-    if (pMaze->pTombStoneTiles)
-    {
-        return;
-    }
-
-    pMaze->pTombStoneTiles = (D2CoordStrc*)sub_0040B430(pMemPool, 6 * sizeof(D2CoordStrc), &gszDrlgPresetSourceFile, 1964, 0);
-
-    for (int nY = 0; nY < pDrlgRoom->pDrlgCoord.nHeight; ++nY)
-    {
-        for (int nX = 0; nX < pDrlgRoom->pDrlgCoord.nWidth; ++nX)
-        {
-            const unsigned int nTileInfo = DRLGGRID_GetGridEntry(pMaze->pWallGrid, nX, nY);
-            if (((unsigned char)(nTileInfo >> 20) & 0x3F) == 10 && (unsigned char)(nTileInfo >> 8) >= 23 && (unsigned char)(nTileInfo >> 8) <= 27)
-            {
-                if (nTombStoneTiles < 6)
-                {
-                    int nTileX = nX + pDrlgRoom->pDrlgCoord.nPosX;
-                    int nTileY = nY + pDrlgRoom->pDrlgCoord.nPosY;
-                    SKILLS_GameTileToSubtileCoords(&nTileX, &nTileY);
-                    pMaze->pTombStoneTiles[nTombStoneTiles].nX = nTileX + 2;
-                    pMaze->pTombStoneTiles[nTombStoneTiles].nY = nTileY + 2;
-                    ++nTombStoneTiles;
-                }
-            }
-        }
-    }
-
-    pMaze->nTombStoneTiles = nTombStoneTiles;
-}
-
 static int DRLGPRESET_IsTileInsideCoord(D2DrlgCoordStrc* pDrlgCoord, D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData)
 {
     const int nX = pDrlgRoom->pDrlgCoord.nPosX + pTileData->nPosX;
@@ -1370,24 +1335,6 @@ static void __stdcall DRLGPRESET_InitPopsLocations(D2DrlgMapStrc* pDrlgMap, int 
         pPopsLocation->nHeight = nY2 - nY1 + 1;
         pDrlgMap->pPopsIndex[i] = pDrlgMap->pPopsIndex[i] / 4 - 1;
     }
-}
-
-unsigned short __stdcall SFileGetLocale()
-{
-    return gwValue_0077905C;
-}
-
-void __stdcall sub_00416750_Nop()
-{
-}
-
-void __stdcall sub_00416760_Nop()
-{
-}
-
-char* __fastcall sub_004167A0_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
 }
 
 D2Storm4167B0Strc::~D2Storm4167B0Strc()

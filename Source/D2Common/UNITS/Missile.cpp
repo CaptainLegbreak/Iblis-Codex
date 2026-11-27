@@ -563,33 +563,6 @@ extern "C" int __fastcall ROSTER_GetPetType(unsigned int key)
     return 0;
 }
 
-extern "C" int __cdecl sub_004B1D70_FindSelectedRow()
-{
-    int count = gB24RowCount;
-    int index = 0;
-    int found = 0;
-    if (count > 0)
-    {
-        unsigned int key = gB24SelectedKey;
-        const unsigned char* row = gB24Rows;
-        do
-        {
-            if (found)
-                break;
-            if (*(const unsigned int*)row == key)
-                found = 1;
-            else
-            {
-                index += 1;
-                row += 0x16;
-            }
-        } while (index < count);
-        if (found == 1)
-            return index;
-    }
-    return 0;
-}
-
 // 0x0064A1E0
 extern "C" void __stdcall MISSILE_SetMissileLevel(B24Unit* unit, int level)
 {
