@@ -60,22 +60,6 @@ void __fastcall EVENT_SetRecurringEventWithCallback(D2GameStrc* pGame, D2UnitStr
 
 void __fastcall EVENT_SetEventWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, EventTimerCallback pCallback, int nCustomId, int nCustomParam);
 
-struct D2Unk00540B70Obj;
-
-struct D2Unk00540B70Owner;
-
-struct D2Unk00540B70Obj
-{
-    char unk0x000[0x504];
-    int f_504[1];
-};
-
-struct D2Unk00540B70Owner
-{
-    char unk0x00[0xB8];
-    D2Unk00540B70Obj* pObj;
-};
-
 void __fastcall FOG_FreePool(void*,void*,const char*,int,int); // 0x0040B480
 
 static void __stdcall EVENT_InsertInfiniteTimer(EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType);
@@ -105,13 +89,13 @@ static D2EventTimerStrc** __fastcall EVENT_GetQueuedTimerListHead(D2GameStrc* pG
 }
 
 // 0x00540B70
-static int* __stdcall EVENT_GetTimerSlot(D2Unk00540B70Owner* pOwner, int nType, int nIndex)
+static D2EventTimerStrc** __stdcall EVENT_GetTimerListTail(D2GameStrc* pGame, int nUnitType, int nExpireFrame)
 {
-    if (nIndex == -1)
+    if (nExpireFrame == -1)
     {
         return 0;
     }
-    return &pOwner->pObj->f_504[gaSlotRows[nType] * 64 + nIndex % 64];
+    return &pGame->pTimerQueue->pTail[gaSlotRows[nUnitType]][nExpireFrame % 64];
 }
 
 // 0x00540BB0
@@ -216,9 +200,9 @@ static void EVENT_FreeTimer(D2GameStrc* pGame, D2EventTimerStrc* pTimer)
     {
         pTimer->pNextFreeEventTimer->pPreviousQueuedTimer = pTimer->pPreviousQueuedTimer;
     }
-    else if (pTimer->nExpireFrame != -1)
+    else
     {
-        D2EventTimerStrc** ppEventTimer = &pGame->pTimerQueue->pTail[gaSlotRows[pTimer->nUnitType]][pTimer->nExpireFrame % 64];
+        D2EventTimerStrc** ppEventTimer = EVENT_GetTimerListTail(pGame, pTimer->nUnitType, pTimer->nExpireFrame);
         if (ppEventTimer && *ppEventTimer == pTimer)
         {
             *ppEventTimer = pTimer->pPreviousQueuedTimer;
@@ -609,16 +593,6 @@ static inline D2EventTimerStrc** EVENT_GetTimerListHead(D2GameStrc* pGame, int n
     return &pQueue->pHead[nIndex][nExpireFrame % 64];
 }
 
-static inline D2EventTimerStrc** EVENT_GetTimerListTail(D2GameStrc* pGame, int nUnitType, int nExpireFrame)
-{
-    if (nExpireFrame == -1)
-    {
-        return 0;
-    }
-
-    return &pGame->pTimerQueue->pTail[gaSlotRows[nUnitType]][nExpireFrame % 64];
-}
-
 // 0x00541680
 void __fastcall EVENT_SetRecurringEventWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, EventTimerCallback pCallback, int nCustomId, int nCustomParam)
 {
@@ -680,11 +654,6 @@ static void __stdcall EVENT_ScheduleTimer(D2UnitStrc* pUnit, EventTimerCallback 
 void __fastcall EVENT_SetEventWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, EventTimerCallback pCallback, int nCustomId, int nCustomParam)
 {
     EVENT_ScheduleTimer(pUnit, pCallback, nCustomId, nCustomParam, pGame, nEventType, nExpireFrame);
-}
-
-int* __fastcall sub_K10_EmitGetSlot(D2Unk00540B70Owner* pOwner, int nType)
-{
-    return EVENT_GetTimerSlot(pOwner, nType, nType + 1);
 }
 
 #include "gen/data/Source/D2Game/GAME/Event.inc"

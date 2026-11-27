@@ -43665,7 +43665,7 @@
     {
      "va": "0x00540B70",
      "length": 58,
-     "name": "?EVENT_GetTimerSlot@@YGPAHPAUD2Unk00540B70Owner@@HH@Z"
+     "name": "?EVENT_GetTimerListTail@@YGPAPAUD2EventTimerStrc@@PAUD2GameStrc@@HH@Z"
     },
     {
      "va": "0x00540BB0",
@@ -48370,7 +48370,7 @@
     {
      "va": "0x0057B630",
      "length": 37,
-     "name": "?SUNITDMG_AddDemonDamagePercent@@YGXPAUD2UnitStrc@@0PAUD2UnkDamageRecordStrc@@@Z"
+     "name": "?SUNITDMG_AddDemonDamagePercent@@YGXPAUD2UnitStrc@@0PAUD2DamageStrc@@@Z"
     },
     {
      "va": "0x0057B660",
