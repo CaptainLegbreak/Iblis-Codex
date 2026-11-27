@@ -230,6 +230,13 @@ extern WNDPROC gpfnGfxWndProc; // 0x007C8CAC
 
 extern const char* gszWindowClassName; // 0x007C9158
 
+extern D2GraphicsInterfaceStrc gtGdiGraphicsInterface; // 0x0074C4A8
+extern D2GraphicsInterfaceStrc gtDDrawGraphicsInterface; // 0x0072F6D0
+extern D2GraphicsInterfaceStrc gtGlideGraphicsInterface; // 0x0072F178
+extern D2GraphicsInterfaceStrc gtD3DGraphicsInterface; // 0x0074BF28
+
+// Static data, indexed by video mode: each entry points to one renderer's interface
+// (GDI, DirectDraw, Glide, Direct3D); modes without a renderer are null.
 extern D2GraphicsInterfaceStrc* gapGraphicsInterfaces[]; // 0x0072DA80
 
 extern const unsigned char gabGraphicsHelpers[]; // 0x0072DA60
