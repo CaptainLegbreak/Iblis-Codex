@@ -4,8 +4,10 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- **lane1/multitypes-fields** (c09c457fe, on main #484 8acabb402; VERIFIED tree 43fe717709c64030720675bfdf62a1074685225d). D2MultiTypes.h, 37 `unk0x..` -> 2 (Source/Include `unk0x` 442 -> 407). D2LaunchFuncsStrc is BnClient's interface: its unnamed slots become typed function pointers with D2MOO's names and signatures (five D2MOO leaves unnamed stay as `pfn0x<off>`, like the existing `pfn0xA8`, which becomes D2MOO's pfnLoadBNetNews; its one caller in ChatDlg.cpp renamed). D2ConfigStrc gets D2MOO's bNoPK, bOpenC, dwMonsterClass, bMonsterInfo, dwMonsterDebug, bRare, bUnique, bCheats, bTeen; the unread bytes inside its string buffers become `unused0x<off>`. Left: D2ConfigStrc 0x20E/0x20F (copied into the game-create packet's 0x2B/0x2C, which D2MOO also leaves unknown and nothing reads). Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose (pointer casts 4,915 -> 4,915; the new slots name their pointer parameters so they don't read as casts). linkdebt: 25,066 -> 25,066, every module unchanged.
 ## Claimed
 
+- Fri Nov 27 11:27 PST 2026: multitypes-fields Ready. cmptypes-fields (D2CmpTypes.h, 28) building.
 - Fri Nov 27 11:10 PST 2026: check-in. #484 took questdata-fields-2 and txt-fields (Ready lines dropped). multitypes-fields (D2MultiTypes.h, 37 -> 2) verified on #483, rebased onto #484 and verifying again. Next: D2CmpTypes.h (28), claimed: that header and the D2CMP units that name its fields.
 - Fri Nov 27 10:38 PST 2026: txt-fields Ready. Next: lane1/multitypes-fields, the 37 `unk0x..` of Source/Include/D2MultiTypes.h (claimed: that header and the D2Launch/D2Multi/D2Win units that name those fields; lane 11, if names-d2multi or names-d2launch touch the same lines, I rebase onto yours).
 - Fri Nov 27 10:22 PST 2026: questdata-fields-2 Ready. Next: lane1/txt-fields, the 54 `unk0x..` of Source/Include/D2Txt.h (claimed: that header only; no code reads those fields by name), building now.
@@ -15,6 +17,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 ## Questions
 
 ## Notes for other lanes
+
+- D2CmpTypes.h's D2CmpSpriteContextStrc and D2CmpCelContextStrc are views of the 0x48 cel context, D2CelContext.h's D2GfxDataStrc (same offsets: nFrames 0x30, pCelFile 0x34, nDrawFlag 0x38, pCel 0x3C, nDirection 0x40). Folding them into D2GfxDataStrc is queue item 2 (D2CMP's folder); I'll take it there.
 
 # Lane 1, earlier (stopped 2026-11-27 01:54 PT; kept as the record)
 
