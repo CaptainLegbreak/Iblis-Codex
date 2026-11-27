@@ -5,12 +5,21 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
-- Fri Nov 27 04:05 PST 2026: **lane13/ancient-equipment** (948681301, on main f6f04a987). VERIFIED tree dc9a99dae92542dee1cc0872404314bc1672a3f2; Game.exe identical. Audit guard: no count rose. This is the D2Game cluster 0x006E1BB0-0x006E2CF0 (4,416 B, 35 globals).
-  - `gszTargetsSourceFile` (Targets.cpp, 0x006E2C78) was declared 120 chars. That ran over the 96 B table at 0x006E2C90 that MONSTERSPAWN_EquipAncientBarbarians reads as `gtAncientEquipment[nClassId - 540]`, which no source defined. The string is now its 20 chars, and Unknown_005B24E0.cpp defines `gtAncientEquipment[12]` (D2MonsterEquipmentStrc, declared in the plan).
-  - The cluster itself came from that `[esi*8 + gtAncientEquipment - 540*8]` access, so it goes away with lane13/cluster-rule.
-  - **Counts on main:** unchanged (data_cluster 7,072 / 666; 126 clusters; 702 globals kept, up 1 because the new global sits inside the old cluster).
-  - **With cluster-rule's link.py:** 78 clusters, 58,706 -> 54,354 B, 600 -> 567 globals; data_cluster 6,357 / 575 -> 6,305 / 542; total 30,093 -> 30,076.
-  - shortdata: 342 -> 342.
+- Fri Nov 27 04:48 PST 2026: **lane13/cluster-rule-2** (0bdda1c5e, on lane13/cluster-rule 5434a8696; **supersedes cluster-rule**, take this one). VERIFIED tree f66d34ecd95d455e1568ff41657af8abc4c241a1; Game.exe identical. Audit guard: no count rose. Only tools/link.py changes.
+  - **The extension.** A `cmp` with an immediate (3D, 81 /7) reads no memory at that address, so any such operand outside its array is now plain: a loop bound, including an unrolled loop's `a + size + 4`. D2Game's gnGamesGUIDs[1024] is walked four entries a step and compared with `gnGamesGUIDs + 1025`. That is your condition (a), the loop bound, read as "any compare" rather than "exactly one past the end". Other immediates (push, mov) still have to be exactly one past the end, and (2) is unchanged: a constant read past the end with no register still makes a cluster.
+  - The read-back check now skips a global that lies in its section's uninitialised tail (nothing to compare). The newly freed globals exposed one: D2Win gData_0072E1BA.
+  - **Read back:** 14,927 / 14,927 verified functions and 2,408 / 2,408 initialised globals equal; image valid, same imports.
+  - **Counts on main, before -> cluster-rule -> cluster-rule-2:**
+    - data clusters: 126 -> 78 -> 51; 534,127 -> 58,706 -> 41,485 B; 701 -> 600 -> 484 globals.
+    - data_cluster: 7,072 / 666 -> 6,357 / 575 -> 3,436 / 473.
+    - linkdebt total: 30,698 -> 30,093 -> 27,386. No module rose.
+    - As in cluster-rule, globals freed from blocks bring their own debts back into view (placeholder 3,544, different_identifier 5,744, duplicate_data 1,075, interior 134).
+- Fri Nov 27 04:48 PST 2026 (replaces the 04:05 entry): **lane13/ancient-equipment** (1c474e69d, on main f6f04a987). VERIFIED tree a6cb89c70192b0386356f4b39363ad52b1941c65; Game.exe identical. Audit guard: no count rose. This is the D2Game cluster 0x006E1BB0-0x006E2CF0 (4,416 B, 35 globals). Two commits:
+  - `gszTargetsSourceFile` (Targets.cpp, 0x006E2C78) was declared 120 chars. That ran over the 96 B table at 0x006E2C90 that MONSTERSPAWN_EquipAncientBarbarians reads as `gtAncientEquipment[nClassId - 540]`, which no source defined. The string is now its 20 chars, and Unknown_005B24E0.cpp defines `gtAncientEquipment[12]` (D2MonsterEquipmentStrc).
+  - `gszA1Q2SourceFile` (a1q2.cpp, 0x006E1B98) is a 49-char path but was declared 24. Its last 28 bytes were a separate record in Unknown_005B24E0.cpp, `gaAncientBarbItems` (0x006E1BB0), named after nothing real: 0x006E1BB0 is only where `gtAncientEquipment - 540*8` folds to. The string is whole now and that record is gone.
+  - **Counts on main:** 126 clusters, 534,127 -> 534,151 B, 701 -> 702 globals. data_cluster 7,072 / 666 -> 7,080 / 667: the whole string now sits inside the cluster this access still makes on main. Linkdebt total 30,698 -> 30,698, every module unchanged. shortdata 342 -> 342.
+  - **With cluster-rule-2's link.py:** this cluster goes away (51 clusters, 37,133 B, 451 globals; data_cluster 3,384 / 440; total 27,369), and link.py reads back all 14,927 functions and 2,441 initialised globals equal.
+
 - Fri Nov 27 03:49 PST 2026: **lane13/control-templates** (b881a8f2e, on main f6f04a987). VERIFIED tree 17ec33e560032b01d4cb3754685ce3071a5774b9; Game.exe identical. Audit guard: no count rose. This is the largest cluster, 0x00708D10-0x0070D3C0 (18,096 B, 101 globals).
   - **D2Launch gatControlTemplates** (0x00708D10) is 333 templates of 48 B, indexed by template id up to 0x11F.
     - The plan had it as 42 MainMenus records: the first 26 entries, byte runs, the 16 `gLayout_*` ints MainMenus sets for its language layout, and `gpGlobal_0070B738`.
@@ -55,6 +64,7 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
   - Counts, before -> after: shortdata 342 -> 341 (gone: 0x007799FC and 0x006EB520; new: 0x006EB3F0 with 16 B room, which is the string literal at 0x006EB534 and not part of the table). The Monster table wasn't a candidate, because bytes records sat in its room. linkdebt data_cluster 7,072 refs / 666 targets / 126 clusters -> unchanged; none of the three were clusters.
 
 ## Claimed
+- Fri Nov 27 04:48 PST 2026: cluster-rule-2 Ready; ancient-equipment updated (second commit). Next: D2Client QuestLog 0x007BF298-0x007C0274 (one packed struct of about 4 KB, which the sources split into about 20 globals at odd addresses, several of them aliases of 0x007BF298). Claimed: Source/D2Client/UI/QuestLog.cpp.
 - Fri Nov 27 04:05 PST 2026: ancient-equipment Ready. Next: D2Game 0x00882D38 (gnGamesGUIDs, 3 globals) and D2Client 0x007BF298 (16 globals). Files claimed as I start each.
 - Fri Nov 27 03:49 PST 2026: control-templates Ready. Next cluster: D2Game 0x006E1BB0-0x006E2CF0 (4,416 B, 35 globals), then 0x00882D38 (gnGamesGUIDs) and D2Client 0x007BF298. Files claimed as I start each.
 - Fri Nov 27 03:29 PST 2026: cluster-rule Ready. Next: the 78 remaining clusters (real split structs and short arrays, constant reads past the end), largest first, leaving 0x0096BC30 for last with a reading first. Files claimed as I start each one. Then the raw-offsets lines that fall in data work.
