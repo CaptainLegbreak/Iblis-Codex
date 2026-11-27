@@ -73,7 +73,6 @@ struct Coord;
 
 struct D2DrlgCoordsStrc;
 
-struct Obj00619720;
 
 struct sub_Z16_EmitRoomHolder;
 
@@ -83,7 +82,6 @@ struct D2ActRoom00619DA0Strc;
 
 struct D2Act00619DA0Strc;
 
-struct Obj00619EE0;
 
 struct Unicode;
 
@@ -177,7 +175,6 @@ void __fastcall DRLGANIM_UpdateFrameInAdjacentRooms(D2DrlgRoomStrc* pDrlgRoom1, 
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
-struct Obj00619720 { unsigned int dwUnknown00[6]; unsigned int dwMember18; };
 
 
 int __fastcall DRLGROOM_ReorderNearRoomList(D2DrlgRoomStrc* pDrlgRoom, D2ActiveRoomStrc** ppRoomList); // 0x0066BD00
@@ -216,19 +213,6 @@ struct D2Act00619DA0Strc
     D2ActRoom00619DA0Strc* pFirstRoom10;
 };
 
-struct Obj00619EE0 {
-    unsigned int dwUnknown00;
-    unsigned int dwUnknown04;
-    unsigned int dwUnknown08;
-    unsigned int dwUnknown0C;
-    unsigned int f_10;
-    unsigned int dwUnknown14;
-    unsigned int dwUnknown18;
-    unsigned int dwUnknown1C;
-    unsigned int dwUnknown20;
-    unsigned int dwUnknown24;
-    int nCount28;
-};
 
 
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -427,8 +411,9 @@ D2DrlgTileDataStrc* __stdcall DUNGEON_GetRoofTilesFromRoom(D2ActiveRoomStrc* pRo
 }
 
 // 0x00619720
-extern "C" __declspec(dllexport) unsigned int* __stdcall DUNGEON_GetTileDataFromAct(Obj00619720* pObj) {
-    return &pObj->dwMember18;
+void** __stdcall DUNGEON_GetTileDataFromAct(D2DrlgActStrc* pAct)
+{
+    return pAct->pTileData;
 }
 
 // 0x00619730
@@ -745,9 +730,11 @@ D2UnitStrc* __stdcall DUNGEON_GetFirstUnitInRoom(D2ActiveRoomStrc* ptRoom)
 }
 
 // 0x00619EE0
-extern "C" __declspec(dllexport) void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(Obj00619EE0* pObj) {
-    if (pObj) {
-        pObj->nCount28++;
+void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom)
+{
+    if (pRoom)
+    {
+        ++pRoom->nAllies;
     }
 }
 

@@ -41,21 +41,13 @@ struct D2ItemStatCostTxt;
 
 struct D2CharStatsTxt;
 
-struct Obj00625250;
 
-struct Obj006252B0;
 
-struct Obj006252D0;
 
-struct Obj006252F0;
 
-struct Obj00625330;
 
-struct Obj00625CE0;
 
-struct Obj00626090;
 
-struct Obj006260B0;
 
 struct D2StatListStrc;
 
@@ -89,15 +81,10 @@ int __fastcall STATLIST_GetStatFromLayer(D2StatListStrc* pStatListEx, int nLayer
 
 int __fastcall STATLIST_UpdateStatOps(D2StatListStrc* pStatListEx, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord, D2UnitStrc* pUnit);
 
-struct Obj00625250 { unsigned int dwUnknown00; unsigned int dwUnknown04; unsigned int dwValue08; };
 
-struct Obj006252B0 { unsigned char bUnknown00[0x0C]; unsigned int dwValue0C; };
 
-struct Obj006252D0 { unsigned char bUnknown00[0x14]; unsigned int dwValue14; };
 
-struct Obj006252F0 { unsigned char bUnknown00[0x14]; unsigned int dwValue14; };
 
-struct Obj00625330 { unsigned char bUnknown00[0x18]; unsigned int dwValue18; };
 
 int __stdcall STATLIST_GetStatValueWithPercent(D2StatListStrc* pStatList, int nStatId, int nPercentStatId, int bAddBonus); // 0x006255A0
 
@@ -109,12 +96,9 @@ extern int gnItemsCalcFunctions; // 0x0074465C
 
 int __fastcall ITEMMODS_GetCalcParamValue_Return0(int nParam, void* pUserData); // 0x00627B40
 
-struct Obj00625CE0 { unsigned char bUnknown00[0x38]; unsigned int dwValue38; };
 
 
-struct Obj00626090 { unsigned char bUnknown00[0x18]; unsigned int dwValue18; };
 
-struct Obj006260B0 { unsigned char bUnknown00[0x10]; unsigned int dwFlags10; unsigned int dwUnknown14; int nValue18; };
 
 void __fastcall D2Common_STATLIST_FreeStatListImpl(D2StatListStrc* pStatList); // 0x00626C00
 
@@ -609,11 +593,14 @@ D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fF
 }
 
 // 0x00625250
-extern "C" __declspec(dllexport) unsigned int __stdcall STATLIST_GetOwnerType(Obj00625250* pObj) {
-    if (!pObj) {
-        return 6;
+int __stdcall STATLIST_GetOwnerType(D2StatListStrc* pStatList)
+{
+    if (!pStatList)
+    {
+        return UNIT_INVALID;
     }
-    return pObj->dwValue08;
+
+    return pStatList->dwOwnerType;
 }
 
 // 0x00625270
@@ -639,11 +626,14 @@ int __stdcall STATLIST_GetFullStatsCountFromUnit(D2UnitStrc* pUnit)
 }
 
 // 0x006252B0
-extern "C" __declspec(dllexport) unsigned int __stdcall STATLIST_GetOwnerGUID(Obj006252B0* pObj) {
-    if (!pObj) {
+int __stdcall STATLIST_GetOwnerGUID(D2StatListStrc* pStatList)
+{
+    if (!pStatList)
+    {
         return 0;
     }
-    return pObj->dwValue0C;
+
+    return pStatList->dwOwnerId;
 }
 
 inline D2SkillsTxt* __fastcall DATATBLS_GetSkillsTxtRecord(int nSkillId)
@@ -654,18 +644,23 @@ inline D2SkillsTxt* __fastcall DATATBLS_GetSkillsTxtRecord(int nSkillId)
 }
 
 // 0x006252D0
-extern "C" __declspec(dllexport) void __stdcall STATLIST_SetState(Obj006252D0* pObj, unsigned int dwValue) {
-    if (pObj) {
-        pObj->dwValue14 = dwValue;
+void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState)
+{
+    if (pStatList)
+    {
+        pStatList->dwStateNo = nState;
     }
 }
 
 // 0x006252F0
-extern "C" __declspec(dllexport) unsigned int __stdcall STATLIST_GetState(Obj006252F0* pObj) {
-    if (!pObj) {
+int __stdcall STATLIST_GetState(D2StatListStrc* pStatList)
+{
+    if (!pStatList)
+    {
         return 0;
     }
-    return pObj->dwValue14;
+
+    return pStatList->dwStateNo;
 }
 
 // 0x00625310
@@ -683,11 +678,14 @@ void __stdcall STATLIST_SetExpireFrame(D2StatListStrc* pStatList, int nExpireFra
 }
 
 // 0x00625330
-extern "C" __declspec(dllexport) unsigned int __stdcall STATLIST_GetExpireFrame(Obj00625330* pObj) {
-    if (!pObj) {
+int __stdcall STATLIST_GetExpireFrame(D2StatListStrc* pStatList)
+{
+    if (!pStatList)
+    {
         return 0;
     }
-    return pObj->dwValue18;
+
+    return pStatList->dwExpireFrame;
 }
 
 // 0x00625350
@@ -1324,9 +1322,11 @@ int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc* pStatList, D2StatStrc* p
 }
 
 // 0x00625CE0
-extern "C" __declspec(dllexport) void __stdcall STATLIST_SetStatRemoveCallback(Obj00625CE0* pObj, unsigned int dwValue) {
-    if (pObj) {
-        pObj->dwValue38 = dwValue;
+void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatListRemoveFunc pfStatRemove)
+{
+    if (pStatList)
+    {
+        pStatList->fpStatRemove = pfStatRemove;
     }
 }
 
@@ -1581,20 +1581,26 @@ int __stdcall D2Common_11248(D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nStatId
 }
 
 // 0x00626090
-extern "C" __declspec(dllexport) unsigned int __stdcall STATLIST_GetListExpireFrame(Obj00626090* pObj) {
-    if (!pObj) {
+int __stdcall STATLIST_GetListExpireFrame(D2StatListStrc* pStatList)
+{
+    if (!pStatList)
+    {
         return 0;
     }
-    return pObj->dwValue18;
+
+    return pStatList->dwExpireFrame;
 }
 
 // 0x006260B0
-extern "C" __declspec(dllexport) void __stdcall STATLIST_SetListExpireFrame(Obj006260B0* pObj, int nValue) {
-    if (pObj) {
-        if (nValue > 0) {
-            pObj->dwFlags10 |= 2;
+void __stdcall STATLIST_SetListExpireFrame(D2StatListStrc* pStatList, int nExpireFrame)
+{
+    if (pStatList)
+    {
+        if (nExpireFrame > 0)
+        {
+            pStatList->dwFlags |= STATLIST_NEWLENGTH;
         }
-        pObj->nValue18 = nValue;
+        pStatList->dwExpireFrame = nExpireFrame;
     }
 }
 

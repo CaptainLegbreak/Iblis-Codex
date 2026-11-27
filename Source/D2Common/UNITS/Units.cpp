@@ -3607,7 +3607,8 @@ int __stdcall UNITS_GetWeaponGUID(D2UnitStrc* ptUnit)
 }
 
 // 0x00623460
-extern "C" __declspec(dllexport) int __stdcall UNITS_GetStashGoldLimit(int nUnused) {
+int __stdcall UNITS_GetStashGoldLimit(int nUnused)
+{
     return 2500000;
 }
 
