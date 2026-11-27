@@ -4331,7 +4331,7 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
         InitializeCriticalSection(&gtChatLock);
         if (!gpCharInfo->szRealm0x361[0])
 // build: symbol ?CHATDLG_PostClearMessage@* 0x0043E570
-            gpLaunchFuncs->pfn0xA8(CHATDLG_OnChatTime, (void (__cdecl*)())CHATDLG_PostClearMessage);
+            gpLaunchFuncs->pfnLoadBNetNews(CHATDLG_OnChatTime, (void (__cdecl*)())CHATDLG_PostClearMessage);
         sub_004FA590_RunLoop(CHATDLG_OnTick);
 // build: symbol ?GAME_IsMcpCreateQueued@* 0x00449E40
         if (GAME_IsMcpCreateQueued())
