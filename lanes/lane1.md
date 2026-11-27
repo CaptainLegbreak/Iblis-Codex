@@ -4,6 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- **lane1/clientui-fields** (0af5c26ad, on main #488 e92a08ebf; VERIFIED tree 36cc1827dc3ef626d1a6caf7d3a705d64f3599ee; independent). D2ClientUi.h: 12 `unk0x..` -> 0, none named by any code (its 37 units compile equal with them renamed): `unused0x<off>` (9) and `pad0x<off>` (3). Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 21,832 -> 21,832 (main #488), every module unchanged.
+
 - **lane1/gameclient-fields** (f30fff545, on main #488 e92a08ebf; VERIFIED tree bd0be2de98e3fbded0ac58e4781bdcf7acccf362; independent). D2GameClient.h: 15 `unk0x..` -> 0 in D2ClientStrc, none named by any code (D2MOO leaves the same spans unknown): `pad0x<off>` (5), `unused0x<off>` (10). Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 21,832 -> 21,832 (main #488), every module unchanged.
 
 - **lane1/gameserver-fields** (f2533f7d1, on main #488 e92a08ebf; VERIFIED tree 84fd2cf2966bac8818aba21c0fd7b46afeed481b; independent). D2GameServer.h: 13 `unk0x..` -> 0. D2ObjectRegionStrc 0x0C is nThemedRooms (OBJECTS_PopulateRoomTheme allows a theme only while nPopulatedRooms >= 10 * it, as the region's well and shrine counts are held against nPopulatedRooms; nothing increments it), one user in Objects.cpp. The server callback slots 0x24 and 0x40-0x50 are never called (the defaults are no-ops) and D2UnitInfoStrc 0x20 is unread: `unused0x<off>`; the rest `pad0x<off>`. D2NpcConfigStrc's `unknown06` is read (sunitproxy.cpp) and stays. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 21,832 -> 21,832 (main #488), every module unchanged.
@@ -17,6 +19,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Fri Nov 27 14:56 PST 2026: clientui-fields Ready. wintypes-fields building, then itemsworld-fields (D2ItemsWorld.h, 11; claimed). Next after those: **one definition for the BnClient interface**: D2MultiTypes.h's D2LaunchFuncsStrc, D2ComInterface.h's D2ComInterfaceStrc and D2ClientUi.h's D2ClientNotifyStrc are the same table (D2MOO's BnClientInterface; same slots at 0x14, 0x24, 0x34, 0x90 ...). Plan: D2ComInterfaceStrc keeps it, every slot gets D2MOO's name (our typed signatures kept), the other two become uses of it. Claimed for that: those three headers and their users (D2Launch, D2Multi, D2Client, Main/Main.cpp, Storm's shutdown call).
 - Fri Nov 27 14:49 PST 2026: gameclient-fields Ready. Building: clientui-fields (D2ClientUi.h, 12), then wintypes-fields (D2WinTypes.h, 11); claimed: those two headers. Both already compile equal in every including unit with all fields renamed.
 - Fri Nov 27 14:37 PST 2026: check-in. gameserver-fields Ready. gameclient-fields (D2GameClient.h, 15; claimed: that header) building; its 17 including units already compile equal with every field renamed, so no code names them.
 - Fri Nov 27 14:20 PST 2026: gametypes-fields Ready. gameserver-fields (D2GameServer.h, 13; claimed: that header and OBJECTS/Objects.cpp's one field spelling) building on #488.
