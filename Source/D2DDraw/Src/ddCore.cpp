@@ -131,7 +131,7 @@ extern int gbDDrawBinkDone; // 0x008816CC
 
 int __fastcall DDCORE_Close(); // 0x00511B80
 
-D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
+extern D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
 
 unsigned int gaGlideDebugLight[0x400]; // 0x0087F0D0
 

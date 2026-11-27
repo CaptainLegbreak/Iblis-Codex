@@ -148,9 +148,9 @@ unsigned char gabPeriodLightColors[12]; // 0x007A898C
 static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nValue, unsigned char* pOut1);
 
 
-unsigned int gnPhaseTotal; // 0x007A8A38
+extern unsigned int gnPhaseTotal; // 0x007A8A38
 
-unsigned int gnPhaseLeft; // 0x007A8A3C
+extern unsigned int gnPhaseLeft; // 0x007A8A3C
 
 struct D2ActiveRoomStrc;
 

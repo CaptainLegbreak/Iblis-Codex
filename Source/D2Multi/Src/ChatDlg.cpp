@@ -274,7 +274,7 @@ D2WinControlStrc* gpChatTextBox; // 0x0077BD8C
 
 extern char gszLastWhisperer[]; // 0x0077B0D0
 
-D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
+extern D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
 
 extern unsigned char gnSelectModeA; // 0x0070CD62
 
@@ -309,7 +309,7 @@ int gnSelection;                                                                
 
 D2CharSaveHeaderStrc gtCharSaveHeader; // 0x0077AC10
 
-int gbChatSetup; // 0x0077BBF8
+extern int gbChatSetup; // 0x0077BBF8
 
 struct D2LaunchRecord3Strc;
 
@@ -1195,7 +1195,7 @@ D2CelFileStrc* gpPopUpLargest2CelFile; // 0x0077BC0C
 
 D2CelFileStrc* gpMediumButtonBlank2CelFile; // 0x0077BC10
 
-D2CelFileStrc* gpBnetCursorOHandCelFile; // 0x0077BC14
+extern D2CelFileStrc* gpBnetCursorOHandCelFile; // 0x0077BC14
 
 D2CelFileStrc* gpCursorLRotateCelFile; // 0x0077BC18
 
@@ -2210,7 +2210,7 @@ int __fastcall sub_M110_Emit_0043E180(unsigned int nTime, _FILETIME* pFileTime)
 }
 
 
-D2WinControlStrc* gpChannelOkButton; // 0x0077BCEC
+extern D2WinControlStrc* gpChannelOkButton; // 0x0077BCEC
 
 // 0x0043E660
 void __cdecl CHATDLG_UpdateOkEnabled()
@@ -2913,7 +2913,7 @@ static inline void CHATDLG_SaveDefaultChannel(const char* szChannel)
 
 void __cdecl CHATDLG_DestroyDialogControls();                                                                // 0x0043DB20
 
-D2WinControlStrc* gpControl_0077BD90;                                                                       // 0x0077BD90
+extern D2WinControlStrc* gpControl_0077BD90; // 0x0077BD90
 
 extern int gdwGlobal_00798CC0;                                                                              // 0x00798CC0
 
@@ -3557,9 +3557,9 @@ int __stdcall CHATDLG_ShowExpansionHardcoreLadder(int nArg)
 }
 
 
-int gbFlag_0077ADA4; // 0x0077ADA4
+extern int gbFlag_0077ADA4; // 0x0077ADA4
 
-D2LaunchRecord3Strc gtRecord_0077B0A8; // 0x0077B0A8
+extern D2LaunchRecord3Strc gtRecord_0077B0A8; // 0x0077B0A8
 
 // 0x00440CA0
 int __fastcall MAINMENUS_RequestProfile(int nA, int nB, int nC, int nD)
@@ -4765,9 +4765,9 @@ int __fastcall D2Win_10057(D2WinControlStrc* pControl, const char* szText, int n
 extern D2LaunchGameRecStrc gaGames[]; // 0x0078A440
 
 
-D2WinControlStrc* gpGameList; // 0x00798BC0
+extern D2WinControlStrc* gpGameList; // 0x00798BC0
 
-int gnLastGameCount; // 0x00798CC8
+extern int gnLastGameCount; // 0x00798CC8
 
 
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
@@ -5272,7 +5272,7 @@ void __cdecl CHATDLG_UpdateCreateButton()
         CONTROL_SetEnabled(gpCreateButton, 0);
 }
 
-D2WinControlStrc* gpJoinButton; // 0x00798BCC
+extern D2WinControlStrc* gpJoinButton; // 0x00798BCC
 
 // 0x004437E0
 void __cdecl CHATDLG_UpdateJoinButtonState()
@@ -5522,19 +5522,19 @@ extern D2WinControlInitStrc gtSubmitButtonInit; // 0x0070E950
 
 extern D2WinControlInitStrc gtSelectButtonInit; // 0x0070E980
 
-int gbCheck; // 0x0077BD58
+extern int gbCheck; // 0x0077BD58
 
-D2WinControlStrc* gpControl_00798C74; // 0x00798C74
+extern D2WinControlStrc* gpControl_00798C74; // 0x00798C74
 
-D2WinControlStrc* gpSubmitEditA; // 0x00798C80
+extern D2WinControlStrc* gpSubmitEditA; // 0x00798C80
 
-D2WinControlStrc* gpSubmitEditB; // 0x00798C84
+extern D2WinControlStrc* gpSubmitEditB; // 0x00798C84
 
-D2WinControlStrc* gpSubmitEditC; // 0x00798C88
+extern D2WinControlStrc* gpSubmitEditC; // 0x00798C88
 
-D2WinControlStrc* gpSubmitButton; // 0x00798CA0
+extern D2WinControlStrc* gpSubmitButton; // 0x00798CA0
 
-D2WinControlStrc* gpSelectButton; // 0x00798CA4
+extern D2WinControlStrc* gpSelectButton; // 0x00798CA4
 
 void __fastcall CHATDLG_ShowProfileDialog(const char*,int,int); // 0x00445A80
 
@@ -6072,13 +6072,13 @@ extern D2WinControlInitStrc gtPanelCancelButtonInit; // 0x0070EB30
 
 extern D2WinControlInitStrc gtResetBuildPanelTimerInit; // 0x0070EB60
 
-D2WinControlStrc* gpPanelBackground; // 0x00798BEC
+extern D2WinControlStrc* gpPanelBackground; // 0x00798BEC
 
-D2WinControlStrc* gpPanelTitle; // 0x00798BF0
+extern D2WinControlStrc* gpPanelTitle; // 0x00798BF0
 
-D2WinControlStrc* gpPanelText; // 0x00798BF4
+extern D2WinControlStrc* gpPanelText; // 0x00798BF4
 
-D2WinControlStrc* gpPanelCancelButton; // 0x00798C48
+extern D2WinControlStrc* gpPanelCancelButton; // 0x00798C48
 
 // 0x004453B0
 void __cdecl COMCALLBACK_BuildCreateGamePanel()
@@ -6297,19 +6297,19 @@ extern D2WinControlInitStrc gtJoinButtonInit;                                   
 
 extern D2WinControlInitStrc gtGameInfoTextInit;                                                         // 0x0070D8A0
 
-D2WinControlStrc* gpJoinName;                                                                      // 0x00798BD4
+extern D2WinControlStrc* gpJoinName; // 0x00798BD4
 
-D2WinControlStrc* gpJoinPassword;                                                                       // 0x00798BD8
+extern D2WinControlStrc* gpJoinPassword; // 0x00798BD8
 
-D2WinControlStrc* gpJoinGameTitle;                                                                       // 0x00798BDC
+extern D2WinControlStrc* gpJoinGameTitle; // 0x00798BDC
 
-D2WinControlStrc* gpJoinNameLabel;                                                                       // 0x00798BE0
+extern D2WinControlStrc* gpJoinNameLabel; // 0x00798BE0
 
-D2WinControlStrc* gpJoinPasswordLabel;                                                                       // 0x00798BE4
+extern D2WinControlStrc* gpJoinPasswordLabel; // 0x00798BE4
 
-D2WinControlStrc* gpControl_00798BE8;                                                                       // 0x00798BE8
+extern D2WinControlStrc* gpControl_00798BE8; // 0x00798BE8
 
-unsigned long gdwLastRefresh;                                                                      // 0x00798CF0
+extern unsigned long gdwLastRefresh; // 0x00798CF0
 
 // 0x00445DF0
 void __cdecl CHATDLG_CreateJoinScreen()

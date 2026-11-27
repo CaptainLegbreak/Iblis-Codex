@@ -1317,9 +1317,9 @@ extern int gnProgressiveStatesBottom; // 0x007111D4
 
 extern void* gpGlobal_007A0634; // 0x007A0634
 
-int gbOverlaysEnabled; // 0x007A289C
+extern int gbOverlaysEnabled; // 0x007A289C
 
-int gnOverlayStep; // 0x007A3138
+extern int gnOverlayStep; // 0x007A3138
 
 // 0x00453470
 void __cdecl UI_DrawProgressiveStates()

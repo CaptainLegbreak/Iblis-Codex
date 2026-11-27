@@ -341,7 +341,7 @@ int __stdcall sub_M118_Emit_004FD5A0(const D2WinImageClickRectStrc* pClickRect, 
     return 0;
 }
 
-tagPOINT gtMousePosition; // 0x007D55A4
+extern tagPOINT gtMousePosition; // 0x007D55A4
 struct Point { int x, y; };
 
 // 0x004FD5D0

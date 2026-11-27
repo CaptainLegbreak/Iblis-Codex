@@ -107,7 +107,7 @@ extern "C" const unsigned char gData_006FFC46[18] = { // 0x006FFC46
 };
 #include "D2MCPClientApi.h"
 
-int gnGameCount; // 0x00798CCC
+extern int gnGameCount; // 0x00798CCC
 
 static inline int sub_00444E70_HasProgress(unsigned short wFlags, unsigned int nClassic, unsigned int nExpansion)
 {

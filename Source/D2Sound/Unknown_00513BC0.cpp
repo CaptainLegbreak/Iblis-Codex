@@ -55,9 +55,9 @@ void __cdecl sub_00419F30(); // 0x00419F30
 D2DirectSoundStrc* __cdecl D2SOUND_GetDirectSound(); // 0x00513B50
 
 
-int gnChannelTableSel; // 0x008817A4
+extern int gnChannelTableSel; // 0x008817A4
 
-int gbChannelTableInit; // 0x008817A8
+extern int gbChannelTableInit; // 0x008817A8
 
 extern "C" { int gnStreamChannelArg; } // 0x008817A0
 
@@ -328,7 +328,7 @@ struct D2EaxEnvironmentStrc
 };
 
 
-D2KsPropertySetStrc* gpEaxListenerPropertySet; // 0x008816D8
+extern D2KsPropertySetStrc* gpEaxListenerPropertySet; // 0x008816D8
 
 // 0x00513C50
 void __fastcall D2SOUND_SetEaxEnvironment(D2EaxEnvironmentStrc* pEnvironment)
@@ -713,9 +713,9 @@ __declspec(noinline) void __cdecl D2SOUND_DestroyStreamChannel()
 
 
 
-int gnChannelValue; // 0x00881798
+extern int gnChannelValue; // 0x00881798
 
-int gbChannelFlag; // 0x0088179C
+extern int gbChannelFlag; // 0x0088179C
 
 extern int gnChannelValue; // 0x00881798
 

@@ -1983,9 +1983,9 @@ static inline int HOTKEY_CheckWheelKey(int nCommand, int nKey)
     return 1;
 }
 
-D2WheelCallbackFn gpfnWheelUp; // 0x007A7404
+extern D2WheelCallbackFn gpfnWheelUp; // 0x007A7404
 
-D2WheelCallbackFn gpfnWheelDown; // 0x007A7408
+extern D2WheelCallbackFn gpfnWheelDown; // 0x007A7408
 
 typedef int (__stdcall* D2FarProcFn)();
 

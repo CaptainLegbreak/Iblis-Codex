@@ -403,9 +403,9 @@ struct D2ChatChannelMemberStrc
 
 int __fastcall COMCALLBACK_OnUserUpdate(unsigned int nFlags, int nUnused, const char* szName, const unsigned char* pStat); // 0x004480D0
 
-D2ChannelEntryStrc* gpChannelEntries; // 0x00798F38
+extern D2ChannelEntryStrc* gpChannelEntries; // 0x00798F38
 
-int gnChannelEntries_00798F3C; // 0x00798F3C
+extern int gnChannelEntries_00798F3C; // 0x00798F3C
 
 void __fastcall COMCALLBACK_PrintOwnLine(const char* szText);
 

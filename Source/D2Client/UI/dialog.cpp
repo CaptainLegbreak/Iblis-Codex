@@ -228,7 +228,7 @@ struct ROSTER_SetCtrlState
     int nState;
 };
 
-int gdwGlobal_007C0E5C; // 0x007C0E5C
+extern int gdwGlobal_007C0E5C; // 0x007C0E5C
 
 extern int gdwGlobal_007C0E54; // 0x007C0E54
 
