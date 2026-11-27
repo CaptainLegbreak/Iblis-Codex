@@ -1122,4 +1122,71 @@ void __fastcall sub_005179A4_FreeVirtualMemory(void* address)
 // build: symbol ??__FgFaultHandlerList@@YAXXZ 0x006CB401
 D2ListStrc gFaultHandlerList; // 0x0072FA14
 
-#include "gen/data/Source/D2Hell/Unknown_00516D8B.inc"
+#pragma pack(push, 1)
+struct d2data_006DEBE8_t
+{
+    unsigned char b0[112];
+    const void* p1;
+    const void* p2;
+};
+#pragma pack(pop)
+
+extern "C" const char* const gData_006CC848 = "Diablo 2.EXE"; // 0x006CC848
+#pragma comment(linker, "/alternatename:?gpszModuleName@@3QBDB=_gData_006CC848")
+
+extern "C" const struct d2data_006DEBE8_t gData_006DEBE8 = { // 0x006DEBE8
+    {
+        0x41, 0x6E, 0x20, 0x61, 0x73, 0x73, 0x65, 0x72, 0x74, 0x69, 0x6F, 0x6E, 0x20, 0x68, 0x61, 0x73,
+        0x20, 0x66, 0x61, 0x69, 0x6C, 0x65, 0x64, 0x2E, 0x0A, 0x0A, 0x46, 0x69, 0x6C, 0x65, 0x3A, 0x09,
+        0x09, 0x25, 0x73, 0x0A, 0x4C, 0x69, 0x6E, 0x65, 0x3A, 0x09, 0x09, 0x25, 0x64, 0x0A, 0x45, 0x78,
+        0x70, 0x72, 0x65, 0x73, 0x73, 0x69, 0x6F, 0x6E, 0x3A, 0x09, 0x25, 0x73, 0x0A, 0x0A, 0x41, 0x62,
+        0x6F, 0x72, 0x74, 0x20, 0x74, 0x6F, 0x20, 0x65, 0x78, 0x69, 0x74, 0x2C, 0x20, 0x52, 0x65, 0x74,
+        0x72, 0x79, 0x20, 0x74, 0x6F, 0x20, 0x62, 0x72, 0x65, 0x61, 0x6B, 0x2C, 0x20, 0x49, 0x67, 0x6E,
+        0x6F, 0x72, 0x65, 0x20, 0x74, 0x6F, 0x20, 0x63, 0x6F, 0x6E, 0x74, 0x69, 0x6E, 0x75, 0x65, 0x00
+    },
+    sgszAssertFormatString,
+    "D2Hell Fault.cpp error."
+};
+#pragma comment(linker, "/alternatename:?sgszAssertFormatString@@3QBDB=_gData_006DEBE8")
+
+extern const char* gpReference = "Blizzard Entertainment, Inc."; // 0x0072F9F0
+
+extern "C" const char* gData_0072F9F4[2] = { "~Nh", 0 }; // 0x0072F9F4
+
+extern "C" const char gData_0072F9FC[24] = ".?AUTMESSAGESOURCE@@"; // 0x0072F9FC
+#pragma comment(linker, "/alternatename:?gszRecordType@@3QBDB=_gData_0072F9FC")
+
+extern "C" const char* gData_0072FA20[32] = { // 0x0072FA20
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14",
+    0,
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14",
+    0
+};

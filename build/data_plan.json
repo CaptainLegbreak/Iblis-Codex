@@ -26,13 +26,14 @@
    "state": "included"
   },
   "Source/Fog/Unknown_00401010.cpp": {
-   "bytes": 28,
-   "definitions": 2,
+   "bytes": 4,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Fog/Unknown_00401010_00401B00.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "sourced": 1
   },
   "Source/D2Client/UI/automap.cpp": {
    "bytes": 636,
@@ -44,8 +45,8 @@
    "state": "included"
   },
   "Source/Main/Unknown_004059D0.cpp": {
-   "bytes": 108,
-   "definitions": 2,
+   "bytes": 48,
+   "definitions": 1,
    "externs": [
     "extern \"C\" void __cdecl sub_0042E590_SetOwner(); // 0x0042E590",
     "extern \"C\" void __cdecl sub_0042E5A0_Nop(); // 0x0042E5A0",
@@ -57,16 +58,15 @@
    "fn_types": {},
    "include": "gen/data/Source/D2Launch/Unknown_004059D0.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "sourced": 1
   },
   "Source/Main/Main.cpp": {
-   "bytes": 148,
-   "definitions": 5,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Main.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 5
   },
   "Source/Fog/Unknown_00410790.cpp": {
    "bytes": 0,
@@ -83,15 +83,16 @@
    "sourced": 5
   },
   "Source/Storm/SOURCE/SFILE.CPP": {
-   "bytes": 284,
-   "definitions": 7,
+   "bytes": 268,
+   "definitions": 3,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SFILE.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "sourced": 4
   },
   "Source/Fog/Src/LogManager.cpp": {
    "bytes": 0,
@@ -101,31 +102,25 @@
    "sourced": 5
   },
   "Source/Storm/SOURCE/SMEM.CPP": {
-   "bytes": 249,
-   "definitions": 7,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/SOURCE/SMEM.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 7
   },
   "Source/Storm/SOURCE/SCOMP.CPP": {
-   "bytes": 484,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/SOURCE/SCOMP.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 2
   },
   "Source/Storm/SOURCE/SERR.CPP": {
-   "bytes": 84,
-   "definitions": 4,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/SOURCE/SERR_0041C170.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 4
   },
   "Source/Storm/SOURCE/SSignature.cpp": {
    "bytes": 1044,
@@ -137,24 +132,18 @@
    "state": "included"
   },
   "Source/Storm/Unknown_0041EBC0.cpp": {
-   "bytes": 2322,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_0041EBC0.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/Storm/Unknown_00425720.cpp": {
-   "bytes": 64,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00425720.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/Storm/SOURCE/SBig.cpp": {
    "bytes": 724,
@@ -168,60 +157,46 @@
    "state": "included"
   },
   "Source/Storm/zlib/deflate.c": {
-   "bytes": 128,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/zlib/deflate.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "c",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 2
   },
   "Source/Storm/zlib/crc32.c": {
-   "bytes": 8192,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/zlib/crc32.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "c",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/Storm/zlib/zutil.c": {
-   "bytes": 40,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/zlib/zutil.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "c",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/Storm/zlib/inflate.c": {
-   "bytes": 2214,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/zlib/inflate.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 3
   },
   "Source/Storm/zlib/trees.c": {
-   "bytes": 756,
-   "definitions": 10,
-   "externs": [
-    "extern char gData_006D0EE0[]; // 0x006D0EE0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/zlib/trees.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "c",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 10
   },
   "Source/Storm/zlib/inftrees.c": {
-   "bytes": 252,
-   "definitions": 4,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/zlib/inftrees.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 4
   },
   "Source/D2Launch/Src/CharSel.cpp": {
    "bytes": 184,
@@ -318,8 +293,8 @@
    "state": "included"
   },
   "Source/D2Multi/Src/ComCallback.cpp": {
-   "bytes": 416,
-   "definitions": 4,
+   "bytes": 256,
+   "definitions": 1,
    "externs": [
     "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
     "extern \"C\" char gpBnetCancelButtonBlankCelFileB[]; // 0x0077BD2C",
@@ -367,7 +342,8 @@
    "fn_types": {},
    "include": "gen/data/Source/D2Multi/Src/ComCallback.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "sourced": 3
   },
   "Source/D2Client/SKILLS/Skills.cpp": {
    "bytes": 1532,
@@ -511,52 +487,25 @@
    "state": "included"
   },
   "Source/D2Multi/Src/ChatDlg.cpp": {
-   "bytes": 8060,
-   "definitions": 144,
-   "externs": [
-    "extern \"C\" void __cdecl CHARSEL_SendChatLine(); // 0x00446890",
-    "extern \"C\" void __cdecl COMCALLBACK_SendChatLine(); // 0x004468F0",
-    "extern \"C\" void __cdecl COMCALLBACK_OnChatPanelClick(); // 0x00446950",
-    "extern \"C\" void __cdecl COMCALLBACK_SendEmoteLine(); // 0x00446970",
-    "extern \"C\" void __cdecl COMCALLBACK_SquelchSelectedUser(); // 0x00448E30",
-    "extern \"C\" void __cdecl COMCALLBACK_UnsquelchSelectedUser(); // 0x00448F60",
-    "extern \"C\" void __cdecl sub_00441320(); // 0x00441320",
-    "extern \"C\" void __cdecl COMCALLBACK_OpenJoinScreen(); // 0x00446780",
-    "extern \"C\" void __cdecl COMCALLBACK_OpenCreateScreen(); // 0x004467D0",
-    "extern \"C\" void __cdecl COMCALLBACK_OnActivate(); // 0x00447A90",
-    "extern \"C\" char gData_0077BD84[]; // 0x0077BD84",
-    "extern \"C\" char gFirstRecordBlock_007A0818[]; // 0x007A0818",
-    "extern \"C\" void __cdecl sub_004456D0(); // 0x004456D0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Multi/Src/ChatDlg_0043C6B0.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 144
   },
   "Source/D2Multi/Unknown_00444020.cpp": {
-   "bytes": 18,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" char gData_0070CD84[]; // 0x0070CD84",
-    "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
-    "extern \"C\" char gpBnetJoinGameScrollBarsCelFile[]; // 0x0077BC20",
-    "extern \"C\" char gpBnetCancelButtonBlankCelFileB[]; // 0x0077BD2C",
-    "extern \"C\" char gpHelpBckgCelFile[]; // 0x0077BD44",
-    "extern \"C\" void __cdecl CHATDLG_OnProfileClose(); // 0x0043F720"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Multi/Unknown_00444020.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/D2Multi/Unknown_004450D0.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Multi/Unknown_004450D0.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/D2Client/CORE/WINMAIN.CPP": {
    "bytes": 788,
@@ -1134,8 +1083,8 @@
    "state": "included"
   },
   "Source/D2Glide/Src/glCore.cpp": {
-   "bytes": 420,
-   "definitions": 6,
+   "bytes": 216,
+   "definitions": 1,
    "externs": [
     "extern \"C\" void __cdecl GLDEBUGFONT_DebugPrintf(); // 0x0050BC90",
     "extern \"C\" void __cdecl GLIDE_DebugDraw(); // 0x0050BEF0",
@@ -1168,19 +1117,15 @@
    "fn_types": {},
    "include": "gen/data/Source/D2Glide/Src/glCore.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "sourced": 4
   },
   "Source/D2Gfx/SRC/Window.cpp": {
-   "bytes": 492,
-   "definitions": 15,
-   "externs": [
-    "extern \"C\" void __cdecl WINDOW_SetScreenBuffer(); // 0x004F8DE0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Gfx/SRC/Window.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included",
-   "static_definitions": 2
+   "state": "sourced",
+   "sourced": 15
   },
   "Source/D2Win/Unknown_004F6F60.cpp": {
    "bytes": 4,
@@ -1266,8 +1211,8 @@
    "state": "included"
   },
   "Source/D2DDraw/Src/ddCore.cpp": {
-   "bytes": 292,
-   "definitions": 7,
+   "bytes": 216,
+   "definitions": 1,
    "externs": [
     "extern \"C\" void __cdecl DDDEBUGFONT_DebugPrintf(); // 0x00512680",
     "extern \"C\" void __cdecl DDRAW_CelDrawHilight(); // 0x005123A0",
@@ -1290,61 +1235,36 @@
    "fn_types": {},
    "include": "gen/data/Source/D2DDraw/Src/ddCore.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "sourced": 6
   },
   "Source/D2Glide/Src/glSprite.cpp": {
-   "bytes": 128,
-   "definitions": 5,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Glide/Src/glSprite_0050A2D0.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 5
   },
   "Source/D2Glide/Unknown_0050BD30.cpp": {
-   "bytes": 952,
-   "definitions": 7,
-   "externs": [
-    "extern \"C\" char gData_00880474[]; // 0x00880474",
-    "extern \"C\" char gData_00880490[]; // 0x00880490",
-    "extern \"C\" char gData_008804AC[]; // 0x008804AC",
-    "extern \"C\" char gData_008804C8[]; // 0x008804C8",
-    "extern \"C\" char gData_008804E4[]; // 0x008804E4",
-    "extern \"C\" char gData_00880500[]; // 0x00880500",
-    "extern \"C\" char gData_0088051C[]; // 0x0088051C",
-    "extern \"C\" char gData_00880538[]; // 0x00880538",
-    "extern \"C\" char gData_00880554[]; // 0x00880554",
-    "extern \"C\" char gData_00880570[]; // 0x00880570",
-    "extern \"C\" char gData_0088058C[]; // 0x0088058C",
-    "extern \"C\" char gData_008805A8[]; // 0x008805A8",
-    "extern \"C\" char gData_008805C4[]; // 0x008805C4",
-    "extern \"C\" char gData_008805E0[]; // 0x008805E0",
-    "extern \"C\" char gData_00880704[]; // 0x00880704",
-    "extern \"C\" char gData_008809C0[]; // 0x008809C0",
-    "extern \"C\" char gData_00880A4C[]; // 0x00880A4C"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Glide/Unknown_0050BD30.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 7
   },
   "Source/D2Glide/Src/glTextureCache.cpp": {
-   "bytes": 20,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Glide/Src/glTextureCache.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 2
   },
   "Source/D2DDraw/Src/ddSmack.cpp": {
-   "bytes": 452,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2DDraw/Src/ddSmack_00513400.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/D2Sound/Unknown_00513A20.cpp": {
    "bytes": 0,
@@ -1361,78 +1281,25 @@
    "sourced": 6
   },
   "Source/D2BNClient/Unknown_00518C00.cpp": {
-   "bytes": 1240,
-   "definitions": 2,
-   "externs": [
-    "extern \"C\" void __cdecl sub_00518BC0_Field00(); // 0x00518BC0",
-    "extern \"C\" void __cdecl BNDOWNLOAD_ConfigureLog(); // 0x00518C70",
-    "extern \"C\" void __cdecl BNDOWNLOAD_LogPrintf(); // 0x00518D40",
-    "extern \"C\" void __cdecl CACHE_FreeCachedFile(); // 0x005193C0",
-    "extern \"C\" void __cdecl CACHE_LoadCachedFile(); // 0x00519920",
-    "extern \"C\" void __cdecl sub_00519DB0_HandOnDownload(); // 0x00519DB0",
-    "extern \"C\" void __cdecl BNSEND_QueryAdUrl(); // 0x0051ABB0",
-    "extern \"C\" void __cdecl BNSEND_QueryRealms(); // 0x0051ABF0",
-    "extern \"C\" void __cdecl BNSEND_GetChannelList(); // 0x0051AC50",
-    "extern \"C\" void __cdecl BNSEND_JoinChannel(); // 0x0051ACA0",
-    "extern \"C\" void __cdecl BNSEND_ChatCommand(); // 0x0051AF40",
-    "extern \"C\" void __cdecl BNSEND_CheckAd(); // 0x0051B010",
-    "extern \"C\" void __cdecl BNSEND_SendStartAdvex(); // 0x0051B0E0",
-    "extern \"C\" void __cdecl BNSEND_SendStopAdv(); // 0x0051B1B0",
-    "extern \"C\" void __cdecl BNSEND_LeaveGame(); // 0x0051B1D0",
-    "extern \"C\" void __cdecl BNSEND_GetStartAdvResult(); // 0x0051B1F0",
-    "extern \"C\" void __cdecl BNSEND_GetGamesList(); // 0x0051B240",
-    "extern \"C\" void __cdecl BNSEND_SendNotifyJoin(); // 0x0051B320",
-    "extern \"C\" void __cdecl BNSEND_LogonRealm(); // 0x0051B460",
-    "extern \"C\" void __cdecl BNSEND_SendAdClick(); // 0x0051B6C0",
-    "extern \"C\" void __cdecl BNSEND_SendWriteUserData(); // 0x0051B6F0",
-    "extern \"C\" void __cdecl BNSEND_SendReadUserData(); // 0x0051B870",
-    "extern \"C\" void __cdecl BNSEND_GetReadUserDataReply(); // 0x0051B960",
-    "extern \"C\" void __cdecl BNSEND_SetEmail(); // 0x0051BA00",
-    "extern \"C\" void __cdecl BNSEND_ResetPassword(); // 0x0051BAA0",
-    "extern \"C\" void __cdecl BNSEND_ChangeEmail(); // 0x0051BB90",
-    "extern \"C\" void __cdecl BNSEND_GetGatewayAccess(); // 0x0051C180",
-    "extern \"C\" void __cdecl BNSEND_GetDnsPending(); // 0x0051C210",
-    "extern \"C\" void __cdecl BNSEND_Logon(); // 0x0051C240",
-    "extern \"C\" void __cdecl BNSEND_GetLogonResult(); // 0x0051C290",
-    "extern \"C\" void __cdecl BNSEND_CreateAccount(); // 0x0051C2D0",
-    "extern \"C\" void __cdecl BNSEND_GetCreateAccountResult(); // 0x0051C320",
-    "extern \"C\" void __cdecl BNSEND_ChangePassword(); // 0x0051C350",
-    "extern \"C\" void __cdecl BNSEND_GetChangePasswordResult(); // 0x0051C3B0",
-    "extern \"C\" void __cdecl BNDOWNLOAD_EnterChat(); // 0x0051C3E0",
-    "extern \"C\" void __cdecl BNSEND_LeaveChat(); // 0x0051C460",
-    "extern \"C\" void __cdecl sub_0051CA10_Return14(); // 0x0051CA10",
-    "extern \"C\" void __cdecl BNSEND_GetGatewayLetter(); // 0x0051CA20",
-    "extern \"C\" void __cdecl BNDOWNLOAD_IsReady(); // 0x0051CA30",
-    "extern \"C\" void __cdecl BNCLIENT_IsSetEmailRequested(); // 0x0051CA70",
-    "extern \"C\" void __cdecl BNSEND_OpenBNetConnection(); // 0x0051D1C0",
-    "extern \"C\" void __cdecl BNNEWS_UnloadBNetNews(); // 0x0051D750",
-    "extern \"C\" void __cdecl BNSEND_LoadBNetNews(); // 0x0051DBF0",
-    "extern \"C\" void __cdecl BNSEND_CheckCDKeys(); // 0x0051E270",
-    "extern \"C\" void __cdecl BNDOWNLOAD_SendGetFileTime(); // 0x0051E3D0",
-    "extern \"C\" void __cdecl BNCLIENT_GetDownloadPercent(); // 0x0051EA70",
-    "extern \"C\" void __cdecl BNSEND_GetPatchResult(); // 0x0051F2D0",
-    "extern \"C\" void __cdecl BNDOWNLOAD_RequestNamedFile(); // 0x00520020",
-    "extern \"C\" void __cdecl BNMESSQUEUE_TakeMessage(); // 0x005203B0",
-    "extern \"C\" void __cdecl BNMESSQUEUE_TakeState(); // 0x00520580",
-    "extern \"C\" void __cdecl sub_00520650_GetInfoText(); // 0x00520650"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2BNClient/Unknown_00518C00.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 2
   },
   "Source/D2BNClient/CACHE.CPP": {
-   "bytes": 68,
-   "definitions": 2,
+   "bytes": 4,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2BNClient/CACHE_005193E0.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "sourced": 1
   },
   "Source/D2BNClient/BnSend.cpp": {
-   "bytes": 696,
-   "definitions": 3,
+   "bytes": 256,
+   "definitions": 1,
    "externs": [
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleChatEvent(); // 0x00520660",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleCreateAccount(); // 0x00520C50",
@@ -1477,16 +1344,15 @@
    "fn_types": {},
    "include": "gen/data/Source/D2BNClient/BnSend_0051BEB0.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "sourced": 3
   },
   "Source/D2BNClient/BNNews.cpp": {
-   "bytes": 36,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2BNClient/BNNews.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 3
   },
   "Source/D2Game/GAME/Game.cpp": {
    "bytes": 626,
@@ -1505,13 +1371,14 @@
    "static_definitions": 1
   },
   "Source/D2BNClient/BnDownload.cpp": {
-   "bytes": 740,
-   "definitions": 3,
+   "bytes": 736,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2BNClient/BnDownload_00520B30.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "sourced": 1
   },
   "Source/Bnclient/Unknown_00520DC0.cpp": {
    "bytes": 44,
@@ -1523,13 +1390,11 @@
    "state": "included"
   },
   "Source/D2BNClient/grid.cpp": {
-   "bytes": 8,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2BNClient/grid.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 2
   },
   "Source/D2Lang/StrTable/strtable.cpp": {
    "bytes": 0,
@@ -3306,8 +3171,8 @@
    "sourced": 6
   },
   "Source/D2Direct3D/Src/d3dCore.cpp": {
-   "bytes": 4023,
-   "definitions": 166,
+   "bytes": 216,
+   "definitions": 1,
    "externs": [
     "extern \"C\" void __cdecl D3DSMACK_CloseSmacker(); // 0x006B9BB0",
     "extern \"C\" void __cdecl D3DSMACK_DecodeSmacker(); // 0x006BA010",
@@ -3341,52 +3206,43 @@
    "fn_types": {},
    "include": "gen/data/Source/D2Direct3D/Src/d3dCore.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "sourced": 177
   },
   "Source/D2Direct3D/Unknown_006B7250.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Direct3D/Unknown_006B7250.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/D2Direct3D/Unknown_006B7530.cpp": {
-   "bytes": 832,
-   "definitions": 5,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Direct3D/Unknown_006B7530.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 5
   },
   "Source/D2Direct3D/Src/d3dTextureCache.cpp": {
-   "bytes": 28,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Direct3D/Src/d3dTextureCache.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/D2Direct3D/Src/d3dSubtileCache.cpp": {
-   "bytes": 28,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Direct3D/Src/d3dSubtileCache.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/D2Direct3D/Src/d3dFloorCache.cpp": {
-   "bytes": 24,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Direct3D/Src/d3dFloorCache.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/Fog/Src/Excel/Excel.cpp": {
    "bytes": 0,
@@ -3410,51 +3266,39 @@
    "sourced": 4
   },
   "Source/Storm/SOURCE/SCMD.CPP": {
-   "bytes": 24,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/SOURCE/SCMD.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 2
   },
   "Source/Storm/SOURCE/SBMP.CPP": {
-   "bytes": 24,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/SOURCE/SBMP_006C6CB0.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 3
   },
   "Source/Storm/SOURCE/SUNI.CPP": {
-   "bytes": 1848,
-   "definitions": 6,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/SOURCE/SUNI.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 6
   },
   "Source/D2Hell/SRC/CRC.cpp": {
-   "bytes": 8336,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Hell/SRC/CRC.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/Storm/Unknown_006C9A68.cpp": {
-   "bytes": 8,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_006C9A68.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/Storm/Unknown_006CACE0.cpp": {
    "bytes": 0,
@@ -3483,13 +3327,11 @@
    "sourced": 1
   },
   "Source/D2Glide/Src/glDebugFont.cpp": {
-   "bytes": 24,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Glide/Src/glDebugFont.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 2
   },
   "Source/D2Client/UNIT/Object.cpp": {
    "bytes": 768,
@@ -3675,13 +3517,11 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SREG.CPP": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/SOURCE/SREG.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/D2Client/UI/inv_00491D20.cpp": {
    "bytes": 0,
@@ -4362,13 +4202,11 @@
    "state": "included"
   },
   "Source/D2Direct3D/Src/d3dSprite.cpp": {
-   "bytes": 24,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Direct3D/Src/d3dSprite.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/D2Client/Unknown_004BABF0.cpp": {
    "bytes": 8,
@@ -4389,13 +4227,11 @@
    "state": "included"
   },
   "Source/D2Multi/Unknown_0043CBE0.cpp": {
-   "bytes": 64,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Multi/Unknown_0043CBE0.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 2
   },
   "Source/D2Launch/Unknown_004370B0.cpp": {
    "bytes": 60,
@@ -4407,13 +4243,11 @@
    "state": "included"
   },
   "Source/D2Multi/Unknown_0043C8A0.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Multi/Unknown_0043C8A0.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/D2Client/GAME/Msg.cpp": {
    "bytes": 0,
@@ -4497,8 +4331,8 @@
    "state": "included"
   },
   "Source/D2Gdi/Src/gdiCore.cpp": {
-   "bytes": 284,
-   "definitions": 4,
+   "bytes": 216,
+   "definitions": 1,
    "externs": [
     "extern \"C\" void __cdecl GDISMACK_PlaySmacker(); // 0x006C9900",
     "extern \"C\" void __cdecl sub_006C8C80_GdiDrawLine(); // 0x006C8C80",
@@ -4517,7 +4351,8 @@
    "fn_types": {},
    "include": "gen/data/Source/D2Gdi/Src/gdiCore.inc",
    "lang": "cpp",
-   "state": "included"
+   "state": "included",
+   "sourced": 3
   },
   "Source/D2Game/SKILLS/SkillBar.cpp": {
    "bytes": 184,
@@ -4562,13 +4397,11 @@
    "state": "included"
   },
   "Source/D2Glide/Unknown_0050F910.cpp": {
-   "bytes": 20,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Glide/Unknown_0050F910.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 2
   },
   "Source/D2MCPClient/Src/McpConnect.cpp": {
    "bytes": 0,
@@ -4623,13 +4456,11 @@
    "state": "included"
   },
   "Source/D2Hell/Unknown_00516D8B.cpp": {
-   "bytes": 276,
-   "definitions": 5,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Hell/Unknown_00516D8B.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 6
   },
   "Source/D2Client/UI/Party.cpp": {
    "bytes": 32,
@@ -4659,13 +4490,11 @@
    "state": "included"
   },
   "Source/D2Hell/Unknown_006C9A38.cpp": {
-   "bytes": 256,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Hell/Unknown_006C9A38.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/D2Client/Unknown_004E4670.cpp": {
    "bytes": 2388,
@@ -4686,13 +4515,11 @@
    "state": "included"
   },
   "Source/Main/Unknown_004053F0.cpp": {
-   "bytes": 5336,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Unknown_004053F0.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   }
  },
  "definitions": [
@@ -4728,7 +4555,8 @@
    "size": 2,
    "struct": "#pragma pack(push, 1)\nstruct d2data_006FADC2_t\n{\n    unsigned char b0[2];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006FADC2",
-   "va": "0x006FADC2"
+   "va": "0x006FADC2",
+   "sourced": true
   },
   {
    "alias": false,
@@ -4779,7 +4607,8 @@
    "size": 1,
    "struct": "#pragma pack(push, 1)\nstruct d2data_006FB77B_t\n{\n    unsigned char b0[1];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006FB77B",
-   "va": "0x006FB77B"
+   "va": "0x006FB77B",
+   "sourced": true
   },
   {
    "alias": false,
@@ -4830,7 +4659,8 @@
    "size": 1,
    "struct": "#pragma pack(push, 1)\nstruct d2data_006CED03_t\n{\n    unsigned char b0[1];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006CED03",
-   "va": "0x006CED03"
+   "va": "0x006CED03",
+   "sourced": true
   },
   {
    "alias": false,
@@ -5509,7 +5339,8 @@
    "size": 60,
    "struct": "#pragma pack(push, 1)\nstruct d2data_00706518_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x00706518",
-   "va": "0x00706518"
+   "va": "0x00706518",
+   "sourced": true
   },
   {
    "alias": false,
@@ -5764,7 +5595,8 @@
    "size": 60,
    "struct": "#pragma pack(push, 1)\nstruct d2data_00706584_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x00706584",
-   "va": "0x00706584"
+   "va": "0x00706584",
+   "sourced": true
   },
   {
    "alias": false,
@@ -5795,7 +5627,8 @@
    "struct": null,
    "tail": "; // 0x007065DC",
    "type": "char",
-   "va": "0x007065DC"
+   "va": "0x007065DC",
+   "sourced": true
   },
   {
    "alias": false,
@@ -5820,7 +5653,8 @@
    "struct": null,
    "tail": "; // 0x007065C0",
    "type": "int",
-   "va": "0x007065C0"
+   "va": "0x007065C0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -5916,7 +5750,8 @@
    "struct": null,
    "tail": "; // 0x007065FC",
    "type": "D2ServiceStatusStrc",
-   "va": "0x007065FC"
+   "va": "0x007065FC",
+   "sourced": true
   },
   {
    "alias": false,
@@ -5964,7 +5799,8 @@
    "struct": null,
    "tail": "; // 0x006FFB94\n#pragma comment(linker, \"/alternatename:_gszMiniDumpWriteDump=_gData_006FFB94\")",
    "type": "char",
-   "va": "0x006FFB94"
+   "va": "0x006FFB94",
+   "sourced": true
   },
   {
    "alias": false,
@@ -6978,7 +6814,8 @@
    "struct": null,
    "tail": "; // 0x00705040",
    "type": "D2IniEntryStrc",
-   "va": "0x00705040"
+   "va": "0x00705040",
+   "sourced": true
   },
   {
    "alias": false,
@@ -7057,7 +6894,8 @@
    "struct": null,
    "tail": "; // 0x007065C4",
    "type": "char",
-   "va": "0x007065C4"
+   "va": "0x007065C4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -7924,7 +7762,8 @@
    "struct": null,
    "tail": "; // 0x00708350",
    "type": "int",
-   "va": "0x00708350"
+   "va": "0x00708350",
+   "sourced": true
   },
   {
    "alias": false,
@@ -7949,7 +7788,8 @@
    "struct": null,
    "tail": "; // 0x0070834C",
    "type": "int",
-   "va": "0x0070834C"
+   "va": "0x0070834C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -7974,7 +7814,8 @@
    "struct": null,
    "tail": "; // 0x00708348",
    "type": "unsigned int",
-   "va": "0x00708348"
+   "va": "0x00708348",
+   "sourced": true
   },
   {
    "alias": false,
@@ -7999,7 +7840,8 @@
    "struct": null,
    "tail": "; // 0x0070841C",
    "type": "long",
-   "va": "0x0070841C"
+   "va": "0x0070841C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -8398,7 +8240,8 @@
    "struct": null,
    "tail": "; // 0x00708344",
    "type": "unsigned int",
-   "va": "0x00708344"
+   "va": "0x00708344",
+   "sourced": true
   },
   {
    "alias": true,
@@ -8429,7 +8272,8 @@
    "struct": null,
    "tail": "; // 0x006CEDCC\n#pragma comment(linker, \"/alternatename:_szSMemAlloc_006CEDCC=_gData_006CEDCC\")",
    "type": "char",
-   "va": "0x006CEDCC"
+   "va": "0x006CEDCC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -8460,7 +8304,8 @@
    "struct": null,
    "tail": "; // 0x006CFCB8\n#pragma comment(linker, \"/alternatename:?gaADPCMIndexTable_006CFCB8@@3QBHB=_gData_006CFCB8\")",
    "type": "int",
-   "va": "0x006CFCB8"
+   "va": "0x006CFCB8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -8491,7 +8336,8 @@
    "struct": null,
    "tail": "; // 0x006CFD38\n#pragma comment(linker, \"/alternatename:?gaADPCMStepTable_006CFD38@@3QBHB=_gData_006CFD38\")",
    "type": "int",
-   "va": "0x006CFD38"
+   "va": "0x006CFD38",
+   "sourced": true
   },
   {
    "alias": true,
@@ -8523,7 +8369,8 @@
    "struct": null,
    "tail": "; // 0x006CED04\n#pragma comment(linker, \"/alternatename:_szSMemFindNextBlock_006CED04=_gData_006CED04\")",
    "type": "char",
-   "va": "0x006CED04"
+   "va": "0x006CED04",
+   "sourced": true
   },
   {
    "alias": true,
@@ -8555,7 +8402,8 @@
    "struct": null,
    "tail": "; // 0x006CED18\n#pragma comment(linker, \"/alternatename:_szSMemFindNextHeap_006CED18=_gData_006CED18\")",
    "type": "char",
-   "va": "0x006CED18"
+   "va": "0x006CED18",
+   "sourced": true
   },
   {
    "alias": true,
@@ -8585,7 +8433,8 @@
    "struct": null,
    "tail": "; // 0x006CEE30\n#pragma comment(linker, \"/alternatename:_gdwSStrHashTable_006CEE30=_gData_006CEE30\")",
    "type": "unsigned int",
-   "va": "0x006CEE30"
+   "va": "0x006CEE30",
+   "sourced": true
   },
   {
    "alias": true,
@@ -8615,7 +8464,8 @@
    "struct": null,
    "tail": "; // 0x006CEE70\n#pragma comment(linker, \"/alternatename:_gqwSStrHash64Table_006CEE70=_gData_006CEE70\")",
    "type": "unsigned __int64",
-   "va": "0x006CEE70"
+   "va": "0x006CEE70",
+   "sourced": true
   },
   {
    "alias": true,
@@ -8646,7 +8496,8 @@
    "struct": null,
    "tail": "; // 0x006CEF68\n#pragma comment(linker, \"/alternatename:_gszFmtUnsigned_006CEF68=_gData_006CEF68\")",
    "type": "char",
-   "va": "0x006CEF68"
+   "va": "0x006CEF68",
+   "sourced": true
   },
   {
    "alias": true,
@@ -8895,7 +8746,8 @@
    "struct": null,
    "tail": "; // 0x006CF2F4\n#pragma comment(linker, \"/alternatename:?gpszMessageFallback_006CF2F4@@3PAPBDA=_gData_006CF2F4\")",
    "type": "char",
-   "va": "0x006CF2F4"
+   "va": "0x006CF2F4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -8987,7 +8839,8 @@
    "struct": null,
    "tail": "; // 0x006CF330\n#pragma comment(linker, \"/alternatename:?gszDiagnosticFormat_006CF330@@3QBDB=_gData_006CF330\")",
    "type": "char",
-   "va": "0x006CF330"
+   "va": "0x006CF330",
+   "sourced": true
   },
   {
    "alias": true,
@@ -9018,7 +8871,8 @@
    "struct": null,
    "tail": "; // 0x006CF33C\n#pragma comment(linker, \"/alternatename:?gszErrorFormat_006CF33C@@3QBDB=_gData_006CF33C\")",
    "type": "char",
-   "va": "0x006CF33C"
+   "va": "0x006CF33C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -9049,7 +8903,8 @@
    "struct": null,
    "tail": "; // 0x006CF34C\n#pragma comment(linker, \"/alternatename:?gszLineFormat_006CF34C@@3QBDB=_gData_006CF34C\")",
    "type": "char",
-   "va": "0x006CF34C"
+   "va": "0x006CF34C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -9086,7 +8941,8 @@
    "tail": "; // 0x006CF3A0\n#pragma comment(linker, \"/alternatename:?gaHuffDistribution_006CF3A0@@3PAY0BAC@EA=_gData_006CF3A0\")",
    "type": "unsigned char",
    "va": "0x006CF3A0",
-   "zero_tail": 6
+   "zero_tail": 6,
+   "sourced": true
   },
   {
    "alias": true,
@@ -9195,7 +9051,8 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_00708890_t\n{\n    unsigned char b0[64];\n};\n#pragma pack(pop)",
    "tail": "; // 0x00708890\n#pragma comment(linker, \"/alternatename:_gaSha1Padding_00708890=_gData_00708890\")",
    "type": "unsigned char",
-   "va": "0x00708890"
+   "va": "0x00708890",
+   "sourced": true
   },
   {
    "alias": true,
@@ -9348,7 +9205,7 @@
         "fn": true,
         "k": "ptr",
         "size": 4,
-        "spell": "unsigned short (__fastcall *)(void*, int)"
+        "spell": "compress_func"
        }
       ]
      ],
@@ -9448,7 +9305,8 @@
    "struct": null,
    "tail": "; // 0x006D0280\n#pragma comment(linker, \"/alternatename:_configuration_table=_gData_006D0280\")",
    "type": "config",
-   "va": "0x006D0280"
+   "va": "0x006D0280",
+   "sourced": true
   },
   {
    "alias": false,
@@ -9465,7 +9323,8 @@
    "size": 8,
    "struct": "#pragma pack(push, 1)\nstruct d2data_006D02F8_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006D02F8",
-   "va": "0x006D02F8"
+   "va": "0x006D02F8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -9500,7 +9359,8 @@
    "struct": null,
    "tail": "; // 0x006D17C8\n#pragma comment(linker, \"/alternatename:_crc_table=_gData_006D17C8\")",
    "type": "unsigned long",
-   "va": "0x006D17C8"
+   "va": "0x006D17C8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -9590,7 +9450,8 @@
    "struct": null,
    "tail": "; // 0x006D0300\n#pragma comment(linker, \"/alternatename:?lenfix_006D0300@@3QBUcode@@B=_gData_006D0300\")",
    "type": "code",
-   "va": "0x006D0300"
+   "va": "0x006D0300",
+   "sourced": true
   },
   {
    "alias": true,
@@ -9651,7 +9512,8 @@
    "struct": null,
    "tail": "; // 0x006D0B00\n#pragma comment(linker, \"/alternatename:?distfix_006D0B00@@3QBUcode@@B=_gData_006D0B00\")",
    "type": "code",
-   "va": "0x006D0B00"
+   "va": "0x006D0B00",
+   "sourced": true
   },
   {
    "alias": true,
@@ -9762,7 +9624,8 @@
    "struct": null,
    "tail": "; // 0x006D3848\n#pragma comment(linker, \"/alternatename:_z_errmsg=_gData_006D3848\")",
    "type": "char",
-   "va": "0x006D3848"
+   "va": "0x006D3848",
+   "sourced": true
   },
   {
    "alias": true,
@@ -9793,7 +9656,8 @@
    "tail": "; // 0x006D0B80\n#pragma comment(linker, \"/alternatename:?order_006D0B80@@3QBGB=_gData_006D0B80\")",
    "type": "unsigned short",
    "va": "0x006D0B80",
-   "zero_tail": 2
+   "zero_tail": 2,
+   "sourced": true
   },
   {
    "alias": true,
@@ -9824,7 +9688,8 @@
    "struct": null,
    "tail": "; // 0x006D0D90\n#pragma comment(linker, \"/alternatename:_extra_lbits=_gData_006D0D90\")",
    "type": "int",
-   "va": "0x006D0D90"
+   "va": "0x006D0D90",
+   "sourced": true
   },
   {
    "alias": true,
@@ -9855,7 +9720,8 @@
    "struct": null,
    "tail": "; // 0x006D0E04\n#pragma comment(linker, \"/alternatename:_bl_order=_gData_006D0E04\")",
    "type": "unsigned char",
-   "va": "0x006D0E04"
+   "va": "0x006D0E04",
+   "sourced": true
   },
   {
    "alias": true,
@@ -9886,7 +9752,8 @@
    "struct": null,
    "tail": "; // 0x006D0E18\n#pragma comment(linker, \"/alternatename:_extra_dbits=_gData_006D0E18\")",
    "type": "int",
-   "va": "0x006D0E18"
+   "va": "0x006D0E18",
+   "sourced": true
   },
   {
    "alias": false,
@@ -9903,7 +9770,8 @@
    "size": 80,
    "struct": "#pragma pack(push, 1)\nstruct d2data_006D0E90_t\n{\n    unsigned char b0[80];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006D0E90",
-   "va": "0x006D0E90"
+   "va": "0x006D0E90",
+   "sourced": true
   },
   {
    "alias": true,
@@ -9997,7 +9865,8 @@
    "struct": null,
    "tail": "; // 0x006D1360\n#pragma comment(linker, \"/alternatename:_static_dtree=_gData_006D1360\")",
    "type": "ct_data",
-   "va": "0x006D1360"
+   "va": "0x006D1360",
+   "sourced": true
   },
   {
    "alias": true,
@@ -10028,7 +9897,8 @@
    "struct": null,
    "tail": "; // 0x006D16D8\n#pragma comment(linker, \"/alternatename:_base_length=_gData_006D16D8\")",
    "type": "int",
-   "va": "0x006D16D8"
+   "va": "0x006D16D8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -10059,7 +9929,8 @@
    "struct": null,
    "tail": "; // 0x006D1750\n#pragma comment(linker, \"/alternatename:_base_dist=_gData_006D1750\")",
    "type": "int",
-   "va": "0x006D1750"
+   "va": "0x006D1750",
+   "sourced": true
   },
   {
    "alias": false,
@@ -10152,7 +10023,8 @@
    "struct": null,
    "tail": "; // 0x007088F4",
    "type": "static_tree_desc",
-   "va": "0x007088F4"
+   "va": "0x007088F4",
+   "sourced": true
   },
   {
    "alias": false,
@@ -10245,7 +10117,8 @@
    "struct": null,
    "tail": "; // 0x00708908",
    "type": "static_tree_desc",
-   "va": "0x00708908"
+   "va": "0x00708908",
+   "sourced": true
   },
   {
    "alias": false,
@@ -10330,7 +10203,8 @@
    "struct": null,
    "tail": "; // 0x0070891C",
    "type": "static_tree_desc",
-   "va": "0x0070891C"
+   "va": "0x0070891C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -10361,7 +10235,8 @@
    "tail": "; // 0x006D38A8\n#pragma comment(linker, \"/alternatename:?lbase@@3QBGB=_gData_006D38A8\")",
    "type": "unsigned short",
    "va": "0x006D38A8",
-   "zero_tail": 2
+   "zero_tail": 2,
+   "sourced": true
   },
   {
    "alias": true,
@@ -10392,7 +10267,8 @@
    "tail": "; // 0x006D38E8\n#pragma comment(linker, \"/alternatename:?lext@@3QBGB=_gData_006D38E8\")",
    "type": "unsigned short",
    "va": "0x006D38E8",
-   "zero_tail": 2
+   "zero_tail": 2,
+   "sourced": true
   },
   {
    "alias": true,
@@ -10422,7 +10298,8 @@
    "struct": null,
    "tail": "; // 0x006D3928\n#pragma comment(linker, \"/alternatename:?dbase@@3QBGB=_gData_006D3928\")",
    "type": "unsigned short",
-   "va": "0x006D3928"
+   "va": "0x006D3928",
+   "sourced": true
   },
   {
    "alias": true,
@@ -10452,7 +10329,8 @@
    "struct": null,
    "tail": "; // 0x006D3968\n#pragma comment(linker, \"/alternatename:?dext@@3QBGB=_gData_006D3968\")",
    "type": "unsigned short",
-   "va": "0x006D3968"
+   "va": "0x006D3968",
+   "sourced": true
   },
   {
    "alias": false,
@@ -15598,7 +15476,8 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070EAA0_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070EAA0\n#pragma comment(linker, \"/alternatename:?gtPanelTitleInit@@3UD2WinControlInitStrc@@A=_gData_0070EAA0\")",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070EAA0"
+   "va": "0x0070EAA0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -15626,7 +15505,8 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070EAD0_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070EAD0\n#pragma comment(linker, \"/alternatename:?gtPanelTextInit@@3UD2WinControlInitStrc@@A=_gData_0070EAD0\")",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070EAD0"
+   "va": "0x0070EAD0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -15652,7 +15532,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070EB00_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070EB00",
-   "va": "0x0070EB00"
+   "va": "0x0070EB00",
+   "sourced": true
   },
   {
    "alias": true,
@@ -15688,7 +15569,8 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070EB30_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070EB30\n#pragma comment(linker, \"/alternatename:?gtPanelCancelButtonInit@@3UD2WinControlInitStrc@@A=_gData_0070EB30\")",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070EB30"
+   "va": "0x0070EB30",
+   "sourced": true
   },
   {
    "alias": true,
@@ -15716,7 +15598,8 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070EB60_t\n{\n    unsigned char b0[32];\n    const void* p1;\n    unsigned char b2[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070EB60\n#pragma comment(linker, \"/alternatename:?gtResetBuildPanelTimerInit@@3UD2WinControlInitStrc@@A=_gData_0070EB60\")",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070EB60"
+   "va": "0x0070EB60",
+   "sourced": true
   },
   {
    "alias": false,
@@ -15742,7 +15625,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070E680_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[16];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070E680\n#pragma comment(linker, \"/alternatename:?gtProfileEditBckgInit@@3UD2WinControlInitStrc@@A=_gData_0070E680\")",
-   "va": "0x0070E680"
+   "va": "0x0070E680",
+   "sourced": true
   },
   {
    "alias": false,
@@ -15768,7 +15652,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070E6B0_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070E6B0\n#pragma comment(linker, \"/alternatename:?gtControlInit_0070E6B0@@3UD2WinControlInitStrc@@A=_gData_0070E6B0\")",
-   "va": "0x0070E6B0"
+   "va": "0x0070E6B0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -15794,7 +15679,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070E6E0_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070E6E0\n#pragma comment(linker, \"/alternatename:?gtSubmitEditAInit@@3UD2WinControlInitStrc@@A=_gData_0070E6E0\")",
-   "va": "0x0070E6E0"
+   "va": "0x0070E6E0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -15820,7 +15706,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070E710_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070E710\n#pragma comment(linker, \"/alternatename:?gtSubmitEditBInit@@3UD2WinControlInitStrc@@A=_gData_0070E710\")",
-   "va": "0x0070E710"
+   "va": "0x0070E710",
+   "sourced": true
   },
   {
    "alias": false,
@@ -15846,7 +15733,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070E740_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070E740\n#pragma comment(linker, \"/alternatename:?gtSubmitEditCInit@@3UD2WinControlInitStrc@@A=_gData_0070E740\")",
-   "va": "0x0070E740"
+   "va": "0x0070E740",
+   "sourced": true
   },
   {
    "alias": false,
@@ -15872,7 +15760,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070E770_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[16];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070E770\n#pragma comment(linker, \"/alternatename:?gtProfileViewBckgInit@@3UD2WinControlInitStrc@@A=_gData_0070E770\")",
-   "va": "0x0070E770"
+   "va": "0x0070E770",
+   "sourced": true
   },
   {
    "alias": false,
@@ -15898,7 +15787,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070E7A0_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070E7A0\n#pragma comment(linker, \"/alternatename:?gtControlInit_0070E7A0@@3UD2WinControlInitStrc@@A=_gData_0070E7A0\")",
-   "va": "0x0070E7A0"
+   "va": "0x0070E7A0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -15924,7 +15814,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070E7D0_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070E7D0\n#pragma comment(linker, \"/alternatename:?gtControlInit_0070E7D0@@3UD2WinControlInitStrc@@A=_gData_0070E7D0\")",
-   "va": "0x0070E7D0"
+   "va": "0x0070E7D0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -15950,7 +15841,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070E800_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070E800\n#pragma comment(linker, \"/alternatename:?gtControlInit_0070E800@@3UD2WinControlInitStrc@@A=_gData_0070E800\")",
-   "va": "0x0070E800"
+   "va": "0x0070E800",
+   "sourced": true
   },
   {
    "alias": false,
@@ -15976,7 +15868,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070E830_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070E830\n#pragma comment(linker, \"/alternatename:?gtControlInit_0070E830@@3UD2WinControlInitStrc@@A=_gData_0070E830\")",
-   "va": "0x0070E830"
+   "va": "0x0070E830",
+   "sourced": true
   },
   {
    "alias": false,
@@ -16010,7 +15903,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070E920_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070E920\n#pragma comment(linker, \"/alternatename:?gtRefreshButtonInit@@3UD2WinControlInitStrc@@A=_gData_0070E920\")",
-   "va": "0x0070E920"
+   "va": "0x0070E920",
+   "sourced": true
   },
   {
    "alias": false,
@@ -16044,7 +15938,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070E950_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070E950\n#pragma comment(linker, \"/alternatename:?gtSubmitButtonInit@@3UD2WinControlInitStrc@@A=_gData_0070E950\")",
-   "va": "0x0070E950"
+   "va": "0x0070E950",
+   "sourced": true
   },
   {
    "alias": false,
@@ -16078,7 +15973,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070E980_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070E980\n#pragma comment(linker, \"/alternatename:?gtSelectButtonInit@@3UD2WinControlInitStrc@@A=_gData_0070E980\")",
-   "va": "0x0070E980"
+   "va": "0x0070E980",
+   "sourced": true
   },
   {
    "alias": false,
@@ -16103,7 +15999,8 @@
    "struct": null,
    "tail": "; // 0x0070EC1C",
    "type": "int",
-   "va": "0x0070EC1C"
+   "va": "0x0070EC1C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -16128,7 +16025,8 @@
    "struct": null,
    "tail": "; // 0x0070CD74",
    "type": "int",
-   "va": "0x0070CD74"
+   "va": "0x0070CD74",
+   "sourced": true
   },
   {
    "alias": false,
@@ -16145,7 +16043,8 @@
    "size": 4,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CD78_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CD78",
-   "va": "0x0070CD78"
+   "va": "0x0070CD78",
+   "sourced": true
   },
   {
    "alias": true,
@@ -17678,7 +17577,8 @@
    "struct": null,
    "tail": "; // 0x006D55EC\n#pragma comment(linker, \"/alternatename:_gszReplyFormat=_gData_006D55EC\")",
    "type": "char",
-   "va": "0x006D55EC"
+   "va": "0x006D55EC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -17709,7 +17609,8 @@
    "struct": null,
    "tail": "; // 0x006D55F8\n#pragma comment(linker, \"/alternatename:_gszCorrectUsage=_gData_006D55F8\")",
    "type": "char",
-   "va": "0x006D55F8"
+   "va": "0x006D55F8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -17740,7 +17641,8 @@
    "struct": null,
    "tail": "; // 0x006D5618\n#pragma comment(linker, \"/alternatename:_gszCommandSpace=_gData_006D5618\")",
    "type": "char",
-   "va": "0x006D5618"
+   "va": "0x006D5618",
+   "sourced": true
   },
   {
    "alias": true,
@@ -17771,7 +17673,8 @@
    "struct": null,
    "tail": "; // 0x006D561C\n#pragma comment(linker, \"/alternatename:_gszNobodyToReply=_gData_006D561C\")",
    "type": "char",
-   "va": "0x006D561C"
+   "va": "0x006D561C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -17802,7 +17705,8 @@
    "struct": null,
    "tail": "; // 0x006D5630\n#pragma comment(linker, \"/alternatename:_gszCmdHome=_gData_006D5630\")",
    "type": "char",
-   "va": "0x006D5630"
+   "va": "0x006D5630",
+   "sourced": true
   },
   {
    "alias": true,
@@ -17833,7 +17737,8 @@
    "struct": null,
    "tail": "; // 0x006D5638\n#pragma comment(linker, \"/alternatename:_gszCmdHomeSpace=_gData_006D5638\")",
    "type": "char",
-   "va": "0x006D5638"
+   "va": "0x006D5638",
+   "sourced": true
   },
   {
    "alias": true,
@@ -17864,7 +17769,8 @@
    "struct": null,
    "tail": "; // 0x006D5640\n#pragma comment(linker, \"/alternatename:_gszCmdDefaultChannel=_gData_006D5640\")",
    "type": "char",
-   "va": "0x006D5640"
+   "va": "0x006D5640",
+   "sourced": true
   },
   {
    "alias": true,
@@ -17895,7 +17801,8 @@
    "struct": null,
    "tail": "; // 0x006D5654\n#pragma comment(linker, \"/alternatename:_gszCmdHomeChannel=_gData_006D5654\")",
    "type": "char",
-   "va": "0x006D5654"
+   "va": "0x006D5654",
+   "sourced": true
   },
   {
    "alias": true,
@@ -17926,7 +17833,8 @@
    "struct": null,
    "tail": "; // 0x006D56C0\n#pragma comment(linker, \"/alternatename:_gszCmdD2Notify=_gData_006D56C0\")",
    "type": "char",
-   "va": "0x006D56C0"
+   "va": "0x006D56C0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -17957,7 +17865,8 @@
    "struct": null,
    "tail": "; // 0x006D56CC\n#pragma comment(linker, \"/alternatename:_gszCmdReply=_gData_006D56CC\")",
    "type": "char",
-   "va": "0x006D56CC"
+   "va": "0x006D56CC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -17988,7 +17897,8 @@
    "struct": null,
    "tail": "; // 0x006D56D4\n#pragma comment(linker, \"/alternatename:_gszCmdR=_gData_006D56D4\")",
    "type": "char",
-   "va": "0x006D56D4"
+   "va": "0x006D56D4",
+   "sourced": true
   },
   {
    "alias": false,
@@ -18013,7 +17923,8 @@
    "struct": null,
    "tail": "; // 0x0070CD64",
    "type": "int",
-   "va": "0x0070CD64"
+   "va": "0x0070CD64",
+   "sourced": true
   },
   {
    "alias": false,
@@ -18038,7 +17949,8 @@
    "struct": null,
    "tail": "; // 0x0070CD68",
    "type": "int",
-   "va": "0x0070CD68"
+   "va": "0x0070CD68",
+   "sourced": true
   },
   {
    "alias": false,
@@ -18063,7 +17975,8 @@
    "struct": null,
    "tail": "; // 0x0070CD80",
    "type": "int",
-   "va": "0x0070CD80"
+   "va": "0x0070CD80",
+   "sourced": true
   },
   {
    "alias": false,
@@ -18089,7 +18002,8 @@
    "size": 4,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CD14_t\n{\n    const void* p0;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CD14\n#pragma comment(linker, \"/alternatename:?gtInterface@@3UD2ModuleInterfaceStrc@@A=_gData_0070CD14\")",
-   "va": "0x0070CD14"
+   "va": "0x0070CD14",
+   "sourced": true
   },
   {
    "alias": false,
@@ -18131,7 +18045,8 @@
    "size": 12,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CD54_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CD54\n#pragma comment(linker, \"/alternatename:?gKey_0070CD54@@3DA=_gData_0070CD54\")",
-   "va": "0x0070CD54"
+   "va": "0x0070CD54",
+   "sourced": true
   },
   {
    "alias": false,
@@ -18156,7 +18071,8 @@
    "struct": null,
    "tail": "; // 0x0070CD60",
    "type": "unsigned short",
-   "va": "0x0070CD60"
+   "va": "0x0070CD60",
+   "sourced": true
   },
   {
    "alias": false,
@@ -18173,7 +18089,8 @@
    "size": 12,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CDAC_t\n{\n    unsigned char b0[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CDAC",
-   "va": "0x0070CDAC"
+   "va": "0x0070CDAC",
+   "sourced": true
   },
   {
    "alias": false,
@@ -18271,7 +18188,8 @@
    "size": 80,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CE00_t\n{\n    const void* p0;\n    const void* p1;\n    unsigned char b2[8];\n    const void* p3;\n    const void* p4;\n    unsigned char b5[8];\n    const void* p6;\n    const void* p7;\n    unsigned char b8[8];\n    const void* p9;\n    const void* p10;\n    unsigned char b11[8];\n    const void* p12;\n    const void* p13;\n    unsigned char b14[8];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CE00",
-   "va": "0x0070CE00"
+   "va": "0x0070CE00",
+   "sourced": true
   },
   {
    "alias": false,
@@ -18417,7 +18335,8 @@
    "struct": null,
    "tail": "; // 0x0070D210",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D210"
+   "va": "0x0070D210",
+   "sourced": true
   },
   {
    "alias": false,
@@ -18588,7 +18507,8 @@
    "struct": null,
    "tail": "; // 0x0070D240",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D240"
+   "va": "0x0070D240",
+   "sourced": true
   },
   {
    "alias": false,
@@ -18751,7 +18671,8 @@
    "struct": null,
    "tail": "; // 0x0070D270",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D270"
+   "va": "0x0070D270",
+   "sourced": true
   },
   {
    "alias": false,
@@ -18906,7 +18827,8 @@
    "struct": null,
    "tail": "; // 0x0070D2A0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D2A0"
+   "va": "0x0070D2A0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -19061,7 +18983,8 @@
    "struct": null,
    "tail": "; // 0x0070D2D0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D2D0"
+   "va": "0x0070D2D0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -19216,7 +19139,8 @@
    "struct": null,
    "tail": "; // 0x0070D300",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D300"
+   "va": "0x0070D300",
+   "sourced": true
   },
   {
    "alias": false,
@@ -19371,7 +19295,8 @@
    "struct": null,
    "tail": "; // 0x0070D330",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D330"
+   "va": "0x0070D330",
+   "sourced": true
   },
   {
    "alias": false,
@@ -19526,7 +19451,8 @@
    "struct": null,
    "tail": "; // 0x0070D360",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D360"
+   "va": "0x0070D360",
+   "sourced": true
   },
   {
    "alias": false,
@@ -19689,7 +19615,8 @@
    "struct": null,
    "tail": "; // 0x0070D390",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D390"
+   "va": "0x0070D390",
+   "sourced": true
   },
   {
    "alias": false,
@@ -19872,7 +19799,8 @@
    "struct": null,
    "tail": "; // 0x0070D180",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D180"
+   "va": "0x0070D180",
+   "sourced": true
   },
   {
    "alias": false,
@@ -20026,7 +19954,8 @@
    "struct": null,
    "tail": "; // 0x0070D1E0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D1E0"
+   "va": "0x0070D1E0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -20043,7 +19972,8 @@
    "size": 8,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CD94_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CD94",
-   "va": "0x0070CD94"
+   "va": "0x0070CD94",
+   "sourced": true
   },
   {
    "alias": false,
@@ -20060,7 +19990,8 @@
    "size": 8,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CDA4_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CDA4",
-   "va": "0x0070CDA4"
+   "va": "0x0070CDA4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -20088,7 +20019,8 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070D3C0_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070D3C0\n#pragma comment(linker, \"/alternatename:?gtWaitInit@@3UD2WinControlInitStrc@@A=_gData_0070D3C0\")",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D3C0"
+   "va": "0x0070D3C0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -20251,7 +20183,8 @@
    "struct": null,
    "tail": "; // 0x0070D3F0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D3F0"
+   "va": "0x0070D3F0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -20406,7 +20339,8 @@
    "struct": null,
    "tail": "; // 0x0070D420",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D420"
+   "va": "0x0070D420",
+   "sourced": true
   },
   {
    "alias": false,
@@ -20569,7 +20503,8 @@
    "struct": null,
    "tail": "; // 0x0070D450",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D450"
+   "va": "0x0070D450",
+   "sourced": true
   },
   {
    "alias": false,
@@ -20724,7 +20659,8 @@
    "struct": null,
    "tail": "; // 0x0070D480",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D480"
+   "va": "0x0070D480",
+   "sourced": true
   },
   {
    "alias": false,
@@ -20887,7 +20823,8 @@
    "struct": null,
    "tail": "; // 0x0070D4B0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D4B0"
+   "va": "0x0070D4B0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -21050,7 +20987,8 @@
    "struct": null,
    "tail": "; // 0x0070D4E0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D4E0"
+   "va": "0x0070D4E0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -21205,7 +21143,8 @@
    "struct": null,
    "tail": "; // 0x0070D510",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D510"
+   "va": "0x0070D510",
+   "sourced": true
   },
   {
    "alias": false,
@@ -21360,7 +21299,8 @@
    "struct": null,
    "tail": "; // 0x0070D540",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D540"
+   "va": "0x0070D540",
+   "sourced": true
   },
   {
    "alias": false,
@@ -21523,7 +21463,8 @@
    "struct": null,
    "tail": "; // 0x0070D570",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D570"
+   "va": "0x0070D570",
+   "sourced": true
   },
   {
    "alias": false,
@@ -21686,7 +21627,8 @@
    "struct": null,
    "tail": "; // 0x0070D5A0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D5A0"
+   "va": "0x0070D5A0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -21841,7 +21783,8 @@
    "struct": null,
    "tail": "; // 0x0070D5D0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D5D0"
+   "va": "0x0070D5D0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -21996,7 +21939,8 @@
    "struct": null,
    "tail": "; // 0x0070D600",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D600"
+   "va": "0x0070D600",
+   "sourced": true
   },
   {
    "alias": false,
@@ -22021,7 +21965,8 @@
    "struct": null,
    "tail": "; // 0x0070CD62",
    "type": "unsigned char",
-   "va": "0x0070CD62"
+   "va": "0x0070CD62",
+   "sourced": true
   },
   {
    "alias": false,
@@ -22046,7 +21991,8 @@
    "struct": null,
    "tail": "; // 0x0070CD6C",
    "type": "int",
-   "va": "0x0070CD6C"
+   "va": "0x0070CD6C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -22071,7 +22017,8 @@
    "struct": null,
    "tail": "; // 0x0070CD7C",
    "type": "int",
-   "va": "0x0070CD7C"
+   "va": "0x0070CD7C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -22225,7 +22172,8 @@
    "struct": null,
    "tail": "; // 0x0070E860",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070E860"
+   "va": "0x0070E860",
+   "sourced": true
   },
   {
    "alias": false,
@@ -22379,7 +22327,8 @@
    "struct": null,
    "tail": "; // 0x0070E890",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070E890"
+   "va": "0x0070E890",
+   "sourced": true
   },
   {
    "alias": false,
@@ -22533,7 +22482,8 @@
    "struct": null,
    "tail": "; // 0x0070E8C0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070E8C0"
+   "va": "0x0070E8C0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -22687,7 +22637,8 @@
    "struct": null,
    "tail": "; // 0x0070E8F0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070E8F0"
+   "va": "0x0070E8F0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -22841,7 +22792,8 @@
    "struct": null,
    "tail": "; // 0x0070E9B0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070E9B0"
+   "va": "0x0070E9B0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -22866,7 +22818,8 @@
    "struct": null,
    "tail": "; // 0x0070EBD8",
    "type": "int",
-   "va": "0x0070EBD8"
+   "va": "0x0070EBD8",
+   "sourced": true
   },
   {
    "alias": false,
@@ -22891,7 +22844,8 @@
    "struct": null,
    "tail": "; // 0x0070CD63",
    "type": "char",
-   "va": "0x0070CD63"
+   "va": "0x0070CD63",
+   "sourced": true
   },
   {
    "alias": false,
@@ -22916,7 +22870,8 @@
    "struct": null,
    "tail": "; // 0x0070CD70",
    "type": "int",
-   "va": "0x0070CD70"
+   "va": "0x0070CD70",
+   "sourced": true
   },
   {
    "alias": true,
@@ -23004,7 +22959,8 @@
    "struct": null,
    "tail": "; // 0x006D5524\n#pragma comment(linker, \"/alternatename:_gaszClassNames=_gData_006D5524\")",
    "type": "char",
-   "va": "0x006D5524"
+   "va": "0x006D5524",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23021,7 +22977,8 @@
    "size": 4,
    "struct": null,
    "tail": "; // 0x006D5564",
-   "va": "0x006D5564"
+   "va": "0x006D5564",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23038,7 +22995,8 @@
    "size": 4,
    "struct": null,
    "tail": "; // 0x006D5568",
-   "va": "0x006D5568"
+   "va": "0x006D5568",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23055,7 +23013,8 @@
    "size": 4,
    "struct": null,
    "tail": "; // 0x006D556C",
-   "va": "0x006D556C"
+   "va": "0x006D556C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23072,7 +23031,8 @@
    "size": 4,
    "struct": null,
    "tail": "; // 0x006D5570",
-   "va": "0x006D5570"
+   "va": "0x006D5570",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23089,7 +23049,8 @@
    "size": 4,
    "struct": null,
    "tail": "; // 0x006D5574",
-   "va": "0x006D5574"
+   "va": "0x006D5574",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23227,7 +23188,8 @@
    "fwd": "extern \"C\" struct d2data_0070CCD8_t gData_0070CCD8; // 0x0070CCD8",
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CCD8_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "head": "extern \"C\" struct d2data_0070CCD8_t gData_0070CCD8 = ",
-   "tail": "; // 0x0070CCD8"
+   "tail": "; // 0x0070CCD8",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23244,7 +23206,8 @@
    "size": 16,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CD84_t\n{\n    unsigned char b0[16];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CD84",
-   "va": "0x0070CD84"
+   "va": "0x0070CD84",
+   "sourced": true
   },
   {
    "alias": true,
@@ -23645,7 +23608,8 @@
    "struct": null,
    "tail": "; // 0x0070CE50\n#pragma comment(linker, \"/alternatename:?gatChatControlInits@@3PAUD2WinControlInitStrc@@A=_gData_0070CE50\")",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070CE50"
+   "va": "0x0070CE50",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23662,7 +23626,8 @@
    "size": 12,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CDD0_t\n{\n    unsigned char b0[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CDD0",
-   "va": "0x0070CDD0"
+   "va": "0x0070CDD0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23679,7 +23644,8 @@
    "size": 24,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CDDC_t\n{\n    unsigned char b0[24];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CDDC",
-   "va": "0x0070CDDC"
+   "va": "0x0070CDDC",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23705,7 +23671,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070D8D0_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[16];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070D8D0\n#pragma comment(linker, \"/alternatename:?gtCreateJoinBckgImageInit@@3UD2WinControlInitStrc@@A=_gData_0070D8D0\")",
-   "va": "0x0070D8D0"
+   "va": "0x0070D8D0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23731,7 +23698,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070D900_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070D900\n#pragma comment(linker, \"/alternatename:?gtChannelScreenTitleInit@@3UD2WinControlInitStrc@@A=_gData_0070D900\")",
-   "va": "0x0070D900"
+   "va": "0x0070D900",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23757,7 +23725,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070D930_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070D930\n#pragma comment(linker, \"/alternatename:?gtControlInit_0070D930@@3UD2WinControlInitStrc@@A=_gData_0070D930\")",
-   "va": "0x0070D930"
+   "va": "0x0070D930",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23783,7 +23752,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070D960_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070D960\n#pragma comment(linker, \"/alternatename:?gtControlInit_0070D960@@3UD2WinControlInitStrc@@A=_gData_0070D960\")",
-   "va": "0x0070D960"
+   "va": "0x0070D960",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23825,7 +23795,8 @@
    "size": 96,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070D990_t\n{\n    unsigned char b0[36];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[44];\n    const void* p4;\n    unsigned char b5[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070D990\n#pragma comment(linker, \"/alternatename:?gtChannelNameEditInit@@3UD2WinControlInitStrc@@A=_gData_0070D990\")",
-   "va": "0x0070D990"
+   "va": "0x0070D990",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23875,7 +23846,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070D9F0_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    unsigned char b5[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070D9F0\n#pragma comment(linker, \"/alternatename:?gtChannelListInit@@3UD2WinControlInitStrc@@A=_gData_0070D9F0\")",
-   "va": "0x0070D9F0"
+   "va": "0x0070D9F0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -23909,7 +23881,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DA20_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DA20\n#pragma comment(linker, \"/alternatename:?gtChannelOkButtonInit@@3UD2WinControlInitStrc@@A=_gData_0070DA20\")",
-   "va": "0x0070DA20"
+   "va": "0x0070DA20",
+   "sourced": true
   },
   {
    "alias": false,
@@ -24271,7 +24244,8 @@
    "size": 1392,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070E110_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[40];\n    const void* p4;\n    unsigned char b5[56];\n    const void* p6;\n    unsigned char b7[44];\n    const void* p8;\n    unsigned char b9[44];\n    const void* p10;\n    unsigned char b11[44];\n    const void* p12;\n    unsigned char b13[44];\n    const void* p14;\n    unsigned char b15[44];\n    const void* p16;\n    unsigned char b17[32];\n    const void* p18;\n    unsigned char b19[4];\n    const void* p20;\n    const void* p21;\n    unsigned char b22[32];\n    const void* p23;\n    const void* p24;\n    unsigned char b25[40];\n    const void* p26;\n    const void* p27;\n    unsigned char b28[40];\n    const void* p29;\n    const void* p30;\n    unsigned char b31[40];\n    const void* p32;\n    const void* p33;\n    unsigned char b34[40];\n    const void* p35;\n    const void* p36;\n    unsigned char b37[40];\n    const void* p38;\n    const void* p39;\n    unsigned char b40[40];\n    const void* p41;\n    const void* p42;\n    unsigned char b43[40];\n    const void* p44;\n    const void* p45;\n    unsigned char b46[40];\n    const void* p47;\n    const void* p48;\n    unsigned char b49[52];\n    const void* p50;\n    unsigned char b51[44];\n    const void* p52;\n    unsigned char b53[44];\n    const void* p54;\n    unsigned char b55[44];\n    const void* p56;\n    unsigned char b57[44];\n    const void* p58;\n    unsigned char b59[44];\n    const void* p60;\n    unsigned char b61[44];\n    const void* p62;\n    unsigned char b63[44];\n    const void* p64;\n    unsigned char b65[32];\n    const void* p66;\n    const void* p67;\n    unsigned char b68[40];\n    const void* p69;\n    const void* p70;\n    unsigned char b71[44];\n    const void* p72;\n    unsigned char b73[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070E110\n#pragma comment(linker, \"/alternatename:?gtControlInit_0070E110@@3UD2WinControlInitStrc@@A=_gData_0070E110\")",
-   "va": "0x0070E110"
+   "va": "0x0070E110",
+   "sourced": true
   },
   {
    "alias": false,
@@ -24296,7 +24270,8 @@
    "struct": null,
    "tail": "; // 0x0070EB90",
    "type": "int",
-   "va": "0x0070EB90"
+   "va": "0x0070EB90",
+   "sourced": true
   },
   {
    "alias": false,
@@ -24434,7 +24409,8 @@
    "size": 60,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070EB94_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070EB94",
-   "va": "0x0070EB94"
+   "va": "0x0070EB94",
+   "sourced": true
   },
   {
    "alias": false,
@@ -24451,7 +24427,8 @@
    "fwd": "extern \"C\" const struct d2data_006FFC46_t gData_006FFC46; // 0x006FFC46",
    "struct": "#pragma pack(push, 1)\nstruct d2data_006FFC46_t\n{\n    unsigned char b0[18];\n};\n#pragma pack(pop)",
    "head": "extern \"C\" const struct d2data_006FFC46_t gData_006FFC46 = ",
-   "tail": "; // 0x006FFC46"
+   "tail": "; // 0x006FFC46",
+   "sourced": true
   },
   {
    "alias": false,
@@ -24468,7 +24445,8 @@
    "size": 12,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CDF4_t\n{\n    unsigned char b0[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CDF4",
-   "va": "0x0070CDF4"
+   "va": "0x0070CDF4",
+   "sourced": true
   },
   {
    "alias": false,
@@ -24622,7 +24600,8 @@
    "struct": null,
    "tail": "; // 0x0070E9E0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070E9E0"
+   "va": "0x0070E9E0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -24776,7 +24755,8 @@
    "struct": null,
    "tail": "; // 0x0070EA10",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070EA10"
+   "va": "0x0070EA10",
+   "sourced": true
   },
   {
    "alias": false,
@@ -24946,7 +24926,8 @@
    "struct": null,
    "tail": "; // 0x0070EA40",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070EA40"
+   "va": "0x0070EA40",
+   "sourced": true
   },
   {
    "alias": false,
@@ -25108,7 +25089,8 @@
    "struct": null,
    "tail": "; // 0x0070EA70",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070EA70"
+   "va": "0x0070EA70",
+   "sourced": true
   },
   {
    "alias": false,
@@ -25133,7 +25115,8 @@
    "struct": null,
    "tail": "; // 0x0070EBDC",
    "type": "int",
-   "va": "0x0070EBDC"
+   "va": "0x0070EBDC",
+   "sourced": true
   },
   {
    "alias": false,
@@ -25214,7 +25197,8 @@
    "size": 12,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CDB8_t\n{\n    unsigned char b0[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CDB8",
-   "va": "0x0070CDB8"
+   "va": "0x0070CDB8",
+   "sourced": true
   },
   {
    "alias": false,
@@ -25231,7 +25215,8 @@
    "size": 12,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CDC4_t\n{\n    unsigned char b0[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CDC4",
-   "va": "0x0070CDC4"
+   "va": "0x0070CDC4",
+   "sourced": true
   },
   {
    "alias": false,
@@ -25385,7 +25370,8 @@
    "struct": null,
    "tail": "; // 0x0070D630",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D630"
+   "va": "0x0070D630",
+   "sourced": true
   },
   {
    "alias": false,
@@ -25539,7 +25525,8 @@
    "struct": null,
    "tail": "; // 0x0070D660",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D660"
+   "va": "0x0070D660",
+   "sourced": true
   },
   {
    "alias": false,
@@ -25693,7 +25680,8 @@
    "struct": null,
    "tail": "; // 0x0070D690",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D690"
+   "va": "0x0070D690",
+   "sourced": true
   },
   {
    "alias": false,
@@ -25847,7 +25835,8 @@
    "struct": null,
    "tail": "; // 0x0070D6C0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D6C0"
+   "va": "0x0070D6C0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -26001,7 +25990,8 @@
    "struct": null,
    "tail": "; // 0x0070D6F0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D6F0"
+   "va": "0x0070D6F0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -26163,7 +26153,8 @@
    "struct": null,
    "tail": "; // 0x0070D720",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D720"
+   "va": "0x0070D720",
+   "sourced": true
   },
   {
    "alias": false,
@@ -26325,7 +26316,8 @@
    "struct": null,
    "tail": "; // 0x0070D750",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D750"
+   "va": "0x0070D750",
+   "sourced": true
   },
   {
    "alias": false,
@@ -26503,7 +26495,8 @@
    "struct": null,
    "tail": "; // 0x0070D780",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D780"
+   "va": "0x0070D780",
+   "sourced": true
   },
   {
    "alias": false,
@@ -26665,7 +26658,8 @@
    "struct": null,
    "tail": "; // 0x0070D7B0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D7B0"
+   "va": "0x0070D7B0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -26747,7 +26741,8 @@
    "size": 192,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070D7E0_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[40];\n    const void* p4;\n    const void* p5;\n    unsigned char b6[40];\n    const void* p7;\n    const void* p8;\n    unsigned char b9[40];\n    const void* p10;\n    const void* p11;\n    unsigned char b12[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070D7E0",
-   "va": "0x0070D7E0"
+   "va": "0x0070D7E0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -26917,7 +26912,8 @@
    "struct": null,
    "tail": "; // 0x0070D8A0",
    "type": "D2WinControlInitStrc",
-   "va": "0x0070D8A0"
+   "va": "0x0070D8A0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -26934,7 +26930,8 @@
    "size": 8,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CD9C_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CD9C",
-   "va": "0x0070CD9C"
+   "va": "0x0070CD9C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -26960,7 +26957,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DA50_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[16];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DA50\n#pragma comment(linker, \"/alternatename:?gtCreateGameBckgImageInit@@3UD2WinControlInitStrc@@A=_gData_0070DA50\")",
-   "va": "0x0070DA50"
+   "va": "0x0070DA50",
+   "sourced": true
   },
   {
    "alias": false,
@@ -26986,7 +26984,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DA80_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DA80\n#pragma comment(linker, \"/alternatename:?gtCreateGameTitleInit@@3UD2WinControlInitStrc@@A=_gData_0070DA80\")",
-   "va": "0x0070DA80"
+   "va": "0x0070DA80",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27012,7 +27011,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DAB0_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DAB0\n#pragma comment(linker, \"/alternatename:?gtCreateNameLabelInit@@3UD2WinControlInitStrc@@A=_gData_0070DAB0\")",
-   "va": "0x0070DAB0"
+   "va": "0x0070DAB0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27038,7 +27038,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DAE0_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DAE0\n#pragma comment(linker, \"/alternatename:?gtCreatePasswordLabelInit@@3UD2WinControlInitStrc@@A=_gData_0070DAE0\")",
-   "va": "0x0070DAE0"
+   "va": "0x0070DAE0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27064,7 +27065,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DB10_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DB10\n#pragma comment(linker, \"/alternatename:?gtCreateDescLabelInit@@3UD2WinControlInitStrc@@A=_gData_0070DB10\")",
-   "va": "0x0070DB10"
+   "va": "0x0070DB10",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27090,7 +27092,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DB40_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DB40\n#pragma comment(linker, \"/alternatename:?gtMaxPlayersLabelInit@@3UD2WinControlInitStrc@@A=_gData_0070DB40\")",
-   "va": "0x0070DB40"
+   "va": "0x0070DB40",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27116,7 +27119,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DB70_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DB70\n#pragma comment(linker, \"/alternatename:?gtLevelDiffLabelInit@@3UD2WinControlInitStrc@@A=_gData_0070DB70\")",
-   "va": "0x0070DB70"
+   "va": "0x0070DB70",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27142,7 +27146,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DBA0_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DBA0\n#pragma comment(linker, \"/alternatename:?gtControlInit_0070DBA0@@3UD2WinControlInitStrc@@A=_gData_0070DBA0\")",
-   "va": "0x0070DBA0"
+   "va": "0x0070DBA0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27176,7 +27181,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DBD0_t\n{\n    unsigned char b0[36];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DBD0\n#pragma comment(linker, \"/alternatename:?gtCreateNameInit@@3UD2WinControlInitStrc@@A=_gData_0070DBD0\")",
-   "va": "0x0070DBD0"
+   "va": "0x0070DBD0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27210,7 +27216,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DC00_t\n{\n    unsigned char b0[36];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DC00\n#pragma comment(linker, \"/alternatename:?gtCreatePasswordInit@@3UD2WinControlInitStrc@@A=_gData_0070DC00\")",
-   "va": "0x0070DC00"
+   "va": "0x0070DC00",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27244,7 +27251,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DC30_t\n{\n    unsigned char b0[36];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DC30\n#pragma comment(linker, \"/alternatename:?gtCreateDescInit@@3UD2WinControlInitStrc@@A=_gData_0070DC30\")",
-   "va": "0x0070DC30"
+   "va": "0x0070DC30",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27278,7 +27286,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DC60_t\n{\n    unsigned char b0[36];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DC60\n#pragma comment(linker, \"/alternatename:?gtMaxPlayersEditInit@@3UD2WinControlInitStrc@@A=_gData_0070DC60\")",
-   "va": "0x0070DC60"
+   "va": "0x0070DC60",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27312,7 +27321,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DC90_t\n{\n    unsigned char b0[36];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DC90\n#pragma comment(linker, \"/alternatename:?gtLevelDiffEditInit@@3UD2WinControlInitStrc@@A=_gData_0070DC90\")",
-   "va": "0x0070DC90"
+   "va": "0x0070DC90",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27346,7 +27356,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DCC0_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DCC0\n#pragma comment(linker, \"/alternatename:?gtCreateButtonInit@@3UD2WinControlInitStrc@@A=_gData_0070DCC0\")",
-   "va": "0x0070DCC0"
+   "va": "0x0070DCC0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27380,7 +27391,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DCF0_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DCF0\n#pragma comment(linker, \"/alternatename:?gtLevelDiffCheckInit@@3UD2WinControlInitStrc@@A=_gData_0070DCF0\")",
-   "va": "0x0070DCF0"
+   "va": "0x0070DCF0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27406,7 +27418,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DD20_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[16];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DD20\n#pragma comment(linker, \"/alternatename:?gtLevelDiffBoxImageInit@@3UD2WinControlInitStrc@@A=_gData_0070DD20\")",
-   "va": "0x0070DD20"
+   "va": "0x0070DD20",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27440,7 +27453,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DD50_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DD50\n#pragma comment(linker, \"/alternatename:?gtNormalRadioInit@@3UD2WinControlInitStrc@@A=_gData_0070DD50\")",
-   "va": "0x0070DD50"
+   "va": "0x0070DD50",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27474,7 +27488,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DD80_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DD80\n#pragma comment(linker, \"/alternatename:?gtNightmareRadioInit@@3UD2WinControlInitStrc@@A=_gData_0070DD80\")",
-   "va": "0x0070DD80"
+   "va": "0x0070DD80",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27508,7 +27523,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DDB0_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DDB0\n#pragma comment(linker, \"/alternatename:?gtHellRadioInit@@3UD2WinControlInitStrc@@A=_gData_0070DDB0\")",
-   "va": "0x0070DDB0"
+   "va": "0x0070DDB0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27534,7 +27550,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DDE0_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DDE0\n#pragma comment(linker, \"/alternatename:?gtNormalLabelInit@@3UD2WinControlInitStrc@@A=_gData_0070DDE0\")",
-   "va": "0x0070DDE0"
+   "va": "0x0070DDE0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27560,7 +27577,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DE10_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DE10\n#pragma comment(linker, \"/alternatename:?gtNightmareLabelInit@@3UD2WinControlInitStrc@@A=_gData_0070DE10\")",
-   "va": "0x0070DE10"
+   "va": "0x0070DE10",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27586,7 +27604,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DE40_t\n{\n    unsigned char b0[40];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DE40\n#pragma comment(linker, \"/alternatename:?gtHellLabelInit@@3UD2WinControlInitStrc@@A=_gData_0070DE40\")",
-   "va": "0x0070DE40"
+   "va": "0x0070DE40",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27620,7 +27639,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DE70_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DE70\n#pragma comment(linker, \"/alternatename:?gtMaxPlayersUpInit@@3UD2WinControlInitStrc@@A=_gData_0070DE70\")",
-   "va": "0x0070DE70"
+   "va": "0x0070DE70",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27654,7 +27674,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DEA0_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DEA0\n#pragma comment(linker, \"/alternatename:?gtMaxPlayersDownInit@@3UD2WinControlInitStrc@@A=_gData_0070DEA0\")",
-   "va": "0x0070DEA0"
+   "va": "0x0070DEA0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27688,7 +27709,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DED0_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DED0\n#pragma comment(linker, \"/alternatename:?gtLevelDiffUpInit@@3UD2WinControlInitStrc@@A=_gData_0070DED0\")",
-   "va": "0x0070DED0"
+   "va": "0x0070DED0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27722,7 +27744,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DF00_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DF00\n#pragma comment(linker, \"/alternatename:?gtLevelDiffDownInit@@3UD2WinControlInitStrc@@A=_gData_0070DF00\")",
-   "va": "0x0070DF00"
+   "va": "0x0070DF00",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27748,7 +27771,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DF30_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[16];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DF30\n#pragma comment(linker, \"/alternatename:?gtLevelDiffGreyArrowsInit@@3UD2WinControlInitStrc@@A=_gData_0070DF30\")",
-   "va": "0x0070DF30"
+   "va": "0x0070DF30",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27774,7 +27798,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DF60_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[16];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DF60\n#pragma comment(linker, \"/alternatename:?gtMaxPlayersBoxImageInit@@3UD2WinControlInitStrc@@A=_gData_0070DF60\")",
-   "va": "0x0070DF60"
+   "va": "0x0070DF60",
+   "sourced": true
   },
   {
    "alias": false,
@@ -27896,7 +27921,8 @@
    "size": 384,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070DF90_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[44];\n    const void* p3;\n    unsigned char b4[56];\n    const void* p5;\n    unsigned char b6[32];\n    const void* p7;\n    const void* p8;\n    unsigned char b9[40];\n    const void* p10;\n    const void* p11;\n    unsigned char b12[40];\n    const void* p13;\n    const void* p14;\n    unsigned char b15[40];\n    const void* p16;\n    const void* p17;\n    unsigned char b18[40];\n    const void* p19;\n    const void* p20;\n    unsigned char b21[12];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070DF90\n#pragma comment(linker, \"/alternatename:?gtControlInit_0070DF90@@3UD2WinControlInitStrc@@A=_gData_0070DF90\")",
-   "va": "0x0070DF90"
+   "va": "0x0070DF90",
+   "sourced": true
   },
   {
    "alias": false,
@@ -28120,7 +28146,8 @@
    "struct": null,
    "tail": "; // 0x0070EC20",
    "type": "D2LaunchMsgHandler",
-   "va": "0x0070EC20"
+   "va": "0x0070EC20",
+   "sourced": true
   },
   {
    "alias": false,
@@ -28258,7 +28285,8 @@
    "fwd": "extern \"C\" struct d2data_0070EBE0_t gData_0070EBE0; // 0x0070EBE0",
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070EBE0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "head": "extern \"C\" struct d2data_0070EBE0_t gData_0070EBE0 = ",
-   "tail": "; // 0x0070EBE0"
+   "tail": "; // 0x0070EBE0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -69203,7 +69231,8 @@
    "struct": null,
    "tail": "; // 0x0072DA80",
    "type": "D2GraphicsInterfaceStrc",
-   "va": "0x0072DA80"
+   "va": "0x0072DA80",
+   "sourced": true
   },
   {
    "alias": false,
@@ -73235,7 +73264,8 @@
    "struct": null,
    "tail": "; // 0x0074C580",
    "type": "int",
-   "va": "0x0074C580"
+   "va": "0x0074C580",
+   "sourced": true
   },
   {
    "alias": false,
@@ -73260,7 +73290,8 @@
    "struct": null,
    "tail": "; // 0x0072DA7C",
    "type": "int",
-   "va": "0x0072DA7C"
+   "va": "0x0072DA7C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -73285,7 +73316,8 @@
    "struct": null,
    "tail": "; // 0x0072F254",
    "type": "int",
-   "va": "0x0072F254"
+   "va": "0x0072F254",
+   "sourced": true
   },
   {
    "alias": false,
@@ -73310,7 +73342,8 @@
    "struct": null,
    "tail": "; // 0x0072F250",
    "type": "int",
-   "va": "0x0072F250"
+   "va": "0x0072F250",
+   "sourced": true
   },
   {
    "alias": true,
@@ -73327,7 +73360,8 @@
    "fwd": "extern \"C\" struct d2data_0072DA48_t gData_0072DA48; // 0x0072DA48",
    "struct": "#pragma pack(push, 1)\nstruct d2data_0072DA48_t\n{\n    unsigned char b0[24];\n};\n#pragma pack(pop)",
    "head": "extern \"C\" struct d2data_0072DA48_t gData_0072DA48 = ",
-   "tail": "; // 0x0072DA48\n#pragma comment(linker, \"/alternatename:?gGfxSettings@@3UD2GfxSettingsStrc@@A=_gData_0072DA48\")"
+   "tail": "; // 0x0072DA48\n#pragma comment(linker, \"/alternatename:?gGfxSettings@@3UD2GfxSettingsStrc@@A=_gData_0072DA48\")",
+   "sourced": true
   },
   {
    "alias": false,
@@ -73352,7 +73386,8 @@
    "struct": null,
    "tail": "; // 0x0072DB38",
    "type": "int",
-   "va": "0x0072DB38"
+   "va": "0x0072DB38",
+   "sourced": true
   },
   {
    "alias": true,
@@ -73429,7 +73464,8 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_0072DA60_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0072DA60\n#pragma comment(linker, \"/alternatename:?gabGraphicsHelpers@@3QBEB=_gData_0072DA60\")",
    "type": "unsigned char",
-   "va": "0x0072DA60"
+   "va": "0x0072DA60",
+   "sourced": true
   },
   {
    "alias": true,
@@ -73460,7 +73496,8 @@
    "struct": null,
    "tail": "; // 0x0072DAA8\n#pragma comment(linker, \"/alternatename:?gszRetryUnsupportedGraphics@@3QBDB=_gData_0072DAA8\")",
    "type": "char",
-   "va": "0x0072DAA8"
+   "va": "0x0072DAA8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -73491,7 +73528,8 @@
    "struct": null,
    "tail": "; // 0x0072DAF0\n#pragma comment(linker, \"/alternatename:?gszUnsupportedGraphics@@3QBDB=_gData_0072DAF0\")",
    "type": "char",
-   "va": "0x0072DAF0"
+   "va": "0x0072DAF0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -73520,7 +73558,8 @@
    "struct": null,
    "tail": ";                                                           // 0x0072DB40",
    "type": "int",
-   "va": "0x0072DB40"
+   "va": "0x0072DB40",
+   "sourced": true
   },
   {
    "alias": false,
@@ -73549,7 +73588,8 @@
    "struct": null,
    "tail": ";                                                                  // 0x0072DB44",
    "type": "int",
-   "va": "0x0072DB44"
+   "va": "0x0072DB44",
+   "sourced": true
   },
   {
    "alias": false,
@@ -73580,7 +73620,8 @@
    "struct": null,
    "tail": "; // 0x0072DB48",
    "type": "int",
-   "va": "0x0072DB48"
+   "va": "0x0072DB48",
+   "sourced": true
   },
   {
    "alias": false,
@@ -73611,7 +73652,8 @@
    "struct": null,
    "tail": "; // 0x0072DB84",
    "type": "int",
-   "va": "0x0072DB84"
+   "va": "0x0072DB84",
+   "sourced": true
   },
   {
    "alias": false,
@@ -73642,7 +73684,8 @@
    "struct": null,
    "tail": "; // 0x0072DBC0",
    "type": "int",
-   "va": "0x0072DBC0"
+   "va": "0x0072DBC0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -73667,7 +73710,8 @@
    "struct": null,
    "tail": "; // 0x0072F2B0",
    "type": "unsigned long",
-   "va": "0x0072F2B0"
+   "va": "0x0072F2B0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -76253,7 +76297,8 @@
    "struct": null,
    "tail": "; // 0x0072F7F0",
    "type": "unsigned long",
-   "va": "0x0072F7F0"
+   "va": "0x0072F7F0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -76423,7 +76468,8 @@
    "struct": null,
    "tail": "; // 0x006DD480\n#pragma comment(linker, \"/alternatename:?gszInsufficientTextureMemory@@3QBDB=_gData_006DD480\")",
    "type": "char",
-   "va": "0x006DD480"
+   "va": "0x006DD480",
+   "sourced": true
   },
   {
    "alias": false,
@@ -76453,7 +76499,8 @@
    "struct": null,
    "tail": "; // 0x0072F258",
    "type": "int",
-   "va": "0x0072F258"
+   "va": "0x0072F258",
+   "sourced": true
   },
   {
    "alias": false,
@@ -76483,7 +76530,8 @@
    "struct": null,
    "tail": "; // 0x0072F268",
    "type": "int",
-   "va": "0x0072F268"
+   "va": "0x0072F268",
+   "sourced": true
   },
   {
    "alias": false,
@@ -76534,7 +76582,8 @@
    "struct": null,
    "tail": "; // 0x0072F278",
    "type": "D2GlideTexDimsStrc",
-   "va": "0x0072F278"
+   "va": "0x0072F278",
+   "sourced": true
   },
   {
    "alias": false,
@@ -76609,7 +76658,8 @@
    "struct": null,
    "tail": "; // 0x0072F680",
    "type": "D2GrTexInfoStrc",
-   "va": "0x0072F680"
+   "va": "0x0072F680",
+   "sourced": true
   },
   {
    "alias": false,
@@ -76684,7 +76734,8 @@
    "struct": null,
    "tail": "; // 0x0072F694",
    "type": "D2GrTexInfoStrc",
-   "va": "0x0072F694"
+   "va": "0x0072F694",
+   "sourced": true
   },
   {
    "alias": false,
@@ -76759,7 +76810,8 @@
    "struct": null,
    "tail": "; // 0x0072F2B4",
    "type": "D2GrTexInfoStrc",
-   "va": "0x0072F2B4"
+   "va": "0x0072F2B4",
+   "sourced": true
   },
   {
    "alias": false,
@@ -76789,7 +76841,8 @@
    "struct": null,
    "tail": "; // 0x0072F2C8",
    "type": "int",
-   "va": "0x0072F2C8"
+   "va": "0x0072F2C8",
+   "sourced": true
   },
   {
    "alias": false,
@@ -76819,7 +76872,8 @@
    "struct": null,
    "tail": "; // 0x0072F2E8",
    "type": "int",
-   "va": "0x0072F2E8"
+   "va": "0x0072F2E8",
+   "sourced": true
   },
   {
    "alias": false,
@@ -76850,7 +76904,8 @@
    "struct": null,
    "tail": "; // 0x0072F308",
    "type": "unsigned int",
-   "va": "0x0072F308"
+   "va": "0x0072F308",
+   "sourced": true
   },
   {
    "alias": false,
@@ -76890,7 +76945,8 @@
    "struct": null,
    "tail": "; // 0x0072F3A0",
    "type": "int",
-   "va": "0x0072F3A0"
+   "va": "0x0072F3A0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -76953,7 +77009,8 @@
    "struct": null,
    "tail": "; // 0x0072F670",
    "type": "void",
-   "va": "0x0072F670"
+   "va": "0x0072F670",
+   "sourced": true
   },
   {
    "alias": false,
@@ -77064,7 +77121,8 @@
    "struct": null,
    "tail": "; // 0x0072F350",
    "type": "void",
-   "va": "0x0072F350"
+   "va": "0x0072F350",
+   "sourced": true
   },
   {
    "alias": false,
@@ -77175,7 +77233,8 @@
    "struct": null,
    "tail": "; // 0x0072F378",
    "type": "void",
-   "va": "0x0072F378"
+   "va": "0x0072F378",
+   "sourced": true
   },
   {
    "alias": false,
@@ -77231,7 +77290,8 @@
    "struct": null,
    "tail": "; // 0x0072F6BC",
    "type": "D2GrTexInfoStrc",
-   "va": "0x0072F6BC"
+   "va": "0x0072F6BC",
+   "sourced": true
   },
   {
    "alias": false,
@@ -77248,7 +77308,8 @@
    "size": 8,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0072F6C8_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0072F6C8",
-   "va": "0x0072F6C8"
+   "va": "0x0072F6C8",
+   "sourced": true
   },
   {
    "alias": false,
@@ -77304,7 +77365,8 @@
    "struct": null,
    "tail": "; // 0x0072F6A8",
    "type": "D2GrTexInfoStrc",
-   "va": "0x0072F6A8"
+   "va": "0x0072F6A8",
+   "sourced": true
   },
   {
    "alias": false,
@@ -77321,7 +77383,8 @@
    "size": 8,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0072F6B4_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0072F6B4",
-   "va": "0x0072F6B4"
+   "va": "0x0072F6B4",
+   "sourced": true
   },
   {
    "alias": false,
@@ -77346,7 +77409,8 @@
    "struct": null,
    "tail": "; // 0x0072F7C8",
    "type": "int",
-   "va": "0x0072F7C8"
+   "va": "0x0072F7C8",
+   "sourced": true
   },
   {
    "alias": false,
@@ -77371,7 +77435,8 @@
    "struct": null,
    "tail": "; // 0x0072F7CC",
    "type": "int",
-   "va": "0x0072F7CC"
+   "va": "0x0072F7CC",
+   "sourced": true
   },
   {
    "alias": false,
@@ -77401,7 +77466,8 @@
    "struct": null,
    "tail": "; // 0x0072F7A8",
    "type": "int",
-   "va": "0x0072F7A8"
+   "va": "0x0072F7A8",
+   "sourced": true
   },
   {
    "alias": false,
@@ -77431,7 +77497,8 @@
    "struct": null,
    "tail": "; // 0x0072F7B8",
    "type": "int",
-   "va": "0x0072F7B8"
+   "va": "0x0072F7B8",
+   "sourced": true
   },
   {
    "alias": false,
@@ -77462,7 +77529,8 @@
    "tail": "; // 0x0072F7D0",
    "type": "int",
    "va": "0x0072F7D0",
-   "zero_tail": 4
+   "zero_tail": 4,
+   "sourced": true
   },
   {
    "alias": true,
@@ -77493,7 +77561,8 @@
    "struct": null,
    "tail": "; // 0x006DE20C\n#pragma comment(linker, \"/alternatename:_gszDDSmackFile=_gData_006DE20C\")",
    "type": "char",
-   "va": "0x006DE20C"
+   "va": "0x006DE20C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -78645,7 +78714,8 @@
    "struct": null,
    "tail": "; // 0x0072F9F0",
    "type": "char",
-   "va": "0x0072F9F0"
+   "va": "0x0072F9F0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -78671,7 +78741,8 @@
    "fwd": "extern \"C\" struct d2data_0072F9F4_t gData_0072F9F4; // 0x0072F9F4",
    "struct": "#pragma pack(push, 1)\nstruct d2data_0072F9F4_t\n{\n    const void* p0;\n    unsigned char b1[4];\n};\n#pragma pack(pop)",
    "head": "extern \"C\" struct d2data_0072F9F4_t gData_0072F9F4 = ",
-   "tail": "; // 0x0072F9F4"
+   "tail": "; // 0x0072F9F4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -78705,7 +78776,8 @@
    "struct": null,
    "tail": "; // 0x006CC848\n#pragma comment(linker, \"/alternatename:?gpszModuleName@@3QBDB=_gData_006CC848\")",
    "type": "char",
-   "va": "0x006CC848"
+   "va": "0x006CC848",
+   "sourced": true
   },
   {
    "alias": true,
@@ -78742,7 +78814,8 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_006DEBE8_t\n{\n    unsigned char b0[112];\n    const void* p1;\n    const void* p2;\n};\n#pragma pack(pop)",
    "tail": "; // 0x006DEBE8\n#pragma comment(linker, \"/alternatename:?sgszAssertFormatString@@3QBDB=_gData_006DEBE8\")",
    "type": "char",
-   "va": "0x006DEBE8"
+   "va": "0x006DEBE8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -78773,7 +78846,8 @@
    "struct": null,
    "tail": "; // 0x0072F9FC\n#pragma comment(linker, \"/alternatename:?gszRecordType@@3QBDB=_gData_0072F9FC\")",
    "type": "char",
-   "va": "0x0072F9FC"
+   "va": "0x0072F9FC",
+   "sourced": true
   },
   {
    "alias": false,
@@ -79031,7 +79105,8 @@
    "size": 128,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0072FA20_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    unsigned char b15[4];\n    const void* p16;\n    const void* p17;\n    const void* p18;\n    const void* p19;\n    const void* p20;\n    const void* p21;\n    const void* p22;\n    const void* p23;\n    const void* p24;\n    const void* p25;\n    const void* p26;\n    const void* p27;\n    const void* p28;\n    const void* p29;\n    const void* p30;\n    unsigned char b31[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0072FA20",
-   "va": "0x0072FA20"
+   "va": "0x0072FA20",
+   "sourced": true
   },
   {
    "alias": false,
@@ -79473,7 +79548,8 @@
    "size": 216,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0072FAA0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    const void* p15;\n    const void* p16;\n    const void* p17;\n    const void* p18;\n    const void* p19;\n    const void* p20;\n    const void* p21;\n    const void* p22;\n    const void* p23;\n    const void* p24;\n    const void* p25;\n    const void* p26;\n    const void* p27;\n    const void* p28;\n    const void* p29;\n    const void* p30;\n    const void* p31;\n    const void* p32;\n    const void* p33;\n    const void* p34;\n    const void* p35;\n    const void* p36;\n    const void* p37;\n    const void* p38;\n    const void* p39;\n    const void* p40;\n    const void* p41;\n    const void* p42;\n    const void* p43;\n    const void* p44;\n    const void* p45;\n    const void* p46;\n    const void* p47;\n    const void* p48;\n    const void* p49;\n    const void* p50;\n    const void* p51;\n    const void* p52;\n    unsigned char b53[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0072FAA0\n#pragma comment(linker, \"/alternatename:?gtBnClientInterface@@3UBnClientInterface@@A=_gData_0072FAA0\")",
-   "va": "0x0072FAA0"
+   "va": "0x0072FAA0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -79504,7 +79580,8 @@
    "struct": null,
    "tail": "; // 0x0072FB80",
    "type": "unsigned int",
-   "va": "0x0072FB80"
+   "va": "0x0072FB80",
+   "sourced": true
   },
   {
    "alias": false,
@@ -79561,7 +79638,8 @@
    "struct": null,
    "tail": "; // 0x006DEEC0\n#pragma comment(linker, \"/alternatename:?gszCorruptFile@@3QBDB=_gData_006DEEC0\")",
    "type": "char",
-   "va": "0x006DEEC0"
+   "va": "0x006DEEC0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -79592,7 +79670,8 @@
    "struct": null,
    "tail": "; // 0x006DEF80\n#pragma comment(linker, \"/alternatename:_szEmpty_006DEF80=_gData_006DEF80\")\n#pragma comment(linker, \"/alternatename:_gabSha1Pad00=_gData_006DEF80\")",
    "type": "char",
-   "va": "0x006DEF80"
+   "va": "0x006DEF80",
+   "sourced": true
   },
   {
    "alias": false,
@@ -79600,10 +79679,10 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2BNClient/BnSend.cpp",
-   "fill": 109,
+   "fill": 94,
    "form": "declared",
    "fwd": null,
-   "head": "extern D2BnPacketHandler gapfnPacketHandlers[109] = ",
+   "head": "extern D2BnPacketHandler gapfnPacketHandlers[94] = ",
    "model": {
     "elem": {
      "fn": true,
@@ -79612,8 +79691,8 @@
      "spell": "D2BnPacketHandler"
     },
     "k": "arr",
-    "n": 109,
-    "size": 436
+    "n": 94,
+    "size": 376
    },
    "name": "gapfnPacketHandlers",
    "pointers": [
@@ -79928,9 +80007,30 @@
      "BNDOWNLOAD_HandleSetEmail",
      0,
      "func"
-    ],
+    ]
+   ],
+   "region": "data",
+   "size": 376,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0072FFB0",
+   "type": "D2BnPacketHandler",
+   "va": "0x0072FFB0",
+   "sourced": true
+  },
+  {
+   "alias": false,
+   "cname": "gData_00730128",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2BNClient/BnSend.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00730128_t gData_00730128; // 0x00730128",
+   "head": "extern \"C\" struct d2data_00730128_t gData_00730128 = ",
+   "name": "gData_00730128",
+   "pointers": [
     [
-     376,
+     0,
      "0x006CC81C",
      "literal",
      null,
@@ -79938,7 +80038,7 @@
      "string"
     ],
     [
-     380,
+     4,
      "0x006CC814",
      "literal",
      null,
@@ -79946,7 +80046,7 @@
      "string"
     ],
     [
-     384,
+     8,
      "0x006CC80C",
      "literal",
      null,
@@ -79954,7 +80054,7 @@
      "string"
     ],
     [
-     388,
+     12,
      "0x006CC804",
      "literal",
      null,
@@ -79962,7 +80062,7 @@
      "string"
     ],
     [
-     392,
+     16,
      "0x006CC7F8",
      "literal",
      null,
@@ -79970,7 +80070,7 @@
      "string"
     ],
     [
-     396,
+     20,
      "0x006CC7F0",
      "literal",
      null,
@@ -79978,7 +80078,7 @@
      "string"
     ],
     [
-     400,
+     24,
      "0x006CC7E4",
      "literal",
      null,
@@ -79986,7 +80086,7 @@
      "string"
     ],
     [
-     404,
+     28,
      "0x006CC7DC",
      "literal",
      null,
@@ -79994,7 +80094,7 @@
      "string"
     ],
     [
-     408,
+     32,
      "0x006CC7C8",
      "literal",
      null,
@@ -80002,7 +80102,7 @@
      "string"
     ],
     [
-     412,
+     36,
      "0x006CC7B4",
      "literal",
      null,
@@ -80010,7 +80110,7 @@
      "string"
     ],
     [
-     416,
+     40,
      "0x006CC7AC",
      "literal",
      null,
@@ -80018,7 +80118,7 @@
      "string"
     ],
     [
-     420,
+     44,
      "0x006CC7A4",
      "literal",
      null,
@@ -80026,7 +80126,7 @@
      "string"
     ],
     [
-     424,
+     48,
      "0x006CC788",
      "literal",
      null,
@@ -80034,7 +80134,7 @@
      "string"
     ],
     [
-     428,
+     52,
      "0x006CC780",
      "literal",
      null,
@@ -80042,7 +80142,7 @@
      "string"
     ],
     [
-     432,
+     56,
      "0x006CC77C",
      "literal",
      null,
@@ -80051,12 +80151,11 @@
     ]
    ],
    "region": "data",
-   "size": 436,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072FFB0",
-   "type": "D2BnPacketHandler",
-   "va": "0x0072FFB0"
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00730128_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00730128",
+   "va": "0x00730128",
+   "sourced": true
   },
   {
    "alias": false,
@@ -80090,7 +80189,8 @@
    "struct": null,
    "tail": "; // 0x0072FF80",
    "type": "char",
-   "va": "0x0072FF80"
+   "va": "0x0072FF80",
+   "sourced": true
   },
   {
    "alias": false,
@@ -80116,7 +80216,8 @@
    "fwd": "extern \"C\" struct d2data_0072FF84_t gData_0072FF84; // 0x0072FF84",
    "struct": "#pragma pack(push, 1)\nstruct d2data_0072FF84_t\n{\n    const void* p0;\n    unsigned char b1[4];\n};\n#pragma pack(pop)",
    "head": "extern \"C\" struct d2data_0072FF84_t gData_0072FF84 = ",
-   "tail": "; // 0x0072FF84"
+   "tail": "; // 0x0072FF84",
+   "sourced": true
   },
   {
    "alias": true,
@@ -80147,7 +80248,8 @@
    "struct": null,
    "tail": "; // 0x0072FF8C\n#pragma comment(linker, \"/alternatename:_gszTypeNewsTableItem_0072FF8C=_gData_0072FF8C\")",
    "type": "char",
-   "va": "0x0072FF8C"
+   "va": "0x0072FF8C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -80279,7 +80381,8 @@
    "tail": "; // 0x0072FFA8",
    "type": "int",
    "va": "0x0072FFA8",
-   "zero_tail": 4
+   "zero_tail": 4,
+   "sourced": true
   },
   {
    "alias": true,
@@ -80481,7 +80584,8 @@
    "struct": null,
    "tail": "; // 0x00730190",
    "type": "int",
-   "va": "0x00730190"
+   "va": "0x00730190",
+   "sourced": true
   },
   {
    "alias": false,
@@ -80498,7 +80602,8 @@
    "size": 4,
    "struct": "#pragma pack(push, 1)\nstruct d2data_00730194_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x00730194",
-   "va": "0x00730194"
+   "va": "0x00730194",
+   "sourced": true
   },
   {
    "alias": false,
@@ -135909,7 +136014,8 @@
    "struct": null,
    "tail": "; // 0x0074C024",
    "type": "D2PixelFormat006B1B60Strc",
-   "va": "0x0074C024"
+   "va": "0x0074C024",
+   "sourced": true
   },
   {
    "alias": true,
@@ -135934,7 +136040,8 @@
    "struct": null,
    "tail": "; // 0x006FADC4",
    "type": "int",
-   "va": "0x006FADC4"
+   "va": "0x006FADC4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -135959,7 +136066,8 @@
    "struct": null,
    "tail": "; // 0x006FADC8",
    "type": "int",
-   "va": "0x006FADC8"
+   "va": "0x006FADC8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -135984,7 +136092,8 @@
    "struct": null,
    "tail": "; // 0x006FADCC",
    "type": "unsigned int",
-   "va": "0x006FADCC"
+   "va": "0x006FADCC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136009,7 +136118,8 @@
    "struct": null,
    "tail": "; // 0x006FADD0",
    "type": "unsigned int",
-   "va": "0x006FADD0"
+   "va": "0x006FADD0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136034,7 +136144,8 @@
    "struct": null,
    "tail": "; // 0x006FADD4",
    "type": "long",
-   "va": "0x006FADD4"
+   "va": "0x006FADD4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136059,7 +136170,8 @@
    "struct": null,
    "tail": "; // 0x006FADD8",
    "type": "long",
-   "va": "0x006FADD8"
+   "va": "0x006FADD8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136084,7 +136196,8 @@
    "struct": null,
    "tail": "; // 0x006FADDC",
    "type": "unsigned long",
-   "va": "0x006FADDC"
+   "va": "0x006FADDC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136109,7 +136222,8 @@
    "struct": null,
    "tail": "; // 0x006FADE0",
    "type": "unsigned long",
-   "va": "0x006FADE0"
+   "va": "0x006FADE0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136134,7 +136248,8 @@
    "struct": null,
    "tail": "; // 0x006FADE8",
    "type": "__int64",
-   "va": "0x006FADE8"
+   "va": "0x006FADE8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136159,7 +136274,8 @@
    "struct": null,
    "tail": "; // 0x006FADF0",
    "type": "__int64",
-   "va": "0x006FADF0"
+   "va": "0x006FADF0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136184,7 +136300,8 @@
    "struct": null,
    "tail": "; // 0x006FADF8",
    "type": "unsigned __int64",
-   "va": "0x006FADF8"
+   "va": "0x006FADF8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136209,7 +136326,8 @@
    "struct": null,
    "tail": "; // 0x006FAE00",
    "type": "unsigned __int64",
-   "va": "0x006FAE00"
+   "va": "0x006FAE00",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136234,7 +136352,8 @@
    "struct": null,
    "tail": "; // 0x006FAE08",
    "type": "unsigned int",
-   "va": "0x006FAE08"
+   "va": "0x006FAE08",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136259,7 +136378,8 @@
    "struct": null,
    "tail": "; // 0x006FAE0C",
    "type": "int",
-   "va": "0x006FAE0C"
+   "va": "0x006FAE0C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136284,7 +136404,8 @@
    "struct": null,
    "tail": "; // 0x006FAE10",
    "type": "unsigned int",
-   "va": "0x006FAE10"
+   "va": "0x006FAE10",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136309,7 +136430,8 @@
    "struct": null,
    "tail": "; // 0x006FAE14",
    "type": "int",
-   "va": "0x006FAE14"
+   "va": "0x006FAE14",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136334,7 +136456,8 @@
    "struct": null,
    "tail": "; // 0x006FAE18",
    "type": "unsigned int",
-   "va": "0x006FAE18"
+   "va": "0x006FAE18",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136359,7 +136482,8 @@
    "struct": null,
    "tail": "; // 0x006FAE1C",
    "type": "int",
-   "va": "0x006FAE1C"
+   "va": "0x006FAE1C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136384,7 +136508,8 @@
    "struct": null,
    "tail": "; // 0x006FAE20",
    "type": "unsigned int",
-   "va": "0x006FAE20"
+   "va": "0x006FAE20",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136409,7 +136534,8 @@
    "struct": null,
    "tail": "; // 0x006FAE24",
    "type": "int",
-   "va": "0x006FAE24"
+   "va": "0x006FAE24",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136434,7 +136560,8 @@
    "struct": null,
    "tail": "; // 0x006FAE28",
    "type": "unsigned int",
-   "va": "0x006FAE28"
+   "va": "0x006FAE28",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136459,7 +136586,8 @@
    "struct": null,
    "tail": "; // 0x006FAE2C",
    "type": "int",
-   "va": "0x006FAE2C"
+   "va": "0x006FAE2C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136484,7 +136612,8 @@
    "struct": null,
    "tail": "; // 0x006FAE30",
    "type": "unsigned int",
-   "va": "0x006FAE30"
+   "va": "0x006FAE30",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136509,7 +136638,8 @@
    "struct": null,
    "tail": "; // 0x006FAE34",
    "type": "int",
-   "va": "0x006FAE34"
+   "va": "0x006FAE34",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136534,7 +136664,8 @@
    "struct": null,
    "tail": "; // 0x006FAE38",
    "type": "unsigned int",
-   "va": "0x006FAE38"
+   "va": "0x006FAE38",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136559,7 +136690,8 @@
    "struct": null,
    "tail": "; // 0x006FAE3C",
    "type": "int",
-   "va": "0x006FAE3C"
+   "va": "0x006FAE3C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136584,7 +136716,8 @@
    "struct": null,
    "tail": "; // 0x006FAE40",
    "type": "unsigned int",
-   "va": "0x006FAE40"
+   "va": "0x006FAE40",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136609,7 +136742,8 @@
    "struct": null,
    "tail": "; // 0x006FAE44",
    "type": "int",
-   "va": "0x006FAE44"
+   "va": "0x006FAE44",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136634,7 +136768,8 @@
    "struct": null,
    "tail": "; // 0x006FAE48",
    "type": "unsigned int",
-   "va": "0x006FAE48"
+   "va": "0x006FAE48",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136659,7 +136794,8 @@
    "struct": null,
    "tail": "; // 0x006FAE4C",
    "type": "int",
-   "va": "0x006FAE4C"
+   "va": "0x006FAE4C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136684,7 +136820,8 @@
    "struct": null,
    "tail": "; // 0x006FAE50",
    "type": "unsigned int",
-   "va": "0x006FAE50"
+   "va": "0x006FAE50",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136709,7 +136846,8 @@
    "struct": null,
    "tail": "; // 0x006FAE54",
    "type": "int",
-   "va": "0x006FAE54"
+   "va": "0x006FAE54",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136734,7 +136872,8 @@
    "struct": null,
    "tail": "; // 0x006FAE58",
    "type": "unsigned int",
-   "va": "0x006FAE58"
+   "va": "0x006FAE58",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136759,7 +136898,8 @@
    "struct": null,
    "tail": "; // 0x006FAE5C",
    "type": "int",
-   "va": "0x006FAE5C"
+   "va": "0x006FAE5C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136784,7 +136924,8 @@
    "struct": null,
    "tail": "; // 0x006FAE60",
    "type": "unsigned int",
-   "va": "0x006FAE60"
+   "va": "0x006FAE60",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136809,7 +136950,8 @@
    "struct": null,
    "tail": "; // 0x006FAE64",
    "type": "int",
-   "va": "0x006FAE64"
+   "va": "0x006FAE64",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136834,7 +136976,8 @@
    "struct": null,
    "tail": "; // 0x006FAE68",
    "type": "unsigned int",
-   "va": "0x006FAE68"
+   "va": "0x006FAE68",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136859,7 +137002,8 @@
    "struct": null,
    "tail": "; // 0x006FAE6C",
    "type": "int",
-   "va": "0x006FAE6C"
+   "va": "0x006FAE6C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136884,7 +137028,8 @@
    "struct": null,
    "tail": "; // 0x006FAE70",
    "type": "unsigned int",
-   "va": "0x006FAE70"
+   "va": "0x006FAE70",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136909,7 +137054,8 @@
    "struct": null,
    "tail": "; // 0x006FAE74",
    "type": "int",
-   "va": "0x006FAE74"
+   "va": "0x006FAE74",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136934,7 +137080,8 @@
    "struct": null,
    "tail": "; // 0x006FAE78",
    "type": "unsigned int",
-   "va": "0x006FAE78"
+   "va": "0x006FAE78",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136959,7 +137106,8 @@
    "struct": null,
    "tail": "; // 0x006FAE7C",
    "type": "int",
-   "va": "0x006FAE7C"
+   "va": "0x006FAE7C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -136984,7 +137132,8 @@
    "struct": null,
    "tail": "; // 0x006FAE80",
    "type": "unsigned int",
-   "va": "0x006FAE80"
+   "va": "0x006FAE80",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137009,7 +137158,8 @@
    "struct": null,
    "tail": "; // 0x006FAE84",
    "type": "int",
-   "va": "0x006FAE84"
+   "va": "0x006FAE84",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137034,7 +137184,8 @@
    "struct": null,
    "tail": "; // 0x006FAE88",
    "type": "unsigned int",
-   "va": "0x006FAE88"
+   "va": "0x006FAE88",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137059,7 +137210,8 @@
    "struct": null,
    "tail": "; // 0x006FAE8C",
    "type": "int",
-   "va": "0x006FAE8C"
+   "va": "0x006FAE8C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137084,7 +137236,8 @@
    "struct": null,
    "tail": "; // 0x006FAE90",
    "type": "unsigned int",
-   "va": "0x006FAE90"
+   "va": "0x006FAE90",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137109,7 +137262,8 @@
    "struct": null,
    "tail": "; // 0x006FAE94",
    "type": "int",
-   "va": "0x006FAE94"
+   "va": "0x006FAE94",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137134,7 +137288,8 @@
    "struct": null,
    "tail": "; // 0x006FAE98",
    "type": "unsigned int",
-   "va": "0x006FAE98"
+   "va": "0x006FAE98",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137159,7 +137314,8 @@
    "struct": null,
    "tail": "; // 0x006FAE9C",
    "type": "int",
-   "va": "0x006FAE9C"
+   "va": "0x006FAE9C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137184,7 +137340,8 @@
    "struct": null,
    "tail": "; // 0x006FAEA0",
    "type": "unsigned int",
-   "va": "0x006FAEA0"
+   "va": "0x006FAEA0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137209,7 +137366,8 @@
    "struct": null,
    "tail": "; // 0x006FAEA4",
    "type": "int",
-   "va": "0x006FAEA4"
+   "va": "0x006FAEA4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137234,7 +137392,8 @@
    "struct": null,
    "tail": "; // 0x006FAEA8",
    "type": "unsigned int",
-   "va": "0x006FAEA8"
+   "va": "0x006FAEA8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137259,7 +137418,8 @@
    "struct": null,
    "tail": "; // 0x006FAEAC",
    "type": "int",
-   "va": "0x006FAEAC"
+   "va": "0x006FAEAC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137284,7 +137444,8 @@
    "struct": null,
    "tail": "; // 0x006FAEB0",
    "type": "unsigned int",
-   "va": "0x006FAEB0"
+   "va": "0x006FAEB0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137309,7 +137470,8 @@
    "struct": null,
    "tail": "; // 0x006FAEB4",
    "type": "int",
-   "va": "0x006FAEB4"
+   "va": "0x006FAEB4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137334,7 +137496,8 @@
    "struct": null,
    "tail": "; // 0x006FAEB8",
    "type": "unsigned int",
-   "va": "0x006FAEB8"
+   "va": "0x006FAEB8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137359,7 +137522,8 @@
    "struct": null,
    "tail": "; // 0x006FAEBC",
    "type": "int",
-   "va": "0x006FAEBC"
+   "va": "0x006FAEBC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137384,7 +137548,8 @@
    "struct": null,
    "tail": "; // 0x006FAEC0",
    "type": "unsigned int",
-   "va": "0x006FAEC0"
+   "va": "0x006FAEC0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137409,7 +137574,8 @@
    "struct": null,
    "tail": "; // 0x006FAEC4",
    "type": "int",
-   "va": "0x006FAEC4"
+   "va": "0x006FAEC4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137434,7 +137600,8 @@
    "struct": null,
    "tail": "; // 0x006FAEC8",
    "type": "unsigned int",
-   "va": "0x006FAEC8"
+   "va": "0x006FAEC8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137459,7 +137626,8 @@
    "struct": null,
    "tail": "; // 0x006FAECC",
    "type": "unsigned int",
-   "va": "0x006FAECC"
+   "va": "0x006FAECC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137484,7 +137652,8 @@
    "struct": null,
    "tail": "; // 0x006FAED0",
    "type": "int",
-   "va": "0x006FAED0"
+   "va": "0x006FAED0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137509,7 +137678,8 @@
    "struct": null,
    "tail": "; // 0x006FAED4",
    "type": "unsigned int",
-   "va": "0x006FAED4"
+   "va": "0x006FAED4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137534,7 +137704,8 @@
    "struct": null,
    "tail": "; // 0x006FAED8",
    "type": "int",
-   "va": "0x006FAED8"
+   "va": "0x006FAED8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137559,7 +137730,8 @@
    "struct": null,
    "tail": "; // 0x006FAEDC",
    "type": "unsigned int",
-   "va": "0x006FAEDC"
+   "va": "0x006FAEDC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137584,7 +137756,8 @@
    "struct": null,
    "tail": "; // 0x006FAEE0",
    "type": "int",
-   "va": "0x006FAEE0"
+   "va": "0x006FAEE0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137609,7 +137782,8 @@
    "struct": null,
    "tail": "; // 0x006FAEE4",
    "type": "unsigned int",
-   "va": "0x006FAEE4"
+   "va": "0x006FAEE4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137634,7 +137808,8 @@
    "struct": null,
    "tail": "; // 0x006FAEE8",
    "type": "int",
-   "va": "0x006FAEE8"
+   "va": "0x006FAEE8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137659,7 +137834,8 @@
    "struct": null,
    "tail": "; // 0x006FAEEC",
    "type": "unsigned int",
-   "va": "0x006FAEEC"
+   "va": "0x006FAEEC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137684,7 +137860,8 @@
    "struct": null,
    "tail": "; // 0x006FAEF0",
    "type": "int",
-   "va": "0x006FAEF0"
+   "va": "0x006FAEF0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137709,7 +137886,8 @@
    "struct": null,
    "tail": "; // 0x006FAEF4",
    "type": "unsigned int",
-   "va": "0x006FAEF4"
+   "va": "0x006FAEF4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137734,7 +137912,8 @@
    "struct": null,
    "tail": "; // 0x006FAEF8",
    "type": "int",
-   "va": "0x006FAEF8"
+   "va": "0x006FAEF8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137759,7 +137938,8 @@
    "struct": null,
    "tail": "; // 0x006FAEFC",
    "type": "unsigned int",
-   "va": "0x006FAEFC"
+   "va": "0x006FAEFC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137784,7 +137964,8 @@
    "struct": null,
    "tail": "; // 0x006FAF00",
    "type": "int",
-   "va": "0x006FAF00"
+   "va": "0x006FAF00",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137809,7 +137990,8 @@
    "struct": null,
    "tail": "; // 0x006FAF04",
    "type": "unsigned int",
-   "va": "0x006FAF04"
+   "va": "0x006FAF04",
+   "sourced": true
   },
   {
    "alias": true,
@@ -137834,7 +138016,8 @@
    "struct": null,
    "tail": "; // 0x006FAF08",
    "type": "int",
-   "va": "0x006FAF08"
+   "va": "0x006FAF08",
+   "sourced": true
   },
   {
    "alias": false,
@@ -137905,7 +138088,8 @@
    "struct": null,
    "tail": "; // 0x006FAF0C",
    "type": "GUID",
-   "va": "0x006FAF0C"
+   "va": "0x006FAF0C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -137976,7 +138160,8 @@
    "struct": null,
    "tail": "; // 0x006FAF1C",
    "type": "GUID",
-   "va": "0x006FAF1C"
+   "va": "0x006FAF1C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138047,7 +138232,8 @@
    "struct": null,
    "tail": "; // 0x006FAF2C",
    "type": "GUID",
-   "va": "0x006FAF2C"
+   "va": "0x006FAF2C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138118,7 +138304,8 @@
    "struct": null,
    "tail": "; // 0x006FAF3C",
    "type": "GUID",
-   "va": "0x006FAF3C"
+   "va": "0x006FAF3C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138189,7 +138376,8 @@
    "struct": null,
    "tail": "; // 0x006FAF4C",
    "type": "GUID",
-   "va": "0x006FAF4C"
+   "va": "0x006FAF4C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138260,7 +138448,8 @@
    "struct": null,
    "tail": "; // 0x006FAF5C",
    "type": "GUID",
-   "va": "0x006FAF5C"
+   "va": "0x006FAF5C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138331,7 +138520,8 @@
    "struct": null,
    "tail": "; // 0x006FAF6C",
    "type": "GUID",
-   "va": "0x006FAF6C"
+   "va": "0x006FAF6C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138402,7 +138592,8 @@
    "struct": null,
    "tail": "; // 0x006FAF7C",
    "type": "GUID",
-   "va": "0x006FAF7C"
+   "va": "0x006FAF7C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138473,7 +138664,8 @@
    "struct": null,
    "tail": "; // 0x006FAF8C",
    "type": "GUID",
-   "va": "0x006FAF8C"
+   "va": "0x006FAF8C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138507,7 +138699,8 @@
    "struct": null,
    "tail": "; // 0x006FAF9C",
    "type": "char",
-   "va": "0x006FAF9C"
+   "va": "0x006FAF9C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138541,7 +138734,8 @@
    "struct": null,
    "tail": "; // 0x006FAFA0",
    "type": "char",
-   "va": "0x006FAFA0"
+   "va": "0x006FAFA0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138575,7 +138769,8 @@
    "struct": null,
    "tail": "; // 0x006FAFA4",
    "type": "char",
-   "va": "0x006FAFA4"
+   "va": "0x006FAFA4",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138609,7 +138804,8 @@
    "struct": null,
    "tail": "; // 0x006FAFA8",
    "type": "char",
-   "va": "0x006FAFA8"
+   "va": "0x006FAFA8",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138643,7 +138839,8 @@
    "struct": null,
    "tail": "; // 0x006FAFAC",
    "type": "char",
-   "va": "0x006FAFAC"
+   "va": "0x006FAFAC",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138677,7 +138874,8 @@
    "struct": null,
    "tail": "; // 0x006FAFB0",
    "type": "char",
-   "va": "0x006FAFB0"
+   "va": "0x006FAFB0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138711,7 +138909,8 @@
    "struct": null,
    "tail": "; // 0x006FAFB4",
    "type": "char",
-   "va": "0x006FAFB4"
+   "va": "0x006FAFB4",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138745,7 +138944,8 @@
    "struct": null,
    "tail": "; // 0x006FAFB8",
    "type": "char",
-   "va": "0x006FAFB8"
+   "va": "0x006FAFB8",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138770,7 +138970,8 @@
    "struct": null,
    "tail": "; // 0x006FAFBC",
    "type": "int",
-   "va": "0x006FAFBC"
+   "va": "0x006FAFBC",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138795,7 +138996,8 @@
    "struct": null,
    "tail": "; // 0x006FAFC0",
    "type": "int",
-   "va": "0x006FAFC0"
+   "va": "0x006FAFC0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138922,7 +139124,8 @@
    "struct": null,
    "tail": "; // 0x006FAFC4",
    "type": "char",
-   "va": "0x006FAFC4"
+   "va": "0x006FAFC4",
+   "sourced": true
   },
   {
    "alias": false,
@@ -138947,7 +139150,8 @@
    "struct": null,
    "tail": "; // 0x006FAFF4",
    "type": "int",
-   "va": "0x006FAFF4"
+   "va": "0x006FAFF4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139009,7 +139213,8 @@
    "struct": null,
    "tail": "; // 0x006FF478\n#pragma comment(linker, \"/alternatename:?gabIidTexture@@3QBEB=_gData_006FF478\")",
    "type": "unsigned char",
-   "va": "0x006FF478"
+   "va": "0x006FF478",
+   "sourced": true
   },
   {
    "alias": false,
@@ -139026,7 +139231,8 @@
    "size": 144,
    "struct": "#pragma pack(push, 1)\nstruct d2data_006FF488_t\n{\n    unsigned char b0[144];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006FF488",
-   "va": "0x006FF488"
+   "va": "0x006FF488",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139057,7 +139263,8 @@
    "struct": null,
    "tail": "; // 0x006FB130\n#pragma comment(linker, \"/alternatename:_gszFailedToLockDest=_gData_006FB130\")",
    "type": "char",
-   "va": "0x006FB130"
+   "va": "0x006FB130",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139088,7 +139295,8 @@
    "struct": null,
    "tail": "; // 0x006FB14C\n#pragma comment(linker, \"/alternatename:_gszFailedToLockSource=_gData_006FB14C\")",
    "type": "char",
-   "va": "0x006FB14C"
+   "va": "0x006FB14C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139119,7 +139327,8 @@
    "struct": null,
    "tail": "; // 0x006FB77C\n#pragma comment(linker, \"/alternatename:?gszCreateHalDeviceFailed@@3QBDB=_gData_006FB77C\")",
    "type": "char",
-   "va": "0x006FB77C"
+   "va": "0x006FB77C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139150,7 +139359,8 @@
    "struct": null,
    "tail": "; // 0x006FB7AC\n#pragma comment(linker, \"/alternatename:?gszAttached@@3QBDB=_gData_006FB7AC\")",
    "type": "char",
-   "va": "0x006FB7AC"
+   "va": "0x006FB7AC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139181,7 +139391,8 @@
    "struct": null,
    "tail": "; // 0x006FB7DC\n#pragma comment(linker, \"/alternatename:?gszPrimary@@3QBDB=_gData_006FB7DC\")",
    "type": "char",
-   "va": "0x006FB7DC"
+   "va": "0x006FB7DC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139212,7 +139423,8 @@
    "struct": null,
    "tail": "; // 0x006FB810\n#pragma comment(linker, \"/alternatename:?gszSetDisplayModeFailed@@3QBDB=_gData_006FB810\")",
    "type": "char",
-   "va": "0x006FB810"
+   "va": "0x006FB810",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139243,7 +139455,8 @@
    "struct": null,
    "tail": "; // 0x006FB83C\n#pragma comment(linker, \"/alternatename:?gszCoop@@3QBDB=_gData_006FB83C\")",
    "type": "char",
-   "va": "0x006FB83C"
+   "va": "0x006FB83C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139274,7 +139487,8 @@
    "struct": null,
    "tail": "; // 0x006FB86C\n#pragma comment(linker, \"/alternatename:?gszTooMany@@3QBDB=_gData_006FB86C\")",
    "type": "char",
-   "va": "0x006FB86C"
+   "va": "0x006FB86C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139304,7 +139518,8 @@
    "struct": null,
    "tail": "; // 0x006FF518\n#pragma comment(linker, \"/alternatename:?gadwHalGuid@@3QBIB=_gData_006FF518\")",
    "type": "unsigned int",
-   "va": "0x006FF518"
+   "va": "0x006FF518",
+   "sourced": true
   },
   {
    "alias": false,
@@ -139321,7 +139536,8 @@
    "size": 48,
    "struct": "#pragma pack(push, 1)\nstruct d2data_006FF528_t\n{\n    unsigned char b0[48];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006FF528",
-   "va": "0x006FF528"
+   "va": "0x006FF528",
+   "sourced": true
   },
   {
    "alias": false,
@@ -139351,7 +139567,8 @@
    "struct": null,
    "tail": "; // 0x0074C000",
    "type": "unsigned int",
-   "va": "0x0074C000"
+   "va": "0x0074C000",
+   "sourced": true
   },
   {
    "alias": false,
@@ -139368,7 +139585,8 @@
    "size": 8,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0074C008_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0074C008",
-   "va": "0x0074C008"
+   "va": "0x0074C008",
+   "sourced": true
   },
   {
    "alias": false,
@@ -139398,7 +139616,8 @@
    "struct": null,
    "tail": "; // 0x0074C010",
    "type": "unsigned int",
-   "va": "0x0074C010"
+   "va": "0x0074C010",
+   "sourced": true
   },
   {
    "alias": false,
@@ -139415,7 +139634,8 @@
    "size": 8,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0074C018_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0074C018",
-   "va": "0x0074C018"
+   "va": "0x0074C018",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139446,7 +139666,8 @@
    "struct": null,
    "tail": "; // 0x006FB8A4\n#pragma comment(linker, \"/alternatename:?gszEnumD3DCleanupFailed@@3QBDB=_gData_006FB8A4\")",
    "type": "char",
-   "va": "0x006FB8A4"
+   "va": "0x006FB8A4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139477,7 +139698,8 @@
    "struct": null,
    "tail": "; // 0x006FB8D4\n#pragma comment(linker, \"/alternatename:?gszEnumD3DCaughtFailure@@3QBDB=_gData_006FB8D4\")",
    "type": "char",
-   "va": "0x006FB8D4"
+   "va": "0x006FB8D4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139508,7 +139730,8 @@
    "struct": null,
    "tail": "; // 0x006FB908\n#pragma comment(linker, \"/alternatename:?gszNoTriangleSupport@@3QBDB=_gData_006FB908\")",
    "type": "char",
-   "va": "0x006FB908"
+   "va": "0x006FB908",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139539,7 +139762,8 @@
    "struct": null,
    "tail": "; // 0x006FB928\n#pragma comment(linker, \"/alternatename:?gszPassedRequirements@@3QBDB=_gData_006FB928\")",
    "type": "char",
-   "va": "0x006FB928"
+   "va": "0x006FB928",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139570,7 +139794,8 @@
    "struct": null,
    "tail": "; // 0x006FB950\n#pragma comment(linker, \"/alternatename:?gszNoTextureFormats@@3QBDB=_gData_006FB950\")",
    "type": "char",
-   "va": "0x006FB950"
+   "va": "0x006FB950",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139601,7 +139826,8 @@
    "struct": null,
    "tail": "; // 0x006FB98C\n#pragma comment(linker, \"/alternatename:?gszSupports1555Textures@@3QBDB=_gData_006FB98C\")",
    "type": "char",
-   "va": "0x006FB98C"
+   "va": "0x006FB98C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139632,7 +139858,8 @@
    "struct": null,
    "tail": "; // 0x006FB9A8\n#pragma comment(linker, \"/alternatename:?gszEnumTextureFormatsFailed@@3QBDB=_gData_006FB9A8\")",
    "type": "char",
-   "va": "0x006FB9A8"
+   "va": "0x006FB9A8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139663,7 +139890,8 @@
    "struct": null,
    "tail": "; // 0x006FB9C4\n#pragma comment(linker, \"/alternatename:?gszNoAgpTexturing@@3QBDB=_gData_006FB9C4\")",
    "type": "char",
-   "va": "0x006FB9C4"
+   "va": "0x006FB9C4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139694,7 +139922,8 @@
    "struct": null,
    "tail": "; // 0x006FB9F4\n#pragma comment(linker, \"/alternatename:?gszAgpMemoryFormat@@3QBDB=_gData_006FB9F4\")",
    "type": "char",
-   "va": "0x006FB9F4"
+   "va": "0x006FB9F4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139725,7 +139954,8 @@
    "struct": null,
    "tail": "; // 0x006FBA1C\n#pragma comment(linker, \"/alternatename:?gszAgpMemoryFailed@@3QBDB=_gData_006FBA1C\")",
    "type": "char",
-   "va": "0x006FBA1C"
+   "va": "0x006FBA1C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139756,7 +139986,8 @@
    "struct": null,
    "tail": "; // 0x006FBA48\n#pragma comment(linker, \"/alternatename:?gszLocalMemoryFormat@@3QBDB=_gData_006FBA48\")",
    "type": "char",
-   "va": "0x006FBA48"
+   "va": "0x006FBA48",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139787,7 +140018,8 @@
    "struct": null,
    "tail": "; // 0x006FBA74\n#pragma comment(linker, \"/alternatename:?gszLocalMemoryFailed@@3QBDB=_gData_006FBA74\")",
    "type": "char",
-   "va": "0x006FBA74"
+   "va": "0x006FBA74",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139818,7 +140050,8 @@
    "struct": null,
    "tail": "; // 0x006FBAA4\n#pragma comment(linker, \"/alternatename:?gszTextureMemoryFormat@@3QBDB=_gData_006FBAA4\")",
    "type": "char",
-   "va": "0x006FBAA4"
+   "va": "0x006FBAA4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139849,7 +140082,8 @@
    "struct": null,
    "tail": "; // 0x006FBAD8\n#pragma comment(linker, \"/alternatename:?gszTextureMemoryFailed@@3QBDB=_gData_006FBAD8\")",
    "type": "char",
-   "va": "0x006FBAD8"
+   "va": "0x006FBAD8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139880,7 +140114,8 @@
    "struct": null,
    "tail": "; // 0x006FBB00\n#pragma comment(linker, \"/alternatename:?gszVideoMemoryFormat@@3QBDB=_gData_006FBB00\")",
    "type": "char",
-   "va": "0x006FBB00"
+   "va": "0x006FBB00",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139911,7 +140146,8 @@
    "struct": null,
    "tail": "; // 0x006FBB30\n#pragma comment(linker, \"/alternatename:?gszNoMipmapping@@3QBDB=_gData_006FBB30\")",
    "type": "char",
-   "va": "0x006FBB30"
+   "va": "0x006FBB30",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139942,7 +140178,8 @@
    "struct": null,
    "tail": "; // 0x006FBB50\n#pragma comment(linker, \"/alternatename:?gszRequiresSquareTextures@@3QBDB=_gData_006FBB50\")",
    "type": "char",
-   "va": "0x006FBB50"
+   "va": "0x006FBB50",
+   "sourced": true
   },
   {
    "alias": true,
@@ -139973,7 +140210,8 @@
    "struct": null,
    "tail": "; // 0x006FBB6C\n#pragma comment(linker, \"/alternatename:?gszNoPerspectiveTextures@@3QBDB=_gData_006FBB6C\")",
    "type": "char",
-   "va": "0x006FBB6C"
+   "va": "0x006FBB6C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140004,7 +140242,8 @@
    "struct": null,
    "tail": "; // 0x006FBBA0\n#pragma comment(linker, \"/alternatename:?gszSupportsNonPow2Textures@@3QBDB=_gData_006FBBA0\")",
    "type": "char",
-   "va": "0x006FBBA0"
+   "va": "0x006FBBA0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140035,7 +140274,8 @@
    "struct": null,
    "tail": "; // 0x006FBBC8\n#pragma comment(linker, \"/alternatename:?gszNoVideoMemoryTextures@@3QBDB=_gData_006FBBC8\")",
    "type": "char",
-   "va": "0x006FBBC8"
+   "va": "0x006FBBC8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140066,7 +140306,8 @@
    "struct": null,
    "tail": "; // 0x006FBBF4\n#pragma comment(linker, \"/alternatename:?gszGetD3DDeviceCapsFailed@@3QBDB=_gData_006FBBF4\")",
    "type": "char",
-   "va": "0x006FBBF4"
+   "va": "0x006FBBF4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140097,7 +140338,8 @@
    "struct": null,
    "tail": "; // 0x006FBC14\n#pragma comment(linker, \"/alternatename:?gszNoHardware3D@@3QBDB=_gData_006FBC14\")",
    "type": "char",
-   "va": "0x006FBC14"
+   "va": "0x006FBC14",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140128,7 +140370,8 @@
    "struct": null,
    "tail": "; // 0x006FBC44\n#pragma comment(linker, \"/alternatename:?gszSupportsGammaCalibration@@3QBDB=_gData_006FBC44\")",
    "type": "char",
-   "va": "0x006FBC44"
+   "va": "0x006FBC44",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140159,7 +140402,8 @@
    "struct": null,
    "tail": "; // 0x006FBC64\n#pragma comment(linker, \"/alternatename:?gszNoGammaControl@@3QBDB=_gData_006FBC64\")",
    "type": "char",
-   "va": "0x006FBC64"
+   "va": "0x006FBC64",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140190,7 +140434,8 @@
    "struct": null,
    "tail": "; // 0x006FBC88\n#pragma comment(linker, \"/alternatename:?gszNo3DSupport@@3QBDB=_gData_006FBC88\")",
    "type": "char",
-   "va": "0x006FBC88"
+   "va": "0x006FBC88",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140221,7 +140466,8 @@
    "struct": null,
    "tail": "; // 0x006FBCA8\n#pragma comment(linker, \"/alternatename:?gszGetDD4CapsFailed@@3QBDB=_gData_006FBCA8\")",
    "type": "char",
-   "va": "0x006FBCA8"
+   "va": "0x006FBCA8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140252,7 +140498,8 @@
    "struct": null,
    "tail": "; // 0x006FBCC0\n#pragma comment(linker, \"/alternatename:?gszGetBackbufferFailed@@3QBDB=_gData_006FBCC0\")",
    "type": "char",
-   "va": "0x006FBCC0"
+   "va": "0x006FBCC0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140283,7 +140530,8 @@
    "struct": null,
    "tail": "; // 0x006FBCE4\n#pragma comment(linker, \"/alternatename:?gszCreatePrimarySurfaceFailed@@3QBDB=_gData_006FBCE4\")",
    "type": "char",
-   "va": "0x006FBCE4"
+   "va": "0x006FBCE4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140314,7 +140562,8 @@
    "struct": null,
    "tail": "; // 0x006FBD08\n#pragma comment(linker, \"/alternatename:?gszSetDisplayModeCall@@3QBDB=_gData_006FBD08\")",
    "type": "char",
-   "va": "0x006FBD08"
+   "va": "0x006FBD08",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140345,7 +140594,8 @@
    "struct": null,
    "tail": "; // 0x006FBD24\n#pragma comment(linker, \"/alternatename:?gszNoGameDisplayMode@@3QBDB=_gData_006FBD24\")",
    "type": "char",
-   "va": "0x006FBD24"
+   "va": "0x006FBD24",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140376,7 +140626,8 @@
    "struct": null,
    "tail": "; // 0x006FBD5C\n#pragma comment(linker, \"/alternatename:?gszNoUIDisplayMode@@3QBDB=_gData_006FBD5C\")",
    "type": "char",
-   "va": "0x006FBD5C"
+   "va": "0x006FBD5C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140407,7 +140658,8 @@
    "struct": null,
    "tail": "; // 0x006FBD9C\n#pragma comment(linker, \"/alternatename:?gszSupports24BitCutscenes@@3QBDB=_gData_006FBD9C\")",
    "type": "char",
-   "va": "0x006FBD9C"
+   "va": "0x006FBD9C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140438,7 +140690,8 @@
    "struct": null,
    "tail": "; // 0x006FBDBC\n#pragma comment(linker, \"/alternatename:?gszSupports32BitCutscenes@@3QBDB=_gData_006FBDBC\")",
    "type": "char",
-   "va": "0x006FBDBC"
+   "va": "0x006FBDBC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140469,7 +140722,8 @@
    "struct": null,
    "tail": "; // 0x006FBDDC\n#pragma comment(linker, \"/alternatename:?gszNoValidDisplayModes@@3QBDB=_gData_006FBDDC\")",
    "type": "char",
-   "va": "0x006FBDDC"
+   "va": "0x006FBDDC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140500,7 +140754,8 @@
    "struct": null,
    "tail": "; // 0x006FBE08\n#pragma comment(linker, \"/alternatename:?gszEnumDisplayModesCall@@3QBDB=_gData_006FBE08\")",
    "type": "char",
-   "va": "0x006FBE08"
+   "va": "0x006FBE08",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140531,7 +140786,8 @@
    "struct": null,
    "tail": "; // 0x006FBE28\n#pragma comment(linker, \"/alternatename:?gszSetCooperativeLevelFailed@@3QBDB=_gData_006FBE28\")",
    "type": "char",
-   "va": "0x006FBE28"
+   "va": "0x006FBE28",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140562,7 +140818,8 @@
    "struct": null,
    "tail": "; // 0x006FBE44\n#pragma comment(linker, \"/alternatename:?gszGetD3DInterfaceFailed@@3QBDB=_gData_006FBE44\")",
    "type": "char",
-   "va": "0x006FBE44"
+   "va": "0x006FBE44",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140593,7 +140850,8 @@
    "struct": null,
    "tail": "; // 0x006FBE60\n#pragma comment(linker, \"/alternatename:?gszVendorDeviceIdFormat@@3QBDB=_gData_006FBE60\")",
    "type": "char",
-   "va": "0x006FBE60"
+   "va": "0x006FBE60",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140624,7 +140882,8 @@
    "struct": null,
    "tail": "; // 0x006FBE88\n#pragma comment(linker, \"/alternatename:?gszCheckingCapabilitiesFormat@@3QBDB=_gData_006FBE88\")",
    "type": "char",
-   "va": "0x006FBE88"
+   "va": "0x006FBE88",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140655,7 +140914,8 @@
    "struct": null,
    "tail": "; // 0x006FBEA8\n#pragma comment(linker, \"/alternatename:?gszEnumGetDirectDraw4Failed@@3QBDB=_gData_006FBEA8\")",
    "type": "char",
-   "va": "0x006FBEA8"
+   "va": "0x006FBEA8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140686,7 +140946,8 @@
    "struct": null,
    "tail": "; // 0x006FBED8\n#pragma comment(linker, \"/alternatename:?gszEnumDirectDrawCreateFailed@@3QBDB=_gData_006FBED8\")",
    "type": "char",
-   "va": "0x006FBED8"
+   "va": "0x006FBED8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140717,7 +140978,8 @@
    "struct": null,
    "tail": "; // 0x006FBEFC\n#pragma comment(linker, \"/alternatename:?gszMaxDisplayCountFormat@@3QBDB=_gData_006FBEFC\")",
    "type": "char",
-   "va": "0x006FBEFC"
+   "va": "0x006FBEFC",
+   "sourced": true
   },
   {
    "alias": false,
@@ -140748,7 +141010,8 @@
    "struct": null,
    "tail": "; // 0x0074C044",
    "type": "char",
-   "va": "0x0074C044"
+   "va": "0x0074C044",
+   "sourced": true
   },
   {
    "alias": false,
@@ -140779,7 +141042,8 @@
    "struct": null,
    "tail": "; // 0x0074C058",
    "type": "char",
-   "va": "0x0074C058"
+   "va": "0x0074C058",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140810,7 +141074,8 @@
    "struct": null,
    "tail": "; // 0x006FC010\n#pragma comment(linker, \"/alternatename:?gCurrentViewError@@3QBDB=_gData_006FC010\")",
    "type": "char",
-   "va": "0x006FC010"
+   "va": "0x006FC010",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140841,7 +141106,8 @@
    "struct": null,
    "tail": "; // 0x006FC02C\n#pragma comment(linker, \"/alternatename:?gSetViewError@@3QBDB=_gData_006FC02C\")",
    "type": "char",
-   "va": "0x006FC02C"
+   "va": "0x006FC02C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140872,7 +141138,8 @@
    "struct": null,
    "tail": "; // 0x006FC040\n#pragma comment(linker, \"/alternatename:?gAddViewError@@3QBDB=_gData_006FC040\")",
    "type": "char",
-   "va": "0x006FC040"
+   "va": "0x006FC040",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140903,7 +141170,8 @@
    "struct": null,
    "tail": "; // 0x006FC064\n#pragma comment(linker, \"/alternatename:?gCreateViewError@@3QBDB=_gData_006FC064\")",
    "type": "char",
-   "va": "0x006FC064"
+   "va": "0x006FC064",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140934,7 +141202,8 @@
    "struct": null,
    "tail": "; // 0x006FC080\n#pragma comment(linker, \"/alternatename:?gDeviceError@@3QBDB=_gData_006FC080\")",
    "type": "char",
-   "va": "0x006FC080"
+   "va": "0x006FC080",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140965,7 +141234,8 @@
    "struct": null,
    "tail": "; // 0x006FC0A0\n#pragma comment(linker, \"/alternatename:?gGammaError@@3QBDB=_gData_006FC0A0\")",
    "type": "char",
-   "va": "0x006FC0A0"
+   "va": "0x006FC0A0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -140996,7 +141266,8 @@
    "struct": null,
    "tail": "; // 0x006FC0C4\n#pragma comment(linker, \"/alternatename:?gGammaInterfaceError@@3QBDB=_gData_006FC0C4\")",
    "type": "char",
-   "va": "0x006FC0C4"
+   "va": "0x006FC0C4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -141027,7 +141298,8 @@
    "struct": null,
    "tail": "; // 0x006FC0EC\n#pragma comment(linker, \"/alternatename:?gAttachedError@@3QBDB=_gData_006FC0EC\")",
    "type": "char",
-   "va": "0x006FC0EC"
+   "va": "0x006FC0EC",
+   "sourced": true
   },
   {
    "alias": true,
@@ -141058,7 +141330,8 @@
    "struct": null,
    "tail": "; // 0x006FC108\n#pragma comment(linker, \"/alternatename:?gSurfaceError@@3QBDB=_gData_006FC108\")",
    "type": "char",
-   "va": "0x006FC108"
+   "va": "0x006FC108",
+   "sourced": true
   },
   {
    "alias": true,
@@ -141129,7 +141402,8 @@
    "struct": null,
    "tail": "; // 0x006FF7C8\n#pragma comment(linker, \"/alternatename:?gGammaGuid@@3UGuid@@B=_gData_006FF7C8\")",
    "type": "Guid",
-   "va": "0x006FF7C8"
+   "va": "0x006FF7C8",
+   "sourced": true
   },
   {
    "alias": false,
@@ -141146,7 +141420,8 @@
    "size": 256,
    "struct": "#pragma pack(push, 1)\nstruct d2data_006FF7D8_t\n{\n    unsigned char b0[256];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006FF7D8",
-   "va": "0x006FF7D8"
+   "va": "0x006FF7D8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -141187,7 +141462,8 @@
    "struct": null,
    "tail": "; // 0x006FF558\n#pragma comment(linker, \"/alternatename:?gtIidDirect3D3@@3UD2GuidStrc@@B=_gData_006FF558\")",
    "type": "D2GuidStrc",
-   "va": "0x006FF558"
+   "va": "0x006FF558",
+   "sourced": true
   },
   {
    "alias": false,
@@ -141204,7 +141480,8 @@
    "size": 608,
    "struct": "#pragma pack(push, 1)\nstruct d2data_006FF568_t\n{\n    unsigned char b0[608];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006FF568",
-   "va": "0x006FF568"
+   "va": "0x006FF568",
+   "sourced": true
   },
   {
    "alias": true,
@@ -141245,7 +141522,8 @@
    "struct": null,
    "tail": "; // 0x006FF8D8\n#pragma comment(linker, \"/alternatename:?gtIidDirectDraw4@@3UD2GuidStrc@@B=_gData_006FF8D8\")",
    "type": "D2GuidStrc",
-   "va": "0x006FF8D8"
+   "va": "0x006FF8D8",
+   "sourced": true
   },
   {
    "alias": false,
@@ -141262,7 +141540,8 @@
    "size": 88,
    "struct": "#pragma pack(push, 1)\nstruct d2data_006FF8E8_t\n{\n    unsigned char b0[88];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006FF8E8",
-   "va": "0x006FF8E8"
+   "va": "0x006FF8E8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -141293,7 +141572,8 @@
    "struct": null,
    "tail": "; // 0x006FC26C\n#pragma comment(linker, \"/alternatename:_gszSetTextureFailed=_gData_006FC26C\")",
    "type": "char",
-   "va": "0x006FC26C"
+   "va": "0x006FC26C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -141318,7 +141598,8 @@
    "struct": null,
    "tail": "; // 0x0074C0CC",
    "type": "unsigned long",
-   "va": "0x0074C0CC"
+   "va": "0x0074C0CC",
+   "sourced": true
   },
   {
    "alias": false,
@@ -141349,7 +141630,8 @@
    "tail": "; // 0x0074C0D0",
    "type": "unsigned short",
    "va": "0x0074C0D0",
-   "zero_tail": 4
+   "zero_tail": 4,
+   "sourced": true
   },
   {
    "alias": true,
@@ -141380,7 +141662,8 @@
    "struct": null,
    "tail": "; // 0x006FC310\n#pragma comment(linker, \"/alternatename:?gUnlockFailure@@3QBDB=_gData_006FC310\")",
    "type": "char",
-   "va": "0x006FC310"
+   "va": "0x006FC310",
+   "sourced": true
   },
   {
    "alias": true,
@@ -141411,7 +141694,8 @@
    "struct": null,
    "tail": "; // 0x006FC330\n#pragma comment(linker, \"/alternatename:?gLockFailure@@3QBDB=_gData_006FC330\")",
    "type": "char",
-   "va": "0x006FC330"
+   "va": "0x006FC330",
+   "sourced": true
   },
   {
    "alias": false,
@@ -141441,7 +141725,8 @@
    "struct": null,
    "tail": "; // 0x0074C3D0",
    "type": "unsigned short",
-   "va": "0x0074C3D0"
+   "va": "0x0074C3D0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -141481,7 +141766,8 @@
    "struct": null,
    "tail": "; // 0x0074C100",
    "type": "int",
-   "va": "0x0074C100"
+   "va": "0x0074C100",
+   "sourced": true
   },
   {
    "alias": true,
@@ -141512,7 +141798,8 @@
    "struct": null,
    "tail": "; // 0x006FC36C\n#pragma comment(linker, \"/alternatename:?gszTexPoolSourceFile@@3QBDB=_gData_006FC36C\")",
    "type": "char",
-   "va": "0x006FC36C"
+   "va": "0x006FC36C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -141543,7 +141830,8 @@
    "struct": null,
    "tail": "; // 0x006FC3A8\n#pragma comment(linker, \"/alternatename:?gszSubtilePoolSourceFile@@3QBDB=_gData_006FC3A8\")",
    "type": "char",
-   "va": "0x006FC3A8"
+   "va": "0x006FC3A8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -141574,7 +141862,8 @@
    "struct": null,
    "tail": "; // 0x006FC3E4\n#pragma comment(linker, \"/alternatename:?gszFloorPoolSourceFile@@3QBDB=_gData_006FC3E4\")",
    "type": "char",
-   "va": "0x006FC3E4"
+   "va": "0x006FC3E4",
+   "sourced": true
   },
   {
    "alias": true,
@@ -141962,7 +142251,8 @@
    "struct": null,
    "tail": "; // 0x006FCC24\n#pragma comment(linker, \"/alternatename:?gszErrorDefaults_006FCC24@@3PAPBDA=_gData_006FCC24\")",
    "type": "char",
-   "va": "0x006FCC24"
+   "va": "0x006FCC24",
+   "sourced": true
   },
   {
    "alias": true,
@@ -141993,7 +142283,8 @@
    "struct": null,
    "tail": "; // 0x006FCC4C\n#pragma comment(linker, \"/alternatename:_gszCmdWhitespace_006FCC4C=_gData_006FCC4C\")",
    "type": "char",
-   "va": "0x006FCC4C"
+   "va": "0x006FCC4C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -142024,7 +142315,8 @@
    "struct": null,
    "tail": "; // 0x006FCC6C\n#pragma comment(linker, \"/alternatename:?gszGif_006FCC6C@@3QBDB=_gData_006FCC6C\")",
    "type": "char",
-   "va": "0x006FCC6C"
+   "va": "0x006FCC6C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -142055,7 +142347,8 @@
    "struct": null,
    "tail": "; // 0x006FCC74\n#pragma comment(linker, \"/alternatename:?gszPcx_006FCC74@@3QBDB=_gData_006FCC74\")",
    "type": "char",
-   "va": "0x006FCC74"
+   "va": "0x006FCC74",
+   "sourced": true
   },
   {
    "alias": true,
@@ -142086,7 +142379,8 @@
    "struct": null,
    "tail": "; // 0x006FCC7C\n#pragma comment(linker, \"/alternatename:?gszTga_006FCC7C@@3QBDB=_gData_006FCC7C\")",
    "type": "char",
-   "va": "0x006FCC7C"
+   "va": "0x006FCC7C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -142117,7 +142411,8 @@
    "struct": null,
    "tail": "; // 0x006FCDA0\n#pragma comment(linker, \"/alternatename:?gdwUtf8FirstByteMark_006FCDA0@@3QBIB=_gData_006FCDA0\")",
    "type": "unsigned int",
-   "va": "0x006FCDA0"
+   "va": "0x006FCDA0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -142148,7 +142443,8 @@
    "struct": null,
    "tail": "; // 0x006FCC88\n#pragma comment(linker, \"/alternatename:?gnUtf8Offsets_006FCC88@@3PAIA=_gData_006FCC88\")",
    "type": "unsigned int",
-   "va": "0x006FCC88"
+   "va": "0x006FCC88",
+   "sourced": true
   },
   {
    "alias": true,
@@ -142179,7 +142475,8 @@
    "struct": null,
    "tail": "; // 0x006FCCA0\n#pragma comment(linker, \"/alternatename:?gnUtf8Trailing_006FCCA0@@3PAEA=_gData_006FCCA0\")",
    "type": "unsigned char",
-   "va": "0x006FCCA0"
+   "va": "0x006FCCA0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -142210,7 +142507,8 @@
    "struct": null,
    "tail": "; // 0x006FCDC0\n#pragma comment(linker, \"/alternatename:?gWideTable_006FCDC0@@3QBGB=_gData_006FCDC0\")",
    "type": "unsigned short",
-   "va": "0x006FCDC0"
+   "va": "0x006FCDC0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -142241,7 +142539,8 @@
    "struct": null,
    "tail": "; // 0x006FCFC0\n#pragma comment(linker, \"/alternatename:?gWideTable_006FCFC0@@3QBGB=_gData_006FCFC0\")",
    "type": "unsigned short",
-   "va": "0x006FCFC0"
+   "va": "0x006FCFC0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -142272,7 +142571,8 @@
    "struct": null,
    "tail": "; // 0x006FD1C0\n#pragma comment(linker, \"/alternatename:?gWideTable_006FD1C0@@3QBGB=_gData_006FD1C0\")",
    "type": "unsigned short",
-   "va": "0x006FD1C0"
+   "va": "0x006FD1C0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -142303,7 +142603,8 @@
    "struct": null,
    "tail": "; // 0x0074C5A0",
    "type": "int",
-   "va": "0x0074C5A0"
+   "va": "0x0074C5A0",
+   "sourced": true
   },
   {
    "alias": false,
@@ -142328,7 +142629,8 @@
    "struct": null,
    "tail": "; // 0x0074C5C0",
    "type": "unsigned long",
-   "va": "0x0074C5C0"
+   "va": "0x0074C5C0",
+   "sourced": true
   },
   {
    "alias": true,
@@ -142359,7 +142661,8 @@
    "struct": null,
    "tail": "; // 0x006FD3E8\n#pragma comment(linker, \"/alternatename:_gCrc32Table_006FD3E8=_gData_006FD3E8\")",
    "type": "unsigned int",
-   "va": "0x006FD3E8"
+   "va": "0x006FD3E8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -142390,7 +142693,8 @@
    "struct": null,
    "tail": "; // 0x0074C5C8\n#pragma comment(linker, \"/alternatename:?gCharacterClass_0074C5C8@@3QBEB=_gData_0074C5C8\")",
    "type": "unsigned char",
-   "va": "0x0074C5C8"
+   "va": "0x0074C5C8",
+   "sourced": true
   },
   {
    "alias": false,
@@ -142416,7 +142720,8 @@
    "size": 8,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070886C_t\n{\n    const void* p0;\n    unsigned char b1[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070886C",
-   "va": "0x0070886C"
+   "va": "0x0070886C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -142510,7 +142815,8 @@
    "tail": "; // 0x0072DAA0",
    "type": "char",
    "va": "0x0072DAA0",
-   "zero_tail": 4
+   "zero_tail": 4,
+   "sourced": true
   },
   {
    "alias": false,
@@ -142544,7 +142850,8 @@
    "struct": null,
    "tail": "; // 0x0072DB3C",
    "type": "char",
-   "va": "0x0072DB3C"
+   "va": "0x0072DB3C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -142924,7 +143231,8 @@
    "struct": null,
    "tail": "; // 0x0074C020",
    "type": "int",
-   "va": "0x0074C020"
+   "va": "0x0074C020",
+   "sourced": true
   },
   {
    "alias": false,
@@ -145473,7 +145781,8 @@
    "size": 60,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0072F13C_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0072F13C",
-   "va": "0x0072F13C"
+   "va": "0x0072F13C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -150667,7 +150976,8 @@
    "size": 60,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CD18_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CD18",
-   "va": "0x0070CD18"
+   "va": "0x0070CD18",
+   "sourced": true
   },
   {
    "alias": false,
@@ -151081,7 +151391,8 @@
    "size": 60,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CC8C_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CC8C",
-   "va": "0x0070CC8C"
+   "va": "0x0070CC8C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -151467,7 +151778,8 @@
    "size": 60,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0072DA0C_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0072DA0C",
-   "va": "0x0072DA0C"
+   "va": "0x0072DA0C",
+   "sourced": true
   },
   {
    "alias": false,

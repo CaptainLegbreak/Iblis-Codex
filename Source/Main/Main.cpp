@@ -555,4 +555,28 @@ extern "C" int __stdcall WinMain(void* hInstance, void* hPrevInstance, char* lpC
     return 0;
 }
 
-#include "gen/data/Source/Main/Main.inc"
+extern "C" const char* gData_00706584[15] = { // 0x00706584
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
+int gbD2ServerStopEvent = 1; // 0x007065C0
+
+extern const char* gaszModuleTypes_007065C4[6] = { "modstate0", "client", "server", "multiplayer", "launcher", "expand" }; // 0x007065C4
+
+char gszServiceName[32] = "DIABLO2SRV\0\0Diablo II Server"; // 0x007065DC
+
+D2ServiceStatusStrc gD2ServerServiceStatus = { 16, 4, 5, 0, 0, 0, 0 }; // 0x007065FC

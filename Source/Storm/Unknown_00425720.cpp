@@ -292,4 +292,5 @@ void Crypt::RSA::Process(void* pBuffer, unsigned int nSize)
     tOutput.sub_00426010_ReadFill(pBuffer, nSize);
 }
 
-#include "gen/data/Source/Storm/Unknown_00425720.inc"
+extern "C" unsigned char gData_00708890[64] = { 0x80 }; // 0x00708890
+#pragma comment(linker, "/alternatename:_gaSha1Padding_00708890=_gData_00708890")

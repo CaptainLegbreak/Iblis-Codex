@@ -2808,4 +2808,94 @@ void* __fastcall sub_M109_Emit_00449320(const char* szName, const unsigned char*
     return COMCALLBACK_AddEntry(szName, pStat, 7);
 }
 
+extern "C" char gData_0070CD94[]; // 0x0070CD94
+extern "C" char gpBnetCancelButtonBlankCelFileB[]; // 0x0077BD2C
+extern "C" void __cdecl sub_004438C0_OnCancel(); // 0x004438C0
+extern "C" char gData_0070CD84[]; // 0x0070CD84
+extern "C" char gpPlayerProfileBckgCelFileA[]; // 0x0077BD3C
+extern "C" char gpPlayerProfileBckgCelFileB[]; // 0x0077BD40
+extern "C" void __cdecl CHATDLG_OnLadderSelect(); // 0x00443EF0
+extern "C" void __cdecl CHARSEL_SubmitProfile(); // 0x00443F80
+extern "C" char gFirstRecordBlock_007A0818[]; // 0x007A0818
+extern "C" char gData_0077BD84[]; // 0x0077BD84
+extern "C" char gpBnetJoinGameScrollBarsCelFile[]; // 0x0077BC20
+extern "C" char gpJoinGameBckgCelFile[]; // 0x0077BC50
+extern "C" char gpGameButtonBlankCelFile[]; // 0x0077BC5C
+extern "C" char gpJoinGameClickBoxCelFile[]; // 0x0077BC60
+extern "C" void __cdecl sub_00443C10_AlwaysOne(); // 0x00443C10
+extern "C" void __cdecl sub_004450D0_OnGameListEvent(); // 0x004450D0
+extern "C" char gpGreyLevelBoxCelFile[]; // 0x0077BC64
+extern "C" char gpRadioButtonCelFile[]; // 0x0077BC68
+extern "C" char gpNumberArrowsCelFileA[]; // 0x0077BCC0
+extern "C" char gpNumberArrowsCelFileB[]; // 0x0077BCC4
+extern "C" char gpNumberArrowsCelFileC[]; // 0x0077BCC8
+extern "C" char gpNumberArrowsCelFileD[]; // 0x0077BCCC
+extern "C" char gpNumberGreyArrowsCelFile[]; // 0x0077BCD0
+extern "C" char gpCreateGameBckgCelFile[]; // 0x0077BD0C
+extern "C" char gpBnetWideButtonBlankCelFile[]; // 0x0077BD18
+extern "C" char gpLadderChoiceExpCelFile[]; // 0x0077BD34
+extern "C" void __cdecl CHATDLG_OnResetCallback(); // 0x004403E0
+extern "C" void __cdecl CHATDLG_ShowStandardLadder(); // 0x00440C10
+extern "C" void __cdecl CHATDLG_ShowExpansionLadder(); // 0x00440C40
+extern "C" void __cdecl CHATDLG_ShowExpansionHardcoreLadder(); // 0x00440C70
+extern "C" void __cdecl CHATDLG_OpenLadderScreen(); // 0x00442350
+extern "C" void __cdecl sub_004456D0(); // 0x004456D0
+extern "C" void __cdecl CHATDLG_JoinByName(); // 0x004439F0
+extern "C" void __cdecl CHATDLG_IncrementMaxPlayers(); // 0x004433C0
+extern "C" void __cdecl CHATDLG_DecrementMaxPlayers(); // 0x00443420
+extern "C" void __cdecl CHATDLG_IncrementLevelRange(); // 0x00443480
+extern "C" void __cdecl CHATDLG_DecrementLevelRange(); // 0x004434E0
+extern "C" void __cdecl CHATDLG_ResetBuildPanel(); // 0x00445530
+extern "C" void __cdecl CHATDLG_OnRefresh(); // 0x00443F70
+extern "C" void __cdecl CHATDLG_SelectNormal(); // 0x00443C20
+extern "C" void __cdecl CHATDLG_SelectNightmare(); // 0x00443C70
+extern "C" void __cdecl CHATDLG_SelectHell(); // 0x00443CC0
+
+extern "C" const char* gData_0070EBE0[15] = { // 0x0070EBE0
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
+int gnSelectedLine = -1; // 0x0070EC1C
+
+D2LaunchMsgHandler gapfnMsgHandlers[24] = { // 0x0070EC20
+    (D2LaunchMsgHandler)&COMCALLBACK_IgnoreChatEvent,
+    (D2LaunchMsgHandler)&CHATDLG_OnShowUser,
+    (D2LaunchMsgHandler)&COMCALLBACK_OnUserJoin,
+    (D2LaunchMsgHandler)&COMCALLBACK_OnUserLeave,
+    (D2LaunchMsgHandler)&COMCALLBACK_OnWhisper,
+    (D2LaunchMsgHandler)&COMCALLBACK_OnChannelTalk,
+    (D2LaunchMsgHandler)&COMCALLBACK_PrintInfoText,
+    (D2LaunchMsgHandler)&COMCALLBACK_OnJoinChannel,
+    (D2LaunchMsgHandler)&sub_00447730_AlwaysZero,
+    (D2LaunchMsgHandler)&COMCALLBACK_OnUserUpdate,
+    (D2LaunchMsgHandler)&COMCALLBACK_OnWhisperSent,
+    (D2LaunchMsgHandler)&sub_00447730_AlwaysZero,
+    (D2LaunchMsgHandler)&sub_00447730_AlwaysZero,
+    (D2LaunchMsgHandler)&COMCALLBACK_OnChannelFull,
+    (D2LaunchMsgHandler)&CHATDLG_OnChannelDoesNotExist,
+    (D2LaunchMsgHandler)&COMCALLBACK_OnChannelRestricted,
+    (D2LaunchMsgHandler)&sub_00447730_AlwaysZero,
+    (D2LaunchMsgHandler)&sub_00447730_AlwaysZero,
+    (D2LaunchMsgHandler)&COMCALLBACK_PrintInfoText,
+    (D2LaunchMsgHandler)&COMCALLBACK_PrintErrorText,
+    (D2LaunchMsgHandler)&sub_00447730_AlwaysZero,
+    (D2LaunchMsgHandler)&COMCALLBACK_PrintInfoText,
+    (D2LaunchMsgHandler)&COMCALLBACK_PrintInfoText,
+    (D2LaunchMsgHandler)&COMCALLBACK_OnEmote
+};
+
 #include "gen/data/Source/D2Multi/Src/ComCallback.inc"

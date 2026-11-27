@@ -532,4 +532,9 @@ int __fastcall BNNEWS_TryDecodeCDKey(const char* szKey, void* pArg2, void* pArg3
     return 1;
 }
 
-#include "gen/data/Source/D2BNClient/BNNews.inc"
+extern const char* gpszNewsName_0072FF80 = "BNNews-D2DV"; // 0x0072FF80
+
+extern "C" const char* gData_0072FF84[2] = { "~Nh", 0 }; // 0x0072FF84
+
+extern "C" const char gData_0072FF8C[24] = ".?AUItem@NewsTable@@"; // 0x0072FF8C
+#pragma comment(linker, "/alternatename:_gszTypeNewsTableItem_0072FF8C=_gData_0072FF8C")

@@ -792,4 +792,75 @@ int __fastcall _tr_tally(deflate_state* s, unsigned dist, unsigned lc)
     return (s->last_lit == s->lit_bufsize - 1);
 }
 
-#include "gen/data/Source/Storm/zlib/trees.inc"
+extern const int gData_006D0D90[29] = { // 0x006D0D90
+    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000001, 0x00000001, 0x00000001, 0x00000001, 0x00000002, 0x00000002, 0x00000002, 0x00000002,
+    0x00000003, 0x00000003, 0x00000003, 0x00000003, 0x00000004, 0x00000004, 0x00000004, 0x00000004,
+    0x00000005, 0x00000005, 0x00000005, 0x00000005, 0x00000000
+};
+#pragma comment(linker, "/alternatename:_extra_lbits=_gData_006D0D90")
+
+extern const unsigned char gData_006D0E04[20] = { 16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15, 0 }; // 0x006D0E04
+#pragma comment(linker, "/alternatename:_bl_order=_gData_006D0E04")
+
+extern const int gData_006D0E18[30] = { // 0x006D0E18
+    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000001, 0x00000001, 0x00000002, 0x00000002,
+    0x00000003, 0x00000003, 0x00000004, 0x00000004, 0x00000005, 0x00000005, 0x00000006, 0x00000006,
+    0x00000007, 0x00000007, 0x00000008, 0x00000008, 0x00000009, 0x00000009, 0x0000000A, 0x0000000A,
+    0x0000000B, 0x0000000B, 0x0000000C, 0x0000000C, 0x0000000D, 0x0000000D
+};
+#pragma comment(linker, "/alternatename:_extra_dbits=_gData_006D0E18")
+
+extern const int gData_006D0E90[20] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 7, 0 }; // 0x006D0E90
+
+extern const ct_data gData_006D1360[30] = { // 0x006D1360
+    { { 0 }, { 5 } },
+    { { 16 }, { 5 } },
+    { { 8 }, { 5 } },
+    { { 24 }, { 5 } },
+    { { 4 }, { 5 } },
+    { { 20 }, { 5 } },
+    { { 12 }, { 5 } },
+    { { 28 }, { 5 } },
+    { { 2 }, { 5 } },
+    { { 18 }, { 5 } },
+    { { 10 }, { 5 } },
+    { { 26 }, { 5 } },
+    { { 6 }, { 5 } },
+    { { 22 }, { 5 } },
+    { { 14 }, { 5 } },
+    { { 30 }, { 5 } },
+    { { 1 }, { 5 } },
+    { { 17 }, { 5 } },
+    { { 9 }, { 5 } },
+    { { 25 }, { 5 } },
+    { { 5 }, { 5 } },
+    { { 21 }, { 5 } },
+    { { 13 }, { 5 } },
+    { { 29 }, { 5 } },
+    { { 3 }, { 5 } },
+    { { 19 }, { 5 } },
+    { { 11 }, { 5 } },
+    { { 27 }, { 5 } },
+    { { 7 }, { 5 } },
+    { { 23 }, { 5 } }
+};
+#pragma comment(linker, "/alternatename:_static_dtree=_gData_006D1360")
+
+extern const int gData_006D16D8[30] = { // 0x006D16D8
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16, 20, 24, 28,
+    32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 0, 0
+};
+#pragma comment(linker, "/alternatename:_base_length=_gData_006D16D8")
+
+extern const int gData_006D1750[30] = { // 0x006D1750
+    0, 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192,
+    256, 384, 512, 768, 1024, 1536, 2048, 3072, 4096, 6144, 8192, 12288, 16384, 24576
+};
+#pragma comment(linker, "/alternatename:_base_dist=_gData_006D1750")
+
+static_tree_desc static_l_desc = { static_ltree, extra_lbits, 257, 286, 15 }; // 0x007088F4
+
+static_tree_desc static_d_desc = { static_dtree, extra_dbits, 0, 30, 15 }; // 0x00708908
+
+static_tree_desc static_bl_desc = { 0, gData_006D0E90, 0, 19, 7 }; // 0x0070891C
