@@ -220,29 +220,6 @@ void __fastcall sub_004E4050_Nothing(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
 }
 
-// 0x004E4280
-extern "C" void __cdecl sub_004E4280_ResetEnvironSounds()
-{
-    gnEnvironLevelId = 0;
-    gnEnvironAmbientId = 0;
-    gnAmbientDelay = 0;
-    gnAmbientTick = 0;
-    if (gnEnvironSoundHandle)
-    {
-        sub_004BA840_StopSound(gnEnvironSoundHandle);
-        gnEnvironSoundHandle = 0;
-    }
-
-    gnEnvironSoundId = 0;
-    if (gnWeatherSoundHandle)
-    {
-        sub_004BA840_StopSound(gnWeatherSoundHandle);
-        gnWeatherSoundHandle = 0;
-    }
-
-    gnWeatherSoundId = 0;
-}
-
 #include "gen/data/Source/D2Client/Unknown_004DF4B0.inc"
 
 // 0x004E06A0
@@ -263,96 +240,11 @@ void __fastcall sub_004E06A0_FreeModules(D2ClientModuleListStrc* pList)
     pList->pUnknown04 = 0;
 }
 
-static int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    }
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
-static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    }
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
-
 // 0x004E0A30
 int __fastcall sub_004E0A30_CltDoClearSeqSpeed(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     pUnit->dwSeqSpeed = 0;
     return 1;
-}
-
-// 0x004E0BD0
-int __fastcall sub_004E0BD0_CltStartClearCollision(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    if (pUnit)
-    {
-        pUnit->dwFlags &= ~0x0E;
-    }
-
-    COLLISION_ResetMaskWithPattern(UNITS_GetRoom(pUnit), UNITS_GetUnitXPosition(pUnit), UNITS_GetUnitYPosition(pUnit), 5, 0x1000);
-    return 1;
-}
-
-// 0x004E0EB0
-int __fastcall sub_004E0EB0_CltStartPathToTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    if (!CUNIT_GetPathTargetUnit(pUnit))
-    {
-        return 0;
-    }
-
-    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    if (!pPath)
-    {
-        return 0;
-    }
-
-    PATH_SetNewDistance(pPath, 5);
-    PATH_SetType(pPath, 2);
-    D2Common_10142(pPath, pUnit, 0);
-    if (PATH_GetNumberOfPathPoints(pPath) <= 0)
-    {
-        PATH_SetType(pPath, 1);
-        D2Common_10142(pPath, pUnit, 0);
-        if (PATH_GetNumberOfPathPoints(pPath) <= 0)
-        {
-            return 0;
-        }
-    }
-
-    SKILLS_SetFlags(pSkill, 1);
-    return 1;
-}
-
-// 0x004E0C90
-int __fastcall sub_004E0C90_SetSkillTargetPos(D2UnitStrc* unit, int skillId, int skillLevel)
-{
-    D2UnitStrc* target = CUNIT_GetPathTargetUnit(unit);
-    if (!target) return 0;
-    D2SkillStrc* skill = UNITS_GetUsedSkill(unit);
-    if (!skill) return 0;
-    SKILLS_SetParam1(skill, UNITS_GetUnitXPosition(target));
-    SKILLS_SetParam2(skill, UNITS_GetUnitYPosition(target));
-    return SUCCESS_VALUE;
 }
 
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)

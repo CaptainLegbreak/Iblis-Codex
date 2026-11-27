@@ -578,6 +578,16 @@ float __cdecl SKILLDESC_GetFloatIfEnabled()
 }
 
 
+// 0x004E4220
+void __cdecl SKILLDESC_ClearEnvironSoundRefs()
+{
+    for (int nId = 0xAA0; nId < 0xB3D; nId += 4)
+    {
+        sub_00482370(nId);
+    }
+}
+
+
 // 0x004E4240
 static void SKILLDESC_AddEnvironSoundRefs(int nIndex)
 {
@@ -588,6 +598,29 @@ static void SKILLDESC_AddEnvironSoundRefs(int nIndex)
         sub_004822B0(nId + 0x18, 1);
         nId += 0x30;
     }
+}
+
+// 0x004E4280
+extern "C" void __cdecl sub_004E4280_ResetEnvironSounds()
+{
+    gnEnvironLevelId = 0;
+    gnEnvironAmbientId = 0;
+    gnAmbientDelay = 0;
+    gnAmbientTick = 0;
+    if (gnEnvironSoundHandle)
+    {
+        sub_004BA840_StopSound(gnEnvironSoundHandle);
+        gnEnvironSoundHandle = 0;
+    }
+
+    gnEnvironSoundId = 0;
+    if (gnWeatherSoundHandle)
+    {
+        sub_004BA840_StopSound(gnWeatherSoundHandle);
+        gnWeatherSoundHandle = 0;
+    }
+
+    gnWeatherSoundId = 0;
 }
 
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
@@ -916,6 +949,13 @@ int __fastcall sub_004E4180_GetCyclicDistance(int nFrame, int nOffset, int nStep
     return MINIMUM(MINIMUM(nDirect, nForward), nBackward);
 }
 
+
+// 0x004E41E0
+int __cdecl SKILLDESC_IsOutsideDayCycle()
+{
+    const int nCycle = ENVIRONMENT_GetCycleIndexFromAct(gpAct);
+    return nCycle < 1 || nCycle > 3;
+}
 
 // 0x004E42E0
 void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
@@ -4456,6 +4496,44 @@ void __fastcall SKILLDESC_MissileScatter(D2UnitStrc* pUnit, int nSeed, int nMiss
     }
 }
 
+// 0x004F29F0
+int __fastcall SKILLDESC_CltDoMissileScatterAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissile < 0)
+    {
+        return 0;
+    }
+
+    int nCount = sub_004F2260_GetSkillCount(pUnit, nSkillId, nSkillLevel);
+    if (nCount <= 0)
+    {
+        nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
+    }
+
+    int nX;
+    int nY;
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
+    if (pTarget)
+    {
+        nX = CLIENTS_GetUnitX(pTarget);
+        nY = CLIENTS_GetUnitY(pTarget);
+    }
+    else if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
+    {
+        return 0;
+    }
+
+    SKILLDESC_MissileScatter(pUnit, nX, nMissile, nX, nY, nCount, nSkillId, nSkillLevel);
+    return 1;
+}
+
 static inline unsigned int SEED_RollFromInline(const D2SeedStrc* pSrc, D2SeedStrc* pDst)
 {
     const unsigned __int64 lSeed = pSrc->nHighSeed + 0x6AC690C5i64 * pSrc->nLowSeed;
@@ -5854,6 +5932,53 @@ int __fastcall SKILLDESC_GetSummonLevel(int nSkillId, int nSkillLevel)
     }
 
     return pSkillsTxtRecord->dwParam[4] + (nSkillLevel - 1) * pSkillsTxtRecord->dwParam[5];
+}
+
+// 0x004EFCF0
+int __fastcall SKILLDESC_CltDoTurnedMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (!SKILLS_GetSkillsTxtRecord(nSkillId))
+    {
+        return 0;
+    }
+
+    const int nMissile = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    int nX;
+    int nY;
+    if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    D2MissileStrc tMissileParams;
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.dwFlags = 2;
+    tMissileParams.nMissile = nMissile;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.pOrigin = pUnit;
+    tMissileParams.nSkill = nSkillId;
+    tMissileParams.nSkillLevel = nSkillLevel;
+    tMissileParams.nTargetX = nX - CLIENTS_GetUnitX(pUnit);
+    tMissileParams.nTargetY = nY - CLIENTS_GetUnitY(pUnit);
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
+    if (!pMissile)
+    {
+        return 0;
+    }
+
+    MISSILE_SetTargetX(pMissile, -tMissileParams.nTargetY);
+    MISSILE_SetTargetY(pMissile, tMissileParams.nTargetX);
+    return 1;
 }
 
 static __forceinline void AppendString(Unicode* wszText, unsigned short nString)

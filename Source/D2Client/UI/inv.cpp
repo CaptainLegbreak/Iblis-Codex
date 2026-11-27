@@ -1497,6 +1497,116 @@ struct D2SendPacket6BStrc
     unsigned char nHeader;
 };
 
+typedef unsigned int size_t;
+#pragma pack(push, 1)
+struct D2PanelTabStrc
+{
+    int nX;
+    int nY;
+    unsigned short nString;
+    int bSelected;
+    int bEnabled;
+};
+#pragma pack(pop)
+D2CelFileStrc* __cdecl GAME_GetBuySellButtonCells(); // 0x00454600
+
+extern D2PanelButtonStrc gaPanelButtons_007BC9E0[];                                                         // 0x007BC9E0
+
+extern void* gpBuySellCel;                                                                            // 0x007C0DC8
+
+extern int gnScreenHeight_00711470; // 0x00711470
+
+extern int gnButtonRow;                                                                            // 0x0072215C
+
+extern int gaNpcButtonX[][4];                                                                        // 0x00722168
+
+extern int gnNpcTabCount;                                                                               // 0x00722158
+
+extern D2PanelTabStrc gaNpcTabs[];                                                                    // 0x00722110
+
+extern int gpCursorItem;                                                                              // 0x007A6ABC
+
+extern int gnCursorAnim;                                                                               // 0x007A6ADC
+
+extern int gdwGlobal_007A6AE0;                                                                              // 0x007A6AE0
+
+extern int gdwGlobal_007A6AF0;                                                                              // 0x007A6AF0
+
+#define gnGlobal_007BCBB0 (gtNpcInvRect.nLeft)
+#define gnGlobal_007BCBB4 (gtNpcInvRect.nRight)
+#define gnGlobal_007BCBBC (gtNpcInvRect.nBottom)
+D2UnitStrc* __cdecl NPCMENU_GetInteractNpc();                                                          // 0x004B1620
+
+int __stdcall ITEMS_GetAllRepairCosts(void* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, D2BitBufferStrc* pQuestFlags, void* pfCallback); // 0x0062FE60
+
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+
+D2UnitStrc* __cdecl sub_00463DD0();
+#define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
+#define va_start(ap, v) (ap = (va_list)&v + _INTSIZEOF(v))
+#define va_arg(ap, t) (*(t*)((ap += _INTSIZEOF(t)) - _INTSIZEOF(t)))
+struct D2DynamicPathStrc;
+extern int gnAutomapHeight_007A521C; // 0x007A521C
+
+extern int gnGlobal_0072215C; // 0x0072215C
+
+extern int gaButtonY_00722168[][4]; // 0x00722168
+
+extern unsigned char gnGlobal_007BCC05; // 0x007BCC05
+
+typedef char* va_list;
+static int gbNpcButtonHandled; // 0x007BCC48
+
+
+static int sub_00483AE0_IsInGrid7BCB18(int nX, int nY)
+{
+    if (nX > gtTradePage1Grid.nGridLeft && nX < gtTradePage1Grid.nGridRight && nY >= gtTradePage1Grid.nGridTop && nY <= gtTradePage1Grid.nGridBottom)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+static int sub_00483B10_IsInGrid7BCA30(int nX, int nY)
+{
+    if (nX > gtTradePage2Grid.nGridLeft && nX < gtTradePage2Grid.nGridRight && nY >= gtTradePage2Grid.nGridTop && nY <= gtTradePage2Grid.nGridBottom)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+static int sub_00483B40_IsInCubeGrid(int nX, int nY)
+{
+    if (GAME_IsExpansion())
+    {
+        if (nX > gtBigBankGrid.nGridLeft && nX <= gtBigBankGrid.nGridRight && nY >= gtBigBankGrid.nGridTop && nY <= gtBigBankGrid.nGridBottom)
+        {
+            return 1;
+        }
+        return 0;
+    }
+    if (nX > gtBankGrid.nGridLeft && nX <= gtBankGrid.nGridRight && nY >= gtBankGrid.nGridTop && nY <= gtBankGrid.nGridBottom)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+static int sub_00483BF0_IsInGrid7BCB70(int nX, int nY)
+{
+    if (nX >= gtCubeGrid.nGridLeft && nX < gtCubeGrid.nGridRight && nY >= gtCubeGrid.nGridTop && nY <= gtCubeGrid.nGridBottom)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+static inline int sub_00488B00_PanelTop()
+{
+    return gnScreenHeight + gnPanelOffsetY - 0x6D;
+}
+
 // 0x0044BFF0
 int __cdecl INV_IsRightClickConsumed()
 {
@@ -4160,7 +4270,8 @@ static int __stdcall INV_ClickGridItem(D2UnitStrc* pPlayer, D2InventoryStrc* pIn
 }
 
 // 0x00487990
-void __cdecl INV_ResetHover()
+// noinline: INV_TradeMouseMoveMsg (0x4894D0) calls INV_ResetHover (0x487990); the image calls it out of line, and without this the compiler expands it there.
+__declspec(noinline) void __cdecl INV_ResetHover()
 {
     gnHoverTopX = -1;
     gnHoverTopY = -1;
@@ -4645,6 +4756,129 @@ void __fastcall INV_DrawGold(int nType)
     D2Win_10127_SetFont(nOldFont);
 }
 
+// 0x00488400
+void __cdecl INV_DrawNpcShopPanel()
+{
+    if (gbNpcTradeClicked == 1)
+    {
+        gaPanelButtons_007BC9E0[0].nValue = 0;
+        gaPanelButtons_007BC9E0[1].nValue = 0;
+        gaPanelButtons_007BC9E0[2].nValue = 0;
+        gaPanelButtons_007BC9E0[3].nValue = 0;
+        gnInvPanelMode = 1;
+        D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+        CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+        gbNpcTradeClicked = 0;
+    }
+
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = gpBuySellCel;
+    tContext.nDirection = 0;
+    tContext.nFrame = 0;
+    sub_004F6480(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0xE0, -1, 5, 0);
+    tContext.nFrame = 1;
+    sub_004F6480(&tContext, gnPanelOffsetX + 0x100, gnScreenHeight + gnPanelOffsetY - 0xE0, -1, 5, 0);
+    tContext.nFrame = 2;
+    sub_004F6480(&tContext, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0x30, -1, 5, 0);
+    tContext.nFrame = 3;
+    sub_004F6480(&tContext, gnPanelOffsetX + 0x100, gnScreenHeight + gnPanelOffsetY - 0x30, -1, 5, 0);
+
+    int nUnitId;
+    if (NPCMENU_GetInteractNpcId(&nUnitId))
+    {
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, 1);
+        if (pUnit)
+        {
+            INV_DrawUnitInventory(pUnit);
+        }
+    }
+
+    tContext.pCellFile = GAME_GetBuySellButtonCells();
+    for (int i = 0; i < gnButtonCount; ++i)
+    {
+        tContext.nFrame = gaPanelButtons_007BC9E0[i].nValue + gaPanelButtons_007BC9E0[i].nFrame;
+        sub_004F6480(&tContext, gaNpcButtonX[gnButtonRow][i] + gnPanelOffsetX - 1,
+            gnScreenHeight + gnPanelOffsetY - 0x3F, -1, 5, 0);
+    }
+
+    const int nOldFont = D2Win_10127_SetFont(1);
+    for (int i = 0; i < gnNpcTabCount; ++i)
+    {
+        int nColor = 0;
+        if (gaNpcTabs[i].bSelected)
+        {
+            nColor = 4;
+        }
+        if (gaNpcTabs[i].bEnabled)
+        {
+            const Unicode* wszText = D2LANG_GetStringFromTblIndex(gaNpcTabs[i].nString);
+            const int nWidth = D2Win_10121_GetTextWidth(wszText);
+            tContext.pCellFile = gpBuySellTabsCel;
+            if (nColor == 4)
+            {
+                tContext.nFrame = i;
+            }
+            else if (nColor == 0)
+            {
+                tContext.nFrame = i + 4;
+            }
+            sub_004F6480(&tContext, i * 0x50 + gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0x1C1, -1, 5, 0);
+            if (!NPCMENU_IsGambleShop())
+            {
+                D2Win_10117_DrawText(wszText, gaNpcTabs[i].nX - nWidth / 2 + gnPanelOffsetX,
+                    gaNpcTabs[i].nY + gnPanelOffsetY + gnScreenHeight - 0x1E0, nColor, 0);
+            }
+        }
+    }
+    D2Win_10127_SetFont(nOldFont);
+}
+
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x004886C0
+void __cdecl INV_DrawButtonHoverText()
+{
+    if (gnInvMouseX < gnGlobal_007BCBB0 || gnInvMouseX > gnGlobal_007BCBB4)
+    {
+        return;
+    }
+    const int nTop = gnScreenHeight + gnPanelOffsetY - 0x6D;
+    if (gnInvMouseY < nTop || gnInvMouseY > gnGlobal_007BCBBC)
+    {
+        return;
+    }
+    for (int i = 0; i < gnButtonCount; ++i)
+    {
+        if (gaPanelButtons_007BC9E0[i].bActive == 1
+            && gnInvMouseX > gaNpcButtonX[gnButtonRow][i] + gnPanelOffsetX
+            && gnInvMouseX < gaNpcButtonX[gnButtonRow][i] + gnPanelOffsetX + 0x2D
+            && gnInvMouseY > gnScreenHeight + gnPanelOffsetY - 0x6D
+            && gnInvMouseY < gnScreenHeight + gnPanelOffsetY - 0x41)
+        {
+            if (gaPanelButtons_007BC9E0[i].nString == 0x276F)
+            {
+                Unicode wszText[0x100];
+                D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+                D2UnitStrc* pNpc = NPCMENU_GetInteractNpc();
+                if (pPlayer && pNpc)
+                {
+                    const int nNpcClass = pNpc->dwClassId;
+                    sub_005269D0_FormatText(0x100, wszText, D2LANG_GetStringFromTblIndex(0x276F),
+                        ITEMS_GetAllRepairCosts(0, pPlayer, nNpcClass, GAME_GetDifficulty(), MONSTER_GetQuestFlags(), 0));
+                    D2Win_10129_DrawFramedText(wszText, gaNpcButtonX[gnButtonRow][i] + gnPanelOffsetX,
+                        gnScreenHeight + gnPanelOffsetY - 0x64, 0, 0);
+                }
+            }
+            else
+            {
+                D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(gaPanelButtons_007BC9E0[i].nString),
+                    gaNpcButtonX[gnButtonRow][i] + gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0x64, 0, 0);
+            }
+            return;
+        }
+    }
+}
+
 // 0x00488890
 int __cdecl INV_IsNpcShopState()
 {
@@ -4740,6 +4974,121 @@ void __stdcall INV_NpcShopMouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
             }
         }
         INV_UpdateInventoryHover(pMsg);
+    }
+}
+
+// 0x00488B00
+void __stdcall INV_NpcPanelButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    gbPanelButtonDown = 0;
+    gnGlobal_007BCE94 = 0;
+    if (CURSOR_GetCursorItem())
+    {
+        pMsg->bReturn = 0;
+        return;
+    }
+
+    if (gbPanelButtonClicked == 1)
+    {
+        int bClicked = 0;
+        if (nX >= gtNpcInvRect.nLeft && nX <= gtNpcInvRect.nRight
+            && nY >= sub_00488B00_PanelTop() && nY <= gtNpcInvRect.nBottom)
+        {
+            for (int i = 0; i < gnButtonCount; ++i)
+            {
+                D2NpcButtonStrc* pButton = &gaNpcButtons[i];
+                if (pButton->nId != 1)
+                {
+                    continue;
+                }
+
+                if (gnInvMouseX > gnPanelOffsetX + gaButtonY_00722168[gnGlobal_0072215C][i]
+                    && gnInvMouseX < gnPanelOffsetX + gaButtonY_00722168[gnGlobal_0072215C][i] + 0x2D
+                    && gnInvMouseY > sub_00488B00_PanelTop()
+                    && gnInvMouseY < sub_00488B00_PanelTop() + 0x2C
+                    && pButton->bActive == 1)
+                {
+                    if (pButton->nMode == 9)
+                    {
+                        pMsg->bReturn = 1;
+                        pMsg->lResult = 0;
+                        sub_00420290_BreakHandlerChain(pMsg);
+                        gbPanelButtonClicked = 0;
+                        D2InventoryStrc* const pPlayerInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+                        if (!INVENTORY_GetCursorItem(pPlayerInventory))
+                        {
+                            CURSOR_SetCursorItemState(0);
+                        }
+                        NPCMENU_CloseNpcShop();
+                        gnInvMouseX = 0;
+                        gnInvMouseY = 0;
+                        return;
+                    }
+
+                    gnInvPanelMode = pButton->nMode;
+                    D2_ASSERT(gnGlobal_007BCC05 < 5, 0x22E0);
+                    const unsigned short nKey = pButton->nKey;
+                    if (nKey == 0x0E)
+                    {
+                        INV_ResetHover();
+                        bClicked = 0;
+                    }
+                    else if (nKey == 0x0C)
+                    {
+                        INV_ResetHover();
+                        bClicked = 0;
+                    }
+                    else
+                    {
+                        bClicked = 1;
+                        if (nKey == 0x12)
+                        {
+                            gbNpcButtonHandled = 1;
+                            NPCMENU_HandleTradeClick(sub_00463DD0_GetPlayerUnit(), 0, 1, nX, nY, 0, 1, 1);
+                            gbNpcButtonHandled = 0;
+                        }
+                        else
+                        {
+                            sub_00468040_ResetCursorState(pButton->nArg, 0);
+                            gnSelectedShopButton = i;
+                            gnSelectedShopButtonKey = pButton->nKey;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!bClicked)
+        {
+            if (INV_CanUseCursor())
+            {
+                D2InventoryStrc* const pPlayerInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+                CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pPlayerInventory));
+            }
+
+            for (int i = 0; i < gnButtonCount; ++i)
+            {
+                if (gaNpcButtons[i].bActive == 1)
+                {
+                    gaNpcButtons[i].bActive = 0;
+                }
+            }
+        }
+
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        gbPanelButtonClicked = 0;
+    }
+
+    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+    if (!AUTOMAP_IsCursorOverMiniPanelButton(pMsg) && !INVENTORY_GetCursorItem(pInventory) && INV_IsInNpcPanelRect(nX, nY))
+    {
+        D2InventoryStrc* const pPlayerInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+        CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pPlayerInventory));
+        NPCMENU_CloseNpcShop();
     }
 }
 
@@ -4953,6 +5302,28 @@ static int INV_IsOverTradeButtonRight(int nX, int nY)
         return 1;
     }
     return 0;
+}
+
+// 0x004894D0
+void __stdcall INV_TradeMouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (gnInvPanelMode != 0xB)
+    {
+        return;
+    }
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    gnInvMouseX = nX;
+    gnInvMouseY = nY;
+    if ((nX >= gtPlayerInvRect.nLeft && nX < gtPlayerInvRect.nRight && nY >= gtPlayerInvRect.nTop && nY <= gtPlayerInvRect.nBottom)
+        || (nX > gtTradePage2Grid.nGridLeft && nX < gtTradePage2Grid.nGridRight && nY >= gtTradePage2Grid.nGridTop && nY <= gtTradePage2Grid.nGridBottom)
+        || (nX > gtTradePage1Grid.nGridLeft && nX < gtTradePage1Grid.nGridRight && nY >= gtTradePage1Grid.nGridTop && nY <= gtTradePage1Grid.nGridBottom))
+    {
+        INV_UpdateInventoryHover(pMsg);
+        return;
+    }
+    INV_ResetHover();
+    D2Win_10129_DrawFramedText(0, -1, -1, 0, 0);
 }
 
 // 0x00489580
@@ -6723,6 +7094,87 @@ struct D2RareAffixTxt
 
 struct D2BitBufferStrc;
 
+// build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x0048BE80
+void __cdecl INV_FormatArgs(Unicode* pDest, const Unicode* pFormat, ...)
+{
+    if (pFormat)
+    {
+        int nCount;
+        Unicode aArgs[10][200];
+        nCount = 0;
+        va_list args;
+        va_start(args, pFormat);
+        const Unicode* pArg = va_arg(args, const Unicode*);
+        while (pArg)
+        {
+            sub_005267E0(aArgs[nCount], pArg);
+            ++nCount;
+            pArg = va_arg(args, const Unicode*);
+        }
+
+        const Unicode* pSource;
+        Unicode* pColon = Unicode::strchr(pFormat, Unicode(':'));
+        if (pColon)
+        {
+            Unicode wszMs[5] = { '[', 'm', 's', ']', 0 };
+            int nA = -1;
+            const Unicode* pMark = Unicode::strchr(pFormat, Unicode('a'));
+            if (pMark && pMark < pColon)
+            {
+                nA = pMark[1].wChar - '0';
+            }
+            int nN = -1;
+            pMark = Unicode::strchr(pFormat, Unicode('n'));
+            if (pMark && pMark < pColon)
+            {
+                nN = pMark[1].wChar - '0';
+            }
+
+            if (nA != -1)
+            {
+                if (nN != -1)
+                {
+                    Unicode wszTemp[5];
+                    if (aArgs[nN][0].wChar == '[')
+                    {
+                        Unicode::strncpy(wszTemp, aArgs[nN], 4);
+                        sub_005267E0(aArgs[nN], &aArgs[nN][4]);
+                    }
+                    else
+                    {
+                        sub_005267E0(wszTemp, wszMs);
+                    }
+                    if (aArgs[nA][0].wChar == '[')
+                    {
+                        INV_CutBracketToken(aArgs[nA], wszTemp);
+                    }
+                }
+                else
+                {
+                    INV_CutBracketToken(aArgs[nA], wszMs);
+                }
+            }
+            else if (nN != -1)
+            {
+                sub_005267E0(aArgs[nN], &aArgs[nN][4]);
+            }
+            pSource = pColon + 1;
+        }
+        else
+        {
+            pSource = pFormat;
+        }
+        sub_005267E0(pDest, pSource);
+
+        for (int i = 0; i < nCount; ++i)
+        {
+            INV_ReplaceToken(pDest, i, aArgs[i]);
+        }
+    }
+}
+
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x0048C060
@@ -8295,6 +8747,82 @@ static inline int INV_IsModeInRange(int nMode)
     return 1;
 }
 
+// 0x004917C0
+void __stdcall INV_GridClickMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (GAME_IsExitPending() || CUNIT_IsPlayerDeadOrMissing())
+    {
+        pMsg->bReturn = 0;
+        return;
+    }
+
+    D2UnitStrc* pPlayer;
+    const int nY = pMsg->nYpos;
+    const int nX = pMsg->nXpos;
+    pPlayer = sub_00463DD0_GetPlayerUnit();
+    INV_LoadUiRecords();
+    D2InventoryStrc* pInventory = pPlayer->pInventory;
+    if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg) || nX < gnGlobal_007BCAA0 || nX >= gnGlobal_007BCAA4 || nY < gnGlobal_007BCAA8 || nY > gnGlobal_007BCAAC)
+    {
+        return;
+    }
+
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    if (nX >= gtPlayerInvGrid.nGridLeft && nX <= gtPlayerInvGrid.nGridRight && nY >= gtPlayerInvGrid.nGridTop && nY <= gtPlayerInvGrid.nGridBottom)
+    {
+        if (INV_ClickGridItem(pPlayer, pInventory, nX, nY, 0))
+        {
+            if (gnInvPanelMode >= 2 && gnInvPanelMode <= 4)
+            {
+                INV_ResetNpcButtons();
+            }
+            sub_00420290_BreakHandlerChain(pMsg);
+            return;
+        }
+    }
+    else
+    {
+        pMsg->bReturn = 0;
+    }
+
+    if (gnInvPanelMode)
+    {
+        if (sub_00468830_GetCursorState() == 6)
+        {
+            UI_CancelCursorItemUse();
+            sub_00420290_BreakHandlerChain(pMsg);
+            return;
+        }
+
+        if (sub_00468830_GetCursorState() == 8)
+        {
+            MSG_SendDword(0x4C, -1);
+            sub_00420290_BreakHandlerChain(pMsg);
+            return;
+        }
+
+        if ((unsigned int)(gnInvPanelMode - 2) <= 2)
+        {
+            INV_ResetNpcButtons();
+        }
+        sub_00420290_BreakHandlerChain(pMsg);
+    }
+    else
+    {
+        if (sub_00468830_GetCursorState() == 6)
+        {
+            UI_CancelCursorItemUse();
+            return;
+        }
+
+        if (sub_00468830_GetCursorState() == 8)
+        {
+            MSG_SendDword(0x4C, -1);
+        }
+    }
+}
+
 // 0x00491AD0
 void __stdcall INV_InventoryClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -8408,6 +8936,123 @@ void __stdcall INV_InventoryClickMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
+// 0x00492510
+void __stdcall INV_StashButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (gnInvPanelMode != 0xC && gnInvPanelMode != 0xD)
+    {
+        return;
+    }
+    const int nY = pMsg->nYpos;
+    const int nX = pMsg->nXpos;
+    gnInvMouseX = nX;
+    gnInvMouseY = nY;
+    if ((!HIREABLES_AreBeltRowsShown() || !AUTOMAP_IsCursorOverMiniPanelButton(pMsg)) && INV_IsInNpcPanelRect(nX, nY))
+    {
+        gbPanelButtonDown = 1;
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_004B9A00(4, 0, 0, 0, 0);
+        sub_00420290_BreakHandlerChain(pMsg);
+        return;
+    }
+    if (INV_IsOverCloseButton(nX, nY))
+    {
+        gbStashGoldButtonDown = 1;
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_004B9A00(4, 0, 0, 0, 0);
+        sub_00420290_BreakHandlerChain(pMsg);
+        return;
+    }
+    if (INV_IsOverTransmuteButton(nX, nY))
+    {
+        gbStashButtonClicked = 1;
+        gbStashButtonDown = 1;
+        gbPanelButtonClicked = 1;
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_004B9A00(4, 0, 0, 0, 0);
+        sub_00420290_BreakHandlerChain(pMsg);
+        return;
+    }
+    if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg) == 1)
+    {
+        gbStashGoldButtonDown = 0;
+        gbTradeAccepted = 0;
+        gbPanelButtonClicked = 0;
+        gbStashButtonDown = 0;
+        gbTradeAcceptButtonDown = 0;
+        gbStashButtonClicked = 0;
+        return;
+    }
+    if (INV_IsInPlayerInvRect(nX, nY))
+    {
+        INV_HandlePanelClick(pMsg);
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        gbTradeAcceptButtonDown = 0;
+        gbStashButtonClicked = 0;
+        return;
+    }
+    if (sub_00483B40_IsInRect(nX, nY))
+    {
+        INV_HandlePanelClick(pMsg);
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        gbTradeAcceptButtonDown = 0;
+        gbStashButtonClicked = 0;
+        return;
+    }
+    if (INV_IsOverGoldButton(nX, nY))
+    {
+        gbInvGoldButtonDown = 1;
+        gbTradeAcceptButtonDown = 0;
+        gbTradeAccepted = 0;
+        gbPanelButtonClicked = 0;
+        gbStashButtonDown = 0;
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_004B9A00(4, 0, 0, 0, 0);
+        sub_00420290_BreakHandlerChain(pMsg);
+        gbTradeAcceptButtonDown = 0;
+        gbStashButtonClicked = 0;
+        return;
+    }
+    if (INV_IsOverCloseButton(nX, nY))
+    {
+        gbStashGoldButtonDown = 1;
+        gbTradeAcceptButtonDown = 0;
+        gbTradeAccepted = 0;
+        gbPanelButtonClicked = 0;
+        gbStashButtonDown = 0;
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_004B9A00(4, 0, 0, 0, 0);
+        sub_00420290_BreakHandlerChain(pMsg);
+        gbStashButtonClicked = 0;
+        return;
+    }
+    if (sub_00483BA0_IsInRect(nX, nY))
+    {
+        gbStashGoldButtonDown = 0;
+        gbTradeAcceptButtonDown = 0;
+        gbTradeAccepted = 0;
+        gbPanelButtonClicked = 0;
+        gbStashButtonDown = 0;
+        gbStashButtonClicked = 0;
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        return;
+    }
+    INV_ClickOutsidePanel(nY, pMsg, nX);
+    gbTradeAcceptButtonDown = 0;
+    gbStashButtonClicked = 0;
+}
+
 // 0x00492770
 void __stdcall INV_WeaponSwapKeyMsg(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -8466,6 +9111,109 @@ static int __fastcall GetCenteredX_Inl(unsigned short nString, int nX)
 void __cdecl sub_00495410_DrawHelpText(); // 0x00495410
 
 void __cdecl sub_00495DC0_DrawHelpText(); // 0x00495DC0
+
+// 0x004927C0
+void __stdcall INV_CubeButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (gnInvPanelMode != 0xE)
+    {
+        return;
+    }
+    const int nY = pMsg->nYpos;
+    const int nX = pMsg->nXpos;
+    gnInvMouseX = nX;
+    gnInvMouseY = nY;
+    if (!AUTOMAP_IsCursorOverMiniPanelButton(pMsg) && INV_IsInNpcPanelRect(nX, nY))
+    {
+        gbPanelButtonDown = 1;
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_004B9A00(4, 0, 0, 0, 0);
+        sub_00420290_BreakHandlerChain(pMsg);
+        return;
+    }
+    if (INV_IsOverButtonC(nX, nY))
+    {
+        gbCubeButtonClicked = 1;
+        gbCubeButtonDown = 1;
+        gbCubeCloseClicked = 0;
+        gbCubeCloseButtonDown = 0;
+        gbPanelButtonClicked = 1;
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_004B9A00(4, 0, 0, 0, 0);
+        sub_00420290_BreakHandlerChain(pMsg);
+        return;
+    }
+    if (INV_IsOverCubeButton(nX, nY))
+    {
+        gbCubeButtonClicked = 0;
+        gbCubeButtonDown = 0;
+        if (!CURSOR_GetCursorItem())
+        {
+            gbCubeCloseClicked = 1;
+            gbCubeCloseButtonDown = 1;
+            gbPanelButtonClicked = 1;
+            pMsg->bReturn = 1;
+            sub_004B9A00(4, 0, 0, 0, 0);
+        }
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        return;
+    }
+    if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg) == 1)
+    {
+        gbTradeAccepted = 0;
+        gbPanelButtonClicked = 0;
+        gbCubeButtonDown = 0;
+        gbCubeCloseButtonDown = 0;
+        gbTradeAcceptButtonDown = 0;
+        gbCubeButtonClicked = 0;
+        gbCubeCloseClicked = 0;
+        return;
+    }
+    if (INV_IsInPlayerInvRect(nX, nY) || sub_00483BF0_IsInRect(nX, nY))
+    {
+        INV_HandlePanelClick(pMsg);
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+    }
+    else if (INV_IsOverGoldButton(nX, nY))
+    {
+        gbInvGoldButtonDown = 1;
+        gbTradeAcceptButtonDown = 0;
+        gbTradeAccepted = 0;
+        gbPanelButtonClicked = 0;
+        gbCubeButtonDown = 0;
+        gbCubeCloseButtonDown = 0;
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_004B9A00(4, 0, 0, 0, 0);
+        sub_00420290_BreakHandlerChain(pMsg);
+    }
+    else if (nX >= gnGlobal_007BCB30 && nX < gnGlobal_007BCB34 && nY >= 0 && nY <= gnGlobal_007BCB3C)
+    {
+        gbTradeAcceptButtonDown = 0;
+        gbTradeAccepted = 0;
+        gbPanelButtonClicked = 0;
+        gbCubeButtonDown = 0;
+        gbCubeButtonClicked = 0;
+        gbCubeCloseButtonDown = 0;
+        gbCubeCloseClicked = 0;
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        return;
+    }
+    if (!pMsg->bReturn)
+    {
+        INV_ClickOutsidePanel(nY, pMsg, nX);
+    }
+    gbTradeAcceptButtonDown = 0;
+    gbCubeButtonClicked = 0;
+    gbCubeCloseClicked = 0;
+}
 
 // 0x00497C50
 void __stdcall INV_DrawWarningIcon(int nFrame)

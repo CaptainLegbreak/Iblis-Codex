@@ -979,8 +979,9 @@ void* __cdecl BNSEND_QueryRealms()
     return gpReply40;
 }
 
+// Kept noinline: sub_0051C470_CloseBNetConnection (0x51C470) calls this out of line in the image; without it the compiler inlines it there.
 // 0x0051AC20
-void __cdecl BNSEND_FreeChannelList()
+__declspec(noinline) void __cdecl BNSEND_FreeChannelList()
 {
     if (gpChannelList)
     {
@@ -1172,8 +1173,9 @@ int __fastcall BNSEND_GetStartAdvResult(int* pValue)
     return BNDOWNLOAD_IsReplyReceived(0x1C);
 }
 
+// Kept noinline: sub_0051C470_CloseBNetConnection (0x51C470) calls this out of line in the image; without it the compiler inlines it there.
 // 0x0051B210
-void __cdecl BNSEND_FreeGamesList()
+__declspec(noinline) void __cdecl BNSEND_FreeGamesList()
 {
     if (gpReply)
     {
@@ -1738,6 +1740,51 @@ extern const char gszLineEnd_006FFCB0[]; // 0x006FFCB0
 int __cdecl BNSEND_LeaveChat()
 {
     BNSEND_SendLeaveChat();
+    return 1;
+}
+
+void __cdecl CACHE_FreeCache(); // 0x00519300
+void __cdecl BNDOWNLOAD_StopDownloads(); // 0x0051E5D0
+extern "C" int __cdecl BNDOWNLOAD_HasPendingDownloads(); // 0x0051E5E0
+int __cdecl BNMESSQUEUE_FreeAllMessages(); // 0x00520440
+extern "C" int __cdecl BNDOWNLOAD_SetDisconnected(); // 0x00520AD0
+void __cdecl sub_00521B90_ClearSrpState(); // 0x00521B90
+
+// 0x0051C470
+int __cdecl sub_0051C470_CloseBNetConnection()
+{
+    BNSEND_FreeChannelList();
+    BNSEND_FreeGamesList();
+    CACHE_FreeCache();
+    BNMESSQUEUE_FreeAllMessages();
+    sub_00521B90_ClearSrpState();
+    InterlockedExchange(&gnDnsDone, 1);
+    while (InterlockedCompareExchange(&gnReceiveThreads, 0, 0))
+        Sleep(10);
+    const long hSocket = InterlockedCompareExchange(&gnConnected, 0, 0);
+    if (hSocket)
+    {
+        BNDOWNLOAD_SetDisconnected();
+        while (InterlockedCompareExchange(&gnSendBusy, 0, 0))
+            Sleep(10);
+        if (InterlockedCompareExchange(&gnConnected, 0, hSocket) == hSocket)
+            FOG_SOCKET_Destroy((FSafeSock*)hSocket);
+    }
+    BNDOWNLOAD_StopDownloads();
+    while (BNDOWNLOAD_HasPendingDownloads())
+        Sleep(10);
+    if (InterlockedCompareExchange(&gnSendBusy, 0, 0))
+    {
+        int nWaited = 0;
+        do
+        {
+            nWaited += 100;
+            Sleep(10);
+            if (nWaited > 60)
+                return 0;
+        }
+        while (InterlockedCompareExchange(&gnSendBusy, 0, 0));
+    }
     return 1;
 }
 

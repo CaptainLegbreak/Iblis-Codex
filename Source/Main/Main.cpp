@@ -22,6 +22,9 @@ void __fastcall SaveCmdLine(const char** argv); // 0x00405F00
 void __cdecl MoveBetaSettingsToRelease(); // 0x00406040
 void __fastcall ParseCmdLine(D2ConfigStrc* pCfg, const char* argv); // 0x004059A0
 int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType); // 0x00405C30
+int __stdcall ERRORMANAGER_RunModeInterface(D2ConfigStrc* pCfg); // 0x004059D0
+void __stdcall sub_00405A70_WriteSurveyLocale(); // 0x00405A70
+int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 int __cdecl sub_00405EF0_AllowExpansion(); // 0x00405EF0
 extern "C" __declspec(dllimport) void* __stdcall OpenEventA(unsigned long dwDesiredAccess, int bInheritHandle, const char* szName); // 0x006CC12C
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent); // 0x006CC130
@@ -64,6 +67,212 @@ extern void* ghD2ServerServiceStatus; // 0x0074C714
 
 void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** lpszArgv); // 0x004065E0
 void __stdcall D2ServerServiceHandlerProc(unsigned long dwCtrlCode); // 0x00406410
+
+typedef int BOOL;
+int __cdecl FOG_IsExpansion(); // 0x00408F20
+void __fastcall MAINMENUS_InitStorm(int nDirectFlags, int nValue); // 0x00406870
+void __cdecl ERRORMANAGER_ForceCrash(); // 0x00407970
+void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem); // 0x00409C80
+void __fastcall FOG_AsyncDataInitialize(int bEnable, int nUnused); // 0x0040A390
+void __cdecl FOG_AsyncDataDestroy(); // 0x0040A440
+void __cdecl FOG_10218(); // 0x0040B0C0
+void __cdecl FOG_10082_Noop(); // 0x0040B320
+void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
+int __stdcall D2GFX_Release(); // 0x004F5050
+void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
+int __stdcall D2GFX_SetGamma(int nGamma); // 0x004F5230
+void __cdecl D2GFX_EnableVSync(); // 0x004F5270
+void __cdecl D2GFX_DisableFixedAspectRatio(); // 0x004F5280
+int __stdcall D2GFX_ToggleLowQuality(); // 0x004F54F0
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
+int __stdcall D2Win_InitializeSpriteCache(int bWindowed, int nResolution); // 0x004F8F10
+int __stdcall D2Win_CloseSpriteCache(); // 0x004F9030
+int __stdcall D2Win_CreateWindow(void* hInstance, int nRenderMode, int bWindowed, int bCompress); // 0x004FA520
+int __cdecl ARCHIVE_ShowInsertExpansionDiscMessage(); // 0x004FAB00
+int __cdecl ARCHIVE_ShowInsertPlayDiscMessage(); // 0x004FAB30
+int __cdecl ARCHIVE_LoadArchives(); // 0x004FAB90
+void __cdecl ARCHIVE_FreeArchives(); // 0x004FAE00
+int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
+void __cdecl D2SOUND_CloseSoundSystem(); // 0x00514060
+void __fastcall sub_00514530_InitSound(int bExpansion, int bSoundBackground); // 0x00514530
+void __cdecl IGNORELIST_FreeIgnoreList(); // 0x0060DDB0
+int gnMode; // 0x0074C704
+int gbUseKeyhook; // 0x0074C708
+void* ghModKeyhook; // 0x0074C70C
+
+// Kept noinline: GameInit (0x4064C0) calls this out of line in the image; without it the compiler inlines it there.
+// 0x00405C30
+__declspec(noinline) int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
+{
+    if (pCfg->bCrashApp == 1)
+    {
+        ERRORMANAGER_ForceCrash();
+    }
+
+    gnMode = nModType;
+
+    BOOL bSoundStarted = 0;
+    BOOL bGfxStarted = 0;
+
+    MAINMENUS_InitStorm(pCfg->bDirect, 0);
+    FOG_AsyncDataInitialize(1, 0);
+    FOG_10082_Noop();
+    FOG_10218();
+
+    if (gnMode != 2)
+    {
+        if (!ARCHIVE_LoadArchives() || !ARCHIVE_LoadExpansionArchives(ARCHIVE_ShowInsertPlayDiscMessage, ARCHIVE_ShowInsertExpansionDiscMessage, 0, pCfg))
+        {
+            ARCHIVE_FreeArchives();
+            return 0;
+        }
+        pCfg->bIsExpansion = FOG_IsExpansion();
+        sub_00405A70_WriteSurveyLocale();
+    }
+
+    STRTABLE_GetLanguage();
+
+    if (pCfg->b3DFX)
+    {
+        nModType = 4;
+    }
+    else if (pCfg->bWindow)
+    {
+        nModType = 1;
+    }
+    else
+    {
+        nModType = pCfg->bD3D ? 6 : 3;
+    }
+
+    const BOOL bWindowed = pCfg->bWindow != 0;
+    const int nResolution = pCfg->bIsExpansion ? 2 : 0;
+
+    if (gnMode != 2)
+    {
+        if (!D2Win_CreateWindow(hInstance, nModType, bWindowed, !pCfg->bNoCompress))
+        {
+            return 0;
+        }
+
+        if (pCfg->bPerspective && nModType >= 4)
+        {
+            D2GFX_SetPerspective(1);
+        }
+
+        if (!D2Win_InitializeSpriteCache(bWindowed, nResolution))
+        {
+            D2GFX_Release();
+            return 0;
+        }
+
+        if (gbUseKeyhook)
+        {
+            ghModKeyhook = LoadLibraryA("Keyhook.dll");
+        }
+
+        if (ghModKeyhook)
+        {
+            void (__stdcall* pfnInstall)(int) = (void (__stdcall*)(int))GetProcAddress(ghModKeyhook, "InstallKeyboardHook");
+            if (pfnInstall)
+            {
+                pfnInstall(WINDOW_GetWindow());
+            }
+        }
+
+        bGfxStarted = 1;
+    }
+
+    if (pCfg->bQuality)
+    {
+        D2GFX_ToggleLowQuality();
+    }
+
+    if (pCfg->dwGamma)
+    {
+        D2GFX_SetGamma(pCfg->dwGamma);
+    }
+
+    if (pCfg->bVSync)
+    {
+        D2GFX_EnableVSync();
+    }
+
+    unsigned long bFixedAspect = 1;
+    SRegLoadValue("Diablo II", "Fixed Aspect Ratio", 0, &bFixedAspect);
+    if (pCfg->bNoFixedAspect || bFixedAspect != 1)
+    {
+        D2GFX_DisableFixedAspectRatio();
+    }
+
+    if (!pCfg->bIsExpansion)
+    {
+        SRegSaveValue("Diablo II", "Resolution", 0, 0);
+    }
+
+    if (!pCfg->bNoSound && gnMode != 2)
+    {
+        sub_00514530_InitSound(pCfg->bIsExpansion, pCfg->bSoundBackground);
+        bSoundStarted = 1;
+    }
+
+    while (gnMode != 0)
+    {
+        if (gnMode == 2)
+        {
+            if (bSoundStarted)
+            {
+                D2SOUND_CloseSoundSystem();
+                bSoundStarted = 0;
+            }
+
+            if (bGfxStarted)
+            {
+                D2Win_CloseSpriteCache();
+                D2GFX_Release();
+                bGfxStarted = 0;
+            }
+        }
+
+        gnMode = ERRORMANAGER_RunModeInterface(pCfg);
+    }
+
+    if (bSoundStarted)
+    {
+        D2SOUND_CloseSoundSystem();
+    }
+
+    if (bGfxStarted)
+    {
+        D2Win_CloseSpriteCache();
+        D2GFX_Release();
+    }
+
+    ARCHIVE_FreeArchives();
+
+    if (ghModKeyhook)
+    {
+        void (__stdcall* pfnUninstall)() = (void (__stdcall*)())GetProcAddress(ghModKeyhook, "UninstallKeyboardHook");
+        if (pfnUninstall)
+        {
+            pfnUninstall();
+        }
+        FreeLibrary(ghModKeyhook);
+    }
+
+    FOG_AsyncDataDestroy();
+    D2MCPClientCloseMCP();
+
+    D2ComInterfaceStrc* pComInterface = pCfg->pComInterface;
+    if (pComInterface)
+    {
+        pComInterface->pfnSlot10();
+    }
+
+    IGNORELIST_FreeIgnoreList();
+    FOG_DestroyMemoryPoolSystem(0);
+    return 0;
+}
 
 // 0x00405EF0
 int __cdecl sub_00405EF0_AllowExpansion()

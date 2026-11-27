@@ -793,6 +793,11 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00405C30",
+     "length": 698,
+     "name": "?GameStart@@YIHPAXPAUD2ConfigStrc@@H@Z"
+    },
+    {
      "va": "0x00405EF0",
      "length": 6,
      "name": "sub_00405EF0_AllowExpansion"
@@ -938,11 +943,6 @@
      "va": "0x00405A70",
      "length": 437,
      "name": "?sub_00405A70_WriteSurveyLocale@@YGXXZ"
-    },
-    {
-     "va": "0x00405C30",
-     "length": 698,
-     "name": "?GameStart@@YIHPAXPAUD2ConfigStrc@@H@Z"
     }
    ]
   },
@@ -13828,6 +13828,15 @@
      "length": 766
     },
     {
+     "va": "0x00488400",
+     "length": 696
+    },
+    {
+     "va": "0x004886C0",
+     "length": 454,
+     "name": "?INV_DrawButtonHoverText@@YAXXZ"
+    },
+    {
      "va": "0x00488890",
      "length": 39,
      "name": "?INV_IsNpcShopState@@YAHXZ"
@@ -13846,6 +13855,10 @@
      "va": "0x004889D0",
      "length": 299,
      "name": "?INV_NpcShopMouseMoveMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00488B00",
+     "length": 740
     },
     {
      "va": "0x00488DF0",
@@ -13905,6 +13918,11 @@
      "va": "0x00489480",
      "length": 65,
      "name": "?INV_IsOverTradeButtonRight@@YAHHH@Z"
+    },
+    {
+     "va": "0x004894D0",
+     "length": 169,
+     "name": "INV_TradeMouseMoveMsg"
     },
     {
      "va": "0x00489580",
@@ -14178,6 +14196,11 @@
      "name": "?INV_CutBracketToken@@YIXPAUUnicode@@PBU1@@Z"
     },
     {
+     "va": "0x0048BE80",
+     "length": 471,
+     "name": "?INV_FormatArgs@@YAXPAUUnicode@@PBU1@ZZ"
+    },
+    {
      "va": "0x0048C060",
      "length": 3648
     },
@@ -14223,13 +14246,28 @@
      "length": 1311
     },
     {
+     "va": "0x004917C0",
+     "length": 372,
+     "name": "?INV_GridClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x00491AD0",
      "length": 577
+    },
+    {
+     "va": "0x00492510",
+     "length": 603,
+     "name": "?INV_StashButtonDownMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00492770",
      "length": 69,
      "name": "INV_WeaponSwapKeyMsg"
+    },
+    {
+     "va": "0x004927C0",
+     "length": 550,
+     "name": "?INV_CubeButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00497C50",
@@ -14345,31 +14383,6 @@
     {
      "va": "0x0048BC10",
      "length": 361
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/inv_004894D0.cpp",
-   "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x004894D0",
-     "length": 169,
-     "name": "INV_TradeMouseMoveMsg"
     }
    ]
   },
@@ -19182,14 +19195,29 @@
      "name": "GFXUTIL_SkillStartPlace"
     },
     {
+     "va": "0x004E0BD0",
+     "length": 132,
+     "name": "?sub_004E0BD0_CltStartClearCollision@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004E0C60",
      "length": 48,
      "name": "GFXUTIL_CltDoResetActionFrame"
     },
     {
+     "va": "0x004E0C90",
+     "length": 172,
+     "name": "?sub_004E0C90_SetSkillTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004E0D40",
      "length": 364,
      "name": "GFXUTIL_SkillDoFrameOffset"
+    },
+    {
+     "va": "0x004E0EB0",
+     "length": 131,
+     "name": "?sub_004E0EB0_CltStartPathToTarget@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E0F40",
@@ -21950,59 +21978,6 @@
      "length": 74,
      "name": "?SOUNDHDR_TickSound@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/inv_004886C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00488400",
-     "length": 696
-    },
-    {
-     "va": "0x004886C0",
-     "length": 454,
-     "name": "?INV_DrawButtonHoverText@@YAXXZ"
-    },
-    {
-     "va": "0x00488B00",
-     "length": 740
-    },
-    {
-     "va": "0x0048BE80",
-     "length": 471,
-     "name": "?INV_FormatArgs@@YAXPAUUnicode@@PBU1@ZZ"
-    },
-    {
-     "va": "0x004917C0",
-     "length": 372,
-     "name": "?INV_GridClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00492510",
-     "length": 603,
-     "name": "?INV_StashButtonDownMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004927C0",
-     "length": 550,
-     "name": "?INV_CubeButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -29912,21 +29887,6 @@
      "name": "?sub_004E0A30_CltDoClearSeqSpeed@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x004E0BD0",
-     "length": 132,
-     "name": "?sub_004E0BD0_CltStartClearCollision@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004E0C90",
-     "length": 172,
-     "name": "?sub_004E0C90_SetSkillTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004E0EB0",
-     "length": 131,
-     "name": "?sub_004E0EB0_CltStartPathToTarget@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
      "va": "0x004E14D0",
      "length": 327,
      "name": "?sub_004E14D0_CreateSkillMissile@@YGPAUD2UnitStrc@@PBHHHHHPAU1@H@Z"
@@ -29960,11 +29920,6 @@
      "va": "0x004E4050",
      "length": 1,
      "name": "?sub_004E4050_Nothing@@YIXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004E4280",
-     "length": 83,
-     "name": "_sub_004E4280"
     }
    ]
   },
@@ -30332,9 +30287,19 @@
      "name": "SKILLSMON_TimedMissile"
     },
     {
+     "va": "0x004F0C20",
+     "length": 174,
+     "name": "?sub_004F0C20_StoreTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004F0CD0",
      "length": 248,
      "name": "SKILLSMON_RequestAtSkillPos"
+    },
+    {
+     "va": "0x004F0DD0",
+     "length": 94,
+     "name": "?sub_004F0DD0_StoreTargetInfo@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F0E30",
@@ -30483,24 +30448,9 @@
      "name": "@SKILLDESC_RandomSpread@4"
     },
     {
-     "va": "0x004E41E0",
-     "length": 26,
-     "name": "?SKILLDESC_IsOutsideDayCycle@@YAHXZ"
-    },
-    {
-     "va": "0x004E4220",
-     "length": 26,
-     "name": "?SKILLDESC_ClearEnvironSoundRefs@@YAXXZ"
-    },
-    {
      "va": "0x004E4640",
      "length": 37,
      "name": "?SKILLDESC_GetMonTypeTxtRecord@@YIPAUD2MonTypeTxt@@H@Z"
-    },
-    {
-     "va": "0x004EFCF0",
-     "length": 256,
-     "name": "?SKILLDESC_CltDoTurnedMissile@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F0160",
@@ -30551,11 +30501,6 @@
      "va": "0x004F2720",
      "length": 109,
      "name": "?SKILLDESC_CltDoTargetMissile@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F29F0",
-     "length": 202,
-     "name": "?SKILLDESC_CltDoMissileScatterAtTarget@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F2E90",
@@ -30782,14 +30727,29 @@
      "name": "?sub_004E4180_GetCyclicDistance@@YIHHHH@Z"
     },
     {
+     "va": "0x004E41E0",
+     "length": 26,
+     "name": "?SKILLDESC_IsOutsideDayCycle@@YAHXZ"
+    },
+    {
      "va": "0x004E4200",
      "length": 17,
      "name": "?SKILLDESC_GetFloatIfEnabled@@YAMXZ"
     },
     {
+     "va": "0x004E4220",
+     "length": 26,
+     "name": "?SKILLDESC_ClearEnvironSoundRefs@@YAXXZ"
+    },
+    {
      "va": "0x004E4240",
      "length": 52,
      "name": "?SKILLDESC_AddEnvironSoundRefs@@YAXH@Z"
+    },
+    {
+     "va": "0x004E4280",
+     "length": 83,
+     "name": "_sub_004E4280"
     },
     {
      "va": "0x004E42E0",
@@ -31378,6 +31338,11 @@
      "name": "?SKILLDESC_GetSummonLevel@@YIHHH@Z"
     },
     {
+     "va": "0x004EFCF0",
+     "length": 256,
+     "name": "?SKILLDESC_CltDoTurnedMissile@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004EFDF0",
      "length": 607
     },
@@ -31426,6 +31391,11 @@
     {
      "va": "0x004F28A0",
      "length": 321
+    },
+    {
+     "va": "0x004F29F0",
+     "length": 202,
+     "name": "?SKILLDESC_CltDoMissileScatterAtTarget@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F2AC0",
@@ -31483,16 +31453,6 @@
     {
      "va": "0x004F0650",
      "length": 185
-    },
-    {
-     "va": "0x004F0C20",
-     "length": 174,
-     "name": "?sub_004F0C20_StoreTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F0DD0",
-     "length": 94,
-     "name": "?sub_004F0DD0_StoreTargetInfo@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F0EF0",
@@ -37051,6 +37011,11 @@
      "length": 520
     },
     {
+     "va": "0x00523020",
+     "length": 55,
+     "name": "?sub_00523020_GetAlignedData@@YIPADPAD@Z"
+    },
+    {
      "va": "0x00523060",
      "length": 537
     },
@@ -37114,11 +37079,6 @@
      "va": "0x0051BEC0",
      "length": 5,
      "name": "?sub_0051BEC0_IsExpansion@@YAHXZ"
-    },
-    {
-     "va": "0x0051C470",
-     "length": 254,
-     "name": "?sub_0051C470_CloseBNetConnection@@YAHXZ"
     },
     {
      "va": "0x0051C9B0",
@@ -37516,6 +37476,11 @@
      "va": "0x0051C460",
      "length": 11,
      "name": "?BNSEND_LeaveChat@@YAHXZ"
+    },
+    {
+     "va": "0x0051C470",
+     "length": 254,
+     "name": "?sub_0051C470_CloseBNetConnection@@YAHXZ"
     },
     {
      "va": "0x0051C570",
@@ -38808,11 +38773,6 @@
      "va": "0x00522BB0",
      "length": 10,
      "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
-    },
-    {
-     "va": "0x00523020",
-     "length": 55,
-     "name": "?sub_00523020_GetAlignedData@@YIPADPAD@Z"
     },
     {
      "va": "0x005241A0",
