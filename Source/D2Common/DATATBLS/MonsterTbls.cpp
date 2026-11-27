@@ -215,11 +215,7 @@ struct D2TCExShortStrc
     D2TCExInfoStrc* pInfo;
 };
 
-struct D2ItemDataTbl
-{
-    int nItemsTxtRecordCount;
-    D2ItemsTxt* pItemsTxt;
-};
+#include "D2ItemDataTbl.h"
 
 typedef char check_D2ItemTypesTxt_size[sizeof(D2ItemTypesTxt) == 0xE4 ? 1 : -1];
 
@@ -598,11 +594,7 @@ struct D2UniqueNameTablesStrc;
 
 typedef unsigned int size_t;
 
-struct D2UniqueNameTablesStrc
-{
-    void* pTables[4];
-    int nCounts[4];
-};
+#include "D2UniqueNameTablesStrc.h"
 
 extern D2UniqueNameTablesStrc gUniqueNameTables; // 0x0096D488
 
@@ -695,12 +687,7 @@ extern "C" const char gszField_006D9060[]; // 0x006D9060
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), FIXTURE_LINE(line)); exit(-1); }
 
-struct D2HirelingTableGlobals
-{
-    D2HirelingTxt* pHirelingTxt;
-    int nCount;
-    int indices[2][256];
-};
+#include "D2HirelingTableGlobals.h"
 
 extern D2HirelingTableGlobals gHirelingTables;  // 0x0096BDD0
 
@@ -747,11 +734,7 @@ struct D2MonItemPercentTxt
     int nValue;
 };
 
-struct D2MonItemPercentDataTbl
-{
-    int nMonItemPercentTxtRecordCount;
-    D2MonItemPercentTxt* pMonItemPercentTxt;
-};
+#include "D2MonItemPercentDataTbl.h"
 
 D2MonItemPercentDataTbl gMonItemPercentDataTables; // 0x0096D480
 
