@@ -39,21 +39,21 @@ struct D2ClientSoundStrc
 {
     int bActive;
     int nSoundId;
-    int f_8;
+    int nHandle;
     D2SoundVecStrc vPos;
     float fDistance;
-    int f_1C;
+    int nVolume;
     float fPan;
     int nArg4;
     D2SoundUnitNodeStrc* pUnitList;
     void* pStream;
     int nType;
-    unsigned int f_34;
+    unsigned int dwStartTick;
     int nArg3;
     unsigned char nPriority;
     int bLocked;
     int nRestart;
-    int f_45;
+    int bFading;
     int nFadeFrom;
     int nFadeTo;
     unsigned int dwFadeStart;
@@ -141,7 +141,7 @@ D2ClientSoundStrc* __cdecl SOUNDINST_AllocSoundEntry()
             pEntry->bActive = 1;
             D2SOUNDUTIL_ListAddHead(&gpSoundList_007C5458, pEntry);
             gnSoundSerial += 1;
-            pEntry->f_8 = gnSoundSerial;
+            pEntry->nHandle = gnSoundSerial;
             return pEntry;
         }
     }
@@ -157,7 +157,7 @@ D2ClientSoundStrc* __fastcall SOUNDINST_FindSoundByHandle(int nHandle)
         for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
         {
             D2ClientSoundStrc* pSound = pNode->pSound;
-            if (pSound->f_8 == nHandle)
+            if (pSound->nHandle == nHandle)
             {
                 return pSound;
             }
@@ -171,7 +171,7 @@ static inline void SOUNDINST_ReleaseUnits(D2ClientSoundStrc* pSound)
 {
     for (D2SoundUnitNodeStrc* pNode = pSound->pUnitList; pNode; pNode = pNode->pNext)
     {
-        UNITSND_RemoveUnitHint(pNode->pUnit, pSound->f_8);
+        UNITSND_RemoveUnitHint(pNode->pUnit, pSound->nHandle);
     }
     D2SOUNDUTIL_ListFree(&pSound->pUnitList);
 }
@@ -202,7 +202,7 @@ __declspec(noinline) int __fastcall sub_004B9590_IsTypeOneSound(int nKey)
         for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
         {
             D2ClientSoundStrc* pEntry = pNode->pSound;
-            if (pEntry->f_8 == nKey)
+            if (pEntry->nHandle == nKey)
             {
                 return pEntry->nType == 1;
             }
@@ -243,7 +243,7 @@ void* __fastcall sub_004B9610_GetSoundHandle(int nHintId)
         D2ClientSoundStrc* pEntry = pNode->pSound;
         if (pEntry->nSoundId == nHintId)
         {
-            return (void*)pEntry->f_8;
+            return (void*)pEntry->nHandle;
         }
     }
     return 0;
@@ -274,7 +274,7 @@ D2ClientSoundStrc* __stdcall SOUNDINST_FindOldestEntry(int nGroup, D2UnitStrc* p
         {
             D2ClientSoundStrc* pEntry = pNode->pSound;
             if (SOUNDHDR_GetSoundRecord(pEntry->nSoundId)->nGroupStart == nGroup && pEntry != pExclude && pEntry->nType == 1
-                && (!pUnit || D2SOUNDUTIL_ListContains(pEntry->pUnitList, pUnit)) && (!pOldest || pEntry->f_34 < pOldest->f_34))
+                && (!pUnit || D2SOUNDUTIL_ListContains(pEntry->pUnitList, pUnit)) && (!pOldest || pEntry->dwStartTick < pOldest->dwStartTick))
             {
                 pOldest = pEntry;
             }
@@ -293,7 +293,7 @@ static D2ClientSoundStrc* __stdcall SOUNDINST_FindGroupSound(D2ClientSoundStrc* 
         D2ClientSoundStrc* pSound = pNode->pSound;
         if (SOUNDHDR_GetGroupStart(pSound->nSoundId) == pTxt->nGroupStart && pSound != pExclude && !pSound->bLocked)
         {
-            if (pTxt->nCompound < 0 || DLIGHTMAP_GetSoundTick() - pSound->f_34 <= pTxt->nCompound)
+            if (pTxt->nCompound < 0 || DLIGHTMAP_GetSoundTick() - pSound->dwStartTick <= pTxt->nCompound)
                 return pSound;
         }
     }
@@ -320,7 +320,7 @@ void __fastcall SOUNDINST_MoveSound(int nHandle, int nX, int nY, int nZ)
     for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
         D2ClientSoundStrc* pSound = pNode->pSound;
-        if (pSound->f_8 == nHandle)
+        if (pSound->nHandle == nHandle)
         {
             D2SoundVecStrc tPos;
             tPos.fX = (float)nX;
@@ -419,9 +419,9 @@ int __fastcall SOUNDINST_PlaySound(int nSoundId, D2UnitStrc* pUnit, int nDelay, 
 
         pSound->nArg3 = nArg3;
         pSound->nSoundId = nSoundId;
-        pSound->f_34 = nTick + nDelay;
+        pSound->dwStartTick = nTick + nDelay;
         pSound->nArg4 = nArg4;
-        pSound->f_1C = 0xFF;
+        pSound->nVolume = 0xFF;
         pSound->nPriority = pTxt->nPriority;
 
         D2SoundVecStrc tPos;
@@ -447,10 +447,10 @@ int __fastcall SOUNDINST_PlaySound(int nSoundId, D2UnitStrc* pUnit, int nDelay, 
     {
         D2SOUNDUTIL_ListAddHead(&pSound->pUnitList, pUnit);
 // build: symbol ?UNITSND_AddUnitSfx@* 0x004CA8A0
-        UNITSND_AddUnitSfx(pUnit, pSound->f_8);
+        UNITSND_AddUnitSfx(pUnit, pSound->nHandle);
     }
 
-    return pSound->f_8;
+    return pSound->nHandle;
 }
 
 // 0x004B9B20
@@ -461,9 +461,9 @@ int __fastcall sub_004B9B20_GetValue(int nKey)
         for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
         {
             D2ClientSoundStrc* pEntry = pNode->pSound;
-            if (pEntry->f_8 == nKey)
+            if (pEntry->nHandle == nKey)
             {
-                return pEntry->f_1C;
+                return pEntry->nVolume;
             }
         }
     }
@@ -483,9 +483,9 @@ __declspec(noinline) void __fastcall SOUNDINST_SetValue(int nKey, int nValue)
     do
     {
         D2ClientSoundStrc* pValue = pLink->pSound;
-        if (pValue->f_8 == nKey)
+        if (pValue->nHandle == nKey)
         {
-            pValue->f_1C = nValue;
+            pValue->nVolume = nValue;
             return;
         }
         pLink = pLink->pNext;
@@ -495,17 +495,17 @@ __declspec(noinline) void __fastcall SOUNDINST_SetValue(int nKey, int nValue)
 // 0x004B9B80
 void __fastcall SOUNDINST_StartFade(D2ClientSoundStrc* pSound, int nValue, int nBase, int nOffset)
 {
-    pSound->nFadeFrom = pSound->f_1C;
+    pSound->nFadeFrom = pSound->nVolume;
     pSound->nFadeTo = nValue;
     pSound->dwFadeStart = nBase;
     pSound->dwFadeEnd = nBase + nOffset;
-    pSound->f_45 = 1;
+    pSound->bFading = 1;
 }
 
 // 0x004B9BB0
 static inline int SOUNDINST_GetStreamValue(D2ClientSoundStrc* pSound)
 {
-    return pSound->f_45;
+    return pSound->bFading;
 }
 
 // 0x004B9BE0
@@ -516,7 +516,7 @@ int __fastcall SOUNDINST_HasActiveHint(int nKey)
         for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
         {
             D2ClientSoundStrc* pEntry = pNode->pSound;
-            if (pEntry->f_8 == nKey)
+            if (pEntry->nHandle == nKey)
             {
                 D2SoundUnitNodeStrc* pList = pEntry->pUnitList;
                 if (pList && pList->pNext)
@@ -566,7 +566,7 @@ int __fastcall SOUNDINST_GetSoundIdByHandle(int nKey)
         for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
         {
             D2ClientSoundStrc* pEntry = pNode->pSound;
-            if (pEntry->f_8 == nKey)
+            if (pEntry->nHandle == nKey)
             {
                 return pEntry->nSoundId;
             }
@@ -589,7 +589,7 @@ void __fastcall SOUNDINST_SetEntryByte(int nId, unsigned char nValue)
     for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
         D2ClientSoundStrc* pEntry = pNode->pSound;
-        if (pEntry->f_8 == nId)
+        if (pEntry->nHandle == nId)
         {
             pEntry->nPriority = nValue;
             return;
@@ -613,7 +613,7 @@ static void SOUNDINST_FreeSound(D2ClientSoundStrc* pSound)
 
     D2SOUNDUTIL_ListRemove(&gpSoundList_007C5458, pSound);
     for (D2SoundUnitNodeStrc* pNode = pSound->pUnitList; pNode; pNode = pNode->pNext)
-        UNITSND_RemoveUnitHint(pNode->pUnit, pSound->f_8);
+        UNITSND_RemoveUnitHint(pNode->pUnit, pSound->nHandle);
 
     D2SOUNDUTIL_ListFree(&pSound->pUnitList);
     if (pSound->nType == 1)
@@ -641,7 +641,7 @@ int __fastcall SOUNDINST_GetPosition(int nKey)
         for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
         {
             D2ClientSoundStrc* pEntry = pNode->pSound;
-            if (pEntry->f_8 == nKey)
+            if (pEntry->nHandle == nKey)
             {
                 D2_ASSERT(pEntry->pStream, 0x45A);
                 return sub_004DF900_GetSoundPosition(pEntry->pStream);
@@ -690,12 +690,12 @@ int __fastcall SOUNDINST_CompareSounds(D2ClientSoundStrc* pA, D2ClientSoundStrc*
 
     if (bCompareValue)
     {
-        if (pA->f_34 > pB->f_34)
+        if (pA->dwStartTick > pB->dwStartTick)
         {
             return 1;
         }
 
-        if (pA->f_34 < pB->f_34)
+        if (pA->dwStartTick < pB->dwStartTick)
         {
             return 0;
         }
@@ -765,7 +765,7 @@ void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned in
     for (; pNode; pNode = pNode->pNext)
     {
         pEntry = pNode->pSound;
-        if (pEntry->f_8 == nKey)
+        if (pEntry->nHandle == nKey)
         {
             break;
         }
@@ -778,7 +778,7 @@ void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned in
     for (pNode = pHead; pNode; pNode = pNode->pNext)
     {
         D2ClientSoundStrc* pOther = pNode->pSound;
-        if (pOther->f_8 == nKey)
+        if (pOther->nHandle == nKey)
         {
             D2SoundUnitNodeStrc* pUnitList = pOther->pUnitList;
             if (pUnitList && pUnitList->pNext)
@@ -805,7 +805,7 @@ void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned in
         }
     }
 
-    if (pEntry->f_45)
+    if (pEntry->bFading)
     {
         if (nGroup == pEntry->nFadeTo && DLIGHTMAP_GetSoundTick() + nOffset + nCount >= pEntry->dwFadeEnd)
         {
@@ -832,16 +832,16 @@ void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned in
 
     unsigned int nStart = DLIGHTMAP_GetSoundTick() + nOffset;
     pEntry->dwFadeStart = nStart;
-    pEntry->nFadeFrom = pEntry->f_1C;
+    pEntry->nFadeFrom = pEntry->nVolume;
     pEntry->nFadeTo = nGroup;
     pEntry->dwFadeEnd = nStart + nCount;
-    pEntry->f_45 = 1;
+    pEntry->bFading = 1;
 }
 
 // 0x004B9BC0
 static inline int SOUNDINST_IsOnAndNotHeld(D2ClientSoundStrc* pSound)
 {
-    return pSound->f_45 && !pSound->nFadeTo;
+    return pSound->bFading && !pSound->nFadeTo;
 }
 
 // 0x004B9EB0
@@ -879,9 +879,9 @@ static int sub_004BA020_SortsBefore(D2ClientSoundStrc* pSound1, D2ClientSoundStr
         return 1;
     if (pSound1->fDistance > pSound2->fDistance)
         return 0;
-    if (pSound1->f_34 > pSound2->f_34)
+    if (pSound1->dwStartTick > pSound2->dwStartTick)
         return 1;
-    if (pSound1->f_34 < pSound2->f_34)
+    if (pSound1->dwStartTick < pSound2->dwStartTick)
         return 0;
     return pSound1 > pSound2;
 }
@@ -957,10 +957,10 @@ void __fastcall sub_004BA020_UpdateSounds(unsigned int nTick)
             D2_ASSERT(!pSound->pStream, 0x349);
             if (pTxt->nLoop && !pTxt->nDuration && !pSound->bLocked)
             {
-                if (pSound->f_45)
+                if (pSound->bFading)
                 {
-                    pSound->f_1C = pSound->nFadeTo;
-                    pSound->f_45 = 0;
+                    pSound->nVolume = pSound->nFadeTo;
+                    pSound->bFading = 0;
                 }
                 pSound->nType = 0;
             }
@@ -1010,26 +1010,26 @@ void __fastcall sub_004BA020_UpdateSounds(unsigned int nTick)
                 pSound->fPan = sub_004BA020_MaxF(pSound->fPan - 0.05000000074505806, fTarget);
         }
 
-        if (pSound->f_45)
+        if (pSound->bFading)
         {
             if (nTick > pSound->dwFadeEnd)
             {
-                pSound->f_45 = 0;
-                pSound->f_1C = pSound->nFadeTo;
+                pSound->bFading = 0;
+                pSound->nVolume = pSound->nFadeTo;
             }
             else if (nTick < pSound->dwFadeStart)
             {
-                pSound->f_1C = pSound->nFadeFrom;
+                pSound->nVolume = pSound->nFadeFrom;
             }
             else
             {
-                pSound->f_1C = pSound->nFadeFrom + (pSound->nFadeTo - pSound->nFadeFrom) * (int)(nTick - pSound->dwFadeStart) / (int)(pSound->dwFadeEnd - pSound->dwFadeStart);
+                pSound->nVolume = pSound->nFadeFrom + (pSound->nFadeTo - pSound->nFadeFrom) * (int)(nTick - pSound->dwFadeStart) / (int)(pSound->dwFadeEnd - pSound->dwFadeStart);
             }
         }
 
         const float fRange = SOUNDHDR_GetFalloffRange(pSound->nSoundId);
         const float fRangeSq = fRange * fRange;
-        if (pSound->nType == 0 && nTick >= pSound->f_34 && pSound->f_1C)
+        if (pSound->nType == 0 && nTick >= pSound->dwStartTick && pSound->nVolume)
         {
             if (bAudible && pSound->fDistance <= fRangeSq)
             {
@@ -1075,14 +1075,14 @@ void __fastcall sub_004BA020_UpdateSounds(unsigned int nTick)
                 if (bRestart)
                 {
                     nFade = 3;
-                    nVolume = pSound->f_1C;
-                    pSound->f_1C = 0;
+                    nVolume = pSound->nVolume;
+                    pSound->nVolume = 0;
                 }
-                else if (pTxt->nFadeIn && !pSound->f_45 && !(pSound->nArg3 & 2))
+                else if (pTxt->nFadeIn && !pSound->bFading && !(pSound->nArg3 & 2))
                 {
                     nFade = pTxt->nFadeIn;
-                    nVolume = pSound->f_1C;
-                    pSound->f_1C = 0;
+                    nVolume = pSound->nVolume;
+                    pSound->nVolume = 0;
                 }
 
                 pSound->pStream = sub_004E01B0(pSound);
@@ -1091,11 +1091,11 @@ void __fastcall sub_004BA020_UpdateSounds(unsigned int nTick)
                     pSound->nType = 1;
                     if (nFade)
                     {
-                        pSound->nFadeFrom = pSound->f_1C;
+                        pSound->nFadeFrom = pSound->nVolume;
                         pSound->nFadeTo = nVolume;
                         pSound->dwFadeStart = nTick;
                         pSound->dwFadeEnd = nTick + nFade;
-                        pSound->f_45 = 1;
+                        pSound->bFading = 1;
                     }
                 }
 
@@ -1109,7 +1109,7 @@ void __fastcall sub_004BA020_UpdateSounds(unsigned int nTick)
         if (pSound->nType == 1)
         {
             D2_ASSERT(pSound->pStream, 0x3F3);
-            if ((!pTxt->nDuration || nTick - pSound->f_34 <= pTxt->nDuration) && bAudible && !(pSound->fDistance > fRangeSq))
+            if ((!pTxt->nDuration || nTick - pSound->dwStartTick <= pTxt->nDuration) && bAudible && !(pSound->fDistance > fRangeSq))
             {
                 sub_004DFC20(pSound->pStream);
                 if (pTxt->nState == 2)
@@ -1182,7 +1182,7 @@ static __declspec(noinline) void SOUNDINST_RefreshHint(D2ClientSoundStrc* pSound
     unsigned char nCount = pTxt->nFadeOut;
     if (nCount && pSound->nType == 1)
     {
-        SOUNDINST_ArmHint(pSound->f_8, 0, 0, nCount);
+        SOUNDINST_ArmHint(pSound->nHandle, 0, 0, nCount);
     }
 }
 
@@ -1196,14 +1196,14 @@ void __fastcall SOUNDINST_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOther, 
     for (pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
         pSound = pNode->pSound;
-        if (pSound->f_8 == (int)pUnit)
+        if (pSound->nHandle == (int)pUnit)
             break;
     }
     if (!pNode)
         return;
     D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pSound->nSoundId);
     D2SOUNDUTIL_ListRemove(&pSound->pUnitList, pOther);
-    const int bReady = !pTxt->nLoop || (pSound->f_45 && !pSound->nFadeTo) ? 1 : 0;
+    const int bReady = !pTxt->nLoop || (pSound->bFading && !pSound->nFadeTo) ? 1 : 0;
     if (pSound->pUnitList)
         return;
     if (!bForce && bReady)
@@ -1219,14 +1219,14 @@ void __fastcall sub_004BA840_StopSound(int nHandle)
         for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
         {
             D2ClientSoundStrc* pEntry = pNode->pSound;
-            if (pEntry->f_8 == nHandle)
+            if (pEntry->nHandle == nHandle)
             {
                 D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
                 pEntry->bLocked = 1;
                 unsigned char nCount = pTxt->nFadeOut;
                 if (nCount && pEntry->nType == 1)
                 {
-                    SOUNDINST_ArmHint(pEntry->f_8, 0, 0, nCount);
+                    SOUNDINST_ArmHint(pEntry->nHandle, 0, 0, nCount);
                 }
 
                 return;
@@ -1248,7 +1248,7 @@ void __fastcall SOUNDINST_LockSoundsById(int nHintId)
             unsigned char nCount = pTxt->nFadeOut;
             if (nCount && pEntry->nType == 1)
             {
-                SOUNDINST_ArmHint(pEntry->f_8, 0, 0, nCount);
+                SOUNDINST_ArmHint(pEntry->nHandle, 0, 0, nCount);
             }
         }
     }
@@ -1273,7 +1273,7 @@ void __cdecl sub_004BA8F0_StopSongs()
             unsigned char nCount = pTxt->nFadeOut;
             if (nCount && pEntry->nType == 1)
             {
-                SOUNDINST_ArmHint(pEntry->f_8, 0, 0, nCount);
+                SOUNDINST_ArmHint(pEntry->nHandle, 0, 0, nCount);
             }
         }
     }
@@ -1299,7 +1299,7 @@ void __fastcall SOUNDINST_RefreshHintsInRangeA(int nGroupA, int nGroupB)
             unsigned char nCount = pTxt->nFadeOut;
             if (nCount && pEntry->nType == 1)
             {
-                SOUNDINST_ArmHint(pEntry->f_8, 0, 0, nCount);
+                SOUNDINST_ArmHint(pEntry->nHandle, 0, 0, nCount);
             }
         }
     }
@@ -1325,7 +1325,7 @@ void __fastcall SOUNDINST_RefreshHintsInRangeB(int nGroupA, int nGroupB)
             unsigned char nCount = pTxt->nFadeOut;
             if (nCount && pEntry->nType == 1)
             {
-                SOUNDINST_ArmHint(pEntry->f_8, 0, 0, nCount);
+                SOUNDINST_ArmHint(pEntry->nHandle, 0, 0, nCount);
             }
         }
     }
@@ -1344,7 +1344,7 @@ void __cdecl SOUNDINST_LockSpeechSounds()
             unsigned char nCount = pTxt->nFadeOut;
             if (nCount && pEntry->nType == 1)
             {
-                SOUNDINST_ArmHint(pEntry->f_8, 0, 0, nCount);
+                SOUNDINST_ArmHint(pEntry->nHandle, 0, 0, nCount);
             }
         }
     }
@@ -1361,7 +1361,7 @@ void __cdecl SOUNDINST_RefreshGroupTimers()
         unsigned char nCount = pTxt->nFadeOut;
         if (nCount && pSound->nType == 1)
         {
-            SOUNDINST_ArmHint(pSound->f_8, 0, 0, nCount);
+            SOUNDINST_ArmHint(pSound->nHandle, 0, 0, nCount);
         }
     }
 }

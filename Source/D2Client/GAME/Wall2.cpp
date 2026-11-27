@@ -209,10 +209,10 @@ struct D2ClearPairStrc
 
 struct D2GridCellStrc
 {
-    unsigned char nB0;
-    unsigned char nB1;
-    unsigned char nB2;
-    unsigned char nB3;
+    unsigned char nIntensity;
+    unsigned char nRed;
+    unsigned char nGreen;
+    unsigned char nBlue;
     int nX;
     int nY;
 };
@@ -717,10 +717,10 @@ static inline void WALL2_FillCells(D2GridCellStrc* pCells)
     {
         for (int i = 0; i < 8; ++i)
         {
-            pCells->nB0 = 0xFF;
-            pCells->nB1 = 0xFF;
-            pCells->nB3 = 0xFF;
-            pCells->nB2 = 0xFF;
+            pCells->nIntensity = 0xFF;
+            pCells->nRed = 0xFF;
+            pCells->nBlue = 0xFF;
+            pCells->nGreen = 0xFF;
             ++pCells;
         }
     }
@@ -748,10 +748,10 @@ static void __stdcall WALL2_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCell
         {
             for (int i = 0; i < 8; ++i)
             {
-                pCells->nB1 = nB1;
-                pCells->nB0 = nB0;
-                pCells->nB3 = nB3;
-                pCells->nB2 = nB2;
+                pCells->nRed = nB1;
+                pCells->nIntensity = nB0;
+                pCells->nBlue = nB3;
+                pCells->nGreen = nB2;
                 ++pCells;
             }
         }
@@ -762,7 +762,7 @@ static void __stdcall WALL2_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCell
     {
         for (int i = 0; i < 8; ++i)
         {
-            SCMD_ReadGridCell(8 * (nX + i - 1), 8 * (nY + j - 1), &pCells->nB0, &pCells->nB1, &pCells->nB2, &pCells->nB3);
+            SCMD_ReadGridCell(8 * (nX + i - 1), 8 * (nY + j - 1), &pCells->nIntensity, &pCells->nRed, &pCells->nGreen, &pCells->nBlue);
             ++pCells;
         }
     }
@@ -871,10 +871,10 @@ static void sub_B08_FillCellsInline(D2GridCellStrc* pCells)
     {
         for (int i = 0; i < 8; ++i)
         {
-            pCells->nB0 = 0xFF;
-            pCells->nB1 = 0xFF;
-            pCells->nB3 = 0xFF;
-            pCells->nB2 = 0xFF;
+            pCells->nIntensity = 0xFF;
+            pCells->nRed = 0xFF;
+            pCells->nBlue = 0xFF;
+            pCells->nGreen = 0xFF;
             ++pCells;
         }
     }
@@ -899,12 +899,12 @@ static void __stdcall WALL2_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY, int b
         {
             if (!bCorners || (i == 0 && j == 0) || (i == 5 && j == 0) || (i == 5 && j == 5) || (i == 0 && j == 5))
             {
-                pCells->nB0 = 0xFF;
+                pCells->nIntensity = 0xFF;
                 pCells->nX = 16 * (i - j) + tX.n;
                 pCells->nY = nY + 8 * (i + j);
-                pCells->nB1 = 0xFF;
-                pCells->nB3 = 0xFF;
-                pCells->nB2 = 0xFF;
+                pCells->nRed = 0xFF;
+                pCells->nBlue = 0xFF;
+                pCells->nGreen = 0xFF;
             }
             ++pCells;
         }
@@ -939,13 +939,13 @@ void __stdcall sub_004DE070_FillGridLight(D2GridCellStrc* pCells, int nX, int nY
                 pCell->nY = nY + ((i + j) << 3);
                 if (bFlat)
                 {
-                    pCell->nB0 = nB0;
-                    pCell->nB1 = nB1;
-                    pCell->nB3 = nB3;
-                    pCell->nB2 = nB2;
+                    pCell->nIntensity = nB0;
+                    pCell->nRed = nB1;
+                    pCell->nBlue = nB3;
+                    pCell->nGreen = nB2;
                 }
                 else
-                    SCMD_ReadGridCell((nSubX + i) << 3, 8 * (nSubY + j), &pCell->nB0, &pCell->nB1, &pCell->nB2, &pCell->nB3);
+                    SCMD_ReadGridCell((nSubX + i) << 3, 8 * (nSubY + j), &pCell->nIntensity, &pCell->nRed, &pCell->nGreen, &pCell->nBlue);
             }
         }
     }
@@ -976,10 +976,10 @@ static void __stdcall WALL2_BuildSmallGrid(int nSubX, int nSubY, int nZ, int bCo
 // build: symbol ?SCALE_AdjustPerspectivePosition@* 0x004F6760
                 SCALE_AdjustPerspectivePosition((nSubX + i) << 16, nY << 16, nZ, &pCells->nX, &pCells->nY);
                 pCells->nX += nShift;
-                pCells->nB0 = 0xFF;
-                pCells->nB1 = 0xFF;
-                pCells->nB3 = 0xFF;
-                pCells->nB2 = 0xFF;
+                pCells->nIntensity = 0xFF;
+                pCells->nRed = 0xFF;
+                pCells->nBlue = 0xFF;
+                pCells->nGreen = 0xFF;
             }
         }
     }
@@ -1045,10 +1045,10 @@ void __stdcall sub_004DE260_FillCellLights(D2GridCellStrc* pCells, int nSubX, in
                 {
                     SCALE_AdjustPerspectivePosition((i + nSubX) << 16, nY << 16, nZ, &pCell->nX, &pCell->nY);
                     pCell->nX += nOffset;
-                    pCell->nB0 = nB0;
-                    pCell->nB1 = nB1;
-                    pCell->nB3 = nB3;
-                    pCell->nB2 = nB2;
+                    pCell->nIntensity = nB0;
+                    pCell->nRed = nB1;
+                    pCell->nBlue = nB3;
+                    pCell->nGreen = nB2;
                 }
 
                 ++pCell;
@@ -1067,7 +1067,7 @@ void __stdcall sub_004DE260_FillCellLights(D2GridCellStrc* pCells, int nSubX, in
                     const int nX = i + nSubX;
                     SCALE_AdjustPerspectivePosition(nX << 16, nY << 16, 0, &pCell->nX, &pCell->nY);
                     pCell->nX += nOffset;
-                    SCMD_ReadGridCell(nX << 3, nY << 3, &pCell->nB0, &pCell->nB1, &pCell->nB2, &pCell->nB3);
+                    SCMD_ReadGridCell(nX << 3, nY << 3, &pCell->nIntensity, &pCell->nRed, &pCell->nGreen, &pCell->nBlue);
                 }
 
                 ++pCell;

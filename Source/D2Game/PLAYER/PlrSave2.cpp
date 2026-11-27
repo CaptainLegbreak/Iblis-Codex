@@ -189,7 +189,7 @@ int __fastcall PLRSAVE2_WriteCorpsesSection(D2GameStrc* pGame, D2UnitStrc* pPlay
 
 int __fastcall PLRSAVE2_WriteMercSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd, int nArg6, int bSizing); // 0x005699A0
 
-int __fastcall PLRSAVE2_WriteIronGolemSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd, int a7, int bSizing); // 0x00569A00
+int __fastcall PLRSAVE2_WriteIronGolemSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd, int nUnused, int bSizing); // 0x00569A00
 
 struct D2PlrIntroSaveStrc
 {
@@ -858,10 +858,10 @@ int __fastcall PLRSAVE2_WriteMercSection(D2GameStrc* pGame, D2UnitStrc* pPlayer,
     return 0;
 }
 
-int __fastcall D2GAME_SAVE_SerializeItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned char* pBitstream, unsigned int nSize, int a4, int a5, int a6); // 0x005316D0
+int __fastcall D2GAME_SAVE_SerializeItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned char* pBitstream, unsigned int nSize, int bUseTradeInventory, int nUnused, int bSizing); // 0x005316D0
 
 // 0x00569A00
-int __fastcall PLRSAVE2_WriteIronGolemSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd, int a5, int a6)
+int __fastcall PLRSAVE2_WriteIronGolemSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd, int nUnused, int bSizing)
 {
     unsigned char* pData = *ppSection;
     int bHasIronGolem = 0;
@@ -887,7 +887,7 @@ int __fastcall PLRSAVE2_WriteIronGolemSection(D2GameStrc* pGame, D2UnitStrc* pPl
     ++pData;
     if (bHasIronGolem)
     {
-        const int nLength = D2GAME_SAVE_SerializeItem(pGame, pPlayer, pGolemItem, pData, pEnd - pData, 0, a5, a6);
+        const int nLength = D2GAME_SAVE_SerializeItem(pGame, pPlayer, pGolemItem, pData, pEnd - pData, 0, nUnused, bSizing);
         if (nLength <= 0)
         {
             *pFlag = 0;
