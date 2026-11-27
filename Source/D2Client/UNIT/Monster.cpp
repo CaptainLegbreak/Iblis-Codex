@@ -71,7 +71,7 @@ struct D2MonAnimRecStrc;
 
 struct D2HirelingInfoStrc
 {
-    unsigned short f_0;
+    unsigned short wNameId;
     unsigned short unk0x02;
     int nSeed;
 };
@@ -2660,7 +2660,7 @@ void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInf
     }
 
     pUnit->dwFlags |= 0x202;
-    const int nAct = MONSTERS_GetActFromHirelingTxt(GAME_IsExpansion(), 0, pInfo->f_0);
+    const int nAct = MONSTERS_GetActFromHirelingTxt(GAME_IsExpansion(), 0, pInfo->wNameId);
     const int nDifficulty = GAME_GetDifficulty();
     D2HirelingInitStrc hirelingInit;
     if (!MONSTERS_HirelingInit(GAME_IsExpansion(), sub_00463DD0_GetPlayerUnit(), pInfo->nSeed, nAct, nDifficulty, &hirelingInit))
@@ -2700,7 +2700,7 @@ void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInf
         SKILLS_SetSkillMode(SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId), nMode);
     }
 
-    unsigned short wNameId = pInfo->f_0;
+    unsigned short wNameId = pInfo->wNameId;
     if (wNameId == 0x421)
     {
         wNameId = 0x2B0D;

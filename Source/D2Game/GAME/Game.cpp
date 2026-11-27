@@ -2181,12 +2181,12 @@ void __cdecl GAME_DefaultGetGameServerInfo()
 }
 
 // 0x0052BF40
-void __stdcall sub_0052BF40_Stub(int a1, int a2, int a3, int a4)
+void __stdcall sub_0052BF40_Stub(int nUnused1, int nUnused2, int nUnused3, int nUnused4)
 {
 }
 
 // 0x0052BFB0
-void __stdcall sub_0052BFB0_Stub(int a1, int a2, int a3, int a4)
+void __stdcall sub_0052BFB0_Stub(int nUnused1, int nUnused2, int nUnused3, int nUnused4)
 {
 }
 

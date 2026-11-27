@@ -2,9 +2,7 @@
 // D2Common's exports that the other modules call and D2CommonApi.h doesn't declare. A separate header because
 // adding to D2CommonApi.h clashes with private copies in its includers; included only by the units that use it.
 
-struct B24Unit;
 struct B25DistancePath;
-struct B25MissileUnit;
 struct B25Path;
 struct B25TargetUnit;
 struct D2Act00619DA0Strc;
@@ -385,7 +383,7 @@ int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); /
 void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit); // 0x00649400
 void __stdcall D2Common_10216(D2DynamicPathStrc* pDynamicPath, int nX, int nY, int bSetBothDirections); // 0x00649EF0
 void __stdcall PATH_AddCollisionFootprintForOptionalUnit(D2UnitStrc* pUnit); // 0x0064A0E0
-extern "C" void __stdcall MISSILE_SetMissileLevel(B24Unit* unit, int level); // 0x0064A1E0
+void __stdcall MISSILE_SetLevel(D2UnitStrc* pMissile, int nLevel); // 0x0064A1E0
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
@@ -395,9 +393,9 @@ int __stdcall MISSILE_GetStreamMissile(D2UnitStrc* pMissile); // 0x0064A510
 void __stdcall MISSILE_SetStreamRange(D2UnitStrc* pMissile, short nStreamRange); // 0x0064A540
 int __stdcall MISSILE_GetStreamRange(D2UnitStrc* pMissile); // 0x0064A570
 int __stdcall MISSILE_GetHitClass(D2UnitStrc* pMissile); // 0x0064A5A0
-extern "C" int __stdcall MISSILE_GetMissileTargetStatus(B25MissileUnit* unit); // 0x0064A730
+int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile); // 0x0064A730
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
-extern "C" int __stdcall MISSILE_targetValue(UnitView* unit); // 0x0064A780
+int __stdcall MISSILE_GetTargetY(D2UnitStrc* pMissile); // 0x0064A780
 int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc* pMissile, D2UnitStrc* pOwner, unsigned int nCalc, int nMissileId, int nLevel); // 0x0064B7C0
 int __stdcall UNITROOM_AddUnitToRoomEx(D2UnitStrc* pUnit, D2ActiveRoomStrc* hRoom, int nUnused); // 0x0064C2C0
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* hUnit); // 0x0064C370

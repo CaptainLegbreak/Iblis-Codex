@@ -236,26 +236,6 @@ struct D2MissileStreamStrc;
 
 struct D2MissilesTxt;
 
-struct B24Roster;
-
-struct B24MissileData;
-
-struct B24Unit;
-
-struct TargetData;
-
-struct UnitView;
-
-struct SlotPair;
-
-struct Node32;
-
-struct Queue32;
-
-struct Node24;
-
-struct Queue24;
-
 struct MissileRecord;
 
 struct DataTables;
@@ -266,175 +246,11 @@ struct D2StatStrc;
 
 struct D2MissileDamageDataStrc;
 
-struct B24Roster
-{
-    unsigned char pad0[0x4];
-    int value;
-    unsigned int key;
-    unsigned char padAfterKey[0x24];
-    B24Roster* next;
-};
-
-typedef char B24RosterValue[(OFFSET(B24Roster,value)==0x4)?1:-1];
-
-typedef char B24RosterKey[(OFFSET(B24Roster,key)==0x8)?1:-1];
-
-typedef char B24RosterNext[(OFFSET(B24Roster,next)==0x30)?1:-1];
-
-struct B24MissileData
-{
-    unsigned char pad0[0xC];
-    short nLevel;
-};
-
-struct B24Unit
-{
-    unsigned int type;
-    unsigned char pad4[0x10];
-    B24MissileData* missileData;
-};
-
-typedef char B24MissileLevel[(OFFSET(B24MissileData,nLevel)==0xC)?1:-1];
-
-typedef char B24UnitData[(OFFSET(B24Unit,missileData)==0x14)?1:-1];
-
-extern "C" unsigned char gB24Selection;
-
-extern "C" unsigned char* gB24PackedState;
-
-extern "C" int gB24Dirty;
-
-extern "C" B24Roster* gB24Roster;
-
-extern "C" int gB24MinX;
-
-extern "C" int gB24MaxX;
-
-extern "C" int gB24MinY;
-
-extern "C" int gB24MaxY;
-
-extern "C" int gB24RowCount;
-
-extern "C" unsigned int gB24SelectedKey;
-
-extern "C" unsigned char gB24Rows[];
-
 #pragma pack(push, 1)
 
 #pragma pack(pop)
 
 typedef char check_pointer_width[sizeof(void*)==4?1:-1];
-
-struct TargetData
-{
-    char gap0[0x2C];
-    int value;
-};
-
-typedef char check_TargetData_value[OFFSET(TargetData,value)==0x2C?1:-1];
-
-typedef char check_TargetData_size[sizeof(TargetData)==0x30?1:-1];
-
-struct UnitView
-{
-    unsigned int kind;
-    char gap4[0x10];
-    TargetData* data;
-};
-
-typedef char check_UnitView_kind[OFFSET(UnitView,kind)==0x0?1:-1];
-
-typedef char check_UnitView_data[OFFSET(UnitView,data)==0x14?1:-1];
-
-typedef char check_UnitView_size[sizeof(UnitView)==0x18?1:-1];
-
-struct SlotPair
-{
-    unsigned int first;
-    unsigned int second;
-};
-
-typedef char check_SlotPair_first[OFFSET(SlotPair,first)==0x0?1:-1];
-
-typedef char check_SlotPair_second[OFFSET(SlotPair,second)==0x4?1:-1];
-
-typedef char check_SlotPair_size[sizeof(SlotPair)==0x8?1:-1];
-
-struct Node32
-{
-    char gap0[0x4];
-    SlotPair* slots;
-    unsigned int slotIndex;
-    char gapC[0xC];
-    Node32* next;
-    Node32* previous;
-};
-
-typedef char check_Node32_slots[OFFSET(Node32,slots)==0x4?1:-1];
-
-typedef char check_Node32_slotIndex[OFFSET(Node32,slotIndex)==0x8?1:-1];
-
-typedef char check_Node32_next[OFFSET(Node32,next)==0x18?1:-1];
-
-typedef char check_Node32_previous[OFFSET(Node32,previous)==0x1C?1:-1];
-
-typedef char check_Node32_size[sizeof(Node32)==0x20?1:-1];
-
-struct Queue32
-{
-    char gap0[0x4];
-    unsigned int count;
-    Node32* head;
-    Node32* tail;
-    Node32* freeHead;
-    Node32* freeTail;
-    Node32* array;
-};
-
-typedef char check_Queue32_count[OFFSET(Queue32,count)==0x4?1:-1];
-
-typedef char check_Queue32_head[OFFSET(Queue32,head)==0x8?1:-1];
-
-typedef char check_Queue32_tail[OFFSET(Queue32,tail)==0xC?1:-1];
-
-typedef char check_Queue32_freeHead[OFFSET(Queue32,freeHead)==0x10?1:-1];
-
-typedef char check_Queue32_freeTail[OFFSET(Queue32,freeTail)==0x14?1:-1];
-
-typedef char check_Queue32_array[OFFSET(Queue32,array)==0x18?1:-1];
-
-typedef char check_Queue32_size[sizeof(Queue32)==0x1C?1:-1];
-
-struct Node24
-{
-    char gap0[0x10];
-    Node24* next;
-    Node24* previous;
-};
-
-typedef char check_Node24_next[OFFSET(Node24,next)==0x10?1:-1];
-
-typedef char check_Node24_previous[OFFSET(Node24,previous)==0x14?1:-1];
-
-typedef char check_Node24_size[sizeof(Node24)==0x18?1:-1];
-
-struct Queue24
-{
-    char gap0[0x8];
-    Node24* head;
-    Node24* tail;
-    char gap10[0x8];
-    Node24* array;
-};
-
-typedef char check_Queue24_head[OFFSET(Queue24,head)==0x8?1:-1];
-
-typedef char check_Queue24_tail[OFFSET(Queue24,tail)==0xC?1:-1];
-
-typedef char check_Queue24_array[OFFSET(Queue24,array)==0x18?1:-1];
-
-typedef char check_Queue24_size[sizeof(Queue24)==0x1C?1:-1];
 
 struct D2MissileDamageDataStrc
 {
@@ -550,24 +366,13 @@ void __stdcall MISSILE_SetFlags(D2UnitStrc* pMissile, unsigned int dwFlags)
     }
 }
 
-// build: symbol @ROSTER_GetPetType@* 0x00479180
-extern "C" int __fastcall ROSTER_GetPetType(unsigned int key)
-{
-    B24Roster* node = gB24Roster;
-    while (node)
-    {
-        if (node->key == key)
-            return node->value;
-        node = node->next;
-    }
-    return 0;
-}
-
 // 0x0064A1E0
-extern "C" void __stdcall MISSILE_SetMissileLevel(B24Unit* unit, int level)
+void __stdcall MISSILE_SetLevel(D2UnitStrc* pMissile, int nLevel)
 {
-    if (unit && unit->type == 3 && unit->missileData)
-        unit->missileData->nLevel = (short)level;
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        pMissile->pMissileData->nLevel = (short)nLevel;
+    }
 }
 
 // 0x0064A210
@@ -829,24 +634,14 @@ void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX)
     }
 }
 
-struct B25MissileData
-{
-    unsigned char pad0[0x28];
-    int targetStatus;
-};
-
-struct B25MissileUnit
-{
-    unsigned int type;
-    unsigned char pad4[0x10];
-    B25MissileData* data;
-};
-
 // 0x0064A730
-extern "C" int __stdcall MISSILE_GetMissileTargetStatus(B25MissileUnit* unit)
+int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile)
 {
-    if (unit && unit->type == 3 && unit->data)
-        return unit->data->targetStatus;
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        return pMissile->pMissileData->nTargetX;
+    }
+
     return 0;
 }
 
@@ -884,14 +679,13 @@ void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY)
 }
 
 // 0x0064A780
-extern "C" int __stdcall MISSILE_targetValue(UnitView* unit)
+int __stdcall MISSILE_GetTargetY(D2UnitStrc* pMissile)
 {
-    if (unit && unit->kind == 3)
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
     {
-        TargetData* data = unit->data;
-        if (data)
-            return data->value;
+        return pMissile->pMissileData->nTargetY;
     }
+
     return 0;
 }
 

@@ -193,13 +193,9 @@ struct D2CoordStrc;
 
 struct D2StormLinkStrc;
 
-struct D2StormListStrc;
-
 struct D2Storm4167B0Strc;
 
 struct D2Storm4168F0Strc;
-
-struct D2Storm416A90Strc;
 
 struct D2Unk00667420CStrc;
 
@@ -224,12 +220,6 @@ struct D2DrlgPresetInfoStrc;
 
 extern unsigned short gwValue_0077905C;
 
-struct D2StormListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
-
 struct D2Storm4167B0Strc
 {
     D2StormLinkStrc tLink;
@@ -242,13 +232,6 @@ struct D2Storm4168F0Strc
     D2StormLinkStrc tLink;
 
     ~D2Storm4168F0Strc();
-};
-
-struct D2Storm416A90Strc
-{
-    char pad00[0x14C];
-    int n14C;
-    int n150;
 };
 
 struct D2Unk00667420CStrc

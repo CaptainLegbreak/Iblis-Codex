@@ -124,7 +124,7 @@ const char* __fastcall sub_006C9B30_GetFileName(const char* szPath)
 extern "C" __declspec(dllimport) char* __stdcall CharNextA(const char*); // 0x006CC450
 
 // 0x006C9B45
-char* __fastcall sub_006C9B45(char* s)
+char* __fastcall sub_006C9B45_TrimTrailingBackslash(char* s)
 {
     char* r = (char*)sub_006C9AFF_FindLastCharacter(s, 0x5C);
     if (!r)

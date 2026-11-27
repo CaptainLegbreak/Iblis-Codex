@@ -4738,7 +4738,7 @@ inline void __cdecl operator delete(void* pMemory)
 // build: symbol ?DeleteChunksAndReuse@?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@QAEXXZ 0x00450690
 // build: symbol ??0?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@QAE@XZ 0x004506B0
 // build: symbol ?CalcChunkSize@?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAEII@Z 0x00450810
-// build: symbol ?RoundUp@?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@SGIII@Z 0x00450850
+// build: symbol ?RoundUp@?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAEIII@Z 0x00450850
 // build: symbol ??0?$TSBaseArray@USGAMEDATA@@@@QAE@XZ 0x00450870
 // build: symbol ?LinkNode@?$TSList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@@@@QAEXPAV?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@I0@Z 0x004508A0
 // build: symbol ??0SGAMEDATA@@QAE@ABU0@@Z 0x00450950
@@ -4801,7 +4801,7 @@ template void D2SGameDataReuseTable::DeleteChunksAndReuse();
 template D2SGameDataTable::TSHashTable();
 template D2SGameDataReuseTable::~TSHashTableReuse();
 template unsigned int TSGrowableArray<SGAMEDATA>::CalcChunkSize(unsigned int);
-template unsigned int __stdcall TSGrowableArray<SGAMEDATA>::RoundUp(unsigned int, unsigned int);
+template unsigned int TSGrowableArray<SGAMEDATA>::RoundUp(unsigned int, unsigned int);
 template TSBaseArray<SGAMEDATA>::TSBaseArray();
 template void TSList<D2SGameDataChunk, TSGetExplicitLink<D2SGameDataChunk> >::LinkNode(D2SGameDataChunk*, unsigned int, D2SGameDataChunk*);
 template void D2SGameDataTable::Clear();

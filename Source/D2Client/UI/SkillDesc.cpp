@@ -4268,15 +4268,15 @@ struct D2RequestStrc
     D2UnitStrc* pUnit;
     D2UnitStrc* pOtherUnit;
     int unk0x0C;
-    int nArg0;
-    int nArg1;
-    int nArg2;
-    int nArg5;
-    int nArg6;
-    int nArg7;
-    int unk0x28;
-    int nArg3;
-    int nArg4;
+    int nMissile;
+    int nX;
+    int nY;
+    int nTargetX;
+    int nTargetY;
+    int nGfxArg;
+    int nVelocity;
+    int nSkill;
+    int nSkillLevel;
     int unk0x34[8];
     void* pfCallback;
     int nIndex;
@@ -4340,13 +4340,13 @@ int __fastcall SKILLDESC_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int 
     memset(&tRequest, 0, sizeof(tRequest));
     tRequest.nType = 0x21;
     tRequest.pUnit = pUnit;
-    tRequest.nArg1 = UNITS_GetXPositionInline(pUnit);
-    tRequest.nArg2 = UNITS_GetYPositionInline(pUnit);
-    tRequest.nArg5 = nTargetX;
-    tRequest.nArg6 = nTargetY;
-    tRequest.nArg3 = nArg3;
-    tRequest.nArg4 = nArg4;
-    tRequest.nArg0 = nArg0;
+    tRequest.nX = UNITS_GetXPositionInline(pUnit);
+    tRequest.nY = UNITS_GetYPositionInline(pUnit);
+    tRequest.nTargetX = nTargetX;
+    tRequest.nTargetY = nTargetY;
+    tRequest.nSkill = nArg3;
+    tRequest.nSkillLevel = nArg4;
+    tRequest.nMissile = nArg0;
     tRequest.pfCallback = SKILLDESC_InitCappedChargedPath;
     if (bClearPathFlag)
     {

@@ -14,6 +14,7 @@ inline void* operator new(unsigned int, void* pWhere) throw()
 void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
 
 #include "D2StormArrayA.h"
+// build: symbol ?Set@?$TSFixedArray@IU?$TSCD@I@@@@QAEXIPBI@Z 0x004215C0
 
 struct D2StormQueueRangeStrc
 {
@@ -51,7 +52,7 @@ struct BigBuffer
     {
         if (this != &tSource)
         {
-            m_array.sub_004215C0_Set(tSource.m_array.m_count, tSource.m_array.m_data);
+            m_array.Set(tSource.m_array.m_count, tSource.m_array.m_data);
         }
         m_array.m_chunk = tSource.m_array.m_chunk;
         m_start = tSource.m_start;
@@ -65,7 +66,7 @@ struct BigBuffer
             D2StormArrayViewStrc tView;
             tView.pData = tSource.m_array.m_data;
             tView.nCount = tSource.m_array.m_count;
-            m_array.sub_004215C0_Set(tView.nCount, tView.pData);
+            m_array.Set(tView.nCount, tView.pData);
         }
         m_array.m_chunk = tSource.m_array.m_chunk;
         m_start = tSource.m_start;
@@ -303,12 +304,12 @@ static void __stdcall sub_00422FC0_SubUInt(const BigBuffer* pSrc, BigBuffer* pDs
             {
                 unsigned int nChunk = pDst->m_array.m_chunk;
                 if (!nChunk)
-                    nChunk = pDst->m_array.sub_004210A0_CalcChunkSize(nNewCount);
+                    nChunk = pDst->m_array.CalcChunkSize(nNewCount);
                 unsigned int nAlloc = nNewCount;
                 unsigned int nRem = nNewCount % nChunk;
                 if (nRem)
                     nAlloc = nNewCount + (nChunk - nRem);
-                pDst->m_array.sub_004216E0_ReallocData(nAlloc);
+                pDst->m_array.ReallocData(nAlloc);
             }
             SMemZero(&pDst->m_array.m_data[pDst->m_array.m_count], (nDstIdx - pDst->m_array.m_count) * 4 + 4);
             pDst->m_array.m_count = nNewCount;
@@ -321,12 +322,12 @@ static void __stdcall sub_00422FC0_SubUInt(const BigBuffer* pSrc, BigBuffer* pDs
     {
         unsigned int nChunk = pDst->m_array.m_chunk;
         if (!nChunk)
-            nChunk = pDst->m_array.sub_004210A0_CalcChunkSize(nEnd);
+            nChunk = pDst->m_array.CalcChunkSize(nEnd);
         unsigned int nAlloc = nEnd;
         unsigned int nRem = nEnd % nChunk;
         if (nRem)
             nAlloc = nEnd + (nChunk - nRem);
-        pDst->m_array.sub_004216E0_ReallocData(nAlloc);
+        pDst->m_array.ReallocData(nAlloc);
     }
     pDst->m_array.m_count = nEnd;
 }

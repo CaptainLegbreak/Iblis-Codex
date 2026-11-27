@@ -47,6 +47,8 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 
+#define PATH_UNKNOWN_FLAG_0x00001 0x00001
+
 #define PATH_UNKNOWN_FLAG_0x00010 0x00010
 
 #define PATH_UNKNOWN_FLAG_0x00020 0x00020
@@ -71,39 +73,11 @@ struct PATH_SetVelocity;
 
 struct PATH_GetPathPoints;
 
-struct Entry00648A40;
-
 struct PATH_GetLastPointX;
-
-struct Entry00648A60;
 
 struct PATH_GetLastPointY;
 
-struct RoomFlags;
-
-struct PathFlags;
-
-struct CodeRow;
-
-struct CodeOutput;
-
-struct CodeLink;
-
-struct Vector;
-
 struct DirectionRecord;
-
-struct B25TargetUnit;
-
-struct B25Path;
-
-struct B25DistancePath;
-
-struct B25MissileData;
-
-struct B25MissileUnit;
-
-struct D2Record00648E40Strc;
 
 struct PATH_SetStepNum;
 
@@ -155,101 +129,6 @@ typedef char check_pointer_width[sizeof(void*)==4?1:-1];
 
 typedef char check_word_width[sizeof(unsigned short)==2?1:-1];
 
-struct Entry00648A40 {
-    unsigned short wFirst;
-    unsigned short wSecond;
-};
-
-struct Entry00648A60 {
-    unsigned short wFirst;
-    unsigned short wSecond;
-};
-
-typedef signed char S8;
-
-struct RoomFlags
-{
-    char pad0[0x28];
-    unsigned int flags;
-};
-
-typedef char check_RoomFlags_flags[OFFSET(RoomFlags,flags)==0x28?1:-1];
-
-typedef char check_RoomFlags_size[sizeof(RoomFlags)==0x2C?1:-1];
-
-struct PathFlags
-{
-    char pad0[0x34];
-    unsigned int flags;
-};
-
-typedef char check_PathFlags_flags[OFFSET(PathFlags,flags)==0x34?1:-1];
-
-typedef char check_PathFlags_size[sizeof(PathFlags)==0x38?1:-1];
-
-struct CodeRow
-{
-    S8 c0;
-    S8 c1;
-    S8 c2;
-    S8 c3;
-    int row;
-};
-
-typedef char check_CodeRow_row[OFFSET(CodeRow,row)==4?1:-1];
-
-typedef char check_CodeRow_c0[OFFSET(CodeRow,c0)==0?1:-1];
-
-typedef char check_CodeRow_c1[OFFSET(CodeRow,c1)==1?1:-1];
-
-typedef char check_CodeRow_c2[OFFSET(CodeRow,c2)==2?1:-1];
-
-typedef char check_CodeRow_c3[OFFSET(CodeRow,c3)==3?1:-1];
-
-typedef char check_CodeRow_size[sizeof(CodeRow)==8?1:-1];
-
-struct CodeOutput
-{
-    S8 c0;
-    S8 c1;
-    S8 c2;
-    S8 c3;
-    S8 terminal;
-};
-
-typedef char check_CodeOutput_terminal[OFFSET(CodeOutput,terminal)==4?1:-1];
-
-typedef char check_CodeOutput_c0[OFFSET(CodeOutput,c0)==0?1:-1];
-
-typedef char check_CodeOutput_c1[OFFSET(CodeOutput,c1)==1?1:-1];
-
-typedef char check_CodeOutput_c2[OFFSET(CodeOutput,c2)==2?1:-1];
-
-typedef char check_CodeOutput_c3[OFFSET(CodeOutput,c3)==3?1:-1];
-
-typedef char check_CodeOutput_size[sizeof(CodeOutput)==5?1:-1];
-
-struct CodeLink
-{
-    int count;
-    char pad4[0x4];
-    CodeRow* entries;
-};
-
-typedef char check_CodeLink_entries[OFFSET(CodeLink,entries)==0x8?1:-1];
-
-typedef char check_CodeLink_size[sizeof(CodeLink)==0xC?1:-1];
-
-struct Vector
-{
-    int x;
-    int y;
-};
-
-typedef char check_Vector_y[OFFSET(Vector,y)==4?1:-1];
-
-typedef char check_Vector_size[sizeof(Vector)==8?1:-1];
-
 struct DirectionRecord
 {
     int x;
@@ -265,63 +144,6 @@ typedef char check_DirectionRecord_size[sizeof(DirectionRecord)==12?1:-1];
 
 // build: symbol ?gaTanToDirectionTable@* 0x006EB7E0
 extern DirectionRecord gaTanToDirectionTable[128];
-
-struct B25TargetUnit
-{
-    unsigned int type;
-    unsigned char pad4[0x8];
-    unsigned int id;
-};
-
-struct B25Path
-{
-    unsigned char pad0[0x58];
-    B25TargetUnit* target;
-    unsigned int targetType;
-    unsigned int targetId;
-};
-
-struct B25DistancePath
-{
-    unsigned char pad0[0x90];
-    unsigned char distance;
-    unsigned char newDistance;
-};
-
-struct B25MissileData
-{
-    unsigned char pad0[0x28];
-    int targetStatus;
-};
-
-struct B25MissileUnit
-{
-    unsigned int type;
-    unsigned char pad4[0x10];
-    B25MissileData* data;
-};
-
-typedef char CheckTargetUnitid[(OFFSET(B25TargetUnit,id)==0xC)?1:-1];
-
-typedef char CheckPathtarget[(OFFSET(B25Path,target)==0x58)?1:-1];
-
-typedef char CheckPathtargetType[(OFFSET(B25Path,targetType)==0x5C)?1:-1];
-
-typedef char CheckPathtargetId[(OFFSET(B25Path,targetId)==0x60)?1:-1];
-
-typedef char CheckDistancePathdistance[(OFFSET(B25DistancePath,distance)==0x90)?1:-1];
-
-typedef char CheckDistancePathnewDistance[(OFFSET(B25DistancePath,newDistance)==0x91)?1:-1];
-
-typedef char CheckMissileDatatargetStatus[(OFFSET(B25MissileData,targetStatus)==0x28)?1:-1];
-
-typedef char CheckMissileUnitdata[(OFFSET(B25MissileUnit,data)==0x14)?1:-1];
-
-struct D2Record00648E40Strc
-{
-    unsigned char unk_00[0x90];
-    unsigned char nValue90;
-};
 
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648C30
 
@@ -427,45 +249,21 @@ inline unsigned int PATH_InlineGetUnitY(D2UnitStrc* pUnit)
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
-struct D2PathPoint00647FB0Strc
-{
-    unsigned short X;
-    unsigned short Y;
-};
-struct D2ActiveRoom00647FB0Strc
-{
-    unsigned char unk_00[0x4C];
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-};
-struct D2DynamicPath00647FB0Strc
-{
-    unsigned char unk_00[0x1C];
-    D2ActiveRoom00647FB0Strc* pRoom;
-    unsigned char unk_20[8];
-    int nPathPoints;
-    unsigned char unk_2C[8];
-    unsigned int dwFlags;
-    unsigned char unk_38[0x64];
-    D2PathPoint00647FB0Strc PathPoints[78];
-};
+
 
 // 0x00647FB0
 void __fastcall PATH_CheckPathInRoom(D2DynamicPathStrc* pDynamicPath)
 {
-    D2DynamicPath00647FB0Strc* const pPath = (D2DynamicPath00647FB0Strc*)pDynamicPath;
-    D2PathPoint00647FB0Strc* const pPathPoints = pPath->PathPoints;
-    pPath->dwFlags &= ~1u;
-    D2ActiveRoom00647FB0Strc* pRoom = pPath->pRoom;
-    for (int i = 0; i < pPath->nPathPoints; ++i)
+    D2PathPointStrc* const pPathPoints = pDynamicPath->PathPoints;
+    pDynamicPath->dwFlags &= ~PATH_UNKNOWN_FLAG_0x00001;
+    D2ActiveRoomStrc* pRoom = pDynamicPath->pRoom;
+    for (int i = 0; i < pDynamicPath->dwPathPoints; ++i)
     {
         if (!pRoom
-            || pPathPoints[i].X < pRoom->nSubtileX || pPathPoints[i].X >= pRoom->nSubtileX + pRoom->nSubtileWidth
-            || pPathPoints[i].Y < pRoom->nSubtileY || pPathPoints[i].Y >= pRoom->nSubtileY + pRoom->nSubtileHeight)
+            || pPathPoints[i].X < pRoom->tCoords.nSubtileX || pPathPoints[i].X >= pRoom->tCoords.nSubtileX + pRoom->tCoords.nSubtileWidth
+            || pPathPoints[i].Y < pRoom->tCoords.nSubtileY || pPathPoints[i].Y >= pRoom->tCoords.nSubtileY + pRoom->tCoords.nSubtileHeight)
         {
-            pPath->dwFlags |= 1;
+            pDynamicPath->dwFlags |= PATH_UNKNOWN_FLAG_0x00001;
             return;
         }
     }
@@ -619,8 +417,6 @@ static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
 #define MONSTATS2FLAGINDEX_ISATT 9
 
 #define MONSTATS2FLAGINDEX_SMALL 10
-
-struct D2SkillFormulaCtxStrc { D2UnitStrc* pUnit; int nSkillId; int nSkillLevel; };
 
 inline D2MonStats2Txt* UNITS_GetMonStats2TxtRecordFromMonsterId_Inl(int nMonsterId)
 {
@@ -1207,15 +1003,6 @@ void __stdcall PATH_SetRoom(D2DynamicPathStrc* pDynamicPath, D2ActiveRoomStrc* p
     pDynamicPath->pRoom = pRoom;
 }
 
-// build: symbol @DRLGACTIVATE_ToggleHasPortalFlag@* 0x0061BAC0
-extern "C" void __fastcall DRLGACTIVATE_ToggleHasPortalFlag(RoomFlags* room, int reset)
-{
-    if (reset)
-        room->flags &= ~0x400000U;
-    else
-        room->flags |= 0x400000U;
-}
-
 // 0x006497D0
 static unsigned char PATH_AdvanceToDoor(D2PathInfoStrc* pPathInfo)
 {
@@ -1464,12 +1251,16 @@ int __stdcall PATH_IsCurrentRoomInvalid(D2DynamicPathStrc* pDynamicPath)
 }
 
 // 0x00648B40
-extern "C" void __stdcall PATH_SetCurrentRoomInvalid(PathFlags* path, int invalid)
+extern "C" void __stdcall PATH_SetCurrentRoomInvalid(D2DynamicPathStrc* pDynamicPath, int bInvalid)
 {
-    if (invalid != 0)
-        path->flags |= 2U;
+    if (bInvalid)
+    {
+        pDynamicPath->dwFlags |= PATH_CURRENT_ROOM_INVALID;
+    }
     else
-        path->flags &= ~2U;
+    {
+        pDynamicPath->dwFlags &= ~PATH_CURRENT_ROOM_INVALID;
+    }
 }
 
 // 0x00648B60
@@ -1492,13 +1283,13 @@ int __stdcall PATH_GetUnusedFlag_0x00004(D2DynamicPathStrc* pDynamicPath)
 }
 
 // 0x00648B90
-extern "C" void __stdcall PATH_SetPathTarget(B25Path* path, B25TargetUnit* target)
+extern "C" void __stdcall PATH_SetPathTarget(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit)
 {
-    path->target = target;
-    if (target)
+    pDynamicPath->hTarget = pUnit;
+    if (pUnit)
     {
-        path->targetType = target->type;
-        path->targetId = target->id;
+        pDynamicPath->dwTargetType = pUnit->dwUnitType;
+        pDynamicPath->dwTargetId = pUnit->dwUnitId;
     }
 }
 
@@ -1605,9 +1396,9 @@ int __stdcall PATH_GetType(D2DynamicPathStrc* pDynamicPath)
 }
 
 // 0x00648E40
-void __stdcall PATH_SetDist(D2Record00648E40Strc* pRecord, unsigned char nValue)
+void __stdcall PATH_SetDist(D2DynamicPathStrc* pDynamicPath, unsigned char nDist)
 {
-    pRecord->nValue90 = nValue;
+    pDynamicPath->nDist = nDist;
 }
 
 // 0x00648E60
@@ -1617,14 +1408,17 @@ unsigned char __stdcall D2COMMON_10191_PATH_GetDistance(D2DynamicPathStrc* pDyna
 }
 
 // 0x00648E70
-extern "C" void __stdcall PATH_SetNewDistance(B25DistancePath* path, unsigned char distance)
+extern "C" void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance)
 {
-    if (path)
+    if (pDynamicPath)
     {
-        if (distance >= 0x4D)
-            distance = 0x4D;
-        path->newDistance = distance;
-        path->distance = distance;
+        if (nNewDistance >= 0x4D)
+        {
+            nNewDistance = 0x4D;
+        }
+
+        pDynamicPath->bDistMax = nNewDistance;
+        pDynamicPath->nDist = nNewDistance;
     }
 }
 
