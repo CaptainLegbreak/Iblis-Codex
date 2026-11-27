@@ -386,9 +386,9 @@ D2UnitStrc* __fastcall ITEMS_CreateItemFromBitstream(D2GameStrc*, D2ActiveRoomSt
 
 static int ITEMS_GetMagicFindBonus(D2UnitStrc* pPlayer);
 
-static int __stdcall ITEMS_RollDropQuality(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer, D2QualityModsStrc* pMods, int nItemLevel, int nItemId);
+static int __stdcall ITEMS_RollDropQuality(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer, int nItemLevel, int nItemId, D2QualityModsStrc* pMods);
 
-static D2UnitStrc* __stdcall ITEMS_CreateDropAtUnit(D2GameStrc* pGame, int nQuality, int nItemIndex, int nFlags, int nItemId, D2UnitStrc* pUnit);
+static D2UnitStrc* __stdcall ITEMS_CreateDropAtUnit(D2GameStrc* pGame, int nQuality, int nItemIndex, int nItemId, int nFlags, D2UnitStrc* pUnit);
 
 
 void __stdcall ITEMS_SetItemLevel(D2UnitStrc* pItem, int nItemLevel);                                       // 0x00628220
@@ -2131,7 +2131,7 @@ static inline D2ItemTypesTxt* sub_C03_GetItemTypesTxtRecord(int nItemType)
 }
 
 // 0x00558640
-static int __stdcall ITEMS_RollDropQuality(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer, D2QualityModsStrc* pMods, int nItemLevel, int nItemId)
+static int __stdcall ITEMS_RollDropQuality(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer, int nItemLevel, int nItemId, D2QualityModsStrc* pMods)
 {
     int bMagicFind = 0;
     int nChance;
@@ -2331,6 +2331,7 @@ static void ITEMS_ApplyGoldFind(D2UnitStrc* pPlayer, D2UnitStrc* pItem)
     }
 }
 
+// 0x0055A6D0
 void __fastcall sub_0055A6D0_DropTC(D2GameStrc* pGame, D2UnitStrc* pMonster, D2UnitStrc* pPlayer, D2TCExShortStrc* pTCTxtRecord, int nQuality, int nLvl, int bIgnoreNoDrop, D2UnitStrc** ppItems, int* pnItemsDropped, int nMaxItems)
 {
     const int bExpansion = pGame->bExpansion;
@@ -2405,10 +2406,11 @@ void __fastcall sub_0055A6D0_DropTC(D2GameStrc* pGame, D2UnitStrc* pMonster, D2U
 
                         if (pOwner && pOwner->dwUnitType == UNIT_PLAYER)
                         {
-                            const int nLiving = PARTY_GetLivingPartyMemberCountInSameLevel(pGame, pOwner);
-                            nPlayerCount = D2_MIN(D2_MAX(nLiving, 1), 8);
+                            nPlayerCount = PARTY_GetLivingPartyMemberCountInSameLevel(pGame, pOwner);
                         }
                     }
+
+                    nPlayerCount = D2_MIN(D2_MAX(nPlayerCount, 1), 8);
 
                     nPlayerCount += (PLAYER_GetPlayerCount(pGame) - nPlayerCount) / 2;
                     if (pMonster && GAME_GetUnitTypeOrInvalid(pMonster) == 1)
@@ -2427,10 +2429,9 @@ void __fastcall sub_0055A6D0_DropTC(D2GameStrc* pGame, D2UnitStrc* pMonster, D2U
                             dNoDropRatio *= dBaseRatio;
                         }
 
-                        const double dInverseRatio = 1.0 - dNoDropRatio;
-                        if (dInverseRatio != 0.0)
+                        if (1.0 - dNoDropRatio != 0.0)
                         {
-                            nNoDrop = (int)((1.0 - dInverseRatio) * nChance / dInverseRatio);
+                            nNoDrop = (int)((1.0 - (1.0 - dNoDropRatio)) * nChance / (1.0 - dNoDropRatio));
                         }
                         else
                         {
@@ -2448,7 +2449,7 @@ void __fastcall sub_0055A6D0_DropTC(D2GameStrc* pGame, D2UnitStrc* pMonster, D2U
                 {
                     nRand = 0;
                 }
-                else if ((nRand - 1) & nRand)
+                else if ((nRand - 1) & (unsigned int)nRand)
                 {
                     unsigned int nRoll;
                     D2_SEED_ROLL(pMonster, nRoll);
@@ -2571,7 +2572,12 @@ void __fastcall sub_0055A6D0_DropTC(D2GameStrc* pGame, D2UnitStrc* pMonster, D2U
             if (!bExpansion)
             {
                 D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
-                if (!pItemsTxtRecord || pItemsTxtRecord->wVersion >= 100)
+                if (!pItemsTxtRecord)
+                {
+                    continue;
+                }
+
+                if (pItemsTxtRecord->wVersion >= 100)
                 {
                     continue;
                 }
@@ -2599,11 +2605,7 @@ void __fastcall sub_0055A6D0_DropTC(D2GameStrc* pGame, D2UnitStrc* pMonster, D2U
             }
             else
             {
-                nItemQuality = nQuality;
-                if (!nItemQuality)
-                {
-                    nItemQuality = ITEMS_RollDropQuality(pGame, pMonster, pPlayer, (D2QualityModsStrc*)&tcArray[nCounter].tMods, nLvl, nItemId);
-                }
+                nItemQuality = nQuality ? nQuality : ITEMS_RollDropQuality(pGame, pMonster, pPlayer, nLvl, nItemId, (D2QualityModsStrc*)&tcArray[nCounter].tMods);
             }
 
             int nFlags = 0;
@@ -2639,7 +2641,7 @@ void __fastcall sub_0055A6D0_DropTC(D2GameStrc* pGame, D2UnitStrc* pMonster, D2U
                 nItemId = DATATBLS_GetItemIdFromItemCode(0x2064736C);
             }
 
-            D2UnitStrc* pItem = ITEMS_CreateDropAtUnit(pGame, nItemQuality, nItemIndex, nFlags, nItemId, pMonster);
+            D2UnitStrc* pItem = ITEMS_CreateDropAtUnit(pGame, nItemQuality, nItemIndex, nItemId, nFlags, pMonster);
             if (!pItem)
             {
                 continue;
@@ -3580,7 +3582,7 @@ void __fastcall ITEMS_DropGoldPiles(D2GameStrc* pGame, D2UnitStrc* pUnit, unsign
 }
 
 // 0x0055A550
-static D2UnitStrc* __stdcall ITEMS_CreateDropAtUnit(D2GameStrc* pGame, int nQuality, int nItemIndex, int nFlags, int nItemId, D2UnitStrc* pUnit)
+static D2UnitStrc* __stdcall ITEMS_CreateDropAtUnit(D2GameStrc* pGame, int nQuality, int nItemIndex, int nItemId, int nFlags, D2UnitStrc* pUnit)
 {
     if (nItemId < 0)
     {
