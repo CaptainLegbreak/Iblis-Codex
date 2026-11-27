@@ -144,6 +144,7 @@ int __stdcall SBigDel(void* pArg); // 0x00424E40
 
 #include "D2GameFuncs.h"
 #include "D2NetApi.h"
+#include "FogApi2.h"
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -155,8 +156,6 @@ typedef void (__fastcall* GAME_ForEachIngameClientCallbackPtr)(D2ClientStrc*, vo
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
-
-void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem); // 0x00409C80
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
 
@@ -773,6 +772,7 @@ static unsigned int gnPreviousMemUsageTick; // 0x00883D68
 struct D2PoolSystemStrc;
 
 #include "gen/data/Source/D2Game/GAME/Game_0052D720.static/gnFrameRate.inc"
+#include "StormApi2.h"
 
 
 
@@ -887,8 +887,6 @@ D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetHead(D2ClientStrc* pClien
 
 
 extern "C" const char gszSGameDataTypeName[];                                                               // 0x0070F56C
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                  // 0x00412650
 
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed);                                                           // 0x00650E30
 

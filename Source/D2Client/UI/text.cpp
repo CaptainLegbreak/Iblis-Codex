@@ -33,6 +33,7 @@
 #include "D2GfxApi.h"
 #include "D2CMPApi.h"
 #include "D2SoundApi.h"
+#include "StormApi2.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -201,8 +202,6 @@ void __stdcall TEXT_FreeTextHeader(int nHandle); // 0x006612A0
 unsigned long gdwTextEndTick; // 0x007BF1AC
 
 D2ClientDialogStrc* gpListDialog; // 0x007BF1B0
-
-void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
 
 class UIWidget
 {
@@ -535,7 +534,7 @@ int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 
 D2TextNodeStrc* __fastcall TEXT_CloneStringList(D2TextNodeStrc* pSource); // 0x0049DB10
 
-extern D2TextListStrc gtOverheadTextList; // 0x007BF1EA
+D2TextListStrc gtOverheadTextList; // 0x007BF1EA
 
 D2TextListStrc gtTextHistory; // 0x007BF1F0
 
@@ -1174,9 +1173,8 @@ struct D2PacketRecord6Strc
 
 
 
-extern D2QuestTableStrc gaQuestTable[]; // 0x00723F30
+extern D2QuestTableStrc gaQuestTable[41]; // 0x00723F30
 
-extern D2UiEntry10Strc gaQuestLookup[41]; // 0x00723F38
 
 extern D2QuestUiFlagsStrc gtQuestUiFlags_007BF2B3; // 0x007BF2B3
 
@@ -4093,7 +4091,7 @@ int TEXT_FindQuestIndex(int nKey)
 {
     for (int i = 0; i < 41; i++)
     {
-        if (gaQuestLookup[i].nKey == nKey)
+        if (gaQuestTable[i].nCondition == nKey)
             return i;
     }
     return -1;

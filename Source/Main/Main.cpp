@@ -36,9 +36,6 @@ extern "C" const char gszDash[]; // 0x006CCA2C
 extern const char* gaszModuleTypes[6]; // 0x007065C4
 extern void* ghCurrentProcess; // 0x0074C718
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 0x006829C0
-extern int gbRunningAsService; // 0x0074C720
-extern char szSRegReadBuf[]; // 0x0074C728
-
 typedef void* HKEY;
 extern "C" __declspec(dllimport) long __stdcall RegOpenKeyA(HKEY hKey, const char* szSubKey, HKEY* phResult); // 0x006CC040
 extern "C" __declspec(dllimport) long __stdcall RegCreateKeyA(HKEY hKey, const char* szSubKey, HKEY* phResult); // 0x006CC03C

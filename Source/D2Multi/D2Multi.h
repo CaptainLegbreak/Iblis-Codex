@@ -112,7 +112,7 @@ int __stdcall sub_0043E6C0_OnError(int nArg); // 0x0043E6C0
 int __stdcall sub_0043F9B0_EditKey(D2WinControlStrc* pControl, int nPos, const char* pKey); // 0x0043F9B0
 int __stdcall sub_004F95C0_ControlDestroy(D2WinControlStrc** ppControl); // 0x004F95C0
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-unsigned short __stdcall FOG_Decode14BitsFromString(const unsigned char* pData); // 0x006BBF20
+int __stdcall FOG_Decode14BitsFromString(const unsigned char* pBuffer); // 0x006BBF20
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 void __cdecl sub_0043D990(); // 0x0043D990
 int __cdecl CHATDLG_PostClearMessage(); // 0x0043E570
@@ -142,7 +142,7 @@ void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStr
 void __fastcall sub_004FFE10_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FFE10
 void __fastcall sub_00500B20_SetValue(D2WinControlStrc* pControl, int nValue); // 0x00500B20
 void __stdcall D2Win_10030_CONTROL_ToggleFourthFlag(D2WinControlStrc* pControl, int bSet); // 0x004FA420
-void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
+void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 void __stdcall sub_004F9160_SetLoopValue(int nValue); // 0x004F9160
 void __stdcall sub_004FA450_SetActive(D2WinControlStrc* pControl); // 0x004FA450
 void __stdcall sub_00504F80_UpdateComposite(D2CompositeStrc* pComposite, int nToken, int nMode, unsigned char* pComponents, unsigned char* pColors); // 0x00504F80

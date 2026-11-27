@@ -89,3 +89,22 @@ void __stdcall QSERVER_HackListClient(D2QueueServerStrc* pTable, int nClient, co
 void __stdcall QSERVER_HackListIP(D2QueueServerStrc* table, unsigned int ip, const char* file, int line); // 0x006C0600
 void __stdcall FOG_10165(D2QueueServerStrc* pServer, int nClientId, const char* szFile, int nLine); // 0x006C06B0
 void __stdcall QSERVER_DisconnectIP(D2QueueServerStrc* pServer, unsigned int nIP, const char* pFile, int nLine); // 0x006C06D0
+
+bool __fastcall ERRORMANAGER_EnumLoadedModules(void* pContext); // 0x00404E60
+int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
+void __cdecl ERRORMANAGER_FreeUnusedPoolBlocks(D2PoolSystemStrc* pArg); // 0x00409B80
+float __stdcall FOG_10083_Cos_LUT(int nAngle); // 0x0040B330
+float __stdcall FOG_10084_Sin_LUT(int nAngle); // 0x0040B350
+void __fastcall FOG_SOCKET_Destroy(FSafeSock* pSafeSock); // 0x0040DBD0
+int __fastcall FOG_SOCKET_Receive(FSafeSock* pSafeSock, char* pBuffer, int nBufferLength); // 0x0040DC60
+int __fastcall FOG_SOCKET_Select(FSafeSock* pSafeSock); // 0x0040DDF0
+long __cdecl SYSTEM_GetSyncTime(); // 0x00410A80
+extern "C" int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
+void __stdcall BITMANIP_GoToNextByte(D2BitBufferStrc* pBuffer); // 0x00411070
+int __stdcall FOG_Decode14BitsFromString(const unsigned char* pBuffer); // 0x006BBF20
+extern "C" void __stdcall FOG_FreeLinker(D2TxtLinkStrc* pLinker); // 0x006BD0B0
+int __stdcall FOG_10175(D2QueueServerStrc* server,const unsigned char* buffer,int size,int id); // 0x006BF370
+extern int gbRunningAsService; // 0x0074C720
+extern char szSRegReadBuf[260]; // 0x0074C728
+extern void* ghDbgHelp; // 0x0098A680
+extern bool gbSymInitialized; // 0x0098A6B0

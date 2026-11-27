@@ -2,9 +2,7 @@
 
 #include "D2LangTypes.h"
 #include "D2Unicode.h"
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
+#include "StormApi2.h"
 
 extern "C" int __cdecl strncmp(const char* szLeft, const char* szRight, size_t nCount);
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);

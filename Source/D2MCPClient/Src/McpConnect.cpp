@@ -2,6 +2,7 @@
 
 #include "D2GameTypes.h"
 #include "FogApi.h"
+#include "FogApi2.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -109,10 +110,6 @@ extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes,
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 
-int __fastcall FOG_SOCKET_GetPeerName(FSafeSock* pSafeSock, void* pAddress, int* pnLength); // 0x0040DEE0
-
-int __fastcall FOG_SOCKET_GetError(FSafeSock* pSafeSock, unsigned long* pFogError, unsigned long* pWSALastError); // 0x0040E0B0
-
 int __fastcall WINMAIN_SendMcpStartup(D2LaunchThreadRecordStrc* pRecord);                                // 0x0044A1D0
 
 int __fastcall WINMAIN_DispatchConnectPacket(const unsigned char* pData, unsigned int nSize, int nArg);         // 0x0044B1C0
@@ -124,8 +121,6 @@ int __stdcall FOG_ConnectionSend(void* pConnection, const char* pData, int nSize
 void __stdcall D2QSSOCKET_ConnectAndWait(void* pConnection);                                                       // 0x006BC5A0
 
 void __stdcall D2QSSOCKET_Close(void* pConnection);                                                       // 0x006BC680
-
-D2QSSOCKET_SetPacketFormat* __stdcall D2QSSOCKET_CreateRecord(const char* szName, int nValue, const char* szLabel); // 0x006BC6A0
 
 FSafeSock* __stdcall D2QSSOCKET_GetSafeSock(void* pConnection);                                          // 0x006BC810
 

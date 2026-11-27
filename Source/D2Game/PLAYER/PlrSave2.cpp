@@ -117,6 +117,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __fastcall CLIENTS_GetGuildEmblem(D2ClientStrc* pClient, unsigned char* pBackgroundColor, unsigned char* pForegroundColor, unsigned char* pEmblemType); // 0x00539190
 
 #include "D2GameFuncs.h"
+#include "FogApi2.h"
 
 int __fastcall CLIENTS_GetPlayTime(D2ClientStrc* pClient); // 0x005385C0
 
@@ -206,8 +207,6 @@ void __fastcall sub_0055F4F0_Nop(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnus
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 
-
-int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
 
 void __fastcall D2GAME_SetSkills(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
@@ -328,8 +327,6 @@ void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2G
 
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
 
-
-int __stdcall sub_00411170_SumByteTable(unsigned char* pData, int nSize); // 0x00411170
 
 int __fastcall PLRSAVE2_ReadStatsEx(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion); // 0x0056A4F0
 

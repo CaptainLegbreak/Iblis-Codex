@@ -156,7 +156,7 @@ int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0
 int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 int __fastcall ITEMS_CalculateTransactionCost(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nNpcId, int nMode); // 0x0062EFB0
 int __fastcall PATH_GetFirstDirectionXY(int nX1, int nY1, int nX2, int nY2); // 0x00678CF0
-int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
+extern "C" int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
 int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc* pBuffer, int nBits); // 0x00411030
 int __stdcall D2Common_10399(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x00641530
 int __stdcall DATATBLS_CalcEvaluateExpression(char* pCode, unsigned int nSize, int (__fastcall* pfParam)(int, void*), void** pFuncs, int nFuncs, void* pUserData); // 0x006C0BC0
@@ -178,7 +178,7 @@ unsigned int __stdcall D2CMP_10079_GetTileFlags(D2TileLibraryEntryStrc* pTile); 
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits); // 0x00411020
-unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+unsigned int __stdcall SStrPack(char* dest, const char* source, unsigned int limit); // 0x00413800
 void __cdecl sub_0063D710_InitCodes(); // 0x0063D710
 void __fastcall DRLGACTIVATE_RoomExPropagateSetStatus(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus); // 0x0061B390
 void __fastcall DRLGGRID_FillGrid(D2DrlgGridStrc* pGrid, int nWidth, int nHeight, int* pCellPos, int* pCellFlags); // 0x0067CBF0
@@ -204,15 +204,14 @@ void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX,
 void __stdcall DRLG_InitLevel(D2DrlgLevelStrc* pLevel); // 0x006424A0
 void __stdcall TileLibraryAddProject(D2TileLibraryHeaderStrc** ppList, const char* szFilePath); // 0x00604A40
 void __stdcall DUNGEON_GameTileToSubtileCoords(int* pX, int* pY); // 0x00643560
-void __stdcall FOG_FreeLinker(D2TxtLinkStrc* pLinker); // 0x006BD0B0
+extern "C" void __stdcall FOG_FreeLinker(D2TxtLinkStrc* pLinker); // 0x006BD0B0
 void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, const char* szFile, int nLine); // 0x00648690
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
-void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
+void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 void __stdcall UNITS_SetAnimData(D2UnitStrc* pUnit, int nUnitType, int nClassId, int nAnimMode); // 0x00620F00
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
-
+extern "C" void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int dwFlags); // 0x00413020
 #define ACT_III 2
 #define ACT_IV 3
 #define ACT_V 4

@@ -511,8 +511,6 @@ extern D2CriticalSectionStrc gtChatLock;                                        
 
 extern D2WinControlStrc* gapControls_0077B050[2];                                                           // 0x0077B050
 
-extern D2WinControlStrc* gpQuitButton;                                                                // 0x0077B080
-
 extern char gaszHistory[10][0x100];                                                                // 0x0077B1D8
 
 extern int gnControlCount;                                                                         // 0x0077BBE8

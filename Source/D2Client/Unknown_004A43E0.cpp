@@ -34,6 +34,7 @@
 #include "D2GfxApi.h"
 #include "D2CMPApi.h"
 #include "D2SoundApi.h"
+#include "StormApi2.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -193,8 +194,6 @@ int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 
 
-
-void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
 
 class UIWidget
 {
@@ -1098,9 +1097,8 @@ struct D2UiEntry10Strc;
 
 
 
-extern D2QuestTableStrc gaQuestTable[]; // 0x00723F30
+extern D2QuestTableStrc gaQuestTable[41]; // 0x00723F30
 
-extern D2UiEntry10Strc gaQuestLookup[41]; // 0x00723F38
 
 extern D2QuestUiFlagsStrc gtQuestUiFlags_007BF2B3; // 0x007BF2B3
 

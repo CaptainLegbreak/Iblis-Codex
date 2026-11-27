@@ -3,6 +3,7 @@
 #include "D2Win32Types.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "StormApi2.h"
 
 #define gnHandle_00989760 (gatVideoVertices[0].dwColor)
 
@@ -70,9 +71,6 @@ extern "C" __declspec(dllimport) void* __stdcall SmackOpen(const char* szName, u
 extern "C" __declspec(dllimport) void __stdcall SmackClose(void* hSmack); // 0x006CC608
 
 extern "C" __declspec(dllimport) void __stdcall SmackToBuffer(void* hSmack, unsigned int nLeft, unsigned int nTop, unsigned int nPitch, unsigned int nHeight, void* pBuffer, unsigned int nFlags); // 0x006CC60C
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-
 
 int __stdcall SBmpDecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
 

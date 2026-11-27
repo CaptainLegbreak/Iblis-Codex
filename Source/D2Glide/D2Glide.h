@@ -53,7 +53,7 @@ extern void (__stdcall* gpfnGrDrawPoint)(const D2GlideSpriteVertexStrc* pVertex)
 extern void* gapGlideTileStripA[10]; // 0x0072F350
 extern void* gapGlideTileStripB[10]; // 0x0072F378
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
+extern "C" int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags); // 0x00412650
 int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int bAsync, int nFlags); // 0x005FDEA0
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0

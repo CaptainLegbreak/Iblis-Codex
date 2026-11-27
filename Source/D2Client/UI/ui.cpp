@@ -23,6 +23,7 @@
 #include "D2CommonApi2.h"
 #include "D2WinApi.h"
 #include "D2CMPApi.h"
+#include "StormApi2.h"
 
 struct D2CelFileStrc;
 
@@ -428,7 +429,7 @@ void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const
 
 extern D2ViewStrc* gpClientView;                                                                         // 0x007A0640
 
-extern int gaUIVarStates[];                                                                        // 0x007A27C0
+int gaUIVarStates[0x26]; // 0x007A27C0
 
 extern Unicode gwszPopUpText[80];                                                                       // 0x007A2C80
 
@@ -739,8 +740,6 @@ unsigned long gdwUILastTick; // 0x007A313C
 #pragma function(memset)
 
 struct D2InventoryStrc;
-
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 
 extern "C" const char gszNew[];                                                                    // 0x006CC82C
 

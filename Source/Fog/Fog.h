@@ -78,7 +78,7 @@ int __stdcall sub_006B0144_GetSockAddr(unsigned int s, D2SockAddrInStrc* pAddr, 
 int __stdcall sub_006B018C_GetSockAddr(unsigned int s, D2SockAddrInStrc* pAddr, int* pAddrLen); // 0x006B018C
 unsigned int __cdecl sub_00410A80_GetTime(); // 0x00410A80
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
-unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+unsigned int __stdcall SStrPack(char* dest, const char* source, unsigned int limit); // 0x00413800
 unsigned short __stdcall sub_006B019E(unsigned short nValue); // 0x006B019E
 void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...); // 0x00409020
 void __cdecl FOG_CreateNewPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize); // 0x00409DD0
@@ -87,7 +87,7 @@ void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* 
 bool __fastcall ERRORMANAGER_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag); // 0x00408660
 void __fastcall ERRORMANAGER_PoolFreeLarge(D2PoolSystemStrc* pSystem, void* pMemory, const char* szFile, int nLine); // 0x00409810
 void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006C08A0
-void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
+void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 void* __fastcall ERRORMANAGER_PoolReallocLarge(D2PoolSystemStrc* pSystem, void* pMemory, int nSize, const char* szFile, int nLine); // 0x004098B0
 
 #define QS_IS_READ(f) (((f) & 1) == 1)
@@ -273,7 +273,7 @@ int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
 unsigned int __cdecl ERRORMANAGER_GetCpuSignature(); // 0x0040E960
 unsigned int __cdecl ERRORMANAGER_GetCpuBrandIndex(); // 0x0040E980
 extern "C" int __cdecl _snprintf_s(char* szBuffer, unsigned int nSizeOfBuffer, unsigned int nCount, const char* szFormat, ...); // 0x006824CB
-unsigned long __stdcall SFileSetFilePointer(void* hFile, long lDistanceToMove, long* plDistanceToMoveHigh, unsigned long dwMoveMethod); // 0x004165A0
+unsigned long __stdcall SFileSetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004165A0
 // build: symbol ?gtSystemInfo@* 0x0074D8A0
 #define gwProcessorLevel_0074D8C0 (gtSystemInfo.wProcessorLevel)
 typedef int (__stdcall* SymCleanupFn)(void* hProcess);

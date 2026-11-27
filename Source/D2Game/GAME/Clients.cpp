@@ -91,10 +91,12 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
-extern D2ClientStrc* gpClientListByName[256]; // 0x00883EA8
-extern D2ClientStrc* gpClientList[256]; // 0x008842A8
+// The same clients, hashed by name.
+D2ClientStrc* gpClientListByName[256]; // 0x00883EA8
+// The game server's clients, hashed by client id into 256 chains.
+D2ClientStrc* gpClientList[256]; // 0x008842A8
 extern D2CriticalSectionStrc gClientListLock; // 0x008846A8
-extern int gbClientListInitialized; // 0x008846D8
+int gbClientListInitialized; // 0x008846D8
 extern D2CriticalSectionStrc gSrvClientListByNameLock; // 0x008846C0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
@@ -110,6 +112,7 @@ extern OBJECTPOPULATEFN sgPopulateTable[10]; // 0x00731D00
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 int __stdcall sub_0063E510_InventoryGridQuery(D2UnitStrc* pUnit, unsigned char* pFirst, unsigned char* pSecond); // 0x0063E510
 #include "D2GameFuncs.h"
+#include "FogApi2.h"
 
 struct D2ClientUnitUpdateSortStrc
 {
@@ -152,7 +155,6 @@ struct D2CharacterPreviewRecordStrc
 
 #pragma pack(pop)
 
-extern "C" void __stdcall FOG_Encode14BitsToString(unsigned char* pBuffer, unsigned int nValue); // 0x006BBF40
 void __stdcall sub_0063E510_FillInventoryTables(D2UnitStrc* pUnit, unsigned char* pTableA, unsigned char* pTableB);
 extern "C" char* __cdecl strcpy(char*, const char*);
 
@@ -1530,7 +1532,6 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLaye
 
 extern D2CriticalSectionStrc gSrvClientListByNameLock; // 0x008846C0
 
-extern D2ClientStrc* gpClientListByName[256]; // 0x00883EA8
 
 extern int gbHasHighResolutionClock; // 0x0088C7A0
 

@@ -35,6 +35,7 @@
 #include "StormApi.h"
 #include "D2GfxApi.h"
 #include "D2WinApi.h"
+#include "FogApi2.h"
 
 struct D2ClientInterfaceStrc;
 
@@ -93,8 +94,6 @@ struct D2ItemsTxt;
 struct D2AuxLevelEntryStrc;
 
 struct D2UnitGfxDataStrc;
-
-extern void* ghDbgHelp; // 0x0098A680
 
 extern int gbRightClickConsumed; // 0x007A0670
 
@@ -338,11 +337,11 @@ extern void* gpCel_007BCE8C; // 0x007BCE8C
 
 static int gbPanelButtonClicked;                                                                                      // 0x007BCE9C
 
-extern D2InventoryGridInfoStrc gtBigBankGrid; // 0x007BCA78
+D2InventoryGridInfoStrc gtBigBankGrid; // 0x007BCA78
 
-extern D2InventoryGridInfoStrc gtBankGrid; // 0x007BCB40
+D2InventoryGridInfoStrc gtBankGrid; // 0x007BCB40
 
-extern D2InventoryGridInfoStrc gtPlayerInvGrid; // 0x007BCB88
+D2InventoryGridInfoStrc gtPlayerInvGrid; // 0x007BCB88
 
 void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
@@ -489,7 +488,7 @@ void __stdcall sub_Z12_EmitUse2(int nValue1, int nValue2);
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, unsigned char nColor, int nFlags); // 0x0046EFD0
 
-extern D2InvCompGridStrc gaBodyLocRects[11]; // 0x007BCD38
+D2InvCompGridStrc gaBodyLocRects[11]; // 0x007BCD38
 
 extern int gnAutomapWidth; // 0x007A5220
 
@@ -1528,8 +1527,6 @@ extern int gdwGlobal_007A6AF0;                                                  
 D2UnitStrc* __cdecl NPCMENU_GetInteractNpc();                                                          // 0x004B1620
 
 int __stdcall ITEMS_GetAllRepairCosts(void* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, D2BitBufferStrc* pQuestFlags, void* pfCallback); // 0x0062FE60
-
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 D2UnitStrc* __cdecl sub_00463DD0();
 #define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))

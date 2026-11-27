@@ -3,8 +3,8 @@
 
 struct SMSGHANDLER_PARAMS;
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
+unsigned int __stdcall SStrPack(char* dest, const char* source, unsigned int limit); // 0x00413800
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
