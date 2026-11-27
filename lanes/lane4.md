@@ -18,9 +18,9 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Thu Nov 26 20:05 PST 2026: #461 took join-inv-2. join-text-a950-2 posted on #461 (Text pieces 5 -> 4). Next: the Gfx and Game pieces.
+- Thu Nov 26 19:35 PST 2026: #461 took join-inv-2. join-text-a950-2 posted on #461 (Text pieces 5 -> 4). Next: the Gfx and Game pieces.
 
-- Thu Nov 26 19:30 PST 2026: #456 took join-text-da50. join-inv-2 posted (Inv pieces 6 -> 4). join-text-a950 is rebuilding on #460. inv_0048DD90 and inv_00491D20 stay, with readings.
+- Thu Nov 26 19:06 PST 2026: #456 took join-text-da50. join-inv-2 posted (Inv pieces 6 -> 4). join-text-a950 is rebuilding on #460. inv_0048DD90 and inv_00491D20 stay, with readings.
 
 - Thu Nov 26 18:05 PST 2026: join-text-da50 rebased onto #455 (lane 1's D2ClientFuncs.h change touched text.cpp), with join-text-a950 stacked on it; both Ready.
 
