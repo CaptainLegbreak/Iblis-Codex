@@ -352,7 +352,6 @@ extern const char* gszCmpCompressedExtension; // 0x00741F00
 
 extern const char* gszCmpDefaultExtension; // 0x00741F04
 
-extern D2CmpCacheListEntryStrc* gpCmpCacheEntries; // 0x0089DB7C
 
 struct D2CmpCacheNodeStrc
 {
