@@ -17,7 +17,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 ## Claimed
 - **D2Game's names (the coordinator's 14:40 assignment): `a1`/`v12` parameters and locals and `sub_<VA>` functions,
   one branch per folder.** Lane 5, skip these folders: **MISSILES, INVENTORY, DEBUG, ITEMS** (built, lane9/params-d2game-a) and **Ai,
-  MONSTER, OBJECTS, Quests** (lane9/params-d2game-b), **UNIT, PLAYER** (lane9/params-d2game-c), **SKILLS, GAME** (lane9/params-d2game-d), D2Game's top-level Unknown_*.cpp units (lane9/params-d2game-e2), **D2Game.h and D2GameFuncs.h** (now, lane9/names-d2game-h: touches the 23 D2Game units that call the renamed functions). Parameters take the name the function's own
+  MONSTER, OBJECTS, Quests** (lane9/params-d2game-b), **UNIT, PLAYER** (lane9/params-d2game-c), **SKILLS, GAME** (lane9/params-d2game-d), D2Game's top-level Unknown_*.cpp units (lane9/params-d2game-e2), **D2Game.h and D2GameFuncs.h** (lane9/names-d2game-h), D2Game's sub_<VA> definitions that D2MOO's 1.14d notes name (now, lane9/names-d2game-moo: 17 functions and their callers). Parameters take the name the function's own
   definition gives that position, else D2MOO's; definitions take D2MOO's names; `sub_<VA>` functions take
   names.csv/D2MOO names or `sub_<VA>_<Verb>` from the body.
 - **0x004F82D0 CMNSUBTILE_DrawBlendVisTile** (D2Gfx/SRC/Window.cpp, `__assume`), parked again with lane 6's reading
@@ -52,6 +52,10 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/locals-d2game 6b5f2c2d (on #455): D2Game: placeholder locals passed to calls take the callee's parameter name
+  (out-parameters `&a5` into `pItemStatus` -> nItemStatus), plus bIdle, nParam2Value/nParam3Value, nResult by hand;
+  6 units, none shared with names-d2game-h. auditguard no count rose. Full build: Game.exe identical, tree
+  5325f7d7a0fccf5c727726dfd7e9fbfa96db451b, borrowed code / data 7,677 / 261 B.
 - lane9/names-d2game-h 97603fd4 (on #453): D2Game.h, D2GameFuncs.h: placeholder parameters from the definitions and
   D2MOO; names.csv names for seventeen sub_<VA> declarations, renamed in the 23 units that call them (the 48 left are in
   Notes). a1/v12 387 -> 351 alone; auditguard no count rose; merges cleanly onto #455. Full build: Game.exe identical,
