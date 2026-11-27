@@ -52,6 +52,11 @@ it is on main; from #473, based on main.
   (type_disagreement 5,576 -> 5,557; D2Multi -10, D2Launch -9; no module rises). auditguard: no count rose.
 
 ## Claimed
+- Fri Nov 27 15:10 PST 2026: status. On top of api-d2client-2: D2Game (11 copies), and a second genheaders pass over the modules
+  module-api-headers covered (D2Gfx 16, D2CMP 4, D2Sound 12, D2Net 2, D2MCPClient 49 copies so far), with new
+  exports in <M>Api2.h and existing header lines left alone (--no-fix-headers: correcting them flipped
+  declaration-count units such as inv_0048BC10.cpp). Running: D2Win, D2Launch, D2Multi, D2BNClient, Bnclient,
+  D2Glide, D2DDraw; then one verified branch for the lot.
 - Fri Nov 27 13:45 PST 2026: status. Ready: api-d2client-2 (declunits + D2Client). Next: genheaders for D2Game, then a second pass
   over D2Win/D2Gfx/D2CMP/D2Sound (module-api-headers was made before the tool). Files: Source/Include/D2GameApi.h
   (new) and the private copies of D2Game's functions in other modules.
