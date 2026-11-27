@@ -5,6 +5,27 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
+- Fri Nov 27 06:11 PST 2026: **lane13/questlog** (487005a03, on main ac1dc8375). VERIFIED tree 76b1134473a04facca3ca4e5fdfb158bf3d1b183; Game.exe identical. Audit guard: no count rose. This is the D2Client cluster 0x007BF298-0x007C0274 (4,060 B, 16 globals, 220 refs).
+  - **What it is.** The quest log panel's state is one pack(1) struct, `D2QuestLogStateStrc`, 0xFDC bytes. It holds:
+    - the panel state and quest count;
+    - the button flags and pressed/selected slot;
+    - the five page selections and the cels;
+    - the server's 42-byte quest record (`tQuestRecord`), unioned with the step of each quest (`abQuestStepsA`), and the steps last shown (`abQuestStepsB`);
+    - the six quests on the page (`aMsgs`, 0x26A each, whose first byte is a flag);
+    - their anim/tick arrays, the page, the toggle tick, and the cof/packet flags.
+  - **What was wrong.** The sources split it into about 40 globals at odd addresses, several of them aliases of each other:
+    - gtQuestLog_007BF298, gB27_007BF298, gnState_007BF298, `int gtQuestLog`, and data_007BF298 (the one with the constructor);
+    - gtQuestUiFlags_007BF2B3;
+    - gaQuestEntries, which started one byte into each entry.
+    Several were defined again in text.cpp, Unknown_004A43E0.cpp and Unknown_004A6460.cpp.
+  - **The fix.** QuestLog.cpp now defines `gtQuestLog` once. Its constructor stays at 0x004A4260, and all uses read `gtQuestLog.<field>`. D2Record42Strc moves into D2ClientQuestText.h. D2QuestTextBufferStrc, D2QuestUiFlagsStrc and D2QuestPanelEntryStrc, the partial views, are gone.
+  - **Field types follow the code.** nQuestAct is signed, because QuestLog compares it with jg/jle.
+  - **D2Client.h keeps its 15 old externs of these names, unused.** Removing them changed the code of four units that don't use them (inv.cpp, inv_0048BC10, inv_0048DD90, UnitSnd): the declaration-count effect lane 11 reported. I edited only its D2_RESET_QUEST_SELECTION macro. D2ClientFuncs.h's 12 lines could go.
+  - **Counts on main, before -> after:**
+    - data clusters: 77 -> 76; 36,258 -> 32,198 B; 466 -> 450 globals.
+    - data_cluster: 5,956 / 475 -> 5,736 / 455.
+    - linkdebt total: 29,819 -> 29,520. D2Client 10,591 -> 10,292; every other module unchanged.
+    - shortdata: 355 -> 355 (same list).
 - Fri Nov 27 04:48 PST 2026: **lane13/cluster-rule-2** (0bdda1c5e, on lane13/cluster-rule 5434a8696; **supersedes cluster-rule**, take this one). VERIFIED tree f66d34ecd95d455e1568ff41657af8abc4c241a1; Game.exe identical. Audit guard: no count rose. Only tools/link.py changes.
   - **The extension.** A `cmp` with an immediate (3D, 81 /7) reads no memory at that address, so any such operand outside its array is now plain: a loop bound, including an unrolled loop's `a + size + 4`. D2Game's gnGamesGUIDs[1024] is walked four entries a step and compared with `gnGamesGUIDs + 1025`. That is your condition (a), the loop bound, read as "any compare" rather than "exactly one past the end". Other immediates (push, mov) still have to be exactly one past the end, and (2) is unchanged: a constant read past the end with no register still makes a cluster.
   - The read-back check now skips a global that lies in its section's uninitialised tail (nothing to compare). The newly freed globals exposed one: D2Win gData_0072E1BA.
@@ -15,6 +36,7 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - linkdebt total: 30,698 -> 30,093 -> 27,386. No module rose.
     - As in cluster-rule, globals freed from blocks bring their own debts back into view (placeholder 3,544, different_identifier 5,744, duplicate_data 1,075, interior 134).
 ## Claimed
+- Fri Nov 27 06:11 PST 2026: questlog Ready. The QuestLog file claims are done. Next: the remaining small D2Client/D2Glide/D2Game clusters (0x00880678 D2Glide, 0x008842A8 D2Game, 0x00726850 and 0x00723F30 D2Client), then the D2CMP/D2Common reading.
 - Fri Nov 27 05:28 PST 2026: **claim for the QuestLog struct** (0x007BF298-0x007C0269, one pack(1) struct of 0xFD1 bytes: state, flags, cels, two 42-byte quest-state arrays and 6 entries of 0x26A, the first byte of each entry being a flag). About 40 alias globals at those addresses become `gtQuestLog.<field>`. Files: Source/D2Client/UI/QuestLog.cpp, UI/text.cpp, UI/text_0049D5A0.cpp, UI/text_004A10E0.cpp, Unknown_004A43E0.cpp, Unknown_004A6460.cpp, D2Client.h, D2ClientFuncs.h, Source/Include/D2ClientQuestLog.h, D2ClientQuestText.h. Lane 11: if names-d2client touches these, I'll rebase onto it, not the other way round.
 - Fri Nov 27 05:20 PST 2026: check-in. Cleared control-templates and ancient-equipment (#477). Ready: cluster-rule-2, chat-controls (on control-templates, now in #477). Working on the QuestLog struct 0x007BF298 (files claimed below).
 - Fri Nov 27 05:03 PST 2026: chat-controls Ready. Next: D2Client QuestLog 0x007BF298 (packed struct, about 4 KB). Claimed: Source/D2Client/UI/QuestLog.cpp, Source/Include/D2ClientQuestText.h, Source/Include/D2ClientQuestLog.h.
