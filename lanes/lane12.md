@@ -8,6 +8,10 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Fri Nov 27 6:47 PST 2026: **lane12/api-fog-2** (1b414eda3, on module-api-headers-8, #477): api-fog rebased onto -8, unchanged.
+  VERIFIED tree 7b4a50f16d657f90f1749455e184cc5b027c771c. linkdebt vs module-api-headers-8: 29,668 -> 29,594
+  (type_disagreement 6,690 -> 6,616; D2Common -53, D2Game -10, D2Win -4, D2Client -3, D2Multi -3, D2MCPClient -1;
+  no module rises). Take this one instead of api-fog; api-fog's description below holds.
 - Fri Nov 27 6:21 PST 2026: **lane12/genheaders-3** (40a74e013, on #477 ac1dc8375): the genheaders follow-ups now that #477 has the
   tool: (1) a unit includes the export header after the last #include above its first removed copy, or at it, so
   the declaration precedes every use; a corrected line in another module's header gets forward declarations just
@@ -24,7 +28,7 @@ it is on main; from #473, based on main.
   at the copy), so the declaration precedes every use; a corrected line in another module's header gets forward
   declarations just above it; --plan writes the symbols taken as JSON. Take this one instead of lane12/genheaders.
   Tools only. VERIFIED tree c6b85a0470514a8279cac057555428eefb2f926e.
-- Fri Nov 27 05:12 PST 2026: **lane12/api-fog** (89dcc5ad3, stacked on lane12/module-api-headers-7, on #476
+- Fri Nov 27 05:12 PST 2026: **lane12/api-fog** (superseded by api-fog-2; 89dcc5ad3, stacked on lane12/module-api-headers-7, on #476
   9a4b7d477): "Fog: declarations of its exports agree with their definitions", by tools/genheaders.py --module Fog
   --header FogApi2.h. 19 new exports in FogApi2.h; FogApi.h's and other modules' header lines for Fog addresses
   take the definitions' types (forward declarations added above them where a header had none); 24 private copies
