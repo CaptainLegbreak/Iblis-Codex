@@ -82,7 +82,7 @@ void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsign
 int __fastcall QUESTS_QuickCheckPlayerGUID(D2QuestGUIDStrc* pGUIDs, int dwGUID); // 0x00545290
 
 
-D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
 
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
@@ -224,9 +224,9 @@ static void __stdcall ACT1Q5_AddUnitGUID(D2Act1Quest5Strc* pQuestDataEx, int nUn
 
 // Out of line as in the original: it takes an argument in eax, a convention the compiler gives only a static whose callers are all in this object.
 // 0x00594740
-static __declspec(noinline) int __stdcall ACT1Q5_UpdateUnitGUIDLists(D2Act1Quest5Strc* pQuestDataEx, int nUnitGUID, int a3)
+static __declspec(noinline) int __stdcall ACT1Q5_UpdateUnitGUIDLists(D2Act1Quest5Strc* pQuestDataEx, int nUnitGUID, int bRemovePendingDialogue)
 {
-    if (a3)
+    if (bRemovePendingDialogue)
     {
         for (int i = 0; i < pQuestDataEx->nUnitCount2; ++i)
         {

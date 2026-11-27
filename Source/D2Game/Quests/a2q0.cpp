@@ -23,7 +23,7 @@ extern "C" char gpAct2Q0NpcMessages[]; // 0x00738FC8
 bool __fastcall ACT3Q7_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x00598770
 
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pQuestGUID); // 0x00545300
 
@@ -308,7 +308,7 @@ void __fastcall ACT2Q0_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfStatusFilter = ACT3Q7_StatusFilterCallback;
     pQuestData->pfActiveFilter = ACT2Q0_ActiveFilterCallback;
 
-    D2Act2Quest0Strc* pQuestDataEx = (D2Act2Quest0Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest0Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q0.cpp", 172, 0);
+    D2Act2Quest0Strc* pQuestDataEx = (D2Act2Quest0Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest0Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q0.cpp", 172, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
     QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
 }
