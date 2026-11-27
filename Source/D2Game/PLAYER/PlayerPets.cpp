@@ -158,7 +158,6 @@ static D2PetListStrc* __stdcall PLAYERPETS_GetPetListByType(D2PlayerPetStrc* pPl
 
 static void __stdcall PLAYERPETS_ClearPetList(D2UnitStrc* pPlayer, D2PetListStrc* pPetList, int bIsHirelingList, int bKeepHireling, D2GameStrc* pGame);
 
-void __fastcall PLAYERPETS_FreePetsFromPlayerData(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005746D0
 
 
 static void __stdcall PLAYERPETS_KillPetList(D2PetListStrc* pPetList, D2GameStrc* pGame);

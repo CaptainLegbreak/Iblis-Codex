@@ -67,9 +67,7 @@ static void __stdcall EVENT_InsertInfiniteTimer(EventTimerCallback pCallback, in
 
 static void __stdcall EVENT_ScheduleTimer(D2UnitStrc* pUnit, EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, int nEventType, int nExpireFrame);
 
-static void __stdcall EVENT_InsertInfiniteTimer(EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType);
 
-static void __stdcall EVENT_ScheduleTimer(D2UnitStrc* pUnit, EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, int nEventType, int nExpireFrame);
 
 // 0x00540B20
 static inline D2EventTimerQueueStrc* EVENT_GetTimerQueue(D2GameStrc* pGame)

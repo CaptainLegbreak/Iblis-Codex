@@ -1198,7 +1198,6 @@ struct D2EnergyShieldDataStrc;
 extern "C" int __fastcall SKILLS_GetSkillsTxtParam7(int nSkillId); // 0x005C8BC0
 
 
-extern "C" int __fastcall SKILLS_GetSkillsTxtParam7(int nSkillId); // 0x005C8BC0
 
 struct D2EnergyShieldDataStrc
 {
