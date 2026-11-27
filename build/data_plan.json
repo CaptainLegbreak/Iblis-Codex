@@ -897,9 +897,6 @@
    "definitions": 20,
    "externs": [
     "extern \"C\" void __cdecl D2CLIENT_CloseNPCTalk(); // 0x004A17D0",
-    "extern \"C\" void __cdecl TEXT_KeyUpMsg(); // 0x004A1770",
-    "extern \"C\" void __cdecl TEXT_HotkeyMsg(); // 0x004A1870",
-    "extern \"C\" void __cdecl TEXT_KeyDownMsg(); // 0x004A18C0",
     "extern \"C\" void __cdecl sub_004A6000_RegisterPressMsgHandler(); // 0x004A6000",
     "extern \"C\" void __cdecl TEXT_WheelCaptureMsg(); // 0x004A6310",
     "extern \"C\" void __cdecl TEXT_ButtonCaptureMsg(); // 0x004A6350",
@@ -928,15 +925,6 @@
    "lang": "cpp",
    "state": "included",
    "static_definitions": 1
-  },
-  "Source/D2Client/UI/text_0049A950.cpp": {
-   "bytes": 0,
-   "definitions": 0,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/text_0049A950.inc",
-   "lang": "cpp",
-   "state": "included"
   },
   "Source/D2Client/Unknown_0049BB40.cpp": {
    "bytes": 275,

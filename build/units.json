@@ -22328,6 +22328,11 @@
      "name": "?TEXT_OpenMessageLogDialog@@YAXXZ"
     },
     {
+     "va": "0x004A01A0",
+     "length": 54,
+     "name": "?TEXT_CloseMessageLogDialog@@YAXXZ"
+    },
+    {
      "va": "0x004A01E0",
      "length": 27,
      "name": "?TEXT_ClearListFlags@@YAXXZ"
@@ -22402,6 +22407,31 @@
      "va": "0x004A1730",
      "length": 41,
      "name": "?TEXT_ClearTextPanel@@YAXXZ"
+    },
+    {
+     "va": "0x004A1760",
+     "length": 5,
+     "name": "?TEXT_Forward@@YAHXZ"
+    },
+    {
+     "va": "0x004A1770",
+     "length": 92,
+     "name": "TEXT_KeyUpMsg"
+    },
+    {
+     "va": "0x004A17D0",
+     "length": 151,
+     "name": "sub_004A17D0_FilterNpcClick"
+    },
+    {
+     "va": "0x004A1870",
+     "length": 71,
+     "name": "TEXT_HotkeyMsg"
+    },
+    {
+     "va": "0x004A18C0",
+     "length": 22,
+     "name": "TEXT_KeyDownMsg"
     },
     {
      "va": "0x004ED3F0",
@@ -23652,42 +23682,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/text_0049A950.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004A01A0",
-     "length": 54,
-     "name": "?TEXT_CloseMessageLogDialog@@YAXXZ"
-    },
-    {
-     "va": "0x004A1760",
-     "length": 5,
-     "name": "?TEXT_Forward@@YAHXZ"
-    },
-    {
-     "va": "0x004A1770",
-     "length": 92,
-     "name": "TEXT_KeyUpMsg"
-    },
-    {
-     "va": "0x004A17D0",
-     "length": 151,
-     "name": "sub_004A17D0_FilterNpcClick"
-    },
-    {
-     "va": "0x004A1870",
-     "length": 71,
-     "name": "TEXT_HotkeyMsg"
-    },
-    {
-     "va": "0x004A18C0",
-     "length": 22,
-     "name": "TEXT_KeyDownMsg"
-    }
    ]
   },
   {
