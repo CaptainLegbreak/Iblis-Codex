@@ -2,13 +2,15 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 18:05 PT): winfont-shim and copies-1 Ready on #452 (both still merge clean onto #455), full builds identical.
+Status (Thu Nov 26 2026, 18:25 PT): winfont-shim, copies-1 and ph-joins Ready, all full builds identical.
 
 ## Ready
 
 - `lane6/winfont-shim` @ 6b0e8fb61 (on #452): every D2WinFont.cpp caller now calls FONT_DrawString (0x501A80) itself. D2Win_10132 went through a calling-convention shim that passed x through a global (shim_2) to another function (shim_1), and three callers used a second copy of the routine with its parameters reordered; the shim, its globals, the copy and the shim's noinline go (shims -1, noinline 109 -> 108). Unit equal; auditguard: no count rose; full build identical.
 
 - `lane6/copies-1` @ 0c53fc2ec (on #452): SubTile.cpp's unmarked copy of SubTileHasTransparentPixel goes; its callers use the placed function (0x60D7E0). Seven other files' copies of placed functions (D2Comp, FastCmp, D2SoundSmp, UNISYS, BnDownload, Unknown_004053F0) stay: replacing them changes the unit. Unit equal; full build identical.
+
+- `lane6/ph-joins` @ 1661f9013 (on #455): Unknown_00524760.cpp's one function (sub_00524760_CipherBlock) joins Unknown_00520DC0.cpp at its address: it follows that file's 0x524740 and calls into it (placeholder files -1). The neighbours 0x524140 and 0x524780 were tried the same way and change (0x524780's locals take other stack slots), so they stay. Unit equal; auditguard: no count rose; full build identical.
 
 ## Questions
 
