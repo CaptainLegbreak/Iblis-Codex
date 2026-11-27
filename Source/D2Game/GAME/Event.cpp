@@ -104,11 +104,6 @@ static D2EventTimerStrc** __fastcall EVENT_GetQueuedTimerListHead(D2GameStrc* pG
     return &pQueue->pHead[nRow][nExpireFrame % 64];
 }
 
-D2EventTimerStrc** __fastcall sub_M400_Emit_00540B30(D2GameStrc* pGame, int nExpireFrame, int nUnitType)
-{
-    return EVENT_GetQueuedTimerListHead(pGame, nExpireFrame + 7, nUnitType);
-}
-
 // 0x00540B70
 static int* __stdcall EVENT_GetTimerSlot(D2Unk00540B70Owner* pOwner, int nType, int nIndex)
 {
@@ -195,21 +190,10 @@ static inline void EVENT_ReleaseTimer(D2EventTimerQueueStrc* pQueue, D2EventTime
     pTimer->nFlags = 2;
 }
 
-static inline D2EventTimerStrc** sub_6FC353D0_00540CD0(D2GameStrc* pGame, int nUnitType, int nExpireFrame)
-{
-    const int nRow = gaSlotRows[nUnitType];
-    D2EventTimerQueueStrc* pTimerQueue = pGame->pTimerQueue;
-    if (nExpireFrame == -1)
-    {
-        return &pTimerQueue->pInfinite[nRow];
-    }
-    return &pTimerQueue->pHead[nRow][nExpireFrame % 64];
-}
-
 // 0x00540CD0
 static void EVENT_FreeTimer(D2GameStrc* pGame, D2EventTimerStrc* pTimer)
 {
-    D2EventTimerQueueStrc* pTimerQueue = pGame->pTimerQueue;
+    D2EventTimerQueueStrc* pTimerQueue = EVENT_GetTimerQueue(pGame);
     if (pTimer->nFlags & EVENTFLAG_0x1)
     {
         pTimer->nFlags |= EVENTFLAG_0x8;
@@ -225,7 +209,7 @@ static void EVENT_FreeTimer(D2GameStrc* pGame, D2EventTimerStrc* pTimer)
     }
     else
     {
-        D2EventTimerStrc** ppEventTimer = sub_6FC353D0_00540CD0(pGame, pTimer->nUnitType, pTimer->nExpireFrame);
+        D2EventTimerStrc** ppEventTimer = EVENT_GetQueuedTimerListHead(pGame, pTimer->nExpireFrame, pTimer->nUnitType);
         *ppEventTimer = pTimer->pNextFreeEventTimer;
     }
     if (pTimer->pNextFreeEventTimer)
@@ -255,11 +239,8 @@ static void EVENT_FreeTimer(D2GameStrc* pGame, D2EventTimerStrc* pTimer)
             SUNIT_SetTimerOnUnit(pTimer->pUnit, pTimer->pNext);
         }
     }
-    D2EventTimerSlabListStrc* pEventTimerArray = pTimerQueue->pSlabListHead;
-    pTimer->pNextFreeEventTimer = pEventTimerArray->pFreeEventTimerListHead;
-    pTimer->pPreviousQueuedTimer = 0;
-    pEventTimerArray->pFreeEventTimerListHead = pTimer;
-    pTimer->nFlags = EVENTFLAG_0x2;
+    EVENT_ReleaseTimer(pTimerQueue, pTimer);
+
 }
 
 void __fastcall EVENTS_DeleteByType(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId)
@@ -323,12 +304,6 @@ static D2EventTimerStrc* __stdcall EVENT_AllocateUnitTimer(D2GameStrc* pGame, D2
     pTimer->nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
     pTimer->nFlags &= ~2;
     return pTimer;
-}
-
-void __stdcall sub_M113_Emit_00540B20(D2GameStrc* pGame, D2EventTimerStrc* pTimer, D2EventTimerStrc** ppHead)
-{
-    EVENT_PushFreeTimer(pTimer, ppHead);
-    EVENT_ReleaseTimer(EVENT_GetTimerQueue(pGame), pTimer);
 }
 
 // 0x00540E60
@@ -607,13 +582,7 @@ static void __stdcall EVENT_InsertInfiniteTimer(EventTimerCallback pCallback, in
     pTimer->pCallback = pCallback;
     const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
     D2EventTimerStrc** ppFirst = &pGame->pTimerQueue->pInfinite[gaSlotRows[nUnitType]];
-    pTimer->pNextFreeEventTimer = *ppFirst;
-    pTimer->pPreviousQueuedTimer = 0;
-    if (pTimer->pNextFreeEventTimer)
-    {
-        pTimer->pNextFreeEventTimer->pPreviousQueuedTimer = pTimer;
-    }
-    *ppFirst = pTimer;
+    EVENT_PushFreeTimer(pTimer, ppFirst);
 }
 
 // 0x005417D0
