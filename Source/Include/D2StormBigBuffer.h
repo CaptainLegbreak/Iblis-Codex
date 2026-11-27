@@ -5,25 +5,13 @@
 #include "D2StormArrayA.h"
 #include "stpl.h"
 
-extern char gszTypeNameUInt[];                                                                     // 0x00708874
-
 struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
 
-    BigBuffer()
+    BigBuffer() : m_start(0)
     {
-        m_array.m_alloc = 0;
-        m_array.m_count = 0;
-        m_array.m_data = 0;
-        m_array.m_chunk = 0;
-        m_start = 0;
-    }
-    ~BigBuffer()
-    {
-        if (m_array.m_data)
-            SMemFree(m_array.m_data, gszTypeNameUInt, -2, 0);
     }
     unsigned int Count() const
     {
@@ -54,7 +42,7 @@ struct BigBuffer
     {
         if (this != &tSource)
         {
-            m_array.sub_004215C0_Set(tSource.m_array.m_count, tSource.m_array.m_data);
+            m_array.Set(tSource.m_array.m_count, tSource.m_array.m_data);
         }
         m_array.m_chunk = tSource.m_array.m_chunk;
         m_start = tSource.m_start;
@@ -67,7 +55,7 @@ struct BigBuffer
             D2StormArrayViewStrc tView;
             tView.pData = tSource.m_array.m_data;
             tView.nCount = tSource.m_array.m_count;
-            m_array.sub_004215C0_Set(tView.nCount, tView.pData);
+            m_array.Set(tView.nCount, tView.pData);
         }
         m_array.m_chunk = tSource.m_array.m_chunk;
         m_start = tSource.m_start;

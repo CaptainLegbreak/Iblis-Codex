@@ -290,8 +290,8 @@ void BigBuffer::GrowToFit(int nIndex)
         unsigned int nNewCount = nPosition + 1;
         if (nNewCount > m_array.m_alloc)
         {
-            unsigned int nChunk = m_array.m_chunk ? m_array.m_chunk : m_array.sub_004210A0_CalcChunkSize(nNewCount);
-            m_array.sub_004216E0_ReallocData(D2StormArrayAStrc::RoundUp(nNewCount, nChunk));
+            unsigned int nChunk = m_array.m_chunk ? m_array.m_chunk : m_array.CalcChunkSize(nNewCount);
+            m_array.ReallocData(m_array.RoundUp(nNewCount, nChunk));
         }
         SMemZero(&m_array.m_data[m_array.m_count], (nPosition - m_array.m_count + 1) * sizeof(unsigned int));
         m_array.m_count = nNewCount;
@@ -454,7 +454,7 @@ void BigStack::sub_00423D80_Release(BigBuffer* pResult, BigBuffer* pWork)
         D2StormArrayViewStrc tView;
         tView.pData = pWork->m_array.m_data;
         tView.nCount = pWork->m_array.m_count;
-        pResult->m_array.sub_004215C0_Set(tView.nCount, tView.pData);
+        pResult->m_array.Set(tView.nCount, tView.pData);
         pResult->m_array.m_chunk = pWork->m_array.m_chunk;
         pResult->m_start = pWork->m_start;
         nUsed--;
@@ -929,7 +929,7 @@ static void __stdcall Pow(BigBuffer* pResult, BigBuffer* pBase, unsigned int nEx
         D2StormArrayViewStrc tView;
         tView.pData = pBase->m_array.m_data;
         tView.nCount = pBase->m_array.m_count;
-        pWork->m_array.sub_004215C0_Set(tView.nCount, tView.pData);
+        pWork->m_array.Set(tView.nCount, tView.pData);
     }
     pWork->m_array.m_chunk = pBase->m_array.m_chunk;
     pWork->m_start = pBase->m_start;
@@ -994,7 +994,7 @@ static void __stdcall Rand(BigBuffer* pResult, BigBuffer* pModulus, BigBuffer* p
 
     if (pSeed != &s)
     {
-        pSeed->m_array.sub_004215C0_Set(s.m_array.m_count, s.m_array.m_data);
+        pSeed->m_array.Set(s.m_array.m_count, s.m_array.m_data);
         pSeed->m_array.m_chunk = s.m_array.m_chunk;
         pSeed->m_start = s.m_start;
         pStack->nUsed--;
@@ -1004,7 +1004,7 @@ static void __stdcall Rand(BigBuffer* pResult, BigBuffer* pModulus, BigBuffer* p
         D2StormArrayViewStrc tView;
         tView.pData = r.m_array.m_data;
         tView.nCount = r.m_array.m_count;
-        pResult->m_array.sub_004215C0_Set(tView.nCount, tView.pData);
+        pResult->m_array.Set(tView.nCount, tView.pData);
         pResult->m_array.m_chunk = r.m_array.m_chunk;
         pResult->m_start = r.m_start;
         pStack->nUsed--;

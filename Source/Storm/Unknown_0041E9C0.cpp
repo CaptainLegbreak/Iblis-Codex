@@ -60,6 +60,11 @@ struct SlotArray {
 
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 
+inline void* operator new(unsigned int, void* pWhere) throw()
+{
+    return pWhere;
+}
+
 #include "D2StormArrayA.h"
 
 struct BigBuffer
@@ -81,12 +86,12 @@ struct BigBuffer
         {
             unsigned int nChunk = m_array.m_chunk;
             if (!nChunk)
-                nChunk = m_array.sub_004210A0_CalcChunkSize(nCount);
+                nChunk = m_array.CalcChunkSize(nCount);
             unsigned int nAlloc = nCount;
             const unsigned int nRemainder = nCount % nChunk;
             if (nRemainder)
                 nAlloc = nCount + nChunk - nRemainder;
-            m_array.sub_004216E0_ReallocData(nAlloc);
+            m_array.ReallocData(nAlloc);
         }
         m_array.m_count = nCount;
     }
@@ -115,7 +120,7 @@ struct BigBuffer
                 const unsigned int nRemainder = nNewCount % nChunk;
                 if (nRemainder)
                     nAlloc = nNewCount + nChunk - nRemainder;
-                m_array.sub_004216E0_ReallocData(nAlloc);
+                m_array.ReallocData(nAlloc);
             }
             SMemZero(&m_array.m_data[m_array.m_count], (nPosition - m_array.m_count + 1) * sizeof(unsigned int));
             m_array.m_count = nNewCount;
@@ -139,12 +144,12 @@ struct BigBuffer
         {
             unsigned int nChunk = m_array.m_chunk;
             if (!nChunk)
-                nChunk = m_array.sub_004210A0_CalcChunkSize(nCount);
+                nChunk = m_array.CalcChunkSize(nCount);
             unsigned int nAlloc = nCount;
             const unsigned int nRemainder = nCount % nChunk;
             if (nRemainder)
                 nAlloc = nCount + nChunk - nRemainder;
-            m_array.sub_004216E0_ReallocData(nAlloc);
+            m_array.ReallocData(nAlloc);
         }
         m_array.m_count = nCount;
     }
@@ -156,8 +161,8 @@ struct BigBuffer
             unsigned int nNewCount = nPosition + 1;
             if (nNewCount > m_array.m_alloc)
             {
-                unsigned int nChunk = m_array.m_chunk ? m_array.m_chunk : m_array.sub_004210A0_CalcChunkSize(nNewCount);
-                m_array.sub_004216E0_ReallocData(RoundUp(nNewCount, nChunk));
+                unsigned int nChunk = m_array.m_chunk ? m_array.m_chunk : m_array.CalcChunkSize(nNewCount);
+                m_array.ReallocData(RoundUp(nNewCount, nChunk));
             }
             SMemZero(&m_array.m_data[m_array.m_count], (nPosition - m_array.m_count + 1) * sizeof(unsigned int));
             m_array.m_count = nNewCount;
@@ -301,7 +306,7 @@ void __stdcall sub_00424B00_BigSquare(BigBuffer* pResult, BigBuffer* pA, BigStac
 
     if (pResult != pWork)
     {
-        pResult->m_array.sub_004215C0_Set(pWork->m_array.m_count, pWork->m_array.m_data);
+        pResult->m_array.Set(pWork->m_array.m_count, pWork->m_array.m_data);
         pResult->m_array.m_chunk = pWork->m_array.m_chunk;
         pResult->m_start = pWork->m_start;
         pStack->nUsed--;
