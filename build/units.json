@@ -67740,7 +67740,7 @@
     {
      "va": "0x0063DB80",
      "length": 3,
-     "name": "sub_0063DB80"
+     "name": "sub_0063DB80_Nop"
     },
     {
      "va": "0x0063DB90",
@@ -67783,7 +67783,7 @@
     {
      "va": "0x0063E050",
      "length": 3,
-     "name": "sub_0063E050"
+     "name": "sub_0063E050_Nop"
     },
     {
      "va": "0x0063E060",
@@ -68122,7 +68122,7 @@
     {
      "va": "0x00654E70",
      "length": 5,
-     "name": "sub_00654E70"
+     "name": "sub_00654E70_Return0"
     },
     {
      "va": "0x00654E80",
@@ -71073,7 +71073,7 @@
     {
      "va": "0x0065C140",
      "length": 58,
-     "name": "sub_0065C140"
+     "name": "sub_0065C140_GetInventoryRecord"
     },
     {
      "va": "0x0065C180",
@@ -71886,7 +71886,7 @@
     {
      "va": "0x00663740",
      "length": 3,
-     "name": "sub_00663740"
+     "name": "sub_00663740_Nop"
     },
     {
      "va": "0x00663750",
@@ -72424,7 +72424,7 @@
     {
      "va": "0x0066A270",
      "length": 1,
-     "name": "?sub_0066A270@@YIXPAX@Z"
+     "name": "?sub_0066A270_Nop@@YIXPAX@Z"
     }
    ]
   },
@@ -73634,12 +73634,12 @@
     {
      "va": "0x0066F350",
      "length": 37,
-     "name": "sub_0066F350"
+     "name": "sub_0066F350_GetFloorGridEntry"
     },
     {
      "va": "0x0066F380",
      "length": 37,
-     "name": "sub_0066F380"
+     "name": "sub_0066F380_GetWallGridEntry"
     },
     {
      "va": "0x0066F3B0",
@@ -74503,7 +74503,7 @@
     {
      "va": "0x0067D7B0",
      "length": 40,
-     "name": "?sub_0067D7B0@@YAXPAUD2DrlgCoordsStrc@@H@Z"
+     "name": "?sub_0067D7B0_SetCoordSize@@YAXPAUD2DrlgCoordsStrc@@H@Z"
     },
     {
      "va": "0x0067D7E0",
@@ -74926,22 +74926,22 @@
     {
      "va": "0x00681490",
      "length": 65,
-     "name": "sub_00681490"
+     "name": "sub_00681490_AllocPathNode"
     },
     {
      "va": "0x006814E0",
      "length": 37,
-     "name": "sub_006814E0"
+     "name": "sub_006814E0_EstimateCost"
     },
     {
      "va": "0x00681510",
      "length": 33,
-     "name": "sub_00681510"
+     "name": "sub_00681510_GetStepCost"
     },
     {
      "va": "0x00681540",
      "length": 20,
-     "name": "sub_00681540"
+     "name": "sub_00681540_GetTurnTable"
     },
     {
      "va": "0x00681560",

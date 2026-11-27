@@ -4517,7 +4517,7 @@ int __stdcall SKILLS_RemoveTransformStatesFromShapeshiftedUnit(D2UnitStrc* pUnit
 }
 
 // 0x006460B0
-extern "C" void __stdcall sub_006460B0(unsigned arg0,unsigned arg1,unsigned arg2) {}
+extern "C" void __stdcall sub_006460B0_Nop(unsigned arg0,unsigned arg1,unsigned arg2) {}
 
 // 0x006460C0
 void __stdcall sub_006460C0_Empty(int nUnused)
