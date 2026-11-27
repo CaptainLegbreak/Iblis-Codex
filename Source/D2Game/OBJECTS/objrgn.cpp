@@ -717,9 +717,9 @@ extern "C" __declspec(dllexport) D2ObjectControlStrc* __fastcall OBJRGN_GetObjec
 }
 
 // 0x00546FB0
-extern "C" __declspec(dllexport) int* __fastcall OBJRGN_GetShrineDataFromGame(D2GameStrc* pGame)
+extern "C" __declspec(dllexport) D2ShrineDataStrc* __fastcall OBJRGN_GetShrineDataFromGame(D2GameStrc* pGame)
 {
-    return pGame->pObjectControl->nShrineCounts;
+    return (D2ShrineDataStrc*)pGame->pObjectControl->nShrineCounts;
 }
 
 // 0x00546FC0
@@ -1116,20 +1116,13 @@ struct Entry00547390;
 
 struct Sub00547390;
 
-struct Obj00547390;
-
 struct D2MonRegDataStrc;
-
-struct Entry00547390 { unsigned int dwUnknown00[4]; int nCount10; };
-
-struct Sub00547390 { unsigned char bUnknown00[0x48]; Entry00547390* pEntries48[1]; };
-
-struct Obj00547390 { unsigned char bUnknown00[0x10F0]; Sub00547390* pSub10F0; };
 
 
 // 0x00547390
-extern "C" __declspec(dllexport) void __fastcall OBJRGN_IncreaseHealingShrineCount(Obj00547390* pObj, int nIndex) {
-    pObj->pSub10F0->pEntries48[nIndex]->nCount10++;
+extern "C" __declspec(dllexport) void __fastcall OBJRGN_IncreaseHealingShrineCount(D2GameStrc* pGame, int nLevelId)
+{
+    ++pGame->pObjectControl->pObjectRegion[nLevelId]->nHealingShrines;
 }
 
 // 0x005473A0
