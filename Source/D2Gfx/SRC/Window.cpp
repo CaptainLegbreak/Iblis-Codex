@@ -6,6 +6,8 @@
 #include "FogApi.h"
 #include "FogApi.h"
 #include "D2DrlgMaps.h"
+#include "D2WinApi.h"
+#include "D2HellApi.h"
 
 struct D2TileLibraryBlockStrc
 {
@@ -196,8 +198,6 @@ int gnCaptionHeight; // 0x007C9270
 
 extern int gbNoWindowCreated; // 0x007C9338
 
-void __cdecl sub_0051793E_FormatAndRaise(unsigned long dwError, ...); // 0x0051793E
-
 struct D2CacheStatsStrc;
 
 extern int gfFixedAspectRatio; // 0x0072DA7C
@@ -217,8 +217,6 @@ extern "C" __declspec(dllimport) void* __stdcall GetStockObject(int); // 0x006CC
 extern "C" __declspec(dllimport) unsigned short __stdcall RegisterClassA(const WNDCLASSA*); // 0x006CC4CC
 
 int __fastcall FOG_IsExpansion(); // 0x00408F20
-
-extern "C" void __cdecl sub_004F8DC0_InitLookupTable(); // 0x004F8DC0
 
 void __cdecl j_D2GFX_10040_ShowAllWindows(); // 0x004F5030
 
@@ -1378,9 +1376,9 @@ void __stdcall TEXTURE_DebugFillBackBuffer(int nXPos, int nYPos)
     return gpGraphicsInterface->pfDebugFillBackBuffer(nXPos, nYPos);
 }
 
-#include "gen/data/Source/D2Gfx/SRC/Window/gnChangedScaleFactor.inc"
+static int gnChangedScaleFactor = 256;                                                           // 0x0072DB40
 
-#include "gen/data/Source/D2Gfx/SRC/Window/gnScaleFactor.inc"
+static int gnScaleFactor = 256;                                                                  // 0x0072DB44
 
 // 0x004F65C0
 void __stdcall SCALE_UpdateFactor()
@@ -2619,4 +2617,77 @@ void __fastcall CMNSUBTILE_SetPaletteTables(D2PaletteTableStrc* pPaletteTables)
     }
 }
 
-#include "gen/data/Source/D2Gfx/SRC/Window.inc"
+void __fastcall WINDOW_SetScreenBuffer(unsigned char* pBuffer, int nWidth, int nHeight, int nArg4); // 0x004F8DE0
+
+#pragma pack(push, 1)
+struct d2data_0072DA60_t
+{
+    void (__fastcall* p0)(unsigned char* pBuffer, int nWidth, int nHeight, int nArg4);
+    void (__fastcall* p1)(unsigned char* pSrc, int nX, int nY);
+    void (__fastcall* p2)(unsigned char* pSrc, int nX, int nY, unsigned char nLight);
+    void (__fastcall* p3)(D2TileLibraryEntryStrc* pTile, int nX, int nY, D2GfxLightExStrc* pLight);
+    void (__fastcall* p4)(unsigned char* pSrc, int nX, int nY, int* pLight);
+    void (__fastcall* p5)(unsigned char* pSrc, int nX, int nY, unsigned char nAlpha);
+    void (__fastcall* p6)(unsigned char* pSrc, int nX, int nY, int* pLight, unsigned char nAlpha);
+};
+#pragma pack(pop)
+
+extern "C" const char* gData_0072DA0C[15] = { // 0x0072DA0C
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
+extern "C" unsigned char gData_0072DA48[24] = { // 0x0072DA48
+    0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x9B, 0x00, 0x00, 0x00,
+    0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00
+};
+#pragma comment(linker, "/alternatename:?gGfxSettings@@3UD2GfxSettingsStrc@@A=_gData_0072DA48")
+
+extern "C" struct d2data_0072DA60_t gData_0072DA60 = { // 0x0072DA60
+    &WINDOW_SetScreenBuffer,
+    &CMNSUBTILE_DrawVisTile,
+    &CMNSUBTILE_DrawRleVisTile,
+    &CMNSUBTILE_DrawFloorTile,
+    &CMNSUBTILE_DrawLitVisTile,
+    &CMNSUBTILE_DrawBlendVisTile,
+    &CMNSUBTILE_DrawLitBlendVisTile
+};
+#pragma comment(linker, "/alternatename:?gabGraphicsHelpers@@3QBEB=_gData_0072DA60")
+
+int gdwGlobal_0072DA7C = 1; // 0x0072DA7C
+
+D2GraphicsInterfaceStrc* gapGraphicsInterfaces[8] = { // 0x0072DA80
+    0, &gtGdiGraphicsInterface, 0, &gtDDrawGraphicsInterface,
+    &gtGlideGraphicsInterface, 0, &gtD3DGraphicsInterface, 0
+};
+
+extern const char* gszDefaultClass_0072DAA0 = "Diablo II"; // 0x0072DAA0
+
+extern "C" const char gData_0072DAA8[72] = "Error 1: Diablo II is unable to proceed.  Unsupported graphics mode."; // 0x0072DAA8
+#pragma comment(linker, "/alternatename:?gszRetryUnsupportedGraphics@@3QBDB=_gData_0072DAA8")
+
+extern "C" const char gData_0072DAF0[72] = "Error 1: Diablo II is unable to proceed.  Unsupported graphics mode."; // 0x0072DAF0
+#pragma comment(linker, "/alternatename:?gszUnsupportedGraphics@@3QBDB=_gData_0072DAF0")
+
+int gbCursorDisplayed = 1; // 0x0072DB38
+
+extern const char* gszDefaultWindow_0072DB3C = "Diablo II"; // 0x0072DB3C
+
+int ganSubtileRowXOffset[15] = { 14, 12, 10, 8, 6, 4, 2, 0, 2, 4, 6, 8, 10, 12, 14 }; // 0x0072DB48
+
+int ganSubtileRowWidth[15] = { 4, 8, 12, 16, 20, 24, 28, 32, 28, 24, 20, 16, 12, 8, 4 }; // 0x0072DB84
+
+int ganSubtileRowSrcOffset[15] = { 0, 4, 12, 24, 40, 60, 84, 112, 144, 172, 196, 216, 232, 244, 252 }; // 0x0072DBC0

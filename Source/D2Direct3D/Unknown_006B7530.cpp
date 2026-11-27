@@ -350,7 +350,28 @@ Draw:
     return nResult;
 }
 
-#include "gen/data/Source/D2Direct3D/Unknown_006B7530.inc"
+extern "C" const char gData_006FC310[32] = "Vertex buffer unlock failed!"; // 0x006FC310
+#pragma comment(linker, "/alternatename:?gUnlockFailure@@3QBDB=_gData_006FC310")
+
+extern "C" const char gData_006FC330[28] = "Vertex buffer lock failed!"; // 0x006FC330
+#pragma comment(linker, "/alternatename:?gLockFailure@@3QBDB=_gData_006FC330")
+
+unsigned short gaPerspectiveIndices[22] = { 0, 1, 3, 4, 6, 7, 9, 10, 12, 13, 13, 1, 1, 2, 4, 5, 7, 8, 10, 11, 13, 14 }; // 0x0074C0D0
+
+int gaGeometry[10][6][3] = { // 0x0074C100
+    { { 0 }, { 0 }, { 0 }, { 0 }, { 0 }, { 0 } },
+    { { 0, 5, -40 }, { 0, 3, -56 }, { 0, 1, -72 }, { 0, -1, -88 }, { 0, -3, -104 }, { 0, -5, -120 } },
+    { { -5, 0, -120 }, { -3, 0, -104 }, { -1, 0, -88 }, { 1, 0, -72 }, { 3, 0, -56 }, { 5, 0, -40 } },
+    { { 0, 5, -40 }, { 0, 3, -56 }, { 0, 1, -72 }, { 1, 0, -72 }, { 3, 0, -56 }, { 5, 0, -40 } },
+    { { -5, 0, -120 }, { -3, 0, -104 }, { -1, 0, -88 }, { 0, -1, -88 }, { 0, -3, -104 }, { 0, -5, -120 } },
+    { { 0, 5, -40 }, { 0, 3, -56 }, { 0, 1, -72 }, { 1, 0, -72 }, { 3, 0, -56 }, { 5, 0, -40 } },
+    { { 5, 10, 40 }, { 5, 8, 24 }, { 5, 6, 8 }, { 5, 4, -8 }, { 5, 2, -24 }, { 5, 0, -40 } },
+    { { 0, 5, -40 }, { 2, 5, -24 }, { 4, 5, -8 }, { 6, 5, 8 }, { 8, 5, 24 }, { 10, 5, 40 } },
+    { { 0, 5, -40 }, { 2, 5, -24 }, { 4, 5, -8 }, { 5, 4, -8 }, { 5, 2, -24 }, { 5, 0, -40 } },
+    { { 0, 5, -40 }, { 2, 5, -24 }, { 4, 5, -8 }, { 5, 4, -8 }, { 5, 2, -24 }, { 5, 0, -40 } }
+};
+
+unsigned short gaFlatIndices[4] = { 0, 5, 35, 30 }; // 0x0074C3D0
 
 // 0x006B87A0
 static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileStrc* pTile, int nX, int nY, const unsigned int* pLight, int nPanels, unsigned char nAlpha)

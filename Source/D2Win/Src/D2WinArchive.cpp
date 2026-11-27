@@ -3,16 +3,13 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "FogApi.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
+#include "D2HellApi.h"
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
-
-const char* __stdcall D2CMPGetGfxFileExtension(int bAllowCompressed);                                      // 0x005FE1F0
-
-void __stdcall CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOutFile, const char* szFile, int nLine, int nSpecVersion, int nUnused); // 0x00601340
-
-int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile);                                           // 0x00601A50
 
 
 // 0x004FA9B0
@@ -48,8 +45,6 @@ void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile)
         FOG_Free(pCellFile, ".\\Src\\D2WinArchive.cpp", 0x5C, 0);
     }
 }
-
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void* hWnd, const char* szText, const char* szCaption, unsigned int nType); // 0x006CC464
 
@@ -146,7 +141,6 @@ int __cdecl D2Win_10185_CheckCharMpq()
 
 extern "C" const char gszD2XVideoMpq[]; // 0x006DC788
 extern D2ArchiveHandleStrc* gpD2VideoMPQ; // 0x007D5614
-void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
 extern D2ArchiveHandleStrc* gpD2CharMPQ; // 0x007D5610
 extern D2ArchiveHandleStrc* gpD2XTalkMPQ; // 0x007D5618
 extern D2ArchiveHandleStrc* gpD2MusicMPQ; // 0x007D5628

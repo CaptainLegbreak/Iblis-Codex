@@ -370,4 +370,6 @@ int __fastcall GLTEXTURECACHE_BindFloorTexture(D2TileLibraryEntryStrc* pTile)
     return bResult;
 }
 
-#include "gen/data/Source/D2Glide/Src/glTextureCache.inc"
+D2GrTexInfoStrc gtGlideFloorTexInfo = { 8, 8, 1 }; // 0x0072F6BC
+
+extern "C" unsigned char gData_0072F6C8[8] = { 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }; // 0x0072F6C8

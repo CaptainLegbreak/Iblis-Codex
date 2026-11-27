@@ -35,6 +35,9 @@
 #include "StormApi.h"
 #include "FogApi2.h"
 #include "StormApi2.h"
+#include "D2GfxApi.h"
+#include "D2SoundApi.h"
+#include "D2NetApi.h"
 
 int __stdcall MAINMENUS_AskEmailRegistration(int nArg); // 0x00436C90
 
@@ -189,8 +192,6 @@ int gnLastClickY; // 0x0077999C
 int gnLastClickTick; // 0x007799A0
 
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
-
-int __cdecl CLIENT_GetConnectionStatus(); // 0x0052B050
 
 
 
@@ -1241,8 +1242,6 @@ void __cdecl MAINMENUS_PlayIntroVideos();                                       
 
 int __fastcall CHARSEL_InitFuncTable(D2ConfigStrc* pRecord);                                     // 0x0043B7A0
 
-int __stdcall WINDOW_CenterWindow(int nResolution);                                                   // 0x004F5BC0
-
 int __fastcall D2Win_10015();                                                                               // 0x004F8FE0
 
 int __stdcall CURSOR_SetCellFile(D2CelFileStrc* pCellFile);                                                 // 0x004F9160
@@ -1252,14 +1251,6 @@ void __stdcall D2Win_SetQuitCallback(int (__cdecl* pfnQuitCallback)());         
 int __stdcall D2Win_RunMessageLoop(void (__stdcall* pCallback)(unsigned long));                                      // 0x004FA590
 
 void* __stdcall sub_004FAC80(int nArg);                                                                     // 0x004FAC80
-
-void __cdecl D2SOUNDFAST_InitWaveSlots();                                                                                // 0x00514DB0
-
-void __fastcall D2SOUNDFAST_PreloadWave(const char* szFile);                                                           // 0x00514E10
-
-int __cdecl D2SOUNDFAST_IsAnyWavePlaying();                                                                // 0x00514FB0
-
-void __cdecl D2SOUNDFAST_FreeWaveSlots();                                                                                // 0x00515070
 
 
 void __cdecl sub_0042F880_DestroyControls(); // 0x0042F880
@@ -1290,7 +1281,6 @@ extern D2WinControlStrc* gpControl_007795CC; // 0x007795CC
 extern "C" int __fastcall D2Win_10106(D2WinControlStrc*); // 0x00500310
 int __fastcall D2Win_10104(D2WinControlStrc*); // 0x00500340
 extern "C" void __fastcall BUTTON_SetIsPressed(D2WinControlStrc*, int); // 0x005009A0
-void __fastcall D2SOUND_10039(const char*); // 0x00514EC0
 const char* __stdcall Name(D2FuncRecordStrc* pRecord, int nIndex); // 0x005180A0
 extern "C" __declspec(dllimport) int __stdcall FindNextFileA(void* hFindFile, D2FindDataStrc* pFindData); // 0x006CC1C8
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(const char* szFileName); // 0x006CC1B0
@@ -3200,8 +3190,6 @@ void __fastcall MAINMENUS_HandleCompressionMessage(unsigned char* pMsg, int nSiz
         }
     }
 }
-
-int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A8B0
 
 int gdwGlobal_00779990; // 0x00779990
 

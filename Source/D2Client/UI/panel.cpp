@@ -19,6 +19,7 @@
 #include "D2LangApi.h"
 #include "StormApi.h"
 #include "D2CommonApi2.h"
+#include "D2GfxApi.h"
 
 struct D2ActiveRoomStrc;
 
@@ -44,7 +45,7 @@ struct D2Block1;
 
 struct D2UnitStrc;
 
-struct D2CelContextStrc;
+struct D2GfxDataStrc;
 
 struct SMSGHANDLER_PARAMS;
 
@@ -66,9 +67,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 unsigned int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
 
-int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
-
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
@@ -289,8 +288,6 @@ void* gpPartyBarCel; // 0x007BF028
 
 void __cdecl PARTY_DrawPlayerName(); // 0x0049A580
 
-void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
-
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
 
 
@@ -346,8 +343,6 @@ unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 
 
 
-
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 
 void __cdecl PANEL_DrawBorderFrameLeft(); // 0x00498630
@@ -546,10 +541,10 @@ void __cdecl PANEL_DrawLifeOrb()
             nHeight = 2;
     }
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.nDirection = 0;
-    tContext.pCellFile = gpHlthManaCel;
+    tContext.pCelFile = gpHlthManaCel;
     tContext.nFrame = 0;
     if (STATES_CheckState(sub_00463DD0_GetPlayerUnit(), STATE_HEALTHPOT))
     {
@@ -581,7 +576,7 @@ void __cdecl PANEL_DrawLifeOrb()
         }
     }
 
-    tContext.pCellFile = gpOverlapCel;
+    tContext.pCelFile = gpOverlapCel;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, 0x1C, gnScreenHeight - 5, -1, 5, 0);
 }
@@ -599,10 +594,10 @@ void __cdecl PANEL_DrawManaOrb()
         nMana = nMaxMana;
     const int nHeight = 80 * nMana / nMaxMana;
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.nDirection = 0;
-    tContext.pCellFile = gpHlthManaCel;
+    tContext.pCelFile = gpHlthManaCel;
     tContext.nFrame = 1;
     if (STATES_CheckState(sub_00463DD0_GetPlayerUnit(), STATE_MANAPOT))
     {
@@ -629,7 +624,7 @@ void __cdecl PANEL_DrawManaOrb()
         break;
     }
 
-    tContext.pCellFile = gpOverlapCel;
+    tContext.pCelFile = gpOverlapCel;
     tContext.nFrame = 1;
     sub_004F6480(&tContext, gnScreenWidth - 0x6E, gnScreenHeight - 9, -1, 5, 0);
 }
@@ -726,9 +721,9 @@ void __cdecl VIEW_DrawRunButton()
 {
     int nX = sub_00468730();
     int nY = sub_00468740();
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpRunButtonCel;
+    tContext.pCelFile = gpRunButtonCel;
     tContext.nDirection = 0;
     if (GAME_GetAlwaysRun())
     {
@@ -968,9 +963,9 @@ static int sub_004977C0_IsInButtonRect(int nX, int nY)
 // 0x004977C0
 void __cdecl PANEL_DrawMiniPanelButton()
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpStateButtonCel;
+    tContext.pCelFile = gpStateButtonCel;
     tContext.nDirection = 0;
     if (GAME_GetUIVarState(21))
     {
@@ -1139,9 +1134,9 @@ static void __stdcall PANEL_DrawDurabilityIcon(int nState, int bType, int nQuive
         break;
     }
     int nOffset = 0;
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpDuroIconCel;
+    tContext.pCelFile = gpDuroIconCel;
     tContext.nDirection = 0;
     tContext.nFrame = nFrame;
     if (GAME_GetUIVarState(10))
@@ -1340,7 +1335,7 @@ extern "C" void __cdecl PANEL_UpdateMiniPanelTooltip()
 // 0x004983D0
 static void PANEL_DrawControlPanelFrame(int nOffset)
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     if (D2GFX_GetResolutionMode() - 2)
     {
@@ -1358,7 +1353,7 @@ static void PANEL_DrawControlPanelFrame(int nOffset)
             ARCHIVE_FreeClientCellFile(gpBorderFrameCel);
             gpBorderFrameCel = 0;
         }
-        tContext.pCellFile = gpCtrlPnl7Cel;
+        tContext.pCelFile = gpCtrlPnl7Cel;
         tContext.nDirection = 0;
         tContext.nFrame = 0;
         sub_004F6480(&tContext, 0, gnScreenHeight - nOffset, -1, 5, 0);
@@ -1382,7 +1377,7 @@ static void PANEL_DrawControlPanelFrame(int nOffset)
         {
             gp800CtrlPnl7Cel = GAME_LoadUiCelFile("Panel\\800CtrlPnl7");
         }
-        tContext.pCellFile = gp800CtrlPnl7Cel;
+        tContext.pCelFile = gp800CtrlPnl7Cel;
         tContext.nDirection = 0;
         tContext.nFrame = 0;
         sub_004F6480(&tContext, 0, gnScreenHeight - nOffset, -1, 5, 0);
@@ -1402,13 +1397,13 @@ static void PANEL_DrawControlPanelFrame(int nOffset)
 // 0x00498630
 void __cdecl PANEL_DrawBorderFrameLeft()
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     if (!gpBorderFrameCel)
     {
         gpBorderFrameCel = GAME_LoadUiCelFile("Panel\\800BorderFrame");
     }
-    tContext.pCellFile = gpBorderFrameCel;
+    tContext.pCelFile = gpBorderFrameCel;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, 0, 253, -1, 5, 0);
@@ -1429,9 +1424,9 @@ void __cdecl PANEL_DrawBorderFrameRight()
     {
         gpBorderFrameCel = GAME_LoadUiCelFile("Panel\\800BorderFrame");
     }
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpBorderFrameCel;
+    tContext.pCelFile = gpBorderFrameCel;
     tContext.nDirection = 0;
     tContext.nFrame = 5;
     sub_004F6480(&tContext, 400, 63, -1, 5, 0);
@@ -1876,11 +1871,11 @@ void __cdecl PANEL_DrawBelt()
             break;
         }
 
-        D2CelContextStrc tContext;
+        D2GfxDataStrc tContext;
         memset(&tContext, 0, sizeof(tContext));
         tContext.nDirection = 0;
         tContext.nFrame = 0;
-        tContext.pCellFile = gpCellFile_007BEF10;
+        tContext.pCelFile = gpCellFile_007BEF10;
         int nOffset = 0;
         unsigned char* pShow = abShow;
         for (int i = 0; i < 3; ++i)

@@ -24,6 +24,9 @@
 #include "D2LangApi.h"
 #include "FogApi.h"
 #include "FogApi2.h"
+#include "D2CMPApi.h"
+#include "D2SoundApi.h"
+#include "D2HellApi.h"
 
 typedef long (__stdcall* WNDPROC)(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam);
 
@@ -37,7 +40,7 @@ struct D2WinControlStrc;
 
 struct D2WinButtonStrc;
 
-struct D2CelContextStrc;
+struct D2GfxDataStrc;
 
 struct Point;
 
@@ -65,7 +68,7 @@ void __stdcall D2GFX_DrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd
 
 void __stdcall D2GFX_ClearScreen(int bPartial); // 0x004F63B0
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 int __fastcall CONTROL_AppendToDeadList(D2WinControlStrc* pControl); // 0x004F9250
 
@@ -74,10 +77,6 @@ int __stdcall CONTROL_FreeDeadList(); // 0x004F9290
 void __cdecl CURSOR_Draw(); // 0x004F97E0
 
 void __cdecl CONTROL_DrawAllCompositeUnits(); // 0x004F9870
-
-void __stdcall D2CMPSpriteCacheInit(void* pMemPool, unsigned int nMaxSize, int nArg, unsigned int nCacheSize); // 0x005FFD40
-
-void __stdcall D2CMPSpriteCacheDestroy(int bFree); // 0x005FFE30
 
 void* ghMainWindow; // 0x007D55AC
 
@@ -262,19 +261,9 @@ D2WinControlStrc* __fastcall PROGRESSBAR_Create(int nX, int nY, int nWidth, int 
 
 D2WinControlStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int pfnHandler); // 0x005084F0
 
-void __fastcall D2SOUND_10034(int nArg); // 0x005148F0
-
-void __cdecl D2SOUND_FadeOutStreamChannel(); // 0x00514960
-
-int __cdecl D2SOUND_GetMusicVolumeOption(); // 0x00514CF0
-
 void __fastcall D2SOUND_10049(int nState); // 0x00514D00
 
-int __cdecl D2SOUND_GetOptionsMusicOption(); // 0x00514D80
-
 void __fastcall D2SOUND_10070(int nArg); // 0x00514D90
-
-int __cdecl D2SOUNDFAST_AreWaveSlotsInitialized(); // 0x00515060
 
 D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName, void* hFile, void* pfShowMessage, int nPriority); // 0x00517332
 
@@ -332,8 +321,6 @@ int __stdcall POPUP_HandleMouseButtonInput(SMSGHANDLER_PARAMS* pMsg); // 0x00508
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
 int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
-
-void __stdcall D2CMPSetNoCompress(int bCompress); // 0x005FE280
 
 int gnRenderMode; // 0x007D5590
 
@@ -420,8 +407,6 @@ int __fastcall ACCOUNTLIST_Destroy(D2WinControlStrc* pControl);                 
 int __fastcall PROGRESSBAR_Destroy(void* pArg);                                                                    // 0x00507DB0
 
 int __fastcall SCROLLBAR_Destroy(void* pArg);                                                                    // 0x00507EE0
-
-int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile);                                           // 0x00601A50
 
 extern D2WinCommandRegisterStrc gatCommandRegister[0x21];                                          // 0x0072DC48
 
@@ -589,8 +574,6 @@ tagRECT gtWindowRect; // 0x007C9160
 void __stdcall D2Win_COMMANDS_MouseWheel(SMSGHANDLER_PARAMS* pMsg); // 0x004FA340
 
 extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void* hWnd, const char* szText, const char* szCaption, unsigned int nType); // 0x006CC464
-
-void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
 
 extern "C" const char gszExpansionMpq[]; // 0x006CD3A0
 
@@ -1181,10 +1164,10 @@ void __cdecl CURSOR_Draw()
         gnCursorDrawX = nX;
         gnCursorDrawY = nY;
 
-        D2CelContextStrc tContext;
+        D2GfxDataStrc tContext;
         memset(&tContext, 0, sizeof(tContext));
         tContext.nFrame = gnCursorFrame;
-        tContext.pCellFile = gpCursorCellFile;
+        tContext.pCelFile = gpCursorCellFile;
         tContext.nDirection = 0;
         sub_004F6480(&tContext, nX <= 0 ? 0 : nX, (nY <= 0 ? 0 : nY) - 1, -1, 5, 0);
     }
@@ -1241,9 +1224,9 @@ void __stdcall D2Win_UpdateAndDraw()
 
         if (gpBackgroundCellFile)
         {
-            D2CelContextStrc tContext;
+            D2GfxDataStrc tContext;
             memset(&tContext, 0, sizeof(tContext));
-            tContext.pCellFile = gpBackgroundCellFile;
+            tContext.pCelFile = gpBackgroundCellFile;
             tContext.nDirection = 0;
             tContext.nFrame = 0;
 

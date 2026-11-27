@@ -11,6 +11,7 @@
 #include "D2LaunchRequest.h"
 #include "FogApi.h"
 #include "D2LangApi.h"
+#include "D2WinApi.h"
 
 extern int gnChatLaunchMode; // 0x0077BBE4
 
@@ -27,8 +28,6 @@ struct D2GameListRecordStrc;
 
 struct D2LaunchFuncsStrc;
 
-
-void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed); // 0x005009A0
 
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 
@@ -75,8 +74,6 @@ extern D2GameListRecordStrc gtGameList_0077BDC9[]; // 0x0077BDC9
 
 int __fastcall CHATDLG_IsCharOverLimit(const char* szText); // 0x00442B20
 
-void __fastcall D2Win_10050_TEXTBOX_SetLine(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FB9D0
-
 
 
 
@@ -112,7 +109,11 @@ int gfGameListControlsCreated; // 0x00798CC0
 // build: symbol ?GAME_IsLaunchExpansion@* 0x0043DB10
 // build: symbol ?gszSpace@* 0x006FFC44
 
-#include "gen/data/Source/D2Multi/Unknown_00444020.inc"
+extern "C" const unsigned char gData_006FFC46[18] = { // 0x006FFC46
+    0x00, 0x00, 0x25, 0x2A, 0x73, 0x00, 0x20, 0x25, 0x73, 0x2B, 0x25, 0x6C, 0x6C, 0x75, 0x00, 0x00,
+    0x00, 0x00
+};
+#include "D2MCPClientApi.h"
 
 int gnGameCount; // 0x00798CCC
 
@@ -136,7 +137,6 @@ static inline char* sub_00444E70_NextString(char* p)
 void __cdecl CHATDLG_FillGameList(); // 0x00444E70
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
 extern unsigned short gwSavedRequestId; // 0x0077BBDC
 
 // 0x00445020

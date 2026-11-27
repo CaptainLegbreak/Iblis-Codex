@@ -143,6 +143,7 @@ int __stdcall SBigDel(void* pArg); // 0x00424E40
 
 
 #include "D2GameFuncs.h"
+#include "D2NetApi.h"
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -647,8 +648,6 @@ extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* lpThreadAttr
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);          // 0x0040B430
 
-int __stdcall SERVER_HackListClient(int nClientId, int nArg2, int nArg3);                                                  // 0x0052B4F0
-
 
 int gnGlobal_00883D3C;                                                                                         // 0x00883D3C
 
@@ -733,8 +732,6 @@ long gnAdminConnectionCount;         // 0x00883D64
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile*);  // 0x006CC208
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile*);  // 0x006CC204
-
-int __stdcall CLIENT_ObjectCall_6BED90(int,int,int); // 0x0052B490
 
 int __stdcall sub_0052B330(unsigned char,int,void*,int);  // 0x0052B330
 
@@ -882,8 +879,6 @@ struct D2SavePartPacketStrc
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);                       // 0x006CC258
 
 unsigned long gdwLastClientsUpdateTick;                                                                               // 0x00883D5C
-
-int __cdecl sub_0052B910_GetLastError();                                                                                 // 0x0052B910
 
 
 D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetHead(D2ClientStrc* pClient);                         // 0x005392E0

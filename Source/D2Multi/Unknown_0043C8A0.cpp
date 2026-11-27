@@ -180,4 +180,20 @@ int __fastcall CHATDLG_UpdateSaveFlags(const char* szName)
     FOG_CloseFile(hFile);
     return nResult;
 }
-#include "gen/data/Source/D2Multi/Unknown_0043C8A0.inc"
+extern "C" const char* gData_0070CC8C[15] = { // 0x0070CC8C
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

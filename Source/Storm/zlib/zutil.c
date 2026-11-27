@@ -65,4 +65,16 @@ void __fastcall zcfree(void* opaque, void* ptr)
     free(ptr);
 }
 
-#include "gen/data/Source/Storm/zlib/zutil.inc"
+extern const char* const gData_006D3848[10] = { // 0x006D3848
+    "need dictionary",
+    "stream end",
+    "",
+    "file error",
+    "stream error",
+    "data error",
+    "insufficient memory",
+    "buffer error",
+    "incompatible version",
+    ""
+};
+#pragma comment(linker, "/alternatename:_z_errmsg=_gData_006D3848")

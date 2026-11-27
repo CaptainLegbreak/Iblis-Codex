@@ -1398,4 +1398,18 @@ static block_state __stdcall deflate_huff(deflate_state* s, int flush)
     return block_done;
 }
 
-#include "gen/data/Source/Storm/zlib/deflate.inc"
+extern const config gData_006D0280[10] = { // 0x006D0280
+    { 0, 0, 0, 0, &deflate_stored },
+    { 4, 4, 8, 4, &deflate_fast },
+    { 4, 5, 16, 8, &deflate_fast },
+    { 4, 6, 32, 32, &deflate_fast },
+    { 4, 4, 16, 16, &deflate_slow },
+    { 8, 16, 32, 32, &deflate_slow },
+    { 8, 16, 128, 128, &deflate_slow },
+    { 8, 32, 128, 256, &deflate_slow },
+    { 32, 128, 258, 1024, &deflate_slow },
+    { 32, 258, 258, 4096, &deflate_slow }
+};
+#pragma comment(linker, "/alternatename:_configuration_table=_gData_006D0280")
+
+extern const char gData_006D02F8[8] = "1.2.8"; // 0x006D02F8

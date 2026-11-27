@@ -9,6 +9,8 @@
 #include "D2CelContext.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct CellResource;
@@ -30,7 +32,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
-int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
 extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
 extern const D2PeriodLightStrc gaPeriodLights[]; // 0x006D6E40
@@ -46,7 +47,6 @@ struct D2B10EmitWeatherStrc
 extern CellResource* gHelpBorder;
 extern CellResource* gWhiteBullet;
 extern CellResource* gYellowBullet;
-extern "C" void __stdcall D2GFX_DrawBox(int x1, int y1, int x2, int y2, int color, int mode); // 0x004F6300
 extern "C" int __cdecl ResolutionMode();
 extern "C" void __fastcall ReleaseCell(CellResource* resource);
 extern "C" CellResource* __fastcall LoadCell(const char* filename);
@@ -200,7 +200,6 @@ struct D2PeriodLightStrc;
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 
-int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 int __fastcall sub_00472280_RollInRange(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 int __fastcall DATAARRAYS_AllocateHandle(D2WeatherStrc* pArray); // 0x006BCB40
 
@@ -211,8 +210,6 @@ struct D2WeatherLineStrc
     int nX2;
     int nY2;
 };
-int __cdecl D2GFX_CheckLowQuality(); // 0x004F5210
-void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 extern D2WeatherLineStrc gaWeatherLines[]; // 0x006D6E78
 void __fastcall sub_00473A70_DrawWeatherSplashes(D2WeatherStrc* pWeather, D2WeatherLayerStateStrc* pState); // 0x00473A70
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);
@@ -221,7 +218,6 @@ void __cdecl sub_00473470_DrawWeatherParticles(); // 0x00473470
 extern unsigned int gnDisplayFps; // 0x007BB390
 
 extern "C" double __cdecl fabs(double x);
-int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
 void __fastcall sub_00472C80_StepSplashes(int nUnused); // 0x00472C80
 void __fastcall sub_00472D10_StepBubbles(int nUnused); // 0x00472D10
@@ -247,7 +243,6 @@ extern "C" const char gszEmptyAssertText;                                       
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-int __cdecl D2GFX_GetDisplayType();                                                                                 // 0x004F5140
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
 int __fastcall sub_00472280_RollInRange(D2SeedStrc* pSeed, int nOffset, int nRange);                                 // 0x00472280
 int __fastcall DATAARRAYS_AllocateHandle(D2WeatherStrc* pArray);                                             // 0x006BCB40
@@ -263,7 +258,6 @@ static void sub_00473090_InitParticle(D2SeedStrc* pSeed);
 
 void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed);                                              // 0x004732C0
 
-int __cdecl D2GFX_GetDisplayType();                                                                                 // 0x004F5140
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
 int __fastcall sub_00472280_RollInRange(D2SeedStrc* pSeed, int nOffset, int nRange);                                 // 0x00472280
 int __fastcall DATAARRAYS_AllocateHandle(D2WeatherStrc* pArray);                                             // 0x006BCB40
@@ -288,7 +282,6 @@ void __cdecl sub_00473DC0_ToggleWeather(); // 0x00473DC0
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);          // 0x006CC468
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFileWithFileSize(const char* szFile, unsigned int* pFileSize, int nType); // 0x00478950
-int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile);                                                // 0x006019F0
 void __cdecl sub_00472610_InitWindAngle();                                                                  // 0x00472610
 
 extern "C" const char gszDataGlobalPath[];                                                                  // 0x006D4118
@@ -299,7 +292,6 @@ struct D2CelFileStrc;
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);          // 0x006CC468
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFileWithFileSize(const char* szFile, unsigned int* pFileSize, int nType); // 0x00478950
-int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile);                                                // 0x006019F0
 int __stdcall sub_004726F0_RollAct5Weather(int nArg);                                                                       // 0x004726F0
 void __cdecl sub_00472610_InitWindAngle();                                                                  // 0x00472610
 
@@ -314,11 +306,9 @@ int gaSplashFrames[4];                                                          
 int gaBubbleFrames[4];                                                                             // 0x007A892C
 float gfPhaseLevel;                                                                                // 0x007A89A0
 
-void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 
-
-typedef int (__stdcall* D2CelDrawRetFn)(D2CelContextStrc*, int, int, unsigned int, int, unsigned char*);
+typedef int (__stdcall* D2CelDrawRetFn)(D2GfxDataStrc*, int, int, unsigned int, int, unsigned char*);
 
 static inline unsigned int sub_00472400_SeedStep(D2SeedStrc* pSeed)
 {
@@ -1237,7 +1227,7 @@ void __fastcall sub_00473A70_DrawWeatherSplashes(D2WeatherStrc* pWeather, D2Weat
         break;
     }
 
-    D2CelContextStrc tGfxData = {};
+    D2GfxDataStrc tGfxData = {};
     D2WeatherSplashStrc* pRecord = pWeather->pRecords;
     for (int i = 0; i <= pWeather->nLastParticle; ++i, ++pRecord)
     {
@@ -1256,7 +1246,7 @@ void __fastcall sub_00473A70_DrawWeatherSplashes(D2WeatherStrc* pWeather, D2Weat
                 nX += nOffset;
                 if (nX >= nLeft && nX < nRight && nY >= 0 && nY < nBottom)
                 {
-                    tGfxData.pCellFile = pState->apCelFiles[pRecord->nType];
+                    tGfxData.pCelFile = pState->apCelFiles[pRecord->nType];
                     tGfxData.nFrame = pRecord->nFrame;
                     if (((D2CelDrawRetFn)&TEXTURE_CelDraw)(&tGfxData, nX, nY, -1, 3, 0))
                     {
@@ -1272,7 +1262,7 @@ void __fastcall sub_00473A70_DrawWeatherSplashes(D2WeatherStrc* pWeather, D2Weat
             const int nY = pRecord->nY;
             if (nX >= nLeft && nX < nRight && nY >= 0 && nY < nBottom)
             {
-                tGfxData.pCellFile = pState->apCelFiles[pRecord->nType];
+                tGfxData.pCelFile = pState->apCelFiles[pRecord->nType];
                 tGfxData.nFrame = pRecord->nFrame;
                 TEXTURE_CelDraw(&tGfxData, nX, nY, -1, 3, 0);
             }

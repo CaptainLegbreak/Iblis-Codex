@@ -12,6 +12,7 @@
 #include "D2CommonApi.h"
 #include "StormApi.h"
 #include "D2CommonApi2.h"
+#include "D2GfxApi.h"
 struct D2UnitStrc;
 struct D2InventoryStrc;
 struct D2BitBufferStrc;
@@ -430,7 +431,6 @@ int __cdecl GAME_IsExitPending(); // 0x0044DA30
 int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 void __cdecl INV_LoadUiRecords(); // 0x004835B0
 int __cdecl HIREABLES_AreBeltRowsShown(); // 0x004979E0
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 int __cdecl sub_0045AE90_GetPanelSlideMode(); // 0x0045AE90
 void __cdecl UI_CancelCursorItemUse(); // 0x00453EC0
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20

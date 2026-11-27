@@ -15,4 +15,23 @@ D2ModuleInterfaceStrc* __fastcall CHATDLG_GetModuleInterface(void* hInstance)
     return &gtInterface;
 }
 
-#include "gen/data/Source/D2Multi/Unknown_0043CBE0.inc"
+extern "C" const char* gData_0070CCD8[15] = { // 0x0070CCD8
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
+extern "C" int (__fastcall* gData_0070CD14[1])(D2ConfigStrc* pInfo) = { &CHATDLG_StartChat }; // 0x0070CD14
+#pragma comment(linker, "/alternatename:?gtInterface@@3UD2ModuleInterfaceStrc@@A=_gData_0070CD14")

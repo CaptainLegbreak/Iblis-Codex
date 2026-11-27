@@ -6,6 +6,11 @@
 #include "FogApi.h"
 #include "D2CommonApi2.h"
 #include "FogApi2.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
+#include "D2SoundApi.h"
+#include "D2HellApi.h"
+#include "D2MCPClientApi.h"
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -17,27 +22,8 @@ extern "C" __declspec(dllimport) void* __stdcall LoadLibraryA(const char* szLibF
 extern "C" int __cdecl fclose(_iobuf* pFile); // 0x00681FDC
 extern "C" _iobuf* __cdecl fopen(const char* szFileName, const char* szMode); // 0x0068239A
 extern "C" int __cdecl fputc(int nChar, _iobuf* pFile); // 0x00682058
-bool __fastcall sub_00516DE1_Verify(void* pContext); // 0x00516DE1
-bool __fastcall sub_00516D8B_RunSurvey(const char* szExePath); // 0x00516D8B
 void __fastcall MAINMENUS_InitStorm(int nDirectFlags, int nValue); // 0x00406870
-void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
-int __stdcall D2GFX_Release(); // 0x004F5050
-void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
-int __stdcall D2GFX_SetGamma(int nGamma); // 0x004F5230
-void __cdecl D2GFX_EnableVSync(); // 0x004F5270
-void __cdecl D2GFX_DisableFixedAspectRatio(); // 0x004F5280
-int __stdcall D2GFX_ToggleLowQuality(); // 0x004F54F0
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
-int __stdcall D2Win_InitializeSpriteCache(int bWindowed, int nResolution); // 0x004F8F10
-int __stdcall D2Win_CloseSpriteCache(); // 0x004F9030
-int __stdcall D2Win_CreateWindow(void* hInstance, int nRenderMode, int bWindowed, int bCompress); // 0x004FA520
-int __cdecl ARCHIVE_ShowInsertExpansionDiscMessage(); // 0x004FAB00
-int __cdecl ARCHIVE_ShowInsertPlayDiscMessage(); // 0x004FAB30
-int __cdecl ARCHIVE_LoadArchives(); // 0x004FAB90
-void __cdecl ARCHIVE_FreeArchives(); // 0x004FAE00
 int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
-void __cdecl D2SOUND_CloseSoundSystem(); // 0x00514060
-void __fastcall sub_00514530_InitSound(int bExpansion, int bSoundBackground); // 0x00514530
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -118,5 +104,30 @@ void __stdcall sub_00405A70_WriteSurveyLocale()
         sub_00516D8B_RunSurvey(szExe);
 }
 
+
+extern "C" void __cdecl sub_0042E590_SetOwner(); // 0x0042E590
+extern "C" void __cdecl sub_0042E5A0_Nop(); // 0x0042E5A0
+extern "C" void __cdecl CHATDLG_GetModuleInterface(); // 0x0043CBE0
+extern "C" void __cdecl sub_0043CBF0_Nop(); // 0x0043CBF0
+extern "C" void __cdecl WINMAIN_InitInterface(); // 0x0044B400
+extern "C" void __cdecl WINMAIN_ShutdownInterface(); // 0x0044B420
+
+extern "C" const char* gData_00706518[15] = { // 0x00706518
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
 
 #include "gen/data/Source/Main/Unknown_004059D0.inc"

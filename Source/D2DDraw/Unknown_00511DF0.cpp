@@ -3,16 +3,13 @@
 #include "D2CmpTypes.h"
 #include "D2Win32Base.h"
 #include "FogApi.h"
+#include "D2CMPApi.h"
 
 struct D2CelStrc;
 struct D2DDrawClipRectStrc;
 struct D2DDrawCelClipStrc;
 
 extern int gnDDrawClipLeft; // 0x0088129C
-int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
-int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
-int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
-int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 
 struct D2DDrawClipRectStrc
 {
@@ -30,12 +27,10 @@ struct D2DDrawCelClipStrc
     int nRows;
 };
 
-int __stdcall D2CMPSpriteValidate(D2CelContextStrc* pContext, int nArg2, int nArg3);
-void __stdcall CelDrawEx(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nClipTop, int nClipRows, int nArg13); // 0x00601650
+int __stdcall D2CMPSpriteValidate(D2GfxDataStrc* pContext, int nArg2, int nArg3);
 
 extern D2PaletteTableStrc* gpGfxPaletteView; // 0x007C9150
 extern int gnDDrawClipRight; // 0x008812A0
-void __stdcall CmpDoLensEffect(unsigned char* pBuffer, int nPitch); // 0x00608C00
 
 int gnDDrawClipRight; // 0x008812A0
 
@@ -121,7 +116,7 @@ static int __fastcall sub_00511E80_ClipCel(D2CelStrc* pCel, int nY, int nX, D2DD
 }
 
 // 0x00512250
-void __fastcall sub_00512250_DrawCel(D2CelContextStrc* pContext, int nX, int nY, const D2DDrawClipRectStrc* pClip, int nDrawMode)
+void __fastcall sub_00512250_DrawCel(D2GfxDataStrc* pContext, int nX, int nY, const D2DDrawClipRectStrc* pClip, int nDrawMode)
 {
     D2DDrawCelClipStrc tOut;
     tOut.nLeft = 0;
@@ -139,7 +134,7 @@ void __fastcall sub_00512250_DrawCel(D2CelContextStrc* pContext, int nX, int nY,
 // 0x00511FB0
 int __fastcall sub_00511FB0_DrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, void* pPalette)
 {
-    D2CelContextStrc* pContext = (D2CelContextStrc*)pData;
+    D2GfxDataStrc* pContext = (D2GfxDataStrc*)pData;
     if (!D2CMPSpriteValidate(pContext, 0, 1))
         return 0;
 
@@ -174,17 +169,13 @@ void __fastcall sub_005123B0_DDrawDebugFillBackBuffer(int nX, int nY)
 
 struct D2CelStrc;
 
-int __stdcall D2CMPSpriteValidate(D2CelContextStrc* pContext, int nArg2, int nArg3);
-int __stdcall CelGetWidth(D2CelStrc* pCel);                                                                 // 0x006018C0
-int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
-int __stdcall CelGetOffsetX(D2CelStrc* pCel);                                                               // 0x00601920
-int __stdcall CelGetOffsetY(D2CelStrc* pCel);                                                               // 0x00601950
+int __stdcall D2CMPSpriteValidate(D2GfxDataStrc* pContext, int nArg2, int nArg3);
 int gnDDrawClipLeft;                                                                                // 0x0088129C
 
 // 0x005120A0
 int __fastcall sub_005120A0_DrawImagePalette(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nPalette)
 {
-    D2CelContextStrc* pContext = (D2CelContextStrc*)pData;
+    D2GfxDataStrc* pContext = (D2GfxDataStrc*)pData;
     if (!D2CMPSpriteValidate(pContext, 0, 1))
         return 0;
 
@@ -212,11 +203,6 @@ int __fastcall sub_005120A0_DrawImagePalette(void* pData, int nX, int nY, unsign
 
 struct D2CelStrc;
 int __stdcall D2CMPSpriteValidate(D2CmpCelContextStrc*, int, int); // 0x006001F0
-int __stdcall CelGetWidth(D2CelStrc*); // 0x006018C0
-int __stdcall CelGetHeight(D2CelStrc*); // 0x006018F0
-int __stdcall CelGetOffsetX(D2CelStrc*); // 0x00601920
-int __stdcall CelGetOffsetY(D2CelStrc*); // 0x00601950
-void __stdcall CelDrawEx(D2CmpCelContextStrc*, int, int, int, int, unsigned char*, int, int, int, int, int, int, int); // 0x00601650
 extern int gnRenderWidth; // 0x007C9138
 extern int gnRenderHeight; // 0x007C913C
 extern unsigned char* gpScreenBuffer_007C9154; // 0x007C9154
@@ -232,11 +218,6 @@ void __fastcall sub_005121A0_DrawClipped(D2CmpCelContextStrc* context, int x, in
 
 struct D2CelStrc;
 int __stdcall D2CMPSpriteValidate(D2CmpCelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
-int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
-int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
-int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
-int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
-void __stdcall CelDrawShadow(D2CmpCelContextStrc* pContext, int nX, int nY, int nClipLeft, int nClipRight, unsigned char* pBuffer, int nHeightLimit, int nPitch, int nTable, int nColor); // 0x00601730
 extern int* gpShadowTable_007C9150; // 0x007C9150
 
 // 0x005122E0

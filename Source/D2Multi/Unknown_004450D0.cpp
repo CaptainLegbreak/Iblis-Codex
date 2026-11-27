@@ -3,10 +3,10 @@
 #include "D2MultiTypes.h"
 #include "D2StormTypes.h"
 #include "D2LangApi.h"
+#include "D2WinApi.h"
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 extern "C" unsigned int __cdecl strlen(const char* szString);
-int __stdcall CONTROL_SetFocusedEditBox(void* pEditBox);                                                                  // 0x004F91C0
 const Unicode* __fastcall sub_004FBB30_GetText(D2WinControlStrc* pControl);                                 // 0x004FBB30
 void __fastcall EDITBOX_SetText(D2WinControlStrc* pControl, const Unicode* pText);                 // 0x004FF5A0
 
@@ -86,4 +86,4 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
-#include "gen/data/Source/D2Multi/Unknown_004450D0.inc"
+int gnGameListLastSelection = -2; // 0x0070EBDC

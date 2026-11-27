@@ -11,6 +11,7 @@
 #include "D2Txt.h"
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
+#include "D2GfxApi.h"
 struct D2CharStatsTxt;
 
 struct D2GameStrc;
@@ -51,7 +52,6 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId) {
 
 void __fastcall sub_004B9A00(int,D2UnitStrc*,int,int,int); // 0x004B9A00
 
-int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0

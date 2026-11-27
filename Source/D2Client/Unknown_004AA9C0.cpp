@@ -15,6 +15,7 @@
 #include "D2LangApi.h"
 #include "StormApi.h"
 #include "D2CommonApi2.h"
+#include "D2GfxApi.h"
 struct D2SkillStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                              // 0x00681EF0
@@ -39,7 +40,6 @@ void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unico
 void* __fastcall SPELLSEL_GetSkillIconCel(D2SkillsTxt* pSkillsTxt);                                       // 0x004A8C80
 int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId);                                                 // 0x004AA8B0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                   // 0x004B9A00
-void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);         // 0x00502320
 
@@ -150,14 +150,14 @@ static int sub_004AAA50_GetSkillColumnX(unsigned char nColumn)
     return 0;
 }
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 // 0x004AAAE0
 void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage)
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = pCellFile;
+    tContext.pCelFile = pCellFile;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, gnScreenWidth - gnPanelOffsetX - 320, gnScreenHeight + gnPanelOffsetY - 224, -1, 5, 0);
@@ -376,9 +376,9 @@ void __cdecl sub_004AB530_DrawTabCel()
     }
     nX += gnScreenWidth - gnPanelOffsetX;
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = sub_00454600();
+    tContext.pCelFile = sub_00454600();
     tContext.nFrame = (gbSkillTabPressed != 0) + 10;
     tContext.nDirection = 0;
     sub_004F6480(&tContext, nX, gnScreenHeight + gnPanelOffsetY - 63, -1, 5, 0);
@@ -752,9 +752,9 @@ static void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSki
     if (!nBaseLevel && nBonus && nState != -1)
         nMode = 3;
 
-    D2CelContextStrc tCel;
+    D2GfxDataStrc tCel;
     memset(&tCel, 0, sizeof(tCel));
-    tCel.pCellFile = pCellFile;
+    tCel.pCelFile = pCellFile;
     tCel.nDirection = 0;
     tCel.nFrame = nFrame;
     TEXTURE_CelDrawColor(&tCel, nX, nY, -1, 5, nMode);

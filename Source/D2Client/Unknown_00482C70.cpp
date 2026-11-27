@@ -33,6 +33,8 @@
 
 #include <D2UnitData.h>
 #include "StormApi.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
 
 struct D2ClientInterfaceStrc;
 
@@ -87,7 +89,7 @@ struct D2ItemsTxt;
 
 struct D2AuxLevelEntryStrc;
 
-struct D2GfxDataStrc;
+struct D2UnitGfxDataStrc;
 
 
 
@@ -191,8 +193,6 @@ void __stdcall sub_004A1770(SMSGHANDLER_PARAMS* pMsg); // 0x004A1770
 
 
 void __fastcall sub_004DC2B0(void* pResource); // 0x004DC2B0
-
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
@@ -426,8 +426,6 @@ extern void* gResourceB;
 
 void __cdecl InitializePalette();
 
-void __fastcall D2GFX_DrawBox(int x, int y, int width, int height, int color, int mode); // 0x004F6300
-
 int __stdcall ReleaseResource(void* resource);
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
@@ -534,8 +532,6 @@ int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 
 
 
-void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
-
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
@@ -624,7 +620,7 @@ void __fastcall sub_0049FF90_Close(int nArg, D2ClientStateStrc* pState);        
 
 int __fastcall sub_004DF9D0_CheckCacheEntry(int nId);                                                       // 0x004DF9D0
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 
 
@@ -1126,10 +1122,6 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x
 
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC19C
 
-
-int __fastcall ARCHIVE_LoadVideoArchives(void* pfShowMessage, void* hFile, int bExpansion); // 0x004FAD10
-
-int __fastcall D2Win_10177(unsigned char nAct); // 0x004FB480
 
 
 

@@ -4697,6 +4697,16 @@ sub_00419060::sub_00419060()
     tLink.m_next = 0;
 }
 
+extern "C" char gData_006F28F8[]; // 0x006F28F8
+
+unsigned int gnReadUnit_00708348 = 131072; // 0x00708348
+
+int gnValueA_0070834C = 2; // 0x0070834C
+
+int gnValue_00708350 = 1; // 0x00708350
+
+long gnErrorLockUsers_0070841C = -1; // 0x0070841C
+
 #include "gen/data/Source/Storm/SOURCE/SFILE.inc"
 
 // build: symbol ??__EgRequestList_00708360@@YAXXZ 0x006CA7D0

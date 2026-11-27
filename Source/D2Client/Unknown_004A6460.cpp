@@ -31,6 +31,8 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi2.h"
+#include "D2GfxApi.h"
+#include "D2SoundApi.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -120,8 +122,6 @@ extern int gnPetIconPopupState; // 0x007BEECC
 
 
 
-
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 void __fastcall AUTOMAP_UnregisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
@@ -536,8 +536,6 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x00
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
-int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
-
 extern D2ScrollPosStrc gaScrollPiecePos[5]; // 0x00722EB8
 
 extern D2ScrollPosStrc gaScrollFadePos[5]; // 0x00722EE0
@@ -618,8 +616,6 @@ extern D2Record42Strc gtQuestRecord; // 0x007BF355
 extern D2SliderButtonStrc gaKeyConfigButtons[3]; // 0x007246D8
 
 
-
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 
 
@@ -740,7 +736,7 @@ void __stdcall CURSOR_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
-D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
+D2CelStrc* __stdcall CelGetHandle(D2GfxDataStrc* pContext); // 0x00601840
 
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
@@ -823,8 +819,6 @@ void __fastcall DATATBLS_CallFree(void* pMemory); // 0x00600C60
 struct D2StringSoundStrc;
 
 
-
-void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
 int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 
@@ -956,8 +950,6 @@ void __cdecl TEXT_DrawOverheadTextList(); // 0x0049DEE0
 extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
 
 void __fastcall DIALOG_DrawDialog(D2ClientDialogStrc* pDialog); // 0x004B8100
-
-int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
 
 extern D2RectStrc gtTextRect_007BF1D0; // 0x007BF1D0
 
@@ -1543,7 +1535,7 @@ bool __stdcall TEXT_IsStatButtonHidden(int nArg)
     return (bool)GAME_GetUIVarState(0xC);
 }
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 // 0x004A6A70
 void __cdecl sub_004A6A70_DrawLeftPanelButton()
@@ -1553,10 +1545,10 @@ void __cdecl sub_004A6A70_DrawLeftPanelButton()
         return;
     }
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.nDirection = 0;
-    tContext.pCellFile = gpLevelCel;
+    tContext.pCelFile = gpLevelCel;
     tContext.nFrame = 2;
     if (TEXT_IsMouseOnStatButton() && !GAME_GetUIVarState(9))
     {
@@ -1582,10 +1574,10 @@ void __cdecl TEXT_DrawStatButton()
     else
         nX = 0x28;
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.nDirection = 0;
-    tContext.pCellFile = gpLevelSocketCel;
+    tContext.pCelFile = gpLevelSocketCel;
     tContext.nFrame = 0;
     const int nCelWidth = CelGetWidth(CelGetHandle(&tContext));
     const int nTextWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF92));
@@ -1597,7 +1589,7 @@ void __cdecl TEXT_DrawStatButton()
 
     memset(&tContext, 0, sizeof(tContext));
     tContext.nDirection = 0;
-    tContext.pCellFile = gpLevelCel;
+    tContext.pCelFile = gpLevelCel;
     if (D2GFX_GetResolutionMode() != 2)
     {
         if (gbStatButtonPressed && TEXT_IsInPanelButton(nBorder, sub_00468730(), sub_00468740()))
@@ -1647,10 +1639,10 @@ void __cdecl sub_004A6DA0_DrawRightPanelButton()
         return;
     }
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.nDirection = 0;
-    tContext.pCellFile = gpLevelCel;
+    tContext.pCelFile = gpLevelCel;
     tContext.nFrame = 2;
     if (TEXT_IsMouseOnSkillButton() && !GAME_GetUIVarState(9))
     {
@@ -1676,10 +1668,10 @@ void __cdecl TEXT_DrawSkillButton()
     else
         nX = gnScreenWidth - 0x49;
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.nDirection = 0;
-    tContext.pCellFile = gpLevelSocketCel;
+    tContext.pCelFile = gpLevelSocketCel;
     tContext.nFrame = 0;
     const int nCelWidth = CelGetWidth(CelGetHandle(&tContext));
     const int nTextWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF93));
@@ -1691,7 +1683,7 @@ void __cdecl TEXT_DrawSkillButton()
 
     memset(&tContext, 0, sizeof(tContext));
     tContext.nDirection = 0;
-    tContext.pCellFile = gpLevelCel;
+    tContext.pCelFile = gpLevelCel;
     if (D2GFX_GetResolutionMode() != 2)
     {
         if (gbSkillButtonPressed && TEXT_IsInRightPanelButton(nBorder, sub_00468730(), sub_00468740()))
@@ -2357,10 +2349,10 @@ void __cdecl sub_004A7D00_DrawCharStats()
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     int nColor = 0;
     int nWidth;
-    D2CelContextStrc tCel;
+    D2GfxDataStrc tCel;
     int nHeight;
     memset(&tCel, 0, sizeof(tCel));
-    tCel.pCellFile = gpInvCharCel;
+    tCel.pCelFile = gpInvCharCel;
     tCel.nDirection = 0;
     tCel.nFrame = 0;
     TEXTURE_CelDraw(&tCel, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0xE0, -1, 5, 0);
@@ -2381,7 +2373,7 @@ void __cdecl sub_004A7D00_DrawCharStats()
 
     if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
     {
-        tCel.pCellFile = gpSkillPointsCel;
+        tCel.pCelFile = gpSkillPointsCel;
         tCel.nFrame = 0;
         TEXTURE_CelDraw(&tCel, gnPanelOffsetX + 3, gnScreenHeight + gnPanelOffsetY - 0x74, -1, 5, 0);
 
@@ -2401,12 +2393,12 @@ void __cdecl sub_004A7D00_DrawCharStats()
     {
         for (int i = 0; i < 4; ++i)
         {
-            tCel.pCellFile = gpLevelSocketCel;
+            tCel.pCelFile = gpLevelSocketCel;
             const int nX = gaStatButtons[i].nX + gnPanelOffsetX;
             const int nY = gaStatButtons[i].nY + gnPanelOffsetY + gnScreenHeight - 0x1E0;
             tCel.nFrame = 0;
             TEXTURE_CelDraw(&tCel, nX + 5, nY + 5, -1, 5, 0);
-            tCel.pCellFile = gpLevelCel;
+            tCel.pCelFile = gpLevelCel;
             tCel.nFrame = gaStatButtons[i].bActive != 0;
             TEXTURE_CelDraw(&tCel, nX + 8, nY + 1, -1, 5, 0);
         }
@@ -2458,7 +2450,7 @@ NEXT_TEXT:;
     TEXT_DrawBlockChanceHover(nMouseX, nMouseY, nPercent);
     D2Win_10127_SetFont(1);
 
-    tCel.pCellFile = GAME_GetBuySellButtonCells();
+    tCel.pCelFile = GAME_GetBuySellButtonCells();
     tCel.nFrame = (gbStatScreenButtonDown != 0) + 10;
     TEXTURE_CelDraw(&tCel, gnPanelOffsetX + 0x80, gnPanelOffsetY + gnScreenHeight - 0x3C, -1, 5, 0);
 

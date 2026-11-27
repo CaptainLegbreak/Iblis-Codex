@@ -323,4 +323,6 @@ void __fastcall sub_M103_Emit_00523420(char* szFirst, char* szSecond, D2BnHashCt
     GRID_FreeKeyStrings(szFirst, szSecond);
 }
 
-#include "gen/data/Source/D2BNClient/grid.inc"
+int gdwGlobal_00730190 = 1; // 0x00730190
+
+extern "C" unsigned char gData_00730194[4] = { 0 }; // 0x00730194

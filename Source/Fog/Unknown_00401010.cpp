@@ -305,4 +305,7 @@ void __cdecl sub_00401DD0_CleanupSymbols()
     }
 }
 
+extern "C" const char gData_006FFB94[24] = "MiniDumpWriteDump\0\0\0L\x01"; // 0x006FFB94
+#pragma comment(linker, "/alternatename:_gszMiniDumpWriteDump=_gData_006FFB94")
+
 #include "gen/data/Source/Fog/Unknown_00401010.inc"

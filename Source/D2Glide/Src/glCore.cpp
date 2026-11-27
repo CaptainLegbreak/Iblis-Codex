@@ -1320,4 +1320,57 @@ int __cdecl BNCLIENT_IsSetEmailRequested()
 // The entry points of the Glide renderer, which D2Gfx selects by video mode (gapGraphicsInterfaces).
 extern D2GraphicsInterfaceStrc gtGlideGraphicsInterface; // 0x0072F178
 
+extern "C" void __cdecl GLDEBUGFONT_DebugPrintf(); // 0x0050BC90
+extern "C" void __cdecl GLIDE_DebugDraw(); // 0x0050BEF0
+extern "C" void __cdecl GLIDE_UtilDiamond(); // 0x0050C3A0
+extern "C" void __cdecl GLIDE_UtilPoint(); // 0x0050C630
+extern "C" void __cdecl GLIDE_UtilRect(); // 0x0050C490
+extern "C" void __cdecl GLPERSPECTIVE_PerspectiveTransform(); // 0x0050DD60
+extern "C" void __cdecl GLPERSPECTIVE_ProjectToScreenScaled(); // 0x0050DE10
+extern "C" void __cdecl GLPERSPECTIVE_SetProjectOrigin(); // 0x0050DD50
+extern "C" void __cdecl GLSMACK_CloseSmacker(); // 0x0050E040
+extern "C" void __cdecl GLSMACK_DecodeSmacker(); // 0x0050E5D0
+extern "C" void __cdecl GLSMACK_PlaySmacker(); // 0x0050E7F0
+extern "C" void __cdecl GLSPRITE_CelDraw(); // 0x0050B0D0
+extern "C" void __cdecl GLSPRITE_CelDrawClipped(); // 0x0050B500
+extern "C" void __cdecl GLSPRITE_CelDrawColor(); // 0x0050B190
+extern "C" void __cdecl GLSPRITE_CelDrawEx(); // 0x0050B230
+extern "C" void __cdecl GLSPRITE_CelDrawHilight(); // 0x0050B720
+extern "C" void __cdecl GLSPRITE_CelDrawShadow(); // 0x0050B690
+extern "C" void __cdecl GLSPRITE_CelFlatSpriteDraw(); // 0x0050ACC0
+extern "C" void __cdecl GLSPRITE_DebugFillBackBuffer(); // 0x0050B7A0
+extern "C" void __cdecl sub_0050C0F0_GlideDrawBoxAlpha(); // 0x0050C0F0
+extern "C" void __cdecl sub_0050C5E0_GlideUtilFilledRect(); // 0x0050C5E0
+extern "C" void __cdecl sub_0050C680_ClearBuffer(); // 0x0050C680
+extern "C" void __cdecl sub_0050CD40_GlideShadowTileDraw(); // 0x0050CD40
+extern "C" void __cdecl sub_0050D490_GlideTileDrawTrans(); // 0x0050D490
+extern "C" void __cdecl sub_0050D4C0_GlideTileDrawLit(); // 0x0050D4C0
+extern "C" void __cdecl sub_0050D6A0_GlideDrawFloorTile(); // 0x0050D6A0
+extern "C" void __cdecl GLVERTEX_PerspectiveClearScale(); // 0x0050DF00
+
+extern "C" const char gData_006DD480[76] = "\t\tDoesn't have enough video memory (3.5 MB) to adequately run Diablo II!\n"; // 0x006DD480
+#pragma comment(linker, "/alternatename:?gszInsufficientTextureMemory@@3QBDB=_gData_006DD480")
+
+extern "C" const char* gData_0072F13C[15] = { // 0x0072F13C
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
+int gdwGlobal_0072F250 = 1; // 0x0072F250
+
+int gnGlideTmuState = -1; // 0x0072F254
+
 #include "gen/data/Source/D2Glide/Src/glCore.inc"

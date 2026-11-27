@@ -10,6 +10,8 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "FogApi.h"
+#include "D2CMPApi.h"
+#include "D2SoundApi.h"
 
 struct D2CriticalSectionStrc;
 
@@ -75,8 +77,6 @@ void __cdecl DDCORE_ReleaseSurfaces(); // 0x00511A80
 
 int __fastcall DDCORE_CreateSurface(void* hWnd, int nResolutionMode); // 0x005115E0
 
-
-int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int bAsync, int nFlags); // 0x005FDEA0
 
 extern "C" const char gszCourier[]; // 0x006DD52C
 
@@ -1047,8 +1047,6 @@ void __cdecl GLIDE_DrawVideoFrame(); // 0x0050FD10
 
 void __cdecl DDRAW_DrawVideoFrame(); // 0x005136F0
 
-void __fastcall D2SOUNDSMP_SetMasterVolume(int nVolume); // 0x00515CE0
-
 extern int gnRenderHeight; // 0x007C913C
 
 extern unsigned int gnGlideBinkY; // 0x00880C04
@@ -1426,5 +1424,35 @@ int __cdecl DDCORE_GammaCanBeControlled()
 
 // The entry points of the DirectDraw renderer, which D2Gfx selects by video mode (gapGraphicsInterfaces).
 extern D2GraphicsInterfaceStrc gtDDrawGraphicsInterface; // 0x0072F6D0
+
+extern "C" void __cdecl DDDEBUGFONT_DebugPrintf(); // 0x00512680
+extern "C" void __cdecl DDRAW_CelDrawHilight(); // 0x005123A0
+extern "C" void __cdecl DDSMACK_DecodeSmacker(); // 0x00513400
+extern "C" void __cdecl DDSMACK_PlaySmacker(); // 0x005135F0
+extern "C" void __cdecl sub_00511FB0_DrawImage(); // 0x00511FB0
+extern "C" void __cdecl sub_005120A0_DrawImagePalette(); // 0x005120A0
+extern "C" void __cdecl sub_005121A0_DrawClipped(); // 0x005121A0
+extern "C" void __cdecl sub_00512250_DrawCel(); // 0x00512250
+extern "C" void __cdecl sub_005122E0_DrawShadow(); // 0x005122E0
+extern "C" void __cdecl sub_005123B0_DDrawDebugFillBackBuffer(); // 0x005123B0
+extern "C" void __cdecl sub_00512930_DDrawDrawLine(); // 0x00512930
+extern "C" void __cdecl sub_00512C20_DrawDiamond(); // 0x00512C20
+extern "C" void __cdecl sub_00512CE0_DrawRect(); // 0x00512CE0
+extern "C" void __cdecl sub_00512F90_DrawWallTile(); // 0x00512F90
+extern "C" void __cdecl sub_005130A0_DrawLitTile(); // 0x005130A0
+extern "C" void __cdecl sub_005131B0_DrawTile(); // 0x005131B0
+extern "C" void __cdecl GLVERTEX_CelFlatSpriteDraw(); // 0x00512410
+
+int gaDDrawModeWidth[4] = { 640, 800, 800, 0 }; // 0x0072F7A8
+
+int gaDDrawModeHeight[4] = { 480, 600, 600, 0 }; // 0x0072F7B8
+
+int gnDDrawGammaScale = 100; // 0x0072F7C8
+
+int gnDDrawGamma = 100; // 0x0072F7CC
+
+int gaDDrawCapsTypes[8] = { 2, 2, 2, 1, 1, 0, 1, 0 }; // 0x0072F7D0
+
+unsigned long gdwDDrawDebugFontTextColor = 0xFFFFFF; // 0x0072F7F0
 
 #include "gen/data/Source/D2DDraw/Src/ddCore.inc"

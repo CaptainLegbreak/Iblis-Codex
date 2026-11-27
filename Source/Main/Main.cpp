@@ -6,6 +6,10 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);
 #include "StormApi.h"
 #include "FogApi.h"
 #include "FogApi2.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
+#include "D2SoundApi.h"
+#include "D2MCPClientApi.h"
 
 struct D2ConfigStrc;
 
@@ -69,24 +73,7 @@ void __stdcall D2ServerServiceHandlerProc(unsigned long dwCtrlCode); // 0x004064
 
 typedef int BOOL;
 void __fastcall MAINMENUS_InitStorm(int nDirectFlags, int nValue); // 0x00406870
-void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
-int __stdcall D2GFX_Release(); // 0x004F5050
-void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
-int __stdcall D2GFX_SetGamma(int nGamma); // 0x004F5230
-void __cdecl D2GFX_EnableVSync(); // 0x004F5270
-void __cdecl D2GFX_DisableFixedAspectRatio(); // 0x004F5280
-int __stdcall D2GFX_ToggleLowQuality(); // 0x004F54F0
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
-int __stdcall D2Win_InitializeSpriteCache(int bWindowed, int nResolution); // 0x004F8F10
-int __stdcall D2Win_CloseSpriteCache(); // 0x004F9030
-int __stdcall D2Win_CreateWindow(void* hInstance, int nRenderMode, int bWindowed, int bCompress); // 0x004FA520
-int __cdecl ARCHIVE_ShowInsertExpansionDiscMessage(); // 0x004FAB00
-int __cdecl ARCHIVE_ShowInsertPlayDiscMessage(); // 0x004FAB30
-int __cdecl ARCHIVE_LoadArchives(); // 0x004FAB90
-void __cdecl ARCHIVE_FreeArchives(); // 0x004FAE00
 int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
-void __cdecl D2SOUND_CloseSoundSystem(); // 0x00514060
-void __fastcall sub_00514530_InitSound(int bExpansion, int bSoundBackground); // 0x00514530
 void __cdecl IGNORELIST_FreeIgnoreList(); // 0x0060DDB0
 int gnMode; // 0x0074C704
 int gbUseKeyhook; // 0x0074C708
@@ -555,4 +542,28 @@ extern "C" int __stdcall WinMain(void* hInstance, void* hPrevInstance, char* lpC
     return 0;
 }
 
-#include "gen/data/Source/Main/Main.inc"
+extern "C" const char* gData_00706584[15] = { // 0x00706584
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
+int gbD2ServerStopEvent = 1; // 0x007065C0
+
+extern const char* gaszModuleTypes_007065C4[6] = { "modstate0", "client", "server", "multiplayer", "launcher", "expand" }; // 0x007065C4
+
+char gszServiceName[32] = "DIABLO2SRV\0\0Diablo II Server"; // 0x007065DC
+
+D2ServiceStatusStrc gD2ServerServiceStatus = { 16, 4, 5, 0, 0, 0, 0 }; // 0x007065FC

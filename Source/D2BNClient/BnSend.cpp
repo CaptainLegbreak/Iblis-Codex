@@ -29,6 +29,8 @@
 #include "StormApi.h"
 #include "FogApi2.h"
 #include "StormApi2.h"
+#include "D2WinApi.h"
+#include "D2NetApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -252,8 +254,6 @@ void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-unsigned char __stdcall PALETTE_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern D2WheelCallbackFn gpfnWheelUp; // 0x007A7404
@@ -385,11 +385,7 @@ void __cdecl sub_00521B50_ReseedLogin(); // 0x00521B50
 
 int __fastcall BNSEND_SendAccountChange(const char* szAccountName, const char* szOldPassword, const char* szNewPassword); // 0x005221F0
 
-void __fastcall CLIENT_ReadPacketFromBuffer(D2PacketBufferStrc* pBuffer, int nBufferSize); // 0x0052AEB0
-
 int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
-
-int __fastcall SERVER_GetClientPacketSize(D2PacketBufferStrc* pBuffer, unsigned int nBufferSize, int* pSize); // 0x0052BC20
 
 int __fastcall QSERVER_CheckClientMask(void* pServer, int nClientId); // 0x006BF6C0
 
@@ -2889,5 +2885,164 @@ int D2BigPairStrc::sub_00528890_CompareServerProof(const D2BigLoginRecordStrc* p
     pState->sub_00528480_HashThreeBlocks(pRecord->abPublic, pRecord->abProof, pRecord->abKey, abProof);
     return memcmp(abProof, pServerProof, sizeof(abProof)) == 0;
 }
+
+extern "C" void __cdecl BNDOWNLOAD_HandleChatEvent(); // 0x00520660
+extern "C" void __cdecl BNDOWNLOAD_HandleCreateAccount(); // 0x00520C50
+extern "C" void __cdecl BNDOWNLOAD_HandleCreateAccountEx(); // 0x00520C60
+extern "C" void __cdecl BNDOWNLOAD_HandleChangePassword(); // 0x00520C80
+extern "C" void __cdecl BNDOWNLOAD_HandleClientId(); // 0x00520CB0
+extern "C" void __cdecl BNDOWNLOAD_HandleLogonChallenge(); // 0x00520D50
+extern "C" void __cdecl BNDOWNLOAD_HandleStartAdvex(); // 0x00520D60
+extern "C" void __cdecl BNDOWNLOAD_HandleLogonChallengeEx(); // 0x00520D70
+extern "C" void __cdecl BNDOWNLOAD_HandleLogonResponse(); // 0x00520DA0
+extern "C" void __cdecl BNDOWNLOAD_HandleStatus(); // 0x00520DC0
+extern "C" void __cdecl sub_00520E50(); // 0x00520E50
+extern "C" void __cdecl BNDOWNLOAD_HandleStartVersioning(); // 0x00520F60
+extern "C" void __cdecl BNDOWNLOAD_HandlePing(); // 0x00520FC0
+extern "C" void __cdecl BNDOWNLOAD_HandleCdKeyReply(); // 0x00520FE0
+extern "C" void __cdecl BNDOWNLOAD_HandleServerList(); // 0x005210A0
+extern "C" void __cdecl BNDOWNLOAD_HandleGetChannelList(); // 0x005210C0
+extern "C" void __cdecl BNDOWNLOAD_HandleGetAdvListEx(); // 0x005210D0
+extern "C" void __cdecl BNDOWNLOAD_HandleEnterChat(); // 0x005210F0
+extern "C" void __cdecl BNDOWNLOAD_HandleGetFileTime(); // 0x00521110
+extern "C" void __cdecl BNDOWNLOAD_HandleCheckAd(); // 0x00521150
+extern "C" void __cdecl BNDOWNLOAD_HandleQueryRealms(); // 0x005211D0
+extern "C" void __cdecl BNDOWNLOAD_HandleQueryAdUrl(); // 0x005211E0
+extern "C" void __cdecl BNDOWNLOAD_HandleLogonRealmEx(); // 0x005211F0
+extern "C" void __cdecl BNDOWNLOAD_HandleReadUserData(); // 0x00521200
+extern "C" void __cdecl BNDOWNLOAD_HandleNewsInfo(); // 0x00521210
+extern "C" void __cdecl BNDOWNLOAD_HandleAuthInfo(); // 0x00521220
+extern "C" void __cdecl BNDOWNLOAD_HandleAuthCheck(); // 0x005212D0
+extern "C" void __cdecl BNDOWNLOAD_HandleAuthAccountCreate(); // 0x005215B0
+extern "C" void __cdecl BNDOWNLOAD_HandleAuthAccountLogon(); // 0x005216B0
+extern "C" void __cdecl BNDOWNLOAD_HandleAuthAccountLogonProof(); // 0x00521760
+extern "C" void __cdecl BNDOWNLOAD_HandleAuthAccountChange(); // 0x00521800
+extern "C" void __cdecl BNDOWNLOAD_HandleAuthAccountChangeProof(); // 0x005218A0
+extern "C" void __cdecl BNDOWNLOAD_HandleAuthAccountUpgrade(); // 0x00521950
+extern "C" void __cdecl BNDOWNLOAD_HandleAuthAccountUpgradeProof(); // 0x005219B0
+extern "C" void __cdecl BNDOWNLOAD_HandleSetEmail(); // 0x00521AB0
+extern "C" void __cdecl BNDOWNLOAD_HandleOptionalWork(); // 0x00521AC0
+extern "C" void __cdecl BNDOWNLOAD_HandleRequiredWork(); // 0x00521AE0
+extern "C" void __cdecl sub_00520C40_AlwaysOne(); // 0x00520C40
+extern "C" void __cdecl sub_005210E0_AlwaysOne(); // 0x005210E0
+
+extern "C" const char gData_006DEF80[4] = ""; // 0x006DEF80
+#pragma comment(linker, "/alternatename:_szEmpty_006DEF80=_gData_006DEF80")
+#pragma comment(linker, "/alternatename:_gabSha1Pad00=_gData_006DEF80")
+
+D2BnPacketHandler gapfnPacketHandlers[94] = { // 0x0072FFB0
+    (D2BnPacketHandler)&sub_00520C40_AlwaysOne,
+    0,
+    0,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleServerList,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleClientId,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleStartVersioning,
+    (D2BnPacketHandler)&sub_00520E50,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleGetAdvListEx,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleEnterChat,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleGetChannelList,
+    0,
+    0,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleChatEvent,
+    0,
+    0,
+    0,
+    0,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleCheckAd,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleStartAdvex,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleLogonChallengeEx,
+    0,
+    0,
+    (D2BnPacketHandler)&sub_005210E0_AlwaysOne,
+    0,
+    0,
+    0,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandlePing,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleReadUserData,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleLogonChallenge,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleLogonResponse,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleCreateAccount,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleChangePassword,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleGetFileTime,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleStatus,
+    0,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleCreateAccountEx,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleLogonRealmEx,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleQueryRealms,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleQueryAdUrl,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleCdKeyReply,
+    0,
+    0,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleNewsInfo,
+    0,
+    0,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleOptionalWork,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleRequiredWork,
+    0,
+    0,
+    0,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleAuthInfo,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleAuthCheck,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleAuthAccountCreate,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleAuthAccountLogon,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleAuthAccountLogonProof,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleAuthAccountChange,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleAuthAccountChangeProof,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleAuthAccountUpgrade,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleAuthAccountUpgradeProof,
+    (D2BnPacketHandler)&BNDOWNLOAD_HandleSetEmail,
+    0,
+    0,
+    0,
+    0
+};
+
+extern "C" const char* gData_00730128[15] = { // 0x00730128
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
 
 #include "gen/data/Source/D2BNClient/BnSend.inc"

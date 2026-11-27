@@ -18,6 +18,7 @@
 #include "D2LangApi.h"
 #include "StormApi.h"
 #include "D2CommonApi2.h"
+#include "D2GfxApi.h"
 
 struct D2SkillStrc;
 
@@ -141,8 +142,6 @@ int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 
-
-void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nPaletteShift); // 0x004F64B0
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
@@ -1015,8 +1014,8 @@ void __fastcall SPELLSEL_DrawSkillInfoBase(void* cell,D2SkillsTxt* skills,int ow
   else if(state==1)drawState=1;
   else drawState=state==4?4:1;
  } else drawState=state;
- D2CelContextStrc ctx;memset(&ctx,0,sizeof(ctx));
- ctx.pCellFile=cell;ctx.nDirection=0;ctx.nFrame=frame;
+ D2GfxDataStrc ctx;memset(&ctx,0,sizeof(ctx));
+ ctx.pCelFile=cell;ctx.nDirection=0;ctx.nFrame=frame;
  TEXTURE_CelDrawColor(&ctx,x,y,-1,5,drawState);
  if(left)SPELLSEL_DrawSkillHotkeyLabels(skills,owner,x,y);
  else SPELLSEL_DrawHotkeyLabelsB(skills,owner,x,y); // 0x004A9300
@@ -1077,9 +1076,9 @@ void __fastcall SPELLSEL_DrawSkillSlot(D2SkillsTxt* skills,int owner,int charges
    else drawState=state==4?4:1;
   } else drawState=state;
  } else {drawY=y;drawState=state;}
- D2CelContextStrc ctx;
+ D2GfxDataStrc ctx;
  memset(&ctx,0,sizeof(ctx));
- ctx.pCellFile=cell;ctx.nDirection=0;ctx.nFrame=frame;
+ ctx.pCelFile=cell;ctx.nDirection=0;ctx.nFrame=frame;
  TEXTURE_CelDrawColor(&ctx,x,drawY,-1,5,drawState);
  if(left) {
   SPELLSEL_DrawSkillHotkeyLabels(skills,owner,x,drawY);
