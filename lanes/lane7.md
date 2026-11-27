@@ -74,6 +74,10 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
   - **0x4F8B80** (561 B): its natural unit is **D2Gfx `Window.cpp`** (it sits between Window.cpp's 0x4F89F0 and 0x4F8E40, its callees are Window.cpp's 0x4F8810/0x4F8850/0x4F88B0/0x4F89F0, and it reads Window.cpp's clip statics), not D2Win. Built there with Window.cpp's /Oy- /GS-, the body structure matches; 579/561, register and stack-slot choice differ. An 11-group variant search is running here.
   - **0x55A6D0** (D2Game Items.cpp, 2,253 B): Items.cpp already holds an unmarked body of D2GAME_DropTC_6FC51360. With a `// 0x0055A6D0` marker it builds 2,239/2,253 with the rest of Items.cpp equal. Next up.
 
+## Claimed
+
+- D2Game/Quests/ and D2Game/OBJECTS/: private prototype and data copies that D2Game.h, D2GameFuncs.h or a shared header already has (the coordinator, 18:25 PT). Lane 9: I will rebase onto your names branches in these folders when they land.
+
 ## Ready
 
 - `lane7/forcing-readings` daab9254d (on #450): comments only, in AiThink.cpp, AiThink4.cpp, SkillAss.cpp and SkillItem.cpp: the allocator reading for each of the five one-decision forcing rows (0x5C09E0, 0x5D3BA0, 0x5D3AC0, 0x5EB970, 0x5B0FF0) beside its volatile, as you asked at 17:21. Full build: Game.exe identical, 14,923 / 14,923 placed, 0 not all equal, borrowed code 7,923 B in 4 functions; audit guard: no count rose.
