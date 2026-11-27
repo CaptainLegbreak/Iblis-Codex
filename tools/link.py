@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Link the sources into an ordinary Game.exe.
 
-  python tools/link.py [--out DIR] [-j N] [--no-compile]
+  python tools/link.py [--out DIR] [-j N] [--no-compile] [--strict[=MODULE,...]]
 
 This is the second build. tools/build.py places every function at its original address and proves that the result is
 byte-identical with the original. This one links the same objects as an ordinary program: the linker lays out code
@@ -27,6 +27,9 @@ and data itself, nothing is placed at an original address, and the image is relo
 
 The result is not byte-identical with the original (its layout is the linker's own) and is not meant to be.
 Do not run it: it is a build check. Settings come from local.json (tools/setup.py).
+
+--strict stops before linking, with exit code 1, if any reference of the sources (of the modules named, with
+--strict=D2Net,Storm) has to be bound by address in step 3 (tools/linkdebt.py lists them).
 """
 import os, re, sys, json, glob, struct, bisect, shutil, subprocess, collections
 
@@ -491,6 +494,7 @@ class Link(object):
         pending += [p for p in own if p[3] in absorbed]
         self.patch = collections.defaultdict(dict)    # k -> scn -> {offset: new addend}
         self.gen_reach = dict(self.gen_reach_pre); self.layout_refs = []
+        self.bound_at = {}                            # (k, scn, n) -> the address a retargeted reference means
         for k, scn, n, S in pending:
             u = self.units[k]; r = u.o.relocs(scn)[n]; y = r["sym"]
             add = struct.unpack_from("<i", u.sec(scn)["raw"], r["offset"])[0] if r["offset"] + 4 <= len(u.sec(scn)["raw"]) else 0
@@ -508,6 +512,7 @@ class Link(object):
             if b == self.final_name(u, y) and not (y["scn"] > 0 and not self.is_home(u, y, u.addr.get(y["idx"]))):
                 continue
             self.retarget[k][(scn, n)] = b
+            self.bound_at[(k, scn, n)] = S
         self.problems["relocations_bound_by_address"] = sum(len(v) for v in self.retarget.values())
         self.drop_unreferenced_code()
         self.generate_data()
@@ -543,6 +548,7 @@ class Link(object):
             lo = self.pe.image_base + s["va"]
             init_end[lo] = (lo + min(s["rawsize"], max(s["vsize"], 1)), lo + max(s["vsize"], s["rawsize"]))
         absorbed = set()
+        self.clusters = []                            # (lo, hi, members, {address: (unit, symbol index)} of its globals)
         for lo, hi, members in groups:
             homes = sorted(a for a in members if a in self.dhome)
             if not homes or (len(members) == 1 and hi == homes[0] + self.dext[homes[0]] and lo == homes[0]):
@@ -550,6 +556,7 @@ class Link(object):
             sec = next(((a, b) for s0, (a, b) in init_end.items() if s0 <= lo < b), None)
             if sec is None or (lo < sec[0] < hi):
                 self.note("data_cluster_crosses_sections", "0x%08X-0x%08X" % (lo, hi)); continue
+            self.clusters.append((lo, hi, sorted(members), {a: self.dhome[a] for a in homes}))
             for a in homes:
                 absorbed.add(a)
                 self.gen_label(a, "data")
@@ -1127,6 +1134,21 @@ def check_image_file(path, linked_map, import_list, s, log):
     return ok, rep
 
 
+def analyse(s, out, lo, standins, log=print):
+    """The link plan for the objects of <out> (compiled by tools/build.py --compile-only): one definition per address,
+    the final names and every reference bound by address. Nothing is written."""
+    K = Link(s, lo, log=log)
+    K.drop = out
+    K.load(out, standins)
+    K.libcmt_names()
+    K.setup_imports()
+    K.choose_functions()
+    K.choose_data()
+    K.plan_names()
+    K.plan()
+    return K
+
+
 def main():
     a = sys.argv[1:]
     if "-h" in a or "--help" in a:
@@ -1146,15 +1168,12 @@ def main():
             die("compiling the units failed")
     standins = compile_standins(s, lo)
     linker = s.get("link") or os.path.join(os.path.dirname(s["cl"]), "link.exe"); runner = s.get("runner", "wine")
-    K = Link(s, lo)
-    K.drop = out
-    K.load(out, standins)
-    K.libcmt_names()
-    K.setup_imports()
-    K.choose_functions()
-    K.choose_data()
-    K.plan_names()
-    K.plan()
+    K = analyse(s, out, lo, standins)
+    strict = next((x for x in a if x == "--strict" or x.startswith("--strict=")), None)
+    if strict is not None:
+        import linkdebt
+        if not linkdebt.strict_check(K, lo, strict[len("--strict="):].split(",") if "=" in strict else None):
+            return 1
     objs = K.write_objects()
     gen = [K.write_generated()]
     res = K.resources()
