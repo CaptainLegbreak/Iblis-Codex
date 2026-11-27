@@ -61,6 +61,12 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/names-renderers-verbs a20ec6c3 (on #470): renderers and D2Hell: ten placeholder functions take sub_<VA>_<Verb>
+  names from their bodies (D2Direct3D GetModeFlag, InitBufferPools, Nop, CreateGridVertexBuffer, and d3dCore.cpp's
+  call spelling of 0x6BA420 follows names.csv's sub_006BA420_Init; D2Gdi GetBufferBitmap, GetTileDrawFunctions;
+  D2Glide Return14; D2Hell VerifyFileTrust (WinVerifyTrust on a path), TrimTrailingBackslash). Source, units.json,
+  functions.json, data_plan.json, names.csv. auditguard no count rose; merges cleanly onto #470 and with -tail, -net,
+  -druid. Full build: Game.exe identical, tree 7a5486991a04d373dc314b9ff73a520842622542, borrowed code / data 0 / 261 B.
 - lane9/params-d2game-druid cab10496 (on #469): SkillDruid.cpp: SKILLS_CreateSubMissilesInline's a7 (set: the first
   missile goes out at the caster's offset) becomes bFirstAtOffset. auditguard no count rose; merges cleanly onto #470 and
   with -tail, -net. Full build: Game.exe identical, tree a9cd4edc262c71251028035deeeb1954eddfdb2b, borrowed code / data
