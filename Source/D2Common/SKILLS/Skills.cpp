@@ -104,12 +104,6 @@ struct D2MonStatsTxt;
 
 struct D2MonStats2Txt;
 
-struct D2SkillsTxt00643D00Strc;
-
-struct D2Skill00643D00Strc;
-
-struct D2Owner00643D00Strc;
-
 
 
 struct D2StatesTxt;
@@ -204,24 +198,6 @@ D2SkillStrc* __stdcall UNITS_GetStartSkill(D2UnitStrc* pUnit); // 0x00620150
 
 
 int __stdcall SKILLS_GetRequiredLevelBasedOnCurrent(D2UnitStrc* pUnit, int nSkillId); // 0x00644750
-
-struct D2SkillsTxt00643D00Strc
-{
-    short nSkillId;
-    unsigned char unk_02[0x11];
-    unsigned char nValue13;
-};
-
-struct D2Skill00643D00Strc
-{
-    D2SkillsTxt00643D00Strc* pSkillsTxt;
-};
-
-struct D2Owner00643D00Strc
-{
-    int bMonster;
-    int nMonsterId;
-};
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
@@ -1087,24 +1063,24 @@ int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile
 }
 
 // 0x00643D00
-int __fastcall SKILLS_GetSeqNumFromSkill(D2Owner00643D00Strc* pOwner, D2Skill00643D00Strc* pSkill)
+int __fastcall SKILLS_GetSeqNumFromSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
-    if (!pOwner || !pSkill)
+    if (!pUnit || !pSkill)
     {
         return 0;
     }
-    const int bMonster = pOwner ? pOwner->bMonster : 6;
-    const int nMonsterId = pOwner->nMonsterId;
-    if (!bMonster)
+    const int nUnitType = GAME_GetUnitTypeOrInvalid(pUnit);
+    const int nClassId = pUnit->dwClassId;
+    if (!nUnitType)
     {
-        return pSkill->pSkillsTxt->nValue13;
+        return pSkill->pSkillsTxt->nSeqNum;
     }
     const int nSkillId = pSkill->pSkillsTxt->nSkillId;
     if (nSkillId == SKILL_DIABPRISON)
     {
         return 0;
     }
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nMonsterId);
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nClassId);
     for (int i = 0; i < 8; ++i)
     {
         if (pMonStatsTxtRecord->nSkill[i] == nSkillId)
