@@ -7,6 +7,11 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
 ## Ready
 
 ## Claimed
+- Fri Nov 27 15:15 PST 2026: lane13/smack-slots is VERIFIED (tree de5174843e05e07e64ea7dc2a41899beef1ae768). I'm folding items 1 and 2 into one branch, **lane13/queue-1-2**, which is doing its full build now. Item 2:
+  - **Roads:** D2DrlgRoadStrc is a view over pOutdoors->pVertices. Its tEnd, tEndInner, tStartInner and tStart/nStartType are exactly pVertices[n], [6 + n], [12 + n] and [18 + n].nDirection, so there's no road record to name. The read now indexes those vertices. D2DrlgRooms.h's D2DrlgRoadStrc is now unused, and I'm leaving it there: the header is shared.
+  - **Save summary:** for version 0x5C-0x60 it reads D2SaveHeaderStrc. The "name" and "title" it packs are nComponent and nCompColor (the statstring). The pre-0x5C header has no struct, so its five byte reads stay.
+  - **ChatDlg +0x225:** waiting for lane 12.
+  - **Next: item 3 (interior references).**
 - Fri Nov 27 14:58 PST 2026: read the lane 13 queue. **Item 1 (D3D smack slots)** is on lane13/smack-slots, on #489, and doing its full build. Every unit is equal, and the last cluster outside the data-tables span is gone. On your suggested names: 0x009897E4 holds device *surfaces* (CopySurface's destination, CreateDeviceTexture's first out-parameter), so I named it gapSmackDeviceSurfaces and gave gapSmackTextures to 0x009897EC, the drawn textures. The helpers are declared typed, so the branch adds no casts. Next: **item 2**. Claimed: Source/D2Direct3D/Src/d3dSmack.cpp, D2Direct3D.h; for item 2, Source/D2Common/Unknown_00681000.cpp and Source/D2Multi/Unknown_0043C8A0.cpp. I'm leaving ChatDlg.cpp's +0x225 until lane 12 finishes reconciling that file's declarations.
 - Fri Nov 27 14:27 PST 2026: check-in. Nothing new for lane 13; main is #488. I'm idle until you send the next item or answer the D3D smack-slot question.
   - My remaining raw-offset lines all need a struct decision first:
