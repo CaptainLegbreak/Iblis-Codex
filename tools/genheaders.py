@@ -296,6 +296,8 @@ def main():
     ap.add_argument('--apply', action='store_true')
     ap.add_argument('--units-out')
     ap.add_argument('--report')
+    ap.add_argument('--includes', action='store_true',
+                    help='let the export header include the shared headers that define the typedefs it needs')
     ap.add_argument('--plan', help='write the symbols taken, with their units and headers, as JSON')
     a = ap.parse_args()
 
@@ -392,6 +394,8 @@ def main():
         if prob:
             report.append((va, name, nunits, prob)); continue
         text = ('extern "C" ' if c else '') + ('extern ' if kind == 'data' else '') + decl + ';'
+        if inc and not a.includes:
+            report.append((va, name, nunits, 'needs %s (use --includes)' % ', '.join(sorted(inc)))); continue
         if inc and any(not h.startswith('Source/Include/') for h, _ in hfix):
             report.append((va, name, nunits, 'needs %s in %s' % (', '.join(sorted(inc)), ', '.join(sorted({h for h, _ in hfix if not h.startswith('Source/Include/')}))))); continue
         target = None
