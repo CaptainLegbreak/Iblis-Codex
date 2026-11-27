@@ -21,6 +21,9 @@
 #include "D2LangApi.h"
 #include "FogApi.h"
 #include "D2CommonApi2.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
+#include "D2MCPClientApi.h"
 
 static long BNDOWNLOAD_GetTime(long* pTime);
 
@@ -72,15 +75,11 @@ extern int gdwGlobal_0070CC08; // 0x0070CC08
 
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 
-void __fastcall CONTROL_SetVisible(D2WinControlStrc* pControl, int bSet); // 0x004F9740
-
 int __fastcall MAINMENUS_ShowOptionDescription(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
 
 void __fastcall CHARSEL_JoinSelectedWithDifficulty(SMSGHANDLER_PARAMS* pMsg, int nMode); // 0x00439AF0
 
 void __fastcall sub_004FC660_SetValue(D2WinControlStrc* pControl, int nValue); // 0x004FC660
-
-int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 
 int __cdecl sub_0042F6D0_GetMenusDone(); // 0x0042F6D0
 
@@ -129,8 +128,6 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 void __cdecl CHATDLG_FillGameList(); // 0x00444E70
 
-void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
-
 void __cdecl RECORD_WriteRecordFile(); // 0x00451620
 
 extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId); // 0x00452040
@@ -170,8 +167,6 @@ void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
 void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 
 void __fastcall ITEM_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp); // 0x004C0EC0
-
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 
 
@@ -248,15 +243,7 @@ int __cdecl CHARSEL_InitRealmScreen();                                          
 void __fastcall CHARSEL_UseName(char* szName);                                                         // 0x0043ADB0
 
 
-void __fastcall TEXTBOX_SetSmallGap(int nFont);                                                                    // 0x004FB590
-
-int __fastcall D2Win_10191(D2WinTextBoxStrc* pTextBox, int nMaxSteps);                                      // 0x004FC5E0
-
-int __fastcall D2Win_10194(D2WinTextBoxStrc* pTextBox, D2WinTextBoxStrc* pLinkedTextBox);                   // 0x004FC6A0
-
 int __fastcall D2Win_10195(D2WinTextBoxStrc* pTextBox, void(__stdcall* pfScrollCallback)(SMSGHANDLER_PARAMS*)); // 0x004FC6E0
-
-void __fastcall BUTTON_SetStringId(D2WinButtonStrc* pButton, int nStringId);                                // 0x00500BF0
 
 D2WinControlStrc* gpControl_007799F8;                                                                       // 0x007799F8
 
@@ -415,17 +402,7 @@ void __fastcall MAINMENUS_ShowMessage(const Unicode* pText, D2LaunchDoneFn pfnDo
 
 void __cdecl CHARSEL_UpdateButtons();                                                                                // 0x0043A730
 
-void __stdcall sub_00449E50_SetValue(int nValue);                                                                    // 0x00449E50
-
-void __fastcall WINMAIN_SendMcpCharDelete(const char* szName, unsigned short nArg);                                      // 0x0044A7A0
-
-void __fastcall WINMAIN_SendMcpCharUpgrade(const char* szName);                                                           // 0x0044A810
-
-void __cdecl VIEW_SendMcpCancelGameCreate();                                                                                // 0x0044AA80
-
 int __stdcall CONTROL_SetFocusedEditBox(void* pEditBox);                                                                  // 0x004F91C0
-
-int __stdcall CONTROL_SetCellFile(D2WinControlStrc* pControl, D2CelFileStrc* pCellFile);                          // 0x004F91A0
 
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback);                                          // 0x004FA590
 
@@ -437,10 +414,6 @@ int __fastcall sub_004FB990_GetSelection(D2WinControlStrc* pControl);           
 int __stdcall IMAGE_SetCoordinates(D2WinControlStrc* pControl, int nColor, int nValue);                    // 0x004FD0B0
 
 int __stdcall ANIMIMAGE_SetIsRunning(D2WinControlStrc* pControl, int nArg);                                           // 0x00500810
-
-int __stdcall D2Win_10125();                                                                                // 0x00501A40
-
-int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
 int __stdcall SetCurGateway(D2FuncRecordStrc* pRecord, int nIndex);                                          // 0x00518150
 
@@ -557,12 +530,6 @@ void __cdecl CHARSEL_UpdateStatus(); // 0x0043A270
 
 D2CompositeUnitStrc* __stdcall sub_005066C0_CreateComposite(int nSel, int nMode, unsigned char* pFlags, unsigned char* pColors);
 
-void __stdcall D2Win_10149(D2CompositeUnitStrc* pCompositeUnit, unsigned char nValue);                     // 0x005051A0
-
-void __stdcall D2Win_10151(D2CompositeUnitStrc* pCompositeUnit, int nFrame);                               // 0x00505260
-
-int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode);                                // 0x005042F0
-
 
 char* gpszName; // 0x00779DB0
 
@@ -632,10 +599,6 @@ void __cdecl CHARSEL_CreateCharListControls(); // 0x0043A800
 
 void __cdecl CHARSEL_FreeCharList(); // 0x00438EA0
 
-int __fastcall D2Win_10047(D2WinTextBoxStrc* pTextBox); // 0x004FB6A0
-
-void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int nColor); // 0x004FCFF0
-
 void __cdecl CHARSEL_ShowMessage(); // 0x0043A5D0
 
 void __cdecl sub_00438F70();
@@ -661,15 +624,7 @@ public:
 
 void __cdecl CHARSEL_InitCharList(); // 0x0043AE30
 
-int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
-
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
-
-void __fastcall TIMER_DisableSpaceKey(D2WinTimerStrc* pTimer); // 0x004FD830
-
-void __fastcall TIMER_SetRepeating(D2WinTimerStrc* pTimer); // 0x004FDA50
-
-void __fastcall BUTTON_SetCoordinates(D2WinButtonStrc* pButton, int nX, int nY, int nWidth, int nHeight); // 0x00500A70
 
 extern D2CelFileStrc* gpCharSelectBckgCelFile; // 0x00779768
 
@@ -686,10 +641,6 @@ void __cdecl sub_00518C20_DeleteQueueLock(); // 0x00518C20
 
 
 
-
-int __fastcall D2Win_10192(D2WinTextBoxStrc* ptTextData); // 0x004FC620
-
-int __fastcall D2Win_10193(D2WinTextBoxStrc* ptTextData, int nCurrentStep); // 0x004FC660
 
 D2WinControlStrc* gpControl_00779D98; // 0x00779D98
 
@@ -731,8 +682,6 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
 int __fastcall sub_004FBD20_GetLastRow(D2WinControlStrc* pControl); // 0x004FBD20
-
-int __fastcall D2Win_10057(D2WinControlStrc* pControl, const char* szText, int nLineNum, int nColumn); // 0x004FCD40
 
 void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine); // 0x004FB9D0
 
@@ -842,14 +791,6 @@ extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
 
 
-void __stdcall D2Win_10152(D2CompositeUnitStrc* pCompositeUnit, int nX);                              // 0x005052B0
-
-void __stdcall D2Win_10153(D2CompositeUnitStrc* pCompositeUnit, int nY);                              // 0x005052F0
-
-void __stdcall D2Win_10156(D2CompositeUnitStrc* pCompositeUnit, int nFlags);                                // 0x00505360
-
-const char* __stdcall D2Win_10161(int nA, int nB, int nC, int nD);                                         // 0x005068A0
-
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 
@@ -875,8 +816,6 @@ extern int gnGlobal_00779DC4;                                                   
 extern "C" const char gszCharSelFile[];                                                            // 0x006D4DBC
 
 extern int gdwGlobal_00779DA4;                                                                              // 0x00779DA4
-
-D2CompositeUnitStrc* __stdcall D2COMP_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors); // 0x005066C0
 
 unsigned short __stdcall FOG_Decode14BitsFromString(const unsigned char* pData);                           // 0x006BBF20
 
@@ -949,10 +888,6 @@ void __cdecl CHARSEL_CreateCharInfoControls(); // 0x00437BF0
 
 void __cdecl CHARSEL_RefreshCharEntry(); // 0x0043A650
 
-
-int __fastcall D2Win_10062(D2WinTextBoxStrc* pTextBox, int nWrappedLineGap, int nLineGap); // 0x004FB740
-
-void __fastcall D2Win_10050_TEXTBOX_SetLine(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FB9D0
 
 D2WinControlStrc* gpNameControl;        // 0x007799E8
 
@@ -2994,8 +2929,6 @@ int __stdcall sub_004374F0_UpdateStatusWait(int nArg); // 0x004374F0
 void __cdecl MAINMENUS_CreateStatusScreen(); // 0x00437550
 
 int __stdcall CHARSEL_OnDownloadTick(int nArg); // 0x0043B850
-
-int __stdcall D2Win_CloseSpriteCache(); // 0x004F9030
 
 void __stdcall Unload(int nValue); // 0x00517ED0
 

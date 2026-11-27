@@ -11,6 +11,7 @@
 #include "D2WinControls.h"
 #include "FogApi.h"
 #include "D2LangApi.h"
+#include "D2SoundApi.h"
 
 enum D2ControlTypes
 {
@@ -59,8 +60,6 @@ int __stdcall BUTTON_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg);                 
 int __stdcall BUTTON_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg);                                               // 0x00501150
 
 int __stdcall BUTTON_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg);                                       // 0x005011F0
-
-void __fastcall D2SOUND_10039(const char* szFile);                                                          // 0x00514EC0
 
 int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
 

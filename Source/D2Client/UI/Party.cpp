@@ -13,6 +13,7 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
 
 struct D2StoredUnitRecordStrc;
 
@@ -135,8 +136,6 @@ int __cdecl WINMAIN_IsHardcore();                                               
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, unsigned char nColor, unsigned char nArg6); // 0x0046EFD0
 
-
-void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 
 

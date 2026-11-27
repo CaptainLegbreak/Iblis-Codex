@@ -6,6 +6,7 @@
 #include "D2DrlgTiles.h"
 #include "FogApi.h"
 #include "FogApi2.h"
+#include "D2CMPApi.h"
 extern const int gnTileTypeMappingTable[]; // 0x006EEF20
 
 struct D2TileLibraryEntryStrc;
@@ -18,8 +19,6 @@ struct D2DrlgTileDataStrc;
 
 
 int __stdcall TileLibraryGetTiles(D2TileLibraryHeaderStrc** ppTiles, int nTileType, int nStyle, int nSequence, D2TileLibraryEntryStrc** ppTileEntries, int nMaxEntries); // 0x00604AE0
-
-int __stdcall TileGetFlags(D2TileLibraryEntryStrc* hTile); // 0x00604BC0
 
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -35,8 +34,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 extern "C" const char gszDrlgAnimSourceFile[];                                                              // 0x006EEF08
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
-
-int __stdcall TileGetRarity(D2TileLibraryEntryStrc* hTile); // 0x00604C20
 
 static void __fastcall DRLGANIM_AllocAnimationTileGrid(D2DrlgRoomStrc* pDrlgRoom, int nAnimationSpeed, D2DrlgTileDataStrc* pTiles, int nTiles, D2DrlgGridStrc* pDrlgGrid, int nUnused);
 

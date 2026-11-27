@@ -26,6 +26,9 @@
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
 #include "FogApi2.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
+#include "D2CMPApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -131,16 +134,12 @@ int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, 
 
 
 
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
-
 
 
 
 void __cdecl sub_00497300(); // 0x00497300
 
 
-
-void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 
 
 
@@ -198,8 +197,6 @@ D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams
 
 void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG); // 0x004DCD40
 
-void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
-
 
 
 
@@ -230,8 +227,6 @@ void __cdecl VIEW_FreeCels(); // 0x00475EB0
 
 void __fastcall WALL2_PrepareWallCells(D2ViewStrc* pView, int nValue); // 0x004DDB70
 
-extern "C" void __cdecl D2CMPResetTileCacheHits(); // 0x005FE060
-
 extern "C" int gnLightmapRenderMode; // 0x00712CCC
 
 int ghShakeSound; // 0x007B8D2C
@@ -241,8 +236,6 @@ static int gnViewEffectMagnitude;                                               
 unsigned char** gppLerpRows;        // 0x007B953C
 
 extern int gbCacheStatsChecked; // 0x007BB3AC
-
-void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 
 extern D2CelFileStrc* sghPentagram; // 0x0087E96C
 
@@ -345,8 +338,6 @@ extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType);                               // 0x004788B0
 
-void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
-
 extern int gbLeavingGame;                                                                               // 0x007A0620
 
 extern int gnAutomapWidth;                                                                          // 0x007A5220
@@ -402,8 +393,6 @@ struct D2CellGridViewStrc
 {
     void __thiscall sub_004DF510_DrawCellNodes();                                                            // 0x004DF510
 };
-
-int __stdcall D2GFX_CheckPerspective();                                                                      // 0x004F51D0
 
 
 
@@ -1207,16 +1196,6 @@ int __stdcall GAME_GetPing(); // 0x0044CE60
 
 
 
-int __cdecl D2CMPSpriteCacheGetMaxMemory(); // 0x005FEE40
-
-int __cdecl D2CMPCelDataCacheGetUsedMemory(); // 0x005FEE60
-
-int __cdecl D2CMPCelDataCacheGetMaxMemory(); // 0x005FEE70
-
-
-unsigned int __cdecl D2CMPSpriteCacheGetUsedMemory(); // 0x005FEE10
-
-int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 
 extern "C" const char gszUnknownText[]; // 0x006CC780
 

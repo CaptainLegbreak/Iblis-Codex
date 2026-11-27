@@ -11,6 +11,7 @@
 #include "D2ClientUiRecords.h"
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
+#include "D2GfxApi.h"
 
 
 extern int gnPanelSlideMode; // 0x007A5210
@@ -160,8 +161,6 @@ int __cdecl sub_0045AE90_GetPanelSlideMode()
 
 
 
-void __fastcall D2GFX_SetViewMatrixAdjust(int nOffset); // 0x004F52A0
-
 extern D2ViewStrc* gpClientView; // 0x007A0640
 
 
@@ -277,8 +276,6 @@ int gnAutomapPanelShiftX; // 0x007A5204
 
 struct D2ClientUnitPointStrc;
 
-void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
-
 struct D2ClientUnitPointStrc
 {
     int nX;
@@ -286,8 +283,6 @@ struct D2ClientUnitPointStrc
     char unk0x08[0x18];
     D2ClientUnitPointStrc* pNext;
 };
-
-void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 

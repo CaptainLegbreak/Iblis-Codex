@@ -3,6 +3,7 @@
 #include "D2CelContext.h"
 
 #include "D2D3DTypes.h"
+#include "D2CMPApi.h"
 
 struct D2Direct3D006B7110Strc;
 
@@ -59,14 +60,6 @@ extern D2D3DObjStrc* gapSpriteSurfaces[3]; // 0x00970F28
 extern D2D3DObjStrc* gpSpriteObject_00970F3C; // 0x00970F3C
 
 int __stdcall D2CMPSpriteValidate(D2GfxDataStrc* pContext, int bAsync, int nFlags); // 0x006001F0
-
-int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
-
-int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
-
-int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
-
-int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 
 
 static int __stdcall D3D_LoadSpriteInfo(D2GfxDataStrc* pContext, D2SpriteInfoStrc* pInfo); // 0x006B5C80
@@ -157,14 +150,6 @@ int gnPerspectiveScale;        // 0x00989748
 extern const char gszSpriteError[]; // 0x006FC238
 
 
-int __stdcall CelGetWidth(D2CelStrc* cel); // 0x006018C0
-
-int __stdcall CelGetHeight(D2CelStrc* cel); // 0x006018F0
-
-int __stdcall CelGetOffsetX(D2CelStrc* cel); // 0x00601920
-
-int __stdcall CelGetOffsetY(D2CelStrc* cel); // 0x00601950
-
 int* __stdcall sub_00601B10_GetCelTextureSlots(D2CelStrc* cel); // 0x00601B10
 
 
@@ -199,8 +184,6 @@ struct D2SpriteQuad006B61A0Strc
 static void __stdcall D3DSPRITE_DrawTexturedQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteQuad006B61A0Strc* pQuad); // 0x006B61A0
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
-
-int __stdcall CelGetHardwareData(D2CelStrc* pCel);                                                  // 0x00601B10
 
 void __fastcall sub_006B9860_Project(int nX, int nY, int nZ, int* pScreenX, int* pScreenY);                  // 0x006B9860
 
