@@ -194,11 +194,6 @@ D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* 
 struct D2Act1Quest1Strc;
 
 
-extern char gpAct1IntroNpcMessages[]; // 0x007361F8
-
-extern char gpAct1Q0NpcMessages[]; // 0x00736460
-
-
 // 0x0059ACA0
 bool __fastcall ACT2Q4_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
 {

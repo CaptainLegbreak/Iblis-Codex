@@ -96,7 +96,6 @@ typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
 extern unsigned int gnA5Q1NpcIndices[]; // 0x00733928
 
-extern unsigned int gnA5Q4NpcIndices[]; // 0x007350E8
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 

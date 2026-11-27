@@ -298,7 +298,6 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
 unsigned int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc*,D2UnitStrc*); // 0x005DC380
 
 
-
 unsigned int __stdcall sub_006417F0_GetDistance(D2UnitStrc*,int,int); // 0x006417F0
 
 int __stdcall PATH_GetY(D2DynamicPathStrc*); // 0x00648900
@@ -442,7 +441,6 @@ struct D2PlayerDataStrc;
 struct D2MonStats2Txt;
 
 struct D2PetInfoStrc;
-
 
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_SiegeBeast(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005E1720
@@ -1063,9 +1061,6 @@ enum D2C_M84QuillMotherAi
     QUILLMOTHER_AI_PARAM_IDLE_STALL_DURATION = 3,
 };
 
-extern const unsigned char gnGargoyleTrapDirectionMap[]; // 0x006E3540
-
-extern const unsigned char gnGargoyleTrapDirectionAxis[]; // 0x006E353C
 
 struct D2CoordListStrc;
 
@@ -1117,7 +1112,6 @@ enum D2C_P11AiConstants
 {
     MONSTATSFLAGINDEX_INTERACT = 9,
 };
-
 
 
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60

@@ -603,8 +603,6 @@ enum
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pUnit); // 0x0063EA40
 
 
-extern const int gnDifficultyBonus[]; // 0x006E21F4
-
 #define MAX_NPC_INVENTORY 17
 
 extern "C" const char szSUnitProxyCppFile[];                                                                // 0x006E0A30
@@ -1545,8 +1543,6 @@ int __fastcall sub_00564CA0_Return1(D2UnitStrc* pItem); // 0x00564CA0
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 
 
-extern int gnBaseStatIdsToSend[]; // 0x00731AD8
-
 void __fastcall PLRSAVE_CountInventoryItems(int nCount); // 0x00531750
 
 
@@ -1827,16 +1823,6 @@ extern int gdwGlobal_00882750; // 0x00882750
 
 int __stdcall SBigDel(void* pArg); // 0x00424E40
 
-extern const char gszEmptyLoadComplete[184]; // 0x006E0498
-
-extern const char gData_006E0550[24]; // 0x006E0550
-
-extern const char gData_006E0568[272]; // 0x006E0568
-
-extern int gdwGlobal_00731010; // 0x00731010
-
-extern int gdwGlobal_00731008; // 0x00731008
-
 
 typedef void (__fastcall* GAME_ForEachIngameClientCallbackPtr)(D2ClientStrc*, void*);
 
@@ -1981,8 +1967,6 @@ struct D2GameDataTableStrc
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void); // 0x006CC544
 
-extern int gbFixedCpuTargetRatio; // 0x0073100C
-
 
 extern "C" void _ReadWriteBarrier(void);
 
@@ -2029,19 +2013,13 @@ extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* lpThreadAttr
 int __stdcall SERVER_HackListClient(int nClientId, int nArg2, int nArg3);                                                  // 0x0052B4F0
 
 
-extern int nInitSeed_6FDC2CA08;                                                                             // 0x00731004
-
 int gnGlobal_00883D3C;                                                                                         // 0x00883D3C
 
 int gnGlobal_00883D40;                                                                                         // 0x00883D40
 
 
-extern int gnTargetFrameRate;                                                                      // 0x00731014
-
 int gnAct;                                                                                         // 0x00883D44
 
-
-extern int gbCheckHeartbeat;                                                                       // 0x00730FFC
 
 int __stdcall SERVER_ReadGamePacket(unsigned char* pBuffer, int nSize);                              // 0x0052B2D0
 
@@ -2122,9 +2100,6 @@ struct HASHKEY_NONE;
 struct D2GameHashLinkStrc;
 
 struct D2GameHashListStrc;
-
-
-extern int gnFrameRate; // 0x00731010
 
 
 extern "C" const char gszGameSourceFile; // 0x006D5D1C
