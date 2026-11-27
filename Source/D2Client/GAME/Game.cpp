@@ -1163,7 +1163,7 @@ extern int gnSavedScreenWidth; // 0x00711474
 
 extern void (__fastcall* gpfnMcpMotdCallback)(void* pArg); // 0x00799308
 
-int gaStateStack[1]; // 0x007A0424
+int gaStateStack[4]; // 0x007A0424
 
 int gnStateStackCount; // 0x007A044C
 
@@ -1631,7 +1631,7 @@ struct D2SaveHeaderStrc
 };
 #pragma pack(push, 1)
 #pragma pack(pop)
-char gszClientCharName[4]; // 0x007A05C4
+char gszClientCharName[16]; // 0x007A05C4
 
 unsigned char* gpSaveBuffer; // 0x007A5224
 
