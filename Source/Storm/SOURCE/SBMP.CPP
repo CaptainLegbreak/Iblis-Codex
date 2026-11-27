@@ -776,15 +776,6 @@ static int __stdcall EncodeTgaFile(void* hFile, const unsigned char* pPixels, co
     return 1;
 }
 
-int __stdcall sub_006C5730_EmitCaller(int nUnused, const D2TgaFieldsStrc* pHeader, unsigned int nSize, D2PaletteColorStrc* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth)
-{
-    if (pWidth)
-    {
-        *pWidth = 0;
-    }
-    return DecodeTgaMem(pHeader, nSize, pPalette, pDst, nDstSize, pWidth, pHeight, pDepth);
-}
-
 // 0x006C59C0
 static void __stdcall FlipImage(unsigned char* pDst, int nRows, const unsigned char* pSrc, int nDstSize, int nRowWidth, int nStride)
 {
@@ -868,11 +859,6 @@ static void __fastcall Output(D2BitOutputStrc* pState, unsigned char** ppOutput,
         else
             pState->nCodeMask = (1 << pState->nCodeWidth) - 1;
     }
-}
-
-int __stdcall sub_006C54D0_Emit(void* hFile, unsigned char* pBuffer, unsigned int* pWidth, D2PaletteColorStrc* pPalette, int nBufferSize, unsigned int* pHeight, unsigned int* pBitDepth)
-{
-    return DecodeTgaFile(hFile, pPalette, pBuffer, pWidth, nBufferSize, pHeight, pBitDepth) + 3;
 }
 
 // 0x006C5B10
