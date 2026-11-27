@@ -374,7 +374,7 @@ void __fastcall GAME_SetResolution(int nResolution)
     gnAutomapWidth = gnScreenWidth;
     gnAutomapHeight_007A521C = gnScreenHeight - 40;
     gnSavedScreenWidth = gnScreenWidth;
-    sub_004F90A0(nResolution);
+    D2Win_10005(nResolution);
     PLAYER_SetPanelSlide(sub_0045AE90_GetPanelSlideMode());
     AUTOMAP_ResetBaseOffset(1);
     sub_00457440_Nop(nResolution);

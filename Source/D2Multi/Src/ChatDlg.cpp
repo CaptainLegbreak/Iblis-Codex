@@ -633,7 +633,7 @@ extern "C" __declspec(dllimport) int __stdcall CreateProcessA(const char* szAppl
 
 void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
 
-int __fastcall sub_005259C0(void* pArg, int nArg); // 0x005259C0
+int __fastcall STRTABLE_LoadStringTables(void* pArg, int nArg); // 0x005259C0
 
 void __cdecl STRTABLE_UnloadStringTables(); // 0x00524E40
 
@@ -4290,7 +4290,7 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
     D2WinControlStrc* pControl4;
 
     GetTickCount();
-    if (!sub_005259C0(sub_004FAC80(FOG_IsExpansion()), 0))
+    if (!STRTABLE_LoadStringTables(sub_004FAC80(FOG_IsExpansion()), 0))
         return 1;
 
     gnChatLaunchMode = 0;

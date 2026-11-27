@@ -43,7 +43,7 @@ int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 int __cdecl MAINMENUS_HasSaveFiles(); // 0x00430BC0
 int __cdecl D2Win_10003(); // 0x004F9050
 int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
-int __fastcall sub_005259C0(void* pArg, int nArg); // 0x005259C0
+int __fastcall STRTABLE_LoadStringTables(void* pArg, int nArg); // 0x005259C0
 int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars); // 0x00413550
 int __stdcall MAINMENUS_OnCloseBox(int nArg); // 0x004334D0
 void __cdecl MAINMENUS_Reset(); // 0x0042F480
@@ -55,7 +55,7 @@ void __cdecl CHARSEL_InitCharSelectScreen(); // 0x0043B080
 void __cdecl CHARSEL_ClearCancelled(); // 0x0043B820
 void __cdecl CHARSEL_DisconnectBattleNet(); // 0x0043B9A0
 void __cdecl CHARSEL_CreateBaseScreen(); // 0x0043C4F0
-void __cdecl sub_004FA550(); // 0x004FA550
+void __cdecl D2Win_10016(); // 0x004FA550
 void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
 void __cdecl STRTABLE_UnloadStringTables(); // 0x00524E40
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
@@ -66,7 +66,7 @@ void __fastcall D2SOUND_10034(int nValue); // 0x005148F0
 void __stdcall D2Win_10004(int nResolution); // 0x004F9060
 void __stdcall D2Win_10029(int bDrawCursor); // 0x004FA410
 void __stdcall WINDOW_OpenSmackCutscene(const char* szFile, int nResolution, void* pfFrame); // 0x004F5D90
-void __stdcall sub_004F90A0(int nResolution); // 0x004F90A0
+void __stdcall D2Win_10005(int nResolution); // 0x004F90A0
 struct D2StatusStrc
 {
     int nCode;

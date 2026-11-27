@@ -654,7 +654,7 @@ public:
 void __cdecl QUESTLOG_LoadQuestPanelCels()
 {
     char szPath[0x104];
-    if (sub_00483350())
+    if (INV_IsCinematicBusy())
     {
         return;
     }
@@ -805,7 +805,7 @@ int __stdcall QUESTLOG_OpenQuestPanel(int nArg)
         gbQuestDescriptionOpen = 0;
     }
 
-    sub_004A2550();
+    QUESTLOG_FreeQuestCels();
     UI_SetUIVar(15, 1, nArg);
     return 1;
 }
@@ -906,7 +906,7 @@ void __stdcall TEXT_CloseQuestPanelMsg(SMSGHANDLER_PARAMS* pMsg)
         gbQuestDescriptionOpen = 0;
     }
 
-    sub_004A2550();
+    QUESTLOG_FreeQuestCels();
     UI_SetUIVar(15, 1, 1);
     gdwQuestLogToggleTick = GetTickCount();
 }
@@ -948,11 +948,11 @@ extern "C" void __fastcall QUESTLOG_AcceptShortPacket(const PacketShorts* packet
 void __cdecl QUESTLOG_ResetQuestButton()
 {
     if (gnPage < 5)
-        sub_004A2760(gnPage);
+        QUESTLOG_SendQuestUpdates(gnPage);
     gbQuestButtonDown = 0;
     gtQuestLog = 0;
     gbQuestDescriptionOpen = 0;
-    sub_004A2550();
+    QUESTLOG_FreeQuestCels();
 }
 
 
@@ -1603,7 +1603,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
             gtQuestLog_007BF298.bB0 = 0;
             gtQuestLog_007BF298.bB3 = 0;
         }
-        sub_004A2550();
+        QUESTLOG_FreeQuestCels();
         UI_SetUIVar(0xF, 1, 0);
         return;
     }
@@ -1614,7 +1614,7 @@ void __cdecl QUESTLOG_DrawQuestPage()
         return;
     }
 
-    if (sub_00483350())
+    if (INV_IsCinematicBusy())
     {
         QUESTLOG_OpenQuestPanel(0);
         return;
@@ -1922,7 +1922,7 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = D2_LOWORD(pMsg->lParam);
     int nY = D2_HIWORD(pMsg->lParam);
-    if (sub_00483350())
+    if (INV_IsCinematicBusy())
     {
         return;
     }
@@ -1948,7 +1948,7 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         {
             if (nIndex < 5 && nIndex != gnPage && ((FOG_IsExpansion() && GAME_IsExpansion()) || nIndex != 4))
             {
-                sub_004A2760(gnPage);
+                QUESTLOG_SendQuestUpdates(gnPage);
                 TEXT_SetQuestPage(nIndex);
                 TEXT_LoadQuestPage(gnPage, 1);
                 sub_004A2390_ResetQuestSelection();
@@ -1988,7 +1988,6 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 
 
 
-void __stdcall sub_004A3220(int nPage, int nArg);
 
 
 
@@ -2012,7 +2011,7 @@ void __fastcall QUESTLOG_ToggleQuestLog(int nMode)
         gtQuestLog = 2;
         QUESTLOG_UpdateQuestPage();
 // build: symbol ?gnPage@* 0x007C0255
-        sub_004A3220(gnPage, 0);
+        TEXT_LoadQuestPage(gnPage, 0);
         MSG_SendHeaderOnly(0x40);
         return;
     }
@@ -2027,7 +2026,7 @@ void __fastcall QUESTLOG_ToggleQuestLog(int nMode)
         QUESTLOG_LoadQuestPanelCels();
         gtQuestLog = 2;
         QUESTLOG_UpdateQuestPage();
-        sub_004A3220(gnPage, 0);
+        TEXT_LoadQuestPage(gnPage, 0);
         MSG_SendHeaderOnly(0x40);
         return;
     }
@@ -2057,13 +2056,13 @@ void __fastcall QUESTLOG_SetQuestRecord(const D2Record42Strc* pRecord)
 {
     gtQuestRecord = *pRecord;
     gbFlag_007BF2B0 = 0;
-    if (!sub_00483350())
+    if (!INV_IsCinematicBusy())
     {
         if (gnState_007BF298 == 2)
         {
             QUESTLOG_LoadQuestPanelCels();
         }
-        sub_004A3220(gnPage, 1);
+        TEXT_LoadQuestPage(gnPage, 1);
     }
 }
 

@@ -250,7 +250,7 @@ int __fastcall sub_004CA030_TickEvent(D2UnitStrc* pUnit, int nSkillId, int nSkil
     if (nTick > gdwNextTick)
     {
         gdwNextTick = nTick + 5;
-        sub_004AF890(pUnit, 1, 0);
+        MONSTER_SpawnBloodMissiles(pUnit, 1, 0);
     }
     return 1;
 }

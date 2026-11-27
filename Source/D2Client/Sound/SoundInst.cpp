@@ -378,7 +378,7 @@ static float __stdcall SOUNDINST_GetSoundPan(D2UnitStrc* pUnit, int nSoundId)
 
         if (pTxt->nGroupStart == 0xCA)
         {
-            D2SoundEnvironTxtStrc* pEnviron = SOUNDHDR_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
+            D2SoundEnvironTxtStrc* pEnviron = SOUNDHDR_GetSoundEnvironTxtRecord(UNITMODE_GetPlayerSoundEnviron());
             if (pEnviron && pEnviron->bIndoors)
                 return 0.5f;
 

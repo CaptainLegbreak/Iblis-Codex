@@ -469,7 +469,7 @@ void __stdcall AUTOMAP_DrawRoomCollision(D2ActiveRoomStrc* pRoom)
     {
         for (int nX = tCoords.nSubtileX + 3; nX < tCoords.nSubtileX + tCoords.nSubtileWidth + 5; nX += 5)
         {
-            int nCollision = sub_0061B130_GetCollision(pRoom, nX, nY);
+            int nCollision = D2Common_10095(pRoom, nX, nY);
             int nScreenX = nX;
             int nScreenY = nY;
             DUNGEON_GameSubtileToClientCoords(&nScreenX, &nScreenY);

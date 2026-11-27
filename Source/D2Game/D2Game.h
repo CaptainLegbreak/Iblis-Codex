@@ -412,9 +412,9 @@ int __stdcall sub_0063EE90_IsHireling(D2UnitStrc*); // 0x0063EE90
 int __stdcall SKILLS_CanUnitCorpseBeSelected(D2UnitStrc* pUnit); // 0x006456D0
 int __stdcall sub_00645910_TestLine(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStrc* pRoom, int nMask); // 0x00645910
 int __stdcall PATH_GetXPosition(D2PathRecordStrc* pPath); // 0x006488C0
-int __stdcall sub_006488C0_PathX(Path*); // 0x006488C0
+int __stdcall PATH_GetXPosition(Path*); // 0x006488C0
 int __stdcall sub_00648900_PathGetY(D2PathRecordStrc* pPath); // 0x00648900
-int __stdcall sub_00648900_PathY(Path*); // 0x00648900
+int __stdcall PATH_GetYPosition(Path*); // 0x00648900
 int __stdcall PATH_GetType(D2DynamicPathStrc* pPath); // 0x00648E30
 long __cdecl SYSTEM_GetSyncTime(); // 0x00410A80
 short __fastcall PLAYERLIST_GetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B3F0

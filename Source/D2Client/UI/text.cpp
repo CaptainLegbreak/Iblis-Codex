@@ -624,7 +624,6 @@ struct D2MonStatsTxt;
 
 
 
-void __stdcall sub_004A3220(int nPage, int nArg);
 
 
 #pragma pack(push, 2)
@@ -2888,7 +2887,7 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
         sub_005269D0_FormatText(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x2AFD));
         if (gpGlobal_007A0634)
             ENVIRONMENT_InitializeEnvironment(gpGlobal_007A0634, CUNIT_GetPlayerRoom(), 5, 0, 1);
-        sub_00476A80_StartTiming(6, 0xFA0, 0x2710, 0xFA0);
+        SCMD_StartTimedEffect(6, 0xFA0, 0x2710, 0xFA0);
         sub_004B9A00(0x1220, 0, 0, 0, 0);
         break;
     default:

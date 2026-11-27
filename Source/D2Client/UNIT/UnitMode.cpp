@@ -771,7 +771,7 @@ void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nMode)
     {
         GFX_RefreshUnitGfx(pUnit, 0);
         UNITMODE_SetModeOverlay(pUnit, nMode);
-        sub_004CC5B0_RequestMode(pUnit, nMode, 0);
+        UNITSND_UpdateUnitSound(pUnit, nMode, 0);
     }
 }
 
@@ -1270,7 +1270,7 @@ int __cdecl UNITMODE_GetPlayerSoundEnviron()
 void __cdecl sub_00481830_StopAllSounds()
 {
     sub_004DF800_StopAllSlots();
-    sub_004BAAB0();
+    SOUNDINST_RefreshGroupTimers();
 }
 
 

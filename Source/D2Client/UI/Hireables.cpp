@@ -649,7 +649,6 @@ int gnGlobal_007BEF04; // 0x007BEF04
 
 int gbHelpButtonVisible; // 0x007BEF08
 
-void __cdecl sub_00499E30();
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
@@ -706,7 +705,7 @@ void __cdecl VIEW_DrawHelpFrameHighRes()
 // 0x004945F0
 void __cdecl VIEW_DrawHelpShade()
 {
-    sub_00499E30();
+    PANEL_SetBlackColour();
     AUTOMAP_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);
 }
 
