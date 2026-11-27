@@ -832,7 +832,7 @@ static int __stdcall OBJECTS_GetShrineId(Game* game,unsigned int level,Room* roo
 {
     if (!category || category > N4)
         category = N2;
-    ShrineLists* lists = sub_00546FB0_Lists(game);
+    ShrineLists* lists = OBJRGN_GetShrineDataFromGame(game);
     if (lists->counts[category])
     {
         int retries = N8;
@@ -2565,11 +2565,11 @@ Unit* __fastcall OBJECTS_PopulateFn2_WaypointShrine(Game* game,Room* room,int un
     }
     else if (roll % N100 > probability)
         return N0;
-    if (sub_00547360_Limit(game,region))
+    if (OBJRGN_CanNotSpawnMoreShrines(game,region))
         return N0;
     while (retries > N0)
     {
-        Unit* object = sub_00550A30_Spawn(GAMEV,classId,sizeX,sizeY,room,record->placement,region,sub_00547430_Permit);
+        Unit* object = sub_00550A30_Spawn(GAMEV,classId,sizeX,sizeY,room,record->placement,region,OBJRGN_CanSpawnShrine);
         if (object)
         {
             if (record->collisions[UNITS_GetAnimMode(object)])
@@ -2584,12 +2584,12 @@ Unit* __fastcall OBJECTS_PopulateFn2_WaypointShrine(Game* game,Room* room,int un
                     OBJECTS_GetShrineId(game,N1,room,N2);
                     object->data->interact = N2;
                     sub_00621BB0_SetShrine(object,sub_006414B0_ShrineRecord(N2));
-                    sub_00547390_Increment(game,region);
+                    OBJRGN_IncreaseHealingShrineCount(game,region);
                 }
             }
             else
-                sub_00547390_Increment(GAMEV,region);
-            sub_00547490_Add(GAMEV,region,CoordinateX(object),CoordinateY(object));
+                OBJRGN_IncreaseHealingShrineCount(GAMEV,region);
+            OBJRGN_SetShrineCoordinates(GAMEV,region,CoordinateX(object),CoordinateY(object));
             return object;
         }
         --retries;

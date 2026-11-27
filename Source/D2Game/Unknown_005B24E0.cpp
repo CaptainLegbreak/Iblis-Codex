@@ -1185,7 +1185,7 @@ int __fastcall MONSTERSPAWN_SpawnBonePrison(D2GameStrc* pGame, D2ActiveRoomStrc*
 
         const int nX = CLIENTS_GetUnitX_Inline(pTargetUnit);
         const int nY = CLIENTS_GetUnitY_Inline(pTargetUnit);
-        nResult = sub_005B3270(pGame, pRoom, nX, nY, 0, 340, 8, &gtBonePrisonSpawnInfo, nFlags);
+        nResult = MONSTERSPAWN_SpawnFormation(pGame, pRoom, nX, nY, 0, 340, 8, &gtBonePrisonSpawnInfo, nFlags);
     }
     return nResult;
 }
