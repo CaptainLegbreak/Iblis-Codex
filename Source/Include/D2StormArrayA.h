@@ -56,10 +56,9 @@ struct D2StormArrayAStrc
     {
         if (nCount < 0x40)
         {
-            unsigned int nResult = nCount;
-            while (nResult & (nResult - 1))
-                nResult &= nResult - 1;
-            return nResult < 1 ? 1 : nResult;
+            while (nCount & (nCount - 1))
+                nCount &= nCount - 1;
+            return nCount < 1 ? 1 : nCount;
         }
         m_chunk = 0x40;
         return 0x40;

@@ -681,7 +681,9 @@ void __stdcall SBigToStrPtr(D2StormBigStrc* pBig, const char** pszString)
     *pszString = (const char*)pBig->tOutput.m_data;
 }
 
-static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack) // 0x00423DC0
+// 0x00423DC0
+// 0x00423DC0
+static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
 {
     c.sub_00422140_Trim();
     d.sub_00422140_Trim();
@@ -689,7 +691,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     unsigned int nDCount = d.Count();
     if (nDCount > nCCount)
     {
-        b.CopyFrom(c);
+        b = c;
         SetZero(a);
         return;
     }
@@ -700,13 +702,18 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
         b.sub_004220D0_SetCount(1);
         return;
     }
+    // the work stack holds 16 buffers
+    SASSERT(tStack.nUsed < 16);
     BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
+    SASSERT(tStack.nUsed < 16);
     BigBuffer& tDiv = tStack.pRecords[tStack.nUsed++];
+    SASSERT(tStack.nUsed < 16);
     BigBuffer& tProduct = tStack.pRecords[tStack.nUsed++];
     unsigned int nShift = 31 - (BigHighBitIndex(&d) & 31);
     Shl(tRem, c, nShift);
     Shl(tDiv, d, nShift);
-    unsigned int nTop = tDiv.Ref(nDCount - 1) + 1;
+    unsigned int nLastDigit = nDCount - 1;
+    unsigned int nTop = tDiv.Ref(nLastDigit) + 1;
     unsigned int i = nCCount - nDCount + 1;
     a.sub_004220D0_SetCount(i);
     while (i)
@@ -717,7 +724,13 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
         if (!nTop)
             a.Ref(0) = tRem.Ref(nDCount);
         else
-            a.Ref(0) = (unsigned int)(MakeLarge(tRem.Ref(nDCount - 1), tRem.Ref(nDCount)) / nTop);
+            {
+            const unsigned int& nHigh = tRem.Ref(nDCount);
+            const unsigned int& nLow = tRem.Ref(nLastDigit);
+            unsigned __int64 nWide = (unsigned __int64)nHigh * 0x100000000ui64;
+            nWide += nLow;
+            a.Ref(0) = (unsigned int)(nWide / nTop);
+        }
         if (a.Ref(0))
         {
             BigMulUInt(tProduct, tDiv, a.Ref(0));
@@ -731,6 +744,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     }
     Shr(b, tRem, nShift);
     b.sub_00422140_Trim();
+    SASSERT(3 <= tStack.nUsed);
     tStack.nUsed -= 3;
 }
 
