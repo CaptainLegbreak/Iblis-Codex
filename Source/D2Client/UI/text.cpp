@@ -807,6 +807,7 @@ static int TEXT_IsOnPressedButton(int nX, int nY);
 
 
 #include "D2WaypointLayout.h"
+#include "D2GameApi.h"
 extern D2WaypointLayoutStrc gaLayouts[9]; // 0x007224E8
 
 
@@ -950,11 +951,6 @@ struct D2GSPacketSrv5A
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
-
-extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
-
-
-
 
 void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor); // 0x0049E5C0
 

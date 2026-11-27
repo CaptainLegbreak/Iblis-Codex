@@ -16,6 +16,7 @@
 #include "D2Txt.h"
 #include "D2Skills.h"
 #include "D2MissileData.h"
+#include "D2ClientApi.h"
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
@@ -294,8 +295,6 @@ void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame);
 void __stdcall MISSILE_SetActivateFrame(D2UnitStrc* pMissile, int nActivateFrame); // 0x0064A5F0
 
 void __stdcall MISSILE_SetAnimSpeed(D2UnitStrc* pMissile, int nAnimSpeed); // 0x0064A690
-
-unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
 extern D2DataTablesStrc* gpDataTables_00744304; // 0x00744304
 
