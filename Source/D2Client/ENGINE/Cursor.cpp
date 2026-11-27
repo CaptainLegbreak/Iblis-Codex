@@ -226,7 +226,6 @@ int __stdcall WINDOW_IsFullScreen(); // 0x004F5A30
 
 void* __cdecl sub_004F59A0_GetWindow(); // 0x004F59A0
 
-extern int gnCursorX_007A6AB0; // 0x007A6AB0
 
 // 0x00468030
 int __cdecl CURSOR_GetCursorFrame()
@@ -526,32 +525,28 @@ int __cdecl CURSOR_GetCursorItem()
     return (int)gpCursorItem;
 }
 
-extern int gdwGlobal_007A6AAC; // 0x007A6AAC
 
-extern int gdwGlobal_007A6AB0; // 0x007A6AB0
 
 // 0x00468730
 int __cdecl sub_00468730()
 {
-    return gdwGlobal_007A6AB0;
+    return gnCursorX;
 }
 
 // 0x00468740
 int __cdecl sub_00468740()
 {
-    return gdwGlobal_007A6AAC;
+    return gnCursorY;
 }
 
-extern int data_007A6AB0; // 0x007A6AB0
 
-extern int data_007A6AAC; // 0x007A6AAC
 
 // 0x00468750
 void __fastcall CURSOR_SetCursorPos(int nX, int nY)
 {
     SetCursorPos(nX, nY);
-    data_007A6AB0 = nX;
-    data_007A6AAC = nY;
+    gnCursorX = nX;
+    gnCursorY = nY;
 }
 
 // 0x00468770
@@ -576,7 +571,7 @@ void __fastcall CURSOR_SetCursorPosition(int nX, int nY)
         SetCursorPos(nX, nY);
     }
     gnCursorY = nY;
-    gnCursorX_007A6AB0 = nX;
+    gnCursorX = nX;
 }
 
 // 0x00468820

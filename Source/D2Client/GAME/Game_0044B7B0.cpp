@@ -410,7 +410,6 @@ struct Unicode;
 
 
 
-extern int gbStringsLoaded_007A070C; // 0x007A070C
 
 
 
@@ -506,7 +505,7 @@ void __cdecl GAME_FreeLngModule()
 // 0x004512C0
 int __stdcall COMCALLBACK_LoadLngString(int nId, char* szBuffer, unsigned int nSize)
 {
-    D2_ASSERT(gbStringsLoaded_007A070C, 0x81);
+    D2_ASSERT(ghLngModule, 0x81);
     if (!SErrGetErrorStr(nId, szBuffer, nSize))
     {
         SStrCopy(szBuffer, "Stupid Lng.cpp error.", nSize);
@@ -551,10 +550,10 @@ void __cdecl GAME_InitColors()
     PANEL_SetRedColour();
     PANEL_SetBlackColour();
     sub_004AB2F0();
-    sub_00497250();
+    VIEW_InitTextColorRed();
 // build: symbol ?HIREABLES_InitTextColorA@* 0x00497270
     HIREABLES_InitTextColorA();
-    sub_004972B0();
+    VIEW_InitBeltColors();
 // build: symbol ?HIREABLES_InitTextColorB@* 0x00497290
     HIREABLES_InitTextColorB();
 }

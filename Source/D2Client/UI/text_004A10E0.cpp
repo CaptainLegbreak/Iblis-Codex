@@ -26,7 +26,7 @@ extern const char gszTextSourceFile[]; // 0x006DA13C
 extern unsigned char gaHandlers_00722600[]; // 0x00722600
 extern D2TextBlockStrc* gpTextBox; // 0x007BF0A4
 extern D2TextBlockStrc* gpMainTextBox; // 0x007BF1A8
-extern int gnTextState_007BF1BC; // 0x007BF1BC
+extern int gbTextBoxDone; // 0x007BF1BC
 extern int gnPreviousTextActive_007BF1C4; // 0x007BF1C4
 extern unsigned int gnNpcId_007BF202; // 0x007BF202
 extern int gnHasNpc_007BF20A; // 0x007BF20A
@@ -111,7 +111,7 @@ void __fastcall TEXT_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, 
     gwTextStringId = nMessage;
     if (!gpTextBox)
     {
-        gnTextState_007BF1BC = 0;
+        gbTextBoxDone = 0;
         int nPreviousFont = D2Win_10127_SetFont(8);
         gpTextBox = TEXT_CreateTextBox(D2LANG_GetStringFromTblIndex(nMessage), 2);
         if (!gpTextBox)

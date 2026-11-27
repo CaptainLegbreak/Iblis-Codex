@@ -255,7 +255,6 @@ void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame);     
 
 void __stdcall STATES_ToggleGfxStateFlag(D2UnitStrc* pUnit, int nState, int bSet);                          // 0x00639E30
 
-int __stdcall sub_0064A380_GetRemainingFrames(D2UnitStrc* pMissile);                                        // 0x0064A380
 
 #define EVENTTYPE_REMOVESTATE 12
 
@@ -787,7 +786,7 @@ int __fastcall MISSMODE_SrvHit10_GuidedArrow_BoneSpirit(D2GameStrc* pGame, D2Uni
 
     if (nTargetFlags & 2)
     {
-        if (sub_0064A380_GetRemainingFrames(pMissile) <= 0)
+        if (MISSILE_GetCurrentFrame(pMissile) <= 0)
         {
             return MISSMODE_FindGuidedMissileTarget(pGame, pMissile) ? 1 : 4;
         }
@@ -2636,7 +2635,7 @@ int __fastcall MISSMODE_SrvHit29_FrozenOrb(D2GameStrc* pGame, D2UnitStrc* pMissi
         return 1;
     }
 
-    if (sub_0064A380_GetRemainingFrames(pMissile))
+    if (MISSILE_GetCurrentFrame(pMissile))
     {
         return 2;
     }
@@ -4648,10 +4647,10 @@ int __fastcall MISSMODE_SrvDo05_FireWall_ImmolationFire_MeteorFire_MoltenBoulder
  if(frame==rec->nSubStart-1) {
   unit->nSeqCurrentFramePrecise=(frame+sub_0045C3E0_RollLimited(&unit->pSeed,rec->nSubStop-rec->nSubStart))<<8;
  }
- else if(sub_0064A380_GetRemainingFrames(unit)==rec->nSubStart) {
+ else if(MISSILE_GetCurrentFrame(unit)==rec->nSubStart) {
   unit->nSeqCurrentFramePrecise=(rec->nSubStart-3)<<8;
  }
- else if(sub_0064A380_GetRemainingFrames(unit)<rec->nSubStart) {
+ else if(MISSILE_GetCurrentFrame(unit)<rec->nSubStart) {
   frame-=2; if(frame<0)frame=0; unit->nSeqCurrentFramePrecise=frame<<8;
  }
  return MISSMODE_HandleMissileCollision(game,unit);
@@ -5070,7 +5069,7 @@ int __fastcall MISSMODE_SrvDo17_CairnStones(D2GameStrc* pGame, D2UnitStrc* pMiss
     D2MissilesTxt* pRecord = GetMissileRecord(pMissile);
     if (!pRecord)
         return 2;
-    int nRemaining = sub_0064A380_GetRemainingFrames(pMissile);
+    int nRemaining = MISSILE_GetCurrentFrame(pMissile);
     if (pRecord->wSubMissile[0] > 0 && nRemaining < pRecord->wRange - pRecord->dwParam[0] && nRemaining > pRecord->dwParam[0])
         MISSMODE_CreateMissileWithCollisionCheck(pGame, pRecord->dwParam[2], pRecord->wSubMissile[0], 5, pMissile, pRecord->dwParam[1]);
     if (pRecord->dwParam[3] >= 0 && !MISSILE_GetTargetX(pMissile) && nRemaining <= pRecord->dwParam[4] + pRecord->dwParam[0])
@@ -5085,7 +5084,7 @@ int __fastcall MISSMODE_SrvDo18_TowerChestSpawner(D2GameStrc* pGame, D2UnitStrc*
     if (pMissile && pMissile->dwClassId >= 0 && pMissile->dwClassId < sgptDataTables->nMissilesTxtRecordCount)
         pMissilesTxt = &sgptDataTables->pMissilesTxt[pMissile->dwClassId];
     if (!pMissilesTxt) return 2;
-    const int nCurrentFrame = sub_0064A380_GetRemainingFrames(pMissile);
+    const int nCurrentFrame = MISSILE_GetCurrentFrame(pMissile);
     if (nCurrentFrame == 1)
     {
         D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, MISSILE_GetTargetX(pMissile));
@@ -5941,7 +5940,7 @@ static inline int MISSMODE_GetUnitY(D2UnitStrc* pUnit)
 // 0x005B0940
 int __fastcall MISSMODE_SrvDo19_RadamentDeath(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
-    const int nCurrentFrame = sub_0064A380_GetRemainingFrames(pMissile);
+    const int nCurrentFrame = MISSILE_GetCurrentFrame(pMissile);
     if (nCurrentFrame > 1 && nCurrentFrame < 25)
     {
         SKILLS_ApplyAreaEffectAtCoordinates(pGame, 0x3002, MISSMODE_GetUnitX(pMissile), MISSMODE_GetUnitY(pMissile), (int)pMissile, 124, 1, (void*)MISSMODE_RadamentDeathAreaEffectCallback);

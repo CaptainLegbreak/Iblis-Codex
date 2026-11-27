@@ -5338,7 +5338,7 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
     gpLaunchRecord = pRecord;
     D2Win_10015();
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-    D2_ASSERT(sub_005259C0(sub_004FAC80(FOG_IsExpansion()), 0), 0x125A);
+    D2_ASSERT(STRTABLE_LoadStringTables(sub_004FAC80(FOG_IsExpansion()), 0), 0x125A);
     MAINMENUS_LoadFrontEndCells();
     CURSOR_SetCellFile(gpCursorOHandCelFile);
     gpLaunchRecord->szRealm0x361[0] = 0;
@@ -5373,13 +5373,13 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
         if (gpFuncTable->pfnSlot68())
         {
             gnLaunchMode = 1;
-            sub_004F90A0(1);
+            D2Win_10005(1);
             CHARSEL_InitCharSelectScreen();
         }
         else
         {
             gnLaunchMode = 1;
-            sub_004F90A0(1);
+            D2Win_10005(1);
             MAINMENUS_ShowLoginScreen();
         }
     }
@@ -5388,13 +5388,13 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
         if (gpFuncTable->pfnSlot68())
         {
             gnLaunchMode = 3;
-            sub_004F90A0(1);
+            D2Win_10005(1);
             CHARSEL_InitCharSelectScreen();
         }
         else
         {
             gnLaunchMode = 3;
-            sub_004F90A0(1);
+            D2Win_10005(1);
             MAINMENUS_ShowLoginScreen();
         }
     }
@@ -5402,7 +5402,7 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
     {
         CHARSEL_InitFuncTable(gpLaunchRecord);
         gnLaunchMode = 2;
-        sub_004F90A0(1);
+        D2Win_10005(1);
 // build: symbol ?CHARSEL_CreateTcpIpScreen@* 0x0042FFE0
         CHARSEL_CreateTcpIpScreen();
     }
@@ -5415,7 +5415,7 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
             SRegLoadValue("Diablo II", "Skip To Open", 0, &nValue);
             gpLaunchRecord->bRegistryMode = 0;
             gpLaunchRecord->bIntroPlayed = 1;
-            sub_004F90A0(1);
+            D2Win_10005(1);
             WINDOW_CenterWindow(1);
             gnLaunchMode = nValue ? 3 : 1;
             MAINMENUS_ShowLoginScreen();
@@ -5425,7 +5425,7 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
             if (!gpLaunchRecord->bIntroPlayed)
             {
                 gnLaunchMode = 0;
-                sub_004F90A0(1);
+                D2Win_10005(1);
                 WINDOW_CenterWindow(1);
                 MAINMENUS_PlayIntroVideos();
                 gpLaunchRecord->bIntroPlayed = 1;
@@ -5433,7 +5433,7 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
             else
             {
                 gnLaunchMode = 0;
-                sub_004F90A0(1);
+                D2Win_10005(1);
                 MAINMENUS_ShowMainMenu();
             }
         }
@@ -5450,7 +5450,7 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
 // build: symbol ?STRTABLE_UnloadStringTables@* 0x00524E40
     STRTABLE_UnloadStringTables();
     memset(gpLaunchRecord->adwSecret, 0, sizeof(gpLaunchRecord->adwSecret));
-    sub_004FA550();
+    D2Win_10016();
     return gnLaunchState;
 }
 

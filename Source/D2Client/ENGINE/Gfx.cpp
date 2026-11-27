@@ -196,7 +196,7 @@ int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int
 
 
 
-void __stdcall sub_004F6540(D2CelContextStrc* pContext, int nX, int nY); // 0x004F6540
+void __stdcall TEXTURE_CelDrawShadow(D2CelContextStrc* pContext, int nX, int nY); // 0x004F6540
 
 #define GFX_MODE_KEEP 0x11
 
@@ -217,7 +217,6 @@ static void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2UnitOverlayStr
 int __cdecl D2Win_10185_CheckCharMpq(); // 0x004FAC90
 
 
-extern char gData_007A7490[0x460]; // 0x007A7490
 
 extern int gdwLastPreloadTick; // 0x007A8910
 
@@ -2393,7 +2392,7 @@ int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY)
     int nOut;
     const int bReady = GFXUTIL_InitUnitCelContext(&tContext, pItem, 0, nSize, 0, &nOut, 1, -1)
         && sub_006001F0(&tContext, 0, 1)
-        && sub_004DAB40_CheckCel(tContext.pCel, nX, nY + CelGetHeight(tContext.pCel), 0);
+        && GFXUTIL_IsCelOnScreen(tContext.pCel, nX, nY + CelGetHeight(tContext.pCel), 0);
     if (!bReady)
     {
         return 0;
@@ -2511,7 +2510,7 @@ void __fastcall GFX_ClearGfxBytes(D2UnitStrc* pUnit, int nIndex)
     {
         return;
     }
-    switch (sub_0046D9F0_TestUnit(pUnit))
+    switch (GFX_GetConvertedUnitType(pUnit))
     {
     case 0:
         for (unsigned int i = 0; i < GFX_ENTRY_COUNT; ++i)
@@ -2628,7 +2627,7 @@ void __fastcall GFX_InitGfxTables(int nValue)
     gnCofMemoryLimit = nValue;
     memset(&gtUnitGfxHashedFile, 0, sizeof(gtUnitGfxHashedFile));
     memset(&gtGlobalHashedFile, 0, sizeof(gtGlobalHashedFile));
-    memset(gData_007A7490, 0, sizeof(gData_007A7490));
+    memset(gaPlayerGfxCache, 0, sizeof(gaPlayerGfxCache));
     const int nSize = sgptDataTables->nMonStatsTxtRecordCount * sizeof(D2MonGfxCacheStrc);
     gpPoolBlock = (D2MonGfxCacheStrc*)sub_0040B430(0, nSize, ".\\ENGINE\\Gfx.cpp", 0x7E1, 0);
     memset(gpPoolBlock, 0, nSize);
@@ -2895,7 +2894,7 @@ void __fastcall GFX_UpdateStateOverlays(D2UnitStrc* pUnit)
         switch (pNode->nType)
         {
         case 0:
-            if (sub_0046DA60_GetUnitMode(pUnit) != pNode->nCurrent)
+            if (GFX_GetConvertedUnitMode(pUnit) != pNode->nCurrent)
             {
                 bRemove = 1;
             }
@@ -3236,7 +3235,7 @@ __declspec(noinline) int __fastcall GFX_DrawSimpleUnitShadow(D2UnitStrc* pUnit)
     {
         return 0;
     }
-    sub_004F6540(&tContext, nX, nY);
+    TEXTURE_CelDrawShadow(&tContext, nX, nY);
     return 1;
 }
 
@@ -3280,7 +3279,7 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
     bTownMode = 0;
 // build: symbol ?D2GFX_CheckUnitPerspective@* 0x004F5170
     nPrevMode = D2GFX_CheckUnitPerspective();
-    if (nPrevMode && D2GFX_CheckPerspective() && pUnit == sub_00463DD0_GetPlayerUnit() && !sub_0046D9F0_TestUnit(pUnit))
+    if (nPrevMode && D2GFX_CheckPerspective() && pUnit == sub_00463DD0_GetPlayerUnit() && !GFX_GetConvertedUnitType(pUnit))
     {
 // build: symbol ?D2GFX_SetTownMode@* 0x004F5190
         D2GFX_SetTownMode(0);
@@ -3482,7 +3481,7 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
     {
         if (bPerspective)
         {
-            int nZ = sub_004DA0F0_GetUnitGfxOffsetZ(pUnit);
+            int nZ = PARTICLE_GetGfxClientZ(pUnit);
             SCALE_AdjustPerspectivePosition(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), nZ, &nX, &nY);
             switch (sub_0045AE90_GetPanelSlideMode())
             {
@@ -3501,7 +3500,7 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
         {
             nX = UNITS_GetClientCoordX(pUnit) - PLAYER_GetScreenOffsetX() + sub_004DA0B0_GetUnitGfxOffsetX(pUnit);
             nY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY() + PARTICLE_GetGfxClientY(pUnit);
-            nY += sub_004DA0F0_GetUnitGfxOffsetZ(pUnit);
+            nY += PARTICLE_GetGfxClientZ(pUnit);
         }
         if (!GFX_IsUnitOnScreen(pUnit, nX, nY, 0, 0))
         {

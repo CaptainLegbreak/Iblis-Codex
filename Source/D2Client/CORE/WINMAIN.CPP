@@ -2125,7 +2125,7 @@ int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ConfigStrc* pRecord)
     D2Win_10015();
     D2Win_10014_SetWndProc((WNDPROC)SCMD_WindowProc);
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-    if (!sub_005259C0(sub_004FAC80(FOG_IsExpansion()), 0))
+    if (!STRTABLE_LoadStringTables(sub_004FAC80(FOG_IsExpansion()), 0))
         return 0;
     int nLanguage;
 // build: symbol ?STRTABLE_GetLanguageInfoField@* 0x00525260
@@ -2141,7 +2141,7 @@ int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ConfigStrc* pRecord)
         D2_ASSERT(gnClientLaunchState < 7, 0x28E);
         D2_ASSERT(gnClientLaunchState > 0, 0x28F);
     }
-    sub_004FA550();
+    D2Win_10016();
     DATATBLS_UnloadAllBins();
 // build: symbol ?STRTABLE_UnloadStringTables@* 0x00524E40
     STRTABLE_UnloadStringTables();

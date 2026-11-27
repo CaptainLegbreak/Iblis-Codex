@@ -496,7 +496,7 @@ void __fastcall sub_0046BFF0_UnitEventMissile271(D2UnitStrc* pUnit)
         return;
     }
 
-    sub_004DA000(pUnit);
+    PARTICLE_ResetGfxMotion(pUnit);
     GFXUTIL_SetMotionVectorA(pUnit, 0, 0, 0x12C);
     GFXUTIL_SetMotionVectorB(pUnit, 0, 0, -2, 1);
     GFXUTIL_SetMotionVectorC(pUnit, 0, 0, 5, 0);
@@ -890,7 +890,7 @@ void __fastcall sub_0046BF30_CheckThroneLevel(D2ActiveRoomStrc* pRoom)
             D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
             if (pUnit)
             {
-                sub_004C5420_CreateFirstMissile(pUnit, THRONE_MISSILE, 0, 1);
+                AUTOMAP_RequestAtTarget(pUnit, THRONE_MISSILE, 0, 1);
                 gbThroneEventActive = 1;
             }
         }

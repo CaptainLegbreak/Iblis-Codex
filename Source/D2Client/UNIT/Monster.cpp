@@ -634,7 +634,7 @@ static __declspec(noinline) void MONSTER_RefreshMonsterMode(D2UnitStrc* pUnit)
         const unsigned int nMode = pUnit->dwAnimMode;
         if (nMode < 0x10 && nMode && nMode != 0xC)
         {
-            sub_00465BF0(pUnit, 0);
+            CUNIT_SetPathTargetToTargetUnit(pUnit, 0);
             UNITMODE_RecacheUnitPath(pUnit);
             UNITMODE_SetUnitMode(pUnit, 1);
         }
@@ -823,7 +823,7 @@ static void MONSTER_HandleMonsterEvent(D2UnitStrc* pUnit, int nEvent)
         if (pPlayer)
         {
             UNITS_SetTargetUnitForDynamicUnit(pUnit, pPlayer);
-            sub_00465BF0(pUnit, 0);
+            CUNIT_SetPathTargetToTargetUnit(pUnit, 0);
         }
         break;
     }
@@ -1016,7 +1016,7 @@ void __fastcall MONSTER_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, int nX
     MONSTER_HandleMonsterEvent(pUnit,nClassId);
     MONSTER_SetMonsterLight(pUnit);
     pUnit->pSkills=SKILLS_AllocSkillList(0);
-    sub_004AD020_RefreshMonster(pUnit);
+    MONUNIQUE_ApplyUMods(pUnit);
     D2DifficultyLevelsTxt* pDiff=DATATBLS_GetDifficultyLevelsTxtRecord(nDifficulty);
     int nSkillBonus=pDiff->dwMonsterSkillBonus;
     for (int i=0;i<8;++i)
@@ -1127,7 +1127,7 @@ void __fastcall MONSTER_ChangeMonsterClass(D2UnitStrc* pUnit, int nClassId)
     }
 
     PATH_SetVelocity(pPath, pMonStatsTxtRecord->nVelocity << 8, ".\\UNIT\\Monster.cpp", 0x2B8);
-    sub_00649FF0(pUnit, 0);
+    PATH_SetUnitAliveCollision(pUnit, 0);
     if ((pMonStatsTxtRecord->nMonStatsFlags[9 >> 3] & gdwBitMasks[9 & 7]) && !pUnit->pInventory)
     {
         pUnit->pInventory = INVENTORY_AllocInventory(0, pUnit);
@@ -1181,7 +1181,7 @@ void __fastcall MONSTER_ChangeMonsterClass(D2UnitStrc* pUnit, int nClassId)
     MONSTER_SetClientFlags(pUnit, 0);
     MONSTER_HandleMonsterEvent(pUnit, nClassId);
     MONSTER_SetMonsterLight(pUnit);
-    sub_004AD020_RefreshMonster(pUnit);
+    MONUNIQUE_ApplyUMods(pUnit);
     pUnit->pSkills = SKILLS_AllocSkillList(0);
     for (int i = 0; i < 8; ++i)
     {
@@ -1603,7 +1603,7 @@ static void MONSTER_HandleAttackEvent(D2UnitStrc* pUnit)
 
     if (CUNIT_GetPathTargetUnit(pUnit))
     {
-        sub_00465BF0(pUnit, 0);
+        CUNIT_SetPathTargetToTargetUnit(pUnit, 0);
     }
 
     D2MonStatsTxt* pMonStatsTxt = DATATBLS_GetMonStatsTxtRecord(nMonsterId);
@@ -1958,7 +1958,7 @@ static void MONSTER_UpdateCollisionForMode(D2UnitStrc* pUnit, int nMode)
         COLLISION_ResetMask(UNITS_GetRoom(pUnit), sub_J10_UnitX(pUnit), sub_J10_UnitY(pUnit), 0x100);
         sub_00649190_SetPathMode(pUnit, 5);
         PATH_SetMoveTestCollisionMask(pUnit->pDynamicPath, 0);
-        if (sub_004DA0F0_GetUnitGfxOffsetZ(pUnit))
+        if (PARTICLE_GetGfxClientZ(pUnit))
         {
             return;
         }
@@ -1978,7 +1978,7 @@ static void MONSTER_UpdateCollisionForMode(D2UnitStrc* pUnit, int nMode)
         COLLISION_SetMask(UNITS_GetRoom(pUnit), sub_J10_UnitX(pUnit), sub_J10_UnitY(pUnit), 0x100);
         sub_00649190_SetPathMode(pUnit, 1);
         PATH_SetMoveTestCollisionMask(pUnit->pDynamicPath, 0x3C01);
-        if (!sub_004DA0F0_GetUnitGfxOffsetZ(pUnit))
+        if (!PARTICLE_GetGfxClientZ(pUnit))
         {
             return;
         }
@@ -2009,7 +2009,7 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
     }
     else if (nCommand != 8 && nCommand != 9)
     {
-        sub_00649FF0(pUnit, 0);
+        PATH_SetUnitAliveCollision(pUnit, 0);
         MONSTER_SetMonsterLight(pUnit);
         pUnit->dwFlagEx &= ~0x40000;
     }
@@ -2205,7 +2205,7 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
         MONSTER_SpawnBloodMissiles(pUnit, 1, 1);
         CUNIT_SetDrawDelay(pUnit);
         UNITMODE_SetModeOverlay(pUnit, 0xD);
-        sub_004CC5B0_RequestMode(pUnit, 0xD, 1);
+        UNITSND_UpdateUnitSound(pUnit, 0xD, 1);
         MONSTER_RunUModHitCallbacks(pUnit);
         break;
 

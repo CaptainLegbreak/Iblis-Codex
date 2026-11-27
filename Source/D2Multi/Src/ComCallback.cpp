@@ -489,7 +489,6 @@ extern const unsigned int gdwBitMask7; // 0x006CE284
 
 extern D2WinEditBoxStrc* gpEditBox_00798C3C; // 0x00798C3C
 
-extern int gbStringsLoaded_007A070C; // 0x007A070C
 
 extern D2MsgRecordChunkStrc* gpMsgRecordChunk_0070F7A0; // 0x0070F7A0
 

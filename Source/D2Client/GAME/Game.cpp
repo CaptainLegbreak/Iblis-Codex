@@ -1584,11 +1584,9 @@ char gszGameName[20]; // 0x007A05DC
 
 extern unsigned long gnThreadId; // 0x007A05F0
 
-extern int gnMode_007A0610; // 0x007A0610
 
 extern int gnVersionValid; // 0x007A0644
 
-extern int gnThreadStop_007A0648; // 0x007A0648
 
 void __fastcall WINMAIN_PushStateValue(int); // 0x0044B440
 
@@ -5105,12 +5103,12 @@ int __cdecl GAME_RunGameSession()
     SCMD_RegisterMsgHandlers(WINDOW_GetWindow(),gaGameWheelHandlers,1);
     SCMD_RegisterMsgHandlers(WINDOW_GetWindow(),gaMiddleButtonHandlers,2);
     SCMD_RegisterMsgHandlers(WINDOW_GetWindow(),gaXButtonHandlers,2);
-    if(gnMode_007A0610!=3 && gnMode_007A0610!=7 && gnMode_007A0610!=9)
+    if(gnGameType!=3 && gnGameType!=7 && gnGameType!=9)
     {
         sub_00477CA0_SendPacket67(gszGameName,DLIGHTMAP_GetClientFlags());
-        if(gnMode_007A0610==6 || gnMode_007A0610==8)
+        if(gnGameType==6 || gnGameType==8)
         {
-            gnThreadStop_007A0648=0;
+            gbQServerStop=0;
             gbQServerRestart=0;
             InitializeCriticalSection(&gtQServerLock);
             ghQServerThread=CreateThread(0,0,GAME_RunQServerThread,0,0,&gnThreadId);
@@ -5119,7 +5117,7 @@ int __cdecl GAME_RunGameSession()
     else
     {
         INV_SendGameLogon(gwJoinId,gnServerHash);
-        if(gnMode_007A0610==2 || gnMode_007A0610==3)WARDENCLIENT_InitWarden(gnServerHash);
+        if(gnGameType==2 || gnGameType==3)WARDENCLIENT_InitWarden(gnServerHash);
     }
     SOUNDHDR_UpdateSoundSystem(gpClientConfig->bSoundBackground);
     GAME_InitGameState();
@@ -5131,7 +5129,7 @@ int __cdecl GAME_RunGameSession()
         else if(RECORD_IsRecordingEnabled())RECORD_InstallRecordHandler();
     }
     FOG_SetMemoryPoolSystemMode(0,0);
-    if(gnMode_007A0610==6 || gnMode_007A0610==8)
+    if(gnGameType==6 || gnGameType==8)
     {
         EnterCriticalSection(&gtQServerLock);
         gbQServerRestart=1;
@@ -5218,7 +5216,7 @@ int __cdecl GAME_RunGameSession()
         AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(),gaGameMouseHandlers,10);
         GAME_UnregisterMouseHandlers();
     }
-    if(gnMode_007A0610==2 || gnMode_007A0610==6 || gnMode_007A0610==3 || gnMode_007A0610==7)
+    if(gnGameType==2 || gnGameType==6 || gnGameType==3 || gnGameType==7)
         if(gpComInterface)gpComInterface->pfnClose();
     return 6;
 }

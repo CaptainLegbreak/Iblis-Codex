@@ -1148,7 +1148,7 @@ extern int gnBeltUiRecordRow; // 0x007A5218
 
 extern int gbUiRecordMode; // 0x007BEF98
 
-extern int gnAutomapMode_007A5150; // 0x007A5150
+extern int gnAutomapMode; // 0x007A5150
 
 
 
@@ -1210,7 +1210,7 @@ void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, i
 
 
 
-D2PacketBufferStrc* __fastcall sub_00464770_GetPacketBuffer(void* pArg); // 0x00464770
+D2PacketBufferStrc* __fastcall CUNIT_GetPacketList(void* pArg); // 0x00464770
 
 
 
@@ -3763,9 +3763,9 @@ int __cdecl UI_GetAutomapMode()
 // 0x0045A720
 void __fastcall AUTOMAP_SetAutomapMode(int mode)
 {
-    if (mode != gnAutomapMode_007A5150)
+    if (mode != gnAutomapMode)
     {
-        gnAutomapMode_007A5150 = mode;
+        gnAutomapMode = mode;
         gnAutomapScale = 10;
         switch (mode)
         {
@@ -4027,7 +4027,7 @@ void __fastcall AUTOMAP_RefreshItemStats(D2UnitStrc* pUnit)
 // 0x0045FA40
 void __fastcall AUTOMAP_ProcessUnitPacketBuffer(void* pArg)
 {
-    D2PacketBufferStrc* pBuffer = sub_00464770_GetPacketBuffer(pArg);
+    D2PacketBufferStrc* pBuffer = CUNIT_GetPacketList(pArg);
     if (!pBuffer)
     {
         return;

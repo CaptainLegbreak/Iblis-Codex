@@ -244,7 +244,7 @@ void __fastcall PLRSKILLS_StateSkillLevel(D2UnitStrc* pUnit, int nState)
     if (nLevel > nMax)
     {
         SKILLS_AssignSkill(pUnit, nSkillId, nMax, 0, ".\\UNIT\\PlrSkills.cpp", 0x11B);
-        sub_00647AA0_SetSkillBonusLevel(pUnit, nSkillId, nLevel - nMax);
+        D2Common_11030(pUnit, nSkillId, nLevel - nMax);
     }
     else
     {
@@ -1159,7 +1159,7 @@ static D2StatesTxt* STATES_GetStatesTxtRecord_J03(int nState)
 // 0x004D9740
 void __fastcall PLRSKILLS_StateCreateMissile(D2UnitStrc* pUnit, int nState)
 {
-    sub_004AF890(pUnit, 5, 0);
+    MONSTER_SpawnBloodMissiles(pUnit, 5, 0);
 
     D2StatesTxt* pStatesTxt = STATES_GetStatesTxtRecord_J03(nState);
     if (!pStatesTxt)
