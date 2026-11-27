@@ -14,6 +14,7 @@
 #include "FogApi.h"
 #include "StormApi2.h"
 #include "D2GfxApi2.h"
+#include "D2SoundApi2.h"
 
 extern int gbGlideDrawing; // 0x0087EFE4
 
@@ -46,32 +47,7 @@ int gbFloorTiles; // 0x0087EFE8
 
 extern int gbDDrawPlayingVideo; // 0x0088126C
 
-extern int gpDirectSound; // 0x00881768
-
 extern int gfPositionalSound; // 0x0088176C
-
-extern int gbEaxEnabled; // 0x00881770
-
-extern int gnEaxVersion; // 0x00881774
-
-extern int gbEaxRoomOff; // 0x00881778
-
-
-extern int gnChannelValue; // 0x00881798
-
-extern int gnSoundMode; // 0x008817AC
-
-extern int gnMasterVolume; // 0x008817B0
-
-extern int gnMusicVolume; // 0x008817B4
-
-extern int gnPositionalBias; // 0x008817B8
-
-extern int gnNpcSpeech; // 0x008817BC
-
-extern int gnOptionsMusic; // 0x008817C0
-
-extern int gbWaveSlotsInit; // 0x008817FC
 
 extern char gData_0072FAA0[]; // 0x0072FAA0
 
