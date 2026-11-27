@@ -35,6 +35,7 @@
 #include "D2MCPClientApi2.h"
 #include "D2WinApi2.h"
 #include "D2LaunchApi.h"
+#include "D2MultiApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -278,8 +279,6 @@ struct D2AutomapRecordStrc;
 extern int gfCharSelCancelled; // 0x0077AC04
 
 extern int gdwGlobal_0077BBF8; // 0x0077BBF8
-
-extern char gszChannelName[]; // 0x00798D30
 
 extern char gszMcpGameServerIP[]; // 0x007992CC
 

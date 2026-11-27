@@ -39,6 +39,7 @@
 #include "D2SoundApi.h"
 #include "D2NetApi.h"
 #include "D2MCPClientApi.h"
+#include "D2MultiApi.h"
 
 int __stdcall MAINMENUS_AskEmailRegistration(int nArg); // 0x00436C90
 
@@ -306,12 +307,6 @@ void __cdecl CHARSEL_RefreshCharEntry(); // 0x0043A650
 int __stdcall CHARSEL_OnRealmChosen(SMSGHANDLER_PARAMS* pMsg); // 0x0043A950
 
 void __fastcall CHARSEL_UseName(char* szName); // 0x0043ADB0
-
-void __cdecl CHATDLG_DestroyPopupControls(); // 0x0043EA20
-
-int __stdcall CHATDLG_SetUserDataFlag(int nArg); // 0x0043F580
-
-int __stdcall CHATDLG_GetUserDataReply(int nUnused); // 0x0043F590
 
 void __fastcall CHATDLG_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
 

@@ -16,6 +16,7 @@
 #include "D2MCPClientApi.h"
 #include "StormApi2.h"
 #include "D2ClientApi.h"
+#include "D2MultiApi.h"
 #pragma intrinsic(strlen)
 struct D2UnitStrc;
 struct D2ActiveRoomStrc;
@@ -66,20 +67,17 @@ struct D2GridCellStrc
 typedef void (__stdcall* D2RecordHandlerFn)(int nArg1, int nArg2, int nArg3);
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long nMilliseconds); // 0x006CC258
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-void __cdecl CHATDLG_FillGameList(); // 0x00444E70
 void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BE30
 void __stdcall sub_00649190_SetPathMode(D2UnitStrc* pUnit, int nMode); // 0x00649190
 int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
-extern unsigned short gwRequestId; // 0x0070CD60
 extern int gnProgressiveStatesBottomWide; // 0x007111CC
 extern int gnProgressiveStatesRight; // 0x007111D0
 extern int gnProgressiveStatesBottom; // 0x007111D4
 extern int gnScreenWidth; // 0x0071146C
 extern int gnScreenHeight; // 0x00711470
-extern unsigned short gwSavedRequestId; // 0x0077BBDC
 extern void* gpGlobal_007A0634; // 0x007A0634
 extern void* gpAutomapContext; // 0x007A5164
 extern D2GridCellStrc gtGridCells_007B0E68[]; // 0x007B0E68
@@ -193,5 +191,4 @@ static int CHARSEL_FindSlotByName(const char* szName)
 extern unsigned long gdwLastClick; // 0x00779DEC
 int __stdcall CHARSEL_OnListClick(D2ListMsgStrc* pMsg); // 0x0043A9D0
 void __cdecl CHARSEL_InitCharList(); // 0x0043AE30
-void __cdecl CHARSEL_RequestGameList(); // 0x00445020
 void __cdecl CHARSEL_ShowString(); // 0x0043A610

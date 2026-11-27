@@ -4,6 +4,7 @@
 #include "FogApi.h"
 #include "FogApi2.h"
 #include "D2ClientApi.h"
+#include "D2MultiApi.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -30,12 +31,6 @@ int __fastcall WINMAIN_SendMcpCharCreate(int nA, int nB, int nC); // 0x0044A2E0
 int __fastcall WINMAIN_SendMcpCharLogon(int nA); // 0x0044A380
 
 void* ghThread;                                                                                    // 0x007992A4
-
-extern int gnResult; // 0x00798F58
-
-extern char gszMcpText2[28]; // 0x00798F60
-
-extern char gszMcpText1[4]; // 0x00799294
 
 unsigned short __cdecl CHATDLG_GetRequestId();                                                         // 0x00449BD0
 

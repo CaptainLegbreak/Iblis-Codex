@@ -25,6 +25,7 @@
 #include "D2GfxApi.h"
 #include "D2MCPClientApi.h"
 #include "D2WinApi.h"
+#include "D2MultiApi.h"
 
 static long BNDOWNLOAD_GetTime(long* pTime);
 
@@ -125,8 +126,6 @@ extern "C" void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int
 
 extern "C" int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags); // 0x00412650
 
-void __cdecl CHATDLG_FillGameList(); // 0x00444E70
-
 void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BE30
 
 
@@ -141,8 +140,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-extern unsigned short gwRequestId; // 0x0070CD60
-
 extern int gnGlobal_007111CC; // 0x007111CC
 
 extern int gnGlobal_007111D0; // 0x007111D0
@@ -152,8 +149,6 @@ extern int gnGlobal_007111D4; // 0x007111D4
 extern int gnScreenWidth; // 0x0071146C
 
 extern int gnScreenHeight; // 0x00711470
-
-extern unsigned short gwSavedRequestId; // 0x0077BBDC
 
 extern void* gpGlobal_007A0634; // 0x007A0634
 
@@ -427,35 +422,9 @@ extern D2CharSaveHeaderStrc gtCharSaveHeader;                                   
 
 #define gdwFlags_0077AC34 (gtCharSaveHeader.dwFlags)
 
-extern D2WinControlStrc* gapControls[32]; // 0x0077ADA8
-
 extern D2CriticalSectionStrc gtChatLock;                                                           // 0x0077AE28
 
-extern D2WinControlStrc* gapControls_0077B050[2];                                                           // 0x0077B050
-
-extern char gaszHistory[10][0x100];                                                                // 0x0077B1D8
-
-extern int gnControlCount;                                                                         // 0x0077BBE8
-
-extern unsigned long gdwConnectTime;                                                               // 0x0077BBF0
-
-extern D2WinControlStrc* gpControl_0077BC40;                                                                // 0x0077BC40
-
-extern D2CelFileStrc* gpRadioButtonGreyCelFile;                                                                 // 0x0077BC6C
-
-extern D2WinControlStrc* gpCreateJoinBckgImage;                                                                // 0x0077BCDC
-
-extern D2WinControlStrc* gpChannelScreenTitle;                                                                // 0x0077BCE0
-
-extern D2WinControlStrc* gpControl_0077BCE4;                                                                // 0x0077BCE4
-
-extern D2WinControlStrc* gpControl_0077BCE8;                                                                // 0x0077BCE8
-
 D2WinControlStrc* gpChannelOkButton; // 0x0077BCEC
-
-extern D2WinControlStrc* gpControl_0077BCF0;                                                                // 0x0077BCF0
-
-extern D2WinControlStrc* gpChannelListBox;                                                                // 0x0077BCFC
 
 extern int gdwGlobal_0077BD50;                                                                              // 0x0077BD50
 
@@ -493,12 +462,6 @@ void __cdecl MAINMENUS_UpdateTwoEditOk();                                       
 int __stdcall MAINMENUS_OnTwoEditChange(int nArg);                                                                       // 0x00436D40
 
 
-void __cdecl CHATDLG_DestroyDialogControls();                                                                // 0x0043DB20
-
-void __cdecl CHATDLG_DestroyPopupControls();                                                                           // 0x0043EA20
-
-void __cdecl CHATDLG_DestroyCreateControls();                                                                                // 0x00443220
-
 int __cdecl CHATDLG_DestroyGameListControls();                                                                                 // 0x00444E20
 
 extern D2WinControlStrc* gpControl_00779338;                                                                // 0x00779338
@@ -522,8 +485,6 @@ D2WinControlStrc* gpControl_007799D4;                                           
 extern int gdwGlobal_007799D8;                                                                              // 0x007799D8
 
 extern D2WinControlStrc* gpControlMain_0077BC4C;                                                            // 0x0077BC4C
-
-extern D2WinControlStrc* gbSelectActive;                                                                   // 0x0077BD00
 
 D2WinControlStrc* gpControl_0077BD90;                                                                       // 0x0077BD90
 
@@ -650,27 +611,13 @@ int __stdcall sub_004370B0_ShowLoginScreen(int nArg); // 0x004370B0
 
 void __fastcall MAINMENUS_DeleteCharFiles(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x0043C750
 
-int __fastcall CHATDLG_UpdateSaveFlags(const char* szName); // 0x0043CAA0
-
 int __stdcall sub_0043E6C0_OnError(int nArg); // 0x0043E6C0
 
-int __cdecl CHATDLG_PostClearMessage(); // 0x0043E570
-
 int __fastcall CHATDLG_WriteUserData(int nA, int nB, int nC, int nD); // 0x0043F5F0
-
-void __cdecl CHATDLG_CreateChatScreen(); // 0x0043FC20
-
-int __fastcall CHATDLG_SetupCharacter(unsigned short wValue, const char* szText0x1F, const char* szText0x245, const char* szText0x37); // 0x0043FFA0
 
 void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
 
 void __fastcall CHATDLG_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
-
-void __fastcall CHATDLG_JoinChannel(const char* szText); // 0x004411E0
-
-int __fastcall CHATDLG_SendChatText(char* szText, int bWhisper); // 0x004428D0
-
-int __fastcall CHATDLG_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
 
 extern char gszLevelDiffText[]; // 0x0070EBD0
 
@@ -690,25 +637,11 @@ extern D2LaunchGameRecStrc gaGames[]; // 0x0078A440
 
 extern D2WinControlStrc* gpGameText_00798BC4; // 0x00798BC4
 
-extern D2WinControlStrc* gpJoinName; // 0x00798BD4
-
 extern D2WinControlStrc* gpJoinPassword_00798BD8; // 0x00798BD8
-
-extern D2WinControlStrc* gpCreateButton; // 0x00798C28
-
-extern D2WinControlStrc* gpCreateName; // 0x00798C2C
 
 extern D2WinControlStrc* gpEditBox_00798C3C; // 0x00798C3C
 
 extern D2WinControlStrc* gpLevelDiffCheck; // 0x00798C40
-
-extern D2WinControlStrc* gpSubmitEditA; // 0x00798C80
-
-extern D2WinControlStrc* gpSubmitEditB; // 0x00798C84
-
-extern D2WinControlStrc* gpSubmitEditC; // 0x00798C88
-
-extern int gnSubmitMode; // 0x00798CAC
 
 static void CHARSEL_SelectNamedSlot(const char* szName); // 0x00437CB0
 
@@ -840,8 +773,6 @@ void __cdecl CHARSEL_RefreshCharEntry(); // 0x0043A650
 
 
 D2WinControlStrc* gpNameControl;        // 0x007799E8
-
-void __cdecl CHATDLG_UpdateCreateButton(); // 0x00443630
 
 struct D2FileTimeStrc;
 
