@@ -82,7 +82,6 @@ extern "C" const char gszDataGlobal[]; // 0x006D4118
 
 extern "C" const char gszSaveFormat_006D4230[]; // 0x006D4230
 
-extern D2WinControlInitStrc gatControlTemplates[]; // 0x00708D10
 
 D2WinControlStrc* gapChatButtons[11]; // 0x0077AD78
 
@@ -491,7 +490,6 @@ void __cdecl CHATDLG_ClearLadderState(); // 0x0043ED50
 
 int __stdcall sub_0043EB00_OnErrorDone(int nArg); // 0x0043EB00
 
-extern D2WinControlInitStrc gatChatControlInits[]; // 0x0070CE50
 
 unsigned long gdwConnectTime;                                                                      // 0x0077BBF0
 
@@ -687,7 +685,24 @@ void __fastcall CHATDLG_OnChatTime(void* pA, void* pB); // 0x0043E4C0
 
 int __stdcall CHATDLG_OnTick(int nUnused); // 0x00441500
 
-extern D2WinControlInitStrc gatChatControlInits[17]; // 0x0070CE50
+// The chat screen's controls: the first six are its panels, then its buttons, scroll buttons and ad.
+enum D2ChatControlInit
+{
+    CHATINIT_CREATESCREENBUTTON = 6,
+    CHATINIT_CONTROL_7 = 7,
+    CHATINIT_JOINSCREENBUTTON = 8,
+    CHATINIT_CONTROL_C = 9,
+    CHATINIT_QUITBUTTON = 10,
+    CHATINIT_UPBUTTON_A = 11,
+    CHATINIT_DOWNBUTTON_A = 12,
+    CHATINIT_UPBUTTON_B = 13,
+    CHATINIT_DOWNBUTTON_B = 14,
+    CHATINIT_ADIMAGE = 15,
+    CHATINIT_ADSMACK = 16,
+    CHATINIT_COUNT = 17,
+};
+
+extern D2WinControlInitStrc gatChatControlInits[CHATINIT_COUNT]; // 0x0070CE50
 
 extern D2WinControlInitStrc gtControlInit_0070D2A0; // 0x0070D2A0
 
@@ -1871,19 +1886,12 @@ extern D2WinControlStrc* gpAdImage;                                             
 
 extern D2WinControlStrc* gpSmack;                                                                // 0x0077B098
 
-extern D2WinControlInitStrc gtCreateScreenButtonInit;                                                         // 0x0070CF70
 
-extern D2WinControlInitStrc gtControlInit_0070CFA0;                                                         // 0x0070CFA0
 
-extern D2WinControlInitStrc gtJoinScreenButtonInit;                                                         // 0x0070CFD0
 
-extern D2WinControlInitStrc gtControlInit_0070D000;                                                         // 0x0070D000
 
-extern D2WinControlInitStrc gtQuitButtonInit;                                                         // 0x0070D030
 
-extern D2WinControlInitStrc gtAdImageInit;                                                         // 0x0070D120
 
-extern D2WinControlInitStrc gtAdSmackInit;                                                         // 0x0070D150
 
 extern D2WinControlInitStrc gatControlInits[2];                                                    // 0x0070D180
 
@@ -1932,13 +1940,13 @@ void __cdecl CHATDLG_CreateCharControls()
 {
     for (int i = 0; i < 17; i++)
         gapChatDlgControls[i] = 0;
-    gpCreateScreenButton = CONTROL_Create(&gtCreateScreenButtonInit);
-    gpChatControl_0077B074 = CONTROL_Create(&gtControlInit_0070CFA0);
-    gpJoinScreenButton = CONTROL_Create(&gtJoinScreenButtonInit);
-    gpControlC = CONTROL_Create(&gtControlInit_0070D000);
-    gpQuitButton = CONTROL_Create(&gtQuitButtonInit);
-    gpAdImage = CONTROL_Create(&gtAdImageInit);
-    gpSmack = CONTROL_Create(&gtAdSmackInit);
+    gpCreateScreenButton = CONTROL_Create(&gatChatControlInits[CHATINIT_CREATESCREENBUTTON]);
+    gpChatControl_0077B074 = CONTROL_Create(&gatChatControlInits[CHATINIT_CONTROL_7]);
+    gpJoinScreenButton = CONTROL_Create(&gatChatControlInits[CHATINIT_JOINSCREENBUTTON]);
+    gpControlC = CONTROL_Create(&gatChatControlInits[CHATINIT_CONTROL_C]);
+    gpQuitButton = CONTROL_Create(&gatChatControlInits[CHATINIT_QUITBUTTON]);
+    gpAdImage = CONTROL_Create(&gatChatControlInits[CHATINIT_ADIMAGE]);
+    gpSmack = CONTROL_Create(&gatChatControlInits[CHATINIT_ADSMACK]);
     CONTROL_SetEnabled(gpChatControl_0077B074, 0);
     D2WinControlInitStrc* pInit = gatControlInits;
     for (int j = 0; j <= 1; j++)
@@ -3116,19 +3124,19 @@ void __cdecl CHATDLG_CreateChatScreen()
     gpChatCellFile = 0;
 
     BACKGROUND_SetCellFile(gpChatBackground);
-    gapChatDlgControls[0] = CONTROL_Create(&gatControlTemplates[0x15C]);
-    gpChatControl_0077B05C = CONTROL_Create(&gatControlTemplates[0x15D]);
-    gpChatControl_0077B060 = CONTROL_Create(&gatControlTemplates[0x15E]);
-    gpChatControl_0077B064 = CONTROL_Create(&gatControlTemplates[0x15F]);
-    gpChatControl_0077B068 = CONTROL_Create(&gatControlTemplates[0x160]);
-    gpChatControl_0077B06C = CONTROL_Create(&gatControlTemplates[0x161]);
-    gpChatUpButtonA = CONTROL_Create(&gatControlTemplates[0x167]);
-    gpChatDownButtonA = CONTROL_Create(&gatControlTemplates[0x168]);
-    gpChatUpButtonB = CONTROL_Create(&gatControlTemplates[0x169]);
-    gpChatDownButtonB = CONTROL_Create(&gatControlTemplates[0x16A]);
+    gapChatDlgControls[0] = CONTROL_Create(&gatChatControlInits[0]);
+    gpChatControl_0077B05C = CONTROL_Create(&gatChatControlInits[1]);
+    gpChatControl_0077B060 = CONTROL_Create(&gatChatControlInits[2]);
+    gpChatControl_0077B064 = CONTROL_Create(&gatChatControlInits[3]);
+    gpChatControl_0077B068 = CONTROL_Create(&gatChatControlInits[4]);
+    gpChatControl_0077B06C = CONTROL_Create(&gatChatControlInits[5]);
+    gpChatUpButtonA = CONTROL_Create(&gatChatControlInits[CHATINIT_UPBUTTON_A]);
+    gpChatDownButtonA = CONTROL_Create(&gatChatControlInits[CHATINIT_DOWNBUTTON_A]);
+    gpChatUpButtonB = CONTROL_Create(&gatChatControlInits[CHATINIT_UPBUTTON_B]);
+    gpChatDownButtonB = CONTROL_Create(&gatChatControlInits[CHATINIT_DOWNBUTTON_B]);
     CONTROL_SetEnabled(gpChatControl_0077B074, 1);
 
-    gpChatEdit = CONTROL_Create(&gatControlTemplates[0x172]);
+    gpChatEdit = CONTROL_Create(&gtChatEditInit);
     sub_004FDAD0_SetKeyCallback(gpChatEdit, sub_0043F9B0_EditKey);
     sub_004FDB00_SetEnterCallback(gpChatEdit, CHATDLG_OnChatEditEnter);
     CONTROL_SetFocusedEditBox(gpChatEdit);
@@ -3146,9 +3154,9 @@ void __cdecl CHATDLG_CreateChatScreen()
         *ppButton++ = BUTTON_Create(nX, 0x24F, 0x3C, 0x64, 0, (int)COMCALLBACK_ButtonCallback, 0, 0, 4, 0, 0);
     }
 
-    gpChatControl_0077BC44 = CONTROL_Create(&gatControlTemplates[0x170]);
+    gpChatControl_0077BC44 = CONTROL_Create(&gtControlInit_0070D210);
     sub_004F9740_SetControlState(gpChatControl_0077BC44, 0);
-    gpGemButton = CONTROL_Create(&gatControlTemplates[0x178]);
+    gpGemButton = CONTROL_Create(&gtGemButtonInit);
     if (gbGemToggle)
         sub_00500B20_SetValue(gpGemButton, 2);
 }
@@ -4303,7 +4311,7 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
         BACKGROUND_SetCellFile(gpWaitingRoomBkgdCelFile);
     if (gpCharInfo->szRealm0x361[0])
     {
-        for (int i = 0; i < 17; i++)
+        for (int i = 0; i < CHATINIT_COUNT; i++)
             gapChatDlgControls[i] = CONTROL_Create(&gatChatControlInits[i]);
         gpControl_0077BD98 = CONTROL_Create(&gtControlInit_0070D2A0);
     }

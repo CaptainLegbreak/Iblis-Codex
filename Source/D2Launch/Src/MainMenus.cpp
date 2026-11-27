@@ -331,6 +331,7 @@ int __stdcall CHATDLG_GetUserDataReply(int nUnused); // 0x0043F590
 
 void __fastcall CHATDLG_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
 
+// The front end's control templates (333 entries), indexed by template id.
 extern D2LaunchControlTemplateStrc gatControlTemplates[]; // 0x00708D10
 
 extern int gnTextMode; // 0x00708D0C
@@ -394,37 +395,21 @@ extern "C" void __fastcall sub_004F9740_ControlFlag(UiControl* control,int value
 
 extern "C" UiControl* gControl;
 
-extern "C" int gLayout_00709C48; // 0x00709C48
 
-extern "C" int gLayout_007091F8; // 0x007091F8
 
-extern "C" int gLayout_00709228; // 0x00709228
 
-extern "C" int gLayout_00709258; // 0x00709258
 
-extern "C" int gLayout_007092E8; // 0x007092E8
 
-extern "C" int gLayout_00709318; // 0x00709318
 
-extern "C" int gLayout_00709EE8; // 0x00709EE8
 
-extern "C" int gLayout_0070B2C8; // 0x0070B2C8
 
-extern "C" int gLayout_0070B2F8; // 0x0070B2F8
 
-extern "C" int gLayout_0070B088; // 0x0070B088
 
-extern "C" int gLayout_0070B4A8; // 0x0070B4A8
 
-extern "C" int gLayout_0070B0E8; // 0x0070B0E8
 
-extern "C" int gLayout_0070B148; // 0x0070B148
 
-extern "C" int gLayout_0070B1A8; // 0x0070B1A8
 
-extern "C" int gLayout_0070BDA8; // 0x0070BDA8
 
-extern "C" int gLayout_0070BF58; // 0x0070BF58
 
 D2WinControlStrc* gpControl_00779968; // 0x00779968
 
@@ -1049,7 +1034,6 @@ int __stdcall CHATDLG_RequestCharLogon(const char* szName); // 0x00449E10
 
 extern char gaGlobal_007089C4[]; // 0x007089C4
 
-extern void* gpGlobal_0070B738; // 0x0070B738
 
 int gnLaunchState; // 0x007795E8
 
@@ -3747,22 +3731,22 @@ extern "C" void __cdecl MAINMENUS_ConfigureLanguageLayout()
 {
     if (sub_00525150_Language() == 9)
     {
-        gLayout_00709C48 = 0x9B;
-        gLayout_007091F8 = 0x14E;
-        gLayout_00709228 = 0x184;
-        gLayout_00709258 = 0x1BA;
-        gLayout_007092E8 = 0xF0;
-        gLayout_00709318 = 0x158;
-        gLayout_00709EE8 = 0x9C;
-        gLayout_0070B2C8 = 0x1FA;
-        gLayout_0070B2F8 = 0x22B;
-        gLayout_0070B088 = 0x23F;
-        gLayout_0070B4A8 = 0x22B;
-        gLayout_0070B0E8 = 0x22B;
-        gLayout_0070B148 = 0x23F;
-        gLayout_0070B1A8 = 0x253;
-        gLayout_0070BDA8 = 0x46;
-        gLayout_0070BF58 = 0xEE;
+        gatControlTemplates[0x51].nY = 0x9B;
+        gatControlTemplates[0x1A].nY = 0x14E;
+        gatControlTemplates[0x1B].nY = 0x184;
+        gatControlTemplates[0x1C].nY = 0x1BA;
+        gatControlTemplates[0x1F].nY = 0xF0;
+        gatControlTemplates[0x20].nY = 0x158;
+        gatControlTemplates[0x5F].nY = 0x9C;
+        gatControlTemplates[0xC9].nY = 0x1FA;
+        gatControlTemplates[0xCA].nY = 0x22B;
+        gatControlTemplates[0xBD].nY = 0x23F;
+        gatControlTemplates[0xD3].nY = 0x22B;
+        gatControlTemplates[0xBF].nY = 0x22B;
+        gatControlTemplates[0xC1].nY = 0x23F;
+        gatControlTemplates[0xC3].nY = 0x253;
+        gatControlTemplates[0x103].nY = 0x46;
+        gatControlTemplates[0x10C].nY = 0xEE;
     }
 }
 
@@ -4898,10 +4882,10 @@ int __fastcall MAINMENUS_JoinGame(const char* szGameName, unsigned short wFlags,
                 D2MCPClientCloseMCP();
                 sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(0x2B89), wszName);
                 MAINMENUS_DestroyControls();
-                void* pSaved = gpGlobal_0070B738;
-                gpGlobal_0070B738 = gaGlobal_007089C4;
+                void* pSaved = gatControlTemplates[0xE0].unk0x28;
+                gatControlTemplates[0xE0].unk0x28 = gaGlobal_007089C4;
                 MAINMENUS_ShowMessage(wszText, MAINMENUS_ReturnToCharSelect, 1);
-                gpGlobal_0070B738 = pSaved;
+                gatControlTemplates[0xE0].unk0x28 = pSaved;
                 return 0;
             }
 
