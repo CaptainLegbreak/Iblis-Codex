@@ -2345,7 +2345,7 @@ CELLIST* D2CelListRecordArrayHolderStrc::sub_00604460_New()
 // build: symbol ??0?$TSBaseArray@UCELLIST@@@@QAE@XZ 0x00601E00
 // build: symbol ?InitializeTerminator@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEXXZ 0x00601E10
 // build: symbol ?CalcChunkSize@?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAEII@Z 0x00601E20
-// build: symbol ?RoundUp@?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@SGIII@Z 0x00601E60
+// build: symbol ?RoundUp@?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAEIII@Z 0x00601E60
 // build: symbol ?Head@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEPAUTCELENTRY@@XZ 0x00601F00
 // build: symbol ??0?$TSLink@UTCELENTRY@@@@QAE@XZ 0x00601F10
 // build: symbol ?Unlink@?$TSLink@UTCELENTRY@@@@QAEXXZ 0x00601F20
@@ -2438,7 +2438,7 @@ CELLIST* D2CelListRecordArrayHolderStrc::sub_00604460_New()
 // build: symbol ?DeleteChunksAndReuse@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@QAEXXZ 0x00603E50
 // build: symbol ??0?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@QAE@XZ 0x00603E70
 // build: symbol ?CalcChunkSize@?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAEII@Z 0x00603EE0
-// build: symbol ?RoundUp@?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@SGIII@Z 0x00603F20
+// build: symbol ?RoundUp@?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAEIII@Z 0x00603F20
 // build: symbol ??0?$TSBaseArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@QAE@XZ 0x00603F40
 // build: symbol ??0?$TSHashObject@UCELLIST@@VHASHKEY_NONE@@@@QAE@ABU0@@Z 0x00603F70
 // build: symbol ??0?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAE@ABU0@@Z 0x00603F90

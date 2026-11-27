@@ -35,6 +35,11 @@ public:
 
 typedef int (__stdcall* SMSGHANDLER)(void* pParams);
 
+inline void* operator new(unsigned int, void* pWhere) throw()
+{
+    return pWhere;
+}
+
 #include "D2StormBigBuffer.h"
 
 // 0x0041F980

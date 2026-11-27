@@ -3,6 +3,7 @@
 #include "D2StormTypes.h"
 #include "D2StormSha1.h"
 #include "StormApi.h"
+#include "stpl.h"
 
 struct D2StormNodeListStrc;
 
