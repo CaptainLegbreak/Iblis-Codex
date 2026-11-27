@@ -104,4 +104,4 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 - 2026-11-26 17:15 PT: status: emit-d2game-3 Ready. The 29 D2Game emit helpers left need more than a call swap: their statics are inlined by code that builds differently when written as a call, or by a caller in another unit (e.g. 0x570870 is written out in PlrEval.cpp).
 - 2026-11-26 17:50 PT: status: noinline-d2game and data-decls-d2game-2 are in; emit-d2game-4 Ready (replaces -3). 28 D2Game emit helpers left, each needing its own reading.
 - 2026-11-26 18:10 PT: status: emit-d2game-5 Ready (replaces -4). 22 D2Game emit helpers left.
-- 2026-11-26 18:45 PT: status: emit-d2game-6 Ready (replaces -5). 16 D2Game emit helpers left (PlrMsg 3, Unknown_00570420 2, SUnitDmg 2, and one each in Game, Player, PlrSave, PlrTrade, SUnitInactive, SUnitMsg, Unknown_00555C90, Unknown_005C0D00, Unknown_0054DAC0).
+- 2026-11-26 18:13 PT: status: emit-d2game-6 Ready (replaces -5). 16 D2Game emit helpers left (PlrMsg 3, Unknown_00570420 2, SUnitDmg 2, and one each in Game, Player, PlrSave, PlrTrade, SUnitInactive, SUnitMsg, Unknown_00555C90, Unknown_005C0D00, Unknown_0054DAC0).
