@@ -26,6 +26,7 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - shortdata: 358 -> 363. All five new candidates are padding no code references: 4 B after gaStateStack[4], 20 B after gaDrlgRoomTilePresetUnits[34], 4 B after gtLoadingTimer, 4 B after Items.cpp's static guard (before gUniqueSelections), and the bytes after gnTextColorA.
   - **gapChatDlgControls (your #480 note): it can't be typed without the cast.** CONTROL_Create fills it as a table of D2WinControlStrc*, and ChatDlg.cpp walks it in three loops (1879, 4252, 4378). SMACK_Decode and SMACK_DeleteFile take D2WinSmackStrc*. A union per slot or a change to D2Win's API would only move the downcast, so I left the two casts as they are.
 ## Claimed
+- Fri Nov 27 12:13 PST 2026: check-in. The data-tables field map is at the end of this file, under **Data-tables field map** (see the note there on why it's not in its own file). Rebasing onto #485 as **lane13/split-objects-4**: it replaces split-objects-3 and adds the 3 raw-offset commits (GAME_HandleKeyDown's SMSGHANDLER_PARAMS, the CubeMain linkers, Window.cpp's gabLightCube). It is doing its full build now. MonsterMode.cpp was redone against lane 12's #485 declarations.
 - Fri Nov 27 11:57 PST 2026: 0x009897EC posted under Questions (a type for the D3D smack slots). With split-objects-3, that and the parked data-tables span are the only clusters left. Next: going through the 363 shortdata candidates for any whose room code actually reads.
 - Fri Nov 27 11:54 PST 2026: check-in. split-objects-3 Ready; it replaces split-objects-2 and short-arrays-3. Next: D2Direct3D 0x009897EC, then the remaining shortdata candidates.
 - Fri Nov 27 11:34 PST 2026: check-in. Read your 10:15 note. split-objects-2 (posted 10:52) has the short-arrays-3 commits rebased onto #483 with QuestLog.cpp redone, so short-arrays-3 can be dropped. Now **lane13/split-objects-3** (on #484, includes split-objects-2) is doing its full build. Its 12 new commits close 12 of the 13 clusters left outside D2DataTablesStrc. Ready in about 15 minutes.
@@ -104,3 +105,253 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
   - I logged every cluster trigger (1,370 references) and decoded each instruction. In 40 of the 126 clusters every trigger is one of three things: a one-past-end address used as a value (`cmp reg, imm` / `push imm` / `mov reg, imm`), an indexed access at a negative constant offset (`[reg + a - k]`), or an indexed access at exactly the end. Those 40 include the next four biggest: D2Direct3D 0x00971740 (65,540 B), D2Gfx 0x007CA320 (32,772 B), D2Client 0x007C0ED0 (17,804 B) and 0x007ACA50 (16,388 B). The other 86 have a constant read past the end (854 refs `[a + n]` with n >= size, no index), which are the real split structs and short arrays.
   - **Question:** may lane 13 change link.py's cluster rule so that (a) a one-past-end address used as an immediate value and (b) `[reg + a - k]` no longer make a cluster? Telling an immediate from a memory operand needs the instruction decoded at the relocation. My proposal: decode with capstone where it is installed, and keep today's behaviour where it isn't, so counts never get worse. If you'd rather keep link.py lane 10's, I'll hand lane 10 the trigger list instead (/tmp/clusterprobe.json here; I can post the script). Parked; I'm on the short globals meanwhile.
 - Fri Nov 27 01:14:52 PST 2026: the brief says to read COMMON.md (build setup, §1, and the brief/disassembly tools), but there's no COMMON.md on coord, main or lane10/short-data. I'm using the build setup I already have and my own disassembler for now. If it's somewhere else, please point me to it.
+
+## Data-tables field map (0x0096BC30-0x0096D66C), for lane 1 and the Fable chat
+
+Generated Fri Nov 27 12:13 PST 2026 from main #485's sources. It's here, not in lanes/datatables-map.tsv, because my instructions from the user allow me to write only lanes/lane13.md.
+
+Columns:
+- address and offset into D2DataTablesStrc;
+- span to the next declared address;
+- the D2DataTbls.h field there, or `placeholder <name>+0x<off>` for the unsplit byte arrays (90 of the 234);
+- every name, type and file declared at that address.
+
+No values.
+
+```tsv
+address	offset	span	header_field	declared (name : type : file)
+0x0096BC30	+0x0000	4	void* pPlayerClassTxt	gD2DataTables : D2DataTablesStrc : D2Common/DATATBLS/DataTbls.cpp; gpPlayerClassTxt : void* : D2Common/DATATBLS/DataTbls.cpp; sgtDataTables : D2DataTablesStrc : D2Common/DATATBLS/FieldTbls.cpp; sgtDataTables : D2DataTablesStrc : D2Common/DATATBLS/HoradricCube.cpp; sgtDataTables : D2DataTablesStrc : D2Common/DATATBLS/ItemTbls.cpp; sgtDataTables : D2DataTablesStrc : D2Common/DATATBLS/ItemTbls_00633730.cpp; sgtDataTables : D2DataTablesStrc : D2Common/DATATBLS/ItemTbls_00634DC0.cpp; sgtDataTables : D2DataTablesStrc : D2Common/DATATBLS/LvlTbls.cpp; sgtDataTables : D2DataTablesStrc : D2Common/DATATBLS/MissileTbls.cpp; sgtDataTables : D2DataTablesStrc : D2Common/DATATBLS/MissileTbls_00663270.cpp; sgtDataTables : D2DataTablesStrc : D2Common/DATATBLS/MonsterTbls.cpp; sgtDataTables : D2DataTablesStrc : D2Common/DATATBLS/OverlayTbls.cpp; sgtDataTables : D2DataTablesStrc : D2Common/Unknown_00664530.cpp; sgtDataTables : D2DataTablesStrc : D2Common/Unknown_0066A1A0.cpp
+0x0096BC34	+0x0004	4	D2TxtLinkStrc* pPlayerClassLinker	gpPlayerClassLinker_0096BC34 : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpPlayerClassLinker_0096BC34 : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls_00613F80.cpp; gpPlayerClassLinker_0096BC34 : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096BC38	+0x0008	4	void* pBodyLocsTxt	gpBodyLocsTxt : void* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BC3C	+0x000C	4	D2TxtLinkStrc* pBodyLocsLinker	gpBodyLocsLinker_0096BC3C : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpBodyLocsLinker_0096BC3C : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp; gpBodyLocsLinker_0096BC3C : void* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096BC40	+0x0010	4	void* pStorePageTxt	gpStorePageTxt : void* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BC44	+0x0014	4	D2TxtLinkStrc* pStorePageLinker	gpStorePageLinker_0096BC44 : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpStorePageLinker_0096BC44 : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096BC48	+0x0018	4	void* pElemTypesTxt	gpElemTypesTxt : void* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BC4C	+0x001C	4	D2TxtLinkStrc* pElemTypesLinker	gTxtLink_0096BC4C : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp; gpElemTypesLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpElemTypesLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096BC50	+0x0020	4	void* pHitClassTxt	gpHitClassTxt : void* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BC54	+0x0024	4	D2TxtLinkStrc* pHitClassLinker	gpHitClassLinker_0096BC54 : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpHitClassLinker_0096BC54 : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096BC58	+0x0028	4	void* pMonModeTxtStub	gpMonModeTxt : void* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BC5C	+0x002C	4	D2TxtLinkStrc* pMonModeLinker	gpMonModeLinker : D2TxtLinkStrc* : D2Common/D2Common.h; gpMonModeLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096BC60	+0x0030	4	void* pPlrModeTxtStub	gpPlrModeTxt : void* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BC64	+0x0034	4	D2TxtLinkStrc* pPlrModeLinker	gpPlrModeLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpPlrModeLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096BC68	+0x0038	4	void* pSkillCalcTxt	gpSkillCalcTxt : void* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BC6C	+0x003C	4	D2TxtLinkStrc* pSkillCalcLinker	gpSkillCalcLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpSkillCalcLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MissileTbls.cpp; gpSkillCalcLinker : D2TxtLinkStrc* : D2Common/Logging/ProfCore.cpp
+0x0096BC70	+0x0040	4	char* pSkillsCode	gpSkillsCode : char* : D2Common/DATATBLS/DataTbls.cpp; gpSkillsCode : void* : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096BC74	+0x0044	4	unsigned int nSkillsCodeSize	gnSkillsCodeSize : int : D2Common/DATATBLS/DataTbls.cpp; gnSkillsCodeSize : int : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096BC78	+0x0048	4	int nSkillsCodeSizeEx	gnSkillsCodeSizeEx : int : D2Common/DATATBLS/DataTbls.cpp; gnSkillsCodeSizeEx : int : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096BC7C	+0x004C	4	char* pSkillDescCode	gpSkillDescCode : char* : D2Common/DATATBLS/DataTbls.cpp; gpSkillDescCode : void* : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096BC80	+0x0050	4	unsigned int nSkillDescCodeSize	gnSkillDescCodeSize : int : D2Common/DATATBLS/DataTbls.cpp; gnSkillDescCodeSize : int : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096BC84	+0x0054	4	int nSkillDescCodeSizeEx	gnSkillDescCodeSizeEx : int : D2Common/DATATBLS/DataTbls.cpp; gnSkillDescCodeSizeEx : int : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096BC88	+0x0058	4	void* pMissileCalcTxt	gpMissileCalcTxt : void* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BC8C	+0x005C	4	D2TxtLinkStrc* pMissileCalcLinker	gpMissileCalcLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpMissileCalcLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MissileTbls.cpp; gpMissileCalcLinker : D2TxtLinkStrc* : D2Common/Logging/ProfCore.cpp
+0x0096BC90	+0x0060	4	void* pMissCode	gpMissCode : char* : D2Common/DATATBLS/MissileTbls.cpp
+0x0096BC94	+0x0064	4	int nMissCodeSize	gnMissCodeSize : int : D2Common/DATATBLS/MissileTbls.cpp
+0x0096BC98	+0x0068	4	int nMissCodeSizeEx	gnMissCodeSizeEx : int : D2Common/DATATBLS/MissileTbls.cpp
+0x0096BC9C	+0x006C	4	void* pSkillCode	gpSkillCodeTxt : void* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BCA0	+0x0070	4	D2TxtLinkStrc* unk0x70	gpSkillCodeLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpSkillCodeLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MissileTbls.cpp
+0x0096BCA4	+0x0074	4	void* pEventsTxt	gpEventsTxt : void* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BCA8	+0x0078	4	D2TxtLinkStrc* pEventsLinker	gpEventsLinker_0096BCA8 : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpEventsLinker_0096BCA8 : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls_00613F80.cpp; gpEventsLinker_0096BCA8 : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096BCAC	+0x007C	4	void* pCompCodeTxt	gpCompCodeTxt : D2CompCodeTxt* : D2Common/Chat/Ignorelist.cpp; gpCompCodeTxt : D2CompCodeTxt* : D2Common/DATATBLS/DataTbls.cpp; gpCompCodeTxt_0096BCAC : void* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BCB0	+0x0080	4	D2TxtLinkStrc* pCompCodeLinker	gpCompCodeLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpCompCodeLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096BCB4	+0x0084	4	int nCompCodeTxtRecordCount	gnCompCodeTxtRecordCount : int : D2Common/Chat/Ignorelist.cpp; gnCompCodeTxtRecordCount : int : D2Common/DATATBLS/DataTbls.cpp
+0x0096BCB8	+0x0088	4	void* pMonAiTxt	gpMonAiTxt : void* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BCBC	+0x008C	8	D2TxtLinkStrc* pMonAiLinker	gpMonAiLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpMonAiLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096BCC4	+0x0094	4	D2TxtLinkStrc* pItemsLinker	gpItemsLinker : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp; gpItemsLinker : void* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096BCC8	+0x0098	4	char* pItemsCode	gpItemsCode : void* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096BCCC	+0x009C	4	unsigned int nItemsCodeSize	gnItemsCodeSize : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096BCD0	+0x00A0	4	int nItemsCodeSizeEx	gnItemsCodeSizeEx : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096BCD4	+0x00A4	4	D2PropertiesTxt* pPropertiesTxt	gpPropertiesTxt : void* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096BCD8	+0x00A8	4	D2TxtLinkStrc* pPropertiesLinker	gpPropertiesLinker : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp; gpPropertiesLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096BCDC	+0x00AC	4	int nPropertiesTxtRecordCount	gnPropertiesTxtRecordCount : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096BCE0	+0x00B0	4	D2TxtLinkStrc* pRunesLinker	gpRunesLinker : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096BCE4	+0x00B4	4	void* pHireDescTxt	gpHireDescTxt : void* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BCE8	+0x00B8	4	D2TxtLinkStrc* pHireDescLinker	gpHireDescLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpHireDescLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096BCEC	+0x00BC	4	D2StatesTxt* pStatesTxt	gpStatesTxt : D2StatesTxt* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BCF0	+0x00C0	4	D2TxtLinkStrc* pStatesLinker	gpStatesLinker_0096BCF0 : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpStatesLinker_0096BCF0 : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls_00613F80.cpp; gpStatesLinker_0096BCF0 : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096BCF4	+0x00C4	4	int nStatesTxtRecordCount	gnStatesTxtRecordCount : int : D2Common/DATATBLS/DataTbls.cpp
+0x0096BCF8	+0x00C8	4	unsigned int* pStateMasks	gpStateMasks : unsigned int* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BCFC	+0x00CC	160	unsigned int* fStateMasks[0]	gfStateMasks : unsigned int* [40] : D2Common/DATATBLS/DataTbls.cpp
+0x0096BD9C	+0x016C	8	short* pProgressiveStates	gpProgressiveStates : short* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BDA4	+0x0174	8	short* pCurseStates	gpCurseStates : short* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BDAC	+0x017C	8	short* pTransformStates	gpTransformStates : short* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BDB4	+0x0184	16	short* pActionStates	gpActionStates : short* : D2Common/DATATBLS/DataTbls.cpp
+0x0096BDC4	+0x0194	4	placeholder unk0x192+0x2	gpSoundsTxt : void* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096BDC8	+0x0198	4	D2TxtLinkStrc* pSoundsLinker	gpSoundsLinker : D2TxtLinkStrc* : D2Common/D2Common.h; gpSoundsLinker_0096BDC8 : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpSoundsLinker_0096BDC8 : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls_00613F80.cpp; gpSoundsLinker_0096BDC8 : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096BDCC	+0x019C	4	placeholder nSoundsTxtCodes+0x0	gnSoundsTxtRecordCount : int : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096BDD0	+0x01A0	4	placeholder nSoundsTxtCodes+0x4	gHirelingTables : D2HirelingTableGlobals : D2Common/DATATBLS/MonsterTbls.cpp; gpHirelingTxt : D2HirelingTxt* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096BDD4	+0x01A4	2052	placeholder nSoundsTxtCodes+0x8	gnHirelingTxtRecordCount : int : D2Common/D2Common.h
+0x0096C5D8	+0x09A8	4	placeholder nSoundsTxtCodes+0x80C	gpNpcTxt : D2NpcTxt* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C5DC	+0x09AC	4	placeholder nSoundsTxtCodes+0x810	gnNpcTxtRecordCount : int : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C5E0	+0x09B0	4	void* pColorsTxt	gpColorsTxt : void* : D2Common/DATATBLS/DataTbls.cpp
+0x0096C5E4	+0x09B4	4	D2TxtLinkStrc* pColorsLinker	gpColorsLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpColorsLinker : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C5E8	+0x09B8	4	D2TxtLinkStrc* pTreasureClassExLinker	gpTreasureClassExLinker : D2TxtLinkStrc* : D2Common/D2Common.h; gpTreasureClassExLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C5EC	+0x09BC	4	placeholder pTreasureClassEx+0x0	gpTreasureClassEx : D2TCExShortStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C5F0	+0x09C0	4	placeholder pTreasureClassEx+0x4	gnTreasureClassEx : int : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C5F4	+0x09C4	180	placeholder pTreasureClassEx+0x8	gpChestTreasureClasses : D2TCExShortStrc* [3][5][3] : D2Common/DATATBLS/MonsterTbls.cpp; gpChestTreasureClasses : D2TCExShortStrc* [45] : D2Common/SKILLS/Skills.cpp
+0x0096C6A8	+0x0A78	4	D2MonStatsTxt* pMonStatsTxt	gpMonstatsTxt : D2MonStatsTxt* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C6AC	+0x0A7C	4	D2TxtLinkStrc* pMonStatsLinker	gpMonStatsLinker : D2TxtLinkStrc* : D2Common/D2Common.h; gpMonStatsLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C6B0	+0x0A80	4	int nMonStatsTxtRecordCount	gnMonstatsTxtRecordCount : int : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C6B4	+0x0A84	4	void* pMonSoundsTxt	gpMonsoundsTxt : D2MonSoundsTxt* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C6B8	+0x0A88	4	D2TxtLinkStrc* pMonSoundsLinker	gpMonSoundsLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C6BC	+0x0A8C	4	int nMonSoundsTxtRecordCount	gnMonsoundsTxtRecordCount : int : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C6C0	+0x0A90	4	D2MonStats2Txt* pMonStats2Txt	gpMonTable_96C6C0 : void* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C6C4	+0x0A94	8	D2TxtLinkStrc* pMonStats2Linker	gpMonStats2Linker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C6CC	+0x0A9C	4	void* pMonPlaceTxt	gpMonPlaceTxt : void* : D2Common/DATATBLS/DataTbls.cpp
+0x0096C6D0	+0x0AA0	8	D2TxtLinkStrc* pMonPlaceLinker	gpMonPlaceLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpMonPlaceLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C6D8	+0x0AA8	4	placeholder pMonPresetTxt+0x0	gpMonPresetTxt : D2MonPresetTxt* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C6DC	+0x0AAC	20	placeholder pMonPresetTxt+0x4	gpMonPresetTxtActSections : D2MonPresetTxt* [5] : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C6F0	+0x0AC0	20	placeholder pMonPresetTxt+0x18	gnMonPresetTxtActRecordCounts : int [5] : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C704	+0x0AD4	4	D2SuperUniquesTxt* pSuperUniquesTxt	gpSuperUniquesTxt : D2SuperUniquesTxt* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C708	+0x0AD8	4	D2TxtLinkStrc* pSuperUniquesLinker	gpSuperUniquesLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C70C	+0x0ADC	140	int nSuperUniquesTxtRecordCount	gnSuperUniquesTxtRecordCount : int : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C798	+0x0B68	8	D2TxtLinkStrc* pMissilesLinker	gTxtLink_0096C798 : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp; gpMissilesLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpMissilesLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls_00613F80.cpp; gpMissilesLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MissileTbls.cpp; gpMissilesLinker : D2TxtLinkStrc* : D2Common/Logging/ProfCore.cpp
+0x0096C7A0	+0x0B70	4	D2MonLvlTxt* pMonLvlTxt	gpMonlvlTxt : void* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C7A4	+0x0B74	4	int nMonLvlTxtRecordCount	gnMonlvlTxtRecordCount : int : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C7A8	+0x0B78	4	placeholder pMonSeqTxt+0x0	gpMonseqTxt : D2AnimSeqTxt* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C7AC	+0x0B7C	4	placeholder pMonSeqTxt+0x4	gpMonSeqLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp; gpMonTableLinker_96C7AC : D2TxtLinkStrc* : D2Common/D2Common.h
+0x0096C7B0	+0x0B80	4	placeholder pMonSeqTxt+0x8	gnMonseqTxtRecordCount : int : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C7B4	+0x0B84	4	placeholder pMonSeqTxt+0xC	gpMonSeqTable : D2AnimSeqRecordStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C7B8	+0x0B88	4	placeholder pMonSeqTxt+0x10	gnMonSeqTableRecordCount : int : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C7BC	+0x0B8C	4	D2SkillDescTxt* pSkillDescTxt	gpSkillDescTxt : void* : D2Common/DATATBLS/DataTbls.cpp; gpSkillDescTxt : void* : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096C7C0	+0x0B90	4	D2TxtLinkStrc* pSkillDescLinker	gpSkillDescLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpSkillDescLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096C7C4	+0x0B94	4	int nSkillDescTxtRecordCount	gnSkillDescTxtRecordCount : int : D2Common/DATATBLS/DataTbls.cpp; gnSkillDescTxtRecordCount : int : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096C7C8	+0x0B98	4	D2SkillsTxt* pSkillsTxt	gpSkillsTxt : D2SkillsTxt* : D2Common/DATATBLS/DataTbls.cpp; gpSkillsTxt : D2SkillsTxt* : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096C7CC	+0x0B9C	4	D2TxtLinkStrc* pSkillsLinker	gTxtLink_0096C7CC : D2TxtLinkStrc* : D2Common/D2Common.h; gpSkillsLinker_0096C7CC : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpSkillsLinker_0096C7CC : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls_00613F80.cpp; gpSkillsLinker_0096C7CC : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp; gpSkillsLinker_0096C7CC : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp; gpSkillsLinker_0096C7CC : D2TxtLinkStrc* : D2Common/Logging/ProfCore.cpp
+0x0096C7D0	+0x0BA0	4	int nSkillsTxtRecordCount	gnSkillsTxtRecordCount : int : D2Common/DATATBLS/DataTbls.cpp; gnSkillsTxtRecordCount : int : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096C7D4	+0x0BA4	4	int* nClassSkillCount	gpClassSkillCount : int* : D2Common/DATATBLS/DataTbls.cpp; gpClassSkillCount : int* : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096C7D8	+0x0BA8	4	int nHighestClassSkillCount	gnHighestClassSkillCount : int : D2Common/DATATBLS/DataTbls.cpp; gnHighestClassSkillCount : int : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096C7DC	+0x0BAC	4	short* nClassSkillList	gpClassSkillList : short* : D2Common/DATATBLS/DataTbls.cpp; gpClassSkillList : short* : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096C7E0	+0x0BB0	4	int nPassiveSkills	gnPassiveSkills : int : D2Common/DATATBLS/DataTbls.cpp; gnPassiveSkills : int : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096C7E4	+0x0BB4	4	unsigned short* pPassiveSkills	gpPassiveSkills : short* : D2Common/DATATBLS/DataTbls.cpp; gpPassiveSkills : short* : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096C7E8	+0x0BB8	12	D2TxtLinkStrc* pOverlayLinker	gpOverlayLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpOverlayLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096C7F4	+0x0BC4	4	D2CharStatsTxt* pCharStatsTxt	gpCharstatsTxt : int : D2CMP/SRC/CelCmp.cpp; gpCharstatsTxt : void* : D2Common/D2Common.h
+0x0096C7F8	+0x0BC8	4	int nCharStatsTxtRecordCount	gnCharstatsTxtRecordCount : int : D2Common/DATATBLS/DataTbls.cpp
+0x0096C7FC	+0x0BCC	4	D2ItemStatCostTxt* pItemStatCostTxt	gpItemStatCostTxt : D2ItemStatCostTxt* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C800	+0x0BD0	4	D2TxtLinkStrc* pItemStatCostLinker	gTxtLink_0096C800 : D2TxtLinkStrc* : D2Common/D2Common.h; gpItemStatCostLinker : D2TxtLinkStrc* : D2Common/D2Common.h; gpItemStatCostLinker_0096C800 : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpItemStatCostLinker_0096C800 : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls_00613F80.cpp; gpItemStatCostLinker_0096C800 : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C804	+0x0BD4	4	int nItemStatCostTxtRecordCount	gnItemStatCostTxtRecordCount : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C808	+0x0BD8	4	short* pStatsWithDescFunc	gpStatsWithDescFunc : unsigned short* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C80C	+0x0BDC	4	int nStatsWithDescFunc	gnStatsWithDescFunc : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C810	+0x0BE0	4	D2MonEquipTxt* pMonEquipTxt	gpMonEquipTxt : D2MonEquipTxt* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C814	+0x0BE4	4	int nMonEquipTxtRecordCount	gnMonEquipTxtRecordCount : int : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C818	+0x0BE8	4	D2PetTypeTxt* pPetTypeTxt	gpPettypeTxt : void* : D2Common/D2Common.h; gpPettypeTxt_0096C818 : D2PetTypeTxt* : D2Common/DATATBLS/DataTbls.cpp; gpPettypeTxt_0096C818 : D2PetTypeTxt* : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096C81C	+0x0BEC	4	D2TxtLinkStrc* pPetTypeLinker	gTxtLink_0096C81C : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpPettypeLinker : D2TxtLinkStrc* : D2Common/D2Common.h; gpPettypeLinker : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096C820	+0x0BF0	4	int nPetTypeTxtRecordCount	gnPettypeTxtRecordCount : int : D2Common/DATATBLS/DataTbls.cpp; gnPettypeTxtRecordCount : int : D2Common/DATATBLS/DataTbls_00613F80.cpp
+0x0096C824	+0x0BF4	4	D2TxtLinkStrc* pItemTypesLinker	gpItemTypesLinker : D2TxtLinkStrc* : D2Common/D2Common.h; gpItemTypesLinker_0096C824 : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls.cpp; gpItemTypesLinker_0096C824 : D2TxtLinkStrc* : D2Common/DATATBLS/DataTbls_00613F80.cpp; gpItemTypesLinker_0096C824 : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp; gpItemTypesLinker_0096C824 : D2TxtLinkStrc* : D2Common/Unknown_00668510.cpp
+0x0096C828	+0x0BF8	4	D2ItemTypesTxt* pItemTypesTxt	gpItemTypesTxt_0096C828 : D2ItemTypesTxt* : D2Common/DATATBLS/DataTbls.cpp; gpItemTypesTxt_0096C828 : D2ItemTypesTxt* : D2Common/DATATBLS/ItemTbls.cpp; gp_0096C828 : void* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C82C	+0x0BFC	4	int nItemTypesTxtRecordCount	gnItemTypesTxtRecordCount_0096C82C : int : D2Common/DATATBLS/DataTbls.cpp; gnItemTypesTxtRecordCount_0096C82C : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C830	+0x0C00	4	int nItemTypesIndex	gnItemTypesIndex : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C834	+0x0C04	4	unsigned int* pItemTypesEquivalenceLUTs	gpItemTypesEquivalenceLUTs : void* : D2Common/DATATBLS/ItemTbls.cpp; gpItemTypesEquivalenceLUTs_0096C834 : unsigned int* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C838	+0x0C08	4	D2TxtLinkStrc* pSetsLinker	gpSetsLinker : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C83C	+0x0C0C	4	D2SetsTxt* pSetsTxt	gpSetsTxt : void* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C840	+0x0C10	4	int nSetsTxtRecordCount	gnSetsTxtRecordCount : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C844	+0x0C14	4	D2TxtLinkStrc* pSetItemsLinker	gpSetItemsLinker : D2TxtLinkStrc* : D2Common/D2Common.h; gpSetItemsLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C848	+0x0C18	4	D2SetItemsTxt* pSetItemsTxt	gpSetItemsTxt : void* : D2Common/D2Common.h; gpSetItemsTxt : void* : D2Common/DATATBLS/MonsterTbls.cpp; gpSetItemsTxt_0096C848 : D2SetItemsTxt* : D2Common/Unknown_00668510.cpp
+0x0096C84C	+0x0C1C	4	int nSetItemsTxtRecordCount	gnSetItemsTxtRecordCount : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C850	+0x0C20	4	D2TxtLinkStrc* pUniqueItemsLinker	gpUniqueItemsLinker : D2TxtLinkStrc* : D2Common/D2Common.h; gpUniqueitemsLinker : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C854	+0x0C24	4	D2UniqueItemsTxt* pUniqueItemsTxt	gpUniqueItemsTxt : void* : D2Common/D2Common.h; gpUniqueItemsTxt_0096C854 : D2UniqueItemsTxt* : D2Common/Unknown_00668510.cpp; gpUniqueitemsTxt : D2UniqueItemsTxt* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C858	+0x0C28	4	int nUniqueItemsTxtRecordCount	gnUniqueitemsTxtRecordCount : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C85C	+0x0C2C	4	D2TxtLinkStrc* pMonPropLinker	gpMonPropLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C860	+0x0C30	4	void* pMonPropTxt	gpMonpropTxt : void* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C864	+0x0C34	4	int nMonPropTxtRecordCount	gnMonpropTxtRecordCount : int : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C868	+0x0C38	4	D2TxtLinkStrc* pMonTypeLinker	gpMonTypeLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp; gpMonTypeLinker_0096C868 : D2TxtLinkStrc* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C86C	+0x0C3C	4	D2MonTypeTxt* pMonTypeTxt	gpMonTypeTxt : D2MonTypeTxt* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C870	+0x0C40	4	int nMonTypeTxtRecordCount	gnMonTypeTxtRecordCount : int : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C874	+0x0C44	4	unsigned int* pMonTypeNest	gpMonTypeNest : unsigned int* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C878	+0x0C48	4	int nMonTypeIndex	gnMonTypeIndex : int : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C87C	+0x0C4C	4	D2TxtLinkStrc* pMonUModLinker	gpMonUModLinker : D2TxtLinkStrc* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C880	+0x0C50	4	D2MonUModTxt* pMonUModTxt	gpMonumodTxt : void* : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C884	+0x0C54	12	int nMonUModTxtRecordCount	gnMonumodTxtRecordCount : int : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C890	+0x0C60	4	void* pLevelDefBin	gpLevelDefBin : D2LevelDefBin* : D2Common/DATATBLS/LvlTbls.cpp
+0x0096C894	+0x0C64	8	D2LvlPrestTxt* pLvlPrestTxt	gpLvlPrestTxt : D2LvlPrestTxt* : D2Common/DATATBLS/LvlTbls.cpp
+0x0096C89C	+0x0C6C	4	int nStuff	gnItemStatCostStuff : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C8A0	+0x0C70	4	int nShiftedStuff	gnItemStatCostStuffMask : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096C8A4	+0x0C74	4	void* pAnimData	gpAnimData : D2AnimDataTableStrc* : D2Common/DATATBLS/DataTbls.cpp; gpAnimData : int : D2CMP/SRC/CelCmp.cpp
+0x0096C8A8	+0x0C78	4	placeholder pExperienceTxt+0x0	gpExperienceTxt : D2ExperienceDataTbl* : D2Common/Chat/Ignorelist.cpp; gpExperienceTxt : D2ExperienceDataTbl* : D2Common/DATATBLS/DataTbls.cpp
+0x0096C8AC	+0x0C7C	4	placeholder pExperienceTxt+0x4	gpDifficultylevelsTxt : D2DifficultyLevelsTxt* : D2Common/DATATBLS/DataTbls.cpp
+0x0096C8B0	+0x0C80	4	placeholder pExperienceTxt+0x8	gnDifficultylevelsTxtRecordCount : int : D2Common/DATATBLS/DataTbls.cpp
+0x0096C8B4	+0x0C84	4	int bCompileTxt	gbCompileTxt : int : D2Common/Chat/Ignorelist.cpp; gbCompileTxt : int : D2Common/DATATBLS/DataTbls.cpp; gbCompileTxt : int : D2Common/DATATBLS/DataTbls_00613F80.cpp; gbCompileTxt : int : D2Common/DATATBLS/ItemTbls.cpp; gnSoundsGuard : int : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096C8B8	+0x0C88	4	placeholder unk0xC88+0x0	gStatsClientAllocatedRooms : int : D2Common/DUNGEON/Dungeon.cpp; gStatsClientAllocatedRooms : int : D2Common/ENVIRONMENT/Env.cpp; gStatsClientAllocatedRooms : static int : D2Common/DRLG/DrlgActivate.cpp; gnRoomStats_0096C8B8 : static int : D2Common/DRLG/DrlgActivate.cpp; gnStatsClientAllocatedRooms : static int : D2Common/DRLG/DrlgActivate.cpp
+0x0096C8BC	+0x0C8C	4	placeholder unk0xC88+0x4	gStatsClientFreedRooms : int : D2Common/DUNGEON/Dungeon.cpp; gStatsClientFreedRooms : int : D2Common/ENVIRONMENT/Env.cpp; gStatsClientFreedRooms : static int : D2Common/DRLG/DrlgActivate.cpp; gnRoomStats_0096C8BC : static int : D2Common/DRLG/DrlgActivate.cpp; gnStatsClientFreedRooms : static int : D2Common/DRLG/DrlgActivate.cpp
+0x0096C8C0	+0x0C90	4	placeholder unk0xC88+0x8	gStatsFreedRooms : int : D2Common/DUNGEON/Dungeon.cpp; gStatsFreedRooms : int : D2Common/ENVIRONMENT/Env.cpp; gStatsFreedRooms : static int : D2Common/DRLG/DrlgActivate.cpp; gnRoomStats_0096C8C0 : static int : D2Common/DRLG/DrlgActivate.cpp; gnStatsFreedRooms : static int : D2Common/DRLG/DrlgActivate.cpp
+0x0096C8C4	+0x0C94	12	placeholder unk0xC88+0xC	gStatsAllocatedRooms : int : D2Common/DUNGEON/Dungeon.cpp; gStatsAllocatedRooms : int : D2Common/ENVIRONMENT/Env.cpp; gStatsAllocatedRooms : static int : D2Common/DRLG/DrlgActivate.cpp; gnRoomStats_0096C8C4 : static int : D2Common/DRLG/DrlgActivate.cpp; gnStatsAllocatedRooms : static int : D2Common/DRLG/DrlgActivate.cpp
+0x0096C8D0	+0x0CA0	288	placeholder unk0xC88+0x18	gaAutomapIndex : D2AutomapIndexStrc [36] : D2Common/DATATBLS/LvlTbls.cpp
+0x0096C9F0	+0x0DC0	4	D2LvlTypesTxt* pLvlTypesTxt	gpLvlTypesTxt : D2LvlTypesTxt* : D2Common/DATATBLS/LvlTbls.cpp; gpLvlTypesTxt_0096C9F0 : static D2LvlTypesTxt* : D2Common/DATATBLS/LvlTbls.cpp
+0x0096C9F4	+0x0DC4	4	placeholder unk0xDC4+0x0	gpPortalLevels : int* : D2Common/DATATBLS/LvlTbls.cpp; gpPortalLevels_0096C9F4 : static int* : D2Common/DATATBLS/LvlTbls.cpp
+0x0096C9F8	+0x0DC8	4	placeholder unk0xDC4+0x4	gnPortalLevels : int : D2Common/DATATBLS/LvlTbls.cpp; gnPortalLevels_0096C9F8 : static int : D2Common/DATATBLS/LvlTbls.cpp
+0x0096C9FC	+0x0DCC	4	int nLvlTypesTxtRecordCount	gnLvlTypesTxtRecordCount : static int : D2Common/DATATBLS/LvlTbls.cpp
+0x0096CA00	+0x0DD0	4	placeholder unk0xDD0+0x0	gpLvlWarpTxt : D2LvlWarpTxt* : D2Common/DATATBLS/LvlTbls.cpp; gpLvlwarpTxt : void* : D2Common/DATATBLS/LvlTbls.cpp
+0x0096CA04	+0x0DD4	4	placeholder unk0xDD0+0x4	gnLvlwarpTxtRecordCount : int : D2Common/DATATBLS/LvlTbls.cpp
+0x0096CA08	+0x0DD8	4	placeholder unk0xDD0+0x8	gpLvlMazeTxt : D2LvlMazeTxt* : D2Common/DATATBLS/LvlTbls.cpp; gpLvlmazeTxt : void* : D2Common/DATATBLS/LvlTbls.cpp
+0x0096CA0C	+0x0DDC	4	placeholder unk0xDD0+0xC	gnLvlmazeTxtRecordCount : int : D2Common/DATATBLS/LvlTbls.cpp
+0x0096CA10	+0x0DE0	4	D2LvlSubTxt* pLvlSubTxt	gpLvlSubTxt : D2LvlSubTxt* : D2Common/DATATBLS/LvlTbls.cpp
+0x0096CA14	+0x0DE4	4	int nLvlSubTxtRecordCount	gnLvlSubTxtRecordCount : int : D2Common/DATATBLS/LvlTbls.cpp
+0x0096CA18	+0x0DE8	4	int* pLvlSubTypeStartIds	gpLvlSubTypeStartIds : int* : D2Common/DATATBLS/LvlTbls.cpp
+0x0096CA1C	+0x0DEC	4	placeholder unk0xDEC+0x0	gppTileLibraryHash : void* : D2Common/DATATBLS/LvlTbls.cpp; gppTileLibraryHash_0096CA1C : static D2TileLibraryHeaderStrc** : D2Common/DATATBLS/LvlTbls.cpp
+0x0096CA20	+0x0DF0	4	D2DrlgFileStrc** ppLvlPrestFiles	gppLvlPrestDrlgFiles : D2DrlgFileStrc** : D2Common/DATATBLS/LvlTbls.cpp
+0x0096CA24	+0x0DF4	4	D2DrlgFileStrc** ppLvlSubTypeFiles	gppLvlSubDrlgFiles : D2DrlgFileStrc** : D2Common/DATATBLS/LvlTbls.cpp
+0x0096CA28	+0x0DF8	4	placeholder unk0xDF8+0x0	gpAutomapRecords : D2AutomapRecordStrc* : D2Common/DATATBLS/LvlTbls.cpp
+0x0096CA2C	+0x0DFC	4	placeholder unk0xDF8+0x4	gnAutomapRecordCount : int : D2Common/DATATBLS/LvlTbls.cpp
+0x0096CA30	+0x0E00	24	placeholder unk0xDF8+0x8	gLogLock : D2CriticalSectionStrc : D2Common/Logging/Logging.cpp
+0x0096CA48	+0x0E18	4	placeholder unk0xDF8+0x20	gpLogFile : _iobuf* : D2Common/Logging/Logging.cpp
+0x0096CA4C	+0x0E1C	4	placeholder unk0xDF8+0x24	gbLogEnabled : int : D2Common/Logging/Logging.cpp
+0x0096CA50	+0x0E20	8	placeholder unk0xDF8+0x28	gnLogValue : int : D2Common/Logging/Logging.cpp
+0x0096CA58	+0x0E28	4	placeholder unk0xDF8+0x30	gItemDataTables : D2ItemDataTbl : D2Common/DATATBLS/ItemTbls.cpp; gnItemsTxtRecordCount : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CA5C	+0x0E2C	4	D2ItemsTxt* pItemsTxt	gpItemsTxt : D2ItemsTxt* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CA60	+0x0E30	4	placeholder unk0xE30+0x0	gpWeaponsTxt : D2ItemsTxt* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CA64	+0x0E34	4	placeholder unk0xE30+0x4	gnWeaponsTxtRecordCount : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CA68	+0x0E38	4	placeholder unk0xE30+0x8	gpArmorTxt : D2ItemsTxt* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CA6C	+0x0E3C	4	placeholder unk0xE30+0xC	gnArmorTxtRecordCount : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CA70	+0x0E40	4	placeholder unk0xE30+0x10	gpMiscTxt : D2ItemsTxt* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CA74	+0x0E44	4	placeholder unk0xE30+0x14	gnMiscTxtRecordCount : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CA78	+0x0E48	4	placeholder unk0xE30+0x18	gpIndexOldToCurrent : unsigned short* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CA7C	+0x0E4C	20	D2MagicAffixDataTbl pMagicAffixDataTables	sgtMagicItemModsDataTblDesc : D2MagicAffixDataTbl : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CA90	+0x0E60	4	placeholder unk0xE60+0x0	gGemDataTables : D2GemDataTbl : D2Common/DATATBLS/ItemTbls.cpp; gnGemsTxtRecordCount : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CA94	+0x0E64	4	placeholder unk0xE60+0x4	gpGemsTxt : D2GemsTxt* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CA98	+0x0E68	8	D2RuneDataTbl pRuneDataTables	sgtRuneWordsTblDesc : D2RuneDataTbl : D2Common/DATATBLS/DataTbls.cpp; sgtRuneWordsTblDesc : D2RuneDataTbl : D2Common/DATATBLS/ItemTbls.cpp; sgtRuneWordsTblDesc : D2RuneDataTbl : D2Common/ITEMS/Items.cpp
+0x0096CAA0	+0x0E70	16	int nRareAffixTxtRecordCount	sgtRareItemModsDataTblDesc : D2RareAffixDataTbl : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CAB0	+0x0E80	408	D2GambleDataTbl pGambleDataTables	gGambleDataTables : D2GambleDataTbl : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CC48	+0x1018	4	placeholder unk0x1018+0x0	gItemRatioDataTables : D2ItemRatioDataTbl : D2Common/DATATBLS/ItemTbls.cpp; gnItemratioTxtRecordCount : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CC4C	+0x101C	4	placeholder unk0x1018+0x4	gpItemratioTxt : void* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CC50	+0x1020	4	placeholder unk0x1018+0x8	gQualityItemDataTables : D2QualityItemDataTbl : D2Common/DATATBLS/ItemTbls.cpp; gnQualityitemsTxtRecordCount : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CC54	+0x1024	4	placeholder unk0x1018+0xC	gpQualityitemsTxt : D2QualityItemsTxt* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CC58	+0x1028	4	placeholder unk0x1018+0x10	gLowQualityItemDataTables : D2LowQualityItemDataTbl : D2Common/DATATBLS/ItemTbls.cpp; gnLowqualityitemsTxtRecordCount : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CC5C	+0x102C	4	placeholder unk0x1018+0x14	gpLowqualityitemsTxt : D2LowQualityItemsTxt* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CC60	+0x1030	4	placeholder unk0x1018+0x18	gBookDataTables : D2BookDataTbl : D2Common/DATATBLS/ItemTbls.cpp; gnBooksTxtRecordCount : int : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CC64	+0x1034	4	placeholder unk0x1018+0x1C	gpBooksTxt : void* : D2Common/DATATBLS/ItemTbls.cpp
+0x0096CC68	+0x1038	2040	placeholder unk0x1018+0x20	gTable_0096CC68 : CodeEntry [] : D2Common/INVENTORY/Inventory.cpp; gaTxtComponentItemTypeMap : static D2InventoryComponentItemTypeStrc [255] : D2Common/INVENTORY/Inventory.cpp
+0x0096D460	+0x1830	4	placeholder unk0x1018+0x818	gnComponentArrayRecordCount : static int : D2Common/INVENTORY/Inventory.cpp
+0x0096D464	+0x1834	4	placeholder unk0x1018+0x81C	gbComponentArrayInitialized : static int : D2Common/INVENTORY/Inventory.cpp
+0x0096D468	+0x1838	4	placeholder unk0x1018+0x820	gpShrinesTxt : D2ShrinesTxt* : D2Common/DATATBLS/MonsterTbls.cpp; gpShrinesTxt : D2ShrinesTxt* : D2Common/DRLG/Drlg.cpp
+0x0096D46C	+0x183C	4	placeholder unk0x1018+0x824	gnShrinesTxtRecordCount : int : D2CMP/SRC/CelCmp.cpp; gnShrinesTxtRecordCount : int : D2Common/D2Common.h
+0x0096D470	+0x1840	4	placeholder unk0x1018+0x828	gpObjectsTxt : D2ObjectsTxt* : D2Common/DATATBLS/DataTbls.cpp; gpObjectsTxt : D2ObjectsTxt* : D2Common/DATATBLS/MonsterTbls.cpp; gpObjectsTxt : D2ObjectsTxt* : D2Common/Unknown_0063F690.cpp
+0x0096D474	+0x1844	4	placeholder unk0x1018+0x82C	gnObjectsTxtRecordCount : int : D2Common/D2Common.h; gnObjectsTxtRecordCount : int : D2Common/Unknown_0063F690.cpp
+0x0096D478	+0x1848	4	placeholder unk0x1018+0x830	gpObjgroupTxt : D2ObjGroupTxt* : D2Common/DRLG/Drlg.cpp; gpObjgroupTxt : void* : D2Common/DATATBLS/MonsterTbls.cpp; gpObjgroupTxt : void* : D2Common/Unknown_0063F690.cpp; gpObjgroupTxt : void* : D2Common/Unknown_00640F20.cpp
+0x0096D47C	+0x184C	4	placeholder unk0x1018+0x834	gnObjgroupTxtRecordCount : int : D2Common/DATATBLS/MonsterTbls.cpp; gnObjgroupTxtRecordCount : int : D2Common/DRLG/Drlg.cpp; gnObjgroupTxtRecordCount : int : D2Common/Unknown_0063F690.cpp; gnObjgroupTxtRecordCount : int : D2Common/Unknown_00640F20.cpp
+0x0096D480	+0x1850	8	placeholder unk0x1018+0x838	gMonItemPercentDataTables : D2MonItemPercentDataTbl : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096D488	+0x1858	16	placeholder unk0x1018+0x840	gUniqueNameTables : D2UniqueNameTablesStrc : D2Common/DATATBLS/MonsterTbls.cpp; gpUniqueNameTxtTables : D2UniqueNameTxt* [4] : D2Common/DATATBLS/MonsterTbls.cpp; gpUniqueNameTxtTables : D2UniqueNameTxt* [4] : D2Common/DUNGEON/Dungeon.cpp
+0x0096D498	+0x1868	24	placeholder unk0x1018+0x850	gnUniqueNameTxtRecordCounts : int [4] : D2Common/DATATBLS/MonsterTbls.cpp; gnUniqueNameTxtRecordCounts : int [4] : D2Common/DUNGEON/Dungeon.cpp
+0x0096D4B0	+0x1880	4	placeholder unk0x1018+0x868	gnTreasureClassItemTypes : int : D2Common/DATATBLS/MonsterTbls.cpp; gwTreasureClassItemTypes : unsigned short : D2Common/DATATBLS/MonsterTbls.cpp
+0x0096D4B4	+0x1884	4	placeholder unk0x1018+0x86C	gwszDataTablesDefault : Unicode : D2Common/DATATBLS/MonsterTbls.cpp; gwszDataTablesDefault : Unicode : D2Common/DUNGEON/Dungeon.cpp
+0x0096D4B8	+0x1888	4	placeholder unk0x1018+0x870	gMonModeDataTables : D2MonModeDataTbl : D2Common/DATATBLS/TokTbls.cpp; gnMonmodeTxtRecordCount : int : D2Common/DATATBLS/TokTbls.cpp
+0x0096D4BC	+0x188C	4	placeholder unk0x1018+0x874	gpMonmodeTxt : void* : D2Common/DATATBLS/TokTbls.cpp
+0x0096D4C0	+0x1890	4	placeholder unk0x1018+0x878	gpMonmodeTxtAlias1 : void* : D2Common/DATATBLS/TokTbls.cpp
+0x0096D4C4	+0x1894	4	placeholder unk0x1018+0x87C	gpMonmodeTxtAlias2 : void* : D2Common/DATATBLS/TokTbls.cpp
+0x0096D4C8	+0x1898	4	placeholder unk0x1018+0x880	gObjModeDataTables : D2ObjModeDataTbl : D2Common/DATATBLS/TokTbls.cpp; gnObjModeTypeTxtRecordCount : int : D2Common/DATATBLS/TokTbls.cpp
+0x0096D4CC	+0x189C	4	placeholder unk0x1018+0x884	gpObjModeTypeTxt : D2ObjModeTypeTxt* : D2Common/DATATBLS/TokTbls.cpp
+0x0096D4D0	+0x18A0	4	placeholder unk0x1018+0x888	gpObjType : D2ObjModeTypeTxt* : D2Common/DATATBLS/TokTbls.cpp
+0x0096D4D4	+0x18A4	4	placeholder unk0x1018+0x88C	gpObjMode : D2ObjModeTypeTxt* : D2Common/DATATBLS/TokTbls.cpp
+0x0096D4D8	+0x18A8	16	placeholder unk0x1018+0x890	gPlrModeDataTables : D2PlrModeDataTbl : D2Common/DATATBLS/TokTbls.cpp
+0x0096D4E8	+0x18B8	4	placeholder unk0x1018+0x8A0	gpArmTypeTxt : D2TokRecord* : D2Common/DATATBLS/TokTbls.cpp
+0x0096D4EC	+0x18BC	4	placeholder unk0x1018+0x8A4	gpCompositTxt : D2TokRecord* : D2Common/DATATBLS/TokTbls.cpp
+0x0096D4F0	+0x18C0	4	placeholder unk0x1018+0x8A8	gnInventoryTxtRecordCount : int : D2Common/DATATBLS/InvTbls.cpp; gnTable96D4F4RecordCount : unsigned int : D2Common/DATATBLS/InvTbls.cpp
+0x0096D4F4	+0x18C4	4	placeholder unk0x1018+0x8AC	gpInventoryTxt : void* : D2Common/DATATBLS/InvTbls.cpp; gpTable96D4F4 : D2Table96D4F4Record* : D2Common/DATATBLS/InvTbls.cpp
+0x0096D4F8	+0x18C8	8	placeholder unk0x1018+0x8B0	sgptBeltInitStats : D2BeltsTxt* : D2Common/DATATBLS/BeltTbls.cpp
+0x0096D500	+0x18D0	256	placeholder unk0x1018+0x8B8	gnCharTemplateStartIds : int [64] : D2Common/DATATBLS/Arena.cpp
+0x0096D600	+0x19D0	4	placeholder unk0x1018+0x9B8	gpCharTemplateTxtTable : D2CharTemplateTxt* : D2Common/DATATBLS/Arena.cpp
+0x0096D604	+0x19D4	4	placeholder unk0x1018+0x9BC	gnCharTemplateTxtTableRecordCount : int : D2Common/DATATBLS/Arena.cpp
+0x0096D608	+0x19D8	4	placeholder unk0x1018+0x9C0	gpArenaTxtTable : D2ArenaTxt* : D2Common/DATATBLS/Arena.cpp
+0x0096D60C	+0x19DC	4	placeholder unk0x1018+0x9C4	gpLevelFilesList : D2LevelFileListStrc* : D2Common/DRLG/Preset.cpp
+0x0096D610	+0x19E0	68	placeholder unk0x1018+0x9C8	gLevelFilesCriticalSection : CCritSect : D2Common/DRLG/Preset.cpp; gLevelFilesCriticalSection : unsigned char [] : Storm/Storm.h
+0x0096D654	+0x1A24	4	unsigned char* pFieldData	gpFieldData : unsigned char* : D2Common/DATATBLS/FieldTbls.cpp
+0x0096D658	+0x1A28	20	D2CollisionFieldStrc pCollisionField	gtCollisionField : D2CollisionFieldStrc : D2Common/DATATBLS/FieldTbls.cpp
+```
