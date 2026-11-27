@@ -229,7 +229,6 @@ struct D2AiParamStrc
 
 typedef int (__fastcall* MonModeStartFunc)(D2GameStrc*, D2ModeChangeStrc*);
 
-int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
@@ -245,13 +244,11 @@ void __stdcall PATH_SetDistance(D2DynamicPathStrc* pDynamicPath, int nDist); // 
 void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit); // 0x00649400
 
 
-void __fastcall SUNIT_ScheduleAnimationEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005539B0
 
 
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nUnused); // 0x0057D4F0
 
 
-void __fastcall MONSTERMODE_UpdateModeAttackStats(D2UnitStrc* pUnit, int nMode); // 0x005A4F50
 
 
 int __fastcall MONSTERMODE_CreateMonsterMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nParam); // 0x005A6D50
@@ -291,7 +288,6 @@ static int MONSTERMODE_IsModeEventEnabled(D2UnitStrc* pUnit, int nMode);
 static int __stdcall MONSTERMODE_StartNeutralUnlessDead(D2GameStrc* pGame, int nMode, D2UnitStrc* pUnit);
 
 
-void __fastcall SUNITDMG_CalculateTotalDamage(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage); // 0x0057C1E0
 
 
 static void MONSTERMODE_ApplyDeathAreaDamage(D2GameStrc* pGame, D2UnitStrc* pUnit);
@@ -303,13 +299,9 @@ struct D2HoverTextStrc;
 struct D2ActiveRoomStrc;
 
 
-void __stdcall D2Common_10469(D2UnitStrc* pUnit);                                                            // 0x00627540
 
-void __stdcall STATES_UpdateStayDeathFlags(D2UnitStrc* pUnit, int bIsBoss);                                  // 0x00639FB0
 
-int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                   // 0x004638A0
 
-void __stdcall PATH_SetUnitDeadCollision(D2UnitStrc* pUnit, int bForGameLogic);                              // 0x00649F70
 
 
 static void __stdcall MONSTERMODE_CleanupDeath(int nDirection, D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A6520
@@ -358,14 +350,10 @@ struct D2SkillStrc;
 extern "C" const char gszMonsterModeSourceFile[];                                                  // 0x006E23B0
 
 
-void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit);                       // 0x00648B90
 
 
-void __fastcall SUNIT_ResetRecurringModeChangeEvent(D2GameStrc* pGame, D2UnitStrc* pUnit);                  // 0x00553F00
 
-int __fastcall MONSTER_GetAiState(D2UnitStrc* pMonster);                                                    // 0x005734E0
 
-void __fastcall MONSTER_SetAiState(D2UnitStrc* pMonster, int nAiState);                                     // 0x005734C0
 
 static int __stdcall MONSTERMODE_ComputePath(int nPathType, D2AiParamStrc* pAiParam, D2UnitStrc* pUnit, unsigned char nNewDist);
 

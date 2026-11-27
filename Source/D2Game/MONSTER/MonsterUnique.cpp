@@ -957,7 +957,6 @@ void __fastcall MONSTERUNIQUE_UMod38_Possessed(D2UnitStrc* pUnit, int nUMod, int
     MONSTERUNIQUE_ApplyMonsterPenalty(pUnit, nUMod, bUnique);
 }
 
-int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit);                                                             // 0x00463860
 
 
 // 0x005A1280

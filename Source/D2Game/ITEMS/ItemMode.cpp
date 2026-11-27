@@ -165,7 +165,6 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
 
-void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 
 void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage); // 0x00628280
 
@@ -400,7 +399,6 @@ int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 D2BitBufferStrc* __fastcall sub_00543520(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00543520
 
 
-int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc* pCorpse); // 0x0063D630
 
 
 static int __stdcall ITEMMODE_HasConflictingQuestOrUniqueItem(D2UnitStrc* pItem, D2ItemsTxt* pItemsTxtRecordArg, D2UnitStrc* pPreviousItem); // 0x0055CA40
@@ -575,11 +573,8 @@ void __fastcall D2GAME_SendP0x9C_ItemAction_RemoveFromBelt(void*, Unit*, Unit*, 
 
 void __fastcall D2GAME_ITEMS_UpdateTransferredProperties(Game*, Unit*, Unit*, int, int); // 0x0055C730
 
-int __stdcall ITEMS_IsBodyItem(D2UnitStrc* pItem);                                                          // 0x0062FDF0
 
-int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem);                                                       // 0x0062A4E0
 
-int __stdcall ITEMS_GetQuiverTypeFromItemType(int nItemType);                                               // 0x00628480
 
 
 static int ITEMMODE_GetBookSkillId(D2UnitStrc* pItem); // 0x0055BFF0
@@ -602,20 +597,13 @@ static int ITEMMODE_AddScrollToFillableBook(D2GameStrc* pGame, D2UnitStrc* pUnit
 static void __stdcall ITEMMODE_UpdateEquippedItemStats(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit);
 
 
-int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit);                                                    // 0x00621190
-
-void __stdcall UNITS_InitRightSkill(D2UnitStrc* pUnit);                                                     // 0x00622EA0
-
-void __stdcall UNITS_InitLeftSkill(D2UnitStrc* pUnit);                                                      // 0x00622F10
-
-void __stdcall UNITS_GetRightSkillData(D2UnitStrc* pUnit, int* pSkillId, int* pOwnerGUID);                  // 0x00623060
-
-void __stdcall UNITS_GetLeftSkillData(D2UnitStrc* pUnit, int* pSkillId, int* pOwnerGUID);                   // 0x006230C0
-
-int __stdcall ITEMS_CheckType(int nItemType, int nItemTypeToCheck);                                         // 0x00629B50
 
 
-unsigned int __stdcall ITEMS_GetItemStartSeed(D2UnitStrc* pItem);                                           // 0x00627DF0
+
+
+
+
+
 
 
 int __fastcall ITEMMODE_CheckEquipRequirements(D2UnitStrc* pUnit,D2UnitStrc* pItem); // 0x0055DB00

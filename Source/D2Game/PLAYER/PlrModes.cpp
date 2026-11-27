@@ -133,7 +133,6 @@ void __fastcall ITEMMODE_MoveExcessBeltItems(D2GameStrc* pGame, D2UnitStrc* pUni
 void __fastcall D2GAME_ITEMS_UpdateTransferredProperties(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pTarget, int bUpdateStatList, int bUpdateVitals); // 0x0055C730
 
 
-void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 
 
 void __fastcall sub_0055D930_Nop(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nUnused); // 0x0055D930
@@ -146,7 +145,6 @@ void __fastcall D2GAME_DropItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc
 unsigned int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
 
 
-int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc* pCorpse); // 0x0063D630
 
 
 int __fastcall ITEMMODE_RecoverCorpseItems(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pDeadBody); // 0x00562F30

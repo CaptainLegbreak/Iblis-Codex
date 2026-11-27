@@ -34,7 +34,6 @@ struct D2LevelsTxt;
 
 typedef D2UnitStrc* (__fastcall* AITARGETCALLBACK)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, void*);
 
-int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 
@@ -325,7 +324,6 @@ int __fastcall AIUTIL_CheckIfMonsterUsesSkill(D2UnitStrc* pUnit, int nSkillId); 
 
 D2UnitStrc* __fastcall AITACTICS_GetTargetMinion(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005DE830
 
-int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nNewDistance, int bDeleteAiEventCallback); // 0x005DF7D0
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Overseer_Nihlathak(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005E26D0
 
@@ -340,7 +338,6 @@ inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed);
 
 int __fastcall MISSILE_GetSkillMissileRange(int nSkillId, int nSkillLevel);                                   // 0x004CC7C0
 
-D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pDistance, int* pInMeleeRange); // 0x005DDC30
 
 #define MINIMUM(a,b) ((a) < (b) ? (a) : (b))
 

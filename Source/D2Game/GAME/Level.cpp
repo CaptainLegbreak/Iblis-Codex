@@ -67,7 +67,6 @@ void __fastcall ITEMMODE_SendUpdatedGroundItemToClient(D2UnitStrc* pUnit, D2Clie
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 
-void __fastcall SUNIT_ClearUpdateData(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553220
 
 // 0x0053A500
 static void __stdcall LEVEL_UpdateUnitForClient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)

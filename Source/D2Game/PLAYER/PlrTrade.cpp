@@ -171,7 +171,6 @@ void __fastcall PLRTRADE_IterateCallback_SendInventoryReset(D2GameStrc* pGame, D
 
 void __fastcall PLRTRADE_RestoreTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00566CC0
 
-void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 
 
 struct D2CubeInputItem;
@@ -293,25 +292,17 @@ struct D2InventoryStrc;
 
 struct D2ActiveRoomStrc;
 
-int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit);                                                 // 0x00451F60
-
-D2ItemStatCostTxt* __fastcall PLAYER_GetItemStatCostTxtRecord(int nStatId);                           // 0x0045C4F0
 
 
-void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused);                                 // 0x005678F0
-
-int __stdcall UNITS_GetStashGoldLimit(D2UnitStrc* pUnit);                                                   // 0x00623460
 
 
-void __stdcall ITEMS_SetEarName(D2UnitStrc* pItem, char* szName);                                           // 0x00628370
+
+
 
 void __stdcall ITEMS_SetEarLevel(D2UnitStrc* pItem, unsigned char nLevel); // 0x006283D0
 
-int __stdcall INVENTORY_CanItemsBeTraded(void* pMemPool, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int* pTradeState); // 0x0063E370
 
-D2CubeMainTxt* __stdcall DATATBLS_GetCubemainTxtRecord(int nIndex);                                         // 0x0066A1B0
 
-int __fastcall DATATBLS_GetCubemainTxtRecordCount();                                                        // 0x0066A200
 
 int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton, unsigned int nGold);
 
