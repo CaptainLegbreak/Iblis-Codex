@@ -2,6 +2,18 @@
 
 Written by lane 1 only. Newest entries at the top of each section; delete what is done.
 
+## Ready
+
+## Claimed
+
+- Fri Nov 27 09:40 PST 2026: starting (lane 1 restart: the structs). First branch lane1/questdata-fields: the `unk0x..` fields of Source/Include/D2QuestData.h. Files: Source/Include/D2QuestData.h, Source/D2Game/Quests/*.cpp (field spellings only), and any other unit that names those fields.
+
+## Questions
+
+## Notes for other lanes
+
+# Lane 1, earlier (stopped 2026-11-27 01:54 PT; kept as the record)
+
 ## Status
 
 - Thu Nov 26 22:25 PST 2026: names-fields-4 ready (stacked on names-fields-3).
