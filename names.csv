@@ -12163,7 +12163,7 @@ address,name,source,alias
 0x0061B7E0,DRLGACTIVATE_InitializeRoomExStatusLists,d2moo,
 0x0061B810,DRLGACTIVATE_RoomExStatusList_GetFirst,d2moo,
 0x0061B840,DRLGACTIVATE_GetARoomInClientSight,d2moo,
-0x0061B870,DRLGACTIVATE_GetNextValue,inferred,
+0x0061B870,DRLGACTIVATE_GetARoomInSightButWithoutClient,d2moo,
 0x0061B8B0,DRLGACTIVATE_UpdateRoomsAllocationStats,inferred,
 0x0061B8F0,DRLGACTIVATE_GetRoomsAllocationStats,d2moo,
 0x0061B920,DRLGACTIVATE_Update,d2moo,
