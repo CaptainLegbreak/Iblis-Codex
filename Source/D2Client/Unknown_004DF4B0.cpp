@@ -220,29 +220,6 @@ void __fastcall sub_004E4050_Nothing(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
 }
 
-// 0x004E4280
-extern "C" void __cdecl sub_004E4280_ResetEnvironSounds()
-{
-    gnEnvironLevelId = 0;
-    gnEnvironAmbientId = 0;
-    gnAmbientDelay = 0;
-    gnAmbientTick = 0;
-    if (gnEnvironSoundHandle)
-    {
-        sub_004BA840_StopSound(gnEnvironSoundHandle);
-        gnEnvironSoundHandle = 0;
-    }
-
-    gnEnvironSoundId = 0;
-    if (gnWeatherSoundHandle)
-    {
-        sub_004BA840_StopSound(gnWeatherSoundHandle);
-        gnWeatherSoundHandle = 0;
-    }
-
-    gnWeatherSoundId = 0;
-}
-
 #include "gen/data/Source/D2Client/Unknown_004DF4B0.inc"
 
 // 0x004E06A0

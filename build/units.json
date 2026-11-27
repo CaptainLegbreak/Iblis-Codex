@@ -29960,11 +29960,6 @@
      "va": "0x004E4050",
      "length": 1,
      "name": "?sub_004E4050_Nothing@@YIXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004E4280",
-     "length": 83,
-     "name": "_sub_004E4280"
     }
    ]
   },
@@ -30790,6 +30785,11 @@
      "va": "0x004E4240",
      "length": 52,
      "name": "?SKILLDESC_AddEnvironSoundRefs@@YAXH@Z"
+    },
+    {
+     "va": "0x004E4280",
+     "length": 83,
+     "name": "_sub_004E4280"
     },
     {
      "va": "0x004E42E0",
