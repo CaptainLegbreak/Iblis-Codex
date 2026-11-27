@@ -4,9 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- *03:30 UTC status:* sbig-templates is on main (#460); line removed. Open: emit-trim (merges clean onto #461) and volatile-original, which has waited since 22:55 UTC and still merges clean onto #461: it is your 11:44 PT answer for 0x4027C0 (status.py "(original)", forcing -1, no code change).
+- *04:05 UTC status:* volatile-original is on main (status.py has 0x4027C0 "(original)"); line removed. Open: emit-trim (merges clean onto #464). Lane 3 has nothing else Ready; remaining items are the SBig array-type conversion and the two shims.
 - lane3/emit-trim ad9d6f3b2 on #456, **SBMP.CPP: two emit helpers go** (sub_006C5730_EmitCaller, sub_006C54D0_Emit; emit helpers -2). I tried every emit helper in Storm and Fog (34 in 16 files) by deleting it alone and rebuilding its unit: these two are unneeded, the other 32 still shape their units. VERIFIED on #456 (full build identical; borrowed code 5,424 B in 2 functions, borrowed data 261 B).
-- lane3/volatile-original b42adcfdb on #439, **status: 0x4027C0's volatile local is the original's** (your 11:44 PT answer). tools/status.py gets `VOLATILE_ORIGINAL = {0x004027C0}` with the evidence in a comment and labels it "(original)"; the source comment says the same. Forcing-construct functions 36 -> 35 (status.py run on the branch; generated STATUS.md and svgs left to the round). No code change.
 
 ## Claimed
 
