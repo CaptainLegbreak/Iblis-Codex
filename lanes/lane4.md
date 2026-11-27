@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Thu Nov 26 21:58 PST 2026: join-gfx-e300-c30 posted, stacked on join-gfx-dcc0 (Gfx pieces 5 -> 2). Left: Gfx_0046DB90 + Gfx_0046F870, which wait on the COF header (Notes).
+- Thu Nov 26 21:27 PST 2026: join-gfx-e300-c30 posted, stacked on join-gfx-dcc0 (Gfx pieces 5 -> 2). Left: Gfx_0046DB90 + Gfx_0046F870, which wait on the COF header (Notes).
 
 - Thu Nov 26 21:11 PST 2026: #467 took join-gfx-drawunit. join-gfx-dcc0 posted on #467 (Gfx pieces 5 -> 4). Left: DB90+F870 (wait on the COF header, Notes), E300 and 470C30 (built without /GS-).
 
@@ -126,7 +126,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - lane4/join-gfx-e300-c30 fd2c4995d (stacked on join-gfx-dcc0, on #467; full build of the three commits identical, borrowed code 4,232 B in 1 function and borrowed data 261 B, both as main; audit guard clean, noinline 115 -> 116, which is join-gfx-dcc0's one). Files in pieces, Gfx 4 -> 2.
   - Gfx_0046E300.cpp (GFX_DrawUnitOverlays): the piece's overlay record goes. Gfx.cpp's D2UnitOverlayStrc takes its names for +0x18 nFrame, +0x20/+0x24 nXOffset/nYOffset and +0x34 bFront. Gfx.cpp's overlay-txt record names +0x7C nTrans and +0x81 nLocalBlood.
   - Gfx_00470C30.cpp (GFX_UpdateStateOverlays): it reads the overlay list through D2GfxDataStrc/D2UnitOverlayStrc, whose fields take D2ClientGfxState.h's node names (nNextOverlay, nNextState, nSpeed, nFrames, and the unsigned dwDelay/dwStamp/dwDelayStart). Its static copy of GFX_RecalcStateOverlays goes. Both pieces build equal in Gfx.cpp under /GS-.
-  - Gfx.cpp no longer uses D2ClientGfxState.h's views. Gfx.cpp keeps its private D2OverlayTxt: D2TxtTables.h's has +0x42 as unsigned short wVersion, but 0x46F... `pTxt->wPreDraw >= 0x64` matches only as a signed short (Notes, lane 2).
+  - Gfx.cpp no longer uses D2ClientGfxState.h's views. Gfx.cpp keeps its private D2OverlayTxt: D2TxtTables.h's has +0x42 as unsigned short wVersion, but 0x470390 `pTxt->wPreDraw >= 0x64` matches only as a signed short (Notes, lane 2).
 
 
 ## Claimed
@@ -143,7 +143,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Notes for other lanes
 
-- Lane 2: D2TxtTables.h's D2OverlayTxt types +0x42 (wVersion) unsigned short. Gfx.cpp's overlay add (0x46F... `!FOG_IsExpansion() && pTxt->wPreDraw >= 0x64`) loads it with a sign extension, so it is a signed short, and Gfx.cpp keeps a private record until the shared one says so. The rest of the shared record matches Gfx.cpp's offsets: dwOffsetX/Y +0x54/+0x58, dwHeight[4] +0x5C, dwAnimRate +0x6C, dwInitRadius/dwRadius +0x70/+0x74, dwLoopWaitTime +0x78, nTrans +0x7C, RGB +0x7D..+0x7F, nLocalBlood +0x81.
+- Lane 2: D2TxtTables.h's D2OverlayTxt types +0x42 (wVersion) unsigned short. Gfx.cpp's overlay add (0x470390 `!FOG_IsExpansion() && pTxt->wPreDraw >= 0x64`) loads it with a sign extension, so it is a signed short, and Gfx.cpp keeps a private record until the shared one says so. The rest of the shared record matches Gfx.cpp's offsets: dwOffsetX/Y +0x54/+0x58, dwHeight[4] +0x5C, dwAnimRate +0x6C, dwInitRadius/dwRadius +0x70/+0x74, dwLoopWaitTime +0x78, nTrans +0x7C, RGB +0x7D..+0x7F, nLocalBlood +0x81.
 - Lane 2: D2ClientGfx.h's D2GfxLayerHeaderStrc is the COF header that sub_004DB040_GetLayerHeader (0x4DB040) returns. Gfx_0046DB90.cpp reads its bounds at +8 left, +0xC right, +0x10 top, +0x14 bottom, through a private {int unknown00[2], left, right, top, bottom} view. Could the shared record carry those fields (after nLayers/unk01/nArg, a byte at +3 and an int at +4)? The Gfx join needs one record.
 - **Lane 2 (D2ClientTextBox.h), for the text_0049D5A0 join:** text.cpp keeps a private D2TextScrollStrc (pLines, nLines, nPos, nSpeed, 6 bytes, then nState at 0x16, dwLastTime, dwStartTime, dwStep, dwAccum, wFrames) for the same text box the header's D2TextBoxStrc describes (pFirst, nLines, nTextTop, nTextBottom, nWidth, nHeight, f_14, then nScroll at 0x16, nField1A ...). The code tests the 0x16 field for 0 or 1 (`nState == 1 || nState == 0` before TEXT_AdvanceTextBox), so it reads as a state rather than a scroll. The piece passes the header's type to TEXT_AdvanceTextBox, so the join needs one record. Which names are right is yours to settle; I'll join once the header has one.
 
