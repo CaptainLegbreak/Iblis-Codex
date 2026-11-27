@@ -71,7 +71,7 @@ D2CharStrc* (__fastcall* gpfnGetCharInfo)(int nChar);                           
 
 D2CelFileStrc* ghMonsterIndicators;                                                                // 0x00841DA4
 
-extern D2FontCacheStrc gatFontCache[14];                                                             // 0x00841DA8
+D2FontCacheStrc gatFontCache[14]; // 0x00841DA8
 
 unsigned int gdwLastShiftedTickCount;                                                              // 0x00841EC0
 

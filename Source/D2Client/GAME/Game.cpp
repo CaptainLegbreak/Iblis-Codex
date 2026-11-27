@@ -1718,7 +1718,7 @@ struct D2PongDataStrc
     unsigned long dwData6;
     unsigned long dwData7;
 };
-extern D2PongDataStrc gtPongData; // 0x007A04D4
+D2PongDataStrc gtPongData; // 0x007A04D4
 #pragma pack(push, 1)
 struct D2GSPacketSrv8F
 {
