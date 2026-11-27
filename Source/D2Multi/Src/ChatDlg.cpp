@@ -41,6 +41,7 @@
 #include "D2MCPClientApi.h"
 #include "D2MCPClientApi2.h"
 #include "D2WinApi2.h"
+#include "D2LaunchApi.h"
 
 static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
@@ -1644,8 +1645,6 @@ extern D2WinControlStrc* gpControl_0077BCE4; // 0x0077BCE4
 
 extern D2WinControlStrc* gpControl_0077BCE8; // 0x0077BCE8
 
-extern D2WinControlStrc* gpChannelOkButton; // 0x0077BCEC
-
 extern D2WinControlStrc* gpControl_0077BCF0; // 0x0077BCF0
 
 // 0x0043DB20
@@ -2132,8 +2131,6 @@ int __fastcall sub_M110_Emit_0043E180(unsigned int nTime, _FILETIME* pFileTime)
     return 1;
 }
 
-
-extern D2WinControlStrc* gpChannelOkButton; // 0x0077BCEC
 
 // 0x0043E660
 void __cdecl CHATDLG_UpdateOkEnabled()
@@ -2833,8 +2830,6 @@ static inline void CHATDLG_SaveDefaultChannel(const char* szChannel)
 }
 
 void __cdecl CHATDLG_DestroyDialogControls();                                                                // 0x0043DB20
-
-extern D2WinControlStrc* gpControl_0077BD90; // 0x0077BD90
 
 extern int gdwGlobal_00798CC0;                                                                              // 0x00798CC0
 
@@ -3617,8 +3612,6 @@ extern D2WinControlInitStrc gtChannelListInit; // 0x0070D9F0
 extern D2WinControlInitStrc gtChannelOkButtonInit; // 0x0070DA20
 
 extern D2WinControlInitStrc gtControlInit_0070E110; // 0x0070E110
-
-extern D2WinControlStrc* gpChannelOkButton; // 0x0077BCEC
 
 D2WinControlStrc* gpCreateJoinBckgImage; // 0x0077BCDC
 
@@ -6293,7 +6286,6 @@ void __fastcall CHATDLG_MixChar(char* pChar, int nBits, unsigned int* pPool)
 
 int __stdcall CHATDLG_RequestCharLogon(int nA); // 0x00449E10
 
-int __stdcall CHARSEL_SendChatLine(int nArg); // 0x00446890
 int __stdcall COMCALLBACK_SendChatLine(int nUnused); // 0x004468F0
 int __stdcall COMCALLBACK_OnChatPanelClick(int nArg); // 0x00446950
 int __stdcall COMCALLBACK_SendEmoteLine(int nUnused); // 0x00446970

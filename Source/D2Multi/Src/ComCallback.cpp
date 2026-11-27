@@ -31,6 +31,7 @@
 #include "D2MCPClientApi.h"
 #include "D2ClientApi.h"
 #include "D2WinApi2.h"
+#include "D2LaunchApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -65,15 +66,7 @@ extern "C" size_t __cdecl strlen(const char* szString);
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 0x006829C0
 
-D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
-
 void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
-
-int __stdcall MAINMENUS_Back(int nArg); // 0x00435E00
-
-void __fastcall CHARSEL_PickClass(int nClass, int bExpansion); // 0x00439780
-
-void __cdecl CHARSEL_CreateBaseScreen(); // 0x0043C4F0
 
 int __fastcall CHATDLG_SetMainControlState(int bSet); // 0x0043DAD0
 
@@ -109,8 +102,6 @@ extern D2WinControlInitStrc gtPanelTextInit; // 0x0070EAD0
 extern D2WinControlInitStrc gtPanelCancelButtonInit; // 0x0070EB30
 
 extern D2WinControlInitStrc gtResetBuildPanelTimerInit; // 0x0070EB60
-
-extern int gnLaunchMode; // 0x007795EC
 
 extern D2WinControlStrc* gpControlMain; // 0x0077BC4C
 

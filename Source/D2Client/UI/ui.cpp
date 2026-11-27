@@ -26,6 +26,7 @@
 #include "StormApi2.h"
 #include "D2CommonApi3.h"
 #include "D2WinApi2.h"
+#include "D2LaunchApi.h"
 
 struct D2CelFileStrc;
 
@@ -1308,10 +1309,6 @@ extern int gnProgressiveStatesRight; // 0x007111D0
 extern int gnProgressiveStatesBottom; // 0x007111D4
 
 extern void* gpGlobal_007A0634; // 0x007A0634
-
-extern int gbOverlaysEnabled; // 0x007A289C
-
-extern int gnOverlayStep; // 0x007A3138
 
 // 0x00453470
 void __cdecl UI_DrawProgressiveStates()

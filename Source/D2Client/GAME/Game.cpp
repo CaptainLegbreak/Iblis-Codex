@@ -34,6 +34,7 @@
 #include "D2HellApi.h"
 #include "D2MCPClientApi2.h"
 #include "D2WinApi2.h"
+#include "D2LaunchApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -273,12 +274,6 @@ struct D2WardenModuleHolderBStrc;
 struct D2GameStrc;
 
 struct D2AutomapRecordStrc;
-
-extern int gbStopMainLoop; // 0x0077932C
-
-extern int gfConnectCancelled; // 0x007799D8
-
-extern char gszPreferredRealm[]; // 0x00779A40
 
 extern int gfCharSelCancelled; // 0x0077AC04
 
