@@ -111,9 +111,9 @@ extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft,
 
 extern int gaDDrawDebugFontCharWidths[96]; // 0x00881428
 
-int gaDDrawDebugFontGlyphOffsets[96]; // 0x008812A8
+extern int gaDDrawDebugFontGlyphOffsets[96]; // 0x008812A8
 
-unsigned long gdwDDrawDebugFontBkColor; // 0x008815A8
+extern unsigned long gdwDDrawDebugFontBkColor; // 0x008815A8
 
 extern unsigned long gdwDDrawDebugFontTextColor; // 0x0072F7F0
 

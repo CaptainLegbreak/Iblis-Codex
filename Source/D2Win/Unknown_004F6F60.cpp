@@ -72,7 +72,7 @@ extern int gnDisplayType; // 0x007C8CB0
 
 extern D2GfxSettingsStrc gGfxSettings; // 0x0072DA48
 
-unsigned char* gpScreenBuffer; // 0x007D5448
+extern unsigned char* gpScreenBuffer; // 0x007D5448
 
 int gnLightingOff; // 0x007D2340
 

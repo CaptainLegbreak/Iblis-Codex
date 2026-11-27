@@ -1013,13 +1013,13 @@ D2CelFileStrc* gpShopInvChar6TabCel; // 0x007BCC38
 
 void* gapHirelingIcons[7]; // 0x007BEEB0
 
-unsigned int gButtonA; // 0x007BCE30
+extern unsigned int gButtonA; // 0x007BCE30
 
-unsigned int gButtonB; // 0x007BCE34
+extern unsigned int gButtonB; // 0x007BCE34
 
-unsigned int gPressedFrame; // 0x007BCE38
+extern unsigned int gPressedFrame; // 0x007BCE38
 
-unsigned int gButtonLatch; // 0x007BCE3C
+extern unsigned int gButtonLatch; // 0x007BCE3C
 
 void* gArchiveA; // 0x007BCC2C
 

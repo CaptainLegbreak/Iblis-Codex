@@ -39,7 +39,7 @@ int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91
 
 int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
-D2ConfigStrc* gpLaunchRecord; // 0x007795D4
+extern D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 
 
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
@@ -63,27 +63,27 @@ void __cdecl MAINMENUS_UpdateEmailOk(); // 0x00436EB0
 
 extern D2WinControlStrc* gpPasswordOk; // 0x007799A4
 
-D2WinControlStrc* gpStatusText; // 0x007799A8
+extern D2WinControlStrc* gpStatusText; // 0x007799A8
 
-D2WinControlStrc* gpCounterText; // 0x007799AC
+extern D2WinControlStrc* gpCounterText; // 0x007799AC
 
-int gnStatusStringId; // 0x007799B0
+extern int gnStatusStringId; // 0x007799B0
 
-unsigned long gdwStatusStart; // 0x007799B8
+extern unsigned long gdwStatusStart; // 0x007799B8
 
 extern D2WinControlStrc* gpButton; // 0x007799E4
 
-D2WinControlStrc* gpChangePwAccountEdit; // 0x007799BC
+extern D2WinControlStrc* gpChangePwAccountEdit; // 0x007799BC
 
-D2WinControlStrc* gpOldPasswordEdit; // 0x007799C0
+extern D2WinControlStrc* gpOldPasswordEdit; // 0x007799C0
 
-D2WinControlStrc* gpNewPasswordConfirmEdit; // 0x007799C4
+extern D2WinControlStrc* gpNewPasswordConfirmEdit; // 0x007799C4
 
-D2WinControlStrc* gpNewPasswordEdit; // 0x007799C8
+extern D2WinControlStrc* gpNewPasswordEdit; // 0x007799C8
 
-D2WinControlStrc* gpEdit_007799DC; // 0x007799DC
+extern D2WinControlStrc* gpEdit_007799DC; // 0x007799DC
 
-D2WinControlStrc* gpEdit_007799E0; // 0x007799E0
+extern D2WinControlStrc* gpEdit_007799E0; // 0x007799E0
 
 
 
@@ -110,7 +110,7 @@ void __cdecl MAINMENUS_UpdateEmailOk(); // 0x00436EB0
 
 int __stdcall MAINMENUS_OnEditChange(int nArg); // 0x00436F20
 
-int gnStatusDots; // 0x007799B4
+extern int gnStatusDots; // 0x007799B4
 
 
 
@@ -124,7 +124,7 @@ const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinControlStrc*); // 0x0
 
 
 
-int gfConnectCancelled; // 0x007799D8
+extern int gfConnectCancelled; // 0x007799D8
 
 void __fastcall MAINMENUS_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
 

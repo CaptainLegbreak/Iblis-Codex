@@ -50,13 +50,13 @@ extern D2HotspotStrc gaUseItemHotspots[]; // 0x00727900
 
 int gnUseItemNpcValue; // 0x007C5478
 
-int gnAnvilObjectId; // 0x007C547C
+extern int gnAnvilObjectId; // 0x007C547C
 
 unsigned long gdwUseItemClickTick; // 0x007C5488
 
 int gnAnvilItemId;                                                                                      // 0x007C5480
 
-int gnUseItemPanelMode; // 0x007C5470
+extern int gnUseItemPanelMode; // 0x007C5470
 
 struct D2ClientDialogStrc* gpUseItemConfirmDialog;                                                                                  // 0x007C5484
 

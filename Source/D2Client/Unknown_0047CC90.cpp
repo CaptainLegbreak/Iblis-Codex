@@ -741,15 +741,15 @@ extern int gaSlotKind[]; // 0x007BC8D8
 
 extern int gaSlotFrame[]; // 0x007BC918
 
-int gaSlotX[8]; // 0x007BC898
+extern int gaSlotX[8]; // 0x007BC898
 
-int gaSlotY[8]; // 0x007BC8B8
+extern int gaSlotY[8]; // 0x007BC8B8
 
-int gaSlotKind[8]; // 0x007BC8D8
+extern int gaSlotKind[8]; // 0x007BC8D8
 
-int gaSlotFrame[8]; // 0x007BC918
+extern int gaSlotFrame[8]; // 0x007BC918
 
-int gbSlotBarBlocked; // 0x007BC970
+extern int gbSlotBarBlocked; // 0x007BC970
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 

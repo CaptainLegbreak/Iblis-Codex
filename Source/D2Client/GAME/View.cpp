@@ -446,8 +446,8 @@ static int gnPopupX; // 0x007BEED4
 
 void __fastcall VIEW_AdjustViewPos(int* pX, int* pY); // 0x00476D40
 
-void* gpCel_007B9554;                                                                                       // 0x007B9554
-void* gpCel_007B9558;                                                                                       // 0x007B9558
+extern void* gpCel_007B9554; // 0x007B9554
+extern void* gpCel_007B9558; // 0x007B9558
 
 // 0x00466820
 void __fastcall VIEW_SpawnRoomPresets(D2ActiveRoomStrc* pRoom)

@@ -29,8 +29,8 @@ int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (
 
 extern D2ModeEntryStrc gaModeTable[6]; // 0x00706554
 extern void* gpModeContext_0074C718; // 0x0074C718
-D2ModeIfaceStrc* gpModeIface; // 0x0074C700
-int gnMode; // 0x0074C704
+extern D2ModeIfaceStrc* gpModeIface; // 0x0074C700
+extern int gnMode; // 0x0074C704
 int gbUseKeyhook; // 0x0074C708
 void* ghModKeyhook; // 0x0074C70C
 

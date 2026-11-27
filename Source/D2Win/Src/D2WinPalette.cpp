@@ -60,11 +60,11 @@ D2Palette256Strc gatStandardShiftsPalette[13]; // 0x007D5668
 unsigned char gabPaletteRemap[256]; // 0x007D6368
 unsigned char gabScreenPalette[65536]; // 0x007DE468
 D2TransPaletteStrc gatTransPalette[3]; // 0x007EE468
-unsigned char gabDarkenPalette[256]; // 0x0081E468
-unsigned char gabRedPaletteMap[256]; // 0x0081E568
-D2Palette256Strc gatShadowsLightGammaPalette[49]; // 0x0081EA68
-unsigned char gabLuminancePalette[65536]; // 0x00821B68
-unsigned char gabDarkBlendPalette[65536]; // 0x00831B68
+extern unsigned char gabDarkenPalette[256]; // 0x0081E468
+extern unsigned char gabRedPaletteMap[256]; // 0x0081E568
+extern D2Palette256Strc gatShadowsLightGammaPalette[49]; // 0x0081EA68
+extern unsigned char gabLuminancePalette[65536]; // 0x00821B68
+extern unsigned char gabDarkBlendPalette[65536]; // 0x00831B68
 
 // 0x004FB010
 void __cdecl PALETTE_ApplyPaletteTables()
@@ -158,7 +158,7 @@ unsigned char __stdcall PALETTE_FindPaletteIndex(unsigned char nRed, unsigned ch
     return GetClosestColor((const unsigned char*)gatRGBAPalette, 0x100, nRed, nGreen, nBlue);
 }
 
-tagPALETTEENTRY gatRGBAPalette[256]; // 0x0081E668
+extern tagPALETTEENTRY gatRGBAPalette[256]; // 0x0081E668
 
 // 0x004FB1B0
 void __cdecl PALETTE_ApplyScreenPalette()

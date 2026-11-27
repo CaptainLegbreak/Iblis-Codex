@@ -1354,9 +1354,9 @@ static D2AutomapCellBlockStrc* gpAutomapCellBlocks; // 0x007A5158
 
 static int gnAutomapCellCount_007A515C; // 0x007A515C
 
-D2AutomapCellBlockStrc* gpCellBlocks_007A5158; // 0x007A5158
+extern D2AutomapCellBlockStrc* gpCellBlocks_007A5158; // 0x007A5158
 
-int gnAutomapCellCount; // 0x007A515C
+extern int gnAutomapCellCount; // 0x007A515C
 
 void __stdcall AUTOMAP_AddAutomapCell(unsigned short nCellNo, unsigned short xPixel, unsigned short yPixel, D2AutomapCellStrc** ppRoot, unsigned int fSaved);
 

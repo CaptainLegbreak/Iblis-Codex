@@ -51,9 +51,9 @@ D2BnMessageStrc* gpMessageTail; // 0x00882024
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
 extern int ganSlotArrayB[94]; // 0x008822A8
-void* gpBnStateArg; // 0x00882000
-D2CriticalSectionStrc gtMessageLock; // 0x00882004
-int gnBnState; // 0x0088201C
+extern void* gpBnStateArg; // 0x00882000
+extern D2CriticalSectionStrc gtMessageLock; // 0x00882004
+extern int gnBnState; // 0x0088201C
 
 // 0x005201E0
 void __cdecl BNMESSQUEUE_InitMessageQueue()
