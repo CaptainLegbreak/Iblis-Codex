@@ -1,3 +1,8 @@
+// ListBoxImplementation::HitTestScrollDown (0x4BE770) and HitTestScrollTrack (0x4BE7C0) sit in
+// Unknown_004BC1B0.cpp's run, and only its OnLButtonDown (0x4BF430) and OnLButtonUp (0x4BF530) call them, but
+// they stay a piece of their own. Joined, 0x4BF430 holds its constant 1 in edx across the two calls; the
+// original keeps it in ebx, which calls preserve, as a caller that can't see the callees' bodies would. A noinline
+// on both changes nothing. So they were likely compiled in another object.
 #include "D2Client.h"
 #include "D2ClientFuncs.h"
 #include "D2Unicode.h"
