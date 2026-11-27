@@ -25623,7 +25623,7 @@
     {
      "va": "0x004B70F0",
      "length": 6,
-     "name": "sub_004B70F0"
+     "name": "sub_004B70F0_GetDialogList"
     },
     {
      "va": "0x004B7100",
@@ -25790,7 +25790,7 @@
     {
      "va": "0x004B85E0",
      "length": 6,
-     "name": "sub_004B85E0"
+     "name": "sub_004B85E0_GetDialogCount"
     },
     {
      "va": "0x004B85F0",

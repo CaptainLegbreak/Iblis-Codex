@@ -510,7 +510,7 @@ void __stdcall NPCMENU_OpenConfirmDialog(int nStringIndex); // 0x004B5AD0
 void __cdecl DIALOG_LoadDialogHotkeys(); // 0x004B7C60
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
-int __cdecl sub_004B85E0(); // 0x004B85E0
+int __cdecl sub_004B85E0_GetDialogCount(); // 0x004B85E0
 int __stdcall INV_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
 int __fastcall sub_004B9B20_GetValue(int nHandle); // 0x004B9B20
 int __cdecl SOUNDINST_IsSpeechPlaying(); // 0x004B9C20
