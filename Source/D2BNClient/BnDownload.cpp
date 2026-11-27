@@ -291,13 +291,10 @@ static int __stdcall BNDOWNLOAD_RecvToFile(unsigned int nSocket, const char* szF
 
 D2BnDnsArgsStrc gtDnsArgs; // 0x00881BE8
 
-extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);                        // 0x006CC258
 
 extern "C" __declspec(dllimport) int __stdcall CompareFileTime(const D2FileTimeStrc* pTime1, const D2FileTimeStrc* pTime2); // 0x006CC390
 
-extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile* pValue);                // 0x006CC208
 
-extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);                                  // 0x006CC134
 
 extern "C" unsigned int __cdecl _beginthreadex(void* pSecurity, unsigned int nStackSize, unsigned int (__stdcall* pfnStart)(void*), void* pArg, unsigned int nFlags, unsigned int* pThreadId); // 0x00688103
 
@@ -512,11 +509,8 @@ extern "C" int __cdecl tolower(int nChar);
 // build: symbol ?gacCDKeyMap@* 0x006DF238
 extern const char gacCDKeyMap[];
 
-extern "C" __declspec(dllimport) void* __stdcall LoadLibraryA(const char* szLibFileName); // 0x006CC144
 
-extern "C" __declspec(dllimport) void* __stdcall GetProcAddress(void* hModule, const char* szProcName); // 0x006CC148
 
-extern "C" __declspec(dllimport) int __stdcall FreeLibrary(void* hModule); // 0x006CC14C
 
 extern "C" __declspec(dllimport) unsigned short __stdcall GetSystemDefaultLangID(void); // 0x006CC354
 

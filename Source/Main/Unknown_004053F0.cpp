@@ -45,7 +45,6 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" int __cdecl strcmp(const char* szA, const char* szB);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" int __cdecl atoi(const char* szString); // 0x00681EBB
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 
 extern D2CmdArgStrc gaCmdArguments[58]; // 0x00705040

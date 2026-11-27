@@ -226,7 +226,6 @@ struct D2ChatMessageStrc
     D2ChatMessageStrc* pNext;
 };
 
-extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern "C" __declspec(dllimport) unsigned int __stdcall GetACP(); // 0x006CC32C
 

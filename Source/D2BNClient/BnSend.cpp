@@ -431,8 +431,6 @@ struct D2AuthCheckPacketStrc
     char szData[0x200];
 };
 int __fastcall BNDOWNLOAD_RunCheckRevision(unsigned int* pExeVersion, unsigned int* pExeHash, char* szText); // 0x0051E6D0
-int __cdecl GAME_GetAbortFlag(); // 0x00520AE0
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 unsigned int __fastcall sub_00523020_GetAlignedData(unsigned int nSize); // 0x00523020
 void __fastcall sub_005241C0_GetDigest(int nIndex, unsigned int* pDigest); // 0x005241C0
 void __fastcall sub_00524200_HashBlock(int nIndex, const void* pBlock, unsigned int* pDigest); // 0x00524200

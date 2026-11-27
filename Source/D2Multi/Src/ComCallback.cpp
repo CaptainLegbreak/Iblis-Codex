@@ -308,7 +308,6 @@ D2MultiChannelUserStrc* gpChannelUsers;                                         
 
 char gszLastWhisperer[256]; // 0x0077B0D0
 
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
 extern "C" int __cdecl rand();                                                                              // 0x00687461
 

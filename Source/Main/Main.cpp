@@ -68,14 +68,7 @@ void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** lpszArgv); // 0x
 void __stdcall D2ServerServiceHandlerProc(unsigned long dwCtrlCode); // 0x00406410
 
 typedef int BOOL;
-int __cdecl FOG_IsExpansion(); // 0x00408F20
 void __fastcall MAINMENUS_InitStorm(int nDirectFlags, int nValue); // 0x00406870
-void __cdecl ERRORMANAGER_ForceCrash(); // 0x00407970
-void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem); // 0x00409C80
-void __fastcall FOG_AsyncDataInitialize(int bEnable, int nUnused); // 0x0040A390
-void __cdecl FOG_AsyncDataDestroy(); // 0x0040A440
-void __cdecl FOG_10218(); // 0x0040B0C0
-void __cdecl FOG_10082_Noop(); // 0x0040B320
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
 int __stdcall D2GFX_Release(); // 0x004F5050
 void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
