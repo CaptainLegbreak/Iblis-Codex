@@ -8,6 +8,38 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Fri Nov 27 13:04 PST 2026: **lane12/declunits-1** (5fc38001c, stacked on dupdata-2): the coordinator's 12:07 item, done before lane 11
+  renames D2Multi/D2Launch. CharSel.cpp, MainMenus.cpp, ChatDlg.cpp and ComCallback.cpp reconciled one name at a
+  time, each change followed by a build of the whole unit: 54 private lines take their definition's prototype, 11
+  that an included header already declares the same way go (no new includes, so no declaration count changes).
+  63 keep their own type because the unit's code changes with the definition's; for lane 11 and the type owners
+  these stay as they are (type_disagreement), by unit:
+    CharSel.cpp: MAINMENUS_JoinGame (0x00434a00), MAINMENUS_DeleteCharFiles (0x0043c750), 
+      CONTROL_SetFocusedEditBox (0x004f91c0), D2Win_10051 (0x004fc9b0), IMAGE_SetCoordinates (0x004fd0b0), 
+      EDITBOX_SetText (0x004ff5a0), ANIMIMAGE_SetIsRunning (0x00500810)
+    ChatDlg.cpp: CHATDLG_RequestCharLogon (0x00449e10), WINMAIN_SendMcpCreateGame (0x0044a400), 
+      CONTROL_SetFocusedEditBox (0x004f91c0), D2Win_10052_TEXTBOX_GetNumLines (0x004fb910), D2Win_10196 (0x004fbb90), 
+      D2Win_10188 (0x004fbde0), EDITBOX_SetText (0x004ff5a0), D2Win_10076 (0x004ffe10), BUTTON_SetIsPressed 
+      (0x005009a0), STR_GroupUint64DigitsWithSuffix (0x005255c0), STRTABLE_LoadStringTables (0x005259c0), 
+      gpLevelDiffCheck (0x00798c40)
+    ComCallback.cpp: SStrChr (0x00413490), CHATDLG_IsPrintableChar (0x00443600), CONTROL_SetFocusedEditBox 
+      (0x004f91c0), IMAGE_GetFrameCount (0x004fd1b0), D2Win_10078_IsNumber (0x004fe770), BUTTON_SetIsPressed 
+      (0x005009a0), gData_0070CD84 (0x0070cd84), gData_0070CD94 (0x0070cd94), gpBnetJoinGameScrollBarsCelFile 
+      (0x0077bc20), gpJoinGameBckgCelFile (0x0077bc50), gpGameButtonBlankCelFile (0x0077bc5c), 
+      gpJoinGameClickBoxCelFile (0x0077bc60), gpGreyLevelBoxCelFile (0x0077bc64), gpRadioButtonCelFile (0x0077bc68), 
+      gpNumberArrowsCelFileA (0x0077bcc0), gpNumberArrowsCelFileB (0x0077bcc4), gpNumberArrowsCelFileC (0x0077bcc8), 
+      gpNumberArrowsCelFileD (0x0077bccc), gpNumberGreyArrowsCelFile (0x0077bcd0), gpCreateGameBckgCelFile 
+      (0x0077bd0c), gpBnetWideButtonBlankCelFile (0x0077bd18), gpBnetCancelButtonBlankCelFileB (0x0077bd2c), 
+      gpLadderChoiceExpCelFile (0x0077bd34), gpPlayerProfileBckgCelFileA (0x0077bd3c), gpPlayerProfileBckgCelFileB 
+      (0x0077bd40)
+    MainMenus.cpp: FOG_ComputeChecksum (0x00411130), GAME_GetPreferredRealm (0x00437d00), 
+      CHATDLG_RequestCharCreate (0x00449df0), CHATDLG_RequestCharLogon (0x00449e10), CONTROL_SetFocusedEditBox 
+      (0x004f91c0), CONTROL_Create (0x004f93c0), D2Win_10053 (0x004fba30), D2Win_10055 (0x004fbab0), D2Win_10051 
+      (0x004fc9b0), IMAGE_SetFrame (0x004fd110), IMAGE_ForceNormalDrawMode (0x004fd170), IMAGE_GetFrameCount 
+      (0x004fd1b0), D2Win_10082 (0x004fdd00), D2Win_10077_EDITBOX_GetText (0x004fdd90), D2Win_10106 (0x00500310), 
+      D2Win_10104 (0x00500340), BUTTON_SetIsPressed (0x005009a0), BUTTON_SetText (0x005009d0)
+  VERIFIED tree 2f42091733a0ecd68cb0834f89b00afd28aa758d. linkdebt vs dupdata-2: 23,075 -> 23,056
+  (type_disagreement 5,576 -> 5,557; D2Multi -10, D2Launch -9; no module rises). auditguard: no count rose.
 - Fri Nov 27 12:45 PST 2026: **lane12/dupdata-2** (a0988a98c, on #485 caa181c5b): dupdata-1 and localcopy-1 (below) rebased onto #485
   without conflicts, two commits; take this one instead of those two. VERIFIED tree
   dafa80baa0c5513612d79785dd754235bccc921d.
