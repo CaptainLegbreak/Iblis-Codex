@@ -682,7 +682,7 @@ void __fastcall ACT3Q3_SetAltarMode(D2GameStrc* pGame); // 0x005B9CD0
 
 int __fastcall ACT2Q4_IsJerhynPalaceActivated(D2GameStrc* pGame); // 0x0059F570
 
-void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc* pUnit, int* a3, int* pIdle); // 0x0059F580
+void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pContinueAi, int* pIdle); // 0x0059F580
 
 int __fastcall ACT2Q4_IsGuardMoving(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0059B6E0
 
@@ -3740,7 +3740,7 @@ void __fastcall AITHINK_HirelingCombat(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 }
 
 // 0x005E5270
-int __stdcall sub_005E5270(int nUnused1, int nUnused2)
+int __stdcall sub_005E5270_Return0(int nUnused1, int nUnused2)
 {
     return 0;
 }
@@ -4839,7 +4839,7 @@ bool __fastcall AITHINK_ExecuteMapAiAction(D2GameStrc* pGame, D2UnitStrc* pUnit,
 void __fastcall AITHINK_Fn032_Npc(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     D2CoordStrc coord;
-    int a3;
+    int bContinueAi;
     int bIdle;
 
     if (AITHINK_InitHomeCommand(pGame, pUnit, pAiTickParam))
@@ -4875,13 +4875,13 @@ void __fastcall AITHINK_Fn032_Npc(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTick
             return;
         }
 
-        ACT2Q4_GetAndUpdatePalaceNpcState(pGame, pUnit, &a3, &bIdle);
+        ACT2Q4_GetAndUpdatePalaceNpcState(pGame, pUnit, &bContinueAi, &bIdle);
         if (bIdle)
         {
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
         }
 
-        if (!a3)
+        if (!bContinueAi)
         {
             return;
         }
@@ -8693,7 +8693,7 @@ void __fastcall AITHINK_SetSecondaryAiParams(D2GameStrc* pGame, D2AiControlStrc*
 }
 
 // 0x005EDC40
-void __stdcall sub_005EDC40(int nUnused1)
+void __stdcall sub_005EDC40_Nop(int nUnused1)
 {
 }
 
@@ -8952,7 +8952,7 @@ void __fastcall AITHINK_Fn131_Wussie(D2GameStrc* pGame,D2UnitStrc* pUnit,D2AiTic
 }
 
 // 0x005EE5C0
-void __stdcall sub_005EE5C0(int nUnused1)
+void __stdcall sub_005EE5C0_Nop(int nUnused1)
 {
 }
 
@@ -9679,7 +9679,7 @@ void __fastcall AITHINK_BaalThroneSpawnMinions(D2UnitStrc* pUnit, int nSuperUniq
 }
 
 // 0x005EF310
-void __stdcall sub_005EF310(int nUnused1)
+void __stdcall sub_005EF310_Nop(int nUnused1)
 {
 }
 

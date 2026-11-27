@@ -1942,7 +1942,7 @@ int __fastcall ITEMS_ApplyLowQualityForFormat(D2UnitStrc* pItem, D2ItemDropStrc*
 }
 
 // 0x005C2FE0
-int __cdecl sub_005C2FE0()
+int __cdecl sub_005C2FE0_Return43()
 {
     return 43;
 }

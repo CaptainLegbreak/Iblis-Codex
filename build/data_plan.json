@@ -897,9 +897,6 @@
    "definitions": 20,
    "externs": [
     "extern \"C\" void __cdecl D2CLIENT_CloseNPCTalk(); // 0x004A17D0",
-    "extern \"C\" void __cdecl TEXT_KeyUpMsg(); // 0x004A1770",
-    "extern \"C\" void __cdecl TEXT_HotkeyMsg(); // 0x004A1870",
-    "extern \"C\" void __cdecl TEXT_KeyDownMsg(); // 0x004A18C0",
     "extern \"C\" void __cdecl sub_004A6000_RegisterPressMsgHandler(); // 0x004A6000",
     "extern \"C\" void __cdecl TEXT_WheelCaptureMsg(); // 0x004A6310",
     "extern \"C\" void __cdecl TEXT_ButtonCaptureMsg(); // 0x004A6350",
@@ -928,15 +925,6 @@
    "lang": "cpp",
    "state": "included",
    "static_definitions": 1
-  },
-  "Source/D2Client/UI/text_0049A950.cpp": {
-   "bytes": 0,
-   "definitions": 0,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/text_0049A950.inc",
-   "lang": "cpp",
-   "state": "included"
   },
   "Source/D2Client/Unknown_0049BB40.cpp": {
    "bytes": 275,
@@ -2489,12 +2477,9 @@
     "extern \"C\" void __cdecl sub_005EB970(); // 0x005EB970",
     "extern \"C\" void __cdecl AITHINK_InitializeVineState(); // 0x005EC6A0",
     "extern \"C\" void __cdecl AITHINK_Fn111_CycleOfLife(); // 0x005EC8C0",
-    "extern \"C\" void __cdecl sub_005EDC40(); // 0x005EDC40",
     "extern \"C\" void __cdecl sub_005EE040(); // 0x005EE040",
     "extern \"C\" void __cdecl sub_005EE3C0(); // 0x005EE3C0",
-    "extern \"C\" void __cdecl sub_005EE5C0(); // 0x005EE5C0",
     "extern \"C\" void __cdecl sub_005EE5D0(); // 0x005EE5D0",
-    "extern \"C\" void __cdecl sub_005EF310(); // 0x005EF310",
     "extern \"C\" void __cdecl sub_005EF320(); // 0x005EF320",
     "extern \"C\" void __cdecl sub_005EF820(); // 0x005EF820",
     "extern \"C\" void __cdecl AITHINK_Fn003_Zombie(); // 0x005EFE20",
@@ -2591,7 +2576,10 @@
     "extern \"C\" void __cdecl sub_005AD0F0(); // 0x005AD0F0",
     "extern \"C\" void __cdecl MISSMODE_SrvHit22_FistOfTheHeavensDelay(); // 0x005ADD20",
     "extern \"C\" void __cdecl AITHINK_Fn000(); // 0x005B0CC0",
-    "extern \"C\" void __cdecl AITHINK_Fn127_NpcBarb(); // 0x005EDC50"
+    "extern \"C\" void __cdecl AITHINK_Fn127_NpcBarb(); // 0x005EDC50",
+    "extern \"C\" void __cdecl sub_005EDC40_Nop(); // 0x005EDC40",
+    "extern \"C\" void __cdecl sub_005EE5C0_Nop(); // 0x005EE5C0",
+    "extern \"C\" void __cdecl sub_005EF310_Nop(); // 0x005EF310"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MISSILES/MissMode.inc",
@@ -2807,14 +2795,11 @@
     "extern \"C\" void __cdecl AITHINK_Fn123_Catapult(); // 0x005E34C0",
     "extern \"C\" void __cdecl sub_005E3530(); // 0x005E3530",
     "extern \"C\" void __cdecl AITHINK_Fn125_BloodLord(); // 0x005E36F0",
-    "extern \"C\" void __cdecl sub_005EDC40(); // 0x005EDC40",
-    "extern \"C\" void __cdecl sub_005EE5C0(); // 0x005EE5C0",
     "extern \"C\" void __cdecl sub_005EE5D0(); // 0x005EE5D0",
     "extern \"C\" void __cdecl AITHINK_InitializeGenericSpawner(); // 0x005E6190",
     "extern \"C\" void __cdecl AITHINK_Fn129_GenericSpawner(); // 0x005E61B0",
     "extern \"C\" void __cdecl sub_005EE3C0(); // 0x005EE3C0",
     "extern \"C\" void __cdecl AITHINK_Fn133_Ancient(); // 0x005EF1A0",
-    "extern \"C\" void __cdecl sub_005EF310(); // 0x005EF310",
     "extern \"C\" void __cdecl AITHINK_Fn135_BaalCrab(); // 0x005FCFE0",
     "extern \"C\" void __cdecl AIBAAL_RunSpecialAiState(); // 0x005FCF30",
     "extern \"C\" void __cdecl AITHINK_Fn136_BaalTaunt(); // 0x005EF710",
@@ -2843,7 +2828,10 @@
     "extern \"C\" void __cdecl AITHINK_InitializeMountedImpSkills(); // 0x005E2CD0",
     "extern \"C\" void __cdecl sub_005E2D80(); // 0x005E2D80",
     "extern \"C\" void __cdecl AITHINK_Fn130_DeathMauler(); // 0x005EE260",
-    "extern \"C\" void __cdecl AITHINK_Fn127_NpcBarb(); // 0x005EDC50"
+    "extern \"C\" void __cdecl AITHINK_Fn127_NpcBarb(); // 0x005EDC50",
+    "extern \"C\" void __cdecl sub_005EDC40_Nop(); // 0x005EDC40",
+    "extern \"C\" void __cdecl sub_005EE5C0_Nop(); // 0x005EE5C0",
+    "extern \"C\" void __cdecl sub_005EF310_Nop(); // 0x005EF310"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Ai/AiThink.inc",
@@ -82437,7 +82425,7 @@
      36,
      "0x0052BEC0",
      "names.json",
-     "sub_0052BEC0",
+     "sub_0052BEC0_Nop",
      0,
      "func"
     ],
@@ -82493,7 +82481,7 @@
      64,
      "0x0052BF30",
      "names.json",
-     "sub_0052BF30",
+     "sub_0052BF30_Nop",
      0,
      "func"
     ],
@@ -82509,7 +82497,7 @@
      72,
      "0x0052BF50",
      "names.json",
-     "sub_0052BF50",
+     "sub_0052BF50_Return0",
      0,
      "func"
     ],
@@ -82517,7 +82505,7 @@
      76,
      "0x0052BF60",
      "names.json",
-     "sub_0052BF60",
+     "sub_0052BF60_Return0",
      0,
      "func"
     ],
@@ -82525,7 +82513,7 @@
      80,
      "0x0052BF70",
      "names.json",
-     "sub_0052BF70",
+     "sub_0052BF70_Return0",
      0,
      "func"
     ],
@@ -82541,7 +82529,7 @@
      88,
      "0x0052BF90",
      "names.json",
-     "sub_0052BF90",
+     "sub_0052BF90_GetData6E0550",
      0,
      "func"
     ],
@@ -82549,7 +82537,7 @@
      92,
      "0x0052BFA0",
      "names.json",
-     "sub_0052BFA0",
+     "sub_0052BFA0_GetData6E0568",
      0,
      "func"
     ],
@@ -97848,7 +97836,7 @@
      2036,
      "0x005EDC40",
      "names.json",
-     "sub_005EDC40",
+     "sub_005EDC40_Nop",
      0,
      "func"
     ],
@@ -97864,7 +97852,7 @@
      2052,
      "0x005EE5C0",
      "names.json",
-     "sub_005EE5C0",
+     "sub_005EE5C0_Nop",
      0,
      "func"
     ],
@@ -97936,7 +97924,7 @@
      2148,
      "0x005EF310",
      "names.json",
-     "sub_005EF310",
+     "sub_005EF310_Nop",
      0,
      "func"
     ],

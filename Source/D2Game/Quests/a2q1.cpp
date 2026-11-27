@@ -79,8 +79,6 @@ extern "C" __declspec(noreturn) void __cdecl sub_00681E09(int); // 0x00681E09
 
 D2UnitStrc* __fastcall SUNIT_IterateUnitsOfType(D2GameStrc*,int,void*,QUESTUNITITERATE); // 0x005537D0
 
-int __fastcall ACT2Q1_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005989E0
-
 
 
 enum
