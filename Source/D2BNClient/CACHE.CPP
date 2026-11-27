@@ -119,11 +119,11 @@ static D2CacheHashEntryStrc* gpCacheHashTable; // 0x0088188C
 
 int gbCacheLoaded; // 0x00881890
 
-extern unsigned __int64 gqwCacheFileTime; // 0x008818AC
+unsigned __int64 gqwCacheFileTime; // 0x008818AC
 
-extern unsigned long gdwCacheTimeTick; // 0x008818B4
+unsigned long gdwCacheTimeTick; // 0x008818B4
 
-extern unsigned int gnCacheTimeSeconds; // 0x008818B8
+unsigned int gnCacheTimeSeconds; // 0x008818B8
 
 extern const char gszCacheFile[]; // 0x006DEE70
 
@@ -162,6 +162,7 @@ extern "C" __declspec(dllimport) int __stdcall SystemTimeToFileTime(const D2Syst
 
 static void CACHE_GetCacheFilePath(char* szPath); // 0x00519220
 
+// 0x00518DE0
 static unsigned int sub_00518DE0_Crc32(const void* pData, unsigned int nSize)
 {
     VALIDATEBEGIN;
@@ -175,6 +176,7 @@ static unsigned int sub_00518DE0_Crc32(const void* pData, unsigned int nSize)
     return dwCrc;
 }
 
+// 0x00518E60
 static void sub_00518E60_DecryptBlock(unsigned int* pData, unsigned int nLength, unsigned int dwKey)
 {
     unsigned int dwSeed = 0xEEEEEEEE;
@@ -189,6 +191,7 @@ static void sub_00518E60_DecryptBlock(unsigned int* pData, unsigned int nLength,
     }
 }
 
+// 0x00518EC0
 static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength, unsigned int dwKey)
 {
     unsigned int dwSeed = 0xEEEEEEEE;
@@ -209,6 +212,7 @@ static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength,
     }
 }
 
+// 0x00518F30
 static D2FileTimeStrc* sub_00518F30_GetCacheFileTime(unsigned int nSeconds)
 {
     if (nSeconds != gnCacheTimeSeconds || GetTickCount() != gdwCacheTimeTick)
@@ -223,6 +227,7 @@ static D2FileTimeStrc* sub_00518F30_GetCacheFileTime(unsigned int nSeconds)
     return (D2FileTimeStrc*)&gqwCacheFileTime;
 }
 
+// 0x00518FA0
 static unsigned int __stdcall sub_00518FA0_HashString(unsigned int nHashType, const char* szString)
 {
     unsigned int dwSeed1 = 0x7FED7FED;
@@ -273,6 +278,7 @@ static void sub_H08_ClearBlockEntry(D2CacheBlockEntryStrc* pBlockTable, unsigned
     pBlockTable[nBlock].dwFlags = 0;
 }
 
+// 0x005191D0
 static void sub_005191D0_DeleteHashEntries(const char* szName)
 {
     int nIndex;

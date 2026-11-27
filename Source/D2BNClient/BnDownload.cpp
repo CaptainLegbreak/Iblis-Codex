@@ -594,15 +594,8 @@ unsigned int __fastcall BNDOWNLOAD_GetKeyBit(const unsigned int* pKey, unsigned 
 void __fastcall BNDOWNLOAD_SetKeyBit(unsigned int* pKey, unsigned int nIndex, unsigned char nValue); // 0x005225A0
 
 extern unsigned int* gpCacheTable_00881888; // 0x00881888
-static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength, unsigned int dwKey);
 unsigned int __stdcall sub_00518FA0_HashString(unsigned int nHashType, const char* szString); // 0x00518FA0
 
-// calling-convention shim (not game code)
-
-void __cdecl sub_00518EC0_Shim(unsigned int* pData, unsigned int nSize)
-{
-    sub_00518EC0_EncryptBlock(pData, nSize, sub_00518FA0_HashString(3, "x"));
-}
 
 // 0x00518BA0
 void D2BnLogStrc::Write(const char* szText)
@@ -650,27 +643,6 @@ void __cdecl BNDOWNLOAD_LogPrintf(const char* szFormat, ...)
     szBuffer[sizeof(szBuffer) - 1] = 0;
     SLogWrite(BNDOWNLOAD_GetLog().hLog, szBuffer);
     LeaveCriticalSection(&gtBnLogLock);
-}
-
-// 0x00518EC0
-static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength, unsigned int dwKey)
-{
-    unsigned int dwSeed = 0xEEEEEEEE;
-    unsigned int nCount = nLength >> 2;
-    if (nCount != 0)
-    {
-        const unsigned int* pTable = gpCacheTable_00881888;
-        do
-        {
-            --nCount;
-            unsigned int ch = *pData;
-            dwSeed += pTable[0x400 + (dwKey & 0xFF)];
-            *pData = ch ^ (dwKey + dwSeed);
-            dwSeed = ch + dwSeed + (dwSeed << 5) + 3;
-            dwKey = ((~dwKey << 0x15) + 0x11111111) | (dwKey >> 0x0B);
-            ++pData;
-        } while (nCount != 0);
-    }
 }
 
 // 0x00519000
