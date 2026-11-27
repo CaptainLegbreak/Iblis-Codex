@@ -14,7 +14,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 ## Claimed
 - **D2Game's names (the coordinator's 14:40 assignment): `a1`/`v12` parameters and locals and `sub_<VA>` functions,
   one branch per folder.** Lane 5, skip these folders: **MISSILES, INVENTORY, DEBUG, ITEMS** (built, lane9/params-d2game-a) and **Ai,
-  MONSTER, OBJECTS, Quests** (lane9/params-d2game-b), **UNIT, PLAYER** (lane9/params-d2game-c), **SKILLS, GAME** (now, lane9/params-d2game-d). Parameters take the name the function's own
+  MONSTER, OBJECTS, Quests** (lane9/params-d2game-b), **UNIT, PLAYER** (lane9/params-d2game-c), **SKILLS, GAME** (lane9/params-d2game-d), D2Game's top-level Unknown_*.cpp units (now, lane9/params-d2game-e); then D2Game.h and D2GameFuncs.h once the folder branches are in. Parameters take the name the function's own
   definition gives that position, else D2MOO's; definitions take D2MOO's names; `sub_<VA>` functions take
   names.csv/D2MOO names or `sub_<VA>_<Verb>` from the body.
 - **0x004F82D0 CMNSUBTILE_DrawBlendVisTile** (D2Gfx/SRC/Window.cpp, `__assume`), parked again with lane 6's reading
