@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 18:05 PST 2026: join-text-da50 rebased onto #455 (lane 1's D2ClientFuncs.h change touched text.cpp), with join-text-a950 stacked on it; both Ready.
+
 - Thu Nov 26 17:43 PST 2026: join-text-da50 posted (text pieces 6 -> 5).
 
 - Thu Nov 26 16:50 PST 2026: text_0049D5A0 join tried; needs the text-box record settled (Notes, lane 2). Nothing Ready.
@@ -100,7 +102,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/join-text-da50 496d3cc94 (on #454; full build on #453 identical, borrowed code 7,677 B in 3 functions and borrowed data 261 B, both as main; #454 changed no header and none of this branch's files; audit guard clean, no noinline needed): files in pieces. text.cpp takes the eight functions and two data definitions (2,112 B) of text_0049DA50.cpp, which goes. The piece reached the list box through a bare vtable view (Slot00..Slot2C, then AddTextLine at +0x30). It now uses text.cpp's ListBoxWrapper, whose slots 12-15 take the declarations of the file that defines the class (Unknown_004BC1B0.cpp): the piece's AddTextLine is sub_004BEDE0_ForwardSlot3C, and text.cpp's Refresh() calls are sub_004BEE10_Slot15 (same slot). Before, text.cpp's view named those slots sub_004BBFB0_GetRepeatStep/Slot13/Slot14/Refresh, a spinner name in the list box.
+- lane4/join-text-da50 6ffed656d (on #455): files in pieces. text.cpp takes the eight functions and two data definitions (2,112 B) of text_0049DA50.cpp, which goes. The piece reached the list box through a bare vtable view (Slot00..Slot2C, then AddTextLine at +0x30). It now uses text.cpp's ListBoxWrapper, whose slots 12-15 take the declarations of the file that defines the class (Unknown_004BC1B0.cpp): the piece's AddTextLine is sub_004BEDE0_ForwardSlot3C, and text.cpp's Refresh() calls are sub_004BEE10_Slot15 (same slot). Before, text.cpp's view named those slots sub_004BBFB0_GetRepeatStep/Slot13/Slot14/Refresh, a spinner name in the list box.
+- lane4/join-text-a950 cef708398 (stacked on join-text-da50; full build of the two on #455 identical, borrowed code 7,677 B in 3 functions and borrowed data 261 B, both as main; audit guard clean, no noinline needed): text.cpp takes the six functions of text_0049A950.cpp, which goes. text.cpp's UnitView gains the piece's payload pointer at 0x14 (both are partial D2UnitStrc views), and the piece's dtor-only ListBoxWrapper copy goes. The plan keeps the `D2CLIENT_CloseNPCTalk` placeholder (0x4A17D0's table entries name it, while the source defines sub_004A17D0_FilterNpcClick). Text pieces 6 -> 4.
 
 
 ## Claimed
