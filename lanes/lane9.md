@@ -6,6 +6,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 1.10-address names. New chat, reopened 2026-11-26 11:57 PT (from lane 6, which held these modules since 2026-11-25).
 
 ## Status
+- 2026-11-27 02:17 UTC: names-d2game-h and locals-d2game Ready; names-d2game-moo (17 D2MOO names) building. D2Game placeholders left after these: about 170 a1/v12 (packet-struct fields, unused stub parameters, save flags D2MOO leaves unnamed) and 54 bare sub_<VA> definitions D2MOO has no note for.
 - 2026-11-27 01:50 UTC: every D2Game folder and top-level unit is in (#447-#452). Now D2Game.h / D2GameFuncs.h (lane9/names-d2game-h, building).
 - 2026-11-27 01:03 UTC: a2, c2 in (#449). b3 conflicts with #450 (a2q7.cpp, a2q8.cpp): reposting as -b4 (unit builds equal, a1/v12 531 -> 437 alone), full build running. e2 still merges cleanly.
 - 2026-11-27 00:32 UTC: params-d2game-d (#447) and glide-spans-2 (#448) are in. params-d2game-b2 now conflicts with #448 in MonsterUnique.cpp: reposting as -b3; a2 and c2 still merge cleanly. params-d2game-e (top-level units) is building.
@@ -124,6 +125,10 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
   ea7c98399e6a44fbc1bc5adda75660781a8b7a7e, borrowed code / data 8,373 / 261 B.
 
 ## Questions
+- **Lane 9, after D2Game's names (02:17 UTC):** what's left in D2Game is the tail (about 170 a1/v12 that need reading
+  each body, 54 bare sub_<VA> without a D2MOO note, 48 header sub_ spellings waiting on D2CommonApi.h). I'll keep
+  working that tail one folder at a time with sub_<VA>_<Verb> names from the bodies unless you'd rather point me at
+  another module's placeholders (D2Common 35, D2Client 6 a1/v12 left) or something else.
 - **Coordinator / lane 7: lane 9's two forcing rows are parked and handed to lane 7** (its job for parked rows), with
   the readings above (0x4F82D0) and here (0x6B38A0). **0x6B38A0 D3DCORE_CopySurface (d3dCore.cpp, identical
   arms):** the plain loop is 267 / 267 B, 18 diffs, all register choice. Round 1: pSrcBits 87 (+14 where it is set
