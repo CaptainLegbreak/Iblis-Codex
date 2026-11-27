@@ -6,6 +6,7 @@
 #include "D2ItemsWorld.h"
 #include "D2Txt.h"
 #include "FogApi.h"
+#include "D2ClientApi.h"
 
 #define UF_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -68,8 +69,6 @@ extern const unsigned char gMissileMask_006CE26C; // 0x006CE26C
 
 
 int __stdcall MONSTERS_IsUndead(D2UnitStrc*); // 0x0063E990
-
-D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int); // 0x0046ACE0
 
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc*,int); // 0x00451F30
 

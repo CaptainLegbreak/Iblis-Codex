@@ -114,6 +114,7 @@ int __stdcall sub_0063E510_InventoryGridQuery(D2UnitStrc* pUnit, unsigned char* 
 #include "D2GameFuncs.h"
 #include "FogApi2.h"
 #include "D2CommonApi2.h"
+#include "D2ClientApi.h"
 
 struct D2ClientUnitUpdateSortStrc
 {
@@ -121,10 +122,6 @@ struct D2ClientUnitUpdateSortStrc
     unsigned int nDistance;
     int nNextIndex;
 };
-
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-
 
 D2ActiveRoomStrc* __fastcall SUNIT_GetRoom(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005545C0
 

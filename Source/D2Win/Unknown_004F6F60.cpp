@@ -4,6 +4,7 @@
 #include "FogApi.h"
 #include "StormApi2.h"
 #include "D2GfxApi.h"
+#include "D2ClientApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -60,8 +61,6 @@ extern "C" int gnSoundSerial;
 // build: symbol _gnSubsystemActive 0x007A0458
 extern "C" int gnSubsystemActive;
 
-extern "C" void __cdecl sub_004E4280_ResetEnvironSounds(); // 0x004E4280
-
 int __stdcall GAME_Shutdown(); // 0x0052C030
 
 extern D2PaletteTableStrc gtPaletteTables; // 0x007D5458
@@ -82,10 +81,6 @@ extern "C" void __cdecl sub_004F8DC0_InitLookupTable()
     CMNSUBTILE_BuildGouraudCache();
     gnBufferBase_007D5448 = 0;
 }
-
-extern "C" void __cdecl SOUNDINST_ResetSoundState(); // 0x004B9D00
-
-extern "C" int __cdecl GAME_ShutdownIfActive(); // 0x0044BB80
 
 // 0x004F8DD0
 void __cdecl sub_004F8DD0_Empty()
