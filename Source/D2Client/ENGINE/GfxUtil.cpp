@@ -1238,6 +1238,21 @@ int __fastcall GFXUTIL_SkillStartPlace(D2UnitStrc* pUnit, int nSkillId, int nSki
     return 1;
 }
 
+enum { SUCCESS_VALUE = 1 };
+int __stdcall PATH_GetNumberOfPathPoints(D2DynamicPathStrc* pDynamicPath); // 0x00648780
+
+// 0x004E0BD0
+int __fastcall sub_004E0BD0_CltStartClearCollision(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags &= ~0x0E;
+    }
+
+    COLLISION_ResetMaskWithPattern(UNITS_GetRoom(pUnit), UNITS_GetUnitXPosition(pUnit), UNITS_GetUnitYPosition(pUnit), 5, 0x1000);
+    return 1;
+}
+
 // 0x004E0C60
 int __fastcall GFXUTIL_CltDoResetActionFrame(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -1251,6 +1266,18 @@ int __fastcall GFXUTIL_CltDoResetActionFrame(D2UnitStrc* pUnit, int nSkillId, in
     }
 
     return 1;
+}
+
+// 0x004E0C90
+int __fastcall sub_004E0C90_SetSkillTargetPos(D2UnitStrc* unit, int skillId, int skillLevel)
+{
+    D2UnitStrc* target = CUNIT_GetPathTargetUnit(unit);
+    if (!target) return 0;
+    D2SkillStrc* skill = UNITS_GetUsedSkill(unit);
+    if (!skill) return 0;
+    SKILLS_SetParam1(skill, UNITS_GetUnitXPosition(target));
+    SKILLS_SetParam2(skill, UNITS_GetUnitYPosition(target));
+    return SUCCESS_VALUE;
 }
 
 extern const unsigned char gabFrameDirections[8][9]; // 0x006DBA08
@@ -1328,6 +1355,43 @@ int __fastcall GFXUTIL_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, int n
     }
 
     MISSILE_SubmitOwnerRequest(pUnit, nMissile, nX, nY, nSkillId, nSkillLevel);
+    return 1;
+}
+
+// 0x004E0EB0
+int __fastcall sub_004E0EB0_CltStartPathToTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (!CUNIT_GetPathTargetUnit(pUnit))
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    if (!pPath)
+    {
+        return 0;
+    }
+
+    PATH_SetNewDistance(pPath, 5);
+    PATH_SetType(pPath, 2);
+    D2Common_10142(pPath, pUnit, 0);
+    if (PATH_GetNumberOfPathPoints(pPath) <= 0)
+    {
+        PATH_SetType(pPath, 1);
+        D2Common_10142(pPath, pUnit, 0);
+        if (PATH_GetNumberOfPathPoints(pPath) <= 0)
+        {
+            return 0;
+        }
+    }
+
+    SKILLS_SetFlags(pSkill, 1);
     return 1;
 }
 

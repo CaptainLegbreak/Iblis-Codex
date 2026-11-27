@@ -877,6 +877,74 @@ int __fastcall SKILLSMON_TimedMissile(D2UnitStrc* pUnit, int nSkillId, int nSkil
     return 1;
 }
 
+void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
+
+static inline int __fastcall UNITS_GetXPositionInl(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            return PATH_GetXPosition(pUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
+static inline int __fastcall UNITS_GetYPositionInl(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            return PATH_GetYPosition(pUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
+static inline int UNITS_GetClassIdInl(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+
+    return pUnit->dwClassId;
+}
+
+// 0x004F0C20
+int __fastcall sub_004F0C20_StoreTargetPos(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    SKILLS_SetParam1(pSkill, UNITS_GetXPositionInl(pTarget));
+    SKILLS_SetParam2(pSkill, UNITS_GetYPositionInl(pTarget));
+    return 1;
+}
+
 // 0x004F0CD0
 int __fastcall SKILLSMON_RequestAtSkillPos(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -921,6 +989,25 @@ int __fastcall SKILLSMON_RequestAtSkillPos(D2UnitStrc* pUnit, int nSkillId, int 
         MISSILE_SubmitMissileRequest(pUnit, nMissileB, nX, nY, nSkillId, nSkillLevel);
     }
     return 1;
+}
+
+// 0x004F0DD0
+int __fastcall sub_004F0DD0_StoreTargetInfo(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (pSkill)
+    {
+        D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
+        if (pTarget && D2COMMON_11018(pTarget))
+        {
+            SKILLS_SetParam1(pSkill, CLIENTS_GetUnitX(pTarget));
+            SKILLS_SetParam2(pSkill, CLIENTS_GetUnitY(pTarget));
+            SKILLS_SetParam3(pSkill, UNITS_GetClassIdInl(pTarget));
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 // 0x004F0E30

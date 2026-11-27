@@ -19188,14 +19188,29 @@
      "name": "GFXUTIL_SkillStartPlace"
     },
     {
+     "va": "0x004E0BD0",
+     "length": 132,
+     "name": "?sub_004E0BD0_CltStartClearCollision@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004E0C60",
      "length": 48,
      "name": "GFXUTIL_CltDoResetActionFrame"
     },
     {
+     "va": "0x004E0C90",
+     "length": 172,
+     "name": "?sub_004E0C90_SetSkillTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004E0D40",
      "length": 364,
      "name": "GFXUTIL_SkillDoFrameOffset"
+    },
+    {
+     "va": "0x004E0EB0",
+     "length": 131,
+     "name": "?sub_004E0EB0_CltStartPathToTarget@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E0F40",
@@ -29918,21 +29933,6 @@
      "name": "?sub_004E0A30_CltDoClearSeqSpeed@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x004E0BD0",
-     "length": 132,
-     "name": "?sub_004E0BD0_CltStartClearCollision@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004E0C90",
-     "length": 172,
-     "name": "?sub_004E0C90_SetSkillTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004E0EB0",
-     "length": 131,
-     "name": "?sub_004E0EB0_CltStartPathToTarget@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
      "va": "0x004E14D0",
      "length": 327,
      "name": "?sub_004E14D0_CreateSkillMissile@@YGPAUD2UnitStrc@@PBHHHHHPAU1@H@Z"
@@ -30333,9 +30333,19 @@
      "name": "SKILLSMON_TimedMissile"
     },
     {
+     "va": "0x004F0C20",
+     "length": 174,
+     "name": "?sub_004F0C20_StoreTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004F0CD0",
      "length": 248,
      "name": "SKILLSMON_RequestAtSkillPos"
+    },
+    {
+     "va": "0x004F0DD0",
+     "length": 94,
+     "name": "?sub_004F0DD0_StoreTargetInfo@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F0E30",
@@ -31489,16 +31499,6 @@
     {
      "va": "0x004F0650",
      "length": 185
-    },
-    {
-     "va": "0x004F0C20",
-     "length": 174,
-     "name": "?sub_004F0C20_StoreTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F0DD0",
-     "length": 94,
-     "name": "?sub_004F0DD0_StoreTargetInfo@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F0EF0",
