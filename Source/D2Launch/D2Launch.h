@@ -239,14 +239,21 @@ struct D2FuncRecordStrc
 
 typedef int (__stdcall* D2LaunchCallback)(int nArg);
 
+// One entry of gatControlTemplates: what CONTROL_Create builds a front-end control from.
 struct D2LaunchControlTemplateStrc
 {
-    char unk0x00[0x14];
-    int nFlags;
-    int nStringId;
-    char unk0x1C[0x04];
-    D2LaunchCallback pfnCallback;
-    char unk0x24[0x0C];
+    int nType; // 0x00
+    int nX; // 0x04
+    int nY; // 0x08
+    int nWidth; // 0x0C
+    int nHeight; // 0x10
+    int nFlags; // 0x14
+    int nStringId; // 0x18
+    void* ppCellFile; // 0x1C
+    D2LaunchCallback pfnCallback; // 0x20
+    void* unk0x24; // 0x24
+    void* unk0x28; // 0x28
+    int unk0x2C; // 0x2C
 };
 
 typedef void (__cdecl* D2LaunchDoneFn)();

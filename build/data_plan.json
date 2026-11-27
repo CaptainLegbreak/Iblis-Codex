@@ -242,8 +242,8 @@
    "static_definitions": 3
   },
   "Source/D2Launch/Src/MainMenus.cpp": {
-   "bytes": 16948,
-   "definitions": 70,
+   "bytes": 16956,
+   "definitions": 29,
    "externs": [
     "extern \"C\" void __cdecl MAINMENUS_OnConnectCancel(); // 0x00436CD0",
     "extern \"C\" void __cdecl sub_004371B0_OnLoginScreen(); // 0x004371B0",
@@ -520,7 +520,7 @@
   },
   "Source/D2Multi/Src/ChatDlg.cpp": {
    "bytes": 8060,
-   "definitions": 152,
+   "definitions": 144,
    "externs": [
     "extern \"C\" void __cdecl CHARSEL_SendChatLine(); // 0x00446890",
     "extern \"C\" void __cdecl COMCALLBACK_SendChatLine(); // 0x004468F0",
@@ -11087,10 +11087,142 @@
    "declared": true,
    "decorated": "?gatControlTemplates@@3PAUD2LaunchControlTemplateStrc@@A",
    "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "fill": 26,
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00708D10_t gData_00708D10; // 0x00708D10",
-   "head": "extern \"C\" struct d2data_00708D10_t gData_00708D10 = ",
+   "fill": 333,
+   "form": "declared",
+   "fwd": "extern \"C\" D2LaunchControlTemplateStrc gData_00708D10[333]; // 0x00708D10",
+   "head": "extern \"C\" D2LaunchControlTemplateStrc gData_00708D10[333] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "nType",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nX",
+       4,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nY",
+       8,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nWidth",
+       12,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nHeight",
+       16,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nFlags",
+       20,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nStringId",
+       24,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "ppCellFile",
+       28,
+       {
+        "fn": false,
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
+       }
+      ],
+      [
+       "pfnCallback",
+       32,
+       {
+        "fn": false,
+        "k": "ptr",
+        "size": 4,
+        "spell": "D2LaunchCallback"
+       }
+      ],
+      [
+       "unk0x24",
+       36,
+       {
+        "fn": false,
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
+       }
+      ],
+      [
+       "unk0x28",
+       40,
+       {
+        "fn": false,
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
+       }
+      ],
+      [
+       "unk0x2C",
+       44,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ]
+     ],
+     "name": "D2LaunchControlTemplateStrc",
+     "size": 48
+    },
+    "k": "arr",
+    "n": 333,
+    "size": 15984
+   },
    "name": "gatControlTemplates",
    "pointers": [
     [
@@ -11412,32 +11544,3871 @@
      "gpTextBox2CelFile",
      0,
      "data"
+    ],
+    [
+     1288,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     1336,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     1384,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     1432,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     1480,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     1528,
+     "0x007089B4",
+     "generated_same_file",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     1576,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     1624,
+     "0x007089B4",
+     "generated_same_file",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     1668,
+     "0x004361B0",
+     "owner",
+     "MAINMENUS_LoginOk",
+     0,
+     "func"
+    ],
+    [
+     1672,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     1716,
+     "0x004361B0",
+     "owner",
+     "MAINMENUS_LoginOk",
+     0,
+     "func"
+    ],
+    [
+     1720,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     1756,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     1760,
+     "0x00434E00",
+     "names.json",
+     "MAINMENUS_CheckFreeSpace",
+     0,
+     "func"
+    ],
+    [
+     1804,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     1808,
+     "0x00432310",
+     "owner",
+     "MAINMENUS_StoreAccount",
+     0,
+     "func"
+    ],
+    [
+     1852,
+     "0x0077974C",
+     "source",
+     "gp3WideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     1856,
+     "0x004361B0",
+     "owner",
+     "MAINMENUS_LoginOk",
+     0,
+     "func"
+    ],
+    [
+     1900,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     1904,
+     "0x00435020",
+     "names.json",
+     "MAINMENUS_Callback",
+     0,
+     "func"
+    ],
+    [
+     1960,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     1996,
+     "0x00779720",
+     "source",
+     "gpCreditsBckgCelFile",
+     0,
+     "data"
+    ],
+    [
+     2044,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     2048,
+     "0x00435020",
+     "names.json",
+     "MAINMENUS_Callback",
+     0,
+     "func"
+    ],
+    [
+     2104,
+     "0x007089D4",
+     "generated_same_file",
+     "gData_007089D4",
+     0,
+     "data"
+    ],
+    [
+     2152,
+     "0x007089D4",
+     "generated_same_file",
+     "gData_007089D4",
+     0,
+     "data"
+    ],
+    [
+     2200,
+     "0x007089D4",
+     "generated_same_file",
+     "gData_007089D4",
+     0,
+     "data"
+    ],
+    [
+     2240,
+     "0x004341F0",
+     "names.json",
+     "MAINMENUS_CheckCreditsEnd",
+     0,
+     "func"
+    ],
+    [
+     2296,
+     "0x007089D4",
+     "generated_same_file",
+     "gData_007089D4",
+     0,
+     "data"
+    ],
+    [
+     2344,
+     "0x007089D4",
+     "generated_same_file",
+     "gData_007089D4",
+     0,
+     "data"
+    ],
+    [
+     2392,
+     "0x007089D4",
+     "generated_same_file",
+     "gData_007089D4",
+     0,
+     "data"
+    ],
+    [
+     2428,
+     "0x00779770",
+     "source",
+     "gpCinematicsSelectionCelFile",
+     0,
+     "data"
+    ],
+    [
+     2488,
+     "0x007089BC",
+     "generated_same_file",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     2524,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     2528,
+     "0x00434320",
+     "names.json",
+     "MAINMENUS_PlayClassicIntro",
+     0,
+     "func"
+    ],
+    [
+     2572,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     2576,
+     "0x00434380",
+     "names.json",
+     "MAINMENUS_PlayActTwoStart",
+     0,
+     "func"
+    ],
+    [
+     2620,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     2624,
+     "0x004343E0",
+     "names.json",
+     "MAINMENUS_PlayActThreeStart",
+     0,
+     "func"
+    ],
+    [
+     2668,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     2672,
+     "0x00434440",
+     "names.json",
+     "MAINMENUS_PlayActFourStart",
+     0,
+     "func"
+    ],
+    [
+     2716,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     2720,
+     "0x004344A0",
+     "names.json",
+     "MAINMENUS_PlayActFourEnd",
+     0,
+     "func"
+    ],
+    [
+     2764,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     2768,
+     "0x004345C0",
+     "names.json",
+     "MAINMENUS_ReloadAndLeave",
+     0,
+     "func"
+    ],
+    [
+     2812,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     2816,
+     "0x00431930",
+     "owner",
+     "MAINMENUS_ShowLevelAndStop",
+     0,
+     "func"
+    ],
+    [
+     2860,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     2864,
+     "0x00431920",
+     "owner",
+     "sub_00431920_SetFlagD4",
+     0,
+     "func"
+    ],
+    [
+     2908,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     2912,
+     "0x00431910",
+     "owner",
+     "sub_00431910_SetFlagD4",
+     0,
+     "func"
+    ],
+    [
+     2956,
+     "0x00779774",
+     "source",
+     "gpCinematicsSelectionExpCelFile",
+     0,
+     "data"
+    ],
+    [
+     3016,
+     "0x007089BC",
+     "generated_same_file",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     3052,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     3056,
+     "0x00434320",
+     "names.json",
+     "MAINMENUS_PlayClassicIntro",
+     0,
+     "func"
+    ],
+    [
+     3100,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     3104,
+     "0x00434380",
+     "names.json",
+     "MAINMENUS_PlayActTwoStart",
+     0,
+     "func"
+    ],
+    [
+     3148,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     3152,
+     "0x004343E0",
+     "names.json",
+     "MAINMENUS_PlayActThreeStart",
+     0,
+     "func"
+    ],
+    [
+     3196,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     3200,
+     "0x00434440",
+     "names.json",
+     "MAINMENUS_PlayActFourStart",
+     0,
+     "func"
+    ],
+    [
+     3244,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     3248,
+     "0x004344A0",
+     "names.json",
+     "MAINMENUS_PlayActFourEnd",
+     0,
+     "func"
+    ],
+    [
+     3292,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     3296,
+     "0x00434500",
+     "names.json",
+     "MAINMENUS_PlayExpansionIntro",
+     0,
+     "func"
+    ],
+    [
+     3340,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     3344,
+     "0x00434560",
+     "names.json",
+     "MAINMENUS_PlayExpansionOutro",
+     0,
+     "func"
+    ],
+    [
+     3388,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     3392,
+     "0x004345C0",
+     "names.json",
+     "MAINMENUS_ReloadAndLeave",
+     0,
+     "func"
+    ],
+    [
+     3436,
+     "0x0077975C",
+     "source",
+     "gpGWListBoxCelFile",
+     0,
+     "data"
+    ],
+    [
+     3496,
+     "0x007089BC",
+     "generated_same_file",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     3544,
+     "0x007089CC",
+     "generated_same_file",
+     "gData_007089CC",
+     0,
+     "data"
+    ],
+    [
+     3580,
+     "0x007797CC",
+     "source",
+     "gpJoinGameScrollBarsCelFile",
+     0,
+     "data"
+    ],
+    [
+     3584,
+     "0x00435D50",
+     "owner",
+     "MAINMENUS_OnRealmDoubleClick",
+     0,
+     "func"
+    ],
+    [
+     3588,
+     "0x00708CE8",
+     "generated_same_file",
+     "gData_00708CE8",
+     0,
+     "data"
+    ],
+    [
+     3592,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     3628,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     3632,
+     "0x00434700",
+     "source",
+     "MAINMENUS_OnRealmSelected",
+     0,
+     "func"
+    ],
+    [
+     3676,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     3680,
+     "0x00434760",
+     "names.json",
+     "MAINMENUS_ResetAndLeave",
+     0,
+     "func"
+    ],
+    [
+     3724,
+     "0x00779764",
+     "source",
+     "gpTermsOfUseBckgCelFile",
+     0,
+     "data"
+    ],
+    [
+     3772,
+     "0x007797CC",
+     "source",
+     "gpJoinGameScrollBarsCelFile",
+     0,
+     "data"
+    ],
+    [
+     3780,
+     "0x00708CDC",
+     "generated_same_file",
+     "gData_00708CDC",
+     0,
+     "data"
+    ],
+    [
+     3784,
+     "0x007089E4",
+     "generated_same_file",
+     "gData_007089E4",
+     0,
+     "data"
+    ],
+    [
+     3820,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     3824,
+     "0x00430430",
+     "owner",
+     "MAINMENUS_OnBack",
+     0,
+     "func"
+    ],
+    [
+     3868,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     3872,
+     "0x00436270",
+     "names.json",
+     "MAINMENUS_OnShowLogin",
+     0,
+     "func"
+    ],
+    [
+     3928,
+     "0x007089AC",
+     "generated_same_file",
+     "gData_007089AC",
+     0,
+     "data"
+    ],
+    [
+     3968,
+     "0x00430440",
+     "owner",
+     "MAINMENUS_ScrollUp",
+     0,
+     "func"
+    ],
+    [
+     4016,
+     "0x004304B0",
+     "owner",
+     "MAINMENUS_ScrollDown",
+     0,
+     "func"
+    ],
+    [
+     4068,
+     "0x00436910",
+     "owner",
+     "MAINMENUS_CreateAccountOk",
+     0,
+     "func"
+    ],
+    [
+     4072,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     4116,
+     "0x00436910",
+     "owner",
+     "MAINMENUS_CreateAccountOk",
+     0,
+     "func"
+    ],
+    [
+     4120,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     4164,
+     "0x00436910",
+     "owner",
+     "MAINMENUS_CreateAccountOk",
+     0,
+     "func"
+    ],
+    [
+     4168,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     4204,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     4208,
+     "0x00436910",
+     "owner",
+     "MAINMENUS_CreateAccountOk",
+     0,
+     "func"
+    ],
+    [
+     4252,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     4256,
+     "0x00436270",
+     "names.json",
+     "MAINMENUS_OnShowLogin",
+     0,
+     "func"
+    ],
+    [
+     4308,
+     "0x00435030",
+     "owner",
+     "MAINMENUS_ChangePasswordOk",
+     0,
+     "func"
+    ],
+    [
+     4312,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     4356,
+     "0x00435030",
+     "owner",
+     "MAINMENUS_ChangePasswordOk",
+     0,
+     "func"
+    ],
+    [
+     4360,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     4404,
+     "0x00435030",
+     "owner",
+     "MAINMENUS_ChangePasswordOk",
+     0,
+     "func"
+    ],
+    [
+     4408,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     4452,
+     "0x00435030",
+     "owner",
+     "MAINMENUS_ChangePasswordOk",
+     0,
+     "func"
+    ],
+    [
+     4456,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     4492,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     4496,
+     "0x00435030",
+     "owner",
+     "MAINMENUS_ChangePasswordOk",
+     0,
+     "func"
+    ],
+    [
+     4540,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     4544,
+     "0x00432340",
+     "owner",
+     "MAINMENUS_OpenInfoScreen",
+     0,
+     "func"
+    ],
+    [
+     4600,
+     "0x007089AC",
+     "generated_same_file",
+     "gData_007089AC",
+     0,
+     "data"
+    ],
+    [
+     4648,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     4696,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     4744,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     4780,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     4784,
+     "0x00436280",
+     "names.json",
+     "MAINMENUS_ConnectOk",
+     0,
+     "func"
+    ],
+    [
+     4828,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     4832,
+     "0x00436300",
+     "names.json",
+     "MAINMENUS_BackToLogin",
+     0,
+     "func"
+    ],
+    [
+     4876,
+     "0x0077978C",
+     "source",
+     "gpRealmSelectCelFile",
+     0,
+     "data"
+    ],
+    [
+     4936,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     4972,
+     "0x00779790",
+     "source",
+     "gpRealmSelectButtonThinCelFile",
+     0,
+     "data"
+    ],
+    [
+     4976,
+     "0x0043A9A0",
+     "names.json",
+     "CHARSEL_CopyName",
+     0,
+     "func"
+    ],
+    [
+     5032,
+     "0x007089AC",
+     "generated_same_file",
+     "gData_007089AC",
+     0,
+     "data"
+    ],
+    [
+     5068,
+     "0x0077978C",
+     "source",
+     "gpRealmSelectCelFile",
+     0,
+     "data"
+    ],
+    [
+     5128,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     5164,
+     "0x00779790",
+     "source",
+     "gpRealmSelectButtonThinCelFile",
+     0,
+     "data"
+    ],
+    [
+     5168,
+     "0x0043A9A0",
+     "names.json",
+     "CHARSEL_CopyName",
+     0,
+     "func"
+    ],
+    [
+     5224,
+     "0x007089BC",
+     "generated_same_file",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     5260,
+     "0x0077975C",
+     "source",
+     "gpGWListBoxCelFile",
+     0,
+     "data"
+    ],
+    [
+     5320,
+     "0x007089BC",
+     "generated_same_file",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     5368,
+     "0x007089CC",
+     "generated_same_file",
+     "gData_007089CC",
+     0,
+     "data"
+    ],
+    [
+     5404,
+     "0x007797CC",
+     "source",
+     "gpJoinGameScrollBarsCelFile",
+     0,
+     "data"
+    ],
+    [
+     5408,
+     "0x0043B4C0",
+     "owner",
+     "MAINMENUS_OnRealmListClick",
+     0,
+     "func"
+    ],
+    [
+     5412,
+     "0x00708CF4",
+     "generated_same_file",
+     "gData_00708CF4",
+     0,
+     "data"
+    ],
+    [
+     5416,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     5452,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     5456,
+     "0x0043A950",
+     "source",
+     "CHARSEL_OnRealmChosen",
+     0,
+     "func"
+    ],
+    [
+     5500,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     5504,
+     "0x0043B490",
+     "names.json",
+     "CHARSEL_OnName",
+     0,
+     "func"
+    ],
+    [
+     5548,
+     "0x0077975C",
+     "source",
+     "gpGWListBoxCelFile",
+     0,
+     "data"
+    ],
+    [
+     5608,
+     "0x007089BC",
+     "generated_same_file",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     5656,
+     "0x007089CC",
+     "generated_same_file",
+     "gData_007089CC",
+     0,
+     "data"
+    ],
+    [
+     5692,
+     "0x007797CC",
+     "source",
+     "gpJoinGameScrollBarsCelFile",
+     0,
+     "data"
+    ],
+    [
+     5696,
+     "0x0043B4C0",
+     "owner",
+     "MAINMENUS_OnRealmListClick",
+     0,
+     "func"
+    ],
+    [
+     5700,
+     "0x00708CF4",
+     "generated_same_file",
+     "gData_00708CF4",
+     0,
+     "data"
+    ],
+    [
+     5704,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     5740,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     5744,
+     "0x0043A950",
+     "source",
+     "CHARSEL_OnRealmChosen",
+     0,
+     "func"
+    ],
+    [
+     5788,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     5792,
+     "0x0043B490",
+     "names.json",
+     "CHARSEL_OnName",
+     0,
+     "func"
+    ],
+    [
+     5848,
+     "0x007089E4",
+     "generated_same_file",
+     "gData_007089E4",
+     0,
+     "data"
+    ],
+    [
+     5888,
+     "0x0043AC00",
+     "names.json",
+     "CHARSEL_PollConnect",
+     0,
+     "func"
+    ],
+    [
+     5932,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     5936,
+     "0x00435E00",
+     "names.json",
+     "MAINMENUS_Back",
+     0,
+     "func"
+    ],
+    [
+     5980,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     5984,
+     "0x00434DD0",
+     "names.json",
+     "MAINMENUS_DisconnectAndLeave",
+     0,
+     "func"
+    ],
+    [
+     6028,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     6032,
+     "0x00439D50",
+     "names.json",
+     "sub_00439D50_CreateControls",
+     0,
+     "func"
+    ],
+    [
+     6076,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     6080,
+     "0x00439840",
+     "names.json",
+     "CHARSEL_OnCharSelectOk",
+     0,
+     "func"
+    ],
+    [
+     6128,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6136,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6176,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6184,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6224,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6232,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6272,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6280,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6320,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6328,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6368,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6376,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6416,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6424,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6464,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6472,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6512,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6520,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6560,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6568,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6608,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6616,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6656,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6664,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6704,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6712,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6752,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6760,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6800,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6808,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6848,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6856,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6896,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6904,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6944,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     6952,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     6992,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     7000,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     7040,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     7048,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     7088,
+     "0x0043A9D0",
+     "names.json",
+     "CHARSEL_OnListClick",
+     0,
+     "func"
+    ],
+    [
+     7096,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     7144,
+     "0x007089BC",
+     "generated_same_file",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     7192,
+     "0x007089E4",
+     "generated_same_file",
+     "gData_007089E4",
+     0,
+     "data"
+    ],
+    [
+     7228,
+     "0x00779778",
+     "source",
+     "gpCharSelectBoxCelFile",
+     0,
+     "data"
+    ],
+    [
+     7240,
+     "0x0043A0D0",
+     "names.json",
+     "CHARSEL_OnListKeyDown",
+     0,
+     "func"
+    ],
+    [
+     7276,
+     "0x0077977C",
+     "source",
+     "gpCharSelectBoxGreyCelFile",
+     0,
+     "data"
+    ],
+    [
+     7288,
+     "0x0043A0D0",
+     "names.json",
+     "CHARSEL_OnListKeyDown",
+     0,
+     "func"
+    ],
+    [
+     7336,
+     "0x007089BC",
+     "generated_same_file",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     7372,
+     "0x00779788",
+     "source",
+     "gpSelectCharArrowsCelFile",
+     0,
+     "data"
+    ],
+    [
+     7376,
+     "0x00439D60",
+     "names.json",
+     "CHARSEL_ScrollUp",
+     0,
+     "func"
+    ],
+    [
+     7420,
+     "0x00779788",
+     "source",
+     "gpSelectCharArrowsCelFile",
+     0,
+     "data"
+    ],
+    [
+     7424,
+     "0x00439DA0",
+     "names.json",
+     "CHARSEL_ScrollDown",
+     0,
+     "func"
+    ],
+    [
+     7480,
+     "0x007089AC",
+     "generated_same_file",
+     "gData_007089AC",
+     0,
+     "data"
+    ],
+    [
+     7528,
+     "0x007089AC",
+     "generated_same_file",
+     "gData_007089AC",
+     0,
+     "data"
+    ],
+    [
+     7576,
+     "0x007089B4",
+     "generated_same_file",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     7624,
+     "0x007089B4",
+     "generated_same_file",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     7660,
+     "0x00779794",
+     "source",
+     "gpCreateNewCharImageCelFile",
+     0,
+     "data"
+    ],
+    [
+     7672,
+     "0x0043A0D0",
+     "names.json",
+     "CHARSEL_OnListKeyDown",
+     0,
+     "func"
+    ],
+    [
+     7720,
+     "0x007089EC",
+     "generated_same_file",
+     "gData_007089EC",
+     0,
+     "data"
+    ],
+    [
+     7756,
+     "0x00779734",
+     "source",
+     "gpCharacterSelectScreenExpCelFile",
+     0,
+     "data"
+    ],
+    [
+     7804,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     7808,
+     "0x00439840",
+     "names.json",
+     "CHARSEL_OnCharSelectOk",
+     0,
+     "func"
+    ],
+    [
+     7852,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     7856,
+     "0x00434DD0",
+     "names.json",
+     "MAINMENUS_DisconnectAndLeave",
+     0,
+     "func"
+    ],
+    [
+     7900,
+     "0x00779730",
+     "source",
+     "gpTallButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     7904,
+     "0x00435E00",
+     "names.json",
+     "MAINMENUS_Back",
+     0,
+     "func"
+    ],
+    [
+     7948,
+     "0x00779730",
+     "source",
+     "gpTallButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     7952,
+     "0x00439BE0",
+     "names.json",
+     "CHARSEL_CreateExpansionControls",
+     0,
+     "func"
+    ],
+    [
+     7996,
+     "0x00779730",
+     "source",
+     "gpTallButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     8000,
+     "0x00439D50",
+     "names.json",
+     "sub_00439D50_CreateControls",
+     0,
+     "func"
+    ],
+    [
+     8044,
+     "0x007797CC",
+     "source",
+     "gpJoinGameScrollBarsCelFile",
+     0,
+     "data"
+    ],
+    [
+     8048,
+     "0x00439DF0",
+     "names.json",
+     "CHARSEL_OnScroll",
+     0,
+     "func"
+    ],
+    [
+     8052,
+     "0x00708D00",
+     "generated_same_file",
+     "gData_00708D00",
+     0,
+     "data"
+    ],
+    [
+     8056,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     8092,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     8096,
+     "0x00439B80",
+     "names.json",
+     "CHARSEL_OnNormalDifficulty",
+     0,
+     "func"
+    ],
+    [
+     8140,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     8144,
+     "0x00439BA0",
+     "names.json",
+     "CHARSEL_OnNightmareDifficulty",
+     0,
+     "func"
+    ],
+    [
+     8188,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     8192,
+     "0x00439BC0",
+     "names.json",
+     "CHARSEL_OnHellDifficulty",
+     0,
+     "func"
+    ],
+    [
+     8248,
+     "0x007089BC",
+     "generated_same_file",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     8284,
+     "0x0077976C",
+     "source",
+     "gpDifficultyLevelsCelFile",
+     0,
+     "data"
+    ],
+    [
+     8336,
+     "0x00432EE0",
+     "owner",
+     "MAINMENUS_CloseBox",
+     0,
+     "func"
+    ],
+    [
+     8392,
+     "0x007089B4",
+     "generated_same_file",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     8428,
+     "0x00779744",
+     "source",
+     "gpMediumSelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     8432,
+     "0x00430C30",
+     "owner",
+     "sub_00430C30_OnCancel",
+     0,
+     "func"
+    ],
+    [
+     8476,
+     "0x00779744",
+     "source",
+     "gpMediumSelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     8480,
+     "0x004369F0",
+     "names.json",
+     "MAINMENUS_OnCharCreateOk",
+     0,
+     "func"
+    ],
+    [
+     8524,
+     "0x00779724",
+     "source",
+     "gpCharacterCreateCelFile",
+     0,
+     "data"
+    ],
+    [
+     8572,
+     "0x00779728",
+     "source",
+     "gpFireCelFile",
+     0,
+     "data"
+    ],
+    [
+     8620,
+     "0x00779728",
+     "source",
+     "gpFireCelFile",
+     0,
+     "data"
+    ],
+    [
+     8672,
+     "0x00433BF0",
+     "source",
+     "MAINMENUS_SelectCharacterClass",
+     0,
+     "func"
+    ],
+    [
+     8676,
+     "0x00708AA0",
+     "generated_same_file",
+     "gData_00708AA0",
+     0,
+     "data"
+    ],
+    [
+     8680,
+     "0x00430870",
+     "names.json",
+     "MAINMENUS_OnHoverAmazon",
+     0,
+     "func"
+    ],
+    [
+     8720,
+     "0x00433BF0",
+     "source",
+     "MAINMENUS_SelectCharacterClass",
+     0,
+     "func"
+    ],
+    [
+     8724,
+     "0x00708AF0",
+     "generated_same_file",
+     "gData_00708AF0",
+     0,
+     "data"
+    ],
+    [
+     8728,
+     "0x00430920",
+     "names.json",
+     "MAINMENUS_OnHoverNecromancer",
+     0,
+     "func"
+    ],
+    [
+     8768,
+     "0x00433BF0",
+     "source",
+     "MAINMENUS_SelectCharacterClass",
+     0,
+     "func"
+    ],
+    [
+     8772,
+     "0x00708B40",
+     "generated_same_file",
+     "gData_00708B40",
+     0,
+     "data"
+    ],
+    [
+     8776,
+     "0x00430950",
+     "names.json",
+     "MAINMENUS_OnHoverBarbarian",
+     0,
+     "func"
+    ],
+    [
+     8816,
+     "0x00433BF0",
+     "source",
+     "MAINMENUS_SelectCharacterClass",
+     0,
+     "func"
+    ],
+    [
+     8820,
+     "0x00708B90",
+     "generated_same_file",
+     "gData_00708B90",
+     0,
+     "data"
+    ],
+    [
+     8824,
+     "0x00430840",
+     "names.json",
+     "MAINMENUS_OnHoverSorceress",
+     0,
+     "func"
+    ],
+    [
+     8864,
+     "0x00433BF0",
+     "source",
+     "MAINMENUS_SelectCharacterClass",
+     0,
+     "func"
+    ],
+    [
+     8868,
+     "0x00708BE0",
+     "generated_same_file",
+     "gData_00708BE0",
+     0,
+     "data"
+    ],
+    [
+     8872,
+     "0x00430980",
+     "names.json",
+     "MAINMENUS_OnHoverPaladin",
+     0,
+     "func"
+    ],
+    [
+     8912,
+     "0x00433BF0",
+     "source",
+     "MAINMENUS_SelectCharacterClass",
+     0,
+     "func"
+    ],
+    [
+     8916,
+     "0x00708AF0",
+     "generated_same_file",
+     "gData_00708AF0",
+     0,
+     "data"
+    ],
+    [
+     8920,
+     "0x00430920",
+     "names.json",
+     "MAINMENUS_OnHoverNecromancer",
+     0,
+     "func"
+    ],
+    [
+     8960,
+     "0x00433BF0",
+     "source",
+     "MAINMENUS_SelectCharacterClass",
+     0,
+     "func"
+    ],
+    [
+     8964,
+     "0x00708B90",
+     "generated_same_file",
+     "gData_00708B90",
+     0,
+     "data"
+    ],
+    [
+     8968,
+     "0x00430840",
+     "names.json",
+     "MAINMENUS_OnHoverSorceress",
+     0,
+     "func"
+    ],
+    [
+     9008,
+     "0x00433BF0",
+     "source",
+     "MAINMENUS_SelectCharacterClass",
+     0,
+     "func"
+    ],
+    [
+     9012,
+     "0x00708BE0",
+     "generated_same_file",
+     "gData_00708BE0",
+     0,
+     "data"
+    ],
+    [
+     9016,
+     "0x00430980",
+     "names.json",
+     "MAINMENUS_OnHoverPaladin",
+     0,
+     "func"
+    ],
+    [
+     9056,
+     "0x00433BF0",
+     "source",
+     "MAINMENUS_SelectCharacterClass",
+     0,
+     "func"
+    ],
+    [
+     9060,
+     "0x00708AA0",
+     "generated_same_file",
+     "gData_00708AA0",
+     0,
+     "data"
+    ],
+    [
+     9064,
+     "0x00430870",
+     "names.json",
+     "MAINMENUS_OnHoverAmazon",
+     0,
+     "func"
+    ],
+    [
+     9112,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     9148,
+     "0x007797C0",
+     "source",
+     "gpClickBoxCelFile",
+     0,
+     "data"
+    ],
+    [
+     9152,
+     "0x00430730",
+     "owner",
+     "MAINMENUS_ToggleHardcore",
+     0,
+     "func"
+    ],
+    [
+     9208,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     9244,
+     "0x007797C0",
+     "source",
+     "gpClickBoxCelFile",
+     0,
+     "data"
+    ],
+    [
+     9248,
+     "0x00430750",
+     "owner",
+     "MAINMENUS_ToggleLadder",
+     0,
+     "func"
+    ],
+    [
+     9304,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     9340,
+     "0x007797C0",
+     "source",
+     "gpClickBoxCelFile",
+     0,
+     "data"
+    ],
+    [
+     9344,
+     "0x00430750",
+     "owner",
+     "MAINMENUS_ToggleLadder",
+     0,
+     "func"
+    ],
+    [
+     9400,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     9436,
+     "0x007797C0",
+     "source",
+     "gpClickBoxCelFile",
+     0,
+     "data"
+    ],
+    [
+     9440,
+     "0x00430750",
+     "owner",
+     "MAINMENUS_ToggleLadder",
+     0,
+     "func"
+    ],
+    [
+     9496,
+     "0x007089B4",
+     "generated_same_file",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     9544,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     9592,
+     "0x007089CC",
+     "generated_same_file",
+     "gData_007089CC",
+     0,
+     "data"
+    ],
+    [
+     9628,
+     "0x007797BC",
+     "source",
+     "gpTextBoxCelFile",
+     0,
+     "data"
+    ],
+    [
+     9688,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     9736,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     9772,
+     "0x007797C0",
+     "source",
+     "gpClickBoxCelFile",
+     0,
+     "data"
+    ],
+    [
+     9776,
+     "0x00430730",
+     "owner",
+     "MAINMENUS_ToggleHardcore",
+     0,
+     "func"
+    ],
+    [
+     9828,
+     "0x004369F0",
+     "names.json",
+     "MAINMENUS_OnCharCreateOk",
+     0,
+     "func"
+    ],
+    [
+     9832,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     9868,
+     "0x00779780",
+     "source",
+     "gpPopUpOkCancelCelFile",
+     0,
+     "data"
+    ],
+    [
+     9916,
+     "0x007797B0",
+     "source",
+     "gpOkCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     9920,
+     "0x00436590",
+     "names.json",
+     "MAINMENUS_BackToCharCreate",
+     0,
+     "func"
+    ],
+    [
+     9964,
+     "0x007797B0",
+     "source",
+     "gpOkCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     9968,
+     "0x00436360",
+     "names.json",
+     "MAINMENUS_SubmitCharacter",
+     0,
+     "func"
+    ],
+    [
+     10024,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     10064,
+     "0x00433BF0",
+     "source",
+     "MAINMENUS_SelectCharacterClass",
+     0,
+     "func"
+    ],
+    [
+     10068,
+     "0x00708A00",
+     "generated_same_file",
+     "gData_00708A00",
+     0,
+     "data"
+    ],
+    [
+     10072,
+     "0x004308A0",
+     "owner",
+     "MAINMENUS_OnSelectAssassin",
+     0,
+     "func"
+    ],
+    [
+     10112,
+     "0x00433BF0",
+     "source",
+     "MAINMENUS_SelectCharacterClass",
+     0,
+     "func"
+    ],
+    [
+     10116,
+     "0x00708A50",
+     "generated_same_file",
+     "gData_00708A50",
+     0,
+     "data"
+    ],
+    [
+     10120,
+     "0x004308E0",
+     "owner",
+     "MAINMENUS_OnSelectDruid",
+     0,
+     "func"
+    ],
+    [
+     10168,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     10204,
+     "0x007797C0",
+     "source",
+     "gpClickBoxCelFile",
+     0,
+     "data"
+    ],
+    [
+     10208,
+     "0x00430770",
+     "owner",
+     "MAINMENUS_ToggleExpansion",
+     0,
+     "func"
+    ],
+    [
+     10252,
+     "0x007797C4",
+     "source",
+     "gpJoinGameClickBoxGreyCelFile",
+     0,
+     "data"
+    ],
+    [
+     10300,
+     "0x00779784",
+     "source",
+     "gpPopUpOkCancel2CelFile",
+     0,
+     "data"
+    ],
+    [
+     10348,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     10352,
+     "0x00439D40",
+     "names.json",
+     "CHARSEL_OnClosePopup",
+     0,
+     "func"
+    ],
+    [
+     10396,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     10400,
+     "0x0043B6B0",
+     "names.json",
+     "CHARSEL_JoinSelected",
+     0,
+     "func"
+    ],
+    [
+     10456,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     10492,
+     "0x00779784",
+     "source",
+     "gpPopUpOkCancel2CelFile",
+     0,
+     "data"
+    ],
+    [
+     10540,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     10544,
+     "0x00439CA0",
+     "names.json",
+     "CHARSEL_DestroyIfExpansion",
+     0,
+     "func"
+    ],
+    [
+     10588,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     10592,
+     "0x0043B520",
+     "names.json",
+     "CHARSEL_OnCharSelect",
+     0,
+     "func"
+    ],
+    [
+     10648,
+     "0x007089CC",
+     "generated_same_file",
+     "gData_007089CC",
+     0,
+     "data"
+    ],
+    [
+     10684,
+     "0x00779798",
+     "source",
+     "gpPopUpOkCelFile",
+     0,
+     "data"
+    ],
+    [
+     10732,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     10736,
+     "0x00432060",
+     "names.json",
+     "MAINMENUS_CallGatewayDone",
+     0,
+     "func"
+    ],
+    [
+     10792,
+     "0x007089BC",
+     "generated",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     10828,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     10832,
+     "0x00432060",
+     "names.json",
+     "MAINMENUS_CallGatewayDone",
+     0,
+     "func"
+    ],
+    [
+     10876,
+     "0x0077979C",
+     "source",
+     "gpPopUp340x224CelFile",
+     0,
+     "data"
+    ],
+    [
+     10924,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     10928,
+     "0x00432060",
+     "names.json",
+     "MAINMENUS_CallGatewayDone",
+     0,
+     "func"
+    ],
+    [
+     10984,
+     "0x007089B4",
+     "generated",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     11032,
+     "0x007089BC",
+     "generated",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     11080,
+     "0x007089DC",
+     "generated",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     11116,
+     "0x007797A0",
+     "source",
+     "gpPopUpWideCelFile",
+     0,
+     "data"
+    ],
+    [
+     11164,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     11168,
+     "0x00432060",
+     "names.json",
+     "MAINMENUS_CallGatewayDone",
+     0,
+     "func"
+    ],
+    [
+     11224,
+     "0x007089B4",
+     "generated",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     11272,
+     "0x007089BC",
+     "generated",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     11308,
+     "0x007797A4",
+     "source",
+     "gpPopUpLargestCelFile",
+     0,
+     "data"
+    ],
+    [
+     11356,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     11360,
+     "0x00432060",
+     "names.json",
+     "MAINMENUS_CallGatewayDone",
+     0,
+     "func"
+    ],
+    [
+     11416,
+     "0x007089B4",
+     "generated",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     11464,
+     "0x007089BC",
+     "generated",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     11512,
+     "0x007089BC",
+     "generated",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     11560,
+     "0x007089C4",
+     "generated",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     11596,
+     "0x007797A4",
+     "source",
+     "gpPopUpLargestCelFile",
+     0,
+     "data"
+    ],
+    [
+     11644,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     11648,
+     "0x00432060",
+     "names.json",
+     "MAINMENUS_CallGatewayDone",
+     0,
+     "func"
+    ],
+    [
+     11704,
+     "0x007089B4",
+     "generated",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     11752,
+     "0x007089BC",
+     "generated",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     11800,
+     "0x007089BC",
+     "generated",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     11848,
+     "0x007089C4",
+     "generated",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     11884,
+     "0x007797AC",
+     "source",
+     "gpPopUpOk2CelFile",
+     0,
+     "data"
+    ],
+    [
+     11932,
+     "0x007797B0",
+     "source",
+     "gpOkCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     11936,
+     "0x00432060",
+     "names.json",
+     "MAINMENUS_CallGatewayDone",
+     0,
+     "func"
+    ],
+    [
+     11992,
+     "0x007089BC",
+     "generated",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     12028,
+     "0x007797B0",
+     "source",
+     "gpOkCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     12032,
+     "0x00432060",
+     "names.json",
+     "MAINMENUS_CallGatewayDone",
+     0,
+     "func"
+    ],
+    [
+     12080,
+     "0x0042F790",
+     "names.json",
+     "MAINMENUS_ShowCantConnect",
+     0,
+     "func"
+    ],
+    [
+     12124,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     12128,
+     "0x00435200",
+     "names.json",
+     "MAINMENUS_CancelDownload",
+     0,
+     "func"
+    ],
+    [
+     12172,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     12176,
+     "0x00435200",
+     "names.json",
+     "MAINMENUS_CancelDownload",
+     0,
+     "func"
+    ],
+    [
+     12232,
+     "0x007089BC",
+     "generated",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     12268,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     12272,
+     "0x00435D10",
+     "names.json",
+     "MAINMENUS_OnOpenBattleNet",
+     0,
+     "func"
+    ],
+    [
+     12316,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     12320,
+     "0x00431A40",
+     "names.json",
+     "MAINMENUS_OpenTcpIpScreen",
+     0,
+     "func"
+    ],
+    [
+     12364,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     12368,
+     "0x00434DF0",
+     "names.json",
+     "sub_00434DF0_Leave",
+     0,
+     "func"
+    ],
+    [
+     12412,
+     "0x007797D0",
+     "source",
+     "gpTcpIpBckgCelFile",
+     0,
+     "data"
+    ],
+    [
+     12472,
+     "0x007089AC",
+     "generated_same_file",
+     "gData_007089AC",
+     0,
+     "data"
+    ],
+    [
+     12520,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     12568,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     12604,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     12608,
+     "0x00435D80",
+     "owner",
+     "MAINMENUS_OnTcpIpHost",
+     0,
+     "func"
+    ],
+    [
+     12616,
+     "0x00430120",
+     "names.json",
+     "sub_00430120_OnToggle",
+     0,
+     "func"
+    ],
+    [
+     12652,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     12656,
+     "0x00431D20",
+     "owner",
+     "MAINMENUS_CreateTcpIpScreen",
+     0,
+     "func"
+    ],
+    [
+     12664,
+     "0x00430160",
+     "names.json",
+     "sub_00430160_OnToggle",
+     0,
+     "func"
+    ],
+    [
+     12712,
+     "0x007089EC",
+     "generated_same_file",
+     "gData_007089EC",
+     0,
+     "data"
+    ],
+    [
+     12760,
+     "0x007089EC",
+     "generated_same_file",
+     "gData_007089EC",
+     0,
+     "data"
+    ],
+    [
+     12796,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     12800,
+     "0x00430C50",
+     "owner",
+     "MAINMENUS_OnCreate",
+     0,
+     "func"
+    ],
+    [
+     12848,
+     "0x0042FFD0",
+     "owner",
+     "MAINMENUS_ShowAddress",
+     0,
+     "func"
+    ],
+    [
+     12904,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     12948,
+     "0x00434790",
+     "names.json",
+     "MAINMENUS_JoinTcpIp",
+     0,
+     "func"
+    ],
+    [
+     12952,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     12988,
+     "0x007797D4",
+     "source",
+     "gpIPAddressBoxCelFile",
+     0,
+     "data"
+    ],
+    [
+     13036,
+     "0x00779784",
+     "source",
+     "gpPopUpOkCancel2CelFile",
+     0,
+     "data"
+    ],
+    [
+     13084,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     13088,
+     "0x00431E00",
+     "owner",
+     "MAINMENUS_OnTcpIpJoin",
+     0,
+     "func"
+    ],
+    [
+     13132,
+     "0x007797B4",
+     "source",
+     "gpCancelButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     13136,
+     "0x00434790",
+     "names.json",
+     "MAINMENUS_JoinTcpIp",
+     0,
+     "func"
+    ],
+    [
+     13192,
+     "0x007089B4",
+     "generated_same_file",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     13240,
+     "0x007089B4",
+     "generated_same_file",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     13288,
+     "0x007089B4",
+     "generated_same_file",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     13336,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     13372,
+     "0x007797D8",
+     "source",
+     "gpDownloadPatchBckgCelFile",
+     0,
+     "data"
+    ],
+    [
+     13420,
+     "0x007797DC",
+     "source",
+     "gpDownloadPatchBall2CelFile",
+     0,
+     "data"
+    ],
+    [
+     13468,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     13472,
+     "0x00435200",
+     "owner",
+     "MAINMENUS_CancelDownload",
+     0,
+     "func"
+    ],
+    [
+     13516,
+     "0x007797A8",
+     "source",
+     "gpTileableDialogCelFile",
+     0,
+     "data"
+    ],
+    [
+     13564,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     13612,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     13660,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     13720,
+     "0x007089B4",
+     "generated_same_file",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     13768,
+     "0x007089BC",
+     "generated_same_file",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     13816,
+     "0x007089BC",
+     "generated_same_file",
+     "gData_007089BC",
+     0,
+     "data"
+    ],
+    [
+     13852,
+     "0x00779750",
+     "source",
+     "gpEditTextBoxWideCelFile",
+     0,
+     "data"
+    ],
+    [
+     13900,
+     "0x00779750",
+     "source",
+     "gpEditTextBoxWideCelFile",
+     0,
+     "data"
+    ],
+    [
+     13960,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     14008,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     14056,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     14104,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     14152,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     14200,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     14236,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     14240,
+     "0x00437620",
+     "names.json",
+     "MAINMENUS_ConfirmText",
+     0,
+     "func"
+    ],
+    [
+     14284,
+     "0x00779738",
+     "source",
+     "gpWideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     14288,
+     "0x00436C90",
+     "names.json",
+     "MAINMENUS_AskEmailRegistration",
+     0,
+     "func"
+    ],
+    [
+     14332,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     14336,
+     "0x00436CD0",
+     "names.json",
+     "MAINMENUS_OnConnectCancel",
+     0,
+     "func"
+    ],
+    [
+     14392,
+     "0x007089B4",
+     "generated_same_file",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     14428,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     14432,
+     "0x004378D0",
+     "names.json",
+     "CHARSEL_SubmitPasswordReset",
+     0,
+     "func"
+    ],
+    [
+     14476,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     14480,
+     "0x00437710",
+     "names.json",
+     "sub_00437710_OnInfoScreen",
+     0,
+     "func"
+    ],
+    [
+     14536,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     14572,
+     "0x00779750",
+     "source",
+     "gpEditTextBoxWideCelFile",
+     0,
+     "data"
+    ],
+    [
+     14632,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     14676,
+     "0x004378D0",
+     "names.json",
+     "CHARSEL_SubmitPasswordReset",
+     0,
+     "func"
+    ],
+    [
+     14680,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     14716,
+     "0x00779750",
+     "source",
+     "gpEditTextBoxWideCelFile",
+     0,
+     "data"
+    ],
+    [
+     14776,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     14820,
+     "0x004378D0",
+     "names.json",
+     "CHARSEL_SubmitPasswordReset",
+     0,
+     "func"
+    ],
+    [
+     14824,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     14872,
+     "0x007089B4",
+     "generated_same_file",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     14920,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     14968,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     15016,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     15052,
+     "0x0077974C",
+     "source",
+     "gp3WideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     15056,
+     "0x004371B0",
+     "names.json",
+     "sub_004371B0_OnLoginScreen",
+     0,
+     "func"
+    ],
+    [
+     15100,
+     "0x0077974C",
+     "source",
+     "gp3WideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     15104,
+     "0x004371C0",
+     "names.json",
+     "sub_004371C0_OnEmailScreen",
+     0,
+     "func"
+    ],
+    [
+     15148,
+     "0x0077974C",
+     "source",
+     "gp3WideButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     15152,
+     "0x00437720",
+     "names.json",
+     "sub_00437720_OnPasswordScreen",
+     0,
+     "func"
+    ],
+    [
+     15196,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     15200,
+     "0x004371D0",
+     "names.json",
+     "sub_004371D0_OnShowLogin",
+     0,
+     "func"
+    ],
+    [
+     15256,
+     "0x007089B4",
+     "generated_same_file",
+     "gData_007089B4",
+     0,
+     "data"
+    ],
+    [
+     15304,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     15340,
+     "0x00779750",
+     "source",
+     "gpEditTextBoxWideCelFile",
+     0,
+     "data"
+    ],
+    [
+     15400,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     15444,
+     "0x00437730",
+     "names.json",
+     "sub_00437730_ChangePassword",
+     0,
+     "func"
+    ],
+    [
+     15448,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     15484,
+     "0x00779750",
+     "source",
+     "gpEditTextBoxWideCelFile",
+     0,
+     "data"
+    ],
+    [
+     15544,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     15588,
+     "0x00437730",
+     "names.json",
+     "sub_00437730_ChangePassword",
+     0,
+     "func"
+    ],
+    [
+     15592,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     15628,
+     "0x00779750",
+     "source",
+     "gpEditTextBoxWideCelFile",
+     0,
+     "data"
+    ],
+    [
+     15688,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     15732,
+     "0x00437730",
+     "names.json",
+     "sub_00437730_ChangePassword",
+     0,
+     "func"
+    ],
+    [
+     15736,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     15772,
+     "0x00779750",
+     "source",
+     "gpEditTextBoxWideCelFile",
+     0,
+     "data"
+    ],
+    [
+     15832,
+     "0x007089C4",
+     "generated_same_file",
+     "gData_007089C4",
+     0,
+     "data"
+    ],
+    [
+     15876,
+     "0x00437730",
+     "names.json",
+     "sub_00437730_ChangePassword",
+     0,
+     "func"
+    ],
+    [
+     15880,
+     "0x007089DC",
+     "generated_same_file",
+     "gData_007089DC",
+     0,
+     "data"
+    ],
+    [
+     15916,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     15920,
+     "0x00437730",
+     "names.json",
+     "sub_00437730_ChangePassword",
+     0,
+     "func"
+    ],
+    [
+     15964,
+     "0x0077973C",
+     "source",
+     "gpMediumButtonBlankCelFile",
+     0,
+     "data"
+    ],
+    [
+     15968,
+     "0x004374E0",
+     "names.json",
+     "sub_004374E0_OnInfoScreen",
+     0,
+     "func"
     ]
    ],
    "region": "data",
-   "size": 1248,
+   "size": 15984,
    "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00708D10_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[44];\n    const void* p4;\n    unsigned char b5[40];\n    const void* p6;\n    const void* p7;\n    unsigned char b8[4];\n    const void* p9;\n    unsigned char b10[36];\n    const void* p11;\n    unsigned char b12[52];\n    const void* p13;\n    unsigned char b14[32];\n    const void* p15;\n    unsigned char b16[52];\n    const void* p17;\n    unsigned char b18[44];\n    const void* p19;\n    unsigned char b20[36];\n    const void* p21;\n    unsigned char b22[44];\n    const void* p23;\n    const void* p24;\n    unsigned char b25[40];\n    const void* p26;\n    const void* p27;\n    unsigned char b28[40];\n    const void* p29;\n    const void* p30;\n    unsigned char b31[40];\n    const void* p32;\n    const void* p33;\n    unsigned char b34[40];\n    const void* p35;\n    const void* p36;\n    unsigned char b37[40];\n    const void* p38;\n    const void* p39;\n    unsigned char b40[40];\n    const void* p41;\n    const void* p42;\n    unsigned char b43[40];\n    const void* p44;\n    const void* p45;\n    unsigned char b46[40];\n    const void* p47;\n    const void* p48;\n    unsigned char b49[40];\n    const void* p50;\n    const void* p51;\n    unsigned char b52[40];\n    const void* p53;\n    const void* p54;\n    unsigned char b55[52];\n    const void* p56;\n    unsigned char b57[32];\n    const void* p58;\n    unsigned char b59[44];\n    const void* p60;\n    unsigned char b61[44];\n    const void* p62;\n    unsigned char b63[44];\n    const void* p64;\n    unsigned char b65[44];\n    const void* p66;\n    unsigned char b67[16];\n};\n#pragma pack(pop)",
+   "struct": null,
    "tail": "; // 0x00708D10\n#pragma comment(linker, \"/alternatename:?gatControlTemplates@@3PAUD2LaunchControlTemplateStrc@@A=_gData_00708D10\")",
    "type": "D2LaunchControlTemplateStrc",
    "va": "0x00708D10"
-  },
-  {
-   "alias": false,
-   "cname": "gData_007091F0",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007091F0_t gData_007091F0; // 0x007091F0",
-   "head": "extern \"C\" struct d2data_007091F0_t gData_007091F0 = ",
-   "name": "gData_007091F0",
-   "pointers": [],
-   "region": "data",
-   "size": 8,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007091F0_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007091F0",
-   "va": "0x007091F0"
   },
   {
    "alias": false,
@@ -11463,604 +15434,6 @@
    "tail": "; // 0x00708D0C",
    "type": "int",
    "va": "0x00708D0C"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070C208",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070C208_t gData_0070C208; // 0x0070C208",
-   "head": "extern \"C\" struct d2data_0070C208_t gData_0070C208 = ",
-   "name": "gData_0070C208",
-   "pointers": [
-    [
-     4,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 44,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070C208_t\n{\n    unsigned char b0[4];\n    const void* p1;\n    unsigned char b2[36];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070C208",
-   "va": "0x0070C208"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070C238",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070C238_t gData_0070C238; // 0x0070C238",
-   "head": "extern \"C\" struct d2data_0070C238_t gData_0070C238 = ",
-   "name": "gData_0070C238",
-   "pointers": [
-    [
-     4,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 44,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070C238_t\n{\n    unsigned char b0[4];\n    const void* p1;\n    unsigned char b2[36];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070C238",
-   "va": "0x0070C238"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070C268",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070C268_t gData_0070C268; // 0x0070C268",
-   "head": "extern \"C\" struct d2data_0070C268_t gData_0070C268 = ",
-   "name": "gData_0070C268",
-   "pointers": [
-    [
-     4,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     64,
-     "0x007089B4",
-     "generated_same_file",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     112,
-     "0x007089BC",
-     "generated_same_file",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     160,
-     "0x007089BC",
-     "generated_same_file",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     196,
-     "0x00779750",
-     "source",
-     "gpEditTextBoxWideCelFile",
-     0,
-     "data"
-    ],
-    [
-     244,
-     "0x00779750",
-     "source",
-     "gpEditTextBoxWideCelFile",
-     0,
-     "data"
-    ],
-    [
-     304,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     352,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     400,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     448,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     496,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     544,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     580,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     584,
-     "0x00437620",
-     "names.json",
-     "MAINMENUS_ConfirmText",
-     0,
-     "func"
-    ],
-    [
-     628,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     632,
-     "0x00436C90",
-     "names.json",
-     "MAINMENUS_AskEmailRegistration",
-     0,
-     "func"
-    ],
-    [
-     676,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     680,
-     "0x00436CD0",
-     "names.json",
-     "MAINMENUS_OnConnectCancel",
-     0,
-     "func"
-    ],
-    [
-     736,
-     "0x007089B4",
-     "generated_same_file",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     772,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     776,
-     "0x004378D0",
-     "names.json",
-     "CHARSEL_SubmitPasswordReset",
-     0,
-     "func"
-    ],
-    [
-     820,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     824,
-     "0x00437710",
-     "names.json",
-     "sub_00437710_OnInfoScreen",
-     0,
-     "func"
-    ],
-    [
-     880,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     916,
-     "0x00779750",
-     "source",
-     "gpEditTextBoxWideCelFile",
-     0,
-     "data"
-    ],
-    [
-     976,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1020,
-     "0x004378D0",
-     "names.json",
-     "CHARSEL_SubmitPasswordReset",
-     0,
-     "func"
-    ],
-    [
-     1024,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     1060,
-     "0x00779750",
-     "source",
-     "gpEditTextBoxWideCelFile",
-     0,
-     "data"
-    ],
-    [
-     1120,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1164,
-     "0x004378D0",
-     "names.json",
-     "CHARSEL_SubmitPasswordReset",
-     0,
-     "func"
-    ],
-    [
-     1168,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     1216,
-     "0x007089B4",
-     "generated_same_file",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     1264,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1312,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1360,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1396,
-     "0x0077974C",
-     "source",
-     "gp3WideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1400,
-     "0x004371B0",
-     "names.json",
-     "sub_004371B0_OnLoginScreen",
-     0,
-     "func"
-    ],
-    [
-     1444,
-     "0x0077974C",
-     "source",
-     "gp3WideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1448,
-     "0x004371C0",
-     "names.json",
-     "sub_004371C0_OnEmailScreen",
-     0,
-     "func"
-    ],
-    [
-     1492,
-     "0x0077974C",
-     "source",
-     "gp3WideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1496,
-     "0x00437720",
-     "names.json",
-     "sub_00437720_OnPasswordScreen",
-     0,
-     "func"
-    ],
-    [
-     1540,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1544,
-     "0x004371D0",
-     "names.json",
-     "sub_004371D0_OnShowLogin",
-     0,
-     "func"
-    ],
-    [
-     1600,
-     "0x007089B4",
-     "generated_same_file",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     1648,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1684,
-     "0x00779750",
-     "source",
-     "gpEditTextBoxWideCelFile",
-     0,
-     "data"
-    ],
-    [
-     1744,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1788,
-     "0x00437730",
-     "names.json",
-     "sub_00437730_ChangePassword",
-     0,
-     "func"
-    ],
-    [
-     1792,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     1828,
-     "0x00779750",
-     "source",
-     "gpEditTextBoxWideCelFile",
-     0,
-     "data"
-    ],
-    [
-     1888,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1932,
-     "0x00437730",
-     "names.json",
-     "sub_00437730_ChangePassword",
-     0,
-     "func"
-    ],
-    [
-     1936,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     1972,
-     "0x00779750",
-     "source",
-     "gpEditTextBoxWideCelFile",
-     0,
-     "data"
-    ],
-    [
-     2032,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     2076,
-     "0x00437730",
-     "names.json",
-     "sub_00437730_ChangePassword",
-     0,
-     "func"
-    ],
-    [
-     2080,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     2116,
-     "0x00779750",
-     "source",
-     "gpEditTextBoxWideCelFile",
-     0,
-     "data"
-    ],
-    [
-     2176,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     2220,
-     "0x00437730",
-     "names.json",
-     "sub_00437730_ChangePassword",
-     0,
-     "func"
-    ],
-    [
-     2224,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     2260,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     2264,
-     "0x00437730",
-     "names.json",
-     "sub_00437730_ChangePassword",
-     0,
-     "func"
-    ],
-    [
-     2308,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     2312,
-     "0x004374E0",
-     "names.json",
-     "sub_004374E0_OnInfoScreen",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 2328,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070C268_t\n{\n    unsigned char b0[4];\n    const void* p1;\n    unsigned char b2[56];\n    const void* p3;\n    unsigned char b4[44];\n    const void* p5;\n    unsigned char b6[44];\n    const void* p7;\n    unsigned char b8[32];\n    const void* p9;\n    unsigned char b10[44];\n    const void* p11;\n    unsigned char b12[56];\n    const void* p13;\n    unsigned char b14[44];\n    const void* p15;\n    unsigned char b16[44];\n    const void* p17;\n    unsigned char b18[44];\n    const void* p19;\n    unsigned char b20[44];\n    const void* p21;\n    unsigned char b22[44];\n    const void* p23;\n    unsigned char b24[32];\n    const void* p25;\n    const void* p26;\n    unsigned char b27[40];\n    const void* p28;\n    const void* p29;\n    unsigned char b30[40];\n    const void* p31;\n    const void* p32;\n    unsigned char b33[52];\n    const void* p34;\n    unsigned char b35[32];\n    const void* p36;\n    const void* p37;\n    unsigned char b38[40];\n    const void* p39;\n    const void* p40;\n    unsigned char b41[52];\n    const void* p42;\n    unsigned char b43[32];\n    const void* p44;\n    unsigned char b45[56];\n    const void* p46;\n    unsigned char b47[40];\n    const void* p48;\n    const void* p49;\n    unsigned char b50[32];\n    const void* p51;\n    unsigned char b52[56];\n    const void* p53;\n    unsigned char b54[40];\n    const void* p55;\n    const void* p56;\n    unsigned char b57[44];\n    const void* p58;\n    unsigned char b59[44];\n    const void* p60;\n    unsigned char b61[44];\n    const void* p62;\n    unsigned char b63[44];\n    const void* p64;\n    unsigned char b65[32];\n    const void* p66;\n    const void* p67;\n    unsigned char b68[40];\n    const void* p69;\n    const void* p70;\n    unsigned char b71[40];\n    const void* p72;\n    const void* p73;\n    unsigned char b74[40];\n    const void* p75;\n    const void* p76;\n    unsigned char b77[52];\n    const void* p78;\n    unsigned char b79[44];\n    const void* p80;\n    unsigned char b81[32];\n    const void* p82;\n    unsigned char b83[56];\n    const void* p84;\n    unsigned char b85[40];\n    const void* p86;\n    const void* p87;\n    unsigned char b88[32];\n    const void* p89;\n    unsigned char b90[56];\n    const void* p91;\n    unsigned char b92[40];\n    const void* p93;\n    const void* p94;\n    unsigned char b95[32];\n    const void* p96;\n    unsigned char b97[56];\n    const void* p98;\n    unsigned char b99[40];\n    const void* p100;\n    const void* p101;\n    unsigned char b102[32];\n    const void* p103;\n    unsigned char b104[56];\n    const void* p105;\n    unsigned char b106[40];\n    const void* p107;\n    const void* p108;\n    unsigned char b109[32];\n    const void* p110;\n    const void* p111;\n    unsigned char b112[40];\n    const void* p113;\n    const void* p114;\n    unsigned char b115[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070C268",
-   "va": "0x0070C268"
   },
   {
    "alias": false,
@@ -13594,4085 +16967,6 @@
    "va": "0x00708D00"
   },
   {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_007091F8 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_007091F8",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x007091F8",
-   "type": "int",
-   "va": "0x007091F8"
-  },
-  {
-   "alias": false,
-   "cname": "gData_007091FC",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007091FC_t gData_007091FC; // 0x007091FC",
-   "head": "extern \"C\" struct d2data_007091FC_t gData_007091FC = ",
-   "name": "gData_007091FC",
-   "pointers": [
-    [
-     28,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 44,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007091FC_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007091FC",
-   "va": "0x007091FC"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_00709228 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_00709228",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00709228",
-   "type": "int",
-   "va": "0x00709228"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070922C",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070922C_t gData_0070922C; // 0x0070922C",
-   "head": "extern \"C\" struct d2data_0070922C_t gData_0070922C = ",
-   "name": "gData_0070922C",
-   "pointers": [
-    [
-     28,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 44,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070922C_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070922C",
-   "va": "0x0070922C"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_00709258 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_00709258",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00709258",
-   "type": "int",
-   "va": "0x00709258"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070925C",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070925C_t gData_0070925C; // 0x0070925C",
-   "head": "extern \"C\" struct d2data_0070925C_t gData_0070925C = ",
-   "name": "gData_0070925C",
-   "pointers": [
-    [
-     28,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     76,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     124,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 140,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070925C_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[44];\n    const void* p3;\n    unsigned char b4[44];\n    const void* p5;\n    unsigned char b6[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070925C",
-   "va": "0x0070925C"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_007092E8 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_007092E8",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x007092E8",
-   "type": "int",
-   "va": "0x007092E8"
-  },
-  {
-   "alias": false,
-   "cname": "gData_007092EC",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007092EC_t gData_007092EC; // 0x007092EC",
-   "head": "extern \"C\" struct d2data_007092EC_t gData_007092EC = ",
-   "name": "gData_007092EC",
-   "pointers": [
-    [
-     28,
-     "0x007089B4",
-     "generated_same_file",
-     "gData_007089B4",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 44,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007092EC_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007092EC",
-   "va": "0x007092EC"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_00709318 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_00709318",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00709318",
-   "type": "int",
-   "va": "0x00709318"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070931C",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070931C_t gData_0070931C; // 0x0070931C",
-   "head": "extern \"C\" struct d2data_0070931C_t gData_0070931C = ",
-   "name": "gData_0070931C",
-   "pointers": [
-    [
-     28,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     76,
-     "0x007089B4",
-     "generated_same_file",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     120,
-     "0x004361B0",
-     "owner",
-     "MAINMENUS_LoginOk",
-     0,
-     "func"
-    ],
-    [
-     124,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     168,
-     "0x004361B0",
-     "owner",
-     "MAINMENUS_LoginOk",
-     0,
-     "func"
-    ],
-    [
-     172,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     208,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     212,
-     "0x00434E00",
-     "names.json",
-     "MAINMENUS_CheckFreeSpace",
-     0,
-     "func"
-    ],
-    [
-     256,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     260,
-     "0x00432310",
-     "owner",
-     "MAINMENUS_StoreAccount",
-     0,
-     "func"
-    ],
-    [
-     304,
-     "0x0077974C",
-     "source",
-     "gp3WideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     308,
-     "0x004361B0",
-     "owner",
-     "MAINMENUS_LoginOk",
-     0,
-     "func"
-    ],
-    [
-     352,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     356,
-     "0x00435020",
-     "names.json",
-     "MAINMENUS_Callback",
-     0,
-     "func"
-    ],
-    [
-     412,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     448,
-     "0x00779720",
-     "source",
-     "gpCreditsBckgCelFile",
-     0,
-     "data"
-    ],
-    [
-     496,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     500,
-     "0x00435020",
-     "names.json",
-     "MAINMENUS_Callback",
-     0,
-     "func"
-    ],
-    [
-     556,
-     "0x007089D4",
-     "generated_same_file",
-     "gData_007089D4",
-     0,
-     "data"
-    ],
-    [
-     604,
-     "0x007089D4",
-     "generated_same_file",
-     "gData_007089D4",
-     0,
-     "data"
-    ],
-    [
-     652,
-     "0x007089D4",
-     "generated_same_file",
-     "gData_007089D4",
-     0,
-     "data"
-    ],
-    [
-     692,
-     "0x004341F0",
-     "names.json",
-     "MAINMENUS_CheckCreditsEnd",
-     0,
-     "func"
-    ],
-    [
-     748,
-     "0x007089D4",
-     "generated_same_file",
-     "gData_007089D4",
-     0,
-     "data"
-    ],
-    [
-     796,
-     "0x007089D4",
-     "generated_same_file",
-     "gData_007089D4",
-     0,
-     "data"
-    ],
-    [
-     844,
-     "0x007089D4",
-     "generated_same_file",
-     "gData_007089D4",
-     0,
-     "data"
-    ],
-    [
-     880,
-     "0x00779770",
-     "source",
-     "gpCinematicsSelectionCelFile",
-     0,
-     "data"
-    ],
-    [
-     940,
-     "0x007089BC",
-     "generated_same_file",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     976,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     980,
-     "0x00434320",
-     "names.json",
-     "MAINMENUS_PlayClassicIntro",
-     0,
-     "func"
-    ],
-    [
-     1024,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1028,
-     "0x00434380",
-     "names.json",
-     "MAINMENUS_PlayActTwoStart",
-     0,
-     "func"
-    ],
-    [
-     1072,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1076,
-     "0x004343E0",
-     "names.json",
-     "MAINMENUS_PlayActThreeStart",
-     0,
-     "func"
-    ],
-    [
-     1120,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1124,
-     "0x00434440",
-     "names.json",
-     "MAINMENUS_PlayActFourStart",
-     0,
-     "func"
-    ],
-    [
-     1168,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1172,
-     "0x004344A0",
-     "names.json",
-     "MAINMENUS_PlayActFourEnd",
-     0,
-     "func"
-    ],
-    [
-     1216,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1220,
-     "0x004345C0",
-     "names.json",
-     "MAINMENUS_ReloadAndLeave",
-     0,
-     "func"
-    ],
-    [
-     1264,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1268,
-     "0x00431930",
-     "owner",
-     "MAINMENUS_ShowLevelAndStop",
-     0,
-     "func"
-    ],
-    [
-     1312,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1316,
-     "0x00431920",
-     "owner",
-     "sub_00431920_SetFlagD4",
-     0,
-     "func"
-    ],
-    [
-     1360,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1364,
-     "0x00431910",
-     "owner",
-     "sub_00431910_SetFlagD4",
-     0,
-     "func"
-    ],
-    [
-     1408,
-     "0x00779774",
-     "source",
-     "gpCinematicsSelectionExpCelFile",
-     0,
-     "data"
-    ],
-    [
-     1468,
-     "0x007089BC",
-     "generated_same_file",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     1504,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1508,
-     "0x00434320",
-     "names.json",
-     "MAINMENUS_PlayClassicIntro",
-     0,
-     "func"
-    ],
-    [
-     1552,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1556,
-     "0x00434380",
-     "names.json",
-     "MAINMENUS_PlayActTwoStart",
-     0,
-     "func"
-    ],
-    [
-     1600,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1604,
-     "0x004343E0",
-     "names.json",
-     "MAINMENUS_PlayActThreeStart",
-     0,
-     "func"
-    ],
-    [
-     1648,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1652,
-     "0x00434440",
-     "names.json",
-     "MAINMENUS_PlayActFourStart",
-     0,
-     "func"
-    ],
-    [
-     1696,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1700,
-     "0x004344A0",
-     "names.json",
-     "MAINMENUS_PlayActFourEnd",
-     0,
-     "func"
-    ],
-    [
-     1744,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1748,
-     "0x00434500",
-     "names.json",
-     "MAINMENUS_PlayExpansionIntro",
-     0,
-     "func"
-    ],
-    [
-     1792,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1796,
-     "0x00434560",
-     "names.json",
-     "MAINMENUS_PlayExpansionOutro",
-     0,
-     "func"
-    ],
-    [
-     1840,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1844,
-     "0x004345C0",
-     "names.json",
-     "MAINMENUS_ReloadAndLeave",
-     0,
-     "func"
-    ],
-    [
-     1888,
-     "0x0077975C",
-     "source",
-     "gpGWListBoxCelFile",
-     0,
-     "data"
-    ],
-    [
-     1948,
-     "0x007089BC",
-     "generated_same_file",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     1996,
-     "0x007089CC",
-     "generated_same_file",
-     "gData_007089CC",
-     0,
-     "data"
-    ],
-    [
-     2032,
-     "0x007797CC",
-     "source",
-     "gpJoinGameScrollBarsCelFile",
-     0,
-     "data"
-    ],
-    [
-     2036,
-     "0x00435D50",
-     "owner",
-     "MAINMENUS_OnRealmDoubleClick",
-     0,
-     "func"
-    ],
-    [
-     2040,
-     "0x00708CE8",
-     "generated_same_file",
-     "gData_00708CE8",
-     0,
-     "data"
-    ],
-    [
-     2044,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     2080,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     2084,
-     "0x00434700",
-     "source",
-     "MAINMENUS_OnRealmSelected",
-     0,
-     "func"
-    ],
-    [
-     2128,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     2132,
-     "0x00434760",
-     "names.json",
-     "MAINMENUS_ResetAndLeave",
-     0,
-     "func"
-    ],
-    [
-     2176,
-     "0x00779764",
-     "source",
-     "gpTermsOfUseBckgCelFile",
-     0,
-     "data"
-    ],
-    [
-     2224,
-     "0x007797CC",
-     "source",
-     "gpJoinGameScrollBarsCelFile",
-     0,
-     "data"
-    ],
-    [
-     2232,
-     "0x00708CDC",
-     "generated_same_file",
-     "gData_00708CDC",
-     0,
-     "data"
-    ],
-    [
-     2236,
-     "0x007089E4",
-     "generated_same_file",
-     "gData_007089E4",
-     0,
-     "data"
-    ],
-    [
-     2272,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     2276,
-     "0x00430430",
-     "owner",
-     "MAINMENUS_OnBack",
-     0,
-     "func"
-    ],
-    [
-     2320,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     2324,
-     "0x00436270",
-     "names.json",
-     "MAINMENUS_OnShowLogin",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 2348,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070931C_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[44];\n    const void* p3;\n    unsigned char b4[40];\n    const void* p5;\n    const void* p6;\n    unsigned char b7[40];\n    const void* p8;\n    const void* p9;\n    unsigned char b10[32];\n    const void* p11;\n    const void* p12;\n    unsigned char b13[40];\n    const void* p14;\n    const void* p15;\n    unsigned char b16[40];\n    const void* p17;\n    const void* p18;\n    unsigned char b19[40];\n    const void* p20;\n    const void* p21;\n    unsigned char b22[52];\n    const void* p23;\n    unsigned char b24[32];\n    const void* p25;\n    unsigned char b26[44];\n    const void* p27;\n    const void* p28;\n    unsigned char b29[52];\n    const void* p30;\n    unsigned char b31[44];\n    const void* p32;\n    unsigned char b33[44];\n    const void* p34;\n    unsigned char b35[36];\n    const void* p36;\n    unsigned char b37[52];\n    const void* p38;\n    unsigned char b39[44];\n    const void* p40;\n    unsigned char b41[44];\n    const void* p42;\n    unsigned char b43[32];\n    const void* p44;\n    unsigned char b45[56];\n    const void* p46;\n    unsigned char b47[32];\n    const void* p48;\n    const void* p49;\n    unsigned char b50[40];\n    const void* p51;\n    const void* p52;\n    unsigned char b53[40];\n    const void* p54;\n    const void* p55;\n    unsigned char b56[40];\n    const void* p57;\n    const void* p58;\n    unsigned char b59[40];\n    const void* p60;\n    const void* p61;\n    unsigned char b62[40];\n    const void* p63;\n    const void* p64;\n    unsigned char b65[40];\n    const void* p66;\n    const void* p67;\n    unsigned char b68[40];\n    const void* p69;\n    const void* p70;\n    unsigned char b71[40];\n    const void* p72;\n    const void* p73;\n    unsigned char b74[40];\n    const void* p75;\n    unsigned char b76[56];\n    const void* p77;\n    unsigned char b78[32];\n    const void* p79;\n    const void* p80;\n    unsigned char b81[40];\n    const void* p82;\n    const void* p83;\n    unsigned char b84[40];\n    const void* p85;\n    const void* p86;\n    unsigned char b87[40];\n    const void* p88;\n    const void* p89;\n    unsigned char b90[40];\n    const void* p91;\n    const void* p92;\n    unsigned char b93[40];\n    const void* p94;\n    const void* p95;\n    unsigned char b96[40];\n    const void* p97;\n    const void* p98;\n    unsigned char b99[40];\n    const void* p100;\n    const void* p101;\n    unsigned char b102[40];\n    const void* p103;\n    unsigned char b104[56];\n    const void* p105;\n    unsigned char b106[44];\n    const void* p107;\n    unsigned char b108[32];\n    const void* p109;\n    const void* p110;\n    const void* p111;\n    const void* p112;\n    unsigned char b113[32];\n    const void* p114;\n    const void* p115;\n    unsigned char b116[40];\n    const void* p117;\n    const void* p118;\n    unsigned char b119[40];\n    const void* p120;\n    unsigned char b121[44];\n    const void* p122;\n    unsigned char b123[4];\n    const void* p124;\n    const void* p125;\n    unsigned char b126[32];\n    const void* p127;\n    const void* p128;\n    unsigned char b129[40];\n    const void* p130;\n    const void* p131;\n    unsigned char b132[20];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070931C",
-   "va": "0x0070931C"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_00709C48 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_00709C48",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00709C48",
-   "type": "int",
-   "va": "0x00709C48"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00709C4C",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00709C4C_t gData_00709C4C; // 0x00709C4C",
-   "head": "extern \"C\" struct d2data_00709C4C_t gData_00709C4C = ",
-   "name": "gData_00709C4C",
-   "pointers": [
-    [
-     28,
-     "0x007089AC",
-     "generated_same_file",
-     "gData_007089AC",
-     0,
-     "data"
-    ],
-    [
-     68,
-     "0x00430440",
-     "owner",
-     "MAINMENUS_ScrollUp",
-     0,
-     "func"
-    ],
-    [
-     116,
-     "0x004304B0",
-     "owner",
-     "MAINMENUS_ScrollDown",
-     0,
-     "func"
-    ],
-    [
-     168,
-     "0x00436910",
-     "owner",
-     "MAINMENUS_CreateAccountOk",
-     0,
-     "func"
-    ],
-    [
-     172,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     216,
-     "0x00436910",
-     "owner",
-     "MAINMENUS_CreateAccountOk",
-     0,
-     "func"
-    ],
-    [
-     220,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     264,
-     "0x00436910",
-     "owner",
-     "MAINMENUS_CreateAccountOk",
-     0,
-     "func"
-    ],
-    [
-     268,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     304,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     308,
-     "0x00436910",
-     "owner",
-     "MAINMENUS_CreateAccountOk",
-     0,
-     "func"
-    ],
-    [
-     352,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     356,
-     "0x00436270",
-     "names.json",
-     "MAINMENUS_OnShowLogin",
-     0,
-     "func"
-    ],
-    [
-     408,
-     "0x00435030",
-     "owner",
-     "MAINMENUS_ChangePasswordOk",
-     0,
-     "func"
-    ],
-    [
-     412,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     456,
-     "0x00435030",
-     "owner",
-     "MAINMENUS_ChangePasswordOk",
-     0,
-     "func"
-    ],
-    [
-     460,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     504,
-     "0x00435030",
-     "owner",
-     "MAINMENUS_ChangePasswordOk",
-     0,
-     "func"
-    ],
-    [
-     508,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     552,
-     "0x00435030",
-     "owner",
-     "MAINMENUS_ChangePasswordOk",
-     0,
-     "func"
-    ],
-    [
-     556,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     592,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     596,
-     "0x00435030",
-     "owner",
-     "MAINMENUS_ChangePasswordOk",
-     0,
-     "func"
-    ],
-    [
-     640,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     644,
-     "0x00432340",
-     "owner",
-     "MAINMENUS_OpenInfoScreen",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 668,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00709C4C_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[36];\n    const void* p3;\n    unsigned char b4[44];\n    const void* p5;\n    unsigned char b6[48];\n    const void* p7;\n    const void* p8;\n    unsigned char b9[40];\n    const void* p10;\n    const void* p11;\n    unsigned char b12[40];\n    const void* p13;\n    const void* p14;\n    unsigned char b15[32];\n    const void* p16;\n    const void* p17;\n    unsigned char b18[40];\n    const void* p19;\n    const void* p20;\n    unsigned char b21[48];\n    const void* p22;\n    const void* p23;\n    unsigned char b24[40];\n    const void* p25;\n    const void* p26;\n    unsigned char b27[40];\n    const void* p28;\n    const void* p29;\n    unsigned char b30[40];\n    const void* p31;\n    const void* p32;\n    unsigned char b33[32];\n    const void* p34;\n    const void* p35;\n    unsigned char b36[40];\n    const void* p37;\n    const void* p38;\n    unsigned char b39[20];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00709C4C",
-   "va": "0x00709C4C"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_00709EE8 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_00709EE8",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00709EE8",
-   "type": "int",
-   "va": "0x00709EE8"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00709EEC",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00709EEC_t gData_00709EEC; // 0x00709EEC",
-   "head": "extern \"C\" struct d2data_00709EEC_t gData_00709EEC = ",
-   "name": "gData_00709EEC",
-   "pointers": [
-    [
-     28,
-     "0x007089AC",
-     "generated_same_file",
-     "gData_007089AC",
-     0,
-     "data"
-    ],
-    [
-     76,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     124,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     172,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     208,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     212,
-     "0x00436280",
-     "names.json",
-     "MAINMENUS_ConnectOk",
-     0,
-     "func"
-    ],
-    [
-     256,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     260,
-     "0x00436300",
-     "names.json",
-     "MAINMENUS_BackToLogin",
-     0,
-     "func"
-    ],
-    [
-     304,
-     "0x0077978C",
-     "source",
-     "gpRealmSelectCelFile",
-     0,
-     "data"
-    ],
-    [
-     364,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     400,
-     "0x00779790",
-     "source",
-     "gpRealmSelectButtonThinCelFile",
-     0,
-     "data"
-    ],
-    [
-     404,
-     "0x0043A9A0",
-     "names.json",
-     "CHARSEL_CopyName",
-     0,
-     "func"
-    ],
-    [
-     460,
-     "0x007089AC",
-     "generated_same_file",
-     "gData_007089AC",
-     0,
-     "data"
-    ],
-    [
-     496,
-     "0x0077978C",
-     "source",
-     "gpRealmSelectCelFile",
-     0,
-     "data"
-    ],
-    [
-     556,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     592,
-     "0x00779790",
-     "source",
-     "gpRealmSelectButtonThinCelFile",
-     0,
-     "data"
-    ],
-    [
-     596,
-     "0x0043A9A0",
-     "names.json",
-     "CHARSEL_CopyName",
-     0,
-     "func"
-    ],
-    [
-     652,
-     "0x007089BC",
-     "generated_same_file",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     688,
-     "0x0077975C",
-     "source",
-     "gpGWListBoxCelFile",
-     0,
-     "data"
-    ],
-    [
-     748,
-     "0x007089BC",
-     "generated_same_file",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     796,
-     "0x007089CC",
-     "generated_same_file",
-     "gData_007089CC",
-     0,
-     "data"
-    ],
-    [
-     832,
-     "0x007797CC",
-     "source",
-     "gpJoinGameScrollBarsCelFile",
-     0,
-     "data"
-    ],
-    [
-     836,
-     "0x0043B4C0",
-     "owner",
-     "MAINMENUS_OnRealmListClick",
-     0,
-     "func"
-    ],
-    [
-     840,
-     "0x00708CF4",
-     "generated_same_file",
-     "gData_00708CF4",
-     0,
-     "data"
-    ],
-    [
-     844,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     880,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     884,
-     "0x0043A950",
-     "source",
-     "CHARSEL_OnRealmChosen",
-     0,
-     "func"
-    ],
-    [
-     928,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     932,
-     "0x0043B490",
-     "names.json",
-     "CHARSEL_OnName",
-     0,
-     "func"
-    ],
-    [
-     976,
-     "0x0077975C",
-     "source",
-     "gpGWListBoxCelFile",
-     0,
-     "data"
-    ],
-    [
-     1036,
-     "0x007089BC",
-     "generated_same_file",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     1084,
-     "0x007089CC",
-     "generated_same_file",
-     "gData_007089CC",
-     0,
-     "data"
-    ],
-    [
-     1120,
-     "0x007797CC",
-     "source",
-     "gpJoinGameScrollBarsCelFile",
-     0,
-     "data"
-    ],
-    [
-     1124,
-     "0x0043B4C0",
-     "owner",
-     "MAINMENUS_OnRealmListClick",
-     0,
-     "func"
-    ],
-    [
-     1128,
-     "0x00708CF4",
-     "generated_same_file",
-     "gData_00708CF4",
-     0,
-     "data"
-    ],
-    [
-     1132,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     1168,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1172,
-     "0x0043A950",
-     "source",
-     "CHARSEL_OnRealmChosen",
-     0,
-     "func"
-    ],
-    [
-     1216,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1220,
-     "0x0043B490",
-     "names.json",
-     "CHARSEL_OnName",
-     0,
-     "func"
-    ],
-    [
-     1276,
-     "0x007089E4",
-     "generated_same_file",
-     "gData_007089E4",
-     0,
-     "data"
-    ],
-    [
-     1316,
-     "0x0043AC00",
-     "names.json",
-     "CHARSEL_PollConnect",
-     0,
-     "func"
-    ],
-    [
-     1360,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1364,
-     "0x00435E00",
-     "names.json",
-     "MAINMENUS_Back",
-     0,
-     "func"
-    ],
-    [
-     1408,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1412,
-     "0x00434DD0",
-     "names.json",
-     "MAINMENUS_DisconnectAndLeave",
-     0,
-     "func"
-    ],
-    [
-     1456,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1460,
-     "0x00439D50",
-     "names.json",
-     "sub_00439D50_CreateControls",
-     0,
-     "func"
-    ],
-    [
-     1504,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1508,
-     "0x00439840",
-     "names.json",
-     "CHARSEL_OnCharSelectOk",
-     0,
-     "func"
-    ],
-    [
-     1556,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     1564,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1604,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     1612,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1652,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     1660,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1700,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     1708,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1748,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     1756,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1796,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     1804,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1844,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     1852,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1892,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     1900,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1940,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     1948,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1988,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     1996,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     2036,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     2044,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     2084,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     2092,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     2132,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     2140,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     2180,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     2188,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     2228,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     2236,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     2276,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     2284,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     2324,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     2332,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     2372,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     2380,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     2420,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     2428,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     2468,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     2476,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     2516,
-     "0x0043A9D0",
-     "names.json",
-     "CHARSEL_OnListClick",
-     0,
-     "func"
-    ],
-    [
-     2524,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     2572,
-     "0x007089BC",
-     "generated_same_file",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     2620,
-     "0x007089E4",
-     "generated_same_file",
-     "gData_007089E4",
-     0,
-     "data"
-    ],
-    [
-     2656,
-     "0x00779778",
-     "source",
-     "gpCharSelectBoxCelFile",
-     0,
-     "data"
-    ],
-    [
-     2668,
-     "0x0043A0D0",
-     "names.json",
-     "CHARSEL_OnListKeyDown",
-     0,
-     "func"
-    ],
-    [
-     2704,
-     "0x0077977C",
-     "source",
-     "gpCharSelectBoxGreyCelFile",
-     0,
-     "data"
-    ],
-    [
-     2716,
-     "0x0043A0D0",
-     "names.json",
-     "CHARSEL_OnListKeyDown",
-     0,
-     "func"
-    ],
-    [
-     2764,
-     "0x007089BC",
-     "generated_same_file",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     2800,
-     "0x00779788",
-     "source",
-     "gpSelectCharArrowsCelFile",
-     0,
-     "data"
-    ],
-    [
-     2804,
-     "0x00439D60",
-     "names.json",
-     "CHARSEL_ScrollUp",
-     0,
-     "func"
-    ],
-    [
-     2848,
-     "0x00779788",
-     "source",
-     "gpSelectCharArrowsCelFile",
-     0,
-     "data"
-    ],
-    [
-     2852,
-     "0x00439DA0",
-     "names.json",
-     "CHARSEL_ScrollDown",
-     0,
-     "func"
-    ],
-    [
-     2908,
-     "0x007089AC",
-     "generated_same_file",
-     "gData_007089AC",
-     0,
-     "data"
-    ],
-    [
-     2956,
-     "0x007089AC",
-     "generated_same_file",
-     "gData_007089AC",
-     0,
-     "data"
-    ],
-    [
-     3004,
-     "0x007089B4",
-     "generated_same_file",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     3052,
-     "0x007089B4",
-     "generated_same_file",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     3088,
-     "0x00779794",
-     "source",
-     "gpCreateNewCharImageCelFile",
-     0,
-     "data"
-    ],
-    [
-     3100,
-     "0x0043A0D0",
-     "names.json",
-     "CHARSEL_OnListKeyDown",
-     0,
-     "func"
-    ],
-    [
-     3148,
-     "0x007089EC",
-     "generated_same_file",
-     "gData_007089EC",
-     0,
-     "data"
-    ],
-    [
-     3184,
-     "0x00779734",
-     "source",
-     "gpCharacterSelectScreenExpCelFile",
-     0,
-     "data"
-    ],
-    [
-     3232,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     3236,
-     "0x00439840",
-     "names.json",
-     "CHARSEL_OnCharSelectOk",
-     0,
-     "func"
-    ],
-    [
-     3280,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     3284,
-     "0x00434DD0",
-     "names.json",
-     "MAINMENUS_DisconnectAndLeave",
-     0,
-     "func"
-    ],
-    [
-     3328,
-     "0x00779730",
-     "source",
-     "gpTallButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     3332,
-     "0x00435E00",
-     "names.json",
-     "MAINMENUS_Back",
-     0,
-     "func"
-    ],
-    [
-     3376,
-     "0x00779730",
-     "source",
-     "gpTallButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     3380,
-     "0x00439BE0",
-     "names.json",
-     "CHARSEL_CreateExpansionControls",
-     0,
-     "func"
-    ],
-    [
-     3424,
-     "0x00779730",
-     "source",
-     "gpTallButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     3428,
-     "0x00439D50",
-     "names.json",
-     "sub_00439D50_CreateControls",
-     0,
-     "func"
-    ],
-    [
-     3472,
-     "0x007797CC",
-     "source",
-     "gpJoinGameScrollBarsCelFile",
-     0,
-     "data"
-    ],
-    [
-     3476,
-     "0x00439DF0",
-     "names.json",
-     "CHARSEL_OnScroll",
-     0,
-     "func"
-    ],
-    [
-     3480,
-     "0x00708D00",
-     "generated_same_file",
-     "gData_00708D00",
-     0,
-     "data"
-    ],
-    [
-     3484,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     3520,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     3524,
-     "0x00439B80",
-     "names.json",
-     "CHARSEL_OnNormalDifficulty",
-     0,
-     "func"
-    ],
-    [
-     3568,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     3572,
-     "0x00439BA0",
-     "names.json",
-     "CHARSEL_OnNightmareDifficulty",
-     0,
-     "func"
-    ],
-    [
-     3616,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     3620,
-     "0x00439BC0",
-     "names.json",
-     "CHARSEL_OnHellDifficulty",
-     0,
-     "func"
-    ],
-    [
-     3676,
-     "0x007089BC",
-     "generated_same_file",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     3712,
-     "0x0077976C",
-     "source",
-     "gpDifficultyLevelsCelFile",
-     0,
-     "data"
-    ],
-    [
-     3764,
-     "0x00432EE0",
-     "owner",
-     "MAINMENUS_CloseBox",
-     0,
-     "func"
-    ],
-    [
-     3820,
-     "0x007089B4",
-     "generated_same_file",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     3856,
-     "0x00779744",
-     "source",
-     "gpMediumSelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     3860,
-     "0x00430C30",
-     "owner",
-     "sub_00430C30_OnCancel",
-     0,
-     "func"
-    ],
-    [
-     3904,
-     "0x00779744",
-     "source",
-     "gpMediumSelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     3908,
-     "0x004369F0",
-     "names.json",
-     "MAINMENUS_OnCharCreateOk",
-     0,
-     "func"
-    ],
-    [
-     3952,
-     "0x00779724",
-     "source",
-     "gpCharacterCreateCelFile",
-     0,
-     "data"
-    ],
-    [
-     4000,
-     "0x00779728",
-     "source",
-     "gpFireCelFile",
-     0,
-     "data"
-    ],
-    [
-     4048,
-     "0x00779728",
-     "source",
-     "gpFireCelFile",
-     0,
-     "data"
-    ],
-    [
-     4100,
-     "0x00433BF0",
-     "source",
-     "MAINMENUS_SelectCharacterClass",
-     0,
-     "func"
-    ],
-    [
-     4104,
-     "0x00708AA0",
-     "generated_same_file",
-     "gData_00708AA0",
-     0,
-     "data"
-    ],
-    [
-     4108,
-     "0x00430870",
-     "names.json",
-     "MAINMENUS_OnHoverAmazon",
-     0,
-     "func"
-    ],
-    [
-     4148,
-     "0x00433BF0",
-     "source",
-     "MAINMENUS_SelectCharacterClass",
-     0,
-     "func"
-    ],
-    [
-     4152,
-     "0x00708AF0",
-     "generated_same_file",
-     "gData_00708AF0",
-     0,
-     "data"
-    ],
-    [
-     4156,
-     "0x00430920",
-     "names.json",
-     "MAINMENUS_OnHoverNecromancer",
-     0,
-     "func"
-    ],
-    [
-     4196,
-     "0x00433BF0",
-     "source",
-     "MAINMENUS_SelectCharacterClass",
-     0,
-     "func"
-    ],
-    [
-     4200,
-     "0x00708B40",
-     "generated_same_file",
-     "gData_00708B40",
-     0,
-     "data"
-    ],
-    [
-     4204,
-     "0x00430950",
-     "names.json",
-     "MAINMENUS_OnHoverBarbarian",
-     0,
-     "func"
-    ],
-    [
-     4244,
-     "0x00433BF0",
-     "source",
-     "MAINMENUS_SelectCharacterClass",
-     0,
-     "func"
-    ],
-    [
-     4248,
-     "0x00708B90",
-     "generated_same_file",
-     "gData_00708B90",
-     0,
-     "data"
-    ],
-    [
-     4252,
-     "0x00430840",
-     "names.json",
-     "MAINMENUS_OnHoverSorceress",
-     0,
-     "func"
-    ],
-    [
-     4292,
-     "0x00433BF0",
-     "source",
-     "MAINMENUS_SelectCharacterClass",
-     0,
-     "func"
-    ],
-    [
-     4296,
-     "0x00708BE0",
-     "generated_same_file",
-     "gData_00708BE0",
-     0,
-     "data"
-    ],
-    [
-     4300,
-     "0x00430980",
-     "names.json",
-     "MAINMENUS_OnHoverPaladin",
-     0,
-     "func"
-    ],
-    [
-     4340,
-     "0x00433BF0",
-     "source",
-     "MAINMENUS_SelectCharacterClass",
-     0,
-     "func"
-    ],
-    [
-     4344,
-     "0x00708AF0",
-     "generated_same_file",
-     "gData_00708AF0",
-     0,
-     "data"
-    ],
-    [
-     4348,
-     "0x00430920",
-     "names.json",
-     "MAINMENUS_OnHoverNecromancer",
-     0,
-     "func"
-    ],
-    [
-     4388,
-     "0x00433BF0",
-     "source",
-     "MAINMENUS_SelectCharacterClass",
-     0,
-     "func"
-    ],
-    [
-     4392,
-     "0x00708B90",
-     "generated_same_file",
-     "gData_00708B90",
-     0,
-     "data"
-    ],
-    [
-     4396,
-     "0x00430840",
-     "names.json",
-     "MAINMENUS_OnHoverSorceress",
-     0,
-     "func"
-    ],
-    [
-     4436,
-     "0x00433BF0",
-     "source",
-     "MAINMENUS_SelectCharacterClass",
-     0,
-     "func"
-    ],
-    [
-     4440,
-     "0x00708BE0",
-     "generated_same_file",
-     "gData_00708BE0",
-     0,
-     "data"
-    ],
-    [
-     4444,
-     "0x00430980",
-     "names.json",
-     "MAINMENUS_OnHoverPaladin",
-     0,
-     "func"
-    ],
-    [
-     4484,
-     "0x00433BF0",
-     "source",
-     "MAINMENUS_SelectCharacterClass",
-     0,
-     "func"
-    ],
-    [
-     4488,
-     "0x00708AA0",
-     "generated_same_file",
-     "gData_00708AA0",
-     0,
-     "data"
-    ],
-    [
-     4492,
-     "0x00430870",
-     "names.json",
-     "MAINMENUS_OnHoverAmazon",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 4508,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00709EEC_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[44];\n    const void* p3;\n    unsigned char b4[44];\n    const void* p5;\n    unsigned char b6[44];\n    const void* p7;\n    unsigned char b8[32];\n    const void* p9;\n    const void* p10;\n    unsigned char b11[40];\n    const void* p12;\n    const void* p13;\n    unsigned char b14[40];\n    const void* p15;\n    unsigned char b16[56];\n    const void* p17;\n    unsigned char b18[32];\n    const void* p19;\n    const void* p20;\n    unsigned char b21[52];\n    const void* p22;\n    unsigned char b23[32];\n    const void* p24;\n    unsigned char b25[56];\n    const void* p26;\n    unsigned char b27[32];\n    const void* p28;\n    const void* p29;\n    unsigned char b30[52];\n    const void* p31;\n    unsigned char b32[32];\n    const void* p33;\n    unsigned char b34[56];\n    const void* p35;\n    unsigned char b36[44];\n    const void* p37;\n    unsigned char b38[32];\n    const void* p39;\n    const void* p40;\n    const void* p41;\n    const void* p42;\n    unsigned char b43[32];\n    const void* p44;\n    const void* p45;\n    unsigned char b46[40];\n    const void* p47;\n    const void* p48;\n    unsigned char b49[40];\n    const void* p50;\n    unsigned char b51[56];\n    const void* p52;\n    unsigned char b53[44];\n    const void* p54;\n    unsigned char b55[32];\n    const void* p56;\n    const void* p57;\n    const void* p58;\n    const void* p59;\n    unsigned char b60[32];\n    const void* p61;\n    const void* p62;\n    unsigned char b63[40];\n    const void* p64;\n    const void* p65;\n    unsigned char b66[52];\n    const void* p67;\n    unsigned char b68[36];\n    const void* p69;\n    unsigned char b70[40];\n    const void* p71;\n    const void* p72;\n    unsigned char b73[40];\n    const void* p74;\n    const void* p75;\n    unsigned char b76[40];\n    const void* p77;\n    const void* p78;\n    unsigned char b79[40];\n    const void* p80;\n    const void* p81;\n    unsigned char b82[44];\n    const void* p83;\n    unsigned char b84[4];\n    const void* p85;\n    unsigned char b86[36];\n    const void* p87;\n    unsigned char b88[4];\n    const void* p89;\n    unsigned char b90[36];\n    const void* p91;\n    unsigned char b92[4];\n    const void* p93;\n    unsigned char b94[36];\n    const void* p95;\n    unsigned char b96[4];\n    const void* p97;\n    unsigned char b98[36];\n    const void* p99;\n    unsigned char b100[4];\n    const void* p101;\n    unsigned char b102[36];\n    const void* p103;\n    unsigned char b104[4];\n    const void* p105;\n    unsigned char b106[36];\n    const void* p107;\n    unsigned char b108[4];\n    const void* p109;\n    unsigned char b110[36];\n    const void* p111;\n    unsigned char b112[4];\n    const void* p113;\n    unsigned char b114[36];\n    const void* p115;\n    unsigned char b116[4];\n    const void* p117;\n    unsigned char b118[36];\n    const void* p119;\n    unsigned char b120[4];\n    const void* p121;\n    unsigned char b122[36];\n    const void* p123;\n    unsigned char b124[4];\n    const void* p125;\n    unsigned char b126[36];\n    const void* p127;\n    unsigned char b128[4];\n    const void* p129;\n    unsigned char b130[36];\n    const void* p131;\n    unsigned char b132[4];\n    const void* p133;\n    unsigned char b134[36];\n    const void* p135;\n    unsigned char b136[4];\n    const void* p137;\n    unsigned char b138[36];\n    const void* p139;\n    unsigned char b140[4];\n    const void* p141;\n    unsigned char b142[36];\n    const void* p143;\n    unsigned char b144[4];\n    const void* p145;\n    unsigned char b146[36];\n    const void* p147;\n    unsigned char b148[4];\n    const void* p149;\n    unsigned char b150[36];\n    const void* p151;\n    unsigned char b152[4];\n    const void* p153;\n    unsigned char b154[36];\n    const void* p155;\n    unsigned char b156[4];\n    const void* p157;\n    unsigned char b158[36];\n    const void* p159;\n    unsigned char b160[4];\n    const void* p161;\n    unsigned char b162[36];\n    const void* p163;\n    unsigned char b164[4];\n    const void* p165;\n    unsigned char b166[44];\n    const void* p167;\n    unsigned char b168[44];\n    const void* p169;\n    unsigned char b170[32];\n    const void* p171;\n    unsigned char b172[8];\n    const void* p173;\n    unsigned char b174[32];\n    const void* p175;\n    unsigned char b176[8];\n    const void* p177;\n    unsigned char b178[44];\n    const void* p179;\n    unsigned char b180[32];\n    const void* p181;\n    const void* p182;\n    unsigned char b183[40];\n    const void* p184;\n    const void* p185;\n    unsigned char b186[52];\n    const void* p187;\n    unsigned char b188[44];\n    const void* p189;\n    unsigned char b190[44];\n    const void* p191;\n    unsigned char b192[44];\n    const void* p193;\n    unsigned char b194[32];\n    const void* p195;\n    unsigned char b196[8];\n    const void* p197;\n    unsigned char b198[44];\n    const void* p199;\n    unsigned char b200[32];\n    const void* p201;\n    unsigned char b202[44];\n    const void* p203;\n    const void* p204;\n    unsigned char b205[40];\n    const void* p206;\n    const void* p207;\n    unsigned char b208[40];\n    const void* p209;\n    const void* p210;\n    unsigned char b211[40];\n    const void* p212;\n    const void* p213;\n    unsigned char b214[40];\n    const void* p215;\n    const void* p216;\n    unsigned char b217[40];\n    const void* p218;\n    const void* p219;\n    const void* p220;\n    const void* p221;\n    unsigned char b222[32];\n    const void* p223;\n    const void* p224;\n    unsigned char b225[40];\n    const void* p226;\n    const void* p227;\n    unsigned char b228[40];\n    const void* p229;\n    const void* p230;\n    unsigned char b231[52];\n    const void* p232;\n    unsigned char b233[32];\n    const void* p234;\n    unsigned char b235[48];\n    const void* p236;\n    unsigned char b237[52];\n    const void* p238;\n    unsigned char b239[32];\n    const void* p240;\n    const void* p241;\n    unsigned char b242[40];\n    const void* p243;\n    const void* p244;\n    unsigned char b245[40];\n    const void* p246;\n    unsigned char b247[44];\n    const void* p248;\n    unsigned char b249[44];\n    const void* p250;\n    unsigned char b251[48];\n    const void* p252;\n    const void* p253;\n    const void* p254;\n    unsigned char b255[36];\n    const void* p256;\n    const void* p257;\n    const void* p258;\n    unsigned char b259[36];\n    const void* p260;\n    const void* p261;\n    const void* p262;\n    unsigned char b263[36];\n    const void* p264;\n    const void* p265;\n    const void* p266;\n    unsigned char b267[36];\n    const void* p268;\n    const void* p269;\n    const void* p270;\n    unsigned char b271[36];\n    const void* p272;\n    const void* p273;\n    const void* p274;\n    unsigned char b275[36];\n    const void* p276;\n    const void* p277;\n    const void* p278;\n    unsigned char b279[36];\n    const void* p280;\n    const void* p281;\n    const void* p282;\n    unsigned char b283[36];\n    const void* p284;\n    const void* p285;\n    const void* p286;\n    unsigned char b287[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00709EEC",
-   "va": "0x00709EEC"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_0070B088 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_0070B088",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070B088",
-   "type": "int",
-   "va": "0x0070B088"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070B08C",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070B08C_t gData_0070B08C; // 0x0070B08C",
-   "head": "extern \"C\" struct d2data_0070B08C_t gData_0070B08C = ",
-   "name": "gData_0070B08C",
-   "pointers": [
-    [
-     28,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     64,
-     "0x007797C0",
-     "source",
-     "gpClickBoxCelFile",
-     0,
-     "data"
-    ],
-    [
-     68,
-     "0x00430730",
-     "owner",
-     "MAINMENUS_ToggleHardcore",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 92,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070B08C_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[32];\n    const void* p3;\n    const void* p4;\n    unsigned char b5[20];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070B08C",
-   "va": "0x0070B08C"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_0070B0E8 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_0070B0E8",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070B0E8",
-   "type": "int",
-   "va": "0x0070B0E8"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070B0EC",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070B0EC_t gData_0070B0EC; // 0x0070B0EC",
-   "head": "extern \"C\" struct d2data_0070B0EC_t gData_0070B0EC = ",
-   "name": "gData_0070B0EC",
-   "pointers": [
-    [
-     28,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     64,
-     "0x007797C0",
-     "source",
-     "gpClickBoxCelFile",
-     0,
-     "data"
-    ],
-    [
-     68,
-     "0x00430750",
-     "owner",
-     "MAINMENUS_ToggleLadder",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 92,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070B0EC_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[32];\n    const void* p3;\n    const void* p4;\n    unsigned char b5[20];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070B0EC",
-   "va": "0x0070B0EC"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_0070B148 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_0070B148",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070B148",
-   "type": "int",
-   "va": "0x0070B148"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070B14C",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070B14C_t gData_0070B14C; // 0x0070B14C",
-   "head": "extern \"C\" struct d2data_0070B14C_t gData_0070B14C = ",
-   "name": "gData_0070B14C",
-   "pointers": [
-    [
-     28,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     64,
-     "0x007797C0",
-     "source",
-     "gpClickBoxCelFile",
-     0,
-     "data"
-    ],
-    [
-     68,
-     "0x00430750",
-     "owner",
-     "MAINMENUS_ToggleLadder",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 92,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070B14C_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[32];\n    const void* p3;\n    const void* p4;\n    unsigned char b5[20];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070B14C",
-   "va": "0x0070B14C"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_0070B1A8 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_0070B1A8",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070B1A8",
-   "type": "int",
-   "va": "0x0070B1A8"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070B1AC",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070B1AC_t gData_0070B1AC; // 0x0070B1AC",
-   "head": "extern \"C\" struct d2data_0070B1AC_t gData_0070B1AC = ",
-   "name": "gData_0070B1AC",
-   "pointers": [
-    [
-     28,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     64,
-     "0x007797C0",
-     "source",
-     "gpClickBoxCelFile",
-     0,
-     "data"
-    ],
-    [
-     68,
-     "0x00430750",
-     "owner",
-     "MAINMENUS_ToggleLadder",
-     0,
-     "func"
-    ],
-    [
-     124,
-     "0x007089B4",
-     "generated_same_file",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     172,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     220,
-     "0x007089CC",
-     "generated_same_file",
-     "gData_007089CC",
-     0,
-     "data"
-    ],
-    [
-     256,
-     "0x007797BC",
-     "source",
-     "gpTextBoxCelFile",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 284,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070B1AC_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[32];\n    const void* p3;\n    const void* p4;\n    unsigned char b5[52];\n    const void* p6;\n    unsigned char b7[44];\n    const void* p8;\n    unsigned char b9[44];\n    const void* p10;\n    unsigned char b11[32];\n    const void* p12;\n    unsigned char b13[24];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070B1AC",
-   "va": "0x0070B1AC"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_0070B2C8 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_0070B2C8",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070B2C8",
-   "type": "int",
-   "va": "0x0070B2C8"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070B2CC",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070B2CC_t gData_0070B2CC; // 0x0070B2CC",
-   "head": "extern \"C\" struct d2data_0070B2CC_t gData_0070B2CC = ",
-   "name": "gData_0070B2CC",
-   "pointers": [
-    [
-     28,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 44,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070B2CC_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070B2CC",
-   "va": "0x0070B2CC"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_0070B2F8 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_0070B2F8",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070B2F8",
-   "type": "int",
-   "va": "0x0070B2F8"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070B2FC",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070B2FC_t gData_0070B2FC; // 0x0070B2FC",
-   "head": "extern \"C\" struct d2data_0070B2FC_t gData_0070B2FC = ",
-   "name": "gData_0070B2FC",
-   "pointers": [
-    [
-     28,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     64,
-     "0x007797C0",
-     "source",
-     "gpClickBoxCelFile",
-     0,
-     "data"
-    ],
-    [
-     68,
-     "0x00430730",
-     "owner",
-     "MAINMENUS_ToggleHardcore",
-     0,
-     "func"
-    ],
-    [
-     120,
-     "0x004369F0",
-     "names.json",
-     "MAINMENUS_OnCharCreateOk",
-     0,
-     "func"
-    ],
-    [
-     124,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     160,
-     "0x00779780",
-     "source",
-     "gpPopUpOkCancelCelFile",
-     0,
-     "data"
-    ],
-    [
-     208,
-     "0x007797B0",
-     "source",
-     "gpOkCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     212,
-     "0x00436590",
-     "names.json",
-     "MAINMENUS_BackToCharCreate",
-     0,
-     "func"
-    ],
-    [
-     256,
-     "0x007797B0",
-     "source",
-     "gpOkCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     260,
-     "0x00436360",
-     "names.json",
-     "MAINMENUS_SubmitCharacter",
-     0,
-     "func"
-    ],
-    [
-     316,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     356,
-     "0x00433BF0",
-     "source",
-     "MAINMENUS_SelectCharacterClass",
-     0,
-     "func"
-    ],
-    [
-     360,
-     "0x00708A00",
-     "generated_same_file",
-     "gData_00708A00",
-     0,
-     "data"
-    ],
-    [
-     364,
-     "0x004308A0",
-     "owner",
-     "MAINMENUS_OnSelectAssassin",
-     0,
-     "func"
-    ],
-    [
-     404,
-     "0x00433BF0",
-     "source",
-     "MAINMENUS_SelectCharacterClass",
-     0,
-     "func"
-    ],
-    [
-     408,
-     "0x00708A50",
-     "generated_same_file",
-     "gData_00708A50",
-     0,
-     "data"
-    ],
-    [
-     412,
-     "0x004308E0",
-     "owner",
-     "MAINMENUS_OnSelectDruid",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 428,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070B2FC_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[32];\n    const void* p3;\n    const void* p4;\n    unsigned char b5[48];\n    const void* p6;\n    const void* p7;\n    unsigned char b8[32];\n    const void* p9;\n    unsigned char b10[44];\n    const void* p11;\n    const void* p12;\n    unsigned char b13[40];\n    const void* p14;\n    const void* p15;\n    unsigned char b16[52];\n    const void* p17;\n    unsigned char b18[36];\n    const void* p19;\n    const void* p20;\n    const void* p21;\n    unsigned char b22[36];\n    const void* p23;\n    const void* p24;\n    const void* p25;\n    unsigned char b26[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070B2FC",
-   "va": "0x0070B2FC"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_0070B4A8 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_0070B4A8",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070B4A8",
-   "type": "int",
-   "va": "0x0070B4A8"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070B4AC",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070B4AC_t gData_0070B4AC; // 0x0070B4AC",
-   "head": "extern \"C\" struct d2data_0070B4AC_t gData_0070B4AC = ",
-   "name": "gData_0070B4AC",
-   "pointers": [
-    [
-     28,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     64,
-     "0x007797C0",
-     "source",
-     "gpClickBoxCelFile",
-     0,
-     "data"
-    ],
-    [
-     68,
-     "0x00430770",
-     "owner",
-     "MAINMENUS_ToggleExpansion",
-     0,
-     "func"
-    ],
-    [
-     112,
-     "0x007797C4",
-     "source",
-     "gpJoinGameClickBoxGreyCelFile",
-     0,
-     "data"
-    ],
-    [
-     160,
-     "0x00779784",
-     "source",
-     "gpPopUpOkCancel2CelFile",
-     0,
-     "data"
-    ],
-    [
-     208,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     212,
-     "0x00439D40",
-     "names.json",
-     "CHARSEL_OnClosePopup",
-     0,
-     "func"
-    ],
-    [
-     256,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     260,
-     "0x0043B6B0",
-     "names.json",
-     "CHARSEL_JoinSelected",
-     0,
-     "func"
-    ],
-    [
-     316,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     352,
-     "0x00779784",
-     "source",
-     "gpPopUpOkCancel2CelFile",
-     0,
-     "data"
-    ],
-    [
-     400,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     404,
-     "0x00439CA0",
-     "names.json",
-     "CHARSEL_DestroyIfExpansion",
-     0,
-     "func"
-    ],
-    [
-     448,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     452,
-     "0x0043B520",
-     "names.json",
-     "CHARSEL_OnCharSelect",
-     0,
-     "func"
-    ],
-    [
-     508,
-     "0x007089CC",
-     "generated_same_file",
-     "gData_007089CC",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 516,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070B4AC_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[32];\n    const void* p3;\n    const void* p4;\n    unsigned char b5[40];\n    const void* p6;\n    unsigned char b7[44];\n    const void* p8;\n    unsigned char b9[44];\n    const void* p10;\n    const void* p11;\n    unsigned char b12[40];\n    const void* p13;\n    const void* p14;\n    unsigned char b15[52];\n    const void* p16;\n    unsigned char b17[32];\n    const void* p18;\n    unsigned char b19[44];\n    const void* p20;\n    const void* p21;\n    unsigned char b22[40];\n    const void* p23;\n    const void* p24;\n    unsigned char b25[52];\n    const void* p26;\n    unsigned char b27[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070B4AC",
-   "va": "0x0070B4AC"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_0070BDA8 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_0070BDA8",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070BDA8",
-   "type": "int",
-   "va": "0x0070BDA8"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070BDAC",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070BDAC_t gData_0070BDAC; // 0x0070BDAC",
-   "head": "extern \"C\" struct d2data_0070BDAC_t gData_0070BDAC = ",
-   "name": "gData_0070BDAC",
-   "pointers": [
-    [
-     28,
-     "0x007089AC",
-     "generated_same_file",
-     "gData_007089AC",
-     0,
-     "data"
-    ],
-    [
-     76,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     124,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     160,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     164,
-     "0x00435D80",
-     "owner",
-     "MAINMENUS_OnTcpIpHost",
-     0,
-     "func"
-    ],
-    [
-     172,
-     "0x00430120",
-     "names.json",
-     "sub_00430120_OnToggle",
-     0,
-     "func"
-    ],
-    [
-     208,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     212,
-     "0x00431D20",
-     "owner",
-     "MAINMENUS_CreateTcpIpScreen",
-     0,
-     "func"
-    ],
-    [
-     220,
-     "0x00430160",
-     "names.json",
-     "sub_00430160_OnToggle",
-     0,
-     "func"
-    ],
-    [
-     268,
-     "0x007089EC",
-     "generated_same_file",
-     "gData_007089EC",
-     0,
-     "data"
-    ],
-    [
-     316,
-     "0x007089EC",
-     "generated_same_file",
-     "gData_007089EC",
-     0,
-     "data"
-    ],
-    [
-     352,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     356,
-     "0x00430C50",
-     "owner",
-     "MAINMENUS_OnCreate",
-     0,
-     "func"
-    ],
-    [
-     404,
-     "0x0042FFD0",
-     "owner",
-     "MAINMENUS_ShowAddress",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 428,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070BDAC_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[44];\n    const void* p3;\n    unsigned char b4[44];\n    const void* p5;\n    unsigned char b6[32];\n    const void* p7;\n    const void* p8;\n    unsigned char b9[4];\n    const void* p10;\n    unsigned char b11[32];\n    const void* p12;\n    const void* p13;\n    unsigned char b14[4];\n    const void* p15;\n    unsigned char b16[44];\n    const void* p17;\n    unsigned char b18[44];\n    const void* p19;\n    unsigned char b20[32];\n    const void* p21;\n    const void* p22;\n    unsigned char b23[44];\n    const void* p24;\n    unsigned char b25[20];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070BDAC",
-   "va": "0x0070BDAC"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern \"C\" int gLayout_0070BF58 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gLayout_0070BF58",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070BF58",
-   "type": "int",
-   "va": "0x0070BF58"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070BF5C",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070BF5C_t gData_0070BF5C; // 0x0070BF5C",
-   "head": "extern \"C\" struct d2data_0070BF5C_t gData_0070BF5C = ",
-   "name": "gData_0070BF5C",
-   "pointers": [
-    [
-     28,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     72,
-     "0x00434790",
-     "names.json",
-     "MAINMENUS_JoinTcpIp",
-     0,
-     "func"
-    ],
-    [
-     76,
-     "0x007089DC",
-     "generated_same_file",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     112,
-     "0x007797D4",
-     "source",
-     "gpIPAddressBoxCelFile",
-     0,
-     "data"
-    ],
-    [
-     160,
-     "0x00779784",
-     "source",
-     "gpPopUpOkCancel2CelFile",
-     0,
-     "data"
-    ],
-    [
-     208,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     212,
-     "0x00431E00",
-     "owner",
-     "MAINMENUS_OnTcpIpJoin",
-     0,
-     "func"
-    ],
-    [
-     256,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     260,
-     "0x00434790",
-     "names.json",
-     "MAINMENUS_JoinTcpIp",
-     0,
-     "func"
-    ],
-    [
-     316,
-     "0x007089B4",
-     "generated_same_file",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     364,
-     "0x007089B4",
-     "generated_same_file",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     412,
-     "0x007089B4",
-     "generated_same_file",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     460,
-     "0x007089C4",
-     "generated_same_file",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     496,
-     "0x007797D8",
-     "source",
-     "gpDownloadPatchBckgCelFile",
-     0,
-     "data"
-    ],
-    [
-     544,
-     "0x007797DC",
-     "source",
-     "gpDownloadPatchBall2CelFile",
-     0,
-     "data"
-    ],
-    [
-     592,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     596,
-     "0x00435200",
-     "owner",
-     "MAINMENUS_CancelDownload",
-     0,
-     "func"
-    ],
-    [
-     640,
-     "0x007797A8",
-     "source",
-     "gpTileableDialogCelFile",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 680,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070BF5C_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[40];\n    const void* p3;\n    const void* p4;\n    unsigned char b5[32];\n    const void* p6;\n    unsigned char b7[44];\n    const void* p8;\n    unsigned char b9[44];\n    const void* p10;\n    const void* p11;\n    unsigned char b12[40];\n    const void* p13;\n    const void* p14;\n    unsigned char b15[52];\n    const void* p16;\n    unsigned char b17[44];\n    const void* p18;\n    unsigned char b19[44];\n    const void* p20;\n    unsigned char b21[44];\n    const void* p22;\n    unsigned char b23[32];\n    const void* p24;\n    unsigned char b25[44];\n    const void* p26;\n    unsigned char b27[44];\n    const void* p28;\n    const void* p29;\n    unsigned char b30[40];\n    const void* p31;\n    unsigned char b32[36];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070BF5C",
-   "va": "0x0070BF5C"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern void* gpGlobal_0070B738 = ",
-   "model": {
-    "fn": false,
-    "k": "ptr",
-    "size": 4,
-    "spell": "void*"
-   },
-   "name": "gpGlobal_0070B738",
-   "pointers": [
-    [
-     0,
-     "0x007089BC",
-     "generated",
-     "gData_007089BC",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 1,
-   "struct": null,
-   "tail": "; // 0x0070B738",
-   "type": "void",
-   "va": "0x0070B738"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070B73C",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070B73C_t gData_0070B73C; // 0x0070B73C",
-   "head": "extern \"C\" struct d2data_0070B73C_t gData_0070B73C = ",
-   "name": "gData_0070B73C",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070B73C_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070B73C",
-   "va": "0x0070B73C"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070B6B0",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070B6B0_t gData_0070B6B0; // 0x0070B6B0",
-   "head": "extern \"C\" struct d2data_0070B6B0_t gData_0070B6B0 = ",
-   "name": "gData_0070B6B0",
-   "pointers": [
-    [
-     28,
-     "0x00779798",
-     "source",
-     "gpPopUpOkCelFile",
-     0,
-     "data"
-    ],
-    [
-     76,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     80,
-     "0x00432060",
-     "names.json",
-     "MAINMENUS_CallGatewayDone",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 136,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070B6B0_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    unsigned char b2[44];\n    const void* p3;\n    const void* p4;\n    unsigned char b5[52];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070B6B0",
-   "va": "0x0070B6B0"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070B740",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070B740_t gData_0070B740; // 0x0070B740",
-   "head": "extern \"C\" struct d2data_0070B740_t gData_0070B740 = ",
-   "name": "gData_0070B740",
-   "pointers": [
-    [
-     28,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     32,
-     "0x00432060",
-     "names.json",
-     "MAINMENUS_CallGatewayDone",
-     0,
-     "func"
-    ],
-    [
-     76,
-     "0x0077979C",
-     "source",
-     "gpPopUp340x224CelFile",
-     0,
-     "data"
-    ],
-    [
-     124,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     128,
-     "0x00432060",
-     "names.json",
-     "MAINMENUS_CallGatewayDone",
-     0,
-     "func"
-    ],
-    [
-     184,
-     "0x007089B4",
-     "generated",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     232,
-     "0x007089BC",
-     "generated",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     280,
-     "0x007089DC",
-     "generated",
-     "gData_007089DC",
-     0,
-     "data"
-    ],
-    [
-     316,
-     "0x007797A0",
-     "source",
-     "gpPopUpWideCelFile",
-     0,
-     "data"
-    ],
-    [
-     364,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     368,
-     "0x00432060",
-     "names.json",
-     "MAINMENUS_CallGatewayDone",
-     0,
-     "func"
-    ],
-    [
-     424,
-     "0x007089B4",
-     "generated",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     472,
-     "0x007089BC",
-     "generated",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     508,
-     "0x007797A4",
-     "source",
-     "gpPopUpLargestCelFile",
-     0,
-     "data"
-    ],
-    [
-     556,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     560,
-     "0x00432060",
-     "names.json",
-     "MAINMENUS_CallGatewayDone",
-     0,
-     "func"
-    ],
-    [
-     616,
-     "0x007089B4",
-     "generated",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     664,
-     "0x007089BC",
-     "generated",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     712,
-     "0x007089BC",
-     "generated",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     760,
-     "0x007089C4",
-     "generated",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     796,
-     "0x007797A4",
-     "source",
-     "gpPopUpLargestCelFile",
-     0,
-     "data"
-    ],
-    [
-     844,
-     "0x0077973C",
-     "source",
-     "gpMediumButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     848,
-     "0x00432060",
-     "names.json",
-     "MAINMENUS_CallGatewayDone",
-     0,
-     "func"
-    ],
-    [
-     904,
-     "0x007089B4",
-     "generated",
-     "gData_007089B4",
-     0,
-     "data"
-    ],
-    [
-     952,
-     "0x007089BC",
-     "generated",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     1000,
-     "0x007089BC",
-     "generated",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     1048,
-     "0x007089C4",
-     "generated",
-     "gData_007089C4",
-     0,
-     "data"
-    ],
-    [
-     1084,
-     "0x007797AC",
-     "source",
-     "gpPopUpOk2CelFile",
-     0,
-     "data"
-    ],
-    [
-     1132,
-     "0x007797B0",
-     "source",
-     "gpOkCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1136,
-     "0x00432060",
-     "names.json",
-     "MAINMENUS_CallGatewayDone",
-     0,
-     "func"
-    ],
-    [
-     1192,
-     "0x007089BC",
-     "generated",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     1228,
-     "0x007797B0",
-     "source",
-     "gpOkCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1232,
-     "0x00432060",
-     "names.json",
-     "MAINMENUS_CallGatewayDone",
-     0,
-     "func"
-    ],
-    [
-     1280,
-     "0x0042F790",
-     "names.json",
-     "MAINMENUS_ShowCantConnect",
-     0,
-     "func"
-    ],
-    [
-     1324,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1328,
-     "0x00435200",
-     "names.json",
-     "MAINMENUS_CancelDownload",
-     0,
-     "func"
-    ],
-    [
-     1372,
-     "0x007797B4",
-     "source",
-     "gpCancelButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1376,
-     "0x00435200",
-     "names.json",
-     "MAINMENUS_CancelDownload",
-     0,
-     "func"
-    ],
-    [
-     1432,
-     "0x007089BC",
-     "generated",
-     "gData_007089BC",
-     0,
-     "data"
-    ],
-    [
-     1468,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1472,
-     "0x00435D10",
-     "names.json",
-     "MAINMENUS_OnOpenBattleNet",
-     0,
-     "func"
-    ],
-    [
-     1516,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1520,
-     "0x00431A40",
-     "names.json",
-     "MAINMENUS_OpenTcpIpScreen",
-     0,
-     "func"
-    ],
-    [
-     1564,
-     "0x00779738",
-     "source",
-     "gpWideButtonBlankCelFile",
-     0,
-     "data"
-    ],
-    [
-     1568,
-     "0x00434DF0",
-     "names.json",
-     "sub_00434DF0_Leave",
-     0,
-     "func"
-    ],
-    [
-     1612,
-     "0x007797D0",
-     "source",
-     "gpTcpIpBckgCelFile",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 1640,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070B740_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[40];\n    const void* p4;\n    unsigned char b5[44];\n    const void* p6;\n    const void* p7;\n    unsigned char b8[52];\n    const void* p9;\n    unsigned char b10[44];\n    const void* p11;\n    unsigned char b12[44];\n    const void* p13;\n    unsigned char b14[32];\n    const void* p15;\n    unsigned char b16[44];\n    const void* p17;\n    const void* p18;\n    unsigned char b19[52];\n    const void* p20;\n    unsigned char b21[44];\n    const void* p22;\n    unsigned char b23[32];\n    const void* p24;\n    unsigned char b25[44];\n    const void* p26;\n    const void* p27;\n    unsigned char b28[52];\n    const void* p29;\n    unsigned char b30[44];\n    const void* p31;\n    unsigned char b32[44];\n    const void* p33;\n    unsigned char b34[44];\n    const void* p35;\n    unsigned char b36[32];\n    const void* p37;\n    unsigned char b38[44];\n    const void* p39;\n    const void* p40;\n    unsigned char b41[52];\n    const void* p42;\n    unsigned char b43[44];\n    const void* p44;\n    unsigned char b45[44];\n    const void* p46;\n    unsigned char b47[44];\n    const void* p48;\n    unsigned char b49[32];\n    const void* p50;\n    unsigned char b51[44];\n    const void* p52;\n    const void* p53;\n    unsigned char b54[52];\n    const void* p55;\n    unsigned char b56[32];\n    const void* p57;\n    const void* p58;\n    unsigned char b59[44];\n    const void* p60;\n    unsigned char b61[40];\n    const void* p62;\n    const void* p63;\n    unsigned char b64[40];\n    const void* p65;\n    const void* p66;\n    unsigned char b67[52];\n    const void* p68;\n    unsigned char b69[32];\n    const void* p70;\n    const void* p71;\n    unsigned char b72[40];\n    const void* p73;\n    const void* p74;\n    unsigned char b75[40];\n    const void* p76;\n    const void* p77;\n    unsigned char b78[40];\n    const void* p79;\n    unsigned char b80[24];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070B740",
-   "va": "0x0070B740"
-  },
-  {
    "alias": true,
    "cname": "gData_006D4D88",
    "declared": true,
@@ -17702,23 +16996,6 @@
    "tail": "; // 0x006D4D88\n#pragma comment(linker, \"/alternatename:_gabDefault=_gData_006D4D88\")",
    "type": "unsigned char",
    "va": "0x006D4D88"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070C234",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus.cpp",
-   "form": "bytes",
-   "name": "gData_0070C234",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "va": "0x0070C234",
-   "fwd": "extern \"C\" struct d2data_0070C234_t gData_0070C234; // 0x0070C234",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070C234_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_0070C234_t gData_0070C234 = ",
-   "tail": "; // 0x0070C234"
   },
   {
    "alias": true,
@@ -18426,88 +17703,6 @@
    "tail": "; // 0x006D3A08\n#pragma comment(linker, \"/alternatename:_gapszSkyPalette=_gData_006D3A08\")",
    "type": "char",
    "va": "0x006D3A08"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070D060",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Multi/Src/ChatDlg.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070D060_t gData_0070D060; // 0x0070D060",
-   "head": "extern \"C\" struct d2data_0070D060_t gData_0070D060 = ",
-   "name": "gData_0070D060",
-   "pointers": [
-    [
-     28,
-     "0x0077BC3C",
-     "owner",
-     "gpChatArrowsCelFile",
-     0,
-     "data"
-    ],
-    [
-     32,
-     "0x0043D9E0",
-     "names.json",
-     "CHATDLG_ScrollPageUp",
-     0,
-     "func"
-    ],
-    [
-     76,
-     "0x0077BC3C",
-     "owner",
-     "gpChatArrowsCelFile",
-     0,
-     "data"
-    ],
-    [
-     80,
-     "0x0043DA00",
-     "names.json",
-     "CHATDLG_OnScrollPageDown",
-     0,
-     "func"
-    ],
-    [
-     124,
-     "0x0077BC3C",
-     "owner",
-     "gpChatArrowsCelFile",
-     0,
-     "data"
-    ],
-    [
-     128,
-     "0x0043DA20",
-     "names.json",
-     "CHATDLG_OnScrollUp",
-     0,
-     "func"
-    ],
-    [
-     172,
-     "0x0077BC3C",
-     "owner",
-     "gpChatArrowsCelFile",
-     0,
-     "data"
-    ],
-    [
-     176,
-     "0x0043DA30",
-     "names.json",
-     "CHATDLG_OnScrollDown",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 192,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070D060_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[40];\n    const void* p4;\n    const void* p5;\n    unsigned char b6[40];\n    const void* p7;\n    const void* p8;\n    unsigned char b9[40];\n    const void* p10;\n    const void* p11;\n    unsigned char b12[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070D060",
-   "va": "0x0070D060"
   },
   {
    "alias": true,
@@ -20550,1115 +19745,6 @@
    "tail": "; // 0x0070D390",
    "type": "D2WinControlInitStrc",
    "va": "0x0070D390"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Multi/Src/ChatDlg.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern D2WinControlInitStrc gtCreateScreenButtonInit = ",
-   "model": {
-    "k": "struct",
-    "members": [
-     [
-      "nType",
-      0,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nX",
-      4,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nY",
-      8,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nWidth",
-      12,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nHeight",
-      16,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_14",
-      20,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nStringId",
-      24,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "ppCellFile",
-      28,
-      {
-       "k": "ptr",
-       "size": 4,
-       "spell": "void*"
-      }
-     ],
-     [
-      "field_20",
-      32,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_24",
-      36,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_28",
-      40,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_2C",
-      44,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ]
-    ],
-    "name": "D2WinControlInitStrc",
-    "size": 48
-   },
-   "name": "gtCreateScreenButtonInit",
-   "pointers": [
-    [
-     28,
-     "0x0077BC38",
-     "source",
-     "gpChatRightTopButtonsCelFile",
-     0,
-     "data"
-    ],
-    [
-     32,
-     "0x004467D0",
-     "names.json",
-     "COMCALLBACK_OpenCreateScreen",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 48,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070CF70",
-   "type": "D2WinControlInitStrc",
-   "va": "0x0070CF70"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Multi/Src/ChatDlg.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern D2WinControlInitStrc gtControlInit_0070CFA0 = ",
-   "model": {
-    "k": "struct",
-    "members": [
-     [
-      "nType",
-      0,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nX",
-      4,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nY",
-      8,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nWidth",
-      12,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nHeight",
-      16,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_14",
-      20,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nStringId",
-      24,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "ppCellFile",
-      28,
-      {
-       "k": "ptr",
-       "size": 4,
-       "spell": "void*"
-      }
-     ],
-     [
-      "field_20",
-      32,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_24",
-      36,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_28",
-      40,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_2C",
-      44,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ]
-    ],
-    "name": "D2WinControlInitStrc",
-    "size": 48
-   },
-   "name": "gtControlInit_0070CFA0",
-   "pointers": [
-    [
-     28,
-     "0x0077BC34",
-     "source",
-     "gpChatRightButtonsCelFile",
-     0,
-     "data"
-    ],
-    [
-     32,
-     "0x00442370",
-     "names.json",
-     "CHATDLG_ReleaseAndCreate",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 48,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070CFA0",
-   "type": "D2WinControlInitStrc",
-   "va": "0x0070CFA0"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Multi/Src/ChatDlg.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern D2WinControlInitStrc gtJoinScreenButtonInit = ",
-   "model": {
-    "k": "struct",
-    "members": [
-     [
-      "nType",
-      0,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nX",
-      4,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nY",
-      8,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nWidth",
-      12,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nHeight",
-      16,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_14",
-      20,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nStringId",
-      24,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "ppCellFile",
-      28,
-      {
-       "k": "ptr",
-       "size": 4,
-       "spell": "void*"
-      }
-     ],
-     [
-      "field_20",
-      32,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_24",
-      36,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_28",
-      40,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_2C",
-      44,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ]
-    ],
-    "name": "D2WinControlInitStrc",
-    "size": 48
-   },
-   "name": "gtJoinScreenButtonInit",
-   "pointers": [
-    [
-     28,
-     "0x0077BC38",
-     "source",
-     "gpChatRightTopButtonsCelFile",
-     0,
-     "data"
-    ],
-    [
-     32,
-     "0x00446780",
-     "names.json",
-     "COMCALLBACK_OpenJoinScreen",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 48,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070CFD0",
-   "type": "D2WinControlInitStrc",
-   "va": "0x0070CFD0"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Multi/Src/ChatDlg.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern D2WinControlInitStrc gtControlInit_0070D000 = ",
-   "model": {
-    "k": "struct",
-    "members": [
-     [
-      "nType",
-      0,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nX",
-      4,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nY",
-      8,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nWidth",
-      12,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nHeight",
-      16,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_14",
-      20,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nStringId",
-      24,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "ppCellFile",
-      28,
-      {
-       "k": "ptr",
-       "size": 4,
-       "spell": "void*"
-      }
-     ],
-     [
-      "field_20",
-      32,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_24",
-      36,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_28",
-      40,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_2C",
-      44,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ]
-    ],
-    "name": "D2WinControlInitStrc",
-    "size": 48
-   },
-   "name": "gtControlInit_0070D000",
-   "pointers": [
-    [
-     28,
-     "0x0077BC34",
-     "source",
-     "gpChatRightButtonsCelFile",
-     0,
-     "data"
-    ],
-    [
-     32,
-     "0x0043F970",
-     "names.json",
-     "CHATDLG_ReleaseAndRecreate",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 48,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070D000",
-   "type": "D2WinControlInitStrc",
-   "va": "0x0070D000"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Multi/Src/ChatDlg.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern D2WinControlInitStrc gtQuitButtonInit = ",
-   "model": {
-    "k": "struct",
-    "members": [
-     [
-      "nType",
-      0,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nX",
-      4,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nY",
-      8,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nWidth",
-      12,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nHeight",
-      16,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_14",
-      20,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nStringId",
-      24,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "ppCellFile",
-      28,
-      {
-       "k": "ptr",
-       "size": 4,
-       "spell": "void*"
-      }
-     ],
-     [
-      "field_20",
-      32,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_24",
-      36,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_28",
-      40,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_2C",
-      44,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ]
-    ],
-    "name": "D2WinControlInitStrc",
-    "size": 48
-   },
-   "name": "gtQuitButtonInit",
-   "pointers": [
-    [
-     28,
-     "0x0077BC34",
-     "source",
-     "gpChatRightButtonsCelFile",
-     0,
-     "data"
-    ],
-    [
-     32,
-     "0x00440DB0",
-     "names.json",
-     "CHATDLG_OnQuitMessage",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 48,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070D030",
-   "type": "D2WinControlInitStrc",
-   "va": "0x0070D030"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Multi/Src/ChatDlg.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern D2WinControlInitStrc gtAdImageInit = ",
-   "model": {
-    "k": "struct",
-    "members": [
-     [
-      "nType",
-      0,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nX",
-      4,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nY",
-      8,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nWidth",
-      12,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nHeight",
-      16,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_14",
-      20,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nStringId",
-      24,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "ppCellFile",
-      28,
-      {
-       "k": "ptr",
-       "size": 4,
-       "spell": "void*"
-      }
-     ],
-     [
-      "field_20",
-      32,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_24",
-      36,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_28",
-      40,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_2C",
-      44,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ]
-    ],
-    "name": "D2WinControlInitStrc",
-    "size": 48
-   },
-   "name": "gtAdImageInit",
-   "pointers": [],
-   "region": "data",
-   "size": 48,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070D120",
-   "type": "D2WinControlInitStrc",
-   "va": "0x0070D120"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Multi/Src/ChatDlg.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern D2WinControlInitStrc gtAdSmackInit = ",
-   "model": {
-    "k": "struct",
-    "members": [
-     [
-      "nType",
-      0,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nX",
-      4,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nY",
-      8,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nWidth",
-      12,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nHeight",
-      16,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_14",
-      20,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "nStringId",
-      24,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "ppCellFile",
-      28,
-      {
-       "k": "ptr",
-       "size": 4,
-       "spell": "void*"
-      }
-     ],
-     [
-      "field_20",
-      32,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_24",
-      36,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_28",
-      40,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "field_2C",
-      44,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ]
-    ],
-    "name": "D2WinControlInitStrc",
-    "size": 48
-   },
-   "name": "gtAdSmackInit",
-   "pointers": [
-    [
-     32,
-     "0x00440DE0",
-     "names.json",
-     "CHATDLG_OpenAdUrl",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 48,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070D150",
-   "type": "D2WinControlInitStrc",
-   "va": "0x0070D150"
   },
   {
    "alias": false,
@@ -24889,123 +22975,6 @@
   },
   {
    "alias": true,
-   "cname": "gData_0070CE50",
-   "declared": true,
-   "decorated": "?gatChatControlInits@@3PAUD2WinControlInitStrc@@A",
-   "file": "Source/D2Multi/Src/ChatDlg.cpp",
-   "fill": 6,
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070CE50_t gData_0070CE50; // 0x0070CE50",
-   "head": "extern \"C\" struct d2data_0070CE50_t gData_0070CE50 = ",
-   "name": "gatChatControlInits",
-   "pointers": [
-    [
-     28,
-     "0x0077BC28",
-     "source",
-     "gpChatLeftButtonsCelFile",
-     0,
-     "data"
-    ],
-    [
-     32,
-     "0x00446890",
-     "names.json",
-     "CHARSEL_SendChatLine",
-     0,
-     "func"
-    ],
-    [
-     76,
-     "0x0077BC28",
-     "source",
-     "gpChatLeftButtonsCelFile",
-     0,
-     "data"
-    ],
-    [
-     80,
-     "0x004468F0",
-     "names.json",
-     "COMCALLBACK_SendChatLine",
-     0,
-     "func"
-    ],
-    [
-     124,
-     "0x0077BC28",
-     "source",
-     "gpChatLeftButtonsCelFile",
-     0,
-     "data"
-    ],
-    [
-     128,
-     "0x00446950",
-     "names.json",
-     "COMCALLBACK_OnChatPanelClick",
-     0,
-     "func"
-    ],
-    [
-     172,
-     "0x0077BC2C",
-     "source",
-     "gpChatLeftButtons1CelFile",
-     0,
-     "data"
-    ],
-    [
-     176,
-     "0x00448E30",
-     "names.json",
-     "COMCALLBACK_SquelchSelectedUser",
-     0,
-     "func"
-    ],
-    [
-     220,
-     "0x0077BC30",
-     "source",
-     "gpChatLeftButtons2CelFile",
-     0,
-     "data"
-    ],
-    [
-     224,
-     "0x00448F60",
-     "names.json",
-     "COMCALLBACK_UnsquelchSelectedUser",
-     0,
-     "func"
-    ],
-    [
-     268,
-     "0x0077BC2C",
-     "source",
-     "gpChatLeftButtons1CelFile",
-     0,
-     "data"
-    ],
-    [
-     272,
-     "0x00446970",
-     "names.json",
-     "COMCALLBACK_SendEmoteLine",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 288,
-   "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070CE50_t\n{\n    unsigned char b0[28];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[40];\n    const void* p4;\n    const void* p5;\n    unsigned char b6[40];\n    const void* p7;\n    const void* p8;\n    unsigned char b9[40];\n    const void* p10;\n    const void* p11;\n    unsigned char b12[40];\n    const void* p13;\n    const void* p14;\n    unsigned char b15[40];\n    const void* p16;\n    const void* p17;\n    unsigned char b18[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070CE50\n#pragma comment(linker, \"/alternatename:?gatChatControlInits@@3PAUD2WinControlInitStrc@@A=_gData_0070CE50\")",
-   "type": "D2WinControlInitStrc",
-   "va": "0x0070CE50"
-  },
-  {
-   "alias": true,
    "cname": "gData_006D5524",
    "declared": true,
    "decorated": "_gaszClassNames",
@@ -25331,6 +23300,407 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CD84_t\n{\n    unsigned char b0[16];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CD84",
    "va": "0x0070CD84"
+  },
+  {
+   "alias": true,
+   "cname": "gData_0070CE50",
+   "declared": true,
+   "decorated": "?gatChatControlInits@@3PAUD2WinControlInitStrc@@A",
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "fill": 17,
+   "form": "declared",
+   "fwd": "extern \"C\" D2WinControlInitStrc gData_0070CE50[17]; // 0x0070CE50",
+   "head": "extern \"C\" D2WinControlInitStrc gData_0070CE50[17] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "nType",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nX",
+       4,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nY",
+       8,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nWidth",
+       12,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nHeight",
+       16,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "field_14",
+       20,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nStringId",
+       24,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "ppCellFile",
+       28,
+       {
+        "fn": false,
+        "k": "ptr",
+        "size": 4,
+        "spell": "D2CelFileStrc **"
+       }
+      ],
+      [
+       "field_20",
+       32,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "field_24",
+       36,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "field_28",
+       40,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "field_2C",
+       44,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ]
+     ],
+     "name": "D2WinControlInitStrc",
+     "size": 48
+    },
+    "k": "arr",
+    "n": 17,
+    "size": 816
+   },
+   "name": "gatChatControlInits",
+   "pointers": [
+    [
+     28,
+     "0x0077BC28",
+     "source",
+     "gpChatLeftButtonsCelFile",
+     0,
+     "data"
+    ],
+    [
+     32,
+     "0x00446890",
+     "names.json",
+     "CHARSEL_SendChatLine",
+     0,
+     "func"
+    ],
+    [
+     76,
+     "0x0077BC28",
+     "source",
+     "gpChatLeftButtonsCelFile",
+     0,
+     "data"
+    ],
+    [
+     80,
+     "0x004468F0",
+     "names.json",
+     "COMCALLBACK_SendChatLine",
+     0,
+     "func"
+    ],
+    [
+     124,
+     "0x0077BC28",
+     "source",
+     "gpChatLeftButtonsCelFile",
+     0,
+     "data"
+    ],
+    [
+     128,
+     "0x00446950",
+     "names.json",
+     "COMCALLBACK_OnChatPanelClick",
+     0,
+     "func"
+    ],
+    [
+     172,
+     "0x0077BC2C",
+     "source",
+     "gpChatLeftButtons1CelFile",
+     0,
+     "data"
+    ],
+    [
+     176,
+     "0x00448E30",
+     "names.json",
+     "COMCALLBACK_SquelchSelectedUser",
+     0,
+     "func"
+    ],
+    [
+     220,
+     "0x0077BC30",
+     "source",
+     "gpChatLeftButtons2CelFile",
+     0,
+     "data"
+    ],
+    [
+     224,
+     "0x00448F60",
+     "names.json",
+     "COMCALLBACK_UnsquelchSelectedUser",
+     0,
+     "func"
+    ],
+    [
+     268,
+     "0x0077BC2C",
+     "source",
+     "gpChatLeftButtons1CelFile",
+     0,
+     "data"
+    ],
+    [
+     272,
+     "0x00446970",
+     "names.json",
+     "COMCALLBACK_SendEmoteLine",
+     0,
+     "func"
+    ],
+    [
+     316,
+     "0x0077BC38",
+     "source",
+     "gpChatRightTopButtonsCelFile",
+     0,
+     "data"
+    ],
+    [
+     320,
+     "0x004467D0",
+     "names.json",
+     "COMCALLBACK_OpenCreateScreen",
+     0,
+     "func"
+    ],
+    [
+     364,
+     "0x0077BC34",
+     "source",
+     "gpChatRightButtonsCelFile",
+     0,
+     "data"
+    ],
+    [
+     368,
+     "0x00442370",
+     "names.json",
+     "CHATDLG_ReleaseAndCreate",
+     0,
+     "func"
+    ],
+    [
+     412,
+     "0x0077BC38",
+     "source",
+     "gpChatRightTopButtonsCelFile",
+     0,
+     "data"
+    ],
+    [
+     416,
+     "0x00446780",
+     "names.json",
+     "COMCALLBACK_OpenJoinScreen",
+     0,
+     "func"
+    ],
+    [
+     460,
+     "0x0077BC34",
+     "source",
+     "gpChatRightButtonsCelFile",
+     0,
+     "data"
+    ],
+    [
+     464,
+     "0x0043F970",
+     "names.json",
+     "CHATDLG_ReleaseAndRecreate",
+     0,
+     "func"
+    ],
+    [
+     508,
+     "0x0077BC34",
+     "source",
+     "gpChatRightButtonsCelFile",
+     0,
+     "data"
+    ],
+    [
+     512,
+     "0x00440DB0",
+     "names.json",
+     "CHATDLG_OnQuitMessage",
+     0,
+     "func"
+    ],
+    [
+     556,
+     "0x0077BC3C",
+     "owner",
+     "gpChatArrowsCelFile",
+     0,
+     "data"
+    ],
+    [
+     560,
+     "0x0043D9E0",
+     "names.json",
+     "CHATDLG_ScrollPageUp",
+     0,
+     "func"
+    ],
+    [
+     604,
+     "0x0077BC3C",
+     "owner",
+     "gpChatArrowsCelFile",
+     0,
+     "data"
+    ],
+    [
+     608,
+     "0x0043DA00",
+     "names.json",
+     "CHATDLG_OnScrollPageDown",
+     0,
+     "func"
+    ],
+    [
+     652,
+     "0x0077BC3C",
+     "owner",
+     "gpChatArrowsCelFile",
+     0,
+     "data"
+    ],
+    [
+     656,
+     "0x0043DA20",
+     "names.json",
+     "CHATDLG_OnScrollUp",
+     0,
+     "func"
+    ],
+    [
+     700,
+     "0x0077BC3C",
+     "owner",
+     "gpChatArrowsCelFile",
+     0,
+     "data"
+    ],
+    [
+     704,
+     "0x0043DA30",
+     "names.json",
+     "CHATDLG_OnScrollDown",
+     0,
+     "func"
+    ],
+    [
+     800,
+     "0x00440DE0",
+     "names.json",
+     "CHATDLG_OpenAdUrl",
+     0,
+     "func"
+    ]
+   ],
+   "region": "data",
+   "size": 816,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0070CE50\n#pragma comment(linker, \"/alternatename:?gatChatControlInits@@3PAUD2WinControlInitStrc@@A=_gData_0070CE50\")",
+   "type": "D2WinControlInitStrc",
+   "va": "0x0070CE50"
   },
   {
    "alias": false,
