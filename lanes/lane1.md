@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 17:58 PST 2026: proto-dups-2 ready. Every noinline in my range has its evidence comment.
 - Thu Nov 26 17:37 PST 2026: check-in. #452 took extern-dups (Ready line dropped). extern-dups-2 conflicted with it on #452, so I redid it on #452 (same nine globals, 63 copies), identical, repushed.
 - Thu Nov 26 17:05 PST 2026: extern-dups-2 ready (stacked on extern-dups).
 - Thu Nov 26 16:50 PST 2026: check-in. Main is #450; extern-dups still ready and merges clean. Next: the same hoist for arrays and records D2Client.h defines.
@@ -66,6 +67,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/proto-dups-2 3bf348a70 (on #452): scaffolding, 18 redeclarations in 12 files of my range: ten files redeclare GAME_IsExpansion without its extern "C" after D2ClientFuncs.h has declared it, and five repeat, line for line, a declaration from D2Client.h or D2ClientFuncs.h (gszFmtPlusDecimal, gszFmtDecimal, gszFormatLd, gszMissileSourceFile, two extern "C" functions in dialog.cpp, TEXT_MoveKeyConfigSelection twice). All 12 units equal. Full build: Game.exe identical, tree 985292a81012aa1a4eb5c2d36eb06c174918105d, borrowed code / data 7,923 B / 261 B. Audit guard: no count rose. Left: 49 private prototypes in my range that differ from the header in a parameter type (most often STATLIST_UnitGetStatValue's int vs unsigned short): in C++ those are overloads, so dropping them would send the calls to the other one.
 - lane1/extern-dups-2 5be526728 (on #452, redone after extern-dups merged): scaffolding, the same hoist for nine more globals: int arrays, gnScreenWidth, and arrays of two records D2Client.h defines (gaWaypointEntries, gaHoverRects); 63 private copies go from 45 files. gabQuestFlagsA stays private (defined char, declared unsigned char). All 114 units that include the header equal. Full build: Game.exe identical, tree 623dc52763f5b353533384882f603ae8e212c9db, borrowed code / data 7,923 B / 261 B. Audit guard: no count rose.
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
