@@ -63184,7 +63184,7 @@
     {
      "va": "0x00612050",
      "length": 200,
-     "name": "?DATATBLS_GetUnitDebugName@@YGPADPAUUnitHeader@@PADH@Z"
+     "name": "?DATATBLS_GetUnitDebugName@@YGPADPAUD2UnitStrc@@PADH@Z"
     },
     {
      "va": "0x00612120",

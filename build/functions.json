@@ -12310,7 +12310,7 @@
   ["0x00611FA0", 58, "verified", "?DATATBLS_GetObjectDebugName@@YAXPADHH@Z"],
   ["0x00611FE0", 66, "verified", "?DATATBLS_GetItemDebugName@@YAXPADHH@Z"],
   ["0x00612030", 26, "verified", "?DATATBLS_GetMissileDebugName@@YAXPADHH@Z"],
-  ["0x00612050", 200, "verified", "?DATATBLS_GetUnitDebugName@@YGPADPAUUnitHeader@@PADH@Z"],
+  ["0x00612050", 200, "verified", "?DATATBLS_GetUnitDebugName@@YGPADPAUD2UnitStrc@@PADH@Z"],
   ["0x00612120", 200, "verified", "?DATATBLS_GetUnitTypeAndClassDebugName@@YGPADIFPADH@Z"],
   ["0x006121F0", 131, "verified", "DATATBLS_WriteBinFile"],
   ["0x00612280", 99, "verified", "?DATATBLS_ReadExcelFile@@YIPAXPAXPBD1PAI1H@Z"],
