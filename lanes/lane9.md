@@ -58,6 +58,9 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/locals-d2game-moo cc5e7d12 (on #466): MissMode.cpp: MISSMODE_SrvHit10_GuidedArrow_BoneSpirit's v8/v9 take D2MOO's
+  nTargetFlags / nPathFlags. a1/v12 252 -> 245 alone; auditguard no count rose; merges cleanly with -sunitmsg, -scmd.
+  Full build: Game.exe identical, tree 159e290613742758914a8ad634545710b62343bf, borrowed code / data 4,232 / 261 B.
 - lane9/params-d2game-scmd 36c8d836 (on #465): SCmd.cpp: D2GAME_PACKETS_SendPacket0x81 and SCMD_SendInteractionTarget
   name the parameter they never read nUnused (D2MOO leaves it a2/a5), with their prototypes in D2GameFuncs.h and
   PlayerPets.cpp. a1/v12 278 -> 273; auditguard no count rose; merges cleanly with params-d2game-sunitmsg. Full build:
