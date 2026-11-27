@@ -8,7 +8,10 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
-- Fri Nov 27 12:29 PST 2026: **lane12/localcopy-1** (1eecce1f8, stacked on dupdata-1): "D2Client: four local copies give way to
+- Fri Nov 27 12:45 PST 2026: **lane12/dupdata-2** (a0988a98c, on #485 caa181c5b): dupdata-1 and localcopy-1 (below) rebased onto #485
+  without conflicts, two commits; take this one instead of those two. VERIFIED tree
+  dafa80baa0c5513612d79785dd754235bccc921d.
+- Fri Nov 27 12:29 PST 2026: **lane12/localcopy-1** (in dupdata-2; 1eecce1f8, stacked on dupdata-1): "D2Client: four local copies give way to
   declarations of their definitions" (Monster.cpp CUNIT_GetMonsterBaseId, View.cpp GFX_BuildLerpRowTable and
   SCMD_BuildRampTable, text.cpp DATATBLS_GetMonStatsTxtRecord). VERIFIED tree
   9151611bf788f959e632284665af6807318e8ac4. linkdebt vs dupdata-1: 23,079 -> 23,075 (local_copy 622 -> 617; D2Client
@@ -21,7 +24,7 @@ it is on main; from #473, based on main.
   in all 22 cases tried that could gain), 47 have no separate copy text (the copy is the unit's own inline
   definition). So local_copy is mostly what the original's inlining needs, and I'm not taking it further without a
   ruling.
-- Fri Nov 27 11:48 PST 2026: **lane12/dupdata-1** (272e8088a, stacked on renamed-1): "One definition per global: second definitions become
+- Fri Nov 27 11:48 PST 2026: **lane12/dupdata-1** (superseded by dupdata-2; 272e8088a, stacked on renamed-1): "One definition per global: second definitions become
   extern declarations". 167 globals a unit defined although another file defines them at the same address (the
   definition the link keeps) become extern declarations there, with the kept definition's type and linkage
   (gbStandStillHeld: Game_0044B7B0.cpp now declares, D2Client Game.cpp defines). Every changed unit EQUAL; two
