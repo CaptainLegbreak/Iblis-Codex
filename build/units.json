@@ -46742,6 +46742,11 @@
      "va": "0x0056AF80",
      "length": 511,
      "name": "PLRSAVE2_InitializeStats"
+    },
+    {
+     "va": "0x0056B180",
+     "length": 595,
+     "name": "?PlayerCreate@@YIHPAUD2GameStrc@@PAUD2ClientStrc@@PAEIPAPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
     }
    ]
   },
@@ -46749,11 +46754,6 @@
    "file": "Source/D2Game/Unknown_0056B180.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0056B180",
-     "length": 595,
-     "name": "?PlayerCreate@@YIHPAUD2GameStrc@@PAUD2ClientStrc@@PAEIPAPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
-    },
     {
      "va": "0x0056B3E0",
      "length": 736,

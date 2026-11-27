@@ -1377,13 +1377,17 @@ int __fastcall PLRSAVE2_ReadStatsEx(D2GameStrc* pGame, D2UnitStrc* pUnit, unsign
     return 0;
 }
 
+// 0x0056B180
 int __fastcall PlayerCreate(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned char* pSaveFile, unsigned int nSize, D2UnitStrc** ppPlayer, D2ActiveRoomStrc* pRoomArg, int nXArg, int nYArg)
 {
     D2SaveHeaderStrc* pSaveHeader = (D2SaveHeaderStrc*)pSaveFile;
     unsigned char* pSection = pSaveFile;
     unsigned char* pSaveFileEnd = &pSaveFile[nSize];
     D2UnitStrc* pPlayer = 0;
+    int nHitpoints;
+    int nMana;
     int nErrorCode;
+    int bLoaded = 0;
 
     *ppPlayer = 0;
 
@@ -1417,8 +1421,8 @@ int __fastcall PlayerCreate(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned c
                         nErrorCode = PLRSAVE2_ReadStats(pGame, pPlayer, &pSection, pSaveFileEnd, nVersion, pSaveHeader->nStats);
                         if (!nErrorCode)
                         {
-                            const int nHitpoints = STATLIST_UnitGetStatValue(pPlayer, STAT_HITPOINTS, 0);
-                            const int nMana = STATLIST_UnitGetStatValue(pPlayer, STAT_MANA, 0);
+                            nHitpoints = STATLIST_UnitGetStatValue(pPlayer, STAT_HITPOINTS, 0);
+                            nMana = STATLIST_UnitGetStatValue(pPlayer, STAT_MANA, 0);
 
                             nErrorCode = PLRSAVE2_ReadSkills(pGame, pPlayer, &pSection, pSaveFileEnd, nVersion, pSaveHeader->nSkills);
                             if (!nErrorCode)
@@ -1442,8 +1446,7 @@ int __fastcall PlayerCreate(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned c
                                             nErrorCode = PLRSAVE2_ReadIronGolemSection(pGame, pPlayer, &pSection, pSaveFileEnd, nVersion);
                                             if (!nErrorCode)
                                             {
-                                                PLRSAVE2_InitializeStats(pGame, pPlayer, nHitpoints, nMana);
-                                                return 0;
+                                                bLoaded = 1;
                                             }
                                         }
                                     }
@@ -1456,23 +1459,31 @@ int __fastcall PlayerCreate(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned c
         }
     }
 
-    if (nErrorCode < 0 || nErrorCode >= PLRSAVE2ERROR_COUNT)
+    if (!bLoaded)
     {
-        nErrorCode = PLRSAVE2ERROR_UNKNOWN;
-    }
-
-    if (pPlayer)
-    {
-        if (UNITS_GetRoom(pPlayer))
+        if (nErrorCode < 0 || nErrorCode >= PLRSAVE2ERROR_COUNT)
         {
-            DUNGEON_AllocDrlgDelete(UNITS_GetRoom(pPlayer), pPlayer->dwUnitType, pPlayer->dwUnitId);
+            nErrorCode = PLRSAVE2ERROR_UNKNOWN;
         }
 
-        SUNIT_RemoveUnit(pGame, pPlayer);
+        if (pPlayer)
+        {
+            if (UNITS_GetRoom(pPlayer))
+            {
+                const int nUnitGUID = pPlayer->dwUnitId;
+                const int nUnitType = pPlayer->dwUnitType;
+                DUNGEON_AllocDrlgDelete(UNITS_GetRoom(pPlayer), nUnitType, nUnitGUID);
+            }
+
+            SUNIT_RemoveUnit(pGame, pPlayer);
+        }
+
+        CLIENTS_SetPlayerInClient(pClient, 0);
+        return gnPlrSave2ErrorRemap[nErrorCode];
     }
 
-    CLIENTS_SetPlayerInClient(pClient, 0);
-    return gnPlrSave2ErrorRemap[nErrorCode];
+    PLRSAVE2_InitializeStats(pGame, pPlayer, nHitpoints, nMana);
+    return 0;
 }
 
 // 0x0056A620
