@@ -3063,7 +3063,7 @@
   },
   "Source/D2Common/DRLG/RoomTile.cpp": {
    "bytes": 1744,
-   "definitions": 8,
+   "definitions": 7,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/RoomTile_0066D960.inc",
@@ -128813,37 +128813,104 @@
   },
   {
    "alias": false,
-   "cname": "gData_006EF188",
+   "cname": null,
    "declared": true,
-   "decorated": "?gaDrlgRoomTilePresetUnits@@3QBUD2UnkDrlgRoomTileStrc2@@B",
+   "decorated": null,
    "file": "Source/D2Common/DRLG/RoomTile.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" const struct d2data_006EF188_t gData_006EF188; // 0x006EF188",
-   "head": "extern \"C\" const struct d2data_006EF188_t gData_006EF188 = ",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const D2UnkDrlgRoomTileStrc2 gaDrlgRoomTilePresetUnits[34] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "nTileStyle",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nTileSequence",
+       4,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "bIsRightWallWithDoor",
+       8,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nUnitId",
+       12,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nUnitType",
+       16,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nX",
+       20,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nY",
+       24,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ]
+     ],
+     "name": "D2UnkDrlgRoomTileStrc2",
+     "size": 28
+    },
+    "k": "arr",
+    "n": 34,
+    "size": 952
+   },
    "name": "gaDrlgRoomTilePresetUnits",
    "pointers": [],
    "region": "rdata",
-   "size": 12,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006EF188_t\n{\n    unsigned char b0[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006EF188\n#pragma comment(linker, \"/alternatename:?gaDrlgRoomTilePresetUnits@@3QBUD2UnkDrlgRoomTileStrc2@@B=_gData_006EF188\")",
+   "size": 952,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006EF188",
+   "type": "D2UnkDrlgRoomTileStrc2",
    "va": "0x006EF188"
-  },
-  {
-   "alias": false,
-   "cname": "gData_006EF194",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Common/DRLG/RoomTile.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" const struct d2data_006EF194_t gData_006EF194; // 0x006EF194",
-   "head": "extern \"C\" const struct d2data_006EF194_t gData_006EF194 = ",
-   "name": "gData_006EF194",
-   "pointers": [],
-   "region": "rdata",
-   "size": 940,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006EF194_t\n{\n    unsigned char b0[940];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006EF194",
-   "va": "0x006EF194"
   },
   {
    "alias": false,
