@@ -20,7 +20,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 ## Claimed
 - **D2Game's names (the coordinator's 14:40 assignment): `a1`/`v12` parameters and locals and `sub_<VA>` functions,
   one branch per folder.** Lane 5, skip these folders: **MISSILES, INVENTORY, DEBUG, ITEMS** (built, lane9/params-d2game-a) and **Ai,
-  MONSTER, OBJECTS, Quests** (lane9/params-d2game-b), **UNIT, PLAYER** (lane9/params-d2game-c), **SKILLS, GAME** (lane9/params-d2game-d), D2Game's top-level Unknown_*.cpp units (lane9/params-d2game-e2), **D2Game.h and D2GameFuncs.h** (lane9/names-d2game-h), D2Game's sub_<VA> definitions that D2MOO's 1.14d notes name (now, lane9/names-d2game-moo: 17 functions and their callers). Parameters take the name the function's own
+  MONSTER, OBJECTS, Quests** (lane9/params-d2game-b), **UNIT, PLAYER** (lane9/params-d2game-c), **SKILLS, GAME** (lane9/params-d2game-d), D2Game's top-level Unknown_*.cpp units (lane9/params-d2game-e2), **D2Game.h and D2GameFuncs.h** (lane9/names-d2game-h), D2Game's sub_<VA> definitions that D2MOO's 1.14d notes name (lane9/names-d2game-moo); D2Game's tail outside Quests/ and OBJECTS/ (lane 7's), one folder at a time (now). Parameters take the name the function's own
   definition gives that position, else D2MOO's; definitions take D2MOO's names; `sub_<VA>` functions take
   names.csv/D2MOO names or `sub_<VA>_<Verb>` from the body.
 - **0x004F82D0 CMNSUBTILE_DrawBlendVisTile** (D2Gfx/SRC/Window.cpp, `__assume`), parked again with lane 6's reading
@@ -55,6 +55,11 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/params-d2game-tail2 509dbbad (on names-d2game-verbs2; merge after it): ACT2Q4_GetAndUpdatePalaceNpcState's
+  out-parameter pContinueAi (1 when the quest leaves Jerhyn to the normal AI; its caller's bContinueAi), and
+  pFreeStackCount (D2MOO's name) in SUNITNPC.CPP's second copy of the store stack search. Merges cleanly onto #461 and
+  with params-d2game-tail. auditguard against its base no count rose. Full build: Game.exe identical, tree
+  f59334d3687562df58c4de973b8b567ad4b024cd, borrowed code / data 5,424 / 261 B.
 - lane9/names-d2game-verbs2 74d5b6cc (on #459): thirty-seven D2Game placeholder stubs and accessors take sub_<VA>_<Verb>
   names from their bodies (_Nop, _Return0/_Return5/_Return43, GetWaypointData, GetMonStats2Record, ...); exported
   functions keep theirs. auditguard no count rose; merges cleanly onto #460. Full build: Game.exe identical, tree
