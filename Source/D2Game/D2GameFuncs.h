@@ -232,7 +232,7 @@ void __fastcall D2GAME_UpdateClientItem(D2ClientStrc* hClient, D2UnitStrc* hUnit
 void __fastcall D2GAME_SendP0x9D_ItemAction_Equip(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags); // 0x0053D090
 void __fastcall D2GAME_PACKETS_SendPacket0x3E(D2ClientStrc* pClient, D2UnitStrc* pItem, unsigned char a3, int nStatId, unsigned int nValue, unsigned short nStatLayer); // 0x0053D130
 void __fastcall D2GAME_PACKETS_SendPacket0x42(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053D2E0
-void __fastcall D2GAME_SendPacket0x48(D2ClientStrc* pClient, D2UnitStrc* pUnit, int a3); // 0x0053D3C0
+void __fastcall D2GAME_SendPacket0x48(D2ClientStrc* pClient, D2UnitStrc* pUnit, int nUnused); // 0x0053D3C0
 void __fastcall SCMD_SendUnitActionAtPosition(D2ClientStrc* pClient, unsigned char nSourceUnitType, int nSourceUnitGUID, unsigned short nX, unsigned short nY, int nActionId, unsigned short nSkillParam, unsigned char nActionParam, int bQueued); // 0x0053D4D0
 void __fastcall D2GAME_SendPacket0x28(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, D2BitBufferStrc* pQuestRecord, unsigned char nQuestFlags); // 0x0053D670
 void __fastcall SCMD_SendInteractionTarget(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitId, int nUnused); // 0x0053D6D0

@@ -129,11 +129,7 @@ struct D2AutomapRecordStrc
     int nCels;
 };
 
-struct D2AutomapIndexStrc
-{
-    int nStart;
-    int nEnd;
-};
+#include "D2AutomapIndexStrc.h"
 
 
 extern D2SeedStrc* gpAutomapSeed; // 0x00744504

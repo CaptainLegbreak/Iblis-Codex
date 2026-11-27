@@ -1,7 +1,7 @@
 struct D2UnitStrc; struct D2ActiveRoomStrc; struct D2BitBufferStrc;
 struct D2GfxDataStrc { int nFrame; int unknown04[12]; void* pCellFile; int unknown38[2]; int nDirection; int unknown44; };
 struct Unicode { unsigned short wChar; };
-struct D2WaypointLayoutStrc { int nCellX,nCellY,nTextX,nTextY,unknown10,unknown14; };
+#include "D2WaypointLayout.h"
 #pragma pack(push,1)
 struct D2WaypointEntryStrc { int nLevelId; unsigned char bEnabled; };
 #pragma pack(pop)

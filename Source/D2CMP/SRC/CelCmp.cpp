@@ -352,7 +352,6 @@ extern const char* gszCmpCompressedExtension; // 0x00741F00
 
 extern const char* gszCmpDefaultExtension; // 0x00741F04
 
-extern D2CmpCacheListEntryStrc* gpCmpCacheEntries; // 0x0089DB7C
 
 struct D2CmpCacheNodeStrc
 {
@@ -1483,11 +1482,6 @@ extern "C" int __cdecl vsprintf(char*,const char*,va_list);
 
 extern "C" char* __cdecl strcat(char*,const char*);
 
-struct Config { int enabled; const char* compressed; const char* standard; };
-
-extern Config extensions; // 0x00741EFC
-
-enum { DISABLED = 0 };
 
 
 
@@ -1499,7 +1493,7 @@ static void* SPRITECACHE_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2C
 void __stdcall D2CMPBuildFileName(char* output,int allowCompressed,const char* format,va_list args)
 {
     vsprintf(output,format,args);
-    const char* suffix=(allowCompressed!=DISABLED && extensions.enabled!=DISABLED)?extensions.compressed:extensions.standard;
+    const char* suffix = allowCompressed && gbCmpCompressedDataMode ? gszCmpCompressedExtension : gszCmpDefaultExtension;
     strcat(output,suffix);
 }
 

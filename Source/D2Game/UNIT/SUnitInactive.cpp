@@ -1284,7 +1284,7 @@ static void __stdcall SUNITINACTIVE_CompressInactiveUnit(D2GameStrc* pGame, D2Un
 
         pNode->nMode = pUnit->dwAnimMode;
 
-        if (sub_00621B00_IsShrine(pUnit))
+        if (UNITS_IsShrine(pUnit))
         {
             pNode->nUnitId = (unsigned int)EVENT_GetEventFrame(pGame, pUnit, 5) >> 16;
             pNode->nFrame = (unsigned short)EVENT_GetEventFrame(pGame, pUnit, 5);

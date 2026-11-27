@@ -730,7 +730,7 @@ int gbNpcUiRecordsLoaded; // 0x007BCBE0
 
 int gdwNpcPanelDelayTick;                                                                                      // 0x007BCC08
 
-unsigned char gabSlots[4];                                                                         // 0x007BEFB4
+unsigned char gabSlots[6];                                                                         // 0x007BEFB4
 
 #define gnGlobal_007BCA68 (gtBankRect.nLeft)
 
@@ -1035,9 +1035,7 @@ static int gbCubeCloseClicked; // 0x007BCE4C
 
 void* gUiArchive; // 0x007BCC30
 
-unsigned char gabInvHighlightColors; // 0x007BCAD8
-
-unsigned char gbGlobal_007BCAD9; // 0x007BCAD9
+unsigned char gabInvHighlightColors[5]; // 0x007BCAD8
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
@@ -1326,7 +1324,6 @@ extern int gnAuxLevelEntries; // 0x00721D94
 
 extern int gnAutomapHeight; // 0x007A521C
 
-extern unsigned char gabGridColors_007BCAD8[]; // 0x007BCAD8
 
 struct D2CharStatsTxt;
 
@@ -1473,11 +1470,10 @@ extern unsigned char gnCharClass; // 0x007A0522
 extern "C" __declspec(dllimport) int __stdcall ReadProcessMemory(void* hProcess, const void* pBaseAddress, void* pBuffer, unsigned long nSize, unsigned long* pBytesRead); // 0x006CC350
 unsigned int __cdecl sub_0044CE70_GetPingAverage(); // 0x0044CE70
 
-unsigned int gdwEncodedName0; // 0x007A04E8
+#include "D2PongData.h"
 
-unsigned int gdwEncodedName1; // 0x007A04EC
 
-unsigned int gdwEncodedOffset; // 0x007A04F0
+
 
 unsigned long gdwLastCheckTick; // 0x007BB3B0
 
@@ -1487,16 +1483,7 @@ struct D2SendPacket6BStrc
 };
 
 typedef unsigned int size_t;
-#pragma pack(push, 1)
-struct D2PanelTabStrc
-{
-    int nX;
-    int nY;
-    unsigned short nString;
-    int bSelected;
-    int bEnabled;
-};
-#pragma pack(pop)
+#include "D2PanelTab.h"
 D2CelFileStrc* __cdecl GAME_GetBuySellButtonCells(); // 0x00454600
 
 extern D2PanelButtonStrc gaPanelButtons_007BC9E0[];                                                         // 0x007BC9E0
@@ -1698,9 +1685,9 @@ void __cdecl sub_00477DD0()
     unsigned short wLow;
     unsigned short wHigh;
 
-    aName[0] = gdwEncodedName0 * 0x470E31C1;
-    aName[1] = gdwEncodedName1 * 0x470E31C1;
-    const unsigned int nOffset = gdwEncodedOffset * 0x470E31C1;
+    aName[0] = gtPongData.dwEncodedName0 * 0x470E31C1;
+    aName[1] = gtPongData.dwEncodedName1 * 0x470E31C1;
+    const unsigned int nOffset = gtPongData.dwEncodedOffset * 0x470E31C1;
     ((char*)aName)[8] = 0;
 
     unsigned int nValue;
@@ -1932,11 +1919,11 @@ void __cdecl INV_LoadUiRecords()
 // 0x00483960
 void __cdecl INV_InitColorTable()
 {
-    gabColors_007BCAD8[0] = D2Win_10034_MixRGB(0x80, 0, 0);
-    gabColors_007BCAD8[1] = D2Win_10034_MixRGB(0, 0x80, 0);
-    gabColors_007BCAD8[2] = D2Win_10034_MixRGB(0, 0, 0x80);
-    gabColors_007BCAD8[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
-    gabColors_007BCAD8[4] = D2Win_10034_MixRGB(0x80, 0x40, 0x40);
+    gabInvHighlightColors[0] = D2Win_10034_MixRGB(0x80, 0, 0);
+    gabInvHighlightColors[1] = D2Win_10034_MixRGB(0, 0x80, 0);
+    gabInvHighlightColors[2] = D2Win_10034_MixRGB(0, 0, 0x80);
+    gabInvHighlightColors[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
+    gabInvHighlightColors[4] = D2Win_10034_MixRGB(0x80, 0x40, 0x40);
 }
 
 // 0x004839D0
@@ -1950,7 +1937,7 @@ static void __stdcall INV_DrawGridCells(D2InventoryGridInfoStrc* pGrid, int nX, 
             const int nTop = pGrid->nGridBoxHeight * nRow + pGrid->nGridTop;
             if (nLeft >= 0 && nLeft < gnAutomapWidth && nTop >= 0 && nTop < gnAutomapHeight)
             {
-                AUTOMAP_DrawFramedBox(nLeft, nTop, pGrid->nGridBoxWidth, pGrid->nGridBoxHeight, gabGridColors_007BCAD8[nColor], 0);
+                AUTOMAP_DrawFramedBox(nLeft, nTop, pGrid->nGridBoxWidth, pGrid->nGridBoxHeight, gabInvHighlightColors[nColor], 0);
             }
         }
     }
@@ -1967,7 +1954,7 @@ static void INV_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor)
     const int nTop = pCompGrid->rect.nTop;
     if (nLeft >= 0 && nLeft < gnAutomapWidth && nTop >= 0 && nTop < gnAutomapHeight)
     {
-        AUTOMAP_DrawFramedBox(nLeft, nTop, pCompGrid->nWidth, pCompGrid->nHeight, gabColors_007BCAD8[nColor], 0);
+        AUTOMAP_DrawFramedBox(nLeft, nTop, pCompGrid->nWidth, pCompGrid->nHeight, gabInvHighlightColors[nColor], 0);
     }
 }
 
@@ -2474,7 +2461,7 @@ static __forceinline void sub_004845A0_DrawOtherHandFrame(D2InvCompGridStrc* pCo
         const int nTop = pCompGrid->rect.nTop;
         if (nTop >= 0 && nTop < gnAutomapHeight)
         {
-            AUTOMAP_DrawFramedBox(nLeft, nTop, pCompGrid->nWidth, pCompGrid->nHeight, gabColors_007BCAD8[0], 0);
+            AUTOMAP_DrawFramedBox(nLeft, nTop, pCompGrid->nWidth, pCompGrid->nHeight, gabInvHighlightColors[0], 0);
         }
     }
 }
@@ -4276,8 +4263,8 @@ void __stdcall INV_SelectItemPageTab(unsigned char nTab)
 // build: symbol ?gnNpcTabCount@* 0x00722158
     for (int i = 0; i < gnNpcTabCount; ++i)
     {
-        *(int*)gaNpcTabStates[i].bSelected = 0;
-        *(int*)gaNpcTabStates[i].bEnabled = anCounts[i] != 0;
+        gaNpcTabs[i].bSelected = 0;
+        gaNpcTabs[i].bEnabled = anCounts[i] != 0;
     }
 
     if (!anCounts[nTab])
@@ -4297,7 +4284,7 @@ void __stdcall INV_SelectItemPageTab(unsigned char nTab)
         }
         while (nTries < 4);
     }
-    *(int*)gaNpcTabStates[gnSelectedTab].bSelected = 1;
+    gaNpcTabs[gnSelectedTab].bSelected = 1;
 }
 
 // 0x00487B30
@@ -6711,9 +6698,9 @@ void __fastcall INV_DrawMercEquipHighlights(D2UnitStrc* pUnit)
             ITEMS_GetDimensions(pCursorItem, &nWidth, &nHeight, "d:\\diablo2\\Diablo2\\Source\\D2Common/CmnItems.h", 0x6DC);
             int bMatch;
             if (ITEMS_CheckBodyLocation(pCursorItem, i) && INV_CanMercEquipItem(pUnit, pCursorItem, &bMatch) && ITEMS_CheckRequirements(pCursorItem, pUnit, 0, 0, 0, 0))
-                DrawBodyLocRectInline(&gaBodyLocRects[i], gbGlobal_007BCAD9);
+                DrawBodyLocRectInline(&gaBodyLocRects[i], gabInvHighlightColors[1]);
             else
-                DrawBodyLocRectInline(&gaBodyLocRects[i], gabInvHighlightColors);
+                DrawBodyLocRectInline(&gaBodyLocRects[i], gabInvHighlightColors[0]);
         }
     }
 }

@@ -380,7 +380,7 @@ typedef int (__stdcall* D2FarProcFn)();
 
 
 
-extern unsigned char gabColors_007BCAD8[5]; // 0x007BCAD8
+extern unsigned char gabInvHighlightColors[5]; // 0x007BCAD8
 
 
 extern int gnDialogState; // 0x00721E34
@@ -460,7 +460,7 @@ int __fastcall GFX_HitTestUnitGfx(D2UnitStrc*,int,int,int,int); // 0x00470860
 
 
 
-D2UnitStrc* gapAiTargets[1]; // 0x007A7470
+D2UnitStrc* gapAiTargets[8]; // 0x007A7470
 
 int gbGoldButtonDisabled; // 0x007BCE2C
 
@@ -2211,7 +2211,7 @@ void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int bFl
             }
         }
     }
-    if (!sub_00650BE0_PlaceUnit(pDynamicPath, pUnit, pRoom, nX, nY))
+    if (!D2Common_10229(pDynamicPath, pUnit, pRoom, nX, nY))
     {
         D2CoordStrc tCoord;
         tCoord.nX = nX;

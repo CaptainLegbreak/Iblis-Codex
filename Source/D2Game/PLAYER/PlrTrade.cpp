@@ -1545,7 +1545,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
                         tOp.nStatId = pCubeMainTxtRecord->nParam;
-                        if (sub_00625560(pUnit, tOp.nStatId, 0) >= tOp.nShifted)
+                        if (STATLIST_GetUnitStatBonus(pUnit, tOp.nStatId, 0) >= tOp.nShifted)
                         {
                             bOpConditionsFulfilled = 1;
                         }
@@ -1566,7 +1566,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
                         tOp.nStatId = pCubeMainTxtRecord->nParam;
-                        if (sub_00625560(pUnit, tOp.nStatId, 0) <= tOp.nShifted)
+                        if (STATLIST_GetUnitStatBonus(pUnit, tOp.nStatId, 0) <= tOp.nShifted)
                         {
                             bOpConditionsFulfilled = 1;
                         }
@@ -1587,7 +1587,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
                         tOp.nStatId = pCubeMainTxtRecord->nParam;
-                        if (sub_00625560(pUnit, tOp.nStatId, 0) != tOp.nShifted)
+                        if (STATLIST_GetUnitStatBonus(pUnit, tOp.nStatId, 0) != tOp.nShifted)
                         {
                             bOpConditionsFulfilled = 1;
                         }
@@ -1608,7 +1608,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
                         tOp.nStatId = pCubeMainTxtRecord->nParam;
-                        if (sub_00625560(pUnit, tOp.nStatId, 0) == tOp.nShifted)
+                        if (STATLIST_GetUnitStatBonus(pUnit, tOp.nStatId, 0) == tOp.nShifted)
                         {
                             bOpConditionsFulfilled = 1;
                         }

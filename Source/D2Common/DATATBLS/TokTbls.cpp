@@ -50,11 +50,11 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 #define TBL_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2PlrModeDataTbl { unsigned int nPlrModeTypeTxtRecordCount; void* pPlrModeTypeTxt; D2TokRecord* pPlayerType; D2TokRecord* pPlayerMode; };
+#include "D2PlrModeDataTbl.h"
 
-struct D2MonModeDataTbl { unsigned int nMonModeTxtRecordCount; void* pMonModeTxt; D2TokRecord* pMonMode[2]; };
+#include "D2MonModeDataTbl.h"
 
-struct D2ObjModeDataTbl { unsigned int nObjModeTypeTxtRecordCount; void* pObjModeTypeTxt; D2TokRecord* pObjType; D2TokRecord* pObjMode; };
+#include "D2ObjModeDataTbl.h"
 
 extern D2MonModeDataTbl gMonModeDataTables;                                                                 // 0x0096D4B8
 

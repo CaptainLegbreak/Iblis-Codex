@@ -38,7 +38,7 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 
-extern MonEventFunc gpMonsterEventFunctions[15];                                                            // 0x006E2490
+extern MonEventFunc const gpMonsterEventFunctions[16];                                                            // 0x006E2490
 
 #include "D2GameFuncs.h"
 #include "D2CommonApi2.h"
@@ -310,7 +310,6 @@ extern unsigned char gbModeReset[]; // 0x0073C6D0
 
 typedef void (__fastcall *ModeCallback)(D2GameStrc*, D2UnitStrc*, int, int);
 
-extern ModeCallback gpfnMonsterEventCallbacks; // 0x006E2498
 
 inline D2MonLvlTxt* DATATBLS_GetMonLvlTxtRecord_Inline(int nLevel)
 {
@@ -1980,7 +1979,7 @@ static inline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)
 static __forceinline void MONSTERMODE_AiThinkUnlessFrozen(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     if (STATES_CheckState(pUnit, STATE_FREEZE) && !SUNIT_IsDead(pUnit)) return;
-    if (gpfnMonsterEventCallbacks) gpfnMonsterEventCallbacks(pGame, pUnit, 0, 0);
+    if (gpMonsterEventFunctions[2]) gpMonsterEventFunctions[2](pGame, pUnit, 0, 0);
 }
 
 // 0x005A8030

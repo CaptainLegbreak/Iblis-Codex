@@ -277,6 +277,7 @@ static bool RoomExHasRefCount(D2DrlgRoomStrc* pDrlgRoom, int nMaxStatus)
 
 typedef void (__fastcall* LEVELNODEFN)(D2CommonLevelNodeStrc* pNode);
 extern const LEVELNODEFN gpfnRoomExSetStatus[]; // 0x00744384
+typedef void (__fastcall* ROOMEXSTATUSFN)(D2DrlgRoomStrc* pDrlgRoom);
 void __fastcall DRLGROOM_InitNearRooms(void* pContext, D2CommonLevelNodeStrc* pNode); // 0x0066C370
 static inline int sub_F45_IsFirstAtLevel(D2CommonLevelNodeStrc* pNode, int nLevel)
 {

@@ -2407,7 +2407,7 @@ void __fastcall SCMD_DropUnitItems(D2UnitDropItemsPacketStrc* pPacket)
         D2DynamicPathStrc* pPath = pOther->pDynamicPath;
         PATH_SetMoveTestCollisionMask(pPath, 0);
         sub_00649190_SetPathMode(pOther, 5);
-        D2_ASSERT(sub_00650BE0_PlaceUnit(pPath, pOther, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit)), 0xABA);
+        D2_ASSERT(D2Common_10229(pPath, pOther, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit)), 0xABA);
         PATH_SetDirection(pOther->pDynamicPath, PATH_GetDirection(pUnit->pDynamicPath));
     }
     D2InventoryStrc* pInventory = pUnit->pInventory;
@@ -2761,7 +2761,7 @@ void __fastcall SCMD_HandleEventMessage(const D2GSPacket5AStrc* pPacket)
 void __fastcall SCMD_HandlePlayerJoined(const D2GSPacketSrv5B* pPacket)
 {
     const char* szText = pPacket->szGuildTag;
-    ROSTER_AddRosterUnit(pPacket->nUnitGUID, pPacket->nClass, pPacket->szName, pPacket->nLevel, pPacket->nPartyId, pPacket->unk0x1C,
+    ROSTER_AddRosterUnit(pPacket->nUnitGUID, pPacket->nClass, pPacket->szName, pPacket->nLevel, pPacket->nPartyId, pPacket->unused0x1C,
                  pPacket->nPartyFlags, pPacket->nGuildFlags, szText, szText + strlen(szText) + 1);
 }
 

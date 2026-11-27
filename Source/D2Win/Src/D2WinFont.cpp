@@ -65,7 +65,7 @@ extern int gnFontMetric3;                                                       
 
 D2FontCacheStrc* gpFontCache;                                                                      // 0x00841D88
 
-char gszFontLanguage[4];                                                                           // 0x00841D8C
+char gszFontLanguage[20];                                                                           // 0x00841D8C
 
 D2CharStrc* (__fastcall* gpfnGetCharInfo)(int nChar);                                             // 0x00841DA0
 

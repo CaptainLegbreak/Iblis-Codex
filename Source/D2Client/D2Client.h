@@ -694,7 +694,7 @@ int __stdcall MISSILE_GetElementalLength(D2UnitStrc* pMissile, D2UnitStrc* pOwne
 int __stdcall COMPOSIT_IsArmorComponent(int nComponent); // 0x0064F420
 unsigned int __stdcall COMPOSIT_GetArmorTypeFromComponent(int eComponent, unsigned char* pArmorComponents); // 0x0064F500
 int __stdcall PATH_HasEnteredNewSubtile(D2DynamicPathStrc* pPath); // 0x006505C0
-int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
+int __stdcall D2Common_10229(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
 int __stdcall D2QSSOCKET_SendPacket(void* pConnection, const unsigned char* pBuffer, int nSize); // 0x006BC8A0
 int* __fastcall sub_004AE110_GetAiTimer(D2UnitStrc* pUnit); // 0x004AE110
 short __stdcall TEXT_GetStringIdOfMenuType2Node(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x006613C0
@@ -994,15 +994,15 @@ extern "C" void* __stdcall SMemReAlloc(void* pMemory, unsigned int nSize, const 
 #define D2_HIWORD(l) ((unsigned short)(((unsigned int)(l) >> 16) & 0xFFFF))
 #define D2_LOWORD(l) ((unsigned short)((unsigned int)(l) & 0xFFFF))
 #define D2_RESET_QUEST_SELECTION() \
-    gbQuestSlotDown = 0; \
-    gbQuestCloseButtonDown = 0; \
-    gbQuestButtonDown = 0; \
-    gnQuestPressedSlot = -1; \
-    gbQuestDescButtonDown = 0; \
-    gbDurielCofsLoaded = 0; \
-    gbAncientsCofsLoaded = 0; \
-    gbHasQuestPacketValue = 0; \
-    gbQuestUnitsSpawned = 0
+    gtQuestLog.bQuestSlotDown = 0; \
+    gtQuestLog.bCloseButtonDown = 0; \
+    gtQuestLog.bQuestButtonDown = 0; \
+    gtQuestLog.nPressedSlot = -1; \
+    gtQuestLog.bDescButtonDown = 0; \
+    gtQuestLog.bDurielCofsLoaded = 0; \
+    gtQuestLog.bAncientsCofsLoaded = 0; \
+    gtQuestLog.bHasQuestPacketValue = 0; \
+    gtQuestLog.bQuestUnitsSpawned = 0
 #define E06_ABS(x) ((x) < 0 ? -(x) : (x))
 #define GENERIC_WRITE 0x40000000
 #define GFX_ENTRY_COUNT 20

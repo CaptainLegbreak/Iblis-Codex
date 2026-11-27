@@ -83,7 +83,7 @@ extern void** gppSlots; // 0x00779988
 extern "C" long __cdecl _time32(long* pTime);
 extern "C" int __cdecl tolower(int nChar);
 extern D2WinControlStrc* gpCharDescriptionText; // 0x007799F0
-extern void* gapRowControls[1]; // 0x00779A20
+extern void* gapRowControls[8]; // 0x00779A20
 extern D2WinControlStrc* gpControl_00779C70; // 0x00779C70
 extern D2WinControlStrc* gpControl_00779C78; // 0x00779C78
 

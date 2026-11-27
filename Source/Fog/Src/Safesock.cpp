@@ -260,7 +260,6 @@ int ganLogNewFile[20]; // 0x0075D298
 
 char gaszLogFilePaths[20][0x104]; // 0x0075D340
 
-int gnLogQueueCount; // 0x0075E870
 
 struct D2ToolhelpModuleEntryStrc;
 

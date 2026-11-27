@@ -1316,7 +1316,7 @@ void __stdcall AUTOMAP_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevea
 
 int gdwAutoMapFadeSaved; // 0x007A51AC
 
-unsigned char gabAutomapColors[1]; // 0x007A51B0
+unsigned char gabAutomapColors[12]; // 0x007A51B0
 
 int gnMiniMapSavedX; // 0x007A51C0
 
@@ -1491,13 +1491,7 @@ extern int gnAutomapBaseX;                                                      
 
 extern int gnAutomapBaseY;                                                                         // 0x007A518C
 
-D2CelFileStrc* gapAutomapCels;                                                                       // 0x007A5168
-
-D2CelFileStrc* gpAutomapCel_007A516C;                                                                       // 0x007A516C
-
-D2CelFileStrc* gpAutomapCel_007A5170;                                                                       // 0x007A5170
-
-D2CelFileStrc* gpAutomapCel_007A5174;                                                                       // 0x007A5174
+D2CelFileStrc* gapAutomapCels[4];                                                                       // 0x007A5168
 
 static int AUTOMAP_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pColor); // 0x00459BC0
 
@@ -3083,7 +3077,7 @@ void __fastcall AUTOMAP_DrawAutomapCells(D2AutomapCellStrc* pCell, D2AutomapDraw
         switch (AUTOMAP_GetAutomapFade())
         {
         case 1:
-            if (pInfo->pCelFile == gapAutomapCels && !gnAutomapMode)
+            if (pInfo->pCelFile == gapAutomapCels[0] && !gnAutomapMode)
             {
                 const int nPosX = pInfo->nXOffset + nX;
                 const int nPosY = pInfo->nYOffset + nY;
@@ -3210,7 +3204,7 @@ void __cdecl AUTOMAP_PaintAutomap()
     switch (gnAutomapMode)
     {
     case 1:
-        tInfo.pCelFile = gapAutomapCels;
+        tInfo.pCelFile = gapAutomapCels[0];
         tInfo.nLeft = gnMiniMapX - 8;
         tInfo.nTop = gnMiniMapY - 0x10;
         tInfo.nRight = gnMiniMapX + gnAutomapWidth / 3 + 8;
@@ -3220,7 +3214,7 @@ void __cdecl AUTOMAP_PaintAutomap()
         gnAutomapScale = 0x14;
         break;
     default:
-        tInfo.pCelFile = gapAutomapCels;
+        tInfo.pCelFile = gapAutomapCels[0];
         tInfo.nLeft = -0x10;
         tInfo.nTop = -0x20;
         tInfo.nRight = gnAutomapWidth + 0x10;
@@ -3240,7 +3234,7 @@ void __cdecl AUTOMAP_PaintAutomap()
         switch (gpAutomapContext->fSaved)
         {
         case 1:
-            tInfo.pCelFile = gpAutomapCel_007A516C;
+            tInfo.pCelFile = gapAutomapCels[1];
             tInfo.nLeft = gnMiniMapX - 0xA0;
             tInfo.nTop = gnMiniMapY - 0x64;
             tInfo.nRight = gnMiniMapX + gnAutomapWidth / 3 + 0xA0;
@@ -3249,7 +3243,7 @@ void __cdecl AUTOMAP_PaintAutomap()
             tInfo.nYOffset = 0x32;
             break;
         case 2:
-            tInfo.pCelFile = gpAutomapCel_007A5170;
+            tInfo.pCelFile = gapAutomapCels[2];
             tInfo.nLeft = gnMiniMapX - 0x88;
             tInfo.nTop = gnMiniMapY - 0x5A;
             tInfo.nRight = gnMiniMapX + gnAutomapWidth / 3 + 0x88;
@@ -3258,7 +3252,7 @@ void __cdecl AUTOMAP_PaintAutomap()
             tInfo.nYOffset = 0x2D;
             break;
         case 3:
-            tInfo.pCelFile = gpAutomapCel_007A5174;
+            tInfo.pCelFile = gapAutomapCels[3];
             tInfo.nLeft = gnMiniMapX - 0xB4;
             tInfo.nTop = gnMiniMapY - 0xAA;
             tInfo.nRight = gnMiniMapX + gnAutomapWidth / 3 + 0xB4;
@@ -3267,7 +3261,7 @@ void __cdecl AUTOMAP_PaintAutomap()
             tInfo.nYOffset = 0x55;
             break;
         default:
-            tInfo.pCelFile = gapAutomapCels;
+            tInfo.pCelFile = gapAutomapCels[0];
             tInfo.nLeft = gnMiniMapX - 8;
             tInfo.nTop = gnMiniMapY - 0x10;
             tInfo.nRight = gnMiniMapX + gnAutomapWidth / 3 + 8;
@@ -3282,7 +3276,7 @@ void __cdecl AUTOMAP_PaintAutomap()
         switch (gpAutomapContext->fSaved)
         {
         case 1:
-            tInfo.pCelFile = gpAutomapCel_007A516C;
+            tInfo.pCelFile = gapAutomapCels[1];
             tInfo.nLeft = -0xA0;
             tInfo.nTop = -0x64;
             tInfo.nRight = gnAutomapWidth + 0xA0;
@@ -3291,7 +3285,7 @@ void __cdecl AUTOMAP_PaintAutomap()
             tInfo.nYOffset = 0x32;
             break;
         case 2:
-            tInfo.pCelFile = gpAutomapCel_007A5170;
+            tInfo.pCelFile = gapAutomapCels[2];
             tInfo.nLeft = -0x88;
             tInfo.nTop = -0x5A;
             tInfo.nRight = gnAutomapWidth + 0x88;
@@ -3300,7 +3294,7 @@ void __cdecl AUTOMAP_PaintAutomap()
             tInfo.nYOffset = 0x2D;
             break;
         case 3:
-            tInfo.pCelFile = gpAutomapCel_007A5174;
+            tInfo.pCelFile = gapAutomapCels[3];
             tInfo.nLeft = -0xB4;
             tInfo.nTop = -0xAA;
             tInfo.nRight = gnAutomapWidth + 0xB4;
@@ -3309,7 +3303,7 @@ void __cdecl AUTOMAP_PaintAutomap()
             tInfo.nYOffset = 0x55;
             break;
         default:
-            tInfo.pCelFile = gapAutomapCels;
+            tInfo.pCelFile = gapAutomapCels[0];
             tInfo.nLeft = -0x10;
             tInfo.nTop = -0x20;
             tInfo.nRight = gnAutomapWidth + 0x10;
@@ -3604,11 +3598,11 @@ void __cdecl AUTOMAP_FreeAutomapCels()
 {
     for (int i = 0; i < 4; ++i)
     {
-        if (gpAutomapCels_007A5168[i])
+        if (gapAutomapCels[i])
         {
-            ARCHIVE_FreeClientCellFile(gpAutomapCels_007A5168[i]);
+            ARCHIVE_FreeClientCellFile(gapAutomapCels[i]);
         }
-        gpAutomapCels_007A5168[i] = 0;
+        gapAutomapCels[i] = 0;
     }
 }
 
@@ -3618,47 +3612,47 @@ void __cdecl AUTOMAP_ReloadAutomapCels()
     char szPath[260] = {0};
     for (int i = 0; i < 4; ++i)
     {
-        if (gpAutomapCels_007A5168[i])
-            ARCHIVE_FreeClientCellFile(gpAutomapCels_007A5168[i]);
-        gpAutomapCels_007A5168[i] = 0;
+        if (gapAutomapCels[i])
+            ARCHIVE_FreeClientCellFile(gapAutomapCels[i]);
+        gapAutomapCels[i] = 0;
     }
     switch (gnAutomapMode)
     {
     case 1:
 // build: symbol ?gszDataGlobal@* 0x006D4118
         sprintf(szPath, "%s\\UI\\AutoMap\\MaxiMapS", gszDataGlobal);
-        gpAutomapCels_007A5168[0] = ARCHIVE_LoadClientCellFile(szPath, 0);
-        gaAutomapCelFrames[0] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[0]);
+        gapAutomapCels[0] = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gaAutomapCelFrames[0] = CelFileGetCelsPerDirection(gapAutomapCels[0]);
         sprintf(szPath, "%s\\UI\\AutoMap\\Act2MapS", gszDataGlobal);
-        gpAutomapCels_007A5168[1] = ARCHIVE_LoadClientCellFile(szPath, 0);
-        gaAutomapCelFrames[1] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[1]);
+        gapAutomapCels[1] = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gaAutomapCelFrames[1] = CelFileGetCelsPerDirection(gapAutomapCels[1]);
         sprintf(szPath, "%s\\UI\\AutoMap\\Act4MapS", gszDataGlobal);
-        gpAutomapCels_007A5168[2] = ARCHIVE_LoadClientCellFile(szPath, 0);
-        gaAutomapCelFrames[2] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[2]);
+        gapAutomapCels[2] = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gaAutomapCelFrames[2] = CelFileGetCelsPerDirection(gapAutomapCels[2]);
         sprintf(szPath, "%s\\UI\\AutoMap\\ExTnMapS", gszDataGlobal);
-        gpAutomapCels_007A5168[3] = ARCHIVE_LoadClientCellFile(szPath, 0);
-        gaAutomapCelFrames[3] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[3]);
+        gapAutomapCels[3] = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gaAutomapCelFrames[3] = CelFileGetCelsPerDirection(gapAutomapCels[3]);
         break;
     default:
         sprintf(szPath, "%s\\UI\\AutoMap\\MaxiMap", gszDataGlobal);
-        gpAutomapCels_007A5168[0] = ARCHIVE_LoadClientCellFile(szPath, 0);
-        gaAutomapCelFrames[0] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[0]);
+        gapAutomapCels[0] = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gaAutomapCelFrames[0] = CelFileGetCelsPerDirection(gapAutomapCels[0]);
         sprintf(szPath, "%s\\UI\\AutoMap\\Act2Map", gszDataGlobal);
-        gpAutomapCels_007A5168[1] = ARCHIVE_LoadClientCellFile(szPath, 0);
-        gaAutomapCelFrames[1] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[1]);
+        gapAutomapCels[1] = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gaAutomapCelFrames[1] = CelFileGetCelsPerDirection(gapAutomapCels[1]);
         sprintf(szPath, "%s\\UI\\AutoMap\\Act4Map", gszDataGlobal);
-        gpAutomapCels_007A5168[2] = ARCHIVE_LoadClientCellFile(szPath, 0);
-        gaAutomapCelFrames[2] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[2]);
+        gapAutomapCels[2] = ARCHIVE_LoadClientCellFile(szPath, 0);
+        gaAutomapCelFrames[2] = CelFileGetCelsPerDirection(gapAutomapCels[2]);
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
         if (FOG_IsExpansion())
         {
             sprintf(szPath, "%s\\UI\\AutoMap\\ExTnMap", gszDataGlobal);
-            gpAutomapCels_007A5168[3] = ARCHIVE_LoadClientCellFile(szPath, 0);
-            gaAutomapCelFrames[3] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[3]);
+            gapAutomapCels[3] = ARCHIVE_LoadClientCellFile(szPath, 0);
+            gaAutomapCelFrames[3] = CelFileGetCelsPerDirection(gapAutomapCels[3]);
         }
         else
         {
-            gpAutomapCels_007A5168[3] = 0;
+            gapAutomapCels[3] = 0;
             gaAutomapCelFrames[3] = 0;
         }
         break;
@@ -3706,11 +3700,11 @@ void __cdecl AUTOMAP_FreeAutomap()
     AUTOMAP_ResetAutomapCells();
     for (int i = 0; i < 4; ++i)
     {
-        if (gpAutomapCels_007A5168[i])
+        if (gapAutomapCels[i])
         {
-            ARCHIVE_FreeClientCellFile(gpAutomapCels_007A5168[i]);
+            ARCHIVE_FreeClientCellFile(gapAutomapCels[i]);
         }
-        gpAutomapCels_007A5168[i] = 0;
+        gapAutomapCels[i] = 0;
     }
     D2AutomapLayerStrc* pLayer = gpAutomapNodes;
     while (pLayer)

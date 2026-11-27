@@ -1359,7 +1359,7 @@ void __fastcall SCMD_SendPlayerJoinAndPets(D2ClientStrc* pClient1, D2UnitStrc* p
     packet5B.nClass = nClass;
     packet5B.nLevel = STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0);
     packet5B.nPartyId = SUNIT_GetPartyId(pPlayer);
-    packet5B.unk0x1C = 0;
+    packet5B.unused0x1C = 0;
     packet5B.nPartyFlags = 0;
     packet5B.nGuildFlags = CLIENTS_GetGuildFlags(pClient2);
 
@@ -1975,11 +1975,11 @@ void __fastcall D2GAME_SendPacket0x47(D2ClientStrc* pClient, D2UnitStrc* pUnit)
 }
 
 // 0x0053D3C0
-void __fastcall D2GAME_SendPacket0x48(D2ClientStrc* pClient, D2UnitStrc* pUnit, int a3)
+void __fastcall D2GAME_SendPacket0x48(D2ClientStrc* pClient, D2UnitStrc* pUnit, int nUnused)
 {
     D2GSPacketSrv48 packet48 = {};
 
-    packet48.unk0x02 = a3;
+    packet48.unused0x02 = nUnused;
     packet48.nHeader = 0x48;
     packet48.nUnitType = SCMD_GetUnitTypeOr6(pUnit);
     const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;

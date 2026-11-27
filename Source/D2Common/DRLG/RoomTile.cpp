@@ -924,7 +924,6 @@ static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgR
             else
             {
                 const int nWallIdx = pTileData->nTileType - 1;
-// build: symbol ?gnWallTileTypeRemap@* 0x006EF578
                 nNewTileType = gnWallTileTypeRemap[nRemapIndex][nWallIdx];
                 goto TileTypeChosen;
             }

@@ -87,9 +87,6 @@ extern "C" unsigned short gB27_007272E1;
 extern "C" B27UIAction gpfnResurrectMenuHandler;
 extern "C" unsigned int gB27_007272EF;
 extern "C" int gB27_007BCBF0;
-extern "C" int gB27_007BF298;
-extern "C" unsigned char gB27_007C025F;
-extern "C" unsigned int gbQuestPacketValue;
 extern "C" { B27RecordHandler gpfnRecordHandler; } // 0x00881834
 extern "C" unsigned int gnVirtualPlayerCount;
 
@@ -973,8 +970,14 @@ extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2Critical
 
 
 extern TMESSAGESOURCE gFaultHandlerList_0072FA14; // 0x0072FA14
-D2CriticalSectionStrc gtErrorHandlerLock; // 0x00881818
-extern int gbFaultHandlerListInitialized; // 0x00881830
+// The fault handler list's lock, and whether it has been initialised.
+struct D2FaultHandlerLockStrc
+{
+    D2CriticalSectionStrc tLock; // 0x00
+    int bInitialized; // 0x18
+};
+
+D2FaultHandlerLockStrc gtFaultHandlerLock; // 0x00881818
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" int __cdecl atexit(void (__cdecl* callback)()); // 0x00683824
 void sub_0051775A_FreeFaultHandlerList(); // 0x0051775A
@@ -982,22 +985,21 @@ void sub_0051775A_FreeFaultHandlerList(); // 0x0051775A
 // 0x0051775A
 void sub_0051775A_FreeFaultHandlerList()
 {
-    EnterCriticalSection(&gtErrorHandlerLock);
+    EnterCriticalSection(&gtFaultHandlerLock.tLock);
     gFaultHandlerList_0072FA14.Clear();
-    LeaveCriticalSection(&gtErrorHandlerLock);
-    DeleteCriticalSection(&gtErrorHandlerLock);
-    gbFaultHandlerListInitialized = 0;
+    LeaveCriticalSection(&gtFaultHandlerLock.tLock);
+    DeleteCriticalSection(&gtFaultHandlerLock.tLock);
+    gtFaultHandlerLock.bInitialized = 0;
 }
 
-int gbFaultHandlerListInitialized; // 0x00881830
 
 // Body of 0x00517788; 0x005177B2 carries it inlined.
 static __forceinline void InitFaultHandlerListInline()
 {
-    if (!gbFaultHandlerListInitialized) {
-        InitializeCriticalSection(&gtErrorHandlerLock);
+    if (!gtFaultHandlerLock.bInitialized) {
+        InitializeCriticalSection(&gtFaultHandlerLock.tLock);
         atexit(sub_0051775A_FreeFaultHandlerList);
-        gbFaultHandlerListInitialized = 1;
+        gtFaultHandlerLock.bInitialized = 1;
     }
 }
 
@@ -1014,17 +1016,16 @@ extern "C" int __cdecl atexit(void (__cdecl* callback)()); // 0x00683824
 void sub_0051775A_FreeFaultHandlerList(); // 0x0051775A
 
 extern D2StormListStrc gtFaultHandlerRecords_0072FA14; // 0x0072FA14
-extern int gbFaultHandlerListInitialized; // 0x00881830
 
 
 // 0x005177B2
 void __fastcall sub_005177B2_SetLoadStringFn(void* pfnLoadString)
 {
     InitFaultHandlerListInline();
-    EnterCriticalSection(&gtErrorHandlerLock);
+    EnterCriticalSection(&gtFaultHandlerLock.tLock);
     char* pNode = gtFaultHandlerRecords_0072FA14.sub_00517669_NewNode(1, 0, 0);
     *(void**)(pNode + 8) = pfnLoadString;
-    LeaveCriticalSection(&gtErrorHandlerLock);
+    LeaveCriticalSection(&gtFaultHandlerLock.tLock);
 }
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
@@ -1044,22 +1045,20 @@ struct D2MessageList {
  D2MessageLink* Link(char* node) {return node?(D2MessageLink*)(node+m_linkoffset):&m_terminator;}
  D2MessageNode* Head(){return m_terminator.Next();}
 };
-struct D2MessageLock {D2CriticalSectionStrc lock;int enabled;};
 extern D2MessageList gtMessages;  // 0x0072FA14
-extern D2MessageLock gMessageLock_00881818;  // 0x00881818
 extern "C" const char gszFaultError[];  // 0x006DEBCC
 // 0x00517804
 void __fastcall sub_00517804_GetMessage(unsigned int id,char* dest,unsigned int size) {
- if(gMessageLock_00881818.enabled) {
-  EnterCriticalSection(&gMessageLock_00881818.lock);
+ if(gtFaultHandlerLock.bInitialized) {
+  EnterCriticalSection(&gtFaultHandlerLock.tLock);
   D2MessageNode* p=gtMessages.Head();
   for(; (int)p>0; p=gtMessages.Link((char*)p)->m_next) {
    if(p->callback(id,dest,size)) {
-    LeaveCriticalSection(&gMessageLock_00881818.lock);
+    LeaveCriticalSection(&gtFaultHandlerLock.tLock);
     return;
    }
   }
-  LeaveCriticalSection(&gMessageLock_00881818.lock);
+  LeaveCriticalSection(&gtFaultHandlerLock.tLock);
  }
  SStrCopy(dest,gszFaultError,size);
 }

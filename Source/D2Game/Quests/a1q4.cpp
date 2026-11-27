@@ -252,7 +252,7 @@ extern "C" const char gszStartedQuest[];                                        
 
 int __fastcall sub_005936B0_UpdateParty(D2GameStrc*,D2UnitStrc*,void*); // 0x005936B0
 
-void __fastcall sub_00540510(D2GameStrc*,unsigned short,QUESTUNITITERATE,void*); // 0x00540510
+void __fastcall PARTY_IteratePartyMembers(D2GameStrc*,unsigned short,QUESTUNITITERATE,void*); // 0x00540510
 
 static inline int GetGUID(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
 
@@ -1393,7 +1393,7 @@ int __fastcall OBJECTS_OperateFunction09_Monolith(D2ObjOperateFnStrc* pOp,int nO
   pQuestInfo->dwFlags&=0xFFFFFF00;
   QUESTS_UnitIterate(pQuestInfo,4,pOp->hPlayer,ACT1Q4_UnitIterate_StatusCyclerEx,true);
   unsigned short nParty=SUNIT_GetPartyId(pOp->hPlayer);
-  if(nParty!=0xFFFF) sub_00540510(pOp->pGame,nParty,sub_005936B0_UpdateParty,0);
+  if(nParty!=0xFFFF) PARTY_IteratePartyMembers(pOp->pGame,nParty,sub_005936B0_UpdateParty,0);
   QUESTRECORD_SetQuestState(pFlags,4,4);
  }
  QUESTS_TriggerFX(pQuestInfo->pGame,1);
