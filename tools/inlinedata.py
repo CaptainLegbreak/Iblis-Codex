@@ -18,12 +18,15 @@ How the values are written:
                       bits; enums as casts of their value
   char arrays         string literals (embedded NULs as \\0, other control and high bytes as \\x escapes), braced
                       character constants where the array has no terminating NUL; wchar_t arrays as L"..."
-  pointers            &symbol / function names / string literals, as the plan resolves each relocation
-  anonymous blobs     gData_<VA> keeps its name; a blob without pointers becomes an unsigned char array, a blob of
-                      string pointers a const char* array, a blob of other pointers a const void* array; a blob
-                      that mixes bytes and pointers keeps its packed struct of byte runs and pointers
+  pointers            &symbol, &array[i], function names, string literals, as the plan resolves each relocation;
+                      casts only where the initialised type needs one
+  anonymous blobs     gData_<VA> keeps its name; a blob without pointers becomes an unsigned char array (a char
+                      string where it reads as text), a blob of string pointers a const char* array, a blob of other
+                      pointers a const void* array; a blob that mixes bytes and pointers keeps its packed struct of
+                      byte runs and pointers
 
-Each definition keeps its trailing `// 0x<VA>` marker. Definitions of the classes in EXCLUDED_* and the ranges of
+Each definition keeps its `// 0x<VA>` marker on the line that names it (the first line of a definition that spans
+lines, where the checker reads it). Definitions of the classes in EXCLUDED_* and the ranges of
 build/identity_plan.json (the PKWARE library, link stamps, the signature) and the resources are never written into
 source: they stay generated from your Game.exe, and the tool refuses to move them.
 
@@ -249,10 +252,17 @@ def lay(v, ind=0, lead=0):
 # ---------------------------------------------------------------------------------------------------------------
 # rendering, the same walk as gendata.render with readable leaves
 
-def plain_pointer(e, spell, chars):
+def plain_pointer(e, spell, chars, arrays=None):
     """gendata's pointer expression without the casts the initialised type does not need: a string literal or a char
-    array as a const char*, an object's address as a const void*."""
+    array as a const char*, an object's address as a const void*, an element of an array this file defines as
+    &array[i]."""
     sp = re.sub(r"\s+", "", spell or "")
+    m = re.match(r"^\((.+?)\)(?:\(\(char ?\*\)&(\w+) \+ (\d+)\)|&(\w+))$", e)
+    if m and arrays:
+        x = m.group(2) or m.group(4); off = int(m.group(3) or 0); am = arrays.get(x)
+        if am and sp.endswith("*") and sp[:-1] == re.sub(r"\s+", "", (am["elem"].get("name") or "")) \
+                and off % am["elem"]["size"] == 0 and off < am["size"]:
+            return "&%s[%d]" % (x, off // am["elem"]["size"])
     m = re.match(r'^\((?:const ?char ?\* ?(?:const)?|const ?void ?\* ?(?:const)?)\)(".*")$', e, re.S)
     if m and sp in ("constchar*", "charconst*", "constvoid*", "constchar*const", "constvoid*const"):
         return m.group(1)
@@ -267,12 +277,12 @@ def plain_pointer(e, spell, chars):
 
 class Rd:
 
-    def __init__(self, raw, relocs, sym, hexmode, chars=()):
-        self.raw, self.relocs, self.sym, self.hexmode, self.chars = raw, relocs, sym, hexmode, chars
+    def __init__(self, raw, relocs, sym, hexmode, chars=(), arrays=None):
+        self.raw, self.relocs, self.sym, self.hexmode, self.chars, self.arrays = raw, relocs, sym, hexmode, chars, arrays
 
     def ptr(self, off, spell, fn):
         e = self.sym(self.relocs[off], spell, fn)
-        return plain_pointer(e, spell, self.chars)
+        return plain_pointer(e, spell, self.chars, self.arrays)
 
     def value(self, m, off, names, in_arr=False):
         raw = self.raw; k = m["k"]; n = m["size"]
@@ -285,7 +295,7 @@ class Rd:
             if off in self.relocs:
                 if m["kind"] == "f":
                     raise Unreadable("relocation_in_float")
-                return self.sym(self.relocs[off], m["name"], False)
+                return plain_pointer(self.sym(self.relocs[off], m["name"], False), m["name"], self.chars, self.arrays)
             if m["kind"] == "f":
                 return G.float_lit(b)
             v = int.from_bytes(b, "little")
@@ -378,6 +388,19 @@ def symbols(r, img, fn_types):
     return sym
 
 
+def packed_init(raw, relocs, rd):
+    """The initialiser of gendata's packed struct of byte runs and pointers (bytes_form's fields, in order)."""
+    items = []; pos = 0; n = len(raw)
+    for r in sorted(relocs):
+        if r > pos:
+            items.append(Brace(trim(["0x%02X" % c for c in raw[pos:r]]), True))
+        items.append(rd.ptr(r, "const void*", False))
+        pos = r + 4
+    if pos < n:
+        items.append(Brace(trim(["0x%02X" % c for c in raw[pos:]]), True))
+    return lay(Brace(items, False))
+
+
 def strip_extern(head, name, ftext):
     """`extern T x = ` -> `T x = ` where that keeps the linkage: C++ linkage, an object that is not const, and no
     static declaration of it in the file."""
@@ -403,7 +426,7 @@ class Piece:
         self.name = r.get("cname") or r["name"]
 
 
-def readable(r, img, ent, ftext, gen, chars=()):
+def readable(r, img, ent, ftext, gen, chars=(), arrays=None):
     """(struct definition or None, forward declaration or None, definition text, how) for one record.
     gen is gendata's own (fwd, sdef, head, init, tail), the fallback."""
     fwd, sdef, head, init, tail = gen
@@ -417,7 +440,7 @@ def readable(r, img, ent, ftext, gen, chars=()):
         return None, fwd, definition(head, init, tail, va), "string"
     if "model" in r and r["form"] in ("declared", "declared_owner") or G.is_static(r):
         nm = [r["name"], r.get("type"), r["model"].get("name")]
-        v = Rd(raw, relocs, sym, False, chars).value(r["model"], 0, nm)
+        v = Rd(raw, relocs, sym, False, chars, arrays).value(r["model"], 0, nm)
         h = strip_extern(head, r["name"], ftext) if not G.is_static(r) else head
         return None, fwd, definition(h, esc(lay(v, 0, len(h) + 18)), tail, va), "typed"
     if r["form"] != "bytes":
@@ -426,7 +449,7 @@ def readable(r, img, ent, ftext, gen, chars=()):
     cst = "const " if r["region"] == "rdata" else ""
     if len(re.findall(r"\b%s\b" % re.escape(cname), ftext)) > 0:
         raise Unreadable("the file names %s itself" % cname)
-    rd = Rd(raw, relocs, sym, True, chars)
+    rd = Rd(raw, relocs, sym, True, chars, arrays)
     if not relocs:
         s = raw.rstrip(b"\0")
         if text_blob(img, r):
@@ -443,7 +466,8 @@ def readable(r, img, ent, ftext, gen, chars=()):
         decl = "%s%s%s %s%s[%d]" % (ec, et, " const" if cst else "", "", cname, n // 4)
         body = lay(Brace(trim(items), False), 0, len(decl) + 19)
         return None, decl + "; // 0x%08X" % va, definition(decl + " = ", esc(body), tail, va), "pointers"
-    return sdef, fwd, definition(head, init, tail, va), "packed"
+    init = packed_init(raw, relocs, rd)
+    return sdef, fwd, definition(head, esc(init), tail, va), "packed"
 
 
 def text_blob(img, r):
@@ -524,11 +548,14 @@ def inline_file(f, plan, img, guard, by):
     lines_in = set(x.strip() for x in text.splitlines())
     hows = collections.Counter()
     chars = char_arrays([dict(r, text=text_blob(img, r)) for r in move], ent.get("externs"))
+    # the one-dimensional arrays of structs or scalars this file now defines with their plan type
+    arrays = {r.get("cname") or r["name"]: r["model"] for r in move if r.get("model") and r["form"] != "bytes"
+              and r["model"]["k"] == "arr" and r["model"]["elem"]["k"] in ("struct", "prim") and r["model"]["elem"].get("name")}
     # statics: each in place of its own include line
     for r in [r for r in move if G.is_static(r)]:
         g = gen[r["va"]]
         try:
-            _, _, t, how = readable(r, img, ent, text, g, chars)
+            _, _, t, how = readable(r, img, ent, text, g, chars, arrays)
         except (Unreadable, G.NotRepresentable, G.Unresolved):
             t, how = definition(g[2], G.one_line(g[3]), g[4], int(r["va"], 16)), "generated form"
         hows[how] += 1
@@ -544,7 +571,7 @@ def inline_file(f, plan, img, guard, by):
         for r in main:
             g = gen[r["va"]]
             try:
-                sdef, fwd, t, how = readable(r, img, ent, text, g, chars)
+                sdef, fwd, t, how = readable(r, img, ent, text, g, chars, arrays)
             except (Unreadable, G.NotRepresentable, G.Unresolved):
                 sdef, fwd, t, how = g[1], g[0], definition(g[2], g[3], g[4], int(r["va"], 16)), "generated form"
             hows[how] += 1
