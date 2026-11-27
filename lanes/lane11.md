@@ -4,10 +4,10 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Ready
 
-- **lane11/names-d2game d5260ca9a, on main #476** (independent of names-d2client-2). Two commits:
-  1. different_identifier: 280 placeholder spellings whose definition has a real name take that name, everywhere (11 with their private placeholder declaration dropped, the unit already seeing the real one). 61 stay, their units failing with the new name.
-  2. placeholder: 86 data plan entries generated as gData_<VA> with an alias now define their declared name; 14 stay (their units fail with it).
-  Link debt, main #474 -> this branch (measured before the rebase onto #476, which changed no D2Game file): 30,700 -> 30,549. D2Game 6,555 -> 6,425 (different_identifier 885 -> 704, placeholder 520 -> 420; type_disagreement 2,700 -> 2,851 where a renamed declaration now matches the definition's name but not its type), D2Client 10,777 -> 10,757, D2Common 4,801 -> 4,800; no module rose. Audit guard against #476: no count rose. Full build on #476: VERIFIED tree 78427f5774ee4826da27b53d7ab0515f80e5445b, Game.exe identical, 14,927 / 14,927 placed, borrowed code 0, 0 not all equal.
+- **lane11/names-d2game-2 7680fb135, on main #478** (replaces names-d2game, which conflicted with #477; redone on #478 with the same lists). Two commits:
+  1. different_identifier: 280 placeholder spellings take their definition's name everywhere (4 with the unit's private placeholder declaration dropped); 61 stay, their units failing with the new name.
+  2. placeholder: 86 data plan entries generated as gData_<VA> now define their declared name; 14 stay.
+  Link debt, main #478 -> this branch: 27,112 -> 26,949. D2Game 5,384 -> 5,242 (different_identifier 904 -> 723, placeholder 560 -> 427; type_disagreement 2,704 -> 2,876 where the renamed declaration now matches the definition's name but not its type), D2Client 9,690 -> 9,670, D2Common 4,368 -> 4,367; no module rose. Audit guard against #478: no count rose. Full build: VERIFIED tree 86b85b611603812228b838e40a343c8e3a6fa7db, Game.exe identical, 14,927 / 14,927 placed, borrowed code 0, 0 not all equal.
 - **lane11/names-d2client-3 d1c184ce6, on main #478** (replaces names-d2client-2, held for the j230 conflicts; rebuilt on main: the first commit rebased clean, the data plan commit was redone with the same rule on #477's data plan). Two commits:
   1. different_identifier: 135 placeholder spellings take their definition's name everywhere (52 with the unit's private placeholder declaration dropped); 184 stay, their units failing with the new name.
   2. placeholder: 85 data plan entries generated as gData_<VA> now define their declared name; 38 stay.
@@ -15,6 +15,7 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Claimed
 
+- Fri Nov 27 07:11 PST 2026: check-in. names-d2game-2 posted on #478. Next: names-d2common on #478 (built once on #476; 18 spellings and 395 data plan names).
 - Fri Nov 27 06:24 PST 2026: check-in. names-d2client-3 posted on #478 (the board's rebase request). Rebasing names-d2game onto #478 next, then posting names-d2common.
 - Fri Nov 27 05:05 PST 2026: check-in. D2Common: of 59 placeholder spellings, the ones D2Common.h declares change how DATATBLS/ItemTbls.cpp compiles when renamed together (no single one does; the declaration-count effect), so this branch takes the 18 declared only in .cpp files; the D2Common.h group waits for lane 2/8's header work.
 - Fri Nov 27 04:47 PST 2026: check-in. names-d2game posted. Next: D2Common, then a second pass for the older non-placeholder spellings (ordinal names like D2COMMON_10476, FOG_FreeServerMemory) whose definitions have other names.
