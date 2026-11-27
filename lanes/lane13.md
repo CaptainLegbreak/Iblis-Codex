@@ -5,33 +5,9 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
-- Fri Nov 27 13:07 PST 2026: **lane13/split-objects-6** (55513b73f, on main ea8bf6333 = #486). It replaces split-objects-3, which was never merged; split-objects-4 and -5 were not verified and can be ignored. VERIFIED tree 5f6e75c87e1d5094489327167f92f3dfeae5d91e; Game.exe identical. Audit guard: no count rose.
-  - **It holds:**
-    - the five short-arrays commits;
-    - the eleven split-objects-2 commits;
-    - the twelve split-objects-3 commits below;
-    - three raw-offset commits: GAME_HandleKeyDown takes SMSGHANDLER_PARAMS; the CubeMain input/output linkers index D2CubeMainTxt (the private D2CubeInputItemStrc was D2CubeOutputItem's head); Window.cpp indexes gabLightCube[x][y][n];
-    - one commit keeping two retired externs in inv.cpp (gaNpcTabStates, gabColors_007BCAD8) unused. Removing them swaps a lea's registers in 0x00488B00 since #485.
-  - **The 12 commits.** Each global here was a second name over part of another object, or an object nothing defined:
-    - CelCmp.cpp's Config view over gbCmpCompressedDataMode and the two extension strings.
-    - gdwGlobal_007A0688 (gtLoadingTimer.dwLength), with the int gtLoadingTimer in Game_0044B7B0.cpp.
-    - gapAutomapCels[4] (four pointers before).
-    - gabInvHighlightColors[5] (two bytes and two other names before).
-    - gabSlots[6] (memset 6).
-    - gszFontLanguage[20] (strcpy of 7 bytes into [4]).
-    - Fog gnLogQueueCount (the log TSList's terminator; now `.Head()`; two stray definitions gone).
-    - gUniqueSelections[4096] (never defined).
-    - gtPacket2A's nActionType and nUnitId (g007C0D89 and gnPendingNpcActionUnitId were its fields).
-    - gatGamePalette[256] (never defined; ddCore.cpp's gabPaletteEntries[1] was entry 1).
-    - D2CMP gCmpTileCache's nMaxSize and pHeadB (gnSpriteCacheMaxMemory and gpCmpCacheEntries).
-    - D2Direct3D gaPerspectiveVertices[15] (never defined; also seen as a [5][3] grid struct 8 bytes in, as gaGrid, and as gVertex0/gtVertex1-3).
-  - **Counts, main #486 -> this:**
-    - data clusters: 38 -> 2; 15,090 -> 6,724 B.
-    - data_cluster: 2,436 / 324 -> 1,391 / 233.
-    - linkdebt total: 23,079 -> 21,972. D2Client 8,389 -> 7,681, D2Game 4,320 -> 4,303, D2Common 3,616 -> 3,603, D2Launch 1,145 -> 1,117, D2Direct3D 799 -> 708, D2Win 795 -> 773, Fog 529 -> 513, D2CMP 411 -> 373, D2Glide 341 -> 198, D2DDraw 137 -> 119, D2Hell 74 -> 61; no module rose.
-    - shortdata: 358 -> 363. The five new candidates are padding that no code references: 4 B after gaStateStack[4], 20 B after gaDrlgRoomTilePresetUnits[34], 4 B after gtLoadingTimer, 4 B after Items.cpp's static guard, and the bytes after gnTextColorA. No linkdebt reference lands in any candidate's room.
-  - **gapChatDlgControls (your #480 note):** it can't be typed without the cast. CONTROL_Create fills it as D2WinControlStrc*, ChatDlg.cpp walks it in three loops, and SMACK_Decode and SMACK_DeleteFile take D2WinSmackStrc*, so the two casts stay.
+
 ## Claimed
+- Fri Nov 27 13:56 PST 2026: check-in. split-objects-6 is in main (#488); cleared its Ready line. Data clusters on main are down to 2: the D2DataTablesStrc span (with lane 1 and Fable; field map at the end of this file) and the D3D smack slots 0x009897D4-F4, still waiting on the type question under Questions. Lane 13 has no other queued work. Send me the next item if there is one.
 - Fri Nov 27 13:25 PST 2026: check-in. Nothing new for lane 13 on the board. split-objects-6 is still Ready; main is #487 and the branch merges onto it with no conflicts. Still waiting on the D3D smack-slot type question.
 - Fri Nov 27 13:08 PST 2026: check-in. #487 landed without split-objects-6, and split-objects-6 still merges onto it with no conflicts. It stays Ready as posted; I'll rebuild on #487 if you want it rebased.
 - Fri Nov 27 13:07 PST 2026: check-in. split-objects-6 Ready (on #486). Waiting on the D3D smack-slot type question; the data-tables span is with lane 1 and Fable. Next: the rest of the raw-offset lines in my files.
