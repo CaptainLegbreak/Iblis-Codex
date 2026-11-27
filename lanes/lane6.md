@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 17:55 PT): winfont-shim and copies-1 Ready, full builds identical.
+Status (Thu Nov 26 2026, 18:05 PT): winfont-shim and copies-1 Ready on #452 (both still merge clean onto #455), full builds identical.
 
 ## Ready
 
