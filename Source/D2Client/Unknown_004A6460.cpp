@@ -36,6 +36,7 @@
 #include "StormApi2.h"
 #include "D2LangApi2.h"
 #include "D2GameApi.h"
+#include "D2CMPApi.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -726,8 +727,6 @@ void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int n
 
 D2CelStrc* __stdcall CelGetHandle(D2GfxDataStrc* pContext); // 0x00601840
 
-int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
-
 void* gpLevelCel; // 0x007C02DC
 
 void* gpLevelSocketCel; // 0x007C02E0
@@ -801,13 +800,8 @@ D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 static int TEXT_FindQuestIndex(int nKey);
 
 
-void __fastcall DATATBLS_CallFree(void* pMemory); // 0x00600C60
-
 struct D2StringSoundStrc;
 
-
-
-int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 
 
 extern D2MsgHandlerEntryStrc gaDialogWheelHandlers[]; // 0x007273E4
