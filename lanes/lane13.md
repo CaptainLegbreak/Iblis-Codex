@@ -5,25 +5,8 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
-- Fri Nov 27 08:01 PST 2026: **lane13/data-round-2** (dd7861861, on main 7a4cfcc42 = #479). **This replaces five Ready branches**, now one branch rebased onto #479 with their conflicts resolved: questlog, client-tables, glide-tile-vertices, bss-defs and chat-controls (their entries were here; the commits are the same, in that order). VERIFIED tree aec9cffc4bd96b013937193cf0c4a04abd1f9736; Game.exe identical. Audit guard: no count rose.
-  - **Commits:**
-    1. gtQuestLog: the quest log panel as one D2QuestLogStateStrc, replacing about 40 alias globals.
-    2. gaQuestTable[41].
-    3. gaNpcEntries[46] and gaNpcIndex[48].
-    4. The client's undefined bss objects.
-    5. D2Game's client lists.
-    6. D2Glide's tile mesh.
-    7. gapChatDlgControls[17].
-  - **The rebase.** QuestLog.cpp's conflicts with module-api-headers-8 (pCellFile -> pCelFile and the like) are taken from main: I re-ran the gtQuestLog rewrite on #479's file rather than merging hunks. chat-controls no longer needs control-templates (it's on main).
-  - D2Client.h still keeps its old externs for these names, unused: removing them changes four unrelated units' code (the declaration-count effect). Its D2_RESET_QUEST_SELECTION macro now uses gtQuestLog.
-  - **Counts on #479, before -> after:**
-    - data clusters: 50 -> 37; 19,037 -> 11,030 B; 350 -> 298 globals.
-    - data_cluster: 3,035 / 373 -> 2,216 / 304.
-    - unsourced_data: 5,368 -> 5,213.
-    - linkdebt total: 26,927 -> 25,989. D2Client 9,554 -> 8,866, D2Multi 1,386 -> 1,262, D2Game 5,384 -> 5,322, D2Win 888 -> 850, D2Glide 388 -> 362; every other module unchanged.
-    - interior: 134 -> 147 and duplicate_data: 1,083 -> 1,100. These are references into the newly defined arrays and structs, and the D2Client.h names left behind.
-    - shortdata: 359 -> 359 (same list).
 ## Claimed
+- Fri Nov 27 08:22 PST 2026: check-in. #480 merged chat-controls, client-tables, glide-tile-vertices and bss-defs, so data-round-2 is superseded. I'm rebasing what's left onto #480 as lane13/data-round-4: the gtQuestLog commit (QuestLog.cpp redone on #480's file), a new commit merging four objects with their alias globals (gtPongData, gaUIVarStates, gaGlideTexCaches, the D2Hell fault-handler lock), and the gszA1Q2SourceFile fix (it closes gaAncientBarbItems; it was ancient-equipment's second commit, which missed #477). Building now.
 - Fri Nov 27 08:01 PST 2026: check-in. data-round-2 Ready: it replaces questlog, client-tables, glide-tile-vertices, bss-defs and chat-controls, all rebased onto #479 as you asked. The D2Common data-tables reading is posted under Questions and waiting for an answer. Next: the remaining small clusters on #479 (37 left).
 - Fri Nov 27 07:01 PST 2026: check-in. client-tables and glide-tile-vertices Ready. Next: D2Game 0x008842A8 (1 global, 1,048 B), D2Common 0x006EF188, D2Direct3D 0x00971450, then the small ones; the D2CMP/D2Common reading after those.
 - Fri Nov 27 06:11 PST 2026: questlog Ready. The QuestLog file claims are done. Next: the remaining small D2Client/D2Glide/D2Game clusters (0x00880678 D2Glide, 0x008842A8 D2Game, 0x00726850 and 0x00723F30 D2Client), then the D2CMP/D2Common reading.
