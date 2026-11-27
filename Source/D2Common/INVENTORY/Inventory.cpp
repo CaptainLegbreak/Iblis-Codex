@@ -3598,7 +3598,7 @@ static void __stdcall INVENTORY_FillItemComponentGfxInfo(D2UnitStrc* unit, u8* f
 }
 
 // 0x0063DB80
-void __stdcall sub_0063DB80(int nUnused1, int nUnused2)
+void __stdcall sub_0063DB80_Nop(int nUnused1, int nUnused2)
 {
 }
 
@@ -3744,7 +3744,7 @@ static int __stdcall INVENTORY_CheckHandSlotPlacement(D2UnitStrc* pUnit, int nOt
 }
 
 // 0x0063E050
-void __stdcall sub_0063E050(int nUnused1, int nUnused2)
+void __stdcall sub_0063E050_Nop(int nUnused1, int nUnused2)
 {
 }
 
