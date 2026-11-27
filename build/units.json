@@ -35716,7 +35716,7 @@
     {
      "va": "0x00513B80",
      "length": 3,
-     "name": "sub_00513B80"
+     "name": "sub_00513B80_AlwaysZero"
     },
     {
      "va": "0x00513B90",
@@ -35731,7 +35731,7 @@
     {
      "va": "0x00513BB0",
      "length": 6,
-     "name": "sub_00513BB0"
+     "name": "sub_00513BB0_GetValue"
     }
    ]
   },
@@ -36923,7 +36923,7 @@
     {
      "va": "0x00520C40",
      "length": 6,
-     "name": "sub_00520C40"
+     "name": "sub_00520C40_AlwaysOne"
     },
     {
      "va": "0x00520C50",
@@ -37006,7 +37006,7 @@
     {
      "va": "0x005210E0",
      "length": 6,
-     "name": "sub_005210E0"
+     "name": "sub_005210E0_AlwaysOne"
     },
     {
      "va": "0x005210F0",
@@ -37784,7 +37784,7 @@
     {
      "va": "0x00520650",
      "length": 6,
-     "name": "sub_00520650"
+     "name": "sub_00520650_GetInfoText"
     },
     {
      "va": "0x00521B00",
@@ -40692,7 +40692,7 @@
     {
      "va": "0x0052B910",
      "length": 5,
-     "name": "sub_0052B910"
+     "name": "sub_0052B910_GetLastError"
     }
    ]
   },
@@ -40741,7 +40741,7 @@
     {
      "va": "0x0052BDC0",
      "length": 6,
-     "name": "sub_0052BDC0"
+     "name": "sub_0052BDC0_GetValue"
     },
     {
      "va": "0x0052BDD0",

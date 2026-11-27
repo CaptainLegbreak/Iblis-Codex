@@ -913,7 +913,7 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMillisecon
 
 unsigned long gdwLastClientsUpdateTick;                                                                               // 0x00883D5C
 
-int __cdecl sub_0052B910();                                                                                 // 0x0052B910
+int __cdecl sub_0052B910_GetLastError();                                                                                 // 0x0052B910
 
 
 D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetHead(D2ClientStrc* pClient);                         // 0x005392E0
@@ -2681,7 +2681,7 @@ static void __stdcall GAME_SendClientPackets(D2GameStrc* ptGame, int bSyncPlayer
         }
         else
         {
-            sub_0052B910();
+            sub_0052B910_GetLastError();
             bError = 1;
             ++ptClient->nSaveHeaderSendFailures;
             CLIENTS_PacketDataList_Reset(ptClient, pPacketData);

@@ -2026,7 +2026,7 @@ ShowLevel:
             if (nLevel > 0)
             {
                 memset(wszText, 0, sizeof(wszText));
-                sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(5017), nLevel);
+                sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(5017), nLevel);
                 D2COMP_AddHoverTextLine(wszText, lines, &nCount, &nWidth, &nHeight);
 
                 if (pCompositeUnit->dwFlags & gdwBitMasks[5])

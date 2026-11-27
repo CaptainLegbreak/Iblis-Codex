@@ -4,7 +4,7 @@
 struct Unicode;
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
+void __cdecl sub_005269D0_FormatText(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 char* __fastcall UNICODE_ToAscii(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 char* __fastcall UNICODE_ToUtf8(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0

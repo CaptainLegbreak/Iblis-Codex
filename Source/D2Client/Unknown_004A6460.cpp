@@ -1874,11 +1874,11 @@ static void TEXT_DrawBlockChanceHover(int nX, int nY, int nValue)
 
     if (nLevel)
     {
-        sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2779), nLevel, nValue, D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
+        sub_005269D0_FormatText(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2779), nLevel, nValue, D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
     }
     else
     {
-        sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2778), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
+        sub_005269D0_FormatText(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2778), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
     }
 
     D2Win_10132(wszText, gnPanelOffsetX + 0x8B, gnScreenHeight + gnPanelOffsetY - 0x13B, gnTextColor, 2, 0);
@@ -2403,7 +2403,7 @@ static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, i
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInl(SELECT_GetHoverMonClassId());
     D2_ASSERT(pMonStatsTxtRecord, 0xEC);
 
-    sub_005269D0(0x80, (Unicode*)aText, D2LANG_GetStringFromTblIndex(0x2777), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
+    sub_005269D0_FormatText(0x80, (Unicode*)aText, D2LANG_GetStringFromTblIndex(0x2777), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
     D2Win_10117_DrawText((Unicode*)aText, gaHoverBoxes[nIndex].nTextX + gnPanelOffsetX, gaHoverBoxes[nIndex].nTextY + gnPanelOffsetY + gnScreenHeight - 480, 0, 0);
 }
 

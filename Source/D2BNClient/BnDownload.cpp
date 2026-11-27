@@ -1981,7 +1981,7 @@ extern "C" int __fastcall BNDOWNLOAD_GetReplyValue(unsigned char nSlot)
 }
 
 // 0x00520C40
-int __cdecl sub_00520C40()
+int __cdecl sub_00520C40_AlwaysOne()
 {
     return 1;
 }
@@ -2221,7 +2221,7 @@ int __fastcall BNDOWNLOAD_HandleGetAdvListEx(const void* pData, unsigned int nSi
 }
 
 // 0x005210E0
-int __cdecl sub_005210E0()
+int __cdecl sub_005210E0_AlwaysOne()
 {
     return 1;
 }

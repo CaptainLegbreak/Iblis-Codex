@@ -1062,7 +1062,7 @@ extern D2MenuListStrc* gpMenuList; // 0x007795C0
 
 int __stdcall MAINMENUS_PollCharLogon(int nArg); // 0x00432FE0
 
-int __cdecl sub_0043BF60(); // 0x0043BF60
+int __cdecl sub_0043BF60_ConnectToBattleNet(); // 0x0043BF60
 
 
 
@@ -3204,7 +3204,7 @@ void __cdecl MAINMENUS_ShowCurrentGateway()
     for (int i = 0; i < 0x100; ++i)
         wszOut[i].wChar = 0;
     memset(wszOut, 0, 0x100);
-    sub_005269D0(0x100, wszOut, wszFormat, wszText);
+    sub_005269D0_FormatText(0x100, wszOut, wszFormat, wszText);
 
     for (int i = 0; i < UNICODE_StrLen(wszOut); ++i)
     {
@@ -4833,7 +4833,7 @@ int __fastcall MAINMENUS_JoinGame(const char* szGameName, unsigned short wFlags,
         if (!gpFuncTable->pfnSlot68())
         {
             CHARSEL_CreateBaseScreen();
-            if (!sub_0043BF60())
+            if (!sub_0043BF60_ConnectToBattleNet())
                 return 0;
             if (!CHARSEL_Connect(gpLaunchRecord, 0, 0))
                 return 0;
@@ -4921,7 +4921,7 @@ int __fastcall MAINMENUS_JoinGame(const char* szGameName, unsigned short wFlags,
                 Unicode wszName[256];
                 sub_00526F20_ToUnicode(wszName, gpLaunchRecord->szJoinGameName, 256);
                 D2MCPClientCloseMCP();
-                sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0x2B89), wszName);
+                sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(0x2B89), wszName);
                 MAINMENUS_DestroyControls();
                 void* pSaved = gpGlobal_0070B738;
                 gpGlobal_0070B738 = gaGlobal_007089C4;
@@ -5177,7 +5177,7 @@ void __cdecl MAINMENUS_ShowLoginScreen()
     if (bConnected)
         CHARSEL_DisconnectBattleNet();
     MAINMENUS_ShowMainMenu();
-    if (!sub_0043BF60())
+    if (!sub_0043BF60_ConnectToBattleNet())
         return;
 create:
     gpAccountEdit = 0;
@@ -5602,7 +5602,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
                 Unicode wszText[256];
                 Unicode wszName[256];
                 sub_00526F20_ToUnicode(wszName, gpLaunchRecord->szCharName, 256);
-                sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0x2B33), wszName);
+                sub_005269D0_FormatText(256, wszText, D2LANG_GetStringFromTblIndex(0x2B33), wszName);
                 MAINMENUS_ShowText(wszText, MAINMENUS_CreateCharCreateScreen);
                 return;
             }
