@@ -63434,7 +63434,7 @@
     {
      "va": "0x00619DA0",
      "length": 76,
-     "name": "?DUNGEON_FindRoomBySubtileCoordinates@@YGPAUD2ActRoom00619DA0Strc@@PAUD2Act00619DA0Strc@@HH@Z"
+     "name": "?DUNGEON_FindRoomBySubtileCoordinates@@YGPAUD2ActiveRoomStrc@@PAUD2DrlgActStrc@@HH@Z"
     },
     {
      "va": "0x00619DF0",
