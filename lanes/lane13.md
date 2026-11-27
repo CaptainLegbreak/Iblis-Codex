@@ -5,31 +5,20 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
-- Fri Nov 27 09:15 PST 2026: **lane13/short-arrays-2** (8b3b0aeff, on lane13/data-round-4 9cd9f6df2: take after it). VERIFIED tree bdd92b2ed61b98249e9cd0850f3a338a79e234cd; Game.exe identical. Audit guard: no count rose. Two commits:
-  - **Eight arrays get their real lengths.** Each was declared [1] or too short and is indexed past that end into room no other global uses: `gapRowControls[8]` (D2Launch), `gaStateStack[4]` (all three copies), `gszClientCharName[16]`, `gapAiTargets[8]`, `gaWeatherPhaseOffset[4]`, `gaWeatherPhaseRange[4]`, `gabAutomapColors[12]`, `gabBeltHotkey[4]`.
-  - **D2Glide's `gtGlideTileTexInfo` and `gtGlideFloorTexInfo` are whole 20-byte D2GrTexInfoStrc.** nFormat and pData were 8-byte gData_ runs after each (both sourced records). The plan and the source each now hold one initializer, and the runs are gone.
-  - **Counts, data-round-4 -> this:**
-    - data clusters: 33 -> 24; 10,610 -> 10,423 B; 287 -> 274 globals.
-    - data_cluster: 1,898 / 293 -> 1,754 / 282.
-    - linkdebt total: 25,368 -> 25,245. D2Client 8,629 -> 8,548, D2Launch 1,221 -> 1,185, D2Glide 227 -> 221; no module rose.
-    - shortdata: 359 -> 360. gData_006E1BB0 leaves; two candidates come in:
-      - gszA1Q2SourceFile, whose room is the string literals after it;
-      - gaStateStack[4], with 4 unreferenced bytes after it.
-- Fri Nov 27 08:58 PST 2026: **lane13/data-round-4** (9cd9f6df2, on main 1e8be2463 = #480). VERIFIED tree 2157182e641a485cfae04ae67e271efc58f0ab35; Game.exe identical. Audit guard: no count rose. What #480 didn't take, rebased:
-  1. **gtQuestLog** (the questlog branch). QuestLog.cpp is re-derived on #480's file, and its conflicts with #479's headers are taken from main.
-  2. **Four objects merged with the globals that alias their fields:**
-     - `gtPongData`: its last three words were inv.cpp's gdwEncodedName0/1 and gdwEncodedOffset. The struct is now in D2PongData.h with those field names.
-     - `gaUIVarStates[0x26]`: gnPanelState and gbMiniPanel were entries 0x0A and 0x15. They now read `gaUIVarStates[UIVAR_PANEL / UIVAR_MINIPANEL]`.
-     - D2Glide's `gaGlideTexCaches`: the three texture caches start at 0x0087F068. The old base, 0x0087F048, made entry 0 an unused fourth entry lying over the end of gatGlideSpriteVertices. It is now [3], indexed by cache id - 1.
-     - D2Hell's fault-handler lock: gtErrorHandlerLock, gbFaultHandlerListInitialized and gMessageLock_00881818 are one struct, `gtFaultHandlerLock { tLock, bInitialized }`.
-  3. inv.cpp includes D2PongData.h where its old globals stood. At the top of the file the include changes 0x00488100's code (the declaration-count effect).
-  4. **gszA1Q2SourceFile's whole string.** This was ancient-equipment's second commit, which missed #477. It removes gaAncientBarbItems, the 0x006E1BB0 read-back item you list as open.
-  - **Counts on #480, before -> after:**
-    - data clusters: 38 -> 33; 15,090 -> 10,610 B; 314 -> 287 globals.
-    - data_cluster: 2,436 / 324 -> 1,898 / 293.
-    - linkdebt total: 25,985 -> 25,368. D2Client 9,102 -> 8,629, D2Glide 358 -> 227, D2Hell 74 -> 61; no module rose.
-    - shortdata: 359 -> 359.
+- Fri Nov 27 09:32 PST 2026: **lane13/short-arrays-3** (5def82584, on main 84bca3bea = #482). It replaces data-round-4 and short-arrays-2, rebased together. VERIFIED tree bdfb7b4e4861f1e38bb3f35ce249bcb7919ee71a; Game.exe identical. Audit guard: no count rose. Five commits:
+  - **gtQuestLog** is one D2QuestLogStateStrc (pack(1), 0xFDC).
+  - **Four objects merged** with the globals that alias their fields: gtPongData, gaUIVarStates, gaGlideTexCaches[3] and the D2Hell fault-handler lock.
+  - **inv.cpp** includes D2PongData.h where its old globals stood.
+  - **Eight arrays get their real lengths:** gapRowControls[8], gaStateStack[4], gszClientCharName[16], gapAiTargets[8], gaWeatherPhaseOffset/Range[4], gabAutomapColors[12], gabBeltHotkey[4].
+  - **D2Glide's two textures:** gtGlideTileTexInfo and gtGlideFloorTexInfo are whole 20-byte GrTexInfo structs.
+  - The gszA1Q2SourceFile commit is dropped; #481 already made the same fix.
+  - **Counts, main -> this:**
+    - data clusters: 38 -> 24; 15,090 -> 10,423 B.
+    - data_cluster: 2,436 / 324 -> 1,754 / 282.
+    - linkdebt total: 25,448 -> 24,708. D2Client 9,102 -> 8,548, D2Launch 1,221 -> 1,185, D2Glide 358 -> 221; no module rose.
+    - shortdata: 358 -> 359. The new candidate is gaStateStack[4], with 4 unreferenced bytes after it.
 ## Claimed
+- Fri Nov 27 09:32 PST 2026: check-in. Cleared data-round-4 and short-arrays-2. Both are now in short-arrays-3, rebased onto #482. Next: the remaining small clusters, one at a time.
 - Fri Nov 27 09:15 PST 2026: check-in. short-arrays-2 Ready, stacked on data-round-4. Still no answer on the D2Common data-tables reading. 24 clusters left with both. The rest are aliases of one object under different types (D3D vertices, gatGamePalette, gapAutomapCels, gtLoadingTimer, gtPacket2A) or need the packet's real layout. Taking them one at a time next.
 - Fri Nov 27 08:58 PST 2026: check-in. data-round-4 Ready. The D2Common data-tables reading under Questions has no answer yet, so I'm leaving that cluster alone. Next: the small clusters left on #480 (33 with data-round-4).
 - Fri Nov 27 08:22 PST 2026: check-in. #480 merged chat-controls, client-tables, glide-tile-vertices and bss-defs, so data-round-2 is superseded. I'm rebasing what's left onto #480 as lane13/data-round-4: the gtQuestLog commit (QuestLog.cpp redone on #480's file), a new commit merging four objects with their alias globals (gtPongData, gaUIVarStates, gaGlideTexCaches, the D2Hell fault-handler lock), and the gszA1Q2SourceFile fix (it closes gaAncientBarbItems; it was ancient-equipment's second commit, which missed #477). Building now.
