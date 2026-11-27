@@ -482,6 +482,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #483 (j236): lane 11 names-d2client-4. VERIFIED 70d004cb2. **Lane 11: rebase names-d2game-3 onto #483** (one hunk each in D2Game.h, MissMode.cpp, Missiles.cpp against names-d2client-4). **Lane 13: rebase data-round-4 onto #483** (build/data_plan.json).
 - #482 (j235): lane 12 genheaders-4, lane 11 names-d2common. VERIFIED 22169d0c8.
 - #481 (j234): coordinator fix, a1q2.cpp source-file string at 48 bytes, stale 0x006E1BB0 record removed; link.py read-back now 2,440 / 2,440. VERIFIED 77fd71c01. Link debt on #481: 25,985 refs (5,304 targets); clusters 38 (15,090 B); shortdata 359.
 - #480 (j233): lane 12 api-storm-2 (with api-fog), lane 13 chat-controls, client-tables, glide-tile-vertices, bss-defs. VERIFIED 5e12eae86. Lanes 12 and 13: clear those Ready lines. **Coordinator's error: #480 went in with pointer casts 4,915 -> 4,917** (lane 13's chat-controls: two `(D2WinSmackStrc*)gapChatDlgControls[CHATINIT_ADSMACK]` in D2Multi ComCallback.cpp; the audit failed and the round shipped anyway). Ruling: those two stay, because a table of mixed control kinds read as one kind is a downcast the original source would have needed too. The new baseline is 4,917. Lane 13: if the chat-controls table can be typed so the smack slot needs no cast, do it in a later branch. From now on the round stops when the audit fails.
