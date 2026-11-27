@@ -14456,7 +14456,7 @@
   ["0x00677790", 52, "verified", "?DRLGOUTPLACE_CreateAct2LevelConnections@@YAXPAUD2DrlgStrc@@@Z"],
   ["0x006777D0", 160, "verified", "?DRLGOUTPLACE_OffsetByDirection@@YGXPBUD2PosStrc@@HHHPAUD2OffsetPosStrc@@@Z"],
   ["0x00677870", 12, "verified"],
-  ["0x00677880", 4232, "unmatched"],
+  ["0x00677880", 4232, "verified"],
   ["0x00678910", 146, "verified", "DRLGOUTPLACE_PlaceKurastLevels"],
   ["0x006789B0", 102, "verified"],
   ["0x00678A20", 71, "verified", "?DRLGOUTPLACE_CreateAct4LevelConnections@@YAXPAUD2DrlgStrc@@@Z"],

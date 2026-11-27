@@ -1549,11 +1549,14 @@ static D2DrlgLevelStrc* DRLG_GenerateJungles(D2DrlgLevelStrc* pLevel);
 
 static D2DrlgLevelStrc* DRLG_GenerateJungles(D2DrlgLevelStrc* pLevel); // 0x00677880
 
+// 0x00677880
 static D2DrlgLevelStrc* DRLG_GenerateJungles(D2DrlgLevelStrc* pLevel)
 {
     D2LevelDefBin* pLevelDef = DATATBLS_GetLevelDefRecord(LEVEL_SPIDERFOREST);
     int nIdx = 1;
     D2DrlgStrc* pDrlg = pLevel->pDrlg;
+    int x = 0;
+    int y = 0;
     void* pMemPool = pDrlg->pMempool;
     int nSizeX = pLevelDef->dwSizeX[pDrlg->nDifficulty];
     int nSizeY = pLevelDef->dwSizeY[pDrlg->nDifficulty];
@@ -1613,8 +1616,6 @@ static D2DrlgLevelStrc* DRLG_GenerateJungles(D2DrlgLevelStrc* pLevel)
     D2_ASSERT((nMaxX - nMinX) % 32 == 0, 0x64D);
     D2_ASSERT((nMaxY - nMinY) % 32 == 0, 0x64E);
 
-    int x;
-    int y;
     int nColumnSize;
     int nW = (nMaxX - nMinX) / 32 + 2;
     int nH = (nMaxY - nMinY) / 32 + 2;
@@ -1643,7 +1644,12 @@ RESTART:
         int bOffset;
         if (nJ == 0)
         {
-            bOffset = SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 2);
+            D2SeedStrc* pSeed = &pDrlg->pSeed;
+            unsigned int nHighSeed = pSeed->nHighSeed;
+            unsigned __int64 lSeed = nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+            pSeed->nLowSeed = (unsigned int)lSeed;
+            pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+            bOffset = (unsigned int)lSeed & 1;
         }
         else
         {
@@ -1653,7 +1659,7 @@ RESTART:
         int nAttach;
         do
         {
-            for (int y = 0; y < nBlocksY; y++)
+            for (y = 0; y < nBlocksY; y++)
             {
                 for (int x = 0; x < nBlocksX; x++)
                 {
@@ -1700,7 +1706,7 @@ RESTART:
             while (y >= nBY)
             {
                 const int nRow = nW * y;
-                pPreset1[x + nRow] = (nJ + 1) * 100 + nStep;
+                pPreset1[nW * y + x] = (nJ + 1) * 100 + nStep;
                 ++nStep;
 
                 if (nColumnSize == 0 || y == nBY || SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 3))
@@ -1734,26 +1740,25 @@ RESTART:
         }
         while (nAttach < 2);
 
-        int nCount = nAttach;
-        while (nCount > 3)
+        while (nAttach > 3)
         {
             unsigned int nRemove;
-            SEED_ROLL_LIMITED(&pDrlg->pSeed, nCount, nRemove);
+            SEED_ROLL_LIMITED(&pDrlg->pSeed, nAttach, nRemove);
             int bFinished = 0;
-            nColumnSize = 0;
-            for (int y = 0; y < nBlocksY && !bFinished; y++)
+            int nFound = 0;
+            for (y = 0; y < nBlocksY && !bFinished; y++)
             {
-                for (int x = 0; x < nBlocksX && !bFinished; x++)
+                for (x = 0; x < nBlocksX && !bFinished; x++)
                 {
                     if (pPreset2[(nBY + y) * nW + nBX + x] == 2)
                     {
-                        if (nRemove == nColumnSize)
+                        if (nRemove == nFound)
                         {
                             pPreset2[(nBY + y) * nW + nBX + x] = 0;
                             bFinished = 1;
-                            --nCount;
+                            --nAttach;
                         }
-                        ++nColumnSize;
+                        ++nFound;
                     }
                 }
             }
@@ -1858,7 +1863,7 @@ RESTART:
 
             const int nP0 = pPreset0[y * nW + x];
             int nLevelPreset = pLevelPresetId[y * nW + x];
-            nColumnSize = SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 4);
+            int nDirection = SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 4);
             const int bHadNoPreset = nLevelPreset == 0;
             if (pPreset2[y * nW + x] == 2)
             {
@@ -1866,7 +1871,7 @@ RESTART:
                 int bLook = 1;
                 for (; nJ < 4 && bLook; nJ++)
                 {
-                    switch ((nColumnSize + nJ) % 4)
+                    switch ((nDirection + nJ) % 4)
                     {
                     case 0:
                         if (pPreset0[(y - 1) * nW + x] == nP0 && pLevelPresetId[(y - 1) * nW + x] && pLevelPresetId[(y - 1) * nW + x] < 15)
@@ -1910,7 +1915,7 @@ RESTART:
                     bLook = 1;
                     for (; nJ < 4 && bLook; nJ++)
                     {
-                        switch ((nColumnSize + nJ) % 4)
+                        switch ((nDirection + nJ) % 4)
                         {
                         case 0:
                             if (pPreset0[(y - 1) * nW + x] != nP0 && pPreset2[(y - 1) * nW + x] == 2)
@@ -1944,11 +1949,11 @@ RESTART:
                     }
 
                     bLook = SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 2) != 0 && bLook;
-                    nColumnSize = SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 4);
+                    nDirection = SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 4);
 
                     for (nJ = 0; nJ < 4 && bLook; nJ++)
                     {
-                        switch ((nColumnSize + nJ) % 4)
+                        switch ((nDirection + nJ) % 4)
                         {
                         case 0:
                             if (pLevelPresetId[(y - 1) * nW + x] && pLevelPresetId[(y - 1) * nW + x] < 15 && !(nLevelPreset & 0x80))
@@ -2012,7 +2017,7 @@ RESTART:
         {
             const int nId = pLevelPresetId[y * nW + x];
             int nPDef = nId % 16;
-            if (nPDef != 0)
+            if (nId % 16 != 0)
             {
                 if (nId >= 16)
                 {
@@ -2036,7 +2041,7 @@ RESTART:
                 }
                 else
                 {
-                    nPDef += 0x211;
+                    nPDef = nId % 16 + 0x211;
                 }
             }
             else if (nId >= 16)
@@ -2072,6 +2077,7 @@ RESTART:
         bSwapped = 0;
         for (nJ = 0; nJ < 2; nJ++)
         {
+            tJungles[nJ + 1].tCoord.nY = tJungles[nJ + 1].tCoord.nY;
             if (tJungles[nJ + 1].tCoord.nY > tJungles[nJ].tCoord.nY)
             {
                 D2JungleStrc tTemp = tJungles[nJ + 1];
