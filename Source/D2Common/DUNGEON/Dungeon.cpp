@@ -77,10 +77,6 @@ struct D2DrlgCoordsStrc;
 
 union D2SeedStrc;
 
-struct D2ActRoom00619DA0Strc;
-
-struct D2Act00619DA0Strc;
-
 
 struct Unicode;
 
@@ -189,23 +185,6 @@ typedef char sub_G03_AssertActPool[(int)&((D2DrlgActStrc*)0)->pMemPool == 0x5C ?
 
 
 void __fastcall DRLGROOM_SetRoom(D2DrlgRoomStrc* pDrlgRoom, D2ActiveRoomStrc* pRoom); // 0x0066BFC0
-
-struct D2ActRoom00619DA0Strc
-{
-    unsigned char unk_00[0x4C];
-    int nX4C;
-    int nY50;
-    int nWidth54;
-    int nHeight58;
-    unsigned char unk_5C[0x7C - 0x5C];
-    D2ActRoom00619DA0Strc* pNext7C;
-};
-
-struct D2Act00619DA0Strc
-{
-    unsigned char unk_00[0x10];
-    D2ActRoom00619DA0Strc* pFirstRoom10;
-};
 
 
 
@@ -651,15 +630,16 @@ void __stdcall DUNGEON_GetRGB_IntensityFromRoom(D2ActiveRoomStrc* pRoom, unsigne
 }
 
 // 0x00619DA0
-D2ActRoom00619DA0Strc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2Act00619DA0Strc* pAct, int nX, int nY)
+D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY)
 {
     if (!pAct)
     {
         return 0;
     }
-    for (D2ActRoom00619DA0Strc* pRoom = pAct->pFirstRoom10; pRoom; pRoom = pRoom->pNext7C)
+    for (D2ActiveRoomStrc* pRoom = pAct->pRoom; pRoom; pRoom = pRoom->pRoomNext)
     {
-        if (pRoom && nX >= pRoom->nX4C && nX < pRoom->nX4C + pRoom->nWidth54 && nY >= pRoom->nY50 && nY < pRoom->nY50 + pRoom->nHeight58)
+        if (pRoom && nX >= pRoom->tCoords.nSubtileX && nX < pRoom->tCoords.nSubtileX + pRoom->tCoords.nSubtileWidth
+            && nY >= pRoom->tCoords.nSubtileY && nY < pRoom->tCoords.nSubtileY + pRoom->tCoords.nSubtileHeight)
         {
             return pRoom;
         }

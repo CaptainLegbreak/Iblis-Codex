@@ -24,10 +24,6 @@ struct D2DrlgStrc;
 
 struct D2DrlgTableRefStrc;
 
-struct D2Entry0061B7E0Strc;
-
-struct D2Owner0061B7E0Strc;
-
 struct D2ColorRecordStrc;
 
 struct D2DrlgTableRefStrc
@@ -43,24 +39,6 @@ void __fastcall DRLGACTIVATE_RoomExPropagateUnsetStatus(D2DrlgRoomStrc* pDrlgRoo
 
 void __fastcall DRLGROOM_InitNearRooms(void* pContext, D2DrlgRoomStrc* pNode); // 0x0066C370
 
-
-struct D2Entry0061B7E0Strc
-{
-    unsigned char unk_00[0x1C];
-    D2Entry0061B7E0Strc* pSelf1C;
-    unsigned char unk_20[0x10];
-    int nValue30;
-    unsigned char unk_34[0x10];
-    unsigned char nIndex44;
-    unsigned char unk_45[0xA3];
-    D2Entry0061B7E0Strc* pSelfE8;
-};
-
-struct D2Owner0061B7E0Strc
-{
-    unsigned char unk_00[0xA0];
-    D2Entry0061B7E0Strc pEntries[4];
-};
 
 struct D2ColorRecordStrc
 {
@@ -522,15 +500,15 @@ D2ActiveRoomStrc* __fastcall DRLGACTIVATE_StreamRoomAtCoords(D2DrlgStrc* pDrlg, 
 }
 
 // 0x0061B7E0
-void __fastcall DRLGACTIVATE_InitializeRoomExStatusLists(D2Owner0061B7E0Strc* pOwner)
+void __fastcall DRLGACTIVATE_InitializeRoomExStatusLists(D2DrlgStrc* pDrlg)
 {
     unsigned int i;
-    D2Entry0061B7E0Strc* pEntry;
-    for (i = 0, pEntry = pOwner->pEntries; i < 4; ++i, ++pEntry)
+    D2DrlgRoomStrc* pDrlgRoomStatusList;
+    for (i = 0, pDrlgRoomStatusList = pDrlg->tStatusRoomsLists; i < 4; ++i, ++pDrlgRoomStatusList)
     {
-        pEntry->nIndex44 = (unsigned char)i;
-        pEntry->pSelf1C = pEntry;
-        pEntry->pSelfE8 = pEntry;
+        pDrlgRoomStatusList->fRoomStatus = (unsigned char)i;
+        pDrlgRoomStatusList->pStatusNext = pDrlgRoomStatusList;
+        pDrlgRoomStatusList->pStatusPrev = pDrlgRoomStatusList;
     }
 }
 
@@ -558,37 +536,31 @@ D2ActiveRoomStrc* __fastcall DRLGACTIVATE_GetARoomInClientSight(D2DrlgStrc* pDrl
 }
 
 
-static inline D2Entry0061B7E0Strc* sub_0061B870_GetFirst(D2Owner0061B7E0Strc* pOwner, unsigned char nIndex)
+static inline int DRLGACTIVATE_RoomExHasStatus(D2DrlgRoomStrc* pDrlgRoom, int nStatus)
 {
-    if (pOwner->pEntries[nIndex].pSelf1C != &pOwner->pEntries[nIndex])
-    {
-        return pOwner->pEntries[nIndex].pSelf1C;
-    }
-    return 0;
-}
-
-static inline int sub_0061B870_IsListHead(D2Owner0061B7E0Strc* pOwner, D2Entry0061B7E0Strc* pNext, unsigned char nIndex)
-{
-    return pNext == &pOwner->pEntries[nIndex];
-}
-
-static inline int sub_0061B870_IsStatus(D2Entry0061B7E0Strc* pEntry, int nStatus)
-{
-    if (pEntry->nIndex44 == nStatus)
+    if (pDrlgRoom->fRoomStatus == nStatus)
     {
         return 1;
     }
     return 0;
 }
 
-// 0x0061B870
-int __fastcall DRLGACTIVATE_GetNextValue(D2Owner0061B7E0Strc* pOwner, D2Entry0061B7E0Strc* pEntry)
+static inline int DRLGACTIVATE_IsStatusListHead(D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus)
 {
-    unsigned char nIndex = pEntry->nIndex44;
-    D2Entry0061B7E0Strc* pNext = pEntry->pSelf1C;
-    if (sub_0061B870_IsStatus(pEntry, 0) && sub_0061B870_IsListHead(pOwner, pNext, nIndex))
-        pNext = sub_0061B870_GetFirst(pOwner, 1);
-    return pNext ? pNext->nValue30 : 0;
+    return pDrlgRoom == &pDrlg->tStatusRoomsLists[nStatus];
+}
+
+// 0x0061B870
+D2ActiveRoomStrc* __fastcall DRLGACTIVATE_GetARoomInSightButWithoutClient(D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoom)
+{
+    const unsigned char nStatus = pDrlgRoom->fRoomStatus;
+    D2DrlgRoomStrc* pNextStatusRoom = pDrlgRoom->pStatusNext;
+    if (DRLGACTIVATE_RoomExHasStatus(pDrlgRoom, 0) && DRLGACTIVATE_IsStatusListHead(pDrlg, pNextStatusRoom, nStatus))
+    {
+        pNextStatusRoom = DRLGACTIVATE_RoomExStatusList_GetFirst(pDrlg, 1);
+    }
+
+    return pNextStatusRoom ? pNextStatusRoom->pRoom : 0;
 }
 
 // 0x0061B8B0
