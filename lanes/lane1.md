@@ -6,7 +6,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- Fri Nov 27 09:40 PST 2026: starting (lane 1 restart: the structs). First branch lane1/questdata-fields: the `unk0x..` fields of Source/Include/D2QuestData.h. Files: Source/Include/D2QuestData.h, Source/D2Game/Quests/*.cpp (field spellings only), and any other unit that names those fields.
+- Fri Nov 27 09:28 PST 2026: status. questdata-fields: all 149 `unk0x..` in D2QuestData.h renamed (users in 12 Quests/*.cpp; one pointer cast gone), full build running. A1Q2's anonymous union (a `short` over its two flag bytes) has to stay: removing it changes a1q5.cpp's code (0x00594960), the declaration-count effect, so it keeps its shape with named members.
+- Fri Nov 27 09:13 PST 2026: starting (lane 1 restart: the structs). First branch lane1/questdata-fields: the `unk0x..` fields of Source/Include/D2QuestData.h. Files: Source/Include/D2QuestData.h, Source/D2Game/Quests/*.cpp (field spellings only), and any other unit that names those fields.
 
 ## Questions
 
