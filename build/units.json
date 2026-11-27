@@ -30219,9 +30219,18 @@
      "name": "SKILLSMON_ChargeFrames"
     },
     {
+     "va": "0x004E1FF0",
+     "length": 466,
+     "name": "?SKILLDESC_CltDoMissileWall@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004E21D0",
      "length": 329,
      "name": "SKILLSMON_MissileRing"
+    },
+    {
+     "va": "0x004E2320",
+     "length": 235
     },
     {
      "va": "0x004E2410",
@@ -30232,6 +30241,11 @@
      "va": "0x004E2530",
      "length": 245,
      "name": "SKILLSMON_SpreadTwoMissiles"
+    },
+    {
+     "va": "0x004E2630",
+     "length": 140,
+     "name": "?SKILLDESC_CltDoFrameSteps@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E26C0",
@@ -30362,16 +30376,6 @@
    "file": "Source/D2Client/UI/SkillDesc_004E1FF0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004E1FF0",
-     "length": 466,
-     "name": "?SKILLDESC_CltDoMissileWall@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004E2630",
-     "length": 140,
-     "name": "?SKILLDESC_CltDoFrameSteps@@YIHPAUD2UnitStrc@@HH@Z"
-    },
     {
      "va": "0x004E2A40",
      "length": 232,
@@ -30547,30 +30551,6 @@
      "length": 315,
      "name": "?SKILLDESC_CltDoMirrorMissiles@@YIHPAUD2UnitStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004E2320.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004E2320",
-     "length": 235
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
