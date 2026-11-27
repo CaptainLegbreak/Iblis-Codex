@@ -8,6 +8,19 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Fri Nov 27 12:29 PST 2026: **lane12/localcopy-1** (1eecce1f8, stacked on dupdata-1): "D2Client: four local copies give way to
+  declarations of their definitions" (Monster.cpp CUNIT_GetMonsterBaseId, View.cpp GFX_BuildLerpRowTable and
+  SCMD_BuildRampTable, text.cpp DATATBLS_GetMonStatsTxtRecord). VERIFIED tree
+  9151611bf788f959e632284665af6807318e8ac4. linkdebt vs dupdata-1: 23,079 -> 23,075 (local_copy 622 -> 617; D2Client
+  -4; no module rises; one reference moves to renamed_definition). auditguard: no count rose (pointer casts 4,895 ->
+  4,891).
+  **local_copy, what is left (617 refs):** 287 refs are compiler-generated helpers (`??_H` vector constructor
+  iterator, `??_F` default-constructor closure) that every object emits as a COMDAT: a toolchain matter, not source.
+  Of the 174 source copies I tried each: 29 change their unit when replaced by a declaration (the original inlined
+  the function there), 98 are copies of a static definition (making the definition external changes its own unit
+  in all 22 cases tried that could gain), 47 have no separate copy text (the copy is the unit's own inline
+  definition). So local_copy is mostly what the original's inlining needs, and I'm not taking it further without a
+  ruling.
 - Fri Nov 27 11:48 PST 2026: **lane12/dupdata-1** (272e8088a, stacked on renamed-1): "One definition per global: second definitions become
   extern declarations". 167 globals a unit defined although another file defines them at the same address (the
   definition the link keeps) become extern declarations there, with the kept definition's type and linkage
