@@ -37,6 +37,8 @@ symbol whose bytes change.
 import argparse, collections, glob, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if os.path.isdir('Source') and os.path.isdir('tools'):
+    ROOT = os.getcwd()          # run from a checkout: that checkout
 
 VA_TAIL = re.compile(r'//\s*(0x[0-9A-Fa-f]{8})\s*$')
 CONV = ('__cdecl', '__stdcall', '__fastcall', '__thiscall')
