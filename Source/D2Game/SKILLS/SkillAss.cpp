@@ -435,7 +435,8 @@ int __stdcall STATLIST_GetSkillId(D2StatListStrc* pStatList); // 0x006260E0
 
 void __stdcall SKILLS_ApplyProgressiveElementalConversion(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage); // 0x005D3970
 
-// volatile only reproduces the original reloading the table pointer at each access in this loop
+// volatile only reproduces the original reloading the table pointer at each access in this loop (0x005D3AC0; plain form
+// 191/211, the pointer is kept in a register across the loop, as in 0x005D3BA0)
 #define VOLATILE_DATATABLES (*(D2DataTablesStrc* volatile*)&sgptDataTables)
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
@@ -1646,7 +1647,9 @@ void __fastcall SKILLS_ApplyProgressiveLeechAndElementalDamage(D2UnitStrc* pUnit
     for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
     {
 
-        // volatile only reproduces the original reloading the table pointer here instead of reusing the loop test's load
+        // volatile only reproduces the original reloading the table pointer here instead of reusing the loop test's load.
+        // Reading (c2force, plain form 251/258): the tables pointer gets a round-5 piece (priority 30) from the loop test into this
+        // use; with that piece not coloured (--mem 5:sgptDataTables) the function is equal. Same pattern as 0x005D3AC0 below.
         if (STATES_CheckState(pUnit, (*(D2DataTablesStrc* volatile*)&sgptDataTables)->pProgressiveStates[i]))
         {
             D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, SKILLS_GetProgressiveState(i));
