@@ -30,6 +30,7 @@
 #include "D2CMPApi.h"
 #include "D2HellApi.h"
 #include "D2CommonApi3.h"
+#include "D2WinApi2.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -568,10 +569,6 @@ D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* 
 
 
 
-
-int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
-
-void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 extern int gnTimerEnd; // 0x007A7464
 

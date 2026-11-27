@@ -16,6 +16,7 @@
 #include "D2MonTypeTxt.h"
 #include "D2LevelTxt.h"
 #include "D2CommonApi2.h"
+#include "D2WinApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -138,9 +139,6 @@ extern "C" const char gszFmtRange[];                                            
 // build: symbol ?gnPanelOffsetY@* 0x007A285C
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
-
-void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
-
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
@@ -452,8 +450,6 @@ extern "C" const char szFmtD_006D57BC[]; // 0x006D57BC
 
 struct D2MissilesTxt;
 
-
-void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
 int __fastcall SPELLSEL_GetSkillMaxLevel(int); // 0x004AA8B0
 

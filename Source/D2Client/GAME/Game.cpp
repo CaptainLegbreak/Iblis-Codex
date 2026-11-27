@@ -33,6 +33,7 @@
 #include "D2NetApi.h"
 #include "D2HellApi.h"
 #include "D2MCPClientApi2.h"
+#include "D2WinApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1240,10 +1241,6 @@ void __cdecl CHAT_ResetChatHistory();                                           
 
 
 
-int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
-
-void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);         // 0x00502320
-
 D2RecordHandlerFn __fastcall sub_005173D3_SetRecordHandler(D2RecordHandlerFn pfnHandler);                  // 0x005173D3
 
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);                                 // 0x005267E0
@@ -1698,7 +1695,6 @@ void __fastcall sub_00468820_Nop(int nArg1, int nArg2); // 0x00468820
 void __fastcall sub_00477980_DrawFpsStats(); // 0x00477980
 #pragma pack(push, 1)
 #pragma pack(pop)
-D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 extern unsigned short gawLoadingStrings[]; // 0x0070F384
 int gnLoadingIndex; // 0x007A05D4
 D2PongDataStrc gtPongData; // 0x007A04D4

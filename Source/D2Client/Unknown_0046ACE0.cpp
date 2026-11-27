@@ -55,6 +55,7 @@ int gbPulseDone; // 0x007A745C
 
 // build: symbol ?gnPulseTick@* 0x007129CC
 #include "gen/data/Source/D2Client/Unknown_0046ACE0/gnPulseTick.inc"
+#include "D2WinApi2.h"
 extern int gbChaosLightEvent; // 0x007A7460
 extern int gnTimerEnd; // 0x007A7464
 extern int gbThroneEventPending; // 0x007A7468
@@ -509,10 +510,6 @@ void __fastcall sub_0046BFF0_UnitEventMissile271(D2UnitStrc* pUnit)
 
 
 
-
-int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
-
-void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 // 0x0046C060
 void __cdecl CUNIT_DrawCountdown()

@@ -40,6 +40,7 @@
 #include "D2ClientApi.h"
 #include "D2MCPClientApi.h"
 #include "D2MCPClientApi2.h"
+#include "D2WinApi2.h"
 
 static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
@@ -414,11 +415,6 @@ struct UnicodeChar;
 
 int __stdcall D2Win_10033(D2WinControlStrc* pControl, int nArg); // 0x004FA470
 
-int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
-
-void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
-
-
 void __fastcall sub_004FC720(D2WinControlStrc* pList, int nValue); // 0x004FC720
 
 void __fastcall sub_004FB740(D2WinControlStrc* pList, int nA, int nB); // 0x004FB740
@@ -485,8 +481,6 @@ void __fastcall CHATDLG_CopyName(char* szName);                                 
 void __fastcall sub_004FB870_InsertRow(D2WinControlStrc* pControl, int nRow);                                // 0x004FB870
 
 int __fastcall D2Win_10188(D2WinControlStrc* pTextBox, int nLineNum, int nColor);                               // 0x004FBDE0
-
-int __fastcall D2Win_10058(D2WinControlStrc* pControl, const Unicode* pText, int nLineNum, int nColumn); // 0x004FCD90
 
 const char* __stdcall D2Win_10161(int nA, int nB, int nC, int nD);                                         // 0x005068A0
 

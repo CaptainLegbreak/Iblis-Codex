@@ -15,6 +15,7 @@
 #include "StormApi2.h"
 #include "D2GfxApi2.h"
 #include "D2SoundApi2.h"
+#include "D2WinApi2.h"
 
 extern int gbGlideDrawing; // 0x0087EFE4
 
@@ -33,9 +34,6 @@ extern int gfFixedAspectRatio; // 0x0072DA7C
 
 extern int gnScaleFactor; // 0x0072DB44
 
-
-
-extern int gbIsMouseButtonPressed; // 0x007D55E0
 
 
 void __stdcall CONTROL_RemoveFromList(void* pArg); // 0x004F9310

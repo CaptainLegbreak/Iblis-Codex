@@ -31,6 +31,7 @@
 #include "D2CMPApi.h"
 #include "D2CommonApi3.h"
 #include "D2ClientApi.h"
+#include "D2WinApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -236,8 +237,6 @@ static int gnViewEffectMagnitude;                                               
 unsigned char** gppLerpRows;        // 0x007B953C
 
 extern int gbCacheStatsChecked; // 0x007BB3AC
-
-extern D2CelFileStrc* sghPentagram; // 0x0087E96C
 
 extern unsigned char gabBeltHotkey[]; // 0x007BEFB0
 

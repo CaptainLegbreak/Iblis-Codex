@@ -30,6 +30,7 @@
 #include "D2WinApi.h"
 #include "D2MCPClientApi.h"
 #include "D2ClientApi.h"
+#include "D2WinApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -81,10 +82,6 @@ int __fastcall CHATDLG_PrintText(Unicode* pText, int nColor); // 0x0043E610
 void __stdcall COMCALLBACK_RemoveTableString(Unicode* pText); // 0x00446A90
 
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
-
-void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
-
-
 
 int __stdcall IMAGE_GetFrameCount(D2WinControlStrc* pBar); // 0x004FD1B0
 
@@ -202,11 +199,6 @@ public:
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
-
-const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinEditBoxStrc* pEditBox); // 0x004FDD90
-
-int __fastcall EDITBOX_SetText(D2WinEditBoxStrc* pEditBox, const Unicode* pText); // 0x004FF5A0
-
 
 void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
 
