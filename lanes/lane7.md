@@ -4,6 +4,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- 2026-11-26 19:21 PT: decls-quests-objects Ready. Next in Quests/OBJECTS: the copies whose parameter types differ from the shared header (QUESTS.CPP has 81), checking each against the callee's own definition before touching either.
 - 2026-11-26 18:24 PT: the hour is up with no plain form: a 50-minute mutation search on 0x5C09E0 stayed at 12 bytes, one on 0x5D3AC0 only found cast chains (200/211), and declaring the tables pointer as a one-element array changes nothing. Readings are in the source (Ready above). Moving to D2Game scaffolding (private declaration copies, emit helpers); claiming a folder below once I've checked lane 5's and lane 9's.
 - 2026-11-26 17:21 PT: on #450, no new match. **0x5B2A00**: with every construct removed (both volatiles and all identical arms) it is 1280/1300; a single-override sweep (659) has nothing equal, but `--prio 1:nX:+12` (148 -> 160) brings it to 1300/1300 with 30 bytes and 34 lines left (rotation picks in the AllocUnitData push sequence and two tests, and `lea eax,[ecx+3]` where the game has `mov eax,[ebp-8]; add eax,3`). So the `if (nX) A else A` arms in the offset rolls stand in for the game's extra references to nX. Looking for where the game's source names nX more. Question posted under Questions (16:55).
 - 2026-11-26 16:18 PT: no new match. 0x5EB970: an unsigned count copy with signed casts at its three uses, and D2MOO's combined `nArg0C > 3 && roll < 2 * nArg0C` test, both unchanged (3376/3364). The four one-decision rows (0x5C09E0, 0x5D3BA0, 0x5EB970, 0x5B0FF0) are where I keep looking; if no plain form turns up, I'll post them under Questions with the override evidence.
@@ -80,6 +81,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- `lane7/decls-quests-objects` fff7ffd14 (on #461): 44 private prototypes removed from 17 Quests/ and OBJECTS/ units, each one D2Game.h, D2GameFuncs.h or Source/Include already declares with the same address and signature (no include added). 1,050-odd private copies in these folders have no shared declaration yet or differ in parameter types (e.g. `unsigned int*` against `int*`), so they stay. Full build: Game.exe identical, 14,925 / 14,925 placed, 0 not all equal; audit guard: no count rose.
 - `lane7/forcing-readings` daab9254d (on #450): comments only, in AiThink.cpp, AiThink4.cpp, SkillAss.cpp and SkillItem.cpp: the allocator reading for each of the five one-decision forcing rows (0x5C09E0, 0x5D3BA0, 0x5D3AC0, 0x5EB970, 0x5B0FF0) beside its volatile, as you asked at 17:21. Full build: Game.exe identical, 14,923 / 14,923 placed, 0 not all equal, borrowed code 7,923 B in 4 functions; audit guard: no count rose.
 
 
