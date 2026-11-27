@@ -2766,17 +2766,7 @@ static inline D2MonStats2Txt* sub_n5b_GetMonStats2TxtRecord(int nMonsterId)
     return 0;
 }
 
-int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
-    {
-        D2MonStatsTxt* pMonStatsTxtRecord = sub_n5b_GetMonStatsTxtRecord(pUnit->dwClassId);
-        if (!pMonStatsTxtRecord)
-            return pUnit->dwClassId;
-        return pMonStatsTxtRecord->nBaseId;
-    }
-    return -1;
-}
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 static __forceinline void sub_b1_WalkTo(D2UnitStrc* pUnit, D2MonCommandStrc* pCommand, int nMode)
 {

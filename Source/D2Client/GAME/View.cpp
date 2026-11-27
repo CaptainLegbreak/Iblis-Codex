@@ -490,49 +490,9 @@ extern unsigned char gabRowTable[][0x100]; // 0x007B5C10
 
 extern unsigned char** gppRampTable_007B954C; // 0x007B954C
 
-unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps)
-{
-    unsigned char** pTable = (unsigned char**)sub_00517993_VirtualAlloc((nSteps + 1) * nCount * nCount * sizeof(unsigned char*));
-    unsigned char** pOut = pTable;
-    unsigned char nIndex;
-    for (int i = 0; i < nCount; ++i)
-    {
-        for (int j = 0; j < nCount; ++j)
-        {
-            int nStep = ((j - i) << 16) / nSteps;
-            int nValue = i << 16;
-            for (unsigned int k = 0; k < nSteps; ++k)
-            {
-                nIndex = nValue / 65536;
-                *pOut++ = gabRowTable[nIndex];
-                nValue += nStep;
-            }
-            *pOut++ = gabRowTable[nIndex];
-        }
-    }
-    return pTable;
-}
+unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps); // 0x00475C40
 
-unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps)
-{
-    unsigned char** ppTable = (unsigned char**)sub_00517993_VirtualAlloc(nSize * nSize * nSteps * sizeof(unsigned char*));
-    unsigned char** ppEntry = ppTable;
-    for (int i = 0; i < nSize; ++i)
-    {
-        for (int j = 0; j < nSize; ++j)
-        {
-            const int nStep = ((j - i) << 16) / nSteps;
-            int nValue = i << 16;
-            for (unsigned int k = 0; k < nSteps; ++k)
-            {
-                *ppEntry = gabRowTable[(unsigned char)(nValue / 0x10000)];
-                ++ppEntry;
-                nValue += nStep;
-            }
-        }
-    }
-    return ppTable;
-}
+unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps); // 0x00475D30
 
 // 0x00475C30
 void __fastcall VIEW_FreeIfSet(void* pMemory)
