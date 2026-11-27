@@ -270,7 +270,21 @@ extern int gbNpcSubIdReceived; // 0x007C0D39
 
 extern short gwNpcSubId; // 0x007C0D3D
 
-unsigned char g007C0D89; // 0x007C0D89
+// The last NPC transaction packet (0x2A); the pending-action checks compare the
+// unit id and action type it carried.
+#pragma pack(push, 1)
+struct D2GSPacketSrv2A
+{
+    unsigned char nHeader;
+    unsigned char unk0x01;
+    unsigned char nActionType;
+    unsigned int unk0x03;
+    int nUnitId;
+    unsigned int unk0x0B;
+};
+#pragma pack(pop)
+
+D2GSPacketSrv2A gtPacket2A; // 0x007C0D87
 
 int __cdecl NPCMENU_ResurrectMercWait(); // 0x004B1DD0
 
@@ -702,7 +716,6 @@ void __cdecl NPCMENU_CloseTradeDialog(); // 0x004B3610
 
 
 
-extern unsigned char gnPendingNpcActionType; // 0x007C0D89
 
 int __fastcall NPCMENU_NpcTextCallback(void* pContext, int nArg, int nValue); // 0x004B6A30
 
@@ -1603,8 +1616,7 @@ void __cdecl NPCMENU_FinishTransaction()
 // 0x004B29E0
 void __fastcall sub_004B29E0_FinishPendingAction(int nUnitId)
 {
-// build: symbol ?gnPendingNpcActionUnitId@* 0x007C0D8E
-    if (gbNpcActionPending && g007C0D89 == 1 && nUnitId == gnPendingNpcActionUnitId)
+    if (gbNpcActionPending && gtPacket2A.nActionType == 1 && nUnitId == gtPacket2A.nUnitId)
     {
         NPCMENU_FinishTransaction();
     }
@@ -1613,7 +1625,7 @@ void __fastcall sub_004B29E0_FinishPendingAction(int nUnitId)
 // 0x004B2A00
 void __fastcall sub_004B2A00_FinishPendingAction(int nUnitId)
 {
-    if (gbNpcActionPending && g007C0D89 == 1 && nUnitId == gnPendingNpcActionUnitId)
+    if (gbNpcActionPending && gtPacket2A.nActionType == 1 && nUnitId == gtPacket2A.nUnitId)
     {
         NPCMENU_FinishTransaction();
     }
@@ -1622,7 +1634,7 @@ void __fastcall sub_004B2A00_FinishPendingAction(int nUnitId)
 // 0x004B2A20
 void __fastcall sub_004B2A20_FinishPendingAction(int nUnitId)
 {
-    if (gbNpcActionPending && g007C0D89 == 1 && nUnitId == gnPendingNpcActionUnitId)
+    if (gbNpcActionPending && gtPacket2A.nActionType == 1 && nUnitId == gtPacket2A.nUnitId)
     {
         NPCMENU_FinishTransaction();
     }
@@ -1631,7 +1643,7 @@ void __fastcall sub_004B2A20_FinishPendingAction(int nUnitId)
 // 0x004B2A40
 void __fastcall sub_004B2A40_FinishPendingAction(int nUnitId)
 {
-    if (gbNpcActionPending && g007C0D89 == 0 && nUnitId == gnPendingNpcActionUnitId)
+    if (gbNpcActionPending && gtPacket2A.nActionType == 0 && nUnitId == gtPacket2A.nUnitId)
     {
         NPCMENU_FinishTransaction();
     }
@@ -1640,7 +1652,7 @@ void __fastcall sub_004B2A40_FinishPendingAction(int nUnitId)
 // 0x004B2A60
 void __fastcall sub_004B2A60_FinishPendingAction(int nUnitId)
 {
-    if (gbNpcActionPending && g007C0D89 == 0 && nUnitId == gnPendingNpcActionUnitId)
+    if (gbNpcActionPending && gtPacket2A.nActionType == 0 && nUnitId == gtPacket2A.nUnitId)
     {
         NPCMENU_FinishTransaction();
     }
@@ -2380,9 +2392,8 @@ int __fastcall NPCMENU_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
 // 0x004B3C00
 void __fastcall sub_004B3C00_FinishPendingAction(int nUnitId)
 {
-// build: symbol ?gnPendingNpcActionUnitId@* 0x007C0D8E
 // build: symbol ?gbNpcActionPending@* 0x007C0D96
-    if (gbNpcActionPending && gnPendingNpcActionType == 0 && nUnitId == gnPendingNpcActionUnitId)
+    if (gbNpcActionPending && gtPacket2A.nActionType == 0 && nUnitId == gtPacket2A.nUnitId)
     {
         NPCMENU_FinishTransaction();
     }
@@ -3313,8 +3324,8 @@ void __fastcall NPCMENU_OnUnitRemoved(unsigned char nUnitType, int nUnitId)
 void __cdecl NPCMENU_OnTransactionResult()
 {
  D2InventoryStrc* inv=sub_00463DD0_GetPlayerUnit()->pInventory;
- if(g007C0D89<=6) {
-  switch(g007C0D89) {
+ if(gtPacket2A.nActionType<=6) {
+  switch(gtPacket2A.nActionType) {
    case 0:
     sub_004B9A00(g007C0D5B,0,0,0,0); g007C0D5B=0;
     if(!CUNIT_FindClientUnit(g007C0D8E,4)) { g007C0D96=1; return; }
@@ -3332,7 +3343,7 @@ void __cdecl NPCMENU_OnTransactionResult()
  }
  if(g007C0D67) {DIALOG_DestroyDialog(g007C0D67);g007C0D67=0;}
  int text;
- switch(g007C0D89) {
+ switch(gtPacket2A.nActionType) {
  case 15:text=0xd23;break;
  case 16:text=0xd1d;break;
  case 12:text=0xd22;break;
@@ -3391,7 +3402,7 @@ void __cdecl sub_004B5640_OpenNpcMenu()
         gpNpcWaitDialog = 0;
     }
 
-    const unsigned char nType = gnPendingNpcActionType;
+    const unsigned char nType = gtPacket2A.nActionType;
     if (nType != 5)
     {
         if (nType != 6 && nType != 3)
@@ -3613,20 +3624,6 @@ int __cdecl NPCMENU_CloseHireDialog()
     return 1;
 }
 
-#pragma pack(push, 1)
-struct D2GSPacketSrv2A
-{
-    unsigned char nHeader;
-    unsigned char unk0x01;
-    unsigned char unk0x02;
-    unsigned int unk0x03;
-    unsigned int unk0x07;
-    unsigned int unk0x0B;
-};
-#pragma pack(pop)
-
-D2GSPacketSrv2A gtPacket2A; // 0x007C0D87
-
 // 0x004B6390
 void __fastcall NPCMENU_HandleNpcTransaction(D2GSPacketSrv2A* pPacket)
 {
@@ -3644,7 +3641,7 @@ void __fastcall NPCMENU_HandleNpcTransaction(D2GSPacketSrv2A* pPacket)
         sub_004B5640_OpenNpcMenu();
         return;
     }
-    if (pPacket->unk0x02 == 1)
+    if (pPacket->nActionType == 1)
         sub_004B9A00(0xDD, 0, 0, 0, 0);
 }
 
