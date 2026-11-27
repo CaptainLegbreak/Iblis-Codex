@@ -12,6 +12,7 @@ scaffolding, names.
   (Composit_0064F060), `Units/Missile` (Missile_0064B860). Lane 2 hadn't claimed any of them.
 
 ## Status
+- Thu Nov 26 17:15 PT: check-in on #452; drlg-api-decls, items-accessor-views and api-decls-3 are in, Ready lines gone. Building the next accessor-view branch (StatsEx, Inventory, Dungeon, Skills, Units); Path.cpp's 22 after it.
 - Thu Nov 26 16:40 PT: **withdrawn: `lane8/d2common-api-decls` and `lane8/d2common-api-decls-2`** (don't merge them). Lane 2's `use-shared-headers-2b` (committed 15:59, before my note) makes the same change in 9 of their 11 units and in Items.cpp, more thoroughly. Only MonsterTbls.cpp and Unknown_006634F0.cpp aren't in it; they come back as a small `d2common-api-decls-3` once its full build is done. `drlg-api-decls` has no file in common with lane 2's branch and stays Ready.
 - Thu Nov 26 16:30 PT: check-in on #447. Three header branches Ready (api-decls, api-decls-2 for Items.cpp, drlg-api-decls); Inventory, Skills and Units wait on D2CommonApi.h's duplicate SKILLS_GetFirstSkillFromSkillList (note to lane 2). Next: more D2Common scaffolding.
 - Thu Nov 26 15:58 PT: check-in on #444. api-decls Ready (13 units take D2CommonApi.h); names-3 Ready. Next: the remaining D2Common scaffolding (private copies that D2Common.h could hold, unit by unit with the full build deciding).
@@ -34,9 +35,6 @@ scaffolding, names.
 - Thu Nov 26 12:20 PT: setting up (repo, board, wine done; waiting for Game.exe, then setup and the baseline build).
 
 ## Ready
-- lane8/items-accessor-views de241debb (on #449): Items.cpp's eleven item-data accessors (ITEMS_GetItemStartSeed, ITEMS_SetItemQuality, ITEMS_SetAutoAffix, the rare and magic affix getters and setters, ITEMS_CheckItemCMDFlag, ITEMS_GetInventoryPage, ITEMS_SetRealmData) were written against private `Unit<VA>` / `Data<VA>` views with `extern "C" __declspec(dllexport)`; they take D2UnitStrc and read D2ItemDataStrc through ITEMS_GetItemData like their neighbours, and the 22 views go (ITEMS_CheckIfFlagIsSet loses the same qualifiers). The audit doesn't count these views (its T<VA> pattern misses `Unit00627DF0`, `Obj00625250`, `Pair00650E60`); D2Common has about 40 more accessors written this way (StatsEx, Path, Inventory, Dungeon, Skills, Unknown_00650D70, Units), next on my list. May touch the same Items.cpp lines as lane 2's use-shared-headers-2b near the top of the file. Full build: Game.exe identical, tree 30526a0b288bc5f546f13c2a5c7e78755925c13c, borrowed code / data 7,923 / 261.
-- lane8/d2common-api-decls-3 1ef34ccc2 (on #448): MonsterTbls.cpp and Unknown_006634F0.cpp include D2CommonApi.h and drop the prototypes they repeat with the same types (the two units of the withdrawn api-decls that lane 2's use-shared-headers-2b doesn't touch). Re-pushed: the first push (8ff8ce3a9) carried an old copy of Unknown_006634F0.cpp. Full build: Game.exe identical, tree 30261eabc0fea4b90cc23ee8d6a96f9980525825, borrowed code / data 7,923 / 261.
-- lane8/drlg-api-decls 9785823ee (on #447): Drlg.cpp's inline copy of the player-data getter is renamed UNITS_GetPlayerData_Inl (Units.cpp's name for its own), so it no longer redefines the exported UNITS_GetPlayerData; Drlg.cpp then includes D2CommonApi.h and drops four prototypes it repeats. Full build: Game.exe identical, tree 7f47234122a74d8d2d9e5024c731597a8fa0231e, borrowed code / data 7,923 / 261.
 
 ## Questions
 
