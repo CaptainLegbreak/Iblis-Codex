@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 21:25 PT): decls-4 Ready, full build identical. My single-function moves are done: each placeholder function the callers scan points at a named file either has its own language copy (a separate object) or is parked with a reading.
+Status (Thu Nov 26 2026, 21:11 PT): decls-4 Ready, full build identical. My single-function moves are done: each placeholder function the callers scan points at a named file either has its own language copy (a separate object) or is parked with a reading.
 
 ## Ready
 
