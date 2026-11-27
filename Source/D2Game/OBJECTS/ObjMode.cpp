@@ -128,6 +128,7 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x
 extern ObjTrapHandlerFunction sgObjectTrapHandlers[10]; // 0x00732CEC
 
 #include "D2GameFuncs.h"
+#include "D2CommonApi3.h"
 
 void __fastcall OBJEVAL_ApplyTrapObjectDamage(D2GameStrc* pGame, D2UnitStrc* pSrcUnit, D2UnitStrc* pTargetUnit, int nDamageType); // 0x005DFA00
 
@@ -448,8 +449,6 @@ int __fastcall PLAYERLIST_GetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPla
 void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); // 0x0061AED0
 
 
-void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
-
 void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatListRemoveCallback pfStatRemove); // 0x00625CE0
 
 // D2Game passes a D2StatListStrc here; D2CommonApi2.h types it D2StatListExStrc (one object, two record views).
@@ -496,9 +495,6 @@ struct D2SfxArgStrc
 
 
 void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataStrc* pFind, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize, void* pfnTest, D2UnitFindArgStrc* pArg); // 0x0065A950
-
-int __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc* pUnitFindData); // 0x0065AC70
-
 
 int __fastcall OBJMODE_IsLivingPlayerOrMonster(D2UnitStrc* unit, void* unused); // 0x00582710
 

@@ -102,16 +102,11 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 #include "D2GameFuncs.h"
+#include "D2CommonApi3.h"
+#include "D2CommonApi2.h"
 
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
-
-void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
-
-
-void __stdcall ITEMS_InitItemSeed(D2UnitStrc* pItem); // 0x00627DC0
-
-D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
@@ -122,8 +117,6 @@ typedef int (__stdcall* FARPROC)();
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
 
-void __stdcall PATH_GetTargetTypeAndGUID(D2DynamicPathStrc* pPath, int* pUnitType, int* pUnitGUID); // 0x00648BB0
-
 typedef int (__fastcall* SUNIT_ITERATEFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
 
@@ -132,14 +125,7 @@ void __fastcall PLAYER_InitializePosition(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 int __fastcall MONSTER_SetVelocityAndPosition(D2GameStrc* pGame, D2UnitStrc* pMonster, int nX, int nY, int bUnusedSkipRoomUpdate); // 0x005735A0
 
 
-int __stdcall UNITROOM_AddUnitToRoomEx(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nUnused); // 0x0064C2C0
-
 void __fastcall SUNIT_AddToUnitList(D2UnitStrc* pUnit, D2GameStrc* pGame); // 0x00553060
-
-
-void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648C30
-
-int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster); // 0x0063EA40
 
 
 struct Pad40_00553970 {
@@ -252,14 +238,10 @@ void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x00451F30
 
 
-void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
-
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
 
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
-
-void __stdcall STATES_ToggleGfxStateFlag(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639E30
 
 typedef int (__fastcall* EventTimerCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int a4, int a5);
 
@@ -268,9 +250,6 @@ void __fastcall EVENT_DeleteTimersByCallback(D2GameStrc* pGame, D2UnitStrc* pUni
 struct Obj00554650 { unsigned char bUnknown00[0x60]; unsigned int dwFlags60; };
 
 D2ActiveRoomStrc* __fastcall SUNIT_GetValidNextRoom(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005545C0
-
-
-void __stdcall PATH_SetCurrentRoomInvalid(D2DynamicPathStrc* pPath, int bValue); // 0x00648B40
 
 
 int __stdcall D2Common_10226(D2UnitStrc* pUnit, int nFlag); // 0x00650840
@@ -291,8 +270,6 @@ int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int
 void __fastcall MISSILES_Free(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x0059F8E0
 
 void __fastcall ITEMS_FreeSocketInventoryAndTimers(D2GameStrc* pGame, D2UnitStrc* pItem); // 0x00557EE0
-
-void __stdcall ITEMS_FreeItemData(void* pMemPool, D2UnitStrc* pItem); // 0x00627D00
 
 void __fastcall SUNITEVENT_FreeEventList(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005C0A90
 
@@ -335,9 +312,6 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc*); // 0x00620510
-
-D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc*,D2CoordStrc*,int,unsigned int,int); // 0x0064E7B0
-
 
 int __fastcall SUNIT_TeleportUnit(D2GameStrc*,D2UnitStrc*,D2ActiveRoomStrc*,int,int,int,int); // 0x00554EA0
 
@@ -397,10 +371,6 @@ D2UnitStrc* __stdcall UNITS_AllocUnit(void* pMemPool, int nUnitType);           
 
 void __stdcall UNITS_AllocStaticPath(D2UnitStrc* pUnit);                                                    // 0x00623520
 
-void __stdcall ITEMS_AllocItemData(void* pMemPool, D2UnitStrc* pItem);                                      // 0x00627C90
-
-extern "C" void __stdcall PATH_SetUnitCollisionPattern(D2UnitStrc* pUnit, int nCollisionPattern);           // 0x00649190
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 // build: symbol ??__EgnUnitInitSeed_008846E8@@YAXXZ 0x006CAF60
@@ -417,9 +387,6 @@ struct D2AnimDataRecordStrc;
 
 
 void __fastcall OBJMODE_ResetObjectInteraction(D2GameStrc* pGame, D2UnitStrc* pObject); // 0x00585550
-
-
-void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
 
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
@@ -468,12 +435,7 @@ void __fastcall SUNIT_SpawnPresetUnit(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom
 struct D2AnimFrameTableStrc;
 
 
-void __stdcall STATES_ClearGfxStateFlags(D2UnitStrc* pUnit); // 0x00639EE0
-
-
 void __stdcall STATLIST_RemoveAllStatsFromOverlay(D2UnitStrc* pUnit); // 0x00627410
-
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
 void __fastcall ARENA_ClearUnitUpdateScore(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0053FA90
 
@@ -491,10 +453,6 @@ struct D2AnimFrameTableStrc
     unsigned char pFrameFlags[144];
 };
 
-
-D2ActiveRoomStrc* __stdcall PATH_GetNextRoom(D2DynamicPathStrc* pDynamicPath); // 0x00648AA0
-
-void __stdcall PATH_ClearNextRoom(D2DynamicPathStrc* pDynamicPath); // 0x00648AB0
 
 // 0x00552D60
 extern "C" __declspec(dllexport) void __fastcall SUNIT_SetMonsterVision(D2UnitStrc* pUnit, unsigned int dwValue) {

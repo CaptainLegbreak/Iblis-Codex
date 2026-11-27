@@ -182,10 +182,6 @@ D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath); // 0x00648730
 
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
-
-
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
 

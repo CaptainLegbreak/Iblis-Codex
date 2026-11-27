@@ -90,9 +90,6 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg
 int __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
-
 void __stdcall D2COMMON_10251_Return(D2InventoryStrc* pInventory); // 0x0063BD00
 
 
@@ -333,6 +330,7 @@ void __fastcall NPCMENU_RemoveInventoryClientUnits(D2UnitStrc* pUnit); // 0x004B
 void __fastcall sub_004BA840_StopSound(int nHandle);                                                                  // 0x004BA840
 
 #include "gen/data/Source/D2Client/UI/npcmenu/gnHandlerCount.inc"
+#include "D2CommonApi3.h"
 
 int gnNpcSoundActive; // 0x007C0DB4
 
@@ -640,9 +638,6 @@ extern "C" int __fastcall sub_004AC7E0(D2UnitStrc* pUnit, unsigned short wMask);
 extern "C" int __stdcall sub_0064A210(D2UnitStrc* pMissile); // 0x0064A210
 
 extern "C" int __stdcall sub_0064A280(D2UnitStrc* pMissile); // 0x0064A280
-
-void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
-
 
 struct RecordView
 {

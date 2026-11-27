@@ -93,6 +93,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" UModInitFunc gpfnUModInitFunctions[]; // 0x0073C008
 
 #include "D2GameFuncs.h"
+#include "D2CommonApi2.h"
 
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
@@ -100,22 +101,11 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 
-unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
-
-
-int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile); // 0x0064A730
-
 void __fastcall MISSMODE_CreateCairnPortal(D2GameStrc* pGame, D2UnitStrc* pMissile, int nParam); // 0x005A9930
-
-void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); // 0x0061AED0
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
-
-int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 
 struct D2HitFunc22ParamStrc
 {
@@ -126,9 +116,6 @@ struct D2HitFunc22ParamStrc
     int nParam;
     int nHitSubMissile;
 };
-
-
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
@@ -152,15 +139,7 @@ extern const int gnSrvHit52_XOffsets[8]; // 0x006E2A58
 extern const int gnSrvHit52_YOffsets[8]; // 0x006E2A38
 
 
-void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
-
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
-
-
-int __stdcall SKILLS_GetParam1(D2SkillStrc* pSkill); // 0x006444A0
-
-
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
 
 void __fastcall SKILLS_ExecuteServerDoFunction(D2GameStrc* pGame, D2UnitStrc* pUnit, int nDoFunc, int nSkillId, int nSkillLevel); // 0x0056D810
@@ -169,16 +148,9 @@ void __fastcall SKILLS_ExecuteServerDoFunction(D2GameStrc* pGame, D2UnitStrc* pU
 void __fastcall ACT5Q6_SpawnTyrael(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pMissile); // 0x0058E920
 
 
-void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int nUnused); // 0x00621E40
-
-
-int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc* pMissile, D2UnitStrc* pOwner, unsigned int nCalc, int nMissileId, int nLevel); // 0x0064B7C0
-
 void __fastcall MISSMODE_AddDamageValue(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nDamage); // 0x005A9270
 
 int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
-
-int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bFlag); // 0x00644F20
 
 void __fastcall MISSMODE_SrvDmg05_BlessedHammer(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005AD2F0
 
@@ -230,19 +202,11 @@ extern MISSILESRVDMGFN gpfnMissileSrvDmgFunctions[]; // 0x0073C960
 
 void __fastcall MISSMODE_FillDamageParams(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005A89A0
 
-int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
-
-int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
-
-
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 
 void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatListRemoveCallback pfStatRemove); // 0x00625CE0
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
-
-int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit); // 0x0063EE90
-
 
 void __fastcall sub_005A8F20_SetElementalLength(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nLength); // 0x005A8F20
 
@@ -253,9 +217,6 @@ int __fastcall MISSMODE_CreatePantherPotGreenSubmissiles(D2GameStrc* pGame, D2Un
 
 void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame);                                 // 0x006260B0
 
-void __stdcall STATES_ToggleGfxStateFlag(D2UnitStrc* pUnit, int nState, int bSet);                          // 0x00639E30
-
-
 #define EVENTTYPE_REMOVESTATE 12
 
 enum D2C_Q05MissModeConstants
@@ -263,14 +224,9 @@ enum D2C_Q05MissModeConstants
     EVENTTYPE_ENDANIM = 1,
 };
 
-int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                           // 0x00624690
-
-
 void __fastcall SKILLS_ApplyTargetAuraAndMissile(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nFrame, int nSkillId, int nSkillLevel); // 0x005C7DB0
 
 int __fastcall MISSMODE_FistOfTheHeavensDelay_AuraCallback(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pTarget); // 0x005AB630
-
-int __stdcall MISSILE_GetTargetY(D2UnitStrc* pMissile);                                                     // 0x0064A780
 
 static void __fastcall MISSMODE_ApplyDamageFlagsAndTargetAc(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005ADCD0
 
@@ -313,8 +269,6 @@ D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);
 void __fastcall MISSMODE_ResetDamageParams(D2GameStrc* pGame, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005A91C0
 
 
-int __stdcall MISSILE_GetHitClass(D2UnitStrc* pMissile); // 0x0064A5A0
-
 static int MISSMODE_GetPierceFlags(D2UnitStrc* pMissile);
 
 static void __fastcall MISSMODE_SetJustHitState(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x005ADB00
@@ -343,17 +297,10 @@ void __fastcall SEED_InitSeed(D2SeedStrc*, int); // 0x00650E40
 
 int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
 
-void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
-
 void __fastcall MISSMODE_CreateImmolationArrowHitSubmissiles(D2GameStrc*, D2UnitStrc*, int, int, int); // 0x005A9530
 
 
-void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
-
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
-
-int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
-
 
 unsigned short __stdcall D2Common_10201(D2DynamicPathStrc* pDynamicPath); // 0x00648EB0
 
@@ -393,10 +340,6 @@ D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc*, int, int, void*, void*, 
 void __fastcall MISSMODE_CreatePlagueJavelin_PoisonJavelin_PoisonTrapHitSubmissiles(D2GameStrc* pGame, D2UnitStrc* pOrigin, int nMissileId, int nRange, int nLoops); // 0x005A9720
 
 
-int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
-
-void __stdcall COLLISION_SetMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB90
-
 int __fastcall MISSMODE_SrvDo20_BladeCreeper(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x005AF540
 
 int __stdcall D2COMMON_10473(D2StatListStrc* pStatList); // 0x00626090
@@ -421,8 +364,6 @@ extern D2DataTables* gpDataTables; // 0x00744304
 
 int __fastcall sub_0045C3E0_RollLimited(D2SeedStrc*,int); // 0x0045C3E0
 
-void __stdcall COLLISION_SetMaskWithSize(D2ActiveRoomStrc*,int,int,int,unsigned short); // 0x0064EA00
-
 struct D2SummonArgs
 {
     int mode;
@@ -437,8 +378,6 @@ struct D2SummonArgs
 };
 
 int __stdcall sub_0064A780_GetCount(D2UnitStrc*); // 0x0064A780
-
-int __stdcall PATH_HasEnteredNewSubtile(void*); // 0x006505C0
 
 int __stdcall sub_0064A280_GetSkill(D2UnitStrc*); // 0x0064A280
 
@@ -456,9 +395,6 @@ void __fastcall AIGENERAL_AllocMinionList(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); 
 void __fastcall D2GAME_BOSSES_AssignUMod(D2GameStrc*,D2UnitStrc*,int,int); // 0x005A4850
 
 void __fastcall D2GAME_SetSummonPassiveStats(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int,int,int); // 0x005C4470
-
-void __stdcall UNITS_StoreOwner(D2UnitStrc*,D2UnitStrc*); // 0x00621CE0
-
 
 static void __stdcall MISSMODE_CreateMeteor_MoltenBoulderSubmissiles(D2GameStrc* pGame, int nMissileId, int nRange, int nStep, D2UnitStrc* pMissile);
 

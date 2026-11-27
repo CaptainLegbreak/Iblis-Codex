@@ -31,6 +31,8 @@ struct D2LevelsTxt;
 
 #include "D2GameFuncs.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
+#include "D2CommonApi3.h"
 
 typedef D2UnitStrc* (__fastcall* AITARGETCALLBACK)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, void*);
 
@@ -40,8 +42,6 @@ int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x004
 
 D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg, AITARGETCALLBACK pfnCallback, int nCallbackId); // 0x005DD0B0
 
-
-int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster); // 0x0063EA40
 
 struct D2GameStrc;
 
@@ -78,17 +78,12 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __fastcall AITACTICS_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 
 
-int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit); // 0x00621F20
-
 void __fastcall sub_005F6630_InitAiParamsFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005F6630
 
 
 bool __fastcall AITHINK_InitHomeCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pAiTickParam); // 0x005E6800
 
 unsigned int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC5C0
-
-void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
-
 
 int __fastcall sub_0045C390_SeedRollLimited(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
@@ -97,14 +92,9 @@ D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
 int __fastcall AITHINK_AssasinSentryHasLostTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, int bDecreaseParam); // 0x005EA2B0
 
-int __stdcall SKILLS_GetSkillMode(D2SkillStrc* pSkill); // 0x00644360
-
-
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
 int __fastcall sub_005EABF0(D2GameStrc* pGame, D2UnitStrc* pTarget, D2UnitStrc* pUnit, int nSkillId, D2Unk005EAD50ArgStrc* pArg); // 0x005EABF0
-
-int __stdcall SKILLS_GetShiftedManaCosts(int nSkillId, int nSkillLevel); // 0x006459F0
 
 #define AI_GetParam(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 
@@ -155,15 +145,6 @@ void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int nParam, int nVel, u
 int __fastcall AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nX, unsigned int nY); // 0x005DEE50
 
 
-void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner); // 0x00621CE0
-
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
-int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType); // 0x00645830
-
-void __stdcall PATH_SetStepNum(D2DynamicPathStrc* pDynamicPath, unsigned char nSteps); // 0x00649070
-
-
 struct D2ActiveRoomStrc;
 
 enum D2C_F42AiConstants
@@ -197,13 +178,6 @@ void __fastcall AITHINK_MinionCallback_CheckDead(D2UnitStrc* pUnit, void* pDeadM
 int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int bSkipCollisionSearch, int bSyncOtherPlayersOnly); // 0x00554EA0
 
 
-void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID);              // 0x0061A270
-
-
-void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit);                                                  // 0x00623830
-
-void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);                                              // 0x0064C370
-
 void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath);                                             // 0x00648730
 
 
@@ -216,8 +190,6 @@ void __fastcall ACT5Q6_OpenWorldStoneChamber(D2GameStrc* pGame);                
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 
-void __stdcall MONSTERS_GetChainDirectionDelta(D2UnitStrc* pUnit, int* pX, int* pY);                  // 0x0063EE10
-
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
 D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
@@ -229,11 +201,6 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_BaalToStairs(D2GameStrc* pGame, D2
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 
 int __fastcall AIUTIL_GetDistanceToCoordinates_HalfUnitSize(D2UnitStrc* pUnit, int nX, int nY);             // 0x005DC480
-
-D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit);                                               // 0x00620190
-
-D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit);                                              // 0x006201D0
-
 
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned int);
 
@@ -256,8 +223,6 @@ unsigned int __stdcall sub_006417F0_GetDistance(D2UnitStrc*,int,int); // 0x00641
 
 int __stdcall PATH_GetY(D2DynamicPathStrc*); // 0x00648900
 
-int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
-
 struct D2SkillListStrc;
 
 extern "C" const char szAiThink4File[];                                                                     // 0x006E3500
@@ -276,8 +241,6 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_ShadowMaster(D2GameStrc* pGame, D2
 int __fastcall AITHINK_IsStateGroupActive(D2UnitStrc* pUnit, int nState);                              // 0x005EB7F0
 
 int __fastcall AITHINK_UseShadowMasterSkill(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nSkillId, int bCombat, D2UnitStrc* pTarget, int nX, int nY, D2AiTickParamStrc* pAiTickParam); // 0x005EB8B0
-
-int __stdcall STATES_CheckStateMaskPgsvOnUnit(D2UnitStrc* pUnit);                                          // 0x0063A2B0
 
 enum D2C_ShadowMasterConstants
 {
@@ -358,8 +321,6 @@ int __fastcall ACT5Q2_CheckWussieCounters(D2GameStrc*,D2UnitStrc*); // 0x0058883
 
 void __fastcall ACT5Q2_UpdateWussieCounters(D2GameStrc*,int,D2UnitStrc*); // 0x00588880
 
-void __stdcall PATH_ClearPathingFlagAndPoints(D2DynamicPathStrc*); // 0x00648730
-
 D2UnitStrc* __fastcall AITACTICS_FindNearbyPlayerOrSelf(D2GameStrc*,D2UnitStrc*,int*); // 0x005DDF20
 
 int __fastcall ACT5Q2_IsMonsterNearby(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00588E10
@@ -400,19 +361,10 @@ extern "C" const int gnDesertTurretIndices[64]; // 0x006E33E0
 
 extern "C" const D2CoordStrc gaDesertTurretOffsets[8]; // 0x006E33A0
 
-int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY); // 0x00621DC0
-
-unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
-
 extern "C" void __stdcall PATH_SetTargetPos(Obj00648AD0* pObj, unsigned short wA, unsigned short wB); // 0x00648AD0
 
 
 int __fastcall PLAYERPETS_GetTotalPetCount(D2UnitStrc*); // 0x00574F40
-
-unsigned int __stdcall PATH_GetFinalTargetX(D2DynamicPathStrc*); // 0x00648A20
-
-unsigned int __stdcall PATH_GetFinalTargetY(D2DynamicPathStrc*); // 0x00648A30
-
 
 void __fastcall AITHINK_SelectHirelingAction(D2GameStrc*, D2UnitStrc*, int, int, D2UnitStrc*, D2SeedStrc*); // 0x005E4D30
 
@@ -531,10 +483,6 @@ enum D2C_SuccubusAIParams
     SUCCUBUS_AI_PARAM_CURSE2_LEVEL = 7,
 };
 
-D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit, int nFlag);                // 0x00625760
-
-int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit);                                               // 0x00625D60
-
 enum D2C_M236SuccubusWitchAi
 {
     SUCCUBUSWITCH_AI_PARAM_ATTACK_CHANCE_PCT = 0,
@@ -548,11 +496,7 @@ enum D2C_M236SuccubusWitchAi
 };
 
 
-void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x00648820
-
 int __fastcall MONSTERAI_HasInteractUnit(D2MonsterInteractStrc* pMonInteract); // 0x00572DC0
-
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer); // 0x00627260
 
 int __fastcall ACT1Q4_UpdateCainPortalCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005944B0
 
@@ -768,13 +712,6 @@ Skill* __fastcall sub_006439B0(D2UnitStrc*,int,int); // 0x006439B0
 
 struct D2TargetNodeStrc;
 
-
-extern "C" void __stdcall PATH_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTarget); // 0x00648B90
-
-
-void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); // 0x00620210
-
-int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
 enum D2C_AncientBarb1AIParams
 {
@@ -7060,8 +6997,6 @@ enum D2C_J07AiConstants
     MONSTATSFLAGINDEX_BYTE1_BIT7 = 7,
 };
 
-int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMonster); // 0x0063E9F0
-
 // 0x005EB650
 int __fastcall AITHINK_IsTargetKillableByShadowMaster(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
@@ -9043,8 +8978,6 @@ int __fastcall ACT5Q5_GetPortalCount(D2GameStrc* pGame); // 0x0058CFB0
 
 int __fastcall ACT5Q5_IsActivatable(D2GameStrc* pGame); // 0x0058CFE0
 
-void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); // 0x0061AED0
-
 // 0x005EEAA0
 void __fastcall AITHINK_Fn132_AncientStatue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -9692,13 +9625,9 @@ int __fastcall OBJMODE_GetSuperUniqueId(unsigned int nIndex); // 0x00586B30
 
 D2UnitStrc* __fastcall sub_005DD0B0_FindTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg, void* pCallback, int nCallbackId); // 0x005DD0B0
 
-void __stdcall STATLIST_SetState(D2StatListStrc* pList, int nState); // 0x006252D0
-
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pList, int bReset); // 0x00626E10
 
 void __stdcall STATLIST_SetStat(D2StatListStrc* pList, int nStat, int nValue, int nLayer); // 0x00627150
-
-D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUnique); // 0x006556E0
 
 static inline int BAALTHRONE_GetSuperUniqueClass(int nSuperUnique)
 {

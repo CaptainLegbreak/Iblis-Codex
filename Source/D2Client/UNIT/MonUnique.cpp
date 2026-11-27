@@ -18,6 +18,7 @@
 #include "D2Unicode.h"
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
+#include "D2CommonApi3.h"
 
 #define UNIT_MONSTER 1
 
@@ -101,14 +102,6 @@ wchar_t* __fastcall D2LANG_GetStringFromTblIndex(unsigned short wIndex);        
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320
 
 void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pUnit, const wchar_t* wszName);                        // 0x0063E810
-
-void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, int nSeed);                                             // 0x00650E40
-
-wchar_t* __fastcall DATATBLS_RollRandomUniquePrefixString(D2UnitStrc* pUnit);                                          // 0x00653ED0
-
-wchar_t* __fastcall DATATBLS_RollRandomUniqueSuffixString(D2UnitStrc* pUnit);                                          // 0x00653F10
-
-wchar_t* __fastcall DATATBLS_RollRandomUniqueAppellationString(D2UnitStrc* pUnit);                                     // 0x00653F50
 
 static D2MonsterDataStrc* CLIENT_GetMonsterData(D2UnitStrc* pUnit)
 {

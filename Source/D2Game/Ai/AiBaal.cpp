@@ -16,6 +16,7 @@
 #include "D2MonModes.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -33,13 +34,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 
 int __fastcall AIUTIL_GetDistanceToCoordinates_HalfUnitSize(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC480
-
-
-int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit); // 0x00621F20
-
-D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
-
-D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
 
 #include "D2GameFuncs.h"
@@ -69,9 +63,6 @@ struct D2AiCmdStrc;
 static int __stdcall AIBAAL_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiCmdStrc* pArgs);
 
 
-extern "C" void __stdcall PATH_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTarget); // 0x00648B90
-
-
 static D2UnitStrc* __stdcall AIBAAL_GetUberTarget(D2GameStrc* pGame, int* pMax, int* pCount, D2AiCmdStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*), D2UnitStrc* pUnit); // 0x005FBDD0
 
 
@@ -87,9 +78,6 @@ static int __stdcall AIBAAL_RollRandomAiParamForNonCollidingUnit(D2GameStrc* pGa
 static int __stdcall AIBAAL_RollRangedAiParam(D2GameStrc*, D2UnitStrc*, int, int, int, D2UnitStrc*);
 
 int __stdcall PATH_GetY(void* pPath); // 0x00648900
-
-int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
-
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nType, int nId); // 0x00552F60
 
@@ -110,14 +98,6 @@ struct D2SpawnAreaStrc;
 struct D2UnitStrc;
 
 extern const char gszAiBaal[]; // 0x006E3580
-
-
-void __stdcall UNITS_StoreOwner(D2UnitStrc*,D2UnitStrc*); // 0x00621CE0
-
-
-int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc*); // 0x00625D60
-
-void __stdcall SKILLS_AssignSkill(D2UnitStrc*,int,int,int,const char*,int); // 0x00647280
 
 
 int __fastcall sub_005DF7D0_WalkRandomPath(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,unsigned char,int); // 0x005DF7D0
@@ -1142,8 +1122,6 @@ void __fastcall AITHINK_Fn135_BaalCrab(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
     AIBAAL_MainSkillHandler(pGame, pUnit, pAiControl, pTarget, nParam, pAiCmd);
     AITACTICS_Idle(pGame, pUnit, 25);
 }
-
-D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
 
 inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {

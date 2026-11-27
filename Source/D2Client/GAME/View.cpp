@@ -29,6 +29,7 @@
 #include "D2GfxApi.h"
 #include "D2WinApi.h"
 #include "D2CMPApi.h"
+#include "D2CommonApi3.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -322,9 +323,6 @@ int gbHelpButtonVisible; // 0x007BEF08
     (pSeed)->nHighSeed = (unsigned int)((lSeed) >> 32), (pSeed)->nLowSeed = (unsigned int)(lSeed), (unsigned int)(lSeed))
 
 struct D2QuestLookupEntryStrc;
-
-void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
-
 
 void __stdcall VIEW_ResetStar(int nStar, int bRespawn); // 0x00476190
 

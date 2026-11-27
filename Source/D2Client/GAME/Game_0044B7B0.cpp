@@ -306,9 +306,6 @@ typedef char check_UnitPrefix_identifier[OFFSET(UnitPrefix,identifier)==12?1:-1]
 
 extern "C" Auxiliary* __cdecl sub_004646A0_GetAuxiliary();
 
-extern "C" void __stdcall ENVIRONMENT_InitializeEnvironment(Context* context,Auxiliary* auxiliary,int mode,int angle,int flag); // 0x0061C240
-
-
 extern "C" void __stdcall TEXT_FreeTextHeader(Allocation* allocation); // 0x006612A0
 
 

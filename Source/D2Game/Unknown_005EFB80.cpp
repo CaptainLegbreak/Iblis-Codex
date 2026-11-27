@@ -33,6 +33,7 @@ struct D2LevelsTxt;
 
 #include "D2GameFuncs.h"
 #include "D2CommonApi2.h"
+#include "D2CommonApi3.h"
 
 
 typedef D2UnitStrc* (__fastcall* AITARGETCALLBACK)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, void*);
@@ -130,11 +131,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2AiCmdStrc* __fastcall AIGENERAL_GetCurrentAiCommandFromUnit(D2UnitStrc* pUnit); // 0x0058EE80
 
 void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int nParam, int nVel, unsigned char nArg); // 0x005DE190
-
-
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
-void __stdcall PATH_SetStepNum(D2DynamicPathStrc* pDynamicPath, unsigned char nSteps); // 0x00649070
 
 
 struct D2ActiveRoomStrc;
@@ -357,8 +353,6 @@ enum D2C_M236SuccubusWitchAi
     SUCCUBUSWITCH_AI_PARAM_AMPLIFY_DAMAGE_TARGET_HP_PCT = 6,
     SUCCUBUSWITCH_AI_PARAM_WEAKEN_MY_HP_PCT = 7,
 };
-
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer); // 0x00627260
 
 int gnNpcWalkSequenceCounter; // 0x0088CADC
 
@@ -630,15 +624,11 @@ int __fastcall AITACTICS_ChangeModeAndTargetCoordinatesNoStep(D2GameStrc* pGame,
 int __fastcall AITHINK_UnitFindCallback_Willowisp(D2UnitStrc* pUnit); // 0x005F3960
 
 
-void __stdcall STATLIST_SetListExpireFrame(D2StatListStrc* pStatList, int nExpireFrame); // 0x006260B0
-
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
 
 void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataStrc* pUnitFindData, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize, UNITFINDTEST pfnUnitTest, D2UnitFindArgStrc* pUnitFindArg); // 0x0065A950
 
-
-int __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc* pUnitFindData); // 0x0065AC70
 
 struct Target005F6630
 {

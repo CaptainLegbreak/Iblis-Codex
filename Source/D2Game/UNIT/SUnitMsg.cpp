@@ -18,6 +18,7 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "FogApi.h"
+#include "D2CommonApi2.h"
 // build: symbol _gaszLanguageNames 0x007326B8
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -27,9 +28,6 @@ extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 extern const unsigned int gdwInvBitMasks[32]; // 0x006CE2E8
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
-
-unsigned int* __stdcall STATES_GetGfxStateFlags(D2UnitStrc* pUnit); // 0x00639F70
-
 
 int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
 
@@ -135,11 +133,6 @@ void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc* pUnit); // 0x004DC0B0
 
 
 void __fastcall D2GAME_PACKETS_SendPacket0x11(D2ClientStrc* pClient, int nUnitType, int nUnitGUID, int nOverlay); // 0x0053D850
-
-D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit, int nFlag); // 0x00625760
-
-int __stdcall STATLIST_GetTotalStatValue_Layer0(D2StatListStrc* pStatListEx, int nStatId); // 0x00625A50
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -302,9 +295,6 @@ void __fastcall D2GAME_PACKETS_SendPacket0x9E_9F_A0(D2ClientStrc* pClient, D2Uni
 void __fastcall SCMD_SendSkillUseOnUnit(D2ClientStrc* pClient, unsigned char nSourceUnitType, int nSourceUnitGUID, unsigned char nUnitType, int nUnitGUID, unsigned short nSkillId, unsigned short nSkillParam, unsigned char nSkillLevel, int bQueued); // 0x0053D530
 
 void __fastcall D2GAME_PACKETS_SendPacket0xA4(D2ClientStrc* pClient, short nMonStatsId);                    // 0x0053E1A0
-
-
-void __stdcall CHAT_CopyHoverMsgToBuffer(D2HoverTextStrc*, char*); // 0x006611E0
 
 
 void __fastcall D2GAME_PACKETS_SendPacketSize06(D2ClientStrc*, unsigned char, int, int); // 0x0053B3D0

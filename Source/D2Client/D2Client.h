@@ -86,17 +86,17 @@ D2ClientServiceStrc* __cdecl BNCLIENT_GetInterfaceTable(); // 0x00518C10
 D2ClientSoundStrc* __cdecl SOUNDINST_AllocSoundEntry(); // 0x004B93F0
 D2CommonIgnoreListStrc* IGNORELIST_GetOrCreateIgnoreList(); // 0x00611560
 D2DrlgTileDataStrc* __stdcall DUNGEON_GetFloorTilesFromRoom(D2ActiveRoomStrc* pRoom, unsigned int* pCount); // 0x00619660
-D2HoverTextStrc* __stdcall CHAT_AllocHoverMsg(void* pMemoryPool, const char* szText, int nGameFrame); // 0x00661110
+D2HoverTextStrc* __stdcall CHAT_AllocHoverMsg(void* pMemPool, const char* szText, int nTimeout); // 0x00661110
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId); // 0x0061E470
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
 D2MonModeTxt* __stdcall DATATBLS_GetMonModeTxtRecord(int nMode, int nType); // 0x0065B500
 D2ObjectsTxt* __stdcall UNITS_GetObjectTxtRecordFromObject(D2UnitStrc* pUnit); // 0x00621B30
-D2PresetUnitStrc* __stdcall DUNGEON_GetPresetUnitsFromRoom(D2ActiveRoomStrc* pRoom); // 0x00619FD0
+D2PresetUnitStrc* __stdcall DUNGEON_GetPresetUnitsFromRoom(D2ActiveRoomStrc* ptRoom); // 0x00619FD0
 D2SkillListStrc* __stdcall SKILLS_AllocSkillList(void* pMemPool); // 0x006438B0
 D2SkillStrc* __stdcall SKILLS_AddSkill(D2UnitStrc* pUnit, int nSkillId); // 0x00647110
 D2SkillStrc* __stdcall SKILLS_GetNextSkill(D2SkillStrc* pSkill); // 0x006438F0
-D2SkillStrc* __stdcall UNITS_GetStartSkill(D2UnitStrc* pUnit); // 0x00620150
+D2SkillStrc* __stdcall UNITS_GetStartSkill(D2UnitStrc* hUnit); // 0x00620150
 D2SquelchListStrc* __cdecl sub_00611560_GetSquelchList(); // 0x00611560
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit, int nFlag); // 0x00625760
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
@@ -112,7 +112,7 @@ D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2); // 0x00623990
 D2UnitStrc* __stdcall INVENTORY_RemoveItemFromInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063AD90
 D2UnitStrc* __stdcall PATH_GetTargetUnit(D2DynamicPathStrc* pDynamicPath); // 0x00648BF0
 D2UnitStrc* __stdcall UNITS_AllocUnit(void* pMemPool, int nUnitType); // 0x00620290
-D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int nArg); // 0x00623990
+D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2); // 0x00623990
 D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
 AsyncData* __fastcall FOG_AsyncDataLoadFileEx(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine); // 0x0040A620
@@ -125,7 +125,7 @@ const char* __fastcall sub_0047A210_GetPartyName(D2UnitStrc* pUnit); // 0x0047A2
 const char* __fastcall sub_004BDFD0_GetObjectText(D2UnitStrc* pUnit); // 0x004BDFD0
 const char* __stdcall D2CMPGetGfxFileExtension(int bAllowCompressed); // 0x005FE1F0
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
-const char* __stdcall ITEMS_GetVarInvGfxString(D2UnitStrc* pItem, int nGfx); // 0x0062E920
+char* __stdcall ITEMS_GetVarInvGfxString(D2UnitStrc* pItem, int nId); // 0x0062E920
 extern "C" SelectionState* gVar_007C0E54; // 0x007C0E54
 extern "C" __declspec(dllimport) int __stdcall FreeLibrary(void* hModule); // 0x006CC14C
 extern "C" __declspec(dllimport) int __stdcall SendMessageA(void* hWnd, unsigned int uMsg, int wParam, int lParam); // 0x006CC49C
@@ -226,7 +226,7 @@ extern D2WinControlStrc* gpChangePwAccountEdit; // 0x007799BC
 extern D2WinControlStrc* gpOldPasswordEdit; // 0x007799C0
 extern D2WinControlStrc* gpNewPasswordConfirmEdit; // 0x007799C4
 extern D2WinControlStrc* gpNewPasswordEdit; // 0x007799C8
-extern Unit* __stdcall DUNGEON_GetFirstUnitInRoom(Room*); // 0x00619EA0
+D2UnitStrc* __stdcall DUNGEON_GetFirstUnitInRoom(D2ActiveRoomStrc* ptRoom); // 0x00619EA0
 extern char gbQuestSlotDown; // 0x007BF2B1
 extern char gbTradeClickPending; // 0x007C0DE0
 extern char gszBattleNetIP[]; // 0x0070F028
@@ -561,7 +561,7 @@ int __fastcall SERVER_GetServerPacketSize(unsigned char* pPacket, unsigned int n
 int __fastcall uncompress(void* pDest, unsigned int* pDestSize, const void* pSource, unsigned int nSourceSize); // 0x006C79C0
 int __stdcall COLLISION_RayTrace(D2ActiveRoomStrc* pRoom, D2CoordStrc* pBegin, D2CoordStrc* pEnd, int nCollisionMask); // 0x0064E260
 int __stdcall COMPOSIT_IsWeaponBowOrXBow(D2UnitStrc* pUnit); // 0x0064F460
-int __stdcall D2COMMON_11017_CheckUnitIfConsumeable(D2UnitStrc* pUnit, int a2); // 0x00645510
+int __stdcall D2COMMON_11017_CheckUnitIfConsumeable(D2UnitStrc* pUnit, int bAllowDying); // 0x00645510
 int __stdcall D2COMMON_11018(D2UnitStrc* pUnit); // 0x00645590
 int __stdcall D2COMMON_11019(D2UnitStrc* pUnit); // 0x006455E0
 int __stdcall D2COMMON_11269_CopyStats(D2StatListStrc* pStatList, int nStatId, D2StatStrc* pBuffer, int nBufferSize); // 0x006261B0
@@ -587,8 +587,8 @@ int __stdcall INVENTORY_PlaceItemInBeltSlot(D2InventoryStrc* pInventory, D2UnitS
 int __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nPage); // 0x0063B210
 int __stdcall ITEMMODS_GetByTimeAdjustment(int nAmount, int nPeriodOfDay, int nBaseTime, int* pItemModPeriodOfDay, int* pItemModMin, int* pItemModMax); // 0x0065CA30
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
-int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem); // 0x006295B0
-int __stdcall ITEMS_GetTransactionCost(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nVendorId, int nTransactionType); // 0x0062FDC0
+int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* hItem); // 0x006295B0
+int __stdcall ITEMS_GetTransactionCost(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nNpcId, int nMode); // 0x0062FDC0
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
 int __stdcall ITEMS_HasUsedCharges(D2UnitStrc* pItem, int* pHasChargedSkills); // 0x0062A840
 int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc* pMissile, D2UnitStrc* pOwner, unsigned int nCalc, int nMissileId, int nLevel); // 0x0064B7C0
@@ -599,7 +599,7 @@ int __stdcall MONSTERS_IsDemon(D2UnitStrc* pMonster); // 0x0063E940
 int __stdcall MONSTERS_IsUndead(D2UnitStrc* pMonster); // 0x0063E990
 int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); // 0x006492A0
 int __stdcall PATH_GetFootprintCollisionMask(D2DynamicPathStrc* pPath); // 0x00648C10
-int __stdcall PATH_GetPathPoints(D2DynamicPathStrc* pPath, D2PathPointStrc** ppPathPoints); // 0x006487D0
+int __stdcall PATH_GetPathPoints(D2DynamicPathStrc* pDynamicPath, D2PathPointStrc** ppPathPoints); // 0x006487D0
 int __stdcall PATH_GetVelocity(D2DynamicPathStrc* pDynamicPath); // 0x006486C0
 int __stdcall SBigFromBinary(void* hBig, const void* pData, unsigned int nSize); // 0x00423850
 int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
@@ -607,12 +607,12 @@ int __stdcall SKILLS_CheckRequiredAttributes(D2UnitStrc* pUnit, int nSkillId); /
 int __stdcall SKILLS_CheckRequiredSkills(D2UnitStrc* pUnit, int nSkillId); // 0x006447D0
 int __stdcall SKILLS_GetMaxPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bAddWeaponDamage); // 0x00647D00
 int __stdcall SKILLS_GetMinPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bAddWeaponDamage); // 0x00647BC0
-int __stdcall SKILLS_GetParam1(D2SkillStrc* pSkill); // 0x006444A0
-int __stdcall SKILLS_GetParam2(D2SkillStrc* pSkill); // 0x006444D0
-int __stdcall SKILLS_GetParam3(D2SkillStrc* pSkill); // 0x00644500
-int __stdcall SKILLS_GetParam4(D2SkillStrc* pSkill); // 0x00644530
-int __stdcall SKILLS_GetQuantity(D2SkillStrc* pSkill); // 0x006450F0
-int __stdcall SKILLS_GetSkillInfo(D2SkillStrc* pSkill, int* pOwnerGUID, int* pSkillId, int* pSkillLevel, int* pCharges); // 0x00643B00
+int __stdcall SKILLS_GetParam1(D2SkillStrc* ptSkill); // 0x006444A0
+int __stdcall SKILLS_GetParam2(D2SkillStrc* ptSkill); // 0x006444D0
+int __stdcall SKILLS_GetParam3(D2SkillStrc* ptSkill); // 0x00644500
+int __stdcall SKILLS_GetParam4(D2SkillStrc* ptSkill); // 0x00644530
+int __stdcall SKILLS_GetQuantity(D2SkillStrc* ptSkill); // 0x006450F0
+int __stdcall SKILLS_GetSkillInfo(D2SkillStrc* hSkill, int* pOwnerGUID, int* pSkillId, int* pSkillLevel, int* pCharges); // 0x00643B00
 int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x006449F0
 int __stdcall SMemCmp(const void* pLocation1, const void* pLocation2, unsigned int nSize); // 0x0041D200
 int __stdcall SMsgPushRegisterState(int nType); // 0x00420360
@@ -637,14 +637,14 @@ int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
 int __stdcall TEXT_GetMenuType2NodeCount(D2TextHeaderStrc* pTextHeader); // 0x00661390
 int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker); // 0x00622560
-int __stdcall UNITS_GetBeltType(D2UnitStrc* pItem); // 0x00621ED0
+int __stdcall UNITS_GetBeltType(D2UnitStrc* pUnit); // 0x00621ED0
 int __stdcall UNITS_GetDefense(D2UnitStrc* pUnit); // 0x006223F0
 int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY); // 0x00621DC0
 int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
-int __stdcall UNITS_GetNewDirection(D2UnitStrc* pUnit); // 0x006238C0
-int __stdcall UNITS_IsAtEndOfFrameCycle(D2UnitStrc* pUnit); // 0x006217C0
-int __stdcall UnitIsDoor(D2UnitStrc* pUnit); // 0x00621A70
-int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit); // 0x00622D00
+int __stdcall UNITS_GetNewDirection(D2UnitStrc* hUnit); // 0x006238C0
+int __stdcall UNITS_IsAtEndOfFrameCycle(D2UnitStrc* ptUnit); // 0x006217C0
+int __stdcall UnitIsDoor(D2UnitStrc* ptUnit); // 0x00621A70
+int __stdcall UNITS_IsInMovingMode(D2UnitStrc* hUnit); // 0x00622D00
 int __stdcall UNITS_IsShrine(D2UnitStrc* pUnit); // 0x00621B00
 int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nCollisionMask); // 0x00622AA0
 int __stdcall WINDOW_GetState(); // 0x004F6070
@@ -663,17 +663,17 @@ int __stdcall CelConvertDir(unsigned int nDirection, unsigned int nDirections, i
 int __stdcall CelGameDirToNormalDir(unsigned int nIndex, unsigned int nDirections); // 0x00600E20
 int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
-int __stdcall DUNGEON_GetWarpDestinationLevel(D2ActiveRoomStrc* pRoom, int nClassId); // 0x0061A1D0
+int __stdcall DUNGEON_GetWarpDestinationLevel(D2ActiveRoomStrc* pRoom, int nSourceLevel); // 0x0061A1D0
 int __stdcall DUNGEON_GetActNoFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061AB30
 int __stdcall D2Common_10095(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x0061B130
 int __stdcall sub_00621050(D2UnitStrc* pUnit, int nArg, int nMode); // 0x00621050
-int __stdcall UNITS_IsAtEndOfFrameCycle(D2UnitStrc* pUnit); // 0x006217C0
-int __stdcall UNITS_GetNameOffsetFromObject(D2UnitStrc* pUnit); // 0x00622270
+int __stdcall UNITS_IsAtEndOfFrameCycle(D2UnitStrc* ptUnit); // 0x006217C0
+unsigned int __stdcall UNITS_GetNameOffsetFromObject(D2UnitStrc* ptUnit); // 0x00622270
 int __stdcall ITEMS_IsNotQuestItem(D2UnitStrc* pItem); // 0x0062A130
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 int __stdcall ITEMS_GetColor(D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned char* pShift, int nArg); // 0x0062C100
 int __stdcall ITEMS_CanBeImbued(D2UnitStrc* pItem); // 0x0062C590
-int __stdcall ITEMS_IsPersonalizable(D2UnitStrc* pItem); // 0x0062C6A0
+int __stdcall ITEMS_IsPersonalizable(D2UnitStrc* hItem); // 0x0062C6A0
 int __stdcall ITEMS_IsSocketable(D2UnitStrc* pItem); // 0x0062C770
 int __stdcall ITEMS_IsRepairable(D2UnitStrc* pItem); // 0x0062E660
 int __stdcall STATES_CheckStateMaskAuraOnUnit(D2UnitStrc* pUnit); // 0x0063A250
@@ -682,17 +682,17 @@ int __stdcall sub_0063B9D0_PlaceItemAt(D2InventoryStrc* pInventory, D2UnitStrc* 
 int __stdcall INVENTORY_PlaceItemAtInventoryPage(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nX, int nY, int nInventoryRecordId, int bClient, unsigned char nPage); // 0x0063BCC0
 int __stdcall sub_0063BDB0(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc); // 0x0063BDB0
 int __stdcall INVENTORY_GetUseableItemFromBeltSlot(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nSlot, int* pResult); // 0x0063C830
-int __stdcall MONSTERS_IsSandLeaper(D2UnitStrc* pUnit, int nMode); // 0x0063E8D0
+int __stdcall MONSTERS_IsSandLeaper(D2UnitStrc* pMonster, int bAlwaysReturnFalse); // 0x0063E8D0
 int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
-int __stdcall SKILLS_IsPlayerClassSkill(int nSkillId, int* pCharClass); // 0x00645080
+int __stdcall SKILLS_IsPlayerClassSkill(int nSkillId, int* pPlayerClass); // 0x00645080
 int __stdcall D2COMMON_11021(D2UnitStrc* pUnit); // 0x00645680
-int __stdcall D2Common_11026(int nX, int nY, D2UnitStrc* pUnit, int nCollisionMask); // 0x00645950
-int __stdcall PATH_GetType(D2DynamicPathStrc* pPath); // 0x00648E30
+int __stdcall D2Common_11026(int nX, int nY, D2UnitStrc* pUnit, int nColMask); // 0x00645950
+int __stdcall PATH_GetType(D2DynamicPathStrc* pDynamicPath); // 0x00648E30
 int __stdcall MISSILE_GetCurrentFrame(D2UnitStrc* pMissile); // 0x0064A380
 int __stdcall MISSILE_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A3B0
-int __stdcall MISSILE_GetElementalLength(D2UnitStrc*,D2UnitStrc*,int,int); // 0x0064B2A0
-int __stdcall COMPOSIT_IsArmorComponent(int nBodyLoc); // 0x0064F420
-int __stdcall COMPOSIT_GetArmorTypeFromComponent(int nBodyLoc, unsigned char* pComponents); // 0x0064F500
+int __stdcall MISSILE_GetElementalLength(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B2A0
+int __stdcall COMPOSIT_IsArmorComponent(int nComponent); // 0x0064F420
+unsigned int __stdcall COMPOSIT_GetArmorTypeFromComponent(int eComponent, unsigned char* pArmorComponents); // 0x0064F500
 int __stdcall PATH_HasEnteredNewSubtile(D2DynamicPathStrc* pPath); // 0x006505C0
 int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
 int __stdcall D2QSSOCKET_SendPacket(void* pConnection, const unsigned char* pBuffer, int nSize); // 0x006BC8A0
@@ -708,21 +708,21 @@ unsigned char __stdcall UNITS_GetDirection(D2UnitStrc* pUnit); // 0x00620100
 unsigned char __stdcall PALETTE_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 unsigned char __stdcall ITEMS_GetVarGfxIndex(D2UnitStrc* pItem); // 0x006283F0
 unsigned char __stdcall ITEMS_GetVarInvGfxCount(D2UnitStrc* pItem); // 0x0062E8D0
-unsigned char __stdcall MONSTERS_GetMaximalLightRadius(D2UnitStrc* pUnit); // 0x0063EBD0
-unsigned char __stdcall PATH_GetMaxDistance(D2DynamicPathStrc* pPath); // 0x00648EA0
+unsigned char __stdcall MONSTERS_GetMaximalLightRadius(D2UnitStrc* pMonster); // 0x0063EBD0
+unsigned char __stdcall PATH_GetMaxDistance(D2DynamicPathStrc* pDynamicPath); // 0x00648EA0
 unsigned char* __fastcall GFXUTIL_GetLayerOrder(void* pGfx, int nA, int nFrame); // 0x004DB110
 unsigned int __cdecl sub_0044CE60_GetPing(); // 0x0044CE60
 unsigned int __cdecl D2CMPSpriteNumAsyncLoads(); // 0x005FF2A0
 unsigned int __fastcall FOG_AsyncDataGetBufferSize(AsyncData* pAsyncData); // 0x0040AA40
 unsigned int __fastcall D2SOUNDSMP_GetStreamPosition(D2SoundStrc* pSound); // 0x005159B0
 unsigned int __stdcall D2Common_11069(D2UnitStrc* pMonster, unsigned int nIndex, unsigned int nComponent); // 0x00664860
-unsigned int __stdcall INVENTORY_GetItemGUID(D2UnitStrc* pItem); // 0x0063E000
-unsigned int __stdcall ITEMS_GetAltGfx(D2UnitStrc* pItem); // 0x006285F0
-unsigned int __stdcall UNITS_SetNameInPlayerData(D2UnitStrc* pUnit, char* szName); // 0x006220F0
-unsigned int __stdcall D2Common_11070(int nClass, unsigned int nIndex, unsigned int nComponent); // 0x00664930
+int __stdcall INVENTORY_GetItemGUID(D2UnitStrc* pItem); // 0x0063E000
+unsigned int __stdcall ITEMS_GetAltGfx(D2UnitStrc* hItem); // 0x006285F0
+unsigned int __stdcall UNITS_SetNameInPlayerData(D2UnitStrc* ptUnit, char* szName); // 0x006220F0
+int __stdcall D2Common_11070(int nMonsterId, unsigned int nComponent, unsigned int nIndex); // 0x00664930
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
 unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask); // 0x0064D9B0
-unsigned short __stdcall TEXT_GetStringIdOfMenuType0Node(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x00661400
+short __stdcall TEXT_GetStringIdOfMenuType0Node(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x00661400
 void __cdecl D2GFX_OutputString(int nXPos, int nYPos, const char* szFormat, ...); // 0x004F6890
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
 struct D2PoolSystemStrc;
@@ -776,7 +776,7 @@ void __cdecl D2SOUNDFAST_FadeOutWaves(); // 0x00515020
 void __cdecl STRTABLE_UnloadStringTables(); // 0x00524E40
 void __cdecl GAME_ProcessNetworkMessages(); // 0x0052CFE0
 void __cdecl GAME_CloseAllGames(); // 0x0052E9C0
-void __cdecl LOG_11100(int nA, int nB, int nC, int nFlags, const char* szFile, int nLine, const char* szFormat, ...); // 0x006248E0
+void __cdecl LOG_11100(int nThreadId, int nLogLevel, int nComponent, int nSubsystem, const char* szContext, int nSequence, const char* szFormat, ...); // 0x006248E0
 void __fastcall ARCHIVE_CloseFile(void* hArchive, void* hFile); // 0x00516E84
 void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuffer, unsigned int dwBytesToRead); // 0x00516F85
 void __fastcall D2SOUND_10034(int nArg); // 0x005148F0
@@ -883,12 +883,12 @@ void __stdcall D2Win_10029(int bDrawCursor); // 0x004FA410
 void __stdcall D2Win_10030_CONTROL_ToggleFourthFlag(D2WinControlStrc* pControl, int bSet); // 0x004FA420
 void __stdcall DATATBLS_ComputeSequenceAnimation(D2AnimSeqTxt* pMonSeqTxt, int nTargetFramePoint, int nCurrentFramePoint, int* pMode, int* pFrame, int* pDirection, int* pEvent); // 0x00663410
 void __stdcall DUNGEON_ClientToGameSubtileCoords(int* pX, int* pY); // 0x00643510
-void __stdcall DUNGEON_FreeAct(D2DrlgActStrc* pAct); // 0x0061AFD0
-void __stdcall DUNGEON_UpdateWarpRoomDeselect(D2ActiveRoomStrc* pRoom, int nLevelId); // 0x0061AC90
-void __stdcall DUNGEON_UpdateWarpRoomSelect(D2ActiveRoomStrc* pRoom, int nLevelId); // 0x0061AC50
+void __stdcall DUNGEON_FreeAct(D2DrlgActStrc* ptAct); // 0x0061AFD0
+void __stdcall DUNGEON_UpdateWarpRoomDeselect(D2ActiveRoomStrc* ptRoom, int nLevelId); // 0x0061AC90
+void __stdcall DUNGEON_UpdateWarpRoomSelect(D2ActiveRoomStrc* ptRoom, int nLevelId); // 0x0061AC50
 void __stdcall ENVIRONMENT_InitializeEnvironment(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom, int nIndex, int nTicks, int bEclipse); // 0x0061C240
 void __stdcall GAME_SetInitSeed(int nInitSeed); // 0x0052C320
-void __stdcall INVENTORY_GetSecondWieldingWeapon(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, D2UnitStrc** ppItem, int nBodyLoc); // 0x0063E490
+void __stdcall INVENTORY_GetSecondWieldingWeapon(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, D2UnitStrc** ppItem, int nBodyLoc); // 0x0063E490
 void __stdcall INVENTORY_Return(const char* szFile, int nLine, D2InventoryStrc* pInventory, int nX, int nY, int nInventoryRecordId, int bClient, unsigned char nPage); // 0x0063BCF0
 void __stdcall INVENTORY_SetCursorItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063C180
 void __stdcall ITEMS_AllocItemData(void* pMemPool, D2UnitStrc* pItem); // 0x00627C90
@@ -898,16 +898,16 @@ void __stdcall ITEMS_SetBodyLocation(D2UnitStrc* pItem, unsigned char nBodyLoc);
 void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage); // 0x00628280
 void __stdcall MISSILE_SetActivateFrame(D2UnitStrc* pMissile, int nActivateFrame); // 0x0064A5F0
 void __stdcall MISSILE_SetAnimSpeed(D2UnitStrc* pMissile, int nAnimSpeed); // 0x0064A690
-void __stdcall MISSILE_SetLevel(D2UnitStrc* pMissile, int nSkillLevel); // 0x0064A1E0
+void __stdcall MISSILE_SetLevel(D2UnitStrc* pMissile, int nLevel); // 0x0064A1E0
 void __stdcall MISSILE_SetSkill(D2UnitStrc* pMissile, int nSkill); // 0x0064A240
-void __stdcall PATH_GetTargetTypeAndGUID(D2DynamicPathStrc* pPath, int* pUnitType, int* pUnitGUID); // 0x00648BB0
+void __stdcall PATH_GetTargetTypeAndGUID(D2DynamicPathStrc* ptPath, int* pTargetType, int* pTargetGUID); // 0x00648BB0
 void __stdcall PATH_SetAcceleration(D2DynamicPathStrc* pDynamicPath, int nAcceleration); // 0x00648700
 void __stdcall PATH_SetMaxVelocity(D2DynamicPathStrc* pDynamicPath, int nMaxVelocity); // 0x006486D0
-void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask); // 0x00648CE0
-void __stdcall PATH_SetPrecisionX(D2DynamicPathStrc* pDynamicPath, int nPrecisionX); // 0x006489A0
+void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648CE0
+void __stdcall PATH_SetPrecisionX(D2DynamicPathStrc* pDynamicPath, unsigned int dwPrecisionX); // 0x006489A0
 void __stdcall PATH_SetPrecisionY(D2DynamicPathStrc* pDynamicPath, int nPrecisionY); // 0x006489B0
 void __stdcall PATH_SetStepNum(D2DynamicPathStrc* pDynamicPath, unsigned char nSteps); // 0x00649070
-void __stdcall QUESTRECORD_CopyBufferToRecord(D2BitBufferStrc* pQuestRecord, unsigned char* pBuffer, unsigned short nBufferSize, int bResetStates); // 0x0065C4D0
+void __stdcall QUESTRECORD_CopyBufferToRecord(D2BitBufferStrc* pQuestRecord, unsigned char* pBuffer, unsigned short wBufSize, int bResetStates); // 0x0065C4D0
 void __stdcall SBigDel(void* hBig); // 0x00424E40
 void __stdcall SBigNew(void** phBig); // 0x00423950
 void __stdcall SBigPowMod(void* hResult, void* hBase, void* hExponent, void* hModulus); // 0x00425330
@@ -919,25 +919,25 @@ void __stdcall SCALE_UpdateFactor(); // 0x004F65C0
 void __stdcall SKILLS_CalculateKickDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pDamagePercent); // 0x00646280
 void __stdcall SKILLS_RefreshPassiveSkills(D2UnitStrc* pUnit); // 0x00646F20
 void __stdcall SKILLS_RemoveSkill(D2UnitStrc* pUnit, int nSkillId, const char* szFile, int nLine); // 0x006470F0
-void __stdcall SKILLS_SetSkillMode(D2SkillStrc* pSkill, int nMode); // 0x00644340
+void __stdcall SKILLS_SetSkillMode(D2SkillStrc* pSkill, unsigned int nSkillMode); // 0x00644340
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0
 void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList); // 0x00626CD0
-void __stdcall STATLIST_MergeBaseStats(D2StatListStrc* pTargetStatList, D2StatListStrc* pSourceStatList); // 0x006274F0
+void __stdcall STATLIST_MergeBaseStats(D2StatListStrc* pTargetStatList, D2StatListStrc* pSourceStatlist); // 0x006274F0
 void __stdcall TEXT_FreeTextHeader(D2TextHeaderStrc* pTextHeader); // 0x006612A0
-void __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc* pUnitFindData); // 0x0065AC70
+int __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc* pUnitFindData); // 0x0065AC70
 void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pUnitFindData); // 0x0065AA00
 void __stdcall UNITS_AllocStaticPath(D2UnitStrc* pUnit); // 0x00623520
 void __stdcall UNITS_FreeStaticPath(D2UnitStrc* pUnit); // 0x00623570
-void __stdcall UNITS_FreeUnit(D2UnitStrc* pUnit); // 0x00620300
-void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
-void __stdcall UNITS_GetShiftedFrameMetrics(D2UnitStrc* pUnit, int* pFrameNo, int* pFrameCount); // 0x00621810
-void __stdcall UNITS_SetAnimationFrame(D2UnitStrc* pUnit, int nFrame); // 0x006212C0
+void __stdcall UNITS_FreeUnit(D2UnitStrc* unit); // 0x00620300
+void __stdcall UNITS_GetCoords(D2UnitStrc* ptUnit, D2CoordStrc* pCoord); // 0x00620870
+void __stdcall UNITS_GetShiftedFrameMetrics(D2UnitStrc* ptUnit, int* pFrameNo, int* pFrameCount); // 0x00621810
+void __stdcall UNITS_SetAnimationFrame(D2UnitStrc* ptUnit, int nFrame); // 0x006212C0
 void __stdcall UNITS_SetAnimationSpeed(D2UnitStrc* pUnit, int nSpeed); // 0x00621780
-void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x00620C10
-void __stdcall UNITS_SetXForStaticUnit(D2UnitStrc* pUnit, int nX); // 0x00620470
-void __stdcall UNITS_SetYForStaticUnit(D2UnitStrc* pUnit, int nY); // 0x006204C0
+void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* ptUnit, D2UnitStrc* pTargetUnit); // 0x00620C10
+void __stdcall UNITS_SetXForStaticUnit(D2UnitStrc* ptUnit, int nX); // 0x00620470
+void __stdcall UNITS_SetYForStaticUnit(D2UnitStrc* ptUnit, int nY); // 0x006204C0
 void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner); // 0x00621CE0
 void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x00623F50
 void __stdcall UNITS_UpdateDirectionAndSpeed(D2UnitStrc* pUnit, int nX, int nY); // 0x00621C00
@@ -965,21 +965,21 @@ void __stdcall GAME_UpdateClients(int nArg1, int nArg2); // 0x0052FD90
 void __stdcall D2CMPPalShiftSetAct(int nAct); // 0x00600C00
 void __stdcall DUNGEON_CallRoomCallback(D2ActiveRoomStrc* pRoom, void* pfCallback, D2WallRoomArgStrc* pArg); // 0x00619BD0
 void __stdcall DUNGEON_GetRGB_IntensityFromRoom(D2ActiveRoomStrc* pRoom, unsigned char* pIntensity, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x00619D70
-void __stdcall UNITS_SetAnimationSpeed(D2UnitStrc* pMissile, int nArg); // 0x00621780
+void __stdcall UNITS_SetAnimationSpeed(D2UnitStrc* pUnit, int nSpeed); // 0x00621780
 void __stdcall UNITS_UpdateDirectionAndSpeed(D2UnitStrc* pUnit, int nX, int nY); // 0x00621C00
 void __stdcall sub_00624390(D2UnitStrc* pUnit); // 0x00624390
 void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BE30
 void __stdcall D2COMMON_10267_Return(D2InventoryStrc* pInventory, int nX); // 0x0063C550
 void __stdcall INVENTORY_GetDirectionDelta(unsigned char nDirection, int* pX, int* pY); // 0x0063E7E0
-void __stdcall MONSTERS_GetChainDirectionDelta(D2UnitStrc* pUnit, int* pX, int* pY); // 0x0063EE10
+void __stdcall MONSTERS_GetChainDirectionDelta(D2UnitStrc* unit,int* x,int* y); // 0x0063EE10
 void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY); // 0x00643310
 void __stdcall DUNGEON_ClientTileDrawPositionToGameCoords(int nX, int nY, int* pX, int* pY); // 0x00643340
-void __stdcall D2Common_11030(D2UnitStrc* pUnit, int nSkillId, int nBonus); // 0x00647AA0
-void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc* pPath); // 0x00648DC0
-void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pPath, int nDistance); // 0x00648E70
+void __stdcall D2Common_11030(D2UnitStrc* pUnit, int nSkillId, int nLevelBonus); // 0x00647AA0
+void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc* pDynamicPath); // 0x00648DC0
+extern "C" void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
 void __stdcall sub_00649190_SetPathMode(D2UnitStrc* pUnit, int nMode); // 0x00649190
-void __stdcall PATH_SetUnitAliveCollision(D2UnitStrc* pUnit, int nArg); // 0x00649FF0
-void __stdcall MISSILE_SetAnimSpeed(D2UnitStrc* pMissile, int nSpeed); // 0x0064A690
+void __stdcall PATH_SetUnitAliveCollision(D2UnitStrc* pUnit, int bSkip); // 0x00649FF0
+void __stdcall MISSILE_SetAnimSpeed(D2UnitStrc* pMissile, int nAnimSpeed); // 0x0064A690
 void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pPath); // 0x00650590
 void* __cdecl sub_00454600(); // 0x00454600
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430

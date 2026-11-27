@@ -8,6 +8,7 @@
 #include "D2Txt.h"
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
+#include "D2CommonApi3.h"
 
 struct D2UnitStrc;
 
@@ -73,8 +74,6 @@ extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nCl
 
 
 
-
-void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
 
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit); // 0x00648B90
 

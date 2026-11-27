@@ -12,6 +12,7 @@
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
 #include "D2GfxApi.h"
+#include "D2CommonApi3.h"
 struct D2CharStatsTxt;
 
 struct D2GameStrc;
@@ -25,7 +26,6 @@ int __fastcall SKILLS_StartBasicAttack(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); /
 int __stdcall D2GAME_ModeChange(D2GameStrc*, D2ModeChangeStrc*, int); // 0x005A7C20
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc*, int, D2ModeChangeStrc*); // 0x005A7E60
 void __stdcall PATH_SetVelocity(D2DynamicPathStrc*, int, const char*, int); // 0x00648690
-void __stdcall PATH_SetNewDistance(D2DynamicPathStrc*, unsigned char); // 0x00648E70
 static inline int UNITS_GetUnitTypeChecked(D2UnitStrc* pUnit)
 {
     if (pUnit)

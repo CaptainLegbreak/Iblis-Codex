@@ -24,6 +24,7 @@
 #include "D2WinApi.h"
 #include "D2CMPApi.h"
 #include "StormApi2.h"
+#include "D2CommonApi3.h"
 
 struct D2CelFileStrc;
 
@@ -83,9 +84,6 @@ extern int gnAutomapMode; // 0x007A5150
 extern int gnAutomapOriginX; // 0x007A520C
 
 extern int gnAutomapOriginY; // 0x007A5208
-
-
-void __stdcall STATLIST_FreeModStats(void* pArg); // 0x00625960
 
 
 extern int gnCofMemoryUsed; // 0x007A8918
@@ -287,8 +285,6 @@ struct D2ImmunityTextStrc
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
@@ -420,10 +416,6 @@ Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource,
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount);                    // 0x00526790
 
 void __fastcall sub_005272B0_FormatText(Unicode* pDst, const Unicode* pText, const Unicode* pFormat, int nMaxLength, int nLanguage); // 0x005272B0
-
-
-
-void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const Unicode* wszName);        // 0x0063E810
 
 
 

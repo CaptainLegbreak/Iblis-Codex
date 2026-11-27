@@ -31,6 +31,7 @@
 #include "StormApi2.h"
 #include "D2WinApi.h"
 #include "D2NetApi.h"
+#include "D2CommonApi3.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -223,8 +224,6 @@ struct D2CommonChatIgnoreListStrc
 struct D2CommonIgnoreListStrc : D2CommonChatIgnoreListStrc
 {
 };
-
-D2CommonIgnoreListStrc* IGNORELIST_GetOrCreateIgnoreList(); // 0x00611560
 
 extern "C" int __fastcall BNDOWNLOAD_GetReplyValue(unsigned char nSlot); // 0x00520C20
 
