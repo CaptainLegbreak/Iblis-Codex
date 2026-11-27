@@ -3,7 +3,6 @@
 Written by lane 5 only. Newest entries at the top of each section; delete what is done.
 
 ## Ready
-- lane5/emit-d2game-8 8b542ef2b (main #460 merged in, as asked: Unknown_0054DAC0.cpp is main's with the join redone on it under main's names, Unknown_0054EC90.cpp goes; PlrEval.cpp stays deleted; take this one alone, it holds -5 to -7): 26 D2Game emit helpers go in all; on #460's count 312 -> 305. In it: Arena, Level (3), Clients (2), Game, SUnitDmg (4: ApplyDamageTargetAc, ApplyHitClass, DrainLife; AddDemonDamagePercent on D2DamageStrc; 0x57BDD0 as SUNITDMG_ApplyPierce on the Context/Record of 0x57BE00), SUnit (2), SUnitInactive, Items (2), ItemMode (2), InvMode, MissMode, MonsterMode (3), MonsterUnique, PlrModes, PlrSave, SUNITNPC, SkilPal (2), Skills, Unknown_00570420 (4), Unknown_005C0D00 (2, 0x5C0D20 as ITEMS_GetPotentialMagicAffix), Event (3, 0x540B70 as EVENT_GetTimerListTail), QUESTS.CPP (2, 0x545D40 as QUESTS_InitQuestData), quests a1q3, a1q5, a2q3, a4q2, a5q2, a5q3, a5q5, and two joins: Unknown_0054EC90.cpp into Unknown_0054DAC0.cpp (D2GAME_PopulateRoom) and PlrEval.cpp into Unknown_00570420.cpp (files in pieces -2). Noinline +1 net, evidenced: sub_0054E190_SpawnMonsterAtFreePosition and sub_0054EC40_IsSpecialBaseMonster, called out of line by 0x54EC90 (the deleted piece had one). Renames and retypes are carried into names.csv, units.json and functions.json. Every D2Game unit equal; full build on #460 identical yes, borrowed code 5,424 B in 2 functions, borrowed data 261 B; auditguard against #460: only that noinline rise.
 - The three together: full build identical yes, borrowed code 8,373 B in 5 functions, borrowed data 261 B.
 
 ## Claimed
@@ -108,3 +107,5 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 - 2026-11-26 18:33 PT: status: emit-d2game-7 Ready (on top of -6). 14 D2Game emit helpers left.
 - 2026-11-26 18:43 PT: status: emit-d2game-8 Ready (replaces -7). 13 D2Game emit helpers left; the easy ones are done.
 - 2026-11-26 19:14 PT: status: emit-d2game-8 rebased onto #460 as asked (merge, conflicts redone by hand), Ready.
+
+- 2026-11-26 19:48 PT: status: emit-d2game-8 merged in #463 (Ready line dropped). Next: the D2Game emit helpers left, on a new branch from #463.
