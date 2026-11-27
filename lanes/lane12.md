@@ -8,7 +8,7 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
-- Fri Nov 27 03:52 PST 2026: **lane12/genheaders** (5f1df1adf, on #474 0950bf8ba): `tools/genheaders.py` (standard
+- Fri Nov 27 03:52 PST 2026: **lane12/genheaders** (6b036b9b0, on #474 0950bf8ba; second commit: it runs on the checkout it is started in): `tools/genheaders.py` (standard
   library only) and a README paragraph. `--module M` lists every function and global M defines that another
   module's unit declares (same identifier, line ending in the definition's address), with the definition's
   prototype (types, convention, C linkage) and the header it goes to: Source/Include/<M>Api.h or `--header`, or the
@@ -19,7 +19,7 @@ it is on main; from #473, based on main.
   without extern, addresses defined in more than one file). Exports go to Source/Include because a unit's include
   path is the repo root, its module directory and Source/Include only. Dry run on #474: D2Common 905 symbols
   (1,260 copies), D2Client 191 (565), D2Win 119 (307), D2Gfx 100 (237), Fog 152 (202), Storm 117 (121), ~3,400
-  copies in all. Source unchanged. VERIFIED tree e319bae70a7083c2cdcdf946879cf4e6226f49a2; linkdebt and
+  copies in all. Source unchanged. VERIFIED tree 034fd1b237015a3252d712bd6a27a82c6a0a725a; linkdebt and
   auditguard unchanged (no source change).
 - Fri Nov 27 03:52 PST 2026: **lane12/module-api-headers-6** (c195e2acb, on #474 0950bf8ba): lane 2's held branch,
   its two commits rebuilt on main ("One name for the cel context: D2GfxDataStrc"; "Export headers for D2Gfx, D2Win,
