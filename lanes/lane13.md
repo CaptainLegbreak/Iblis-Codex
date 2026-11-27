@@ -5,6 +5,26 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
+- Fri Nov 27 07:48 PST 2026: **lane13/bss-defs** (on main ac1dc8375). VERIFIED tree b344d0ad5f9024925c600d1b0ba0f9326ae090bc; Game.exe identical. Audit guard: no count rose.
+  - **What changed.** Two commits. Bss objects that no source defined (only externs everywhere) are now defined once, in the file whose functions use them:
+    - ui.cpp: `gaUIVarStates[0x26]`;
+    - inv.cpp: `gtBigBankGrid`, `gtBankGrid`, `gtPlayerInvGrid`, `gaBodyLocRects[11]`;
+    - Game.cpp: `gtPongData`;
+    - text.cpp: `gtOverheadTextList`;
+    - npcmenu.cpp: `gtPacket2A`, `gtStringList`;
+    - D2Glide glSprite.cpp: `gatGlideSpriteVertices[4]`;
+    - D2Win D2WinFont.cpp: `gatFontCache[14]`;
+    - D2Hell: `gtErrorHandlerLock`;
+    - D2Game Clients.cpp: `gpClientList[256]`, `gpClientListByName[256]`, `gbClientListInitialized`.
+  - **Why it matters.** Without a definition, the ordinary link takes each of these from Game.exe as generated data, and every field access counts as reaching past a one-byte object, which makes a cluster.
+  - **Counts on main, before -> after:**
+    - data clusters: 77 -> 71; 36,258 -> 35,024 B.
+    - data_cluster: 5,956 / 475 -> 5,756 / 462.
+    - unsourced_data: 5,387 -> 5,329.
+    - linkdebt total: 29,819 -> 29,597. D2Client 10,591 -> 10,431, D2Game 6,523 -> 6,461; no module rose.
+    - interior: 115 -> 148. These are references into the middle of the newly defined arrays, now bound to them instead of to generated data.
+    - shortdata: 355 -> 355.
+  - **What's left.** D3D's vertex arrays (0x00971450), gatGamePalette and Items.cpp's function-local static stay for later: each has two types or a static-local guard.
 - Fri Nov 27 07:01 PST 2026: **lane13/client-tables** (25c167bce, on main ac1dc8375). VERIFIED tree 4ce3bc0a6dcb65b469b656c272c7817e76ec11f3; Game.exe identical. Audit guard: no count rose. Two D2Client commits:
   - **gaQuestTable[41]** (QuestLog, 0x00723F30, 16 B each).
     - The plan had no record for it. Its first 8 bytes were unowned and the rest was the 648 B blob `gaQuestLookup_00723F38`.
