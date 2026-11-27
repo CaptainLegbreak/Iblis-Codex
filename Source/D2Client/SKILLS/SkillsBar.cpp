@@ -401,8 +401,8 @@ void __fastcall SKILLSBAR_SetLobVelocity(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
         nVelocity = 0x1F4;
     }
 
-    sub_004DA000(pUnit);
-    sub_004DA250(pUnit, 0, 0, -nVelocity, 0);
+    PARTICLE_ResetGfxMotion(pUnit);
+    GFXUTIL_SetMotionVectorD(pUnit, 0, 0, -nVelocity, 0);
     GFXUTIL_SetBallistic(pUnit, 0, nFrames);
 }
 
@@ -718,7 +718,7 @@ int __fastcall SKILLSBAR_SkillCltDoLeapAttack(D2UnitStrc* pUnit, int nSkillId, i
             if (pTarget)
             {
                 UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
-                sub_00465BF0(pUnit, 0);
+                CUNIT_SetPathTargetToTargetUnit(pUnit, 0);
                 sub_004B9A00(UNITSND_GetDirectionRate(pUnit, UNITS_GetHitClass(pUnit)), pUnit, 0, 0, 0);
                 nResult = 1;
             }

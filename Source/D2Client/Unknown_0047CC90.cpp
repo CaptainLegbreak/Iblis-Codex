@@ -283,7 +283,7 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 
 extern unsigned char gbGlobal_007BB5E0;                                                                     // 0x007BB5E0
 
-extern int gnImeLanguage_007BB5F0;                                                                          // 0x007BB5F0
+extern int gnImeState;                                                                          // 0x007BB5F0
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 

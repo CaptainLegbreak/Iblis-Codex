@@ -5298,7 +5298,7 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
     gpLaunchRecord = pRecord;
     D2Win_10015();
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-    D2_ASSERT(sub_005259C0(sub_004FAC80(FOG_IsExpansion()), 0), 0x125A);
+    D2_ASSERT(STRTABLE_LoadStringTables(sub_004FAC80(FOG_IsExpansion()), 0), 0x125A);
     MAINMENUS_LoadFrontEndCells();
     CURSOR_SetCellFile(gpCursorOHandCelFile);
     gpLaunchRecord->szRealm0x361[0] = 0;

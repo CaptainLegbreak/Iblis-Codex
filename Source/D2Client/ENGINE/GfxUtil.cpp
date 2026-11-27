@@ -470,7 +470,7 @@ D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId
 
     if (nMode == -1)
     {
-        nMode = sub_0046DA60_GetUnitMode(pUnit);
+        nMode = GFX_GetConvertedUnitMode(pUnit);
     }
 
     for (D2GfxListNodeStrc* pNode = pGfxData->pList; pNode; pNode = pNode->pNext)
@@ -637,7 +637,7 @@ void __stdcall GFXUTIL_UpdateMotion(D2UnitStrc* pUnit)
                 pMotion->nClientZ += 10;
             }
             pMotion->nClientX += PARTICLE_GetGfxOffsetX(pOwner);
-            pMotion->nClientZ += sub_004DA0F0_GetUnitGfxOffsetZ(pOwner);
+            pMotion->nClientZ += PARTICLE_GetGfxClientZ(pOwner);
             pMotion->tA.nX = pMotion->nClientX;
             pMotion->tA.nY = pMotion->nClientY;
             DUNGEON_ClientToGameSubtileCoords(pX, pY);
@@ -857,7 +857,7 @@ int __fastcall GFXUTIL_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
         return 0;
     }
 
-    void* pEntry = sub_0046E570_GetGfxEntry(pUnit, sub_0046DA60_GetUnitMode(pUnit));
+    void* pEntry = sub_0046E570_GetGfxEntry(pUnit, GFX_GetConvertedUnitMode(pUnit));
     if (!pEntry)
     {
         return 0;
@@ -899,7 +899,7 @@ int __fastcall GFXUTIL_HitTestUnitCel(D2UnitStrc* pUnit, int nX, int nY)
         {
             D2CelStrc* const pCel = tToken.pCel;
             if (pCel)
-                return sub_004DAB40_CheckCel(pCel, nScreenX, nScreenY, 0);
+                return GFXUTIL_IsCelOnScreen(pCel, nScreenX, nScreenY, 0);
         }
     }
     return 0;
@@ -2042,9 +2042,9 @@ found:
     const unsigned int nComponentId = pToken->nComponent;
     const unsigned char nIndex = pClassInfo->aComp[nRow][nComponentId];
     if (nMode != 0 && nMode != 0xC)
-        pToken->dwArmorType = sub_00664930_GetMonComponentToken(nClass, nComponentId, nIndex);
+        pToken->dwArmorType = D2Common_11070(nClass, nComponentId, nIndex);
     else if (MONSTERREGION_CheckMonStats2Flag(nClass, 0x10))
-        pToken->dwArmorType = sub_00664930_GetMonComponentToken(nClass, nComponentId, nIndex);
+        pToken->dwArmorType = D2Common_11070(nClass, nComponentId, nIndex);
 
     D2CompCodeStrc tCode;
     tCode.dwCode = 0;
@@ -2140,7 +2140,7 @@ int __fastcall GFXUTIL_GetBodyLocItemShift(D2UnitStrc* pUnit, int nBodyLoc, int 
         return nDefault;
     }
 
-    if (pUnit && !sub_0046D9F0_TestUnit(pUnit))
+    if (pUnit && !GFX_GetConvertedUnitType(pUnit))
     {
         D2InventoryStrc* pInventory;
         D2UnitStrc* pOwner;
@@ -2774,7 +2774,7 @@ int __fastcall GFXUTIL_IsCelOnScreen(D2CelStrc* pCel, int nX, int nY, int bFlag)
 // 0x004DABC0
 static void GFXUTIL_SetItemCelName(D2UnitStrc* pUnit, D2GfxDataStrc* pToken)
 {
-    D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(sub_0046DAC0_GetItemClassId(pUnit));
+    D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(GFX_GetConvertedClassId(pUnit));
     if (!pItemsTxtRecord)
         return;
 

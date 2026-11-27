@@ -878,7 +878,7 @@ void __fastcall D2COMP_DrawCompositeShadow(D2CompositeUnitStrc* pCompositeUnit)
         D2GfxDataStrc tGfxData;
         memset(&tGfxData, 0, sizeof(tGfxData));
         D2COMP_SetupGfxData(pCompositeUnit, nComponent, nFrame, pCompositeUnit->nDirection, &tGfxData, 0);
-        sub_004F6540(&tGfxData, nX, nY);
+        TEXTURE_CelDrawShadow(&tGfxData, nX, nY);
     }
 }
 

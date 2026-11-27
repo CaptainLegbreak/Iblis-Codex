@@ -461,7 +461,7 @@ static int INV_IsOverTradeButtonRight(int nX, int nY); // 0x00489480
 
 extern int gnPanelX_007A2858; // 0x007A2858
 
-extern int gnPanelY_007A285C; // 0x007A285C
+extern int gnPanelOffsetY; // 0x007A285C
 
 extern int gnGlobal_007BCA34; // 0x007BCA34
 
@@ -1966,7 +1966,7 @@ static int INV_IsOverGoldButton(int nX, int nY)
     {
         return 0;
     }
-    if (nY >= gnScreenHeight + gnPanelY_007A285C - 0x57 && nY <= gnScreenHeight + gnPanelY_007A285C - 0x45
+    if (nY >= gnScreenHeight + gnPanelOffsetY - 0x57 && nY <= gnScreenHeight + gnPanelOffsetY - 0x45
         && nX >= gnScreenWidth - gnPanelX_007A2858 - 0xED && nX <= gnScreenWidth - gnPanelX_007A2858 - 0xD9)
     {
         return 1;
@@ -1977,7 +1977,7 @@ static int INV_IsOverGoldButton(int nX, int nY)
 static int INV_IsOverTradeButtonLeft(int nX, int nY)
 {
     if (nX > gnPanelX_007A2858 + 0xDF && nX < gnPanelX_007A2858 + 0xFF
-        && nY > gnScreenHeight + gnPanelY_007A285C - 0x60 && nY < gnScreenHeight + gnPanelY_007A285C - 0x40)
+        && nY > gnScreenHeight + gnPanelOffsetY - 0x60 && nY < gnScreenHeight + gnPanelOffsetY - 0x40)
     {
         return 1;
     }
@@ -1987,7 +1987,7 @@ static int INV_IsOverTradeButtonLeft(int nX, int nY)
 static int INV_IsOverTradeButtonRight(int nX, int nY)
 {
     if (nX > gnPanelX_007A2858 + 0x113 && nX < gnPanelX_007A2858 + 0x133
-        && nY > gnScreenHeight + gnPanelY_007A285C - 0x60 && nY < gnScreenHeight + gnPanelY_007A285C - 0x40)
+        && nY > gnScreenHeight + gnPanelOffsetY - 0x60 && nY < gnScreenHeight + gnPanelOffsetY - 0x40)
     {
         return 1;
     }
@@ -2151,7 +2151,7 @@ static void INV_DrawMercStats(D2UnitStrc* pUnit)
 
         const int nLeft = gaMercStatLines[i].nLeft + gnPanelX_007A2858;
         const int nRight = gaMercStatLines[i].nRight + gnPanelX_007A2858;
-        int nY = gaMercStatLines[i].nY - gnPanelY_007A285C - 2;
+        int nY = gaMercStatLines[i].nY - gnPanelOffsetY - 2;
 
         switch (gaMercStatLines[i].nStatId)
         {
@@ -2467,17 +2467,17 @@ void __cdecl INV_DrawMercPanel()
     tContext.pCelFile = gpCelNpcInv;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
-    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858, gnScreenHeight + gnPanelY_007A285C - 0xE0, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858, gnScreenHeight + gnPanelOffsetY - 0xE0, -1, 5, 0);
     tContext.nFrame = 1;
-    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858 + 0x100, gnScreenHeight + gnPanelY_007A285C - 0xE0, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858 + 0x100, gnScreenHeight + gnPanelOffsetY - 0xE0, -1, 5, 0);
     tContext.nFrame = 2;
-    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858, gnScreenHeight + gnPanelY_007A285C - 0x30, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858, gnScreenHeight + gnPanelOffsetY - 0x30, -1, 5, 0);
     tContext.nFrame = 3;
-    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858 + 0x100, gnScreenHeight + gnPanelY_007A285C - 0x30, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858 + 0x100, gnScreenHeight + gnPanelOffsetY - 0x30, -1, 5, 0);
 
     tContext.pCelFile = GAME_GetBuySellButtonCells();
     tContext.nFrame = (gbBuySellPressed != 0) + 10;
-    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858 + 0x110, gnScreenHeight + gnPanelY_007A285C - 0x3F, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858 + 0x110, gnScreenHeight + gnPanelOffsetY - 0x3F, -1, 5, 0);
 
     INV_DrawUnitName(pMerc);
     INV_DrawPanelLabels();

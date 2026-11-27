@@ -48,7 +48,7 @@ D2UnitStrc* __fastcall SELECT_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pT
 int __cdecl INV_GetScreenHeightMinusPanel(); // 0x00454970
 void __fastcall PLAYER_SetPlayerMode(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2); // 0x00460780
 int __fastcall PLAYER_FilterCommandMessage(D2PlayerCmdStrc* pCmd); // 0x00462930
-void __fastcall sub_00463D90(int nArg);
+void __fastcall CUNIT_SetPlayerUnit(int nArg);
 D2UnitStrc* __cdecl sub_00463DD0();
 D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit();
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit);

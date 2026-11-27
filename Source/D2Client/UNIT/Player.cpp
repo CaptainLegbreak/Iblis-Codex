@@ -79,9 +79,9 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 
 
-D2PacketBufferStrc* __fastcall sub_00464770_GetPacketBuffer(void* pArg); // 0x00464770
+D2PacketBufferStrc* __fastcall CUNIT_GetPacketList(void* pArg); // 0x00464770
 
-void __fastcall sub_004647A0_SetPacketBuffer(void* pArg, D2PacketBufferStrc* pBuffer); // 0x004647A0
+void __fastcall CUNIT_SetPacketList(void* pArg, D2PacketBufferStrc* pBuffer); // 0x004647A0
 
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -2293,11 +2293,11 @@ struct D2PlayerModeInfoStrc
 extern D2PlayerModeInfoStrc gaPlayerModeInfo[]; // 0x00711E00
 struct D2DynamicPathStrc;
 struct D2RoomStrc;
-void __stdcall sub_00650C60_UpdatePath(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00650C60
+void __stdcall D2Common_10230(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00650C60
 void __stdcall sub_0063E510_FillInventoryTables(D2UnitStrc* pUnit, unsigned char* pTableA, unsigned char* pTableB); // 0x0063E510
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc*); // 0x00648A00
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc*); // 0x00648A10
-D2UnitStrc* __stdcall sub_00643A00_GetRelatedUnit(D2UnitStrc*, int); // 0x00643A00
+D2UnitStrc* __stdcall D2Common_10958(D2UnitStrc*, int); // 0x00643A00
 struct D2InventoryStrc;
 extern D2PlayerModeInfoStrc gaPlayerModeInfo[];                                                    // 0x00711E00
 extern "C" int __fastcall UNITMODE_UpdateUnitPath(D2UnitStrc* unit); // 0x004807C0
@@ -2353,7 +2353,7 @@ void __fastcall AUTOMAP_UpdatePathAndMove(D2UnitStrc* pUnit, int nArg1, int nArg
             ITEM_GetTargetPosition(pUnit, &nX, &nY);
         }
     }
-    sub_00650C60_UpdatePath(pPath, pUnit, nArg1, nArg2, nArg3);
+    D2Common_10230(pPath, pUnit, nArg1, nArg2, nArg3);
     if (bMove)
     {
         D2UnitTargetStrc tTarget;
@@ -2406,7 +2406,7 @@ static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
     }
     args[0] = D2COMMON_10175_PathGetFirstPointX(path);
     args[1] = D2COMMON_10176_PathGetFirstPointY(path);
-    D2UnitStrc* related = sub_00643A00_GetRelatedUnit(unit, 0);
+    D2UnitStrc* related = D2Common_10958(unit, 0);
     if (related)
         DLIGHTMAP_ReleaseLight((D2GfxLightStrc*)related);
     int const tArg1 = unit == sub_00463DD0_GetPlayerUnit();

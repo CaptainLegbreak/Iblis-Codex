@@ -185,7 +185,7 @@ void __cdecl sub_0045B8B0_DrawLogicalRoom()
     int nX = UNITS_GetXPositionInline(pPlayer);
     int nY = UNITS_GetYPositionInline(pPlayer);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    D2GFX_OutputString(10, 0x37, "Logical Room->%d", sub_0061B130_GetCollision(pRoom, nX, nY));
+    D2GFX_OutputString(10, 0x37, "Logical Room->%d", D2Common_10095(pRoom, nX, nY));
     AUTOMAP_DrawRoomCollision(pRoom);
     sub_0045B5F0_DrawRoomTileDebug(pRoom);
 }

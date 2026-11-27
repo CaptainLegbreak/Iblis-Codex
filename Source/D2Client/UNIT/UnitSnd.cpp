@@ -722,7 +722,7 @@ static __declspec(noinline) int UNITSND_GetTileMaterial(D2DrlgTileDataStrc* pTil
 int __fastcall UNITSND_GetUnitFloorMaterial(D2UnitStrc* pUnit)
 {
     int nRooms;
-    D2SoundEnvironTxtStrc* pSoundEnvironTxtRecord = SOUNDHDR_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
+    D2SoundEnvironTxtStrc* pSoundEnvironTxtRecord = SOUNDHDR_GetSoundEnvironTxtRecord(UNITMODE_GetPlayerSoundEnviron());
     int nDefault = 1;
     if (pSoundEnvironTxtRecord && pSoundEnvironTxtRecord->nMaterial1 > 0 && pSoundEnvironTxtRecord->nMaterial1 < 7)
         nDefault = pSoundEnvironTxtRecord->nMaterial1;

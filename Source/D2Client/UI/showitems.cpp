@@ -27,7 +27,6 @@ struct D2UiBlockRectStrc
 
 extern int gnItemLabelCount;                                                                       // 0x007C54A0
 
-extern D2UiBlockRectStrc gaBlockRects_007C54A8[32];                                                         // 0x007C54A8
 
 struct D2ItemLabelStrc { int nLeft,nTop,nRight,nBottom; D2UnitStrc* pItem; Unicode wszText[128]; int nFillColor,nDrawMode,nTextColor; };
 
@@ -118,26 +117,26 @@ int __fastcall SHOWITEMS_ClampRectToScreen(int* pLeft, int* pTop, int* pRight, i
 
     for (int i = 0; i < gnItemLabelCount; ++i)
     {
-        const int bX = (*pLeft <= gaBlockRects_007C54A8[i].nRight && *pRight >= gaBlockRects_007C54A8[i].nLeft) ? 1 : 0;
-        const int bY = (*pTop <= gaBlockRects_007C54A8[i].nBottom && *pBottom >= gaBlockRects_007C54A8[i].nTop) ? 1 : 0;
+        const int bX = (*pLeft <= gaItemLabels[i].nRight && *pRight >= gaItemLabels[i].nLeft) ? 1 : 0;
+        const int bY = (*pTop <= gaItemLabels[i].nBottom && *pBottom >= gaItemLabels[i].nTop) ? 1 : 0;
         if (bX && bY)
         {
             int nDelta;
             if (nMode > 6)
             {
                 if ((*pRight - *pLeft) / 2 && *pLeft >= nMaxX)
-                    nDelta = gaBlockRects_007C54A8[i].nLeft - *pRight - 1;
+                    nDelta = gaItemLabels[i].nLeft - *pRight - 1;
                 else
-                    nDelta = gaBlockRects_007C54A8[i].nRight - *pLeft + 1;
+                    nDelta = gaItemLabels[i].nRight - *pLeft + 1;
                 *pLeft += nDelta;
                 *pRight += nDelta;
                 return 0;
             }
 
             if ((*pBottom - *pTop) / 2 && *pTop <= nMaxY)
-                nDelta = gaBlockRects_007C54A8[i].nTop - *pBottom - 3;
+                nDelta = gaItemLabels[i].nTop - *pBottom - 3;
             else
-                nDelta = gaBlockRects_007C54A8[i].nBottom - *pTop + 5;
+                nDelta = gaItemLabels[i].nBottom - *pTop + 5;
             *pTop += nDelta;
             *pBottom += nDelta;
             return 0;
