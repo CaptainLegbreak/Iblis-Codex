@@ -21,6 +21,8 @@
 #include "D2AnimData.h"
 #include "D2CommonApi.h"
 #include "FogApi.h"
+#include "D2CommonApi2.h"
+#include "D2CommonApi3.h"
 // build: symbol _gaszLanguageNames 0x00741A1C
 
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
@@ -58,24 +60,10 @@ enum D2C_M54SkillMonstConstants
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 
 
-void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
-
-int __stdcall PATH_GetNumberOfPathPoints(D2DynamicPathStrc* pDynamicPath); // 0x00648780
-
-
-void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
-
-
-void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EC10
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-
-void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
-
-void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
 
 #include "D2GameFuncs.h"
 #include "D2GfxApi.h"
@@ -88,9 +76,6 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 
-int __stdcall SKILLS_GetParam1(D2SkillStrc* pSkill); // 0x006444A0
-
-
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
 
 
@@ -100,10 +85,6 @@ int __fastcall D2GAME_RollElementalDamage(D2UnitStrc* pUnit, D2DamageStrc* pDama
 
 
 void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, const char* szFile, int nLine); // 0x00648690
-
-int __stdcall SKILLS_GetElementalLength(D2UnitStrc*, int, int, int); // 0x00644F20
-
-void __stdcall UNITS_SetOverlay(D2UnitStrc*, int, int); // 0x00621E40
 
 static int __stdcall SKILLS_UpdateInfernoAnimationParameters(D2UnitStrc* pUnit, D2UnitStrc* pMissile, int nSkillId, int nSkillLevel);
 
@@ -123,14 +104,6 @@ struct D2ModeChangeStrc;
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
 
-
-int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster); // 0x0063EA40
-
-extern "C" void __stdcall PATH_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit); // 0x00648B90
-
-int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
-
-int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc*, int);
 
@@ -200,32 +173,6 @@ void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D
 
 
 D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
-
-
-int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit); // 0x0063EE90
-
-int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY); // 0x00621DC0
-
-
-
-
-
-
-
-unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
-
-
-void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
-
-void __stdcall SKILLS_SetParam4(D2SkillStrc* pSkill, int nValue); // 0x00644620
-
-
-int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x006449F0
-
-void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648C30
-
-
-void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
 
 void __fastcall SKILLS_MissileInit_DiabWall(D2UnitStrc* pMissile, int nInitSeed);                           // 0x005CD110
@@ -308,11 +255,6 @@ void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(D2GameStrc* pGame, D2Uni
 
 
 
-
-
-void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask);                   // 0x00648CE0
-
-void __stdcall PATH_SetStepNum(D2DynamicPathStrc* pDynamicPath, unsigned char nSteps);                      // 0x00649070
 
 
 #define HIT_SUCCESS 1
@@ -2316,9 +2258,6 @@ int __fastcall SKILLS_StartSkill(Game*, D2UnitStrc*, int, int, int); // 0x0056F6
 
 int __fastcall SKILLS_RollMonFrenzyDamage(Game*, D2UnitStrc*, D2UnitStrc*, int, int); // 0x005CDDD0
 
-int __stdcall SKILLS_GetParam1(Skill*); // 0x006444A0
-
-
 enum { UNIT_FLAG = 0x40 };
 
 struct MonsterData { char pad0[0xE]; unsigned char variant; };
@@ -2342,8 +2281,6 @@ extern const int gaMonCurseIds[5]; // 0x006E3228
 int __fastcall SKILLS_IterateTargetsAroundTarget(D2GameStrc* pGame, unsigned int nFlags, D2UnitStrc* pUnit, int nDistance, int (__fastcall* pCallback)(D2UnitStrc*, void*), void* pArgs); // 0x0056E780
 
 int __fastcall SKILLS_AuraCallback_ApplyCurse(D2UnitStrc* pUnit, void* pArgs); // 0x005C35C0
-
-unsigned char __stdcall PATH_GetNewDirection(D2DynamicPathStrc*); // 0x00648810
 
 static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
@@ -2465,9 +2402,6 @@ int __fastcall SKILLS_SrvDo107_Mosquito(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 
     return 1;
 }
-
-void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID);              // 0x0061A270
-
 
 // 0x005CDC10
 int __fastcall SKILLS_ConsumeCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)

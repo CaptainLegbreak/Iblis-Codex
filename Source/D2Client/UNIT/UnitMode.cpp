@@ -14,6 +14,7 @@
 #include "D2ClientTypes.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 
 struct D2UnitStrc;
 
@@ -47,12 +48,6 @@ struct D2UnitTargetStrc;
 
 
 
-int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
-
-
-
-
-
 struct D2ClientSkillCmdStrc
 {
     int nSkillId;
@@ -74,13 +69,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 
 
 int __fastcall SKILLS_StartSkillOnUnit(D2UnitStrc* pUnit, D2ClientSkillCmdStrc* pArgs); // 0x004C6EB0
-
-
-unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
-
-D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
-
-
 
 
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit); // 0x00648B90
@@ -108,18 +96,6 @@ int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x004
 
 void __fastcall UNITMODE_SendUnitActionPacket(int nHeader, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00480B40
 
-D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
-
-D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
-
-
-
-
-
-
-
-D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
-
 void __cdecl sub_K04_EmitUse(D2UnitStrc* pUnit);
 
 
@@ -128,8 +104,6 @@ void __cdecl sub_K04_EmitUse(D2UnitStrc* pUnit);
 
 
 int __fastcall UNITMODE_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00480C10
-
-extern "C" void __stdcall PATH_SetPathingFlag(D2DynamicPathStrc* pDynamicPath, int bSet); // 0x00648750
 
 struct D2SkillStrc;
 
@@ -165,9 +139,6 @@ extern "C" int __stdcall sub_00650840_UpdatePath(D2UnitStrc* unit, unsigned int 
 
 
 
-void __stdcall STATLIST_UpdateStatListsExpiration(D2UnitStrc* unit, int value); // 0x00627460
-
-
 void __fastcall GFX_UpdateStateOverlays(D2UnitStrc* unit); // 0x00470C30
 
 void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* unit); // 0x00463390
@@ -180,17 +151,6 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* unit); // 0x00463390
 void __fastcall sub_0045FA40_FreeUnit(D2UnitStrc* unit); // 0x0045FA40
 
 #define D2ABS(x) ((x) < 0 ? -(x) : (x))
-
-int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
-
-int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
-
-void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
-
-
-D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
-
-
 
 void __fastcall AUTOMAP_UpdatePathAndMove(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463180
 

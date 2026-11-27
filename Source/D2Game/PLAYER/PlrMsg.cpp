@@ -95,6 +95,7 @@ struct D2GameItemChecks
 extern D2UnkPlrMsgStrc gaUnitModeMessages[20]; // 0x007319E8
 
 #include "D2GameFuncs.h"
+#include "D2CommonApi3.h"
 
 
 int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit); // 0x00621F20
@@ -224,15 +225,6 @@ int __fastcall OBJMODE_MainObeliskHandler(D2GameStrc* pGame, int nPlayerGUID, in
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
-
-
-int __stdcall UNITS_TestCollisionBetweenInteractingUnits(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMask); // 0x00622B50
-
-
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
-
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
-
 
 
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
@@ -493,8 +485,6 @@ int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Active
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
 
-extern "C" void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, unsigned int dwValue); // 0x006252D0
-
 extern "C" void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, unsigned int dwValue); // 0x00625CE0
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
@@ -512,9 +502,6 @@ extern "C" void __stdcall PATH_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStr
 extern "C" unsigned int __stdcall PATH_GetMoveTestCollisionMask(D2DynamicPathStrc* pPath); // 0x00648CD0
 
 void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask); // 0x00648CE0
-
-
-extern "C" void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pPath, unsigned char nDistance); // 0x00648E70
 
 
 void __fastcall sub_0054CC30_StatRemoveCallback_ToggleStateOff(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);

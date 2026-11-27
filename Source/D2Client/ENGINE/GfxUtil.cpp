@@ -23,6 +23,7 @@
 #include "D2CommonApi2.h"
 #include "D2GfxApi.h"
 #include "D2CMPApi.h"
+#include "D2CommonApi3.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1200,8 +1201,6 @@ int __fastcall GFXUTIL_SkillStartPlace(D2UnitStrc* pUnit, int nSkillId, int nSki
 }
 
 enum { SUCCESS_VALUE = 1 };
-int __stdcall PATH_GetNumberOfPathPoints(D2DynamicPathStrc* pDynamicPath); // 0x00648780
-
 // 0x004E0BD0
 int __fastcall sub_004E0BD0_CltStartClearCollision(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {

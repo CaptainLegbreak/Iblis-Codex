@@ -10,6 +10,8 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);
 #include "D2WinApi.h"
 #include "D2SoundApi.h"
 #include "D2MCPClientApi.h"
+#include "D2LangApi.h"
+#include "D2CommonApi2.h"
 
 struct D2ConfigStrc;
 
@@ -27,7 +29,6 @@ void __fastcall ParseCmdLine(D2ConfigStrc* pCfg, const char* argv); // 0x004059A
 int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType); // 0x00405C30
 int __stdcall ERRORMANAGER_RunModeInterface(D2ConfigStrc* pCfg); // 0x004059D0
 void __stdcall sub_00405A70_WriteSurveyLocale(); // 0x00405A70
-int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 int __cdecl sub_00405EF0_AllowExpansion(); // 0x00405EF0
 extern "C" __declspec(dllimport) void* __stdcall OpenEventA(unsigned long dwDesiredAccess, int bInheritHandle, const char* szName); // 0x006CC12C
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent); // 0x006CC130
@@ -71,7 +72,6 @@ void __stdcall D2ServerServiceHandlerProc(unsigned long dwCtrlCode); // 0x004064
 typedef int BOOL;
 void __fastcall MAINMENUS_InitStorm(int nDirectFlags, int nValue); // 0x00406870
 int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
-void __cdecl IGNORELIST_FreeIgnoreList(); // 0x0060DDB0
 int gnMode; // 0x0074C704
 int gbUseKeyhook; // 0x0074C708
 void* ghModKeyhook; // 0x0074C70C

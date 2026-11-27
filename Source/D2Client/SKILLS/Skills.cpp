@@ -23,6 +23,7 @@
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
 #include "D2CMPApi.h"
+#include "D2CommonApi3.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -233,8 +234,6 @@ extern D2CltMissileModeStrc gaCltMissileModes[]; // 0x0072A350
 
 D2BallisticStrc* __fastcall sub_0046F060(D2UnitStrc* pUnit); // 0x0046F060
 
-void __stdcall PATH_AllocDynamicPath(int nArg1, int nArg2, int nArg3, int nArg4, D2UnitStrc* pUnit, int nArg6); // 0x00649D00
-
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
 
@@ -308,8 +307,6 @@ int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
 
 
 
-void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
-
 int __fastcall SKILLS_StartSkillAtPos(D2UnitStrc* pUnit, D2ClientSkillArgsStrc* pArgs); // 0x004C6F40
 
 static int SKILLS_GetAttackMode(D2UnitStrc* pUnit); // 0x004C5710
@@ -342,8 +339,6 @@ bool R00601DC0::sub_00601DC0_IsOpen()
 int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                   // 0x0045C390
 
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                  // 0x0045C3E0
-
-void __stdcall PATH_SetDirection(D2DynamicPathStrc* pDynamicPath, int nDirection);                          // 0x006488A0
 
 // 0x00457300
 void __fastcall SKILLS_InitGfxCaches(void* pMemPool, int bCelPool)

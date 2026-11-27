@@ -18,6 +18,7 @@
 #include "D2LevelTxt.h"
 #include "D2WinSplitText.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi3.h"
 
 struct D2UnitStrc;
 
@@ -84,11 +85,6 @@ int __fastcall SKILLSMON_CreateSkillMissiles(D2UnitStrc* pUnit, int nSkillId, in
 
 
 int __fastcall UNITS_GetWeaponClass(D2UnitStrc* pUnit);                                              // 0x00623C60
-
-
-void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState);                                    // 0x006252D0
-
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
 
 
 void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatListRemoveCallback pfStatRemove); // 0x00625CE0
@@ -319,7 +315,6 @@ enum
     SKILLDO_FRAME_C_STATE = 12,
 };
 
-void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 

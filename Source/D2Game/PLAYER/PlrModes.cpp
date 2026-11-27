@@ -76,6 +76,7 @@ typedef void(__fastcall* EventCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* p
 extern const EventCallbackFunction gpfnPlayerEventCallbacks[15]; // 0x006E1810
 
 #include "D2GameFuncs.h"
+#include "D2CommonApi3.h"
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -273,9 +274,6 @@ struct D2ServerCallbackFunctions;
 struct D2StaticPathStrc;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-
-
-int __stdcall PATH_GetNumberOfPathPoints(D2DynamicPathStrc* pDynamicPath); // 0x00648780
 
 
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0

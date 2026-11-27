@@ -92,6 +92,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 
 #include "D2GameFuncs.h"
+#include "D2CommonApi3.h"
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
@@ -202,8 +203,6 @@ extern D2NpcConfigStrc gaNpcConfig[]; // 0x00731188
 extern int gnCrossbowQuiverItemId; // 0x00883E9C
 
 extern int gnArrowQuiverItemId; // 0x00883EA0
-
-void __fastcall SEED_InitSeed(D2SeedStrc*); // 0x00650E30
 
 #define UNIT_MONSTER 1
 

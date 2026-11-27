@@ -505,8 +505,6 @@ struct D2StormHashTable0052E650Strc
 
 void __fastcall CLIENTS_GetGuildEmblem(D2ClientStrc*, unsigned char*, unsigned char*, unsigned char*); // 0x00539190
 
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*, int, int); // 0x006253B0
-
 struct D2StormSlotLink00530600Strc
 {
     D2StormSlotLink00530600Strc* m_prevlink;
@@ -669,9 +667,6 @@ void __fastcall GAME_ProcessAdminMessage(void* pData, int nSize);               
 
 int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit);                                               // 0x00622E70
 
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x00627260
-
-
 #define INPUT_PREFIX 0
 
 #define REPLY_FA 0xFA
@@ -750,8 +745,6 @@ struct D2GameHashLinkStrc;
 struct D2GameHashListStrc;
 
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
 struct D2GameStatisticsStrc
 {
     int nGamesCount;
@@ -773,6 +766,7 @@ struct D2PoolSystemStrc;
 
 #include "gen/data/Source/D2Game/GAME/Game_0052D720.static/gnFrameRate.inc"
 #include "StormApi2.h"
+#include "D2CommonApi3.h"
 
 
 
@@ -887,9 +881,6 @@ D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetHead(D2ClientStrc* pClien
 
 
 extern "C" const char gszSGameDataTypeName[];                                                               // 0x0070F56C
-
-void __fastcall SEED_InitSeed(D2SeedStrc* pSeed);                                                           // 0x00650E30
-
 
 void __cdecl FOG_CreateNewPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize); // 0x00409DD0
 

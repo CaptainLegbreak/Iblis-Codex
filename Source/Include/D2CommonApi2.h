@@ -107,9 +107,9 @@ void __cdecl IGNORELIST_FreeIgnoreList(); // 0x0060DDB0
 void IGNORELIST_CreateIgnoreList(); // 0x006114E0
 void __stdcall DATATBLS_ToggleCompileTxtFlag(int bSilent); // 0x006125A0
 D2DrlgTileDataStrc* __stdcall DUNGEON_GetRoofTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pRoofCount); // 0x006196E0
-extern "C" unsigned int* __stdcall DUNGEON_GetTileDataFromAct(Obj00619720* pObj); // 0x00619720
-D2ActRoom00619DA0Strc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2Act00619DA0Strc* pAct, int nX, int nY); // 0x00619DA0
-extern "C" void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(Obj00619EE0* pObj); // 0x00619EE0
+void** __stdcall DUNGEON_GetTileDataFromAct(D2DrlgActStrc* pAct); // 0x00619720
+D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
+void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619EE0
 D2PresetUnitStrc* __stdcall DUNGEON_GetPresetUnitsFromRoom(D2ActiveRoomStrc* ptRoom); // 0x00619FD0
 void __stdcall DUNGEON_SetClientIsInSight(D2DrlgActStrc* ptAct, int nLevelId, int nX, int nY, D2ActiveRoomStrc* pRoom); // 0x0061A070
 void __stdcall DUNGEON_UnsetClientIsInSight(D2DrlgActStrc* ptAct, int nLevelId, int nX, int nY, D2ActiveRoomStrc* pRoom); // 0x0061A0C0
@@ -189,13 +189,13 @@ D2TimerArgStrc* __fastcall UNITS_GetTimerArg(D2UnitStrc* pUnit); // 0x006234F0
 void __stdcall UNITS_AllocStaticPath(D2UnitStrc* pUnit); // 0x00623520
 void __stdcall UNITS_FreeStaticPath(D2UnitStrc* pUnit); // 0x00623570
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit); // 0x00623830
-D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int nUnused); // 0x00623990
+D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int nArg2); // 0x00623990
 int __fastcall UNITS_GetWeaponClass(D2UnitStrc* pUnit); // 0x00623C60
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 void __cdecl LOG_11100(int nThreadId, int nLogLevel, int nComponent, int nSubsystem, const char* szContext, int nSequence, const char* szFormat, ...); // 0x006248E0
 void __fastcall LOGGING_SetLoggingEnabled(int bEnable); // 0x00624B50
 int __stdcall STATLIST_GetFullStatsCountFromUnit(D2UnitStrc* pUnit); // 0x00625290
-extern "C" unsigned int __stdcall STATLIST_GetExpireFrame(Obj00625330* pObj); // 0x00625330
+int __stdcall STATLIST_GetExpireFrame(D2StatListStrc* pStatList); // 0x00625330
 D2StatListStrc* __stdcall STATLIST_GetStatListFromFlag(D2StatListStrc* pStatList, int nFlag); // 0x00625730
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit, int nFlag); // 0x00625760
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
@@ -204,8 +204,8 @@ extern "C" void __stdcall STATLIST_SetStatRemoveCallback(Obj00625CE0* pObj, unsi
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00
-extern "C" unsigned int __stdcall STATLIST_GetListExpireFrame(Obj00626090* pObj); // 0x00626090
-extern "C" void __stdcall STATLIST_SetListExpireFrame(Obj006260B0* pObj, int nValue); // 0x006260B0
+int __stdcall STATLIST_GetListExpireFrame(D2StatListStrc* pStatList); // 0x00626090
+void __stdcall STATLIST_SetListExpireFrame(D2StatListStrc* pStatList, int nExpireFrame); // 0x006260B0
 void __stdcall STATLIST_SetSkillId(D2StatListStrc* pStatList, int nSkillId); // 0x006260D0
 D2SkillStrc* __stdcall STATLIST_GetSkillId(D2StatListStrc* pStatList); // 0x006260E0
 void __stdcall STATLIST_SetSkillLevel(D2StatListStrc* pStatList, int nSkillLevel); // 0x006260F0
@@ -299,13 +299,14 @@ int __stdcall INVENTORY_GetBodyLocFromEquippedItem(D2InventoryStrc* pInventory, 
 D2UnitStrc* __stdcall INVENTORY_FindFillableBook(D2InventoryStrc* pInventory, D2UnitStrc* pScrolls, D2UnitStrc* pCheckItem); // 0x0063C3B0
 D2InventoryNodeStrc* __stdcall INVENTORY_GetTradeInventory(D2InventoryStrc* pInventory); // 0x0063CBB0
 void __stdcall INVENTORY_FreeTradeInventory(D2InventoryStrc* pInventory); // 0x0063CBD0
-extern "C" unsigned int __stdcall INVENTORY_GetNextNode(Obj0063CD20* pObj); // 0x0063CD20
-extern "C" unsigned int __stdcall INVENTORY_GetItemGUIDFromNode(Obj0063CD40* pObj); // 0x0063CD40
+D2InventoryNodeStrc* __stdcall INVENTORY_GetNextNode(D2InventoryNodeStrc* pNode); // 0x0063CD20
+int __stdcall INVENTORY_GetItemGUIDFromNode(D2InventoryNodeStrc* pNode); // 0x0063CD40
 int __stdcall INVENTORY_GetItemCount(D2InventoryStrc* pInventory); // 0x0063CD60
 int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory); // 0x0063D340
 int __stdcall INVENTORY_GetCorpseCount(D2InventoryStrc* pInventory); // 0x0063D5F0
-extern "C" unsigned int __stdcall INVENTORY_GetCorpseMercNameId(Obj0063D650* pObj); // 0x0063D650
-extern "C" unsigned int __stdcall INVENTORY_IsPlayerCorpse(Obj0063D670* pObj); // 0x0063D670
+struct D2CorpseStrc;
+unsigned int __stdcall INVENTORY_GetCorpseMercNameId(D2CorpseStrc* pCorpse); // 0x0063D650
+unsigned int __stdcall INVENTORY_IsPlayerCorpse(D2CorpseStrc* pCorpse); // 0x0063D670
 void __stdcall INVENTORY_GetSecondWieldingWeapon(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, D2UnitStrc** ppItem, int nBodyLoc); // 0x0063E490
 unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); // 0x0063E7A0
 int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMonster); // 0x0063E9F0
@@ -329,7 +330,7 @@ void* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* pValue); // 0x00643A00
 int __stdcall SKILLS_GetSkillInfo(D2SkillStrc* hSkill, int* pOwnerGUID, int* pSkillId, int* pSkillLevel, int* pCharges); // 0x00643B00
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 int __stdcall SKILLS_GetBonusSkillLevelFromSkillId(D2UnitStrc* pUnit, int nSkillId); // 0x00644300
-extern "C" unsigned int __stdcall SKILLS_GetSkillMode(Obj0063D650* pObj); // 0x00644360
+int __stdcall SKILLS_GetSkillMode(D2SkillStrc* pSkill); // 0x00644360
 int __stdcall SKILLS_GetParam1(D2SkillStrc* ptSkill); // 0x006444A0
 void __stdcall SKILLS_SetParam3(D2SkillStrc* ptSkill, int nValue); // 0x006445E0
 void __stdcall SKILLS_SetParam4(D2SkillStrc* ptSkill, int nValue); // 0x00644620
@@ -350,35 +351,35 @@ void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLev
 int __stdcall SKILLS_GetUseState(D2UnitStrc* pUnit, D2SkillStrc* ptSkill); // 0x00647960
 void __stdcall D2Common_11031(D2UnitStrc* pUnit, int nSkillId, int nBonus); // 0x00647B20
 void __stdcall PATH_GetClientCoordsVelocity(D2UnitStrc* pUnit, int* pX, int* pY); // 0x00648300
-extern "C" void __stdcall PATH_ClearPathingFlagAndPoints(PathView* path); // 0x00648730
-extern "C" void __stdcall PATH_SetPathingFlag(Obj00648750* pObj, int bSet); // 0x00648750
+void __stdcall PATH_ClearPathingFlagAndPoints(D2DynamicPathStrc* pDynamicPath); // 0x00648730
+void __stdcall PATH_SetPathingFlag(D2DynamicPathStrc* pDynamicPath, int bSet); // 0x00648750
 int __stdcall D2COMMON_10209_PathCheckPathingFlag(D2DynamicPathStrc* pDynamicPath); // 0x00648770
-extern "C" void __stdcall PATH_SetNumberOfPathPoints(Obj00648790* pObj, int nValue); // 0x00648790
+void __stdcall PATH_SetNumberOfPathPoints(D2DynamicPathStrc* pDynamicPath, int nPathPoints); // 0x00648790
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pDynamicPath); // 0x006487F0
 void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char bDir); // 0x00648820
-extern "C" void __stdcall PATH_SetDirection(Obj006488A0* pObj, unsigned char nValue); // 0x006488A0
-extern "C" unsigned int __stdcall PATH_GetFinalTargetX(Obj00648A20* pObj); // 0x00648A20
-extern "C" unsigned int __stdcall PATH_GetFinalTargetY(Obj00648A30* pObj); // 0x00648A30
-extern "C" unsigned int __stdcall PATH_GetLastPointX(Obj00648A40* pObj); // 0x00648A40
-extern "C" unsigned int __stdcall PATH_GetLastPointY(Obj00648A60* pObj); // 0x00648A60
-extern "C" Room* __stdcall PATH_GetNextRoom(View_00648AA0* path); // 0x00648AA0
-extern "C" void __stdcall PATH_ClearNextRoom(Obj00648AB0* pObj); // 0x00648AB0
-extern "C" void __stdcall PATH_SetTargetPos(Obj00648AD0* pObj, unsigned short wA, unsigned short wB); // 0x00648AD0
-extern "C" void __stdcall PATH_SetCurrentRoomInvalid(PathFlags* path, int invalid); // 0x00648B40
-extern "C" void __stdcall PATH_SetPathTarget(B25Path* path, B25TargetUnit* target); // 0x00648B90
+void __stdcall PATH_SetDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x006488A0
+unsigned int __stdcall PATH_GetFinalTargetX(D2DynamicPathStrc* pDynamicPath); // 0x00648A20
+unsigned int __stdcall PATH_GetFinalTargetY(D2DynamicPathStrc* pDynamicPath); // 0x00648A30
+unsigned int __stdcall PATH_GetLastPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A40
+unsigned int __stdcall PATH_GetLastPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A60
+D2ActiveRoomStrc* __stdcall PATH_GetNextRoom(D2DynamicPathStrc* pDynamicPath); // 0x00648AA0
+void __stdcall PATH_ClearNextRoom(D2DynamicPathStrc* pDynamicPath); // 0x00648AB0
+void __stdcall PATH_SetTargetPos(D2DynamicPathStrc* pDynamicPath, unsigned short nX, unsigned short nY); // 0x00648AD0
+extern "C" void __stdcall PATH_SetCurrentRoomInvalid(D2DynamicPathStrc* pDynamicPath, int bInvalid); // 0x00648B40
+extern "C" void __stdcall PATH_SetPathTarget(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit); // 0x00648B90
 void __stdcall PATH_GetTargetTypeAndGUID(D2DynamicPathStrc* ptPath, int* pTargetType, int* pTargetGUID); // 0x00648BB0
-extern "C" unsigned int __stdcall PATH_GetFootprintCollisionMaskExported(Obj00648C10* pObj); // 0x00648C10
+unsigned int __stdcall PATH_GetFootprintCollisionMaskExported(D2DynamicPathStrc* pDynamicPath); // 0x00648C10
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648C30
-extern "C" unsigned int __stdcall PATH_GetMoveTestCollisionMask(Obj00648CD0* pObj); // 0x00648CD0
+unsigned int __stdcall PATH_GetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath); // 0x00648CD0
 void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648CE0
-void __stdcall PATH_SetDist(D2Record00648E40Strc* pRecord, unsigned char nValue); // 0x00648E40
+void __stdcall PATH_SetDist(D2DynamicPathStrc* pDynamicPath, unsigned char nDist); // 0x00648E40
 unsigned char __stdcall D2COMMON_10191_PATH_GetDistance(D2DynamicPathStrc* pDynamicPath); // 0x00648E60
-extern "C" unsigned short __stdcall PATH_GetCollidedWithMask(PathCollisionView* path); // 0x00648EB0
-extern "C" void __stdcall PATH_ClearPreviousTargetPoint(PathPreviousView* path); // 0x00649050
-extern "C" int __stdcall PATH_GetStepNum(Obj006490A0* pObj); // 0x006490A0
+unsigned short __stdcall PATH_GetCollidedWithMask(D2DynamicPathStrc* pDynamicPath); // 0x00648EB0
+void __stdcall PATH_ClearPreviousTargetPoint(D2DynamicPathStrc* pDynamicPath); // 0x00649050
+int __stdcall PATH_GetStepNum(D2DynamicPathStrc* pDynamicPath); // 0x006490A0
 void __stdcall PATH_SetDistance(D2DynamicPathStrc* pDynamicPath, int nDist); // 0x006490E0
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
-extern "C" void __stdcall PATH_SetUnitCollisionPattern(UnitView* unit,int collisionPattern); // 0x00649190
+void __stdcall PATH_SetUnitCollisionPattern(D2UnitStrc* pUnit, int nCollisionPattern); // 0x00649190
 int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); // 0x006492A0
 void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit); // 0x00649400
 void __stdcall D2Common_10216(D2DynamicPathStrc* pDynamicPath, int nX, int nY, int bSetBothDirections); // 0x00649EF0
@@ -409,8 +410,9 @@ void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, i
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 void __stdcall D2Common_10235_PATH_UpdateRiderPath(D2UnitStrc* pRiderUnit, D2UnitStrc* pMountUnit); // 0x006505E0
 int __fastcall SEED_GetRandomValue(int nValue); // 0x00650DE0
-extern "C" void __fastcall SEED_SetSeeds(Pair00650E60* pPair, unsigned int dwFirst, unsigned int dwSecond); // 0x00650E60
-extern "C" void __fastcall SEED_GetSeeds(Pair00650E70* pPair, unsigned int* pFirst, unsigned int* pSecond); // 0x00650E70
+union D2SeedStrc;
+void __fastcall SEED_SetSeeds(D2SeedStrc* pSeed, unsigned int nLowSeed, unsigned int nHighSeed); // 0x00650E60
+void __fastcall SEED_GetSeeds(D2SeedStrc* pSeed, unsigned int* pLowSeed, unsigned int* pHighSeed); // 0x00650E70
 D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromIdAndLevel(unsigned short wTCId, int nLvl); // 0x00654E00
 D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromActAndDifficulty(int nDifficulty, int nAct, int nIndex); // 0x00654E80
 D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId); // 0x006556E0

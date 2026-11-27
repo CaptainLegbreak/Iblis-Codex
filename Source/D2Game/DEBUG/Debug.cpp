@@ -15,6 +15,7 @@ extern "C" const char gszEmptyAssertText;                                       
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #include "D2GameFuncs.h"
+#include "D2CommonApi2.h"
 void __cdecl QUESTS_DisableSequences();                                                                      // 0x005449D0
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
@@ -65,8 +66,6 @@ int __stdcall DEBUG_GetMonsterCount()
 }
 
 struct D2DrlgActStrc;
-
-void* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
 
 // 0x00534730
 void* __stdcall DEBUG_GetRoomBySubtileCoordinates(unsigned char bAct, int nX, int nY)
