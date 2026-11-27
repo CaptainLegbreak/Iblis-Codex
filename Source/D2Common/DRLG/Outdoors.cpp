@@ -121,7 +121,6 @@ static void DRLGOUTDOORS_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel);
 
 
 
-
 void __fastcall sub_0067E890(D2DrlgLevelStrc* pLevel); // 0x0067E890
 
 void __fastcall DRLGOUTPLACE_InitAct3OutdoorLevel(D2DrlgLevelStrc* pLevel); // 0x0067F450

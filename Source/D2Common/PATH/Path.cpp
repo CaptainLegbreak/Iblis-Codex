@@ -972,7 +972,6 @@ struct Obj00649120 { unsigned char bUnknown00[0x94]; unsigned char bValue94; };
 
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648C30
 
-
 static unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* pPathInfo);
 
 static int PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath);
@@ -980,8 +979,6 @@ static int PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath);
 static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit);
 
 static BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc* pPathInfo, D2UnitStrc* pUnit);
-
-int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown);
 
 static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo);
 
@@ -1028,7 +1025,6 @@ void __stdcall DUNGEON_ClientToGameCoords(int* pX, int* pY); // 0x00643540
 int __stdcall UNITS_HasCollision(D2UnitStrc* pUnit); // 0x006219C0
 
 
-
 void __stdcall COLLISION_ResetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, int nMask); // 0x0064EBA0
 
 void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EC10
@@ -1057,10 +1053,6 @@ int __stdcall PATH_ComputeDirectionFromPreciseCoords(D2FP32_16 tStart, D2FP32_16
 
 
 static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit);
-
-void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitStrc* pUnit, int bSetFlag);
-
-void __stdcall D2Common_10228(D2UnitStrc* pUnit);
 
 void __cdecl sub_00403F50_Nop()
 {

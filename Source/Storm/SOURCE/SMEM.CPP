@@ -1,6 +1,7 @@
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
 #include "D2Win32SystemInfo.h"
+#include "StormApi.h"
 
 enum D2SMemBlockFlags
 {
@@ -23,9 +24,6 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const cha
 
 int __stdcall SErrDisplayError(unsigned int nErrorCode, const char* szFile, int nLine, const char* szDescription, int bRecoverable, unsigned int nExitCode); // 0x0041CAF0
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);                                          // 0x0041C340
-unsigned int __stdcall SStrLen(const char* szString);                                                       // 0x00413750
-unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed);             // 0x00413CE0
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);                              // 0x0041D2A0
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith);                    // 0x0041D2C0
 void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
 void __cdecl SMemInitialize();                                                                      // 0x00411CD0
@@ -66,7 +64,6 @@ struct SMEMBLOCKDETAILS
     unsigned int unk_18;
 };
 extern "C" const char szSMemFindNextBlock[]; // 0x006CED04
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 extern "C" const char szSMemFindNextHeap[]; // 0x006CED18
 extern "C" const char szSMemAlloc[]; // 0x006CEDCC
 static inline D2SMemBlockStrc* SMemGetBlockHeader(void* pMemory)
@@ -91,7 +88,6 @@ static inline void* SMemGetBlockData(D2SMemBlockStrc* pBlock)
 typedef void (__stdcall* SMEMDUMPCALLBACK)(void* pParam, const char* szText);
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
 void __stdcall SErrReportResourceLeak(const char* szName); // 0x0041D1E0
