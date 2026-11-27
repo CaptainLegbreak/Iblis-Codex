@@ -678,7 +678,6 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
 
-extern "C" void* __stdcall sub_00413020(unsigned,const char*,int,unsigned); // 0x00413020
 
 extern "C" const char mappingName[]; // 0x0074362C
 
@@ -2386,7 +2385,7 @@ D2CommonRecord610610Strc::D2CommonRecord610610Strc(int nValue)
 // 0x00610630
 Node* List::IGNORELIST_NewMappingListNode(int linkType,unsigned extra,unsigned flags)
 {
-    void* memory=sub_00413020(sizeof(Node)+extra,mappingName,-2,flags|ALLOC_FLAG);
+    void* memory=SMemAlloc(sizeof(Node)+extra,mappingName,-2,flags|ALLOC_FLAG);
     Node* node=new(memory) Node;
     if(linkType) IGNORELIST_LinkMappingListNode((char*)node,linkType,0);
     return node;
