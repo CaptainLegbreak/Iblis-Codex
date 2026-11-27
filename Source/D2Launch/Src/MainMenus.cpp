@@ -32,8 +32,8 @@
 #include "D2LangApi.h"
 #include "FogApi.h"
 #include "StormApi.h"
-
-void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...); // 0x00409020
+#include "FogApi2.h"
+#include "StormApi2.h"
 
 int __stdcall MAINMENUS_AskEmailRegistration(int nArg); // 0x00436C90
 
@@ -115,28 +115,6 @@ void __stdcall D2ServerServiceHandlerProc(unsigned long dwCtrlCode); // 0x004064
 
 void __fastcall LOGMANAGER_WriteLogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
 
-void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...); // 0x00410660
-
-char* __fastcall Int64ToString(char* szBuffer, unsigned int nBufferSize, __int64 nValue); // 0x00411540
-
-int __stdcall SFileEnableDirectAccess(int nFlags); // 0x00415F70
-
-void __stdcall SFileEnableSeekOptimization(int nValue); // 0x00415F90
-
-
-int __stdcall SFileSetIoErrorMode(int nValueA, int nValueB); // 0x004166B0
-
-int __stdcall StormGetOption(unsigned int nOption, const void* pInput, unsigned int nSize); // 0x0041BFC0
-
-void __cdecl LockErrorState(); // 0x0041C1A0
-
-void __cdecl UnlockErrorState(); // 0x0041C1E0
-
-int __stdcall SErrDisplayError(unsigned int nErrorCode, const char* szFile, int nLine, const char* szDescription, int bRecoverable, unsigned int nExitCode); // 0x0041CAF0
-
-void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
-
-int __stdcall SEvtPopState(unsigned long dwId, void* pContext); // 0x004269C0
 
 int __fastcall MAINMENUS_ShowOptionDescription(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
 
@@ -1232,8 +1210,6 @@ public:
 int __fastcall D2Win_10055(D2WinControlStrc* pTextBox); // 0x004FBAB0
 
 void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine); // 0x004FB9D0
-
-int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq); // 0x0041BA60
 
 
 

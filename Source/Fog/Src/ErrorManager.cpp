@@ -10,6 +10,7 @@
 #include "D2Win32SystemInfo.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "StormApi2.h"
 
 typedef unsigned int size_t;
 
@@ -184,11 +185,7 @@ struct D2Storm408ElemStrc;
 
 struct D2StormArray408Strc;
 
-int __stdcall SFileOpenFile(const char* szFileName, void** phFile); // 0x00419980
-
 int __stdcall SFileReadFileEx2(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg6, int nArg7); // 0x0041AAD0
-
-int __stdcall SFileGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00416370
 
 struct D2FindDataStrc
 {
@@ -372,8 +369,6 @@ void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameS
 unsigned long __cdecl ERRORMANAGER_GetCurrentThreadId(); // 0x00401690
 
 void __fastcall ERRORMANAGER_TerminateCurrentProcess(unsigned int nCode); // 0x004013C0
-
-int __stdcall SFileCloseFile(void* pArg);    // 0x004198D0
 
 struct AsyncDataEventSlot;
 
@@ -2182,8 +2177,6 @@ int __cdecl SYSTEM_IsPlatformNT(); // 0x00410960
 void __cdecl SYSTEM_InitTimeBase(); // 0x004109D0
 
 void __cdecl sub_00411210_InitTimer(); // 0x00411210
-
-void __fastcall SetErrorReportCallback(void* pfnHandler); // 0x0041C0E0
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 

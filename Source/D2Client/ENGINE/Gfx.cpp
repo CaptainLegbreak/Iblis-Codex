@@ -19,6 +19,8 @@
 #include "D2MonModes.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
+#include "FogApi2.h"
 
 struct D2UnitStrc;
 
@@ -139,8 +141,6 @@ void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius); // 0x00474290
 
 int __fastcall GFXUTIL_GetOverlayFrameCount(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 0x004DBE20
 
-int __stdcall UNITS_GetOverlayHeight(D2UnitStrc* pUnit); // 0x006223A0
-
 
 
 
@@ -149,19 +149,11 @@ void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 
 
-int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
-
-void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
-
 
 
 extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 
 extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
-
-int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
-
-int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 
 
 int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
@@ -169,14 +161,6 @@ int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, 
 void __stdcall TEXTURE_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, unsigned char nColor); // 0x004F6570
 
 
-int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
-
-int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
-
-int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
-
-
-int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 
 
 
@@ -314,8 +298,6 @@ extern int gbPreloadForce; // 0x007A8920
 int gbCharArchiveLoaded; // 0x007A8928
 
 static void GFX_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit); // 0x00470040
-
-unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
 
 struct D2GfxBoundsStrc
 {
@@ -466,16 +448,6 @@ D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequ
 
 
 
-int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                                                        // 0x0063EA40
-
-void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask);         // 0x00648C30
-
-void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames);                              // 0x0064A2B0
-
-void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame);                            // 0x0064A330
-
-
-void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY);                                      // 0x0064A760
 
 static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
@@ -861,10 +833,6 @@ extern "C" double __cdecl fabs(double x);
 
 int __cdecl D2GFX_GetDisplayType();                                                                                 // 0x004F5140
 
-int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
-
-int __fastcall DATAARRAYS_AllocateHandle(D2WeatherStrc* pArray);                                             // 0x006BCB40
-
 extern D2DrlgActStrc* gpDrlgAct_007A0634;                                                                   // 0x007A0634
 
 extern const D2PeriodLightStrc gaPeriodLights[];                                                    // 0x006D6E40
@@ -891,12 +859,7 @@ int* __fastcall MONSTER_GetAiValuePtr(D2UnitStrc* pUnit);                       
 void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pTarget);    // 0x004AFF60
 D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB);// 0x004CDB40
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
-int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                                                        // 0x0063EA40
-void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask);         // 0x00648C30
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance);            // 0x00648E70
-void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames);                              // 0x0064A2B0
-void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame);                            // 0x0064A330
-void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY);                                      // 0x0064A760
 
 
 static D2UnitStrc* __stdcall GFX_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance); // 0x0046C720

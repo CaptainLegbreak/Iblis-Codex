@@ -10,6 +10,7 @@
 #include "D2WinSplitText.h"
 #include "D2ClientUiRecords.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 
 
 extern int gnPanelSlideMode; // 0x007A5210
@@ -271,10 +272,6 @@ void __cdecl sub_0045B0A0_Nop()
 }
 
 
-int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
-
-int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
-
 
 int gnAutomapPanelShiftX; // 0x007A5204
 
@@ -343,8 +340,6 @@ void __fastcall CUNIT_DrawAutomapDiamond(int nX, int nY, unsigned char nColor)
 }
 
 struct D2DrlgCoordsStrc;
-
-void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
 
 

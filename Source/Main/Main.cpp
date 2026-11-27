@@ -5,6 +5,7 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);
 #include "FogApi.h"
 #include "StormApi.h"
 #include "FogApi.h"
+#include "FogApi2.h"
 
 struct D2ConfigStrc;
 
@@ -16,8 +17,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" char* __cdecl strtok(char* szText, const char* szDelim); // 0x0068264F
 extern "C" int __cdecl strncmp(const char* szLeft, const char* szRight, size_t nCount); // 0x00682591
-void __fastcall FOG_SetLogPrefix(const char* szLogPrefix); // 0x00407960
-void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersion, int bLogToFile); // 0x00408CE0
 void __fastcall SaveCmdLine(const char** argv); // 0x00405F00
 void __cdecl MoveBetaSettingsToRelease(); // 0x00406040
 void __fastcall ParseCmdLine(D2ConfigStrc* pCfg, const char* argv); // 0x004059A0
