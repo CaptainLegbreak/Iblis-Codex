@@ -435,7 +435,7 @@ static int __stdcall sub_004E1400_SetMissileFrames(D2UnitStrc* pUnit, int nSkill
     nFrames = nFrames > 1 ? (nFrames < 0xFF ? nFrames : 0xFF) : 1;
 
     PATH_SetNewDistance(pMissile->pDynamicPath, nFrames);
-    sub_00621780_SetMissileArg(pMissile, (pMissilesTxt->nAnimLen << 8) / nFrames);
+    UNITS_SetAnimationSpeed(pMissile, (pMissilesTxt->nAnimLen << 8) / nFrames);
     MISSILE_SetTotalFrames(pMissile, nFrames);
     MISSILE_SetCurrentFrame(pMissile, nFrames);
     return 1;

@@ -646,7 +646,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x68(D2ClientStrc* pClient, unsigned ch
     packet68.nX = CLIENTS_GetUnitXInline(pMonster);
     packet68.nY = CLIENTS_GetUnitYInline(pMonster);
     packet68.nUnitLife = nUnitLife;
-    packet68.nPathType = sub_00648E30_GetPathValue(pPath);
+    packet68.nPathType = PATH_GetType(pPath);
     if (packet68.nPathType >= 5)
     {
         if (packet68.nPathType > 6)
@@ -688,7 +688,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x67(D2ClientStrc* pClient, unsigned ch
 
     D2DynamicPathStrc* pPath = pMonster->pDynamicPath;
     packet67.nUnitLife = nUnitLife;
-    packet67.nPathType = sub_00648E30_GetPathValue(pPath);
+    packet67.nPathType = PATH_GetType(pPath);
     if (packet67.nPathType >= 5)
     {
         if (packet67.nPathType > 6)
@@ -735,7 +735,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x68Ex(D2ClientStrc* pClient, unsigned 
     packet68.nY = CLIENTS_GetUnitYInline(pMonster);
     packet68.nUnitLife = nUnitLife;
     packet68.nHitClass = nHitClass;
-    packet68.nPathType = sub_00648E30_GetPathValue(pPath);
+    packet68.nPathType = PATH_GetType(pPath);
     if (packet68.nPathType == 8)
     {
         packet68.nPathType = 11;
@@ -768,7 +768,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x67Ex(D2ClientStrc* pClient, unsigned 
     D2DynamicPathStrc* pPath = pMonster->pDynamicPath;
     packet67.nUnitLife = nUnitLife;
     packet67.nHitClass = nHitClass;
-    packet67.nPathType = sub_00648E30_GetPathValue(pPath);
+    packet67.nPathType = PATH_GetType(pPath);
     if (packet67.nPathType >= 5)
     {
         if (packet67.nPathType > 6)

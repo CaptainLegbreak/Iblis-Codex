@@ -400,7 +400,7 @@ struct D2RequestStrc
 
 D2UnitStrc* __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0x004CD540
 
-int __stdcall sub_006488C0_PathGetX(D2DynamicPathStrc* pPath); // 0x006488C0
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
 int __stdcall sub_00648900_PathGetY(D2DynamicPathStrc* pPath); // 0x00648900
 
@@ -3716,11 +3716,11 @@ void __fastcall MISSILE_CltDoAnimSpeedSteps(D2UnitStrc* pMissile)
     {
     case CLTDO_SLOW_FRAME:
         sub_004DA250(pMissile, 0, 0, CLTDO_SLOW_FLAG, 0);
-        sub_00621780_SetMissileArg(pMissile, pMissile->wAnimSpeed >> 1);
+        UNITS_SetAnimationSpeed(pMissile, pMissile->wAnimSpeed >> 1);
         break;
 
     case CLTDO_FAST_FRAME:
-        sub_00621780_SetMissileArg(pMissile, pMissile->wAnimSpeed * 2);
+        UNITS_SetAnimationSpeed(pMissile, pMissile->wAnimSpeed * 2);
         break;
     }
 
@@ -5018,8 +5018,8 @@ int __fastcall MISSILE_SkillStartSpawnRing(D2UnitStrc* pUnit, int nSkillId, int 
 
     if (pRequestC)
     {
-        sub_00621780_SetMissileArg(pRequestD, 0x80);
-        sub_00621780_SetMissileArg(pRequestC, 0x80);
+        UNITS_SetAnimationSpeed(pRequestD, 0x80);
+        UNITS_SetAnimationSpeed(pRequestC, 0x80);
     }
 
     return 1;
@@ -5394,7 +5394,7 @@ int __fastcall MISSILE_CltHitFollowUp(D2UnitStrc* pMissile, D2UnitStrc* pHitUnit
         D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
         D2DynamicPathStrc* pNewPath = pNewMissile->pDynamicPath;
         PATH_SetDirection(pNewPath, PATH_GetDirection(pPath));
-        sub_00621780_SetMissileArg(pNewMissile, 0x80);
+        UNITS_SetAnimationSpeed(pNewMissile, 0x80);
     }
 
     return 1;
@@ -5491,11 +5491,11 @@ static inline void MISSILE_ApplyAnimSpeedSteps(D2UnitStrc* pMissile, int nFrame)
     {
     case CLTDO_SLOW_FRAME:
         sub_004DA250(pMissile, 0, 0, CLTDO_SLOW_FLAG, 0);
-        sub_00621780_SetMissileArg(pMissile, pMissile->wAnimSpeed >> 1);
+        UNITS_SetAnimationSpeed(pMissile, pMissile->wAnimSpeed >> 1);
         break;
 
     case CLTDO_FAST_FRAME:
-        sub_00621780_SetMissileArg(pMissile, pMissile->wAnimSpeed * 2);
+        UNITS_SetAnimationSpeed(pMissile, pMissile->wAnimSpeed * 2);
         break;
     }
 }

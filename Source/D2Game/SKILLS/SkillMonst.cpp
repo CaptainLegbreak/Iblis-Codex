@@ -1441,7 +1441,7 @@ static int __stdcall SKILLS_UpdateInfernoAnimationParameters(D2UnitStrc* pUnit, 
 
     nFrame = D2_MIN(D2_MAX(nFrame, 1), 0xFF);
     PATH_SetNewDistance(pMissile->pDynamicPath, nFrame);
-    sub_00621780_SetMissileArg(pMissile, (pMissilesTxtRecord->nAnimLen << 8) / nFrame);
+    UNITS_SetAnimationSpeed(pMissile, (pMissilesTxtRecord->nAnimLen << 8) / nFrame);
     MISSILE_SetTotalFrames(pMissile, nFrame);
     MISSILE_SetCurrentFrame(pMissile, nFrame);
     return 1;

@@ -1036,7 +1036,7 @@ static void __stdcall GFX_CommandOnUnit(int nCommand, int nArg, D2UnitStrc* pUni
     const int nTargetId = !pTarget ? -1 : pTarget->dwUnitId;
     tCommand.nY = nTargetId;
     tCommand.nZero = 0;
-    tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
+    tCommand.nPathValue = PATH_GetType(pPath);
     tCommand.nArg = nArg;
 // build: symbol ?PATH_GetMaxDistance@* 0x00648EA0
     tCommand.nPathByte = PATH_GetMaxDistance(pPath);
@@ -1080,7 +1080,7 @@ static int __stdcall sub_0046C7D0_StepAwayFromUnit(D2UnitStrc* pUnit, unsigned c
     tCommand.nX = nUnitX + nScale * nDirX;
     tCommand.nY = nUnitY + nScale * nDirY;
     tCommand.nZero = 0;
-    tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
+    tCommand.nPathValue = PATH_GetType(pPath);
     tCommand.nArg = nArg;
     tCommand.nPathByte = PATH_GetMaxDistance(pPath);
     MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
@@ -1110,7 +1110,7 @@ static void __stdcall GFX_StepRandom(unsigned char nScale, int nCommand, int nAr
     tCommand.nX = nUnitX + nOffsetX;
     tCommand.nY = nUnitY + nOffsetY;
     tCommand.nZero = 0;
-    tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
+    tCommand.nPathValue = PATH_GetType(pPath);
     tCommand.nArg = nArg;
     tCommand.nPathByte = PATH_GetMaxDistance(pPath);
     MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
@@ -1124,7 +1124,7 @@ static void __stdcall sub_0046CA60_CommandToXY(int nCommand, D2UnitStrc* pUnit, 
     tCommand.nX = nX;
     tCommand.nY = nY;
     tCommand.nZero = 0;
-    tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
+    tCommand.nPathValue = PATH_GetType(pPath);
     tCommand.nArg = nArg;
     tCommand.nPathByte = PATH_GetMaxDistance(pPath);
     MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);

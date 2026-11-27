@@ -2069,7 +2069,7 @@ void __fastcall SUNIT_Restore(D2GameStrc* ptGame, D2UnitStrc* hUnit, D2ActiveRoo
         }
         else
         {
-            sub_00553220(ptGame, hUnit);
+            SUNIT_ClearUpdateData(ptGame, hUnit);
         }
 
         if (MONSTERS_IsDead(hUnit))
@@ -2552,7 +2552,7 @@ void __fastcall SUNIT_Add(D2UnitStrc* pUnit, int nX, int nY, D2GameStrc* ptGame,
         }
         else
         {
-            sub_00553220(ptGame, pUnit);
+            SUNIT_ClearUpdateData(ptGame, pUnit);
         }
         break;
 

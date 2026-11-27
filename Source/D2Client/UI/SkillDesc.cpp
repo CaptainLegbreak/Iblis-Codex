@@ -4332,7 +4332,7 @@ int __fastcall SKILLDESC_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int 
                 D2COMMON_10203_PATH_SetRotateFlag(pMissile->pDynamicPath, 0);
             }
 
-            sub_00621780_SetMissileArg(pMissile, nMissileArg);
+            UNITS_SetAnimationSpeed(pMissile, nMissileArg);
         }
     }
 
@@ -4364,7 +4364,7 @@ int __fastcall SKILLDESC_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int 
                 D2COMMON_10203_PATH_SetRotateFlag(pMissile->pDynamicPath, 0);
             }
 
-            sub_00621780_SetMissileArg(pMissile, nMissileArg);
+            UNITS_SetAnimationSpeed(pMissile, nMissileArg);
         }
     }
 
