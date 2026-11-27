@@ -21,6 +21,10 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
+#include "D2CMPApi.h"
+#include "D2SoundApi.h"
 
 struct D2MsgHandlerEntryStrc;
 
@@ -272,8 +276,6 @@ Unicode gwszChatLine_007BB638[0x101]; // 0x007BB638
 
 void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
-
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 extern "C" int __stdcall ImmSimulateHotKey(int hWnd, unsigned long nHotKey); // 0x006B00E4
 
@@ -839,15 +841,9 @@ int __cdecl sub_004DF980_IsSoundMode1Or2();
 
 void __fastcall sub_004776C0_SetGamma(void* pArg);
 
-int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 
 
 
-
-
-void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
-
-void __stdcall D2GFX_SetBlendShadows(int bBlendedShadows); // 0x004F5200
 
 
 void __fastcall AUTOMAP_SetAutomapMode(int nMode); // 0x0045A720
@@ -922,10 +918,6 @@ extern D2CelFileStrc* gpSliderEnabledCell_007BC954; // 0x007BC954
 extern D2CelFileStrc* gpSliderKnob_007BC958; // 0x007BC958
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nStyle); // 0x0046EFD0
-
-void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCellFile, int nX, int nY, int nFrame, int nColor, int nArg6); // 0x00502680
-
-int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nColor, int nArg6); // 0x004F6480
 
 extern void* gpSlotCells; // 0x007BC964
 
@@ -1258,26 +1250,8 @@ extern int gnOptionLastY; // 0x007BC984
 
 
 
-int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
-
-int __cdecl D2SOUND_GetMusicVolumeOption(); // 0x00514CF0
-
-int __cdecl D2SOUND_GetPositionalBiasOption(); // 0x00514D20
-
-int __cdecl D2SOUND_GetNpcSpeechOption(); // 0x00514D50
-
-int __fastcall D2SOUND_SetMasterVolumeOption(int nValue); // 0x00514CD0
-
-int __fastcall D2SOUND_SetMusicVolumeOption(int nValue); // 0x00514D00
-
-int __fastcall D2SOUND_SetPositionalBiasOption(int nValue); // 0x00514D30
-
-int __fastcall sub_00514D60_SetNpcSpeech(int nValue); // 0x00514D60
 
 
-
-
-void __stdcall D2GFX_SetLowQuality(int bLowQuality); // 0x004F5220
 
 
 
@@ -1537,8 +1511,6 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);       
 void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor);                              // 0x0049E3A0
 
 
-unsigned int __fastcall D2Win_10128(unsigned char nChar);                                                   // 0x00502550
-
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
 
 
@@ -1603,12 +1575,6 @@ extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pE
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
 D2CelFileStrc* __cdecl UI_GetPentspinCel(); // 0x00453AA0
-
-int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
-
-D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
-
-int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
 extern D2CelFileStrc* gpSliderDisabledCel; // 0x007BC950
 

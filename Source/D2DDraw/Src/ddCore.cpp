@@ -9,6 +9,8 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "FogApi.h"
+#include "D2CMPApi.h"
+#include "D2SoundApi.h"
 
 struct D2CriticalSectionStrc;
 
@@ -74,8 +76,6 @@ void __cdecl DDCORE_ReleaseSurfaces(); // 0x00511A80
 
 int __fastcall DDCORE_CreateSurface(void* hWnd, int nResolutionMode); // 0x005115E0
 
-
-int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int bAsync, int nFlags); // 0x005FDEA0
 
 extern "C" const char gszCourier[]; // 0x006DD52C
 
@@ -1045,8 +1045,6 @@ int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigne
 void __cdecl GLIDE_DrawVideoFrame(); // 0x0050FD10
 
 void __cdecl DDRAW_DrawVideoFrame(); // 0x005136F0
-
-void __fastcall D2SOUNDSMP_SetMasterVolume(int nVolume); // 0x00515CE0
 
 extern int gnRenderHeight; // 0x007C913C
 

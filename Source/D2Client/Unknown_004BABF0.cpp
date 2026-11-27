@@ -8,6 +8,7 @@
 #include "FogApi.h"
 #include "D2LangApi.h"
 #include "StormApi.h"
+#include "D2CMPApi.h"
 
 struct Unicode;
 struct D2ButtonStringStrc;
@@ -457,10 +458,6 @@ void ButtonWrapper::sub_004BAF10_SetUnk24(int nValue)
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
 extern "C" D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
-
-extern "C" int __stdcall CelGetWidth(D2CelStrc* pCel);                                                                 // 0x006018C0
-
-extern "C" int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 
 // build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
 // 0x004BAF20

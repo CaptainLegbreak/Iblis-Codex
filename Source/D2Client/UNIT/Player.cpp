@@ -17,6 +17,7 @@
 #include "D2PlayerModes.h"
 #include "D2Drlg.h"
 #include "FogApi.h"
+#include "D2GfxApi.h"
 
 struct D2SkillStrc;
 
@@ -81,8 +82,6 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 D2PacketBufferStrc* __fastcall sub_00464770_GetPacketBuffer(void* pArg); // 0x00464770
 
 void __fastcall sub_004647A0_SetPacketBuffer(void* pArg, D2PacketBufferStrc* pBuffer); // 0x004647A0
-
-void __fastcall D2GFX_SetViewMatrixAdjust(int nOffset); // 0x004F52A0
 
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0

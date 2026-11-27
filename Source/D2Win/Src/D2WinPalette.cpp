@@ -4,6 +4,7 @@
 
 #include "D2Win32Types.h"
 #include "FogApi.h"
+#include "D2CMPApi.h"
 
 struct D2Palette256Strc
 {
@@ -17,8 +18,6 @@ struct D2TransPaletteStrc
 
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nSize); // 0x006829C0
 
-
-unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nRed, int nGreen, int nBlue); // 0x00605210
 
 void __cdecl PALETTE_ApplyPaletteTables(); // 0x004FB010
 

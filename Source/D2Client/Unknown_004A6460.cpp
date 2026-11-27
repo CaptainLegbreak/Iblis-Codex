@@ -31,6 +31,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi2.h"
+#include "D2SoundApi.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -956,8 +957,6 @@ void __cdecl TEXT_DrawOverheadTextList(); // 0x0049DEE0
 extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
 
 void __fastcall DIALOG_DrawDialog(D2ClientDialogStrc* pDialog); // 0x004B8100
-
-int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
 
 extern D2RectStrc gtTextRect_007BF1D0; // 0x007BF1D0
 

@@ -4,6 +4,7 @@
 
 #include "D2WinControls.h"
 #include "FogApi.h"
+#include "D2GfxApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -26,8 +27,6 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 int __stdcall SMACK_Decode(D2WinSmackStrc* pSmack, const char* szFileName, int nVersion); // 0x00506910
-
-void __stdcall WINDOW_PlaySmacker(void* pContext); // 0x004F5E40
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 

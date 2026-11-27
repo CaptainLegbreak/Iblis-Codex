@@ -13,6 +13,7 @@
 #include "D2DataTbls.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MsgHandlerEntryStrc;
@@ -124,8 +125,6 @@ extern "C" __declspec(dllimport) int __stdcall TranslateMessage(const D2WinMsgSt
 extern "C" __declspec(dllimport) int __stdcall DispatchMessageA(const D2WinMsgStrc* pMsg); // 0x006CC478
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned int nMilliseconds); // 0x006CC258
-
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 int __stdcall SMsgRegisterCommand(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420BF0
 

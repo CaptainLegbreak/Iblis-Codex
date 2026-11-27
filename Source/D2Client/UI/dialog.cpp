@@ -7,6 +7,8 @@
 #include "D2ClientDialogWidget.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
 
 #pragma function(memset)
 
@@ -116,8 +118,6 @@ void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable
 
 
 
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
-
 extern D2MsgHandlerEntryStrc gaDialogWheelHandlers[]; // 0x007273E4
 
 extern D2MsgHandlerEntryStrc gaDialogHandlers[]; // 0x007273F0
@@ -167,10 +167,6 @@ static int gnDialogCount; // 0x007C0E5C
 extern const char* gaszDialogCels[]; // 0x007274AC
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
-
-int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
-
-int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 

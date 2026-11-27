@@ -19,6 +19,7 @@
 #include "D2LangApi.h"
 #include "StormApi.h"
 #include "D2CommonApi2.h"
+#include "D2GfxApi.h"
 
 struct D2ActiveRoomStrc;
 
@@ -65,8 +66,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 
 unsigned int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
-
-int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
@@ -289,8 +288,6 @@ void* gpPartyBarCel; // 0x007BF028
 
 void __cdecl PARTY_DrawPlayerName(); // 0x0049A580
 
-void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
-
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
 
 
@@ -346,8 +343,6 @@ unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 
 
 
-
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 
 void __cdecl PANEL_DrawBorderFrameLeft(); // 0x00498630

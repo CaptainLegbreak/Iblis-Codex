@@ -21,6 +21,9 @@
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
 #include "FogApi2.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
+#include "D2CMPApi.h"
 
 struct D2UnitStrc;
 
@@ -174,10 +177,6 @@ void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, i
 
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
 
-int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
-
-int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
-
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
@@ -210,8 +209,6 @@ struct D2GfxBoundsStrc;
 
 void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 0x0046E040
 
-int __cdecl D2Win_10185_CheckCharMpq(); // 0x004FAC90
-
 
 extern char gData_007A7490[0x460]; // 0x007A7490
 
@@ -238,8 +235,6 @@ void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
 
 
 int __fastcall ROSTERPETS_IsPetFriendly(D2UnitStrc* pPlayer, D2UnitStrc* pUnit); // 0x00478E70
-
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
@@ -810,8 +805,6 @@ extern int gnBaseWindAngleMin; // 0x007A89DC
 
 extern int gbWeatherSplash; // 0x007A8A14
 
-int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
-
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 
@@ -830,8 +823,6 @@ void __fastcall sub_M110_Emit_00472530(int bValue)
 }
 
 extern "C" double __cdecl fabs(double x);
-
-int __cdecl D2GFX_GetDisplayType();                                                                                 // 0x004F5140
 
 extern D2DrlgActStrc* gpDrlgAct_007A0634;                                                                   // 0x007A0634
 

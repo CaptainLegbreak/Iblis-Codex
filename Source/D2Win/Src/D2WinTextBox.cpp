@@ -25,6 +25,8 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2GfxApi.h"
+#include "D2HellApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -229,13 +231,9 @@ void __fastcall D2COMP_InitEmblemColorTables();                                 
 
 struct D2Palette256Strc;
 
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
-
 extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void* hWnd, const char* szText, const char* szCaption, unsigned int nType); // 0x006CC464
 
 D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName, void* hFile, void* pfShowMessage, int nPriority); // 0x00517332
-
-void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
 
 extern "C" const char gszExpansionMpq[]; // 0x006CD3A0
 

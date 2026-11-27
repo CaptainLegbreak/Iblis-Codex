@@ -11,6 +11,8 @@
 #include "StormApi.h"
 #include "D2LangApi.h"
 #include "FogApi.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
 
 struct D2SelectionRectStrc;
 
@@ -81,8 +83,6 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 
 int __cdecl NPCMENU_GetUseItemMode(); // 0x004B1670
 
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
-
 void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
 
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
@@ -128,8 +128,6 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820
 void __fastcall D2Win_10117_DrawText(const Unicode*,int,int,int,int); // 0x00502320
 
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode*,int*,int); // 0x00502970
-
-int __fastcall D2Win_10127_SetFont(int); // 0x00502EF0
 
 void* gpUpgradeCel; // 0x007C5494
 

@@ -6,6 +6,7 @@
 #include "D2Path.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2GfxApi.h"
 
 #pragma intrinsic(abs)
 
@@ -75,12 +76,8 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 
-int __cdecl D2GFX_CheckLowQuality(); // 0x004F5210
-
 
 int __cdecl GAME_GetFramesPerSecond(); // 0x0044DAE0
-
-void __stdcall D2GFX_DebugDraw(unsigned int* pLight, unsigned int* pPlayerLight, int nXPos, int nYPos); // 0x004F68B0
 
 void __stdcall DUNGEON_SetActCallbackFunc(D2DrlgActStrc* pAct, ACTCALLBACKFN pActCallbackFunction); // 0x0061AF60
 
@@ -110,8 +107,6 @@ extern unsigned char** gppRampTable_007B954C; // 0x007B954C
 extern unsigned char* gpLerpTable40; // 0x007B9550
 
 extern int gpBloodRemap; // 0x007BB384
-
-void __stdcall D2GFX_SetGamma(void* pArg); // 0x004F5230
 
 extern int gnLightmapRenderMode; // 0x00712CCC
 
@@ -1428,12 +1423,6 @@ void __fastcall sub_00475DE0_FreeIfSet(void* pMemory)
 
 
 
-
-int __stdcall D2GFX_TogglePerspective();                                                                    // 0x004F54B0
-
-int __stdcall D2GFX_ToggleBlendedShadows();                                                                 // 0x004F54D0
-
-int __stdcall D2GFX_ToggleLowQuality();                                                                     // 0x004F54F0
 
 
 
