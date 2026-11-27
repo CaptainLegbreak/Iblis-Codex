@@ -61,7 +61,7 @@ struct D2PalShiftNodeStrc;
 
 union D2SeedStrc;
 
-struct D2CelContextStrc;
+struct D2GfxDataStrc;
 
 struct D2DataTablesStrc;
 
@@ -126,7 +126,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 
 
@@ -345,7 +345,7 @@ extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType);                               // 0x004788B0
 
-void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 extern int gbLeavingGame;                                                                               // 0x007A0620
 
@@ -1044,10 +1044,10 @@ static void VIEW_DrawSummitBackdrop(D2UnitStrc* pPlayer)
         gpCloudCel = ARCHIVE_LoadClientCellFile(szPath, 0);
     }
 
-    D2CelContextStrc tGfxData = {};
+    D2GfxDataStrc tGfxData = {};
     if (gpSummitCel)
     {
-        tGfxData.pCellFile = gpSummitCel;
+        tGfxData.pCelFile = gpSummitCel;
         tGfxData.nFrame = nFrame;
         TEXTURE_CelDraw(&tGfxData, nX, 0x100, -1, 5, 0);
         const int nFrame1 = (nFrame + 1) % 4;
@@ -1132,7 +1132,7 @@ static void VIEW_DrawSummitBackdrop(D2UnitStrc* pPlayer)
 
         for (i = 0; i < 10; ++i)
         {
-            tGfxData.pCellFile = gpCloudCel;
+            tGfxData.pCelFile = gpCloudCel;
             tGfxData.nFrame = 0;
             nFrame = gaCloudX[i] / 16;
             TEXTURE_CelDraw(&tGfxData, nFrame, gaCloudY[i], 0xDDDDDDDD, 3, 0);
@@ -1245,9 +1245,9 @@ extern int gbCacheStatsChecked; // 0x007BB3AC
 // 0x0047E860
 void __stdcall VIEW_DrawCelFrame(int nFrame, int nX, int nY)
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpSlotCells;
+    tContext.pCelFile = gpSlotCells;
     tContext.nFrame = nFrame;
     sub_004F6480(&tContext, nX, nY, -1, 5, 0);
 }

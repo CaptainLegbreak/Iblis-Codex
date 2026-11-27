@@ -536,7 +536,7 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x00
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
-int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 extern D2ScrollPosStrc gaScrollPiecePos[5]; // 0x00722EB8
 
@@ -762,7 +762,7 @@ void __stdcall CURSOR_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
-D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
+D2CelStrc* __stdcall CelGetHandle(D2GfxDataStrc* pContext); // 0x00601840
 
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
@@ -1927,9 +1927,9 @@ void __cdecl TEXT_DrawKeyConfigPanel()
         }
     }
 
-    D2CelContextStrc tCel;
+    D2GfxDataStrc tCel;
     memset(&tCel, 0, sizeof(tCel));
-    tCel.pCellFile = gpKeyConfigSliderCel;
+    tCel.pCelFile = gpKeyConfigSliderCel;
     tCel.nFrame = 13;
     for (int j = 0; j < sub_KEYCFG_TrackCels(); ++j)
         TEXTURE_CelDraw(&tCel, sub_KEYCFG_PanelRight() - 0x1F, KEYCFG_Y + 0x3B + j * 0x0C, -1, 5, 0);

@@ -42,7 +42,7 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 void __fastcall D2Win_10118_DrawBlendedText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered, int eDrawMode); // 0x00502360
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 static int BUTTON_IsPointInside(D2WinButtonStrc* pButton, int nX, int nY); // 0x00500C20
 
@@ -189,9 +189,9 @@ int __fastcall BUTTON_Draw(D2WinButtonStrc* pButton)
         const int nRows = ((pButton->controlHeader.nHeight + 0xFF) >> 8) - 1;
         const int nColumns = (pButton->controlHeader.nWidth + 0xFF) >> 8;
 
-        D2CelContextStrc tContext;
+        D2GfxDataStrc tContext;
         memset(&tContext, 0, sizeof(tContext));
-        tContext.pCellFile = pButton->controlHeader.pCellFile;
+        tContext.pCelFile = pButton->controlHeader.pCellFile;
         tContext.nDirection = 0;
 
         for (int i = 0; i < nRows; ++i)

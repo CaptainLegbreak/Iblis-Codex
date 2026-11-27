@@ -100,7 +100,7 @@ struct D2WinImageStrc;
 
 struct D2CropRectStrc;
 
-struct D2CelContextStrc;
+struct D2GfxDataStrc;
 
 struct D2CharStrc;
 
@@ -149,7 +149,7 @@ enum DrawMode
     DRAWMODE_NORMAL = 5,
 };
 
-void __stdcall TEXTURE_CelDrawClipped(D2CelContextStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
+void __stdcall TEXTURE_CelDrawClipped(D2GfxDataStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
 
 int __fastcall D2Win_10058_0(D2WinControlStrc* pControl, const Unicode* pText, int nLineNum, int nColumn); // 0x004FB790
 
@@ -211,7 +211,7 @@ void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc* pControl);             
 
 void __fastcall SCROLLBAR_Destroy(void* pArg);                                                                   // 0x00507EE0
 
-void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 void __fastcall FONT_DrawTextWithBackground(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int eDrawMode, int nTextColor); // 0x005025C0
 
@@ -855,9 +855,9 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
     D2CelFileStrc* pCellFile = pTextBox->controlHeader.pCellFile;
     if (pCellFile)
     {
-        D2CelContextStrc tGfxData;
+        D2GfxDataStrc tGfxData;
         memset(&tGfxData, 0, sizeof(tGfxData));
-        tGfxData.pCellFile = pCellFile;
+        tGfxData.pCelFile = pCellFile;
         tGfxData.nDirection = 0;
         tGfxData.nFrame = 0;
         TEXTURE_CelDraw(&tGfxData, pTextBox->controlHeader.nImageX, pTextBox->controlHeader.nImageY - 1, -1, 5, 0);

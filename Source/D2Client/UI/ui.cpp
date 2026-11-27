@@ -47,7 +47,7 @@ struct D2ClientEntryStrc;
 
 struct D2RosterPetStrc;
 
-struct D2CelContextStrc;
+struct D2GfxDataStrc;
 
 struct D2UnitStrc;
 
@@ -91,7 +91,7 @@ D2CelFileStrc* gpBoxPiecesCel; // 0x007A2798
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 struct D2SlotStrc
 {
@@ -1157,10 +1157,10 @@ void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect)
     int nHeight = pRect->nBottom - pRect->nTop;
     int nTop = pRect->nTop;
     int nBottom = nTop + nHeight + 1;
-    D2CelContextStrc context;
+    D2GfxDataStrc context;
     int nPiece = 0;
     memset(&context, 0, sizeof(context));
-    context.pCellFile = gpBoxPiecesCel;
+    context.pCelFile = gpBoxPiecesCel;
     context.nDirection = 0;
 
     const int nRightCorner = nRight - 12;
@@ -2996,8 +2996,8 @@ void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame)
         gnLoadingFrame = nFrames - 1;
     }
 
-    D2CelContextStrc tContext;
-    tContext.pCellFile = gpLoadingScreen;
+    D2GfxDataStrc tContext;
+    tContext.pCelFile = gpLoadingScreen;
     tContext.nFrame = gnLoadingFrame;
     tContext.nDirection = 0;
     sub_004F6480(&tContext, gnScreenWidth / 2 - 0x80, gnScreenHeight / 2 + 0x80, -1, 5, 0);
