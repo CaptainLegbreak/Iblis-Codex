@@ -5,7 +5,7 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
-- Fri Nov 27 07:48 PST 2026: **lane13/bss-defs** (on main ac1dc8375). VERIFIED tree b344d0ad5f9024925c600d1b0ba0f9326ae090bc; Game.exe identical. Audit guard: no count rose.
+- Fri Nov 27 07:25 PST 2026: **lane13/bss-defs** (15e6b3591, on main ac1dc8375). VERIFIED tree b344d0ad5f9024925c600d1b0ba0f9326ae090bc; Game.exe identical. Audit guard: no count rose.
   - **What changed.** Two commits. Bss objects that no source defined (only externs everywhere) are now defined once, in the file whose functions use them:
     - ui.cpp: `gaUIVarStates[0x26]`;
     - inv.cpp: `gtBigBankGrid`, `gtBankGrid`, `gtPlayerInvGrid`, `gaBodyLocRects[11]`;
@@ -98,7 +98,7 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
 - Fri Nov 27 01:14:52 PST 2026: starting. Running tools/shortdata.py and tools/linkdebt.py on lane10/short-data for the baseline counts. Claimed: the short globals in D2Common UNITS, D2Client UNIT/GAME, D2Game PLAYER/MONSTER, and the D2Win clusters 0x00842710 and 0x0081EA68.
 
 ## Questions
-- Fri Nov 27 07:40 PST 2026: **reading of the D2CMP/D2Common cluster 0x0096BC30-0x0096D66C** (6,716 B, 231 globals, 1,384 refs). I haven't changed anything there.
+- Fri Nov 27 07:22 PST 2026: **reading of the D2CMP/D2Common cluster 0x0096BC30-0x0096D66C** (6,716 B, 231 globals, 1,384 refs). I haven't changed anything there.
   - **What it is.** It is one object: D2Common's static `D2DataTablesStrc`.
     - D2DataTbls.h checks `D2DataTablesStrc` at 0x1A3C bytes, which is exactly 6,716.
     - `sgptDataTables` (0x00744304) is initialised in Game.exe to 0x0096BC30, a pointer to it.
