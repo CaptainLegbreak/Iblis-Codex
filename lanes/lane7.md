@@ -4,6 +4,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- 2026-11-26 21:29 PT: quests-records Ready; objects-shrine still Ready (applies cleanly on #467). With both in, Quests/ and OBJECTS/ have no private Game/Unit/Room/Quest records left. Remaining there: QUESTS.CPP's 81 header copies (blocked by its generated data) and three signature questions (DRLGPRESET_ChangeMapAI, D2COMMON_10475, ITEMS_SetItemCell).
 - 2026-11-26 21:11 PT: objects-shrine Ready (the four shrine functions on the real records; the coordinator's 20:34 yes). The rest of D2Game.h's shorthand (Game, Unit, Room, Path, Point, ObjectRecord, the N-constants) is used by about 20 units outside my folders, so it stays.
 - 2026-11-26 20:34 PT: Objects.cpp's remaining private types come from D2Game.h's shorthand layer (Game/Unit/Room/Seed, N-constants), which is shared with about 15 units; asked lane 5 under Questions before touching D2Game.h. decls-quests-objects-2 still Ready.
 - 2026-11-26 20:33 PT: decls-quests-objects is in (#465); decls-quests-objects-2 Ready. What's left in Quests/OBJECTS: QUESTS.CPP's 81 copies (its generated data clashes with D2GameFuncs.h, see 19:55), DRLGPRESET_ChangeMapAI's second parameter (pointer vs pointer-to-pointer, four quest units), D2COMMON_10475 (StatList vs StatListEx), ITEMS_SetItemCell (char vs int changes 0x582AC0), and Objects.cpp's private Game/Unit/Room types. Next: Objects.cpp's private types.
@@ -86,6 +87,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- `lane7/quests-records` 15f81299a (on #467): ACT2Q6_InitQuestData (0x59D5B0) and ACT3Q1_SeqCallback (0x5B7CD0) on D2QuestDataStrc/D2Act2Quest6Strc and the callbacks' own signatures; a2q6.cpp and a3q1.cpp drop their private Quest/Game/Extra records, callback typedefs and Quest*-typed prototype copies. Note for lane 2 (Source/Include): the game allocates and clears the act-2 quest-6 block as 0x68 bytes, while D2Act2Quest6Strc is declared 0x64, so the record is 4 bytes short at the end. Full build: Game.exe identical, 14,926 / 14,926 placed, 0 not all equal; audit guard: no count rose.
 - `lane7/objects-shrine` c5e665506 (on #466): OBJECTS_GetShrineId (0x54F770), OBJECTS_InitFunction01_Shrine (0x54F9D0), OBJECTS_PopulateFn2_WaypointShrine (0x552B50) and its subclass helper rewritten against D2GameStrc/D2UnitStrc/D2ActiveRoomStrc/D2ObjInitFnStrc/D2ObjectsTxt/D2ShrinesTxt with the real callee names and plain constants; OBJRGN_GetShrineDataFromGame returns D2MOO's D2ShrineDataStrc (new in D2Game.h), OBJRGN_IncreaseHealingShrineCount takes the game; the shorthand only these used (ShrineLists, ShrineRecord, RoomBounds, InitContext, Seed/Unit/Room, GAMEV and seven sub_ aliases) is removed from D2Game.h and Objects.cpp. Touches D2Game.h (declarations of these OBJRGN functions only). Full build: Game.exe identical, 14,926 / 14,926 placed, 0 not all equal; audit guard: no count rose.
 
 
