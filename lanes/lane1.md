@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 16:34 PST 2026: extern-dups ready.
 - Thu Nov 26 16:18 PST 2026: check-in. #446/#447 took api-dups, names-fields-2 and the SkillDesc stack (e6e30-join, e2320-strays, dead-copies): Ready lines dropped, Ready is empty. Next: more scaffolding in my range (private externs a shared header already has).
 - Thu Nov 26 16:02 PST 2026: check-in. #444 took none of mine. The SkillDesc stack conflicted again in SkillDesc_004E1FF0.cpp (#444's declaration cleanup, context only): rebased on #444, the top builds identical, repushed. names-fields-2 and api-dups merge clean on #444.
 - Thu Nov 26 15:46 PST 2026: api-dups ready. Retried 0x4EB290 plain on the SkillDesc stack: same esi/edi swap. SkillDesc.cpp's 7 emit helpers all still needed after the joins (each one's static changes without it).
@@ -62,6 +63,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/extern-dups 71f9630a7 (on #447): scaffolding. D2ClientFuncs.h declares 55 D2Client globals once: each is defined in D2Client and declared privately, with the same scalar or pointer type, in two or more files that include the header, at least one in my range. The 240 private copies go from 50 files (some are lane 4's: the same rule the prototype hoist used). The eight declaration-sensitive units don't include the header and keep theirs. All 114 units that include it equal. Full build: Game.exe identical, tree 70bc426d75a9234ad2ed82b5062fa3e3825e07b1, borrowed code / data 7,923 B / 261 B. Audit guard: no count rose.
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
 
