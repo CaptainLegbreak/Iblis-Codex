@@ -26,7 +26,7 @@ extern int gbCmpCompressedDataMode; // 0x00741EFC
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 int __fastcall ARCHIVE_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped); // 0x00516E46
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
-int __fastcall FOG_AsyncDataTestLoaded(AsyncData* pAsyncData); // 0x0040A7F0
+int __fastcall FOG_AsyncDataTestLoaded(AsyncData* ptAsyncData); // 0x0040A7F0
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 void __fastcall ARCHIVE_CloseFile(void* hArchive, void* hFile); // 0x00516E84
 void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuffer, unsigned int dwBytesToRead); // 0x00516F85

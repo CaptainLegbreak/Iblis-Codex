@@ -359,8 +359,6 @@ int __fastcall FOG_FOpenFile(const char*, char**); // 0x004068E0
 
 
 
-int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
-
 static SpriteFile* __stdcall D2CMPSpriteLoadFile(D2CmpSpriteContextStrc*, char*, char*); // 0x005FE990
 
 static D2SpriteCacheNodeStrc* __stdcall D2CMPSpriteCachePopHead(int bLocked, D2SpriteCacheStrc* pCache); // 0x005FF0F0

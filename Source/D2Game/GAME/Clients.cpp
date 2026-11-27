@@ -110,6 +110,7 @@ extern OBJECTPOPULATEFN sgPopulateTable[10]; // 0x00731D00
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 int __stdcall sub_0063E510_InventoryGridQuery(D2UnitStrc* pUnit, unsigned char* pFirst, unsigned char* pSecond); // 0x0063E510
 #include "D2GameFuncs.h"
+#include "FogApi2.h"
 
 struct D2ClientUnitUpdateSortStrc
 {
@@ -152,7 +153,6 @@ struct D2CharacterPreviewRecordStrc
 
 #pragma pack(pop)
 
-extern "C" void __stdcall FOG_Encode14BitsToString(unsigned char* pBuffer, unsigned int nValue); // 0x006BBF40
 void __stdcall sub_0063E510_FillInventoryTables(D2UnitStrc* pUnit, unsigned char* pTableA, unsigned char* pTableB);
 extern "C" char* __cdecl strcpy(char*, const char*);
 

@@ -1496,8 +1496,6 @@ int __stdcall SCmdRegisterArgList(const D2CmdArgStrc* pArgList, unsigned int nCo
 
 int __stdcall SCmdProcess(const char* szCmdLine, int bSkipProgName, int (__stdcall* pfnExtra)(const char*), int (__stdcall* pfnError)(const char*)); // 0x006C4FB0
 
-unsigned short __stdcall FOG_ConnectionReceive(void* pConnection, char* pBuffer, int nSize); // 0x006BC120
-
 int __fastcall GAME_DispatchMcpPacket(const char* pPacket, unsigned int nSize); // 0x0044B190
 
 int __fastcall GAME_RunInitHandlers(void* pArg); // 0x0044D9F0
