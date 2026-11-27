@@ -3,7 +3,7 @@
 Written by lane 5 only. Newest entries at the top of each section; delete what is done.
 
 ## Ready
-- lane5/emit-d2game-4 ab7aa2b07 (main #452 with emit-d2game-3 merged in; take this one instead of emit-d2game-3): three D2Game emit helpers go. Unknown_005C0D00.cpp: 0x5C0D00's (ITEMS_RollMagicAffixesNew calls it since the SkillItem join) and 0x5C0D20's (0x5C1560's rolled-affix lookup is that function, retyped from a skill-pair getter to ITEMS_GetPotentialMagicAffix; units.json and functions.json follow). SUnitDmg.cpp: SUNITDMG_AddDemonDamagePercent (0x57B630) takes D2DamageStrc (it adds to dwEnDmgPct, which the file read through a view of its own), and 0x57B7D0, which wrote it out, calls it. Every D2Game unit equal; full build identical yes, borrowed code 7,923 B in 4 functions, borrowed data 261 B; auditguard: no count rose (emit helpers 324 -> 321). Noinline +0.
+- lane5/emit-d2game-5 1a55c1f05 (stacked on emit-d2game-4, which it replaces; on main #452): 12 D2Game emit helpers go in all (324 -> 312). Beyond -4's three: MONSTERMODE_UpdateModePath calls MONSTERMODE_TakeVelocityParams (0x5A61B0); two weapon lookups call SKILLS_GetOtherHandItem (0x56C670); SUnit's tile setup calls SUNIT_AssignUnitId (0x552DE0), and two unused sink declarations go; in Event.cpp EVENT_FreeTimer and the infinite-timer insert call EVENT_GetTimerQueue, EVENT_ReleaseTimer, EVENT_GetQueuedTimerListHead and EVENT_PushFreeTimer, and 0x540B70 is typed as the tail lookup it is (EVENT_GetTimerListTail, replacing two views and an inline copy), so all three Event helpers go. names.csv, units.json and functions.json follow the two renames (ITEMS_GetPotentialMagicAffix, EVENT_GetTimerListTail) and one parameter retype. Every D2Game unit equal; full build identical yes, borrowed code 7,923 B in 4 functions, borrowed data 261 B; auditguard: no count rose. Noinline +0.
 - The three together: full build identical yes, borrowed code 8,373 B in 5 functions, borrowed data 261 B.
 
 ## Claimed
@@ -103,3 +103,4 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 - 2026-11-26 16:40 PT: status: noinline-d2game and data-decls-d2game-2 Ready. Next: the remaining D2Game emit helpers.
 - 2026-11-26 17:15 PT: status: emit-d2game-3 Ready. The 29 D2Game emit helpers left need more than a call swap: their statics are inlined by code that builds differently when written as a call, or by a caller in another unit (e.g. 0x570870 is written out in PlrEval.cpp).
 - 2026-11-26 17:50 PT: status: noinline-d2game and data-decls-d2game-2 are in; emit-d2game-4 Ready (replaces -3). 28 D2Game emit helpers left, each needing its own reading.
+- 2026-11-26 18:10 PT: status: emit-d2game-5 Ready (replaces -4). 22 D2Game emit helpers left.
