@@ -346,8 +346,6 @@ void __fastcall ACT1Q5_SpawnChestMissilesAndEvent(D2QuestDataStrc* pQuestData, D
 
 void __fastcall ACT2Q4_InitializeHaremBlockerObject(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x0059B710
 
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B23C0
-
 void __fastcall ACT4Q2_SpawnSealBoss(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B5750
 
 void __fastcall ACT4Q3_CreateReward(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005B6710
@@ -513,8 +511,6 @@ struct D2QuestIntroTableStrc
     unsigned char pad0x05[3];
 };
 
-extern int gnQuestInitTableCount;                                                                  // 0x00731888
-
 extern D2QuestIntroTableStrc sgQuestIntro[];                                                  // 0x0073188C
 
 extern int gnQuestIntroTableCount;                                                                 // 0x007318AC
@@ -539,13 +535,9 @@ void __fastcall D2GAME_DropItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc
 
 D2UnitStrc* __fastcall D2GAME_CreateItemUnit(D2UnitStrc* pPlayer, int nItemId, D2GameStrc* pGame, int nSpawnTarget, int nQuality, int bNoSockets, int bNoEthereal, int nItemLevel, int bUseSeed, int dwSeed, int dwItemSeed); // 0x00559CE0
 
-int __fastcall D2GAME_PlaceItem(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int bAutoPosition, int bNotify, D2InventoryStrc* pInventory); // 0x00560200
-
 void __fastcall D2GAME_ITEMS_Identify(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x00562590
 
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00
-
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer); // 0x00627260
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 

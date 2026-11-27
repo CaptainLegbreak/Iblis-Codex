@@ -163,8 +163,6 @@ void __fastcall ACT2Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
 void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg);           // 0x00545310
 
-void __fastcall GAME_RemoveUnit(D2UnitStrc* pUnit, D2GameStrc* pGame);                                      // 0x0052E050
-
 static void __stdcall ACT2Q4_InitializeJerhynMonster(D2QuestDataStrc* pQuestData, D2CoordStrc* pCoords, D2ActiveRoomStrc* pRoom); // 0x0059EF70
 
 int __fastcall MONSTERAI_HasInteractUnit(void*); // 0x00572DC0

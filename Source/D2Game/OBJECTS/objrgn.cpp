@@ -45,7 +45,6 @@ extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
-int __cdecl DATATBLS_GetShrinesTxtRecordCount(); // 0x00641500
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
 
@@ -380,8 +379,6 @@ extern "C" void _ReadWriteBarrier(void);
 
 void __fastcall CLIENTS_GetGuildEmblem(D2ClientStrc*, unsigned char*, unsigned char*, unsigned char*); // 0x00539190
 
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*, int, int); // 0x006253B0
-
 
 int gdwGlobal_00882D14; // 0x00882D14
 
@@ -447,8 +444,6 @@ void __fastcall GAME_ProcessAdminMessage(void* pData, int nSize);               
 
 int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit);                                               // 0x00622E70
 
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x00627260
-
 
 #define INPUT_PREFIX 0
 
@@ -509,8 +504,6 @@ int __stdcall CLIENT_ObjectCall_6BED90(int,int,int); // 0x0052B490
 
 int __stdcall SERVER_SendPacketToClient(unsigned char,int,void*,int);  // 0x0052B330
 
-void __stdcall D2NET_10016(int);  // 0x0052B570
-
 extern "C" int __cdecl strncmp(const char*,const char*,unsigned int);
 
 
@@ -524,8 +517,6 @@ struct D2GameHashLinkStrc;
 struct D2GameHashListStrc;
 
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
@@ -538,8 +529,6 @@ static unsigned int gnPreviousMemUsageTick; // 0x00883D68
 
 struct D2PoolSystemStrc;
 
-
-int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem);                                     // 0x0040A040
 
 
 static void GAME_UpdatePendingRooms(D2GameStrc* pGame);
@@ -644,8 +633,6 @@ void __fastcall D2GAME_SetSkills(int pUnit, int nSkillId, int nSkillLevel, int b
 
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
 
-
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 
 #define CLIENTS_MAX_UPDATES 55u
@@ -885,8 +872,6 @@ void __fastcall sub_0059B6D0_Act2Guard2SpawnHook(D2GameStrc* pGame, D2UnitStrc* 
 
 
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
-
-void __stdcall ITEMS_SetItemCell(D2UnitStrc* pItem, unsigned char nItemCell); // 0x00628320
 
 
 extern "C" const char gszObjRgnSourceFile[]; // 0x006E0C40
