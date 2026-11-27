@@ -24164,6 +24164,11 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004AE080",
+     "length": 29,
+     "name": "@NPCMENU_GetMonsterTypeFlags@8"
+    },
+    {
      "va": "0x004AE0A0",
      "length": 64,
      "name": "?MONSTER_SetClientFlags@@YIXPAUD2UnitStrc@@G@Z"
@@ -24530,11 +24535,6 @@
      "va": "0x004ADEA0",
      "length": 480,
      "name": "?MONSTER_GetMonsterName@@YIXPAUD2UnitStrc@@PAUUnicode@@HG@Z"
-    },
-    {
-     "va": "0x004AE080",
-     "length": 29,
-     "name": "@NPCMENU_GetMonsterTypeFlags@8"
     }
    ]
   },

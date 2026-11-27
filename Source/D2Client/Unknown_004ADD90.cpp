@@ -824,18 +824,4 @@ void __fastcall MONSTER_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName, int 
     D2Win_10127_SetFont(nOldFont);
 }
 
-// 0x004AE080
-extern "C" int __fastcall NPCMENU_GetMonsterTypeFlags(D2UnitStrc* pUnit, unsigned short nMask)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
-    {
-        D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
-        if (pMonsterData)
-            return pMonsterData->nClientFlags & nMask;
-    }
-    return 0;
-}
-
-
-
 #include "gen/data/Source/D2Client/Unknown_004ADD90.inc"
