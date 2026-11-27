@@ -16942,6 +16942,10 @@
      "name": "?GFX_HitTestUnitGfx@@YIHPAUD2UnitStrc@@HHHH@Z"
     },
     {
+     "va": "0x00470C30",
+     "length": 656
+    },
+    {
      "va": "0x00470EC0",
      "length": 1412
     },
@@ -19471,16 +19475,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/Gfx_00470C30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00470C30",
-     "length": 656
-    }
    ]
   },
   {
