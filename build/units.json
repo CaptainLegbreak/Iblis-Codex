@@ -37665,6 +37665,10 @@
      "name": "?NET_SID_CLIENT_Send_0x50_AuthInfo@@YGHXZ"
     },
     {
+     "va": "0x00521DC0",
+     "length": 404
+    },
+    {
      "va": "0x00521F60",
      "length": 230,
      "name": "?BNSEND_SendAccountLogon@@YIHPBD0@Z"
@@ -38864,16 +38868,6 @@
      "va": "0x00524760",
      "length": 29,
      "name": "sub_00524760_CipherBlock"
-    }
-   ]
-  },
-  {
-   "file": "Source/Bnclient/Unknown_00521DC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00521DC0",
-     "length": 404
     }
    ]
   },
