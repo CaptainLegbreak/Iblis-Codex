@@ -756,9 +756,6 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_GreaterMummy(D2GameStrc*,D2UnitStr
 
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc*, int); // 0x006488A0
 
-extern const unsigned char gnGargoyleTrapDirectionMap[]; // 0x006E3540
-
-extern const unsigned char gnGargoyleTrapDirectionAxis[]; // 0x006E353C
 
 struct D2CoordListStrc;
 

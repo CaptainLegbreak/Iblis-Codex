@@ -101,8 +101,6 @@ extern char gpAct4Q3NpcMessages[];                                              
 
 extern char gpAct4Q4NpcMessages[];                                                                          // 0x0073E5C0
 
-extern char gpAct3IntroNpcMessages[];                                                                       // 0x0073E850
-
 
 void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg);           // 0x00545310
 
