@@ -109,7 +109,10 @@ int gfGameListControlsCreated; // 0x00798CC0
 // build: symbol ?GAME_IsLaunchExpansion@* 0x0043DB10
 // build: symbol ?gszSpace@* 0x006FFC44
 
-#include "gen/data/Source/D2Multi/Unknown_00444020.inc"
+extern "C" const unsigned char gData_006FFC46[18] = { // 0x006FFC46
+    0x00, 0x00, 0x25, 0x2A, 0x73, 0x00, 0x20, 0x25, 0x73, 0x2B, 0x25, 0x6C, 0x6C, 0x75, 0x00, 0x00,
+    0x00, 0x00
+};
 #include "D2MCPClientApi.h"
 
 int gnGameCount; // 0x00798CCC

@@ -18,8 +18,16 @@ How the values are written:
                       bits; enums as casts of their value
   char arrays         string literals (embedded NULs as \\0, other control and high bytes as \\x escapes), braced
                       character constants where the array has no terminating NUL; wchar_t arrays as L"..."
-  pointers            &symbol, &array[i], function names, string literals, as the plan resolves each relocation;
-                      casts only where the initialised type needs one
+  pointers            &symbol, &array[i], &function, string literals, as the plan resolves each relocation. A
+                      pointer is written without a cast where the target's declared type (in the file or its
+                      headers, under any name its address marker gives it) is the slot's: a function's return type,
+                      calling convention and parameter types against a function-pointer slot or its typedef, an
+                      object's type against a data-pointer slot. A placeholder extern `void __cdecl F()` from the
+                      plan is replaced by F's own declaration (from its definition in Source/) where that makes the
+                      types agree. A struct member the plan spells otherwise than the file's struct declares it
+                      takes the file's typedef, and the plan model is corrected
+  function tables     a blob of function pointers of one type is an array of that function-pointer type; a packed
+                      struct gives each function pointer field its function's own type
   anonymous blobs     gData_<VA> keeps its name; a blob without pointers becomes an unsigned char array (a char
                       string where it reads as text), a blob of string pointers a const char* array, a blob of other
                       pointers a const void* array; a blob that mixes bytes and pointers keeps its packed struct of
@@ -34,6 +42,8 @@ source: they stay generated from your Game.exe, and the tool refuses to move the
 --dry        say what would move, write nothing
 --print      print the new text of each file instead of writing it
 --check      verify that every sourced record is defined in its file and no sourced file still includes gen/data
+--allow-casts  also write definitions that need a C-style pointer cast or volatile (the source audit counts both);
+             without it such a definition stays generated and is listed
 """
 import os, re, sys, json, collections
 
@@ -357,6 +367,11 @@ class Rd:
                 last = mo + mm["size"]
                 for i in range(mo, min(mo + mm["size"], n)):
                     cover[i] = 1
+                tu = CUR.get("tu")
+                own = tu and tu.members.get((m.get("name"), nm))
+                if own and mm["k"] == "ptr" and mm.get("fn") and own in tu.fptr and tu.fptr[own] != tu.slot_sig(mm["spell"]):
+                    # the plan's spelling of this member is not the file's: the struct declares it with its typedef
+                    mm["spell"] = own; CUR.setdefault("model_fixes", []).append((m.get("name"), nm, own))
                 items.append(self.value(mm, off + mo, names + [m.get("name"), nm]))
             for i in range(n):
                 if not cover[i] and (raw[off + i] or any(r <= off + i < r + 4 for r in self.relocs)):
@@ -366,6 +381,329 @@ class Rd:
 
 
 # ---------------------------------------------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------------------------------------------
+# the declarations a file sees, to write a pointer without a cast where the target's type is the slot's
+
+CCS = ("__cdecl", "__stdcall", "__fastcall", "__thiscall")
+TYPE_WORDS = {"int", "char", "short", "long", "unsigned", "signed", "void", "float", "double", "bool", "wchar_t",
+              "__int64", "const", "volatile"}
+STORAGE = {"extern", "static", "inline", "__inline", "__forceinline", "register", "typedef"}
+
+
+def type_tokens(s):
+    s = re.sub(r"__declspec\s*\((?:[^()]|\([^()]*\))*\)", " ", s)
+    return [t for t in re.findall(r"[A-Za-z_]\w*|\*|&|\(|\)|,|\[|\]|\.\.\.", s) if t not in ("struct", "class", "union", "enum")]
+
+
+def join_type(tok):
+    out = ""
+    for t in tok:
+        if out and re.match(r"\w", t) and re.match(r".*\w$", out):
+            out += " "
+        out += t
+    return out
+
+
+class Sig:
+    """A function type: return type, calling convention and parameter types, all normalised."""
+
+    def __init__(self, ret, cc, params, text=None):
+        self.ret, self.cc, self.params, self.text = ret, cc, params, text   # text: the declaration's own parameters
+
+    def __eq__(self, o):
+        return isinstance(o, Sig) and (self.ret, self.cc, self.params) == (o.ret, o.cc, o.params)
+
+    def pointer(self, name=""):
+        ps = " ".join(self.text.split()) if self.text is not None else ", ".join(self.params)
+        return "%s (%s* %s)(%s)" % (self.ret, self.cc, name, ps or "void") if name else \
+            "%s (%s*)(%s)" % (self.ret, self.cc, ", ".join(self.params))
+
+
+def split_top(s, sep=","):
+    out = []; d = 0; cur = ""
+    for c in s:
+        if c in "([":
+            d += 1
+        elif c in ")]":
+            d -= 1
+        if c == sep and d == 0:
+            out.append(cur); cur = ""
+        else:
+            cur += c
+    out.append(cur)
+    return out
+
+
+ALLOW_AUDIT = False   # --allow-casts: write a definition even where it needs a counted construct
+
+PLACEHOLDER = re.compile(r'^extern (?:"C" )?void __cdecl ([A-Za-z_]\w*)\(\); // (0x[0-9A-F]{8})$')
+
+
+class Defs:
+    """Every function definition head in Source/ by address, to declare a callee with its own type where the data
+    plan's externs only give it a placeholder `void __cdecl F()`."""
+
+    def __init__(self):
+        self.heads = None
+
+    def load(self):
+        self.heads = {}
+        deco = {}
+        for x in json.load(open(os.path.join(ROOT, "build", "functions.json")))["functions"]:
+            if len(x) > 3:
+                deco[int(x[0], 16)] = x[3]
+        self.deco = deco
+        for dp, dn, fn in os.walk(os.path.join(ROOT, "Source")):
+            for n in fn:
+                if not n.lower().endswith((".cpp", ".c")):
+                    continue
+                p = os.path.join(dp, n)
+                lines = open(p, encoding="latin-1").read().splitlines()
+                for i, ln in enumerate(lines):
+                    m = re.match(r"^\s*//\s*(0x[0-9A-Fa-f]{8})\s*$", ln)
+                    if not m:
+                        continue
+                    j = i + 1
+                    while j < len(lines) and (not lines[j].strip() or lines[j].strip().startswith("//")):
+                        j += 1
+                    head = ""
+                    while j < len(lines) and len(head) < 2000:
+                        head += " " + lines[j].split("//")[0]
+                        if "(" in head and head.count("(") == head.count(")"):
+                            break
+                        j += 1
+                    nxt = lines[j + 1].strip() if j + 1 < len(lines) else ""
+                    if nxt.startswith("{") or head.rstrip().endswith("{"):
+                        self.heads.setdefault(int(m.group(1), 16), (head.strip().rstrip("{").strip(), n.lower().endswith(".c")))
+
+    def declaration(self, tu, name, want):
+        """`R CC name(params);` with the definition's own types, when they are the slot's, else None."""
+        if self.heads is None:
+            self.load()
+        va = tu.placeholders[name]
+        h = self.heads.get(va)
+        if not h:
+            return None
+        head, is_c = h
+        m = re.match(r"^(?P<pre>[^()]*?)\b%s\s*\((?P<params>.*)\)\s*$" % re.escape(name), head)
+        if not m or re.search(r"\bstatic\b|\binline\b|__forceinline|::", m.group("pre")):
+            return None
+        g = tu.sig(m.group("pre"), m.group("params"))
+        if g is None or (want is not None and g != want) or (want is None and not tu.known(g)):
+            return None
+        pre = re.sub(r"__declspec\s*\(\s*noinline\s*\)\s*", "", m.group("pre")).strip()
+        pre = re.sub(r'^extern\s+"C"\s+', "", pre)
+        d = self.deco.get(va)
+        c_link = not (d or "").startswith("?") if d else (is_c or 'extern "C"' in head)
+        decl = "%s%s %s(%s); // 0x%08X" % ('extern "C" ' if c_link and not CUR.get("lang_c") else "", pre, name,
+                                          m.group("params").strip(), va)
+        decl = " ".join(decl.split())
+        if audit_hits(decl):
+            return None
+        return decl, g
+
+
+DEFS = Defs()
+
+
+class TU:
+    """Typedefs, function and data declarations of one translation unit (the file and its headers)."""
+
+    def __init__(self, text):
+        self.alias = {}; self.fptr = {}; self.funcs = {}; self.data = {}
+        self.placeholders = {}; self.redecl = {}; self.members = {}
+        self.types = set(re.findall(r"\b(?:struct|class|union|enum)\s+([A-Za-z_]\w*)", text))
+        t = re.sub(r"//[^\n]*|/\*.*?\*/", " ", text, flags=re.S)
+        t = re.sub(r'"(?:\\.|[^"\\\n])*"', '""', t)
+        t = re.sub(r"'(?:\\.|[^'\\\n])+'", "0", t)
+        t = re.sub(r"^[ \t]*#[^\n]*", " ", t, flags=re.M)
+        for st, opens in self.statements(t):
+            try:
+                self.take(st, opens)
+            except (IndexError, ValueError):
+                pass
+
+    @staticmethod
+    def statements(t):
+        """Top-level statements: (text, True when a { body follows it)."""
+        i = 0; n = len(t); cur = []; out = []
+        while i < n:
+            c = t[i]
+            if c == ";":
+                out.append(("".join(cur), False)); cur = []; i += 1; continue
+            if c == "{":
+                head = "".join(cur)
+                if re.search(r'extern\s*""\s*$', head):
+                    cur = []; i += 1; continue
+                d = 0; j = i
+                while j < n:
+                    if t[j] == "{":
+                        d += 1
+                    elif t[j] == "}":
+                        d -= 1
+                        if d == 0:
+                            break
+                    j += 1
+                if "=" in head and not re.search(r"\boperator\b", head):
+                    cur.append(" = {}"); i = j + 1; continue
+                m = re.match(r"\s*(?:typedef\s+)?(?:struct|class|union)\s+([A-Za-z_]\w*)\s*$", head)
+                if m:
+                    out.append(("\0members " + m.group(1) + " " + t[i + 1:j], False))
+                if re.match(r"\s*(typedef\s+)?(struct|class|union|enum)\b", head):
+                    cur.append(" {}"); i = j + 1; continue
+                out.append((head, True)); cur = []; i = j + 1; continue
+            if c == "}":
+                cur = []; i += 1; continue
+            cur.append(c); i += 1
+        return out
+
+    def norm(self, tok):
+        out = []
+        for x in tok:
+            if x in self.alias:
+                out.extend(self.alias[x])
+            else:
+                out.append(x)
+        return join_type(out)
+
+    def param(self, p):
+        p = p.split("=")[0]
+        p = re.sub(r"\(\s*(__\w+)?\s*\*\s*[A-Za-z_]\w*\s*\)", lambda m: "(%s*)" % (m.group(1) or "__cdecl"), p)
+        m = re.match(r"^(?P<ret>[^()]*)\(\s*(?P<cc>__\w+)?\s*\*\s*\)\s*\((?P<params>.*)\)\s*$", p.strip())
+        if m:
+            g = self.sig(m.group("ret") + " " + (m.group("cc") or ""), m.group("params"))
+            return g.pointer() if g else None
+        tok = type_tokens(p)
+        if "(" in tok or "[" in tok:
+            return None
+        if tok == ["..."]:
+            return "..."
+        if len(tok) > 1 and re.match(r"[A-Za-z_]\w*$", tok[-1]) and tok[-1] not in TYPE_WORDS and tok[-1] not in self.alias \
+                and not all(x in TYPE_WORDS for x in tok):
+            tok = tok[:-1]
+        return self.norm(tok)
+
+    def params(self, s):
+        s = s.strip()
+        if s in ("", "void"):
+            return ()
+        ps = [self.param(p) for p in split_top(s)]
+        return None if None in ps else tuple(ps)
+
+    def sig(self, pre, params):
+        tok = [x for x in type_tokens(pre) if x not in STORAGE]
+        cc = next((x for x in tok if x in CCS), "__cdecl")
+        tok = [x for x in tok if x not in CCS]
+        ps = self.params(params)
+        if ps is None or not tok:
+            return None
+        return Sig(self.norm(tok), cc, ps, params.strip())
+
+    def slot_sig(self, spell):
+        """The function type of a slot's spelling: `R (CC*)(P)` or a typedef of one."""
+        s = (spell or "").strip()
+        if re.match(r"^[A-Za-z_]\w*$", s):
+            return self.fptr.get(s)
+        m = re.match(r"^(?P<ret>[^()]*)\(\s*(?P<cc>__\w+)?\s*\*\s*(?:const\s*)?\)\s*\((?P<params>.*)\)\s*$", s)
+        if not m:
+            return None
+        return self.sig(m.group("ret") + " " + (m.group("cc") or ""), m.group("params"))
+
+    def take(self, st, opens):
+        if st.startswith("\0members "):
+            _, name, body = st.split(" ", 2)
+            for d in body.split(";"):
+                d = " ".join(d.split())
+                m = re.match(r"^([^(){}\[\]]*?)\b([A-Za-z_]\w*)$", d)
+                if m and "," not in m.group(1) and m.group(1).strip():
+                    self.members[(name, m.group(2))] = m.group(1).strip()
+            return
+        s = " ".join(st.split())
+        s = re.sub(r'^extern\s*""\s*', "extern ", s)
+        if not s or "::" in s or "<" in s or "operator" in s:
+            return
+        if s.startswith("typedef "):
+            m = re.match(r"^typedef (?P<ret>[^()]*)\(\s*(?P<cc>__\w+)?\s*\*\s*(?P<name>\w+)\s*\)\s*\((?P<params>.*)\)$", s)
+            if m:
+                g = self.sig(m.group("ret") + " " + (m.group("cc") or ""), m.group("params"))
+                if g:
+                    self.fptr[m.group("name")] = g
+                return
+            m = re.match(r"^typedef ([^(){}\[\]]*?)\b(\w+)$", s)
+            if m and "," not in m.group(1):
+                tok = [x for x in type_tokens(m.group(1)) if x != "typedef"]
+                if tok and m.group(2) not in tok:
+                    self.alias[m.group(2)] = tok
+            return
+        s = re.sub(r"\s*=.*$", "", s) if not opens else s
+        m = re.match(r"^(?P<pre>[^()]*?)\b(?P<name>[A-Za-z_]\w*)\s*\((?P<params>.*)\)(?:\s*const)?$", s)
+        if m and "=" not in m.group("pre"):
+            g = self.sig(m.group("pre"), m.group("params"))
+            name = m.group("name")
+            if g and name not in self.funcs:
+                self.funcs[name] = g
+            elif g and self.funcs[name] != g:
+                self.funcs[name] = False
+            return
+        if opens:
+            return
+        m = re.match(r"^(?P<pre>[^()\[\],]*?)\b(?P<name>[A-Za-z_]\w*)\s*(?P<dims>(?:\[[^\]]*\]\s*)*)$", s)
+        if m:
+            tok = [x for x in type_tokens(m.group("pre")) if x not in STORAGE]
+            if not tok:
+                return
+            dims = m.group("dims").count("[")
+            v = (self.norm(tok), dims)
+            if self.data.setdefault(m.group("name"), v) != v:
+                self.data[m.group("name")] = False
+
+    def func_type(self, nm):
+        """The type `&nm` has here: its own declaration's, a placeholder replaced by the definition's where the
+        definition's types are all declared here."""
+        if nm in self.placeholders and nm not in self.redecl:
+            d = DEFS.declaration(self, nm, None)
+            if d:
+                self.redecl[nm] = d[0]; self.funcs[nm] = d[1]
+        g = self.funcs.get(nm)
+        return g if isinstance(g, Sig) else None
+
+    def known(self, g):
+        words = set(re.findall(r"[A-Za-z_]\w*", g.pointer())) - set(CCS) - TYPE_WORDS
+        return all(w in self.types or w in self.alias or w in self.fptr for w in words)
+
+    def pointer(self, names, kind, spell):
+        """An expression for the target under one of its names that has the slot's type without a cast, or None."""
+        sp = (spell or "").strip()
+        fs = self.slot_sig(sp)
+        for nm in names:
+            if kind == "func" or nm in self.funcs:
+                g = self.funcs.get(nm)
+                if g and fs and g == fs:
+                    return "&" + nm
+                if fs and nm in self.placeholders and nm not in self.redecl:
+                    d = DEFS.declaration(self, nm, fs)
+                    if d:
+                        self.redecl[nm] = d[0]; self.funcs[nm] = d[1]
+                        return "&" + nm
+                continue
+            d = self.data.get(nm)
+            if not d or fs:
+                continue
+            base, dims = d
+            m = re.match(r"^(.*?)\s*\*\s*(const)?$", sp)
+            if not m or dims > 1:
+                continue
+            pointee = self.norm(type_tokens(m.group(1)))
+            expr = nm if dims == 1 else "&" + nm
+            if pointee == base or pointee == "const " + base or (pointee in ("void", "const void") and not base.startswith("const")) \
+                    or pointee == "const void":
+                return expr
+        return None
+
+
+CUR = {}   # the declarations of the file being written ("tu") and the names the markers give each address ("at")
+
 
 def symbols(r, img, fn_types):
     """The pointer resolver of gendata.render_parts for one record."""
@@ -380,6 +718,11 @@ def symbols(r, img, fn_types):
         how, nm, off, kind = res
         if how == "literal":
             return G.sym_expr(("literal", G.image_text(img, t_va), 0, "string"), spell, fn)
+        tu = CUR.get("tu")
+        if tu and not off:
+            e = tu.pointer([nm] + [x for x in CUR["at"].get(t_va, ()) if x != nm], kind, spell)
+            if e:
+                return e
         if how == "owner" and kind == "func" and not (fn if fn is not None else "(" in spell):
             ft = fn_types.get(nm)
             if ft:
@@ -399,6 +742,25 @@ def packed_init(raw, relocs, rd):
     if pos < n:
         items.append(Brace(trim(["0x%02X" % c for c in raw[pos:]]), True))
     return lay(Brace(items, False))
+
+
+def typed_packed(va, raw, relocs, rd, fsig):
+    """gendata's packed struct with each function pointer field given the function's own type, so it needs no cast."""
+    fields = []; items = []; pos = 0; k = 0; n = len(raw)
+    for r in sorted(relocs):
+        if r > pos:
+            fields.append("    unsigned char b%d[%d];" % (k, r - pos))
+            items.append(Brace(trim(["0x%02X" % c for c in raw[pos:r]]), True)); k += 1
+        if r in fsig:
+            fields.append("    %s;" % fsig[r][0].pointer("p%d" % k)); items.append("&" + fsig[r][1])
+        else:
+            fields.append("    const void* p%d;" % k); items.append(rd.ptr(r, "const void*", False))
+        k += 1; pos = r + 4
+    if pos < n:
+        fields.append("    unsigned char b%d[%d];" % (k, n - pos))
+        items.append(Brace(trim(["0x%02X" % c for c in raw[pos:]]), True))
+    sdef = "#pragma pack(push, 1)\nstruct d2data_%08X_t\n{\n%s\n};\n#pragma pack(pop)" % (va, "\n".join(fields))
+    return sdef, lay(Brace(items, False))
 
 
 def strip_extern(head, name, ftext):
@@ -450,6 +812,12 @@ def readable(r, img, ent, ftext, gen, chars=(), arrays=None):
     if len(re.findall(r"\b%s\b" % re.escape(cname), ftext)) > 0:
         raise Unreadable("the file names %s itself" % cname)
     rd = Rd(raw, relocs, sym, True, chars, arrays)
+    bt = CUR.get("blobs", {}).get(cname) if not relocs else None
+    if bt:
+        ty, kind, size = bt
+        items = trim([int_text(int.from_bytes(raw[i:i + size], "little"), size, kind, False, False) for i in range(0, n, size)])
+        decl = "%s%s%s %s[%d]" % (ec, cst, ty, cname, n // size)
+        return None, decl + "; // 0x%08X" % va, definition(decl + " = ", lay(Brace(items, True), 0, len(decl) + 19), tail, va), "typed"
     if not relocs:
         s = raw.rstrip(b"\0")
         if text_blob(img, r):
@@ -458,14 +826,33 @@ def readable(r, img, ent, ftext, gen, chars=(), arrays=None):
         items = trim(["0x%02X" % c for c in raw])
         decl = "%s%sunsigned char %s[%d]" % (ec, cst, cname, n)
         return None, decl + "; // 0x%08X" % va, definition(decl + " = ", lay(Brace(items, True), 0, len(decl) + 19), tail, va), "bytes"
+    fsig = {}
+    tu = CUR.get("tu")
+    if tu:
+        for o, tva, how, nm, po, kind in r["pointers"]:
+            if kind == "func" and not po and o in relocs:
+                g = tu.func_type(nm)
+                if g:
+                    fsig[o] = (g, nm)
     if va % 4 == 0 and n % 4 == 0 and all(o % 4 == 0 for o in relocs) and \
             all(o in relocs or not any(raw[o:o + 4]) for o in range(0, n, 4)):
         lit = all(p[2] == "literal" for p in r["pointers"])
-        et = "const char*" if lit else "const void*"
-        items = [rd.ptr(o, et, False) if o in relocs else "0" for o in range(0, n, 4)]
-        decl = "%s%s%s %s%s[%d]" % (ec, et, " const" if cst else "", "", cname, n // 4)
-        body = lay(Brace(trim(items), False), 0, len(decl) + 19)
-        return None, decl + "; // 0x%08X" % va, definition(decl + " = ", esc(body), tail, va), "pointers"
+        sigs = {fsig[o][0].pointer() for o in relocs if o in fsig}
+        if not lit and len(fsig) == len(relocs) and len(sigs) == 1:
+            g = fsig[min(fsig)][0]
+            decl = "%s%s" % (ec, g.pointer(("const " if cst else "") + "%s[%d]" % (cname, n // 4)))
+            items = ["&" + fsig[o][1] if o in relocs else "0" for o in range(0, n, 4)]
+            body = lay(Brace(trim(items), False), 0, len(decl) + 19)
+            return None, decl + "; // 0x%08X" % va, definition(decl + " = ", body, tail, va), "function table"
+        if not fsig:
+            et = "const char*" if lit else "const void*"
+            items = [rd.ptr(o, et, False) if o in relocs else "0" for o in range(0, n, 4)]
+            decl = "%s%s%s %s%s[%d]" % (ec, et, " const" if cst else "", "", cname, n // 4)
+            body = lay(Brace(trim(items), False), 0, len(decl) + 19)
+            return None, decl + "; // 0x%08X" % va, definition(decl + " = ", esc(body), tail, va), "pointers"
+    if fsig:
+        sdef, init = typed_packed(va, raw, relocs, rd, fsig)
+        return sdef, fwd, definition(head, esc(init), tail, va), "packed"
     init = packed_init(raw, relocs, rd)
     return sdef, fwd, definition(head, esc(init), tail, va), "packed"
 
@@ -517,20 +904,105 @@ def names_in(text):
     return set(re.findall(r"\b[A-Za-z_]\w*\b", text))
 
 
-def inline_file(f, plan, img, guard, by):
+def spell_at(m, off):
+    """The model's pointer member at byte offset off, or None."""
+    k = m["k"]
+    if k == "ptr":
+        return m if off == 0 else None
+    if k == "arr":
+        es = m["elem"]["size"]
+        return spell_at(m["elem"], off % es) if es and off < m["size"] else None
+    if k in ("struct", "union"):
+        for nm, mo, mm in m["members"]:
+            if mo <= off < mo + mm["size"]:
+                return spell_at(mm, off - mo)
+    return None
+
+
+def blob_types(move):
+    """{cname: (element type, kind, size)} for this file's pointer-free byte blobs that a typed slot of the file
+    points at as an array of a scalar type: the blob is written with that type."""
+    blobs = {r["cname"]: r for r in move if r["form"] == "bytes" and not r["pointers"]}
+    out = {}
+    for r in move:
+        if not r.get("model") or r["form"] == "bytes":
+            continue
+        for off, tva, how, nm, po, kind in r["pointers"]:
+            b = blobs.get(nm)
+            p = spell_at(r["model"], off) if b and not po else None
+            mt = p and re.match(r"^(const )?\s*([A-Za-z_][\w ]*?)\s*\*$", p["spell"] or "")
+            if not mt or mt.group(2) not in G.PRIM_KIND:
+                continue
+            kind_, size = G.PRIM_KIND[mt.group(2)]
+            if kind_ in "su" and b["size"] % size == 0 and int(b["va"], 16) % size == 0:
+                if out.setdefault(nm, (mt.group(2), kind_, size)) != (mt.group(2), kind_, size):
+                    out[nm] = None
+    return {k: v for k, v in out.items() if v}
+
+
+def file_types(f, text, ent, move):
+    """The declarations the file sees once its data is written into it, and the addresses its markers name."""
+    import checker
+    from common import expand_gen_includes
+    src = expand_gen_includes(GEN_INCLUDE.sub("", text), f)
+    bt = blob_types(move)
+    extra = list(ent.get("externs") or ()) + [r["head"].rstrip().rstrip("=").rstrip() + ";" for r in move
+                                               if r.get("model") and r["form"] != "bytes"]
+    for nm, (ty, k, sz) in bt.items():
+        r = next(x for x in move if x["cname"] == nm)
+        extra.append("%s%s %s[%d];" % ("const " if r["region"] == "rdata" else "", ty, nm, r["size"] // sz))
+    src = src + "\n" + "\n".join(extra)
+    at = collections.defaultdict(list)
+    defs, decls, symbols = checker.parse_markers(src)
+    for d in (decls, defs):
+        for nm, va in d.items():
+            if isinstance(va, int) and nm not in at[va]:
+                at[va].append(nm)
+    tu = TU(src)
+    base = TU(expand_gen_includes(GEN_INCLUDE.sub("", text), f))
+    for e in ent.get("externs") or ():
+        m = PLACEHOLDER.match(e.strip())
+        if m and m.group(1) not in base.funcs and not re.search(r"\b%s\b" % m.group(1), GEN_INCLUDE.sub("", text)):
+            tu.placeholders[m.group(1)] = int(m.group(2), 16)
+    return dict(tu=tu, at=at, lang_c=ent.get("lang") == "c", blobs=bt)
+
+
+AUDIT = (("pointer cast", re.compile(r"\(\s*(?:const\s+)?(?:unsigned\s+)?\w+\s*\*+\s*\)")),
+         ("volatile", re.compile(r"\bvolatile\b")))
+
+
+def audit_hits(text):
+    """The constructs the source audit counts (C-style pointer casts, volatile) in text written into a file."""
+    code = re.sub(r"//[^\n]*", "", re.sub(r'"(?:\\.|[^"\\\n])*"', '""', text or ""))
+    return [nm for nm, rx in AUDIT for _ in rx.findall(code)]
+
+
+def inline_file(f, plan, img, guard, by, hold=None):
+    """hold: {va: reason} of definitions to leave generated besides the refused ones."""
+    res = None
+    hold = dict(hold or {})
+    for _ in range(20):
+        res = inline_once(f, plan, img, guard, by, hold)
+        if not res or not res.get("audit"):
+            return res
+        hold.update(res["audit"])
+    return res
+
+
+def inline_once(f, plan, img, guard, by, hold):
     """(new text, sourced records, kept records, notes) for one file, or None when there is nothing to move."""
     ent = plan["files"][f]
-    if ent["state"] not in G.GEN_STATES:
+    if ent["state"] not in G.GEN_STATES and not companions(plan, f) or ent["state"] == "static":
         return None
     path = os.path.join(ROOT, f)
     if not os.path.exists(path):
         return dict(skip="the plan's file does not exist")
     text = open(path, encoding="latin-1", newline="").read()
-    recs = [r for r in by.get(f, []) if not r.get("sourced")]
+    recs = [r for r in by.get(f, []) + [x for g in companions(plan, f) for x in by.get(g, [])] if not r.get("sourced")]
     if not recs:
         return None
     gen = gen_parts(f, ent, recs, img)
-    kept = {r["va"]: guard.refusal(r) for r in recs}
+    kept = {r["va"]: guard.refusal(r) or hold.get(r["va"]) for r in recs}
     kept = {va: why for va, why in kept.items() if why}
     # a definition that names a kept one stays generated with it: the kept one is declared only in the include
     while True:
@@ -543,10 +1015,13 @@ def inline_file(f, plan, img, guard, by):
     move = [r for r in recs if r["va"] not in kept]
     if not move:
         return dict(kept=kept, move=[])
+    CUR.clear(); CUR.update(file_types(f, text, ent, move))
+    if any(not G.is_static(r) for r in recs if r["va"] in kept):
+        CUR["tu"].placeholders.clear()   # the include keeps the placeholder externs: no second declaration
     main_inc = G.include_path(f)
     body = text
     lines_in = set(x.strip() for x in text.splitlines())
-    hows = collections.Counter()
+    hows = collections.Counter(); audit = {}; written = 0
     chars = char_arrays([dict(r, text=text_blob(img, r)) for r in move], ent.get("externs"))
     # the one-dimensional arrays of structs or scalars this file now defines with their plan type
     arrays = {r.get("cname") or r["name"]: r["model"] for r in move if r.get("model") and r["form"] != "bytes"
@@ -558,7 +1033,9 @@ def inline_file(f, plan, img, guard, by):
             _, _, t, how = readable(r, img, ent, text, g, chars, arrays)
         except (Unreadable, G.NotRepresentable, G.Unresolved):
             t, how = definition(g[2], G.one_line(g[3]), g[4], int(r["va"], 16)), "generated form"
-        hows[how] += 1
+        hows[how] += 1; written += audit_hits(t).count("pointer cast")
+        if audit_hits(t) and not ALLOW_AUDIT:
+            audit[r["va"]] = "would need %s" % ", ".join(sorted(set(audit_hits(t))))
         ext = [e for e in (r.get("externs") or ()) if e.strip() not in lines_in]
         new = "\n".join(ext + [t])
         pat = re.compile(r'^[ \t]*#[ \t]*include[ \t]+"%s"[ \t]*$' % re.escape(r["include"]), re.M)
@@ -574,7 +1051,9 @@ def inline_file(f, plan, img, guard, by):
                 sdef, fwd, t, how = readable(r, img, ent, text, g, chars, arrays)
             except (Unreadable, G.NotRepresentable, G.Unresolved):
                 sdef, fwd, t, how = g[1], g[0], definition(g[2], g[3], g[4], int(r["va"], 16)), "generated form"
-            hows[how] += 1
+            hows[how] += 1; written += audit_hits(t + (sdef or "")).count("pointer cast")
+            if audit_hits(t + (sdef or "")) and not ALLOW_AUDIT:
+                audit[r["va"]] = "would need %s" % ", ".join(sorted(set(audit_hits(t + (sdef or "")))))
             pieces.append(Piece(r, sdef, fwd, t, how))
         seen = set(); fwds = []
         for i, p in enumerate(pieces):
@@ -588,7 +1067,7 @@ def inline_file(f, plan, img, guard, by):
             nm = extern_name(e)
             if nm and not kept and not any(nm in names_in(p.text) for p in pieces):
                 continue
-            seen.add(e); ext.append(e)
+            seen.add(e); ext.append(CUR["tu"].redecl.get(nm, e) if nm else e)
         parts = []
         if ext:
             parts.append("\n".join(ext))
@@ -604,12 +1083,30 @@ def inline_file(f, plan, img, guard, by):
             raise G.PlanError("%s: no single include line for %s" % (f, main_inc))
         keep_main = any(not G.is_static(r) for r in recs if r["va"] in kept)
         body = pat.sub(lambda m: block + ("\n\n" + m.group(0) if keep_main else ""), body)
+    if audit:
+        return dict(audit=audit)
+    for nm, d in CUR["tu"].redecl.items():
+        if audit_hits(d):
+            return dict(audit={})   # not reached: declarations with counted constructs are not written
     if "\r\n" in text:
         body = re.sub(r"(?<!\r)\n", "\r\n", body)
-    return dict(text=body, move=move, kept=kept, hows=hows)
+    gen_casts = sum(audit_hits("".join(x or "" for x in gen[r["va"]])).count("pointer cast") for r in move)
+    return dict(text=body, move=move, kept=kept, hows=hows, casts=(gen_casts, written))
+
+
+def companions(plan, f):
+    """The plan's `<file>.static.<ext>` entries: statics the file itself includes, recorded under a name of their own."""
+    stem, ext = os.path.splitext(f)
+    return [g for g, e in plan["files"].items() if e["state"] == "static" and g.lower() == (stem + ".static" + ext).lower()]
 
 
 def update_plan(plan, f, res):
+    for g in companions(plan, f):
+        update_entry(plan, g, res)
+    update_entry(plan, f, res)
+
+
+def update_entry(plan, f, res):
     ent = plan["files"][f]
     vas = {r["va"] for r in res["move"]}
     for r in plan["definitions"]:
@@ -648,7 +1145,7 @@ def check(plan):
             continue
         path = os.path.join(ROOT, f)
         text = open(path, encoding="latin-1").read() if os.path.exists(path) else ""
-        if ent["state"] == "sourced" and GEN_INCLUDE.search(text):
+        if ent["state"] == "sourced" and G.include_path(f) in GEN_INCLUDE.findall(text):
             print("%s: sourced but still includes gen/data" % f); bad += 1
         for r in srec:
             if not re.search(r"\b%s\b[^;]*=[^;]*" % re.escape(r.get("cname") or r["name"]), text) or \
@@ -666,6 +1163,8 @@ def main():
         return check(G.load_plan(PLAN))
     mods = [a[i + 1] for i, x in enumerate(a) if x == "--module" and i + 1 < len(a)]
     files = [x.replace("\\", "/") for i, x in enumerate(a) if not x.startswith("--") and (i == 0 or a[i - 1] != "--module")]
+    global ALLOW_AUDIT
+    ALLOW_AUDIT = "--allow-casts" in a
     plan, img = plan_and_image()
     guard = Guard(img)
     todo = [f for f in sorted(plan["files"]) if any(f.startswith("Source/%s/" % m) for m in mods)]
@@ -693,6 +1192,7 @@ def main():
             continue
         nb = sum(r["size"] for r in res["move"])
         tot["files"] += 1; tot["definitions"] += len(res["move"]); tot["bytes"] += nb
+        tot["gen_casts"] += res["casts"][0]; tot["casts"] += res["casts"][1]
         print("%s: %d definitions, %d bytes into source (%s)" % (f, len(res["move"]), nb, ", ".join("%d %s" % (v, k) for k, v in sorted(res["hows"].items()))))
         if "--print" in a:
             print(res["text"]); continue
@@ -703,8 +1203,9 @@ def main():
         update_plan(plan, f, res); changed = True
     if changed:
         write_plan(plan)
-    print("%d files, %d definitions, %d bytes%s" % (tot["files"], tot["definitions"], tot["bytes"],
-                                                   "" if changed else " (nothing written)"))
+    print("%d files, %d definitions, %d bytes%s; pointer casts: %d written, %d of gendata's avoided"
+          % (tot["files"], tot["definitions"], tot["bytes"], "" if changed else " (nothing written)", tot["casts"],
+             tot["gen_casts"] - tot["casts"]))
     return 0
 
 

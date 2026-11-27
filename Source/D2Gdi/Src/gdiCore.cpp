@@ -372,6 +372,26 @@ extern D2GraphicsInterfaceStrc gtGdiGraphicsInterface; // 0x0074C4A8
 // Screen width and height for each resolution mode.
 extern int gaGdiResolutionSizes[2][4]; // 0x0074C580
 
+extern "C" void __cdecl GDISMACK_PlaySmacker(); // 0x006C9900
+extern "C" void __cdecl sub_006C8C80_GdiDrawLine(); // 0x006C8C80
+extern "C" void __cdecl sub_006C8F70_RectDiamond(); // 0x006C8F70
+extern "C" void __cdecl sub_006C9030_DrawRect(); // 0x006C9030
+extern "C" void __cdecl sub_006C90E0_FillRect(); // 0x006C90E0
+extern "C" void __cdecl sub_006C91D0_GdiUtilPoint(); // 0x006C91D0
+extern "C" void __cdecl sub_006C9270_Apply(); // 0x006C9270
+extern "C" void __cdecl sub_006C9290_DrawWallTile(); // 0x006C9290
+extern "C" void __cdecl sub_006C93A0_DrawLitTile(); // 0x006C93A0
+extern "C" void __cdecl sub_006C94B0_DrawTile(); // 0x006C94B0
+extern "C" void __cdecl sub_006C95D0_DrawShifted(); // 0x006C95D0
+extern "C" void __cdecl GDISMACK_GdiCloseSmacker(); // 0x006C9640
+extern "C" void __cdecl GDISMACK_GdiDecodeSmacker(); // 0x006C9710
+
+int gaGdiResolutionSizes[2][4] = { { 640, 800, 0, 0 }, { 480, 600, 0, 0 } }; // 0x0074C580
+
+int gaSelectorValues[8] = { 2, 2, 2, 1, 1, 0, 1, 0 }; // 0x0074C5A0
+
+unsigned long gdwGdiDebugTextColor = 0xFFFFFF; // 0x0074C5C0
+
 #include "gen/data/Source/D2Gdi/Src/gdiCore.inc"
 
 // 0x006C7A60

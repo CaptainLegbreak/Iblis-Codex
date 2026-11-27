@@ -105,4 +105,29 @@ void __stdcall sub_00405A70_WriteSurveyLocale()
 }
 
 
+extern "C" void __cdecl sub_0042E590_SetOwner(); // 0x0042E590
+extern "C" void __cdecl sub_0042E5A0_Nop(); // 0x0042E5A0
+extern "C" void __cdecl CHATDLG_GetModuleInterface(); // 0x0043CBE0
+extern "C" void __cdecl sub_0043CBF0_Nop(); // 0x0043CBF0
+extern "C" void __cdecl WINMAIN_InitInterface(); // 0x0044B400
+extern "C" void __cdecl WINMAIN_ShutdownInterface(); // 0x0044B420
+
+extern "C" const char* gData_00706518[15] = { // 0x00706518
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
 #include "gen/data/Source/Main/Unknown_004059D0.inc"

@@ -3119,4 +3119,6 @@ unsigned int __fastcall CountTerminatedBytesContext(unsigned int length, const u
     return BNDOWNLOAD_CountTerminatedBytes(maxLength, length, data);
 }
 
+int gnLastStatus = 255; // 0x0072FFA8
+
 #include "gen/data/Source/D2BNClient/BnDownload.inc"
