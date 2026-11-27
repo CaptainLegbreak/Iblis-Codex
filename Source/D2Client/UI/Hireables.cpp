@@ -144,7 +144,7 @@ D2CelFileStrc* __fastcall HIREABLES_GetPetIcon(D2UnitStrc* pOwner, int nPetType,
 
 const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB);                                         // 0x0046A530
 
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, int eDrawMode); // 0x004F6300
 
@@ -658,9 +658,9 @@ unsigned char gnHelpShadeColor; // 0x007BEEF8
 // 0x004943B0
 void __cdecl VIEW_DrawHelpFrameLowRes()
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpHelpBorderCel;
+    tContext.pCelFile = gpHelpBorderCel;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, 0, 0x100, -1, 5, 0);
@@ -683,9 +683,9 @@ void __cdecl VIEW_DrawHelpFrameLowRes()
 // 0x004944F0
 void __cdecl VIEW_DrawHelpFrameHighRes()
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpHelpBorderCel;
+    tContext.pCelFile = gpHelpBorderCel;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, 0, 0x100, -1, 5, 0);
@@ -714,9 +714,9 @@ void __cdecl VIEW_DrawHelpShade()
 // 0x00494620
 void __cdecl ROSTERPETS_DrawHelpColumn()
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpHelpYellowBulletCel;
+    tContext.pCelFile = gpHelpYellowBulletCel;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     int nY = 0x49;
@@ -730,9 +730,9 @@ void __cdecl ROSTERPETS_DrawHelpColumn()
 // 0x00494680
 void __cdecl VIEW_DrawHelpLinesLowRes()
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpHelpWhiteBulletCel;
+    tContext.pCelFile = gpHelpWhiteBulletCel;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, 0x33, 0x19E, -1, 5, 0);
@@ -767,9 +767,9 @@ void __cdecl VIEW_DrawHelpLinesLowRes()
 // 0x00494A00
 void __cdecl VIEW_DrawHelpLinesHighRes()
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpHelpWhiteBulletCel;
+    tContext.pCelFile = gpHelpWhiteBulletCel;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, 0x37, 0x217, -1, 5, 0);
@@ -810,9 +810,9 @@ void __cdecl VIEW_DrawHelpLinesHighRes()
 // 0x00494E40
 void __cdecl VIEW_DrawHelpPanelCel()
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = sub_00454600();
+    tContext.pCelFile = sub_00454600();
     tContext.nFrame = (gbHelpCloseButtonDown != 0) + 10;
     tContext.nDirection = 0;
     if (D2GFX_GetResolutionMode() == 2)
@@ -955,14 +955,14 @@ void __cdecl VIEW_DrawHelpButtons()
     gbHelpButtonVisible = 0;
     if (!HIREABLES_GetHelpMenuSetting())
     {
-        D2CelContextStrc tContext;
+        D2GfxDataStrc tContext;
         memset(&tContext, 0, sizeof(tContext));
         HIREABLES_DrawKeyHelp();
-        tContext.pCellFile = gpLevelSocketCel;
+        tContext.pCelFile = gpLevelSocketCel;
         tContext.nDirection = 0;
         tContext.nFrame = 0;
         sub_004F6480(&tContext, gnScreenWidth - 0x4B, gnScreenHeight - 0xA0, -1, 5, 0);
-        tContext.pCellFile = gpLevelCel;
+        tContext.pCelFile = gpLevelCel;
         tContext.nFrame = gnGlobal_007BEF04 != 0;
         sub_004F6480(&tContext, gnScreenWidth - 0x48, gnScreenHeight - 0xA4, -1, 5, 0);
     }
@@ -1451,7 +1451,7 @@ void __fastcall SPELLSEL_DrawSkillInfoBase(int nValue, D2SkillsTxt* pSkillsTxt, 
 // 0x00496B10
 void __cdecl WARDENCLIENT_DrawHostileIcon()
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int bPanel = 0;
     int nYOffset = 0;
@@ -1471,7 +1471,7 @@ void __cdecl WARDENCLIENT_DrawHostileIcon()
     {
         return;
     }
-    tContext.pCellFile = gpHostilePicCel;
+    tContext.pCelFile = gpHostilePicCel;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
     if (GAME_GetUIVarState(0x0A))
@@ -1821,9 +1821,9 @@ static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2
                 *pbAlternate = 10;
                 *pnY += 10;
             }
-            D2CelContextStrc tContext;
+            D2GfxDataStrc tContext;
             memset(&tContext, 0, sizeof(tContext));
-            tContext.pCellFile = pCelFile;
+            tContext.pCelFile = pCelFile;
             sub_004F6480(&tContext, *pnX, 0x3C, -1, 1, 0);
             *pnX += 0x38;
             bDrawn = 1;
@@ -1839,11 +1839,11 @@ static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2
 // 0x00493CE0
 static int __stdcall sub_00493CE0_DrawSummonIcon(D2UnitStrc* pPlayer, int* pbAlternate, int* pnX, int* pnY)
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nUnitId;
-    tContext.pCellFile = HIREABLES_GetPetIcon(pPlayer, 7, &nUnitId, 0);
-    if (!tContext.pCellFile)
+    tContext.pCelFile = HIREABLES_GetPetIcon(pPlayer, 7, &nUnitId, 0);
+    if (!tContext.pCelFile)
         return 0;
 
     sub_00493A00_DrawLifeBar(7, nUnitId, *pnX);
@@ -1875,11 +1875,11 @@ static int __stdcall sub_00493CE0_DrawSummonIcon(D2UnitStrc* pPlayer, int* pbAlt
 // 0x00493E10
 static int __stdcall sub_00493E10_DrawPetIcon(D2UnitStrc* pPlayer, int* pnX, int* pbAlternate, int nPetType, int* pnY)
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nUnitId;
-    tContext.pCellFile = HIREABLES_GetPetIcon(pPlayer, nPetType, &nUnitId, 0);
-    if (!tContext.pCellFile)
+    tContext.pCelFile = HIREABLES_GetPetIcon(pPlayer, nPetType, &nUnitId, 0);
+    if (!tContext.pCelFile)
         return 0;
 
     sub_00493A00_DrawLifeBar(nPetType, nUnitId, *pnX);
@@ -1906,12 +1906,12 @@ static int __stdcall sub_00493EB0_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY
     if (!nCount)
         return 0;
 
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nUnitId;
     int bSingle = 0;
-    tContext.pCellFile = HIREABLES_GetPetIcon(pPlayer, nPetType, &nUnitId, &bSingle);
-    if (!tContext.pCellFile)
+    tContext.pCelFile = HIREABLES_GetPetIcon(pPlayer, nPetType, &nUnitId, &bSingle);
+    if (!tContext.pCelFile)
         return 0;
 
     if (nCount == 1 && bSingle)
@@ -1937,11 +1937,11 @@ static int __stdcall sub_00493EB0_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY
 // 0x00493F80
 static int __stdcall sub_00493F80_DrawPetIcon3(D2UnitStrc* pPlayer, int* pnX, int* pbAlternate, int nPetType, int* pnY)
 {
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     int nUnitId;
-    tContext.pCellFile = HIREABLES_GetPetIcon(pPlayer, nPetType, &nUnitId, 0);
-    if (!tContext.pCellFile)
+    tContext.pCelFile = HIREABLES_GetPetIcon(pPlayer, nPetType, &nUnitId, 0);
+    if (!tContext.pCelFile)
         return 0;
 
     sub_00493A00_DrawLifeBar(nPetType, nUnitId, *pnX);

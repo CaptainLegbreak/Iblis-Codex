@@ -18,6 +18,7 @@
 #include "D2Unicode.h"
 
 #include "D2ItemTypes.h"
+#include "D2CelContext.h"
 
 #include "D2Txt.h"
 
@@ -75,28 +76,7 @@ struct D2CompItemStrc;
 
 struct Unicode;
 
-struct D2GfxDataStrc
-{
-    int nFrame;
-    unsigned char unk0x04;
-    unsigned char nComponent;
-    unsigned char unk0x06[2];
-    int nUnitType;
-    int nUnitIndex;
-    unsigned int nMode;
-    int unk0x14;
-    unsigned int dwUnitToken;
-    unsigned int dwComponentToken;
-    unsigned int dwArmorType;
-    unsigned int dwModeToken;
-    unsigned int dwWClassToken;
-    int unk0x2C[2];
-    D2CelFileStrc* pCelFile;
-    int nDrawFlag;
-    D2CelStrc* pCel;
-    int nDirection;
-    unsigned int dwFlags;
-};
+
 
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09

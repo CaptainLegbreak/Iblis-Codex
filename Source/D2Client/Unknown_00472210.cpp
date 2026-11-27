@@ -314,11 +314,11 @@ int gaSplashFrames[4];                                                          
 int gaBubbleFrames[4];                                                                             // 0x007A892C
 float gfPhaseLevel;                                                                                // 0x007A89A0
 
-void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 
 
-typedef int (__stdcall* D2CelDrawRetFn)(D2CelContextStrc*, int, int, unsigned int, int, unsigned char*);
+typedef int (__stdcall* D2CelDrawRetFn)(D2GfxDataStrc*, int, int, unsigned int, int, unsigned char*);
 
 static inline unsigned int sub_00472400_SeedStep(D2SeedStrc* pSeed)
 {
@@ -1237,7 +1237,7 @@ void __fastcall sub_00473A70_DrawWeatherSplashes(D2WeatherStrc* pWeather, D2Weat
         break;
     }
 
-    D2CelContextStrc tGfxData = {};
+    D2GfxDataStrc tGfxData = {};
     D2WeatherSplashStrc* pRecord = pWeather->pRecords;
     for (int i = 0; i <= pWeather->nLastParticle; ++i, ++pRecord)
     {
@@ -1256,7 +1256,7 @@ void __fastcall sub_00473A70_DrawWeatherSplashes(D2WeatherStrc* pWeather, D2Weat
                 nX += nOffset;
                 if (nX >= nLeft && nX < nRight && nY >= 0 && nY < nBottom)
                 {
-                    tGfxData.pCellFile = pState->apCelFiles[pRecord->nType];
+                    tGfxData.pCelFile = pState->apCelFiles[pRecord->nType];
                     tGfxData.nFrame = pRecord->nFrame;
                     if (((D2CelDrawRetFn)&TEXTURE_CelDraw)(&tGfxData, nX, nY, -1, 3, 0))
                     {
@@ -1272,7 +1272,7 @@ void __fastcall sub_00473A70_DrawWeatherSplashes(D2WeatherStrc* pWeather, D2Weat
             const int nY = pRecord->nY;
             if (nX >= nLeft && nX < nRight && nY >= 0 && nY < nBottom)
             {
-                tGfxData.pCellFile = pState->apCelFiles[pRecord->nType];
+                tGfxData.pCelFile = pState->apCelFiles[pRecord->nType];
                 tGfxData.nFrame = pRecord->nFrame;
                 TEXTURE_CelDraw(&tGfxData, nX, nY, -1, 3, 0);
             }

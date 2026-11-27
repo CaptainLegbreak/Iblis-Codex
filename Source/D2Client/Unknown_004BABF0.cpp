@@ -200,7 +200,7 @@ public:
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 extern D2ButtonStringStrc gaButtonStrings[]; // 0x007275A8
@@ -456,7 +456,7 @@ void ButtonWrapper::sub_004BAF10_SetUnk24(int nValue)
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
-extern "C" D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
+extern "C" D2CelStrc* __stdcall CelGetHandle(D2GfxDataStrc* pContext);                                        // 0x00601840
 
 extern "C" int __stdcall CelGetWidth(D2CelStrc* pCel);                                                                 // 0x006018C0
 
@@ -471,9 +471,9 @@ ButtonImplementation::ButtonImplementation(int nX, int nY, int nStringSlot, int 
     this->pfnCallback = pfnCallback;
     f_20 = 0;
     unk0x2C = 0;
-    D2CelContextStrc tContext;
+    D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = sub_00454600();
+    tContext.pCelFile = sub_00454600();
     tContext.nDirection = 0;
     tContext.nFrame = nBaseFrame;
     D2CelStrc* pCel = CelGetHandle(&tContext);
@@ -488,9 +488,9 @@ ButtonImplementation::ButtonImplementation(int nX, int nY, int nStringSlot, int 
 // 0x004BB000
 void ButtonImplementation::Draw()
 {
-    D2CelContextStrc tCelContext;
+    D2GfxDataStrc tCelContext;
     memset(&tCelContext, 0, sizeof(tCelContext));
-    tCelContext.pCellFile = sub_00454600();
+    tCelContext.pCelFile = sub_00454600();
     tCelContext.nFrame = f_20 + nBaseFrame;
     tCelContext.nDirection = 0;
     sub_004F6480(&tCelContext, nX, nY, -1, 5, 0);
