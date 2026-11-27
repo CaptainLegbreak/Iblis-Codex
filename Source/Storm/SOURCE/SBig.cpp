@@ -552,7 +552,8 @@ static void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue)
     a.SetCount(1);
 }
 
-static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput, BigStack& tStack) // 0x00423600
+// 0x00423600
+static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput, BigStack& tStack)
 {
     BigBuffer& tBuffer = tStack.pRecords[tStack.nUsed++];
     tBuffer.CopyFrom(tNumber);
@@ -561,15 +562,19 @@ static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput
     {
         unsigned int nDigit;
         sub_004225C0_DivUInt(&nDigit, tBuffer, 10, tBuffer);
-        unsigned char nChar = (unsigned char)(nDigit + '0');
-        tOutput.Add(1, &nChar);
+        unsigned char nChar;
+        unsigned char* pChar = &nChar;
+        *pChar = (unsigned char)(nDigit + '0');
+        tOutput.Add(1, pChar);
     } while (BigCompareUInt(tBuffer, 0));
     unsigned int nCount = tOutput.m_count;
     for (unsigned int i = 0; i < nCount / 2; i++)
     {
-        unsigned char nSwap = tOutput.m_data[i];
-        tOutput.m_data[i] = tOutput.m_data[nCount - 1 - i];
-        tOutput.m_data[nCount - 1 - i] = nSwap;
+        unsigned char& nNear = tOutput.m_data[i];
+        unsigned char& nFar = tOutput.m_data[nCount - i - 1];
+        unsigned char nSwap = nNear;
+        nNear = nFar;
+        nFar = nSwap;
     }
     *tOutput.New() = 0;
     tStack.nUsed--;

@@ -1,6 +1,7 @@
 #pragma once
 // Storm big-number buffer: a growable array of 32-bit limbs plus a start offset.
 
+#include "D2StormTypes.h"
 #include "D2StormArrayA.h"
 #include "stpl.h"
 
@@ -58,7 +59,12 @@ struct BigBuffer
     void CopyFrom(const BigBuffer& tSource)
     {
         if (this != &tSource)
-            m_array.sub_004215C0_Set(tSource.m_array.m_count, tSource.m_array.m_data);
+        {
+            D2StormArrayViewStrc tView;
+            tView.pData = tSource.m_array.m_data;
+            tView.nCount = tSource.m_array.m_count;
+            m_array.sub_004215C0_Set(tView.nCount, tView.pData);
+        }
         m_array.m_chunk = tSource.m_array.m_chunk;
         m_start = tSource.m_start;
     }

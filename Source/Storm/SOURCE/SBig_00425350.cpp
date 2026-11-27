@@ -1,8 +1,8 @@
 // IsPrime (0x425350) stays in this piece (a declaration difference). Its test for an odd number reads the
 // buffer's count and start through a two-field local struct (D2StormQueueRangeStrc below), which loads the
 // count into a register before the compare as the original does; with SBig.cpp's own reads (the const
-// operator[], plain locals, an array view, a copy of the array) it is 2 to 22 instructions off. The rest
-// of the function matches in SBig.cpp once BigBuffer::CopyFrom reads its source through an array view.
+// operator[], plain locals, an array view, a copy of the array) it is 2 to 22 instructions off; the rest
+// of the function matches there.
 // DivUInt (0x4225C0) and SubUInt (0x422FC0) are in SBig.cpp; the copies below are for IsPrime.
 #include "D2StormTypes.h"
 
