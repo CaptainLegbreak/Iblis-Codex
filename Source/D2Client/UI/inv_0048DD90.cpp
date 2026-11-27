@@ -1,3 +1,9 @@
+// These five functions stay out of inv.cpp. Joined there (with D2ItemsTxt for the formula record, the class check written
+// inline, an unsigned length compare and gnInvMouseX/gnInvMouseY static), 0x004922A0 and 0x004929F0 match but three do not:
+// INV_DrawItemTooltip (0x0048DD90) flips the operands of four gnScreenHeight + gnPanelOffsetY leas and
+// INV_DrawInventoryPanel (0x0048EDF0) moves one push. The source is the same in both files, so the file around them decides.
+// INV_OnStashButtonUp (0x00492310) calls INV_IsInTradeGrid (0x00483B10) out of line at 0x00492395, as 0x00483FF0 and
+// 0x004873A0 do, but the image has it inline in 0x00483BF0 and 0x00489580, so a noinline cannot keep both.
 #include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2Path.h"
