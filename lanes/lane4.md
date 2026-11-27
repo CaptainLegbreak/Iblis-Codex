@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 19:30 PST 2026: #456 took join-text-da50. join-inv-2 posted (Inv pieces 6 -> 4). join-text-a950 is rebuilding on #460. inv_0048DD90 and inv_00491D20 stay, with readings.
+
 - Thu Nov 26 18:05 PST 2026: join-text-da50 rebased onto #455 (lane 1's D2ClientFuncs.h change touched text.cpp), with join-text-a950 stacked on it; both Ready.
 
 - Thu Nov 26 17:43 PST 2026: join-text-da50 posted (text pieces 6 -> 5).
@@ -102,8 +104,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/join-text-da50 6ffed656d (on #455): files in pieces. text.cpp takes the eight functions and two data definitions (2,112 B) of text_0049DA50.cpp, which goes. The piece reached the list box through a bare vtable view (Slot00..Slot2C, then AddTextLine at +0x30). It now uses text.cpp's ListBoxWrapper, whose slots 12-15 take the declarations of the file that defines the class (Unknown_004BC1B0.cpp): the piece's AddTextLine is sub_004BEDE0_ForwardSlot3C, and text.cpp's Refresh() calls are sub_004BEE10_Slot15 (same slot). Before, text.cpp's view named those slots sub_004BBFB0_GetRepeatStep/Slot13/Slot14/Refresh, a spinner name in the list box.
-- lane4/join-text-a950 cef708398 (stacked on join-text-da50; full build of the two on #455 identical, borrowed code 7,677 B in 3 functions and borrowed data 261 B, both as main; audit guard clean, no noinline needed): text.cpp takes the six functions of text_0049A950.cpp, which goes. text.cpp's UnitView gains the piece's payload pointer at 0x14 (both are partial D2UnitStrc views), and the piece's dtor-only ListBoxWrapper copy goes. The plan keeps the `D2CLIENT_CloseNPCTalk` placeholder (0x4A17D0's table entries name it, while the source defines sub_004A17D0_FilterNpcClick). Text pieces 6 -> 4.
+- lane4/join-inv-2 de2df4f51 (on #460; full build on #458 identical, borrowed code 5,424 B in 2 functions and borrowed data 261 B, both as main; #459/#460 touched no inv file, header or bookkeeping, so rebased without a rebuild; audit guard clean with one evidenced noinline): files in pieces, Inv 6 -> 4. inv.cpp takes INV_TradeMouseMoveMsg (0x4894D0) from inv_004894D0.cpp and the seven functions of inv_004886C0.cpp (5 data definitions, 148 B); both pieces go. One noinline: INV_ResetHover (0x487990), which the image calls out of line from 0x489560. inv_00491D20.cpp and inv_0048DD90.cpp stay, each with a comment giving the reason (Left in place).
+- lane4/join-text-a950: text.cpp takes text_0049A950.cpp's six functions. Rebased onto #460 after #456 took join-text-da50 in its own form. The data-plan conflict was resolved to main's extern list, and the full build is running. I'll post the hash here when it's identical.
 
 
 ## Claimed
@@ -161,6 +163,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Left in place (and why)
 
+- inv_0048DD90.cpp (five functions). Joined into inv.cpp, 0x4922A0 and 0x4929F0 match, but only with gnInvMouseX/Y made static as the pieces have them. Three don't match. INV_DrawItemTooltip 0x48DD90 flips four gnScreenHeight + gnPanelOffsetY lea operands, and INV_DrawInventoryPanel 0x48EDF0 moves one push. The source is identical in both files, so it's a tie that the surrounding file decides. INV_OnStashButtonUp 0x492310: the image calls INV_IsInTradeGrid 0x483B10 out of line here and from 0x483FF0 and 0x4873A0, but has it inline in 0x483BF0 and 0x489580. Other fixes a retry needs: D2ItemsTxt for inv.cpp's formula-record view, the class check written inline (inv.cpp's UNITS_GetWeaponClass copy has the if form, the piece has the ternary), and `>= sizeof(wszTooltip) / sizeof(Unicode) - 1` for the unsigned length compare.
+- inv_00491D20.cpp (INV_HandleNpcClick). The image calls INV_IsInNpcPanelRect 0x486E10 out of line from 0x491D67 but has it inline in 0x486EF0, so a noinline can't keep both.
 - **Game_0044D080.cpp (28 functions) and Game.cpp: blocked on Storm's list templates.** Joined, it compiles once three things are reconciled: gtLoadingTimer is one D2LoadingTimerStrc (its inline zeroing constructor adds no initializer, which I checked by building), gtPongData takes the piece's D2PongDataStrc, and the piece's gCriticalSection_007A0468 is Game.cpp's gtQServerLock. The blocker: the image has three Storm-list members twice, at two addresses, with the same code (0x44DED0/0x44DEF0 sub_0060E280_AddLinkOffset, 0x44ED00/0x44ED10 GetStringListHead, 0x44EE50/0x44EE70 ResetStringList). Those are two template instantiations, and our source gives both one class name (D2ChatStormListAStrc), so one unit can hold only one. That needs lane 3's one stpl.h definition first. Also left: GAME_ShutdownClient (0x44D550) and the end-screen button handlers (0x44E460, 0x44E4F0) mismatch, not yet read. (Also on main: Game.cpp and Game_0044B7B0.cpp both define `int gtLoadingTimer` and `gdwGlobal_007A0688`, its second half; which object owns 0x7A0684 isn't settled.)
 - **text_0049C9C0.cpp (TEXT_DrawWaypointPanel) and text.cpp: one compiler tie.** Joined (once the piece's private D2CelContextStrc, Unicode and waypoint-entry copies give way to the headers'), 1276/1276 with two `lea` operands swapped (gnScreenHeight + gnPanelOffsetY). That's the inv_0048BC10 tie again, and rewriting the sum the other way round doesn't change it.
 - (Tool note for anyone merging pieces by script: never deduplicate `#pragma pack` lines, or a dropped `pop` packs the rest of the file.)
