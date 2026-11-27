@@ -398,7 +398,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
                 return;
             }
 
-            if (sub_004B85E0() || !sub_004B8AD0_OpenWait() || GAME_GetUIVarState(5))
+            if (sub_004B85E0_GetDialogCount() || !sub_004B8AD0_OpenWait() || GAME_GetUIVarState(5))
             {
                 MSG_SendShorts(0x4F, 2, 0, 0);
                 return;

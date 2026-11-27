@@ -1449,7 +1449,7 @@ void __fastcall sub_M117_Emit_004535F0(D2SlotOwnerStrc* pOwner, int nIndex, int 
 // 0x00453900
 int __cdecl UI_IsDialogOpen()
 {
-    return sub_004B85E0() != 0;
+    return sub_004B85E0_GetDialogCount() != 0;
 }
 
 // 0x00453910
@@ -1461,7 +1461,7 @@ static int UI_CanSetUIVar(int nUIVar, int nState)
     {
         if (nUIVar == 0x05 || nUIVar == 0x09)
         {
-            if (sub_004B85E0() && nUIVar == 0x05 && !gaUIVarStates[0x18])
+            if (sub_004B85E0_GetDialogCount() && nUIVar == 0x05 && !gaUIVarStates[0x18])
             {
                 return 0;
             }
