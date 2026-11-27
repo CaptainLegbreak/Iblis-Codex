@@ -8,48 +8,20 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
-- Fri Nov 27 13:45 PST 2026: **lane12/api-d2client-2** (7e1f35f19, on #487 7425acf9d): two commits, declunits-1 (below, rebased onto
-  #487 without conflicts) and "D2Client: declarations of its exports agree with their definitions" (genheaders
-  --module D2Client --header D2ClientApi.h): a new narrowly included D2ClientApi.h, other headers' lines for
-  D2Client addresses corrected, 370 private copies in 79 units go. Left: 12 exports (AUTOMAP_InitCharSaveHeader,
-  GAME_GetUnitTypeOrInvalid, SCMD_RegisterMsgHandler, SEED_RollRandomNumber, CUNIT_GetMonsterBaseId, gtMcpInfo,
-  gtGameDataTable, the MCP packet and wheel callbacks, gbRightClickConsumed: callers' types or typedefs) and per
-  unit the copies whose removal changes the unit. VERIFIED tree faec1a3dd1cb1b06073df3241f8ff91af61aaaf4 (on
-  #487). linkdebt of the D2Client commit, measured on dupdata-2: 23,056 -> 22,945 (type_disagreement -71,
-  renamed_definition 104 -> 64; D2Common -54, D2Game -41, D2Client -16; no module rises). auditguard: no count
-  rose (raw offset 120, byte pointer math 153, pointer casts 4,890 -> 4,874). Take this instead of declunits-1.
-- Fri Nov 27 13:04 PST 2026: **lane12/declunits-1** (in api-d2client-2; 5fc38001c, stacked on dupdata-2): the coordinator's 12:07 item, done before lane 11
-  renames D2Multi/D2Launch. CharSel.cpp, MainMenus.cpp, ChatDlg.cpp and ComCallback.cpp reconciled one name at a
-  time, each change followed by a build of the whole unit: 54 private lines take their definition's prototype, 11
-  that an included header already declares the same way go (no new includes, so no declaration count changes).
-  63 keep their own type because the unit's code changes with the definition's; for lane 11 and the type owners
-  these stay as they are (type_disagreement), by unit:
-    CharSel.cpp: MAINMENUS_JoinGame (0x00434a00), MAINMENUS_DeleteCharFiles (0x0043c750), 
-      CONTROL_SetFocusedEditBox (0x004f91c0), D2Win_10051 (0x004fc9b0), IMAGE_SetCoordinates (0x004fd0b0), 
-      EDITBOX_SetText (0x004ff5a0), ANIMIMAGE_SetIsRunning (0x00500810)
-    ChatDlg.cpp: CHATDLG_RequestCharLogon (0x00449e10), WINMAIN_SendMcpCreateGame (0x0044a400), 
-      CONTROL_SetFocusedEditBox (0x004f91c0), D2Win_10052_TEXTBOX_GetNumLines (0x004fb910), D2Win_10196 (0x004fbb90), 
-      D2Win_10188 (0x004fbde0), EDITBOX_SetText (0x004ff5a0), D2Win_10076 (0x004ffe10), BUTTON_SetIsPressed 
-      (0x005009a0), STR_GroupUint64DigitsWithSuffix (0x005255c0), STRTABLE_LoadStringTables (0x005259c0), 
-      gpLevelDiffCheck (0x00798c40)
-    ComCallback.cpp: SStrChr (0x00413490), CHATDLG_IsPrintableChar (0x00443600), CONTROL_SetFocusedEditBox 
-      (0x004f91c0), IMAGE_GetFrameCount (0x004fd1b0), D2Win_10078_IsNumber (0x004fe770), BUTTON_SetIsPressed 
-      (0x005009a0), gData_0070CD84 (0x0070cd84), gData_0070CD94 (0x0070cd94), gpBnetJoinGameScrollBarsCelFile 
-      (0x0077bc20), gpJoinGameBckgCelFile (0x0077bc50), gpGameButtonBlankCelFile (0x0077bc5c), 
-      gpJoinGameClickBoxCelFile (0x0077bc60), gpGreyLevelBoxCelFile (0x0077bc64), gpRadioButtonCelFile (0x0077bc68), 
-      gpNumberArrowsCelFileA (0x0077bcc0), gpNumberArrowsCelFileB (0x0077bcc4), gpNumberArrowsCelFileC (0x0077bcc8), 
-      gpNumberArrowsCelFileD (0x0077bccc), gpNumberGreyArrowsCelFile (0x0077bcd0), gpCreateGameBckgCelFile 
-      (0x0077bd0c), gpBnetWideButtonBlankCelFile (0x0077bd18), gpBnetCancelButtonBlankCelFileB (0x0077bd2c), 
-      gpLadderChoiceExpCelFile (0x0077bd34), gpPlayerProfileBckgCelFileA (0x0077bd3c), gpPlayerProfileBckgCelFileB 
-      (0x0077bd40)
-    MainMenus.cpp: FOG_ComputeChecksum (0x00411130), GAME_GetPreferredRealm (0x00437d00), 
-      CHATDLG_RequestCharCreate (0x00449df0), CHATDLG_RequestCharLogon (0x00449e10), CONTROL_SetFocusedEditBox 
-      (0x004f91c0), CONTROL_Create (0x004f93c0), D2Win_10053 (0x004fba30), D2Win_10055 (0x004fbab0), D2Win_10051 
-      (0x004fc9b0), IMAGE_SetFrame (0x004fd110), IMAGE_ForceNormalDrawMode (0x004fd170), IMAGE_GetFrameCount 
-      (0x004fd1b0), D2Win_10082 (0x004fdd00), D2Win_10077_EDITBOX_GetText (0x004fdd90), D2Win_10106 (0x00500310), 
-      D2Win_10104 (0x00500340), BUTTON_SetIsPressed (0x005009a0), BUTTON_SetText (0x005009d0)
-  VERIFIED tree 2f42091733a0ecd68cb0834f89b00afd28aa758d. linkdebt vs dupdata-2: 23,075 -> 23,056
-  (type_disagreement 5,576 -> 5,557; D2Multi -10, D2Launch -9; no module rises). auditguard: no count rose.
+- Fri Nov 27 15:58 PST 2026: **lane12/api-modules-1** (b700e20d6, on #490 9eff52f20; replaces api-d2client-2, which conflicted with main):
+  15 commits, queue items 1 and 2. declunits-1 (CharSel/MainMenus/ChatDlg/ComCallback reconciled one name at a
+  time: 54 retyped, 11 dropped, 63 kept and listed in the old entry's text below), then genheaders per module,
+  regenerated on #490 from each module's exclusion list: D2Client 370 private copies in 79 units (D2ClientApi.h,
+  header lines corrected), D2Game 11 (D2GameApi.h), and the second pass, with new exports in <M>Api2.h and
+  existing header lines left alone (--no-fix-headers, because correcting them flipped declaration-count units):
+  D2Win 140 copies in 43 units, D2MCPClient 49, D2Multi 52, D2Launch 49, D2Glide 44, D2BNClient 41, D2DDraw 36,
+  Bnclient 20, D2Gfx 15, D2Sound 12, D2CMP 4, D2Net 2 (D2Hell: nothing left). Every unit each module's change
+  touches builds EQUAL; units that differ keep their copies (D2Client text_0049C9C0.cpp kept all its D2Gfx ones).
+  VERIFIED tree b8932aa9f0c4c24c6b5dd84a91c12543f2d1fe2e. linkdebt vs #490: 21,832 -> 21,685 (type_disagreement
+  5,699 -> 5,592, renamed_definition 104 -> 64; D2Common -54, D2Game -41, D2Client -29, D2Multi -10, D2Launch -9,
+  D2BNClient -4; no module rises). Most of the second-pass copies already agreed, so they are readability (about
+  430 fewer private declarations) more than link debt. auditguard: no count rose (raw offset 117, byte pointer math
+  146, pointer casts 4,873 -> 4,857).
 
 ## Claimed
 - Fri Nov 27 15:10 PST 2026: status. On top of api-d2client-2: D2Game (11 copies), and a second genheaders pass over the modules
@@ -84,6 +56,96 @@ it is on main; from #473, based on main.
   rest. These branches stack on lane12/module-api-headers-6 (its 130 units are the same ones), and say so.
   Files claimed: Source/Include/FogApi*.h, StormApi*.h, D2LangApi*.h, D2CommonApi*.h and the private copies of
   those modules' functions in other modules' units.
+
+## Units that flip when their declarations change (queue item 4)
+- Fri Nov 27 15:58 PST 2026: from every genheaders run so far: the unit, and the exports whose declaration change (the private copy
+  dropped or retyped, or "via a header": the export header's line) changes the unit's code or stops it compiling.
+  Counts include unnamed compile errors, so not every entry is a code change.
+    D2Client/UNIT/Player.cpp (45): COLLISION_CheckMaskWithPattern, COLLISION_GetFreeCoordinates, COMPOSIT_GetWeaponClassId, D2Common_10958, DUNGEON_CheckLOSDraw, DUNGEON_GetLevelIdFromRoom, DUNGEON_GetPortalFlagFromLevelId, DUNGEON_IsRoomInTown, DUNGEON_UpdatePops, INVENTORY_AllocInventory, PATH_GetLastPointX, PATH_GetLastPointY, PATH_GetNextRoom, PATH_GetUnitCollisionPattern, PATH_SetDirection, PATH_SetDist, PATH_SetFootprintCollisionMask, SKILLS_AssignSkill, SKILLS_GetSkillsTxtRecordFromSkill, SKILLS_SetFlags, STATES_IsUnitShapeShifted, STATLIST_AllocStatListEx, STATLIST_GetOwner, STATLIST_SetUnitStat, STATLIST_UnitGetStatValue, UNITROOM_RemoveUnitFromRoom, UNITS_AllocPlayerData, UNITS_ChangeAnimMode, UNITS_FreePlayerData, UNITS_GetLeftSkill, UNITS_GetPlayerPortalFlags, UNITS_GetRightSkill, UNITS_GetRoom, UNITS_GetRunAndWalkSpeedForPlayer, UNITS_GetUnitSizeX, UNITS_GetUsedSkill, UNITS_IsCurrentRoomInvalid, UNITS_IsInMeleeRange, UNITS_IsInMovingModeEx, UNITS_IsObjectInInteractRange, UNITS_SetCurrentRoomInvalid, UNITS_SetPlayerPortalFlags, UNITS_SetUsedSkill, UNITS_StopSequence, UNITS_TestCollisionBetweenInteractingUnits
+    D2Game/ITEMS/Items.cpp (30): DATATBLS_GetItemRatioTxtRecord, DATATBLS_GetItemRecordFromItemCode, DUNGEON_AllocDrlgDelete, ITEMMODS_AssignProperty, ITEMMODS_SetRandomElixirFileIndex, ITEMS_AssignPrefix, ITEMS_AssignRareSuffix, ITEMS_CheckIfSocketable, ITEMS_CheckIfStackable, ITEMS_CheckIfThrowable, ITEMS_CheckItemTypeIfThrowable, ITEMS_GetBaseCode, ITEMS_GetEarLevel, ITEMS_GetFileIndex, ITEMS_GetItemQuality, ITEMS_GetItemType, ITEMS_GetMaxSockets, ITEMS_GetMinStack, ITEMS_GetSpawnStack, ITEMS_GetVarInvGfxCount, ITEMS_SetInvPage, ITEMS_SetItemFormat, ITEMS_SetItemLevel, ITEMS_SetItemQuality, STATLIST_FreeStatList, STATLIST_GetMaxDurabilityFromUnit, UNITROOM_RemoveUnitFromRoom, UNITS_ChangeAnimMode, UNITS_FreeCollisionPath, UNITS_GetInventoryGoldLimit
+    D2Game/PLAYER/PlrMsg.cpp (27): CHAT_SetLangIdInHoverMsg, DRLG_GetDistanceToXY, DUNGEON_GetTownLevelIdFromActNo, INVENTORY_AllocInventory, ITEMS_GetItemType, ITEMS_SetInvPage, ITEMS_SetItemCell, PATH_GetLastPointX, PATH_GetLastPointY, PATH_GetMoveTestCollisionMask, PATH_SetMoveTestCollisionMask, PATH_SetPathTarget, PATH_SetTargetPos, SKILLS_CheckRequiredAttributes, SKILLS_CheckRequiredSkills, SKILLS_GetSkillsTxtRecordFromSkill, SKILLS_GetUseState, SKILLS_SetParam4, STATLIST_GetListExpireFrame, STATLIST_GetMaxManaFromUnit, STATLIST_GetMaxStaminaFromUnit, UNITS_ChangeAnimMode, UNITS_GetCurrentLifePercentage, UNITS_GetInventoryRecordId, UNITS_GetLeftSkill, UNITS_GetRightSkill, UNITS_SetInteractData
+    D2Game/SKILLS/SkillAss.cpp (26): D2Common_10235_PATH_UpdateRiderPath, DATATBLS_GetLevelsTxtRecord, DRLG_GetDistanceToXY, INVENTORY_GetEightWayDirection, INVENTORY_GetLeftHandWeapon, ITEMS_GetBaseCode, ITEMS_GetBodyLocation, MISSILE_SetCurrentFrame, MISSILE_SetTargetY, MISSILE_SetTotalFrames, MONSTERS_GetHirelingTypeId, MONSTERS_IsBoss, PATH_SetNumberOfPathPoints, SEED_GetSeeds, SEED_SetSeeds, SKILLS_GetToHitFactor, SKILLS_SetParam3, SKILLS_SetParam4, STATES_ToggleGfxStateFlag, STATES_UpdatePgsvFlags, STATLIST_FreeStatList, STATLIST_GetOwner, STATLIST_GetSkillId, STATLIST_GetStatListFromUnitAndFlag, STATLIST_MergeStatLists, UNITS_GetDirectionToCoords
+    D2Game/OBJECTS/ObjMode.cpp (24): COLLISION_GetFreeCoordinates, DATATBLS_GetLevelDefRecord, DATATBLS_GetTreasureClassExRecordFromActAndDifficulty, DUNGEON_AllocDrlgDelete, DUNGEON_GetTownLevelIdFromActNo, DUNGEON_ToggleHasPortalFlag, ENVIRONMENT_GetPeriodOfDayFromAct, INVENTORY_GetLeftHandWeapon, INVENTORY_GetWieldType, ITEMS_GetItemType, ITEMS_SetItemCell, MONSTERS_IsBoss, MONSTERS_IsDead, SKILLS_GetSkillMode, SKILLS_GetSkillsTxtRecordFromSkill, SKILLS_GetWeaponMasteryBonus, STATLIST_FreeStatList, STATLIST_GetMaxManaFromUnit, STATLIST_GetMaxStaminaFromUnit, UNITS_ChangeAnimMode, UNITS_CheckObjectPortalFlag, UNITS_FreeCollisionPath, UNITS_GetUnitSizeX, UNITS_GetUnitSizeY
+    D2Client/UNIT/CUnit.cpp (24): COLLISION_GetFreeCoordinates, D2COMMON_10209_PathCheckPathingFlag, D2COMMON_11013_ConvertMode, D2Common_10216, D2Common_10958, D2Common_11020, DATATBLS_GetNoPerFromLevelsTxt, DATATBLS_GetSuperUniquesTxtRecord, DUNGEON_FindRoomBySubtileCoordinates, DUNGEON_GameSubtileToClientCoords, ENVIRONMENT_GetPeriodOfDayFromAct, INVENTORY_AllocInventory, MONSTERS_GetHirelingTypeId, PATH_SetPathingFlag, SKILLS_GetSkillsTxtRecordFromSkill, SKILLS_SetFlags, UNITROOM_RemoveUnitFromRoom, UNITS_ChangeAnimMode, UNITS_GetAnimOrSeqMode, UNITS_GetClientCoordX, UNITS_GetClientCoordY, UNITS_GetLeftSkill, UNITS_GetRightSkill, UNITS_GetUnitSizeX
+    D2Game/PLAYER/PlrModes.cpp (22): DUNGEON_AllocDrlgDelete, INVENTORY_GetCorpseCount, ITEMS_CheckIfStackable, ITEMS_CheckIfThrowable, ITEMS_GetBodyLocation, ITEMS_GetItemType, ITEMS_SetInvPage, LOG_11100, PATH_SetPathTarget, SKILLS_GetSkillsTxtRecordFromSkill, SKILLS_GetUseState, SKILLS_SetFlags, STATLIST_FreeStatList, STATLIST_GetMaxManaFromUnit, STATLIST_GetMaxStaminaFromUnit, UNITS_ChangeAnimMode, UNITS_FreeCollisionPath, UNITS_GetInventoryGoldLimit, UNITS_GetInventoryRecordId, UNITS_GetLeftSkill, UNITS_GetRightSkill, UNITS_SetUsedSkill
+    D2Game/SKILLS/SkillSor.cpp (21): CLIENTS_GetUnitX, CLIENTS_GetUnitY, DATATBLS_GetLevelsTxtRecord, GAME_GetUnitTypeOrInvalid, INVENTORY_GetEightWayDirection, MISSILE_SetCurrentFrame, MISSILE_SetTotalFrames, MONSTERS_GetHirelingTypeId, SEED_RollLimitedRandomNumber, SKILLDESC_GetSkillParamByLevel, SKILLDESC_GetSkillParamTwo, SKILLS_GetElementalLength, SKILLS_GetParam1, SKILLS_GetSkillsTxtParam7, STATES_ToggleGfxStateFlag, STATLIST_FreeStatList, UNITS_GetDirectionToCoords, UNITS_SetOverlay, sub_0045C4B0_GetSkillsTxtRecord, sub_00463740_FindRoomAtPoint, sub_0046ACE0_GetMissilesTxtRecord
+    D2Win/Src/D2WinMain.cpp (21): D2GFX_ClearScreen, D2GFX_DrawBoxAlpha, D2GFX_EndScene, D2GFX_GetBackBuffer, D2GFX_GetResolutionMode, D2GFX_HardwareAcceleratedRenderMode, D2GFX_IsFixedAspectRatio, D2GFX_StartDraw, SCROLLBAR_Destroy, WINDOW_CenterWindow, WINDOW_CheckCutScene, WINDOW_ClearCaches, WINDOW_Create, WINDOW_Destroy, WINDOW_EndCutScene, WINDOW_GetDimensions, WINDOW_GetResolutionSize, WINDOW_GetWindow, WINDOW_IsFullScreen, WINDOW_Resize, WINDOW_SetPaused
+    D2Game/PLAYER/PlrTrade.cpp (18): ITEMMODS_AddCraftPropertyList, ITEMS_AssignRareSuffix, ITEMS_CheckIfStackable, ITEMS_CheckItemTypeIdByItemId, ITEMS_GetBaseCode, ITEMS_GetEarLevel, ITEMS_GetFileIndex, ITEMS_GetItemQuality, ITEMS_GetItemType, ITEMS_GetMaxSockets, ITEMS_GetSockets, ITEMS_SetInvPage, ITEMS_SetItemCell, ITEMS_SetItemQuality, STATLIST_GetFullStatsCountFromUnit, UNITS_ChangeAnimMode, UNITS_GetInventoryGoldLimit, sub_00408090
+    D2Glide/Unknown_0050BD30.cpp (18): DDCORE_CreateSurface, DDCORE_ReleaseSurfaces, gaDDrawDebugFontGlyphOffsets, gbDDrawBinkDone, gdwDDrawDebugFontBkColor, gdwDDrawDebugFontTextColor, gnDDrawBinkFlags, gnDDrawBinkX, gnDDrawBinkY, gnGlideBinkFlags, gnGlideBinkY, gnGlideDebugX, gnGlideDebugY, gpDDrawBink, gpDDrawDebugFontGlyphs, gpDDrawPalette, gppGlideDebugBuffer, sub_00512710_DDrawDrawBox
+    D2Game/SKILLS/SkillBar.cpp (17): COLLISION_CheckAnyCollisionWithPattern, COLLISION_GetFreeCoordinates, COLLISION_ResetMaskWithPattern, DRLG_GetDistanceToXY, PATH_GetUnitCollisionPattern, PATH_SetFootprintCollisionMask, PATH_SetMoveTestCollisionMask, SKILLS_GetParam1, SKILLS_SetFlags, SKILLS_SetParam3, SKILLS_SetParam4, STATES_ToggleGfxStateFlag, STATLIST_FreeStatList, STATLIST_SetListExpireFrame, UNITS_GetUnitSizeX, UNITS_SetOverlay, UNITS_SetUsedSkill
+    D2Game/UNIT/SUnit.cpp (15): DUNGEON_FindRoomBySubtileCoordinates, DUNGEON_GetPresetUnitsFromRoom, DUNGEON_IncreaseAlliedCountOfRoom, DUNGEON_StreamRoomAtCoords, STATLIST_RemoveAllStatsFromOverlay, UNITS_AllocStaticPath, UNITS_AllocUnit, UNITS_ChangeAnimMode, UNITS_FreeStaticPath, UNITS_FreeUnit, UNITS_GetCurrentLifePercentage, UNITS_GetInventoryRecordId, UNITS_GetUnitSizeX, UNITS_InitializeSequence, UNITS_SetAnimData
+    D2Multi/Src/ChatDlg.cpp (15): ARCHIVE_FreeCellFile, BUTTON_SetBaseFrame, CONTROL_MouseInsideRect, CONTROL_SetCellFile, D2Win_10005, D2Win_10015, D2Win_10016, D2Win_10045, D2Win_10050_TEXTBOX_SetLine, D2Win_10057, D2Win_10076, D2Win_10142_CompUnitDestroy, D2Win_10146, D2Win_10161, D2Win_StopMessageLoop
+    D2Client/UI/inv_0048BC10.cpp (14): D2COMMON_10267_Return (via a header), D2Win_10129_DrawFramedText, DATATBLS_GetLevelThreshold (via a header), DUNGEON_GetFloorTilesFromRoom (via a header), ENVIRONMENT_GetPeriodOfDayFromAct, FOG_GetInstallPath (via a header), ITEMS_GetItemQuality, MONSTERS_GetActFromHirelingTxt (via a header), STATLIST_GetOwner, STATLIST_GetUnitBaseStat, STATLIST_MergeStatLists, STATLIST_UnitGetStatValue, UNITS_GetInventoryRecordId, sub_00420290_BreakHandlerChain
+    D2Game/SKILLS/SkillDruid.cpp (13): COLLISION_CheckAnyCollisionWithPattern, COLLISION_CheckMask, D2COMMON_11013_ConvertMode, MISSILE_SetTargetY, PATH_GetFinalTargetX, PATH_GetFinalTargetY, PATH_GetUnitCollisionPattern, SKILLS_GetElementalLength, SKILLS_GetParam1, SKILLS_GetToHitFactor, STATES_ToggleGfxStateFlag, STATLIST_FreeStatList, STATLIST_SetListExpireFrame
+    D2Client/UNIT/Item.cpp (12): D2COMMON_10160_PathUpdateDirection, DATAARRAYS_FreeEntry (via a header), DUNGEON_GameSubtileToClientCoords, DUNGEON_GetTileDataFromAct, ITEMMODS_AssignProperty, SBigDel (via a header), UNITROOM_RemoveUnitFromRoom, UNITS_ChangeAnimMode, UNITS_FreeCollisionPath, UNITS_GetInventoryRecordId, UNITS_GetLeftSkill, UNITS_GetRightSkill
+    D2Game/PLAYER/PlrSave.cpp (11): INVENTORY_AllocInventory, INVENTORY_GetLeftHandWeapon, ITEMS_CheckIfFlagIsSet, ITEMS_GetBodyLocation, ITEMS_SetInvPage, STATLIST_GetMaxManaFromUnit, STATLIST_GetMaxStaminaFromUnit, UNITS_ChangeAnimMode, UNITS_GetInventoryGoldLimit, UNITS_SetSwitchLeftSkill, UNITS_SetSwitchRightSkill
+    D2Client/SKILLS/SkillsMon.cpp (11): D2COMMON_10160_PathUpdateDirection, D2COMMON_10475_PostStatToStatList, D2Common_10216, INVENTORY_GetEightWayDirection, MISSILE_SetCurrentFrame, MISSILE_SetStreamMissile, MISSILE_SetStreamRange, MISSILE_SetTotalFrames, SKILLS_SetFlags, SKILLS_SetParam3, UNITS_GetWeaponClass
+    D2Client/UI/ui.cpp (10): D2GFX_DrawBox, D2GFX_GetResolutionMode, D2LANG_GetStringByReferenceString, D2LANG_GetStringFromTblIndex, DUNGEON_GetLvlWarpTxtRecordFromRoomAndUnit (via a header), WINDOW_GetWindow, WINDOW_IsFullScreen, sub_00526320_ToUnicode, sub_005269D0_FormatText, sub_005272B0_FormatText
+    D2Client/GAME/Game.cpp (10): D2GFX_DisableFixedAspectRatio, D2GFX_EnableVSync, D2GFX_GetResolutionMode, D2GFX_Release, D2GFX_SetAmbientColor, TEXTURE_CelDraw, WINDOW_Destroy, WINDOW_GetWindow, WINDOW_IsFullScreen, WINDOW_ShowAll
+    D2Client/UI/text_0049C9C0.cpp (8): D2GFX_DrawBox, D2LANG_GetStringFromTblIndex, D2Win_10117_DrawText, D2Win_10121_GetTextWidth, DUNGEON_GetLevelIdFromRoom, FOG_IsExpansion, QUESTRECORD_GetQuestState, UNITS_GetRoom
+    D2Launch/Src/CharSel.cpp (6): D2COMP_CreateCompositeUnit, D2Win_10156, D2Win_10161, FOG_Decode14BitsFromString, SMemAlloc, SMemFree
+    D2BNClient/BnDownload.cpp (6): SMemCopy, SRegSaveData, SRegSaveString, SRegSaveValue, SStrCopy, SStrLen
+    D2Multi/Src/ComCallback.cpp (6): D2Win_10078_IsNumber, SErrGetErrorStr, SMsgDispatchMessage, SRegSaveValue, SStrCopy, SStrPrintf
+    D2Common/DATATBLS/DataTbls.cpp (6): D2LANG_GetStringByReferenceString, D2LANG_GetStringFromTblIndex, STRTABLE_FindString, UNICODE_ToAscii, gpAnimData, sub_00526320_ToUnicode
+    D2Client/UI/UseItem.cpp (6): D2WINFONT_SplitText, D2Win_10117_DrawText, D2Win_10121_GetTextWidth, D2Win_10129_DrawFramedText, UNITS_ChangeAnimMode, WINDOW_GetWindow
+    D2Gdi/Src/gdiCore.cpp (6): CelGetHeight, CelGetOffsetX, CelGetOffsetY, CelGetWidth, CmpDoLensEffect, WINDOW_GetWindow
+    D2Client/UI/inv_0048DD90.cpp (5): D2Win_10117_DrawText, D2Win_10121_GetTextWidth, D2Win_10129_DrawFramedText, D2Win_10131_GetTextDimensions, FOG_IsExpansion
+    D2Client/UI/automap.cpp (4): D2GFX_DrawLine, FOG_Encode14BitsToString, gadwLogOpenTick, gadwLogWriteTick
+    D2Common/DATATBLS/ItemTbls_00634DC0.cpp (3): FOG_10216_AddRecordToLinkingTable, FOG_AllocLinker, sub_00408090
+    D2Client/UI/SkillDesc_004F30A0.cpp (3): D2LANG_GetStringFromTblIndex, sub_00526320_ToUnicode, sub_005269D0_FormatText
+    D2Client/Unknown_004E89A0.cpp (3): D2LANG_GetStringFromTblIndex, sub_00526320_ToUnicode, sub_005269D0_FormatText
+    D2Client/Unknown_004EDCA0.cpp (3): D2LANG_GetStringFromTblIndex, sub_00526320_ToUnicode, sub_005269D0_FormatText
+    D2Game/Unknown_0054DAC0.cpp (3): DATATBLS_GetLevelsTxtRecord, DATATBLS_GetSuperUniquesTxtRecordCount, DUNGEON_GetWarpCoordinatesFromRoom
+    D2Game/MISSILES/MissMode.cpp (3): COLLISION_CheckMaskWithSize, PATH_SetNewDistance, STATLIST_SetState
+    D2Client/GAME/Wall2.cpp (3): D2GFX_CheckLowQuality, D2GFX_CheckPerspective, D2GFX_GetResolutionMode
+    D2Client/UI/Hireables.cpp (3): D2GFX_DrawBox, D2GFX_DrawLine, D2GFX_GetResolutionMode
+    D2CMP/Unknown_006009C0.cpp (2): ARCHIVE_ReadFileToBuffer, sub_00408090
+    D2Gfx/SRC/Window.cpp (2): ERRORMANAGER_RaiseErrorReport, FOG_IsExpansion
+    D2Common/DATATBLS/ItemTbls.cpp (2): SStrCmpI (via a header), sub_0040EB10 (via a header)
+    D2Hell/SRC/Archive.cpp (2): SFileCloseArchive, SStrChr (via a header)
+    D2Game/GAME/Game.cpp (2): SMemZero, UNITS_GetInventoryGoldLimit
+    D2Client/UNIT/MonUnique.cpp (2): D2LANG_GetStringFromTblIndex, sub_00526320_ToUnicode
+    D2Client/DRAW/dLightMap.cpp (2): UNITS_GetPrecisionX, UNITS_GetPrecisionY
+    Main/Unknown_004059D0.cpp (2): WINMAIN_InitInterface, sub_0042E590_SetOwner
+    D2Client/ENGINE/Cursor.cpp (2): CelGetHeight, CelGetWidth
+    D2Client/Unknown_004BBE10.cpp (2): CelGetHeight, CelGetWidth
+    D2Win/Src/D2WinEditBox.cpp (2): D2GFX_DrawBox, WINDOW_GetWindow
+    D2Client/Unknown_00477620.cpp (1): sub_0040ABE0
+    D2Common/DATATBLS/MissileTbls.cpp (1): FOG_AllocLinker
+    D2Common/DATATBLS/TokTbls.cpp (1): sub_00408090
+    D2Direct3D/Src/d3dCore.cpp (1): LOGMANAGER_WriteLogLine
+    D2Game/UNIT/SUnitMsg.cpp (1): BITMANIP_GetSize
+    D2Multi/Unknown_0043C8A0.cpp (1): FOG_Encode14BitsToString
+    Bnclient/Unknown_0052A240.cpp (1): SMemZero
+    D2Common/DATATBLS/ItemTbls_00633730.cpp (1): STRTABLE_FindString
+    D2Common/Unknown_0063F690.cpp (1): D2LANG_GetStringByReferenceString
+    D2Common/Unknown_006634F0.cpp (1): D2LANG_GetStringFromTblIndex
+    Fog/Src/ErrorManager.cpp (1): STRTABLE_GetSystemLanguage
+    D2Client/ENGINE/Gfx.cpp (1): ITEMS_GetColor (via a header)
+    D2Client/ENGINE/GfxUtil.cpp (1): ITEMS_GetColor (via a header)
+    D2Client/ENGINE/Gfx_0046DB90.cpp (1): DATATBLS_GetMonModeTxtRecord (via a header)
+    D2Client/ENGINE/Particle.cpp (1): WAYPOINTS_AllocWaypointData
+    D2Game/MONSTER/MonsterAI.cpp (1): MONSTERS_GetActFromHirelingTxt
+    D2Game/MONSTER/MonsterEval.cpp (1): DATATBLS_CalculateMonsterStatsByLevel
+    D2Game/Quests/QUESTS.CPP (1): ITEMS_SetItemCell
+    D2Game/PLAYER/Player.cpp (1): D2Common_10231
+    D2Client/GAME/SCmd.cpp (1): STATLIST_SetUnitStat
+    D2Game/UNIT/SUNITNPC.CPP (1): ITEMS_SetItemCell
+    D2Common/DATATBLS/LvlTbls.cpp (1): ITEMS_RollLimitedRandomNumber
+    Storm/SOURCE/SMEM.CPP (1): gpFreeBlockSweep
+    D2Client/SKILLS/Skills.cpp (1): ITEMS_RollLimitedRandomNumber
+    D2Client/Unknown_0046ACE0.cpp (1): ITEMS_RollLimitedRandomNumber
+    D2Client/Unknown_004C9420.cpp (1): ITEMS_RollLimitedRandomNumber
+    D2Common/DRLG/Preset.cpp (1): ITEMS_RollLimitedRandomNumber
+    D2Common/ITEMS/ItemMods.cpp (1): ITEMS_RollLimitedRandomNumber
+    D2Client/UI/npcmenu.cpp (1): ITEMS_RollLimitedRandomNumber
+    D2Common/DATATBLS/AnimTbls.cpp (1): DATATBLS_GetAnimData
+    D2Client/GAME/Record.cpp (1): WINDOW_GetWindow
+    D2Client/UI/text_0049D5A0.cpp (1): WINDOW_GetWindow
+    D2Client/UI/text_004A10E0.cpp (1): WINDOW_GetWindow
+    D2Sound/Unknown_00513BC0.cpp (1): WINDOW_GetWindow
+    D2Win/Src/D2WinPopup.cpp (1): D2GFX_DrawBox
+    D2Win/Src/D2WinProgressBar.cpp (1): D2GFX_DrawBox
 
 ## Questions (owner's ruling: void definitions whose callers use a result)
 
