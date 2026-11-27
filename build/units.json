@@ -45376,11 +45376,15 @@
     {
      "va": "0x0054EBC0",
      "length": 114,
-     "name": "?sub_0054EBC0_CanPopulateRoom@@YAHPAUD2ActiveRoomStrc@@PAUD2GameStrc@@@Z"
+     "name": "?sub_0054EBC0_CanPopulateRoom@@YAHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@@Z"
     },
     {
      "va": "0x0054EC40",
      "length": 69
+    },
+    {
+     "va": "0x0054EC90",
+     "length": 690
     },
     {
      "va": "0x0054EF50",
@@ -45396,16 +45400,6 @@
      "va": "0x0054F060",
      "length": 106,
      "name": "?MONSTERREGION_TrySpawnWanderingMonster@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0054EC90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0054EC90",
-     "length": 690
     }
    ]
   },
