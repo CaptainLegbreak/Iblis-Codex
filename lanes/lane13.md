@@ -5,7 +5,13 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
-- Fri Nov 27 11:54 PST 2026: **lane13/split-objects-3** (0c5a496cb, on main 8acabb402 = #484). It replaces split-objects-2: all of that branch, rebased, plus 12 commits. VERIFIED tree a8a381bf9b0d0613d0bf7ef75fd6b30cd46e5ae5; Game.exe identical. Audit guard: no count rose.
+- Fri Nov 27 13:07 PST 2026: **lane13/split-objects-6** (55513b73f, on main ea8bf6333 = #486). It replaces split-objects-3, which was never merged; split-objects-4 and -5 were not verified and can be ignored. VERIFIED tree 5f6e75c87e1d5094489327167f92f3dfeae5d91e; Game.exe identical. Audit guard: no count rose.
+  - **It holds:**
+    - the five short-arrays commits;
+    - the eleven split-objects-2 commits;
+    - the twelve split-objects-3 commits below;
+    - three raw-offset commits: GAME_HandleKeyDown takes SMSGHANDLER_PARAMS; the CubeMain input/output linkers index D2CubeMainTxt (the private D2CubeInputItemStrc was D2CubeOutputItem's head); Window.cpp indexes gabLightCube[x][y][n];
+    - one commit keeping two retired externs in inv.cpp (gaNpcTabStates, gabColors_007BCAD8) unused. Removing them swaps a lea's registers in 0x00488B00 since #485.
   - **The 12 commits.** Each global here was a second name over part of another object, or an object nothing defined:
     - CelCmp.cpp's Config view over gbCmpCompressedDataMode and the two extension strings.
     - gdwGlobal_007A0688 (gtLoadingTimer.dwLength), with the int gtLoadingTimer in Game_0044B7B0.cpp.
@@ -19,13 +25,13 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - gatGamePalette[256] (never defined; ddCore.cpp's gabPaletteEntries[1] was entry 1).
     - D2CMP gCmpTileCache's nMaxSize and pHeadB (gnSpriteCacheMaxMemory and gpCmpCacheEntries).
     - D2Direct3D gaPerspectiveVertices[15] (never defined; also seen as a [5][3] grid struct 8 bytes in, as gaGrid, and as gVertex0/gtVertex1-3).
-  - **Counts, main #484 -> this:**
-    - data clusters: 38 -> 2; 15,090 -> 6,724 B. Left: the D2DataTablesStrc span (parked, under Questions) and D2Direct3D 0x009897EC (8 B, next).
+  - **Counts, main #486 -> this:**
+    - data clusters: 38 -> 2; 15,090 -> 6,724 B.
     - data_cluster: 2,436 / 324 -> 1,391 / 233.
-    - linkdebt total: 25,066 -> 23,961. D2Client 8,729 -> 8,031, D2Game 5,303 -> 5,286, D2Common 3,723 -> 3,710, D2Launch 1,221 -> 1,185, D2Win 839 -> 817, D2Direct3D 802 -> 711, Fog 591 -> 575, D2CMP 416 -> 378, D2Glide 358 -> 215, D2DDraw 172 -> 154, D2Hell 74 -> 61; no module rose.
-    - shortdata: 358 -> 363. All five new candidates are padding no code references: 4 B after gaStateStack[4], 20 B after gaDrlgRoomTilePresetUnits[34], 4 B after gtLoadingTimer, 4 B after Items.cpp's static guard (before gUniqueSelections), and the bytes after gnTextColorA.
-  - **gapChatDlgControls (your #480 note): it can't be typed without the cast.** CONTROL_Create fills it as a table of D2WinControlStrc*, and ChatDlg.cpp walks it in three loops (1879, 4252, 4378). SMACK_Decode and SMACK_DeleteFile take D2WinSmackStrc*. A union per slot or a change to D2Win's API would only move the downcast, so I left the two casts as they are.
+    - linkdebt total: 23,079 -> 21,972. D2Client 8,389 -> 7,681, D2Game 4,320 -> 4,303, D2Common 3,616 -> 3,603, D2Launch 1,145 -> 1,117, D2Direct3D 799 -> 708, D2Win 795 -> 773, Fog 529 -> 513, D2CMP 411 -> 373, D2Glide 341 -> 198, D2DDraw 137 -> 119, D2Hell 74 -> 61; no module rose.
+    - shortdata: 358 -> 363. The five new candidates are padding no code references (listed in the split-objects-3 entry, now replaced).
 ## Claimed
+- Fri Nov 27 13:07 PST 2026: check-in. split-objects-6 Ready (on #486). Waiting on the D3D smack-slot type question; the data-tables span is with lane 1 and Fable. Next: the rest of the raw-offset lines in my files.
 - Fri Nov 27 12:53 PST 2026: check-in. split-objects-4 (on #485) came back NOT VERIFIED: inv.cpp 0x00488B00 swaps the base and index of one lea, the declaration-count effect against #485's D2Client.h. Fixed by keeping two retired externs in inv.cpp (gaNpcTabStates and gabColors_007BCAD8), unused, as the board says to. #486 landed meanwhile, so **lane13/split-objects-6** (on #486) is doing its full build now, with all of it rebased. Ignore split-objects-4 and -5. Ready within 20 minutes.
 - Fri Nov 27 12:13 PST 2026: check-in. The data-tables field map is at the end of this file, under **Data-tables field map** (see the note there on why it's not in its own file). Rebasing onto #485 as **lane13/split-objects-4**: it replaces split-objects-3 and adds the 3 raw-offset commits (GAME_HandleKeyDown's SMSGHANDLER_PARAMS, the CubeMain linkers, Window.cpp's gabLightCube). It is doing its full build now. MonsterMode.cpp was redone against lane 12's #485 declarations.
 - Fri Nov 27 11:57 PST 2026: 0x009897EC posted under Questions (a type for the D3D smack slots). With split-objects-3, that and the parked data-tables span are the only clusters left. Next: going through the 363 shortdata candidates for any whose room code actually reads.
