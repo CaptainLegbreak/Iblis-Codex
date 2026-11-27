@@ -22,6 +22,7 @@
 #include "D2ItemModes.h"
 #include "D2DrlgWarp.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed);
 
@@ -292,20 +293,16 @@ int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x
 int __cdecl D2GFX_IsHardwareRenderMode(); // 0x004F51C0
 
 
-int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 
 
 
 int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); // 0x006492A0
 
-int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 
-int __stdcall MISSILE_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A3B0
 
 int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile); // 0x0064A730
 
-int __stdcall DATATBLS_GetMissileVelocityFromMissilesTxt(int nMissileId, int nLevel); // 0x00663270
 
 unsigned int __stdcall sub_00620510(D2UnitStrc*); // 0x00620510
 
@@ -377,7 +374,7 @@ static inline int U04_IsNearRoomY(const D2DrlgCoordsStrc* pCoords, int nY, int n
     return nY + nRadius >= pCoords->nSubtileY || nY - nRadius <= pCoords->nSubtileHeight + pCoords->nSubtileY;
 }
 
-inline D2PlayerDataStrc* UNITS_GetPlayerData(D2UnitStrc* pUnit)
+inline D2PlayerDataStrc* UNITS_GetPlayerData_Inl(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
@@ -785,7 +782,7 @@ void __fastcall UNITS_SetInteractData(D2UnitStrc* pUnit, int nMode, int nArg1, i
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == UNIT_PLAYER)
     {
-        if (D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit))
+        if (D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData_Inl(pUnit))
         {
             pPlayerData->nState = 1;
         }
