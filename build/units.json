@@ -6854,9 +6854,14 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00421110.cpp",
+   "file": "Source/Storm/SOURCE/SBig.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00420F80",
+     "length": 67,
+     "name": "?sub_00420F80_DecodeLength@@YAXPBEIPAI1@Z"
+    },
     {
      "va": "0x00420FD0",
      "length": 16,
@@ -6977,6 +6982,50 @@
      "name": "?WARDENCLIENT_SwapBytes@@YIXPAE0@Z"
     },
     {
+     "va": "0x004212D0",
+     "length": 32,
+     "name": "?sub_004212D0_Get@BigBuffer@@QAEII@Z"
+    },
+    {
+     "va": "0x004212F0",
+     "length": 183,
+     "name": "?sub_004212F0_Compare@@YGHPBUBigBuffer@@0@Z"
+    },
+    {
+     "va": "0x004213B0",
+     "length": 142,
+     "name": "?BigHighBitIndex@@YGIPAUBigBuffer@@@Z"
+    },
+    {
+     "va": "0x00421440",
+     "length": 41,
+     "name": "?BigIsEven@@YAHABUBigBuffer@@@Z"
+    },
+    {
+     "va": "0x00421470",
+     "length": 145
+    },
+    {
+     "va": "0x00421510",
+     "length": 28,
+     "name": "?BigToUnsigned@@YAXPAIPAUBigBuffer@@@Z"
+    },
+    {
+     "va": "0x00421530",
+     "length": 9,
+     "name": "?SBigCompare@@YGHPAX0@Z"
+    },
+    {
+     "va": "0x00421540",
+     "length": 15,
+     "name": "?SBigIsEven@@YGHPAUD2StormBigStrc@@@Z"
+    },
+    {
+     "va": "0x00421550",
+     "length": 18,
+     "name": "?SBigToUnsigned@@YGXPAXPAI@Z"
+    },
+    {
      "va": "0x00421570",
      "length": 23,
      "name": "??1?$TSFixedArray@IU?$TSCD@I@@@@QAE@XZ"
@@ -7025,6 +7074,16 @@
      "va": "0x004217F0",
      "length": 23,
      "name": "??1?$TSGrowableArray@IU?$TSCD@I@@@@QAE@XZ"
+    },
+    {
+     "va": "0x00421810",
+     "length": 23,
+     "name": "??1BigBuffer@@QAE@XZ"
+    },
+    {
+     "va": "0x00421830",
+     "length": 16,
+     "name": "??1BigStack@@QAE@XZ"
     },
     {
      "va": "0x00421840",
@@ -7087,86 +7146,6 @@
      "name": "?Reserve@?$TSGrowableArray@DU?$TSCD@D@@@@QAEXIH@Z"
     },
     {
-     "va": "0x00421BA0",
-     "length": 43,
-     "name": "??4?$TSGrowableArray@IU?$TSCD@I@@@@QAEAAU0@ABU0@@Z"
-    },
-    {
-     "va": "0x00421F10",
-     "length": 73,
-     "name": "?SetCount@?$TSGrowableArray@IU?$TSCD@I@@@@QAEXI@Z"
-    },
-    {
-     "va": "0x00421F60",
-     "length": 119,
-     "name": "?Add@?$TSGrowableArray@DU?$TSCD@D@@@@QAEIIPBD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SBig.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00420F80",
-     "length": 67,
-     "name": "?sub_00420F80_DecodeLength@@YAXPBEIPAI1@Z"
-    },
-    {
-     "va": "0x004212D0",
-     "length": 32,
-     "name": "?sub_004212D0_Get@BigBuffer@@QAEII@Z"
-    },
-    {
-     "va": "0x004212F0",
-     "length": 183,
-     "name": "?sub_004212F0_Compare@@YGHPBUBigBuffer@@0@Z"
-    },
-    {
-     "va": "0x004213B0",
-     "length": 142,
-     "name": "?BigHighBitIndex@@YGIPAUBigBuffer@@@Z"
-    },
-    {
-     "va": "0x00421440",
-     "length": 41,
-     "name": "?BigIsEven@@YAHABUBigBuffer@@@Z"
-    },
-    {
-     "va": "0x00421470",
-     "length": 145
-    },
-    {
-     "va": "0x00421510",
-     "length": 28,
-     "name": "?BigToUnsigned@@YAXPAIPAUBigBuffer@@@Z"
-    },
-    {
-     "va": "0x00421530",
-     "length": 9,
-     "name": "?SBigCompare@@YGHPAX0@Z"
-    },
-    {
-     "va": "0x00421540",
-     "length": 15,
-     "name": "?SBigIsEven@@YGHPAUD2StormBigStrc@@@Z"
-    },
-    {
-     "va": "0x00421550",
-     "length": 18,
-     "name": "?SBigToUnsigned@@YGXPAXPAI@Z"
-    },
-    {
-     "va": "0x00421810",
-     "length": 23,
-     "name": "??1BigBuffer@@QAE@XZ"
-    },
-    {
-     "va": "0x00421830",
-     "length": 16,
-     "name": "??1BigStack@@QAE@XZ"
-    },
-    {
      "va": "0x00421B50",
      "length": 19,
      "name": "??0BigBuffer@@QAE@XZ"
@@ -7175,6 +7154,11 @@
      "va": "0x00421B70",
      "length": 37,
      "name": "??0BigStack@@QAE@XZ"
+    },
+    {
+     "va": "0x00421BA0",
+     "length": 43,
+     "name": "??4?$TSGrowableArray@IU?$TSCD@I@@@@QAEAAU0@ABU0@@Z"
     },
     {
      "va": "0x00421BD0",
@@ -7198,6 +7182,16 @@
      "va": "0x00421EA0",
      "length": 110,
      "name": "?GrowToFit@D2StormArrayAStrc@@QAEXIH@Z"
+    },
+    {
+     "va": "0x00421F10",
+     "length": 73,
+     "name": "?SetCount@?$TSGrowableArray@IU?$TSCD@I@@@@QAEXI@Z"
+    },
+    {
+     "va": "0x00421F60",
+     "length": 119,
+     "name": "?Add@?$TSGrowableArray@DU?$TSCD@D@@@@QAEIIPBD@Z"
     },
     {
      "va": "0x00421FE0",
