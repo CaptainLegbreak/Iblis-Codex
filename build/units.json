@@ -13828,6 +13828,15 @@
      "length": 766
     },
     {
+     "va": "0x00488400",
+     "length": 696
+    },
+    {
+     "va": "0x004886C0",
+     "length": 454,
+     "name": "?INV_DrawButtonHoverText@@YAXXZ"
+    },
+    {
      "va": "0x00488890",
      "length": 39,
      "name": "?INV_IsNpcShopState@@YAHXZ"
@@ -13846,6 +13855,10 @@
      "va": "0x004889D0",
      "length": 299,
      "name": "?INV_NpcShopMouseMoveMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00488B00",
+     "length": 740
     },
     {
      "va": "0x00488DF0",
@@ -14183,6 +14196,11 @@
      "name": "?INV_CutBracketToken@@YIXPAUUnicode@@PBU1@@Z"
     },
     {
+     "va": "0x0048BE80",
+     "length": 471,
+     "name": "?INV_FormatArgs@@YAXPAUUnicode@@PBU1@ZZ"
+    },
+    {
      "va": "0x0048C060",
      "length": 3648
     },
@@ -14228,13 +14246,28 @@
      "length": 1311
     },
     {
+     "va": "0x004917C0",
+     "length": 372,
+     "name": "?INV_GridClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x00491AD0",
      "length": 577
+    },
+    {
+     "va": "0x00492510",
+     "length": 603,
+     "name": "?INV_StashButtonDownMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00492770",
      "length": 69,
      "name": "INV_WeaponSwapKeyMsg"
+    },
+    {
+     "va": "0x004927C0",
+     "length": 550,
+     "name": "?INV_CubeButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00497C50",
@@ -21945,59 +21978,6 @@
      "length": 74,
      "name": "?SOUNDHDR_TickSound@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/inv_004886C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00488400",
-     "length": 696
-    },
-    {
-     "va": "0x004886C0",
-     "length": 454,
-     "name": "?INV_DrawButtonHoverText@@YAXXZ"
-    },
-    {
-     "va": "0x00488B00",
-     "length": 740
-    },
-    {
-     "va": "0x0048BE80",
-     "length": 471,
-     "name": "?INV_FormatArgs@@YAXPAUUnicode@@PBU1@ZZ"
-    },
-    {
-     "va": "0x004917C0",
-     "length": 372,
-     "name": "?INV_GridClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00492510",
-     "length": 603,
-     "name": "?INV_StashButtonDownMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004927C0",
-     "length": 550,
-     "name": "?INV_CubeButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
