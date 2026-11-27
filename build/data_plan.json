@@ -17721,14 +17721,14 @@
    "tail": "; // 0x0070C234"
   },
   {
-   "alias": true,
-   "cname": "gData_006DADC0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaSpiralOuterY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/SKILLS/Skills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DADC0[7]; // 0x006DADC0",
-   "head": "extern \"C\" const int gData_006DADC0[7] = ",
+   "fwd": null,
+   "head": "extern const int gaSpiralOuterY[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -17746,7 +17746,7 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DADC0\n#pragma comment(linker, \"/alternatename:?gaSpiralOuterY@@3QBHB=_gData_006DADC0\")",
+   "tail": "; // 0x006DADC0",
    "type": "int",
    "va": "0x006DADC0"
   },
@@ -17768,14 +17768,14 @@
    "va": "0x006DADDC"
   },
   {
-   "alias": true,
-   "cname": "gData_006DADE0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaSpiralOuterX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/SKILLS/Skills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DADE0[7]; // 0x006DADE0",
-   "head": "extern \"C\" const int gData_006DADE0[7] = ",
+   "fwd": null,
+   "head": "extern const int gaSpiralOuterX[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -17793,7 +17793,7 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DADE0\n#pragma comment(linker, \"/alternatename:?gaSpiralOuterX@@3QBHB=_gData_006DADE0\")",
+   "tail": "; // 0x006DADE0",
    "type": "int",
    "va": "0x006DADE0"
   },
@@ -17815,14 +17815,14 @@
    "va": "0x006DADFC"
   },
   {
-   "alias": true,
-   "cname": "gData_006DAE00",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaSpiralOuterB@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/SKILLS/Skills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DAE00[7]; // 0x006DAE00",
-   "head": "extern \"C\" const int gData_006DAE00[7] = ",
+   "fwd": null,
+   "head": "extern const int gaSpiralOuterB[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -17840,19 +17840,19 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DAE00\n#pragma comment(linker, \"/alternatename:?gaSpiralOuterB@@3QBHB=_gData_006DAE00\")",
+   "tail": "; // 0x006DAE00",
    "type": "int",
    "va": "0x006DAE00"
   },
   {
-   "alias": true,
-   "cname": "gData_006DAE1C",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaSpiralInnerY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/SKILLS/Skills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DAE1C[4]; // 0x006DAE1C",
-   "head": "extern \"C\" const int gData_006DAE1C[4] = ",
+   "fwd": null,
+   "head": "extern const int gaSpiralInnerY[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -17870,19 +17870,19 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DAE1C\n#pragma comment(linker, \"/alternatename:?gaSpiralInnerY@@3QBHB=_gData_006DAE1C\")",
+   "tail": "; // 0x006DAE1C",
    "type": "int",
    "va": "0x006DAE1C"
   },
   {
-   "alias": true,
-   "cname": "gData_006DAE2C",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaSpiralOuterA@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/SKILLS/Skills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DAE2C[7]; // 0x006DAE2C",
-   "head": "extern \"C\" const int gData_006DAE2C[7] = ",
+   "fwd": null,
+   "head": "extern const int gaSpiralOuterA[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -17900,19 +17900,19 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DAE2C\n#pragma comment(linker, \"/alternatename:?gaSpiralOuterA@@3QBHB=_gData_006DAE2C\")",
+   "tail": "; // 0x006DAE2C",
    "type": "int",
    "va": "0x006DAE2C"
   },
   {
-   "alias": true,
-   "cname": "gData_006DAE48",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaSpiralInnerX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/SKILLS/Skills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DAE48[4]; // 0x006DAE48",
-   "head": "extern \"C\" const int gData_006DAE48[4] = ",
+   "fwd": null,
+   "head": "extern const int gaSpiralInnerX[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -17930,7 +17930,7 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DAE48\n#pragma comment(linker, \"/alternatename:?gaSpiralInnerX@@3QBHB=_gData_006DAE48\")",
+   "tail": "; // 0x006DAE48",
    "type": "int",
    "va": "0x006DAE48"
   },
@@ -29980,14 +29980,14 @@
    "va": "0x006D5BE0"
   },
   {
-   "alias": true,
-   "cname": "gData_006D5BE8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaCommandLineArgs@@3QBUD2CmdArgStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/CORE/WINMAIN.CPP",
    "form": "declared",
-   "fwd": "extern \"C\" const D2CmdArgStrc gData_006D5BE8[8]; // 0x006D5BE8",
-   "head": "extern \"C\" const D2CmdArgStrc gData_006D5BE8[8] = ",
+   "fwd": null,
+   "head": "extern const D2CmdArgStrc gaCommandLineArgs[8] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -30174,7 +30174,7 @@
    "size": 128,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D5BE8\n#pragma comment(linker, \"/alternatename:?gaCommandLineArgs@@3QBUD2CmdArgStrc@@B=_gData_006D5BE8\")",
+   "tail": "; // 0x006D5BE8",
    "type": "D2CmdArgStrc",
    "va": "0x006D5BE8"
   },
@@ -32587,14 +32587,14 @@
    "va": "0x006D5F58"
   },
   {
-   "alias": true,
-   "cname": "gData_006D5F88",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gtNpcShopHotkeys@@3UD2PanelHotkeysStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/UI/ui.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2PanelHotkeysStrc gData_006D5F88; // 0x006D5F88",
-   "head": "extern \"C\" const D2PanelHotkeysStrc gData_006D5F88 = ",
+   "fwd": null,
+   "head": "extern const D2PanelHotkeysStrc gtNpcShopHotkeys = ",
    "model": {
     "k": "struct",
     "members": [
@@ -32707,7 +32707,7 @@
    "size": 36,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D5F88\n#pragma comment(linker, \"/alternatename:?gtNpcShopHotkeys@@3UD2PanelHotkeysStrc@@B=_gData_006D5F88\")",
+   "tail": "; // 0x006D5F88",
    "type": "D2PanelHotkeysStrc",
    "va": "0x006D5F88"
   },
@@ -33376,14 +33376,14 @@
    "va": "0x006D615C"
   },
   {
-   "alias": true,
-   "cname": "gData_006D618C",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gtQuestScreenHotkeys@@3UD2PanelHotkeysStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/UI/ui.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2PanelHotkeysStrc gData_006D618C; // 0x006D618C",
-   "head": "extern \"C\" const D2PanelHotkeysStrc gData_006D618C = ",
+   "fwd": null,
+   "head": "extern const D2PanelHotkeysStrc gtQuestScreenHotkeys = ",
    "model": {
     "k": "struct",
     "members": [
@@ -33496,7 +33496,7 @@
    "size": 36,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D618C\n#pragma comment(linker, \"/alternatename:?gtQuestScreenHotkeys@@3UD2PanelHotkeysStrc@@B=_gData_006D618C\")",
+   "tail": "; // 0x006D618C",
    "type": "D2PanelHotkeysStrc",
    "va": "0x006D618C"
   },
@@ -33759,14 +33759,14 @@
    "va": "0x006D621C"
   },
   {
-   "alias": true,
-   "cname": "gData_006D6234",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gtMpTradeHotkeys@@3UD2PanelHotkeysStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/UI/ui.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2PanelHotkeysStrc gData_006D6234; // 0x006D6234",
-   "head": "extern \"C\" const D2PanelHotkeysStrc gData_006D6234 = ",
+   "fwd": null,
+   "head": "extern const D2PanelHotkeysStrc gtMpTradeHotkeys = ",
    "model": {
     "k": "struct",
     "members": [
@@ -33879,19 +33879,19 @@
    "size": 36,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D6234\n#pragma comment(linker, \"/alternatename:?gtMpTradeHotkeys@@3UD2PanelHotkeysStrc@@B=_gData_006D6234\")",
+   "tail": "; // 0x006D6234",
    "type": "D2PanelHotkeysStrc",
    "va": "0x006D6234"
   },
   {
-   "alias": true,
-   "cname": "gData_006D6258",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gtStashHotkeys@@3UD2PanelHotkeysStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/UI/ui.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2PanelHotkeysStrc gData_006D6258; // 0x006D6258",
-   "head": "extern \"C\" const D2PanelHotkeysStrc gData_006D6258 = ",
+   "fwd": null,
+   "head": "extern const D2PanelHotkeysStrc gtStashHotkeys = ",
    "model": {
     "k": "struct",
     "members": [
@@ -34004,19 +34004,19 @@
    "size": 36,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D6258\n#pragma comment(linker, \"/alternatename:?gtStashHotkeys@@3UD2PanelHotkeysStrc@@B=_gData_006D6258\")",
+   "tail": "; // 0x006D6258",
    "type": "D2PanelHotkeysStrc",
    "va": "0x006D6258"
   },
   {
-   "alias": true,
-   "cname": "gData_006D627C",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gtCubeHotkeys@@3UD2PanelHotkeysStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/UI/ui.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2PanelHotkeysStrc gData_006D627C; // 0x006D627C",
-   "head": "extern \"C\" const D2PanelHotkeysStrc gData_006D627C = ",
+   "fwd": null,
+   "head": "extern const D2PanelHotkeysStrc gtCubeHotkeys = ",
    "model": {
     "k": "struct",
     "members": [
@@ -34129,19 +34129,19 @@
    "size": 36,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D627C\n#pragma comment(linker, \"/alternatename:?gtCubeHotkeys@@3UD2PanelHotkeysStrc@@B=_gData_006D627C\")",
+   "tail": "; // 0x006D627C",
    "type": "D2PanelHotkeysStrc",
    "va": "0x006D627C"
   },
   {
-   "alias": true,
-   "cname": "gData_006D62A0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gtBeltRowsHotkeys@@3UD2PanelHotkeysStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/UI/ui.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2PanelHotkeysStrc gData_006D62A0; // 0x006D62A0",
-   "head": "extern \"C\" const D2PanelHotkeysStrc gData_006D62A0 = ",
+   "fwd": null,
+   "head": "extern const D2PanelHotkeysStrc gtBeltRowsHotkeys = ",
    "model": {
     "k": "struct",
     "members": [
@@ -34254,7 +34254,7 @@
    "size": 36,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D62A0\n#pragma comment(linker, \"/alternatename:?gtBeltRowsHotkeys@@3UD2PanelHotkeysStrc@@B=_gData_006D62A0\")",
+   "tail": "; // 0x006D62A0",
    "type": "D2PanelHotkeysStrc",
    "va": "0x006D62A0"
   },
@@ -37161,14 +37161,14 @@
    "va": "0x0070F7E4"
   },
   {
-   "alias": true,
-   "cname": "gData_006D6418",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaImmunityTexts@@3QBUD2ImmunityTextStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/UI/ui.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2ImmunityTextStrc gData_006D6418[6]; // 0x006D6418",
-   "head": "extern \"C\" const D2ImmunityTextStrc gData_006D6418[6] = ",
+   "fwd": null,
+   "head": "extern const D2ImmunityTextStrc gaImmunityTexts[6] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -37217,20 +37217,20 @@
    "size": 60,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D6418\n#pragma comment(linker, \"/alternatename:?gaImmunityTexts@@3QBUD2ImmunityTextStrc@@B=_gData_006D6418\")",
+   "tail": "; // 0x006D6418",
    "type": "D2ImmunityTextStrc",
    "va": "0x006D6418"
   },
   {
-   "alias": true,
-   "cname": "gData_006D6378",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaUIVarDefaults@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UI/ui.cpp",
    "fill": 38,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006D6378[38]; // 0x006D6378",
-   "head": "extern \"C\" const int gData_006D6378[38] = ",
+   "fwd": null,
+   "head": "extern const int gaUIVarDefaults[38] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -37248,7 +37248,7 @@
    "size": 152,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D6378\n#pragma comment(linker, \"/alternatename:?gaUIVarDefaults@@3QBHB=_gData_006D6378\")",
+   "tail": "; // 0x006D6378",
    "type": "int",
    "va": "0x006D6378"
   },
@@ -38815,15 +38815,15 @@
    "va": "0x0070F858"
   },
   {
-   "alias": true,
-   "cname": "gData_006D6608",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaTownSkipCels@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UI/automap.cpp",
    "fill": 12,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006D6608[12]; // 0x006D6608",
-   "head": "extern \"C\" const int gData_006D6608[12] = ",
+   "fwd": null,
+   "head": "extern const int gaTownSkipCels[12] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -38841,19 +38841,19 @@
    "size": 48,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D6608\n#pragma comment(linker, \"/alternatename:?gaTownSkipCels@@3QBHB=_gData_006D6608\")",
+   "tail": "; // 0x006D6608",
    "type": "int",
    "va": "0x006D6608"
   },
   {
-   "alias": true,
-   "cname": "gData_006D6638",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaAutomapCross@@3QBUD2AutomapPointStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/UI/automap.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2AutomapPointStrc gData_006D6638[13]; // 0x006D6638",
-   "head": "extern \"C\" const D2AutomapPointStrc gData_006D6638[13] = ",
+   "fwd": null,
+   "head": "extern const D2AutomapPointStrc gaAutomapCross[13] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -38892,7 +38892,7 @@
    "size": 104,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D6638\n#pragma comment(linker, \"/alternatename:?gaAutomapCross@@3QBUD2AutomapPointStrc@@B=_gData_006D6638\")",
+   "tail": "; // 0x006D6638",
    "type": "D2AutomapPointStrc",
    "va": "0x006D6638"
   },
@@ -40029,14 +40029,14 @@
    "zero_tail": 4
   },
   {
-   "alias": true,
-   "cname": "gData_006D6ABC",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaUnitTypes@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/CUnit.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006D6ABC[6]; // 0x006D6ABC",
-   "head": "extern \"C\" const int gData_006D6ABC[6] = ",
+   "fwd": null,
+   "head": "extern const int gaUnitTypes[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -40054,7 +40054,7 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D6ABC\n#pragma comment(linker, \"/alternatename:?gaUnitTypes@@3QBHB=_gData_006D6ABC\")",
+   "tail": "; // 0x006D6ABC",
    "type": "int",
    "va": "0x006D6ABC"
   },
@@ -40187,15 +40187,15 @@
    "va": "0x007120EC"
   },
   {
-   "alias": true,
-   "cname": "gData_006D6AF4",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaDirectionDY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/GAME/Select.cpp",
    "fill": 8,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006D6AF4[8]; // 0x006D6AF4",
-   "head": "extern \"C\" const int gData_006D6AF4[8] = ",
+   "fwd": null,
+   "head": "extern const int gaDirectionDY[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -40213,20 +40213,20 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D6AF4\n#pragma comment(linker, \"/alternatename:?gaDirectionDY@@3QBHB=_gData_006D6AF4\")",
+   "tail": "; // 0x006D6AF4",
    "type": "int",
    "va": "0x006D6AF4"
   },
   {
-   "alias": true,
-   "cname": "gData_006D6B14",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaDirectionDX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/GAME/Select.cpp",
    "fill": 8,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006D6B14[8]; // 0x006D6B14",
-   "head": "extern \"C\" const int gData_006D6B14[8] = ",
+   "fwd": null,
+   "head": "extern const int gaDirectionDX[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -40244,20 +40244,20 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D6B14\n#pragma comment(linker, \"/alternatename:?gaDirectionDX@@3QBHB=_gData_006D6B14\")",
+   "tail": "; // 0x006D6B14",
    "type": "int",
    "va": "0x006D6B14"
   },
   {
-   "alias": true,
-   "cname": "gData_006D6B34",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaAdjacentDirOffsets@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/GAME/Select.cpp",
    "fill": 7,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006D6B34[7]; // 0x006D6B34",
-   "head": "extern \"C\" const int gData_006D6B34[7] = ",
+   "fwd": null,
+   "head": "extern const int gaAdjacentDirOffsets[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -40275,7 +40275,7 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D6B34\n#pragma comment(linker, \"/alternatename:?gaAdjacentDirOffsets@@3QBHB=_gData_006D6B34\")",
+   "tail": "; // 0x006D6B34",
    "type": "int",
    "va": "0x006D6B34"
   },
@@ -41452,15 +41452,15 @@
    "va": "0x00712B0C"
   },
   {
-   "alias": true,
-   "cname": "gData_006D6CC8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gszAsyncLoadFailed",
+   "decorated": null,
    "file": "Source/D2Client/ENGINE/Gfx_0046DB90.cpp",
    "fill": 100,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_006D6CC8[100]; // 0x006D6CC8",
-   "head": "extern \"C\" const char gData_006D6CC8[100] = ",
+   "fwd": null,
+   "head": "extern \"C\" const char gszAsyncLoadFailed[100] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -41478,7 +41478,7 @@
    "size": 100,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D6CC8\n#pragma comment(linker, \"/alternatename:_gszAsyncLoadFailed=_gData_006D6CC8\")",
+   "tail": "; // 0x006D6CC8",
    "type": "char",
    "va": "0x006D6CC8"
   },
@@ -41539,15 +41539,15 @@
    "va": "0x00712B00"
   },
   {
-   "alias": true,
-   "cname": "gData_006D6E40",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaPeriodLights@@3QBUD2PeriodLightStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_00472210.cpp",
    "fill": 4,
    "form": "declared",
-   "fwd": "extern \"C\" const D2PeriodLightStrc gData_006D6E40[4]; // 0x006D6E40",
-   "head": "extern \"C\" const D2PeriodLightStrc gData_006D6E40[4] = ",
+   "fwd": null,
+   "head": "extern const D2PeriodLightStrc gaPeriodLights[4] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -41586,7 +41586,7 @@
    "size": 8,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D6E40\n#pragma comment(linker, \"/alternatename:?gaPeriodLights@@3QBUD2PeriodLightStrc@@B=_gData_006D6E40\")",
+   "tail": "; // 0x006D6E40",
    "type": "D2PeriodLightStrc",
    "va": "0x006D6E40"
   },
@@ -43475,15 +43475,15 @@
    "zero_tail": 2
   },
   {
-   "alias": true,
-   "cname": "gData_006D72C0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gszNameAccountFormat",
+   "decorated": null,
    "file": "Source/D2Client/UI/chat.cpp",
    "fill": 12,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_006D72C0[12]; // 0x006D72C0",
-   "head": "extern \"C\" const char gData_006D72C0[12] = ",
+   "fwd": null,
+   "head": "extern \"C\" const char gszNameAccountFormat[12] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -43501,7 +43501,7 @@
    "size": 12,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D72C0\n#pragma comment(linker, \"/alternatename:_gszNameAccountFormat=_gData_006D72C0\")",
+   "tail": "; // 0x006D72C0",
    "type": "char",
    "va": "0x006D72C0"
   },
@@ -45934,15 +45934,15 @@
    "va": "0x00721C58"
   },
   {
-   "alias": true,
-   "cname": "gData_006D72B0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gszBattleNetPrefix",
+   "decorated": null,
    "file": "Source/D2Client/UI/chat.cpp",
    "fill": 14,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_006D72B0[14]; // 0x006D72B0",
-   "head": "extern \"C\" const char gData_006D72B0[14] = ",
+   "fwd": null,
+   "head": "extern \"C\" const char gszBattleNetPrefix[14] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -45960,7 +45960,7 @@
    "size": 14,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D72B0\n#pragma comment(linker, \"/alternatename:_gszBattleNetPrefix=_gData_006D72B0\")",
+   "tail": "; // 0x006D72B0",
    "type": "char",
    "va": "0x006D72B0"
   },
@@ -45982,15 +45982,15 @@
    "va": "0x00713160"
   },
   {
-   "alias": true,
-   "cname": "gData_006D74B0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gabBuiltinModule",
+   "decorated": null,
    "file": "Source/D2Client/WARDEN/WardenClient.cpp",
    "fill": 4792,
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned char gData_006D74B0[4792]; // 0x006D74B0",
-   "head": "extern \"C\" const unsigned char gData_006D74B0[4792] = ",
+   "fwd": null,
+   "head": "extern \"C\" const unsigned char gabBuiltinModule[4792] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -46008,20 +46008,20 @@
    "size": 4792,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D74B0\n#pragma comment(linker, \"/alternatename:_gabBuiltinModule=_gData_006D74B0\")",
+   "tail": "; // 0x006D74B0",
    "type": "unsigned char",
    "va": "0x006D74B0"
   },
   {
-   "alias": true,
-   "cname": "gData_006D8768",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gabBuiltinModuleKey",
+   "decorated": null,
    "file": "Source/D2Client/WARDEN/WardenClient.cpp",
    "fill": 16,
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned char gData_006D8768[16]; // 0x006D8768",
-   "head": "extern \"C\" const unsigned char gData_006D8768[16] = ",
+   "fwd": null,
+   "head": "extern \"C\" const unsigned char gabBuiltinModuleKey[16] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -46039,7 +46039,7 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D8768\n#pragma comment(linker, \"/alternatename:_gabBuiltinModuleKey=_gData_006D8768\")",
+   "tail": "; // 0x006D8768",
    "type": "unsigned char",
    "va": "0x006D8768"
   },
@@ -46073,15 +46073,15 @@
    "va": "0x006D8778"
   },
   {
-   "alias": true,
-   "cname": "gData_006D8D14",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gabExponent",
+   "decorated": null,
    "file": "Source/D2Client/WARDEN/WardenClient.cpp",
    "fill": 4,
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned char gData_006D8D14[4]; // 0x006D8D14",
-   "head": "extern \"C\" const unsigned char gData_006D8D14[4] = ",
+   "fwd": null,
+   "head": "extern \"C\" const unsigned char gabExponent[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -46099,20 +46099,20 @@
    "size": 4,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D8D14\n#pragma comment(linker, \"/alternatename:_gabExponent=_gData_006D8D14\")",
+   "tail": "; // 0x006D8D14",
    "type": "unsigned char",
    "va": "0x006D8D14"
   },
   {
-   "alias": true,
-   "cname": "gData_006D8D18",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gabModulus",
+   "decorated": null,
    "file": "Source/D2Client/WARDEN/WardenClient.cpp",
    "fill": 256,
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned char gData_006D8D18[256]; // 0x006D8D18",
-   "head": "extern \"C\" const unsigned char gData_006D8D18[256] = ",
+   "fwd": null,
+   "head": "extern \"C\" const unsigned char gabModulus[256] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -46130,7 +46130,7 @@
    "size": 256,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D8D18\n#pragma comment(linker, \"/alternatename:_gabModulus=_gData_006D8D18\")",
+   "tail": "; // 0x006D8D18",
    "type": "unsigned char",
    "va": "0x006D8D18"
   },
@@ -46352,15 +46352,15 @@
    "va": "0x00721D98"
   },
   {
-   "alias": true,
-   "cname": "gData_006D91E8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gSocketLayouts@@3QAY05$$CBUD2CoordStrc@@A",
+   "decorated": null,
    "file": "Source/D2Client/UI/inv.cpp",
    "fill": 48,
    "form": "declared",
-   "fwd": "extern \"C\" const D2CoordStrc gData_006D91E8[48][6]; // 0x006D91E8",
-   "head": "extern \"C\" const D2CoordStrc gData_006D91E8[48][6] = ",
+   "fwd": null,
+   "head": "extern const D2CoordStrc gSocketLayouts[48][6] = ",
    "model": {
     "elem": {
      "elem": {
@@ -46404,7 +46404,7 @@
    "size": 2304,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006D91E8\n#pragma comment(linker, \"/alternatename:?gSocketLayouts@@3QAY05$$CBUD2CoordStrc@@A=_gData_006D91E8\")",
+   "tail": "; // 0x006D91E8",
    "type": "D2CoordStrc",
    "va": "0x006D91E8"
   },
@@ -48896,15 +48896,15 @@
    "va": "0x007274AC"
   },
   {
-   "alias": true,
-   "cname": "gData_006DA194",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gszFormatSound",
+   "decorated": null,
    "file": "Source/D2Client/UI/text.cpp",
    "fill": 8,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_006DA194[8]; // 0x006DA194",
-   "head": "extern \"C\" const char gData_006DA194[8] = ",
+   "fwd": null,
+   "head": "extern \"C\" const char gszFormatSound[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -48922,7 +48922,7 @@
    "size": 8,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DA194\n#pragma comment(linker, \"/alternatename:_gszFormatSound=_gData_006DA194\")",
+   "tail": "; // 0x006DA194",
    "type": "char",
    "va": "0x006DA194"
   },
@@ -51052,15 +51052,15 @@
    "va": "0x00724264"
   },
   {
-   "alias": true,
-   "cname": "gData_006DA5DC",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaRandomCurseSkills@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Monster.cpp",
    "fill": 5,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DA5DC[5]; // 0x006DA5DC",
-   "head": "extern \"C\" const int gData_006DA5DC[5] = ",
+   "fwd": null,
+   "head": "extern const int gaRandomCurseSkills[5] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -51078,20 +51078,20 @@
    "size": 20,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DA5DC\n#pragma comment(linker, \"/alternatename:?gaRandomCurseSkills@@3QBHB=_gData_006DA5DC\")",
+   "tail": "; // 0x006DA5DC",
    "type": "int",
    "va": "0x006DA5DC"
   },
   {
-   "alias": true,
-   "cname": "gData_006DA5F0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaBloodOffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Monster.cpp",
    "fill": 8,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DA5F0[8]; // 0x006DA5F0",
-   "head": "extern \"C\" const int gData_006DA5F0[8] = ",
+   "fwd": null,
+   "head": "extern const int gaBloodOffsetY[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -51109,20 +51109,20 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DA5F0\n#pragma comment(linker, \"/alternatename:?gaBloodOffsetY@@3QBHB=_gData_006DA5F0\")",
+   "tail": "; // 0x006DA5F0",
    "type": "int",
    "va": "0x006DA5F0"
   },
   {
-   "alias": true,
-   "cname": "gData_006DA610",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaBloodOffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Monster.cpp",
    "fill": 8,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DA610[8]; // 0x006DA610",
-   "head": "extern \"C\" const int gData_006DA610[8] = ",
+   "fwd": null,
+   "head": "extern const int gaBloodOffsetX[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -51140,7 +51140,7 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DA610\n#pragma comment(linker, \"/alternatename:?gaBloodOffsetX@@3QBHB=_gData_006DA610\")",
+   "tail": "; // 0x006DA610",
    "type": "int",
    "va": "0x006DA610"
   },
@@ -51647,15 +51647,15 @@
    "va": "0x00724BEC"
   },
   {
-   "alias": true,
-   "cname": "gData_006DA488",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaHoverModes@@3QBUD2HoverModeStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/MonUnique.cpp",
    "fill": 5,
    "form": "declared",
-   "fwd": "extern \"C\" const D2HoverModeStrc gData_006DA488[5]; // 0x006DA488",
-   "head": "extern \"C\" const D2HoverModeStrc gData_006DA488[5] = ",
+   "fwd": null,
+   "head": "extern const D2HoverModeStrc gaHoverModes[5] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -51694,19 +51694,19 @@
    "size": 40,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DA488\n#pragma comment(linker, \"/alternatename:?gaHoverModes@@3QBUD2HoverModeStrc@@B=_gData_006DA488\")",
+   "tail": "; // 0x006DA488",
    "type": "D2HoverModeStrc",
    "va": "0x006DA488"
   },
   {
-   "alias": true,
-   "cname": "gData_006DA4C8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaUModList@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/MonUnique.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DA4C8[4]; // 0x006DA4C8",
-   "head": "extern \"C\" const int gData_006DA4C8[4] = ",
+   "fwd": null,
+   "head": "extern const int gaUModList[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -51724,7 +51724,7 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DA4C8\n#pragma comment(linker, \"/alternatename:?gaUModList@@3QBHB=_gData_006DA4C8\")",
+   "tail": "; // 0x006DA4C8",
    "type": "int",
    "va": "0x006DA4C8"
   },
@@ -57706,15 +57706,15 @@
    "va": "0x00727950"
   },
   {
-   "alias": true,
-   "cname": "gData_006DAB64",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gszShowItems",
+   "decorated": null,
    "file": "Source/D2Client/UI/showitems.cpp",
    "fill": 20,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_006DAB64[20]; // 0x006DAB64",
-   "head": "extern \"C\" const char gData_006DAB64[20] = ",
+   "fwd": null,
+   "head": "extern \"C\" const char gszShowItems[20] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -57732,19 +57732,19 @@
    "size": 20,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DAB64\n#pragma comment(linker, \"/alternatename:_gszShowItems=_gData_006DAB64\")",
+   "tail": "; // 0x006DAB64",
    "type": "char",
    "va": "0x006DAB64"
   },
   {
-   "alias": true,
-   "cname": "gData_006DABC0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaRingTargetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/SKILLS/Skills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DABC0[64]; // 0x006DABC0",
-   "head": "extern \"C\" const int gData_006DABC0[64] = ",
+   "fwd": null,
+   "head": "extern const int gaRingTargetY[64] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -57762,19 +57762,19 @@
    "size": 256,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DABC0\n#pragma comment(linker, \"/alternatename:?gaRingTargetY@@3QBHB=_gData_006DABC0\")",
+   "tail": "; // 0x006DABC0",
    "type": "int",
    "va": "0x006DABC0"
   },
   {
-   "alias": true,
-   "cname": "gData_006DACC0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaRingTargetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/SKILLS/Skills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DACC0[64]; // 0x006DACC0",
-   "head": "extern \"C\" const int gData_006DACC0[64] = ",
+   "fwd": null,
+   "head": "extern const int gaRingTargetX[64] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -57792,7 +57792,7 @@
    "size": 256,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DACC0\n#pragma comment(linker, \"/alternatename:?gaRingTargetX@@3QBHB=_gData_006DACC0\")",
+   "tail": "; // 0x006DACC0",
    "type": "int",
    "va": "0x006DACC0"
   },
@@ -59216,14 +59216,14 @@
    "va": "0x00727A90"
   },
   {
-   "alias": true,
-   "cname": "gData_006DAE88",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaMissileAroundOffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_004C9420.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DAE88[8]; // 0x006DAE88",
-   "head": "extern \"C\" const int gData_006DAE88[8] = ",
+   "fwd": null,
+   "head": "extern const int gaMissileAroundOffsetY[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -59241,19 +59241,19 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DAE88\n#pragma comment(linker, \"/alternatename:?gaMissileAroundOffsetY@@3QBHB=_gData_006DAE88\")",
+   "tail": "; // 0x006DAE88",
    "type": "int",
    "va": "0x006DAE88"
   },
   {
-   "alias": true,
-   "cname": "gData_006DAEA8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaMissileAroundOffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_004C9420.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DAEA8[8]; // 0x006DAEA8",
-   "head": "extern \"C\" const int gData_006DAEA8[8] = ",
+   "fwd": null,
+   "head": "extern const int gaMissileAroundOffsetX[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -59271,19 +59271,19 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DAEA8\n#pragma comment(linker, \"/alternatename:?gaMissileAroundOffsetX@@3QBHB=_gData_006DAEA8\")",
+   "tail": "; // 0x006DAEA8",
    "type": "int",
    "va": "0x006DAEA8"
   },
   {
-   "alias": true,
-   "cname": "gData_006DAF08",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaEffectRingOffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DAF08[16]; // 0x006DAF08",
-   "head": "extern \"C\" const int gData_006DAF08[16] = ",
+   "fwd": null,
+   "head": "extern const int gaEffectRingOffsetY[16] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -59301,19 +59301,19 @@
    "size": 64,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DAF08\n#pragma comment(linker, \"/alternatename:?gaEffectRingOffsetY@@3QBHB=_gData_006DAF08\")",
+   "tail": "; // 0x006DAF08",
    "type": "int",
    "va": "0x006DAF08"
   },
   {
-   "alias": true,
-   "cname": "gData_006DAF48",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaEffectRingOffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DAF48[16]; // 0x006DAF48",
-   "head": "extern \"C\" const int gData_006DAF48[16] = ",
+   "fwd": null,
+   "head": "extern const int gaEffectRingOffsetX[16] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -59331,7 +59331,7 @@
    "size": 64,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DAF48\n#pragma comment(linker, \"/alternatename:?gaEffectRingOffsetX@@3QBHB=_gData_006DAF48\")",
+   "tail": "; // 0x006DAF48",
    "type": "int",
    "va": "0x006DAF48"
   },
@@ -59855,14 +59855,14 @@
    "va": "0x0072A300"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB5D0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaCltDoRingOffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DB5D0[64]; // 0x006DB5D0",
-   "head": "extern \"C\" const int gData_006DB5D0[64] = ",
+   "fwd": null,
+   "head": "extern const int gaCltDoRingOffsetY[64] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -59880,19 +59880,19 @@
    "size": 256,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB5D0\n#pragma comment(linker, \"/alternatename:?gaCltDoRingOffsetY@@3QBHB=_gData_006DB5D0\")",
+   "tail": "; // 0x006DB5D0",
    "type": "int",
    "va": "0x006DB5D0"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB6D0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaCltDoRingOffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DB6D0[64]; // 0x006DB6D0",
-   "head": "extern \"C\" const int gData_006DB6D0[64] = ",
+   "fwd": null,
+   "head": "extern const int gaCltDoRingOffsetX[64] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -59910,19 +59910,19 @@
    "size": 256,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB6D0\n#pragma comment(linker, \"/alternatename:?gaCltDoRingOffsetX@@3QBHB=_gData_006DB6D0\")",
+   "tail": "; // 0x006DB6D0",
    "type": "int",
    "va": "0x006DB6D0"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB7D0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaQuadOffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DB7D0[4]; // 0x006DB7D0",
-   "head": "extern \"C\" const int gData_006DB7D0[4] = ",
+   "fwd": null,
+   "head": "extern const int gaQuadOffsetY[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -59940,19 +59940,19 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB7D0\n#pragma comment(linker, \"/alternatename:?gaQuadOffsetY@@3QBHB=_gData_006DB7D0\")",
+   "tail": "; // 0x006DB7D0",
    "type": "int",
    "va": "0x006DB7D0"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB7E0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaQuadOffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DB7E0[4]; // 0x006DB7E0",
-   "head": "extern \"C\" const int gData_006DB7E0[4] = ",
+   "fwd": null,
+   "head": "extern const int gaQuadOffsetX[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -59970,7 +59970,7 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB7E0\n#pragma comment(linker, \"/alternatename:?gaQuadOffsetX@@3QBHB=_gData_006DB7E0\")",
+   "tail": "; // 0x006DB7E0",
    "type": "int",
    "va": "0x006DB7E0"
   },
@@ -59992,14 +59992,14 @@
    "va": "0x006DB7F0"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB848",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaCltRateTable@@3QBUD2CltRateStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2CltRateStrc gData_006DB848[6]; // 0x006DB848",
-   "head": "extern \"C\" const D2CltRateStrc gData_006DB848[6] = ",
+   "fwd": null,
+   "head": "extern const D2CltRateStrc gaCltRateTable[6] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -60048,19 +60048,19 @@
    "size": 72,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB848\n#pragma comment(linker, \"/alternatename:?gaCltRateTable@@3QBUD2CltRateStrc@@B=_gData_006DB848\")",
+   "tail": "; // 0x006DB848",
    "type": "D2CltRateStrc",
    "va": "0x006DB848"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB890",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaCltRateJitter@@3QBUD2CltRateStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2CltRateStrc gData_006DB890[4]; // 0x006DB890",
-   "head": "extern \"C\" const D2CltRateStrc gData_006DB890[4] = ",
+   "fwd": null,
+   "head": "extern const D2CltRateStrc gaCltRateJitter[4] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -60109,7 +60109,7 @@
    "size": 48,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB890\n#pragma comment(linker, \"/alternatename:?gaCltRateJitter@@3QBUD2CltRateStrc@@B=_gData_006DB890\")",
+   "tail": "; // 0x006DB890",
    "type": "D2CltRateStrc",
    "va": "0x006DB890"
   },
@@ -64158,14 +64158,14 @@
    "va": "0x0072A348"
   },
   {
-   "alias": true,
-   "cname": "gData_006DAF88",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaCltHitRingOffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DAF88[8]; // 0x006DAF88",
-   "head": "extern \"C\" const int gData_006DAF88[8] = ",
+   "fwd": null,
+   "head": "extern const int gaCltHitRingOffsetY[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -64183,19 +64183,19 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DAF88\n#pragma comment(linker, \"/alternatename:?gaCltHitRingOffsetY@@3QBHB=_gData_006DAF88\")",
+   "tail": "; // 0x006DAF88",
    "type": "int",
    "va": "0x006DAF88"
   },
   {
-   "alias": true,
-   "cname": "gData_006DAFA8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaCltHitRingOffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DAFA8[8]; // 0x006DAFA8",
-   "head": "extern \"C\" const int gData_006DAFA8[8] = ",
+   "fwd": null,
+   "head": "extern const int gaCltHitRingOffsetX[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -64213,19 +64213,19 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DAFA8\n#pragma comment(linker, \"/alternatename:?gaCltHitRingOffsetX@@3QBHB=_gData_006DAFA8\")",
+   "tail": "; // 0x006DAFA8",
    "type": "int",
    "va": "0x006DAFA8"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB140",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaHitRing64OffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DB140[64]; // 0x006DB140",
-   "head": "extern \"C\" const int gData_006DB140[64] = ",
+   "fwd": null,
+   "head": "extern const int gaHitRing64OffsetY[64] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -64243,19 +64243,19 @@
    "size": 256,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB140\n#pragma comment(linker, \"/alternatename:?gaHitRing64OffsetY@@3QBHB=_gData_006DB140\")",
+   "tail": "; // 0x006DB140",
    "type": "int",
    "va": "0x006DB140"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB240",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaHitRing64OffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DB240[64]; // 0x006DB240",
-   "head": "extern \"C\" const int gData_006DB240[64] = ",
+   "fwd": null,
+   "head": "extern const int gaHitRing64OffsetX[64] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -64273,19 +64273,19 @@
    "size": 256,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB240\n#pragma comment(linker, \"/alternatename:?gaHitRing64OffsetX@@3QBHB=_gData_006DB240\")",
+   "tail": "; // 0x006DB240",
    "type": "int",
    "va": "0x006DB240"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB340",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaRingOffsetY_006DB340@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DB340[64]; // 0x006DB340",
-   "head": "extern \"C\" const int gData_006DB340[64] = ",
+   "fwd": null,
+   "head": "extern const int gaRingOffsetY_006DB340[64] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -64303,19 +64303,19 @@
    "size": 256,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB340\n#pragma comment(linker, \"/alternatename:?gaRingOffsetY_006DB340@@3QBHB=_gData_006DB340\")",
+   "tail": "; // 0x006DB340",
    "type": "int",
    "va": "0x006DB340"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB440",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaRingOffsetX_006DB440@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DB440[64]; // 0x006DB440",
-   "head": "extern \"C\" const int gData_006DB440[64] = ",
+   "fwd": null,
+   "head": "extern const int gaRingOffsetX_006DB440[64] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -64333,19 +64333,19 @@
    "size": 256,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB440\n#pragma comment(linker, \"/alternatename:?gaRingOffsetX_006DB440@@3QBHB=_gData_006DB440\")",
+   "tail": "; // 0x006DB440",
    "type": "int",
    "va": "0x006DB440"
   },
   {
-   "alias": true,
-   "cname": "gData_006DAFC8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaCltHitOffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DAFC8[8]; // 0x006DAFC8",
-   "head": "extern \"C\" const int gData_006DAFC8[8] = ",
+   "fwd": null,
+   "head": "extern const int gaCltHitOffsetX[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -64363,19 +64363,19 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DAFC8\n#pragma comment(linker, \"/alternatename:?gaCltHitOffsetX@@3QBHB=_gData_006DAFC8\")",
+   "tail": "; // 0x006DAFC8",
    "type": "int",
    "va": "0x006DAFC8"
   },
   {
-   "alias": true,
-   "cname": "gData_006DAFE8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaCltHitOffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DAFE8[8]; // 0x006DAFE8",
-   "head": "extern \"C\" const int gData_006DAFE8[8] = ",
+   "fwd": null,
+   "head": "extern const int gaCltHitOffsetY[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -64393,19 +64393,19 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DAFE8\n#pragma comment(linker, \"/alternatename:?gaCltHitOffsetY@@3QBHB=_gData_006DAFE8\")",
+   "tail": "; // 0x006DAFE8",
    "type": "int",
    "va": "0x006DAFE8"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB008",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaCltHitPatterns@@3QBUD2CltHitPatternStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2CltHitPatternStrc gData_006DB008[3]; // 0x006DB008",
-   "head": "extern \"C\" const D2CltHitPatternStrc gData_006DB008[3] = ",
+   "fwd": null,
+   "head": "extern const D2CltHitPatternStrc gaCltHitPatterns[3] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -64449,21 +64449,21 @@
    "size": 60,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB008\n#pragma comment(linker, \"/alternatename:?gaCltHitPatterns@@3QBUD2CltHitPatternStrc@@B=_gData_006DB008\")",
+   "tail": "; // 0x006DB008",
    "type": "D2CltHitPatternStrc",
    "va": "0x006DB008",
    "zero_tail": 4
   },
   {
-   "alias": true,
-   "cname": "gData_006DB048",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaRing18OffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "fill": 18,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DB048[18]; // 0x006DB048",
-   "head": "extern \"C\" const int gData_006DB048[18] = ",
+   "fwd": null,
+   "head": "extern const int gaRing18OffsetY[18] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -64481,20 +64481,20 @@
    "size": 72,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB048\n#pragma comment(linker, \"/alternatename:?gaRing18OffsetY@@3QBHB=_gData_006DB048\")",
+   "tail": "; // 0x006DB048",
    "type": "int",
    "va": "0x006DB048"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB090",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaRing18OffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "fill": 18,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DB090[18]; // 0x006DB090",
-   "head": "extern \"C\" const int gData_006DB090[18] = ",
+   "fwd": null,
+   "head": "extern const int gaRing18OffsetX[18] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -64512,20 +64512,20 @@
    "size": 72,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB090\n#pragma comment(linker, \"/alternatename:?gaRing18OffsetX@@3QBHB=_gData_006DB090\")",
+   "tail": "; // 0x006DB090",
    "type": "int",
    "va": "0x006DB090"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB0D8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaRing5OffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "fill": 5,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DB0D8[5]; // 0x006DB0D8",
-   "head": "extern \"C\" const int gData_006DB0D8[5] = ",
+   "fwd": null,
+   "head": "extern const int gaRing5OffsetY[5] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -64543,20 +64543,20 @@
    "size": 20,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB0D8\n#pragma comment(linker, \"/alternatename:?gaRing5OffsetY@@3QBHB=_gData_006DB0D8\")",
+   "tail": "; // 0x006DB0D8",
    "type": "int",
    "va": "0x006DB0D8"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB0EC",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaRing5OffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "fill": 5,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DB0EC[5]; // 0x006DB0EC",
-   "head": "extern \"C\" const int gData_006DB0EC[5] = ",
+   "fwd": null,
+   "head": "extern const int gaRing5OffsetX[5] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -64574,7 +64574,7 @@
    "size": 20,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB0EC\n#pragma comment(linker, \"/alternatename:?gaRing5OffsetX@@3QBHB=_gData_006DB0EC\")",
+   "tail": "; // 0x006DB0EC",
    "type": "int",
    "va": "0x006DB0EC"
   },
@@ -64641,15 +64641,15 @@
    "va": "0x006DB120"
   },
   {
-   "alias": true,
-   "cname": "gData_0072A33C",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaCollisionBurstMissiles@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "fill": 3,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_0072A33C[3]; // 0x0072A33C",
-   "head": "extern \"C\" const int gData_0072A33C[3] = ",
+   "fwd": null,
+   "head": "extern const int gaCollisionBurstMissiles[3] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -64667,19 +64667,19 @@
    "size": 12,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x0072A33C\n#pragma comment(linker, \"/alternatename:?gaCollisionBurstMissiles@@3QBHB=_gData_0072A33C\")",
+   "tail": "; // 0x0072A33C",
    "type": "int",
    "va": "0x0072A33C"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB540",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaHitRingX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DB540[18]; // 0x006DB540",
-   "head": "extern \"C\" const int gData_006DB540[18] = ",
+   "fwd": null,
+   "head": "extern const int gaHitRingX[18] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -64697,19 +64697,19 @@
    "size": 72,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB540\n#pragma comment(linker, \"/alternatename:?gaHitRingX@@3QBHB=_gData_006DB540\")",
+   "tail": "; // 0x006DB540",
    "type": "int",
    "va": "0x006DB540"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB588",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaHitRingY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DB588[18]; // 0x006DB588",
-   "head": "extern \"C\" const int gData_006DB588[18] = ",
+   "fwd": null,
+   "head": "extern const int gaHitRingY[18] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -64727,7 +64727,7 @@
    "size": 72,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB588\n#pragma comment(linker, \"/alternatename:?gaHitRingY@@3QBHB=_gData_006DB588\")",
+   "tail": "; // 0x006DB588",
    "type": "int",
    "va": "0x006DB588"
   },
@@ -65921,14 +65921,14 @@
    "va": "0x006DB7F8"
   },
   {
-   "alias": true,
-   "cname": "gData_006DB8CC",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaScatterRates@@3QBUD2ScatterRateStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2ScatterRateStrc gData_006DB8CC[4]; // 0x006DB8CC",
-   "head": "extern \"C\" const D2ScatterRateStrc gData_006DB8CC[4] = ",
+   "fwd": null,
+   "head": "extern const D2ScatterRateStrc gaScatterRates[4] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -65977,7 +65977,7 @@
    "size": 48,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DB8CC\n#pragma comment(linker, \"/alternatename:?gaScatterRates@@3QBUD2ScatterRateStrc@@B=_gData_006DB8CC\")",
+   "tail": "; // 0x006DB8CC",
    "type": "D2ScatterRateStrc",
    "va": "0x006DB8CC"
   },
@@ -66060,14 +66060,14 @@
    "va": "0x006DB908"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBA08",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gabFrameDirections@@3QAY08$$CBEA",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/PlrSkills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned char gData_006DBA08[8][9]; // 0x006DBA08",
-   "head": "extern \"C\" const unsigned char gData_006DBA08[8][9] = ",
+   "fwd": null,
+   "head": "extern const unsigned char gabFrameDirections[8][9] = ",
    "model": {
     "elem": {
      "elem": {
@@ -66090,19 +66090,19 @@
    "size": 72,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBA08\n#pragma comment(linker, \"/alternatename:?gabFrameDirections@@3QAY08$$CBEA=_gData_006DBA08\")",
+   "tail": "; // 0x006DBA08",
    "type": "unsigned char",
    "va": "0x006DBA08"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBA50",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gabBaseDirections@@3QBEB",
+   "decorated": null,
    "file": "Source/D2Client/UNIT/PlrSkills.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned char gData_006DBA50[8]; // 0x006DBA50",
-   "head": "extern \"C\" const unsigned char gData_006DBA50[8] = ",
+   "fwd": null,
+   "head": "extern const unsigned char gabBaseDirections[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -66120,7 +66120,7 @@
    "size": 8,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBA50\n#pragma comment(linker, \"/alternatename:?gabBaseDirections@@3QBEB=_gData_006DBA50\")",
+   "tail": "; // 0x006DBA50",
    "type": "unsigned char",
    "va": "0x006DBA50"
   },
@@ -67865,14 +67865,14 @@
    "va": "0x0072ABC8"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBA58",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaDirection4@@3QBEB",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_004DF1C0.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned char gData_006DBA58[4]; // 0x006DBA58",
-   "head": "extern \"C\" const unsigned char gData_006DBA58[4] = ",
+   "fwd": null,
+   "head": "extern const unsigned char gaDirection4[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -67890,20 +67890,20 @@
    "size": 4,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBA58\n#pragma comment(linker, \"/alternatename:?gaDirection4@@3QBEB=_gData_006DBA58\")",
+   "tail": "; // 0x006DBA58",
    "type": "unsigned char",
    "va": "0x006DBA58",
    "zero_tail": 4
   },
   {
-   "alias": true,
-   "cname": "gData_006DBA60",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaDirection64To4@@3QBEB",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_004DF1C0.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned char gData_006DBA60[64]; // 0x006DBA60",
-   "head": "extern \"C\" const unsigned char gData_006DBA60[64] = ",
+   "fwd": null,
+   "head": "extern const unsigned char gaDirection64To4[64] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -67921,7 +67921,7 @@
    "size": 64,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBA60\n#pragma comment(linker, \"/alternatename:?gaDirection64To4@@3QBEB=_gData_006DBA60\")",
+   "tail": "; // 0x006DBA60",
    "type": "unsigned char",
    "va": "0x006DBA60"
   },
@@ -68950,15 +68950,15 @@
    "va": "0x0072CDC8"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBAA0",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaMissileVelocityPair@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_004DF4B0.cpp",
    "fill": 6,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DBAA0[6]; // 0x006DBAA0",
-   "head": "extern \"C\" const int gData_006DBAA0[6] = ",
+   "fwd": null,
+   "head": "extern const int gaMissileVelocityPair[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -68976,20 +68976,20 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBAA0\n#pragma comment(linker, \"/alternatename:?gaMissileVelocityPair@@3QBHB=_gData_006DBAA0\")",
+   "tail": "; // 0x006DBAA0",
    "type": "int",
    "va": "0x006DBAA0"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBB38",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaMissileVelocityCharged@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_004DF4B0.cpp",
    "fill": 5,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DBB38[5]; // 0x006DBB38",
-   "head": "extern \"C\" const int gData_006DBB38[5] = ",
+   "fwd": null,
+   "head": "extern const int gaMissileVelocityCharged[5] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -69007,19 +69007,19 @@
    "size": 20,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBB38\n#pragma comment(linker, \"/alternatename:?gaMissileVelocityCharged@@3QBHB=_gData_006DBB38\")",
+   "tail": "; // 0x006DBB38",
    "type": "int",
    "va": "0x006DBB38"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBAB8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaSkillRingOffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_004E1770.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DBAB8[16]; // 0x006DBAB8",
-   "head": "extern \"C\" const int gData_006DBAB8[16] = ",
+   "fwd": null,
+   "head": "extern const int gaSkillRingOffsetY[16] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -69037,19 +69037,19 @@
    "size": 64,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBAB8\n#pragma comment(linker, \"/alternatename:?gaSkillRingOffsetY@@3QBHB=_gData_006DBAB8\")",
+   "tail": "; // 0x006DBAB8",
    "type": "int",
    "va": "0x006DBAB8"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBAF8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaSkillRingOffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_004E1770.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DBAF8[16]; // 0x006DBAF8",
-   "head": "extern \"C\" const int gData_006DBAF8[16] = ",
+   "fwd": null,
+   "head": "extern const int gaSkillRingOffsetX[16] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -69067,7 +69067,7 @@
    "size": 64,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBAF8\n#pragma comment(linker, \"/alternatename:?gaSkillRingOffsetX@@3QBHB=_gData_006DBAF8\")",
+   "tail": "; // 0x006DBAF8",
    "type": "int",
    "va": "0x006DBAF8"
   },
@@ -69198,14 +69198,14 @@
    "va": "0x00744304"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBD90",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaSetMaskToBonusMappingTable@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UI/SkillDesc_004E1FF0.cpp",
    "form": "declared_owner",
-   "fwd": "extern \"C\" const int gData_006DBD90[0x40]; // 0x006DBD90",
-   "head": "extern \"C\" const int gData_006DBD90[0x40] = ",
+   "fwd": null,
+   "head": "extern const int gaSetMaskToBonusMappingTable[0x40] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -69223,7 +69223,7 @@
    "size": 256,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBD90\n#pragma comment(linker, \"/alternatename:?gaSetMaskToBonusMappingTable@@3QBHB=_gData_006DBD90\")",
+   "tail": "; // 0x006DBD90",
    "type": "int",
    "va": "0x006DBD90"
   },
@@ -69887,15 +69887,15 @@
    "va": "0x0072D6C0"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBD88",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gawPeriodOfDayStr@@3QBGB",
+   "decorated": null,
    "file": "Source/D2Client/UI/SkillDesc.cpp",
    "fill": 4,
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned short gData_006DBD88[4]; // 0x006DBD88",
-   "head": "extern \"C\" const unsigned short gData_006DBD88[4] = ",
+   "fwd": null,
+   "head": "extern const unsigned short gawPeriodOfDayStr[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -69913,7 +69913,7 @@
    "size": 8,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBD88\n#pragma comment(linker, \"/alternatename:?gawPeriodOfDayStr@@3QBGB=_gData_006DBD88\")",
+   "tail": "; // 0x006DBD88",
    "type": "unsigned short",
    "va": "0x006DBD88"
   },
@@ -70081,14 +70081,14 @@
    "va": "0x0072D724"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBEE4",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaElemDamageColors@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_004E89A0.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DBEE4[4]; // 0x006DBEE4",
-   "head": "extern \"C\" const int gData_006DBEE4[4] = ",
+   "fwd": null,
+   "head": "extern const int gaElemDamageColors[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -70106,19 +70106,19 @@
    "size": 16,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBEE4\n#pragma comment(linker, \"/alternatename:?gaElemDamageColors@@3QBHB=_gData_006DBEE4\")",
+   "tail": "; // 0x006DBEE4",
    "type": "int",
    "va": "0x006DBEE4"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBEF4",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaElemDamageStats@@3QBUD2ElemDamageStatsStrc@@B",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_004E89A0.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2ElemDamageStatsStrc gData_006DBEF4[4]; // 0x006DBEF4",
-   "head": "extern \"C\" const D2ElemDamageStatsStrc gData_006DBEF4[4] = ",
+   "fwd": null,
+   "head": "extern const D2ElemDamageStatsStrc gaElemDamageStats[4] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -70167,20 +70167,20 @@
    "size": 48,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBEF4\n#pragma comment(linker, \"/alternatename:?gaElemDamageStats@@3QBUD2ElemDamageStatsStrc@@B=_gData_006DBEF4\")",
+   "tail": "; // 0x006DBEF4",
    "type": "D2ElemDamageStatsStrc",
    "va": "0x006DBEF4"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBF24",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gszSkillDescFile",
+   "decorated": null,
    "file": "Source/D2Client/UI/SkillDesc.cpp",
    "fill": 19,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_006DBF24[19]; // 0x006DBF24",
-   "head": "extern \"C\" const char gData_006DBF24[19] = ",
+   "fwd": null,
+   "head": "extern \"C\" const char gszSkillDescFile[19] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -70198,7 +70198,7 @@
    "size": 19,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBF24\n#pragma comment(linker, \"/alternatename:_gszSkillDescFile=_gData_006DBF24\")",
+   "tail": "; // 0x006DBF24",
    "type": "char",
    "va": "0x006DBF24"
   },
@@ -70595,15 +70595,15 @@
    "va": "0x006DBF70"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBF90",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gszSkillsEMonCpp",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_004EDA80.cpp",
    "fill": 24,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_006DBF90[24]; // 0x006DBF90",
-   "head": "extern \"C\" const char gData_006DBF90[24] = ",
+   "fwd": null,
+   "head": "extern \"C\" const char gszSkillsEMonCpp[24] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -70621,19 +70621,19 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBF90\n#pragma comment(linker, \"/alternatename:_gszSkillsEMonCpp=_gData_006DBF90\")",
+   "tail": "; // 0x006DBF90",
    "type": "char",
    "va": "0x006DBF90"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBF38",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaLobVelocityBonus@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UI/SkillDesc.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DBF38[5]; // 0x006DBF38",
-   "head": "extern \"C\" const int gData_006DBF38[5] = ",
+   "fwd": null,
+   "head": "extern const int gaLobVelocityBonus[5] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -70651,7 +70651,7 @@
    "size": 20,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBF38\n#pragma comment(linker, \"/alternatename:?gaLobVelocityBonus@@3QBHB=_gData_006DBF38\")",
+   "tail": "; // 0x006DBF38",
    "type": "int",
    "va": "0x006DBF38",
    "zero_tail": 4
@@ -70781,14 +70781,14 @@
    "va": "0x006DC328"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBFA8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaSprayOffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UI/SkillDesc.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DBFA8[8]; // 0x006DBFA8",
-   "head": "extern \"C\" const int gData_006DBFA8[8] = ",
+   "fwd": null,
+   "head": "extern const int gaSprayOffsetX[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -70806,19 +70806,19 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBFA8\n#pragma comment(linker, \"/alternatename:?gaSprayOffsetX@@3QBHB=_gData_006DBFA8\")",
+   "tail": "; // 0x006DBFA8",
    "type": "int",
    "va": "0x006DBFA8"
   },
   {
-   "alias": true,
-   "cname": "gData_006DBFC8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaSprayOffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UI/SkillDesc.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DBFC8[8]; // 0x006DBFC8",
-   "head": "extern \"C\" const int gData_006DBFC8[8] = ",
+   "fwd": null,
+   "head": "extern const int gaSprayOffsetY[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -70836,20 +70836,20 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DBFC8\n#pragma comment(linker, \"/alternatename:?gaSprayOffsetY@@3QBHB=_gData_006DBFC8\")",
+   "tail": "; // 0x006DBFC8",
    "type": "int",
    "va": "0x006DBFC8"
   },
   {
-   "alias": true,
-   "cname": "gData_006DC1E8",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaCurvingPathOffsetY@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UI/SkillDesc.cpp",
    "fill": 8,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DC1E8[8]; // 0x006DC1E8",
-   "head": "extern \"C\" const int gData_006DC1E8[8] = ",
+   "fwd": null,
+   "head": "extern const int gaCurvingPathOffsetY[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -70867,20 +70867,20 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DC1E8\n#pragma comment(linker, \"/alternatename:?gaCurvingPathOffsetY@@3QBHB=_gData_006DC1E8\")",
+   "tail": "; // 0x006DC1E8",
    "type": "int",
    "va": "0x006DC1E8"
   },
   {
-   "alias": true,
-   "cname": "gData_006DC208",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "?gaCurvingPathOffsetX@@3QBHB",
+   "decorated": null,
    "file": "Source/D2Client/UI/SkillDesc.cpp",
    "fill": 8,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006DC208[8]; // 0x006DC208",
-   "head": "extern \"C\" const int gData_006DC208[8] = ",
+   "fwd": null,
+   "head": "extern const int gaCurvingPathOffsetX[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -70898,7 +70898,7 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006DC208\n#pragma comment(linker, \"/alternatename:?gaCurvingPathOffsetX@@3QBHB=_gData_006DC208\")",
+   "tail": "; // 0x006DC208",
    "type": "int",
    "va": "0x006DC208"
   },
