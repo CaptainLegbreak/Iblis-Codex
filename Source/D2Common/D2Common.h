@@ -118,7 +118,8 @@ extern const int gnPreviousDirection2[16]; // 0x006F1E80
 extern const int gnSetItemStates[]; // 0x006EDB40
 extern const int gnSetItemStatlistFlags[]; // 0x006EDB5C
 extern const int gnSetItemsCount[]; // 0x006EDA40
-extern const int gnOrthogonalStepTable[][9]; // 0x006EB490
+// Snap offsets indexed by [delta + PATH_SNAP_CENTER], delta in -4..4
+extern const int gaOffsetsForSnappingToCardinalDirection[][9]; // 0x006EB3F0
 extern const int gnWallRemapIndices[]; // 0x006EF620
 extern const int gnWallTileTypeRemap[6][7]; // 0x006EF578
 extern int DATATBLS_LoadFromBin; // 0x00744308
@@ -361,6 +362,7 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
     }                                                                           \
     break;
 #define PATH_SNAP_RANGE 5
+#define PATH_SNAP_CENTER (PATH_SNAP_RANGE - 1)
 #define PATH_TRUE 1
 #define PATH_UNKNOWN_FLAG_0x00800 0x00800
 #define PATH_UNKNOWN_FLAG_0x01000 0x01000

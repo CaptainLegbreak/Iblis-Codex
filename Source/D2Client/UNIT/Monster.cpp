@@ -166,11 +166,9 @@ typedef char H12_check_misc[(H12_OFFSET(D2MissileStrc, nSkillLevel) == 0x30 && s
 
 extern D2MonAnimRecStrc gaMonAnimRecords[]; // 0x00725220
 
-extern D2MonAnimRecStrc gaMonAnimRecordsMoving[]; // 0x007252E0
+extern D2MonAnimRecStrc gaMonAnimRecordsMoving[16]; // 0x007252E0
 
-extern D2MonAnimRecStrc gtDiabloAnimRecord; // 0x00725328
 
-extern D2MonAnimRecStrc gtBaalAnimRecord; // 0x00725334
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
@@ -1450,12 +1448,12 @@ static D2MonAnimRecStrc* MONSTER_GetAnimRecord(D2UnitStrc* pUnit)
 
     if (pUnit->dwClassId == 0xF3 && nMode == 0xB || pUnit->dwClassId == 0x14D && nMode == 0xB)
     {
-        return &gtDiabloAnimRecord;
+        return &gaMonAnimRecordsMoving[6];
     }
 
     if (pUnit->dwClassId == 0x21F && nMode == 0xA || pUnit->dwClassId == 0x220 && nMode == 0xA || pUnit->dwClassId == 0x23A && nMode == 0xA)
     {
-        return &gtBaalAnimRecord;
+        return &gaMonAnimRecordsMoving[7];
     }
 
     D2MonStats2Txt* pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId);
