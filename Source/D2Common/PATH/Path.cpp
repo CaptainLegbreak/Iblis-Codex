@@ -47,6 +47,8 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 
+#define PATH_UNKNOWN_FLAG_0x00001 0x00001
+
 #define PATH_UNKNOWN_FLAG_0x00010 0x00010
 
 #define PATH_UNKNOWN_FLAG_0x00020 0x00020
@@ -247,45 +249,21 @@ inline unsigned int PATH_InlineGetUnitY(D2UnitStrc* pUnit)
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
-struct D2PathPoint00647FB0Strc
-{
-    unsigned short X;
-    unsigned short Y;
-};
-struct D2ActiveRoom00647FB0Strc
-{
-    unsigned char unk_00[0x4C];
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-};
-struct D2DynamicPath00647FB0Strc
-{
-    unsigned char unk_00[0x1C];
-    D2ActiveRoom00647FB0Strc* pRoom;
-    unsigned char unk_20[8];
-    int nPathPoints;
-    unsigned char unk_2C[8];
-    unsigned int dwFlags;
-    unsigned char unk_38[0x64];
-    D2PathPoint00647FB0Strc PathPoints[78];
-};
+
 
 // 0x00647FB0
 void __fastcall PATH_CheckPathInRoom(D2DynamicPathStrc* pDynamicPath)
 {
-    D2DynamicPath00647FB0Strc* const pPath = (D2DynamicPath00647FB0Strc*)pDynamicPath;
-    D2PathPoint00647FB0Strc* const pPathPoints = pPath->PathPoints;
-    pPath->dwFlags &= ~1u;
-    D2ActiveRoom00647FB0Strc* pRoom = pPath->pRoom;
-    for (int i = 0; i < pPath->nPathPoints; ++i)
+    D2PathPointStrc* const pPathPoints = pDynamicPath->PathPoints;
+    pDynamicPath->dwFlags &= ~PATH_UNKNOWN_FLAG_0x00001;
+    D2ActiveRoomStrc* pRoom = pDynamicPath->pRoom;
+    for (int i = 0; i < pDynamicPath->dwPathPoints; ++i)
     {
         if (!pRoom
-            || pPathPoints[i].X < pRoom->nSubtileX || pPathPoints[i].X >= pRoom->nSubtileX + pRoom->nSubtileWidth
-            || pPathPoints[i].Y < pRoom->nSubtileY || pPathPoints[i].Y >= pRoom->nSubtileY + pRoom->nSubtileHeight)
+            || pPathPoints[i].X < pRoom->tCoords.nSubtileX || pPathPoints[i].X >= pRoom->tCoords.nSubtileX + pRoom->tCoords.nSubtileWidth
+            || pPathPoints[i].Y < pRoom->tCoords.nSubtileY || pPathPoints[i].Y >= pRoom->tCoords.nSubtileY + pRoom->tCoords.nSubtileHeight)
         {
-            pPath->dwFlags |= 1;
+            pDynamicPath->dwFlags |= PATH_UNKNOWN_FLAG_0x00001;
             return;
         }
     }
