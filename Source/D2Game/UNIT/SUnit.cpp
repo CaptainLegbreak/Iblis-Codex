@@ -322,7 +322,6 @@ void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x006
 
 struct D2GameStrc;
 
-extern const int gnUnitListOffsets[6]; // 0x006E10E0
 
 #define UNIT_TILE 5
 
@@ -376,7 +375,6 @@ enum D2C_M192SUnitAlloc
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
 
-int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 
 void __fastcall PLAYER_Create(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPlayerGUID);                     // 0x005348C0
 
@@ -430,9 +428,7 @@ void __stdcall UNITS_InitializeSequence(D2UnitStrc* pUnit); // 0x00621260
 
 void __stdcall UNITS_SetAnimData(D2UnitStrc* pUnit, int nUnitType, int nClassId, int nAnimMode); // 0x00620F00
 
-int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 
-int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 
@@ -488,7 +484,6 @@ D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* 
 
 D2ActiveRoomStrc* __stdcall DUNGEON_StreamRoomAtCoords(D2DrlgActStrc* pAct, int nX, int nY); // 0x0061A140
 
-void __fastcall GAME_ActivateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x0052D0F0
 
 struct D2AnimFrameTableStrc
 {

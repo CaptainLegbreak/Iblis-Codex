@@ -31,8 +31,6 @@ struct D2GSPacketSrvAA;
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
-int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
-void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame); // 0x006260B0
 #include "D2GameFuncs.h"
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatListRemoveCallback pfStatRemove); // 0x00625CE0
@@ -64,8 +62,6 @@ static void sub_00570B30_SpendStatPointsOnDexterity(D2UnitStrc* pUnit, int nValu
 
 extern const unsigned int gdwBitMasks[]; // 0x006CE268
 extern const unsigned int gdwInvBitMasks[]; // 0x006CE2E8
-extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
-int __stdcall BITMANIP_GetSize(D2BitBufferStrc*); // 0x00410E90
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {

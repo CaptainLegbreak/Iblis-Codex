@@ -14,6 +14,7 @@
 #include "D2MonStatsInit.h"
 #include "D2Records.h"
 #include "D2MonModes.h"
+#include "D2ItemsWorld.h"
 // build: symbol _gaszLanguageNames 0x0073288C
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
@@ -36,7 +37,6 @@ void __fastcall D2GAME_MONSTERMODE_FreeParams(D2GameStrc* pGame, D2AiParamStrc* 
 void __fastcall MONSTERAI_FreeMonsterInteract(D2GameStrc* pGame, D2MonsterInteractStrc* pMonInteract);     // 0x00572BC0
 
 
-int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
@@ -505,6 +505,64 @@ static inline unsigned char* sub_00573AE0_GetComponents(D2UnitStrc* pUnit)
 	return pMonsterData->nComponent;
 }
 
+struct D2ComponentVariantStrc
+{
+    unsigned char nComponent[16];
+};
+
+static inline unsigned int MONSTER_RollComponentSeed(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static inline unsigned int MONSTER_RollLimitedComponent(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+    if ((nMax - 1) & nMax)
+    {
+        return MONSTER_RollComponentSeed(pSeed) % nMax;
+    }
+    return MONSTER_RollComponentSeed(pSeed) & (nMax - 1);
+}
+
+// 0x005739D0
+void __fastcall MONSTER_SetComponents(D2MonRegDataStrc* pMonRegData, D2UnitStrc* pUnit)
+{
+    if ((!pUnit ? 6 : pUnit->dwUnitType) != UNIT_MONSTER)
+    {
+        return;
+    }
+
+    if (pMonRegData && pMonRegData->nComponentVariantsMax > 0)
+    {
+        const D2ComponentVariantStrc* pVariants = (const D2ComponentVariantStrc*)pMonRegData->unk0x04;
+        const D2ComponentVariantStrc* pVariant = &pVariants[ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, pMonRegData->nComponentVariantsMax)];
+        D2ComponentVariantStrc* pComponents = (D2ComponentVariantStrc*)sub_00573AE0_GetComponents(pUnit);
+        if (pComponents)
+        {
+            *pComponents = *pVariant;
+        }
+    }
+    else
+    {
+        unsigned char* pComponents = sub_00573AE0_GetComponents(pUnit);
+        int i = 0;
+        int nCount = 16;
+        do
+        {
+            pComponents[i] = MONSTER_RollLimitedComponent(&pUnit->pSeed, D2COMMON_11068_GetCompInfo(pUnit, i));
+            ++i;
+        }
+        while (--nCount);
+    }
+}
+
 // 0x00573AE0
 int __fastcall MONSTER_HasComponents(D2UnitStrc* pUnit)
 {
@@ -631,18 +689,13 @@ D2MonStats2Txt* __fastcall sub_00573470_GetMonStats2Record(int nMonsterId);     
 D2InventoryStrc* __fastcall SUNITPROXY_GetNpcInventory(D2GameStrc* pGame, int nNpc);                        // 0x00536B20
 void __fastcall D2GAME_ITEMMODE_ServerStatlistCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOther, int nLayerStatId, int nPreviousValue, int nNewValue); // 0x0055B800
 void __fastcall D2GAME_SetSkills(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove);            // 0x0056DEB0
-void __fastcall SKILLS_EquipMonsterFromTable(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel, int nItemLevel, int bCheckOnInit); // 0x005D6B60
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-void __fastcall D2GAME_DeleteTimersOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);                            // 0x00540F30
 D2AiControlStrc* __fastcall AIGENERAL_AllocAiControl(D2GameStrc* pGame);                                    // 0x0058EBC0
 D2MonsterModeDataStrc* __fastcall MONSTERMODE_AllocParams(D2GameStrc* pGame);                               // 0x005A6490
 D2MonsterInteractStrc* __fastcall MONSTERAI_AllocMonsterInteract(D2GameStrc* pGame);                        // 0x00572BA0
 D2MonRegDataStrc* __fastcall MONSTERREGION_GetMonsterComponentData(D2MonsterRegionStrc** ppMonsterRegion, D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit); // 0x00547BC0
-void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* hUnit, D2AiControlStrc* pAiControl, int nAiSpecialState); // 0x005B0E00
-void __fastcall QUESTS_AttachLevelChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int bDebug); // 0x00545CD0
-void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode);                      // 0x00553570
 
 static inline void MONSTER_SetComponent(D2UnitStrc* pUnit, int nComponent, unsigned char nValue)
 {

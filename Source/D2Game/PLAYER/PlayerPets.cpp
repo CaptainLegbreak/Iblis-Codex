@@ -130,7 +130,6 @@ extern "C" D2PetTypeTxt* __fastcall sub_00478A20_GetPetTypeTxtRecord(int nPetTyp
 
 struct D2ClientStrc;
 
-D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
 int __fastcall GAME_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 
@@ -159,7 +158,6 @@ static D2PetListStrc* __stdcall PLAYERPETS_GetPetListByType(D2PlayerPetStrc* pPl
 
 static void __stdcall PLAYERPETS_ClearPetList(D2UnitStrc* pPlayer, D2PetListStrc* pPetList, int bIsHirelingList, int bKeepHireling, D2GameStrc* pGame);
 
-void __fastcall PLAYERPETS_FreePetsFromPlayerData(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005746D0
 
 
 static void __stdcall PLAYERPETS_KillPetList(D2PetListStrc* pPetList, D2GameStrc* pGame);

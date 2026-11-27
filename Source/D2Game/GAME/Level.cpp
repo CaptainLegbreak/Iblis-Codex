@@ -67,7 +67,6 @@ void __fastcall ITEMMODE_SendUpdatedGroundItemToClient(D2UnitStrc* pUnit, D2Clie
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 
-void __fastcall SUNIT_ClearUpdateData(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553220
 
 // 0x0053A500
 static void __stdcall LEVEL_UpdateUnitForClient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
@@ -480,7 +479,6 @@ void __fastcall LEVEL_LoadAct(D2GameStrc* pGame, unsigned char nAct)
 struct D2MonsterDataStrc;
 
 
-int __stdcall SERVER_SendPacketToClient(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
 
 #pragma pack(push, 1)
 

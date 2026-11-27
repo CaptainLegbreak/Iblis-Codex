@@ -171,7 +171,6 @@ void __fastcall PLRTRADE_IterateCallback_SendInventoryReset(D2GameStrc* pGame, D
 
 void __fastcall PLRTRADE_RestoreTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00566CC0
 
-void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 
 
 struct D2CubeInputItem;
@@ -263,11 +262,9 @@ void __fastcall ACT2Q2_UpdateHoradricItemCounts(D2GameStrc*,D2UnitStrc*); // 0x0
 void __fastcall ACT3Q2_UpdateKhalimItemCounts(D2GameStrc*,D2UnitStrc*); // 0x005B86E0
 
 
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc*,int,int,unsigned short); // 0x00627260
 
 void __stdcall ITEMS_SetItemQuality(D2UnitStrc*,int); // 0x00627EA0
 
-void __stdcall ITEMS_AssignRarePrefix(D2UnitStrc*,unsigned short); // 0x00628010
 
 void __stdcall ITEMS_AssignRareSuffix(D2UnitStrc*,unsigned short); // 0x00628070
 
@@ -283,7 +280,6 @@ extern "C" const char szPlrTradeCpp[];                                          
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
 
 
-int __fastcall ITEMMODE_DuplicateSocketFillers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pSocketable, int bRefresh);
 
 static void __stdcall PLRTRADE_AddItemTrade(D2GameStrc* pGame, int nItemGUID1, int nItemGUID2, D2UnitStrc* pPlayer); // 0x00567350
 
@@ -293,25 +289,17 @@ struct D2InventoryStrc;
 
 struct D2ActiveRoomStrc;
 
-int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit);                                                 // 0x00451F60
-
-D2ItemStatCostTxt* __fastcall PLAYER_GetItemStatCostTxtRecord(int nStatId);                           // 0x0045C4F0
 
 
-void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused);                                 // 0x005678F0
-
-int __stdcall UNITS_GetStashGoldLimit(D2UnitStrc* pUnit);                                                   // 0x00623460
 
 
-void __stdcall ITEMS_SetEarName(D2UnitStrc* pItem, char* szName);                                           // 0x00628370
+
+
 
 void __stdcall ITEMS_SetEarLevel(D2UnitStrc* pItem, unsigned char nLevel); // 0x006283D0
 
-int __stdcall INVENTORY_CanItemsBeTraded(void* pMemPool, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int* pTradeState); // 0x0063E370
 
-D2CubeMainTxt* __stdcall DATATBLS_GetCubemainTxtRecord(int nIndex);                                         // 0x0066A1B0
 
-int __fastcall DATATBLS_GetCubemainTxtRecordCount();                                                        // 0x0066A200
 
 int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton, unsigned int nGold);
 
@@ -319,9 +307,7 @@ static void __stdcall PLRTRADE_AddItemTrade(D2GameStrc*, int, int, D2UnitStrc*);
 
 static char __stdcall PLRTRADE_FindItemTrade(int*, int, D2UnitStrc*); // 0x005673C0
 
-static int PLRTRADE_CountCubeItems(D2InventoryStrc* pInventory); // 0x00564FD0
 
-static int __stdcall PLRTRADE_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemStrc* pCubeItem, D2CubeMainTxt* pCubeMainTxtRecord, D2InventoryStrc* pInventory); // 0x005658C0
 
 
 static void __stdcall PLRTRADE_ResetTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, D2PlayerDataStrc* pPlayerData1, D2PlayerDataStrc* pPlayerData2); // 0x00567B00
@@ -334,20 +320,14 @@ static void PLRTRADE_WalkItemTrade(D2UnitStrc* pPlayer);
 
 void __fastcall PLRTRADE_AddItemToTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem);
 
-static void PLRTRADE_HandleCubeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton); // 0x00566AE0
 
-static bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00566B30
 
-static void __stdcall PLRTRADE_CopyEarData(int bHardcore, D2UnitStrc* pItem, D2UnitStrc* pDupeItem); // 0x00567070
 
-static int __stdcall PLRTRADE_CanPickUpTradeItems(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pReceiver); // 0x005672D0
 
-static void __stdcall PLRTRADE_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData, D2UnitStrc* pPlayer); // 0x00567C70
 
 static int PLRTRADE_HasItemsInCube(D2UnitStrc* pPlayer);
 
 
-int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton, unsigned int nGold);
 
 
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480

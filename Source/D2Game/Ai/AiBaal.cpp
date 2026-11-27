@@ -94,17 +94,14 @@ int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, in
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nType, int nId); // 0x00552F60
 
 
-int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
 static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, D2UnitStrc*, int, int, D2AiCmdStrc*);
 
-static int __stdcall AIBAAL_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiCmdStrc* pArgs);
 
 struct D2ActiveRoomStrc;
 
 struct D2DynamicPathStrc;
 
-static int __stdcall AIBAAL_RollRandomAiParamForNonCollidingUnit(D2GameStrc* pGame, D2AiControlStrc* pAiControl, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nCount, int bInMediumRange, int bInFarRange, int bInCloseRange, int nMax); // 0x005FC450
 
 unsigned int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
@@ -152,9 +149,7 @@ struct D2GameStrc;
 
 static int __stdcall AIBAAL_RollRangedAiParam(D2GameStrc* pGame, D2UnitStrc* pTarget, int nCount, int bInMediumRange, int bInFarRange, D2UnitStrc* pUnit);
 
-static int AIBAAL_IsDangerousSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 
-static int AI_CheckSpecialSkillsOnPrimeEvil(D2UnitStrc* pUnit);
 
 static int __stdcall AIBAAL_RollMeleeAiParam(D2GameStrc* pGame, D2UnitStrc* pTarget, int bNotCollidingWithWall, D2UnitStrc* pUnit);
 

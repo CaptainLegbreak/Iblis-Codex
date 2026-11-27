@@ -22,7 +22,6 @@ union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2MonsterRegionStrc;
 
-void __stdcall sub_M96_UseBounds_0054DAC0(int nX, int nY, int nWidth, int nHeight);
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
