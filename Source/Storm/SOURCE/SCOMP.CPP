@@ -305,7 +305,7 @@ struct SCompBufferState
     void* pMemory;
 };
 
-SCompBufferState gSCompBuffer_0077920C;         // 0x0077920C
+extern SCompBufferState gSCompBuffer_0077920C; // 0x0077920C
 
 
 // 0x0041DEC0

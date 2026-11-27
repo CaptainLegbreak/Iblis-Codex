@@ -19,7 +19,7 @@ extern D2GlideDebugCellStrc** gppGlideDebugBuffer; // 0x00880454
 
 
 
-int gnRenderWidth;                                                                                 // 0x007C9138
+extern int gnRenderWidth; // 0x007C9138
 
 extern void (__stdcall* gpfnGrDrawLine)(const D2GlideSpriteVertexStrc* pStart, const D2GlideSpriteVertexStrc* pEnd); // 0x0087E978
 

@@ -80,7 +80,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
 
-int gbLogInitialized; // 0x0075D2EC
+extern int gbLogInitialized; // 0x0075D2EC
 
 extern int gnLogQueueCount; // 0x0075E870
 
@@ -288,9 +288,9 @@ void __fastcall LOGMANAGER_WriteStartupBanner(_iobuf* pFile)
     fprintf(pFile, "---------------------------------------------------------------\n");
 }
 
-int ganLogNewFile[20]; // 0x0075D298
+extern int ganLogNewFile[20]; // 0x0075D298
 
-char gaszLogFilePaths[20][0x104]; // 0x0075D340
+extern char gaszLogFilePaths[20][0x104]; // 0x0075D340
 
 // 0x0040EB90
 unsigned int __fastcall LOGMANAGER_GetLogFilePaths(char** apszFiles, unsigned int nCount)
@@ -485,11 +485,11 @@ LogManager::Message::~Message()
 {
 }
 
-void* ghLogThread; // 0x0075D2E8
+extern void* ghLogThread; // 0x0075D2E8
 
-int gbLogThreadStop; // 0x0075E830
+extern int gbLogThreadStop; // 0x0075E830
 
-unsigned long gnLogThreadId; // 0x0075E834
+extern unsigned long gnLogThreadId; // 0x0075E834
 
 // 0x0040FFD0
 void __cdecl LOGMANAGER_ShutdownLogSystem()

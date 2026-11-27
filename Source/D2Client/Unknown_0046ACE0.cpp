@@ -216,7 +216,7 @@ typedef void (__cdecl* LEVELEVENT_Fn)();
 
 extern LEVELEVENT_Fn gpfnLevelEvents[];                                                            // 0x007129D8
 
-unsigned int gdwLevelEventBits;                                                                    // 0x007A7458
+extern unsigned int gdwLevelEventBits; // 0x007A7458
 
 // 0x0046B630
 void __fastcall sub_0046B630_FireLevelEvent(int nIndex)

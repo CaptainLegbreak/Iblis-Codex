@@ -30,11 +30,11 @@ int __fastcall WINMAIN_SendMcpCharLogon(int nA); // 0x0044A380
 
 void* ghThread;                                                                                    // 0x007992A4
 
-int gnResult; // 0x00798F58
+extern int gnResult; // 0x00798F58
 
-char gszMcpText2[28]; // 0x00798F60
+extern char gszMcpText2[28]; // 0x00798F60
 
-char gszMcpText1[4]; // 0x00799294
+extern char gszMcpText1[4]; // 0x00799294
 
 unsigned short __cdecl CHATDLG_GetRequestId();                                                         // 0x00449BD0
 
@@ -56,29 +56,29 @@ extern int gnMcpGameToken; // 0x00798FB0
 
 extern int gdwMcpGameHash; // 0x00798F88
 
-int gbMcpCharCreateReceived; // 0x007992E8
+extern int gbMcpCharCreateReceived; // 0x007992E8
 
-int gbMcpCharLogonReceived; // 0x007992E0
+extern int gbMcpCharLogonReceived; // 0x007992E0
 
-int gbMcpCharDeleteReceived; // 0x00799298
+extern int gbMcpCharDeleteReceived; // 0x00799298
 
-int gbMcpCharUpgradeReceived; // 0x007992F0
+extern int gbMcpCharUpgradeReceived; // 0x007992F0
 
-int gbMcpPacket0BReceived; // 0x00799100
+extern int gbMcpPacket0BReceived; // 0x00799100
 
-int gbMcpPacket0CReceived; // 0x007992A0
+extern int gbMcpPacket0CReceived; // 0x007992A0
 
-char gabMcpReply[4]; // 0x00799108
+extern char gabMcpReply[4]; // 0x00799108
 
-int gbMcpPacket0DReceived; // 0x007992A8
+extern int gbMcpPacket0DReceived; // 0x007992A8
 
-int gbMcpPacket0FReceived; // 0x00798F5C
+extern int gbMcpPacket0FReceived; // 0x00798F5C
 
-int gbMcpServerAddressReceived; // 0x00798F84
+extern int gbMcpServerAddressReceived; // 0x00798F84
 
-int gnMcpCreateQueuePosition; // 0x00799104
+extern int gnMcpCreateQueuePosition; // 0x00799104
 
-int gbMcpCreateQueued; // 0x00798F7C
+extern int gbMcpCreateQueued; // 0x00798F7C
 
 void* gpMcpConnection; // 0x00798FB4
 

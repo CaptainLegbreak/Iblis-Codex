@@ -323,7 +323,7 @@ extern "C" int __stdcall ImmGetConversionStatus(HIMC hImc, unsigned long* pConve
 
 unsigned char gbImeOpen;        // 0x007BB5E0
 
-int gnImeState;        // 0x007BB5F0
+extern int gnImeState; // 0x007BB5F0
 
 static CANDIDATELIST* gpImeCandidateList; // 0x007BB5F4
 

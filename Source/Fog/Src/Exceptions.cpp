@@ -131,9 +131,9 @@ int __stdcall SMemCmp(void* pLocation1, void* pLocation2, unsigned int nSize); /
 
 extern "C" const char gszFileModeRb[]; // 0x006CDC90
 
-D2CriticalSectionStrc gtImageHlpLock; // 0x0075CFBC
+extern D2CriticalSectionStrc gtImageHlpLock; // 0x0075CFBC
 
-int gnSymInitCount; // 0x0075CFD4
+extern int gnSymInitCount; // 0x0075CFD4
 
 static void __stdcall EXCEPTIONS_GetLogicalAddress(char* szModule, unsigned long* pnSection, unsigned long* pnOffset, void* pAddress, unsigned int nSize); // 0x0040C520
 
@@ -195,9 +195,9 @@ extern "C" void __fastcall EXCEPTIONS_FreeModuleList(D2ModuleInfoStrc* pList);  
 void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStrc* pContext, D2ModuleInfoStrc* pModules); // 0x0040BCF0
 
 
-char gszImageHlpSymSearchPath[4096]; // 0x0075BFB8
+extern char gszImageHlpSymSearchPath[4096]; // 0x0075BFB8
 
-int gbSymQuiet; // 0x0075CFB8
+extern int gbSymQuiet; // 0x0075CFB8
 
 void* ghImageHlp; // 0x0075CFD8
 

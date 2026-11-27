@@ -721,7 +721,7 @@ struct Reply {
 
 #pragma pack(pop)
 
-long gnAdminConnectionCount;         // 0x00883D64
+extern long gnAdminConnectionCount; // 0x00883D64
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile*);  // 0x006CC208
 

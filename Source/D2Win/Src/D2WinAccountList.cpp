@@ -84,7 +84,7 @@ int __fastcall ACCOUNTLIST_GetTextFromSelectedEntry(D2WinAccountListStrc* ptList
     return 0;
 }
 
-tagPOINT gtMousePosition; // 0x007D55A4
+extern tagPOINT gtMousePosition; // 0x007D55A4
 struct Point { int x, y; };
 
 // 0x00507A10

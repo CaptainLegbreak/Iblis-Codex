@@ -206,7 +206,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 extern tagPOINT gtMousePosition; // 0x007D55A4
 
-unsigned long gdwListLastClickTick; // 0x0087E970
+extern unsigned long gdwListLastClickTick; // 0x0087E970
 
 
 int __stdcall CONTROL_SetFocusedEditBox(D2WinEditBoxStrc* pEditBox); // 0x004F91C0

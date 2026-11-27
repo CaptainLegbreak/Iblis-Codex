@@ -426,7 +426,7 @@ void __fastcall sub_00524200_HashBlock(int nIndex, const void* pBlock, unsigned 
 void __fastcall sub_00524760_CipherBlock(int nIndex, const unsigned short* pIn, unsigned short* pOut); // 0x00524760
 void __cdecl sub_00524740_ClearKeySchedules(); // 0x00524740
 void __cdecl sub_005241A0_ClearHashContexts(); // 0x005241A0
-unsigned int gdwBnClientToken; // 0x00882530
+extern unsigned int gdwBnClientToken; // 0x00882530
 
 // build: symbol ??__EgtBigPair@@YAXXZ 0x006CAEF0
 // build: symbol ??__FgtBigPair@@YAXXZ 0x006CB480
@@ -783,7 +783,7 @@ void __fastcall sub_0051A540_SetValue(int nValue)
     gdwServerToken = nValue;
 }
 
-int gnLogonType; // 0x008818C0
+extern int gnLogonType; // 0x008818C0
 
 // 0x0051A560
 void __fastcall sub_0051A560_SetValue(int nValue)
