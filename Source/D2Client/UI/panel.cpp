@@ -231,7 +231,7 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 
-unsigned char gabBeltHotkey[1]; // 0x007BEFB0
+unsigned char gabBeltHotkey[4]; // 0x007BEFB0
 
 static void __stdcall PANEL_ClickBeltBox(D2InventoryStrc* pInventory, int nX, int nY); // 0x00498870
 
