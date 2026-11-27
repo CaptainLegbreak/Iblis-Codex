@@ -52,6 +52,15 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - data_cluster: 5,956 / 475 -> 5,736 / 455.
     - linkdebt total: 29,819 -> 29,520. D2Client 10,591 -> 10,292; every other module unchanged.
     - shortdata: 355 -> 355 (same list).
+- Fri Nov 27 05:03 PST 2026: **lane13/chat-controls** (62140a717, on lane13/control-templates b881a8f2e, take after it). VERIFIED tree f81a597410f0b008874f7dd2d8520c414d685c3c; Game.exe identical. Audit guard: no count rose. This is the D2Multi cluster 0x0077B058-0x0077B09C (68 B, 16 globals, 123 refs).
+  - `gapChatDlgControls` holds the 17 controls the chat screen creates from gatChatControlInits, one per entry. Sixteen of its elements were separate globals, spread over ChatDlg, ComCallback and Unknown_00444020: gpChatControl_*, gpCreateScreenButton, gpJoinScreenButton, gpControlC, gpQuitButton, the four scroll buttons, gpAdImage and gpSmack (typed D2WinSmackStrc* in ComCallback). ComCallback also defined the array itself as a single pointer.
+  - It is now one `D2WinControlStrc*[17]` in ChatDlg.cpp, read by the same `D2ChatControlInit` index as its inits. The enum and the array's extern move to a new header, Source/Include/D2ChatControls.h, which only ChatDlg and ComCallback include. CharSel and Unknown_00444020 only lose dead externs.
+  - **Counts, before (control-templates) -> after**, on that branch's link.py:
+    - linkdebt: 30,442 refs -> 30,442 refs, 5,562 -> 5,546 targets; every module unchanged.
+    - data_cluster: 6,744 / 601 -> 6,745 / 586.
+    - data clusters: 126 -> 126 (516,943 B); 602 -> 587 globals. The cluster stays only because of the array's loop-end bound.
+    - shortdata: 342 -> 342.
+  - **With cluster-rule-2's link.py:** 49 clusters, 23,321 B, 367 globals; data_cluster 2,964 / 390; total 27,005. Both ChatDlg clusters are gone.
 ## Claimed
 - Fri Nov 27 07:01 PST 2026: check-in. client-tables and glide-tile-vertices Ready. Next: D2Game 0x008842A8 (1 global, 1,048 B), D2Common 0x006EF188, D2Direct3D 0x00971450, then the small ones; the D2CMP/D2Common reading after those.
 - Fri Nov 27 06:11 PST 2026: questlog Ready. The QuestLog file claims are done. Next: the remaining small D2Client/D2Glide/D2Game clusters (0x00880678 D2Glide, 0x008842A8 D2Game, 0x00726850 and 0x00723F30 D2Client), then the D2CMP/D2Common reading.
