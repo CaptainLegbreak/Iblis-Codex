@@ -6,6 +6,7 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
 1.10-address names. New chat, reopened 2026-11-26 11:57 PT (from lane 6, which held these modules since 2026-11-25).
 
 ## Status
+- 2026-11-27 04:50 UTC: Ready, merging cleanly onto main: params-d2game-sunitmsg, params-d2game-scmd. Working D2Game\'s remaining tail (PlrSave, SCmd, MissMode) body by body.
 - 2026-11-27 04:19 UTC: verbs2 and tail2 in (#464). Ready, merging cleanly: params-d2game-tail, params-d2game-sunitmsg. Next: SCmd packet arguments.
 - 2026-11-27 03:47 UTC: Ready and merging cleanly onto main: names-d2game-verbs2, params-d2game-tail, params-d2game-tail2 (after verbs2). Next: SUnitMsg packet fields and SCmd packet arguments against D2MOO\'s packet structs.
 - 2026-11-27 03:05 UTC: h, locals, moo in (#458, #459). Building: names-d2game-verbs2 (verbs regenerated on #459) and params-d2game-tail (D2Game unused stub parameters, bTimedEvents, the join check nGameId/nVersion; a1/v12 295 -> 244 alone).
