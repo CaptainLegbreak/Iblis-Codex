@@ -695,7 +695,7 @@ void __stdcall TASK_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask)
         {
             pNext = pClient->pNext;
             D2GAME_PACKETS_SendGameLeft(pClient->dwClientId);
-            sub_0053B240_SendHeaderOnly0x06(pClient->dwClientId);
+            D2GAME_PACKETS_SendGameExit(pClient->dwClientId);
             ClientRemoveFromGame(pGame, pClient->dwClientId, 0);
         }
     }

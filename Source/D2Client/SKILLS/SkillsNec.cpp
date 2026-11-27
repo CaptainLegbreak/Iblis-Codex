@@ -4,7 +4,7 @@
 #include "D2CommonApi.h"
 typedef unsigned int DWORD;
 
-extern "C" void* __fastcall sub_004648F0_GetTargetUnit(void* pUnit); // 0x004648F0
+extern "C" void* __fastcall CUNIT_GetPathTargetUnit(void* pUnit); // 0x004648F0
 extern "C" int __stdcall ITEMS_CheckItemFlag(void* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 extern "C" void* __stdcall UNITS_GetRoom(void* pUnit); // 0x00620BB0
 extern "C" void* __stdcall STATLIST_GetOwner(void* pUnit, int* pStatNotDynamic); // 0x00625820
@@ -12,7 +12,7 @@ extern "C" void* __stdcall STATLIST_GetOwner(void* pUnit, int* pStatNotDynamic);
 // 0x004F3F50
 int __fastcall SKILLSNEC_CheckNecromancerSkill(void* pUnit, int nArg1, int nArg2)
 {
-    void* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    void* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (!pTarget)
         return 0;
     if (*(int*)pTarget != 4)
