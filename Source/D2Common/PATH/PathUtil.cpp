@@ -58,13 +58,11 @@ struct D2PathRayStrc
     int bValid;
 };
 
-struct PathOwner;
 struct D2DynamicPathStrc;
 struct D2PathPointStrc;
 struct D2StaticPathStrc;
 struct D2UnitStrc;
 
-struct PathOwner { char pad0[0x2c]; D2DynamicPathStrc* pPath; };
 
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
