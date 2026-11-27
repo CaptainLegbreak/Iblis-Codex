@@ -51,6 +51,9 @@ Owns the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`,
     module of the function they stand in for), every unit of the module built, plus a full build.
 
 ## Ready
+- lane9/params-d2game-b4 8546d082 (on #450): D2Game Ai, MONSTER, OBJECTS, Quests: placeholder parameters and names.csv
+  callee names (regenerated on #450). a1/v12 531 -> 437 alone; auditguard no count rose. Full build: Game.exe
+  identical, tree 69e218c9d3ea14d90378f750c49b6850a1bdc006, borrowed code / data 7,923 / 261 B. Shares no file with e2.
 - WITHDRAWN (a2q7.cpp, a2q8.cpp conflict with #450; replaced by -b4) lane9/params-d2game-b3 06f2fac6 (on #448): D2Game Ai, MONSTER, OBJECTS, Quests: placeholder parameters and names.csv
   callee names (b2 regenerated on #448). a1/v12 628 -> 534 alone; auditguard no count rose. Full build: Game.exe
   identical, tree 3c000ce89efee35e94f1a253160f48cf658e78fd, borrowed code / data 7,923 / 261 B.
