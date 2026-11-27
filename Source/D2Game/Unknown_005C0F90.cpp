@@ -43,7 +43,7 @@ struct D2ItemDropStrc
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 #include "D2GameFuncs.h"
-void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
+void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* pTargetUnit, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 static int __stdcall sub_005C25C0_RollSetItemRecord(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem);
 
 static inline unsigned int RollSeed(D2SeedStrc* pSeed)

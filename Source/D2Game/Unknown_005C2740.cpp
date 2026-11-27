@@ -13,7 +13,7 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*, int, unsigned short); // 0x0
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, unsigned short); // 0x00627260
 void __stdcall ITEMS_SetFileIndex(D2UnitStrc*, unsigned int); // 0x00629DF0
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc*, unsigned int, int); // 0x006280D0
-void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
+void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* pTargetUnit, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 
 static inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
