@@ -735,7 +735,8 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     tStack.nUsed -= 3;
 }
 
-static void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack) // 0x00424180
+// 0x00424180
+static void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack)
 {
     BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
     BigBuffer& tNext = tStack.pRecords[tStack.nUsed++];
