@@ -4,17 +4,14 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Ready
 
-- **lane11/names-d2game-3 3448e0f31, on main #481** (replaces names-d2game-2, which #479's headers conflicted with; redone on main with the same lists). Two commits:
-  1. different_identifier: 280 placeholder spellings take their definition's name everywhere (4 with the unit's private placeholder declaration dropped); 61 stay.
-  2. placeholder: 86 data plan entries generated as gData_<VA> now define their declared name; 14 stay.
-  Link debt (measured on #478 with the same change): D2Game different_identifier 904 -> 723, placeholder 560 -> 427; no module rose. Audit guard against main: no count rose. Merges clean with #482 (git merge-tree). Full build on #481: VERIFIED tree e1de7970b4d48bad8477c0e04a807385aba78e9e, Game.exe identical, 14,927 / 14,927 placed, borrowed code 0, 0 not all equal.
-- **lane11/names-d2client-4 e9652060a, on main #480** (replaces names-d2client-3, which #479's headers conflicted with; redone on main with the same lists, taking lane 12's types). Two commits:
-  1. different_identifier: 133 placeholder spellings take their definition's name everywhere (8 with the unit's private placeholder declaration dropped); 186 stay, their units failing with the new name.
-  2. placeholder: 85 data plan entries generated as gData_<VA> now define their declared name; 38 stay.
-  Link debt: D2Client different_identifier 2,685 -> 2,417 and placeholder 1,043 -> 887 (main #478 against this branch's tree on #479; #479/#480 changed no D2Client name); no module rose. Audit guard against main: no count rose. #481 touched build/data_plan.json only, in other entries. Full build on #480: VERIFIED tree 6346b6f2fedb7ee57c522a3912a056b4b547aaaf, Game.exe identical, 14,927 / 14,927 placed, borrowed code 0, 0 not all equal.
+- **lane11/names-d2game-4 f50fad9d2, on main #485** (replaces names-d2game-3, which conflicted with #483; redone on main, and it leaves out every file another lane's Claimed lines name: no claimed file in the diff). Two commits:
+  1. different_identifier: 266 placeholder spellings take their definition's name (in files whose includes already declare it, the file's own placeholder declaration goes); 14 stay, their units failing with the new name.
+  2. placeholder: 71 data plan entries generated as gData_<VA> now define their declared name; entries in claimed files and the ones that fail stay.
+  Audit guard against main: no count rose. Merges clean with #486 (git merge-tree). Full build on #485: VERIFIED tree b4125cf76bfc053bceacb35a51f3dcab759c9571, Game.exe identical, 14,927 / 14,927 placed, borrowed code 0, 0 not all equal. Link debt for this tree is being measured; I add it here when it's done (the same change on #478 took D2Game's different_identifier 904 -> 723 and placeholder 560 -> 427, no module rising).
 
 ## Claimed
 
+- Fri Nov 27 12:55 PST 2026: check-in. names-d2game-4 posted on #485 (the board's #483 rebase), claimed files left out. Next: names-small (the Storm data entry), then the claimed files' renames once their claims clear.
 - Fri Nov 27 12:07 PST 2026: **status for the coordinator.**
   - Merged: names-d2common (#482). names-d2client-4 (#483 or later, per the board).
   - **names-d2game-3: rebase onto #483 noted, doing it next** (same lists, redone on main; D2Game.h, MissMode.cpp, Missiles.cpp). From now on each rename branch leaves out files another lane has claimed (QuestLog.cpp and the rest in the Claimed lines) and picks them up once the claim clears.
