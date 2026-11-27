@@ -1,5 +1,6 @@
 #include "Fog.h"
 #include "FogApi.h"
+#include "StormApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -26,8 +27,6 @@ struct AsyncData
     AsyncData* pNextPostponedPriorityChange;
 };
 
-void __stdcall SFilePrioritizeRequest(void* hWnd, int nValue); // 0x0041AA80
-
 struct AsyncDataEventSlot
 {
     void* hEvent;
@@ -38,9 +37,6 @@ struct AsyncDataEventSlot
 extern "C" __declspec(dllimport) void* __stdcall CreateEventA(void* pAttributes, int bManualReset, int bInitialState, const char* szName); // 0x006CC228
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
-void __stdcall SFileSetAsyncBudget(int nValue); // 0x004164A0
-void __stdcall SFileSetDataChunkSize(int nValue); // 0x00416570
-void __stdcall SFileCancelRequest(void* pBuffer); // 0x0041A930
 void __fastcall ASYNCDATA_Finish(AsyncData* pAsyncData); // 0x0040A4C0
 int __fastcall FOG_AsyncDataTestLoaded(AsyncData* pAsyncData); // 0x0040A7F0
 void __fastcall FOG_AsyncDataWaitAndGetBuffer(AsyncData* pAsyncData); // 0x0040A960

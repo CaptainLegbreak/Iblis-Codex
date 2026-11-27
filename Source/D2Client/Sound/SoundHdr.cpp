@@ -5,6 +5,7 @@
 #include "D2SoundEnvironTxt.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "FogApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -43,10 +44,6 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char*
 
 
 void* __fastcall sub_00517079(void* hArchive, const char* szPath, int* pSize, const char* szFile, int nLine); // 0x00517079
-
-void __stdcall FOG_FreeBinFile(D2BinFileStrc* pBinFile); // 0x006BCDA0
-
-int __stdcall FOG_GetRecordCountFromBinFile(D2BinFileStrc* pBinFile); // 0x006BCDE0
 
 D2BinFileStrc* __stdcall FOG_CreateBinFile(void* pDataBuffer, int nBufferSize); // 0x006BD640
 

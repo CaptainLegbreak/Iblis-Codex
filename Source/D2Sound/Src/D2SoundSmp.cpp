@@ -5,6 +5,7 @@
 #include "StormApi.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "StormApi2.h"
 
 
 #define DSBSTATUS_BUFFERLOST 0x00000002
@@ -61,8 +62,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 void __cdecl sub_00419F30(); // 0x00419F30
-
-int __stdcall SFileDdaEnd(void* hStream); // 0x0041A990
 
 D2DirectSoundStrc* __cdecl D2SOUND_GetDirectSound(); // 0x00513B50
 

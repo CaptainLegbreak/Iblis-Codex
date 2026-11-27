@@ -7,6 +7,7 @@
 #include "D2TxtItems.h"
 #include "D2TxtTables.h"
 #include "D2GameRecords.h"
+#include "FogApi2.h"
 
 // build: base-profile
 #define NULL 0
@@ -189,8 +190,6 @@ extern "C" const char gszTxtField_index[]; // 0x006E9CCC
 
 extern D2TxtLinkStrc* gpColorsLinker; // 0x0096C5E4
 
-void __stdcall FOG_10216_AddRecordToLinkingTable(D2TxtLinkStrc* pLinker, const char* szName); // 0x006BD500
-
 unsigned short __stdcall D2LANG_GetTblIndex(const char* szReference, void** ppUnicode); // 0x00524D30
 
 D2ItemsTxt* gpItemsTxt; // 0x0096CA5C
@@ -351,8 +350,6 @@ void* gpItemratioTxt; // 0x0096CC4C
 int gnItemratioTxtRecordCount; // 0x0096CC48
 
 int gnPropertiesTxtRecordCount; // 0x0096BCDC
-
-void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 
 
 

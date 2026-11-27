@@ -31,6 +31,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 #include "D2GameFuncs.h"
+#include "D2CommonApi2.h"
 
 
 void __fastcall D2GAME_SendP0x9D_ItemAction_IndirectlySwapBodyItem(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int dwFlags); // 0x0053D0B0
@@ -76,13 +77,9 @@ int __fastcall D2GAME_NPC_IsItemInNpcInventory(D2GameStrc* pGame, D2UnitStrc* pP
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
-D2InventoryNodeStrc* __stdcall INVENTORY_GetTradeInventory(D2InventoryStrc* pInventory); // 0x0063CBB0
-
 D2InventoryNodeStrc* __stdcall INVENTORY_GetNextNode(D2InventoryNodeStrc* pNode); // 0x0063CD20
 
 int __stdcall INVENTORY_GetItemGUIDFromNode(D2InventoryNodeStrc* pNode); // 0x0063CD40
-
-int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit); // 0x0063EE90
 
 extern unsigned int gdwItemFlags[8]; // 0x00738C4C
 
@@ -93,10 +90,6 @@ extern unsigned int gdwItemCmdFlags[21]; // 0x00738C70
 extern unsigned int gnItemCmdFlagCount; // 0x00738CC4
 
 
-void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
-
-
-void __stdcall INVENTORY_FreeTradeInventory(D2InventoryStrc* pInventory); // 0x0063CBD0
 
 struct D2StaticPathStrc;
 

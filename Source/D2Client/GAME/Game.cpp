@@ -23,6 +23,8 @@
 #include "StormApi.h"
 #include "D2SysTypes.h"
 #include "D2CelContext.h"
+#include "D2CommonApi2.h"
+#include "FogApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -481,14 +483,10 @@ void __fastcall sub_004776C0_SetGamma(int nGamma); // 0x004776C0
 
 void __cdecl D2GFX_EnableVSync(); // 0x004F5270
 
-void __fastcall LOGGING_SetLoggingEnabled(int nValue); // 0x00624B50
-
 
 void __fastcall ROSTER_SetCTemp(int nValue); // 0x0047AA10
 
 void __stdcall D2CMPSetNoCompress(int bCompress); // 0x005FE280
-
-void __stdcall DATATBLS_ToggleCompileTxtFlag(int bValue); // 0x006125A0
 
 void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
@@ -1193,8 +1191,6 @@ extern "C" __declspec(dllimport) void* __stdcall LoadAcceleratorsA(void* hInstan
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
-void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem);                                        // 0x00409C80
-
 int __cdecl FOG_CreateNewPoolSystem(D2PoolSystemStrc** ppPoolSystem, const char* szName, int nSize, int nUnused); // 0x00409DD0
 
 
@@ -1422,7 +1418,6 @@ struct D2FlagWordStrc;
 extern "C" __declspec(dllimport) unsigned long __stdcall GetModuleFileNameA(void* hModule, char* szFileName, unsigned long nSize); // 0x006CC1BC
 
 typedef long (__stdcall* WNDPROC)(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam);
-void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc* pSystem, int bFreePoolAlloc); // 0x00409FF0
 
 int __stdcall WINMAIN_ProcessCommandLine(void* pArg); // 0x0044B6B0
 
@@ -1504,10 +1499,6 @@ extern "C" __declspec(dllimport) int __stdcall ReadFile(void* hFile, void* pBuff
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
-
-int __stdcall DATATBLS_CheckActInLevelTypesTxt(int nLevelType, unsigned char nAct); // 0x0061EAE0
-
-void __stdcall DATATBLS_GetFileNameFromLevelTypeAndFileId(int nLevelType, int nFile, char* szFile); // 0x0061EB40
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
