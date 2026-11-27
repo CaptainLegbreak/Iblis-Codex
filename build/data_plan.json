@@ -1510,7 +1510,6 @@
    "definitions": 3,
    "externs": [
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleChatEvent(); // 0x00520660",
-    "extern \"C\" void __cdecl sub_00520C40_AlwaysOne(); // 0x00520C40",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleCreateAccount(); // 0x00520C50",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleCreateAccountEx(); // 0x00520C60",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleChangePassword(); // 0x00520C80",
@@ -1527,7 +1526,6 @@
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleServerList(); // 0x005210A0",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleGetChannelList(); // 0x005210C0",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleGetAdvListEx(); // 0x005210D0",
-    "extern \"C\" void __cdecl sub_005210E0_AlwaysOne(); // 0x005210E0",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleEnterChat(); // 0x005210F0",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleGetFileTime(); // 0x00521110",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleCheckAd(); // 0x00521150",
@@ -1547,7 +1545,9 @@
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleAuthAccountUpgradeProof(); // 0x005219B0",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleSetEmail(); // 0x00521AB0",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleOptionalWork(); // 0x00521AC0",
-    "extern \"C\" void __cdecl BNDOWNLOAD_HandleRequiredWork(); // 0x00521AE0"
+    "extern \"C\" void __cdecl BNDOWNLOAD_HandleRequiredWork(); // 0x00521AE0",
+    "extern \"C\" void __cdecl sub_00520C40_AlwaysOne(); // 0x00520C40",
+    "extern \"C\" void __cdecl sub_005210E0_AlwaysOne(); // 0x005210E0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2BNClient/BnSend_0051BEB0.inc",
