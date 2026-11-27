@@ -25,6 +25,7 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
       - gaStateStack[4], with 4 unreferenced bytes after it;
       - gaDrlgRoomTilePresetUnits[34], with 20 unreferenced bytes after it, before gaWarpTileOffsets (no 35th record fits there).
 ## Claimed
+- Fri Nov 27 11:08 PST 2026: check-in. split-objects-2 Ready. **Data-tables cluster parked: findings under Questions** (CCritSect.h in D2DataTbls.h alone flips 6 units; the sub-table types are private to cpps). Released the data-tables claim. Next: the 13 other clusters.
 - Fri Nov 27 10:52 PST 2026: check-in. split-objects-2 Ready; it replaces short-arrays-3. 14 clusters left. Next: **the D2DataTablesStrc cluster** (the go-ahead under Current state). Claimed: Source/Include/D2DataTbls.h, Source/D2Common/DATATBLS/*.cpp, and every file that declares a global in 0x0096BC30-0x0096D66C (35 files: D2Common DATATBLS, DRLG, DUNGEON, ENVIRONMENT, INVENTORY, Logging, SKILLS, Chat/Ignorelist.cpp, two Unknown_ files; D2CMP CelCmp.cpp).
   - **One finding before I build it.** Three objects in the 0x1A3C span have their own TU's symbols in the original:
     - gLevelFilesCriticalSection (0x0096D610, +0x19E0) is a CCritSect with its own dynamic initializer and atexit destructor (0x006CB010, 0x006CB4E0), in the initializer table between D2CMP's gCelListTable and gOptionList.
@@ -53,6 +54,25 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
 - Fri Nov 27 01:14:52 PST 2026: starting. Running tools/shortdata.py and tools/linkdebt.py on lane10/short-data for the baseline counts. Claimed: the short globals in D2Common UNITS, D2Client UNIT/GAME, D2Game PLAYER/MONSTER, and the D2Win clusters 0x00842710 and 0x0081EA68.
 
 ## Questions
+- Fri Nov 27 11:08 PST 2026: **D2DataTablesStrc gDataTables: parked, findings for Fable.** No source changed; claim released.
+  - **Blocker 1, the CCritSect member.** gLevelFilesCriticalSection (+0x19E0) has a ctor/dtor, so as a struct member D2DataTbls.h has to see CCritSect.h. I tried only adding `#include "CCritSect.h"` to D2DataTbls.h and compiled its 179 direct includers: 6 units stop matching (inv.cpp, inv_0048BC10.cpp, inv_0048DD90.cpp, UnitSnd.cpp, SUnitMsg.cpp, LvlTbls.cpp) and Preset.cpp no longer compiles. That is the declaration-count effect.
+    - link_exe anchors each .CRT$XC* piece at its original slot, so moving the initializer into gDataTables's TU is not itself a problem.
+  - **Blocker 2, the sub-tables.** These are reached by address (`&gItemDataTables`, returned by the getters), so they must stay members of their own types, not be flattened:
+    - D2ItemDataTbl (three definitions: D2ItemDataTbl.h, MonsterTbls.cpp, Inventory.cpp);
+    - D2GemDataTbl, D2ItemRatioDataTbl, D2MonModeDataTbl, D2ObjModeDataTbl, D2PlrModeDataTbl;
+    - D2QualityItemDataTbl and D2RareAffixDataTbl (in D2Game.h);
+    - D2LowQualityItemDataTbl (D2Game Unknown_005C0D00.cpp);
+    - D2BookDataTbl.h (doesn't compile on its own);
+    - D2MonItemPercentDataTbl, D2UniqueNameTablesStrc, D2HirelingTableGlobals (MonsterTbls.cpp);
+    - D2AutomapIndexStrc (LvlTbls.cpp), D2InventoryComponentItemTypeStrc (Inventory.cpp), and Logging's D2CriticalSectionStrc.
+
+    Each has to move into a shared header that D2DataTbls.h includes, which is lane 1's queue item 2, and each move risks the same flips as blocker 1.
+  - **Smaller points.**
+    - DrlgActivate.cpp defines the four room-stat ints at 0x0096C8B8 under three names each, as statics. Env.cpp and Dungeon.cpp define them again.
+    - 0x0096D4B0 is int in one file and unsigned short in another.
+    - The header's placeholders cover 97 of the globals: nSoundsTxtCodes[0x814], pTreasureClassEx[0xBC], pMonPresetTxt[0x2C], pMonSeqTxt[0x14], pExperienceTxt[0xC], unk0xC88/DC4/DD0/DEC/DF8/E30/E60/1018. None of those placeholder names is used, so splitting them is free.
+  - **Field map.** For each of the 234 addresses it gives the header field or placeholder offset and every name and type declared there. It is in my workspace; I'll post it to the board if Fable wants it.
+  - I'm moving on to the clusters outside it (D3D vertices, D2CMP cache, gtPacket2A and the small ones).
 - Fri Nov 27 07:22 PST 2026: **reading of the D2CMP/D2Common cluster 0x0096BC30-0x0096D66C** (6,716 B, 231 globals, 1,384 refs). I haven't changed anything there.
   - **What it is.** It is one object: D2Common's static `D2DataTablesStrc`.
     - D2DataTbls.h checks `D2DataTablesStrc` at 0x1A3C bytes, which is exactly 6,716.
