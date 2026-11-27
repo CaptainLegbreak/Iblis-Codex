@@ -8264,7 +8264,7 @@
   ["0x00545C30", 90, "verified", "QUESTS_SpawnMonster"],
   ["0x00545C90", 56, "verified", "QUESTS_MapPresetSpawn"],
   ["0x00545CD0", 105, "verified", "QUESTS_AttachLevelChainRecord"],
-  ["0x00545D40", 61, "verified", "?QUESTS_InitRecord@@YGXPAUD2Unk00545D40Rec@@HHE@Z"],
+  ["0x00545D40", 61, "verified", "?QUESTS_InitQuestData@@YGXPAUD2QuestDataStrc@@PAUD2GameStrc@@HE@Z"],
   ["0x00545D80", 530, "verified", "?QUESTS_QuestInit@@YIXPAUD2GameStrc@@@Z"],
   ["0x00545FA0", 153, "verified", "?QUESTS_RemoveTimer@@YIXPAUD2QuestDataStrc@@P6IX0@Z@Z"],
   ["0x00546040", 559, "verified", "?QUESTS_StatusCallback@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"],

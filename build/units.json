@@ -44337,7 +44337,7 @@
     {
      "va": "0x00545D40",
      "length": 61,
-     "name": "?QUESTS_InitRecord@@YGXPAUD2Unk00545D40Rec@@HHE@Z"
+     "name": "?QUESTS_InitQuestData@@YGXPAUD2QuestDataStrc@@PAUD2GameStrc@@HE@Z"
     },
     {
      "va": "0x00545D80",

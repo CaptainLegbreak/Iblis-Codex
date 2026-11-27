@@ -118,8 +118,6 @@ struct D2DrlgCoordsStrc;
 
 struct D2ObjOperateFnStrc;
 
-struct D2Unk00545D40Rec;
-
 struct D2QuestChainStrc
 {
     D2QuestDataStrc* pQuestData;
@@ -394,19 +392,6 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc
 
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
-
-struct D2Unk00545D40Rec
-{
-    int nFirst;
-    int nSecond;
-    unsigned char nKind;
-    unsigned char bActive;
-    unsigned char b0A;
-    unsigned char b0B;
-    char unk0x0C[0x90];
-    unsigned short w9C;
-    char unk0x9E[0x5A];
-};
 
 void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005455B0
 
@@ -1935,19 +1920,6 @@ void __fastcall QUESTS_AttachLevelChainRecord(D2GameStrc* pGame, D2UnitStrc* pUn
     }
 }
 
-// 0x00545D40
-static void __stdcall QUESTS_InitRecord(D2Unk00545D40Rec* pRec, int nSecond, int nFirst, unsigned char nKind)
-{
-    memset(pRec, 0, sizeof(D2Unk00545D40Rec));
-    pRec->nFirst = nFirst;
-    pRec->nSecond = nSecond;
-    pRec->b0A = 0;
-    pRec->b0B = 0;
-    pRec->bActive = 1;
-    pRec->nKind = nKind;
-    pRec->w9C = 0;
-}
-
 // 0x00545100
 void __fastcall QUESTS_UpdateNPCIntros(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nAct)
 {
@@ -2529,14 +2501,10 @@ void __fastcall QUESTS_MapPresetSpawn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ma
     }
 }
 
-void __fastcall sub_K10_EmitInitRecord(D2Unk00545D40Rec* pRec, int n)
-{
-    QUESTS_InitRecord(pRec, n, n + 1, 2);
-}
-
 #pragma function(memset)
 
-static inline void QUESTS_InitQuestData(D2QuestDataStrc* pQuestData, D2GameStrc* pGame, int nChainNo, unsigned char nAct)
+// 0x00545D40
+static void __stdcall QUESTS_InitQuestData(D2QuestDataStrc* pQuestData, D2GameStrc* pGame, int nChainNo, unsigned char nAct)
 {
     memset(pQuestData, 0, sizeof(D2QuestDataStrc));
     pQuestData->nQuestNo = nChainNo;
