@@ -335,7 +335,6 @@ D2UnitStrc* __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
-int __stdcall sub_00648900_PathGetY(D2DynamicPathStrc* pPath); // 0x00648900
 
 
 struct D2MissileScanArgStrc

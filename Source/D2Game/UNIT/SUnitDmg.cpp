@@ -450,7 +450,7 @@ static int __stdcall SUNITDMG_ComputeExperienceGain(D2GameStrc* pGame, int nAtta
 struct D2PlayerDataStrc;
 
 
-int __fastcall sub_005A4EE0_IsMonster(D2UnitStrc* pUnit); // 0x005A4EE0
+int __fastcall MONSTERMODE_IsMonster(D2UnitStrc* pUnit); // 0x005A4EE0
 
 void __fastcall SUNITDMG_SetExperienceForTargetLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTargetLevel);
 
@@ -1225,7 +1225,7 @@ elemental:
         pDamage->dwColdDamage=SUNITDMG_AddStatDamage(54,331,0,0,pDamage->dwColdDamage,55,pAttacker);
         pDamage->dwMagDamage=SUNITDMG_AddStatDamage(52,357,0,0,pDamage->dwMagDamage,53,pAttacker);
     }
-    int bHireling=sub_0063EE90_IsHireling(pAttacker);
+    int bHireling=MONSTERS_GetHirelingTypeId(pAttacker);
     if(nAttackerType==1 && !bHireling)
     {
         if(!(pDamage->dwHitFlags&4)) pDamage->dwLifeLeech+=SUNITDMG_AddStatDamage(60,-1,0,0,pDamage->dwLifeLeech,61,pAttacker)*nSrcDam/128;
@@ -1347,7 +1347,7 @@ static int __cdecl SUNITDMG_GetEffectiveResistance(Context* c,Record* r)
             if(maximum>=95) maximum=95;
             resistance=(resistance>-100 ? resistance : -100)<maximum ? (resistance>-100 ? resistance : -100) : maximum;
         }
-        if(r->resistanceStat==36 && sub_00639DF0_State(c->attacker,47) && sub_0063E990_ClassB(c->defender))
+        if(r->resistanceStat==36 && STATES_CheckState(c->attacker,47) && MONSTERS_IsUndead(c->defender))
         {
             resistance=0;
         }
@@ -1432,7 +1432,7 @@ static int __stdcall SUNITDMG_ApplyResistancesAndAbsorb(int ignore,Context* c,Re
         if(resistance>=100) resistance=100;
         amount=DATATBLS_ApplyRatio(amount,100-resistance,100);
     }
-    sub_005347D0_Report(c->game,c->attacker,c->defender,originalAmount,resistance,FIELD(c,28+4*r->reductionIndex),amount,r->name,r->flags);
+    DEBUG_Stub9(c->game,c->attacker,c->defender,originalAmount,resistance,FIELD(c,28+4*r->reductionIndex),amount,r->name,r->flags);
     originalAmount=amount;
     if(!ignore)
     {
@@ -1450,23 +1450,23 @@ static int __cdecl SUNITDMG_GetDamageReductionShift(Context* c)
     {
         if(c->defender->type==0)
         {
-            if(c->attacker->type==0 || sub_0063EE90_ClassE(c->attacker)) return 17;
+            if(c->attacker->type==0 || MONSTERS_GetHirelingTypeId(c->attacker)) return 17;
             Unit* attacker=c->attacker;
-            if(sub_00451F30_HasFlags(attacker,0x80000000u) || sub_0063EE90_ClassE(attacker)) return 17;
+            if(sub_00451F30_HasFlags(attacker,0x80000000u) || MONSTERS_GetHirelingTypeId(attacker)) return 17;
         }
         else
         {
-            if(sub_0063EE90_ClassE(c->defender) && sub_0063EE90_ClassE(c->attacker)) return 25;
-            if(sub_0063EE90_ClassE(c->attacker) && sub_0063E9F0_ClassC(0,c->defender))
+            if(MONSTERS_GetHirelingTypeId(c->defender) && MONSTERS_GetHirelingTypeId(c->attacker)) return 25;
+            if(MONSTERS_GetHirelingTypeId(c->attacker) && MONSTERS_IsBoss(0,c->defender))
             {
                 Difficulty* difficulty=c->difficulty;
                 if(difficulty) return FIELD(difficulty,56);
                 return 100;
             }
-            if(sub_0063EDC0_ClassD(c->attacker))
+            if(MONSTERS_IsPrimeEvil(c->attacker))
             {
                 Unit* defender=c->defender;
-                if(sub_00451F30_HasFlags(defender,0x80000000u)) return sub_0063EE90_ClassE(defender) ? 200 : 400;
+                if(sub_00451F30_HasFlags(defender,0x80000000u)) return MONSTERS_GetHirelingTypeId(defender) ? 200 : 400;
             }
         }
     }
@@ -1478,19 +1478,19 @@ static void __cdecl SUNITDMG_ApplyFreezeDurationModifiers(Context* c)
 {
     if(FIELD(c->damage,48)>0 || FIELD(c->damage,52)>0)
     {
-        if(sub_00625500_BaseStat(c->defender,153,0))
+        if(STATLIST_UnitGetItemStatOrSkillStatValue(c->defender,153,0))
         {
             FIELD(c->damage,48)=0;
             FIELD(c->damage,52)=0;
         }
-        else if(sub_00625500_BaseStat(c->defender,118,0))
+        else if(STATLIST_UnitGetItemStatOrSkillStatValue(c->defender,118,0))
         {
             FIELD(c->damage,48)/=2;
             FIELD(c->damage,52)/=2;
         }
     }
-    if(FIELD(c->damage,44)>0 && sub_00639DF0_State(c->defender,133)) FIELD(c->damage,44)=0;
-    if(FIELD(c->damage,24)>0 && sub_00639DF0_State(c->defender,131)) FIELD(c->damage,24)=0;
+    if(FIELD(c->damage,44)>0 && STATES_CheckState(c->defender,133)) FIELD(c->damage,44)=0;
+    if(FIELD(c->damage,24)>0 && STATES_CheckState(c->defender,131)) FIELD(c->damage,24)=0;
 }
 
 // 0x0057C1E0
@@ -1502,8 +1502,8 @@ void __fastcall SUNITDMG_CalculateTotalDamage(Game* game,Unit* attacker,Unit* de
     c.attacker=attacker;
     c.defender=defender;
     c.damage=damage;
-    c.attackerFlag=attacker && attacker->type==1 && !sub_0063EE90_ClassE(attacker);
-    c.defenderFlag=defender && defender->type==1 && !sub_0063EE90_ClassE(defender);
+    c.attackerFlag=attacker && attacker->type==1 && !MONSTERS_GetHirelingTypeId(attacker);
+    c.defenderFlag=defender && defender->type==1 && !MONSTERS_GetHirelingTypeId(defender);
     c.zeroReduction=0;
     int reduction=sub_00625480_Stat(defender,34,0)<<8;
     if(reduction>0 && FIELD(damage,84)>0) reduction=DATATBLS_ApplyRatio(reduction,FIELD(damage,84),1024);
@@ -1526,13 +1526,13 @@ void __fastcall SUNITDMG_CalculateTotalDamage(Game* game,Unit* attacker,Unit* de
             ++r;
         } while(--remaining);
     }
-    sub_005C0C30_Event(game,11,defender,attacker,damage);
+    SUNITEVENT_Trigger(game,11,defender,attacker,damage);
     SUNITDMG_ApplyFreezeDurationModifiers(&c);
     int ignore=0;
     if(defender && defender->type==1)
     {
-        int classB=sub_0063E990_ClassB(defender);
-        int classA=sub_0063E940_ClassA(defender);
+        int classB=MONSTERS_IsUndead(defender);
+        int classA=MONSTERS_IsDemon(defender);
         if(classB && (FIELD(damage,0)&256)) ignore=1;
         if(classA && (FIELD(damage,0)&512)) ignore=1;
         if(!classB && !classA && (FIELD(damage,0)&1024)) ignore=1;
@@ -3253,7 +3253,7 @@ unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc* pGame, D2UnitStrc*
         break;
 
     case UNIT_MONSTER:
-        if (!sub_005A4EE0_IsMonster(pDefender))
+        if (!MONSTERMODE_IsMonster(pDefender))
         {
             return 0;
         }

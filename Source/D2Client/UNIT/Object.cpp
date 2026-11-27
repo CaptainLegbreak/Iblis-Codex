@@ -160,7 +160,6 @@ struct D2MissileStrc;
 extern "C" const char gszUnitSourceFile[];
 
 
-int __stdcall sub_00621B00_IsShrine(D2UnitStrc* pUnit);
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 

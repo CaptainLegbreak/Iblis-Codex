@@ -2211,7 +2211,7 @@ void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int bFl
             }
         }
     }
-    if (!sub_00650BE0_PlaceUnit(pDynamicPath, pUnit, pRoom, nX, nY))
+    if (!D2Common_10229(pDynamicPath, pUnit, pRoom, nX, nY))
     {
         D2CoordStrc tCoord;
         tCoord.nX = nX;
