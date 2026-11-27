@@ -164,7 +164,7 @@ D2GfxLightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* pValue);      
 void __fastcall SCMD_FreePacketBuffer(void* pArg);                                                  // 0x0045F9F0
 
 
-void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection);                         // 0x006488A0
+void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, int nDirection);                         // 0x006488A0
 
 
 void __cdecl UI_LoadPlayerUI();                                                                   // 0x00453D90
@@ -978,7 +978,7 @@ void __fastcall CUNIT_SetPlayerUnit(D2UnitStrc* pUnit)
 
     if (pUnit)
     {
-        sub_006488A0_SetDirection(pUnit->pDynamicPath, 0);
+        PATH_SetDirection(pUnit->pDynamicPath, 0);
         gnCharClass = (unsigned char)CUNIT_GetUnitClassId(pUnit);
         GAME_SetStandStillHeld(0);
         UI_LoadPlayerUI();
@@ -2219,7 +2219,7 @@ void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int bFl
             }
         }
     }
-    if (!sub_00650BE0_PlaceUnit(pDynamicPath, pUnit, pRoom, nX, nY))
+    if (!D2Common_10229(pDynamicPath, pUnit, pRoom, nX, nY))
     {
         D2CoordStrc tCoord;
         tCoord.nX = nX;

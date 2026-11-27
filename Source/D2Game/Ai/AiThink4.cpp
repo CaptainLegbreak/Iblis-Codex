@@ -210,7 +210,7 @@ void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath);                 
 int __fastcall AITACTICS_RunToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlags); // 0x005DED00
 
 
-unsigned int __fastcall sub_005DC380(D2UnitStrc* pUnit, D2UnitStrc* pTarget);                  // 0x005DC380
+unsigned int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pUnit, D2UnitStrc* pTarget);                  // 0x005DC380
 
 void __fastcall ACT5Q6_OpenWorldStoneChamber(D2GameStrc* pGame);                                            // 0x0058E600
 
@@ -294,7 +294,7 @@ enum D2C_ShadowMasterConstants
 
 };
 
-int __fastcall sub_005DC480_GetDistance(D2UnitStrc*,int,int); // 0x005DC480
+int __fastcall AIUTIL_GetDistanceToCoordinates_HalfUnitSize(D2UnitStrc*,int,int); // 0x005DC480
 
 struct D2StatListStrc;
 
@@ -1037,7 +1037,7 @@ enum D2C_P11AiConstants
 
 
 
-void __fastcall sub_005DEC80_Walk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSteps); // 0x005DEC80
+void __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSteps); // 0x005DEC80
 
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
 
@@ -6026,7 +6026,7 @@ int __fastcall AITHINK_RollDiabloAction(D2AiControlStrc* pAi,D2UnitStrc* pUnit,D
     int bFar=0;
     if(pInfo)
     {
-        int nDist=sub_005DC480_GetDistance(pTarget,pInfo->nCmdParam[1],pInfo->nCmdParam[2]);
+        int nDist=AIUTIL_GetDistanceToCoordinates_HalfUnitSize(pTarget,pInfo->nCmdParam[1],pInfo->nCmdParam[2]);
         if(nDist>85)bFar=1;
         if(nDist>105)bVeryFar=1;
     }
@@ -8000,7 +8000,7 @@ void __fastcall AITHINK_Fn111_CycleOfLife(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     bUseSkill = 1;
     if (DRLG_UnitEdgeDistance(pUnit, pOwner) >= AI_PARAM(pGame, pMonStats, 4))
     {
-        if (sub_005E3EA0(pGame, pOwner, pUnit, 3, 0, 0, 6)) return;
+        if (D2GAME_AI_PetMove(pGame, pOwner, pUnit, 3, 0, 0, 6)) return;
     }
     if (pCombatTarget && SUNIT_IsDead(pCombatTarget))
     {
@@ -8023,7 +8023,7 @@ void __fastcall AITHINK_Fn111_CycleOfLife(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         pTarget = 0;
     else if (pTarget)
         bReachable = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
-    if (sub_005E45D0_PetFollow(pGame, pUnit, pTarget, pOwner, bReachable, pTick, 0, 6)) return;
+    if (AITHINK_TryPetFollowOwner(pGame, pUnit, pTarget, pOwner, bReachable, pTick, 0, 6)) return;
     int nClass;
     if (!pUnit) nClass = -1;
     else nClass = pUnit->dwClassId;
@@ -8059,7 +8059,7 @@ void __fastcall AITHINK_Fn111_CycleOfLife(D2GameStrc* pGame, D2UnitStrc* pUnit, 
             return;
         }
     }
-    if (pTarget) sub_005DEC80_Walk(pGame, pUnit, pTarget, 7);
+    if (pTarget) AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
     else AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStats, 2));
 }
 
@@ -8233,7 +8233,7 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     pAiControl->dwAiParam[2] = !pOwner ? -1 : pOwner->dwUnitId;
     if (DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
     {
-        if (!sub_005E45D0_PetFollow(pGame, pUnit, 0, pOwner, 0, pTick, 0, 6))
+        if (!AITHINK_TryPetFollowOwner(pGame, pUnit, 0, pOwner, 0, pTick, 0, 6))
         {
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 33);
         }
@@ -8278,7 +8278,7 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 
     if (nOwnerDistance2 > AI_PARAM(pGame, pMonStats, 4))
     {
-        if (sub_005E3EA0(pGame, pOwner, pUnit, 0, 1, 100, 0))
+        if (D2GAME_AI_PetMove(pGame, pOwner, pUnit, 0, 1, 100, 0))
         {
             return;
         }
@@ -8289,7 +8289,7 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     {
         if (nOwnerMode == 2 || nOwnerMode == 6)
         {
-            if (sub_005E3EA0(pGame, pOwner, pUnit, 0, 0, 0, 0))
+            if (D2GAME_AI_PetMove(pGame, pOwner, pUnit, 0, 0, 0, 0))
             {
                 return;
             }
@@ -8297,14 +8297,14 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 
         if (nOwnerMode == 3)
         {
-            if (sub_005E3EA0(pGame, pOwner, pUnit, 0, 1, 100, 0))
+            if (D2GAME_AI_PetMove(pGame, pOwner, pUnit, 0, 1, 100, 0))
             {
                 return;
             }
         }
     }
 
-    if (sub_005E45D0_PetFollow(pGame, pUnit, pTarget, pOwner, bCombat, pTick, 1, 6))
+    if (AITHINK_TryPetFollowOwner(pGame, pUnit, pTarget, pOwner, bCombat, pTick, 1, 6))
     {
         return;
     }
@@ -9188,7 +9188,7 @@ D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     return pTarget;
 }
 
-int __fastcall sub_005E8810_SelectAction(D2AiControlStrc*, D2UnitStrc*, D2UnitStrc*, int, int, D2AiCmdStrc*); // 0x005E8810
+int __fastcall AITHINK_RollDiabloAction(D2AiControlStrc*, D2UnitStrc*, D2UnitStrc*, int, int, D2AiCmdStrc*); // 0x005E8810
 
 inline D2SkillsTxt* GetSkill(int nId) {
     if (nId >= 0 && nId < sgptDataTables->nSkillsTxtRecordCount) return &sgptDataTables->pSkillsTxt[nId];
@@ -9216,7 +9216,7 @@ void __fastcall AITHINK_Fn051_Diablo(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
         int nCount;
         pTarget = AIBAAL_GetTarget(pGame, pUnit, &nMax, &nCount, pCmd, AITHINK_CullPotentialTargetsForDiablo);
         pAi = pTick->pAiControl;
-        nAction = sub_005E8810_SelectAction(pAi, pUnit, pTarget, nMax, nCount, pCmd);
+        nAction = AITHINK_RollDiabloAction(pAi, pUnit, pTarget, nMax, nCount, pCmd);
     }
     if (nAction != 5 && pStats->nSkill[7] >= 0) {
         D2SkillsTxt* pSkill = GetSkill(pStats->nSkill[7]);
@@ -9974,7 +9974,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_PutridDefiler(D2GameStrc* pGame, D
         return 0;
     }
 
-    return sub_005DC380(pUnit, pTarget) <= 25 ? pTarget : 0;
+    return AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pTarget) <= 25 ? pTarget : 0;
 }
 
 // 0x005EFA90

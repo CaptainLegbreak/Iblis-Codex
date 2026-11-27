@@ -265,7 +265,7 @@ int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char act); // 0x0061AB70
 void __fastcall sub_00553380_SendEvent(D2UnitStrc* unit,int event,D2UnitStrc* other); // 0x00553380
 
 
-D2ClientStrc* __fastcall sub_005531C0_GetClient(D2UnitStrc* unit,const char* file,int line,int type,int id); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* unit,const char* file,int line,int type,int id); // 0x005531C0
 
 void __fastcall D2GAME_PACKETS_SendPacketSize06(D2ClientStrc* client,unsigned char code); // 0x0053B3D0
 
@@ -1783,7 +1783,7 @@ int __fastcall SKILLITEM_pSpell02_CastPortal(D2GameStrc* game,D2UnitStrc* unit,D
  if(item) {
   const int nItemId = item->dwUnitId;
   const int nItemType = GetItemType(item);
-  D2ClientStrc* client=sub_005531C0_GetClient(unit,".\\SKILLS\\SkillItem.cpp",218,nItemType,nItemId);
+  D2ClientStrc* client=UnitGetClient(unit,".\\SKILLS\\SkillItem.cpp",218,nItemType,nItemId);
   D2GAME_PACKETS_SendPacketSize06(client,124);
  }
  return result;

@@ -157,7 +157,7 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoo
 int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
 
 
-void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
+void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
@@ -2187,7 +2187,7 @@ D2UnitStrc* __fastcall SKILLS_CreateTargetedMissile(D2UnitStrc* pUnit, int nMiss
 // 0x004C7470
 void __fastcall SKILLS_SetMissileDirection(D2UnitStrc* pMissile, int nDirection)
 {
-    sub_006488A0_SetDirection(pMissile->pDynamicPath, nDirection);
+    PATH_SetDirection(pMissile->pDynamicPath, nDirection);
 }
 
 static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)

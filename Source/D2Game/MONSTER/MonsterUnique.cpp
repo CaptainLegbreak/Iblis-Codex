@@ -658,7 +658,7 @@ static int __stdcall MONSTERUNIQUE_CanAssignUMod(D2UnitStrc* pUnit, D2MonUModTxt
             break;
         }
 
-        if (sub_005A0070(pUnit, nExcludeMonType))
+        if (MONSTERUNIQUE_MONSTERUNIQUE_CheckMonType(pUnit, nExcludeMonType))
         {
             return 0;
         }
@@ -1303,7 +1303,7 @@ struct D2DifficultyLevelsTxt;
 struct D2CurseStrc;
 
 
-int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);
 
 
 static __forceinline int sub_A17E0_GetUModConstant(int nUMod)
@@ -1670,7 +1670,7 @@ static void __stdcall MONSTERUNIQUE_ApplyElementalDamageStats(D2UnitStrc* pUnit,
 // 0x005A23D0
 void __fastcall MONSTERUNIQUE_CurseCallback_ApplyAmplifyDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillLevel)
 {
-    if (!sub_00554200(pGame, pUnit, pTarget))
+    if (!SUNIT_AreUnitsHostile(pGame, pUnit, pTarget))
     {
         return;
     }

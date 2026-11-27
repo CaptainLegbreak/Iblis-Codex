@@ -190,10 +190,10 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,
 
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int,int,int,int,D2GameStrc*,D2ActiveRoomStrc*,char,int,unsigned int); // 0x00555230
 
-void __fastcall sub_00547D90_RegisterSpawn(D2MonsterRegionStrc**,D2ActiveRoomStrc*,D2UnitStrc*,int); // 0x00547D90
+void __fastcall MONSTERREGION_RegisterSpawnedMonster(D2MonsterRegionStrc**,D2ActiveRoomStrc*,D2UnitStrc*,int); // 0x00547D90
 
 
-void __fastcall sub_00552D60_SetVision(D2UnitStrc*,D2RoomCoordListStrc*); // 0x00552D60
+void __fastcall SUNIT_SetMonsterVision(D2UnitStrc*,D2RoomCoordListStrc*); // 0x00552D60
 
 
 static void MONSTERSPAWN_SetupNormalMods(D2UnkMonCreateStrc*,D2UnitStrc*); // 0x005B21B0
@@ -1005,10 +1005,10 @@ D2UnitStrc* __fastcall D2GAME_SpawnNormalMonster(D2UnkMonCreateStrc* pCreate)
     {
         int bNeverCount=nFlags&8;
         if(pRecord->nMonStatsFlags[2]&gbNeverCount_006CE270) bNeverCount=1;
-        sub_00547D90_RegisterSpawn(pCreate->pGame->pMonReg,pRoom,pMonster,bNeverCount);
+        MONSTERREGION_RegisterSpawnedMonster(pCreate->pGame->pMonReg,pRoom,pMonster,bNeverCount);
         D2RoomCoordListStrc* pList=pCreate->pRoomCoordList;
         if(!pList) pList=D2Common_10096(pRoom,nSpawnX,nSpawnY);
-        sub_00552D60_SetVision(pMonster,pList);
+        SUNIT_SetMonsterVision(pMonster,pList);
         switch(pRecord->nAlign)
         {
         default:SUNIT_SetAlignment(pMonster,0,1);break;

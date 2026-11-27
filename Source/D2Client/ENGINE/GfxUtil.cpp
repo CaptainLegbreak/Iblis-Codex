@@ -230,7 +230,7 @@ extern int gbCharArchiveLoaded; // 0x007A8928
 D2MonGfxCacheStrc* __fastcall GFX_GetMonGfxCache(int nMonsterId); // 0x0046F9D0
 
 
-void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
+void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
@@ -1999,14 +1999,14 @@ static void __stdcall GFXUTIL_SetDeathDirection(unsigned int nDirection, int bSe
     case 0:
         if ((nMode == 0 || nMode == 17) && nDirCount != nSrcDirCount)
         {
-            sub_006488A0_SetDirection(pUnit->pDynamicPath, nDirection);
+            PATH_SetDirection(pUnit->pDynamicPath, nDirection);
         }
         break;
 
     case 1:
         if ((nMode == 0 || nMode == 12) && nDirCount != nSrcDirCount)
         {
-            sub_006488A0_SetDirection(pUnit->pDynamicPath, nDirection);
+            PATH_SetDirection(pUnit->pDynamicPath, nDirection);
         }
         break;
     }

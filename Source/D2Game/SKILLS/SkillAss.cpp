@@ -655,7 +655,7 @@ int __fastcall SKILLS_SrvDo135_MinionSpawner(Game* game,Unit* unit,int skillId,i
 {
     Skills* record=GetSkills(skillId);
     if(!record) return 0;
-    Skill* skill=sub_00620250(unit);
+    Skill* skill=UNITS_GetUsedSkill(unit);
     if(!skill) return 0;
     int monsterId=SKILLS_GetParam1(skill);
     int x=SKILLS_GetParam2(skill);
