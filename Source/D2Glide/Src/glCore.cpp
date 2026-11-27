@@ -16,6 +16,7 @@
 #include "D2GfxApi2.h"
 #include "D2SoundApi2.h"
 #include "D2WinApi2.h"
+#include "D2BNClientApi.h"
 
 extern int gbGlideDrawing; // 0x0087EFE4
 
@@ -48,13 +49,6 @@ extern int gbDDrawPlayingVideo; // 0x0088126C
 extern int gfPositionalSound; // 0x0088176C
 
 extern char gData_0072FAA0[]; // 0x0072FAA0
-
-extern int gdwServerToken; // 0x008818BC
-
-extern int gnLogonType; // 0x008818C0
-
-extern int gfSetEmailRequested; // 0x00881C04
-
 
 int __cdecl GLCORE_Close(); // 0x00509E10
 

@@ -15,6 +15,7 @@
 #include "StormApi.h"
 #include "D2WinApi.h"
 #include "D2ClientApi.h"
+#include "D2BNClientApi.h"
 
 struct D2PlayerDataStrc;
 
@@ -63,8 +64,6 @@ extern int gpLastHoverItem;                                                     
 extern int gbTextPanelOpen;                                                                               // 0x007BF1FA
 
 unsigned char* gpDDrawDebugFontGlyphs;                                                             // 0x008815AC
-
-extern void* gpReply;                                                                              // 0x008818D0
 
 extern "C" void* gpGidFileData;                                                                    // 0x00882744
 

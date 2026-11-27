@@ -9,6 +9,7 @@
 #include "StormApi2.h"
 #include "D2ClientApi.h"
 #include "D2MultiApi.h"
+#include "D2BNClientApi.h"
 int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 void __cdecl MAINMENUS_ShowLocalAddress();                                                                                // 0x0042FF20
 int __cdecl MAINMENUS_FreeSlots();                                                                       // 0x00430A20
@@ -70,7 +71,6 @@ int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, i
 extern D2CelFileStrc* gpCharSelectBckgCelFile; // 0x00779768
 extern int gnTopRow; // 0x00779DC8
 void __cdecl MAINMENUS_UpdateProgress(); // 0x0042F990
-void __cdecl sub_00518C20_DeleteQueueLock(); // 0x00518C20
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 int __fastcall MAINMENUS_ShowOptionDescription(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
 void __fastcall CHARSEL_JoinSelectedWithDifficulty(SMSGHANDLER_PARAMS* pMsg, int nMode); // 0x00439AF0

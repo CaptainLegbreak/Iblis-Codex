@@ -367,6 +367,7 @@ int __fastcall UNICODE_StrLen(const Unicode* pString);                          
 
 #include "gen/data/Source/D2Launch/Src/CharSel/gnSelectionA.inc"
 #include "D2WinApi2.h"
+#include "D2BNClientApi.h"
 
 extern D2WinControlStrc* gpGatewayList;                                                                // 0x00779590
 
@@ -542,12 +543,6 @@ D2WinControlStrc* gpControl_00779D8C; // 0x00779D8C
 void __cdecl MAINMENUS_UpdateProgress(); // 0x0042F990
 
 extern int gdwGlobal_0077AC04; // 0x0077AC04
-
-void __cdecl sub_00518C20_DeleteQueueLock(); // 0x00518C20
-
-
-
-
 
 D2WinControlStrc* gpControl_00779D98; // 0x00779D98
 

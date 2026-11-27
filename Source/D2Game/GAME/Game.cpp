@@ -28,6 +28,7 @@
 #include "StormApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2BNClientApi.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -120,22 +121,6 @@ struct D2StormSlotList00530600Strc;
 struct D2StormSlotArray00530600Strc;
 
 struct D2StormHashTable00530600Strc;
-
-extern char gszInfoText[]; // 0x00882028
-
-extern int gdwGlobal_00882528; // 0x00882528
-
-extern int gnLastStatus; // 0x0072FFA8
-
-extern char gszReplyText[]; // 0x00882428
-
-extern int gnCreateAccountResult; // 0x008822A4
-
-extern int gnChangePasswordResult; // 0x008822A0
-
-extern int gnLoginRetryCount; // 0x00882538
-
-extern int gdwGlobal_00730190; // 0x00730190
 
 extern int gdwGlobal_00882750; // 0x00882750
 
