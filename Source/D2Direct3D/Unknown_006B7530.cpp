@@ -100,7 +100,6 @@ extern int gnPerspectiveScale; // 0x00989748
 struct D2TileBlockStrc { short x,y; unsigned char unk_04[16]; };
 struct D2TileStrc { unsigned int type; unsigned char unk_04[0x4c]; int count; D2TileBlockStrc* blocks; };
 extern int gaGeometry[10][6][3]; // 0x0074C100
-extern D2TLVertexStrc gaGrid[15]; // 0x00971450
 extern unsigned short gaIndices[22]; // 0x0074C0D0
 extern const char gszAssert_006CC837[]; // 0x006CC837
 __declspec(noreturn) void __cdecl sub_00681E09_Exit(int);
@@ -109,10 +108,6 @@ void __fastcall sub_006B9780_SetColor(D2TLVertexStrc*,unsigned int,unsigned char
 void __fastcall D3DFLOORCACHE_BindTileTexture(D2TileBlockStrc*); // 0x006BBA00
 #define D3D_VERTEX_IN_RECT(v, r) ((v).fX >= (r).nLeft && (v).fX < (r).nRight && (v).fY >= (r).nTop && (v).fY < (r).nBottom)
 #define D2ASSERT(c,l) if(!(c)) { FOG_DisplayHalt(gszAssert_006CC837,sub_00408090(),l); sub_00681E09_Exit(-1); }
-extern D2TLVertexStrc gVertex0_00971630; // 0x00971630
-extern D2TLVertexStrc gtVertex1; // 0x00971650
-extern D2TLVertexStrc gtVertex2; // 0x00971670
-extern D2TLVertexStrc gtVertex3; // 0x00971690
 static int __stdcall sub_006B8DF0_DrawTransparentWallTile(D2TileStrc* pTile, unsigned char nAlpha, int nPosX, int nPosY, unsigned int* pLight, int nScreenPanels);
 int __stdcall D2CMPTileValidate(D2TileStrc*,int,int); // 0x005FDEA0
 
@@ -411,19 +406,19 @@ static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileStrc* pTile, int nX, i
             int nRight = x + 32;
             nDrawn = 1;
             D3DFLOORCACHE_BindTileTexture(&pTile->blocks[n]);
-            gVertex0_00971630.fX = (float)x;
-            gVertex0_00971630.fY = (float)nTop;
-            gtVertex1.fX = (float)x;
-            gtVertex1.fY = (float)y;
-            gtVertex2.fX = (float)nRight;
-            gtVertex2.fY = (float)y;
-            gtVertex3.fX = (float)nRight;
-            gtVertex3.fY = (float)nTop;
-            sub_006B9780_SetColor(&gVertex0_00971630, nLeftLight, nAlpha);
-            sub_006B9780_SetColor(&gtVertex1, nLeftLight, nAlpha);
-            sub_006B9780_SetColor(&gtVertex2, nRightLight, nAlpha);
-            sub_006B9780_SetColor(&gtVertex3, nRightLight, nAlpha);
-            gpDrawDevice->vtable->DrawPrimitive(gpDrawDevice, 6, 0x1C4, &gVertex0_00971630, 4, 28);
+            gaQuadVertices[0].fX = (float)x;
+            gaQuadVertices[0].fY = (float)nTop;
+            gaQuadVertices[1].fX = (float)x;
+            gaQuadVertices[1].fY = (float)y;
+            gaQuadVertices[2].fX = (float)nRight;
+            gaQuadVertices[2].fY = (float)y;
+            gaQuadVertices[3].fX = (float)nRight;
+            gaQuadVertices[3].fY = (float)nTop;
+            sub_006B9780_SetColor(&gaQuadVertices[0], nLeftLight, nAlpha);
+            sub_006B9780_SetColor(&gaQuadVertices[1], nLeftLight, nAlpha);
+            sub_006B9780_SetColor(&gaQuadVertices[2], nRightLight, nAlpha);
+            sub_006B9780_SetColor(&gaQuadVertices[3], nRightLight, nAlpha);
+            gpDrawDevice->vtable->DrawPrimitive(gpDrawDevice, 6, 0x1C4, &gaQuadVertices[0], 4, 28);
         }
     }
     return nDrawn;
@@ -458,22 +453,22 @@ static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int 
         int nScreenY;
 
         sub_006B9860_Project(nX0, nY0, nZ0, &nScreenX, &nScreenY);
-        gaGrid[0].fX = (float)nScreenX;
-        gaGrid[0].fY = (float)nScreenY;
+        gaPerspectiveVertices[0].fX = (float)nScreenX;
+        gaPerspectiveVertices[0].fY = (float)nScreenY;
         sub_006B9860_Project(nX0, nY0, nZ0 - 0x20, &nScreenX, &nScreenY);
-        gaGrid[12].fX = (float)nScreenX;
-        gaGrid[12].fY = (float)nScreenY;
+        gaPerspectiveVertices[12].fX = (float)nScreenX;
+        gaPerspectiveVertices[12].fY = (float)nScreenY;
         sub_006B9860_Project(nX1, nY1, nZ1 - 0x20, &nScreenX, &nScreenY);
-        gaGrid[14].fX = (float)nScreenX;
-        gaGrid[14].fY = (float)nScreenY;
+        gaPerspectiveVertices[14].fX = (float)nScreenX;
+        gaPerspectiveVertices[14].fY = (float)nScreenY;
         sub_006B9860_Project(nX1, nY1, nZ1, &nScreenX, &nScreenY);
-        gaGrid[2].fX = (float)nScreenX;
-        gaGrid[2].fY = (float)nScreenY;
+        gaPerspectiveVertices[2].fX = (float)nScreenX;
+        gaPerspectiveVertices[2].fY = (float)nScreenY;
 
-        if (D3D_VERTEX_IN_RECT(gaGrid[0], tRect)
-            || D3D_VERTEX_IN_RECT(gaGrid[12], tRect)
-            || D3D_VERTEX_IN_RECT(gaGrid[14], tRect)
-            || D3D_VERTEX_IN_RECT(gaGrid[2], tRect))
+        if (D3D_VERTEX_IN_RECT(gaPerspectiveVertices[0], tRect)
+            || D3D_VERTEX_IN_RECT(gaPerspectiveVertices[12], tRect)
+            || D3D_VERTEX_IN_RECT(gaPerspectiveVertices[14], tRect)
+            || D3D_VERTEX_IN_RECT(gaPerspectiveVertices[2], tRect))
         {
             const int nMidX = (nX0 + nX1) >> 1;
             const int nMidY = (nY0 + nY1) >> 1;
@@ -494,25 +489,25 @@ static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int 
                 if (nGridRow != 0 && nGridRow != 4)
                 {
                     sub_006B9860_Project(nX0, nY0, nZ0 - nDepth, &nScreenX, &nScreenY);
-                    gaGrid[nGridRow * 3].fX = (float)nScreenX;
-                    gaGrid[nGridRow * 3].fY = (float)nScreenY;
+                    gaPerspectiveVertices[nGridRow * 3].fX = (float)nScreenX;
+                    gaPerspectiveVertices[nGridRow * 3].fY = (float)nScreenY;
                     sub_006B9860_Project(nX1, nY1, nZ1 - nDepth, &nScreenX, &nScreenY);
-                    gaGrid[nGridRow * 3 + 2].fX = (float)nScreenX;
-                    gaGrid[nGridRow * 3 + 2].fY = (float)nScreenY;
+                    gaPerspectiveVertices[nGridRow * 3 + 2].fX = (float)nScreenX;
+                    gaPerspectiveVertices[nGridRow * 3 + 2].fY = (float)nScreenY;
                 }
 
                 sub_006B9860_Project(nMidX, nMidY, nMidZ - nDepth, &nScreenX, &nScreenY);
-                gaGrid[nGridRow * 3 + 1].fX = (float)nScreenX;
-                gaGrid[nGridRow * 3 + 1].fY = (float)nScreenY;
+                gaPerspectiveVertices[nGridRow * 3 + 1].fX = (float)nScreenX;
+                gaPerspectiveVertices[nGridRow * 3 + 1].fY = (float)nScreenY;
                 for (int nGridCol = 0; nGridCol < 3; ++nGridCol)
                 {
-                    D2TLVertexStrc* pVertex = &gaGrid[nGridRow * 3 + nGridCol];
+                    D2TLVertexStrc* pVertex = &gaPerspectiveVertices[nGridRow * 3 + nGridCol];
                     pVertex->fX = pVertex->fX + (float)nOffset;
                     sub_006B9780_SetColor(pVertex, aColors[nGridCol], nAlpha);
                 }
             }
 
-            gpDrawDevice->vtable->DrawIndexedPrimitive(gpDrawDevice, 5, 0x1c4, gaGrid, 15, gaIndices, 22, 0x1c);
+            gpDrawDevice->vtable->DrawIndexedPrimitive(gpDrawDevice, 5, 0x1c4, gaPerspectiveVertices, 15, gaIndices, 22, 0x1c);
             nResult = 1;
         }
     }
