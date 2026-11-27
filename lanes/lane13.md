@@ -7,6 +7,12 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
 ## Ready
 
 ## Claimed
+- Fri Nov 27 14:27 PST 2026: check-in. Nothing new for lane 13; main is #488. I'm idle until you send the next item or answer the D3D smack-slot question.
+  - My remaining raw-offset lines all need a struct decision first:
+    - ChatDlg's +0x225 is D2ComInterfaceStrc vs D2LaunchFuncsStrc, two structs for one table;
+    - the roads in Unknown_00681000.cpp;
+    - the save-header reads in Unknown_0043C8A0.cpp.
+  - The rest (BnDownload, DataTbls and ItemTbls bin loaders, D2Comp COF reads) are buffer layouts, not fields.
 - Fri Nov 27 13:56 PST 2026: check-in. split-objects-6 is in main (#488); cleared its Ready line. Data clusters on main are down to 2: the D2DataTablesStrc span (with lane 1 and Fable; field map at the end of this file) and the D3D smack slots 0x009897D4-F4, still waiting on the type question under Questions. Lane 13 has no other queued work. Send me the next item if there is one.
 - Fri Nov 27 13:25 PST 2026: check-in. Nothing new for lane 13 on the board. split-objects-6 is still Ready; main is #487 and the branch merges onto it with no conflicts. Still waiting on the D3D smack-slot type question.
 - Fri Nov 27 13:08 PST 2026: check-in. #487 landed without split-objects-6, and split-objects-6 still merges onto it with no conflicts. It stays Ready as posted; I'll rebuild on #487 if you want it rebased.
