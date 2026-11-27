@@ -223,7 +223,7 @@ void __stdcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int 
 
 
 
-void __fastcall sub_0049F8C0_UsePacket6(D2ClientPacket6Strc* pPacket); // 0x0049F8C0
+void __fastcall TEXT_ClearHoverText(D2ClientPacket6Strc* pPacket); // 0x0049F8C0
 
 extern int gbStandStillHeld; // 0x007A0664
 
@@ -248,7 +248,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 void __cdecl sub_00477DA0_SendPacket6B(); // 0x00477DA0
 
-void __fastcall sub_004A40D0_StorePacket52(void* pPacket); // 0x004A40D0
+void __fastcall QUESTLOG_SetQuestRecord(void* pPacket); // 0x004A40D0
 
 #pragma pack(push, 1)
 struct D2SaveChunkPacketStrc
@@ -291,7 +291,7 @@ void __fastcall GAME_LoadAct(unsigned char nAct, unsigned int dwGameSeed, unsign
 
 extern int gbActUnloaded; // 0x007A0624
 
-void __fastcall sub_00470B10_PreloadForceAct(int nAct); // 0x00470B10
+void __fastcall GFX_PreloadForce(int nAct); // 0x00470B10
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv0A
@@ -325,7 +325,7 @@ void __fastcall GFX_ResetMonsterModeGfx(D2UnitStrc* pUnit); // 0x00470B70
 
 
 
-void __fastcall sub_00463D90(int nArg); // 0x00463D90
+void __fastcall CUNIT_SetPlayerUnit(int nArg); // 0x00463D90
 
 void __cdecl sub_0046F360_Empty(); // 0x0046F360
 
@@ -409,13 +409,13 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 
 
-void __fastcall sub_00462F60(D2GSPacketSrv74Strc* pPacket); // 0x00462F60
+void __fastcall SCMD_DropUnitItems(D2GSPacketSrv74Strc* pPacket); // 0x00462F60
 
 
 
 void __fastcall ROSTER_SetPartyLife(int nUnitGUID, unsigned char nLifePct); // 0x0047A690
 
-void __fastcall sub_004A1600(D2GSPacketSrv27Strc* pPacket); // 0x004A1600
+void __fastcall TEXT_HandleNpcTextPacket(D2GSPacketSrv27Strc* pPacket); // 0x004A1600
 
 
 
@@ -476,7 +476,7 @@ struct D2SkillLevelEntryStrc
 
 
 
-void __fastcall sub_004B2620(const unsigned char* pData); // 0x004B2620
+void __fastcall NPCMENU_CopyQuestBuffer(const unsigned char* pData); // 0x004B2620
 
 
 extern "C" void __cdecl INV_ClearSkillPointsHighlight(); // 0x004AA8F0
@@ -629,9 +629,9 @@ struct D2PacketTableEntryStrc
 };
 
 
-D2PacketBufferStrc* __fastcall sub_00464770_GetPacketBuffer(D2UnitStrc* pUnit); // 0x00464770
+D2PacketBufferStrc* __fastcall CUNIT_GetPacketList(D2UnitStrc* pUnit); // 0x00464770
 
-void __fastcall sub_004647A0_SetPacketBuffer(D2UnitStrc* pUnit, D2PacketBufferStrc* pBuffer); // 0x004647A0
+void __fastcall CUNIT_SetPacketList(D2UnitStrc* pUnit, D2PacketBufferStrc* pBuffer); // 0x004647A0
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
@@ -723,7 +723,7 @@ void __fastcall VIEW_UpdatePetLife(int nUnitId, int nLifePercent, unsigned short
 
 
 
-extern "C" void __cdecl sub_0048A700(); // 0x0048A700
+extern "C" void __cdecl INV_ToggleWeaponSwitch(); // 0x0048A700
 
 
 
@@ -752,7 +752,7 @@ int gnPopUpTextMode; // 0x007A2D28
 
 struct D2ClientSightPacketStrc;
 
-void __fastcall sub_0044E380_SetConnectionError(int nError);
+void __fastcall GAME_ShowLoadingMessage(int nError);
 
 #pragma pack(push, 1)
 struct D2ClientSightPacketStrc
@@ -768,7 +768,7 @@ extern "C" void __stdcall DUNGEON_SetClientIsInSight(void* pAct, int nLevelId, i
 
 extern "C" void __stdcall DUNGEON_UnsetClientIsInSight(void* pAct, int nLevelId, int nX, int nY, void* pRoom); // 0x0061A0C0
 
-void __fastcall sub_004802E0(unsigned char* pData, int nLength); // 0x004802E0
+void __fastcall WARDENCLIENT_ProcessWardenRequest(unsigned char* pData, int nLength); // 0x004802E0
 
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
@@ -1020,21 +1020,21 @@ void __fastcall NPCMENU_HandleNpcTransaction(D2PacketRecord15Strc* pPacket); // 
 
 void __fastcall sub_004B9210(D2PacketRecord15Strc* pPacket); // 0x004B9210
 
-void __fastcall sub_004B3240(D2PacketRecord7Strc* pPacket); // 0x004B3240
+void __fastcall NPCMENU_StoreMessage(D2PacketRecord7Strc* pPacket); // 0x004B3240
 
 
 
 void __fastcall NPCMENU_FlagNpcEntries(D2GSPacket91Strc* pPacket); // 0x004B3510
 
-void __fastcall sub_004BDF30(D2PacketRecord7Strc* pPacket); // 0x004BDF30
+void __fastcall ITEM_ApplyTownPortalState(D2PacketRecord7Strc* pPacket); // 0x004BDF30
 
 void __fastcall sub_0049CF90_OpenWaypointPanel(D2PacketRecord21Strc* pPacket); // 0x0049CF90
 
-void __fastcall sub_004B9010(D2PacketRecord21Strc* pPacket); // 0x004B9010
+void __fastcall TEXT_SetNameFromPacket(D2PacketRecord21Strc* pPacket); // 0x004B9010
 
 void __fastcall ROSTERPETS_AssignMercEntry(int nKey, int nArg, int nType, int nValue, D2Packet81ArgsStrc* pArgs); // 0x00478BB0
 
-void __fastcall sub_004C51B0(D2PacketRecord6Strc* pPacket); // 0x004C51B0
+void __fastcall SKILLS_ClearUnitActionState(D2PacketRecord6Strc* pPacket); // 0x004C51B0
 
 
 
@@ -1109,7 +1109,7 @@ struct D2SkillEndPacketStrc
 
 
 
-void __stdcall sub_00639DB0_ToggleState(D2UnitStrc* pUnit, int nState, int nEnable); // 0x00639DB0
+void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int nEnable); // 0x00639DB0
 
 struct D2ChatMessageStrc
 {
@@ -1141,7 +1141,7 @@ extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
 
 
 
-void __fastcall sub_004C25B0(D2GSPacketSrv9C* pPacket); // 0x004C25B0
+void __fastcall ITEM_HandleAddToGround(D2GSPacketSrv9C* pPacket); // 0x004C25B0
 
 
 
@@ -1482,33 +1482,33 @@ static void SCMD_HandleServerError(D2ErrorPacketStrc* pPacket)
 {
     switch (pPacket->nCode)
     {
-    case 1: sub_0044E380_SetConnectionError(0); return;
-    case 2: sub_0044E380_SetConnectionError(1); return;
-    case 3: sub_0044E380_SetConnectionError(2); return;
-    case 4: sub_0044E380_SetConnectionError(3); return;
-    case 5: sub_0044E380_SetConnectionError(4); return;
-    case 6: sub_0044E380_SetConnectionError(5); return;
-    case 7: sub_0044E380_SetConnectionError(0x0A); return;
-    case 8: sub_0044E380_SetConnectionError(0x0B); return;
-    case 9: sub_0044E380_SetConnectionError(0x0C); return;
-    case 10: sub_0044E380_SetConnectionError(0x0D); return;
-    case 11: sub_0044E380_SetConnectionError(0x0E); return;
-    case 12: sub_0044E380_SetConnectionError(0x0F); return;
-    case 13: sub_0044E380_SetConnectionError(0x10); return;
-    case 14: sub_0044E380_SetConnectionError(0x11); return;
-    case 15: sub_0044E380_SetConnectionError(0x12); return;
-    case 16: sub_0044E380_SetConnectionError(0x13); return;
-    case 17: sub_0044E380_SetConnectionError(0x14); return;
-    case 18: sub_0044E380_SetConnectionError(0x15); return;
-    case 19: sub_0044E380_SetConnectionError(0x16); return;
-    case 20: sub_0044E380_SetConnectionError(0x17); return;
-    case 21: sub_0044E380_SetConnectionError(0x18); return;
-    case 24: sub_0044E380_SetConnectionError(0x1A); return;
-    case 23: sub_0044E380_SetConnectionError(0x19); return;
-    case 26: sub_0044E380_SetConnectionError(0x1C); return;
-    case 25: sub_0044E380_SetConnectionError(0x1B); return;
+    case 1: GAME_ShowLoadingMessage(0); return;
+    case 2: GAME_ShowLoadingMessage(1); return;
+    case 3: GAME_ShowLoadingMessage(2); return;
+    case 4: GAME_ShowLoadingMessage(3); return;
+    case 5: GAME_ShowLoadingMessage(4); return;
+    case 6: GAME_ShowLoadingMessage(5); return;
+    case 7: GAME_ShowLoadingMessage(0x0A); return;
+    case 8: GAME_ShowLoadingMessage(0x0B); return;
+    case 9: GAME_ShowLoadingMessage(0x0C); return;
+    case 10: GAME_ShowLoadingMessage(0x0D); return;
+    case 11: GAME_ShowLoadingMessage(0x0E); return;
+    case 12: GAME_ShowLoadingMessage(0x0F); return;
+    case 13: GAME_ShowLoadingMessage(0x10); return;
+    case 14: GAME_ShowLoadingMessage(0x11); return;
+    case 15: GAME_ShowLoadingMessage(0x12); return;
+    case 16: GAME_ShowLoadingMessage(0x13); return;
+    case 17: GAME_ShowLoadingMessage(0x14); return;
+    case 18: GAME_ShowLoadingMessage(0x15); return;
+    case 19: GAME_ShowLoadingMessage(0x16); return;
+    case 20: GAME_ShowLoadingMessage(0x17); return;
+    case 21: GAME_ShowLoadingMessage(0x18); return;
+    case 24: GAME_ShowLoadingMessage(0x1A); return;
+    case 23: GAME_ShowLoadingMessage(0x19); return;
+    case 26: GAME_ShowLoadingMessage(0x1C); return;
+    case 25: GAME_ShowLoadingMessage(0x1B); return;
     }
-    sub_0044E380_SetConnectionError(9);
+    GAME_ShowLoadingMessage(9);
 }
 
 // 0x0045C850
@@ -1573,7 +1573,7 @@ void __fastcall SCMD_HandleLoadComplete(void* pPacket)
     D2ActiveRoomStrc* pRoom = CUNIT_GetPlayerRoom();
     if (pRoom)
     {
-        sub_00470B10_PreloadForceAct(DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)));
+        GFX_PreloadForce(DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)));
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
         {
@@ -1678,7 +1678,7 @@ void __fastcall SCMD_HandleGameHandshake(D2GSPacketSrv0B* pPacket)
     const int nUnitGUID = pPacket->dwUnitGUID;
     D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitGUID, pPacket->nUnitType);
     if (pUnit)
-        sub_00463D90((int)pUnit);
+        CUNIT_SetPlayerUnit((int)pUnit);
     sub_0046F360_Empty();
 }
 
@@ -1921,7 +1921,7 @@ void __fastcall SCMD_HandleUnitRemoved(const D2GSPacketSrv62* pPacket)
 // 0x0045D3A0
 void __fastcall SCMD_HandleGameQuestInfo(const unsigned char* pPacket)
 {
-    sub_004B2620(pPacket + 1);
+    NPCMENU_CopyQuestBuffer(pPacket + 1);
 }
 
 void __fastcall OBJMODE_HandleQuestObjectEvent(D2GameStrc* pGame, D2UnitStrc* pObject)
@@ -1956,7 +1956,7 @@ static void __stdcall SCMD_HandleStatChange(int nValue, int nStat, D2UnitStrc* p
         if (nValue && pUnit->dwAnimMode == 0x11)
         {
             UNITMODE_SetUnitMode(pUnit, 5);
-            sub_004647D0(pUnit);
+            CUNIT_UpdateAttackableFlag(pUnit);
         }
         break;
 
@@ -1964,7 +1964,7 @@ static void __stdcall SCMD_HandleStatChange(int nValue, int nStat, D2UnitStrc* p
         SCMD_RefreshUnitItems(sub_00463DD0_GetPlayerUnit());
         if (pUnit != sub_00463DD0_GetPlayerUnit())
             break;
-        sub_0045D3E0(pUnit);
+        AUTOMAP_RefreshItemStats(pUnit);
 
     case 0:
     case 2:
@@ -2072,7 +2072,7 @@ void __fastcall SCMD_HandleAssignObject(D2GSPacketSrv51* pPacket)
 // 0x0045CC00
 void __fastcall SCMD_HandleQuestLog(void* pPacket)
 {
-    sub_004A40D0_StorePacket52(pPacket);
+    QUESTLOG_SetQuestRecord(pPacket);
 }
 
 // 0x0045CC10
@@ -2242,7 +2242,7 @@ void __fastcall SCMD_HandleSkillEnd(D2SkillEndPacketStrc* pPacket)
         SKILLS_EndLoopSoundSkill(pUnit, nSkillId);
         break;
     }
-    sub_00639DB0_ToggleState(pUnit, 18, 0);
+    STATES_ToggleState(pUnit, 18, 0);
 }
 
 // 0x0045D760
@@ -2398,12 +2398,12 @@ void __stdcall sub_0045F7A0_Nop(int nUnused1, int nUnused2)
 // 0x0045F9F0
 void __fastcall SCMD_FreePacketBuffer(D2UnitStrc* pUnit)
 {
-    D2PacketBufferStrc* pBuffer = sub_00464770_GetPacketBuffer(pUnit);
+    D2PacketBufferStrc* pBuffer = CUNIT_GetPacketList(pUnit);
     if (pBuffer)
     {
         FOG_Free(pBuffer->pData, ".\\GAME\\SCmd.cpp", 0x1516, 0);
         FOG_Free(pBuffer, ".\\GAME\\SCmd.cpp", 0x1517, 0);
-        sub_004647A0_SetPacketBuffer(pUnit, 0);
+        CUNIT_SetPacketList(pUnit, 0);
     }
 }
 
@@ -2584,14 +2584,14 @@ void __fastcall SCMD_HandleChatMessage(const D2GSPacketSrv26* pPacket)
     SStrCopy(tMessage.szName, szName, 0x10);
     szName += SStrLen(szName) + 1;
     SStrCopy(tMessage.szText, szName, 0x100);
-    sub_0049F490_PrintChatMessage(&tMessage);
+    TEXT_HandleChatPacket(&tMessage);
 }
 
 // 0x0045E0A0
 void __fastcall SCMD_HandleHoverText(const D2GSPacketSrv27Strc* pPacket)
 {
     D2GSPacketSrv27Strc tPacket = *pPacket;
-    sub_004A1600(&tPacket);
+    TEXT_HandleNpcTextPacket(&tPacket);
 }
 
 // 0x0045E0D0
@@ -2727,7 +2727,7 @@ void __fastcall SCMD_HandleClearMercList(const D2GSPacketSrv4F* pPacket)
 void __fastcall SCMD_HandleMercForHire(const D2PacketRecord7Strc* pPacket)
 {
     D2PacketRecord7Strc tPacket = *pPacket;
-    sub_004B3240(&tPacket);
+    NPCMENU_StoreMessage(&tPacket);
 }
 
 // 0x0045E400
@@ -2750,10 +2750,10 @@ void __fastcall SCMD_HandleMonsterEnchants(const unsigned char* p)
             pBytes[2] = (unsigned char)nA;
             if (nC)
             {
-                sub_004AC810_ToggleMonsterFlag(pUnit, 4, 1);
+                MONUNIQUE_ToggleMonTypeFlag(pUnit, 4, 1);
             }
-            sub_004AC810_ToggleMonsterFlag(pUnit, 8, 1);
-            sub_004AD020_RefreshMonster(pUnit);
+            MONUNIQUE_ToggleMonTypeFlag(pUnit, 8, 1);
+            MONUNIQUE_ApplyUMods(pUnit);
         }
     }
 }
@@ -2837,7 +2837,7 @@ void __fastcall SCMD_HandleTownPortalState(const D2PacketRecord7Strc* pPacket)
 {
     D2PacketRecord7Strc tPacket = *pPacket;
     D2_ASSERT(sub_00463DE0_GetPlayerUnit(), 3361);
-    sub_004BDF30(&tPacket);
+    ITEM_ApplyTownPortalState(&tPacket);
 }
 
 // 0x0045E660
@@ -2908,7 +2908,7 @@ void __fastcall SCMD_HandleCreateMissile(const D2GSPacketSrv73* pPacket)
 void __fastcall SCMD_HandlePlayerCorpse(const D2GSPacketSrv74Strc* pPacket)
 {
     D2GSPacketSrv74Strc tPacket = *pPacket;
-    sub_00462F60(&tPacket);
+    SCMD_DropUnitItems(&tPacket);
 }
 
 // 0x0045E7E0
@@ -2927,7 +2927,7 @@ void __fastcall SCMD_HandleTradeAction(const D2GSPacketSrv77* pPacket)
 void __fastcall SCMD_HandleTradePartnerName(const D2PacketRecord21Strc* pPacket)
 {
     D2PacketRecord21Strc tPacket = *pPacket;
-    sub_004B9010(&tPacket);
+    TEXT_SetNameFromPacket(&tPacket);
 }
 
 // 0x0045E850
@@ -2940,7 +2940,7 @@ void __fastcall SCMD_HandleGoldInTrade(const D2GSPacketSrv79* pPacket)
 void __fastcall SCMD_HandleClearHoverText(const D2ClientPacket6Strc* pPacket)
 {
     D2ClientPacket6Strc tPacket = *pPacket;
-    sub_0049F8C0_UsePacket6(&tPacket);
+    TEXT_ClearHoverText(&tPacket);
 }
 
 // 0x0045E860
@@ -3049,7 +3049,7 @@ void __fastcall SCMD_HandleAssignHotkey(const D2GSPacketSrv7B* pPacket)
 void __fastcall SCMD_HandleUseScroll(const D2PacketRecord6Strc* pPacket)
 {
     D2PacketRecord6Strc tPacket = *pPacket;
-    sub_004C51B0(&tPacket);
+    SKILLS_ClearUnitActionState(&tPacket);
 }
 
 // 0x0045EA40
@@ -3102,7 +3102,7 @@ void __fastcall SCMD_HandleNpcMenuState(const D2GSPacketSrv9B* pPacket)
 void __fastcall SCMD_HandleWeaponSwitch(const D2GSPacketSrv97* pPacket)
 {
     D2_ASSERT(pPacket->nHeader == 0x97, 3910);
-    sub_0048A700();
+    INV_ToggleWeaponSwitch();
 }
 
 // 0x0045EB00
@@ -3207,7 +3207,7 @@ void __fastcall SCMD_HandleItemActionWorld(const D2GSPacketSrv9C* pPacket)
         FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xF6D);
         exit(-1);
     case 0:
-        sub_004C25B0(pCopy);
+        ITEM_HandleAddToGround(pCopy);
         break;
     case 1:
         ITEM_HandleGroundToCursor(pCopy);
@@ -3587,7 +3587,7 @@ void __fastcall SCMD_HandleAssignMonster(D2PacketSpawnStrc* pPacket)
 void __fastcall SCMD_HandleWardenRequest(D2GSPacketSrvAE* pPacket)
 {
     if (gnGameType == 2 || gnGameType == 3)
-        sub_004802E0(pPacket->data, pPacket->nSize);
+        WARDENCLIENT_ProcessWardenRequest(pPacket->data, pPacket->nSize);
 }
 
 inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
@@ -3628,12 +3628,12 @@ static D2PacketBufferStrc* SCMD_GrowPacketBuffer(D2UnitStrc* pUnit)
         }
         gnPacketRecordSize += 5;
     }
-    D2PacketBufferStrc* pBuffer = sub_00464770_GetPacketBuffer(pUnit);
+    D2PacketBufferStrc* pBuffer = CUNIT_GetPacketList(pUnit);
     if (!pBuffer)
     {
         pBuffer = (D2PacketBufferStrc*)FOG_Alloc(0x10, ".\\GAME\\SCmd.cpp", 0x1266, 0);
         memset(pBuffer, 0, 0x10);
-        sub_004647A0_SetPacketBuffer(pUnit, pBuffer);
+        CUNIT_SetPacketList(pUnit, pBuffer);
     }
     int nNewMax = pBuffer->nMax + 5;
     unsigned char* pData = (unsigned char*)FOG_Alloc(gnPacketRecordSize * nNewMax, ".\\GAME\\SCmd.cpp", 0x126B, 0);
@@ -3653,7 +3653,7 @@ void __stdcall CURSOR_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467EF0
 // 0x0045F730
 static void __stdcall SCMD_QueuePacket(unsigned char* pPacket, int nLength, D2UnitStrc* pUnit)
 {
-    D2PacketBufferStrc* pBuffer = sub_00464770_GetPacketBuffer(pUnit);
+    D2PacketBufferStrc* pBuffer = CUNIT_GetPacketList(pUnit);
     if (!pBuffer || pBuffer->nCount + 1 == pBuffer->nMax)
     {
         pBuffer = SCMD_GrowPacketBuffer(pUnit);

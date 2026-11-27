@@ -102,9 +102,9 @@ int __fastcall D2SOUNDSMP_SetSoundData(D2SoundStrc* pSound, const void* pFile, u
 
 int __fastcall D2SOUNDSMP_PlaySound(D2SoundStrc* pSound); // 0x005156A0
 
-void __fastcall sub_00515A30(D2SoundStrc* pSound, int nValue); // 0x00515A30
+void __fastcall D2SOUND_SetSoundNoLoop(D2SoundStrc* pSound, int nValue); // 0x00515A30
 
-void __fastcall sub_00515A60(D2SoundStrc* pSound, int nValue); // 0x00515A60
+void __fastcall D2SOUND_SetSoundLoopStart(D2SoundStrc* pSound, int nValue); // 0x00515A60
 
 void __fastcall D2SOUNDSMP_SetSoundReverbMix(D2SoundStrc* pSound, float fValue); // 0x00515B40
 
@@ -616,9 +616,9 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     D2SOUNDSMP_ResetSound(pSlot->pSound);
     if (!pRecord->bStream)
     {
-        sub_00515A30(pSlot->pSound, pRecord->nLoop);
+        D2SOUND_SetSoundNoLoop(pSlot->pSound, pRecord->nLoop);
         if (pRecord->nBlocks == 1)
-            sub_00515A60(pSlot->pSound, pRecord->nBlock[0] * 2);
+            D2SOUND_SetSoundLoopStart(pSlot->pSound, pRecord->nBlock[0] * 2);
         if (!D2SOUNDSMP_SetSoundData(pSlot->pSound, pRecord->pData, pRecord->nSize))
             return 0;
     }

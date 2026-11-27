@@ -25,7 +25,6 @@ D2WeatherStrc* __fastcall DATAARRAYS_Create(const char* szName, int nCount, int 
 void __fastcall DATAARRAYS_Destroy(void* pBlock); // 0x006BCA90
 void __fastcall DATAARRAYS_Initialize(D2WeatherStrc* pArray); // 0x006BCCC0
 int __stdcall sub_004726F0_RollAct5Weather(int nArg); // 0x004726F0
-extern int gnGlobal_007A8A0C; // 0x007A8A0C
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -374,7 +373,7 @@ void __cdecl sub_00472320_InitWeather()
     gnWindAngleMin = 0x2A;
     gbLightningFlash = 0;
     gbLightningEnabled = 0;
-    gnGlobal_007A8A0C = 0;
+    gnWeatherLastTick = 0;
     gnBaseWindAngleMax = 0xAA;
 // build: symbol ?gnWindAngleMax@* 0x007A8998
     gnWindAngleMax = 0xAA;

@@ -444,7 +444,7 @@ static int __stdcall GFX_FindGfxNode(int nId, D2GfxListNodeStrc** ppNode, int* p
 
     if (nMode == -1)
     {
-        nMode = sub_0046DA60_GetUnitMode(pUnit);
+        nMode = GFX_GetConvertedUnitMode(pUnit);
     }
 
     for (D2GfxListNodeStrc* pNode = pGfxData->pList; pNode; pNode = pNode->pNext)
@@ -938,7 +938,7 @@ static void __stdcall GFX_PreloadMonsterMode(int bAsync, D2UnitStrc* pUnit, int 
 // 0x0046FEB0
 static void __stdcall GFX_PreloadMonsterModes(int bAsync, D2UnitStrc* pUnit)
 {
-    const int nId = sub_0046DAC0_GetItemClassId(pUnit);
+    const int nId = GFX_GetConvertedClassId(pUnit);
     if (nId < 0 || nId >= sgptDataTables->nMonStatsTxtRecordCount)
     {
         return;

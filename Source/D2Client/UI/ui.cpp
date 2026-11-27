@@ -1478,7 +1478,7 @@ static int UI_CanSetUIVar(int nUIVar, int nState)
                 }
                 if (pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->dwAnimMode == 0x11)
                 {
-                    sub_004647D0(pPlayer);
+                    CUNIT_UpdateAttackableFlag(pPlayer);
                     MSG_SendHeaderOnly(0x41);
                     if (WINMAIN_IsHardcore())
                     {
@@ -2073,10 +2073,10 @@ void __fastcall UI_FreeLoadingScreen()
         PANEL_SetRedColour();
         PANEL_SetBlackColour();
         sub_004AB2F0();
-        sub_00497250();
+        VIEW_InitTextColorRed();
 // build: symbol ?HIREABLES_InitTextColorA@* 0x00497270
         HIREABLES_InitTextColorA();
-        sub_004972B0();
+        VIEW_InitBeltColors();
 // build: symbol ?HIREABLES_InitTextColorB@* 0x00497290
         HIREABLES_InitTextColorB();
         sub_00472890(gnTownLevelId);

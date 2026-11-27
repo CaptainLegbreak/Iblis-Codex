@@ -320,7 +320,7 @@ enum
 };
 
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
-int __fastcall sub_0045C3E0(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
+int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 
 // 0x004E1FF0
@@ -504,7 +504,7 @@ int __fastcall sub_004E2320_StartSkillRollParam(D2UnitStrc* pUnit, int nSkillId,
 
     const int nMin = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
     const int nMax = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
-    int nValue = sub_0045C3E0(&tSeed, nMax - nMin) + nMin;
+    int nValue = ITEMS_RollLimitedRandomNumber(&tSeed, nMax - nMin) + nMin;
     if (nValue < 1)
     {
         nValue = 1;
@@ -1250,7 +1250,7 @@ int __fastcall SKILLSMON_MissileFromTarget(D2UnitStrc* pUnit, int nSkillId, int 
         return 0;
     }
 
-    sub_004AF890(pTarget, 3, 0);
+    MONSTER_SpawnBloodMissiles(pTarget, 3, 0);
     D2MissileStrc tMissileParams;
     memset(&tMissileParams, 0, sizeof(tMissileParams));
     tMissileParams.nMissile = pSkillsTxtRecord->wCltMissileB;

@@ -552,7 +552,7 @@ void __cdecl SKILLDESC_ClearEnvironSoundRefs()
 {
     for (int nId = 0xAA0; nId < 0xB3D; nId += 4)
     {
-        sub_00482370(nId);
+        SOUNDHDR_ClearVariantRefs(nId);
     }
 }
 
@@ -563,8 +563,8 @@ static void SKILLDESC_AddEnvironSoundRefs(int nIndex)
     int nId = nIndex * 4 + 0xA9C;
     for (int i = 3; i; --i)
     {
-        sub_004822B0(nId, 1);
-        sub_004822B0(nId + 0x18, 1);
+        SOUNDHDR_AddVariantRefs(nId, 1);
+        SOUNDHDR_AddVariantRefs(nId + 0x18, 1);
         nId += 0x30;
     }
 }
@@ -949,7 +949,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         bNight = 1;
         break;
     }
-    const int nEnviron = sub_004817A0_GetPlayerSoundEnviron();
+    const int nEnviron = UNITMODE_GetPlayerSoundEnviron();
     D2SoundEnvironTxtStrc* pEnv = SOUNDHDR_GetSoundEnvironTxtRecord(nEnviron);
     if (pEnv)
     {
@@ -1068,7 +1068,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         const int nEntryA = pEnv->nMaterial1;
         const int nEntryB = pEnv->nMaterial2;
         for (int nId = 0xAA0; nId < 0xB3D; nId += 4)
-            sub_00482370(nId);
+            SOUNDHDR_ClearVariantRefs(nId);
         if (nEntryA)
             SKILLDESC_AddEnvironSoundRefs(nEntryA);
         if (nEntryB)
@@ -3047,7 +3047,7 @@ void __fastcall SKILLDESC_DrawWeaponStatDamage(D2UnitStrc* pUnit, D2SkillStrc* p
     }
 
     D2UnitStrc* pItem = INVENTORY_GetLeftHandWeapon(pInventory);
-    if (!pItem || !sub_0062BA80_CheckItem(pItem))
+    if (!pItem || !ITEMS_CheckIfThrowable(pItem))
     {
         return;
     }
@@ -4324,7 +4324,7 @@ int __fastcall SKILLDESC_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int 
     if (bFirst)
     {
         --nCount;
-        D2UnitStrc* pMissile = sub_004C5420_CreateFirstMissile(pUnit, nArg0, nArg3, nArg4);
+        D2UnitStrc* pMissile = AUTOMAP_RequestAtTarget(pUnit, nArg0, nArg3, nArg4);
         if (pMissile)
         {
             if (bClearPathFlag)

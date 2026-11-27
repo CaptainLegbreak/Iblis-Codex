@@ -136,7 +136,7 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 
 
-void __cdecl sub_00497300(); // 0x00497300
+void __cdecl INV_DrawKeyBindingPopup(); // 0x00497300
 
 
 
@@ -1295,7 +1295,6 @@ int __cdecl VIEW_SetNpcMenuMode()
     return 1;
 }
 
-void __cdecl sub_00499E30();
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
