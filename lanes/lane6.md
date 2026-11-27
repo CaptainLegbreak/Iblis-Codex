@@ -2,11 +2,13 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 18:25 PT): winfont-shim and copies-1 merged. ph-joins Ready, full build identical.
+Status (Thu Nov 26 2026, 18:45 PT): ph-joins and ph-joins-3 Ready (one placeholder file each), full builds identical.
 
 ## Ready
 
 - `lane6/ph-joins` @ 1661f9013 (on #455): Unknown_00524760.cpp's one function (sub_00524760_CipherBlock) joins Unknown_00520DC0.cpp at its address: it follows that file's 0x524740 and calls into it (placeholder files -1). The neighbours 0x524140 and 0x524780 were tried the same way and change (0x524780's locals take other stack slots), so they stay. Unit equal; auditguard: no count rose; full build identical.
+
+- `lane6/ph-joins-3` @ 13026ae74 (on #455): Bnclient's Unknown_00521DC0.cpp (sub_00521DC0_SendAuthCheck) joins BnSend.cpp at its address with its packet record and gdwBnClientToken; D2CDKeyInfoStrc moves ahead of the record that holds it (the #401 blocker). **noinline +1** (sub_0051E340_BuildCDKeyInfoForSlot, which SendAuthCheck calls out of line in the image). Placeholder files -1. BnSend.cpp all equal; full build identical.
 
 ## Questions
 
