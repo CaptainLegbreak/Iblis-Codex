@@ -729,7 +729,7 @@ int gbNpcUiRecordsLoaded; // 0x007BCBE0
 
 int gdwNpcPanelDelayTick;                                                                                      // 0x007BCC08
 
-unsigned char gabSlots[4];                                                                         // 0x007BEFB4
+unsigned char gabSlots[6];                                                                         // 0x007BEFB4
 
 #define gnGlobal_007BCA68 (gtBankRect.nLeft)
 
