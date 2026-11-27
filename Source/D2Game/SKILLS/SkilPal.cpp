@@ -193,8 +193,6 @@ void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
 
-D2StatListStrc* __stdcall STATLIST_AllocStatList(void*, unsigned int, unsigned int, int, int); // 0x006251F0
-
 void __stdcall STATLIST_SetState(D2StatListStrc*, int); // 0x006252D0
 
 void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc*, void (__fastcall*)(D2UnitStrc*,int,D2StatListStrc*)); // 0x00625CE0
