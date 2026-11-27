@@ -7531,6 +7531,10 @@
      "name": "SBigSquare"
     },
     {
+     "va": "0x00424FB0",
+     "length": 416
+    },
+    {
      "va": "0x00425310",
      "length": 27,
      "name": "?SBigInvMod@@YGXPAUD2StormBigStrc@@00@Z"
@@ -7832,30 +7836,6 @@
     {
      "va": "0x00424B00",
      "length": 830
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SBig_00424FB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00424FB0",
-     "length": 416
     }
    ],
    "flags": [
