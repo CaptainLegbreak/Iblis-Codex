@@ -268,6 +268,7 @@ void __fastcall PATH_GetDirectionVector(D2CoordStrc* pDirectionVector, int* pOut
 }
 
 #include "gen/data/Source/D2Common/Unknown_0064FAD0.inc"
+#include "D2CommonApi.h"
 
 inline unsigned int PATH_ToFP16Center(unsigned int nValue)
 {
@@ -544,8 +545,6 @@ void sub_006502D0_UpdateVelocity(int nBaseVelocity, D2DynamicPathStrc* pPath); /
 int __stdcall PATH_GetDistance(D2DynamicPathStrc* pDynamicPath); // 0x00649120
 
 void __stdcall PATH_AddToDistance(D2DynamicPathStrc* pDynamicPath, int nAddition); // 0x00649140
-
-int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 
 static inline int UNITS_IsServerSide(D2UnitStrc* pUnit)
 {

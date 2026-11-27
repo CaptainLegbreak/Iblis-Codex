@@ -18,7 +18,6 @@ struct D2SetItemsTxt;
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
 int __fastcall GAME_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc*); // 0x004DC0B0
-D2StatListStrc* __stdcall STATLIST_AllocStatList(void*, unsigned int, unsigned int, int, int); // 0x006251F0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc*, D2StatListStrc*, int); // 0x00626E10
 
 struct D2SkillsTxt { char pad0[0x18]; short nItemType; char pad1[0x23C-0x1A]; };

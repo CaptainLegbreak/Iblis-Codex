@@ -4,6 +4,7 @@
 #include "FogApi.h"
 
 #include "gen/data/Source/D2Lang/Unknown_00526490.inc"
+#include "D2LangApi.h"
 
 struct D2LangByteRangeStrc;
 struct D2UtfConvertSpecStrc;
@@ -14,7 +15,6 @@ extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix); // 0x006876
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 Unicode* __fastcall sub_00526740(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526740
-Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pSubstring); // 0x00526940
 int __stdcall SUniConvertUTF8to16(unsigned short* pDst, unsigned int nDstMax, const unsigned char* pSrc, unsigned int nSrcMax, unsigned int* pnDstWritten, unsigned int* pnSrcRead); // 0x006C7410
 
 

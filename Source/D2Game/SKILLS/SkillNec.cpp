@@ -394,8 +394,6 @@ void __fastcall D2GAME_AssignSkill(D2UnitStrc*, int, int, int); // 0x005701B0
 
 void __fastcall SKILLS_EquipMonsterFromTable(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int, int, int, int); // 0x005D6B60
 
-D2StatListStrc* __stdcall STATLIST_AllocStatList(void*, unsigned int, unsigned int, int, int); // 0x006251F0
-
 void __stdcall STATLIST_SetState(D2StatListStrc*, int); // 0x006252D0
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc*, D2StatListStrc*, int); // 0x00626E10
