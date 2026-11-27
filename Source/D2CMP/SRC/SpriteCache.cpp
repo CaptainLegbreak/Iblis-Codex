@@ -17,6 +17,7 @@
 #include "D2FogSystemInfo.h"
 #include "FogApi.h"
 #include "FogApi.h"
+#include "FogApi2.h"
 
 #pragma intrinsic(strcpy)
 
@@ -286,8 +287,6 @@ D2SpriteCacheNodeStrc* __fastcall D2CMPSpriteCacheAlloc(D2SpriteCacheStrc* pCach
 
 AsyncData* __fastcall FOG_AsyncDataLoadFileEx(void* pMemPool, const char* szFileName, int bAllowAsync, long nFileOffset, int nFileSize, void* pBuffer, D2CmpLoadDescStrc* pAsyncOpDesc, int nPriority, const char* szFile, int nLine); // 0x0040A620
 
-unsigned int __fastcall FOG_AsyncDataGetBufferSize(AsyncData* pAsyncData); // 0x0040AA40
-
 int __stdcall D2CMPSpriteAsyncLoadCallback(void* hArg, int nArg, D2SpriteLoadRequestStrc* pRequest);    // 0x005FF6E0
 
 int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections);                   // 0x00600C90
@@ -332,8 +331,6 @@ extern HashTable gtHash; // 0x0088DB58
 extern SpriteCache gCache_0089DB60; // 0x0089DB60
 
 extern int gnWarn; // 0x008ADBB0
-
-extern int __fastcall FOG_AsyncDataTestLoaded(AsyncData*); // 0x0040A7F0
 
 extern void* __stdcall CelGetHandle(D2CmpSpriteContextStrc*); // 0x00601840
 

@@ -10,6 +10,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 struct D2CharStatsTxt;
 
 struct D2GameStrc;
@@ -22,12 +23,8 @@ void __fastcall SUNIT_SetCombatMode(D2GameStrc*, D2UnitStrc*, int); // 0x0055357
 int __fastcall SKILLS_StartBasicAttack(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x0056E230
 int __stdcall D2GAME_ModeChange(D2GameStrc*, D2ModeChangeStrc*, int); // 0x005A7C20
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc*, int, D2ModeChangeStrc*); // 0x005A7E60
-void __stdcall UNITS_SetUsedSkill(D2UnitStrc*, D2SkillStrc*); // 0x00620210
-void __stdcall SKILLS_SetParam4(D2SkillStrc*, int); // 0x00644620
-void __stdcall SKILLS_SetFlags(D2SkillStrc*, int); // 0x00644660
 void __stdcall PATH_SetVelocity(D2DynamicPathStrc*, int, const char*, int); // 0x00648690
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc*, unsigned char); // 0x00648E70
-void __stdcall PATH_ClearPreviousTargetPoint(D2DynamicPathStrc*); // 0x00649050
 static inline int UNITS_GetUnitTypeChecked(D2UnitStrc* pUnit)
 {
     if (pUnit)
@@ -52,15 +49,9 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId) {
     return 0;
 }
 
-void __stdcall SKILLS_SetParam3(D2SkillStrc*,int); // 0x006445E0
 void __fastcall sub_004B9A00(int,D2UnitStrc*,int,int,int); // 0x004B9A00
 
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
-void __stdcall PATH_GetClientCoordsVelocity(D2UnitStrc* pUnit, int* pX, int* pY); // 0x00648300
-int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
-int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
-int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
-int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
 extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0

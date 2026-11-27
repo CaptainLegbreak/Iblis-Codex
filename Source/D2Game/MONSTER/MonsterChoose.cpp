@@ -6,6 +6,7 @@
 #include "D2GameStrc.h"
 #include "D2ItemsWorld.h"
 #include "FogApi.h"
+#include "D2CommonApi2.h"
 struct D2MonPresetStrc { short nMonsterId; unsigned char nUnk02; unsigned char nCount; unsigned char nComponents[3][16]; };
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
@@ -110,8 +111,6 @@ struct D2MonStatsTxt;
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
-
-D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 

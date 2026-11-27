@@ -1,5 +1,6 @@
 #include "D2BNClient.h"
 #include "FogApi.h"
+#include "FogApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -12,8 +13,6 @@ struct D2CacheHashEntryStrc;
 struct D2CacheBlockEntryStrc;
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(long volatile* pDestination, long nExchange, long nComparand); // 0x006CC3A0
-
-int __fastcall FOG_SOCKET_GetSockName(FSafeSock* pSafeSock, void* pAddress, int* pnLength); // 0x0040DF20
 
 void __cdecl CACHE_FreeCache(); // 0x00519300
 

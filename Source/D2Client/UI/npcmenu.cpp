@@ -22,6 +22,7 @@
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include <D2UnitData.h>
+#include "D2CommonApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -229,8 +230,6 @@ void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, long* pLeft, long* p
 
 const Unicode* __fastcall TEXT_GetTextString(unsigned short nStringId); // 0x0049F910
 
-unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
-
 // build: symbol ?DIALOG_CreateDialog@* 0x004B7EB0
 D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int (__cdecl* pfnArg8)(),
     int (__cdecl* pfnArgC)(), int nArg10, int nArg14, int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28); // 0x004B7EB0
@@ -257,8 +256,6 @@ extern D2NpcMenuSlotStrc gaSlots_007C0C85[]; // 0x007C0C85
 extern D2ClientDialogStrc* gpNpcWaitDialog; // 0x007C0D67
 
 extern D2NpcEntryStrc gaNpcEntries[]; // 0x00726850
-
-unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 
 D2UnitStrc* __stdcall sub_Z12_EmitNext(D2UnitStrc* pItem);
 
@@ -515,8 +512,6 @@ int __cdecl NPCMENU_InitHireHandler();                                          
 
 
 void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath);                                             // 0x00648730
-
-short __stdcall TEXT_GetStringIdOfMenuType1Node(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x00661440
 
 extern char gabNpcMenuState[];                                                                            // 0x007C0C68
 

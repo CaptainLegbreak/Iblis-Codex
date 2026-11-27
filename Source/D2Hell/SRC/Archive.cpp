@@ -1,6 +1,8 @@
 #include "D2Hell.h"
 #include "FogApi.h"
 #include "FogApi.h"
+#include "FogApi2.h"
+#include "StormApi2.h"
 
 struct D2ArchiveHandleStrc;
 
@@ -27,16 +29,12 @@ int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
 #define D2_ASSERT(expr,line) if(!(expr)) {FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
 
 
-int __stdcall CopyFileRecName(void*,char*,unsigned int); // 0x00416230
-
 #define FAIL_LINE 0x5F
 
 #define NAME_SIZE 0x104
 
 #define NULL_LINE 0x59
 
-
-int __fastcall FOG_FSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
 
 typedef unsigned long DWORD;
 

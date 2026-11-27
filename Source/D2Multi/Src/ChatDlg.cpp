@@ -31,6 +31,8 @@
 #include "D2LangApi.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "FogApi2.h"
+#include "StormApi2.h"
 
 static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
@@ -824,10 +826,6 @@ void __cdecl sub_00515EC0_Nop(); // 0x00515EC0
 
 void __cdecl sub_00515ED0_Nop(); // 0x00515ED0
 
-void __cdecl sub_0042B9D0_Nop(); // 0x0042B9D0
-
-void __cdecl sub_00650EA0_Nop(); // 0x00650EA0
-
 extern D2CelFileStrc* gpCellFile_0077BC24; // 0x0077BC24
 
 int __stdcall CHATDLG_ClearSelection(int nArg1, int nArg2, int nArg3); // 0x0043DBA0
@@ -939,8 +937,6 @@ void __stdcall CHATDLG_StartThread(D2LaunchThreadRecordStrc* pRecord);          
 int __fastcall WINMAIN_SendMcpCreateGame(D2LaunchLoginStrc* pLogin, unsigned short wRequestId);                // 0x0044A400
 
 int __fastcall WINMAIN_SendMcpGameInfoRequest(char* szText, unsigned short wRequestId);                              // 0x0044A610
-
-void __stdcall D2QSSOCKET_DestroyRecord(void* pConnection);                                                             // 0x006BC780
 
 extern "C" const char gszPassword[];                                                               // 0x006D423C
 

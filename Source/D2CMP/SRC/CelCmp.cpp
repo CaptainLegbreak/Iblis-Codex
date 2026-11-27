@@ -21,6 +21,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "FogApi.h"
+#include "D2CommonApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -443,8 +444,6 @@ struct PairStrc_0060E290
     int nSecond;
 };
 
-
-int __fastcall DRLGOUTSIEGE_GetBorderLookupId(D2DrlgLevelStrc* pLevel); // 0x0067DCE0
 
 struct sub_0040F7D0
 {

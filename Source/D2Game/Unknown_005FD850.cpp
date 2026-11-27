@@ -67,6 +67,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 
 #include "D2GameFuncs.h"
+#include "D2CommonApi2.h"
 
 
 enum D2C_Y09SkillConstants
@@ -130,8 +131,6 @@ enum D2C_G4Constants
 int __fastcall SKILLS_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bSkipMana);   // 0x0056F640
 
 struct D2ModeChangeStrc;
-
-int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
 
 enum D2C_SkillItemConstants
 {

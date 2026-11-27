@@ -11,6 +11,7 @@
 #include "D2ObjModes.h"
 #include "D2MonsterIds.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi2.h"
 
 struct D2ActiveRoomStrc;
 
@@ -79,8 +80,6 @@ enum D2C_P08QuestConstants
     EVENTTYPE_QUESTFN = 7,
 };
 
-
-void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C3A0
 
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, int(__fastcall* pfIterate)(D2GameStrc*, D2UnitStrc*, void*)); // 0x005537D0
 

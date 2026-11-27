@@ -4,6 +4,8 @@
 #include "StormApi.h"
 #include "D2LangApi.h"
 #include "FogApi.h"
+#include "D2CommonApi2.h"
+#include "FogApi2.h"
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -15,17 +17,9 @@ extern "C" __declspec(dllimport) void* __stdcall LoadLibraryA(const char* szLibF
 extern "C" int __cdecl fclose(_iobuf* pFile); // 0x00681FDC
 extern "C" _iobuf* __cdecl fopen(const char* szFileName, const char* szMode); // 0x0068239A
 extern "C" int __cdecl fputc(int nChar, _iobuf* pFile); // 0x00682058
-int __cdecl FOG_IsExpansion(); // 0x00408F20
-int __fastcall ERRORMANAGER_GetBlizzardDataPath(char* szOutPath, int nSize); // 0x00406C40
 bool __fastcall sub_00516DE1_Verify(void* pContext); // 0x00516DE1
 bool __fastcall sub_00516D8B_RunSurvey(const char* szExePath); // 0x00516D8B
 void __fastcall MAINMENUS_InitStorm(int nDirectFlags, int nValue); // 0x00406870
-void __cdecl ERRORMANAGER_ForceCrash(); // 0x00407970
-void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem); // 0x00409C80
-void __fastcall FOG_AsyncDataInitialize(int bEnable, int nUnused); // 0x0040A390
-void __cdecl FOG_AsyncDataDestroy(); // 0x0040A440
-void __cdecl FOG_10218(); // 0x0040B0C0
-void __cdecl FOG_10082_Noop(); // 0x0040B320
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
 int __stdcall D2GFX_Release(); // 0x004F5050
 void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
@@ -44,7 +38,6 @@ void __cdecl ARCHIVE_FreeArchives(); // 0x004FAE00
 int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
 void __cdecl D2SOUND_CloseSoundSystem(); // 0x00514060
 void __fastcall sub_00514530_InitSound(int bExpansion, int bSoundBackground); // 0x00514530
-void __cdecl IGNORELIST_FreeIgnoreList(); // 0x0060DDB0
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
