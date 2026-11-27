@@ -757,7 +757,7 @@ extern "C" const char gszInvCpp[]; // 0x006D9BC0
 
 extern int gnDialogState; // 0x00721E34
 
-extern unsigned char gabColors_007BCAD8[5]; // 0x007BCAD8
+extern unsigned char gabInvHighlightColors[5]; // 0x007BCAD8
 
 extern D2InventoryGridInfoStrc gtNpcInvGrid; // 0x007BCB58
 
@@ -1143,7 +1143,6 @@ char gbCinematicPlaying; // 0x007BC9D5
 
 extern int gnAutomapHeight; // 0x007A521C
 
-extern unsigned char gabGridColors_007BCAD8[]; // 0x007BCAD8
 
 struct D2CharStatsTxt;
 

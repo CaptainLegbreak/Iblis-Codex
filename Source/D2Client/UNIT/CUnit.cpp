@@ -384,7 +384,7 @@ typedef int (__stdcall* D2FarProcFn)();
 
 
 
-extern unsigned char gabColors_007BCAD8[5]; // 0x007BCAD8
+extern unsigned char gabInvHighlightColors[5]; // 0x007BCAD8
 
 
 extern int gnDialogState; // 0x00721E34
