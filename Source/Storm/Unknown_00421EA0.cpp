@@ -197,55 +197,6 @@ struct D2GameStrc
 };
 
 
-// build: symbol ??4BigBuffer@@QAEAAU0@ABU0@@Z 0x004221B0
-// 0x00421EA0
-void D2StormArrayAStrc::sub_00421EA0_GrowToFit(unsigned int nIndex, int bZero)
-{
-    if (nIndex >= m_count)
-    {
-        unsigned int nCount = nIndex + 1;
-        if (nCount > m_alloc)
-        {
-            unsigned int nChunk = m_chunk;
-            if (!nChunk)
-                nChunk = sub_004210A0_CalcChunkSize(nCount);
-            unsigned int nAlloc = nCount;
-            const unsigned int nRemainder = nCount % nChunk;
-            if (nRemainder)
-                nAlloc = nCount + nChunk - nRemainder;
-            sub_004216E0_ReallocData(nAlloc);
-        }
-        if (bZero)
-            SMemZero(&m_data[m_count], (nIndex - m_count + 1) * sizeof(unsigned int));
-        m_count = nCount;
-    }
-}
-
-// 0x00422050
-unsigned int* BigBuffer::sub_00422050_At(unsigned int nIndex)
-{
-    GrowToFit(nIndex);
-    return &m_array.m_data[m_start + nIndex];
-}
-
-// 0x00422120
-void BigBuffer::sub_00422120_SetStart(unsigned int nStart)
-{
-    m_start = nStart;
-    if (nStart)
-        GrowToFit(-1);
-}
-
-// 0x004221B0
-BigBuffer& BigBuffer::operator=(const BigBuffer& tSource)
-{
-    if (this != &tSource)
-        m_array.sub_004215C0_Set(tSource.m_array.m_count, tSource.m_array.m_data);
-    m_array.m_chunk = tSource.m_array.m_chunk;
-    m_start = tSource.m_start;
-    return *this;
-}
-
 // 0x00422080
 void BigBuffer::sub_00422080_TrimToStart()
 {

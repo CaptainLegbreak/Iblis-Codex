@@ -27,6 +27,9 @@ inline void operator delete(void* pMemory)
 // build: symbol ??1BigStack@@QAE@XZ 0x00421830
 // build: symbol ??0BigStack@@QAE@XZ 0x00421B70
 // build: symbol ?GrowToFit@D2StormArrayAStrc@@QAEXIH@Z 0x00421EA0
+// build: symbol ?Ref@BigBuffer@@QAEAAIH@Z 0x00422050
+// build: symbol ?SetStart@BigBuffer@@QAEXI@Z 0x00422120
+// build: symbol ??4BigBuffer@@QAEAAU0@ABU0@@Z 0x004221B0
 // build: symbol ?CalcChunkSize@D2StormArrayBStrc@@QAEII@Z 0x00421160
 
 struct D2StormArrayBStrc
