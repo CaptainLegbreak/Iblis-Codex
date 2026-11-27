@@ -19,8 +19,7 @@
 #include "D2LaunchRequest.h"
 #include "FogApi.h"
 #include "StormApi.h"
-
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+#include "D2LangApi.h"
 
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 
@@ -217,7 +216,6 @@ struct UnicodeChar : Unicode
 {
     UnicodeChar();
 };
-void __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);
 void __fastcall MAINMENUS_ShowTwoTexts(const Unicode* pText1, const Unicode* pText2, D2LaunchDoneFn pfnDone); // 0x00433130
 void __fastcall MAINMENUS_ShowThreeTexts(const Unicode* pText1, const Unicode* pText2, const Unicode* pText3, D2LaunchDoneFn pfnDone); // 0x004331C0
 void __fastcall MAINMENUS_ShowFourTexts(const Unicode* pText1, const Unicode* pText2, const Unicode* pText3, const Unicode* pText4, D2LaunchDoneFn pfnDone); // 0x004332B0

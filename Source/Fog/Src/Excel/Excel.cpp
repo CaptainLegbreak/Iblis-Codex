@@ -1,4 +1,6 @@
 #include "Fog.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText_006CC837, sub_00408090(), line); exit(-1); }
 
@@ -13,8 +15,6 @@ struct D2TxtLinkNodeStrc;
 struct D2BinFileStrc;
 
 extern "C" const char gszEmptyAssertText_006CC837; // 0x006CC837
-
-extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -50,13 +50,9 @@ struct D2TxtLinkNodeStrc
 
 extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-
 void __fastcall sub_004113C0(char* szText, int nLength); // 0x004113C0
 
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
-
-int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLink, const char* szText, int bLogError); // 0x006BD3C0
 
 static void EXCEL_InsertLinkNode(D2TxtLinkNodeStrc** ppNode, D2TxtLinkNodeStrc* pNew); // 0x006BD490
 
@@ -68,13 +64,7 @@ struct D2BinFileStrc
     unsigned int nColumns;
 };
 
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-
 int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars); // 0x00413550
-
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
-
-extern "C" const char* __cdecl sub_00408090();                                       // 0x00408090
 
 #pragma intrinsic(memset)
 

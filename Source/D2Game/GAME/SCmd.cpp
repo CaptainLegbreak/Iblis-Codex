@@ -26,6 +26,7 @@ struct D2MonsterDataStrc;
 
 
 #include "D2GameFuncs.h"
+#include "D2CommonApi.h"
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -140,34 +141,16 @@ void __fastcall CLIENTS_PacketDataList_Append(D2ClientStrc* pClient, D2PacketDat
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
-
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
-
 int __stdcall PATH_GetLastPointX(D2DynamicPathStrc* pPath); // 0x00648A40
 
 int __stdcall PATH_GetLastPointY(D2DynamicPathStrc* pPath); // 0x00648A60
 
-unsigned char __stdcall PATH_GetMaxDistance(D2DynamicPathStrc* pPath); // 0x00648EA0
-
-
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
-
-int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
-
-int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 
 extern const char text_006CC837[]; // 0x006CC837
 
 __declspec(noreturn) void __cdecl sub_00681E09(int); // 0x00681E09
 
 extern "C" unsigned int __cdecl strlen(const char* szString);
-
-int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 struct D2GSPacketSrv27
 {
@@ -185,13 +168,7 @@ int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
 
 unsigned short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540710
 
-D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
-
 int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit); // 0x00621F20
-
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-
-int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -203,29 +180,13 @@ void __fastcall SCMD_WriteVariableValue(D2BitBufferStrc* pBuffer, unsigned int n
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
-void __stdcall ITEMS_SetOrRemoveFlag(int* pFlags, int nFlag, int bSet); // 0x006287B0
-
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem); // 0x00629900
-
-D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
-
-D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
-
-D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
 
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 
 unsigned short __fastcall PLAYERLIST_GetFlags(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B350
 
-
-unsigned char __stdcall UNITS_GetItemComponentId(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00623D60
-
-unsigned int __stdcall ITEMS_GetItemFlags(D2UnitStrc* pItem); // 0x00628110
-
-void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
-
-int __stdcall ITEMS_SerializeItemToBitstream(D2UnitStrc* pItem, unsigned char* pBitstream, int nSize, int bServer, int bSaveItemInv, int bGamble); // 0x006313E0
 
 int __fastcall SCMD_SendSocketedItems(D2ClientStrc* pClient, D2UnitStrc* pItem, int nFlags); // 0x0053EA50
 
@@ -247,14 +208,6 @@ void __fastcall D2GAME_PACKETS_SendPacketSize06(D2ClientStrc* pClient, unsigned 
 
 
 struct D2SkillListStrc;
-
-D2SkillStrc* __stdcall SKILLS_GetNextSkill(D2SkillStrc*); // 0x006438F0
-
-D2SkillStrc* __stdcall SKILLS_GetFirstSkillFromSkillList(D2SkillListStrc*); // 0x00643910
-
-int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc*, const char*, int); // 0x00643CE0
-
-int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*, D2SkillStrc*, int); // 0x006442A0
 
 void __fastcall FOG_FreePool(void*, void*, const char*, int, int); // 0x0040B480
 
@@ -305,10 +258,6 @@ int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 
 int __fastcall MONSTERUNIQUE_HasMonsterFlag(D2UnitStrc* pUnit); // 0x005A0380
 
 unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit); // 0x005A5650
-
-D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateAndFlag(D2UnitStrc* pUnit, int nState, int nFlag); // 0x006257D0
-
-int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc* pStatList, D2StatStrc* pOutStatBuffer, int nBufferSize); // 0x00625C90
 
 
 void __fastcall D2GAME_PACKETS_SendPacket0x22(D2ClientStrc* pClient, unsigned char nUnitType, int nUnitGUID, int nSkillId, int nQuantity); // 0x0053C520
