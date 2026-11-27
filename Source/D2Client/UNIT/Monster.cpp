@@ -513,6 +513,20 @@ static inline D2MonStatsTxt* CLIENT_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
+// 0x004AE080
+extern "C" int __fastcall NPCMENU_GetMonsterTypeFlags(D2UnitStrc* pUnit, unsigned short nMask)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
+    {
+        D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
+        if (pMonsterData)
+            return pMonsterData->nClientFlags & nMask;
+    }
+    return 0;
+}
+
+
+
 // 0x004AE0A0
 void __fastcall MONSTER_SetClientFlags(D2UnitStrc* pUnit, unsigned short wFlags)
 {
