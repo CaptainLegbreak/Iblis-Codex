@@ -5,6 +5,16 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
+- Fri Nov 27 09:15 PST 2026: **lane13/short-arrays-2** (8b3b0aeff, on lane13/data-round-4 9cd9f6df2: take after it). VERIFIED tree bdd92b2ed61b98249e9cd0850f3a338a79e234cd; Game.exe identical. Audit guard: no count rose. Two commits:
+  - **Eight arrays get their real lengths.** Each was declared [1] or too short and is indexed past that end into room no other global uses: `gapRowControls[8]` (D2Launch), `gaStateStack[4]` (all three copies), `gszClientCharName[16]`, `gapAiTargets[8]`, `gaWeatherPhaseOffset[4]`, `gaWeatherPhaseRange[4]`, `gabAutomapColors[12]`, `gabBeltHotkey[4]`.
+  - **D2Glide's `gtGlideTileTexInfo` and `gtGlideFloorTexInfo` are whole 20-byte D2GrTexInfoStrc.** nFormat and pData were 8-byte gData_ runs after each (both sourced records). The plan and the source each now hold one initializer, and the runs are gone.
+  - **Counts, data-round-4 -> this:**
+    - data clusters: 33 -> 24; 10,610 -> 10,423 B; 287 -> 274 globals.
+    - data_cluster: 1,898 / 293 -> 1,754 / 282.
+    - linkdebt total: 25,368 -> 25,245. D2Client 8,629 -> 8,548, D2Launch 1,221 -> 1,185, D2Glide 227 -> 221; no module rose.
+    - shortdata: 359 -> 360. gData_006E1BB0 leaves; two candidates come in:
+      - gszA1Q2SourceFile, whose room is the string literals after it;
+      - gaStateStack[4], with 4 unreferenced bytes after it.
 - Fri Nov 27 08:58 PST 2026: **lane13/data-round-4** (9cd9f6df2, on main 1e8be2463 = #480). VERIFIED tree 2157182e641a485cfae04ae67e271efc58f0ab35; Game.exe identical. Audit guard: no count rose. What #480 didn't take, rebased:
   1. **gtQuestLog** (the questlog branch). QuestLog.cpp is re-derived on #480's file, and its conflicts with #479's headers are taken from main.
   2. **Four objects merged with the globals that alias their fields:**
@@ -20,6 +30,7 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - linkdebt total: 25,985 -> 25,368. D2Client 9,102 -> 8,629, D2Glide 358 -> 227, D2Hell 74 -> 61; no module rose.
     - shortdata: 359 -> 359.
 ## Claimed
+- Fri Nov 27 09:15 PST 2026: check-in. short-arrays-2 Ready, stacked on data-round-4. Still no answer on the D2Common data-tables reading. 24 clusters left with both. The rest are aliases of one object under different types (D3D vertices, gatGamePalette, gapAutomapCels, gtLoadingTimer, gtPacket2A) or need the packet's real layout. Taking them one at a time next.
 - Fri Nov 27 08:58 PST 2026: check-in. data-round-4 Ready. The D2Common data-tables reading under Questions has no answer yet, so I'm leaving that cluster alone. Next: the small clusters left on #480 (33 with data-round-4).
 - Fri Nov 27 08:22 PST 2026: check-in. #480 merged chat-controls, client-tables, glide-tile-vertices and bss-defs, so data-round-2 is superseded. I'm rebasing what's left onto #480 as lane13/data-round-4: the gtQuestLog commit (QuestLog.cpp redone on #480's file), a new commit merging four objects with their alias globals (gtPongData, gaUIVarStates, gaGlideTexCaches, the D2Hell fault-handler lock), and the gszA1Q2SourceFile fix (it closes gaAncientBarbItems; it was ancient-equipment's second commit, which missed #477). Building now.
 - Fri Nov 27 08:01 PST 2026: check-in. data-round-2 Ready: it replaces questlog, client-tables, glide-tile-vertices, bss-defs and chat-controls, all rebased onto #479 as you asked. The D2Common data-tables reading is posted under Questions and waiting for an answer. Next: the remaining small clusters on #479 (37 left).
