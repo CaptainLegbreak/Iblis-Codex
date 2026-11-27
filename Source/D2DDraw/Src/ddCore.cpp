@@ -1,6 +1,7 @@
 #include "D2DDraw.h"
 #include "D2GameTypes.h"
 #include "D2GfxTypes.h"
+#include "D2GfxInterface.h"
 #include "D2Win32Base.h"
 #include "D2DDrawTypes.h"
 #include "D2GlideTypes.h"
@@ -1422,5 +1423,8 @@ int __cdecl DDCORE_GammaCanBeControlled()
 {
     return 1;
 }
+
+// The entry points of the DirectDraw renderer, which D2Gfx selects by video mode (gapGraphicsInterfaces).
+extern D2GraphicsInterfaceStrc gtDDrawGraphicsInterface; // 0x0072F6D0
 
 #include "gen/data/Source/D2DDraw/Src/ddCore.inc"

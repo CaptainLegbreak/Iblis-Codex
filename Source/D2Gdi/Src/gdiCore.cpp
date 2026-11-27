@@ -5,6 +5,7 @@
 #include "D2Win32Base.h"
 
 #include "D2GfxTypes.h"
+#include "D2GfxInterface.h"
 #include "D2CelContext.h"
 #include "D2Win32RgbQuad.h"
 #include "FogApi.h"
@@ -364,6 +365,12 @@ void __stdcall GDICORE_PerspectiveTransformScale(int unused1, int unused2, int u
 void __cdecl GDICORE_PerspectiveClearScale()
 {
 }
+
+// The entry points of the GDI renderer, which D2Gfx selects by video mode (gapGraphicsInterfaces).
+extern D2GraphicsInterfaceStrc gtGdiGraphicsInterface; // 0x0074C4A8
+
+// Screen width and height for each resolution mode.
+extern int gaGdiResolutionSizes[2][4]; // 0x0074C580
 
 #include "gen/data/Source/D2Gdi/Src/gdiCore.inc"
 

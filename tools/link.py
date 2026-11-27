@@ -71,6 +71,115 @@ def is_debug(s):
     return s["name"].startswith(".debug$")
 
 
+# ---- x86 decoding, just enough to tell what a relocated field of an instruction is --------------------------------
+_PREFIXES = frozenset((0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65, 0x66, 0x67, 0xF0, 0xF2, 0xF3))
+_MODRM1 = frozenset(list(range(0x00, 0x04)) + list(range(0x08, 0x0C)) + list(range(0x10, 0x14)) + list(range(0x18, 0x1C)) +
+                    list(range(0x20, 0x24)) + list(range(0x28, 0x2C)) + list(range(0x30, 0x34)) + list(range(0x38, 0x3C)) +
+                    [0x62, 0x63, 0x69, 0x6B] + list(range(0x80, 0x90)) + [0xC0, 0xC1, 0xC4, 0xC5, 0xC6, 0xC7] +
+                    list(range(0xD0, 0xD4)) + list(range(0xD8, 0xE0)) + [0xF6, 0xF7, 0xFE, 0xFF])
+_IMM8 = frozenset([0x04, 0x0C, 0x14, 0x1C, 0x24, 0x2C, 0x34, 0x3C, 0x6A, 0x6B, 0x80, 0x82, 0x83, 0xA8, 0xC0, 0xC1, 0xC6,
+                   0xCD, 0xD4, 0xD5, 0xEB] + list(range(0x70, 0x80)) + list(range(0xB0, 0xB8)) + list(range(0xE0, 0xE8)))
+_IMMZ = frozenset([0x05, 0x0D, 0x15, 0x1D, 0x25, 0x2D, 0x35, 0x3D, 0x68, 0x69, 0x81, 0xA9, 0xC7, 0xE8, 0xE9] + list(range(0xB8, 0xC0)))
+_NOMODRM0F_REL = frozenset(range(0x80, 0x90))
+_NOMODRM0F = frozenset([0x05, 0x06, 0x07, 0x08, 0x09, 0x0B, 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x77, 0xA0, 0xA1, 0xA2,
+                        0xA8, 0xA9, 0xAA] + list(range(0xC8, 0xD0)))
+_IMM8_0F = frozenset([0x70, 0x71, 0x72, 0x73, 0xA4, 0xAC, 0xBA, 0xC2, 0xC4, 0xC5, 0xC6])
+
+
+def x86_insn(code, p):
+    """One 32-bit instruction at code[p:]: (length, disp, imm, has_reg) with disp and imm as (offset, size) or None,
+    has_reg telling whether a memory operand adds a register; None where the bytes are not one this decoder knows."""
+    q = p; osz = 4; asz = 4
+    while q < len(code) and code[q] in _PREFIXES:
+        if code[q] == 0x66:
+            osz = 2
+        elif code[q] == 0x67:
+            asz = 2
+        q += 1
+    if q >= len(code) or asz != 4:
+        return None
+    op = code[q]; q += 1; modrm = False; imm = 0
+    if op == 0x0F:
+        if q >= len(code):
+            return None
+        op2 = code[q]; q += 1
+        if op2 in _NOMODRM0F_REL:
+            imm = 4
+        elif op2 in _NOMODRM0F:
+            pass
+        else:
+            modrm = True
+            if op2 in _IMM8_0F:
+                imm = 1
+    else:
+        modrm = op in _MODRM1
+        if op in _IMM8:
+            imm = 1
+        elif op in _IMMZ:
+            imm = osz
+        elif op in (0xA0, 0xA1, 0xA2, 0xA3):
+            if q + 4 > len(code):
+                return None
+            return (q + 4 - p, (q, 4), None, False)
+        elif op in (0xC2, 0xCA):
+            imm = 2
+        elif op == 0xC8:
+            imm = 3
+        elif op in (0x9A, 0xEA):
+            imm = 6
+        elif op in (0x0F,) or op in (0xD6, 0xF1):
+            return None
+    disp = None; has_reg = False
+    if modrm:
+        if q >= len(code):
+            return None
+        m = code[q]; q += 1; mod = m >> 6; rm = m & 7
+        if op in (0xF6, 0xF7) and (m >> 3) & 7 in (0, 1):
+            imm = 1 if op == 0xF6 else osz
+        if mod != 3:
+            if rm == 4:
+                if q >= len(code):
+                    return None
+                sib = code[q]; q += 1; base = sib & 7; index = (sib >> 3) & 7
+                has_reg = index != 4 or not (mod == 0 and base == 5)
+                if mod == 0 and base == 5:
+                    disp = (q, 4)
+            elif mod == 0 and rm == 5:
+                disp = (q, 4)
+            else:
+                has_reg = True
+            if mod == 1:
+                q += 1
+            elif mod == 2:
+                disp = (q, 4)
+            if disp:
+                q = disp[0] + 4
+    imm_f = (q, imm) if imm else None
+    q += imm
+    if q > len(code):
+        return None
+    return (q - p, disp, imm_f, has_reg)
+
+
+def x86_field(code, start, off):
+    """What the 4-byte field at code[off:] is in the instructions decoded from start: ("imm", False) for an immediate
+    value, ("mem", has_reg) for a memory displacement, None where decoding does not land on it."""
+    p = start
+    while p <= off:
+        d = x86_insn(code, p)
+        if d is None:
+            return None
+        n, disp, imm, has_reg = d
+        if p + n > off:
+            if disp and disp[0] == off:
+                return ("mem", has_reg)
+            if imm and imm[0] == off and imm[1] == 4:
+                return ("imm", False)
+            return None
+        p += n
+    return None
+
+
 class Unit(object):
     """One object file with the address markers of its source."""
 
@@ -109,7 +218,7 @@ class Unit(object):
 class Link(object):
     def __init__(self, s, out, log=print):
         self.s = s; self.out = out; self.log = log
-        self.pe = PE(s["image"]); self.problems = collections.Counter(); self.examples = collections.defaultdict(list)
+        self.pe = PE(s["image"]); self.fn_starts = {}; self.problems = collections.Counter(); self.examples = collections.defaultdict(list)
         self.records = sorted((int(r[0], 16), int(r[1]), r[2]) for r in load_json("functions.json")["functions"])
         self.rec_at = {va: (n, kind) for va, n, kind in self.records}
         self.rec_starts = [va for va, _, _ in self.records]
@@ -493,26 +602,28 @@ class Link(object):
         absorbed = self.cluster_data(pending, own)
         pending += [p for p in own if p[3] in absorbed]
         self.patch = collections.defaultdict(dict)    # k -> scn -> {offset: new addend}
-        self.gen_reach = dict(self.gen_reach_pre); self.layout_refs = []
+        self.gen_reach = dict(self.gen_reach_pre); self.layout_refs = []; self.plain_targets = {}
         self.bound_at = {}                            # (k, scn, n) -> the address a retargeted reference means
         for k, scn, n, S in pending:
             u = self.units[k]; r = u.o.relocs(scn)[n]; y = r["sym"]
             add = struct.unpack_from("<i", u.sec(scn)["raw"], r["offset"])[0] if r["offset"] + 4 <= len(u.sec(scn)["raw"]) else 0
             E = (S + add) & 0xFFFFFFFF
-            if not TEXT[0] <= S < TEXT[1] and S in self.dhome and not 0 <= add <= self.dext[S]:
+            if not TEXT[0] <= S < TEXT[1] and S in self.dhome and not 0 <= add <= self.dext[S] and not self.plain_array_ref(k, scn, n, S, add):
                 # the original reaches past this global into what follows it there; an ordinary link does not
                 # keep that layout, so this is recorded as a layout dependency of the sources
                 self.layout_refs.append((u.rel, S, add))
             b = self.resolve_binding(self.bind(S))
             if b is None:
                 continue
-            if isinstance(b, str) and b in self.gen_wanted:
+            if isinstance(b, str) and b in self.gen_wanted and not self.plain_array_ref(k, scn, n, S, add):
                 lo_, hi_ = self.gen_reach.get(S, (S, S + 1))
                 self.gen_reach[S] = (min(lo_, E), max(hi_, E + 4))
             if b == self.final_name(u, y) and not (y["scn"] > 0 and not self.is_home(u, y, u.addr.get(y["idx"]))):
                 continue
             self.retarget[k][(scn, n)] = b
             self.bound_at[(k, scn, n)] = S
+            if isinstance(b, str) and b in self.gen_wanted and self.plain_array_ref(k, scn, n, S, add):
+                self.plain_targets[(k, scn, n)] = S
         self.problems["relocations_bound_by_address"] = sum(len(v) for v in self.retarget.values())
         self.drop_unreferenced_code()
         self.generate_data()
@@ -520,6 +631,29 @@ class Link(object):
     def addend(self, k, scn, n):
         u = self.units[k]; r = u.o.relocs(scn)[n]; raw = u.sec(scn)["raw"]
         return struct.unpack_from("<i", raw, r["offset"])[0] if r["offset"] + 4 <= len(raw) else 0
+
+    def ref_field(self, k, scn, n):
+        """What a code relocation's field is, decoded from the start of the function holding it (see x86_field)."""
+        u = self.units[k]; s = u.sec(scn); r = u.o.relocs(scn)[n]
+        if r["ty"] != DIR32 or not is_code(s):
+            return None
+        starts = self.fn_starts.get((k, scn))
+        if starts is None:
+            starts = self.fn_starts[(k, scn)] = sorted(set([0] + [y["value"] for y in u.o.funcs() if y["scn"] == scn]))
+        return x86_field(s["raw"], starts[bisect.bisect_right(starts, r["offset"]) - 1], r["offset"])
+
+    def plain_array_ref(self, k, scn, n, S, add):
+        """A reference outside its global that is still plain C on that one array, so an ordinary link resolves it as
+        the array's symbol plus the addend: its one-past-the-end address used as a value (a loop bound, `cmp reg,
+        a + size`), or an indexed access with a negative constant folded into the displacement (`a[i - k]`, which
+        reads `[reg + a - k]`). A constant read past the end with no register stays a layout dependency."""
+        ext = self.dext.get(S)
+        if ext is None or 0 <= add < ext:
+            return False
+        f = self.ref_field(k, scn, n)
+        if f is None:
+            return False
+        return (f[0] == "imm" and add == ext) or (f[0] == "mem" and f[1] and add < 0)
 
     def cluster_data(self, pending, own):
         """Globals the code treats as one object keep their original layout.
@@ -534,6 +668,9 @@ class Link(object):
                 continue
             add = self.addend(k, scn, n); ext = self.dext.get(S, 1); E = S + add
             if 0 <= add < ext:
+                continue
+            if self.plain_array_ref(k, scn, n, S, add):
+                self.problems["plain_array_references"] += 1
                 continue
             iv.append((min(S, E), max(S + ext, E + 4), S))
         iv.sort()
@@ -960,8 +1097,13 @@ def verify(K, exe, mapfile):
                 if ft is not None and (bound is not None or y["scn"] <= 0 or u.addr.get(y["idx"]) is not None or y["cls"] == 105):
                     good = ft == Tn; st["addresses_mapped"] += top
                     S = rev.get(bound or K.final_name(u, y))
-                    if not good and S in K.dhome and not 0 <= To - S <= K.dext[S] and at.get(K.canon[S], -1) + To - S == Tn:
-                        good = True; st["layout_dependent"] += top
+                    if not good and S in K.dhome and not 0 <= To - S < K.dext[S] and at.get(K.canon[S], -1) + To - S == Tn:
+                        good = True
+                        st["plain_array_references" if K.plain_array_ref(u.k, scn, k_, S, To - S) else "layout_dependent"] += top
+                    elif not good and bound and bound.startswith("_d2va_") and bound in at:
+                        Sb = int(bound[6:], 16)       # generated data, reached at an offset outside it: label plus offset
+                        if (at[bound] + To - Sb) & 0xFFFFFFFF == Tn and K.plain_targets.get((u.k, scn, k_)) == Sb:
+                            good = True; st["plain_array_references"] += top
                 elif y["scn"] > 0 and bound is None:   # a constant or table of this object: the same bytes, recursively
                     m = extent(u, y)
                     good = m > 0 and same(u, y["scn"], y["value"], min(m, 0x4000), To - add, Tn - add, 0); st["local_by_content"] += top
