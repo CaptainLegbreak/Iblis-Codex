@@ -146,7 +146,7 @@ struct ItemRecordTable { int count; Item* records; };
 
 ItemRecordTable* __stdcall sub_00633590(); // 0x00633590
 
-unsigned __fastcall sub_0045C3E0(Seed*,int); // 0x0045C3E0
+unsigned __fastcall ITEMS_RollLimitedRandomNumber(Seed*,int); // 0x0045C3E0
 
 int __stdcall ITEMS_CheckItemTypeIdByItemId(int,int); // 0x00629A90
 
@@ -298,7 +298,7 @@ int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit);                          
 D2ItemStatCostTxt* __fastcall PLAYER_GetItemStatCostTxtRecord(int nStatId);                           // 0x0045C4F0
 
 
-void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3);                                 // 0x005678F0
+void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused);                                 // 0x005678F0
 
 int __stdcall UNITS_GetStashGoldLimit(D2UnitStrc* pUnit);                                                   // 0x00623460
 
@@ -1090,7 +1090,7 @@ short __fastcall PLRTRADE_RollRandomItemClassOfSameType(Game* game,int level,int
     ItemRecordTable* table=sub_00633590();
     int count=0;
     if(!table) { FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),0x384); exit(-1); }
-    int start=sub_0045C3E0(&game->seed,table->count);
+    int start=ITEMS_RollLimitedRandomNumber(&game->seed,table->count);
     int stop=start-1;
     if(stop<0) stop=table->count-1;
     int index=start;
@@ -1106,7 +1106,7 @@ short __fastcall PLRTRADE_RollRandomItemClassOfSameType(Game* game,int level,int
         if(index>=table->count) index=0;
     }
     if(!count) return 0;
-    return choices[sub_0045C3E0(&game->seed,count)];
+    return choices[ITEMS_RollLimitedRandomNumber(&game->seed,count)];
 }
 
 // 0x00565A80

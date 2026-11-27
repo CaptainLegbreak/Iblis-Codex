@@ -66,7 +66,7 @@ int __stdcall DEBUG_GetMonsterCount()
 
 struct D2DrlgActStrc;
 
-void* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int a2, int a3); // 0x00619DA0
+void* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
 
 // 0x00534730
 void* __stdcall DEBUG_GetRoomBySubtileCoordinates(unsigned char bAct, int nX, int nY)

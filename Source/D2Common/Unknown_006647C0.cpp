@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2CommonApi.h"
 
 
 enum
@@ -23,7 +24,6 @@ extern const unsigned int* gpSkeletonComponentCodes[16];                        
 extern const unsigned int* gpArcherComponentCodes[16];                                             // 0x00748A18
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId);                        // 0x00451FE0
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                             // 0x006427F0
 
 inline int UNITS_GetAnimModeInline(D2UnitStrc* pUnit)
 {

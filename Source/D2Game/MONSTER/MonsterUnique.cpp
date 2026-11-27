@@ -330,12 +330,6 @@ static inline void MONSTERUNIQUE_SetMonsterField18(D2UnitStrc* pUnit, int nValue
     }
 }
 
-int __fastcall sub_M117_Emit_005A0220(D2UnitStrc* pUnit, int nValue)
-{
-    MONSTERUNIQUE_SetMonsterField18(pUnit, nValue);
-    return MONSTERUNIQUE_GetMonsterField18(pUnit);
-}
-
 static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -2688,8 +2682,8 @@ void __fastcall MONSTERUNIQUE_CastLightUniqueMissile(D2GameStrc* pGame, D2UnitSt
         return;
     }
 
-    D2MonsterDataStrc* pMonsterData = MONSTERUNIQUE_GetMonsterDataInline(pUnit);
-    const int nLastFrame = !pMonsterData ? 0 : pMonsterData->dwDurielFlag;
+    D2MonsterDataStrc* pMonsterData;
+    const int nLastFrame = MONSTERUNIQUE_GetMonsterField18(pUnit);
 
     int nFrameDiff = pGame->dwGameFrame - nLastFrame;
     if (nFrameDiff < 0)
@@ -2707,11 +2701,7 @@ void __fastcall MONSTERUNIQUE_CastLightUniqueMissile(D2GameStrc* pGame, D2UnitSt
         return;
     }
 
-    pMonsterData = MONSTERUNIQUE_GetMonsterDataInline(pUnit);
-    if (pMonsterData)
-    {
-        pMonsterData->dwDurielFlag = pGame->dwGameFrame;
-    }
+    MONSTERUNIQUE_SetMonsterField18(pUnit, pGame->dwGameFrame);
 
     pMonsterData = MONSTERUNIQUE_GetMonsterDataInline(pUnit);
     if (pMonsterData)
