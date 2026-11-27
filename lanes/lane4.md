@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Thu Nov 26 20:58 PST 2026: join-gfx-drawunit posted on #465 (Gfx pieces 7 -> 5). join-game-d080 is still Ready. Gfx_0046F870 waits on Gfx_0046DB90: it holds static copies of DB90's functions, including 0x46E740 with its allocation tie.
+- Thu Nov 26 20:23 PST 2026: join-gfx-drawunit posted on #465 (Gfx pieces 7 -> 5). join-game-d080 is still Ready. Gfx_0046F870 waits on Gfx_0046DB90: it holds static copies of DB90's functions, including 0x46E740 with its allocation tie.
 
 - Thu Nov 26 20:08 PST 2026: #464 took join-text-a950-2. join-game-d080 posted on #464 (Game_0044D080: 28 functions -> 2). Next: the Gfx pieces.
 
