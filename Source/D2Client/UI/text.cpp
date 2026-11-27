@@ -806,7 +806,8 @@ static int TEXT_IsOnPressedButton(int nX, int nY);
 
 
 
-extern D2WaypointRowRectStrc gaWaypointRowRects[9];                                                // 0x007224F8
+#include "D2WaypointLayout.h"
+extern D2WaypointLayoutStrc gaLayouts[9]; // 0x007224E8
 
 
 static bool gbWaypointClosePressed;                                                                        // 0x007BF06C
@@ -1510,8 +1511,8 @@ static int sub_0049C510_GetWaypointRowAtPoint(int nX, int nY)
 {
     for (int i = 0; i < 9; ++i)
     {
-        if (gaWaypointEntries[i].bEnabled && nX > gaWaypointRowRects[i].nX && nX < gaWaypointRowRects[i].nX + 0x118
-            && nY > gaWaypointRowRects[i].nY && nY < gaWaypointRowRects[i].nY + 0x1E)
+        if (gaWaypointEntries[i].bEnabled && nX > gaLayouts[i].nRowX && nX < gaLayouts[i].nRowX + 0x118
+            && nY > gaLayouts[i].nRowY && nY < gaLayouts[i].nRowY + 0x1E)
             return i;
     }
     return -1;
