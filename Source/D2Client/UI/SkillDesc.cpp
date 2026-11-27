@@ -609,6 +609,29 @@ static void SKILLDESC_AddEnvironSoundRefs(int nIndex)
     }
 }
 
+// 0x004E4280
+extern "C" void __cdecl sub_004E4280_ResetEnvironSounds()
+{
+    gnEnvironLevelId = 0;
+    gnEnvironAmbientId = 0;
+    gnAmbientDelay = 0;
+    gnAmbientTick = 0;
+    if (gnEnvironSoundHandle)
+    {
+        sub_004BA840_StopSound(gnEnvironSoundHandle);
+        gnEnvironSoundHandle = 0;
+    }
+
+    gnEnvironSoundId = 0;
+    if (gnWeatherSoundHandle)
+    {
+        sub_004BA840_StopSound(gnWeatherSoundHandle);
+        gnWeatherSoundHandle = 0;
+    }
+
+    gnWeatherSoundId = 0;
+}
+
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
