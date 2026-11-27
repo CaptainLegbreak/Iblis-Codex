@@ -35,7 +35,7 @@ int gbGlideMultiTmu;                                                            
 
 D2GlideSpriteVertexStrc gatGlideSpriteVertices[4]; // 0x0087EFF8
 
-extern D2GlideTexCacheStrc gaGlideTexCaches[4]; // 0x0087F048
+extern D2GlideTexCacheStrc gaGlideTexCaches[3]; // 0x0087F068
 
 extern unsigned char* gpGlideSpriteBufferA; // 0x0087F0C8
 
@@ -143,7 +143,7 @@ void __fastcall GLSPRITE_ReleaseTexSlots(D2GlideTexSlotStrc* pSlots)
             const int nId = pSlots[i].nId - 1;
             if (nId >= 0)
             {
-                gaGlideTexCaches[nCache + 1].pEntries[nId].pOwner = 0;
+                gaGlideTexCaches[nCache].pEntries[nId].pOwner = 0;
             }
         }
     }
@@ -321,14 +321,14 @@ static int __stdcall GLSPRITE_UploadTexInfo(int nPalette, int nColor, int nType,
     }
 
     const int nCache = pSlot->nCache;
-    D2GlideTexCacheStrc* pCache = &gaGlideTexCaches[nCache];
+    D2GlideTexCacheStrc* pCache = &gaGlideTexCaches[nCache - 1];
     if (gbGlideSpriteFlag)
         gbGlideMultiTmu = nCache == 1;
 
     int nAddress;
     if (pSlots[nType].nId && (pCache->pEntries[pSlots[nType].nId - 1].nPalette == nPalette || nRequested == 4))
     {
-        GLTEXTURECACHE_TexCacheTouch(&gaGlideTexCaches[nCache], pSlot->nId);
+        GLTEXTURECACHE_TexCacheTouch(&gaGlideTexCaches[nCache - 1], pSlot->nId);
         nAddress = pCache->pEntries[pSlot->nId - 1].nAddress;
     }
     else

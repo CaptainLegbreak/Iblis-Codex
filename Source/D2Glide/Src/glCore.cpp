@@ -305,7 +305,8 @@ extern int gbDDrawBinkDone;                                                     
 
 int __fastcall GLSMACK_SetSmackTexAddresses(int nBase, int nAlign); // 0x0050DFE0
 
-D2GlideTexCacheStrc gaGlideTexCaches[4]; // 0x0087F048
+// The three texture caches, by cache id - 1 (cache ids run from 1).
+D2GlideTexCacheStrc gaGlideTexCaches[3]; // 0x0087F068
 
 
 
@@ -396,7 +397,6 @@ void __fastcall GLSUBTILECACHE_TileCacheDestroy(D2GlideTileCacheStrc* pCache, in
 void __fastcall GLFLOORCACHE_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush); // 0x0050F7C0
 extern D2GlideTileCacheStrc gtGlideTileCache; // 0x0087EB48
 extern D2GlideFloorCacheStrc gtGlideFloorCache; // 0x0087EB68
-extern D2GlideTexCacheStrc gaGlideTexCaches[4]; // 0x0087F048
 
 void* ghGlideLibrary; // 0x0087EFA8
 
@@ -541,9 +541,9 @@ void __cdecl GLCORE_ClearCaches()
 {
     GLFLOORCACHE_FloorCacheDestroy(&gtGlideFloorCache, 0);
     GLSUBTILECACHE_TileCacheDestroy(&gtGlideTileCache, 0);
+    GLTEXTURECACHE_TexCacheDestroy(&gaGlideTexCaches[0], 0);
     GLTEXTURECACHE_TexCacheDestroy(&gaGlideTexCaches[1], 0);
     GLTEXTURECACHE_TexCacheDestroy(&gaGlideTexCaches[2], 0);
-    GLTEXTURECACHE_TexCacheDestroy(&gaGlideTexCaches[3], 0);
 }
 
 // 0x00508FD0
@@ -942,12 +942,12 @@ int __cdecl GLCORE_InitTextureMemory()
 
 		const unsigned int nStart = nEnd;
 		const unsigned int nSize = gadwTmuMaxAddress[nTmu] - nStart;
-		nEnd = GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[1], nStart, nStart + 25 * nSize / 100, nAlign64K);
-		gnTexCacheSize1 = gaGlideTexCaches[1].nCount * nAlign64K;
-		nEnd = GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[2], nEnd, nStart + 65 * nSize / 100, nAlign16K);
-		gnTexCacheSize2 = gaGlideTexCaches[2].nCount * nAlign16K;
-		GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[3], nEnd, gadwTmuMaxAddress[nTmu], nAlign4K);
-		gnTexCacheSize3 = gaGlideTexCaches[3].nCount * nAlign4K;
+		nEnd = GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[0], nStart, nStart + 25 * nSize / 100, nAlign64K);
+		gnTexCacheSize1 = gaGlideTexCaches[0].nCount * nAlign64K;
+		nEnd = GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[1], nEnd, nStart + 65 * nSize / 100, nAlign16K);
+		gnTexCacheSize2 = gaGlideTexCaches[1].nCount * nAlign16K;
+		GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[2], nEnd, gadwTmuMaxAddress[nTmu], nAlign4K);
+		gnTexCacheSize3 = gaGlideTexCaches[2].nCount * nAlign4K;
 	}
 	else if (gnRenderWidth == 800 && gnRenderHeight == 600)
 	{
@@ -955,21 +955,21 @@ int __cdecl GLCORE_InitTextureMemory()
 		const unsigned int nFree = gadwTmuMaxAddress[0] - nAddress;
 		if (gnGlideTmuCount > 1)
 		{
-			int nEnd = GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[2], nAddress, nAddress + 50 * nFree / 100, nAlign16K);
-			gnTexCacheSize2 = gaGlideTexCaches[2].nCount * nAlign16K;
-			GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[3], nEnd, gadwTmuMaxAddress[0], nAlign4K);
-			gnTexCacheSize3 = gaGlideTexCaches[3].nCount * nAlign4K;
-			GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[1], gadwTmuMinAddress[1], gadwTmuMaxAddress[1], nAlign64K);
-			gnTexCacheSize1 = gaGlideTexCaches[1].nCount * nAlign64K;
+			int nEnd = GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[1], nAddress, nAddress + 50 * nFree / 100, nAlign16K);
+			gnTexCacheSize2 = gaGlideTexCaches[1].nCount * nAlign16K;
+			GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[2], nEnd, gadwTmuMaxAddress[0], nAlign4K);
+			gnTexCacheSize3 = gaGlideTexCaches[2].nCount * nAlign4K;
+			GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[0], gadwTmuMinAddress[1], gadwTmuMaxAddress[1], nAlign64K);
+			gnTexCacheSize1 = gaGlideTexCaches[0].nCount * nAlign64K;
 		}
 		else
 		{
-			int nEnd = GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[1], nAddress, nAddress + 50 * nFree / 100, nAlign64K);
-			gnTexCacheSize1 = gaGlideTexCaches[1].nCount * nAlign64K;
-			nEnd = GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[2], nEnd, nAddress + 75 * nFree / 100, nAlign16K);
-			gnTexCacheSize2 = gaGlideTexCaches[2].nCount * nAlign16K;
-			GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[3], nEnd, gadwTmuMaxAddress[0], nAlign4K);
-			gnTexCacheSize3 = gaGlideTexCaches[3].nCount * nAlign4K;
+			int nEnd = GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[0], nAddress, nAddress + 50 * nFree / 100, nAlign64K);
+			gnTexCacheSize1 = gaGlideTexCaches[0].nCount * nAlign64K;
+			nEnd = GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[1], nEnd, nAddress + 75 * nFree / 100, nAlign16K);
+			gnTexCacheSize2 = gaGlideTexCaches[1].nCount * nAlign16K;
+			GLTEXTURECACHE_TexCacheInit(&gaGlideTexCaches[2], nEnd, gadwTmuMaxAddress[0], nAlign4K);
+			gnTexCacheSize3 = gaGlideTexCaches[2].nCount * nAlign4K;
 		}
 	}
 
@@ -1016,9 +1016,9 @@ int __cdecl GLCORE_CloseSurface()
         {
             GLSMACK_SmackFlush();
         }
+        GLTEXTURECACHE_TexCacheDestroy(&gaGlideTexCaches[0], 1);
         GLTEXTURECACHE_TexCacheDestroy(&gaGlideTexCaches[1], 1);
         GLTEXTURECACHE_TexCacheDestroy(&gaGlideTexCaches[2], 1);
-        GLTEXTURECACHE_TexCacheDestroy(&gaGlideTexCaches[3], 1);
         GLSPRITE_FreeSpriteBuffers();
         for (int i = 0; ; ++i)
         {
