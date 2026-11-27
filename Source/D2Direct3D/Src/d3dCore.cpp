@@ -1,4 +1,5 @@
 #include "D2Direct3D.h"
+#include "D2GfxInterface.h"
 
 #include "D2DDrawTypes.h"
 
@@ -2813,5 +2814,8 @@ void __cdecl D3DCORE_ReleaseRenderer()
     sub_006BA830_FreeCache(&gtTextureCache3, 1);
     D3DSPRITE_ReleaseSprites();
 }
+
+// The entry points of the Direct3D renderer, which D2Gfx selects by video mode (gapGraphicsInterfaces).
+extern D2GraphicsInterfaceStrc gtD3DGraphicsInterface; // 0x0074BF28
 
 #include "gen/data/Source/D2Direct3D/Src/d3dCore.inc"

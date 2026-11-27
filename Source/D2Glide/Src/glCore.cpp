@@ -1,6 +1,7 @@
 #include "D2Glide.h"
 
 #include "D2GfxTypes.h"
+#include "D2GfxInterface.h"
 
 #include "D2Win32Base.h"
 
@@ -1315,5 +1316,8 @@ int __cdecl BNCLIENT_IsSetEmailRequested()
 {
     return gfSetEmailRequested;
 }
+
+// The entry points of the Glide renderer, which D2Gfx selects by video mode (gapGraphicsInterfaces).
+extern D2GraphicsInterfaceStrc gtGlideGraphicsInterface; // 0x0072F178
 
 #include "gen/data/Source/D2Glide/Src/glCore.inc"

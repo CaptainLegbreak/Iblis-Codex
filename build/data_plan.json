@@ -1182,10 +1182,6 @@
    "bytes": 492,
    "definitions": 15,
    "externs": [
-    "extern \"C\" struct d2data_0072F178_t gData_0072F178; // 0x0072F178",
-    "extern \"C\" struct d2data_0072F6D0_t gData_0072F6D0; // 0x0072F6D0",
-    "extern \"C\" struct d2data_0074BF28_t gData_0074BF28; // 0x0074BF28",
-    "extern \"C\" struct d2data_0074C4A8_t gData_0074C4A8; // 0x0074C4A8",
     "extern \"C\" void __cdecl WINDOW_SetScreenBuffer(); // 0x004F8DE0"
    ],
    "fn_types": {},
@@ -4568,7 +4564,7 @@
   },
   "Source/D2Gdi/Src/gdiCore.cpp": {
    "bytes": 284,
-   "definitions": 3,
+   "definitions": 4,
    "externs": [
     "extern \"C\" void __cdecl GDISMACK_PlaySmacker(); // 0x006C9900",
     "extern \"C\" void __cdecl sub_006C8C80_GdiDrawLine(); // 0x006C8C80",
@@ -70849,32 +70845,32 @@
     [
      4,
      "0x0074C4A8",
-     "generated_same_file",
-     "gData_0074C4A8",
+     "source",
+     "gtGdiGraphicsInterface",
      0,
      "data"
     ],
     [
      12,
      "0x0072F6D0",
-     "generated_same_file",
-     "gData_0072F6D0",
+     "source",
+     "gtDDrawGraphicsInterface",
      0,
      "data"
     ],
     [
      16,
      "0x0072F178",
-     "generated_same_file",
-     "gData_0072F178",
+     "source",
+     "gtGlideGraphicsInterface",
      0,
      "data"
     ],
     [
      24,
      "0x0074BF28",
-     "generated_same_file",
-     "gData_0074BF28",
+     "source",
+     "gtD3DGraphicsInterface",
      0,
      "data"
     ]
@@ -70889,14 +70885,561 @@
   },
   {
    "alias": false,
-   "cname": "gData_0072F178",
-   "declared": false,
+   "cname": null,
+   "declared": true,
    "decorated": null,
    "file": "Source/D2Glide/Src/glCore.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072F178_t gData_0072F178; // 0x0072F178",
-   "head": "extern \"C\" struct d2data_0072F178_t gData_0072F178 = ",
-   "name": "gData_0072F178",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2GraphicsInterfaceStrc gtGlideGraphicsInterface = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "pfDetect",
+      0,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(void* hInstance)"
+      }
+     ],
+     [
+      "pfInit",
+      4,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2GfxSettingsStrc* pSettings, const void* pHelpers)"
+      }
+     ],
+     [
+      "pfClose",
+      8,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfCreateSurface",
+      12,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(void* hWnd, int nResolutionMode)"
+      }
+     ],
+     [
+      "pfCloseSurface",
+      16,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfPauseSurface",
+      20,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(void* hWnd, int nResolutionMode, int nWindowState)"
+      }
+     ],
+     [
+      "pfStartDraw",
+      24,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)"
+      }
+     ],
+     [
+      "pfEndDraw",
+      28,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfBlit",
+      32,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfChangeRes",
+      36,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(void* hWnd, int nResolutionMode)"
+      }
+     ],
+     [
+      "pfGetBackBuffer",
+      40,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(unsigned char* pBuffer)"
+      }
+     ],
+     [
+      "pfActivateWindow",
+      44,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int bActive, int bWindowed)"
+      }
+     ],
+     [
+      "pfSetOption",
+      48,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int nOption, int nValue)"
+      }
+     ],
+     [
+      "pfPlayCutscene",
+      52,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfOpenSmackCutscene",
+      56,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(const char* szFile, int nResolutionMode, void* pfFrame)"
+      }
+     ],
+     [
+      "pfCheckCutScene",
+      60,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfDecodeSmacker",
+      64,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(const char* szSmacker, unsigned char* pBuffer, int nVersion)"
+      }
+     ],
+     [
+      "pfPlaySmacker",
+      68,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(void* pContext)"
+      }
+     ],
+     [
+      "pfCloseSmacker",
+      72,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(void* pContext)"
+      }
+     ],
+     [
+      "pfGetCacheResults",
+      76,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CacheStatsStrc* (__fastcall*)()"
+      }
+     ],
+     [
+      "pfGetDimensions",
+      80,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int* pWidth, int* pHeight)"
+      }
+     ],
+     [
+      "pfSetGlobalScale",
+      84,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nScaleFactor)"
+      }
+     ],
+     [
+      "pfSetGamma",
+      88,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int nGamma)"
+      }
+     ],
+     [
+      "pfGammaCanBeControlled",
+      92,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfUpdatePerspective",
+      96,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nScaleX, int nScaleY)"
+      }
+     ],
+     [
+      "pfPerspectiveTransform",
+      100,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY, int nBias, int* pXAdjust, int* pYAdjust)"
+      }
+     ],
+     [
+      "pfPerspectiveTransformScale",
+      104,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY, int nAngle, int* pXAdjust, int* pYAdjust, int bOrder)"
+      }
+     ],
+     [
+      "pfPerspectiveClearScale",
+      108,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)()"
+      }
+     ],
+     [
+      "pfSetPalette",
+      112,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagPALETTEENTRY* pPalette)"
+      }
+     ],
+     [
+      "pfSetPaletteTables",
+      116,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2PaletteTableStrc* pPaletteTables)"
+      }
+     ],
+     [
+      "pfSetAmbientColor",
+      120,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nRed, int nGreen, int nBlue)"
+      }
+     ],
+     [
+      "pfFloorTileDraw",
+      124,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, D2GfxLightExStrc* pLight, int nPosX, int nPosY, int nWorldXpos, int nWorldYpos, unsigned char nAlpha, int nScreenPanels, void* pTileData)"
+      }
+     ],
+     [
+      "pfCelFlatSpriteDraw",
+      128,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)"
+      }
+     ],
+     [
+      "pfCelDraw",
+      132,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette)"
+      }
+     ],
+     [
+      "pfCelDrawColor",
+      136,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift)"
+      }
+     ],
+     [
+      "pfCelDrawEx",
+      140,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, int nSkipLines, int nDrawLines, int eDrawMode)"
+      }
+     ],
+     [
+      "pfCelDrawShadow",
+      144,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY)"
+      }
+     ],
+     [
+      "pfCelDrawHilight",
+      148,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfCelDrawClipped",
+      152,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, void* pCropRect, int eDrawMode)"
+      }
+     ],
+     [
+      "pfTileDrawLit",
+      156,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels)"
+      }
+     ],
+     [
+      "pfTileDrawTrans",
+      160,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels, unsigned char nAlpha)"
+      }
+     ],
+     [
+      "pfShadowTileDraw",
+      164,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels)"
+      }
+     ],
+     [
+      "pfUtilDiamond",
+      168,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagRECT* pRect, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfUtilRect",
+      172,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagRECT* pRect, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfUtilFilledRect",
+      176,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagRECT* pRect, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfUtilPoint",
+      180,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfDrawBox",
+      184,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode)"
+      }
+     ],
+     [
+      "pfDrawBoxAlpha",
+      188,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)"
+      }
+     ],
+     [
+      "pfDrawLine",
+      192,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)"
+      }
+     ],
+     [
+      "pfClearScreen",
+      196,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int bPartial)"
+      }
+     ],
+     [
+      "pfOutputString",
+      200,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY, const char* szFormat, char* va)"
+      }
+     ],
+     [
+      "pfDebugDraw",
+      204,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(unsigned int* pLight, unsigned int* pPlayerLight, int nPosX, int nPosY)"
+      }
+     ],
+     [
+      "pfDebugFillBackBuffer",
+      208,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY)"
+      }
+     ],
+     [
+      "pfClearCaches",
+      212,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)()"
+      }
+     ]
+    ],
+    "name": "D2GraphicsInterfaceStrc",
+    "size": 216
+   },
+   "name": "gtGlideGraphicsInterface",
    "pointers": [
     [
      0,
@@ -71333,20 +71876,569 @@
    ],
    "region": "data",
    "size": 216,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072F178_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    const void* p15;\n    const void* p16;\n    const void* p17;\n    const void* p18;\n    const void* p19;\n    const void* p20;\n    const void* p21;\n    const void* p22;\n    const void* p23;\n    const void* p24;\n    const void* p25;\n    const void* p26;\n    const void* p27;\n    const void* p28;\n    const void* p29;\n    const void* p30;\n    const void* p31;\n    const void* p32;\n    const void* p33;\n    const void* p34;\n    const void* p35;\n    const void* p36;\n    const void* p37;\n    const void* p38;\n    const void* p39;\n    const void* p40;\n    const void* p41;\n    const void* p42;\n    const void* p43;\n    const void* p44;\n    const void* p45;\n    const void* p46;\n    const void* p47;\n    const void* p48;\n    const void* p49;\n    const void* p50;\n    const void* p51;\n    const void* p52;\n    const void* p53;\n};\n#pragma pack(pop)",
+   "stars": 0,
+   "struct": null,
    "tail": "; // 0x0072F178",
+   "type": "D2GraphicsInterfaceStrc",
    "va": "0x0072F178"
   },
   {
    "alias": false,
-   "cname": "gData_0072F6D0",
-   "declared": false,
+   "cname": null,
+   "declared": true,
    "decorated": null,
    "file": "Source/D2DDraw/Src/ddCore.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072F6D0_t gData_0072F6D0; // 0x0072F6D0",
-   "head": "extern \"C\" struct d2data_0072F6D0_t gData_0072F6D0 = ",
-   "name": "gData_0072F6D0",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2GraphicsInterfaceStrc gtDDrawGraphicsInterface = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "pfDetect",
+      0,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(void* hInstance)"
+      }
+     ],
+     [
+      "pfInit",
+      4,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2GfxSettingsStrc* pSettings, const void* pHelpers)"
+      }
+     ],
+     [
+      "pfClose",
+      8,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfCreateSurface",
+      12,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(void* hWnd, int nResolutionMode)"
+      }
+     ],
+     [
+      "pfCloseSurface",
+      16,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfPauseSurface",
+      20,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(void* hWnd, int nResolutionMode, int nWindowState)"
+      }
+     ],
+     [
+      "pfStartDraw",
+      24,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)"
+      }
+     ],
+     [
+      "pfEndDraw",
+      28,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfBlit",
+      32,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfChangeRes",
+      36,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(void* hWnd, int nResolutionMode)"
+      }
+     ],
+     [
+      "pfGetBackBuffer",
+      40,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(unsigned char* pBuffer)"
+      }
+     ],
+     [
+      "pfActivateWindow",
+      44,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int bActive, int bWindowed)"
+      }
+     ],
+     [
+      "pfSetOption",
+      48,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int nOption, int nValue)"
+      }
+     ],
+     [
+      "pfPlayCutscene",
+      52,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfOpenSmackCutscene",
+      56,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(const char* szFile, int nResolutionMode, void* pfFrame)"
+      }
+     ],
+     [
+      "pfCheckCutScene",
+      60,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfDecodeSmacker",
+      64,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(const char* szSmacker, unsigned char* pBuffer, int nVersion)"
+      }
+     ],
+     [
+      "pfPlaySmacker",
+      68,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(void* pContext)"
+      }
+     ],
+     [
+      "pfCloseSmacker",
+      72,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(void* pContext)"
+      }
+     ],
+     [
+      "pfGetCacheResults",
+      76,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CacheStatsStrc* (__fastcall*)()"
+      }
+     ],
+     [
+      "pfGetDimensions",
+      80,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int* pWidth, int* pHeight)"
+      }
+     ],
+     [
+      "pfSetGlobalScale",
+      84,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nScaleFactor)"
+      }
+     ],
+     [
+      "pfSetGamma",
+      88,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int nGamma)"
+      }
+     ],
+     [
+      "pfGammaCanBeControlled",
+      92,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfUpdatePerspective",
+      96,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nScaleX, int nScaleY)"
+      }
+     ],
+     [
+      "pfPerspectiveTransform",
+      100,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY, int nBias, int* pXAdjust, int* pYAdjust)"
+      }
+     ],
+     [
+      "pfPerspectiveTransformScale",
+      104,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY, int nAngle, int* pXAdjust, int* pYAdjust, int bOrder)"
+      }
+     ],
+     [
+      "pfPerspectiveClearScale",
+      108,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)()"
+      }
+     ],
+     [
+      "pfSetPalette",
+      112,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagPALETTEENTRY* pPalette)"
+      }
+     ],
+     [
+      "pfSetPaletteTables",
+      116,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2PaletteTableStrc* pPaletteTables)"
+      }
+     ],
+     [
+      "pfSetAmbientColor",
+      120,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nRed, int nGreen, int nBlue)"
+      }
+     ],
+     [
+      "pfFloorTileDraw",
+      124,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, D2GfxLightExStrc* pLight, int nPosX, int nPosY, int nWorldXpos, int nWorldYpos, unsigned char nAlpha, int nScreenPanels, void* pTileData)"
+      }
+     ],
+     [
+      "pfCelFlatSpriteDraw",
+      128,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)"
+      }
+     ],
+     [
+      "pfCelDraw",
+      132,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette)"
+      }
+     ],
+     [
+      "pfCelDrawColor",
+      136,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift)"
+      }
+     ],
+     [
+      "pfCelDrawEx",
+      140,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, int nSkipLines, int nDrawLines, int eDrawMode)"
+      }
+     ],
+     [
+      "pfCelDrawShadow",
+      144,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY)"
+      }
+     ],
+     [
+      "pfCelDrawHilight",
+      148,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfCelDrawClipped",
+      152,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, void* pCropRect, int eDrawMode)"
+      }
+     ],
+     [
+      "pfTileDrawLit",
+      156,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels)"
+      }
+     ],
+     [
+      "pfTileDrawTrans",
+      160,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels, unsigned char nAlpha)"
+      }
+     ],
+     [
+      "pfShadowTileDraw",
+      164,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels)"
+      }
+     ],
+     [
+      "pfUtilDiamond",
+      168,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagRECT* pRect, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfUtilRect",
+      172,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagRECT* pRect, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfUtilFilledRect",
+      176,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagRECT* pRect, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfUtilPoint",
+      180,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfDrawBox",
+      184,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode)"
+      }
+     ],
+     [
+      "pfDrawBoxAlpha",
+      188,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)"
+      }
+     ],
+     [
+      "pfDrawLine",
+      192,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)"
+      }
+     ],
+     [
+      "pfClearScreen",
+      196,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int bPartial)"
+      }
+     ],
+     [
+      "pfOutputString",
+      200,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY, const char* szFormat, char* va)"
+      }
+     ],
+     [
+      "pfDebugDraw",
+      204,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(unsigned int* pLight, unsigned int* pPlayerLight, int nPosX, int nPosY)"
+      }
+     ],
+     [
+      "pfDebugFillBackBuffer",
+      208,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY)"
+      }
+     ],
+     [
+      "pfClearCaches",
+      212,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)()"
+      }
+     ]
+    ],
+    "name": "D2GraphicsInterfaceStrc",
+    "size": 216
+   },
+   "name": "gtDDrawGraphicsInterface",
    "pointers": [
     [
      0,
@@ -71783,20 +72875,569 @@
    ],
    "region": "data",
    "size": 216,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072F6D0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    const void* p15;\n    const void* p16;\n    const void* p17;\n    const void* p18;\n    const void* p19;\n    const void* p20;\n    const void* p21;\n    const void* p22;\n    const void* p23;\n    const void* p24;\n    const void* p25;\n    const void* p26;\n    const void* p27;\n    const void* p28;\n    const void* p29;\n    const void* p30;\n    const void* p31;\n    const void* p32;\n    const void* p33;\n    const void* p34;\n    const void* p35;\n    const void* p36;\n    const void* p37;\n    const void* p38;\n    const void* p39;\n    const void* p40;\n    const void* p41;\n    const void* p42;\n    const void* p43;\n    const void* p44;\n    const void* p45;\n    const void* p46;\n    const void* p47;\n    const void* p48;\n    const void* p49;\n    const void* p50;\n    const void* p51;\n    const void* p52;\n    const void* p53;\n};\n#pragma pack(pop)",
+   "stars": 0,
+   "struct": null,
    "tail": "; // 0x0072F6D0",
+   "type": "D2GraphicsInterfaceStrc",
    "va": "0x0072F6D0"
   },
   {
    "alias": false,
-   "cname": "gData_0074BF28",
-   "declared": false,
+   "cname": null,
+   "declared": true,
    "decorated": null,
    "file": "Source/D2Direct3D/Src/d3dCore.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0074BF28_t gData_0074BF28; // 0x0074BF28",
-   "head": "extern \"C\" struct d2data_0074BF28_t gData_0074BF28 = ",
-   "name": "gData_0074BF28",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2GraphicsInterfaceStrc gtD3DGraphicsInterface = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "pfDetect",
+      0,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(void* hInstance)"
+      }
+     ],
+     [
+      "pfInit",
+      4,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2GfxSettingsStrc* pSettings, const void* pHelpers)"
+      }
+     ],
+     [
+      "pfClose",
+      8,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfCreateSurface",
+      12,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(void* hWnd, int nResolutionMode)"
+      }
+     ],
+     [
+      "pfCloseSurface",
+      16,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfPauseSurface",
+      20,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(void* hWnd, int nResolutionMode, int nWindowState)"
+      }
+     ],
+     [
+      "pfStartDraw",
+      24,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)"
+      }
+     ],
+     [
+      "pfEndDraw",
+      28,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfBlit",
+      32,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfChangeRes",
+      36,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(void* hWnd, int nResolutionMode)"
+      }
+     ],
+     [
+      "pfGetBackBuffer",
+      40,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(unsigned char* pBuffer)"
+      }
+     ],
+     [
+      "pfActivateWindow",
+      44,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int bActive, int bWindowed)"
+      }
+     ],
+     [
+      "pfSetOption",
+      48,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int nOption, int nValue)"
+      }
+     ],
+     [
+      "pfPlayCutscene",
+      52,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfOpenSmackCutscene",
+      56,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(const char* szFile, int nResolutionMode, void* pfFrame)"
+      }
+     ],
+     [
+      "pfCheckCutScene",
+      60,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfDecodeSmacker",
+      64,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(const char* szSmacker, unsigned char* pBuffer, int nVersion)"
+      }
+     ],
+     [
+      "pfPlaySmacker",
+      68,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(void* pContext)"
+      }
+     ],
+     [
+      "pfCloseSmacker",
+      72,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(void* pContext)"
+      }
+     ],
+     [
+      "pfGetCacheResults",
+      76,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CacheStatsStrc* (__fastcall*)()"
+      }
+     ],
+     [
+      "pfGetDimensions",
+      80,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int* pWidth, int* pHeight)"
+      }
+     ],
+     [
+      "pfSetGlobalScale",
+      84,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nScaleFactor)"
+      }
+     ],
+     [
+      "pfSetGamma",
+      88,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int nGamma)"
+      }
+     ],
+     [
+      "pfGammaCanBeControlled",
+      92,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfUpdatePerspective",
+      96,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nScaleX, int nScaleY)"
+      }
+     ],
+     [
+      "pfPerspectiveTransform",
+      100,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY, int nBias, int* pXAdjust, int* pYAdjust)"
+      }
+     ],
+     [
+      "pfPerspectiveTransformScale",
+      104,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY, int nAngle, int* pXAdjust, int* pYAdjust, int bOrder)"
+      }
+     ],
+     [
+      "pfPerspectiveClearScale",
+      108,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)()"
+      }
+     ],
+     [
+      "pfSetPalette",
+      112,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagPALETTEENTRY* pPalette)"
+      }
+     ],
+     [
+      "pfSetPaletteTables",
+      116,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2PaletteTableStrc* pPaletteTables)"
+      }
+     ],
+     [
+      "pfSetAmbientColor",
+      120,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nRed, int nGreen, int nBlue)"
+      }
+     ],
+     [
+      "pfFloorTileDraw",
+      124,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, D2GfxLightExStrc* pLight, int nPosX, int nPosY, int nWorldXpos, int nWorldYpos, unsigned char nAlpha, int nScreenPanels, void* pTileData)"
+      }
+     ],
+     [
+      "pfCelFlatSpriteDraw",
+      128,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)"
+      }
+     ],
+     [
+      "pfCelDraw",
+      132,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette)"
+      }
+     ],
+     [
+      "pfCelDrawColor",
+      136,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift)"
+      }
+     ],
+     [
+      "pfCelDrawEx",
+      140,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, int nSkipLines, int nDrawLines, int eDrawMode)"
+      }
+     ],
+     [
+      "pfCelDrawShadow",
+      144,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY)"
+      }
+     ],
+     [
+      "pfCelDrawHilight",
+      148,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfCelDrawClipped",
+      152,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, void* pCropRect, int eDrawMode)"
+      }
+     ],
+     [
+      "pfTileDrawLit",
+      156,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels)"
+      }
+     ],
+     [
+      "pfTileDrawTrans",
+      160,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels, unsigned char nAlpha)"
+      }
+     ],
+     [
+      "pfShadowTileDraw",
+      164,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels)"
+      }
+     ],
+     [
+      "pfUtilDiamond",
+      168,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagRECT* pRect, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfUtilRect",
+      172,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagRECT* pRect, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfUtilFilledRect",
+      176,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagRECT* pRect, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfUtilPoint",
+      180,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfDrawBox",
+      184,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode)"
+      }
+     ],
+     [
+      "pfDrawBoxAlpha",
+      188,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)"
+      }
+     ],
+     [
+      "pfDrawLine",
+      192,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)"
+      }
+     ],
+     [
+      "pfClearScreen",
+      196,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int bPartial)"
+      }
+     ],
+     [
+      "pfOutputString",
+      200,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY, const char* szFormat, char* va)"
+      }
+     ],
+     [
+      "pfDebugDraw",
+      204,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(unsigned int* pLight, unsigned int* pPlayerLight, int nPosX, int nPosY)"
+      }
+     ],
+     [
+      "pfDebugFillBackBuffer",
+      208,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY)"
+      }
+     ],
+     [
+      "pfClearCaches",
+      212,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)()"
+      }
+     ]
+    ],
+    "name": "D2GraphicsInterfaceStrc",
+    "size": 216
+   },
+   "name": "gtD3DGraphicsInterface",
    "pointers": [
     [
      0,
@@ -72233,20 +73874,569 @@
    ],
    "region": "data",
    "size": 216,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0074BF28_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    const void* p15;\n    const void* p16;\n    const void* p17;\n    const void* p18;\n    const void* p19;\n    const void* p20;\n    const void* p21;\n    const void* p22;\n    const void* p23;\n    const void* p24;\n    const void* p25;\n    const void* p26;\n    const void* p27;\n    const void* p28;\n    const void* p29;\n    const void* p30;\n    const void* p31;\n    const void* p32;\n    const void* p33;\n    const void* p34;\n    const void* p35;\n    const void* p36;\n    const void* p37;\n    const void* p38;\n    const void* p39;\n    const void* p40;\n    const void* p41;\n    const void* p42;\n    const void* p43;\n    const void* p44;\n    const void* p45;\n    const void* p46;\n    const void* p47;\n    const void* p48;\n    const void* p49;\n    const void* p50;\n    const void* p51;\n    const void* p52;\n    const void* p53;\n};\n#pragma pack(pop)",
+   "stars": 0,
+   "struct": null,
    "tail": "; // 0x0074BF28",
+   "type": "D2GraphicsInterfaceStrc",
    "va": "0x0074BF28"
   },
   {
    "alias": false,
-   "cname": "gData_0074C4A8",
-   "declared": false,
+   "cname": null,
+   "declared": true,
    "decorated": null,
    "file": "Source/D2Gdi/Src/gdiCore.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0074C4A8_t gData_0074C4A8; // 0x0074C4A8",
-   "head": "extern \"C\" struct d2data_0074C4A8_t gData_0074C4A8 = ",
-   "name": "gData_0074C4A8",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2GraphicsInterfaceStrc gtGdiGraphicsInterface = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "pfDetect",
+      0,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(void* hInstance)"
+      }
+     ],
+     [
+      "pfInit",
+      4,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2GfxSettingsStrc* pSettings, const void* pHelpers)"
+      }
+     ],
+     [
+      "pfClose",
+      8,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfCreateSurface",
+      12,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(void* hWnd, int nResolutionMode)"
+      }
+     ],
+     [
+      "pfCloseSurface",
+      16,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfPauseSurface",
+      20,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(void* hWnd, int nResolutionMode, int nWindowState)"
+      }
+     ],
+     [
+      "pfStartDraw",
+      24,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)"
+      }
+     ],
+     [
+      "pfEndDraw",
+      28,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfBlit",
+      32,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfChangeRes",
+      36,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(void* hWnd, int nResolutionMode)"
+      }
+     ],
+     [
+      "pfGetBackBuffer",
+      40,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(unsigned char* pBuffer)"
+      }
+     ],
+     [
+      "pfActivateWindow",
+      44,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int bActive, int bWindowed)"
+      }
+     ],
+     [
+      "pfSetOption",
+      48,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int nOption, int nValue)"
+      }
+     ],
+     [
+      "pfPlayCutscene",
+      52,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfOpenSmackCutscene",
+      56,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(const char* szFile, int nResolutionMode, void* pfFrame)"
+      }
+     ],
+     [
+      "pfCheckCutScene",
+      60,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfDecodeSmacker",
+      64,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(const char* szSmacker, unsigned char* pBuffer, int nVersion)"
+      }
+     ],
+     [
+      "pfPlaySmacker",
+      68,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(void* pContext)"
+      }
+     ],
+     [
+      "pfCloseSmacker",
+      72,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(void* pContext)"
+      }
+     ],
+     [
+      "pfGetCacheResults",
+      76,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CacheStatsStrc* (__fastcall*)()"
+      }
+     ],
+     [
+      "pfGetDimensions",
+      80,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int* pWidth, int* pHeight)"
+      }
+     ],
+     [
+      "pfSetGlobalScale",
+      84,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nScaleFactor)"
+      }
+     ],
+     [
+      "pfSetGamma",
+      88,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(int nGamma)"
+      }
+     ],
+     [
+      "pfGammaCanBeControlled",
+      92,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)()"
+      }
+     ],
+     [
+      "pfUpdatePerspective",
+      96,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nScaleX, int nScaleY)"
+      }
+     ],
+     [
+      "pfPerspectiveTransform",
+      100,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY, int nBias, int* pXAdjust, int* pYAdjust)"
+      }
+     ],
+     [
+      "pfPerspectiveTransformScale",
+      104,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY, int nAngle, int* pXAdjust, int* pYAdjust, int bOrder)"
+      }
+     ],
+     [
+      "pfPerspectiveClearScale",
+      108,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)()"
+      }
+     ],
+     [
+      "pfSetPalette",
+      112,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagPALETTEENTRY* pPalette)"
+      }
+     ],
+     [
+      "pfSetPaletteTables",
+      116,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2PaletteTableStrc* pPaletteTables)"
+      }
+     ],
+     [
+      "pfSetAmbientColor",
+      120,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nRed, int nGreen, int nBlue)"
+      }
+     ],
+     [
+      "pfFloorTileDraw",
+      124,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, D2GfxLightExStrc* pLight, int nPosX, int nPosY, int nWorldXpos, int nWorldYpos, unsigned char nAlpha, int nScreenPanels, void* pTileData)"
+      }
+     ],
+     [
+      "pfCelFlatSpriteDraw",
+      128,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)"
+      }
+     ],
+     [
+      "pfCelDraw",
+      132,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette)"
+      }
+     ],
+     [
+      "pfCelDrawColor",
+      136,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift)"
+      }
+     ],
+     [
+      "pfCelDrawEx",
+      140,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, int nSkipLines, int nDrawLines, int eDrawMode)"
+      }
+     ],
+     [
+      "pfCelDrawShadow",
+      144,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY)"
+      }
+     ],
+     [
+      "pfCelDrawHilight",
+      148,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfCelDrawClipped",
+      152,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(D2GfxDataStrc* pData, int nPosX, int nPosY, void* pCropRect, int eDrawMode)"
+      }
+     ],
+     [
+      "pfTileDrawLit",
+      156,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels)"
+      }
+     ],
+     [
+      "pfTileDrawTrans",
+      160,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels, unsigned char nAlpha)"
+      }
+     ],
+     [
+      "pfShadowTileDraw",
+      164,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "int (__fastcall*)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels)"
+      }
+     ],
+     [
+      "pfUtilDiamond",
+      168,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagRECT* pRect, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfUtilRect",
+      172,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagRECT* pRect, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfUtilFilledRect",
+      176,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagRECT* pRect, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfUtilPoint",
+      180,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex)"
+      }
+     ],
+     [
+      "pfDrawBox",
+      184,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode)"
+      }
+     ],
+     [
+      "pfDrawBoxAlpha",
+      188,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)"
+      }
+     ],
+     [
+      "pfDrawLine",
+      192,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)"
+      }
+     ],
+     [
+      "pfClearScreen",
+      196,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int bPartial)"
+      }
+     ],
+     [
+      "pfOutputString",
+      200,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY, const char* szFormat, char* va)"
+      }
+     ],
+     [
+      "pfDebugDraw",
+      204,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(unsigned int* pLight, unsigned int* pPlayerLight, int nPosX, int nPosY)"
+      }
+     ],
+     [
+      "pfDebugFillBackBuffer",
+      208,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)(int nPosX, int nPosY)"
+      }
+     ],
+     [
+      "pfClearCaches",
+      212,
+      {
+       "fn": true,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void (__fastcall*)()"
+      }
+     ]
+    ],
+    "name": "D2GraphicsInterfaceStrc",
+    "size": 216
+   },
+   "name": "gtGdiGraphicsInterface",
    "pointers": [
     [
      0,
@@ -72682,10 +74872,48 @@
     ]
    ],
    "region": "data",
-   "size": 248,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0074C4A8_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    const void* p15;\n    const void* p16;\n    const void* p17;\n    const void* p18;\n    const void* p19;\n    const void* p20;\n    const void* p21;\n    const void* p22;\n    const void* p23;\n    const void* p24;\n    const void* p25;\n    const void* p26;\n    const void* p27;\n    const void* p28;\n    const void* p29;\n    const void* p30;\n    const void* p31;\n    const void* p32;\n    const void* p33;\n    const void* p34;\n    const void* p35;\n    const void* p36;\n    const void* p37;\n    const void* p38;\n    const void* p39;\n    const void* p40;\n    const void* p41;\n    const void* p42;\n    const void* p43;\n    const void* p44;\n    const void* p45;\n    const void* p46;\n    const void* p47;\n    const void* p48;\n    const void* p49;\n    const void* p50;\n    const void* p51;\n    const void* p52;\n    const void* p53;\n    unsigned char b54[32];\n};\n#pragma pack(pop)",
+   "size": 216,
+   "stars": 0,
+   "struct": null,
    "tail": "; // 0x0074C4A8",
+   "type": "D2GraphicsInterfaceStrc",
    "va": "0x0074C4A8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Gdi/Src/gdiCore.cpp",
+   "fill": 2,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int gaGdiResolutionSizes[2][4] = ",
+   "model": {
+    "elem": {
+     "elem": {
+      "k": "prim",
+      "kind": "s",
+      "name": "int",
+      "size": 4
+     },
+     "k": "arr",
+     "n": 4,
+     "size": 16
+    },
+    "k": "arr",
+    "n": 2,
+    "size": 32
+   },
+   "name": "gaGdiResolutionSizes",
+   "pointers": [],
+   "region": "data",
+   "size": 32,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0074C580",
+   "type": "int",
+   "va": "0x0074C580"
   },
   {
    "alias": false,
