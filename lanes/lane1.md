@@ -12,6 +12,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Fri Nov 27 13:39 PST 2026: status. txtitems-fields (D2TxtItems.h, 15) and leveltxt-fields (D2LevelTxt.h, 15) both verified on #487; measuring main #487's link debt before posting them. drlg-fields (D2Drlg.h, 15; claimed: that header only) queued to build next. Claimed for these: Source/Include/D2TxtItems.h, D2LevelTxt.h, D2Drlg.h.
 - Fri Nov 27 13:12 PST 2026: aiargs-fields Ready. Next: the remaining Source/Include headers with `unk0x` fields, largest first.
 - Fri Nov 27 13:00 PST 2026: packets-fields Ready; datatbl-types still Ready (merges clean on #487). Next: lane1/aiargs-fields, D2AiCallbackArgs.h (claimed: that header and Ai/AiThink4.cpp's two field spellings), building on #486.
 - Fri Nov 27 12:34 PST 2026: check-in. #486 took cmptypes-fields (Ready line dropped). datatbl-types Ready. Next: D2Packets.h (19; claimed again: Source/Include/D2Packets.h and the D2Game/D2Client units that name those fields), then D2AiCallbackArgs.h.
