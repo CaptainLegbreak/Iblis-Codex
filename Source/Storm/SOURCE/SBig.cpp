@@ -469,7 +469,8 @@ static void SetZero(BigBuffer& a)
     a.SetCount(0);
 }
 
-static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift) // 0x00422D00
+// 0x00422D00
+static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
 {
     unsigned int nWords = nShift / 32;
     unsigned int nBits = nShift % 32;
@@ -480,11 +481,9 @@ static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
         --i;
         unsigned int nValue = 0;
         if (i >= nWords)
-        {
             nValue = b[i - nWords] << nBits;
-            if (i > nWords && nBits)
-                nValue += b[i - nWords - 1] >> (32 - nBits);
-        }
+        if (i > nWords && nBits)
+            nValue += b[i - nWords - 1] >> (32 - nBits);
         a[i] = nValue;
     }
     a.SetCount(nCount);
