@@ -21,6 +21,19 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - linkdebt total: 21,832 -> 21,814. D2Direct3D 708 -> 690; no module rose.
     - shortdata: 363 -> 364. The new candidate is 4 unreferenced bytes after gapSmackTextures.
 ## Claimed
+- Fri Nov 27 15:43 PST 2026: **lane13/interior-1** (item 3, first part, on #489) is doing its full build. Its five commits:
+  - **gdwBitMasks:** 18 units read it through about 40 scalar names; they now index it. CharSel.cpp and ComCallback.cpp are left for lane 12, and d3dSmack.cpp until queue-1-2 lands.
+  - **gtPlayerInvRect/gtNpcInvRect:** the four-field aliases are gone.
+  - **npcmenu.cpp:** two more gtPacket2A/gbNpcActionPending aliases are gone.
+  - **gCmpBlockTableA:** the 0x1000-byte table at 0x0088CB20 is now defined.
+  - **D2WinPalette.cpp:** light and gamma are rows 32-48 of gatShadowsLightGammaPalette.
+
+  Left for later, with what I found:
+  - **gtTextHistory:** D2TextListStrc is 0x14 in D2ClientUi.h, but the three lists sit 6 bytes apart and are followed by unaligned ints. That makes 0x007BF1E0-0x007BF24F one pack(1) text-panel struct, like gtQuestLog. Just shrinking the header struct flips inv_0048BC10.cpp (a lea swap), so it needs the whole-struct branch.
+  - **gaGlideTileGrid/gatGlideTileVertices:** making the strip/fan pointer tables use `&gaGlideTileGrid[k]` makes two functions MASKED_EQUAL_BUT_TARGETS_DIFFER, so they stay gData_ labels.
+  - **gaBodyLocRects:** inv.cpp, the declaration-count unit; it goes in its own branch.
+
+  Claimed: the 18 gdwBitMasks units, inv_0048DD90.cpp, inv_00491D20.cpp, npcmenu.cpp, D2CMP SpriteCache.cpp, D2WinPalette.cpp.
 - Fri Nov 27 15:33 PST 2026: queue-1-2 Ready. Starting **item 3**: 56 interior targets, 161 refs. The largest are gdwBitMasks (55 refs as separate ints in other files), gtTextHistory (33), gaGlideTileGrid (19), gtPacket2A's tail (14) and gaBodyLocRects (12). I'm skipping the entries in CharSel.cpp and ComCallback.cpp while lane 12 reconciles those files. Files claimed as I start each.
 - Fri Nov 27 15:15 PST 2026: lane13/smack-slots is VERIFIED (tree de5174843e05e07e64ea7dc2a41899beef1ae768). I'm folding items 1 and 2 into one branch, **lane13/queue-1-2**, which is doing its full build now. Item 2:
   - **Roads:** D2DrlgRoadStrc is a view over pOutdoors->pVertices. Its tEnd, tEndInner, tStartInner and tStart/nStartType are exactly pVertices[n], [6 + n], [12 + n] and [18 + n].nDirection, so there's no road record to name. The read now indexes those vertices. D2DrlgRooms.h's D2DrlgRoadStrc is now unused, and I'm leaving it there: the header is shared.
