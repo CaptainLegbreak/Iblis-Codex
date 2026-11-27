@@ -134,7 +134,10 @@ def flag_notes(u):
     return notes
 
 
-FORCING = ('volatile read or qualifier', '#pragma optimize', '__assume', 'identical if/else arms')
+FORCING = ('volatile read or qualifier', '#pragma optimize', '__assume', 'identical if/else arms', 'self-assignment')
+# A statement that assigns an lvalue to itself (`x = x;`, `a.b = a.b;`): it has no effect, so it is there only to
+# shape the code the compiler emits.
+SELF_ASSIGN = re.compile(r'^\s*([A-Za-z_][\w\.\[\]\s\+\-\>]*?)\s*=\s*\1\s*;', re.M)
 # `__assume` reached through a module header's macro (Storm.h SASSERT, Fog.h DEFAULT_UNREACHABLE): the original's own
 # release-build asserts and unreachable switch defaults, used only where no plain C form gives the original's code.
 # Listed for completeness, like cpuid/bsr inline assembly; not a forcing construct.
@@ -185,6 +188,8 @@ def constructs(a):
         out.append('__assume through a header macro (original)')
     if identical_arms(b):
         out.append(FORCING[3] + ' (original)' if a in ARMS_ORIGINAL else FORCING[3])
+    if SELF_ASSIGN.search(b):
+        out.append(FORCING[4])
     if '__asm' in b:
         out.append('inline assembly')
     return out
@@ -271,7 +276,7 @@ L.append('| … pieces of an original file still split (in %d files) | %d |' % (
 L.append('| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | %d |' % n_unknown)
 L.append('| Record definitions private to a source file (`struct`/`union` in a .cpp) | %d |' % private)
 L.append('| Unnamed fields (`unk0x..`) in the shared headers | %d |' % unk_fields)
-L.append('| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | %d |' % len(forced))
+L.append('| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms, self-assignments) | %d |' % len(forced))
 L.append('| Calling-convention shims | %d |' % count(r'calling-convention shim'))
 L.append('| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | %d |' % count(r'// build: context'))
 L.append('| `__declspec(noinline)` / `__forceinline` | %d / %d |' % (count(r'__declspec\(noinline\)'), count(r'__forceinline')))
