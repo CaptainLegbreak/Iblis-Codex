@@ -906,7 +906,7 @@
    "state": "included"
   },
   "Source/D2Client/UI/QuestLog.cpp": {
-   "bytes": 2664,
+   "bytes": 2672,
    "definitions": 39,
    "externs": [],
    "fn_types": {},
@@ -40313,17 +40313,100 @@
   },
   {
    "alias": false,
-   "cname": "gData_00723F38",
+   "cname": null,
    "declared": true,
-   "decorated": "?gaQuestLookup_00723F38@@3PAUD2QuestLookupEntryStrc@@A",
+   "decorated": null,
    "file": "Source/D2Client/UI/QuestLog.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00723F38_t gData_00723F38; // 0x00723F38",
-   "head": "extern \"C\" struct d2data_00723F38_t gData_00723F38 = ",
-   "name": "gaQuestLookup_00723F38",
+   "fill": 41,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2QuestTableStrc gaQuestTable[41] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "bEnabled",
+       0,
+       {
+        "k": "prim",
+        "kind": "u",
+        "name": "unsigned char",
+        "size": 1
+       }
+      ],
+      [
+       "nCelId",
+       1,
+       {
+        "k": "prim",
+        "kind": "u",
+        "name": "unsigned char",
+        "size": 1
+       }
+      ],
+      [
+       "nCelId2",
+       2,
+       {
+        "k": "prim",
+        "kind": "u",
+        "name": "unsigned char",
+        "size": 1
+       }
+      ],
+      [
+       "nPage",
+       3,
+       {
+        "k": "prim",
+        "kind": "u",
+        "name": "unsigned char",
+        "size": 1
+       }
+      ],
+      [
+       "pTexts",
+       4,
+       {
+        "fn": false,
+        "k": "ptr",
+        "size": 4,
+        "spell": "D2QuestTextsStrc*"
+       }
+      ],
+      [
+       "nCondition",
+       8,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nQuestId",
+       12,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ]
+     ],
+     "name": "D2QuestTableStrc",
+     "size": 16
+    },
+    "k": "arr",
+    "n": 41,
+    "size": 656
+   },
+   "name": "gaQuestTable",
    "pointers": [
     [
-     12,
+     20,
      "0x007237A4",
      "generated",
      "gData_007237A4",
@@ -40331,7 +40414,7 @@
      "data"
     ],
     [
-     28,
+     36,
      "0x007237E4",
      "generated",
      "gData_007237E4",
@@ -40339,7 +40422,7 @@
      "data"
     ],
     [
-     44,
+     52,
      "0x00723824",
      "generated",
      "gData_00723824",
@@ -40347,7 +40430,7 @@
      "data"
     ],
     [
-     60,
+     68,
      "0x00723864",
      "generated",
      "gData_00723864",
@@ -40355,7 +40438,7 @@
      "data"
     ],
     [
-     76,
+     84,
      "0x007238A4",
      "generated",
      "gData_007238A4",
@@ -40363,7 +40446,7 @@
      "data"
     ],
     [
-     92,
+     100,
      "0x007238E4",
      "generated",
      "gData_007238E4",
@@ -40371,7 +40454,7 @@
      "data"
     ],
     [
-     140,
+     148,
      "0x00723924",
      "generated",
      "gData_00723924",
@@ -40379,7 +40462,7 @@
      "data"
     ],
     [
-     156,
+     164,
      "0x00723964",
      "generated",
      "gData_00723964",
@@ -40387,7 +40470,7 @@
      "data"
     ],
     [
-     172,
+     180,
      "0x007239A4",
      "generated",
      "gData_007239A4",
@@ -40395,7 +40478,7 @@
      "data"
     ],
     [
-     188,
+     196,
      "0x007239E4",
      "generated",
      "gData_007239E4",
@@ -40403,7 +40486,7 @@
      "data"
     ],
     [
-     204,
+     212,
      "0x00723A24",
      "generated",
      "gData_00723A24",
@@ -40411,7 +40494,7 @@
      "data"
     ],
     [
-     220,
+     228,
      "0x00723A64",
      "generated",
      "gtQuestTextsSevenTombs",
@@ -40419,7 +40502,7 @@
      "data"
     ],
     [
-     268,
+     276,
      "0x00723AE4",
      "generated",
      "gData_00723AE4",
@@ -40427,7 +40510,7 @@
      "data"
     ],
     [
-     284,
+     292,
      "0x00723B24",
      "generated",
      "gData_00723B24",
@@ -40435,7 +40518,7 @@
      "data"
     ],
     [
-     300,
+     308,
      "0x00723B64",
      "generated",
      "gData_00723B64",
@@ -40443,7 +40526,7 @@
      "data"
     ],
     [
-     316,
+     324,
      "0x00723BA4",
      "generated",
      "gData_00723BA4",
@@ -40451,7 +40534,7 @@
      "data"
     ],
     [
-     332,
+     340,
      "0x00723BE4",
      "generated",
      "gData_00723BE4",
@@ -40459,7 +40542,7 @@
      "data"
     ],
     [
-     348,
+     356,
      "0x00723C24",
      "generated",
      "gData_00723C24",
@@ -40467,7 +40550,7 @@
      "data"
     ],
     [
-     396,
+     404,
      "0x00723C64",
      "generated",
      "gtQuestTextsFallenAngel",
@@ -40475,7 +40558,7 @@
      "data"
     ],
     [
-     412,
+     420,
      "0x00723CA4",
      "generated",
      "gData_00723CA4",
@@ -40483,7 +40566,7 @@
      "data"
     ],
     [
-     428,
+     436,
      "0x00723CE4",
      "generated",
      "gData_00723CE4",
@@ -40491,7 +40574,7 @@
      "data"
     ],
     [
-     556,
+     564,
      "0x00723D24",
      "generated",
      "gtQuestTextsSiege",
@@ -40499,7 +40582,7 @@
      "data"
     ],
     [
-     572,
+     580,
      "0x00723D64",
      "generated",
      "gData_00723D64",
@@ -40507,7 +40590,7 @@
      "data"
     ],
     [
-     588,
+     596,
      "0x00723DA4",
      "generated",
      "gData_00723DA4",
@@ -40515,7 +40598,7 @@
      "data"
     ],
     [
-     604,
+     612,
      "0x00723DE4",
      "generated",
      "gData_00723DE4",
@@ -40523,7 +40606,7 @@
      "data"
     ],
     [
-     620,
+     628,
      "0x00723E24",
      "generated",
      "gData_00723E24",
@@ -40531,7 +40614,7 @@
      "data"
     ],
     [
-     636,
+     644,
      "0x00723E64",
      "generated",
      "gData_00723E64",
@@ -40540,10 +40623,12 @@
     ]
    ],
    "region": "data",
-   "size": 648,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00723F38_t\n{\n    unsigned char b0[12];\n    const void* p1;\n    unsigned char b2[12];\n    const void* p3;\n    unsigned char b4[12];\n    const void* p5;\n    unsigned char b6[12];\n    const void* p7;\n    unsigned char b8[12];\n    const void* p9;\n    unsigned char b10[12];\n    const void* p11;\n    unsigned char b12[44];\n    const void* p13;\n    unsigned char b14[12];\n    const void* p15;\n    unsigned char b16[12];\n    const void* p17;\n    unsigned char b18[12];\n    const void* p19;\n    unsigned char b20[12];\n    const void* p21;\n    unsigned char b22[12];\n    const void* p23;\n    unsigned char b24[44];\n    const void* p25;\n    unsigned char b26[12];\n    const void* p27;\n    unsigned char b28[12];\n    const void* p29;\n    unsigned char b30[12];\n    const void* p31;\n    unsigned char b32[12];\n    const void* p33;\n    unsigned char b34[12];\n    const void* p35;\n    unsigned char b36[44];\n    const void* p37;\n    unsigned char b38[12];\n    const void* p39;\n    unsigned char b40[12];\n    const void* p41;\n    unsigned char b42[124];\n    const void* p43;\n    unsigned char b44[12];\n    const void* p45;\n    unsigned char b46[12];\n    const void* p47;\n    unsigned char b48[12];\n    const void* p49;\n    unsigned char b50[12];\n    const void* p51;\n    unsigned char b52[12];\n    const void* p53;\n    unsigned char b54[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00723F38\n#pragma comment(linker, \"/alternatename:?gaQuestLookup_00723F38@@3PAUD2QuestLookupEntryStrc@@A=_gData_00723F38\")",
-   "va": "0x00723F38"
+   "size": 656,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00723F30",
+   "type": "D2QuestTableStrc",
+   "va": "0x00723F30"
   },
   {
    "alias": false,

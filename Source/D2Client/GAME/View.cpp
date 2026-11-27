@@ -335,7 +335,6 @@ void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
 void __stdcall VIEW_ResetStar(int nStar, int bRespawn); // 0x00476190
 
-extern D2QuestLookupEntryStrc gaQuestLookup_00723F38[0x29]; // 0x00723F38
 
 int gbStarsInit; // 0x007B955C
 
