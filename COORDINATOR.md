@@ -4,6 +4,17 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
+- **LANE 11 QUEUE (coordinator-kept; top down, claimed files left out, newest main):**
+    1. Finish names-small-2 (post it without the Storm data-plan entry that moves the image; list that entry).
+    2. **different_identifier** in D2Multi and D2Launch once lane 12's declarations for CharSel/MainMenus/ChatDlg/ComCallback have landed; until then the smaller modules.
+    3. **placeholder** data names: every `gData_<VA>` in build/data_plan.json that a declaration names (linkdebt `--module M --category placeholder` lists them): give the plan entry the declaration's name.
+    4. **unsourced_data:** the `gsz` strings and other data no source defines (5,292 refs, 607 targets): one definition each in the file that owns it, through the data plan.
+    5. **Placeholder function names** (2,458 `sub_<VA>_<Verb>`): name from Blizzard's names in docs/names/, then D2MOO, then what the function does in Blizzard's naming style; namesync for the rename. One module per branch, D2Common first.
+- **LANE 12 QUEUE (coordinator-kept):**
+    1. Land api-d2client-2 (rebase onto main: it conflicts).
+    2. genheaders for D2Game, then the second pass over D2Win/D2Gfx/D2CMP/D2Sound.
+    3. The remaining **type_disagreement** (6,372 refs at #481), most-referenced targets first; then **duplicate_data**, **local_copy**, **renamed_definition**.
+    4. Keep a list in your board file of every unit that flips when its declarations change (CharSel.cpp, inv*.cpp, UnitSnd.cpp, SUnitMsg.cpp, LvlTbls.cpp, Preset.cpp, ...), with the declaration that flips it: that list is the Fable chat's first queue.
 - **LANE 13 QUEUE (the coordinator keeps it here, as for lane 1; work it top down, claim files first, base on the newest main):**
     1. **D3D smack slots:** answered above (one 2-entry texture array per pair, one name per address).
     2. **Raw-offset struct decisions (your 14:27 list):** ChatDlg +0x225: the table is one object, so one struct: keep the type the table's definition has and make the other name a typedef or drop it; roads in Unknown_00681000.cpp: a road record struct (D2MOO's name if it has one); save header in Unknown_0043C8A0.cpp: `D2SaveHeaderStrc` from D2MOO. The .bin loaders, BnDownload and the COF reads parse file buffers: leave them as byte reads, but give each file header a struct where one is read more than twice.
