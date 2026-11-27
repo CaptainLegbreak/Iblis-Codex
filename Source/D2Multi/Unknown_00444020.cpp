@@ -40,14 +40,6 @@ extern D2WinControlInitStrc gtControlInit_0070EA40; // 0x0070EA40
 
 extern D2WinControlInitStrc gtControlInit_0070EA70; // 0x0070EA70
 
-extern D2WinControlStrc* gpCreateScreenButton; // 0x0077B070
-
-extern D2WinControlStrc* gpChatControl_0077B074; // 0x0077B074
-
-extern D2WinControlStrc* gpJoinScreenButton; // 0x0077B078
-
-extern D2WinControlStrc* gpControlC; // 0x0077B07C
-
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
