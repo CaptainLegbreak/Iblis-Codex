@@ -1912,8 +1912,9 @@ D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit,
     return 0;
 }
 
+// Inline in D2GAME_CreateItemUnit (0x559CE0), where the game has its body; other units call it (0x534C83 and on).
 // 0x00558200
-int __fastcall ITEMS_GetItemLevelForNewItem(D2UnitStrc* pUnit, int nLevelId)
+__forceinline int __fastcall ITEMS_GetItemLevelForNewItem(D2UnitStrc* pUnit, int nLevelId)
 {
     if (pUnit)
     {
@@ -3432,6 +3433,52 @@ D2UnitStrc* __fastcall D2GAME_DropItemAtUnit(D2GameStrc* ptGame, D2UnitStrc* pUn
     }
 
     return 0;
+}
+
+// 0x00559CE0
+D2UnitStrc* __fastcall D2GAME_CreateItemUnit(D2UnitStrc* pPlayer, int nItemId, D2GameStrc* pGame, int nSpawnTarget, int nQuality, int bNoSockets, int bNoEthereal, int nItemLevel, int bUseSeed, int dwSeed, int dwItemSeed)
+{
+    if (nItemLevel <= 0)
+    {
+        nItemLevel = 1;
+    }
+
+    D2ItemDropStrc itemDrop = {};
+    itemDrop.wItemFormat = pGame->wItemFormat;
+    itemDrop.pSeed = 0;
+    itemDrop.nSpawnType = nSpawnTarget;
+    itemDrop.nX = 0;
+    itemDrop.nY = 0;
+    itemDrop.pRoom = 0;
+    itemDrop.nQuality = nQuality;
+    itemDrop.dwFlags2 |= (bNoEthereal ? ITEMDROPFLAG_NEVERETH : 0) | (bNoSockets ? ITEMDROPFLAG_NOSOCKETS : 0);
+    itemDrop.nId = nItemId;
+    itemDrop.pUnit = pPlayer;
+    itemDrop.pGame = pGame;
+    itemDrop.wUnitInitFlags = 1;
+    itemDrop.dwSeed = dwSeed;
+    itemDrop.dwItemSeed = dwItemSeed;
+
+    if (nItemLevel == -1)
+    {
+        itemDrop.nItemLvl = ITEMS_GetItemLevelForNewItem(pPlayer, 0);
+    }
+    else
+    {
+        itemDrop.nItemLvl = nItemLevel;
+    }
+
+    if (itemDrop.nItemLvl <= 0)
+    {
+        itemDrop.nItemLvl = 1;
+    }
+
+    D2UnitStrc* pItem = D2GAME_CreateItemEx(pGame, &itemDrop, bUseSeed);
+    if (pItem)
+    {
+        ITEMS_SetItemFlag(pItem, 0x10, 1);
+    }
+    return pItem;
 }
 
 inline unsigned __int64 Roll(D2UnitStrc* pUnit) {

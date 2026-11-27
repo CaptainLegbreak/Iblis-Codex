@@ -45957,6 +45957,10 @@
      "name": "?D2GAME_DropItemAtUnit@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@HPAHPAUD2ItemDropStrc@@HH@Z"
     },
     {
+     "va": "0x00559CE0",
+     "length": 325
+    },
+    {
      "va": "0x00559E30",
      "length": 595
     },
@@ -45982,16 +45986,6 @@
     {
      "va": "0x0055A6D0",
      "length": 2253
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/Items_00558110.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00559CE0",
-     "length": 325
     }
    ]
   },

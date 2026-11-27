@@ -309,13 +309,13 @@ int __fastcall ITEMS_ApplyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDro
 
 static int ITEMMODS_HasAffixWithGroup(D2UnitStrc* pItem, int nGroup);
 
-// noinline: ITEMS_RollMagicAffixesNew (0x005C1560) calls ITEMS_AddPotentialMagicAffix (0x005C0D00); the image calls it out of line there.
 struct D2LowQualityItemDataTbl
 {
     int nLowQualityItemsTxtRecordCount;
     D2LowQualityItemsTxt* pLowQualityItemsTxt;
 };
 
+// noinline: ITEMS_RollMagicAffixesNew (0x005C1560) calls ITEMS_AddPotentialMagicAffix (0x005C0D00); the image calls it out of line there.
 // 0x005C0D00
 static __declspec(noinline) int __stdcall ITEMS_AddPotentialMagicAffix(int nAffixId, D2MagicAffixTxt* pRecord, D2MagicAffixIndexAndPtrStrc* pAffixes, int nCount)
 {
