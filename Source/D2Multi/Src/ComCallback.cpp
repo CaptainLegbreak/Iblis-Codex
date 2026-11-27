@@ -26,6 +26,8 @@
 #include "FogApi.h"
 #include "D2LangApi.h"
 #include "FogApi.h"
+#include "D2WinApi.h"
+#include "D2MCPClientApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -75,8 +77,6 @@ int __fastcall CHATDLG_SetMainControlState(int bSet); // 0x0043DAD0
 int __fastcall CHATDLG_PrintText(Unicode* pText, int nColor); // 0x0043E610
 
 void __stdcall COMCALLBACK_RemoveTableString(Unicode* pText); // 0x00446A90
-
-int __cdecl GAME_GetMcpCharLevel(); // 0x00449E20
 
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 
@@ -132,10 +132,6 @@ void __cdecl CHATDLG_CreateProfileControls(); // 0x00443D50
 
 int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
 
-
-unsigned int __stdcall D2Win_10155(D2CompositeUnitStrc* pCompositeUnit); // 0x00505330
-
-void __stdcall D2Win_10156(D2CompositeUnitStrc* pCompositeUnit, int nFlags); // 0x00505360
 
 
 extern unsigned int gdwInvBitMasks[]; // 0x006CE2E8
@@ -416,8 +412,6 @@ struct D2ChatChannelMemberStrc
     D2ChatChannelMemberStrc* pNext;
 };
 
-void __stdcall D2Win_10152(D2CompositeUnitStrc* pCompositeUnit, int nY);                                    // 0x005052B0
-
 #define CHAN_SETBIT(x, n, cond) if (cond) x |= gdwBitMasks[n]; else x &= gdwInvBitMasks[n]
 
 #pragma intrinsic(strcmp)
@@ -463,8 +457,6 @@ int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMessage, unsigned in
 int __fastcall D2Win_10076(D2WinEditBoxStrc* pEditBox, const char* szText); // 0x004FFE10
 
 unsigned int __stdcall sub_00505330_GetCompositeFlags(D2CompositeStrc* pComposite); // 0x00505330
-
-const char* __stdcall D2Win_10160_GetPlayerTitle(int nClass, int nRank, int bSoftCore); // 0x00505640
 
 void __cdecl CHATDLG_UpdateLevelControls(); // 0x004451C0
 
@@ -747,8 +739,6 @@ extern D2WinControlInitStrc gtNormalLabelInit;                                  
 extern D2WinControlInitStrc gtNormalRadioInit;                                                         // 0x0070DD50
 
 extern int gnDiffSelect;                                                                           // 0x00798CD0
-
-void __stdcall CONTROL_SetEscapeButton(void* pButton); // 0x004FA450
 
 void __cdecl MAINMENUS_LoadMaxPlayers();                                                                                // 0x004431B0
 

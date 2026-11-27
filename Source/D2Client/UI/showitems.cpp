@@ -7,6 +7,7 @@
 #include "D2ItemsWorld.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2GfxApi.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -37,8 +38,6 @@ extern int gnItemLabelCount; // 0x007C54A0
 D2ItemLabelStrc gaItemLabels[32]; // 0x007C54A8
 
 extern "C" const char gszShowItems[]; // 0x006DAB64
-
-int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 
 
 

@@ -7,6 +7,7 @@
 #include "D2DrlgMaps.h"
 #include "D2Win32Types.h"
 #include "FogApi.h"
+#include "D2GfxApi.h"
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
@@ -853,12 +854,6 @@ struct D2FloorTileViewStrc
 int __cdecl sub_00473770_IsMudLevel(); // 0x00473770
 
 float __cdecl sub_00473C80_GetPhaseLevel(); // 0x00473C80
-
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
-
-int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
-
-int __cdecl D2GFX_CheckLowQuality(); // 0x004F5210
 
 D2DrlgTileDataStrc* __stdcall DUNGEON_GetFloorTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pFloorCount); // 0x00619660
 

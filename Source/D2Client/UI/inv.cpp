@@ -33,6 +33,7 @@
 #include "D2LangApi.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2WinApi.h"
 
 struct D2ClientInterfaceStrc;
 
@@ -595,8 +596,6 @@ void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, un
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
-
-int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 extern D2CelFileStrc* gpGoldButtonCel_007BCC34; // 0x007BCC34
 
@@ -1304,10 +1303,6 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC19C
 
 void __fastcall INV_UpdateAuxBattleNetAddress(int nIndex); // 0x00482CA0
-
-int __fastcall ARCHIVE_LoadVideoArchives(void* pfShowMessage, void* hFile, int bExpansion); // 0x004FAD10
-
-int __fastcall D2Win_10177(unsigned char nAct); // 0x004FB480
 
 void __fastcall PLAYER_SetCinematicExpansion(int bExpansion); // 0x00460480
 

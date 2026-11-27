@@ -19,10 +19,9 @@
 #include "D2LaunchRequest.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2WinApi.h"
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-
-int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 
 int __cdecl sub_0042F6D0_GetMenusDone(); // 0x0042F6D0
 
@@ -97,8 +96,6 @@ int __stdcall sub_004374F0_UpdateStatusWait(int nArg); // 0x004374F0
 void __cdecl MAINMENUS_CreateStatusScreen(); // 0x00437550
 
 int __stdcall CHARSEL_OnDownloadTick(int nArg); // 0x0043B850
-
-int __stdcall D2Win_CloseSpriteCache(); // 0x004F9030
 
 void __stdcall Unload(int nValue); // 0x00517ED0
 

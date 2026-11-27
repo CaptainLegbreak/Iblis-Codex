@@ -31,6 +31,8 @@
 #include "D2WinPopupLine.h"
 #include "D2WinListData.h"
 #include "FogApi.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -80,8 +82,6 @@ struct D2WinControl004FD110Strc
     int nFrame;
 };
 
-int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCellFile); // 0x006019F0
-
 enum D2ControlTypes
 {
     D2WIN_EDITBOX = 1,
@@ -112,8 +112,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
 
-
-void __stdcall D2GFX_UtilRect(tagRECT* pRect, unsigned char nPaletteIndex); // 0x004F62A0
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, int eDrawMode); // 0x004F6300
 

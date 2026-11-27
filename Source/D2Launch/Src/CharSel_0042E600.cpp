@@ -10,6 +10,9 @@
 #include "StormApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
+#include "D2MCPClientApi.h"
 #pragma intrinsic(strlen)
 struct D2UnitStrc;
 struct D2ActiveRoomStrc;
@@ -41,11 +44,9 @@ extern "C" int __stdcall CHARSEL_CreateNotice(const Unicode* pTitle, const Unico
 static int gnCharEntryCount; // 0x00779DC4
 extern int gnSelectionB; // 0x0070CC08
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
-void __fastcall CONTROL_SetVisible(D2WinControlStrc* pControl, int bSet); // 0x004F9740
 int __fastcall MAINMENUS_ShowOptionDescription(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
 void __fastcall CHARSEL_JoinSelectedWithDifficulty(SMSGHANDLER_PARAMS* pMsg, int nMode); // 0x00439AF0
 void __fastcall sub_004FC660_SetValue(D2WinControlStrc* pControl, int nValue); // 0x004FC660
-int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 int __cdecl sub_0042F6D0_GetMenusDone(); // 0x0042F6D0
 extern D2WinControlStrc* gpControl_007795E0; // 0x007795E0
 extern D2WinControlStrc* gpControl_007795E4; // 0x007795E4
@@ -66,7 +67,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 void __cdecl CHATDLG_FillGameList(); // 0x00444E70
-void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
 void __cdecl RECORD_WriteRecordFile(); // 0x00451620
 extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId); // 0x00452040
 void __cdecl AUTOMAP_SaveAutomapLayer(); // 0x004584C0
@@ -87,7 +87,6 @@ void __fastcall GFX_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent); // 0x0046F
 void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
 void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 void __fastcall ITEM_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp); // 0x004C0EC0
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BE30
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
@@ -134,11 +133,7 @@ int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFil
 int __stdcall CHARSEL_OnScroll(SMSGHANDLER_PARAMS* pMsg);                                              // 0x00439DF0
 int __cdecl CHARSEL_InitRealmScreen();                                                                 // 0x0043A2B0
 void __fastcall CHARSEL_UseName(char* szName);                                                         // 0x0043ADB0
-void __fastcall TEXTBOX_SetSmallGap(int nFont);                                                                    // 0x004FB590
-int __fastcall D2Win_10191(D2WinTextBoxStrc* pTextBox, int nMaxSteps);                                      // 0x004FC5E0
-int __fastcall D2Win_10194(D2WinTextBoxStrc* pTextBox, D2WinTextBoxStrc* pLinkedTextBox);                   // 0x004FC6A0
 int __fastcall D2Win_10195(D2WinTextBoxStrc* pTextBox, void(__stdcall* pfScrollCallback)(SMSGHANDLER_PARAMS*)); // 0x004FC6E0
-void __fastcall BUTTON_SetStringId(D2WinButtonStrc* pButton, int nStringId);                                // 0x00500BF0
 extern D2WinControlStrc* gpControl_007799F8;                                                                       // 0x007799F8
 extern void* gapRowControls[];                                                                     // 0x00779A20
 extern void* gapRowControlsX[8];                                                                          // 0x00779B40

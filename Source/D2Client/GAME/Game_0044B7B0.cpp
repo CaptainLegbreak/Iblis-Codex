@@ -24,6 +24,11 @@
 #include "StormApi.h"
 #include "D2CommonApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
+#include "D2NetApi.h"
+#include "D2HellApi.h"
+#include "D2MCPClientApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -38,8 +43,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" unsigned int __cdecl strlen(const char* pString);
-
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 
 
@@ -81,12 +84,6 @@ extern int gbCinematicExit; // 0x007A0674
 extern int gnBeltUiRecordRow; // 0x007A5218
 
 
-
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
-
-void __stdcall WINDOW_ShowAll(); // 0x004F5F60
-
-void __stdcall CLIENT_Initialize(int nArg, const char* szAddress); // 0x0052A750
 
 
 
@@ -184,19 +181,9 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 
 D2RecordHandlerFn __fastcall sub_005173D3_SetRecordHandler(D2RecordHandlerFn pfnHandler);                  // 0x005173D3
 
-int __fastcall sub_0051740B_ErrorBox(const char* szText);                                                   // 0x0051740B
-
-void __fastcall sub_005177B2_SetLoadStringFn(void* pfnLoadString); // 0x005177B2
-
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);                                 // 0x005267E0
 
 int __fastcall UNICODE_StrLen(const Unicode* pString);                                                      // 0x00526800
-
-void __cdecl D2CMPTileFreeAsyncLoads();                                                                                // 0x005FE070
-
-void __cdecl D2CMPSpriteFreeAsyncLoads();                                                                                // 0x005FF3A0
-
-void __cdecl D2CMP_LoadItemPalShifts();                                                                                // 0x00600B80
 
 extern "C" const char gszLngFileName[];                                                            // 0x006D5EE0
 
@@ -285,10 +272,6 @@ extern int gnHoverTextColor;                                                    
 
 
 
-int __stdcall D2GFX_Release(); // 0x004F5050
-
-int __stdcall WINDOW_Destroy(); // 0x004F5900
-
 #define OFFSET(T,m) ((unsigned int)&(((T*)0)->m))
 
 struct D2DrlgStrc;
@@ -353,8 +336,6 @@ void __fastcall GAME_SetMcpCallbackB(D2McpCallbackFn pfnCallback); // 0x0044B200
 extern "C" { unsigned int gSlotFirst; } // 0x00799300
 
 extern "C" { unsigned int gSlotSecond; } // 0x00799304
-
-extern "C" void __fastcall sub_0044B210_StoreSlots(unsigned int first, unsigned int second); // 0x0044B210
 
 
 void __fastcall WINMAIN_PushStateValue(int nValue); // 0x0044B440

@@ -7,6 +7,7 @@
 #include "D2Win32Types.h"
 #include "FogApi.h"
 #include "FogApi.h"
+#include "D2SoundApi.h"
 
 extern int gbRenderPaused; // 0x007C9144
 extern int gnRenderWidth; // 0x007C9138
@@ -66,8 +67,6 @@ extern int gbSurfaceActive_007C9140; // 0x007C9140
 // 0x0050FD10
 
 void __cdecl DDRAW_DrawVideoFrame(); // 0x005136F0
-
-void __fastcall D2SOUNDSMP_SetMasterVolume(int nVolume); // 0x00515CE0
 
 extern int gnRenderHeight; // 0x007C913C
 

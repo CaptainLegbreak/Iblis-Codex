@@ -10,6 +10,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2CommonApi.h"
+#include "D2GfxApi.h"
 struct D2CharStatsTxt;
 
 struct D2GameStrc;
@@ -56,7 +57,6 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId) {
 void __stdcall SKILLS_SetParam3(D2SkillStrc*,int); // 0x006445E0
 void __fastcall sub_004B9A00(int,D2UnitStrc*,int,int,int); // 0x004B9A00
 
-int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 void __stdcall PATH_GetClientCoordsVelocity(D2UnitStrc* pUnit, int* pX, int* pY); // 0x00648300
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0

@@ -17,6 +17,7 @@
 #include "D2FogSystemInfo.h"
 #include "FogApi.h"
 #include "FogApi.h"
+#include "D2HellApi.h"
 
 #pragma intrinsic(strcpy)
 
@@ -92,8 +93,6 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
 
-
-int __cdecl sub_00517ABB_FindLowestSetBit(unsigned int dwMask); // 0x00517ABB
 
 extern D2CmpPoolStrc gCmpPool; // 0x0088CAE0
 

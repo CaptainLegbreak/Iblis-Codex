@@ -30,6 +30,9 @@
 #include "D2LangApi.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
+#include "D2SoundApi.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -119,8 +122,6 @@ extern int gnPetIconPopupState; // 0x007BEECC
 
 
 
-
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 void __fastcall AUTOMAP_UnregisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
@@ -653,8 +654,6 @@ extern D2SliderButtonStrc gaKeyConfigButtons[3]; // 0x007246D8
 int gaPressed[7]; // 0x007C0288
 
 
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
-
 
 
 
@@ -783,10 +782,6 @@ void __stdcall CURSOR_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
-D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
-
-int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
-
 
 
 
@@ -868,15 +863,9 @@ static int TEXT_FindQuestIndex(int nKey);
 
 int gaQuestPageDefault[5]; // 0x007BF280
 
-void __fastcall DATATBLS_CallFree(void* pMemory); // 0x00600C60
-
 struct D2StringSoundStrc;
 
 
-
-void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
-
-int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 
 
 extern D2MsgHandlerEntryStrc gaDialogWheelHandlers[]; // 0x007273E4
@@ -1016,8 +1005,6 @@ void __cdecl TEXT_DrawOverheadTextList(); // 0x0049DEE0
 extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
 
 void __fastcall DIALOG_DrawDialog(D2ClientDialogStrc* pDialog); // 0x004B8100
-
-int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
 
 extern D2RectStrc gtTextRect_007BF1D0; // 0x007BF1D0
 

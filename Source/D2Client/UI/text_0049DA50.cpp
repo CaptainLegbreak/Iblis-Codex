@@ -7,6 +7,7 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2GfxApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -82,8 +83,6 @@ void __stdcall TEXT_FreeTextBox(D2ClientTextBoxStrc* pTextBox); // 0x0049D410
 
 void __stdcall TEXT_FreeTextList(D2TextListStrc* pList); // 0x0049D4D0
 
-
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 
 

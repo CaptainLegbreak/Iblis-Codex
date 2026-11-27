@@ -5,6 +5,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2LangApi.h"
+#include "D2WinApi.h"
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                  // 0x00412650
 int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 void __cdecl MAINMENUS_ShowLocalAddress();                                                                                // 0x0042FF20
@@ -15,7 +16,6 @@ void __cdecl CHATDLG_DestroyDialogControls();                                   
 void __cdecl CHATDLG_DestroyPopupControls();                                                                           // 0x0043EA20
 void __cdecl CHATDLG_DestroyCreateControls();                                                                                // 0x00443220
 int __cdecl CHATDLG_DestroyGameListControls();                                                                                 // 0x00444E20
-int __stdcall CONTROL_SetFocusedEditBox(void* pEditBox);                                                                  // 0x004F91C0
 extern D2WinControlStrc* gpControl_00779338;                                                                // 0x00779338
 extern D2WinControlStrc* gpControl_00779344;                                                                // 0x00779344
 extern D2WinControlStrc* gpControl_00779588;                                                                // 0x00779588
@@ -53,8 +53,6 @@ extern int gbFlag_00779C6C; // 0x00779C6C
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 void __cdecl CHARSEL_FreeCharList(); // 0x00438EA0
-int __fastcall D2Win_10047(D2WinTextBoxStrc* pTextBox); // 0x004FB6A0
-void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int nColor); // 0x004FCFF0
 void __cdecl CHARSEL_ShowMessage(); // 0x0043A5D0
 void __cdecl sub_00438F70();
 extern int gnBusy; // 0x00779DAC
@@ -73,25 +71,16 @@ extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars);
 void __cdecl CHARSEL_InitCharList(); // 0x0043AE30
 void __fastcall CHARSEL_UseName(char* szName); // 0x0043ADB0
-int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
-void __fastcall CONTROL_SetVisible(D2WinControlStrc* pControl, int bSet); // 0x004F9740
-void __fastcall TEXTBOX_SetSmallGap(int nArg); // 0x004FB590
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
-void __fastcall TIMER_DisableSpaceKey(D2WinTimerStrc* pTimer); // 0x004FD830
-void __fastcall TIMER_SetRepeating(D2WinTimerStrc* pTimer); // 0x004FDA50
-void __fastcall BUTTON_SetCoordinates(D2WinButtonStrc* pButton, int nX, int nY, int nWidth, int nHeight); // 0x00500A70
 extern D2CelFileStrc* gpCharSelectBckgCelFile; // 0x00779768
 extern int gnTopRow; // 0x00779DC8
 int __cdecl GAME_GetStopMainLoop(); // 0x0042FA30
 void __cdecl MAINMENUS_UpdateProgress(); // 0x0042F990
 int __cdecl sub_0042F6D0_GetMenusDone(); // 0x0042F6D0
-int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 void __cdecl sub_00518C20_DeleteQueueLock(); // 0x00518C20
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 int __fastcall MAINMENUS_ShowOptionDescription(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
 void __fastcall CHARSEL_JoinSelectedWithDifficulty(SMSGHANDLER_PARAMS* pMsg, int nMode); // 0x00439AF0
-int __fastcall D2Win_10192(D2WinTextBoxStrc* ptTextData); // 0x004FC620
-int __fastcall D2Win_10193(D2WinTextBoxStrc* ptTextData, int nCurrentStep); // 0x004FC660
 extern void** gppSlots; // 0x00779988
 extern "C" long __cdecl _time32(long* pTime);
 extern "C" int __cdecl tolower(int nChar);

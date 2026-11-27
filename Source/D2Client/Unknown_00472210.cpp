@@ -9,6 +9,7 @@
 #include "D2CelContext.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CMPApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct CellResource;
@@ -289,7 +290,6 @@ void __cdecl sub_00473DC0_ToggleWeather(); // 0x00473DC0
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);          // 0x006CC468
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFileWithFileSize(const char* szFile, unsigned int* pFileSize, int nType); // 0x00478950
-int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile);                                                // 0x006019F0
 void __cdecl sub_00472610_InitWindAngle();                                                                  // 0x00472610
 
 extern "C" const char gszDataGlobalPath[];                                                                  // 0x006D4118
@@ -300,7 +300,6 @@ struct D2CelFileStrc;
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);          // 0x006CC468
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFileWithFileSize(const char* szFile, unsigned int* pFileSize, int nType); // 0x00478950
-int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile);                                                // 0x006019F0
 int __stdcall sub_004726F0_RollAct5Weather(int nArg);                                                                       // 0x004726F0
 void __cdecl sub_00472610_InitWindAngle();                                                                  // 0x00472610
 

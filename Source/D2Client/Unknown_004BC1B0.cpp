@@ -10,6 +10,7 @@
 #include "D2ClientTextPanel.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
 
 class UIWidget;
 class ListBoxImplementation;
@@ -30,8 +31,6 @@ void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect); // 0x00452E50
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
 int __fastcall PANEL_CountLinesInView(ListBoxImplementation* pListBox); // 0x004BE340
-
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 

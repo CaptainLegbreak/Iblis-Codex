@@ -114,6 +114,8 @@ D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 
 D2MapAIStrc* __stdcall AIGENERAL_GetMapAiFromUnit(D2UnitStrc* pUnit); // 0x0058F000
 D2MapAIStrc* __fastcall DRLGPRESET_ChangeMapAI(D2MapAIStrc** ppMapAI1, D2MapAIStrc* pMapAI2); // 0x00666120
 #include "D2GameFuncs.h"
+#include "D2NetApi.h"
+#include "D2HellApi.h"
 void __fastcall LEVEL_ClearRoomUnitTargets(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget); // 0x0053AAA0
 
 struct D2ClientUnitUpdateSortStrc
@@ -1577,8 +1579,6 @@ extern "C" __declspec(dllimport) long __stdcall CompareFileTime(const D2FileTime
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
-unsigned int __fastcall CRC32_Compute(void* pData, unsigned int dwSize); // 0x006C99F6
-
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
@@ -2010,8 +2010,6 @@ static inline D2GameStrc* GAMELINK_Next(D2GameLinkStrc* pLink)
 
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* lpThreadAttributes, unsigned long dwStackSize, unsigned long (__stdcall* lpStartAddress)(D2MessageThreadArgsStrc*), D2MessageThreadArgsStrc* lpParameter, unsigned long dwCreationFlags, unsigned long* lpThreadId); // 0x006CC250
 
-int __stdcall SERVER_HackListClient(int nClientId, int nArg2, int nArg3);                                                  // 0x0052B4F0
-
 
 int gnGlobal_00883D3C;                                                                                         // 0x00883D3C
 
@@ -2020,12 +2018,6 @@ int gnGlobal_00883D40;                                                          
 
 int gnAct;                                                                                         // 0x00883D44
 
-
-int __stdcall SERVER_ReadGamePacket(unsigned char* pBuffer, int nSize);                              // 0x0052B2D0
-
-int __stdcall SERVER_ReadSystemPacket(unsigned char* pBuffer, int nSize);                              // 0x0052B2F0
-
-int __stdcall SERVER_ReadAdminPacket(unsigned char* pBuffer, int nSize);                              // 0x0052B310
 
 void __fastcall GAME_ProcessAdminMessage(void* pData, int nSize);                                                       // 0x0052CC20
 
@@ -2082,12 +2074,6 @@ long gnAdminConnectionCount;         // 0x00883D64
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile*);  // 0x006CC208
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile*);  // 0x006CC204
-
-int __stdcall CLIENT_ObjectCall_6BED90(int,int,int); // 0x0052B490
-
-int __stdcall SERVER_SendPacketToClient(unsigned char,int,void*,int);  // 0x0052B330
-
-void __stdcall D2NET_10016(int);  // 0x0052B570
 
 extern "C" int __cdecl strncmp(const char*,const char*,unsigned int);
 
@@ -2164,8 +2150,6 @@ typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);                       // 0x006CC258
 
 unsigned long gdwLastClientsUpdateTick;                                                                               // 0x00883D5C
-
-int __cdecl sub_0052B910_GetLastError();                                                                                 // 0x0052B910
 
 
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0

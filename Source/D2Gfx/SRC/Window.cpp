@@ -6,6 +6,8 @@
 #include "FogApi.h"
 #include "FogApi.h"
 #include "D2DrlgMaps.h"
+#include "D2WinApi.h"
+#include "D2HellApi.h"
 
 struct D2TileLibraryBlockStrc
 {
@@ -196,8 +198,6 @@ int gnCaptionHeight; // 0x007C9270
 
 extern int gbNoWindowCreated; // 0x007C9338
 
-void __cdecl sub_0051793E_FormatAndRaise(unsigned long dwError, ...); // 0x0051793E
-
 struct D2CacheStatsStrc;
 
 extern int gfFixedAspectRatio; // 0x0072DA7C
@@ -217,8 +217,6 @@ extern "C" __declspec(dllimport) void* __stdcall GetStockObject(int); // 0x006CC
 extern "C" __declspec(dllimport) unsigned short __stdcall RegisterClassA(const WNDCLASSA*); // 0x006CC4CC
 
 int __fastcall FOG_IsExpansion(); // 0x00408F20
-
-extern "C" void __cdecl sub_004F8DC0_InitLookupTable(); // 0x004F8DC0
 
 void __cdecl j_D2GFX_10040_ShowAllWindows(); // 0x004F5030
 

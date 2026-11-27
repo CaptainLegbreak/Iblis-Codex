@@ -8,6 +8,8 @@
 #include "D2ClientTypes.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
 struct D2UnitStrc;
 struct D2InventoryStrc;
 
@@ -38,9 +40,7 @@ int __stdcall PARTICLE_GetGfxClientY(D2UnitStrc* pUnit);                        
 int __stdcall PARTICLE_GetGfxClientZ(D2UnitStrc* pUnit);                                          // 0x004DA0F0
 int __fastcall GFXUTIL_IsPlayerMonsterOrObject(D2UnitStrc* pUnit);                                               // 0x004DB180
 int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
-int __stdcall D2GFX_CheckPerspective();                                                                     // 0x004F51D0
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
-unsigned char* __fastcall D2Win_10175_GetPL2Shift(int nIndex);                                              // 0x004FB0C0
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit);                                                    // 0x00621190
 unsigned int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);               // 0x00625480
@@ -248,8 +248,6 @@ void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc*, int, int, int, int*, int*, int
 int __fastcall GFXUTIL_GetCompTransparency(D2UnitStrc*, int, int*, int); // 0x004DB360
 unsigned char* __fastcall GFXUTIL_GetBodyLocItemShift(D2UnitStrc*, int, unsigned char*); // 0x004DB570
 void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int bForce); // 0x004DC7B0
-int __cdecl D2GFX_CheckUnitPerspective(); // 0x004F5170
-void __stdcall D2GFX_SetTownMode(int); // 0x004F5190
 void __stdcall TEXTURE_CelFlatSpriteDraw(D2CelContextStrc*, int, int, unsigned int, int, int, unsigned char*); // 0x004F6450
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc*); // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc*); // 0x00620410

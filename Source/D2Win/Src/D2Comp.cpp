@@ -31,6 +31,9 @@
 #include "D2WinPopupLine.h"
 #include "FogApi.h"
 #include "D2LangApi.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
+#include "D2HellApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -103,8 +106,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode); // 0x005042F0
 
@@ -210,12 +211,6 @@ void* __stdcall D2COMP_CompileTxt(void* hArchive, const char* szName, D2BinField
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
-int __fastcall ARCHIVE_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped); // 0x00516E46
-
-void __fastcall ARCHIVE_CloseFile(void* hArchive, void* hFile); // 0x00516E84
-
-void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuffer, unsigned int dwBytesToRead); // 0x00516F85
-
 unsigned char gabItemPalettes[9][0x6900]; // 0x00842710
 
 extern const char gszGuildPrefix[]; // 0x006DCE68
@@ -259,8 +254,6 @@ struct D2HoverLineStrc
 };
 
 extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
-
-void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
 int __stdcall CONTROL_MouseInsideRect(const tagRECT* pRect); // 0x004F97B0
 
@@ -362,10 +355,6 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileName); // 0x006CC1A0
 
 
-void __stdcall WINDOW_DecodeSmacker(const char* szSmacker, unsigned char* pBuffer, int nVersion); // 0x004F5E00
-
-void __stdcall WINDOW_CloseSmacker(void* pContext); // 0x004F5E80
-
 int __stdcall CONTROL_SetFocusedEditBox(D2WinEditBoxStrc* pEditBox); // 0x004F91C0
 
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210
@@ -424,8 +413,6 @@ struct D2CelStrc;
 struct D2WinImageClickRectStrc;
 
 struct D2AnimatedImageDescriptor;
-
-int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile);                                                // 0x006019F0
 
 extern D2CharStrc* (__fastcall* gpfnGetCharInfo)(int nChar);                                        // 0x00841DA0
 

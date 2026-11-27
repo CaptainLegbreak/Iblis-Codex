@@ -27,6 +27,8 @@
 #include "D2LangApi.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2WinApi.h"
+#include "D2NetApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -254,8 +256,6 @@ void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-unsigned char __stdcall PALETTE_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern D2WheelCallbackFn gpfnWheelUp; // 0x007A7404
@@ -387,11 +387,7 @@ void __cdecl sub_00521B50_ReseedLogin(); // 0x00521B50
 
 int __fastcall BNSEND_SendAccountChange(const char* szAccountName, const char* szOldPassword, const char* szNewPassword); // 0x005221F0
 
-void __fastcall CLIENT_ReadPacketFromBuffer(D2PacketBufferStrc* pBuffer, int nBufferSize); // 0x0052AEB0
-
 int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
-
-int __fastcall SERVER_GetClientPacketSize(D2PacketBufferStrc* pBuffer, unsigned int nBufferSize, int* pSize); // 0x0052BC20
 
 int __fastcall QSERVER_CheckClientMask(void* pServer, int nClientId); // 0x006BF6C0
 

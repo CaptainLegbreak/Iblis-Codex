@@ -4,13 +4,12 @@
 #include "D2Client.h"
 #include "FogApi.h"
 #include "gen/data/Source/D2Client/CORE/ARCHIVE.inc"
+#include "D2CMPApi.h"
+#include "D2HellApi.h"
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
-void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 void __stdcall CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOutFile, const char* szFile, int nLine, int nSpecVersion, const char* szPath); // 0x00601340
-
-int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile); // 0x00601A50
 
 // 0x004788B0
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType)

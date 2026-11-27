@@ -9,6 +9,7 @@
 #include "D2Win32Types.h"
 #include "D2WinSplitText.h"
 #include "FogApi.h"
+#include "D2GfxApi.h"
 
 struct D2MsgHandlerEntryStrc;
 
@@ -30,8 +31,6 @@ struct D2PanelAnimEntryStrc
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char* szFormat, ...); // 0x006CC468
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
@@ -222,8 +221,6 @@ extern "C" void _ReadWriteBarrier(void);
 extern "C" __declspec(dllimport) __declspec(noalias) int __stdcall GetWindowRect(void* hWindow, tagRECT* pRect);
 
 extern "C" __declspec(dllimport) int __stdcall GetSystemMetrics(int nIndex);
-
-int __stdcall WINDOW_IsFullScreen(); // 0x004F5A30
 
 void* __cdecl sub_004F59A0_GetWindow(); // 0x004F59A0
 
