@@ -114,7 +114,6 @@ struct D2FixedPointStrc { int x,y,unknown08; };
 
 struct D2FixedShapeStrc { D2FixedPointStrc points[6]; };
 
-extern D2GridVertexStrc gaGridVertices[5][3]; // 0x00971458
 extern int gaFixedShapes[10][6][3]; // 0x0074C100
 
 struct D2ResourceInterface {
@@ -444,6 +443,10 @@ void __cdecl sub_006B7F70_ClearTarget()
     gpViewport->lpVtbl->Clear(gpViewport, 1, &tRect, 1, 0xFF000000, 0.0f, 0);
 }
 
+// The 5 x 3 vertex grid the perspective floor quads are drawn with, then the 4
+// corners of a flat quad.
+D2TLVertexStrc gaPerspectiveVertices[15]; // 0x00971450
+
 D2TLVertexStrc gaQuadVertices[4]; // 0x00971630
 
 // 0x006B80A0
@@ -460,10 +463,10 @@ void __cdecl sub_006B80A0_InitializeDrawingGeometry()
  for(int row=0;row<5;++row) {
   float t=(float)(row*0.984375*0.25+0.015625);
   for(int column=0;column<3;++column) {
-   gaGridVertices[row][column].x=0.5f;
-   gaGridVertices[row][column].y=1.0f;
-   gaGridVertices[row][column].s=(float)(column*0.984375*0.5+0.015625);
-   gaGridVertices[row][column].t=t;
+   gaPerspectiveVertices[row*3+column].fZ=0.5f;
+   gaPerspectiveVertices[row*3+column].fRhw=1.0f;
+   gaPerspectiveVertices[row*3+column].fU=(float)(column*0.984375*0.5+0.015625);
+   gaPerspectiveVertices[row*3+column].fV=t;
   }
  }
  for(int index=0;index<10;++index) {
