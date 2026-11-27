@@ -580,24 +580,7 @@ static void MONSTERMODE_SetVelocityPercent(D2UnitStrc* pUnit, D2AiParamStrc* pPa
 // 0x005A63F0
 static void __stdcall MONSTERMODE_UpdateModePath(D2GameStrc* pGame, D2UnitStrc* pUnit, int nVelocityPercent, D2AiParamStrc* pAiParam, int nPathType, unsigned char nNewDist)
 {
-    if (pAiParam->nPathTypeOverride)
-    {
-        nPathType = pAiParam->nPathTypeOverride;
-    }
-
-    if (pAiParam->nVelocityPercentOverride)
-    {
-        nVelocityPercent = pAiParam->nVelocityPercentOverride;
-    }
-
-    if (pAiParam->nNewDistOverride)
-    {
-        nNewDist = pAiParam->nNewDistOverride;
-    }
-
-    pAiParam->nPathTypeOverride = 0;
-    pAiParam->nVelocityPercentOverride = 0;
-    pAiParam->nNewDistOverride = 0;
+    MONSTERMODE_TakeVelocityParams(pAiParam, &nPathType, &nVelocityPercent, &nNewDist);
 
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     int nTargetTimer = -1;
@@ -2348,11 +2331,6 @@ int __fastcall MONSTERMODE_UpdateSequence(D2GameStrc* pGame, D2UnitStrc* pUnit)
     UNITS_StopSequence(pUnit);
 
     return 1;
-}
-
-void __stdcall sub_K13_Emit_005A61B0(D2AiParamStrc* pRecord, int* pValueA, int* pValueB, unsigned char* pValueC)
-{
-    MONSTERMODE_TakeVelocityParams(pRecord, pValueA, pValueB, pValueC);
 }
 
 inline int UNITS_IsValidTargetInline(D2UnitStrc* pUnit)

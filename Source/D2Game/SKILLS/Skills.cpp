@@ -1542,11 +1542,6 @@ int __fastcall D2GAME_CheckSkillIfUnitsClassSkill(D2UnitStrc* pUnit, int nSkillI
     return 0;
 }
 
-D2UnitStrc* __fastcall sub_K11_Emit0056C670(D2InventoryStrc* pInventory, int nBodyLoc)
-{
-    return SKILLS_GetOtherHandItem(pInventory, nBodyLoc + 1);
-}
-
 static inline D2StatesTxt* STATES_GetStatesTxtRecordInline(int nStateId)
 {
     if (nStateId >= 0 && nStateId < sgptDataTables->nStatesTxtRecordCount)
@@ -2504,14 +2499,7 @@ int __fastcall SKILLS_SrvDo003_Throw(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     {
         if (!bIsLeftHandItem)
         {
-            if (nBodyLoc == 5)
-            {
-                pWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-            }
-            else
-            {
-                pWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-            }
+            pWeapon = SKILLS_GetOtherHandItem(pInventory, nBodyLoc);
         }
 
         if (!ITEMS_CheckIfThrowable(pWeapon) && !STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, STAT_ITEM_THROWABLE, 0))
@@ -2567,14 +2555,7 @@ int __fastcall SKILLS_SrvDo005_LeftHandThrow(D2GameStrc* pGame, D2UnitStrc* pUni
     {
         if (bIsLeftHandItem)
         {
-            if (nBodyLoc == 5)
-            {
-                pWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-            }
-            else
-            {
-                pWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-            }
+            pWeapon = SKILLS_GetOtherHandItem(pInventory, nBodyLoc);
         }
 
         if (!ITEMS_CheckIfThrowable(pWeapon) && !STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, STAT_ITEM_THROWABLE, 0))

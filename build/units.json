@@ -22208,6 +22208,11 @@
      "name": "?TEXT_FreeMainTextBox@@YAXXZ"
     },
     {
+     "va": "0x0049E340",
+     "length": 71,
+     "name": "?TEXT_FillListBox@@YAXXZ"
+    },
+    {
      "va": "0x0049E390",
      "length": 12,
      "name": "?TEXT_GetTimeoutTick@@YAKXZ"
@@ -22275,6 +22280,11 @@
      "name": "?TEXT_HandleChatPacket@@YIXPAUD2GSPacketSrv26@@@Z"
     },
     {
+     "va": "0x0049F8C0",
+     "length": 49,
+     "name": "?TEXT_ClearHoverText@@YIXPAUD2HoverClearPacketStrc@@@Z"
+    },
+    {
      "va": "0x0049F910",
      "length": 72,
      "name": "?TEXT_GetTextString@@YIPBUUnicode@@G@Z"
@@ -22329,6 +22339,16 @@
      "name": "?TEXT_OpenTextData@@YIXPAUD2UnitStrc@@PAUD2ClientTextDataStrc@@@Z"
     },
     {
+     "va": "0x004A0000",
+     "length": 12,
+     "name": "?TEXT_IsTextBoxOpen@@YAHXZ"
+    },
+    {
+     "va": "0x004A0010",
+     "length": 21,
+     "name": "?TEXT_FreeTextLists@@YAXXZ"
+    },
+    {
      "va": "0x004A0030",
      "length": 21,
      "name": "?TEXT_CloseMessageLogCallback@@YAHXZ"
@@ -22339,8 +22359,18 @@
      "name": "?TEXT_OpenMessageLogDialog@@YAXXZ"
     },
     {
+     "va": "0x004A01E0",
+     "length": 27,
+     "name": "?TEXT_ClearListFlags@@YAXXZ"
+    },
+    {
      "va": "0x004A0200",
      "length": 232
+    },
+    {
+     "va": "0x004A02F0",
+     "length": 37,
+     "name": "?TEXT_ToggleListDialogUI@@YAXXZ"
     },
     {
      "va": "0x004A0320",
@@ -22359,6 +22389,16 @@
     {
      "va": "0x004A0770",
      "length": 269
+    },
+    {
+     "va": "0x004A0880",
+     "length": 57,
+     "name": "?TEXT_CloseTextUnit@@YAXXZ"
+    },
+    {
+     "va": "0x004A08C0",
+     "length": 305,
+     "name": "?TEXT_CloseText@@YAHXZ"
     },
     {
      "va": "0x004A0A00",
@@ -23865,52 +23905,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/text_0049DA50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0049E340",
-     "length": 71,
-     "name": "?TEXT_FillListBox@@YAXXZ"
-    },
-    {
-     "va": "0x0049F8C0",
-     "length": 49,
-     "name": "?TEXT_ClearHoverText@@YIXPAUD2HoverClearPacketStrc@@@Z"
-    },
-    {
-     "va": "0x004A0000",
-     "length": 12,
-     "name": "?TEXT_IsTextBoxOpen@@YAHXZ"
-    },
-    {
-     "va": "0x004A0010",
-     "length": 21,
-     "name": "?TEXT_FreeTextLists@@YAXXZ"
-    },
-    {
-     "va": "0x004A01E0",
-     "length": 27,
-     "name": "?TEXT_ClearListFlags@@YAXXZ"
-    },
-    {
-     "va": "0x004A02F0",
-     "length": 37,
-     "name": "?TEXT_ToggleListDialogUI@@YAXXZ"
-    },
-    {
-     "va": "0x004A0880",
-     "length": 57,
-     "name": "?TEXT_CloseTextUnit@@YAXXZ"
-    },
-    {
-     "va": "0x004A08C0",
-     "length": 305,
-     "name": "?TEXT_CloseText@@YAHXZ"
-    }
    ]
   },
   {
@@ -43665,7 +43659,7 @@
     {
      "va": "0x00540B70",
      "length": 58,
-     "name": "?EVENT_GetTimerSlot@@YGPAHPAUD2Unk00540B70Owner@@HH@Z"
+     "name": "?EVENT_GetTimerListTail@@YGPAPAUD2EventTimerStrc@@PAUD2GameStrc@@HH@Z"
     },
     {
      "va": "0x00540BB0",
@@ -46022,7 +46016,7 @@
     {
      "va": "0x00558640",
      "length": 841,
-     "name": "?ITEMS_RollDropQuality@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2QualityModsStrc@@HH@Z"
+     "name": "?ITEMS_RollDropQuality@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1HHPAUD2QualityModsStrc@@@Z"
     },
     {
      "va": "0x00558990",
@@ -46120,6 +46114,10 @@
      "va": "0x0055A550",
      "length": 374,
      "name": "?ITEMS_CreateDropAtUnit@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHHHPAU1@@Z"
+    },
+    {
+     "va": "0x0055A6D0",
+     "length": 2253
     }
    ]
   },
@@ -48370,7 +48368,7 @@
     {
      "va": "0x0057B630",
      "length": 37,
-     "name": "?SUNITDMG_AddDemonDamagePercent@@YGXPAUD2UnitStrc@@0PAUD2UnkDamageRecordStrc@@@Z"
+     "name": "?SUNITDMG_AddDemonDamagePercent@@YGXPAUD2UnitStrc@@0PAUD2DamageStrc@@@Z"
     },
     {
      "va": "0x0057B660",

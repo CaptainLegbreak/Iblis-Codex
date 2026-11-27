@@ -116,7 +116,6 @@ D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
 
-D2UnitStrc* __stdcall sub_K11_EmitUse(D2UnitStrc** ppList);
 
 typedef int (__stdcall* FARPROC)();
 
@@ -534,13 +533,6 @@ static inline void SUNIT_AssignUnitId(D2UnitStrc* pUnit, int nValue)
     }
 }
 
-void __stdcall sub_M127_EmitSink(D2UnitStrc* pUnit);
-
-void __fastcall sub_M127_Emit_00552DE0(D2UnitStrc* pUnit, int nValue)
-{
-    SUNIT_AssignUnitId(pUnit, nValue);
-    sub_M127_EmitSink(pUnit);
-}
 
 inline unsigned __int64 ITEMS_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
@@ -2492,8 +2484,7 @@ D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, 
 
     case UNIT_TILE:
         UNITS_AllocStaticPath(pUnit);
-        pUnit->dwFlags |= UNITFLAG_TARGETABLE;
-        pUnit->dwUnitId = nUnitGUID;
+        SUNIT_AssignUnitId(pUnit, nUnitGUID);
         break;
     }
 
