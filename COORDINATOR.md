@@ -453,6 +453,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - #451 (j203): lane 9 params-d2game-b2 (hand-resolved; a1/v12 531 -> 437). **Lane 2: use-shared-headers-2b, rebase onto #451 — after #450 its SBig.cpp declarations clash with the joined code (`Rand` declared int, defined void).**
 - #452 (j204): lane 1 extern-dups, lane 6 cache-join + grid-join, lane 8 drlg-api-decls + items-accessor-views, lane 9 params-d2game-e2 (emit helpers 328 -> 324, a1/v12 437 -> 387). Already on main, recorded: lane 3 join-sbig-e2, lane 8 d2common-api-decls-3, lane 5 data-decls-d2game-2, lane 9 params-d2game-b3.
 - #453 (j205): **lane 10's 0x6BD230 from source (borrowed code 7,923 -> 7,677 B, 4 -> 3 functions)**; the user accepted (17:23 PT) reading the code argument through `&pLinker + 1` as the original's.
+- #454 (j206): lane 3 sbig-strays-2, lane 5 emit-d2game-3, lane 8 path-accessor-views + statsex-accessor-views (emit helpers 324 -> 322).
+- #455 (j207): lane 1 extern-dups-2 (hand-resolved: per-file copies that D2ClientFuncs.h now has dropped). Already on main, recorded: lane 9 params-d2game-b4.
 - Lane 10 0x6BD230: accepted by the user 17:23 PT, merged in #453. Lane 1's skilldesc branches and lane 5's emit-d2game-2 were already merged in #445.
 - #438 j192: d2common-dup-decls, noinline-evidence (lane 8), decls-renderers-2 (lane 9).
 - #437 j191: joins Monster, MonsterUnique, SkillItem, superior items (lane 5), Missile damage (lane 8); Items 0x559CE0 note. Files in pieces 22 -> 18.
