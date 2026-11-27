@@ -272,16 +272,14 @@ def declared_name(code):
     return m.group(1), 'data' if code.startswith('extern') else 'def'
 
 
-def add_include(text, hdr):
-    if re.search(r'^#include\s+"%s"' % re.escape(hdr), text, re.M):
+def add_include(text, hdr, before):
+    """Include hdr where the unit's first removed copy stood: after the last #include above that point, or at it."""
+    m = re.search(r'^#include\s+"%s"' % re.escape(hdr), text, re.M)
+    if m and m.start() <= before:
         return text
-    incs = list(re.finditer(r'^#include\s+"(?!gen/)[^"\n]+"[^\n]*\n', text, re.M))
-    if not incs:
-        incs = list(re.finditer(r'^#include[^\n]*\n', text, re.M))
     nl = '\r\n' if '\r\n' in text else '\n'
-    if not incs:
-        return '#include "%s"%s' % (hdr, nl) + text
-    e = incs[-1].end()
+    incs = [i for i in re.finditer(r'^#include[^\n]*\n', text, re.M) if i.end() <= before]
+    e = incs[-1].end() if incs else before
     return text[:e] + '#include "%s"%s' % (hdr, nl) + text[e:]
 
 
@@ -298,6 +296,7 @@ def main():
     ap.add_argument('--apply', action='store_true')
     ap.add_argument('--units-out')
     ap.add_argument('--report')
+    ap.add_argument('--plan', help='write the symbols taken, with their units and headers, as JSON')
     a = ap.parse_args()
 
     M = a.module
@@ -316,6 +315,7 @@ def main():
             elif len(l) >= 2:
                 ex_pair.add((l[0], l[1].lower()))
     only = set(v.strip().lower() for v in a.only.split(',')) if a.only else None
+    ex_va = {v.lower() for v in ex_va}
 
     # definitions of M
     defs = collections.defaultdict(list)    # va -> [(file, name, decl, c, why, kind)]
@@ -392,6 +392,8 @@ def main():
         if prob:
             report.append((va, name, nunits, prob)); continue
         text = ('extern "C" ' if c else '') + ('extern ' if kind == 'data' else '') + decl + ';'
+        if inc and any(not h.startswith('Source/Include/') for h, _ in hfix):
+            report.append((va, name, nunits, 'needs %s in %s' % (', '.join(sorted(inc)), ', '.join(sorted({h for h, _ in hfix if not h.startswith('Source/Include/')}))))); continue
         target = None
         for h, line in hfix:
             if h in shared_hdrs:
@@ -405,6 +407,11 @@ def main():
     took = [p for p in plan]
     print('%s: %d symbols declared by other units; %d to headers, %d left out; %d private copies replaced' %
           (M, len(report), len(took), len(report) - len(took), sum(len(p[4]) for p in took)))
+    if a.plan:
+        import json
+        with open(a.plan, 'w') as fo:
+            json.dump([{'va': va_fmt(p[0]), 'name': p[1], 'decl': p[2], 'header': p[3], 'units': sorted({u for u, _ in p[4]}),
+                        'headers_fixed': sorted({h for h, _ in p[5]})} for p in took], fo, indent=1)
     if a.report:
         with open(a.report, 'w') as fo:
             for va, name, n, what in report:
@@ -424,10 +431,15 @@ def main():
         for h, line in hfix:
             t = cur(h)
             new = text + ' // ' + va_fmt(va)
-            if line.strip() != new.strip():
-                t = t.replace(line, new, 1)
-                newtext[h] = t
-                changed.add(h)
+            if line.strip() == new.strip():
+                continue
+            # the types the corrected line names: forward declarations just above it where the header has none
+            known = set(re.findall(r'^\s*(?:typedef\s+)?(?:struct|union|class)\s+(\w+)\s*[;{:]', t[:t.find(line)], re.M))
+            nl = '\r\n' if '\r\n' in t else '\n'
+            pre = ''.join('%s %s;%s' % (k, w, nl) for k, w in sorted(fwd, key=lambda x: x[1]) if w not in known)
+            t = t.replace(line, pre + new, 1)
+            newtext[h] = t
+            changed.add(h)
 
     # new declarations for the export header (those whose target header does not have them yet)
     add = collections.defaultdict(list)
@@ -455,7 +467,19 @@ def main():
         newtext[target] = t
         changed.add(target)
 
-    # private copies go; the unit includes the header
+    # private copies go; the unit includes the header where its first copy stood
+    first = {}
+    for va, name, text, target, users, hfix, fwd, inc, _ in took:
+        for u, line in users:
+            p = texts[u].find(line)
+            key = (u, os.path.basename(target))
+            first[key] = min(first.get(key, p), p)
+    for (u, hb), p in first.items():
+        # mark the spot so removals above it do not move it
+        t = cur(u)
+        anchor = texts[u][p:].split('\n', 1)[0]
+        i = t.find(anchor)
+        newtext[u] = t[:i] + '\x00INC:%s\x00' % hb + t[i:]
     for va, name, text, target, users, hfix, fwd, inc, _ in took:
         hb = os.path.basename(target)
         for u, line in users:
@@ -469,9 +493,17 @@ def main():
                 # a copy that stood between blank lines leaves one blank line, not two
                 if t[:i].endswith(nl + nl) and t.startswith(nl, i):
                     t = t[:i] + t[i + len(nl):]
-            t = add_include(t, hb)
             newtext[u] = t
             changed.add(u)
+    for u in list(newtext):
+        t = newtext[u]
+        while '\x00INC:' in t:
+            i = t.index('\x00INC:')
+            j = t.index('\x00', i + 1)
+            hb = t[i + 5:j]
+            t = t[:i] + t[j + 1:]
+            t = add_include(t, hb, i)
+        newtext[u] = t
 
     for f in sorted(changed):
         write(f, newtext[f])
