@@ -425,12 +425,6 @@ static inline void ACT1Q3_SetLastStateTwo(D2QuestDataStrc* pQuestData)
     pQuestData->fLastState = 2;
 }
 
-void __stdcall sub_M113_Emit_005919C0(D2QuestDataStrc* pFirst, D2QuestDataStrc* pSecond)
-{
-    ACT1Q3_SetLastStateTwo(pFirst);
-    ACT1Q3_SetLastStateTwo(pSecond);
-}
-
 // 0x005919D0
 void __fastcall ACT1Q3_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -449,7 +443,7 @@ void __fastcall ACT1Q3_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, 
 
     if (pQuestDataEx->nMalusItemsInGame == 1 && pQuestDataEx->bMalusInitialized && pQuestDataEx->nMalusObjectMode == OBJMODE_OPENED)
     {
-        pQuestData->fLastState = QSTATE_2;
+        ACT1Q3_SetLastStateTwo(pQuestData);
     }
 }
 
