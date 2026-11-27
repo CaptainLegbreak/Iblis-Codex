@@ -1673,7 +1673,7 @@ void __stdcall sub_L04_EmitCopyTextLine(const Unicode* pText)
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x0049D370
-static void TEXT_FreeTextLines(D2SplittedTextStrc* pLine)
+void TEXT_FreeTextLines(D2SplittedTextStrc* pLine)
 {
     while (pLine)
     {
@@ -4169,15 +4169,7 @@ int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, unsigned short*
 
 
 
-inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pMonStatsTxt[nMonsterId];
-    }
-
-    return 0;
-}
+D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
 
 #define STAT_ARMORCLASS_VS_HTH 33
