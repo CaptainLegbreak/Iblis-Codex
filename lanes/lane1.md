@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 20:00 PST 2026: check-in. Main is #464; skillsmon-callbacks still ready, merges clean.
 - Thu Nov 26 19:55 PST 2026: skillsmon-callbacks rebased on #463 (it conflicted with #463's declaration cleanup in Unknown_004E2320.cpp, which the branch deletes), identical, repushed.
 - Thu Nov 26 19:44 PST 2026: skillsmon-callbacks ready.
 - Thu Nov 26 19:28 PST 2026: check-in. Main is #461 and has skilldesc-environ and callbacks-join (Ready lines dropped); Ready is empty. Next: the skill callbacks in SkillsMon.cpp's run (0x4E1FF0, 0x4E2320, 0x4E2630).
