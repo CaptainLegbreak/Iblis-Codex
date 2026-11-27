@@ -8,6 +8,25 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Fri Nov 27 05:40 PST 2026: **lane12/api-fog** (89dcc5ad3, stacked on lane12/module-api-headers-7, on #476
+  9a4b7d477): "Fog: declarations of its exports agree with their definitions", by tools/genheaders.py --module Fog
+  --header FogApi2.h. 19 new exports in FogApi2.h; FogApi.h's and other modules' header lines for Fog addresses
+  take the definitions' types (forward declarations added above them where a header had none); 24 private copies
+  give way to the header. Left out: the pool/async/data-array/queue-socket calls whose callers pass void* or their
+  own record types (FOG_AllocPool, FOG_FreePool, FOG_ReallocPool, FOG_CreateNewPoolSystem, FOG_AsyncDataLoadFileEx,
+  FOG_CreateBinFile, FOG_ComputeChecksum, BITMANIP_Write, DATAARRAYS_Reset, DATAARRAYS_FreeEntry, D2QSSOCKET_
+  DestroyRecord/SendPacket; these need the callers' fields typed: a later branch), typedefs only a .cpp defines
+  (FOG_10219, LOGMANAGER_WriteLogV, D2QSSOCKET_SetPacketHandler, FOG_10170, QSInit, gapLogFiles), the duplicated
+  ghD2ServerServiceStatus, FOG_GetInstallPath and sub_0040EB10 (a header change flips inv_0048BC10.cpp /
+  ItemTbls.cpp), and per unit the copies whose removal changes the unit's bytes or no longer compiles (sub_00408090
+  in 5 units, FOG_IsExpansion in 4, and 28 other unit/symbol pairs; list in the branch's exclusion file, available
+  on request). Every unit genheaders lists (253) EQUAL. VERIFIED tree 6fbf5fd339c799e995b148da5aaaee61018a3958.
+  linkdebt vs module-api-headers-7: 29,942 -> 29,868 (type_disagreement 6,689 -> 6,615; D2Common 4,797 -> 4,744,
+  D2Game 6,540 -> 6,530, D2Client, D2Multi, D2Win, D2MCPClient down; no module rises). auditguard: no count rose;
+  raw offset 120, byte pointer math 153, pointer casts 4,915, all unchanged.
+- Fri Nov 27 05:40 PST 2026: **lane12/module-api-headers-7** (6a00e8706): module-api-headers-6 rebased onto #476
+  9a4b7d477 without conflicts; take this one instead of -6. VERIFIED tree 6472a693a8fb28e701b75cc3995add9ee5379506;
+  link debt on it 29,942. (-6's linkdebt and audit numbers below hold.)
 - Fri Nov 27 03:52 PST 2026: **lane12/genheaders** (6b036b9b0, on #474 0950bf8ba; second commit: it runs on the checkout it is started in): `tools/genheaders.py` (standard
   library only) and a README paragraph. `--module M` lists every function and global M defines that another
   module's unit declares (same identifier, line ending in the definition's address), with the definition's
@@ -21,7 +40,7 @@ it is on main; from #473, based on main.
   (1,260 copies), D2Client 191 (565), D2Win 119 (307), D2Gfx 100 (237), Fog 152 (202), Storm 117 (121), ~3,400
   copies in all. Source unchanged. VERIFIED tree 034fd1b237015a3252d712bd6a27a82c6a0a725a; linkdebt and
   auditguard unchanged (no source change).
-- Fri Nov 27 03:52 PST 2026: **lane12/module-api-headers-6** (c195e2acb, on #474 0950bf8ba): lane 2's held branch,
+- Fri Nov 27 03:52 PST 2026: **lane12/module-api-headers-6** (c195e2acb, on #474 0950bf8ba; superseded by -7): lane 2's held branch,
   its two commits rebuilt on main ("One name for the cel context: D2GfxDataStrc"; "Export headers for D2Gfx, D2Win,
   D2CMP, D2Sound, D2Net, D2Hell and D2MCPClient"). Gfx_0046E300.cpp is gone on main, so its edits went to Gfx.cpp,
   where GFX_DrawUnitOverlays now lives (CUNIT_GetGfxData's result is D2UnitGfxDataStrc*, the overlay cel context
@@ -34,6 +53,11 @@ it is on main; from #473, based on main.
   4,915.
 
 ## Claimed
+- Fri Nov 27 05:40 PST 2026: status. Held branches done (module-api-headers-7 Ready; the other three dropped, see
+  below). genheaders: a third commit (includes placed where the copy stood, forward declarations for corrected
+  header lines, --plan) is verifying on #476 as lane12/genheaders-2. Next: Storm, D2Lang, then D2Common through
+  genheaders, each stacked on api-fog. Files claimed: Source/Include/StormApi*.h, D2LangApi*.h, D2CommonApi*.h and
+  the private copies of Storm's, D2Lang's and D2Common's functions in other modules' units.
 - Fri Nov 27 03:54 PST 2026: the other three held branches, checked on #474: **lane2/gfxdata-record-3 dropped**: its one
   commit is module-api-headers-6's first commit, carried there. **lane9/decls-renderers-2 dropped**: already on main
   (git cherry marks its commit equivalent; D2Glide.h has the 41 declarations). **lane5/decls-d2game-8 dropped**:
