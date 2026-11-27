@@ -534,7 +534,7 @@ int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 
 D2TextNodeStrc* __fastcall TEXT_CloneStringList(D2TextNodeStrc* pSource); // 0x0049DB10
 
-extern D2TextListStrc gtOverheadTextList; // 0x007BF1EA
+D2TextListStrc gtOverheadTextList; // 0x007BF1EA
 
 D2TextListStrc gtTextHistory; // 0x007BF1F0
 

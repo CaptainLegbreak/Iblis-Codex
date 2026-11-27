@@ -973,7 +973,7 @@ extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2Critical
 
 
 extern TMESSAGESOURCE gFaultHandlerList_0072FA14; // 0x0072FA14
-extern D2CriticalSectionStrc gtErrorHandlerLock; // 0x00881818
+D2CriticalSectionStrc gtErrorHandlerLock; // 0x00881818
 extern int gbFaultHandlerListInitialized; // 0x00881830
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" int __cdecl atexit(void (__cdecl* callback)()); // 0x00683824
@@ -1014,7 +1014,6 @@ extern "C" int __cdecl atexit(void (__cdecl* callback)()); // 0x00683824
 void sub_0051775A_FreeFaultHandlerList(); // 0x0051775A
 
 extern D2StormListStrc gtFaultHandlerRecords_0072FA14; // 0x0072FA14
-extern D2CriticalSectionStrc gtErrorHandlerLock; // 0x00881818
 extern int gbFaultHandlerListInitialized; // 0x00881830
 
 

@@ -429,7 +429,7 @@ void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const
 
 extern D2ViewStrc* gpClientView;                                                                         // 0x007A0640
 
-extern int gaUIVarStates[];                                                                        // 0x007A27C0
+int gaUIVarStates[0x26]; // 0x007A27C0
 
 extern Unicode gwszPopUpText[80];                                                                       // 0x007A2C80
 
