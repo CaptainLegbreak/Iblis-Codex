@@ -109,7 +109,6 @@ D2WinControlStrc* gpGemButton; // 0x0077BC48
 
 D2WinControlStrc* gpChatEdit; // 0x0077BD94
 
-extern D2CelFileStrc* gpChatBackground; // 0x0077BC04
 
 extern D2CelFileStrc* gpWaitingRoomBkgdCelFile; // 0x0077BC08
 
@@ -419,7 +418,6 @@ extern char gszChatBuffer[0x200]; // 0x0077AE40
 
 int gnLadderMaxEntries;                                                                                      // 0x0077AD70
 
-extern int gnSelectIdA; // 0x0070CD7C
 
 extern unsigned char gnSelectModeB; // 0x0070CD63
 
@@ -975,7 +973,6 @@ extern D2LaunchReplyEntryStrc gatReplyEntries[];                                
 
 char gszPendingText[264];                                                                          // 0x00798AB8
 
-extern D2WinControlStrc* gpGameList;                                                                // 0x00798BC0
 
 D2WinControlStrc* gpJoinGameBckgImage;                                                                       // 0x00798BC8
 
@@ -1025,7 +1022,6 @@ extern D2WinControlStrc* gpCreatePassword;                                      
 
 extern D2WinControlStrc* gpCreateDesc;                                                                // 0x00798C34
 
-extern D2WinControlStrc* gpMaxPlayerControl;                                                                // 0x00798C38
 
 extern D2WinControlStrc* gpLevelDiffEdit;                                                                // 0x00798C3C
 
@@ -3909,7 +3905,6 @@ int __stdcall CHATDLG_UseEditText(int nArg)
     return 1;
 }
 
-extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
 // build: symbol ?gnChatLaunchMode@* 0x0077BBE4
@@ -4841,7 +4836,6 @@ int __fastcall D2Win_10057(D2WinControlStrc* pControl, const char* szText, int n
 
 extern D2LaunchGameRecStrc gaGames[]; // 0x0078A440
 
-extern D2WinControlStrc* gpGameInfoText; // 0x00798BC4
 
 D2WinControlStrc* gpGameList; // 0x00798BC0
 
@@ -5161,9 +5155,7 @@ void __cdecl CHATDLG_DestroyCreateControls()
     sub_0043D990();
 }
 
-extern char gszLevelDiffText[]; // 0x0070EBD0
 
-extern char gszMaxPlayersText[]; // 0x0070EBD4
 
 // build: symbol ?gnChatLaunchMode@* 0x0077BBE4
 // build: symbol ?gpLaunchFuncs@* 0x0077B09C

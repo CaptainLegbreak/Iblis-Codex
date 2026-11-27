@@ -90,7 +90,6 @@ static int TileSerializeSubTiles(unsigned char* pOut, D2BlockSet0060A050Strc* pS
 
 static int __stdcall TileHasNonKeyPixel(D2CmpColorStrc tColor, const unsigned char* pData);
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 
 #pragma function(memcpy)

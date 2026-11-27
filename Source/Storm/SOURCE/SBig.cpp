@@ -26,6 +26,8 @@ inline void operator delete(void* pMemory)
 // build: symbol ??1BigBuffer@@QAE@XZ 0x00421810
 // build: symbol ??1BigStack@@QAE@XZ 0x00421830
 // build: symbol ??0BigStack@@QAE@XZ 0x00421B70
+// build: symbol ?GrowToFit@D2StormArrayAStrc@@QAEXIH@Z 0x00421EA0
+// build: symbol ?CalcChunkSize@D2StormArrayBStrc@@QAEII@Z 0x00421160
 
 struct D2StormArrayBStrc
 {
@@ -37,7 +39,12 @@ struct D2StormArrayBStrc
     D2StormArrayBStrc() : m_alloc(0), m_count(0), m_data(0), m_chunk(0)
     {
     }
-    static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
+    ~D2StormArrayBStrc()
+    {
+        if (m_data)
+            SMemFree(m_data, gszTypeNameUChar, -2, 0);
+    }
+    unsigned int RoundUp(unsigned int nValue, unsigned int nAlign)
     {
         unsigned int nRemainder = nValue % nAlign;
         if (nRemainder)
@@ -48,10 +55,9 @@ struct D2StormArrayBStrc
     {
         if (nCount < 0x100)
         {
-            unsigned int nResult = nCount;
-            while (nResult & (nResult - 1))
-                nResult &= nResult - 1;
-            return nResult < 1 ? 1 : nResult;
+            while (nCount & (nCount - 1))
+                nCount &= nCount - 1;
+            return nCount < 1 ? 1 : nCount;
         }
         m_chunk = 0x100;
         return 0x100;
@@ -63,7 +69,9 @@ struct D2StormArrayBStrc
         {
             if (bRound)
             {
-                unsigned int nChunk = m_chunk ? m_chunk : CalcChunkSize(nCount);
+                unsigned int nChunk = m_chunk;
+                if (!nChunk)
+                    nChunk = CalcChunkSize(nCount);
                 nCount = RoundUp(nCount, nChunk);
             }
             sub_004211C0_ReallocData(nCount);
@@ -106,14 +114,14 @@ struct D2StormBigStrc
 };
 
 unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue);                              // 0x004213B0
-int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight);                      // 0x004212F0
+int __stdcall sub_004212F0_Compare(const BigBuffer* pLeft, const BigBuffer* pRight);                      // 0x004212F0
 int __stdcall sub_004242C0_BigOp(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack); // 0x004242C0
 
 unsigned int __stdcall sub_00421470_FindLowestSetBit(BigBuffer* pQueue);                            // 0x00421470
 extern const unsigned int gaSBigFermatBases[1];                                                         // 0x006CFF70
 extern const unsigned int gaSBigSmallPrimes[171];                                                        // 0x006CFF78
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);                            // 0x0041D2A0
-void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, BigBuffer* pIn);                         // 0x00421CB0
+static void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, const BigBuffer* pIn);                         // 0x00421CB0
 int __stdcall Rand(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack); // 0x00424700
 int __stdcall sub_00424B00_Square(BigBuffer* pResult, BigBuffer* pA, BigStack* pStack); // 0x00424B00
 
@@ -157,10 +165,67 @@ void __stdcall SBigToUnsigned(D2StormBigStrc* pBig, unsigned int* pnResult)
     BigToUnsigned(pnResult, pBig->tPrimary);
 }
 
+// 0x00421BD0
+static void EncodeDataBytes(unsigned int nValue, D2StormArrayBStrc* pArray)
+{
+    while (nValue)
+    {
+        *pArray->New() = (unsigned char)(nValue % 255);
+        nValue /= 255;
+    }
+    *pArray->New() = 0xFF;
+}
+
+// 0x00421CB0
+static void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, const BigBuffer* pIn)
+{
+    for (unsigned int i = 0; i < 4 * pIn->Count(); ++i)
+    {
+        unsigned int nDigit = i / 4;
+        unsigned int nByte = i % 4;
+        unsigned int nValue = (*pIn)[nDigit] >> (8 * nByte);
+        if (nValue || nDigit + 1 < pIn->Count())
+            *pOut->New() = (unsigned char)nValue;
+    }
+}
+
 // build: symbol ??3@YAXPAX0@Z 0x0040EB30
+// 0x00421D80
+D2StormBigStrc::~D2StormBigStrc()
+{
+}
+
 // 0x00421E10
 D2StormBigStrc::D2StormBigStrc()
 {
+}
+
+// 0x00421FE0
+void BigBuffer::GrowToFit(int nIndex)
+{
+    unsigned int nPosition = m_start + nIndex;
+    if (nPosition >= m_array.m_count)
+    {
+        unsigned int nNewCount = nPosition + 1;
+        if (nNewCount > m_array.m_alloc)
+        {
+            unsigned int nChunk = m_array.m_chunk ? m_array.m_chunk : m_array.sub_004210A0_CalcChunkSize(nNewCount);
+            m_array.sub_004216E0_ReallocData(D2StormArrayAStrc::RoundUp(nNewCount, nChunk));
+        }
+        SMemZero(&m_array.m_data[m_array.m_count], (nPosition - m_array.m_count + 1) * sizeof(unsigned int));
+        m_array.m_count = nNewCount;
+    }
+}
+
+// 0x00422140
+void BigBuffer::sub_00422140_Trim()
+{
+    while (Count())
+    {
+        if (*m_array.sub_00420FE0_Top())
+            break;
+        m_array.SetCount(m_array.m_count - 1);
+    }
 }
 
 // 0x00423950
@@ -274,10 +339,39 @@ static void __stdcall BigXor(BigBuffer& a, const BigBuffer& b, const BigBuffer& 
     a.SetCount(i);
 }
 
+// 0x00423380
+static void __stdcall sub_00423380_FromBytes(BigBuffer* pThis, const unsigned char* pData, unsigned int nSize)
+{
+    pThis->SetCount(0);
+    for (unsigned int i = 0; i < nSize; ++i)
+    {
+        unsigned int nIdx = i >> 2;
+        unsigned int nShift = i & 3;
+        unsigned int nByte = pData[i];
+        unsigned int nCur = nShift ? pThis->Ref(nIdx) : 0;
+        (*pThis)[nIdx] = (nByte << (nShift * 8)) + nCur;
+    }
+}
+
 // 0x00423D60
 void __stdcall SBigXor(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     BigXor(pResult->tPrimary, pA->tPrimary, pB->tPrimary);
+}
+
+// 0x00423D80
+void BigStack::sub_00423D80_Release(BigBuffer* pResult, BigBuffer* pWork)
+{
+    if (pResult != pWork)
+    {
+        D2StormArrayViewStrc tView;
+        tView.pData = pWork->m_array.m_data;
+        tView.nCount = pWork->m_array.m_count;
+        pResult->m_array.sub_004215C0_Set(tView.nCount, tView.pData);
+        pResult->m_array.m_chunk = pWork->m_array.m_chunk;
+        pResult->m_start = pWork->m_start;
+        nUsed--;
+    }
 }
 
 // 0x004221F0
@@ -468,6 +562,12 @@ static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput
 void __stdcall SBigDec(D2StormBigStrc* pResult, D2StormBigStrc* pA)
 {
     sub_00422FC0_SubUInt(pResult->tPrimary, pA->tPrimary, 1);
+}
+
+// 0x00423850
+void __stdcall SBigFromBinary(D2StormBigStrc* pBig, const void* pData, unsigned int nSize)
+{
+    sub_00423380_FromBytes(&pBig->tPrimary, (const unsigned char*)pData, nSize);
 }
 
 // 0x00423870
@@ -836,6 +936,18 @@ static int __stdcall IsPrime(BigStack* pStack, BigBuffer& a) // 0x00425350
     return bPrime;
 }
 
+// 0x004212F0
+int __stdcall sub_004212F0_Compare(const BigBuffer* pLeft, const BigBuffer* pRight)
+{
+    int nResult = 0;
+    for (unsigned int i = 0; pLeft->IsUsed(i) || pRight->IsUsed(i); ++i)
+    {
+        if ((*pLeft)[i] != (*pRight)[i])
+            nResult = (*pLeft)[i] > (*pRight)[i] ? 1 : -1;
+    }
+    return nResult;
+}
+
 // 0x00421440
 static int BigIsEven(const BigBuffer& a)
 {
@@ -953,16 +1065,6 @@ static void __stdcall InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack&
 void __stdcall SBigInvMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     InvMod(pResult->tPrimary, pA->tPrimary, pB->tPrimary, pResult->tStack);
-}
-
-static void EncodeDataBytes(unsigned int nValue, D2StormArrayBStrc* pArray) // 0x00421BD0
-{
-    while (nValue)
-    {
-        pArray->Push((unsigned char)(nValue % 255));
-        nValue /= 255;
-    }
-    pArray->Push(0xFF);
 }
 
 // 0x004235F0

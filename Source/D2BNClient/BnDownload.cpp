@@ -323,7 +323,6 @@ extern "C" const char gszAdListRegKey[];                                        
 
 extern "C" const char gszAdListRegValue[];                                                         // 0x006DF464
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 int __stdcall sub_004192F0_OpenArchiveFile(void*, const char*, unsigned int, void**); // 0x004192F0
 
@@ -416,7 +415,6 @@ int __fastcall BNDOWNLOAD_SetCheckRevisionValue(const char* szValue);           
 
 int __fastcall BNMESSQUEUE_QueueMessage(int nId, const void* pData, unsigned int nLength);                // 0x00520210
 
-extern "C" const char gszConfiguration[];                                                           // 0x006DEC7C
 
 extern int gnLastStatus;                                                                              // 0x0072FFA8
 

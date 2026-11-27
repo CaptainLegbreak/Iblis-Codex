@@ -11,7 +11,6 @@
 
 int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2);                          // 0x0042F2E0
 extern "C" void __cdecl MAINMENUS_ConfigureLanguageLayout(); // 0x00432EF0
-extern "C" const char* const gapszSkyPalette[2];                                                   // 0x006D3A08
 
 // build: symbol ?MAINMENUS_ShowConnectingPopup@* 0x0042F6E0
 // build: symbol ?gszOldPassword@* 0x00779550

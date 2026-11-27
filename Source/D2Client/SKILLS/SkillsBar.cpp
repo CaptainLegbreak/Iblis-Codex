@@ -626,7 +626,6 @@ void __fastcall SKILLSBAR_ResetLeapCollision(D2UnitStrc* pUnit)
 
 static int __stdcall SKILLSBAR_UpdateLeap(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bOverlay); // 0x004C8970
 
-void __fastcall SKILLSBAR_ResetLeapCollision(D2UnitStrc* pUnit); // 0x004C8B80
 
 // 0x004C8C60
 int __fastcall SKILLSBAR_SkillCltDoLeap(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)

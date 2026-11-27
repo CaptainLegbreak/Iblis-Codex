@@ -42,28 +42,22 @@ void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback);              
 
 D2ComInterfaceStrc* __cdecl sub_00518C00();                                                           // 0x00518C00
 
-extern D2ConfigStrc* gpLaunchRecord;                                                         // 0x007795D4
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-extern int gnLaunchMode; // 0x007795EC
 
-extern D2ComInterfaceStrc* gpFuncTable; // 0x0077ABF0
 
 int __cdecl GAME_GetStopMainLoop(); // 0x0042FA30
 
 void __cdecl MAINMENUS_UpdateProgress(); // 0x0042F990
 
-extern int gfCharSelCancelled; // 0x0077AC04
 
 void __cdecl sub_00518C20_DeleteQueueLock(); // 0x00518C20
 
-extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
 
 
-extern int gfHasCharEntries;                                                                              // 0x00779DA4
 
 void __fastcall MAINMENUS_SetValue(int nValue); // 0x0042FF10
 

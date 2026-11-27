@@ -159,7 +159,6 @@ void __fastcall CelDrawRleBlend(const unsigned char*,unsigned char*,int,int,cons
 
 void __fastcall CelDrawRleBlendClipped(const unsigned char* pSrc, unsigned char* pDst, int nRows, int nPitch, int nX, int nClipLeft, int nClipRight, const unsigned char* pBlend); // 0x006082E0
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 
 int gnGenericRle; // 0x008F03C8
@@ -2479,9 +2478,4 @@ int D2CmpStringStrc::EqualsNoCase(const D2CmpStringStrc* pOther)
 }
 
 static void FASTCMP_BuildBrightnessTable(unsigned char* pTables, D2HslStrc* pHsl); // 0x00606890
-void __cdecl sub_M386_Emit_00606890(int nUnused, unsigned char* pTables, D2HslStrc* pHsl)
-{
-    FASTCMP_BuildBrightnessTable(pTables, pHsl);
-}
-
 #include "gen/data/Source/D2CMP/SRC/FastCmp.inc"

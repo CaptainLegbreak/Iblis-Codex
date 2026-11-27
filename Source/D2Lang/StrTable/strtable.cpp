@@ -505,14 +505,6 @@ int __cdecl STRTABLE_GetSystemLanguage()
     return 0;
 }
 
-int sub_M15_Emit_00525920(const char* szDir, const char* szLang)
-{
-    char szPath[0x104];
-    sprintf(szPath, szM15EmitFormat, szDir, szLang);
-    gpM15EmitTbl = STRTABLE_LoadTblFile(szPath);
-    return gpM15EmitTbl != 0;
-}
-
 static inline const Unicode* D2LANG_GetStringFromTblIndex_Inline(unsigned short nIndex)
 {
     if (nIndex >= 0x4E20)

@@ -153,15 +153,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/SOURCE/SBig_004212F0.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/SOURCE/SBig_004212F0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/Storm/Unknown_00425720.cpp": {
    "bytes": 64,
    "definitions": 1,
@@ -183,8 +174,8 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SBig.cpp": {
-   "bytes": 688,
-   "definitions": 2,
+   "bytes": 692,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SBig.inc",
@@ -295,8 +286,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Game.cpp": {
-   "bytes": 312,
-   "definitions": 7,
+   "bytes": 538,
+   "definitions": 12,
    "externs": [
     "extern \"C\" void __cdecl GAME_DrawGameView(); // 0x0044C990",
     "extern \"C\" void __cdecl sub_0045FDE0_DrawLoadingScreen(); // 0x0045FDE0",
@@ -329,7 +320,12 @@
     "extern \"C\" void __cdecl GAME_ApplyConfigMcpIP(); // 0x0044D680",
     "extern \"C\" void __cdecl GAME_ApplyConfigClass(); // 0x0044D6B0",
     "extern \"C\" void __cdecl GAME_ApplyConfigName(); // 0x0044D890",
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
+    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8",
+    "extern \"C\" void __cdecl GAME_HandleActivateApp(); // 0x0044C5E0",
+    "extern \"C\" void __cdecl GAME_HandleEndScreenButtonDown(); // 0x0044E460",
+    "extern \"C\" void __cdecl GAME_HandleEndScreenButtonUp(); // 0x0044E4F0",
+    "extern \"C\" void __cdecl WINMAIN_StartSession(); // 0x0044BC30",
+    "extern \"C\" void __cdecl WINMAIN_StopSession(); // 0x0044BD90"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/GAME/Game.inc",
@@ -590,25 +586,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/CORE/WINMAIN.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/GAME/Game_0044E5A0.cpp": {
-   "bytes": 226,
-   "definitions": 5,
-   "externs": [
-    "extern \"C\" void __cdecl WINMAIN_StartSession(); // 0x0044BC30",
-    "extern \"C\" void __cdecl WINMAIN_StopSession(); // 0x0044BD90",
-    "extern \"C\" void __cdecl GAME_SwallowMessage(); // 0x0044C5C0",
-    "extern \"C\" void __cdecl GAME_HandleActivateApp(); // 0x0044C5E0",
-    "extern \"C\" void __cdecl GAME_AdvanceBetaScreen(); // 0x0044D0A0",
-    "extern \"C\" void __cdecl GAME_AdvanceBetaScreenNoRepeat(); // 0x0044D0D0",
-    "extern \"C\" void __cdecl GAME_HandleKeyDown(); // 0x0044D360",
-    "extern \"C\" void __cdecl GAME_HandleEndScreenButtonDown(); // 0x0044E460",
-    "extern \"C\" void __cdecl GAME_HandleEndScreenButtonUp(); // 0x0044E4F0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/GAME/Game_0044B8A0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -9299,7 +9276,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/SOURCE/SBig_004212F0.cpp",
+   "file": "Source/Storm/SOURCE/SBig.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": null,
@@ -32186,7 +32163,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
+   "file": "Source/D2Client/GAME/Game.cpp",
    "fill": 2,
    "form": "declared",
    "fwd": null,
@@ -32264,7 +32241,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
+   "file": "Source/D2Client/GAME/Game.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnQuestScreens = ",
@@ -32289,7 +32266,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
+   "file": "Source/D2Client/GAME/Game.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnLineHeight = ",
@@ -32314,7 +32291,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
+   "file": "Source/D2Client/GAME/Game.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2MsgHandlerEntryStrc gaBetaScreenHandlers[7] = ",
@@ -32431,7 +32408,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
+   "file": "Source/D2Client/GAME/Game.cpp",
    "fill": 9,
    "form": "declared",
    "fwd": null,

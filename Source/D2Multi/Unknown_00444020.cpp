@@ -137,7 +137,6 @@ void __cdecl CHATDLG_FillGameList(); // 0x00444E70
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
-extern unsigned short gwRequestId; // 0x0070CD60
 extern unsigned short gwSavedRequestId; // 0x0077BBDC
 
 // 0x00445020

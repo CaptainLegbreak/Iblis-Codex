@@ -102,7 +102,6 @@ static void EDITBOX_DeleteSelection(D2WinEditBoxStrc* pEditBox); // 0x004FE9F0
 
 struct D2WinControlStrc;
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 
 #define D2WIN_MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -115,7 +114,6 @@ extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSiz
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 
-extern int gnWinCallbackDepth;                                                                     // 0x007D55C4
 
 
 static int EDITBOX_HasSelection(D2WinEditBoxStrc* pEditBox); // 0x004FDC70
@@ -442,20 +440,6 @@ static void __stdcall EDITBOX_GetCaretPosition(int* pX, int* pY, D2WinEditBoxStr
         *pX = D2WIN_MIN(D2WIN_MAX(*pX, ptEditData->nTextInsetX), ptEditData->controlHeader.nWidth - ptEditData->nTextInsetX - 1);
         *pY = D2WIN_MIN(D2WIN_MAX(*pY, ptEditData->nTextInsetY), ptEditData->controlHeader.nHeight - ptEditData->nTextInsetY - 1);
     }
-}
-
-int sub_A23_Emit_004FDC70(D2WinEditBoxStrc* pEditBox, unsigned char nKey)
-{
-    if (nKey != 0x18 && nKey != 1)
-        return 0;
-    return EDITBOX_HasSelection(pEditBox);
-}
-
-int __fastcall sub_A23_Emit_004FE9F0(D2WinEditBoxStrc* pEditBox, int nKey)
-{
-    if (nKey != 0x18 && nKey != 1)
-        EDITBOX_DeleteSelection(pEditBox);
-    return UNICODE_StrLen((Unicode*)pEditBox->wszText) + pEditBox->nCaretPosition;
 }
 
 tagPOINT gtMousePosition; // 0x007D55A4
