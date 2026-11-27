@@ -62977,7 +62977,7 @@
     {
      "va": "0x00610D30",
      "length": 43,
-     "name": "?sub_00610D30@D2Object00610D30Strc@@QAEPAXI@Z"
+     "name": "?sub_00610D30_Delete@D2Object00610D30Strc@@QAEPAXI@Z"
     },
     {
      "va": "0x00610D60",
@@ -65085,7 +65085,7 @@
     {
      "va": "0x00624710",
      "length": 6,
-     "name": "sub_00624710"
+     "name": "sub_00624710_GetLogFile"
     },
     {
      "va": "0x00624720",
@@ -70554,7 +70554,7 @@
     {
      "va": "0x0064DDB0",
      "length": 62,
-     "name": "sub_0064DDB0"
+     "name": "sub_0064DDB0_SetCollisionMask"
     },
     {
      "va": "0x0064DDF0",
@@ -73644,7 +73644,7 @@
     {
      "va": "0x0066FA10",
      "length": 186,
-     "name": "sub_0066FA10"
+     "name": "sub_0066FA10_AddPresetUnits"
     },
     {
      "va": "0x0066FAD0",
@@ -73653,7 +73653,7 @@
     {
      "va": "0x0066FCF0",
      "length": 262,
-     "name": "sub_0066FCF0"
+     "name": "sub_0066FCF0_CanPlaceSubstGroup"
     },
     {
      "va": "0x0066FE00",
@@ -73691,7 +73691,7 @@
     {
      "va": "0x006707A0",
      "length": 105,
-     "name": "sub_006707A0"
+     "name": "sub_006707A0_SubstWaypointShrine"
     }
    ]
   },
@@ -74588,17 +74588,17 @@
     {
      "va": "0x0067E660",
      "length": 62,
-     "name": "sub_0067E660"
+     "name": "sub_0067E660_SpawnEdgePresets"
     },
     {
      "va": "0x0067E6A0",
      "length": 402,
-     "name": "sub_0067E6A0"
+     "name": "sub_0067E6A0_SpawnAct4Presets"
     },
     {
      "va": "0x0067E840",
      "length": 69,
-     "name": "sub_0067E840"
+     "name": "sub_0067E840_SpawnSanctumPresets"
     },
     {
      "va": "0x0067E890",
@@ -74828,27 +74828,27 @@
     {
      "va": "0x006808F0",
      "length": 94,
-     "name": "sub_006808F0"
+     "name": "sub_006808F0_GetPatternCode"
     },
     {
      "va": "0x00680950",
      "length": 106,
-     "name": "sub_00680950"
+     "name": "sub_00680950_ShiftNeighbours"
     },
     {
      "va": "0x006809C0",
      "length": 176,
-     "name": "sub_006809C0"
+     "name": "sub_006809C0_ReadNeighbours"
     },
     {
      "va": "0x00680A70",
      "length": 157,
-     "name": "sub_00680A70"
+     "name": "sub_00680A70_MarkRoads"
     },
     {
      "va": "0x00680B10",
      "length": 359,
-     "name": "sub_00680B10"
+     "name": "sub_00680B10_PlaceRoadTiles"
     },
     {
      "va": "0x00680C80",
@@ -74863,7 +74863,7 @@
     {
      "va": "0x00680D70",
      "length": 645,
-     "name": "sub_00680D70"
+     "name": "sub_00680D70_CollectRoadStarts"
     }
    ]
   },

@@ -288,7 +288,7 @@ inline D2FP32_16 PATH_MakeCoord(unsigned int nPrecisionX, unsigned int nPrecisio
     return tCoord;
 }
 
-int sub_0044BE50(D2UnitStrc* pUnit); // 0x0044BE50
+int GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
 void __stdcall PATH_RecacheRoomAtCoordIfNeeded(D2FP32_16 tCoord, D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath); // 0x0064FB90
 
@@ -399,7 +399,7 @@ static BOOL __stdcall sub_0064FF90_TestStepCollision(D2PathPointStrc tNext, D2Pa
 {
     if (pPath->dwFlags & 4)
     {
-        D2_ASSERT(sub_0044BE50(pPath->pUnit) == 0 || sub_0044BE50(pPath->pUnit) == 1, 0x209);
+        D2_ASSERT(GAME_GetUnitTypeOrInvalid(pPath->pUnit) == 0 || GAME_GetUnitTypeOrInvalid(pPath->pUnit) == 1, 0x209);
         COLLISION_SetUnitCollisionMask(pPath->pRoom, tCurrent.X, tCurrent.Y, pPath->pRoom, tNext.X, tNext.Y, pPath->dwCollisionPattern, pPath->nFootprintCollisionMask);
         return 1;
     }
@@ -556,7 +556,7 @@ static inline int UNITS_IsServerSide(D2UnitStrc* pUnit)
     return bResult;
 }
 
-static inline int sub_0044BE50(D2UnitStrc* pUnit)
+static inline int GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -722,7 +722,7 @@ static BOOL sub_006503F0_CheckPathDone(D2DynamicPathStrc* pDynamicPath)
 // 0x006504F0
 int __fastcall sub_006504F0_TestPathFlag10(D2UnitStrc* pUnit, D2DynamicPathStrc* pPath)
 {
-    switch (sub_0044BE50(pUnit))
+    switch (GAME_GetUnitTypeOrInvalid(pUnit))
     {
     case 0:
         if (!(pPath->dwFlags & 0x10))
