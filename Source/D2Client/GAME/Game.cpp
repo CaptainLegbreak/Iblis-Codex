@@ -3259,13 +3259,13 @@ int __stdcall sub_K02_EmitIsMouseInRect(int nX, int nY, int nWidth, int nHeight)
 }
 
 // 0x0044D360
-void __stdcall GAME_HandleKeyDown(void* pMsg)
+void __stdcall GAME_HandleKeyDown(SMSGHANDLER_PARAMS* pMsg)
 {
     int nOne = 1;
-    if ((*(int*)((char*)pMsg + 0x0C) & 0x40000000) == 0)
+    if ((pMsg->lParam & 0x40000000) == 0)
         gbEndScreenDismissed = nOne;
-    *(int*)((char*)pMsg + 0x18) = nOne;
-    *(int*)((char*)pMsg + 0x1C) = 0;
+    pMsg->bReturn = nOne;
+    pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
