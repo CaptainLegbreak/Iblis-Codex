@@ -1523,8 +1523,8 @@ void __fastcall AITHINK_Fn094_DesertTurret(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
 
-    if (pMonStatsTxt->nSkill[0] >= 0 && sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, nX, nY)
-        && sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget)))
+    if (pMonStatsTxt->nSkill[0] >= 0 && MONSTERSPAWN_CheckSkillPlacement(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, nX, nY)
+        && MONSTERSPAWN_CheckSkillPlacement(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget)))
     {
         AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], 0, nX, nY);
         PATH_SetTargetPos((Obj00648AD0*)pUnit->pDynamicPath, nX, nY);
@@ -3821,7 +3821,7 @@ int __stdcall sub_005E5270(int nUnused1, int nUnused2)
 }
 
 // 0x005E5280
-void __fastcall sub_005E5280_AiSpecialState04(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+void __fastcall AITHINK_ClearInfernoAndResetAi(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
     if (STATES_CheckState(pUnit, STATE_INFERNO))
@@ -6167,8 +6167,8 @@ int __fastcall AITHINK_RollDiabloAction(D2AiControlStrc* pAi,D2UnitStrc* pUnit,D
         if(bVeryFar){nWeights[9]=20;nWeights[14]=60;}
         if(bPortal)nWeights[15]=15;
     }
-    if(sub_005FD470(pGame,pUnit,SKILL_DIABPRISON,pTarget,0,0))nWeights[9]=0;
-    if(nWeights[15] && pPortal && !sub_005FD470(pGame,pUnit,SKILL_DIABPRISON,pPortal,0,0))nWeights[15]=0;
+    if(MONSTERSPAWN_CheckSkillPlacement(pGame,pUnit,SKILL_DIABPRISON,pTarget,0,0))nWeights[9]=0;
+    if(nWeights[15] && pPortal && !MONSTERSPAWN_CheckSkillPlacement(pGame,pUnit,SKILL_DIABPRISON,pPortal,0,0))nWeights[15]=0;
     int* pWeight=nWeights;
     int nTotal=0;
     for(int n=17;n;--n)nTotal+=*pWeight++;
@@ -6299,8 +6299,8 @@ int __fastcall AITHINK_RollUberDiabloAction(D2AiControlStrc* pAi,D2UnitStrc* pUn
         if(bVeryFar){nWeights[9]=20;nWeights[1]=60;}
         if(bPortal)nWeights[15]=15;
     }
-    if(sub_005FD470(pGame,pUnit,SKILL_DIABPRISON,pTarget,0,0))nWeights[9]=0;
-    if(nWeights[15] && pPortal && !sub_005FD470(pGame,pUnit,SKILL_DIABPRISON,pPortal,0,0))nWeights[15]=0;
+    if(MONSTERSPAWN_CheckSkillPlacement(pGame,pUnit,SKILL_DIABPRISON,pTarget,0,0))nWeights[9]=0;
+    if(nWeights[15] && pPortal && !MONSTERSPAWN_CheckSkillPlacement(pGame,pUnit,SKILL_DIABPRISON,pPortal,0,0))nWeights[15]=0;
     int* pWeight=nWeights;
     int nTotal=0;
     for(int n=17;n;--n)nTotal+=*pWeight++;
@@ -8791,7 +8791,7 @@ static inline unsigned int SEED_RollAgain_005EDC50(D2SeedStrc* pSeed, unsigned i
 }
 
 // 0x005EDC50
-void __fastcall sub_005EDC50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+void __fastcall AITHINK_Fn127_NpcBarb(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     int nStep = -30;
     int bCombat = pAiTickParam->bCombat;

@@ -1607,7 +1607,7 @@ int __fastcall ITEMS_RollSetItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
         return sub_005C25C0_RollSetItemRecord(pItemDrop, pItem);
     }
 
-    return sub_005C2740_RollLegacySetItem(pItem);
+    return ITEMS_RollLegacySetItem(pItem);
 }
 
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem);                                                    // 0x0062BA80

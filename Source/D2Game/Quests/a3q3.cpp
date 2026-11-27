@@ -128,7 +128,7 @@ void __fastcall ACT3Q3_UnitIterate_SetGidbinnBroughtBackQuestState(D2GameStrc* p
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
-bool __fastcall sub_005B9A30_QuestSeqCallback(D2GameStrc*, D2QuestDataStrc*); // 0x005B9A30
+bool __fastcall ACT3Q3_SpawnGidbinnBoss(D2GameStrc*, D2QuestDataStrc*); // 0x005B9A30
 
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
 
@@ -796,7 +796,7 @@ unsigned char __fastcall ACT3Q3_IsBossSpawning(D2GameStrc* pGame)
     return 0;
 }
 
-bool __fastcall sub_005B9A30_QuestSeqCallback(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
+bool __fastcall ACT3Q3_SpawnGidbinnBoss(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
 {
     D2Act3Quest3Strc* pQuestDataEx = (D2Act3Quest3Strc*)pQuestData->pQuestDataEx;
     pQuestDataEx->bSpawnTimerStarted = 0;
@@ -909,7 +909,7 @@ int __fastcall OBJECTS_OperateFunction31_GidbinnDecoy(D2ObjOperateFnStrc* pOp)
         if (!pEx->bSpawnTimerStarted)
         {
             pEx->bSpawnTimerStarted = 1;
-            QUESTS_CreateTimer(pQuest, sub_005B9A30_QuestSeqCallback, 7);
+            QUESTS_CreateTimer(pQuest, ACT3Q3_SpawnGidbinnBoss, 7);
         }
     }
     return 0;

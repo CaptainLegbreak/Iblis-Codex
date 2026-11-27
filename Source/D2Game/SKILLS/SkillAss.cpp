@@ -1602,7 +1602,7 @@ static void __stdcall SKILLS_ApplyProgressiveElementalConversion(D2UnitStrc* pUn
 }
 
 // 0x005D3AC0
-void __fastcall sub_005D3AC0(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
+void __fastcall SKILLS_ApplyProgressivePhysicalDamageBonus(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
 {
     if (!pDamage || !(pDamage->wResultFlags & 1))
     {
@@ -2370,7 +2370,7 @@ static inline int ApplyRatio_Inline(int nValue, int nMultiplier, int nDivisor)
 // 0x005D54B0
 static void __stdcall SKILLS_FillKickDamage(D2GameStrc* pGame, D2DamageStrc* pDamage, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, D2UnitStrc* pUnit)
 {
-    sub_005D3AC0(pUnit, pDamage);
+    SKILLS_ApplyProgressivePhysicalDamageBonus(pUnit, pDamage);
     pDamage->dwHitFlags |= 3;
 
     int nMinDamage = SKILLS_GetMinPhysDamage(pUnit, nSkillId, nSkillLevel, 0);
@@ -2863,7 +2863,7 @@ static void __stdcall SKILLS_AllocDragonClawCombat(D2GameStrc* pGame, D2UnitStrc
     if (damage.wResultFlags & 1)
     {
         damage.dwHitFlags |= 2;
-        sub_005D3AC0(pUnit, &damage);
+        SKILLS_ApplyProgressivePhysicalDamageBonus(pUnit, &damage);
         damage.dwEnDmgPct += SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
         if (pSkillsTxtRecord->nEType > 0)
         {

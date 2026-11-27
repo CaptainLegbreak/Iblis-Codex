@@ -2999,7 +2999,7 @@ void __fastcall AITHINK_Fn049_ZakarumPriest(D2GameStrc* pGame, D2UnitStrc* pUnit
             nTargetX = ((nTargetX - nX) << nShift) + nTargetX;
             nTargetY = ((nTargetY - nY) << nShift) + nTargetY;
 
-            if (sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[2], 0, nTargetX, nTargetY))
+            if (MONSTERSPAWN_CheckSkillPlacement(pGame, pUnit, pMonStatsTxt->nSkill[2], 0, nTargetX, nTargetY))
             {
                 AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[2], pMonStatsTxt->nSkill[2], 0, nTargetX, nTargetY);
                 return;
@@ -4483,7 +4483,7 @@ void __fastcall AITHINK_Fn013_FallenShaman(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     D2UnitStrc* pResurrectTarget = arg.pTarget;
     if (pResurrectTarget && arg.nCounter && (int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_RESURRECT_AND_COMMAND_CHANCE_PCT)
-        && sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[0], arg.pTarget, 0, 0))
+        && MONSTERSPAWN_CheckSkillPlacement(pGame, pUnit, pMonStatsTxt->nSkill[0], arg.pTarget, 0, 0))
     {
         AITACTICS_UseSequenceSkill(pGame, pUnit, pMonStatsTxt->nSkill[0], pResurrectTarget, 0, 0);
         return;
@@ -4685,7 +4685,7 @@ void __fastcall AITHINK_Fn016_ClawViper(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
 
     if (pMonStatsTxt->nSkill[0] >= 0 && nTargetDistance < AI_GetParam_005F1B60(pGame, pMonStatsTxt, CLAWVIPER_AI_PARAM_CHARGE_DISTANCE)
         && AI_RollPercentage_005F1B60(pUnit) < AI_GetParam_005F1B60(pGame, pMonStatsTxt, CLAWVIPER_AI_PARAM_CHARGE_CHANCE_PCT)
-        && sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget)))
+        && MONSTERSPAWN_CheckSkillPlacement(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget)))
     {
         AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
 
@@ -4775,7 +4775,7 @@ void __fastcall AITHINK_Fn142_ClawViperEx(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
     if (pMonStatsTxt->nSkill[0] >= 0 && nTargetDistance < AI_GetParam_005F1B60(pGame, pMonStatsTxt, CLAWVIPER_AI_PARAM_CHARGE_DISTANCE)
         && AI_RollPercentage_005F1DE0(pUnit) < AI_GetParam_005F1B60(pGame, pMonStatsTxt, CLAWVIPER_AI_PARAM_CHARGE_CHANCE_PCT)
-        && sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget)))
+        && MONSTERSPAWN_CheckSkillPlacement(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget)))
     {
         AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
 
@@ -4822,7 +4822,7 @@ void __fastcall AITHINK_Fn017_SandLeaper(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 
     if (pMonStatsTxt->nSkill[0] >= 0 && nDistance < 5
         && (int)(AI_RollSeedUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, SANDLEAPER_AI_PARAM_LEAP_CHANCE_PCT)
-        && sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, 0, 0))
+        && MONSTERSPAWN_CheckSkillPlacement(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, 0, 0))
     {
         AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
         return;
@@ -5245,7 +5245,7 @@ void __fastcall AITHINK_Fn022_GreaterMummy(D2GameStrc* pGame,D2UnitStrc* pUnit,D
   AITACTICS_UseSkill(pGame,pUnit,pMonStatsTxt->nSkillMode[1],pMonStatsTxt->nSkill[1],pActionTarget,0,0); return;
  }
  pActionTarget=args.pReviveTarget;
- if(pActionTarget && (int)((unsigned int)RollSeed_005EFE20(pUnit)%100)<AI_PARAM(pGame, pMonStatsTxt, 1) && sub_005FD470(pGame,pUnit,pMonStatsTxt->nSkill[0],args.pReviveTarget,0,0))
+ if(pActionTarget && (int)((unsigned int)RollSeed_005EFE20(pUnit)%100)<AI_PARAM(pGame, pMonStatsTxt, 1) && MONSTERSPAWN_CheckSkillPlacement(pGame,pUnit,pMonStatsTxt->nSkill[0],args.pReviveTarget,0,0))
  {
   UNITS_SetTargetUnitForDynamicUnit(pUnit,pActionTarget);
   AITACTICS_UseSequenceSkill(pGame,pUnit,pMonStatsTxt->nSkill[0],pActionTarget,0,0); return;
@@ -6626,7 +6626,7 @@ void __fastcall AITHINK_Fn065_FetishShaman(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     D2UnitStrc* pDeadTarget = arg.pClosestDeadTarget;
     if (pDeadTarget && (int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FETISHSHAMAN_AI_PARAM_HEAL_CHANCE_PCT)
-        && sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[2], arg.pClosestDeadTarget, 0, 0))
+        && MONSTERSPAWN_CheckSkillPlacement(pGame, pUnit, pMonStatsTxt->nSkill[2], arg.pClosestDeadTarget, 0, 0))
     {
         D2AiCmdStrc aiCmd;
         aiCmd.nCmdParam[0] = 14;

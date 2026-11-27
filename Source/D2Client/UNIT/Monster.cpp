@@ -179,7 +179,7 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
-int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask); // 0x00463720
+int __fastcall ITEMS_CheckUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask); // 0x00463720
 
 
 
@@ -1678,7 +1678,7 @@ static void MONSTER_HandleAttackEvent(D2UnitStrc* pUnit)
         return;
     }
 
-    if (!sub_00463720_TestUnitFlagEx(pUnit, 0x2000))
+    if (!ITEMS_CheckUnitFlagEx(pUnit, 0x2000))
     {
         UNITMODE_SetUnitMode(pUnit, 1);
         sub_00624390(pUnit);

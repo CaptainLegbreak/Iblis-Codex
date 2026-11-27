@@ -164,7 +164,7 @@ int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2
 }
 
 // 0x005B0CC0
-void __stdcall sub_005B0CC0(int nUnused1)
+void __stdcall AITHINK_Fn000(int nUnused1)
 {
 }
 

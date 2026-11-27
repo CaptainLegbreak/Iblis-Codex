@@ -227,7 +227,7 @@ static void __stdcall PLRTRADE_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pInter
 
 void __fastcall PLRTRADE_RefreshTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00568D10
 
-int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask);                         // 0x00463720
+int __fastcall ITEMS_CheckUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask);                         // 0x00463720
 
 
 #define CUBE_MAX(a,b) ((a)>(b)?(a):(b))
@@ -2874,7 +2874,7 @@ int __fastcall PLRTRADE_PrepareItemChange(D2GameStrc* pGame, D2UnitStrc* pPlayer
             {
                 return 0;
             }
-            if (sub_00463720_TestUnitFlagEx(pPlayer, 0x800000) || sub_00463720_TestUnitFlagEx(pOtherPlayer, 0x800000))
+            if (ITEMS_CheckUnitFlagEx(pPlayer, 0x800000) || ITEMS_CheckUnitFlagEx(pOtherPlayer, 0x800000))
             {
                 return 0;
             }

@@ -176,7 +176,7 @@ int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc*, int); // 0x00451F30
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int); // 0x00451F80
 
-int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc*, unsigned int); // 0x00463720
+int __fastcall ITEMS_CheckUnitFlagEx(D2UnitStrc*, unsigned int); // 0x00463720
 
 void __fastcall PLAYER_SynchronizeItemsToClient(D2UnitStrc*, D2ClientStrc*); // 0x00534F80
 
@@ -934,7 +934,7 @@ void __fastcall SUNITMSG_SendUnitToClient(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         {
             D2UnitStrc* pOwner = SUNIT_GetServerUnit(pGame, 0, INVENTORY_GetOwnerId(UnitInventory(pUnit)));
             D2_ASSERT(pOwner, 184);
-            D2GAME_PACKETS_SendPacket0x74(pClient, pOwner, pUnit, sub_00463720_TestUnitFlagEx(pUnit, 0x1000));
+            D2GAME_PACKETS_SendPacket0x74(pClient, pOwner, pUnit, ITEMS_CheckUnitFlagEx(pUnit, 0x1000));
         }
         else PLAYER_SynchronizeItemsToClient(pUnit, pClient);
         D2GAME_STATES_SendUnitStates(pUnit, pClient);

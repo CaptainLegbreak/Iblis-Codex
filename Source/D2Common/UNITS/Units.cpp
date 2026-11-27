@@ -197,7 +197,7 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 D2UnitStrc* __stdcall INVENTORY_GetCompositItem(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063C050
 
 
-int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask); // 0x00463720
+int __fastcall ITEMS_CheckUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask); // 0x00463720
 
 
 unsigned char __stdcall ITEMS_GetHitClassFromItem(D2UnitStrc* pItem); // 0x0062A180
@@ -2634,7 +2634,7 @@ D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2)
         {
             const int nFrame = pUnit->dwSeqFrame >> 8;
             int bOther;
-            if (sub_00463720_TestUnitFlagEx(pUnit, 0x4000000))
+            if (ITEMS_CheckUnitFlagEx(pUnit, 0x4000000))
             {
                 bOther = nFrame % 2;
             }

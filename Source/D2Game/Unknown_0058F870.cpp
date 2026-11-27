@@ -47,7 +47,7 @@ void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsign
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, int(__fastcall* pfIterate)(D2GameStrc*, D2UnitStrc*, void*), bool bIterate); // 0x00544300
 
 // 0x0058F870
-void __fastcall sub_0058F870_ScrollMessage(D2QuestDataStrc* quest, D2QuestArgStrc* arg)
+void __fastcall ACT1Intro_Callback11_ScrollMessage(D2QuestDataStrc* quest, D2QuestArgStrc* arg)
 {
     int npc = arg->nOldLevel;
     unsigned short message = arg->nMessageIndex;
@@ -134,7 +134,7 @@ void __fastcall ACT1Intro_InitQuestData(D2QuestDataStrc* pQuestData)
 {
     memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
     pQuestData->pCallback[QUESTEVENT_NPCACTIVATE] = ACT1Intro_Callback00_NpcActivate;
-    pQuestData->pCallback[QUESTEVENT_SCROLLMESSAGE] = sub_0058F870_ScrollMessage;
+    pQuestData->pCallback[QUESTEVENT_SCROLLMESSAGE] = ACT1Intro_Callback11_ScrollMessage;
     pQuestData->pNPCMessages = gpAct1IntroNpcMessages;
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
