@@ -22,11 +22,11 @@ extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
 #include "D2GameFuncs.h"
 D2ClientStrc* __fastcall CLIENTS_GetNext(D2ClientStrc* pClient); // 0x00539080
 int __fastcall SrvVerifyCreateNewGame(int nClientId, D2GSPacketClt66* pPacket); // 0x0052C330
-void __fastcall sSrvSendGameInit(int nClientId, char* szGameName, unsigned char nGameType, unsigned char nCharTemplate, const char* szClientName, int nArena, unsigned int nFlags, int nArenaTemplate, int a9, int a10, unsigned char nDifficulty, unsigned char nLocale, int a13, int a14); // 0x00530BF0
-void __fastcall GAME_UpdatePing(int nClientId, int a2, int a3, int a4); // 0x0052C400
+void __fastcall sSrvSendGameInit(int nClientId, char* szGameName, unsigned char nGameType, unsigned char nCharTemplate, const char* szClientName, int nArena, unsigned int nFlags, int nArenaTemplate, int nUnused1, int nUnused2, unsigned char nDifficulty, unsigned char nLocale, int nUnused3, int nUnused4); // 0x00530BF0
+void __fastcall GAME_UpdatePing(int nClientId, int nTick, int nDelay, int nUnused); // 0x0052C400
 int __stdcall SERVER_HackListClient(int nClientId, const char* szFile, int nLine); // 0x0052B4F0
-int __fastcall SrvVerifyJoinGame(int nClientId, unsigned short nGameId, unsigned char nPlayerClass, const char* szClientName, int nTokenId, char* szAccountName, int* a7, unsigned char nLocale, int* a9, int* a10, int* a11, int* a12, int a13); // 0x0052C690
-void __fastcall SrvJoinGame(int dwClientId, unsigned short nGameId, int nClass, const char* szClientName, int a5, const char* szAccountName, int nCharSaveTransactionToken, int nLocale, int a8, int a9, int a11, int a12, int a13); // 0x0052FA50
+int __fastcall SrvVerifyJoinGame(int nClientId, unsigned short nGameId, unsigned char nPlayerClass, const char* szClientName, int nTokenId, char* szAccountName, int* pOutCharSaveTransactionToken, unsigned char nLocale, int* a9, int* a10, int* a11, int* a12, int a13); // 0x0052C690
+void __fastcall SrvJoinGame(int dwClientId, unsigned short nGameId, int nClass, const char* szClientName, int a5, const char* szAccountName, int nCharSaveTransactionToken, int nLocale, int nUnused1, int nUnused2, int a11, int a12, int a13); // 0x0052FA50
 int __fastcall GAME_VerifyEndGame(int nClientId); // 0x0052C8E0
 int __fastcall sub_0052DAF0_Return1(int nClientId); // 0x0052DAF0
 void __fastcall GAME_HandleGameListRequest(int nClientId); // 0x0052E9B0

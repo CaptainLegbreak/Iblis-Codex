@@ -7,7 +7,7 @@
 #pragma pack(push, 1)
 struct D2QuestTextMsgStrc
 {
-    unsigned char unk0x000[1];
+    unsigned char bShown;
     int nQuestId;
     unsigned short wTitle;
     Unicode wszText[300];

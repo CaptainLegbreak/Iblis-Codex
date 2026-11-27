@@ -121,8 +121,8 @@ public:
     virtual int sub_004BE0A0_GetLineCount();
     virtual void sub_004BE0B0_Clear();
     virtual void sub_004BE500_AddLine(const Unicode* wszText0, const Unicode* wszText1, const Unicode* wszText2,
-        const Unicode* wszText3, const Unicode* wszText4, const Unicode* wszText5, int nArg20, int nData,
-        int bUseDefault, int nArg2C);
+        const Unicode* wszText3, const Unicode* wszText4, const Unicode* wszText5, int nEntryData, int nColor,
+        int bUseDefault, int nFont);
 
     void DrawClippedText(const Unicode* wszSource, int nX, int nY, int nColor);
     int HitTestScrollDown(SMSGHANDLER_PARAMS* pMsg);
@@ -184,7 +184,7 @@ public:
     virtual int GetValue();
     virtual void sub_004BEDE0_ForwardSlot3C(const Unicode* wszText0, const Unicode* wszText1,
         const Unicode* wszText2, const Unicode* wszText3, const Unicode* wszText4, const Unicode* wszText5,
-        int nArg20, int nData, int bUseDefault, int nArg2C);
+        int nEntryData, int nColor, int bUseDefault, int nFont);
     virtual int sub_004BEDF0_ForwardGetEntryData(int nIndex);
     virtual int sub_004BEE00_Slot14();
     virtual void sub_004BEE10_Slot15();

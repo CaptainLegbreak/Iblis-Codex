@@ -1,5 +1,6 @@
 #include "D2StormAutoLink.h"
 #include "D2StormSha1.h"
+#include "StormApi.h"
 #define DECODE_LENGTH sub_00420F80_DecodeLength
 #define FROM_BINARY sub_00423380_FromBinary
 #define FROM_LENGTH_PREFIXED FromStream
@@ -178,7 +179,6 @@ struct D2StormBigStrc
     static void operator delete(void* pMemory);
 };
 
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, BigBuffer* pIn); // 0x00421CB0
 int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 

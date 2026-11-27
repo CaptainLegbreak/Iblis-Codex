@@ -232,8 +232,8 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(void* hFile
 struct D2BnDownloadRecordStrc
 {
     unsigned short nSize;
-    char nUnk0x02;
-    char nUnk0x03;
+    char nProtocolVersionLow;
+    char nProtocolVersionHigh;
     unsigned int dwPlatform;
     unsigned int dwProduct;
     unsigned int nArg1;
@@ -1537,8 +1537,8 @@ void __fastcall BNDOWNLOAD_RequestDownload(int nType, int nSubType, unsigned int
 
     memset(pRecord, 0, 0x230);
     pRecord->nSize = (unsigned short)(strlen(szFile) + 0x21);
-    pRecord->nUnk0x02 = 0;
-    pRecord->nUnk0x03 = 1;
+    pRecord->nProtocolVersionLow = 0;
+    pRecord->nProtocolVersionHigh = 1;
     pRecord->dwPlatform = 0x49583836;
     pRecord->dwProduct = 0x44324456;
     pRecord->nArg1 = nArg1;
@@ -1757,8 +1757,8 @@ int __fastcall BNDOWNLOAD_RequestNamedFile(const char* szText, int nLen)
 
     memset(pRecord, 0, 0x230);
     pRecord->nSize = (unsigned short)(strlen(szText) + 0x21);
-    pRecord->nUnk0x02 = 0;
-    pRecord->nUnk0x03 = 1;
+    pRecord->nProtocolVersionLow = 0;
+    pRecord->nProtocolVersionHigh = 1;
     pRecord->dwPlatform = 0x49583836;
     pRecord->dwProduct = 0x44324456;
     pRecord->nArg1 = 0;

@@ -123,7 +123,7 @@ D2UnitStrc* __stdcall INVENTORY_IsItemInInventory(D2InventoryStrc* pInventory, D
 
 int __fastcall sub_00663A20_SetItemBonusStates(D2UnitStrc* pItem, unsigned int nSetItemMask); // 0x00663A20
 
-int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3); // 0x00663B40
+int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nUpdateMode); // 0x00663B40
 
 // 0x006634F0
 int __fastcall sub_006634F0_RollSeededRecord(int nSeed, D2Rolled6634F0Strc* pOut, unsigned char nLevel)
@@ -473,9 +473,9 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 D2SetItemsTxt* __fastcall DATATBLS_GetSetItemsTxtRecord(int nIndex);                                    // 0x00483440
 
 // 0x00663B40
-int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3)
+int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nUpdateMode)
 {
-    if (a3 > 1)
+    if (nUpdateMode > 1)
     {
         return 0;
     }
@@ -516,7 +516,7 @@ int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pIte
         {
             if (nValue == STATLIST_GetStatValue(pStatList, STAT_VALUE, 0))
             {
-                if (a3 == 0)
+                if (nUpdateMode == 0)
                 {
                     STATLIST_RemoveAllStats(pStatList);
                 }
@@ -530,7 +530,7 @@ int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pIte
         ++i;
     }
 
-    if (a3 == 1)
+    if (nUpdateMode == 1)
     {
         return 0;
     }
@@ -547,7 +547,7 @@ int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pIte
     STATLIST_SetState(pStatList, nState);
 
 update:
-    switch (a3)
+    switch (nUpdateMode)
     {
     case 0:
         STATLIST_AddStat(pStatList, STAT_VALUE, nValue, 0);
@@ -564,7 +564,7 @@ update:
 }
 
 // 0x00663CC0
-int __stdcall ITEMS_UpdateSets(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3, int a4)
+int __stdcall ITEMS_UpdateSets(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nUpdateMode, int bForceStateUpdate)
 {
     if (!pUnit)
     {
@@ -578,12 +578,12 @@ int __stdcall ITEMS_UpdateSets(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3, int
 
     const unsigned int nSetItemMask = ITEMS_GetStoreSetItemsMaskInline(pUnit, pItem);
 
-    if (a4 || !a3)
+    if (bForceStateUpdate || !nUpdateMode)
     {
         sub_00663A20_SetItemBonusStates(pItem, nSetItemMask);
     }
 
-    sub_00663B40_SetBonusStatList(pUnit, pItem, a3);
+    sub_00663B40_SetBonusStatList(pUnit, pItem, nUpdateMode);
 
     return 1;
 }
