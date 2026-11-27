@@ -114,7 +114,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 extern D2NPCMessageTableStrc gpAct5Q4NpcMessages;                                                           // 0x00734AC8
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);  // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);  // 0x0040B430
 
 void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs); // 0x00540510
 
@@ -649,7 +649,7 @@ void __fastcall ACT5Q4_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
 
-    D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act5Quest4Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q4.cpp", LINE_INIT_ALLOC, 0);
+    D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act5Quest4Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q4.cpp", LINE_INIT_ALLOC, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
     pQuestData->eFilter = QUESTSTATEFLAG_A5Q4;
     pQuestData->pfStatusFilter = ACT5Q4_StatusFilterCallback;
