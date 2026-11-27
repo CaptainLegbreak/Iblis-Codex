@@ -56,7 +56,6 @@ void __fastcall UI_ToggleListDialog(int nResolution); // 0x004549B0
 
 extern D2McpPacketHandler gpfnMcpPacketHandlers[]; // 0x0070ED00
 
-extern int gnScreenWidth; // 0x0071146C
 
 extern int gnSavedScreenWidth; // 0x00711474
 

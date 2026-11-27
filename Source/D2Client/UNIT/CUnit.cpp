@@ -583,7 +583,6 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 
 extern int gnTimerEnd; // 0x007A7464
 
-extern int gnScreenWidth; // 0x0071146C
 
 int __fastcall CUNIT_IsPetSkillTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00464EC0
 

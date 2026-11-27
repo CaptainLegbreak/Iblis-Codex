@@ -227,7 +227,6 @@ int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 
-extern int gnScreenWidth; // 0x0071146C
 
 struct ROSTER_SetCtrlState
 {

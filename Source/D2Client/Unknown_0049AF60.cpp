@@ -41,7 +41,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
 int __fastcall ROSTER_GetPartyFlags(D2StoredUnitRecordStrc* pEntry); // 0x00479D20
-extern int gnScreenWidth; // 0x0071146C
 extern int gbRosterMode; // 0x007BF038
 
 static inline int GetCenteredStringXInline(unsigned short nStringIndex, int nCenterX)

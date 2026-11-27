@@ -340,7 +340,6 @@ extern void* ghConnectEvent;                                                    
 
 
 
-extern int gnScreenWidth; // 0x0071146C
 
 
 

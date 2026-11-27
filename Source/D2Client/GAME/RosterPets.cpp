@@ -64,7 +64,6 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 
 
-extern int gnScreenWidth;                                                                               // 0x0071146C
 
 extern D2PanelAnimEntryStrc gaPanelAnim[];                                                         // 0x00712020
 

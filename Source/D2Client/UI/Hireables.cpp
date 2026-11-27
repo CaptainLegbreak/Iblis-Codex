@@ -45,7 +45,6 @@ D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
 
 
-extern int gnScreenWidth; // 0x0071146C
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

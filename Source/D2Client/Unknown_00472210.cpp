@@ -157,7 +157,6 @@ struct D2ActiveRoomStrc;
 
 struct D2GfxLightStrc;
 
-extern int gnScreenWidth; // 0x0071146C
 
 int __fastcall DATAARRAYS_AllocateHandle(D2WeatherStrc* pArray);                                             // 0x006BCB40
 

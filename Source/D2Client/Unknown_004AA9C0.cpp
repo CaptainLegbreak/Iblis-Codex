@@ -22,7 +22,6 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const cha
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern "C" const char gszFormatD[];                                                                // 0x006D57BC
-extern int gnScreenWidth;                                                                               // 0x0071146C
 extern int gnSkillPage;                                                                               // 0x00724BEC
 extern int gnTabSelection;                                                                         // 0x00724CE0
 int gbSkillTabPressed; // 0x007C0C38

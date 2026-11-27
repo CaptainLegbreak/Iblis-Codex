@@ -60,7 +60,6 @@ void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unico
 
 
 
-extern int gnScreenWidth; // 0x0071146C
 
 
 
