@@ -469,7 +469,7 @@ extern EventCallbackFunction gpfnItemEventFunctions[15]; // 0x006E117C
 
 extern EventCallbackFunction gpfnObjectEventFunctions[15]; // 0x006E19B0
 
-extern MonEventFunc gpMonsterEventFunctions[16]; // 0x006E2490
+extern MonEventFunc const gpMonsterEventFunctions[16]; // 0x006E2490
 
 
 

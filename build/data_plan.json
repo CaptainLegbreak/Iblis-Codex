@@ -93390,13 +93390,25 @@
   },
   {
    "alias": false,
-   "cname": "gData_006E2490",
+   "cname": null,
    "declared": true,
-   "decorated": "?gpMonsterEventFunctions@@3PAP6IXPAUD2GameStrc@@PAUD2UnitStrc@@HH@ZA",
+   "decorated": null,
    "file": "Source/D2Game/MONSTER/MonsterMode.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" const struct d2data_006E2490_t gData_006E2490; // 0x006E2490",
-   "head": "extern \"C\" const struct d2data_006E2490_t gData_006E2490 = ",
+   "fill": 13,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern MonEventFunc const gpMonsterEventFunctions[16] = ",
+   "model": {
+    "elem": {
+     "fn": true,
+     "k": "ptr",
+     "size": 4,
+     "spell": "MonEventFunc"
+    },
+    "k": "arr",
+    "n": 16,
+    "size": 64
+   },
    "name": "gpMonsterEventFunctions",
    "pointers": [
     [
@@ -93490,8 +93502,10 @@
    ],
    "region": "rdata",
    "size": 64,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006E2490_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    unsigned char b4[4];\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    unsigned char b11[4];\n    const void* p12;\n    unsigned char b13[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006E2490\n#pragma comment(linker, \"/alternatename:?gpMonsterEventFunctions@@3PAP6IXPAUD2GameStrc@@PAUD2UnitStrc@@HH@ZA=_gData_006E2490\")",
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E2490",
+   "type": "MonEventFunc",
    "va": "0x006E2490"
   },
   {
