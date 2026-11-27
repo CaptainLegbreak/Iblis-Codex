@@ -46164,6 +46164,10 @@
      "length": 381
     },
     {
+     "va": "0x005645E0",
+     "length": 651
+    },
+    {
      "va": "0x00564870",
      "length": 17,
      "name": "?TASK_TASK_InitializeClock@@YGXXZ"
@@ -46235,16 +46239,6 @@
     "/Ob2",
     "/Gd",
     "/EHsc"
-   ]
-  },
-  {
-   "rank": 0,
-   "file": "Source/D2Game/GAME/Task_005645E0.cpp",
-   "functions": [
-    {
-     "va": "0x005645E0",
-     "length": 651
-    }
    ]
   },
   {
