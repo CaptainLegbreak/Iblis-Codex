@@ -1027,8 +1027,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/SkillDesc_004E1FF0.cpp": {
-   "bytes": 520,
-   "definitions": 8,
+   "bytes": 448,
+   "definitions": 5,
    "externs": [
     "extern \"C\" char gD2DataTables[]; // 0x0096BC30"
    ],
@@ -1038,8 +1038,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/SkillDesc.cpp": {
-   "bytes": 475,
-   "definitions": 15,
+   "bytes": 547,
+   "definitions": 14,
    "externs": [
     "extern \"C\" void __cdecl SKILLDESC_DrawThrowAndElemDamage(); // 0x004EAAA0",
     "extern \"C\" void __cdecl SKILLSMON_DescIfRecord(); // 0x004EC040"
@@ -1257,7 +1257,7 @@
    "definitions": 0,
    "lang": "cpp",
    "state": "sourced",
-   "sourced": 2
+   "sourced": 1
   },
   "Source/D2DDraw/Src/ddSmack.cpp": {
    "bytes": 0,
@@ -2421,7 +2421,7 @@
   },
   "Source/D2Game/MONSTER/MonsterMode.cpp": {
    "bytes": 952,
-   "definitions": 11,
+   "definitions": 10,
    "externs": [
     "extern \"C\" void __cdecl SKILLS_EventCallback_ActiveState(); // 0x0056D790",
     "extern \"C\" void __cdecl SKILLS_EventCallback_PeriodicSkillAura(); // 0x0056FCB0",
@@ -3614,8 +3614,8 @@
    "sourced": 3
   },
   "Source/D2Client/Unknown_004A6460.cpp": {
-   "bytes": 728,
-   "definitions": 7,
+   "bytes": 726,
+   "definitions": 6,
    "externs": [
     "extern \"C\" void __cdecl D2CLIENT_CloseNPCTalk(); // 0x004A17D0",
     "extern \"C\" void __cdecl TEXT_EatMsg(); // 0x0049DA10",
@@ -4401,7 +4401,7 @@
    "definitions": 0,
    "lang": "cpp",
    "state": "sourced",
-   "sourced": 2
+   "sourced": 1
   },
   "Source/D2MCPClient/Src/McpConnect.cpp": {
    "bytes": 0,
@@ -48116,19 +48116,93 @@
   },
   {
    "alias": false,
-   "cname": "gData_007224E8",
+   "cname": null,
    "declared": true,
-   "decorated": "?gaLayouts@@3PAUD2WaypointLayoutStrc@@A",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_0049BB40.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007224E8_t gData_007224E8; // 0x007224E8",
-   "head": "extern \"C\" struct d2data_007224E8_t gData_007224E8 = ",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2WaypointLayoutStrc gaLayouts[9] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "nCellX",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nCellY",
+       4,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nTextX",
+       8,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nTextY",
+       12,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nRowX",
+       16,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nRowY",
+       20,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ]
+     ],
+     "name": "D2WaypointLayoutStrc",
+     "size": 24
+    },
+    "k": "arr",
+    "n": 9,
+    "size": 216
+   },
    "name": "gaLayouts",
    "pointers": [],
    "region": "data",
    "size": 216,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007224E8_t\n{\n    unsigned char b0[216];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007224E8\n#pragma comment(linker, \"/alternatename:?gaLayouts@@3PAUD2WaypointLayoutStrc@@A=_gData_007224E8\")",
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007224E8",
+   "type": "D2WaypointLayoutStrc",
    "va": "0x007224E8"
   },
   {
@@ -50050,23 +50124,6 @@
    "va": "0x006DA610"
   },
   {
-   "alias": false,
-   "cname": "gData_00724824",
-   "declared": true,
-   "decorated": "?gaTextEntries@@3PAUD2TextEntryStrc@@A",
-   "file": "Source/D2Client/Unknown_004A6460.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00724824_t gData_00724824; // 0x00724824",
-   "head": "extern \"C\" struct d2data_00724824_t gData_00724824 = ",
-   "name": "gaTextEntries",
-   "pointers": [],
-   "region": "data",
-   "size": 260,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00724824_t\n{\n    unsigned char b0[260];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00724824\n#pragma comment(linker, \"/alternatename:?gaTextEntries@@3PAUD2TextEntryStrc@@A=_gData_00724824\")",
-   "va": "0x00724824"
-  },
-  {
    "alias": true,
    "cname": "gData_006DA430",
    "declared": true,
@@ -50159,19 +50216,83 @@
   },
   {
    "alias": false,
-   "cname": "gData_00724818",
+   "cname": null,
    "declared": true,
-   "decorated": "?gaCharTexts@@3PAUD2CharTextStrc@@A",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_004A6460.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00724818_t gData_00724818; // 0x00724818",
-   "head": "extern \"C\" struct d2data_00724818_t gData_00724818 = ",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2CharTextStrc gaCharTexts[15] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "nX",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nY",
+       4,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nX2",
+       8,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "wStringId",
+       12,
+       {
+        "k": "prim",
+        "kind": "u",
+        "name": "unsigned short",
+        "size": 2
+       }
+      ],
+      [
+       "nLength",
+       14,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ]
+     ],
+     "name": "D2CharTextStrc",
+     "size": 18
+    },
+    "k": "arr",
+    "n": 15,
+    "size": 270
+   },
    "name": "gaCharTexts",
    "pointers": [],
    "region": "data",
-   "size": 12,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00724818_t\n{\n    unsigned char b0[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00724818\n#pragma comment(linker, \"/alternatename:?gaCharTexts@@3PAUD2CharTextStrc@@A=_gData_00724818\")",
+   "size": 270,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00724818",
+   "type": "D2CharTextStrc",
    "va": "0x00724818"
   },
   {
@@ -66427,73 +66548,6 @@
    "file": "Source/D2Client/UI/SkillDesc_004E1FF0.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnGlobal_0072D844 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_0072D844",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072D844",
-   "type": "int",
-   "va": "0x0072D844"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/SkillDesc_004E1FF0.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnGlobal_0072D88C = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnGlobal_0072D88C",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072D88C",
-   "type": "int",
-   "va": "0x0072D88C"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072D890",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/SkillDesc_004E1FF0.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072D890_t gData_0072D890; // 0x0072D890",
-   "head": "extern \"C\" struct d2data_0072D890_t gData_0072D890 = ",
-   "name": "gData_0072D890",
-   "pointers": [],
-   "region": "data",
-   "size": 64,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072D890_t\n{\n    unsigned char b0[64];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072D890",
-   "va": "0x0072D890"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/SkillDesc_004E1FF0.cpp",
-   "form": "declared",
-   "fwd": null,
    "head": "extern int gnTextOffset2 = ",
    "model": {
     "k": "prim",
@@ -67620,37 +67674,64 @@
   },
   {
    "alias": false,
-   "cname": "gData_0072D840",
+   "cname": null,
    "declared": true,
-   "decorated": "?gaSkillTextPositions@@3PAUD2SkillTextPositionStrc@@A",
+   "decorated": null,
    "file": "Source/D2Client/UI/SkillDesc.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072D840_t gData_0072D840; // 0x0072D840",
-   "head": "extern \"C\" struct d2data_0072D840_t gData_0072D840 = ",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2SkillTextPositionStrc gaSkillTextPositions[12] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "nLeft",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nY",
+       4,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nRight",
+       8,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ]
+     ],
+     "name": "D2SkillTextPositionStrc",
+     "size": 12
+    },
+    "k": "arr",
+    "n": 12,
+    "size": 144
+   },
    "name": "gaSkillTextPositions",
    "pointers": [],
    "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072D840_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072D840\n#pragma comment(linker, \"/alternatename:?gaSkillTextPositions@@3PAUD2SkillTextPositionStrc@@A=_gData_0072D840\")",
+   "size": 144,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0072D840",
+   "type": "D2SkillTextPositionStrc",
    "va": "0x0072D840"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072D848",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/SkillDesc.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072D848_t gData_0072D848; // 0x0072D848",
-   "head": "extern \"C\" struct d2data_0072D848_t gData_0072D848 = ",
-   "name": "gData_0072D848",
-   "pointers": [],
-   "region": "data",
-   "size": 68,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072D848_t\n{\n    unsigned char b0[68];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072D848",
-   "va": "0x0072D848"
   },
   {
    "alias": false,
@@ -76252,38 +76333,40 @@
        "name": "int",
        "size": 4
       }
+     ],
+     [
+      "nFormat",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "pData",
+      16,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void*"
+      }
      ]
     ],
     "name": "D2GrTexInfoStrc",
-    "size": 12
+    "size": 20
    },
    "name": "gtGlideFloorTexInfo",
    "pointers": [],
    "region": "data",
-   "size": 12,
+   "size": 20,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x0072F6BC",
    "type": "D2GrTexInfoStrc",
    "va": "0x0072F6BC",
-   "sourced": true
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072F6C8",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Glide/Src/glTextureCache.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072F6C8_t gData_0072F6C8; // 0x0072F6C8",
-   "head": "extern \"C\" struct d2data_0072F6C8_t gData_0072F6C8 = ",
-   "name": "gData_0072F6C8",
-   "pointers": [],
-   "region": "data",
-   "size": 8,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072F6C8_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072F6C8",
-   "va": "0x0072F6C8",
    "sourced": true
   },
   {
@@ -76327,38 +76410,40 @@
        "name": "int",
        "size": 4
       }
+     ],
+     [
+      "nFormat",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "pData",
+      16,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "void*"
+      }
      ]
     ],
     "name": "D2GrTexInfoStrc",
-    "size": 12
+    "size": 20
    },
    "name": "gtGlideTileTexInfo",
    "pointers": [],
    "region": "data",
-   "size": 12,
+   "size": 20,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x0072F6A8",
    "type": "D2GrTexInfoStrc",
    "va": "0x0072F6A8",
-   "sourced": true
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072F6B4",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Glide/Unknown_0050F910.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072F6B4_t gData_0072F6B4; // 0x0072F6B4",
-   "head": "extern \"C\" struct d2data_0072F6B4_t gData_0072F6B4 = ",
-   "name": "gData_0072F6B4",
-   "pointers": [],
-   "region": "data",
-   "size": 8,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072F6B4_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072F6B4",
-   "va": "0x0072F6B4",
    "sourced": true
   },
   {
@@ -93305,13 +93390,25 @@
   },
   {
    "alias": false,
-   "cname": "gData_006E2490",
+   "cname": null,
    "declared": true,
-   "decorated": "?gpMonsterEventFunctions@@3PAP6IXPAUD2GameStrc@@PAUD2UnitStrc@@HH@ZA",
+   "decorated": null,
    "file": "Source/D2Game/MONSTER/MonsterMode.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" const struct d2data_006E2490_t gData_006E2490; // 0x006E2490",
-   "head": "extern \"C\" const struct d2data_006E2490_t gData_006E2490 = ",
+   "fill": 13,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern MonEventFunc const gpMonsterEventFunctions[16] = ",
+   "model": {
+    "elem": {
+     "fn": true,
+     "k": "ptr",
+     "size": 4,
+     "spell": "MonEventFunc"
+    },
+    "k": "arr",
+    "n": 16,
+    "size": 64
+   },
    "name": "gpMonsterEventFunctions",
    "pointers": [
     [
@@ -93329,27 +93426,9 @@
      "MONSTERMODE_EventEndAnimation",
      0,
      "func"
-    ]
-   ],
-   "region": "rdata",
-   "size": 8,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006E2490_t\n{\n    const void* p0;\n    const void* p1;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006E2490\n#pragma comment(linker, \"/alternatename:?gpMonsterEventFunctions@@3PAP6IXPAUD2GameStrc@@PAUD2UnitStrc@@HH@ZA=_gData_006E2490\")",
-   "va": "0x006E2490"
-  },
-  {
-   "alias": false,
-   "cname": "gData_006E2498",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/MONSTER/MonsterMode.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" const struct d2data_006E2498_t gData_006E2498; // 0x006E2498",
-   "head": "extern \"C\" const struct d2data_006E2498_t gData_006E2498 = ",
-   "name": "gData_006E2498",
-   "pointers": [
+    ],
     [
-     0,
+     8,
      "0x005B1740",
      "queue_function",
      "AITHINK_ExecuteMonsterAiTick",
@@ -93357,7 +93436,7 @@
      "func"
     ],
     [
-     4,
+     12,
      "0x005A6920",
      "source",
      "MONSTERMODE_ApplyStatRegen",
@@ -93365,7 +93444,7 @@
      "func"
     ],
     [
-     12,
+     20,
      "0x0056D790",
      "source",
      "SKILLS_EventCallback_ActiveState",
@@ -93373,7 +93452,7 @@
      "func"
     ],
     [
-     16,
+     24,
      "0x005A7F00",
      "names.json",
      "MONSTERMODE_EventFreeHoverText",
@@ -93381,7 +93460,7 @@
      "func"
     ],
     [
-     20,
+     28,
      "0x005A4370",
      "queue_function",
      "MONSTERUNIQUE_EventExecuteUModCallbacks",
@@ -93389,7 +93468,7 @@
      "func"
     ],
     [
-     24,
+     32,
      "0x0056FCB0",
      "queue_function",
      "SKILLS_EventCallback_PeriodicSkillAura",
@@ -93397,7 +93476,7 @@
      "func"
     ],
     [
-     28,
+     36,
      "0x0056FE40",
      "queue_function",
      "SKILLS_EventCallback_ItemAura",
@@ -93405,7 +93484,7 @@
      "func"
     ],
     [
-     32,
+     40,
      "0x005A7F70",
      "queue_function",
      "MONSTERMODE_EventClearTargetOverride",
@@ -93413,7 +93492,7 @@
      "func"
     ],
     [
-     40,
+     48,
      "0x005A7EF0",
      "queue_function",
      "sub_005A7EF0",
@@ -93422,10 +93501,12 @@
     ]
    ],
    "region": "rdata",
-   "size": 56,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006E2498_t\n{\n    const void* p0;\n    const void* p1;\n    unsigned char b2[4];\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    unsigned char b9[4];\n    const void* p10;\n    unsigned char b11[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006E2498",
-   "va": "0x006E2498"
+   "size": 64,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E2490",
+   "type": "MonEventFunc",
+   "va": "0x006E2490"
   },
   {
    "alias": false,
@@ -104596,14 +104677,26 @@
   },
   {
    "alias": false,
-   "cname": "gpfnRoomExUnsetStatus",
-   "declared": false,
+   "cname": null,
+   "declared": true,
    "decorated": null,
    "file": "Source/D2Common/DRLG/DrlgActivate.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00744394_t gpfnRoomExUnsetStatus; // 0x00744394",
-   "head": "extern \"C\" struct d2data_00744394_t gpfnRoomExUnsetStatus = ",
-   "name": "gpfnRoomExUnsetStatus",
+   "fill": 4,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern ROOMEXSTATUSFN gRoomExUnsetStatus[4] = ",
+   "model": {
+    "elem": {
+     "fn": true,
+     "k": "ptr",
+     "size": 4,
+     "spell": "ROOMEXSTATUSFN"
+    },
+    "k": "arr",
+    "n": 4,
+    "size": 16
+   },
+   "name": "gRoomExUnsetStatus",
    "pointers": [
     [
      0,
@@ -104612,27 +104705,9 @@
      "DRLGACTIVATE_RoomExStatusUnset_ClientInRoom",
      0,
      "func"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00744394_t\n{\n    const void* p0;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00744394",
-   "va": "0x00744394"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00744398",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Common/DRLG/DrlgActivate.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00744398_t gData_00744398; // 0x00744398",
-   "head": "extern \"C\" struct d2data_00744398_t gData_00744398 = ",
-   "name": "gData_00744398",
-   "pointers": [
+    ],
     [
-     0,
+     4,
      "0x0061B540",
      "names.json",
      "DRLGACTIVATE_RoomExStatusUnset_ClientInSight",
@@ -104640,7 +104715,7 @@
      "func"
     ],
     [
-     4,
+     8,
      "0x0061B550",
      "names.json",
      "DRLGACTIVATE_RoomExStatusUnset_ClientOutOfSight",
@@ -104648,7 +104723,7 @@
      "func"
     ],
     [
-     8,
+     12,
      "0x0061B560",
      "names.json",
      "DRLGACTIVATE_RoomExStatusUnset_Untile",
@@ -104658,9 +104733,28 @@
    ],
    "region": "data",
    "size": 16,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00744398_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    unsigned char b3[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00744398",
-   "va": "0x00744398"
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00744394",
+   "type": "ROOMEXSTATUSFN",
+   "va": "0x00744394"
+  },
+  {
+   "alias": false,
+   "cname": "gData_007443A4",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/DRLG/DrlgActivate.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_007443A4_t gData_007443A4; // 0x007443A4",
+   "head": "extern \"C\" struct d2data_007443A4_t gData_007443A4 = ",
+   "name": "gData_007443A4",
+   "pointers": [],
+   "region": "data",
+   "size": 4,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_007443A4_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x007443A4",
+   "va": "0x007443A4"
   },
   {
    "alias": false,
@@ -128733,37 +128827,104 @@
   },
   {
    "alias": false,
-   "cname": "gData_006EF188",
+   "cname": null,
    "declared": true,
-   "decorated": "?gaDrlgRoomTilePresetUnits@@3QBUD2UnkDrlgRoomTileStrc2@@B",
+   "decorated": null,
    "file": "Source/D2Common/DRLG/RoomTile.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" const struct d2data_006EF188_t gData_006EF188; // 0x006EF188",
-   "head": "extern \"C\" const struct d2data_006EF188_t gData_006EF188 = ",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const D2UnkDrlgRoomTileStrc2 gaDrlgRoomTilePresetUnits[34] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "nTileStyle",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nTileSequence",
+       4,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "bIsRightWallWithDoor",
+       8,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nUnitId",
+       12,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nUnitType",
+       16,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nX",
+       20,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nY",
+       24,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ]
+     ],
+     "name": "D2UnkDrlgRoomTileStrc2",
+     "size": 28
+    },
+    "k": "arr",
+    "n": 34,
+    "size": 952
+   },
    "name": "gaDrlgRoomTilePresetUnits",
    "pointers": [],
    "region": "rdata",
-   "size": 12,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006EF188_t\n{\n    unsigned char b0[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006EF188\n#pragma comment(linker, \"/alternatename:?gaDrlgRoomTilePresetUnits@@3QBUD2UnkDrlgRoomTileStrc2@@B=_gData_006EF188\")",
+   "size": 952,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006EF188",
+   "type": "D2UnkDrlgRoomTileStrc2",
    "va": "0x006EF188"
-  },
-  {
-   "alias": false,
-   "cname": "gData_006EF194",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Common/DRLG/RoomTile.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" const struct d2data_006EF194_t gData_006EF194; // 0x006EF194",
-   "head": "extern \"C\" const struct d2data_006EF194_t gData_006EF194 = ",
-   "name": "gData_006EF194",
-   "pointers": [],
-   "region": "rdata",
-   "size": 940,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006EF194_t\n{\n    unsigned char b0[940];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006EF194",
-   "va": "0x006EF194"
   },
   {
    "alias": false,
@@ -128826,12 +128987,48 @@
    "name": "gData_006EF574",
    "pointers": [],
    "region": "rdata",
-   "size": 172,
+   "size": 4,
    "va": "0x006EF574",
    "fwd": "extern \"C\" const struct d2data_006EF574_t gData_006EF574; // 0x006EF574",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006EF574_t\n{\n    unsigned char b0[172];\n};\n#pragma pack(pop)",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006EF574_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
    "head": "extern \"C\" const struct d2data_006EF574_t gData_006EF574 = ",
    "tail": "; // 0x006EF574"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DRLG/RoomTile.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const int gnWallTileTypeRemap[6][7] = ",
+   "model": {
+    "elem": {
+     "elem": {
+      "k": "prim",
+      "kind": "s",
+      "name": "int",
+      "size": 4
+     },
+     "k": "arr",
+     "n": 7,
+     "size": 28
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 168
+   },
+   "name": "gnWallTileTypeRemap",
+   "pointers": [],
+   "region": "rdata",
+   "size": 168,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006EF578",
+   "type": "int",
+   "va": "0x006EF578"
   },
   {
    "alias": false,

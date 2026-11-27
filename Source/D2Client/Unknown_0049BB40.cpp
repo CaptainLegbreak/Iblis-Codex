@@ -31,7 +31,8 @@ D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 void __cdecl WARDENCLIENT_BuildWaypointList(); // 0x0049C7F0
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-extern D2WaypointRowRectStrc gaWaypointRowRects[9]; // 0x007224F8
+#include "D2WaypointLayout.h"
+extern D2WaypointLayoutStrc gaLayouts[9]; // 0x007224E8
 extern bool gbWaypointClosePressed; // 0x007BF06C
 // 0x0049BB40
 static inline void sub_0049BB40_SetSlotCount(D2PartyRowStrc* pRow, int nSlot)
@@ -197,8 +198,8 @@ static int sub_0049C510_GetWaypointRowAtPoint(int nX, int nY)
 {
     for (int i = 0; i < 9; ++i)
     {
-        if (gaWaypointEntries[i].bEnabled && nX > gaWaypointRowRects[i].nX && nX < gaWaypointRowRects[i].nX + 0x118
-            && nY > gaWaypointRowRects[i].nY && nY < gaWaypointRowRects[i].nY + 0x1E)
+        if (gaWaypointEntries[i].bEnabled && nX > gaLayouts[i].nRowX && nX < gaLayouts[i].nRowX + 0x118
+            && nY > gaLayouts[i].nRowY && nY < gaLayouts[i].nRowY + 0x1E)
             return i;
     }
     return -1;

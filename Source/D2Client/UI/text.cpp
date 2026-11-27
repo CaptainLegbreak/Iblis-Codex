@@ -106,7 +106,8 @@ void __cdecl INV_SetupPanelButtons(); // 0x00487ED0
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 
-extern D2ClientTabStrc gaNpcTabStates[]; // 0x0072211A
+#include "D2PanelTab.h"
+extern D2PanelTabStrc gaNpcTabs[]; // 0x00722110
 
 
 extern int gbNpcTradeClicked; // 0x007BCBEC
@@ -426,9 +427,7 @@ extern "C" int gRecordCount_007BC9A4;
 
 extern "C" unsigned int gValue_007BF254; // 0x007BF254
 
-extern "C" unsigned int gValue_007BF2A4; // 0x007BF2A4
 
-extern "C" unsigned int gValue_007BF2AC; // 0x007BF2AC
 
 extern "C" HashState gatBnHashCtx[];
 
@@ -601,10 +600,8 @@ int __cdecl sub_00525150();
 
 struct D2SliderButtonStrc;
 
-struct D2Record42Strc;
 
 
-struct D2QuestPanelEntryStrc;
 
 struct D2QuestSlotRectStrc;
 
@@ -638,17 +635,10 @@ struct D2SliderButtonStrc
     int nBottom;
 };
 
-struct D2Record42Strc
-{
-    int aData[10];
-    unsigned short wLast;
-};
 
 #pragma pack(pop)
 
-extern unsigned char gbFlag_007BF2B0; // 0x007BF2B0
 
-extern D2Record42Strc gtQuestRecord; // 0x007BF355
 
 
 extern D2SliderButtonStrc gaKeyConfigButtons[3]; // 0x007246D8
@@ -667,7 +657,6 @@ extern D2QuestSlotRectStrc gaQuestSlots[]; // 0x00723EB0
 
 
 
-extern D2QuestPanelEntryStrc gaQuestEntries[]; // 0x007BF3AA
 
 
 
@@ -734,7 +723,6 @@ int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
 
 static int TEXT_GetKeyConfigButtonAt(int nX, int nY);
 
-int gtQuestLog; // 0x007BF298
 
 
 
@@ -791,9 +779,7 @@ int gbSkillButtonPressed; // 0x007C02E8
 
 void __fastcall TEXT_MoveKeyConfigSelection(int nStep);
 
-char gbQuestCloseButtonDown; // 0x007BF2B2
 
-char gbQuestDescButtonDown; // 0x007BF2B4
 
 
 static int TEXT_GetKeyConfigLineAt(int nY);
@@ -820,7 +806,8 @@ static int TEXT_IsOnPressedButton(int nX, int nY);
 
 
 
-extern D2WaypointRowRectStrc gaWaypointRowRects[9];                                                // 0x007224F8
+#include "D2WaypointLayout.h"
+extern D2WaypointLayoutStrc gaLayouts[9]; // 0x007224E8
 
 
 static bool gbWaypointClosePressed;                                                                        // 0x007BF06C
@@ -835,9 +822,7 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 
 typedef void (__fastcall* UNITFN)(D2UnitStrc* pUnit);
 
-int gnQuestAct; // 0x007BF2A4
 
-int gnQuestParam; // 0x007BF2AC
 
 extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
 
@@ -1019,7 +1004,7 @@ int gnTradePartnerUnitId; // 0x007C0E60
 
 inline void* operator new(unsigned int, void* pWhere) { return pWhere; }
 
-// build: symbol ??0D2QuestTextBufferStrc@@QAE@XZ 0x004A4260
+// build: symbol ??0D2QuestLogStateStrc@@QAE@XZ 0x004A4260
 
 int gbTextBoxDone; // 0x007BF1BC
 
@@ -1111,9 +1096,7 @@ extern D2QuestTextsStrc gtQuestTextsSiege; // 0x00723D24
 
 extern D2QuestPageRangeStrc gaQuestPageRanges[]; // 0x00723F08
 
-extern void* gapQuestIconCels[]; // 0x007BF2E1
 
-char gabQuestFlagsA[42]; // 0x007BF356
 
 
 static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg); // 0x004A1950
@@ -1123,12 +1106,10 @@ static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg); // 0x004A1950
 extern D2QuestPosStrc gaQuestPos[]; // 0x00723EA8
 
 
-extern D2QuestLogStateStrc gtQuestLog_007BF298; // 0x007BF298
 
 
 
 
-unsigned char gabQuestFlagsB[41]; // 0x007BF380
 
 unsigned short gwTextPanelClassId; // 0x007BF234
 
@@ -1176,7 +1157,6 @@ struct D2PacketRecord6Strc
 extern D2QuestTableStrc gaQuestTable[41]; // 0x00723F30
 
 
-extern D2QuestUiFlagsStrc gtQuestUiFlags_007BF2B3; // 0x007BF2B3
 
 
 Unicode* __fastcall strncpy(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
@@ -1215,9 +1195,7 @@ bool __stdcall sub_004A2970(int nX, int nY); // 0x004A2970
 
 int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-char gbQuestButtonDown; // 0x007BF2B0
 
-char gbQuestDescriptionOpen; // 0x007BF2B3
 
 #define SOUND_ID 4
 ListBoxWrapper* gpListBox; // 0x007BF1B4
@@ -1234,23 +1212,14 @@ struct PackedNode
 typedef char PackedNode_value_offset[(FIELD_OFFSET(PackedNode,value)==0x1e)?1:-1];
 typedef char PackedNode_next_offset[(FIELD_OFFSET(PackedNode,next)==0x22)?1:-1];
 typedef char PackedNode_size[(sizeof(PackedNode)==0x26)?1:-1];
-extern "C" { unsigned char gByte_007BF2B1; } // 0x007BF2B1
 
-extern "C" unsigned char gByte_007BF2B2; // 0x007BF2B2
 
-extern "C" unsigned char gByte_007BF2B0; // 0x007BF2B0
 
-extern "C" int gnQuestPressedSlot; // 0x007BF2B5
 
-extern "C" unsigned char gByte_007BF2B4; // 0x007BF2B4
 
-extern "C" unsigned char gByte_007C025D; // 0x007C025D
 
-extern "C" unsigned char gByte_007C025E; // 0x007C025E
 
-extern "C" unsigned char gByte_007C025F; // 0x007C025F
 
-extern "C" unsigned char gByte_007C0260; // 0x007C0260
 
 struct SearchRecord
 {
@@ -1316,25 +1285,15 @@ struct D2ButtonLayoutStrc;
 union D2SeedStrc;
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
-int gnQuestCount; // 0x007BF2A0
 
-char gbDurielCofsLoaded; // 0x007C025D
 
-char gbAncientsCofsLoaded; // 0x007C025E
 
-char gbHasQuestPacketValue; // 0x007C025F
 
-char gbQuestUnitsSpawned; // 0x007C0260
 
-extern int gnIndex_007BF2BD; // 0x007BF2BD
 
-extern int gnIndex_007BF2C1; // 0x007BF2C1
 
-extern int gnIndex_007BF2C5; // 0x007BF2C5
 
-extern int gnIndex_007BF2C9; // 0x007BF2C9
 
-extern int gnIndex_007BF2CD; // 0x007BF2CD
 
 extern D2ButtonLayoutStrc gaButtonLayouts[]; // 0x007241C0
 
@@ -1387,15 +1346,11 @@ extern "C" unsigned short gB27_007272E1;
 extern "C" B27UIAction gpfnResurrectMenuHandler;
 extern "C" unsigned int gB27_007272EF;
 extern "C" int gB27_007BCBF0;
-extern "C" int gB27_007BF298; // 0x007BF298
 
-extern "C" unsigned char gB27_007C025F; // 0x007C025F
 
-extern "C" unsigned int gbQuestPacketValue; // 0x007C0265
 
 extern "C" B27RecordHandler gpfnRecordHandler;
 extern "C" unsigned int gnVirtualPlayerCount;
-extern unsigned int gnQuestUnitId; // 0x007C0261
 
 extern "C" B27RecordHandler __fastcall sub_005173D3_ExchangeRecordHandler(B27RecordHandler handler); // 0x005173D3
 
@@ -1494,8 +1449,8 @@ void __cdecl TEXT_ResetNpcPanel()
 // build: symbol ?gnNpcTabCount@* 0x00722158
     for (int i = 0; i < gnNpcTabCount; ++i)
     {
-        *(int*)gaNpcTabStates[i].bSelected = 0;
-        *(int*)gaNpcTabStates[i].bEnabled = 0;
+        gaNpcTabs[i].bSelected = 0;
+        gaNpcTabs[i].bEnabled = 0;
     }
     gbNpcTradeClicked = 0;
     gnInvPanelMode = 1;
@@ -1556,8 +1511,8 @@ static int sub_0049C510_GetWaypointRowAtPoint(int nX, int nY)
 {
     for (int i = 0; i < 9; ++i)
     {
-        if (gaWaypointEntries[i].bEnabled && nX > gaWaypointRowRects[i].nX && nX < gaWaypointRowRects[i].nX + 0x118
-            && nY > gaWaypointRowRects[i].nY && nY < gaWaypointRowRects[i].nY + 0x1E)
+        if (gaWaypointEntries[i].bEnabled && nX > gaLayouts[i].nRowX && nX < gaLayouts[i].nRowX + 0x118
+            && nY > gaLayouts[i].nRowY && nY < gaLayouts[i].nRowY + 0x1E)
             return i;
     }
     return -1;
@@ -4083,7 +4038,6 @@ void __cdecl TEXT_ClearTextPanel()
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 
-extern "C" { unsigned int gValue_007BF2A8; } // 0x007BF2A8
 
 
 // build: symbol ?TEXT_FindQuestIndex@* 0x004A1910

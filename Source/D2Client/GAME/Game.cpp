@@ -1,5 +1,6 @@
 #include "SGAMEDATA.h"
 #include "D2Client.h"
+#include "D2PongData.h"
 #include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2LevelTxt.h"
@@ -1162,7 +1163,7 @@ extern int gnSavedScreenWidth; // 0x00711474
 
 extern void (__fastcall* gpfnMcpMotdCallback)(void* pArg); // 0x00799308
 
-int gaStateStack[1]; // 0x007A0424
+int gaStateStack[4]; // 0x007A0424
 
 int gnStateStackCount; // 0x007A044C
 
@@ -1285,7 +1286,6 @@ D2ViewStrc* gpClientView; // 0x007A0640
 
 D2LoadingTimerStrc gtLoadingTimer;                                                                                     // 0x007A0684
 
-int gdwGlobal_007A0688;                                                                                     // 0x007A0688
 
 extern void* ghAccelerators;                                                                             // 0x007A0708
 
@@ -1630,7 +1630,7 @@ struct D2SaveHeaderStrc
 };
 #pragma pack(push, 1)
 #pragma pack(pop)
-char gszClientCharName[4]; // 0x007A05C4
+char gszClientCharName[16]; // 0x007A05C4
 
 unsigned char* gpSaveBuffer; // 0x007A5224
 
@@ -1683,7 +1683,6 @@ int gnGameType; // 0x007A0610
 int gnSkipped; // 0x007A0704
 struct D2ActInfoStrc;
 struct D2RectStrc;
-struct D2PongDataStrc;
 struct D2GSPacketSrv8F;
 extern int gnLastViewX; // 0x0070F55C
 extern int gnLastViewY; // 0x0070F558
@@ -1705,17 +1704,6 @@ void __fastcall sub_00477980_DrawFpsStats(); // 0x00477980
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 extern unsigned short gawLoadingStrings[]; // 0x0070F384
 int gnLoadingIndex; // 0x007A05D4
-struct D2PongDataStrc
-{
-    unsigned long dwData0;
-    unsigned long dwData1;
-    unsigned long dwData2;
-    unsigned long dwData3;
-    unsigned long dwTick;
-    unsigned long dwData5;
-    unsigned long dwData6;
-    unsigned long dwData7;
-};
 D2PongDataStrc gtPongData; // 0x007A04D4
 #pragma pack(push, 1)
 struct D2GSPacketSrv8F
@@ -3024,9 +3012,9 @@ void __fastcall GAME_StorePong(const D2GSPacketSrv8F* pPacket)
     gtPongData.dwData2 = pPacket->tData.dwData2;
     gtPongData.dwData3 = pPacket->tData.dwData3;
     gtPongData.dwTick = pPacket->tData.dwTick;
-    gtPongData.dwData5 = pPacket->tData.dwData5;
-    gtPongData.dwData6 = pPacket->tData.dwData6;
-    gtPongData.dwData7 = pPacket->tData.dwData7;
+    gtPongData.dwEncodedName0 = pPacket->tData.dwEncodedName0;
+    gtPongData.dwEncodedName1 = pPacket->tData.dwEncodedName1;
+    gtPongData.dwEncodedOffset = pPacket->tData.dwEncodedOffset;
     gtPongData.dwTick = GetTickCount();
     unsigned long dwPing = GetTickCount() - gdwLastPingTick;
     gdwPing = dwPing;
@@ -3271,13 +3259,13 @@ int __stdcall sub_K02_EmitIsMouseInRect(int nX, int nY, int nWidth, int nHeight)
 }
 
 // 0x0044D360
-void __stdcall GAME_HandleKeyDown(void* pMsg)
+void __stdcall GAME_HandleKeyDown(SMSGHANDLER_PARAMS* pMsg)
 {
     int nOne = 1;
-    if ((*(int*)((char*)pMsg + 0x0C) & 0x40000000) == 0)
+    if ((pMsg->lParam & 0x40000000) == 0)
         gbEndScreenDismissed = nOne;
-    *(int*)((char*)pMsg + 0x18) = nOne;
-    *(int*)((char*)pMsg + 0x1C) = 0;
+    pMsg->bReturn = nOne;
+    pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
 

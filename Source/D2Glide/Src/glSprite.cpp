@@ -35,7 +35,7 @@ int gbGlideMultiTmu;                                                            
 
 D2GlideSpriteVertexStrc gatGlideSpriteVertices[4]; // 0x0087EFF8
 
-extern D2GlideTexCacheStrc gaGlideTexCaches[4]; // 0x0087F048
+extern D2GlideTexCacheStrc gaGlideTexCaches[3]; // 0x0087F068
 
 extern unsigned char* gpGlideSpriteBufferA; // 0x0087F0C8
 
@@ -73,13 +73,6 @@ typedef void (__stdcall* PFNGLIDEDRAWVERTEXARRAY)(int nMode, int nCount, void* p
 
 typedef void (__stdcall* PFNGLIDEALPHAFUNCTION)(int nFunction);
 
-struct D2GlideAspectScaleStrc
-{
-	int nScaleS;
-	int nScaleT;
-};
-
-extern D2GlideAspectScaleStrc gatGlideAspectScale[];                                                 // 0x0072F290
 
 extern void (__stdcall* gpfnGrDrawVertexArrayContiguous)(int nMode, int nCount, void* pVertices, int nStride); // 0x0087EAC4
 
@@ -143,7 +136,7 @@ void __fastcall GLSPRITE_ReleaseTexSlots(D2GlideTexSlotStrc* pSlots)
             const int nId = pSlots[i].nId - 1;
             if (nId >= 0)
             {
-                gaGlideTexCaches[nCache + 1].pEntries[nId].pOwner = 0;
+                gaGlideTexCaches[nCache].pEntries[nId].pOwner = 0;
             }
         }
     }
@@ -321,14 +314,14 @@ static int __stdcall GLSPRITE_UploadTexInfo(int nPalette, int nColor, int nType,
     }
 
     const int nCache = pSlot->nCache;
-    D2GlideTexCacheStrc* pCache = &gaGlideTexCaches[nCache];
+    D2GlideTexCacheStrc* pCache = &gaGlideTexCaches[nCache - 1];
     if (gbGlideSpriteFlag)
         gbGlideMultiTmu = nCache == 1;
 
     int nAddress;
     if (pSlots[nType].nId && (pCache->pEntries[pSlots[nType].nId - 1].nPalette == nPalette || nRequested == 4))
     {
-        GLTEXTURECACHE_TexCacheTouch(&gaGlideTexCaches[nCache], pSlot->nId);
+        GLTEXTURECACHE_TexCacheTouch(&gaGlideTexCaches[nCache - 1], pSlot->nId);
         nAddress = pCache->pEntries[pSlot->nId - 1].nAddress;
     }
     else
@@ -625,8 +618,8 @@ int __fastcall GLSPRITE_CelFlatSpriteDraw(D2GfxDataStrc* pData, int nX, int nY, 
 
 	GLSPRITE_SetupTexInfoSize(&tInfo);
 
-	const int nScaleS = gatGlideAspectScale[tInfo.nAspect].nScaleS;
-	const int nScaleT = gatGlideAspectScale[tInfo.nAspect].nScaleT;
+	const int nScaleS = gaGlideAspectTexDims[tInfo.nAspect + 3].nWidth;
+	const int nScaleT = gaGlideAspectTexDims[tInfo.nAspect + 3].nHeight;
 	const float fS0 = nScaleS * tInfo.fS0;
 	const float fS1 = nScaleS * tInfo.fS1;
 	const float fT0 = nScaleT * tInfo.fT0;

@@ -107,7 +107,6 @@ void __cdecl INV_SetupPanelButtons(); // 0x00487ED0
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 
-extern D2ClientTabStrc gaNpcTabStates[]; // 0x0072211A
 
 
 extern int gbNpcTradeClicked; // 0x007BCBEC
@@ -411,9 +410,7 @@ extern "C" int gRecordCount_007BC9A4;
 
 extern "C" unsigned int gValue_007BF254; // 0x007BF254
 
-extern "C" unsigned int gValue_007BF2A4; // 0x007BF2A4
 
-extern "C" unsigned int gValue_007BF2AC; // 0x007BF2AC
 
 extern "C" HashState gatBnHashCtx[];
 
@@ -563,10 +560,8 @@ int __cdecl sub_00525150();
 
 struct D2SliderButtonStrc;
 
-struct D2Record42Strc;
 
 
-struct D2QuestPanelEntryStrc;
 
 struct D2QuestSlotRectStrc;
 
@@ -600,17 +595,10 @@ struct D2SliderButtonStrc
     int nBottom;
 };
 
-struct D2Record42Strc
-{
-    int aData[10];
-    unsigned short wLast;
-};
 
 #pragma pack(pop)
 
-extern unsigned char gbFlag_007BF2B0; // 0x007BF2B0
 
-extern D2Record42Strc gtQuestRecord; // 0x007BF355
 
 
 extern D2SliderButtonStrc gaKeyConfigButtons[3]; // 0x007246D8
@@ -628,7 +616,6 @@ extern D2QuestSlotRectStrc gaQuestSlots[]; // 0x00723EB0
 
 
 
-extern D2QuestPanelEntryStrc gaQuestEntries[]; // 0x007BF3AA
 
 
 
@@ -776,7 +763,6 @@ static int TEXT_IsOnPressedButton(int nX, int nY);
 
 
 
-extern D2WaypointRowRectStrc gaWaypointRowRects[9];                                                // 0x007224F8
 
 
 
@@ -962,7 +948,7 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextBoxStrc* pTextBox); 
 
 inline void* operator new(unsigned int, void* pWhere) { return pWhere; }
 
-// build: symbol ??0D2QuestTextBufferStrc@@QAE@XZ 0x004A4260
+// build: symbol ??0D2QuestLogStateStrc@@QAE@XZ 0x004A4260
 
 
 
@@ -1033,9 +1019,7 @@ extern D2QuestTextsStrc gtQuestTextsSiege; // 0x00723D24
 
 extern D2QuestPageRangeStrc gaQuestPageRanges[]; // 0x00723F08
 
-extern void* gapQuestIconCels[]; // 0x007BF2E1
 
-extern unsigned char gabQuestFlagsA[]; // 0x007BF356
 
 
 static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg); // 0x004A1950
@@ -1045,7 +1029,6 @@ static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg); // 0x004A1950
 extern D2QuestPosStrc gaQuestPos[]; // 0x00723EA8
 
 
-extern D2QuestLogStateStrc gtQuestLog_007BF298; // 0x007BF298
 
 
 
@@ -1084,7 +1067,6 @@ struct D2UiEntry10Strc;
 extern D2QuestTableStrc gaQuestTable[41]; // 0x00723F30
 
 
-extern D2QuestUiFlagsStrc gtQuestUiFlags_007BF2B3; // 0x007BF2B3
 
 
 Unicode* __fastcall strncpy(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
@@ -1173,7 +1155,6 @@ struct D2SetsTxt;
 
 
 
-extern "C" { unsigned int gValue_007BF2A8; } // 0x007BF2A8
 
 
 
@@ -2141,27 +2122,27 @@ void __cdecl TEXT_SetGoldDialogFlag()
     gnFlag_007C02EC = 1;
 }
 
-struct D2TextEntryStrc;
-
+// One line of the character panel's fixed text: its box, the string and
+// the string's length, which sub_004A7AA0_InitTextEntryLengths fills in.
 #pragma pack(push, 2)
-struct D2TextEntryStrc
+struct D2CharTextStrc
 {
-    unsigned short wStringId;
-    int nLength;
     int nX;
     int nY;
-    int nWidth;
+    int nX2;
+    unsigned short wStringId;
+    int nLength;
 };
 #pragma pack(pop)
 
-extern D2TextEntryStrc gaTextEntries[15]; // 0x00724824
+extern D2CharTextStrc gaCharTexts[15]; // 0x00724818
 
 // 0x004A7AA0
 void __cdecl sub_004A7AA0_InitTextEntryLengths()
 {
-    for (unsigned int i = 0; i < sizeof(gaTextEntries) / sizeof(gaTextEntries[0]); ++i)
+    for (unsigned int i = 0; i < sizeof(gaCharTexts) / sizeof(gaCharTexts[0]); ++i)
     {
-        gaTextEntries[i].nLength = UNICODE_StrLen(D2LANG_GetStringFromTblIndex(gaTextEntries[i].wStringId));
+        gaCharTexts[i].nLength = UNICODE_StrLen(D2LANG_GetStringFromTblIndex(gaCharTexts[i].wStringId));
     }
 }
 
@@ -2203,17 +2184,6 @@ struct D2ZeroDwordStrc;
 
 struct D2PointsTextStrc;
 
-#pragma pack(push, 2)
-struct D2CharTextStrc
-{
-    int nX;
-    int nY;
-    int nX2;
-    unsigned short wStringId;
-    int nLength;
-};
-#pragma pack(pop)
-
 struct D2CharFieldStrc
 {
     int nX;
@@ -2237,8 +2207,6 @@ struct D2PointsTextStrc
 
 
 extern void* gpSkillPointsCel; // 0x007BEF20
-
-extern D2CharTextStrc gaCharTexts[15]; // 0x00724818
 
 extern D2CharFieldStrc gaCharFields[18]; // 0x00724928
 

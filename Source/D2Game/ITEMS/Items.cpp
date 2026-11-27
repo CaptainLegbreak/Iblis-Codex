@@ -86,7 +86,9 @@ struct D2UniqueSelection
     int nIndex,nRarity;
 };
 
-extern D2UniqueSelection gUniqueSelections[]; // 0x008846F8
+// ITEMS_RollUniqueItem's candidates: one per unique item, with the running rarity
+// total in front of it. 4096 entries run up to the next global at 0x0088C6F8.
+D2UniqueSelection gUniqueSelections[4096]; // 0x008846F8
 
 
 void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* pTargetUnit, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0

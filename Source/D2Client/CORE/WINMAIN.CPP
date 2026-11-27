@@ -1771,7 +1771,7 @@ extern void* ghConnectEvent;                                                    
 
 
 
-int gaStateStack[1]; // 0x007A0424
+int gaStateStack[4]; // 0x007A0424
 
 extern int gnStateStackCount; // 0x007A044C
 
