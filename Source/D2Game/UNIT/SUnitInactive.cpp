@@ -150,9 +150,7 @@ struct D2DynamicPathStrc;
 // build: symbol ?gnInactiveNoTcParam2@* 0x007314C8
 #include "gen/data/Source/D2Game/UNIT/SUnitInactive/gnInactiveNoTcParam2.inc"
 
-int __fastcall MONSTER_CheckSummonerFlag(D2UnitStrc* pUnit, int nFlag);                                      // 0x00573540
 
-int __fastcall MONSTER_GetLevelId(D2UnitStrc* pUnit);                                                        // 0x00573520
 
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 
@@ -162,12 +160,9 @@ struct D2InventoryStrc;
 
 struct D2ObjectsTxt;
 
-int __stdcall ITEMS_GetOwnerId(D2UnitStrc* pItem);                                                           // 0x00629F20
 
 
-int __stdcall DRLG_GetSaveMonstersFromLevelId(int nLevelId);                                                // 0x00642820
 
-int __stdcall STATES_CheckStateMaskUdeadOnUnit(D2UnitStrc* pUnit);                                          // 0x0063A770
 
 
 static void __stdcall SUNITINACTIVE_SaveSpecialMonsterParameters(D2GameStrc* pGame, D2InactiveMonsterNodeStrc* pNode, D2UnitStrc* pUnit); // 0x00541FE0
@@ -205,7 +200,6 @@ void __fastcall D2GAME_BOSSES_AssignUMod(D2GameStrc*,D2UnitStrc*,int,int); // 0x
 
 void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(D2MonsterRegionStrc**,int,int,int,int,int,D2UnitStrc*); // 0x00547ED0
 
-void __fastcall DRLGPRESET_FreeMapAI(void*,D2MapAIStrc*); // 0x00666130
 
 
 void __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690

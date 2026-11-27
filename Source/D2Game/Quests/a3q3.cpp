@@ -765,8 +765,9 @@ void __fastcall ACT3Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
+// Out of line as in the original: ACT3Q3_SpawnGidbinnBoss (0x5B9A30) and OBJECTS_InitFunction25_Gidbinn (0x5B9AE0) call it.
 // 0x005B9930
-static void ACT3Q3_SpawnFetishBoss(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2Act3Quest3Strc* pQuestDataEx)
+static __declspec(noinline) void ACT3Q3_SpawnFetishBoss(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2Act3Quest3Strc* pQuestDataEx)
 {
     pQuestDataEx->bBossIsSpawning = 1;
     D2UnitStrc* pMonster = MONSTERUNIQUE_SpawnUniqueGroup(pGame, pRoom, 0, 0x197, 1, 0, 0, 1);
@@ -788,35 +789,6 @@ unsigned char __fastcall ACT3Q3_IsBossSpawning(D2GameStrc* pGame)
         return ((D2Act3Quest3Strc*)pQuestData->pQuestDataEx)->bBossIsSpawning;
     }
     return 0;
-}
-
-bool __fastcall ACT3Q3_SpawnGidbinnBoss(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
-{
-    D2Act3Quest3Strc* pQuestDataEx = (D2Act3Quest3Strc*)pQuestData->pQuestDataEx;
-    pQuestDataEx->bSpawnTimerStarted = 0;
-    if (pQuestDataEx->bGidbinnObjectInitialized == 1 && pQuestDataEx->bGidbinnObjectActivated && !pQuestDataEx->bBossHasSpawned && pGame->pAct[2])
-    {
-        D2ActiveRoomStrc* pRoom = DUNGEON_FindRoomBySubtileCoordinates(pGame->pAct[2], pQuestDataEx->nGidbinnX, pQuestDataEx->nGidbinnY);
-        if (pRoom)
-        {
-            D2ActiveRoomStrc** ppRoomList;
-            int nNumRooms;
-            DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
-            for (unsigned int i = 0; i < nNumRooms; ++i)
-            {
-                for (D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
-                {
-                    if (pUnit->dwUnitType == UNIT_PLAYER)
-                    {
-                        ACT3Q3_SpawnFetishBoss(pGame, pRoom, pQuestDataEx);
-                        pQuestData->pCallback[8] = ACT3Q3_Callback08_MonsterKilled;
-                        return true;
-                    }
-                }
-            }
-        }
-    }
-    return true;
 }
 
 // 0x005B9980
@@ -843,6 +815,44 @@ void __fastcall ACT3Q3_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     {
         pQuestDataEx->bBossHasSpawned = 0;
     }
+}
+
+static inline bool ACT3Q3_CanSpawnFetishBoss(const D2Act3Quest3Strc* pQuestDataEx)
+{
+    return pQuestDataEx->bGidbinnObjectInitialized == 1 && pQuestDataEx->bGidbinnObjectActivated && !pQuestDataEx->bBossHasSpawned;
+}
+
+// 0x005B9A30
+bool __fastcall ACT3Q3_SpawnGidbinnBoss(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
+{
+    D2Act3Quest3Strc* pQuestDataEx = (D2Act3Quest3Strc*)pQuestData->pQuestDataEx;
+    pQuestDataEx->bSpawnTimerStarted = 0;
+    if (ACT3Q3_CanSpawnFetishBoss(pQuestDataEx))
+    {
+        if (pGame->pAct[2])
+        {
+            D2ActiveRoomStrc* pRoom = DUNGEON_FindRoomBySubtileCoordinates(pGame->pAct[2], pQuestDataEx->nGidbinnX, pQuestDataEx->nGidbinnY);
+            if (pRoom)
+            {
+                D2ActiveRoomStrc** ppRoomList;
+                int nNumRooms;
+                DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+                for (unsigned int i = 0; i < nNumRooms; ++i)
+                {
+                    for (D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
+                    {
+                        if ((!pUnit ? UNIT_INVALID : pUnit->dwUnitType) == UNIT_PLAYER)
+                        {
+                            ACT3Q3_SpawnFetishBoss(pGame, pRoom, pQuestDataEx);
+                            pQuestData->pCallback[8] = ACT3Q3_Callback08_MonsterKilled;
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return true;
 }
 
 // 0x005B9AE0

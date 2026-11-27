@@ -46670,6 +46670,11 @@
      "va": "0x0056AF80",
      "length": 511,
      "name": "PLRSAVE2_InitializeStats"
+    },
+    {
+     "va": "0x0056B180",
+     "length": 595,
+     "name": "?PlayerCreate@@YIHPAUD2GameStrc@@PAUD2ClientStrc@@PAEIPAPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
     }
    ]
   },
@@ -46677,11 +46682,6 @@
    "file": "Source/D2Game/Unknown_0056B180.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0056B180",
-     "length": 595,
-     "name": "?PlayerCreate@@YIHPAUD2GameStrc@@PAUD2ClientStrc@@PAEIPAPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
-    },
     {
      "va": "0x0056B3E0",
      "length": 736,
@@ -47642,6 +47642,10 @@
      "name": "?MONSTER_GetPlayerCountBonus@@YIXPAUD2GameStrc@@PAUD2PlayerCountBonusStrc@@PAUD2ActiveRoomStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005739D0",
+     "length": 260
+    },
+    {
      "va": "0x00573AE0",
      "length": 57
     },
@@ -47667,16 +47671,6 @@
      "va": "0x00574370",
      "length": 160,
      "name": "MONSTER_Reinitialize"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00573780.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005739D0",
-     "length": 260
     }
    ]
   },
@@ -53740,6 +53734,11 @@
      "name": "?MONSTERUNIQUE_GetSuperUniqueBossHcIdx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005A03E0",
+     "length": 278,
+     "name": "?MONSTERUNIQUE_CanAssignUMod@@YGHPAUD2UnitStrc@@PAUD2MonUModTxt@@H@Z"
+    },
+    {
      "va": "0x005A0500",
      "length": 249,
      "name": "?MONSTERUNIQUE_RollChampionUMod@@YAHPAUD2UnitStrc@@PAUD2GameStrc@@@Z"
@@ -54021,6 +54020,10 @@
      "name": "?MONSTERUNIQUE_SetTrapDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005A3D20",
+     "length": 330
+    },
+    {
      "va": "0x005A3E70",
      "length": 119,
      "name": "MONSTERUNIQUE_SuicideModeChange"
@@ -54153,17 +54156,6 @@
      "va": "0x005A0000",
      "length": 37,
      "name": "@MISSILES_GetMonLvlTxtRecord@4"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A03E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A03E0",
-     "length": 278,
-     "name": "?MONSTERUNIQUE_CanAssignUMod@@YGHPAUD2UnitStrc@@PAUD2MonUModTxt@@H@Z"
     }
    ]
   },
@@ -54466,16 +54458,6 @@
     {
      "va": "0x005A8730",
      "length": 113
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A3D20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A3D20",
-     "length": 330
     }
    ]
   },
@@ -55564,6 +55546,10 @@
     {
      "va": "0x005EEB70",
      "length": 550
+    },
+    {
+     "va": "0x005EEDA0",
+     "length": 614
     },
     {
      "va": "0x005EF010",
@@ -57174,6 +57160,10 @@
      "name": "ACT3Q3_Callback08_MonsterKilled"
     },
     {
+     "va": "0x005B9A30",
+     "length": 173
+    },
+    {
      "va": "0x005B9AE0",
      "length": 96,
      "name": "?OBJECTS_InitFunction25_Gidbinn@@YIXPAUD2ObjInitFnStrc@@@Z"
@@ -57206,16 +57196,6 @@
      "va": "0x005B9D40",
      "length": 67,
      "name": "?OBJECTS_InitFunction39_GidbinnAltar@@YIXPAUD2ObjInitFnStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005B9A30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B9A30",
-     "length": 173
     }
    ]
   },
@@ -57997,6 +57977,14 @@
      "length": 127
     },
     {
+     "va": "0x005C25C0",
+     "length": 379
+    },
+    {
+     "va": "0x005C2740",
+     "length": 510
+    },
+    {
      "va": "0x005C2940",
      "length": 36,
      "name": "?ITEMS_RollSetItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
@@ -58009,6 +57997,16 @@
      "va": "0x005C2AD0",
      "length": 23,
      "name": "?ITEMS_RollSuperiorItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+    },
+    {
+     "va": "0x005C2AF0",
+     "length": 581,
+     "name": "?ITEMS_ApplyLegacyLowQuality@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+    },
+    {
+     "va": "0x005C2D40",
+     "length": 609,
+     "name": "?ITEMS_ApplyLowQuality@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     },
     {
      "va": "0x005C2FB0",
@@ -58055,42 +58053,6 @@
      "va": "0x005C0C30",
      "length": 200,
      "name": "SUNITEVENT_Trigger"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005C0F90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C25C0",
-     "length": 379
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005C2AF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005C2AF0",
-     "length": 581,
-     "name": "?ITEMS_ApplyLegacyLowQuality@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
-    },
-    {
-     "va": "0x005C2D40",
-     "length": 609,
-     "name": "?ITEMS_ApplyLowQuality@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005C2740.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C2740",
-     "length": 510
     }
    ]
   },
@@ -59879,16 +59841,6 @@
      "va": "0x005E0070",
      "length": 225,
      "name": "?QUESTSFX_UberPrimeEvil@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005EEDA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005EEDA0",
-     "length": 614
     }
    ]
   },

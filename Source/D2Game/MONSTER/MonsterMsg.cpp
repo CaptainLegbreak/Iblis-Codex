@@ -195,7 +195,6 @@ void __fastcall MONSTERMSG_SendMonsterModeUpdate(D2GameStrc* pGame,D2UnitStrc* p
 }
 
 
-unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit); // 0x005A0120
 
 
 static inline int sub_F05_MsgGetUnitX(D2UnitStrc* pUnit)
