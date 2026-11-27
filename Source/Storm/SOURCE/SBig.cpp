@@ -167,6 +167,12 @@ static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsign
     *pnLength = *pnLength < nSize - *pnOffset ? *pnLength : nSize - *pnOffset;
 }
 
+// 0x004212D0
+unsigned int BigBuffer::sub_004212D0_Get(unsigned int nIndex)
+{
+    return IsUsed(nIndex) ? m_array.m_data[m_start + nIndex] : 0;
+}
+
 // 0x00421510
 static void __cdecl BigToUnsigned(unsigned int* pnResult, const BigBuffer& tBuffer)
 {
@@ -236,6 +242,12 @@ void BigBuffer::GrowToFit(int nIndex)
         SMemZero(&m_array.m_data[m_array.m_count], (nPosition - m_array.m_count + 1) * sizeof(unsigned int));
         m_array.m_count = nNewCount;
     }
+}
+
+// 0x004220D0
+void BigBuffer::sub_004220D0_SetCount(unsigned int nCount)
+{
+    m_array.SetCount(m_start + nCount);
 }
 
 // 0x00422140
@@ -1092,6 +1104,30 @@ int __stdcall sub_004212F0_Compare(const BigBuffer* pLeft, const BigBuffer* pRig
             nResult = (*pLeft)[i] > (*pRight)[i] ? 1 : -1;
     }
     return nResult;
+}
+
+// 0x004213B0
+unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue)
+{
+    unsigned int nCount = pQueue->m_array.m_count;
+    unsigned int nStart = pQueue->m_start;
+    unsigned int nWords = nCount - nStart;
+    for (unsigned int i = nWords; i != 0; )
+    {
+        i--;
+        if (nStart + i < nCount && pQueue->m_array.m_data[nStart + i])
+        {
+            unsigned int nMask = 0x80000000;
+            for (unsigned int nBit = 32; nBit != 0; )
+            {
+                nBit--;
+                if (pQueue->sub_004212D0_Get(i) & nMask)
+                    return i * 32 + nBit;
+                nMask >>= 1;
+            }
+        }
+    }
+    return 0;
 }
 
 // 0x00421440

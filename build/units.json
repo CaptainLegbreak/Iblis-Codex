@@ -6290,21 +6290,6 @@
      "va": "0x00420E00",
      "length": 16,
      "name": "Drop"
-    },
-    {
-     "va": "0x004212D0",
-     "length": 32,
-     "name": "sub_004212D0_Get"
-    },
-    {
-     "va": "0x004213B0",
-     "length": 142,
-     "name": "BigHighBitIndex"
-    },
-    {
-     "va": "0x004220D0",
-     "length": 76,
-     "name": "sub_004220D0_SetCount"
     }
    ]
   },
@@ -7128,9 +7113,19 @@
      "name": "?sub_00420F80_DecodeLength@@YAXPBEIPAI1@Z"
     },
     {
+     "va": "0x004212D0",
+     "length": 32,
+     "name": "?sub_004212D0_Get@BigBuffer@@QAEII@Z"
+    },
+    {
      "va": "0x004212F0",
      "length": 183,
      "name": "?sub_004212F0_Compare@@YGHPBUBigBuffer@@0@Z"
+    },
+    {
+     "va": "0x004213B0",
+     "length": 142,
+     "name": "?BigHighBitIndex@@YGIPAUBigBuffer@@@Z"
     },
     {
      "va": "0x00421440",
@@ -7213,6 +7208,11 @@
      "va": "0x00422050",
      "length": 33,
      "name": "?Ref@BigBuffer@@QAEAAIH@Z"
+    },
+    {
+     "va": "0x004220D0",
+     "length": 76,
+     "name": "?sub_004220D0_SetCount@BigBuffer@@QAEXI@Z"
     },
     {
      "va": "0x00422120",
