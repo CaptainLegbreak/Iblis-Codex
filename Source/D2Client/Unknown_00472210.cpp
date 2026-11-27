@@ -296,8 +296,8 @@ void __cdecl sub_00472610_InitWindAngle();                                      
 
 extern "C" const char gszDataGlobalPath[];                                                                  // 0x006D4118
 int gbWeatherResetDone;                                                                            // 0x007A8A30
-int gaWeatherPhaseOffset[1];                                                                              // 0x007A8970
-int gaWeatherPhaseRange[1];                                                                               // 0x007A8958
+int gaWeatherPhaseOffset[4];                                                                              // 0x007A8970
+int gaWeatherPhaseRange[4];                                                                               // 0x007A8958
 unsigned char gabOutdoorLightColors[12];                                                                  // 0x007A89EC
 D2WeatherLayerStateStrc gtSplashCels;                                                            // 0x007A89B0
 D2WeatherLayerStateStrc gtBubbleCels;                                                            // 0x007A893C
