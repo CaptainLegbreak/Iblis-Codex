@@ -8,7 +8,17 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
-- Fri Nov 27 13:04 PST 2026: **lane12/declunits-1** (5fc38001c, stacked on dupdata-2): the coordinator's 12:07 item, done before lane 11
+- Fri Nov 27 13:45 PST 2026: **lane12/api-d2client-2** (7e1f35f19, on #487 7425acf9d): two commits, declunits-1 (below, rebased onto
+  #487 without conflicts) and "D2Client: declarations of its exports agree with their definitions" (genheaders
+  --module D2Client --header D2ClientApi.h): a new narrowly included D2ClientApi.h, other headers' lines for
+  D2Client addresses corrected, 370 private copies in 79 units go. Left: 12 exports (AUTOMAP_InitCharSaveHeader,
+  GAME_GetUnitTypeOrInvalid, SCMD_RegisterMsgHandler, SEED_RollRandomNumber, CUNIT_GetMonsterBaseId, gtMcpInfo,
+  gtGameDataTable, the MCP packet and wheel callbacks, gbRightClickConsumed: callers' types or typedefs) and per
+  unit the copies whose removal changes the unit. VERIFIED tree faec1a3dd1cb1b06073df3241f8ff91af61aaaf4 (on
+  #487). linkdebt of the D2Client commit, measured on dupdata-2: 23,056 -> 22,945 (type_disagreement -71,
+  renamed_definition 104 -> 64; D2Common -54, D2Game -41, D2Client -16; no module rises). auditguard: no count
+  rose (raw offset 120, byte pointer math 153, pointer casts 4,890 -> 4,874). Take this instead of declunits-1.
+- Fri Nov 27 13:04 PST 2026: **lane12/declunits-1** (in api-d2client-2; 5fc38001c, stacked on dupdata-2): the coordinator's 12:07 item, done before lane 11
   renames D2Multi/D2Launch. CharSel.cpp, MainMenus.cpp, ChatDlg.cpp and ComCallback.cpp reconciled one name at a
   time, each change followed by a build of the whole unit: 54 private lines take their definition's prototype, 11
   that an included header already declares the same way go (no new includes, so no declaration count changes).
@@ -42,6 +52,9 @@ it is on main; from #473, based on main.
   (type_disagreement 5,576 -> 5,557; D2Multi -10, D2Launch -9; no module rises). auditguard: no count rose.
 
 ## Claimed
+- Fri Nov 27 13:45 PST 2026: status. Ready: api-d2client-2 (declunits + D2Client). Next: genheaders for D2Game, then a second pass
+  over D2Win/D2Gfx/D2CMP/D2Sound (module-api-headers was made before the tool). Files: Source/Include/D2GameApi.h
+  (new) and the private copies of D2Game's functions in other modules.
 - Fri Nov 27 8:40 PST 2026: status. D2Lang done on top of api-storm-2 (only 3 copies can go: D2LangApi.h already agrees with the
   definitions, and dropping the rest changes their units; it will ride with D2Common). D2Common through genheaders
   is running (905 symbols, 1,237 copies; round 1: 42 of 251 units still differ). Finding for the owners:
