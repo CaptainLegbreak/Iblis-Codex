@@ -6722,19 +6722,9 @@
      "name": "?sub_00420F60_BigJoinDigits@@YG_KII@Z"
     },
     {
-     "va": "0x00420F80",
-     "length": 67,
-     "name": "?sub_00420F80_DecodeLength@@YAXPBEIPAI1@Z"
-    },
-    {
      "va": "0x00420FE0",
      "length": 18,
      "name": "@sub_00420FE0_LastCell@4"
-    },
-    {
-     "va": "0x004234F0",
-     "length": 65,
-     "name": "?FromStream@@YGXPAUBigBuffer@@PAIIPBE@Z"
     }
    ]
   },
@@ -7133,6 +7123,11 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00420F80",
+     "length": 67,
+     "name": "?sub_00420F80_DecodeLength@@YAXPBEIPAI1@Z"
+    },
+    {
      "va": "0x004212F0",
      "length": 183,
      "name": "?sub_004212F0_Compare@@YGHPBUBigBuffer@@0@Z"
@@ -7307,6 +7302,11 @@
      "name": "?FromStr@@YAXAAUBigBuffer@@PBD@Z"
     },
     {
+     "va": "0x004234F0",
+     "length": 65,
+     "name": "?FromStream@@YGXPAUBigBuffer@@PAIIPBE@Z"
+    },
+    {
      "va": "0x00423540",
      "length": 173,
      "name": "?FromUnsigned@@YGXAAUBigBuffer@@I@Z"
@@ -7319,6 +7319,11 @@
     {
      "va": "0x00423600",
      "length": 365
+    },
+    {
+     "va": "0x00423770",
+     "length": 27,
+     "name": "?ToStream@@YAXPAUD2StormArrayBStrc@@PAUBigBuffer@@@Z"
     },
     {
      "va": "0x00423790",
@@ -7349,6 +7354,11 @@
      "va": "0x00423870",
      "length": 18,
      "name": "?SBigFromStr@@YGXPAUD2StormBigStrc@@PBD@Z"
+    },
+    {
+     "va": "0x00423890",
+     "length": 26,
+     "name": "?SBigFromStream@@YGXPAXPBXIPAI@Z"
     },
     {
      "va": "0x004238B0",
@@ -7620,19 +7630,9 @@
      "name": "?4BigBuffer"
     },
     {
-     "va": "0x00423770",
-     "length": 27,
-     "name": "?ToStream@@YAXPAUD2StormArrayBStrc@@PAUBigBuffer@@@Z"
-    },
-    {
      "va": "0x00423820",
      "length": 43,
      "name": "?_GD2StormBigStrc"
-    },
-    {
-     "va": "0x00423890",
-     "length": 26,
-     "name": "?SBigFromStream@@YGXPAXPBXIPAI@Z"
     },
     {
      "va": "0x00426160",
