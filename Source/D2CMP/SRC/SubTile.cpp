@@ -430,35 +430,11 @@ static void __stdcall SubTileConvertFloor24To8(D2CmpColorStrc tColor, D2CmpMapCo
 }
 
 // @ref 0x0060D7E0
-static int sub_0060D7E0_HasTransparent(const unsigned char* pData)
-{
-    int nOffset = 14;
-    int nWidth = 4;
-    for (int nRow = 0; nRow < 15; ++nRow)
-    {
-        for (int nPixel = 0; nPixel < nWidth; ++nPixel)
-            if (!pData[nOffset + nPixel])
-                return 1;
-        pData += 32;
-        if (nRow < 7)
-        {
-            nOffset -= 2;
-            nWidth += 4;
-        }
-        else
-        {
-            nOffset += 2;
-            nWidth -= 4;
-        }
-    }
-    return 0;
-}
-
 // 0x0060DB20
 void __fastcall SubTileEncodeFloor(D2CmpSubTileRecordStrc* pRecord)
 {
     unsigned char* pData = pRecord->ptData;
-    if (sub_0060D7E0_HasTransparent(pData))
+    if (SubTileHasTransparentPixel(pData))
         SubTileCompressFloor(pRecord, pData);
     else
         SubTilePackFloor(pRecord, pData);
