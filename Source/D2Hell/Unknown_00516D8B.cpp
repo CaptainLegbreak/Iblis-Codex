@@ -86,9 +86,6 @@ extern "C" unsigned short gB27_007272E1;
 extern "C" B27UIAction gpfnResurrectMenuHandler;
 extern "C" unsigned int gB27_007272EF;
 extern "C" int gB27_007BCBF0;
-extern "C" int gB27_007BF298;
-extern "C" unsigned char gB27_007C025F;
-extern "C" unsigned int gbQuestPacketValue;
 extern "C" { B27RecordHandler gpfnRecordHandler; } // 0x00881834
 extern "C" unsigned int gnVirtualPlayerCount;
 
