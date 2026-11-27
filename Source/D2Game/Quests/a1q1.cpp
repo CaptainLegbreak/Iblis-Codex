@@ -63,10 +63,6 @@ typedef bool(__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-extern char gpAct1IntroNpcMessages[]; // 0x007361F8
-
-extern char gpAct1Q0NpcMessages[]; // 0x00736460
-
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 

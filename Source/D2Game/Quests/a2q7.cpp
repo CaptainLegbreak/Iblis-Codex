@@ -32,7 +32,6 @@ enum
 };
 
 extern char gpAct2Q7NpcMessages[];                                                                          // 0x0073B8C0
-extern char gpAct2Q8NpcMessages[];                                                                          // 0x0073BD58
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId);                                // 0x00543640
@@ -185,10 +184,6 @@ struct D2Act2Quest4Strc;
 
 struct D2Act1Quest1Strc;
 
-
-extern char gpAct1IntroNpcMessages[]; // 0x007361F8
-
-extern char gpAct1Q0NpcMessages[]; // 0x00736460
 
 void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
 

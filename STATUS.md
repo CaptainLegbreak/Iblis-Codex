@@ -42,16 +42,16 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 567 |
+| Compilation units | 561 |
 | … in a file with its original name, whole | 309 |
-| … pieces of an original file still split (in 18 files) | 63 |
+| … pieces of an original file still split (in 18 files) | 57 |
 | … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 195 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 1798 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 1775 |
 | Unnamed fields (`unk0x..`) in the shared headers | 645 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 34 |
 | Calling-convention shims | 38 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
-| `__declspec(noinline)` / `__forceinline` | 110 / 178 |
+| `__declspec(noinline)` / `__forceinline` | 110 / 172 |
 | Function names: blizzard / library / d2moo / inferred / placeholder | 478 / 87 / 5337 / 6508 / 2517 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`, an `if`/`else` whose two arms are identical). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
 
-Not listed one by one: 3239 functions are compiled with `/GS-` and 1603 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 110 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
+Not listed one by one: 3230 functions are compiled with `/GS-` and 1612 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 110 times and `__declspec(dllexport)` 137 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -322,8 +322,8 @@ Not listed one by one: 3239 functions are compiled with `/GS-` and 1603 with `/E
 | 0x004107B0 | SYSTEM_AtomicStore64 | `Fog/Src/System/system.cpp` | inline assembly |
 | 0x004107D0 | SYSTEM_AtomicRead64 | `Fog/Src/System/system.cpp` | inline assembly |
 | 0x004157C0 | FillStreamBuffer | `Storm/SOURCE/SFILE.CPP` | __assume through a header macro (original) |
-| 0x00423DC0 | Div | `Storm/SOURCE/SBig_00423DC0.cpp` | __assume through a header macro (original) |
-| 0x00424700 | Rand | `Storm/SOURCE/SBig_00424700.cpp` | identical if/else arms |
+| 0x00423DC0 | Div | `Storm/SOURCE/SBig.cpp` | __assume through a header macro (original) |
+| 0x00424700 | Rand | `Storm/SOURCE/SBig.cpp` | identical if/else arms |
 | 0x00424B00 | sub_00424B00_BigSquare | `Storm/SOURCE/SBig_00424B00.cpp` | __assume through a header macro (original) |
 | 0x00425720 | sub_00425720_Rotl | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
 | 0x00425730 | sub_00425730_Sha1Round0 | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
