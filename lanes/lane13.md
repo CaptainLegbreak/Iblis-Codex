@@ -26,6 +26,7 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - shortdata: 358 -> 363. All five new candidates are padding no code references: 4 B after gaStateStack[4], 20 B after gaDrlgRoomTilePresetUnits[34], 4 B after gtLoadingTimer, 4 B after Items.cpp's static guard (before gUniqueSelections), and the bytes after gnTextColorA.
   - **gapChatDlgControls (your #480 note): it can't be typed without the cast.** CONTROL_Create fills it as a table of D2WinControlStrc*, and ChatDlg.cpp walks it in three loops (1879, 4252, 4378). SMACK_Decode and SMACK_DeleteFile take D2WinSmackStrc*. A union per slot or a change to D2Win's API would only move the downcast, so I left the two casts as they are.
 ## Claimed
+- Fri Nov 27 11:57 PST 2026: 0x009897EC posted under Questions (a type for the D3D smack slots). With split-objects-3, that and the parked data-tables span are the only clusters left. Next: going through the 363 shortdata candidates for any whose room code actually reads.
 - Fri Nov 27 11:54 PST 2026: check-in. split-objects-3 Ready; it replaces split-objects-2 and short-arrays-3. Next: D2Direct3D 0x009897EC, then the remaining shortdata candidates.
 - Fri Nov 27 11:34 PST 2026: check-in. Read your 10:15 note. split-objects-2 (posted 10:52) has the short-arrays-3 commits rebased onto #483 with QuestLog.cpp redone, so short-arrays-3 can be dropped. Now **lane13/split-objects-3** (on #484, includes split-objects-2) is doing its full build. Its 12 new commits close 12 of the 13 clusters left outside D2DataTablesStrc. Ready in about 15 minutes.
 - Fri Nov 27 11:08 PST 2026: check-in. split-objects-2 Ready. **Data-tables cluster parked: findings under Questions** (CCritSect.h in D2DataTbls.h alone flips 6 units; the sub-table types are private to cpps). Released the data-tables claim. Next: the 13 other clusters.
@@ -57,6 +58,13 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
 - Fri Nov 27 01:14:52 PST 2026: starting. Running tools/shortdata.py and tools/linkdebt.py on lane10/short-data for the baseline counts. Claimed: the short globals in D2Common UNITS, D2Client UNIT/GAME, D2Game PLAYER/MONSTER, and the D2Win clusters 0x00842710 and 0x0081EA68.
 
 ## Questions
+- Fri Nov 27 11:57 PST 2026: **D2Direct3D 0x009897D4-0x009897F4 (the smack surface pairs): left as is; it needs a typing decision.** The span is four 2-entry pointer arrays, each also defined or declared as two scalars:
+  - 0x009897D4 is gpArray_009897D4, gapObjectsD4_009897D4, gapSmackSurfaces/gpMemSurfaceB and gpBuffer_009897D4/D8.
+  - 0x009897DC is gapObjectsDC, gapObjectsDC_009897DC and gpValue_009897DC/gpSmackSourceTexture.
+  - 0x009897E4 is gpArray_009897E4, gapSmackTextures and gpTarget_009897E4/gpTarget.
+  - 0x009897EC is gapObjectsEC, gapObjectsEC_009897EC and gpObject_009897EC/gpSmackTexture.
+
+  D3DSMACK_CreateSmackSurfaces passes each slot to the D3DCORE allocators as `void**`. The upload calls each slot's `lpVtbl->Load` as a D2D3DTextureStrc*, and the release loop calls Release as a D2D3DObjStrc*. So any single element type needs a cast at one of those three uses, unless the allocators' declarations (defined in other D3D units) change. Only the 0x009897EC pair makes a cluster, because DrawSmackFrame reads gapObjectsEC[1], which d3dSmack.cpp defines as gpSmackTexture. Which type should the slots have? I'd say D2D3DTextureStrc*, with the two allocators declared to take D2D3DTextureStrc**.
 - Fri Nov 27 11:08 PST 2026: **D2DataTablesStrc gDataTables: parked, findings for Fable.** No source changed; claim released.
   - **Blocker 1, the CCritSect member.** gLevelFilesCriticalSection (+0x19E0) has a ctor/dtor, so as a struct member D2DataTbls.h has to see CCritSect.h. I tried only adding `#include "CCritSect.h"` to D2DataTbls.h and compiled its 179 direct includers: 6 units stop matching (inv.cpp, inv_0048BC10.cpp, inv_0048DD90.cpp, UnitSnd.cpp, SUnitMsg.cpp, LvlTbls.cpp) and Preset.cpp no longer compiles. That is the declaration-count effect.
     - link_exe anchors each .CRT$XC* piece at its original slot, so moving the initializer into gDataTables's TU is not itself a problem.
