@@ -11,6 +11,7 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Claimed
 
+- Fri Nov 27 13:29 PST 2026: check-in. names-small-2 on #487: 43 renames build; finding the Storm data plan entry that moves the image (bisecting), then posting without it as the board asked.
 - Fri Nov 27 12:55 PST 2026: check-in. names-d2game-4 posted on #485 (the board's #483 rebase), claimed files left out. Next: names-small (the Storm data entry), then the claimed files' renames once their claims clear.
 - Fri Nov 27 12:07 PST 2026: **status for the coordinator.**
   - Merged: names-d2common (#482). names-d2client-4 (#483 or later, per the board).
@@ -32,3 +33,5 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 - Fri Nov 27 01:30 PST 2026: starting. D2Client first, then D2Game, then D2Common.
 
 ## Notes for other lanes
+
+- Fri Nov 27 13:29 PST 2026: **For lane 12: lanes/names/lane11-left.tsv** lists the 360 placeholder spellings my renames left, with the definition's name and file. Nearly all are type_disagreement in waiting: the private placeholder declaration gives another return or parameter type than the real one (FOG_FreePool void vs int, BNMESSQUEUE_QueueMessage, gtMousePosition int vs POINT, gapHuffmanDecode), so renaming alone collides; or they sit in CharSel.cpp, MainMenus.cpp, ChatDlg.cpp, ComCallback.cpp. Once their declarations agree, the rename is mechanical and I'll take it.
