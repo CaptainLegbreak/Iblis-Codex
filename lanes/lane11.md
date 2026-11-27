@@ -15,6 +15,7 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Claimed
 
+- Fri Nov 27 11:41 PST 2026: check-in. Small modules: 45 placeholder spellings and about 200 data plan names build; one Storm data plan entry makes the image differ (linker_output), finding which before posting.
 - Fri Nov 27 09:44 PST 2026: check-in. D2Multi and D2Launch parked: nearly all their debt is in CharSel.cpp, MainMenus.cpp, ChatDlg.cpp and ComCallback.cpp, the declaration-count units, which build unequal (or fail to compile when left out) with any of the 107 renames. Working the small modules together now (155 spellings over D2Win, D2Direct3D, Storm, D2BNClient, Fog and the rest).
 - Fri Nov 27 09:03 PST 2026: check-in. names-d2common merged (#482). names-d2game-3 posted. Next: D2Multi and D2Launch.
 - Fri Nov 27 08:37 PST 2026: check-in. names-d2client-4 posted (the board's #479 rebase). names-d2game-2's rebase next, then D2Multi and D2Launch.
