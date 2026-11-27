@@ -1286,7 +1286,6 @@ D2ViewStrc* gpClientView; // 0x007A0640
 
 D2LoadingTimerStrc gtLoadingTimer;                                                                                     // 0x007A0684
 
-int gdwGlobal_007A0688;                                                                                     // 0x007A0688
 
 extern void* ghAccelerators;                                                                             // 0x007A0708
 

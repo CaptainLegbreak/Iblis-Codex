@@ -240,9 +240,7 @@ extern D2AutomapRecordStrc* gpAutomapRecord;                                    
 
 extern D2ViewStrc* gpClientView;                                                                         // 0x007A0640
 
-int gtLoadingTimer;                                                                                     // 0x007A0684
-
-int gdwGlobal_007A0688;                                                                                     // 0x007A0688
+extern D2LoadingTimerStrc gtLoadingTimer;                                                                                     // 0x007A0684
 
 extern void* ghAccelerators;                                                                             // 0x007A0708
 
@@ -413,8 +411,8 @@ int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
 // 0x0044E200
 void __cdecl GAME_InitGameState()
 {
-    gtLoadingTimer = 0;
-    gdwGlobal_007A0688 = 0;
+    gtLoadingTimer.dwStart = 0;
+    gtLoadingTimer.dwLength = 0;
     gnCinematicPlayed = 0;
     gnPlayCinematic = 0;
     gbEndScreenDismissed = 0;
