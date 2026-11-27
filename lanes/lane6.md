@@ -2,11 +2,13 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 17:50 PT): winfont-shim Ready (full build identical). Shim readings in Claimed.
+Status (Thu Nov 26 2026, 17:55 PT): winfont-shim and copies-1 Ready, full builds identical.
 
 ## Ready
 
 - `lane6/winfont-shim` @ 6b0e8fb61 (on #452): every D2WinFont.cpp caller now calls FONT_DrawString (0x501A80) itself. D2Win_10132 went through a calling-convention shim that passed x through a global (shim_2) to another function (shim_1), and three callers used a second copy of the routine with its parameters reordered; the shim, its globals, the copy and the shim's noinline go (shims -1, noinline 109 -> 108). Unit equal; auditguard: no count rose; full build identical.
+
+- `lane6/copies-1` @ 0c53fc2ec (on #452): SubTile.cpp's unmarked copy of SubTileHasTransparentPixel goes; its callers use the placed function (0x60D7E0). Seven other files' copies of placed functions (D2Comp, FastCmp, D2SoundSmp, UNISYS, BnDownload, Unknown_004053F0) stay: replacing them changes the unit. Unit equal; full build identical.
 
 ## Questions
 
