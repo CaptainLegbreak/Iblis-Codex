@@ -578,6 +578,16 @@ float __cdecl SKILLDESC_GetFloatIfEnabled()
 }
 
 
+// 0x004E4220
+void __cdecl SKILLDESC_ClearEnvironSoundRefs()
+{
+    for (int nId = 0xAA0; nId < 0xB3D; nId += 4)
+    {
+        sub_00482370(nId);
+    }
+}
+
+
 // 0x004E4240
 static void SKILLDESC_AddEnvironSoundRefs(int nIndex)
 {
@@ -916,6 +926,13 @@ int __fastcall sub_004E4180_GetCyclicDistance(int nFrame, int nOffset, int nStep
     return MINIMUM(MINIMUM(nDirect, nForward), nBackward);
 }
 
+
+// 0x004E41E0
+int __cdecl SKILLDESC_IsOutsideDayCycle()
+{
+    const int nCycle = ENVIRONMENT_GetCycleIndexFromAct(gpAct);
+    return nCycle < 1 || nCycle > 3;
+}
 
 // 0x004E42E0
 void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)

@@ -30483,16 +30483,6 @@
      "name": "@SKILLDESC_RandomSpread@4"
     },
     {
-     "va": "0x004E41E0",
-     "length": 26,
-     "name": "?SKILLDESC_IsOutsideDayCycle@@YAHXZ"
-    },
-    {
-     "va": "0x004E4220",
-     "length": 26,
-     "name": "?SKILLDESC_ClearEnvironSoundRefs@@YAXXZ"
-    },
-    {
      "va": "0x004E4640",
      "length": 37,
      "name": "?SKILLDESC_GetMonTypeTxtRecord@@YIPAUD2MonTypeTxt@@H@Z"
@@ -30782,9 +30772,19 @@
      "name": "?sub_004E4180_GetCyclicDistance@@YIHHHH@Z"
     },
     {
+     "va": "0x004E41E0",
+     "length": 26,
+     "name": "?SKILLDESC_IsOutsideDayCycle@@YAHXZ"
+    },
+    {
      "va": "0x004E4200",
      "length": 17,
      "name": "?SKILLDESC_GetFloatIfEnabled@@YAMXZ"
+    },
+    {
+     "va": "0x004E4220",
+     "length": 26,
+     "name": "?SKILLDESC_ClearEnvironSoundRefs@@YAXXZ"
     },
     {
      "va": "0x004E4240",

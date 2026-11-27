@@ -979,23 +979,6 @@ extern "C" int __fastcall SKILLDESC_RandomSpread(int nRange)
     return (int)(uRoll - uRange);
 }
 
-// 0x004E41E0
-int __cdecl SKILLDESC_IsOutsideDayCycle()
-{
-    const int nCycle = ENVIRONMENT_GetCycleIndexFromAct(gpAct);
-    return nCycle < 1 || nCycle > 3;
-}
-
-// 0x004E4220
-void __cdecl SKILLDESC_ClearEnvironSoundRefs()
-{
-    for (int nId = 0xAA0; nId < 0xB3D; nId += 4)
-    {
-        sub_00482370(nId);
-    }
-}
-
-
 // 0x004E4640
 D2MonTypeTxt* __fastcall SKILLDESC_GetMonTypeTxtRecord(int nMonType)
 {
