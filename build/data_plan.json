@@ -165,9 +165,11 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SBig.cpp": {
-   "bytes": 700,
-   "definitions": 4,
-   "externs": [],
+   "bytes": 724,
+   "definitions": 6,
+   "externs": [
+    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
+   ],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SBig.inc",
    "lang": "cpp",
@@ -4789,17 +4791,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_00421110.cpp": {
-   "bytes": 24,
-   "definitions": 2,
-   "externs": [
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00421110.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/Storm/SOURCE/SEVT.CPP": {
    "bytes": 0,
    "definitions": 0,
@@ -9200,7 +9191,7 @@
    "cname": "gData_00708874",
    "declared": true,
    "decorated": "?gszTypeNameUInt_00708874@@3PADA",
-   "file": "Source/Storm/Unknown_00421110.cpp",
+   "file": "Source/Storm/SOURCE/SBig.cpp",
    "fill": 12,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708874_t gData_00708874; // 0x00708874",
@@ -9229,7 +9220,7 @@
    "cname": "gData_00708880",
    "declared": true,
    "decorated": "?gszTypeNameUChar_00708880@@3PADA",
-   "file": "Source/Storm/Unknown_00421110.cpp",
+   "file": "Source/Storm/SOURCE/SBig.cpp",
    "fill": 12,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708880_t gData_00708880; // 0x00708880",
