@@ -451,7 +451,6 @@ void __fastcall MISSILE_InitMotion(D2UnitStrc* pMissile);                       
 
 
 
-extern "C" const char gszMissileSourceFile[]; // 0x006DAEF4
 
 
 

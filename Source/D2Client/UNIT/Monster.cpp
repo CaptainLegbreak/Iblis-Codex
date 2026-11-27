@@ -93,7 +93,6 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned
 
 int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0

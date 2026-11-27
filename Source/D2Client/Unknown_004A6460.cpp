@@ -756,7 +756,6 @@ void* gpLevelSocketCel; // 0x007C02E0
 int gbStatButtonPressed; // 0x007C02E4
 
 
-void __fastcall TEXT_MoveKeyConfigSelection(int nStep);
 
 
 
@@ -804,7 +803,6 @@ extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
 
 
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 
 
@@ -2256,7 +2254,6 @@ struct D2PointsTextStrc
     Unicode w0, w1, w2, w3, w4, w5, w6, w7, w8, w9;
 };
 
-extern "C" const char gszFormatLd[]; // 0x006D9BE8
 
 
 extern void* gpSkillPointsCel; // 0x007BEF20

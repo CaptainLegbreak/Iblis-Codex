@@ -77,7 +77,6 @@ public:
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char* szFormat, ...);          // 0x006CC468
 
-int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
 D2UnitStrc* __fastcall sub_00463DD0();                                                             // 0x00463DD0
 const Unicode* __fastcall MONSTERS_GetHirelingDescString(int nId); // 0x00663720
 void __cdecl INV_FormatArgs(Unicode* pDest, const Unicode* pFormat, ...);                          // 0x0048BE80

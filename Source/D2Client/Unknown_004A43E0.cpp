@@ -775,7 +775,6 @@ int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
 
 
-void __fastcall TEXT_MoveKeyConfigSelection(int nStep);
 
 
 
@@ -823,7 +822,6 @@ extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
 
 
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 
 
