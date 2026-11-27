@@ -5,26 +5,28 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
-- Fri Nov 27 10:52 PST 2026: **lane13/split-objects-2** (4dedc24a6, on main a42b4ed66 = #483). It replaces short-arrays-3: those five commits are rebased in, with the QuestLog.cpp conflict against lane 11's #483 names redone. VERIFIED tree e045fc0f34924403faed79fefab1779512a9d1e6; Game.exe identical. Audit guard: no count rose.
-  - **Eleven new commits.** Each table here was declared too short, or read through a second name at a field or element offset; each now has its real object:
-    - `gaNpcTabs` (gaNpcTabStates and gnTabEnabled0-3 were its fields), with D2PanelTabStrc in a new Source/Include/D2PanelTab.h.
-    - `gaNpcEntries` (gaNpcEntryFlags was its bSelected and bFlag).
-    - `gaSkillTextPositions[12]` (4 B, a 68 B run, two ints and a 64 B run before).
-    - `gaCharTexts[15]` (gaTextEntries was it seen from wStringId).
-    - `gaLayouts[9]` (gaWaypointRowRects was +0x10), with D2WaypointLayoutStrc in a new Source/Include/D2WaypointLayout.h.
-    - D2Game `gpMonsterEventFunctions[16]` (gpfnMonsterEventCallbacks was slot 2). It's now a const table under its own name: as an alias its references counted as placeholder.
-    - D2Glide `gaGlideAspectTexDims` indexed at nAspect + 3 (gatGlideAspectScale was +3 entries).
-    - D2Common `gRoomExUnsetStatus[4]` (split 4 + 16 before; its 4 bytes of padding stay a run).
-    - `gnWallTileTypeRemap[6][7]`, defined at 0x006EF578 (it sat in a run that started 4 bytes early).
-    - `gaDrlgRoomTilePresetUnits[34]` (12 B + a 940 B run before).
-  - **Counts, main #483 -> this:**
-    - data clusters: 38 -> 14; 15,090 -> 7,511 B.
-    - data_cluster: 2,436 / 324 -> 1,671 / 265.
-    - linkdebt total: 25,066 -> 24,239. D2Client 8,729 -> 8,118, D2Game 5,303 -> 5,292, D2Common 3,723 -> 3,710, D2Launch 1,221 -> 1,185, D2Glide 358 -> 215, D2Hell 74 -> 61; no module rose.
-    - shortdata: 358 -> 360. Two new candidates:
-      - gaStateStack[4], with 4 unreferenced bytes after it;
-      - gaDrlgRoomTilePresetUnits[34], with 20 unreferenced bytes after it, before gaWarpTileOffsets (no 35th record fits there).
+- Fri Nov 27 11:54 PST 2026: **lane13/split-objects-3** (0c5a496cb, on main 8acabb402 = #484). It replaces split-objects-2: all of that branch, rebased, plus 12 commits. VERIFIED tree a8a381bf9b0d0613d0bf7ef75fd6b30cd46e5ae5; Game.exe identical. Audit guard: no count rose.
+  - **The 12 commits.** Each global here was a second name over part of another object, or an object nothing defined:
+    - CelCmp.cpp's Config view over gbCmpCompressedDataMode and the two extension strings.
+    - gdwGlobal_007A0688 (gtLoadingTimer.dwLength), with the int gtLoadingTimer in Game_0044B7B0.cpp.
+    - gapAutomapCels[4] (four pointers before).
+    - gabInvHighlightColors[5] (two bytes and two other names before).
+    - gabSlots[6] (memset 6).
+    - gszFontLanguage[20] (strcpy of 7 bytes into [4]).
+    - Fog gnLogQueueCount (the log TSList's terminator; now `.Head()`; two stray definitions gone).
+    - gUniqueSelections[4096] (never defined).
+    - gtPacket2A's nActionType and nUnitId (g007C0D89 and gnPendingNpcActionUnitId were its fields).
+    - gatGamePalette[256] (never defined; ddCore.cpp's gabPaletteEntries[1] was entry 1).
+    - D2CMP gCmpTileCache's nMaxSize and pHeadB (gnSpriteCacheMaxMemory and gpCmpCacheEntries).
+    - D2Direct3D gaPerspectiveVertices[15] (never defined; also seen as a [5][3] grid struct 8 bytes in, as gaGrid, and as gVertex0/gtVertex1-3).
+  - **Counts, main #484 -> this:**
+    - data clusters: 38 -> 2; 15,090 -> 6,724 B. Left: the D2DataTablesStrc span (parked, under Questions) and D2Direct3D 0x009897EC (8 B, next).
+    - data_cluster: 2,436 / 324 -> 1,391 / 233.
+    - linkdebt total: 25,066 -> 23,961. D2Client 8,729 -> 8,031, D2Game 5,303 -> 5,286, D2Common 3,723 -> 3,710, D2Launch 1,221 -> 1,185, D2Win 839 -> 817, D2Direct3D 802 -> 711, Fog 591 -> 575, D2CMP 416 -> 378, D2Glide 358 -> 215, D2DDraw 172 -> 154, D2Hell 74 -> 61; no module rose.
+    - shortdata: 358 -> 363. All five new candidates are padding no code references: 4 B after gaStateStack[4], 20 B after gaDrlgRoomTilePresetUnits[34], 4 B after gtLoadingTimer, 4 B after Items.cpp's static guard (before gUniqueSelections), and the bytes after gnTextColorA.
+  - **gapChatDlgControls (your #480 note): it can't be typed without the cast.** CONTROL_Create fills it as a table of D2WinControlStrc*, and ChatDlg.cpp walks it in three loops (1879, 4252, 4378). SMACK_Decode and SMACK_DeleteFile take D2WinSmackStrc*. A union per slot or a change to D2Win's API would only move the downcast, so I left the two casts as they are.
 ## Claimed
+- Fri Nov 27 11:54 PST 2026: check-in. split-objects-3 Ready; it replaces split-objects-2 and short-arrays-3. Next: D2Direct3D 0x009897EC, then the remaining shortdata candidates.
 - Fri Nov 27 11:34 PST 2026: check-in. Read your 10:15 note. split-objects-2 (posted 10:52) has the short-arrays-3 commits rebased onto #483 with QuestLog.cpp redone, so short-arrays-3 can be dropped. Now **lane13/split-objects-3** (on #484, includes split-objects-2) is doing its full build. Its 12 new commits close 12 of the 13 clusters left outside D2DataTablesStrc. Ready in about 15 minutes.
 - Fri Nov 27 11:08 PST 2026: check-in. split-objects-2 Ready. **Data-tables cluster parked: findings under Questions** (CCritSect.h in D2DataTbls.h alone flips 6 units; the sub-table types are private to cpps). Released the data-tables claim. Next: the 13 other clusters.
 - Fri Nov 27 10:52 PST 2026: check-in. split-objects-2 Ready; it replaces short-arrays-3. 14 clusters left. Next: **the D2DataTablesStrc cluster** (the go-ahead under Current state). Claimed: Source/Include/D2DataTbls.h, Source/D2Common/DATATBLS/*.cpp, and every file that declares a global in 0x0096BC30-0x0096D66C (35 files: D2Common DATATBLS, DRLG, DUNGEON, ENVIRONMENT, INVENTORY, Logging, SKILLS, Chat/Ignorelist.cpp, two Unknown_ files; D2CMP CelCmp.cpp).
