@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Thu Nov 26 22:25 PST 2026: names-fields-4 ready (stacked on names-fields-3).
 - Thu Nov 26 22:03 PST 2026: names-fields-3 ready. Main took names-dialog names-sound (Ready lines dropped).
 - Thu Nov 26 21:40 PST 2026: names-sound ready. Main took monster-join (Ready lines dropped).
 - Thu Nov 26 21:26 PST 2026: check-in. Main is #467; monster-join and names-dialog still ready, both merge clean.
@@ -82,6 +83,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/names-fields-4 084181be6 (on names-fields-3, merges clean on #470): names. D2RequestStrc, the block sub_004CD540_HandleRequest takes, is D2MissileStrc's layout (0x4CD540 is MISSILE_CreateClientMissile, 0x5C bytes): its callers store the missile id at +0x10, the source position at +0x14/+0x18, the target at +0x1C/+0x20 and the skill id at +0x2C. Its nArg fields take D2MissileStrc's names (nMissile, nX, nY, nTargetX, nTargetY, nGfxArg, nVelocity, nSkill, nSkillLevel) in the five files with a copy (GfxUtil.cpp, SkillsMon.cpp, SkillDesc.cpp, Missile.cpp, WardenClient.cpp; in GfxUtil.cpp and WardenClient.cpp only the record's member names change). All five equal. Full build: Game.exe identical, tree b9babb41e381f66f8b1b203f64317f3ae6c34eab, borrowed code / data 4,232 B / 261 B. Audit guard against its base: no count rose (against current main it shows main's own drops as rises).
 - lane1/names-fields-3 9ca53c29d (on #468, merges clean on #470): names, fields the code reads. D2CltUnitEventStrc (D2Client.h) +0x04/+0x08: nParam4, nParam5 (AddCltUnitEvent's fourth and fifth parameters, the pair RemoveCltUnitEvents matches). D2HirelingInfoStrc (Monster.cpp) +0x00: wNameId (MONSTERS_GetActFromHirelingTxt's nNameId, then the name shown). D2NpcSoundStrc (D2Client.h) +0x00: nDefaultSound (used unless a day or night sound replaces it). D2StringSoundStrc (Unknown_004DF770.cpp) +0x00: nSoundId. D2SoundEnvironStrc (Unknown_004DF6C0.cpp): fEnvSize, nRoomHF, fDecayTime, nReverb, from the SoundEnviron.txt columns that fill them. D2Client.h's change reaches every unit; all build equal. Full build: Game.exe identical, tree cfe1e5d4685c406147cac015dbb71a2de329feb0, borrowed code / data 4,232 B / 261 B. Audit guard: no count rose.
 (On main: skillsbar-head-3 #379, sprayfn-2 and statdesc-object #378, QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374, hint-object #375, sight-join #376. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
