@@ -773,9 +773,9 @@ static inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* 
     return 0;
 }
 
-static inline int SKILLS_CreateSubMissilesInline(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSubMissiles, int nMissileId, int nSkillId, int nSkillLevel, int a7)
+static inline int SKILLS_CreateSubMissilesInline(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSubMissiles, int nMissileId, int nSkillId, int nSkillLevel, int bFirstAtOffset)
 {
-    if (a7)
+    if (bFirstAtOffset)
     {
         SKILLS_CreateMissileAtOffset(pGame, nMissileId, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 0);
         --nSubMissiles;
