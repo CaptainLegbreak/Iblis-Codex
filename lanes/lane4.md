@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Thu Nov 26 21:45 PST 2026: #467 took join-gfx-drawunit. join-gfx-dcc0 posted on #467 (Gfx pieces 5 -> 4). Left: DB90+F870 (wait on the COF header, Notes), E300 and 470C30 (built without /GS-).
+
 - Thu Nov 26 20:55 PST 2026: Gfx_0046DB90 + Gfx_0046F870 retried together on #466: 4 mismatches including the 0x46E740 tie, and the COF-header record needs lane 2 (Notes). Reverted; reading in Left in place.
 
 - Thu Nov 26 20:40 PST 2026: #466 took join-game-d080. Ready: join-gfx-drawunit (no overlap with #466). Next: Gfx_0046DB90.
@@ -114,7 +116,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/join-gfx-drawunit 8c38d1f2d (on #465; #466 touched none of its files, headers or bookkeeping; full build on #464 identical, borrowed code 4,232 B in 1 function and borrowed data 261 B, both as main. #465 touched none of its files, so it was rebased without a rebuild. Audit guard clean, no noinline). Files in pieces, Gfx 7 -> 5. Gfx.cpp takes GFX_DrawGfxUnit (0x470EC0) and GFX_DrawUnit (0x471EC0) from Gfx_00470EC0.cpp and Gfx_00471EC0.cpp. Each piece held a copy of the other's function, so they join together. Gfx.cpp's unit takes /GS-, as both pieces had, and every Gfx unit builds equal with it. The pieces' private layer-header and list-node records give way to D2ClientGfx.h's. The moved call casts ITEMS_GetColor's result to unsigned char*: D2Client.h declares it int (D2Common's definition returns unsigned char*), and GfxUtil.cpp and Gfx.cpp use the int.
+- lane4/join-gfx-dcc0 74bdca89a (on #467; full build on #465 + join-gfx-drawunit identical, borrowed code 4,232 B in 1 function and borrowed data 261 B, both as main. After the rebase onto #467 the Gfx files, the headers Gfx.cpp includes and its bookkeeping are byte-for-byte what I built (#467 changed only D2GameFuncs.h among headers, and Gfx.cpp doesn't include it), so no rebuild. Audit guard clean with AUDIT_ALLOW=noinline: one noinline, 115 -> 116). Files in pieces, Gfx 5 -> 4.
+  - Gfx.cpp takes the three functions of Gfx_0046DCC0.cpp: GFX_LoadHashedEntry 0x46DCC0, GFX_RemoveStateOverlay 0x46E040 and GFX_DrawUnitShadow 0x471620.
+  - GFX_RemoveStateOverlay and GFX_RecalcStateOverlays read the overlay list through Gfx.cpp's D2GfxDataStrc/D2UnitOverlayStrc instead of D2ClientGfxState.h's owner/node views of the same memory. The overlay's +0x08 field is now nCurrent.
+  - IsShapeShifted is static inline, as the piece had it; non-static, GFX_DrawUnitShadow calls it out of line.
+  - The noinline is on GFX_DrawSimpleUnitShadow 0x471450, which the image calls from 0x471662. The piece's calling-convention shim goes.
 
 
 ## Claimed
