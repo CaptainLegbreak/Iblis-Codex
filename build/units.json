@@ -7467,7 +7467,7 @@
     {
      "va": "0x00423BC0",
      "length": 87,
-     "name": "?SBigToStrArray@@YGXPAUD2StormBigStrc@@PAUD2StormArrayCStrc@@H@Z"
+     "name": "?SBigToStrArray@@YGXPAUD2StormBigStrc@@PAU?$TSGrowableArray@DU?$TSCD@D@@@@H@Z"
     },
     {
      "va": "0x00423C20",

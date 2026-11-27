@@ -2,7 +2,6 @@
 #include "Storm.h"
 #include "D2StormTypes.h"
 #include "D2StormBigBuffer.h"
-#include "D2StormArrayC.h"
 #include "StormApi.h"
 #include "stpl.h"
 
@@ -830,13 +829,13 @@ void __stdcall SBigSub(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 }
 
 // 0x00423BC0
-void __stdcall SBigToStrArray(D2StormBigStrc* pBig, D2StormArrayCStrc* pArray, int bAppend)
+void __stdcall SBigToStrArray(D2StormBigStrc* pBig, TSGrowableArray<char>* pArray, int bAppend)
 {
     ToStr(pBig->tPrimary, pBig->tOutput, pBig->tStack);
     if (bAppend)
-        pArray->sub_00421F60_Add(pBig->tOutput.m_count, (const char*)pBig->tOutput.m_data);
+        pArray->Add(pBig->tOutput.m_count, (const char*)pBig->tOutput.m_data);
     else
-        pArray->sub_00421A50_Set(pBig->tOutput.m_count, (const char*)pBig->tOutput.m_data);
+        pArray->Set(pBig->tOutput.m_count, (const char*)pBig->tOutput.m_data);
 }
 
 // 0x00423C20
