@@ -1550,9 +1550,9 @@ int __fastcall D2GAME_NPC_BuyItemHandler(D2GameStrc* ptGame, D2UnitStrc* pPlayer
     return 1;
 }
 
-D2UnitStrc* __fastcall sub_00577700_FindStack(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int* a4)
+D2UnitStrc* __fastcall sub_00577700_FindStack(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pFreeStackCount)
 {
-    *a4 = 1;
+    *pFreeStackCount = 1;
 
     D2InventoryStrc* pInventory = pUnit->pInventory;
     if (!pInventory)
@@ -1581,7 +1581,7 @@ D2UnitStrc* __fastcall sub_00577700_FindStack(D2GameStrc* pGame, D2UnitStrc* pUn
             nMaxStack = ITEMS_GetTotalMaxStack(pStackItem);
             if (nQuantity < nMaxStack)
             {
-                *a4 = nMaxStack - nQuantity;
+                *pFreeStackCount = nMaxStack - nQuantity;
                 return pStackItem;
             }
         }
@@ -1602,13 +1602,13 @@ D2UnitStrc* __fastcall sub_00577700_FindStack(D2GameStrc* pGame, D2UnitStrc* pUn
             nMaxStack = ITEMS_GetTotalMaxStack(pStackItem);
             if (nQuantity < nMaxStack)
             {
-                *a4 = nMaxStack - nQuantity;
+                *pFreeStackCount = nMaxStack - nQuantity;
                 return pStackItem;
             }
         }
     }
 
-    *a4 = nMaxStack;
+    *pFreeStackCount = nMaxStack;
     return 0;
 }
 
