@@ -156,12 +156,12 @@ void __stdcall ACT2Q4_InitializeJerhynMonster(D2QuestDataStrc* quest,D2ActiveRoo
 
 
 // 0x0059F580
-void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc* pUnit, int* a3, int* pIdle)
+void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pContinueAi, int* pIdle)
 {
     D2QuestDataStrc* pQuestData11 = QUESTS_GetQuestData(pGame, 11);
     if (!pQuestData11 || !pQuestData11->bNotIntro)
     {
-        *a3 = 1;
+        *pContinueAi = 1;
         *pIdle = 0;
         return;
     }
@@ -169,21 +169,21 @@ void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc*
     D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData11->pQuestDataEx;
     if (!pQuestDataEx->bJerhynPalaceInitialized)
     {
-        *a3 = 1;
+        *pContinueAi = 1;
         *pIdle = 0;
         return;
     }
 
     if (QUESTS_GetGlobalState(pGame, 12, 13) || QUESTS_GetGlobalState(pGame, 14, 13) || ACT2Q6_IsJerhynTalkDone(pGame))
     {
-        *a3 = 1;
+        *pContinueAi = 1;
         *pIdle = 0;
         return;
     }
 
     if (pQuestDataEx->bJerhynInPalace)
     {
-        *a3 = 1;
+        *pContinueAi = 1;
         *pIdle = 0;
         return;
     }
@@ -207,17 +207,17 @@ void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc*
                     AITACTICS_WalkToTargetCoordinates(pGame, pUnit, pQuestDataEx->pHaremBlockerCoords.nX, pQuestDataEx->pHaremBlockerCoords.nY);
                     pQuestDataEx->unk0x13 = 1;
                     pQuestDataEx->unk0x12 = 0;
-                    *a3 = 0;
+                    *pContinueAi = 0;
                     *pIdle = 0;
                     return;
                 }
 
-                *a3 = 0;
+                *pContinueAi = 0;
                 *pIdle = 1;
                 return;
             }
 
-            *a3 = 0;
+            *pContinueAi = 0;
             *pIdle = 1;
 
             if (pQuestDataEx->bHaremBlockerInitialized != 1)
@@ -230,7 +230,7 @@ void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc*
                 D2UnitStrc* pHaremBlocker = SUNIT_GetServerUnit(pGame, 2, pQuestDataEx->nHaremBlockerGUID);
                 if (!pHaremBlocker)
                 {
-                    *a3 = 0;
+                    *pContinueAi = 0;
                     *pIdle = 1;
                     return;
                 }
@@ -241,14 +241,14 @@ void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc*
                 D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pHaremBlocker);
                 if (!COLLISION_GetFreeCoordinates(pRoom, &pCoord, 1, 0x3C01, 0) && !COLLISION_GetFreeCoordinates(pRoom, &pCoord, 2, 0x3C01, 0) && !COLLISION_GetFreeCoordinates(pRoom, &pCoord, 3, 0x3C01, 0))
                 {
-                    *a3 = 0;
+                    *pContinueAi = 0;
                     *pIdle = 1;
                     return;
                 }
 
                 if (!SUNIT_TeleportUnit(pGame, pUnit, pRoom, pCoord.nX, pCoord.nY, 0, 0))
                 {
-                    *a3 = 0;
+                    *pContinueAi = 0;
                     *pIdle = 1;
                     return;
                 }
@@ -266,7 +266,7 @@ void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc*
         }
     }
 
-    *a3 = 1;
+    *pContinueAi = 1;
     *pIdle = 0;
 }
 

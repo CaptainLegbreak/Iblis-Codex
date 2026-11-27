@@ -682,7 +682,7 @@ void __fastcall ACT3Q3_SetAltarMode(D2GameStrc* pGame); // 0x005B9CD0
 
 int __fastcall ACT2Q4_IsJerhynPalaceActivated(D2GameStrc* pGame); // 0x0059F570
 
-void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc* pUnit, int* a3, int* pIdle); // 0x0059F580
+void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pContinueAi, int* pIdle); // 0x0059F580
 
 int __fastcall ACT2Q4_IsGuardMoving(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0059B6E0
 
@@ -4839,7 +4839,7 @@ bool __fastcall AITHINK_ExecuteMapAiAction(D2GameStrc* pGame, D2UnitStrc* pUnit,
 void __fastcall AITHINK_Fn032_Npc(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     D2CoordStrc coord;
-    int a3;
+    int bContinueAi;
     int bIdle;
 
     if (AITHINK_InitHomeCommand(pGame, pUnit, pAiTickParam))
@@ -4875,13 +4875,13 @@ void __fastcall AITHINK_Fn032_Npc(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTick
             return;
         }
 
-        ACT2Q4_GetAndUpdatePalaceNpcState(pGame, pUnit, &a3, &bIdle);
+        ACT2Q4_GetAndUpdatePalaceNpcState(pGame, pUnit, &bContinueAi, &bIdle);
         if (bIdle)
         {
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
         }
 
-        if (!a3)
+        if (!bContinueAi)
         {
             return;
         }
