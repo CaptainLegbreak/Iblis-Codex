@@ -802,7 +802,6 @@ struct D2GridLightStrc
     void __thiscall ExtendBounds(D2GridUnitStrc* pUnit, int nSubX, int nSubY);     // 0x004DDE80
 };
 
-extern int gnScreenWidth; // 0x0071146C
 
 
 void __stdcall sub_004DE070_FillGridLight(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE070

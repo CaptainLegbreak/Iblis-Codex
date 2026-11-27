@@ -111,7 +111,6 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
-extern int gnScreenWidth; // 0x0071146C
 
 extern "C" unsigned int __cdecl strlen(const char* s);
 

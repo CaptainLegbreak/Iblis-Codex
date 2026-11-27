@@ -111,7 +111,6 @@ extern const int gaEffectRingOffsetY[16]; // 0x006DAF08
 
 extern const int gaEffectRingOffsetX[16]; // 0x006DAF48
 
-extern int gnScreenWidth; // 0x0071146C
 
 extern void* gpGlobal_007A0634; // 0x007A0634
 

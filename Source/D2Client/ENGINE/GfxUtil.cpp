@@ -205,7 +205,6 @@ extern "C" double __cdecl sqrt(double x); // 0x006879C0
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-extern int gnScreenWidth; // 0x0071146C
 
 
 

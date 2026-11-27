@@ -163,7 +163,6 @@ void __fastcall D2GFX_SetViewMatrixAdjust(int nOffset); // 0x004F52A0
 
 extern D2ViewStrc* gpClientView; // 0x007A0640
 
-extern int gnScreenWidth; // 0x0071146C
 
 
 

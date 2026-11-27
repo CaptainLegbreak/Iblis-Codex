@@ -146,7 +146,6 @@ extern unsigned char gnBoxColor; // 0x007BF034
 
 static void __stdcall PARTY_DrawTextFrame(unsigned short nAltString, unsigned short nString, int nX, int bLarge); // 0x0049AAF0
 extern D2PartyRowStrc* gpRosterUnits; // 0x007BF014
-extern int gnScreenWidth; // 0x0071146C
 extern int gbRosterMode; // 0x007BF038
 
 // 0x00499DE0

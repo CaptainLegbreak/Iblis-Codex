@@ -42,7 +42,6 @@ int __fastcall MISSILE_DoSkillWithTempTarget(void* pArg1, int nArg2, int nArg3, 
 
 
 
-extern int gaLevelVisited[]; // 0x007C78B8
 
 
 
