@@ -366,7 +366,6 @@ void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPar
 
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 // 0x00598E20
 int __fastcall ACT2Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
@@ -392,7 +391,7 @@ int __fastcall ACT2Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* 
         D2_ASSERT(pUnitRoom, 405);
 
         D2ActiveRoomStrc** ppRoomList;
-        unsigned int nNumRooms;
+        int nNumRooms;
         DUNGEON_GetAdjacentRoomsListFromRoom(pUnitRoom, &ppRoomList, &nNumRooms);
         for (unsigned int i = 0; i < nNumRooms; ++i)
         {
