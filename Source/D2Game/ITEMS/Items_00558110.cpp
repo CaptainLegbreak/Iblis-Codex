@@ -15,15 +15,12 @@
 
 struct D2UnitStrc;
 
-D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
-void __fastcall D2GAME_DropItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00558AA0
 
 #include "D2GameFuncs.h"
 #include "D2CommonApi2.h"
 
 
-unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem);                                                // 0x00628250
 
 
 
@@ -35,7 +32,6 @@ unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem);                    
 
 #define GOLD_PILE_MAX 2000000000
 
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
 
 

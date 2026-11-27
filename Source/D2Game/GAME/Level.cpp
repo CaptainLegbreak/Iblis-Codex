@@ -479,7 +479,6 @@ void __fastcall LEVEL_LoadAct(D2GameStrc* pGame, unsigned char nAct)
 struct D2MonsterDataStrc;
 
 
-int __stdcall SERVER_SendPacketToClient(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
 
 #pragma pack(push, 1)
 

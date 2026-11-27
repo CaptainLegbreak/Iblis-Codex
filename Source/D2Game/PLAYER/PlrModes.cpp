@@ -263,7 +263,6 @@ D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045
 extern const unsigned char gbMask_006CE284; // 0x006CE284
 
 
-void __fastcall sub_0057F240_EmitWalk(D2UnitStrc* pPlayer);
 
 static int PLRMODE_DrainRunStamina(D2UnitStrc* pPlayer);
 

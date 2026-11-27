@@ -444,7 +444,6 @@ int __fastcall SKILLS_AuraCallback_FindNextTarget(D2AuraCallbackStrc* pAuraCallb
 int __fastcall SKILLS_UnitFindTest_Corpse(D2UnitStrc* pUnit, D2UnitFindArgStrc* pArg); // 0x0056E370
 
 
-void __fastcall D2GAME_STATES_SendUnitStateUpdates(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005711D0
 
 
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00
@@ -497,7 +496,6 @@ extern SKILLSTARTFUNC gpSkillSrvStartFnTable_00732140[];                        
 
 D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId);                          // 0x0046ACE0
 
-void __stdcall STATLIST_SetListExpireFrame(D2StatListStrc* pStatList, int nExpireFrame);                                // 0x006260B0
 
 #define EVENTTYPE_REMOVESTATE 12
 
@@ -534,7 +532,6 @@ int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMo
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
-void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
 
 
 typedef void (__fastcall* LevelCallback)(unsigned int, int);
@@ -549,21 +546,15 @@ extern D2ServerCallbacks* gpServerCallbacks; // 0x00883D50
 
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc*); // 0x00625D60
 
-void __fastcall sub_00536850_UpdateLevel(D2GameStrc*,D2UnitStrc*,int); // 0x00536850
 
 
-int __stdcall UNITS_GetPlayerName(D2UnitStrc*,int,int); // 0x00622150
 
-static void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue);
 
-static void sub_00570B30_SpendStatPointsOnDexterity(D2UnitStrc* pUnit, int nValue);
 
 extern const unsigned int gdwInvBitMasks[]; // 0x006CE2E8
 
-extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 
 
-int __stdcall BITMANIP_GetSize(D2BitBufferStrc*); // 0x00410E90
 
 
 

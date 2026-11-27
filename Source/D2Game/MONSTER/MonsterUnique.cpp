@@ -113,17 +113,14 @@ typedef void(__fastcall* PartyCommandFunc)(D2GameStrc* pGame, D2UnitStrc* pPlaye
 
 typedef int(__stdcall* FARPROC)();
 
-extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern PartyCommandFunc gpfnPartyCommands[10]; // 0x006E2218
 
 
-D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
 
-void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, int nFlags); // 0x0057DBF0
 
 
 
@@ -183,7 +180,6 @@ D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* 
 
 
 
-extern "C" __int64 __stdcall _alldiv(__int64 a, __int64 b); // 0x00684240
 
 
 static void MONSTERUNIQUE_AddLifePercent(D2UnitStrc* pUnit, int nPercent); // 0x005A0D20
@@ -218,7 +214,6 @@ enum D2C_H16ElemConstants
 #define MONTYPEFLAG_LIGHTNINGUNIQUE 0x100
 
 
-void __fastcall MISSMODE_FillDamageParams(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005A89A0
 
 inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
@@ -519,7 +514,6 @@ struct D2MonsterRegionStrc;
 
 struct D2SuperUniquesTxt;
 
-int __stdcall sub_O05_EmitArg_AddUMod(D2UnitStrc* pUnit, int nValue);
 
 static inline D2MonUModTxt* sub_M433_GetMonUModTxtRecord(int nUMod)
 {
