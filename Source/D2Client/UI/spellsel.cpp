@@ -17,6 +17,7 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "StormApi.h"
+#include "D2CommonApi2.h"
 
 struct D2SkillStrc;
 
@@ -53,8 +54,6 @@ extern unsigned int gdwBitMasks_006CE268[];                                     
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                               // 0x00681EF0
 
-
-D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);                            // 0x00644140
 
 
 extern "C" int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
@@ -142,12 +141,6 @@ int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
 
-
-int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc*); // 0x0062BA80
-
-unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
-
-D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc*); // 0x0063BEF0
 
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nPaletteShift); // 0x004F64B0
 

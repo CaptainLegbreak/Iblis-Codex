@@ -41,6 +41,7 @@
 
 #include "D2NetTypes.h"
 #include "FogApi.h"
+#include "FogApi2.h"
 
 
 
@@ -49,10 +50,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 void __fastcall CLIENT_ReadPacketFromBuffer(void* pBuffer, int nBufferSize);                                // 0x0052AEB0
-
-void __fastcall FOG_10222(const unsigned char* pData, unsigned int nSize);                                  // 0x0040B130
-
-int __fastcall FOG_CompressPacket(unsigned char* pOut, int nCapacity, const unsigned char* pIn, int nSize);       // 0x0040B1B0
 
 int __stdcall FOG_10157(void* pServer, unsigned int nKey, const void* pData, unsigned int nSize); // 0x006C03A0
 
@@ -78,8 +75,6 @@ int __stdcall FOG_10170(QServer* pServer, int pfnCallback);                     
 int __stdcall FOG_10171(QServer* pServer, D2NET_Unk_Callback pfCallback);                                   // 0x006BF080
 
 int __stdcall FOG_10172(QServer* pServer, int nClientId, int dwGameGuid);                                   // 0x006BF0A0
-
-int __stdcall FOG_10173(void* pContainer, int nKey); // 0x006BF0C0
 
 int __stdcall FOG_10177(QServer* pServer, int dwMilliseconds);                                              // 0x006BEBC0
 

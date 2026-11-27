@@ -23,6 +23,7 @@
 #include "StormApi.h"
 #include "D2LangApi.h"
 #include "FogApi.h"
+#include "FogApi2.h"
 
 typedef long (__stdcall* WNDPROC)(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam);
 
@@ -225,8 +226,6 @@ extern "C" __declspec(dllimport) int __stdcall PtInRect(const tagRECT* pRect, ta
 extern "C" __declspec(dllimport) int __stdcall SetCursorPos(int nX, int nY); // 0x006CC4B4
 
 extern "C" __declspec(dllimport) int __stdcall TrackMouseEvent(tagTRACKMOUSEEVENT* pEventTrack); // 0x006CC520
-
-int __cdecl FOG_IsHandlingError(); // 0x00407FF0
 
 void __stdcall WINDOW_SetPaused(int bPaused); // 0x004F5990
 

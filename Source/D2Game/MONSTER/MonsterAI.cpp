@@ -94,6 +94,7 @@ struct D2HirelingTxt;
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 #include "D2GameFuncs.h"
+#include "D2CommonApi2.h"
 
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
@@ -176,8 +177,6 @@ void __fastcall QUESTS_SendCurrentFlags(D2GameStrc* pGame, D2ClientStrc* pClient
 
 int __fastcall ACT1Q4_IsCainInTristramDeactivated(D2GameStrc* pGame); // 0x00594610
 
-void __stdcall TEXT_CreateMessageListFromTextHeader(D2TextHeaderStrc* pTextHeader, D2MessageListStrc* pMsgList); // 0x00661480
-
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern "C" const char gszMonsterAISourceFile[]; // 0x006E1560
@@ -206,12 +205,8 @@ struct D2HirelingInitStrc
 void __fastcall D2GAME_BOSSES_AssignUMod(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4850
 
 
-void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
-
 
 int __fastcall MONSTERS_GetActFromHirelingTxt(int bExpansion, int nVersion, unsigned short nMercName); // 0x00663750
-
-int __fastcall MONSTERS_HirelingInit(int bExpansion, D2UnitStrc* pMonster, int nLowSeed, int nAct, int nDifficulty, D2HirelingInitStrc* pHirelingInit); // 0x006637F0
 
 static int MONSTERAI_CanSwitchAi(D2UnitStrc* pUnit);
 

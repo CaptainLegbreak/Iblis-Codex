@@ -11,6 +11,7 @@
 struct D2MonsterModeInfo;
 
 #include "D2GameFuncs.h"
+#include "D2CommonApi2.h"
 void __fastcall SCMD_SendSkillUseOnUnit(D2ClientStrc* pClient, unsigned char nSourceUnitType, int nSourceUnitGUID, unsigned char nUnitType, int nUnitGUID, unsigned short nSkillId, unsigned short nSkillParam, unsigned char nSkillLevel, int bQueued); // 0x0053D530
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 static void __stdcall MONSTERMSG_SendUsedSkill(D2UnitStrc* pMonster, D2UnitStrc* pTarget, D2ClientStrc* pClient); // 0x00597D70
@@ -22,8 +23,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 int __stdcall PATH_GetLastPointX(D2DynamicPathStrc*); // 0x00648A40
 int __stdcall PATH_GetLastPointY(D2DynamicPathStrc*); // 0x00648A60
-unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc*); // 0x006487F0
-unsigned char __stdcall D2COMMON_10191_PATH_GetDistance(D2DynamicPathStrc*); // 0x00648E60
 unsigned char __stdcall PATH_GetStepNum(D2DynamicPathStrc*); // 0x006490A0
 unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc*); // 0x005A5650
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc*,int); // 0x005A0180
@@ -198,8 +197,6 @@ void __fastcall MONSTERMSG_SendMonsterModeUpdate(D2GameStrc* pGame,D2UnitStrc* p
 
 unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit); // 0x005A0120
 
-
-int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit); // 0x0063EE90
 
 static inline int sub_F05_MsgGetUnitX(D2UnitStrc* pUnit)
 {

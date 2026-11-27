@@ -13,6 +13,7 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "StormApi.h"
+#include "D2CommonApi2.h"
 
 #define D2_FREE_PANEL_CEL(pCel) if (pCel) { ARCHIVE_FreeClientCellFile(pCel); pCel = 0; }
 
@@ -36,10 +37,6 @@ int __fastcall ROSTER_HasPartyMate(D2UnitStrc* pUnit); // 0x0047A2C0
 
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
-
-D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
-
-D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
 
 
@@ -1450,8 +1447,6 @@ void __fastcall SPELLSEL_DrawSkillInfoBase(int nValue, D2SkillsTxt* pSkillsTxt, 
 
 
 
-
-D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
 // 0x00496B10
 void __cdecl WARDENCLIENT_DrawHostileIcon()

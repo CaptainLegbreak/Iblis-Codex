@@ -27,6 +27,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2Packets.h"
+#include "D2CommonApi2.h"
 
 struct D2ActiveRoomStrc;
 
@@ -440,10 +441,6 @@ int __fastcall PLRSKILLS_SetStateStat(D2UnitStrc* pUnit, int nPrev, int nState, 
 
 
 
-unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
-
-unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
-
 void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, unsigned char nDirection); // 0x006488A0
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
@@ -482,8 +479,6 @@ struct D2SkillLevelEntryStrc
 void __fastcall sub_004B2620(const unsigned char* pData); // 0x004B2620
 
 
-void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
-
 extern "C" void __cdecl INV_ClearSkillPointsHighlight(); // 0x004AA8F0
 
 
@@ -491,10 +486,6 @@ extern "C" void __cdecl INV_ClearSkillPointsHighlight(); // 0x004AA8F0
 
 
 
-
-int __stdcall MONSTERS_IsDead(D2UnitStrc* pUnit); // 0x0063EA40
-
-void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask); // 0x00648C30
 
 
 #pragma pack(push, 1)
@@ -734,8 +725,6 @@ void __fastcall VIEW_UpdatePetLife(int nUnitId, int nLifePercent, unsigned short
 
 extern "C" void __cdecl sub_0048A700(); // 0x0048A700
 
-void __stdcall DATATBLS_AddOrChangeRunesTxtRecord(int nRecordId, D2RunesTxt* pRecord); // 0x00639CC0
-
 
 
 void __cdecl sub_00473CA0_Empty(); // 0x00473CA0
@@ -746,8 +735,6 @@ typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
-
-void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
@@ -1056,8 +1043,6 @@ void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x
 
 
 
-void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
-
 
 D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
@@ -1202,8 +1187,6 @@ void __stdcall STATLIST_SetState(D2StatListStrc*, int); // 0x006252D0
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc*, D2StatListStrc*, int); // 0x00626E10
 
-
-int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc*); // 0x0063EE90
 
 #pragma pack(push, 1)
 #pragma pack(pop)

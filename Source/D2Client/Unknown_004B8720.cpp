@@ -14,6 +14,7 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2CommonApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -104,8 +105,6 @@ int __cdecl UI_IsGoldPanelOpen(); // 0x004549C0
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign); // 0x00502280
 
-
-int __stdcall DUNGEON_IsTownLevelId(int nLevelId); // 0x0061AAF0
 
 
 

@@ -1,6 +1,7 @@
 #include "Fog.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "StormApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText_006CC837, sub_00408090(), line); exit(-1); }
 
@@ -65,8 +66,6 @@ struct D2BinFileStrc
     int nRecordCount;
     unsigned int nColumns;
 };
-
-int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars); // 0x00413550
 
 #pragma intrinsic(memset)
 

@@ -5,6 +5,7 @@
 #include "D2TxtTables.h"
 #include "D2ClientGfx.h"
 #include "FogApi.h"
+#include "D2CommonApi2.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -21,10 +22,6 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 
 
 D2TokRecord* __stdcall DATATBLS_GetMonModeTxtRecord(unsigned int nIndex, int bGetMode);                     // 0x0065B500
-
-D2TokRecord* __stdcall DATATBLS_GetCompositTxtRecord(int nComposit);                                        // 0x0065B5E0
-
-D2TokRecord* __stdcall DATATBLS_GetArmTypeTxtRecord(int nId);                                               // 0x0065B620
 
 
 
