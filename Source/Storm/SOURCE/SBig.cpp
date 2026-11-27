@@ -27,6 +27,9 @@ inline void operator delete(void* pMemory)
 // build: symbol ??1BigStack@@QAE@XZ 0x00421830
 // build: symbol ??0BigStack@@QAE@XZ 0x00421B70
 // build: symbol ?GrowToFit@D2StormArrayAStrc@@QAEXIH@Z 0x00421EA0
+// build: symbol ?Ref@BigBuffer@@QAEAAIH@Z 0x00422050
+// build: symbol ?SetStart@BigBuffer@@QAEXI@Z 0x00422120
+// build: symbol ??4BigBuffer@@QAEAAU0@ABU0@@Z 0x004221B0
 // build: symbol ?CalcChunkSize@D2StormArrayBStrc@@QAEII@Z 0x00421160
 
 struct D2StormArrayBStrc
@@ -149,6 +152,27 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
 extern const unsigned char gabSBigRandMul[8] = { 0x50, 0x46, 0x00, 0x00, 0x69, 0x90, 0x00, 0x00 }; // 0x006CFF60
 extern const unsigned char gabSBigRandSeed[8]; // 0x006CFF68
 
+// 0x00420F80
+static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsigned int nSize, unsigned int* pnOffset, unsigned int* pnLength)
+{
+    *pnLength = 0;
+    *pnOffset = 0;
+    while (*pnOffset < nSize)
+    {
+        unsigned int nByte = pData[(*pnOffset)++];
+        if (nByte == 0xFF)
+            break;
+        *pnLength = *pnLength * 0xFF + nByte;
+    }
+    *pnLength = *pnLength < nSize - *pnOffset ? *pnLength : nSize - *pnOffset;
+}
+
+// 0x004212D0
+unsigned int BigBuffer::sub_004212D0_Get(unsigned int nIndex)
+{
+    return IsUsed(nIndex) ? m_array.m_data[m_start + nIndex] : 0;
+}
+
 // 0x00421510
 static void __cdecl BigToUnsigned(unsigned int* pnResult, const BigBuffer& tBuffer)
 {
@@ -218,6 +242,12 @@ void BigBuffer::GrowToFit(int nIndex)
         SMemZero(&m_array.m_data[m_array.m_count], (nPosition - m_array.m_count + 1) * sizeof(unsigned int));
         m_array.m_count = nNewCount;
     }
+}
+
+// 0x004220D0
+void BigBuffer::sub_004220D0_SetCount(unsigned int nCount)
+{
+    m_array.SetCount(m_start + nCount);
 }
 
 // 0x00422140
@@ -547,6 +577,17 @@ static void FromStr(BigBuffer& a, const char* szString)
     }
 }
 
+// 0x004234F0
+static void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData)
+{
+    unsigned int nOffset;
+    unsigned int nLength;
+    sub_00420F80_DecodeLength(pData, nSize, &nOffset, &nLength);
+    sub_00423380_FromBytes(pBuf, pData + nOffset, nLength);
+    if (pnUsed)
+        *pnUsed = nOffset + nLength;
+}
+
 // 0x00423540
 static void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue)
 {
@@ -598,6 +639,12 @@ void __stdcall SBigFromBinary(D2StormBigStrc* pBig, const void* pData, unsigned 
 void __stdcall SBigFromStr(D2StormBigStrc* pBig, const char* szString)
 {
     FromStr(pBig->tPrimary, szString);
+}
+
+// 0x00423890
+void __stdcall SBigFromStream(D2StormBigStrc* pBig, const void* pData, unsigned int nSize, unsigned int* pnUsed)
+{
+    FromStream(&pBig->tPrimary, pnUsed, nSize, (const unsigned char*)pData);
 }
 
 // 0x004238B0
@@ -1059,6 +1106,30 @@ int __stdcall sub_004212F0_Compare(const BigBuffer* pLeft, const BigBuffer* pRig
     return nResult;
 }
 
+// 0x004213B0
+unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue)
+{
+    unsigned int nCount = pQueue->m_array.m_count;
+    unsigned int nStart = pQueue->m_start;
+    unsigned int nWords = nCount - nStart;
+    for (unsigned int i = nWords; i != 0; )
+    {
+        i--;
+        if (nStart + i < nCount && pQueue->m_array.m_data[nStart + i])
+        {
+            unsigned int nMask = 0x80000000;
+            for (unsigned int nBit = 32; nBit != 0; )
+            {
+                nBit--;
+                if (pQueue->sub_004212D0_Get(i) & nMask)
+                    return i * 32 + nBit;
+                nMask >>= 1;
+            }
+        }
+    }
+    return 0;
+}
+
 // 0x00421440
 static int BigIsEven(const BigBuffer& a)
 {
@@ -1186,7 +1257,8 @@ static void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn)
     sub_00421CB0_AppendDigits(pOut, pIn);
 }
 
-static void ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn) // 0x00423770
+// 0x00423770
+static void ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
     ToBinary(pOut, pIn);
     EncodeDataBytes(pOut->m_count, pOut);

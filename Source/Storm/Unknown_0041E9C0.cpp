@@ -1,9 +1,6 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
-#define DECODE_LENGTH sub_00420F80_DecodeLength
-#define FROM_BINARY sub_00423380_FromBinary
-#define FROM_LENGTH_PREFIXED FromStream
 
 struct UiContext;
 struct D2StormLinkStrc;
@@ -198,9 +195,6 @@ struct SequenceView
     unsigned int cursor;
 };
 
-static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsigned int nSize, unsigned int* pnOffset, unsigned int* pnLength);
-static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, BigBuffer* pBuf);
-static void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData); // 0x004234F0
 
 // 0x00420E10
 Entry* SlotArray::sub_00420E10(Entry* existing,int mode)
@@ -334,49 +328,6 @@ static unsigned __int64 __stdcall sub_00420F60_BigJoinDigits(unsigned int nHigh,
 unsigned __int64 __stdcall sub_K01_Emit_00420F60(unsigned int nHigh, unsigned int nLow)
 {
     return sub_00420F60_BigJoinDigits(nHigh, nLow);
-}
-
-// 0x00420F80
-static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsigned int nSize, unsigned int* pnOffset, unsigned int* pnLength)
-{
-    *pnLength = 0;
-    *pnOffset = 0;
-    while (*pnOffset < nSize)
-    {
-        unsigned int nByte = pData[(*pnOffset)++];
-        if (nByte == 0xFF)
-            break;
-        *pnLength = *pnLength * 0xFF + nByte;
-    }
-    *pnLength = *pnLength < nSize - *pnOffset ? *pnLength : nSize - *pnOffset;
-}
-
-static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, BigBuffer* pBuf)
-{
-    pBuf->InlineSetCount(pBuf->m_start);
-    for (unsigned int i = 0; i < nCount; i++)
-    {
-        unsigned int nByte = pData[i];
-        unsigned int nWord = i >> 2;
-        unsigned int nShift = i & 3;
-        pBuf->At(nWord) = (nByte << (nShift * 8)) + (nShift ? pBuf->Get(nWord) : 0);
-    }
-}
-
-// 0x004234F0
-static void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData)
-{
-    unsigned int nOffset;
-    unsigned int nLength;
-    DECODE_LENGTH(pData, nSize, &nOffset, &nLength);
-    FROM_BINARY(pData + nOffset, nLength, pBuf);
-    if (pnUsed)
-        *pnUsed = nOffset + nLength;
-}
-
-void __stdcall SBigFromStream(void* hBig, const void* pData, unsigned int nSize, unsigned int* pnUsed)
-{
-    FROM_LENGTH_PREFIXED((BigBuffer*)hBig, pnUsed, nSize, (const unsigned char*)pData);
 }
 
 // 0x00420FE0

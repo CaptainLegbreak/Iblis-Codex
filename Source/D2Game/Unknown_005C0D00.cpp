@@ -402,37 +402,14 @@ static __declspec(noinline) int __stdcall ITEMS_AddPotentialMagicAffix(int nAffi
     return nCount;
 }
 
-int __stdcall sub_M11_Emit_005C0D00(D2UnitStrc* pItem, D2MagicAffixTxt* pFirst, int nRecords, int nBase)
-{
-    D2MagicAffixIndexAndPtrStrc tAffixes[0x200];
-    int nCount = 0;
-    for (int i = 0; i < nRecords; ++i)
-    {
-        D2MagicAffixTxt* pRecord = &pFirst[i];
-        if (ITEMMODS_HasAffixWithGroup(pItem, pRecord->dwGroup))
-        {
-            continue;
-        }
-
-        nCount = ITEMS_AddPotentialMagicAffix(i + nBase, pRecord, tAffixes, nCount);
-    }
-
-    return nCount ? tAffixes[nCount - 1].nAffixId : 0;
-}
-
 // 0x005C0D20
-static D2SkillPairStrc* __stdcall ITEMS_GetSkillPairEntry(int nCount, D2SkillPairStrc* pArray, int nIndex)
+static D2MagicAffixIndexAndPtrStrc* __stdcall ITEMS_GetPotentialMagicAffix(int nCount, D2MagicAffixIndexAndPtrStrc* pAffixes, int nIndex)
 {
     if (nIndex >= nCount)
     {
         return 0;
     }
-    return &pArray[nIndex];
-}
-
-D2SkillPairStrc* __stdcall sub_K13_Emit_005C0D20(D2SkillPairStrc* pArray, int nIndex, int nCount)
-{
-    return ITEMS_GetSkillPairEntry(nCount, pArray, nIndex);
+    return &pAffixes[nIndex];
 }
 
 // 0x005C0D40
@@ -796,11 +773,6 @@ static int ITEMMODS_HasAffixWithGroup(D2UnitStrc* pItem, int nGroup)
     return 0;
 }
 
-static inline D2MagicAffixIndexAndPtrStrc* GetPotentialMagicAffix(D2MagicAffixIndexAndPtrStrc* pAffixes, int nIndex, int nCount)
-{
-    if (nIndex >= nCount) return 0;
-    return pAffixes;
-}
 static inline int GetClassId(D2UnitStrc* pItem)
 {
     if (!pItem) return -1;
@@ -930,7 +902,7 @@ static short __stdcall ITEMS_RollMagicAffixesNew(D2UnitStrc* pItem, int bRequire
             D2MagicAffixIndexAndPtrStrc* pRolled = 0;
             for (int i = 0; i < nPotentialCount; ++i)
             {
-                pRolled = GetPotentialMagicAffix(&tAffixes[i], i, nPotentialCount);
+                pRolled = ITEMS_GetPotentialMagicAffix(nPotentialCount, tAffixes, i);
                 if (!pRolled)
                     return 0;
                 const D2MagicAffixTxt* pRecord = pRolled->pMagicAffixRecord;

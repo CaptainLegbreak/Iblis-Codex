@@ -76,17 +76,13 @@ struct D2InventoryNodeStrc;
 
 struct D2CorpseStrc;
 
-struct Obj0063CD20;
 
-struct Obj0063CD40;
 
 struct D2SkillsTxt;
 
 struct D2SkillListStrc;
 
-struct Obj0063D650;
 
-struct Obj0063D670;
 
 struct AppearanceSix;
 
@@ -137,18 +133,9 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
-struct Obj0063CD20 {
-    unsigned int dwUnknown00;
-    unsigned int dwValue04;
-};
 
-struct Obj0063CD40 {
-    unsigned int dwValue00;
-};
 
-struct Obj0063D650 { unsigned int dwUnknown00; unsigned int dwUnknown04; unsigned int dwValue08; };
 
-struct Obj0063D670 { unsigned int dwValue00; };
 
 typedef unsigned short u16;
 
@@ -2713,19 +2700,25 @@ void __stdcall sub_006460E0_Empty(int nUnused)
 }
 
 // 0x0063CD20
-extern "C" __declspec(dllexport) unsigned int __stdcall INVENTORY_GetNextNode(Obj0063CD20* pObj) {
-    if (!pObj) {
+D2InventoryNodeStrc* __stdcall INVENTORY_GetNextNode(D2InventoryNodeStrc* pNode)
+{
+    if (!pNode)
+    {
         return 0;
     }
-    return pObj->dwValue04;
+
+    return pNode->pNext;
 }
 
 // 0x0063CD40
-extern "C" __declspec(dllexport) unsigned int __stdcall INVENTORY_GetItemGUIDFromNode(Obj0063CD40* pObj) {
-    if (!pObj) {
+int __stdcall INVENTORY_GetItemGUIDFromNode(D2InventoryNodeStrc* pNode)
+{
+    if (!pNode)
+    {
         return 0;
     }
-    return pObj->dwValue00;
+
+    return pNode->nItemId;
 }
 
 // 0x0063CD60
@@ -3387,19 +3380,25 @@ D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int
 }
 
 // 0x0063D650
-extern "C" __declspec(dllexport) unsigned int __stdcall INVENTORY_GetCorpseMercNameId(Obj0063D650* pObj) {
-    if (!pObj) {
+unsigned int __stdcall INVENTORY_GetCorpseMercNameId(D2CorpseStrc* pCorpse)
+{
+    if (!pCorpse)
+    {
         return 0;
     }
-    return pObj->dwValue08;
+
+    return pCorpse->unk0x08;
 }
 
 // 0x0063D670
-extern "C" __declspec(dllexport) unsigned int __stdcall INVENTORY_IsPlayerCorpse(Obj0063D670* pObj) {
-    if (!pObj) {
+unsigned int __stdcall INVENTORY_IsPlayerCorpse(D2CorpseStrc* pCorpse)
+{
+    if (!pCorpse)
+    {
         return 0;
     }
-    return pObj->dwValue00;
+
+    return pCorpse->bCounted;
 }
 
 // 0x0063D690

@@ -6290,21 +6290,6 @@
      "va": "0x00420E00",
      "length": 16,
      "name": "Drop"
-    },
-    {
-     "va": "0x004212D0",
-     "length": 32,
-     "name": "sub_004212D0_Get"
-    },
-    {
-     "va": "0x004213B0",
-     "length": 142,
-     "name": "BigHighBitIndex"
-    },
-    {
-     "va": "0x004220D0",
-     "length": 76,
-     "name": "sub_004220D0_SetCount"
     }
    ]
   },
@@ -6722,19 +6707,9 @@
      "name": "?sub_00420F60_BigJoinDigits@@YG_KII@Z"
     },
     {
-     "va": "0x00420F80",
-     "length": 67,
-     "name": "?sub_00420F80_DecodeLength@@YAXPBEIPAI1@Z"
-    },
-    {
      "va": "0x00420FE0",
      "length": 18,
      "name": "@sub_00420FE0_LastCell@4"
-    },
-    {
-     "va": "0x004234F0",
-     "length": 65,
-     "name": "?FromStream@@YGXPAUBigBuffer@@PAIIPBE@Z"
     }
    ]
   },
@@ -7133,9 +7108,24 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00420F80",
+     "length": 67,
+     "name": "?sub_00420F80_DecodeLength@@YAXPBEIPAI1@Z"
+    },
+    {
+     "va": "0x004212D0",
+     "length": 32,
+     "name": "?sub_004212D0_Get@BigBuffer@@QAEII@Z"
+    },
+    {
      "va": "0x004212F0",
      "length": 183,
      "name": "?sub_004212F0_Compare@@YGHPBUBigBuffer@@0@Z"
+    },
+    {
+     "va": "0x004213B0",
+     "length": 142,
+     "name": "?BigHighBitIndex@@YGIPAUBigBuffer@@@Z"
     },
     {
      "va": "0x00421440",
@@ -7205,14 +7195,39 @@
      "name": "??0D2StormBigStrc@@QAE@XZ"
     },
     {
+     "va": "0x00421EA0",
+     "length": 110,
+     "name": "?GrowToFit@D2StormArrayAStrc@@QAEXIH@Z"
+    },
+    {
      "va": "0x00421FE0",
      "length": 104,
      "name": "?GrowToFit@BigBuffer@@QAEXH@Z"
     },
     {
+     "va": "0x00422050",
+     "length": 33,
+     "name": "?Ref@BigBuffer@@QAEAAIH@Z"
+    },
+    {
+     "va": "0x004220D0",
+     "length": 76,
+     "name": "?sub_004220D0_SetCount@BigBuffer@@QAEXI@Z"
+    },
+    {
+     "va": "0x00422120",
+     "length": 24,
+     "name": "?SetStart@BigBuffer@@QAEXI@Z"
+    },
+    {
      "va": "0x00422140",
      "length": 99,
      "name": "?sub_00422140_Trim@BigBuffer@@QAEXXZ"
+    },
+    {
+     "va": "0x004221B0",
+     "length": 49,
+     "name": "??4BigBuffer@@QAEAAU0@ABU0@@Z"
     },
     {
      "va": "0x004221F0",
@@ -7307,6 +7322,11 @@
      "name": "?FromStr@@YAXAAUBigBuffer@@PBD@Z"
     },
     {
+     "va": "0x004234F0",
+     "length": 65,
+     "name": "?FromStream@@YGXPAUBigBuffer@@PAIIPBE@Z"
+    },
+    {
      "va": "0x00423540",
      "length": 173,
      "name": "?FromUnsigned@@YGXAAUBigBuffer@@I@Z"
@@ -7319,6 +7339,11 @@
     {
      "va": "0x00423600",
      "length": 365
+    },
+    {
+     "va": "0x00423770",
+     "length": 27,
+     "name": "?ToStream@@YAXPAUD2StormArrayBStrc@@PAUBigBuffer@@@Z"
     },
     {
      "va": "0x00423790",
@@ -7349,6 +7374,11 @@
      "va": "0x00423870",
      "length": 18,
      "name": "?SBigFromStr@@YGXPAUD2StormBigStrc@@PBD@Z"
+    },
+    {
+     "va": "0x00423890",
+     "length": 26,
+     "name": "?SBigFromStream@@YGXPAXPBXIPAI@Z"
     },
     {
      "va": "0x004238B0",
@@ -7595,44 +7625,14 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00421EA0",
-     "length": 110,
-     "name": "sub_00421EA0_GrowToFit"
-    },
-    {
-     "va": "0x00422050",
-     "length": 33,
-     "name": "sub_00422050_At"
-    },
-    {
      "va": "0x00422080",
      "length": 67,
      "name": "?sub_00422080_TrimToStart@BigBuffer@@QAEXXZ"
     },
     {
-     "va": "0x00422120",
-     "length": 24,
-     "name": "sub_00422120_SetStart"
-    },
-    {
-     "va": "0x004221B0",
-     "length": 49,
-     "name": "?4BigBuffer"
-    },
-    {
-     "va": "0x00423770",
-     "length": 27,
-     "name": "?ToStream@@YAXPAUD2StormArrayBStrc@@PAUBigBuffer@@@Z"
-    },
-    {
      "va": "0x00423820",
      "length": 43,
      "name": "?_GD2StormBigStrc"
-    },
-    {
-     "va": "0x00423890",
-     "length": 26,
-     "name": "?SBigFromStream@@YGXPAXPBXIPAI@Z"
     },
     {
      "va": "0x00426160",
@@ -58058,7 +58058,7 @@
     {
      "va": "0x005C0D20",
      "length": 21,
-     "name": "?ITEMS_GetSkillPairEntry@@YGPAUD2SkillPairStrc@@HPAU1@H@Z"
+     "name": "?ITEMS_GetPotentialMagicAffix@@YGPAUD2MagicAffixIndexAndPtrStrc@@HPAU1@H@Z"
     },
     {
      "va": "0x005C0D40",
