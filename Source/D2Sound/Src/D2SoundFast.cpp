@@ -259,4 +259,20 @@ void __cdecl D2SOUNDFAST_FadeOutWaves()
     }
 }
 
-#include "gen/data/Source/D2Sound/Src/D2SoundFast.inc"
+extern "C" const char* gData_0072F938[15] = { // 0x0072F938
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

@@ -114,4 +114,24 @@ int __cdecl sub_00513BB0_GetValue()
     return gdwGlobal_0072F830;
 }
 
-#include "gen/data/Source/D2Sound/Unknown_00513A20.inc"
+extern "C" const char* gData_0072F7F4[15] = { // 0x0072F7F4
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
+int gdwGlobal_0072F830 = 1; // 0x0072F830
+
+extern "C" unsigned char gData_0072F834[4] = { 0 }; // 0x0072F834

@@ -22,7 +22,23 @@ struct D2Net52BE10Strc
 
 extern int gdwGlobal_00882D14; // 0x00882D14
 
-#include "gen/data/Source/D2Net/Unknown_0052BDA0.inc"
+extern "C" const char* gData_00730F84[15] = { // 0x00730F84
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
 
 // 0x0052BDA0
 void __cdecl sub_0052BDA0_Empty()

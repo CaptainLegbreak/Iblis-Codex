@@ -3,7 +3,23 @@
 #include "D2Unicode.h"
 #include "FogApi.h"
 
-#include "gen/data/Source/D2Lang/Unknown_00526490.inc"
+extern "C" const char* gData_00730A28[15] = { // 0x00730A28
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
 #include "D2LangApi.h"
 #include "StormApi2.h"
 
