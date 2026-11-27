@@ -51,6 +51,7 @@ void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 #include "D2GameFuncs.h"
 #include "FogApi2.h"
 #include "D2NetApi.h"
+#include "StormApi2.h"
 extern "C" char* __cdecl strcpy(char* pDestination, const char* pSource);
 
 typedef void (__fastcall* GAME_ForEachIngameClientCallbackPtr)(D2ClientStrc*, void*);
@@ -634,8 +635,6 @@ void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pAr
 
 
 extern "C" const char gszSGameDataTypeName[];                                                               // 0x0070F56C
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                  // 0x00412650
 
 void __cdecl FOG_CreateNewPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize); // 0x00409DD0
 

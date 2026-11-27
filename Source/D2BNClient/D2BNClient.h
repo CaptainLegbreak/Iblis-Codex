@@ -60,13 +60,13 @@ int __fastcall BNDOWNLOAD_WaitForReply(unsigned char nReply); // 0x00520B70
 int __fastcall BNDOWNLOAD_IsReplyReceived(unsigned char nReply); // 0x00520BF0
 int __fastcall BNDOWNLOAD_DecodeCDKey(const char* szKey, void* pArg2, void* pArg3, void* pArg4); // 0x00522AE0
 int __stdcall SFileAuthenticateArchive(void* hArchive, unsigned int* pnResult); // 0x004172F0
-int __stdcall SFileCloseArchive(void* hMpq); // 0x00419A80
+int __stdcall SFileCloseArchive(void* hArchive); // 0x00419A80
 int __stdcall SFileLoadFile(const char* szFileName, void** ppBuffer, unsigned int* pSize, unsigned int nExtraSize, void* pOverlapped); // 0x0041B650
 int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq); // 0x0041BA60
-int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile); // 0x004192F0
+int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
 int __stdcall SLogCreate(const char* szFileName, unsigned long dwFlags, void** phLog); // 0x0041FD40
 int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsigned int nFlags, void* pBuffer, unsigned int nBufferSize, unsigned int* pnBytesRead); // 0x00414DE0
-unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+unsigned int __stdcall SStrPack(char* dest, const char* source, unsigned int limit); // 0x00413800
 void __cdecl sub_00518C70_LogIndent(int nChannel, int nDelta); // 0x00518C70
 void __cdecl sub_00520AD0_SetDisconnected(); // 0x00520AD0
 void __fastcall FOG_SOCKET_Destroy(FSafeSock* pSafeSock); // 0x0040DBD0
@@ -75,7 +75,7 @@ void __fastcall sub_00520C00_ClearReply(unsigned char nReply); // 0x00520C00
 void __stdcall SLogClose(void* hLog); // 0x0041FD00
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 void __stdcall sub_0041D2A0_MemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
-void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
+void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 void __stdcall sub_00420120_LogAdjust(void* hLog, int nValue); // 0x00420120
 
 #define CACHE_CRC32(dwCrc, pBytes, nCount) \

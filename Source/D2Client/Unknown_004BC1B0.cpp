@@ -11,6 +11,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2GfxApi.h"
+#include "StormApi2.h"
 
 class UIWidget;
 class ListBoxImplementation;
@@ -19,10 +20,6 @@ class ListBoxWrapper;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
-
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 
 void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect); // 0x00452E50
 

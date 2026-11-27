@@ -26,6 +26,7 @@
 #include "D2GfxApi.h"
 #include "D2WinApi.h"
 #include "D2CMPApi.h"
+#include "StormApi2.h"
 
 struct D2UnitStrc;
 
@@ -225,11 +226,6 @@ extern "C" HIMC__* __stdcall ImmGetContext(int hWnd); // 0x006B00C6
 extern "C" int __stdcall ImmReleaseContext(int hWnd, HIMC__* hImc); // 0x006B00B4
 
 extern "C" int __stdcall ImmGetConversionStatus(HIMC__* hImc, unsigned long* pConversion, unsigned long* pSentence); // 0x006B00DE
-
-void* __stdcall SMemAlloc(int nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
-
 
 int __fastcall sub_00472280_RollInRange(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 

@@ -19,8 +19,6 @@
 #include "StormApi.h"
 #include "StormApi2.h"
 
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags) throw(); // 0x00412650
-
 __declspec(nothrow) char* __stdcall SStrDup(const char* szString);                                                             // 0x00414310
 
 
@@ -897,8 +895,6 @@ int gnCompCodeTxtRecordCount; // 0x0096BCB4
 D2ExperienceDataTbl* gpExperienceTxt; // 0x0096C8A8
 
 struct D2StormHashKeyStrIStrc;
-
-extern "C" void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
 
 extern "C" const char gszTypeNameMappingEntryNode[]; // 0x0074362C
 

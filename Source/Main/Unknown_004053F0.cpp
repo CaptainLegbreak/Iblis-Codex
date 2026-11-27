@@ -7,6 +7,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi2.h"
+#include "StormApi2.h"
 #define CMD_BOOLEAN 0
 #define CMD_INTEGER 1
 #define CMD_STRING 2
@@ -17,8 +18,6 @@ struct D2IniEntryStrc;
 struct Character;
 struct D2CmdArgStrc;
 
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
-void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
 extern "C" const char gszNew[]; // 0x006CC82C
 
 struct D2IniEntryStrc

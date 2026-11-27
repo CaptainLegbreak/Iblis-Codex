@@ -3,6 +3,7 @@
 #include "D2Win32StartupInfo.h"
 #include "D2StormLink.h"
 #include "D2SysTypes.h"
+#include "StormApi2.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" __declspec(dllimport) int __stdcall CreateProcessA(const char* szApplicationName, char* szCommandLine, void* pProcessAttributes, void* pThreadAttributes, int bInheritHandles, unsigned long dwCreationFlags, void* pEnvironment, const char* szCurrentDirectory, D2StartupInfoAStrc* pStartupInfo, D2ProcessInformationStrc* pProcessInformation); // 0x006CC33C
@@ -910,7 +911,6 @@ void __thiscall D2ListStrc::sub_0051763C_UnlinkAll()
     }
 }
 
-void* __stdcall SMemAlloc(unsigned int,const char*,int,unsigned int);  // 0x00413020
 int __stdcall SMemFree(void*,const char*,int,unsigned int);
 extern const char gszRecordType[];  // 0x0072F9FC
 // 0x00517669
@@ -943,7 +943,6 @@ struct TMESSAGESOURCE {
     void __thiscall Clear();
 };
 
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags); // 0x00412650
 extern const char gszTMESSAGESOURCE[]; // 0x0072F9FC
 
 // 0x005176F8
@@ -958,7 +957,6 @@ void __thiscall TMESSAGESOURCE::Clear()
 }
 
 void* __stdcall SMemAlloc(unsigned int,const char*,int,unsigned int);
-int __stdcall SMemFree(void*,const char*,int,unsigned int);  // 0x00412650
 extern const char gszRecordType[];  // 0x0072F9FC
 // 0x0051772A
 char* D2StormListStrc::sub_0051772A_DeleteNode(char* node) {

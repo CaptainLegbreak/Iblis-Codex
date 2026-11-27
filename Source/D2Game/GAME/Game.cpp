@@ -772,6 +772,7 @@ static unsigned int gnPreviousMemUsageTick; // 0x00883D68
 struct D2PoolSystemStrc;
 
 #include "gen/data/Source/D2Game/GAME/Game_0052D720.static/gnFrameRate.inc"
+#include "StormApi2.h"
 
 
 
@@ -886,8 +887,6 @@ D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetHead(D2ClientStrc* pClien
 
 
 extern "C" const char gszSGameDataTypeName[];                                                               // 0x0070F56C
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                  // 0x00412650
 
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed);                                                           // 0x00650E30
 

@@ -33,6 +33,7 @@
 #include "D2CommonApi2.h"
 #include "D2GfxApi.h"
 #include "D2SoundApi.h"
+#include "StormApi2.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -192,8 +193,6 @@ int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 
 
-
-void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
 
 class UIWidget
 {

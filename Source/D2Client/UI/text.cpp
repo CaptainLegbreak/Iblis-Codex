@@ -33,6 +33,7 @@
 #include "D2GfxApi.h"
 #include "D2CMPApi.h"
 #include "D2SoundApi.h"
+#include "StormApi2.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -201,8 +202,6 @@ void __stdcall TEXT_FreeTextHeader(int nHandle); // 0x006612A0
 unsigned long gdwTextEndTick; // 0x007BF1AC
 
 D2ClientDialogStrc* gpListDialog; // 0x007BF1B0
-
-void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
 
 class UIWidget
 {

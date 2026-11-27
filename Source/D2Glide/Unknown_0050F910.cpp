@@ -8,6 +8,7 @@
 #include "FogApi.h"
 #include "FogApi.h"
 #include "D2SoundApi.h"
+#include "StormApi2.h"
 
 extern int gbRenderPaused; // 0x007C9144
 extern int gnRenderWidth; // 0x007C9138
@@ -53,8 +54,6 @@ extern "C" __declspec(dllimport) unsigned int __stdcall BinkDDSurfaceType(D2DDra
 extern "C" __declspec(dllimport) int __stdcall BinkSetSoundSystem(void* pfOpen, unsigned long nParam); // 0x006CC5D4
 
 extern "C" __declspec(dllimport) void* __stdcall BinkOpenDirectSound(unsigned long nParam); // 0x006CC5D8
-
-int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
 
 void __cdecl GLIDE_DrawVideoFrame(); struct D2CriticalSectionStrc;
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC214

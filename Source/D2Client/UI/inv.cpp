@@ -1528,8 +1528,6 @@ D2UnitStrc* __cdecl NPCMENU_GetInteractNpc();                                   
 
 int __stdcall ITEMS_GetAllRepairCosts(void* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, D2BitBufferStrc* pQuestFlags, void* pfCallback); // 0x0062FE60
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
-
 D2UnitStrc* __cdecl sub_00463DD0();
 #define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
 #define va_start(ap, v) (ap = (va_list)&v + _INTSIZEOF(v))

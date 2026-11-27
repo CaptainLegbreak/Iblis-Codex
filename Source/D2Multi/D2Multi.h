@@ -142,7 +142,7 @@ void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStr
 void __fastcall sub_004FFE10_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FFE10
 void __fastcall sub_00500B20_SetValue(D2WinControlStrc* pControl, int nValue); // 0x00500B20
 void __stdcall D2Win_10030_CONTROL_ToggleFourthFlag(D2WinControlStrc* pControl, int bSet); // 0x004FA420
-void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
+void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 void __stdcall sub_004F9160_SetLoopValue(int nValue); // 0x004F9160
 void __stdcall sub_004FA450_SetActive(D2WinControlStrc* pControl); // 0x004FA450
 void __stdcall sub_00504F80_UpdateComposite(D2CompositeStrc* pComposite, int nToken, int nMode, unsigned char* pComponents, unsigned char* pColors); // 0x00504F80

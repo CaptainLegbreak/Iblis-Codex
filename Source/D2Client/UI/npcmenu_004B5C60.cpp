@@ -11,6 +11,7 @@
 #include "D2Unicode.h"
 #include "D2LangApi.h"
 #include "D2CommonApi.h"
+#include "StormApi2.h"
 
 struct D2ClientItemSlotStrc
 {
@@ -20,8 +21,6 @@ struct D2ClientItemSlotStrc
     int nUnitId;
     char unk0x0C[0x04];
 };
-
-void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags);                         // 0x00413020
 
 class UIWidget
 {
