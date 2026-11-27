@@ -1168,7 +1168,7 @@ char __fastcall OBJECT_RemoveWhenFar(D2UnitStrc* pUnit)
 
         if (DRLG_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) > 25)
         {
-            sub_00465F00_RemoveClientUnit(pUnit->dwUnitId, 2);
+            CUNIT_RemoveServerSideUnit(pUnit->dwUnitId, 2);
             return 0;
         }
     }

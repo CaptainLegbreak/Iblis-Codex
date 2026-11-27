@@ -55,7 +55,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
     }
 
     int nSong = 0;
-    D2SoundEnvironTxtStrc* pSoundEnvironTxtRecord = SOUNDHDR_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
+    D2SoundEnvironTxtStrc* pSoundEnvironTxtRecord = SOUNDHDR_GetSoundEnvironTxtRecord(UNITMODE_GetPlayerSoundEnviron());
     if (pSoundEnvironTxtRecord)
     {
         nSong = pSoundEnvironTxtRecord->nSong;

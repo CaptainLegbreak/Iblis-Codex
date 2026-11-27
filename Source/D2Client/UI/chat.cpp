@@ -999,7 +999,7 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 
 
 
-extern int gnImeLanguage_007BB5F0;                                                                          // 0x007BB5F0
+extern int gnImeState;                                                                          // 0x007BB5F0
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
@@ -1047,7 +1047,7 @@ void __cdecl CHAT_DrawChatPanel()
     {
         Unicode wszLanguage[20];
         memset(wszLanguage, 0, sizeof(wszLanguage));
-        switch (gnImeLanguage_007BB5F0)
+        switch (gnImeState)
         {
         case 0:
             sub_00526F20_ToUnicode(wszLanguage, "Alphanumeric", 20);
@@ -1559,7 +1559,7 @@ static void CHAT_PushChatHistory(const Unicode* pText)
         if (--gnChatHistoryTail < 0)
             gnChatHistoryTail = 7;
     }
-    gnChatHistoryCursor_007BB5D8 = nIndex;
+    gnChatHistoryCursor = nIndex;
     memcpy(gawszChatHistory_007BB840[nIndex], pText, sizeof(gawszChatHistory_007BB840[0]));
 }
 
@@ -1590,7 +1590,7 @@ void __cdecl CHAT_ResetChatHistory()
 {
     gnChatHistoryHead = 7;
     gnChatHistoryTail = 7;
-    gnChatHistoryCursor_007BB5D8 = 0;
+    gnChatHistoryCursor = 0;
     gwChatHistoryCount = 0;
     gnChatCaret = 0;
 }
@@ -1630,7 +1630,7 @@ static int CHAT_HandleHelpCommand(char* szInput, const char* szCommand)
                 D2ChatTextStrc tBuffer;
                 sprintf(tBuffer.sz, "<BattleNet>: Correct usage is: %s", szCommand);
                 tMessage.tText = tBuffer;
-                sub_0049F490_PrintChatMessage(&tMessage);
+                TEXT_HandleChatPacket(&tMessage);
                 return 1;
             }
             D2ClientNotifyStrc* pNotify = WINMAIN_GetClientNotify();
@@ -1729,7 +1729,7 @@ static int __stdcall CHAT_HandleWhisperCommand(int bCheckStored, char* szInput, 
                     tMessage.nColor = 3;
                     sprintf(szCopy, "<BattleNet>: Correct usage is: %s (name) (message)", szCommand);
                     memcpy(&tMessage.tText, szCopy, sizeof(tMessage.tText));
-                    sub_0049F490_PrintChatMessage(&tMessage);
+                    TEXT_HandleChatPacket(&tMessage);
                     return 1;
                 }
             }

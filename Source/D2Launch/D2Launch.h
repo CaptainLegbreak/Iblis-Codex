@@ -43,7 +43,7 @@ int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 int __cdecl MAINMENUS_HasSaveFiles(); // 0x00430BC0
 int __cdecl D2Win_10003(); // 0x004F9050
 int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
-int __fastcall sub_005259C0(void* pArg, int nArg); // 0x005259C0
+int __fastcall STRTABLE_LoadStringTables(void* pArg, int nArg); // 0x005259C0
 int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars); // 0x00413550
 int __stdcall MAINMENUS_OnCloseBox(int nArg); // 0x004334D0
 void __cdecl MAINMENUS_Reset(); // 0x0042F480

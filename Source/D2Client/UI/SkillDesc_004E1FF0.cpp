@@ -319,7 +319,7 @@ int __fastcall SKILLDESC_CltDoComponentMissileA(D2UnitStrc* pUnit, int nSkillId,
         }
         else
         {
-            sub_004C5420_CreateFirstMissile(pUnit, nMissile, nSkillId, nSkillLevel);
+            AUTOMAP_RequestAtTarget(pUnit, nMissile, nSkillId, nSkillLevel);
         }
 
         return 1;
@@ -357,7 +357,7 @@ int __fastcall SKILLDESC_CltDoComponentMissileB(D2UnitStrc* pUnit, int nSkillId,
         }
         else
         {
-            sub_004C5420_CreateFirstMissile(pUnit, nMissile, nSkillId, nSkillLevel);
+            AUTOMAP_RequestAtTarget(pUnit, nMissile, nSkillId, nSkillLevel);
         }
 
         return 1;
@@ -405,7 +405,7 @@ int __fastcall SKILLDESC_CltDoWeaponOrSkillMissile(D2UnitStrc* pUnit, int nSkill
     {
         if (DATATBLS_GetMissilesTxtRecordInline_J03(nMissile))
         {
-            sub_004C5420_CreateFirstMissile(pUnit, nMissile, nSkillId, nSkillLevel);
+            AUTOMAP_RequestAtTarget(pUnit, nMissile, nSkillId, nSkillLevel);
             return 1;
         }
 
@@ -424,7 +424,7 @@ int __fastcall SKILLDESC_CltDoWeaponOrSkillMissile(D2UnitStrc* pUnit, int nSkill
     }
     else
     {
-        sub_004C5420_CreateFirstMissile(pUnit, nCltMissile, nSkillId, nSkillLevel);
+        AUTOMAP_RequestAtTarget(pUnit, nCltMissile, nSkillId, nSkillLevel);
     }
 
     return 1;
@@ -662,7 +662,7 @@ int __fastcall SKILLDESC_CltDoFirstMissile(D2UnitStrc* pUnit, int nSkillId, int 
         pUnit->dwFlags |= 0x40;
     }
 
-    return sub_004C5420_CreateFirstMissile(pUnit, nMissile, nSkillId, nSkillLevel) != 0;
+    return AUTOMAP_RequestAtTarget(pUnit, nMissile, nSkillId, nSkillLevel) != 0;
 }
 
 // 0x004E3D70
@@ -1589,7 +1589,7 @@ int __fastcall SKILLDESC_CltDoFirstMissileTurned(D2UnitStrc* pUnit, int nSkillId
         return 0;
     }
 
-    D2UnitStrc* pMissile = sub_004C5420_CreateFirstMissile(pUnit, nMissile, nSkillId, nSkillLevel);
+    D2UnitStrc* pMissile = AUTOMAP_RequestAtTarget(pUnit, nMissile, nSkillId, nSkillLevel);
     if (!pMissile)
     {
         return 0;

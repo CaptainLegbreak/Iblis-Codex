@@ -1919,7 +1919,7 @@ int __fastcall CUNIT_IsTargetBlocked(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
                 int nTargetId = pTarget->dwUnitId;
                 if (pTarget->dwUnitType != UNIT_MONSTER || (nTargetId = ROSTERPETS_FindRosterIndex(nTargetId)) != -1)
                 {
-                    return sub_0047A520(pUnit->dwUnitId, nTargetId) != 0;
+                    return ROSTER_IsSameParty(pUnit->dwUnitId, nTargetId) != 0;
                 }
             }
         }
@@ -2980,7 +2980,7 @@ D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pAr
 
     SEED_InitLowSeed(&pUnit->pSeed, pUnit->dwInitSeed);
     MONSTER_SetClientFlags(pUnit, 0);
-    sub_004AC810_ToggleMonsterFlag(pUnit, (unsigned short)pSpawn->tExtra.nArg10, 1);
+    MONUNIQUE_ToggleMonTypeFlag(pUnit, (unsigned short)pSpawn->tExtra.nArg10, 1);
     if (sub_004AC7E0_CheckMonTypeFlag(pUnit, 2))
     {
         sub_004AC7A0(pUnit, nArg5);
@@ -3126,7 +3126,7 @@ int __fastcall CUNIT_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, int bHi
     }
     D2UnitStrc* pPlayer=gpPlayerUnit;
     if(UNIT_HasFlag(pUnit,0x200000)) return 0;
-    if(!CUNIT_IsHostileTo(pPlayer,pUnit) && !sub_00464EC0(pPlayer,pUnit) && !CUNIT_IsTargetBlocked(pPlayer,pUnit)) return 0;
+    if(!CUNIT_IsHostileTo(pPlayer,pUnit) && !CUNIT_IsPetSkillTarget(pPlayer,pUnit) && !CUNIT_IsTargetBlocked(pPlayer,pUnit)) return 0;
     int bSelectable=0;
     if(CUNIT_CheckMonsterSkillSelect(pUnit,pPlayer))
     {

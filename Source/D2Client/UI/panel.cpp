@@ -136,7 +136,6 @@ extern "C" int __cdecl sub_00468730_MouseX();
 
 extern "C" int __cdecl sub_00468740_MouseY();
 
-extern "C" unsigned int __fastcall sub_004538D0_UIState(unsigned int index);
 
 extern "C" const unsigned short* __fastcall sub_00524A30_LocalizedText(unsigned short index);
 
@@ -213,7 +212,6 @@ void __cdecl PARTY_RefreshRosterIndices(); // 0x0049A9B0
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
-extern int gdwGlobal_007BEFA8; // 0x007BEFA8
 
 extern int gpBeltItemB; // 0x007BEFAC
 
@@ -295,7 +293,7 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLaye
 
 struct D2StaticPathStrc;
 
-void __fastcall sub_004C21F0(D2UnitStrc* pItem);
+void __fastcall ITEM_SetUninterruptableState(D2UnitStrc* pItem);
 
 static void PANEL_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY); // 0x00498930
 
@@ -311,7 +309,7 @@ int __cdecl INV_IsInvPanelTradeMode(); // 0x00489840
 
 void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
 
-int __fastcall sub_004B2AD0(D2UnitStrc* pItem, int nArg, int* pOut, Unicode* pName, int nMaxLength); // 0x004B2AD0
+int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int nArg, int* pOut, Unicode* pName, int nMaxLength); // 0x004B2AD0
 
 void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nUnused, int bFlag, const Unicode* wszExtra); // 0x004E6410
 
@@ -365,7 +363,7 @@ void __cdecl PANEL_DrawBelt(); // 0x00499040
 
 void __cdecl PANEL_ValidateActiveSkills(); // 0x00496CF0
 
-void __cdecl sub_00497A40_DrawPanelText();
+void __cdecl PANEL_DrawBeltItemHoverText();
 
 extern "C" void __cdecl PANEL_UpdateMiniPanelTooltip(); // 0x00498340
 
@@ -629,7 +627,7 @@ void __cdecl PANEL_DrawManaOrb()
     sub_004F6480(&tContext, gnScreenWidth - 0x6E, gnScreenHeight - 9, -1, 5, 0);
 }
 
-void __cdecl sub_00497300(); // 0x00497300
+void __cdecl INV_DrawKeyBindingPopup(); // 0x00497300
 
 
 
@@ -751,7 +749,7 @@ void __cdecl VIEW_DrawRunButton()
     if (nX >= gnScreenWidth / 2 - 0x91 && nX <= gnScreenWidth / 2 - 0x80
         && nY >= gnScreenHeight - 0x1C && nY <= gnScreenHeight - 8)
     {
-        sub_00497300();
+        INV_DrawKeyBindingPopup();
     }
 }
 
@@ -893,14 +891,14 @@ int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg)
 // 0x00499500
 void __stdcall PANEL_OnMouseClick(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (GAME_IsExitPending() || sub_00463DF0_StateBlocked())
+    if (GAME_IsExitPending() || CUNIT_IsPlayerDeadOrMissing())
     {
         pMsg->bReturn=0;
         return;
     }
     int nY=pMsg->nYpos;
     int nX=pMsg->nXpos;
-    if (sub_00498DC0_OverlayHit(pMsg))
+    if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg))
     {
         gbControlPanelClicked=1;
         pMsg->bReturn=1;
@@ -1085,7 +1083,7 @@ void __cdecl PANEL_DrawBeltItemHoverText()
     {
         Unicode wszSocket[0x40] = { 0 };
         int nUnused;
-        if (sub_004B2AD0(gpBeltItemA, 1, &nUnused, wszSocket, 0x40) && wszSocket[0].wChar)
+        if (NPCMENU_GetTradeCostText(gpBeltItemA, 1, &nUnused, wszSocket, 0x40) && wszSocket[0].wChar)
         {
             sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
             sub_00526700(wszText, wszSocket);
@@ -1325,7 +1323,7 @@ extern "C" void __cdecl PANEL_UpdateMiniPanelTooltip()
     if (mouseX >= gnScreenWidth / 2 - 8 && mouseX <= gnScreenWidth / 2 + 5
         && mouseY >= gnScreenHeight - 39 && mouseY <= gnScreenHeight - 13)
     {
-        if (sub_004538D0_UIState(21))
+        if (GAME_GetUIVarState(21))
             sub_00502280_SetTooltip(sub_00524A30_LocalizedText(4168), gnScreenWidth / 2 - 1, gnScreenHeight - 39, 0, 1);
         else
             sub_00502280_SetTooltip(sub_00524A30_LocalizedText(4167), gnScreenWidth / 2 - 1, gnScreenHeight - 39, 0, 1);
@@ -1617,7 +1615,7 @@ static void __stdcall PANEL_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2Invent
     }
 
     MSG_SendDwords3(0x26, pItem->dwUnitId, bShift, 0);
-    sub_004C21F0(pItem);
+    ITEM_SetUninterruptableState(pItem);
     if (bShift)
     {
         const int nPetId = ROSTERPETS_FindPetIdByOwner(pPlayer, 7, 0);
@@ -1723,7 +1721,7 @@ void __fastcall PANEL_SetBeltType(int nIndex)
 // 0x00498E80
 void __cdecl PANEL_ClearPair()
 {
-    gdwGlobal_007BEFA8 = 0;
+    gpBeltItemA = 0;
     gpBeltItemB = 0;
 }
 
@@ -1990,7 +1988,7 @@ void __cdecl PANEL_DrawControlPanel()
     PANEL_DrawMiniPanelButton();
     PANEL_DrawBelt();
     PANEL_ValidateActiveSkills();
-    sub_00497A40_DrawPanelText();
+    PANEL_DrawBeltItemHoverText();
     D2ActiveRoomStrc* pRoom = CUNIT_GetPlayerRoom();
     if (pRoom)
     {

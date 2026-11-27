@@ -135,9 +135,9 @@ extern int __stdcall UNITS_GetClientCoordY(D2UnitStrc*); // 0x006206B0
 
 extern void __stdcall DUNGEON_ClientTileDrawPositionToGameCoords(int,int,int*,int*); // 0x00643340
 
-extern int __stdcall sub_006488C0_PathX(Path*); // 0x006488C0
+extern int __stdcall PATH_GetXPosition(Path*); // 0x006488C0
 
-extern int __stdcall sub_00648900_PathY(Path*); // 0x00648900
+extern int __stdcall PATH_GetYPosition(Path*); // 0x00648900
 
 struct Cell36
 {
@@ -262,9 +262,9 @@ void __fastcall WALL2_PrepareWallCells(D2WallCtxStrc* pCtx, int nValue)
     tArg.pRoom = CUNIT_GetPlayerRoom();
     s_nPlayerX = GetUnitXPosition_Inline(pPlayer) / 5;
     s_nPlayerY = GetUnitYPosition_Inline(pPlayer) / 5;
-    s_nCollision = sub_0061B130_GetCollision(UNITS_GetRoom(pPlayer), GetUnitXPosition_Inline(pPlayer), GetUnitYPosition_Inline(pPlayer));
+    s_nCollision = D2Common_10095(UNITS_GetRoom(pPlayer), GetUnitXPosition_Inline(pPlayer), GetUnitYPosition_Inline(pPlayer));
 // build: symbol ?DUNGEON_CallRoomCallback@* 0x00619BD0
-    DUNGEON_CallRoomCallback(tArg.pRoom, sub_004DD7C0, &tArg);
+    DUNGEON_CallRoomCallback(tArg.pRoom, WALL2_VisitRoom, &tArg);
 }
 
 // 0x004DCF10
@@ -337,12 +337,12 @@ static void __cdecl WALL2_AddUnit(Cell* cell,Context* context,D2UnitStrc* unit)
     int x;
     int type=FIELD(int,unit,0);
     if(type==2 || (type>3 && type<=5)) x=FIELD(int,FIELD(Path*,unit,44),12);
-    else { Path* path=FIELD(Path*,unit,44); x=path ? sub_006488C0_PathX(path) : 0; }
+    else { Path* path=FIELD(Path*,unit,44); x=path ? PATH_GetXPosition(path) : 0; }
     node->x=8*x;
     int y;
     type=FIELD(int,unit,0);
     if(type==2 || (type>3 && type<=5)) y=FIELD(int,FIELD(Path*,unit,44),16);
-    else { Path* path=FIELD(Path*,unit,44); y=path ? sub_00648900_PathY(path) : 0; }
+    else { Path* path=FIELD(Path*,unit,44); y=path ? PATH_GetYPosition(path) : 0; }
     node->y=8*y;
     Node* last=FIELD(Node*,cell,24);
     if(!last) { FIELD(Node*,cell,24)=node; return; }
@@ -590,12 +590,12 @@ static void __stdcall WALL2_AddOverlay(Cell* cell,Context* context,D2UnitStrc* u
     int x;
     int type=FIELD(int,unit,0);
     if(type==2 || (type>3 && type<=5)) x=FIELD(int,FIELD(Path*,unit,44),12);
-    else { Path* path=FIELD(Path*,unit,44); x=path ? sub_006488C0_PathX(path) : 0; }
+    else { Path* path=FIELD(Path*,unit,44); x=path ? PATH_GetXPosition(path) : 0; }
     node->x=8*x;
     int y;
     type=FIELD(int,unit,0);
     if(type==2 || (type>3 && type<=5)) y=FIELD(int,FIELD(Path*,unit,44),16);
-    else { Path* path=FIELD(Path*,unit,44); y=path ? sub_00648900_PathY(path) : 0; }
+    else { Path* path=FIELD(Path*,unit,44); y=path ? PATH_GetYPosition(path) : 0; }
     node->y=8*y;
     FIELD(unsigned int,context,0)|=gVar_006CE274_Flags;
     Node* last=FIELD(Node*,cell,16);

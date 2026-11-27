@@ -291,7 +291,7 @@ static void __stdcall MISSILE_SpawnScattered(int nRange, int nMissile, D2UnitStr
 // 0x004D66E0
 void __fastcall MISSILE_CltDoFallingSpawn(D2UnitStrc* pMissile)
 {
-    const int nRemaining = sub_0064A380_GetRemainingFrames(pMissile);
+    const int nRemaining = MISSILE_GetCurrentFrame(pMissile);
     D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecordChecked(MISSILE_IZUAL_CONTROL);
     MISSILE_SpawnScattered(10, MISSILE_IZUAL_MIST_LOOP, pMissile);
     if (nRemaining < pMissilesTxtRecord->wRange - pMissilesTxtRecord->dwParam[0] && nRemaining > pMissilesTxtRecord->wRange - pMissilesTxtRecord->dwParam[1])
@@ -316,7 +316,7 @@ void __fastcall MISSILE_CltDoFallingSpawn(D2UnitStrc* pMissile)
             {
                 int nRoll = SEED_RollLimitedRandomNumber(pSeed, 3);
                 nRoll += 3;
-                sub_004DA250(pNew, 0, 0, -nRoll, 1);
+                GFXUTIL_SetMotionVectorD(pNew, 0, 0, -nRoll, 1);
                 GFXUTIL_SetBallistic(pNew, 0, 0xF);
                 GFXUTIL_ClearMotionFlagTwo(pNew);
             }
