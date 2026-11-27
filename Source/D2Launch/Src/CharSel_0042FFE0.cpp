@@ -50,7 +50,6 @@ extern int gnCharEntryCount; // 0x00779DC4
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 void __cdecl CHARSEL_UpdateButtons(); // 0x0043A730
 extern int gbFlag_00779C6C; // 0x00779C6C
-extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 void __cdecl CHARSEL_FreeCharList(); // 0x00438EA0
 int __fastcall D2Win_10047(D2WinTextBoxStrc* pTextBox); // 0x004FB6A0
@@ -127,6 +126,9 @@ static int CHARSEL_FindSlotByName(const char* szName)
     }
     return 0;
 }
+// This piece stays apart from CharSel.cpp. It has its own out-of-line copy of the CRT's static inline time()
+// at 0x43C530, and CharSel.cpp has another at 0x4379C0. A static inline gets one copy in each unit that
+// calls it out of line, so the two copies mean two objects.
 // 0x0043B080
 void __cdecl CHARSEL_InitCharSelectScreen()
 {
