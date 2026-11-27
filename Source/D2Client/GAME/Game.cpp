@@ -23,6 +23,11 @@
 #include "StormApi.h"
 #include "D2SysTypes.h"
 #include "D2CelContext.h"
+#include "D2WinApi.h"
+#include "D2CMPApi.h"
+#include "D2SoundApi.h"
+#include "D2NetApi.h"
+#include "D2HellApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -485,8 +490,6 @@ void __fastcall LOGGING_SetLoggingEnabled(int nValue); // 0x00624B50
 
 
 void __fastcall ROSTER_SetCTemp(int nValue); // 0x0047AA10
-
-void __stdcall D2CMPSetNoCompress(int bCompress); // 0x005FE280
 
 void __stdcall DATATBLS_ToggleCompileTxtFlag(int bValue); // 0x006125A0
 
@@ -1169,8 +1172,6 @@ extern int gnBeltUiRecordRow; // 0x007A5218
 
 void __stdcall WINDOW_ShowAll(); // 0x004F5F60
 
-void __stdcall CLIENT_Initialize(int nArg, const char* szAddress); // 0x0052A750
-
 
 
 extern D2McpCallbackFn gpfnMcpPacket08Callback; // 0x007992F8
@@ -1250,17 +1251,7 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 
 D2RecordHandlerFn __fastcall sub_005173D3_SetRecordHandler(D2RecordHandlerFn pfnHandler);                  // 0x005173D3
 
-int __fastcall sub_0051740B_ErrorBox(const char* szText);                                                   // 0x0051740B
-
-void __fastcall sub_005177B2_SetLoadStringFn(void* pfnLoadString); // 0x005177B2
-
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);                                 // 0x005267E0
-
-void __cdecl D2CMPTileFreeAsyncLoads();                                                                                // 0x005FE070
-
-void __cdecl D2CMPSpriteFreeAsyncLoads();                                                                                // 0x005FF3A0
-
-void __cdecl D2CMP_LoadItemPalShifts();                                                                                // 0x00600B80
 
 extern "C" const char gszLngFileName[];                                                            // 0x006D5EE0
 
@@ -1426,8 +1417,6 @@ void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc* pSystem, int bFreePoo
 
 int __stdcall WINMAIN_ProcessCommandLine(void* pArg); // 0x0044B6B0
 
-int __fastcall D2Win_10015(); // 0x004F8FE0
-
 int __stdcall D2Win_10014_SetWndProc(WNDPROC wndProc); // 0x004F8FC0
 
 int __stdcall SCMD_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451B30
@@ -1474,8 +1463,6 @@ int gnLaunchResult; // 0x007A0440
 struct D2CharInfo { char pad[0xbd]; char name[0x132]; unsigned short flags; };
 #pragma pack(pop)
 D2CharInfo* __cdecl WINMAIN_GetClientInfo(); // 0x0044B7A0
-
-const char* __stdcall D2Win_10161(int nClass, int nLevel, int bExpansion, int bSoftCore); // 0x005068A0
 
 extern unsigned char gnClass; // 0x007A0522
 
@@ -1529,15 +1516,11 @@ int __fastcall GAME_GetCenteredTextX(unsigned short nStringIndex, int nCenterX);
 
 void __stdcall D2CMPLoadProjectRecord(D2TileLibraryHeaderStrc** ppLibrary, const char* szFilePath); // 0x00600790
 
-int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Filename); // 0x004FB500
-
 void __fastcall MSG_SetProgress(int nValue, int nDivisor); // 0x00478130
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 void __fastcall VIEW_InitLifeColors(int nMode); // 0x00492F40
-
-void __fastcall D2Win_10134_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC); // 0x00502680
 
 extern "C" const char gszFormatD[]; // 0x006D57BC
 
@@ -1634,10 +1617,6 @@ void __cdecl SOUNDHDR_ShutdownSound(); // 0x00482940
 void __fastcall INV_PlayCinematic(int); // 0x00482EF0
 
 void __cdecl INV_ResetCinematicFlags(); // 0x00483310
-
-void __stdcall D2Win_10006_ClearDrawCaches(); // 0x004F9130
-
-void __fastcall D2SOUNDSMP_FadeOutMasterVolume(int); // 0x00515F50
 
 int gbEndScreenButtonPressed; // 0x007A0680
 

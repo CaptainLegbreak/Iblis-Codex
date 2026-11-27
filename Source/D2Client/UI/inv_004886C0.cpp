@@ -14,6 +14,7 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2WinApi.h"
 
 struct D2CelFileStrc;
 
@@ -55,8 +56,6 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 void __stdcall INV_DrawUnitInventory(D2UnitStrc* pUnit);                                           // 0x00483FF0
 
 D2CelFileStrc* __cdecl GAME_GetBuySellButtonCells(); // 0x00454600
-
-int __fastcall D2Win_10127_SetFont(int nFont);                                                                     // 0x00502EF0
 
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820

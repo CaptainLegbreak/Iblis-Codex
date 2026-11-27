@@ -1,4 +1,5 @@
 #include "FogApi.h"
+#include "D2GfxApi.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -66,7 +67,6 @@ struct D2LightPairStrc
 };
 
 int __cdecl sub_0045AE90_GetPanelSlideMode();                                                                         // 0x0045AE90
-int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 int __cdecl DLIGHTMAP_GetRenderMode();                                                                                 // 0x00477730
 void __fastcall SCMD_ReadGridCell(D2LightPointStrc* pA, D2LightPointStrc* pB, unsigned char* pC0, unsigned char* pC1, unsigned char* pC2, unsigned char* pC3); // 0x00475AA0
 int __stdcall TILE_TileDrawLit(D2TileGfxStrc* pTile, int nX, int nY, unsigned int* pLight, int nGamma);   // 0x004F6920

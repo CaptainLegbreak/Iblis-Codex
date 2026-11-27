@@ -11,6 +11,9 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "gen/data/Source/D2Client/Unknown_0044BA20.inc"
+#include "D2GfxApi.h"
+#include "D2NetApi.h"
+#include "D2MCPClientApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -92,10 +95,6 @@ int __stdcall WINMAIN_HandleExtraArgument(const char* szArgument); // 0x0044B5C0
 
 int __stdcall WINMAIN_HandleArgumentError(const char* szArgument); // 0x0044B5D0
 
-
-int __stdcall CLIENT_DequeueGamePacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A890
-
-int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A8B0
 
 
 void __fastcall SCMD_ProcessPackets(unsigned char* pPacket, int nLength); // 0x0045F7B0
@@ -186,33 +185,15 @@ typedef void (__fastcall* D2McpCallback)(int nId, unsigned int nSize, const unsi
 
 
 
-void __cdecl sub_0052BDA0_Empty();                                                                          // 0x0052BDA0
-
-void __cdecl sub_0052BDB0_Empty();                                                                          // 0x0052BDB0
-
 
 int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
 
 
 
-int __cdecl CLIENT_GetConnectionStatus();                                                                   // 0x0052B050
-
-
-void __stdcall SERVER_Initialize(int nState, int bDisableNt);                                                           // 0x0052B7A0
-
-void __stdcall CLIENT_Initialize(int nArg, const char* szAddress);                                               // 0x0052A750
-
-void __stdcall SERVER_SetMaxClientsPerGame(int nArg1);                                                   // 0x0052B250
-
-int __stdcall SERVER_SetHackListEnabled(int nArg1);                                                    // 0x0052B280
 
 void __stdcall GAME_InitGameDataTable(D2GameDataTableStrc* pGameDataTbl, void* pGameList);                  // 0x0052C0A0
 
 
-
-void __cdecl CLIENT_Release();                                                                                // 0x0052A7E0
-
-void __cdecl SERVER_Release();                                                              // 0x0052B2A0
 
 int __cdecl WINMAIN_PopStateValue();                                                                        // 0x0044B480
 
@@ -246,10 +227,6 @@ extern int gnRecordPos;                                                         
 
 
 void __cdecl RECORD_LoadRecordFile();                                                                 // 0x00451710
-
-int __fastcall WINMAIN_SendMcpCharCreate(const char* szText, int nValue, unsigned short wValue);
-
-int __fastcall WINMAIN_SendMcpCharLogon(const char* szText);
 
 
 
@@ -343,8 +320,6 @@ extern void* ghConnectEvent;                                                    
 
 
 
-
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 
 

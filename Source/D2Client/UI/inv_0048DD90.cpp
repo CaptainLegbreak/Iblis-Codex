@@ -14,6 +14,7 @@
 #include "D2ClientUiRecords.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2WinApi.h"
 
 struct D2SkillStrc;
 
@@ -306,8 +307,6 @@ void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPo
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
-
-int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
 int __stdcall UNITS_GetStashGoldLimit(D2UnitStrc* pUnit);                                                            // 0x00623460
 

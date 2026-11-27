@@ -13,6 +13,8 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -64,8 +66,6 @@ bool __stdcall sub_004A2970(int nX, int nY); // 0x004A2970
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
@@ -267,8 +267,6 @@ D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 
 
 
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
-
 
 
 
@@ -316,10 +314,6 @@ extern volatile char gabQuestFlagsB[]; // 0x007BF380
 
 
 
-
-D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
-
-int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
 
 extern D2ButtonLayoutStrc gaButtonLayouts[]; // 0x007241C0

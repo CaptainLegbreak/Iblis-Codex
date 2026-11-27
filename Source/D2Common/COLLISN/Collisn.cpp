@@ -8,6 +8,7 @@
 #include "D2DrlgPresets.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CMPApi.h"
 
 #define RAYTRACE_LOAD_ROOM() \
     nRoomX = pRoom->tCoords.nSubtileX; \
@@ -52,8 +53,6 @@ enum
     COLLIDE_MISSILE_BARRIER = 0x0004,
     COLLIDE_PRESET = 0x0010,
 };
-
-unsigned char* __stdcall TileGetCollisionInfo(D2TileLibraryEntryStrc* pTile); // 0x00604CE0
 
 D2RoomCollisionGridStrc* __fastcall DUNGEON_GetCollisionGridFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A010
 

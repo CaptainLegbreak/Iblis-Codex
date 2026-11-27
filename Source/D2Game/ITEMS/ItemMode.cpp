@@ -19,6 +19,7 @@
 #include "D2LanguageNames.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CMPApi.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -110,8 +111,6 @@ struct D2DynamicPathStrc;
 
 
 void __fastcall ITEMMODE_RecalcEquippedItemStates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nArg); // 0x0055DBC0
-
-void __fastcall D2CMPTileCacheSetFreeCallback(void* pfnCallback); // 0x005FE000
 
 extern void* gpServer; // 0x00882D08
 

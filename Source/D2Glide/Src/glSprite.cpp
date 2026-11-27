@@ -1,5 +1,6 @@
 #include "D2Glide.h"
 #include "D2CelContext.h"
+#include "D2CMPApi.h"
 
 struct D2GlideTexDimsStrc;
 
@@ -10,8 +11,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 int __stdcall D2CMPSpriteValidate(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
-
-void* __stdcall CelGetHardwareData(D2CelStrc* pCel); // 0x00601B10
 
 
 

@@ -6,6 +6,7 @@
 #include "StormApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2NetApi.h"
 
 typedef void (__fastcall* D2McpCallbackFn)(unsigned short wRequestId, unsigned char* pData);
 
@@ -98,10 +99,6 @@ int __stdcall WINMAIN_HandleExtraArgument(const char* szArgument); // 0x0044B5C0
 int __stdcall WINMAIN_HandleArgumentError(const char* szArgument); // 0x0044B5D0
 
 void __fastcall GAME_ShowLoadingMessage(int nError); // 0x0044E380
-
-int __stdcall CLIENT_DequeueGamePacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A890
-
-int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A8B0
 
 void __fastcall SCMD_HandleSystemPacket(unsigned char* pPacket, int nLength); // 0x0045C850
 
@@ -197,10 +194,6 @@ void __stdcall sub_00449E30_SetValue(int nValue);                               
 void __stdcall MCPCONNECT_SetPacket(const char* pData, int nSize);                                     // 0x00449E70
 
 
-void __cdecl sub_0052BDA0_Empty();                                                                          // 0x0052BDA0
-
-void __cdecl sub_0052BDB0_Empty();                                                                          // 0x0052BDB0
-
 
 int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
 
@@ -208,27 +201,13 @@ void __cdecl RECORD_ToggleRecordPlayback();                                     
 
 void __cdecl RECORD_StartPlayback();                                                                  // 0x004518E0
 
-int __cdecl CLIENT_GetConnectionStatus();                                                                   // 0x0052B050
-
 int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int));                                     // 0x00451BB0
-
-void __stdcall SERVER_Initialize(int nState, int bDisableNt);                                                           // 0x0052B7A0
-
-void __stdcall CLIENT_Initialize(int nArg, const char* szAddress);                                               // 0x0052A750
-
-void __stdcall SERVER_SetMaxClientsPerGame(int nArg1);                                                   // 0x0052B250
-
-int __stdcall SERVER_SetHackListEnabled(int nArg1);                                                    // 0x0052B280
 
 void __stdcall GAME_InitGameDataTable(D2GameDataTableStrc* pGameDataTbl, void* pGameList);                  // 0x0052C0A0
 
 int __stdcall WINMAIN_PollSystemPackets(int nUnused);                                                  // 0x0044BAD0
 
 int __stdcall WINMAIN_PumpSystemPackets(int nUnused);                                                  // 0x0044BD20
-
-void __cdecl CLIENT_Release();                                                                                // 0x0052A7E0
-
-void __cdecl SERVER_Release();                                                              // 0x0052B2A0
 
 int __cdecl WINMAIN_PopStateValue();                                                                        // 0x0044B480
 

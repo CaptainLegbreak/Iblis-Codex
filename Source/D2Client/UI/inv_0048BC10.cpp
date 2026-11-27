@@ -15,6 +15,7 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "FogApi.h"
+#include "D2WinApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -333,8 +334,6 @@ int gbBuySellPressed;                                                           
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
 struct D2CelFileStrc* __fastcall GAME_LoadUiCelFile(const char* szPath);                          // 0x004520C0
-
-int __fastcall D2Win_10127_SetFont(int nSize);                                                                     // 0x00502EF0
 
 enum D2C_UIvars
 {

@@ -5,6 +5,7 @@
 #include "D2SoundEnvironTxt.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2HellApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -24,8 +25,6 @@ int __fastcall ITEM_QueryCacheAddress(D2SoundsTxt* pEntry); // 0x004DF630
 
 
 int __stdcall INV_FreeCacheEntries(unsigned int nFree, int bTwoPasses, int bCheckAge); // 0x004824A0
-
-void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
 
 

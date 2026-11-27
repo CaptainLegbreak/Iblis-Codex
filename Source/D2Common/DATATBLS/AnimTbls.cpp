@@ -2,6 +2,7 @@
 #include "D2AnimData.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2HellApi.h"
 struct D2InventoryStrc;
 struct D2UnitStrc;
 
@@ -20,7 +21,6 @@ struct D2AnimDataTableStrc
 
 extern "C" const char gszDataGlobalPath[];                                                                      // 0x006D4118
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);           // 0x006CC468
-void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFilePath, unsigned int* pdwBytesWritten, const char* szSrcPath, int nLine); // 0x00517079
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);               // 0x0040B430
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);             // 0x0040B480
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                  // 0x00681EF0

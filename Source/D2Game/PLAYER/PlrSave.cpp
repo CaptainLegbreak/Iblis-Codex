@@ -189,6 +189,7 @@ unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc*); // 0x00627D40
 
 
 #include "D2GameFuncs.h"
+#include "D2HellApi.h"
 
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
@@ -281,8 +282,6 @@ extern "C" __declspec(dllimport) long __stdcall CompareFileTime(const D2FileTime
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
-
-unsigned int __fastcall CRC32_Compute(void* pData, unsigned int dwSize); // 0x006C99F6
 
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430

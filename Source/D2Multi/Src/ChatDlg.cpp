@@ -31,6 +31,8 @@
 #include "D2LangApi.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
+#include "D2SoundApi.h"
 
 static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
@@ -648,14 +650,6 @@ void __fastcall GAME_SetMcpChatCallback(void (__fastcall* pfnCallback)(void* pAr
 
 void __cdecl VIEW_SendMcpMotdRequest(); // 0x0044AA50
 
-void __cdecl D2SOUNDFAST_InitWaveSlots(); // 0x00514DB0
-
-void __fastcall D2SOUNDFAST_PreloadWave(const char* szFile); // 0x00514E10
-
-int __cdecl D2SOUND_GetOptionsMusicOption(); // 0x00514D80
-
-void __fastcall D2SOUND_10034(int nArg); // 0x005148F0
-
 int __cdecl CHATDLG_ConnectRealm(); // 0x00441A90
 
 void __stdcall sub_00449E50_SetValue(int nValue); // 0x00449E50
@@ -665,8 +659,6 @@ void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback); // 0x004FA590
 void __cdecl VIEW_SendMcpCancelGameCreate(); // 0x0044AA80
 
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
-
-void __cdecl D2SOUNDFAST_FreeWaveSlots(); // 0x00515070
 
 void __cdecl COMCALLBACK_ClearChannel(); // 0x004495A0
 
@@ -796,8 +788,6 @@ extern D2ModuleInterfaceStrc gtInterface; // 0x0070CD14
 
 void* __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
 
-void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
-
 struct D2WinMsgStrc
 {
     void* hWnd;
@@ -817,12 +807,6 @@ void __stdcall CHATDLG_SetCharLogonReceived(int nValue); // 0x00449C40
 extern D2WinControlStrc* gpChannelListBox; // 0x0077BCFC
 
 extern void* gpInstance; // 0x0077AD68
-
-void __cdecl sub_00515110_Nop(); // 0x00515110
-
-void __cdecl sub_00515EC0_Nop(); // 0x00515EC0
-
-void __cdecl sub_00515ED0_Nop(); // 0x00515ED0
 
 void __cdecl sub_0042B9D0_Nop(); // 0x0042B9D0
 

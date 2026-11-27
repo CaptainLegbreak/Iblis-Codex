@@ -27,6 +27,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2Packets.h"
+#include "D2GfxApi.h"
 
 struct D2ActiveRoomStrc;
 
@@ -192,8 +193,6 @@ extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSiz
 
 void __cdecl TEXT_ClearListFlags(); // 0x004A01E0
 
-
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 int __stdcall SMsgRegisterCommand(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420BF0
 

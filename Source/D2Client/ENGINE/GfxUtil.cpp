@@ -20,6 +20,8 @@
 #include "D2ClientBallistic.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2GfxApi.h"
+#include "D2CMPApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -210,12 +212,6 @@ int __fastcall sub_004648F0_GetPathValue(D2UnitStrc* pUnit); // 0x004648F0
 
 
 
-
-int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
-
-int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
-
-int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 
 
 

@@ -14,6 +14,9 @@
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "StormApi.h"
+#include "D2GfxApi.h"
+#include "D2WinApi.h"
+#include "D2SoundApi.h"
 
 
 
@@ -87,8 +90,6 @@ D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nTy
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
-int __fastcall D2Win_10177(unsigned char nAct); // 0x004FB480
-
 
 
 void __cdecl RECORD_FreeMsgRecordChunks(); // 0x00451850
@@ -152,12 +153,6 @@ void __fastcall WARDENCLIENT_TickModule(int nDelta); // 0x00480320
 
 void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer); // 0x00481600
 
-
-int __cdecl D2SOUND_IsStreamChannelPlaying(); // 0x00514840
-
-void __cdecl D2SOUND_StopChannel(); // 0x00514930
-
-void __fastcall D2SOUNDSMP_FadeOutMasterVolume(int nArg); // 0x00515F50
 
 int __stdcall GAME_UpdateGamesProgress(int nArg); // 0x0052FC20
 
@@ -297,16 +292,12 @@ void __cdecl sub_00473F50_UpdateWeather(); // 0x00473F50
 
 void __stdcall ENVIRONMENT_GetLightColorFromAct(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
 
-void __stdcall D2GFX_SetAmbientColor(int nRed, int nGreen, int nBlue); // 0x004F6430
-
 
 void __cdecl AUTOMAP_UpdateAutomapOrigin(); // 0x0045B440
 
 
 
 void __fastcall UI_DrawUIPanels(D2ViewStrc* pView); // 0x00456EE0
-
-void __stdcall D2Win_UpdateAndDraw(); // 0x004F98E0
 
 void __fastcall sub_00468820_Nop(int nArg1, int nArg2); // 0x00468820
 
@@ -363,8 +354,6 @@ extern "C" D2MsgHandlerEntryStrc gaGameWheelHandlers[1]; // 0x0070F2C4
 extern "C" D2MsgHandlerEntryStrc gaMiddleButtonHandlers[2]; // 0x0070F348
 
 extern "C" D2MsgHandlerEntryStrc gaXButtonHandlers[2]; // 0x0070F360
-
-int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 extern "C" void __fastcall SCMD_RegisterMsgHandlers(int hwnd, D2MsgHandlerEntryStrc* table, unsigned int count); // 0x00451DB0
 
