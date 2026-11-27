@@ -8,6 +8,25 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Fri Nov 27 11:17 PST 2026: **lane12/renamed-1** (6a3bbae45, stacked on api-d2common-3): "One definition per name: unmarked second
+  copies go or become static". Eight files had their own non-static, unmarked copy of a function another file
+  defines at its address, so the ordinary link renamed one: the copy goes where nothing in its file calls it (D2CMP
+  SpriteCache.cpp CelGetHeight/OffsetX/OffsetY/CelDrawShadow; D2Common Unknown_00624740.cpp STATLIST_UnitGetStatValue
+  and STATLIST_ToggleState; D2Client Roster.cpp and D2Sound D2SoundSmp.cpp CLIENTS_SetPlayerUnitAlive; D2Client
+  View.cpp LIST_UnloadPentspinCellfile) and becomes static where its file calls it (D2Common Unknown_00627250.cpp
+  STATLIST_UnitGetStatValue, Outdoors.cpp DRLGOUTDOORS_TestGridCellSpawnValid, D2Game a5q3.cpp
+  OBJMODE_GetSuperUniqueId). Kept (the change alters the unit): inv_0048BC10.cpp INV_GetPanelX/INV_ResetNpcButtons,
+  OutDesr.cpp DRLGOUTWILD_InitAct1OutdoorLevel, strtable.cpp strncat. No new forcing construct (static only).
+  VERIFIED tree 6026aca40b28b59ee9f2b350c6ffc9699ade7b2f. linkdebt vs api-d2common-3: 24,594 -> 23,708
+  (renamed_definition 981 -> 103, 30 -> 20 targets; D2Game -552, D2Client -170, D2Common -107, D2DDraw -19, D2Gdi
+  -18, D2Win -8, D2CMP -5, others down; no module rises). auditguard: no count rose (raw offset 120, byte pointer
+  math 153, pointer casts 4,895).
+  Left for the naming owners: two different functions under one name, each marked at its own address:
+  SKILLS_GetFirstSkillFromSkillList (D2Common Skills.cpp 0x643910 and Inventory.cpp 0x63D630),
+  OBJMODE_DropItemWithCodeAndQuality (D2Game ObjMode.cpp 0x585970 and Skills.cpp 0x56DAB0),
+  ARCHIVE_LoadCellFileWithFileSize (D2Client ARCHIVE.CPP and D2Win D2WinArchive.cpp 0x4FAA40),
+  MONSTERMODE_GetHpPercent128 (D2Game PlrModes.cpp 0x5805D0 and MonsterEval.cpp), DATATBLS_GetMonStatsTxtRecord
+  (D2Client Game.cpp 0x451F80 and D2Common's): one of each pair needs its own name.
 - Fri Nov 27 10:57 PST 2026: **lane12/api-d2common-3** (on #483 a42b4ed66; ignore api-d2common-2, pushed before a fix): two commits.
   (1) "D2Lang: three more copies give way to D2LangApi.h": D2Lang's exports already agree in D2LangApi.h; the
   other copies stay because dropping them changes their units (ui.cpp, SkillDesc_004F30A0.cpp, MonUnique.cpp,
