@@ -13907,6 +13907,11 @@
      "name": "?INV_IsOverTradeButtonRight@@YAHHH@Z"
     },
     {
+     "va": "0x004894D0",
+     "length": 169,
+     "name": "INV_TradeMouseMoveMsg"
+    },
+    {
      "va": "0x00489580",
      "length": 495,
      "name": "?INV_TradePanelMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
@@ -14345,31 +14350,6 @@
     {
      "va": "0x0048BC10",
      "length": 361
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/inv_004894D0.cpp",
-   "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x004894D0",
-     "length": 169,
-     "name": "INV_TradeMouseMoveMsg"
     }
    ]
   },

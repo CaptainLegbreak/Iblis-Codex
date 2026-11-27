@@ -4160,7 +4160,8 @@ static int __stdcall INV_ClickGridItem(D2UnitStrc* pPlayer, D2InventoryStrc* pIn
 }
 
 // 0x00487990
-void __cdecl INV_ResetHover()
+// noinline: INV_TradeMouseMoveMsg (0x4894D0) calls INV_ResetHover (0x487990); the image calls it out of line, and without this the compiler expands it there.
+__declspec(noinline) void __cdecl INV_ResetHover()
 {
     gnHoverTopX = -1;
     gnHoverTopY = -1;
@@ -4953,6 +4954,28 @@ static int INV_IsOverTradeButtonRight(int nX, int nY)
         return 1;
     }
     return 0;
+}
+
+// 0x004894D0
+void __stdcall INV_TradeMouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (gnInvPanelMode != 0xB)
+    {
+        return;
+    }
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    gnInvMouseX = nX;
+    gnInvMouseY = nY;
+    if ((nX >= gtPlayerInvRect.nLeft && nX < gtPlayerInvRect.nRight && nY >= gtPlayerInvRect.nTop && nY <= gtPlayerInvRect.nBottom)
+        || (nX > gtTradePage2Grid.nGridLeft && nX < gtTradePage2Grid.nGridRight && nY >= gtTradePage2Grid.nGridTop && nY <= gtTradePage2Grid.nGridBottom)
+        || (nX > gtTradePage1Grid.nGridLeft && nX < gtTradePage1Grid.nGridRight && nY >= gtTradePage1Grid.nGridTop && nY <= gtTradePage1Grid.nGridBottom))
+    {
+        INV_UpdateInventoryHover(pMsg);
+        return;
+    }
+    INV_ResetHover();
+    D2Win_10129_DrawFramedText(0, -1, -1, 0, 0);
 }
 
 // 0x00489580
