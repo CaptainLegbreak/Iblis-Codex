@@ -91,10 +91,12 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
-extern D2ClientStrc* gpClientListByName[256]; // 0x00883EA8
-extern D2ClientStrc* gpClientList[256]; // 0x008842A8
+// The same clients, hashed by name.
+D2ClientStrc* gpClientListByName[256]; // 0x00883EA8
+// The game server's clients, hashed by client id into 256 chains.
+D2ClientStrc* gpClientList[256]; // 0x008842A8
 extern D2CriticalSectionStrc gClientListLock; // 0x008846A8
-extern int gbClientListInitialized; // 0x008846D8
+int gbClientListInitialized; // 0x008846D8
 extern D2CriticalSectionStrc gSrvClientListByNameLock; // 0x008846C0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
@@ -1530,7 +1532,6 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLaye
 
 extern D2CriticalSectionStrc gSrvClientListByNameLock; // 0x008846C0
 
-extern D2ClientStrc* gpClientListByName[256]; // 0x00883EA8
 
 extern int gbHasHighResolutionClock; // 0x0088C7A0
 
