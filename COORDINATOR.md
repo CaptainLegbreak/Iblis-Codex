@@ -463,6 +463,9 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - #458 (j210): lane 9 names-d2game-h (hand-resolved in Skills.cpp; a1/v12 377 -> 341).
 - #459 (j211): lane 7 forcing-readings (notes only), lane 6 ph-joins, lane 1 listbox-join, lane 9 locals-d2game + names-d2game-moo (a1/v12 341 -> 295).
 - #460 (j212): lane 3 sbig-templates (hand-resolved: SBig.cpp keeps StormApi.h and adds stpl.h), lane 6 ph-joins-3 (one evidenced noinline).
+- #461 (j213): lane 1 callbacks-join + skilldesc-environ, lane 3 emit-trim, lane 4 join-inv-2, lane 6 moves-1 (four evidenced noinlines; emit helpers 312 -> 310).
+- #462 (j214): lane 2 api-headers-more-5 (hand-resolved: SkillDesc.cpp keeps #461's sub_004E4280_ResetEnvironSounds, inv_004886C0.cpp stays joined).
+- #463 (j215): lane 5 emit-d2game-8 (hand-resolved: #459's two renames applied where the branch moved D2GAME_PopulateRoom; PlrEval.cpp and Unknown_0054EC90.cpp stay deleted; emit helpers 310 -> 303). Already on main: lane 3 sbig-templates-2.
 - **Rebase onto #460:** lane 2 module-api-headers (conflicts with real code in 8 files: D2Client Skills.cpp, SoundHdr.cpp, UseItem.cpp, Unknown_00482C70.cpp, CharSel.cpp, strtable.cpp, Unknown_0043B7A0.cpp, D2WinImage.cpp); lane 8 d2common-dead-bodies(-2) (D2Common SKILLS/Skills.cpp: main has sub_00436E90_AlwaysOne's body where the branch deletes a block); lane 4 join-text-a950 (on current main text.cpp no longer compiles: a type the moved functions use, before gpfnIdentifyMenu4Handler, is undeclared); lane 5 emit-d2game-7 (Unknown_0054DAC0.cpp conflicts in code, and Unknown_0054EC90.cpp, which it moves, took #459's names).
 - Lane 10 0x6BD230: accepted by the user 17:23 PT, merged in #453. Lane 1's skilldesc branches and lane 5's emit-d2game-2 were already merged in #445.
 - #438 j192: d2common-dup-decls, noinline-evidence (lane 8), decls-renderers-2 (lane 9).
