@@ -2054,7 +2054,6 @@ void __stdcall CHAT_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
 
 
 
-extern int gbPanelFlag; // 0x0071315C
 
 
 

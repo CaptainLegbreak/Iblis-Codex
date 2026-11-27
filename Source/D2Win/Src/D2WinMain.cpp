@@ -452,7 +452,6 @@ int __stdcall D2GFX_GetBackBuffer(unsigned char* pBuffer); // 0x004F6250
 
 extern int gnMouseX_007D55A4; // 0x007D55A4
 
-extern int gnMouseY; // 0x007D55A8
 
 unsigned long gdwLastScreenshotTick; // 0x007D5600
 
@@ -1689,7 +1688,7 @@ static D2WinControlStrc* __stdcall CONTROL_PickClosestToMouse(D2WinControlStrc* 
     if (!first) return second;
     if (!second) return first;
     int mouseX = gnMouseX_007D55A4;
-    int mouseY = gnMouseY;
+    int mouseY = gtMousePosition.y;
     int dx1, dy1, dx2, dy2;
     if (mouseX < first->nImageX)
         dx1 = mouseX - first->nImageX;
