@@ -2219,7 +2219,7 @@ static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
         return pUnit->pStaticPath->nXPos;
     }
 
-    return pUnit->pDynamicPath ? sub_006488C0_PathGetX((D2PathRecordStrc*)pUnit->pDynamicPath) : 0;
+    return pUnit->pDynamicPath ? PATH_GetXPosition((D2PathRecordStrc*)pUnit->pDynamicPath) : 0;
 }
 
 static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)

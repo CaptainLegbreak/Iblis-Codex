@@ -168,7 +168,6 @@ extern int gnGlobal_007B957C; // 0x007B957C
 
 extern void* gpHelpWhiteBulletCel; // 0x007BEEF0
 
-extern int gnScreenWidth; // 0x0071146C
 
 enum D2C_W10Constants
 {
@@ -200,14 +199,10 @@ void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsig
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
 
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
-
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 
-
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 

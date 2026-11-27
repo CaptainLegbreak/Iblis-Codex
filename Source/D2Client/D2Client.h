@@ -616,7 +616,7 @@ int __stdcall SKILLS_GetSkillInfo(D2SkillStrc* pSkill, int* pOwnerGUID, int* pSk
 int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x006449F0
 int __stdcall SMemCmp(const void* pLocation1, const void* pLocation2, unsigned int nSize); // 0x0041D200
 int __stdcall SMsgPushRegisterState(int nType); // 0x00420360
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned int nBufferSize); // 0x00414E50
+int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars); // 0x00413550
 int __stdcall STATES_CheckStateMaskArmBlueOnUnit(D2UnitStrc* pUnit); // 0x0063A550
 int __stdcall STATES_CheckStateMaskAttBlueOnUnit(D2UnitStrc* pUnit); // 0x0063A3C0
@@ -687,7 +687,7 @@ int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x0064
 int __stdcall SKILLS_IsPlayerClassSkill(int nSkillId, int* pCharClass); // 0x00645080
 int __stdcall D2COMMON_11021(D2UnitStrc* pUnit); // 0x00645680
 int __stdcall sub_00645950_CheckTargetPos(int nX, int nY, D2UnitStrc* pUnit, int nCollisionMask); // 0x00645950
-int __stdcall sub_00648E30_GetPathValue(D2DynamicPathStrc* pPath); // 0x00648E30
+int __stdcall PATH_GetType(D2DynamicPathStrc* pPath); // 0x00648E30
 int __stdcall sub_0064A380_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A380
 int __stdcall MISSILE_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A3B0
 int __stdcall MISSILE_GetElementalLength(D2UnitStrc*,D2UnitStrc*,int,int); // 0x0064B2A0
@@ -964,7 +964,7 @@ void __stdcall GAME_UpdateClients(int nArg1, int nArg2); // 0x0052FD90
 void __stdcall D2CMPPalShiftSetAct(int nAct); // 0x00600C00
 void __stdcall DUNGEON_CallRoomCallback(D2ActiveRoomStrc* pRoom, void* pfCallback, D2WallRoomArgStrc* pArg); // 0x00619BD0
 void __stdcall DUNGEON_GetRGB_IntensityFromRoom(D2ActiveRoomStrc* pRoom, unsigned char* pIntensity, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x00619D70
-void __stdcall sub_00621780_SetMissileArg(D2UnitStrc* pMissile, int nArg); // 0x00621780
+void __stdcall UNITS_SetAnimationSpeed(D2UnitStrc* pMissile, int nArg); // 0x00621780
 void __stdcall UNITS_UpdateDirectionAndSpeed(D2UnitStrc* pUnit, int nX, int nY); // 0x00621C00
 void __stdcall sub_00624390(D2UnitStrc* pUnit); // 0x00624390
 void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BE30

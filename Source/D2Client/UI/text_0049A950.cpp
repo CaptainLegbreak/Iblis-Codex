@@ -74,7 +74,6 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 
-extern int gnScreenWidth; // 0x0071146C
 
 extern D2MsgHandlerEntryStrc gaKeyCaptureMButtonHandlers[]; // 0x0072472C
 
@@ -170,7 +169,6 @@ typedef char SearchRecord_destination_offset[(FIELD_OFFSET(SearchRecord,destinat
 
 extern "C" SearchRecord gSearch_00723F30[41];
 
-extern "C" int gaQuestPageDefault[];
 
 struct OutputRecord
 {
@@ -273,7 +271,6 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 
 void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0

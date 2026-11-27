@@ -194,8 +194,6 @@ int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 D2TextBoxStrc* __stdcall CHAT_GetUsedFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x00661200
 
 
-void __stdcall TEXT_FreeTextHeader(int nHandle); // 0x006612A0
-
 
 
 void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
@@ -257,7 +255,6 @@ public:
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
-extern int gnScreenWidth; // 0x0071146C
 
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
@@ -527,7 +524,6 @@ extern int gaHoverDirs[]; // 0x00722654
 
 extern int gnHoverDirCount; // 0x00722674
 
-extern D2RectStrc gaHoverRects[16]; // 0x007BF0A8
 
 
 
@@ -626,7 +622,6 @@ extern D2Record42Strc gtQuestRecord; // 0x007BF355
 
 extern D2SliderButtonStrc gaKeyConfigButtons[3]; // 0x007246D8
 
-extern int gaPressed[7]; // 0x007C0288
 
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
@@ -715,8 +710,6 @@ extern D2MsgHandlerEntryStrc gaKeyCaptureWheelHandlers[]; // 0x0072478C
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
 
 
 int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
@@ -766,8 +759,6 @@ enum { REPEAT_MASK = 0x40000000, UI_VARIABLE = 11 };
 
 
 
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
-
 extern "C" int gnFlag_007C02EC; // 0x007C02EC
 
 void __stdcall CURSOR_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
@@ -784,7 +775,6 @@ int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
 
 
-void __fastcall TEXT_MoveKeyConfigSelection(int nStep);
 
 
 
@@ -816,7 +806,6 @@ static int TEXT_IsOnPressedButton(int nX, int nY);
 
 extern D2WaypointRowRectStrc gaWaypointRowRects[9];                                                // 0x007224F8
 
-extern D2WaypointMenuEntryStrc gaWaypointEntries[9];                                               // 0x007BF03C
 
 
 
@@ -833,7 +822,6 @@ extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
 
 
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 
 

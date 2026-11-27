@@ -61,7 +61,6 @@ struct D2OrbSmoothStrc
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-extern int gnScreenWidth; // 0x0071146C
 
 
 unsigned int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
@@ -118,11 +117,8 @@ void* gpPanelQuadCel; // 0x007BF018
 
 extern D2HotkeySlotTableStrc gtHotkeySlots_007C0300; // 0x007C0300
 
-extern int gaHotkeySkills[16]; // 0x007C06C8
 
-extern int gaHotkeyOwners[16]; // 0x007C0768
 
-extern int gaHotkeyLeft[16]; // 0x007C07B8
 
 extern int gbSkillSelectRight; // 0x007C07FC
 

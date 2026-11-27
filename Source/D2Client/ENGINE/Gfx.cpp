@@ -148,14 +148,11 @@ void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 
-extern int gnScreenWidth; // 0x0071146C
 
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
 
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 
-
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
 
 extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
@@ -1036,7 +1033,7 @@ static void __stdcall GFX_CommandOnUnit(int nCommand, int nArg, D2UnitStrc* pUni
     const int nTargetId = !pTarget ? -1 : pTarget->dwUnitId;
     tCommand.nY = nTargetId;
     tCommand.nZero = 0;
-    tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
+    tCommand.nPathValue = PATH_GetType(pPath);
     tCommand.nArg = nArg;
 // build: symbol ?PATH_GetMaxDistance@* 0x00648EA0
     tCommand.nPathByte = PATH_GetMaxDistance(pPath);
@@ -1080,7 +1077,7 @@ static int __stdcall sub_0046C7D0_StepAwayFromUnit(D2UnitStrc* pUnit, unsigned c
     tCommand.nX = nUnitX + nScale * nDirX;
     tCommand.nY = nUnitY + nScale * nDirY;
     tCommand.nZero = 0;
-    tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
+    tCommand.nPathValue = PATH_GetType(pPath);
     tCommand.nArg = nArg;
     tCommand.nPathByte = PATH_GetMaxDistance(pPath);
     MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
@@ -1110,7 +1107,7 @@ static void __stdcall GFX_StepRandom(unsigned char nScale, int nCommand, int nAr
     tCommand.nX = nUnitX + nOffsetX;
     tCommand.nY = nUnitY + nOffsetY;
     tCommand.nZero = 0;
-    tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
+    tCommand.nPathValue = PATH_GetType(pPath);
     tCommand.nArg = nArg;
     tCommand.nPathByte = PATH_GetMaxDistance(pPath);
     MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
@@ -1124,7 +1121,7 @@ static void __stdcall sub_0046CA60_CommandToXY(int nCommand, D2UnitStrc* pUnit, 
     tCommand.nX = nX;
     tCommand.nY = nY;
     tCommand.nZero = 0;
-    tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
+    tCommand.nPathValue = PATH_GetType(pPath);
     tCommand.nArg = nArg;
     tCommand.nPathByte = PATH_GetMaxDistance(pPath);
     MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);

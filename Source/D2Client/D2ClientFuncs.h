@@ -858,6 +858,7 @@ int __fastcall SKILLDESC_GetMonSkillSound(D2UnitStrc* pUnit, int nSkillId); // 0
 
 // D2Client globals that several of the module's files use, declared once here.
 class ListBoxWrapper;
+extern int gnScreenWidth; // 0x0071146C
 extern int gbPositionalSound; // 0x007A061C
 extern D2DrlgActStrc* gpAct; // 0x007A0634
 extern int gnPanelOffsetX; // 0x007A2858
@@ -869,7 +870,9 @@ extern int gnInvPanelMode; // 0x007BCBF0
 extern int gdwNpcPanelDelayTick; // 0x007BCC08
 extern int gnSelectedShopButton; // 0x007BCC40
 extern int gbRosterButtonDown; // 0x007BF030
+extern D2WaypointMenuEntryStrc gaWaypointEntries[9]; // 0x007BF03C
 extern char gbSent; // 0x007BF085
+extern D2RectStrc gaHoverRects[16]; // 0x007BF0A8
 extern D2ClientDialogStrc* gpListDialog; // 0x007BF1B0
 extern ListBoxWrapper* gpListBox; // 0x007BF1B4
 extern int gbTextBoxDone; // 0x007BF1BC
@@ -884,6 +887,7 @@ extern int gbTextDataOpen; // 0x007BF254
 extern void* gpTextCallbackContext; // 0x007BF25C
 extern int gnHintId; // 0x007BF260
 extern int gnTextLeft; // 0x007BF278
+extern int gaQuestPageDefault[5]; // 0x007BF280
 extern int gtQuestLog; // 0x007BF298
 extern int gnQuestCount; // 0x007BF2A0
 extern int gnQuestAct; // 0x007BF2A4
@@ -897,16 +901,21 @@ extern char gbAncientsCofsLoaded; // 0x007C025E
 extern char gbHasQuestPacketValue; // 0x007C025F
 extern char gbQuestUnitsSpawned; // 0x007C0260
 extern int gnKeyConfigThumbScale; // 0x007C0278
+extern int gaPressed[7]; // 0x007C0288
 extern int gbKeyCaptureActive; // 0x007C02B8
 extern void* gpLevelCel; // 0x007C02DC
 extern void* gpLevelSocketCel; // 0x007C02E0
 extern int gbSkillButtonPressed; // 0x007C02E8
+extern int gaHotkeySkills[16]; // 0x007C06C8
+extern int gaHotkeyOwners[16]; // 0x007C0768
+extern int gaHotkeyLeft[16]; // 0x007C07B8
 extern int gbGambleShop; // 0x007C0DB0
 extern int gbWaitSoundPlayed; // 0x007C0DBC
 extern int gbWaitSoundScheduled; // 0x007C0DC0
 extern void* gpBuySellCel; // 0x007C0DC8
 extern void* gpGoldBtnCel; // 0x007C0DCC
 extern D2UnitStrc* gpNpcPlayerUnit; // 0x007C0DD4
+extern int gaLevelVisited[]; // 0x007C78B8
 extern int gnNeutralTick; // 0x007C88B8
 extern int gnSfxTick; // 0x007C88BC
 extern int gnNeutralDelay; // 0x007C88C0

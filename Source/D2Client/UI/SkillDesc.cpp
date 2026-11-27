@@ -88,10 +88,6 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
 
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
-int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
-
 
 
 
@@ -335,8 +331,6 @@ void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nFrames); // 0x0
 
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nFrame); // 0x0064A330
 
-void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, int nLowSeed); // 0x00650E40
-
 int __stdcall SKILLDESC_AddMissileElemDamage(D2UnitStrc* pUnit, Unicode* wszText, unsigned short nString, int nMissileId, int nSkillLevel); // 0x004EC280
 
 static int __stdcall SKILLDESC_EvaluateForEachWeapon(int* pValue1, int* pValue2, int* pColor1, int* pValue3, int* pValue4, int* pColor2, D2SkillStrc* pSkill, SKILLWEAPONFN pfnEvaluate, int nBonus, D2UnitStrc* pUnit, int nAdd);
@@ -345,9 +339,7 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
 
 static int SKILLDESC_AppendSkillDescStrLong(Unicode* wszOut, int nSkillId);
 
-extern "C" const char gszFmtPlusDecimal[]; // 0x006DBE9C
 
-extern "C" const char gszFmtDecimal[]; // 0x006DBE94
 
 // noinline: the original calls this; without it the compiler expands it into 0x004E7A90.
 __declspec(noinline) static int __stdcall SKILLDESC_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue);
@@ -418,7 +410,6 @@ extern const char gszFmtOne_006D57BC[]; // 0x006D57BC
 int __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc* pInventory, D2UnitStrc** ppItem); // 0x0063C8F0
 
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 D2UnitStrc* sub_004E9300_MergeWeaponPair(D2UnitStrc* pUnit); // 0x004E9300
 
@@ -4332,7 +4323,7 @@ int __fastcall SKILLDESC_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int 
                 D2COMMON_10203_PATH_SetRotateFlag(pMissile->pDynamicPath, 0);
             }
 
-            sub_00621780_SetMissileArg(pMissile, nMissileArg);
+            UNITS_SetAnimationSpeed(pMissile, nMissileArg);
         }
     }
 
@@ -4364,7 +4355,7 @@ int __fastcall SKILLDESC_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int 
                 D2COMMON_10203_PATH_SetRotateFlag(pMissile->pDynamicPath, 0);
             }
 
-            sub_00621780_SetMissileArg(pMissile, nMissileArg);
+            UNITS_SetAnimationSpeed(pMissile, nMissileArg);
         }
     }
 

@@ -442,7 +442,6 @@ extern D2ClientCallbackFn gpfnClientCallbacks[3]; // 0x0070EF0C
 
 extern int gbPlaybackRequested; // 0x007A277C
 
-extern int gnScreenWidth; // 0x0071146C
 
 int gdwFpsWindowStart;                                                                                     // 0x007A04B8
 

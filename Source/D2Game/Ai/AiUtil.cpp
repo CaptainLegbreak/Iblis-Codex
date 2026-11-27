@@ -1648,7 +1648,7 @@ static int __stdcall AIUTIL_ShouldUseAlternativeTarget(D2UnitStrc** ppTarget, in
     }
 
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    const int nPathType = sub_00648E30_GetPathValue(pPath);
+    const int nPathType = PATH_GetType(pPath);
     D2UnitStrc* pPathTarget = PATH_GetTargetUnit(pPath);
     const int nX = D2COMMON_10175_PathGetFirstPointX(pPath);
     const int nY = D2COMMON_10176_PathGetFirstPointY(pPath);

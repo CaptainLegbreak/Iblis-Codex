@@ -642,7 +642,6 @@ extern void (__cdecl* gpfnCallback)(); // 0x00726E59
 
 extern unsigned short gwTravelLutGholeinStringId; // 0x00726E4D
 
-int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
 
 int __cdecl NPCMENU_TravelToKurastDocks();                                                                                 // 0x004B51A0
 

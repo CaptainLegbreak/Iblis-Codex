@@ -1,9 +1,8 @@
 #include "SValidate.h"
 #include "Storm.h"
+#include "StormApi.h"
 
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
-
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMaxLength); // 0x004135D0
 
 extern "C" __declspec(dllimport) long __stdcall RegCloseKey(void* hKey); // 0x006CC030
 
@@ -19,10 +18,6 @@ extern "C" __declspec(dllimport) long __stdcall RegQueryValueExA(void* hKey, con
 
 int __stdcall SRegGetBaseKey(unsigned int nFlags, char* szDest, unsigned int nMaxLength); // 0x00414930
 
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-
-unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
-
 extern "C" __declspec(dllimport) void __stdcall SetLastError(unsigned long dwErrCode); // 0x006CC2E4
 
 extern "C" const char gszEmptyString_006CC837; // 0x006CC837
@@ -34,12 +29,6 @@ extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int
 extern "C" const char gszFmtUnsigned[]; // 0x006CEF68
 
 static int __stdcall LoadRegistryEntry(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pType, unsigned char* pData, unsigned long nSize, unsigned long* pcbData); // 0x00414B00
-
-int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned char* pData, unsigned long nSize, unsigned long* pcbData);
-
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize);
-
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue);
 
 // 0x00414930
 int __stdcall SRegGetBaseKey(unsigned int nFlags, char* szDest, unsigned int nMaxLength)

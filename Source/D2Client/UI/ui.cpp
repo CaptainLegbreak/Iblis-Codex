@@ -225,7 +225,6 @@ void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unico
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-extern int gnScreenWidth; // 0x0071146C
 
 unsigned long gdwUIVarTick;                                                                        // 0x007A2790
 

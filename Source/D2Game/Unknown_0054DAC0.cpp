@@ -394,7 +394,7 @@ static __declspec(noinline) int __stdcall sub_0054E190_SpawnMonsterAtFreePositio
     if (!sub_0054DDC0_FindPosition(pGame, pRoom, 0, nClassId, pCreate, &nX, &nY))
         return 0;
 
-    return sub_005B3270(pGame, pRoom, nX, nY, 0, nClassId, 1, pCreate, 0);
+    return MONSTERSPAWN_SpawnFormation(pGame, pRoom, nX, nY, 0, nClassId, 1, pCreate, 0);
 }
 
 // 0x0054E1E0

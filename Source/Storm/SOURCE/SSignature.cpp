@@ -2,6 +2,7 @@
 #include "D2StormAutoLink.h"
 #include "D2StormTypes.h"
 #include "D2StormSha1.h"
+#include "StormApi.h"
 
 struct D2StormNodeListStrc;
 
@@ -33,8 +34,6 @@ int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned 
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
 
 int __stdcall SMemCmp(void* pLocation1, void* pLocation2, unsigned int nSize); // 0x0041D200
-
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
 
@@ -412,42 +411,6 @@ BigBuffer* BigStack::Push(int* pCounter)
 void BigStack::Drop(unsigned int nCount)
 {
     nUsed -= nCount;
-}
-
-// 0x004212D0
-int BigBuffer::sub_004212D0_Get(unsigned int nIndex)
-{
-    return InRange(nIndex) ? m_array.m_data[m_start + nIndex] : 0;
-}
-
-// 0x004213B0
-unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue)
-{
-    unsigned int nCount = pQueue->m_array.m_count;
-    unsigned int nStart = pQueue->m_start;
-    unsigned int nWords = nCount - nStart;
-    for (unsigned int i = nWords; i != 0; )
-    {
-        i--;
-        if (nStart + i < nCount && pQueue->m_array.m_data[nStart + i])
-        {
-            unsigned int nMask = 0x80000000;
-            for (unsigned int nBit = 32; nBit != 0; )
-            {
-                nBit--;
-                if (pQueue->sub_004212D0_Get(i) & nMask)
-                    return i * 32 + nBit;
-                nMask >>= 1;
-            }
-        }
-    }
-    return 0;
-}
-
-// 0x004220D0
-void BigBuffer::sub_004220D0_SetCount(unsigned int nCount)
-{
-    m_array.SetCount(m_start + nCount);
 }
 
 #include "gen/data/Source/Storm/SOURCE/SSignature.inc"

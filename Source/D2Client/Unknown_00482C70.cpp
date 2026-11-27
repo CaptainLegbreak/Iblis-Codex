@@ -32,6 +32,7 @@
 #include "FogApi.h"
 
 #include <D2UnitData.h>
+#include "StormApi.h"
 
 struct D2ClientInterfaceStrc;
 
@@ -201,7 +202,6 @@ Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x0
 
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 
-extern int gnScreenWidth; // 0x0071146C
 
 extern int gnHoverTopX; // 0x00721E3C
 
@@ -239,11 +239,8 @@ extern int gnRecipeScrollColor; // 0x007BCEA4
 
 extern int gdwGlobal_007BF23F; // 0x007BF23F
 
-extern int gaHotkeySkills[16]; // 0x007C06C8
 
-extern int gaHotkeyOwners[16]; // 0x007C0768
 
-extern int gaHotkeyLeft[16]; // 0x007C07B8
 
 extern unsigned char gaTable_007C0EA4[]; // 0x007C0EA4
 
@@ -257,10 +254,6 @@ D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic)
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
-
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
 
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
@@ -273,8 +266,6 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x0
 
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 
 
@@ -510,8 +501,6 @@ struct D2AuxLevelEntryStrc
     char unk0x0A[2];
 };
 
-int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
-
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
@@ -567,8 +556,6 @@ static int __stdcall INV_IsMouseInBox(int nLeft, int nBottom, int nWidth, int nH
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern "C" size_t __cdecl strlen(const char* szString);
-
-int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 
 Unicode* __fastcall sub_00526940_UnicodeStrStr(const Unicode* pString, const Unicode* pPattern); // 0x00526940
@@ -842,8 +829,6 @@ D2ClientInterfaceStrc* __cdecl sub_0044D540_GetClientInterface();               
 
 extern char gszClientCharName[];                                                                         // 0x007A05C4
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
-
 void INV_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor); // 0x00483A70
 
 
@@ -915,8 +900,6 @@ extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 void __stdcall sub_00403040_ConstructVector(void* pArray, unsigned int nSize, int nCount, void (__fastcall* pfnCtor)(void*)); // 0x00403040
 
 void __fastcall NPCMENU_ClearUnicode(void* pChar);                                                     // 0x0042F530
-
-extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nSize, const char* szFormat, ...);             // 0x00413A40
 
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
@@ -1191,8 +1174,6 @@ extern int gbWeaponSwitch; // 0x007BCC4C
 
 
 
-int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, void* pSkill, int bBonus); // 0x006442A0
-
 
 
 extern D2SpeedNameStrc gaSpeedNames[6]; // 0x00721E88
@@ -1211,8 +1192,6 @@ int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 
 
 
-
-int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 
 
 

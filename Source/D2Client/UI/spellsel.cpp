@@ -147,8 +147,6 @@ int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc*); // 0x0062BA80
 
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*,int,int); // 0x00625480
-
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc*); // 0x0063BEF0
 
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nPaletteShift); // 0x004F64B0
@@ -745,7 +743,6 @@ void __cdecl SPELLSEL_BuildRightRows()
     }
 }
 
-extern int gnScreenWidth; // 0x0071146C
 
 // 0x004AA6B0
 void __fastcall SPELLSEL_BuildLeftRows(int bNoDraw)

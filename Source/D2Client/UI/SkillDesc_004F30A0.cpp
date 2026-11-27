@@ -44,7 +44,6 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);  
 
 int __cdecl GAME_GetLadderFlag();                                                                     // 0x0044DCA0
 
-int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
 
 
 

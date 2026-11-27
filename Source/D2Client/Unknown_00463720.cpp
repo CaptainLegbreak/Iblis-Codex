@@ -14,6 +14,7 @@
 #include "D2ClientGame.h"
 #include "D2PlayerModes.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GfxLightStrc;
@@ -49,7 +50,7 @@ int __fastcall PLAYER_FilterCommandMessage(D2PlayerCmdStrc* pCmd); // 0x00462930
 void __fastcall sub_00463D90(int nArg);
 D2UnitStrc* __cdecl sub_00463DD0();
 D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit();
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit);
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit);
 void __fastcall VIEW_SetPetEntryValue(D2UnitStrc* pOwner, D2UnitStrc* pRecord, int nValue); // 0x00467410
 
 struct D2ActiveRoomStrc { char unknown0[76]; int x, y, width, height; };
@@ -58,60 +59,30 @@ void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 void __fastcall UNITMODE_DoUnitAction(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00481030
 void __fastcall SKILLS_DoUsedSkill(D2UnitStrc* pUnit); // 0x004C68F0
 int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);
-int __stdcall DUNGEON_CheckLOSDraw(D2ActiveRoomStrc* pRoom); // 0x0061AA40
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);
-void __stdcall DUNGEON_UpdatePops(D2ActiveRoomStrc* pRoom, int nX, int nY, int bChanged); // 0x0061ACD0
 int __stdcall DUNGEON_GetPortalFlagFromLevelId(int nLevelId);
-void __stdcall DUNGEON_InitRoomTileAnimation(void* pAct, D2ActiveRoomStrc* pNextRoom, D2ActiveRoomStrc* pRoom); // 0x0061AF10
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit);
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit);
-void __stdcall UNITS_GetRunAndWalkSpeedForPlayer(D2UnitStrc* pUnit, int nClassId, int* pSpeed, int* pBase); // 0x00620E40
-D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit);
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit);
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);
 int __stdcall UNITS_IsCurrentRoomInvalid(D2UnitStrc* pUnit);
 void __stdcall UNITS_FreePlayerData(void* pMemPool, D2UnitStrc* pPlayer);
-void __stdcall UNITS_SetPlayerPortalFlags(D2UnitStrc* pUnit, int nPortalFlags);
 int __stdcall UNITS_GetPlayerPortalFlags(D2UnitStrc* pUnit);
-int __stdcall UNITS_TestCollisionBetweenInteractingUnits(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMask); // 0x00622B50
-int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus);
-int __stdcall UNITS_IsInMovingModeEx(D2UnitStrc* pUnit);
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer);
-int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);
-D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);
-int __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);
-int __stdcall SKILLS_GetSkillModeFromUnit(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);
-int __stdcall UNITS_IsObjectInInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject);
 void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath);
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit);
-void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory);
 int __stdcall D2Common_10399(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);
 void* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* pValue);
 D2SkillStrc* __fastcall SKILLS_GetSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);
-D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);
-int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine);
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue);
-int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill);
-int __stdcall D2Common_11016(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
-void __stdcall PATH_FreeDynamicPath(void* pMemPool, D2DynamicPathStrc* pDynamicPath);
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);
 int __stdcall PATH_GetLastPointX(D2DynamicPathStrc* pPath); // 0x00648A40
 int __stdcall PATH_GetLastPointY(D2DynamicPathStrc* pPath); // 0x00648A60
 D2ActiveRoomStrc* __stdcall PATH_GetNextRoom(D2DynamicPathStrc* pDynamicPath);
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY);
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit);
-int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown);
-void __stdcall D2Common_10228(D2UnitStrc* pUnit);
 void __stdcall PATH_SetUnitDeadCollision(D2UnitStrc* pUnit, int nArg); // 0x00649F70
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);
 unsigned short __stdcall COLLISION_CheckMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask);
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms);
 void __cdecl PLAYER_RefreshAdjacentPlayers(); // 0x004608C0
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*, D2ActiveRoomStrc***, int*); // 0x00619790
 extern D2UnitStrc* gapClientUnitTable[6 * 0x80]; // 0x007A5E70
 extern D2UnitStrc* gapServerUnitTable[6 * 0x80]; // 0x007A5270
 

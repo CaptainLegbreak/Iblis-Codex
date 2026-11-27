@@ -22,7 +22,6 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const cha
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern "C" const char gszFormatD[];                                                                // 0x006D57BC
-extern int gnScreenWidth;                                                                               // 0x0071146C
 extern int gnSkillPage;                                                                               // 0x00724BEC
 extern int gnTabSelection;                                                                         // 0x00724CE0
 int gbSkillTabPressed; // 0x007C0C38
@@ -42,7 +41,6 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);         // 0x00502320
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
 int __stdcall SKILLS_GetBonusSkillLevelFromSkillId(D2UnitStrc* pUnit, int nSkillId);                        // 0x00644300
 
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])

@@ -2,6 +2,7 @@
 #include "D2StormTypes.h"
 #include "SValidate.h"
 #include "stpl.h"
+#include "StormApi.h"
 
 struct D2SCmdLink006C43A0Strc;
 struct PairStrc_006C4030;
@@ -155,13 +156,7 @@ extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int
 
 int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void __stdcall SMemZero(void* pDst, unsigned int nSize); // 0x0041D300
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-unsigned int __stdcall SStrPack(char*, const char*, unsigned int); // 0x00413800
-const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
-void __stdcall SStrTokenize(const char** pszString, char* szBuffer, unsigned int nBufferChars, const char* szWhitespace, int* pQuoted); // 0x00413B80
 void* __cdecl StormGetInstance(); // 0x0041BEF0
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 

@@ -2151,7 +2151,7 @@ static void __stdcall ITEMMODE_UpdateEquippedItemStats(D2GameStrc* pGame, D2Unit
         return;
     }
 
-    sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+    INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pItem);
 
     if (UNITS_GetAnimOrSeqMode(pItem) == 1)
     {
@@ -2882,7 +2882,7 @@ int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, i
 
             if (!bIsSwitchWeapon)
             {
-                sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+                INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pItem);
                 sITEMSAddStatsList(ptGame, pItem, hUnit, 0);
             }
 
@@ -4363,7 +4363,7 @@ int __fastcall ITEMMODE_ReplaceOppositeHandItem(D2GameStrc* ptGame, D2UnitStrc* 
         if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 3))
         {
             ITEMS_SetBodyLocation(pItem, nBodyLoc);
-            sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+            INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pItem);
             sITEMSAddStatsList(ptGame, pItem, pUnit, 0);
             pItem->dwFlags &= ~2;
             UNITS_ChangeAnimMode(pItem, 1);
@@ -4725,7 +4725,7 @@ fail:
   if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 3))
   {
     ITEMS_SetBodyLocation(pItem, nBodyLoc);
-    sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+    INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pItem);
     sITEMSAddStatsList(ptGame, pItem, pUnit, 0);
     pItem->dwFlags &= ~2;
     UNITS_ChangeAnimMode(pItem, 1);
@@ -4851,7 +4851,7 @@ int __fastcall ITEMMODE_ReplaceHandItemsWithCursorItem(D2GameStrc* ptGame, D2Uni
         if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 3))
         {
         ITEMS_SetBodyLocation(pItem, nBodyLoc);
-        sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+        INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pItem);
         sITEMSAddStatsList(ptGame, pItem, pUnit, 0);
         pItem->dwFlags &= ~2;
         UNITS_ChangeAnimMode(pItem, 1);
@@ -4926,7 +4926,7 @@ int __fastcall ITEMMODE_SwapWeaponSets(D2GameStrc* ptGame, D2UnitStrc* hUnit, in
             if (!INVENTORY_PlaceItemInSocket(inventory, item, entries[i].mode)) { *status=1; return 0; }
             ITEMS_SetBodyLocation(item, entries[i].to);
             if (entries[i].to == 4 || entries[i].to == 5) {
-                sub_0063D1D0_InventoryItemCall(inventory, item);
+                INVENTORY_UpdateWeaponGUIDOnInsert(inventory, item);
                 sITEMSAddStatsList(ptGame, item, hUnit, 0);
                 ITEMS_SetItemFlag(item, 64, 1);
             } else {
@@ -5533,7 +5533,7 @@ int __fastcall ITEMMODE_EquipStoredItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, i
         if (INVENTORY_PlaceItemInSocket(pInventory, hGridItem, 3))
         {
             ITEMS_SetBodyLocation(hGridItem, nBodyLoc);
-            sub_0063D1D0_InventoryItemCall(pInventory, hGridItem);
+            INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, hGridItem);
             INVENTORY_SetCursorItem(pInventory, 0);
             D2_ASSERT(!ITEMSIsA(hGridItem, 0x0D), 0x151D);
 
@@ -5746,7 +5746,7 @@ int __fastcall ITEMMODE_RecoverCorpseItems(D2GameStrc* pGame, D2UnitStrc* pPlaye
 
                                 if (nSocketType == 3)
                                 {
-                                    sub_0063D1D0_InventoryItemCall(pPlayerInventory, pCorpseItem);
+                                    INVENTORY_UpdateWeaponGUIDOnInsert(pPlayerInventory, pCorpseItem);
                                     sITEMSAddStatsList(pGame, pCorpseItem, pPlayer, 0);
                                     ITEMMODE_AddItemScrollSkillQuantity(pPlayer, pCorpseItem);
                                     ITEMMODE_RefreshSkillsForEquippedWeapons(pPlayer);

@@ -155,8 +155,6 @@ D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
 
 
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
-
 
 int __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0x004CD540
 
@@ -205,7 +203,6 @@ extern "C" double __cdecl sqrt(double x); // 0x006879C0
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-extern int gnScreenWidth; // 0x0071146C
 
 
 

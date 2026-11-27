@@ -1134,7 +1134,6 @@ extern D2AutomapPairStrc gaAutomapPairs[49]; // 0x00711258
 
 extern int gbAutomapPartyNames; // 0x007113E8
 
-extern int gnScreenWidth; // 0x0071146C
 
 
 int gdwAutoMapFade; // 0x007A51A8

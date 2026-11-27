@@ -29,7 +29,6 @@ unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc*); // 0x005A5650
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc*,int); // 0x005A0180
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc*,int,int,int); // 0x00627260
 void __fastcall D2GAME_PACKETS_SendPacket0x6D(D2ClientStrc*,unsigned int,unsigned short,unsigned short,unsigned char); // 0x0053BB70
 void __fastcall D2GAME_PACKETS_SendPacket0x68(D2ClientStrc*,unsigned char,int,char,char,int,char); // 0x0053B5F0
 void __fastcall D2GAME_PACKETS_SendPacket0x67(D2ClientStrc*,unsigned char,int,char,short,short,char); // 0x0053B710

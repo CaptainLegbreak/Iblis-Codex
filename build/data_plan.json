@@ -900,8 +900,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/text.cpp": {
-   "bytes": 2404,
-   "definitions": 18,
+   "bytes": 4516,
+   "definitions": 20,
    "externs": [
     "extern \"C\" void __cdecl D2CLIENT_CloseNPCTalk(); // 0x004A17D0",
     "extern \"C\" void __cdecl TEXT_KeyUpMsg(); // 0x004A1770",
@@ -951,15 +951,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0049BB40.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UI/text_0049DA50.cpp": {
-   "bytes": 2112,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/text_0049DA50.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -49292,7 +49283,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_0049DA50.cpp",
+   "file": "Source/D2Client/UI/text.cpp",
    "fill": 527,
    "form": "declared",
    "fwd": null,
@@ -49344,7 +49335,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_0049DA50.cpp",
+   "file": "Source/D2Client/UI/text.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnTextIdCount = ",
