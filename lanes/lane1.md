@@ -4,11 +4,14 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- **lane1/drlg-fields** (973b5501a, on main #487 7425acf9d; VERIFIED tree 3b29093fb4d81eb976c777b99c2099f1ce994fa1; merges clean on #488; independent). D2Drlg.h: 15 `unk0x..` -> 0, none read by any code: `pad0x<off>` (10) and `unused0x<off>` (5; D2ActiveRoomStrc's 0x30 is not D2MOO's pUnitUpdate, which 1.14d keeps at 0x1C). Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 23,075 -> 23,075 (main #487), every module unchanged.
+
 - **lane1/leveltxt-fields** (7f35ff01d, on main #487 7425acf9d; VERIFIED tree fe8e5850a3ae23c6e7eae1afff4083c43f8b1356; independent of the others). D2LevelTxt.h: 15 `unk0x..` -> 0, none read by any code; all are gaps the compiler leaves anyway: `pad0x<off>`. Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose (casts 4,890 -> 4,890). linkdebt: 23,075 -> 23,075 (main #487 measured here), every module unchanged.
 - **lane1/txtitems-fields** (b0b581376, on main #487 7425acf9d; VERIFIED tree d3c3fd61d0fdc99c1c01c6c813b11b4abf6dd91c; independent). D2TxtItems.h: 15 `unk0x..` -> 0, none read: `pad0x<off>` (13), `unused0x<off>` (the shrine record's 30 bytes at 0x14, the rune record's word at 0x84). Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose (casts 4,890 -> 4,890). linkdebt: 23,075 -> 23,075 (main #487 measured here), every module unchanged.
 
 ## Claimed
 
+- Fri Nov 27 13:57 PST 2026: drlg-fields Ready. Next: gametypes-fields, D2GameTypes.h (15; claimed: that header and any unit that names its fields), building on #488.
 - Fri Nov 27 13:47 PST 2026: check-in. leveltxt-fields and txtitems-fields Ready. drlg-fields building. #488 took datatbl-types, aiargs-fields and packets-fields (Ready lines dropped).
 - Fri Nov 27 13:39 PST 2026: status. txtitems-fields (D2TxtItems.h, 15) and leveltxt-fields (D2LevelTxt.h, 15) both verified on #487; measuring main #487's link debt before posting them. drlg-fields (D2Drlg.h, 15; claimed: that header only) queued to build next. Claimed for these: Source/Include/D2TxtItems.h, D2LevelTxt.h, D2Drlg.h.
 - Fri Nov 27 13:12 PST 2026: aiargs-fields Ready. Next: the remaining Source/Include headers with `unk0x` fields, largest first.
