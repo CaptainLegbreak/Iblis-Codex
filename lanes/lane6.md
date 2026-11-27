@@ -2,11 +2,12 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Thu Nov 26 2026, 21:17 PT): decls-4 Ready, full build identical. My single-function moves are done: each placeholder function the callers scan points at a named file either has its own language copy (a separate object) or is parked with a reading.
+Status (Thu Nov 26 2026, 22:03 PT): decls-4 merged; names-sub-4 Ready, full build identical. Emit helpers in my modules re-tried after the joins: all 31 are still needed.
 
 ## Ready
 
-- `lane6/decls-4` @ 894e4e23e (on #466): drops 32 prototypes that the included headers already declare word for word, in 12 units of my modules (BnDownload, BnSend, CelCmp, CharSel, MainMenus, ChatDlg, ComCallback, D2Net Client, D2WinEditBox, D2WinFont, Main, Unknown_004053F0); CelCmp.cpp keeps its SMemAlloc/SMemFree/SMemReAlloc copies, without which the unit is not equal. Also a reason comment at the top of each CharSel piece that stays (CharSel_0042E600.cpp, CharSel_0042FFE0.cpp). **noinline +0.** Every touched unit equal; auditguard: no count rose; full build identical.
+- `lane6/names-sub-4` @ ab2469686 (on #467): ChatDlg.cpp 0x43DB90 takes its names.csv name, CHATDLG_OnChatEditEnter (the chat edit box's enter callback), in ChatDlg.cpp and D2Multi.h; it was the last bare `sub_<VA>` in my modules that names.csv names. **noinline +0.** ChatDlg.cpp equal; auditguard: no count rose; full build identical.
+
 
 
 ## Questions
