@@ -3591,6 +3591,11 @@
      "name": "MAINMENUS_OnRealmListClick"
     },
     {
+     "va": "0x0043C6B0",
+     "length": 156,
+     "name": "?CHATDLG_WriteSaveHeader@@YIHPBD@Z"
+    },
+    {
      "va": "0x0043C750",
      "length": 322,
      "name": "?LAUNCHER_DeleteCharacterFiles@@YIXPBD0@Z"
@@ -12474,11 +12479,6 @@
    "file": "Source/D2Multi/Unknown_0043C8A0.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x0043C6B0",
-     "length": 156,
-     "name": "?CHATDLG_WriteSaveHeader@@YIHPBD@Z"
-    },
     {
      "va": "0x0043C8A0",
      "length": 497
