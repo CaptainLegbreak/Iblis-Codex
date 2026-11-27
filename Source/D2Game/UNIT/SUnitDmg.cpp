@@ -69,8 +69,6 @@ struct D2MonStatsTxt;
 
 struct D2MonsterDataStrc;
 
-struct D2UnkDamageRecordStrc;
-
 struct D2StatReduceCtx;
 
 struct D2StatReduceRec;
@@ -128,12 +126,6 @@ int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 #include "D2GameFuncs.h"
 
-
-struct D2UnkDamageRecordStrc
-{
-    int unk0x00[3];
-    int nValue;
-};
 
 
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
@@ -1159,14 +1151,14 @@ int __fastcall SUNITDMG_ApplyDamageBonuses(D2UnitStrc* pUnit, int bGetStats, D2U
 }
 
 // 0x0057B630
-static void __stdcall SUNITDMG_AddDemonDamagePercent(D2UnitStrc* pAttacker, D2UnitStrc* pTarget, D2UnkDamageRecordStrc* pRecord)
+static void __stdcall SUNITDMG_AddDemonDamagePercent(D2UnitStrc* pAttacker, D2UnitStrc* pTarget, D2DamageStrc* pDamage)
 {
     if (MONSTERS_IsDemon(pTarget))
     {
         const int nBonus = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, STAT_ITEM_DEMONDAMAGE_PERCENT, 0);
         if (nBonus > 0)
         {
-            pRecord->nValue += nBonus;
+            pDamage->dwEnDmgPct += nBonus;
         }
     }
 }
@@ -1272,11 +1264,7 @@ void __fastcall SUNITDMG_FillDamageValues(D2GameStrc* pGame,D2UnitStrc* pAttacke
     if ((!nAttackerType || STATLIST_GetUnitAlignment(pAttacker)==2) && nDefenderType==1)
     {
         SUNITDMG_ApplyDamageTargetAc(pAttacker, pDefender);
-        if(MONSTERS_IsDemon(pDefender))
-        {
-            int nPct=STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker,STAT_ITEM_DEMONDAMAGE_PERCENT,0);
-            if(nPct>0) pDamage->dwEnDmgPct+=nPct;
-        }
+        SUNITDMG_AddDemonDamagePercent(pAttacker, pDefender, pDamage);
         SUNITDMG_AddUndeadDamagePercent(pDamage,pAttacker,pDefender);
         SUNITDMG_AddMonTypeDamagePercent(pAttacker,pDamage,pDefender);
     }
@@ -1375,11 +1363,6 @@ elemental:
     }
     D2GAME_MONSTER_ApplyCriticalDamage(pAttacker,pDefender,pDamage);
     PLAYER_RestoreWeaponStats(pAttacker,nWeapon);
-}
-
-void __fastcall sub_K11_Emit0057B630(D2UnitStrc* pAttacker, D2UnitStrc* pTarget, D2UnkDamageRecordStrc* pRecord)
-{
-    SUNITDMG_AddDemonDamagePercent(pAttacker, pTarget, pRecord);
 }
 
 // 0x0057BDD0
