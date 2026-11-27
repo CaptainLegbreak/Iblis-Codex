@@ -7,7 +7,7 @@
 #include "D2CommonApi.h"
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
-void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
+void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* pTargetUnit, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 
 static inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
