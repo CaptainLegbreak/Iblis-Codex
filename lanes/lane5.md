@@ -10,6 +10,7 @@ Scope (COORDINATOR.md, LANES 2-5 RESTART): private struct definitions in D2Game 
 - lane5/struct-copies-2 3c4a32e68 (one commit; lane5/struct-copies-1 is the same change on #503, drop it): in D2Game, eight marked copies of other files' functions (five D2Client/D2Sound ones in GAME/Clients.cpp, three in Ai/AiThink4.cpp, one each in PlrSave.cpp, a4q1.cpp, SkillItem.cpp, Unknown_0059F440.cpp) become declarations, each kept only when its unit built equal, and the private views that only served them go (5 in Clients.cpp); then 24 private structs nothing uses go with their forward declarations and size checks (Clients.cpp 8, Game.cpp 3, objrgn.cpp 5, Unknown_00573470.cpp 6, ItemsMagic.cpp 1, MonsterRegion.cpp 1). VERIFIED 57c0748aa2220b276801d4ec925a01e7af8decf7. Audit guard: no count rose (a1/v12 names 87 -> 83, pointer casts 4837 -> 4835). Linkdebt: no module changed (D2Game 3467 = main #504). Based on main 87b6da6dc (#504).
 
 ### Claimed
+- Source/D2Game/MONSTER/Monster.cpp (the 0x5734C0-0x573570 accessor views) and, in Source/Include/D2UnitData.h, only D2MonsterDataStrc's +0x54 field type (unsigned char[4] -> unsigned int; no name added): lane5/monster-views, verifying.
 - Source/D2Game/**/*.cpp private struct definitions: (1) the ones nothing uses and the private views that only served marked copies of other files' functions (lane5/struct-copies-1, verifying); (2) next, private copies of header structs (21 in 8 files), adapting the code to the shared fields, one folder per branch: GAME first.
 
 ### Status
