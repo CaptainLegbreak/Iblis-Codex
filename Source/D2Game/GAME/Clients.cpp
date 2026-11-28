@@ -118,6 +118,7 @@ int __stdcall sub_0063E510_InventoryGridQuery(D2UnitStrc* pUnit, unsigned char* 
 #include "D2CommonApi2.h"
 #include "D2ClientApi.h"
 #include "D2BNClientApi.h"
+#include "D2SavedItem.h"
 
 struct D2ClientUnitUpdateSortStrc
 {
