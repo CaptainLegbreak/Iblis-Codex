@@ -73,7 +73,8 @@ void __stdcall TEXT_OnRosterMouseDown(SMSGHANDLER_PARAMS* pMsg)
         gbRosterButtonDown = 1;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
 
@@ -91,7 +92,7 @@ void __stdcall TEXT_OnRosterMouseDown(SMSGHANDLER_PARAMS* pMsg)
                         {
                             pMsg->bReturn = 1;
                             pMsg->lResult = 0;
-                            sub_00420290_BreakHandlerChain(pMsg);
+                            SMsgBreakHandlerChain(pMsg);
                             return;
                         }
 
@@ -111,7 +112,7 @@ void __stdcall TEXT_OnRosterMouseDown(SMSGHANDLER_PARAMS* pMsg)
 
                         pMsg->bReturn = 1;
                         pMsg->lResult = 0;
-                        sub_00420290_BreakHandlerChain(pMsg);
+                        SMsgBreakHandlerChain(pMsg);
                         return;
                     }
                 }
@@ -123,7 +124,7 @@ void __stdcall TEXT_OnRosterMouseDown(SMSGHANDLER_PARAMS* pMsg)
                     gbRosterMode = 1;
                     pMsg->bReturn = 1;
                     pMsg->lResult = 0;
-                    sub_00420290_BreakHandlerChain(pMsg);
+                    SMsgBreakHandlerChain(pMsg);
                     return;
                 }
             }
@@ -135,7 +136,7 @@ void __stdcall TEXT_OnRosterMouseDown(SMSGHANDLER_PARAMS* pMsg)
 
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
 
@@ -472,7 +473,7 @@ void __stdcall TEXT_WaypointKeyMsg(SMSGHANDLER_PARAMS* pMsg)
     UI_SetUIVar(20, 1, 1);
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 
@@ -526,7 +527,7 @@ void __stdcall TEXT_OnWaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
         {
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             MSG_SendTwoDwords(0x49, gnWaypointId, gaWaypointEntries[gnWaypointSelected].nLevelId);
             gbSent = 1;
             TEXT_SendWaypointClose();
@@ -536,7 +537,7 @@ void __stdcall TEXT_OnWaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
             sub_004B9A00(0x8B7, 0, 0, 0, 0);
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
 
@@ -544,7 +545,7 @@ void __stdcall TEXT_OnWaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
         gnWaypointSelected = -1;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
     else
     {
@@ -583,7 +584,7 @@ void __stdcall TEXT_WaypointMouseDown(SMSGHANDLER_PARAMS* pMsg)
         WARDENCLIENT_BuildWaypointList();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 
     gnWaypointSelected = -1;
@@ -604,7 +605,7 @@ void __stdcall TEXT_WaypointMouseDown(SMSGHANDLER_PARAMS* pMsg)
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 #include "gen/data/Source/D2Client/Unknown_0049BB40.inc"

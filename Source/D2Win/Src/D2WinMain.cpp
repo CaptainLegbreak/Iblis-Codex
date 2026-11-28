@@ -1316,7 +1316,8 @@ dispatch:
     }
 
 done:
-    sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x004F9BF0
@@ -1370,21 +1371,21 @@ dispatch:
     }
 
 done:
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x004F9C80
 void __stdcall D2Win_COMMANDS_ControlDown(SMSGHANDLER_PARAMS* pMsg)
 {
     gfCtrlKeyDown = 1;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x004F9CA0
 void __stdcall D2Win_COMMANDS_ControlUp(SMSGHANDLER_PARAMS* pMsg)
 {
     gfCtrlKeyDown = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x004F9CC0
@@ -1729,7 +1730,7 @@ void __stdcall D2Win_COMMANDS_MouseWheel(SMSGHANDLER_PARAMS* pMsg)
     }
 
 done:
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x004FA410
@@ -1964,7 +1965,7 @@ void __stdcall D2Win_COMMANDS_Escape(SMSGHANDLER_PARAMS* pMsg)
     {
         pMsg->hWnd = gpEscapeButton;
         BUTTON_SimulateClick(pMsg);
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
 
@@ -2063,7 +2064,7 @@ void __stdcall D2Win_COMMANDS_MouseButton(SMSGHANDLER_PARAMS* pMsg)
         break;
     }
 
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* ptScrollbarData, int nWheelDelta); // 0x00508030

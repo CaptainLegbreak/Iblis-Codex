@@ -1874,7 +1874,8 @@ void __stdcall TEXT_PrevEntryMsg(SMSGHANDLER_PARAMS* pMsg)
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x004A5AB0
@@ -1901,7 +1902,7 @@ void __stdcall TEXT_NextEntryMsg(SMSGHANDLER_PARAMS* pMsg)
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x004A5B30
@@ -1922,7 +1923,7 @@ void __stdcall TEXT_SelectSecondaryColumnMsg(SMSGHANDLER_PARAMS* pMsg)
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x004A5B90
@@ -1942,7 +1943,7 @@ void __stdcall TEXT_SelectPrimaryColumnMsg(SMSGHANDLER_PARAMS* pMsg)
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x004A5BF0
@@ -1970,7 +1971,7 @@ void __stdcall TEXT_ClearEntryKeyMsg(SMSGHANDLER_PARAMS* pMsg)
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 
@@ -1988,7 +1989,7 @@ void __stdcall TEXT_CancelKeyConfigMsg(SMSGHANDLER_PARAMS* message)
     } else gbKeyConfigReady = 1;
     message->bReturn = 1;
     message->lResult = 0;
-    sub_00420290_BreakHandlerChain(message);
+    SMsgBreakHandlerChain(message);
 }
 
 // 0x004A5D00
@@ -2081,7 +2082,7 @@ void __stdcall TEXT_KeyConfigButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_004A4AD0_Press(nX, nY);
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x004A5F70
@@ -2109,7 +2110,7 @@ void __stdcall TEXT_ApplyEntryMsg(SMSGHANDLER_PARAMS* pMsg)
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x004A6000
@@ -2133,7 +2134,7 @@ void __stdcall TEXT_RegisterPressMsgHandler(SMSGHANDLER_PARAMS* pMsg)
     sub_004A4AD0_Press(nX, nY);
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 
@@ -2188,7 +2189,7 @@ store_key:
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x004A61A0
@@ -2222,7 +2223,7 @@ void __stdcall TEXT_KeyUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 
