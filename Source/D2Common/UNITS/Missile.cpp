@@ -1387,7 +1387,7 @@ int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc* pMissile, D2UnitStrc* p
     pMissileCalc.nMissileId = nMissileId;
     pMissileCalc.nMissileLevel = nLevel;
 
-    return DATATBLS_CalcEvaluateExpression((char*)sgptDataTables->pMissCode + nCalc, sgptDataTables->nMissCodeSize - nCalc, MISSILE_GetCalcParamValue, gpfnMissileCalcFunctions, gnMissileCalcFunctionCount, &pMissileCalc);
+    return DATATBLS_CalcEvaluateExpression(sgptDataTables->pMissCode + nCalc, sgptDataTables->nMissCodeSize - nCalc, MISSILE_GetCalcParamValue, gpfnMissileCalcFunctions, gnMissileCalcFunctionCount, &pMissileCalc);
 }
 
 // 0x0064B860

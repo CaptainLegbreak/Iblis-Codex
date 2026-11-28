@@ -33,6 +33,8 @@ ahead of the function can change.
 | a forward declaration of a struct already declared | 0 |
 | a struct defined after its forward declaration | the definition's count, less the 1 already counted |
 | a function definition | 2, plus 1 per parameter, per local and per string literal in it |
+| a cast or a `sizeof(type)` in a function body | 1 each, of any type. Removing a redundant cast moves every name declared after that function by one |
+| a variable declared a second time | 0 (a prototype counts again every time; a variable does not) |
 | a file included for the first time in the unit | 1 (a repeated include: 0) |
 | a `#define`, a rename, a change of type, a comment | 0 |
 
@@ -77,6 +79,16 @@ have not seen the type yet, so it cannot be balanced for every unit at once.
 
 Leave a one-line comment at a declaration placed this way, so nobody sorts it back.
 
+## When it is not the count
+
+Before moving anything, shift the count through all 64 values (unused `extern int` lines after the unit's last
+`#include`, 0 to 63 of them). If no value makes the function equal, the count is not the cause and the code is.
+
+The case that showed this: with `gbCompileTxt` as the last member of `D2DataTablesStrc`,
+`DATATBLS_LoadSkills_SkillDescTxt` (0x00613F80) loaded two fields in the other order at every count. Converting the
+function's globals to fields one at a time found the cause: it is equal when `gbCompileTxt` is a global of its own,
+which is what the game has. A flip that survives all 64 counts is evidence about the source, not noise.
+
 ## Known cases
 
 | Function | Unit | Depends on |
@@ -87,5 +99,5 @@ Leave a one-line comment at a declaration placed this way, so nobody sorts it ba
 | 0x00488100 | D2Client/UI/inv.cpp | `szFmtD_006D57BC` |
 | 0x00439210 | D2Launch/Src/CharSel.cpp | `gszLevelFormat` |
 | 0x006571A0 | D2Common/DATATBLS/MonsterTbls.cpp | `gszTxtField_mS1` |
-| `DATATBLS_LoadRareSuffix_PrefixTxt` (0x00633F40) | D2Common/DATATBLS/ItemTbls.cpp | `sgtRareItemModsDataTblDesc` and its own string literals |
+| `DATATBLS_LoadRareSuffix_PrefixTxt` (0x00633F40) | D2Common/DATATBLS/ItemTbls.cpp | `sgtRareItemModsDataTblDesc` and its own string literals; 14 of the 64 counts are equal, so a cast removed from an earlier function in the file can flip it |
 | `DATATBLS_LoadMissilesTxt` (0x00661B20) | D2Common/DATATBLS/MissileTbls.cpp | `gszTxtField_Missile` (the first of its 150 field-name strings); equal at only two counts in 64, two apart |
