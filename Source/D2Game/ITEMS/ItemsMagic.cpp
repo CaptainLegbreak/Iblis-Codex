@@ -243,18 +243,11 @@ struct D2StaticPathStrc;
 struct D2MagicAffixTxt;
 
 
-struct D2SkillPairStrc;
 
 struct D2RareAffixIndexAndPtrStrc;
 
 struct D2SetItemsTxt;
 
-
-struct D2SkillPairStrc
-{
-    int nA;
-    int nB;
-};
 
 D2PoolSystemStrc* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc*); // 0x004DC0B0
 
