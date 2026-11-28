@@ -214,12 +214,12 @@
    "externs": [
     "extern \"C\" void __cdecl MAINMENUS_OnConnectCancel(); // 0x00436CD0",
     "extern \"C\" void __cdecl sub_004371B0_OnLoginScreen(); // 0x004371B0",
-    "extern \"C\" void __cdecl sub_004371C0_OnEmailScreen(); // 0x004371C0",
+    "extern \"C\" void __cdecl MAINMENUS_OnEmailScreen(); // 0x004371C0",
     "extern \"C\" void __cdecl sub_004371D0_OnShowLogin(); // 0x004371D0",
-    "extern \"C\" void __cdecl sub_004374E0_OnInfoScreen(); // 0x004374E0",
+    "extern \"C\" void __cdecl MAINMENUS_OnInfoScreen(); // 0x004374E0",
     "extern \"C\" void __cdecl sub_00437710_OnInfoScreen(); // 0x00437710",
-    "extern \"C\" void __cdecl sub_00437720_OnPasswordScreen(); // 0x00437720",
-    "extern \"C\" void __cdecl sub_00437730_ChangePassword(); // 0x00437730",
+    "extern \"C\" void __cdecl MAINMENUS_OnPasswordScreen(); // 0x00437720",
+    "extern \"C\" void __cdecl MAINMENUS_ChangePassword(); // 0x00437730",
     "extern \"C\" void __cdecl CHARSEL_SubmitPasswordReset(); // 0x004378D0",
     "extern \"C\" void __cdecl CHARSEL_OnNormalDifficulty(); // 0x00439B80",
     "extern \"C\" void __cdecl CHARSEL_OnNightmareDifficulty(); // 0x00439BA0",
@@ -14969,7 +14969,7 @@
      15104,
      "0x004371C0",
      "names.json",
-     "sub_004371C0_OnEmailScreen",
+     "MAINMENUS_OnEmailScreen",
      0,
      "func"
     ],
@@ -14985,7 +14985,7 @@
      15152,
      "0x00437720",
      "names.json",
-     "sub_00437720_OnPasswordScreen",
+     "MAINMENUS_OnPasswordScreen",
      0,
      "func"
     ],
@@ -15041,7 +15041,7 @@
      15444,
      "0x00437730",
      "names.json",
-     "sub_00437730_ChangePassword",
+     "MAINMENUS_ChangePassword",
      0,
      "func"
     ],
@@ -15073,7 +15073,7 @@
      15588,
      "0x00437730",
      "names.json",
-     "sub_00437730_ChangePassword",
+     "MAINMENUS_ChangePassword",
      0,
      "func"
     ],
@@ -15105,7 +15105,7 @@
      15732,
      "0x00437730",
      "names.json",
-     "sub_00437730_ChangePassword",
+     "MAINMENUS_ChangePassword",
      0,
      "func"
     ],
@@ -15137,7 +15137,7 @@
      15876,
      "0x00437730",
      "names.json",
-     "sub_00437730_ChangePassword",
+     "MAINMENUS_ChangePassword",
      0,
      "func"
     ],
@@ -15161,7 +15161,7 @@
      15920,
      "0x00437730",
      "names.json",
-     "sub_00437730_ChangePassword",
+     "MAINMENUS_ChangePassword",
      0,
      "func"
     ],
@@ -15177,7 +15177,7 @@
      15968,
      "0x004374E0",
      "names.json",
-     "sub_004374E0_OnInfoScreen",
+     "MAINMENUS_OnInfoScreen",
      0,
      "func"
     ]
