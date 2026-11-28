@@ -1846,12 +1846,12 @@ int __stdcall D2CMPSpriteValidate(D2CmpSpriteContextStrc* context, int async, in
     if (node)
     {
         D2CmpSpriteEntryStrc* entry = node->entry;
-        if (!entry || (*(unsigned char*)&entry->nFlags & 1) || !entry->pAsync)
+        if (!entry || (entry->nFlags & 1) || !entry->pAsync)
             return 0;
         if (async)
             return FOG_AsyncDataTestLoaded(entry->pAsync) != 0;
         D2CMPSpriteCacheTouch(&gCmpTileCache, (D2SpriteCacheNodeStrc*)node->link);
-        if (*(int*)((char*)entry + 0x28) == 0)
+        if (entry->bFramesInitialized == 0)
             D2CMPSpriteInitFrames((D2CmpSpriteFileStrc*)file, context, entry);
         context->pFrame = SPRITECACHE_GetCachedDC6Frame(context, entry);
         if (!context->pFrame)
