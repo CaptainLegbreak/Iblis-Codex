@@ -10,13 +10,12 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 - **lane1/itemsworld-fields** (58a0357d8, on main #488 e92a08ebf; VERIFIED tree 77ac241d546dfcfe066b901b0c60f14b84239ef0; merges clean on #489). D2ItemsWorld.h: 11 `unk0x..` -> 0. D2MonRegDataStrc 0x04 is D2MOO's nComponentVariants[3][16] (MONSTER_SetComponents picks one set; its reader in Monster.cpp renamed, the existing cast unchanged). The rest no code names: `pad0x<off>` (9), `unused0x10` (item drop record). Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 21,832 -> 21,832 (main #488), every module unchanged.
 
-- **lane1/wintypes-fields** (452eff86b, on main #488 e92a08ebf; VERIFIED tree af226b4642a922ab00ec5f6895b5e9c78d2058e0; merges clean on #489). D2WinTypes.h: 11 `unk0x..` -> 0, none named by any code (every including unit compiles equal with them renamed): `unused0x<off>` (7: the font table header's two words, the unread bytes of each character entry), `pad0x<off>` (4). Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 21,832 -> 21,832 (main #488), every module unchanged.
-
 
 
 
 ## Claimed
 
+- #491 took wintypes-fields (Ready line dropped).
 - Fri Nov 27 16:09 PST 2026: gamerecords-fields Ready. Next: the BnClient interface merge. D2Multi's D2LaunchFuncsStrc and D2ComInterfaceStrc disagree on most slots' return types, calling conventions and argument types (e.g. 0x74 takes `(int, int, void*, D2LaunchRecord3Strc*)` in one and D2MOO's account/keys/values strings in the other), so it goes slot by slot against the callers, no cast rise allowed.
 - Fri Nov 27 15:54 PST 2026: check-in. #490 took clientui, gameclient and gameserver (Ready lines dropped). cominterface-names Ready. gamerecords-fields building. Next: the interface merge (D2LaunchFuncsStrc, D2ClientNotifyStrc -> D2ComInterfaceStrc), then D2Structs.h.
 - Fri Nov 27 15:29 PST 2026: itemsworld-fields Ready. cominterface-names building (base #489), then gamerecords-fields (D2GameRecords.h, 10; claimed: that header and sunitproxy.cpp's one field spelling; D2NpcRecordStrc 0x26 is D2MOO's bForceVendor, written there).
