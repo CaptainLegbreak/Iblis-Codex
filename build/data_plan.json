@@ -39782,7 +39782,7 @@
      48,
      "0x0046B290",
      "names.json",
-     "sub_0046B290_EventLevel108Request",
+     "VIEW_EventLevel108Request",
      0,
      "func"
     ],
@@ -39798,7 +39798,7 @@
      56,
      "0x0046B300",
      "names.json",
-     "sub_0046B300_EventObject178Request",
+     "VIEW_EventObject178Request",
      0,
      "func"
     ],
@@ -39806,7 +39806,7 @@
      64,
      "0x0046B440",
      "names.json",
-     "sub_0046B440_EventObject1CCRequest",
+     "VIEW_EventObject1CCRequest",
      0,
      "func"
     ],
