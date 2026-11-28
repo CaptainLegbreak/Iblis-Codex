@@ -8,6 +8,20 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Fri Nov 27 17:38 PST 2026: **lane12/width-1** (e2350839f, stacked on types-1): the parameter-width ruling. STATLIST_SetUnitStat (197
+  refs) takes `int nLayerArg` and narrows it to `const unsigned short nLayer` inside, which keeps StatsEx.cpp's
+  code, so callers and D2CommonApi.h have one prototype. Kept narrow, each with the one-line comment "The callers in
+  the other modules pass an int for nLayer (each DLL had its own header).": STATLIST_UnitGetStatValue and
+  STATLIST_UnitGetItemStatOrSkillStatValue (the int spelling changes StatsEx.cpp, three spellings tried) and
+  STATLIST_GetUnitBaseStat (its definition keeps its bytes, but the changed declaration flips D2Common
+  LvlTbls.cpp, a declaration-count unit). Full build 538 units equal. VERIFIED tree
+  dc7fbf287a6328d54714043d9a642b5fc50bafc5. linkdebt vs types-1: 21,431 -> 21,234 (type_disagreement 5,338 ->
+  5,141; D2Common -98, D2Client -51, D2Game -48; no module rises). auditguard: no count rose.
+  **The `width_only` linkdebt category is not in this branch:** my edit to tools/linkdebt.py (a category for
+  integer-width-only disagreements, so they stop counting as type_disagreement) was refused by this session's
+  safety check, as a change to the measuring tool that lowers the count. It needs the user's go-ahead, or the
+  coordinator's own commit; I have the code ready (a name compare that allows only by-value integer codes C-K to
+  differ, not pointees, return type or convention).
 - Fri Nov 27 16:54 PST 2026: **lane12/types-1** (654858468, stacked on api-modules-1): queue item 3, "One type for memory pools:
   D2PoolSystemStrc*". The pool fields of the game, unit, act, inventory, skill list, stat list, DRLG, sprite cache
   and other records, and every pMemPool/pMemoryPool/pMempool parameter and local (153 files), go from void* to
