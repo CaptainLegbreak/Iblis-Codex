@@ -538,13 +538,13 @@
    "externs": [
     "extern \"C\" void __cdecl TEXT_QuestButtonDownMsg(); // 0x004A2A20",
     "extern \"C\" void __cdecl SCMD_HandleResetMessage(); // 0x00452090",
-    "extern \"C\" void __cdecl sub_0047D7F0_OptionMouseDown(); // 0x0047D7F0",
-    "extern \"C\" void __cdecl sub_0047D840_OptionMouseUp(); // 0x0047D840",
-    "extern \"C\" void __cdecl sub_0047D8A0_SelectNextOption(); // 0x0047D8A0",
-    "extern \"C\" void __cdecl sub_0047D920_SelectPreviousOption(); // 0x0047D920",
-    "extern \"C\" void __cdecl sub_0047D9A0_OptionKeyLeft(); // 0x0047D9A0",
-    "extern \"C\" void __cdecl sub_0047DA90_OptionKeyRight(); // 0x0047DA90",
-    "extern \"C\" void __cdecl sub_0047DB80_OptionActivate(); // 0x0047DB80",
+    "extern \"C\" void __cdecl ESCMENU_OptionMouseDown(); // 0x0047D7F0",
+    "extern \"C\" void __cdecl ESCMENU_OptionMouseUp(); // 0x0047D840",
+    "extern \"C\" void __cdecl ESCMENU_SelectNextOption(); // 0x0047D8A0",
+    "extern \"C\" void __cdecl ESCMENU_SelectPreviousOption(); // 0x0047D920",
+    "extern \"C\" void __cdecl ESCMENU_OptionKeyLeft(); // 0x0047D9A0",
+    "extern \"C\" void __cdecl ESCMENU_OptionKeyRight(); // 0x0047DA90",
+    "extern \"C\" void __cdecl ESCMENU_OptionActivate(); // 0x0047DB80",
     "extern \"C\" void __cdecl INV_NpcPanelMouseMove(); // 0x00486EF0",
     "extern \"C\" void __cdecl INV_UpdateInventoryHover(); // 0x004873A0",
     "extern \"C\" void __cdecl INV_ResetShopCursorMsg(); // 0x00488910",
@@ -605,8 +605,8 @@
     "extern \"C\" void __cdecl TEXT_KeyConfigButtonUpMsg(); // 0x004A5F10",
     "extern \"C\" void __cdecl TEXT_ApplyEntryMsg(); // 0x004A5F70",
     "extern \"C\" void __cdecl TEXT_CancelKeyConfigMsg(); // 0x004A5C70",
-    "extern \"C\" void __cdecl sub_0047ED90_SlotsClickMsg(); // 0x0047ED90",
-    "extern \"C\" void __cdecl sub_0047EF30_SlotsClick(); // 0x0047EF30",
+    "extern \"C\" void __cdecl MINIPANEL_SlotsClickMsg(); // 0x0047ED90",
+    "extern \"C\" void __cdecl MINIPANEL_SlotsClick(); // 0x0047EF30",
     "extern \"C\" void __cdecl ROSTERPETS_HandleHelpButtonDown(); // 0x00494F30",
     "extern \"C\" void __cdecl INV_HelpCloseButtonMsg(); // 0x00496720",
     "extern \"C\" char gData_007A28A0[]; // 0x007A28A0",
@@ -31524,7 +31524,7 @@
      8,
      "0x0047D7F0",
      "names.json",
-     "sub_0047D7F0_OptionMouseDown",
+     "ESCMENU_OptionMouseDown",
      0,
      "func"
     ],
@@ -31532,7 +31532,7 @@
      20,
      "0x0047D840",
      "names.json",
-     "sub_0047D840_OptionMouseUp",
+     "ESCMENU_OptionMouseUp",
      0,
      "func"
     ],
@@ -31540,7 +31540,7 @@
      32,
      "0x0047D8A0",
      "names.json",
-     "sub_0047D8A0_SelectNextOption",
+     "ESCMENU_SelectNextOption",
      0,
      "func"
     ],
@@ -31548,7 +31548,7 @@
      44,
      "0x0047D920",
      "names.json",
-     "sub_0047D920_SelectPreviousOption",
+     "ESCMENU_SelectPreviousOption",
      0,
      "func"
     ],
@@ -31556,7 +31556,7 @@
      56,
      "0x0047D9A0",
      "names.json",
-     "sub_0047D9A0_OptionKeyLeft",
+     "ESCMENU_OptionKeyLeft",
      0,
      "func"
     ],
@@ -31564,7 +31564,7 @@
      68,
      "0x0047DA90",
      "names.json",
-     "sub_0047DA90_OptionKeyRight",
+     "ESCMENU_OptionKeyRight",
      0,
      "func"
     ],
@@ -31572,7 +31572,7 @@
      80,
      "0x0047DB80",
      "names.json",
-     "sub_0047DB80_OptionActivate",
+     "ESCMENU_OptionActivate",
      0,
      "func"
     ]
@@ -35951,7 +35951,7 @@
      8,
      "0x0047EF30",
      "names.json",
-     "sub_0047EF30_SlotsClick",
+     "MINIPANEL_SlotsClick",
      0,
      "func"
     ],
@@ -35959,7 +35959,7 @@
      20,
      "0x0047ED90",
      "names.json",
-     "sub_0047ED90_SlotsClickMsg",
+     "MINIPANEL_SlotsClickMsg",
      0,
      "func"
     ]
@@ -42196,7 +42196,7 @@
      276,
      "0x0047F310",
      "owner",
-     "sub_0047F310_ShowPage2",
+     "MINIPANEL_ShowPage2",
      0,
      "func"
     ],
@@ -42204,7 +42204,7 @@
      1636,
      "0x0047F340",
      "owner",
-     "sub_0047F340_ShowPage3",
+     "MINIPANEL_ShowPage3",
      0,
      "func"
     ],
@@ -42212,7 +42212,7 @@
      2996,
      "0x0047F3A0",
      "owner",
-     "sub_0047F3A0_ShowPage4",
+     "MINIPANEL_ShowPage4",
      0,
      "func"
     ],
@@ -42220,7 +42220,7 @@
      4356,
      "0x0047F400",
      "owner",
-     "sub_0047F400_OpenPanel",
+     "MINIPANEL_OpenPanel",
      0,
      "func"
     ],
@@ -42228,7 +42228,7 @@
      5716,
      "0x0047F430",
      "owner",
-     "sub_0047F430_ShowPage0",
+     "MINIPANEL_ShowPage0",
      0,
      "func"
     ]
@@ -42676,7 +42676,7 @@
      276,
      "0x0047F2A0",
      "names.json",
-     "sub_0047F2A0_ShowPage1",
+     "MINIPANEL_ShowPage1",
      0,
      "func"
     ],
@@ -42684,7 +42684,7 @@
      1636,
      "0x0047F2D0",
      "names.json",
-     "sub_0047F2D0_ExitGame",
+     "MINIPANEL_ExitGame",
      0,
      "func"
     ],
@@ -42906,7 +42906,7 @@
      1636,
      "0x0047CDA0",
      "names.json",
-     "sub_0047CDA0_MasterVolumeSelect",
+     "ESCMENU_MasterVolumeSelect",
      0,
      "func"
     ],
@@ -42914,7 +42914,7 @@
      1640,
      "0x0047CDC0",
      "names.json",
-     "sub_0047CDC0_MasterVolumeOption",
+     "ESCMENU_MasterVolumeOption",
      0,
      "func"
     ],
@@ -42930,7 +42930,7 @@
      2996,
      "0x0047CDF0",
      "names.json",
-     "sub_0047CDF0_MusicVolumeSelect",
+     "ESCMENU_MusicVolumeSelect",
      0,
      "func"
     ],
@@ -42938,7 +42938,7 @@
      3000,
      "0x0047CE10",
      "names.json",
-     "sub_0047CE10_MusicVolumeOption",
+     "ESCMENU_MusicVolumeOption",
      0,
      "func"
     ],
@@ -42946,7 +42946,7 @@
      4352,
      "0x0047CE30",
      "names.json",
-     "sub_0047CE30_Is3DSoundEnabled",
+     "ESCMENU_Is3DSoundEnabled",
      0,
      "func"
     ],
@@ -42954,7 +42954,7 @@
      4356,
      "0x0047CE40",
      "names.json",
-     "sub_0047CE40_3DSoundSelect",
+     "ESCMENU_3DSoundSelect",
      0,
      "func"
     ],
@@ -42962,7 +42962,7 @@
      4360,
      "0x0047CE50",
      "names.json",
-     "sub_0047CE50_SoundModeOption",
+     "ESCMENU_SoundModeOption",
      0,
      "func"
     ],
@@ -42970,7 +42970,7 @@
      4364,
      "0x0047CE50",
      "names.json",
-     "sub_0047CE50_SoundModeOption",
+     "ESCMENU_SoundModeOption",
      0,
      "func"
     ],
@@ -42978,7 +42978,7 @@
      5712,
      "0x0047CEB0",
      "names.json",
-     "sub_0047CEB0_IsEAXEnabled",
+     "ESCMENU_IsEAXEnabled",
      0,
      "func"
     ],
@@ -42986,7 +42986,7 @@
      5716,
      "0x0047CEC0",
      "names.json",
-     "sub_0047CEC0_EAXSelect",
+     "ESCMENU_EAXSelect",
      0,
      "func"
     ],
@@ -42994,7 +42994,7 @@
      5720,
      "0x0047CED0",
      "names.json",
-     "sub_0047CED0_SoundMode2Option",
+     "ESCMENU_SoundMode2Option",
      0,
      "func"
     ],
@@ -43002,7 +43002,7 @@
      5724,
      "0x0047CED0",
      "names.json",
-     "sub_0047CED0_SoundMode2Option",
+     "ESCMENU_SoundMode2Option",
      0,
      "func"
     ],
@@ -43010,7 +43010,7 @@
      7072,
      "0x0047CE60",
      "names.json",
-     "sub_0047CE60_Is3DBiasEnabled",
+     "ESCMENU_Is3DBiasEnabled",
      0,
      "func"
     ],
@@ -43018,7 +43018,7 @@
      7076,
      "0x0047CE70",
      "names.json",
-     "sub_0047CE70_PositionalBiasSelect",
+     "ESCMENU_PositionalBiasSelect",
      0,
      "func"
     ],
@@ -43026,7 +43026,7 @@
      7080,
      "0x0047CE90",
      "names.json",
-     "sub_0047CE90_PositionalBiasOption",
+     "ESCMENU_PositionalBiasOption",
      0,
      "func"
     ],
@@ -43042,7 +43042,7 @@
      8436,
      "0x0047CEF0",
      "names.json",
-     "sub_0047CEF0_NpcSpeechSelect",
+     "ESCMENU_NpcSpeechSelect",
      0,
      "func"
     ],
@@ -43050,7 +43050,7 @@
      8440,
      "0x0047CF50",
      "names.json",
-     "sub_0047CF50_NpcSpeechOption",
+     "ESCMENU_NpcSpeechOption",
      0,
      "func"
     ],
@@ -43430,7 +43430,7 @@
      1636,
      "0x0047CF80",
      "names.json",
-     "sub_0047CF80_LightQualitySelect",
+     "ESCMENU_LightQualitySelect",
      0,
      "func"
     ],
@@ -43438,7 +43438,7 @@
      1640,
      "0x0047CFE0",
      "names.json",
-     "sub_0047CFE0_LightQualityOption",
+     "ESCMENU_LightQualityOption",
      0,
      "func"
     ],
@@ -43446,7 +43446,7 @@
      2996,
      "0x0047D040",
      "names.json",
-     "sub_0047D040_BlendShadowsChanged",
+     "ESCMENU_BlendShadowsChanged",
      0,
      "func"
     ],
@@ -43454,7 +43454,7 @@
      3000,
      "0x0047D070",
      "names.json",
-     "sub_0047D070_BlendShadowsLoad",
+     "ESCMENU_BlendShadowsLoad",
      0,
      "func"
     ],
@@ -43462,7 +43462,7 @@
      4352,
      "0x0047D120",
      "names.json",
-     "sub_0047D120_PerspectiveEnabled",
+     "ESCMENU_PerspectiveEnabled",
      0,
      "func"
     ],
@@ -43470,7 +43470,7 @@
      4356,
      "0x0047D130",
      "names.json",
-     "sub_0047D130_PerspectiveChanged",
+     "ESCMENU_PerspectiveChanged",
      0,
      "func"
     ],
@@ -43478,7 +43478,7 @@
      4360,
      "0x0047D180",
      "names.json",
-     "sub_0047D180_PerspectiveLoad",
+     "ESCMENU_PerspectiveLoad",
      0,
      "func"
     ],
@@ -43486,7 +43486,7 @@
      5712,
      "0x0047D1F0",
      "names.json",
-     "sub_0047D1F0_GammaEnabled",
+     "ESCMENU_GammaEnabled",
      0,
      "func"
     ],
@@ -43494,7 +43494,7 @@
      5716,
      "0x0047D200",
      "names.json",
-     "sub_0047D200_GammaSelect",
+     "ESCMENU_GammaSelect",
      0,
      "func"
     ],
@@ -43502,7 +43502,7 @@
      5720,
      "0x0047D230",
      "names.json",
-     "sub_0047D230_GammaOption",
+     "ESCMENU_GammaOption",
      0,
      "func"
     ],
@@ -43510,7 +43510,7 @@
      7076,
      "0x0047D2B0",
      "names.json",
-     "sub_0047D2B0_ContrastSelect",
+     "ESCMENU_ContrastSelect",
      0,
      "func"
     ],
@@ -43518,7 +43518,7 @@
      7080,
      "0x0047D2F0",
      "names.json",
-     "sub_0047D2F0_ContrastOption",
+     "ESCMENU_ContrastOption",
      0,
      "func"
     ],
@@ -43732,7 +43732,7 @@
      1636,
      "0x0047D0A0",
      "names.json",
-     "sub_0047D0A0_ResolutionChanged",
+     "ESCMENU_ResolutionChanged",
      0,
      "func"
     ],
@@ -43740,7 +43740,7 @@
      1640,
      "0x0047D0E0",
      "names.json",
-     "sub_0047D0E0_ResolutionLoad",
+     "ESCMENU_ResolutionLoad",
      0,
      "func"
     ],
@@ -43748,7 +43748,7 @@
      2996,
      "0x0047CF80",
      "names.json",
-     "sub_0047CF80_LightQualitySelect",
+     "ESCMENU_LightQualitySelect",
      0,
      "func"
     ],
@@ -43756,7 +43756,7 @@
      3000,
      "0x0047CFE0",
      "names.json",
-     "sub_0047CFE0_LightQualityOption",
+     "ESCMENU_LightQualityOption",
      0,
      "func"
     ],
@@ -43764,7 +43764,7 @@
      4356,
      "0x0047D040",
      "names.json",
-     "sub_0047D040_BlendShadowsChanged",
+     "ESCMENU_BlendShadowsChanged",
      0,
      "func"
     ],
@@ -43772,7 +43772,7 @@
      4360,
      "0x0047D070",
      "names.json",
-     "sub_0047D070_BlendShadowsLoad",
+     "ESCMENU_BlendShadowsLoad",
      0,
      "func"
     ],
@@ -43780,7 +43780,7 @@
      5712,
      "0x0047D120",
      "names.json",
-     "sub_0047D120_PerspectiveEnabled",
+     "ESCMENU_PerspectiveEnabled",
      0,
      "func"
     ],
@@ -43788,7 +43788,7 @@
      5716,
      "0x0047D130",
      "names.json",
-     "sub_0047D130_PerspectiveChanged",
+     "ESCMENU_PerspectiveChanged",
      0,
      "func"
     ],
@@ -43796,7 +43796,7 @@
      5720,
      "0x0047D180",
      "names.json",
-     "sub_0047D180_PerspectiveLoad",
+     "ESCMENU_PerspectiveLoad",
      0,
      "func"
     ],
@@ -43804,7 +43804,7 @@
      7072,
      "0x0047D1F0",
      "names.json",
-     "sub_0047D1F0_GammaEnabled",
+     "ESCMENU_GammaEnabled",
      0,
      "func"
     ],
@@ -43812,7 +43812,7 @@
      7076,
      "0x0047D200",
      "names.json",
-     "sub_0047D200_GammaSelect",
+     "ESCMENU_GammaSelect",
      0,
      "func"
     ],
@@ -43820,7 +43820,7 @@
      7080,
      "0x0047D230",
      "names.json",
-     "sub_0047D230_GammaOption",
+     "ESCMENU_GammaOption",
      0,
      "func"
     ],
@@ -43828,7 +43828,7 @@
      8436,
      "0x0047D2B0",
      "names.json",
-     "sub_0047D2B0_ContrastSelect",
+     "ESCMENU_ContrastSelect",
      0,
      "func"
     ],
@@ -43836,7 +43836,7 @@
      8440,
      "0x0047D2F0",
      "names.json",
-     "sub_0047D2F0_ContrastOption",
+     "ESCMENU_ContrastOption",
      0,
      "func"
     ],
@@ -44216,7 +44216,7 @@
      1636,
      "0x0047D3F0",
      "names.json",
-     "sub_0047D3F0_AutoMapFadeChanged",
+     "ESCMENU_AutoMapFadeChanged",
      0,
      "func"
     ],
@@ -44224,7 +44224,7 @@
      1640,
      "0x0047D430",
      "names.json",
-     "sub_0047D430_LoadAutoMapFade",
+     "ESCMENU_LoadAutoMapFade",
      0,
      "func"
     ],
@@ -44232,7 +44232,7 @@
      1644,
      "0x0047D430",
      "names.json",
-     "sub_0047D430_LoadAutoMapFade",
+     "ESCMENU_LoadAutoMapFade",
      0,
      "func"
     ],
@@ -44240,7 +44240,7 @@
      2996,
      "0x0047D470",
      "names.json",
-     "sub_0047D470_AutoMapCentersChanged",
+     "ESCMENU_AutoMapCentersChanged",
      0,
      "func"
     ],
@@ -44248,7 +44248,7 @@
      3000,
      "0x0047D480",
      "names.json",
-     "sub_0047D480_AutoMapCentersLoad",
+     "ESCMENU_AutoMapCentersLoad",
      0,
      "func"
     ],
@@ -44256,7 +44256,7 @@
      3004,
      "0x0047D480",
      "names.json",
-     "sub_0047D480_AutoMapCentersLoad",
+     "ESCMENU_AutoMapCentersLoad",
      0,
      "func"
     ],
@@ -44264,7 +44264,7 @@
      4356,
      "0x0047D490",
      "names.json",
-     "sub_0047D490_AutoMapPartyChanged",
+     "ESCMENU_AutoMapPartyChanged",
      0,
      "func"
     ],
@@ -44272,7 +44272,7 @@
      4360,
      "0x0047D4A0",
      "names.json",
-     "sub_0047D4A0_AutoMapPartyLoad",
+     "ESCMENU_AutoMapPartyLoad",
      0,
      "func"
     ],
@@ -44280,7 +44280,7 @@
      4364,
      "0x0047D4A0",
      "names.json",
-     "sub_0047D4A0_AutoMapPartyLoad",
+     "ESCMENU_AutoMapPartyLoad",
      0,
      "func"
     ],
@@ -44288,7 +44288,7 @@
      5712,
      "0x0047D4B0",
      "names.json",
-     "sub_0047D4B0_PartyNamesEnabled",
+     "ESCMENU_PartyNamesEnabled",
      0,
      "func"
     ],
@@ -44296,7 +44296,7 @@
      5716,
      "0x0047D4C0",
      "names.json",
-     "sub_0047D4C0_AutoMapPartyNamesChanged",
+     "ESCMENU_AutoMapPartyNamesChanged",
      0,
      "func"
     ],
@@ -44304,7 +44304,7 @@
      5720,
      "0x0047D4D0",
      "names.json",
-     "sub_0047D4D0_AutoMapPartyNamesLoad",
+     "ESCMENU_AutoMapPartyNamesLoad",
      0,
      "func"
     ],
@@ -44312,7 +44312,7 @@
      5724,
      "0x0047D4D0",
      "names.json",
-     "sub_0047D4D0_AutoMapPartyNamesLoad",
+     "ESCMENU_AutoMapPartyNamesLoad",
      0,
      "func"
     ],
@@ -44526,7 +44526,7 @@
      1636,
      "0x0047D370",
      "names.json",
-     "sub_0047D370_AutoMapModeChanged",
+     "ESCMENU_AutoMapModeChanged",
      0,
      "func"
     ],
@@ -44534,7 +44534,7 @@
      1640,
      "0x0047D3B0",
      "names.json",
-     "sub_0047D3B0_LoadAutoMapMode",
+     "ESCMENU_LoadAutoMapMode",
      0,
      "func"
     ],
@@ -44542,7 +44542,7 @@
      2996,
      "0x0047D3F0",
      "names.json",
-     "sub_0047D3F0_AutoMapFadeChanged",
+     "ESCMENU_AutoMapFadeChanged",
      0,
      "func"
     ],
@@ -44550,7 +44550,7 @@
      3000,
      "0x0047D430",
      "names.json",
-     "sub_0047D430_LoadAutoMapFade",
+     "ESCMENU_LoadAutoMapFade",
      0,
      "func"
     ],
@@ -44558,7 +44558,7 @@
      3004,
      "0x0047D430",
      "names.json",
-     "sub_0047D430_LoadAutoMapFade",
+     "ESCMENU_LoadAutoMapFade",
      0,
      "func"
     ],
@@ -44566,7 +44566,7 @@
      4356,
      "0x0047D470",
      "names.json",
-     "sub_0047D470_AutoMapCentersChanged",
+     "ESCMENU_AutoMapCentersChanged",
      0,
      "func"
     ],
@@ -44574,7 +44574,7 @@
      4360,
      "0x0047D480",
      "names.json",
-     "sub_0047D480_AutoMapCentersLoad",
+     "ESCMENU_AutoMapCentersLoad",
      0,
      "func"
     ],
@@ -44582,7 +44582,7 @@
      4364,
      "0x0047D480",
      "names.json",
-     "sub_0047D480_AutoMapCentersLoad",
+     "ESCMENU_AutoMapCentersLoad",
      0,
      "func"
     ],
@@ -44590,7 +44590,7 @@
      5716,
      "0x0047D490",
      "names.json",
-     "sub_0047D490_AutoMapPartyChanged",
+     "ESCMENU_AutoMapPartyChanged",
      0,
      "func"
     ],
@@ -44598,7 +44598,7 @@
      5720,
      "0x0047D4A0",
      "names.json",
-     "sub_0047D4A0_AutoMapPartyLoad",
+     "ESCMENU_AutoMapPartyLoad",
      0,
      "func"
     ],
@@ -44606,7 +44606,7 @@
      5724,
      "0x0047D4A0",
      "names.json",
-     "sub_0047D4A0_AutoMapPartyLoad",
+     "ESCMENU_AutoMapPartyLoad",
      0,
      "func"
     ],
@@ -44614,7 +44614,7 @@
      7072,
      "0x0047D4B0",
      "names.json",
-     "sub_0047D4B0_PartyNamesEnabled",
+     "ESCMENU_PartyNamesEnabled",
      0,
      "func"
     ],
@@ -44622,7 +44622,7 @@
      7076,
      "0x0047D4C0",
      "names.json",
-     "sub_0047D4C0_AutoMapPartyNamesChanged",
+     "ESCMENU_AutoMapPartyNamesChanged",
      0,
      "func"
     ],
@@ -44630,7 +44630,7 @@
      7080,
      "0x0047D4D0",
      "names.json",
-     "sub_0047D4D0_AutoMapPartyNamesLoad",
+     "ESCMENU_AutoMapPartyNamesLoad",
      0,
      "func"
     ],
@@ -44638,7 +44638,7 @@
      7084,
      "0x0047D4D0",
      "names.json",
-     "sub_0047D4D0_AutoMapPartyNamesLoad",
+     "ESCMENU_AutoMapPartyNamesLoad",
      0,
      "func"
     ],

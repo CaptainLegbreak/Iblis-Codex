@@ -504,7 +504,7 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit); // 0x00454F30
 
 
 
-void __cdecl sub_0047E3D0_DrawOptions(); // 0x0047E3D0
+void __cdecl ESCMENU_DrawOptions(); // 0x0047E3D0
 
 
 void __cdecl UI_DrawPetHover(); // 0x00452D20
@@ -556,7 +556,7 @@ void __cdecl VIEW_DrawHelpButtons(); // 0x00495180
 
 void __cdecl PANEL_DrawLifeManaText(); // 0x00498120
 
-void __cdecl sub_0047F710_UpdateSlotBar(); // 0x0047F710
+void __cdecl MINIPANEL_UpdateSlotBar(); // 0x0047F710
 
 void __cdecl CHAT_DrawChatPanel(); // 0x0047B720
 
@@ -657,13 +657,13 @@ void __cdecl CMDTBL_DisableHotkeyHandlers(); // 0x0046ACB0
 
 void __fastcall sub_00472890(D2DrlgActStrc* pAct); // 0x00472890
 
-void __cdecl sub_0047DFD0_FreeOptionMenus(); // 0x0047DFD0
+void __cdecl ESCMENU_FreeOptionMenus(); // 0x0047DFD0
 
-void __cdecl sub_0047E720_LoadAlwaysRun(); // 0x0047E720
+void __cdecl ESCMENU_LoadAlwaysRun(); // 0x0047E720
 
-void __cdecl sub_0047E750_SaveAlwaysRun(); // 0x0047E750
+void __cdecl ESCMENU_SaveAlwaysRun(); // 0x0047E750
 
-void __cdecl sub_0047F130_SaveMiniPanel(); // 0x0047F130
+void __cdecl MINIPANEL_SaveMiniPanel(); // 0x0047F130
 
 
 void __cdecl INV_FreeInvPanelCels(); // 0x00486980
@@ -1611,7 +1611,7 @@ void __cdecl UI_LoadPlayerUI()
     sub_004A3050_ResetQuestPages();
     TEXT_LoadPopupHireling();
     AUTOMAP_ResetBaseOffset(1);
-    sub_0047E720_LoadAlwaysRun();
+    ESCMENU_LoadAlwaysRun();
 }
 
 // 0x00453DE0
@@ -1641,7 +1641,7 @@ void __cdecl UI_FreePlayerUI()
         ARCHIVE_FreeClientCellFile(gpYouDiedInstCel);
         gpYouDiedInstCel = 0;
     }
-    sub_0047E750_SaveAlwaysRun();
+    ESCMENU_SaveAlwaysRun();
     CURSOR_SetCursorItemState(0);
 }
 
@@ -2173,9 +2173,9 @@ void __cdecl AUTOMAP_InitAutomap(); // 0x0045A4C0
 
 void __cdecl CMDTBL_EnableHotkeyHandlers(); // 0x0046AC70
 
-void __cdecl sub_0047DD70_LoadOptionMenus(); // 0x0047DD70
+void __cdecl ESCMENU_LoadOptionMenus(); // 0x0047DD70
 
-void __cdecl sub_0047F0C0_LoadMiniPanel(); // 0x0047F0C0
+void __cdecl MINIPANEL_LoadMiniPanel(); // 0x0047F0C0
 
 void __cdecl INV_LoadInvPanelCels(); // 0x004868B0
 
@@ -3052,7 +3052,7 @@ void __cdecl UI_InitUI()
 {
     char szPath[0x104];
     INV_LoadPanelCels();
-    sub_0047F0C0_LoadMiniPanel();
+    MINIPANEL_LoadMiniPanel();
     TEXT_LoadTextSettings();
     TEXT_LoadLevelCels();
     HIREABLES_LoadHirelingIcons();
@@ -3193,7 +3193,7 @@ load_cels:
     TEXT_LoadTextSliderCel();
     TEXT_ResetQuestPanel();
     CMDTBL_EnableHotkeyHandlers();
-    sub_0047DD70_LoadOptionMenus();
+    ESCMENU_LoadOptionMenus();
     TEXT_InitTextSlider();
 }
 
@@ -3222,7 +3222,7 @@ void __cdecl UI_ShutdownUI()
     }
     D2Win_10116();
     TEXT_FreeTextResources();
-    sub_0047F130_SaveMiniPanel();
+    MINIPANEL_SaveMiniPanel();
     HIREABLES_FreeHelpCels();
     TEXT_FreeLevelCels();
     HIREABLES_FreeHirelingIcons();
@@ -3263,7 +3263,7 @@ void __cdecl UI_ShutdownUI()
         gpLoadingCell = 0;
     }
     CMDTBL_DisableHotkeyHandlers();
-    sub_0047DFD0_FreeOptionMenus();
+    ESCMENU_FreeOptionMenus();
     TEXT_FreeTextSliderCel();
 }
 
@@ -3286,7 +3286,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     gwszHoverLine[0].wChar = 0;
     gwszHoverText[0] = 0;
     if (gaUIVarStates[9])
-        sub_0047E3D0_DrawOptions();
+        ESCMENU_DrawOptions();
     if (gaUIVarStates[11])
         TEXT_DrawKeyConfigPanel();
     UI_DrawUnitHover(SELECT_GetSelectedUnit());
@@ -3355,7 +3355,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
         QUESTLOG_DrawQuestButton();
     PANEL_DrawLifeManaText();
     if (gaUIVarStates[21])
-        sub_0047F710_UpdateSlotBar();
+        MINIPANEL_UpdateSlotBar();
     if (gaUIVarStates[5])
         CHAT_DrawChatPanel();
     if (gaUIVarStates[33])

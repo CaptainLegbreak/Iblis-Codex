@@ -418,7 +418,8 @@ void __cdecl GAME_InitGameState()
     GAME_ReadColorFlag();
     if (!gpClientView)
         gpClientView = VIEW_CreateView();
-    sub_0047F1D0_LoadResolution();
+// build: symbol ?MINIPANEL_LoadResolution@* 0x0047F1D0
+    MINIPANEL_LoadResolution();
     GAME_LoadLoadingScreen();
 // build: symbol ?UI_DrawLoadingScreen@* 0x004565E0
     UI_DrawLoadingScreen(1);
