@@ -3068,7 +3068,8 @@ int __fastcall ITEMMODE_UseStoredItemAtCoordinates(D2GameStrc* ptGame, D2UnitStr
     if (record->dwCode == 0x20616F74) {
         ITEMMODE_ClearTargetingFlags(hUnit, ".\\ITEMS\\ItemMode.cpp", 0x110D);
         SKILLS_ResetSkillsAndRefundPoints(ptGame, hUnit);
-        sub_00570C80_PLAYERSTATS_ResetToBaseStats(ptGame, hUnit);
+// build: symbol ?PLAYERSTATS_ResetToBaseStats@* 0x00570C80
+        PLAYERSTATS_ResetToBaseStats(ptGame, hUnit);
         ITEMMODE_RemoveItemAndNotify(ptGame, hUnit, item);
         SUNIT_AttachSound(hUnit, 2, hUnit);
         return 1;

@@ -25411,7 +25411,7 @@
     {
      "va": "0x004B6390",
      "length": 120,
-     "name": "?NPCMENU_HandleNpcTransaction@@YIXPAUD2GSPacketSrv2A@@@Z"
+     "name": "?NPCMENU_HandleNpcTransaction@@YIXPAUD2PacketSrv2AStrc@@@Z"
     },
     {
      "va": "0x004B6410",
@@ -44331,7 +44331,7 @@
     {
      "va": "0x00547F50",
      "length": 19,
-     "name": "sub_00547F50_GetWaypointData"
+     "name": "PLRMSG_GetWaypointData"
     },
     {
      "va": "0x00547F70",
@@ -45160,7 +45160,7 @@
     {
      "va": "0x0054DAC0",
      "length": 143,
-     "name": "?sub_0054DAC0_GetSpawnBounds@@YGXPAUD2ActiveRoomStrc@@PAHPAUD2SpawnAreaStrc@@111@Z"
+     "name": "?MONSTERREGION_GetSpawnBounds@@YGXPAUD2ActiveRoomStrc@@PAHPAUD2SpawnAreaStrc@@111@Z"
     },
     {
      "va": "0x0054DB50",
@@ -45182,27 +45182,27 @@
     {
      "va": "0x0054E090",
      "length": 241,
-     "name": "?sub_0054E090_SpawnGroupAtPoint@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@HHH@Z"
+     "name": "?MONSTERREGION_SpawnGroupAtPoint@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@HHH@Z"
     },
     {
      "va": "0x0054E190",
      "length": 70,
-     "name": "?sub_0054E190_SpawnMonsterAtFreePosition@@YGHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@HPAUD2UnkMonCreateStrc2@@@Z"
+     "name": "?MONSTERREGION_SpawnMonsterAtFreePosition@@YGHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@HPAUD2UnkMonCreateStrc2@@@Z"
     },
     {
      "va": "0x0054E1E0",
      "length": 126,
-     "name": "?sub_0054E1E0_SpawnChampionMinions@@YGXPAUD2RoomCoordListStrc@@HPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MONSTERREGION_SpawnChampionMinions@@YGXPAUD2RoomCoordListStrc@@HPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0054E260",
      "length": 57,
-     "name": "?sub_0054E260_SpawnMonsterWithMinions@@YGHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@H@Z"
+     "name": "?MONSTERREGION_SpawnMonsterWithMinions@@YGHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@H@Z"
     },
     {
      "va": "0x0054E2A0",
      "length": 243,
-     "name": "?sub_0054E2A0_GetFallenVariantForLevel@@YAHHH@Z"
+     "name": "?MONSTERREGION_GetFallenVariantForLevel@@YAHHH@Z"
     },
     {
      "va": "0x0054E3A0",
@@ -45212,7 +45212,7 @@
     {
      "va": "0x0054E490",
      "length": 359,
-     "name": "?sub_0054E490_SpawnRegularPresetMonster@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@HHHH@Z"
+     "name": "?MONSTERREGION_SpawnRegularPresetMonster@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@HHHH@Z"
     },
     {
      "va": "0x0054E600",
@@ -45221,7 +45221,7 @@
     {
      "va": "0x0054EBC0",
      "length": 114,
-     "name": "?sub_0054EBC0_CanPopulateRoom@@YAHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@@Z"
+     "name": "?MONSTERREGION_CanPopulateRoom@@YAHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@@Z"
     },
     {
      "va": "0x0054EC40",
@@ -45234,12 +45234,12 @@
     {
      "va": "0x0054EF50",
      "length": 151,
-     "name": "?sub_0054EF50_SpawnWandering@@YGXPAUD2MonsterRegionStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2LevelsTxt@@@Z"
+     "name": "?MONSTERREGION_SpawnWandering@@YGXPAUD2MonsterRegionStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2LevelsTxt@@@Z"
     },
     {
      "va": "0x0054EFF0",
      "length": 106,
-     "name": "?sub_0054EFF0_CheckWandering@@YGXPAUD2GameStrc@@HPAUD2LevelsTxt@@PAUD2ActiveRoomStrc@@@Z"
+     "name": "?MONSTERREGION_CheckWandering@@YGXPAUD2GameStrc@@HPAUD2LevelsTxt@@PAUD2ActiveRoomStrc@@@Z"
     },
     {
      "va": "0x0054F060",
@@ -47202,7 +47202,7 @@
     {
      "va": "0x005706A0",
      "length": 48,
-     "name": "?sub_005706A0_UseActEntry@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@E@Z"
+     "name": "?PLAYERSTATS_UseActEntry@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@E@Z"
     },
     {
      "va": "0x005706D0",
@@ -47212,7 +47212,7 @@
     {
      "va": "0x00570870",
      "length": 12,
-     "name": "?sub_00570870_ForwardToLivingPlayers@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?PLAYERSTATS_ForwardToLivingPlayers@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00570880",
@@ -47225,7 +47225,7 @@
     {
      "va": "0x00570A80",
      "length": 173,
-     "name": "?sub_00570A80_AddEnergyPoints@@YAXPAUD2UnitStrc@@H@Z"
+     "name": "?PLAYERSTATS_AddEnergyPoints@@YAXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00570B30",
@@ -47234,12 +47234,12 @@
     {
      "va": "0x00570B60",
      "length": 275,
-     "name": "?sub_00570B60_AddVitalityPoints@@YAXPAUD2UnitStrc@@H@Z"
+     "name": "?PLAYERSTATS_AddVitalityPoints@@YAXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00570C80",
      "length": 221,
-     "name": "?sub_00570C80_PLAYERSTATS_ResetToBaseStats@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?PLAYERSTATS_ResetToBaseStats@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00570D60",
@@ -47249,7 +47249,7 @@
     {
      "va": "0x00570E10",
      "length": 24,
-     "name": "?sub_00570E10_GetStateMaskCount@@YAHXZ"
+     "name": "?PLAYERSTATS_GetStateMaskCount@@YAHXZ"
     }
    ]
   },
@@ -57936,7 +57936,7 @@
     {
      "va": "0x005C1BF0",
      "length": 651,
-     "name": "?sub_005C1BF0_RollRareItemNew@@YGHPAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?ITEMS_RollRareItemNew@@YGHPAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005C1E80",
@@ -65018,7 +65018,7 @@
     {
      "va": "0x00624710",
      "length": 6,
-     "name": "sub_00624710_GetLogFile"
+     "name": "LOGGING_GetLogFile"
     },
     {
      "va": "0x00624720",
@@ -70652,12 +70652,12 @@
     {
      "va": "0x0064FF90",
      "length": 249,
-     "name": "?sub_0064FF90_TestStepCollision@@YGHUD2PathPointStrc@@0PAUD2DynamicPathStrc@@@Z"
+     "name": "?PATH_TestStepCollision@@YGHUD2PathPointStrc@@0PAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x00650090",
      "length": 186,
-     "name": "?sub_00650090_GetStepToNextPoint@@YGHPAUD2CoordStrc@@PAUD2DynamicPathStrc@@@Z"
+     "name": "?PATH_GetStepToNextPoint@@YGHPAUD2CoordStrc@@PAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x00650150",
@@ -70666,7 +70666,7 @@
     {
      "va": "0x006502D0",
      "length": 125,
-     "name": "?sub_006502D0_UpdateVelocity@@YAXHPAUD2DynamicPathStrc@@@Z"
+     "name": "?PATH_UpdateVelocity@@YAXHPAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x00650350",
@@ -70713,7 +70713,7 @@
     {
      "va": "0x00650800",
      "length": 57,
-     "name": "?sub_00650800_CheckPathMoving@@YIPAUD2DynamicPathStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?PATH_CheckPathMoving@@YIPAUD2DynamicPathStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00650840",
@@ -70723,7 +70723,7 @@
     {
      "va": "0x00650910",
      "length": 386,
-     "name": "?sub_00650910_UpdateCollisionMask@@YGHPAUD2ActiveRoomStrc@@UD2PathPointStrc@@PAUD2DynamicPathStrc@@@Z"
+     "name": "?PATH_UpdateCollisionMask@@YGHPAUD2ActiveRoomStrc@@UD2PathPointStrc@@PAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x00650AA0",
@@ -70986,7 +70986,7 @@
     {
      "va": "0x0065C140",
      "length": 58,
-     "name": "sub_0065C140_GetInventoryRecord"
+     "name": "DATATBLS_GetInventoryRecord"
     },
     {
      "va": "0x0065C180",
@@ -71073,7 +71073,7 @@
     {
      "va": "0x0065C5E0",
      "length": 58,
-     "name": "?sub_0065C5E0_RollItemRange@@YAHPAUD2UnitStrc@@HH@Z"
+     "name": "?ITEMMODS_RollItemRange@@YAHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x0065C620",
@@ -71789,7 +71789,7 @@
     {
      "va": "0x006634F0",
      "length": 550,
-     "name": "?sub_006634F0_RollSeededRecord@@YIHHPAUD2Rolled6634F0Strc@@E@Z"
+     "name": "?MONSTERS_RollSeededRecord@@YIHHPAUD2Rolled6634F0Strc@@E@Z"
     },
     {
      "va": "0x00663720",
@@ -71823,12 +71823,12 @@
     {
      "va": "0x00663A10",
      "length": 16,
-     "name": "?sub_00663A10_GetSetBonusCount@@YAHI@Z"
+     "name": "?ITEMS_GetSetBonusCount@@YAHI@Z"
     },
     {
      "va": "0x00663A20",
      "length": 282,
-     "name": "sub_00663A20_SetItemBonusStates"
+     "name": "ITEMS_SetItemBonusStates"
     },
     {
      "va": "0x00663B40",
@@ -73932,7 +73932,7 @@
     {
      "va": "0x00679E50",
      "length": 15,
-     "name": "?sub_00679E50_RestartToward@@YIHPAUD2PathInfoStrc@@@Z"
+     "name": "?PATH_RestartToward@@YIHPAUD2PathInfoStrc@@@Z"
     },
     {
      "va": "0x00679E60",
@@ -73974,7 +73974,7 @@
     {
      "va": "0x0067A420",
      "length": 128,
-     "name": "?sub_0067A420_TraceSegment@@YGHPAUD2DynamicPathStrc@@UD2PathPointStrc@@1@Z"
+     "name": "?PATH_TraceSegment@@YGHPAUD2DynamicPathStrc@@UD2PathPointStrc@@1@Z"
     },
     {
      "va": "0x0067A4A0",
@@ -74021,7 +74021,7 @@
     {
      "va": "0x0067BD70",
      "length": 11,
-     "name": "?sub_0067BD70_SwapPoints@@YAXPAUD2PathPointStrc@@0@Z"
+     "name": "?PATH_SwapPoints@@YAXPAUD2PathPointStrc@@0@Z"
     },
     {
      "va": "0x0067BD80",
@@ -74073,7 +74073,7 @@
     {
      "va": "0x0067A5D0",
      "length": 21,
-     "name": "?sub_0067A5D0_GetNeighborsSequence@@YGPBHHH@Z"
+     "name": "?PATH_GetNeighborsSequence@@YGPBHHH@Z"
     },
     {
      "va": "0x0067A5F0",
@@ -74088,7 +74088,7 @@
     {
      "va": "0x0067A690",
      "length": 174,
-     "name": "?sub_0067A690_NextNode@@YGPAUD2PathIDAStarNodeStrc@@PAUD2PathIDAStarContextStrc@@PAU1@@Z"
+     "name": "?PATH_NextNode@@YGPAUD2PathIDAStarNodeStrc@@PAUD2PathIDAStarContextStrc@@PAU1@@Z"
     },
     {
      "va": "0x0067A740",
@@ -74420,7 +74420,7 @@
     {
      "va": "0x0067D7B0",
      "length": 40,
-     "name": "?sub_0067D7B0_SetCoordSize@@YAXPAUD2DrlgCoordsStrc@@H@Z"
+     "name": "?DRLGOUTROOM_SetCoordSize@@YAXPAUD2DrlgCoordsStrc@@H@Z"
     },
     {
      "va": "0x0067D7E0",
@@ -74525,17 +74525,17 @@
     {
      "va": "0x0067E660",
      "length": 62,
-     "name": "sub_0067E660_SpawnEdgePresets"
+     "name": "DRLGOUTSIEGE_SpawnEdgePresets"
     },
     {
      "va": "0x0067E6A0",
      "length": 402,
-     "name": "sub_0067E6A0_SpawnAct4Presets"
+     "name": "DRLGOUTSIEGE_SpawnAct4Presets"
     },
     {
      "va": "0x0067E840",
      "length": 69,
-     "name": "sub_0067E840_SpawnSanctumPresets"
+     "name": "DRLGOUTSIEGE_SpawnSanctumPresets"
     },
     {
      "va": "0x0067E890",
