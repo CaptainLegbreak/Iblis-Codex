@@ -491,4 +491,20 @@ int __fastcall BUTTON_Destroy(D2WinButtonStrc* ptBtnData)
     return CONTROL_RemoveFromList(&ptBtnData->controlHeader);
 }
 
-#include "gen/data/Source/D2Win/Src/D2WinButton.inc"
+extern "C" const char* gData_0072DFC0[15] = { // 0x0072DFC0
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

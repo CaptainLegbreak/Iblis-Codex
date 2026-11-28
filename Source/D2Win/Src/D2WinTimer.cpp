@@ -171,4 +171,20 @@ void __fastcall TIMER_SetRepeating(D2WinTimerStrc* ptTimerData)
     ptTimerData->controlHeader.pfInitialize = TIMER_UpdateRepeating;
 }
 
-#include "gen/data/Source/D2Win/Src/D2WinTimer.inc"
+extern "C" const char* gData_0072DED0[15] = { // 0x0072DED0
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

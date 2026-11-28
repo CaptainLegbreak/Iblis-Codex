@@ -120,4 +120,20 @@ int __fastcall SMACK_Destroy(D2WinSmackStrc* pSmack)
     return CONTROL_RemoveFromList(&pSmack->controlHeader);
 }
 
-#include "gen/data/Source/D2Win/Src/D2WinSmack.inc"
+extern "C" const char* gData_0072EFD4[15] = { // 0x0072EFD4
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

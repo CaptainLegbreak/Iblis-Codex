@@ -661,4 +661,20 @@ int __stdcall CHARSEL_SubmitPasswordReset(int nArg)
     return 0;
 }
 
-#include "gen/data/Source/D2Launch/Unknown_004370B0.inc"
+extern "C" const char* gData_0070CB88[15] = { // 0x0070CB88
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

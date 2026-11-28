@@ -470,4 +470,20 @@ int __stdcall IMAGE_GetFrameCount(D2WinImageStrc* ptImageData)
     return CelFileGetCelsPerDirection(ptImageData->controlHeader.pCellFile);
 }
 
-#include "gen/data/Source/D2Win/Src/D2WinImage.inc"
+extern "C" const char* gData_0072DE94[15] = { // 0x0072DE94
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
