@@ -5,6 +5,17 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
+- Fri Nov 27 16:18 PST 2026: **lane13/interior-2** (16d149ced, on main 09eccfff4 = #491; independent of queue-1-2 and interior-1). Lane 13 queue item 3 (second part) and item 5. VERIFIED tree 883cbf8339153a0c617bfc8a45ab22562b552eb8; Game.exe identical. Audit guard: no count rose. No pointer cast written.
+  - **Interior:**
+    - gnMouseY becomes gtMousePosition.y.
+    - gtUnitSndObject becomes gaUnitSndObjects[106].
+    - gbPanelFlag becomes gaEscMenuUIState[21].nSaved, the mini panel's UI var. That also removes chat.cpp's unused extern.
+  - **inlinedata, D2Win:** 53 definitions (5,706 B) in 19 units into source. D2WinMain.cpp 0x0072DC48 stays generated, because it would need a cast.
+  - **inlinedata, D2Launch:** 5 definitions in 4 units. CharSel.cpp and MainMenus.cpp (41 definitions) stay generated until lane 12 is done with them.
+  - **Counts, main #491 -> this:**
+    - interior: 161 / 56 -> 158 / 53.
+    - linkdebt total: 21,832 -> 21,830. D2Client 7,677 -> 7,676, D2Win 773 -> 772; no module rose.
+    - shortdata unchanged (363).
 - Fri Nov 27 15:56 PST 2026: **lane13/interior-1** (466f63d0c, on main 262f4aec8 = #489; merges cleanly onto #491; independent of queue-1-2). Lane 13 queue item 3, first part. VERIFIED tree bc6035e5340665521deaca80074e0457dbd68f44; Game.exe identical. Audit guard: no count rose. Pointer casts in the diff: 0 removed, 0 added.
   - **Commits:**
     - gdwBitMasks indexed in 18 units, instead of about 40 scalar names (some typed as bytes; every unit is still equal).
@@ -33,6 +44,7 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - linkdebt total: 21,832 -> 21,814. D2Direct3D 708 -> 690; no module rose.
     - shortdata: 363 -> 364. The new candidate is 4 unreferenced bytes after gapSmackTextures.
 ## Claimed
+- Fri Nov 27 16:18 PST 2026: interior-2 Ready. Next: the two packed state blocks (the text panel at 0x007BF1E0 and NPC trade at 0x007C0DE0) as one struct each. Claimed: Source/D2Client/UI/text.cpp, text_0049D5A0.cpp, text_004A10E0.cpp, npcmenu.cpp, and the other D2Client files that declare those addresses.
 - Fri Nov 27 15:59 PST 2026: **Item 4 (shortdata), classified.** 362 candidates outside the D2DataTablesStrc span, sorted by what fills the room after each declaration. I read every room's bytes from Game.exe, and no linkdebt reference lands in any of them:
   - **zeros: 157.** Alignment padding, or zero data no code reads.
   - **strings: 137.** The literal pool after a declared global (compiler-emitted, with no source object).
