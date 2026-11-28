@@ -20,20 +20,6 @@ it is on main; from #473, based on main.
   538 units equal. VERIFIED tree 6b5e582579af84bd04ebf050c3049bf09cbf226c. linkdebt vs api-modules-1: 21,685 ->
   21,431 (type_disagreement 5,592 -> 5,338; D2Common -132, D2Game -99, D2CMP -10, D2Win -7, Fog -6; no module
   rises). auditguard: no count rose (raw offset 117, byte pointer math 146, pointer casts 4,857).
-- Fri Nov 27 15:58 PST 2026: **lane12/api-modules-1** (b700e20d6, on #490 9eff52f20; replaces api-d2client-2, which conflicted with main):
-  15 commits, queue items 1 and 2. declunits-1 (CharSel/MainMenus/ChatDlg/ComCallback reconciled one name at a
-  time: 54 retyped, 11 dropped, 63 kept: see Notes for other lanes), then genheaders per module,
-  regenerated on #490 from each module's exclusion list: D2Client 370 private copies in 79 units (D2ClientApi.h,
-  header lines corrected), D2Game 11 (D2GameApi.h), and the second pass, with new exports in <M>Api2.h and
-  existing header lines left alone (--no-fix-headers, because correcting them flipped declaration-count units):
-  D2Win 140 copies in 43 units, D2MCPClient 49, D2Multi 52, D2Launch 49, D2Glide 44, D2BNClient 41, D2DDraw 36,
-  Bnclient 20, D2Gfx 15, D2Sound 12, D2CMP 4, D2Net 2 (D2Hell: nothing left). Every unit each module's change
-  touches builds EQUAL; units that differ keep their copies (D2Client text_0049C9C0.cpp kept all its D2Gfx ones).
-  VERIFIED tree b8932aa9f0c4c24c6b5dd84a91c12543f2d1fe2e. linkdebt vs #490: 21,832 -> 21,685 (type_disagreement
-  5,699 -> 5,592, renamed_definition 104 -> 64; D2Common -54, D2Game -41, D2Client -29, D2Multi -10, D2Launch -9,
-  D2BNClient -4; no module rises). Most of the second-pass copies already agreed, so they are readability (about
-  430 fewer private declarations) more than link debt. auditguard: no count rose (raw offset 117, byte pointer math
-  146, pointer casts 4,873 -> 4,857).
 
 ## Claimed
 - Fri Nov 27 15:10 PST 2026: status. On top of api-d2client-2: D2Game (11 copies), and a second genheaders pass over the modules
