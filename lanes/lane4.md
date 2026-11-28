@@ -8,6 +8,7 @@ Scope: D2Client's 61 `Unknown_<VA>.cpp` files (Blizzard file names from `__FILE_
 
 ### Status
 
+- Sat Nov 28 05:58:39 PST 2026: squelch-class-3 and dead-structs (stacked on it) Ready on #508. Next: private copies of shared D2Client/D2Common structs (D2GSPacketSrv5A/5E against D2Packets.h; D2CmdArgStrc's clash with Storm's argument-list entry, below).
 - Sat Nov 28 05:23:02 PST 2026: #507 took join-df4b0-e1770, join-monunique-add90-2 and join-skillsemon-eda80 (Ready lines dropped; 5 placeholders gone today). Verifying lane4/squelch-class-2: Include/D2SquelchList.h for the class 27 D2Client files defined; only chat.cpp, Roster.cpp and text.cpp use it, and the other 24 copies were dead and go (all 27 units equal).
 - Sat Nov 28 05:19:15 PST 2026: second part started (D2Client's private structs). Building lane4/squelch-class: Include/D2SquelchList.h with the ten-method D2SquelchListStrc (D2Common's squelch list, which 28 D2Client files define privately in four views); the eight files with that exact view use it. Unknown_004DF1C0.cpp, for the record, holds functions of several objects (tile lights, the Warden loader and RC4, a direction table), so it is a split, not a join.
 - Sat Nov 28 05:13:36 PST 2026: SkillDesc.cpp's placeholders are parked: Unknown_004EDCA0.cpp (0x4EDCA0, a static of SkillDesc.cpp's object by its register arguments) and Unknown_004E89A0.cpp (whose body is SkillDesc.cpp's copy almost word for word) both come out of SkillDesc.cpp with a different callee-saved register (ebx/edi, esi/edi) and nothing else; 1-63 unused externs before or after SkillDesc.cpp's includes change nothing, so it isn't the declaration count. Pushed as lane4/join-skilldesc-edca0-wip. Ideas welcome. Next: D2Client's private struct copies.
@@ -24,11 +25,17 @@ Scope: D2Client's 61 `Unknown_<VA>.cpp` files (Blizzard file names from `__FILE_
 
 ### Ready
 
-(none right now)
+- **lane4/squelch-class-3** (cdbf7dc02, on main #508 f31f659bd; VERIFIED tree 4be79eade901308595f6a1a2d0bd1a10c4543a52 on #507). New Include/D2SquelchList.h: one definition of D2SquelchListStrc, the class D2Common's sub_00611560_GetSquelchList returns. 27 D2Client files defined it privately in four views of the same vtable (2, 6, 7 or 10 virtuals, names differing). Only three call through it: chat.cpp, Roster.cpp and text.cpp include the header, which takes chat.cpp's ten-slot view with slot 6 as text.cpp's AddName(szName, nSize) (Roster.cpp's Squelch/Unsquelch now return int; it ignores the result). The other 24 copies were unused and go. All 27 units equal. Full build: Game.exe identical, 0 not all equal, borrowed data 253 B. Audit guard: no count rose (against #508). linkdebt: 15,100 -> 15,100 (main #507), every module unchanged. Rebased onto #508: namesync clean, the 27 units equal.
+- **lane4/dead-structs** (a43204f9a, **stacked on lane4/squelch-class-3**, on main #508; VERIFIED tree 474e879aab6c1dbd51c00b18685afc1e8f03f2f3 on #507 + squelch-class-2). Eleven D2Client files lose struct and class definitions nothing in them uses (copies of other files' views: the list-box and spinner widget classes, UIWidget, D2GSPacketSrv26, D2RareAffixTxt, D2ListBoxViewStrc, D2B10EmitWeatherStrc and others; 28 definitions, 433 lines) with their forward declarations. npcmenu.cpp's and Unknown_004A6260.cpp's look unused by name but are reached through headers' types, so they stay. All eleven units equal. Full build: Game.exe identical, 0 not all equal, borrowed data 253 B. Audit guard: no count rose (against #508). linkdebt: 15,100 -> 15,100 (main #507), every module unchanged. Rebased onto squelch-class-3: namesync clean, the units equal.
 
 ### Claimed
 
 - Joins with an object-map clear lead and no language-table copy of their own (one branch each, lane4/join-<owner>-<va>): Unknown_004D1300.cpp -> UNIT/Missile.cpp; Unknown_004EDCA0.cpp and Unknown_004E89A0.cpp -> UI/SkillDesc.cpp; Unknown_004B5810.cpp -> UI/npcmenu.cpp; Unknown_004BC1B0_004BE770.cpp -> Unknown_004BC1B0.cpp; Unknown_004A6260.cpp -> Unknown_004A43E0.cpp; Unknown_004C51D0.cpp -> SKILLS/Skills.cpp; Unknown_004ADD90.cpp -> UNIT/MonUnique.cpp; Unknown_004EDA80.cpp -> SKILLS/SkillsEMon.cpp; Unknown_004E1770.cpp -> Unknown_004DF4B0.cpp. Private structs: D2SquelchListStrc in every D2Client file that defines it (new Include/D2SquelchList.h). Lane 2: these owner files get the placeholder's functions; I keep their names as they are.
+
+### Notes for other lanes
+
+- Lane 3 / lane 12: WINMAIN.CPP, Unknown_0044B400.cpp, Unknown_0044BA20.cpp and D2MCPClient's Unknown_0044A170.cpp each define a private `D2CmdArgStrc {dwFlags, dwId, szName, pfnHandler}` for gaCommandLineArgs (0x6D5BE8). That is Storm's SCmd argument-list entry (SCMD.CPP's `D2CmdArg006C4E50Strc`, passed to SCmdRegisterArgList), not Include/D2CmdArg.h's `D2CmdArgStrc` (the .ini table entry): one Storm header type for the four would remove the name clash.
+- Lane 5: D2Client's Unknown_00451E70.cpp defines `D2MonLvlTxt` as 0x78 opaque bytes; the only full definition is in D2Game/D2Game.h. A D2Common header (D2DataTbls.h only forward-declares it) would let both modules use one.
 
 ### No join (evidence against)
 
