@@ -8,6 +8,15 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Fri Nov 27 19:56 PST 2026: **lane12/types-4** (1bec11121, stacked on types-3): the next 60 targets by references, each address in
+  turn: every declaration takes its definition's prototype, a unit whose code changes (or no longer compiles)
+  keeps its own, and an address whose header change alters another unit is left whole. 19 addresses changed (47
+  files: MONSTER_GetQuestFlags, DRLGOUTDOORS_SpawnOutdoorLevelPreset, CONTROL_SetFocusedEditBox, D2Win_10051,
+  D2LANG_GetStringFromTblIndex, MISSILE_SubmitMissileRequest, SMemAlloc, SMemFree, crc32, SCMD_RegisterMsgHandlers,
+  SUNITDMG_AllocCombat and others, listed in the commit). Full build 538 units equal. VERIFIED tree
+  8c3a186bb2dc11950581061046adfbfbeb685f56. linkdebt vs types-3: 20,414 -> 20,266 (type_disagreement 4,322 ->
+  4,174; D2Client -45, Storm -36, D2Game -30, D2Common -23, D2DDraw -14; no module rises). auditguard: no count
+  rose. The rest of the top targets need a caller's or a definition's type changed by hand.
 - Fri Nov 27 19:04 PST 2026: **lane12/types-3** (a97a9b87e, stacked on types-2): eleven more targets. GAME_IsExpansion,
   SUNIT_ResetInteractInfo and OBJRGN_GetObjectControlFromGame defined with C++ linkage as their callers declare
   them; FOG_FreePool's 19 `void` declarations take its int return (no caller reads it); PATH_SetVelocity's
