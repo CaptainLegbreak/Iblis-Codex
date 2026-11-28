@@ -22,12 +22,13 @@ ahead of the function can change.
 | Declaration | Names |
 |---|---|
 | a variable (`extern`, definition, `static`, `const`), used or not | 1 |
-| a typedef | 1 |
+| a typedef | 1; a function-pointer typedef adds 1 per parameter |
 | a `D2_CHECK_SIZE` line | 2 |
 | a `D2_CHECK_OFFSET` line | 3 |
 | an enum | 1, plus 1 per enumerator |
-| a prototype | 1, plus 1 per parameter (named or not), and the same again for every redeclaration |
+| a prototype | 1, plus 1 per parameter (named or not), and the same again for every redeclaration; a function-pointer parameter also adds 1 per parameter of its own |
 | a struct, class or union definition | 7, plus 1 per data member; a declared method adds 1, an inline one 3 |
+| an unnamed struct or union inside a struct | 7, plus 1 per member, like a named one |
 | a forward declaration of a struct not yet declared | 1 |
 | a forward declaration of a struct already declared | 0 |
 | a struct defined after its forward declaration | the definition's count, less the 1 already counted |
@@ -87,3 +88,4 @@ Leave a one-line comment at a declaration placed this way, so nobody sorts it ba
 | 0x00439210 | D2Launch/Src/CharSel.cpp | `gszLevelFormat` |
 | 0x006571A0 | D2Common/DATATBLS/MonsterTbls.cpp | `gszTxtField_mS1` |
 | `DATATBLS_LoadRareSuffix_PrefixTxt` (0x00633F40) | D2Common/DATATBLS/ItemTbls.cpp | `sgtRareItemModsDataTblDesc` and its own string literals |
+| `DATATBLS_LoadMissilesTxt` (0x00661B20) | D2Common/DATATBLS/MissileTbls.cpp | `gszTxtField_Missile` (the first of its 150 field-name strings); equal at only two counts in 64, two apart |
