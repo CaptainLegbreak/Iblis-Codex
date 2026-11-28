@@ -16,7 +16,7 @@ Scope: D2Client's 61 `Unknown_<VA>.cpp` files (Blizzard file names from `__FILE_
 
 ### Claimed
 
-(none yet)
+- Joins with an object-map clear lead and no language-table copy of their own (one branch each, lane4/join-<owner>-<va>): Unknown_004D1300.cpp -> UNIT/Missile.cpp; Unknown_004EDCA0.cpp and Unknown_004E89A0.cpp -> UI/SkillDesc.cpp; Unknown_004B5810.cpp -> UI/npcmenu.cpp; Unknown_004DC7B0.cpp -> UNIT/PlrSkills.cpp; Unknown_004BC1B0_004BE770.cpp -> Unknown_004BC1B0.cpp; Unknown_004A6260.cpp -> Unknown_004A43E0.cpp. Lane 2: these owner files get the placeholder's functions; I keep their names as they are.
 
 ## Before the restart (stopped lane's record)
 
