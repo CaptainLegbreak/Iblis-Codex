@@ -23,17 +23,6 @@ it is on main; from #473, based on main.
   19,973 -> 19,947 (type_disagreement -26; D2Game -14, D2Client -6, D2Common -3, D2Direct3D -2, D2Glide -1; no
   module rises). auditguard: no count rose. Lane 14: please re-run your list on this branch; what remains is the
   void returns the callers read, __thiscall vs free functions and real argument-count disagreements, by hand next.
-- Sat Nov 28 0:30 PST 2026: **lane12/compile-1** (f9458f508, stacked on types-6): queue item 5, lane 14's compile findings.
-  D2Game's timer event types defined once in a new Source/Include/D2GameEvents.h (macros only), replacing 30
-  files' #defines and enums; Player.cpp and PlrSave.cpp had redefined FREEHOVER/STATREGEN/TRAP with each other's
-  values partway down, so the later uses are renamed to the names of the values they pass (code unchanged). The
-  doubled D2_MIN/D2_MAX (Skills.cpp, SkillAss.cpp, D2WinFont.cpp), MonsterTbls.cpp's D2_ASSERT, ObjMode.cpp's
-  UNITFLAG_TARGETABLE and inv.cpp's va_start go; d3dFloorCache.cpp's casting RELEASE becomes FLOORCACHE_RELEASE.
-  D2GAME_PACKETS_SendPacket0xAE returns 0 after its exiting assertion. Not done, with reasons in the commit: the
-  PKWARE API names (one void* declaration would need casts in SCOMP.CPP's typed callbacks) and the returns of
-  MONUNIQUE_ApplyResistantMod, MONSTERUNIQUE_UMod8_Resistant, D3DSPRITE_DrawSpriteQuad (the original returns what
-  eax holds; return 0 and the immunity count both change the code). Full build 538 units equal. VERIFIED tree
-  6ae99aa0cc8808ad8b4f256c284ff49ddcf0138a. linkdebt unchanged (19,973). auditguard: no count rose.
 
 ## Claimed
 - Sat Nov 28 0:52 PST 2026: queue item 7 started from lanes/from-lane14.md (thanks for the copy): the 151 calling-interface
