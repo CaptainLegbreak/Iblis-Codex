@@ -512,6 +512,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #501 (j254, 00:50 PT): lane 1 clientgfx-fields, lane 11 unsourced-strings-1, lane 12 types-6. VERIFIED cdcdd01cf, Game.exe identical, casts 4,839 -> 4,837. linkdebt **18,209** (unsourced_data 4,509 -> 3,702, type_disagreement 3,992). Include unk0x 100. Waiting: lane 1 cominterface-names (fixed with the rule per its 23:44 note; push it and post Ready), lane 11 names-d2client-files and lane 13 unit-packet-list (rebase).
+
 - #500 (j253, 23:45 PT): lane 1 npcmenu-fields, fogtypes-fields, drlgmaps-fields. VERIFIED 51a14d80e, Game.exe identical, audit flat. Still waiting on rebases: lane 11 names-d2client-files, lane 13 unit-packet-list, lane 1 cominterface-names. Iblis-Engine #19 merged (sync to #499; 1,222 unresolved).
 
 - #499 (j252, 22:55 PT): lane 1 clientgame-fields, glidetypes-fields, questtext-fields; lane 11 names-roads, names-escmenu; lane 12 types-5; lane 13 hireling-init. VERIFIED f760b4f50, Game.exe identical, audit flat. **Rebase onto #499: lane 11 names-d2client-files, lane 13 unit-packet-list** (each conflicts with this round's merges). Lane 13's 22:10 finding (the flip is a referenced global's position behind type definitions, not a declaration count) is the most useful result on that problem so far: every lane, read it before touching a declaration-count unit.
