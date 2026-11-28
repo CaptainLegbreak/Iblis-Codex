@@ -11,13 +11,12 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 - **lane1/cominterface-names** (982366fd7, on main #489 262f4aec8; VERIFIED tree 76b5cf9991f92c9d4ad257797b5f7c11f5edd897; merges clean on #490). D2ComInterface.h: D2ComInterfaceStrc is BnClient's interface (D2MOO's BnClientInterface): every slot takes D2MOO's name at its offset (`pfnSlot68` -> pfnIsSocketConnected, `pfnSlot4C` -> pfnGetPatchState, `pfnSlotBC`/`C0` -> pfnResetPassword/pfnChangeEmail, `pfnResign` -> pfnChatCommand, `pfnClose` -> pfnLeaveGame, ...; D2Launch's calls bear the order out: GetPatchState returns 101 when done, ChangeEmail takes name/old/new), the slots already typed keep their signatures, the 12 `unk0x..` int slots become D2MOO-typed function pointers; six D2MOO leaves unnamed keep `pfn0x<off>`. Callers through gpFuncTable (D2Launch), gpComInterface (D2Client Game.cpp) and pComInterface (Main.cpp) renamed. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose (a1/v12 89 -> 89, casts 4,873 -> 4,873). linkdebt: 21,832 -> 21,832 (main measured on #490, which adds only three lane-1 header renames to #489), every module unchanged. Next step, its own branch: D2MultiTypes.h's D2LaunchFuncsStrc and D2ClientUi.h's D2ClientNotifyStrc are the same table and become uses of this one.
 
-- **lane1/itemsworld-fields** (58a0357d8, on main #488 e92a08ebf; VERIFIED tree 77ac241d546dfcfe066b901b0c60f14b84239ef0; merges clean on #489). D2ItemsWorld.h: 11 `unk0x..` -> 0. D2MonRegDataStrc 0x04 is D2MOO's nComponentVariants[3][16] (MONSTER_SetComponents picks one set; its reader in Monster.cpp renamed, the existing cast unchanged). The rest no code names: `pad0x<off>` (9), `unused0x10` (item drop record). Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 21,832 -> 21,832 (main #488), every module unchanged.
-
 
 
 
 ## Claimed
 
+- #492 took itemsworld-fields (Ready line dropped).
 - Fri Nov 27 17:12 PST 2026: check-in. structs-fields and path-fields Ready. unitdata-fields (D2UnitData.h, 8; claimed: that header and Units.cpp's two writes of D2PlayerDataStrc 0x94) rebuilding.
 - Fri Nov 27 16:30 PST 2026: check-in. Interface merge, step 1 (D2Client's D2ClientNotifyStrc -> D2ComInterfaceStrc; its four slots match exactly) **parked**: inv.cpp changes whenever it includes D2ComInterface.h, wherever the include sits (top, include block, in place of its forward declaration), and the shared WINMAIN_GetClientNotify declaration can't stay old for that one unit. Reverted; nothing pushed. The D2Multi copy (D2LaunchFuncsStrc) disagrees with the others on most slot types; also parked. Next: D2Structs.h (11; claimed: that header).
 - #491 took wintypes-fields (Ready line dropped).
