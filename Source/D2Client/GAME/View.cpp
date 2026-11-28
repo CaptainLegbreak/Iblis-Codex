@@ -560,16 +560,6 @@ void __cdecl VIEW_FreeLerpTables()
     VIEW_FreeCels();
 }
 
-class D2SquelchListStrc
-{
-public:
-    virtual void Squelch(const char* szName);
-    virtual void Unsquelch(const char* szName);
-    virtual int IsSquelched(const char* szName);
-    virtual void VirtSlot3();
-    virtual void VirtSlot4();
-    virtual int IsFiltered(const char* szText);
-};
 
 // 0x00476A80
 void __fastcall SCMD_StartTimedEffect(int nArg0, int nArg1, int nArg2, int nArg3)

@@ -470,17 +470,6 @@ struct D2TextNodeStrc
 
 #pragma pack(pop)
 
-class D2SquelchListStrc
-{
-public:
-    virtual void Squelch(const char* szName);
-    virtual void Unsquelch(const char* szName);
-    virtual int IsNameSquelched(const char* szName);
-    virtual void Unknown0C();
-    virtual void Unknown10();
-    virtual int IsTextSquelched(const char* szText);
-    virtual void AddName(const char* szName, int nSize);
-};
 
 
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790

@@ -2026,16 +2026,6 @@ struct D2SortEntryStrc
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
 
 
-class D2SquelchListStrc
-{
-public:
-    virtual void Squelch(const char* szName);
-    virtual void Unsquelch(const char* szName);
-    virtual int IsSquelched(const char* szName);
-    virtual void VirtSlot3();
-    virtual void VirtSlot4();
-    virtual int IsFiltered(const char* szText);
-};
 
 // 0x00469420
 // Kept out of line: 0x00469C20 calls it with its arguments in eax/edx/ecx, a convention only a static of this unit
