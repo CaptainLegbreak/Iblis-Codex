@@ -48517,7 +48517,7 @@
     {
      "va": "0x005C3420",
      "length": 131,
-     "name": "?SKILLS_CanApplyCurseToTarget@@YIHPAUGame@@PAUUnit@@1@Z"
+     "name": "?SKILLS_CanApplyCurseToTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x005C34B0",
@@ -48585,7 +48585,7 @@
     {
      "va": "0x005C40D0",
      "length": 176,
-     "name": "?SKILLS_SetSummonResistance@@YIXPAUUnit@@0@Z"
+     "name": "?SKILLS_SetSummonResistance@@YIXPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x005C4180",
@@ -58486,7 +58486,7 @@
     {
      "va": "0x005CB170",
      "length": 250,
-     "name": "?SKILLS_SrvSt44_MaggotUp@@YIHPAUGame@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvSt44_MaggotUp@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CB270",
@@ -58896,7 +58896,7 @@
     {
      "va": "0x005D2490",
      "length": 287,
-     "name": "?SKILLS_SrvDo135_MinionSpawner@@YIHPAUGame@@PAUUnit@@HH@Z"
+     "name": "?SKILLS_SrvDo135_MinionSpawner@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D25B0",
@@ -59330,12 +59330,12 @@
     {
      "va": "0x005D8B10",
      "length": 352,
-     "name": "?SKILLS_RollFrenzyDamage@@YIHPAUGame@@PAUUnit@@1HH@Z"
+     "name": "?SKILLS_RollFrenzyDamage@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HH@Z"
     },
     {
      "va": "0x005D8C70",
      "length": 400,
-     "name": "?SKILLS_ApplyFrenzyStats@@YIHPAUGame@@PAUUnit@@HH@Z"
+     "name": "?SKILLS_ApplyFrenzyStats@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D8E00",
