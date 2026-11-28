@@ -30,7 +30,7 @@
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Fog/Unknown_00401010_00401B00.inc",
+   "include": "gen/data/Source/Fog/Unknown_00401010.inc",
    "lang": "cpp",
    "state": "included",
    "sourced": 1
@@ -56,7 +56,7 @@
     "extern \"C\" void __cdecl WINMAIN_ShutdownInterface(); // 0x0044B420"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Unknown_004059D0.inc",
+   "include": "gen/data/Source/Main/Unknown_004059D0.inc",
    "lang": "cpp",
    "state": "included",
    "sourced": 1
@@ -241,7 +241,7 @@
     "extern \"C\" void __cdecl CHARSEL_OnCharSelectOk(); // 0x00439840"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Src/MainMenus_0042F540.inc",
+   "include": "gen/data/Source/D2Launch/Src/MainMenus.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -288,7 +288,7 @@
    "definitions": 0,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_0044C5E0.inc",
+   "include": "gen/data/Source/D2Client/GAME/Game_0044D080.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -670,7 +670,7 @@
    "definitions": 3,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/UNIT/Player_00460830.inc",
+   "include": "gen/data/Source/D2Client/UNIT/Player.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -679,7 +679,7 @@
    "definitions": 5,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004642B0.inc",
+   "include": "gen/data/Source/D2Client/UNIT/CUnit.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -767,7 +767,7 @@
     "extern \"C\" char gData_007B5680[]; // 0x007B5680"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/GAME/View_00476290.inc",
+   "include": "gen/data/Source/D2Client/GAME/View.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -785,7 +785,7 @@
    "definitions": 0,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/GAME/Roster_0047A120.inc",
+   "include": "gen/data/Source/D2Client/GAME/Roster.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -807,7 +807,7 @@
    "definitions": 12,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_0048EDF0.inc",
+   "include": "gen/data/Source/D2Client/UI/inv_0048DD90.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -840,7 +840,7 @@
    "definitions": 13,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/panel_00499040.inc",
+   "include": "gen/data/Source/D2Client/UI/panel.inc",
    "lang": "cpp",
    "state": "included",
    "static_definitions": 1
@@ -886,7 +886,7 @@
    "definitions": 4,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004AD020.inc",
+   "include": "gen/data/Source/D2Client/UNIT/MonUnique.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -905,7 +905,7 @@
    "definitions": 9,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/dialog_004B7B40.inc",
+   "include": "gen/data/Source/D2Client/UI/dialog.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -934,7 +934,7 @@
    "definitions": 3,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/useitem_004BFA70.inc",
+   "include": "gen/data/Source/D2Client/UI/UseItem.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -1045,7 +1045,7 @@
     "extern \"C\" void __cdecl SKILLSMON_DescIfRecord(); // 0x004EC040"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004E42E0.inc",
+   "include": "gen/data/Source/D2Client/UI/SkillDesc.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -1152,7 +1152,7 @@
     "extern \"C\" void __cdecl sub_004FA860(); // 0x004FA860"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Win/Src/D2WinMain_004F8FC0.inc",
+   "include": "gen/data/Source/D2Win/Src/D2WinMain.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -1161,7 +1161,7 @@
    "definitions": 3,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Win/Src/D2WinTextBox_004FB1B0.inc",
+   "include": "gen/data/Source/D2Win/Src/D2WinTextBox.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -1197,7 +1197,7 @@
    "definitions": 7,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Win/Src/D2WinFont_005013A0.inc",
+   "include": "gen/data/Source/D2Win/Src/D2WinFont.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -1292,7 +1292,7 @@
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2BNClient/CACHE_005193E0.inc",
+   "include": "gen/data/Source/D2BNClient/CACHE.inc",
    "lang": "cpp",
    "state": "included",
    "sourced": 1
@@ -1342,7 +1342,7 @@
     "extern \"C\" void __cdecl sub_005210E0_AlwaysOne(); // 0x005210E0"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2BNClient/BnSend_0051BEB0.inc",
+   "include": "gen/data/Source/D2BNClient/BnSend.inc",
    "lang": "cpp",
    "state": "included",
    "sourced": 3
@@ -1375,7 +1375,7 @@
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2BNClient/BnDownload_00520B30.inc",
+   "include": "gen/data/Source/D2BNClient/BnDownload.inc",
    "lang": "cpp",
    "state": "included",
    "sourced": 1
@@ -1568,7 +1568,7 @@
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/GAME/Event_00540CD0.inc",
+   "include": "gen/data/Source/D2Game/GAME/Event.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -1710,7 +1710,7 @@
     "extern \"C\" void __cdecl sub_0054D520(); // 0x0054D520"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/PLAYER/PlrMsg_00549A60.inc",
+   "include": "gen/data/Source/D2Game/PLAYER/PlrMsg.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -1737,7 +1737,7 @@
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/PLAYER/PlrTrade_00565AB0.inc",
+   "include": "gen/data/Source/D2Game/PLAYER/PlrTrade.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2450,7 +2450,7 @@
     "extern \"C\" void __cdecl MONSTERUNIQUE_EventExecuteUModCallbacks(); // 0x005A4370"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/MONSTER/MonsterMode_005A1080.inc",
+   "include": "gen/data/Source/D2Game/MONSTER/MonsterMode.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2676,7 +2676,7 @@
     "extern \"C\" void __cdecl sub_005BEAC0(); // 0x005BEAC0"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/SKILLS/SkillItem_005BF240.inc",
+   "include": "gen/data/Source/D2Game/SKILLS/SkillItem.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2685,7 +2685,7 @@
    "definitions": 4,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/SKILLS/SkillNec_005C35C0.inc",
+   "include": "gen/data/Source/D2Game/SKILLS/SkillNec.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2694,7 +2694,7 @@
    "definitions": 9,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/SKILLS/SkillMonst_005CCD10.inc",
+   "include": "gen/data/Source/D2Game/SKILLS/SkillMonst.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2703,7 +2703,7 @@
    "definitions": 6,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/SKILLS/SkillAss_005D5220.inc",
+   "include": "gen/data/Source/D2Game/SKILLS/SkillAss.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2718,7 +2718,7 @@
     "extern \"C\" void __cdecl sub_005DCE10(); // 0x005DCE10"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Ai/AiUtil_005DCE10.inc",
+   "include": "gen/data/Source/D2Game/Ai/AiUtil.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2730,7 +2730,7 @@
     "extern \"C\" void __cdecl sub_005E6FC0(); // 0x005E6FC0"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Ai/AiThink4_005E0260.inc",
+   "include": "gen/data/Source/D2Game/Ai/AiThink4.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2792,7 +2792,7 @@
     "extern \"C\" void __cdecl DRLGACTIVATE_RoomExSetStatus_Untile(); // 0x0061B320"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/DUNGEON/Dungeon_006195A0.inc",
+   "include": "gen/data/Source/D2Common/DUNGEON/Dungeon.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2904,7 +2904,7 @@
    "definitions": 4,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/DRLG/Drlg_006412F0.inc",
+   "include": "gen/data/Source/D2Common/DRLG/Drlg.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3021,7 +3021,7 @@
    "definitions": 3,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/DRLG/Preset_00665950.inc",
+   "include": "gen/data/Source/D2Common/DRLG/Preset.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3066,7 +3066,7 @@
    "definitions": 7,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/DRLG/RoomTile_0066D960.inc",
+   "include": "gen/data/Source/D2Common/DRLG/RoomTile.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3350,7 +3350,7 @@
     "extern \"C\" void __cdecl CURSOR_DrawCursorCel(); // 0x00468460"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/GAME/RosterPets_0045FED0.inc",
+   "include": "gen/data/Source/D2Client/GAME/RosterPets.inc",
    "lang": "cpp",
    "state": "included",
    "static_definitions": 1
