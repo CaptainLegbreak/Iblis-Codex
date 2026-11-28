@@ -4,6 +4,13 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Ready
 
+- **lane11/string-spellings-1 7759eb757, on main #505** (after unsourced-strings-1 landed). Other spellings of the strings it defined take the defined names:
+    - gszDataGlobalPath and gszDataGlobal_006D4118 become gszDataGlobal.
+    - gszTxtFieldEnd, gszField_end and gszField_006D9060 become gszTxtField_end.
+    - gszField_Expansion becomes gszTxtField_Expansion.
+    - gszLineEnd_006FFCB0 becomes gszNewline, with C linkage as its definition has.
+
+  They are renamed in place and no declaration is dropped, so no unit's declaration count changes. Left out: D2Client (today's restart scope), plus gszFormatInt_006D57BC and gszInventorySource_006EA918 (a unit fails). Link debt (main #505 -> branch): 17,965 -> 17,957 (different_identifier D2Common -6, D2Win -1, D2BNClient -1); no module rose. Audit guard: no count rose. Full build: VERIFIED tree dedbdfa00e89b9939b7aada3eff14dd19068ee2c, Game.exe identical, 14,927 / 14,927 placed, borrowed code 0, borrowed data 253 B, 0 not all equal.
 - **lane11/string-literals-2 df9aae516, on main #504** (after string-literals-1, which landed in #504). gszEmptyAssertText and 32 more strings become string literals at their uses.
     - **gszEmptyAssertText (0x006CC837):** this is the `""` literal many units share, pooled at one address. `FOG_DisplayHalt("", ...)` replaces `&gszEmptyAssertText` and its other spellings (gszEmptyString, empty, gszAssert_006CC837, ...) in the assert macros of the module headers and at the direct calls: 511 uses in 259 files.
     - **The 32 strings that collided with an identical literal in their own file:** `.\\ITEMS\\ItemMode.cpp` (49 uses), `.\\PLAYER\\PlrTrade.cpp`, `.\\Ai\\AiThink4.cpp`, `.\\UI\\automap.cpp`, the txt field names and the rest, together with the names other units gave them.
