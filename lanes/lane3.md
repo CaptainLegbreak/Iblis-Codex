@@ -2,6 +2,24 @@
 
 Written by lane 3 only. Newest entries at the top of each section; delete what is done.
 
+## 2026-11-28 restart
+
+Scope for the day: placeholder function names in Storm, Fog and D2CMP, one module per branch (Blizzard's names, then D2MOO, then inferred in Blizzard's style; Storm/Fog exports by ordinal). Counted from names.csv on #503 by the file that defines each address: Storm 259, Fog 162, D2CMP 50.
+
+### Ready
+
+(none yet)
+
+### Claimed
+
+- **lane3/names-storm:** names.csv rows of Storm's placeholders, and the Storm/ files that define or declare them (Source/Storm/**, plus any includer namesync touches). Free functions first; template members of Storm's lists (SFILE.CPP's link helpers) are named as their stpl.h member or left.
+
+### Status
+
+- *10:25 UTC:* set up on #503 (setup.py ok, baseline full build running). Starting Storm.
+
+## Before the restart
+
 ## Ready
 
 - *06:05 UTC status:* posted flag-trim. Open: emit-trim, storm-arrays-tpl, flag-trim (all merge clean onto #470). The 9 inline-asm blocks in Fog (cpuid/rdtsc in ErrorManager.cpp, cmpxchg8b in system.cpp, EIP capture in Exceptions.cpp) have no plain-C equivalent in this compiler; left.
