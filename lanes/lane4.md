@@ -8,6 +8,7 @@ Scope: D2Client's 61 `Unknown_<VA>.cpp` files (Blizzard file names from `__FILE_
 
 ### Status
 
+- Sat Nov 28 05:19:15 PST 2026: second part started (D2Client's private structs). Building lane4/squelch-class: Include/D2SquelchList.h with the ten-method D2SquelchListStrc (D2Common's squelch list, which 28 D2Client files define privately in four views); the eight files with that exact view use it. Unknown_004DF1C0.cpp, for the record, holds functions of several objects (tile lights, the Warden loader and RC4, a direction table), so it is a split, not a join.
 - Sat Nov 28 05:13:36 PST 2026: SkillDesc.cpp's placeholders are parked: Unknown_004EDCA0.cpp (0x4EDCA0, a static of SkillDesc.cpp's object by its register arguments) and Unknown_004E89A0.cpp (whose body is SkillDesc.cpp's copy almost word for word) both come out of SkillDesc.cpp with a different callee-saved register (ebx/edi, esi/edi) and nothing else; 1-63 unused externs before or after SkillDesc.cpp's includes change nothing, so it isn't the declaration count. Pushed as lane4/join-skilldesc-edca0-wip. Ideas welcome. Next: D2Client's private struct copies.
 - Sat Nov 28 04:43:38 PST 2026: join-df4b0-e1770 Ready on #506 (audit guard rerun against #506 for all three Ready branches: no count rose). Next: Unknown_004EDCA0.cpp, which the original calls with register arguments from SkillDesc.cpp's functions (so it is a static of that object) and which swaps ebx/edi when joined: trying the declaration-count fix.
 - Sat Nov 28 04:30:51 PST 2026: join-skillsemon-eda80 Ready; join-monunique-add90 reposted on #506 as -2. Verifying join-df4b0-e1770 (Unknown_004E1770.cpp -> Unknown_004DF4B0.cpp: code between that file's 0x4E1620 and 0x4E1970, ring tables between its .rdata tables).
@@ -28,7 +29,7 @@ Scope: D2Client's 61 `Unknown_<VA>.cpp` files (Blizzard file names from `__FILE_
 
 ### Claimed
 
-- Joins with an object-map clear lead and no language-table copy of their own (one branch each, lane4/join-<owner>-<va>): Unknown_004D1300.cpp -> UNIT/Missile.cpp; Unknown_004EDCA0.cpp and Unknown_004E89A0.cpp -> UI/SkillDesc.cpp; Unknown_004B5810.cpp -> UI/npcmenu.cpp; Unknown_004BC1B0_004BE770.cpp -> Unknown_004BC1B0.cpp; Unknown_004A6260.cpp -> Unknown_004A43E0.cpp; Unknown_004C51D0.cpp -> SKILLS/Skills.cpp; Unknown_004ADD90.cpp -> UNIT/MonUnique.cpp; Unknown_004EDA80.cpp -> SKILLS/SkillsEMon.cpp; Unknown_004E1770.cpp -> Unknown_004DF4B0.cpp. Lane 2: these owner files get the placeholder's functions; I keep their names as they are.
+- Joins with an object-map clear lead and no language-table copy of their own (one branch each, lane4/join-<owner>-<va>): Unknown_004D1300.cpp -> UNIT/Missile.cpp; Unknown_004EDCA0.cpp and Unknown_004E89A0.cpp -> UI/SkillDesc.cpp; Unknown_004B5810.cpp -> UI/npcmenu.cpp; Unknown_004BC1B0_004BE770.cpp -> Unknown_004BC1B0.cpp; Unknown_004A6260.cpp -> Unknown_004A43E0.cpp; Unknown_004C51D0.cpp -> SKILLS/Skills.cpp; Unknown_004ADD90.cpp -> UNIT/MonUnique.cpp; Unknown_004EDA80.cpp -> SKILLS/SkillsEMon.cpp; Unknown_004E1770.cpp -> Unknown_004DF4B0.cpp. Private structs: D2SquelchListStrc in every D2Client file that defines it (new Include/D2SquelchList.h). Lane 2: these owner files get the placeholder's functions; I keep their names as they are.
 
 ### No join (evidence against)
 
