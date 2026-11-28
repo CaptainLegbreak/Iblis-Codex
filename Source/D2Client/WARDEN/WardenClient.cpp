@@ -354,7 +354,7 @@ struct D2StormHashCtxStrc
 
     void Initialize();                                               // 0x00425D90
     void Append(const unsigned char* pData, unsigned int nLen); // 0x00425DD0
-    void sub_00425F00_Final(unsigned char* pDigest);                        // 0x00425F00
+    void Final(unsigned char* pDigest);                        // 0x00425F00
 };
 
 struct D2RC4Strc
@@ -600,7 +600,7 @@ static void __stdcall WARDENCLIENT_HashModule(const char* szName, unsigned char*
     SStrCopy(szBuffer, szName, 0x400);
     SStrUpper(szBuffer);
     tCtx.Append((const unsigned char*)szBuffer, SStrLen(szBuffer));
-    tCtx.sub_00425F00_Final(pDigest);
+    tCtx.Final(pDigest);
 }
 
 static inline int WardenReadTag(const unsigned char* pSource)

@@ -1038,7 +1038,8 @@ void __stdcall ESCMENU_OptionMouseDown(SMSGHANDLER_PARAMS* pMsg)
     gbOptionPressed = 1;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x0047D840
@@ -1054,7 +1055,7 @@ void __stdcall ESCMENU_OptionMouseUp(SMSGHANDLER_PARAMS* pMsg)
     gbOptionDragging = 0;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 
@@ -1076,7 +1077,7 @@ void __stdcall ESCMENU_SelectNextOption(SMSGHANDLER_PARAMS* pMsg)
     sub_004B9A00(1, 0, 0, 0, 0);
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x0047D920
@@ -1095,7 +1096,7 @@ void __stdcall ESCMENU_SelectPreviousOption(SMSGHANDLER_PARAMS* pMsg)
     sub_004B9A00(1, 0, 0, 0, 0);
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x0047D9A0
@@ -1133,7 +1134,7 @@ void __stdcall ESCMENU_OptionKeyLeft(SMSGHANDLER_PARAMS* pMsg)
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x0047DA90
@@ -1171,7 +1172,7 @@ void __stdcall ESCMENU_OptionKeyRight(SMSGHANDLER_PARAMS* pMsg)
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x0047DB80
@@ -1180,7 +1181,7 @@ void __stdcall ESCMENU_OptionActivate(SMSGHANDLER_PARAMS* pMsg)
     ESCMENU_ActivateOption(pMsg);
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 
@@ -1863,7 +1864,7 @@ void __stdcall MINIPANEL_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
             GAME_ResetMouseButtons();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
         pMsg->bReturn = 0;
@@ -1942,7 +1943,7 @@ void __stdcall MINIPANEL_SlotsClick(SMSGHANDLER_PARAMS* pMsg)
             gbSlotClicked = 1;
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
     }

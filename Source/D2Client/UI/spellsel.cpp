@@ -349,7 +349,8 @@ void __stdcall SPELLSEL_SkillSelectClickMsg(SMSGHANDLER_PARAMS* pMsg)
 
                     pMsg->bReturn = 1;
                     pMsg->lResult = 0;
-                    sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+                    SMsgBreakHandlerChain(pMsg);
                     return;
                 }
 
@@ -369,7 +370,7 @@ void __stdcall SPELLSEL_SkillSelectClickMsg(SMSGHANDLER_PARAMS* pMsg)
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 int gaHotkeySkills[16]; // 0x007C06C8

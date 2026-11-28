@@ -433,7 +433,8 @@ void __stdcall WARDENCLIENT_HandlePetIconClick(SMSGHANDLER_PARAMS* pMsg)
         MSG_SendWord(0x61, 0);
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+        SMsgBreakHandlerChain(pMsg);
     }
 }
 
@@ -557,7 +558,7 @@ void __stdcall HIREABLES_HirelingIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         if (!GAME_GetUIVarState(0x23) || GAME_GetUIVarState(0x24) || ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 0) == -1)
         {
             return;
@@ -860,7 +861,7 @@ void __stdcall ROSTERPETS_HandleHelpButtonDown(SMSGHANDLER_PARAMS* pMsg)
             gbHelpCloseButtonDown = 1;
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
     }
@@ -871,14 +872,14 @@ void __stdcall ROSTERPETS_HandleHelpButtonDown(SMSGHANDLER_PARAMS* pMsg)
             gbHelpCloseButtonDown = 1;
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
     }
     GAME_ResetMouseButtons();
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 
@@ -985,7 +986,7 @@ void __stdcall HIREABLES_ButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         gbHelpButtonPressed = 1;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 }
 
@@ -1009,7 +1010,7 @@ void __stdcall HIREABLES_ButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         gbHelpButtonPressed = 0;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 }
 
@@ -1651,7 +1652,7 @@ void __stdcall HIREABLES_PetIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 
     D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
@@ -1672,7 +1673,7 @@ void __stdcall HIREABLES_PetIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
     VIEW_SetPetEntryValue(pPlayer, pPet, 1);
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x004934B0
