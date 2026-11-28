@@ -4,6 +4,12 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Ready
 
+- **lane11/string-literals-3 e37cea300, on main #506.** More unsourced strings become literals at their uses (34 files changed, 161 insertions(+), 168 deletions(-)): the 4-byte-aligned .rdata strings no source defines, outside today's restart modules (D2Client, Storm, Fog, D2CMP). They are format strings, txt field names, file names, registry keys and error texts. The 4-byte alignment is the original's literal layout, per the 01:30 PT ruling. Declarations stay, so no unit's declaration count changes. Left as they were:
+    - MonsterRegion.cpp (claimed).
+    - ItemTbls_00634DC0.cpp (would not be equal).
+    - glCore.cpp, D2SoundSmp.cpp and d3dCore.cpp, where the address holds a double, a float or a struct, not text.
+
+  Link debt (main #506 -> branch): 15,208 -> 15,034, unsourced_data -174 refs (D2Game -40, D2Win -47, D2Common -36, ...); no module rose. Audit guard: no count rose. Full build: VERIFIED tree 056ed59e403dd8e3a927990f978312bbf0173c89, Game.exe identical, 14,927 / 14,927 placed, borrowed code 0, borrowed data 253 B, 0 not all equal.
 - **lane11/string-spellings-1 7759eb757, on main #505** (after unsourced-strings-1 landed). Other spellings of the strings it defined take the defined names:
     - gszDataGlobalPath and gszDataGlobal_006D4118 become gszDataGlobal.
     - gszTxtFieldEnd, gszField_end and gszField_006D9060 become gszTxtField_end.
@@ -54,6 +60,7 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Claimed
 
+- Sat Nov 28 05:34 PST 2026: check-in. string-literals-2 is on main. string-spellings-1 and string-literals-3 are posted. Next: the same for D2Client, Storm, Fog and D2CMP once today's restart is over; the 7 declaration-order units of string-literals-2; then queue item 5 outside the restart modules.
 - Sat Nov 28 04:34 PST 2026: check-in. Why the 8 units left out of string-literals-2 change when their `""` assert text becomes a literal:
     - **7 of them:** the declaration-order effect (docs/declaration-order.md).
         - The literal is created where its function is, so its count is the names ahead of the function. `&gszEmptyAssertText` counted from the header's declaration instead.
