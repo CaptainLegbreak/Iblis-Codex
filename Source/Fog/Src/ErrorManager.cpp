@@ -1031,6 +1031,7 @@ static bool ERRORMANAGER_AppendPathSeparator(char* szPath)
     return ERRORMANAGER_StrLCopy(szPath, "BlizzardError", 0x400) < 0x400;
 }
 
+// Kept noinline: ERRORMANAGER_AppendPathSeparator (0x004040B0) calls it out of line in the image; without it the compiler inlines it there.
 // 0x00404110
 // Out of line by evidence: the original passes nSize in ecx and szSource in edi, a register convention the
 // compiler gives only a static whose callers are all in this unit (0x403FA0, 0x4040B0), so it was one here.
@@ -2031,6 +2032,7 @@ static int sub_00406BA0_GetModuleDirectoryAndSave(char* szPath, unsigned int nSi
     return 0;
 }
 
+// Kept noinline: ERRORMANAGER_DebugPrintLog (0x004082C0) calls it out of line in the image; without it the compiler inlines it there.
 // 0x004080B0
 // Out of line by evidence: the original passes the va_list in edi, a register convention the compiler gives
 // only a static whose callers are all in this unit (0x4082A0, 0x4082C0), so it was one here.
@@ -3036,6 +3038,7 @@ int __stdcall ERRORMANAGER_MeasureCpuMHz()
     return (int)((nTsc2 - nTsc1) * tFrequency / (tCount2 - tCount1) / 1000000);
 }
 
+// Kept noinline: ERRORMANAGER_GetCpuBrandIndex (0x0040E980) and ERRORMANAGER_WriteProcessorReport (0x0040EA00) call it out of line in the image; without it the compiler inlines it there.
 // 0x0040E960
 __declspec(noinline) unsigned int __cdecl ERRORMANAGER_GetCpuSignature()
 {
