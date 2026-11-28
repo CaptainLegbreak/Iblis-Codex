@@ -1443,7 +1443,7 @@ void __cdecl CMDTBL_CycleSetting()
 }
 
 // 0x00468A90
-void __cdecl sub_00468A90_ToggleSetting()
+void __cdecl CMDTBL_ToggleSetting()
 {
 // build: symbol ?AUTOMAP_SaveAutomapParty@* 0x004577C0
     AUTOMAP_SaveAutomapParty(!AUTOMAP_GetAutomapParty());
@@ -2040,7 +2040,8 @@ public:
 // Kept out of line: 0x00469C20 calls it with its arguments in eax/edx/ecx, a convention only a static of this unit
 // gets, so it is this unit's function; with /Ob2 it would otherwise be inlined there.
 // noinline: the original calls this; without it the compiler expands it into 0x00469C20.
-static __declspec(noinline) int sub_00469420_CheckWheelKey(int nId, unsigned short nKey, unsigned short* pKey)
+// build: symbol ?CMDTBL_CheckWheelKey@* 0x00469420
+static __declspec(noinline) int CMDTBL_CheckWheelKey(int nId, unsigned short nKey, unsigned short* pKey)
 {
     switch (nKey)
     {
@@ -2350,7 +2351,7 @@ int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, unsigned short*
     int bError = 1;
     if (CMDTBL_IsValidKey(nKey))
     {
-        if (!sub_00469420_CheckWheelKey(nId, nKey, pKey))
+        if (!CMDTBL_CheckWheelKey(nId, nKey, pKey))
         {
             return 0;
         }

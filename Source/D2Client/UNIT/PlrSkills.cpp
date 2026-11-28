@@ -313,7 +313,7 @@ void __fastcall PLRSKILLS_ApplyStateMonster(D2UnitStrc* pUnit, int nState)
 }
 
 // 0x004D8A30
-static int __stdcall sub_004D8A30_GetThirdsTier(int nValue, int nTotal)
+static int __stdcall PLRSKILLS_GetThirdsTier(int nValue, int nTotal)
 {
     const int nThird = nTotal / 3;
     const int nTwoThirds = 2 * nThird;
@@ -506,7 +506,7 @@ void __stdcall sub_K06_Emittier1(int a, int b)
 {
     const int v = sub_K06_EmitGettier1(a);
     const int t = sub_K06_EmitGettier1(b);
-    sub_K06_EmitPuttier1(sub_004D8A30_GetThirdsTier(v, t), v);
+    sub_K06_EmitPuttier1(PLRSKILLS_GetThirdsTier(v, t), v);
 }
 
 // 0x004D8D60
@@ -1072,7 +1072,7 @@ void __stdcall PLRSKILLS_UpdateStateColor(D2UnitStrc* pUnit)
 }
 
 // 0x004D9160
-void __fastcall sub_004D9160_RefreshPassiveSkills(D2UnitStrc* pArg)
+void __fastcall PLRSKILLS_RefreshPassiveSkills(D2UnitStrc* pArg)
 {
     SKILLS_RefreshPassiveSkills(pArg);
 }

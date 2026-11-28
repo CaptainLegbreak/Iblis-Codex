@@ -192,7 +192,8 @@ int __fastcall SOUNDINST_HasSoundHandle(int nHandle)
 // 0x004B9590
 // noinline: 0x004B95C0 calls this out of line in the original image (call 0x4B9590 at +0x29); without it the
 // compiler expands it into 0x004B95C0.
-__declspec(noinline) int __fastcall sub_004B9590_IsTypeOneSound(int nKey)
+// build: symbol ?SOUNDINST_IsTypeOneSound@* 0x004B9590
+__declspec(noinline) int __fastcall SOUNDINST_IsTypeOneSound(int nKey)
 {
     if (nKey)
     {
@@ -219,7 +220,7 @@ int __fastcall sub_004B95C0_IsHintPlaying(int nKey)
             if (pEntry->nKey == nKey)
             {
                 void* pSound = pEntry->pSound;
-                if (pSound && sub_004B9590_IsTypeOneSound(nKey) && sub_004DFA40_IsSoundPlaying(pSound))
+                if (pSound && SOUNDINST_IsTypeOneSound(nKey) && sub_004DFA40_IsSoundPlaying(pSound))
                 {
                     return 1;
                 }
@@ -451,7 +452,7 @@ int __fastcall SOUNDINST_PlaySound(int nSoundId, D2UnitStrc* pUnit, int nDelay, 
 }
 
 // 0x004B9B20
-int __fastcall sub_004B9B20_GetValue(int nKey)
+int __fastcall SOUNDINST_GetValue(int nKey)
 {
     if (nKey)
     {
@@ -574,7 +575,7 @@ int __fastcall SOUNDINST_GetSoundIdByHandle(int nKey)
 
 extern "C" int gbClientSoundReady; // 0x007C545C
 
-extern "C" void __cdecl sub_004E4280_ResetEnvironSounds(); // 0x004E4280
+extern "C" void __cdecl SKILLDESC_ResetEnvironSounds(); // 0x004E4280
 
 // 0x004B9CD0
 void __fastcall SOUNDINST_SetEntryByte(int nId, unsigned char nValue)
@@ -599,7 +600,7 @@ extern "C" void __cdecl SOUNDINST_ResetSoundState()
 {
     gbClientSoundReady = 1;
     gnSoundSerial = 0;
-    sub_004E4280_ResetEnvironSounds();
+    SKILLDESC_ResetEnvironSounds();
 }
 
 // 0x004B94E0
@@ -623,7 +624,7 @@ static void SOUNDINST_FreeSound(D2ClientSoundStrc* pSound)
 // 0x004B9D20
 void __cdecl SOUNDINST_FreeAllSounds()
 {
-    sub_004E4280_ResetEnvironSounds();
+    SKILLDESC_ResetEnvironSounds();
     while (gpSoundList_007C5458)
         SOUNDINST_FreeSound(gpSoundList_007C5458->pSound);
 
@@ -946,7 +947,9 @@ void __fastcall sub_004BA020_UpdateSounds(unsigned int nTick)
         D2ClientSoundStrc* pSound = pNode->pSound;
         D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pSound->nSoundId);
         int bAudible = bEnabled;
-        if (pSound->nSoundId >= sub_004817F0_GetSongMin() && pSound->nSoundId <= sub_00481800_GetSongMax() && !D2SOUND_GetMusicVolumeOption())
+// build: symbol ?SOUNDHDR_GetSongMin@* 0x004817F0
+// build: symbol ?SOUNDHDR_GetSongMax@* 0x00481800
+        if (pSound->nSoundId >= SOUNDHDR_GetSongMin() && pSound->nSoundId <= SOUNDHDR_GetSongMax() && !D2SOUND_GetMusicVolumeOption())
             bAudible = 0;
 
         if (pSound->nType == 2)
@@ -1252,7 +1255,7 @@ void __fastcall SOUNDINST_LockSoundsById(int nHintId)
 }
 
 // 0x004BA8F0
-void __cdecl sub_004BA8F0_StopSongs()
+void __cdecl SOUNDINST_StopSongs()
 {
     D2SoundNodeStrc* pNode = gpSoundList_007C5458;
     if (!gpSoundList_007C5458)
@@ -1263,7 +1266,7 @@ void __cdecl sub_004BA8F0_StopSongs()
     for (; pNode; pNode = pNode->pNext)
     {
         D2ClientSoundStrc* pEntry = pNode->pSound;
-        if (pEntry->nSoundId >= sub_004817F0_GetSongMin() && pEntry->nSoundId <= sub_00481800_GetSongMax())
+        if (pEntry->nSoundId >= SOUNDHDR_GetSongMin() && pEntry->nSoundId <= SOUNDHDR_GetSongMax())
         {
             D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pEntry->nSoundId);
             pEntry->bLocked = 1;

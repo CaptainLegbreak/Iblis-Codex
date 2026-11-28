@@ -676,7 +676,8 @@ void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView)
     {
         sub_004DF480_UpdateAllTileLights((D2TileLightCtxStrc*)pView);
     }
-    sub_004DED10_UpdateView(pView);
+// build: symbol ?WALL2_UpdateView@* 0x004DED10
+    WALL2_UpdateView(pView);
     sub_00473C00_DrawWeatherLayers();
     if (pView->dwDrawFlags & gdwBitMasks[3])
     {
@@ -806,7 +807,8 @@ static void VIEW_UpdateShakeSound(int nIntensity)
         return;
     }
 
-    const int nCurrent = sub_004B9B20_GetValue(ghShakeSound);
+// build: symbol ?SOUNDINST_GetValue@* 0x004B9B20
+    const int nCurrent = SOUNDINST_GetValue(ghShakeSound);
     if (nVolume == nCurrent)
     {
         return;
@@ -1143,7 +1145,7 @@ void __fastcall VIEW_AdjustViewPos(int* pX, int* pY)
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
 
-void __cdecl sub_00477760_DrawCacheStats(); // 0x00477760
+void __cdecl INV_DrawCacheStats(); // 0x00477760
 
 int __stdcall GAME_GetPing(); // 0x0044CE60
 
