@@ -40,7 +40,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern "C" int gnGlobal_007C89E4; // 0x007C89E4
 
 // 0x004DCAA0
-void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
+void __fastcall SOUNDHDR_UpdateLevelSong(unsigned int dwTick)
 {
     int nLevelId = UNITMODE_GetPlayerLevelId();
     if (!nLevelId)
@@ -211,7 +211,7 @@ void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsig
 }
 
 // 0x004DCE10
-void __fastcall sub_004DCE10_UpdateTimedHint(int nDelay, int nArg)
+void __fastcall SOUNDHDR_UpdateTimedHint(int nDelay, int nArg)
 {
     if (gtTimedHint.bActive)
     {

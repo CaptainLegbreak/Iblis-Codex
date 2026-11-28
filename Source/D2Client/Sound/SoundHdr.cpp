@@ -450,7 +450,8 @@ void __fastcall SOUNDHDR_UpdateSoundSystem(int nArg)
     if (!D2SOUND_GetDirectSound())
         return;
     SOUNDHDR_LoadSoundTables();
-    sub_004E0050_RestartSound(nArg);
+// build: symbol ?SOUNDINST_RestartSound@* 0x004E0050
+    SOUNDINST_RestartSound(nArg);
     SOUNDINST_ResetSoundState();
     sub_004DCA30();
     SKILLS_ResetLevelSpeech();
@@ -467,10 +468,12 @@ void __cdecl SOUNDHDR_ShutdownSound()
 {
     if (!D2SOUND_GetDirectSound())
         return;
-    sub_004DF800_StopAllSlots();
+// build: symbol ?SOUNDINST_StopAllSlots@* 0x004DF800
+    SOUNDINST_StopAllSlots();
     SOUNDINST_RefreshGroupTimers();
     SOUNDINST_FreeAllSounds();
-    sub_004E00C0_CloseSoundChannels();
+// build: symbol ?SOUNDINST_CloseSoundChannels@* 0x004E00C0
+    SOUNDINST_CloseSoundChannels();
     SOUNDHDR_ReleaseSoundTables();
 }
 
@@ -735,14 +738,17 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMillisecon
 // 0x00482C20
 void __cdecl SOUNDHDR_TickSound()
 {
-    if (sub_004DF870_IsSoundSystemInit())
+// build: symbol ?SOUNDINST_IsSoundSystemInit2@* 0x004DF870
+    if (SOUNDINST_IsSoundSystemInit2())
     {
         SKILLDESC_UpdateEnvironSounds(gdwSoundTick);
-        sub_004DCAA0_UpdateLevelSong(gdwSoundTick);
+// build: symbol ?SOUNDHDR_UpdateLevelSong@* 0x004DCAA0
+        SOUNDHDR_UpdateLevelSong(gdwSoundTick);
         SOUNDHDR_UpdateCache(gdwSoundTick);
 // build: symbol ?SOUNDINST_UpdateSounds@* 0x004BA020
         SOUNDINST_UpdateSounds(gdwSoundTick);
-        sub_004DF890_ReleaseFinishedSlots();
+// build: symbol ?SOUNDINST_ReleaseFinishedSlots@* 0x004DF890
+        SOUNDINST_ReleaseFinishedSlots();
         ++gdwSoundTick;
         Sleep(0);
     }

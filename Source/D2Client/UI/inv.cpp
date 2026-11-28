@@ -765,11 +765,11 @@ void __fastcall SOUNDHDR_UpdateCache(unsigned int nTick); // 0x00482B40
 
 void __fastcall SOUNDINST_UpdateSounds(unsigned int nTick); // 0x004BA020
 
-void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int nTick); // 0x004DCAA0
+void __fastcall SOUNDHDR_UpdateLevelSong(unsigned int nTick); // 0x004DCAA0
 
-int __cdecl sub_004DF870_IsSoundSystemInit(); // 0x004DF870
+int __cdecl SOUNDINST_IsSoundSystemInit2(); // 0x004DF870
 
-void __cdecl sub_004DF890_ReleaseFinishedSlots(); // 0x004DF890
+void __cdecl SOUNDINST_ReleaseFinishedSlots(); // 0x004DF890
 
 void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int nTick); // 0x004E42E0
 
@@ -1282,11 +1282,11 @@ void __fastcall INV_UpdateAuxBattleNetAddress(int nIndex); // 0x00482CA0
 
 void __fastcall PLAYER_SetCinematicExpansion(int bExpansion); // 0x00460480
 
-int __cdecl sub_00460500_RunPopup(); // 0x00460500
+int __cdecl UI_RunPopup(); // 0x00460500
 
-int __cdecl sub_00460680_RunOkCancel(); // 0x00460680
+int __cdecl UI_RunOkCancel(); // 0x00460680
 
-int __cdecl sub_004605A0_RunPopup(); // 0x004605A0
+int __cdecl UI_RunPopup2(); // 0x004605A0
 
 void __cdecl sub_00477DD0(); // 0x00477DD0
 

@@ -1232,7 +1232,8 @@ int __cdecl UNITMODE_GetPlayerSoundEnviron()
 // 0x00481830
 void __cdecl UNITMODE_StopAllSounds()
 {
-    sub_004DF800_StopAllSlots();
+// build: symbol ?SOUNDINST_StopAllSlots@* 0x004DF800
+    SOUNDINST_StopAllSlots();
     SOUNDINST_RefreshGroupTimers();
 }
 
