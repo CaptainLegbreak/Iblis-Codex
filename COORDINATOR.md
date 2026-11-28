@@ -525,6 +525,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #504 (j257, 03:05 PT): **lane 13 namecount (tools/namecount.py: run it before pushing a header change; every lane)**; lane 14 scaffolding-1; lane 11 string-literals-1; lane 1 fog-win32-types, fog-safesock. VERIFIED 0ea695200, Game.exe identical, audit flat. Lanes 2-5 (one day) started: claims posted.
+
 - #503 (j256, 02:15 PT): **lane 13 datatables-1 (item 7's header step; D2DataTablesStrc is 0xC88 bytes; docs/declaration-order.md)**, unit-packet-list-2; lane 1 cominterface-names-2 (fixed with the rule), smallhdrs-fields; lane 11 storm-caller, names-d2client-view; lane 14 files-d2common, files-d2game (8 placeholder files take Blizzard's names; 174 left). VERIFIED 2068e0883, Game.exe identical, audit flat. linkdebt **17,991** (data_cluster 1,384 -> 1,173). Lane 13: post namecount Ready when built. Iblis-Engine #20 merged (sync to #502).
 
 - #502 (j255, 01:20 PT): lane 1 clienttypes-fields, txttables-fields; lane 12 compile-1. VERIFIED a08eb3cb5, Game.exe identical, audit flat. Next: lane 13 unit-packet-list-2 once its Ready line is posted; lane 1 cominterface-names push; lane 11 names-d2client-files rebase.
