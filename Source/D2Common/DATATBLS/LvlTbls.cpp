@@ -576,10 +576,10 @@ void __fastcall DATATBLS_LoadLevelTypesTxt(void* hArchive)
         { gszTxtField_Expansion, 2, 0, 0x784, 0 },
         { gszTxtField_end, 0, 0, 0, 0 },
     };
-    D2LvlTypesTxt* pLvlTypesTxt = (D2LvlTypesTxt*)DATATBLS_CompileTxt(hArchive, "lvltypes", pTbl, &sgtDataTables.nLvlTypesTxtRecordCount, sizeof(D2LvlTypesTxt));
-    sgtDataTables.pLvlTypesTxt = pLvlTypesTxt;
+    D2LvlTypesTxt* pLvlTypesTxt = (D2LvlTypesTxt*)DATATBLS_CompileTxt(hArchive, "lvltypes", pTbl, &gnLvlTypesTxtRecordCount, sizeof(D2LvlTypesTxt));
+    gpLvlTypesTxt = pLvlTypesTxt;
     D2LvlTypesTxt* pRecord = pLvlTypesTxt;
-    for (int i = 0; i < sgtDataTables.nLvlTypesTxtRecordCount; ++i)
+    for (int i = 0; i < gnLvlTypesTxtRecordCount; ++i)
     {
         for (int j = 0; j < 0x20; ++j)
         {
@@ -657,8 +657,8 @@ void __fastcall DATATBLS_LoadLvlPrestTxt(void* hArchive, int bLoadFiles)
     if (bLoadFiles)
     {
         const int nSize = sizeof(D2DrlgFileStrc*) * 6 * sgptDataTables->nLvlPrestTxtRecordCount;
-        sgtDataTables.ppLvlPrestFiles = (D2DrlgFileStrc**)FOG_Alloc(nSize, ".\\DATATBLS\\LvlTbls.cpp", 0x2A7, 0);
-        memset(sgtDataTables.ppLvlPrestFiles, 0, nSize);
+        gppLvlPrestDrlgFiles = (D2DrlgFileStrc**)FOG_Alloc(nSize, ".\\DATATBLS\\LvlTbls.cpp", 0x2A7, 0);
+        memset(gppLvlPrestDrlgFiles, 0, nSize);
     }
     D2LvlPrestTxt* pRecord = sgtDataTables.pLvlPrestTxt;
     const int bExpansion = FOG_IsExpansion();
@@ -670,7 +670,7 @@ void __fastcall DATATBLS_LoadLvlPrestTxt(void* hArchive, int bLoadFiles)
             {
                 DATATBLS_PrefixPathWithDirectory(gszTilesDirectory, pRecord->szFile[j]);
                 if (bLoadFiles && strlen(pRecord->szFile[j]) > 1)
-                    DRLGPRESET_LoadDrlgFile(&sgtDataTables.ppLvlPrestFiles[j + 6 * i], 0, pRecord->szFile[j]);
+                    DRLGPRESET_LoadDrlgFile(&gppLvlPrestDrlgFiles[j + 6 * i], 0, pRecord->szFile[j]);
             }
         }
     }

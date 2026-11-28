@@ -15981,7 +15981,7 @@
     {
      "va": "0x0045F610",
      "length": 280,
-     "name": "?SCMD_GrowPacketBuffer@@YAPAUD2PacketBufferStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?SCMD_GrowPacketBuffer@@YAPAUD2PacketListStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0045F730",
@@ -18653,12 +18653,12 @@
     {
      "va": "0x0046B290",
      "length": 97,
-     "name": "?sub_0046B290_EventLevel108Request@@YAXXZ"
+     "name": "?VIEW_EventLevel108Request@@YAXXZ"
     },
     {
      "va": "0x0046B300",
      "length": 152,
-     "name": "?sub_0046B300_EventObject178Request@@YAXXZ"
+     "name": "?VIEW_EventObject178Request@@YAXXZ"
     },
     {
      "va": "0x0046B3A0",
@@ -18668,12 +18668,12 @@
     {
      "va": "0x0046B3C0",
      "length": 127,
-     "name": "?sub_0046B3C0_UnitRequest25A@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?VIEW_UnitRequest25A@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046B440",
      "length": 89,
-     "name": "?sub_0046B440_EventObject1CCRequest@@YAXXZ"
+     "name": "?VIEW_EventObject1CCRequest@@YAXXZ"
     },
     {
      "va": "0x0046B4A0",
@@ -18721,17 +18721,17 @@
     {
      "va": "0x0046BA90",
      "length": 120,
-     "name": "?sub_0046BA90_PlayerRequestAtUnit15B@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?VIEW_PlayerRequestAtUnit15B@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046BB10",
      "length": 120,
-     "name": "?sub_0046BB10_PlayerRequestAtUnit161@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?VIEW_PlayerRequestAtUnit161@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046BB90",
      "length": 120,
-     "name": "?sub_0046BB90_PlayerRequestAtUnit16B@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?VIEW_PlayerRequestAtUnit16B@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046BC10",
@@ -18746,7 +18746,7 @@
     {
      "va": "0x0046BC90",
      "length": 143,
-     "name": "?sub_0046BC90_RequestAtMonster220@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?VIEW_RequestAtMonster220@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046BD20",
@@ -18766,12 +18766,12 @@
     {
      "va": "0x0046BE60",
      "length": 66,
-     "name": "?sub_0046BE60_ApplyDenOfEvilRoom@@YIXPAUD2ActiveRoomStrc@@@Z"
+     "name": "?VIEW_ApplyDenOfEvilRoom@@YIXPAUD2ActiveRoomStrc@@@Z"
     },
     {
      "va": "0x0046BEB0",
      "length": 114,
-     "name": "?sub_0046BEB0_UpdateTimers@@YAXXZ"
+     "name": "?VIEW_UpdateTimers@@YAXXZ"
     },
     {
      "va": "0x0046BF30",
@@ -18819,7 +18819,7 @@
     {
      "va": "0x0046C460",
      "length": 272,
-     "name": "?sub_0046C460_PopulateRoom@@YIXPAUD2ActiveRoomStrc@@@Z"
+     "name": "?VIEW_PopulateRoom@@YIXPAUD2ActiveRoomStrc@@@Z"
     }
    ],
    "flags": [
@@ -49834,7 +49834,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00586B50.cpp",
+   "file": "Source/D2Game/Quests/a5q0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -51051,7 +51051,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0058F870.cpp",
+   "file": "Source/D2Game/Quests/a1q0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -56194,7 +56194,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005B24E0.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterSpawn.cpp",
    "rank": 0,
    "functions": [
     {
@@ -57864,7 +57864,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005C0D00.cpp",
+   "file": "Source/D2Game/ITEMS/ItemsMagic.cpp",
    "rank": 0,
    "functions": [
     {
@@ -73896,7 +73896,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_00679380.cpp",
+   "file": "Source/D2Common/PATH/PathMisc.cpp",
    "rank": 1,
    "functions": [
     {
@@ -73997,7 +73997,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0067B9C0.cpp",
+   "file": "Source/D2Common/PATH/PathWF.cpp",
    "rank": 1,
    "functions": [
     {
@@ -74057,7 +74057,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0067A550.cpp",
+   "file": "Source/D2Common/PATH/IDAStar.cpp",
    "rank": 0,
    "functions": [
     {
@@ -74109,7 +74109,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0067ADC0.cpp",
+   "file": "Source/D2Common/PATH/AStar.cpp",
    "rank": 1,
    "functions": [
     {
