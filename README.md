@@ -26,7 +26,7 @@ Structs and most game-logic names come from D2MOO by ThePhrozenKeep (https://git
 | `Source/<Module>/<Module>.h` | the declarations several files of a module share |
 | `CMakeLists.txt` | the sources as an ordinary CMake project (compiles the objects; see Building) |
 | `build/` | the data the build needs: the unit list with per-unit compiler options (`units.json`), every address record (`functions.json`), the layout of initialised data (`data_plan.json`), import thunk runs, file-layout plans, toolchain pins |
-| `docs/` | the function grid (`grid.svg`), the source shape grid (`shape.svg`) and the interactive viewer (`index.html`) |
+| `docs/` | the function grid (`grid.svg`), the source shape grid (`shape.svg`), the interactive viewer (`index.html`), and how declaration order affects code generation (`declaration-order.md`) |
 | `tools/` | setup, build and status scripts (Python 3.9+, standard library only) |
 | `names.csv` | every function's address, name and where the name comes from |
 | `STATUS.md` | what is verified, what is not yet, and which functions need non-original constructs |
