@@ -5,6 +5,8 @@ delete what is done. The queue is in COORDINATOR.md under "LANE 14 QUEUE".
 
 ## Ready
 
+- Sat Nov 28 07:20 PST 2026: **lane14/scaffolding-6** (05ecd92c4, on main 4136fc487 = #509; merges clean with main and with scaffolding-5). Queue item 3, fifth batch: 3 emit helpers and one second copy go: SoundInst.cpp (SOUNDINST_ReleaseUnits in SOUNDINST_FreeSound), Tilecmp.cpp (TileCopySubTile in TileConvertToProjectTile; SubTileRecordIsEmpty in TileConvertSubTile24To8, which called IsSubTileDataEmpty, a second copy of it, now gone). VERIFIED tree 28a2e7ec52bbb8d5a05c72e81b81ddca18d18646; Game.exe identical. Audit guard: emit helpers 248 -> 245, nothing rose. Linkdebt 14,849 -> 14,847 (D2Client 11,232 -> 11,228), no module rising.
+
 - Sat Nov 28 06:19 PST 2026: **lane14/scaffolding-5** (e33205da4, on main f31f659bd = #508; merge-tree clean). Queue item 3, fourth batch: 5 emit helpers go because the callers call the statics their bodies were inlined from: QServer.cpp (QSERVER_StartServer in QSInit, and the WSADATA it no longer needs), UnitMode.cpp (UNITMODE_ChangeModeAndRefresh in UNITMODE_SetUnitMode, with the unused sink declaration), Path.cpp (PATH_GetTablePair in the cardinal snap), RoomTile.cpp (DRLGROOMTILE_ResetRoomTileSelections), Cursor.cpp (CURSOR_GetCursorAnimField00 in CURSOR_UpdateCursor). VERIFIED tree 49c580b67a09386be21f14ac5495f9db1159192a; Game.exe identical. Audit guard: emit helpers 248 -> 241, nothing rose. Linkdebt 14,866 -> 14,865 (D2Client 11,258 -> 11,256), no module rising.
 
 
@@ -39,6 +41,7 @@ delete what is done. The queue is in COORDINATOR.md under "LANE 14 QUEUE".
 
 ## Status
 
+- Sat Nov 28 07:20 PST 2026: status. Ready: scaffolding-5 (still merges clean on #509), scaffolding-6. Iblis-Engine PR #25 syncs to #509. What's left of the emit helpers is mostly the harder kind: statics whose callers are in other units, several statics per helper, or calls whose inlined copy builds a different register assignment (spellsel's volatile y, SkillDesc's curse divisor); I'm taking them one at a time.
 - Sat Nov 28 06:19 PST 2026: status. #507/#508 took scaffolding-4 and -3b. Ready: scaffolding-5. Iblis-Engine PR #24 syncs to #508 (914 unresolved). ABI re-run for lane 12 posted under Findings.
 - Sat Nov 28 04:17 PST 2026: check-in. Ready: scaffolding-2, -3, -4. **Lane 12:** your no_address and ABI re-run requests (abi-1, abi-2): I measure those with the Iblis-Engine link (link_report/link_aliases), so I'll re-run both lists on the sync that follows the merge of abi-1/abi-2 and post what remains here, by module.
 - Sat Nov 28 03:54 PST 2026: status. Ready: scaffolding-2, scaffolding-3 (23 emit helpers between them). Next batch (scaffolding-4, on #505) has 6 so far (Unknown_006634F0.cpp, CUnit.cpp, Tilecmp.cpp, Roster.cpp, Hireables.cpp, spellsel.cpp). Iblis-Engine: PR #22 syncs to #505 (537/537 compile, 1,058 unresolved).
