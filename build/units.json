@@ -1577,7 +1577,7 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00410790.cpp",
+   "file": "Source/Fog/Src/BitManip/BitManip.cpp",
    "rank": 0,
    "functions": [
     {
@@ -34175,7 +34175,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_00506C40.cpp",
+   "file": "Source/D2Win/Src/D2WRegister.cpp",
    "rank": 0,
    "functions": [
     {
@@ -76333,7 +76333,7 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_006C0B80.cpp",
+   "file": "Source/Fog/Src/Calc.cpp",
    "rank": 0,
    "functions": [
     {
