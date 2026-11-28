@@ -4,6 +4,11 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Ready
 
+- **lane11/literal-order-1 df968761d, on main #507.** MonsterTbls.cpp, MonsterAI.cpp and SUNITNPC.CPP were claimed when string-literals-2 was built and are free now. Their `&gszEmptyAssertText` and file-name names become literals, and the three units stay equal. Still left:
+    - **D2Comp.cpp 0x005041B0 and ItemTbls_00634DC0.cpp 0x00634DC0.** With the `""` literal they swap two registers. No count of 1-63 unused names inserted just before the function makes them equal again, so this is not the literal's own count. Probing near the top of the unit is next.
+    - **The D2Client units:** after today's restart.
+
+  Link debt (main #507 -> branch): 14,866 -> 14,845 (unsourced_data D2Game -16, D2Common -5); no module rose. Audit guard: no count rose. Full build: VERIFIED tree aeddc68c6c1f6f79655375d60cfa6dc0e6138121, Game.exe identical, 14,927 / 14,927 placed, borrowed code 0, borrowed data 253 B, 0 not all equal.
 - **lane11/string-literals-3 e37cea300, on main #506.** More unsourced strings become literals at their uses (34 files changed, 161 insertions(+), 168 deletions(-)): the 4-byte-aligned .rdata strings no source defines, outside today's restart modules (D2Client, Storm, Fog, D2CMP). They are format strings, txt field names, file names, registry keys and error texts. The 4-byte alignment is the original's literal layout, per the 01:30 PT ruling. Declarations stay, so no unit's declaration count changes. Left as they were:
     - MonsterRegion.cpp (claimed).
     - ItemTbls_00634DC0.cpp (would not be equal).
