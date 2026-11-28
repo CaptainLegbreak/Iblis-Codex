@@ -31,6 +31,8 @@ ahead of the function can change.
 | a forward declaration of a struct not yet declared | 1 |
 | a forward declaration of a struct already declared | 0 |
 | a struct defined after its forward declaration | the definition's count, less the 1 already counted |
+| a function definition | 2, plus 1 per parameter, per local and per string literal in it |
+| a file included for the first time in the unit | 1 (a repeated include: 0) |
 | a `#define`, a rename, a change of type, a comment | 0 |
 
 ## What changes in the code
@@ -39,9 +41,23 @@ Only small orderings: which of two register reloads comes first after a call, wh
 which register is the base and which the index in a `lea`. The function's length and every other instruction
 stay the same, so the checker reports the unit `NOT_ALL_EQUAL` with a handful of differing bytes.
 
+## The tool
+
+`tools/namecount.py` counts names the way the table above does.
+
+- `python tools/namecount.py --diff origin/main` lists the units your tree moves against `origin/main` and by how
+  many names, and names the known functions (the table at the end of this page) whose symbol moved.
+- `python tools/namecount.py --known` prints each known function's symbol and the count ahead of it.
+- `python tools/namecount.py --unit Source/X.cpp [--symbol NAME]` prints the running count through one unit, or the
+  count ahead of one symbol.
+
+Methods, templates and function bodies are approximated, so treat a difference of one or two in a unit marked `~`
+as a reason to compile that unit, not as proof.
+
 ## Changing a header
 
-Count the names the change adds or removes. If the total is a multiple of 64, no includer can change.
+Count the names the change adds or removes (`tools/namecount.py --diff origin/main` does it for every unit). If the
+total is a multiple of 64, no includer can change.
 
 If it isn't, bring it to one where that is natural: split one more placeholder into its fields, or add or drop a
 `D2_CHECK_OFFSET` line. A forward declaration is the awkward case, because it counts 1 only in the units that
