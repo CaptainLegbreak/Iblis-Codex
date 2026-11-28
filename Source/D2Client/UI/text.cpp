@@ -27,6 +27,7 @@
 #include "D2ClientKeyConfig.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2Packets.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
 #include "FogApi.h"
@@ -52,7 +53,6 @@ struct D2TextListStrc;
 
 
 
-struct D2GSPacketSrv26;
 
 struct D2CommonChatIgnoreListStrc;
 
@@ -131,18 +131,6 @@ int gbTextHandlersRegistered; // 0x007BF27C
 
 extern D2MsgHandlerEntryStrc gaTextMsgHandlers[]; // 0x00722600
 
-struct D2GSPacketSrv26
-{
-    unsigned char nHeader;
-    unsigned char nMessageType;
-    unsigned char nLang;
-    unsigned char nUnitType;
-    unsigned int dwUnitGUID;
-    unsigned char nMessageColor;
-    unsigned char nNameColor;
-    char szName[16];
-    char szMessage[256];
-};
 
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, Unicode* wszDest, int nDest); // 0x006CC29C
 
@@ -873,7 +861,6 @@ struct D2ActiveRoomStrc;
 
 struct D2StoredUnitRecordStrc;
 
-struct D2GSPacketSrv5A;
 
 struct D2SuperUniquesTxt;
 
@@ -884,24 +871,6 @@ Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 
 void __stdcall ITEMMODS_AssignProperty(int nPass, int nArg1, D2UnitStrc* pItem, int nArg, int nArg2, int nArg5); // 0x0065FEC0
-
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv5A
-{
-    unsigned char nHeader;
-    unsigned char nType;
-    unsigned char nColor;
-    int dwParam;
-    unsigned char nParam;
-    union
-    {
-        char szText[32];
-        char szTextData[2][16];
-    };
-};
-
-#pragma pack(pop)
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
@@ -2602,14 +2571,14 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
     Unicode wszBuffer[0x132];
     Unicode wszName[16];
     Unicode wszName2[16];
-    if (strlen(pPacket->szTextData[0]) >= 15)
-        pPacket->szTextData[0][15] = 0;
+    if (strlen(pPacket->szText) >= 15)
+        pPacket->szText[15] = 0;
     switch (pPacket->nType)
     {
     case 10:
-        if (pPacket->szTextData[0][0])
+        if (pPacket->szText[0])
         {
-            sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+            sub_00526F20_ToUnicode(wszName, pPacket->szText, 16);
             sub_005267E0(wszBuffer, wszName);
             sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0x1026));
             break;
@@ -2623,31 +2592,31 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
         sub_005267E0(wszBuffer, D2LANG_GetStringFromTblIndex(0xFCF));
         break;
     case 8:
-        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        sub_00526F20_ToUnicode(wszName, pPacket->szText, 16);
         sub_005267E0(wszBuffer, wszName);
         sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xFCC));
         break;
     case 0:
         D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE37)) < 0x104, 0x114C);
-        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        sub_00526F20_ToUnicode(wszName, pPacket->szText, 16);
         sub_005267E0(wszBuffer, wszName);
         sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE37));
         break;
     case 1:
         D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE38)) < 0x104, 0x1152);
-        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        sub_00526F20_ToUnicode(wszName, pPacket->szText, 16);
         sub_005267E0(wszBuffer, wszName);
         sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE38));
         break;
     case 2:
-        if (CUNIT_GetPlayerUnit() && !strcmp(pPacket->szTextData[0], sub_0047A210(CUNIT_GetPlayerUnit())))
+        if (CUNIT_GetPlayerUnit() && !strcmp(pPacket->szText, sub_0047A210(CUNIT_GetPlayerUnit())))
             break;
         D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE39)) < 0x104, 0x115C);
-        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
-        if (strlen(pPacket->szTextData[1]))
+        sub_00526F20_ToUnicode(wszName, pPacket->szText, 16);
+        if (strlen(&pPacket->szText[16]))
         {
             Unicode wszAccount[16];
-            sub_00526F20_ToUnicode(wszAccount, pPacket->szTextData[1], 16);
+            sub_00526F20_ToUnicode(wszAccount, &pPacket->szText[16], 16);
             sub_005269D0_FormatText(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3B), wszName, wszAccount);
             break;
         }
@@ -2655,11 +2624,11 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
         break;
     case 3:
         D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE3A)) < 0x104, 0x116A);
-        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
-        if (strlen(pPacket->szTextData[1]))
+        sub_00526F20_ToUnicode(wszName, pPacket->szText, 16);
+        if (strlen(&pPacket->szText[16]))
         {
             Unicode wszAccount[16];
-            sub_00526F20_ToUnicode(wszAccount, pPacket->szTextData[1], 16);
+            sub_00526F20_ToUnicode(wszAccount, &pPacket->szText[16], 16);
             sub_005269D0_FormatText(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3C), wszName, wszAccount);
             break;
         }
@@ -2667,41 +2636,41 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
         break;
     case 4:
         D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE3D)) < 0x104, 0x1178);
-        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        sub_00526F20_ToUnicode(wszName, pPacket->szText, 16);
         sub_005267E0(wszBuffer, wszName);
         sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE3D));
         break;
     case 13:
         D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE44)) < 0x104, 0x117E);
-        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        sub_00526F20_ToUnicode(wszName, pPacket->szText, 16);
         sub_005267E0(wszBuffer, wszName);
         sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE44));
         break;
     case 5:
         D2_ASSERT(UNICODE_StrLen(D2LANG_GetStringFromTblIndex(0xE3E)) < 0x104, 0x1184);
-        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        sub_00526F20_ToUnicode(wszName, pPacket->szText, 16);
         sub_005267E0(wszBuffer, wszName);
         sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE3E));
         break;
     case 6:
     {
-        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        sub_00526F20_ToUnicode(wszName, pPacket->szText, 16);
         const Unicode* pKiller;
         int nStringId;
         int bFound = 0;
         switch (pPacket->nParam)
         {
         case 0:
-            if (strlen(pPacket->szTextData[1]))
+            if (strlen(&pPacket->szText[16]))
             {
-                sub_00526F20_ToUnicode(wszName2, pPacket->szTextData[1], 16);
+                sub_00526F20_ToUnicode(wszName2, &pPacket->szText[16], 16);
                 nStringId = 0xE40;
                 pKiller = wszName2;
                 bFound = 1;
             }
             break;
         case 1:
-            if (!pPacket->szTextData[1][0])
+            if (!pPacket->szText[16])
             {
                 D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pPacket->dwParam);
                 if (pMonStatsTxtRecord)
@@ -2713,7 +2682,7 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
             }
             else
             {
-                unsigned short wSuperUnique = *(unsigned short*)pPacket->szTextData[1];
+                unsigned short wSuperUnique = *(unsigned short*)&pPacket->szText[16];
                 nStringId = 0xE40;
                 D2SuperUniquesTxt* pSuperUniquesTxtRecord = DATATBLS_GetSuperUniquesTxtRecord(wSuperUnique);
                 if (pSuperUniquesTxtRecord)
@@ -2756,7 +2725,7 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
             TEXT_PrintPartyText(wszBuffer, pPacket->nColor);
         return;
     case 11:
-        sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
+        sub_00526F20_ToUnicode(wszName, pPacket->szText, 16);
         sub_005269D0_FormatText(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x69B), wszName);
         break;
     case 15:
