@@ -41,7 +41,7 @@ struct D2WinAccountListFontStrc
 
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
+int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl); // 0x004F9310
 
 enum D2ControlTypes
 {
