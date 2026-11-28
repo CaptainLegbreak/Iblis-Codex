@@ -16,4 +16,7 @@ void __cdecl sub_0042E5A0_Nop()
 {
 }
 
-#include "gen/data/Source/D2Launch/Unknown_0042E590.inc"
+extern "C" void __cdecl MAINMENUS_RunFrontEnd(); // 0x004359D0
+
+extern "C" void (__cdecl* gData_0070896C[1])(void) = { &MAINMENUS_RunFrontEnd }; // 0x0070896C
+#pragma comment(linker, "/alternatename:?gaTable_0070896C@@3PADA=_gData_0070896C")

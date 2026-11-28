@@ -3807,15 +3807,11 @@
    "state": "included"
   },
   "Source/D2Launch/Unknown_0042E590.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl MAINMENUS_RunFrontEnd(); // 0x004359D0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Unknown_0042E590.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/D2Common/DRLG/OutWild.cpp": {
    "bytes": 60,
@@ -4199,13 +4195,11 @@
    "sourced": 2
   },
   "Source/D2Launch/Unknown_004370B0.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Unknown_004370B0.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/D2Multi/Unknown_0043C8A0.cpp": {
    "bytes": 0,
@@ -4242,22 +4236,18 @@
    "state": "included"
   },
   "Source/D2Launch/Unknown_0043B7A0.cpp": {
-   "bytes": 64,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Unknown_0043B7A0.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 2
   },
   "Source/D2Launch/Unknown_0043C4F0.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Unknown_0043C4F0.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 1
   },
   "Source/D2Client/SKILLS/SkillsNec.cpp": {
    "bytes": 0,
@@ -9354,7 +9344,8 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070896C_t\n{\n    const void* p0;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070896C\n#pragma comment(linker, \"/alternatename:?gaTable_0070896C@@3PADA=_gData_0070896C\")",
    "type": "char",
-   "va": "0x0070896C"
+   "va": "0x0070896C",
+   "sourced": true
   },
   {
    "alias": true,
@@ -10671,7 +10662,8 @@
    "size": 60,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CC10_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CC10",
-   "va": "0x0070CC10"
+   "va": "0x0070CC10",
+   "sourced": true
   },
   {
    "alias": false,
@@ -17292,7 +17284,8 @@
    "struct": null,
    "tail": "; // 0x0070CC4C",
    "type": "int",
-   "va": "0x0070CC4C"
+   "va": "0x0070CC4C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -17430,7 +17423,8 @@
    "size": 60,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CC50_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CC50",
-   "va": "0x0070CC50"
+   "va": "0x0070CC50",
+   "sourced": true
   },
   {
    "alias": false,
@@ -150288,7 +150282,8 @@
    "size": 60,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CB88_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CB88",
-   "va": "0x0070CB88"
+   "va": "0x0070CB88",
+   "sourced": true
   },
   {
    "alias": false,
