@@ -5,6 +5,19 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
+- Fri Nov 27 17:14 PST 2026: **lane13/npc-state-2** (89f3ec8f2, on main 7442280f1 = #492; independent of interior-2). VERIFIED tree a6b7be416cc82960c29b7f4bfdd3ffc5e3fcb6d3; Game.exe identical. Audit guard: no count rose. Pointer casts in the diff: 1 removed, 1 added.
+  - **The NPC menu's state, 0x007C0C68-0x007C0DF4, is one pack(1) struct**, D2NpcMenuStateStrc gtNpcMenu, in a new Source/Include/D2ClientNpcMenu.h. NPCMENU_InitNpcMenu memsets its first 0x160 bytes, and its fields sit at odd offsets.
+  - About 80 aliases become fields in npcmenu.cpp, npcmenu_004B5C60.cpp, Monster.cpp, inv.cpp and four Unknown_ units.
+  - The three slot views are one record (the hireling list: wId, dwSeed, nUnitId). gtPacket2A and gtStringList become fields.
+  - text.cpp's duplicate definition at 0x007C0C68 is gone. text.cpp keeps two externs, because rewriting them makes it unequal.
+  - gwszCost_007C0DF5 stays its own global: its initializer (0x006CAD10) zeroes it inline.
+  - D2Client.h's externs for these addresses stay, unused, because the header is shared.
+  - **Counts, main #492 -> this:**
+    - unsourced_data: 5,189 / 586 -> 4,562 / 550.
+    - interior: 93 / 41 -> 94 / 44 (text.cpp's two externs).
+    - duplicate_data: 403 -> 412.
+    - linkdebt total: 21,648 -> 21,025. D2Client 7,634 -> 7,011; no module rose.
+    - shortdata: 363 -> 362.
 - Fri Nov 27 16:18 PST 2026: **lane13/interior-2** (16d149ced, on main 09eccfff4 = #491; independent of queue-1-2 and interior-1). Lane 13 queue item 3 (second part) and item 5. VERIFIED tree 883cbf8339153a0c617bfc8a45ab22562b552eb8; Game.exe identical. Audit guard: no count rose. No pointer cast written.
   - **Interior:**
     - gnMouseY becomes gtMousePosition.y.
@@ -17,6 +30,7 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - linkdebt total: 21,832 -> 21,830. D2Client 7,677 -> 7,676, D2Win 773 -> 772; no module rose.
     - shortdata unchanged (363).
 ## Claimed
+- Fri Nov 27 17:14 PST 2026: npc-state-2 Ready. The text-panel block is still waiting on the D2TextListStrc question above. Next: the rest of the interior list.
 - Fri Nov 27 16:57 PST 2026: check-in. #492 took queue-1-2 and interior-1; I've cleared their Ready lines. interior-2 is still Ready and merges onto #492. npc-state conflicted with #492 in npcmenu.cpp, but only over my own interior-1 renames, so it's rebased as **lane13/npc-state-2**. Its 9 units are equal, and the full build is running now. Lane 14 note read: the data-tables span and the declaration-count units come back to lanes 1 and 13.
 - Fri Nov 27 16:26 PST 2026: **lane13/npc-state** (on #491) is doing its full build. npcmenu.cpp's 0x007C0C68-0x007C0DF4 is now one pack(1) struct, gtNpcMenu: NPCMENU_InitNpcMenu memsets its first 0x160 bytes, and its fields sit at odd offsets. About 80 aliases become fields; every unit is equal.
   - gwszCost_007C0DF5 stays separate: its own dynamic initializer (0x006CAD10) zeroes it inline, and as a struct member the ctor goes out of line.
