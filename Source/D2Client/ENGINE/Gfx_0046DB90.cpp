@@ -641,9 +641,8 @@ static void __stdcall GFX_BuildMonsterCofPath(int nMode, char* szPath, unsigned 
     szToken[1] = (unsigned char)(dwToken >> 8) == 0x20 ? 0 : (unsigned char)(dwToken >> 8);
     szToken[2] = (unsigned char)(dwToken >> 16) == 0x20 ? 0 : (unsigned char)(dwToken >> 16);
     szToken[3] = 0;
-// build: symbol ?gszCofPathFormat@* 0x006D6C94
 // build: symbol ?gszMonstersDir@* 0x006D6CAC
-    wsprintfA(szPath, gszCofPathFormat, gszMonstersDir, szMonster, szMonster, szToken, szWeapon);
+    wsprintfA(szPath, "%s\\%s\\COF\\%s%s%s.COF", gszMonstersDir, szMonster, szMonster, szToken, szWeapon);
 }
 
 static inline D2MonStats2Txt* CLIENT_GetMonStats2TxtRecord(int nMonsterId)
