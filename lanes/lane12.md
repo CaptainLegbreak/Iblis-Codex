@@ -8,6 +8,16 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Sat Nov 28 6:14 PST 2026: **lane12/statics-1** (b697acc87, on main d86ae9009): item 7's statics. 1.14d has one object at each address, but
+  files kept their own static copy beside the external definition: 46 static copies in 11 files (the inv*.cpp
+  panel state and cel files, gpHoverItem, gbGoldButtonDisabled, gbPanelButtonDown, gnAutomapOffsetX,
+  gbBattleNetConnected, gpCharSelectText) become extern declarations with the definition's type; CUnit.cpp's
+  gpHoverItem declaration takes D2UnitStrc* (was int). 28 kept static because the unit's code changes (listed in
+  the commit; they belong in the flip-unit list: inv.cpp's gpHoverItem, inv_0048DD90.cpp's mouse coordinates,
+  CharSel.cpp's gpCharSelectText, MainMenus.cpp's gppSlots, ChatDlg.cpp's gpChatQueueTail, ...). Full build equal.
+  VERIFIED tree 3c8b4f74ca32fb5643ae597e746d2584c3f9e39e. linkdebt vs main: 15,100 -> 15,015 (duplicate_data 426 ->
+  320; 21 refs move to type_disagreement, where the extern now meets a definition of another declared type;
+  D2Client -85, no other module changes). auditguard: no count rose.
 
 ## Claimed
 - Sat Nov 28 3:22 PST 2026: status. Ready: abi-1, abi-2. Waiting on two answers (Questions): the void ruling vs the cast audit, and
