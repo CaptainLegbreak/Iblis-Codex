@@ -76,7 +76,6 @@ struct Coord;
 struct D2DrlgCoordsStrc;
 
 
-
 union D2SeedStrc;
 
 
@@ -106,7 +105,6 @@ D2DrlgEnvironmentStrc* __fastcall ENVIRONMENT_AllocDrlgEnvironment(D2PoolSystemS
 void __fastcall DRLGANIM_InitCache(D2DrlgStrc* pDrlg, void** ppTileData); // 0x00642A30
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-
 
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -173,7 +171,6 @@ void __fastcall DRLGANIM_UpdateFrameInAdjacentRooms(D2DrlgRoomStrc* pDrlgRoom1, 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
 
-
 int __fastcall DRLGROOM_ReorderNearRoomList(D2DrlgRoomStrc* pDrlgRoom, D2ActiveRoomStrc** ppRoomList); // 0x0066BD00
 
 
@@ -187,7 +184,6 @@ typedef char sub_G03_AssertActPool[(int)&((D2DrlgActStrc*)0)->pMemPool == 0x5C ?
 
 
 void __fastcall DRLGROOM_SetRoom(D2DrlgRoomStrc* pDrlgRoom, D2ActiveRoomStrc* pRoom); // 0x0066BFC0
-
 
 
 int __fastcall FOG_FreePool(D2PoolSystemStrc* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -234,7 +230,6 @@ void __stdcall DUNGEON_GameToClientTileDrawPositionCoords(int nX, int nY, int* p
 void __stdcall UNITROOM_SortUnitListByTargetY(D2ActiveRoomStrc* pRoom); // 0x0064C0C0
 
 
-
 void __fastcall DRLGROOM_InitNearRooms(D2PoolSystemStrc* pMemPool, D2DrlgRoomStrc* pDrlgRoom); // 0x0066C370
 
 
@@ -243,14 +238,6 @@ D2UniqueNameTxt* gpUniqueNameTxtTables[4]; // 0x0096D488
 int gnUniqueNameTxtRecordCounts[4]; // 0x0096D498
 
 Unicode gwszDataTablesDefault; // 0x0096D4B4
-
-int gStatsClientAllocatedRooms;                                                                             // 0x0096C8B8
-
-int gStatsClientFreedRooms;                                                                                 // 0x0096C8BC
-
-int gStatsFreedRooms;                                                                                       // 0x0096C8C0
-
-int gStatsAllocatedRooms;                                                                                   // 0x0096C8C4
 
 #define ROOMFLAG_1 0x00000001
 
@@ -270,8 +257,6 @@ enum D2C_J07DungeonConstants
     UNITFLAG_J07_PATHUPDATE = 0x800000,
     UNITFLAGEX_J07_REMOVED = 0x20,
 };
-
-
 
 
 extern const int gnTownLevelIdsByAct[5]; // 0x006E7D1C
