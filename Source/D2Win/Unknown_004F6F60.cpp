@@ -32,7 +32,6 @@ extern D2PaletteStrc gatLightPalettes[]; // 0x007D2348
 
 extern "C" int gfSStrInitialized;
 
-extern "C" int gnBufferBase_007D5448; // 0x007D5448
 
 extern "C" int gbClientSoundReady;
 
@@ -58,7 +57,7 @@ int gnLightingOff; // 0x007D2340
 extern "C" void __cdecl sub_004F8DC0_InitLookupTable()
 {
     CMNSUBTILE_BuildGouraudCache();
-    gnBufferBase_007D5448 = 0;
+    gpScreenBuffer = 0;
 }
 
 // 0x004F8DD0

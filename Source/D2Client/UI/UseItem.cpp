@@ -332,7 +332,7 @@ int __fastcall sub_004DBB50(D2PanelGfxStrc* pGfx, D2UnitStrc* pUnit, int nArg3, 
 
 void __fastcall sub_004DBEA0(D2UnitStrc* pUnit, int nArg2, int nArg3, unsigned int* pWidth, unsigned int* pHeight); // 0x004DBEA0
 
-int __stdcall sub_006001F0(D2PanelGfxStrc* pGfx, int nArg2, int nArg3); // 0x006001F0
+int __stdcall D2CMPSpriteValidate(D2PanelGfxStrc* pGfx, int nArg2, int nArg3); // 0x006001F0
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
@@ -419,7 +419,7 @@ void __cdecl USEITEM_DrawPanelUnit()
                 D2PanelGfxStrc tGfx;
                 int nOut;
                 memset(&tGfx, 0, sizeof(tGfx));
-                if (sub_004DBB50(&tGfx, pUnit, 0, 0, 0, &nOut, 1, -1) && sub_006001F0(&tGfx, 0, 1) && tGfx.f_3C)
+                if (sub_004DBB50(&tGfx, pUnit, 0, 0, 0, &nOut, 1, -1) && D2CMPSpriteValidate(&tGfx, 0, 1) && tGfx.f_3C)
                 {
                     unsigned int nWidth;
                     unsigned int nHeight;
