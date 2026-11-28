@@ -50,7 +50,7 @@ D2CharStrc* __fastcall FONT_FindCharInfo(unsigned short wChar);                 
 
 void __fastcall sub_00526320_ToUnicode(wchar_t* pDest, const char* szSource, int nLength);                  // 0x00526320
 
-extern "C" const char gszDataGlobal_006D4118[];                                                             // 0x006D4118
+extern "C" const char gszDataGlobal[];                                                             // 0x006D4118
 
 extern "C" const char gszDataLocal[];                                                              // 0x006D41A8
 
@@ -1334,7 +1334,7 @@ void __fastcall D2Win_10115_FONT()
     if (!ghMonsterIndicators)
     {
         char szPath[0x104];
-        wsprintfA(szPath, "%s\\UI\\Font\\MonsterIndicators", gszDataGlobal_006D4118);
+        wsprintfA(szPath, "%s\\UI\\Font\\MonsterIndicators", gszDataGlobal);
         ghMonsterIndicators = ARCHIVE_LoadCellFile(szPath, 0);
     }
 
