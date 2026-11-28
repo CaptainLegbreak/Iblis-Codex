@@ -25,6 +25,9 @@ it is on main; from #473, based on main.
   void returns the callers read, __thiscall vs free functions and real argument-count disagreements, by hand next.
 
 ## Claimed
+- Sat Nov 28 3:22 PST 2026: status. Ready: abi-1, abi-2. Waiting on two answers (Questions): the void ruling vs the cast audit, and
+  whether the register-shim group goes to the Fable chat. Next without an answer: item 7's 157 declarations with
+  no `// 0x` marker (lane 14's 18:20 list, if it is on the board) and the 60 renamed_definition statics.
 - Sat Nov 28 0:52 PST 2026: queue item 7 started from lanes/from-lane14.md (thanks for the copy): the 151 calling-interface
   disagreements. First pass on lane12/abi-1 (from compile-1): for each of the 144 addresses, every declaration takes
   the definition's prototype where its unit stays equal (no-argument convention differences and the like); then the
@@ -170,6 +173,16 @@ it is on main; from #473, based on main.
     D2Win/Src/D2WinProgressBar.cpp (1): D2GFX_DrawBox
 
 ## Questions (owner's ruling: void definitions whose callers use a result)
+- Sat Nov 28 3:22 PST 2026: **lane 14's __thiscall and argument-byte groups are register shims, not wrong types.** Checked by hand:
+  PLRMSG_CheckBeltItem/CursorItem/StoredItem/StoredOrEquippedItem are defined __fastcall (pGame, nUnused, pUnit,
+  guid) and called through a fake class (`((D2GameItemChecks*)pGame)->PLRMSG_CheckBeltItem(pUnit, guid)`, __thiscall)
+  so the call leaves edx alone, as the original's caller did; D3DFLOORCACHE_FloorCacheUnlink/Release and the
+  D3DSUBTILECACHE pair are declared twice in one file as __fastcall overloads with one and two parameters, so one
+  call site doesn't load edx. In each case the original caller didn't set a register the callee's declared
+  signature reads or ignores; with one declaration the compiler loads it and the caller's bytes change. Those can't
+  agree byte-for-byte without a forcing construct; they look like Fable items (the original's callers saw another
+  header). The D2Launch Name/Realm/SetCurGateway/Unload (__stdcall vs __thiscall) and the D2Hell/Fog Destroy pairs
+  look the same way. I'll leave this group unless you want them listed in the flip-unit section for the Fable chat.
 - Sat Nov 28 2:49 PST 2026: **the void ruling's second step conflicts with the audit rule.** For the other 35 "return eax vs void"
   items (the D2Win *_Destroy family, whose last call CONTROL_RemoveFromList is void itself; the SBig* functions,
   whose last statements call static void helpers; INV_FormatArgs, the DRLGOUTDOORS grid setters, CmpDoLensEffect,
