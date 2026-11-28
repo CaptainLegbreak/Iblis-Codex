@@ -1881,7 +1881,8 @@ void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCo
             D2ActiveRoomStrc* pRoom1 = pRoom;
             if (tPos.nY < drlgCoords.nSubtileY || tPos.nY >= drlgCoords.nSubtileY + drlgCoords.nSubtileHeight)
             {
-                pRoom1 = sub_00463740_FindRoomAtPoint(pRoom, tPos.nX, tPos.nY);
+// build: symbol ?COLLISION_GetRoomBySubTileCoordinates@* 0x00463740
+                pRoom1 = COLLISION_GetRoomBySubTileCoordinates(pRoom, tPos.nX, tPos.nY);
             }
 
             if (pRoom1)
@@ -1895,7 +1896,7 @@ void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCo
 
                     if (tPos.nX < drlgCoords.nSubtileX || tPos.nY >= drlgCoords.nSubtileX + drlgCoords.nSubtileWidth)
                     {
-                        pRoom2 = sub_00463740_FindRoomAtPoint(pRoom1, tPos.nX, tPos.nY);
+                        pRoom2 = COLLISION_GetRoomBySubTileCoordinates(pRoom1, tPos.nX, tPos.nY);
                     }
 
                     if (pRoom2 && !COLLISION_CheckMaskWithSizeXY(pRoom2, tPos.nX, tPos.nY, 2 * nSize + 1, 2 * nSize + 1, fCollision)
@@ -1904,7 +1905,7 @@ void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCo
                     {
                         pCoord->nX = (nSize >> 1) + tPos.nX;
                         pCoord->nY = (nSize >> 1) + tPos.nY;
-                        *ppRoom = sub_00463740_FindRoomAtPoint(pRoom, pCoord->nX, pCoord->nY);
+                        *ppRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, pCoord->nX, pCoord->nY);
                         return;
                     }
                 }
@@ -2190,7 +2191,7 @@ D2UnitStrc* __fastcall QUESTS_SpawnCriticalMonster(D2GameStrc* pGame, int nX, in
             ++nTryY;
             tCoord.nX = nTryX;
             tCoord.nY = nTryY;
-            pFreeRoom = sub_00463740_FindRoomAtPoint(pSpawnRoom, nTryX, nTryY);
+            pFreeRoom = COLLISION_GetRoomBySubTileCoordinates(pSpawnRoom, nTryX, nTryY);
             if (!pFreeRoom)
             {
                 pFreeRoom = pRoom;
@@ -2275,7 +2276,7 @@ int __fastcall QUESTS_LevelWarpCheck(D2GameStrc* pGame, D2UnitStrc* pPlayer, int
 D2UnitStrc* __fastcall QUESTS_SpawnMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pPosition, int nType, int nIndex)
 {
     int nClassId = DATATBLS_MapSuperUniqueId(nType, nIndex);
-    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), pPosition->nX, pPosition->nY);
+    D2ActiveRoomStrc* pRoom = COLLISION_GetRoomBySubTileCoordinates(UNITS_GetRoom(pUnit), pPosition->nX, pPosition->nY);
     if (pRoom)
     {
         return D2GAME_SpawnPresetMonster(pGame, pRoom, nClassId, pPosition->nX, pPosition->nY, 1);

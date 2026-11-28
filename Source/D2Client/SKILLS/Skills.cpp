@@ -151,7 +151,7 @@ extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 
 extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 
-D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 
 int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
 
@@ -855,7 +855,8 @@ int __fastcall SKILLS_CanScanUnit(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nF
         {
             return 0;
         }
-        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(pTarget->dwClassId);
+// build: symbol ?VIEW_GetMissilesTxtRecord@* 0x0046ACE0
+        D2MissilesTxt* pMissilesTxtRecord = VIEW_GetMissilesTxtRecord(pTarget->dwClassId);
         if (!pMissilesTxtRecord || pMissilesTxtRecord->nMissileFlags[0] & gdwBitMasks[1])
         {
             return 0;
@@ -2723,7 +2724,7 @@ int __fastcall SKILLS_SpawnPairAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSk
         return 0;
     }
 
-    pRoom = sub_00463740_FindRoomAtPoint(pRoom, tCoord.nX, tCoord.nY);
+    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, tCoord.nX, tCoord.nY);
     if (!pRoom)
     {
         return 0;

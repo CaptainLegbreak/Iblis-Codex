@@ -1951,7 +1951,8 @@ void __cdecl HIREABLES_DrawPetIcons()
     int nY = 0x48;
     int bAlternate = 0;
     int nX = 0xF;
-    const int nMode = sub_0045AE90_GetPanelSlideMode();
+// build: symbol ?UI_GetPanelSlideMode@* 0x0045AE90
+    const int nMode = UI_GetPanelSlideMode();
     if (nMode != 3 && nMode != 2 && !GAME_GetUIVarState(9) && !GAME_GetUIVarState(0xB) && gnPetIconPopupState != 2)
     {
         if (GAME_IsExpansion() && !GAME_GetUIVarState(0x23) && gnPetIconPopupState != 2 && ROSTERPETS_FindPetIdByOwner(pPlayer, 7, 0) != -1)

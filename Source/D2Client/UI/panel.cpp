@@ -304,7 +304,7 @@ void __fastcall INV_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLen
 
 int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int nArg, int* pOut, Unicode* pName, int nMaxLength); // 0x004B2AD0
 
-void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nUnused, int bFlag, const Unicode* wszExtra); // 0x004E6410
+void __fastcall SKILLDESC_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nUnused, int bFlag, const Unicode* wszExtra); // 0x004E6410
 
 struct D2QtyWarnStrc
 {
@@ -1060,7 +1060,7 @@ void __cdecl PANEL_DrawBeltItemHoverText()
     INV_BuildItemName(gpBeltItemA, wszName, 0x80);
     if (ITEMS_GetItemQuality(gpBeltItemA) != 3)
     {
-        sub_004E6410_BuildPropText(gpBeltItemA, wszProps, 0x100, 1, 0);
+        SKILLDESC_BuildPropText(gpBeltItemA, wszProps, 0x100, 1, 0);
     }
 
     sub_005267E0(wszText, INV_PrefixColorCode(wszProps, 3));
@@ -1965,11 +1965,12 @@ void __cdecl PANEL_DrawControlPanel()
     }
     if (D2GFX_GetResolutionMode() == 2)
     {
-        if (sub_0045AE90_GetPanelSlideMode() == 2 || sub_0045AE90_GetPanelSlideMode() == 3)
+// build: symbol ?UI_GetPanelSlideMode@* 0x0045AE90
+        if (UI_GetPanelSlideMode() == 2 || UI_GetPanelSlideMode() == 3)
         {
             PANEL_DrawBorderFrameLeft();
         }
-        if (sub_0045AE90_GetPanelSlideMode() == 1 || sub_0045AE90_GetPanelSlideMode() == 3)
+        if (UI_GetPanelSlideMode() == 1 || UI_GetPanelSlideMode() == 3)
         {
             PANEL_DrawBorderFrameRight();
         }

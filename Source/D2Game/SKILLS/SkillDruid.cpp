@@ -1605,7 +1605,8 @@ int __fastcall SKILLS_SrvDo146_PeriodicRandomMissile(D2GameStrc* pGame, D2UnitSt
         nY += CLIENTS_GetUnitY(pUnit);
         if (D2Common_11026(nX, nY, pUnit, 0x805))
         {
-            pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
+// build: symbol ?COLLISION_GetRoomBySubTileCoordinates@* 0x00463740
+            pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
             if (pRoom && !COLLISION_CheckMask(pRoom, nX, nY, 1)) break;
         }
     }
@@ -1733,7 +1734,8 @@ int __fastcall SKILLS_AllocTransformSkillCombat(D2GameStrc* pGame, D2UnitStrc* p
                 if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
                 {
                     nToHit += SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel);
-                    D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
+// build: symbol ?SCMD_GetSkillsTxtRecord@* 0x0045C4B0
+                    D2SkillsTxt* pSkillsTxtRecord = SCMD_GetSkillsTxtRecord(nSkillId);
                     if (pSkillsTxtRecord && pSkillsTxtRecord->nSrcDam)
                     {
                         nSrcDam = pSkillsTxtRecord->nSrcDam;
@@ -1901,7 +1903,8 @@ void __fastcall AITHINK_Fn061_Hireable(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
         bBlocked = 1;
         int nChance = 6;
         if (bRanged) nChance = 12;
-        if (sub_00472210_SeedRollMasked(pSeed, 128) < nChance)
+// build: symbol ?SEED_RollMasked@* 0x00472210
+        if (SEED_RollMasked(pSeed, 128) < nChance)
         {
             AITACTICS_WalkCloseToUnit(pGame, pUnit, 5);
             return;

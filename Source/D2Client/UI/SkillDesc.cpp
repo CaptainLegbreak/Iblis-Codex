@@ -54,7 +54,7 @@ void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned in
 
 void __fastcall SOUNDINST_StopSound(int nHandle); // 0x004BA840
 
-int __fastcall sub_004E40A0_RollPlayerSeed(int nRange); // 0x004E40A0
+int __fastcall SKILLDESC_RollPlayerSeed(int nRange); // 0x004E40A0
 
 extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 
@@ -69,12 +69,12 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
+D2SkillsTxt* __fastcall SCMD_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
 
-extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClass); // 0x004833E0
+extern "C" D2CharStatsTxt* __fastcall INV_GetCharStatsTxtRecord(int nClass); // 0x004833E0
 
 
 void __fastcall TEXT_AppendUndeadDamageBonus(D2UnitStrc* pUnused, Unicode* wszOut, int nUnused); // 0x004E48B0
@@ -249,7 +249,7 @@ void __fastcall GAME_StrToUpper(Unicode*); // 0x00452180
 
 int __fastcall TEXT_SplitAtNewline(Unicode*, Unicode**); // 0x004A7660
 
-extern "C" int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc*, D2SkillStrc*); // 0x004D9FC0
+extern "C" int __fastcall PLRSKILLS_GetSkillUseState(D2UnitStrc*, D2SkillStrc*); // 0x004D9FC0
 
 static void __stdcall SKILLDESC_DrawNumberCentered(int nColor, int nLeft, int nY, int nRight, int nValue); // 0x004E9940
 
@@ -281,7 +281,7 @@ void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, i
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
 
-D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
 extern int gnChargedBoltTurnEvery; // 0x0072D98C
 
@@ -603,7 +603,8 @@ int __fastcall SKILLDESC_CallSkillDescFunc(D2UnitStrc* pUnit, int bLeft)
         return 0;
     }
 
-    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(pSkillsTxt->nSkillId);
+// build: symbol ?TEXT_GetSkillDescTxtRecord@* 0x004A89D0
+    D2SkillDescTxt* pSkillDescTxt = TEXT_GetSkillDescTxtRecord(pSkillsTxt->nSkillId);
     if (!pSkillDescTxt)
     {
         return 0;
@@ -768,7 +769,7 @@ void __fastcall SKILLDESC_CreateBlazeMissile(D2UnitStrc* pUnit)
         nSkillLevel = 1;
     }
 
-    D2SkillsTxt* pSkillsTxt = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
+    D2SkillsTxt* pSkillsTxt = SCMD_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxt)
     {
         return;
@@ -1023,7 +1024,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         if (nAmbient != gnEnvironAmbientId)
         {
             gnAmbientDelay = sub_004E4120(pEnv->nEventDelay / 3) + pEnv->nEventDelay;
-            gnAmbientTick = dwTick - sub_004E40A0_RollPlayerSeed(gnAmbientDelay);
+            gnAmbientTick = dwTick - SKILLDESC_RollPlayerSeed(gnAmbientDelay);
             gnEnvironAmbientId = nAmbient;
         }
         if (dwTick - gnAmbientTick >= gnAmbientDelay)
@@ -1031,7 +1032,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
             const int nHandle = sub_004B9A00(gnEnvironAmbientId, 0, 0, 0, 0);
             if (nHandle)
             {
-                const int nSign = sub_004E40A0_RollPlayerSeed(2) ? 1 : -1;
+                const int nSign = SKILLDESC_RollPlayerSeed(2) ? 1 : -1;
                 const int nPan = SKILLDESC_RandomInRange(0x1C2, 0x2EE) * nSign;
                 const int nPanVolume = sub_004E4120(0x64);
 // build: symbol ?SOUNDINST_MoveSound@* 0x004B99A0
@@ -1397,7 +1398,7 @@ int __stdcall SKILLDESC_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDamage,
                                 int nCharges = STATLIST_GetStatValue(pStatList, nStatId, 0);
                                 if (nCharges > 0)
                                 {
-                                    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(nSkillId);
+                                    D2SkillDescTxt* pSkillDescTxt = TEXT_GetSkillDescTxtRecord(nSkillId);
                                     if (!pSkillDescTxt)
                                     {
                                         *pMinDamage += SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1) >> 8;
@@ -1963,7 +1964,7 @@ static int __stdcall SKILLDESC_AppendManaCost(Unicode* wszOut, int nSkillId, int
     if (nValue)
         return SKILLDESC_AppendManaValue(nValue, wszOut);
 
-    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(nSkillId);
+    D2SkillDescTxt* pSkillDescTxt = TEXT_GetSkillDescTxtRecord(nSkillId);
     if (!pSkillDescTxt)
         return 0;
 
@@ -2788,7 +2789,7 @@ void __fastcall SKILLDESC_DrawDualWieldLine(D2UnitStrc* pUnit, D2SkillStrc* pSki
         return;
     }
 
-    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(pSkillsTxt->nSkillId);
+    D2SkillDescTxt* pSkillDescTxt = TEXT_GetSkillDescTxtRecord(pSkillsTxt->nSkillId);
     if (!pSkillDescTxt)
     {
         return;
@@ -2819,7 +2820,7 @@ void __fastcall SKILLDESC_DrawDualWieldLineNoElem(D2UnitStrc* pUnit, D2SkillStrc
         return;
     }
 
-    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(pSkillsTxt->nSkillId);
+    D2SkillDescTxt* pSkillDescTxt = TEXT_GetSkillDescTxtRecord(pSkillsTxt->nSkillId);
     if (!pSkillDescTxt)
     {
         return;
@@ -2844,7 +2845,7 @@ void __fastcall SKILLDESC_DrawWeaponDamageLine(D2UnitStrc* pUnit, D2SkillStrc* p
         return;
     }
 
-    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(pSkillsTxt->nSkillId);
+    D2SkillDescTxt* pSkillDescTxt = TEXT_GetSkillDescTxtRecord(pSkillsTxt->nSkillId);
     if (!pSkillDescTxt)
     {
         return;
@@ -3241,7 +3242,7 @@ void __fastcall SKILLDESC_DrawElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
         return;
     }
 
-    D2SkillDescTxt* pSkillDesc = sub_004A89D0_SkillDescRec(pSkillsTxt->nSkillId);
+    D2SkillDescTxt* pSkillDesc = TEXT_GetSkillDescTxtRecord(pSkillsTxt->nSkillId);
     if (!pSkillDesc)
     {
         return;
@@ -3615,7 +3616,7 @@ void __fastcall SKILLDESC_DrawDescWeaponAndElemDamage(D2UnitStrc* pUnit, D2Skill
     }
 
     const int nSkillId = pSkillsTxt->nSkillId;
-    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(nSkillId);
+    D2SkillDescTxt* pSkillDescTxt = TEXT_GetSkillDescTxtRecord(nSkillId);
     if (!pSkillDescTxt)
     {
         return;
@@ -4148,7 +4149,7 @@ void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
     if (!pSkillsTxt) return;
     int nLevel = SKILLS_GetSkillLevel(pUnit, pSkill, 1);
     int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 0x1588);
-    D2SkillDescTxt* pDesc = sub_004A89D0_SkillDescRec(nSkillId);
+    D2SkillDescTxt* pDesc = TEXT_GetSkillDescTxtRecord(nSkillId);
     if (!pDesc) return;
     D2Win_10127_SetFont(6);
     Unicode wszName[32];
@@ -4158,7 +4159,7 @@ void __fastcall SKILLDESC_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill,
     DRAW_SKILL_TEXT(nIndex, wszName);
     int bDamage = 0;
     int bDescription = 0;
-    switch (sub_004D9FC0_GetSkillUseState(pUnit, pSkill))
+    switch (PLRSKILLS_GetSkillUseState(pUnit, pSkill))
     {
     case 0: case 1: case 6: case 8:
         bDamage = 1;
@@ -4436,7 +4437,7 @@ void __fastcall SKILLDESC_MissileScatter(D2UnitStrc* pUnit, int nSeed, int nMiss
         {
             tMissile.nX = nX + nOffsetX;
             tMissile.nY = nY + nOffsetY;
-            if (sub_00463740_FindRoomAtPoint(pRoom, tMissile.nX, tMissile.nY))
+            if (COLLISION_GetRoomBySubTileCoordinates(pRoom, tMissile.nX, tMissile.nY))
             {
                 MISSILE_CreateClientMissile(&tMissile);
             }
@@ -4893,7 +4894,7 @@ void __fastcall SKILLDESC_DrawSkillWeaponLine(D2UnitStrc* pUnit, D2SkillStrc* pS
         return;
     }
 
-    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(pSkillsTxt->nSkillId);
+    D2SkillDescTxt* pSkillDescTxt = TEXT_GetSkillDescTxtRecord(pSkillsTxt->nSkillId);
     if (!pSkillDescTxt)
     {
         return;
@@ -5952,7 +5953,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         return 0;
     }
 
-    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(nSkillId);
+    D2SkillDescTxt* pSkillDescTxt = TEXT_GetSkillDescTxtRecord(nSkillId);
     if (!pSkillDescTxt)
     {
         return 0;
@@ -6083,7 +6084,8 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 23:
         nMissileId = pSkillDescTxt->wDescMissile[0];
-        pMissilesTxt = sub_0046ACE0_GetMissilesTxtRecord(nMissileId);
+// build: symbol ?VIEW_GetMissilesTxtRecord@* 0x0046ACE0
+        pMissilesTxt = VIEW_GetMissilesTxtRecord(nMissileId);
         if (!pMissilesTxt)
         {
             return 0;
@@ -6131,7 +6133,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 28:
     {
-        D2MissilesTxt* pMissilesTxt = sub_0046ACE0_GetMissilesTxtRecord(pSkillDescTxt->wDescMissile[0]);
+        D2MissilesTxt* pMissilesTxt = VIEW_GetMissilesTxtRecord(pSkillDescTxt->wDescMissile[0]);
         if (!pMissilesTxt)
         {
             return 0;
@@ -6142,7 +6144,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 29:
     {
-        D2MissilesTxt* pMissilesTxt = sub_0046ACE0_GetMissilesTxtRecord(pSkillDescTxt->wDescMissile[0]);
+        D2MissilesTxt* pMissilesTxt = VIEW_GetMissilesTxtRecord(pSkillDescTxt->wDescMissile[0]);
         if (!pMissilesTxt)
         {
             return 0;
@@ -6152,13 +6154,13 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
     }
 
     case 30:
-        pMissilesTxt = sub_0046ACE0_GetMissilesTxtRecord(pSkillDescTxt->wDescMissile[0]);
+        pMissilesTxt = VIEW_GetMissilesTxtRecord(pSkillDescTxt->wDescMissile[0]);
         if (!pMissilesTxt)
         {
             return 0;
         }
         nMissileId = pMissilesTxt->wSubMissile[0];
-        pMissilesTxt = sub_0046ACE0_GetMissilesTxtRecord(nMissileId);
+        pMissilesTxt = VIEW_GetMissilesTxtRecord(nMissileId);
         if (!pMissilesTxt)
         {
             return 0;

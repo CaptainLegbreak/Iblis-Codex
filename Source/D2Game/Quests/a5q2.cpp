@@ -859,7 +859,8 @@ void __fastcall ACT5Q2_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPlayer,D
      }
      if(!bFound) return;
      pQuestDataEx->bPortalAttempted[nIndex]=1;
-     pRoom=sub_00463740_FindRoomAtPoint(pTargetRoom,tCoords.nX,tCoords.nY);
+// build: symbol ?COLLISION_GetRoomBySubTileCoordinates@* 0x00463740
+     pRoom=COLLISION_GetRoomBySubTileCoordinates(pTargetRoom,tCoords.nX,tCoords.nY);
      D2UnitStrc* pPortal=SUNIT_AllocUnitData(2,189,tCoords.nX,tCoords.nY,pQuestData->pGame,pRoom,1,1,0);
      if(!pPortal)
      {

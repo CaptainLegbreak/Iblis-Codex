@@ -1309,10 +1309,11 @@ int __fastcall SKILLS_SrvDo140_BaalTentacle(D2GameStrc* pGame, D2UnitStrc* pUnit
         nMinionX = nX + SKILLS_ROLL_SEED(&pUnit->pSeed, lSeed) % 18 - 9;
         nMinionY = nY + SKILLS_ROLL_SEED(&pUnit->pSeed, lSeed) % 18 - 9;
 
-        D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nMinionX, nMinionY);
+// build: symbol ?COLLISION_GetRoomBySubTileCoordinates@* 0x00463740
+        D2ActiveRoomStrc* pRoom = COLLISION_GetRoomBySubTileCoordinates(UNITS_GetRoom(pUnit), nMinionX, nMinionY);
         if (pRoom)
         {
-            sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nMinionX, nMinionY);
+            COLLISION_GetRoomBySubTileCoordinates(UNITS_GetRoom(pUnit), nMinionX, nMinionY);
             D2UnitStrc* pMinion = D2GAME_SpawnMonster(pGame, pRoom, nMinionX, nMinionY, nMinionId, nMinionSpawnMode, -1, 0);
             if (pMinion)
             {
@@ -1554,7 +1555,8 @@ void __fastcall SKILLS_ApplyProgressivePhysicalDamageBonus(D2UnitStrc* pUnit, D2
                 const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
                 if (nSkillId > 0 && nSkillId < VOLATILE_DATATABLES->nSkillsTxtRecordCount)
                 {
-                    D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
+// build: symbol ?SCMD_GetSkillsTxtRecord@* 0x0045C4B0
+                    D2SkillsTxt* pSkillsTxtRecord = SCMD_GetSkillsTxtRecord(nSkillId);
                     if (pSkillsTxtRecord)
                     {
                         switch (pSkillsTxtRecord->nPrgDamage)
@@ -1592,7 +1594,7 @@ void __fastcall SKILLS_ApplyProgressiveLeechAndElementalDamage(D2UnitStrc* pUnit
                 const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
                 if (nSkillId > 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
                 {
-                    D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
+                    D2SkillsTxt* pSkillsTxtRecord = SCMD_GetSkillsTxtRecord(nSkillId);
                     if (pSkillsTxtRecord)
                     {
                         switch (pSkillsTxtRecord->nPrgDamage)
@@ -1791,7 +1793,7 @@ int __fastcall SKILLS_SrvDo039_FistsOfFire_BladesOfIce_ProgressiveFn3(D2GameStrc
             missileParams.nX = nTargetX + nX;
             missileParams.nY = nTargetY + nY;
 
-            if (sub_00463740_FindRoomAtPoint(pRoom, missileParams.nX, missileParams.nY))
+            if (COLLISION_GetRoomBySubTileCoordinates(pRoom, missileParams.nX, missileParams.nY))
             {
                 MISSILES_CreateMissileFromParams(pGame, &missileParams);
             }
@@ -2205,7 +2207,7 @@ void __fastcall SKILLS_ReleaseProgressiveCharges(D2GameStrc* pGame, D2UnitStrc* 
         if (!pStatList)
             continue;
         int nSkill = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
-        D2SkillsTxt* pSkills = sub_0045C4B0_GetSkillsTxtRecord(nSkill);
+        D2SkillsTxt* pSkills = SCMD_GetSkillsTxtRecord(nSkill);
         if (pSkills)
         {
             int nLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
@@ -2672,7 +2674,7 @@ D2UnitStrc* __fastcall SKILLS_SummonSkillMonster(D2GameStrc* pGame, D2UnitStrc* 
         return 0;
     }
 
-    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY);
+    D2ActiveRoomStrc* pRoom = COLLISION_GetRoomBySubTileCoordinates(UNITS_GetRoom(pUnit), nX, nY);
     if (!pRoom)
     {
         return 0;

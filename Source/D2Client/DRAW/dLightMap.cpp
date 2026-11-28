@@ -1205,7 +1205,7 @@ static void __stdcall DLIGHTMAP_UpdateLight(int nLevel, D2R01LightStrc* pLight)
     DLIGHTMAP_AddAreaLight(pLight, nLevel);
 }
 
-D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
 
 // 0x004756D0
@@ -1221,7 +1221,7 @@ void __cdecl DLIGHTMAP_ScanGridCollision()
     {
         for (int nX = 0; nX < 0x30; ++nX)
         {
-            pRoom = sub_00463740_FindRoomAtPoint(pRoom, gnCellOriginX + nX, gnCellOriginY + nY);
+            pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, gnCellOriginX + nX, gnCellOriginY + nY);
             if (!pRoom)
                 pRoom = UNITS_GetRoom(pPlayer);
             if (COLLISION_CheckMask(pRoom, gnCellOriginX + nX, gnCellOriginY + nY, 0x22))

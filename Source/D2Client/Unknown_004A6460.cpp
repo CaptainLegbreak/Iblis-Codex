@@ -848,7 +848,7 @@ struct D2GSPacketSrv5A;
 
 struct D2SuperUniquesTxt;
 
-void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
+void __fastcall SKILLDESC_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
 
 
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526700
@@ -1305,7 +1305,8 @@ void __stdcall TEXT_StatButtonDownMsg(SMSGHANDLER_PARAMS* message)
     {
         return;
     }
-    int border = sub_0045AE90_GetPanelSlideMode();
+// build: symbol ?UI_GetPanelSlideMode@* 0x0045AE90
+    int border = UI_GetPanelSlideMode();
     if (D2GFX_GetResolutionMode() != 2)
     {
         if (TEXT_IsInPanelButton(border, x, y))
@@ -1352,7 +1353,7 @@ void __stdcall TEXT_SkillButtonDownMsg(SMSGHANDLER_PARAMS* message)
     const int nResolution = D2GFX_GetResolutionMode();
     if (nResolution == 2 && GAME_GetUIVarState(nResolution + 7))
         return;
-    int border = sub_0045AE90_GetPanelSlideMode();
+    int border = UI_GetPanelSlideMode();
     if (D2GFX_GetResolutionMode() != 2)
     {
         if (TEXT_IsInRightPanelButton(border, x, y))
@@ -1400,7 +1401,7 @@ void __stdcall TEXT_StatButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     CURSOR_HandleButtonUp(pMsg);
     if (D2GFX_GetResolutionMode() != 2)
     {
-        if (gbStatButtonPressed && CLIENT_HitPanelButton(sub_0045AE90_GetPanelSlideMode(), nX, nY))
+        if (gbStatButtonPressed && CLIENT_HitPanelButton(UI_GetPanelSlideMode(), nX, nY))
         {
             gbStatButtonPressed = 0;
             UI_SetUIVar(6, 1, 0);
@@ -1446,7 +1447,7 @@ void __stdcall TEXT_SkillButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     CURSOR_HandleButtonUp(pMsg);
     if (D2GFX_GetResolutionMode() != 2)
     {
-        if (gbSkillButtonPressed && CLIENT_HitRightPanelButton(sub_0045AE90_GetPanelSlideMode(), nX, nY))
+        if (gbSkillButtonPressed && CLIENT_HitRightPanelButton(UI_GetPanelSlideMode(), nX, nY))
         {
             gbSkillButtonPressed = 0;
             UI_SetUIVar(7, 1, 0);
@@ -1514,7 +1515,7 @@ void __cdecl TEXT_DrawLeftPanelButton()
 // 0x004A6B30
 void __cdecl TEXT_DrawStatButton()
 {
-    const int nBorder = sub_0045AE90_GetPanelSlideMode();
+    const int nBorder = UI_GetPanelSlideMode();
     if (D2GFX_GetResolutionMode() != 2 && TEXT_IsStatButtonHidden(nBorder))
     {
         gbStatButtonPressed = 0;
@@ -1608,7 +1609,7 @@ void __cdecl TEXT_DrawRightPanelButton()
 // 0x004A6E60
 void __cdecl TEXT_DrawSkillButton()
 {
-    const int nBorder = sub_0045AE90_GetPanelSlideMode();
+    const int nBorder = UI_GetPanelSlideMode();
     if (D2GFX_GetResolutionMode() != 2 && TEXT_IsSkillButtonHidden(nBorder))
     {
         gbSkillButtonPressed = 0;
@@ -2697,7 +2698,7 @@ DRAW_FIELD:
 }
 
 // 0x004A89D0
-D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId)
+D2SkillDescTxt* __fastcall TEXT_GetSkillDescTxtRecord(int nSkillId)
 {
     D2SkillsTxt* pSkillsTxt = CLIENT_GetSkillsTxtRecord(nSkillId);
     if (pSkillsTxt)

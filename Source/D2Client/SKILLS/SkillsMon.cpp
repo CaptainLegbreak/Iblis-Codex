@@ -41,7 +41,7 @@ extern "C" unsigned int __cdecl sub_0044DA90_GetTick();                         
 
 
 
-D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY);              // 0x00463740
+D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY);              // 0x00463740
 
 
 
@@ -729,7 +729,7 @@ D2UnitStrc* __fastcall SKILLSMON_UpdateSpiderLay(D2UnitStrc* pUnit)
         INVENTORY_GetDirectionDelta(nDirection, &nDeltaX, &nDeltaY);
         const int nSpawnX = nX + nDeltaX;
         const int nSpawnY = nY + nDeltaY;
-        if (!DUNGEON_IsRoomInTown(sub_00463740_FindRoomAtPoint(pRoom, nSpawnX, nSpawnY)))
+        if (!DUNGEON_IsRoomInTown(COLLISION_GetRoomBySubTileCoordinates(pRoom, nSpawnX, nSpawnY)))
         {
             D2MissileStrc tParams;
             memset(&tParams, 0, sizeof(tParams));
@@ -790,7 +790,7 @@ int __fastcall SKILLSMON_FlankTarget(D2UnitStrc* pUnit, int nSkillId, int nSkill
         return 0;
     }
 
-    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
+    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
     if (!(pSkillsTxtRecord->nFlags[1] & gnBitMasks_006CE268[0]) && DUNGEON_IsRoomInTown(pRoom))
     {
         return 0;
@@ -861,7 +861,7 @@ int __fastcall SKILLSMON_CheckTargetRoom(D2UnitStrc* pUnit, int nSkillId, int nA
         return 0;
     }
 
-    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
+    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
     if (!pRoom)
     {
         return 0;
@@ -883,7 +883,8 @@ int __fastcall SKILLSMON_CheckTargetRoom(D2UnitStrc* pUnit, int nSkillId, int nA
 // 0x004EC040
 void __fastcall SKILLSMON_DescIfRecord(D2UnitStrc* pUnit, void* pArg, D2SkillsTxt* pSkillsTxtRecord, int nArg3, int nArg4, int nArg5, int nArg6)
 {
-    if (pArg && pSkillsTxtRecord && sub_004A89D0_SkillDescRec(pSkillsTxtRecord->nSkillId))
+// build: symbol ?TEXT_GetSkillDescTxtRecord@* 0x004A89D0
+    if (pArg && pSkillsTxtRecord && TEXT_GetSkillDescTxtRecord(pSkillsTxtRecord->nSkillId))
     {
         SKILLDESC_DrawSkillWeaponLine(pUnit, pArg, pSkillsTxtRecord, nArg3, nArg4, nArg5, nArg6);
     }
@@ -1583,7 +1584,7 @@ int __fastcall sub_004F3EB0_CheckTargetRoom(D2UnitStrc* pUnit, int nSkillId, int
         return 0;
     }
 
-    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
+    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
     if (!pRoom)
     {
         return 0;

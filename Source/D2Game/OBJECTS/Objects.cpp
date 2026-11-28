@@ -1310,7 +1310,8 @@ void __fastcall OBJECTS_InitFunction28_GoldPlaceHolder(D2ObjInitFnStrc* pOp)
     {
         const int nOffsetX = (unsigned int)ITEMS_RollRandomNumberForceInline(&pOp->pObjectregion->pSeed) & 3;
         const int nOffsetY = (unsigned int)ITEMS_RollRandomNumberForceInline(&pOp->pObjectregion->pSeed) & 3;
-        D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(pOp->pRoom, pCoord.nX + nOffsetX, pCoord.nY + nOffsetY);
+// build: symbol ?COLLISION_GetRoomBySubTileCoordinates@* 0x00463740
+        D2ActiveRoomStrc* pRoom = COLLISION_GetRoomBySubTileCoordinates(pOp->pRoom, pCoord.nX + nOffsetX, pCoord.nY + nOffsetY);
         if (pRoom == pOp->pRoom)
         {
             pCoord.nX = pOp->nX + nOffsetX;

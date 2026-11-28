@@ -285,7 +285,7 @@ void __cdecl TEXT_InitWaypointData()
 }
 
 // 0x0049C6C0
-void __cdecl sub_0049C6C0_SendWaypointClose()
+void __cdecl TEXT_SendWaypointClose()
 {
     if (!gbSent && CUNIT_GetPlayerUnit() && UNITS_GetRoom(CUNIT_GetPlayerUnit()))
     {
@@ -298,7 +298,7 @@ void __cdecl sub_0049C6C0_SendWaypointClose()
 // 0x0049C700
 void __cdecl TEXT_CloseWaypointPanel()
 {
-    sub_0049C6C0_SendWaypointClose();
+    TEXT_SendWaypointClose();
     if (gpWaypointData)
         WAYPOINTS_FreeWaypointData(0, gpWaypointData);
     gpWaypointData = 0;
@@ -533,7 +533,7 @@ void __stdcall TEXT_OnWaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
             if (nX >= 0x111 && nX <= 0x111 + 0x23 && nY >= 0x183 && nY <= 0x183 + 0x21)
             {
                 UI_SetUIVar(0x14, 1, 0);
-                sub_0049C6C0_SendWaypointClose();
+                TEXT_SendWaypointClose();
             }
         }
         else if (gnWaypointSelected != -1 && gnWaypointSelected == sub_0049C510_GetWaypointRowAtPoint(nX, nY))
@@ -543,7 +543,7 @@ void __stdcall TEXT_OnWaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
             sub_00420290_BreakHandlerChain(pMsg);
             MSG_SendTwoDwords(0x49, gnWaypointId, gaWaypointEntries[gnWaypointSelected].nLevelId);
             gbSent = 1;
-            sub_0049C6C0_SendWaypointClose();
+            TEXT_SendWaypointClose();
             gbWaypointClosePressed = false;
             gnWaypointSelected = -1;
             UI_SetUIVar(0x14, 1, 0);

@@ -44,7 +44,8 @@ extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 int __cdecl sub_004B5BC0_SelectNpcEntry()
 {
     gtNpcMenu.nMenuState = 1;
-    int nIndex = sub_004B1D70_FindNpcEntry();
+// build: symbol ?NPCMENU_FindNpcEntry@* 0x004B1D70
+    int nIndex = NPCMENU_FindNpcEntry();
     gtNpcMenu.pEntry = &gaNpcEntries[nIndex];
     NPCMENU_OpenNpcPanel(0xD35, nIndex);
     return 1;

@@ -1102,7 +1102,8 @@ static int __stdcall UI_GetRosterHoverName(D2UnitStrc* pUnit, Unicode* pDst, int
 // 0x00452D20
 void __cdecl UI_DrawPetHover()
 {
-    if (sub_0045AE90_GetPanelSlideMode() == 3)
+// build: symbol ?UI_GetPanelSlideMode@* 0x0045AE90
+    if (UI_GetPanelSlideMode() == 3)
     {
         return;
     }
@@ -1245,7 +1246,7 @@ second_text:
 // 0x00453330
 void __fastcall UI_DrawPartyMemberText(D2UnitStrc* pUnit)
 {
-    const int nBorder = sub_0045AE90_GetPanelSlideMode();
+    const int nBorder = UI_GetPanelSlideMode();
     if (nBorder == 3)
     {
         return;
@@ -2154,7 +2155,7 @@ static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit)
         int nY;
 // build: symbol ?SCALE_AdjustPerspectivePosition@* 0x004F6760
         SCALE_AdjustPerspectivePosition(nPrecisionX, nPrecisionY, 0, &nX, &nY);
-        switch (sub_0045AE90_GetPanelSlideMode())
+        switch (UI_GetPanelSlideMode())
         {
         case 1:
             nX -= gnScreenWidth / 4;
@@ -2245,7 +2246,7 @@ void __cdecl UI_DrawHoverText()
 // 0x00454F30
 void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
 {
-    if (sub_0045AE90_GetPanelSlideMode() == 3)
+    if (UI_GetPanelSlideMode() == 3)
     {
         return;
     }
@@ -3306,7 +3307,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
         PANEL_DrawDurabilityIcons();
         PANEL_DrawQuantityWarningIcons();
     }
-    if (gaUIVarStates[10] && sub_0045AE90_GetPanelSlideMode() != 3)
+    if (gaUIVarStates[10] && UI_GetPanelSlideMode() != 3)
         PLAYER_DrawAutomap();
     GAME_DrawLevelLoadingScreen();
     HIREABLES_UpdateHirelingPanel();
@@ -3436,7 +3437,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
 done:
         INV_DrawHelpScreen();
     }
-    if (gaUIVarStates[13] && sub_0045AE90_GetPanelSlideMode() != 3)
+    if (gaUIVarStates[13] && UI_GetPanelSlideMode() != 3)
     {
         SHOWITEMS_DrawUnitNames();
         if (GAME_GetConnectionType())

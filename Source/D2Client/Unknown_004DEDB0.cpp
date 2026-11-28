@@ -56,7 +56,8 @@ static void __stdcall sub_004DEDF0_UpdateTileLights(D2TileLightEntryStrc* pEntry
     if (!pEntry->pList)
         return;
 
-    const int nScreenPanels = sub_0045AE90_GetPanelSlideMode();
+// build: symbol ?UI_GetPanelSlideMode@* 0x0045AE90
+    const int nScreenPanels = UI_GetPanelSlideMode();
     const int bPerspective = sub_004F51D0_IsPerspective();
     const unsigned int nTick = GetTickCount();
     for (D2TileLightNodeStrc* pNode = pEntry->pList; pNode; pNode = pNode->pNext)

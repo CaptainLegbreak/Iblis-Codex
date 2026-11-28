@@ -893,7 +893,7 @@ struct D2GSPacketSrv5A;
 
 struct D2SuperUniquesTxt;
 
-void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
+void __fastcall SKILLDESC_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
 
 
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526700
@@ -1497,7 +1497,8 @@ void __stdcall TEXT_OnWaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
             if (nX >= 0x111 && nX <= 0x111 + 0x23 && nY >= 0x183 && nY <= 0x183 + 0x21)
             {
                 UI_SetUIVar(0x14, 1, 0);
-                sub_0049C6C0_SendWaypointClose();
+// build: symbol ?TEXT_SendWaypointClose@* 0x0049C6C0
+                TEXT_SendWaypointClose();
             }
         }
         else if (gnWaypointSelected != -1 && gnWaypointSelected == sub_0049C510_GetWaypointRowAtPoint(nX, nY))
@@ -1507,7 +1508,7 @@ void __stdcall TEXT_OnWaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
             sub_00420290_BreakHandlerChain(pMsg);
             MSG_SendTwoDwords(0x49, gnWaypointId, gaWaypointEntries[gnWaypointSelected].nLevelId);
             gbSent = 1;
-            sub_0049C6C0_SendWaypointClose();
+            TEXT_SendWaypointClose();
             gbWaypointClosePressed = false;
             gnWaypointSelected = -1;
             UI_SetUIVar(0x14, 1, 0);
@@ -1747,7 +1748,8 @@ static int TEXT_DrawTextBoxAt(D2TextBoxStrc* pTextBox, D2RectStrc* pRect)
     else if (pTextBox->nScroll == 3)
         return 1;
 
-    switch (sub_0045AE90_GetPanelSlideMode())
+// build: symbol ?UI_GetPanelSlideMode@* 0x0045AE90
+    switch (UI_GetPanelSlideMode())
     {
     case 1:
         if (pRect->nLeft > gnScreenWidth / 2 - 10)
@@ -1887,7 +1889,7 @@ void __cdecl TEXT_DrawMessageList()
     nX = 0xF;
     nLine = 0;
     bSplit = 0;
-    switch (sub_0045AE90_GetPanelSlideMode())
+    switch (UI_GetPanelSlideMode())
     {
     case 1:
         bSplit = 1;
@@ -3677,7 +3679,7 @@ void __fastcall TEXT_DrawUnitHoverText(D2UnitStrc* pUnit)
     UNITS_GetClientCoords(pUnit, &tPos);
     tPos.nY += -0x1E - gtTextState.tHoverOffset.nTop;
     tPos.nX -= gtTextState.tHoverOffset.nLeft;
-    switch (sub_0045AE90_GetPanelSlideMode())
+    switch (UI_GetPanelSlideMode())
     {
     case 1:
         tPos.nX -= gnScreenWidth / 4;
@@ -3738,7 +3740,7 @@ void __fastcall TEXT_DrawObjectHoverText(D2UnitStrc* pUnit)
     UNITS_GetClientCoords(pUnit, &tPos);
     tPos.nY += -0x0A - gtTextState.tHoverOffset.nTop;
     tPos.nX -= gtTextState.tHoverOffset.nLeft;
-    switch (sub_0045AE90_GetPanelSlideMode())
+    switch (UI_GetPanelSlideMode())
     {
     case 1:
         tPos.nX -= gnScreenWidth / 4;

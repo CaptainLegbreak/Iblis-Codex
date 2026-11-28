@@ -178,7 +178,7 @@ struct D2MenuItemStrc
 
 int __cdecl sub_004DF980_IsSoundMode1Or2(); // 0x004DF980
 
-void __fastcall sub_004776C0_SetGamma(void* pArg); // 0x004776C0
+void __fastcall VIEW_SetGamma(void* pArg); // 0x004776C0
 
 
 
@@ -336,7 +336,8 @@ void __fastcall ESCMENU_MasterVolumeOption(D2MenuItemStrc* pItem, int nArg)
 // 0x0047CDE0
 int __fastcall sub_0047CDE0()
 {
-    return sub_004DF880_IsSoundSystemInit();
+// build: symbol ?SOUNDINST_IsSoundSystemInit@* 0x004DF880
+    return SOUNDINST_IsSoundSystemInit();
 }
 
 // 0x0047CDF0
@@ -378,7 +379,7 @@ void __fastcall ESCMENU_SoundMode2Option(D2MenuItemStrc* pItem, int nArg)
 // 0x0047CEE0
 int __fastcall sub_0047CEE0()
 {
-    return sub_004DF880_IsSoundSystemInit();
+    return SOUNDINST_IsSoundSystemInit();
 }
 
 // 0x0047CEF0
@@ -407,7 +408,7 @@ void __fastcall ESCMENU_NpcSpeechSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAM
 void __fastcall ESCMENU_NpcSpeechOption(D2MenuItemStrc* pItem, int nArg)
 {
     pItem->dwMoveCount = D2SOUND_GetNpcSpeechOption();
-    if (sub_004DF880_IsSoundSystemInit())
+    if (SOUNDINST_IsSoundSystemInit())
     {
         ESCMENU_NpcSpeechSelect(pItem, (SMSGHANDLER_PARAMS*)nArg);
     }
@@ -744,13 +745,13 @@ extern int gbSlotBarBlocked; // 0x007BC970
 // 0x0047CD80
 int __fastcall ESCMENU_IsSoundEnabled()
 {
-    return sub_004DF880_IsSoundSystemInit();
+    return SOUNDINST_IsSoundSystemInit();
 }
 
 // 0x0047CD90
 int __fastcall sub_0047CD90_IsSoundEnabled()
 {
-    return sub_004DF880_IsSoundSystemInit();
+    return SOUNDINST_IsSoundSystemInit();
 }
 
 // 0x0047CE30
@@ -865,7 +866,7 @@ void __fastcall ESCMENU_GammaSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* p
 {
     const unsigned int nGamma = ESCMENU_SliderToValue(pItem, 0x37, 0xFF);
     SRegSaveValue("Diablo II", "Gamma", 0, nGamma);
-    sub_004776C0_SetGamma((void*)nGamma);
+    VIEW_SetGamma((void*)nGamma);
 }
 
 // 0x0047D230
@@ -1390,7 +1391,7 @@ void __fastcall WARDENCLIENT_ToggleEscMenuUIState(int bSaveState, int nMenu)
 }
 
 // 0x0047E200
-void __fastcall sub_0047E200_CloseMenus(int bRestore)
+void __fastcall ESCMENU_CloseMenus(int bRestore)
 {
     if (GAME_GetUIVarState(9))
     {
@@ -2054,13 +2055,13 @@ void __fastcall MINIPANEL_ExitGame(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS
     WINMAIN_SetExitApplication(0);
     SendMessageA(pMsg->hWnd, 0x10, 0, 0);
     GAME_SetCinematicExit(1);
-    sub_0047E200_CloseMenus(1);
+    ESCMENU_CloseMenus(1);
 }
 
 // 0x0047F300
 void __fastcall sub_0047F300_CloseMenus(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_0047E200_CloseMenus(1);
+    ESCMENU_CloseMenus(1);
 }
 
 // 0x0047F310
