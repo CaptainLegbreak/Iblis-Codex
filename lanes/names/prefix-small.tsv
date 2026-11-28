@@ -1,0 +1,50 @@
+va	old_name	new_name	source	file	confidence	reason
+0x006C0B80	sub_006C0B80_AppendValue	DATATBLS_AppendValue	inferred	Source/Fog/Unknown_006C0B80.cpp	medium	DATATBLS: the prefix 5 named functions of the unit carry
+0x006C1820	sub_006C1820_GetOperandCount	DATATBLS_GetOperandCount	inferred	Source/Fog/Unknown_006C0B80.cpp	medium	DATATBLS: the prefix 5 named functions of the unit carry
+0x00523020	sub_00523020_GetAlignedData	BNDOWNLOAD_GetAlignedData	inferred	Source/D2BNClient/BnDownload.cpp	medium	BNDOWNLOAD: the prefix 96 named functions of the unit carry
+0x006CAE80	sub_006CAE80_InitializeLock	BNDOWNLOAD_InitializeLock	inferred	Source/D2BNClient/BnDownload.cpp	medium	BNDOWNLOAD: the prefix 96 named functions of the unit carry
+0x0051C9B0	sub_0051C9B0_GetPeerName	BNSEND_GetPeerName	inferred	Source/D2BNClient/BnSend.cpp	medium	BNSEND: the prefix 92 named functions of the unit carry
+0x0051C9E0	sub_0051C9E0_GetSockName	BNSEND_GetSockName	inferred	Source/D2BNClient/BnSend.cpp	medium	BNSEND: the prefix 92 named functions of the unit carry
+0x0051E340	sub_0051E340_BuildCDKeyInfoForSlot	BNSEND_BuildCDKeyInfoForSlot	inferred	Source/D2BNClient/BnSend.cpp	medium	BNSEND: the prefix 92 named functions of the unit carry
+0x00528890	sub_00528890_CompareServerProof	BNSEND_CompareServerProof	inferred	Source/D2BNClient/BnSend.cpp	medium	BNSEND: the prefix 92 named functions of the unit carry
+0x006CAEF0	sub_006CAEF0_InitializeBigPair	BNSEND_InitializeBigPair	inferred	Source/D2BNClient/BnSend.cpp	medium	BNSEND: the prefix 92 named functions of the unit carry
+0x0051D2A0	sub_0051D2A0_At	BNNEWS_At	inferred	Source/D2BNClient/BNNews.cpp	medium	BNNEWS: the prefix 9 named functions of the unit carry
+0x0051D6D0	sub_0051D6D0_Reserve	BNNEWS_Reserve	inferred	Source/D2BNClient/BNNews.cpp	medium	BNNEWS: the prefix 9 named functions of the unit carry
+0x0051D7F0	sub_0051D7F0_Grow	BNNEWS_Grow	inferred	Source/D2BNClient/BNNews.cpp	medium	BNNEWS: the prefix 9 named functions of the unit carry
+0x0051D810	sub_0051D810_SetCount	BNNEWS_SetCount	inferred	Source/D2BNClient/BNNews.cpp	medium	BNNEWS: the prefix 9 named functions of the unit carry
+0x006CAEC0	sub_006CAEC0_RegisterCleanup	BNNEWS_RegisterCleanup	inferred	Source/D2BNClient/BNNews.cpp	medium	BNNEWS: the prefix 9 named functions of the unit carry
+0x006CB450	sub_006CB450_StaticFiniNewsCache	BNNEWS_StaticFiniNewsCache	inferred	Source/D2BNClient/BNNews.cpp	medium	BNNEWS: the prefix 9 named functions of the unit carry
+0x005232B0	sub_005232B0_DecodeAndValidate	GRID_DecodeAndValidate	inferred	Source/D2BNClient/grid.cpp	medium	GRID: the prefix 8 named functions of the unit carry
+0x006B1A30	sub_006B1A30_ThrowAtlException	D3DCORE_ThrowAtlException	inferred	Source/D2Direct3D/Src/d3dCore.cpp	medium	D3DCORE: the prefix 48 named functions of the unit carry
+0x006B2F20	sub_006B2F20_GetModeFlag	D3DCORE_GetModeFlag	inferred	Source/D2Direct3D/Src/d3dCore.cpp	medium	D3DCORE: the prefix 48 named functions of the unit carry
+0x006B3080	sub_006B3080_InitBufferPools	D3DCORE_InitBufferPools	inferred	Source/D2Direct3D/Src/d3dCore.cpp	medium	D3DCORE: the prefix 48 named functions of the unit carry
+0x006BA6D0	sub_006BA6D0_Alloc	D3DTEXTURECACHE_Alloc	inferred	Source/D2Direct3D/Src/d3dTextureCache.cpp	medium	D3DTEXTURECACHE: the prefix 8 named functions of the unit carry
+0x0060D280	sub_0060D280_ScanSameRun	FASTCMP_ScanSameRun	inferred	Source/D2CMP/SRC/FastCmp.cpp	medium	FASTCMP: the prefix 10 named functions of the unit carry
+0x0060D3A0	sub_0060D3A0_ScanOtherRun	FASTCMP_ScanOtherRun	inferred	Source/D2CMP/SRC/FastCmp.cpp	medium	FASTCMP: the prefix 10 named functions of the unit carry
+0x004371C0	sub_004371C0_OnEmailScreen	MAINMENUS_OnEmailScreen	inferred	Source/D2Launch/Unknown_004370B0.cpp	medium	MAINMENUS: the prefix 16 named functions of the unit carry
+0x004374E0	sub_004374E0_OnInfoScreen	MAINMENUS_OnInfoScreen	inferred	Source/D2Launch/Unknown_004370B0.cpp	medium	MAINMENUS: the prefix 16 named functions of the unit carry
+0x00437720	sub_00437720_OnPasswordScreen	MAINMENUS_OnPasswordScreen	inferred	Source/D2Launch/Unknown_004370B0.cpp	medium	MAINMENUS: the prefix 16 named functions of the unit carry
+0x00437730	sub_00437730_ChangePassword	MAINMENUS_ChangePassword	inferred	Source/D2Launch/Unknown_004370B0.cpp	medium	MAINMENUS: the prefix 16 named functions of the unit carry
+0x006CAE20	sub_006CAE20_ClearTable	FONT_ClearTable	inferred	Source/D2Win/Src/D2WinFont.cpp	medium	FONT: D2MOO defines it in D2Win/src/D2WinFont.cpp (its 1.14d address comment), whose functions carry that prefix
+0x006CAE40	sub_006CAE40_InitializeColorCode	FONT_InitializeColorCode	inferred	Source/D2Win/Src/D2WinFont.cpp	medium	FONT: D2MOO defines it in D2Win/src/D2WinFont.cpp (its 1.14d address comment), whose functions carry that prefix
+0x006CAE50	sub_006CAE50_InitializeMonsterCode	FONT_InitializeMonsterCode	inferred	Source/D2Win/Src/D2WinFont.cpp	medium	FONT: D2MOO defines it in D2Win/src/D2WinFont.cpp (its 1.14d address comment), whose functions carry that prefix
+0x00513A20	sub_00513A20_EnumCallback	D2SOUND_EnumCallback	inferred	Source/D2Sound/Unknown_00513A20.cpp	medium	D2SOUND: the prefix 7 named functions of the unit carry
+0x00516570	sub_00516570_Log	D2SOUNDSMP_Log	inferred	Source/D2Sound/Src/D2SoundSmp.cpp	medium	D2SOUNDSMP: the prefix 36 named functions of the unit carry
+0x00516590	sub_00516590_Pow	D2SOUNDSMP_Pow	inferred	Source/D2Sound/Src/D2SoundSmp.cpp	medium	D2SOUNDSMP: the prefix 36 named functions of the unit carry
+0x00513BC0	sub_00513BC0_SetEaxRoomOff	D2SOUND_SetEaxRoomOff	inferred	Source/D2Sound/Unknown_00513BC0.cpp	medium	D2SOUND: the prefix 12 named functions of the unit carry
+0x005140D0	sub_005140D0_InitDirectSound	D2SOUND_InitDirectSound	inferred	Source/D2Sound/Unknown_00513BC0.cpp	medium	D2SOUND: the prefix 12 named functions of the unit carry
+0x00514530	sub_00514530_InitSound	D2SOUND_InitSound	inferred	Source/D2Sound/Unknown_00513BC0.cpp	medium	D2SOUND: the prefix 12 named functions of the unit carry
+0x00514990	sub_00514990_PickRandomChannel	D2SOUND_PickRandomChannel	inferred	Source/D2Sound/Unknown_00513BC0.cpp	medium	D2SOUND: the prefix 12 named functions of the unit carry
+0x00514D60	sub_00514D60_SetNpcSpeech	D2SOUND_SetNpcSpeech	inferred	Source/D2Sound/Unknown_00514B60.cpp	medium	D2SOUND: the prefix 12 named functions of the unit carry
+0x006C7C90	sub_006C7C90_Release	GDICORE_Release	inferred	Source/D2Gdi/Src/gdiCore.cpp	medium	GDICORE: the prefix 50 named functions of the unit carry
+0x006C8020	sub_006C8020_GetBufferBitmap	GDICORE_GetBufferBitmap	inferred	Source/D2Gdi/Src/gdiCore.cpp	medium	GDICORE: the prefix 50 named functions of the unit carry
+0x006C8240	sub_006C8240_GetTileDrawFunctions	GDICORE_GetTileDrawFunctions	inferred	Source/D2Gdi/Src/gdiCore.cpp	medium	GDICORE: the prefix 50 named functions of the unit carry
+0x005276A0	sub_005276A0_SetFromBytes	UNISYS_SetFromBytes	inferred	Source/D2Lang/Unicode/UNISYS.CPP	medium	UNISYS: the prefix 3 named functions of the unit carry
+0x005276C0	sub_005276C0_Contains	UNISYS_Contains	inferred	Source/D2Lang/Unicode/UNISYS.CPP	medium	UNISYS: the prefix 3 named functions of the unit carry
+0x005276E0	sub_005276E0_IsLeadByte	UNISYS_IsLeadByte	inferred	Source/D2Lang/Unicode/UNISYS.CPP	medium	UNISYS: the prefix 3 named functions of the unit carry
+0x00527AE0	sub_00527AE0_CompareKey	UNISYS_CompareKey	inferred	Source/D2Lang/Unicode/UNISYS.CPP	medium	UNISYS: the prefix 3 named functions of the unit carry
+0x00527B00	sub_00527B00_MapUnicodeChar	UNISYS_MapUnicodeChar	inferred	Source/D2Lang/Unicode/UNISYS.CPP	medium	UNISYS: the prefix 3 named functions of the unit carry
+0x00527B50	sub_00527B50_CodePageToUnicode	UNISYS_CodePageToUnicode	inferred	Source/D2Lang/Unicode/UNISYS.CPP	medium	UNISYS: the prefix 3 named functions of the unit carry
+0x00527BE0	sub_00527BE0_UnicodeToCodePage	UNISYS_UnicodeToCodePage	inferred	Source/D2Lang/Unicode/UNISYS.CPP	medium	UNISYS: the prefix 3 named functions of the unit carry
+0x00527CA0	sub_00527CA0_GetCodePageLength	UNISYS_GetCodePageLength	inferred	Source/D2Lang/Unicode/UNISYS.CPP	medium	UNISYS: the prefix 3 named functions of the unit carry
+0x00527D50	sub_00527D50_GetCodePageCharCount	UNISYS_GetCodePageCharCount	inferred	Source/D2Lang/Unicode/UNISYS.CPP	medium	UNISYS: the prefix 3 named functions of the unit carry
