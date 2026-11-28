@@ -4,6 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- **lane1/gamestrc-fields** (b92384e30, on main #494 0bf13c4f5; VERIFIED tree cf3b3a00a8326a05d4fed90d9f3bb5ab876a2433; merges clean on #495; independent). D2GameStrc.h: 6 `unk0x..` -> 0. D2GameStrc 0x24 is only set to 1 (Game.cpp, both game setups) and never read: `unused0x24`, the two writes renamed; the other unread spans `unused0x<off>`, alignment gaps `pad0x<off>`. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 20,572 -> 20,572 (main #494), every module unchanged.
+
 - **lane1/wincontrols-fields** (79fa0dc0e, on main #494 0bf13c4f5; VERIFIED tree 7e006c02d795de8e7e3d2832af32a46efc399746; merges clean on #495; independent). D2WinControls.h: 6 `unk0x..` -> 0. The text box's 0x98 and the account list's 0x54 are nTextColor (each create function copies the font record's second word there after eFont; D2MOO's edit box and button keep eFont then nTextColor); users in D2WinTextBox.cpp and D2WinAccountList.cpp renamed. The account list's 0x4C is set from a create parameter and never read: `unused0x4C`. The text box line's alignment gap `pad0x<off>`. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 20,572 -> 20,572 (main #494), every module unchanged.
 
 - **lane1/inactiveunits-fields** (89252b0b2, on main #494 0bf13c4f5; VERIFIED tree 5a7067840cf55466e2635efdc7573f9a5d940c8e; merges clean on #495; independent). D2InactiveUnits.h: 5 `unk0x..` -> 0, none named by any code, all gaps the compiler leaves anyway: `pad0x<off>`. Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 20,572 -> 20,572 (main #494 measured here), every module unchanged.
@@ -15,6 +17,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Fri Nov 27 19:46 PST 2026: gamestrc-fields Ready. drlgpresets-fields building.
 - Fri Nov 27 19:34 PST 2026: wincontrols-fields Ready.
 - Fri Nov 27 19:25 PST 2026: inactiveunits-fields Ready. Building: wincontrols-fields, gamestrc-fields; then drlgpresets-fields (D2DrlgPresets.h, 5; claimed). D2ClientTextBox.h's unk spans are partial views of other records: left for queue item 2.
 - Fri Nov 27 19:13 PST 2026: check-in. #495 took gameaux, cmpcache and drlgrooms (Ready lines dropped). Building on #494: inactiveunits-fields (D2InactiveUnits.h), wincontrols-fields (D2WinControls.h; the text box's 0x98 and the account list's 0x54 are nTextColor, the font record's second word, as D2MOO's edit box and button store eFont then nTextColor), gamestrc-fields (D2GameStrc.h; 0x24 is only set to 1, unused0x24). Claimed: those three headers and their few users in D2Win and Game.cpp. D2ClientTextPanel.h needs a hand pass (no offset comments), later.
