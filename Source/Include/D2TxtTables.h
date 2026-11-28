@@ -110,7 +110,7 @@ struct D2OverlayTxt
 {
     unsigned short wOverlay; // 0x00
     char szFilename[64]; // 0x02
-    unsigned short wVersion; // 0x42
+    short wVersion; // 0x42
     unsigned int dwFrames; // 0x44
     unsigned char nPreDraw; // 0x48
     unsigned int dw1ofN; // 0x4C

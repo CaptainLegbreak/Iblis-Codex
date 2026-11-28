@@ -17,6 +17,7 @@
 #include "D2ClientGfxState.h"
 #include "D2PlayerModes.h"
 #include "D2MonModes.h"
+#include "D2TxtTables.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
@@ -52,8 +53,6 @@ struct D2UnitTargetStrc;
 struct D2GfxLightStrc;
 
 union D2SeedStrc;
-
-struct D2OverlayTxt;
 
 struct D2StateNodeStrc;
 
@@ -108,32 +107,6 @@ struct D2UnitOverlayStrc
     };
     char unk0x44[0x60];
     D2UnitOverlayStrc* pNext;
-};
-
-struct D2OverlayTxt
-{
-    char unk0x00[0x42];
-    short wPreDraw;
-    char unk0x44[4];
-    unsigned char nByte48;
-    char unk0x49[0x0B];
-    int n54;
-    int n58;
-    int n5C;
-    int n60;
-    int n64;
-    int n68;
-    int n6C;
-    int n70;
-    int n74;
-    int n78;
-    unsigned char nTrans;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nNumDirections;
-    unsigned char nLocalBlood;
-    unsigned short pad0x82;
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -2608,7 +2581,7 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nType, i
         return;
 
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-    if (!FOG_IsExpansion() && pTxt->wPreDraw >= 0x64)
+    if (!FOG_IsExpansion() && pTxt->wVersion >= 0x64)
         return;
 
     D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
@@ -2625,7 +2598,7 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nType, i
         return;
 
     if (nOverlay < 0x8C || nOverlay > 0x8E && nOverlay != 0x9E)
-        AUTOMAP_RemoveUnitOverlay(pUnit, pTxt->nByte48, nOverlay);
+        AUTOMAP_RemoveUnitOverlay(pUnit, pTxt->nPreDraw, nOverlay);
 
     D2UnitOverlayStrc* pNew = (D2UnitOverlayStrc*)FOG_Alloc(sizeof(D2UnitOverlayStrc), ".\\ENGINE\\Gfx.cpp", 0xC48, 0);
     D2_ASSERT(pNew, 0xC49);
@@ -2648,37 +2621,37 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nType, i
         break;
     }
 
-    pNew->nXOffset = pTxt->n54;
-    pNew->nYOffset = pTxt->n58;
+    pNew->nXOffset = pTxt->dwOffsetX;
+    pNew->nYOffset = pTxt->dwOffsetY;
     switch (UNITS_GetOverlayHeight(pUnit))
     {
     case -1:
         pNew->nYOffset += 0x4B;
         break;
     case 0:
-        pNew->nYOffset += pTxt->n5C;
+        pNew->nYOffset += pTxt->dwHeight[0];
         break;
     case 1:
-        pNew->nYOffset += pTxt->n60;
+        pNew->nYOffset += pTxt->dwHeight[1];
         break;
     case 2:
-        pNew->nYOffset += pTxt->n64;
+        pNew->nYOffset += pTxt->dwHeight[2];
         break;
     case 3:
-        pNew->nYOffset += pTxt->n68;
+        pNew->nYOffset += pTxt->dwHeight[3];
         break;
     }
 
-    if (pTxt->n74)
+    if (pTxt->dwRadius)
     {
-        pNew->pLight = DLIGHTMAP_MakeLightEntry(pUnit, 1, pTxt->n70, 0xFF, pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
-        if (pTxt->n74 != pTxt->n70)
-            sub_00474290(pNew->pLight, pTxt->n74);
+        pNew->pLight = DLIGHTMAP_MakeLightEntry(pUnit, 1, pTxt->dwInitRadius, 0xFF, pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
+        if (pTxt->dwRadius != pTxt->dwInitRadius)
+            sub_00474290(pNew->pLight, pTxt->dwRadius);
     }
 
     D2UnitGfxDataStrc* pGfx = CUNIT_GetGfxData(pUnit);
     D2_ASSERT(pGfx, 0xC7A);
-    pNew->bFront = pTxt->nByte48;
+    pNew->bFront = pTxt->nPreDraw;
     pNew->pNext = pGfx->pOverlays;
     pGfx->pOverlays = pNew;
     if (pNew->nType == 8)
@@ -2690,11 +2663,11 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nType, i
     if (nArg4)
         pNew->nFrame = ITEMS_RollLimitedRandomNumber(&pPlayer->pSeed, nArg4 << 8);
 
-    pNew->nSpeed = pTxt->n6C << 4;
+    pNew->nSpeed = pTxt->dwAnimRate << 4;
     if (nArg8)
         pNew->nSpeed += ITEMS_RollLimitedRandomNumber(&pPlayer->pSeed, nArg8 << 4);
 
-    pNew->dwDelay = pTxt->n78;
+    pNew->dwDelay = pTxt->dwLoopWaitTime;
 }
 
 // 0x004706E0
