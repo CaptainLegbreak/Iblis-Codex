@@ -1,3 +1,6 @@
+// A piece of text.cpp, kept as its own file because its declarations disagree with text.cpp's: SOUNDINST_ArmHint
+// and sub_004B9A00 take an int here where text.cpp's prototypes take D2SoundStrc* and D2UnitStrc*, and it reads a
+// D2TextBoxStrc field (unknown16) the shared struct doesn't have. It joins once those agree.
 #include "D2Client.h"
 #include "D2ClientFuncs.h"
 #include "D2ClientTextState.h"

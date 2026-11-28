@@ -1,3 +1,6 @@
+// A piece of text.cpp, kept as its own file because its declarations disagree with text.cpp's: it reads the cell
+// file through a D2GfxDataStrc field (pCellFile) the shared struct doesn't have under that name, and passes
+// QUESTRECORD_GetQuestState an int where text.cpp's prototype takes a D2BitBufferStrc*. It joins once those agree.
 struct D2UnitStrc; struct D2ActiveRoomStrc; struct D2BitBufferStrc;
 struct D2GfxDataStrc { int nFrame; int unknown04[12]; void* pCellFile; int unknown38[2]; int nDirection; int unknown44; };
 struct Unicode { unsigned short wChar; };
