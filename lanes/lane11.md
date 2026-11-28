@@ -4,6 +4,10 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Ready
 
+- **lane11/names-defs b23b4517e, on main #494** (independent of names-small-3; merges clean with it and with #495). The placeholder items the other way round: definitions in source still named by address while the declarations elsewhere already give them a real name. Two commits:
+  1. 9 functions defined as sub_<VA> take the name their declarations use, names.csv following (CCMD_IsStringZeroTerminated, MONSTER_CheckSummonerFlag, MONSTER_ToggleSummonerFlag, MONSTER_SetLevelId, ACT1Q1_CanClientFXBeTriggered and the rest). Three left: 0x0040D8D0, 0x00554100, 0x0058EE80 (their units fail with the name).
+  2. 10 globals defined with their address in the name take their declared name (gnScreenWidth, gnAutomapCellCount, gaszModuleTypes...); 14 stay.
+  Only names that aren't placeholders themselves, and no file another lane claims. Link debt, main #494 -> this branch: 20,572 -> 20,517 (placeholder 2,941 -> 2,846): D2Game placeholder 460 -> 420, D2Direct3D 259 -> 233, D2Client 929 -> 914, Storm 206 -> 197, D2BNClient, Main down; no module rose. Audit guard: no count rose. Full build: VERIFIED tree 276c5931754009f0db1147190cc07a6bd6140908, Game.exe identical, 14,927 / 14,927 placed, borrowed code 0, borrowed data 253 B, 0 not all equal.
 - **lane11/names-small-3 3653f8255, on main #494** (D2Win, D2Direct3D, Storm, D2BNClient, Fog, D2Glide, D2CMP, D2Sound, D2DDraw, D2Gdi, D2MCPClient, D2Gfx, D2Lang, Bnclient, D2Hell, Main, D2Net, SRP; no file another lane claims). Two commits:
   1. different_identifier: 43 placeholder spellings take their definition's name; the rest of these modules' placeholder spellings have private declarations of another type (lanes/names/lane11-left.tsv, for lane 12).
   2. placeholder: 137 data plan entries generated as gData_<VA> now define their declared name. **Left out, for the coordinator:** 0x006FCC24 (gszErrorDefaults_006FCC24, Storm SCMD.CPP) moves the image: the source declares `const char*[]`, the plan `const char* const`, so under its own name it leaves .rdata (3 linker_output bytes). Storm's other entries (0x006CEDCC szSMemAlloc_006CEDCC and more) and three others, 0x0072FF8C (gszTypeNewsTableItem_0072FF8C, D2BNClient BNNews.cpp), 0x006FD3E8 (gCrc32Table_006FD3E8, D2Hell CRC.cpp) and 0x0074C5C8 (gCharacterClass_0074C5C8, D2Hell Unknown_006C9A38.cpp), keep the image identical but raise borrowed data (253 -> up to 11,489 B), so they stay gData_ too.
@@ -15,6 +19,7 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Claimed
 
+- Fri Nov 27 19:24 PST 2026: check-in. names-defs posted. Next: queue item 4, unsourced_data (the gsz strings no source defines), module by module, after a look at how the data plan gives a new definition.
 - Fri Nov 27 18:48 PST 2026: check-in. names-small-3 posted on #494 (queue item 1), entries that move the image or raise borrowed data named in the Ready line. Next, queue item 3: the remaining placeholder data names module by module.
 - Fri Nov 27 16:58 PST 2026: check-in. names-small-2: besides 0x006FCC24, a few data plan names leave the image identical but raise borrowed data (253 -> 8,874 B; Storm's strings such as 0x006CEDCC szSMemAlloc_006CEDCC, and some of 42 non-string entries). Bisecting them out; the branch posts with borrowed data back at main's figure.
 - Fri Nov 27 14:48 PST 2026: check-in. names-small-2: the Storm entry that moved the image is 0x006FCC24 (gszErrorDefaults_006FCC24, SCMD.CPP; the source says const char*[], the plan const char* const). Without it the image is identical, but borrowed data rises 253 -> 11,489 B, so I'm bisecting the 161 data plan names for the ones that do that before posting.
