@@ -189,7 +189,6 @@ static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBo
 }
 
 int __stdcall HIREABLES_CanEquipHirelingItem(int playSound); // 0x004934D0
-void __stdcall sub_K04_EmitUse(int nValue);
 
 // 0x00492BC0
 int __cdecl VIEW_GetPetTypeCount()
@@ -909,11 +908,6 @@ static int __stdcall HIREABLES_IsMouseInBox(int nLeft, int nBottom, int nWidth, 
     return 0;
 }
 
-void __fastcall sub_K04_EmitIsMouseInBox(int nX, int nY)
-{
-    sub_K04_EmitUse(HIREABLES_IsMouseInBox(nX + 0x31, nY - 0x27, 0x23, 0x25));
-}
-
 // 0x00495030
 void __cdecl HIREABLES_DrawKeyHelp()
 {
@@ -978,9 +972,7 @@ void __stdcall HIREABLES_ButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
     }
     const int nBottom = gnScreenHeight - 0xA0;
     const int nLeft = gnScreenWidth - 0x4B;
-    const int nX = sub_00468730();
-    const int nY = sub_00468740();
-    if (nX >= nLeft && nX <= nLeft + 0x23 && nY >= nBottom - 0x24 && nY <= nBottom)
+    if (HIREABLES_IsMouseInBox(nLeft, nBottom, 0x23, 0x24))
     {
         gbHelpButtonPressed = 1;
         pMsg->bReturn = 1;
@@ -998,9 +990,7 @@ void __stdcall HIREABLES_ButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     }
     const int nBottom = gnScreenHeight - 0xA0;
     const int nLeft = gnScreenWidth - 0x4B;
-    const int nX = sub_00468730();
-    const int nY = sub_00468740();
-    if (nX >= nLeft && nX <= nLeft + 0x23 && nY >= nBottom - 0x24 && nY <= nBottom)
+    if (HIREABLES_IsMouseInBox(nLeft, nBottom, 0x23, 0x24))
     {
         UI_SetUIVar(0x22, 1, 0);
         UI_SetUIVar(0x21, 2, 0);
