@@ -69,17 +69,9 @@ struct D2SplittedTextStrc;
 
 struct SMSGHANDLER_PARAMS;
 
-struct ByteRecord;
-
 struct PacketWords;
 
 struct HashState;
-
-struct Member;
-
-struct ClassRecord;
-
-struct ClassTableView;
 
 class ListBoxImplementation;
 
@@ -242,13 +234,6 @@ void __stdcall TEXT_OpenTextPanel(int bFlag); // 0x0049FBA0
 
 
 
-struct ByteRecord
-{
-    char gap00[0x3E];
-    unsigned char value;
-    char tail[0x4F];
-};
-
 #pragma pack(push, 1)
 
 struct PacketWords
@@ -272,44 +257,9 @@ struct HashState
     char block[0x40];
 };
 
-struct Member
-{
-    short value;
-};
-
-struct ClassRecord
-{
-    char gap00[2];
-    short relation;
-    short next;
-    char gapToMembers[0x16A];
-    Member members[8];
-    char tail[0x28];
-};
-
-struct ClassTableView
-{
-    char gap00[0xA78];
-    ClassRecord* records;
-    char gapAfterRecords[4];
-    int count;
-};
-
-typedef char ByteRecord_value[OFFSET(ByteRecord,value)==0x3E?1:-1];
-
 typedef char PacketWords_kind[OFFSET(PacketWords,kind)==0x1?1:-1];
 
 typedef char PacketWords_wSlots[OFFSET(PacketWords,wSlots)==0x3?1:-1];
-
-typedef char ClassRecord_relation[OFFSET(ClassRecord,relation)==0x2?1:-1];
-
-typedef char ClassRecord_next[OFFSET(ClassRecord,next)==0x4?1:-1];
-
-typedef char ClassRecord_members[OFFSET(ClassRecord,members)==0x170?1:-1];
-
-typedef char ClassTableView_records[OFFSET(ClassTableView,records)==0xA78?1:-1];
-
-typedef char ClassTableView_count[OFFSET(ClassTableView,count)==0xA80?1:-1];
 
 typedef char HashState_a[OFFSET(HashState,a)==0x0?1:-1];
 
@@ -325,18 +275,11 @@ typedef char HashState_lowCount[OFFSET(HashState,lowCount)==0x14?1:-1];
 
 typedef char HashState_highCount[OFFSET(HashState,highCount)==0x18?1:-1];
 
-typedef char ByteRecord_size[sizeof(ByteRecord)==0x8E?1:-1];
-
 typedef char PacketWords_size[sizeof(PacketWords)==0xF?1:-1];
 
 typedef char HashState_size[sizeof(HashState)==0x5C?1:-1];
 
-typedef char Member_size[sizeof(Member)==0x2?1:-1];
-
-typedef char ClassRecord_size[sizeof(ClassRecord)==0x1A8?1:-1];
-
 // build: symbol _sgptSoundHeaderTable 0x007BC9A0
-extern "C" ByteRecord* sgptSoundHeaderTable;
 
 extern "C" int gRecordCount_007BC9A4;
 
@@ -345,8 +288,6 @@ extern "C" unsigned int gValue_007BF254; // 0x007BF254
 
 
 extern "C" HashState gatBnHashCtx[];
-
-extern "C" ClassTableView* gClassTable_00744304;
 
 static bool TEXT_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText); // 0x0049E280
 
@@ -491,8 +432,6 @@ int __cdecl sub_00525150();
 
 #define STAT_LEVEL 12
 
-struct D2SliderButtonStrc;
-
 
 
 
@@ -517,24 +456,11 @@ void __stdcall TEXT_LoadQuestPage(int nPage, int nArg); // 0x004A3220
 
 #pragma pack(push, 2)
 
-struct D2SliderButtonStrc
-{
-    unsigned short nStringId;
-    void (__cdecl* pfnClick)();
-    int unk0x06;
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
-
 
 #pragma pack(pop)
 
 
 
-
-extern D2SliderButtonStrc gaKeyConfigButtons[3]; // 0x007246D8
 
 int gaPressed[7]; // 0x007C0288
 
@@ -564,13 +490,6 @@ extern int gnAutomapHeight; // 0x007A521C
 
 
 #pragma pack(push, 2)
-
-struct D2ClientListEntryStrc
-{
-    int nId;
-    unsigned short nString;
-    unsigned char unk0x06[4];
-};
 
 #pragma pack(pop)
 
@@ -975,10 +894,6 @@ D2TextHeaderStrc* gpTextHeader; // 0x007BF250
 
 
 
-extern D2ClientListEntryStrc gaKeyConfigEntries[]; // 0x00724268
-
-extern D2ClientListEntryStrc gaKeyConfigEntriesExp[]; // 0x00724468
-
 static int TEXT_GetWeaponBlock(D2UnitStrc* pUnit); // 0x004A70C0
 
 static int TEXT_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate); // 0x004A7300
@@ -1068,20 +983,6 @@ ListBoxWrapper* gpListBox; // 0x007BF1B4
 
 
 
-struct SearchRecord
-{
-    char unused0[2];
-    unsigned char value;
-    unsigned char destination;
-    char unused4[4];
-    int key;
-    char unusedC[0x4];
-};
-typedef char SearchRecord_size[(sizeof(SearchRecord)==0x10)?1:-1];
-typedef char SearchRecord_key_offset[(FIELD_OFFSET(SearchRecord,key)==8)?1:-1];
-typedef char SearchRecord_value_offset[(FIELD_OFFSET(SearchRecord,value)==2)?1:-1];
-typedef char SearchRecord_destination_offset[(FIELD_OFFSET(SearchRecord,destination)==3)?1:-1];
-extern "C" SearchRecord gSearch_00723F30[41];
 struct OutputRecord
 {
     char opaque[0x120];

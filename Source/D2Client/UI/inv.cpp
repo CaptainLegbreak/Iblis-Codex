@@ -54,16 +54,6 @@ struct D2MonsterDataStrc;
 
 struct D2ClientNotifyStrc;
 
-struct D2ClientNodeStrc;
-
-struct D2RosterSubStrc;
-
-struct D2RosterEntryStrc;
-
-
-struct D2ClientSlotObjStrc;
-
-struct D2ClientSlotHolderStrc;
 
 struct D2ClientRecordStrc;
 
@@ -88,8 +78,6 @@ struct D2DataTablesStrc;
 
 struct D2ItemsTxt;
 
-struct D2AuxLevelEntryStrc;
-
 struct D2UnitGfxDataStrc;
 
 extern int gbRightClickConsumed; // 0x007A0670
@@ -98,49 +86,10 @@ extern int gbPopupDismissed; // 0x007A5254
 
 static D2UnitStrc* gpHoverItem; // 0x007BCBF4
 
-struct D2ClientNodeStrc
-{
-    char unk0x00[0x08];
-    int nId;
-    char unk0x0C[0x08];
-    int nValueA;
-    int nValueB;
-    char unk0x1C[0x14];
-    D2ClientNodeStrc* pNext;
-};
-
-struct D2RosterSubStrc
-{
-    int nUnk0x00;
-    D2RosterSubStrc* pNext;
-};
-
-struct D2RosterEntryStrc
-{
-    char unk0x00[0x34];
-    void* pResource;
-    D2RosterSubStrc* pSubList;
-    char unk0x3C[0x44];
-    D2RosterEntryStrc* pNext;
-};
-
 struct D2ClientServiceStrc
 {
     char unk0x00[0xD0];
     int (__fastcall* pfnCall)(int nArg1, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
-};
-
-struct D2ClientSlotObjStrc
-{
-    virtual void Slot0();
-    virtual void Slot1();
-    virtual void Slot2(int nArg1, int nArg2, int* pOut);
-};
-
-struct D2ClientSlotHolderStrc
-{
-    char unk0x00[0x0C];
-    D2ClientSlotObjStrc* pObj;
 };
 
 struct D2ClientRecordStrc
@@ -243,15 +192,9 @@ extern int gnPanelOffsetX; // 0x007A2858
 
 extern int gnPanelOffsetY; // 0x007A285C
 
-extern D2ClientNodeStrc* gpNodeList_007BB5BC; // 0x007BB5BC
-
-extern D2RosterEntryStrc* gpRosterListA_007BB5C0; // 0x007BB5C0
-
 extern int gdwGlobal_007BB5DC; // 0x007BB5DC
 
 extern unsigned char gnGlobal_007BB5E0; // 0x007BB5E0
-
-extern D2ClientSlotHolderStrc* gpSlotHolder; // 0x007BC990
 
 static int gbHoverInGrid; // 0x007BCBE4
 
@@ -517,15 +460,6 @@ void __fastcall sub_00478600(unsigned char command, unsigned short value, unsign
 
 static void INV_DrawUnitEquippedItems(D2UnitStrc* pUnit); // 0x0048B540
 
-struct D2AuxLevelEntryStrc
-{
-    int nType;
-    const char* szFile;
-    char bLocalized;
-    char bFormat;
-    char unk0x0A[2];
-};
-
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
@@ -540,8 +474,6 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x00
 extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); // 0x00684BD5
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
-
-extern D2AuxLevelEntryStrc gaAuxLevelEntries[]; // 0x00721D98
 
 static void __stdcall INV_GetItemDamageRange(D2UnitStrc* pItem, D2UnitStrc* pUnit, int nStatMin, int nStatMax, int* pnMin, int* pnMax, int* pbModified);
 
@@ -614,16 +546,6 @@ extern D2HirelingIconRecordStrc* gpHirelingRecords_007BEEAC; // 0x007BEEAC
 int gdwGlobal_007BC974; // 0x007BC974
 
 
-struct D2ClientCacheEntryStrc
-{
-    unsigned char unk0x00[0x4C];
-    unsigned char bLocked;
-    unsigned char unk0x4D[0x2F];
-    unsigned char dwLastUse[4];
-    unsigned char unk0x80[0x0A];
-    unsigned char nRefCount[4];
-};
-
 struct D2ClientStateStrc
 {
     char unk0x00[0x11D];
@@ -658,8 +580,6 @@ void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetU
 
 
 extern D2ClientTabStrc gaNpcTabStates[];                                                                   // 0x0072211A
-
-extern D2ClientCacheEntryStrc* sgptSoundHeaderTable;                                                     // 0x007BC9A0
 
 extern int gnCacheEntries_007BC9A4;                                                                         // 0x007BC9A4
 

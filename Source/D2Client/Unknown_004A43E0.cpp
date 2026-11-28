@@ -69,16 +69,6 @@ struct D2SplittedTextStrc;
 
 struct SMSGHANDLER_PARAMS;
 
-struct ByteRecord;
-
-struct HashState;
-
-struct Member;
-
-struct ClassRecord;
-
-struct ClassTableView;
-
 class ListBoxImplementation;
 
 
@@ -176,94 +166,13 @@ void __stdcall TEXT_OpenTextPanel(int bFlag); // 0x0049FBA0
 
 
 
-struct ByteRecord
-{
-    char gap00[0x3E];
-    unsigned char value;
-    char tail[0x4F];
-};
-
-struct HashState
-{
-    unsigned int a;
-    unsigned int b;
-    unsigned int c;
-    unsigned int d;
-    unsigned int e;
-    unsigned int lowCount;
-    unsigned int highCount;
-    char block[0x40];
-};
-
-struct Member
-{
-    short value;
-};
-
-struct ClassRecord
-{
-    char gap00[2];
-    short relation;
-    short next;
-    char gapToMembers[0x16A];
-    Member members[8];
-    char tail[0x28];
-};
-
-struct ClassTableView
-{
-    char gap00[0xA78];
-    ClassRecord* records;
-    char gapAfterRecords[4];
-    int count;
-};
-
-typedef char ByteRecord_value[OFFSET(ByteRecord,value)==0x3E?1:-1];
-
-typedef char ClassRecord_relation[OFFSET(ClassRecord,relation)==0x2?1:-1];
-
-typedef char ClassRecord_next[OFFSET(ClassRecord,next)==0x4?1:-1];
-
-typedef char ClassRecord_members[OFFSET(ClassRecord,members)==0x170?1:-1];
-
-typedef char ClassTableView_records[OFFSET(ClassTableView,records)==0xA78?1:-1];
-
-typedef char ClassTableView_count[OFFSET(ClassTableView,count)==0xA80?1:-1];
-
-typedef char HashState_a[OFFSET(HashState,a)==0x0?1:-1];
-
-typedef char HashState_b[OFFSET(HashState,b)==0x4?1:-1];
-
-typedef char HashState_c[OFFSET(HashState,c)==0x8?1:-1];
-
-typedef char HashState_d[OFFSET(HashState,d)==0xC?1:-1];
-
-typedef char HashState_e[OFFSET(HashState,e)==0x10?1:-1];
-
-typedef char HashState_lowCount[OFFSET(HashState,lowCount)==0x14?1:-1];
-
-typedef char HashState_highCount[OFFSET(HashState,highCount)==0x18?1:-1];
-
-typedef char ByteRecord_size[sizeof(ByteRecord)==0x8E?1:-1];
-
-typedef char HashState_size[sizeof(HashState)==0x5C?1:-1];
-
-typedef char Member_size[sizeof(Member)==0x2?1:-1];
-
-typedef char ClassRecord_size[sizeof(ClassRecord)==0x1A8?1:-1];
-
 // build: symbol _sgptSoundHeaderTable 0x007BC9A0
-extern "C" ByteRecord* sgptSoundHeaderTable;
 
 extern "C" int gRecordCount_007BC9A4;
 
 extern "C" unsigned int gValue_007BF254; // 0x007BF254
 
 
-
-extern "C" HashState gatBnHashCtx[];
-
-extern "C" ClassTableView* gClassTable_00744304;
 
 static bool TEXT_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText); // 0x0049E280
 
@@ -623,8 +532,6 @@ int __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 static int TEXT_FindQuestIndex(int nKey);
 
 
-struct D2StringSoundStrc;
-
 
 
 
@@ -648,19 +555,9 @@ extern void* gpWaypointIconCel; // 0x007BF079
 
 
 
-struct D2StringSoundStrc
-{
-    unsigned short wStringId;
-    unsigned short wSoundId;
-};
-
 extern "C" const char gszFormatD[]; // 0x006D57BC
 
 extern "C" const char gszFormatSound[]; // 0x006DA194
-
-extern D2StringSoundStrc* gapClassStringSounds[]; // 0x00722F1C
-
-extern D2StringSoundStrc gaMonStringSounds[]; // 0x00723750
 
 static void __stdcall TEXT_ShowHoverText(const Unicode* wszText, D2UnitStrc* pUnit, D2HoverTextStrc* pHoverText, D2CoordStrc* pPos); // 0x004A0A00
 

@@ -53,8 +53,6 @@ struct D2ClientTimedBoxStrc;
 
 struct D2ClientViewStrc;
 
-struct D2PalShiftEntryStrc;
-
 struct D2DrlgCoordsStrc;
 
 struct D2MissileStrc;
@@ -118,12 +116,6 @@ struct D2ClientViewStrc
     int nPosY;
 };
 
-struct D2PalShiftEntryStrc
-{
-    int nId;
-    int nValue;
-};
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
@@ -163,8 +155,6 @@ extern int gbRunButtonDown; // 0x007BEFD8
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-
-extern D2PalShiftEntryStrc* gpPalShiftEntries; // 0x007B9578
 
 extern int gnGlobal_007B957C; // 0x007B957C
 

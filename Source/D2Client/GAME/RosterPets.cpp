@@ -21,12 +21,6 @@
 
 struct Unicode;
 
-struct D2PanelAnimEntryStrc
-{
-    void* pData;
-    char unk0x04[0x18];
-};
-
 struct D2DialogTimerStrc
 {
     unsigned int dwTick;
@@ -64,8 +58,6 @@ int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, 
 
 
 
-
-extern D2PanelAnimEntryStrc gaPanelAnim[];                                                         // 0x00712020
 
 
 

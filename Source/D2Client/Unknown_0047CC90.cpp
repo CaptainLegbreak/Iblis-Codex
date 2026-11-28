@@ -31,24 +31,6 @@ struct D2MsgHandlerEntryStrc;
 
 struct Unicode;
 
-struct D2ClientFlagsLowStrc;
-
-struct D2ClientFlagsStrc;
-
-struct D2ClientFlagsLowStrc
-{
-    unsigned char bFlag0 : 1;
-    unsigned char bNumberDisplay : 1;
-    unsigned char bFlags2 : 6;
-};
-
-struct D2ClientFlagsStrc
-{
-    unsigned int bFlags0 : 8;
-    unsigned int bClassOverride : 1;
-    unsigned int bFlags9 : 23;
-};
-
 extern "C" __declspec(dllimport) unsigned short __stdcall GetSystemDefaultLangID(); // 0x006CC354
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -56,10 +38,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
 int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
-
-extern D2ClientFlagsLowStrc gtClientFlagsLow_00712EFC; // 0x00712EFC
-
-extern D2ClientFlagsStrc gtClientFlags_00712EFC; // 0x00712EFC
 
 extern int gnLanguageId;        // 0x007BB5DC
 

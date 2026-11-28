@@ -50,24 +50,12 @@ struct D2MonsterDataStrc;
 
 struct D2ClientNotifyStrc;
 
-struct D2ClientNodeStrc;
-
-struct D2RosterSubStrc;
-
-struct D2RosterEntryStrc;
-
-struct D2ClientSlotObjStrc;
-
-struct D2ClientSlotHolderStrc;
-
 struct D2ItemStatCostTxt;
 
 
 struct D2StaticPathStrc;
 
 struct D2InventoryGridInfoStrc;
-
-struct LookupNode;
 
 struct SMSGHANDLER_PARAMS;
 
@@ -87,45 +75,6 @@ extern int gbRightClickConsumed; // 0x007A0670
 
 extern int gbPopupDismissed; // 0x007A5254
 
-
-struct D2ClientNodeStrc
-{
-    char unk0x00[0x08];
-    int nId;
-    char unk0x0C[0x08];
-    int nValueA;
-    int nValueB;
-    char unk0x1C[0x14];
-    D2ClientNodeStrc* pNext;
-};
-
-struct D2RosterSubStrc
-{
-    int nUnk0x00;
-    D2RosterSubStrc* pNext;
-};
-
-struct D2RosterEntryStrc
-{
-    char unk0x00[0x34];
-    void* pResource;
-    D2RosterSubStrc* pSubList;
-    char unk0x3C[0x44];
-    D2RosterEntryStrc* pNext;
-};
-
-struct D2ClientSlotObjStrc
-{
-    virtual void Slot0();
-    virtual void Slot1();
-    virtual void Slot2(int nArg1, int nArg2, int* pOut);
-};
-
-struct D2ClientSlotHolderStrc
-{
-    char unk0x00[0x0C];
-    D2ClientSlotObjStrc* pObj;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -188,15 +137,9 @@ extern int gbLeavingGame; // 0x007A0620
 
 
 
-extern D2ClientNodeStrc* gpNodeList_007BB5BC; // 0x007BB5BC
-
-extern D2RosterEntryStrc* gpRosterListA_007BB5C0; // 0x007BB5C0
-
 extern int gdwGlobal_007BB5DC; // 0x007BB5DC
 
 extern unsigned char gnGlobal_007BB5E0; // 0x007BB5E0
-
-extern D2ClientSlotHolderStrc* gpSlotHolder; // 0x007BC990
 
 
 extern int gnRecipeScrollColor; // 0x007BCEA4
@@ -288,24 +231,6 @@ int __fastcall NPCMENU_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
 void __cdecl sub_K04_EmitUse(int nValue);
 
 
-
-struct LookupNode
-{
-    char gap00[0x8];
-    unsigned int key;
-    char gapAfterKey[0x10];
-    unsigned int value;
-    char gapAfterValue[0x10];
-    LookupNode* next;
-};
-
-typedef char LookupNode_key[OFFSET(LookupNode,key)==0x8?1:-1];
-
-typedef char LookupNode_value[OFFSET(LookupNode,value)==0x1C?1:-1];
-
-typedef char LookupNode_next[OFFSET(LookupNode,next)==0x30?1:-1];
-
-extern "C" LookupNode* gLookupHead_007BB5BC;
 
 extern "C" unsigned int gValue_007A065C;
 
@@ -512,16 +437,6 @@ extern D2HirelingIconRecordStrc* gpHirelingRecords_007BEEAC; // 0x007BEEAC
 
 
 
-struct D2ClientCacheEntryStrc
-{
-    unsigned char unk0x00[0x4C];
-    unsigned char bLocked;
-    unsigned char unk0x4D[0x2F];
-    unsigned char dwLastUse[4];
-    unsigned char unk0x80[0x0A];
-    unsigned char nRefCount[4];
-};
-
 
 void __fastcall SOUNDHDR_ReleaseCacheEntry(int nId);                                                    // 0x004823E0
 
@@ -540,8 +455,6 @@ int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, 
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit);                       // 0x00648B90
 
 
-
-extern D2ClientCacheEntryStrc* sgptSoundHeaderTable;                                                     // 0x007BC9A0
 
 extern int gnCacheEntries_007BC9A4;                                                                         // 0x007BC9A4
 
