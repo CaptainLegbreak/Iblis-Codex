@@ -422,6 +422,12 @@ int __stdcall sub_00648390_AlwaysZero(int nUnused1, int nUnused2)
     return 0;
 }
 
+// 0x004C51D0
+int __cdecl sub_004C51D0_GetStatesTxtRecordCount()
+{
+    return sgptDataTables->nStatesTxtRecordCount;
+}
+
 // 0x004C5390
 void __fastcall SKILLS_ScaleUpDirection(int* pX, int* pY)
 {
@@ -447,6 +453,20 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
         return &sgptDataTables->pSkillsTxt[nSkillId];
     }
     return 0;
+}
+
+// 0x004C53D0
+void __fastcall sub_004C53D0_ScaleDownDirection(int* pX, int* pY)
+{
+    int nY = *pY;
+    int nX = -*pX;
+    while (nX * nX + nY * nY > 3)
+    {
+        nY /= 2;
+        nX /= 2;
+    }
+    *pX = nY;
+    *pY = nX;
 }
 
 // 0x004C54F0
