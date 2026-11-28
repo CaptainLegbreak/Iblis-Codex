@@ -5,9 +5,7 @@ delete what is done. The queue is in COORDINATOR.md under "LANE 14 QUEUE".
 
 ## Ready
 
-- Sat Nov 28 05:09 PST 2026: **lane14/scaffolding-3b** (352c96fd5, scaffolding-3 rebased onto main 0055be264 = #506; replaces lane14/scaffolding-3). Same 14 commits; one conflict in D2Client UNIT/Player.cpp, where lane 2 renamed sub_00463DD0_GetPlayerUnit to CUNIT_GetPlayerUnit (kept). VERIFIED tree a2e57f0821e59820848b4fda802cedbefd883e4c; Game.exe identical. Audit guard: emit helpers 272 -> 259, pointer casts 4,694 -> 4,693, nothing rose. Linkdebt 15,208 -> 15,205 (D2Client 11,352 -> 11,346), no module rising.
 
-- Sat Nov 28 04:16 PST 2026: **lane14/scaffolding-4** (2ac781e93, on main 2600fd648 = #505; independent of scaffolding-2/3). Queue item 3, third batch of the same kind: 7 emit helpers go because the callers call the statics their bodies were inlined from (no caller and no address reference in the image): Unknown_006634F0.cpp (ITEMS_GetSetBonusCount), CUnit.cpp (CUNIT_PlayOverlaySound), Tilecmp.cpp (TileFreeSubTile), Roster.cpp (ROSTER_HasCorpse, ROSTER_FreeCorpses), Hireables.cpp (HIREABLES_IsMouseInBox, and the unused sink declaration it fed), spellsel.cpp (SPELLSEL_IsMouseInRect), SkillAss.cpp (SKILLS_RemoveBloodManaState). VERIFIED tree 995eb221732d926a974a3c5ca069eab4fd03aea9; Game.exe identical. Audit guard: emit helpers 282 -> 271, nothing rose. Linkdebt 17,965 -> 17,962 (D2Client 12,034 -> 12,030, D2CMP 706 -> 704), no module rising.
 
 
 
