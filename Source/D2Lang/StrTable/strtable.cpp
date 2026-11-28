@@ -224,12 +224,6 @@ static inline void STRTABLE_FreeTable(void* pTable)
     FOG_Free(pTable, ".\\StrTable\\strtable.cpp", 0x121, 0);
 }
 
-void __fastcall sub_M129_Emit_005249C0(void* pTable1, void* pTable2)
-{
-    STRTABLE_FreeTable(pTable1);
-    STRTABLE_FreeTable(pTable2);
-}
-
 // 0x005249E0
 unsigned int __stdcall STRTABLE_HashKey(const char* szKey, unsigned int nTableSize)
 {
@@ -366,7 +360,7 @@ void __cdecl STRTABLE_UnloadStringTables()
             FOG_Free(gppStringIndex, ".\\StrTable\\strtable.cpp", 0x32E, 0);
             gppStringIndex = 0;
         }
-        FOG_Free(sghStringTable, ".\\StrTable\\strtable.cpp", 0x121, 0);
+        STRTABLE_FreeTable(sghStringTable);
         sghStringTable = 0;
 
         if (gppPatchStringIndex)
@@ -379,7 +373,7 @@ void __cdecl STRTABLE_UnloadStringTables()
             FOG_Free(gpPatchStringData, ".\\StrTable\\strtable.cpp", 0x341, 0);
             gpPatchStringData = 0;
         }
-        FOG_Free(sghPatchStringTable, ".\\StrTable\\strtable.cpp", 0x121, 0);
+        STRTABLE_FreeTable(sghPatchStringTable);
         sghPatchStringTable = 0;
 
         if (gppExpansionStringIndex)
@@ -394,7 +388,7 @@ void __cdecl STRTABLE_UnloadStringTables()
         }
         if (sghExpansionStringTable)
         {
-            FOG_Free(sghExpansionStringTable, ".\\StrTable\\strtable.cpp", 0x121, 0);
+            STRTABLE_FreeTable(sghExpansionStringTable);
             sghExpansionStringTable = 0;
         }
 

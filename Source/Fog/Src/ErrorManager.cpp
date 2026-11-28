@@ -570,12 +570,6 @@ int __cdecl sub_0040EB10()
     return 0;
 }
 
-// calling-convention shim (not game code)
-int __cdecl sub_M126_Emit_00401000(tm* pTm, const __int64* pTime)
-{
-    return ERRORMANAGER_ConvertLocalTime(pTm, pTime);
-}
-
 bool __stdcall sub_K01_Emit_00403FA0(const char* szPath, char* szOut, size_t nSize)
 {
     return ERRORMANAGER_CopyPathIfHasDirectory(szPath, szOut, nSize);
@@ -586,7 +580,7 @@ bool crashy::Report::OpenReport(const char* szFileName)
 {
     __int64 nTime = _time64(0);
     tm tTime;
-    _localtime64_s(&tTime, &nTime);
+    ERRORMANAGER_ConvertLocalTime(&tTime, &nTime);
     if (!gszLogDirectory[0])
     {
         if (!ERRORMANAGER_GetTempPathUtf8(gszLogDirectory))
