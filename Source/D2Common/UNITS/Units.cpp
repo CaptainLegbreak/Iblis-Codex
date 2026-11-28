@@ -3497,7 +3497,8 @@ int __fastcall UNITS_CanSwitchAI(int nMonsterId)
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nMonsterId);
     if (!pMonStatsTxtRecord)
         return 0;
-    if (!sub_0046C140_TestMonModeFlag(nMonsterId, MONMODE_WALK))
+// build: symbol ?MONSTERUNIQUE_TestMonModeFlag@* 0x0046C140
+    if (!MONSTERUNIQUE_TestMonModeFlag(nMonsterId, MONMODE_WALK))
         return 0;
     if (pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_BOSS >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_BOSS & 7])
         return 0;

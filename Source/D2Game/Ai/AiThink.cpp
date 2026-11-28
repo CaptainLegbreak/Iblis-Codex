@@ -356,7 +356,8 @@ int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc*, D2UnitS
 
 static inline int CanWalk(D2UnitStrc* pMonster)
 {
-    return sub_0046C140_TestMonModeFlag(!pMonster ? -1 : pMonster->dwClassId, 2);
+// build: symbol ?MONSTERUNIQUE_TestMonModeFlag@* 0x0046C140
+    return MONSTERUNIQUE_TestMonModeFlag(!pMonster ? -1 : pMonster->dwClassId, 2);
 }
 
 // 0x005B0FF0
@@ -564,7 +565,7 @@ int __fastcall AITHINK_HandleMonsterAiPreActions(D2GameStrc* pGame, D2UnitStrc* 
         return 0;
     }
 
-    if (!sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, 2))
+    if (!MONSTERUNIQUE_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, 2))
     {
         return 0;
     }
