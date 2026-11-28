@@ -19,6 +19,7 @@ Scope for the day: placeholder function names in Storm, Fog and D2CMP, one modul
 
 ### Status
 
+- *12:10 UTC:* names-storm is in #505. names-storm-src needs reposting on #505 as names-storm-src-2 (names.csv conflicted with names-storm next to it); it is rebuilding, together with names-fog and names-d2cmp. A tool limit that shapes the names: the checker matches a definition to its address by the bare name, so two free statics or two members in one file cannot share a name (Div/Sub overloads and two CopyLinkOffset members came out NO_MARKER). Those keep distinct names or stay as placeholders.
 - *11:30 UTC:* names-storm-src posted. Fog branch building; D2CMP branch ready to build after it.
 - *10:57 UTC:* names-storm posted (names.csv only). Next: lane3/names-storm-src, about 40 Storm source renames (SErrSetLastError, SMsgBreakHandlerChain, the SBig internals, SCOMP's bit and Huffman members, the SHA-1 helpers), now building. The rest of Storm's placeholders are list-template copies in SFILE/SCMD/SEVT/SMSG with private structs (sub_00417810 and friends); naming those properly means turning them into stpl.h instances, which is not a rename. Then Fog.
 - *10:25 UTC:* set up on #503 (setup.py ok, baseline full build running). Starting Storm.
