@@ -16,6 +16,7 @@ Lane 2, one day: placeholder function names in D2Client (`sub_<VA>_<Verb>`). Eac
 
 ### Status
 
+- Sat Nov 28 04:23 PST 2026: names-game passed (VERIFIED fea8ba82, audit flat, linkdebt flat); it ships with names-root-a once that one's build is done, because the tree is shared. names-root-a was redone: 0x00463740 is folded with D2Common's and D2Game's copies, so it takes D2MOO's COLLISION_GetRoomBySubTileCoordinates (D2Client.h already declares that name at this address), and the folded seed rolls are SEED_RollMasked/SEED_RollInRange. Next: names-root-b (32 names: the sound wrappers in Unknown_004DF770, the weather in Unknown_00472210, the popups in Unknown_00460420).
 - Sat Nov 28 03:51 PST 2026: names-unit merged in #505; names-engine-sound and names-ui Ready; names-game and names-root-a in their full builds. A branch takes about 40 minutes end to end on this 2-core machine.
 - Sat Nov 28 02:24 PST 2026: started. Setup is reused (checkout, toolchain, gen/ and Game.exe from the earlier lane 2 run; the machine has 2 cores, so a full verify takes about 20 minutes). First branch: UNIT, led by the 0x00463DD0/0x00463DE0 player-unit getters (463 and 65 references). Questions: AGENTS.md and docs/names/ aren't on main or coord. Should they be? Until someone answers, I'm naming from names.csv and the code.
 
