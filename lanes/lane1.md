@@ -4,6 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- **lane1/unitdata-fields** (77bbb5824, on main #491 09eccfff4; VERIFIED tree a5310a652cec5c70901674bcaaa3ed0c2f01d56e; merges clean on #492; independent). D2UnitData.h: 8 `unk0x..` -> 0. D2PlayerDataStrc 0x94 is only zeroed (the two switch-skill resets in Units.cpp, next to nWeaponGUID) and never read: `unused0x94`, both writes renamed; the other unread spans `unused0x<off>`, alignment gaps `pad0x<off>`. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 21,832 -> 21,832 (main #491), every module unchanged.
+
 - **lane1/structs-fields** (805704a01, on main #491 09eccfff4; VERIFIED tree 1b40b67995d16fbc1e7c6b06d1ab4e9671450967; independent). D2Structs.h: 11 `unk0x..` -> 0. D2CorpseStrc 0x08 is nMercNameId (INVENTORY_GetCorpseMercNameId returns it; INVENTORY_CreateCorpseForPlayer's `a3` stores it and takes the name; a1/v12 89 -> 87). The rest no code names (D2MOO leaves them unknown too): D2UnitStrc's spans at 0x84, 0xB4, 0xBC `unused0x<off>`, the alignment gaps `pad0x<off>`. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 21,832 -> 21,832 (main #491 measured here), every module unchanged.
 - **lane1/path-fields** (213c14e5a, on main #491 09eccfff4; VERIFIED tree ee31fb43d27caee8973dae3cdf1d8be55096c6bd; independent). D2Path.h: 9 `unk0x..` -> 3; the unread ones `unused0x<off>`/`pad0x<off>`. Left: D2StaticPathStrc 0x14 (two ints UNITS_SetTileUnitCoords stores from its last two parameters), D2DynamicPathStrc 0x38 (a counter D2Common_10213 steps and resets every second tick before re-pathing; PATH_SetVelocity sets it to 15) and 0x67 (one setter writes it): used, but not understood well enough to name. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 21,832 -> 21,832 (main #491 measured here), every module unchanged.
 
@@ -16,6 +18,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Fri Nov 27 17:23 PST 2026: unitdata-fields Ready. Building on #492: cmpcache-fields (D2CmpCache.h, 8), then gameaux-fields (D2GameAux.h, 7); claimed: those two headers.
 - #492 took itemsworld-fields (Ready line dropped).
 - Fri Nov 27 17:12 PST 2026: check-in. structs-fields and path-fields Ready. unitdata-fields (D2UnitData.h, 8; claimed: that header and Units.cpp's two writes of D2PlayerDataStrc 0x94) rebuilding.
 - Fri Nov 27 16:30 PST 2026: check-in. Interface merge, step 1 (D2Client's D2ClientNotifyStrc -> D2ComInterfaceStrc; its four slots match exactly) **parked**: inv.cpp changes whenever it includes D2ComInterface.h, wherever the include sits (top, include block, in place of its forward declaration), and the shared WINMAIN_GetClientNotify declaration can't stay old for that one unit. Reverted; nothing pushed. The D2Multi copy (D2LaunchFuncsStrc) disagrees with the others on most slot types; also parked. Next: D2Structs.h (11; claimed: that header).
