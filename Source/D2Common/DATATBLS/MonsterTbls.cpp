@@ -527,7 +527,7 @@ void* gpObjgroupTxt; // 0x0096D478
 D2ShrinesTxt* gpShrinesTxt; // 0x0096D468
 
 
-#define TC_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define TC_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 struct D2UniqueNameTablesStrc;
 
@@ -612,7 +612,7 @@ extern "C" const char gszField_006D9060[]; // 0x006D9060
 int gnTreasureClassItemTypes; // 0x0096D4B0
 
 
-#define MON_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define MON_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 struct D2MonItemPercentDataTbl;
 
@@ -1491,7 +1491,7 @@ void __cdecl DATATBLS_CreateItemTypeTreasureClasses()
     char szName[32];
     char szCode[8];
 
-    DATATBLS_NewTreasureClassEx(&gszEmptyAssertText);
+    DATATBLS_NewTreasureClassEx("");
     D2ItemDataTbl* pItemDataTables = DATATBLS_GetItemDataTables();
 
     for (int i = 0; i < sgptDataTables->nItemTypesTxtRecordCount; ++i)
@@ -3303,7 +3303,7 @@ void __fastcall DATATBLS_LoadMonEquipTxt(void* archive)
  {gszTxtField_end,0,0,0,0}};
  sgtDataTables.pMonEquipTxt=(D2MonEquipTxt*)DATATBLS_CompileTxt(archive,gszField_monequip,fields,&sgtDataTables.nMonEquipTxtRecordCount,sizeof(D2MonEquipTxt));
  if(sgtDataTables.nMonEquipTxtRecordCount>=32767){
-  FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),3356);exit(-1);
+  FOG_DisplayHalt("",sub_00408090(),3356);exit(-1);
  }
  for(int i=0;i<sgptDataTables->nMonStatsTxtRecordCount;++i)sgtDataTables.pMonStatsTxt[i].nMonEquipTxtRecordId=-1;
  for(int i=0;i<sgtDataTables.nMonEquipTxtRecordCount;++i){
