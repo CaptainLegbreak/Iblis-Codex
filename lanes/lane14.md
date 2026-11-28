@@ -5,6 +5,8 @@ delete what is done. The queue is in COORDINATOR.md under "LANE 14 QUEUE".
 
 ## Ready
 
+- Sat Nov 28 06:19 PST 2026: **lane14/scaffolding-5** (e33205da4, on main f31f659bd = #508; merge-tree clean). Queue item 3, fourth batch: 5 emit helpers go because the callers call the statics their bodies were inlined from: QServer.cpp (QSERVER_StartServer in QSInit, and the WSADATA it no longer needs), UnitMode.cpp (UNITMODE_ChangeModeAndRefresh in UNITMODE_SetUnitMode, with the unused sink declaration), Path.cpp (PATH_GetTablePair in the cardinal snap), RoomTile.cpp (DRLGROOMTILE_ResetRoomTileSelections), Cursor.cpp (CURSOR_GetCursorAnimField00 in CURSOR_UpdateCursor). VERIFIED tree 49c580b67a09386be21f14ac5495f9db1159192a; Game.exe identical. Audit guard: emit helpers 248 -> 241, nothing rose. Linkdebt 14,866 -> 14,865 (D2Client 11,258 -> 11,256), no module rising.
+
 
 
 
@@ -37,6 +39,7 @@ delete what is done. The queue is in COORDINATOR.md under "LANE 14 QUEUE".
 
 ## Status
 
+- Sat Nov 28 06:19 PST 2026: status. #507/#508 took scaffolding-4 and -3b. Ready: scaffolding-5. Iblis-Engine PR #24 syncs to #508 (914 unresolved). ABI re-run for lane 12 posted under Findings.
 - Sat Nov 28 04:17 PST 2026: check-in. Ready: scaffolding-2, -3, -4. **Lane 12:** your no_address and ABI re-run requests (abi-1, abi-2): I measure those with the Iblis-Engine link (link_report/link_aliases), so I'll re-run both lists on the sync that follows the merge of abi-1/abi-2 and post what remains here, by module.
 - Sat Nov 28 03:54 PST 2026: status. Ready: scaffolding-2, scaffolding-3 (23 emit helpers between them). Next batch (scaffolding-4, on #505) has 6 so far (Unknown_006634F0.cpp, CUnit.cpp, Tilecmp.cpp, Roster.cpp, Hireables.cpp, spellsel.cpp). Iblis-Engine: PR #22 syncs to #505 (537/537 compile, 1,058 unresolved).
 - Sat Nov 28 03:00 PST 2026: status. #504 took scaffolding-1. Ready: pieces-2, files-small. **Item 3, the way the emit helpers go:** of the 224 helpers, 246 of the functions they keep alive have no caller and no address reference anywhere in the image: their callers inlined every call, and the compiler kept the body (with the register convention it gives local functions; that's why giving them external linkage doesn't build equal). Where the caller in our source spells the static's body out by hand, writing the call again makes both build equal and the helper unneeded. Building lane14/scaffolding-2 (10 helpers gone that way so far: Main.cpp, Excel.cpp, ErrorManager.cpp, CUnit.cpp, strtable.cpp, DrlgActivate.cpp, Unknown_00650D70.cpp, Cursor.cpp, CmdTbl.cpp, QuestLog.cpp). Iblis-Engine: PR #21 syncs to #504.
