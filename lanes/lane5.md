@@ -2,6 +2,20 @@
 
 Written by lane 5 only. Newest entries at the top of each section; delete what is done.
 
+## 2026-11-28 restart
+
+Scope (COORDINATOR.md, LANES 2-5 RESTART): private struct definitions in D2Game (67 files, 342 definitions) and D2Common (49 files, 213). A private copy of a shared struct uses the shared one; a real type used by several files moves to the module header. One folder per branch.
+
+### Ready
+
+### Claimed
+- Source/D2Game/**/*.cpp private struct definitions that copy a struct a shared header already defines (by name): each one removed on its own and kept out only when the unit builds equal. First pass over all of D2Game, then D2Common.
+
+### Status
+- 10:40 UTC: restarted on main #503. Repo and Game.exe already set up here. Inventory: D2Game 342 private definitions in 67 files (21 copy a header struct by name, 116 names defined in more than one .cpp); D2Common 213 in 49 (46 copy a header struct).
+
+## Earlier record (stopped lane)
+
 ## Ready
 - lane5/decls-d2game-8 7c9b288d8 (main #470 merged in: ItemMode.cpp conflicted only in a declaration this branch removes as unused; take this one alone, it holds decls-d2game-7). Items.cpp also takes D2GAME_CreateItemUnit (0x559CE0) from Items_00558110.cpp: the game has ITEMS_GetItemLevelForNewItem (0x558200) inline there and every other caller is in another unit, so its definition is written __forceinline (with a comment saying why), which inlines it here and still emits the copy the other units call; no helper copy, no second form. Task.cpp also takes TASK_TASK_ProcessGame (0x5645E0) from Task_005645E0.cpp, replacing its unmarked copy: the game calls TASK_LinkList_Remove (0x5642E0) and TASK_LinkList_PushFront (0x564250) out of line from 0x5645E0, so both get an evidenced noinline, and TASK_FreeAllQueueSlots (0x564890), where the game has the removal inline, goes through a local inline copy with the same assert. Eight D2Game piece files joined into the objects they sit inside: Unknown_005C0D00.cpp takes Unknown_005C0F90.cpp (0x5C25C0), Unknown_005C2740.cpp (ITEMS_RollLegacySetItem) and Unknown_005C2AF0.cpp (the two low-quality rolls, which call SKILLITEM_PercentWithMinimum with a register argument; its emit helper and the piece's private copies of it and of the two rare-affix rolls go); MonsterUnique.cpp builds 0x5A03E0 from its own copy and takes 0x5A3D20 (Unknown_005A03E0.cpp, Unknown_005A3D20.cpp go); Monster.cpp takes MONSTER_SetComponents (Unknown_00573780.cpp); AiThink4.cpp takes 0x5EEDA0 (Unknown_005EEDA0.cpp); a3q3.cpp takes ACT3Q3_SpawnGidbinnBoss (Unknown_005B9A30.cpp); PlrSave2.cpp takes PlayerCreate (0x56B180; Unknown_0056B180.cpp keeps SKILLS_CheckAuraTarget and the error-code table). Declarations, outside Quests/ and OBJECTS/: 112 private prototypes that an included header already declares with the same types and address, 34 prototypes repeated within their own unit, 5 data externs a header has, and 597 prototypes nothing in their unit uses (one commit each, so any can be left out). Noinline +2, both evidenced, for the Task join below (the two evidenced noinlines, on SKILLITEM_PercentWithMinimum and ACT3Q3_SpawnFetishBoss, replace the deleted pieces' own). Emit helpers 303 -> 300 (one by the join, two declared-only ones among the unused prototypes); a1/v12 unchanged (unused prototypes). Every D2Game unit equal; full build on #470 identical yes, borrowed code 0 B in 0 functions, borrowed data 261 B; auditguard against #470: only the two Task noinlines rise.
 ## Claimed
