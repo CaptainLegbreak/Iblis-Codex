@@ -5,6 +5,13 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
+- Fri Nov 27 17:35 PST 2026: **lane13/plan-includes** (771972a75, on main 7442280f1 = #492; merges onto #493 with no conflict expected). Queue item 6, plus two interior fixes. VERIFIED tree 6f6c512562065e3ec5a012a63f57d470857d7872; Game.exe identical. Audit guard: no count rose. No pointer cast written.
+  - **Item 6:** the 35 stale `include` entries in build/data_plan.json now name each file's own include (gen/data/<stem>.inc). Generated data unchanged; every unit came back equal.
+  - **Interior:** d3dSmack.cpp's gnRenderFlag is gdwBitMasks[10]; inv.cpp's eight gnRect* are rect.nLeft/nBottom of gaBodyLocRects[1], [3], [4], [5] (head, torso, right arm, left arm).
+  - **Counts, main #492 -> this:**
+    - interior: 93 / 41 -> 80 / 32.
+    - linkdebt total: 21,648 -> 21,636. D2Client 7,634 -> 7,622; D2Direct3D 690 -> 690 (one interior became placeholder: gdwBitMasks is still defined under a placeholder name); no module rose.
+    - data clusters unchanged (1, 6,716 B); shortdata unchanged (363).
 - Fri Nov 27 17:14 PST 2026: **lane13/npc-state-2** (89f3ec8f2, on main 7442280f1 = #492; independent of interior-2). VERIFIED tree a6b7be416cc82960c29b7f4bfdd3ffc5e3fcb6d3; Game.exe identical. Audit guard: no count rose. Pointer casts in the diff: 1 removed, 1 added.
   - **The NPC menu's state, 0x007C0C68-0x007C0DF4, is one pack(1) struct**, D2NpcMenuStateStrc gtNpcMenu, in a new Source/Include/D2ClientNpcMenu.h. NPCMENU_InitNpcMenu memsets its first 0x160 bytes, and its fields sit at odd offsets.
   - About 80 aliases become fields in npcmenu.cpp, npcmenu_004B5C60.cpp, Monster.cpp, inv.cpp and four Unknown_ units.
@@ -18,18 +25,8 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - duplicate_data: 403 -> 412.
     - linkdebt total: 21,648 -> 21,025. D2Client 7,634 -> 7,011; no module rose.
     - shortdata: 363 -> 362.
-- Fri Nov 27 16:18 PST 2026: **lane13/interior-2** (16d149ced, on main 09eccfff4 = #491; independent of queue-1-2 and interior-1). Lane 13 queue item 3 (second part) and item 5. VERIFIED tree 883cbf8339153a0c617bfc8a45ab22562b552eb8; Game.exe identical. Audit guard: no count rose. No pointer cast written.
-  - **Interior:**
-    - gnMouseY becomes gtMousePosition.y.
-    - gtUnitSndObject becomes gaUnitSndObjects[106].
-    - gbPanelFlag becomes gaEscMenuUIState[21].nSaved, the mini panel's UI var. That also removes chat.cpp's unused extern.
-  - **inlinedata, D2Win:** 53 definitions (5,706 B) in 19 units into source. D2WinMain.cpp 0x0072DC48 stays generated, because it would need a cast.
-  - **inlinedata, D2Launch:** 5 definitions in 4 units. CharSel.cpp and MainMenus.cpp (41 definitions) stay generated until lane 12 is done with them.
-  - **Counts, main #491 -> this:**
-    - interior: 161 / 56 -> 158 / 53.
-    - linkdebt total: 21,832 -> 21,830. D2Client 7,677 -> 7,676, D2Win 773 -> 772; no module rose.
-    - shortdata unchanged (363).
 ## Claimed
+- Fri Nov 27 17:35 PST 2026: #493 took interior-2; its Ready line is cleared. plan-includes is Ready. Working the text panel block now (claimed at 17:25).
 - Fri Nov 27 17:25 PST 2026: I had missed **queue item 6**. lane13/plan-includes (on #492) is doing its full build now: it points the 35 stale `include` entries at each file's own include (generated data unchanged), and adds two interior fixes, d3dSmack.cpp's gnRenderFlag = gdwBitMasks[10] and inv.cpp's eight gnRect* = gaBodyLocRects[1/3/4/5].rect. Next: the text panel block, without waiting for a ruling. It gets its own 6-byte list type in a new header, and D2ClientUi.h stays as it is. Claimed: text.cpp, text_0049D5A0.cpp, text_004A10E0.cpp, and the D2Client files naming 0x007BF1E0-0x007BF24F.
 - Fri Nov 27 17:22 PST 2026: check-in. Main is still #492. interior-2 and npc-state-2 are Ready and unmerged. There is no answer yet on the D2TextListStrc text-panel question.
 - Fri Nov 27 17:14 PST 2026: npc-state-2 Ready. The text-panel block is still waiting on the D2TextListStrc question above. Next: the rest of the interior list.
