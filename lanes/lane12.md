@@ -8,37 +8,6 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
-- Sat Nov 28 4:51 PST 2026: **lane12/abi-3** (5e304a64d, on #505 2600fd648): abi-1, abi-2 and markers-1 (descriptions below)
-  redone on #505 from their address lists, as #505 conflicted with abi-1's lines: the same 20 + 24 addresses agree,
-  VIEW_SendMcpCharListRequest returns its send's result, 147 declarations get their definition's marker. Three
-  commits, each with its old message. Full build equal. VERIFIED tree 35236a18fca7e2a044a6a4df9cdbbd5a644a5f3c.
-  linkdebt vs #505: 17,965 -> 17,917 (type_disagreement 3,988 -> 3,940; D2Game -34, D2Client -5, D2Common -3,
-  D2Direct3D -2, D2CMP, D2Glide, D2Launch, Fog -1; no module rises). auditguard: no count rose. Take this
-  instead of abi-1/abi-2/markers-1.
-- Sat Nov 28 3:56 PST 2026: **(in abi-3) lane12/markers-1** (8e9b4f582, stacked on abi-2): item 7's no_address declarations. A file-scope
-  declaration with no `// 0xVA` marker, whose identifier has exactly one marked definition in the tree and which
-  its file doesn't define itself, gets that marker: 148 declarations, comments only. Left alone on purpose: C
-  runtime names (D2Lang defines its own strcpy/strcat/strcmp at other addresses; marking them bound other modules'
-  CRT calls to D2Lang's and the build caught 4 units) and member-like names (Set, Unlink, DeleteNode, ...). Lane 14:
-  please re-run no_address on this branch; the rest of its list is mostly emit helpers, placeholders and members.
-  Full build 538 units equal. VERIFIED tree 51b9fffe42e30efaf55ab91ffea18147efd136db. linkdebt unchanged (19,946:
-  the newly marked declarations already agree). auditguard: no count rose.
-- Sat Nov 28 2:49 PST 2026: **(in abi-3) lane12/abi-2** (1c45ccd38, stacked on abi-1): the void ruling's first step for lane 14's 36 "return eax vs
-  void" items: a definition whose last statement is a call returning a value returns that value with the callers'
-  type, if its unit keeps its bytes. Only VIEW_SendMcpCharListRequest qualifies (returns D2QSSOCKET_SendPacket's
-  int); CHARSEL_HandleCharList's change alters CharSel.cpp, MSG_SendWardenPacket ends in an assertion. VERIFIED tree
-  3b4cf9b577425e2d53f764e6e35c08375858dc35. linkdebt -1 (D2Launch). auditguard: no count rose.
-- Sat Nov 28 2:37 PST 2026: **(in abi-3) lane12/abi-1** (96fde0dd6, stacked on compile-1): queue item 7, first pass over lane 14's 151
-  calling-interface disagreements (144 addresses). 20 addresses: the declarations take the definition's prototype
-  where their units keep their bytes. 24 addresses: most callers declare another prototype, and the definition
-  takes the callers' where its own unit keeps its bytes (mostly bodies the original shares between callers with
-  different arguments: sub_0055F4F0_Nop, D2Game_10034_Return, ARENA_Return0, the ACT2Q4/ACT2Q5 callbacks,
-  D2GAME_PACKETS_SendPacket0x7E/0x8F, CLIENTS_GetPlayTime, GAME_SendAllClientPackets, ...; list in the commit).
-  Full build 538 units equal. VERIFIED tree fbcbf7c83f0f011c48307549386a2c4adc3cc780. linkdebt vs compile-1:
-  19,973 -> 19,947 (type_disagreement -26; D2Game -14, D2Client -6, D2Common -3, D2Direct3D -2, D2Glide -1; no
-  module rises). auditguard: no count rose. Lane 14: please re-run your list on this branch; what remains is the
-  void returns the callers read, __thiscall vs free functions and real argument-count disagreements, by hand next.
-
 
 ## Claimed
 - Sat Nov 28 3:22 PST 2026: status. Ready: abi-1, abi-2. Waiting on two answers (Questions): the void ruling vs the cast audit, and
