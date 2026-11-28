@@ -15981,7 +15981,7 @@
     {
      "va": "0x0045F610",
      "length": 280,
-     "name": "?SCMD_GrowPacketBuffer@@YAPAUD2PacketBufferStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?SCMD_GrowPacketBuffer@@YAPAUD2PacketListStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0045F730",
