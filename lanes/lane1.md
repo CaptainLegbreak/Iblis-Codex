@@ -4,12 +4,6 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- **lane1/drlgmaps-fields** (319d91dea, on main #498 3f6ca97c6; VERIFIED tree 80d41920caa2e2c3066c4467a5bf885159486f1c; independent). D2DrlgMaps.h: 3 `unk0x..` -> 0, none named by any code: `unused0x<off>` (drlg file, tile library entry), `pad0x41`. Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,253 -> 19,253 (main #498), every module unchanged.
-
-- **lane1/fogtypes-fields** (e6c91e8ac, on main #498 3f6ca97c6; VERIFIED tree c0e70ac45c9c06a892c47e874e7b97c98b958664; independent). D2FogTypes.h: 3 `unk0x..` -> 0. D2LdrDataStrc, D2PebStrc and D2TebStrc are Fog's copies of Windows' PEB_LDR_DATA, PEB and TEB; the bytes before the members Fog reads take winternl.h's own names (Reserved1/Reserved2, Reserved1/BeingDebugged/Reserved2/Reserved3, Reserved1[12]). Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,253 -> 19,253 (main #498), every module unchanged.
-
-- **lane1/npcmenu-fields** (a08bc39b0, on main #498 3f6ca97c6; VERIFIED tree d341309f3b138c91d2120bb9ab3cbb93dd8f9359; independent). D2ClientNpcMenu.h: 5 `unk0x..` -> 0, none named by any code: `unused0x<off>` (packed menu state, item slot), `pad0x02` (item slot gap before its seed). Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,253 -> 19,253 (main #498 measured here), every module unchanged.
-
 - **lane1/cominterface-names** (982366fd7, on main #489 262f4aec8; VERIFIED tree 76b5cf9991f92c9d4ad257797b5f7c11f5edd897; merges clean on #490). D2ComInterface.h: D2ComInterfaceStrc is BnClient's interface (D2MOO's BnClientInterface): every slot takes D2MOO's name at its offset (`pfnSlot68` -> pfnIsSocketConnected, `pfnSlot4C` -> pfnGetPatchState, `pfnSlotBC`/`C0` -> pfnResetPassword/pfnChangeEmail, `pfnResign` -> pfnChatCommand, `pfnClose` -> pfnLeaveGame, ...; D2Launch's calls bear the order out: GetPatchState returns 101 when done, ChangeEmail takes name/old/new), the slots already typed keep their signatures, the 12 `unk0x..` int slots become D2MOO-typed function pointers; six D2MOO leaves unnamed keep `pfn0x<off>`. Callers through gpFuncTable (D2Launch), gpComInterface (D2Client Game.cpp) and pComInterface (Main.cpp) renamed. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose (a1/v12 89 -> 89, casts 4,873 -> 4,873). linkdebt: 21,832 -> 21,832 (main measured on #490, which adds only three lane-1 header renames to #489), every module unchanged. Next step, its own branch: D2MultiTypes.h's D2LaunchFuncsStrc and D2ClientUi.h's D2ClientNotifyStrc are the same table and become uses of this one.
 
 
@@ -17,6 +11,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Fri Nov 27 23:42 PST 2026: check-in. Main took npcmenu-fields, fogtypes-fields, drlgmaps-fields (Ready lines dropped). clienttypes-fields: splitting D2UnitTargetStrc's four parameter words into nParam4..7 changes inv_0048DD90.cpp and ItemTbls.cpp (the member-count effect; ItemTbls gets the header through D2TxtItems.h), so they stay one array, `nExtraParams[4]`; rebuilding. Building on #499: clientgfx-fields (D2ClientGfx.h), txttables-fields (D2TxtTables.h); claimed.
 - Fri Nov 27 23:09 PST 2026: check-in. Main took clientgame-fields, glidetypes-fields, questtext-fields (Ready lines dropped). drlgmaps-fields Ready. clienttypes-fields building.
 - Fri Nov 27 22:51 PST 2026: fogtypes-fields Ready. drlgmaps building, then clienttypes-fields (D2ClientTypes.h; claimed: that header and UnitMode.cpp's three writes: D2UnitTargetStrc's parameter words after nParam3 become nParam4..7).
 - Fri Nov 27 22:32 PST 2026: check-in. npcmenu-fields Ready. fogtypes and drlgmaps building.
