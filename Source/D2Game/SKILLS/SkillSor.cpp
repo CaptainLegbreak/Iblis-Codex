@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2MissileIds.h"
 #include "D2StateIds.h"
 #include "D2MonsterIds.h"
@@ -51,7 +52,6 @@ enum D2C_F39Constants
     DAMAGERESULTFLAG_WILLDIE = 2,
     SKILLSFLAGINDEX_01 = 1,
     UNITFLAG_NOTC = 0x20000,
-    EVENTTYPE_ENDANIM = 1,
     STATLIST_FLAG_8 = 8,
 };
 

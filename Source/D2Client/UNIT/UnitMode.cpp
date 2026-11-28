@@ -826,11 +826,11 @@ void __fastcall UNITMODE_MoveToPosition(D2UnitStrc* pUnit, int nX, int nY, int b
             break;
 
         case UNIT_MONSTER:
-            tTarget.unk0x0C[0] = 1;
+            tTarget.nExtraParams[0] = 1;
             break;
         }
-        tTarget.unk0x0C[1] = 100;
-        tTarget.unk0x0C[2] = 15;
+        tTarget.nExtraParams[1] = 100;
+        tTarget.nExtraParams[2] = 15;
         UNITMODE_DispatchUnitCommand(nCommand, pUnit, &tTarget, 0);
     }
     else

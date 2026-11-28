@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2ObjModes.h"
 #include "D2MonsterIds.h"
 #include "D2Game.h"
@@ -13,7 +14,6 @@
 #include "D2CommonApi.h"
 
 
-#define EVENTTYPE_ENDANIM 1
 
 #define QUEST_A3Q3_GIDBINN 17
 

@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2SkillIds.h"
 #include "D2GameObjs.h"
 #include "D2StatIds.h"
@@ -641,15 +642,10 @@ static inline void CLIENTS_UpdatePlayerPortalFlags(D2ClientStrc* pClient)
 
 #define STAT_LEVEL 12
 
-#define EVENTTYPE_STATREGEN 3
 
-#define EVENTTYPE_TRAP 4
 
-#define EVENTTYPE_RESET 5
 
-#define EVENTTYPE_REMOVESTATE 12
 
-#define EVENTTYPE_COUNT 15
 
 #define UNITEVENTFLAG_IN_CALLBACK 0x01
 
@@ -1991,7 +1987,6 @@ struct D2PoolSystemStrc;
 
 
 
-#define EVENTTYPE_DELAYEDPORTAL 11
 
 struct D2InactiveItemNodeStrc;
 

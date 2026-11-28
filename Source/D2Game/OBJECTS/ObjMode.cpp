@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2ObjectIds.h"
 #include "D2MissileIds.h"
 #include "D2ItemTypes.h"
@@ -28,7 +29,6 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-#define EVENTTYPE_FREEHOVER 6
 
 #define UNITFLAG_DOUPDATE 0x00000001
 
@@ -44,11 +44,8 @@
 
 #define STATE_POISON 2
 
-#define EVENTTYPE_AITHINK 2
 
-#define EVENTTYPE_MODECHANGE 0
 
-#define EVENTTYPE_PERIODICSTATS 9
 
 
 struct D2PoolSystemStrc;
@@ -392,9 +389,7 @@ void __fastcall OBJMODE_ClearSteegStoneGUID(D2GameStrc* pGame, D2UnitStrc* pUnit
 int __fastcall OBJMODE_MainObeliskHandler(D2GameStrc* pGame, int nPlayerGUID, int nObjectGUID, int nItemGUID, unsigned short nState); // 0x005852E0
 
 
-#define EVENTTYPE_ENDANIM 1
 
-#define EVENTTYPE_ACTIVESTATE 5
 
 
 #define QFLAG_REWARDGRANTED 0
@@ -460,9 +455,6 @@ int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 struct D2RoomCoordListStrc;
 
-#define EVENTTYPE_TRAP 4
-
-#define UNITFLAG_TARGETABLE 2
 
 
 struct D2MonRegDataStrc;
@@ -1368,7 +1360,6 @@ int __fastcall OBJECTS_OperateFunction02_Shrine(D2ObjOperateFnStrc* pOp, int nOp
     return 1;
 }
 
-#define EVENTTYPE_QUESTFN 7
 
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
 

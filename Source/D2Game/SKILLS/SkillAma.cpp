@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2StatIds.h"
 #include "D2StateIds.h"
 #include "D2Game.h"
@@ -100,7 +101,6 @@ enum
 {
     UNITFLAG_SKSRVDOFUNC = 0x40,
     AISPECIALSTATE_NONE = 0,
-    EVENTTYPE_AITHINK = 2,
 };
 
 static inline unsigned int sub_M401_RollUnitSeed(D2UnitStrc* pUnit)

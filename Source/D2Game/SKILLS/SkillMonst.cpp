@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2MissileIds.h"
 #include "D2StateIds.h"
 #include "D2MonsterIds.h"
@@ -139,7 +140,6 @@ enum D2C_F39Constants
     DAMAGERESULTFLAG_WILLDIE = 2,
     SKILLSFLAGINDEX_01 = 1,
     UNITFLAG_NOTC = 0x20000,
-    EVENTTYPE_ENDANIM = 1,
     STATLIST_FLAG_8 = 8,
 };
 
@@ -229,8 +229,6 @@ typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, 
 
 enum
 {
-    EVENTTYPE_ACTIVESTATE = 5,
-    EVENTTYPE_REMOVESTATE = 12,
 };
 
 
@@ -287,11 +285,6 @@ enum { UNIT_FLAGS = 0xE };
 
 struct Monster;
 
-enum D2C_Y09ImpInfernoConstants
-{
-    EVENTTYPE_MODECHANGE = 0,
-    EVENTTYPE_AITHINK = 2,
-};
 
 struct Game
 {
