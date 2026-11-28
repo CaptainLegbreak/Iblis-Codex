@@ -4,6 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- **lane1/records-fields** (6865aaf67, on main #495 b186d24d5; VERIFIED tree 8a46a3c3b8e7ae5e9eb21d03c5ed7cc143b881cd; merges clean on #496; independent). D2Records.h: 4 `unk0x..` -> 0, none named by any code, all gaps the compiler leaves anyway: `pad0x<off>`. Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,726 -> 19,726 (main #495), every module unchanged.
+
 - **lane1/gfxstate-fields** (e2c862ea1, on main #495 b186d24d5; VERIFIED tree f418c11b1ac6c65f4874187ab4f75dacf918f2b7; merges clean on #496; independent). D2ClientGfxState.h: 5 `unk0x..` -> 0, none named by any code: `unused0x<off>`. Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,726 -> 19,726 (main #495), every module unchanged.
 
 - **lane1/cmptiles-fields** (db6545c59, on main #495 b186d24d5; VERIFIED tree e55ab7ac9975ebbf363045eec5d1a6006a2c0cdb; merges clean on #496; independent). D2CmpTiles.h: 5 `unk0x..` -> 3. The tile node's gap `pad0x0A`, the graphics hash's unread first 8192 words `unused0x00`. Left: D2Dc6FrameStrc 0x14 (written zero by Codec.cpp but counted in the step to the next frame) and 0x21-0x23 (inside the frame's variable-length pixel data). Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,726 -> 19,726 (main #495), every module unchanged.
@@ -19,6 +21,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Fri Nov 27 20:52 PST 2026: records-fields Ready. Building on #496: gfxtypes-fields (D2GfxTypes.h), ddrawtypes-fields (D2DDrawTypes.h: the DirectDraw records' unknown spans take the SDK's own members, DDCOLORKEY/DDPIXELFORMAT/DDSCAPS2/DDBLTFX layout; its 25 units already compile equal). Claimed: those two headers.
 - Fri Nov 27 20:38 PST 2026: gfxstate-fields Ready. records-fields building.
 - Fri Nov 27 20:22 PST 2026: cmptiles-fields Ready. gfxstate-fields building, then records-fields.
 - Fri Nov 27 20:06 PST 2026: #496 took inactiveunits and wincontrols (Ready lines dropped). drlgpresets-fields Ready. Building on #495: cmptiles-fields (D2CmpTiles.h; D2Dc6FrameStrc left as is: its 0x14 is zero but counted in the record step, 0x21-0x23 sit inside the pixel data), gfxstate-fields (D2ClientGfxState.h), records-fields (D2Records.h). Claimed: those three headers.
