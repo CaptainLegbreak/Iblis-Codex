@@ -808,11 +808,11 @@ struct D2UiControlCStrc : D2UiControlBaseStrc
 
 void __fastcall sub_004898A0_DisableGoldButton(int nMode);                                                                    // 0x004898A0
 
-void* __fastcall DIALOG_CreateDialogFromFile(int nX, int nY, int (__cdecl* pfnCallback)(), int nArg4, int nArg5, int nArg6); // 0x004B7CD0
+D2ClientDialogStrc* __fastcall DIALOG_CreateDialogFromFile(int nX, int nY, int (__cdecl* pfnCallback)(), int nArg4, int nArg5, int nArg6); // 0x004B7CD0
 
 void __fastcall ROSTER_SetCtrlState(void* pPanel, int nValue);                                                     // 0x004B8370
 
-void __fastcall DIALOG_AddTextLine(void* pPanel, Unicode* pText, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x004B85F0
+void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nHeight, int nArg4, int nType, int nFont, int (__cdecl* pfnCallback)(), int bEnabled); // 0x004B85F0
 
 void __fastcall DIALOG_AddWidget(void* pPanel, void* pControl, int nArg3, int nArg4);                // 0x004B7C00
 
@@ -829,7 +829,7 @@ int __cdecl UI_ConfirmGoldDialog();                                             
 int __cdecl UI_CancelGoldDialog();                                                                                 // 0x00454140
 
 
-void* gpGoldPanel;                                                                                    // 0x007A27A0
+D2ClientDialogStrc* gpGoldPanel;                                                                                    // 0x007A27A0
 
 extern "C" void _ReadWriteBarrier(void);
 

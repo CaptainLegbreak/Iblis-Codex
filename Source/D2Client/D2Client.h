@@ -454,7 +454,7 @@ extern void* gpInvCharCel; // 0x007BEF64
 extern void* gpHlthManaCel; // 0x007BEF68
 extern void* gpOverlapCel; // 0x007BEF80
 extern void* gpChatBuffer_007BB5F4; // 0x007BB5F4
-extern void* gpGoldPanel; // 0x007A27A0
+extern D2ClientDialogStrc* gpGoldPanel; // 0x007A27A0
 extern void* gpRunButtonCel; // 0x007BEF0C
 extern void* gpGlobal_007C0D47; // 0x007C0D47
 extern void* gpRes_007C0D5F; // 0x007C0D5F
