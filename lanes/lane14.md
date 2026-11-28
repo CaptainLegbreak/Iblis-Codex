@@ -5,13 +5,10 @@ delete what is done. The queue is in COORDINATOR.md under "LANE 14 QUEUE".
 
 ## Ready
 
-- Sat Nov 28 01:15 PST 2026: **lane14/files-d2game** (1521351c6, on main 812c151f7 = #501; independent of files-d2common). Queue item 1, D2Game: four placeholders take their file names (renames only): Unknown_0058F870.cpp -> Quests/a1q0.cpp and Unknown_00586B50.cpp -> Quests/a5q0.cpp (Blizzard's a2q0.cpp and a3q0.cpp each hold what D2MOO splits into AnIntro.cpp + AnQ0.cpp; 0x58F870 holds D2MOO's A1Intro 5 + A1Q0 5 just before a1q1.cpp, 0x586B50 D2MOO's A5Intro 5/5 just before a5q1.cpp), Unknown_005B24E0.cpp -> MONSTER/MonsterSpawn.cpp (15/15 of what D2MOO places), Unknown_005C0D00.cpp -> ITEMS/ItemsMagic.cpp (14/16; D2MOO's other 2 are in its Items.cpp, here another object). VERIFIED tree 0f50a7a87d9d5a6c468c66c18550fe119e3502ed; Game.exe identical. Audit guard: no count rose. Linkdebt 18,209 -> 18,209, no module rising.
 
-- Sat Nov 28 01:00 PST 2026: **lane14/files-d2common** (0a0ba3eb0, on main 812c151f7 = #501). Queue item 1, D2Common: four placeholders take their file names (renames only; the code, plan values and every other file unchanged): Unknown_0067ADC0.cpp -> PATH/AStar.cpp, Unknown_0067A550.cpp -> PATH/IDAStar.cpp, Unknown_0067B9C0.cpp -> PATH/PathWF.cpp, Unknown_00679380.cpp -> PATH/PathMisc.cpp. Evidence: each is its own object (its own copy of the language-name table, in link order between PathUtil.cpp's and DrlgGrid.cpp's), and every function of it D2MOO places is in that one D2MOO file (12/13, 5/10, 6/9, 6/18; the rest D2MOO doesn't place). VERIFIED tree e2997f8c14d18f568d1b0462163b6edeecd3c1b4; Game.exe identical (631066c1...). Audit guard: no count rose (all unchanged; pointer casts 4,837, raw offsets 116, byte pointer math 140). Linkdebt: 18,209 -> 18,209, no module rising. STATUS.md/docs not regenerated (status.py's output on #501 differs from main beyond this change; left for the round).
 
 ## Claimed
 
-- Sat Nov 28 00:40 PST 2026: queue item 1, D2Common (branch lane14/files-d2common on #501): Source/D2Common/Unknown_00627250.cpp, Unknown_00679380.cpp, Unknown_0067A550.cpp, Unknown_0067ADC0.cpp, Unknown_0067B9C0.cpp, and Stats/StatsEx.cpp (the join).
 
 ## Findings
 
