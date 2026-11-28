@@ -25,6 +25,7 @@
 #include "FogApi.h"
 // build: symbol _gaszLanguageNames 0x00732084
 
+struct D2PoolSystemStrc;
 struct D2ClientStrc;
 
 struct D2InventoryStrc;
@@ -343,7 +344,7 @@ struct D2MercSaveDataStrc
 };
 
 
-D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner); // 0x0063ABD0
+D2InventoryStrc* __stdcall INVENTORY_AllocInventory(D2PoolSystemStrc* pMemPool, D2UnitStrc* pOwner); // 0x0063ABD0
 
 
 // build: symbol ?PLRTRADE_FindTerminator@* 0x00568D80

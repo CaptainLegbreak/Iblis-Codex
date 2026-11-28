@@ -43,6 +43,7 @@
 
 #define TOKEN_CHAR(c) ((char)(c) == COF_PAD ? 0 : (char)(c))
 
+struct D2PoolSystemStrc;
 #define REMAP_COMPONENT(pComponent, nFallback)                                                              \
     {                                                                                                       \
         const int nItems = gnItems;                                                                \
@@ -134,7 +135,7 @@ extern void* sghPentagram; // 0x0087E96C
 
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9
 
-void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(D2PoolSystemStrc* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 void* __stdcall D2COMP_LoadExcelFile(void* hArchive, const char* szName, const char* szExtension, unsigned int* pnFileSize); // 0x005043E0
 
@@ -178,7 +179,7 @@ extern "C" const char gszItemsTableWeapons[]; // 0x006DCCF8
 
 D2TxtLinkStrc* gpCompItemTypesLinker; // 0x0087D828
 
-int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
+int __fastcall FOG_FreePool(D2PoolSystemStrc* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
