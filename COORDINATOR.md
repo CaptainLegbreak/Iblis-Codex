@@ -519,6 +519,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #502 (j255, 01:20 PT): lane 1 clienttypes-fields, txttables-fields; lane 12 compile-1. VERIFIED a08eb3cb5, Game.exe identical, audit flat. Next: lane 13 unit-packet-list-2 once its Ready line is posted; lane 1 cominterface-names push; lane 11 names-d2client-files rebase.
+
 - 00:30 PT: **lane 14 (Fable) works on Codex again** (the user): queue above, board file lanes/lane14.md. It keeps the Iblis-Engine syncs.
 
 - #501 (j254, 00:50 PT): lane 1 clientgfx-fields, lane 11 unsourced-strings-1, lane 12 types-6. VERIFIED cdcdd01cf, Game.exe identical, casts 4,839 -> 4,837. linkdebt **18,209** (unsourced_data 4,509 -> 3,702, type_disagreement 3,992). Include unk0x 100. Waiting: lane 1 cominterface-names (fixed with the rule per its 23:44 note; push it and post Ready), lane 11 names-d2client-files and lane 13 unit-packet-list (rebase).
