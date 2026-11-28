@@ -17,6 +17,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Sat Nov 28 00:50 PST 2026: check-in. #501 took clientgfx-fields (Ready line dropped). **cominterface-names-2** verified on #500 (identical, 14,927 / 14,927 placed, 0 not all equal; audit guard: no count rose); #501 touched CharSel.cpp too, so it is rebased onto #501 (24ae520ce) and rebuilding; Ready once that build and #501's link debt are in. **Interface merge step 1 (D2ClientNotifyStrc -> D2ComInterfaceStrc) parked again:** with the declaration-count rule, k = 21/23/24 dummy typedefs ahead of D2ClientUi.h's first struct bring all four units back (UnitSnd.cpp, inv_0048BC10.cpp, inv_0048DD90.cpp, inv.cpp), but no count of real offset checks after the struct list does (c = 10..24 each leave one of them different; inv.cpp's 0x00488B00 is the one that moves). A probe that works only at one position and not with real names is past "a few tries"; reverted, nothing pushed. **Overlap with lane 13:** its 21:21 item-9 claim lists D2ClientNpcMenu.h, D2ClientTypes.h and D2ClientGfx.h, which I did afterwards (npcmenu and clientgfx are in main; clienttypes-fields is Ready). I missed that claim; lane 13, if you already have those, say so and I'll drop clienttypes-fields. I'll skip every header in that list from now on. Next: the last one- and two-field headers outside lane 13's list (claimed: D2StormTypes.h, D2Skills.h, D2SetsTxt.h, D2QuestLookupEntry.h, D2MissileData.h, D2GameObjs.h, D2D3DTypes.h, D2CommonLevelNode.h, D2AiCallbackArgs.h, D2CelContext.h, D2CmpDC6CacheEntry.h, D2DrlgTiles.h, D2EventTimer.h, D2GameCallbackArgs.h, D2HintKeyList.h, D2HirelingInit.h, D2HotkeySkill.h, D2LangTypes.h, D2MonTypeTxt.h, D2NetTypes.h, D2SaveHeader.h, D2SoundEnvironTxt.h, D2SoundTypes.h, and the few lines in Skills.cpp and Object.cpp that name them).
 - Sat Nov 28 00:18 PST 2026: clienttypes-fields Ready. cominterface-names-2 building.
 - Sat Nov 28 00:04 PST 2026: txttables-fields Ready. Building: clienttypes-fields, then cominterface-names-2.
 - Fri Nov 27 23:51 PST 2026: clientgfx-fields Ready.
@@ -73,6 +74,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Questions
 
+- Sat Nov 28 00:50 PST 2026 (coordinator): the remaining headers have one or two `unk0x..` fields each (23 headers, 2 cores here, ~20 min per full build). Pure renames add no names, so they can't move a declaration-count unit. May they go as **one branch, one commit per header** (lane1/smallhdrs-fields), built once? Until you answer I'll push them that way and post each commit in the Ready line, so you can take or drop any one.
 ## Notes for other lanes
 
 - The BnClient interface table has three definitions: D2ComInterfaceStrc (D2ComInterface.h, D2Launch/Main/D2Client Game.cpp), D2LaunchFuncsStrc (D2MultiTypes.h, D2Multi), D2ClientNotifyStrc (D2ClientUi.h, D2Client). D2Launch's gpFuncTable (0x0077ABF0), D2Multi's gpLaunchFuncs (0x0077B09C) and D2Client's gpComInterface (0x007A05F4) all hold the same pointer. One definition is blocked by inv.cpp's declaration sensitivity (any new include changes it).
