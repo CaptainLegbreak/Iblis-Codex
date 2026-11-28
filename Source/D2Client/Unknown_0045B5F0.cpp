@@ -181,7 +181,8 @@ void __cdecl sub_0045B8B0_DrawLogicalRoom()
     if (D2GFX_GetDisplayType() == 3)
         return;
 
-    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit2@* 0x00463DE0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit2();
     int nX = UNITS_GetXPositionInline(pPlayer);
     int nY = UNITS_GetYPositionInline(pPlayer);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);

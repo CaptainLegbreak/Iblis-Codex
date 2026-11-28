@@ -125,7 +125,8 @@ void __fastcall TEXT_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, 
         if (nSound)
         {
             UNITSND_ReleaseSkillSfx(pUnit);
-            gtTextState.hHintSound = sub_004B9A00(nSound, sub_00463DD0_GetPlayerUnit(), 5, 0, 0);
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+            gtTextState.hHintSound = sub_004B9A00(nSound, CUNIT_GetPlayerUnit(), 5, 0, 0);
             gnHintId = nSound;
         }
         gpTextBox->unknown16 = 0;

@@ -459,11 +459,12 @@ void __stdcall HIREABLES_HirelingIconHoverMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         gdwPopupTick = GetTickCount();
     }
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     D2UnitStrc* pCursorItem = pPlayer ? INVENTORY_GetCursorItem(pPlayer->pInventory) : 0;
     if (!pCursorItem)
     {
-        if (ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) != -1)
+        if (ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 0) != -1)
         {
             gbPopupPending = 1;
             if (GetTickCount() - gdwPopupTick >= 700)
@@ -557,7 +558,7 @@ void __stdcall HIREABLES_HirelingIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
-        if (!GAME_GetUIVarState(0x23) || GAME_GetUIVarState(0x24) || ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1)
+        if (!GAME_GetUIVarState(0x23) || GAME_GetUIVarState(0x24) || ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 0) == -1)
         {
             return;
         }
@@ -1610,7 +1611,7 @@ void __cdecl HIREABLES_UpdateHirelingPanel()
         gnGlobal_007BEEDC = 0;
         return;
     }
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     int bHasPet = 0;
     if (ROSTERPETS_HasPets(pPlayer))
     {
@@ -1653,7 +1654,7 @@ void __stdcall HIREABLES_PetIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
         sub_00420290_BreakHandlerChain(pMsg);
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     const int nUnitId = ROSTERPETS_FindPetIdByOwner(pPlayer, 7, 0);
     if (nUnitId != -1)
     {
@@ -1677,7 +1678,7 @@ void __stdcall HIREABLES_PetIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
 // 0x004934B0
 D2UnitStrc* __cdecl HIREABLES_GetPlayerCursorItem()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer)
         return 0;
     return INVENTORY_GetCursorItem(pPlayer->pInventory);
@@ -1688,9 +1689,9 @@ int __stdcall HIREABLES_CanEquipHirelingItem(int playSound)
 {
  if(!GAME_IsExpansion()) return 0;
  int result=0;
- D2UnitStrc* player=sub_00463DD0_GetPlayerUnit();
+ D2UnitStrc* player=CUNIT_GetPlayerUnit();
  if(!player) return 0;
- D2UnitStrc* current=sub_00463DD0_GetPlayerUnit();
+ D2UnitStrc* current=CUNIT_GetPlayerUnit();
  D2UnitStrc* item=current ? INVENTORY_GetCursorItem(current->pInventory):0;
  if(!item) return 0;
  int petId=ROSTERPETS_FindPetIdByOwner(player,7,0);
@@ -1956,7 +1957,7 @@ static int __stdcall HIREABLES_DrawPetIcon3(D2UnitStrc* pPlayer, int* pnX, int* 
 // 0x00494020
 void __cdecl HIREABLES_DrawPetIcons()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     int nY = 0x48;
     int bAlternate = 0;
     int nX = 0xF;

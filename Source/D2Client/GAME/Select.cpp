@@ -386,7 +386,8 @@ static int __stdcall SELECT_CheckDoorSideA(D2UnitStrc* pOther, D2UnitStrc* pUnit
     D2CoordStrc tPlayer;
     D2CoordStrc tOther;
     D2CoordStrc tUnit;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pPlayer)
     {
         UNITS_GetCoords(pPlayer, &tPlayer);
@@ -429,7 +430,7 @@ static int __stdcall SELECT_CheckDoorSideB(D2UnitStrc* pOther, D2UnitStrc* pUnit
     D2CoordStrc tPlayer;
     D2CoordStrc tUnit;
     D2CoordStrc tOther;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pPlayer)
     {
         UNITS_GetCoords(pPlayer, &tPlayer);
@@ -537,7 +538,8 @@ static D2UnitStrc* __stdcall SELECT_FindSkillTarget(D2SkillStrc* pSkill, D2UnitS
     D2UnitFindArgStrc tArg;
     memset(&tArg, 0, sizeof(tArg));
     tArg.nFlags = nFlags;
-    tArg.pUnit = sub_00463DE0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit2@* 0x00463DE0
+    tArg.pUnit = CUNIT_GetPlayerUnit2();
     tArg.nX = *pnX;
     tArg.nY = *pnY;
     tArg.nSize = 9;
@@ -647,7 +649,7 @@ static D2UnitStrc* __stdcall SELECT_FindFreeTargetCoords(int* pnX, int* pnY, D2U
 D2UnitStrc* __fastcall SELECT_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pUnit, int* pnX, int* pnY, unsigned char nFlags, int bArg)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pUnit)
     {
         if (pUnit->dwUnitType == UNIT_PLAYER && CUNIT_IsDeadOrDying(pUnit))
@@ -787,7 +789,7 @@ void __cdecl SELECT_UpdateHoverUnit()
         return;
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer)
     {
         return;

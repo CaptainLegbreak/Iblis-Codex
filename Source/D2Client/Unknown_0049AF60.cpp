@@ -250,7 +250,8 @@ void __cdecl PARTY_DrawRosterButtonHints()
 {
     D2PartyRowStrc* pRow = gpRosterUnits;
     D2StoredUnitRecordStrc* pFirst = ROSTER_GetNextStoredUnit(0);
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(sub_00463DD0_GetPlayerUnit());
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(CUNIT_GetPlayerUnit());
     int bInTown = 0;
     D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(pFirst);
     gnBoxColor = D2Win_10034_MixRGB(0, 0, 0);
@@ -466,7 +467,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
     D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(0);
     D2PartyRowStrc* pRow = gpRosterUnits;
     gbRosterButtonDown = 0;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (nX < gnScreenWidth / 2)
     {
         nX = sub_00468730();

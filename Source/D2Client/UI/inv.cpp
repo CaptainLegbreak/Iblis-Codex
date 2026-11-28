@@ -1081,9 +1081,9 @@ extern int gbHoverPlayerItem; // 0x00721E38
 
 extern "C" __declspec(dllimport) short __stdcall GetAsyncKeyState(int vKey);
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+D2UnitStrc* __cdecl CUNIT_GetPlayerUnit(); // 0x00463DD0
 
-D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
+D2UnitStrc* __cdecl CUNIT_GetPlayerUnit2(); // 0x00463DE0
 
 D2UnitStrc* __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
@@ -1290,7 +1290,7 @@ int __cdecl sub_004605A0_RunPopup(); // 0x004605A0
 
 void __cdecl sub_00477DD0(); // 0x00477DD0
 
-void __cdecl sub_00481830_StopAllSounds(); // 0x00481830
+void __cdecl UNITMODE_StopAllSounds(); // 0x00481830
 
 void __cdecl GFXUTIL_ClearFadeTimer(); // 0x004DC0A0
 
@@ -1843,7 +1843,7 @@ void __cdecl INV_LoadUiRecords()
 
     if (!gbUiRecordsLoaded)
     {
-        const int nClass = sub_00621050(sub_00463DD0_GetPlayerUnit(), 0, GAME_IsExpansion());
+        const int nClass = sub_00621050(CUNIT_GetPlayerUnit(), 0, GAME_IsExpansion());
         sub_0065C180_2(nClass, gnBeltUiRecordRow, &gtPlayerInvRect);
         sub_0065C1F0_2(nClass, gnBeltUiRecordRow, &gtPlayerInvGrid);
         sub_0065C270_2(nClass, gnBeltUiRecordRow, &gaCompGrids[4], 0);
@@ -2159,7 +2159,7 @@ static int INV_IsUnusableQuestBook(D2ItemsTxt* pItemsTxt)
 void __stdcall INV_DrawUnitInventory(D2UnitStrc* pUnit)
 {
     INV_LoadUiRecords();
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     D2InventoryGridInfoStrc* pGrid;
     const int nType = !pUnit ? 6 : pUnit->dwUnitType;
     switch (nType)
@@ -2422,7 +2422,7 @@ static void INV_DrawBodyLocPlacement(D2InventoryStrc* pInventory)
     unsigned char nWidth;
     unsigned char nHeight;
     ITEMS_GetDimensions(pCursorItem, &nWidth, &nHeight, gszCmnItemsH, 0x6DC);
-    if (ITEMS_CheckBodyLocation(pCursorItem, gnHoverBodyLoc) && ITEMS_CheckRequirements(pCursorItem, sub_00463DD0_GetPlayerUnit(), 0, 0, 0, 0))
+    if (ITEMS_CheckBodyLocation(pCursorItem, gnHoverBodyLoc) && ITEMS_CheckRequirements(pCursorItem, CUNIT_GetPlayerUnit(), 0, 0, 0, 0))
     {
         INV_DrawSlotFrame(&gaCompGrids[gnHoverBodyLoc], 1);
     }
@@ -2463,7 +2463,7 @@ void __cdecl INV_DrawEquippedItems()
         nOffsetX=4;
         nOffsetY=-4;
     }
-    D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer=CUNIT_GetPlayerUnit();
     D2InventoryStrc* pInventory=pPlayer->pInventory;
     UNITS_GetInventoryRecordId(pPlayer,0,GAME_IsExpansion());
     INV_LoadUiRecords();
@@ -2814,7 +2814,7 @@ void __stdcall INV_BuildItemDamageText(D2UnitStrc* pItem, Unicode* pBuffer)
         wszValue[i].wChar = 0;
     const Unicode* wszSpace = D2LANG_GetStringFromTblIndex(0xF9B);
     const Unicode* wszNewLine = D2LANG_GetStringFromTblIndex(0xF9E);
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
 
     if (ITEMSIsA(pItem, 0x26))
     {
@@ -2997,7 +2997,7 @@ void __stdcall INV_BuildItemDamageText(D2UnitStrc* pItem, Unicode* pBuffer)
 static void __stdcall INV_AppendBlockChance(Unicode* pText, D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem)
 {
     int nBlock = STATLIST_UnitGetStatValue(pItem, STAT_TOBLOCK, 0);
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pPlayer)
     {
         const int nClass = pPlayer->dwClassId;
@@ -3046,7 +3046,7 @@ static void __stdcall INV_AppendThrowDamage(D2UnitStrc* pItem, D2ItemsTxt* pItem
     if (ITEMSIsA(pItem, 0x33))
     {
         nStringId = 0xD8C;
-        D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
+        D2UnitStrc* pUnit = CUNIT_GetPlayerUnit2();
         void* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_HOLYSHIELD);
         if (pSkill && STATES_CheckState(pUnit, STATE_HOLYSHIELD))
         {
@@ -3178,7 +3178,7 @@ static void __stdcall INV_AppendAttackSpeed(Unicode* pText, D2UnitStrc* pItem)
     const Unicode* pColorStart = D2LANG_GetStringFromTblIndex(0xF9B);
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
     const Unicode* pColorAlt = D2LANG_GetStringFromTblIndex(0xF9C);
-    D2UnitStrc* pStoredUnit = sub_00463DE0_GetPlayerUnit();
+    D2UnitStrc* pStoredUnit = CUNIT_GetPlayerUnit2();
     const int nAttackSpeed = ITEMS_GetWeaponAttackSpeed(pStoredUnit, pItem);
     int bBonus = 0;
     if (STATLIST_GetUnitStatBonus(pItem, STAT_ITEM_FASTERATTACKRATE, 0))
@@ -3196,7 +3196,7 @@ static void __stdcall INV_AppendAttackSpeed(Unicode* pText, D2UnitStrc* pItem)
     }
     else
     {
-        D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
+        D2UnitStrc* pUnit = CUNIT_GetPlayerUnit2();
         const int bMissile = (ITEMSIsA(pItem, 0x23) || ITEMSIsA(pItem, 0x1B)) ? 1 : 0;
         const int nClass = !pUnit ? -1 : pUnit->dwClassId;
         nSpeed = gaSpeedTable[nAttackSpeed - 10][gaClassSpeedOffsets[nClass][bMissile]];
@@ -3238,7 +3238,7 @@ static void __stdcall INV_AppendItemFormulaText(D2UnitStrc* pItem, D2ItemFormula
         return;
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer || pRecord->wStringId == 0x1506)
     {
         return;
@@ -3712,7 +3712,7 @@ int __cdecl INV_IsState1Or2()
 // 0x00486DA0
 static int INV_IsOverGoldButton(int nX, int nY)
 {
-    if (INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory))
+    if (INVENTORY_GetCursorItem(CUNIT_GetPlayerUnit()->pInventory))
     {
         return 0;
     }
@@ -3783,7 +3783,7 @@ void __stdcall INV_NpcPanelMouseMove(SMSGHANDLER_PARAMS* pMsg)
     const int nX = pMsg->nXpos;
     gbPanelButtonDown = 0;
     gnGlobal_007BCE94 = 0;
-    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+    D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
     if (!AUTOMAP_IsCursorOverMiniPanelButton(pMsg))
     {
         if (INV_IsInNpcPanelRect(nX, nY))
@@ -3971,7 +3971,7 @@ void __stdcall INV_UpdateInventoryHover(SMSGHANDLER_PARAMS* pMsg)
     }
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     INV_LoadUiRecords();
     D2InventoryStrc* pInventory = pPlayer->pInventory;
     int bHandled = 0;
@@ -4322,7 +4322,7 @@ int __cdecl INV_ResetNpcButtons()
     gaNpcButtons[2].bActive = 0;
     gaNpcButtons[3].bActive = 0;
     gnInvPanelMode = 1;
-    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+    D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
     CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
     return 1;
 }
@@ -4337,7 +4337,7 @@ void __cdecl INV_ResetNpcButtonsFromPending()
         gaNpcButtons[2].bActive = 0;
         gaNpcButtons[3].bActive = 0;
         gnInvPanelMode = 1;
-        D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+        D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
     CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
     }
 }
@@ -4366,7 +4366,7 @@ void __cdecl INV_SelectFirstButton()
     gaNpcButtons[2].bActive = 0;
     gaNpcButtons[3].bActive = 0;
     gnInvPanelMode = 1;
-    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+    D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
     CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
 }
 
@@ -4385,7 +4385,7 @@ void __cdecl INV_ResetButtonsFromMenuReturn()
     gaNpcButtons[2].bActive = 0;
     gaNpcButtons[3].bActive = 0;
     gnInvPanelMode = 1;
-    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+    D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
     CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
 }
 
@@ -4574,7 +4574,7 @@ void __fastcall INV_DrawGold(int nType)
     switch (nType)
     {
     case 0:
-        nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLDBANK, 0);
+        nGold = STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLDBANK, 0);
         nTextX = gnPanelOffsetX + 0xA5;
         if (GAME_IsExpansion())
         {
@@ -4605,7 +4605,7 @@ void __fastcall INV_DrawGold(int nType)
         break;
 
     case 1:
-        nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
+        nGold = STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLD, 0);
         nTextX = gnScreenWidth - gnPanelOffsetX - 0xD4;
         nTextY = gnScreenHeight + gnPanelOffsetY - 0x48;
         nIconY = gnScreenHeight + gnPanelOffsetY - 0x45;
@@ -4614,7 +4614,7 @@ void __fastcall INV_DrawGold(int nType)
         break;
 
     default:
-        nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLDBANK, 0);
+        nGold = STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLDBANK, 0);
         nTextX = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xCF3)) + gnPanelOffsetX + 0x15;
         nTextY = gnScreenHeight + gnPanelOffsetY - 0x6A;
         nIconX = 0;
@@ -4680,7 +4680,7 @@ void __cdecl INV_DrawNpcShopPanel()
         gaPanelButtons_007BC9E0[2].nValue = 0;
         gaPanelButtons_007BC9E0[3].nValue = 0;
         gnInvPanelMode = 1;
-        D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+        D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
         CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
         gbNpcTradeClicked = 0;
     }
@@ -4772,7 +4772,7 @@ void __cdecl INV_DrawButtonHoverText()
             if (gaPanelButtons_007BC9E0[i].nString == 0x276F)
             {
                 Unicode wszText[0x100];
-                D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+                D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
                 D2UnitStrc* pNpc = NPCMENU_GetInteractNpc();
                 if (pPlayer && pNpc)
                 {
@@ -4810,7 +4810,7 @@ int __cdecl INV_CanUseCursor()
 {
     if (gnInvPanelMode == 1 || gnInvPanelMode == 2 || gnInvPanelMode == 4 || gnInvPanelMode == 3)
     {
-        D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+        D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
         if (INVENTORY_GetCursorItem(pInventory))
         {
             return 0;
@@ -4831,7 +4831,7 @@ void __stdcall INV_ResetShopCursorMsg(SMSGHANDLER_PARAMS* pMsg)
         && !UI_GetUIVarUnchecked(5))
     {
         gbNpcUiRecordsLoaded = 0;
-        CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory));
+        CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(CUNIT_GetPlayerUnit()->pInventory));
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -4930,7 +4930,7 @@ void __stdcall INV_NpcPanelButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
                         pMsg->lResult = 0;
                         sub_00420290_BreakHandlerChain(pMsg);
                         gbPanelButtonClicked = 0;
-                        D2InventoryStrc* const pPlayerInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+                        D2InventoryStrc* const pPlayerInventory = CUNIT_GetPlayerUnit()->pInventory;
                         if (!INVENTORY_GetCursorItem(pPlayerInventory))
                         {
                             CURSOR_SetCursorItemState(0);
@@ -4960,7 +4960,7 @@ void __stdcall INV_NpcPanelButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
                         if (nKey == 0x12)
                         {
                             gbNpcButtonHandled = 1;
-                            NPCMENU_HandleTradeClick(sub_00463DD0_GetPlayerUnit(), 0, 1, nX, nY, 0, 1, 1);
+                            NPCMENU_HandleTradeClick(CUNIT_GetPlayerUnit(), 0, 1, nX, nY, 0, 1, 1);
                             gbNpcButtonHandled = 0;
                         }
                         else
@@ -4978,7 +4978,7 @@ void __stdcall INV_NpcPanelButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         {
             if (INV_CanUseCursor())
             {
-                D2InventoryStrc* const pPlayerInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+                D2InventoryStrc* const pPlayerInventory = CUNIT_GetPlayerUnit()->pInventory;
                 CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pPlayerInventory));
             }
 
@@ -4997,10 +4997,10 @@ void __stdcall INV_NpcPanelButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         gbPanelButtonClicked = 0;
     }
 
-    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+    D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
     if (!AUTOMAP_IsCursorOverMiniPanelButton(pMsg) && !INVENTORY_GetCursorItem(pInventory) && INV_IsInNpcPanelRect(nX, nY))
     {
-        D2InventoryStrc* const pPlayerInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+        D2InventoryStrc* const pPlayerInventory = CUNIT_GetPlayerUnit()->pInventory;
         CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pPlayerInventory));
         NPCMENU_CloseNpcShop();
     }
@@ -5254,7 +5254,7 @@ void __stdcall INV_TradePanelMsg(SMSGHANDLER_PARAMS* pMsg)
     gnInvMouseY = nY;
     gbPanelButtonDown = 0;
     gnGlobal_007BCE94 = 0;
-    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+    D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
     if (!AUTOMAP_IsCursorOverMiniPanelButton(pMsg) && !INVENTORY_GetCursorItem(pInventory) && INV_IsInNpcPanelRect(nX, nY))
     {
         sub_004B8CB0_BeginTradeWait();
@@ -5519,7 +5519,7 @@ void __stdcall INV_StashClickMsg(SMSGHANDLER_PARAMS* pMsg)
     gnGlobal_007BCE94 = 0;
     gnInvMouseX = nX;
     gnInvMouseY = nY;
-    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+    D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
     if ((!HIREABLES_AreBeltRowsShown() || !AUTOMAP_IsCursorOverMiniPanelButton(pMsg)) && !INVENTORY_GetCursorItem(pInventory) && INV_IsInNpcPanelRect(nX, nY))
     {
         UI_SetUIVar(0x19, 1, 0);
@@ -5638,7 +5638,7 @@ void __fastcall INV_RecordStashUnitId(D2UnitStrc* pUnit)
         return;
     }
 
-    D2ActiveRoomStrc* pPlayerRoom = UNITS_GetRoom(sub_00463DD0_GetPlayerUnit());
+    D2ActiveRoomStrc* pPlayerRoom = UNITS_GetRoom(CUNIT_GetPlayerUnit());
     if (!pPlayerRoom)
     {
         return;
@@ -5825,7 +5825,7 @@ void __stdcall INV_CubeClickMsg(SMSGHANDLER_PARAMS* pMsg)
     gnGlobal_007BCE94 = 0;
     gnInvMouseX = nX;
     gnInvMouseY = nY;
-    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+    D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
     if (!HIREABLES_AreBeltRowsShown() && !INVENTORY_GetCursorItem(pInventory) && INV_IsInNpcPanelRect(nX, nY))
     {
         UI_SetUIVar(0x1A, 1, 0);
@@ -6053,7 +6053,7 @@ void __cdecl INV_FreeHoradricCel()
 void __cdecl INV_EnterNpcMenuState()
 {
     gnInvPanelMode = 1;
-    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+    D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
     CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
     D2ClientRecordStrc tRecord;
     tRecord.nId = 0x5A;
@@ -6082,7 +6082,7 @@ void __cdecl INV_ResetNpcCursor()
     gnInvPanelMode = 0;
     gnInvMouseX = 0;
     gnInvMouseY = 0;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer || !INVENTORY_GetCursorItem(pPlayer->pInventory))
     {
         CURSOR_SetCursorItemState(0);
@@ -6134,7 +6134,7 @@ void __cdecl INV_ResetEquipSounds()
     }
     sub_004B9A00(1, 0, 0, 0, 0);
     MSG_SendHeaderOnly(0x60);
-    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+    D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
     D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
     if (pItem)
     {
@@ -6669,7 +6669,7 @@ static __forceinline void DrawBodyLocRectInline(D2InvCompGridStrc* pRect, int nC
 // 0x0048B3F0
 void __fastcall INV_DrawMercEquipHighlights(D2UnitStrc* pUnit)
 {
-    D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory);
+    D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(CUNIT_GetPlayerUnit()->pInventory);
     if (!pCursorItem)
         return;
     for (int i = 0; i < 11; ++i)
@@ -6722,7 +6722,7 @@ static void INV_DrawUnitEquippedItems(D2UnitStrc* pUnit)
 // 0x0048B640
 D2UnitStrc* __cdecl INV_GetMercUnit()
 {
-    const int nPetId = ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
+    const int nPetId = ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 0);
     if (nPetId != -1)
     {
         D2UnitStrc* pMerc = CUNIT_FindClientUnit(nPetId, 1);
@@ -6738,7 +6738,7 @@ D2UnitStrc* __cdecl INV_GetMercUnit()
 // 0x0048B680
 void __stdcall INV_MercPanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nPetId = ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
+    const int nPetId = ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 0);
     if (nPetId == -1)
     {
         UI_SetUIVar(0x24, 2, 0);
@@ -6780,7 +6780,7 @@ static inline int INV_GetUnitIdInline(D2UnitStrc* pUnit)
 // 0x0048B7C0
 void __stdcall INV_MercInvClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nPetId = ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
+    const int nPetId = ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 0);
     if (nPetId == -1)
     {
         UI_SetUIVar(0x24, 2, 0);
@@ -6810,7 +6810,7 @@ void __stdcall INV_MercInvClickMsg(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory);
+    D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(CUNIT_GetPlayerUnit()->pInventory);
     for (int i = 0; i < 11; ++i)
     {
         if (gaBodyLocRects[i].rect.nLeft > 0 && IsCursorInRectInline(gaBodyLocRects[i].rect.nLeft, gaBodyLocRects[i].rect.nTop, gaBodyLocRects[i].rect.nRight, gaBodyLocRects[i].rect.nBottom))
@@ -6863,7 +6863,7 @@ void __stdcall INV_MercInvClickMsg(SMSGHANDLER_PARAMS* pMsg)
 // 0x0048BA50
 void __stdcall INV_MercPanelHoverMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nPetId = ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
+    const int nPetId = ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 0);
     if (nPetId == -1)
     {
         UI_SetUIVar(0x24, 2, 0);
@@ -6895,7 +6895,7 @@ void __stdcall INV_MercPanelHoverMsg(SMSGHANDLER_PARAMS* pMsg)
     }
 
     INV_ResetHover();
-    if (INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory))
+    if (INVENTORY_GetCursorItem(CUNIT_GetPlayerUnit()->pInventory))
     {
         return;
     }
@@ -7575,7 +7575,7 @@ void __fastcall INV_DrawSetItemTooltip(D2UnitStrc* pUnit)
 
     D2UnitStrc* pPlayer = pUnit;
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && !MONSTERS_GetHirelingTypeId(pUnit))
-        pPlayer = sub_00463DD0_GetPlayerUnit();
+        pPlayer = CUNIT_GetPlayerUnit();
 
     D2InventoryStrc* pInventory = pUnit->pInventory;
     if (!gbHoverInBodyLoc && !gbHoverInGrid)
@@ -7940,7 +7940,7 @@ static int __stdcall INV_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStrc* pInven
             nResult = 1;
             if (!ITEM_IsItemActionBlocked(pHit))
             {
-                if (pUnit == sub_00463DD0_GetPlayerUnit() && nPage != 1 && nPage != 2 && INV_CheckTradeClickDelay())
+                if (pUnit == CUNIT_GetPlayerUnit() && nPage != 1 && nPage != 2 && INV_CheckTradeClickDelay())
                 {
                     MSG_SendTwoDwords(0x27, !pHit ? -1 : pHit->dwUnitId, !pCursor ? -1 : pCursor->dwUnitId);
                     ITEM_SetUninterruptableState(pHit);
@@ -7960,7 +7960,7 @@ static int __stdcall INV_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStrc* pInven
             nResult = 1;
             if (!ITEM_IsItemActionBlocked(pHit))
             {
-                if (pUnit == sub_00463DD0_GetPlayerUnit() && nPage != 1 && nPage != 2 && INV_CheckTradeClickDelay())
+                if (pUnit == CUNIT_GetPlayerUnit() && nPage != 1 && nPage != 2 && INV_CheckTradeClickDelay())
                 {
                     MSG_SendDword(0x4C, pHit->dwUnitId);
                     ITEM_SetUninterruptableState(pHit);
@@ -7977,7 +7977,7 @@ static int __stdcall INV_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStrc* pInven
         D2UnitStrc* pHit = INVENTORY_GetItemFromInventoryPage(pInventory, nGridX, nGridY, &nOutX, &nOutY, nRecord, nPage);
         if (pHit)
         {
-            const int bIsPlayer = pUnit == sub_00463DD0_GetPlayerUnit();
+            const int bIsPlayer = pUnit == CUNIT_GetPlayerUnit();
             if (INV_IsTradeStateInteractive() && bIsPlayer == 1)
             {
                 if (!ITEM_IsItemActionBlocked(pHit) && INV_CheckTradeClickDelay())
@@ -7992,7 +7992,7 @@ static int __stdcall INV_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStrc* pInven
                             {
                                 if (ITEMS_IsNotQuestItem(pHit))
                                 {
-                                    const int nCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pHit, GAME_GetDifficulty(), MONSTER_GetQuestFlags(), !pNpc ? -1 : pNpc->dwClassId, 1);
+                                    const int nCost = ITEMS_GetTransactionCost(CUNIT_GetPlayerUnit2(), pHit, GAME_GetDifficulty(), MONSTER_GetQuestFlags(), !pNpc ? -1 : pNpc->dwClassId, 1);
                                     MSG_SendFourDwords(0x33, !pNpc ? -1 : pNpc->dwUnitId, !pHit ? -1 : pHit->dwUnitId, !pHit ? -1 : pHit->dwAnimMode, nCost);
                                 }
                                 else
@@ -8502,7 +8502,7 @@ void __stdcall INV_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg)
         pMsg->lResult=0;
         sub_00420290_BreakHandlerChain(pMsg);
     }
-    D2UnitStrc* player=sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* player=CUNIT_GetPlayerUnit();
     INV_LoadUiRecords();
     D2InventoryStrc* inventory=player->pInventory;
     int handled=0;
@@ -8657,7 +8657,7 @@ void __stdcall INV_GridClickMsg(SMSGHANDLER_PARAMS* pMsg)
     D2UnitStrc* pPlayer;
     const int nY = pMsg->nYpos;
     const int nX = pMsg->nXpos;
-    pPlayer = sub_00463DD0_GetPlayerUnit();
+    pPlayer = CUNIT_GetPlayerUnit();
     INV_LoadUiRecords();
     D2InventoryStrc* pInventory = pPlayer->pInventory;
     if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg) || nX < gnGlobal_007BCAA0 || nX >= gnGlobal_007BCAA4 || nY < gnGlobal_007BCAA8 || nY > gnGlobal_007BCAAC)
@@ -8724,7 +8724,7 @@ void __stdcall INV_GridClickMsg(SMSGHANDLER_PARAMS* pMsg)
 // 0x00491AD0
 void __stdcall INV_InventoryClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (GAME_IsExitPending() || !pPlayer || CUNIT_IsPlayerDeadOrMissing())
     {
         return;

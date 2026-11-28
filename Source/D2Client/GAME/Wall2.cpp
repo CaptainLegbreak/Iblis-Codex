@@ -255,7 +255,8 @@ void __fastcall WALL2_PrepareWallCells(D2WallCtxStrc* pCtx, int nValue)
             ++pCell;
         }
     }
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x351);
     tArg.pRoom = CUNIT_GetPlayerRoom();
     s_nPlayerX = GetUnitXPosition_Inline(pPlayer) / 5;
@@ -1228,7 +1229,7 @@ void __thiscall D2FloorTileViewStrc::UpdateView(void* pArgument)
         bMudFlag = 1;
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x11E);
     pSeed = &pPlayer->pSeed;
 
@@ -1268,7 +1269,8 @@ void __thiscall D2FloorTileViewStrc::UpdateView(void* pArgument)
 
     const int nRangeA = bPerspective ? 0x21 : 0x1E;
     const int nRangeB = bPerspective ? 0x17 : 0x19;
-    D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit2@* 0x00463DE0
+    D2UnitStrc* pUnit = CUNIT_GetPlayerUnit2();
     if (!pUnit)
         return;
 
@@ -1306,7 +1308,7 @@ void __cdecl WALL2_UpdateRoomColor()
     ENVIRONMENT_GetLightColorFromAct(gpGlobal_007A0634, &gnRoomColorRed, &gnRoomColorGreen, &gnRoomColorBlue);
     gnRoomColorIntensity = ENVIRONMENT_GetIntensityFromAct(gpGlobal_007A0634);
 
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer)
     {
         return;

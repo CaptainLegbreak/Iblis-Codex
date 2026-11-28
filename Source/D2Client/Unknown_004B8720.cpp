@@ -130,9 +130,10 @@ void __cdecl MONSTER_DrawDialogHover()
             D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1022), gnPanelOffsetX + 0x107, 0x17E - gnPanelOffsetY, 0, 0);
     }
 
-    if (sub_00463DD0_GetPlayerUnit())
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    if (CUNIT_GetPlayerUnit())
     {
-        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(sub_00463DD0_GetPlayerUnit());
+        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(CUNIT_GetPlayerUnit());
         if (CUNIT_IsPlayerDeadOrMissing() || (pRoom && !DUNGEON_IsTownLevelId(DUNGEON_GetLevelIdFromRoom(pRoom))))
         {
             if (GAME_GetUIVarState(0x17))
@@ -371,7 +372,7 @@ void __fastcall MONSTER_HandleTradePacket(const unsigned char* pPacket)
         return;
 
     case 9:
-        UNITSND_PlayPlayerSpeech(sub_00463DD0_GetPlayerUnit(), 0x17);
+        UNITSND_PlayPlayerSpeech(CUNIT_GetPlayerUnit(), 0x17);
         return;
 
     case 10:
@@ -387,7 +388,7 @@ void __fastcall MONSTER_HandleTradePacket(const unsigned char* pPacket)
     case 1:
         if (!gnTradeState)
         {
-            D2InventoryStrc* const pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+            D2InventoryStrc* const pInventory = CUNIT_GetPlayerUnit()->pInventory;
             if (INVENTORY_GetCursorItem(pInventory))
             {
                 MSG_SendShorts(0x4F, 2, 0, 0);
@@ -554,7 +555,7 @@ void __fastcall MONSTER_SendGoldRequest(unsigned long nGold)
         return;
     }
 
-    const unsigned long nMaxGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
+    const unsigned long nMaxGold = STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLD, 0);
     if (nGold >= nMaxGold)
     {
         gdwPrimaryTradeGold = nMaxGold;

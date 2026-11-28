@@ -9,7 +9,7 @@ extern "C" void* __cdecl memset(void*,int,unsigned int);
 void __cdecl TEXT_LoadWaypointPanelCels(); // 0x0049C580
 int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+D2UnitStrc* __cdecl CUNIT_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 int __fastcall D2Win_10127_SetFont(int nFontSize); // 0x00502EF0
@@ -52,7 +52,7 @@ void __cdecl TEXT_DrawWaypointPanel()
     if(CUNIT_IsPlayerDeadOrMissing())
     {
         UI_SetUIVar(20,1,0);
-        if(!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
+        if(!gbSent && CUNIT_GetPlayerUnit() && UNITS_GetRoom(CUNIT_GetPlayerUnit()))
         {
             MSG_SendTwoDwords(0x49,gnWaypointId,0);
             gbSent=1;
@@ -127,7 +127,7 @@ void __cdecl TEXT_DrawWaypointPanel()
     tGfx.pCellFile=sub_00454600_GetCloseButtonCell();
     tGfx.nFrame=10+(gbWaypointClosePressed!=0);
     TEXTURE_CelDraw(&tGfx,gnOffsetX_007A2858+273,417-gnPanelOffsetY,-1,5,0);
-    int nLevelId=DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()));
+    int nLevelId=DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(CUNIT_GetPlayerUnit()));
     tGfx.pCellFile=gpWaypointIconCel;
     for(int nRow=0;nRow<gnWaypointCount;++nRow)
     {

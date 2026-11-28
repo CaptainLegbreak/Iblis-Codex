@@ -782,7 +782,8 @@ void __stdcall NPCMENU_PickNpcChoice(D2NpcEntryStrc* pEntry)
 {
     int* const pnSelected = &pEntry->nSelected;
     int nTries = 10;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     const int nClass = !pPlayer ? -1 : pPlayer->dwClassId;
 
     do
@@ -1602,7 +1603,8 @@ int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pC
                 if (!NPCMENU_ItemNeedsRepair(pItem))
                     return 0;
                 D2UnitStrc* pVendor = NPCMENU_GetInteractNpc();
-                *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gtNpcMenu.pPlayerQuestFlags, !pVendor ? -1 : pVendor->dwClassId, 3);
+// build: symbol ?CUNIT_GetPlayerUnit2@* 0x00463DE0
+                *pCost = ITEMS_GetTransactionCost(CUNIT_GetPlayerUnit2(), pItem, GAME_GetDifficulty(), gtNpcMenu.pPlayerQuestFlags, !pVendor ? -1 : pVendor->dwClassId, 3);
                 nStringId = 0xD02;
                 break;
             }
@@ -1625,7 +1627,7 @@ int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pC
             if (!ITEMS_IsNotQuestItem(pItem))
                 return 0;
             D2UnitStrc* pVendor = NPCMENU_GetInteractNpc();
-            *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gtNpcMenu.pPlayerQuestFlags, !pVendor ? -1 : pVendor->dwClassId, 1);
+            *pCost = ITEMS_GetTransactionCost(CUNIT_GetPlayerUnit2(), pItem, GAME_GetDifficulty(), gtNpcMenu.pPlayerQuestFlags, !pVendor ? -1 : pVendor->dwClassId, 1);
             nStringId = 0xD03;
             break;
         }
@@ -1638,7 +1640,7 @@ int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pC
             nType = 2;
         D2UnitStrc* pVendor = GetInteractNpc_Inline();
         const int nVendorId = !pVendor ? -1 : pVendor->dwClassId;
-        *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gtNpcMenu.pPlayerQuestFlags, nVendorId, nType);
+        *pCost = ITEMS_GetTransactionCost(CUNIT_GetPlayerUnit2(), pItem, GAME_GetDifficulty(), gtNpcMenu.pPlayerQuestFlags, nVendorId, nType);
         nStringId = 0xD01;
     }
     if (!nStringId)
@@ -2051,9 +2053,9 @@ int __cdecl NPCMENU_HireMercHandler()
     gnHireMercNpcId = gtNpcMenu.nInteractNpcId;
     if (nCount < 10 && gtNpcMenu.pTradeObj->GetAt(nCount) < 10)
     {
-        if (ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1
+        if (ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 0) == -1
 // build: symbol ?gnHirelingName@* 0x00725494
-            && (!GAME_IsExpansion() || (!ROSTERPETS_CountPets(sub_00463DD0_GetPlayerUnit(), 7) && gnHirelingName == 0xFFFF)))
+            && (!GAME_IsExpansion() || (!ROSTERPETS_CountPets(CUNIT_GetPlayerUnit(), 7) && gnHirelingName == 0xFFFF)))
         {
             NPCMENU_HireMercWait();
             return 0;
@@ -2192,10 +2194,10 @@ int __fastcall NPCMENU_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                     if (!NPCMENU_ItemNeedsRepair(pItem))
                         return 0;
                     gtNpcMenu.nTradeMode = 3;
-                    gtNpcMenu.nTransactionCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gtNpcMenu.pPlayerQuestFlags, nNpcClass, 3);
+                    gtNpcMenu.nTransactionCost = ITEMS_GetTransactionCost(CUNIT_GetPlayerUnit2(), pItem, GAME_GetDifficulty(), gtNpcMenu.pPlayerQuestFlags, nNpcClass, 3);
                     break;
                 }
-                gtNpcMenu.nTransactionCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gtNpcMenu.pPlayerQuestFlags, nNpcClass, 1);
+                gtNpcMenu.nTransactionCost = ITEMS_GetTransactionCost(CUNIT_GetPlayerUnit2(), pItem, GAME_GetDifficulty(), gtNpcMenu.pPlayerQuestFlags, nNpcClass, 1);
                 if (!ITEMS_IsNotQuestItem(pItem))
                     return 0;
                 gtNpcMenu.nTradeMode = 2;
@@ -2212,7 +2214,7 @@ int __fastcall NPCMENU_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
             case 0x200:
             case 0x201:
             case 0x202:
-                gtNpcMenu.nTransactionCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gtNpcMenu.pPlayerQuestFlags, nNpcClass, 1);
+                gtNpcMenu.nTransactionCost = ITEMS_GetTransactionCost(CUNIT_GetPlayerUnit2(), pItem, GAME_GetDifficulty(), gtNpcMenu.pPlayerQuestFlags, nNpcClass, 1);
                 if (!ITEMS_IsNotQuestItem(pItem))
                     return 0;
                 gtNpcMenu.nTradeMode = 2;
@@ -2232,14 +2234,14 @@ int __fastcall NPCMENU_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
         }
         else
         {
-            D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+            D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
             if (INVENTORY_GetCursorItem(pInventory))
                 return 0;
             gtNpcMenu.nTradeMode = 1;
             int nType = 0;
             if (gtNpcMenu.bGambleShop)
                 nType = 2;
-            gtNpcMenu.nTransactionCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, GAME_GetDifficulty(), gtNpcMenu.pPlayerQuestFlags, nNpcClass, nType);
+            gtNpcMenu.nTransactionCost = ITEMS_GetTransactionCost(CUNIT_GetPlayerUnit2(), pItem, GAME_GetDifficulty(), gtNpcMenu.pPlayerQuestFlags, nNpcClass, nType);
         }
         gtNpcMenu.bTradeClickPending = 1;
         gtNpcMenu.nTradeItemUnitId = GetUnitIdOrNone(pItem);
@@ -2269,9 +2271,9 @@ void __fastcall sub_004B3C00_FinishPendingAction(int nUnitId)
 // 0x004B3C20
 void __fastcall NPCMENU_EndNpcInteraction(int nValue)
 {
-    if (sub_00463DD0_GetPlayerUnit())
+    if (CUNIT_GetPlayerUnit())
     {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
         {
             pPlayer->pPlayerData->nState = 0;
@@ -2348,7 +2350,7 @@ int __cdecl NPCMENU_OpenGambleShop()
     gtNpcMenu.bGambleShop = 1;
     UI_SetUIVar(0xC, 0, 0);
     MSG_SendDwords3(0x38, 2, gtNpcMenu.nInteractNpcId, 0);
-    gtNpcMenu.pPlayerUnit = sub_00463DD0_GetPlayerUnit();
+    gtNpcMenu.pPlayerUnit = CUNIT_GetPlayerUnit();
     gtNpcMenu.wGlobal170 = 0;
     return 1;
 }
@@ -2365,7 +2367,7 @@ void __cdecl NPCMENU_CloseNpc()
 // 0x004B3E10
 void __fastcall NPCMENU_RefreshNpcEntries(D2UnitStrc* pUnit)
 {
-    if (pUnit != sub_00463DD0_GetPlayerUnit())
+    if (pUnit != CUNIT_GetPlayerUnit())
         return;
 
 // build: symbol ?gnNpcEntryCount@* 0x0072554C
@@ -2374,7 +2376,7 @@ void __fastcall NPCMENU_RefreshNpcEntries(D2UnitStrc* pUnit)
         if (gaNpcEntries[i].bSelected == 1)
         {
             gaNpcEntries[i].bSelected = 0;
-            D2_ASSERT(sub_00463DD0_GetPlayerUnit(), 0xFAB);
+            D2_ASSERT(CUNIT_GetPlayerUnit(), 0xFAB);
             NPCMENU_PickNpcChoice(&gaNpcEntries[i]);
         }
         gaNpcEntries[i].bRefreshed = 1;
@@ -2525,7 +2527,7 @@ int __cdecl NPCMENU_NextNpcMessage()
 // 0x004B41E0
 int __cdecl NPCMENU_GreetNpcMessage()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     const int nClass = !pPlayer ? -1 : pPlayer->dwClassId;
     if (gtNpcMenu.bInteracting)
     {
@@ -2606,7 +2608,7 @@ int __cdecl NPCMENU_OpenTradeShop()
     gtNpcMenu.bGambleShop = 0;
     UI_SetUIVar(0xC, 0, 0);
     MSG_SendDwords3(0x38, 1, gtNpcMenu.nInteractNpcId, 0);
-    gtNpcMenu.pPlayerUnit = sub_00463DD0_GetPlayerUnit();
+    gtNpcMenu.pPlayerUnit = CUNIT_GetPlayerUnit();
     gtNpcMenu.wGlobal170 = 0;
     return 1;
 }
@@ -2657,7 +2659,7 @@ void __cdecl NPCMENU_UpdateNpcInteract()
             if (!gtNpcMenu.bWaitSoundScheduled)
             {
                 gtNpcMenu.bWaitSoundScheduled = 1;
-                gtNpcMenu.dwWaitSoundTick = (ITEMS_RollLimitedRandomNumber(&sub_00463DD0_GetPlayerUnit()->pSeed, 30) + 120) * 1000 + GetTickCount();
+                gtNpcMenu.dwWaitSoundTick = (ITEMS_RollLimitedRandomNumber(&CUNIT_GetPlayerUnit()->pSeed, 30) + 120) * 1000 + GetTickCount();
             }
 
             if (gtNpcMenu.dwWaitSoundTick > GetTickCount())
@@ -2685,7 +2687,7 @@ void __cdecl NPCMENU_UpdateNpcInteract()
 
     if (gtNpcMenu.pTradeDialog)
     {
-        if (!INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory) && !CURSOR_GetCursorItem())
+        if (!INVENTORY_GetCursorItem(CUNIT_GetPlayerUnit()->pInventory) && !CURSOR_GetCursorItem())
         {
             DIALOG_DrawDialog(gtNpcMenu.pTradeDialog);
             return;
@@ -2831,7 +2833,7 @@ void __cdecl NPCMENU_BuildNpcMenu()
     }
     if(gtNpcMenu.nInteractNpcClassId==252 || gtNpcMenu.nInteractNpcClassId==198 || gtNpcMenu.nInteractNpcClassId==515 || gtNpcMenu.nInteractNpcClassId==150)
     {
-        D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer=CUNIT_GetPlayerUnit();
         MSG_SendDwords3(0x38,3,gtNpcMenu.nInteractNpcId,!pPlayer?-1:pPlayer->dwUnitId);
     }
     D2CoordStrc tCoords;
@@ -2860,9 +2862,9 @@ void __cdecl NPCMENU_BuildNpcMenu()
         }
         else if(nStringId==0xD09)
         {
-            int nLife=STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(),STAT_HITPOINTS,0);
-            if(nLife>=STATLIST_GetMaxLifeFromUnit(sub_00463DD0_GetPlayerUnit()))continue;
-            int nCost=UNITS_GetHealingCost(sub_00463DD0_GetPlayerUnit());
+            int nLife=STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(),STAT_HITPOINTS,0);
+            if(nLife>=STATLIST_GetMaxLifeFromUnit(CUNIT_GetPlayerUnit()))continue;
+            int nCost=UNITS_GetHealingCost(CUNIT_GetPlayerUnit());
             if(!nCost)nCost=1;
             sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(gaNpcIndex[nIndex].awIds[i]));
             Unicode wszNumber[10] = {0,0,0,0,0,0,0,0,0,0};
@@ -2876,7 +2878,7 @@ void __cdecl NPCMENU_BuildNpcMenu()
         {
             int bCharge=0;
             if(!QUESTRECORD_GetQuestState(gtNpcMenu.pPlayerQuestFlags,4,0) && !QUESTRECORD_GetQuestState(gtNpcMenu.pPlayerQuestFlags,4,1))bCharge=1;
-            int nCount=ITEMS_GetNoOfUnidItems(sub_00463DD0_GetPlayerUnit());
+            int nCount=ITEMS_GetNoOfUnidItems(CUNIT_GetPlayerUnit());
             if(nCount)
             {
             gaNpcIndex[nIndex].nCount=3;
@@ -3019,7 +3021,7 @@ void __stdcall NPCMENU_OpenNpcWindow(D2UnitStrc* pUnit)
     }
     gtNpcMenu.nMenuState = 1;
     gtNpcMenu.nTradeMode = 0;
-    gtNpcMenu.nGoldSnapshot = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
+    gtNpcMenu.nGoldSnapshot = STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLD, 0);
     UI_CloseUIVars(0, 0);
     GAME_ResetMouseState();
     D2_ASSERT(!NPC_GetInteractUnit_Inline(), 3529);
@@ -3040,7 +3042,7 @@ void __stdcall NPCMENU_OpenNpcWindow(D2UnitStrc* pUnit)
         if (nSound)
         {
             UNITSND_ReleaseSkillSfx(pUnit);
-            sub_004B9A00(nSound, sub_00463DD0_GetPlayerUnit(), 0, 1, 0);
+            sub_004B9A00(nSound, CUNIT_GetPlayerUnit(), 0, 1, 0);
         }
         gaNpcEntries[nIndex].bRefreshed = 0;
     }
@@ -3178,7 +3180,7 @@ void __fastcall NPCMENU_OnUnitRemoved(unsigned char nUnitType, int nUnitId)
 // 0x004B53F0
 void __cdecl NPCMENU_OnTransactionResult()
 {
- D2InventoryStrc* inv=sub_00463DD0_GetPlayerUnit()->pInventory;
+ D2InventoryStrc* inv=CUNIT_GetPlayerUnit()->pInventory;
  if(gtNpcMenu.tPacket2A.nResult<=6) {
   switch(gtNpcMenu.tPacket2A.nResult) {
    case 0:
@@ -3480,7 +3482,7 @@ int __cdecl NPCMENU_CloseHireDialog()
 void __fastcall NPCMENU_HandleNpcTransaction(D2PacketSrv2AStrc* pPacket)
 {
     gtNpcMenu.tPacket2A = *pPacket;
-    gtNpcMenu.nGoldSnapshot = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
+    gtNpcMenu.nGoldSnapshot = STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLD, 0);
     if (gtNpcMenu.nMenuState == 5)
     {
         NPCMENU_OnTransactionResult();
@@ -3624,7 +3626,7 @@ static void __stdcall NPCMENU_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen)
 
     gtNpcMenu.nMenuState = 1;
     gtNpcMenu.nTradeMode = 0;
-    gtNpcMenu.nGoldSnapshot = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
+    gtNpcMenu.nGoldSnapshot = STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLD, 0);
     UI_CloseUIVars(0, 0);
 
     if (!bReopen)
@@ -3665,7 +3667,7 @@ static void __stdcall NPCMENU_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen)
     switch ((unsigned int)pUnit->dwClassId)
     {
     case 0x96:
-        if (STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_LEVEL, 0) >= 8)
+        if (STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_LEVEL, 0) >= 8)
         {
             NPCMENU_InitHireHandler();
         }
@@ -3731,7 +3733,7 @@ static void __stdcall NPCMENU_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen)
     }
 
     UNITSND_ReleaseSkillSfx(pUnit);
-    gtNpcMenu.nSoundHandle = sub_004B9A00(nSound, sub_00463DD0_GetPlayerUnit(), 0, 1, 0);
+    gtNpcMenu.nSoundHandle = sub_004B9A00(nSound, CUNIT_GetPlayerUnit(), 0, 1, 0);
     if (nType == 2)
     {
         MSG_SendWord(0x4D, nNpcId);
@@ -3905,7 +3907,7 @@ void __fastcall NPCMENU_NpcInteractPacket(unsigned char nUnitType, int nUnitId, 
     D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, nUnitType);
     if (!pUnit)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
         {
             pPlayer->pPlayerData->nState = 0;
@@ -3944,7 +3946,7 @@ void __fastcall NPCMENU_NpcInteractPacket(unsigned char nUnitType, int nUnitId, 
         CUNIT_TurnTowardPlayer(pUnit);
     }
 
-    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+    D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
     if (INVENTORY_GetCursorItem(pInventory))
     {
         gtNpcMenu.bInteracting = 1;

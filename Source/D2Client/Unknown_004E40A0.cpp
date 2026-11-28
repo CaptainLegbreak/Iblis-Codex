@@ -31,6 +31,7 @@ static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int n
 // 0x004E40A0
 int __fastcall sub_004E40A0_RollPlayerSeed(int nRange)
 {
-    return SEED_RollLimitedRandomNumber(&sub_00463DD0_GetPlayerUnit()->pSeed, nRange);
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    return SEED_RollLimitedRandomNumber(&CUNIT_GetPlayerUnit()->pSeed, nRange);
 }
 

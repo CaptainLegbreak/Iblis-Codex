@@ -215,7 +215,8 @@ void __fastcall PLRSKILLS_StateSkillLevel(D2UnitStrc* pUnit, int nState)
     D2StatListStrc* pStatList;
     int nSkillId;
 
-    if (pUnit == sub_00463DD0_GetPlayerUnit())
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    if (pUnit == CUNIT_GetPlayerUnit())
     {
         return;
     }
@@ -1047,7 +1048,7 @@ void __stdcall PLRSKILLS_UpdateStateColor(D2UnitStrc* pUnit)
         }
 
 // build: symbol ?D2GFX_IsHardwareRenderMode@* 0x004F51C0
-        if (pStatesTxtRecord->nColorShift == 0x68 && pUnit == sub_00463DD0_GetPlayerUnit() && D2GFX_IsHardwareRenderMode())
+        if (pStatesTxtRecord->nColorShift == 0x68 && pUnit == CUNIT_GetPlayerUnit() && D2GFX_IsHardwareRenderMode())
         {
             pUnit->nPaletteIndex = 0;
         }
@@ -1056,7 +1057,7 @@ void __stdcall PLRSKILLS_UpdateStateColor(D2UnitStrc* pUnit)
             pUnit->nPaletteIndex = pStatesTxtRecord->nColorShift;
         }
 
-        if (pUnit == sub_00463DD0_GetPlayerUnit() && pUnit->pLight)
+        if (pUnit == CUNIT_GetPlayerUnit() && pUnit->pLight)
         {
             SCMD_SetLightColorBytes(pUnit->pLight, pStatesTxtRecord->nLightRGB[0], pStatesTxtRecord->nLightRGB[1], pStatesTxtRecord->nLightRGB[2]);
         }
@@ -1064,7 +1065,7 @@ void __stdcall PLRSKILLS_UpdateStateColor(D2UnitStrc* pUnit)
     else
     {
         pUnit->nPaletteIndex = 0;
-        if (pUnit == sub_00463DD0_GetPlayerUnit() && pUnit->pLight)
+        if (pUnit == CUNIT_GetPlayerUnit() && pUnit->pLight)
         {
             SCMD_SetLightColorBytes(pUnit->pLight, 0xFF, 0xFF, 0xFF);
         }
