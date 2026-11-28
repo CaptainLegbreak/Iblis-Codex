@@ -6,12 +6,12 @@ Lane 2, one day: placeholder function names in D2Client (`sub_<VA>_<Verb>`). Eac
 
 ### Ready
 
+- `lane2/names-game` 4edc26a22 (on #506): D2Client GAME, 6 names. Game.cpp's getters: GAME_GetTickCounter and GAME_GetTickCounter2 (identical twins returning gnTickCounter), GAME_GetFrameCount, GAME_GetPingAverage, GAME_GetPongData, and 0x0042F6D0 MAINMENUS_GetDone (between MAINMENUS_SetDone and MAINMENUS_ShowConnectingPopup). VERIFIED fea8ba82 (on #505; rebased onto #506 cleanly, precheck equal, namesync nothing). Audit guard: no count rose. linkdebt: 17,965 -> 17,965, no module rising. Left in GAME: Game.cpp's Storm list template copies (link/unlink/next, for the template work), the SCmd packet no-ops, and 0x00452170 (returns its Unicode argument unchanged).
 - `lane2/names-ui` ea9796967 (on #505): D2Client UI, 11 names. DIALOG_SelectLine; CMDTBL_ShowBelt; the mouse-button command runners CMDTBL_RunMButtonDown/Up, CMDTBL_RunXButton1Down/Up and CMDTBL_RunXButton2Down; NPCMENU_CloseConfirmAndRebuild (NPCMENU_CloseConfirmDialog is already 0x004B4070's name); HIREABLES_DrawHelpShade; INV_IsInStashRect and INV_IsInCubeRect, the page-4 and page-3 grid hit tests. VERIFIED d6f7db8d (on #504; rebased onto #505 cleanly, precheck equal, namesync nothing). Audit guard: no count rose. linkdebt: 17,965 -> 17,965, no module rising. Left in UI: the identical copies (spellsel's three FindSkill, npcmenu's five FinishPendingAction callbacks, Hireables' two DrawHelpText), the edit box's field setters (SetUnk04/18/20/24, Slot12/14/15) until those fields are named, and the inv packet senders 0x67/0x6B.
 - `lane2/names-engine-sound` 20e192914 (on #504): D2Client ENGINE and Sound, 6 names: CURSOR_GetCursorState (51 refs), CURSOR_ResetCursorState, SOUNDINST_StopSound, SOUNDINST_FindSoundHandle, SOUNDINST_UpdateSounds, SOUNDINST_IsHintPlaying. These two folders share a branch because each is that small. VERIFIED 0ca5d95b. Audit guard: no count rose. linkdebt: 17,965 -> 17,965, no module rising. Left: Gfx.cpp's client critter AI handlers (sub_0046CCD0_AiType1 ... AiType7, CommandMode7/8) until their monster commands are named; the Nop/Empty stubs.
 
 ### Claimed
 
-- `lane2/names-game` (building): Game.cpp's six getters, with every reference to them.
 - `lane2/names-root-a` (building): 21 placeholders defined in D2Client Unknown_ files (plan below), with every reference to them. The only edits in lane 4's claimed Unknown_004EDCA0, Unknown_004E89A0 and Unknown_004B5810 are call-site renames, which namesync takes care of on a rebase. I left 0x004E89A0 and 0x004EDCA0 themselves (lane 4's join targets) unnamed.
 
 ### Status
