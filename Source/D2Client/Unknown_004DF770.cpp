@@ -748,7 +748,8 @@ int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType)
     }
 
     pSound->nLastSound = nSound;
-    pSound->nLastTick = sub_0044DB00_GetTickCounter();
+// build: symbol ?GAME_GetTickCounter2@* 0x0044DB00
+    pSound->nLastTick = GAME_GetTickCounter2();
     return nSound;
 }
 

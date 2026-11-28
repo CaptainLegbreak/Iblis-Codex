@@ -9169,7 +9169,7 @@
     {
      "va": "0x0042F6D0",
      "length": 6,
-     "name": "sub_0042F6D0_GetMenusDone"
+     "name": "MAINMENUS_GetDone"
     },
     {
      "va": "0x0042FA30",
@@ -9486,12 +9486,12 @@
     {
      "va": "0x0044CE70",
      "length": 6,
-     "name": "sub_0044CE70_GetPingAverage"
+     "name": "GAME_GetPingAverage"
     },
     {
      "va": "0x0044CE80",
      "length": 6,
-     "name": "sub_0044CE80_GetPongData"
+     "name": "GAME_GetPongData"
     },
     {
      "va": "0x0044CE90",
@@ -9785,7 +9785,7 @@
     {
      "va": "0x0044DA90",
      "length": 6,
-     "name": "sub_0044DA90_GetTickCounter"
+     "name": "GAME_GetTickCounter"
     },
     {
      "va": "0x0044DAA0",
@@ -9795,7 +9795,7 @@
     {
      "va": "0x0044DAB0",
      "length": 6,
-     "name": "sub_0044DAB0_GetFrameCount"
+     "name": "GAME_GetFrameCount"
     },
     {
      "va": "0x0044DAC0",
@@ -9820,7 +9820,7 @@
     {
      "va": "0x0044DB00",
      "length": 6,
-     "name": "sub_0044DB00_GetTickCounter"
+     "name": "GAME_GetTickCounter2"
     },
     {
      "va": "0x0044DB10",

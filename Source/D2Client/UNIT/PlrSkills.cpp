@@ -84,7 +84,7 @@ typedef char check_pointer_width[sizeof(void*)==4?1:-1];
 typedef char check_scalar_width[sizeof(unsigned int)==4?1:-1];
 
 
-int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
+int __cdecl GAME_GetTickCounter(); // 0x0044DA90
 
 
 void __fastcall SCMD_SetLightColorBytes(D2GfxLightStrc* pLight, unsigned char nValue0, unsigned char nValue1, unsigned char nValue2); // 0x00474390

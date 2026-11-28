@@ -103,13 +103,14 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
 
     if (gtTimedHint.bActive)
     {
-        if (gtTimedHint.bActive2 && sub_0044DB00_GetTickCounter() >= gtTimedHint.nEndTickA)
+// build: symbol ?GAME_GetTickCounter2@* 0x0044DB00
+        if (gtTimedHint.bActive2 && GAME_GetTickCounter2() >= gtTimedHint.nEndTickA)
         {
             sub_004B9A00((int)gtTimedHint.pOwner, 0, 0, 0, 0);
             gtTimedHint.bActive2 = 0;
         }
 
-        if (gtTimedHint.nArgG && sub_0044DB00_GetTickCounter() >= gtTimedHint.nEndTickF)
+        if (gtTimedHint.nArgG && GAME_GetTickCounter2() >= gtTimedHint.nEndTickF)
         {
 // build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
             D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
@@ -121,7 +122,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
             gtTimedHint.nArgG = 0;
         }
 
-        if (sub_0044DB00_GetTickCounter() < gtTimedHint.nEndTickC)
+        if (GAME_GetTickCounter2() < gtTimedHint.nEndTickC)
         {
             return;
         }
@@ -202,12 +203,12 @@ void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsig
     SOUNDINST_StopSongs();
     gtTimedHint.bActive = 1;
     gtTimedHint.pOwner = pOwner;
-    gtTimedHint.nEndTickA = sub_0044DB00_GetTickCounter() + nDelayA;
+    gtTimedHint.nEndTickA = GAME_GetTickCounter2() + nDelayA;
     gtTimedHint.bActive2 = 1;
     gtTimedHint.nArgE = nArgE;
-    gtTimedHint.nEndTickF = sub_0044DB00_GetTickCounter() + nDelayF;
+    gtTimedHint.nEndTickF = GAME_GetTickCounter2() + nDelayF;
     gtTimedHint.nArgG = nArgG;
-    gtTimedHint.nEndTickC = sub_0044DB00_GetTickCounter() + nDelayC;
+    gtTimedHint.nEndTickC = GAME_GetTickCounter2() + nDelayC;
 }
 
 // 0x004DCE10
@@ -217,7 +218,7 @@ void __fastcall sub_004DCE10_UpdateTimedHint(int nDelay, int nArg)
     {
         if (nArg)
         {
-            gtTimedHint.nEndTickF = sub_0044DB00_GetTickCounter() + nDelay;
+            gtTimedHint.nEndTickF = GAME_GetTickCounter2() + nDelay;
         }
 
         gtTimedHint.nArgG = nArg;

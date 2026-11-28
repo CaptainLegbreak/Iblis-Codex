@@ -100,7 +100,7 @@ int __fastcall GAME_RunInitHandlers(void* pArg); // 0x0044D9F0
 int __cdecl GAME_IsExitPending(); // 0x0044DA30
 void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 int __cdecl GAME_GetSkippedFrames(); // 0x0044DAF0
-int __cdecl sub_0044DB00_GetTickCounter(); // 0x0044DB00
+int __cdecl GAME_GetTickCounter2(); // 0x0044DB00
 int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 void __fastcall GAME_ExtendDelay(int nDelay); // 0x0044DB40
 void __cdecl GAME_ReadColorFlag(); // 0x0044DBE0

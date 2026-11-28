@@ -205,7 +205,7 @@ extern D2TimedHintStrc gtTimedHint; // 0x007C89E4
 
 extern void* gpGlobal_007A0634; // 0x007A0634
 
-int __cdecl sub_0044DB00_GetTickCounter(); // 0x0044DB00
+int __cdecl GAME_GetTickCounter2(); // 0x0044DB00
 
 int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 

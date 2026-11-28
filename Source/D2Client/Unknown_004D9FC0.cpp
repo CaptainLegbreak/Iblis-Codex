@@ -36,7 +36,7 @@ typedef char check_pointer_width[sizeof(void*)==4?1:-1];
 typedef char check_scalar_width[sizeof(unsigned int)==4?1:-1];
 
 
-int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
+int __cdecl GAME_GetTickCounter(); // 0x0044DA90
 
 
 // 0x004D9FC0
@@ -48,7 +48,7 @@ extern "C" int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* unit,D2Skill
 // build: symbol ?CUNIT_GetPlayerUnit2@* 0x00463DE0
     if (unit == CUNIT_GetPlayerUnit2())
     {
-        unsigned int first = sub_0044DA90_GetTickCounter();
+        unsigned int first = GAME_GetTickCounter();
         unsigned int second = GAME_GetSkillDelayUntil();
         if (first < second)
             return 8;

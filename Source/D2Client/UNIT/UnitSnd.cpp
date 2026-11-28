@@ -103,7 +103,7 @@ int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
 
 void __fastcall SOUNDHDR_AddVariantRefs(int nIndex, int nDelta); // 0x004822B0
 
-int __cdecl sub_0044DB00_GetTickCounter(); // 0x0044DB00
+int __cdecl GAME_GetTickCounter2(); // 0x0044DB00
 
 int __fastcall sub_004E40A0_RollPlayerSeed(int nRange); // 0x004E40A0
 
@@ -853,7 +853,7 @@ void __fastcall UNITSND_UpdateFootsteps(D2UnitStrc* pUnit)
         }
     }
 
-    const unsigned int nTick = sub_0044DB00_GetTickCounter();
+    const unsigned int nTick = GAME_GetTickCounter2();
     const unsigned int nPeriod = nFrameCount / (nSteps * nSpeed);
     const unsigned int nElapsed = nTick - pUnit->dwSfxStepTicks;
     if (nSteps > 1 && nElapsed < nPeriod * 2 / 3)
@@ -1275,7 +1275,7 @@ void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit)
             && DRLG_UnitEdgeDistance(pUnit, CUNIT_GetPlayerUnit()) < 0x14)
         {
             sub_004B9A00(0xE57, pUnit, 0, 0, 0);
-            UNITSND_WriteAsyncSoundTick(pUnit, sub_0044DB00_GetTickCounter());
+            UNITSND_WriteAsyncSoundTick(pUnit, GAME_GetTickCounter2());
         }
 
         D2_ASSERT(pUnit, 0xC8F);
@@ -1334,7 +1334,7 @@ void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit)
 
     D2MonSoundsTxt* pNeutralRecord = UNITSND_GetMonSoundsRecord(pUnit);
     const int nNeutral = !pNeutralRecord ? 0 : pNeutralRecord->dwNeutral;
-    const unsigned int nTick = sub_0044DB00_GetTickCounter();
+    const unsigned int nTick = GAME_GetTickCounter2();
     const unsigned int nNeuTime = pMonSoundsTxtRecord->dwNeuTime;
     if (!nNeutral)
         return;
@@ -1373,7 +1373,7 @@ void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int bDelay
         if (!bDelay)
             nRate = 0;
         sub_004B9A00(nSound, pUnit, nRate, 0, 0);
-        pUnit->dwSfxTicks = sub_0044DB00_GetTickCounter();
+        pUnit->dwSfxTicks = GAME_GetTickCounter2();
         return;
     }
 
@@ -1410,7 +1410,7 @@ void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int bDelay
         bPlay = 0;
     if ((unsigned int)nChance < 100)
     {
-        if (sub_0044DB00_GetTickCounter() - gnSfxTick < 0xF)
+        if (GAME_GetTickCounter2() - gnSfxTick < 0xF)
             bPlay = 0;
         if (SOUNDINST_HasUnitSound(pUnit))
             goto second;
@@ -1420,8 +1420,8 @@ void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int bDelay
     {
         UNITSND_ReleaseNeutralSfx(pUnit, 1);
         sub_004B9A00(nSound, pUnit, nDelay, 0, 0);
-        UNITSND_WriteSoundTick(pUnit, sub_0044DB00_GetTickCounter());
-        gnSfxTick = sub_0044DB00_GetTickCounter();
+        UNITSND_WriteSoundTick(pUnit, GAME_GetTickCounter2());
+        gnSfxTick = GAME_GetTickCounter2();
     }
 
 second:
@@ -1457,8 +1457,8 @@ static void UNITSND_PlayHitClassSound(D2UnitStrc* pUnit)
 {
     const int nSound = UNITSND_GetModeSound(pUnit, pUnit->dwLastHitClass);
     sub_004B9A00(nSound, pUnit, 0, 0, 0);
-    pUnit->dwSfxTicks = sub_0044DB00_GetTickCounter();
-    gnSfxTick = sub_0044DB00_GetTickCounter();
+    pUnit->dwSfxTicks = GAME_GetTickCounter2();
+    gnSfxTick = GAME_GetTickCounter2();
 }
 
 // 0x004CB890
@@ -1471,7 +1471,7 @@ static void UNITSND_PlaySkillSound(D2UnitStrc* pUnit, int nMode)
     if (!pMonSoundsTxtRecord)
         return;
 
-    const unsigned int nTick = sub_0044DB00_GetTickCounter();
+    const unsigned int nTick = GAME_GetTickCounter2();
     int nSound;
     if (nMode == 8)
         nSound = pMonSoundsTxtRecord->dwSkill[0];
@@ -1496,10 +1496,10 @@ static void UNITSND_PlaySkillSound(D2UnitStrc* pUnit, int nMode)
     }
 
     sub_004B9A00(nSound, pUnit, 0, 0, 0);
-    const unsigned int nNow = sub_0044DB00_GetTickCounter();
+    const unsigned int nNow = GAME_GetTickCounter2();
     D2_ASSERT(pUnit, 0xCC6);
     pUnit->dwSfxTicks = nNow;
-    gnSfxTick = sub_0044DB00_GetTickCounter();
+    gnSfxTick = GAME_GetTickCounter2();
 }
 
 // 0x004CB950
@@ -1512,12 +1512,12 @@ static void UNITSND_PlayFleeSound(D2UnitStrc* pUnit)
     if (!pMonSoundsTxtRecord)
         return;
 
-    if (sub_0044DB00_GetTickCounter() - gnSfxTick < 4)
+    if (GAME_GetTickCounter2() - gnSfxTick < 4)
         return;
 
     sub_004B9A00(pMonSoundsTxtRecord->dwFlee, pUnit, sub_004E40A0_RollPlayerSeed(3) + 6, 0, 0);
-    UNITSND_WriteSoundTick(pUnit, sub_0044DB00_GetTickCounter());
-    gnSfxTick = sub_0044DB00_GetTickCounter();
+    UNITSND_WriteSoundTick(pUnit, GAME_GetTickCounter2());
+    gnSfxTick = GAME_GetTickCounter2();
 }
 
 // 0x004CB9C0
@@ -1727,7 +1727,7 @@ void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStri
 
     if (bCheckRepeat)
     {
-        unsigned int nTick = sub_0044DB00_GetTickCounter();
+        unsigned int nTick = GAME_GetTickCounter2();
         if (nSoundId == gnLastRequestSound && nTick - gnLastRequestTick < 0x4B)
         {
             return;
@@ -1788,7 +1788,7 @@ void __fastcall UNITSND_PlayInitSound(D2UnitStrc* pUnit)
     if (UNITSND_GetUnitSndType(pUnit) != 1)
         return;
 
-    const unsigned int nTick = sub_0044DB00_GetTickCounter();
+    const unsigned int nTick = GAME_GetTickCounter2();
     D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
     if (!pMonSoundsTxtRecord)
         return;
@@ -1890,8 +1890,8 @@ static void __stdcall UNITSND_PlayHitSound(D2UnitStrc* pUnit, int nMode)
     }
 
 done:
-    pUnit->dwSfxTicks = sub_0044DB00_GetTickCounter();
-    gnSfxTick = sub_0044DB00_GetTickCounter();
+    pUnit->dwSfxTicks = GAME_GetTickCounter2();
+    gnSfxTick = GAME_GetTickCounter2();
 }
 
 // 0x004CA870
@@ -2034,7 +2034,7 @@ found:
 
     D2_ASSERT(pPlayer, 0xCBB);
     unsigned int dwSfxTicks = pPlayer->dwSfxTicks;
-    if (sub_0044DB00_GetTickCounter() - dwSfxTicks <= 0x3E)
+    if (GAME_GetTickCounter2() - dwSfxTicks <= 0x3E)
     {
         return;
     }

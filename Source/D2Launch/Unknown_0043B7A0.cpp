@@ -152,7 +152,8 @@ int __stdcall CHARSEL_OnLogonTick(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gpFuncTable->pfnGetLogonInfo())
         D2Win_StopMessageLoop();
-    if (gfCharSelCancelled || !gpFuncTable->pfnIsSocketConnected() || sub_0042F6D0_GetMenusDone())
+// build: symbol ?MAINMENUS_GetDone@* 0x0042F6D0
+    if (gfCharSelCancelled || !gpFuncTable->pfnIsSocketConnected() || MAINMENUS_GetDone())
         D2Win_StopMessageLoop();
     return 1;
 }
@@ -163,7 +164,7 @@ int __stdcall CHARSEL_OnCreateAccountTick(SMSGHANDLER_PARAMS* pMsg)
     int nValue;
     if (gpFuncTable->pfnGetCreateAccountResult(&nValue))
         D2Win_StopMessageLoop();
-    if (gfCharSelCancelled || !gpFuncTable->pfnIsSocketConnected() || sub_0042F6D0_GetMenusDone())
+    if (gfCharSelCancelled || !gpFuncTable->pfnIsSocketConnected() || MAINMENUS_GetDone())
     {
         gpFuncTable->pfnCloseBNetConnection();
         D2Win_StopMessageLoop();
@@ -177,7 +178,7 @@ int __stdcall CHARSEL_OnChangePasswordTick(SMSGHANDLER_PARAMS* pMsg)
     int nValue;
     if (gpFuncTable->pfnGetChangePasswordResult(&nValue))
         D2Win_StopMessageLoop();
-    if (gfCharSelCancelled || !gpFuncTable->pfnIsSocketConnected() || sub_0042F6D0_GetMenusDone())
+    if (gfCharSelCancelled || !gpFuncTable->pfnIsSocketConnected() || MAINMENUS_GetDone())
     {
         gpFuncTable->pfnCloseBNetConnection();
         D2Win_StopMessageLoop();
@@ -650,7 +651,7 @@ int __fastcall CHARSEL_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
         gpFuncTable->pfnLogon(pRecord->szAccount, pRecord->szPassword);
         memset(pRecord->szPassword, 0, 0x18);
         sub_004FA590_RunLoop(CHARSEL_OnLogonTick);
-        if (gfCharSelCancelled || sub_0042F6D0_GetMenusDone())
+        if (gfCharSelCancelled || MAINMENUS_GetDone())
         {
             sub_0042F880_DestroyControls();
             return 0;

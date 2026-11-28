@@ -66,7 +66,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 
 
-unsigned int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
+unsigned int __cdecl GAME_GetTickCounter(); // 0x0044DA90
 
 int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
@@ -454,7 +454,7 @@ static int PANEL_GetSmoothedOrbValue(int nStatId)
     if (!nMax)
         return 0;
 
-    if (sub_0044DA90_GetTickCounter() <= 1)
+    if (GAME_GetTickCounter() <= 1)
     {
         gaOrbSmooth[nIndex].f_8 = nValue;
         gaOrbSmooth[nIndex].nValue = nValue;
@@ -464,7 +464,7 @@ static int PANEL_GetSmoothedOrbValue(int nStatId)
     {
         gaOrbSmooth[nIndex].f_8 = nValue;
         gaOrbSmooth[nIndex].nValue = nValue;
-        const unsigned int nTick = sub_0044DA90_GetTickCounter();
+        const unsigned int nTick = GAME_GetTickCounter();
         gaOrbSmooth[nIndex].nTick = nTick;
         gaOrbSmooth[nIndex].nPrevTick = nTick;
     }
@@ -477,7 +477,7 @@ static int PANEL_GetSmoothedOrbValue(int nStatId)
         if (nDiff >= nMax / 8)
         {
             gaOrbSmooth[nIndex].f_8 = nValue;
-            gaOrbSmooth[nIndex].nPrevTick = sub_0044DA90_GetTickCounter();
+            gaOrbSmooth[nIndex].nPrevTick = GAME_GetTickCounter();
         }
         else
         {
@@ -488,11 +488,11 @@ static int PANEL_GetSmoothedOrbValue(int nStatId)
                 gaOrbSmooth[nIndex].f_8 = nLast;
         }
         gaOrbSmooth[nIndex].nValue = nValue;
-        gaOrbSmooth[nIndex].nTick = sub_0044DA90_GetTickCounter();
+        gaOrbSmooth[nIndex].nTick = GAME_GetTickCounter();
     }
 
     const int nStart = gaOrbSmooth[nIndex].nTick;
-    const int nElapsed = sub_0044DA90_GetTickCounter() - nStart;
+    const int nElapsed = GAME_GetTickCounter() - nStart;
     int nDuration = nStart - gaOrbSmooth[nIndex].nPrevTick;
     if (nDuration < 7)
         nDuration = 7;
