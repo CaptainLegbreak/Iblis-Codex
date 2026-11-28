@@ -22785,6 +22785,25 @@
      "name": "TEXT_KeyUpMsgHandler"
     },
     {
+     "va": "0x004A6260",
+     "length": 172
+    },
+    {
+     "va": "0x004A6310",
+     "length": 63,
+     "name": "TEXT_WheelCaptureMsg"
+    },
+    {
+     "va": "0x004A6350",
+     "length": 86,
+     "name": "TEXT_ButtonCaptureMsg"
+    },
+    {
+     "va": "0x004A63B0",
+     "length": 171,
+     "name": "sub_004A63B0_WheelMsgHandler"
+    },
+    {
      "va": "0x006CACE0",
      "length": 24
     }
@@ -24084,45 +24103,6 @@
     {
      "va": "0x006CACD0",
      "length": 10
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004A6260.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004A6260",
-     "length": 172
-    },
-    {
-     "va": "0x004A6310",
-     "length": 63,
-     "name": "TEXT_WheelCaptureMsg"
-    },
-    {
-     "va": "0x004A6350",
-     "length": 86,
-     "name": "TEXT_ButtonCaptureMsg"
-    },
-    {
-     "va": "0x004A63B0",
-     "length": 171,
-     "name": "sub_004A63B0_WheelMsgHandler"
     }
    ],
    "flags": [

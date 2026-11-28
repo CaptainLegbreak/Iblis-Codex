@@ -2362,4 +2362,87 @@ extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey);
 
 
 
+// 0x004A6260
+static void sub_004A6260_UpdateKeyState(int nCommand)
+{
+    unsigned short wKey = 0;
+    if (CMDTBL_QueryKey(gpListEntries[gnKeyConfigSelected].nId, gnKeyConfigColumn, nCommand, &wKey))
+    {
+        TEXT_UnregisterKeyConfigHandlers(1);
+    }
+    else if (wKey)
+    {
+        gwGlobal_007C02C4 = wKey;
+        gdwMessageTick = GetTickCount();
+    }
+}
+
+// 0x004A6310
+void __stdcall TEXT_WheelCaptureMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (GAME_IsExitPending())
+    {
+        pMsg->bReturn = 0;
+        return;
+    }
+
+    sub_004A6260_UpdateKeyState(0x100);
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x004A6350
+void __stdcall TEXT_ButtonCaptureMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (GAME_IsExitPending())
+    {
+        pMsg->bReturn = 0;
+        return;
+    }
+
+    switch (pMsg->wParamHigh)
+    {
+    case 1:
+        sub_004A6260_UpdateKeyState(0x101);
+        break;
+    case 2:
+        sub_004A6260_UpdateKeyState(0x102);
+        break;
+    }
+
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x004A63B0
+void __stdcall sub_004A63B0_WheelMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (GAME_IsExitPending())
+    {
+        pMsg->bReturn = 0;
+        return;
+    }
+
+    int nSteps = (short)pMsg->wParamHigh / 120;
+    if (nSteps)
+    {
+        unsigned short wKey = 0;
+        if (CMDTBL_QueryKey(gpListEntries[gnKeyConfigSelected].nId, gnKeyConfigColumn, (nSteps < 0) + 0x103, &wKey))
+        {
+            TEXT_UnregisterKeyConfigHandlers(1);
+        }
+        else if (wKey)
+        {
+            gwGlobal_007C02C4 = wKey;
+            gdwMessageTick = GetTickCount();
+        }
+    }
+
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
 #include "gen/data/Source/D2Client/Unknown_004A43E0.inc"
