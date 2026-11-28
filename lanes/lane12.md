@@ -8,6 +8,14 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Sat Nov 28 3:56 PST 2026: **lane12/markers-1** (8e9b4f582, stacked on abi-2): item 7's no_address declarations. A file-scope
+  declaration with no `// 0xVA` marker, whose identifier has exactly one marked definition in the tree and which
+  its file doesn't define itself, gets that marker: 148 declarations, comments only. Left alone on purpose: C
+  runtime names (D2Lang defines its own strcpy/strcat/strcmp at other addresses; marking them bound other modules'
+  CRT calls to D2Lang's and the build caught 4 units) and member-like names (Set, Unlink, DeleteNode, ...). Lane 14:
+  please re-run no_address on this branch; the rest of its list is mostly emit helpers, placeholders and members.
+  Full build 538 units equal. VERIFIED tree 51b9fffe42e30efaf55ab91ffea18147efd136db. linkdebt unchanged (19,946:
+  the newly marked declarations already agree). auditguard: no count rose.
 - Sat Nov 28 2:49 PST 2026: **lane12/abi-2** (1c45ccd38, stacked on abi-1): the void ruling's first step for lane 14's 36 "return eax vs
   void" items: a definition whose last statement is a call returning a value returns that value with the callers'
   type, if its unit keeps its bytes. Only VIEW_SendMcpCharListRequest qualifies (returns D2QSSOCKET_SendPacket's
