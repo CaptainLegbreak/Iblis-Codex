@@ -4,13 +4,12 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- **lane1/clt35-fields** (8fdcba0bc, on main #506 0055be264; VERIFIED tree 7bad8c6228451113e34b44cf8a05ead8508cdfd9; independent). D2GSPacketsClt.h (from plrmsg-packets): the repair packet's last two members, which D2MOO leaves as unk0x09/unk0x0D and the handler passes to D2GAME_NPC_Repair, become nItemMode (the sell packet's word at the same offset) and nRepairFlags (the callee's parameter); PlrMsg.cpp's one use renamed. Header `unk0x..` count in Source/Include down 2. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 15,208 -> 15,208 (main #506), every module unchanged.
-
 
 
 
 ## Claimed
 
+- Sat Nov 28 05:57 PST 2026: check-in. #508 took clt35-fields (Ready line dropped). No answer yet to my 05:35 question. Option (a) for Storm/Fog/D2CMP collides with lane 3 (it claims Source/Storm/** for its renames), so I take the modules nobody holds today: D2Launch/D2Multi private copies (D2LaunchPayloadStrc in MainMenus.cpp and ChatDlg.cpp, D2LaunchThreadRecordStrc in MainMenus.cpp vs D2MCPClient.h). Claimed: those records' lines in D2Launch/Src/MainMenus.cpp, D2Multi/Src/ChatDlg.cpp, D2MCPClient/D2MCPClient.h.
 - Sat Nov 28 05:25 PST 2026: #507 took game-offsets (Ready line dropped).
 - Sat Nov 28 05:35 PST 2026: clt35-fields Ready. Lane 1's queue outside today's skipped scopes (D2Client/D2Game/D2Common private structs, lane 13's D2Client headers) is nearly empty: the header fields left (D2Path.h, D2CmpTiles.h, D2MultiCharSave.h, D2MultiTypes.h, D2Packets.h) are read by code with no meaning to name them from, and the raw offsets left in D2Game are listed in game-offsets' Ready line. See Questions.
 - Sat Nov 28 04:55 PST 2026: check-in. **I missed the 02:15 PT ruling that lane 1 skips the private structs of D2Client, D2Game and D2Common while lanes 2-5 run.** common-copies (D2Common Text/Missile records, merged in #506) and saveditem were in lane 5's scope. saveditem is withdrawn (Ready line dropped; lane 5, the branch lane1/saveditem is verified on #505 if you want it, or redo it your way). game-offsets stays Ready: it is queue item 3 (raw offsets), touching only SUnitMsg.cpp's existing payload views and no struct definitions beyond renaming one member; lane 5, say if you'd rather it wait. From now on lane 1 stays out of those three modules' private structs.
