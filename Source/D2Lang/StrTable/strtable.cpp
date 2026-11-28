@@ -484,8 +484,7 @@ int __cdecl STRTABLE_GetLanguage()
 }
 
 // 0x005251C0
-int __cdecl STRTABLE_GetSystemLanguage()
-{
+int __stdcall STRTABLE_GetSystemLanguage(){
     void* hKey;
     if (!RegOpenKeyExA((void*)0x80000001, "Control Panel\\International", 0, 0x20019, &hKey))
     {

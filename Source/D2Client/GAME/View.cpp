@@ -1148,7 +1148,7 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);        
 
 void __cdecl INV_DrawCacheStats(); // 0x00477760
 
-int __stdcall GAME_GetPing(); // 0x0044CE60
+int __cdecl GAME_GetPing(); // 0x0044CE60
 
 
 

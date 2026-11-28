@@ -1199,14 +1199,12 @@ int __fastcall CLIENTS_GetClientId(D2ClientStrc* pClient)
 }
 
 // 0x005385C0
-int __fastcall CLIENTS_GetPlayTime()
-{
+int __fastcall CLIENTS_GetPlayTime(D2ClientStrc* pClient){
     return -1;
 }
 
 // 0x005385D0
-void __stdcall sub_005385D0_Nop(int nUnused)
-{
+void __fastcall sub_005385D0_Nop(D2ClientStrc* pClient, int nUnused1, int nUnused2){
 }
 
 // 0x005385E0

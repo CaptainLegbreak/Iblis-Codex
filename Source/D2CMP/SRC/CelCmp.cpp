@@ -1913,8 +1913,7 @@ void __stdcall CelSetHardwareFreeCallback(PixelDataFreeCallback pfnCallback)
 }
 
 // 0x00601A40
-PixelDataFreeCallback __stdcall CelGetHardwareFreeCallback()
-{
+PixelDataFreeCallback __fastcall CelGetHardwareFreeCallback(struct D2CmpGfxHashStrc* pHash){
     return gpfnPixelDataFree;
 }
 

@@ -945,8 +945,7 @@ D2LvlSubTxt* __fastcall DATATBLS_GetLvlSubTxtRecord(int nSubType)
 }
 
 // 0x0061FAE0
-void __fastcall DATATBLS_AllocGlobalTileLibraryHash()
-{
+void __fastcall DATATBLS_AllocGlobalTileLibraryHash(void* hArchive){
     D2_ASSERT(gpLvlTypesTxt_0096C9F0, 1040);
 
     const int nSize = sizeof(D2TileLibraryHeaderStrc*[1024]) * gnLvlTypesTxtRecordCount;
