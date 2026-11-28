@@ -78,7 +78,7 @@ union D2SeedStrc;
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
 
-int __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
+D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
 
 void __stdcall D2COMMON_10251_Return(D2InventoryStrc* pInventory); // 0x0063BD00
@@ -446,7 +446,7 @@ void __cdecl INV_EnterNpcMenuState(); // 0x0048A630
 
 void __cdecl NPCMENU_CloseWaitDialog(); // 0x004B2900
 
-void __fastcall DIALOG_DrawDialog(void* pObj); // 0x004B8100
+void __fastcall DIALOG_DrawDialog(D2ClientDialogStrc* pDialog); // 0x004B8100
 
 
 
