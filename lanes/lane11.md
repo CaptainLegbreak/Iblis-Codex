@@ -26,6 +26,7 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Claimed
 
+- Fri Nov 27 22:27 PST 2026: check-in. Queue item 0 (the engine link's unsourced strings) taken: lane11/unsourced-strings-1 gives the most-referenced unsourced .rdata strings one definition each in build/data_plan.json, under their most-referenced declared name, in a referencing unit (the file a source-path string names; else the referencing unit with the nearest planned data). First is gszEmptyAssertText at 0x006CC837 (2,237 refs) in Fog ErrorManager.cpp; about 170 targets in this round. Left out: claimed files, the declaration-count units, and owners whose data is already in source (next round, with tools/inlinedata.py). Full build running.
 - Fri Nov 27 21:55 PST 2026: check-in. names-d2client-files posted. Next: D2Client Unknown_0046ACE0.cpp (level events, VIEW_), D2Hell, D2Direct3D's Unknown_006B7250.cpp.
 - Fri Nov 27 21:41 PST 2026: check-in. names-escmenu posted. Next: the other D2Client Unknown_ files with a clear subject (Unknown_00472210, Unknown_004DF770, Unknown_0045B5F0), read one at a time.
 - Fri Nov 27 21:13 PST 2026: check-in. names-prefix-small posted. What's left of queue item 5 needs each body read (stubs, Unknown_ files without a prefix, Storm's container helpers); next I read D2Common's Unknown_ files and name them from what they do, one file per batch.
