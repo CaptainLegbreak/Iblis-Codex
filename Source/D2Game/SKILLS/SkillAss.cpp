@@ -2874,7 +2874,8 @@ void __fastcall SKILLS_RemoveStatesOnHit(D2UnitStrc* pDefender)
     {
         unsigned int* pFlag = &nFlags[i];
         unsigned int nFlag = *pFlag;
-        int nBit = sub_004111A0_GetLowestSetBit(nFlag);
+// build: symbol ?BITMANIP_GetLowestSetBit@* 0x004111A0
+        int nBit = BITMANIP_GetLowestSetBit(nFlag);
         if (nBit >= 0)
         {
             do
@@ -2893,7 +2894,7 @@ void __fastcall SKILLS_RemoveStatesOnHit(D2UnitStrc* pDefender)
                     STATES_ToggleState(pDefender, nStateId, 0);
                 }
 
-                nBit = sub_004111A0_GetLowestSetBit(nFlag);
+                nBit = BITMANIP_GetLowestSetBit(nFlag);
             }
             while (nBit >= 0);
 
