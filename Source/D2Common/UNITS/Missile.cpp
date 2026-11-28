@@ -8,6 +8,7 @@
 #include "D2Drlg.h"
 #include "D2DrlgRooms.h"
 #include "D2DrlgTiles.h"
+#include "D2MissileDamage.h"
 #include "D2Path.h"
 #include "D2Win32Types.h"
 #include "D2TxtTables.h"
@@ -253,41 +254,6 @@ struct D2MissileDamageDataStrc;
 #pragma pack(pop)
 
 typedef char check_pointer_width[sizeof(void*)==4?1:-1];
-
-struct D2MissileDamageDataStrc
-{
-    int nFlags;
-    int nMinDamage;
-    int nMaxDamage;
-    int nFireMinDamage;
-    int nFireMaxDamage;
-    int nFireLength;
-    int nLightMinDamage;
-    int nLightMaxDamage;
-    int nMagicMinDamage;
-    int nMagicMaxDamage;
-    int nColdMinDamage;
-    int nColdMaxDamage;
-    int nColdLength;
-    int nPoisonMinDamage;
-    int nPoisonMaxDamage;
-    int nPoisonLength;
-    int nPoisonCount;
-    int nLifeDrainMinDamage;
-    int nLifeDrainMaxDamage;
-    int nManaDrainMinDamage;
-    int nManaDrainMaxDamage;
-    int nStaminaDrainMinDamage;
-    int nStaminaDrainMaxDamage;
-    int nStunLength;
-    int nBurningMin;
-    int nBurningMax;
-    int nBurnLength;
-    int nDemonDamagePercent;
-    int nUndeadDamagePercent;
-    int nDamageTargetAC;
-    int nDamagePercent;
-};
 
 void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
 
