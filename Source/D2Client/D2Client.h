@@ -1656,7 +1656,7 @@ struct D2HotkeySlotTableStrc
     int nX[60];
     int nY[60];
     int nSkill[60];
-    int f_2D0[60];
+    int nOwnerGuid[60];
 };
 
 struct D2HoverBoxStrc
@@ -2066,7 +2066,7 @@ struct D2WaypointRowRectStrc
 struct D2WeatherSplashStrc
 {
     short bActive;
-    short unk0x02;
+    short pad0x02;
     int nX;
     int nY;
     int nType;
@@ -2115,7 +2115,7 @@ struct SelectionEntry
 struct D2WeatherParticleStrc
 {
     short bActive;
-    short unk0x02;
+    short pad0x02;
     int nX;
     int nY;
     int nYEnd;
@@ -2126,7 +2126,7 @@ struct D2WeatherParticleStrc
     int nType;
     unsigned char nColor;
     unsigned char nAlpha;
-    short unk0x26;
+    short pad0x26;
 };
 
 typedef unsigned short U16;
