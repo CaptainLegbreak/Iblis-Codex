@@ -737,7 +737,8 @@ static void PLAYER_UpdateRoomState(D2UnitStrc* pUnit)
         NPCMENU_RefreshNpcEntries(pUnit);
     gnInTown = bInTown;
     sub_00473C90_SetGlobal(DUNGEON_CheckLOSDraw(pRoom));
-    sub_0046BF30_CheckThroneLevel(pRoom);
+// build: symbol ?VIEW_CheckThroneLevel@* 0x0046BF30
+    VIEW_CheckThroneLevel(pRoom);
 }
 
 static inline int PLAYER_GetUnitXInline(D2UnitStrc* pUnit)
@@ -947,7 +948,8 @@ int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTa
         PLAYER_SetModeAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 1:
-        if (sub_004804A0_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
+// build: symbol ?UNITMODE_SetPathTargetPos@* 0x004804A0
+        if (UNITMODE_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
         {
             UNITMODE_SetUnitMode(pUnit, nMoveMode);
             return 1;
@@ -963,7 +965,7 @@ int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTa
         PLAYER_SetModeAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 23:
-        if (sub_004804A0_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
+        if (UNITMODE_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
         {
             UNITMODE_SetUnitMode(pUnit, 3);
             return 1;
@@ -2153,7 +2155,7 @@ static int PLAYER_CmdRightSkillMove(D2PlayerCmdStrc* pCmd)
 }
 
 // 0x00462CA0
-static int sub_00462CA0_UpdatePetCommandNoWalk(D2PlayerCmdStrc* pCmd)
+static int PLAYER_UpdatePetCommandNoWalk(D2PlayerCmdStrc* pCmd)
 {
     PLAYER_FilterCommandMessage(pCmd);
     const int nPetId = ROSTERPETS_FindPetIdByOwner(pCmd->pPlayer, 7, 0);
@@ -2231,7 +2233,7 @@ int __fastcall PLAYER_PlayerCommand(int nCommand, int nX, int nY, unsigned char 
     case 5:
         SELECT_ClearSelection();
         tCmd.dwFlags |= 0x12;
-        return sub_00462CA0_UpdatePetCommandNoWalk(&tCmd);
+        return PLAYER_UpdatePetCommandNoWalk(&tCmd);
     }
     return 1;
 }
@@ -2340,7 +2342,7 @@ inline int UNITS_GetUnitIdInline(D2UnitStrc* unit)
 }
 
 // 0x00463260
-static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
+static void PLAYER_UpdateStoredUnit(D2UnitStrc* unit)
 {
     if (unit != sub_00463DE0_GetPlayerUnit())
         return;
@@ -2382,7 +2384,7 @@ static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
             idle = 1;
             move = 2;
         }
-        if (sub_004804A0_SetPathTargetPos(unit, args[0], args[1]))
+        if (UNITMODE_SetPathTargetPos(unit, args[0], args[1]))
             UNITMODE_SetUnitMode(unit, move);
         else
             PLAYER_SetModeAndSync(1, unit, idle);
@@ -2452,7 +2454,7 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
         PLAYER_SetModeAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 1:
-        if (sub_004804A0_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
+        if (UNITMODE_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
         {
             UNITMODE_SetUnitMode(pUnit, nMoveMode);
             return 1;
@@ -2468,7 +2470,7 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
         PLAYER_SetModeAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 23:
-        if (sub_004804A0_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
+        if (UNITMODE_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
         {
             UNITMODE_SetUnitMode(pUnit, 3);
             return 1;
@@ -2565,7 +2567,7 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
 }
 
 // 0x00463390
-void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
+void __fastcall PLAYER_UpdatePlayerMode(D2UnitStrc* pUnit)
 {
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     int bPathDone = 0;
@@ -2679,7 +2681,7 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
 
     D2COMMON_10193_PATH_AdjustDirection(pPath);
     if (pUnit->dwAnimMode == 3)
-        sub_00463260_UpdateStoredUnit(pUnit);
+        PLAYER_UpdateStoredUnit(pUnit);
     if (STATES_CheckStateMaskActiveOnUnit(pUnit))
         SKILLS_RunStateActiveFuncs(pUnit);
     PLAYER_PlaceOnFreeCoords(pUnit);

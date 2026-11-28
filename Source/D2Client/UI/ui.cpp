@@ -479,7 +479,7 @@ extern "C" void __cdecl QUESTLOG_ResetQuestButtonState(); // 0x004A3000
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
-int __cdecl sub_00478150_GetProgress(); // 0x00478150
+int __cdecl DLIGHTMAP_GetProgress(); // 0x00478150
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
@@ -518,7 +518,7 @@ void __cdecl GAME_DrawLevelLoadingScreen(); // 0x00455510
 
 void __cdecl HIREABLES_UpdateHirelingPanel(); // 0x00493340
 
-void __cdecl sub_00494020_DrawPetIcons(); // 0x00494020
+void __cdecl HIREABLES_DrawPetIcons(); // 0x00494020
 
 void __cdecl INV_DrawMercPanel(); // 0x004929F0
 
@@ -576,7 +576,7 @@ void __cdecl UI_DrawStoredUnitNumber(); // 0x00453B30
 
 void __cdecl UI_DrawDeathScreen(); // 0x00453100
 
-void __cdecl sub_0046C130_DrawCountdown(); // 0x0046C130
+void __cdecl VIEW_DrawCountdown(); // 0x0046C130
 
 D2CelFileStrc* gpLoadingScreen; // 0x007A2888
 
@@ -806,7 +806,7 @@ struct D2UiControlCStrc : D2UiControlBaseStrc
 
 
 
-void __fastcall sub_004898A0_DisableGoldButton(int nMode);                                                                    // 0x004898A0
+void __fastcall CUNIT_DisableGoldButton(int nMode);                                                                    // 0x004898A0
 
 void* __fastcall DIALOG_CreateDialogFromFile(int nX, int nY, int (__cdecl* pfnCallback)(), int nArg4, int nArg5, int nArg6); // 0x004B7CD0
 
@@ -1423,7 +1423,8 @@ void __fastcall sub_M117_Emit_004535F0(D2SlotOwnerStrc* pOwner, int nIndex, int 
 // 0x00453900
 int __cdecl UI_IsDialogOpen()
 {
-    return sub_004B85E0_GetDialogCount() != 0;
+// build: symbol ?DIALOG_GetDialogCount@* 0x004B85E0
+    return DIALOG_GetDialogCount() != 0;
 }
 
 // 0x00453910
@@ -1435,7 +1436,7 @@ static int UI_CanSetUIVar(int nUIVar, int nState)
     {
         if (nUIVar == 0x05 || nUIVar == 0x09)
         {
-            if (sub_004B85E0_GetDialogCount() && nUIVar == 0x05 && !gaUIVarStates[0x18])
+            if (DIALOG_GetDialogCount() && nUIVar == 0x05 && !gaUIVarStates[0x18])
             {
                 return 0;
             }
@@ -1601,14 +1602,17 @@ void __cdecl UI_DrawStoredUnitNumber()
 void __cdecl UI_LoadPlayerUI()
 {
     PANEL_LoadPartyCels();
-    sub_004A7AA0_InitTextEntryLengths();
+// build: symbol ?TEXT_InitTextEntryLengths@* 0x004A7AA0
+    TEXT_InitTextEntryLengths();
     sub_004AA920_LoadPanelCel();
     SPELLSEL_InitSkillIcons();
-    sub_004B8720_ResetTradeState();
+// build: symbol ?MONSTER_ResetTradeState@* 0x004B8720
+    MONSTER_ResetTradeState();
     INV_ResetHover();
     PANEL_ClearPair();
     INV_FreeHoradricCel();
-    sub_004A3050_ResetQuestPages();
+// build: symbol ?QUESTLOG_ResetQuestPages@* 0x004A3050
+    QUESTLOG_ResetQuestPages();
     TEXT_LoadPopupHireling();
     AUTOMAP_ResetBaseOffset(1);
     sub_0047E720_LoadAlwaysRun();
@@ -1804,7 +1808,8 @@ int __cdecl UI_ConfirmGoldDialog()
     if (!gnGoldPanelValue)
     {
         if (gnGoldPanelMode == 2)
-            sub_004B9110_SendGoldRequest(gnGoldPanelValue);
+// build: symbol ?MONSTER_SendGoldRequest@* 0x004B9110
+            MONSTER_SendGoldRequest(gnGoldPanelValue);
         return 1;
     }
     switch (gnGoldPanelMode)
@@ -1818,7 +1823,7 @@ int __cdecl UI_ConfirmGoldDialog()
         return 1;
     }
     case 2:
-        sub_004B9110_SendGoldRequest(gnGoldPanelValue);
+        MONSTER_SendGoldRequest(gnGoldPanelValue);
         break;
     case 4:
         MSG_SendShorts(0x4F, 0x13, gwDialogAmountHigh, gnGoldPanelValue);
@@ -1877,22 +1882,22 @@ void __fastcall UI_OpenGoldPanel(int nMode)
         break;
     case 1:
         nStringId = 0xFC1;
-        sub_004898A0_DisableGoldButton(1);
+        CUNIT_DisableGoldButton(1);
         nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
         break;
     case 2:
         nStringId = 0xFCE;
-        sub_004898A0_DisableGoldButton(2);
+        CUNIT_DisableGoldButton(2);
         nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
         break;
     case 3:
         nStringId = 0xFD1;
-        sub_004898A0_DisableGoldButton(3);
+        CUNIT_DisableGoldButton(3);
         nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
         break;
     case 4:
         nStringId = 0xFD2;
-        sub_004898A0_DisableGoldButton(4);
+        CUNIT_DisableGoldButton(4);
         nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLDBANK, 0);
         break;
     default:
@@ -2524,7 +2529,8 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
         return;
     case 0x17:
         CMDTBL_SetHotkeyHandlers(0, 0x1);
-        sub_004B8920_ClearTradeGold();
+// build: symbol ?MONSTER_ClearTradeGold@* 0x004B8920
+        MONSTER_ClearTradeGold();
         INV_ClearPanelPage();
         UI_SetPanelHotkeys(&gtMpTradeHotkeys);
         SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaMpTradeHandlers, 0xD);
@@ -2669,7 +2675,8 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         UI_CloseGoldDialog();
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMpTradeHandlers, 0xD);
         UI_StartUIVarDelay();
-        sub_004B8940_CloseWait(0);
+// build: symbol ?MONSTER_CloseWait@* 0x004B8940
+        MONSTER_CloseWait(0);
         CMDTBL_SetHotkeyHandlers(0x1, 0x1);
         return;
     case 0x19:
@@ -2956,7 +2963,7 @@ void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame)
             D2GFX_DrawBox(gnScreenWidth / 2 - 0x82, gnScreenHeight / 2 + 0x9E, gnScreenWidth / 2 + 0x82, gnScreenHeight / 2 + 0xB2, gnLoadingBoxColor, 1);
             D2GFX_DrawBox(gnScreenWidth / 2 - 0x80, gnScreenHeight / 2 + 0xA0, gnScreenWidth / 2 + 0x80, gnScreenHeight / 2 + 0xB0, 0, 5);
 
-            const int nWidth = sub_00478150_GetProgress();
+            const int nWidth = DLIGHTMAP_GetProgress();
             if (nWidth)
             {
                 AUTOMAP_DrawFramedBox(gnScreenWidth / 2 - 0x80, gnScreenHeight / 2 + 0xA0, nWidth, 0x10, gnLoadingBarColor, 5);
@@ -3059,7 +3066,7 @@ void __cdecl UI_InitUI()
     TEXT_InitNpcMenu();
     AUTOMAP_InitAutomap();
     TEXT_InitWaypointData();
-    sub_004B8720_ResetTradeState();
+    MONSTER_ResetTradeState();
 // build: symbol ?gpGoldPanel@* 0x007A27A0
     gpGoldPanel = 0;
     gpGoldControlA = 0;
@@ -3302,7 +3309,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     GAME_DrawLevelLoadingScreen();
     HIREABLES_UpdateHirelingPanel();
     if (gaUIVarStates[19])
-        sub_00494020_DrawPetIcons();
+        HIREABLES_DrawPetIcons();
     if (gaUIVarStates[36])
         INV_DrawMercPanel();
     if (gaUIVarStates[37])
@@ -3314,14 +3321,16 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
         INV_DrawInventoryPanel();
     if (gaUIVarStates[23])
     {
-        sub_004B8730_DrawDialogHover();
+// build: symbol ?MONSTER_DrawDialogHover@* 0x004B8730
+        MONSTER_DrawDialogHover();
         INV_DrawInventoryPanel();
     }
     UI_DrawProgressiveStates();
     if (gaUIVarStates[4])
         sub_004AC690_DrawSkillPanel();
     if (gaUIVarStates[2])
-        sub_004A7D00_DrawCharStats();
+// build: symbol ?TEXT_DrawCharStats@* 0x004A7D00
+        TEXT_DrawCharStats();
     if (gaUIVarStates[22])
         PANEL_DrawPartyPanel();
     if (gpGoldPanel)
@@ -3346,11 +3355,13 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     if (gaUIVarStates[6])
         TEXT_DrawStatButton();
     else
-        sub_004A6A70_DrawLeftPanelButton();
+// build: symbol ?TEXT_DrawLeftPanelButton@* 0x004A6A70
+        TEXT_DrawLeftPanelButton();
     if (gaUIVarStates[7])
         TEXT_DrawSkillButton();
     else
-        sub_004A6DA0_DrawRightPanelButton();
+// build: symbol ?TEXT_DrawRightPanelButton@* 0x004A6DA0
+        TEXT_DrawRightPanelButton();
     if (gaUIVarStates[17])
         QUESTLOG_DrawQuestButton();
     PANEL_DrawLifeManaText();
@@ -3441,7 +3452,7 @@ done:
     UI_DrawHoverName();
     UI_DrawStoredUnitNumber();
     UI_DrawDeathScreen();
-    sub_0046C130_DrawCountdown();
+    VIEW_DrawCountdown();
 }
 
 

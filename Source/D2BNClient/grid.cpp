@@ -35,7 +35,7 @@ void __fastcall BNDOWNLOAD_FillRandomBytes(char* szBuffer, int nSize); // 0x0052
 
 unsigned int __fastcall BNDOWNLOAD_DecryptData(unsigned char* pBuffer, unsigned int nSize, const char* pKey); // 0x00522E10
 
-static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize);
+static int __cdecl GRID_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize); // 0x005232B0
 
 static void __cdecl GRID_CopyDecodedKeys(Byte** first, Byte** second); // 0x00523350
 
@@ -86,7 +86,7 @@ static inline unsigned int sub_GetTerminatedLength(const unsigned char* pString,
 }
 
 // 0x005232B0
-static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize)
+static int __cdecl GRID_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize)
 {
     char aKey[20];
     BNDOWNLOAD_FillRandomBytes(aKey, sizeof(aKey));
@@ -126,12 +126,12 @@ static void __cdecl GRID_CopyDecodedKeys(Byte** first, Byte** second)
         *second = allocated;
         sub_006829C0_CopyBuffer(allocated, gpClhFileData, gnClhFileSize);
     }
-    if (first && !sub_005232B0_DecodeAndValidate(*first, gnGidFileSize))
+    if (first && !GRID_DecodeAndValidate(*first, gnGidFileSize))
     {
         SMemFree(*first, gszGrid, 0x1a6, 0);
         *first = 0;
     }
-    if (second && !sub_005232B0_DecodeAndValidate(*second, gnClhFileSize))
+    if (second && !GRID_DecodeAndValidate(*second, gnClhFileSize))
     {
         SMemFree(*second, gszGrid, 0x1aa, 0);
         *second = 0;
@@ -167,7 +167,7 @@ static void* GRID_LoadKeyFile(const char* szFileName, unsigned int* pSize)
     SFileLoadFile(szFileName, &pBuffer, pSize, 1, 0);
     if (pBuffer && *pSize)
     {
-        if (sub_005232B0_DecodeAndValidate((unsigned char*)pBuffer, *pSize))
+        if (GRID_DecodeAndValidate((unsigned char*)pBuffer, *pSize))
             return pBuffer;
         if (pBuffer)
             SFileUnloadFile(pBuffer);
@@ -274,7 +274,7 @@ unsigned int __cdecl GRID_HashCDKey()
 {
     char* szKey = (char*)SMemAlloc(gnGidFileSize, ".\\grid.cpp", 0x199, 0);
     memcpy(szKey, gpGidFileData, gnGidFileSize);
-    if (!sub_005232B0_DecodeAndValidate((unsigned char*)szKey, gnGidFileSize))
+    if (!GRID_DecodeAndValidate((unsigned char*)szKey, gnGidFileSize))
     {
         SMemFree(szKey, ".\\grid.cpp", 0x1A6, 0);
         szKey = 0;

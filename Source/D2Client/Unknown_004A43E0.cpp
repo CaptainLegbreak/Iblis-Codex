@@ -2192,7 +2192,7 @@ void __stdcall TEXT_ApplyEntryMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A6000
-void __stdcall sub_004A6000_RegisterPressMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_RegisterPressMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (GAME_IsExitPending())
     {
@@ -2223,7 +2223,7 @@ int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, unsigned short*
 unsigned long gdwMessageTick;                                                                            // 0x007C02C8
 
 // 0x004A60B0
-void __stdcall sub_004A60B0_KeyDownMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_KeyDownMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (GAME_IsExitPending())
     {
@@ -2271,7 +2271,7 @@ store_key:
 }
 
 // 0x004A61A0
-void __stdcall sub_004A61A0_KeyUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_KeyUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (GAME_IsExitPending())
     {

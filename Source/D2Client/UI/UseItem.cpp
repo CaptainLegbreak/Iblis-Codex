@@ -96,7 +96,7 @@ void __cdecl USEITEM_OpenPanel(); // 0x004C0380
 
 void __fastcall MSG_SendFourDwords(char nCommand, int nUnitId, int nArg1, int nArg2, int nArg3); // 0x00478700
 
-void __cdecl sub_004B3FE0_CloseNpcMenu(); // 0x004B3FE0
+void __cdecl NPCMENU_CloseNpcMenu(); // 0x004B3FE0
 
 void __fastcall sub_00451E10_RegisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10
 
@@ -461,7 +461,7 @@ int __cdecl USEITEM_ClosePanel()
         MSG_SendFourDwords(0x44, id, value, 0, 2);
         USEITEM_CloseUseItemPanel();
     } else {
-        sub_004B3FE0_CloseNpcMenu();
+        NPCMENU_CloseNpcMenu();
         USEITEM_CloseUseItemPanel();
     }
     return 1;
@@ -587,7 +587,7 @@ void __stdcall USEITEM_OnPanelCloseMsg(SMSGHANDLER_PARAMS* pMsg)
     }
     else
     {
-        sub_004B3FE0_CloseNpcMenu();
+        NPCMENU_CloseNpcMenu();
         USEITEM_CloseUseItemPanel();
     }
 }
@@ -610,7 +610,7 @@ void __cdecl USEITEM_OpenPanel()
         }
         else
         {
-            sub_004B3FE0_CloseNpcMenu();
+            NPCMENU_CloseNpcMenu();
             USEITEM_CloseUseItemPanel();
         }
         return;
@@ -687,7 +687,7 @@ void __stdcall USEITEM_OnHotspotClick(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004C0550
-void __fastcall sub_004C0550_HandleUseItemPacket(D2PacketRecord7Strc* pPacket)
+void __fastcall USEITEM_HandleUseItemPacket(D2PacketRecord7Strc* pPacket)
 {
     switch (pPacket->nType)
     {
