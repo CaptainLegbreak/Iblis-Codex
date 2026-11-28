@@ -20,6 +20,7 @@ it is on main; from #473, based on main.
   D2Client -85, no other module changes). auditguard: no count rose.
 
 ## Claimed
+- Sat Nov 28 06:50 PST 2026: **lane12/localcopy-2** (from statics-1): item 7's functions several objects define (local_copy, 169 items / 329 refs not compiler-generated): each unit's copy becomes a declaration of the one definition where the unit stays equal. Files: the units listed in LINK_DEBT local_copy (SkillDesc.cpp, StatsEx.cpp, Composit_0064F060.cpp, MissMode.cpp, Skills.cpp, SBig*.cpp, Fog Unknown_*.cpp, ...); skipping D2Client Unknown_ files lane 4 holds today unless they're free.
 - Sat Nov 28 3:22 PST 2026: status. Ready: abi-1, abi-2. Waiting on two answers (Questions): the void ruling vs the cast audit, and
   whether the register-shim group goes to the Fable chat. Next without an answer: item 7's 157 declarations with
   no `// 0x` marker (lane 14's 18:20 list, if it is on the board) and the 60 renamed_definition statics.
