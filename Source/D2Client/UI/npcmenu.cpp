@@ -36,8 +36,6 @@ struct D2ClientItemSlotStrc;
 
 struct D2MonsterDataStrc;
 
-struct D2PacketRecord6Strc;
-
 struct D2StringMapStrc;
 
 struct D2ClientStringListStrc;
@@ -94,13 +92,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 
 #pragma pack(push, 1)
-
-struct D2PacketRecord6Strc
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    int dwUnitId;
-};
 
 #pragma pack(pop)
 
@@ -301,6 +292,7 @@ void __fastcall SOUNDINST_StopSound(int nHandle); // 0x004BA840
 
 #include "gen/data/Source/D2Client/UI/npcmenu/gnHandlerCount.inc"
 #include "D2CommonApi3.h"
+#include "D2Packets.h"
 
 
 
@@ -455,8 +447,6 @@ struct D2BitBufferStrc;
 
 struct D2GameStrc;
 
-struct D2StoredMsgPacketStrc;
-
 
 void __cdecl INV_ResetNpcButtonsFromPending(); // 0x00487C20
 
@@ -492,13 +482,6 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x0
 
 
 #pragma pack(push, 1)
-
-struct D2StoredMsgPacketStrc
-{
-    unsigned char nHeader;
-    unsigned short wValue;
-    unsigned int dwValue;
-};
 
 #pragma pack(pop)
 
@@ -1816,7 +1799,7 @@ int __fastcall NPCMENU_GetInteractNpcId(int* pLow)
 }
 
 // 0x004B3240
-void __fastcall NPCMENU_StoreMessage(const D2StoredMsgPacketStrc* pPacket)
+void __fastcall NPCMENU_StoreMessage(const D2GSPacketSrv4E* pPacket)
 {
     if (!pPacket)
     {
@@ -1828,8 +1811,8 @@ void __fastcall NPCMENU_StoreMessage(const D2StoredMsgPacketStrc* pPacket)
         if (!gtNpcMenu.aItemSlots[i].nUnitId)
         {
             D2ClientItemSlotStrc* pEntry = &gtNpcMenu.aItemSlots[i];
-            pEntry->wId = pPacket->wValue;
-            pEntry->dwSeed = pPacket->dwValue;
+            pEntry->wId = pPacket->nMercName;
+            pEntry->dwSeed = pPacket->nSeed;
             pEntry->nUnitId = 1;
             return;
         }
@@ -1896,9 +1879,9 @@ void __fastcall NPCMENU_CheckObjectFound(D2UnitStrc* pUnit)
 }
 
 // 0x004B3380
-void __fastcall NPCMENU_OnNpcWantsInteract(D2PacketRecord6Strc* pPacket)
+void __fastcall NPCMENU_OnNpcWantsInteract(D2GSPacketSrv8A* pPacket)
 {
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitId, pPacket->nUnitType);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitGUID, pPacket->nUnitType);
     if (!pUnit)
     {
         return;
