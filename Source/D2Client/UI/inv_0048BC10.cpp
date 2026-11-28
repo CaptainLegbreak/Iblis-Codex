@@ -197,29 +197,29 @@ int __fastcall INV_IsInNpcPanelRect(int nX, int nY); // 0x00486E10
 
 void __cdecl INV_CloseCubePanel(); // 0x0048A050
 
-static int gnInvMouseX; // 0x007BCA4C
+extern int gnInvMouseX; // 0x007BCA4C
 
 D2InventoryGridInfoStrc gtNpcInvGrid; // 0x007BCB58
 
 D2InvRectStrc gtNpcInvRect; // 0x007BCBB0
 
-static int gnInvMouseY; // 0x007BCBD8
+extern int gnInvMouseY; // 0x007BCBD8
 
-static int gbHoverInGrid; // 0x007BCBE4
+extern int gbHoverInGrid; // 0x007BCBE4
 
 static int gbHoverInBodyLoc; // 0x007BCBE8
 
-static int gnInvPanelMode; // 0x007BCBF0
+extern int gnInvPanelMode; // 0x007BCBF0
 
-static D2UnitStrc* gpHoverItem; // 0x007BCBF4
+extern D2UnitStrc* gpHoverItem; // 0x007BCBF4
 
 static D2UnitStrc* gpLastHoverItem; // 0x007BCBF8
 
-static unsigned char gnSelectedTab; // 0x007BCC04
+extern unsigned char gnSelectedTab; // 0x007BCC04
 
 static int gnHoverBodyLoc; // 0x007BCC20
 
-static int gnSelectedShopButton; // 0x007BCC40
+extern int gnSelectedShopButton; // 0x007BCC40
 
 static int gnSelectedShopButtonKey; // 0x007BCC44
 
@@ -233,7 +233,7 @@ static int gbTradeAcceptButtonDown; // 0x007BCE20
 
 static int gbTradeCancelButtonDown; // 0x007BCE24
 
-static int gbGoldButtonDisabled; // 0x007BCE2C
+extern int gbGoldButtonDisabled; // 0x007BCE2C
 
 static int gbInvGoldButtonDown; // 0x007BCE30
 
@@ -243,7 +243,7 @@ static int gbStashButtonDown; // 0x007BCE38
 
 static int gbStashButtonClicked; // 0x007BCE3C
 
-static int gbPanelButtonDown; // 0x007BCE90
+extern int gbPanelButtonDown; // 0x007BCE90
 
 static int gnGlobal_007BCE94; // 0x007BCE94
 

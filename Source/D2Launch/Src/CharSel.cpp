@@ -2770,7 +2770,7 @@ int __stdcall CHARSEL_OnName(SMSGHANDLER_PARAMS* pMsg)
 }
 
 int gdwGlobal_0077AC04; // 0x0077AC04
-static int gbBattleNetConnected; // 0x0077AC08
+extern int gbBattleNetConnected; // 0x0077AC08
 static int gbConnecting; // 0x0077AC0C
 
 int __stdcall CHARSEL_OnDownloadTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043B850

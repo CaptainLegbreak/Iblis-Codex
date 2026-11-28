@@ -95,7 +95,7 @@ static int gbPopupMouseDown;                                                    
 static int gbPopupDismissed;                                                                               // 0x007A5254
 
 
-static int gbPulseDone;                                                                               // 0x007A745C
+extern int gbPulseDone; // 0x007A745C
 
 static D2RosterPetStrc* gpRosterPets;                                                          // 0x007BB5BC
 

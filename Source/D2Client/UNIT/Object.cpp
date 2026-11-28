@@ -63,7 +63,7 @@ int gbAutomapLeftSaved; // 0x007A51E8
 
 int gaAutomapCellTable[0x800]; // 0x007A3150
 
-static int gnAutomapOffsetX; // 0x007A5198
+extern int gnAutomapOffsetX; // 0x007A5198
 
 static int gnAutomapOffsetY; // 0x007A519C
 

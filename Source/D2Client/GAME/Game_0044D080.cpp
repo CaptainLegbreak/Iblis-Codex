@@ -8,7 +8,7 @@
 #include "D2ClientFuncs.h"
 #include "StormApi.h"
 
-static int gbEndScreenButtonPressed; // 0x007A0680
+extern int gbEndScreenButtonPressed; // 0x007A0680
 static int gbEndScreenDismissed; // 0x007A0608
 static int gbLeftButtonDown; // 0x007A0650
 static int gbRightButtonDown; // 0x007A0654

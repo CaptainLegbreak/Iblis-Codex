@@ -158,13 +158,13 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);           
 
 extern D2CelFileStrc* gapHirelingIcons[7];                                                         // 0x007BEEB0
 
-static unsigned char gnLifeColorHigh;                                                              // 0x007BEED0
+extern unsigned char gnLifeColorHigh; // 0x007BEED0
 
-static unsigned char gnLifeColorMid;                                                               // 0x007BEED1
+extern unsigned char gnLifeColorMid; // 0x007BEED1
 
-static unsigned char gnLifeColorLow;                                                               // 0x007BEED2
+extern unsigned char gnLifeColorLow; // 0x007BEED2
 
-static unsigned char gbLifeColorsInit;                                                             // 0x007BEED3
+extern unsigned char gbLifeColorsInit; // 0x007BEED3
 
 static int gnPopupX;                                                                               // 0x007BEED4
 
@@ -172,7 +172,7 @@ static int gnPopupY;                                                            
 
 static int gbPopupShown;                                                                           // 0x007BEEDC
 
-static unsigned char gbOpenMercInvPending;                                                                     // 0x007BEEE4
+extern unsigned char gbOpenMercInvPending; // 0x007BEEE4
 
 static int gdwPopupTick;                                                                           // 0x007BEEE8
 

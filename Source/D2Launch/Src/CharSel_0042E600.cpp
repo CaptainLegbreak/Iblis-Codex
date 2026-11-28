@@ -110,7 +110,7 @@ extern D2WinControlStrc* gpControl_007799F8;                                    
 extern void* gapRowControls[];                                                                     // 0x00779A20
 extern void* gapRowControlsX[8];                                                                          // 0x00779B40
 static int gnSelected;         // 0x0070CC00
-static D2WinControlStrc* gpCharSelectText; // 0x00779DD4
+extern D2WinControlStrc* gpCharSelectText; // 0x00779DD4
 static D2WinControlStrc* gpControl_00779DD0;        // 0x00779DD0
 static int gnLastValue;        // 0x00779DCC
 int __stdcall CHARSEL_OnCreateAccountTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043B8E0

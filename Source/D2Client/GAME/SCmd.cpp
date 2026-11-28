@@ -1175,7 +1175,7 @@ void __fastcall AUTOMAP_RefreshItemStats(D2UnitStrc* pUnit);                    
 
 static void SCMD_RefreshUnitItems(D2UnitStrc* pUnit); // 0x0045D3B0
 
-static unsigned char* gpSaveBuffer; // 0x007A5224
+extern unsigned char* gpSaveBuffer; // 0x007A5224
 
 static unsigned int gnSaveBufferSize; // 0x007A5228
 

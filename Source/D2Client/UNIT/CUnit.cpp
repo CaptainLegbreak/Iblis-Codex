@@ -404,7 +404,7 @@ extern int gbHoverInGrid; // 0x007BCBE4
 
 extern int gbHoverInBodyLoc; // 0x007BCBE8
 
-extern int gpHoverItem; // 0x007BCBF4
+extern D2UnitStrc* gpHoverItem; // 0x007BCBF4
 
 extern int gpLastHoverItem; // 0x007BCBF8
 

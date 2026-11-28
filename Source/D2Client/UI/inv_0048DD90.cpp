@@ -222,7 +222,7 @@ int gbHoverInGrid;                                                              
 
 extern int gbHoverInBodyLoc;                                                                              // 0x007BCBE8
 
-static int gnInvPanelMode;                                                                              // 0x007BCBF0
+extern int gnInvPanelMode; // 0x007BCBF0
 
 D2UnitStrc* gpHoverItem;                                                                             // 0x007BCBF4
 
@@ -330,23 +330,23 @@ extern D2CoordStrc gtOffsetLArm; // 0x007220F8
 extern D2CoordStrc gtOffsetRArmTab; // 0x00722100
 extern D2CoordStrc gtOffsetLArmTab; // 0x00722108
 
-static D2CelFileStrc* gpTradePanelCel;                                                                           // 0x007BCB04
+extern D2CelFileStrc* gpTradePanelCel; // 0x007BCB04
 
-static unsigned char gnSelectedTab;                                                                // 0x007BCC04
+extern unsigned char gnSelectedTab; // 0x007BCC04
 
-static unsigned long gdwNpcPanelDelayTick;                                                                    // 0x007BCC08
+extern int gdwNpcPanelDelayTick; // 0x007BCC08
 
 static int gRequest;                                                                               // 0x007BCC0C
 
-static int gbQuestTimerActive;                                                                     // 0x007BCC10
+extern int gbQuestTimerActive; // 0x007BCC10
 
-static unsigned int gnQuestTimerValue;                                                             // 0x007BCC14
+extern unsigned int gnQuestTimerValue; // 0x007BCC14
 
-static unsigned long gdwQuestTimerTicks;                                                           // 0x007BCC18
+extern unsigned long gdwQuestTimerTicks; // 0x007BCC18
 
-static D2CelFileStrc* gpHoradricCel;                                                                        // 0x007BCC1C
+extern D2CelFileStrc* gpHoradricCel; // 0x007BCC1C
 
-static D2CelFileStrc* gpMiniConvertCel;                                                                           // 0x007BCC28
+extern D2CelFileStrc* gpMiniConvertCel; // 0x007BCC28
 
 static D2CelFileStrc* gpBankCel;                                                                           // 0x007BCC2C
 
@@ -396,9 +396,9 @@ static int gbWeaponSwitch;                                                      
 
 #define gnGlobal_007BCD2C (gaCompGrids[10].rect.nBottom)
 
-static int gbTradeAcceptedSelf;                                                                               // 0x007BCD34
+extern int gbTradeAcceptedSelf; // 0x007BCD34
 
-static int gbTradeAcceptedOther;                                                                               // 0x007BCE14
+extern int gbTradeAcceptedOther; // 0x007BCE14
 
 static int gbTradeAccepted;                                                                               // 0x007BCE18
 
@@ -412,21 +412,21 @@ static int gbCubeButtonDown;                                                    
 
 static int gbCubeCloseButtonDown;                                                                               // 0x007BCE48
 
-static void* gpCelInvArmor;                                                                        // 0x007BCE68
+extern void* gpCelInvArmor; // 0x007BCE68
 
-static void* gpCelInvBelt;                                                                         // 0x007BCE6C
+extern void* gpCelInvBelt; // 0x007BCE6C
 
-static void* gpCelInvBoots;                                                                        // 0x007BCE70
+extern void* gpCelInvBoots; // 0x007BCE70
 
-static void* gpCelInvHelmGlove;                                                                    // 0x007BCE74
+extern void* gpCelInvHelmGlove; // 0x007BCE74
 
-static void* gpCelInvRingAmulet;                                                                   // 0x007BCE78
+extern void* gpCelInvRingAmulet; // 0x007BCE78
 
-static void* gpCelInvWeapons;                                                                      // 0x007BCE7C
+extern void* gpCelInvWeapons; // 0x007BCE7C
 
-static void* gpCelInvChar6Tab;                                                                     // 0x007BCE84
+extern void* gpCelInvChar6Tab; // 0x007BCE84
 
-static int gbPanelButtonDown;                                                                               // 0x007BCE90
+extern int gbPanelButtonDown; // 0x007BCE90
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 

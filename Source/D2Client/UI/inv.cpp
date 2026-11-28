@@ -881,7 +881,7 @@ static int gnHoverBodyLoc; // 0x007BCC20
 
 static int gnSelectedShopButtonKey; // 0x007BCC44
 
-static int gbGoldButtonDisabled; // 0x007BCE2C
+extern int gbGoldButtonDisabled; // 0x007BCE2C
 
 static int gbStashGoldButtonDown; // 0x007BCE34
 
@@ -1512,7 +1512,7 @@ extern int gaButtonY_00722168[][4]; // 0x00722168
 extern unsigned char gnGlobal_007BCC05; // 0x007BCC05
 
 typedef char* va_list;
-static int gbNpcButtonHandled; // 0x007BCC48
+extern int gbNpcButtonHandled; // 0x007BCC48
 
 
 static int sub_00483AE0_IsInGrid7BCB18(int nX, int nY)

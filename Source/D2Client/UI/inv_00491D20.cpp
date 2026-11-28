@@ -60,8 +60,8 @@ extern int gnHoverCellX; // 0x00721E4C
 extern int gnHoverCellY; // 0x00721E50
 extern D2InventoryGridInfoStrc gtPlayerInvGrid; // 0x007BCB88
 static int gbNpcTradeClicked; // 0x007BCBEC
-static int gnInvPanelMode; // 0x007BCBF0
-static unsigned char gnSelectedTab; // 0x007BCC04
+extern int gnInvPanelMode; // 0x007BCBF0
+extern unsigned char gnSelectedTab; // 0x007BCC04
 
 static int INV_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable); // 0x004843E0
 static void __stdcall sub_00486BD0_GetItemCell(unsigned int nX, unsigned int nY, int* pOutX, int* pOutY, D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid); // 0x00486BD0
@@ -421,9 +421,9 @@ extern int gnScreenWidth; // 0x0071146C
 extern int gnScreenHeight; // 0x00711470
 extern int gnPanelOffsetX; // 0x007A2858
 extern int gnPanelOffsetY; // 0x007A285C
-static int gbHoverInGrid; // 0x007BCBE4
+extern int gbHoverInGrid; // 0x007BCBE4
 static int gbHoverInBodyLoc; // 0x007BCBE8
-static D2UnitStrc* gpHoverItem; // 0x007BCBF4
+extern D2UnitStrc* gpHoverItem; // 0x007BCBF4
 static D2UnitStrc* gpLastHoverItem; // 0x007BCBF8
 static int gbInvGoldButtonDown; // 0x007BCE30
 static int gbPanelButtonDown; // 0x007BCE90

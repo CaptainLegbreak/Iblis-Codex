@@ -232,7 +232,7 @@ extern "C" int gnLightmapRenderMode; // 0x00712CCC
 
 int ghShakeSound; // 0x007B8D2C
 
-static int gnViewEffectMagnitude;                                                                               // 0x007B9534
+extern int gnViewEffectMagnitude; // 0x007B9534
 
 unsigned char** gppLerpRows;        // 0x007B953C
 
