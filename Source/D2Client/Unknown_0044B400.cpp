@@ -16,8 +16,6 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
-struct D2CmdParamsStrc;
-
 struct D2CmdArgStrc;
 
 struct D2McpPacket02Strc;
@@ -51,12 +49,6 @@ struct D2McpPacket10Strc;
 struct D2McpInfoStrc;
 
 struct Unicode;
-
-struct D2CmdParamsStrc
-{
-    char unk0x00[0x18];
-    const char* szValue;
-};
 
 struct D2CmdArgStrc
 {
@@ -151,10 +143,6 @@ extern char gszMcpGameServerIP[]; // 0x007992CC
 extern D2McpInfoStrc gtMcpInfo; // 0x0079910C
 
 extern int gdwGlobal_00799108; // 0x00799108
-
-int __stdcall WINMAIN_ShowCommandLineHelp(const D2CmdParamsStrc* pParams, int nUnused); // 0x0044B4E0
-
-int __stdcall WINMAIN_SetLaunchMode(const D2CmdParamsStrc* pParams, int nUnused); // 0x0044B600
 
 extern const char* gpszDefaultCaption_0070EE50; // 0x0070EE50
 

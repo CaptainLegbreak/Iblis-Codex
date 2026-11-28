@@ -73,10 +73,6 @@ struct ByteRecord;
 
 struct PacketWords;
 
-struct PacketShorts;
-
-struct Digest;
-
 struct HashState;
 
 struct Member;
@@ -84,8 +80,6 @@ struct Member;
 struct ClassRecord;
 
 struct ClassTableView;
-
-struct UnitView;
 
 class ListBoxImplementation;
 
@@ -264,25 +258,7 @@ struct PacketWords
     unsigned short wSlots[6];
 };
 
-struct PacketShorts
-{
-    char prefix[1];
-    unsigned short kind;
-    unsigned short a;
-    unsigned short b;
-    unsigned short c;
-};
-
 #pragma pack(pop)
-
-struct Digest
-{
-    unsigned int a;
-    unsigned int b;
-    unsigned int c;
-    unsigned int d;
-    unsigned int e;
-};
 
 struct HashState
 {
@@ -319,29 +295,11 @@ struct ClassTableView
     int count;
 };
 
-struct PayloadView;
-
-struct UnitView
-{
-    unsigned int type;
-    int classId;
-    char unused8[0xC];
-    PayloadView* payload;
-};
-
 typedef char ByteRecord_value[OFFSET(ByteRecord,value)==0x3E?1:-1];
 
 typedef char PacketWords_kind[OFFSET(PacketWords,kind)==0x1?1:-1];
 
 typedef char PacketWords_wSlots[OFFSET(PacketWords,wSlots)==0x3?1:-1];
-
-typedef char PacketShorts_kind[OFFSET(PacketShorts,kind)==0x1?1:-1];
-
-typedef char PacketShorts_a[OFFSET(PacketShorts,a)==0x3?1:-1];
-
-typedef char PacketShorts_b[OFFSET(PacketShorts,b)==0x5?1:-1];
-
-typedef char PacketShorts_c[OFFSET(PacketShorts,c)==0x7?1:-1];
 
 typedef char ClassRecord_relation[OFFSET(ClassRecord,relation)==0x2?1:-1];
 
@@ -352,20 +310,6 @@ typedef char ClassRecord_members[OFFSET(ClassRecord,members)==0x170?1:-1];
 typedef char ClassTableView_records[OFFSET(ClassTableView,records)==0xA78?1:-1];
 
 typedef char ClassTableView_count[OFFSET(ClassTableView,count)==0xA80?1:-1];
-
-typedef char UnitView_type[OFFSET(UnitView,type)==0x0?1:-1];
-
-typedef char UnitView_classId[OFFSET(UnitView,classId)==0x4?1:-1];
-
-typedef char Digest_a[OFFSET(Digest,a)==0x0?1:-1];
-
-typedef char Digest_b[OFFSET(Digest,b)==0x4?1:-1];
-
-typedef char Digest_c[OFFSET(Digest,c)==0x8?1:-1];
-
-typedef char Digest_d[OFFSET(Digest,d)==0xC?1:-1];
-
-typedef char Digest_e[OFFSET(Digest,e)==0x10?1:-1];
 
 typedef char HashState_a[OFFSET(HashState,a)==0x0?1:-1];
 
@@ -384,10 +328,6 @@ typedef char HashState_highCount[OFFSET(HashState,highCount)==0x18?1:-1];
 typedef char ByteRecord_size[sizeof(ByteRecord)==0x8E?1:-1];
 
 typedef char PacketWords_size[sizeof(PacketWords)==0xF?1:-1];
-
-typedef char PacketShorts_size[sizeof(PacketShorts)==0x9?1:-1];
-
-typedef char Digest_size[sizeof(Digest)==0x14?1:-1];
 
 typedef char HashState_size[sizeof(HashState)==0x5C?1:-1];
 
@@ -1118,16 +1058,7 @@ ListBoxWrapper* gpListBox; // 0x007BF1B4
 
 #define FIELD_OFFSET(T, F) ((unsigned long)&(((T*)0)->F))
 #pragma pack(push, 2)
-struct PackedNode
-{
-    char unused0[0x1e];
-    int value;
-    PackedNode* next;
-};
 #pragma pack(pop)
-typedef char PackedNode_value_offset[(FIELD_OFFSET(PackedNode,value)==0x1e)?1:-1];
-typedef char PackedNode_next_offset[(FIELD_OFFSET(PackedNode,next)==0x22)?1:-1];
-typedef char PackedNode_size[(sizeof(PackedNode)==0x26)?1:-1];
 
 
 
@@ -1183,20 +1114,6 @@ typedef char TablesView_outputCount_offset[(FIELD_OFFSET(TablesView,outputCount)
 typedef char TablesView_inputs_offset[(FIELD_OFFSET(TablesView,inputs)==0xb98)?1:-1];
 typedef char TablesView_inputCount_offset[(FIELD_OFFSET(TablesView,inputCount)==0xba0)?1:-1];
 extern "C" TablesView* gTables_00744304;
-struct PayloadView
-{
-    char unused0[0x16];
-    unsigned short flags;
-    char unusedAfterFlags[4];
-    unsigned char modifiers[10];
-    short value26;
-};
-typedef char PayloadView_size[(sizeof(PayloadView)==0x28)?1:-1];
-typedef char PayloadView_flags_offset[(FIELD_OFFSET(PayloadView,flags)==0x16)?1:-1];
-typedef char PayloadView_modifiers_offset[(FIELD_OFFSET(PayloadView,modifiers)==0x1c)?1:-1];
-typedef char PayloadView_value_offset[(FIELD_OFFSET(PayloadView,value26)==0x26)?1:-1];
-typedef char UnitView_size[(sizeof(UnitView)==0x18)?1:-1];
-typedef char UnitView_payload_offset[(FIELD_OFFSET(UnitView,payload)==0x14)?1:-1];
 struct D2ButtonLayoutStrc;
 union D2SeedStrc;
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0

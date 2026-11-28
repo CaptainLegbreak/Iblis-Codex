@@ -86,13 +86,6 @@ struct HKL__;
 
 typedef HIMC__* HIMC;
 
-struct CANDIDATELIST
-{
-    unsigned long dwSize;
-    unsigned long dwStyle;
-    unsigned long dwCount;
-};
-
 
 
 
@@ -101,8 +94,6 @@ extern "C" int __stdcall ImmReleaseContext(int hWnd, HIMC hImc); // 0x006B00B4
 extern "C" int __stdcall ImmGetOpenStatus(HIMC hImc); // 0x006B00BA
 
 extern "C" HIMC __stdcall ImmGetContext(int hWnd); // 0x006B00C6
-
-extern "C" unsigned long __stdcall ImmGetCandidateListA(HIMC hImc, unsigned long dwIndex, CANDIDATELIST* pCandList, unsigned long dwBufLen); // 0x006B00CC
 
 extern "C" unsigned long __stdcall ImmGetCandidateListCountA(HIMC hImc, unsigned long* pListCount); // 0x006B00D2
 

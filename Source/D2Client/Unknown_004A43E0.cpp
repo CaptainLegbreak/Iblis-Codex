@@ -71,12 +71,6 @@ struct SMSGHANDLER_PARAMS;
 
 struct ByteRecord;
 
-struct PacketWords;
-
-struct PacketShorts;
-
-struct Digest;
-
 struct HashState;
 
 struct Member;
@@ -84,8 +78,6 @@ struct Member;
 struct ClassRecord;
 
 struct ClassTableView;
-
-struct UnitView;
 
 class ListBoxImplementation;
 
@@ -191,35 +183,6 @@ struct ByteRecord
     char tail[0x4F];
 };
 
-#pragma pack(push, 1)
-
-struct PacketWords
-{
-    char prefix[1];
-    unsigned short kind;
-    unsigned short wSlots[6];
-};
-
-struct PacketShorts
-{
-    char prefix[1];
-    unsigned short kind;
-    unsigned short a;
-    unsigned short b;
-    unsigned short c;
-};
-
-#pragma pack(pop)
-
-struct Digest
-{
-    unsigned int a;
-    unsigned int b;
-    unsigned int c;
-    unsigned int d;
-    unsigned int e;
-};
-
 struct HashState
 {
     unsigned int a;
@@ -255,25 +218,7 @@ struct ClassTableView
     int count;
 };
 
-struct UnitView
-{
-    unsigned int type;
-    int classId;
-};
-
 typedef char ByteRecord_value[OFFSET(ByteRecord,value)==0x3E?1:-1];
-
-typedef char PacketWords_kind[OFFSET(PacketWords,kind)==0x1?1:-1];
-
-typedef char PacketWords_wSlots[OFFSET(PacketWords,wSlots)==0x3?1:-1];
-
-typedef char PacketShorts_kind[OFFSET(PacketShorts,kind)==0x1?1:-1];
-
-typedef char PacketShorts_a[OFFSET(PacketShorts,a)==0x3?1:-1];
-
-typedef char PacketShorts_b[OFFSET(PacketShorts,b)==0x5?1:-1];
-
-typedef char PacketShorts_c[OFFSET(PacketShorts,c)==0x7?1:-1];
 
 typedef char ClassRecord_relation[OFFSET(ClassRecord,relation)==0x2?1:-1];
 
@@ -284,20 +229,6 @@ typedef char ClassRecord_members[OFFSET(ClassRecord,members)==0x170?1:-1];
 typedef char ClassTableView_records[OFFSET(ClassTableView,records)==0xA78?1:-1];
 
 typedef char ClassTableView_count[OFFSET(ClassTableView,count)==0xA80?1:-1];
-
-typedef char UnitView_type[OFFSET(UnitView,type)==0x0?1:-1];
-
-typedef char UnitView_classId[OFFSET(UnitView,classId)==0x4?1:-1];
-
-typedef char Digest_a[OFFSET(Digest,a)==0x0?1:-1];
-
-typedef char Digest_b[OFFSET(Digest,b)==0x4?1:-1];
-
-typedef char Digest_c[OFFSET(Digest,c)==0x8?1:-1];
-
-typedef char Digest_d[OFFSET(Digest,d)==0xC?1:-1];
-
-typedef char Digest_e[OFFSET(Digest,e)==0x10?1:-1];
 
 typedef char HashState_a[OFFSET(HashState,a)==0x0?1:-1];
 
@@ -314,12 +245,6 @@ typedef char HashState_lowCount[OFFSET(HashState,lowCount)==0x14?1:-1];
 typedef char HashState_highCount[OFFSET(HashState,highCount)==0x18?1:-1];
 
 typedef char ByteRecord_size[sizeof(ByteRecord)==0x8E?1:-1];
-
-typedef char PacketWords_size[sizeof(PacketWords)==0xF?1:-1];
-
-typedef char PacketShorts_size[sizeof(PacketShorts)==0x9?1:-1];
-
-typedef char Digest_size[sizeof(Digest)==0x14?1:-1];
 
 typedef char HashState_size[sizeof(HashState)==0x5C?1:-1];
 
@@ -377,8 +302,6 @@ extern D2TextBoxStrc* gpTextBox; // 0x007BF0A4
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
-struct D2TextNodeStrc;
-
 struct D2RectStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -389,23 +312,12 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 #pragma pack(push, 2)
 
-struct D2TextNodeStrc
-{
-    Unicode* pLines[6];
-    unsigned short nLines;
-    int nColor;
-    unsigned int dwEndTick;
-    D2TextNodeStrc* pNext;
-};
-
 #pragma pack(pop)
 
 
 
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 
-
-D2TextNodeStrc* __fastcall TEXT_CloneStringList(D2TextNodeStrc* pSource); // 0x0049DB10
 
 extern D2TextListStrc gtOverheadTextList; // 0x007BF1EA
 
@@ -956,8 +868,6 @@ extern D2QuestTableStrc gaQuestTable[41]; // 0x00723F30
 
 Unicode* __fastcall strncpy(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 
-
-static void TEXT_FreeTextNode(D2TextNodeStrc* pNode); // 0x0049D490
 
 
 static inline int sub_F08_ListTop()

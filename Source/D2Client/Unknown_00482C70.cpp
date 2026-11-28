@@ -38,10 +38,6 @@
 #include "FogApi2.h"
 #include "D2WinApi2.h"
 
-struct D2ClientInterfaceStrc;
-
-struct D2LowQualityItemsTxt;
-
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
@@ -64,8 +60,6 @@ struct D2ClientSlotObjStrc;
 
 struct D2ClientSlotHolderStrc;
 
-struct D2ClientRecordStrc;
-
 struct D2ItemStatCostTxt;
 
 
@@ -73,13 +67,7 @@ struct D2StaticPathStrc;
 
 struct D2InventoryGridInfoStrc;
 
-struct RangeNode;
-
 struct LookupNode;
-
-struct ColorView;
-
-union PackedWord;
 
 struct SMSGHANDLER_PARAMS;
 
@@ -139,26 +127,6 @@ struct D2ClientSlotHolderStrc
     D2ClientSlotObjStrc* pObj;
 };
 
-struct D2ClientRecordStrc
-{
-    unsigned char nId;
-    unsigned char nType;
-    unsigned char nFlag;
-    unsigned char nValue0;
-    unsigned char nValue1;
-    unsigned char f_5;
-    unsigned char nValue3;
-    unsigned char nUnk0x07;
-    int nUnk0x08;
-    int f_C;
-    int f_10;
-    int nUnk0x14;
-    int nUnk0x18;
-    int nUnk0x1C;
-    int nUnk0x20;
-    int nUnk0x24;
-};
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 
@@ -186,8 +154,6 @@ D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 
 void __cdecl sub_0048A730(); // 0x0048A730
 
-
-void __fastcall sub_0049EB10_PostRecord(D2ClientRecordStrc* pRecord); // 0x0049EB10
 
 void __stdcall sub_004A1770(SMSGHANDLER_PARAMS* pMsg); // 0x004A1770
 
@@ -323,14 +289,6 @@ void __cdecl sub_K04_EmitUse(int nValue);
 
 
 
-struct RangeNode
-{
-    char gap00[0x204];
-    unsigned int start;
-    unsigned int size;
-    RangeNode* next;
-};
-
 struct LookupNode
 {
     char gap00[0x8];
@@ -341,41 +299,11 @@ struct LookupNode
     LookupNode* next;
 };
 
-struct ColorView
-{
-    char gap00[0x10];
-    unsigned int color;
-};
-
-union PackedWord
-{
-    unsigned int word;
-    struct Bytes
-    {
-        unsigned char low;
-        unsigned char high;
-        unsigned char third;
-        unsigned char fourth;
-    } bytes;
-};
-
-typedef char packed_word_size[sizeof(PackedWord)==4?1:-1];
-
-typedef char packed_high_lane[OFFSET(PackedWord::Bytes,high)==1?1:-1];
-
-typedef char RangeNode_start[OFFSET(RangeNode,start)==0x204?1:-1];
-
-typedef char RangeNode_size[OFFSET(RangeNode,size)==0x208?1:-1];
-
-typedef char RangeNode_next[OFFSET(RangeNode,next)==0x20C?1:-1];
-
 typedef char LookupNode_key[OFFSET(LookupNode,key)==0x8?1:-1];
 
 typedef char LookupNode_value[OFFSET(LookupNode,value)==0x1C?1:-1];
 
 typedef char LookupNode_next[OFFSET(LookupNode,next)==0x30?1:-1];
-
-typedef char ColorView_color[OFFSET(ColorView,color)==0x10?1:-1];
 
 extern "C" LookupNode* gLookupHead_007BB5BC;
 
@@ -594,22 +522,11 @@ struct D2ClientCacheEntryStrc
     unsigned char nRefCount[4];
 };
 
-struct D2ClientStateStrc
-{
-    char unk0x00[0x11D];
-    unsigned char bFlag0x11D;
-    char unk0x11E[0x0B];
-    unsigned char bFlag0x129;
-    unsigned char bFlag0x12A;
-};
-
 
 void __fastcall SOUNDHDR_ReleaseCacheEntry(int nId);                                                    // 0x004823E0
 
 void __stdcall INV_UpdateInventoryHover(SMSGHANDLER_PARAMS* pMsg);                                          // 0x004873A0
 
-
-void __fastcall sub_0049FF90_Close(int nArg, D2ClientStateStrc* pState);                                    // 0x0049FF90
 
 
 
@@ -814,8 +731,6 @@ void __cdecl sub_004972B0_InitializePalette(); // 0x004972B0
 
 
 
-D2ClientInterfaceStrc* __cdecl sub_0044D540_GetClientInterface();                                           // 0x0044D540
-
 
 extern char gszClientCharName[];                                                                         // 0x007A05C4
 
@@ -920,8 +835,6 @@ int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem);                            
 
 
 
-
-D2LowQualityItemsTxt* __stdcall DATATBLS_GetLowQualityItemsTxtRecord(int nId);                              // 0x006375C0
 
 int __stdcall INVENTORY_GetItemCount(D2InventoryStrc* pInventory); // 0x0063CD60
 
@@ -1248,12 +1161,6 @@ extern "C" { int gnFlag_007C02EC; } // 0x007C02EC
 
 
 
-
-struct D2ClientInterfaceStrc
-{
-    char unk0x00[0x5C];
-    int (__cdecl* pfnGetVersion)();
-};
 
 
 
@@ -1806,12 +1713,6 @@ struct D2SkillStrc;
 
 
 struct D2InventoryStrc;
-
-struct D2LowQualityItemsTxt
-{
-    char szName[0x20];
-    unsigned short wTblId;
-};
 
 
 #pragma intrinsic(memset, strcpy, strcat, strlen)

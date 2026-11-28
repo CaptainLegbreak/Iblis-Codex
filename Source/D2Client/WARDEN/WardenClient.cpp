@@ -57,8 +57,6 @@ struct D2SkillsTxt;
 
 struct D2MonStatsTxt;
 
-struct D2RequestStrc;
-
 struct D2RosterPetStrc;
 
 struct D2OptionHeaderStrc;
@@ -95,20 +93,6 @@ struct D2TextBoxStrc
 
 typedef int (__fastcall* AREASCANFN)(void* pArg, D2UnitStrc* pUnit);
 
-struct D2RequestStrc
-{
-    int nType;
-    D2UnitStrc* pUnit;
-    int unk0x08[2];
-    int nMissile;
-    int nX;
-    int nY;
-    int unk0x1C[4];
-    int nSkill;
-    int nSkillLevel;
-    int unk0x34[10];
-};
-
 
 
 
@@ -134,8 +118,6 @@ void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc* pUnit, int nWeaponClassId,
 
 int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 
-
-D2UnitStrc* __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0x004CD540
 
 
 int __fastcall GFXUTIL_GetCofLayerValue(void* pEntry, int nArg); // 0x004DB0D0

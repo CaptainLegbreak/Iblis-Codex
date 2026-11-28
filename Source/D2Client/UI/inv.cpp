@@ -78,10 +78,6 @@ struct RangeNode;
 
 struct LookupNode;
 
-struct ColorView;
-
-union PackedWord;
-
 struct SMSGHANDLER_PARAMS;
 
 struct D2UnitStrc;
@@ -389,28 +385,6 @@ struct LookupNode
     LookupNode* next;
 };
 
-struct ColorView
-{
-    char gap00[0x10];
-    unsigned int color;
-};
-
-union PackedWord
-{
-    unsigned int word;
-    struct Bytes
-    {
-        unsigned char low;
-        unsigned char high;
-        unsigned char third;
-        unsigned char fourth;
-    } bytes;
-};
-
-typedef char packed_word_size[sizeof(PackedWord)==4?1:-1];
-
-typedef char packed_high_lane[OFFSET(PackedWord::Bytes,high)==1?1:-1];
-
 typedef char RangeNode_start[OFFSET(RangeNode,start)==0x204?1:-1];
 
 typedef char RangeNode_size[OFFSET(RangeNode,size)==0x208?1:-1];
@@ -422,8 +396,6 @@ typedef char LookupNode_key[OFFSET(LookupNode,key)==0x8?1:-1];
 typedef char LookupNode_value[OFFSET(LookupNode,value)==0x1C?1:-1];
 
 typedef char LookupNode_next[OFFSET(LookupNode,next)==0x30?1:-1];
-
-typedef char ColorView_color[OFFSET(ColorView,color)==0x10?1:-1];
 
 extern "C" LookupNode* gLookupHead_007BB5BC;
 
@@ -6985,10 +6957,6 @@ struct D2RareAffixTxt
 };
 
 #pragma intrinsic(memset, strcpy, strcat, strlen)
-
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 #define WSZ(a) ((Unicode*)(a))
 
