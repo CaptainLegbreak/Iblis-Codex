@@ -774,8 +774,6 @@ struct D2ActiveRoomStrc;
 
 struct D2StoredUnitRecordStrc;
 
-struct D2GSPacketSrv5A;
-
 struct D2SuperUniquesTxt;
 
 void __fastcall SKILLDESC_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
@@ -786,24 +784,6 @@ Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 extern Unicode gwszTradePartnerName[]; // 0x007C0E84
 
-#pragma pack(push, 1)
-
-struct D2GSPacketSrv5A
-{
-    unsigned char nHeader;
-    unsigned char nType;
-    unsigned char nColor;
-    int dwParam;
-    unsigned char nParam;
-    union
-    {
-        char szText[32];
-        char szTextData[2][16];
-    };
-};
-
-#pragma pack(pop)
-
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
@@ -812,8 +792,6 @@ void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor); // 0x0
 
 
 extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
-
-static int TEXT_FormatPartyEvent(Unicode* pOut, D2GSPacketSrv5A* pPacket); // 0x0049E8F0
 
 void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor); // 0x0049E3A0
 
