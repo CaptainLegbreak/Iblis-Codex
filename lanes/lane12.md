@@ -19,15 +19,6 @@ it is on main; from #473, based on main.
   MONUNIQUE_ApplyResistantMod, MONSTERUNIQUE_UMod8_Resistant, D3DSPRITE_DrawSpriteQuad (the original returns what
   eax holds; return 0 and the immunity count both change the code). Full build 538 units equal. VERIFIED tree
   6ae99aa0cc8808ad8b4f256c284ff49ddcf0138a. linkdebt unchanged (19,973). auditguard: no count rose.
-- Fri Nov 27 23:39 PST 2026: **lane12/types-6** (bd1d49abf, stacked on types-5): two commits. "D2Client ui.cpp: the gold panel is a
-  dialog" (gpGoldPanel typed D2ClientDialogStrc*, as DIALOG_CreateDialogFromFile returns; ui.cpp's
-  DIALOG_AddTextLine declaration takes the definition's), and the next 120 targets the same way as types-5: 28
-  addresses changed. Full build 538 units equal. VERIFIED tree 9bd4429aff880e0524597cf568e3fe137fb8d652. linkdebt vs
-  types-5: 20,015 -> 19,973 (type_disagreement 3,923 -> 3,881; D2Game -20, D2Client -13, D2Common -7, Fog -2; no
-  module rises). auditguard: no count rose (pointer casts 4,851 -> 4,849).
-  The one-address-at-a-time pass is done: the remaining 3,881 refs are spread thin (about 2 per target) and
-  each needs a type changed by hand (a caller's variable, a struct field, a definition) or the decisions noted in
-  Claimed. Unless the coordinator wants that long tail next, I'd take a list from you.
 
 ## Claimed
 - Fri Nov 27 22:32 PST 2026: status. Ready: types-5. On types-6 (from types-5): ui.cpp's gold panel typed as the dialog it is
