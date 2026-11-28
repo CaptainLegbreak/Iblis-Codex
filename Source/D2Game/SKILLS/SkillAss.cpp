@@ -908,26 +908,14 @@ int __fastcall D2GAME_SKILLS_BloodMana(D2UnitStrc* pUnit, int nManaCost)
         D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
         if (STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) < (pSkillsTxtRecord->dwParam[4] << 8))
         {
-            pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_BLOOD_MANA);
-            if (pStatList)
-            {
-                D2Common_10474(pUnit, pStatList);
-                STATLIST_FreeStatList(pStatList);
-            }
+            SKILLS_RemoveBloodManaState(pUnit);
         }
         return 1;
     }
-    pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_BLOOD_MANA);
-    if (pStatList)
-    {
-        D2Common_10474(pUnit, pStatList);
-        STATLIST_FreeStatList(pStatList);
-    }
+    SKILLS_RemoveBloodManaState(pUnit);
     STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, 256, 0);
     return 0;
 }
-
-void __stdcall sub_M121_Emit_005D2B40(D2UnitStrc* pUnit) { SKILLS_RemoveBloodManaState(pUnit); }
 
 static inline int CLIENTS_GetUnitXForceInline(D2UnitStrc* pUnit)
 {
