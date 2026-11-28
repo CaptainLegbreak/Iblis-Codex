@@ -60,6 +60,7 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Claimed
 
+- Sat Nov 28 06:21 PST 2026: check-in. Declaration-order units of string-literals-2: MonsterTbls.cpp, MonsterAI.cpp and SUNITNPC.CPP are no longer claimed and stay equal with the `""` literal; they go in the next branch. D2Comp.cpp 0x005041B0 and ItemTbls_00634DC0.cpp 0x00634DC0: probing which shift of the count ahead of the function (docs/declaration-order.md steps 2-4) makes them equal again (none in 1-8 for D2Comp so far). The D2Client units wait for the end of today's restart.
 - Sat Nov 28 05:34 PST 2026: check-in. string-literals-2 is on main. string-spellings-1 and string-literals-3 are posted. Next: the same for D2Client, Storm, Fog and D2CMP once today's restart is over; the 7 declaration-order units of string-literals-2; then queue item 5 outside the restart modules.
 - Sat Nov 28 04:34 PST 2026: check-in. Why the 8 units left out of string-literals-2 change when their `""` assert text becomes a literal:
     - **7 of them:** the declaration-order effect (docs/declaration-order.md).
