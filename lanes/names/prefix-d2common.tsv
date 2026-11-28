@@ -1,0 +1,39 @@
+va	old_name	new_name	source	file	confidence	reason
+0x00624710	sub_00624710_GetLogFile	LOGGING_GetLogFile	inferred	Source/D2Common/Logging/Logging.cpp	medium	LOGGING: the prefix 9 named functions in the unit carry
+0x0064FF90	sub_0064FF90_TestStepCollision	PATH_TestStepCollision	inferred	Source/D2Common/Unknown_0064FAD0.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x00650090	sub_00650090_GetStepToNextPoint	PATH_GetStepToNextPoint	inferred	Source/D2Common/Unknown_0064FAD0.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x00650150	sub_00650150_TraceSteps	PATH_TraceSteps	inferred	Source/D2Common/Unknown_0064FAD0.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x006502D0	sub_006502D0_UpdateVelocity	PATH_UpdateVelocity	inferred	Source/D2Common/Unknown_0064FAD0.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x006503F0	sub_006503F0_CheckPathDone	PATH_CheckPathDone	inferred	Source/D2Common/Unknown_0064FAD0.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x006504F0	sub_006504F0_TestPathFlag10	PATH_TestPathFlag10	inferred	Source/D2Common/Unknown_0064FAD0.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x00650660	sub_00650660_AdvanceOnPath	PATH_AdvanceOnPath	inferred	Source/D2Common/Unknown_0064FAD0.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x00650800	sub_00650800_CheckPathMoving	PATH_CheckPathMoving	inferred	Source/D2Common/Unknown_0064FAD0.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x00650910	sub_00650910_UpdateCollisionMask	PATH_UpdateCollisionMask	inferred	Source/D2Common/Unknown_0064FAD0.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x0065C140	sub_0065C140_GetInventoryRecord	DATATBLS_GetInventoryRecord	inferred	Source/D2Common/DATATBLS/InvTbls.cpp	medium	DATATBLS: the prefix 6 named functions in the unit carry
+0x0065C5E0	sub_0065C5E0_RollItemRange	ITEMMODS_RollItemRange	inferred	Source/D2Common/ITEMS/ItemMods.cpp	medium	ITEMMODS: the prefix 76 named functions in the unit carry
+0x006634F0	sub_006634F0_RollSeededRecord	MONSTERS_RollSeededRecord	inferred	Source/D2Common/Unknown_006634F0.cpp	medium	MONSTERS: the prefix 5 named functions in the unit carry
+0x00663A10	sub_00663A10_GetSetBonusCount	ITEMS_GetSetBonusCount	inferred	Source/D2Common/Unknown_006634F0.cpp	medium	MONSTERS: the prefix 5 named functions in the unit carry
+0x00663A20	sub_00663A20_SetItemBonusStates	ITEMS_SetItemBonusStates	inferred	Source/D2Common/Unknown_006634F0.cpp	medium	ITEMS: D2MOO defines it in D2Common/src/Items/Items.cpp, whose functions carry that prefix
+0x00663B40	sub_00663B40_SetBonusStatList	ITEMS_SetBonusStatList	inferred	Source/D2Common/Unknown_006634F0.cpp	medium	ITEMS: D2MOO defines it in D2Common/src/Items/Items.cpp, whose functions carry that prefix
+0x0066AC40	sub_0066AC40_GetTileRoom	DRLGWARP_GetTileRoom	inferred	Source/D2Common/DRLG/DrlgWarp.cpp	medium	DRLGWARP: the prefix 22 named functions in the unit carry
+0x0066F350	sub_0066F350_GetFloorGridEntry	DRLGTILESUB_GetFloorGridEntry	inferred	Source/D2Common/DRLG/TileSub.cpp	medium	DRLGTILESUB: the prefix 10 named functions in the unit carry
+0x0066F380	sub_0066F380_GetWallGridEntry	DRLGTILESUB_GetWallGridEntry	inferred	Source/D2Common/DRLG/TileSub.cpp	medium	DRLGTILESUB: the prefix 10 named functions in the unit carry
+0x0066FA10	sub_0066FA10_AddPresetUnits	DRLGTILESUB_AddPresetUnits	inferred	Source/D2Common/DRLG/TileSub.cpp	medium	DRLGTILESUB: the prefix 10 named functions in the unit carry
+0x0066FAD0	sub_0066FAD0_PlaceSubstGroup	DRLGTILESUB_PlaceSubstGroup	inferred	Source/D2Common/DRLG/TileSub.cpp	medium	DRLGTILESUB: the prefix 10 named functions in the unit carry
+0x0066FCF0	sub_0066FCF0_CanPlaceSubstGroup	DRLGTILESUB_CanPlaceSubstGroup	inferred	Source/D2Common/DRLG/TileSub.cpp	medium	DRLGTILESUB: the prefix 10 named functions in the unit carry
+0x0066FF50	sub_0066FF50_SubstituteAll	DRLGTILESUB_SubstituteAll	inferred	Source/D2Common/DRLG/TileSub.cpp	medium	DRLGTILESUB: the prefix 10 named functions in the unit carry
+0x006707A0	sub_006707A0_SubstWaypointShrine	DRLGTILESUB_SubstWaypointShrine	inferred	Source/D2Common/DRLG/TileSub.cpp	medium	DRLGTILESUB: the prefix 10 named functions in the unit carry
+0x006793E0	sub_006793E0_FindFreeDirection	PATH_FindFreeDirection	inferred	Source/D2Common/Unknown_00679380.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x00679530	sub_00679530_TraceLineFP16	PATH_TraceLineFP16	inferred	Source/D2Common/Unknown_00679380.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x00679B30	sub_00679B30_ComputeOffsetPath	PATH_ComputeOffsetPath	inferred	Source/D2Common/Unknown_00679380.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x00679C80	sub_00679C80_Toward	PATH_Toward	inferred	Source/D2Common/Unknown_00679380.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x00679E50	sub_00679E50_RestartToward	PATH_RestartToward	inferred	Source/D2Common/Unknown_00679380.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x0067A420	sub_0067A420_TraceSegment	PATH_TraceSegment	inferred	Source/D2Common/Unknown_00679380.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x0067A4A0	sub_0067A4A0_TestPathPoints	PATH_TestPathPoints	inferred	Source/D2Common/Unknown_00679380.cpp	medium	PATH: the prefix 11 named functions in the unit carry
+0x0067BD70	sub_0067BD70_SwapPoints	PATH_SwapPoints	inferred	Source/D2Common/Unknown_0067B9C0.cpp	medium	PATH: the prefix 8 named functions in the unit carry
+0x0067A5D0	sub_0067A5D0_GetNeighborsSequence	PATH_GetNeighborsSequence	inferred	Source/D2Common/Unknown_0067A550.cpp	medium	PATH: the prefix 3 named functions in the unit carry
+0x0067A690	sub_0067A690_NextNode	PATH_NextNode	inferred	Source/D2Common/Unknown_0067A550.cpp	medium	PATH: the prefix 3 named functions in the unit carry
+0x0067D7B0	sub_0067D7B0_SetCoordSize	DRLGOUTROOM_SetCoordSize	inferred	Source/D2Common/DRLG/OutRoom.cpp	medium	DRLGOUTROOM: the prefix 10 named functions in the unit carry
+0x0067E660	sub_0067E660_SpawnEdgePresets	DRLGOUTSIEGE_SpawnEdgePresets	inferred	Source/D2Common/DRLG/OutSiege.cpp	medium	DRLGOUTSIEGE: the prefix 16 named functions in the unit carry
+0x0067E6A0	sub_0067E6A0_SpawnAct4Presets	DRLGOUTSIEGE_SpawnAct4Presets	inferred	Source/D2Common/DRLG/OutSiege.cpp	medium	DRLGOUTSIEGE: the prefix 16 named functions in the unit carry
+0x0067E840	sub_0067E840_SpawnSanctumPresets	DRLGOUTSIEGE_SpawnSanctumPresets	inferred	Source/D2Common/DRLG/OutSiege.cpp	medium	DRLGOUTSIEGE: the prefix 16 named functions in the unit carry
