@@ -74765,27 +74765,27 @@
     {
      "va": "0x006808F0",
      "length": 94,
-     "name": "sub_006808F0_GetPatternCode"
+     "name": "DRLGOUTDOORS_GetPatternCode"
     },
     {
      "va": "0x00680950",
      "length": 106,
-     "name": "sub_00680950_ShiftNeighbours"
+     "name": "DRLGOUTDOORS_ShiftNeighbours"
     },
     {
      "va": "0x006809C0",
      "length": 176,
-     "name": "sub_006809C0_ReadNeighbours"
+     "name": "DRLGOUTDOORS_ReadNeighbours"
     },
     {
      "va": "0x00680A70",
      "length": 157,
-     "name": "sub_00680A70_MarkRoads"
+     "name": "DRLGOUTDOORS_MarkRoads"
     },
     {
      "va": "0x00680B10",
      "length": 359,
-     "name": "sub_00680B10_PlaceRoadTiles"
+     "name": "DRLGOUTDOORS_PlaceRoadTiles"
     },
     {
      "va": "0x00680C80",
@@ -74800,7 +74800,7 @@
     {
      "va": "0x00680D70",
      "length": 645,
-     "name": "sub_00680D70_CollectRoadStarts"
+     "name": "DRLGOUTDOORS_CollectRoadStarts"
     }
    ]
   },
@@ -74843,22 +74843,22 @@
     {
      "va": "0x00681490",
      "length": 65,
-     "name": "sub_00681490_AllocPathNode"
+     "name": "DRLGOUTDOORS_AllocPathNode"
     },
     {
      "va": "0x006814E0",
      "length": 37,
-     "name": "sub_006814E0_EstimateCost"
+     "name": "DRLGOUTDOORS_EstimateCost"
     },
     {
      "va": "0x00681510",
      "length": 33,
-     "name": "sub_00681510_GetStepCost"
+     "name": "DRLGOUTDOORS_GetStepCost"
     },
     {
      "va": "0x00681540",
      "length": 20,
-     "name": "sub_00681540_GetTurnTable"
+     "name": "DRLGOUTDOORS_GetTurnTable"
     },
     {
      "va": "0x00681560",
