@@ -900,7 +900,7 @@ Unicode* __fastcall sub_00452170_ReturnText(Unicode* pText);                    
 
 const Unicode* __fastcall INV_SkipBracketTag(const Unicode* pString); // 0x004834A0
 
-void __cdecl INV_FormatArgs(Unicode* pDest, const Unicode* pFormat, ...);                          // 0x0048BE80
+void __cdecl INV_FormatArgs(Unicode* pDest, const Unicode* pFormat, ...); // 0x0048BE80
 
 
 
