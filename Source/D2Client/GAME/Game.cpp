@@ -5168,7 +5168,7 @@ int __cdecl GAME_RunGameSession()
         GAME_UnregisterMouseHandlers();
     }
     if(gnGameType==2 || gnGameType==6 || gnGameType==3 || gnGameType==7)
-        if(gpComInterface)gpComInterface->pfnClose();
+        if(gpComInterface)gpComInterface->pfnLeaveGame();
     return 6;
 }
 
