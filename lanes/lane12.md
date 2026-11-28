@@ -16,6 +16,11 @@ it is on main; from #473, based on main.
   D2Launch -6, D2Sound -1; no module rises). auditguard: no count rose.
 
 ## Claimed
+- Fri Nov 27 22:32 PST 2026: status. Ready: types-5. On types-6 (from types-5): ui.cpp's gold panel typed as the dialog it is
+  (DIALOG_AddTextLine's last disagreeing caller), and the next 120 targets (394 refs: the long tail now, about 3
+  refs each) running one at a time. Not doing by hand, because each would add a pointer cast:
+  D2COMMON_10475_PostStatToStatList (defined on D2StatListExStrc*, 35 units pass D2StatListStrc*) and SStrChr
+  (returns const char*, callers keep char*): both need the stat-list and string ownership decided first.
 - Fri Nov 27 20:37 PST 2026: status. Ready: types-4. Running: types-5, the next 120 type_disagreement targets (1,221 refs) one
   address at a time with each unit rebuilt (43 of 120 done); then the hand cases (PostStatToStatList's stat-list
   struct, SStrChr's const, DIALOG_AddTextLine's dialog type).
