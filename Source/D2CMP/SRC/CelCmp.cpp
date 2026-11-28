@@ -2184,11 +2184,11 @@ struct D2CelEntryLinkHolderStrc
 {
     TSLink<TCELENTRY> m_link;
 
-    bool sub_00601DC0_IsLinked();
+    bool IsLinked(); // 0x00601DC0
 };
 
 // 0x00601DC0
-bool D2CelEntryLinkHolderStrc::sub_00601DC0_IsLinked()
+bool D2CelEntryLinkHolderStrc::IsLinked()
 {
     return m_link.m_next != 0;
 }
@@ -2259,7 +2259,7 @@ struct D2CelListArrayHolderStrc
 {
     TSGrowableArray<D2CelListList> m_array;
 
-    void sub_00603850_SetCount(unsigned int nCount);
+    void SetCount(unsigned int nCount); // 0x00603850
 };
 
 struct D2CelListRecordArrayHolderStrc
@@ -2267,7 +2267,7 @@ struct D2CelListRecordArrayHolderStrc
     TSGrowableArray<CELLIST> m_array;
 
     void CelListArrayGrow(unsigned int nCount);
-    CELLIST* sub_00604460_New();
+    CELLIST* New(); // 0x00604460
 };
 
 struct D2CelListPairStrc
@@ -2275,17 +2275,17 @@ struct D2CelListPairStrc
     unsigned int nFirst;
     unsigned int nSecond;
 
-    unsigned int sub_00603ED0_GetDifference();
+    unsigned int GetDifference(); // 0x00603ED0
 };
 
 // 0x00603850
-void D2CelListArrayHolderStrc::sub_00603850_SetCount(unsigned int nCount)
+void D2CelListArrayHolderStrc::SetCount(unsigned int nCount)
 {
     m_array.SetCount(nCount);
 }
 
 // 0x00603ED0
-unsigned int D2CelListPairStrc::sub_00603ED0_GetDifference()
+unsigned int D2CelListPairStrc::GetDifference()
 {
     return nFirst - nSecond;
 }
@@ -2299,7 +2299,7 @@ void D2CelListRecordArrayHolderStrc::CelListArrayGrow(unsigned int nCount)
 }
 
 // 0x00604460
-CELLIST* D2CelListRecordArrayHolderStrc::sub_00604460_New()
+CELLIST* D2CelListRecordArrayHolderStrc::New()
 {
     return m_array.New();
 }

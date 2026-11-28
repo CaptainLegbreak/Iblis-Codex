@@ -60759,7 +60759,7 @@
     {
      "va": "0x00603850",
      "length": 9,
-     "name": "?sub_00603850_SetCount@D2CelListArrayHolderStrc@@QAEXI@Z"
+     "name": "?SetCount@D2CelListArrayHolderStrc@@QAEXI@Z"
     },
     {
      "va": "0x00603860",
@@ -60804,7 +60804,7 @@
     {
      "va": "0x00603ED0",
      "length": 6,
-     "name": "?sub_00603ED0_GetDifference@D2CelListPairStrc@@QAEIXZ"
+     "name": "?GetDifference@D2CelListPairStrc@@QAEIXZ"
     },
     {
      "va": "0x00603EE0",
@@ -60894,7 +60894,7 @@
     {
      "va": "0x00604460",
      "length": 5,
-     "name": "?sub_00604460_New@D2CelListRecordArrayHolderStrc@@QAEPAUCELLIST@@XZ"
+     "name": "?New@D2CelListRecordArrayHolderStrc@@QAEPAUCELLIST@@XZ"
     },
     {
      "va": "0x00604470",
@@ -61907,7 +61907,7 @@
     {
      "va": "0x0060AE80",
      "length": 34,
-     "name": "?sub_0060AE80_GetCelDataHashKey@@YAIPBD@Z"
+     "name": "?GetCelDataHashKey@@YAIPBD@Z"
     },
     {
      "va": "0x0060B130",
@@ -61917,12 +61917,12 @@
     {
      "va": "0x0060B140",
      "length": 32,
-     "name": "?sub_0060B140_BitBufferInit@@YGXHPAEPAUD2BitBufferInitStrc@@@Z"
+     "name": "?BitBufferInit@@YGXHPAEPAUD2BitBufferInitStrc@@@Z"
     },
     {
      "va": "0x0060B160",
      "length": 23,
-     "name": "?sub_0060B160_Copy@@YGXPAUD2BitBufferInitStrc@@PBU1@@Z"
+     "name": "?BitBufferCopy@@YGXPAUD2BitBufferInitStrc@@PBU1@@Z"
     },
     {
      "va": "0x0060B180",
@@ -61937,7 +61937,7 @@
     {
      "va": "0x0060B1F0",
      "length": 15,
-     "name": "?sub_0060B1F0_GetBitPos@D2CmpBitCursorStrc@@QAEHXZ"
+     "name": "?GetBitPos@D2CmpBitCursorStrc@@QAEHXZ"
     }
    ]
   },
