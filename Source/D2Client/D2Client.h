@@ -770,7 +770,7 @@ void __cdecl SOUNDINST_RefreshGroupTimers(); // 0x004BAAB0
 void __cdecl USEITEM_CloseUseItemPanel(); // 0x004C0090
 void __cdecl sub_004C0440(); // 0x004C0440
 void __cdecl sub_004DCA30(); // 0x004DCA30
-void __cdecl SCALE_SetDefaultFactorPerspectiveFactor(); // 0x004F6830
+void __stdcall SCALE_SetDefaultFactorPerspectiveFactor(); // 0x004F6830
 void __cdecl sub_004FA550(); // 0x004FA550
 void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
 void __cdecl D2SOUNDFAST_FadeOutWaves(); // 0x00515020

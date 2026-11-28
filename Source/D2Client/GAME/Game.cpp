@@ -1145,7 +1145,7 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 
 
-void __fastcall UI_ToggleListDialog(int nResolution); // 0x004549B0
+void __cdecl UI_ToggleListDialog(); // 0x004549B0
 
 
 

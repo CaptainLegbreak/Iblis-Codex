@@ -76,9 +76,9 @@ struct D2QuestData00596C40Strc
 
 extern unsigned char gaAct1Q7NpcMessages[]; // 0x00738778
 
-void __fastcall ACT1Q7_Callback00_NpcActivate(); // 0x00596A90
+void __fastcall ACT1Q7_Callback00_NpcActivate(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg); // 0x00596A90
 
-void __fastcall ACT1Q6_EmptyCallback(); // 0x00596BA0
+void __fastcall ACT1Q6_EmptyCallback(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00596BA0
 
 // 0x00596C40
 void __fastcall ACT1Q7_InitQuestData(D2QuestData00596C40Strc* pQuestData)

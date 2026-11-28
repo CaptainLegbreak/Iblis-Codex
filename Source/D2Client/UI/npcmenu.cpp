@@ -446,7 +446,7 @@ extern D2ClientDialogStrc* gpNpcSubMenuDialog;                                  
 
 typedef char check_size_npcindex[(sizeof(D2NpcIndexStrc) == 0x27) ? 1 : -1];
 
-void __cdecl GAME_ResetMouseState();                                                                                // 0x0044DA40
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 
 void __fastcall CUNIT_TurnTowardPlayer(D2UnitStrc* pUnit);                                                 // 0x00464420

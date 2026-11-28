@@ -344,7 +344,7 @@ extern const char gszGfxFile[];                                                 
 extern int gnScreenWidth;                                                                               // 0x0071146C
 int __cdecl GAME_GetColorFlag();                                                                                 // 0x0044DC60
 int __cdecl sub_0045AE90_GetPanelSlideMode();                                                                         // 0x0045AE90
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall CUNIT_TickDrawDelay(D2UnitStrc* pUnit);                                          // 0x00464C40
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit();                                                             // 0x00467A10
 D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId);                                    // 0x0046ACE0

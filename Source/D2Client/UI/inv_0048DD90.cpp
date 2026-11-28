@@ -69,7 +69,7 @@ void __stdcall sub_00403040_VectorCtor(void* pArray, unsigned int nSize, int nCo
 
 void __fastcall NPCMENU_ClearUnicode(void* pThis);                                                      // 0x0042F530
 
-int __cdecl FOG_IsExpansion();                                                                 // 0x00408F20
+int __cdecl FOG_IsExpansion(); // 0x00408F20
 
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
@@ -79,7 +79,7 @@ Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit);            
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
 

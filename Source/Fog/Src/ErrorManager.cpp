@@ -311,7 +311,7 @@ unsigned int __fastcall LOGMANAGER_GetLogFilePaths(char** apszFiles, unsigned in
 
 int __stdcall sub_00525150();                                                                       // 0x00525150
 
-int __stdcall STRTABLE_GetSystemLanguage();                                                                   // 0x005251C0
+int __stdcall STRTABLE_GetSystemLanguage(); // 0x005251C0
 
 D2InspectorInfoStrc gtInspectorInfo; // 0x0074D868
 

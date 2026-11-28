@@ -842,7 +842,7 @@ extern D2QuestInitTableStrc sgQuestInit[]; // 0x00731510
 void __fastcall sub_0058CFD0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058CFD0
 
 
-void __fastcall ACT5Q3_RemoveNihlathakFromTown(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00589540
+void __fastcall ACT5Q3_RemoveNihlathakFromTown(D2GameStrc* pGame); // 0x00589540
 
 
 
@@ -887,15 +887,15 @@ typedef bool (__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 
 
-void __fastcall ACT2Q1_OnRadamentCreated(D2GameStrc* pGame, D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005991B0
+void __stdcall ACT2Q1_OnRadamentCreated(int nUnused1); // 0x005991B0
 
-void __fastcall ACT2Q5_OnSummonerCreated(D2GameStrc* pGame, D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x0059C3B0
+void __stdcall ACT2Q5_OnSummonerCreated(int nUnused1); // 0x0059C3B0
 
 
 unsigned short __fastcall ACT1Q1_GetMonstersToBeKilled(D2QuestDataStrc* pQuestData); // 0x005901E0
 
 
-void __fastcall ACT3Q6_SetObjectModes(D2GameStrc* pGame, D2UnitStrc* pObject); // 0x005BCFD0
+void __fastcall ACT3Q6_SetObjectModes(D2GameStrc* pGame); // 0x005BCFD0
 
 struct D2MessageListStrc;
 

@@ -2985,8 +2985,7 @@ void __fastcall GAME_SaveAndSendClientSaves(D2GameStrc* pGame)
 }
 
 // 0x0052E440
-void __fastcall GAME_SendAllClientPackets(D2GameStrc* pGame)
-{
+void __fastcall GAME_SendAllClientPackets(D2GameStrc* pGame, int nUnused){
     D2ClientStrc* pClient = pGame->pClientList;
     while (pClient)
     {
