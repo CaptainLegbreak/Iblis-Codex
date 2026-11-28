@@ -14145,7 +14145,7 @@
   ["0x006683D0", 313, "verified", "DRLGPRESET_FreeDrlgMap"],
   ["0x00668510", 75, "verified", "?sub_00668510_MakeCode@@YAXPBDPAD@Z"],
   ["0x00668560", 33, "verified", "?DATATBLS_StripQuotes@@YAPADPAD@Z"],
-  ["0x00668590", 42, "verified", "?sub_00668590_NextSetToken@@YAPADPAPADPBD@Z"],
+  ["0x00668590", 42, "verified", "?DATATBLS_NextSetToken@@YAPADPAPADPBD@Z"],
   ["0x006685C0", 56, "verified"],
   ["0x00668600", 1157, "verified"],
   ["0x00668A90", 1510, "verified"],

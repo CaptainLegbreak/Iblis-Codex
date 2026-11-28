@@ -41,15 +41,15 @@ extern "C" const char gszPandemoniumPortal[]; // 0x006EE878
 extern "C" const char gszPandemoniumFinalePortal[]; // 0x006EE85C
 
 
-static int __stdcall sub_00668A90_ParseCubeInput(D2CubeOutputItem* pInput, char* szInput);
+static int __stdcall DATATBLS_CubeMainOutputParser(D2CubeOutputItem* pInput, char* szInput); // 0x00668A90
 
 static void sub_00668510_MakeCode(const char* szText, char* szCode);
 
-static char* sub_00668590_NextSetToken(char** ppString, const char* szSet);
+static char* DATATBLS_NextSetToken(char** ppString, const char* szSet); // 0x00668590
 
 int __stdcall FOG_GetRowFromTxt(void* pLinker, const char* szText, int nColumn);                            // 0x006BD3C0
 
-static int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItem* pCubeInput, char* szInput);
+static int __stdcall DATATBLS_CubeMainInputParser(D2CubeInputItem* pCubeInput, char* szInput); // 0x00668600
 
 // Kept noinline: a static whose callers here pass its arguments in registers (the #368 case).
 // 0x00668510
@@ -120,7 +120,7 @@ char* __stdcall sub_M116_Emit_006543C0(char* szText, char** ppOut)
 }
 
 // 0x00668590
-static char* sub_00668590_NextSetToken(char** ppString, const char* szSet)
+static char* DATATBLS_NextSetToken(char** ppString, const char* szSet)
 {
     char* szToken = *ppString;
     *ppString += strcspn(szToken, szSet);
@@ -137,7 +137,7 @@ static char* sub_00668590_NextSetToken(char** ppString, const char* szSet)
 }
 
 // 0x006685C0
-static int sub_006685C0_NextSetTokenInt(char** ppString, const char* szSet)
+static int DATATBLS_NextSetTokenInt(char** ppString, const char* szSet)
 {
     char* szToken = *ppString;
     *ppString += strcspn(szToken, szSet);
@@ -298,7 +298,7 @@ static __forceinline int DATATBLS_CubeInputFindUniqueOrSet(D2CubeInputItem* pCub
 }
 
 // 0x00668600
-static int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItem* pCubeInput, char* szInput)
+static int __stdcall DATATBLS_CubeMainInputParser(D2CubeInputItem* pCubeInput, char* szInput)
 {
     char* szInputModifier;
     char* szNext;
@@ -488,7 +488,7 @@ static int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItem* pCubeInpu
 }
 
 // 0x00668A90
-static int __stdcall sub_00668A90_ParseCubeInput(D2CubeOutputItem* pInput, char* szInput)
+static int __stdcall DATATBLS_CubeMainOutputParser(D2CubeOutputItem* pInput, char* szInput)
 {
     char* szText = szInput;
     if (*szText == '"')
@@ -527,7 +527,7 @@ static int __stdcall sub_00668A90_ParseCubeInput(D2CubeOutputItem* pInput, char*
         unsigned short* pPrefix = pInput->wPrefixId;
         do
         {
-            char* szToken = sub_00668590_NextSetToken(&szNext, gszEqualComma);
+            char* szToken = DATATBLS_NextSetToken(&szNext, gszEqualComma);
             if (!szToken)
             {
                 break;
@@ -535,16 +535,16 @@ static int __stdcall sub_00668A90_ParseCubeInput(D2CubeOutputItem* pInput, char*
 
             if (!strcmp(szToken, "qty"))
             {
-                pInput->nQuantity = sub_006685C0_NextSetTokenInt(&szNext, gszComma);
+                pInput->nQuantity = DATATBLS_NextSetTokenInt(&szNext, gszComma);
             }
             else if (!strcmp(szToken, "pre"))
             {
-                *pPrefix = sub_006685C0_NextSetTokenInt(&szNext, gszComma);
+                *pPrefix = DATATBLS_NextSetTokenInt(&szNext, gszComma);
                 ++pPrefix;
             }
             else if (!strcmp(szToken, "suf"))
             {
-                *pSuffix = sub_006685C0_NextSetTokenInt(&szNext, gszComma);
+                *pSuffix = DATATBLS_NextSetTokenInt(&szNext, gszComma);
                 ++pSuffix;
             }
             else if (!strcmp(szToken, "low"))
@@ -590,7 +590,7 @@ static int __stdcall sub_00668A90_ParseCubeInput(D2CubeOutputItem* pInput, char*
             else if (!strcmp(szToken, "sock"))
             {
                 pInput->wItemFlags |= 2;
-                pInput->nQuantity = sub_006685C0_NextSetTokenInt(&szNext, gszComma);
+                pInput->nQuantity = DATATBLS_NextSetTokenInt(&szNext, gszComma);
             }
             else if (!strcmp(szToken, "mod"))
             {
@@ -637,17 +637,17 @@ static int __stdcall sub_00668A90_ParseCubeInput(D2CubeOutputItem* pInput, char*
 }
 
 // 0x00669080
-void __fastcall sub_00669080_CubeInputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
+void __fastcall DATATBLS_CubeMainInputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
 {
     if (pRecord && pSrc && *pSrc)
-        sub_00668600_CubeMainInputParser(&((D2CubeMainTxt*)pRecord)->pInputItem[nOffset], pSrc);
+        DATATBLS_CubeMainInputParser(&((D2CubeMainTxt*)pRecord)->pInputItem[nOffset], pSrc);
 }
 
 // 0x006690B0
 void __fastcall DATATBLS_CubeMainOutputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
 {
     if (pRecord && pSrc && *pSrc)
-        sub_00668A90_ParseCubeInput(&((D2CubeMainTxt*)pRecord)->pOutputItem[nOffset], pSrc);
+        DATATBLS_CubeMainOutputParser(&((D2CubeMainTxt*)pRecord)->pOutputItem[nOffset], pSrc);
 }
 
 // 0x006690E0

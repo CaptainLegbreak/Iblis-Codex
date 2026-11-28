@@ -29,7 +29,7 @@ D2CubeMainTxt* gpCubeMainTxt; // 0x0096D628
 int gnCubeMainTxtRecordCount; // 0x0096D62C
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
-void __fastcall sub_00669080_CubeInputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn);// 0x00669080
+void __fastcall DATATBLS_CubeMainInputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn);// 0x00669080
 void __fastcall DATATBLS_CubeMainOutputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn);// 0x006690B0
 void __fastcall DATATBLS_CubeMainParamLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn);// 0x006690E0
 
@@ -50,13 +50,13 @@ void __fastcall DATATBLS_LoadCubeMainTxt(void* hArchive)
         { "class", TXTFIELD_CODETOBYTE, 0, 3, &sgtDataTables.pPlayerClassLinker },
         { "numinputs", TXTFIELD_BYTE, 0, 16, 0 },
         { gszTxtField_version, TXTFIELD_WORD, 0, 18, 0 },
-        { "input 1", TXTFIELD_CUSTOMLINK, 0, 0, (void*)sub_00669080_CubeInputLinker },
-        { "input 2", TXTFIELD_CUSTOMLINK, 0, 1, (void*)sub_00669080_CubeInputLinker },
-        { "input 3", TXTFIELD_CUSTOMLINK, 0, 2, (void*)sub_00669080_CubeInputLinker },
-        { "input 4", TXTFIELD_CUSTOMLINK, 0, 3, (void*)sub_00669080_CubeInputLinker },
-        { "input 5", TXTFIELD_CUSTOMLINK, 0, 4, (void*)sub_00669080_CubeInputLinker },
-        { "input 6", TXTFIELD_CUSTOMLINK, 0, 5, (void*)sub_00669080_CubeInputLinker },
-        { "input 7", TXTFIELD_CUSTOMLINK, 0, 6, (void*)sub_00669080_CubeInputLinker },
+        { "input 1", TXTFIELD_CUSTOMLINK, 0, 0, (void*)DATATBLS_CubeMainInputLinker },
+        { "input 2", TXTFIELD_CUSTOMLINK, 0, 1, (void*)DATATBLS_CubeMainInputLinker },
+        { "input 3", TXTFIELD_CUSTOMLINK, 0, 2, (void*)DATATBLS_CubeMainInputLinker },
+        { "input 4", TXTFIELD_CUSTOMLINK, 0, 3, (void*)DATATBLS_CubeMainInputLinker },
+        { "input 5", TXTFIELD_CUSTOMLINK, 0, 4, (void*)DATATBLS_CubeMainInputLinker },
+        { "input 6", TXTFIELD_CUSTOMLINK, 0, 5, (void*)DATATBLS_CubeMainInputLinker },
+        { "input 7", TXTFIELD_CUSTOMLINK, 0, 6, (void*)DATATBLS_CubeMainInputLinker },
         { "output", TXTFIELD_CUSTOMLINK, 0, 0, (void*)DATATBLS_CubeMainOutputLinker },
         { "lvl", TXTFIELD_BYTE, 0, 85, 0 },
         { "plvl", TXTFIELD_BYTE, 0, 86, 0 },
