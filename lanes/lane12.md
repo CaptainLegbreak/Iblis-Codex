@@ -8,6 +8,18 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Fri Nov 27 16:54 PST 2026: **lane12/types-1** (654858468, stacked on api-modules-1): queue item 3, "One type for memory pools:
+  D2PoolSystemStrc*". The pool fields of the game, unit, act, inventory, skill list, stat list, DRLG, sprite cache
+  and other records, and every pMemPool/pMemoryPool/pMempool parameter and local (153 files), go from void* to
+  D2PoolSystemStrc*, the type Fog's pool functions take, so FOG_AllocPool/FreePool/ReallocPool's callers agree with
+  the definitions; the pool accessors (DUNGEON_GetMemPoolFromAct, UNITS_GetMemoryPool, the D2Common/D2Game
+  declarations of 0x4DC0B0) return it. D2Client PlrSkills.cpp passes the zeros its STATLIST_AllocStatList call has
+  instead of a null stat list cast three ways. Left on void*: QUESTRECORD_AllocRecord, WAYPOINTS_AllocWaypointData
+  (callers pass 0x4DC0B0's result, which D2Client defines as GFXUTIL_GetNextRosterInfo returning a roster record:
+  one body serving two functions, for the naming owners), and ItemTbls_00633730.cpp (its code changes). Full build
+  538 units equal. VERIFIED tree 6b5e582579af84bd04ebf050c3049bf09cbf226c. linkdebt vs api-modules-1: 21,685 ->
+  21,431 (type_disagreement 5,592 -> 5,338; D2Common -132, D2Game -99, D2CMP -10, D2Win -7, Fog -6; no module
+  rises). auditguard: no count rose (raw offset 117, byte pointer math 146, pointer casts 4,857).
 - Fri Nov 27 15:58 PST 2026: **lane12/api-modules-1** (b700e20d6, on #490 9eff52f20; replaces api-d2client-2, which conflicted with main):
   15 commits, queue items 1 and 2. declunits-1 (CharSel/MainMenus/ChatDlg/ComCallback reconciled one name at a
   time: 54 retyped, 11 dropped, 63 kept: see Notes for other lanes), then genheaders per module,
