@@ -546,4 +546,4 @@ int __fastcall PATH_ComputePathOrSlideAlongObstacles(D2PathInfoStrc* pPathInfo)
     return PATH_SimplifyToLines(tStart, ptPathInfo->PathPoints, aPathPoints, nPoints);
 }
 
-#include "gen/data/Source/D2Common/Unknown_0067B9C0.inc"
+#include "gen/data/Source/D2Common/PATH/PathWF.inc"

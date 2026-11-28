@@ -505,4 +505,4 @@ int __fastcall PATH_AStar_ComputePath(D2PathInfoStrc* pPathInfo)
     return nResult;
 }
 
-#include "gen/data/Source/D2Common/Unknown_0067ADC0.inc"
+#include "gen/data/Source/D2Common/PATH/AStar.inc"

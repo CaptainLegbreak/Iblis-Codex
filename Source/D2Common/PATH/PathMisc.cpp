@@ -836,7 +836,7 @@ static int __stdcall PATH_RayTrace(D2PathPointStrc tStartCoord, D2PathPointStrc*
 }
 
 
-#include "gen/data/Source/D2Common/Unknown_00679380.inc"
+#include "gen/data/Source/D2Common/PATH/PathMisc.inc"
 
 inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
