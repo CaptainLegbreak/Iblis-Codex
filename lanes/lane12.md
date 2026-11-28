@@ -28,17 +28,6 @@ it is on main; from #473, based on main.
   2. Full build 538 units equal. VERIFIED tree 9992f75223eb37941722d46bd9796a34a6e15bad. linkdebt vs types-2:
   20,655 -> 20,414 (type_disagreement 4,563 -> 4,322; D2Client -152, D2Game -52, D2Direct3D -16, D2Common -15,
   Fog -6; no module rises). auditguard: no count rose.
-- Fri Nov 27 18:15 PST 2026: **lane12/types-2** (1e934e11e, stacked on width-1): queue item 3, the next most-referenced targets.
-  UNICODE_StrLen (0x526800) defined as its 40 callers and D2Lang.h declare it, `int __fastcall (const Unicode*)`,
-  not a C function on unsigned short (two D2Client C declarations follow; three casts go); ITEMS_CheckItemFlag
-  returns int as its callers declare (Items.cpp unchanged); SUNIT_IterateUnitsOfType's 20 `void` declarations
-  take the definition's D2UnitStrc* return (no caller reads it); WINDOW_GetWindow returns ghWnd as void* (the
-  placeholder second extern of 0x7C8CBC goes), and the handle parameters its result reaches (SCMD_RegisterMsgHandlers,
-  the handler-table calls, IMM imports, Main.cpp's keyboard-hook pointer) are void* as their definitions are;
-  AITACTICS_SetAiParam keeps its unsigned char (int changes AiTatics.cpp) with the ruling's comment. Full build 538
-  units equal. VERIFIED tree 007873ac293131eaa82890fdebb29cfcddbcb7ff. linkdebt vs width-1: 21,234 -> 20,655
-  (type_disagreement 5,141 -> 4,563; D2Client -295, D2Game -201, D2Win -39, D2Launch -19, D2Multi -9, D2Lang -6,
-  others down; no module rises). auditguard: no count rose (pointer casts 4,857 -> 4,852).
 
 ## Claimed
 - Fri Nov 27 15:10 PST 2026: status. On top of api-d2client-2: D2Game (11 copies), and a second genheaders pass over the modules
