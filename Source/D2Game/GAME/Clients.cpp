@@ -1053,14 +1053,12 @@ int __fastcall CLIENTS_GetClientId(D2ClientStrc* pClient)
 }
 
 // 0x005385C0
-int __fastcall CLIENTS_GetPlayTime()
-{
+int __fastcall CLIENTS_GetPlayTime(D2ClientStrc* pClient){
     return -1;
 }
 
 // 0x005385D0
-void __stdcall sub_005385D0_Nop(int nUnused)
-{
+void __fastcall sub_005385D0_Nop(D2ClientStrc* pClient, int nUnused1, int nUnused2){
 }
 
 // 0x005385E0
@@ -1578,14 +1576,14 @@ typedef int (__fastcall* D2NET_Unk_Callback)(int, int, int, int);
 extern "C" const char gszD2NetSourceFile[];
 
 // build: symbol ?gnConnectionMode@* 0x00882D10
-extern int gnConnectionMode;
+extern int gnConnectionMode; // 0x00882D10
 
 typedef void(__fastcall* UnitDescriptionFunction)(char* szDescription, int nClassId);
 
 extern UnitDescriptionFunction gpfnGetDescription[5]; // 0x0073107C
 
 
-extern unsigned short gwValue_0077905C;
+extern unsigned short gwValue_0077905C; // 0x0077905C
 
 
 struct D2GameHashLinkStrc

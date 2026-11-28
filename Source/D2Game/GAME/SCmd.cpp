@@ -2514,8 +2514,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x7B(D2ClientStrc* pClient, unsigned ch
 }
 
 // 0x0053DB70
-void __fastcall D2GAME_PACKETS_SendPacket0x7E(D2ClientStrc* pClient)
-{
+void __fastcall D2GAME_PACKETS_SendPacket0x7E(D2ClientStrc* pClient, int nUnused){
     D2GSPacketSrv7E packet7E;
 
     packet7E.nHeader = 0x7E;
@@ -2699,8 +2698,7 @@ void __fastcall D2GAME_SendPacket0x8A(D2ClientStrc* pClient, D2GSPacketSrv8A* pP
 }
 
 // 0x0053E020
-void __fastcall D2GAME_PACKETS_SendPacket0x8F(D2ClientStrc* pClient)
-{
+void __fastcall D2GAME_PACKETS_SendPacket0x8F(D2ClientStrc* pClient,int tick){
     D2GSPacketSrv8F packet8F = { 0x8F };
     D2GAME_PACKETS_SendPacket(pClient, &packet8F, sizeof(packet8F));
 }

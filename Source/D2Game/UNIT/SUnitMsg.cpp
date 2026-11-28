@@ -293,7 +293,7 @@ void __fastcall SCMD_SendSkillUseOnUnit(D2ClientStrc* pClient, unsigned char nSo
 void __fastcall D2GAME_PACKETS_SendPacket0xA4(D2ClientStrc* pClient, short nMonStatsId);                    // 0x0053E1A0
 
 
-void __fastcall D2GAME_PACKETS_SendPacketSize06(D2ClientStrc*, unsigned char, int, int); // 0x0053B3D0
+void __fastcall D2GAME_PACKETS_SendPacketSize06(D2ClientStrc* pClient, unsigned char nHeader, int dwUnitType, int dwUnitId); // 0x0053B3D0
 
 void __fastcall SCMD_SendPacket0x2C(D2ClientStrc* pClient, D2GSPacketSrv2C* pPacket); // 0x0053D780
 

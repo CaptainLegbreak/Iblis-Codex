@@ -308,7 +308,7 @@ void __stdcall sub_006460D0_Empty(int nUnused1, int nUnused2, int nUnused3);
 
 void __stdcall sub_006460E0_Empty(int nUnused);
 
-int __fastcall STATES_CheckStateMaskRestrictOnUnit(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x0063A510
+int __fastcall STATES_CheckStateMaskRestrictOnUnit(D2UnitStrc* pUnit); // 0x0063A510
 
 static int __stdcall SKILLS_IsPointOutsideTown(int nX, int nY, D2UnitStrc* pUnit); // 0x00645C60
 

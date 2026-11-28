@@ -243,7 +243,7 @@ struct D2CoordStrc;
 
 struct D2QuestDataStrc;
 
-void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg);           // 0x00545310
+void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg); // 0x00545310
 
 
 static void ACT1Q4_DebugStartedQuest(D2QuestDataStrc* pQuestData);
