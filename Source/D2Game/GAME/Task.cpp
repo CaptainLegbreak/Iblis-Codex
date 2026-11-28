@@ -6,7 +6,7 @@
 #include "FogApi.h"
 // build: symbol _gaszLanguageNames 0x0073200C
 
-#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 struct D2PoolSystemStrc;
 struct D2LinkStrc;
@@ -367,7 +367,7 @@ next_queue:
     D2LinkStrc* pLink = &pNewQueue->tQueueLink;
     if (!pLink)
     {
-        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x78);
+        FOG_DisplayHalt("", sub_00408090(), 0x78);
         exit(-1);
     }
     pLink->pPrev = &gpTaskQueueLink;

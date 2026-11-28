@@ -81,6 +81,15 @@ def absolute_obj(syms):
 
 
 def weak_obj(aliases):
+    # An alias whose target is itself an alias (a C++ declaration of a string -> the CRT's literal of the same bytes ->
+    # the address symbol) resolves or not by the linker's symbol order, so every alias is pointed at its final target.
+    flat = {}
+    for alias, target in aliases.items():
+        seen = {alias}
+        while target in aliases and target not in seen:
+            seen.add(target); target = aliases[target]
+        flat[alias] = target
+    aliases = flat
     syms = []
     for alias, target in sorted(aliases.items()):
         ti = sum(1 + len(y.get("aux", [])) for y in syms)

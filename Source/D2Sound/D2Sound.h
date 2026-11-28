@@ -35,7 +35,7 @@ struct D2ComObjectStrc
 };
 
 // build: symbol ?FOG_DisplayHalt@* 0x00408A60
-#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 struct D2SoundNodeStrc;
 struct D2SoundStrc;

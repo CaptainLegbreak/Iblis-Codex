@@ -18056,7 +18056,7 @@
     {
      "va": "0x00468040",
      "length": 42,
-     "name": "?sub_00468040_ResetCursorState@@YIXHH@Z"
+     "name": "?CURSOR_ResetCursorState@@YIXHH@Z"
     },
     {
      "va": "0x00468070",
@@ -18138,7 +18138,7 @@
     {
      "va": "0x00468830",
      "length": 6,
-     "name": "sub_00468830_GetCursorState"
+     "name": "CURSOR_GetCursorState"
     },
     {
      "va": "0x00468840",
@@ -25981,12 +25981,12 @@
     {
      "va": "0x004B95C0",
      "length": 68,
-     "name": "?sub_004B95C0_IsHintPlaying@@YIHH@Z"
+     "name": "?SOUNDINST_IsHintPlaying@@YIHH@Z"
     },
     {
      "va": "0x004B9610",
      "length": 37,
-     "name": "?sub_004B9610_GetSoundHandle@@YIPAXH@Z"
+     "name": "?SOUNDINST_FindSoundHandle@@YIPAXH@Z"
     },
     {
      "va": "0x004B9640",
@@ -26139,7 +26139,7 @@
     {
      "va": "0x004BA840",
      "length": 78,
-     "name": "?sub_004BA840_StopSound@@YIXH@Z"
+     "name": "?SOUNDINST_StopSound@@YIXH@Z"
     },
     {
      "va": "0x004BA890",
@@ -47545,22 +47545,22 @@
     {
      "va": "0x005734C0",
      "length": 20,
-     "name": "@MONSTER_SetAiState@8"
+     "name": "?MONSTER_SetAiState@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005734E0",
      "length": 26,
-     "name": "@MONSTER_GetAiState@4"
+     "name": "?MONSTER_GetAiState@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00573500",
      "length": 20,
-     "name": "@MONSTER_SetLevelId@8"
+     "name": "?MONSTER_SetLevelId@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00573520",
      "length": 23,
-     "name": "@sub_00573520@4"
+     "name": "?sub_00573520@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00573540",
@@ -61077,16 +61077,6 @@
      "name": "sub_00611640"
     },
     {
-     "va": "0x00611D10",
-     "length": 6,
-     "name": "DATATBLS_GetCharstatsTxtTable"
-    },
-    {
-     "va": "0x00611D20",
-     "length": 6,
-     "name": "DATATBLS_GetAnimData"
-    },
-    {
      "va": "0x00641500",
      "length": 6,
      "name": "DATATBLS_GetShrinesTxtRecordCount"
@@ -63062,6 +63052,16 @@
      "va": "0x00611C70",
      "length": 145,
      "name": "DATATBLS_SkillDescCalcLinker"
+    },
+    {
+     "va": "0x00611D10",
+     "length": 6,
+     "name": "DATATBLS_GetCharstatsTxtTable"
+    },
+    {
+     "va": "0x00611D20",
+     "length": 6,
+     "name": "DATATBLS_GetAnimData"
     },
     {
      "va": "0x00611D30",

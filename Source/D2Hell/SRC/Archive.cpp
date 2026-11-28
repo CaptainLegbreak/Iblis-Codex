@@ -24,7 +24,7 @@ static void* __stdcall ARCHIVE_FindAndOpenArchive(char* szOutPath, const char* s
 int __stdcall SFileCloseArchive(void* hArchive); // 0x00419A80
 
 // build: symbol ?FOG_DisplayHalt@* 0x00408A60
-#define D2_ASSERT(expr,line) if(!(expr)) {FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
+#define D2_ASSERT(expr,line) if(!(expr)) {FOG_DisplayHalt("",sub_00408090(),line);exit(-1);}
 
 
 #define FAIL_LINE 0x5F
@@ -65,7 +65,7 @@ void __fastcall ARCHIVE_CloseFile(void* pUnused, void* hFile)
 {
     if (!hFile)
     {
-        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 73);
+        FOG_DisplayHalt("", sub_00408090(), 73);
         exit(-1);
     }
 

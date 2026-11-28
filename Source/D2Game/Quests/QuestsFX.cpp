@@ -20,7 +20,7 @@
 #include "D2CommonApi3.h"
 // build: symbol _gaszLanguageNames 0x00741CFC
 
-#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 
 struct D2PoolSystemStrc;
