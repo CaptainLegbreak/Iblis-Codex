@@ -5,11 +5,17 @@ delete what is done. The queue is in COORDINATOR.md under "LANE 14 QUEUE".
 
 ## Ready
 
+- Sat Nov 28 01:20 PST 2026: **lane14/files-d2common** (0a0ba3eb0, on main 812c151f7 = #501). Queue item 1, D2Common: four placeholders take their file names (renames only; the code, plan values and every other file unchanged): Unknown_0067ADC0.cpp -> PATH/AStar.cpp, Unknown_0067A550.cpp -> PATH/IDAStar.cpp, Unknown_0067B9C0.cpp -> PATH/PathWF.cpp, Unknown_00679380.cpp -> PATH/PathMisc.cpp. Evidence: each is its own object (its own copy of the language-name table, in link order between PathUtil.cpp's and DrlgGrid.cpp's), and every function of it D2MOO places is in that one D2MOO file (12/13, 5/10, 6/9, 6/18; the rest D2MOO doesn't place). VERIFIED tree e2997f8c14d18f568d1b0462163b6edeecd3c1b4; Game.exe identical (631066c1...). Audit guard: no count rose (all unchanged; pointer casts 4,837, raw offsets 116, byte pointer math 140). Linkdebt: 18,209 -> 18,209, no module rising. STATUS.md/docs not regenerated (status.py's output on #501 differs from main beyond this change; left for the round).
+
 ## Claimed
 
 - Sat Nov 28 00:40 PST 2026: queue item 1, D2Common (branch lane14/files-d2common on #501): Source/D2Common/Unknown_00627250.cpp, Unknown_00679380.cpp, Unknown_0067A550.cpp, Unknown_0067ADC0.cpp, Unknown_0067B9C0.cpp, and Stats/StatsEx.cpp (the join).
 
 ## Findings
+
+- Sat Nov 28 01:20 PST 2026: **D2Common placeholders left as they are, and why** (queue item 1). Object evidence: D2Common's 60-byte language-name table is copied into each object that includes its header, in link order; every D2Common 1.14d path string already has its file.
+  - Unknown_00627250.cpp (0x6275B0, STATLIST_ClampStaminaManaHP): no table copy and it sits between two StatsEx.cpp runs, so it belongs to StatsEx.cpp, but joined there it doesn't build equal: the original inlines STATLIST_UnitGetStatValue and reloads sgptDataTables at each use, while in StatsEx's unit the compiler keeps sgptDataTables in esi (the whole register assignment differs, not a declaration-count flip). Tried: the call as is (calls the int-nLayer overload, not inlined), a static inline copy as the placeholder has (inlined, same register difference). Parked.
+  - Own objects, no name evidence: Unknown_00624740.cpp (one stats helper, between Logging.cpp and StatsEx.cpp), Unknown_0063F690.cpp and Unknown_00640F20.cpp (objects.txt and objgroup.txt loaders: D2MOO's ObjectsTbls.cpp, but these are two objects, and D2MOO's DataTbls names aren't Blizzard's: ArenaTbls/BeltsTbls/LevelsTbls/SequenceTbls for Arena/BeltTbls/LvlTbls/Sequence), Unknown_0064FAA0.cpp (one function), Unknown_0064FAD0.cpp (path stepping: D2MOO splits it 9 Step.cpp / 7 PathMisc.cpp, and PathMisc is 0x679380's), Unknown_00650D70.cpp (SEED_*: D2MOO's D2Seed.cpp is a D2MOO spelling), Unknown_006634F0.cpp and Unknown_006647C0.cpp (hireling and comp-info functions: D2MOO's Monsters.cpp, which here is MONSTERS.CPP, another object), Unknown_00664530.cpp (overlay getters: D2MOO's OverlayTbls.cpp, which is the object before it), Unknown_00668510.cpp and Unknown_0066A1A0.cpp (cube parsing and getters: D2MOO's HoradricCube.cpp, the object between them), Unknown_00674040.cpp (D2MOO's DrlgOutdoors.cpp = Outdoors.cpp, the next object), Unknown_006808F0.cpp, Unknown_00681000.cpp, Unknown_00681490.cpp (the act 1 dirt-road builder after OutWild.cpp; D2MOO places 1 function).
 
 ## Status
 
