@@ -7,11 +7,13 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 Scope (COORDINATOR.md, LANES 2-5 RESTART): private struct definitions in D2Game (67 files, 342 definitions) and D2Common (49 files, 213). A private copy of a shared struct uses the shared one; a real type used by several files moves to the module header. One folder per branch.
 
 ### Ready
+- lane5/struct-copies-2 3c4a32e68 (one commit; lane5/struct-copies-1 is the same change on #503, drop it): in D2Game, eight marked copies of other files' functions (five D2Client/D2Sound ones in GAME/Clients.cpp, three in Ai/AiThink4.cpp, one each in PlrSave.cpp, a4q1.cpp, SkillItem.cpp, Unknown_0059F440.cpp) become declarations, each kept only when its unit built equal, and the private views that only served them go (5 in Clients.cpp); then 24 private structs nothing uses go with their forward declarations and size checks (Clients.cpp 8, Game.cpp 3, objrgn.cpp 5, Unknown_00573470.cpp 6, ItemsMagic.cpp 1, MonsterRegion.cpp 1). VERIFIED 57c0748aa2220b276801d4ec925a01e7af8decf7. Audit guard: no count rose (a1/v12 names 87 -> 83, pointer casts 4837 -> 4835). Linkdebt: no module changed (D2Game 3467 = main #504). Based on main 87b6da6dc (#504).
 
 ### Claimed
 - Source/D2Game/**/*.cpp private struct definitions: (1) the ones nothing uses and the private views that only served marked copies of other files' functions (lane5/struct-copies-1, verifying); (2) next, private copies of header structs (21 in 8 files), adapting the code to the shared fields, one folder per branch: GAME first.
 
 ### Status
+- 12:25 UTC: struct-copies-2 Ready. Next: the D2Common pass (unused private structs, then the header-struct copies), and the D2Game header copies that only exist to declare a method (D2ClientStrc in PartyScreen*.cpp, D2BitBufferStrc in SCmd_0053E2C0.cpp, D2StormListArrayStrc in Game.cpp): the shared struct would need the method, which moves every includer's declaration count; testing that next.
 - 11:20 UTC: lane5/struct-copies-1 built (11 units equal, audit guard: no count rose), full build and linkdebt running. A first try of plain removal of the 21 header-struct copies kept all 21: each is a partial view under the shared name with its own field names, so each needs the code moved to the shared fields.
 - 10:40 UTC: restarted on main #503. Repo and Game.exe already set up here. Inventory: D2Game 342 private definitions in 67 files (21 copy a header struct by name, 116 names defined in more than one .cpp); D2Common 213 in 49 (46 copy a header struct).
 
