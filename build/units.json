@@ -5526,7 +5526,7 @@
     {
      "va": "0x00411740",
      "length": 89,
-     "name": "?sub_00411740_FindFreeBlock@@YGPAUD2FogBlockStrc@@IPAIH@Z"
+     "name": "?FindFreeBlock@@YGPAUD2FogBlockStrc@@IPAIH@Z"
     },
     {
      "va": "0x004117A0",
@@ -6017,7 +6017,7 @@
     {
      "va": "0x0041C340",
      "length": 22,
-     "name": "sub_0041C340_SetLastError"
+     "name": "SErrSetLastError"
     },
     {
      "va": "0x0041C360",
@@ -6338,7 +6338,7 @@
     {
      "va": "0x00420290",
      "length": 9,
-     "name": "sub_00420290_BreakHandlerChain"
+     "name": "SMsgBreakHandlerChain"
     },
     {
      "va": "0x004202A0",
@@ -6687,32 +6687,32 @@
     {
      "va": "0x00420E90",
      "length": 24,
-     "name": "?sub_00420E90_TakeLow32@@YAIPA_K@Z"
+     "name": "?ExtractLowPart@@YAIPA_K@Z"
     },
     {
      "va": "0x00420EB0",
      "length": 68,
-     "name": "?sub_00420EB0_Accumulate64@@YGI_KPA_K@Z"
+     "name": "?ExtractLowPartLargeSum@@YGI_KPA_K@Z"
     },
     {
      "va": "0x00420F00",
      "length": 44,
-     "name": "?sub_00420F00_TakeLow32Ext@@YAIPA_K@Z"
+     "name": "?ExtractLowPartSx@@YAIPA_K@Z"
     },
     {
      "va": "0x00420F30",
      "length": 35,
-     "name": "?sub_00420F30_BigMulAddDigit@@YGXPA_KI@Z"
+     "name": "?BigMulAddDigit@@YGXPA_KI@Z"
     },
     {
      "va": "0x00420F60",
      "length": 26,
-     "name": "?sub_00420F60_BigJoinDigits@@YG_KII@Z"
+     "name": "?MakeLarge@@YG_KII@Z"
     },
     {
      "va": "0x00420FE0",
      "length": 18,
-     "name": "@sub_00420FE0_LastCell@4"
+     "name": "@LastCell@4"
     }
    ]
   },
@@ -6862,7 +6862,7 @@
     {
      "va": "0x00420F80",
      "length": 67,
-     "name": "?sub_00420F80_DecodeLength@@YAXPBEIPAI1@Z"
+     "name": "?DecodeDataBytes@@YAXPBEIPAI1@Z"
     },
     {
      "va": "0x00420FD0",
@@ -6991,7 +6991,7 @@
     {
      "va": "0x004212F0",
      "length": 183,
-     "name": "?sub_004212F0_Compare@@YGHPBUBigBuffer@@0@Z"
+     "name": "?Compare@@YGHPBUBigBuffer@@0@Z"
     },
     {
      "va": "0x004213B0",
@@ -7125,7 +7125,7 @@
     {
      "va": "0x004219D0",
      "length": 18,
-     "name": "?sub_004219D0_AddOne@D2StormArrayBStrc@@QAEIPBE@Z"
+     "name": "?AddOne@D2StormArrayBStrc@@QAEIPBE@Z"
     },
     {
      "va": "0x004219F0",
@@ -7218,7 +7218,7 @@
     {
      "va": "0x00422140",
      "length": 99,
-     "name": "?sub_00422140_Trim@BigBuffer@@QAEXXZ"
+     "name": "?Trim@BigBuffer@@QAEXXZ"
     },
     {
      "va": "0x004221B0",
@@ -7623,7 +7623,7 @@
     {
      "va": "0x00422080",
      "length": 67,
-     "name": "?sub_00422080_TrimToStart@BigBuffer@@QAEXXZ"
+     "name": "?TrimToStart@BigBuffer@@QAEXXZ"
     },
     {
      "va": "0x00423820",
@@ -7633,7 +7633,7 @@
     {
      "va": "0x00426160",
      "length": 23,
-     "name": "?sub_00426160_GetTableSize@@YIII@Z"
+     "name": "?GetTableSize@@YIII@Z"
     }
    ]
   },
@@ -7658,32 +7658,32 @@
     {
      "va": "0x00425720",
      "length": 7,
-     "name": "?sub_00425720_Rotl@@YIIIH@Z"
+     "name": "?Rotl@@YIIIH@Z"
     },
     {
      "va": "0x00425730",
      "length": 58,
-     "name": "sub_00425730_Sha1Round0"
+     "name": "Sha1Round0"
     },
     {
      "va": "0x00425770",
      "length": 52,
-     "name": "sub_00425770_Sha1Round1"
+     "name": "Sha1Round1"
     },
     {
      "va": "0x004257B0",
      "length": 60,
-     "name": "sub_004257B0_Sha1Round2"
+     "name": "Sha1Round2"
     },
     {
      "va": "0x004257F0",
      "length": 50,
-     "name": "sub_004257F0_Sha1Round3"
+     "name": "Sha1Round3"
     },
     {
      "va": "0x00425830",
      "length": 30,
-     "name": "?sub_00425830_LoadBE32@@YIXPAIPBE@Z"
+     "name": "?LoadBE32@@YIXPAIPBE@Z"
     },
     {
      "va": "0x00425850",
@@ -7702,22 +7702,22 @@
     {
      "va": "0x00425E80",
      "length": 85,
-     "name": "sub_00425E80_PutBE64"
+     "name": "PutBE64"
     },
     {
      "va": "0x00425EE0",
      "length": 21,
-     "name": "?sub_00425EE0_PutBE32@@YIXIPAE@Z"
+     "name": "?PutBE32@@YIXIPAE@Z"
     },
     {
      "va": "0x00425F00",
      "length": 211,
-     "name": "sub_00425F00_Final"
+     "name": "Final"
     },
     {
      "va": "0x00425FE0",
      "length": 39,
-     "name": "sub_00425FE0_Apply"
+     "name": "PowMod"
     },
     {
      "va": "0x00426010",

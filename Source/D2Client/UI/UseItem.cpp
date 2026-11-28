@@ -474,7 +474,8 @@ void __stdcall USEITEM_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
     const int nX = pMsg->nXpos;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+    SMsgBreakHandlerChain(pMsg);
     if (GetTickCount() - gdwUseItemClickTick < 0x190)
         return;
     gdwUseItemClickTick = GetTickCount();
@@ -534,7 +535,7 @@ void __stdcall USEITEM_EatMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x004C0080
@@ -563,7 +564,7 @@ void __stdcall USEITEM_OnPanelCloseMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
     const int nMode = gnUseItemDialogState;
     if (nMode != 1)
     {
@@ -670,7 +671,7 @@ void __stdcall USEITEM_OnHotspotClick(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
     if (gnUseItemDialogState == 2)

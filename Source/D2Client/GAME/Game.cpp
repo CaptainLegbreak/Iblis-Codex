@@ -459,7 +459,7 @@ int gbClickHandled; // 0x007A0658
 
 
 
-int __stdcall sub_00420290_BreakHandlerChain(void* pMsg); // 0x00420290
+int __stdcall SMsgBreakHandlerChain(void* pMsg); // 0x00420290
 
 int gbEndScreenDismissed; // 0x007A0608
 
@@ -2379,7 +2379,7 @@ void __stdcall GAME_HandleLeftButtonDown(SMSGHANDLER_PARAMS* pMsg)
         }
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 }
 
@@ -2501,7 +2501,7 @@ void __stdcall GAME_HandleRightButtonDown(SMSGHANDLER_PARAMS* pMsg)
     {
         pMsg->bReturn = 0;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     gbRightButtonDown = 1;
@@ -2513,7 +2513,7 @@ void __stdcall GAME_HandleRightButtonDown(SMSGHANDLER_PARAMS* pMsg)
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x0044C2C0
@@ -2557,7 +2557,7 @@ void __stdcall GAME_HandleRightButtonUp(SMSGHANDLER_PARAMS* pMsg)
         }
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 }
 
@@ -2574,7 +2574,7 @@ void __stdcall GAME_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg)
         }
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 }
 
@@ -2586,7 +2586,7 @@ void __stdcall GAME_HandleMiddleButtonUp(SMSGHANDLER_PARAMS* pMsg)
         sub_00469270_RunMButtonUp();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 }
 
@@ -2598,7 +2598,7 @@ void __stdcall GAME_HandleMiddleButtonDown(SMSGHANDLER_PARAMS* pMsg)
         sub_00469230_RunMButtonDown();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 }
 
@@ -2614,7 +2614,7 @@ void __stdcall GAME_HandleXButtonDown(SMSGHANDLER_PARAMS* pMsg)
             sub_00469330_RunXButton2Down();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 }
 
@@ -2630,7 +2630,7 @@ void __stdcall GAME_HandleXButtonUp(SMSGHANDLER_PARAMS* pMsg)
             CMDTBL_CallBoundCommand();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 }
 
@@ -2642,7 +2642,7 @@ void __stdcall GAME_HandleSysCommand(SMSGHANDLER_PARAMS* pMsg)
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 }
 
@@ -2651,7 +2651,7 @@ void __stdcall GAME_SwallowMessage(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x0044C5E0
@@ -3146,7 +3146,7 @@ void __stdcall GAME_AdvanceBetaScreen(SMSGHANDLER_PARAMS* pMsg)
     gnBetaScreenIndex += 1;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x0044D0D0
@@ -3156,7 +3156,7 @@ void __stdcall GAME_AdvanceBetaScreenNoRepeat(SMSGHANDLER_PARAMS* pMsg)
         gnBetaScreenIndex += 1;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 int __fastcall sub_M118_Emit_0044C100(int nX, int nY)
@@ -3249,7 +3249,7 @@ void __stdcall GAME_HandleKeyDown(SMSGHANDLER_PARAMS* pMsg)
         gbEndScreenDismissed = nOne;
     pMsg->bReturn = nOne;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x0044D390
