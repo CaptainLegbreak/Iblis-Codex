@@ -8,6 +8,11 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Sat Nov 28 2:49 PST 2026: **lane12/abi-2** (1c45ccd38, stacked on abi-1): the void ruling's first step for lane 14's 36 "return eax vs
+  void" items: a definition whose last statement is a call returning a value returns that value with the callers'
+  type, if its unit keeps its bytes. Only VIEW_SendMcpCharListRequest qualifies (returns D2QSSOCKET_SendPacket's
+  int); CHARSEL_HandleCharList's change alters CharSel.cpp, MSG_SendWardenPacket ends in an assertion. VERIFIED tree
+  3b4cf9b577425e2d53f764e6e35c08375858dc35. linkdebt -1 (D2Launch). auditguard: no count rose.
 - Sat Nov 28 2:37 PST 2026: **lane12/abi-1** (96fde0dd6, stacked on compile-1): queue item 7, first pass over lane 14's 151
   calling-interface disagreements (144 addresses). 20 addresses: the declarations take the definition's prototype
   where their units keep their bytes. 24 addresses: most callers declare another prototype, and the definition
@@ -176,6 +181,14 @@ it is on main; from #473, based on main.
     D2Win/Src/D2WinProgressBar.cpp (1): D2GFX_DrawBox
 
 ## Questions (owner's ruling: void definitions whose callers use a result)
+- Sat Nov 28 2:49 PST 2026: **the void ruling's second step conflicts with the audit rule.** For the other 35 "return eax vs void"
+  items (the D2Win *_Destroy family, whose last call CONTROL_RemoveFromList is void itself; the SBig* functions,
+  whose last statements call static void helpers; INV_FormatArgs, the DRLGOUTDOORS grid setters, CmpDoLensEffect,
+  the iterator callbacks, ...) the definitions are void and their bytes leave nothing meaningful in eax, so the
+  ruling says: callers call through an int-returning function-pointer type, with a comment. Each such call is a
+  C-style function-pointer cast, so "pointer casts" rises by one per call site (about 60). May I do that under
+  AUDIT_ALLOW for pointer casts, or would you rather the callers' result use be written another way (a
+  one-line inline wrapper per callee that returns 0 changes the callers' bytes, so that's out)?
 - (resolved) width_only: the coordinator ruled at 19:35 PT to keep counting width disagreements as type_disagreement; no linkdebt.py change.
 - Fri Nov 27 16:00 PST 2026: **parameter width, the same kind of question as the void ruling.** The most-referenced type_disagreement
   targets left are definitions taking a narrower parameter than their callers declare: STATLIST_SetUnitStat (197
