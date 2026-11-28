@@ -122,7 +122,7 @@ extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 
 
 
-void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall SCMD_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 
 

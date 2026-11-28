@@ -19,7 +19,7 @@ D2TextBlockStrc* __fastcall TEXT_CreateTextBox(const Unicode* pText, int nMode);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall sub_004B9A00(int nSound, D2UnitStrc* pUnit, int nMode, int nZero, int nZero2); // 0x004B9A00
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-void* __stdcall WINDOW_GetWindow(); // 0x004F59A0
+void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
 void __fastcall SCMD_RegisterMsgHandlers(void* hWnd, void* pHandlers, int nCount); // 0x00451DB0
 
 extern const char gszTextSourceFile[]; // 0x006DA13C
