@@ -1649,25 +1649,7 @@ struct D2GridUnitStrc
     D2GridInfoStrc* pInfo;
 };
 
-struct D2HirelingInitStrc
-{
-    int nId;
-    int nLevel;
-    int nHitpoints;
-    int nStrength;
-    int nDexterity;
-    int nGold;
-    int nExperience;
-    int nDefense;
-    int nMinDamage;
-    int nMaxDamage;
-    int nShare;
-    int nResist;
-    int nHireDesc;
-    int field_34;
-    short nFlags;
-    short unk0x3A;
-};
+#include "D2HirelingInit.h"
 
 struct D2HotkeySlotTableStrc
 {
