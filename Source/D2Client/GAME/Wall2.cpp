@@ -243,8 +243,8 @@ void __fastcall WALL2_PrepareWallCells(D2WallCtxStrc* pCtx, int nValue)
     DUNGEON_ClientTileDrawPositionToGameCoords(pCtx->nX, pCtx->nY, &tOrigin.nX, &tOrigin.nY);
     tOrigin.nX -= 3;
     tOrigin.nY -= pCtx->nWidth;
-    pCtx->f_EAA0 = tOrigin.nX;
-    pCtx->f_EAA4 = tOrigin.nY;
+    pCtx->nOriginX = tOrigin.nX;
+    pCtx->nOriginY = tOrigin.nY;
     D2WallCellStrc* pCell = pCtx->pCells;
     for (unsigned int nRow = 0; nRow < pCtx->nSize; ++nRow)
     {

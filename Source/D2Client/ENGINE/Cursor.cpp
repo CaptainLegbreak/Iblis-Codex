@@ -129,7 +129,7 @@ static int CURSOR_IsCursorAnimated(int nIndex)
 // build: symbol ?gnCursorAnimCount@* 0x007120D4
     D2_ASSERT(gnCursorAnimCount == CURSOR_ANIM_COUNT, 0x8F);
     D2_ASSERT(nIndex < CURSOR_ANIM_COUNT, 0x90);
-    return gaCursorAnim[nIndex].f_4;
+    return gaCursorAnim[nIndex].bLoop;
 }
 
 // 0x00467E90
