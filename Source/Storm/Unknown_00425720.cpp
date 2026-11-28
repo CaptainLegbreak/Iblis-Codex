@@ -23,8 +23,8 @@ struct BigNum
         SBigDel(hHandle);
     }
     BigNum& PowMod(const BigNum& tBase, const BigNum& tExponent, const BigNum& tModulus); // 0x00425FE0
-    void* sub_00426010_ReadFill(void* pBuffer, unsigned int nSize);
-    int sub_00426050_Call(const void* pData, unsigned int nSize);
+    void* ToBinary(void* pBuffer, unsigned int nSize); // 0x00426010
+    int FromBinary(const void* pData, unsigned int nSize); // 0x00426050
 };
 
 namespace Crypt
@@ -259,7 +259,7 @@ BigNum& BigNum::PowMod(const BigNum& tBase, const BigNum& tExponent, const BigNu
 }
 
 // 0x00426010
-void* BigNum::sub_00426010_ReadFill(void* pBuffer, unsigned int nSize)
+void* BigNum::ToBinary(void* pBuffer, unsigned int nSize)
 {
     unsigned int nRead;
     SBigToBinaryBuffer(hHandle, pBuffer, nSize, &nRead);
@@ -270,7 +270,7 @@ void* BigNum::sub_00426010_ReadFill(void* pBuffer, unsigned int nSize)
 }
 
 // 0x00426050
-int BigNum::sub_00426050_Call(const void* pData, unsigned int nSize)
+int BigNum::FromBinary(const void* pData, unsigned int nSize)
 {
     return SBigFromBinary(hHandle, pData, nSize);
 }
@@ -278,18 +278,18 @@ int BigNum::sub_00426050_Call(const void* pData, unsigned int nSize)
 // 0x00426070
 void Crypt::RSA::Prepare(const void* pExponent, unsigned int nExponentSize, const void* pModulus, unsigned int nModulusSize)
 {
-    hExponent.sub_00426050_Call(pExponent, nExponentSize);
-    hModulus.sub_00426050_Call(pModulus, nModulusSize);
+    hExponent.FromBinary(pExponent, nExponentSize);
+    hModulus.FromBinary(pModulus, nModulusSize);
 }
 
 // 0x004260A0
 void Crypt::RSA::Process(void* pBuffer, unsigned int nSize)
 {
     BigNum tInput;
-    tInput.sub_00426050_Call(pBuffer, nSize);
+    tInput.FromBinary(pBuffer, nSize);
     BigNum tOutput;
     tOutput.PowMod(tInput, hModulus, hExponent);
-    tOutput.sub_00426010_ReadFill(pBuffer, nSize);
+    tOutput.ToBinary(pBuffer, nSize);
 }
 
 extern "C" unsigned char gData_00708890[64] = { 0x80 }; // 0x00708890

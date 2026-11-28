@@ -136,7 +136,7 @@ struct CHuffman
 
     CHuffman();                                                                                  // 0x0041F950
     ~CHuffman();                                                                                 // 0x0041F6A0
-    void sub_0041F350_IncWeights(HUFFNODE* pItem);                                               // 0x0041F350
+    void IncWeights(HUFFNODE* pItem);                                               // 0x0041F350
     unsigned int Decompress(void* pOutput, unsigned int nOutputSize, CBitInput* pInput); // 0x0041F740
     void AddSymbol(unsigned int nValue);
 };

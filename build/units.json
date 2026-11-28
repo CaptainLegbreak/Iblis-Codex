@@ -5314,7 +5314,7 @@
     {
      "va": "0x0041E9E0",
      "length": 62,
-     "name": "?sub_0041E9E0_Get@D2SCompBitInputStrc@@QAEIII@Z"
+     "name": "?Get@D2SCompBitInputStrc@@QAEIII@Z"
     },
     {
      "va": "0x0041EA20",
@@ -7722,12 +7722,12 @@
     {
      "va": "0x00426010",
      "length": 51,
-     "name": "sub_00426010_ReadFill"
+     "name": "ToBinary"
     },
     {
      "va": "0x00426050",
      "length": 23,
-     "name": "sub_00426050_Call"
+     "name": "FromBinary"
     },
     {
      "va": "0x00426070",
