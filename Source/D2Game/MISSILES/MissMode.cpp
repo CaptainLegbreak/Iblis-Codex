@@ -422,26 +422,6 @@ typedef D2UnitStrc* (__fastcall* AITARGETCALLBACK)(D2GameStrc*, D2UnitStrc*, D2U
 
 typedef void (__fastcall* AIPARAMFN)(D2GameStrc*, D2UnitStrc*, D2AiTickParamStrc*);
 
-struct SynCoord;
-
-struct SynStatic;
-
-struct SynUnit;
-
-struct SynCoord
-{
-    int nX;
-    int nY;
-};
-
-struct SynStatic
-{
-    char unk0[0x0C];
-    SynCoord tGameCoords;
-};
-
-struct SynUnit { int dwUnitType; char unk4[0x28]; union { SynStatic* pStaticPath; D2DynamicPathStrc* pDynamicPath; }; };
-
 
 static D2UnitStrc* __stdcall MISSMODE_CreateMissileWithCollisionCheck(D2GameStrc* pGame, int nRange, int nMissileId, unsigned short nMask, D2UnitStrc* pMissile, int nRate); // 0x005A9820
 
@@ -5938,33 +5918,6 @@ int __fastcall MISSMODE_SrvDo01_BasicMissile(D2GameStrc* pGame, D2UnitStrc* pMis
 }
 
 struct D2LevelsTxt;
-
-static inline int synh_GetUnitX(SynUnit* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nX;
-    default:
-        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-    }
-}
-
-static inline int synh_GetUnitY(SynUnit* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nY;
-    default:
-        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-    }
-}
-
 
 // calling-convention shim (not game code)
 int __fastcall sub_005ADA80_Shim(D2UnitStrc* pMissile)
