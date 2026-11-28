@@ -1027,11 +1027,9 @@
    "state": "included"
   },
   "Source/D2Client/UI/SkillDesc_004E1FF0.cpp": {
-   "bytes": 448,
-   "definitions": 5,
-   "externs": [
-    "extern \"C\" char gD2DataTables[]; // 0x0096BC30"
-   ],
+   "bytes": 444,
+   "definitions": 4,
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/SkillDesc_004E1FF0.inc",
    "lang": "cpp",
@@ -2761,13 +2759,11 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/DataTbls.cpp": {
-   "bytes": 124,
-   "definitions": 4,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/DATATBLS/DataTbls.inc",
+   "bytes": 0,
+   "definitions": 0,
    "lang": "cpp",
-   "state": "included"
+   "state": "sourced",
+   "sourced": 5
   },
   "Source/D2Common/DUNGEON/Dungeon.cpp": {
    "bytes": 36,
@@ -66998,7 +66994,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/SkillDesc_004E1FF0.cpp",
+   "file": "Source/D2Common/DATATBLS/DataTbls.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern D2DataTablesStrc* sgptDataTables = ",
@@ -67014,7 +67010,7 @@
      0,
      "0x0096BC30",
      "source",
-     "gD2DataTables",
+     "sgtDataTables",
      0,
      "data"
     ]
@@ -67025,7 +67021,8 @@
    "struct": null,
    "tail": "; // 0x00744304",
    "type": "D2DataTablesStrc",
-   "va": "0x00744304"
+   "va": "0x00744304",
+   "sourced": true
   },
   {
    "alias": false,
@@ -105093,7 +105090,8 @@
    "size": 60,
    "struct": "#pragma pack(push, 1)\nstruct d2data_007442C8_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x007442C8",
-   "va": "0x007442C8"
+   "va": "0x007442C8",
+   "sourced": true
   },
   {
    "alias": true,
@@ -105267,7 +105265,8 @@
    "struct": null,
    "tail": "; // 0x00744308",
    "type": "int",
-   "va": "0x00744308"
+   "va": "0x00744308",
+   "sourced": true
   },
   {
    "alias": false,
@@ -105373,7 +105372,8 @@
    "size": 44,
    "struct": "#pragma pack(push, 1)\nstruct d2data_0074430C_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0074430C",
-   "va": "0x0074430C"
+   "va": "0x0074430C",
+   "sourced": true
   },
   {
    "alias": false,
@@ -146779,7 +146779,8 @@
    "fwd": "extern \"C\" struct d2data_00744338_t gData_00744338; // 0x00744338",
    "struct": "#pragma pack(push, 1)\nstruct d2data_00744338_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n};\n#pragma pack(pop)",
    "head": "extern \"C\" struct d2data_00744338_t gData_00744338 = ",
-   "tail": "; // 0x00744338"
+   "tail": "; // 0x00744338",
+   "sourced": true
   },
   {
    "alias": false,
