@@ -1546,7 +1546,7 @@ struct D2CoordPairStrc { int nX; int nY; };
 struct D2CursorAnimStrc
 {
     int bAnimated;
-    int f_4;
+    int bLoop;
     int nFrames;
     int nStep;
     void* pData;
@@ -1584,7 +1584,7 @@ struct D2ElemDamageStatsStrc
 struct D2ElemDamageStrc
 {
     int nMinStat;
-    int f_4;
+    int nMaxStat;
     int nColor;
 };
 
@@ -1656,7 +1656,7 @@ struct D2HotkeySlotTableStrc
     int nX[60];
     int nY[60];
     int nSkill[60];
-    int f_2D0[60];
+    int nOwnerGuid[60];
 };
 
 struct D2HoverBoxStrc
@@ -1891,8 +1891,8 @@ struct D2R01LightStrc
 {
     int nUnitType;
     unsigned int nUnitId;
-    unsigned char f_8;
-    char unk0x09[3];
+    unsigned char bServerSide;
+    char pad0x09[3];
     int nMode;
     int nX;
     int nY;
@@ -2011,7 +2011,7 @@ struct D2UnitSndObjectStrc
 
 struct D2UnitSndPlayerStrc
 {
-    int f_0;
+    int nGetHitSound;
     int nDeathSound;
     int anEventSounds[8];
     int nFootstep;
@@ -2039,8 +2039,8 @@ struct D2WallCtxStrc
     int nUnk0x38;
     char unk0x3C[0xEA60];
     int nUnk0xEA9C;
-    int f_EAA0;
-    int f_EAA4;
+    int nOriginX;
+    int nOriginY;
     D2WallCellStrc* pCells;
     int nCellCount;
     unsigned int nSize;
@@ -2066,7 +2066,7 @@ struct D2WaypointRowRectStrc
 struct D2WeatherSplashStrc
 {
     short bActive;
-    short unk0x02;
+    short pad0x02;
     int nX;
     int nY;
     int nType;
@@ -2115,7 +2115,7 @@ struct SelectionEntry
 struct D2WeatherParticleStrc
 {
     short bActive;
-    short unk0x02;
+    short pad0x02;
     int nX;
     int nY;
     int nYEnd;
@@ -2126,7 +2126,7 @@ struct D2WeatherParticleStrc
     int nType;
     unsigned char nColor;
     unsigned char nAlpha;
-    short unk0x26;
+    short pad0x26;
 };
 
 typedef unsigned short U16;
