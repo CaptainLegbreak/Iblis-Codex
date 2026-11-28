@@ -4,6 +4,7 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Ready
 
+- **lane11/names-prefix-d2common 9cdef2af3, on main #495** (queue item 5, D2Common first). 31 sub_<VA>_<Verb> functions take PREFIX_<Verb>, the prefix three or more named functions of the same unit carry (PATH_TraceSteps, PATH_AdvanceOnPath, DRLGOUTSIEGE_SpawnAct4Presets, DRLGWARP_GetTileRoom, LOGGING_GetLogFile...); the two set-item functions D2MOO keeps in Items.cpp (its 1.14d address comments) and their neighbour take ITEMS_. names.csv follows; every spelling renamed together. Left: trivial stubs (Nop, Empty, AlwaysZero, Return*), Storm's container helpers in Ignorelist.cpp, files other lanes claim, TileSub.cpp's seven (their units fail with the new names). Plan: lanes/names/prefix-d2common.tsv. Link debt: main #494 -> this tree (#495 + this branch) 20,572 -> 19,726, no module rose. Audit guard: no count rose. Full build: VERIFIED tree d039dcf67ee206956e3a8387b2fb489d0ad65a82, Game.exe identical, 14,927 / 14,927 placed, borrowed code 0, borrowed data 253 B, 0 not all equal.
 - **lane11/names-defs b23b4517e, on main #494** (independent of names-small-3; merges clean with it and with #495). The placeholder items the other way round: definitions in source still named by address while the declarations elsewhere already give them a real name. Two commits:
   1. 9 functions defined as sub_<VA> take the name their declarations use, names.csv following (CCMD_IsStringZeroTerminated, MONSTER_CheckSummonerFlag, MONSTER_ToggleSummonerFlag, MONSTER_SetLevelId, ACT1Q1_CanClientFXBeTriggered and the rest). Three left: 0x0040D8D0, 0x00554100, 0x0058EE80 (their units fail with the name).
   2. 10 globals defined with their address in the name take their declared name (gnScreenWidth, gnAutomapCellCount, gaszModuleTypes...); 14 stay.
@@ -19,6 +20,7 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Claimed
 
+- Fri Nov 27 19:49 PST 2026: check-in. names-prefix-d2common posted. Next: the same for the other modules (D2Game, D2Client, Fog...), claimed files left out; waiting on an answer for unsourced data (Notes).
 - Fri Nov 27 19:24 PST 2026: check-in. names-defs posted. Next: queue item 4, unsourced_data (the gsz strings no source defines), module by module, after a look at how the data plan gives a new definition.
 - Fri Nov 27 18:48 PST 2026: check-in. names-small-3 posted on #494 (queue item 1), entries that move the image or raise borrowed data named in the Ready line. Next, queue item 3: the remaining placeholder data names module by module.
 - Fri Nov 27 16:58 PST 2026: check-in. names-small-2: besides 0x006FCC24, a few data plan names leave the image identical but raise borrowed data (253 -> 8,874 B; Storm's strings such as 0x006CEDCC szSMemAlloc_006CEDCC, and some of 42 non-string entries). Bisecting them out; the branch posts with borrowed data back at main's figure.
