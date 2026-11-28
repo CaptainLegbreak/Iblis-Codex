@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2ObjectIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
@@ -25,7 +26,6 @@
 
 #define QUEST_A5Q4_NIHLATHAK 34
 
-#define EVENTTYPE_MONUMOD 7
 
 struct D2PoolSystemStrc;
 struct D2StaticPathStrc;
@@ -183,8 +183,6 @@ enum D2C_F33QuestConstants
     QUESTSTATEFLAG_A1Q4 = 4,
     QUESTSTATEFLAG_A5Q6 = 40,
     QFLAG_CUSTOM6 = 10,
-    EVENTTYPE_ENDANIM = 1,
-    EVENTTYPE_QUESTFN = 7,
     STAT_LEVEL = 12,
     ITEMQUAL_NORMAL = 2,
     MONSTATSFLAGINDEX_ZOO = 22,

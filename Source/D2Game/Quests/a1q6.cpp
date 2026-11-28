@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2ObjectIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
@@ -78,7 +79,6 @@ enum D2C_P08QuestConstants
     QFLAG_CUSTOM2 = 6,
     QFLAG_CUSTOM6 = 10,
     QFLAG_PRIMARYGOALDONE = 13,
-    EVENTTYPE_QUESTFN = 7,
 };
 
 

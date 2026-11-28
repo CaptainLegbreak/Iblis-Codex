@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2ItemTypes.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -269,10 +270,8 @@ void __fastcall PLAYER_ClearTargetIfMatch(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     }
 }
 
-#define EVENTTYPE_DELAYEDPORTAL 11
 
 
-#define EVENTTYPE_STATREGEN 3
 
 // 0x00534AD0
 void __fastcall PLAYER_InitializePosition(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY)
@@ -568,11 +567,8 @@ void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers(D2GameStrc* pGam
 
 #define UNITFLAG_INITSEEDSET 0x10
 
-#define EVENTTYPE_FREEHOVER 3
 
-#define EVENTTYPE_STATREGEN 4
 
-#define EVENTTYPE_TRAP 6
 
 #define COLLIDE_MASK_CORPSE 0x9C19
 
@@ -601,9 +597,9 @@ void __fastcall PLAYER_PlaceCorpse(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, i
     STATES_ToggleState(pPlayer, STATE_PLAYERBODY, 1);
     pPlayer->dwFlags |= UNITFLAG_INITSEEDSET;
 
-    D2GAME_EVENTS_Delete(pGame, pPlayer, EVENTTYPE_FREEHOVER, 0);
     D2GAME_EVENTS_Delete(pGame, pPlayer, EVENTTYPE_STATREGEN, 0);
     D2GAME_EVENTS_Delete(pGame, pPlayer, EVENTTYPE_TRAP, 0);
+    D2GAME_EVENTS_Delete(pGame, pPlayer, EVENTTYPE_FREEHOVER, 0);
 
     const int nOwnerGUID = INVENTORY_GetOwnerId(pPlayer->pInventory);
     if (nOwnerGUID != -1)

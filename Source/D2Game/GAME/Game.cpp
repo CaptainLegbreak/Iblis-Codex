@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2PlayerModes.h"
@@ -764,9 +765,7 @@ static void GAME_UpdateAllClients(D2GameStrc* pGame);
 
 static void GAME_UpdateFrameRate(D2GameStrc* pGame);
 
-#define EVENTTYPE_STATREGEN 3
 
-#define EVENTTYPE_DELAYEDPORTAL 11
 
 struct D2SaveHeaderStrc;
 

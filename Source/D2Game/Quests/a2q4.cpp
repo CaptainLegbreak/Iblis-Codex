@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2ObjectIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
@@ -30,7 +31,6 @@
 
 #define ACT_II 1
 
-#define EVENTTYPE_ENDANIM 1
 
 #define UNITFLAG_ISRESURRECT_ISINIT 0x03000000
 

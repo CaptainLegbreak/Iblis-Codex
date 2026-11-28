@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
@@ -33,7 +34,6 @@
 
 #define ACT_III 2
 
-#define EVENTTYPE_QUESTFN 7
 
 #define QUESTSTATEFLAG_A3COMPLETED 23
 
@@ -150,7 +150,6 @@ typedef int(__fastcall* SUNIT_ITERATEFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, v
 
 #define UNIT_OBJECT 2
 
-#define EVENTTYPE_ENDANIM 1
 
 #define ITEMQUAL_NORMAL 2
 

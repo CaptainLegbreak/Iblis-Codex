@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2ObjectIds.h"
 #include "D2ItemTypes.h"
 #include "D2StateIds.h"
@@ -94,10 +95,6 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc*, int, D2StatListStrc*);
 
-enum D2C_Z09ItemConstants
-{
-    EVENTTYPE_REMOVESTATE = 0x0C,
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -176,7 +173,6 @@ enum D2C_Y09SkillConstants
 {
     SKILLSFLAGINDEX_AURA = 5,
     SKILLSFLAGINDEX_IMMEDIATE = 15,
-    EVENTTYPE_PERIODICSTATS = 9,
 };
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268

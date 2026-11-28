@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2ObjModes.h"
@@ -505,7 +506,6 @@ int __fastcall OBJECTS_OperateFunction44_SewerStairs(D2ObjOperateFnStrc* pOp, in
 
 #define UNIT_OBJECT 2
 
-#define EVENTTYPE_ENDANIM 1
 
 #define QUEST_A3Q3_GIDBINN 17
 

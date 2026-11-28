@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
@@ -42,9 +43,7 @@
 
 #define IFLAG_IDENTIFIED 0x10
 
-#define EVENTTYPE_AITHINK 2
 
-#define EVENTTYPE_STATREGEN 3
 
 #define IFLAG_QUANTITY 0x20
 

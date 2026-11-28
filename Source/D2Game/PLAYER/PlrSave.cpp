@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
@@ -56,7 +57,6 @@
 
 #define ACT_III 2
 
-#define EVENTTYPE_REMOVESTATE 12
 
 #define QUESTSTATEFLAG_A2Q6 14
 
@@ -528,11 +528,8 @@ static int __stdcall PLRSAVE_PlaceCorpseItem(D2GameStrc* pGame, D2UnitStrc* pPla
 
 #define UNITFLAG_INITSEEDSET 0x10
 
-#define EVENTTYPE_FREEHOVER 3
 
-#define EVENTTYPE_STATREGEN 4
 
-#define EVENTTYPE_TRAP 6
 
 #define COLLIDE_MASK_CORPSE 0x9C19
 

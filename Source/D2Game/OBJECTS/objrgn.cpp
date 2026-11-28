@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -508,9 +509,7 @@ static void GAME_UpdateAllClients(D2GameStrc* pGame);
 
 static void GAME_UpdateFrameRate(D2GameStrc* pGame);
 
-#define EVENTTYPE_STATREGEN 3
 
-#define EVENTTYPE_DELAYEDPORTAL 11
 
 struct D2SaveHeaderStrc;
 
