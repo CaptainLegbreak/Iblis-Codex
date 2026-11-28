@@ -43220,7 +43220,7 @@
     {
      "va": "0x0053EFC0",
      "length": 43,
-     "name": "@sub_0053EFC0@8"
+     "name": "@CCMD_IsStringZeroTerminated@8"
     }
    ]
   },
@@ -43642,7 +43642,7 @@
     {
      "va": "0x00541860",
      "length": 23,
-     "name": "@sub_00541860@4"
+     "name": "@AIGENERAL_GetAiControlFromUnit@4"
     }
    ]
   },
@@ -47551,17 +47551,17 @@
     {
      "va": "0x005734C0",
      "length": 20,
-     "name": "@sub_005734C0@8"
+     "name": "@MONSTER_SetAiState@8"
     },
     {
      "va": "0x005734E0",
      "length": 26,
-     "name": "@sub_005734E0@4"
+     "name": "@MONSTER_GetAiState@4"
     },
     {
      "va": "0x00573500",
      "length": 20,
-     "name": "@sub_00573500@8"
+     "name": "@MONSTER_SetLevelId@8"
     },
     {
      "va": "0x00573520",
@@ -47571,12 +47571,12 @@
     {
      "va": "0x00573540",
      "length": 34,
-     "name": "@sub_00573540@8"
+     "name": "@MONSTER_CheckSummonerFlag@8"
     },
     {
      "va": "0x00573570",
      "length": 43,
-     "name": "@sub_00573570@12"
+     "name": "@MONSTER_ToggleSummonerFlag@12"
     },
     {
      "va": "0x005735A0",
@@ -50969,7 +50969,7 @@
     {
      "va": "0x0058F000",
      "length": 43,
-     "name": "_sub_0058F000@4"
+     "name": "_AIGENERAL_GetMapAiFromUnit@4"
     },
     {
      "va": "0x0058F030",
@@ -51218,7 +51218,7 @@
     {
      "va": "0x00590810",
      "length": 18,
-     "name": "@sub_00590810@4"
+     "name": "@ACT1Q1_CanClientFXBeTriggered@4"
     },
     {
      "va": "0x00590830",
