@@ -240,8 +240,8 @@ int __cdecl UI_GetCofMemoryUsed(); // 0x0046F990
 int __cdecl UI_GetCofMemoryLimit(); // 0x0046F9A0
 void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
-void __cdecl sub_00472320_InitWeather(); // 0x00472320
-void __cdecl sub_004723C0_FreeWeather(); // 0x004723C0
+void __cdecl GFX_InitWeather(); // 0x00472320
+void __cdecl GFX_FreeWeather(); // 0x004723C0
 void __cdecl GFX_FreeWeatherCels(); // 0x00472BD0
 void __fastcall sub_00473C90_SetGlobal(int nValue); // 0x00473C90
 void __cdecl sub_00473CE0_Nop(); // 0x00473CE0
@@ -453,7 +453,7 @@ int __fastcall UI_SetTimerUnitId(D2UnitStrc* pUnit); // 0x0046BC70
 void __fastcall VIEW_RequestAtMonster220(D2UnitStrc* pUnit); // 0x0046BC90
 void __fastcall GFX_RemoveOverlays(D2UnitStrc* pUnit); // 0x0046F170
 void __fastcall GFX_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent, int* pOffsetX, int* pOffsetY); // 0x004706E0
-void __fastcall sub_00472C50_StartLightning(int nArg); // 0x00472C50
+void __fastcall GFX_StartLightning(int nArg); // 0x00472C50
 void __cdecl VIEW_ClearGlobals(); // 0x00476AF0
 int __cdecl DLIGHTMAP_GetRenderMode(); // 0x00477730
 int __cdecl UNITMODE_GetPlayerLevelId(); // 0x00481780

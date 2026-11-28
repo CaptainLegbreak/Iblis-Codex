@@ -435,7 +435,8 @@ void __cdecl GAME_InitGameState()
     gpAutomapRecord = (D2AutomapRecordStrc*)FOG_Alloc(8, ".\\GAME\\Game.cpp", 0x546, 0);
     CUNIT_ClearUnitTables();
     DLIGHTMAP_ClearLightGrid();
-    sub_00472320_InitWeather();
+// build: symbol ?GFX_InitWeather@* 0x00472320
+    GFX_InitWeather();
     CHAT_ResetChatHistory();
     gbCinematicExit = 0;
     gbPositionalSound = 0;

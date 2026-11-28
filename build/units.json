@@ -19609,7 +19609,7 @@
     {
      "va": "0x00472240",
      "length": 50,
-     "name": "?sub_00472240_RollMaskOffset@@YIHPATD2SeedStrc@@HH@Z"
+     "name": "?SEED_RollMaskedWithOffset@@YIHPATD2SeedStrc@@HH@Z"
     },
     {
      "va": "0x00472280",
@@ -19629,17 +19629,17 @@
     {
      "va": "0x00472320",
      "length": 146,
-     "name": "?sub_00472320_InitWeather@@YAXXZ"
+     "name": "?GFX_InitWeather@@YAXXZ"
     },
     {
      "va": "0x004723C0",
      "length": 33,
-     "name": "?sub_004723C0_FreeWeather@@YAXXZ"
+     "name": "?GFX_FreeWeather@@YAXXZ"
     },
     {
      "va": "0x004723F0",
      "length": 6,
-     "name": "?sub_004723F0_GetPhase@@YAHXZ"
+     "name": "?GFX_GetWeatherPhase@@YAHXZ"
     },
     {
      "va": "0x00472400",
@@ -19648,7 +19648,7 @@
     {
      "va": "0x00472550",
      "length": 57,
-     "name": "?sub_00472550_ResetWeather@@YAXXZ"
+     "name": "?GFX_ResetWeather@@YAXXZ"
     },
     {
      "va": "0x00472590",
@@ -19667,7 +19667,7 @@
     {
      "va": "0x00472890",
      "length": 823,
-     "name": "?sub_00472890_InitWeather@@YIXH@Z"
+     "name": "?GFX_InitLevelWeather@@YIXH@Z"
     },
     {
      "va": "0x00472BD0",
@@ -19677,12 +19677,12 @@
     {
      "va": "0x00472C20",
      "length": 37,
-     "name": "?sub_00472C20_PlayerMoved@@YIXH@Z"
+     "name": "?GFX_OnPlayerMoved@@YIXH@Z"
     },
     {
      "va": "0x00472C50",
      "length": 41,
-     "name": "?sub_00472C50_StartLightning@@YIXH@Z"
+     "name": "?GFX_StartLightning@@YIXH@Z"
     },
     {
      "va": "0x00472C80",
@@ -19697,17 +19697,17 @@
     {
      "va": "0x00472DA0",
      "length": 275,
-     "name": "?sub_00472DA0_CreateSplash@@YIXHHHH@Z"
+     "name": "?GFX_CreateSplash@@YIXHHHH@Z"
     },
     {
      "va": "0x00472EC0",
      "length": 239,
-     "name": "?sub_00472EC0_CreateBubble@@YIXHHHH@Z"
+     "name": "?GFX_CreateBubble@@YIXHHHH@Z"
     },
     {
      "va": "0x00472FB0",
      "length": 209,
-     "name": "?sub_00472FB0_GetPeriodLight@@YGXPAEH0@Z"
+     "name": "?GFX_GetPeriodLight@@YGXPAEH0@Z"
     },
     {
      "va": "0x00473090",
@@ -19720,22 +19720,22 @@
     {
      "va": "0x00473470",
      "length": 584,
-     "name": "?sub_00473470_DrawWeatherParticles@@YAXXZ"
+     "name": "?GFX_DrawWeatherParticles@@YAXXZ"
     },
     {
      "va": "0x004736C0",
      "length": 95,
-     "name": "_sub_004736C0_DrawPanelShade"
+     "name": "_GFX_DrawPanelShade"
     },
     {
      "va": "0x00473720",
      "length": 66,
-     "name": "?sub_00473720_GetLevelWeather@@YAXPAH0@Z"
+     "name": "?GFX_GetLevelWeather@@YAXPAH0@Z"
     },
     {
      "va": "0x00473770",
      "length": 49,
-     "name": "?sub_00473770_IsMudLevel@@YAHXZ"
+     "name": "?GFX_IsMudLevel@@YAHXZ"
     },
     {
      "va": "0x004737B0",
@@ -19744,7 +19744,7 @@
     {
      "va": "0x00473910",
      "length": 341,
-     "name": "?sub_00473910_UpdateWeather@@YAXXZ"
+     "name": "?GFX_StepWeather@@YAXXZ"
     },
     {
      "va": "0x00473A70",
@@ -19754,17 +19754,17 @@
     {
      "va": "0x00473C00",
      "length": 51,
-     "name": "?sub_00473C00_DrawWeatherLayers@@YAXXZ"
+     "name": "?GFX_DrawWeatherLayers@@YAXXZ"
     },
     {
      "va": "0x00473C40",
      "length": 64,
-     "name": "?sub_00473C40_IsRainLevel@@YAHXZ"
+     "name": "?GFX_IsRainLevel@@YAHXZ"
     },
     {
      "va": "0x00473C80",
      "length": 7,
-     "name": "?sub_00473C80_GetPhaseLevel@@YAMXZ"
+     "name": "?GFX_GetWeatherPhaseLevel@@YAMXZ"
     },
     {
      "va": "0x00473C90",
@@ -19818,7 +19818,7 @@
     {
      "va": "0x00473F50",
      "length": 299,
-     "name": "?sub_00473F50_UpdateWeather@@YAXXZ"
+     "name": "?GFX_UpdateWeather@@YAXXZ"
     }
    ]
   },
@@ -29901,7 +29901,7 @@
     {
      "va": "0x004DF790",
      "length": 26,
-     "name": "?sub_004DF790_ReleaseSlotObject@@YIXPAUD2SlotStrc@@@Z"
+     "name": "?SOUNDINST_ReleaseSlotObject@@YIXPAUD2SlotStrc@@@Z"
     },
     {
      "va": "0x004DF7B0",
@@ -29931,12 +29931,12 @@
     {
      "va": "0x004DF900",
      "length": 7,
-     "name": "?sub_004DF900_GetSlotSampleCount@@YIIPAUD2SlotStrc@@@Z"
+     "name": "?SOUNDINST_GetSlotSampleCount@@YIIPAUD2SlotStrc@@@Z"
     },
     {
      "va": "0x004DF910",
      "length": 5,
-     "name": "?sub_004DF910_GetSoundMode@@YAHXZ"
+     "name": "?SOUNDINST_GetSoundMode@@YAHXZ"
     },
     {
      "va": "0x004DF920",
@@ -29976,7 +29976,7 @@
     {
      "va": "0x004DFA40",
      "length": 18,
-     "name": "?sub_004DFA40_IsSlotPlaying@@YIHPAUD2SlotStrc@@@Z"
+     "name": "?SOUNDINST_IsSlotPlaying@@YIHPAUD2SlotStrc@@@Z"
     },
     {
      "va": "0x004DFA60",
@@ -29986,12 +29986,12 @@
     {
      "va": "0x004DFAA0",
      "length": 176,
-     "name": "?sub_004DFAA0_InitSoundChannels@@YAHH@Z"
+     "name": "?SOUNDINST_InitSoundChannels@@YAHH@Z"
     },
     {
      "va": "0x004DFB50",
      "length": 207,
-     "name": "?sub_004DFB50_GetFreeSlot@@YGPAUD2SlotStrc@@PAUD2SlotObjectStrc@@H@Z"
+     "name": "?SOUNDINST_GetFreeSlot@@YGPAUD2SlotStrc@@PAUD2SlotObjectStrc@@H@Z"
     },
     {
      "va": "0x004DFC20",
@@ -30029,7 +30029,7 @@
     {
      "va": "0x004E0370",
      "length": 536,
-     "name": "?sub_004E0370_GetNpcSoundRecord@@YAPAUD2NpcSoundStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?SOUNDINST_GetNpcSoundRecord@@YAPAUD2NpcSoundStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004E0590",
@@ -31396,7 +31396,7 @@
     {
      "va": "0x004F1640",
      "length": 173,
-     "name": "?sub_004F1640_AuraStateOverlay@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_AuraStateOverlay@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F1A30",
@@ -31405,22 +31405,22 @@
     {
      "va": "0x004F1C80",
      "length": 251,
-     "name": "?sub_004F1C80_SkillCltDoSpray@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_CltDoSpray@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F1F20",
      "length": 228,
-     "name": "?sub_004F1F20_FireTwinCltMissiles@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_FireTwinCltMissiles@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F2060",
      "length": 95,
-     "name": "?sub_004F2060_CheckTargetSetFlag@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_CheckTargetSetFlag@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F2260",
      "length": 219,
-     "name": "sub_004F2260_EvaluateProgressiveSkillCalc"
+     "name": "SKILLS_CltEvaluateProgressiveSkillCalc"
     },
     {
      "va": "0x004F2590",
@@ -31429,37 +31429,37 @@
     {
      "va": "0x004F2B20",
      "length": 188,
-     "name": "?sub_004F2B20_CreateMissileRing@@YGXPAUD2UnitStrc@@HHHHHIH@Z"
+     "name": "?SKILLS_CltCreateMissileRing@@YGXPAUD2UnitStrc@@HHHHHIH@Z"
     },
     {
      "va": "0x004F2DD0",
      "length": 188,
-     "name": "?sub_004F2DD0_CreateMissileRing2@@YGXPAUD2UnitStrc@@HHHHHIH@Z"
+     "name": "?SKILLS_CltCreateMissileRing2@@YGXPAUD2UnitStrc@@HHHHHIH@Z"
     },
     {
      "va": "0x004F2F20",
      "length": 189,
-     "name": "?sub_004F2F20_CltSkillMissileRing@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_CltMissileRing@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F2FE0",
      "length": 189,
-     "name": "?sub_004F2FE0_CltSkillMissileRing2@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_CltMissileRing2@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F3290",
      "length": 280,
-     "name": "?sub_004F3290_CreateMissileBurst@@YGXPAUD2UnitStrc@@HHHHHIH@Z"
+     "name": "?SKILLS_CltCreateMissileBurst@@YGXPAUD2UnitStrc@@HHHHHIH@Z"
     },
     {
      "va": "0x004F3430",
      "length": 149,
-     "name": "?sub_004F3430_CltSkillMissileBurst@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_CltMissileBurst@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F3870",
      "length": 86,
-     "name": "?sub_004F3870_SetTargetPosParams@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SetTargetPosParams@@YIHPAUD2UnitStrc@@HH@Z"
     }
    ]
   },

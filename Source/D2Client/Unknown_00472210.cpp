@@ -137,7 +137,7 @@ static inline unsigned int SEED_RollLowInline(D2SeedStrc* pSeed)
 
 unsigned char gabPeriodLightColors[12]; // 0x007A898C
 
-static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nValue, unsigned char* pOut1);
+static void __stdcall GFX_GetPeriodLight(unsigned char* pOut2, int nValue, unsigned char* pOut1); // 0x00472FB0
 
 
 extern unsigned int gnPhaseTotal; // 0x007A8A38
@@ -161,13 +161,13 @@ static inline unsigned __int64 sub_U01_RollSeedInline(D2SeedStrc* pSeed)
 
 int __fastcall SEED_RollInRange(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 
-static inline void sub_00473720_GetLevelWeather(int* pRain, int* pMud);
+static inline void GFX_GetLevelWeather(int* pRain, int* pMud); // 0x00473720
 
 int __cdecl sub_M112_Emit_00473720()
 {
     int nRain;
     int nMud;
-    sub_00473720_GetLevelWeather(&nRain, &nMud);
+    GFX_GetLevelWeather(&nRain, &nMud);
     return nRain + nMud;
 }
 
@@ -204,8 +204,8 @@ struct D2WeatherLineStrc
 extern D2WeatherLineStrc gaWeatherLines[]; // 0x006D6E78
 void __fastcall GFX_DrawWeatherSplashes(D2WeatherStrc* pWeather, D2WeatherLayerStateStrc* pState); // 0x00473A70
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);
-extern "C" void __cdecl sub_004736C0_DrawPanelShade(); // 0x004736C0
-void __cdecl sub_00473470_DrawWeatherParticles(); // 0x00473470
+extern "C" void __cdecl GFX_DrawPanelShade(); // 0x004736C0
+void __cdecl GFX_DrawWeatherParticles(); // 0x00473470
 extern unsigned int gnDisplayFps; // 0x007BB390
 
 extern "C" double __cdecl fabs(double x);
@@ -259,14 +259,14 @@ void __fastcall GFX_StepBubbles(int nUnused); // 0x00472D10
 
 void __stdcall GFX_StepParticles(D2SeedStrc* pSeed); // 0x004732C0
 
-static void sub_004737B0_StepWind(D2SeedStrc* pSeed);
+static void GFX_StepWind(D2SeedStrc* pSeed); // 0x004737B0
 
 void __stdcall GFX_StepWeatherPhase(D2SeedStrc* pSeed);
 
 
 static void __stdcall GFX_SetSplash(int bForce, int bValue); // 0x00472590
 
-void __cdecl sub_00473DC0_ToggleWeather(); // 0x00473DC0
+void __cdecl GFX_ToggleWeather(); // 0x00473DC0
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);          // 0x006CC468
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFileWithFileSize(const char* szFile, unsigned int* pFileSize, int nType); // 0x00478950
@@ -274,7 +274,7 @@ void __cdecl GFX_InitWindAngle();                                               
 
 extern "C" const char gszDataGlobalPath[];                                                                  // 0x006D4118
 
-void __fastcall sub_00472890_InitWeather(int nLevelId); // 0x00472890
+void __fastcall GFX_InitLevelWeather(int nLevelId); // 0x00472890
 
 struct D2CelFileStrc;
 
@@ -313,7 +313,7 @@ int __fastcall SEED_RollMasked(D2SeedStrc* pSeed, int nMax)
 }
 
 // 0x00472240
-int __fastcall sub_00472240_RollMaskOffset(D2SeedStrc* pSeed, int nOffset, int nRange)
+int __fastcall SEED_RollMaskedWithOffset(D2SeedStrc* pSeed, int nOffset, int nRange)
 {
     return (SEED_RollRandomNumberInline(pSeed) & (nRange - 1)) + nOffset;
 }
@@ -337,7 +337,7 @@ float __cdecl sub_00472310_AbsFloat(float fValue)
 }
 
 // 0x00472320
-void __cdecl sub_00472320_InitWeather()
+void __cdecl GFX_InitWeather()
 {
     gpWeatherParticles = DATAARRAYS_Create("Environment Particles", 0x100, 0x28);
     DATAARRAYS_Initialize(gpWeatherParticles);
@@ -359,7 +359,7 @@ void __cdecl sub_00472320_InitWeather()
 }
 
 // 0x004723C0
-void __cdecl sub_004723C0_FreeWeather()
+void __cdecl GFX_FreeWeather()
 {
     DATAARRAYS_Destroy(gpWeatherParticles);
     DATAARRAYS_Destroy(gpWeatherSplashes);
@@ -367,7 +367,7 @@ void __cdecl sub_004723C0_FreeWeather()
 }
 
 // 0x004723F0
-int __cdecl sub_004723F0_GetPhase()
+int __cdecl GFX_GetWeatherPhase()
 {
     return gnPhase;
 }
@@ -431,7 +431,7 @@ void __cdecl GFX_ResetPhaseState()
 }
 
 // 0x00472550
-void __cdecl sub_00472550_ResetWeather()
+void __cdecl GFX_ResetWeather()
 {
 // build: symbol ?DATAARRAYS_Reset@* 0x006BCAC0
     DATAARRAYS_Reset(gpWeatherParticles);
@@ -538,7 +538,7 @@ static int __stdcall GFX_RollAct5Weather(int bForce)
 }
 
 // 0x00472890
-void __fastcall sub_00472890_InitWeather(int nLevelId)
+void __fastcall GFX_InitLevelWeather(int nLevelId)
 {
     GFX_RollAct5Weather(1);
     if (!gbWeatherResetDone)
@@ -632,7 +632,7 @@ void __cdecl GFX_FreeWeatherCels()
 }
 
 // 0x00472C20
-void __fastcall sub_00472C20_PlayerMoved(int nArg)
+void __fastcall GFX_OnPlayerMoved(int nArg)
 {
 // build: symbol ?DATAARRAYS_Reset@* 0x006BCAC0
     DATAARRAYS_Reset(gpWeatherSplashes);
@@ -642,7 +642,7 @@ void __fastcall sub_00472C20_PlayerMoved(int nArg)
 }
 
 // 0x00472C50
-void __fastcall sub_00472C50_StartLightning(int nArg)
+void __fastcall GFX_StartLightning(int nArg)
 {
     if (!gbLightningEnabled)
     {
@@ -710,7 +710,7 @@ void __fastcall GFX_StepBubbles(int nUnused)
 }
 
 // 0x00472DA0
-void __fastcall sub_00472DA0_CreateSplash(int nX, int nY, int nFixX, int nFixY)
+void __fastcall GFX_CreateSplash(int nX, int nY, int nFixX, int nFixY)
 {
     D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x2D2);
@@ -746,7 +746,7 @@ void __fastcall sub_00472DA0_CreateSplash(int nX, int nY, int nFixX, int nFixY)
 }
 
 // 0x00472EC0
-void __fastcall sub_00472EC0_CreateBubble(int nX, int nY, int nFixX, int nFixY)
+void __fastcall GFX_CreateBubble(int nX, int nY, int nFixX, int nFixY)
 {
     D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x2FC);
@@ -781,7 +781,7 @@ void __fastcall sub_00472EC0_CreateBubble(int nX, int nY, int nFixX, int nFixY)
 }
 
 // 0x00472FB0
-static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nValue, unsigned char* pOut1)
+static void __stdcall GFX_GetPeriodLight(unsigned char* pOut2, int nValue, unsigned char* pOut1)
 {
     int n = D2GFX_GetDisplayType();
     int bFlag;
@@ -857,7 +857,7 @@ static void GFX_InitParticle(D2SeedStrc* pSeed)
         }
 
         D2_ASSERT(pParticle->nParam < 8 && pParticle->nParam >= 0, 0x390);
-        sub_00472FB0_GetPeriodLight(&pParticle->nColor, pParticle->nParam, pAlpha);
+        GFX_GetPeriodLight(&pParticle->nColor, pParticle->nParam, pAlpha);
         return;
     }
 
@@ -968,7 +968,7 @@ void __stdcall GFX_StepParticles(D2SeedStrc* pSeed)
 }
 
 // 0x00473470
-void __cdecl sub_00473470_DrawWeatherParticles()
+void __cdecl GFX_DrawWeatherParticles()
 {
     if (D2GFX_CheckLowQuality())
         return;
@@ -1032,7 +1032,7 @@ void __cdecl sub_00473470_DrawWeatherParticles()
 }
 
 // 0x004736C0
-extern "C" void __cdecl sub_004736C0_DrawPanelShade()
+extern "C" void __cdecl GFX_DrawPanelShade()
 {
     int left = 0;
     int bottom = gnScreenHeight - 47;
@@ -1050,7 +1050,7 @@ extern "C" void __cdecl sub_004736C0_DrawPanelShade()
 }
 
 // 0x00473720
-static inline void sub_00473720_GetLevelWeather(int* pRain, int* pMud)
+static inline void GFX_GetLevelWeather(int* pRain, int* pMud)
 {
     D2UnitStrc* pUnit = CUNIT_GetPlayerUnit2();
     *pRain = 0;
@@ -1064,7 +1064,7 @@ static inline void sub_00473720_GetLevelWeather(int* pRain, int* pMud)
 }
 
 // 0x00473770
-int __cdecl sub_00473770_IsMudLevel()
+int __cdecl GFX_IsMudLevel()
 {
     D2UnitStrc* pUnit = CUNIT_GetPlayerUnit2();
     int bMud = 0;
@@ -1078,7 +1078,7 @@ int __cdecl sub_00473770_IsMudLevel()
 }
 
 // 0x004737B0
-static void sub_004737B0_StepWind(D2SeedStrc* pSeed)
+static void GFX_StepWind(D2SeedStrc* pSeed)
 {
 // build: symbol ?gnPhaseLevel@* 0x007A89E0
     while (gpWeatherParticles->nCount < gnPhaseLevel)
@@ -1136,7 +1136,7 @@ static void sub_004737B0_StepWind(D2SeedStrc* pSeed)
 }
 
 // 0x00473910
-void __cdecl sub_00473910_UpdateWeather()
+void __cdecl GFX_StepWeather()
 {
     D2UnitStrc* pUnit = CUNIT_GetPlayerUnit2();
     int bRain = 0;
@@ -1184,14 +1184,14 @@ void __cdecl sub_00473910_UpdateWeather()
 
         if (gnDisplayFps >= 10)
         {
-            sub_004736C0_DrawPanelShade();
+            GFX_DrawPanelShade();
             return;
         }
     }
 
     if (bRain && gpWeatherParticles->nCount)
     {
-        sub_00473470_DrawWeatherParticles();
+        GFX_DrawWeatherParticles();
     }
 }
 
@@ -1262,7 +1262,7 @@ void __fastcall GFX_DrawWeatherSplashes(D2WeatherStrc* pWeather, D2WeatherLayerS
 }
 
 // 0x00473C00
-void __cdecl sub_00473C00_DrawWeatherLayers()
+void __cdecl GFX_DrawWeatherLayers()
 {
     if (gpWeatherSplashes->nCount)
     {
@@ -1275,7 +1275,7 @@ void __cdecl sub_00473C00_DrawWeatherLayers()
 }
 
 // 0x00473C40
-int __cdecl sub_00473C40_IsRainLevel()
+int __cdecl GFX_IsRainLevel()
 {
     if (gbWeatherSplash)
     {
@@ -1293,7 +1293,7 @@ int __cdecl sub_00473C40_IsRainLevel()
 }
 
 // 0x00473C80
-float __cdecl sub_00473C80_GetPhaseLevel()
+float __cdecl GFX_GetWeatherPhaseLevel()
 {
 // build: symbol ?gfPhaseLevel@* 0x007A89A0
     return gfPhaseLevel;
@@ -1376,7 +1376,7 @@ void __fastcall GFX_SetWeatherPhase(int nPhase)
 }
 
 // 0x00473DC0
-void __cdecl sub_00473DC0_ToggleWeather()
+void __cdecl GFX_ToggleWeather()
 {
     gbPhaseBusy = !gbPhaseBusy;
     if (gbPhaseBusy)
@@ -1434,7 +1434,7 @@ void __stdcall GFX_StepWeatherPhase(D2SeedStrc* pSeed)
 }
 
 // 0x00473F50
-void __cdecl sub_00473F50_UpdateWeather()
+void __cdecl GFX_UpdateWeather()
 {
     int nLevelId;
     int bRain;
@@ -1494,7 +1494,7 @@ void __cdecl sub_00473F50_UpdateWeather()
 
         GFX_StepSplashes((int)pSeed);
         GFX_StepWeatherPhase(pSeed);
-        sub_004737B0_StepWind(pSeed);
+        GFX_StepWind(pSeed);
     }
     else
     {

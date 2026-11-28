@@ -861,7 +861,8 @@ int __fastcall SKILLDESC_MissileAtTargetUnit(D2UnitStrc* pUnit, int nSkillId, in
             GFXUTIL_SetMotionVectorB(pMissile, 0, 0, -0x28, 1);
         }
 
-        sub_00472C50_StartLightning(0);
+// build: symbol ?GFX_StartLightning@* 0x00472C50
+        GFX_StartLightning(0);
         const short nOverlay = pSkillsTxtRecord->wPrgOverlay;
         if (nOverlay > 0)
         {

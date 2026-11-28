@@ -399,14 +399,14 @@ void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                         
 
 
 
-void __cdecl sub_00473C00_DrawWeatherLayers();                                                               // 0x00473C00
+void __cdecl GFX_DrawWeatherLayers();                                                               // 0x00473C00
 
 void __fastcall sub_004DF1C0(D2ViewStrc* pView);                                                             // 0x004DF1C0
 
 
 void __cdecl DLIGHTMAP_DebugDrawLights();                                                                 // 0x00475B20
 
-void __cdecl sub_00473910_UpdateWeather();                                                                                 // 0x00473910
+void __cdecl GFX_StepWeather();                                                                                 // 0x00473910
 
 
 extern const unsigned int gdwBitMasks[32];                                                                   // 0x006CE268
@@ -669,7 +669,7 @@ void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView)
     }
 // build: symbol ?WALL2_UpdateView@* 0x004DED10
     WALL2_UpdateView(pView);
-    sub_00473C00_DrawWeatherLayers();
+    GFX_DrawWeatherLayers();
     if (pView->dwDrawFlags & gdwBitMasks[3])
     {
         ((D2CellGridViewStrc*)pView)->sub_004DF510_DrawCellNodes();

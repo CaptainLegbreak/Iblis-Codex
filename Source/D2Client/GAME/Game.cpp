@@ -1681,7 +1681,7 @@ extern void* gpGlobal_007A0634; // 0x007A0634
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
 void __fastcall VIEW_AdjustViewPos(int* pX, int* pY); // 0x00476D40
 void __fastcall VIEW_PrepareView(D2ViewStrc* pView, int nArg); // 0x00476140
-void __cdecl sub_00473F50_UpdateWeather(); // 0x00473F50
+void __cdecl GFX_UpdateWeather(); // 0x00473F50
 void __stdcall ENVIRONMENT_GetLightColorFromAct(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
 void __stdcall D2GFX_SetAmbientColor(int nRed, int nGreen, int nBlue); // 0x004F6430
 void __cdecl AUTOMAP_UpdateAutomapOrigin(); // 0x0045B440
@@ -2798,7 +2798,8 @@ void __cdecl GAME_ReleaseGameState()
     UI_ShutdownUI();
     sub_00473CF0_Nop();
     DLIGHTMAP_FreeAllLights();
-    sub_004723C0_FreeWeather();
+// build: symbol ?GFX_FreeWeather@* 0x004723C0
+    GFX_FreeWeather();
     FOG_DestroyMemoryPoolSystem(gpMemPool);
     memset(gaClientState_007A0480, 0, sizeof(gaClientState_007A0480));
     FOG_Free(gpAutomapRecord, ".\\GAME\\Game.cpp", 0x599, 0);
@@ -2849,7 +2850,7 @@ void __fastcall GAME_DrawGameView(int bNoCursor)
     gnLastViewY = nY;
     VIEW_SetViewPos(gpClientView, nX, nY);
     VIEW_PrepareView(gpClientView, 0);
-    sub_00473F50_UpdateWeather();
+    GFX_UpdateWeather();
 
     unsigned char nRed, nGreen, nBlue;
     ENVIRONMENT_GetLightColorFromAct(gpGlobal_007A0634, &nRed, &nGreen, &nBlue);

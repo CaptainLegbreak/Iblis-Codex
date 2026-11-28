@@ -101,7 +101,7 @@ extern int gnEnvVolume; // 0x00727568
 static bool __fastcall sub_004DF770_IsType(S* p, char unused, int x) { return p->type == x; }
 
 // 0x004DF790
-void __fastcall sub_004DF790_ReleaseSlotObject(D2SlotStrc* pSlot)
+void __fastcall SOUNDINST_ReleaseSlotObject(D2SlotStrc* pSlot)
 {
     if (pSlot->pObject)
     {
@@ -189,14 +189,14 @@ void __cdecl SOUNDINST_ReleaseFinishedSlots()
 }
 
 // 0x004DF900
-unsigned int __fastcall sub_004DF900_GetSlotSampleCount(D2SlotStrc* pSlot)
+unsigned int __fastcall SOUNDINST_GetSlotSampleCount(D2SlotStrc* pSlot)
 {
 // build: symbol ?D2SOUNDSMP_GetStreamPosition@* 0x005159B0
     return D2SOUNDSMP_GetStreamPosition(pSlot->pSound);
 }
 
 // 0x004DF910
-int __cdecl sub_004DF910_GetSoundMode()
+int __cdecl SOUNDINST_GetSoundMode()
 {
     return sub_00514C90_GetSoundMode();
 }
@@ -285,7 +285,7 @@ D2SlotStrc* __fastcall SoundChannelFind(int nOwner)
 }
 
 // 0x004DFA40
-int __fastcall sub_004DFA40_IsSlotPlaying(D2SlotStrc* pSlot)
+int __fastcall SOUNDINST_IsSlotPlaying(D2SlotStrc* pSlot)
 {
     if (pSlot && pSlot->pSound)
     {
@@ -312,7 +312,7 @@ void __cdecl SOUNDINST_ShutdownSound()
 }
 
 // 0x004DFAA0
-static int sub_004DFAA0_InitSoundChannels(int nMode)
+static int SOUNDINST_InitSoundChannels(int nMode)
 {
 // build: symbol ?D2SOUND_GetDirectSound@* 0x00513B50
     if (!D2SOUND_GetDirectSound())
@@ -344,7 +344,7 @@ static int sub_004DFAA0_InitSoundChannels(int nMode)
 }
 
 // 0x004DFB50
-static D2SlotStrc* __stdcall sub_004DFB50_GetFreeSlot(D2SlotObjectStrc* pObject, int nType)
+static D2SlotStrc* __stdcall SOUNDINST_GetFreeSlot(D2SlotObjectStrc* pObject, int nType)
 {
     for (int i = 0; i < 16; ++i)
     {
@@ -472,7 +472,7 @@ int __fastcall SOUNDINST_SetSoundMode(int nMode)
         return 0;
 
     SOUNDINST_ShutdownSound();
-    if (!sub_004DFAA0_InitSoundChannels(nMode))
+    if (!SOUNDINST_InitSoundChannels(nMode))
         return 0;
 
     if (sub_00514C90_GetSoundMode() != nMode)
@@ -542,7 +542,7 @@ int __cdecl SOUNDINST_ToggleSoundMode12()
 }
 
 // 0x004E01B0
-D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
+D2SlotStrc* __fastcall SOUNDINST_PlaySlotSound(D2SlotObjectStrc* pObject)
 {
     D2SoundsTxt* pFirst = SOUNDHDR_GetSoundRecord(pObject->nSoundId);
     if (!(pObject->nFlags & 1))
@@ -571,7 +571,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
         if (sub_00514C90_GetSoundMode() == 2)
             nType |= 6;
     }
-    D2SlotStrc* pSlot = sub_004DFB50_GetFreeSlot(pObject, nType);
+    D2SlotStrc* pSlot = SOUNDINST_GetFreeSlot(pObject, nType);
     if (!pSlot)
         return 0;
     D2SOUNDSMP_ResetSound(pSlot->pSound);
@@ -614,7 +614,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
 }
 
 // 0x004E0370
-static D2NpcSoundStrc* sub_004E0370_GetNpcSoundRecord(D2UnitStrc* pUnit)
+static D2NpcSoundStrc* SOUNDINST_GetNpcSoundRecord(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -695,7 +695,7 @@ static D2NpcSoundStrc* sub_004E0370_GetNpcSoundRecord(D2UnitStrc* pUnit)
 int __fastcall SOUNDINST_PickNpcSound(D2UnitStrc* pUnit, int nType)
 {
     int nSound;
-    D2NpcSoundStrc* pSound = sub_004E0370_GetNpcSoundRecord(pUnit);
+    D2NpcSoundStrc* pSound = SOUNDINST_GetNpcSoundRecord(pUnit);
     if (!pSound)
     {
         return 0;
