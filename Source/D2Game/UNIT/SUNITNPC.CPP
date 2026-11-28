@@ -3053,7 +3053,8 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         if (QUESTRECORD_GetQuestState(sub_00543520(pGame, pPlayer), 0x29, 1))
         {
             SKILLS_ResetSkillsAndRefundPoints(pGame, pPlayer);
-            sub_00570C80_PLAYERSTATS_ResetToBaseStats(pGame, pPlayer);
+// build: symbol ?PLAYERSTATS_ResetToBaseStats@* 0x00570C80
+            PLAYERSTATS_ResetToBaseStats(pGame, pPlayer);
             SUNIT_AttachSound(pPlayer, 2, pPlayer);
             ACT1Q1_SetRespecRewardGranted(pGame, pPlayer);
         }
@@ -3244,7 +3245,8 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
 
         if (WAYPOINTS_GetWaypointNoFromLevelId(LEVEL_LUTGHOLEIN, &nWpNo))
         {
-            WAYPOINTS_ActivateWaypoint(sub_00547F50_GetWaypointData(pGame, pPlayer), nWpNo);
+// build: symbol ?PLRMSG_GetWaypointData@* 0x00547F50
+            WAYPOINTS_ActivateWaypoint(PLRMSG_GetWaypointData(pGame, pPlayer), nWpNo);
         }
         return 0;
     }
@@ -3265,7 +3267,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
 
         if (WAYPOINTS_GetWaypointNoFromLevelId(LEVEL_KURASTDOCKTOWN, &nWpNo))
         {
-            WAYPOINTS_ActivateWaypoint(sub_00547F50_GetWaypointData(pGame, pPlayer), nWpNo);
+            WAYPOINTS_ActivateWaypoint(PLRMSG_GetWaypointData(pGame, pPlayer), nWpNo);
         }
         return 0;
     }
@@ -3289,7 +3291,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
 
         if (WAYPOINTS_GetWaypointNoFromLevelId(LEVEL_HARROGATH, &nWpNo))
         {
-            WAYPOINTS_ActivateWaypoint(sub_00547F50_GetWaypointData(pGame, pPlayer), nWpNo);
+            WAYPOINTS_ActivateWaypoint(PLRMSG_GetWaypointData(pGame, pPlayer), nWpNo);
         }
         return 0;
     }
