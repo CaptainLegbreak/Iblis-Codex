@@ -2765,7 +2765,7 @@
   ["0x0045F120", 105, "verified", "?SCMD_HandleUnitLife@@YIXPAE@Z"],
   ["0x0045F190", 1118, "verified"],
   ["0x0045F5F0", 28, "verified", "?SCMD_HandleWardenRequest@@YIXPAUD2GSPacketSrvAE@@@Z"],
-  ["0x0045F610", 280, "verified", "?SCMD_GrowPacketBuffer@@YAPAUD2PacketBufferStrc@@PAUD2UnitStrc@@@Z"],
+  ["0x0045F610", 280, "verified", "?SCMD_GrowPacketBuffer@@YAPAUD2PacketListStrc@@PAUD2UnitStrc@@@Z"],
   ["0x0045F730", 108, "verified", "?SCMD_QueuePacket@@YGXPAEHPAUD2UnitStrc@@@Z"],
   ["0x0045F7A0", 3, "verified", "sub_0045F7A0_Nop"],
   ["0x0045F7B0", 562, "verified"],
