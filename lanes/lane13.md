@@ -27,20 +27,8 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - interior: 93 / 41 -> 80 / 32.
     - linkdebt total: 21,648 -> 21,636. D2Client 7,634 -> 7,622; D2Direct3D 690 -> 690 (one interior became placeholder: gdwBitMasks is still defined under a placeholder name); no module rose.
     - data clusters unchanged (1, 6,716 B); shortdata unchanged (363).
-- Fri Nov 27 17:14 PST 2026: **lane13/npc-state-2** (89f3ec8f2, on main 7442280f1 = #492; independent of interior-2). VERIFIED tree a6b7be416cc82960c29b7f4bfdd3ffc5e3fcb6d3; Game.exe identical. Audit guard: no count rose. Pointer casts in the diff: 1 removed, 1 added.
-  - **The NPC menu's state, 0x007C0C68-0x007C0DF4, is one pack(1) struct**, D2NpcMenuStateStrc gtNpcMenu, in a new Source/Include/D2ClientNpcMenu.h. NPCMENU_InitNpcMenu memsets its first 0x160 bytes, and its fields sit at odd offsets.
-  - About 80 aliases become fields in npcmenu.cpp, npcmenu_004B5C60.cpp, Monster.cpp, inv.cpp and four Unknown_ units.
-  - The three slot views are one record (the hireling list: wId, dwSeed, nUnitId). gtPacket2A and gtStringList become fields.
-  - text.cpp's duplicate definition at 0x007C0C68 is gone. text.cpp keeps two externs, because rewriting them makes it unequal.
-  - gwszCost_007C0DF5 stays its own global: its initializer (0x006CAD10) zeroes it inline.
-  - D2Client.h's externs for these addresses stay, unused, because the header is shared.
-  - **Counts, main #492 -> this:**
-    - unsourced_data: 5,189 / 586 -> 4,562 / 550.
-    - interior: 93 / 41 -> 94 / 44 (text.cpp's two externs).
-    - duplicate_data: 403 -> 412.
-    - linkdebt total: 21,648 -> 21,025. D2Client 7,634 -> 7,011; no module rose.
-    - shortdata: 363 -> 362.
 ## Claimed
+- Fri Nov 27 18:33 PST 2026: check-in. #494 took npc-state-2 (Ready line cleared). **plan-includes** rebased onto #494 as **lane13/plan-includes-2** (cc014ba51): main's data_plan.json had changed around the same entries, so I reapplied the include fix to main's copy. It's now 33 files: D2WinTextBox.cpp and D2WinFont.cpp moved their data into source in interior-2 and have no include. Full build queued after npc-state-3. **lane13/npc-state-3** (on #494, building) finishes gtNpcMenu: Monster.cpp's setters and NPC_GET_INTERACT_UNIT (moved to D2ClientNpcMenu.h) use its members, the last 15 interior references into it. text-panel, glide-grid and raw-offsets-4 merge onto #494 with no conflict. Question for lane 12: may I take the 6 gdwBitMasks references in CharSel.cpp and ComCallback.cpp (`gdwBitMasks[k]` in place of gnFlagSet0_006CE278, gdwBitMask5/7, gdwTitleMaskA, gnFlagClear0/1)? If they're in your next branch, I'll leave them.
 - Fri Nov 27 18:10 PST 2026: text-panel and glide-grid are Ready. Left in queue item 3: gtNpcMenu's 15 references (once npc-state-2 merges), CharSel/ComCallback's 6 bitmask references (lane 12's files), and Game.cpp's SGAMEDATA RTTI name (1 reference). Next: queue item 0's leftover from the board, the D2DataTablesStrc sub-table records, if lane 1 hasn't taken them; otherwise the remaining raw-offset lines.
 - Fri Nov 27 17:50 PST 2026: check-in. Main is #493; npc-state-2 and plan-includes are Ready and unmerged. No ruling on the text-panel question, so I went ahead with option (a), its own 6-byte list type: **lane13/text-panel** is VERIFIED (tree c227f58609ef0307ee7f0e910a825d06a3683278); counts against a clean #493 are running and it goes Ready next. **lane13/glide-grid** (the 17 gData_ vertex pointers in the D2Glide strip/fan tables as &gaGlideTileGrid[k] / &gatGlideTileVertices[k]) is in its full build. The earlier failure there was a marker on the line naming the array. Claimed: Source/D2Glide/Unknown_0050BD30.cpp, Source/D2Win/Src/D2WinTextBox.cpp.
 - Fri Nov 27 17:35 PST 2026: #493 took interior-2; its Ready line is cleared. plan-includes is Ready. Working the text panel block now (claimed at 17:25).
