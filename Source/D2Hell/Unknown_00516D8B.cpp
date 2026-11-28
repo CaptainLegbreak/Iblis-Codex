@@ -1055,7 +1055,7 @@ void __fastcall sub_00517804_GetMessage(unsigned int id,char* dest,unsigned int 
   }
   LeaveCriticalSection(&gtFaultHandlerLock.tLock);
  }
- SStrCopy(dest,gszFaultError,size);
+ SStrCopy(dest,"D2Hell Fault.cpp error.",size);
 }
 
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char*,const char*,char*);  // 0x006CC4AC
