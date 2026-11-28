@@ -234,7 +234,7 @@ int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, in
 
 
 
-int __fastcall SUNIT_TeleportUnit(Game*,D2UnitStrc*,D2ActiveRoomStrc*,int,int,int,int); // 0x00554EA0
+int __fastcall SUNIT_TeleportUnit(D2GameStrc*,D2UnitStrc*,D2ActiveRoomStrc*,int,int,int,int); // 0x00554EA0
 
 enum { UNIT_FLAGS = 0xE };
 
@@ -244,11 +244,6 @@ struct Monster;
 
 
 
-struct Game
-{
-    unsigned char pad[28];
-    void* pool;
-};
 
 
 
