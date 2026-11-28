@@ -892,7 +892,7 @@ void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int
     }
     nY = D2_MIN(D2_MAX(nY, nTextHeight), nScreenHeight - 31);
 
-    D2GFX_DrawBox(nLeft, nY - nTextHeight, nTextWidth + nLeft, nY, dwColor, eDrawMode);
+    FONT_DrawBox(nLeft, nY, nTextWidth, nTextHeight, dwColor, eDrawMode);
     FONT_DrawString(wszText, nLeft, nY - 3 * gatFontCache[gnCurrentFont].pFontInfo[1]->nHeight / 10, nTextWidth, nColor, 1);
 }
 
@@ -1252,11 +1252,6 @@ int* __fastcall D2WINFONT_ClearTable(int* pTable)
         pTable[i] = 0;
     }
     return pTable;
-}
-
-extern "C" void __stdcall sub_K08_EmitDrawRect(int nX, int nY, int nWidth, int nHeight, unsigned int dwColor, int nDrawMode)
-{
-    FONT_DrawBox(nX, nY, nWidth, nHeight, dwColor, nDrawMode);
 }
 
 // 0x00502C60
