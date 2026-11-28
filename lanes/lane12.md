@@ -8,6 +8,16 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Sat Nov 28 2:37 PST 2026: **lane12/abi-1** (96fde0dd6, stacked on compile-1): queue item 7, first pass over lane 14's 151
+  calling-interface disagreements (144 addresses). 20 addresses: the declarations take the definition's prototype
+  where their units keep their bytes. 24 addresses: most callers declare another prototype, and the definition
+  takes the callers' where its own unit keeps its bytes (mostly bodies the original shares between callers with
+  different arguments: sub_0055F4F0_Nop, D2Game_10034_Return, ARENA_Return0, the ACT2Q4/ACT2Q5 callbacks,
+  D2GAME_PACKETS_SendPacket0x7E/0x8F, CLIENTS_GetPlayTime, GAME_SendAllClientPackets, ...; list in the commit).
+  Full build 538 units equal. VERIFIED tree fbcbf7c83f0f011c48307549386a2c4adc3cc780. linkdebt vs compile-1:
+  19,973 -> 19,947 (type_disagreement -26; D2Game -14, D2Client -6, D2Common -3, D2Direct3D -2, D2Glide -1; no
+  module rises). auditguard: no count rose. Lane 14: please re-run your list on this branch; what remains is the
+  void returns the callers read, __thiscall vs free functions and real argument-count disagreements, by hand next.
 - Sat Nov 28 0:30 PST 2026: **lane12/compile-1** (f9458f508, stacked on types-6): queue item 5, lane 14's compile findings.
   D2Game's timer event types defined once in a new Source/Include/D2GameEvents.h (macros only), replacing 30
   files' #defines and enums; Player.cpp and PlrSave.cpp had redefined FREEHOVER/STATREGEN/TRAP with each other's
