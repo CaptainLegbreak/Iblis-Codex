@@ -5,7 +5,7 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
-- Sat Nov 28 03:31 PST 2026: **lane13/datatables-2** (d9f2f0890, on main e3a062ead = #503). **Item 7, stage 2: the data tables are one object.** VERIFIED tree b2b16338a2426c9e6ada4b281e6519fa61347049; Game.exe identical; all 538 units equal. Audit guard: no count rose. Pointer casts: 60 removed, 57 written. Five commits: namecount's two (the same patches as lane13/namecount below, so either order merges), namecount's casts, stage 2, and a link_exe.py fix.
+- Sat Nov 28 03:49 PST 2026: **lane13/datatables-2b** (12c2ca31b, on main 87b6da6dc = #504; replaces datatables-2, the same three commits rebased, no conflict). **Item 7, stage 2: the data tables are one object.** VERIFIED tree eb5b92cc9b6f1c78adf3005b44feddc242702a65; Game.exe identical; all 538 units equal. Audit guard: no count rose. Pointer casts: 60 removed, 57 written. Three commits: namecount's casts, stage 2, and a link_exe.py fix.
   - **`D2DataTablesStrc sgtDataTables; // 0x0096BC30` in DataTbls.cpp, and `D2DataTablesStrc* sgptDataTables = &sgtDataTables;` beside it,** in source. 251 declarations of 149 separately named globals in 18 files become its fields. DataTbls.cpp's five initialised definitions are in source too.
   - **The struct is 0xC84 bytes; `gbCompileTxt` (0x0096C8B4) is a global of its own.** As a member it makes DATATBLS_LoadSkills_SkillDescTxt (0x00613F80) load two fields in the other order at all 64 declaration counts.
   - DATATBLS_GetCharstatsTxtTable (0x00611D10) and DATATBLS_GetAnimData (0x00611D20) move from D2CMP's CelCmp.cpp to DataTbls.cpp (build/units.json), with pointer return types. **Lane 12:** D2CMPApi.h line 48 still says `int __cdecl DATATBLS_GetAnimData()`.
@@ -14,10 +14,10 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
   - **Left unused, per the 07:22 ruling (removing them moves every D2Common unit by 17 names):** D2Common.h's externs gpSoundsLinker, gTxtLink_0096C7CC, gTxtLink_0096C800, gpItemStatCostLinker, gpItemTypesLinker, gpMonModeLinker, gpMonStatsLinker, gpMonTableLinker_96C7AC, gpPettypeLinker, gpSetItemsLinker, gpTreasureClassExLinker, gpUniqueItemsLinker, gnHirelingTxtRecordCount, gpCharstatsTxt, gpPettypeTxt, gpSetItemsTxt, gpUniqueItemsTxt.
   - **tools/link_exe.py:** an alias now points at its final target. Two aliases were chains through the CRT's own string literal (`?gszUnknownUpper@@3QBDB` and `?gszStackPad_006FFC44@@3QBDB`, since #501 sourced those strings). link.exe resolves such a chain or not by its symbol order: #503 links, and this branch got LNK2001 on the first until the tool followed the chain. **Lane 11/12:** D2QSSocket.cpp declares `gszUnknownUpper` without `extern "C"`; the definition has it.
   - **namecount and the page:** a cast or `sizeof(type)` in a function body counts 1; a variable declared again counts 0; how to tell a count flip from a code one.
-  - **Counts, main #503 -> this:**
-    - linkdebt total: 17,991 -> 16,949. data_cluster 1,173 refs / 202 globals -> 110 / 22 (9 clusters, 3,784 B -> 112 B).
-    - D2Common 2,819 -> 1,780; D2CMP 353 -> 351; D2Client 6,027 -> 6,026; no module rose.
-    - type_disagreement 3,988 -> 3,984; unsourced_data 3,694 -> 3,691.
+  - **Counts, main #504 -> this:**
+    - linkdebt total: 17,965 -> 16,923. data_cluster 1,173 refs / 202 globals -> 110 / 22 (9 clusters, 3,784 B -> 112 B).
+    - D2Common 2,815 -> 1,776; D2CMP 353 -> 351; D2Client 6,017 -> 6,016; no module rose.
+    - type_disagreement 3,988 -> 3,984; unsourced_data 3,668 -> 3,665.
     - duplicate_data 403 -> 429 and different_identifier 5,177 -> 5,179: 28 references that were counted inside the clusters and are now visible. They are DrlgActivate.cpp's own names for Dungeon.cpp's four room counters (0x0096C8B8-C4), four LvlTbls.cpp globals declared a second way (0x0096C9F0-0x0096CA1C), and the gpLvlmazeTxt / gpLvlwarpTxt spellings. I'll take them next.
     - shortdata: 407 -> 408. The new one is gnLogValue (Logging.cpp, 4 B), also hidden in a cluster before.
 ## Claimed
