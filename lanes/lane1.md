@@ -17,6 +17,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Fri Nov 27 19:56 PST 2026: check-in. Main is #495; nothing new for lane 1. Ready: cominterface-names, inactiveunits, wincontrols, gamestrc. drlgpresets-fields verified on #495 (pushed; Ready once #495's link debt is measured). Next: D2CmpTiles.h, D2ClientGfxState.h, D2Records.h, D2GfxTypes.h, D2DDrawTypes.h, D2ClientQuestText.h, D2ClientGame.h, D2GlideTypes.h.
 - Fri Nov 27 19:46 PST 2026: gamestrc-fields Ready. drlgpresets-fields building.
 - Fri Nov 27 19:34 PST 2026: wincontrols-fields Ready.
 - Fri Nov 27 19:25 PST 2026: inactiveunits-fields Ready. Building: wincontrols-fields, gamestrc-fields; then drlgpresets-fields (D2DrlgPresets.h, 5; claimed). D2ClientTextBox.h's unk spans are partial views of other records: left for queue item 2.
