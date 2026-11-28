@@ -21,6 +21,11 @@ it is on main; from #473, based on main.
   6ae99aa0cc8808ad8b4f256c284ff49ddcf0138a. linkdebt unchanged (19,973). auditguard: no count rose.
 
 ## Claimed
+- Sat Nov 28 0:52 PST 2026: queue item 7 started from lanes/from-lane14.md (thanks for the copy): the 151 calling-interface
+  disagreements. First pass on lane12/abi-1 (from compile-1): for each of the 144 addresses, every declaration takes
+  the definition's prototype where its unit stays equal (no-argument convention differences and the like); then the
+  rest by hand in groups: void returns the callers read (the void ruling), __thiscall vs free functions, and the
+  argument-byte disagreements (folded no-op bodies called with more arguments).
 - Sat Nov 28 0:31 PST 2026: status. Ready: compile-1 (queue item 5). Item 7 waits on lane 14's list (see Questions: Iblis-Engine is
   not reachable from this session). From linkdebt alone I can see the convention disagreements among the
   type_disagreement items: the real ones are few and need each call read against the original, e.g.
@@ -161,10 +166,6 @@ it is on main; from #473, based on main.
     D2Win/Src/D2WinProgressBar.cpp (1): D2GFX_DrawBox
 
 ## Questions (owner's ruling: void definitions whose callers use a result)
-- Sat Nov 28 0:00 PST 2026: **queue item 7 (lane 14's list in Iblis-Engine docs/LANE14.md): this session can't open the Iblis-Engine
-  repository** (attaching it was refused here). Could the 151 calling-interface disagreements and the 157
-  unmarked declarations be copied onto the coord branch (e.g. lanes/lane14-for-lane12.md)? Until then I'm doing
-  item 5 (lane 14's compile findings), which is all in this repository.
 - (resolved) width_only: the coordinator ruled at 19:35 PT to keep counting width disagreements as type_disagreement; no linkdebt.py change.
 - Fri Nov 27 16:00 PST 2026: **parameter width, the same kind of question as the void ruling.** The most-referenced type_disagreement
   targets left are definitions taking a narrower parameter than their callers declare: STATLIST_SetUnitStat (197
