@@ -5,6 +5,8 @@ delete what is done. The queue is in COORDINATOR.md under "LANE 14 QUEUE".
 
 ## Ready
 
+- Sat Nov 28 02:38 PST 2026: **lane14/pieces-2** (b09c45873, on main e3a062ead = #503; independent). Queue item 2: SCmd_0053E2C0.cpp and text.cpp's three pieces (text_0049C9C0, text_0049D5A0, text_004A10E0) get the reason comment at their top (each join fails to compile on the declaration named there). Comments only. VERIFIED tree e5a4e75bf00a27f52eb31aabcac36e24434e4dec; Game.exe identical. Audit guard: no count rose. Linkdebt 17,991 -> 17,991.
+
 - Sat Nov 28 2:22 PST 2026: **lane14/scaffolding-1** (26bd8bcb3, on main e3a062ead = #503). Queue item 3, first pass: every `__declspec(noinline)` (107 functions) and every emit helper (224) removed alone, its unit rebuilt and checked. Out: noinline on GameStart (Main.cpp), GFX_DrawSimpleUnitShadow (Gfx.cpp), D2GAME_AI_PetMove (AiThink4.cpp), with their stale reason comments; emit helpers Gfx.cpp sub_P09_Emit_0046DF40 and LvlTbls.cpp sub_M14_EmitAutomapLookups (its other two, sub_M13_Emit_0061DD00 and sub_W12_EmitLvlTypesTxtWrites, also go alone, but any two of the three together shift DATATBLS_LoadAutomapTxt 0x61FCF0 past its window; they stay for the namecount pass). In: a one-line reason on the 11 noinlines that had none, each checked against the image (the named caller calls it out of line there). The other 93 noinlines already carry one. VERIFIED tree dcb58725f13f614345c1b55c2fef4b67ba597e2d; Game.exe identical. Audit guard: noinline 109 -> 106, emit helpers 284 -> 282, nothing rose. Linkdebt 17,991 -> 17,991, no module rising.
 
 
