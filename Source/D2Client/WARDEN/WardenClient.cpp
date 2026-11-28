@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2ClientFuncs.h"
+#include "D2ClientTextState.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -242,7 +243,6 @@ extern D2TextBoxStrc* gpTextBox; // 0x007BF0A4
 
 
 
-extern int gbTextSide; // 0x007BF236
 
 extern int gnGlobal_007BEEE8; // 0x007BEEE8
 
@@ -402,7 +402,6 @@ static int gnPetIconPopupState; // 0x007BEECC
 
 D2WaypointMenuEntryStrc gaWaypointEntries[9]; // 0x007BF03C
 
-unsigned short gwTextStringId; // 0x007BF212
 
 int gnHintId; // 0x007BF260
 
@@ -991,14 +990,14 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
 {
     if (!bSide)
     {
-        gbTextSide = 0;
+        gtTextState.bTextSide = 0;
 // build: symbol ?gnTextTop@* 0x007225FC
         gnTextTop = 0x0C;
         gnTextLeft = (gnScreenWidth - 0x145) / 2;
     }
     else
     {
-        gbTextSide = 1;
+        gtTextState.bTextSide = 1;
         gnTextTop = 0x105 - gnPanelOffsetY;
         gnTextLeft = gnPanelOffsetX;
     }
@@ -1015,10 +1014,8 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
         gnHintId = 0;
     }
 
-// build: symbol ?ghHintSound@* 0x007BF24B
-    ghHintSound = 0;
-// build: symbol ?gbTextFromObject@* 0x007BF20A
-    gbTextFromObject = 0;
+    gtTextState.hHintSound = 0;
+    gtTextState.bTextFromObject = 0;
 
     D2RectStrc tRect;
     const int nScreenBottom = gnScreenHeight - 0x35;
@@ -1033,7 +1030,7 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
     sub_00467430(&tRect);
     SELECT_ClearSelection();
 
-    gwTextStringId = nStringId;
+    gtTextState.wTextStringId = nStringId;
     if (gpTextBox)
     {
         return;
@@ -1047,25 +1044,24 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
 
     *(int*)gpTextBox->nScroll = 0;
     gnTextActive = 1;
-// build: symbol ?gbTextPanelOpen@* 0x007BF1FA
-    gbTextPanelOpen = 1;
+    gtTextState.bTextPanelOpen = 1;
     if (!gbTextHandlersRegistered)
     {
         gbTextHandlersRegistered = 1;
-        gnStartTick = GetTickCount();
+        gtTextState.nStartTick = GetTickCount();
         SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
     }
 
     const int nSoundId = sub_004E0650_GetStringSound(nStringId);
     if (nSoundId)
     {
-        ghHintSound = sub_004B9A00(nSoundId, sub_00463DD0_GetPlayerUnit(), 5, 0, 0);
+        gtTextState.hHintSound = sub_004B9A00(nSoundId, sub_00463DD0_GetPlayerUnit(), 5, 0, 0);
         gnHintId = nSoundId;
     }
 
     if ((nStringId == 0x7F || nStringId == 0x4E22 || nStringId == 0x4EC9 || nStringId == 0x4EA3 || nStringId == 0x18C) && bSound)
     {
-        gbTextSound = 1;
+        gtTextState.bTextSound = 1;
     }
 }
 
