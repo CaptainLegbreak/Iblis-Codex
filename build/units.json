@@ -49834,7 +49834,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00586B50.cpp",
+   "file": "Source/D2Game/Quests/a5q0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -51051,7 +51051,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0058F870.cpp",
+   "file": "Source/D2Game/Quests/a1q0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -56194,7 +56194,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005B24E0.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterSpawn.cpp",
    "rank": 0,
    "functions": [
     {
@@ -57864,7 +57864,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005C0D00.cpp",
+   "file": "Source/D2Game/ITEMS/ItemsMagic.cpp",
    "rank": 0,
    "functions": [
     {

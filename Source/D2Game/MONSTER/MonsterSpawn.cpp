@@ -1206,4 +1206,4 @@ int __fastcall MONSTERSPAWN_SpawnRandomMonsterForLevel(D2GameStrc* pGame, D2Acti
     return D2GAME_SpawnNormalMonster(&monCreate) != 0;
 }
 
-#include "gen/data/Source/D2Game/Unknown_005B24E0.inc"
+#include "gen/data/Source/D2Game/MONSTER/MonsterSpawn.inc"
