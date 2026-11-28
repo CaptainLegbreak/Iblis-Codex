@@ -19,8 +19,8 @@ What a declaration counts (measured against the compiler; see the page above):
   variable or typedef 1 - enum 1 + enumerators - prototype 1 + parameters, every redeclaration again; the
   parameters of a function-pointer parameter or typedef count too - struct/class/union 6 + data members, +1 for
   a tag not seen before or for no tag at all - forward declaration 1 if the tag is new -
-  D2_CHECK_SIZE 2, D2_CHECK_OFFSET 3 - function definition 2 + parameters + locals + string literals -
-  a file included for the first time 1.
+  D2_CHECK_SIZE 2, D2_CHECK_OFFSET 3 - function definition 2 + parameters + locals + string literals + casts and
+  sizeof(type) in its body - a variable declared again 0 - a file included for the first time 1.
 Methods, templates and function bodies are approximated; a change inside one is marked `~`.
 
 Standard library only.
@@ -158,9 +158,17 @@ def statements(code, line0=1):
         yield (sline, "".join(head).strip(), None, "")
 
 
+_BUILTIN = r"(?:char|short|int|long|float|double|void|bool|wchar_t|__int64|size_t|BOOL|BYTE|WORD|DWORD|UINT|LONG|ULONG|HANDLE|HWND|WPARAM|LPARAM)"
+_TYPEID = (r"(?:const\s+)?(?:(?:unsigned|signed|struct|class|union|enum)\s+)*"
+           r"(?:%s(?:\s+%s)*\s*(?:const\s*)?\**|[A-Z]\w*[a-z]\w*\s*(?:const\s*)?\**|[A-Za-z_]\w*\s*(?:const\s*)?\*+)" % (_BUILTIN, _BUILTIN))
+CAST = re.compile(r"(?<![\w\)\]])\(\s*%s\s*\)\s*(?=[\w\(&\*\-~!\"'])" % _TYPEID)
+SIZEOF = re.compile(r"\bsizeof\s*\(\s*%s\s*\)" % _TYPEID)
+
+
 def body_cost(block):
-    """Locals, string literals and nested blocks of a function body (approximate)."""
+    """Locals, string literals, nested blocks, casts and sizeof(type) of a function body (approximate)."""
     n = block.count('"S"') + block.count("{")
+    n += len(SIZEOF.findall(block)) + len(CAST.findall(SIZEOF.sub("0", block)))
     for st in re.split(r"[;{}]", block):
         st = st.strip()
         m = re.match(r"^(?:for\s*\(\s*)?(?:const\s+|static\s+|unsigned\s+|signed\s+|struct\s+)*[A-Za-z_]\w*(?:\s*[\*&]+\s*|\s+)(?:const\s+)?[A-Za-z_]\w*\s*(\[[^\]]*\])*\s*(=|$|,)", st)
