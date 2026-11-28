@@ -1,0 +1,116 @@
+0x004E06A0	Source/D2Client/WARDEN/WardenClient.cpp	??1WardenModule@@QAE@XZ	?sub_004E06A0_FreeModules@@YIXPAUD2ClientModuleListStrc@@@Z	calling convention __thiscall vs __fastcall
+0x005991B0	Source/D2Game/Quests/QUESTS.CPP	?ACT2Q1_OnRadamentCreated@@YIXPAUD2GameStrc@@PAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z	?ACT2Q1_OnRadamentCreated@@YGXH@Z	calling convention __fastcall vs __stdcall
+0x0059C3B0	Source/D2Game/Quests/QUESTS.CPP	?ACT2Q5_OnSummonerCreated@@YIXPAUD2GameStrc@@PAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z	?ACT2Q5_OnSummonerCreated@@YGXH@Z	calling convention __fastcall vs __stdcall
+0x005BA290	Source/D2Game/Quests/a3q4.cpp	?ACT3Q4_UnitIterate_UpdateCurrentQuestState@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z	?ACT3Q4_UnitIterate_UpdateCurrentQuestState@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z	return eax vs void
+0x005BCFD0	Source/D2Game/Quests/QUESTS.CPP	?ACT3Q6_SetObjectModes@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z	?ACT3Q6_SetObjectModes@@YIXPAUD2GameStrc@@@Z	argument bytes 8 vs 4
+0x00589540	Source/D2Game/Quests/QUESTS.CPP	?ACT5Q3_RemoveNihlathakFromTown@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z	?ACT5Q3_RemoveNihlathakFromTown@@YIXPAUD2GameStrc@@@Z	argument bytes 8 vs 4
+0x0058BC40	Source/D2Game/Ai/AiThink4.cpp	?ACT5Q4_OnNihlathakActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z	?ACT5Q4_OnNihlathakActivated@@YIXPAUD2GameStrc@@@Z	argument bytes 8 vs 4
+0x00500300	Source/D2Win/Src/D2WinMain.cpp	?ANIMIMAGE_Destroy@@YIHPAX@Z	?ANIMIMAGE_Destroy@@YIXPAX@Z	return eax vs void
+0x00522AE0	Source/D2BNClient/BnSend.cpp	?BNDOWNLOAD_DecodeCDKey@@YIHPBDPAX11@Z	?BNDOWNLOAD_DecodeCDKey@@YIXPBDPAI1PAE@Z	return eax vs void
+0x00522C30	Source/D2BNClient/BnDownload.cpp	?BNDOWNLOAD_InitCipherKeys@D2CipherKeyStringView@@QAEXH@Z	?BNDOWNLOAD_InitCipherKeys@@YIXPBDHH@Z	calling convention __thiscall vs __fastcall
+0x0043AAB0	Source/D2Launch/Src/CharSel.cpp	?CHARSEL_HandleCharList@@YGHPBDHH@Z	?CHARSEL_HandleCharList@@YGXPBDPAEH@Z	return eax vs void
+0x004403F0	Source/D2Multi/Src/ChatDlg.cpp	?CHATDLG_FillLadderList@@YIXHH@Z	?CHATDLG_FillLadderList@@YIXHHHEPAUD2LadderEntryStrc@@@Z	argument bytes 8 vs 20
+0x00440D10	Source/D2Multi/Src/ChatDlg.cpp	?CHATDLG_SetPlayerName@@YIXPAX@Z	?CHATDLG_SetPlayerName@@YIXHHPBD@Z	argument bytes 4 vs 12
+0x00608C00	Source/D2Gdi/Src/gdiCore.cpp	?CmpDoLensEffect@@YGHPAEH@Z	?CmpDoLensEffect@@YGXPAEH@Z	return eax vs void
+0x00648820	Source/D2Client/SKILLS/Skills.cpp	?D2COMMON_10160_PathUpdateDirection@@YGXPAUD2DynamicPathStrc@@UD2PathDirectionStrc@@@Z	?D2COMMON_10160_PathUpdateDirection@@YGXPAUD2DynamicPathStrc@@E@Z	argument bytes unknown
+0x0063BE30	Source/D2Game/ITEMS/ItemMode.cpp	?D2COMMON_10254_Return0@@YGHPAUD2InventoryStrc@@H@Z	?sub_0063BE30_Return@@YGXPAUD2InventoryStrc@@H@Z	return eax vs void
+0x0053C520	Source/D2Game/ITEMS/ItemMode.cpp	?D2GAME_PACKETS_SendPacket0x22@@YIXPAUD2ClientStrc@@D@Z	?D2GAME_PACKETS_SendPacket0x22@@YIXPAUD2ClientStrc@@EHHH@Z	argument bytes 8 vs 20
+0x0053B3D0	Source/D2Game/SKILLS/SkillItem.cpp	?D2GAME_PACKETS_SendPacketSize06@@YIXPAUD2ClientStrc@@E@Z	?D2GAME_PACKETS_SendPacketSize06@@YIXPAUD2ClientStrc@@EHH@Z	argument bytes 8 vs 16
+0x005316D0	Source/D2Game/PLAYER/PlrSave2.cpp	?D2GAME_SAVE_SerializeItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1PAEIHHH@Z	?D2GAME_SAVE_SerializeItem@@YGHPAUD2UnitStrc@@PAEIHHH@Z	calling convention __fastcall vs __stdcall
+0x00563FE0	Source/D2Game/SKILLS/Skills.cpp	?D2GAME_Transmogrify@@YGHPAUD2UnitStrc@@@Z	?D2GAME_Transmogrify@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z	calling convention __stdcall vs __fastcall
+0x005022F0	Source/D2Client/GAME/SCmd.cpp	?D2Win_10130_DrawFramedTextEx@@YGXPBUUnicode@@HHH@Z	?D2Win_10130_DrawFramedTextEx@@YIXPBUUnicode@@HHHHH@Z	calling convention __stdcall vs __fastcall
+0x006BB390	Source/D2Direct3D/Src/d3dFloorCache.cpp	?D3DFLOORCACHE_FloorCacheRelease@@YIXPAUD2CacheListStrc@@H@Z	?D3DFLOORCACHE_FloorCacheRelease@@YIXPAUD2FloorPoolStrc@@@Z	argument bytes 8 vs 4
+0x006BB1F0	Source/D2Direct3D/Src/d3dFloorCache.cpp	?D3DFLOORCACHE_FloorCacheUnlink@@YIPAUD2FloorPoolEntryStrc@@PAUD2FloorPoolStrc@@@Z	?D3DFLOORCACHE_FloorCacheUnlink@@YIPAUD2FloorPoolEntryStrc@@PAUD2FloorPoolStrc@@H@Z	argument bytes 4 vs 8
+0x006BAD70	Source/D2Direct3D/Src/d3dFloorCache.cpp	?D3DSUBTILECACHE_SubtileCacheRelease@@YIXPAUD2CacheListStrc@@H@Z	?D3DSUBTILECACHE_SubtileCacheRelease@@YIXPAUD2SubtilePoolStrc@@@Z	argument bytes 8 vs 4
+0x006BABD0	Source/D2Direct3D/Src/d3dSubtileCache.cpp	?D3DSUBTILECACHE_SubtileCacheUnlink@@YIPAUD2SubtilePoolEntryStrc@@PAUD2SubtilePoolStrc@@@Z	?D3DSUBTILECACHE_SubtileCacheUnlink@@YIPAUD2Node006BABD0Strc@@PAUD2List006BABD0Strc@@H@Z	argument bytes 4 vs 8
+0x00619300	Source/D2Client/CORE/WINMAIN.CPP	?DATATBLS_LoadAllTxts@@YGXPAXH@Z	?DATATBLS_LoadAllTxts@@YGXPAXHH@Z	argument bytes 8 vs 12
+0x00674160	Source/D2Common/DRLG/OutSiege.cpp	?DRLGOUTDOORS_AlterAdjacentPresetGridCells@@YIHPAUD2DrlgLevelStrc@@HH@Z	?DRLGOUTDOORS_AlterAdjacentPresetGridCells@@YIXPAUD2DrlgLevelStrc@@HH@Z	return eax vs void
+0x006741A0	Source/D2Common/DRLG/OutSiege.cpp	?DRLGOUTDOORS_SetBlankGridCell@@YIHPAUD2DrlgLevelStrc@@HH@Z	?DRLGOUTDOORS_SetBlankGridCell@@YIXPAUD2DrlgLevelStrc@@HH@Z	return eax vs void
+0x00678AD0	Source/D2Common/DRLG/DrlgWarp.cpp	?DRLGOUTPLACE_CreateLevelConnections@@YIXPAUD2DrlgStrc@@@Z	?DRLGOUTPLACE_CreateLevelConnections@@YIXPAUD2DrlgStrc@@E@Z	argument bytes 4 vs 8
+0x00642740	Source/D2Common/DUNGEON/Dungeon.cpp	?DRLG_GetActNoFromLevelId@@YIHH@Z	?D2COMMON_10018_Return0@@YAHXZ	calling convention __fastcall vs __cdecl
+0x006C1F80	Source/Fog/Src/D2QSSocket.cpp	?Destroy@@YIXPAX@Z	?Destroy@D2QSQueueStrc@@QAEXXZ	calling convention __fastcall vs __thiscall
+0x00408F20	Source/D2Gfx/SRC/Window.cpp	?FOG_IsExpansion@@YIHXZ	?FOG_IsExpansion@@YAHXZ	calling convention __fastcall vs __cdecl
+0x0040D8D0	Source/Fog/Src/ErrorManager.cpp	?FOG_SOCKET_WSACleanup@@YIHXZ	?sub_0040D8D0@@YAHXZ	calling convention __fastcall vs __cdecl
+0x0044DCA0	Source/D2Client/UI/SkillDesc.cpp	?GAME_GetLadderFlag@@YIHXZ	?GAME_GetLadderFlag@@YAHXZ	calling convention __fastcall vs __cdecl
+0x0044CE60	Source/D2Client/Unknown_00477620.cpp	?GAME_GetPing@@YGHXZ	?GAME_GetPing@@YAHXZ	calling convention __stdcall vs __cdecl
+0x0044DA40	Source/D2Client/UI/text_004A10E0.cpp	?GAME_ResetMouseState@@YIXXZ	?GAME_ResetMouseState@@YAXXZ	calling convention __fastcall vs __cdecl
+0x0060AB70	Source/D2CMP/SRC/SpriteCache.cpp	?GfxHashDumpStats@D2CmpBlockTableBStrc@@QAEXXZ	?GfxHashDumpStats@@YGXXZ	calling convention __thiscall vs __stdcall
+0x0060A9D0	Source/D2CMP/SRC/TileLib.cpp	?GfxHashFreeEntry@D2CmpGfxHashStrc@@QAEXPAUD2PoolSystemStrc@@PAUD2CmpGfxHashEntryStrc@@@Z	?GfxHashFreeEntry@@YIXPAUD2CmpGfxHashStrc@@HPAUD2PoolSystemStrc@@PAUD2CmpGfxHashEntryStrc@@@Z	calling convention __thiscall vs __fastcall
+0x004FD100	Source/D2Win/Src/D2WinMain.cpp	?IMAGE2_Destroy@@YIHPAX@Z	?IMAGE2_Destroy@@YIXPAX@Z	return eax vs void
+0x004FD0F0	Source/D2Win/Src/D2WinMain.cpp	?IMAGE_Destroy@@YIHPAX@Z	?IMAGE_Destroy@@YIXPAX@Z	return eax vs void
+0x00627B40	Source/D2Common/Stats/StatsEx.cpp	?ITEMMODS_GetCalcParamValue_Return0@@YIHHPAX@Z	?STATLIST_ReturnZero@@YAHXZ	calling convention __fastcall vs __cdecl
+0x00522C30	Source/D2BNClient/BnDownload.cpp	?Init@D2CipherKeyView@@QAEXH@Z	?BNDOWNLOAD_InitCipherKeys@@YIXPBDHH@Z	calling convention __thiscall vs __fastcall
+0x005A89A0	Source/D2Game/MISSILES/MissMode.cpp	?MISSMODE_FillDamageParams@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@11PAUD2DamageStrc@@@Z	?MISSMODE_FillDamageParams@@YGXPAUD2UnitStrc@@0PAUD2DamageStrc@@@Z	calling convention __fastcall vs __stdcall
+0x00478830	Source/D2Client/WARDEN/WardenClient.cpp	?MSG_SendWardenPacket@@YIHPBXH@Z	?MSG_SendWardenPacket@@YIXPBXI@Z	return eax vs void
+0x005180A0	Source/D2Launch/Src/MainMenus.cpp	?Name@@YGPBDPAUD2FuncRecordStrc@@H@Z	?Name@BNGatewayAccess@@QAGPBDH@Z	calling convention __stdcall vs __thiscall
+0x0064FE10	Source/D2Common/PATH/Path.cpp	?PATH_ComputeDirectionFromPreciseCoords@@YGHTD2FP32_16@@0@Z	?PATH_ComputeDirectionFromPreciseCoords@@YGHIIII@Z	argument bytes unknown
+0x0067C1E0	Source/D2Common/PATH/PathWF.cpp	?PATH_SimplifyToLines@@YIHUD2PathPointStrc@@PAU1@1H@Z	?PATH_SimplifyToLines@@YIHPAUD2PathPointStrc@@0U1@H@Z	argument bytes unknown
+0x005492F0	Source/D2Game/PLAYER/PlrMsg.cpp	?PLRMSG_CheckBeltItem@D2GameItemChecks@@QAEHPAUD2UnitStrc@@H@Z	?PLRMSG_CheckBeltItem@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@H@Z	calling convention __thiscall vs __fastcall
+0x005490E0	Source/D2Game/PLAYER/PlrMsg.cpp	?PLRMSG_CheckCursorItem@D2GameItemChecks@@QAEHPAUD2UnitStrc@@H@Z	?PLRMSG_CheckCursorItem@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@H@Z	calling convention __thiscall vs __fastcall
+0x00549150	Source/D2Game/PLAYER/PlrMsg.cpp	?PLRMSG_CheckStoredItem@D2GameItemChecks@@QAEHPAUD2UnitStrc@@H@Z	?PLRMSG_CheckStoredItem@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@H@Z	calling convention __thiscall vs __fastcall
+0x005491B0	Source/D2Game/PLAYER/PlrMsg.cpp	?PLRMSG_CheckStoredOrEquippedItem@D2GameItemChecks@@QAEHPAUD2UnitStrc@@H@Z	?PLRMSG_CheckStoredOrEquippedItem@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@H@Z	calling convention __thiscall vs __fastcall
+0x00507DB0	Source/D2Win/Src/D2WinMain.cpp	?PROGRESSBAR_Destroy@@YIHPAX@Z	?PROGRESSBAR_Destroy@@YIXPAX@Z	return eax vs void
+0x00545310	Source/D2Game/Quests/a1q6.cpp	?QUESTS_QuickRemovePlayerGUID@@YIXPAUD2QuestDataStrc@@@Z	?QUESTS_QuickRemovePlayerGUID@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z	argument bytes 4 vs 8
+0x005180E0	Source/D2Launch/Src/MainMenus.cpp	?Realm@@YGPBDPAUD2FuncRecordStrc@@H@Z	?Realm@BNGatewayAccess@@QAGPBDH@Z	calling convention __stdcall vs __thiscall
+0x00423790	Source/Bnclient/Unknown_0052A240.cpp	?SBigAdd@@YGHPAX00@Z	?SBigAdd@@YGXPAUD2StormBigStrc@@00@Z	return eax vs void
+0x00424E40	Source/D2Game/GAME/Game.cpp	?SBigDel@@YGHPAX@Z	?SBigDel@@YGXPAUD2StormBigStrc@@@Z	return eax vs void
+0x00424E70	Source/Bnclient/Unknown_0052A240.cpp	?SBigDiv@@YGHPAX00@Z	?SBigDiv@@YGXPAUD2StormBigStrc@@00@Z	return eax vs void
+0x00423850	Source/Storm/Unknown_00425720.cpp	?SBigFromBinary@@YGHPAUD2StormBigStrc@@PBXI@Z	?SBigFromBinary@@YGXPAUD2StormBigStrc@@PBXI@Z	return eax vs void
+0x00423850	Source/Bnclient/Unknown_0052A240.cpp	?SBigFromBinary@@YGHPAXPBXI@Z	?SBigFromBinary@@YGXPAUD2StormBigStrc@@PBXI@Z	return eax vs void
+0x004238B0	Source/Bnclient/Unknown_0052A240.cpp	?SBigFromUnsigned@@YGHPAXI@Z	?SBigFromUnsigned@@YGXPAUD2StormBigStrc@@I@Z	return eax vs void
+0x00424ED0	Source/Bnclient/Unknown_0052A240.cpp	?SBigMod@@YGHPAX00@Z	?SBigMod@@YGXPAUD2StormBigStrc@@00@Z	return eax vs void
+0x00423950	Source/Bnclient/Unknown_0052A240.cpp	?SBigNew@@YGHPAPAX@Z	?SBigNew@@YGXPAPAUD2StormBigStrc@@@Z	return eax vs void
+0x00423A80	Source/Bnclient/Unknown_0052A240.cpp	?SBigShl@@YGHPAX00@Z	?SBigShl@@YGXPAUD2StormBigStrc@@0I@Z	return eax vs void
+0x00423AC0	Source/Bnclient/Unknown_0052A240.cpp	?SBigSub@@YGHPAX00@Z	?SBigSub@@YGXPAUD2StormBigStrc@@00@Z	return eax vs void
+0x00507EE0	Source/D2Win/Src/D2WinMain.cpp	?SCROLLBAR_Destroy@@YIHPAX@Z	?SCROLLBAR_Destroy@@YIXPAX@Z	return eax vs void
+0x004D16C0	Source/D2Client/UNIT/Missile.cpp	?SKILLS_SpawnOffsetMissile@D2SpawnOffsetMissileView@@QAEXPAUD2UnitStrc@@0@Z	?SKILLS_SpawnOffsetMissile@@YIXHHPAUD2UnitStrc@@0@Z	calling convention __thiscall vs __fastcall
+0x005259C0	Source/D2Client/CORE/WINMAIN.CPP	?STRTABLE_LoadStringTables@@YIHPAXH@Z	?STRTABLE_LoadStringTables@@YIHPAUD2PoolSystemStrc@@PBDH@Z	argument bytes 8 vs 12
+0x00518150	Source/D2Launch/Src/MainMenus.cpp	?SetCurGateway@@YGHPAUD2FuncRecordStrc@@H@Z	?SetCurGateway@BNGatewayAccess@@QAGXH@Z	calling convention __stdcall vs __thiscall
+0x0041BEF0	Source/Storm/SOURCE/SERR.CPP	?StormGetInstance@@YIPAXXZ	?StormGetInstance@@YAPAXXZ	calling convention __fastcall vs __cdecl
+0x004FD820	Source/D2Win/Src/D2WinMain.cpp	?TIMER_Destroy@@YIHPAX@Z	?TIMER_Destroy@@YIXPAX@Z	return eax vs void
+0x00460190	Source/D2Client/Unknown_00460420.cpp	?UI_DrawFrame@@YIXH@Z	?UI_DrawFrame@@YAXXZ	calling convention __fastcall vs __cdecl
+0x004549B0	Source/D2Client/Unknown_0044BA20.cpp	?UI_ToggleListDialog@@YIXH@Z	?UI_ToggleListDialog@@YAXXZ	calling convention __fastcall vs __cdecl
+0x00622150	Source/D2Game/Unknown_00570420.cpp	?UNITS_GetPlayerName@@YGHPAUD2UnitStrc@@HH@Z	?UNITS_GetPlayerName@@YGPADPAUD2UnitStrc@@@Z	argument bytes 12 vs 4
+0x00620AE0	Source/D2Game/UNIT/SUnit.cpp	?UNITS_InitializeStaticPath@@YGXPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z	?UNITS_InitializeStaticPath@@YGXPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@UD2CoordStrc@@@Z	argument bytes unknown
+0x00517ED0	Source/D2Launch/Unknown_0043B7A0.cpp	?Unload@@YGXH@Z	?Unload@BNGatewayAccess@@QAGXXZ	calling convention __stdcall vs __thiscall
+0x004F5D60	Source/D2Win/Src/D2WinMain.cpp	?WINDOW_PlayCutscene@@YAHXZ	?WINDOW_PlayCutscene@@YGXXZ	calling convention __cdecl vs __stdcall
+0x0055C2C0	Source/D2Game/ITEMS/ItemMode.cpp	?sITEMSAddStatsList@@YGXPAUD2UnitStrc@@H@Z	?sITEMSAddStatsList@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z	calling convention __stdcall vs __fastcall
+0x00420FE0	Source/Storm/SOURCE/SBig.cpp	?sub_00420FE0_Top@D2StormArrayAStrc@@QAEPAIXZ	@sub_00420FE0_LastCell@4	calling convention __thiscall vs __fastcall
+0x004242C0	Source/Storm/SOURCE/SBig.cpp	?sub_004242C0_BigOp@@YGHPAUBigBuffer@@00PAUBigStack@@@Z	?sub_004242C0_BigOp@@YGXPAUBigBuffer@@PBU1@1PAUBigStack@@@Z	return eax vs void
+0x00424B00	Source/Storm/SOURCE/SBig.cpp	?sub_00424B00_Square@@YGHPAUBigBuffer@@0PAUBigStack@@@Z	?sub_00424B00_BigSquare@@YGXPAUBigBuffer@@0PAUBigStack@@@Z	return eax vs void
+0x0042E6B0	Source/D2Launch/Unknown_004370B0.cpp	?sub_0042E6B0@@YIXH@Z	?MAINMENUS_SetGatewayFlag@@YAXXZ	calling convention __fastcall vs __cdecl
+0x004309B0	Source/D2Launch/Src/MainMenus.cpp	?sub_004309B0_ClearState@@YAHXZ	?MAINMENUS_ClearLaunchState@@YAXXZ	return eax vs void
+0x00463DD0	Source/D2Client/UI/panel.cpp	?sub_00463DD0@@YIPAUD2UnitStrc@@XZ	?CUNIT_GetPlayerUnit@@YAPAUD2UnitStrc@@XZ	calling convention __fastcall vs __cdecl
+0x00477CA0	Source/D2Client/GAME/Game.cpp	?sub_00477CA0_SendPacket67@@YIXPBDH@Z	?sub_00477CA0_SendPacket67@@YIXPBD@Z	argument bytes 8 vs 4
+0x00485410	Source/D2Client/UI/inv_0048DD90.cpp	?sub_00485410_AppendDamage@@YGHPAUD2UnitStrc@@PAUUnicode@@@Z	?INV_BuildItemDamageText@@YGXPAUD2UnitStrc@@PAUUnicode@@@Z	return eax vs void
+0x004B9070	Source/D2Client/UI/inv.cpp	?sub_004B9070@@YIXH@Z	?sub_004B9070_SendPosition@@YAXXZ	calling convention __fastcall vs __cdecl
+0x004F51D0	Source/D2Client/ENGINE/Gfx.cpp	?sub_004F51D0_IsPerspective@@YAHXZ	?D2GFX_CheckPerspective@@YGHXZ	calling convention __cdecl vs __stdcall
+0x004F6480	Source/D2Win/Src/D2WinEditBox.cpp	?sub_004F6480@@YGHPAUD2GfxDataStrc@@HHHHH@Z	?TEXTURE_CelDraw@@YGXPAUD2GfxDataStrc@@HHIHPAE@Z	return eax vs void
+0x004FA550	Source/D2Client/CORE/WINMAIN.CPP	?sub_004FA550@@YAXXZ	?D2Win_10016@@YIHXZ	calling convention __cdecl vs __fastcall
+0x004FAC80	Source/D2Client/CORE/WINMAIN.CPP	?sub_004FAC80@@YGPAXH@Z	?D2Win_GetArchive@@YGPAXXZ	argument bytes 4 vs 0
+0x005041B0	Source/D2Launch/Src/CharSel.cpp	?sub_005041B0_Destroy@@YGHPAUD2CelFileStrc@@H@Z	?D2Win_10142_CompUnitDestroy@@YGXPAUD2CompositeUnitStrc@@H@Z	return eax vs void
+0x005041B0	Source/D2Multi/Src/ComCallback.cpp	?sub_005041B0_Destroy@@YGHPAUD2CompositeStrc@@H@Z	?D2Win_10142_CompUnitDestroy@@YGXPAUD2CompositeUnitStrc@@H@Z	return eax vs void
+0x00514C90	Source/D2Client/Unknown_004DF770.cpp	?sub_00514C90_GetSoundMode@@YIHXZ	?D2SOUND_GetSoundMixerOption@@YAHXZ	calling convention __fastcall vs __cdecl
+0x005173D3	Source/D2Client/GAME/Record.cpp	?sub_005173D3_SetRecordHandler@@YIP6GXHHH@ZP6GXHHH@Z@Z	@sub_005173D3_ExchangeRecordHandler@4	calling convention __stdcall vs __fastcall
+0x005174E2	Source/D2Hell/Unknown_00517623.cpp	?sub_005174E2_DestroyMember@@YIXPAX@Z	?Unlink@TSLink@@QAEXXZ	calling convention __fastcall vs __thiscall
+0x0051763C	Source/D2Hell/Unknown_00517623.cpp	?sub_0051763C_Destroy@@YIXPAX@Z	?sub_0051763C_UnlinkAll@D2ListStrc@@QAEXXZ	calling convention __fastcall vs __thiscall
+0x0051B060	Source/D2BNClient/BnDownload.cpp	?sub_0051B060_SetAdText@@YIXPBD0@Z	?BNSEND_SendDisplayAd@@YAHXZ	calling convention __fastcall vs __cdecl
+0x00525150	Source/Fog/Src/ErrorManager.cpp	?sub_00525150@@YGHXZ	?STRTABLE_GetLanguage@@YAHXZ	calling convention __stdcall vs __cdecl
+0x00528480	Source/D2BNClient/BnSend.cpp	?sub_00528480_HashThreeBlocks@D2BigPowModStrc@@QAEXPBE00PAE@Z	?sub_00528480_HashThreeBlocks@@YGXPBE00PAE@Z	calling convention __thiscall vs __stdcall
+0x0052DF40	Source/D2Game/DEBUG/Debug.cpp	?sub_0052DF40_UnlockFirstGame@@YAXXZ	?GAME_UnlockDebugGame@@YIXXZ	calling convention __cdecl vs __fastcall
+0x0052F6E0	Source/D2Game/DEBUG/Debug.cpp	?sub_0052F6E0_LockFirstGame@@YAPAUD2GameStrc@@XZ	?GAME_LockDebugGame@@YIPAUD2GameStrc@@XZ	calling convention __cdecl vs __fastcall
+0x005531C0	Source/D2Game/SKILLS/SkillItem.cpp	?sub_005531C0_GetClient@@YIPAUD2ClientStrc@@PAUD2UnitStrc@@PBDHHH@Z	?UnitGetClient@@YIPAUD2ClientStrc@@PAUD2UnitStrc@@PBDH@Z	argument bytes 20 vs 12
+0x005531C0	Source/D2Game/ITEMS/ItemMode.cpp	?sub_005531C0_MakeQuantityPacket@@YIPAUD2ClientStrc@@PAUD2UnitStrc@@PBDHHHH@Z	?UnitGetClient@@YIPAUD2ClientStrc@@PAUD2UnitStrc@@PBDH@Z	argument bytes 24 vs 12
+0x0055A2A0	Source/D2Game/UNIT/SUNITNPC.CPP	?sub_0055A2A0@@YGXPAUD2UnitStrc@@H@Z	?ITEMS_Duplicate@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1H@Z	calling convention __stdcall vs __fastcall
+0x00568DB0	Source/D2Game/PLAYER/PlrSave.cpp	?sub_00568DB0_Return0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z	?sub_00568DB0_Return0@@YAHXZ	calling convention __fastcall vs __cdecl
+0x00581F60	Source/D2Game/OBJECTS/ObjMode.cpp	?sub_00581F60_HandleState@@YIHPAUD2ContextStrc@@PAX@Z	?OBJECTS_OperateFunction47_Stair@@YIHPAUD2ObjOperateFnStrc@@@Z	argument bytes 8 vs 4
+0x0058CFD0	Source/D2Game/Quests/QUESTS.CPP	?sub_0058CFD0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z	?sub_0058CFD0_Nop@@YAXXZ	calling convention __fastcall vs __cdecl
+0x005936B0	Source/D2Game/Quests/a1q4.cpp	?sub_005936B0_UpdateParty@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z	?ACT1Q4_UnitIterate_SetEnterAreaFlag@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z	return eax vs void
+0x005B7FE0	Source/D2Game/Quests/a3q2.cpp	?sub_005B7FE0_EmptyCallback@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z	?sub_005B7FE0_Nop@@YAXXZ	calling convention __fastcall vs __cdecl
+0x0060B130	Source/D2CMP/SRC/SpriteCache.cpp	?sub_0060B130_Destroy@D2CmpBlockTableAStrc@@QAEXXZ	?sub_0060B130_Nothing@@YAXXZ	calling convention __thiscall vs __cdecl
+0x0063D710	Source/D2Common/INVENTORY/Inventory.cpp	?sub_0063D710_InitCodes@@YAXXZ	?INVENTORY_InitializeComponentArray@@YIXXZ	calling convention __cdecl vs __fastcall
+0x0063E510	Source/D2Game/GAME/Clients.cpp	?sub_0063E510_InventoryGridQuery@@YGHPAUD2UnitStrc@@PAE1@Z	?INVENTORY_GetItemSaveGfxInfo@@YGXPAUD2UnitStrc@@PAE1@Z	return eax vs void
+0x006488A0	Source/D2Client/UNIT/Monster.cpp	?sub_006488A0_SetDirection@@YGXPAUD2DynamicPathStrc@@UD2DirectionArgStrc@@@Z	?PATH_SetDirection@@YGXPAUD2DynamicPathStrc@@E@Z	argument bytes unknown
+0x006B77B0	Source/D2Direct3D/Unknown_006B7250.cpp	?sub_006B77B0_Call@@YIHHHHHHH@Z	?sub_006B77B0_Call@@YIXHHHHEH@Z	return eax vs void
+0x006B9F00	Source/D2Direct3D/Src/d3dSmack.cpp	?sub_006B9F00_PresentFrame@@YGXXZ	?D3DSMACK_UploadSmackFrameBuffer@@YAXXZ	calling convention __stdcall vs __cdecl
+0x005B1740	Source/D2Game/MONSTER/MonsterMode.cpp	_AITHINK_ExecuteMonsterAiTick	?AITHINK_ExecuteMonsterAiTick@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z	calling convention __cdecl vs __fastcall
