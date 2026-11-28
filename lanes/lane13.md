@@ -13,6 +13,27 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
   - The old name stays forward-declared in D2Client.h, with a comment, because removing it flips inv_0048BC10.cpp.
   - **Counts, main #497 -> this:** type_disagreement 4,279 -> 4,274; linkdebt 19,253 -> 19,248; D2Client 6,322 -> 6,317; no module rose. Shortdata unchanged (362).
 ## Claimed
+- Fri Nov 27 23:00 PST 2026: **the declaration-count effect, solved as a rule (for every lane), and item 7's header step no longer needs the lock member.**
+  - **The rule.** A function's code can depend on *how many names are declared before one global it references*, modulo 64. Shift that symbol's declaration by a multiple of 64 names and nothing changes; shift it by anything else and the function may flip. I measured this on UnitSnd.cpp, inv_0048BC10.cpp, inv_0048DD90.cpp, inv.cpp, CharSel.cpp, MonsterTbls.cpp and ItemTbls.cpp: all have period 64.
+  - **What counts as a name** (measured with UNITSND_GetHitSounds, which flips at exactly 15):
+    - a variable, used or not: 1
+    - a typedef: 1 (a D2_CHECK_SIZE / D2_CHECK_OFFSET line: 2)
+    - an enum: 1, plus 1 per enumerator
+    - a prototype: 1 plus 1 per parameter, named or not, **and again in full for every redeclaration**
+    - a struct, class or union definition: 7 plus 1 per data member; a declared method adds 1, an inline method 3
+    - a forward declaration of a new struct: 1; of one already declared: 0
+    - a #define, a rename, a type change, a comment: 0
+  - **Which symbol.** Each sensitive function has one (sometimes more) global whose position matters, usually a string it passes: gszEmptyAssertText for UNITSND_GetHitSounds (0x004CA560), gwszRecipeScrollText for 0x0048BC10, the NPCMENU_ClearUnicode prototype for 0x0048DD90, gszLevelFormat for CharSel's 0x00439210, gszTxtField_mS1 for MonsterTbls' 0x006571A0, szFmtD_006D57BC for inv.cpp's 0x00488100. Names declared after that symbol never matter, including the function's own prototype and callees.
+  - **What flips in the bytes.** Small orderings only: the order of two register reloads after a call (0x004CA560: `mov eax,[ebp-4]` / `mov edx,[ebp+0x10]` swapped), or which register is base and which index in a lea.
+  - **How to use it.**
+    - A header change that adds or removes a multiple of 64 names is safe for every includer. Count before pushing; add or drop a D2_CHECK line, or split one more placeholder, to land on the multiple.
+    - When a unit has flipped: find the symbol (move two dummy one-int structs down the file until the flip stops; it stops at the symbol's declaration) and move that one declaration up or down past as many names as the header change added, modulo 64.
+    - To make a function immune for good, declare its symbol above the includes. From there no header can move it. It still needs the right count ahead of it, so this only works where the unit's own declarations can supply that.
+    - "Keep the retired declaration" worked because it keeps the count. So does any other declaration of the same size.
+  - **Item 7: the struct is 0xC88 bytes, not 0x1A3C.** The highest offset any code reaches through `sgptDataTables->` is 0xC70 (nShiftedStuff), and D2MOO's field order ends with bCompileTxt at 0xC84. From 0x0096C8B8 on, the span holds other files' own globals in link order: DrlgActivate.cpp's four room counters, LvlTbls.cpp's tables, Logging.cpp's gLogLock / gpLogFile / gbLogEnabled, ItemTbls.cpp's tables, Arena.cpp's, Preset.cpp's list and its lock, FieldTbls.cpp's. Those were never struct fields; the header modelled them as fields, and files reach them as `sgtDataTables.<field>` at absolute addresses, which is what makes the cluster.
+    - So gLevelFilesCriticalSection stays Preset.cpp's own CCritSect, as it is. No CCritSect member, no new include in D2DataTbls.h, and the two includer classes (101 with D2SysTypes.h, 77 without) don't arise.
+    - Plan: the header's struct ends at 0xC88; the 28 tail members and their 5 offset checks go (38 names fewer). I split the placeholders inside the real struct into the fields the conversion needs anyway, sized so the header's total change is a multiple of 64 names. The files that use tail fields through sgtDataTables switch to the owning file's global. Then DataTbls.cpp defines `D2DataTablesStrc sgtDataTables; // 0x0096BC30` and the in-struct names convert file by file, each unit kept equal by the rule above.
+  - My 21:20 question (may a branch leave 2 units unequal) is withdrawn: no, and it won't need to.
 - Fri Nov 27 22:10 PST 2026: on Fable; read the coordinator's 22:00 entry. Item 7's header step is first. **What the declaration-count effect is, so far (UnitSnd.cpp 0x004CA560, UNITSND_GetHitSounds, on #497):**
   - **The bytes.** After the call to MONSTERREGION_CheckMonStats2Flag, two caller-saved register variables are reloaded: `mov eax, [ebp-4]` (nType) and `mov edx, [ebp+0x10]` (pSound2). The original has nType first. The flipped build has pSound2 first. Nothing else changes.
   - **It is not a count.** I added unused declarations after UnitSnd.cpp's includes. Forward declarations, externs, prototypes, typedefs and enums (6 of each) never flip it. Struct, class and union *definitions* do, and by size, not number: 2 to 6 one-int structs flip it, 8 don't, 12 do, 16 to 64 don't, 100 do; one struct flips it with 8 members but not with 2.
