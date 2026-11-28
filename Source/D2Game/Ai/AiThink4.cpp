@@ -998,6 +998,10 @@ enum D2C_M408OblivionKnightAi
     OBLIVIONKNIGHT_AI_PARAM_APPROACH_DISTANCE = 7,
 };
 
+// Placed by count (docs/declaration-order.md): AITHINK_Fn085_HighPriest (0x005E0490) takes this function's address
+// and stops matching when 10 more names are declared ahead of this line. It has room for at least 8 fewer.
+D2UnitStrc* __fastcall AITHINK_TargetCallback_HighPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005E0430
+
 enum D2C_M422FingerMageAi
 {
     FINGERMAGE_AI_PARAM_ATTACK_CHANCE_PCT = 0,
@@ -1011,8 +1015,6 @@ enum D2C_M422FingerMageAi
 };
 
 extern D2CoordStrc gaHighPriestSkillOffsets[]; // 0x006E337C
-
-D2UnitStrc* __fastcall AITHINK_TargetCallback_HighPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005E0430
 
 static D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* pUnit)
 {

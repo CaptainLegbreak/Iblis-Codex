@@ -61083,16 +61083,6 @@
      "name": "sub_00611640"
     },
     {
-     "va": "0x00611D10",
-     "length": 6,
-     "name": "DATATBLS_GetCharstatsTxtTable"
-    },
-    {
-     "va": "0x00611D20",
-     "length": 6,
-     "name": "DATATBLS_GetAnimData"
-    },
-    {
      "va": "0x00641500",
      "length": 6,
      "name": "DATATBLS_GetShrinesTxtRecordCount"
@@ -63068,6 +63058,16 @@
      "va": "0x00611C70",
      "length": 145,
      "name": "DATATBLS_SkillDescCalcLinker"
+    },
+    {
+     "va": "0x00611D10",
+     "length": 6,
+     "name": "DATATBLS_GetCharstatsTxtTable"
+    },
+    {
+     "va": "0x00611D20",
+     "length": 6,
+     "name": "DATATBLS_GetAnimData"
     },
     {
      "va": "0x00611D30",

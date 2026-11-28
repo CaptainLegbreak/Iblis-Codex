@@ -261,7 +261,6 @@ inline D2SkillStrc* __fastcall SKILLS_GetSkillInl(D2UnitStrc* pUnit, int nSkillI
 
 
 
-D2TCExShortStrc* gpChestTreasureClasses[45]; // 0x0096C5F4
 
 static BOOL __stdcall SKILLS_IsItemAllowedForSkill(D2UnitStrc* pItem, D2UnitStrc* pUnit, D2SkillsTxt* pSkillsTxtRecord, int nType); // 0x00643D90
 
